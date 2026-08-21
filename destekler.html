@@ -249,6 +249,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="dip">Tetikte · Destek Radarı · Program adları ve bağlantılar resmî kaynaklar: <a href="https://www.kosgeb.gov.tr/site/tr/genel/destekler/3/destekler" target="_blank" rel="noopener">kosgeb.gov.tr</a> · <a href="https://ticaret.gov.tr/destekler/ihracat-destekleri" target="_blank" rel="noopener">ticaret.gov.tr</a> · <a href="https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz" target="_blank" rel="noopener">eximbank.gov.tr</a> · <a href="https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari" target="_blank" rel="noopener">tubitak.gov.tr</a> · <a href="https://ka.gov.tr/destekler" target="_blank" rel="noopener">ka.gov.tr</a> · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
+<!-- Profil->kurum kuralı: destekler.html ve radar-app.html ORTAK kaynağı.
+     Ana betikten ÖNCE inmeli (takipKapsamCiz açılışta çalışıyor). -->
+<script src="destek-kural.js"></script>
 <script>
 const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
@@ -841,29 +844,26 @@ function dOner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('destek
   document.getElementById('sayac').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// ---- PROFİL -> İZLENECEK KURUMLAR (21.08) ----
-// Çağrı kayıtlarında uygunluk verisi YOK; bu yüzden takip eşleşmesi KURUM
-// düzeyindedir. Kural ELLE yazılmıştır, çağrı başlığından kelime tahmini
-// YAPILMAZ. Robot tarafındaki EŞİ: motor/destek-takip-nobeti.ps1 içindeki
-// $KURUM_KURAL. İKİSİ BİRLİKTE DEĞİŞİR - birini değiştirip ötekini unutma.
-const KURUM_KURAL = {
-  "KOSGEB":            () => true,                                              // KOBİ geneli
-  "KALKINMA AJANSI":   () => true,                                              // bölge geneli, konu ajanstan ajansa değişir
-  "TÜBİTAK":           () => ['imalat','teknoloji'].indexOf(DC.faaliyet) >= 0,  // Ar-Ge yapan kesim
-  "TKDK":              () => DC.faaliyet === 'imalat',                          // tarım-gıda-kırsal yatırım
-  "HAMLE":             () => DC.faaliyet === 'imalat',                          // öncelikli ürün listesi, sanayi yatırımı
-  "KKYDP":             () => DC.faaliyet === 'imalat',                          // kırsal kalkınma tebliğleri
-  "TİCARET BAKANLIĞI": () => ['var','hedef'].indexOf(DC.ihracat) >= 0 && DC.yapi !== 'sahis'  // 5973: şahıs işletmesi giremez
-};
-const profilDolu = () => ['durum','faaliyet','ihracat','ihtiyac','yapi'].every(k => DC[k]);
-const izlenenKurumlar = () => profilDolu() ? Object.keys(KURUM_KURAL).filter(k => KURUM_KURAL[k]()) : Object.keys(KURUM_KURAL);
+// ---- PROFİL -> İZLENECEK KURUMLAR ----
+// 21.08 (Cem "buraya taşısak"): kural artık BU DOSYADA DEĞİL. Üye paneli de
+// (radar-app.html) aynı kuralı kullandığı için tek kaynağa çıkarıldı:
+// destek-kural.js. Üçüncü kopya açılmaz.
+const kuralVar = () => typeof window.destekKurumlari === 'function';
+const profilDolu = () => kuralVar() && window.destekProfilDolu(DC);
+const izlenenKurumlar = () => kuralVar() ? window.destekKurumlari(DC) : [];
 function takipKapsamCiz(){
   const p = document.getElementById('takipKapsam'); if(!p) return;
+  if(!kuralVar()){
+    // Kural dosyası inmediyse SESSİZ KAYIT ALMAYIZ: kurumsuz kaydolan kişi
+    // hiç mail almaz ve bunu kimse fark etmez. Açıkça söyleyip kutuyu kapatırız.
+    p.innerHTML = '<b style="color:var(--red)">Takip kutusu şu an çalışmıyor</b> <span style="color:var(--dim)">(kural dosyası yüklenemedi). Sayfayı yenile; sürerse bize yaz.</span>';
+    return;
+  }
   if(!profilDolu()){
     p.innerHTML = '<b style="color:var(--amber)">Sihirbazı doldurmadın:</b> şimdi kaydolursan <b style="color:var(--ink)">tüm kurumların</b> çağrıları gelir. Yukarıdaki 5 soruyu cevaplarsan yalnız sana açık olanları göndeririz.';
     return;
   }
-  const acik = izlenenKurumlar(), kapali = Object.keys(KURUM_KURAL).filter(k => acik.indexOf(k) < 0);
+  const acik = izlenenKurumlar(), kapali = window.destekKapaliKurumlar(DC);
   p.innerHTML = '<b style="color:var(--green)">Profiline göre izlenecek:</b> <b style="color:var(--ink)">'+acik.join(' · ')+'</b>.'
     + (kapali.length ? ' <span style="color:var(--dim)">İzlenmeyecek: '+kapali.join(', ')+' — profiline açık değil, boşuna mail almazsın.</span>' : '');
 }
@@ -876,6 +876,7 @@ function takibeAl(){
   const mail = (document.getElementById('takipMail').value||'').trim();
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
   if(!document.getElementById('takipKvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
+  if(!kuralVar()){ goster('Takip kutusu şu an çalışmıyor (kural dosyası yüklenemedi). Sayfayı yenile; sürerse bize yaz.',false); return; }
   const kurumlar = izlenenKurumlar();
   const ab = document.getElementById('takipAb').checked;
   const profil = profilDolu() ? {durum:DC.durum, faaliyet:DC.faaliyet, ihracat:DC.ihracat, ihtiyac:DC.ihtiyac, yapi:DC.yapi} : null;
@@ -891,9 +892,16 @@ function takibeAl(){
     .then(r=>{ if(r.ok) bitir(); else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
     .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
   if(!window.sb){ yedek(); return; }
+  // 21.08: ziyaretçi tetikte.com'da zaten giriş yapmışsa kaydı ONA BAĞLA -
+  // panelde ("Destek takibim") kendi profilini görüp değiştirebilsin. Giriş
+  // yoksa user_id null kalır, kayıt anonim sürer; kimse okuyamaz.
   // 19.08 DERSİ: supabase-js sorguları TEMBELDİR - .then'e abone olunmayan
-  // insert HİÇ GÖNDERİLMEZ. Bu satır then'siz yazılmayacak.
-  window.sb.from('destek_takip').insert({ email:mail, profil:profil, kurumlar:kurumlar, ab:ab })
+  // insert HİÇ GÖNDERİLMEZ. Bu zincir then'siz bırakılmayacak.
+  window.sb.auth.getUser()
+    .then(function(r){
+      const uid = (r && r.data && r.data.user) ? r.data.user.id : null;
+      return window.sb.from('destek_takip').insert({ email:mail, profil:profil, kurumlar:kurumlar, ab:ab, user_id:uid });
+    }, function(){ return window.sb.from('destek_takip').insert({ email:mail, profil:profil, kurumlar:kurumlar, ab:ab }); })
     .then(function(r){ if(r && r.error){ yedek(); } else { bitir(); } }, function(){ yedek(); });
 }
 takipKapsamCiz();

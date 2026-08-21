@@ -66,6 +66,9 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
      Ayni satir DORT sayfada vardi (sinav, evrak, marka, uyelik): esm.sh yavaslarsa ya da
      duserse dordu birden acilmiyordu. Kutuphane artik BIZIM sunucumuzdan geliyor ve surum
      SABIT - adreste "@2" yazarken kutuphane haber vermeden guncelleniyordu. -->
+<!-- Destek takibi profil->kurum kurali: destekler.html ile ORTAK kaynak.
+     Kopya acilmaz; robot tarafindaki esi motor/destek-takip-nobeti.ps1. -->
+<script src="destek-kural.js"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <script type="module">
 const { createClient } = window.supabase || {};
@@ -190,10 +193,47 @@ async function app(){
       </div>`;
     }
   }catch(e){}
+  // 21.08 DESTEK TAKIBI (Cem "buraya tasisak"): destekler.html'deki girissiz
+  // kayit kutusunun UYE YUZU. AYNI tablo (destek_takip), AYNI robot - ikinci
+  // bir abone listesi acilmadi. Kural destek-kural.js'ten gelir, kopya YOK.
+  // RLS: select politikasi auth.uid()=user_id, yani burada yalniz KENDI satirin
+  // gorunur; vitrinden gelen anonim kayitlar (user_id NULL) kimseye gorunmez.
+  const dkVar = typeof window.destekKurumlari === 'function';
+  let DESTEK=null, DESTEK_GONDERIM=[], destekBanner='';
+  if(dkVar){
+    try{
+      const {data:dt}=await sb.from('destek_takip').select('*').eq('aktif',true).order('olusturma',{ascending:false}).limit(1);
+      DESTEK=(dt&&dt.length)?dt[0]:null;
+      if(DESTEK){
+        const {data:du}=await sb.from('destek_uyari').select('kurum,baslik,cagri_url,son_tarih').eq('mail_gitti',true).order('olusturma',{ascending:false}).limit(5);
+        DESTEK_GONDERIM=du||[];
+      }
+    }catch(e){}
+    destekBanner = DESTEK
+      ? `<div class="kutu" style="margin:0 0 18px">
+          <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:6px">Destek takibin açık</div>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">İzlenen kurumlar: <b style="color:var(--ink)">${(DESTEK.kurumlar||[]).map(esc).join(' · ')||'—'}</b>${DESTEK.ab?' <span class="mini">+ AB</span>':''}</div>
+          ${DESTEK_GONDERIM.length
+            ? `<div style="font-size:12.5px;color:var(--dim);margin-bottom:5px">Sana gönderilen son çağrılar:</div>`+DESTEK_GONDERIM.map(g=>`<div style="font-size:13px;color:var(--muted);margin-bottom:4px"><b style="color:var(--ink)">${esc(g.kurum)}</b> · <a href="${esc(g.cagri_url)}" target="_blank" rel="noopener">${esc(g.baslik)}</a>${g.son_tarih?` <span class="mini">son ${esc(g.son_tarih)}</span>`:''}</div>`).join('')
+            : `<p class="mini">Henüz çağrı gönderilmedi. Robot her sabah bakıyor; bu kurumlardan yeni çağrı düştüğü gün mail gelir. Sessizlik, o kurumlardan yeni çağrı çıkmadığı anlamına gelir.</p>`}
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn ghost sm" id="destekDegistir">Profili değiştir</button>
+            <button class="btn ghost sm" id="destekKapat">Bildirimi kapat</button>
+          </div>
+          <div id="destekForm" class="gizli" style="margin-top:12px"></div>
+        </div>`
+      : `<div class="kutu" style="margin:0 0 18px">
+          <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:6px">Destek takibi kurulu değil</div>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">5 soru cevapla; sana açık kurumlardan (KOSGEB, TÜBİTAK, kalkınma ajansı…) <b style="color:var(--ink)">yeni çağrı düştüğü gün</b> mail atalım. <a href="destekler.html">Destek Radarı</a>'ndaki listenin kişiye özel nöbeti.</div>
+          <button class="btn sm" id="destekKur">Takibi kur</button>
+          <div id="destekForm" class="gizli" style="margin-top:12px"></div>
+        </div>`;
+  }
   ekran.innerHTML=`
     <h1>Benim Mevzuatım</h1>
     ${uyariBanner}
     ${portfoyBanner}
+    ${destekBanner}
     <p class="lead">Firmalarını ekle, her birine özel radar çalışsın. Mali müşavirsen tüm mükelleflerini buraya gir.</p>
     <h2>Firmalarım (${firmalar.length})</h2>
     <div id="firmaListe">${firmalar.map(f=>`
@@ -207,6 +247,53 @@ async function app(){
     <div id="pano"></div>`;
   document.querySelectorAll('.firmakart').forEach(k=>k.onclick=()=>{SECILI=k.dataset.id;app();});
   $('#yeniFirma').onclick=()=>firmaForm();
+  // ---- destek takibi: form + kaydet + kapat ----
+  if(dkVar){
+    const destekForm=()=>{
+      const cev=Object.assign({}, (DESTEK&&DESTEK.profil)||{});
+      const f=$('#destekForm'); f.classList.remove('gizli');
+      const ciz=()=>{
+        f.innerHTML=window.DESTEK_SORULAR.map(s=>`
+          <div style="margin-bottom:10px">
+            <div style="font-size:13px;font-weight:700;margin-bottom:5px">${esc(s.ad)}</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">${s.se.map(o=>`<button class="btn ghost sm dsec" data-k="${s.k}" data-v="${o[0]}"${cev[s.k]===o[0]?' style="border-color:var(--accent2);color:var(--accent2)"':''}>${esc(o[1])}</button>`).join('')}</div>
+          </div>`).join('')
+          +`<label style="display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted);margin:10px 0"><input type="checkbox" id="destekAb"${(DESTEK&&DESTEK.ab)?' checked':''} style="width:auto;accent-color:var(--accent)"> AB çağrıları da gelsin <span class="mini">(hacim yüksek, dosya aylar sürer)</span></label>`
+          +`<div id="destekKapsam" style="font-size:12.5px;margin:8px 0"></div>`
+          +`<div style="display:flex;gap:8px"><button class="btn sm" id="destekKaydet">Kaydet</button><button class="btn ghost sm" id="destekVaz">Vazgeç</button></div>`
+          +`<div class="hata" id="destekHata"></div>`;
+        // Kaydetmeden ÖNCE ne izleneceğini göster - kapalı kutu satmayız.
+        const kp=$('#destekKapsam');
+        if(window.destekProfilDolu(cev)){
+          const acik=window.destekKurumlari(cev), kapali=window.destekKapaliKurumlar(cev);
+          kp.innerHTML=`<b style="color:var(--green)">İzlenecek:</b> <b style="color:var(--ink)">${acik.map(esc).join(' · ')}</b>`
+            +(kapali.length?` <span class="mini">· izlenmeyecek: ${kapali.map(esc).join(', ')}</span>`:'');
+        } else kp.innerHTML=`<span class="mini">Beş soruyu da cevapla; izlenecek kurumları burada göstereceğim.</span>`;
+        f.querySelectorAll('.dsec').forEach(b=>b.onclick=()=>{ cev[b.dataset.k]=b.dataset.v; ciz(); });
+        $('#destekVaz').onclick=()=>{ f.classList.add('gizli'); f.innerHTML=''; };
+        $('#destekKaydet').onclick=async()=>{
+          const h=$('#destekHata');
+          if(!window.destekProfilDolu(cev)){ h.textContent='Beş sorunun hepsini cevapla.'; return; }
+          const kayit={ email:user.email, profil:cev, kurumlar:window.destekKurumlari(cev),
+                        ab:$('#destekAb').checked, user_id:user.id, aktif:true };
+          const {error} = DESTEK
+            ? await sb.from('destek_takip').update(kayit).eq('id',DESTEK.id)
+            : await sb.from('destek_takip').insert(kayit);
+          if(error){ h.textContent=error.message; return; }
+          app();
+        };
+      };
+      ciz();
+    };
+    if($('#destekKur')) $('#destekKur').onclick=destekForm;
+    if($('#destekDegistir')) $('#destekDegistir').onclick=destekForm;
+    if($('#destekKapat')) $('#destekKapat').onclick=async()=>{
+      if(!confirm('Destek bildirimlerini kapatmak istediğine emin misin? Profilin silinmez, istediğinde yeniden açarsın.')) return;
+      const {error}=await sb.from('destek_takip').update({aktif:false}).eq('id',DESTEK.id);
+      if(error){ alert(error.message); return; }
+      app();
+    };
+  }
   // KAPIYA GORE UYELIK: panel bosken kullaniciyi bos ekranla karsilamak
   // yerine ilk soru KENDILIGINDEN acilir - niyetine gore odaklanmis halde.
   if(!firmalar.length){ firmaForm(); }
@@ -337,7 +424,7 @@ async function pano(f){
     : '';
 
   p.innerHTML=`
-    ${uyarilar.length?`<h2>🔔 Radar uyarıların (${uyarilar.length})</h2>${uyariHtml}`:''}
+    ${uyarilar.length?`<h2>Radar uyarıların (${uyarilar.length})</h2>${uyariHtml}`:''}
     <h2>${esc(f.firma_adi)}, profil</h2>
     <div class="kutu">
       <div class="ozet mini">${esc(f.rol||'—')} · ${esc(f.il||'il yok')} · ${esc(f.sektor||'')}</div>
@@ -347,7 +434,7 @@ async function pano(f){
       <div style="margin-top:14px"><button class="btn ghost sm" id="silFirma">Firmayı sil</button></div>
     </div>
 
-    <h2>📋 Bugün seni ilgilendiren mevzuat (RG)</h2>
+    <h2>Bugün seni ilgilendiren mevzuat (RG)</h2>
     ${kartHtml}
 
     <h2>🇹🇷 Sana uygun güncel ihaleler${eslesen.length?` (${eslesen.length})`:''}</h2>

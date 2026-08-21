@@ -64,7 +64,9 @@ $cagriYol = Join-Path $kok 'veri/cagri-radar.json'
 if(-not (Test-Path $cagriYol)){ Write-Host "cagri-radar.json yok - once cagri-hasat"; RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='CAGRI VERISI YOK' }); exit 0 }
 $cd = Get-Content $cagriYol -Raw -Encoding UTF8 | ConvertFrom-Json
 
-# Kaynak -> kurum. destekler.html icindeki KAYNAK_KURUM ile AYNI olmali.
+# Kaynak -> kurum. Tarayici tarafindaki ESI: destek-kural.js (destekler.html ve
+# radar-app.html oradan okur). PowerShell o dosyayi okuyamadigi icin burada
+# zorunlu bir ikinci kopya var; BIRI DEGISIRSE OTEKI DE DEGISIR.
 function KurumAdi([string]$kaynak){
   if($kaynak -eq 'TÜBİTAK'){ return 'TÜBİTAK' }
   if($kaynak -eq 'KOSGEB'){ return 'KOSGEB' }
