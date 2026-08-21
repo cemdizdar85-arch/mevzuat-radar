@@ -177,6 +177,19 @@ const ETIKET={ 'ek-sure':['EK SÜREDE','r'], 'yenileme-penceresi':['YENİLEME A�
 const DURUM_TR={ 'Registered':'tescilli', 'Filed':'başvuru aşamasında', 'Ended':'sona ermiş', 'Expired':'süresi dolmuş', 'Withdrawn':'geri çekilmiş', 'Refused':'reddedilmiş', 'Application published':'yayımlanmış', 'Application opposed':'itiraz edilmiş', 'Invalid':'hükümsüz', 'Surrendered':'vazgeçilmiş' };
 const durumTr=d=>DURUM_TR[d]||d;
 let ZAMANLAYICI=null, DENEME=0;
+// 21.08 OLCUM: Instagram'da her videonun linki kendi etiketiyle veriliyor
+// (…/marka-portfoy.html?k=v6). Etiket talebe yazilir; hangi videonun tarama
+// getirdigi haftalik gorulur. SQL (veri/sql-marka-kaynak.sql) basilmadiysa
+// 3 parametreli fonksiyon yoktur -> eski imzaya duseriz, site calismaya devam eder.
+const KAYNAK=(new URLSearchParams(location.search).get('k')||'').slice(0,40);
+async function talepAc(unvan, mail){
+  if(KAYNAK){
+    const r = await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:mail,p_kaynak:KAYNAK});
+    if(!r.error) return r;
+    if(!/PGRST202|does not exist|not found/i.test(r.error.message||'')) return r;
+  }
+  return await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:mail});
+}
 // Nice sinif adlari (veri/nice-siniflar.json) - kaynak TURKPATENT Mal ve Hizmet
 // Siniflandirma Listesi; dosyada kaynak + serh yazili. Yuklenemezse ad gosterilmez.
 const NICE={};
@@ -300,7 +313,7 @@ $('#t_btn').onclick=async()=>{
   if(unvan.length<3){ durumYaz('<span style="color:var(--red)">Unvanı yaz (en az 3 karakter).</span>'); return; }
   if(mail && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ durumYaz('<span style="color:var(--red)">E-posta geçerli görünmüyor.</span>'); return; }
   $('#t_btn').disabled=true; $('#t_sonuc').innerHTML=''; durumYaz('Sıraya alınıyor…');
-  const {data,error}=await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:mail||null});
+  const {data,error}=await talepAc(unvan, mail||null);
   $('#t_btn').disabled=false;
   if(error){ durumYaz('<span style="color:var(--red)">Sıraya alınamadı: '+kac(error.message)+'</span>'); return; }
   izle(data);

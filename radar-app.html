@@ -77,6 +77,9 @@ const SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
 const SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 const sb = createClient(SB_URL, SB_KEY);
 const $=s=>document.querySelector(s);
+const KAYNAK=(new URLSearchParams(location.search).get('k')||'').slice(0,40);
+async function talepAc(unvan){ if(KAYNAK){ const r=await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:null,p_kaynak:KAYNAK}); if(!r.error) return r; if(!/PGRST202|does not exist|not found/i.test(r.error.message||'')) return r; } return await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:null}); }
+
 const ekran=$('#ekran'), ustSag=$('#ustSag');
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const arr=s=>(s||'').split(/[,;\n]/).map(x=>x.trim()).filter(Boolean);
@@ -282,7 +285,7 @@ async function app(){
     rEkle.disabled=false;
     if(error){ out.innerHTML='<span style="color:var(--red)">'+esc(error.message)+'</span>'; return; }
     // ilk taramayi hemen kuyruga at ki kullanici bugun de gorsun (nobet yarindan itibaren fark bildirir)
-    try{ await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:null}); }catch(e){}
+    try{ await talepAc(unvan); }catch(e){}
     app();
   };
   document.querySelectorAll('.rakipSil').forEach(a=>a.onclick=async e=>{
@@ -294,7 +297,7 @@ async function app(){
   // Sicil taramasini kuyruga at (TMview CORS'a kapali, sorguyu robot yapar).
   document.querySelectorAll('.mtara').forEach(b=>b.onclick=async()=>{
     const out=$('#mtaraOut'); b.disabled=true; out.textContent='Sıraya alınıyor…';
-    const {error}=await sb.rpc('marka_talep_ac',{p_unvan:b.dataset.unvan,p_email:null});
+    const {error}=await talepAc(b.dataset.unvan);
     if(error){ out.innerHTML=`<span style="color:var(--red)">Olmadı: ${esc(error.message)}</span>`; b.disabled=false; return; }
     b.textContent=b.dataset.unvan+' → sırada ⏳';
     // Ölçüm (21.08): GitHub Actions cron'u */5 yazılsa da yoğunlukta 30-50 dk
@@ -423,7 +426,7 @@ function firmaForm(){
     // 21.08: Firma eklenir eklenmez sicil taramasini kuyruga at - kullanici
     // "kaydettim ama hicbir sey olmadi" hissi yasamasin. Robot 5 dk icinde
     // marka_portfoy'u doldurur, panel bandi kendiliginden gelir.
-    try{ await sb.rpc('marka_talep_ac',{p_unvan:ad,p_email:null}); }catch(e){}
+    try{ await talepAc(ad); }catch(e){}
     SECILI=data.id; app();
   };
 }
