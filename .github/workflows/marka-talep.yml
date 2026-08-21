@@ -12,6 +12,13 @@ on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
+    inputs:
+      mod:
+        description: 'talep = bekleyen sorgular · rakip = rakip nobeti taramasi'
+        required: false
+        default: 'talep'
+        type: choice
+        options: [talep, rakip]
 
 concurrency:
   group: marka-talep
@@ -29,4 +36,9 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
-        run: ./motor/marka-portfoy-hasat.ps1 -YalnizTalep -TalepAdet 40
+        run: |
+          if ('${{ github.event.inputs.mod }}' -eq 'rakip') {
+            ./motor/marka-portfoy-hasat.ps1 -Rakip
+          } else {
+            ./motor/marka-portfoy-hasat.ps1 -YalnizTalep -TalepAdet 40
+          }
