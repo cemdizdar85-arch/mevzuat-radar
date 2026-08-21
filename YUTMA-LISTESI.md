@@ -1,5 +1,18 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 21.08.2026 — KGK KARNE BOŞLUKLARI KAPATILDI (Cem: "KGK'nın 39 boşluğu bunu dolduralım")
+| Metin | Kaynak | Sonuç |
+|---|---|---|
+| **Finansal Raporlamaya İlişkin Kavramsal Çerçeve (2018)** | kgk.gov.tr TMS/TFRS 2019 Seti — HAZIR | **214 parça, kapsama %98,7** — Muhasebe Standartları dersinin çekirdek metniydi, ambarda HİÇ yoktu |
+| SEDDK Teşkilat ve Görevleri CBK (47 s.) | mevzuat.gov.tr **mevzuatTur=19** (RG 18.10.2019/30922) | 32 madde, %99,7 |
+| Borçlanma Araçları Tebliği (VII-128.8) | mevzuat.gov.tr G9:18452 | 49 madde, %99,7 |
+| Varantlar ve Yat. Kur. Sertifikaları Tebliği (VII-128.3) | mevzuat.gov.tr G9:18816 | 47 madde |
+| 16 teori notu (`teori-notlari-20260819-kgk2/kgk3.json`) | GM elle yazımı | kurumsal yönetim · Borsa İstanbul · idari işlem sakatlıkları · Basel III · Solvency II · volatilite · reasürans-konservasyon · eşya · nispilik · kıymetli evrak soyutluğu · çoklu ürün başabaş · hesap kavramı · işçilik sınıflaması · finansın ilkeleri · piyasa vade ayrımı · tahvil türleri; **geri okuma 16/16 birebir** |
+
+**Sonuç: 39 boşluğun 38'i kapandı, karne ÜRET 5.146 / boşluk 1.** Kalan tek satır "riskten kaçınma istisnası" — konu adı muğlak, soru metni okunmadan dayanak kurulmadı (uydurulmadı).
+**İki teknik ders:** (1) mevzuat.gov.tr CB Kararnamesi için metin tür adlarının hepsi HTTP 600 veriyor, çalışan biçim **sayısal `mevzuatTur=19`**; (2) **teori notunda anahtar ifadeyi BÜYÜK harfle yazmak notu ambar aramasına görünmez kılıyor** (imatch Türkçe İ'yi katlayamıyor) — 17 satır bu yüzden "hâlâ boş" göründü, içerik ambardaydı; anahtar ifade notta en az bir kez normal yazımla geçmeli.
+**İçerik uyarısı:** VII-128.8'de "kâra iştirakli tahvil" TANIMLI DEĞİL (0 eşleşme) — o konunun dayanağı tebliğ değil, finans teorisi notudur.
+
 ## 🔧 19.08.2026 — HAM METİN ONARIMI: 4 HAZIR KAYNAK DOSYASI YERİNE KONDU (Nabız Nöbetçisi alarmı)
 *Nöbetçi "HAZIR kaynak dosyası YOK" dedi: tevkifat14592/93/94 + fuar-genelge. **Ambar eksik değildi** —
 o gün yutulan metinler Supabase'e ve eri/mevzuat/*.json'a girmişti, ama HAM METİN scratchpad'de
