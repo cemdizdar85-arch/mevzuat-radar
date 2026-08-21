@@ -4,13 +4,13 @@
 #  Supabase'e bir talep birakir (RPC marka_talep_ac). TMview CORS'a kapali oldugu
 #  icin sorguyu tarayici yapamaz -> bu is akisi kuyrugu isler, sonucu yazar,
 #  e-posta birakildiysa raporu yollar. Sayfa jetonla sonucu okur.
-#  Sik kosar (10 dk) ama isi yoksa saniyeler surer: bekleyen talep yoksa cikar.
+#  Sik kosar (5 dk) ama isi yoksa saniyeler surer: bekleyen talep yoksa cikar.
 # ============================================================================
 name: Marka talep kuyrugu
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 concurrency:

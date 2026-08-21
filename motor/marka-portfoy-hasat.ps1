@@ -336,7 +336,7 @@ foreach($f in $firmalar){
 # --- 2) VITRIN TALEPLERI ----------------------------------------------------
 $talepler = @()
 if(-not $YalnizUye){
-try{ $talepler = SbGet ("marka_talep?select=id,jeton,unvan,email&durum=eq.bekliyor&order=created_at.asc&limit=" + $TalepAdet) }catch{ Write-Host ("marka_talep okunamadi (tablo yok olabilir): {0}" -f $_.Exception.Message) }
+try{ $talepler = SbGet ("marka_talep?select=id,jeton,unvan,email,user_id&durum=eq.bekliyor&order=created_at.asc&limit=" + $TalepAdet) }catch{ Write-Host ("marka_talep okunamadi (tablo yok olabilir): {0}" -f $_.Exception.Message) }
 foreach($t in $talepler){
   $unv = "$($t.unvan)".Trim()
   $sonucJson = $null; $hata = $null
@@ -345,6 +345,16 @@ foreach($t in $talepler){
     $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; markalar=@($p.markalar | Select-Object -First 300) }
   }
   $talepIslenen++
+  # 21.08: Talep GIRIS YAPMIS bir uyeden geldiyse (RPC auth.uid() yaziyor) sonuc
+  # ayni anda marka_portfoy'a da islenir -> panel bandi ertesi gunu beklemeden
+  # dolar, ayrica yenileme uyarilari hemen uretilir. (Cem: "form ayni duruyor".)
+  if($p -and "$($t.user_id)" -and -not $kuru){
+    $kayitU = [ordered]@{ user_id="$($t.user_id)"; unvan=$unv; varyantlar=@($p.varyantlar); marka_sayisi=$p.sayi; tescilli=$p.tescilli; yenileme_yakin=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; markalar=@($p.markalar); guncelleme=(Get-Date).ToString('o') }
+    SbGonder "marka_portfoy?on_conflict=user_id,unvan" "Post" $kayitU @{ Prefer='resolution=merge-duplicates,return=minimal' } | Out-Null
+    foreach($k in @($p.markalar | Where-Object { $_.hal -eq 'yenileme-penceresi' -or $_.hal -eq 'ek-sure' })){
+      SbGonder "marka_uyari" "Post" ([ordered]@{ user_id="$($t.user_id)"; marka=$k.ad; basvuru_no=("portfoy-yenileme|" + $k.no); benzer_ad=$k.not; risk=$null; sinif_cakisiyor=$false; basvuru_tarih=$k.tarih; durum=$k.durum; tip='portfoy-yenileme'; ofis='TR' }) @{ Prefer='return=minimal' } | Out-Null
+    }
+  }
   if(-not $kuru){
     $tDurum = 'hazir'; if($hata){ $tDurum = 'hata' }
     $govde = [ordered]@{ durum=$tDurum; sonuc=$sonucJson; hata=$hata; islendi_at=(Get-Date).ToString('o') }

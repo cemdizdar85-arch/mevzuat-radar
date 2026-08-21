@@ -96,7 +96,7 @@ let SECILI=null, IHALE=null, KARTLAR=null;
 const NIYETLER = {
   gtip:    { baslik:'GTİP kodlarını gir, radar onları izlesin', alan:'f_gtip',  ipucu:'Resmî Gazete senin kodlarına dokununca panelde ve uyarıda göreceksin.' },
   alacak:  { baslik:'Borçlu VKN\'lerini gir, ilanları biz kollayalım', alan:'f_vkn', ipucu:'Biri konkordato/iflas ilan ederse İİK süresiyle uyarırız.' },
-  marka:   { baslik:'Markanı gir, yenileme ve benzer başvuru nöbeti başlasın', alan:'f_marka', ipucu:'SMK m.23: tescil 10 yılda bir yenilenir, tarihi radar takip eder.' },
+  marka:   { baslik:'Firma unvanını gir, markalarını biz bulalım', alan:'f_marka', ipucu:'Marka adı yazmana gerek yok: robot unvanını TÜRKPATENT kayıtlarında arar, adına tescilli bütün markaları ve yenileme tarihlerini getirir (SMK m.23: koruma 10 yıl, yenileme son 6 ayda).' },
   musavir: { baslik:'İlk mükellefini ekle, her firmaya ayrı radar', alan:'f_ad', ipucu:'Mali müşavirsen tüm mükelleflerini tek panelde izlersin.' },
   ihale:   { baslik:'İlini ve sektörünü gir, ihaleler sana gelsin', alan:'f_il', ipucu:'İline çıkan ihaleler günlük tek özet mail olarak gelir; son teklif tarihi yaklaşanlar üstte.' },
   firsat:  { baslik:'İlini gir, icradan satış fırsatları sana gelsin', alan:'f_il', ipucu:'İlindeki icra ve açık artırma satışları (makine, stok, taşınmaz) panelde birikir; abonelikte günlük özet maille gelir.' },
@@ -180,9 +180,13 @@ async function app(){
   // 20.08 UNVANDAN PORTFOY: robot (marka-portfoy-hasat.ps1) firma unvanini
   // TURKPATENT/TMview'de arayip butun markalari marka_portfoy'a yazar. Kullanici
   // tek marka girmemis olsa bile burada gorur - "senin 7 markan var" bandi.
-  let portfoyBanner='';
+  let portfoyBanner='', TARANMAMIS=[];
   try{
     const {data:pf}=await sb.from('marka_portfoy').select('unvan,marka_sayisi,tescilli,yenileme_yakin,ek_surede,dusmus,guncelleme');
+    // 21.08: Henuz taranmamis firma unvanlari - kullanici ertesi gunu beklemesin,
+    // dugmeye basinca kuyruga girer (marka_talep_ac), robot 5 dk icinde doldurur.
+    const taranan=new Set((pf||[]).map(p=>(p.unvan||'').trim().toLowerCase()));
+    TARANMAMIS=firmalar.filter(f=>f.firma_adi && !taranan.has(f.firma_adi.trim().toLowerCase()));
     if(pf&&pf.length){
       const acilToplam=pf.reduce((t,p)=>t+(p.yenileme_yakin||0)+(p.ek_surede||0),0);
       const markaToplam=pf.reduce((t,p)=>t+(p.marka_sayisi||0),0);
@@ -190,6 +194,14 @@ async function app(){
         <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:8px">®️ Sicilde adına ${markaToplam} marka bulundu${acilToplam?` — ${acilToplam} tanesinin yenileme tarihi kapıda`:''}</div>
         ${pf.filter(p=>p.marka_sayisi).map(p=>`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(p.unvan)}</b>: ${p.marka_sayisi} marka · ${p.tescilli||0} tescilli${p.yenileme_yakin?` · <b style="color:var(--amber)">${p.yenileme_yakin} yenileme penceresi açık</b>`:''}${p.ek_surede?` · <b style="color:#ff9d93">${p.ek_surede} ek sürede</b>`:''}${p.dusmus?` · ${p.dusmus} düşmüş`:''}</div>`).join('')}
         <div style="margin-top:8px;font-size:12.5px"><a href="marka-portfoy.html" style="color:var(--accent2);font-weight:700">Tarih takvimini aç →</a> <span class="mini">Koruma başvurudan 10 yıl, yenileme son 6 ayda (SMK m.23).</span></div>
+      </div>`;
+    }
+    if(TARANMAMIS.length){
+      portfoyBanner += `<div class="kutu" style="margin:0 0 18px">
+        <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:6px">®️ ${TARANMAMIS.length} firmanın markaları henüz taranmadı</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:9px">Tek tıkla TÜRKPATENT kayıtlarına bakalım: adına kaç marka var, hangisinin <b style="color:var(--ink)">yenileme penceresi açıldı</b>, hangisi düşmüş. Marka adı girmene gerek yok, unvan yetiyor.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${TARANMAMIS.map(f=>`<button class="btn ghost sm mtara" data-unvan="${esc(f.firma_adi)}">${esc(f.firma_adi)} → sicilde ara</button>`).join('')}</div>
+        <div id="mtaraOut" class="mini" style="margin-top:9px"></div>
       </div>`;
     }
   }catch(e){}
@@ -247,6 +259,15 @@ async function app(){
     <div id="pano"></div>`;
   document.querySelectorAll('.firmakart').forEach(k=>k.onclick=()=>{SECILI=k.dataset.id;app();});
   $('#yeniFirma').onclick=()=>firmaForm();
+  // Sicil taramasini kuyruga at (TMview CORS'a kapali, sorguyu robot yapar).
+  document.querySelectorAll('.mtara').forEach(b=>b.onclick=async()=>{
+    const out=$('#mtaraOut'); b.disabled=true; out.textContent='Sıraya alınıyor…';
+    const {error}=await sb.rpc('marka_talep_ac',{p_unvan:b.dataset.unvan,p_email:null});
+    if(error){ out.innerHTML=`<span style="color:var(--red)">Olmadı: ${esc(error.message)}</span>`; b.disabled=false; return; }
+    b.textContent=b.dataset.unvan+' → sırada ⏳';
+    out.innerHTML='Tarama sıraya girdi. Robot en geç <b style="color:var(--ink)">5 dakika</b> içinde bakıyor; sonuç bu sayfada belirir (sayfa kendini yenileyecek).';
+    setTimeout(()=>app(), 90000);
+  });
   // ---- destek takibi: form + kaydet + kapat ----
   if(dkVar){
     const destekForm=()=>{
@@ -365,6 +386,10 @@ function firmaForm(){
       kanal:kanal, telefon:telHam?telSayi(telHam):null };
     const {data,error}=await sb.from('firmalar').insert(kayit).select().single();
     if(error){$('#fhata').textContent=error.message;return;}
+    // 21.08: Firma eklenir eklenmez sicil taramasini kuyruga at - kullanici
+    // "kaydettim ama hicbir sey olmadi" hissi yasamasin. Robot 5 dk icinde
+    // marka_portfoy'u doldurur, panel bandi kendiliginden gelir.
+    try{ await sb.rpc('marka_talep_ac',{p_unvan:ad,p_email:null}); }catch(e){}
     SECILI=data.id; app();
   };
 }
