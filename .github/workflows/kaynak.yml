@@ -322,6 +322,18 @@ jobs:
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: ./motor/marka-portfoy-hasat.ps1 -YalnizUye
 
+      # 21.08 RAKIP NOBETI: kullanicinin ekledigi rakip unvanlarinin portfoyunu
+      # her gun tara, YENI basvuru cikarsa uyari + mail (marka_rakip tablosu).
+      - name: Marka rakip nobeti (Supabase + TMview)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/marka-portfoy-hasat.ps1 -Rakip
+
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh

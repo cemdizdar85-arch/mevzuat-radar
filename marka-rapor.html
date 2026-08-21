@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Marka Portföy Raporu | Tetikte</title>
+<meta name="description" content="Firma unvanına göre TÜRKPATENT kayıtlarından çıkarılmış marka portföy raporu: yenileme takvimi, kullanım eşiği, sınıf haritası, düşmüş markalar. Yazdır ya da PDF olarak kaydet.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+/* Rapor sayfasi BELGE gibi: ekranda da acik tema, baskida temiz A4.
+   Musavir bunu mukellefine gonderecek - koyu tema kagitta okunmaz. */
+:root{--ink:#111827;--muted:#4b5563;--dim:#6b7280;--line:#e5e7eb;--accent:#b45309;--red:#b91c1c;--amber:#b45309;--green:#15803d;--bg:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f4f6;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.5;font-size:14px;font-variant-numeric:tabular-nums}
+.kagit{max-width:820px;margin:24px auto;background:#fff;padding:38px 44px 56px;box-shadow:0 2px 18px rgba(0,0,0,.08)}
+.ust{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:18px;gap:16px}
+.marka{font-weight:850;font-size:17px;letter-spacing:-.3px}
+.marka span{display:block;font-size:11px;font-weight:600;color:var(--dim);letter-spacing:.6px;text-transform:uppercase}
+h1{font-size:23px;margin:6px 0 2px;letter-spacing:-.5px}
+.altbaslik{color:var(--muted);font-size:13px;margin:0 0 20px}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:1.1px;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:6px;margin:26px 0 10px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);border-bottom:1px solid var(--line);padding:6px 8px 6px 0}
+td{padding:6px 8px 6px 0;border-bottom:1px solid #f3f4f6;vertical-align:top}
+.ozet{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
+.ozet>div{flex:1;min-width:110px;border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.ozet b{display:block;font-size:22px;font-weight:850;line-height:1.1}
+.ozet span{font-size:11px;color:var(--dim)}
+.rz{display:inline-block;font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid var(--line);white-space:nowrap}
+.r-r{color:var(--red);border-color:#fecaca;background:#fef2f2}.r-a{color:var(--amber);border-color:#fde68a;background:#fffbeb}
+.r-g{color:var(--green);border-color:#bbf7d0;background:#f0fdf4}.r-n{color:var(--dim)}
+.not{font-size:11.5px;color:var(--muted);background:#f9fafb;border:1px solid var(--line);border-radius:8px;padding:11px 13px;line-height:1.6;margin-top:12px}
+.dip{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);font-size:10.5px;color:var(--dim);line-height:1.6}
+.arac{max-width:820px;margin:0 auto 18px;padding:0 6px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:14px;padding:10px 18px;border-radius:9px;background:#111827;color:#fff;text-decoration:none}
+.btn.ghost{background:#fff;border:1px solid #d1d5db;color:#374151}
+.hata{color:var(--red)}
+.sinifKut{display:flex;flex-wrap:wrap;gap:5px}
+@media print{
+  body{background:#fff}
+  .kagit{box-shadow:none;margin:0;max-width:none;padding:0 0 8mm}
+  .arac{display:none}
+  h2{break-after:avoid}
+  tr{break-inside:avoid}
+  @page{margin:14mm}
+}
+</style>
+</head>
+<body>
+
+<div class="arac">
+  <button class="btn" onclick="window.print()">🖨️ Yazdır / PDF kaydet</button>
+  <a class="btn ghost" href="marka-portfoy.html">← Portföy panosu</a>
+  <span style="font-size:12px;color:#6b7280">Tarayıcının yazdırma penceresinde “Hedef: PDF olarak kaydet”i seç.</span>
+</div>
+
+<div class="kagit" id="kagit">
+  <p id="durum" style="color:#6b7280">Rapor yükleniyor…</p>
+</div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+const kac=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ETIKET={ 'ek-sure':['EK SÜREDE','r-r'], 'yenileme-penceresi':['YENİLEME AÇIK','r-a'], 'surecte':['SÜREÇTE','r-n'], 'guvende':['GÜVENDE','r-g'], 'dusmus':['DÜŞMÜŞ','r-n'], 'bilinmiyor':['—','r-n'] };
+const DURUM_TR={ 'Registered':'tescilli','Filed':'başvuru','Ended':'sona ermiş','Expired':'süresi dolmuş','Withdrawn':'geri çekilmiş','Refused':'reddedilmiş','Application published':'yayımlanmış','Application opposed':'itiraz edilmiş' };
+const NICE={};
+try{ const nj=await (await fetch('veri/nice-siniflar.json')).json(); (nj.siniflar||[]).forEach(x=>NICE[x.no]=x); }catch(e){}
+const bugun=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'});
+
+const jeton=new URLSearchParams(location.search).get('jeton');
+const kagit=document.getElementById('kagit');
+if(!jeton){
+  kagit.innerHTML='<p class="hata">Rapor bağlantısı eksik.</p><p>Raporu üretmek için önce <a href="marka-portfoy.html">portföy panosunda</a> firma unvanıyla tarama yap, sonra “Rapor al” de.</p>';
+} else {
+  const {data,error}=await sb.rpc('marka_talep_sonuc',{p_jeton:jeton});
+  if(error){ kagit.innerHTML='<p class="hata">Rapor okunamadı: '+kac(error.message)+'</p>'; }
+  else if(!data || data.durum!=='hazir' || !data.sonuc){
+    kagit.innerHTML='<p>Bu taramanın sonucu henüz hazır değil (durum: '+kac(data?data.durum:'yok')+'). <a href="marka-portfoy.html?jeton='+encodeURIComponent(jeton)+'">Panoya dön</a>, hazır olunca buradan raporu al.</p>';
+  } else {
+    ciz(data.sonuc);
+  }
+}
+
+function ciz(s){
+  const mk=s.markalar||[];
+  const acil=mk.filter(m=>m.hal==='ek-sure'||m.hal==='yenileme-penceresi');
+  const besYakin=mk.filter(m=>m.kullanim_kalan!=null && m.kullanim_kalan>=0 && m.kullanim_kalan<=180);
+  const dus=mk.filter(m=>m.hal==='dusmus');
+  const toplam=(s.toplam&&s.toplam>s.sayi)?s.toplam:s.sayi;
+  const satir=m=>{
+    const e=ETIKET[m.hal]||ETIKET.bilinmiyor;
+    return '<tr><td><b>'+kac(m.ad)+'</b><br><span style="color:#6b7280;font-size:11px">'+kac(m.no)+(m.sinif?' · sınıf '+kac(m.sinif):'')+'</span></td>'+
+      '<td>'+kac(m.tarih)+'</td><td>'+kac(DURUM_TR[m.durum]||m.durum)+'</td>'+
+      '<td><span class="rz '+e[1]+'">'+e[0]+'</span></td>'+
+      '<td>'+kac(m.donem_sonu||'—')+(m.kalan_gun!=null?'<br><span style="color:#6b7280;font-size:11px">'+m.kalan_gun+' gün</span>':'')+'</td></tr>';
+  };
+  let h='<div class="ust"><div class="marka">TETİKTE<span>Marka Portföy Raporu</span></div>'+
+    '<div style="text-align:right;font-size:11.5px;color:#6b7280">Rapor tarihi<br><b style="color:#111827;font-size:13px">'+bugun+'</b></div></div>';
+  h+='<h1>'+kac(s.unvan)+'</h1>';
+  h+='<p class="altbaslik">TÜRKPATENT kayıtlarında bu unvan(lar) adına görünen markalar, koruma ve yenileme tarihleriyle.</p>';
+  h+='<div class="ozet"><div><b>'+toplam+'</b><span>sicilde kayıt</span></div>'+
+     '<div><b style="color:'+(acil.length?'#b45309':'#111827')+'">'+acil.length+'</b><span>işlem gerektiren</span></div>'+
+     '<div><b style="color:#15803d">'+(s.tescilli||0)+'</b><span>tescilli</span></div>'+
+     '<div><b>'+(s.surecte||0)+'</b><span>başvuru aşamasında</span></div>'+
+     '<div><b style="color:#6b7280">'+(s.dusmus||0)+'</b><span>düşmüş</span></div></div>';
+  if(toplam>s.sayi) h+='<p style="font-size:11.5px;color:#6b7280;margin:8px 0 0">Sicilde '+toplam+' kayıt görünüyor; bu rapor en yeni '+s.sayi+' kayıt üzerinden hazırlandı.</p>';
+
+  if(acil.length){
+    h+='<h2>Acil: yenileme tarihi geçmiş ya da yaklaşmış</h2><table><thead><tr><th>Marka</th><th>Başvuru</th><th>Sicil</th><th>Durum</th><th>Dönem sonu</th></tr></thead><tbody>'+
+       acil.map(satir).join('')+'</tbody></table>'+
+       '<div class="not"><b>Ne yapmalı:</b> Yenileme talebi koruma bitişinden önceki 6 ay içinde verilir; kaçırılırsa bitişten sonraki 6 ay içinde ek ücretle yenilenebilir. Bu süre de geçerse marka hakkı sona erer (SMK m.23, m.28/1-a).</div>';
+  }
+
+  if(s.siniflar && s.siniflar.length){
+    h+='<h2>Sınıf haritası (yalnız yaşayan kayıtlar)</h2><div class="sinifKut">'+
+      s.siniflar.map(x=>'<span class="rz" title="'+kac((NICE[x.no]||{}).kisa||'')+'">'+x.no+'. sınıf · '+x.adet+'</span>').join('')+'</div>';
+    if(s.sinif_acigi) h+='<div class="not"><b>Sınıf açığı:</b> '+kac(s.sinif_acigi)+'</div>';
+  }
+
+  if(besYakin.length || s.kullanim_dolmus){
+    h+='<h2>Kullanım eşiği (5 yıl)</h2>';
+    if(besYakin.length){
+      h+='<table><thead><tr><th>Marka</th><th>Eşik</th><th>Kalan</th></tr></thead><tbody>'+
+        besYakin.map(m=>'<tr><td><b>'+kac(m.ad)+'</b> <span style="color:#6b7280;font-size:11px">'+kac(m.no)+'</span></td><td>'+kac(m.kullanim_son)+'</td><td>'+m.kullanim_kalan+' gün</td></tr>').join('')+'</tbody></table>';
+    }
+    h+='<div class="not">Tescil tarihinden itibaren 5 yıl içinde marka, tescilli olduğu mal veya hizmetlerde Türkiye’de ciddi biçimde kullanılmazsa ya da kullanıma 5 yıl kesintisiz ara verilirse, ilgili kişilerin talebi üzerine Kurum markanın iptaline karar verir (SMK m.9/1, m.26/1-a, m.26/2). İptal talebi geldiğinde kullanım delili (fatura, ambalaj, reklam) istenir; talebin Kuruma sunulmasından önceki üç ay içinde gerçekleşen kullanım dikkate alınmaz (m.26/4).'+
+      (s.kullanim_dolmus?' Bu portföyde <b>'+s.kullanim_dolmus+'</b> markanın 5 yıllık süresi dolmuş durumda — kullanımda olanlar için sorun yoktur, kullanılmayanlar iptal talebine açıktır.':'')+'</div>';
+  }
+
+  if(dus.length){
+    h+='<h2>Düşmüş markalar ('+dus.length+')</h2><table><thead><tr><th>Marka</th><th>Başvuru</th><th>Tahmini dönem sonu</th><th>m.6/8 penceresi</th></tr></thead><tbody>'+
+      dus.slice(0,40).map(m=>'<tr><td><b>'+kac(m.ad)+'</b> <span style="color:#6b7280;font-size:11px">'+kac(m.no)+(m.sinif?' · sınıf '+kac(m.sinif):'')+'</span></td><td>'+kac(m.tarih)+'</td><td>'+kac(m.donem_sonu||'—')+'</td><td>'+kac(m.m68_son||'—')+'</td></tr>').join('')+'</tbody></table>'+
+      (dus.length>40?'<p style="font-size:11.5px;color:#6b7280">… ve '+(dus.length-40)+' kayıt daha.</p>':'')+
+      '<div class="not">Yenilenmeme sebebiyle koruma sona erdikten sonraki <b>iki yıl</b> içinde yapılan aynı veya benzer marka başvurusu, önceki marka sahibinin itirazı üzerine, <b>bu iki yıllık süre içinde markanın kullanılmış olması şartıyla</b> reddedilir (SMK m.6/8). Sona erme tarihi sicil verisinde yer almadığı için tablodaki tarihler başvuru + 10 yıl üzerinden hesaplanmış <b>tahmindir</b>.</div>';
+  }
+
+  h+='<h2>Bütün kayıtlar</h2><table><thead><tr><th>Marka</th><th>Başvuru</th><th>Sicil</th><th>Durum</th><th>Dönem sonu</th></tr></thead><tbody>'+
+     mk.map(satir).join('')+'</tbody></table>';
+
+  h+='<div class="dip"><b>Kaynak:</b> TÜRKPATENT marka sicili verisi (TMview / EUIPO-TMDN üzerinden, birkaç gün gecikmeli olabilir). Eşleştirilen sicil unvanları: '+kac((s.varyantlar||[]).join(' · '))+'. '+
+     '<b>Hesaplar:</b> koruma süresi başvuru tarihinden 10 yıl, yenileme talebi son 6 ay, ek süre 6 ay (SMK m.23); yayıma itiraz süresi yayımdan 2 ay (m.18); kullanım eşiği tescilden 5 yıl (m.9/1). Sicilde "tescilli" görünen markalarda önceki dönemler yenilenmiş kabul edilmiştir.<br>'+
+     '<b>Bilgilendirme amaçlıdır, hukuki görüş değildir.</b> Kısmi yenileme, devir, kısmi iptal gibi hâller tabloyu değiştirebilir; bağlayıcı olan TÜRKPATENT sicil kaydıdır. İşlem yapmadan önce sicilden teyit et, gerekiyorsa marka vekiline danış.<br>'+
+     'Tetikte · tetikte.com — bir Dizdar Denetim A.Ş. yazılımıdır.</div>';
+  kagit.innerHTML=h;
+  document.title='Marka Portföy Raporu — '+s.unvan;
+}
+</script>
+</body>
+</html>

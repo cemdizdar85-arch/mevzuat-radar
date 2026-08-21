@@ -110,6 +110,7 @@ var GRUPLAR=[
   ["marka-portfoy.html","📋","Marka Portföy Panosu","Tüm markaların, tüm tarihler tek ekranda"],
   ["marka-izleme.html","📡","Marka İzleme Radarı","Markana benzer YENİ başvuru düştü mü"],
   ["marka-itiraz.html","🔍","Marka İtiraz & Benzerlik","İtiraz süren dolmadan gör"],
+  ["marka-varlik.html","💼","Markanla ne yapabilirsin","Lisans, devir, rehin, muvafakat, Madrid"],
   // 17.08: marka-app.html BITMIS ve CALISAN bir uygulamaydi ama SITEDE HICBIR
   // YERDEN ERISILEMIYORDU - ne menude ne bir sayfada linki vardi. Tarama
   // yakaladi. Ayni durum evrak-app.html'de de vardi (asagida).

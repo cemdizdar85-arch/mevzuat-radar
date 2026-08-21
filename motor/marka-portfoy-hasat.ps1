@@ -40,7 +40,8 @@ param(
   [int]$YenilemeGun = 180,       # kac gun kala uyari (m.23: son 6 ay)
   [int]$BeklemeMs = 200,
   [switch]$YalnizTalep,          # sik kosan kuyruk isleyici (marka-talep.yml, 10 dk)
-  [switch]$YalnizUye             # gunluk uye portfoyu tazeleme (kaynak.yml)
+  [switch]$YalnizUye,            # gunluk uye portfoyu tazeleme (kaynak.yml)
+  [switch]$Rakip                 # rakip nobeti: marka_rakip listesini tara, YENI basvuruyu haber ver
 )
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -388,10 +389,57 @@ function SatirlarHtml($p){
 }
 
 $uyeIslenen = 0; $uyeUyari = 0; $talepIslenen = 0; $mailAtilan = 0; $ornekler = New-Object System.Collections.Generic.List[object]
+$rakipIslenen = 0; $rakipYeni = 0
+
+# --- 0) RAKIP NOBETI (21.08) ------------------------------------------------
+#  Kullanicinin ekledigi rakip unvanlarinin TR portfoyu her gun cekilir; onceki
+#  kosuda gorulen basvuru numaralariyla karsilastirilir. YENI numara = rakip yeni
+#  marka almis demektir -> uyari + mail. Ilk kosuda uyari URETILMEZ (o kosu
+#  "temel" alinir), yoksa mevcut butun portfoyu "yeni" diye bildirirdik.
+if($Rakip){
+  $rakipler = @()
+  try{ $rakipler = SbGet "marka_rakip?select=id,user_id,unvan,son_nolar,son_sayi&aktif=is.true" }catch{ Write-Host ("marka_rakip okunamadi (tablo yok olabilir): {0}" -f $_.Exception.Message) }
+  # uyari maili icin kullanicinin adresini firmalar tablosundan al (ayri abone listesi acmiyoruz)
+  $mailEsle = @{}
+  try{ foreach($f in (SbGet "firmalar?select=user_id,email,kanal")){ if("$($f.email)" -and -not $mailEsle.ContainsKey("$($f.user_id)")){ $mailEsle["$($f.user_id)"] = [pscustomobject]@{ email="$($f.email)"; kanal="$($f.kanal)" } } } }catch{}
+  foreach($r in $rakipler){
+    $unv = "$($r.unvan)".Trim(); if($unv.Length -lt 3){ continue }
+    try{ $p = PortfoyKur $unv }catch{ Write-Host ("  ! rakip {0}: {1}" -f $unv, $_.Exception.Message); continue }
+    $rakipIslenen++
+    $simdikiNolar = @(@($p.markalar) | ForEach-Object { "$($_.no)" } | Where-Object { $_ })
+    $eskiNolar = @($r.son_nolar)
+    $ilkKosu = (@($eskiNolar).Count -eq 0)
+    $yeniler = @()
+    if(-not $ilkKosu){
+      $eskiKume = @{}; foreach($n in $eskiNolar){ $eskiKume["$n"] = 1 }
+      $yeniler = @(@($p.markalar) | Where-Object { -not $eskiKume.ContainsKey("$($_.no)") })
+    }
+    if(-not $kuru){
+      SbGonder ("marka_rakip?id=eq." + [int]$r.id) "Patch" ([ordered]@{ son_nolar=$simdikiNolar; son_sayi=@($simdikiNolar).Count; guncelleme=(Get-Date).ToString('o') }) @{ Prefer='return=minimal' } | Out-Null
+    }
+    if(@($yeniler).Count -gt 0){
+      $rakipYeni += @($yeniler).Count
+      foreach($y in (@($yeniler) | Select-Object -First 20)){
+        if(-not $kuru){
+          SbGonder "marka_uyari" "Post" ([ordered]@{ user_id="$($r.user_id)"; marka=$unv; basvuru_no=("rakip|" + $y.no); benzer_ad=("" + $y.ad + " (sınıf " + $y.sinif + ", başvuru " + $y.tarih + ")"); risk=$null; sinif_cakisiyor=$false; basvuru_tarih=$y.tarih; durum=$y.durum; tip='rakip-yeni'; ofis='TR' }) @{ Prefer='return=minimal' } | Out-Null
+        }
+      }
+      $alici = $mailEsle["$($r.user_id)"]
+      if($alici -and "$($alici.kanal)" -eq 'mail' -and "$($alici.email)" -match '^[^@\s]+@[^@\s]+\.[^@\s]+$'){
+        $satir = (@($yeniler) | Select-Object -First 20 | ForEach-Object { "<li><b>" + $_.ad + "</b> (" + $_.no + ", sınıf " + $_.sinif + ") — başvuru " + $_.tarih + ($(if($_.yayim){ "; bültende yayım " + $_.yayim } else { "" })) + "</li>" }) -join ""
+        $duz   = (@($yeniler) | Select-Object -First 20 | ForEach-Object { "- " + $_.ad + " (" + $_.no + ", sinif " + $_.sinif + ") basvuru " + $_.tarih }) -join "`n"
+        $html  = "<p>Merhaba,</p><p>İzlediğin <b>" + $unv + "</b> adına sicilde <b>" + @($yeniler).Count + " yeni marka kaydı</b> göründü:</p><ul>" + $satir + "</ul><p>Yayımlanan bir başvuruya itiraz süresi <b>yayımdan 2 aydır</b> (SMK m.18). Benzerlik değerlendirmesi için: https://tetikte.com/marka-itiraz.html</p><p>Tetikte</p><p style='color:#888;font-size:12px'>Bu maili rakip nöbeti kaydın için alıyorsun; kapatmak için bu maile 'iptal' yanıtı ver.</p>"
+        if(MailAt $alici.email ("Rakip yeni marka aldı - " + $unv) $html ("Merhaba,`n`nIzledigin " + $unv + " adina sicilde " + @($yeniler).Count + " yeni marka kaydi gorundu:`n" + $duz + "`n`nYayimlanan basvuruya itiraz suresi yayimdan 2 aydir (SMK m.18).`nhttps://tetikte.com/marka-itiraz.html`n`nTetikte`nKapatmak icin bu maile 'iptal' yaniti ver.")){ $mailAtilan++ }
+      }
+    }
+    if($ornekler.Count -lt 8){ $ornekler.Add([ordered]@{ rakip=$unv; marka=$p.sayi; yeni=@($yeniler).Count; ilk_kosu=$ilkKosu }) }
+  }
+  Write-Host ("Rakip nobeti: {0} unvan tarandi - {1} yeni kayit - {2} mail" -f $rakipIslenen,$rakipYeni,$mailAtilan)
+}
 
 # --- 1) UYE FIRMALARI -------------------------------------------------------
 $firmalar = @()
-if(-not $YalnizTalep){ try{ $firmalar = SbGet "firmalar?select=id,user_id,email,firma_adi,kanal&firma_adi=not.is.null" }catch{ Write-Host ("firmalar okunamadi: {0}" -f $_.Exception.Message) }
+if(-not $YalnizTalep -and -not $Rakip){ try{ $firmalar = SbGet "firmalar?select=id,user_id,email,firma_adi,kanal&firma_adi=not.is.null" }catch{ Write-Host ("firmalar okunamadi: {0}" -f $_.Exception.Message) }
 foreach($f in $firmalar){
   $unv = "$($f.firma_adi)".Trim(); if($unv.Length -lt 3){ continue }
   try{ $p = PortfoyKur $unv }catch{ Write-Host ("  ! {0}: {1}" -f $unv, $_.Exception.Message); continue }
@@ -421,7 +469,7 @@ foreach($f in $firmalar){
 
 # --- 2) VITRIN TALEPLERI ----------------------------------------------------
 $talepler = @()
-if(-not $YalnizUye){
+if(-not $YalnizUye -and -not $Rakip){
 try{ $talepler = SbGet ("marka_talep?select=id,jeton,unvan,email,user_id&durum=eq.bekliyor&order=created_at.asc&limit=" + $TalepAdet) }catch{ Write-Host ("marka_talep okunamadi (tablo yok olabilir): {0}" -f $_.Exception.Message) }
 foreach($t in $talepler){
   $unv = "$($t.unvan)".Trim()
@@ -460,6 +508,8 @@ $mod = 'CANLI'; if($kuru){ $mod = 'KURU' }
 $ozet = [ordered]@{
   tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm')
   mod = $mod
+  rakip_unvan = $rakipIslenen
+  rakip_yeni_kayit = $rakipYeni
   uye_firma = $uyeIslenen
   uye_yenileme_uyarisi = $uyeUyari
   vitrin_talebi = $talepIslenen

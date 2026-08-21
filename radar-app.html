@@ -169,9 +169,9 @@ async function app(){
     const {data:uy}=await sb.from('marka_uyari').select('*').eq('goruldu',false).order('created_at',{ascending:false}).limit(15);
     if(uy&&uy.length){
       uyariBanner=`<div style="background:rgba(255,107,94,.10);border:1px solid rgba(255,107,94,.4);border-radius:14px;padding:16px 18px;margin:0 0 18px">
-        <div style="font-weight:800;color:#ff9d93;font-size:15px;margin-bottom:8px">🚨 ${uy.length} markana benzer yeni başvuru düştü</div>
-        ${uy.map(u=>(u.tip==='durum-degisikligi'||u.tip==='yenileme')
-          ?`<div style="font-size:13px;color:var(--muted);margin-bottom:5px">${u.tip==='yenileme'?'🔔':'📌'} <b style="color:var(--ink)">${esc(u.marka)}</b>: ${esc(u.benzer_ad)}</div>`
+        <div style="font-weight:800;color:#ff9d93;font-size:15px;margin-bottom:8px">🚨 ${uy.length} marka uyarısı</div>
+        ${uy.map(u=>(['durum-degisikligi','yenileme','portfoy-yenileme','rakip-yeni'].indexOf(u.tip)>=0)
+          ?`<div style="font-size:13px;color:var(--muted);margin-bottom:5px">${u.tip==='rakip-yeni'?'🎯':(u.tip==='durum-degisikligi'?'📌':'🔔')} <b style="color:var(--ink)">${esc(u.marka)}</b>${u.tip==='rakip-yeni'?' → yeni marka: ':': '}${esc(u.benzer_ad)}</div>`
           :`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(u.marka)}</b> ← <b style="color:var(--ink)">${esc(u.benzer_ad)}</b> <span class="mini">(başvuru ${esc(u.basvuru_no)}, %${u.risk} risk${u.sinif_cakisiyor?', sınıf çakışıyor':''}${u.tip==='benzer-intl'?', 🌍 '+esc(u.ofis||'yurt dışı'):''})</span></div>`).join('')}
         <div style="margin-top:8px;font-size:12.5px"><a href="marka-izleme.html" style="color:var(--accent2);font-weight:700">Detay + itiraz süresi →</a> <span class="mini">İtiraz süresi yayımdan 2 aydır (SMK m.18).</span></div>
       </div>`;
@@ -180,7 +180,7 @@ async function app(){
   // 20.08 UNVANDAN PORTFOY: robot (marka-portfoy-hasat.ps1) firma unvanini
   // TURKPATENT/TMview'de arayip butun markalari marka_portfoy'a yazar. Kullanici
   // tek marka girmemis olsa bile burada gorur - "senin 7 markan var" bandi.
-  let portfoyBanner='', TARANMAMIS=[];
+  let portfoyBanner='', TARANMAMIS=[], RAKIPLER=[];
   try{
     const {data:pf}=await sb.from('marka_portfoy').select('unvan,marka_sayisi,tescilli,yenileme_yakin,ek_surede,dusmus,guncelleme');
     // 21.08: Henuz taranmamis firma unvanlari - kullanici ertesi gunu beklemesin,
@@ -196,6 +196,18 @@ async function app(){
         <div style="margin-top:8px;font-size:12.5px"><a href="marka-portfoy.html" style="color:var(--accent2);font-weight:700">Tarih takvimini aç →</a> <span class="mini">Koruma başvurudan 10 yıl, yenileme son 6 ayda (SMK m.23).</span></div>
       </div>`;
     }
+    // 21.08 RAKIP NOBETI: rakibin unvanini ekle, yeni marka aldigi gun haber ver.
+    try{
+      const {data:rk}=await sb.from('marka_rakip').select('id,unvan,son_sayi,guncelleme,aktif').order('olusturma');
+      RAKIPLER=rk||[];
+    }catch(e){ RAKIPLER=[]; }
+    portfoyBanner += `<div class="kutu" style="margin:0 0 18px">
+      <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:6px">🎯 Rakip nöbeti${RAKIPLER.length?` (${RAKIPLER.length})`:''}</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:9px">Rakibinin unvanını yaz; <b style="color:var(--ink)">sicilde yeni marka aldığı gün</b> haber verelim. Yayımlanan başvuruya itiraz süresi yayımdan 2 aydır (SMK m.18) — kaçırılan süre geri gelmiyor.</div>
+      ${RAKIPLER.map(r=>`<div style="font-size:13px;color:var(--muted);margin-bottom:5px" data-rid="${r.id}"><b style="color:var(--ink)">${esc(r.unvan)}</b> <span class="mini">${r.guncelleme?`son bakış ${new Date(r.guncelleme).toLocaleDateString('tr-TR')} · ${r.son_sayi||0} kayıt`:'ilk tarama sırada'}</span> <a href="#" class="rakipSil" data-rid="${r.id}" style="color:var(--dim);font-size:12px">· kaldır</a></div>`).join('')}
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><input class="gir" id="rakipUnvan" placeholder="ör. RAKİP SANAYİ VE TİCARET A.Ş." style="flex:1;min-width:220px"><button class="btn sm" id="rakipEkle">Nöbete al</button></div>
+      <div id="rakipOut" class="mini" style="margin-top:8px"></div>
+    </div>`;
     if(TARANMAMIS.length){
       portfoyBanner += `<div class="kutu" style="margin:0 0 18px">
         <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:6px">®️ ${TARANMAMIS.length} firmanın markaları henüz taranmadı</div>
@@ -259,6 +271,26 @@ async function app(){
     <div id="pano"></div>`;
   document.querySelectorAll('.firmakart').forEach(k=>k.onclick=()=>{SECILI=k.dataset.id;app();});
   $('#yeniFirma').onclick=()=>firmaForm();
+  // Rakip nobeti: ekle / kaldir
+  const rEkle=$('#rakipEkle');
+  if(rEkle) rEkle.onclick=async()=>{
+    const unvan=($('#rakipUnvan').value||'').trim(), out=$('#rakipOut');
+    if(unvan.length<3){ out.innerHTML='<span style="color:var(--red)">Rakibin unvanını yaz (en az 3 karakter).</span>'; return; }
+    rEkle.disabled=true; out.textContent='Ekleniyor…';
+    const {data:{user}}=await sb.auth.getUser();
+    const {error}=await sb.from('marka_rakip').insert({ user_id:user.id, unvan });
+    rEkle.disabled=false;
+    if(error){ out.innerHTML='<span style="color:var(--red)">'+esc(error.message)+'</span>'; return; }
+    // ilk taramayi hemen kuyruga at ki kullanici bugun de gorsun (nobet yarindan itibaren fark bildirir)
+    try{ await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:null}); }catch(e){}
+    app();
+  };
+  document.querySelectorAll('.rakipSil').forEach(a=>a.onclick=async e=>{
+    e.preventDefault();
+    if(!confirm('Bu rakip nöbetten çıkarılsın mı?')) return;
+    await sb.from('marka_rakip').delete().eq('id', a.dataset.rid);
+    app();
+  });
   // Sicil taramasini kuyruga at (TMview CORS'a kapali, sorguyu robot yapar).
   document.querySelectorAll('.mtara').forEach(b=>b.onclick=async()=>{
     const out=$('#mtaraOut'); b.disabled=true; out.textContent='Sıraya alınıyor…';
