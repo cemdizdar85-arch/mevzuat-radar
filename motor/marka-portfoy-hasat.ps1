@@ -407,7 +407,11 @@ if($Rakip){
     try{ $p = PortfoyKur $unv }catch{ Write-Host ("  ! rakip {0}: {1}" -f $unv, $_.Exception.Message); continue }
     $rakipIslenen++
     $simdikiNolar = @(@($p.markalar) | ForEach-Object { "$($_.no)" } | Where-Object { $_ })
-    $eskiNolar = @($r.son_nolar)
+    # TUZAK (21.08 canli olcumde yakalandi): PowerShell'de @($null).Count = 1'dir.
+    # son_nolar NULL gelen kayitta "ilk kosu" korumasi calismadi ve rakibin
+    # MEVCUT butun portfoyu "yeni marka" diye uyariya donustu (Arcelik'te 1.120).
+    # Bos/null elemanlar ayiklanarak sayilir.
+    $eskiNolar = @(@($r.son_nolar) | Where-Object { "$_".Trim() })
     $ilkKosu = (@($eskiNolar).Count -eq 0)
     $yeniler = @()
     if(-not $ilkKosu){
