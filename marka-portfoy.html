@@ -74,7 +74,7 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
   </div>
 
   <div id="ozet"></div>
-  <h2>Markalarım</h2>
+  <h2>📋 Elle eklediklerin</h2>
   <div id="pano"></div>
 
   <div class="uyari"><b>Bilgilendirme amaçlıdır.</b> Tarihler başvuru + 10 yıl üzerinden hesaplanır (SMK m.23); kısmi yenileme, devir gibi haller değişebilir. Kesin durum ve tarih için <b>TÜRKPATENT sicili / marka vekili</b> esastır. <b>Otomatik durum takibi</b> (tescil/ret/devir değişince kendiliğinden uyarı) abonelikte: robot markanı TÜRKPATENT'te izler.</div>
@@ -280,16 +280,18 @@ async function yokla(jeton){
   if(!data || data.durum==='yok'){ durumYaz('Bu bağlantıya ait tarama bulunamadı.'); clearInterval(ZAMANLAYICI); return; }
   if(data.durum==='hazir'){ clearInterval(ZAMANLAYICI); durumYaz('✅ <b style="color:var(--ink)">'+kac(data.unvan)+'</b> için sicil taraması hazır.'); sonucCiz(data.sonuc, jeton); return; }
   if(data.durum==='hata'){ clearInterval(ZAMANLAYICI); durumYaz('<span style="color:var(--red)">Tarama yapılamadı: '+kac(data.hata||'bilinmeyen hata')+'</span>'); return; }
-  const dk=Math.floor(DENEME*10/60);
-  durumYaz('⏳ Sırada… TÜRKPATENT kayıtları taranıyor'+(dk?(' ('+dk+' dk)'):'')+'. Sayfayı açık bırakabilirsin; e-posta yazdıysan sonucu yollayacağız.'+(DENEME>30?' <b>Tarama beklenenden uzun sürüyor — bağlantını kaydet, birazdan tekrar aç.</b>':''));
-  if(DENEME>60) clearInterval(ZAMANLAYICI);
+  const dk=Math.floor(DENEME*20/60);
+  // Ölçüm (21.08): kuyruğu işleyen robot cron'u yoğunlukta 30-50 dk gecikiyor;
+  // "birkaç dakika" demek yanlış söz olur. E-posta yolu bu yüzden asıl yol.
+  durumYaz('⏳ Sırada… TÜRKPATENT kayıtları taranıyor'+(dk?(' — '+dk+' dk oldu'):'')+'. Tarama <b>genelde yarım saat içinde</b> biter; sayfayı açık bırakabilir ya da e-posta yazıp kapatabilirsin, sonucu yollarız.'+(DENEME>60?' <b>Uzadı — aşağıdaki bağlantını kaydet, birazdan tekrar aç.</b>':''));
+  if(DENEME>150) clearInterval(ZAMANLAYICI);   // ~50 dk yoklar, sonra birakir
 }
 
 function izle(jeton){
   localStorage.setItem('mrSonJeton',jeton);
   DENEME=0; if(ZAMANLAYICI) clearInterval(ZAMANLAYICI);
   yokla(jeton);
-  ZAMANLAYICI=setInterval(()=>yokla(jeton),10000);
+  ZAMANLAYICI=setInterval(()=>yokla(jeton),20000);
 }
 
 $('#t_btn').onclick=async()=>{

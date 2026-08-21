@@ -265,7 +265,9 @@ async function app(){
     const {error}=await sb.rpc('marka_talep_ac',{p_unvan:b.dataset.unvan,p_email:null});
     if(error){ out.innerHTML=`<span style="color:var(--red)">Olmadı: ${esc(error.message)}</span>`; b.disabled=false; return; }
     b.textContent=b.dataset.unvan+' → sırada ⏳';
-    out.innerHTML='Tarama sıraya girdi. Robot en geç <b style="color:var(--ink)">5 dakika</b> içinde bakıyor; sonuç bu sayfada belirir (sayfa kendini yenileyecek).';
+    // Ölçüm (21.08): GitHub Actions cron'u */5 yazılsa da yoğunlukta 30-50 dk
+    // gecikmeyle koşuyor. "5 dakika" demek yanlış söz olurdu.
+    out.innerHTML='Tarama sıraya girdi. Kuyruğu işleyen robot <b style="color:var(--ink)">genelde yarım saat içinde</b> bakıyor; sonuç bu sayfada kendiliğinden belirir. Sayfayı kapatabilirsin, kayıt duruyor.';
     setTimeout(()=>app(), 90000);
   });
   // ---- destek takibi: form + kaydet + kapat ----
