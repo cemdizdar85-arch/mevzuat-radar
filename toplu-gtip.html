@@ -329,7 +329,7 @@ function ciz(kalemler){
     kilitliYuk += s.tutar*s.yukLo/100; kilitliTutarli++;
   });
   document.getElementById('sonuc').innerHTML=`<div class="form">
-    <h2 style="margin:0 0 4px;font-size:20px">📊 ${satirlar.length} kalem hesaplandı</h2>
+    <h2 style="margin:0 0 4px;font-size:20px">${satirlar.length} kalem hesaplandı</h2>
     <div style="font-size:13px;color:var(--muted);margin:0 0 12px">${tutarli?`Tutar girilen ${tutarli} kalemde toplam <b style="color:var(--ink)">${fmtS(toplamTutar)}</b> için geri gelmeyen yük <b style="color:var(--red)">≈ ${fmtS(toplamYuk)}</b> (girdiğin para biriminde; KDV hariç, KDV indirilir/iade alınır).`:''} ${olculemeyen?`<b style="color:var(--amber)">${olculemeyen} kalem ölçülemedi.</b>`:''}</div>
     <div style="overflow-x:auto"><table>
       <thead><tr><th>GTİP</th><th>Menşe</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th><th class="n">KDV</th><th class="n">Geri gelmeyen yük</th><th class="n">Yük tutarı</th><th>Açıklama</th></tr></thead>

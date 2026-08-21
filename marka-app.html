@@ -92,7 +92,7 @@ async function markaApp(){
   const {data:{user}}=await sb.auth.getUser();
   const {data:markalar}=await sb.from('marka_takvim').select('*').order('koruma_bitisi');
   let h=`<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="evrak-app.html">Evrak</a> · Marka İzleme · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
-  <h1>®️ Marka İzleme</h1>
+  <h1>Marka İzleme</h1>
   <div class="kart"><div class="kbas">＋ MARKA EKLE</div>
     <div class="satirlar"><div><label>Marka adı</label><input class="gir" id="ad" placeholder="ör. DIZDAR"></div><div><label>Tescil/başvuru no</label><input class="gir" id="no" placeholder="ör. 2016/12345"></div></div>
     <div class="satirlar"><div><label>Nice sınıf(lar)ı</label><input class="gir" id="sinif" placeholder="ör. 25, 35"></div><div><label>Başvuru tarihi</label><input class="gir" id="tarih" type="date"></div></div>

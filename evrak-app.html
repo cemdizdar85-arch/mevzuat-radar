@@ -126,7 +126,7 @@ async function muhasebeciApp(){
   const bekleyen=(istekler||[]).reduce((a,i)=>a+(i.sorular||[]).filter(s=>s.durum==='bek').length,0);
   const cevapli=(istekler||[]).reduce((a,i)=>a+(i.sorular||[]).filter(s=>s.durum==='ok').length,0);
   let h=`<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Evrak Radarı · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
-  <h1>👨‍💼 Evrak Radarı</h1>
+  <h1>Evrak Radarı</h1>
   <div class="stat"><div><div class="n">${(istekler||[]).length}</div><div class="l">İstek</div></div><div><div class="n" style="color:var(--green)">${cevapli}</div><div class="l">Cevaplanan</div></div><div><div class="n" style="color:var(--amber)">${bekleyen}</div><div class="l">Bekleyen</div></div></div>`;
   // FİŞ FABRİKASI KAT-2: beyanname/tahakkuk dağıtımı
   h+=`<div class="kart"><div class="kbas">📤 BEYANNAME / TAHAKKUK DAĞITIMI</div>

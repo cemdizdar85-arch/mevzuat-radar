@@ -116,14 +116,52 @@ function eslesirSet(set,t){ for(const h of set){ if(h===t || (h.length>=4 && t.l
 // alan-jenerik kelimeler (ithalat/kdv/marka...) ALANI söyler, KONUYU seçemez → yarım ağırlık
 const DOMAINK=['ithalat','ihracat','gumruk','gümrük','kdv','marka','ihale','sgk','ceza','vergi','beyan'];
 function isDomain(t){ return DOMAINK.some(d=>t.startsWith(d)||d.startsWith(t)); }
+// ——— ARAMA MOTORU v2 · 21.08 kalite turu sonrası ————————————————
+// Eski motor 26 etiketli soruda 18 doğru veriyordu ve HİÇ "bilmiyorum"
+// demiyordu. Ölçülen üç kusur:
+//  1) "Ba-Bs" gibi kısaltmalar 3 harf eşiğine takılıp ELENİYORDU. Soru
+//     sakatlanınca geriye "verilir" kalıyor, o da "İşe giriş bildirimi ne
+//     zaman VERİLİR" kaydına yapışıyordu — üstelik KB'de 2 tane Ba-Bs
+//     kaydı dururken.
+//  2) "girebilir/verilir/başlar" gibi jenerik fiiller konuyu seçiyormuş
+//     gibi puan topluyordu: "Staja giriş sınavına kimler GİREBİLİR"
+//     sorusuna "İhaleye ortak GİREBİLİR miyim" cevabı geliyordu.
+//  3) Eşik (skor>=2) o kadar düşüktü ki 6 kapsam dışı sorunun 6'sına da
+//     cevap uydurdu — dürüstlük kutusu hiç çalışmadı.
+// Yeni kural üç ayaklı: nadir kelime çok / herkeste geçen kelime az puan
+// (IDF), sorunun ne kadarının tutduğu (kapsam), ve "en az iki kelime
+// tutmalı" (tek kelimeyle cevap verilmez — "Pasaport harcı" sorusunun
+// tapu harcına yapışmasını bu kesti).
+// Ölçüm: 24/26, gereksiz "bilmiyorum" 0. Tezgâh: motor-tezgah.js
+const normK=s=>String(s||'').toLocaleLowerCase('tr-TR').replace(/\./g,'').replace(/[-–—/]/g,'').replace(/[^\wğüşıöç\s]/gi,' ').replace(/\s+/g,' ').trim();
+const STOP2=new Set([...STOP,...'verilir verilmesi girebilir girer girilir baslar başlar başlıyor basliyor yapilir yapılır alinir alınır uygulanir uygulanır odenir ödenir tabidir tabi gerekir gerekiyor duzenlenir düzenlenir hesaplanir hesaplanır tutulur olabilir mudur mıdır midir itibaren itibariyle hangisi kimler kimlerin nereden nereye zaman zamana halen hala hâlâ hangileri sonra once önce arasinda arasında uzerinden üzerinden gore göre ve veya ya da ki de az'.split(' ')]);
+function tokenler2(q){
+  const out=new Set();
+  normK(q).split(' ').filter(t=>t.length>=2&&!STOP2.has(t)).forEach(t=>out.add(t));
+  norm(q).split(' ').filter(t=>t.length>=2&&!STOP2.has(t)).forEach(t=>out.add(t));
+  return [...out];
+}
+let _idf=null;
+function idfHazir(){
+  if(_idf) return _idf;
+  const N=KB.kayitlar.length, df=new Map();
+  KB.kayitlar.forEach(k=>{ new Set(normK((k.konu||'')+' '+(k.anahtar||'')).split(' ').filter(x=>x.length>=2)).forEach(t=>df.set(t,(df.get(t)||0)+1)); });
+  const max=Math.log(N)||1;
+  _idf={ agir:t=>Math.min(1,(df.get(t)?Math.log(N/df.get(t)):Math.log(N))/max)*2 };
+  return _idf;
+}
 function ara(q){
-  const tok=distinctiveTokens(q);
-  if(!tok.length) return [];
+  const tok=tokenler2(q);
+  if(!tok.length || !KB.kayitlar.length) return [];
+  const {agir}=idfHazir();
+  const maxS=tok.reduce((a,t)=>a+agir(t),0)||1;
   return KB.kayitlar.map(k=>{
-    const konuTok=new Set(norm(k.konu||'').split(' ').filter(x=>x.length>=3));
-    const anahTok=new Set(norm(k.anahtar||'').split(' ').filter(x=>x.length>=3));
-    let s=0; tok.forEach(t=>{ if(eslesirSet(konuTok,t)) s+=(isDomain(t)?1:2); else if(eslesirSet(anahTok,t)) s+=1; });
-    return {k,s};
+    const konuTok=new Set(normK(k.konu||'').split(' ').filter(x=>x.length>=2));
+    const anahTok=new Set(normK(k.anahtar||'').split(' ').filter(x=>x.length>=2));
+    let s=0,vuran=0;
+    tok.forEach(t=>{ if(eslesirSet(konuTok,t)){s+=agir(t);vuran++;} else if(eslesirSet(anahTok,t)){s+=agir(t)/2;vuran++;} });
+    const yeterVuran = tok.length<2 ? vuran>=1 : vuran>=2;
+    return {k,s,kabul: s>=1.6 && (s/maxS)>=0.40 && yeterVuran};
   }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
 }
 
@@ -139,6 +177,14 @@ function rgEsles(q){
 
 // —— BEYİN (Edge Function): deploy edilince otomatik devreye girer; yoksa yerel motor çalışır ——
 const EDGE='https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/net-cevap';
+// Beyin sağlık sayacı: iki ard arda hatadan sonra bu oturumda beyin atlanır.
+const BEYIN_KAPALI='mr_beyin_kapali', BEYIN_HATA='mr_beyin_hata';
+function beyinKotu(){
+  const n=(parseInt(sessionStorage.getItem(BEYIN_HATA)||'0',10))+1;
+  sessionStorage.setItem(BEYIN_HATA, String(n));
+  if(n>=2) sessionStorage.setItem(BEYIN_KAPALI,'1');
+}
+function beyinIyi(){ sessionStorage.removeItem(BEYIN_HATA); sessionStorage.removeItem(BEYIN_KAPALI); }
 // —— GÜVEN İMZASI: her cevabın altına kaynak rozeti + güncellik damgası (ChatGPT'de olmayan fark) ——
 function bugunTR(){const d=new Date(),p=n=>String(n).padStart(2,'0');return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear();}
 function guvenFooter(kaynakHtml){
@@ -159,7 +205,12 @@ async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('so
     $('#cevapAlan').innerHTML=`<div class="paywall"><h3>Ücretsiz ${LIMIT} soru hakkın doldu</h3><p>Sınırsız net cevap + firmana özel radar uyarıları için üye ol. Erken erişim ücretsiz.</p><a class="btn" href="radar-app.html" style="text-decoration:none">Üye ol, devam et →</a></div>`;
     return;
   }
-  // 1) beyni dene
+  // 1) beyni dene — 21.08: beyin (Edge Function) ARKA ARKAYA iki kez hata
+  // dönerse bu oturumda bir daha denenmez. Sebep ölçüldü: beyin şu an
+  // {"kapsamda":false,"hata":"ai"} dönüyor (net-cevap.ts, Anthropic çağrısı
+  // ok değil) ve her soruda 0,8–5,4 sn boşuna bekleniyordu. Beyin geri
+  // gelince sekme yenilendiğinde otomatik devreye girer (sessionStorage).
+  if(sessionStorage.getItem(BEYIN_KAPALI)==='1'){ localSor(q); return; }
   try{
     const ctl=new AbortController(); const tm=setTimeout(()=>ctl.abort(),9000);
     $('#cevapAlan').innerHTML='<div class="cevap" style="border-left-color:var(--dim)"><p>Kaynaklar taranıyor…</p></div>';
@@ -168,6 +219,7 @@ async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('so
     if(r.ok){
       const j=await r.json();
       if(j.kapsamda && j.cevap){
+        beyinIyi();
         localStorage.setItem(LSK, kullanilan()+1); hakYaz();
         const kay=(j.kaynaklar||[]).map(k=>k.url?`<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.ad)}</a>`:esc(k.ad)).join(' · ');
         // GÜVEN KATMANI: özetin dayandığı HAM kaynak metni — kullanıcı aslını kendi gözüyle görür
@@ -175,9 +227,10 @@ async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('so
         $('#cevapAlan').innerHTML=`<div class="cevap"><div class="konu">NET CEVAP</div><h3>Cevabın</h3><p>${esc(j.cevap)}</p>${alintiHtml}${guvenFooter(kay)}</div>`;
         return;
       }
-      if(j.kapsamda===false && !j.hata){ kapsamDisi(q); return; }
-    }
-  }catch(e){ /* beyin kapalı/ulaşılamaz → yerel motor */ }
+      if(j.kapsamda===false && !j.hata){ beyinIyi(); kapsamDisi(q); return; }
+      if(j.hata) beyinKotu();          // beyin ayakta ama cevap üretemiyor
+    } else beyinKotu();
+  }catch(e){ beyinKotu(); /* beyin kapalı/ulaşılamaz → yerel motor */ }
   localSor(q);
 }
 function kapsamDisi(q){
@@ -198,14 +251,17 @@ function localSor(q){
   }
   const sonuc=ara(q);
   const en=sonuc[0];
-  if(en && en.s>=2){
+  if(en && en.kabul){
     const k=en.k;
     localStorage.setItem(LSK, kullanilan()+1); hakYaz();
     let html=`<div class="cevap"><div class="konu">${esc(k.konu)}</div><h3>Net cevap</h3><p>${esc(k.cevap)}</p>${guvenFooter(esc(k.kaynak))}`;
     if(k.arac) html+=`<div class="araclink"><a href="${esc(k.arac)}">İlgili aracı aç / detaylandır →</a></div>`;
     html+=`</div>`;
-    // ikinci ilgili
-    if(sonuc[1] && sonuc[1].s>=2) html+=`<div class="cevap" style="border-left-color:var(--dim)"><div class="konu" style="color:var(--dim)">İLGİLİ OLABİLİR</div><h3>${esc(sonuc[1].k.konu)}</h3><p>${esc(sonuc[1].k.cevap)}</p><div class="kaynak">Kaynak: <b>${esc(sonuc[1].k.kaynak)}</b></div></div>`;
+    // ikinci ilgili — 21.08: mutlak esik (>=2) yerine BIRINCIYE ORAN. Ölçümde
+    // "serbest meslek makbuzunda stopaj oranı" sorusunda doğru kayıt ikinci
+    // sıradaydı ve birincinin %88'i kadar puan almıştı; mutlak eşik onu
+    // gösterip göstermemeyi tesadüfe bırakıyordu. Başa yakınsa gösterilir.
+    if(sonuc[1] && sonuc[1].s >= sonuc[0].s*0.6) html+=`<div class="cevap" style="border-left-color:var(--dim)"><div class="konu" style="color:var(--dim)">İLGİLİ OLABİLİR</div><h3>${esc(sonuc[1].k.konu)}</h3><p>${esc(sonuc[1].k.cevap)}</p><div class="kaynak">Kaynak: <b>${esc(sonuc[1].k.kaynak)}</b></div></div>`;
     $('#cevapAlan').innerHTML=html;
   } else {
     // kürasyonlu cevap yok — güncel düzenleme CEVABIN KENDİSİ olabilir mi?

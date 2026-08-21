@@ -349,7 +349,7 @@
                      {
                          "id":  "pismanlik",
                          "konu":  "Beyanı unuttum/eksik verdim, cezadan nasıl kurtulurum",
-                         "anahtar":  "pişmanlık vuk 371 kendiliğinden beyan ceza yok eksik",
+                         "anahtar":  "pişmanlık ıslah vuk 371 kendiliğinden beyan ziyaı ziyai kesilmez pişmanlık zammı ceza yok eksik",
                          "cevap":  "İdare tespit etmeden, kendiliğinden pişmanlıkla bildirir ve öngörülen sürede öderken pişmanlık zammını da yatırırsan vergi ziyaı cezası kesilmez (VUK m.371). En değerli kaçış yollarından.",
                          "kaynak":  "VUK m.371 (pişmanlık ve ıslah)",
                          "arac":  "ceza-asistani.html"
@@ -772,10 +772,10 @@
                      },
                      {
                          "id":  "sgk-5-puan",
-                         "konu":  "5 puanlık SGK prim indirimi",
-                         "anahtar":  "sgk 5 puan indirim teşvik malullük yaşlılık ölüm hazine desteği düzenli ödeme",
-                         "cevap":  "Primlerini yasal süresinde ödeyen ve borcu olmayan özel sektör işverenine, malullük-yaşlılık-ölüm sigortası işveren priminden 5 puanlık kısmı Hazinece karşılanır. Prim borcu veya kayıt dışı işçi tespiti bu desteği durdurur.",
-                         "kaynak":  "5510 sayılı Kanun m.81/ı",
+                         "konu":  "SGK prim indirimi 5 puan mı, 2 puan mı",
+                         "anahtar":  "sgk 5 puan 2 puan iki puan beş puan indirim teşvik malullük yaşlılık ölüm hazine desteği düzenli ödeme imalat 7566 7538",
+                         "cevap":  "Meşhur '5 puan' artık genel kural değil. 5510 m.81/ı'daki Hazine desteği İKİ PUANA indi. Beş puan yalnızca İMALAT sektöründe faaliyet gösteren işverenler için uygulanır (5510 geç. m.108) ve 31.12.2026 tarihine kadar geçerlidir; Cumhurbaşkanı süreyi 31.12.2027'ye uzatmaya yetkilidir. Şartlar değişmedi: primler yasal süresinde ödenmiş olmalı, SGK'ya borç bulunmamalı, kayıt dışı çalışan tespit edilmemiş olmalı. Ayrıca beş puan, m.81/i (yurt dışına götürülen sigortalılar) ve m.81/j (4-b, Bağ-Kur) bentlerinde yaşamaya devam eder. Sektörünü söylemeden 'benim indirimim kaç puan' sorusunun tek bir cevabı yoktur.",
+                         "kaynak":  "5510 s.K. m.81/ı (7566 s.K., RG 4.12.2025) + 5510 geç. m.108 (7538 s.K., 9.1.2025)",
                          "arac":  "index.html#app"
                      },
                      {
@@ -790,7 +790,7 @@
                          "id":  "isveren-maliyeti",
                          "konu":  "İşçinin işverene toplam maliyeti",
                          "anahtar":  "işveren maliyeti işçilik maliyet brüt net sgk işveren primi işsizlik hesap",
-                         "cevap":  "Bir işçinin işverene maliyeti = brüt ücret + SGK işveren primi + işsizlik sigortası işveren payı. Net sözleşmede ise önce brüte tamamlanır, üstüne bu işveren yükleri eklenir. Prim oranları ve varsa 5 puan/teşvik indirimleri maliyeti değiştirir — güncel oran ve tutarları eşik/hesap aracından teyit et.",
+                         "cevap":  "Bir işçinin işverene maliyeti = brüt ücret + SGK işveren primi + işsizlik sigortası işveren payı. Net sözleşmede ise önce brüte tamamlanır, üstüne bu işveren yükleri eklenir. Prim oranları ve varsa teşvik indirimleri (5510 m.81/ı: 2 puan, imalatta geç. m.108 ile 5 puan) maliyeti değiştirir — güncel oran ve tutarları eşik/hesap aracından teyit et.",
                          "kaynak":  "5510 + 4447 (işsizlik) + GVK",
                          "arac":  "index.html#app"
                      },
@@ -805,7 +805,7 @@
                      {
                          "id":  "sm-stopaj",
                          "konu":  "Serbest meslek ödemesinde stopaj",
-                         "anahtar":  "serbest meslek stopaj avukat müşavir doktor telif ödeme kesinti gvk 94",
+                         "anahtar":  "serbest meslek stopaj makbuz makbuzunda smm avukat müşavir doktor telif kesinti gvk 94",
                          "cevap":  "Serbest meslek erbabına (avukat, mali müşavir, doktor, mühendis vb.) yapılan ödemelerde gelir vergisi stopajı kesilir; telif hakkı/patent gibi ödemelerde farklı (genelde daha düşük) oran uygulanır. Güncel oranları teyit et. KDV ayrıca hesaplanır.",
                          "kaynak":  "GVK m.94/2",
                          "arac":  "hizmet.html"
@@ -1821,7 +1821,7 @@
                      {
                          "id":  "vergi-ziyai",
                          "konu":  "Vergi ziyaı cezası nedir, kaç kat",
-                         "anahtar":  "vergi ziyaı ceza bir kat üç kat eksik tahakkuk kaçakçılık sahte belge indirim pişmanlık vuk 341 344",
+                         "anahtar":  "vergi ziyaı ceza bir kat üç kat eksik tahakkuk kaçakçılık sahte belge indirim vuk 341 344",
                          "cevap":  "Vergi ziyaı, mükellefin yükümlülüğünü zamanında veya tam yerine getirmemesi yüzünden verginin eksik tahakkuk etmesidir. Bu durumda ziyaa uğratılan verginin BİR KATI tutarında vergi ziyaı cezası kesilir (VUK m.341, 344); fiil kaçakçılık (sahte belge gibi) niteliğindeyse ceza ÜÇ KAT uygulanır. Pişmanlık, uzlaşma veya cezada indirim yollarıyla azaltılabilir.",
                          "kaynak":  "213 sayılı VUK m.341, m.344",
                          "arac":  "ceza-asistani.html"
@@ -2342,10 +2342,10 @@
                      },
                      {
                          "id":  "sgk-5puan",
-                         "konu":  "SGK 5 puanlık işveren indirimi",
-                         "anahtar":  "sgk 5 puan indirim işveren prim teşvik malullük yaşlılık ölüm 5510 81",
-                         "cevap":  "Şartları sağlayan işverenler, malullük-yaşlılık-ölüm sigortası işveren priminden 5 puanlık indirimden yararlanır (5510 s.K. m.81). Şart: primlerin düzenli ödenmesi, SGK\u0027ya borcun olmaması ve kayıt dışı çalışan bulunmaması. Ayrıca bölgesel/sektörel ilave teşvikler vardır. Güncel oran ve şartlar için SGK\u0027ya bak.",
-                         "kaynak":  "5510 s. SGK Kanunu m.81"
+                         "konu":  "SGK işveren prim indirimi kaç puan",
+                         "anahtar":  "sgk 5 puan 2 puan iki puan beş puan indirim işveren prim teşvik malullük yaşlılık ölüm 5510 81 imalat geçici 108",
+                         "cevap":  "Şartları sağlayan işverenler, malullük-yaşlılık-ölüm sigortası işveren priminden İKİ PUANLIK indirimden yararlanır (5510 s.K. m.81/ı). İmalat sektöründe faaliyet gösteren işverenlerde bu oran BEŞ PUAN olarak uygulanır (5510 geç. m.108; 31.12.2026 tarihine kadar). Şart: primlerin düzenli ödenmesi, SGK\u0027ya borcun olmaması ve kayıt dışı çalışan bulunmaması. Ayrıca bölgesel/sektörel ilave teşvikler vardır. Güncel oran ve şartlar için SGK\u0027ya bak.",
+                         "kaynak":  "5510 s.K. m.81/ı + geç. m.108 (7538 s.K.)"
                      },
                      {
                          "id":  "analik-izni",

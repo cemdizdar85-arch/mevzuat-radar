@@ -361,11 +361,38 @@ Write-Host "-> veri/kasa-sayim.json"
 # --- VITRIN SAYILARI (30.07): ana sayfa kanit bandinin CANLI kaynagi.
 # Kural (Cem, otomatik guncelleme VARSAYILAN): vitrindeki hicbir rakam elle
 # yasamaz. soru_uretilen buradaki sayimdan, hakem_denetimi hakem-hasadi.json
-# karar sayisindan; gtip/arac onceki dosyadan tasinir (onlar ayri hatlarda
-# elle teyitli). Dosya kucuk tutulur - ana sayfa her aciliste ceker.
+# karar sayisindan; gtip onceki dosyadan tasinir (ayri hatta elle teyitli).
+#
+# 21.08 DUZELTME: "arac" da onceki dosyadan tasiniyordu, yani ELLE yasiyordu
+# ve kurala aykiriydi. Vitrin 25 diyordu, izgarada 26 calisan arac vardi -
+# bir eksik. Artik SAYILIYOR. Sayim kurali:
+#   izgaradaki kart + hedef dosya VAR + icinde hem girdi (input/select/
+#   textarea) hem de buton/onclick olan sayfa = ARAC.
+#   Girdisi olmayan rehber/icerik sayfasi ARAC SAYILMAZ (KDV Iade Rehberi,
+#   Bilgi Havuzu, Donem Plani, Son Gun, Esik Rehberi, Kurulus Evrak Cantasi,
+#   Genc Musavir, Bugun RG, Gunun Kartlari - 21.08'de 9 tane).
+#   Olcum 21.08: 35 kart -> 26 arac + 9 rehber.
+# Sayim sifir donerse (index.html okunamadi/izgara degisti) eski deger
+# korunur - vitrin bos rakam gostermez.
 try {
   $vYol = Join-Path $kok "veri/vitrin-sayilar.json"
   $eski = if(Test-Path $vYol){ Get-Content $vYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
+
+  $aracSayim = 0
+  try {
+    $ixIcerik = Get-Content (Join-Path $kok "index.html") -Raw -Encoding UTF8
+    $aracHedef = [regex]::Matches($ixIcerik, '<a class="arac[^"]*" href="([^"#]+)') |
+                 ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique
+    foreach($hedef in $aracHedef){
+      $sayfaYol = Join-Path $kok $hedef
+      if(-not (Test-Path $sayfaYol)){ continue }
+      $sayfa = Get-Content $sayfaYol -Raw -Encoding UTF8
+      $girdiSay = [regex]::Matches($sayfa, '<(input|select|textarea)\b').Count
+      $butonSay = [regex]::Matches($sayfa, '<button\b|onclick=').Count
+      if($girdiSay -ge 1 -and $butonSay -ge 1){ $aracSayim++ }
+    }
+    Write-Host ("-> arac sayimi: {0} kart tarandi, {1} calisan arac" -f $aracHedef.Count, $aracSayim)
+  } catch { Write-Host ("arac sayilamadi, eski deger korunuyor: {0}" -f $_.Exception.Message); $aracSayim = 0 }
   $hakemSay = if($eski){ $eski.hakem_denetimi } else { 0 }
   $hhYol = Join-Path $kok "veri/hakem-hasadi.json"
   if(Test-Path $hhYol){
@@ -379,10 +406,10 @@ try {
     soru_uretilen = $toplam
     hakem_denetimi = $hakemSay
     gtip_kayit = if($eski -and $eski.gtip_kayit){ $eski.gtip_kayit } else { 13400 }
-    arac = if($eski -and $eski.arac){ $eski.arac } else { 25 }
+    arac = if($aracSayim -gt 0){ $aracSayim } elseif($eski -and $eski.arac){ $eski.arac } else { 26 }
   }
   [IO.File]::WriteAllText($vYol, ($vitrin | ConvertTo-Json -Depth 3), (New-Object Text.UTF8Encoding($false)))
-  Write-Host ("-> veri/vitrin-sayilar.json  (soru {0}, hakem {1})" -f $toplam, $hakemSay)
+  Write-Host ("-> veri/vitrin-sayilar.json  (soru {0}, hakem {1}, arac {2})" -f $toplam, $hakemSay, $vitrin.arac)
 } catch { Write-Host ("vitrin sayilari yazilamadi: {0}" -f $_.Exception.Message) }
 
 if($toplam -ne $kayit.Count){

@@ -77,7 +77,7 @@ h1{letter-spacing:-1.2px}
   <div id="ekran"></div>
 
   <div class="kutu">
-    <h3>🧭 Bu araç neyi çözer?</h3>
+    <h3>Bu araç neyi çözer?</h3>
     <div class="h"><span style="color:var(--green);font-weight:800;flex-shrink:0">✓</span><div><b>Vergi çıkıyor mu, kaç?</b> Malda vergi gümrükte belli olur; hizmet ithalinde iş sana kalır. Bu araç 2 No.lu KDV ve stopajı senin yerine hesaplar.</div></div>
     <div class="h"><span style="color:var(--green);font-weight:800;flex-shrink:0">✓</span><div><b>Anlaşma oranı düşürüyor mu?</b> ÇVÖA'lı ülke + mukimlik belgesi varsa stopaj %20'den sıfıra kadar inebilir, kontrol eder.</div></div>
     <div class="h"><span style="color:var(--green);font-weight:800;flex-shrink:0">✓</span><div><b>Tutarı gir, TL çıksın.</b> Yurt dışına net ödeme + kesilecek stopaj + 2 No.lu KDV; döviz kuru mantığıyla kalem kalem.</div></div>
@@ -85,7 +85,7 @@ h1{letter-spacing:-1.2px}
   </div>
 
   <div class="kutu">
-    <h3>⚠️ Sahada en çok yapılan 3 hata</h3>
+    <h3>Sahada en çok yapılan 3 hata</h3>
     <div class="h"><span class="no">1</span><div><b>Microsoft/Adobe/SaaS aboneliğinde stopaj kesmek.</b> Hazır paket yazılımı sadece kullanıyorsan bu <b>ticari kazançtır, stopaj YOKTUR</b>, sadece çoğaltma/telif hakkı alırsan gayrimaddi hak olur. (GİB özelgesi)</div></div>
     <div class="h"><span class="no">2</span><div><b>Mukimlik belgesi almadan</b> anlaşma indirimini uygulamak. Belge yoksa tam oran (%20) kesmen gerekir; sonradan iade çok zor.</div></div>
     <div class="h"><span class="no">3</span><div><b>2 No.lu KDV'yi hiç beyan etmemek.</b> Net yük sıfır olsa da beyan zorunlu; verilmezse ceza + gecikme faizi.</div></div>
@@ -259,7 +259,7 @@ function sonuc(){ ilerle(5);
   window.HESAP = {rate:sRate, faiz:faizMi};
   const rateBilinmez = (sRate===null);
   const hesapKutu = `<div class="kutu" style="margin-top:14px">
-      <h3>🧮 Tutarı gir, vergiyi TL hesaplayalım</h3>
+      <h3>Tutarı gir, vergiyi TL hesaplayalım</h3>
       <div style="display:flex;gap:8px;margin-bottom:10px">
         <input id="tutar" type="number" inputmode="decimal" placeholder="Fatura tutarı" oninput="hesapla()" style="flex:1;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit">
         <select id="pb" onchange="hesapla()" style="padding:12px 10px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit;cursor:pointer">

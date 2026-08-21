@@ -40,7 +40,7 @@
   <p class="alt">Gerçek sınavın tek gerçek provası, gerçek rakiplerle olandır.</p>
 
   <div class="kart">
-    <h2 id="tarihBaslik">📅 Sıradaki oturum</h2>
+    <h2 id="tarihBaslik">Sıradaki oturum</h2>
     <div class="buyukTarih" id="tarihMetin">Yükleniyor…</div>
     <p id="tarihAlt"></p>
     <div id="takvim"></div>
@@ -58,7 +58,7 @@
        iner; saat gelince yalniz ANAHTAR yayinlanir (once Supabase public kova
        = anlik, olmazsa repo dosyasi = CDN yedegi). 5k eszamanliya dayanir. -->
   <div class="kart" id="salonKart" style="display:none">
-    <h2>🚪 Sınav salonu</h2>
+    <h2>Sınav salonu</h2>
     <p id="salonDurum">Oturum hazırlanıyor…</p>
     <button type="button" id="salonBtn" style="display:none">Salona gir</button>
   </div>
@@ -84,7 +84,7 @@
 
   <div id="sonucEkran" style="display:none">
     <div class="kart">
-      <h2>📊 Sonucun</h2>
+      <h2>Sonucun</h2>
       <div id="soOzet" style="font-size:16px;font-weight:700;margin:6px 0"></div>
       <p id="soGonderim" class="kucuk"></p>
       <p class="kucuk">Türkiye geneli yüzdelik, oturum kapandıktan sonra bu sayfada açıklanır, sonucun bu cihazda saklı, geri gel ve karşılaştır.</p>
@@ -96,7 +96,7 @@
   </div>
 
   <div class="kart">
-    <h2>🔔 Listeye yazıl</h2>
+    <h2>Listeye yazıl</h2>
     <p>Tarih açıklandığında ve oturum açıldığında e-postana haber gelir. Başka hiçbir şey için kullanılmaz.</p>
     <form id="kayitForm">
       <input type="email" id="kayitEposta" placeholder="e-posta adresin" required>
@@ -144,7 +144,7 @@ fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).
     fetch('veri/canli/sonuc-' + kod + '.json?' + Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(tr){
       if(!tr) return;
       var kart = document.createElement('div'); kart.className = 'kart';
-      var ic = '<h2>🏁 ' + (ge.sinav||'') + ' ' + ge.tarih + ' sonucun</h2><p><b>' + yerel.dogru + ' doğru</b> · ' + yerel.yanlis + ' yanlış · ' + yerel.bos + ' boş</p>';
+      var ic = '<h2>' + (ge.sinav||'') + ' ' + ge.tarih + ' sonucun</h2><p><b>' + yerel.dogru + ' doğru</b> · ' + yerel.yanlis + ' yanlış · ' + yerel.bos + ' boş</p>';
       if(tr.tur === 'yuzdelik' && tr.esikler){
         var oned = 0;
         tr.esikler.forEach(function(e){ if(yerel.dogru >= e.dogru){ oned = e.yuzde; } });

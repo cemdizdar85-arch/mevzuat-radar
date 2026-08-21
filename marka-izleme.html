@@ -59,7 +59,7 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
 
   <div id="sonuc"></div>
 
-  <h2>🖼️ Logo benzerliği (görsel)</h2>
+  <h2>Logo benzerliği (görsel)</h2>
   <div class="kutu">
     <p class="mini" style="margin:0 0 10px">Logonu yükle; son başvurular arasında <b style="color:var(--ink)">görsel olarak</b> benzeyen logoları algısal hash (dHash) ile bulalım. Kelime değil, şekil/görsel benzerliği. Robot logoları işledikçe kapsam artar.</p>
     <input type="file" id="logoDosya" accept="image/*" class="gir">
@@ -67,13 +67,13 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
     <div id="logoSonuc" style="margin-top:12px"></div>
   </div>
 
-  <h2>🌍 Uluslararası (EUIPO / WIPO)</h2>
+  <h2>Uluslararası (EUIPO / WIPO)</h2>
   <div class="kutu">
     <p class="mini" style="margin:0 0 10px">Markanı yurt dışı sicillerde (AB · WIPO · Almanya · Fransa · İngiltere · ABD) TMview'de ara. <b style="color:var(--ink)">Otomatik uluslararası izleme</b> abonelikte: robot markanı bu ofislerde de tarar, benzer başvuru çıkınca uyarır.</p>
     <button class="btn ghost" onclick="uluslararasiAc()">🌍 TMview'de uluslararası ara ↗</button>
   </div>
 
-  <h2>📡 Son marka başvuruları akışı</h2>
+  <h2>Son marka başvuruları akışı</h2>
   <div class="kutu" style="padding:14px 16px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <input class="gir" id="ara" placeholder="Marka adı, başvuru no ya da sahip ara…" style="flex:1;min-width:200px" oninput="ciz()">
@@ -83,7 +83,7 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
   </div>
   <div id="liste"></div>
 
-  <h2>⚖️ Benzer başvuru çıkınca ne yapabilirsin? (SMK 6769)</h2>
+  <h2>Benzer başvuru çıkınca ne yapabilirsin? (SMK 6769)</h2>
   <div class="kutu">
     <div class="h"><span class="no">m.18</span><div><b>İtiraz süresi 2 ay:</b> başvuru Resmî Marka Bülteni'nde <b>yayımlandıktan sonra 2 ay</b> içinde itiraz edebilirsin. Süre kaçarsa marka tescil edilir. (Yeni başvuru henüz "Başvuru" aşamasındaysa yayım beklenir; yayımlanınca saat başlar.)</div></div>
     <div class="h"><span class="no">m.6</span><div><b>Karıştırılma ihtimali:</b> işaret benzer + <b>aynı/benzer sınıf</b> = itiraz için güçlü zemin. Farklı sınıfsa (tanınmış marka değilse) itiraz genelde zayıftır — o yüzden sınıf çakışmasını ölçüyoruz.</div></div>
@@ -169,7 +169,7 @@ function tara(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('markaiz
   var bas;
   if(!skorlu.length){ bas='<div class="uyari" style="border-color:rgba(61,220,151,.32);background:rgba(61,220,151,.07)"><b>Temiz görünüyor.</b> Son '+(MI_META.pencereGun||'')+' günün TR başvuruları arasında "'+esc(kad)+'" markasına benzeyen bir başvuru bulamadık. Bu "hiç yok" demek değil, yalnız bu penceredeki başvurularda yok demektir. Sürekli takip için aşağıdan takibe al.</div>'; }
   else { bas='<div class="uyari" style="border-color:rgba(255,107,94,.36);background:rgba(255,107,94,.08)"><b>'+yuksek.length+' dikkat çekici başvuru</b> bulundu ("'+esc(kad)+'"). En riskliden başa sıralı; sınıfını girdiysen risk sınıf çakışmasına göre ayarlandı. Yüksek riskli varsa <b>vekilinle 2 aylık itiraz süresini</b> konuş.</div>'; }
-  out.innerHTML='<h2>🎯 "'+esc(kad)+'" için benzerlik taraması</h2>'+bas+skorlu.slice(0,25).map(function(o){ return kartHtml(o.x,o.r); }).join('')+(skorlu.length>25?'<div class="mini" style="margin-top:8px">En riskli 25 gösteriliyor ('+skorlu.length+' benzer kayıt).</div>':'');
+  out.innerHTML='<h2>"'+esc(kad)+'" için benzerlik taraması</h2>'+bas+skorlu.slice(0,25).map(function(o){ return kartHtml(o.x,o.r); }).join('')+(skorlu.length>25?'<div class="mini" style="margin-top:8px">En riskli 25 gösteriliyor ('+skorlu.length+' benzer kayıt).</div>':'');
   out.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
