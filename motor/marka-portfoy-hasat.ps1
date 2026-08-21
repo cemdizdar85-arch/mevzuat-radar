@@ -134,7 +134,11 @@ function Varyantlar($unvan){
       # BASLANGIC KURALI: "arcelik as" AL; "elcin arcelik" / "sennur arcelik" ALMA.
       # (Ilk surumde salt icerme vardi ve ayni soyadli KISILER portfoye giriyordu -
       #  yanlis firmanin markasini gostermek en pahali hata.)
-      if($nAd.StartsWith($nCek) -or ($nUnv.Length -ge 6 -and $nUnv.StartsWith($nAd) -and $nAd.Length -ge 6)){
+      # 21.08 DARALTMA: ters yon ("kullanicinin unvani, sicildeki adla BASLIYOR")
+      # fazla genisti - "DIZDAR DENETIM ANONIM SIRKETI" sorgusu sicildeki yabanci
+      # "DIZDAR" kaydiyla eslesip 82 marka getiriyordu (baskasinin portfoyu!).
+      # Artik sicildeki ad, cekirdegin TAMAMINI icermek zorunda.
+      if($nAd.StartsWith($nCek)){
         if(-not $sonuc.Contains($ad)){ $sonuc.Add($ad) }
       }
       elseif($nAd.Contains($nCek)){ if(-not $yedek.Contains($ad)){ $yedek.Add($ad) } }
@@ -192,11 +196,33 @@ function Hesapla($m){
   $d  = "$($m.durum)"
   $tescilliMi = ($d -match '(?i)regist')                       # Registered
   $bittiMi    = ($d -match '(?i)(ended|expir|withdraw|refus|invalid|surrender)')
-  $o = [ordered]@{ hal='bilinmiyor'; donem_sonu=''; kalan_gun=$null; ek_sure_sonu=''; not='' }
+  $o = [ordered]@{ hal='bilinmiyor'; donem_sonu=''; kalan_gun=$null; ek_sure_sonu=''; not=''; kullanim_son=''; kullanim_kalan=$null; kullanim_notu=''; m68_son='' }
   # NOT metinleri KULLANICIYA gider (sayfa + mail) -> duzgun Turkce yazilir;
   # betik BOM'lu UTF-8 oldugu icin hem PS 5.1 hem pwsh 7 dogru okur.
   if(-not $bt){ $o.not = 'Başvuru tarihi okunamadı.'; return $o }
-  if($bittiMi){ $o.hal='dusmus'; $o.not = 'Sicilde "' + $d + '" görünüyor — koruma sona ermiş. Aynı ibareyi tekrar tescil ettirebilirsin; ancak marka düştükten sonraki 2 yıl içinde başkası da alabilir (SMK m.6/8).'; return $o }
+  if($bittiMi){
+    $o.hal='dusmus'
+    # m.6/8 (ambardan birebir): "Tescilli markanin yenilenmeme sebebiyle koruma
+    # suresinin sona ermesinden itibaren IKI YIL icinde yapilan, bu markayla ayni
+    # veya benzer ... basvuru, onceki marka sahibinin itirazi uzerine BU IKI YILLIK
+    # SURE ICINDE MARKANIN KULLANILMIS OLMASI SARTIYLA reddedilir."
+    # Sona erme tarihini sicil vermiyor -> basvuru+10*n ile TAHMIN, "tahmin" denir.
+    $nS = 1; while($bt.AddYears(10*$nS) -lt $simdi){ $nS++ }
+    $sonaTahmin = $bt.AddYears(10*($nS-1))
+    if($nS -gt 1){
+      $o.donem_sonu = $sonaTahmin.ToString('dd.MM.yyyy')
+      $o.m68_son    = $sonaTahmin.AddYears(2).ToString('dd.MM.yyyy')
+      $kalan68 = [int]($sonaTahmin.AddYears(2) - $simdi).TotalDays
+      $o.not = 'Sicilde "' + $d + '" görünüyor — koruma sona ermiş (yenilenmediyse dönem ' + $o.donem_sonu + ' tarihinde dolmuş olmalı; kesin tarihi sicilden teyit et). '
+      if($kalan68 -gt 0){ $o.not += 'Aynı ibareyi geri almak istersen: bu marka için ' + $o.m68_son + ' tarihine kadar (2 yıl) eski sahibin, o sürede markayı kullanıyorsa yeni başvuruya itiraz edip reddettirebilir (m.6/8) — kalan ' + $kalan68 + ' gün.' }
+      # DIKKAT: PowerShell akilli tirnagi (U+2019) da string sinirlayici sayar -
+      # "m.6/8'in" yazimi betigi dusuruyordu; kesme isaretsiz kuruldu.
+      else { $o.not += 'm.6/8 kapsamındaki 2 yıllık koruma ' + $o.m68_son + ' tarihinde dolmuş; aynı ibare için başvuru yolu bu yönden açık (mutlak/nispi diğer engeller ayrıca değerlendirilir).' }
+    } else {
+      $o.not = 'Sicilde "' + $d + '" görünüyor — koruma sona ermiş. Aynı ibareyi tekrar tescil ettirebilirsin; ancak marka düştükten sonraki 2 yıl içinde başkası da alabilir (SMK m.6/8).'
+    }
+    return $o
+  }
   # sonraki 10 yillik donem sonu
   $n = 1; while($bt.AddYears(10*$n) -lt $simdi){ $n++ }
   $donemSonu = $bt.AddYears(10*$n)
@@ -209,6 +235,25 @@ function Hesapla($m){
     $o.not = 'Başvuru aşaması (sicil durumu: ' + $d + ').'
     if($m.yayim){ $ys = (DdmmToDate $m.yayim); if($ys){ $o.not += ' Bültende yayım ' + $m.yayim + '; üçüncü kişilerin itiraz süresi ' + $ys.AddMonths(2).ToString('dd.MM.yyyy') + ' tarihinde doluyor (m.18: yayımdan 2 ay).' } }
     return $o
+  }
+  # --- KULLAN YA DA KAYBET (m.9/1 + m.26/1-a) --------------------------------
+  # m.9/1 ambardan birebir: "Tescil tarihinden itibaren bes yil icinde hakli bir
+  # sebep olmadan tescil edildigi mal veya hizmetler bakimindan marka sahibi
+  # tarafindan Turkiye'de ciddi bicimde kullanilmayan ya da kullanimina bes yil
+  # kesintisiz ara verilen markanin iptaline karar verilir."
+  # m.26/1-a: bu hal Kurumdan iptal sebebi; m.26/2: ILGILI KISILER talep edebilir
+  # (yani rakip). m.26/4: bes yilin dolmasi ile talep arasinda ciddi kullanim
+  # varsa talep reddedilir; ancak talepten onceki 3 aylik kullanim sayilmaz.
+  $tesTarih = DdmmToDate $m.tescil
+  if($tescilliMi -and $tesTarih){
+    $besYil = $tesTarih.AddYears(5)
+    $o.kullanim_son = $besYil.ToString('dd.MM.yyyy')
+    $o.kullanim_kalan = [int]($besYil - $simdi).TotalDays
+    if($o.kullanim_kalan -gt 0){
+      $o.kullanim_notu = 'Kullanım ispatı eşiği ' + $o.kullanim_son + ' (' + $o.kullanim_kalan + ' gün). O tarihten sonra markayı ciddi biçimde kullanmıyorsan ilgili kişiler Kurumdan iptalini isteyebilir (m.9/1, m.26/1-a). Fatura, ambalaj, reklam gibi kullanım delillerini şimdiden biriktir.'
+    } else {
+      $o.kullanim_notu = 'Tescilin üzerinden 5 yıl geçti (' + $o.kullanim_son + '). Markayı tescilli olduğu mal/hizmetlerde ciddi biçimde kullanmıyorsan iptal talebine açıksın (m.9/1, m.26/1-a). İptal talebi gelirse kullanım delili istenir; talepten önceki 3 ay içinde yapılan kullanım sayılmaz (m.26/4).'
+    }
   }
   # tescilli
   if($n -gt 1 -and ([int]($simdi - $oncekiSonu).TotalDays) -le 180){
@@ -243,10 +288,46 @@ function PortfoyKur($unvan){
   $liste = New-Object System.Collections.Generic.List[object]
   foreach($m in $mrk){
     $h = Hesapla $m
-    $liste.Add([pscustomobject]@{ ad=$m.ad; no=$m.no; tarih=$m.tarih; sinif=$m.sinif; durum=$m.durum; sahip=$m.sahip; yayim=$m.yayim; hal=$h.hal; donem_sonu=$h.donem_sonu; kalan_gun=$h.kalan_gun; not=$h.not })
+    $liste.Add([pscustomobject]@{ ad=$m.ad; no=$m.no; tarih=$m.tarih; tescil=$m.tescil; sinif=$m.sinif; durum=$m.durum; sahip=$m.sahip; yayim=$m.yayim; hal=$h.hal; donem_sonu=$h.donem_sonu; kalan_gun=$h.kalan_gun; not=$h.not; kullanim_son=$h.kullanim_son; kullanim_kalan=$h.kullanim_kalan; kullanim_notu=$h.kullanim_notu; m68_son=$h.m68_son })
   }
   $sirali = @($liste | Sort-Object -Property @{Expression={ switch($_.hal){ 'ek-sure'{0} 'yenileme-penceresi'{1} 'surecte'{2} 'guvende'{3} 'dusmus'{4} default{5} } }}, @{Expression={ if($null -ne $_.kalan_gun){ $_.kalan_gun } else { 99999 } }})
+
+  # --- SINIF HARITASI (yalniz YASAYAN markalar: dusmus olan koruma saglamaz) ---
+  # Sinif = Nice sinifi. Mallar 1-34, hizmetler 35-45 (TURKPATENT Mal ve Hizmet
+  # Siniflandirma Listesi, Teblig m.3/1). 35. sinif hizmetleri arasinda
+  # "musterilerin mallari elverisli bicimde gorup satin alabilmeleri icin
+  # mallarin bir araya getirilmesi hizmetleri" var (Teblig m.3/5) - yani
+  # magazacilik/satis. Mal sinifinda korunup 35'te korunmayan firma, kendi
+  # urununu satan magazayi/e-ticareti marka olarak korumuyor demektir.
+  $sinifSay = @{}
+  foreach($m in $sirali){
+    if($m.hal -eq 'dusmus'){ continue }
+    foreach($s in ("$($m.sinif)" -split ',')){
+      $sn = "$s".Trim(); if(-not $sn){ continue }
+      if($sinifSay.ContainsKey($sn)){ $sinifSay[$sn] = $sinifSay[$sn] + 1 } else { $sinifSay[$sn] = 1 }
+    }
+  }
+  $sinifListe = New-Object System.Collections.Generic.List[object]
+  foreach($k in ($sinifSay.Keys | Sort-Object { [int]$_ })){ $sinifListe.Add([ordered]@{ no=[int]$k; adet=$sinifSay[$k] }) }
+  $malSinif  = @($sinifSay.Keys | Where-Object { [int]$_ -le 34 })
+  $otuzBes   = $sinifSay.ContainsKey('35')
+  $sinifAcik = ''
+  if(@($malSinif).Count -gt 0 -and -not $otuzBes){
+    $sinifAcik = 'Ürün sınıflarında (' + (($malSinif | Sort-Object { [int]$_ }) -join ', ') + ') korunuyorsun ama 35. sınıf açık. 35. sınıf, "müşterilerin malları görüp satın alabilmeleri için malların bir araya getirilmesi hizmetleri"ni (mağaza, e-ticaret, katalog satışı) kapsar. Kendi ürününü satıyorsan bu hizmet adı korumasız; başkası aynı ibareyi 35. sınıfta tescil ettirebilir.'
+  }
+
+  # --- KULLAN YA DA KAYBET (m.9/1) -------------------------------------------
+  # AYRIM SART: "5 yili dolmus" olmak basli basina alarm DEGIL (koklu firmada
+  # tescillerin nerdeyse hepsi dolmustur - 164/164 cikip gurultu oluyordu).
+  # Eylem gerektiren: esige 180 gunden az kalanlar. Dolmuslar bilgi notu.
+  $kullanimYakin  = @($sirali | Where-Object { $_.kullanim_kalan -ne $null -and [int]$_.kullanim_kalan -le 180 -and [int]$_.kullanim_kalan -ge 0 })
+  $kullanimDolmus = @($sirali | Where-Object { $_.kullanim_kalan -ne $null -and [int]$_.kullanim_kalan -lt 0 })
+
   return [pscustomobject]@{
+    siniflar      = $sinifListe.ToArray()   # List'i @() ile koymak hashtable'i dusuruyor (20.08 dersi)
+    sinif_acigi   = $sinifAcik
+    kullanim_yakin  = @($kullanimYakin).Count
+    kullanim_dolmus = @($kullanimDolmus).Count
     unvan       = $unvan
     varyantlar  = @($vars)
     markalar    = $sirali
@@ -268,7 +349,12 @@ if($Unvan){
   Write-Host ("UNVAN: {0}" -f $p.unvan)
   Write-Host ("Varyant ({0}): {1}" -f @($p.varyantlar).Count, (@($p.varyantlar) -join ' | '))
   Write-Host ("Sicildeki toplam: {0} - islenen: {1} - tescilli {2} - yenileme penceresi {3} - ek sure {4} - dusmus {5} - surecte {6}" -f $p.toplam,$p.sayi,$p.tescilli,$p.yenileme,$p.ek_surede,$p.dusmus,$p.surecte)
-  foreach($m in (@($p.markalar) | Select-Object -First 15)){ Write-Host ("  [{0}] {1} ({2}) sinif {3} - {4} - {5}" -f $m.hal,$m.ad,$m.no,$m.sinif,$m.durum,$m.donem_sonu) }
+  Write-Host ("Siniflar: {0}" -f ((@($p.siniflar) | ForEach-Object { "$($_.no)($($_.adet))" }) -join ' '))
+  if($p.sinif_acigi){ Write-Host ("SINIF ACIGI: {0}" -f $p.sinif_acigi) }
+  Write-Host ("Kullanim (5 yil): yaklasan {0} - dolmus {1}" -f $p.kullanim_yakin,$p.kullanim_dolmus)
+  foreach($m in (@($p.markalar) | Select-Object -First 10)){ Write-Host ("  [{0}] {1} ({2}) sinif {3} - {4} - {5}" -f $m.hal,$m.ad,$m.no,$m.sinif,$m.durum,$m.donem_sonu) }
+  foreach($m in (@($p.markalar) | Where-Object { $_.kullanim_kalan -ne $null -and [int]$_.kullanim_kalan -le 180 } | Select-Object -First 3)){ Write-Host ("  5YIL> {0} ({1}) esik {2} / kalan {3}" -f $m.ad,$m.no,$m.kullanim_son,$m.kullanim_kalan) }
+  foreach($m in (@($p.markalar) | Where-Object { $_.m68_son } | Select-Object -First 2)){ Write-Host ("  DUSMUS> {0} ({1}) sona ~{2} / m.6-8 sonu {3}" -f $m.ad,$m.no,$m.donem_sonu,$m.m68_son) }
   return
 }
 
@@ -342,7 +428,7 @@ foreach($t in $talepler){
   $sonucJson = $null; $hata = $null
   try{ $p = PortfoyKur $unv }catch{ $hata = $_.Exception.Message; $p = $null }
   if($p){
-    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; markalar=@($p.markalar | Select-Object -First 300) }
+    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; siniflar=@($p.siniflar); sinif_acigi=$p.sinif_acigi; kullanim_yakin=$p.kullanim_yakin; kullanim_dolmus=$p.kullanim_dolmus; markalar=@($p.markalar | Select-Object -First 300) }
   }
   $talepIslenen++
   # 21.08: Talep GIRIS YAPMIS bir uyeden geldiyse (RPC auth.uid() yaziyor) sonuc

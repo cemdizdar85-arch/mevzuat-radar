@@ -176,6 +176,10 @@ const ETIKET={ 'ek-sure':['EK SÜREDE','r'], 'yenileme-penceresi':['YENİLEME A�
 const DURUM_TR={ 'Registered':'tescilli', 'Filed':'başvuru aşamasında', 'Ended':'sona ermiş', 'Expired':'süresi dolmuş', 'Withdrawn':'geri çekilmiş', 'Refused':'reddedilmiş', 'Application published':'yayımlanmış', 'Application opposed':'itiraz edilmiş', 'Invalid':'hükümsüz', 'Surrendered':'vazgeçilmiş' };
 const durumTr=d=>DURUM_TR[d]||d;
 let ZAMANLAYICI=null, DENEME=0;
+// Nice sinif adlari (veri/nice-siniflar.json) - kaynak TURKPATENT Mal ve Hizmet
+// Siniflandirma Listesi; dosyada kaynak + serh yazili. Yuklenemezse ad gosterilmez.
+const NICE={};
+try{ const nj=await (await fetch('veri/nice-siniflar.json')).json(); (nj.siniflar||[]).forEach(x=>NICE[x.no]=x); }catch(e){}
 
 function durumYaz(m){ $('#t_durum').innerHTML=m; }
 
@@ -195,11 +199,56 @@ function sonucCiz(s, jeton){
     kutu(s.dusmus||0,'düşmüş','var(--dim)')+'</div>';
   if(toplam>s.sayi) h+='<div class="mini" style="margin-top:8px">Sicilde bu unvan(lar) adına <b style="color:var(--ink)">'+toplam+'</b> kayıt var; aşağıdaki sayımlar <b style="color:var(--ink)">en yeni '+s.sayi+'</b> kayıt üzerinden yapıldı.</div>';
   if(acil) h+='<div class="uyari" style="margin-top:12px"><b>'+acil+' markanın yenileme tarihi kapıda.</b> Yenileme talebi koruma bitişinden önceki 6 ay içinde verilir; kaçırılırsa 6 ay ek süre + ek ücret, o da kaçarsa marka hakkı sona erer (SMK m.23, m.28/1-a).</div>';
-  h+='<div style="margin-top:14px">'+s.markalar.map(m=>{
+  // --- 1) SINIF HARITASI (Nice) --------------------------------------------
+  // Sinif adlari veri/nice-siniflar.json'dan; kaynagi TURKPATENT Mal ve Hizmet
+  // Siniflandirma Listesi (Teblig eki). Uydurma ad yok, dosyada kaynak yazili.
+  const yasayan=s.markalar.filter(m=>m.hal!=='dusmus').length;
+  if(s.siniflar && s.siniflar.length){
+    const enCok=Math.max(...s.siniflar.map(x=>x.adet));
+    h+='<h2 style="margin-top:22px">🗂️ Hangi sınıflarda korunuyorsun</h2>'+
+      '<div class="kutu"><div style="display:flex;flex-wrap:wrap;gap:6px">'+
+      s.siniflar.map(x=>{
+        const ad=(NICE[x.no]||{}).kisa||'';
+        const vurgu=x.adet===enCok?'border-color:var(--accent2);color:var(--accent2)':'';
+        return '<span class="rz" style="padding:5px 10px;'+vurgu+'" title="'+kac(ad)+'">'+x.no+'. sınıf · '+x.adet+'</span>';
+      }).join('')+'</div>'+
+      '<div class="mini" style="margin-top:9px">Sınıf adları: TÜRKPATENT Mal ve Hizmet Sınıflandırma Listesi. Üstüne gelince başlığı görürsün. Yalnız <b>yaşayan</b> '+yasayan+' kayıt sayıldı; düşmüş marka koruma sağlamaz.</div></div>';
+    if(s.sinif_acigi) h+='<div class="uyari" style="margin-top:10px"><b>Sınıf açığı:</b> '+kac(s.sinif_acigi)+'</div>';
+  } else if(s.markalar.length){
+    h+='<div class="uyari" style="margin-top:14px"><b>Bu unvan adına yaşayan kayıt görünmüyor</b> — listedeki markaların hepsi sona ermiş. Marka <b>devredilmiş</b> de olabilir (devirde sicil sahibi değişir, eski unvandaki kayıt sona ermiş görünebilir). Sicilden teyit et.</div>';
+  }
+
+  // --- 2) KULLAN YA DA KAYBET (m.9/1, m.26/1-a) ----------------------------
+  const besYakin=s.markalar.filter(m=>m.kullanim_kalan!=null && m.kullanim_kalan>=0 && m.kullanim_kalan<=180);
+  const besDolmus=(s.kullanim_dolmus||0);
+  if(besYakin.length || besDolmus){
+    h+='<h2 style="margin-top:22px">⏳ Kullan ya da kaybet (5 yıl)</h2><div class="kutu">'+
+      '<p class="mini" style="margin:0 0 9px">Tescil tarihinden itibaren <b style="color:var(--ink)">5 yıl</b> içinde markayı tescilli olduğu mal/hizmetlerde Türkiye’de <b style="color:var(--ink)">ciddi biçimde kullanmazsan</b> ya da kullanıma 5 yıl ara verirsen, ilgili kişiler (çoğu zaman rakip) Kurumdan iptalini isteyebilir — SMK m.9/1 ve m.26/1-a. İptal talebi gelirse kullanım delili istenir; talepten önceki 3 ay içindeki kullanım sayılmaz (m.26/4).</p>';
+    if(besYakin.length){
+      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:6px"><b style="color:var(--amber)">'+besYakin.length+' markanın 5 yıllık eşiği 6 aydan yakın:</b></div>'+
+        besYakin.slice(0,25).map(m=>'<div style="font-size:13px;color:var(--muted);margin-bottom:4px"><b style="color:var(--ink)">'+kac(m.ad)+'</b> ('+kac(m.no)+') → eşik <b style="color:var(--ink)">'+kac(m.kullanim_son)+'</b>, '+m.kullanim_kalan+' gün</div>').join('');
+    }
+    if(besDolmus) h+='<div class="mini" style="margin-top:8px">'+besDolmus+' markanın 5 yılı çoktan dolmuş. Bu tek başına sorun değil — <b>kullanıyorsan</b> sıkıntı yok. Kullanmadıkların varsa fatura/ambalaj/reklam deliliniz olmadığı için iptal talebine açıklar; ya kullanıma sok ya da portföyden çıkarmayı konuş.</div>';
+    h+='</div>';
+  }
+
+  // --- 3) DUSMUS MARKALAR (m.6/8) ------------------------------------------
+  const dus=s.markalar.filter(m=>m.hal==='dusmus');
+  if(dus.length){
+    h+='<h2 style="margin-top:22px">🪦 Düşmüş markalar — geri alma penceresi</h2><div class="kutu">'+
+      '<p class="mini" style="margin:0 0 9px">Koruma sona erdiğinde ibare boşa çıkar. SMK <b>m.6/8</b>: yenilenmeme sebebiyle koruma bittikten sonraki <b style="color:var(--ink)">2 yıl</b> içinde yapılan aynı/benzer başvuru, eski sahibin itirazı üzerine <b>ancak o iki yıl içinde markayı kullanıyorsa</b> reddedilir. Yani kendi düşen markanı geri alırken bu pencere senin lehine, başkasının düşen markasını alırken aleyhine işler. Sona erme tarihini sicil vermiyor; aşağıdaki tarihler başvuru+10 yıl üzerinden <b>tahmindir</b>.</p>'+
+      dus.slice(0,30).map(m=>'<div style="font-size:13px;color:var(--muted);margin-bottom:4px"><b style="color:var(--ink)">'+kac(m.ad)+'</b> ('+kac(m.no)+(m.sinif?', sınıf '+kac(m.sinif):'')+')'+(m.donem_sonu?' → dönem ~'+kac(m.donem_sonu):'')+(m.m68_son?' · m.6/8 penceresi '+kac(m.m68_son):'')+'</div>').join('')+
+      (dus.length>30?'<div class="mini" style="margin-top:6px">… ve '+(dus.length-30)+' tane daha.</div>':'')+
+      '</div>';
+  }
+
+  h+='<h2 style="margin-top:22px">📄 Bütün kayıtlar</h2>';
+  h+='<div style="margin-top:6px">'+s.markalar.map(m=>{
       const e=ETIKET[m.hal]||ETIKET.bilinmiyor;
       return '<div class="kart '+e[1]+'"><div style="font-size:15px;font-weight:800">'+kac(m.ad)+' <span class="rz">'+e[0]+'</span></div>'+
         '<div class="mini" style="margin-top:2px">'+kac(m.no)+' · başvuru '+kac(m.tarih)+(m.sinif?' · sınıf '+kac(m.sinif):'')+' · sicilde '+kac(durumTr(m.durum))+'</div>'+
-        '<div style="margin-top:6px;font-size:13px;color:var(--muted);line-height:1.6">'+kac(m.not)+'</div></div>';
+        '<div style="margin-top:6px;font-size:13px;color:var(--muted);line-height:1.6">'+kac(m.not)+
+        (m.kullanim_notu?'<br><span style="color:var(--dim)">⏳ '+kac(m.kullanim_notu)+'</span>':'')+'</div></div>';
     }).join('')+'</div>';
   h+='<div class="mini" style="margin-top:6px">Eşleştirilen sicil unvanları: '+(v||'—')+'</div>';
   h+='<div class="kutu" style="margin-top:16px;background:linear-gradient(135deg,rgba(245,165,36,.08),transparent)">'+
