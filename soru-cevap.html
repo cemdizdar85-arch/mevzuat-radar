@@ -38,6 +38,14 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
 .acikKaynak .alinti{padding:10px 14px;border-top:1px dashed var(--line)}
 .acikKaynak .alintiAd{font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);margin-bottom:6px}
 .acikKaynak .alintiAd a{color:var(--accent2)}
+/* 21.08: ozetleyici olu oldugunda ham madde metni KAPALI <details> icinde
+   degil, dogrudan ACIK gosterilir - o durumda asil bilgi odur. */
+.alintiKutu{margin-top:12px;border:1px solid var(--line2);border-radius:10px;background:rgba(255,255,255,.02)}
+.alintiKutu .alinti{padding:11px 14px;border-top:1px dashed var(--line)}
+.alintiKutu .alinti:first-child{border-top:0}
+.alintiKutu .alintiAd{font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);margin-bottom:6px}
+.alintiKutu .alintiAd a{color:var(--accent2)}
+.alintiKutu p{margin:0;font-size:13.5px;line-height:1.6;color:var(--muted)}
 .acikKaynak .alinti p{font-size:12.5px;line-height:1.65;color:var(--dim);white-space:pre-wrap;margin:0}
 .rozet{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.2px;font-family:var(--mono);padding:4px 9px;border-radius:999px;border:1px solid var(--line2)}
 .rozet.dogru{color:var(--green);background:rgba(61,220,151,.09);border-color:rgba(61,220,151,.3)}
@@ -222,6 +230,15 @@ async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('so
         beyinIyi();
         localStorage.setItem(LSK, kullanilan()+1); hakYaz();
         const kay=(j.kaynaklar||[]).map(k=>k.url?`<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.ad)}</a>`:esc(k.ad)).join(' · ');
+        // 21.08: beyin kaynagi buldu ama OZETLEYEMEDI (LLM hatti olu). Ham
+        // madde metni geliyor. Bunu "Net Cevap" diye sunmak yalan olur -
+        // ayri baslikla, ozet olmadigi acikca yazilarak gosterilir ve
+        // alintilar KAPALI degil ACIK gelir (asil bilgi orada).
+        if(j.ozetlenmedi){
+          const acikAlinti=(j.alintilar||[]).map(a=>`<div class="alinti"><div class="alintiAd">${esc(a.ad)}${a.url?` · <a href="${esc(a.url)}" target="_blank" rel="noopener">kaynağa git →</a>`:''}</div><p>${esc(a.metin)}</p></div>`).join('');
+          $('#cevapAlan').innerHTML=`<div class="cevap" style="border-left-color:var(--amber)"><div class="konu" style="color:var(--amber)">KAYNAK BULUNDU · ÖZETLENMEDİ</div><h3>Sadeleştiremedim, maddeyi olduğu gibi veriyorum</h3><p>${esc(j.cevap)}</p><div class="alintiKutu">${acikAlinti}</div>${guvenFooter(kay)}</div>`;
+          return;
+        }
         // GÜVEN KATMANI: özetin dayandığı HAM kaynak metni — kullanıcı aslını kendi gözüyle görür
         const alintiHtml=(j.alintilar&&j.alintilar.length)?`<details class="acikKaynak"><summary>📜 Kaynağın tam metnini gör (${j.alintilar.length} parça)</summary>${j.alintilar.map(a=>`<div class="alinti"><div class="alintiAd">${esc(a.ad)}${a.url?` · <a href="${esc(a.url)}" target="_blank" rel="noopener">kaynağa git →</a>`:''}</div><p>${esc(a.metin)}</p></div>`).join('')}</details>`:'';
         $('#cevapAlan').innerHTML=`<div class="cevap"><div class="konu">NET CEVAP</div><h3>Cevabın</h3><p>${esc(j.cevap)}</p>${alintiHtml}${guvenFooter(kay)}</div>`;

@@ -4,8 +4,26 @@
 //  KURULUM (Cem): Supabase → Edge Functions → New function → adı: net-cevap →
 //  bu dosyayı yapıştır → Deploy. Sonra Settings→Edge Functions→Secrets:
 //  ANTHROPIC_API_KEY ekle. Function ayarında "Verify JWT" KAPAT.
+//  21.08 EK: yedek hat için ikinci secret → OPENROUTER_KEY (GitHub Actions'ta
+//  aynı adla zaten var; Supabase'e de eklenmeli — iki yer ayrı kasadır).
+//  TEŞHİS: curl "https://<proje>.supabase.co/functions/v1/net-cevap?tani=1"
+//  → hangi anahtar tanımlı (yalnız true/false) + hangi hat ne dönüyor.
 // ============================================================================
+// ---- 21.08.2026 ONARIM ----------------------------------------------------
+// Beyin 21.08'de OLU bulundu: her soruya {"kapsamda":false,"hata":"ai"} donuyordu.
+// Uc kusur olculdu ve uculu de burada kapatildi:
+//  1) HATA SESSIZDI. "ai" tek kelimesi 401 mi, 429 mi, kota mi ayirt etmiyordu;
+//     teshis icin fonksiyonu konusturmak gerekti (asagida ust-akis kodu +
+//     hata tipi donuyor; ANAHTAR ASLA DONMEZ).
+//  2) YEDEK HAT YOKTU. Depoda motor/api-hedef.ps1 zaten anthropic->aws->
+//     openrouter geri dususunu yapiyor; Edge Function tek hatta kalmisti.
+//     Artik Anthropic olurse OpenRouter'a duser (OpenAI bicimi, ayri govde).
+//  3) LLM OLUNCE HER SEY OLUYORDU. Oysa kaynaklar BULUNMUS oluyor. Artik
+//     ozetleyici olurse ham kaynak "ozetlenmedi" etiketiyle donuyor - sayfanin
+//     yerel motoru yalnizca 403 kayit gorurken ambar 13 binden fazla madde
+//     goruyor; olu beyin bile yerelden iyidir.
 const AK = (Deno.env.get("ANTHROPIC_API_KEY") ?? "").trim();
+const ORK = (Deno.env.get("OPENROUTER_KEY") ?? "").trim();
 const SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co";
 const SB_ANON = Deno.env.get("SB_PUBLISHABLE") ?? "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg"; // dokumanlar public-read; apikey ZORUNLU (yoksa 401)
 const SITE = "https://tetikte.com";
@@ -63,8 +81,78 @@ async function rlAsti(ip: string): Promise<boolean> {
   } catch { return false; }
 }
 
+// ---- OZETLEYICI: once Anthropic, olurse OpenRouter --------------------------
+// Donen: {metin} basarili | {hataKod, hataTip} basarisiz. ANAHTAR HIC DONMEZ.
+type OzetSonuc = { metin?: string; hataKod?: number; hataTip?: string; hat?: string };
+
+async function ustAkisHata(r: Response): Promise<string> {
+  // Ust akisin hata GOVDESINDEN yalnizca tip/mesaj alanini al. Govde anahtar
+  // icermez ama yine de 160 karakterle kirpilir ve dogrudan disari verilmez.
+  try {
+    const j = await r.json();
+    return String(j?.error?.type || j?.error?.code || j?.error?.message || "").slice(0, 160);
+  } catch { return ""; }
+}
+
+async function ozetle(istem: string): Promise<OzetSonuc> {
+  let anKod = -1;
+  let anTip = "ANTHROPIC_API_KEY yok";
+
+  // 1) Anthropic (dogrudan hat)
+  if (AK) {
+    try {
+      const r = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "x-api-key": AK, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+        body: JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 700, messages: [{ role: "user", content: istem }] }),
+      });
+      if (r.ok) {
+        const t = (await r.json()).content?.[0]?.text ?? "";
+        if (t) return { metin: t, hat: "anthropic" };
+        anKod = 200; anTip = "bos cevap";
+      } else {
+        anKod = r.status; anTip = await ustAkisHata(r);
+      }
+    } catch (e) { anKod = 0; anTip = String(e).slice(0, 80); }
+  }
+
+  // 2) OpenRouter (yedek hat) — OpenAI bicimi: /chat/completions, Bearer,
+  //    model adi nokta ile, cevap choices[0].message.content
+  if (!ORK) return { hataKod: anKod, hataTip: `an:${anKod}/${anTip} | OPENROUTER_KEY yok` };
+  try {
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${ORK}`, "X-Title": "Tetikte", "content-type": "application/json" },
+      body: JSON.stringify({ model: "anthropic/claude-haiku-4.5", max_tokens: 700, messages: [{ role: "user", content: istem }] }),
+    });
+    if (r.ok) {
+      const t = (await r.json()).choices?.[0]?.message?.content ?? "";
+      if (t) return { metin: t, hat: "openrouter" };
+      return { hataKod: 200, hataTip: `or:bos cevap | an:${anKod}/${anTip}` };
+    }
+    return { hataKod: r.status, hataTip: `or:${await ustAkisHata(r)} | an:${anKod}/${anTip}` };
+  } catch (e) {
+    return { hataKod: 0, hataTip: `or:${String(e).slice(0, 60)} | an:${anKod}/${anTip}` };
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+
+  // ---- TANI UCU: /net-cevap?tani=1 -----------------------------------------
+  // Hangi anahtarin TANIMLI oldugunu (yalniz true/false) ve her hattin ne
+  // dondugunu soyler. Anahtarin kendisi, on eki, uzunlugu HIC donmez.
+  // 21.08'de bu uc olmadigi icin "hata:ai" tek kelimesiyle korlestik.
+  const url = new URL(req.url);
+  if (url.searchParams.get("tani") === "1") {
+    const t = await ozetle('SADECE su JSON\'u dondur: {"kapsamda":true,"cevap":"tani","kaynak_no":[1]}');
+    return json({
+      tani: true,
+      anahtar_tanimli: { ANTHROPIC_API_KEY: !!AK, OPENROUTER_KEY: !!ORK },
+      ozetleyici: t.metin ? { calisiyor: true, hat: t.hat } : { calisiyor: false, kod: t.hataKod, tip: t.hataTip },
+    });
+  }
+
   const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
   if (await rlAsti(ip)) return json({ kapsamda: false, neden: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   try {
@@ -143,14 +231,26 @@ SORU: ${q}
 KAYNAK PARÇALARI:
 ${kaynakMetni}`;
 
-    const ai = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "x-api-key": AK, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 700, messages: [{ role: "user", content: istem }] }),
-    });
-    if (!ai.ok) return json({ kapsamda: false, hata: "ai" }, 200);
-    const at = (await ai.json()).content?.[0]?.text ?? "";
-    const m = at.match(/\{[\s\S]*\}/);
+    const oz = await ozetle(istem);
+
+    // ---- 3b) OZETLEYICI OLU: kaynagi HAM ver, sessizce dusme ---------------
+    // Eski davranis burada "hata:ai" donup pes ediyordu; sayfa da yerel motora
+    // dusuyordu. Ama yerel motor yalnizca 403 kayitlik bilgi tabanini gorur,
+    // OYSA KAYNAKLAR ZATEN BULUNMUS durumda (ambarda 13 binden fazla madde).
+    // Ozet yazamiyorsak yazmayiz - ama kaynagin KENDISINI vermek, hic cevap
+    // vermemekten iyidir. "ozetlenmedi" bayragiyla donuyor ki sayfa bunu
+    // ozet gibi sunmasin; kullaniciya maddenin ham metni gosterilir.
+    if (!oz.metin) {
+      const ham = parcalar.slice(0, 3).map((p) => ({ ad: p.ad, metin: String(p.metin).slice(0, 1200), url: p.url }));
+      return json({
+        kapsamda: true, ozetlenmedi: true,
+        cevap: "Bu soruyla ilgili kaynağı buldum ama şu an sadeleştiremiyorum. Maddenin kendi metni aşağıda — hüküm bu metindedir.",
+        kaynaklar: ham.map((p) => ({ ad: p.ad, url: p.url })), alintilar: ham,
+        hata: "ozetleyici", hata_kod: oz.hataKod, hata_tip: oz.hataTip,
+      });
+    }
+
+    const m = oz.metin.match(/\{[\s\S]*\}/);
     if (!m) return json({ kapsamda: false });
     const out = JSON.parse(m[0]);
     if (!out.kapsamda || !out.cevap) return json({ kapsamda: false });
@@ -160,7 +260,7 @@ ${kaynakMetni}`;
     // GUVEN KATMANI: ozetin dayandigi HAM kaynak metni de dondur — kullanici asli gorur,
     // ozetleme hatasi olsa bile kaynak ortada (denetlenebilirlik).
     const alintilar = secilen.slice(0, 3).map((p: any) => ({ ad: p.ad, metin: String(p.metin).slice(0, 1200), url: p.url }));
-    return json({ kapsamda: true, cevap: String(out.cevap).slice(0, 1500), kaynaklar, alintilar });
+    return json({ kapsamda: true, cevap: String(out.cevap).slice(0, 1500), kaynaklar, alintilar, hat: oz.hat });
   } catch (e) {
     return json({ kapsamda: false, hata: String(e).slice(0, 120) }, 200);
   }
