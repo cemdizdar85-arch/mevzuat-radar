@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260821021104
+Start time: 20260821153434
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a97de382-5cac-4b06-933f-6a0c52934f2c.ps1'
-Process ID: 2183
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1f0579c3-3718-49c8-8fe2-05e388ff6799.ps1'
+Process ID: 2360
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -96,8 +96,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       506x  Maliyet Muhasebesi|ortak maliyet dagitimi
       484x  Finansal Tablolar ve Analizi|dikey yuzde analizi
       342x  Finansal Tablolar ve Analizi|finansal oran analizi
-      317x  Maliyet Muhasebesi|satilan mamul maliyeti
       317x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+      317x  Maliyet Muhasebesi|satilan mamul maliyeti
       217x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
       216x  Finansal Tablolar ve Analizi|trend analizi
       211x  Maliyet Muhasebesi|gug yukleme katsayisi
@@ -111,7 +111,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
       113x  Finansal Muhasebe|gider yansitma kaydi
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
-       95x  Finansal Muhasebe|hisse senedi satisi
+       95x  Finansal Muhasebe|borc senedi reeskontu
 
   --- tekil konu sayisi: 2264
 
@@ -172,10 +172,11 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      standart+THP orani: %43.7
 
 -> veri/kasa-sayim.json
--> veri/vitrin-sayilar.json  (soru 30569, hakem 16284)
+-> arac sayimi: 35 kart tarandi, 26 calisan arac
+-> veri/vitrin-sayilar.json  (soru 30569, hakem 16284, arac 26)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260821021222
+End time: 20260821153725
 **********************
