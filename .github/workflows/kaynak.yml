@@ -83,6 +83,21 @@ jobs:
         shell: pwsh
         run: ./motor/cagri-hasat.ps1
 
+      # 21.08 Cem: "sihirbaz cevabini saklayip 'profiline uyan yeni cagri acildi'
+      # maili". Cagri hasadindan HEMEN SONRA kosar (taze veri sart). Abonenin
+      # profili hangi kurumlari aciyorsa o kurumlarin YENI cagrilarini mailler.
+      # Yeni abonenin ilk taramasi SESSIZDIR (gecmisle gelen kutusu doldurulmaz).
+      # Anahtar yoksa kendini atlar; RESEND yoksa uyarilar yine tabloya yazilir.
+      - name: Destek takip nobeti (abone profili + yeni cagri maili)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/destek-takip-nobeti.ps1
+
       # 19.08 Cem: Ticaret Bakanligi fuar destek listeleri (xlsx) - destekler.html
       # "Fuar Destegi" arama grubu. Liste haftada bir bile degisse gunluk cekim
       # ucuz (4 xlsx ~0.5MB); bos sonucta betik 1 ile cikar, dosyaya dokunmaz.

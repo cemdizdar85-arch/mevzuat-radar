@@ -52,6 +52,41 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .dkic{display:none;margin:6px 0 4px}
 .dkic.on{display:block;animation:dGel .25s ease}
 @keyframes dGel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* ——— 21.08 tek liste: künye, filtre katları, fırsat satırı ——— */
+.kunye{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 22px;letter-spacing:.2px}
+.fsatir{display:flex;gap:8px;align-items:baseline;margin:0 0 8px;flex-wrap:wrap}
+.fet{font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--dim);min-width:58px;flex-shrink:0;padding-top:9px}
+.fsatir .filtre{margin:0;flex:1}
+.fbtn .sy{opacity:.6;font-weight:600}
+.fbtn.on .sy{opacity:.75}
+#sayac{font-size:13px;color:var(--dim);margin:16px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
+#sayac b{color:var(--accent2);font-size:17px}
+.frow{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--line2);border-radius:0 13px 13px 0;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s ease}
+.frow:hover{border-left-color:var(--accent)}
+.frow.on{border-left-color:var(--accent2);background:#101825}
+.frow.d-acik{border-left-color:rgba(255,107,94,.55)}
+.frow.d-yakinda{border-left-color:rgba(61,220,151,.45)}
+.frow .ust{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:5px}
+.frow h3{margin:0 0 10px;font-size:15.5px;letter-spacing:-.2px;font-weight:700}
+.dcip{font-size:10px;font-weight:800;letter-spacing:.7px;padding:2px 8px;border-radius:5px}
+.dcip.acik{background:rgba(255,107,94,.14);color:var(--red)}
+.dcip.surekli{background:rgba(61,220,151,.13);color:var(--green)}
+.dcip.yakinda{background:rgba(245,165,36,.14);color:var(--accent2)}
+.dcip.kapandi{background:rgba(255,255,255,.06);color:var(--dim)}
+.frow.d-kapandi{opacity:.62}
+.kur{font-size:11px;color:var(--dim);letter-spacing:.3px;font-weight:600}
+.alanlar{display:grid;grid-template-columns:135px 1fr;gap:3px 12px;font-size:12.5px}
+.alanlar dt{color:var(--dim)}
+.alanlar dd{margin:0;color:var(--muted)}
+.alanlar dd b{color:var(--ink);font-weight:600}
+.fkic{display:none;margin:0 0 8px}
+.fkic.on{display:block;animation:dGel .25s ease}
+.elendi{background:rgba(255,107,94,.05);border:1px solid rgba(255,107,94,.22);border-radius:12px;padding:14px 16px;margin:12px 0}
+.elendi h4{margin:0 0 8px;font-size:13px;color:var(--red);letter-spacing:-.2px}
+.elendi div{font-size:12.5px;color:var(--muted);padding:4px 0;border-bottom:1px solid var(--line)}
+.elendi div:last-child{border-bottom:0}
+.nedenm{font-size:12px;color:var(--green);margin:0 0 8px;display:flex;gap:6px;align-items:baseline}
+@media(max-width:520px){.alanlar{grid-template-columns:1fr;gap:0 0}.alanlar dt{margin-top:6px}.fet{min-width:100%;padding-top:0}}
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -65,11 +100,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="radar.html">Bugün RG'de</a> · Destek Radarı</div>
   <h1>Destek Radarı</h1>
-  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b>, başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı, Türk Eximbank ve TÜBİTAK</b> programlarını gör. <b style="color:var(--ink)">Şu an açık TÜBİTAK, KOSGEB, kalkınma ajansı, TKDK/IPARD ve AB (Ufuk Avrupa) çağrılarını</b> robot her gün kurum sitelerinden çekip aşağıda listeler.</p>
+  <p class="lead">Devlet desteklerinin tamamı tek listede: hangisine uygunsun, ne kadar, son başvuru ne zaman, nereden başvurulur.</p>
+  <p class="kunye" id="kunye">Yükleniyor…</p>
 
   <div class="kart" id="dsihirbaz" style="border-left-color:var(--accent2)">
-    <h3 style="margin-top:0">🧭 Hangi destekleri kullanabilirsin? 4 soruda söyleyelim</h3>
-    <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla; sana uygun programları <b style="color:var(--ink)">"ne gerekli, nasıl başvurulur"</b> adımlarıyla birlikte listeleyelim, mevzuat metnine boğulmadan.</p>
+    <h3 style="margin-top:0">Hangi destekleri kullanabilirsin? 5 soruda söyleyelim</h3>
+    <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla; sana uyanları sırayla listeleyelim. <b style="color:var(--ink)">Uygun OLMADIKLARINI da gerekçesiyle</b> yazarız, boşuna dosya hazırlama.</p>
     <div class="dsoru" data-k="durum">
       <b style="font-size:14px">1. İşletmen ne durumda?</b>
       <div class="filtre" style="margin:8px 0 14px">
@@ -102,16 +138,43 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         <button class="fbtn" data-v="hepsi">İkisi de olur</button>
       </div>
     </div>
+    <!-- 21.08 Cem "3-1-2": hukuki yapı sorusu EKLENDİ. Gerekçe: 5973 s. Karar'ın
+         ihracat destekleri yalnız TTK'daki ticaret şirketlerine açık; şahıs
+         işletmesi bu kapıdan giremez. Bunu SORMADAN "uygun değilsin" diyemiyorduk,
+         kullanıcı da boşuna dosya hazırlıyordu. Tek sert eleme kuralımız budur. -->
+    <div class="dsoru" data-k="yapi">
+      <b style="font-size:14px">5. Hukuki yapın?</b>
+      <div class="filtre" style="margin:8px 0 14px">
+        <button class="fbtn" data-v="sahis">Şahıs işletmesi</button>
+        <button class="fbtn" data-v="sirket">Ltd / AŞ (ticaret şirketi)</button>
+        <button class="fbtn" data-v="yok">Henüz yok</button>
+      </div>
+    </div>
     <button class="btn" onclick="dOner()">Bana uygun destekleri göster</button>
     <p id="dsonuc" style="margin:12px 0 0;font-size:13.5px;font-weight:600;display:none"></p>
   </div>
 
-  <!-- 19.08 Çağrı Radarı: veri/cagri-radar.json robotla günlük çekilir (motor/cagri-hasat.ps1).
-       Veri yüklenemezse bölüm hiç görünmez - sayfa statik hâliyle çalışmaya devam eder. -->
-  <div id="acikCagrilar" style="display:none">
-    <h2 id="acik-cagrilar" style="font-size:19px;letter-spacing:-.4px;margin:26px 0 4px">🔴 Şu an açık çağrılar</h2>
-    <p style="font-size:13px;color:var(--dim);margin:0 0 12px">Robot her gün kurum sitelerinden çeker; burada gördüğün çağrı <b style="color:var(--ink)">bugün açık</b> demektir. <span id="cagriDamga"></span></p>
-    <div id="cagriListe"></div>
+  <!-- 21.08 Cem "3-1-2" — TEK LİSTE. Eskiden sayfa ikiye bölünmüştü: üstte tarihli
+       "açık çağrılar", altta tarihsiz program kataloğu. Kullanıcı hangi bölümde
+       olduğunu ayırt edemiyordu. Artık ikisi TEK liste: ayırt edici alan 'durum'
+       (AÇIK / SÜREKLİ / YAKINDA) ve her satır aynı 4 alanı taşır. Filtre çubuğu
+       ve sayaçlar JS'te veriden üretilir - elle rakam yazılmaz. -->
+  <!-- #acik-cagrilar: tesvik-sihirbazi.html buraya bağlanıyor. Bölüm tek listeye
+       dönüştü ama çıpa KORUNDU, dış bağlantı kırılmasın. -->
+  <div id="acik-cagrilar"></div>
+  <div id="firsatFiltre"></div>
+  <div id="sayac"></div>
+  <div id="liste"></div>
+
+  <div class="uyari" id="uyariKutu">⚠ Bu sayfa <b>yön vericidir</b>: <b>SÜREKLİ</b> etiketli satırlar programın var olduğunu gösterir, güncel tutar ve oran dönemsel çağrıya göre değişir. <b>AÇIK</b> etiketliler robotun o gün kurum sitesinden çektiği çağrılardır; kim başvurabilir ve ne kadar bilgisi çağrı duyurusunda yazar, o yüzden kartta iddia etmiyoruz. Yanlış rakam vermektense kaynağa yönlendiriyoruz.</div>
+
+  <h2 style="font-size:19px;letter-spacing:-.4px;margin:34px 0 4px">Ek araçlar</h2>
+  <p style="font-size:13px;color:var(--dim);margin:0 0 12px">Listeye sığmayan, kendi içinde aranan veriler: fuar listesi, güncel kredi oranları, kefalet paketleri.</p>
+
+  <!-- 21.08: bu beş araç ESKİDEN #acikCagrilar içindeydi, yani cagri-radar.json
+       yüklenmezse hepsi birden yok oluyordu. Ayrıldı: artık her koşulda görünür,
+       her biri kendi verisini kendi açılınca çeker. -->
+  <div id="araclar">
 
     <!-- 19.08 Cem: "ticaret bakanligi ihracat desteklerini ekleyelim" — 5973 kural
          tabanlı (katalog kartlarında), TARİHLİ tek parçası fuar listesi burada.
@@ -161,29 +224,20 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </details>
   </div>
 
-  <p style="font-size:13px;color:var(--dim);margin:22px 0 8px">Ya da tüm programlara kendin göz at:</p>
-  <div class="filtre" id="filtre">
-    <button class="fbtn on" data-a="hepsi">Tümü</button>
-    <button class="fbtn" data-a="kurulus">Yeni kuruyorum</button>
-    <button class="fbtn" data-a="buyume">Büyüyorum</button>
-    <button class="fbtn" data-a="ihracat">İhracat / yurtdışı</button>
-    <button class="fbtn" data-a="finansman">Finansman / kredi</button>
-    <button class="fbtn" data-a="donusum">Dijital / yeşil dönüşüm</button>
-    <button class="fbtn" data-a="arge">Ar-Ge / üretim</button>
-    <button class="fbtn" data-a="istihdam">İstihdam</button>
-  </div>
-
-  <div id="liste"></div>
-
-  <div class="uyari">⚠ Bu sayfa <b>yön vericidir</b>: hangi destek türünün var olduğunu gösterir. <b>Güncel destek tutarı ve oranı</b> dönemsel açılan çağrılara göre değişir, her kartın altındaki resmî bağlantıdan teyit et. Program kartlarında bilerek tutar yazmıyoruz; yanlış rakam vermektense kaynağa yönlendiriyoruz. <b>Açık çağrı tarihleri</b> ise yukarıdaki "Şu an açık çağrılar" bölümüne robotla her gün kurum sitelerinden çekilir.</div>
-
   <div class="cta" id="takipKutu">
-    <h3>🔔 Destek çağrısı açılınca ilk sen duy</h3>
-    <p>E-postanı bırak; ilgilendiğin destek türünde <b style="color:var(--ink)">yeni başvuru dönemi açıldığı gün</b> haber verelim. Başvuru dönemleri kısa olur, kaçırma. Ücretsiz, istediğinde çık.</p>
+    <h3>Profiline uyan yeni çağrı açılınca ilk sen duy</h3>
+    <p>Sihirbazı doldur, e-postanı bırak: <b style="color:var(--ink)">sana açık kurumlardan yeni bir çağrı düştüğü gün</b> haber verelim. Başvuru dönemleri kısa olur, kaçırma. Ücretsiz, tek tıkla çıkarsın.</p>
+    <!-- 21.08: aboneye NE İZLEYECEĞİMİZİ kayıttan ÖNCE gösteriyoruz. Kapalı kutu
+         satmıyoruz: hangi kurumlar izlenecekse orada yazar. -->
+    <p id="takipKapsam" style="font-size:12.5px;margin:0 0 12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--line)"></p>
     <div class="ara" style="margin-bottom:8px">
       <input id="takipMail" type="email" placeholder="ornek@firma.com" autocomplete="email">
       <button class="btn" onclick="takibeAl()">Beni haberdar et</button>
     </div>
+    <label style="display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:12px;margin-bottom:6px">
+      <input id="takipAb" type="checkbox" style="width:auto;margin-top:2px;accent-color:var(--accent)">
+      <span>AB çağrılarını da gönderin (Ufuk Avrupa, LIFE…). <span style="color:var(--dim)">Hacim yüksektir ve dosya aylar sürer; varsayılan kapalı.</span></span>
+    </label>
     <label style="display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:12px">
       <input id="takipKvkk" type="checkbox" style="width:auto;margin-top:2px;accent-color:var(--accent)">
       <span>E-postamın destek bilgilendirmesi amacıyla işlenmesine izin veriyorum. <a href="kvkk.html" target="_blank">Aydınlatma metni</a></span>
@@ -270,7 +324,7 @@ const ISTER_VARSAYILAN = {
 };
 const PROGRAMLAR = [
   // ---- TİCARET BAKANLIĞI — 5973 sayılı İhracat Destekleri Kararı ----
-  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Fuar Katılım Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/yurt-disi-ve-yurt-ici-fuar-destekleri", asama:["ihracat"], amac:"Yurt dışı fuarlara stantlı katılımın ve nitelikli yurt içi fuar katılımlarının desteklenmesi (5973 s. Karar m.7-8).", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında fuara stantla katılacak şirketler. Dikkat: fuar, Bakanlığın 'desteklenen fuarlar' listesinde olmalı, listede olmayan fuar desteklenmez, gitmeden önce kontrol et.", ister:{
+  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Fuar Katılım Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/yurt-disi-ve-yurt-ici-fuar-destekleri", asama:["ihracat"], amac:"Yurt dışı fuarlara stantlı katılımın ve nitelikli yurt içi fuar katılımlarının desteklenmesi (5973 s. Karar m.7-8).", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında fuara stantla katılacak şirketler. Dikkat: fuar, Bakanlığın 'desteklenen fuarlar' listesinde olmalı, listede olmayan fuar desteklenmez, gitmeden önce kontrol et.", sonKisa:"Fuar bitiminden itibaren 3 ay (Genelge m.7)", ister:{
     kapsam:["Yer kirası, alan kirası, kayıt ve sigorta bedeli gibi kalemleriyle","Stant giderleri, tasarım, kurulum, raf, ışıklandırma, mobilya","Organizatöre ödenen katılım bedeli"],
     belge:["Üretici tevsiki: geçerli kapasite raporu ya da faaliyet/ekspertiz belgesi; pazarlamacıysan üreticiyle sözleşme + üreticinin belgeleri, üretici ŞİRKET olmalı (Genelge EK-1, m.41/3)","Faturaları yükle, her gider kalemi (alan kirası, kayıt bedeli, sigorta...) DYS'de AYRI satır olarak girilir","Her faturanın banka dekontunu yükle, elden ödeme ve müşteri çeki kabul edilmez (m.39)","Fuar katılım sözleşmeni yükle; stant fotoğrafları hazır dursun","Fuarda gözlemcinin verdiği DEĞERLENDİRME FORMUNU doldurup teslim et, vermeyenin başvurusu işleme bile alınmaz (m.10)"],
     sinir:["Fuar konusu kendi faaliyet alanınla (NACE) uyumlu olmalı (Genelge m.17)","Aynı fuara en fazla 10 defa; bir takvim yılında azami 5 yurt dışı fuar (üretici/imalatçı örgütlerinde 10) desteklenir (5973 s. Karar m.7)","Aynı fuara birden fazla stantla katılırsan yalnızca BİR stant desteklenir (Genelge m.41/1)","Stantını ilk gün aç, fuar bitmeden boşaltma/personelini çekme, yapanın desteği yanar (Genelge m.43)","Şirket yaşı ve asgari stant m² şartı genelgede aranmıyor, yeni şirket de, küçük stant da yararlanır"],
@@ -316,8 +370,54 @@ const PROGRAMLAR = [
 ];
 const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",finansman:"FİNANSMAN",donusum:"DÖNÜŞÜM",arge:"AR-GE",istihdam:"İSTİHDAM"};
 
-let SECILI = "hepsi";
+// ---- TEK LİSTE MODELİ (21.08 Cem "3-1-2") ----
+// Kart sözleşmesi: HER satır aynı 4 alanı taşır (GOV.UK Find a Grant düzeni).
+// Çağrı verisinde 'kim başvurabilir' ve 'ne kadar' ALANI YOK - o yüzden çağrı
+// satırlarında "Çağrı duyurusunda" yazar, uydurmuyoruz. Buna karşılık
+// "nereden başvurulur" her satırda doludur: YOLLAR'daki kanıtlı kanaldan gelir.
+const KANAL = {
+  "KOSGEB":             "KOSGEB e-hizmetler (önce KBS kaydı + KOBİ Beyannamesi)",
+  "TİCARET BAKANLIĞI":  "DYS, üyesi olduğun ihracatçı birliği üzerinden",
+  "TÜRK EXİMBANK":      "Eximbank'a doğrudan ya da çalıştığın banka aracılığıyla",
+  "KGF":                "KGF'ye değil, çalıştığın BANKAYA",
+  "İŞKUR":              "İŞKUR E-Şube ya da il müdürlüğü",
+  "KALKINMA AJANSI":    "KAYS üzerinden elektronik",
+  "TKDK":               "TKDK il koordinatörlüğüne dosyayla",
+  "TÜBİTAK":            "PRODİS (eteydeb), e-imza gerekir",
+  "AB":                 "AB Funding & Tenders portalı"
+};
+// Çağrı kaynağı -> kurum adı (filtre çipi kısa olsun diye). HAMLE ve KKYDP
+// için KANAL girdisi bilerek YOK: başvuru kanallarını birincil kaynaktan teyit
+// etmedik, o satırlarda "nereden" alanı "Çağrı duyurusunda" kalır.
+const KAYNAK_KURUM = {
+  "TÜBİTAK":"TÜBİTAK", "KOSGEB":"KOSGEB", "Kalkınma Ajansları":"KALKINMA AJANSI",
+  "TKDK (IPARD)":"TKDK", "AB":"AB", "HAMLE (Teknoloji Odaklı Sanayi Hamlesi)":"HAMLE"
+};
+// 5973 s. Karar'ın ihracat destekleri yalnız TTK'daki TİCARET ŞİRKETLERİNE
+// açıktır, şahıs işletmesi giremez (YOLLAR["TİCARET BAKANLIĞI"] 1. adım).
+// E-İhracat AYRI mevzuattır (5986 s. Karar): aynı şartı taşıdığını kaynaktan
+// teyit etmediğimiz için bu listeye KOYMUYORUZ.
+const SIRKET_SART = ["Yurt Dışı Fuar Katılım Desteği","Yurt Dışı Birim, Kira ve Tanıtım Destekleri","Pazara Giriş Belgesi Desteği","Marka ve TURQUALITY® Destek Programı"];
+
+let FIRSATLAR = [];    // programlar + çağrılar, tek model
 let UYGUNLAR = null;   // sihirbaz sonucu (null = sihirbaz çalışmadı)
+let ELENEN = [];       // sihirbazın gerekçeli elediği programlar
+const F = { durum:new Set(["acik","surekli","yakinda"]), kaynak:new Set(), asama:"hepsi" };
+
+const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : (t||''); };
+// 21.08: milisaniye farkının Math.ceil'i gün sınırında -0 üretiyordu; dün kapanan
+// çağrı "son 0 gün" diye AÇIK görünüyordu. Artık TAM GÜN farkı hesaplanır:
+// dün kapanan -1 (KAPANDI), bugün kapanan 0 (bugün son gün), 9 gün kalan 9.
+const kalanGun = t => { if(!t) return null;
+  const b = new Date(); b.setHours(0,0,0,0);
+  return Math.round((new Date(t+'T00:00:00') - b)/86400000); };
+const duzMetin = s => (s||'').replace(/<[^>]*>/g,'');
+// "Kim başvurabilir" için sart alanının İLK CÜMLESİ: kısaltma, değiştirme değil.
+const ilkCumle = s => { const d = duzMetin(s).trim(); const i = d.indexOf('. '); return i>0 ? d.slice(0,i+1) : d; };
+
+PROGRAMLAR.forEach(p => FIRSATLAR.push({
+  tip:'program', durum:'surekli', kurum:p.kurum, ad:p.ad, url:p.url, asama:p.asama, p:p
+}));
 
 const BELGE_BASLIK = {
   "KOSGEB": "📤 SİSTEME GİRECEKLERİN (KOSGEB e-hizmetler)",
@@ -362,57 +462,151 @@ function kartHtml(p, acik){
   </div>`;
 }
 
-// 31.07 Cem: katalog art arda kart DUVARI olmasin - kurum baslikli KARE izgara,
-// tiklayinca detay acilir (site standardi). Sihirbaz sonuclari (kisiye ozel,
-// az sayida) eskisi gibi ACIK kart kalir - oneri saklanmaz.
+// 21.08: 31.07'nin KARE ızgarası kalktı. Gerekçe: kare yalnız ad + aşama etiketi
+// taşıyabiliyordu, kart sözleşmesinin 4 alanı kareye sığmıyor. Yerine aynı
+// "tıkla-aç" davranışını koruyan SATIR düzeni geldi (site standardı korunuyor).
+function alanlarHtml(f){
+  const nereden = KANAL[f.kurum] || 'Çağrı duyurusunda';
+  let kim, neKadar, son;
+  if(f.tip==='program'){
+    const o = (f.p.ister && f.p.ister.oran) ? f.p.ister.oran[0] : null;
+    kim     = ilkCumle(f.p.sart) || 'Kartı aç';
+    neKadar = o ? duzMetin(o) : 'Çağrı duyurusunda';
+    son     = f.p.sonKisa || 'Çağrı dönemine bağlı';
+  } else {
+    // çağrı verisinde bu iki alan YOK - boş bırakmak yerine nerede olduğunu söyle
+    kim = neKadar = 'Çağrı duyurusunda';
+    son = f.sonTarih ? gd(f.sonTarih) : 'Tarih duyuruda';
+  }
+  return '<dl class="alanlar"><dt>Kim başvurabilir</dt><dd>'+kim+'</dd>'
+    + '<dt>Ne kadar</dt><dd>'+neKadar+'</dd>'
+    + '<dt>Son başvuru</dt><dd>'+son+'</dd>'
+    + '<dt>Nereden başvurulur</dt><dd><b>'+nereden+'</b></dd></dl>';
+}
+function durumCip(f){
+  if(f.durum==='surekli') return '<span class="dcip surekli">SÜREKLİ</span>';
+  if(f.durum==='kapandi') return '<span class="dcip kapandi">KAPANDI · '+gd(f.sonTarih)+'</span>';
+  if(f.durum==='yakinda') return '<span class="dcip yakinda">YAKINDA'+(f.acilis?' · '+gd(f.acilis):'')+'</span>';
+  const g = kalanGun(f.sonTarih);
+  if(g===0) return '<span class="dcip acik">BUGÜN SON GÜN</span>';
+  return (g!==null && g>0 && g<=14) ? '<span class="dcip acik">SON '+g+' GÜN</span>' : '<span class="dcip acik">AÇIK</span>';
+}
+function cagriDetay(f){
+  const t = (f.tarihler&&f.tarihler.length>1) ? f.tarihler.map(x=>
+    '<div style="display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:12.5px"><span style="color:var(--muted)">'+x.etiket+'</span><span style="color:var(--ink);white-space:nowrap">'+gd(x.tarih)+'</span></div>').join('') : '';
+  return '<div class="kart">'+(f.kod?'<div class="et">'+f.kod+'</div>':'')
+    + '<p style="margin:6px 0 10px;font-size:13px;color:var(--muted)">Bu bir <b style="color:var(--ink)">çağrı duyurusudur</b>: kimin başvurabileceği, destek tutarı ve gider kalemleri duyuru metninde yazar. Kartta iddia etmiyoruz, kaynağa gönderiyoruz.</p>'
+    + t + '<p style="margin:10px 0 0"><a class="gore" href="'+f.url+'" target="_blank" rel="noopener">Çağrı duyurusu: şartlar ve başvuru →</a></p></div>';
+}
+function satirHtml(f,i){
+  return '<div class="frow d-'+f.durum+'" id="fr_'+i+'" onclick="fAc(\''+i+'\')">'
+    + '<div class="ust">'+durumCip(f)+'<span class="kur">'+f.kurum+'</span></div><h3>'+f.ad+'</h3>'
+    + (f.neden?'<p class="nedenm"><span>✓</span><span>'+f.neden+'</span></p>':'')
+    + alanlarHtml(f)+'</div>'
+    + '<div class="fkic" id="fi_'+i+'">'+(f.tip==='program'?kartHtml(f.p,true):cagriDetay(f))+'</div>';
+}
+function fAc(i){
+  const kic=document.getElementById('fi_'+i), acikti=kic.classList.contains('on');
+  document.querySelectorAll('.fkic').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('.frow').forEach(e=>e.classList.remove('on'));
+  if(!acikti){ kic.classList.add('on'); document.getElementById('fr_'+i).classList.add('on');
+    document.getElementById('fr_'+i).scrollIntoView({behavior:'smooth',block:'nearest'}); }
+}
+// Aciliyet sıralaması: kapanışı en yakın olan en üstte, süreliler sonda.
+const sira = f => {
+  if(f.durum==='acik'){ const g=kalanGun(f.sonTarih); return g===null?8000:(g<0?8500:g); }
+  if(f.durum==='yakinda'){ const g=kalanGun(f.acilis); return 10000+(g===null?500:g); }
+  return f.durum==='kapandi' ? 30000 : 20000;
+};
+const DURUM_AD = {acik:"Açık", surekli:"Sürekli", yakinda:"Yakında", kapandi:"Kapandı"};
+function filtreCiz(){
+  const say = fn => FIRSATLAR.filter(fn).length;
+  const cip = (v,ad,n,on) => '<button class="fbtn'+(on?' on':'')+'" data-v="'+v+'">'+ad+' <span class="sy">'+n+'</span></button>';
+  const sat = (et,g,ic) => ic ? '<div class="fsatir"><span class="fet">'+et+'</span><div class="filtre" data-g="'+g+'">'+ic+'</div></div>' : '';
+  const durumlar = ["acik","surekli","yakinda","kapandi"].map(v=>{ const n=say(f=>f.durum===v);
+    return n ? cip(v,DURUM_AD[v],n,F.durum.has(v)) : ''; }).join('');
+  const kurumlar = [...new Set(FIRSATLAR.map(f=>f.kurum))]
+    .sort((a,b)=>say(f=>f.kurum===b)-say(f=>f.kurum===a))
+    .map(k=>cip(k,k,say(f=>f.kurum===k),F.kaynak.has(k))).join('');
+  const asamalar = '<button class="fbtn'+(F.asama==='hepsi'?' on':'')+'" data-v="hepsi">Tümü</button>'
+    + Object.keys(ETIKET).map(a=>{ const n=say(f=>f.asama&&f.asama.includes(a));
+      return n ? cip(a,ETIKET[a],n,F.asama===a) : ''; }).join('');
+  document.getElementById('firsatFiltre').innerHTML =
+    sat('DURUM','durum',durumlar) + sat('KAYNAK','kaynak',kurumlar) + sat('AŞAMA','asama',asamalar);
+}
 function ciz(){
-  const liste = document.getElementById('liste');
-  // 14.08 Cem "sayacı diğer yerlere de uygula": filtrelenince kaç program
-  // kaldığını üstte anında say. Kurum başlıklarındaki "· N program" korunur;
-  // bu, toplam görünürlüğü ekler.
-  const say=(n,ek)=>'<div style="margin:0 0 4px;font-size:14px"><b style="color:var(--accent2);font-size:17px">'+n+'</b> program'+(ek?' <span style="color:var(--dim)">· '+ek+'</span>':'')+'</div>';
+  const liste = document.getElementById('liste'), sayac = document.getElementById('sayac');
   if(UYGUNLAR){
-    liste.innerHTML = (UYGUNLAR.length?say(UYGUNLAR.length,'profiline uydu'):'') + (UYGUNLAR.map(p=>kartHtml(p,true)).join('')
-      || `<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`);
+    sayac.innerHTML = '<b>'+UYGUNLAR.length+'</b> program profiline uydu · en hedefli olan en üstte'
+      + (ELENEN.length?' · <span style="color:var(--red)">'+ELENEN.length+' program elendi, gerekçesi aşağıda</span>':'');
+    liste.innerHTML = (UYGUNLAR.length
+        ? UYGUNLAR.map((f,i)=>satirHtml(f,'u'+i)).join('')
+        : '<div class="kart"><h3>Bu profile birebir oturan program çıkmadı.</h3><p>Filtrelerden tüm listeye bakabilirsin; profilin değişince (ör. ihracata başlayınca) yeni kapılar açılır.</p></div>')
+      + (ELENEN.length ? '<div class="elendi"><h4>Şunlara uygun DEĞİLSİN, boşuna dosya hazırlama</h4>'
+          // aynı gerekçe birden çok programı eliyorsa gerekçeyi BİR kez yaz
+          + ELENEN.reduce((g,e)=>{ const v=g.find(x=>x.neden===e.neden);
+              if(v) v.adlar.push(e.ad); else g.push({neden:e.neden, adlar:[e.ad]}); return g; },[])
+            .map(g=>'<div><b style="color:var(--ink)">'+g.adlar.join(' · ')+'</b><br>'+g.neden+'</div>').join('')
+          +'</div>' : '');
     return;
   }
-  const veri = SECILI==="hepsi" ? PROGRAMLAR : PROGRAMLAR.filter(p=>p.asama.includes(SECILI));
-  if(!veri.length){ liste.innerHTML=`<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`; return; }
-  const sayBas = say(veri.length, SECILI==='hepsi'?'tüm aşamalar':(ETIKET[SECILI]||SECILI));
-  const gruplar=[];
-  veri.forEach(p=>{ let g=gruplar.find(x=>x.k===p.kurum); if(!g){ g={k:p.kurum,list:[]}; gruplar.push(g); } g.list.push(p); });
-  liste.innerHTML = sayBas + gruplar.map(g=>
-    `<div style="font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--accent2);margin:20px 0 8px">${g.k} <span style="color:var(--dim);font-weight:600">· ${g.list.length} program</span></div>`+
-    `<div class="dkgrid">`+g.list.map(p=>{ const i=PROGRAMLAR.indexOf(p);
-      return `<div class="dkare" id="dk_${i}" onclick="dAc(${i})"><b>${p.ad}</b><span>${p.asama.map(a=>ETIKET[a]||a).join(' · ')}</span></div>`; }).join('')+`</div>`+
-    g.list.map(p=>{ const i=PROGRAMLAR.indexOf(p);
-      return `<div class="dkic" id="di_${i}">${kartHtml(p,true)}</div>`; }).join('')
-  ).join('');
-}
-function dAc(i){
-  const acikti=document.getElementById('di_'+i).classList.contains('on');
-  document.querySelectorAll('.dkic').forEach(e=>e.classList.remove('on'));
-  document.querySelectorAll('.dkare').forEach(e=>e.classList.remove('on'));
-  if(!acikti){
-    document.getElementById('di_'+i).classList.add('on');
-    document.getElementById('dk_'+i).classList.add('on');
-    document.getElementById('di_'+i).scrollIntoView({behavior:'smooth',block:'nearest'});
+  let veri = FIRSATLAR.filter(f => F.durum.has(f.durum) && F.kaynak.has(f.kurum));
+  let not = '';
+  if(F.asama!=='hepsi'){
+    veri = veri.filter(f => f.asama && f.asama.includes(F.asama));
+    // kör kalma kuralı: ölçemediğimiz şeyi sessizce elemeyiz, söyleriz
+    not = ' · <span style="color:var(--amber)">aşama filtresi yalnız SÜREKLİ programlarda çalışır, çağrı duyurularında aşama bilgisi yok</span>';
   }
+  veri.sort((a,b)=>sira(a)-sira(b));
+  sayac.innerHTML = '<b>'+veri.length+'</b> fırsat gösteriliyor · toplam '+FIRSATLAR.length+' · kapanışı en yakın olan üstte'+not;
+  liste.innerHTML = veri.length ? veri.map((f,i)=>satirHtml(f,i)).join('')
+    : '<div class="kart"><h3>Bu filtreyle sonuç yok.</h3><p>Üstteki filtrelerden birini geri aç.</p></div>';
 }
-document.getElementById('filtre').addEventListener('click',e=>{
+document.getElementById('firsatFiltre').addEventListener('click',e=>{
   const b = e.target.closest('.fbtn'); if(!b) return;
-  UYGUNLAR = null; document.getElementById('dsonuc').style.display='none';
-  document.querySelectorAll('#filtre .fbtn').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on'); SECILI=b.dataset.a; ciz();
+  const g = b.closest('.filtre').dataset.g, v = b.dataset.v;
+  UYGUNLAR = null; ELENEN = []; document.getElementById('dsonuc').style.display='none';
+  if(g==='asama'){ F.asama = v; }
+  else { const s = F[g]; if(s.has(v)) s.delete(v); else s.add(v); if(!s.size) s.add(v); }
+  filtreCiz(); ciz();
 });
-ciz();
+function kunyeCiz(cd){
+  const acik = FIRSATLAR.filter(f=>f.durum==='acik').length;
+  document.getElementById('kunye').textContent =
+    FIRSATLAR.length+' destek · '+PROGRAMLAR.length+" sürekli program · "+acik+' çağrı bugün açık'
+    + (cd && cd.guncelleme ? ' · '+cd.guncelleme.replace(/^.*Son çekim: /,'son çekim ').replace(/^.*Son cekim: /,'son çekim ') : '');
+}
+FIRSATLAR.forEach(f=>F.kaynak.add(f.kurum));
+filtreCiz(); ciz(); kunyeCiz(null);
 
-// ---- AÇIK ÇAĞRILAR (Çağrı Radarı, 19.08) ----
-// veri/cagri-radar.json: motor/cagri-hasat.ps1 günlük yazar (TÜBİTAK + KOSGEB + AB).
-// Yüklenemezse bölüm görünmez; sayfa statik hâliyle çalışır (kör kalma değil: damga da gizlenir).
+// ---- ÇAĞRI RADARI -> TEK LİSTE (19.08 hasat, 21.08 tek listeye bağlandı) ----
+// veri/cagri-radar.json: motor/cagri-hasat.ps1 günlük yazar.
+// Yüklenemezse tek liste 29 sürekli programla çalışmaya devam eder; künyedeki
+// çağrı sayısı 0 kalır, yani kör kalmıyoruz - eksikliği rakam söylüyor.
 fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
   const liste = (cd.cagrilar||[]);
   if(!liste.length) return;
+  liste.forEach(c=>{
+    // 21.08 DÜZELTME: son tarihi geçmiş çağrı "bugün açık" diye listeleniyordu.
+    // Artık KAPANDI ayrı durumdur ve varsayılan görünümde yer almaz.
+    const g = kalanGun(c.sonTarih);
+    const durum = c.durum==='yakinda' ? 'yakinda' : ((g!==null && g<0) ? 'kapandi' : 'acik');
+    FIRSATLAR.push({ tip:'cagri', durum, kurum:(KAYNAK_KURUM[c.kaynak]||c.kaynak), ad:c.baslik,
+      url:c.url, kod:c.kod||(c.program||''), acilis:c.acilis, sonTarih:c.sonTarih, tarihler:c.tarihler, asama:null });
+  });
+  FIRSATLAR.forEach(f=>F.kaynak.add(f.kurum));
+  // 21.08 adım 2: AB canlı verinin ~%74'ü (100/135). Kapalı akordeonda saklamak
+  // yerine filtrede sayısıyla duruyor ama VARSAYILAN OLARAK KAPALI: KOBİ'nin ilk
+  // ekranında Ufuk Avrupa çağrısı görmesinin faydası yok, tek tıkla açabilir.
+  F.kaynak.delete('AB');
+  filtreCiz(); ciz(); kunyeCiz(cd);
+}).catch(()=>{});
+
+/* 19.08'in kurum başlıklı akordeon çizimi 21.08'de kaldırıldı: aynı çağrılar
+   artık tek listede, kart sözleşmesiyle gösteriliyor. Eski çizim koduna
+   git geçmişinden ulaşılır.
+function eskiCagriCiz(cd){
+  const liste = (cd.cagrilar||[]);
   const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : t; };
   const kalan = t => { if(!t) return null; const g = Math.ceil((new Date(t+'T23:59:59') - new Date())/86400000); return g; };
   const rozetle = t => { const g = kalan(t); if(g===null) return '';
@@ -452,8 +646,8 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
     + grup('AB — yakında açılıyor', abYakin, false,
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Henüz açılmamış, açılış tarihi belli çağrılar. AB proje dosyası aylar sürer; <b style="color:var(--ink)">erken görmek hazırlık süresi kazandırır</b>.</p>');
   document.getElementById('cagriDamga').textContent = cd.guncelleme || '';
-  document.getElementById('acikCagrilar').style.display = 'block';
-}).catch(()=>{});
+}
+*/
 
 // ---- FUAR DESTEĞİ ARAMASI (Ticaret Bakanlığı, 19.08) ----
 // veri/fuar-destek.json ~470KB: grup AÇILINCA bir kez çekilir (lazy).
@@ -584,60 +778,140 @@ document.getElementById('dsihirbaz').addEventListener('click',e=>{
   const grup = b.closest('.dsoru');
   grup.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
   b.classList.add('on'); DC[grup.dataset.k] = b.dataset.v;
+  takipKapsamCiz();   // her cevapta takip kapsamı anında güncellensin
 });
+// 21.08 adım 1: sihirbaz artık yalnız EŞLEŞENİ değil, ELENENİ de gerekçesiyle
+// söyler. Sert eleme kuralı tek: 5973'ün ihracat destekleri şahıs işletmesine
+// kapalı. Yumuşak eleme: tek boyutta ıskalayanlar ("bir adım kala").
+const CEVAP_AD = {
+  d:{kurmadim:"henüz kurmadın", yeni:"yeni kurdun", kurulu:"kurulu işletmen var"},
+  f:{imalat:"üretim/imalat", teknoloji:"yazılım/teknoloji", ticaret:"ticaret/hizmet"},
+  i:{var:"ihracat yapıyorsun", hedef:"ihracat hedefliyorsun", yok:"ihracat gündeminde yok"},
+  n:{hibe:"hibe arıyorsun", finans:"finansman arıyorsun", hepsi:"ikisi de olur"}
+};
+const IZIN_AD = {
+  d:{kurmadim:"henüz kurmamış olanlara", yeni:"yeni kuranlara", kurulu:"kurulu işletmelere"},
+  f:{imalat:"üretim/imalat", teknoloji:"yazılım/teknoloji", ticaret:"ticaret/hizmet"},
+  i:{var:"ihracat yapanlara", hedef:"ihracat hedefleyenlere", yok:"ihracatla ilgilenmeyenlere"},
+  n:{hibe:"hibe", finans:"finansman/kredi", hepsi:"karma"}
+};
+const CEVAP_ANAHTAR = {d:'durum', f:'faaliyet', i:'ihracat', n:'ihtiyac'};
+function elemeNeden(k,p){
+  const izin = p.t[k].map(v=>IZIN_AD[k][v]).join(', ');
+  if(k==='d') return 'yalnız '+izin+' açık';
+  if(k==='f') return 'yalnız '+izin+' faaliyetine açık';
+  if(k==='i') return 'yalnız '+izin+' açık';
+  return 'bu bir '+izin+' programı';
+}
 function dOner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('destekler')) return;
   const s = document.getElementById('dsonuc');
-  const eksik = ['durum','faaliyet','ihracat','ihtiyac'].filter(k=>!DC[k]);
+  const eksik = ['durum','faaliyet','ihracat','ihtiyac','yapi'].filter(k=>!DC[k]);
   if(eksik.length){ s.style.display='block'; s.style.color='var(--red)'; s.textContent = eksik.length + ' soru cevapsız kaldı, hepsini işaretle.'; return; }
-  UYGUNLAR = PROGRAMLAR.filter(p=>{
-    if(!p.t) return true;
-    if(p.t.d && !p.t.d.includes(DC.durum)) return false;
-    if(p.t.f && !p.t.f.includes(DC.faaliyet)) return false;
-    if(p.t.i && !p.t.i.includes(DC.ihracat)) return false;
-    if(DC.ihtiyac!=='hepsi' && p.t.n && !p.t.n.includes(DC.ihtiyac)) return false;
-    return true;
+  const uyan = []; ELENEN = [];
+  PROGRAMLAR.forEach(p=>{
+    // 1) SERT ELEME: hukuki yapı. 5973 s. Karar'ın destekleri yalnız TTK'daki
+    //    ticaret şirketlerine açıktır (YOLLAR["TİCARET BAKANLIĞI"] 1. adım).
+    if(DC.yapi==='sahis' && SIRKET_SART.includes(p.ad)){
+      ELENEN.push({ad:p.ad, sert:true, neden:'şahıs işletmesisin. 5973 s. Karar\'ın ihracat destekleri yalnız TTK\'daki <b style="color:var(--ink)">ticaret şirketlerine</b> (Ltd, AŞ) açık. Şirketleşirsen bu kapı açılır — <a href="kurulus.html">kuruluş sihirbazı</a>.'});
+      return;
+    }
+    // 2) YUMUŞAK ELEME: profil boyutları
+    const kacan = ['d','f','i','n'].filter(k=>{
+      if(!p.t || !p.t[k]) return false;
+      const cevap = DC[CEVAP_ANAHTAR[k]];
+      if(k==='n' && cevap==='hepsi') return false;
+      return !p.t[k].includes(cevap);
+    });
+    if(!kacan.length){ uyan.push(p); return; }
+    if(kacan.length===1) ELENEN.push({ad:p.ad, sert:false, neden:elemeNeden(kacan[0],p)});
   });
   // sıralama: profiline en hedefli oturan (en çok boyutu eşleşen) program en üstte
   const skor = p => !p.t ? 0 : ['d','f','i','n'].filter(k=>p.t[k]).length;
-  UYGUNLAR.sort((a,b)=>skor(b)-skor(a));
-  document.querySelectorAll('#filtre .fbtn').forEach(x=>x.classList.remove('on'));
+  uyan.sort((a,b)=>skor(b)-skor(a));
+  ELENEN.sort((a,b)=>(b.sert?1:0)-(a.sert?1:0));
+  UYGUNLAR = uyan.map(p=>({
+    tip:'program', durum:'surekli', kurum:p.kurum, ad:p.ad, url:p.url, asama:p.asama, p:p,
+    neden: (p.t ? ['d','f','i','n'].filter(k=>p.t[k]).map(k=>CEVAP_AD[k][DC[CEVAP_ANAHTAR[k]]]).filter(Boolean).join(' · ') : 'Herkese açık')
+  }));
   s.style.display='block'; s.style.color='var(--green)';
   s.innerHTML = UYGUNLAR.length
-    ? '✅ <b>Bu destekleri kullanabilirsin</b> (' + UYGUNLAR.length + ' program). Profiline göre önce şuna bak: <b>' + UYGUNLAR[0].ad + '</b>, hepsi aşağıda, "ne gerekli, nasıl başvurulur" adımları açık. 👇'
-    : 'Bu profile birebir oturan program bulamadık, filtrelerden tüm listeye bakabilirsin; profilin değişince (ör. ihracata başlayınca) yeni kapılar açılır.';
-  ciz();
-  document.getElementById('liste').scrollIntoView({behavior:'smooth', block:'start'});
+    ? '✅ <b>Bu destekleri kullanabilirsin</b> (' + UYGUNLAR.length + ' program). Önce şuna bak: <b>' + UYGUNLAR[0].ad + '</b>. Satıra tıkla, "ne gerekli, nasıl başvurulur" adımları açılır. 👇'
+    : 'Bu profile birebir oturan program çıkmadı; aşağıdaki gerekçelere bak, çoğu tek şart yüzünden eleniyor.';
+  filtreCiz(); ciz(); takipKapsamCiz();
+  document.getElementById('sayac').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
+// ---- PROFİL -> İZLENECEK KURUMLAR (21.08) ----
+// Çağrı kayıtlarında uygunluk verisi YOK; bu yüzden takip eşleşmesi KURUM
+// düzeyindedir. Kural ELLE yazılmıştır, çağrı başlığından kelime tahmini
+// YAPILMAZ. Robot tarafındaki EŞİ: motor/destek-takip-nobeti.ps1 içindeki
+// $KURUM_KURAL. İKİSİ BİRLİKTE DEĞİŞİR - birini değiştirip ötekini unutma.
+const KURUM_KURAL = {
+  "KOSGEB":            () => true,                                              // KOBİ geneli
+  "KALKINMA AJANSI":   () => true,                                              // bölge geneli, konu ajanstan ajansa değişir
+  "TÜBİTAK":           () => ['imalat','teknoloji'].indexOf(DC.faaliyet) >= 0,  // Ar-Ge yapan kesim
+  "TKDK":              () => DC.faaliyet === 'imalat',                          // tarım-gıda-kırsal yatırım
+  "HAMLE":             () => DC.faaliyet === 'imalat',                          // öncelikli ürün listesi, sanayi yatırımı
+  "KKYDP":             () => DC.faaliyet === 'imalat',                          // kırsal kalkınma tebliğleri
+  "TİCARET BAKANLIĞI": () => ['var','hedef'].indexOf(DC.ihracat) >= 0 && DC.yapi !== 'sahis'  // 5973: şahıs işletmesi giremez
+};
+const profilDolu = () => ['durum','faaliyet','ihracat','ihtiyac','yapi'].every(k => DC[k]);
+const izlenenKurumlar = () => profilDolu() ? Object.keys(KURUM_KURAL).filter(k => KURUM_KURAL[k]()) : Object.keys(KURUM_KURAL);
+function takipKapsamCiz(){
+  const p = document.getElementById('takipKapsam'); if(!p) return;
+  if(!profilDolu()){
+    p.innerHTML = '<b style="color:var(--amber)">Sihirbazı doldurmadın:</b> şimdi kaydolursan <b style="color:var(--ink)">tüm kurumların</b> çağrıları gelir. Yukarıdaki 5 soruyu cevaplarsan yalnız sana açık olanları göndeririz.';
+    return;
+  }
+  const acik = izlenenKurumlar(), kapali = Object.keys(KURUM_KURAL).filter(k => acik.indexOf(k) < 0);
+  p.innerHTML = '<b style="color:var(--green)">Profiline göre izlenecek:</b> <b style="color:var(--ink)">'+acik.join(' · ')+'</b>.'
+    + (kapali.length ? ' <span style="color:var(--dim)">İzlenmeyecek: '+kapali.join(', ')+' — profiline açık değil, boşuna mail almazsın.</span>' : '');
+}
+
+const SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co';
+const SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 function takibeAl(){
   const s = document.getElementById('takipSonuc');
-  const goster = (m,ok)=>{ s.style.display='block'; s.textContent=m; s.style.color = ok?'var(--green)':'var(--red)'; };
+  const goster = (m,ok)=>{ s.style.display='block'; s.innerHTML=m; s.style.color = ok?'var(--green)':'var(--red)'; };
   const mail = (document.getElementById('takipMail').value||'').trim();
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
   if(!document.getElementById('takipKvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
-  const ilgi = SECILI==="hepsi" ? "tüm destekler" : (ETIKET[SECILI]||SECILI);
-  const payload = {
-    access_key: EPOSTA_ANAHTAR,
-    subject: 'Destek takip kaydı, ' + ilgi,
-    from_name: 'Tetikte',
-    email: mail,
-    'İlgi alanı': ilgi,
-    'Profil - durum': DC.durum||'', 'Profil - faaliyet': DC.faaliyet||'',
-    'Profil - ihracat': DC.ihracat||'', 'Profil - ihtiyaç': DC.ihtiyac||'',
-    'Uygun çıkan program sayısı': UYGUNLAR ? UYGUNLAR.length : '',
-    'Kayıt kaynağı': 'Destek Radarı'
-  };
+  const kurumlar = izlenenKurumlar();
+  const ab = document.getElementById('takipAb').checked;
+  const profil = profilDolu() ? {durum:DC.durum, faaliyet:DC.faaliyet, ihracat:DC.ihracat, ihtiyac:DC.ihtiyac, yapi:DC.yapi} : null;
+  const bitir = ()=>{ document.getElementById('takipMail').value=''; document.getElementById('takipKvkk').checked=false;
+    goster('✓ Kaydedildi. <b>'+kurumlar.join(', ')+(ab?' ve AB':'')+'</b> kurumlarından yeni çağrı düştüğü gün mail alacaksın. '
+      + '<span style="color:var(--muted);font-weight:400">Bugün açık olanlar için yukarıdaki listeye bak: ilk mail yalnız BUNDAN SONRA açılan çağrılar için gelir, gelen kutunu geçmişle doldurmayız.</span>', true); };
   goster('Kaydediliyor…',true);
-  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
-    .then(r=>{ if(r.ok){ document.getElementById('takipMail').value=''; document.getElementById('takipKvkk').checked=false;
-      goster('✓ Kaydedildi! '+ilgi+' için yeni bir başvuru dönemi açıldığında ilk sana haber vereceğiz.',true); }
-      else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
+  // Yedek yol: Supabase'e yazılamazsa (tablo henüz kurulmadıysa, ağ koptuysa)
+  // kayıt KAYBOLMASIN - form ucundan Cem'e düşer, elle eklenir.
+  const yedek = ()=> fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({ access_key:EPOSTA_ANAHTAR, subject:'Destek takip kaydı (YEDEK YOL - tabloya yazılamadı)', from_name:'Tetikte',
+        email:mail, 'Kurumlar':kurumlar.join(', '), 'AB':(ab?'evet':'hayır'), 'Profil':(profil?JSON.stringify(profil):'sihirbaz doldurulmadı') })})
+    .then(r=>{ if(r.ok) bitir(); else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
     .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
+  if(!window.sb){ yedek(); return; }
+  // 19.08 DERSİ: supabase-js sorguları TEMBELDİR - .then'e abone olunmayan
+  // insert HİÇ GÖNDERİLMEZ. Bu satır then'siz yazılmayacak.
+  window.sb.from('destek_takip').insert({ email:mail, profil:profil, kurumlar:kurumlar, ab:ab })
+    .then(function(r){ if(r && r.error){ yedek(); } else { bitir(); } }, function(){ yedek(); });
 }
+takipKapsamCiz();
 document.getElementById('takipMail').addEventListener('keydown',e=>{ if(e.key==='Enter') takibeAl(); });
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </div>
+<!-- 21.08 destek takibi: kayıt Supabase'e yazılır. Kütüphane BİZİM sunucumuzdan
+     ve sürüm SABİT (19.08 dersi: esm.sh'tan gelen "@2" haber vermeden güncelleniyordu).
+     Yüklenemezse window.sb kurulmaz ve takibeAl() yedek yola düşer - kayıt kaybolmaz. -->
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  var c = (window.supabase||{}).createClient;
+  if(!c){ return; }
+  window.sb = c(SB_URL, SB_ANON);
+})();
+</script>
 <script src="menu.js" defer></script>
 </body>
 </html>

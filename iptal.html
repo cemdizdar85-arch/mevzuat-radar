@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Bildirim iptali | Tetikte</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--red:#ff6b5e;--green:#3ddc97}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;display:grid;place-items:center;min-height:100vh;padding:24px}
+a{color:var(--accent2)}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px 32px;max-width:520px;width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+.mark{width:14px;height:14px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);display:inline-block;margin-bottom:18px}
+h1{font-size:21px;letter-spacing:-.5px;margin:0 0 10px;font-weight:800}
+p{color:var(--muted);font-size:14.5px;margin:0 0 12px}
+.dip{font-size:12px;color:var(--dim);margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="kutu">
+  <span class="mark"></span>
+  <h1 id="baslik">İptal ediliyor…</h1>
+  <p id="metin">Bir saniye.</p>
+  <p class="dip">Tetikte · Destek Radarı bildirimleri · Sorun olursa <a href="mailto:cem@dizdardenetim.com">cem@dizdardenetim.com</a> · <a href="destekler.html">Destek Radarı'na dön</a></p>
+</div>
+
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+// Tek-tık iptal: token ile destek_takip_iptal RPC'si çağrılır. Fonksiyon
+// e-posta DÖNDÜRMEZ (yalnız durum), token'ı ele geçiren kimin kaydı olduğunu
+// öğrenemez. Şema: veri/sql-destek-takip.sql
+(function(){
+  var baslik = document.getElementById('baslik'), metin = document.getElementById('metin');
+  var yaz = function(b, m, renk){ baslik.textContent = b; metin.innerHTML = m; baslik.style.color = renk || 'var(--ink)'; };
+  var token = new URLSearchParams(location.search).get('t');
+  if(!token){ yaz('Bağlantı eksik', 'İptal bağlantısı geçersiz görünüyor. Maildeki bağlantıyı olduğu gibi kullan ya da bize yaz, elle çıkaralım.', 'var(--red)'); return; }
+  var c = (window.supabase||{}).createClient;
+  if(!c){ yaz('Sayfa yüklenemedi', 'Bağlantı kurulamadı. Sayfayı yenile; yine olmazsa maile "iptal" yaz, elle çıkarırız.', 'var(--red)'); return; }
+  var sb = c('https://bjrleanjpyujtajmazxn.supabase.co', 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+  // supabase-js TEMBELDİR: .then'siz çağrı hiç gönderilmez (19.08 dersi).
+  sb.rpc('destek_takip_iptal', { p_token: token }).then(function(r){
+    if(r && r.error){ yaz('İptal edilemedi', 'Teknik bir sorun çıktı. Maile "iptal" yanıtı ver, elle çıkarırız.', 'var(--red)'); return; }
+    if(r.data === 'iptal'){ yaz('Çıkarıldın ✓', 'Bundan sonra Destek Radarı bildirimi almayacaksın. Fikrin değişirse <a href="destekler.html">Destek Radarı</a> sayfasından yeniden kaydolabilirsin.', 'var(--green)'); }
+    else if(r.data === 'zaten'){ yaz('Zaten çıkmışsın', 'Bu kayıt daha önce iptal edilmiş; bildirim gönderilmiyor.', 'var(--green)'); }
+    else { yaz('Kayıt bulunamadı', 'Bu bağlantıya karşılık bir kayıt yok. Farklı bir e-postayla kaydolmuş olabilirsin; bize yaz, bakalım.', 'var(--red)'); }
+  }, function(){ yaz('İptal edilemedi', 'Bağlantı kurulamadı. Maile "iptal" yanıtı ver, elle çıkarırız.', 'var(--red)'); });
+})();
+</script>
+</body>
+</html>
