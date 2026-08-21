@@ -458,66 +458,52 @@ function gtipGit(e){
         'Nöbette · son Resmî Gazete turu: ' + d.sonTarama;
     }).catch(function(){});
     </script>
-    <!-- 21.08 KARAR (Cem: "bu işin Apple'ı olsun"). Apple/Stripe/Ramp/Vanta/
-         Bloomberg Tax/Xero/Sage/Linear ana sayfaları tek tek açılıp bakıldı.
-         Ortak dilbilgisi: KİMSE ziyaretçiye "sen kimsin?" diye sormuyor.
-         Apple "Mac kullanıcısı mısın?" demez, Mac'i gösterir. Tek "kimsin"
-         soranı LexisNexis ("Choose Your Path") ve o bile sayfasına
-         "DON'T SHOW ME THIS PAGE AGAIN" düğmesi koymuş.
-         Bu yüzden H1 artık markayı değil ÜRÜNÜ söylüyor; marka cümlesi
-         ("Tetikte olan kaçırmaz") kapanışa taşındı - Apple da imza cümlesini
-         sona koyar. Ekranda ürünün TARİFİ değil KENDİSİ durur: kaynaklı
-         cevap kartı. -->
-    <h1>Cevabın altında <span class="g">maddesi</span> var.</h1>
+    <h1><span class="g">Tetikte</span> olan kaçırmaz.</h1>
     <!-- 29.07: eski alt cumle YALNIZ BIR KAPIYA sesleniyordu ("Resmi
          Gazete'den seni ilgilendireni buluruz"). Sinava hazirlanan ogrenci
          bunu okuyunca "bu bana gore degil" deyip cikiyordu. Uc kisiye acilan
          bir kapida tek kisiye konusulmaz. Yeni cumle ucunun de isini SOMUT
          isimlerle sayiyor ve kapilara baglaniyor. -->
-    <p class="sade-alt">Vergi, gümrük, SGK, mevzuat. Sorunu yaz, cevabı
-      <b>kaynağıyla</b> al. Yarın değişirse <b>sabah haberin olur</b>.</p>
+    <p class="sade-alt">Sınav sorusunu da, süreyi de, vergiyi de.
+      <b>İşin neyse, nöbet onun üstünde</b>, hem de kaynağıyla.</p>
 
-    <!-- ÜÇ KAPI YERİNE İKİ FİİL. Apple'da her ürünün altında "Learn more ·
-         Buy" durur; kimlik değil EYLEM sunulur. Kapıların ikisi zaten boş
-         çek yazıyordu: "Mali Müşavirim" giriş ekranına, "Şirket sahibiyim"
-         yalnız GTİP'e gidiyordu. -->
-    <div class="verbs">
-      <a class="btn" href="soru-cevap.html">Bir soru sor →</a>
-      <a class="lnk" href="#guven">Nasıl çalışır ›</a>
-    </div>
+    <!-- 30.07 Cem onayi: "sen kimsin?" sorgu gibi soguktu - davetkar hale getirildi -->
+    <div class="sade-soru">Hangi iştesin? Kapın hazır.</div>
 
-    <!-- ÜRÜN OBJESİ: kaynaklı cevap kartı. İçindeki hukuki bilgi uydurma
-         değil - KDVK m.32, sitede zaten doğrulanmış içerikten. Görüntü değil
-         saf CSS: her çözünürlükte net, eskimez, bakım istemez.
-         21.08 NOT: kutu CANLI değil, bilerek. Net Cevap kalite turunda yerel
-         motor 26 etiketli soruda 24 doğru veriyor ama beyin (Edge Function)
-         şu an ölü; canlı kutuyu hero'ya gömmek ilk izlenimi motorun kötü
-         gününe bağlar. Ürünü vitrinde gösteriyoruz, tıklayan sayfasına gidiyor. -->
-    <a class="ncKart" href="soru-cevap.html" aria-label="Net Cevap örneği, tıkla ve kendi soruna sor">
-      <span class="ncBar"><i></i><i></i><i></i><em>tetikte · net cevap</em></span>
-      <span class="ncSoru"><b>Soru:</b> İhraç kayıtlı satışta yüklendiğim KDV'yi ne zamana kadar iade isteyebilirim?</span>
-      <span class="ncCevap">İade talebini <em>izleyen ikinci takvim yılı sonuna</em> kadar yapman gerekir; süre geçerse iade hakkı düşer.</span>
-      <span class="ncKaynak"><b>DAYANAK</b>3065 sayılı Katma Değer Vergisi Kanunu m.32 — tam istisna kapsamındaki işlemlerde yüklenilen KDV indirim yoluyla giderilemezse iade edilir.</span>
-      <span class="ncAlt"><span>Kapsamda değilse "bilmiyorum" der; uydurmaz.</span><span>Üyeliksiz 3 soru ücretsiz →</span></span>
-    </a>
-
-    <!-- SINAV: Cem'in kararı "sınav kalsın". Kimlik kapısı olarak değil,
-         tek satırlık EYLEM şeridi olarak duruyor - ücretsiz soru bankası
-         bizim en çok trafik getiren ve anında karşılığını veren kapımız. -->
-    <a class="snvSerit" href="genc.html">
-      <span class="snvIc">
+    <div class="sade-kapilar">
+      <!-- 29.07 FIYATLAR KAPILARDAN KALKTI. Kapi "sen kimsin" diye sorar,
+           "ne odeyeceksin" diye degil. Bizi hic tanimayan biri ilk ekranda uc
+           rakam goruyordu - o ekran karsilama degil KASA oluyordu.
+           Kapinin alt satiri artik YAPILACAK IS. Fiyat asagida ve kendi
+           sayfasinda; once is, sonra para. -->
+      <a class="sk" href="genc.html">
+        <span class="sk-ust">01</span>
         <b>Sınava hazırlanıyorum</b>
-        <small>Staja Giriş · Staj Bitirme — soru bankası, her şıkkın gerekçesi, zayıf konu karnesi</small>
-      </span>
-      <span class="snvGit">Ücretsiz soru çözmeye başla →</span>
-    </a>
-
-    <!-- 21.08: ÜÇ KAPI KALDIRILDI (29.07-21.08 arası yaşadı). Ölçülen sebep
-         yukarıda; kapıların içeriği silinmedi, yerini değiştirdi:
-           01 Sınav        -> hero'da eylem şeridi (hemen yukarıda)
-           02 Mali Müşavir -> aşağıda "Büro" bölümü, gerçek panel tablosuyla
-           03 Şirket sahibi-> Kazandıranlar/Koruyanlar kutuları zaten onun
-         Eski kapı işaretlemesi burada bırakılmadı; git geçmişinde durur. -->
+        <span class="sk-et">Staja Giriş · Staj Bitirme</span>
+        <span class="sk-ac">Soru bankası, her şıkkın gerekçesi, zayıf konu karnesi</span>
+        <span class="sk-git">Ücretsiz soru çözmeye başla →</span>
+      </a>
+      <!-- 30.07 Cem: "Mali Müşavirim'e girdiğimde hiçbir şey çıkmıyor."
+           Hakliydi: kart #araclar capasina gidiyordu - metin "panelini gör"
+           diye soz verip yalnizca sayfayi asagi kaydiriyordu. Uc kapidan
+           ikisi gercek sayfaya giderken (deneme, gtip) bu yarim kalmisti.
+           Artik gercek panele gidiyor; girissiz kullanici orada duzgun bir
+           "Giriş yap" ekrani gorur - bos kaydirmadan iyidir. -->
+      <a class="sk" href="radar-app.html?niyet=musavir">
+        <span class="sk-ust">02</span>
+        <b>Mali Müşavirim</b>
+        <span class="sk-et">Büro · çoklu mükellef</span>
+        <span class="sk-ac">Tüm mükelleflerin tek panelde: süre, ceza ve marka takibi + banka ekstresinden hazır fişe Fiş Fabrikası</span>
+        <span class="sk-git">Müşavir panelini gör →</span>
+      </a>
+      <a class="sk" href="gtip.html">
+        <span class="sk-ust">03</span>
+        <b>Şirket sahibiyim</b>
+        <span class="sk-et">İthalat · ihracat · üretim</span>
+        <span class="sk-ac">GTİP vergileri, ceza kapıları, alacak ve ihale radarı</span>
+        <span class="sk-git">GTİP kodunu sorgula →</span>
+      </a>
+    </div>
 
     <!-- ============ ÜRÜN PENCERESİ (30.07 Cem: "Amerika firması gibi") =====
          ABD SaaS sayfalarının kalbi "ekran içinde ürün"dür (Linear/Stripe
@@ -717,10 +703,6 @@ function gtipGit(e){
          (kasa-sayim robotu yazar); okunamazsa HTML'deki son gercek kalir. -->
     <div class="strip" style="margin-top:30px">
       <div class="strip-in">
-        <!-- 21.08: HTML'deki degerler YEDEK (vitrin-sayilar.json okunamazsa
-             gorunur). Eskimislerdi: 12.869/7.224 yaziyordu, gercek sayim
-             30.569/16.284. Araç 25'ti, izgarada 26 calisan arac var - o rakam
-             artik kasa-sayim.ps1 tarafindan SAYILIYOR, elle tasinmiyor. -->
         <div class="stat reveal"><div class="n" id="vSoru">30.569</div><div class="t">Özgün soru yazıldı</div></div>
         <div class="stat reveal"><div class="n" id="vHakem">16.284</div><div class="t">Bağımsız hakem denetimi</div></div>
         <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
@@ -772,51 +754,17 @@ function gtipGit(e){
   .sade-alt{color:var(--muted);font-size:clamp(14.5px,1.5vw,16.5px);max-width:660px;margin:0 auto 22px}
   .sade-soru{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);
     font-weight:700;margin-bottom:16px}
+  .sade-kapilar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1000px;margin:0 auto}
+  .sk{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;
+    background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px 20px 18px;
+    transition:border-color .18s,transform .18s,background .18s}
+  .sk:hover{border-color:var(--accent);transform:translateY(-4px);background:var(--panel2)}
+  .sk-ust{font:800 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:1px;margin-bottom:12px}
+  .sk b{font-size:19px;letter-spacing:-.4px;margin-bottom:8px}
+  .sk-ac{font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:16px;flex:1}
+  .sk-et{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:7px}
 
-  /* ===== 21.08 APPLE DİLBİLGİSİ: iki fiil + ürün objesi + sınav şeridi ===== */
-  .verbs{display:flex;gap:22px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:34px}
-  .verbs .lnk{color:var(--accent2);font-size:15.5px;font-weight:600;text-decoration:none}
-  .verbs .lnk:hover{text-decoration:underline}
-
-  /* ürün objesi: kaynaklı cevap kartı */
-  .ncKart{display:block;max-width:660px;margin:0 auto;text-align:left;text-decoration:none;color:inherit;
-    border-radius:20px;background:linear-gradient(180deg,#121a26,#0b111a);border:1px solid var(--line2);
-    box-shadow:0 34px 90px rgba(0,0,0,.62),0 0 0 1px rgba(245,165,36,.10),0 0 70px rgba(245,165,36,.06);
-    overflow:hidden;transition:transform .18s,border-color .18s}
-  .ncKart:hover{transform:translateY(-3px);border-color:rgba(245,165,36,.45)}
-  .ncBar{display:flex;align-items:center;gap:7px;padding:12px 18px;border-bottom:1px solid var(--line);
-    background:rgba(255,255,255,.02)}
-  .ncBar i{width:9px;height:9px;border-radius:50%;background:#2a3442;display:inline-block}
-  .ncBar em{margin-left:8px;font-style:normal;font-size:11.5px;color:var(--dim);letter-spacing:.5px}
-  .ncSoru{display:block;padding:20px 24px 4px;font-size:15px;color:var(--muted)}
-  .ncSoru b{color:var(--ink);font-weight:600}
-  .ncCevap{display:block;padding:12px 24px 20px;font-size:17.5px;line-height:1.5}
-  .ncCevap em{font-style:normal;color:var(--accent2);font-weight:600}
-  .ncKaynak{display:block;margin:0 24px 20px;border:1px solid rgba(245,165,36,.32);border-radius:13px;
-    background:rgba(245,165,36,.06);padding:12px 15px;font-size:13.5px;color:var(--muted)}
-  .ncKaynak b{display:block;color:var(--accent2);font-size:11px;letter-spacing:1.3px;margin-bottom:4px}
-  .ncAlt{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-    border-top:1px solid var(--line);padding:11px 24px;font-size:12px;color:var(--dim)}
-  .ncAlt span:last-child{color:var(--accent2);font-weight:600}
-
-  /* sınav: kimlik kapısı değil, tek satırlık eylem şeridi */
-  .snvSerit{display:flex;align-items:center;gap:16px;max-width:660px;margin:20px auto 0;
-    text-align:left;text-decoration:none;color:inherit;padding:15px 20px;border-radius:15px;
-    border:1px solid rgba(245,165,36,.32);
-    background:linear-gradient(180deg,rgba(245,165,36,.07),rgba(245,165,36,.02));
-    transition:border-color .18s,transform .18s}
-  .snvSerit:hover{border-color:var(--accent);transform:translateY(-2px)}
-  .snvIc{flex:1}
-  .snvIc b{display:block;font-size:16px}
-  .snvIc small{color:var(--muted);font-size:13px;line-height:1.4}
-  .snvGit{color:var(--accent2);font-weight:700;font-size:14.5px;white-space:nowrap}
-  @media(max-width:620px){
-    .ncCevap{font-size:16px}
-    .snvSerit{flex-direction:column;align-items:flex-start;gap:9px}
-  }
-
-  /* (21.08: uc kapi kaldirildi - .sade-kapilar / .sk* stilleri olu kaldigi
-     icin silindi. Yerine .verbs + .ncKart + .snvSerit yukarida.) */
+  .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
 
   /* (30.07 2. tur: buyuk .urun-pencere kaldirildi - Cem "hepsi kutu kutu
      olsun" dedi; sinav artik .mp.one vurgulu kutusu. Olu CSS temizlendi.) */
@@ -877,64 +825,16 @@ function gtipGit(e){
   .sade-not{margin-top:18px;font-size:13px;color:var(--muted)}
   .sade-not a{color:var(--accent);font-weight:700;text-decoration:none;margin-left:6px}
   @media(max-width:860px){
+    .sade-kapilar{grid-template-columns:1fr;max-width:520px}
     .hero-sade{min-height:auto}
     .sade-ic{padding:90px 18px 34px}
+    .sk{padding:16px}
   }
 </style>
 <!-- ============ BUGUN RG'DE (gercek kanit) ============================
      Hero sadelesirken gercek RG kartlari da cikmisti. O kartlar bizim tek
      GERCEK kanitimiz - uydurma degil, robotun buldugu. Kapilarin hemen
      altina, kendi bolumune alindi. -->
-<!-- ============ BÜRO (21.08) =====================================
-     Cem: "mali müşavir sekmesini siteyi açtıktan sonra anlatsak."
-     Doğrusu buydu. Eski "Mali Müşavirim" kapısı ilk ekranda söz verip
-     tıklayanı giriş ekranına düşürüyordu - vitrinde söz, arkada duvar.
-     Artık burada, gerçek panelin ne gösterdiğini ANLATARAK duruyor.
-     Tablodaki dayanaklar gerçek: SMK m.23 (marka yenileme), KDV beyan
-     süresi ve Fiş Fabrikası'nın ekstre->fiş işi hepsi canlı araçlardan.
-     Rakam yazılmadı (kaç mükellef/kaç satır) - ölçülmeden yazılmaz. -->
-<section id="buro" style="padding:64px 20px 46px;border-top:1px solid var(--line)">
-  <div style="max-width:1180px;margin:0 auto;text-align:center">
-    <div style="font-size:12px;font-weight:800;letter-spacing:2.6px;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Büro</div>
-    <h2 style="font-size:clamp(28px,3.6vw,44px);line-height:1.06;letter-spacing:-1.2px;margin:0">Bütün mükelleflerin.<br>Tek ekran.</h2>
-    <p style="color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:600px;margin:16px auto 0">
-      Süre, ceza, marka, evrak ve banka ekstresinden hazır fiş.
-      Mali müşavirin nöbeti <b style="color:var(--ink)">müşteri müşteri</b> tutulur.</p>
-    <div class="verbs" style="margin:24px 0 30px">
-      <a class="btn" href="radar-app.html?niyet=musavir">Büro panelini gör →</a>
-      <a class="lnk" href="fis-fabrikasi.html">Fiş Fabrikası ›</a>
-    </div>
-
-    <div class="buroEkran">
-      <div class="buroBas">Büro paneli · yaklaşan yükümlülükler</div>
-      <div class="buroSat"><span class="buroRz k">2 GÜN</span>
-        <span><b>Yılmaz Tekstil Ltd. Şti.</b><small>KDV beyannamesi · kaçarsa usulsüzlük + gecikme faizi</small></span></div>
-      <div class="buroSat"><span class="buroRz a">9 GÜN</span>
-        <span><b>Ege Makina A.Ş.</b><small>Marka yenileme son tarihi · SMK m.23</small></span></div>
-      <div class="buroSat"><span class="buroRz y">HAZIR</span>
-        <span><b>Deniz Gıda Ltd. Şti.</b><small>Banka ekstresi okundu, fişe çevrildi — onayını bekliyor</small></span></div>
-      <div class="buroNot">Örnek görünüm; firma adları temsilîdir. Panelde kendi mükelleflerini görürsün.</div>
-    </div>
-  </div>
-</section>
-<style>
-  .buroEkran{max-width:840px;margin:0 auto;border-radius:18px;border:1px solid var(--line2);
-    background:linear-gradient(180deg,#111926,#0a1017);box-shadow:0 30px 80px rgba(0,0,0,.6);
-    overflow:hidden;text-align:left}
-  .buroBas{padding:13px 20px;border-bottom:1px solid var(--line);font-size:12px;
-    letter-spacing:1.4px;color:var(--dim);text-transform:uppercase}
-  .buroSat{display:flex;gap:14px;align-items:flex-start;padding:14px 20px;border-bottom:1px solid var(--line)}
-  .buroRz{font-size:10.5px;font-weight:800;letter-spacing:1px;padding:4px 9px;border-radius:6px;
-    white-space:nowrap;margin-top:2px}
-  .buroRz.k{background:var(--red-bg);color:var(--red)}
-  .buroRz.a{background:var(--amber-bg);color:var(--amber)}
-  .buroRz.y{background:var(--green-bg);color:var(--green)}
-  .buroSat b{display:block;font-size:15px;font-weight:600}
-  .buroSat small{color:var(--muted);font-size:13px}
-  .buroNot{padding:11px 20px;font-size:11.5px;color:var(--dim)}
-  @media(max-width:560px){ .buroSat{flex-direction:column;gap:7px} }
-</style>
-
 <section id="bugun-rg" style="padding:34px 20px 6px;border-top:1px solid var(--line)">
   <div style="max-width:1180px;margin:0 auto">
     <div style="font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px">Resmî Gazete nöbeti</div>
@@ -1319,22 +1219,6 @@ function gtipGit(e){
     </div>
     <p class="reveal" style="text-align:center;margin-top:26px;font-size:14px;color:var(--muted)">
       Tetikte, kurumsal bir anonim şirket olan <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:700;text-decoration:none">Dizdar Denetim A.Ş.</a>'nin bir yazılımıdır: vergi, iç denetim, ERP mimarisi ve finansal yazılımda uzman.</p>
-  </div>
-</section>
-
-<!-- 21.08: MARKA CÜMLESİ H1'DEN BURAYA TAŞINDI. Apple ürünü önce gösterir,
-     imza cümlesini sona koyar. Üstteki H1 artık ne sattığımızı söylüyor
-     ("Cevabın altında maddesi var"); bu satır ise neden var olduğumuzu. -->
-<section id="kapanis" style="padding:96px 20px 104px;text-align:center">
-  <div style="max-width:760px;margin:0 auto">
-    <h2 style="font-size:clamp(30px,4.4vw,52px);line-height:1.05;letter-spacing:-1.6px;margin:0">
-      <span class="g">Tetikte</span> olan kaçırmaz.</h2>
-    <p style="color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:560px;margin:18px auto 0">
-      Kredi kartı istemeden başla. İlk soruda ne demek istediğimizi anlarsın.</p>
-    <div class="verbs" style="margin-top:26px;margin-bottom:0">
-      <a class="btn" href="karne.html">Ücretsiz başla →</a>
-      <a class="lnk" href="#fiyat">Fiyatlar ›</a>
-    </div>
   </div>
 </section>
 
