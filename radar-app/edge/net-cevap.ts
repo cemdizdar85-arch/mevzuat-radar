@@ -194,12 +194,30 @@ Deno.serve(async (req) => {
       for (const t of tok.slice(0, 8)) { const a = ALIAS[fold(t)]; if (a) ftsTok.push(...a); else ftsTok.push(fold(t)); }
       const fts = ftsTok.slice(0, 8).join(" ");
       if (fts) {
+        // 21.08 KRITIK AYIKLAMA: ambarda cikmis sinavlar tur='cikmis-soru'
+        // olarak duruyor ve HER SINAV TEK SATIR (metin alani 68.000+ karakter,
+        // "130 soru" bir arada). Tek satir her kelimeyi icerdigi icin FTS'te
+        // her sorguyu kazaniyordu: 8 ornek sorgunun 6'sinda ilk sira sinav
+        // kagidiydi. "katma deger vergisi iade" sorgusunda donen parca bir
+        // EDEBIYAT sorusuydu. Beyin bunlardan ozet cikarsa kanun yerine sinav
+        // kagidini kaynak gosterirdi - ustelik "dogrulanmis birincil kaynak"
+        // rozetiyle. Cikmis sorular soru bankasinin malidir, hukuki cevap
+        // motorunun degil.
+        // ADET 6 -> 30 (olculdu): 14 yetmedi. "katma deger vergisi iade" ve
+        // "damga vergisi kira sozlesmesi" sorgularinda ilk 14'un TAMAMI sinav
+        // kagidiydi, ayiklamadan sonra SIFIR kaynak kaliyordu. 30'da kanun
+        // satirlari geri geliyor (5 ve 12 kayit) ve sure ~1,2-1,8 sn'de
+        // kaliyor. Ayiklamadan sonra ilk 6 alinir.
+        const AYIKLA = new Set(["cikmis-soru"]);
         const r = await fetch(`${SB_URL}/rest/v1/rpc/madde_ara`, {
           method: "POST",
           headers: { "content-type": "application/json", ...(SB_ANON ? { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` } : {}) },
-          body: JSON.stringify({ sorgu: fts, adet: 6 }),
+          body: JSON.stringify({ sorgu: fts, adet: 30 }),
         });
-        if (r.ok) for (const d of await r.json()) parcalar.push({ ad: d.kaynak_ad + (d.belge_tarihi ? ` (${d.belge_tarihi})` : ""), metin: (d.baslik ? d.baslik + " — " : "") + String(d.metin).slice(0, 1200), url: d.kaynak_url });
+        if (r.ok) {
+          const satirlar = (await r.json()).filter((d: any) => !AYIKLA.has(String(d.tur || ""))).slice(0, 6);
+          for (const d of satirlar) parcalar.push({ ad: d.kaynak_ad + (d.belge_tarihi ? ` (${d.belge_tarihi})` : ""), metin: (d.baslik ? d.baslik + " — " : "") + String(d.metin).slice(0, 1200), url: d.kaynak_url });
+        }
       }
     } catch (_) { /* ambar bos olabilir */ }
 
