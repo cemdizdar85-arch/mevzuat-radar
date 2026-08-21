@@ -367,8 +367,36 @@ if(-not $env:SUPABASE_SERVICE_KEY){
 }
 $KOK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
 $SB  = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
-function SbGet($yol){ $w=Invoke-WebRequest -Uri "$KOK/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck; $ham=if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}; if([int]$w.StatusCode -ge 400){ throw ("Supabase {0}: {1}" -f $w.StatusCode,$ham) }; return @($ham | ConvertFrom-Json) }
-function SbGonder($yol,$metot,$govde,$ekBaslik){ $b=[Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 8)); $bsl=$SB+@{'Content-Type'='application/json'}+$ekBaslik; $w=Invoke-WebRequest -Uri "$KOK/$yol" -Method $metot -Headers $bsl -Body $b -UseBasicParsing -TimeoutSec 90 -SkipHttpErrorCheck; if([int]$w.StatusCode -ge 400){ $ham=if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}; Write-Host ("  ! Supabase {0} {1}: {2}" -f $metot,$yol,$ham) }; return [int]$w.StatusCode }
+# NOT: -SkipHttpErrorCheck yalniz pwsh 7'de var; bu betik yerelde (PS 5.1) de
+# kosabilsin diye hata yakalama try/catch ile yapiliyor. Yerelde kosabilmek
+# onemli: rakip nobetini/uye hattini Actions'i beklemeden olcuyoruz.
+# Ayrica gizli anahtar "browser" gorunen UA'yi reddediyor (16.08 dersi) ->
+# her istekte robot UA'si gonderilir.
+$UA = 'mevzuat-radar-robot/1.0'
+function SbGet($yol){
+  try{
+    $w = Invoke-WebRequest -Uri "$KOK/$yol" -Headers $SB -UserAgent $UA -UseBasicParsing -TimeoutSec 120
+    $ham = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
+    return @($ham | ConvertFrom-Json)
+  }catch{
+    $kod = 0; $govde = ''
+    try{ $r=$_.Exception.Response; $kod=[int]$r.StatusCode; $sr=New-Object IO.StreamReader($r.GetResponseStream()); $govde=$sr.ReadToEnd() }catch{}
+    throw ("Supabase GET {0} -> {1} {2}" -f $yol,$kod,$govde)
+  }
+}
+function SbGonder($yol,$metot,$govde,$ekBaslik){
+  $b = [Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 8))
+  $bsl = $SB + @{'Content-Type'='application/json'} + $ekBaslik
+  try{
+    $w = Invoke-WebRequest -Uri "$KOK/$yol" -Method $metot -Headers $bsl -UserAgent $UA -Body $b -UseBasicParsing -TimeoutSec 90
+    return [int]$w.StatusCode
+  }catch{
+    $kod = 0; $hata = ''
+    try{ $r=$_.Exception.Response; $kod=[int]$r.StatusCode; $sr=New-Object IO.StreamReader($r.GetResponseStream()); $hata=$sr.ReadToEnd() }catch{}
+    Write-Host ("  ! Supabase {0} {1}: {2} {3}" -f $metot,$yol,$kod,$hata)
+    return $kod
+  }
+}
 
 function MailAt($kime,$konu,$html,$duz){
   if(-not $env:RESEND_KEY -or $kuru){ return $false }
