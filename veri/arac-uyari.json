@@ -1,20 +1,20 @@
 {
-  "tarih": "21.08.2026 13:07",
-  "rg_gun": "21-08-2026",
-  "kart": 8,
+  "tarih": "22.08.2026 01:48",
+  "rg_gun": "22-08-2026",
+  "kart": 4,
   "etkilenen_dosya": 1,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
   "uyarilar": [
     {
-      "dosya": "veri/gtip-damping.json",
+      "dosya": "veri/gtip-durum.json",
       "arac": "gtip.html",
-      "kaynak_ad": "Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri",
-      "hasat": "motor/damping-hasat.ps1 (yerel damping.xlsx)",
+      "kaynak_ad": "Gozetim / korunma / kayda bagli ithalat tebligleri",
+      "hasat": "motor/tablo-hasat.ps1",
       "eslesme_sayisi": 1,
       "eslesmeler": [
         {
-          "anahtar": "damping",
-          "kart_basligi": "Malezya'dan klima ithalatında kısmi ara gözden geçirme soruşturması açılıyor"
+          "anahtar": "gozetim",
+          "kart_basligi": "Motorlu araçların tip onayı ve piyasa gözetimi yönetmeliğinde geçiş süresi değişikliği"
         }
       ]
     }

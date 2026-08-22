@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260821130708
+Start time: 20260822014839
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/192fc6d4-c589-4475-9aab-42137c095d04.ps1'
-Process ID: 2565
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c620cd73-db2c-4371-914e-7e722690b588.ps1'
+Process ID: 2544
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -17,17 +17,17 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 21-08-2026
-Kart sayisi  : 8
+RG gunu      : 22-08-2026
+Kart sayisi  : 4
 Izlenen dosya: 12
 
 ======================================================================
   RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
 ======================================================================
-  veri/gtip-damping.json   (arac: gtip.html)
-      dayanak: Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri
-      hasat  : motor/damping-hasat.ps1 (yerel damping.xlsx)
-      <- Malezya'dan klima ithalatında kısmi ara gözden geçirme soruşturması açılıyor
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Motorlu araçların tip onayı ve piyasa gözetimi yönetmeliğinde geçiş süresi değişikliği
 
   YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
   yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
@@ -36,5 +36,5 @@ Izlenen dosya: 12
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260821130709
+End time: 20260822014839
 **********************
