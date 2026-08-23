@@ -34,7 +34,9 @@ if(-not (Test-Path $klasor)){ Write-Host "Klasor yok: $klasor"; exit 1 }
 function SiklariAyir([string]$blok){
   $sonuc = [ordered]@{}
   $isaretler = @([regex]::Matches($blok, '(?<![A-Za-z0-9])([A-E])\)\s'))
-  if($isaretler.Count -lt 4){ return $sonuc }
+  # NOT: burada "4'ten az isaret varsa cik" diye erken donus VARDI; asagidaki
+  # OCR kurtarma yolunu tamamen olu birakiyordu (olculdu: kurtarilabilecek 25
+  # soru hic denenmeden dusuyordu). Karar $ilkGecis sayildiktan sonra verilir.
   # 08.08 IKINCI ONARIM: ARTAN SIRA DAYATMASI KALDIRILDI.
   # Olcum: SGS 2026/2'de 130 sorunun 18'i dusuyordu ve sebep buydu - iki sutunlu
   # dizgide siklar metne SIRASIZ dokuluyor. Ornek soru 24:
@@ -49,7 +51,34 @@ function SiklariAyir([string]$blok){
     $h = $m.Groups[1].Value
     if(-not $ilkGecis.ContainsKey($h)){ $ilkGecis[$h] = $m }
   }
-  if($ilkGecis.Count -lt 4){ return $sonuc }
+
+  # 23.08 UCUNCU ONARIM - OCR SIK ISARETI KURTARMA:
+  # Taranmis kitapciklarda tesseract sik harfini bozuyor. Olculen bozulmalar
+  # (6551, 15 Mayis 2016): "B)4" (bosluk yok), "©)" , "&)" , "8)" , "GC)" ,
+  # "Dj)" , "g6". Siki desen bunlari gormeyince soru "4 sik yok" diye
+  # ATILIYORDU: 143 sorunun 53'u dusuyordu (%51 kapsama).
+  #
+  # GLIFTEN HARFE ESLEME YAPILMAZ - guvenilmez. Olcum: ayni "©" isareti bir
+  # soruda C, oteki soruda D yerine geciyor. Guvenilir olan KONUM: siklar
+  # metinde her zaman A,B,C,D,E sirasiyla dokulur. Bu yuzden gevsek desenle
+  # bulunan isaretler konuma gore A..E diye etiketlenir.
+  #
+  # Bu yol YALNIZ siki desen 4 sik bulamayinca devreye girer; saglam metinde
+  # hicbir sey degismez (olculdu: 6558 72->72, SGS 2019 65->65, 6551 90->113).
+  if($ilkGecis.Count -lt 4){
+    $gevsek = @([regex]::Matches($blok, '(?<![A-Za-z0-9])([A-E©&Gg8])\s?\)\s*'))
+    # 4-5 disi sayi = gurultu (metin icindeki parantezler). Uydurma yapma, birak.
+    if($gevsek.Count -lt 4 -or $gevsek.Count -gt 5){ return $sonuc }
+    $harfler = @('A','B','C','D','E')
+    for($i=0; $i -lt $gevsek.Count; $i++){
+      $bas = $gevsek[$i].Index + $gevsek[$i].Length
+      $son = if($i -lt $gevsek.Count-1){ $gevsek[$i+1].Index } else { $blok.Length }
+      $v = $blok.Substring($bas, [Math]::Max(0,$son-$bas))
+      $sonuc[$harfler[$i]] = ($v -replace '\s+',' ').Trim()
+    }
+    return $sonuc
+  }
+
   $sirali = New-Object System.Collections.Generic.List[object]
   foreach($m in ($ilkGecis.Values | Sort-Object { $_.Index })){ $sirali.Add($m) }
   for($i=0; $i -lt $sirali.Count; $i++){
@@ -219,17 +248,19 @@ foreach($f in $pdfler){
   if($KIRPMA_VAR -and -not (Test-Path $sag)){ try { & $PDFTOTEXT -q -enc UTF-8 -marginl 295 $f.FullName $sag 2>&1 | Out-Null } catch {} }
   if((Boy $duz) -lt 1000){ try { & $PDFTOTEXT -q -enc UTF-8 $f.FullName $duz 2>&1 | Out-Null } catch {} }
 
+  # OCR de OTEKILERLE YARISIR (23.08 duzeltmesi). Once "OCR varsa dogrudan
+  # kazanir" kurali vardi; gerekcesi "bozuk metin katmani cop uretir" idi.
+  # OLCULDU, gerekce yanlis cikti:
+  #   6557_SABAH_A (gomulu font bozuk) metin katmaniyla 0 soru veriyor - bozuk
+  #     metin yarisi zaten kaybediyor, korumaya gerek yok.
+  #   10270 sabah A (metin katmani SAGLAM ama eksik) OCR ile 100, metinle 123.
+  #     Kosulsuz OCR onceligi bu kitapcigi 123'ten 100'e DUSURUYORDU.
+  # Kural: hepsini dene, en cok soru vereni al.
   $aileler = @()
-  if((Boy $ocr) -gt 3000){
-    # OCR'i zaten metin katmani BOZUK oldugu icin cektik (6557_SABAH: gomulu
-    # font harf yiyor). Bozuk katman daha COK ama COP soru uretebilir, o yuzden
-    # OCR varsa yarisa sokulmaz - dogrudan kazanir.
-    $aileler = @(,@('ocr', @($ocr)))
-  } else {
-    if((Boy $sol) -gt 1000 -and (Boy $sag) -gt 1000){ $aileler += ,@('sutun', @($sol,$sag)) }
-    if((Boy $kardes) -gt 1000){ $aileler += ,@('layout', @($kardes)) }
-    if((Boy $duz)    -gt 1000){ $aileler += ,@('duz',    @($duz)) }
-  }
+  if((Boy $ocr)    -gt 3000){ $aileler += ,@('ocr',    @($ocr)) }
+  if((Boy $sol) -gt 1000 -and (Boy $sag) -gt 1000){ $aileler += ,@('sutun', @($sol,$sag)) }
+  if((Boy $kardes) -gt 1000){ $aileler += ,@('layout', @($kardes)) }
+  if((Boy $duz)    -gt 1000){ $aileler += ,@('duz',    @($duz)) }
 
   # Her (cikarim ailesi x numaralandirma stili) ciftini AYRI dene, en cok
   # soru vereni sec. Iki boyut da olculdu (23.08): dizgiye gore kazanan
@@ -238,10 +269,21 @@ foreach($f in $pdfler){
   foreach($aile in $aileler){
     foreach($stil in @('.', ')')){
       $t2 = [ordered]@{}
+      $akis = 0
       foreach($t in @($aile[1])){
+        $akis++
         if(-not (Test-Path $t)){ continue }
         foreach($s in (SorulariCikar (Get-Content $t -Raw -Encoding UTF8) $stil)){
-          $a = Anahtar $s
+          # ANAHTARA AKIS NUMARASI EKLENIR (23.08 dorduncu onarim):
+          # sol ve sag sutun AYRI akislardir ve her biri kendi modul sayacini
+          # tutar. Sayaclar senkron kalmaz - modul siniri iki sutunda ayni
+          # yerde dusmez. Ortak anahtar kullanilinca FARKLI sorular carpisip
+          # birbirini eziyordu. Olcum (6558_SABAH_A): sol 72 + sag 73 = 145 ham
+          # soru, ortak anahtarla 124'e dusuyordu - 21 gercek soru kayip.
+          # Sutunlar birbirini TAMAMLAR (ayni soru iki sutunda olmaz), o yuzden
+          # akislari ayirmak mukerrer uretmez. Kirpma bindirmesinden dogabilecek
+          # yarim kopyalari asagidaki guvenlik gecisi temizler.
+          $a = "$akis|" + (Anahtar $s)
           if(-not $t2.Contains($a)){ $t2[$a] = $s }
           elseif($s.kok.Length -gt $t2[$a].kok.Length){ $t2[$a] = $s }
         }
