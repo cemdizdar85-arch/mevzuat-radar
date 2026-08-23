@@ -208,7 +208,13 @@ Deno.serve(async (req) => {
         // kagidiydi, ayiklamadan sonra SIFIR kaynak kaliyordu. 30'da kanun
         // satirlari geri geliyor (5 ve 12 kayit) ve sure ~1,2-1,8 sn'de
         // kaliyor. Ayiklamadan sonra ilk 6 alinir.
-        const AYIKLA = new Set(["cikmis-soru"]);
+        // 23.08: ayni gerekce yeni turler icin de gecerli. Ambara eklendi:
+        //   cikmis-komisyon-cevabi = TESMER Yeterlilik klasik donem (2008-2025)
+        //   sinav komisyonunun RESMI cozumleri. 402 belge, her biri tek satir.
+        // Bunlar soru bankasinin malzemesi; hukuki cevap motoruna girmezler.
+        // YENI TUR EKLERKEN BU SETI DE GUNCELLE - yoksa ambar buyudukce
+        // Net Cevap sessizce sinav kagidi alintilamaya baslar.
+        const AYIKLA = new Set(["cikmis-soru", "cikmis-komisyon-cevabi"]);
         const r = await fetch(`${SB_URL}/rest/v1/rpc/madde_ara`, {
           method: "POST",
           headers: { "content-type": "application/json", ...(SB_ANON ? { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` } : {}) },

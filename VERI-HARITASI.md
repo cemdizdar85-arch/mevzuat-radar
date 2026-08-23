@@ -23,7 +23,9 @@
 | Veri | Ev | Dışa açılan yüz | Not |
 |---|---|---|---|
 | Mevzuat ambarı (60 kaynak, madde-belge) | `mevzuat`/madde-ara tabloları | `madde-ara` RPC (v6) | repo `veri/mevzuat/*.json` yalnız YÜKLEME ara ürünü |
-| Soru kasası (31 bin+ soru, cevap+açıklama) | soru havuzu tabloları | sayfalara kimlikli servis | soru METNİ depoya ASLA (gitignore korumalı) |
+| Soru kasası (31 bin+ soru, cevap+açıklama) | soru havuzu tabloları | sayfalara kimlikli servis | soru METNİ depoya ASLA (gitignore korumalı) — **tamamı bizim ürettiğimiz**, çıkmış sınav sorusu YOK |
+| Çıkmış sınav kitapçıkları (189 belge, 19.736 soru) | `dokumanlar` tur=`cikmis-soru` | **hiçbiri** — `madde_ara` v7 `cikmis%` türünü dışlar | KGK 108 · SGS 65 dönem · SMMM 16; kaynak PDF yalnız disk |
+| Yeterlilik komisyon cevapları (klasik dönem) | `dokumanlar` tur=`cikmis-komisyon-cevabi` | **hiçbiri** (aynı dışlama) | TESMER klasik dönem için soru yayımlamıyor, yalnız resmî çözüm var |
 | Alacak arşivi (5.728 ilan, VKN/TCKN) | `alacak_ilan` (RLS açık, policy YOK) | tavanlı RPC: vitrin/ara/toplu | fiyat kapısı SUNUCUDA; 19.08 kasaya alındı |
 | İhale arşivi (2.410 ihale) | ihale tabloları (service_role) | RPC'ler | 20.08 kasaya alındı (c408c23f) |
 | Üye/kimlik | Supabase Auth | giriş/üyelik akışı | başkasının verisini görmek RLS ile kapalı |
@@ -59,7 +61,8 @@
 | Veri | Yol | Neden |
 |---|---|---|
 | RG PDF arşivi | `motor/arsiv/` | 130 MB; geçmişi şişirdi, 20.08 geçmişten silindi |
-| Sınav kitapçık arşivleri | `veri/kgk-arsiv/`, `veri/smmm-arsiv/`, `_txt/` | telif + boyut |
+| Sınav kitapçık arşivleri | `veri/kgk-arsiv/`, `veri/smmm-arsiv/`, `veri/sgs-arsiv/`, `_txt/` | telif + boyut; 23.08 SGS 2005-2026 + yeterlilik 2008-2026 eklendi |
+| OCR çıktıları (`*.ocr.txt`) | arşiv klasörlerinin `pdf/` altı | `motor/pdf-ocr.ps1` üretir; bozuk font/tarama PDF kurtarma |
 | Paralı soru içeriği | `veri/fabrika/`, `veri/fabrika-yedek-denetim-oncesi/`, `sql-yerel/` | ticari sır |
 | Cevap anahtarları | `veri/profesor-rapor*.json` | 20.08 geçmişten de silindi |
 | Alacak ham dosyaları | `veri/alacak-arsiv.json`, `alacak-ilan-canli.json` | kasa Supabase'de |

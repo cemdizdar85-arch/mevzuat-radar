@@ -1,2064 +1,343 @@
 {
-    "tarih":  "08.08.2026 17:15",
-    "aciklama":  "Cikmis sinav kitapciklarinin YIL YIL durumu. Cem bu dosyadan denetler. Eksik satir gizlenmez.",
-    "yilOzeti":  {
-                     "SGS 2015":  {
-                                      "kitapcik":  3,
-                                      "adresli":  3,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  168
-                                  },
-                     "SGS 2016":  {
-                                      "kitapcik":  3,
-                                      "adresli":  3,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  199
-                                  },
-                     "SGS 2017":  {
-                                      "kitapcik":  3,
-                                      "adresli":  3,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  184
-                                  },
-                     "SGS 2018":  {
-                                      "kitapcik":  3,
-                                      "adresli":  3,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  206
-                                  },
-                     "SGS 2019":  {
-                                      "kitapcik":  3,
-                                      "adresli":  3,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  196
-                                  },
-                     "SGS 2020":  {
-                                      "kitapcik":  3,
-                                      "adresli":  3,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  166
-                                  },
-                     "SGS 2021":  {
-                                      "kitapcik":  5,
-                                      "adresli":  5,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  139
-                                  },
-                     "SGS 2022":  {
-                                      "kitapcik":  6,
-                                      "adresli":  6,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  146
-                                  },
-                     "SGS 2023":  {
-                                      "kitapcik":  6,
-                                      "adresli":  6,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  168
-                                  },
-                     "SGS 2024":  {
-                                      "kitapcik":  6,
-                                      "adresli":  6,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  145
-                                  },
-                     "SGS 2025":  {
-                                      "kitapcik":  6,
-                                      "adresli":  6,
-                                      "indi":  3,
-                                      "metinOk":  3,
-                                      "soru":  143
-                                  },
-                     "SGS 2026":  {
-                                      "kitapcik":  2,
-                                      "adresli":  2,
-                                      "indi":  2,
-                                      "metinOk":  2,
-                                      "soru":  110
-                                  },
-                     "SMMM 2021":  {
-                                       "kitapcik":  24,
-                                       "adresli":  24,
-                                       "indi":  24,
-                                       "metinOk":  5,
-                                       "soru":  0
-                                   },
-                     "SMMM 2022":  {
-                                       "kitapcik":  24,
-                                       "adresli":  24,
-                                       "indi":  24,
-                                       "metinOk":  5,
-                                       "soru":  1
-                                   },
-                     "SMMM 2023":  {
-                                       "kitapcik":  24,
-                                       "adresli":  24,
-                                       "indi":  24,
-                                       "metinOk":  5,
-                                       "soru":  1
-                                   },
-                     "SMMM 2024":  {
-                                       "kitapcik":  24,
-                                       "adresli":  24,
-                                       "indi":  24,
-                                       "metinOk":  6,
-                                       "soru":  0
-                                   },
-                     "SMMM 2025":  {
-                                       "kitapcik":  24,
-                                       "adresli":  24,
-                                       "indi":  24,
-                                       "metinOk":  6,
-                                       "soru":  1
-                                   },
-                     "SMMM 2026":  {
-                                       "kitapcik":  24,
-                                       "adresli":  24,
-                                       "indi":  17,
-                                       "metinOk":  16,
-                                       "soru":  136
-                                   }
-                 },
+    "tarih":  "23.08.2026 22:02",
+    "aciklama":  "Cikmis sinav arsivi karnesi. EVREN=TESMER kesfi, DISKTE=yerel txt (\u003e800 bayt), AMBARDA=Supabase dokumanlar. Uc sutun ayni degilse aradaki fark GERCEK ISTIR.",
+    "komisyonCevabiBelgesi":  0,
     "satirlar":  [
                      {
                          "sinav":  "SGS",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  139617,
-                         "soru":  59
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  31988,
-                         "soru":  11
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  28790,
-                         "soru":  13
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  17418,
-                         "soru":  8
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  22943,
-                         "soru":  3
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  27163,
-                         "soru":  7
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  15610,
-                         "soru":  10
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  17824,
-                         "soru":  6
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  29418,
-                         "soru":  10
+                         "yil":  "2005",
+                         "evren":  3,
+                         "diskte":  3,
+                         "ambarda":  3,
+                         "soru":  289
                      },
                      {
                          "sinav":  "SGS",
-                         "yil":  "2026",
-                         "donem":  "2026/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  128438,
-                         "soru":  51
+                         "yil":  "2006",
+                         "evren":  3,
+                         "diskte":  3,
+                         "ambarda":  3,
+                         "soru":  291
                      },
                      {
                          "sinav":  "SGS",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
+                         "yil":  "2007",
+                         "evren":  3,
+                         "diskte":  3,
+                         "ambarda":  3,
+                         "soru":  296
                      },
                      {
                          "sinav":  "SGS",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  132011,
-                         "soru":  41
+                         "yil":  "2008",
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  290
                      },
                      {
                          "sinav":  "SGS",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  128810,
-                         "soru":  51
+                         "yil":  "2009",
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  292
                      },
                      {
                          "sinav":  "SGS",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  128327,
-                         "soru":  50
+                         "yil":  "2010",
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  292
                      },
                      {
                          "sinav":  "SGS",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  127917,
-                         "soru":  49
+                         "yil":  "2011",
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  292
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2012",
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  294
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2013",
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  359
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2014",
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  355
                      },
                      {
                          "sinav":  "SGS",
                          "yil":  "2015",
-                         "donem":  "2015/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  111764,
-                         "soru":  28
+                         "evren":  6,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  360
                      },
                      {
                          "sinav":  "SGS",
+                         "yil":  "2016",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  389
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2017",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  385
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2018",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  390
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2019",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  389
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2020",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  387
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2021",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  390
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2022",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  389
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2023",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  388
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2024",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  388
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2025",
+                         "evren":  18,
+                         "diskte":  6,
+                         "ambarda":  3,
+                         "soru":  387
+                     },
+                     {
+                         "sinav":  "SGS",
+                         "yil":  "2026",
+                         "evren":  12,
+                         "diskte":  4,
+                         "ambarda":  2,
+                         "soru":  258
+                     },
+                     {
+                         "sinav":  "SMMM",
+                         "yil":  "2008",
+                         "evren":  21,
+                         "diskte":  21,
+                         "ambarda":  0,
+                         "soru":  0
+                     },
+                     {
+                         "sinav":  "SMMM",
+                         "yil":  "2009",
+                         "evren":  21,
+                         "diskte":  21,
+                         "ambarda":  0,
+                         "soru":  0
+                     },
+                     {
+                         "sinav":  "SMMM",
+                         "yil":  "2010",
+                         "evren":  21,
+                         "diskte":  21,
+                         "ambarda":  0,
+                         "soru":  0
+                     },
+                     {
+                         "sinav":  "SMMM",
+                         "yil":  "2011",
+                         "evren":  21,
+                         "diskte":  21,
+                         "ambarda":  0,
+                         "soru":  0
+                     },
+                     {
+                         "sinav":  "SMMM",
+                         "yil":  "2012",
+                         "evren":  21,
+                         "diskte":  21,
+                         "ambarda":  0,
+                         "soru":  0
+                     },
+                     {
+                         "sinav":  "SMMM",
+                         "yil":  "2013",
+                         "evren":  21,
+                         "diskte":  21,
+                         "ambarda":  0,
+                         "soru":  0
+                     },
+                     {
+                         "sinav":  "SMMM",
+                         "yil":  "2014",
+                         "evren":  21,
+                         "diskte":  21,
+                         "ambarda":  0,
+                         "soru":  0
+                     },
+                     {
+                         "sinav":  "SMMM",
                          "yil":  "2015",
-                         "donem":  "2015/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  112731,
-                         "soru":  73
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
+                         "soru":  0
                      },
                      {
-                         "sinav":  "SGS",
-                         "yil":  "2015",
-                         "donem":  "2015/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  117381,
-                         "soru":  67
-                     },
-                     {
-                         "sinav":  "SGS",
+                         "sinav":  "SMMM",
                          "yil":  "2016",
-                         "donem":  "2016/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  127826,
-                         "soru":  79
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
+                         "soru":  0
                      },
                      {
-                         "sinav":  "SGS",
-                         "yil":  "2016",
-                         "donem":  "2016/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  123559,
-                         "soru":  62
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2016",
-                         "donem":  "2016/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  126613,
-                         "soru":  58
-                     },
-                     {
-                         "sinav":  "SGS",
+                         "sinav":  "SMMM",
                          "yil":  "2017",
-                         "donem":  "2017/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  132648,
-                         "soru":  65
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
+                         "soru":  0
                      },
                      {
-                         "sinav":  "SGS",
-                         "yil":  "2017",
-                         "donem":  "2017/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  132728,
-                         "soru":  58
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2017",
-                         "donem":  "2017/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  121957,
-                         "soru":  61
-                     },
-                     {
-                         "sinav":  "SGS",
+                         "sinav":  "SMMM",
                          "yil":  "2018",
-                         "donem":  "2018/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  126829,
-                         "soru":  77
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
+                         "soru":  0
                      },
                      {
-                         "sinav":  "SGS",
-                         "yil":  "2018",
-                         "donem":  "2018/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  113957,
-                         "soru":  63
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2018",
-                         "donem":  "2018/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  131111,
-                         "soru":  66
-                     },
-                     {
-                         "sinav":  "SGS",
+                         "sinav":  "SMMM",
                          "yil":  "2019",
-                         "donem":  "2019/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  136846,
-                         "soru":  63
+                         "evren":  24,
+                         "diskte":  23,
+                         "ambarda":  0,
+                         "soru":  0
                      },
                      {
-                         "sinav":  "SGS",
-                         "yil":  "2019",
-                         "donem":  "2019/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  121101,
-                         "soru":  79
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2019",
-                         "donem":  "2019/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  117268,
-                         "soru":  54
-                     },
-                     {
-                         "sinav":  "SGS",
+                         "sinav":  "SMMM",
                          "yil":  "2020",
-                         "donem":  "2020/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  128915,
-                         "soru":  45
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2020",
-                         "donem":  "2020/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  129998,
-                         "soru":  57
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2020",
-                         "donem":  "2020/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  134307,
-                         "soru":  64
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  128887,
-                         "soru":  41
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  131675,
-                         "soru":  44
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  129858,
-                         "soru":  54
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  134303,
-                         "soru":  52
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  127363,
-                         "soru":  43
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  134968,
-                         "soru":  51
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  134297,
-                         "soru":  53
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  129704,
-                         "soru":  61
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  133650,
-                         "soru":  54
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  129788,
-                         "soru":  46
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  128810,
-                         "soru":  51
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
+                         "evren":  16,
+                         "diskte":  16,
+                         "ambarda":  0,
                          "soru":  0
                      },
                      {
                          "sinav":  "SMMM",
                          "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  26039,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5832,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4257,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6756,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1380,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1600,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3642,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/1",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3148,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  26734,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6442,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3422,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  10952,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2449,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1699,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4790,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/2",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4508,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  23818,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5441,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3872,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  9735,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1957,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1998,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3671,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2021",
-                         "donem":  "2021/3",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4322,
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
                          "soru":  0
                      },
                      {
                          "sinav":  "SMMM",
                          "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  37388,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5969,
-                         "soru":  1
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3724,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4913,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  950,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3027,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4614,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/1",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5031,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  30130,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  9166,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3143,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  9034,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1617,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3113,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4699,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/2",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6055,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  34902,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5569,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3257,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5792,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4673,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1412,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6101,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2022",
-                         "donem":  "2022/3",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6276,
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
                          "soru":  0
                      },
                      {
                          "sinav":  "SMMM",
                          "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  30206,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  8620,
-                         "soru":  1
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2962,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7071,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4441,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1240,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3356,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/1",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5182,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  29604,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6948,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3717,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5016,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3463,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1635,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6686,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/2",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5788,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  34542,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  9175,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2665,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7110,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3451,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1848,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4250,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2023",
-                         "donem":  "2023/3",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7353,
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
                          "soru":  0
                      },
                      {
                          "sinav":  "SMMM",
                          "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  26894,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6169,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4783,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3169,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3635,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1683,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3295,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/1",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5524,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  30677,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  23903,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5046,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5033,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  8462,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3639,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3068,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/2",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7750,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  30952,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6494,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2884,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  14667,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4515,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2520,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3928,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2024",
-                         "donem":  "2024/3",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3974,
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
                          "soru":  0
                      },
                      {
                          "sinav":  "SMMM",
                          "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  28213,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7837,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2599,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3508,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  10825,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1517,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2688,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/1",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5404,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  34915,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7022,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  1867,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5326,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  10203,
-                         "soru":  1
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  5098,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4821,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/2",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  8209,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  31138,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  4410,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  3956,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  6596,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7504,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2863,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  2739,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2025",
-                         "donem":  "2025/3",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  7553,
+                         "evren":  24,
+                         "diskte":  24,
+                         "ambarda":  0,
                          "soru":  0
                      },
                      {
                          "sinav":  "SMMM",
                          "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  23979,
-                         "soru":  7
+                         "evren":  16,
+                         "diskte":  16,
+                         "ambarda":  16,
+                         "soru":  320
                      },
                      {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  16985,
-                         "soru":  3
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  22942,
-                         "soru":  12
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  34327,
-                         "soru":  9
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  23392,
-                         "soru":  9
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  19568,
-                         "soru":  10
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  17567,
-                         "soru":  7
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/2",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  25550,
-                         "soru":  11
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Finansal Muhasebe",
-                         "arsivde":  "VAR",
-                         "indi":  "EVET",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Maliyet Muhasebesi",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Muhasebe Denetimi",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Hukuk",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "yil":  "2026",
-                         "donem":  "2026/3",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "arsivde":  "VAR",
-                         "indi":  "HAYIR",
-                         "metinBayt":  0,
-                         "soru":  0
+                         "sinav":  "KGK",
+                         "yil":  "(tum)",
+                         "evren":  104,
+                         "diskte":  104,
+                         "ambarda":  108,
+                         "soru":  11866
                      }
                  ]
 }
