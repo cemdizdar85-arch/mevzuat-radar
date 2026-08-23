@@ -92,14 +92,29 @@ function SiklariAyir([string]$blok){
 
 function SorulariCikar([string]$metin, [string]$stil = '.'){
   $liste = New-Object System.Collections.Generic.List[object]
-  # NUMARALANDIRMA STILI (23.08.2026): iki bicim yasiyor ve karistirilamaz.
-  #   "1. Asagidakilerden..."  -> eski KGK, SGS, TESMER
+  # NUMARALANDIRMA STILI (23.08.2026): UC bicim yasiyor ve karistirilamaz.
+  #   "1. Asagidakilerden..."  -> eski KGK, TESMER SGS 2013+
   #   "1) BOBI FRS'ye gore..." -> 2019 sonrasi KGK kitapciklari
-  # Ayristirici yalnizca noktali bicimi taniyordu; 2019+ KGK kitapciklarinda
-  # 40 soru yerine 1-2 soru cikariyordu. Iki stil AYRI ayri denenir (cagiran
-  # taraf en cok soru vereni secer), cunku ayni metinde ikisini birden aramak
-  # soru govdesindeki "1) ... 2) ..." madde listelerinde soruyu ortadan boler.
-  $ayrac = if($stil -eq ')'){ '\)' } else { '\.' }
+  #   "120 Hukuki bir islemde..." -> SGS 2005-2012: numaradan sonra NOKTA YOK
+  # Ayristirici once yalnizca noktali bicimi taniyordu. Olculen zararlar:
+  #   2019+ KGK  -> 40 soru yerine 1-2 soru
+  #   SGS 2005-2012 -> 120 sorunun ~97'si; 100-120 arasi hic gorunmuyordu
+  #     (yanit anahtari tam 120 satir, yani sinav gercekten 120 soruluk).
+  # Stiller AYRI ayri denenir (cagiran taraf en cok soru vereni secer), cunku
+  # ayni metinde ikisini birden aramak soru govdesindeki "1) ... 2) ..." madde
+  # listelerinde soruyu ortadan boler.
+  # Ciplak stil ('bos') tek basina tehlikelidir - her sayiyla baslayan satiri
+  # soru sanabilir. Iki sigortasi var: (a) sayidan sonra BUYUK HARF sarti,
+  # (b) asagidaki "en az 4 sik" ve "kok >= 15 karakter" suzgecleri.
+  # 'karma' stili AYIRICIYI OPSIYONEL yapar. Gerekcesi olculdu (SGS 2010/1):
+  # ayni kitapcikta 1-99 arasi soru "97." bicimindeyken 100-120 arasi NOKTASIZ
+  # ("120 Hukuki bir islemde..."). Tek stil ikisini birden goremedigi icin
+  # noktali stil 97, ciplak stil ~21 veriyordu; yarismayi 97 kazaniyor ve son
+  # 21 soru her kitapcikta kayboluyordu (2005-2012'de 24 kitapcik x ~21 soru).
+  if($stil -eq ')'){        $bolucu = '(?m)^(?=\s{0,4}\d{1,3}\)\s)';            $noDesen = '^\s*(\d{1,3})\)';      $onEk = '^\s*\d{1,3}\)\s*' }
+  elseif($stil -eq 'bos'){  $bolucu = '(?m)^(?=\s{0,4}\d{1,3}\s+\p{Lu})';       $noDesen = '^\s*(\d{1,3})\s';      $onEk = '^\s*\d{1,3}\s+' }
+  elseif($stil -eq 'karma'){$bolucu = '(?m)^(?=\s{0,4}\d{1,3}[.)]?\s+\p{Lu})';  $noDesen = '^\s*(\d{1,3})[.)]?\s'; $onEk = '^\s*\d{1,3}[.)]?\s+' }
+  else{                     $bolucu = '(?m)^(?=\s{0,4}\d{1,3}\.\s)';            $noDesen = '^\s*(\d{1,3})\.';      $onEk = '^\s*\d{1,3}\.\s*' }
   #
   # MODUL INDEKSI: KGK kitapciklari modullu ve her modul 1'den basliyor
   # ("Muhasebe Standartlari 1-40", sonra "Denetim 1-40"...). SGS ise tek dizi
@@ -108,9 +123,9 @@ function SorulariCikar([string]$metin, [string]$stil = '.'){
   #   SGS  -> modul hep 0, numara benzersiz  -> ust sinir 130
   #   KGK  -> modul 0,1,2,3 ; her birinde 1-40
   $modul = 0; $onceki = 0
-  foreach($p in [regex]::Split($metin, ('(?m)^(?=\s{0,4}\d{1,3}' + $ayrac + '\s)'))){
+  foreach($p in [regex]::Split($metin, $bolucu)){
     if($p.Trim().Length -lt 40){ continue }
-    $no = [regex]::Match($p, ('^\s*(\d{1,3})' + $ayrac))
+    $no = [regex]::Match($p, $noDesen)
     if(-not $no.Success){ continue }
     $n = [int]$no.Groups[1].Value
     if($n -lt 1 -or $n -gt 130){ continue }
@@ -119,7 +134,7 @@ function SorulariCikar([string]$metin, [string]$stil = '.'){
     # kok: ilk sik isaretine kadar
     $ilk = [regex]::Match($p, '(?<![A-Za-z0-9])A\)\s')
     $kk = if($ilk.Success){ $p.Substring(0, $ilk.Index) } else { $p }
-    $kk = ($kk -replace ('^\s*\d{1,3}' + $ayrac + '\s*'),'') -replace '\s+',' '
+    $kk = ($kk -replace $onEk,'') -replace '\s+',' '
     $kk = $kk.Trim()
     if($kk.Length -lt 15){ continue }
     if($n -le $onceki){ $modul++ }
@@ -267,7 +282,7 @@ foreach($f in $pdfler){
   # degisiyor ve yanlis secim kitapcigi sessizce olduruyor.
   $tekil = [ordered]@{}; $okumaTuru = 'OLCULEMEDI'
   foreach($aile in $aileler){
-    foreach($stil in @('.', ')')){
+    foreach($stil in @('.', ')', 'bos', 'karma')){
       $t2 = [ordered]@{}
       $akis = 0
       foreach($t in @($aile[1])){
@@ -290,7 +305,7 @@ foreach($f in $pdfler){
       }
       if($t2.Count -gt $tekil.Count){
         $tekil = $t2
-        $okumaTuru = $aile[0] + $(if($stil -eq ')'){ '/parantez' } else { '' })
+        $okumaTuru = $aile[0] + $(if($stil -eq ')'){ '/parantez' } elseif($stil -eq 'bos'){ '/ciplak' } elseif($stil -eq 'karma'){ '/karma' } else { '' })
       }
     }
   }
