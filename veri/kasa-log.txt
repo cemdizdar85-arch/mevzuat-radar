@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260822020342
+Start time: 20260823021212
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/44d5b625-3304-401c-b2eb-3ba459676e67.ps1'
-Process ID: 2094
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/fd8dfc19-2afb-47d5-98e2-baca6ac4ce97.ps1'
+Process ID: 2311
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -107,11 +107,11 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       156x  Finansal Muhasebe|supheli alacak karsiligi
       134x  Finansal Muhasebe|gelecek aylara ait gider
       123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
-      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
-      113x  Finansal Muhasebe|amortisman ayirma
       113x  Finansal Muhasebe|gider yansitma kaydi
+      113x  Finansal Muhasebe|amortisman ayirma
+      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
-       95x  Finansal Muhasebe|borc senedi reeskontu
+       95x  Finansal Muhasebe|hisse senedi satisi
 
   --- tekil konu sayisi: 2264
 
@@ -178,5 +178,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260822020444
+End time: 20260823021346
 **********************
