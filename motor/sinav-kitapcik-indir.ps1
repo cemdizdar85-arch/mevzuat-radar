@@ -25,6 +25,7 @@ param(
   [int]$IlkYil = 0,
   [int]$SonYil = 0,
   [string]$Dil = '',            # ingilizce | almanca | fransizca | '-' | '' (hepsi)
+  [string]$Grup = '',           # lisans_a_grubu | lisans_b_grubu | '' (hepsi)
   [int]$Tavan = 0,
   [int]$Bekleme = 700
 )
@@ -40,6 +41,7 @@ $hepsi = @($kesif.satirlar)
 
 if($Sinav -ne ''){ $hepsi = @($hepsi | Where-Object { $_.sinav -eq $Sinav }) }
 if($Dil   -ne ''){ $hepsi = @($hepsi | Where-Object { $_.dil   -eq $Dil   }) }
+if($Grup  -ne ''){ $hepsi = @($hepsi | Where-Object { $_.grup  -eq $Grup  }) }
 if($IlkYil -gt 0){ $hepsi = @($hepsi | Where-Object { [int](("$($_.donem)" -split '/')[0]) -ge $IlkYil }) }
 if($SonYil -gt 0){ $hepsi = @($hepsi | Where-Object { [int](("$($_.donem)" -split '/')[0]) -le $SonYil }) }
 if($Tavan  -gt 0){ $hepsi = @($hepsi | Select-Object -First $Tavan) }
