@@ -1,0 +1,276 @@
+/* ============================================================================
+   YEREL YAZI KARAKTERI — Source Serif 4, agirlik 600
+   Kaynak: Google Fonts (SIL Open Font License, ticari kullanim serbest)
+   Dosya:  kutuphane/source-serif-600-tr.woff2  ·  18.160 bayt (~18 KB)
+
+   NEDEN YEREL: sitenin dis istek sayisi 0'di, CDN onu bozardi.
+   NEDEN 18 KB: Google'in karakter-bazli kirpma ucu kullanildi; font
+   YALNIZ Turkce alfabe + rakam + noktalamaya kirpildi. Olculdu:
+       kirpilmamis, iki alt kume, degisken   217 KB
+       Turkce'ye kirpilmis, degisken         100 KB
+       Turkce'ye kirpilmis, tek agirlik       18 KB   <- kullanilan
+   Baslikta tek agirlik kullandigimiz icin 600 yetiyor.
+
+   unicode-range Google'in verdigi haliyle korundu: tarayici bu araligin
+   disinda bir harfle karsilasirsa dosyayi hic indirmez.
+   ============================================================================ */
+@font-face{
+  font-family:"Source Serif 4";
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url("kutuphane/source-serif-600-tr.woff2") format("woff2");
+  unicode-range:U+20-7e,U+b7,U+c2,U+c4,U+c7,U+ca-cb,U+ce-cf,U+d4,U+d6,U+db-dc,U+e2,U+e4,U+e7,U+ea-eb,U+ee-ef,U+f4,U+f6,U+fb-fc,U+ff,U+102-103,U+108-10b,U+114-117,U+11c-125,U+12c-12d,U+130-131,U+134-137,U+13b-13c,U+145-146,U+14e-14f,U+156-157,U+15c-15f,U+162-163,U+16c-16d,U+174-177,U+17b-17e,U+192,U+1a0-1a1,U+1af-1b0,U+1fa-1ff,U+218-21b,U+237,U+2013-2014,U+2026,U+2192,U+2713,U+20ac,U+20ba;
+}
+
+/* ============================================================================
+   ACIK TEMA + YAYINCI TIPOGRAFISI                    24.08.2026
+   Cem karari: "w1 yap, zemin acik yap, deneyelim."
+
+   NEDEN ACIK
+   Serif basliga gecince zemin karari ertelenemez hale geldi. Iki sebep:
+   1) Serif harflerin ince cizgileri koyu zeminde incelir; koyuda
+      kullanabilecegimiz serif sayisi bir avuc, acikta hepsi acilir.
+   2) Serif + acik zemin = BELGE. Tezimiz "cevabin altinda maddesi var",
+      yani kagit otoritesi. Koyu arayuzler grotesk kullanir, yayin degil
+      terminal dilidir.
+
+   NEDEN BU RENKLER
+   Zemin saf beyaz DEGIL (#fbfaf8): hafif sicak kagit, ekranda parlamaz.
+   Panel saf beyaz - boylece "masanin ustunde kagit" katmani olusur.
+   Marka kehribari ikiye ayrildi:
+     - LAMBA/BUTON  #f5a524 kalir (marka isareti, buyuk yuzey)
+     - METIN/BAGLANTI #b45309'a iner - #f5a524 beyaz uzerinde okunmuyor.
+   #b45309 uydurulmadi: sitenin mevcut acik sayfasi marka-rapor.html
+   zaten bu degeri kullaniyor, tutarlilik icin ayni deger alindi.
+
+   KURULUM
+   En SONA baglanir. stil.css, sayfanin kendi <style> bloklari,
+   stil-sade.css ve komut.css'ten sonra gelir; esit ozgullukte son yazan
+   kazandigi icin !important'a gerek kalmaz.
+   ========================================================================== */
+
+:root{
+  color-scheme:light;
+
+  /* zemin ve yuzeyler */
+  --bg:#fbfaf8;          /* sicak kagit */
+  --bg2:#f4f2ee;         /* bant ve serit */
+  --panel:#ffffff;       /* kagit katmani */
+  --panel2:#f7f5f1;
+
+  /* ayirici cizgiler - notr gri degil, zeminle ayni sicaklikta */
+  --line:#e6e2da;
+  --line2:#d5d0c6;
+
+  /* yazi tonlari */
+  --ink:#16191d;         /* saf siyah degil, goz yormaz */
+  --muted:#4b5563;
+  --dim:#6b7280;
+
+  /* marka: metin baglaminda koyu kehribar */
+  --accent:#b45309;
+  --accent2:#92400e;
+  --grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);
+
+  /* durum renkleri - acik zeminde okunacak koyulukta */
+  --red:#b91c1c;
+  --amber:#b45309;
+  --green:#15803d;
+}
+
+/* Sayfanin kendi koyu tema kalintilari ------------------------------------ */
+body{background:var(--bg);color:var(--ink)}
+::selection{background:rgba(245,165,36,.28)}
+
+/* Marka isareti ve birincil dugme PARLAK kehribar kalir: buyuk yuzeyde
+   okunurluk sorunu yok, marka tanimasi oradan geliyor. */
+.brand .lamba,nav .mark,.brand .kelime .i::after,.eyebrow::before{background:#f5a524}
+.btn{background:#f5a524;color:#20160a;font-weight:700}
+.btn:hover{filter:brightness(1.04)}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line2)}
+.btn.ghost:hover{border-color:var(--muted)}
+
+/* koyu tema icin yazilmis saydam beyaz zeminler acikta ters doner */
+.kapi,.mp-bar,.hapsatir input,.mp-ara,#aracAra,input,select{
+  background:var(--panel)}
+.hapsatir input,#aracAra,input,select{border-color:var(--line2);color:var(--ink)}
+input::placeholder{color:var(--dim)}
+
+/* nav: kagidin ustunde ince bir serit */
+nav{background:rgba(251,250,248,.86);backdrop-filter:blur(14px) saturate(1.2)}
+.dropdown{background:#fff;border-color:var(--line2);
+  box-shadow:0 18px 44px rgba(20,25,30,.12)}
+.dropdown a:hover{background:rgba(245,165,36,.13)}
+
+/* komut paleti acik zeminde */
+.kp{background:#fff;border-color:var(--line2);
+  box-shadow:0 24px 60px rgba(20,25,30,.22)}
+.kp-perde{background:rgba(30,28,24,.42)}
+.kp kbd,.kp-dugme kbd{background:#f4f2ee;border-color:var(--line2);color:var(--muted)}
+.kp-satir.secili{background:rgba(245,165,36,.16);box-shadow:inset 2px 0 0 #b45309}
+.kp-dugme{background:#fff}
+
+/* fiyat karti: kagit uzerinde kagit, golge yerine cizgi */
+.fkart{background:#fff;border-color:var(--line2)}
+.fkart.one{border-color:rgba(180,83,9,.42);
+  background:linear-gradient(180deg,rgba(245,165,36,.07),transparent),#fff}
+
+/* Resmi Gazete kartlarinin sol renk seridi acikta daha koyu olmali */
+.rgk{border-left-color:#9aa3ae}
+.rgk.red{border-left-color:var(--red)}
+.rgk.green{border-left-color:var(--green)}
+
+
+/* ============================================================================
+   TIPOGRAFI — W1: Source Serif 4
+   Cem 24.08'de dort gercek aday arasindan W1'i sectic.
+   Basliklar serif ("bu bir kaynaktir"), govde grotesk (uzun metinde
+   yorulmaz), rakam ve kod mono ("olculmus"). Uc katman, uc is.
+   ⚠ Bu deneme CDN'den yukluyor. Yayina cikarsa dosya kutuphane/ altina
+     indirilir ve YALNIZ Turkce'ye kirpilir - dis istek 0 kalir.
+   ========================================================================== */
+
+h1,h2,h3,h4,
+.sk b,.mp-bar b,.konu b,.arac b,.rgk h4,.fkart h3{
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-weight:600;
+  letter-spacing:-.2px}
+
+h1{font-size:clamp(32px,4.4vw,54px);line-height:1.12;letter-spacing:-1.1px;font-weight:600}
+h1 .g{text-decoration-color:#f5a524;text-decoration-thickness:4px;text-underline-offset:8px}
+h2{font-size:clamp(23px,2.7vw,32px);letter-spacing:-.5px;font-weight:600}
+.sk b{font-size:19px}
+.konu b{font-size:16px;font-weight:600}
+.mp-bar b{font-size:15.5px;font-weight:600}
+.arac b{font-size:14.5px;font-weight:600}
+
+/* rakam, kod ve tarih: mono. Serifin eski-usul rakam sorunu boylece
+   hic dogmaz, ustune "olculmus" hissi gelir. */
+.stat .n,.rakamlar,time,.kp-satir.kp-vurgu span,
+.fkart .fiyat,.rgk .ey-satir,.mp-cubuk b{
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.2px}
+
+/* etiketler kucuk, harf arali, mono: belge basligi hissi */
+.mini-baslik,.kat-grup>h3,.etiket,.mp-tag,.sk-et{
+  font-family:var(--mono);letter-spacing:1px;font-weight:600}
+
+/* govde metni grotesk kalir - uzun metinde serif yorar */
+body,p,.lead,.sade-alt,.sk-ac,.konu span,.arac span,.mp-m,.gk p{
+  font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}
+
+/* acik zeminde odak halkasi kehribar degil koyu olmali, yoksa gorunmez */
+:focus-visible{outline:2px solid #b45309;outline-offset:2px}
+.atla{background:#b45309;color:#fff}
+
+/* Nav'daki dolu dugmenin yazisi gri geliyordu: .navlinks a{color:var(--muted)}
+   ozgullukte (0,2,1) .btn'i (0,1,0) yeniyor. Bu KOYU temada da boyleydi -
+   kehribar zemin uzerinde gri yazi. Ozgulluk asilarak duzeltildi. */
+.navlinks a.btn,nav a.btn{color:#20160a}
+.navlinks a.btn.ghost,nav a.btn.ghost{color:var(--ink)}
+
+
+/* ============================================================================
+   YUZEY DEGISKENLERI — acik karsiliklari
+   Sayfalarda 134 yerde duz hex yaziliydi, hepsi degiskene baglandi.
+   Artik tek yerden donuyor.
+   ========================================================================== */
+:root{
+  --taban:#fbfaf8;   /* sayfa zemini  */
+  --yuzey:#f4f2ee;   /* ikincil yuzey */
+  --kagit:#ffffff;   /* kart / panel  */
+}
+
+/* Koyu tema icin yazilmis "ustten beyaz isik" golgeleri acikta ise yaramaz;
+   kagit uzerinde isik degil GOLGE olur. 38 yerde ayni kalip tekrar ediyordu. */
+.kutu,.kart,.adim,.app-card,.item,.gk,.fkart{
+  box-shadow:0 1px 2px rgba(20,25,30,.05),0 8px 24px -16px rgba(20,25,30,.18)}
+
+
+/* ============================================================================
+   KOYU BANT — "Neden bize guvenebilirsin"
+   Olcum (24.08, sekiz rakip acilip zeminleri okundu): Bloomberg Tax,
+   Thomson Reuters, Xero ve Parasut'un DORDU de beyaz taban uzerinde bir
+   veya iki KOYU BANT kullaniyor. Bant sayfayi boler, ritim verir ve
+   vurgulanan bolumu agirlastirir.
+   Bizde o bolum en ciddi iddiamizin durdugu yer: kaynak ve dogrulama.
+   ========================================================================== */
+#guven{
+  background:#161a1f !important;
+  border-top:0 !important;
+  border-bottom:0 !important;
+  color:#eceff3;
+  margin-top:8px}
+#guven h2,#guven .gk h3{color:#ffffff}
+#guven .sec-head p,#guven .gk p{color:#b9c1cb}
+#guven .kaynak-bar{border-top-color:rgba(255,255,255,.14);color:#96a0ac}
+#guven .kaynak-bar b{color:#eceff3}
+#guven .kaynak-bar b+b::before{color:#6c7681}
+#guven .gk{box-shadow:none}
+#guven a{color:#ffc24b}
+#guven :focus-visible{outline-color:#ffc24b}
+
+
+/* ============================================================================
+   UST SERIT (MASTHEAD) — duz koyu
+   Cem sordu: "ustteki renk farkli olsa, renk gecisi gibi?"
+
+   OLCUM (24.08, bes rakibin ust seridi programla okundu):
+     Thomson Reuters  duz beyaz  (altinda koyu hero)
+     Lexpera          duz beyaz  (altinda koyu kirmizi marka bandi)
+     GIB              rgb(239,248,249) — linear-gradient yazilmis ama IKI
+                      DURAGI DA AYNI RENK, yani gorsel olarak duz
+     Bloomberg Tax    duz siyah rgb(0,0,0)
+     Xero             duz lacivert serit
+   BESINDE DE GRADYAN YOK. Gradyan nav 2010-2014 web'inin imzasi.
+
+   KARAR: duz koyu. Gazete basligi (masthead) mantigi - serif yonunu
+   sectikten sonra ustte koyu bant "bu bir yayin" cumlesini tamamlar.
+   Konumlanma olarak en yakin rakibimiz Bloomberg Tax da boyle yapiyor.
+   Kehribar lamba da koyu uzerinde parliyor.
+   Sayfa ritmi: koyu masthead -> acik govde -> koyu guven bandi -> dip.
+
+   BEYAZA DONMEK ICIN: bu blogu sil, gerisi calisir.
+   ============================================================================ */
+
+nav{
+  background:#161a1f;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  backdrop-filter:none}
+nav.scrolled{border-bottom-color:rgba(255,255,255,.16)}
+
+nav .brand,nav .brand .kelime{color:#ffffff}
+nav .navlinks a,nav .navtrigger{color:#b9c1cb}
+nav .navlinks a:hover,nav .navgroup:hover .navtrigger,
+nav .navgroup:focus-within .navtrigger{color:#ffffff}
+
+/* hayalet dugme koyu seritte cerceveyle ayrilir */
+nav .btn.ghost{color:#ffffff;border-color:rgba(255,255,255,.28);background:none}
+nav .btn.ghost:hover{border-color:rgba(255,255,255,.5)}
+
+/* palet dugmesi seride uyum saglar */
+nav .kp-dugme{background:none;color:#b9c1cb;border-color:rgba(255,255,255,.18)}
+nav .kp-dugme:hover{color:#ffffff;border-color:rgba(255,255,255,.34)}
+nav .kp-dugme kbd{background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.20);color:#b9c1cb}
+
+/* acilir menu KAGIT kalir: sayfanin uzerine duser, seridin parcasi degil */
+nav .dropdown{background:#ffffff;border-color:var(--line2)}
+nav .dropdown a{color:var(--ink)}
+nav .dropdown a span{color:var(--dim)}
+
+/* mobil menu dugmesi */
+nav .mobbtn{background:none;color:#ffffff;border-color:rgba(255,255,255,.28)}
+
+/* koyu seritte odak halkasi kehribar olmali, koyu degil */
+nav :focus-visible{outline-color:#ffc24b}
+
+/* DUZELTME (Cem gordu): "Giris / Uye Ol" dugmesi koyu seritte gorunmuyordu.
+   Sebep kendi kuralim: nav BEYAZKEN yazdigim ".navlinks a.btn.ghost{color:
+   var(--ink)}" (0,3,1) sonradan eklenen "nav .btn.ghost"u (0,2,1) yeniyordu.
+   Olculdu: yazi rgb(22,25,29) / zemin rgb(22,26,31) -> kontrast 1,01:1.
+   Ozgulluk asildi. */
+nav .navlinks a.btn.ghost,nav a.btn.ghost{color:#ffffff;border-color:rgba(255,255,255,.30)}
+nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:rgba(255,255,255,.55)}

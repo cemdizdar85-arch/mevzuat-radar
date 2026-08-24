@@ -6,8 +6,8 @@
 <title>Hangi şirketi kurmalısın? Şahıs, limited, anonim — 11 soruda sana özel öneri | Tetikte</title>
 <meta name="description" content="Şahıs mı, limited mi, anonim mi? 11 soruya cevap ver; sana uygun şirket türünü senin rakamlarınla vergi kıyası yaparak, gerekçesi ve adım adım kuruluş yoluyla söyleyelim.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -16,7 +16,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 .lead{color:var(--muted);font-size:15px;margin:0 0 22px}
 .sec{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
-.sbtn{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:12px 18px;border-radius:12px;background:#0a0f17;color:var(--muted);border:1px solid var(--line2);transition:.15s;flex:1;min-width:150px}
+.sbtn{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:12px 18px;border-radius:12px;background:var(--yuzey);color:var(--muted);border:1px solid var(--line2);transition:.15s;flex:1;min-width:150px}
 .sbtn:hover{color:var(--ink);border-color:var(--accent)}
 .sbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
 .sbtn small{display:block;font-weight:600;font-size:11px;opacity:.75}
@@ -37,7 +37,7 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:22px;margin-top:24px}
 .cta h3{margin:0 0 6px;font-size:17px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
 .ara{display:flex;gap:10px;flex-wrap:wrap}
-.ara input{flex:1;min-width:200px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit}
+.ara input{flex:1;min-width:200px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey);color:var(--ink);font-size:16px;font-family:inherit}
 .ara input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,36,.18)}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(245,165,36,.35);transition:transform .15s}
 .btn:hover{transform:translateY(-2px)}
@@ -45,7 +45,6 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 .notk{font-size:12px;color:var(--dim);background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:11px 14px;margin-top:16px}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
-:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
@@ -74,6 +73,7 @@ details.kacc>.ic{padding:2px 0 14px}
 </style>
 </head>
 <body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="destekler.html">Destek Radarı</a> · <a href="bilgi.html">Bilgi Havuzu</a> · Şirket Kuruluşu</div>
   <h1>Hangi şirketi kurmalısın?</h1>
@@ -592,10 +592,10 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
       neden.as.push('Vergi avantajı LTD ile aynı, kurumlar vergisi düzeni her iki sermaye şirketinde özdeş.');
     }
     hesapHtml = `
-      <div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+      <div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey)">
         <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:4px">💰 ${SABIT.yil} VERGİ KIYASI, ${TLf(kar)} TL kâr hedefine göre</div>
         <div style="font-size:11.5px;color:var(--muted);margin-bottom:8px">Bu tablo <b style="color:var(--ink)">üç ayrı yolun</b> (şahıs / LTD / AŞ) vergisini karşılaştırır, üçü birden ödenmez; hangi türü kurarsan <b style="color:var(--ink)">onun satırı</b> senin vergindir.<!--KAZANANNOT--></div>
-        <div class="satir"><b>${ortakSay>1 ? `YOL A · Adi ortaklık kurarsan, ortakların toplam gelir vergisi<br><span style="font-size:11px;font-weight:400">kâr <select onchange="CEVAP._os=this.value;oner()" style="background:#0a0f17;color:var(--ink);border:1px solid var(--line2);border-radius:7px;padding:2px 4px;font-family:inherit">${[2,3,4,5].map(n=>`<option value="${n}" ${n===ortakSay?'selected':''}>${n}</option>`).join('')}</select> ortağa eşit bölüşüldü varsayımı</span>` : 'YOL A · Şahıs kurarsan, gelir vergisi'}</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${ortakSay>1 ? `ortak başına ${TLf(istisnaPay)} TL genç istisnası düşüldü, şartları TÜM ortaklar taşımalı, mük. m.20/3` : TLf(istisna)+' TL genç girişimci istisnası düşüldü'})</span>`:''}</span></div>
+        <div class="satir"><b>${ortakSay>1 ? `YOL A · Adi ortaklık kurarsan, ortakların toplam gelir vergisi<br><span style="font-size:11px;font-weight:400">kâr <select onchange="CEVAP._os=this.value;oner()" style="background:var(--yuzey);color:var(--ink);border:1px solid var(--line2);border-radius:7px;padding:2px 4px;font-family:inherit">${[2,3,4,5].map(n=>`<option value="${n}" ${n===ortakSay?'selected':''}>${n}</option>`).join('')}</select> ortağa eşit bölüşüldü varsayımı</span>` : 'YOL A · Şahıs kurarsan, gelir vergisi'}</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${ortakSay>1 ? `ortak başına ${TLf(istisnaPay)} TL genç istisnası düşüldü, şartları TÜM ortaklar taşımalı, mük. m.20/3` : TLf(istisna)+' TL genç girişimci istisnası düşüldü'})</span>`:''}</span></div>
         <div class="satir"><b>YOL B · LTD kurarsan, kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
         <div class="satir"><b>YOL B · LTD, kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
         <div class="satir"><b>YOL B toplamı · LTD kurarsan</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
@@ -704,7 +704,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   // SERBEST MESLEK — soru 3'te 'uzmanlığa dayalı iş' seçilmişse (12.08: Cem
   // isteğiyle danışmanlık esnaf şıkkından ayrıldı; kutu artık hedefli çıkar)
   if(kazanan==='sahis' && CEVAP.ortak==='tek' && CEVAP.istur==='meslek'){
-    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);font-size:13px;color:var(--muted)">
       🎓 <b style="color:var(--ink)">İşin mesleki bilgiye mi dayanıyor?</b> Danışmanlık, yazılım, mimarlık, mali müşavirlik gibi sermayeden çok <b style="color:var(--ink)">şahsi mesaiye ve uzmanlığa</b> dayanan işler vergide "ticari kazanç" değil <b style="color:var(--ink)">serbest meslek kazancı</b>dır (GVK m.65-66): şirket kurmadan serbest meslek mükellefiyeti açar, e-SMM (serbest meslek makbuzu) ile çalışırsın; genç girişimci istisnası burada da işler. Hangi tarafa düştüğün faaliyetin niteliğine bakılarak belirlenir, vergi dairesi/muhasebeci ile netleştir.</div>`;
   }
   // YAZILIM / YAPAY ZEKA / AR-GE — soru 3'te uzmanlık işi seçen HERKESE
@@ -720,7 +720,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   // kredi/calisan ayrimi Cem istegi; calisan = risk degil YUK, rakamla gosterilir)
   if(CEVAP.calisan==='evet' && SABIT && SABIT.asgariUcret2026){
     const au = SABIT.asgariUcret2026;
-    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);font-size:13px;color:var(--muted)">
       👷 <b style="color:var(--ink)">Çalışan planına bir rakam koyalım:</b> ${SABIT.yil}'da asgari ücretli bir çalışanın sana aylık maliyeti <b style="color:var(--ink)">~${TLf(au.isverenMaliyetiTesviksiz)} TL</b> (brüt ${TLf(au.brutAylik)} + işveren SGK payı; asgari ücret desteği ${TLf(au.asgariUcretDestegiAylik)} TL düşülmeden). Bu yük tür seçiminden bağımsızdır, şahısta da şirkette de aynı ödenir; fark şu: işçilik ve SGK borçları da işletme borcudur, şahısta bunlardan tüm malvarlığınla sorumlusun. Kaynak: Asgari Ücret Tespit Komisyonu ${SABIT.yil} + SGK.</div>`;
   }
   // ADİ ORTAKLIK — ortaklı ama küçük ölçekli, satış planı olmayan işler
@@ -730,7 +730,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     const gencAdiNot = (CEVAP.genc==='evet')
       ? ` <b style="color:var(--green)">Senin için kritik bir artı:</b> genç girişimci istisnası adi ortaklıkta da işler, ama <b style="color:var(--ink)">TÜM ortakların</b> 29 yaş altı ve ilk kez mükellef olma şartlarını taşıması gerekir (GVK mük. m.20/3); bir ortak bile şartı bozarsa istisna kimseye uygulanmaz. Ortağın da şartları tutuyorsa her ortağın yıllık ${SABIT ? TLf(SABIT.gencIstisnaTutar) : ''} TL'ye kadar kazancı vergisiz olur, LTD kursaydınız ikiniz de kaybederdiniz.`
       : ` Not: ortaklar genç girişimci şartlarını (29 yaş altı + ilk mükellefiyet) hep birlikte taşıyorsa istisna adi ortaklıkta da işler (GVK mük. m.20/3).`;
-    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);font-size:13px;color:var(--muted)">
       🤝 <b style="color:var(--ink)">Küçük ölçekte üçüncü yol: adi ortaklık.</b> Şirket kurmadan iki (veya daha çok) kişinin emeğini ve parasını birleştirdiği sözleşmeye dayalı yapı (TBK m.620 vd.): kuruluş masrafı ve asgari sermaye yok, her ortak kendi payının gelir vergisini kendi öder. Bedeli de açık: <b style="color:var(--ink)">tüzel kişilik yok, ortaklar tüm borçlardan sınırsız ve birlikte sorumlu</b>, ortağının imzası senin cebini bağlar. Deneme aşamasındaki düşük riskli işler için ucuz bir başlangıç; iş büyüyünce LTD'ye geçilir.${gencAdiNot}</div>`;
   }
   // ESNAF MUAFLIĞI — çok küçük ölçek işareti varsa tek satırlık farkındalık
@@ -814,5 +814,8 @@ function takvimeEkle(){
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </div>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

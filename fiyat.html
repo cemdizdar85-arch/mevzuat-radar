@@ -6,9 +6,10 @@
 <title>Fiyatlar | Tetikte</title>
 <meta name="description" content="Staja Başlama ve Yeterlilik sınavı için soru bankası. Sınava tekrar girmenin bedeli 1.635 TL; Tetikte 1.790 TL. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
+<link rel="stylesheet" href="stil.css">
 <style>
-  :root{color-scheme:dark; --bg:#0a0c10; --kart:#12151c; --line:#252a35; --ink:#e8eaed; --muted:#9aa0a6;
-         --dim:#7d848c; --amber:#f5a524; --green:#3ddc97; }
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--bg:#0a0c10;--kart:#12151c;--line:#252a35;--ink:#e8eaed;--muted:#9aa0a6;--dim:#7d848c;--amber:#f5a524}
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--bg); color:var(--ink);
         font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
@@ -70,7 +71,11 @@
 </style>
 </head>
 <body>
-<div class="s">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="s" id="icerik" role="main">
+<div class="top ust-serit">
+  <a class="ust-marka" href="index.html">tetikte</a>
+</div>
 
 <h1>Fiyatlar</h1>
 <p class="alt">Hepsi KDV dahil. Gizli ücret yok, teklif formu yok; ne ödeyeceğini burada görüyorsun.</p>
@@ -124,7 +129,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li><b>Son 15 Gün dahil</b></li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn" href="#kayit">Kuruluş fiyatından yerini al</a>
+    <a class="btn" href="satin-al.html?paket=sgs-donem">Satın al — kuruluş fiyatından</a>
   </div>
 
   <div class="p">
@@ -143,7 +148,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li><b>Son 15 Gün dahil</b></li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn ikincil" href="#kayit">Kuruluş fiyatından yerini al</a>
+    <a class="btn ikincil" href="satin-al.html?paket=yeterlilik-donem">Satın al — kuruluş fiyatından</a>
   </div>
 
   <!-- KGK karti: 06.08 aksam Cem onayi ("senin rakamlarini onayliyorum") ile
@@ -167,7 +172,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li>Her soruda standart/madde kaynağı</li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn ikincil" href="#kayit">Kuruluş fiyatından yerini al</a>
+    <a class="btn ikincil" href="satin-al.html?paket=kgk">Satın al — kuruluş fiyatından</a>
     <p style="font-size:11.5px;color:var(--dim);margin:10px 0 0">Kuruluş fiyatı: banka büyüdükçe fiyat artar; erken gelen bu fiyatta kalır.</p>
   </div>
 
@@ -177,7 +182,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 <div class="kutu">
   <h2>İki sınav dönemi birden</h2>
   <p style="margin:0;font-size:14px">Bir dönemde bitirmeyi düşünmüyorsan, 12 aylık erişim daha ucuza gelir:
-  <b class="a">Staja Başlama 2.790 TL</b> · <b class="a">Yeterlilik 3.990 TL</b>. İki sınav dönemini kapsar;
+  <a href="satin-al.html?paket=sgs-uzun"><b class="a">Staja Başlama 2.790 TL</b></a> ·
+  <a href="satin-al.html?paket=yeterlilik-uzun"><b class="a">Yeterlilik 3.990 TL</b></a>. İki sınav dönemini kapsar;
   arada banka büyümeye devam eder.</p>
 </div>
 
@@ -276,46 +282,43 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   aynı gün kaynağıyla bakarız, haklıysan soru düzeltilir ya da yayından iner; düzeltmeyi açıkça duyururuz.</p>
 </div>
 
-<div class="kutu" id="kayit">
-  <h2>Ödeme altyapısı kurulum aşamasında</h2>
-  <p style="margin:0;font-size:14px">Kart ödemesi henüz açık değil; açılır açılmaz haber vereceğiz.
-  <b>Şimdi bırakacağın e-posta, kuruluş fiyatını sana kilitler:</b> ödeme açıldığında bu sayfadaki
-  fiyat artmış olsa bile sen kuruluş fiyatından girersin.</p>
-  <p class="kucuk" style="margin:10px 0 0">Bu arada <a href="deneme.html">günde 15 soruyu ücretsiz</a>
-  çözebilirsin, kart bilgisi istemiyoruz.</p>
+<!-- 21.08: eski "Ödeme altyapısı kurulum aşamasında" kutusu KALDIRILDI. Sayfa
+     satılabilir ürün göstermek zorunda; o kutu satın almanın önünü kapatıyordu. -->
+<div class="kutu vurgu" id="kayit">
+  <h2>Nasıl ödenir</h2>
+  <p style="margin:0;font-size:14px">Paketi seç, bilgilerini gir, <b class="a">banka havalesi / EFT</b> ile öde.
+  Sipariş sonunda hesap bilgisi ve sipariş numaran ekrana gelir; ödemeni gördüğümüz gün erişimin açılır ve
+  <b>e-arşiv faturan</b> e-posta adresine gönderilir.</p>
+  <p style="margin:10px 0 0;font-size:14px">Bu adımda kart bilgisi istemiyoruz — <b>7 gün koşulsuz iade</b> hakkın saklı.</p>
+  <p style="margin:14px 0 0"><a class="btn" style="display:inline-block;padding:11px 22px" href="satin-al.html">Paketi seç ve satın al</a></p>
+  <p class="kucuk" style="margin:12px 0 0">Kararsızsan önce <a href="deneme.html">günde 15 soruyu ücretsiz</a>
+  çöz; kart bilgisi istemiyoruz.</p>
+</div>
+
+<div class="kutu">
+  <h2>Satıcı bilgileri</h2>
+  <div class="tabsar"><table>
+    <tr><td>Ticaret unvanı</td><td>Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi</td></tr>
+    <tr><td>MERSİS No</td><td>0301130343200001</td></tr>
+    <tr><td>Vergi dairesi / No</td><td>Kordon Vergi Dairesi / 3011303432</td></tr>
+    <tr><td>Adres</td><td>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir</td></tr>
+    <tr><td>İletişim</td><td>info@dizdardenetim.com · 0537 843 80 58</td></tr>
+  </table></div>
+  <p class="kucuk" style="margin-top:10px"><a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> ·
+  <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="kvkk.html">KVKK Aydınlatma Metni</a> ·
+  <a href="iletisim.html">İletişim</a></p>
 </div>
 
 <p class="kucuk">Fiyatlar Türk Lirası ve KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
-deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.
-Satıcı bilgileri ödeme açılışında bu sayfada yayımlanır.</p>
+deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
+<!-- GERCEK TAKVIM — uydurma geri sayim yok. Takvim ve fiyat verisi 21.08'de
+     fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
+     "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
+<script src="fiyat-motoru.js"></script>
 <script>
-/* GERCEK TAKVIM — uydurma geri sayim yok.
-   Tarihler TURMOB 2026 resmi PDF'inden, genc.html ile ayni kaynak.
-   Sinav tarihi ROBOTLA DEGISTIRILMEZ; elle teyitle guncellenir. */
-var SINAVLAR = [
-  { ad:'Staja Başlama',  tarih:'2026-11-21', yazi:'21 Kasım 2026',        anahtar:'sgs' },
-  /* 06.08 duzeltme: 12-21 Aralik ESKI yazili-donem takvimiydi; teste gecince
-     tek gun oldu. TURMOB 2026 resmi takvimi: 3. donem Yeterlilik 28 KASIM. */
-  { ad:'Yeterlilik',     tarih:'2026-11-28', yazi:'28 Kasım 2026',        anahtar:'yeterlilik' }
-];
-/* 02.08.2026 FIYAT KARARI — olculmus dayanaklarla (bkz. sayfadaki tablolar):
-   SGS sinav ucreti 1.635 · Yeterlilik sinav ucreti 10.080 (TESMER 2026 tarifesi)
-   kurs bandi 8.800-16.800 · sadece-video soru cozum paketi 3.250 · soru bankasi kitabi ~1.140.
-   Onceki 249 ve 590/990 rakamlari OLCUMSUZDU; bu ilk olculu fiyat. */
-var FIYAT = {
-  sgs:        { erken:1790, orta:2190, son:2490 },
-  yeterlilik: { erken:2790, orta:3190, son:3490 }
-};
-function gunFarki(t){
-  var s = new Date(t + 'T09:00:00+03:00');
-  return Math.ceil((s - new Date()) / 86400000);
-}
-function basamak(g){ return g > 90 ? 'erken' : (g > 30 ? 'orta' : 'son'); }
-function tl(n){ return n.toLocaleString('tr-TR'); }
-
 var tk = document.getElementById('takvim'), h = '';
 SINAVLAR.forEach(function(s){
   var g = gunFarki(s.tarih);
@@ -340,8 +343,7 @@ tk.innerHTML = h;
   }
   document.getElementById('fy' + id).textContent = tl(f) + ' TL' + (g >= 7 ? ' · sınav gününe kadar' : '');
   document.getElementById('tk' + id).textContent = '3 taksitle aylık ' + tl(Math.round(f / 3)) + ' TL';
-  document.getElementById('kd' + id).textContent = (b === 'erken') ? 'kuruluş fiyatı'
-      : (b === 'orta' ? 'sınava 90 günden az kaldı' : 'son 30 gün fiyatı');
+  document.getElementById('kd' + id).textContent = basamakYazi(b);
 });
 
 // Deger yigini kutusundaki paket fiyati da SGS'nin guncel basamagini gostersin.
@@ -360,5 +362,8 @@ var bS = basamak(gS);
   m.appendChild(tr);
 });
 </script>
-<script src="menu.js" defer></script></body>
+<script src="menu.js" defer></script><link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
+</body>
 </html>

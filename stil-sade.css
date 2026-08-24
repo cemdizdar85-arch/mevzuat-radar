@@ -1,0 +1,280 @@
+/* ================================================================
+   SADE KATMAN — index-sade.html gorunum denemesi (24.08.2026)
+
+   ILKE
+   Kutu su demektir: "bunlar birbirinden ayri ve esit." Her seyi
+   kutuya koymak "hicbiri digerinden onemli degil" demektir; yani
+   editoryal karar VERILMEMIS demektir. Makinenin imzasi budur,
+   cunku makine neyin onemli oldugunu secemez, hepsini esit
+   cerceveye alir.
+
+   Bu katman kutuyu yalniz SECILEBILIR seye birakir (fiyat plani).
+   Ayrimi bosluk, punto ve hizalama yapar; cizgi degil. Cerceve,
+   bosluga guvenmeyenin koltuk degnegidir.
+
+   KURULUM
+   Sayfanin kendi <style> bloklarindan SONRA yuklenir, bu yuzden
+   esit ozgullukte kazanir. Icerik, metin ve canli veri baglantilari
+   index.html ile birebir aynidir; degisen yalniz sunum.
+   ================================================================ */
+
+
+/* ================================================================
+   1. ISIK SOVU SONER
+   Yildiz alani, gezegen ufku, nabiz, degrade buton, zipllayan
+   hover. Bunlar bos icerigin ustune kurulmus ses; urun yerine
+   gecemez.
+   ================================================================ */
+
+/* hero'nun arkasindaki yildiz taneleri ve renk lekeleri */
+.hero::after{content:none !important}
+.hero{background:var(--bg) !important;min-height:auto;padding-bottom:0}
+
+/* nabiz atan hap etiket -> duz, sessiz damga */
+.eyebrow{border:0;background:none;padding:0;margin-bottom:20px;
+  font-size:11.5px;font-weight:600;letter-spacing:1.1px;color:var(--dim)}
+.eyebrow::before{animation:none;box-shadow:none;width:6px;height:6px;background:var(--accent)}
+
+/* degrade buton -> duz marka rengi */
+.btn{background:var(--accent);background-image:none;box-shadow:none;
+  border-radius:8px;font-weight:700;font-size:14px;padding:10px 20px}
+.btn:hover{transform:none;box-shadow:none;filter:brightness(1.08)}
+.btn.ghost{background:none;border:1px solid var(--line2);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--muted);filter:none}
+.mark{background:var(--accent);box-shadow:none}
+
+/* hicbir oge fareyle zipllamaz, hicbir sey yanip sonmez */
+.sk:hover,.mp:hover,.arac:hover,.step:hover,.kare:hover,.rgk:hover,
+.kapi:hover,.fkart:hover{transform:none !important;box-shadow:none !important}
+.hero *,#fiyat *,.eyebrow::before{animation:none !important}
+
+/* kaydirinca beliren solma efekti: her SaaS sablonunda ayni */
+.reveal{opacity:1 !important;transform:none !important;transition:none !important}
+
+
+/* ================================================================
+   2. KUTU DUVARI SOKULUR
+   Cerceve yalniz secilebilir seye kalir. Okunacak metin cerceve
+   istemez; satir arasi ve sac teli cizgi yeter.
+   ================================================================ */
+
+.gk,.step,.mp,.rgk,.sk,.kare,.uyekutu,.hapkutu,.kapi{
+  background:none !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important}
+.gk::before{display:none}
+
+
+/* --- uc kapi: uc kutu degil, uc sutun ------------------------- */
+.sade-kapilar{gap:0;max-width:1180px;margin:26px 0 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sk{padding:24px 30px 22px 0 !important}
+.sade-kapilar .sk+.sk{border-left:1px solid var(--line) !important;padding-left:30px !important}
+.sk-ust{font:600 11px/1 var(--mono);color:var(--dim);letter-spacing:1.2px;margin-bottom:10px}
+.sk b{font-size:17px;letter-spacing:-.3px;margin-bottom:5px;font-weight:700}
+.sk-et{font-size:11.5px;font-weight:600;color:var(--dim);letter-spacing:.6px;
+  text-transform:uppercase;margin-bottom:9px}
+.sk-ac{font-size:13px;color:var(--muted);margin-bottom:14px}
+.sk-git{font-size:13px;font-weight:600;color:var(--accent)}
+
+
+/* --- urun raflari: kutu izgarasi -> iki sutunlu liste --------- */
+.mini-baslik{margin:44px 0 4px;font-size:11.5px;letter-spacing:1.4px;
+  color:var(--dim);font-weight:700;padding-bottom:8px;border-bottom:1px solid var(--line2)}
+.mini-pencereler{grid-template-columns:repeat(2,1fr) !important;
+  gap:0 46px !important;max-width:1180px;margin:0}
+.mp{padding:14px 0 15px !important;
+  border-bottom:1px solid var(--line) !important}
+
+/* sahte tarayici penceresi cubugu -> satirin adi */
+.mp-bar{padding:0 !important;border:0 !important;background:none !important;margin-bottom:3px}
+.mp-bar i{display:none}
+.mp-bar b{font-size:14.5px;font-weight:700;color:var(--ink);
+  letter-spacing:-.2px;text-transform:none}
+.mp-ic{padding:0 !important;gap:4px}
+.mp-tag{font-size:9.5px;letter-spacing:.9px;color:var(--dim);font-weight:600}
+.mp-b{font-size:13px;font-weight:600}
+.mp-m{font-size:12px;line-height:1.5}
+.mp-git{font-size:12px;font-weight:600;padding-top:5px}
+.mp-ara{border-radius:6px}
+.mp-genis{padding-top:16px !important}
+
+
+/* --- Resmi Gazete: gercek veri, kutuya konmaz ----------------- */
+#rgKartlar{gap:0 46px !important}
+.rgk{padding:15px 0 15px 14px !important;
+  border-left:2px solid var(--dim) !important;
+  border-bottom:1px solid var(--line) !important}
+.rgk.red{border-left-color:var(--red) !important}
+.rgk.green{border-left-color:var(--green) !important}
+.rgk h4{font-size:14.5px}
+#rgKartlar .rg-durum{border:0 !important;background:none !important;
+  border-radius:0 !important;padding:12px 0 !important;
+  border-bottom:1px solid var(--line) !important}
+
+
+/* --- neden guvenilir: alti kutu -> iki sutun duz metin -------- */
+#guven{background:none !important;border-bottom:0 !important}
+.guven-grid{gap:28px 52px}
+.gk{padding:0 !important}
+.gk h3{font-size:15.5px;margin:0 0 6px;font-weight:700}
+.gk p{font-size:13.5px;line-height:1.65}
+
+/* kaynak rozetleri -> duz isim dizisi */
+.kaynak-bar{justify-content:flex-start;gap:6px 0;margin-top:34px}
+.kaynak-bar b{border:0;background:none;padding:0;
+  color:var(--ink);font-weight:600;letter-spacing:0}
+.kaynak-bar b+b::before{content:"·";color:var(--dim);margin:0 10px;font-weight:400}
+
+
+/* ================================================================
+   3. TEK HIZALAMA EKSENI
+   Ortalama yalniz hero'da kalir. Asagisi bastan sona sol hizada
+   durur; goz tek bir dikey cizgi izler.
+   ================================================================ */
+
+.sec-head{max-width:700px;margin:0 0 32px !important;text-align:left !important}
+.sec-head p{font-size:14.5px}
+.mini-baslik,.mini-pencereler,.sade-kapilar,.konu-liste{text-align:left}
+section p[style*="text-align:center"]{text-align:left !important}
+.strip .stat{text-align:left}
+
+
+/* ================================================================
+   4. KATALOG: IZGARA -> LISTE
+   38 emoji ikon kaldirildi. Sebep: kart izgarasinda ikonsuz kutu
+   corak durur, ama LISTE zaten ikon istemez - Westlaw'in da,
+   Bloomberg'in de kataloglari duz listedir. Izgarayi listeye
+   cevirmek iki sorunu birden kapatir.
+   ================================================================ */
+
+.araclar-grid{grid-template-columns:repeat(2,1fr) !important;gap:0 46px !important}
+.arac{display:block;padding:11px 0 !important;
+  border:0 !important;border-radius:0 !important;background:none !important;
+  border-bottom:1px solid var(--line) !important}
+.arac b{font-size:14px;font-weight:600;letter-spacing:-.1px}
+.arac span{font-size:12.5px;color:var(--dim);margin-top:2px;line-height:1.5}
+.arac:hover b{color:var(--accent2)}
+
+.kat-grup{margin-top:30px}
+.kat-grup>h3{font-size:11.5px;letter-spacing:1.4px;color:var(--dim);
+  margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line2)}
+.kat-grup>h3::after{display:none}
+
+#aracAra{max-width:420px;margin:0 0 4px;border-radius:8px;font-size:14px;padding:11px 13px}
+#aracAra:focus{box-shadow:none;border-color:var(--accent)}
+
+
+/* ================================================================
+   5. SECILEBILIR OLAN KUTUDA KALIR
+   Fiyat plani secilir, o yuzden cercevesi anlamlidir. Golge ve
+   degrade yine de gider: cerceve isi yapar, gosteri yapmaz.
+   ================================================================ */
+
+.fkart{border-radius:12px;box-shadow:none !important;
+  background:var(--panel) !important;padding:26px 24px}
+.fkart.one{border-color:rgba(245,165,36,.45) !important}
+.fkart .rozet{border-radius:4px;letter-spacing:.4px}
+.fkart .fiyat{font-weight:700;letter-spacing:-.5px}
+.fkart li{font-size:13px}
+.fiyat-grid{margin:0;max-width:860px}
+
+
+/* ================================================================
+   6. TIPOGRAFI
+   Bir olcek asagi. -3px harf araligi baslikta gerginlik yapiyor;
+   metin kendi agirligini tasisin.
+   ================================================================ */
+
+h1{letter-spacing:-1.6px;font-weight:700}
+h1 .g{text-decoration-thickness:3px;text-underline-offset:8px}
+h2{letter-spacing:-.6px;font-weight:700;font-size:clamp(22px,2.6vw,30px)}
+h3{font-weight:700}
+section{padding:clamp(46px,6vw,74px) clamp(18px,4vw,42px)}
+nav{border-bottom:1px solid var(--line)}
+nav.scrolled{border-bottom-color:var(--line2)}
+.dropdown{border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.dropdown a{border-radius:6px;font-weight:600}
+footer{border-top:1px solid var(--line)}
+
+
+/* ================================================================
+   7. TELEFON
+   Iki sutunlu listeler tek sutuna iner; dikey ayirici cizgi
+   yatay cizgiye doner.
+   ================================================================ */
+
+@media(max-width:860px){
+  .araclar-grid,.mini-pencereler,#rgKartlar{grid-template-columns:1fr !important}
+  .sade-kapilar{grid-template-columns:1fr !important;max-width:100%}
+  .sade-kapilar .sk+.sk{border-left:0 !important;padding-left:0 !important;
+    border-top:1px solid var(--line) !important}
+  .sk{padding:18px 0 !important}
+}
+
+/* ================================================================
+   8. ROTUS — tarayicida bakinca cikanlar
+   ================================================================ */
+
+/* Ortalanmis satir ici stiller: tarayici style ozniteligini
+   "text-align: center" diye BOSLUKLU normalize ediyor; iki yazimi
+   da yakalamak gerekiyor. */
+section p[style*="text-align:center"],
+section p[style*="text-align: center"]{text-align:left !important}
+
+/* Soru seridi: hap yerine sessiz baglanti dizisi */
+.ak{border-color:var(--line) !important;border-radius:6px;
+  font-size:12.5px;color:var(--muted);padding:7px 12px}
+.ak i{display:none}
+.ak:hover{border-color:var(--line2) !important;color:var(--ink)}
+
+/* Ornek sorgu: sahte arama kutusu taklidi degil, tirnakli sorgu */
+.mp-ara{border:0 !important;border-radius:0 !important;background:none !important;
+  padding:0 !important;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.mp-ara::before{content:"\201C"}
+.mp-ara::after{content:"\201D"}
+
+/* Resmi Gazete bolumu ile katalog arasina nefes */
+#bugun-rg{padding-bottom:26px !important}
+#araclar{padding-top:8px !important}
+
+/* ================================================================
+   9. KONU KAPILARI
+   Olcum (24.08.2026, dordu de acilip okundu): Thomson Reuters ana
+   sayfada 5 alan, Wolters Kluwer 5 bolum, GOV.UK 16 konu, Logo 6
+   menu basligi gosteriyor. Hicbiri urun listelemiyor.
+   GOV.UK'in kritik ayrintisi: konu adinin altindaki "Includes ..."
+   satiri icindekileri sayar - ziyaretci tiklamadan kendi konusunu
+   tanir. Kutu yok, ikon yok; sac teli cizgiyle ayrilmis duz liste.
+   Burada ayni duzen, farki icindekilerin dogrudan baglanti olmasi.
+   ================================================================ */
+
+.konu-liste{display:grid;grid-template-columns:repeat(2,1fr);
+  gap:0 46px;max-width:1180px;margin:0}
+.konu{padding:13px 0;border-bottom:1px solid var(--line)}
+.konu b{display:block;font-size:15px;font-weight:700;color:var(--ink);
+  letter-spacing:-.2px;margin-bottom:4px}
+.konu span{display:block;font-size:12.5px;color:var(--dim);line-height:1.7}
+.konu a{color:var(--muted);text-decoration:none;
+  border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+.konu a:hover{color:var(--accent2);border-bottom-color:rgba(255,194,75,.45)}
+
+@media(max-width:860px){ .konu-liste{grid-template-columns:1fr} }
+
+
+/* ================================================================
+   10. KLAVYE VE ERISILEBILIRLIK
+   Olcum (24.08): sitede :focus-visible tanimi HIC yoktu - klavyeyle
+   gezen kisi nerede oldugunu goremiyordu. <main> yoktu, atla-
+   baglantisi yoktu. Ucu de bir yazilimcinin sayfaya bakarken ilk
+   fark edecegi eksiklerdir.
+   ================================================================ */
+
+.atla{position:absolute;left:-9999px;top:0;z-index:9999;
+  background:var(--accent);color:#03101f;font-weight:700;font-size:14px;
+  padding:10px 16px;border-radius:0 0 8px 0;text-decoration:none}
+.atla:focus{left:0}
+
+:focus-visible{outline:2px solid var(--accent2);outline-offset:2px;border-radius:3px}
+nav a:focus-visible,.konu a:focus-visible,.arac:focus-visible{outline-offset:3px}

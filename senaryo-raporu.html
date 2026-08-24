@@ -6,8 +6,8 @@
 <title>Menşe Senaryo Raporu — hangi ülkeden alırsam ne kadar vergi öderim? | Tetikte</title>
 <meta name="description" content="Ürünün GTİP kodunu, yıllık ithalat tutarını ve aday ülkeleri gir; her menşe için toplam ithalat vergi yükünü (gümrük + İGV + damping + KDV) ve yıllık tasarruf farkını gösteren, yazdırılabilir SMMM raporu.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -16,14 +16,14 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .lead{color:var(--muted);font-size:15.5px;margin:0 0 22px}.lead b{color:var(--ink);font-weight:600}
 .form{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px}
 .form label{display:block;font-size:12.5px;font-weight:700;color:var(--accent2);letter-spacing:.4px;margin:0 0 6px}
-.gir{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit}
+.gir{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);color:var(--ink);font-size:15px;font-family:inherit}
 .satirlar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}.satirlar>div{flex:1;min-width:200px}
 .ulkeler{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:6px 0 4px}
-.ulke{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;cursor:pointer;font-size:13.5px;user-select:none}
+.ulke{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);cursor:pointer;font-size:13.5px;user-select:none}
 .ulke:hover{border-color:var(--accent)}.ulke.on{border-color:var(--accent);background:linear-gradient(135deg,rgba(245,165,36,.14),transparent)}
 .ulke input{accent-color:var(--accent);pointer-events:none}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:16px}
-.btn.ghost{background:#0a0f17;color:var(--ink);border:1px solid var(--line2);font-weight:700;font-size:13.5px;padding:10px 16px}
+.btn.ghost{background:var(--yuzey);color:var(--ink);border:1px solid var(--line2);font-weight:700;font-size:13.5px;padding:10px 16px}
 #rapor{margin-top:26px}
 .rk{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:24px;margin-bottom:16px}
 .rbaslik{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:18px}
@@ -46,7 +46,7 @@ tr.best td{background:rgba(61,220,151,.07)}tr.worst td{background:rgba(255,107,9
 .cta{border:1px solid rgba(245,165,36,.35);background:linear-gradient(135deg,rgba(245,165,36,.10),transparent);border-radius:14px;padding:18px 20px;margin-top:16px}
 .cta h3{margin:0 0 6px;font-size:15px}.cta p{margin:0 0 12px;font-size:13px;color:var(--muted)}
 .cta .teklifler{display:flex;gap:8px;flex-wrap:wrap}
-.cta .tk{flex:1;min-width:150px;text-align:left;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}
+.cta .tk{flex:1;min-width:150px;text-align:left;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}
 .cta .tk:hover{border-color:var(--accent)}.cta .tk small{display:block;color:var(--dim);font-weight:500;font-size:11px;margin-top:2px}
 .uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .hata{color:var(--red);font-size:14px;margin-top:12px}
@@ -67,7 +67,6 @@ tr.best td{background:rgba(61,220,151,.07)}tr.worst td{background:rgba(255,107,9
 }
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
-:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
@@ -101,7 +100,8 @@ details.kacc>.ic{padding:2px 0 14px}
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Menşe Senaryo Raporu</div>
   <h1>Menşe Senaryo Raporu, hangi ülkeden alırsam ne kadar öderim?</h1>
   <p class="lead">Ürünün <b>GTİP kodunu</b> (bilmiyorsan <b>adını</b>) ve <b>yıllık ithalat tutarını</b> gir, <b>16 menşe seçeneğinin tamamını</b> hesaplayıp en ucuzdan pahalıya sıralayalım; <b>yıllık tasarruf farkın</b> büyük puntoyla önüne gelsin. En avantajlı 3 menşe herkese açık; tam tablo ücretsiz üyelikte, <b>SMMM raporu (PDF)</b> üyelikle. <span style="color:var(--dim)">Vergi verisi GTİP Kontrolü ile aynı doğrulanmış kaynaktan.</span></p>
@@ -128,16 +128,16 @@ details.kacc>.ic{padding:2px 0 14px}
     <!-- 13.08 Cem: "butun ulkeler olmasi lazim" - ulke adiyla arama; arkada RG'nin
          resmi sutun eslemesi (EK-1 + II sayili liste sutun-1; kaynak veri/ulke-grup.json) -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:2px 0 6px">
-      <input id="ulkeAra" list="ulkeList" placeholder="Ülke yaz… (ör. Vietnam, Brezilya, Nijerya)" autocomplete="off" style="flex:1;min-width:230px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-family:inherit;font-size:14px">
+      <input id="ulkeAra" list="ulkeList" placeholder="Ülke yaz… (ör. Vietnam, Brezilya, Nijerya)" autocomplete="off" style="flex:1;min-width:230px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-family:inherit;font-size:14px">
       <datalist id="ulkeList"></datalist>
-      <button type="button" onclick="ulkeAraEkle()" style="cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;padding:11px 16px;border-radius:10px;border:1px solid var(--line2);background:#0a0f17;color:var(--accent2)">+ Ekle</button>
+      <button type="button" onclick="ulkeAraEkle()" style="cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;padding:11px 16px;border-radius:10px;border:1px solid var(--line2);background:var(--yuzey);color:var(--accent2)">+ Ekle</button>
     </div>
     <div id="ozelUlkeler" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px"></div>
     <label>YA DA GRUP SÜZGECİYLE SEÇ</label>
     <!-- 13.08 Cem: "hepsini sec gibi sutun koyalim, boyle mantikli gorunmuyor" -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 10px">
-      <button type="button" onclick="ulkeToplu(true)" style="cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid var(--line2);background:#0a0f17;color:var(--ink)">☑ Tümünü seç</button>
-      <button type="button" onclick="ulkeToplu(false)" style="cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid var(--line2);background:#0a0f17;color:var(--ink)">☐ Temizle</button>
+      <button type="button" onclick="ulkeToplu(true)" style="cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid var(--line2);background:var(--yuzey);color:var(--ink)">☑ Tümünü seç</button>
+      <button type="button" onclick="ulkeToplu(false)" style="cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid var(--line2);background:var(--yuzey);color:var(--ink)">☐ Temizle</button>
       <span id="ulkeSayacY" style="font-size:12.5px;color:var(--dim)">Seçili: 0, boş bırakırsan 16'sının hepsini sıralarız</span>
     </div>
     <div class="ulkeler" id="ulkeler"></div>
@@ -472,7 +472,7 @@ function teklif(tur, btn){
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:#eef2f7">Dizdar Denetim A.Ş.</b> ekibi (SMMM + vergi/gümrük uzmanlığı) teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı, aynı gün dönüş yapacağız.</div>
@@ -481,5 +481,8 @@ function teklif(tur, btn){
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
 </div>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

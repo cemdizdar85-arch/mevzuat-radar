@@ -6,8 +6,8 @@
 <title>GTİP Vergi Kontrolü — hangi ülkeden alırsan kaç vergi ödersin? | Tetikte</title>
 <meta name="description" content="GTİP kodunu ve menşe ülkeni gir; o ülkeden ithalatta ödeyeceğin gümrük vergisini kesin oranla gör, AB, Diğer Ülkeler (Çin/ABD/Japonya) ve ara gruplar arasındaki farkı saniyede öğren.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -15,7 +15,7 @@ a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70p
 h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
 .lead{color:var(--muted);font-size:15px;margin:0 0 22px}
 .ara{display:flex;gap:10px;flex-wrap:wrap}
-.ara input{flex:1;min-width:220px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:#0a0f17;color:var(--ink);font-size:17px;font-family:inherit;letter-spacing:.5px}
+.ara input{flex:1;min-width:220px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:var(--yuzey);color:var(--ink);font-size:17px;font-family:inherit;letter-spacing:.5px}
 .ara input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,36,.18)}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:14px 24px;border-radius:13px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(245,165,36,.35);transition:transform .15s}
 .btn:hover{transform:translateY(-2px)}
@@ -36,7 +36,6 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
-:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
@@ -52,7 +51,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="destekler.html">Destek Radarı</a> · GTİP Vergi Kontrolü</div>
   <style>
     /* Ortak dil kalibi (30.07): sapka + pencere cubugu - alacak sablonuyla ayni */
@@ -77,7 +77,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <!-- 20.08.2026 — TOPLU ARAC BAGLANTISI. Olculdu: bu sayfadan toplu araca giden
        tek link gizli "Araçlar" cekmecesinin icindeydi (gorunur degil). Listeyle
        gelen kullanici kodlari tek tek yazmaya baslamadan once bunu gormeli. -->
-  <div style="margin-top:10px;padding:11px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+  <div style="margin-top:10px;padding:11px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);display:flex;gap:10px;align-items:center;flex-wrap:wrap">
     <span style="font-size:18px">📑</span>
     <div style="flex:1;min-width:200px;font-size:13px;color:var(--muted)">
       <b style="color:var(--ink)">Elinde liste mi var?</b> Tek tek yazma —
@@ -88,8 +88,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div style="margin-top:10px">
     <a href="#" onclick="adAraToggle();return false" style="display:inline-block;font-size:13.5px;color:var(--accent);text-decoration:none;font-weight:700">🔍 Kodunu bilmiyor musun? Ürünün adıyla ara →</a>
-    <div id="adAraKutu" style="display:none;margin-top:10px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
-      <input id="adAra" placeholder="ör. yoğurt, mermer blok, seramik lavabo, güneş paneli…" autocomplete="off" oninput="adAraCalis()" style="width:100%;font-size:15px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#06090f;color:var(--ink);font-family:inherit">
+    <div id="adAraKutu" style="display:none;margin-top:10px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
+      <input id="adAra" placeholder="ör. yoğurt, mermer blok, seramik lavabo, güneş paneli…" autocomplete="off" oninput="adAraCalis()" style="width:100%;font-size:15px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--taban);color:var(--ink);font-family:inherit">
       <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">Resmî Gümrük Tarife Cetveli'nin eşya tanımlarında arar (15.717 kod, Karar 10781 · RG 30.12.2025). İpucu: resmî tanımlar teknik dille yazılır; "buzdolabı" bulamazsan "soğutucu" dene.</div>
       <div id="adAraSonuc" style="margin-top:8px"></div>
     </div>
@@ -97,7 +97,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div style="margin-top:12px">
     <label style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">📍 Nereden alıyorsun? <b style="color:var(--ink)">Bilmiyorsan boş bırak</b>, sana oran aralığını gösteririz. Ülkeyi seçersen kesin oranı buluruz.</label>
-    <select id="ulkeGrup" onchange="sorgula()" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit">
+    <select id="ulkeGrup" onchange="sorgula()" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey);color:var(--ink);font-size:14.5px;font-family:inherit">
       <option value="">Bilmiyorum, hepsini göster (en kolayı)</option>
       <option value="abSta">🇪🇺 AB, İngiltere, EFTA + serbest ticaret anlaşmalı ülkeler (İsrail, G.Kore, Sırbistan, Şili, Fas, Tunus, Mısır, Bosna, Arnavutluk, K.Makedonya…), genelde en düşük vergi</option>
       <option value="du">🇨🇳 Çin, Japonya, Hindistan, Rusya… (anlaşması olmayan çoğu ülke)</option>
@@ -174,7 +174,7 @@ function nihaiKart(kod){
   let bulunan = null;
   for(const p in NIHAI.kodlar){ if(say.startsWith(p) || p.startsWith(say)){ bulunan = NIHAI.kodlar[p]; break; } }
   if(!bulunan) return '';
-  return `<div style="margin-top:12px;padding:13px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+  return `<div style="margin-top:12px;padding:13px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:5px">🎯 NİHAİ KULLANIMDA İNDİRİMLİ GV OLABİLİR, ${bulunan.tur}</div>
     <div style="font-size:12.5px;color:var(--muted)">Bu kod, <b style="color:var(--ink)">${bulunan.ad}</b> olarak <b>belirli nihai kullanım</b> şartıyla indirimli/sıfır gümrük vergisinden yararlanabilir. ŞARTLIDIR: nihai kullanım izni + ürünün birebir bu amaçla kullanılması gerekir. Kesin oran ve şartlar için gümrük müşavirinle teyit et.</div>
     <div style="font-size:10.5px;color:var(--dim);margin-top:5px">Kaynak: İthalat Rejimi Kararı VI/VII Sayılı Liste.</div>
@@ -220,7 +220,7 @@ function balikKart(kod){
       ${tablo(b.emy, BALIK.emyUlke)}
       <div style="font-size:11px;color:var(--dim);margin-top:6px">Su ürünlerinde gümrük vergisine <b>ek olarak</b> bu yükümlülük (Toplu Konut Fonu işlevi) menşe ülkeye göre CIF bedelin %'si olarak alınır.</div>
     </div>` : '';
-  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:8px">🐟 MENŞE ÜLKEYE GÖRE GÜMRÜK VERGİSİ (balıkçılık / su ürünleri)</div>
     ${ekNot}${gvHtml}${emyHtml}
     <div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: Ticaret Bakanlığı İthalat Rejimi Kararı IV Sayılı Liste (balıkçılık ve su ürünleri), her menşe için birebir okundu. KDV ayrıca; işlem öncesi gümrük müşavirine danış.</div>
@@ -238,7 +238,7 @@ function gekapKart(kod){
   if(typeof urun === 'object' && urun.kosul){
     const d = kod.replace(/\./g,'');
     if((urun.haricKod||[]).some(h => d.startsWith(h))) return '';   // net akaryakıt → kart yok
-    return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+    return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">♻ GEKAP, duruma bağlı olabilir</div>
       <div style="font-size:12px;color:var(--muted);line-height:1.5"><b style="color:var(--ink)">${htmlEsc(urun.ad)}</b> ise GEKAP kapsamındadır. ${htmlEsc(urun.not||'')} <b style="color:var(--ink)">Ürününün tam ne olduğunu gümrük müşavirinle teyit et.</b></div>
       <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Dayanak: ${g.dayanak}</div>
@@ -319,12 +319,12 @@ function ihracatKart(kod){
   }
   const kisitNot = `<div style="margin-top:8px;font-size:11.5px;color:var(--dim)">İhracı YASAK (eski eser, ceviz/ıhlamur tomruğu, doğal çiçek soğanı…) veya ÖN İZİNLİ (harp/mühimmat→MSB, uyuşturucu→Sağlık, tehlikeli atık→Çevre, gübre/tohum→Tarım…) mallardan mısın? Tam liste: <a href="bilgi.html#hap-ihracat-kisit" target="_blank">ihracat kısıt rehberi →</a></div>`;
   const tev = EKVERGI.tev;
-  const tevHtml = tev ? `<div style="margin-top:10px;padding:11px 12px;border:1px dashed var(--line2);border-radius:10px;background:#06090f">
+  const tevHtml = tev ? `<div style="margin-top:10px;padding:11px 12px;border:1px dashed var(--line2);border-radius:10px;background:var(--taban)">
       <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px">⚠ ${tev.baslik}</div>
       <div style="font-size:12px;color:var(--muted)">${tev.metin}</div>
       <div style="font-size:10.5px;color:var(--dim);margin-top:3px">Dayanak: ${tev.dayanak}</div>
     </div>` : '';
-  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:4px">📤 İHRACAT, bu koddan mal SATIYORSAN</div>
     ${maddeHtml}
     ${kaydaHtml}
@@ -349,7 +349,7 @@ function otvKart(kod){
   if(otvKodlar.length){
     const eslesti = otvKodlar.some(k => d.startsWith(k) || k.startsWith(d));
     if(!eslesti){
-      return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+      return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
         <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">ⓘ ÖTV KAPSAMINI TEYİT ET</div>
         <div style="font-size:12px;color:var(--muted);line-height:1.5">${htmlEsc(rec.kapsamNot||('Bu pozisyonda ÖTV yalnız bazı alt kodları kapsar; bu kodun kapsamda olup olmadığı bu araçtan kesinleşmez.'))} <b style="color:var(--ink)">Kesin kapsam için GİB ÖTV (4760 s.K.) listesine / gümrük müşavirine teyit et.</b></div>
       </div>`;
@@ -358,7 +358,7 @@ function otvKart(kod){
   // Kısmi kapsam (fasıl-düzeyi kayıt, ör. 43 kürk): faslın ÇOĞUNLUĞU hariç, yalnız bir kısmı ÖTV'de.
   // Sert "ÖTV var" DEME (koyun/keçi/sığır derisi ithalatçısını yanlış korkutma) → nötr "kısmi, teyit et".
   if(rec.kismi){
-    return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+    return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">ⓘ ÖTV, bu faslın YALNIZ bir kısmı kapsamda (Liste ${rec.liste})</div>
       <div style="font-size:12px;color:var(--muted);line-height:1.5">${htmlEsc(rec.kapsamNot||'')} <b style="color:var(--ink)">Ürünün tam alt kodu için GİB ÖTV listesine / gümrük müşavirine teyit et.</b></div>
     </div>`;
@@ -402,7 +402,7 @@ function kdvKart(kod){
   const o10u = o10a.filter(h => !h.kosul);
   const kosullu = o1a.concat(o10a).filter(h => h.kosul);
   const kdvMatrahNot = 'KDV oranı menşe ülkeye göre DEĞİŞMEZ (ürüne bağlıdır); ama ödeyeceğin KDV TUTARI değişir, matrah gümrük vergisi + İGV\'yi içerir, onlar ülkeye göre değişir.';
-  const kosulHtml = kosullu.length ? `<div style="margin-top:8px;padding:9px 11px;border:1px dashed var(--amber);border-radius:9px;background:#0a0f17">
+  const kosulHtml = kosullu.length ? `<div style="margin-top:8px;padding:9px 11px;border:1px dashed var(--amber);border-radius:9px;background:var(--yuzey)">
       <div style="font-size:10.5px;font-weight:800;color:var(--amber);margin-bottom:3px">⚠ KOŞULA BAĞLI indirimli olabilir</div>
       <div style="font-size:11.5px;color:var(--dim);margin-bottom:4px">Aşağıdaki hüküm bir <b style="color:var(--ink)">koşula</b> bağlıdır (ör. yalnız <b style="color:var(--ink)">kullanılmış/ikinci el</b>). Ürün sıfır/yeni ise genel oran <b style="color:var(--ink)">%20</b>'dir; koşulu sağlıyorsan indirimli olabilir, gümrük müşavirinle teyit et.</div>
       ${kosullu.map(h=>`<div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:4px">${htmlEsc(h.m)}</div>`).join('')}
@@ -410,7 +410,7 @@ function kdvKart(kod){
   const hukumHtml = (arr, oran, renk) => arr.map(h => {
     const kodEslesme = asArr(h.kod).some(k => digits.startsWith(k) || (''+k).startsWith(digits));
     const rozet = kodEslesme ? ' · bu kod hükümde AÇIKÇA geçiyor' : (h.tumF ? ' · bu faslın tamamı kapsamda' : ' · bu pozisyon kapsamda');
-    return `<div style="padding:9px 11px;margin-top:6px;border:1px solid ${renk};border-radius:9px;background:#06090f">
+    return `<div style="padding:9px 11px;margin-top:6px;border:1px solid ${renk};border-radius:9px;background:var(--taban)">
       <div style="font-size:10.5px;font-weight:800;color:${renk};margin-bottom:3px">%${oran}${rozet}</div>
       <div style="font-size:12.5px;color:var(--muted);line-height:1.5">${htmlEsc(h.m)}</div></div>`;
   }).join('');
@@ -425,7 +425,7 @@ function kdvKart(kod){
     ? '<b style="color:var(--ink)">Kesin oran</b> ürünün tam tanımına ve "hariç" istisnalarına bağlı, teyit et.'
     : 'Bu kod 2007/13033 indirimli %1/%10 listelerinde görünmüyor. (Aynı faslın başka ürünleri indirimli olabilir ama bu kod değil.)';
   const detay = indirimliVar ? `${hukumHtml(o1u,'1','var(--green)')}${hukumHtml(o10u,'10','var(--amber)')}` : '';
-  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV, Katma Değer Vergisi</div>
       <div class="satir"><b>Oran</b><span style="color:${oranRenk};font-weight:800">${oranMetni}</span></div>
       <div style="font-size:11.5px;color:var(--dim);margin-top:7px">${caveat} ${kdvMatrahNot}</div>
@@ -555,7 +555,7 @@ function kodUyariBloku(q){
         + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Beyandan önce tam kodun Rejim Kararı’ndaki karşılığını gümrük müşavirinle teyit et.</div>'
         + '</div>';
     } else {
-      el.innerHTML = '<div style="margin:0 0 12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">'
+      el.innerHTML = '<div style="margin:0 0 12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">'
         + '<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">⚠ GÜMRÜK VERGİSİ ORANI ÖLÇÜLEMEDİ</div>'
         + '<div style="font-size:13px;color:var(--muted)"><b style="color:var(--ink)">' + nk + '</b> cetvelde var ama İthalat Rejimi '
         + 'listelerinde karşılığı bulunamadı ve aynı pozisyonda emsal de yok (fasıl 99 gibi özel kodlarda olur). '
@@ -571,7 +571,7 @@ function tanimBloku(kod){
     const el = document.getElementById('tanimBlk');
     const t = GtipAra.tanim(kod);
     if(!el || !t) return;
-    el.innerHTML = `<div style="margin:0 0 10px;padding:11px 13px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+    el.innerHTML = `<div style="margin:0 0 10px;padding:11px 13px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey)">
       <div style="font-size:10.5px;font-weight:800;letter-spacing:.5px;color:var(--accent);margin-bottom:4px">📖 RESMÎ EŞYA TANIMI, Gümrük Tarife Cetveli</div>
       <div style="font-size:13px;color:var(--muted)">${htmlEsc(t)}</div></div>`;
   }); }, 0);
@@ -590,7 +590,7 @@ function emyDeger(v){
 // İthalat denetimi (TAREKS) hatırlatması — her kodda görünür, ASLA "denetim yok" demez
 // (ÜGD tebliğleri per-kod eksiksiz yutulmadan yanlış güvence vermek riskli; dürüst yönlendirme)
 function denetimKart(kod){
-  return `<div style="margin-top:12px;padding:12px 13px;border:1px dashed var(--line2);border-radius:11px;background:#0a0f17">
+  return `<div style="margin-top:12px;padding:12px 13px;border:1px dashed var(--line2);border-radius:11px;background:var(--yuzey)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--accent2);margin-bottom:4px">🛃 İTHALAT DENETİMİ (TAREKS), vergiden ayrı kapı</div>
     <div style="font-size:12.5px;color:var(--muted)">Bazı ürünler ithalatta güvenlik/standart denetimine tabidir (CE, TSE, tarım, sağlık, telsiz…). Tabiyse belge/başvuru olmadan <b style="color:var(--ink)">mal gümrükten çekilemez</b>, vergiyi ödesen bile. Bu kod denetime tabi mi, hangi tebliğ: <a href="bilgi.html#hap-ithalat-denetimi" target="_blank">2026 denetim rehberi →</a> · kesin kapsam TAREKS/tebliğdedir.</div>
   </div>`;
@@ -627,7 +627,7 @@ function tarimKart(kod){
       </div>`;
     }
   }
-  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:var(--yuzey)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:8px">🌾 MENŞE ÜLKEYE GÖRE GÜMRÜK VERGİSİ (tarım, kesin oranlar)</div>
     ${satir}${fark}${emyHtml}
     <div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: Ticaret Bakanlığı İthalat Rejimi Kararı (I/II/III Sayılı tarım listeleri), her menşe için birebir okundu. İGV, KDV ayrıca hesaplanır; işlem öncesi gümrük müşavirine danış.</div>
@@ -719,9 +719,9 @@ function vergiKart(kod){
     ${sat}
     ${ulkeNotu}
     <div style="font-size:11.5px;color:var(--dim);margin-top:6px">Gümrük Vergisi + İGV: en düşük oran genelde AB/tercihli, en yüksek diğer ülkeler (ör. Çin). <sup style="color:var(--amber)">*</sup>KDV genel oran %20’dir; bu kodun faslı indirimli (%1/%10) listede geçiyorsa hüküm yukarıda gösterilir, kesin oran ürün tanımına ve istisnalara bağlıdır. KDV oranı menşe ülkeye göre DEĞİŞMEZ (ürüne bağlıdır); ama ödeyeceğin KDV TUTARI değişir, çünkü KDV matrahı gümrük vergisi + İGV'yi içerir, onlar da ülkeye göre değişir. Yani yüksek gümrük vergili ülkeden alınca KDV de artar. ÖTV yalnızca akaryakıt/araç/alkol/tütün gibi ürünlerde vardır. Kaynak: İthalat Rejimi + İGV Kararı (Ticaret Bak. 2026 konsolide) · KDV: 2007/13033 sayılı Karar (GİB güncel metin).</div>
-    <div style="margin-top:12px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+    <div style="margin-top:12px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey)">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:8px">💰 CEBİNE ETKİSİ, yıllık ithalat tutarını yaz, anında hesaplansın</div>
-      <input id="${sid}" placeholder="ör. 1.500.000 (TL, gümrük kıymeti)" inputmode="numeric" autocomplete="off" oninput="tutarYazildi('${kod}','${sid}')" style="width:100%;font-size:16px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:#06090f;color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums">
+      <input id="${sid}" placeholder="ör. 1.500.000 (TL, gümrük kıymeti)" inputmode="numeric" autocomplete="off" oninput="tutarYazildi('${kod}','${sid}')" style="width:100%;font-size:16px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:var(--taban);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums">
       <div id="${sid}_out" style="margin-top:10px;font-size:13.5px;color:var(--muted)"></div>
     </div>
     ${askiyaKart(kod)}
@@ -915,7 +915,7 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
     let satirlar = kayitlar.map(k=>`<div class="satir"><b>Birim kıymet</b><span>${k.deger}</span></div>
       ${bantHtml(k)}<div class="satir"><b>Dayanak</b><span>Gözetim Tebliği ${k.teblig}</span></div>
       <div class="satir"><b>Resmî metin</b><span><a href="${k.kaynak}" target="_blank" rel="noopener">mevzuat.gov.tr →</a></span></div>`).join('');
-    html += `<div class="kart"><div class="et">■ GÖZETİM VAR · ${kod}</div>
+    html += `<div class="kart"><div class="et">■ GÖZETİM VAR · <span data-kopyala="${kod}">${kod}</span></div>
       <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}${pozisyonNotu(kod, say2)}${kiyasHtml}
       <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
       ${vergiKart(kod)}</div>`;
@@ -987,7 +987,7 @@ document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Ente
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:#eef2f7">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı. Aynı gün dönüş yapacağız.</div>
@@ -996,5 +996,8 @@ document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Ente
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
 </div>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

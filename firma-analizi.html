@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rakip Firma Analizi — bir firma hangi ihaleleri kazandı? | Tetikte</title>
 <meta name="description" content="Firma adı yaz; kamu ihalelerinde kaç iş aldı, hangi bedellerle, hangi kurumlarla çalıştı, kırım oranı ne, Kamu İhale Bülteni sonuç ilanlarından ölçüldü.">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--line2:rgba(255,255,255,.14);--amber:#ffb020;--mono:ui-monospace,Consolas,monospace}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
@@ -37,10 +39,15 @@ input[type=text]{width:100%;background:var(--panel2);border:1px solid var(--line
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line);line-height:1.6}
 .ustluk{background:linear-gradient(135deg,rgba(61,220,151,.08),rgba(245,165,36,.06));border:1px solid rgba(61,220,151,.25);border-radius:12px;padding:12px 15px;font-size:13px;line-height:1.65;margin:14px 0}
 mark{background:rgba(245,165,36,.28);color:var(--accent2);padding:0 2px;border-radius:3px}
-</style>
+</style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
+<div class="top ust-serit">
+  <a class="ust-marka" href="index.html">tetikte</a>
+</div>
   <h1>Rakip Firma Analizi</h1>
   <p class="lead">Bir firma adı yaz. Kamu ihalelerinde kaç iş almış, hangi bedellerle, hangi kurumlarla çalışmış, ne kadar kırım yapmış? Rakibini tanı, teklifini ona göre kur.</p>
 
@@ -112,5 +119,8 @@ function ciz(q){
   }).join('');
 }
 </script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

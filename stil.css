@@ -1,0 +1,68 @@
+/* ============================================================
+   TETIKTE - ORTAK STIL KATMANI
+   24.08.2026'da kuruldu.
+
+   NEDEN VAR:
+   Bu dosyadan once sitenin 58 sayfasinin 58'inde de ayri bir
+   :root paleti vardi (toplam 106 <style> blogu, 0 adet .css
+   dosyasi). Sonucu: tek bir rengi degistirmek 55 dosya
+   dolasmak demekti ve palet zamanla kaydi. Olcum: --line
+   degiskeninin 6, --dim'in 5, --amber'in 5, marka rengi
+   --accent'in 2 farkli degeri vardi.
+
+   NASIL CALISIR:
+   Her sayfa <style> blogundan ONCE bu dosyayi baglar. Bir
+   sayfanin kanonik degerden farkli bir tonu varsa, o sayfa
+   KENDI :root blogunda yalniz o farki tutar; sonra geldigi
+   icin kazanir. Boylece tasima gunu hicbir sayfanin gorunumu
+   degismedi.
+
+   DEGISTIRIRKEN:
+   Zemin/renk kararlari artik yalniz burada verilir. Sayfa
+   icine yeni :root yazmak, bu dosyayi kurma sebebini yok
+   eder; once buraya bak.
+   ============================================================ */
+
+:root{
+  color-scheme:dark;
+
+  /* zemin ve yuzeyler */
+  --bg:#06090f;
+  --bg2:#0a0f17;
+  --panel:#0d141e;
+  --panel2:#0a0f17;
+
+  /* ayirici cizgiler */
+  --line:rgba(255,255,255,.09);
+  --line2:rgba(255,255,255,.13);
+
+  /* yazi tonlari: ana metin -> ikincil -> en soluk */
+  --ink:#eef2f7;
+  --muted:#93a1b3;
+  --dim:#5d6b7c;
+
+  /* marka: kehribar nobet lambasi. 29.07'de maviden cevrildi,
+     sebep tercih degil tutarlilik - logo, profil resmi ve
+     paylasim kartlari kehribar. */
+  --accent:#f5a524;
+  --accent2:#ffc24b;
+  --grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);
+
+  /* durum renkleri */
+  --red:#ff6b5e;
+  --amber:#ffc24b;
+  --green:#3ddc97;
+
+  /* YUZEY DEGISKENLERI (24.08) — tema degistirilebilsin diye.
+     Oncesinde sayfalarda 134 yerde bu ucu DUZ HEX olarak yaziliydi
+     (#0a0f17 x109, #06090f x14, #0d141e x11) ve tema katmani onlara
+     ulasamiyordu. Degerler kanonik paletle BIREBIR ayni; degisken
+     baglamak koyu temada hicbir seyi degistirmez, acik temada ise
+     hepsi tek yerden doner. */
+  --taban:#06090f;    /* sayfa zemini    */
+  --yuzey:#0a0f17;    /* ikincil yuzey   */
+  --kagit:#0d141e;    /* kart / panel    */
+
+  /* rakam ve kod icin esit genislikli yazi */
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+}

@@ -6,8 +6,8 @@
 <title>Ceza Asistanı — beyanname unuttum / yanlış verdim / ceza geldi, ne yapmalıyım? | Tetikte</title>
 <meta name="description" content="KDV/muhtasar beyannamesini unuttum, eksik/yanlış verdim, fatura kesmedim, gümrük beyanı eksik ya da ceza tebliğ edildi, ne yapmalıyım? Pişmanlık, izaha davet, cezada indirim, uzlaşma, dava. Birincil kanun maddeleriyle sade yol haritası; yanlış kapı fazla ödetir.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -21,7 +21,7 @@ h1{font-size:clamp(23px,4.3vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .soru{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--accent2);margin-bottom:4px}
 .sbaslik{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px}
 .sac{font-size:13px;color:var(--muted);margin:0 0 16px}
-.secenek{display:block;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);background:#0a0f17;border:1px solid var(--line2);border-radius:12px;padding:14px 16px;margin-bottom:9px;transition:.15s}
+.secenek{display:block;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);background:var(--yuzey);border:1px solid var(--line2);border-radius:12px;padding:14px 16px;margin-bottom:9px;transition:.15s}
 .secenek:hover{border-color:var(--accent);background:linear-gradient(135deg,rgba(245,165,36,.10),transparent)}
 .secenek small{display:block;font-size:12px;color:var(--dim);font-weight:500;margin-top:3px}
 .geri{margin-top:6px;background:none;border:0;color:var(--dim);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}.geri:hover{color:var(--ink)}
@@ -37,7 +37,7 @@ h1{font-size:clamp(23px,4.3vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .kapi .sure.acil{background:rgba(255,107,94,.16);color:var(--red)}
 .kapi .ac{font-size:13px;color:var(--muted);line-height:1.5}.kapi .ac b{color:var(--ink)}
 .kapi .rozet{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;margin-left:6px;background:rgba(61,220,151,.18);color:var(--green)}
-.hesap{border:1px solid var(--line2);background:#0a0f17;border-radius:13px;padding:16px;margin-top:14px}
+.hesap{border:1px solid var(--line2);background:var(--yuzey);border-radius:13px;padding:16px;margin-top:14px}
 .hesap h4{margin:0 0 10px;font-size:12px;color:var(--accent2);letter-spacing:.4px}
 .gir{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#070c13;color:var(--ink);font-size:15px;font-family:inherit}
 .satir{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}.satir:last-child{border:0}
@@ -47,7 +47,6 @@ h1{font-size:clamp(23px,4.3vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
-:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
@@ -63,7 +62,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="hizmet.html">Hizmet Faturası</a> · Ceza Asistanı</div>
   <style>
     /* Ortak dil kalibi (30.07): sapka - alacak sablonuyla ayni */
@@ -77,7 +77,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="ilerle" id="ilerle"></div>
   <div id="ekran"></div>
 
-  <details style="background:#0d141e;border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">⚖️ Her durumda işine yarayabilecek VUK savunma hükümleri (çoğu kişi bilmez)</summary>
     <div style="font-size:13px;color:#93a1b3;line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:#eef2f7">m.369 · Yanılma / görüş değişikliği:</b> İdare sana <b>YAZILI yanlış izahat</b> verdiyse ya da bir konudaki içtihat/tebliğ-sirküler sonradan değiştiyse → <b>ceza kesilmez ve gecikme faizi hesaplanmaz</b>; yeni görüş geriye dönük uygulanamaz. (En güçlü savunmalardan; özelge/GİB yazısına güvenip yaptıysan sakla.)</p>
@@ -91,7 +91,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </div>
   </details>
 
-  <details style="background:#0d141e;border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">🛃 Gümrük cezası mekanizması: ne kadar, hangi kapı? (4458 madde madde)</summary>
     <div style="font-size:13px;color:#93a1b3;line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:#eef2f7">m.234 · Beyan/muayene farkı:</b> Serbest dolaşıma girişte GTİP/tarife ya da ölçü aykırılığında vergi farkı <b>%5'i aşarsa</b> farkın <b>3 KATI</b> ceza alınır; <b>KIYMET noksanlığında %5 eşiği YOKTUR</b>, fark vergisinin 3 katı doğrudan uygulanır (yalnız %5'i geçmeyen miktar farkı ve maddi hesap hatasından doğan noksan kıymette yarım kat). <b>İdare tespit etmeden kendin bildirirsen cezalar %10 nispetinde uygulanır</b> (m.234/3) — 3 kat yerine 0,3 kat. (Farkı önceden yakalamak için <a href="gtip.html">GTİP</a> ve <a href="fiyatfarki.html">Fiyat Farkı</a> araçlarıyla beyanını sağlam yap.)</p>
@@ -158,7 +158,7 @@ function btnGeri(){ return `<button class="btn" onclick="baslat()">↺ Baştan s
 // ===== ADIM 1 — NE OLDU? =====
 function baslat(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('ceza')) return; C.senaryo=null;C.asama=null;C.bakis=null;C.kacakcilik=null; ilerle(0);
   ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Ne oldu? Durumunu seç.</div><div class="sac">Başına geleni yaz, kartlar süzülsün; ya da aşağıdan en yakınını işaretle.</div>
-    <input id="czAra" autocomplete="off" oninput="czSuz()" placeholder="ör. kdv beyannamesini unuttum, sgk cezası geldi, fatura kesmedim…" style="width:100%;margin:0 0 6px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit">
+    <input id="czAra" autocomplete="off" oninput="czSuz()" placeholder="ör. kdv beyannamesini unuttum, sgk cezası geldi, fatura kesmedim…" style="width:100%;margin:0 0 6px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);color:var(--ink);font-size:15px;font-family:inherit">
     <div id="czAraNot" style="font-size:12px;color:var(--dim);margin:0 0 12px"></div>`+
     sec([
       {t:"📄 Beyannameyi hiç vermedim / geç kaldım",s:"KDV, muhtasar, geçici vergi, yıllık beyanname… süresinde verilmedi",on:"C.senaryo='vermedim';asamaSor()",attr:'data-k="vermedim"'},
@@ -385,7 +385,7 @@ baslat();
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:#eef2f7">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı. Aynı gün dönüş yapacağız.</div>
@@ -394,5 +394,8 @@ baslat();
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
 </div>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Üyelik ve Kullanım Koşulları | Tetikte</title>
 <meta name="description" content="Tetikte üyelik ve kullanım koşulları: hizmet kapsamı, tarafların yükümlülükleri ve sorumluluk sınırları.">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.08);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--amber:#ffc24b}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--line:rgba(255,255,255,.08)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
@@ -28,10 +30,12 @@ ul{padding-left:20px}
     background:#f5a524 !important;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);
     font-size:0 !important;color:transparent !important;display:inline-block !important;
     place-items:unset !important;flex:none}
-</style>
+</style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Üyelik Koşulları</div>
   <h1>Üyelik ve Kullanım Koşulları</h1>
 
@@ -115,5 +119,8 @@ ul{padding-left:20px}
   </div>
 </div>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tipografi denemesi — Tetikte</title>
+<!--
+  KARAR SAYFASI, yayina cikmaz (robots: noindex).
+  Amac: yazi karakterinin YONUNU gozle secmek. Ayni gercek icerik dort
+  ayri tipografiyle basiliyor; metin, renk ve duzen ayni - yalniz karakter
+  degisiyor. Boylece fark karaktere ait olur, baska seye degil.
+
+  OLCUM (24.08.2026, bu bilgisayarda tarayicidan): 22 karakter kurulu.
+  Inter, IBM Plex, Source Serif YOK - onlar dosya indirmeyi gerektirir.
+  Bu yuzden asagidakiler SISTEM karakterleri: yon secmek icin yeterli,
+  nihai karakter degil.
+-->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Literata:opsz,wght@7..72,400;7..72,600&family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Spectral:wght@400;600&display=swap">
+<link rel="stylesheet" href="stil.css">
+<style>
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:400 15px/1.6 "Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  .sf{max-width:1180px;margin:0 auto;padding:36px 20px 90px}
+  .ust{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:8px}
+  .ust h1{margin:0 0 6px;font-size:22px;letter-spacing:-.4px}
+  .ust p{margin:0;color:var(--muted);font-size:13.5px;max-width:70ch}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media(max-width:1000px){ .grid{grid-template-columns:1fr} }
+
+  .ornek{padding:30px 34px 34px;border-bottom:1px solid var(--line)}
+  .ornek:nth-child(odd){border-right:1px solid var(--line)}
+  @media(max-width:1000px){ .ornek:nth-child(odd){border-right:0} }
+
+  .rozet{display:flex;align-items:baseline;gap:10px;margin-bottom:22px}
+  .rozet b{font:700 11px/1 var(--mono);letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--accent)}
+  .rozet span{font-size:11.5px;color:var(--dim)}
+
+  /* --- ORTAK ISKELET: her ornekte ayni, yalniz karakter degisir --- */
+  .ornek h2{margin:0 0 10px;font-size:34px;line-height:1.1;letter-spacing:-1px;font-weight:700}
+  .ornek .lead{margin:0 0 22px;font-size:15px;color:var(--muted);max-width:46ch}
+  .ornek .etiket{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;
+    color:var(--dim);font-weight:700;padding-bottom:7px;
+    border-bottom:1px solid var(--line2);margin-bottom:12px}
+  .ornek .satir{padding:9px 0;border-bottom:1px solid var(--line)}
+  .ornek .satir b{display:block;font-size:14.5px;font-weight:600;margin-bottom:2px}
+  .ornek .satir span{font-size:12.5px;color:var(--dim)}
+  .ornek table{width:100%;border-collapse:collapse;margin-top:20px;font-size:13px}
+  .ornek th{text-align:left;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--dim);font-weight:700;padding:0 0 7px;border-bottom:1px solid var(--line2)}
+  .ornek td{padding:8px 0;border-bottom:1px solid var(--line);
+    font-variant-numeric:tabular-nums}
+  .ornek td:last-child,.ornek th:last-child{text-align:right}
+  .harfler{margin-top:22px;padding-top:16px;border-top:1px dashed var(--line2);
+    font-size:26px;letter-spacing:1px;color:var(--muted)}
+  .harfler i{font-style:normal;color:var(--accent2)}
+  .not{margin-top:16px;font-size:12px;color:var(--dim);line-height:1.6;max-width:52ch}
+
+  /* ================= A · SIMDIKI HALI (denetim) ================= */
+  .a h2,.a .lead,.a .satir,.a table,.a .harfler,.a .etiket{
+    font-family:"Segoe UI",system-ui,Roboto,Arial,sans-serif}
+
+  /* ================= B · YAYINCI: serif baslik ================= */
+  .b h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.4px;font-weight:600}
+  .b .satir b{font-family:Georgia,serif;font-weight:600}
+  .b .lead,.b .satir span,.b table,.b .etiket{font-family:"Segoe UI",system-ui,sans-serif}
+  .b .harfler{font-family:Georgia,serif}
+
+  /* ================= C · BELGE: Constantia + Corbel ================= */
+  .c h2{font-family:Constantia,Cambria,Georgia,serif;font-weight:700;letter-spacing:-.5px}
+  .c .satir b{font-family:Constantia,Cambria,serif}
+  .c .lead,.c .satir span,.c table,.c .etiket{font-family:Corbel,Candara,"Segoe UI",sans-serif}
+  .c .harfler{font-family:Constantia,Cambria,serif}
+
+  /* ================= D · TEKNIK: sikilastirilmis grotesk + mono ================= */
+  .d h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+    font-weight:700;letter-spacing:-1.4px}
+  .d .lead,.d .satir span{font-family:"Segoe UI",system-ui,sans-serif}
+  .d .satir b{font-family:"Segoe UI",system-ui,sans-serif;font-weight:700;letter-spacing:-.2px}
+  .d .etiket,.d th,.d td:last-child{font-family:var(--mono);letter-spacing:.4px}
+  .d .harfler{font-family:"Segoe UI Variable Display","Segoe UI",sans-serif}
+
+  /* ===== B YONU KARSILASTIRMASI (24.08) =====
+     Ayni serif ailesi, dort uygulama. Fark rakamlarda ortaya cikiyor. */
+  .rakamlar{margin:16px 0 4px;padding:12px 14px;border:1px solid var(--line2);
+    border-radius:9px;background:rgba(255,255,255,.02);font-size:21px;
+    letter-spacing:.3px;color:var(--ink);font-variant-numeric:tabular-nums}
+
+  .b1 h2,.b1 .rakamlar,.b1 .harfler{font-family:Georgia,"Times New Roman",serif}
+  .b1 h2{font-weight:600;letter-spacing:-.4px}
+  .b1 .lead,.b1 table{font-family:"Segoe UI",system-ui,sans-serif}
+
+  .b2 h2,.b2 .rakamlar,.b2 .harfler{font-family:Cambria,Georgia,serif}
+  .b2 h2{font-weight:700;letter-spacing:-.5px}
+  .b2 .lead,.b2 table{font-family:"Segoe UI",system-ui,sans-serif}
+
+  .b3 h2,.b3 .rakamlar,.b3 .harfler{font-family:Constantia,Cambria,serif}
+  .b3 h2{font-weight:700;letter-spacing:-.5px}
+  .b3 .lead,.b3 table{font-family:"Segoe UI",system-ui,sans-serif}
+
+  .b4 h2,.b4 .harfler{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.4px}
+  .b4 .lead{font-family:"Segoe UI",system-ui,sans-serif}
+  .b4 .rakamlar,.b4 table td,.b4 table th{font-family:var(--mono);letter-spacing:.2px}
+  .b4 .rakamlar{font-size:17px}
+
+  /* ===== GERCEK WEB KARAKTERLERI (test amacli CDN) ===== */
+  .w1 h2,.w1 .rakamlar,.w1 .harfler{font-family:"Source Serif 4",Georgia,serif;font-weight:600}
+  .w2 h2,.w2 .rakamlar,.w2 .harfler{font-family:"Literata",Georgia,serif;font-weight:600}
+  .w3 h2,.w3 .rakamlar,.w3 .harfler{font-family:"Newsreader",Georgia,serif;font-weight:600}
+  .w4 h2,.w4 .rakamlar,.w4 .harfler{font-family:"Spectral",Georgia,serif;font-weight:600}
+  .w1 .lead,.w2 .lead,.w3 .lead,.w4 .lead{font-family:"Segoe UI",system-ui,sans-serif}
+
+  .kapanis{padding:30px 34px;font-size:13.5px;color:var(--muted);line-height:1.7;max-width:78ch}
+  .kapanis b{color:var(--ink)}
+  .kapanis code{font-family:var(--mono);font-size:12.5px;color:var(--accent2)}
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="sf" id="icerik" role="main">
+
+  <div class="ust">
+    <h1>Tipografi denemesi</h1>
+    <p>Dördünde de metin, renk, boşluk ve düzen birebir aynı. Değişen tek şey yazı
+       karakteri. Hangisinin “bunu ciddi biri yapmış” dediğine bak; hangisini
+       beğendiğine değil, hangisinin <b>güven verdiğine</b>.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- A -->
+    <section class="ornek a">
+      <div class="rozet"><b>A · Şimdiki hâli</b><span>Segoe UI, sistem karakteri</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Sınav sorusunu da, süreyi de, vergiyi de. İşin neyse, nöbet onun
+         üstünde, hem de kaynağıyla.</p>
+      <div class="etiket">Konular</div>
+      <div class="satir"><b>Gümrük ve ithalat</b><span>GTİP vergileri · beyanname risk taraması · menşe karşılaştırma</span></div>
+      <div class="satir"><b>Şirket kuruluşu</b><span>şahıs mı, limited mi, anonim mi · kuruluş evrak çantası</span></div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç — 0123456789</div>
+      <p class="not">Nötr. Kusuru yok ama kimliği de yok: her kurumsal sitede
+         gördüğün karakter. “Kim yapmış bunu?” sorusunu doğurmaz.</p>
+    </section>
+
+    <!-- B -->
+    <section class="ornek b">
+      <div class="rozet"><b>B · Yayıncı</b><span>Georgia başlık + Segoe UI gövde</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Sınav sorusunu da, süreyi de, vergiyi de. İşin neyse, nöbet onun
+         üstünde, hem de kaynağıyla.</p>
+      <div class="etiket">Konular</div>
+      <div class="satir"><b>Gümrük ve ithalat</b><span>GTİP vergileri · beyanname risk taraması · menşe karşılaştırma</span></div>
+      <div class="satir"><b>Şirket kuruluşu</b><span>şahıs mı, limited mi, anonim mi · kuruluş evrak çantası</span></div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç — 0123456789</div>
+      <p class="not">Hukuk ve maliye yayıncılığının dili. Serif başlık “bu bir kaynaktır”
+         der. Economist, FT, Bloomberg Tax bu ailede. Riski: fazla klasik durabilir.</p>
+    </section>
+
+    <!-- C -->
+    <section class="ornek c">
+      <div class="rozet"><b>C · Belge</b><span>Constantia başlık + Corbel gövde</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Sınav sorusunu da, süreyi de, vergiyi de. İşin neyse, nöbet onun
+         üstünde, hem de kaynağıyla.</p>
+      <div class="etiket">Konular</div>
+      <div class="satir"><b>Gümrük ve ithalat</b><span>GTİP vergileri · beyanname risk taraması · menşe karşılaştırma</span></div>
+      <div class="satir"><b>Şirket kuruluşu</b><span>şahıs mı, limited mi, anonim mi · kuruluş evrak çantası</span></div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç — 0123456789</div>
+      <p class="not">Resmî evrak hissi, ama yumuşak. Constantia ekran için çizilmiş bir
+         serif; Corbel dar ve sakin. Mevzuat metniyle akraba durur.</p>
+    </section>
+
+    <!-- D -->
+    <section class="ornek d">
+      <div class="rozet"><b>D · Teknik</b><span>sıkı grotesk + rakamlarda mono</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Sınav sorusunu da, süreyi de, vergiyi de. İşin neyse, nöbet onun
+         üstünde, hem de kaynağıyla.</p>
+      <div class="etiket">Konular</div>
+      <div class="satir"><b>Gümrük ve ithalat</b><span>GTİP vergileri · beyanname risk taraması · menşe karşılaştırma</span></div>
+      <div class="satir"><b>Şirket kuruluşu</b><span>şahıs mı, limited mi, anonim mi · kuruluş evrak çantası</span></div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç — 0123456789</div>
+      <p class="not">Stripe, Linear, Vercel dili. Rakam ve kod mono ile ayrılınca sayfa
+         “ölçülmüş” görünür. Bizim veri tarafımıza en çok yakışan bu.</p>
+    </section>
+
+  </div>
+
+  <!-- ================= B YONU: HANGI SERIF? =================
+       Cem 24.08'de B'yi (yayinci / serif baslik) sectic. Yon dogru; asil
+       karar simdi: HANGI serif. Olculdu (60px, tarayicidan):
+         Georgia    "3" taban cizgisinin 11 px ALTINA iner, rakam 32 / harf 42
+         Constantia "3" 13 px iner, rakam 27 / harf 42
+         Cambria    tasma 0, rakam 40 / harf 40  <- hizali
+       Site bastan asaga rakam; govdede zaten tabular-nums ayarli.
+       CSS ile duzelmiyor: font-feature-settings "lnum" Georgia'da karsiliksiz.
+  ========================================================== -->
+  <div class="ust" style="margin-top:64px">
+    <h1>B yönü seçildi. Şimdi asıl soru: hangi serif?</h1>
+    <p>Üçü de serif başlık, üçü de aynı metin. Farkı görmek için <b>rakam
+       satırına</b> bak: Georgia ve Constantia'da rakamlar bir aşağı bir yukarı
+       zıplar (eski usul rakam), Cambria'da hizada durur. Sitemiz baştan aşağı
+       rakam olduğu için bu küçük bir zevk meselesi değil.</p>
+  </div>
+
+  <div class="grid">
+
+    <section class="ornek b1">
+      <div class="rozet"><b>B1 · Georgia</b><span>senin seçtiğin · 1996 web karakteri</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">Sıcak ve okunaklı. Ama rakamları eski usul: "3" taban
+         çizgisinin <b>11 piksel altına</b> iniyor. Bir de herkesin kullandığı
+         varsayılan serif — tanınır.</p>
+    </section>
+
+    <section class="ornek b2">
+      <div class="rozet"><b>B2 · Cambria</b><span>benim önerim · rakamlar hizalı</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">Georgia'nın söylediği her şeyi söyler, rakam sorunu
+         olmadan: taşma <b>0</b>, rakam yüksekliği büyük harf yüksekliğine
+         eşit. Ekran için çizilmiş, Türkçesi tam.</p>
+    </section>
+
+    <section class="ornek b3">
+      <div class="rozet"><b>B3 · Constantia</b><span>daha ince, daha belge</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">En "evrak" duranı. Ama rakam sorunu Georgia'dan da
+         belirgin: taşma <b>13 piksel</b>, rakam yüksekliği 27 / harf 42.
+         Koyu zeminde çizgileri de inceliyor.</p>
+    </section>
+
+    <section class="ornek b4">
+      <div class="rozet"><b>B4 · Karma</b><span>serif başlık + mono rakam</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <table>
+        <tr><th>Kaynak</th><th>Kayıt</th></tr>
+        <tr><td>Çıkmış sınav sorusu</td><td>20.851</td></tr>
+        <tr><td>Ambardaki soru</td><td>30.569</td></tr>
+        <tr><td>İzlenen gözetim tebliği</td><td>175</td></tr>
+      </table>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">Üçüncü yol: başlık Georgia kalır (senin beğendiğin),
+         <b>rakam ve kod mono'ya geçer</b>. Rakam sorunu çözülür, üstüne
+         "ölçülmüş" hissi gelir. Bloomberg Terminal mantığı.</p>
+    </section>
+
+  </div>
+
+  <!-- ============ GERCEK WEB KARAKTERLERI ============================
+       24.08: Google Fonts CSS ucundan dogrulandi - asagidaki dortu de
+       "latin-ext" alt kumesi tasiyor, yani Turkce harfleri (g-breve,
+       noktasiz i, s-cedilla) iceriyor. Hepsi UCRETSIZ ve acik lisansli.
+
+       ⚠ BU SAYFA TEST AMACLI CDN'den yukluyor. Yayina cikarsa dosyalar
+       kutuphane/ altina indirilir - sitenin dis istek sayisi 0 kalir.
+  ================================================================= -->
+  <div class="ust" style="margin-top:64px">
+    <h1>Gerçek adaylar: ücretsiz ama sistem fontu değil</h1>
+    <p>Yukarıdakiler bu bilgisayarda kurulu sistem karakterleriydi. Bunlar
+       <b>gerçek yayın karakterleri</b> — dördü de ücretsiz, açık lisanslı ve
+       Türkçe harfleri taşıyor (Google Fonts ucundan <code>latin-ext</code>
+       desteği tek tek doğrulandı). Georgia'nın rakam sorunu bunların
+       hiçbirinde yok.</p>
+  </div>
+
+  <div class="grid">
+
+    <section class="ornek w1">
+      <div class="rozet"><b>W1 · Source Serif 4</b><span>Adobe · ücretsiz · SIL lisansı</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">Ekran için çizilmiş çağdaş bir serif. Georgia'nın sıcaklığı
+         var, rakamları hizalı. En güvenli seçim.</p>
+    </section>
+
+    <section class="ornek w2">
+      <div class="rozet"><b>W2 · Literata</b><span>Google · ücretsiz · e-okuyucu için çizildi</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">Uzun metin için çizilmiş; kalın ve sağlam. Mevzuat
+         metniyle en akraba duranı.</p>
+    </section>
+
+    <section class="ornek w3">
+      <div class="rozet"><b>W3 · Newsreader</b><span>ücretsiz · gazete serifi</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">Adı üstünde: gazete. Economist/FT hissine en yakın olan
+         bu. İddialı ama daha az yaygın.</p>
+    </section>
+
+    <section class="ornek w4">
+      <div class="rozet"><b>W4 · Spectral</b><span>ücretsiz · ekran için</span></div>
+      <h2>Tetikte olan kaçırmaz.</h2>
+      <p class="lead">Cevabın altında maddesi var. Her oran, süre ve tutar
+         doğrudan Resmî Gazete'den okunur.</p>
+      <div class="rakamlar">20.851 · 30.569 · %18 · 8517.62.00.00 · 24.08.2026</div>
+      <div class="harfler"><i>ĞÜŞİÖÇ</i> ğüşıöç</div>
+      <p class="not">Daha ince ve modern. Koyu zeminde en çok incelen bu —
+         açık zemine geçersek asıl burada kazanır.</p>
+    </section>
+
+  </div>
+
+  <div class="kapanis">
+    <p><b>Şerh:</b> Dördü de bu bilgisayarda kurulu <b>sistem karakterleri</b>.
+       Ölçtüm: Inter, IBM Plex, Source Serif gibi web karakterleri kurulu değil —
+       onları kullanmak <code>.woff2</code> dosyası indirip depoya koymayı
+       gerektirir. Bu bir yön seçimi sayfası; yönü seçtikten sonra o yönün en iyi
+       karakterini bulur, fiyatını çıkarır, önüne getiririm.</p>
+    <p><b>Nasıl bakılır:</b> Ekranı biraz uzaklaştır ve şuna bak — hangi sütun
+       bir <b>kuruma</b>, hangisi bir <b>şablona</b> benziyor? Sonra Türkçe harf
+       satırına yakınlaş: <b>ğ</b>, <b>ş</b> ve noktasız <b>ı</b> hangisinde
+       düzgün oturuyor? Türkçe harfleri kötü çizilmiş bir karakter, ne kadar
+       şık olursa olsun bizim işimizi görmez.</p>
+  </div>
+
+</div>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
+</body>
+</html>

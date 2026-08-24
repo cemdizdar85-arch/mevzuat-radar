@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Satın Al | Tetikte</title>
+<meta name="description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, 7 gün koşulsuz iade, e-arşiv fatura.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
+<link rel="stylesheet" href="stil.css">
+<style>
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--bg:#0a0c10;--kart:#12151c;--line:#252a35;--ink:#e8eaed;--muted:#9aa0a6;--dim:#7d848c;--amber:#f5a524;--red:#ff6b6b}
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
+  .s{ max-width:1060px; margin:0 auto; padding:30px 18px 80px; }
+  h1{ font-size:clamp(23px,4vw,30px); margin:0 0 6px; letter-spacing:-.5px; }
+  .alt{ color:var(--muted); font-size:15px; margin:0 0 22px; }
+  a{ color:#6fb3ff; }
+
+  .adim{ font-size:12px; letter-spacing:.8px; text-transform:uppercase; color:var(--amber);
+         font-weight:800; margin:26px 0 10px; }
+  .kutu{ background:var(--kart); border:1px solid var(--line); border-radius:12px; padding:16px 19px; margin:12px 0; }
+  .kutu h2{ font-size:16px; margin:0 0 8px; }
+  .kucuk{ font-size:12px; color:var(--dim); }
+
+  /* --- paket secimi --- */
+  .grup{ font-size:12.5px; color:var(--muted); margin:16px 0 6px; font-weight:700; letter-spacing:.3px; }
+  .pk{ display:flex; align-items:flex-start; gap:12px; background:var(--kart); border:1px solid var(--line);
+       border-radius:12px; padding:14px 16px; margin-bottom:9px; cursor:pointer; }
+  .pk:hover{ border-color:#373f4f; }
+  .pk.sec{ border-color:rgba(245,165,36,.6); box-shadow:0 0 0 1px rgba(245,165,36,.2); }
+  .pk input{ margin-top:4px; accent-color:var(--amber); width:17px; height:17px; flex:none; }
+  .pk .ad{ font-weight:700; font-size:15px; }
+  .pk .er{ font-size:12.5px; color:var(--muted); }
+  .pk .fy{ margin-left:auto; text-align:right; flex:none; padding-left:10px; }
+  .pk .fy b{ font:800 19px/1.2 ui-monospace,Consolas,monospace; letter-spacing:-.5px; }
+  .pk .fy span{ display:block; font-size:11px; color:var(--dim); }
+
+  /* --- form --- */
+  .satir{ display:flex; gap:12px; flex-wrap:wrap; }
+  .alan{ flex:1; min-width:220px; margin-bottom:12px; }
+  label.et{ display:block; font-size:12.5px; color:var(--muted); margin-bottom:5px; }
+  input[type=text],input[type=email],input[type=tel],textarea,select{
+      width:100%; background:var(--kagit); border:1px solid var(--line); border-radius:10px;
+      color:var(--ink); font:inherit; font-size:14px; padding:10px 12px; }
+  textarea{ min-height:70px; resize:vertical; }
+  input:focus,textarea:focus,select:focus{ outline:none; border-color:rgba(245,165,36,.55); }
+  .tip{ display:flex; gap:10px; margin-bottom:12px; }
+  .tip label{ flex:1; display:flex; align-items:center; gap:8px; background:var(--kagit); border:1px solid var(--line);
+              border-radius:10px; padding:10px 12px; font-size:14px; cursor:pointer; }
+  .tip input{ accent-color:var(--amber); width:16px; height:16px; }
+  .onay{ display:flex; gap:9px; align-items:flex-start; font-size:13px; color:#c8ccd2; margin-top:10px; }
+  .onay input{ margin-top:3px; accent-color:var(--amber); width:16px; height:16px; flex:none; }
+
+  /* --- ozet --- */
+  .ozet{ border-color:rgba(245,165,36,.4); }
+  .ozet table{ border-collapse:collapse; width:100%; font-size:14px; }
+  .ozet td{ padding:7px 0; border-bottom:1px solid #1e222b; }
+  .ozet td.sag{ text-align:right; font-variant-numeric:tabular-nums; }
+  .ozet tr:last-child td{ border-bottom:none; font-weight:800; font-size:16px; }
+  .ozet tr:last-child td.sag{ color:var(--amber); }
+  .btn{ display:block; width:100%; text-align:center; background:var(--amber); color:#0a0c10;
+        font-weight:800; font-size:15px; padding:14px; border:none; border-radius:11px; cursor:pointer; margin-top:14px; }
+  .btn[disabled]{ opacity:.55; cursor:not-allowed; }
+  .sonuc{ display:none; margin-top:12px; font-size:14px; font-weight:600; }
+
+  /* --- odeme talimati (siparis sonrasi) --- */
+  #tamam{ display:none; }
+  .iban{ font:800 19px/1.4 ui-monospace,Consolas,monospace; letter-spacing:.5px; color:var(--amber);
+         word-break:break-all; user-select:all; }
+  .kv{ display:flex; gap:10px; padding:7px 0; border-bottom:1px solid #1e222b; font-size:14px; flex-wrap:wrap; }
+  .kv b{ min-width:150px; color:var(--muted); font-weight:600; font-size:12.5px; }
+  .uyari{ background:rgba(255,107,107,.08); border:1px solid rgba(255,107,107,.45); border-radius:12px;
+          padding:14px 18px; margin-bottom:20px; color:#ffb4b4; font-size:13.5px; font-weight:700; }
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="s" id="icerik" role="main">
+<div class="top ust-serit">
+  <a class="ust-marka" href="index.html">tetikte</a>
+</div>
+
+<!-- ⚠️ KURULUM: banka bilgisi AŞAĞIDAKİ tek yerden (BANKA sabiti) okunur.
+     IBAN girilmeden bu sayfa YAYINA ÇIKMAZ - girilmediği sürece sayfanın
+     tepesinde kırmızı uyarı çıkar ve sipariş düğmesi kapalı kalır. -->
+<div class="uyari" id="kurulumUyari" style="display:none">
+  ⚠️ KURULUM EKSİK — banka/IBAN bilgisi girilmemiş. Bu sayfa bu hâliyle yayına alınamaz.
+  <code>satin-al.html</code> içindeki <code>BANKA</code> satırını doldur.
+</div>
+
+<h1>Satın Al</h1>
+<p class="alt">Paketi seç, bilgilerini gir, havale/EFT ile öde. Hepsi KDV dahil — üstüne eklenen ücret yok.</p>
+
+<div class="adim">1 · Paket</div>
+<div id="paketler"></div>
+<p class="kucuk" style="margin-top:2px">Erişim süreleri sınav gününe bağlıdır; sınav ertelenirse süren ek ücretsiz uzar.
+Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
+
+<div class="adim">2 · Bilgilerin</div>
+<div class="kutu">
+  <div class="satir">
+    <div class="alan"><label class="et" for="ad">Ad Soyad *</label><input type="text" id="ad" autocomplete="name"></div>
+    <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"></div>
+  </div>
+  <div class="satir">
+    <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
+  </div>
+
+  <label class="et">Fatura tipi *</label>
+  <div class="tip">
+    <label><input type="radio" name="ftip" value="bireysel" checked> Bireysel</label>
+    <label><input type="radio" name="ftip" value="kurumsal"> Kurumsal</label>
+  </div>
+
+  <div id="bireyselAlan">
+    <div class="alan"><label class="et" for="tckn">T.C. Kimlik No</label>
+      <input type="text" id="tckn" inputmode="numeric" maxlength="11" placeholder="11 hane">
+      <p class="kucuk" style="margin:5px 0 0">Yalnız e-arşiv faturanı düzenlemek için kullanılır, başka hiçbir yerde kullanılmaz.
+      Boş bırakırsan fatura yine adına düzenlenir.</p></div>
+  </div>
+
+  <div id="kurumsalAlan" style="display:none">
+    <div class="satir">
+      <div class="alan"><label class="et" for="unvan">Ticaret unvanı *</label><input type="text" id="unvan"></div>
+      <div class="alan"><label class="et" for="vkn">Vergi Kimlik No *</label><input type="text" id="vkn" inputmode="numeric" maxlength="11"></div>
+    </div>
+    <div class="alan"><label class="et" for="vd">Vergi dairesi *</label><input type="text" id="vd"></div>
+  </div>
+
+  <div class="alan" style="margin-bottom:0"><label class="et" for="adres">Fatura adresi * <span style="color:var(--dim)">— il/ilçe dahil</span></label><textarea id="adres" autocomplete="street-address"></textarea></div>
+</div>
+
+<div class="adim">3 · Özet ve onay</div>
+<div class="kutu ozet">
+  <table>
+    <tr><td id="ozAd">—</td><td class="sag" id="ozFy">—</td></tr>
+    <tr><td class="kucuk" id="ozEr" colspan="2">—</td></tr>
+    <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
+  </table>
+
+  <label class="onay"><input type="checkbox" id="onSoz">
+    <span><a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
+    <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını okudum, onaylıyorum.</span></label>
+  <label class="onay"><input type="checkbox" id="onKvkk">
+    <span>Bilgilerimin sipariş, fatura ve üyelik işlemleri için işlenmesine izin veriyorum.
+    <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metni</a></span></label>
+
+  <button class="btn" id="gonder">Siparişi tamamla</button>
+  <div class="sonuc" id="sonuc"></div>
+  <p class="kucuk" style="margin:10px 0 0">Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra
+  göreceğin hesaba banka havalesi/EFT ile yapılır. <b>7 gün koşulsuz iade</b> hakkın saklıdır.</p>
+</div>
+
+<!-- ================= SIPARIS SONRASI ODEME TALIMATI ================= -->
+<div id="tamam">
+  <div class="kutu" style="border-color:rgba(61,220,151,.45)">
+    <h2 style="color:var(--green)">Siparişin alındı</h2>
+    <p style="margin:0 0 12px;font-size:14px">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
+    hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
+    <div class="kv"><b>Sipariş no</b><span id="tmNo" style="font-weight:800;color:var(--amber)"></span></div>
+    <div class="kv"><b>Paket</b><span id="tmPaket"></span></div>
+    <div class="kv"><b>Tutar</b><span id="tmTutar" style="font-weight:800"></span></div>
+    <div class="kv"><b>Alıcı unvan</b><span id="tmUnvan"></span></div>
+    <div class="kv"><b>Banka</b><span id="tmBanka"></span></div>
+    <div class="kv" style="border:none;display:block"><b style="display:block;margin-bottom:4px">IBAN</b>
+      <span class="iban" id="tmIban" data-kopyala=""></span></div>
+    <p style="margin:12px 0 0;font-size:14px"><b style="color:var(--amber)">Açıklama alanına sipariş numaranı yaz.</b>
+    Eşleştirmeyi bununla yapıyoruz; yazmazsan hesabının açılması gecikir.</p>
+    <p class="kucuk" style="margin:10px 0 0">Sipariş özeti e-posta adresine de gönderildi.
+    Bir sorun olursa <a href="iletisim.html">iletişim</a> sayfasından bize yaz.</p>
+  </div>
+</div>
+
+<div class="kutu">
+  <h2>Satıcı</h2>
+  <div class="kv"><b>Ticaret unvanı</b><span>Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi</span></div>
+  <div class="kv"><b>MERSİS No</b><span>0301130343200001</span></div>
+  <div class="kv"><b>Vergi dairesi / No</b><span>Kordon Vergi Dairesi / 3011303432</span></div>
+  <div class="kv"><b>Adres</b><span>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir</span></div>
+  <div class="kv" style="border:none"><b>E-posta / Telefon</b><span>info@dizdardenetim.com · 0537 843 80 58</span></div>
+</div>
+
+<p class="kucuk">Fiyatlar Türk Lirası ve KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası, deneme ve
+açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
+
+</div>
+
+<script src="fiyat-motoru.js"></script>
+<script>
+/* ⚠️ BANKA BİLGİSİ — TEK YER. Doldurulmadan sayfa yayına çıkmaz. */
+var BANKA = {
+  ad:   '[BANKA ADI]',
+  iban: '[IBAN BEKLENIYOR]'
+};
+var KURULUM_TAMAM = BANKA.iban.indexOf('[') === -1;
+
+var EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
+var EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+var SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co';
+var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+
+/* ---- 1. adim: paketleri fiyat-motoru.js'ten ciz ---- */
+var PAKETLER = paketler(), secili = null;
+(function(){
+  var kap = document.getElementById('paketler'), grup = '', h = '';
+  PAKETLER.forEach(function(p){
+    if(p.grup !== grup){ grup = p.grup; h += '<div class="grup">' + grup + '</div>'; }
+    h += '<label class="pk" data-id="' + p.id + '">'
+       + '<input type="radio" name="paket" value="' + p.id + '">'
+       + '<span><span class="ad">' + p.ad + '</span><br><span class="er">' + p.erisim + '</span></span>'
+       + '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b><span>' + p.not + '</span></span></label>';
+  });
+  kap.innerHTML = h;
+  kap.addEventListener('change', function(e){
+    if(e.target.name !== 'paket') return;
+    secili = paketBul(e.target.value);
+    Array.prototype.forEach.call(kap.querySelectorAll('.pk'), function(el){
+      el.classList.toggle('sec', el.getAttribute('data-id') === e.target.value);
+    });
+    ozetCiz();
+  });
+})();
+
+function ozetCiz(){
+  document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
+  document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
+  document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Yukarıdan bir paket seç.';
+  document.getElementById('ozTop').textContent = secili ? tl(secili.fiyat) + ' TL' : '—';
+}
+ozetCiz();
+
+/* Adresten gelen ?paket=... ile dogrudan secili gelsin (fiyat.html butonlari boyle baglanir). */
+(function(){
+  var q = new URLSearchParams(location.search).get('paket');
+  if(!q) return;
+  var r = document.querySelector('input[name=paket][value="' + q.replace(/"/g,'') + '"]');
+  if(r){ r.checked = true; r.dispatchEvent(new Event('change',{bubbles:true})); }
+})();
+
+/* ---- fatura tipi ---- */
+Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), function(r){
+  r.addEventListener('change', function(){
+    var k = this.value === 'kurumsal';
+    document.getElementById('kurumsalAlan').style.display = k ? 'block' : 'none';
+    document.getElementById('bireyselAlan').style.display = k ? 'none' : 'block';
+  });
+});
+
+/* ---- siparis no: gun + rastgele; kullaniciya okunur, havale aciklamasina yazilir ---- */
+function siparisNo(){
+  var d = new Date(), p = function(n){ return (n<10?'0':'') + n; };
+  var harf = 'ACDEFHJKLMNPRTUVXYZ2345679', r = '';
+  for(var i=0;i<4;i++){ r += harf.charAt(Math.floor(Math.random()*harf.length)); }
+  return 'TT-' + d.getFullYear() + p(d.getMonth()+1) + p(d.getDate()) + '-' + r;
+}
+
+var btn = document.getElementById('gonder'), s = document.getElementById('sonuc');
+function goster(m, ok){ s.style.display='block'; s.innerHTML=m; s.style.color = ok ? 'var(--green)' : 'var(--red)'; }
+function deger(id){ return (document.getElementById(id).value || '').trim(); }
+
+btn.addEventListener('click', function(){
+  if(!KURULUM_TAMAM){ goster('Sipariş alımı şu an kapalı.', false); return; }
+  if(!secili){ goster('Önce bir paket seç.', false); return; }
+  var ad = deger('ad'), mail = deger('mail'), tel = deger('tel'), adres = deger('adres');
+  var ftip = document.querySelector('input[name=ftip]:checked').value;
+  if(ad.length < 3){ goster('Ad soyad yaz.', false); return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.', false); return; }
+  if(tel.replace(/\D/g,'').length < 10){ goster('Geçerli bir telefon gir.', false); return; }
+  if(adres.length < 10){ goster('Fatura adresini yaz.', false); return; }
+  var fatura = { tip:ftip };
+  if(ftip === 'kurumsal'){
+    fatura.unvan = deger('unvan'); fatura.vkn = deger('vkn'); fatura.vd = deger('vd');
+    if(!fatura.unvan || !/^\d{10,11}$/.test(fatura.vkn) || !fatura.vd){
+      goster('Kurumsal fatura için unvan, VKN (10 hane) ve vergi dairesi gerekli.', false); return; }
+  } else {
+    fatura.tckn = deger('tckn');
+    if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ goster('T.C. kimlik no 11 hane olmalı.', false); return; }
+  }
+  if(!document.getElementById('onSoz').checked){ goster('Mesafeli satış sözleşmesini onaylaman gerekiyor.', false); return; }
+  if(!document.getElementById('onKvkk').checked){ goster('KVKK onay kutusunu işaretle.', false); return; }
+
+  var no = siparisNo();
+  var kayit = { siparis_no:no, paket:secili.id, paket_ad:secili.ad, tutar:secili.fiyat,
+                ad_soyad:ad, email:mail, telefon:tel, adres:adres, fatura:fatura,
+                odeme:'havale', durum:'odeme_bekliyor' };
+
+  btn.disabled = true; goster('Siparişin kaydediliyor…', true);
+
+  function bitir(){
+    document.getElementById('tmNo').textContent    = no;
+    document.getElementById('tmPaket').textContent = secili.ad;
+    document.getElementById('tmTutar').textContent = tl(secili.fiyat) + ' TL';
+    document.getElementById('tmUnvan').textContent = 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.';
+    document.getElementById('tmBanka').textContent = BANKA.ad;
+    document.getElementById('tmIban').textContent  = BANKA.iban;
+    document.getElementById('tamam').style.display = 'block';
+    document.getElementById('tamam').scrollIntoView({behavior:'smooth', block:'start'});
+    s.style.display = 'none'; btn.disabled = false;
+  }
+  function basarisiz(){ btn.disabled = false; goster('Sipariş kaydedilemedi. Birazdan tekrar dene ya da <a href="iletisim.html">bize yaz</a>.', false); }
+
+  /* Sipariş İKİ yere birden düşer: tablo + e-posta. Tablo asıl kayıt, e-posta
+     hem Cem'in bildirimi hem de yedek yol - tablo kurulmamışsa sipariş kaybolmasın.
+     19.08 DERSİ: supabase-js sorguları TEMBELDİR, .then'siz insert HİÇ GÖNDERİLMEZ. */
+  var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({ access_key:EPOSTA_ANAHTAR, subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(secili.fiyat) + ' TL',
+        from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(secili.fiyat)+' TL',
+        'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres, 'Ödeme':'Havale/EFT' })});
+
+  if(!window.sb){
+    posta.then(function(r){ if(r.ok) bitir(); else basarisiz(); }, basarisiz);
+    return;
+  }
+  window.sb.from('siparisler').insert(kayit)
+    .then(function(r){
+      if(r && r.error){ posta.then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); }
+      else { bitir(); }
+    }, function(){ posta.then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); });
+});
+
+if(!KURULUM_TAMAM){
+  document.getElementById('kurulumUyari').style.display = 'block';
+  btn.disabled = true;
+}
+</script>
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  var c = (window.supabase||{}).createClient;
+  if(!c){ return; }   /* kutuphane inmezse siparis e-posta yoluyla yine alinir */
+  window.sb = c(SB_URL, SB_ANON);
+})();
+</script>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
+</body>
+</html>

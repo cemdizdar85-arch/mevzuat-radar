@@ -6,8 +6,10 @@
 <title>Kuruluş Evrak Çantası — şirket kurarken hangi belge, kim doldurur? | Tetikte</title>
 <meta name="description" content="Şahıs, Limited ve Anonim şirket kuruluşunda adım adım evrak listesi: MERSİS başvurusu, ticaret sicili, vergi dairesi yoklaması, SGK ve oda kayıtları, kim neyi doldurur, nereye verir.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}
@@ -39,7 +41,8 @@ h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="kurulus.html">Şirket Kuruluşu</a> · Evrak Çantası</div>
   <h1>Kuruluş Evrak Çantası</h1>
   <p class="lead">Şirket türünü seç; kuruluşun her adımında <b style="color:var(--ink)">hangi belge, kim doldurur, nereye verilir</b>, tek listede. Hangi türü seçeceğinden emin değilsen önce <a href="kurulus.html">8 soruluk kuruluş sihirbazına</a> gir.
@@ -128,5 +131,8 @@ document.querySelectorAll('.tur button').forEach(b=>b.onclick=()=>ciz(b.dataset.
 ciz('sahis');
 </script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

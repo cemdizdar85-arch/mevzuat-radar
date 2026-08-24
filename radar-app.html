@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Radar Paneli — Benim Mevzuatım | Tetikte</title>
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--line2:rgba(255,255,255,.14);--amber:#ffb020}
 *{box-sizing:border-box}
-body{margin:0;background:#06090f;position:relative;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--taban);position:relative;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:22px 18px 80px}
 a{color:var(--accent2)}
@@ -50,10 +52,12 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
     background:#f5a524 !important;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);
     font-size:0 !important;color:transparent !important;display:inline-block !important;
     place-items:unset !important;flex:none}
-</style>
+</style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top">
     <a class="brand" href="index.html"><span class="logo">T</span> Tetikte · Panel</a>
     <span id="ustSag"></span>
@@ -214,7 +218,7 @@ async function app(){
     if(TARANMAMIS.length){
       portfoyBanner += `<div class="kutu" style="margin:0 0 18px">
         <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:6px">®️ ${TARANMAMIS.length} firmanın markaları henüz taranmadı</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:9px">Tek tıkla TÜRKPATENT kayıtlarına bakalım: adına kaç marka var, hangisinin <b style="color:var(--ink)">yenileme penceresi açıldı</b>, hangisi düşmüş. Marka adı girmene gerek yok, unvan yetiyor.</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:9px">TÜRKPATENT kayıtlarına bakalım: adına kaç marka var, hangisinin <b style="color:var(--ink)">yenileme penceresi açıldı</b>, hangisi düşmüş. Marka adı girmene gerek yok, unvan yetiyor.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">${TARANMAMIS.map(f=>`<button class="btn ghost sm mtara" data-unvan="${esc(f.firma_adi)}">${esc(f.firma_adi)} → sicilde ara</button>`).join('')}</div>
         <div id="mtaraOut" class="mini" style="margin-top:9px"></div>
       </div>`;
@@ -512,5 +516,8 @@ async function pano(f){
 }
 </script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

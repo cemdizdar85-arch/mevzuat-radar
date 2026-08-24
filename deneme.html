@@ -6,8 +6,10 @@
 <title>Deneme Sınavı | SGS soru kabini: her şıkkın gerekçesi, kaynak maddesi | Tetikte</title>
 <meta name="description" content="SGS deneme sınavı: özgün sorular, her şıkkın neden doğru/yanlış olduğu, kaynak kural ve madde damgası. Çalışma modu ve deneme modu; ezber değil, gerekçe.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
 /* ---- 14.08 UC TEMA (Cem: "yap uc secenek olsun") -------------------------
    Rakip olcumu: UWorld'un soru cozme arayuzunde tema secici var ve UC secenek
    sunuyor (beyaz / siyah / sepya) - satis sayfasinda degil, tam da SORU
@@ -216,7 +218,8 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="genc.html">Genç Müşavir</a> · Deneme Sınavı</div>
   <h1>Deneme Sınavı, soru kabini</h1>
   <p class="lead">Özgün sorular; her şıkkın <b style="color:var(--ink)">neden doğru / neden yanlış</b> olduğu, altında kaynak kuralı. Ezber değil, gerekçe. Yanlışın nedenini gördüğün soru, sınavda bir daha yanılmadığın sorudur.</p>
@@ -2173,8 +2176,8 @@ body:has(#ekranSoru:not(.gizli)) #mrxFab{display:none!important}
 body:not(:has(#ekranSoru:not(.gizli))) #hmAc,
 body:not(:has(#ekranSoru:not(.gizli))) #hmPanel{display:none!important}
 </style>
-<div id="hmAc" onclick="hmToggle()" style="position:fixed;right:16px;bottom:16px;z-index:1200;width:46px;height:46px;border-radius:50%;background:#0d141e;border:1px solid rgba(255,194,75,.4);display:grid;place-items:center;font-size:20px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)" title="Hesap makinesi">🧮</div>
-<div id="hmPanel" style="display:none;position:fixed;right:16px;bottom:70px;z-index:1201;width:230px;background:#0d141e;border:1px solid rgba(255,194,75,.4);border-radius:14px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6)">
+<div id="hmAc" onclick="hmToggle()" style="position:fixed;right:16px;bottom:16px;z-index:1200;width:46px;height:46px;border-radius:50%;background:var(--kagit);border:1px solid rgba(255,194,75,.4);display:grid;place-items:center;font-size:20px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)" title="Hesap makinesi">🧮</div>
+<div id="hmPanel" style="display:none;position:fixed;right:16px;bottom:70px;z-index:1201;width:230px;background:var(--kagit);border:1px solid rgba(255,194,75,.4);border-radius:14px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6)">
   <input id="hmGiris" inputmode="decimal" placeholder="ör. 38500*0,18" style="width:100%;box-sizing:border-box;background:var(--panel2);border:1px solid rgba(255,255,255,.14);border-radius:9px;color:var(--ink);font:inherit;font-size:15px;padding:9px 11px;text-align:right" onkeydown="if(event.key==='Enter')hmHesapla()">
   <div id="hmSonuc" style="text-align:right;font-size:19px;font-weight:800;color:#ffc24b;min-height:26px;margin:7px 2px;font-variant-numeric:tabular-nums"></div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
@@ -2203,5 +2206,8 @@ function hmHesapla(){
   } catch(e){ out.textContent='hatalı ifade'; }
 }
 </script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

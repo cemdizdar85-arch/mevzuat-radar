@@ -6,9 +6,10 @@
 <title>Günün Tuzağı | Tetikte</title>
 <meta name="description" content="Her gün bir SMMM sınav sorusu, iki şık doğru gibi görünür. Cevabı ve dayandığı kanun maddesi açıkça yazılıdır. Ücretsiz, üyelik gerekmez.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
+<link rel="stylesheet" href="stil.css">
 <style>
-  :root{color-scheme:dark; --bg:#0a0c10; --kart:#12151c; --line:#252a35; --line2:#2e3542; --ink:#e8eaed;
-         --muted:#9aa0a6; --dim:#7d848c; --amber:#f5a524; --green:#3ddc97; --red:#ff6b6b; }
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--bg:#0a0c10;--kart:#12151c;--line:#252a35;--line2:#2e3542;--ink:#e8eaed;--muted:#9aa0a6;--dim:#7d848c;--amber:#f5a524;--red:#ff6b6b}
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--bg); color:var(--ink);
         font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
@@ -53,7 +54,11 @@
 </style>
 </head>
 <body>
-<div class="s">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="s" id="icerik" role="main">
+<div class="top ust-serit">
+  <a class="ust-marka" href="index.html">tetikte</a>
+</div>
 
 <h1>Günün Tuzağı</h1>
 <p class="alt">Her gün bir soru. İki şık doğru gibi görünür, biri tuzaktır.
@@ -146,5 +151,8 @@ function sec(harf){
   document.getElementById('cevap').innerHTML = h;
 }
 </script>
-<script src="menu.js" defer></script></body>
+<script src="menu.js" defer></script><link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
+</body>
 </html>

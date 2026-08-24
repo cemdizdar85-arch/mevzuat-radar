@@ -9,20 +9,10 @@
 <title>Yükümlülük Karnesi — firmana özel yükümlülük fotoğrafı | Tetikte</title>
 <meta name="description" content="Çalışan sayısı, ciro, şirket türü, 4-5 bilgi gir; hangi yasal yükümlülüklere tabisin, hangilerine yaklaşıyorsun gör. Renk kodlu, dayanaklı, PDF alınabilir. Verin tarayıcında kalır.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-  :root{color-scheme:dark;
-    --bg:#06090f; --bg2:#0a0f17;
-    --panel:#0d141e; --panel2:#101927;
-    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.13);
-    --ink:#eef2f7; --muted:#93a1b3; --dim:#5d6b7c;
-    --accent:#f5a524; --accent2:#ffc24b;
-    --grad:linear-gradient(135deg,#f5a524 0%,#ffce6a 100%);
-    --red:#ff6b5e; --red-bg:rgba(255,107,94,.09);
-    --amber:#ffc24b; --amber-bg:rgba(255,194,75,.09);
-    --green:#3ddc97; --green-bg:rgba(61,220,151,.09);
-    --slate:#9fb0c2; --slate-bg:rgba(159,176,194,.08);
-    --shadow:0 20px 60px rgba(0,0,0,.45);
-  }
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--panel2:#101927;--line:rgba(255,255,255,.08);--grad:linear-gradient(135deg,#f5a524 0%,#ffce6a 100%);--red-bg:rgba(255,107,94,.09);--amber-bg:rgba(255,194,75,.09);--green-bg:rgba(61,220,151,.09);--slate:#9fb0c2;--slate-bg:rgba(159,176,194,.08);--shadow:0 20px 60px rgba(0,0,0,.45)}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,"SF Pro Display","Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Arial,sans-serif;
@@ -135,7 +125,8 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a> · <a href="sayfalar/index.html">Eşik Rehberi</a> · <a href="hatirlatici.html">Hatırlatıcı</a> · <a href="kartlar.html">Hap Kartlar</a> · <b style="color:var(--ink)">Yükümlülük Karnesi</b></div>
 
   <h1>Yükümlülük Karnesi</h1>
@@ -604,5 +595,8 @@ function ornekDoldur(){
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

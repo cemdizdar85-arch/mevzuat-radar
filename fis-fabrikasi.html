@@ -6,8 +6,8 @@
 <title>Fiş Fabrikası — banka ekstresini Luca fişine çevir | Tetikte</title>
 <meta name="description" content="Banka ekstresini yükle, muhasebe fişlerini Luca aktarım formatında saniyede üret. Rakamlar ekstreden okunur (uydurma yok), borç=alacak dengesi kontrol edilir. Dosya bilgisayarından çıkmaz.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(61,220,151,.10),transparent 72%);pointer-events:none;z-index:0}
 a{color:var(--accent2)}.wrap{max-width:960px;margin:0 auto;padding:24px 18px 70px;position:relative;z-index:1}
@@ -25,10 +25,10 @@ h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .yukle input{display:none}
 .gizli{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 10px;margin-top:10px}
 label.f{display:block;font-size:12px;font-weight:700;color:var(--accent2);letter-spacing:.3px;margin:10px 0 5px}
-select,input.t{width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit}
+select,input.t{width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-size:14px;font-family:inherit}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;padding:13px 24px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(245,165,36,.3);transition:transform .15s;margin-top:14px}
-.btn:hover{transform:translateY(-2px)}.btn.k{background:#0a0f17;color:var(--ink);border:1px solid var(--line2);box-shadow:none;font-size:13px;padding:9px 15px;margin:0}
+.btn:hover{transform:translateY(-2px)}.btn.k{background:var(--yuzey);color:var(--ink);border:1px solid var(--line2);box-shadow:none;font-size:13px;padding:9px 15px;margin:0}
 table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
 th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line)}
 th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
@@ -39,7 +39,7 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
 .rozet.hata{color:var(--red);background:rgba(255,107,94,.09);border-color:rgba(255,107,94,.35)}
 .rozet.uyar{color:var(--amber);background:rgba(255,194,75,.09);border-color:rgba(255,194,75,.3)}
 .kural{display:flex;gap:8px;align-items:center;margin-bottom:6px}
-.kural input{flex:1;padding:8px 10px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-size:13px;font-family:inherit}
+.kural input{flex:1;padding:8px 10px;border:1px solid var(--line2);border-radius:9px;background:var(--yuzey);color:var(--ink);font-size:13px;font-family:inherit}
 .kural input.hk{max-width:110px;font-family:var(--mono)}
 .kural button{background:none;border:0;color:var(--red);cursor:pointer;font-size:16px}
 .uyari{font-size:12px;color:var(--dim);margin-top:16px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:11px 14px}.uyari b{color:var(--amber)}
@@ -55,7 +55,8 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="evrak-radari.html">Evrak Radarı</a> · Fiş Fabrikası</div>
   <h1>Fiş Fabrikası, banka ekstresi → Luca fişi</h1>
   <p class="lead">Banka ekstresini yükle; her hareketi <b style="color:var(--ink)">çift taraflı muhasebe fişine</b> çevirip Luca aktarım Excel'i üretelim. <b style="color:var(--ink)">Rakamlar ekstreden okunur, uydurulmaz;</b> her fişte borç=alacak dengesi kontrol edilir. <span class="gizli">🔒 Dosya bilgisayarından çıkmaz, tarayıcıda işlenir</span></p>
@@ -457,5 +458,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

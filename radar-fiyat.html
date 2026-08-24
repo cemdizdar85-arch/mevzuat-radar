@@ -6,9 +6,10 @@
 <title>Radar Abonelik Fiyatları | Tetikte</title>
 <meta name="description" content="Alacak, marka, ihale ve süre radarları için abonelik fiyatları. Tek radar 599 TL/ay, tüm radarlar 999 TL/ay. Araçlar ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir. KDV dahil.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
+<link rel="stylesheet" href="stil.css">
 <style>
-  :root{color-scheme:dark; --bg:#0a0c10; --kart:#12151c; --line:#252a35; --ink:#e8eaed; --muted:#9aa0a6;
-         --dim:#7d848c; --amber:#f5a524; --green:#3ddc97; }
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--bg:#0a0c10;--kart:#12151c;--line:#252a35;--ink:#e8eaed;--muted:#9aa0a6;--dim:#7d848c;--amber:#f5a524}
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
   .s{ max-width:1060px; margin:0 auto; padding:26px 18px 80px; }
@@ -42,13 +43,14 @@
   .kucuk{ font-size:12px; color:var(--dim); } .tabsar{ overflow-x:auto; }
   a{ color:#6fb3ff; }
   .form{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px }
-  .form input,.form select{ flex:1; min-width:190px; background:#0a0f17; border:1px solid var(--line); border-radius:11px; color:var(--ink); font:inherit; font-size:14px; padding:11px 13px }
+  .form input,.form select{ flex:1; min-width:190px; background:var(--yuzey); border:1px solid var(--line); border-radius:11px; color:var(--ink); font:inherit; font-size:14px; padding:11px 13px }
   .form button{ background:var(--amber); color:#0a0c10; font-weight:800; font-size:14px; padding:11px 22px; border:none; border-radius:11px; cursor:pointer }
   .ok{ display:none; color:var(--green); font-weight:700; font-size:14px; margin-top:8px }
 </style>
 </head>
 <body>
-<div class="s">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="s" id="icerik" role="main">
   <div class="top"><span class="lamba"></span><a href="index.html">Tetikte</a> · <a href="alacak-radari.html">Alacak Radarı</a> · <a href="marka-radari.html">Marka Radarı</a> · Radar Fiyatları</div>
 
   <h1>Radar abonelikleri</h1>
@@ -192,5 +194,8 @@ function radarAbone(f){
 }
 </script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

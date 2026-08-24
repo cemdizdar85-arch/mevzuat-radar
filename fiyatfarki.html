@@ -6,8 +6,8 @@
 <title>Credit Note / Debit Note — yurt dışı fiyat farkı geldi, ne yapmalıyım? (KDV + gümrük kıymeti) | Tetikte</title>
 <meta name="description" content="Yurt dışından indirim (credit note), fiyat artışı (debit note), ciro primi ya da sonradan royalti ödemesi geldi. KDV düzeltmesi mi, tamamlayıcı beyan mı, ek gümrük vergisi mi, birincil özelge ve Gümrük Yönetmeliği'ne göre sade Türkçeyle.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -36,7 +36,7 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .ozet.dikkat{background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3)}
 .ozet.tehlike{background:rgba(255,107,94,.08);border:1px solid rgba(255,107,94,.3)}
 .ozet b{color:var(--ink)}
-.adimlar{margin:6px 0 4px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:#0a0f17}
+.adimlar{margin:6px 0 4px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:var(--yuzey)}
 .adimlar h4{margin:0 0 9px;font-size:12px;color:var(--accent2);letter-spacing:.4px}
 .adimlar ol{margin:0;padding-left:20px}.adimlar li{font-size:13.5px;color:var(--muted);margin-bottom:6px;line-height:1.5}.adimlar li b{color:var(--ink)}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:12px 20px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:14px}
@@ -47,7 +47,6 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
-:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
@@ -63,7 +62,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="destekler.html">Destek Radarı</a> · Fiyat Farkı / Credit Note</div>
   <h1>Yurt dışından fiyat farkı geldi, credit note / debit note ne yapmalıyım?</h1>
   <p class="lead">Sonradan gelen <b>indirim (credit note)</b>, <b>fiyat artışı (debit note)</b>, <b>ciro primi</b> veya <b>royalti</b>, muhasebenin en çok hata yaptığı konu. Çünkü tek bir kağıt aynı anda <b>KDV matrahını</b>, <b>gümrük kıymetini</b> ve <b>kurumlar vergisini</b> etkileyebilir. Ne olduğunu seç; hangi belge, hangi beyanname, hangi vergi, birincil kaynakla göster.</p>
@@ -189,19 +189,19 @@ function hesapKutu(tip){
   const ekRate = (tip==='artis')
     ? `<div style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">
        <div style="font-size:11.5px;font-weight:700;color:var(--accent2);letter-spacing:.3px;margin-bottom:4px">GTİP KODU YA DA ÜRÜN ADI, oranları biz dolduralım</div>
-       <input id="ffKod" placeholder="örn. 8418.61.00.00.00 ya da: klima" autocomplete="off" oninput="ffKutu()" style="width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit">
+       <input id="ffKod" placeholder="örn. 8418.61.00.00.00 ya da: klima" autocomplete="off" oninput="ffKutu()" style="width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-size:14px;font-family:inherit">
        <div id="ffAraSonuc"></div>
        <div id="ffNot" style="font-size:11.5px;color:var(--dim);margin-top:4px"></div>
-       <div style="margin-top:10px">Gümrük vergisi oranı: <input id="gv" type="number" inputmode="decimal" placeholder="%" oninput="hesapla('${tip}')" style="width:64px;padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit">%
-       <span style="margin-left:10px">Malın KDV oranı: <select id="kdvOran" onchange="hesapla('${tip}')" style="padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit;cursor:pointer"><option value="20" selected>%20</option><option value="10">%10</option><option value="1">%1</option></select></span></div>
+       <div style="margin-top:10px">Gümrük vergisi oranı: <input id="gv" type="number" inputmode="decimal" placeholder="%" oninput="hesapla('${tip}')" style="width:64px;padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:var(--yuzey);color:var(--ink);font-family:inherit">%
+       <span style="margin-left:10px">Malın KDV oranı: <select id="kdvOran" onchange="hesapla('${tip}')" style="padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:var(--yuzey);color:var(--ink);font-family:inherit;cursor:pointer"><option value="20" selected>%20</option><option value="10">%10</option><option value="1">%1</option></select></span></div>
        <div style="font-size:11.5px;color:var(--dim);margin-top:4px">İthalde ek KDV malın KENDİ oranından hesaplanır (%1 / %10 / %20, 2007/13033 s. Karar listeleri). Oranları elle de değiştirebilirsin.</div></div>`
     : '';
   const baslik = (tip==='artis') ? "🧮 Fiyat farkını gir, ek vergiyi hesapla" : "🧮 Royalti tutarını gir, vergiyi hesapla";
   return `<div class="kutu" style="margin-top:14px">
       <h3>${baslik}</h3>
       <div style="display:flex;gap:8px;margin-bottom:10px">
-        <input id="tutar" type="number" inputmode="decimal" placeholder="${tip==='artis'?'Fiyat farkı tutarı':'Royalti tutarı'}" oninput="hesapla('${tip}')" style="flex:1;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit">
-        <select id="pb" onchange="hesapla('${tip}')" style="padding:12px 10px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit;cursor:pointer">
+        <input id="tutar" type="number" inputmode="decimal" placeholder="${tip==='artis'?'Fiyat farkı tutarı':'Royalti tutarı'}" oninput="hesapla('${tip}')" style="flex:1;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);color:var(--ink);font-size:15px;font-family:inherit">
+        <select id="pb" onchange="hesapla('${tip}')" style="padding:12px 10px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);color:var(--ink);font-size:14px;font-family:inherit;cursor:pointer">
           <option value="USD">USD</option><option value="EUR">EUR</option><option value="TL" selected>TL</option><option value="GBP">GBP</option></select>
       </div>
       ${ekRate}
@@ -334,7 +334,7 @@ function ffOranDoldur(girilen){
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:#eef2f7">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı, aynı gün dönüş yapacağız.</div>
@@ -343,5 +343,8 @@ function ffOranDoldur(girilen){
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
 </div>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

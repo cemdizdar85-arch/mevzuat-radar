@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Marka İzleme (canlı) — yenileme + kullanım delili | Tetikte</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}.wrap{max-width:800px;margin:0 auto;padding:22px 16px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:16px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}
@@ -17,11 +17,11 @@ h1{font-size:clamp(21px,4vw,28px);letter-spacing:-.7px;margin:2px 0 6px;font-wei
 .kart{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px;margin-bottom:14px}
 .kbas{font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--accent2);margin-bottom:12px}
 label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px}
-.gir,select{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit;margin-bottom:10px}
+.gir,select{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-size:14.5px;font-family:inherit;margin-bottom:10px}
 .satirlar{display:flex;gap:10px;flex-wrap:wrap}.satirlar>div{flex:1;min-width:150px}
 .chk{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);margin-bottom:10px}.chk input{width:auto;margin:0}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:750;font-size:14px;padding:11px 18px;border-radius:11px;background:var(--grad);color:#03101f}
-.btn.k{background:#0a0f17;color:var(--ink);border:1px solid var(--line2);font-weight:650}
+.btn.k{background:var(--yuzey);color:var(--ink);border:1px solid var(--line2);font-weight:650}
 .btn.mini{padding:7px 12px;font-size:12.5px}
 .marka{border:1px solid var(--line);border-radius:12px;padding:15px 16px;margin-bottom:11px;background:#0b111a}
 .marka .h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
@@ -32,7 +32,7 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0
 .uyari{font-size:12.5px;color:var(--amber);background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.28);border-radius:9px;padding:9px 11px;margin-top:9px;line-height:1.5}
 .delil{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted);margin-top:8px}
 .delil a{color:var(--accent2);text-decoration:none}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#0d141e;border:1px solid var(--line2);color:var(--ink);padding:11px 17px;border-radius:11px;font-size:13px;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:.25s;z-index:9;pointer-events:none}.toast.on{opacity:1}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--kagit);border:1px solid var(--line2);color:var(--ink);padding:11px 17px;border-radius:11px;font-size:13px;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:.25s;z-index:9;pointer-events:none}.toast.on{opacity:1}
 .bos{color:var(--dim);font-size:13px;text-align:center;padding:16px}
 .hata{color:var(--red);font-size:13px;margin-top:8px}
 .uy{font-size:12px;color:var(--dim);margin-top:18px;background:rgba(245,165,36,.05);border:1px solid rgba(245,165,36,.18);border-radius:10px;padding:11px 13px}
@@ -46,7 +46,8 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0
 </style>
 </head>
 <body>
-<div class="wrap" id="wrap"><div class="bos">Yükleniyor…</div></div>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main" id="wrap"><div class="bos">Yükleniyor…</div></div>
 <div class="toast" id="toast"></div>
 <!-- 19.08 OLCULDU: supabase-js dis CDN'den (esm.sh) geliyordu - 9 ayri parca, ~1,5 sn.
      Ayni satir DORT sayfada vardi (sinav, evrak, marka, uyelik): esm.sh yavaslarsa ya da
@@ -161,5 +162,8 @@ window._delilAc=async(yol)=>{
 yonlendir();
 </script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

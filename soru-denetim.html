@@ -14,8 +14,10 @@
   soru-bankasi.json'dan okunuyor. Kasaya HICBIR SEY YAZMAZ - kararlar tarayicida
   birikir, sonunda JSON olarak indirilir. Uygulamayi GM Cem onayiyla yapar.
 ============================================================================ -->
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--line2:rgba(255,255,255,.14);--amber:#ffb020;--mono:ui-monospace,Consolas,monospace}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:1000px;margin:0 auto;padding:20px 18px 80px}
@@ -44,8 +46,10 @@ h1{font-size:24px;letter-spacing:-.5px;margin:0 0 6px}
 .not{flex:1;min-width:220px;background:var(--panel2);border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:8px 11px}
 .uyari{background:rgba(255,176,32,.10);border:1px solid rgba(255,176,32,.34);border-radius:12px;padding:12px 15px;font-size:13.5px;line-height:1.62;margin-bottom:16px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:22px;padding-top:12px;border-top:1px solid var(--line)}
-</style></head><body>
-<div class="wrap">
+</style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"></head><body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <h1>Soru Denetim Masası</h1>
   <div style="color:var(--muted);font-size:13.5px;margin-bottom:14px">Vitrinden çekilen sorular burada bekliyor. Her soruyu <b style="color:var(--ink)">kaynağıyla karşılaştırarak</b> oku, kararını işaretle. Kararlar tarayıcında birikir; sonunda dosya olarak indirilir.</div>
 
@@ -130,4 +134,7 @@ function indir(){
   var b=new Blob([JSON.stringify({tarih:new Date().toISOString(),toplam:c.length,kararlar:c},null,2)],{type:'application/json'});
   var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='soru-denetim-kararlari.json'; a.click();
 }
-</script></body></html>
+</script><link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
+</body></html>

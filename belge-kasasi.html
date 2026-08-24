@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Belge Kasası — tüm belgelerin tek yerde, süresi kaçmasın | Tetikte</title>
 <meta name="description" content="DİİB, A.TR, EUR.1, mukimlik, gözetim belgesi, kapasite raporu, marka tescili... İşletmenin tüm belgelerini bir kasada tut; geçerlilik süresini robot takip etsin, dolmadan haber versin.">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--line2:rgba(255,255,255,.14);--amber:#ffb020}
 *{box-sizing:border-box}
-body{margin:0;background:#06090f;position:relative;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--taban);position:relative;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:460px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.13),transparent 72%);pointer-events:none;z-index:0}
 a{color:var(--accent2)}
 .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:24px 18px 80px}
@@ -51,10 +53,12 @@ summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(-
     background:#f5a524 !important;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);
     font-size:0 !important;color:transparent !important;display:inline-block !important;
     place-items:unset !important;flex:none}
-</style>
+</style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="hatirlatici.html">Süre Hatırlatıcı</a> · <a href="gtip.html">GTİP</a> · <a href="ihale-radari.html">İhale</a> · <b style="color:var(--ink)">Belge Kasası</b></div>
 
   <h1>Belge Kasası</h1>
@@ -147,5 +151,8 @@ function ciz(){
 init();
 </script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

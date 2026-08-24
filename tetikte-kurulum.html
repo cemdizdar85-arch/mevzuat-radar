@@ -6,8 +6,10 @@
 <meta name="robots" content="noindex, nofollow">
 <title>tetikte.com kurulum kılavuzu (iç belge) | Tetikte</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--green:#3ddc97;--amber:#ffc24b;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.65}
 .wrap{max-width:780px;margin:0 auto;padding:26px 18px 80px}
 h1{font-size:clamp(23px,4.4vw,30px);letter-spacing:-.8px;margin:4px 0 6px;font-weight:800}
@@ -25,18 +27,19 @@ table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
 th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line)}
 th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
 td code{font-family:var(--mono);font-size:13px;color:var(--accent2)}
-.kop{appearance:none;border:1px solid var(--line2);background:#0a0f17;color:var(--muted);font-size:11.5px;font-weight:700;border-radius:8px;padding:5px 10px;cursor:pointer;margin-left:8px}
+.kop{appearance:none;border:1px solid var(--line2);background:var(--yuzey);color:var(--muted);font-size:11.5px;font-weight:700;border-radius:8px;padding:5px 10px;cursor:pointer;margin-left:8px}
 .kop:hover{color:var(--ink);border-color:var(--accent)}
 .kop.ok{color:var(--green);border-color:var(--green)}
 .not{background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.25);border-radius:11px;padding:12px 15px;font-size:13px;color:var(--muted);margin-top:14px}
 .not b{color:var(--amber)}
-.yol{font-family:var(--mono);font-size:12.5px;color:var(--accent2);background:#0a0f17;border:1px solid var(--line);border-radius:8px;padding:3px 9px;display:inline-block;margin:2px 0}
+.yol{font-family:var(--mono);font-size:12.5px;color:var(--accent2);background:var(--yuzey);border:1px solid var(--line);border-radius:8px;padding:3px 9px;display:inline-block;margin:2px 0}
 ul{margin:10px 0 0;padding-left:20px;font-size:14px;color:var(--muted)}
 li{margin-bottom:7px}
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <span class="ic">İÇ BELGE, KURULUM KILAVUZU</span>
   <h1>tetikte.com'u siteye bağlama, 4 adım</h1>
   <p class="lead">🟡 işaretli adımlar senin, 🟢 işaretliler benim. Sen 1 ve 2'yi yap, bana "girdim" yaz, gerisi bende. DNS robotu zaten nöbette: kayıtları girdiğin an haberim olacak.</p>
@@ -91,5 +94,8 @@ document.querySelectorAll('.kop').forEach(b=>b.addEventListener('click',()=>{
     setTimeout(()=>{ b.textContent='kopyala'; b.classList.remove('ok'); },1600); });
 }));
 </script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

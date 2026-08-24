@@ -6,8 +6,8 @@
 <title>Ar-Ge Kapısı Hesabı — Merkez mi, Teknokent mi, TÜBİTAK mı sana daha çok kazandırır? | Tetikte</title>
 <meta name="description" content="Ekibini ve rakamlarını gir; Ar-Ge Merkezi (5746), Teknokent (4691) ve TÜBİTAK yollarının sana yıllık kaç TL bıraktığını yan yana gör. Türkiye'de ilk karşılaştırmalı Ar-Ge teşvik hesabı.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px;position:relative;z-index:1}
@@ -19,15 +19,15 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .sayac b{color:var(--red);font-family:var(--mono)}
 .kutu{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 label{display:block;font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin:12px 0 5px}
-input,select{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit}
+input,select{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);color:var(--ink);font-size:16px;font-family:inherit}
 input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,36,.18)}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(245,165,36,.35);transition:transform .15s;margin-top:16px;width:100%}
 .btn:hover{transform:translateY(-2px)}
-.btn2{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13px;padding:8px 14px;border-radius:10px;background:#0a0f17;color:var(--accent2);border:1px solid var(--line2)}
+.btn2{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13px;padding:8px 14px;border-radius:10px;background:var(--yuzey);color:var(--accent2);border:1px solid var(--line2)}
 .btn2:hover{border-color:var(--accent)}
 .psatir{display:grid;grid-template-columns:minmax(150px,2fr) 90px minmax(120px,1.4fr) 34px;gap:8px;margin-bottom:8px;align-items:center}
 .psatir input,.psatir select{padding:9px 10px;font-size:14px}
-.psil{appearance:none;border:1px solid var(--line2);background:#0a0f17;color:var(--red);border-radius:9px;cursor:pointer;font-weight:800;height:38px}
+.psil{appearance:none;border:1px solid var(--line2);background:var(--yuzey);color:var(--red);border-radius:9px;cursor:pointer;font-weight:800;height:38px}
 .hero3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
 @media(max-width:680px){.hero3{grid-template-columns:1fr}.psatir{grid-template-columns:1fr 70px 1fr 30px}}
 .hkart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
@@ -52,7 +52,8 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a><span>›</span><span>Ar-Ge Kapısı Hesabı</span></div>
 
   <h1>Ar-Ge Kapısı Hesabı</h1>
@@ -288,5 +289,8 @@ $('hesapla').addEventListener('click',()=>{
 });
 window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.kacc').forEach(d=>d.open=true);});
 </script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Bildirim iptali | Tetikte</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--red:#ff6b5e;--green:#3ddc97}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;display:grid;place-items:center;min-height:100vh;padding:24px}
 a{color:var(--accent2)}
@@ -19,7 +19,11 @@ p{color:var(--muted);font-size:14.5px;margin:0 0 12px}
 </style>
 </head>
 <body>
-<div class="kutu">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="kutu" id="icerik" role="main">
+<div class="top ust-serit">
+  <a class="ust-marka" href="index.html">tetikte</a>
+</div>
   <span class="mark"></span>
   <h1 id="baslik">İptal ediliyor…</h1>
   <p id="metin">Bir saniye.</p>
@@ -48,5 +52,8 @@ p{color:var(--muted);font-size:14.5px;margin:0 0 12px}
   }, function(){ yaz('İptal edilemedi', 'Bağlantı kurulamadı. Maile "iptal" yanıtı ver, elle çıkarırız.', 'var(--red)'); });
 })();
 </script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

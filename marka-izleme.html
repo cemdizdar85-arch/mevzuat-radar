@@ -7,8 +7,8 @@
 <title>Marka İzleme Radarı — markana benzer yeni başvuru düştü mü? | Tetikte</title>
 <meta name="description" content="Markanı gir; son günlerde TÜRKPATENT'e düşen benzer marka başvurularını işaret + fonetik benzerliği ve Nice sınıf çakışmasıyla yakala, risk puanını ve itiraz süresini gör. TMview (TR) verisi.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:780px;margin:0 auto;padding:24px 18px 90px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -36,7 +36,8 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a> · <a href="marka-radari.html">Marka Yenileme</a> · <a href="marka-itiraz.html">İtiraz Değerlendirici</a> · Marka İzleme</div>
 
   <h1>Markana benzer yeni başvuru düştü mü?</h1>
@@ -238,5 +239,8 @@ fetch('veri/marka-yeni-basvurular.json?'+Date.now()).then(function(r){return r.j
   ciz();
 }).catch(function(){ var dg=document.getElementById('damga'); if(dg) dg.textContent='Veri şu an yüklenemedi, birazdan yenile.'; });
 </script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

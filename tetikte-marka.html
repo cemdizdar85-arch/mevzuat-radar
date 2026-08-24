@@ -6,8 +6,10 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Tetikte — marka kimliği taslağı (iç çalışma) | Mevzuat Radarı</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--green:#3ddc97;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--gradT:linear-gradient(135deg,#3ddc97 0%,#ffc24b 100%)}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--gradT:linear-gradient(135deg,#3ddc97 0%,#ffc24b 100%)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:26px;color:var(--dim)}.top a{color:var(--muted);text-decoration:none;font-weight:600}
@@ -70,7 +72,8 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logoMR">MR</span><a href="index.html">Mevzuat Radarı</a> · Tetikte marka kimliği</div>
   <span class="ic">İÇ ÇALIŞMA · YAYIN DEĞİL</span>
   <h1>Tetikte, marka kimliği taslağı</h1>
@@ -137,5 +140,8 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
     <p>1) Varyant seçimi (önerim: A, "Radar i"). &nbsp;2) tetikte.com satın alma. &nbsp;3) TÜRKPATENT'te "tetikte" sorgusu → temizse EPATS marka başvurusu (sınıf taslağı bende hazır). Seçim gelince: gerçek SVG logo dosyası + favicon + sitede Tetikte bölümü mühürlenir.</p>
   </div>
 </div>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

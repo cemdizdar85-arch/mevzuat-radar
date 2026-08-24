@@ -6,8 +6,8 @@
 <title>Marka İtiraz / Benzerlik Değerlendirici — itiraz eder miyim? (SMK m.6/18/19) | Tetikte</title>
 <meta name="description" content="Markana benzer bir başvuru mu çıktı? İşaret + fonetik benzerliği ve Nice sınıf çakışmasını ölç, karıştırılma ihtimalini ve itiraz edilebilirliği gör; kullanmama def'i ve 2 aylık itiraz süresi dahil.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -18,7 +18,7 @@ h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .iki h3{margin:0 0 12px;font-size:13px;letter-spacing:.4px}
 .iki .a{color:var(--green)}.iki .b{color:var(--red)}
 label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:10px 0 5px}label:first-of-type{margin-top:0}
-.gir,select{width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit}
+.gir,select{width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-size:14.5px;font-family:inherit}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:14px}
 #sonuc{margin-top:22px}
 .ozet{padding:17px 19px;border-radius:14px;margin-bottom:14px;font-size:15px;line-height:1.5}
@@ -35,7 +35,6 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:10p
 .hata{color:var(--red);font-size:14px;margin-top:10px}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
-:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
@@ -51,7 +50,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="marka-radari.html">Marka Yenileme</a> · <a href="gtip.html">GTİP</a> · İtiraz Değerlendirici</div>
   <h1>Markana benzer başvuru mu çıktı?, itiraz eder misin?</h1>
   <p class="lead">Kendi markanı ve şüpheli/yeni başvuruyu gir; <b>işaret + fonetik benzerliği</b> ve <b>sınıf çakışmasını</b> ölçelim, <b>karıştırılma ihtimalini</b> ve <b>itiraz edilebilirliğini</b> gösterelim. <b>Kullanmama def'i</b> ve <b>2 aylık itiraz süresi</b> dahil, boşa itiraz etme, gerçekten geçerliyse hareket et.</p>
@@ -165,7 +165,7 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:#eef2f7">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı, aynı gün dönüş yapacağız.</div>
@@ -175,5 +175,8 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
 </div>
 <script src="marka-serit.js"></script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>

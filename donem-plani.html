@@ -6,8 +6,10 @@
 <title>Dönem Planı — sınava kalan haftaları haritayla doldur | Tetikte</title>
 <meta name="description" content="SGS'ye kalan gün ve haftalar; çıkmış soru haritasının ağırlıklarına göre faz faz çalışma programı ve ders ders 'sırayla çalış' konu listeleri.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+  :root{--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.09),transparent 72%);pointer-events:none}
 a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px;position:relative}
@@ -28,7 +30,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 .faz b{color:var(--ink)}
 .faz .fk{font-family:var(--mono);font-size:11px;color:var(--accent2);display:block;margin-bottom:3px;font-weight:700}
 .ritim{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin-top:10px}
-.gun{background:#0a0f17;border:1px solid var(--line2);border-radius:11px;padding:10px 12px;font-size:12px;color:var(--muted);text-align:center}
+.gun{background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;padding:10px 12px;font-size:12px;color:var(--muted);text-align:center}
 .gun b{display:block;color:var(--ink);font-size:12.5px}
 .gun.ozel{border-color:rgba(61,220,151,.45)}
 .uyari{font-size:12.5px;color:var(--dim);margin-top:14px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:11px;padding:11px 14px}
@@ -48,7 +50,8 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="genc.html">Genç Müşavir</a> · Dönem Planı</div>
   <h1>Dönem Planı, SGS 2026/3</h1>
   <p class="lead">Sınav dönemi <b style="color:var(--ink)">3 ayda bir</b> gelir; kazananlar son haftaya değil, <b style="color:var(--ink)">döneme</b> çalışır. Bu sayfa kalan haftaları sayar ve her fazı, çıkmış soru haritasının gerçek ağırlıklarıyla doldurur.
@@ -130,5 +133,8 @@ var SINAV = new Date('2026-11-21T00:00:00');
 })();
 </script>
 <script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
 </body>
 </html>
