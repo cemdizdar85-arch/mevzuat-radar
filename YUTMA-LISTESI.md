@@ -1,5 +1,46 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 24.08.2026 — KGK EKSİK 4 MODÜLÜN DERİNLİK YUTMASI (Cem: "yutma listesine başla")
+*Ölçüm: KGK sınavının 280 sorusunun 160'ında (SPK · Bankacılık · Sigortacılık-BES · Sürdürülebilirlik) kasada tek soru yoktu. Üretim planı 06.08'den beri hazırdı ama satırların dayanağı ÇERÇEVE KANUN düzeyindeydi; çıkmış sınav soruları tebliğ/yönetmelik düzeyinde. **22 kaynak, 1.060 madde** aynı gün yutuldu.*
+
+| Alan | Yutulan kaynak | pdfId | Madde |
+|---|---|---|---|
+| SPK | Pay Tebliği (VII-128.1) | G9:18510 | 106 |
+| SPK | Kâr Payı Tebliği (II-19.1) | G9:19333 | 19 |
+| SPK | Önemli Nitelikteki İşlemler ve Ayrılma Hakkı Tebliği (II-23.3) | G9:34645 | 32 |
+| SPK | Birleşme ve Bölünme Tebliği (II-23.2) | G9:19190 | 39 |
+| SPK | GYO Tebliği (III-48.1) | G9:18404 | 91 |
+| SPK | Portföy Yönetim Şirketleri Tebliği (III-55.1) | G9:18546 | 83 |
+| SPK | Kaydileştirme Tebliği (II-13.1) | G9:19956 | 48 |
+| SPK | Yatırımcı Tazmin Merkezi Yönetmeliği | G7:20561 | 56 |
+| Bankacılık | Bankaların Kredi İşlemlerine İlişkin Yönetmelik | G7:40520 | 23 |
+| Bankacılık | Bankaların İç Sistemleri ve İSEDES Yönetmeliği | G7:19864 | 101 |
+| Bankacılık | Bankaların Sermaye Yeterliliği Yönetmeliği | G7:21192 | 97 |
+| Bankacılık | Bankaların Bağımsız Denetimi Yönetmeliği | G7:20645 | 36 |
+| Bankacılık | Varlık Yönetim Şirketleri Yönetmeliği | G7:38797 | 46 |
+| Sigorta | Teknik Karşılıklar Yönetmeliği | G7:11493 | 39 |
+| Sigorta | Güvence Hesabı Yönetmeliği | G7:11467 | 29 |
+| Sigorta | Sigorta Acenteleri Yönetmeliği | G7:19610 | 37 |
+| Sigorta | Sigorta Eksperleri Yönetmeliği | G7:12219 | 35 |
+| Sigorta | Sigorta ve Reasürans Brokerleri Yönetmeliği | G7:20786 | 29 |
+| Sigorta | Sigorta/Reasürans/Emeklilik Sermaye Yeterliliği Yönetmeliği | G7:21069 | 22 |
+| Sigorta | Sigortacılık Tekdüzen Hesap Planı Tebliği | G9:45007 | 8 |
+| BES | Emeklilik Yatırım Fonları Yönetmeliği | G7:17200 | 67 |
+| Sürdürülebilirlik | Bankaların Yeşil Varlık Oranı Hesaplaması Tebliği | G9:42363 | 17 |
+
+**Kapsama:** 22/22 kaynak ≥ %99 (iki uyarı: Pay Tebliği %96, Sigortacılık THP %97,9 — mülga maddeler).
+
+**Yutmak yetmedi — motor da açıldı.** `soru-uret-v2.ps1` ek-alan yolu bu dersler için yalnız çerçeve kanunu tarıyordu (`^Sermaye Piyasası K.` / `^Bankacılık K.` / `^Sigortacılık K.`+`^BES K.`); yeni yutulanların hiçbiri o önekle başlamıyor, yani **ambara girseler de üretici göremezdi.** Önek listeleri genişletildi (17/6/11 önek), ders başına önbellek kondu (100+ gereksiz istek gitti), belge tavanı 400→1.000 yapıldı (GDS havuzu 400'de kırpılıyordu, şimdi 415).
+
+**Ölçülen etki (0 USD, `-ders` ölçüm modu):** SPK havuzu 269→**1.186** belge · Bankacılık 506→**909** · Sigortacılık 299→**542** · Sürdürülebilirlik Raporlama 169→**186**. 44 plan satırının 44'ü kaynaklı (`maddesiz 0`), 1.680 soru hazır, ~52 USD (Sonnet 5 batch).
+
+**Ayrıca düzeltilen üç sahte kaynak** (kota satırı ambardaki metne değil, en yakın kelimeye düşüyordu): "spk yeşil borçlanma aracı rehberi" → TSRS 1 p.14'e düşüyordu (rehber ambarda yok, satır `tsrs 2 finanse edilen emisyonlar` ile değişti) · "bddk yeşil varlık oranı tebliği" → TSRS 2'ye düşüyordu (**tebliğ bugün yutuldu, artık kendi metnine bağlanıyor**) · "sera gazı protokolü kapsam 3" → adı `tsrs 2 kapsam 3 kategorileri` yapıldı (künye kaynağa uyduruldu).
+
+**Bulunamayan (açık iş):** Sigortacılıkta iç sistemler yönetmeliği (mevzuat.gov.tr'de bu adla sonuç yok — mülga/yeniden adlandırılmış olabilir) · SPK Sürdürülebilirlik İlkeleri Uyum Çerçevesi ve Yeşil Borçlanma Aracı Rehberi (SPK **kurul kararı**, mevzuat.gov.tr fihristinde yok — spk.gov.tr'den elle alınmalı) · KGK TSRS uygulama kapsamı Kurul Kararı (aynı sebep).
+
+**Teknik ders:** `MevzuatDatatable` POST ucu (çerez + `X-Requested-With`) başlık aramasıyla mevzuatNo veriyor — `teblig-hasat.ps1`'in kullandığı uç. Yönetmelik `G7:`, tebliğ `G9:` önekiyle manifeste yazılır. **İndirilen her PDF'in ilk 4 baytı `%PDF` diye kontrol edildi** (22/22 geçti); ASCII'leşmiş adla inen HTML hata sayfası tuzağı böyle yakalanır.
+
+
 ## ✅ 21.08.2026 — KGK KARNE BOŞLUKLARI KAPATILDI (Cem: "KGK'nın 39 boşluğu bunu dolduralım")
 | Metin | Kaynak | Sonuç |
 |---|---|---|
@@ -33,6 +74,7 @@ yani ayna yeniden yutunca ambar değişmeyecek.
 ham metin eri/mevzuat-hazir/<slug>.txt olarak yazılır ve çekme tarifi bu betiğe eklenir.
 **Tuzak (kalıcı ders):** ticaret.gov.tr dosya adı TÜRKÇE HARFLİ ("Fuar Desteklerine İlişkin Genelge.pdf");
 ASCII'ye düzleştirilmiş ad 500 döner ve PDF sanılan bir **HTML hata sayfası** iner — manifest notu düzeltildi.
+
 
 ## ✅ 19.08.2026 (3. tur) — KGK KARNESİ 6 MEVZUAT + 10 TEORİ NOTU (üç-sınav kuralı, Cem: "ikisini birden")
 *Sebep: KGK karnesi ilk kez koştu (10 etiketli dönem/1.536 konu); 42 KAYNAK-YOK satırının

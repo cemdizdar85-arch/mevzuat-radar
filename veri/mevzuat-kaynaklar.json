@@ -1,4 +1,4 @@
-﻿{
+{
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
                      {
@@ -654,7 +654,7 @@
                          "slug":  "kavramsal-cerceve",
                          "ad":  "Finansal Raporlamaya Iliskin Kavramsal Cerceve (2018)",
                          "pdfId":  "HAZIR",
-                         "not":  "KGK TMS/TFRS 2019 Seti PDF'i (kgk.gov.tr DynamicContentFiles) - HAZIR yolu, tazeleme elle. 8 bolum tam; yururluk 01.01.2020 ve sonrasi. 19.08.2026 TAM ARSIV karnesi bulgusu: Muhasebe Standartlari dersinin CEKIRDEK metniydi ve ambarda HIC yoktu."
+                         "not":  "KGK TMS/TFRS 2019 Seti PDF\u0027i (kgk.gov.tr DynamicContentFiles) - HAZIR yolu, tazeleme elle. 8 bolum tam; yururluk 01.01.2020 ve sonrasi. 19.08.2026 TAM ARSIV karnesi bulgusu: Muhasebe Standartlari dersinin CEKIRDEK metniydi ve ambarda HIC yoktu."
                      },
                      {
                          "slug":  "seddk-cbk47",
@@ -666,7 +666,7 @@
                          "slug":  "spk-borclanma-teblig",
                          "ad":  "Borclanma Araclari Tebligi (VII-128.8)",
                          "pdfId":  "G9:18452",
-                         "not":  "19.08.2026 karne bulgusu. UYARI: guncel metinde 'kara istirakli tahvil' YOK (0 esleme) - tahvilde kardan pay konusunun dayanagi bu teblig DEGILDIR, ayrica aranacak."
+                         "not":  "19.08.2026 karne bulgusu. UYARI: guncel metinde \u0027kara istirakli tahvil\u0027 YOK (0 esleme) - tahvilde kardan pay konusunun dayanagi bu teblig DEGILDIR, ayrica aranacak."
                      },
                      {
                          "slug":  "spk-varant-teblig",
@@ -678,7 +678,7 @@
                          "slug":  "spk-izahname-teblig",
                          "ad":  "Izahname ve Ihrac Belgesi Tebligi (II-5.1)",
                          "pdfId":  "G9:18509",
-                         "not":  "RG 22.06.2013/28685. 19.08.2026 karne ayiklamasi bulgusu: 'izahname muafiyeti' sinavda cikmis, muafiyet halleri bu tebligde (SerPK m.4 ambarda ama liste tebligde); ambarda yoktu, teyitli."
+                         "not":  "RG 22.06.2013/28685. 19.08.2026 karne ayiklamasi bulgusu: \u0027izahname muafiyeti\u0027 sinavda cikmis, muafiyet halleri bu tebligde (SerPK m.4 ambarda ama liste tebligde); ambarda yoktu, teyitli."
                      },
                      {
                          "slug":  "spk-satis-teblig",
@@ -696,7 +696,7 @@
                          "slug":  "spk-degerleme-teblig",
                          "ad":  "Sermaye Piyasasinda Degerleme Standartlari Tebligi (III-62.1)",
                          "pdfId":  "HAZIR",
-                         "not":  "RG 01.02.2017/29966. Kaynak SPK portali (mevzuat.spk.gov.tr api/Mevzuat/File/179; mevzuat.gov.tr'de kimlik bulunamadi) - HAZIR yolu, tazeleme elle. Tek sayfa/6 madde; UDS'ye uyum zorunlulugu (TDUB+TSPB yayini). 19.08.2026 KGK karnesi bulgusu."
+                         "not":  "RG 01.02.2017/29966. Kaynak SPK portali (mevzuat.spk.gov.tr api/Mevzuat/File/179; mevzuat.gov.tr\u0027de kimlik bulunamadi) - HAZIR yolu, tazeleme elle. Tek sayfa/6 madde; UDS\u0027ye uyum zorunlulugu (TDUB+TSPB yayini). 19.08.2026 KGK karnesi bulgusu."
                      },
                      {
                          "slug":  "sigorta-katilim-yon",
@@ -720,13 +720,13 @@
                          "slug":  "spk-ozel-durum-teblig",
                          "ad":  "Ozel Durumlar Tebligi (II-15.1)",
                          "pdfId":  "G9:19331",
-                         "not":  "RG 23.01.2014/28891. 19.08.2026 karne bulgusu: yeterlilik sinavinda 5 ayri satirda 'icsel bilgi aciklamasinin ertelenmesi' cikmis, ambarda 'icsel bilgi' 0 kayitti - tanim bu tebligde. KGK/yeterlilik SPK ayagini besler."
+                         "not":  "RG 23.01.2014/28891. 19.08.2026 karne bulgusu: yeterlilik sinavinda 5 ayri satirda \u0027icsel bilgi aciklamasinin ertelenmesi\u0027 cikmis, ambarda \u0027icsel bilgi\u0027 0 kayitti - tanim bu tebligde. KGK/yeterlilik SPK ayagini besler."
                      },
                      {
                          "slug":  "spk-yatirim-fon-teblig",
                          "ad":  "Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)",
                          "pdfId":  "G9:18564",
-                         "not":  "RG 09.07.2013/28702. 19.08.2026 karne bulgusu: 'semsiye fon turleri' sinavda cikmis, ambarda 0 kayitti. Semsiye fon/katilma payi tanimlarinin birincil kaynagi."
+                         "not":  "RG 09.07.2013/28702. 19.08.2026 karne bulgusu: \u0027semsiye fon turleri\u0027 sinavda cikmis, ambarda 0 kayitti. Semsiye fon/katilma payi tanimlarinin birincil kaynagi."
                      },
                      {
                          "slug":  "vuk389gt",
@@ -4002,13 +4002,202 @@
                          "slug":  "fuar-genelge",
                          "ad":  "Fuar Desteklerine Iliskin Genelge (5973 uygulama)",
                          "pdfId":  "HAZIR",
-                         "not":  "19.08.2026: bilgi.html fuar hapinin GENELGE ayagi (basvuru 3 ay, degerlendirme formu m.10, banka kanali m.39, pazarlamaci m.41). Kaynak ticaret.gov.tr resmi PDF (data/5b868a8d13b87818a009d3b0/ + dosya adi TURKCE HARFLI: Fuar Desteklerine \u0130li\u015fkin Genelge.pdf - ASCII'ye duzlestirilmis ad 500 doner, PDF yerine HTML hata sayfasi iner!) - gunluk ayna indiremez, degisiklik ticaret.gov.tr duyurulariyla izlenir, motor\\hazir-tazele.ps1 ile tazelenir."
+                         "not":  "19.08.2026: bilgi.html fuar hapinin GENELGE ayagi (basvuru 3 ay, degerlendirme formu m.10, banka kanali m.39, pazarlamaci m.41). Kaynak ticaret.gov.tr resmi PDF (data/5b868a8d13b87818a009d3b0/ + dosya adi TURKCE HARFLI: Fuar Desteklerine İlişkin Genelge.pdf - ASCII\u0027ye duzlestirilmis ad 500 doner, PDF yerine HTML hata sayfasi iner!) - gunluk ayna indiremez, degisiklik ticaret.gov.tr duyurulariyla izlenir, motor\\hazir-tazele.ps1 ile tazelenir."
                      },
                      {
                          "slug":  "tevkifat14594",
                          "ad":  "KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594)",
                          "pdfId":  "HAZIR",
                          "not":  "19.08.2026: GIB portal konsolidesi (kanun/435/bkk/1378, API id=1378; motor\\hazir-tazele.ps1 ile tazelenir). Tam mukellef kurumlara yapilan odemelerde kesinti oranlari."
+                     },
+                     {
+                         "ad":  "Pay Tebligi (VII-128.1)",
+                         "pdfId":  "G9:18510",
+                         "slug":  "spk-pay-teblig",
+                         "not":  "24.08.2026 KGK ek-alan yutmasi: SPK modulunde pay ihraci/halka arz konulari 6362 duzeyinde kaliyordu. RG 22.06.2013.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Kar Payi Tebligi (II-19.1)",
+                         "pdfId":  "G9:19333",
+                         "slug":  "spk-karpayi-teblig",
+                         "not":  "24.08.2026: kar payi avansi konusu KGK sinavinda 7 oturumda cikti, ambarda tebligi yoktu. RG 23.01.2014.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Onemli Nitelikteki Islemler ve Ayrilma Hakki Tebligi (II-23.3)",
+                         "pdfId":  "G9:34645",
+                         "slug":  "spk-onemli-islem-teblig",
+                         "not":  "24.08.2026: onemli nitelikteki islemler 4 oturumda cikti. RG 27.06.2020.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Birlesme ve Bolunme Tebligi (II-23.2)",
+                         "pdfId":  "G9:19190",
+                         "slug":  "spk-birlesme-teblig",
+                         "not":  "24.08.2026: kismi bolunme turleri hem KGK hem SMMM sinavinda cikiyor. RG 28.12.2013.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Gayrimenkul Yatirim Ortakliklarina Iliskin Esaslar Tebligi (III-48.1)",
+                         "pdfId":  "G9:18404",
+                         "slug":  "spk-gyo-teblig",
+                         "not":  "24.08.2026 KGK ek-alan yutmasi. RG 28.05.2013.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Portfoy Yonetim Sirketleri ve Bu Sirketlerin Faaliyetlerine Iliskin Esaslar Tebligi (III-55.1)",
+                         "pdfId":  "G9:18546",
+                         "slug":  "spk-pys-teblig",
+                         "not":  "24.08.2026: portfoy yonetim sirketi 5 oturumda cikti. RG 02.07.2013.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Kaydilestirilen Sermaye Piyasasi Araclarina Iliskin Kayitlarin Tutulmasi Tebligi (II-13.1)",
+                         "pdfId":  "G9:19956",
+                         "slug":  "spk-kaydilestirme-teblig",
+                         "not":  "24.08.2026: kaydilestirme esaslari 3 oturumda cikti. RG 07.08.2014.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Sigortacilik Tekduzen Hesap Plani ve Izahnamesi Hakkinda Teblig",
+                         "pdfId":  "G9:45007",
+                         "slug":  "sigorta-thp-teblig",
+                         "not":  "24.08.2026: sigortacilik hesap plani KGK sinavinda 2 oturumda cikti. RG 01.10.2023.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Bankalarin Yesil Varlik Orani Hesaplamasi Hakkinda Teblig",
+                         "pdfId":  "G9:42363",
+                         "slug":  "bddk-yesil-varlik-teblig",
+                         "not":  "24.08.2026: kotadaki bddk yesil varlik orani satiri kaynaksizdi ve TSRS metnine dusuyordu; teblig yutulunca satir geri konabilir. RG 11.04.2025.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Yatirimci Tazmin Merkezi Yonetmeligi",
+                         "pdfId":  "G7:20561",
+                         "slug":  "spk-ytm-yon",
+                         "not":  "24.08.2026 KGK ek-alan yutmasi: yatirimci tazmin merkezi 5 oturumda cikti. RG 27.02.2015.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Bankalarin Kredi Islemlerine Iliskin Yonetmelik",
+                         "pdfId":  "G7:40520",
+                         "slug":  "bddk-kredi-islemleri-yon",
+                         "not":  "24.08.2026: kota satirlari kredi acma yetkisi/kredi komitesi/hesap durumu belgesi bu yonetmelige dayanir; ambarda yoktu, 5411 maddelerine dusuyordu. RG 21.12.2023.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Bankalarin Ic Sistemleri ve Icsel Sermaye Yeterliligi Degerlendirme Sureci Hakkinda Yonetmelik",
+                         "pdfId":  "G7:19864",
+                         "slug":  "bddk-ic-sistemler-yon",
+                         "not":  "24.08.2026: banka ic sistemleri konusu 2 oturumda cikti. RG 11.07.2014.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Bankalarin Sermaye Yeterliliginin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik",
+                         "pdfId":  "G7:21192",
+                         "slug":  "bddk-sermaye-yeterlilik-yon",
+                         "not":  "24.08.2026: kotada sermaye yeterliligi operasyonel risk satiri var, kaynagi ambarda yoktu. RG 23.10.2015.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik",
+                         "pdfId":  "G7:20645",
+                         "slug":  "bddk-bagimsiz-denetim-yon",
+                         "not":  "24.08.2026: bankalarin bagimsiz denetimi yonetmeligi KGK sinavinda adiyla 2 oturumda cikti. RG 02.04.2015.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Varlik Yonetim Sirketlerinin Kurulus ve Faaliyet Esaslari Hakkinda Yonetmelik",
+                         "pdfId":  "G7:38797",
+                         "slug":  "bddk-vys-yon",
+                         "not":  "24.08.2026: kotada 50 soruluk varlik yonetim sirketleri satiri vardi, kaynagi yoktu. RG 14.07.2021.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
+                         "pdfId":  "G7:11493",
+                         "slug":  "sigorta-teknik-karsilik-yon",
+                         "not":  "24.08.2026: kotanin en buyuk sigorta satiri (80 soru) buna dayaniyor; ambarda yoktu, 5684 m.16\u0027ya dusuyordu. RG 07.08.2007.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Guvence Hesabi Yonetmeligi",
+                         "pdfId":  "G7:11467",
+                         "slug":  "sigorta-guvence-hesabi-yon",
+                         "not":  "24.08.2026: guvence hesabi ve kapsami KGK sinavinda 6 oturumda cikti. RG 26.07.2007.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Sigorta Acenteleri Yonetmeligi",
+                         "pdfId":  "G7:19610",
+                         "slug":  "sigorta-acente-yon",
+                         "not":  "24.08.2026 KGK ek-alan yutmasi (sigorta araci kuruluslari). RG 22.04.2014.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Sigorta Eksperleri Yonetmeligi",
+                         "pdfId":  "G7:12219",
+                         "slug":  "sigorta-eksper-yon",
+                         "not":  "24.08.2026: sigorta eksperi 3 oturumda cikti. RG 22.06.2008.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Sigorta ve Reasurans Brokerleri Yonetmeligi",
+                         "pdfId":  "G7:20786",
+                         "slug":  "sigorta-broker-yon",
+                         "not":  "24.08.2026: sigorta brokeri 2 oturumda cikti. RG 27.05.2015.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Sermaye Yeterliliklerinin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik",
+                         "pdfId":  "G7:21069",
+                         "slug":  "sigorta-sermaye-yeterlilik-yon",
+                         "not":  "24.08.2026: sigorta sermaye yeterliligi 2 oturumda cikti. RG 23.08.2015.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Emeklilik Yatirim Fonlarinin Kurulus ve Faaliyetlerine Iliskin Esaslar Hakkinda Yonetmelik",
+                         "pdfId":  "G7:17200",
+                         "slug":  "bes-eyf-yon",
+                         "not":  "24.08.2026: emeklilik yatirim fonu 2 oturumda cikti. RG 13.03.2013.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-kapsam",
+                         "not":  "24.08.2026: KGK kurul karari, mevzuat.gov.tr fihristinde YOK (KurulKarari tur adi HTTP 600 veriyor, bos tur da reddediliyor) - kaynak kgk.gov.tr Kurul Kararlari PDF\u0027i, HAZIR yolu. DIKKAT: m.3/1\u0027deki esik degerler (500 Milyon/1 Milyar/250 kisi) 13/01/2026 tarihli Kurul Karariyla DEGISTI; guncel esikler kgk-tsrs-esik-2026 belgesindedir.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-esik-2026",
+                         "not":  "24.08.2026: RG\u0027de yalniz TARANMIS PDF olarak var (20260116-3.pdf, metin katmani yok; pdftotext 128 bayt, tesseract kurulu degil) - metin RG sayfasindan BIRINCI ELDEN okunup yazildi. Guncel esikler: aktif toplami 1 Milyar TL, yillik net satis hasilati 2 Milyar TL, calisan sayisi 500 kisi; 1/1/2025 ve sonrasi hesap donemleri.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "SPK Surdurulebilirlik Ilkeleri Uyum Cercevesi",
+                         "pdfId":  "HAZIR",
+                         "slug":  "spk-surdurulebilirlik-cerceve",
+                         "not":  "24.08.2026: SPK kurul karari/ekidir, mevzuat.gov.tr fihristinde YOK - kaynak spk.gov.tr resmi PDF (data/63a17b1a8f95db0fa40e3309). Halka acik ortakliklarin CSY aciklamalari; uygulama GONULLU, uygula-ya da acikla ilkesi. KGK surdurulebilirlik modulunde 2 oturumda cikti. Tazeleme: motor/hazir-tazele.ps1.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "SPK Yesil, Surdurulebilir ve Sosyal Sermaye Piyasasi Araclari Rehberi (11.08.2026)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "spk-yesil-rehber",
+                         "not":  "24.08.2026: SPK duyurusuna gore i-SPK 128.29 (13/08/2026 tarih, 49/1500 s.k.) ilke karariyla kabul edildi ve 2022 tarihli Yesil Borclanma Araci Rehberinin yerini aldi (duyuru eski rehberin ilgasini ACIKCA yazmiyor - teyit gerekir). Kaynak spk.gov.tr DOCX (data/6a7e09068f95db31f025d660); docx zip icindeki word/document.xml\u0027den metin cikarildi. Rehber, 6362 m.1 ve 128/1-e\u0027ye dayanir ve KURUL KARARI HUKMUNDEDIR.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "Bankalarin Tekduzen Hesap Plani Hakkinda Yonetmelik",
+                         "pdfId":  "G7:34006",
+                         "slug":  "bddk-thp-yon",
+                         "not":  "24.08.2026: kotadaki \u0027bankalar tekduzen hesap plani\u0027 satirinin (25 soru) dayanagi. ONEMLI: 2007 tarihli Tekduzen Hesap Plani ve Izahnamesi Hakkinda TEBLIG MULGA; yururlukteki metin bu YONETMELIK (RG 01.08.2019-30849). Teblig aradigimiz icin mevzuat.gov.tr\u0027de bulunamiyordu. Hesap KODLARI yonetmelikte degil, BDDK\u0027nin ayri THP listesindedir - kod sorusu bu metinden yazilamaz.",
+                         "seyrek":  true
                      }
                  ]
 }

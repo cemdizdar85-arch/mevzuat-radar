@@ -22,7 +22,9 @@ param(
   [switch]$calistir,
   [int]$sinir = 200,
   [string]$ders = '',
-  [string]$model = 'claude-sonnet-4-5-20250929',
+  # 24.08.2026 Cem: "sonnet 5 kossun". Eski varsayilan claude-sonnet-4-5-20250929'du;
+  # toplu-uret.ps1 zaten claude-sonnet-5 kullaniyordu - iki fabrika ayni modelde birlesti.
+  [string]$model = 'claude-sonnet-5',
   [string]$cikti = '',
   # 29.07 aksam: bu gece uretilen 3.451 sorunun HEPSI Yeterlilik'e gitti cunku
   # betik tek bir kotayi ve tek bir sinavi taniyordu. SGS (Staja Giris) kasada
@@ -279,7 +281,7 @@ function MaddeBul([string]$konu){
 # --- THP hesap adi indeksi (bir kez cekilir; 199 kayit, ucuz)
 $thpAd = @{}
 try {
-  $tr = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&kaynak_ad=imatch." + [uri]::EscapeDataString('^THP\s\d') + "&limit=400") -Headers $H -TimeoutSec 60
+  $tr = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&kaynak_ad=imatch." + [uri]::EscapeDataString('^THP\s\d') + "&limit=1000") -Headers $H -TimeoutSec 60
   foreach($t in @($tr)){
     if("$($t.kaynak_ad)" -match '^THP\s+(\d{2,3})\s*-?\s*(.*)$'){
       $kod = $Matches[1]; $ad = $Matches[2]
@@ -336,6 +338,30 @@ function KaynakBul([string]$konu, [string]$ders){
     $tn = TeoriNotuMetni '' $konu
     if($tn -and $tn.metin){ return [pscustomobject]@{ kanun='TEORI'; madde="$($tn.ad)"; ad="$($tn.ad)"; metin="$($tn.metin)"; tur='teori' } }
   }
+  # 2a-TTK) TTK SIGORTA KITABI YOLU (24.08.2026 - olcumle bulundu)
+  # Sigortacilik dersinin ek-alan havuzu yalniz 5684 + 4632. Olcum: kota satiri
+  # "ttk hayat sigortalari" bu havuzda 5684 m.5/11/12'ye baglaniyordu - konu TTK
+  # diyor, dayanak metin Sigortacilik Kanunu. Sigorta SOZLESMESI hukumleri (rizko,
+  # prim, tazminat, hayat/sorumluluk/mal sigortalari) 5684'te DEGIL, TTK Altinci
+  # Kitap'tadir (m.1401-1520). Bu satirlar duzeltilmeden uretilirse "kaynakli
+  # gorunen kaynaksiz soru" cikardi - en tehlikeli tur (bkz. 29.07 SGS pilotu).
+  # NOT: PostgREST imatch deseninde ters bolu ile kacis TUTMUYOR (0 kayit dondu);
+  # koseli parantezli sinif ([.] ve [(]) ile 143 kayit olculdu.
+  if($konu -match '(?i)ttk' -and $konu -match '(?i)sigorta'){
+    $rt = $null
+    try { $rt = @(Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString('^TTK [(]6102 s[.]K[.][)] m[.]1[45][0-9][0-9]') + "&limit=300") -Headers $H -TimeoutSec 90 | ForEach-Object { $_ }) } catch { $rt = $null }
+    if($rt -and @($rt).Count -gt 0){
+      $ttkFold = { param($x) "$x".ToLowerInvariant().Replace('ç','c').Replace('ğ','g').Replace('ı','i').Replace('ö','o').Replace('ş','s').Replace('ü','u') }
+      $kelT = @((Kel $konu) | Where-Object { $_.Length -ge 5 -and $_ -notmatch '^sigort' } | ForEach-Object { (& $ttkFold $_).Substring(0, [Math]::Min(6, $_.Length)) } | Select-Object -Unique)
+      $puanliT = foreach($d in $rt){ $mF = & $ttkFold "$($d.metin)"; $pp=0; foreach($w in $kelT){ if($mF.Contains($w)){ $pp++ } }; [pscustomobject]@{ d=$d; p=$pp } }
+      $secT = @($puanliT | Sort-Object { -$_.p } | Select-Object -First 12 | Where-Object { $_.p -gt 0 } | ForEach-Object { $_.d })
+      if($secT.Count -gt 0){
+        $btnT = (@($secT | ForEach-Object { "$($_.kaynak_ad): $($_.metin)" }) -join "`n")
+        if($btnT.Length -gt 24000){ $btnT = $btnT.Substring(0, 24000) }
+        return [pscustomobject]@{ kanun='6102'; madde="$($secT[0].kaynak_ad)"; ad="$($secT[0].kaynak_ad)"; metin=$btnT; tur='belge' }
+      }
+    }
+  }
   # 2b) KGK EK-ALAN YOLU (06.08 aksam, Cem: "KGK ek-alan paketleri yapalim"):
   # ek-alan konulari cogu zaman ders adini icermez ("borsalar ve piyasa
   # isleticileri" gibi) - yol DERS uzerinden secilir, konu kelimeleri o
@@ -343,18 +369,32 @@ function KaynakBul([string]$konu, [string]$ders){
   # Kaynaklar 06.08 olcumu: 6362/5411/5684/4632 kanunlari + TSRS 1-2 +
   # GDS 3000/3400/3402/3410 ambarda; SPK/BDDK teblig derinligi Faz 2.
   # Standart konulari (tfrs 17 gibi) buraya dusmez - STD yolu once yakalar.
+  # 24.08.2026 DERINLIK GENISLEMESI: liste 06.08'de yalniz CERCEVE KANUNLARINI
+  # tasiyordu (6362/5411/5684/4632). Olcum: KGK cikmis sinavinin bu modullerdeki
+  # sorularinin buyuk kismi TEBLIG/YONETMELIK duzeyinde ("kar payi avansi",
+  # "teknik karsiliklar yonetmeligi", "kredi acma yetkisi") ve konu bu haliyle
+  # cerceve kanunun en yakin maddesine dusuyordu - kaynakli GORUNEN kaynaksiz
+  # soru. Ayni gun 22 kaynak (1.060 madde) ambara yutuldu; onekler eklendi.
   $EK_ALAN_DERS = @(
-    @{ desen='(?i)sermaye piyasas';                          on=@('Sermaye Piyasası K.') },
-    @{ desen='(?i)bankac[ıi]l[ıi]k';                         on=@('Bankacılık K.') },
-    @{ desen='(?i)sigortac[ıi]l[ıi]k|[oö]zel emeklilik';     on=@('Sigortacılık K.','BES K.') },
-    @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik raporlama';     on=@('TSRS') },
-    @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik denetim';       on=@('GDS') }
+    @{ desen='(?i)sermaye piyasas'; on=@('Sermaye Piyasası K.','Pay Tebligi','Kar Payi Tebligi','Onemli Nitelikteki','Birlesme ve Bolunme','Gayrimenkul Yatirim','Portfoy Yonetim','Kaydilestirilen','Yatirimci Tazmin','Izahname ve Ihrac','Sermaye Piyasasi Araclarinin Satisi','Borclanma Araclari','Varantlar','Ozel Durumlar Tebligi','Yatirim Hizmetleri','Yatirim Fonlarina','Sermaye Piyasasinda Degerleme','SPK Surdurulebilirlik','SPK Yesil') },
+    @{ desen='(?i)bankac[ıi]l[ıi]k'; on=@('Bankacılık K.','Bankalarin','Banka ve Kredi Kartları K.','BDDK','Varlik Yonetim','TCMB K.') },
+    @{ desen='(?i)sigortac[ıi]l[ıi]k|[oö]zel emeklilik'; on=@('Sigortacılık K.','BES K.','Sigorta ve Reasurans','Sigorta Acenteleri','Sigorta Eksperleri','Guvence Hesabi','Emeklilik Yatirim Fonlarinin','Sigortacilik Tekduzen','SEDDK','Katilim Esaslari','Afet Sigortaları') },
+    @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik raporlama'; on=@('TSRS','Bankalarin Yesil Varlik','SPK Surdurulebilirlik','SPK Yesil') },
+    @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik denetim'; on=@('GDS') }
   )
   foreach($ea in $EK_ALAN_DERS){
     if($ders -notmatch $ea.desen){ continue }
-    $rb = @()
-    foreach($onAd in $ea.on){
-      try { $rb += @(Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString('^'+$onAd) + "&limit=400") -Headers $H -TimeoutSec 90 | ForEach-Object { $_ }) } catch {}
+    # 24.08: ONBELLEK - onek listesi 17'ye cikinca her plan satirinda ambari
+    # bastan cekmek 100+ gereksiz istek demekti; ders basina bir kez cekilir.
+    if($null -eq $script:EkAlanOnbellek){ $script:EkAlanOnbellek = @{} }
+    if($script:EkAlanOnbellek.ContainsKey($ea.desen)){ $rb = $script:EkAlanOnbellek[$ea.desen] }
+    else {
+      $rb = @()
+      foreach($onAd in $ea.on){
+        try { $rb += @(Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString('^'+$onAd) + "&limit=1000") -Headers $H -TimeoutSec 90 | ForEach-Object { $_ }) } catch {}
+      }
+      $script:EkAlanOnbellek[$ea.desen] = $rb
+      Write-Host ("  ek-alan havuzu [{0}]: {1} belge" -f $ea.desen, @($rb).Count)
     }
     if(@($rb).Count -eq 0){ break }
     # ASCII<->Turkce tuzagi (konu-kaynak karnesi dersi): konu ASCII ('sirketleri'),
