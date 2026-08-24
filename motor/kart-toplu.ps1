@@ -1165,7 +1165,7 @@ if(@($guncelKartlar).Count -eq 0 -and (Test-Path $guncelYol)){
 
 # ---- kartlar.html + gunluk arsiv kopyasi ------------------------------------
 $s = New-Object System.Text.StringBuilder
-[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
+[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">')
 [void]$s.AppendLine("<title>Günün Hap Kartları - $TarihNokta | Tetikte</title>")
 [void]$s.AppendLine('<meta name="description" content="Bugünün Resmî Gazete değişiklikleri hap bilgi kartları hâlinde: ne oldu, kimi ilgilendiriyor, ne yapmalı.">')
 [void]$s.AppendLine('<link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
@@ -1201,7 +1201,7 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('.cta h3{margin:0 0 6px;font-size:18px}.cta p{margin:0 0 15px;font-size:13.5px;color:var(--muted)}')
 [void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(245,165,36,.35)}')
 [void]$s.AppendLine('.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}')
-[void]$s.AppendLine('</style></head><body><div class="wrap">')
+[void]$s.AppendLine('</style></head><body><a class="atla" href="#icerik">İçeriğe atla</a><div class="wrap" id="icerik" role="main">')
 [void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG''de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>')
 [void]$s.AppendLine("<h1>Günün Hap Kartları</h1>")
 $enYeniGun = if($vitrin.Count){ $vitrin[0]._gun } else { $TarihNokta }
@@ -1397,7 +1397,7 @@ $vitrinBlok = KartBloguHtml $vitrin
 [void]$s.AppendLine('<p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
 [void]$s.AppendLine("<div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>")
-[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>')
+[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div><link rel="stylesheet" href="komut.css"><script src="komut.js" defer></script><script src="ayrinti.js" defer></script><link rel="stylesheet" href="stil-acik.css"></body></html>')
 $kartlarHtml = Join-Path $kok "kartlar.html"
 # ============================================================================
 #  VITRIN KORUMASI (16.08.2026)
@@ -1438,7 +1438,7 @@ $gunler = Get-ChildItem $arsivDirSite -Filter "kartlar-*.html" | ForEach-Object 
   [pscustomobject]@{ dosya=$_.Name; gun=$g; sirala=("{0}{1}{2}" -f $pp[2],$pp[1],$pp[0]); goster=("{0}.{1}.{2}" -f $pp[0],$pp[1],$pp[2]) }
 } | Sort-Object sirala -Descending
 $a = New-Object System.Text.StringBuilder
-[void]$a.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="../">')
+[void]$a.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css"><base href="../">')
 [void]$a.AppendLine('<title>Kart Arşivi | Tetikte</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
 [void]$a.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%)}')
 [void]$a.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.7}')
@@ -1448,11 +1448,11 @@ $a = New-Object System.Text.StringBuilder
 [void]$a.AppendLine('h1{font-size:26px;letter-spacing:-.8px;font-weight:800}')
 [void]$a.AppendLine('.g{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;color:var(--ink);text-decoration:none;font-weight:600}.g:hover{border-color:rgba(255,194,75,.4)}')
 [void]$a.AppendLine('.g span{color:var(--dim);font-weight:400;font-size:12.5px}')
-[void]$a.AppendLine('</style></head><body><div class="wrap">')
+[void]$a.AppendLine('</style></head><body><a class="atla" href="#icerik">İçeriğe atla</a><div class="wrap" id="icerik" role="main">')
 [void]$a.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="kartlar.html">Günün Kartları</a> · Arşiv</div>')
 [void]$a.AppendLine('<h1>Hap Kart Arşivi</h1><p style="color:var(--muted);font-size:14px">Gün gün, Resmî Gazete değişikliklerinin hap kartları.</p>')
 foreach($g in $gunler){ [void]$a.AppendLine("<a class='g' href='arsiv/$($g.dosya)'>$($g.goster) <span>— günün kartları</span></a>") }
-[void]$a.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>')
+[void]$a.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div><link rel="stylesheet" href="komut.css"><script src="komut.js" defer></script><script src="ayrinti.js" defer></script><link rel="stylesheet" href="stil-acik.css"></body></html>')
 [System.IO.File]::WriteAllText((Join-Path $arsivDirSite "index.html"), $a.ToString(), (New-Object System.Text.UTF8Encoding($false)))
 
 # 17.08 ONBELLEKLI MALIYET. Onbellekten OKUNAN jeton taban girdi fiyatinin

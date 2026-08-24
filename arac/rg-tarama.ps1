@@ -182,7 +182,7 @@ if($nobetVuran.Count -gt 0){
 
 # --- radar.html uret (repo koku) ---------------------------------------------
 $s = New-Object System.Text.StringBuilder
-[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
+[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">')
 # 30.07 REBRAND KACAGI KAPANDI: bu CI kalibi hala "Mevzuat Radarı" + MAVI
 # yaziyordu - her sabah radar.html'i eski markaya geri boyayacakti. Ayrica
 # "Bugün RG'de - <tarih>" basligi sayfa eskiyince yalan soyluyordu.
@@ -205,7 +205,7 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('.cta h3{margin:0 0 6px;font-size:18px;letter-spacing:-.4px}.cta p{margin:0 0 15px;font-size:13.5px;color:var(--muted)}')
 [void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(245,165,36,.35)}')
 [void]$s.AppendLine('.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}')
-[void]$s.AppendLine('</style></head><body><div class="wrap">')
+[void]$s.AppendLine('</style></head><body><a class="atla" href="#icerik">İçeriğe atla</a><div class="wrap" id="icerik" role="main">')
 [void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · Bugün RG''de</div>')
 [void]$s.AppendLine("<h1>Bugün Resmî Gazete'de ne var?</h1>")
 [void]$s.AppendLine("<div class='alt'>$Tarih tarihli sayının radar taraması — $($madde.Count) maddeden <b style='color:var(--ink)'>$ilgiliToplam</b> tanesi işletmeleri ilgilendiriyor.</div>")
@@ -226,7 +226,7 @@ if($ilgiliToplam -eq 0){
 [void]$s.AppendLine('<p>Listeye her gün bakmak yerine firmanı tanıt; tabi olduğun yükümlülükleri 3 dakikada gör. Ücretsiz, kayıtsız.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
 [void]$s.AppendLine("<div class='dip'>Kaynak: <a href='$url' target='_blank' rel='noopener'>Resmî Gazete, $Tarih</a> · Tetikte otomatik taraması · Bilgilendirme amaçlıdır.</div>")
-[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>')
+[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div><link rel="stylesheet" href="komut.css"><script src="komut.js" defer></script><script src="ayrinti.js" defer></script><link rel="stylesheet" href="stil-acik.css"></body></html>')
 
 $kok = Split-Path -Parent $PSScriptRoot   # arac/ klasorunun ustu = repo koku
 $hedef = Join-Path $kok "radar.html"
