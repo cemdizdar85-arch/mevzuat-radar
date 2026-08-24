@@ -380,8 +380,8 @@ function gtipGit(e){
 <script>
 /* VERI GETIRICI (24.08.2026) — ayni JSON iki kez indirilmesin.
    Olcum: vitrin kart betigi ile RG kart betigi kartlar-guncel.json u
-   birbirinden habersiz ikiser kez cekiyordu (2 x ~190 ms). Ucu de artik
-   ayni sozu paylasiyor; her dosya icin ag istegi BIR tane. */
+   birbirinden habersiz ikiser kez cekiyordu (2 x ~190 ms). Ikisi de
+   artik ayni sozu paylasiyor; ag istegi bir tane. */
 window.veriAl = (function(){
   var kasa = {};
   return function(yol, secenek){
@@ -395,7 +395,6 @@ window.veriAl = (function(){
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
-
 <nav id="nav">
   <a class="brand" href="#"><span class="lamba" aria-hidden="true"></span><b class="kelime">tet<span class="i">ı</span>kte</b></a>
   <div class="navlinks">
@@ -452,8 +451,6 @@ window.veriAl = (function(){
      ve kendi sayfalarinda duruyor - silinmedi, sirasi degisti.
 ============================================================== -->
 <header class="hero hero-sade">
-  <div class="hero-grid"></div>
-  <div class="hero-horizon"></div>
   <div class="sade-ic">
     <!-- 30.07 Cem: "isinin nobetcisi / Turkiye mevzuati rozetini sevmedim".
          Slogan zaten her yerde, kategori etiketi ise bos laf. Yerine CANLI
@@ -539,10 +536,86 @@ window.veriAl = (function(){
          diliyle konusur. Icerik dayanaklari gercek: KDVK m.32 (iade + izleyen
          2. takvim yili sonu suresi), IIK m.299, SMK m.23, RG karti gunun
          onarilmis kartindan, evye satiri RG'den teyitli. -->
+
+    <!-- ============ KONULAR (24.08.2026) ==============================
+         Cem: "cok farkli konularin oldugu yerde ziyaretci konuyu nasil
+         gorsun, buyuk kurumsallar nasil yapiyor?"
+         Olculdu: Thomson Reuters ana sayfada 5 alan, Wolters Kluwer 5
+         bolum, GOV.UK 16 konu, Logo 6 menu basligi gosteriyor. Hicbiri
+         urun listelemiyor, KONU KAPISI gosteriyor.
+         GOV.UK'in ayrintisi kritik: konu adinin altinda "Includes ..."
+         satiri icindekileri sayar; ziyaretci tiklamadan kendi konusunu
+         tanir. Burada ayni sey yapiliyor, uzerine bir adim daha:
+         icindekiler sadece yazi degil, dogrudan araca giden baglanti.
+         Konu adlari uydurulmadi - 40 aracin tamami katalogdan okundu.
+    ================================================================= -->
+    <div class="mini-baslik" style="margin-top:34px">Konular: hangi işteysen oradan gir</div>
+    <div class="konu-liste">
+
+      <div class="konu"><b>Gümrük ve ithalat</b><span>
+        <a href="gtip.html">GTİP vergileri</a> ·
+        <a href="risk-taramasi.html">beyanname risk taraması</a> ·
+        <a href="senaryo-raporu.html">menşe karşılaştırma</a> ·
+        <a href="toplu-gtip.html">toplu GTİP</a> ·
+        <a href="fiyatfarki.html">credit / debit note</a> ·
+        <a href="hizmet.html">yurt dışı hizmet faturası</a></span></div>
+
+      <div class="konu"><b>Vergi ve ceza</b><span>
+        <a href="ceza-asistani.html">ceza kapıları</a> ·
+        <a href="kdv-iade-rehberi.html">KDV iadesi</a> ·
+        <a href="asgari-kv.html">asgari kurumlar vergisi</a> ·
+        <a href="sayfalar/index.html">eşik rehberi</a> ·
+        <a href="soru-cevap.html">Net Cevap</a> ·
+        <a href="bilgi.html">bilgi havuzu</a></span></div>
+
+      <div class="konu"><b>Şirket kuruluşu</b><span>
+        <a href="kurulus.html">şahıs mı, limited mi, anonim mi</a> ·
+        <a href="kurulus-evrak.html">kuruluş evrak çantası</a> ·
+        <a href="karne.html">yükümlülük karnesi</a></span></div>
+
+      <div class="konu"><b>Teşvik ve destek</b><span>
+        <a href="tesvik-sihirbazi.html">yatırım teşvik sihirbazı</a> ·
+        <a href="arge-kapi-hesabi.html">Ar-Ge kapısı hesabı</a> ·
+        <a href="destekler.html">KOSGEB ve çağrı takibi</a></span></div>
+
+      <div class="konu"><b>İhale</b><span>
+        <a href="ihale-radari.html">yurt içi ve AB ihaleleri</a> ·
+        <a href="firma-analizi.html">rakip firma analizi</a> ·
+        <a href="idare-analizi.html">idare analizi</a></span></div>
+
+      <div class="konu"><b>Marka</b><span>
+        <a href="marka-radari.html">yenileme takibi</a> ·
+        <a href="marka-itiraz.html">itiraz ve benzerlik</a> ·
+        <a href="marka-izleme.html">benzer başvuru izleme</a> ·
+        <a href="marka-portfoy.html">portföy</a> ·
+        <a href="marka-varlik.html">markanla ne yapabilirsin</a></span></div>
+
+      <div class="konu"><b>Alacak ve risk</b><span>
+        <a href="alacak-radari.html">müşterin konkordato / iflas ilan etti mi</a> ·
+        <a href="radar-app.html?niyet=firsat">icradan fırsat</a></span></div>
+
+      <div class="konu"><b>Mevzuat nöbeti</b><span>
+        <a href="radar.html">bugün Resmî Gazete'de</a> ·
+        <a href="kartlar.html">günün hap kartları</a> ·
+        <a href="hatirlatici.html">süre hatırlatıcı</a></span></div>
+
+      <div class="konu"><b>Büro ve evrak</b><span>
+        <a href="fis-fabrikasi.html">Fiş Fabrikası</a> ·
+        <a href="evrak-radari.html">evrak radarı</a> ·
+        <a href="belge-kasasi.html">belge kasası</a></span></div>
+
+      <div class="konu"><b>SMMM sınavları</b><span>
+        <a href="genc.html">sınav takvimi ve soru bankası</a> ·
+        <a href="deneme.html">deneme sınavı</a> ·
+        <a href="canli-deneme.html">canlı deneme</a> ·
+        <a href="donem-plani.html">dönem planı</a> ·
+        <a href="songun.html">son gün 5 saat</a></span></div>
+
+    </div>
     <div class="mini-baslik">Kazandıranlar: müşterinin cebine para koyan araçlar</div>
     <div class="mini-pencereler">
       <a class="mp" href="kdv-iade-rehberi.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>KDV İadesi</b></span>
+        <span class="mp-bar"><b>KDV İadesi</b></span>
         <span class="mp-ic">
           <span class="mp-tag">DEVLETTEN PARANI GERİ AL</span>
           <span class="mp-b">Yüklendiğin KDV'nin iadesi hakkın</span>
@@ -551,7 +624,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="ihale-radari.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>İhale Radarı</b></span>
+        <span class="mp-bar"><b>İhale Radarı</b></span>
         <span class="mp-ic">
           <span class="mp-tag">YENİ İŞ FIRSATI</span>
           <span class="mp-b">Sektörüne uyan ihaleyi kaçırma</span>
@@ -560,7 +633,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="senaryo-raporu.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Nereden Alsam?</b></span>
+        <span class="mp-bar"><b>Nereden Alsam?</b></span>
         <span class="mp-ic">
           <span class="mp-tag">AYNI ÜRÜN · ÜLKE ÜLKE TOPLAM YÜK</span>
           <span class="mp-cubuk"><b>🇨🇳 Çin</b><i style="width:88%"></i></span>
@@ -570,7 +643,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="kurulus.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Şirket Kuruluşu</b></span>
+        <span class="mp-bar"><b>Şirket Kuruluşu</b></span>
         <span class="mp-ic">
           <span class="mp-tag">DOĞRU BAŞLANGIÇ</span>
           <span class="mp-b">Şahıs mı, Limited mi, Anonim mi?</span>
@@ -582,7 +655,7 @@ window.veriAl = (function(){
            firsat motoru artik GERCEK URUN, rafa girmeyi hak etti; Destek
            Radari da zaten canliydi ama rafta yoktu. 4 -> 7 kutu. -->
       <a class="mp" href="destekler.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Destek Radarı</b></span>
+        <span class="mp-bar"><b>Destek Radarı</b></span>
         <span class="mp-ic">
           <span class="mp-tag">DEVLET DESTEĞİNİ KAÇIRMA</span>
           <span class="mp-b">KOSGEB ve destekler, profiline göre</span>
@@ -594,7 +667,7 @@ window.veriAl = (function(){
            iki yeni fırsat motoru (Teşvik Sihirbazı + Ar-Ge Kapısı Hesabı) doğrudan
            cebe para koyan sınıfta; Destek Radarı'nın yanına teşvik ailesi olarak. 8 -> 10 kutu. -->
       <a class="mp" href="tesvik-sihirbazi.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Yatırım Teşvik Sihirbazı</b></span>
+        <span class="mp-bar"><b>Yatırım Teşvik Sihirbazı</b></span>
         <span class="mp-ic">
           <span class="mp-tag">6. BÖLGE FIRSATI · SON TARİH 31.12.2026</span>
           <span class="mp-b">Yatırımına hangi bölge, hangi destek?</span>
@@ -603,7 +676,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="arge-kapi-hesabi.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Ar-Ge Kapısı Hesabı</b></span>
+        <span class="mp-bar"><b>Ar-Ge Kapısı Hesabı</b></span>
         <span class="mp-ic">
           <span class="mp-tag">AYNI EKİP · ÜÇ KAPI · YILLIK TL FARKI</span>
           <span class="mp-cubuk"><b>Ar-Ge Merkezi</b><i style="width:88%;background:var(--green)"></i></span>
@@ -613,7 +686,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="kartlar.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Af / Yapılandırma Nöbeti</b></span>
+        <span class="mp-bar"><b>Af / Yapılandırma Nöbeti</b></span>
         <span class="mp-ic">
           <span class="mp-tag">AF PENCERESİ AÇILDIĞI GÜN HABER</span>
           <span class="mp-b">Yapılandırma kanunu çıktı mı, süre ne zaman doluyor?</span>
@@ -622,7 +695,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="radar-app.html?niyet=firsat">
-        <span class="mp-bar"><i></i><i></i><i></i><b>İcradan Fırsat</b></span>
+        <span class="mp-bar"><b>İcradan Fırsat</b></span>
         <span class="mp-ic">
           <span class="mp-tag">İCRADAN UCUZA VARLIK</span>
           <span class="mp-b">Makine, stok, taşınmaz: icradan satışta</span>
@@ -636,7 +709,7 @@ window.veriAl = (function(){
            "YAKINDA" rozetiyle (motor #65'te; rozetli teaser + lead kapisi -
            "motorsuz vitrine girmez" kuralinin durust istisnasi). -->
       <a class="mp" href="radar-app.html?niyet=gtip" style="opacity:.92">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Pazar İstihbaratı</b><span style="margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.8px;color:var(--accent2);border:1px solid rgba(255,194,75,.35);border-radius:999px;padding:2px 8px">YAKINDA</span></span>
+        <span class="mp-bar"><b>Pazar İstihbaratı</b><span style="margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.8px;color:var(--accent2);border:1px solid rgba(255,194,75,.35);border-radius:999px;padding:2px 8px">YAKINDA</span></span>
         <span class="mp-ic">
           <span class="mp-tag">KODUNDA PAZAR BÜYÜYOR MU?</span>
           <span class="mp-b">İthalat hacmi ve birim fiyat trendi, senin GTİP'inde</span>
@@ -649,7 +722,7 @@ window.veriAl = (function(){
     <div class="mini-baslik" style="margin-top:20px">Koruyanlar: kaybı önleyen nöbet</div>
     <div class="mini-pencereler">
       <a class="mp" href="alacak-radari.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Alacak Radarı</b></span>
+        <span class="mp-bar"><b>Alacak Radarı</b></span>
         <span class="mp-ic">
           <span class="mp-tag">MÜŞTERİN KONKORDATO İLAN ETTİ Mİ?</span>
           <span class="mp-b">İlanı kaçıran, alacağını riske atar</span>
@@ -658,7 +731,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="kartlar.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Resmî Gazete → hap kart</b></span>
+        <span class="mp-bar"><b>Resmî Gazete → hap kart</b></span>
         <span class="mp-ic">
           <!-- 30.07 soz defteri: "BUGUNUN KARTI" elle gomuluydu - robot yeni
                kart uretince eskiyecekti. Artik kartlar-guncel.json'dan CANLI
@@ -670,7 +743,7 @@ window.veriAl = (function(){
         </span>
       </a>
       <a class="mp" href="gtip.html">
-        <span class="mp-bar"><i></i><i></i><i></i><b>GTİP · Kaç Vergi?</b></span>
+        <span class="mp-bar"><b>GTİP · Kaç Vergi?</b></span>
         <span class="mp-ic">
           <span class="mp-tag">ÜRÜN ADINDAN KOD VE VERGİLER: beyandan önce bil</span>
           <span class="mp-ara">evye</span>
@@ -683,10 +756,10 @@ window.veriAl = (function(){
            (cikmaz sokak). Kutu dogrudan niyetli panele gider: uyelikten sonra
            ilk soru marka olur. -->
       <a class="mp" href="radar-app.html?niyet=marka">
-        <span class="mp-bar"><i></i><i></i><i></i><b>Marka Radarı</b></span>
+        <span class="mp-bar"><b>Marka Radarı</b></span>
         <span class="mp-ic">
           <span class="mp-tag">FİRMA UNVANIN YETER</span>
-          <span class="mp-b">Adına kaç marka var, hangisi düşüyor? <span style="color:var(--amber)">⚠</span></span>
+          <span class="mp-b">Adına kaç marka var, hangisi düşüyor?</span>
           <span class="mp-m">Unvanı yaz, sicildeki bütün markaların tarihleriyle gelsin (SMK m.23: koruma 10 yıl, yenileme son 6 ay). Marka adı bilmene gerek yok.</span>
           <span class="mp-git">Markanı radara bağla →</span>
         </span>
@@ -1042,69 +1115,69 @@ window.veriAl = (function(){
       <h2>Araç kataloğu: vitrinde görmediklerin</h2>
       <p>Yukarıdaki kutularda öne çıkanların dışında kalan araçlar burada. Arama <b style="color:var(--ink)">tüm katalogda</b> çalışır: yaz, saniyede bul.</p>
     </div>
-    <input id="aracAra" type="search" placeholder="🔍  Ara: ceza, KDV, marka, ihale, fiş, GTİP…" autocomplete="off">
+    <input id="aracAra" type="search" placeholder="Ara: ceza, KDV, marka, ihale, fiş, GTİP…" autocomplete="off">
 
     <div class="kat-grup" id="kg1">
       <h3>Gümrük &amp; İthalat</h3>
       <div class="araclar-grid">
-        <a class="arac vitrinde" href="gtip.html"><span class="em">🔎</span><div><b>GTİP · Kaç Vergi Öderim?</b><span>İthal ürünün kodunu gir; gümrük vergisi, KDV ve diğer kesintileri saniyede gör.</span></div></a>
-        <a class="arac" href="risk-taramasi.html"><span class="em">🛃</span><div><b>Beyanname Risk Taraması</b><span>Beyannameyi vermeden önce ceza çıkabilecek noktaları tara.</span></div></a>
-        <a class="arac vitrinde" href="senaryo-raporu.html"><span class="em">🌍</span><div><b>Nereden Alsam?</b><span>Aynı ürünü farklı ülkelerden almanın toplam vergi yükünü karşılaştır.</span></div></a>
-        <a class="arac" href="hizmet.html"><span class="em">🌐</span><div><b>Yurt Dışı Hizmet Faturası</b><span>Google, yazılım, danışmanlık… yurt dışı faturada KDV ve stopajı hesapla.</span></div></a>
-        <a class="arac" href="fiyatfarki.html"><span class="em">💱</span><div><b>Credit / Debit Note</b><span>İthalattan sonra gelen fiyat farkında vergi ne olur, adım adım gör.</span></div></a>
-        <a class="arac" href="toplu-gtip.html"><span class="em">📑</span><div><b>Toplu GTİP Kontrolü</b><span>Beyanname listeni Excel'den yapıştır; kalem kalem gümrük vergisi, İGV, damping ve KDV.</span></div></a>
+        <a class="arac vitrinde" href="gtip.html"><div><b>GTİP · Kaç Vergi Öderim?</b><span>İthal ürünün kodunu gir; gümrük vergisi, KDV ve diğer kesintileri saniyede gör.</span></div></a>
+        <a class="arac" href="risk-taramasi.html"><div><b>Beyanname Risk Taraması</b><span>Beyannameyi vermeden önce ceza çıkabilecek noktaları tara.</span></div></a>
+        <a class="arac vitrinde" href="senaryo-raporu.html"><div><b>Nereden Alsam?</b><span>Aynı ürünü farklı ülkelerden almanın toplam vergi yükünü karşılaştır.</span></div></a>
+        <a class="arac" href="hizmet.html"><div><b>Yurt Dışı Hizmet Faturası</b><span>Google, yazılım, danışmanlık… yurt dışı faturada KDV ve stopajı hesapla.</span></div></a>
+        <a class="arac" href="fiyatfarki.html"><div><b>Credit / Debit Note</b><span>İthalattan sonra gelen fiyat farkında vergi ne olur, adım adım gör.</span></div></a>
+        <a class="arac" href="toplu-gtip.html"><div><b>Toplu GTİP Kontrolü</b><span>Beyanname listeni Excel'den yapıştır; kalem kalem gümrük vergisi, İGV, damping ve KDV.</span></div></a>
       </div>
     </div>
 
     <div class="kat-grup" id="kg2">
       <h3>Vergi, Ceza &amp; Rehberler</h3>
       <div class="araclar-grid">
-        <a class="arac vitrinde" href="soru-cevap.html"><span class="em">💬</span><div><b>Net Cevap</b><span>Mevzuat sorunu yaz; kanun maddesine dayalı net cevabını al.</span></div></a>
-        <a class="arac" href="ceza-asistani.html"><span class="em">⚖️</span><div><b>Ceza Asistanı</b><span>Ceza geldi mi? İndirim mi, uzlaşma mı, dava mı? Hangi kapı sana uygunsa gör.</span></div></a>
-        <a class="arac" href="asgari-kv.html"><span class="em">🧾</span><div><b>Asgari Kurumlar Vergisi</b><span>%10 tabana takılıyor musun? 2025 sonrası yeni kurala göre hesapla.</span></div></a>
-        <a class="arac vitrinde" href="kdv-iade-rehberi.html"><span class="em">💰</span><div><b>KDV İade Rehberi</b><span>KDV iadesini adım adım al; hangi belgeler, hangi sırayla.</span></div></a>
-        <a class="arac vitrinde" href="kurulus.html"><span class="em">🏢</span><div><b>Şirket Kuruluşu Rehberi</b><span>Şahıs mı, limited mi, anonim mi? Adım adım kuruluş yolu.</span></div></a>
-        <a class="arac vitrinde" href="tesvik-sihirbazi.html"><span class="em">🧲</span><div><b>Yatırım Teşvik Sihirbazı</b><span>Yeni 9903 sistemine göre il + sektör + tutarınla hangi destek; 31.12.2026'lık 6. bölge fırsatları.</span></div></a>
-        <a class="arac vitrinde" href="arge-kapi-hesabi.html"><span class="em">🔬</span><div><b>Ar-Ge Kapısı Hesabı</b><span>Merkez mi, Teknokent mi, TÜBİTAK mı? Ekibinle üç kapının yıllık TL farkını yan yana gör.</span></div></a>
-        <a class="arac" href="kurulus-evrak.html"><span class="em">🗂️</span><div><b>Kuruluş Evrak Çantası</b><span>Kuruluşta hangi belge, kim doldurur, nereye verilir? Tek liste.</span></div></a>
+        <a class="arac vitrinde" href="soru-cevap.html"><div><b>Net Cevap</b><span>Mevzuat sorunu yaz; kanun maddesine dayalı net cevabını al.</span></div></a>
+        <a class="arac" href="ceza-asistani.html"><div><b>Ceza Asistanı</b><span>Ceza geldi mi? İndirim mi, uzlaşma mı, dava mı? Hangi kapı sana uygunsa gör.</span></div></a>
+        <a class="arac" href="asgari-kv.html"><div><b>Asgari Kurumlar Vergisi</b><span>%10 tabana takılıyor musun? 2025 sonrası yeni kurala göre hesapla.</span></div></a>
+        <a class="arac vitrinde" href="kdv-iade-rehberi.html"><div><b>KDV İade Rehberi</b><span>KDV iadesini adım adım al; hangi belgeler, hangi sırayla.</span></div></a>
+        <a class="arac vitrinde" href="kurulus.html"><div><b>Şirket Kuruluşu Rehberi</b><span>Şahıs mı, limited mi, anonim mi? Adım adım kuruluş yolu.</span></div></a>
+        <a class="arac vitrinde" href="tesvik-sihirbazi.html"><div><b>Yatırım Teşvik Sihirbazı</b><span>Yeni 9903 sistemine göre il + sektör + tutarınla hangi destek; 31.12.2026'lık 6. bölge fırsatları.</span></div></a>
+        <a class="arac vitrinde" href="arge-kapi-hesabi.html"><div><b>Ar-Ge Kapısı Hesabı</b><span>Merkez mi, Teknokent mi, TÜBİTAK mı? Ekibinle üç kapının yıllık TL farkını yan yana gör.</span></div></a>
+        <a class="arac" href="kurulus-evrak.html"><div><b>Kuruluş Evrak Çantası</b><span>Kuruluşta hangi belge, kim doldurur, nereye verilir? Tek liste.</span></div></a>
         <!-- 30.07 Cem: karne sayfa dibinde koca blok olarak duruyordu -
              "katalogdaki maddeler gibi olsun" dedi; karne.html'e tasindi. -->
-        <a class="arac" href="karne.html"><span class="em">📋</span><div><b>Yükümlülük Karnesi</b><span>Firmanın 4-5 bilgisini gir; sadece seni etkileyen yükümlülükleri gör, PDF al.</span></div></a>
-        <a class="arac" href="sayfalar/index.html"><span class="em">✅</span><div><b>Eşik Rehberi</b><span>Çalışan sayısı ve ciroya göre hangi zorunluluklar başlıyor, listele.</span></div></a>
-        <a class="arac" href="bilgi.html"><span class="em">📚</span><div><b>Bilgi Havuzu</b><span>Merak ettiğin konunun sade Türkçe özeti ve kaynak maddesi.</span></div></a>
-        <a class="arac vitrinde" href="genc.html"><span class="em">🎓</span><div><b>Genç Müşavir</b><span>2026 SGS + Yeterlilik sınav takvimi, geri sayımlı ve resmî kaynaktan.</span></div></a>
-        <a class="arac" href="deneme.html"><span class="em">📝</span><div><b>Deneme Sınavı</b><span>Özgün sorular; her şıkkın gerekçesi + kaynak kuralı. Ezber değil.</span></div></a>
-        <a class="arac" href="canli-deneme.html"><span class="em">📡</span><div><b>Canlı Deneme</b><span>Türkiye geneli, aynı anda, herkese aynı set. Gerçek yüzdelik sıralamanı gör.</span></div></a>
-        <a class="arac" href="donem-plani.html"><span class="em">🗺️</span><div><b>Dönem Planı</b><span>Sınava kalan haftaları haritanın ağırlıklarıyla faz faz doldur.</span></div></a>
-        <a class="arac" href="songun.html"><span class="em">⏳</span><div><b>Son Gün 5 Saat</b><span>Dönem Planı'nın finali + sınav sabahı rehberi. Dakikalar haritadan.</span></div></a>
+        <a class="arac" href="karne.html"><div><b>Yükümlülük Karnesi</b><span>Firmanın 4-5 bilgisini gir; sadece seni etkileyen yükümlülükleri gör, PDF al.</span></div></a>
+        <a class="arac" href="sayfalar/index.html"><div><b>Eşik Rehberi</b><span>Çalışan sayısı ve ciroya göre hangi zorunluluklar başlıyor, listele.</span></div></a>
+        <a class="arac" href="bilgi.html"><div><b>Bilgi Havuzu</b><span>Merak ettiğin konunun sade Türkçe özeti ve kaynak maddesi.</span></div></a>
+        <a class="arac vitrinde" href="genc.html"><div><b>Genç Müşavir</b><span>2026 SGS + Yeterlilik sınav takvimi, geri sayımlı ve resmî kaynaktan.</span></div></a>
+        <a class="arac" href="deneme.html"><div><b>Deneme Sınavı</b><span>Özgün sorular; her şıkkın gerekçesi + kaynak kuralı. Ezber değil.</span></div></a>
+        <a class="arac" href="canli-deneme.html"><div><b>Canlı Deneme</b><span>Türkiye geneli, aynı anda, herkese aynı set. Gerçek yüzdelik sıralamanı gör.</span></div></a>
+        <a class="arac" href="donem-plani.html"><div><b>Dönem Planı</b><span>Sınava kalan haftaları haritanın ağırlıklarıyla faz faz doldur.</span></div></a>
+        <a class="arac" href="songun.html"><div><b>Son Gün 5 Saat</b><span>Dönem Planı'nın finali + sınav sabahı rehberi. Dakikalar haritadan.</span></div></a>
       </div>
     </div>
 
     <div class="kat-grup" id="kg3">
       <h3>Takip Radarları</h3>
       <div class="araclar-grid">
-        <a class="arac" href="radar.html"><span class="em">📰</span><div><b>Bugün Resmî Gazete'de</b><span>Bugün çıkan mevzuattan işletmeleri ilgilendirenler, sadeleştirilmiş.</span></div></a>
-        <a class="arac vitrinde" href="kartlar.html"><span class="em">💊</span><div><b>Günün Hap Kartları</b><span>Her değişiklik 30 saniyelik kart: ne oldu, ne yapmalısın, kaç para.</span></div></a>
-        <a class="arac vitrinde" href="destekler.html"><span class="em">🎯</span><div><b>Destek Radarı</b><span>KOSGEB ve devlet desteklerinden profiline uyanları gör.</span></div></a>
-        <a class="arac vitrinde" href="ihale-radari.html"><span class="em">📣</span><div><b>İhale Radarı</b><span>Sektörüne uyan yurt içi ve Avrupa ihalelerini kaçırma.</span></div></a>
-        <a class="arac" href="firma-analizi.html"><span class="em">🔎</span><div><b>Rakip Firma Analizi</b><span>Bir firma kamu ihalelerinde kaç iş aldı, hangi bedelle, ne kırımla, rakibini tanı.</span></div></a>
-        <a class="arac" href="idare-analizi.html"><span class="em">🏛️</span><div><b>İdare Analizi</b><span>Bir kurum geçmişte ne açtı, kaça kapandı, hangi firmalarla çalıştı, ortalama kaç teklif alıyor.</span></div></a>
-        <a class="arac vitrinde" href="alacak-radari.html"><span class="em">🚨</span><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilanına düşmüş mü, günü gününe gör; 15 günlük süreyi kaçırma.</span></div></a>
-        <a class="arac vitrinde" href="marka-radari.html"><span class="em">™️</span><div><b>Marka Radarı</b><span>Marka yenileme tarihin yaklaşınca ve benzer başvuru çıkınca uyarı.</span></div></a>
-        <a class="arac" href="marka-itiraz.html"><span class="em">🔍</span><div><b>Marka İtiraz &amp; Benzerlik</b><span>Yeni başvuru markana benziyor mu? İtiraz süren dolmadan gör.</span></div></a>
-        <a class="arac vitrinde" href="marka-portfoy.html"><span class="em">🔎</span><div><b>Marka Portföyü</b><span>Firma unvanını yaz; sicildeki bütün markaların, yenileme tarihleri, düşmüşler ve sınıf haritası tek ekranda.</span></div></a>
-        <a class="arac" href="marka-izleme.html"><span class="em">📡</span><div><b>Marka İzleme Radarı</b><span>Markana benzeyen yeni başvuru düştü mü; itiraz süresi (yayımdan 2 ay) dolmadan gör.</span></div></a>
-        <a class="arac" href="marka-varlik.html"><span class="em">💼</span><div><b>Markanla ne yapabilirsin</b><span>Lisans, devir, rehin, haciz; muvafakatname ile ret engelini aşma; Madrid ile yurt dışı.</span></div></a>
+        <a class="arac" href="radar.html"><div><b>Bugün Resmî Gazete'de</b><span>Bugün çıkan mevzuattan işletmeleri ilgilendirenler, sadeleştirilmiş.</span></div></a>
+        <a class="arac vitrinde" href="kartlar.html"><div><b>Günün Hap Kartları</b><span>Her değişiklik 30 saniyelik kart: ne oldu, ne yapmalısın, kaç para.</span></div></a>
+        <a class="arac vitrinde" href="destekler.html"><div><b>Destek Radarı</b><span>KOSGEB ve devlet desteklerinden profiline uyanları gör.</span></div></a>
+        <a class="arac vitrinde" href="ihale-radari.html"><div><b>İhale Radarı</b><span>Sektörüne uyan yurt içi ve Avrupa ihalelerini kaçırma.</span></div></a>
+        <a class="arac" href="firma-analizi.html"><div><b>Rakip Firma Analizi</b><span>Bir firma kamu ihalelerinde kaç iş aldı, hangi bedelle, ne kırımla, rakibini tanı.</span></div></a>
+        <a class="arac" href="idare-analizi.html"><div><b>İdare Analizi</b><span>Bir kurum geçmişte ne açtı, kaça kapandı, hangi firmalarla çalıştı, ortalama kaç teklif alıyor.</span></div></a>
+        <a class="arac vitrinde" href="alacak-radari.html"><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilanına düşmüş mü, günü gününe gör; 15 günlük süreyi kaçırma.</span></div></a>
+        <a class="arac vitrinde" href="marka-radari.html"><div><b>Marka Radarı</b><span>Marka yenileme tarihin yaklaşınca ve benzer başvuru çıkınca uyarı.</span></div></a>
+        <a class="arac" href="marka-itiraz.html"><div><b>Marka İtiraz &amp; Benzerlik</b><span>Yeni başvuru markana benziyor mu? İtiraz süren dolmadan gör.</span></div></a>
+        <a class="arac vitrinde" href="marka-portfoy.html"><div><b>Marka Portföyü</b><span>Firma unvanını yaz; sicildeki bütün markaların, yenileme tarihleri, düşmüşler ve sınıf haritası tek ekranda.</span></div></a>
+        <a class="arac" href="marka-izleme.html"><div><b>Marka İzleme Radarı</b><span>Markana benzeyen yeni başvuru düştü mü; itiraz süresi (yayımdan 2 ay) dolmadan gör.</span></div></a>
+        <a class="arac" href="marka-varlik.html"><div><b>Markanla ne yapabilirsin</b><span>Lisans, devir, rehin, haciz; muvafakatname ile ret engelini aşma; Madrid ile yurt dışı.</span></div></a>
       </div>
     </div>
 
     <div class="kat-grup" id="kg4">
       <h3>Muhasebe Bürosu (SMMM)</h3>
       <div class="araclar-grid">
-        <a class="arac" href="fis-fabrikasi.html"><span class="em">🏭</span><div><b>Fiş Fabrikası</b><span>Banka ekstresini yükle; muhasebe programına hazır fiş Excel'i al.</span></div></a>
-        <a class="arac" href="evrak-radari.html"><span class="em">📁</span><div><b>Evrak Radarı</b><span>Mükelleften evrak kovalamayı bitir; eksikler kendiliğinden takip edilsin.</span></div></a>
-        <a class="arac" href="belge-kasasi.html"><span class="em">🗄️</span><div><b>Belge Kasası</b><span>Firmanın tüm belgeleri tek yerde, geçerlilik süreleri takipte.</span></div></a>
-        <a class="arac" href="hatirlatici.html"><span class="em">⏰</span><div><b>Süre Hatırlatıcı</b><span>DİİB, KDV, SGK… kritik tarihleri gir, zamanı gelince hatırlatsın.</span></div></a>
+        <a class="arac" href="fis-fabrikasi.html"><div><b>Fiş Fabrikası</b><span>Banka ekstresini yükle; muhasebe programına hazır fiş Excel'i al.</span></div></a>
+        <a class="arac" href="evrak-radari.html"><div><b>Evrak Radarı</b><span>Mükelleften evrak kovalamayı bitir; eksikler kendiliğinden takip edilsin.</span></div></a>
+        <a class="arac" href="belge-kasasi.html"><div><b>Belge Kasası</b><span>Firmanın tüm belgeleri tek yerde, geçerlilik süreleri takipte.</span></div></a>
+        <a class="arac" href="hatirlatici.html"><div><b>Süre Hatırlatıcı</b><span>DİİB, KDV, SGK… kritik tarihleri gir, zamanı gelince hatırlatsın.</span></div></a>
       </div>
     </div>
 
@@ -1169,7 +1242,7 @@ window.veriAl = (function(){
           <li>Aylık <b>Firma Mevzuat Karnesi</b> PDF raporu</li>
           <li>SMMM'ler için çoklu-firma paneli · e-posta uyarıları (WhatsApp/SMS yol haritasında)</li>
         </ul>
-        <div style="font-size:12.5px;color:var(--amber);background:rgba(255,194,75,.07);border:1px solid rgba(255,194,75,.25);border-radius:10px;padding:9px 12px;margin-bottom:12px">⭐ <b>İlk 100 üye "Kurucu Üye":</b> fiyat ömür boyu yarı, isimleri (isterlerse) sitede. Liste şimdiden açık.</div>
+        <div style="font-size:12.5px;color:var(--amber);background:rgba(255,194,75,.07);border:1px solid rgba(255,194,75,.25);border-radius:10px;padding:9px 12px;margin-bottom:12px"><b>İlk 100 üye "Kurucu Üye":</b> fiyat ömür boyu yarı, isimleri (isterlerse) sitede. Liste şimdiden açık.</div>
         <a class="btn" href="radar-app.html?niyet=tam">Nöbeti bize bırak, kurucu listesine gir</a>
         <a class="btn ghost" href="fiyat.html" style="margin-top:10px">Fiyatları ve paketleri gör →</a>
       </div>
@@ -1187,22 +1260,18 @@ window.veriAl = (function(){
     </div>
     <div class="guven-grid">
       <div class="gk reveal">
-        <div class="gi">📑</div>
         <h3>Birincil kaynak, ikincisi yok</h3>
         <p>Her oran, süre ve tutar doğrudan Resmî Gazete, GİB, Kamu İhale Kurumu ve TÜRKPATENT metinlerinden okunur. Blog, kulaktan dolma, "internette böyle yazıyor" bu sitede yer bulmaz.</p>
       </div>
       <div class="gk reveal">
-        <div class="gi">⚖️</div>
         <h3>Kanunları madde madde okuduk</h3>
         <p>İhale, Vergi Usul, İcra-İflas, Sınai Mülkiyet ve Gümrük kanunlarını madde madde taradık; hangi maddeye değindiğimiz kayıt altında. "Bir yeri atladık mı?" sorusu bizde tahmine bırakılmaz.</p>
       </div>
       <div class="gk reveal">
-        <div class="gi">🔁</div>
         <h3>Çift okuma, sonra hakem</h3>
         <p>Otomatik ürettiğimiz her kart iki bağımsız okumadan geçer; iki okuma anlaşamazsa üçüncü bir kontrol devreye girer. Güvenle doğrulayamadığımız hiçbir rakamı yayınlamayız.</p>
       </div>
       <div class="gk reveal">
-        <div class="gi">🤝</div>
         <h3>Yapamadığımızı da söyleriz</h3>
         <p>Emin olmadığımız yerde "kaynakta belirtilmemiş" der, seni doğru kapıya yönlendiririz. Abartılı vaat yok; ne biliyorsak onu, olduğu gibi.</p>
       </div>
@@ -1210,12 +1279,10 @@ window.veriAl = (function(){
            olculebilir gercek: hesap araclari tarayicida calisir (KVKK metniyle
            birebir), hakem elegi + hata-bildir dugmesi + tazelik damgasi canli. -->
       <div class="gk reveal">
-        <div class="gi">🔒</div>
         <h3>Verin cihazından çıkmaz</h3>
         <p>Hesap araçlarına girdiğin ekstre, ciro, VKN tarayıcında işlenir, sunucuya gönderilmez. Üyelik verisi ise yalnız sana aittir: veritabanı satır düzeyinde kilitlidir, başka üye senin kaydını göremez.</p>
       </div>
       <div class="gk reveal">
-        <div class="gi">🛎️</div>
         <h3>Hatayı saklamayız, geri çekeriz</h3>
         <p>Bağımsız hakem denetiminde şüpheye düşen içerik yayından çekilir. Her soruda "hata bildir" düğmesi vardır; haklı çıkarsan düzeltme şeffaf yayınlanır. Listelerde tazelik damgası görürsün; söze değil tarihe bakarsın.</p>
       </div>
@@ -1285,8 +1352,12 @@ document.querySelectorAll('.navtrigger').forEach(function(t){
 document.addEventListener('click',function(){ document.querySelectorAll('.navgroup.open').forEach(function(x){x.classList.remove('open');}); });
 </script>
 <script src="menu.js" defer></script>
+<!-- Sade katman EN SONA baglanir: sayfanin govdesinde de <style> bloklari var,
+     esit ozgullukte SON YAZAN kazanir. Head'e konursa o bloklara yenilir. -->
+<link rel="stylesheet" href="stil-sade.css">
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>
