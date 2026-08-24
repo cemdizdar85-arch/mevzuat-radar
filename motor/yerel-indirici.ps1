@@ -116,3 +116,14 @@ if($degisiklikVar){
 # ---------------------------------------------------------------------------
 try { & (Join-Path $kok 'motor\yanveri-onarici.ps1') -Kaynak damping -Uygula } catch { Log ("yanveri damping: " + $_.Exception.Message) }
 try { & (Join-Path $kok 'motor\yanveri-onarici.ps1') -DuyuruSinyal } catch { Log ("yanveri duyuru: " + $_.Exception.Message) }
+
+# ---------------------------------------------------------------------------
+# 24.08 KURUL KARARI NOBETCISI (Cem: "nobetciyi gunluk goreve bagla"): ambar
+# yalniz manifestteki kanun/yonetmelik/tebligi izliyordu; KURUL KARARLARI
+# mevzuat.gov.tr fihristinde HIC yok (tur adi HTTP 600, sayisal turler 0 kayit).
+# Nobetci RG fihristini tarar, gorulmemis KGK/SPK/BDDK/SEDDK/TCMB kararlarini
+# veri/kurul-karari-raporu.json a yazar. KANIT: ilk kosu TSRS 2 sera gazi ve
+# TMS 28 degisikliklerini yakaladi - ikisi de bir aydir gozden kacmisti.
+# 7 gunluk pencere gunluk kosu icin yeterli; YUTMA ELLE (taranmis PDF olabilir).
+# ---------------------------------------------------------------------------
+try { & (Join-Path $kok 'motor\kurul-karari-hasat.ps1') -Gun 7 -Yaz } catch { Log ('kurul karari nobetcisi: ' + $_.Exception.Message) }
