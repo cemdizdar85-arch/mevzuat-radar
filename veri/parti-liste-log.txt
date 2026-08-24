@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260823020828
+Start time: 20260824020618
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/f0b19cd5-5827-4e86-ac2b-062d2f1083bf.ps1'
-Process ID: 2241
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/55473cb9-4d25-4b26-8da2-0a47b81657b1.ps1'
+Process ID: 2305
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -22,11 +22,14 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 1: 100 parti (toplam 100)
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
-  sayfa 4: 73 parti (toplam 373)
+  sayfa 4: 76 parti (toplam 376)
 
-TOPLAM 373 parti bulundu.
+TOPLAM 376 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01U3Wk9dJKTnyzv434YSEWBE ended               3        0 08/24/2026 01:56:34
+msgbatch_0197gzSGQJLbJsW5XUseuCzN ended               3        0 08/23/2026 23:28:21
+msgbatch_01RCHZ4GXvHksPBASwxiadWF ended               3        0 08/23/2026 21:51:03
 msgbatch_01JgmLB8ttacEaQ86PnnSJ5k ended               3        0 08/23/2026 01:58:24
 msgbatch_01Gosc8ramBm3rMSaT6JUtxu ended               4        0 08/22/2026 23:28:29
 msgbatch_013a1PNZBaSmfXbiEc1JoSPG ended               5        0 08/22/2026 21:52:04
@@ -401,9 +404,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (373 kayit)
-HASADA HAZIR (ended + basarili>0): 373 parti,  sonuc
+-> veri/parti-listesi.json (376 kayit)
+HASADA HAZIR (ended + basarili>0): 376 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260823020830
+End time: 20260824020620
 **********************
