@@ -18,7 +18,14 @@
 #  Cikti: veri/cikmis-soru-ayrisma.json (sayim) + -yaz ile ambara tur='cikmis-soru'
 #  BEDAVA.
 # ============================================================================
-param([switch]$yaz, [int]$tavan = 0, [string]$klasor = '', [string]$sinavAdi = '', [string]$desen = '*.pdf')
+param([switch]$yaz, [int]$tavan = 0, [string]$klasor = '', [string]$sinavAdi = '', [string]$desen = '*.pdf', [switch]$tani, [int]$hedefSayi = 0)
+# -tani (24.08.2026): SALT OLCUM modu. Ambara YAZMAZ (yaz verilse bile), mevcut
+# ayristirma mantigina TEK SATIR DOKUNMAZ - yalniz kazanan aile+stil secildikten
+# sonra o kazananin ATLADIGI numaralari ve atlama SEBEBINI (sik eksik / kok kisa /
+# bolucu hic bulamadi) dokup veri/cikmis-soru-bosluk-haritasi.json'a yazar.
+# -hedefSayi verilirse (ornek: SGS 2005-2012 icin 120) "hic gorulmeyen" numaralar
+# da raporlanir; verilmezse yalniz "bulundu ama filtrelendi" siniflari raporlanir.
+if($tani -and $yaz){ Write-Host 'UYARI: -tani ile -yaz birlikte verildi; -tani salt-olcumdur, ambara YAZILMAYACAK.'; $yaz = $false }
 $ErrorActionPreference='Continue'
 # Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddeder.
 # (16.08.2026 olculdu: ayni sorgu UA'siz 401, UA'li 5 kayit. madde-coz.ps1
@@ -90,6 +97,16 @@ function SiklariAyir([string]$blok){
   return $sonuc
 }
 
+# 24.08.2026: SorulariCikar icindeki if/elseif zincirinin SAF CIKARMASI (davranis
+# ayni) - -tani modu kazanan aile disindaki blok bolme desenini de kullanabilsin
+# diye disariya alindi.
+function StilBilgisi([string]$stil){
+  if($stil -eq ')'){        return @{ Bolucu='(?m)^(?=\s{0,4}\d{1,3}\)\s)';           NoDesen='^\s*(\d{1,3})\)';      OnEk='^\s*\d{1,3}\)\s*' } }
+  elseif($stil -eq 'bos'){  return @{ Bolucu='(?m)^(?=\s{0,4}\d{1,3}\s+\p{Lu})';      NoDesen='^\s*(\d{1,3})\s';      OnEk='^\s*\d{1,3}\s+' } }
+  elseif($stil -eq 'karma'){return @{ Bolucu='(?m)^(?=\s{0,4}\d{1,3}[.)]?\s+\p{Lu})'; NoDesen='^\s*(\d{1,3})[.)]?\s'; OnEk='^\s*\d{1,3}[.)]?\s+' } }
+  else{                     return @{ Bolucu='(?m)^(?=\s{0,4}\d{1,3}\.\s)';           NoDesen='^\s*(\d{1,3})\.';      OnEk='^\s*\d{1,3}\.\s*' } }
+}
+
 function SorulariCikar([string]$metin, [string]$stil = '.'){
   $liste = New-Object System.Collections.Generic.List[object]
   # NUMARALANDIRMA STILI (23.08.2026): UC bicim yasiyor ve karistirilamaz.
@@ -111,10 +128,8 @@ function SorulariCikar([string]$metin, [string]$stil = '.'){
   # ("120 Hukuki bir islemde..."). Tek stil ikisini birden goremedigi icin
   # noktali stil 97, ciplak stil ~21 veriyordu; yarismayi 97 kazaniyor ve son
   # 21 soru her kitapcikta kayboluyordu (2005-2012'de 24 kitapcik x ~21 soru).
-  if($stil -eq ')'){        $bolucu = '(?m)^(?=\s{0,4}\d{1,3}\)\s)';            $noDesen = '^\s*(\d{1,3})\)';      $onEk = '^\s*\d{1,3}\)\s*' }
-  elseif($stil -eq 'bos'){  $bolucu = '(?m)^(?=\s{0,4}\d{1,3}\s+\p{Lu})';       $noDesen = '^\s*(\d{1,3})\s';      $onEk = '^\s*\d{1,3}\s+' }
-  elseif($stil -eq 'karma'){$bolucu = '(?m)^(?=\s{0,4}\d{1,3}[.)]?\s+\p{Lu})';  $noDesen = '^\s*(\d{1,3})[.)]?\s'; $onEk = '^\s*\d{1,3}[.)]?\s+' }
-  else{                     $bolucu = '(?m)^(?=\s{0,4}\d{1,3}\.\s)';            $noDesen = '^\s*(\d{1,3})\.';      $onEk = '^\s*\d{1,3}\.\s*' }
+  $sb2 = StilBilgisi $stil
+  $bolucu = $sb2.Bolucu; $noDesen = $sb2.NoDesen; $onEk = $sb2.OnEk
   #
   # MODUL INDEKSI: KGK kitapciklari modullu ve her modul 1'den basliyor
   # ("Muhasebe Standartlari 1-40", sonra "Denetim 1-40"...). SGS ise tek dizi
@@ -207,6 +222,7 @@ if($yaz){
   function Anahtar($s){ return ('' + $s.modul + '#' + $s.no) }
 function Boy([string]$p){ if(Test-Path $p){ (Get-Item $p).Length } else { 0 } }
 $rapor = New-Object System.Collections.Generic.List[object]
+$bosluklar = New-Object System.Collections.Generic.List[object]
 $topSoru=0; $yazilan=0; $yazHata=0; $isle=0; $zatenVar=0; $tazelenen=0
 foreach($f in $pdfler){
   $isle++
@@ -281,6 +297,18 @@ foreach($f in $pdfler){
   # soru vereni sec. Iki boyut da olculdu (23.08): dizgiye gore kazanan
   # degisiyor ve yanlis secim kitapcigi sessizce olduruyor.
   $tekil = [ordered]@{}; $okumaTuru = 'OLCULEMEDI'
+  $kazananAile = @(); $kazananStil = '.'
+  # -tani icin: HANGI aile/stil kazanirsa kazansin, TUM denemelerde gorulen
+  # (modul#no) kumesi. "hic gorulmeyen" numaralari bulmak icin - kazanan
+  # tek basina yetmez, bir numara zayif ailede yakalanip guclu ailede
+  # kacabilir.
+  $tumGorulenNo = New-Object 'System.Collections.Generic.HashSet[string]'
+  # SGS TEK DIZI (gercek modul yok) ama 'karma'/'bos' stilleri gurultulu -
+  # bir onceki numaradan dusuk gorunen SAHTE bir eslesme modul sayacini
+  # ilerletebilir (olculdu: soru 108 gercekte VAR ama modul=4 altinda,
+  # "0#108" aramasi onu KACIRIYORDU). "Hic gorulmeyen" hesabi icin modulden
+  # BAGIMSIZ, salt numara kumesi de tutulur.
+  $tumGorulenSadeceNo = New-Object 'System.Collections.Generic.HashSet[int]'
   foreach($aile in $aileler){
     foreach($stil in @('.', ')', 'bos', 'karma')){
       $t2 = [ordered]@{}
@@ -289,6 +317,8 @@ foreach($f in $pdfler){
         $akis++
         if(-not (Test-Path $t)){ continue }
         foreach($s in (SorulariCikar (Get-Content $t -Raw -Encoding UTF8) $stil)){
+          [void]$tumGorulenNo.Add("$($s.modul)#$($s.no)")
+          [void]$tumGorulenSadeceNo.Add([int]$s.no)
           # ANAHTARA AKIS NUMARASI EKLENIR (23.08 dorduncu onarim):
           # sol ve sag sutun AYRI akislardir ve her biri kendi modul sayacini
           # tutar. Sayaclar senkron kalmaz - modul siniri iki sutunda ayni
@@ -306,6 +336,7 @@ foreach($f in $pdfler){
       if($t2.Count -gt $tekil.Count){
         $tekil = $t2
         $okumaTuru = $aile[0] + $(if($stil -eq ')'){ '/parantez' } elseif($stil -eq 'bos'){ '/ciplak' } elseif($stil -eq 'karma'){ '/karma' } else { '' })
+        $kazananAile = @($aile[1]); $kazananStil = $stil
       }
     }
   }
@@ -326,6 +357,65 @@ foreach($f in $pdfler){
         if($normal[$b].Length -gt $normal[$a].Length -and $normal[$b].Contains($normal[$a])){ $tekil.Remove($a); break }
       }
     }
+  }
+  # -tani (24.08.2026): kazanan aile+stil'i AYNI bolucuyle yeniden gez, ama bu
+  # kez tekil'e GIRMEYEN her bloğu sebebiyle raporla. Ayristirma mantigina
+  # dokunmuyor - SiklariAyir/StilBilgisi'nin AYNI cagrisi, yalniz filtre
+  # sonucu ATILANLAR bu kez atilmiyor, nedeniyle kaydediliyor.
+  if($tani){
+    $gorulenNo = New-Object 'System.Collections.Generic.HashSet[string]'
+    foreach($s in $tekil.Values){ [void]$gorulenNo.Add("$($s.modul)#$($s.no)") }
+    $sbK = StilBilgisi $kazananStil
+    $eksikListe = New-Object System.Collections.Generic.List[object]
+    $akisT = 0
+    foreach($t in @($kazananAile)){
+      $akisT++
+      if(-not (Test-Path $t)){ continue }
+      $metinT = Get-Content $t -Raw -Encoding UTF8
+      $modulT = 0; $onceki2 = 0
+      foreach($p in [regex]::Split($metinT, $sbK.Bolucu)){
+        if($p.Trim().Length -lt 40){ continue }
+        $noM = [regex]::Match($p, $sbK.NoDesen)
+        if(-not $noM.Success){ continue }
+        $nT = [int]$noM.Groups[1].Value
+        if($nT -lt 1 -or $nT -gt 130){ continue }
+        $skT = SiklariAyir $p
+        $ilkT = [regex]::Match($p, '(?<![A-Za-z0-9])A\)\s')
+        $kkT = if($ilkT.Success){ $p.Substring(0, $ilkT.Index) } else { $p }
+        $kkT = (($kkT -replace $sbK.OnEk,'') -replace '\s+',' ').Trim()
+        # ONEMLI: SorulariCikar'da $onceki/$modul YALNIZ FILTREYI GECEN
+        # girdilerde ilerliyor (bkz asagida $gecti). Bu sirayi bozarsak
+        # (her numarada ilerletirsek) modul sayaci uretimden SAPAR - olculdu:
+        # sinav kurallari metni "1. Sinav sureniz..." ... "11. Biraz sonra..."
+        # sikSiz oldugu icin production'da modulu ilerletmiyor, ama ilk
+        # denemede BURADA ilerletiyordum; gercek Soru 1 modul=0 yerine
+        # modul=1 sanılıp "gorulenNo"da bulunamiyor, 353 sahte eksik cikti.
+        $gecti = ($skT.Count -ge 4 -and $kkT.Length -ge 15)
+        if($gecti){
+          if($nT -le $onceki2){ $modulT++ }
+          $onceki2 = $nT
+        }
+        $anahtarT = "$modulT#$nT"
+        if($gorulenNo.Contains($anahtarT)){ continue }   # kazanan zaten yakaladi
+        $sebep = if(-not $gecti){ if($skT.Count -lt 4){ 'SIK-EKSIK(' + $skT.Count + ')' } else { 'KOK-KISA' } } else { 'GUVENLIK-GECISI-SILDI' }
+        $eksikListe.Add([pscustomobject]@{
+          akis=$akisT; modul=$modulT; no=$nT; sebep=$sebep
+          ornek=(($p.Substring(0,[Math]::Min(160,$p.Length))) -replace '\s+',' ')
+        })
+      }
+    }
+    # Hic gorulmeyen numaralar: hedefSayi verildiyse VE tek moduluysa (SGS gibi)
+    # anlamli. Modul 0 varsayilir - coklu modullu (KGK) kitapciklarda hedefSayi
+    # kullanma, moduller karisir.
+    $hicGorulmeyen = @()
+    if($hedefSayi -gt 0){
+      $hicGorulmeyen = @(1..$hedefSayi | Where-Object { -not $tumGorulenSadeceNo.Contains($_) })
+    }
+    $bosluklar.Add([pscustomobject]@{
+      dosya=$f.BaseName; sinav=$sv; donem=$don; bulunanSoru=$tekil.Count; okuma=$okumaTuru
+      filtrelenenSayisi=$eksikListe.Count; hicGorulmeyenSayisi=$hicGorulmeyen.Count
+      hicGorulmeyenNumaralar=$hicGorulmeyen; filtrelenenler=$eksikListe.ToArray()
+    })
   }
   $adet = $tekil.Count
   $topSoru += $adet
@@ -389,3 +479,21 @@ if($yaz){ Write-Host ("AMBARA YENI YAZILAN: {0} | TAZELENEN: {1} | DOKUNULMAYAN:
   (ConvertTo-Json -InputObject ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); toplamSoru=$topSoru; yazilan=$yazilan; kitapciklar=$rapor.ToArray() }) -Depth 4),
   (New-Object Text.UTF8Encoding($false)))
 Write-Host "Rapor: veri/cikmis-soru-ayrisma.json"
+
+if($tani){
+  $topFiltrelenen = ($bosluklar | Measure-Object -Property filtrelenenSayisi -Sum).Sum
+  $topHicGorulmeyen = ($bosluklar | Measure-Object -Property hicGorulmeyenSayisi -Sum).Sum
+  Write-Host "`n--- TANI OZETI ---"
+  Write-Host ("Filtrelenen (bulundu ama sik/kok elendi): {0}" -f $topFiltrelenen)
+  if($hedefSayi -gt 0){ Write-Host ("Hic gorulmeyen (hedefSayi={0} icinde hicbir aile yakalamadi): {1}" -f $hedefSayi,$topHicGorulmeyen) }
+  $sebepGrup = @($bosluklar.filtrelenenler | ForEach-Object { $_.sebep }) | Group-Object
+  foreach($sg in $sebepGrup){ Write-Host ("  {0,-16} {1}" -f $sg.Name,$sg.Count) }
+  [IO.File]::WriteAllText((Join-Path $kok 'veri\cikmis-soru-bosluk-haritasi.json'),
+    (ConvertTo-Json -InputObject ([ordered]@{
+       tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
+       aciklama='Kazanan aile+stilin ATLADIGI numaralar ve sebebi. Ayristirma mantigina dokunulmadi - salt olcum.'
+       hedefSayi=$hedefSayi; toplamFiltrelenen=$topFiltrelenen; toplamHicGorulmeyen=$topHicGorulmeyen
+       kitapciklar=$bosluklar.ToArray() }) -Depth 6),
+    (New-Object Text.UTF8Encoding($false)))
+  Write-Host "Bosluk haritasi: veri/cikmis-soru-bosluk-haritasi.json"
+}
