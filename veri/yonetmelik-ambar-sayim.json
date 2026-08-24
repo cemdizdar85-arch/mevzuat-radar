@@ -1,68 +1,68 @@
 {
-  "tarih": "20.08.2026 18:42",
-  "durum": "KIRMIZI",
+  "tarih": "24.08.2026 18:16",
+  "durum": "TAMAM",
   "mod": "AMBAR SAYIMI (0 USD, yazma yok)",
-  "kirmizi_sayisi": 6,
+  "kirmizi_sayisi": 0,
   "yonetmelikler": [
     {
       "slug": "bd-yonetmelik",
       "ad": "Bagimsiz Denetim Yonetmeligi",
       "depo_belge": 82,
       "depo_karakter": 88274,
-      "ambar_belge": -1,
-      "ambar_karakter_ilk1000": 0,
-      "kapsama_yuzde": 0.0,
-      "KARAR": "KIRMIZI - AMBARDA YOK (yukleyici inmemis)"
+      "ambar_belge": 82,
+      "ambar_karakter_ilk1000": 88274,
+      "kapsama_yuzde": 100.0,
+      "KARAR": "YESIL"
     },
     {
       "slug": "smmm-disiplin-yon",
       "ad": "SMMM ve YMM K. Disiplin Yonetmeligi",
       "depo_belge": 47,
       "depo_karakter": 42393,
-      "ambar_belge": -1,
-      "ambar_karakter_ilk1000": 0,
-      "kapsama_yuzde": 0.0,
-      "KARAR": "KIRMIZI - AMBARDA YOK (yukleyici inmemis)"
+      "ambar_belge": 47,
+      "ambar_karakter_ilk1000": 42393,
+      "kapsama_yuzde": 100.0,
+      "KARAR": "YESIL"
     },
     {
       "slug": "smmm-sinav-yon",
       "ad": "YMM ve SMMM Sinav Yonetmeligi",
       "depo_belge": 28,
       "depo_karakter": 14298,
-      "ambar_belge": -1,
-      "ambar_karakter_ilk1000": 0,
-      "kapsama_yuzde": 0.0,
-      "KARAR": "KIRMIZI - AMBARDA YOK (yukleyici inmemis)"
+      "ambar_belge": 28,
+      "ambar_karakter_ilk1000": 14298,
+      "kapsama_yuzde": 100.0,
+      "KARAR": "YESIL"
     },
     {
       "slug": "smmm-staj-yon",
       "ad": "SMMM Staj Yonetmeligi",
       "depo_belge": 38,
       "depo_karakter": 23670,
-      "ambar_belge": -1,
-      "ambar_karakter_ilk1000": 0,
-      "kapsama_yuzde": 0.0,
-      "KARAR": "KIRMIZI - AMBARDA YOK (yukleyici inmemis)"
+      "ambar_belge": 38,
+      "ambar_karakter_ilk1000": 23670,
+      "kapsama_yuzde": 100.0,
+      "KARAR": "YESIL"
     },
     {
       "slug": "smmm-calisma-yon",
       "ad": "SMMM ve YMM Calisma Usul ve Esaslari",
       "depo_belge": 80,
       "depo_karakter": 50774,
-      "ambar_belge": -1,
-      "ambar_karakter_ilk1000": 0,
-      "kapsama_yuzde": 0.0,
-      "KARAR": "KIRMIZI - AMBARDA YOK (yukleyici inmemis)"
+      "ambar_belge": 80,
+      "ambar_karakter_ilk1000": 50774,
+      "kapsama_yuzde": 100.0,
+      "KARAR": "YESIL"
     },
     {
       "slug": "smmm-odalar-yon",
       "ad": "SMMM Odalari Yonetmeligi",
       "depo_belge": 49,
       "depo_karakter": 39445,
-      "ambar_belge": -1,
-      "ambar_karakter_ilk1000": 0,
-      "kapsama_yuzde": 0.0,
-      "KARAR": "KIRMIZI - AMBARDA YOK (yukleyici inmemis)"
+      "ambar_belge": 49,
+      "ambar_karakter_ilk1000": 39445,
+      "kapsama_yuzde": 100.0,
+      "KARAR": "YESIL"
     }
   ],
   "not": "Yutma-kapsama kurali: dosya depoda olsa bile soru fabrikasi AMBARI okur. KIRMIZI satir varsa uretime GECILMEZ. ambar_karakter ilk 1000 kayitla sinirlidir - buyuk dosyada oran dusuk gorunebilir, belge sayisina da bakilir."
