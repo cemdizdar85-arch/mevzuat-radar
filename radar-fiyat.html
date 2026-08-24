@@ -25,10 +25,10 @@
   .p h3{ margin:0 0 2px; font-size:17px; } .p .kim{ font-size:12.5px; color:var(--muted); margin-bottom:14px; }
   .aylik{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
   .aylik small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
-  .yillik{ font-size:14.5px; font-weight:700; color:#c8ccd2; margin-top:6px; }
+  .yillik{ font-size:14.5px; font-weight:700; color:var(--muted); margin-top:6px; }
   .kdv{ font-size:11.5px; color:var(--dim); margin-top:3px; }
   .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
-  .p li{ padding:5px 0 5px 21px; position:relative; color:#c8ccd2; }
+  .p li{ padding:5px 0 5px 21px; position:relative; color:var(--muted); }
   .p li::before{ content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
   .p li.yok{ color:var(--dim); } .p li.yok::before{ content:"—"; color:var(--dim); }
   .btn{ margin-top:18px; display:block; text-align:center; text-decoration:none; background:var(--amber); color:#0a0c10; font-weight:800; padding:11px; border-radius:10px; }
@@ -132,7 +132,7 @@
 
   <div class="kutu">
     <h2>Dürüst olalım: şu an neyi vermiyoruz</h2>
-    <ul style="margin:0;padding-left:18px;font-size:14px;color:#c8ccd2">
+    <ul style="margin:0;padding-left:18px;font-size:14px;color:var(--muted)">
       <li><b>SMS uyarısı yok</b> — uyarılar e-posta ile gider. SMS yol haritasında.</li>
       <li><b>Erken uyarı katmanı (Ticaret Sicili taraması) kuruluyor</b> — bugün resmî ilan izleme çalışıyor.</li>
       <li><b>Kart ödemesi henüz açık değil</b> — abonelikler havale/EFT ile başlıyor (aşağıda).</li>
@@ -197,5 +197,6 @@ function radarAbone(f){
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>

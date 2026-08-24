@@ -21,12 +21,12 @@
   .rozet{ display:inline-block; background:var(--amber); color:#0a0c10; font-size:11.5px; font-weight:800;
           letter-spacing:.6px; padding:4px 11px; border-radius:20px; margin-bottom:10px; }
   h2{ font-size:17px; margin:0 0 8px; }
-  p{ margin:8px 0; font-size:14.5px; color:#c8ccd2; }
+  p{ margin:8px 0; font-size:14.5px; color:var(--muted); }
   .buyukTarih{ font-size:clamp(20px,4vw,26px); font-weight:800; color:var(--amber); margin:6px 0; }
-  .madde{ display:flex; gap:10px; margin:9px 0; font-size:14px; color:#c8ccd2; }
+  .madde{ display:flex; gap:10px; margin:9px 0; font-size:14px; color:var(--muted); }
   .madde .n{ color:var(--amber); font-weight:800; min-width:20px; }
   form{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-  input[type=email]{ flex:1; min-width:220px; background:#0d1016; border:1px solid var(--line2);
+  input[type=email]{ flex:1; min-width:220px; background:var(--yuzey); border:1px solid var(--line2);
          border-radius:10px; padding:11px 13px; color:var(--ink); font:inherit; font-size:14px; }
   button{ background:var(--amber); color:#0a0c10; border:0; font-weight:800; padding:11px 18px;
           border-radius:10px; font-size:14.5px; cursor:pointer; font-family:inherit; }
@@ -240,12 +240,12 @@ function gorselCiz(s){
   var h='';
   if(s.tablo && s.tablo.satirlar){
     h+='<table style="border-collapse:collapse;margin:8px 0;font-size:13px">';
-    if(s.tablo.kolonlar){ h+='<tr>'+s.tablo.kolonlar.map(function(k){return '<th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">'+esc(k)+'</th>';}).join('')+'</tr>'; }
+    if(s.tablo.kolonlar){ h+='<tr>'+s.tablo.kolonlar.map(function(k){return '<th style="border:1px solid var(--line2);padding:4px 9px;background:var(--yuzey)">'+esc(k)+'</th>';}).join('')+'</tr>'; }
     (s.tablo.satirlar||[]).forEach(function(r){ h+='<tr>'+ (r||[]).map(function(c){return '<td style="border:1px solid var(--line2);padding:4px 9px">'+esc(c)+'</td>';}).join('')+'</tr>'; });
     h+='</table>';
   }
   if(s.yevmiye && s.yevmiye.length){
-    h+='<table style="border-collapse:collapse;margin:8px 0;font-size:13px"><tr><th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">Hesap</th><th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">Borç</th><th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">Alacak</th></tr>';
+    h+='<table style="border-collapse:collapse;margin:8px 0;font-size:13px"><tr><th style="border:1px solid var(--line2);padding:4px 9px;background:var(--yuzey)">Hesap</th><th style="border:1px solid var(--line2);padding:4px 9px;background:var(--yuzey)">Borç</th><th style="border:1px solid var(--line2);padding:4px 9px;background:var(--yuzey)">Alacak</th></tr>';
     s.yevmiye.forEach(function(r){ h+='<tr><td style="border:1px solid var(--line2);padding:4px 9px">'+esc(r.hesap)+'</td><td style="border:1px solid var(--line2);padding:4px 9px">'+esc(r.borc||'')+'</td><td style="border:1px solid var(--line2);padding:4px 9px">'+esc(r.alacak||'')+'</td></tr>'; });
     h+='</table>';
   }
@@ -296,9 +296,9 @@ function teslim(otomatik){
     var s=o.s, dgr = (o.c===s.dogru);
     var ac = (s.aciklama && s.aciklama[s.dogru]) ? String(s.aciklama[s.dogru]) : '';
     var d = document.createElement('details');
-    d.style.cssText='margin:7px 0;border:1px solid var(--line2);border-radius:9px;padding:9px 12px;background:#0d1016';
+    d.style.cssText='margin:7px 0;border:1px solid var(--line2);border-radius:9px;padding:9px 12px;background:var(--yuzey)';
     d.innerHTML = '<summary style="cursor:pointer;font-size:13.5px"><b style="color:' + (o.c ? (dgr?'var(--green)':'var(--red)') : 'var(--dim)') + '">' + (i+1) + '. ' + (o.c ? (dgr?'✓':'✗ senin: '+o.c) : 'boş') + ' · doğru: ' + esc(s.dogru) + '</b>, ' + esc(String(s.soru).slice(0,90)) + '…</summary>' +
-      '<div style="font-size:13px;color:#c8ccd2;margin-top:8px;white-space:pre-wrap">' + esc(ac) + (s.kaynak ? '\n\n📑 Kaynak: ' + esc(s.kaynak) : '') + '</div>';
+      '<div style="font-size:13px;color:var(--muted);margin-top:8px;white-space:pre-wrap">' + esc(ac) + (s.kaynak ? '\n\n📑 Kaynak: ' + esc(s.kaynak) : '') + '</div>';
     lst.appendChild(d);
   });
   // sonucu gonder: 0-15 sn rastgele gecikme + 1 tekrar (5k kisi ayni anda vurmasin)
@@ -334,5 +334,6 @@ document.getElementById('kayitForm').addEventListener('submit', function(e){
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>

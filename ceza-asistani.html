@@ -30,7 +30,7 @@ h1{font-size:clamp(23px,4.3vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .ozet.dikkat{background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3)}
 .ozet.tehlike{background:rgba(255,107,94,.09);border:1px solid rgba(255,107,94,.32)}
 .ozet b{color:var(--ink)}
-.kapi{border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:10px;background:#0b111a}
+.kapi{border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:10px;background:var(--yuzey)}
 .kapi.oner{border-color:rgba(61,220,151,.4);background:rgba(61,220,151,.05)}
 .kapi .b{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
 .kapi .ad{font-weight:800;font-size:15.5px}.kapi .sure{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap;background:rgba(245,165,36,.14);color:var(--accent2)}
@@ -79,28 +79,28 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">⚖️ Her durumda işine yarayabilecek VUK savunma hükümleri (çoğu kişi bilmez)</summary>
-    <div style="font-size:13px;color:#93a1b3;line-height:1.65;padding-bottom:14px">
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.369 · Yanılma / görüş değişikliği:</b> İdare sana <b>YAZILI yanlış izahat</b> verdiyse ya da bir konudaki içtihat/tebliğ-sirküler sonradan değiştiyse → <b>ceza kesilmez ve gecikme faizi hesaplanmaz</b>; yeni görüş geriye dönük uygulanamaz. (En güçlü savunmalardan; özelge/GİB yazısına güvenip yaptıysan sakla.)</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.374 · Ceza kesme zamanaşımı:</b> Vergi ziyaı ve özel usulsüzlükte <b>5 yıl</b>, genel usulsüzlükte <b>2 yıl</b> geçtikten sonra ceza <b>KESİLEMEZ</b>. Eski bir döneme ceza geldiyse önce süreyi kontrol et.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.339 · Tekerrür:</b> Ceza kesinleştikten sonra vergi ziyaında 5, usulsüzlükte 2 yıl içinde aynı türden ceza tekrarlanırsa vergi ziyaı cezası <b>%50</b>, usulsüzlük cezası <b>%25</b> artırılır (artırım kesinleşen cezayı geçemez). İkinci kezde dikkat.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.372 · Ölüm:</b> Ölüm halinde vergi <b>cezası düşer</b> (şahsilik). Vergi aslı mirasçılara geçer, ceza geçmez.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.333 · Şirkette sorumluluk:</b> Tüzel kişinin cezası tüzel kişi adına kesilir; tahsil edilemezse kanuni temsilciye (müdür/yönetici) gidilir (m.10). Kaçakçılıkta (m.359) ceza, fiili bizzat işleyen hakkında hükmolunur.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.352 · Genel usulsüzlük:</b> Beyanname/bildirim/defter düzenine aykırılıkta I. veya II. derece (maktu) usulsüzlük cezası kesilir; özel usulsüzlükten (m.353) ayrıdır.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">Uzlaşma kapsamı:</b> 2024/7524 sonrası uzlaşma <b>yalnız CEZALAR</b> için; vergi aslı artık uzlaşma konusu değil. Vergi ziyaı cezaları ile <b>40.000 TL'yi aşan</b> (2026; kanundaki 5.000 TL yeniden değerlemeyle güncellenir) usulsüzlük/özel usulsüzlük cezaları girer. 40.000 TL ve altındaki usulsüzlük/özel usulsüzlük cezalarında uzlaşma yerine <b>m.376 indirimi %50 artırımlı</b> uygulanır (Ek m.1) — yani cezanın dörtte üçü siler.</p>
-      <p style="color:#5d6b7c;font-size:11.5px;margin-top:10px">Kaynak: mevzuat.gov.tr 213 sayılı VUK m.333/339/352/369/372/374 + Ek m.1 (uzlaşma); birincil metinden okundu.</p>
+    <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.369 · Yanılma / görüş değişikliği:</b> İdare sana <b>YAZILI yanlış izahat</b> verdiyse ya da bir konudaki içtihat/tebliğ-sirküler sonradan değiştiyse → <b>ceza kesilmez ve gecikme faizi hesaplanmaz</b>; yeni görüş geriye dönük uygulanamaz. (En güçlü savunmalardan; özelge/GİB yazısına güvenip yaptıysan sakla.)</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.374 · Ceza kesme zamanaşımı:</b> Vergi ziyaı ve özel usulsüzlükte <b>5 yıl</b>, genel usulsüzlükte <b>2 yıl</b> geçtikten sonra ceza <b>KESİLEMEZ</b>. Eski bir döneme ceza geldiyse önce süreyi kontrol et.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.339 · Tekerrür:</b> Ceza kesinleştikten sonra vergi ziyaında 5, usulsüzlükte 2 yıl içinde aynı türden ceza tekrarlanırsa vergi ziyaı cezası <b>%50</b>, usulsüzlük cezası <b>%25</b> artırılır (artırım kesinleşen cezayı geçemez). İkinci kezde dikkat.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.372 · Ölüm:</b> Ölüm halinde vergi <b>cezası düşer</b> (şahsilik). Vergi aslı mirasçılara geçer, ceza geçmez.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.333 · Şirkette sorumluluk:</b> Tüzel kişinin cezası tüzel kişi adına kesilir; tahsil edilemezse kanuni temsilciye (müdür/yönetici) gidilir (m.10). Kaçakçılıkta (m.359) ceza, fiili bizzat işleyen hakkında hükmolunur.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.352 · Genel usulsüzlük:</b> Beyanname/bildirim/defter düzenine aykırılıkta I. veya II. derece (maktu) usulsüzlük cezası kesilir; özel usulsüzlükten (m.353) ayrıdır.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">Uzlaşma kapsamı:</b> 2024/7524 sonrası uzlaşma <b>yalnız CEZALAR</b> için; vergi aslı artık uzlaşma konusu değil. Vergi ziyaı cezaları ile <b>40.000 TL'yi aşan</b> (2026; kanundaki 5.000 TL yeniden değerlemeyle güncellenir) usulsüzlük/özel usulsüzlük cezaları girer. 40.000 TL ve altındaki usulsüzlük/özel usulsüzlük cezalarında uzlaşma yerine <b>m.376 indirimi %50 artırımlı</b> uygulanır (Ek m.1) — yani cezanın dörtte üçü siler.</p>
+      <p style="color:var(--dim);font-size:11.5px;margin-top:10px">Kaynak: mevzuat.gov.tr 213 sayılı VUK m.333/339/352/369/372/374 + Ek m.1 (uzlaşma); birincil metinden okundu.</p>
     </div>
   </details>
 
   <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">🛃 Gümrük cezası mekanizması: ne kadar, hangi kapı? (4458 madde madde)</summary>
-    <div style="font-size:13px;color:#93a1b3;line-height:1.65;padding-bottom:14px">
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.234 · Beyan/muayene farkı:</b> Serbest dolaşıma girişte GTİP/tarife ya da ölçü aykırılığında vergi farkı <b>%5'i aşarsa</b> farkın <b>3 KATI</b> ceza alınır; <b>KIYMET noksanlığında %5 eşiği YOKTUR</b>, fark vergisinin 3 katı doğrudan uygulanır (yalnız %5'i geçmeyen miktar farkı ve maddi hesap hatasından doğan noksan kıymette yarım kat). <b>İdare tespit etmeden kendin bildirirsen cezalar %10 nispetinde uygulanır</b> (m.234/3) — 3 kat yerine 0,3 kat. (Farkı önceden yakalamak için <a href="gtip.html">GTİP</a> ve <a href="fiyatfarki.html">Fiyat Farkı</a> araçlarıyla beyanını sağlam yap.)</p>
+    <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.234 · Beyan/muayene farkı:</b> Serbest dolaşıma girişte GTİP/tarife ya da ölçü aykırılığında vergi farkı <b>%5'i aşarsa</b> farkın <b>3 KATI</b> ceza alınır; <b>KIYMET noksanlığında %5 eşiği YOKTUR</b>, fark vergisinin 3 katı doğrudan uygulanır (yalnız %5'i geçmeyen miktar farkı ve maddi hesap hatasından doğan noksan kıymette yarım kat). <b>İdare tespit etmeden kendin bildirirsen cezalar %10 nispetinde uygulanır</b> (m.234/3) — 3 kat yerine 0,3 kat. (Farkı önceden yakalamak için <a href="gtip.html">GTİP</a> ve <a href="fiyatfarki.html">Fiyat Farkı</a> araçlarıyla beyanını sağlam yap.)</p>
       <p style="margin:8px 0"><b style="color:#ff6b5e">m.235 · İthali yasak/kısıtlı eşya:</b> Genel düzenlemeyle ithali yasaklanmış eşyada, varsa fark vergiler + <b>gümrüklenmiş değerin 4 KATI</b> idari para cezası; eşya yurt dışı edilir. İzne/belgeye bağlı eşyayı belgesiz getirmede de ayrı ceza.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.241 · Usulsüzlük:</b> Kanunda ayrı ceza öngörülmeyen aykırılıklarda maktu usulsüzlük cezası (yıllık yeniden değerlemeyle güncellenir); bazı hallerde iki katı.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.242 · İtiraz (15 gün):</b> Gümrük vergileri/cezalarına, tebliğden itibaren <b>15 gün</b> içinde gümrük idaresine yazılı itiraz. İtiraz reddedilirse tebliğden itibaren idari yargıda dava.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.243 · Kimyevi tahlile itiraz:</b> Eşyanın laboratuvar tahlil sonucuna dayanan tarhiyata, tebliğden <b>15 gün</b> içinde <b>ikinci tahlil</b> talep edebilirsin (farklı kimyagerlerce). Yanlış tahlil ağır sonuç doğuruyorsa bu yolu kullan.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.244 · Uzlaşma:</b> Gümrük vergileri ve cezalarında uzlaşma mümkündür (kaçakçılık/5607 hariç). Uzlaşırsan dava açamazsın.</p>
-      <p style="color:#5d6b7c;font-size:11.5px;margin-top:10px">Kaynak: 4458 Gümrük Kanunu m.234/235/241/242/243/244; birincil metinden okundu. Kaçakçılık (5607) ayrı ve ağırdır, avukatla çalış.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.241 · Usulsüzlük:</b> Kanunda ayrı ceza öngörülmeyen aykırılıklarda maktu usulsüzlük cezası (yıllık yeniden değerlemeyle güncellenir); bazı hallerde iki katı.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.242 · İtiraz (15 gün):</b> Gümrük vergileri/cezalarına, tebliğden itibaren <b>15 gün</b> içinde gümrük idaresine yazılı itiraz. İtiraz reddedilirse tebliğden itibaren idari yargıda dava.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.243 · Kimyevi tahlile itiraz:</b> Eşyanın laboratuvar tahlil sonucuna dayanan tarhiyata, tebliğden <b>15 gün</b> içinde <b>ikinci tahlil</b> talep edebilirsin (farklı kimyagerlerce). Yanlış tahlil ağır sonuç doğuruyorsa bu yolu kullan.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.244 · Uzlaşma:</b> Gümrük vergileri ve cezalarında uzlaşma mümkündür (kaçakçılık/5607 hariç). Uzlaşırsan dava açamazsın.</p>
+      <p style="color:var(--dim);font-size:11.5px;margin-top:10px">Kaynak: 4458 Gümrük Kanunu m.234/235/241/242/243/244; birincil metinden okundu. Kaçakçılık (5607) ayrı ve ağırdır, avukatla çalış.</p>
     </div>
   </details>
 
@@ -374,22 +374,22 @@ baslat();
 </script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
   <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),#0d141e;border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
-    <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu aracı beğendin mi? Bırak radar seni takip etsin.</div>
-    <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Firmanı ilgilendiren her mevzuat değişikliği, süre ve fırsat cebine gelsin. <b style="color:#eef2f7">Ücretsiz üye ol</b>, takip listeni kur; günlük tek özet e-posta ücretli aboneliğin parçasıdır.</div>
+    <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu aracı beğendin mi? Bırak radar seni takip etsin.</div>
+    <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Firmanı ilgilendiren her mevzuat değişikliği, süre ve fırsat cebine gelsin. <b style="color:var(--ink)">Ücretsiz üye ol</b>, takip listeni kur; günlük tek özet e-posta ücretli aboneliğin parçasıdır.</div>
     <a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 26px;border-radius:11px;text-decoration:none">Ücretsiz üye ol &rarr;</a>
-    <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Üyelik ücretsizdir · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
+    <div style="font-size:11px;color:var(--dim);margin-top:11px">Üyelik ücretsizdir · <a href="kvkk.html" style="color:var(--muted)">KVKK aydınlatma</a></div>
   </div>
   </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
   <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(255,194,75,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
-    <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
-    <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:#eef2f7">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
+    <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
+    <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:var(--ink)">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı. Aynı gün dönüş yapacağız.</div>
-    <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Talep gönderince iletişim için e-postanı kullanmamızı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
+    <div style="font-size:11px;color:var(--dim);margin-top:11px">Talep gönderince iletişim için e-postanı kullanmamızı kabul edersin · <a href="kvkk.html" style="color:var(--muted)">KVKK aydınlatma</a></div>
   </div>
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
 </div>
@@ -397,5 +397,6 @@ baslat();
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>

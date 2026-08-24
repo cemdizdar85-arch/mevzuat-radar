@@ -274,3 +274,104 @@ nav :focus-visible{outline-color:#ffc24b}
    Ozgulluk asildi. */
 nav .navlinks a.btn.ghost,nav a.btn.ghost{color:#ffffff;border-color:rgba(255,255,255,.30)}
 nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:rgba(255,255,255,.55)}
+
+
+/* ============================================================================
+   ARAC SAYFALARI — 25.08.2026
+   Ana sayfa acik temaya gecti; 57 arac sayfasi koyu kalinca site iki renkli
+   oldu. Ziyaretci ana sayfadan bir araca tiklayinca beyazdan siyaha
+   dusuyordu. Bu blok o sayfalari da acik temaya tasir.
+
+   Arac sayfalarinin ust yapisi ana sayfadan FARKLI: nav yerine ".top"
+   seridi var (45 sayfada). Ana sayfadaki koyu masthead'in karsiligi burada
+   kurulur ki iki sayfa tipi ayni dili konussun.
+   ============================================================================ */
+
+/* --- ust serit: arac sayfalarinin masthead'i --- */
+.top{background:#161a1f;color:#b9c1cb;
+  margin:-24px -18px 24px;padding:14px 18px;
+  border-bottom:1px solid rgba(255,255,255,.10);flex-wrap:wrap}
+.top a{color:#b9c1cb}
+.top a:hover{color:#ffffff}
+.top b,.top strong{color:#ffffff}
+.top .logo,.top .mark{background:#f5a524}
+.top .kp-dugme{background:none;color:#b9c1cb;border-color:rgba(255,255,255,.18)}
+.top .kp-dugme:hover{color:#ffffff;border-color:rgba(255,255,255,.34)}
+.top .kp-dugme kbd{background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.20);color:#b9c1cb}
+.top :focus-visible{outline-color:#ffc24b}
+@media(max-width:640px){ .top{margin-left:-14px;margin-right:-14px;padding:12px 14px} }
+
+/* --- govde: koyu tema icin yazilmis saydam beyazlar acikta ters doner --- */
+.kutu,.kart,.adim,.app-card,.item,.gk,.fkart,.rgk,.mp,.sk,.kapi,
+.blok,.satir,.secenek,.sonuc,.uyari,.bilgi,.tablo,.giris,.md{
+  background-color:transparent}
+.kutu,.kart,.adim,.app-card,.item,.blok,.giris,.md{
+  border-color:var(--line2)}
+
+/* baslik ailesi arac sayfalarinda da serif olsun - tek dil */
+h1,h2,h3,h4,.top b{font-family:"Source Serif 4",Georgia,serif;font-weight:600}
+
+/* rakam ve kod her yerde mono */
+.soru,.deg,.stepno,code,.iban,.kod,td:last-child{font-variant-numeric:tabular-nums}
+
+/* koyu zemin varsayimiyla yazilmis parlak vurgular acikta koyulasir */
+a{color:var(--accent)}
+a:hover{color:var(--accent2)}
+
+/* DUZELTME (25.08 denetimi): .top koyu masthead oldu ama icindeki her oge
+   ayri ayri renklendirilmemisti; var(--ink) miras alan ogeler KOYU zemin
+   uzerinde KOYU yaziyla cikiyordu (olculdu: 1,01:1). Serit icindeki her
+   sey aydinlik olmali - tek tek degil topluca. */
+.top,.top *{color:#b9c1cb}
+.top a,.top b,.top strong,.top .logo,.top h1{color:#ffffff}
+.top a:hover{color:#ffc24b}
+.top .kp-dugme,.top .kp-dugme *{color:#b9c1cb}
+.top .kp-dugme:hover,.top .kp-dugme:hover *{color:#ffffff}
+
+/* Soru seridi (.ak): koyu tema icin yazilmis, acikta zemin/yazi cakisiyordu */
+.ak{background:var(--kagit);border-color:var(--line2);color:var(--muted)}
+.ak:hover{color:var(--ink);border-color:var(--accent)}
+
+/* Renkli vurgular koyu zemin icin secilmisti; acikta okunacak koyuluga iner */
+.yesil,.ok,[style*="color:#3ddc97"]{color:var(--green) !important}
+.kirmizi,.hata,[style*="color:#ff6b5e"],[style*="color:#ff9d93"],
+[style*="color:#ff9a9a"],[style*="color:#ffb4b4"]{color:var(--red) !important}
+[style*="color:#ffc24b"],[style*="color:#ffd27a"]{color:var(--accent) !important}
+[style*="color:#6fb3ff"]{color:#1d4ed8 !important}
+
+/* Sayfa-yerel yuzey degiskenlerinin ACIK karsiliklari.
+   Olcum (25.08): fiyat.html ailesi kendi --kart:#12151c ve --panel2:#101927
+   degiskenlerini kullaniyor. Yazi acik temaya gecince kart zeminleri koyu
+   kaldi -> koyu uzerine koyu yazi (olculdu 2,42:1, 69 yerde).
+   Bu degiskenler acik temada da tanimlanmali. */
+:root{
+  --kart:#ffffff;
+  --panel2:#f7f5f1;
+  --bg2:#f4f2ee;
+  --slate:#5b6672;
+  --slate-bg:#eef0f3;
+  --red-bg:#fdecea;
+  --amber-bg:#fff6e0;
+  --green-bg:#e8f6ec;
+  --shadow:0 1px 2px rgba(20,25,30,.05),0 8px 24px -16px rgba(20,25,30,.18);
+}
+
+/* SON AYAR (25.08 denetimi)
+   --dim, en acik panel yuzeyi (#f7f5f1) uzerinde 4,44 veriyordu; esik 4,5.
+   Kil payi kaliyordu ve 17 yerde tekrar ediyordu. Bir tik koyulastirildi:
+   hesaplandi, #5f6875 ayni zeminde 5,0 uzerine cikiyor. */
+:root{ --dim:#5f6875 }
+
+/* .top icindeki her sey aydinlik olmali; satir ici stil ve yuksek ozgullukte
+   kural tasiyan ogeler de dahil. Olculdu: "Alacak Radarı" basligi koyu serit
+   uzerinde 1,01:1 cikiyordu. */
+.top,.top *,.top h1,.top h2,.top span,.top div{color:#b9c1cb !important}
+.top a,.top b,.top strong,.top h1,.top .logo{color:#ffffff !important}
+.top a:hover{color:#ffc24b !important}
+.top .kp-dugme kbd{color:#b9c1cb !important}
+
+/* Degiskene baglanamamis kalan koyu zeminler (satir ici stil vb.) */
+[style*="background:#0d141e"],[style*="background:#0a0f17"],
+[style*="background:#06090f"],[style*="background-color:#0d141e"]{
+  background:var(--kagit) !important}

@@ -22,7 +22,7 @@
           border:1px solid rgba(245,165,36,.32); border-radius:14px; padding:18px 20px; margin:20px 0 6px; }
   .vurus .buyuk{ font:800 clamp(19px,3.2vw,25px)/1.3 "Segoe UI",system-ui,sans-serif; letter-spacing:-.4px; }
   .vurus .buyuk b{ color:var(--amber); }
-  .vurus p{ margin:8px 0 0; font-size:14px; color:#c8ccd2; }
+  .vurus p{ margin:8px 0 0; font-size:14px; color:var(--muted); }
 
   /* --- CANLI DONEM TAKVIMI: sahte geri sayim degil, GERCEK sinav takvimi --- */
   .takvim{ display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 8px; }
@@ -45,11 +45,11 @@
   /* Gunluk maliyet ANA rakam, toplam altinda kucuk: karar veren sayi budur. */
   .gunluk{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
   .gunluk small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
-  .tutar{ font-size:14.5px; font-weight:700; color:#c8ccd2; margin-top:6px; }
+  .tutar{ font-size:14.5px; font-weight:700; color:var(--muted); margin-top:6px; }
   .taksit{ color:var(--amber); font-size:13.5px; font-weight:700; margin-top:3px; }
   .kdv{ font-size:11.5px; color:var(--dim); margin-top:2px; }
   .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
-  .p li{ padding:5px 0 5px 21px; position:relative; color:#c8ccd2; }
+  .p li{ padding:5px 0 5px 21px; position:relative; color:var(--muted); }
   .p li::before{ content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
   .p li.yok{ color:var(--dim); } .p li.yok::before{ content:"—"; color:var(--dim); }
   .btn{ margin-top:18px; display:block; text-align:center; text-decoration:none;
@@ -365,5 +365,6 @@ var bS = basamak(gS);
 <script src="menu.js" defer></script><link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>

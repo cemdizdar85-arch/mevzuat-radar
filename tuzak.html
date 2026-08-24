@@ -27,8 +27,8 @@
   .soru{ font-size:16px; line-height:1.72; color:var(--ink); white-space:pre-wrap; }
   .siklar{ margin-top:16px; display:flex; flex-direction:column; gap:8px; }
   .sik{ display:flex; gap:11px; align-items:flex-start; text-align:left; width:100%;
-        background:#0d1016; border:1px solid var(--line2); border-radius:11px;
-        padding:11px 13px; color:#c8ccd2; font:inherit; font-size:14px; cursor:pointer; }
+        background:var(--yuzey); border:1px solid var(--line2); border-radius:11px;
+        padding:11px 13px; color:var(--muted); font:inherit; font-size:14px; cursor:pointer; }
   .sik:hover{ border-color:rgba(245,165,36,.5); }
   .sik .h{ font-weight:800; color:var(--amber); min-width:17px; }
   .sik.dogru{ border-color:var(--green); background:rgba(61,220,151,.07); }
@@ -36,8 +36,8 @@
   .sik:disabled{ cursor:default; }
 
   .cevapKutu{ margin-top:16px; border-top:1px solid var(--line); padding-top:14px; }
-  .neden{ background:#0d1016; border:1px solid var(--line2); border-radius:11px;
-          padding:12px 14px; margin-top:9px; font-size:13.5px; color:#c8ccd2; }
+  .neden{ background:var(--yuzey); border:1px solid var(--line2); border-radius:11px;
+          padding:12px 14px; margin-top:9px; font-size:13.5px; color:var(--muted); }
   .neden b.bas{ color:var(--ink); }
   .kaynak{ margin-top:13px; font-size:12.5px; color:var(--amber); font-weight:700; }
   .kaynakAlt{ font-size:11.5px; color:var(--dim); margin-top:3px; }
@@ -154,5 +154,6 @@ function sec(harf){
 <script src="menu.js" defer></script><link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>

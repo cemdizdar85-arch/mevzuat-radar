@@ -269,8 +269,8 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
           <div style="font-size:13px;font-weight:800;color:var(--ink)">🔑 Paket üyesi misin?</div>
           <div style="font-size:12px;color:var(--muted);margin-top:4px">Giriş yap, tam soru bankasıyla çalış. Hesaplar paket alımıyla açılır, bu sayfadan kayıt olunmaz; sorun olursa <a href="iletisim.html">iletişim</a>ten yaz.</div>
           <div style="display:flex;gap:8px;margin-top:9px;flex-wrap:wrap">
-            <input id="uyeEposta" type="email" placeholder="e-posta" autocomplete="email" style="flex:1;min-width:150px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
-            <input id="uyeSifre" type="password" placeholder="şifre" autocomplete="current-password" style="flex:1;min-width:120px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
+            <input id="uyeEposta" type="email" placeholder="e-posta" autocomplete="email" style="flex:1;min-width:150px;background:var(--taban);border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
+            <input id="uyeSifre" type="password" placeholder="şifre" autocomplete="current-password" style="flex:1;min-width:120px;background:var(--taban);border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
             <button class="ikincil" id="uyeGirisBtn" style="border-color:rgba(245,165,36,.4);color:var(--accent2)">Giriş</button>
           </div>
           <div id="uyeHata" style="color:var(--red);font-size:12px;margin-top:6px"></div>
@@ -2209,5 +2209,6 @@ function hmHesapla(){
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>
