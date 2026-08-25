@@ -75,7 +75,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 /* 13.08 Cem: senaryo cilasi - en avantajli 3 KART + tam tablo akordeonda */
 .hero3{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:14px 0 4px}
 .hk{position:relative;border:1px solid var(--line2);border-radius:14px;padding:14px 15px;background:linear-gradient(180deg,#0b1119,#0a0f17)}
-.hk.b{border-color:rgba(61,220,151,.45);background:linear-gradient(180deg,rgba(61,220,151,.07),#0a0f17)}
+.hk.b{border-color:rgba(61,220,151,.45);background:linear-gradient(180deg,rgba(61,220,151,.07),var(--yuzey))}
 .hk .bay{font-size:26px;line-height:1}
 .hk .ad{font-weight:750;font-size:13.5px;margin-top:4px;color:var(--ink)}
 .hk .yuk{font-family:var(--mono);font-weight:800;font-size:24px;margin-top:6px;color:var(--green)}
@@ -460,7 +460,7 @@ function teklif(tur, btn){
 }
 </script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
-  <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),#0d141e;border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--kagit);border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu aracı beğendin mi? Bırak radar seni takip etsin.</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Firmanı ilgilendiren her mevzuat değişikliği, süre ve fırsat cebine gelsin. <b style="color:var(--ink)">Ücretsiz üye ol</b>, takip listeni kur; günlük tek özet e-posta ücretli aboneliğin parçasıdır.</div>
     <a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 26px;border-radius:11px;text-decoration:none">Ücretsiz üye ol &rarr;</a>
@@ -468,7 +468,7 @@ function teklif(tur, btn){
   </div>
   </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
-  <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(255,194,75,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(255,194,75,.05)),var(--kagit);border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:var(--ink)">Dizdar Denetim A.Ş.</b> ekibi (SMMM + vergi/gümrük uzmanlığı) teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">

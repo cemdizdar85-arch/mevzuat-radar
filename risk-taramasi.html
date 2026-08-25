@@ -481,7 +481,7 @@ function tara(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('risk'))
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
-  <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(255,194,75,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(255,194,75,.05)),var(--kagit);border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:var(--ink)">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
@@ -494,7 +494,7 @@ function tara(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('risk'))
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
 </div>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
-  <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),#0d141e;border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--kagit);border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu aracı beğendin mi? Bırak radar seni takip etsin.</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Firmanı ilgilendiren her mevzuat değişikliği, süre ve fırsat cebine gelsin. <b style="color:var(--ink)">Ücretsiz üye ol</b>, takip listeni kur; günlük tek özet e-posta ücretli aboneliğin parçasıdır.</div>
     <a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 26px;border-radius:11px;text-decoration:none">Ücretsiz üye ol &rarr;</a>
