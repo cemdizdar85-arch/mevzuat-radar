@@ -1,24 +1,359 @@
 {
-  "aciklama": "VERI SOZLESMESI (25.08.2026, Faz 1). Siteyi besleyen veri dosyalarinin yayina cikma sarti. arac/veri-kapisi.ps1 her robot commit'inden ONCE bu sozlesmeye bakar; gecmeyen dosya COMMIT EDILMEZ, son saglam surum (HEAD) yerinde birakilir. Boylece site 'bozuk' olamaz, en kotu ihtimalle 'biraz eski' olur. Sozlesmesi olmayan dosya faz 1'de ATLANIR (kapi genisledikce buraya eklenir).",
-  "neden": "Olculdu (25.08): 85 is akisi veri/*.json commit'liyor, bunlardan YALNIZ 1'i commit oncesi denetim yapiyor, ve GitHub Pages dogrudan main dalindan yayinliyor. Yani robot yazdigi an canliya cikiyor; tek bekci (arac/veri-bekcisi.ps1) olaydan SONRA kosuyor ve o kapi 6 gundur kirmiziydi. Sitenin 2-3 gunde bir 'patlamasi' bu bosluktan.",
-  "kurallar": {
-    "asgari_kayit": "Mutlak taban. Kayit olcusu: dizi ise eleman sayisi, nesne ise ust anahtar sayisi ile en buyuk ic dizinin buyugu.",
-    "dusus_tavani": "HEAD'deki son saglam surume gore izin verilen orani asan KAYIT ya da BAYT dususu -> RED. Kaynak patladiginda genelde hata vermez, AZ veri doner; bu kural onu yakalar.",
-    "azami_yas_saat": "Tazelik taahhudu. Faz 1 kapisi bunu DENETLEMEZ (yeni yazilan dosya her zaman tazedir); ayri bir bayatlik nobetcisi icin burada tutulur."
-  },
-  "varsayilan": { "dusus_tavani": 0.30 },
-  "dosyalar": {
-    "veri/alacak-arsiv.json":          { "asgari_kayit": 4000,  "dusus_tavani": 0.25, "azami_yas_saat": 48,  "not": "Alacak Radari havuzu - PARA KAPISI buna bagli. Odeme yapmis musteri bos liste gormemeli. Olculen: 5728 kayit / 15.188 KB." },
-    "veri/ihale-bulten-ilan.json":     { "asgari_kayit": 2000,  "dusus_tavani": 0.30, "azami_yas_saat": 48,  "not": "Ihale Radari bulteni. Olculen: 3141 / 7.339 KB." },
-    "veri/marka-yeni-basvurular.json": { "asgari_kayit": 20000, "dusus_tavani": 0.35, "azami_yas_saat": 192, "not": "Marka Izleme. Haftalik bulten oldugu icin dalgalanma paYI genis. Olculen: 31.037 / 3.276 KB." },
-    "veri/gtip-vergi.json":            { "asgari_kayit": 12000, "dusus_tavani": 0.15, "azami_yas_saat": 720, "not": "GTIP tarife kalbi. Tarife listesi ANI dusmez; tavan dar. Olculen: 14.303 / 482 KB." },
-    "veri/gtip-vergi-ulke.json":       { "asgari_kayit": 10000, "dusus_tavani": 0.15, "azami_yas_saat": 720, "not": "Ulke bazli oranlar. Olculen: 12.650 / 478 KB." },
-    "veri/gtip-durum.json":            { "asgari_kayit": 600,   "dusus_tavani": 0.20, "azami_yas_saat": 720, "not": "Gozetim teblig durumu - GTIP aracinin dayanagi. Olculen: 756 / 281 KB." },
-    "veri/fuar-destek.json":           { "asgari_kayit": 800,   "dusus_tavani": 0.30, "azami_yas_saat": 720, "not": "Destekler sayfasi fuar listesi. Olculen: 1186 / 505 KB." },
-    "veri/bilgi-tabani.json":          { "asgari_kayit": 300,   "dusus_tavani": 0.20, "azami_yas_saat": 720, "not": "Net Cevap bilgi tabani. Olculen: 403 / 316 KB." },
-    "veri/cagri-radar.json":           { "asgari_kayit": 60,    "dusus_tavani": 0.40, "azami_yas_saat": 48,  "not": "Destek cagrilari - 120 gunluk kayan pencere oldugu icin dogal dalgalanma var, tavan genis. Olculen: 134 / 63 KB." },
-    "veri/ihale-yurtici.json":         { "asgari_kayit": 120,   "dusus_tavani": 0.45, "azami_yas_saat": 48,  "not": "Gunluk ihale ilanlari - gunluk dalgalanma yuksek. Olculen: 250 / 331 KB." },
-    "veri/soru-bankasi.json":          { "asgari_kayit": 100,   "dusus_tavani": 0.30, "azami_yas_saat": 2160, "not": "Deneme sinavi soru havuzu. Olculen: 150 / 445 KB." },
-    "veri/kartlar-guncel.json":        { "asgari_kayit": 1,     "dusus_tavani": 0.90, "azami_yas_saat": 36,  "not": "Ana sayfa gunun kartlari. RG'de o gun duzenleme YOKSA kart sayisi mesru olarak 0'a yakin olabilir - bu yuzden dusus tavani cok genis, asil koruma asgari_kayit=1 (dosya en azindan kunye tasimali) ve bayatlik nobeti." }
-  }
+    "aciklama":  "VERI SOZLESMESI (25.08.2026, Faz 1). Siteyi besleyen veri dosyalarinin yayina cikma sarti. arac/veri-kapisi.ps1 her robot commit\u0027inden ONCE bu sozlesmeye bakar; gecmeyen dosya COMMIT EDILMEZ, son saglam surum (HEAD) yerinde birakilir. Boylece site \u0027bozuk\u0027 olamaz, en kotu ihtimalle \u0027biraz eski\u0027 olur. Sozlesmesi olmayan dosya faz 1\u0027de ATLANIR (kapi genisledikce buraya eklenir).",
+    "neden":  "Olculdu (25.08): 85 is akisi veri/*.json commit\u0027liyor, bunlardan YALNIZ 1\u0027i commit oncesi denetim yapiyor, ve GitHub Pages dogrudan main dalindan yayinliyor. Yani robot yazdigi an canliya cikiyor; tek bekci (arac/veri-bekcisi.ps1) olaydan SONRA kosuyor ve o kapi 6 gundur kirmiziydi. Sitenin 2-3 gunde bir \u0027patlamasi\u0027 bu bosluktan.",
+    "kurallar":  {
+                     "asgari_kayit":  "Mutlak taban. Kayit olcusu: dizi ise eleman sayisi, nesne ise ust anahtar sayisi ile en buyuk ic dizinin buyugu.",
+                     "dusus_tavani":  "HEAD\u0027deki son saglam surume gore izin verilen orani asan KAYIT ya da BAYT dususu -\u003e RED. Kaynak patladiginda genelde hata vermez, AZ veri doner; bu kural onu yakalar.",
+                     "azami_yas_saat":  "Tazelik taahhudu. Faz 1 kapisi bunu DENETLEMEZ (yeni yazilan dosya her zaman tazedir); ayri bir bayatlik nobetcisi icin burada tutulur."
+                 },
+    "faz":  "Faz 1 (25.08): siteyi besleyen en riskli 12 dosya, degerleri ELLE ayarlandi. Faz 2 (25.08): kalan 43 dosya OLCULEREK eklendi (asgari = mevcudun %70\u0027i, tavan %30 varsayilan). Faz 2 kayitlarinda azami_yas_saat NULL - guncelleme ritmi belirlenmedi; tazelik nobetcisi bunlari \u0027TANIMSIZ\u0027 diye ayri listeler, YANLIS ALARM URETMEZ.",
+    "varsayilan":  {
+                       "dusus_tavani":  0.30
+                   },
+    "dosyalar":  {
+                     "veri/alacak-arsiv.json":  {
+                                                    "asgari_kayit":  4000,
+                                                    "dusus_tavani":  0.25,
+                                                    "azami_yas_saat":  48,
+                                                    "not":  "Alacak Radari havuzu - PARA KAPISI buna bagli. Odeme yapmis musteri bos liste gormemeli. Olculen: 5728 kayit / 15.188 KB."
+                                                },
+                     "veri/ihale-bulten-ilan.json":  {
+                                                         "asgari_kayit":  2000,
+                                                         "dusus_tavani":  0.30,
+                                                         "azami_yas_saat":  48,
+                                                         "not":  "Ihale Radari bulteni. Olculen: 3141 / 7.339 KB."
+                                                     },
+                     "veri/marka-yeni-basvurular.json":  {
+                                                             "asgari_kayit":  20000,
+                                                             "dusus_tavani":  0.35,
+                                                             "azami_yas_saat":  192,
+                                                             "not":  "Marka Izleme. Haftalik bulten oldugu icin dalgalanma paYI genis. Olculen: 31.037 / 3.276 KB."
+                                                         },
+                     "veri/gtip-vergi.json":  {
+                                                  "asgari_kayit":  12000,
+                                                  "dusus_tavani":  0.15,
+                                                  "azami_yas_saat":  720,
+                                                  "not":  "GTIP tarife kalbi. Tarife listesi ANI dusmez; tavan dar. Olculen: 14.303 / 482 KB."
+                                              },
+                     "veri/gtip-vergi-ulke.json":  {
+                                                       "asgari_kayit":  10000,
+                                                       "dusus_tavani":  0.15,
+                                                       "azami_yas_saat":  720,
+                                                       "not":  "Ulke bazli oranlar. Olculen: 12.650 / 478 KB."
+                                                   },
+                     "veri/gtip-durum.json":  {
+                                                  "asgari_kayit":  600,
+                                                  "dusus_tavani":  0.20,
+                                                  "azami_yas_saat":  720,
+                                                  "not":  "Gozetim teblig durumu - GTIP aracinin dayanagi. Olculen: 756 / 281 KB."
+                                              },
+                     "veri/fuar-destek.json":  {
+                                                   "asgari_kayit":  800,
+                                                   "dusus_tavani":  0.30,
+                                                   "azami_yas_saat":  720,
+                                                   "not":  "Destekler sayfasi fuar listesi. Olculen: 1186 / 505 KB."
+                                               },
+                     "veri/bilgi-tabani.json":  {
+                                                    "asgari_kayit":  300,
+                                                    "dusus_tavani":  0.20,
+                                                    "azami_yas_saat":  720,
+                                                    "not":  "Net Cevap bilgi tabani. Olculen: 403 / 316 KB."
+                                                },
+                     "veri/cagri-radar.json":  {
+                                                   "asgari_kayit":  60,
+                                                   "dusus_tavani":  0.40,
+                                                   "azami_yas_saat":  48,
+                                                   "not":  "Destek cagrilari - 120 gunluk kayan pencere oldugu icin dogal dalgalanma var, tavan genis. Olculen: 134 / 63 KB."
+                                               },
+                     "veri/ihale-yurtici.json":  {
+                                                     "asgari_kayit":  120,
+                                                     "dusus_tavani":  0.45,
+                                                     "azami_yas_saat":  48,
+                                                     "not":  "Gunluk ihale ilanlari - gunluk dalgalanma yuksek. Olculen: 250 / 331 KB."
+                                                 },
+                     "veri/soru-bankasi.json":  {
+                                                    "asgari_kayit":  100,
+                                                    "dusus_tavani":  0.30,
+                                                    "azami_yas_saat":  2160,
+                                                    "not":  "Deneme sinavi soru havuzu. Olculen: 150 / 445 KB."
+                                                },
+                     "veri/kartlar-guncel.json":  {
+                                                      "asgari_kayit":  1,
+                                                      "dusus_tavani":  0.90,
+                                                      "azami_yas_saat":  36,
+                                                      "not":  "Ana sayfa gunun kartlari. RG\u0027de o gun duzenleme YOKSA kart sayisi mesru olarak 0\u0027a yakin olabilir - bu yuzden dusus tavani cok genis, asil koruma asgari_kayit=1 (dosya en azindan kunye tasimali) ve bayatlik nobeti."
+                                                  },
+                     "veri/gtip-kdv.json":  {
+                                                "not":  "Faz 2 - olculen: 53 kayit / 30,5 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                "dusus_tavani":  0.3,
+                                                "asgari_kayit":  37,
+                                                "azami_yas_saat":  8760,
+                                                "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: KDV oran listesi - indirici yok, tarife yillik dongu"
+                                            },
+                     "veri/ihale-idare-ozet.json":  {
+                                                        "not":  "Faz 2 - olculen: 7336 kayit / 4024,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                        "dusus_tavani":  0.3,
+                                                        "asgari_kayit":  5135,
+                                                        "azami_yas_saat":  null
+                                                    },
+                     "veri/yanveri-damga.json":  {
+                                                     "not":  "Faz 2 - olculen: 10 kayit / 1,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "dusus_tavani":  0.3,
+                                                     "asgari_kayit":  7,
+                                                     "azami_yas_saat":  null
+                                                 },
+                     "veri/hatirlatici-sablonlar.json":  {
+                                                             "not":  "Faz 2 - olculen: 8 kayit / 6,1 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                             "dusus_tavani":  0.3,
+                                                             "asgari_kayit":  5,
+                                                             "azami_yas_saat":  "elle",
+                                                             "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: urun metni, veri degil - otomatiklesmesi ANLAMSIZ"
+                                                         },
+                     "veri/vergi-sabitleri.json":  {
+                                                       "not":  "Faz 2 - olculen: 20 kayit / 6,3 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                       "dusus_tavani":  0.3,
+                                                       "asgari_kayit":  14,
+                                                       "azami_yas_saat":  8760,
+                                                       "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: yillik hadler (VUK GT); yillik-rakam-nobeti sinyal veriyor, yazma elle"
+                                                   },
+                     "veri/siklik-kunyesi.json":  {
+                                                      "not":  "Faz 2 - olculen: 3248 kayit / 428,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                      "dusus_tavani":  0.3,
+                                                      "asgari_kayit":  2273,
+                                                      "azami_yas_saat":  null
+                                                  },
+                     "veri/ihale-firma-ozet.json":  {
+                                                        "not":  "Faz 2 - olculen: 14054 kayit / 6539,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                        "dusus_tavani":  0.3,
+                                                        "asgari_kayit":  9837,
+                                                        "azami_yas_saat":  null
+                                                    },
+                     "veri/cvoa-oranlar.json":  {
+                                                    "not":  "Faz 2 - olculen: 92 kayit / 17 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  64,
+                                                    "azami_yas_saat":  4320,
+                                                    "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: CVOA 92 ulke tablosu, anlasma degisince guncellenir - 180 gun"
+                                                },
+                     "veri/tesvik-bolgeler.json":  {
+                                                       "not":  "Faz 2 - olculen: 56 kayit / 9,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                       "dusus_tavani":  0.3,
+                                                       "asgari_kayit":  39,
+                                                       "azami_yas_saat":  8760,
+                                                       "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: yatirim tesvik bolge tablosu, nadiren degisir"
+                                                   },
+                     "veri/ulke-grup.json":  {
+                                                 "not":  "Faz 2 - olculen: 141 kayit / 14,3 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                 "dusus_tavani":  0.3,
+                                                 "asgari_kayit":  98,
+                                                 "azami_yas_saat":  8760,
+                                                 "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: 10790 s. Karar ekinden gozle okundu, yillik tazeleme"
+                                             },
+                     "veri/gtip-balik.json":  {
+                                                  "not":  "Faz 2 - olculen: 569 kayit / 53,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "dusus_tavani":  0.3,
+                                                  "asgari_kayit":  398,
+                                                  "azami_yas_saat":  null
+                                              },
+                     "veri/eximbank-oran.json":  {
+                                                     "not":  "Faz 2 - olculen: 120 kayit / 23,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "dusus_tavani":  0.3,
+                                                     "asgari_kayit":  84,
+                                                     "azami_yas_saat":  null
+                                                 },
+                     "veri/gtip-damping.json":  {
+                                                    "not":  "Faz 2 - olculen: 141 kayit / 27,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  98,
+                                                    "azami_yas_saat":  null
+                                                },
+                     "veri/sik-istatistigi.json":  {
+                                                       "not":  "Faz 2 - olculen: 4 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                       "dusus_tavani":  0.3,
+                                                       "asgari_kayit":  2,
+                                                       "azami_yas_saat":  null
+                                                   },
+                     "veri/nice-siniflar.json":  {
+                                                     "not":  "Faz 2 - olculen: 45 kayit / 39,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "dusus_tavani":  0.3,
+                                                     "asgari_kayit":  31,
+                                                     "azami_yas_saat":  null
+                                                 },
+                     "veri/gecikme-zammi.json":  {
+                                                     "not":  "Faz 2 - olculen: 4 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "dusus_tavani":  0.3,
+                                                     "asgari_kayit":  2,
+                                                     "azami_yas_saat":  2160,
+                                                     "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore RG karariyla DEGISEN oran; indirici yok. 90 gunde bir gozden gecirilsin ki degisiklik gec kalmasin"
+                                                 },
+                     "veri/sgs-analiz.json":  {
+                                                  "not":  "Faz 2 - olculen: 35 kayit / 411 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "dusus_tavani":  0.3,
+                                                  "asgari_kayit":  24,
+                                                  "azami_yas_saat":  null
+                                              },
+                     "veri/sgs-sinav-yapisi.json":  {
+                                                        "not":  "Faz 2 - olculen: 5 kayit / 7,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                        "dusus_tavani":  0.3,
+                                                        "asgari_kayit":  3,
+                                                        "azami_yas_saat":  8760,
+                                                        "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: sinav yapisi nadiren degisir, yillik gozden gecirme yeterli"
+                                                    },
+                     "veri/iskur-tesvik.json":  {
+                                                    "not":  "Faz 2 - olculen: 10 kayit / 2,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  7,
+                                                    "azami_yas_saat":  null
+                                                },
+                     "veri/gtip-igv-ulke.json":  {
+                                                     "not":  "Faz 2 - olculen: 4592 kayit / 179,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "dusus_tavani":  0.3,
+                                                     "asgari_kayit":  3214,
+                                                     "azami_yas_saat":  null
+                                                 },
+                     "veri/kgf-paket.json":  {
+                                                 "not":  "Faz 2 - olculen: 32 kayit / 8,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                 "dusus_tavani":  0.3,
+                                                 "asgari_kayit":  22,
+                                                 "azami_yas_saat":  null
+                                             },
+                     "veri/risk-merkezi.json":  {
+                                                    "not":  "Faz 2 - olculen: 9 kayit / 1,1 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  6,
+                                                    "azami_yas_saat":  "elle",
+                                                    "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: BILINCLI ELLE - hasatci mail atiyor, dosyaya basmiyor"
+                                                },
+                     "veri/gtip-emy-tarim.json":  {
+                                                      "not":  "Faz 2 - olculen: 179 kayit / 39,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                      "dusus_tavani":  0.3,
+                                                      "asgari_kayit":  125,
+                                                      "azami_yas_saat":  null
+                                                  },
+                     "veri/radar-kiymet.json":  {
+                                                    "not":  "Faz 2 - olculen: 136 kayit / 12,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  95,
+                                                    "azami_yas_saat":  null
+                                                },
+                     "veri/birlik-urge.json":  {
+                                                   "not":  "Faz 2 - olculen: 13 kayit / 7,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                   "dusus_tavani":  0.3,
+                                                   "asgari_kayit":  9,
+                                                   "azami_yas_saat":  null
+                                               },
+                     "veri/ihale-ted.json":  {
+                                                 "not":  "Faz 2 - olculen: 105 kayit / 45,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                 "dusus_tavani":  0.3,
+                                                 "asgari_kayit":  73,
+                                                 "azami_yas_saat":  null
+                                             },
+                     "veri/gtip-ihracat-kisit.json":  {
+                                                          "not":  "Faz 2 - olculen: 59 kayit / 8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                          "dusus_tavani":  0.3,
+                                                          "asgari_kayit":  41,
+                                                          "azami_yas_saat":  8760,
+                                                          "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: kaynak indirilmiyor, yillik dongu"
+                                                      },
+                     "veri/konu-eslesme.json":  {
+                                                    "not":  "Faz 2 - olculen: 1423 kayit / 393,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  996,
+                                                    "azami_yas_saat":  null
+                                                },
+                     "veri/gunun-tuzagi.json":  {
+                                                    "not":  "Faz 2 - olculen: 5 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  3,
+                                                    "azami_yas_saat":  null
+                                                },
+                     "veri/gtip-otv.json":  {
+                                                "not":  "Faz 2 - olculen: 65 kayit / 5,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                "dusus_tavani":  0.3,
+                                                "asgari_kayit":  45,
+                                                "azami_yas_saat":  8760,
+                                                "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: OTV listeleri elle birlestiriliyor, tarife yillik dongu"
+                                            },
+                     "veri/canli-deneme.json":  {
+                                                    "not":  "Faz 2 - olculen: 6 kayit / 1,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  4,
+                                                    "azami_yas_saat":  "elle",
+                                                    "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: sinav gunune bagli, elle tetiklenmesi BILINCLI"
+                                                },
+                     "veri/alacak-ilan.json":  {
+                                                   "not":  "Faz 2 - olculen: 4 kayit / 1,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                   "dusus_tavani":  0.3,
+                                                   "asgari_kayit":  2,
+                                                   "azami_yas_saat":  "elle",
+                                                   "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: VKN\u0027li TOHUM dosya; canli besleme alacak-arsiv.json\u0027da"
+                                               },
+                     "veri/gtip-vergi-tarim.json":  {
+                                                        "not":  "Faz 2 - olculen: 2712 kayit / 722,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                        "dusus_tavani":  0.3,
+                                                        "asgari_kayit":  1898,
+                                                        "azami_yas_saat":  null
+                                                    },
+                     "veri/smmm-analiz.json":  {
+                                                   "not":  "Faz 2 - olculen: 144 kayit / 230,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                   "dusus_tavani":  0.3,
+                                                   "asgari_kayit":  100,
+                                                   "azami_yas_saat":  null
+                                               },
+                     "veri/sinav-takvimi.json":  {
+                                                     "not":  "Faz 2 - olculen: 6 kayit / 2,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "dusus_tavani":  0.3,
+                                                     "asgari_kayit":  4,
+                                                     "azami_yas_saat":  null
+                                                 },
+                     "veri/teblig-damga.json":  {
+                                                    "not":  "Faz 2 - olculen: 172 kayit / 41,3 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  120,
+                                                    "azami_yas_saat":  null
+                                                },
+                     "veri/vitrin-sayilar.json":  {
+                                                      "not":  "Faz 2 - olculen: 6 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                      "dusus_tavani":  0.3,
+                                                      "asgari_kayit":  4,
+                                                      "azami_yas_saat":  null
+                                                  },
+                     "veri/kart-durum.json":  {
+                                                  "not":  "Faz 2 - olculen: 1 kayit / 0 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "dusus_tavani":  0.3,
+                                                  "asgari_kayit":  0,
+                                                  "azami_yas_saat":  null
+                                              },
+                     "veri/gtip-ulke-gruplari.json":  {
+                                                          "not":  "Faz 2 - olculen: 7 kayit / 0,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                          "dusus_tavani":  0.3,
+                                                          "asgari_kayit":  4,
+                                                          "azami_yas_saat":  null
+                                                      },
+                     "veri/gtip-askiya.json":  {
+                                                   "not":  "Faz 2 - olculen: 610 kayit / 139,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                   "dusus_tavani":  0.3,
+                                                   "asgari_kayit":  427,
+                                                   "azami_yas_saat":  null
+                                               },
+                     "veri/gtip-ekvergi.json":  {
+                                                    "not":  "Faz 2 - olculen: 11 kayit / 10 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  7,
+                                                    "azami_yas_saat":  8760,
+                                                    "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: ELLE - ek mali yukumluluk listesi"
+                                                },
+                     "veri/rg-gun-durum.json":  {
+                                                    "not":  "Faz 2 - olculen: 8 kayit / 0,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "dusus_tavani":  0.3,
+                                                    "asgari_kayit":  5,
+                                                    "azami_yas_saat":  null
+                                                },
+                     "veri/gtip-nihai.json":  {
+                                                  "not":  "Faz 2 - olculen: 105 kayit / 11,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "dusus_tavani":  0.3,
+                                                  "asgari_kayit":  73,
+                                                  "azami_yas_saat":  null
+                                              }
+                 }
 }

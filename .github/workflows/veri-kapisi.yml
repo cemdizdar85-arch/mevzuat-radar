@@ -29,6 +29,8 @@ on:
       - 'veri/**.json'
       - 'veri/_sozlesme.json'
       - 'arac/veri-kapisi.ps1'
+  schedule:
+    - cron: '20 6 * * *'    # 09:20 TR - gunluk TAZELIK nobeti (kapi degil, ayri soru)
   workflow_dispatch: {}
 
 permissions:
@@ -100,4 +102,45 @@ jobs:
         if: steps.kapi.outputs.red == '1'
         run: |
           echo "::error::Veri kapisi en az bir dosyayi REDDETTI. Veri guvende (eski surum yerinde) ama bir robot bozuk uretiyor. Ayrinti: veri/veri-kapisi-raporu.json"
+          exit 1
+
+  # ==========================================================================
+  #  TAZELIK NOBETI - kapidan AYRI bir soru sorar.
+  #  Kapi: "gelen veri saglam mi?"   Tazelik: "TAZE VERI GELMEYI BIRAKTI MI?"
+  #  Bir kaynak aylardir olmus olabilir ve kapi bunu GORMEZ - cunku kapiya
+  #  hic veri gelmiyordur. Iki ariza ayri, iki nobet ayri.
+  #  Sadece zamanlamayla/elle kosar; her push'ta kosmasi anlamsiz.
+  # ==========================================================================
+  tazelik:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # git log ile dosya yasi okunacak - TAM gecmis sart
+
+      - name: Tazelik nobeti
+        id: tazelik
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          ./arac/veri-tazelik.ps1
+          "kod=$LASTEXITCODE" >> $env:GITHUB_OUTPUT
+
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/veri-tazelik-raporu.json 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Veri tazelik nobeti [veri-kapisi]"
+          git pull --rebase --autostash || true
+          git push || true
+
+      # BAYAT = gercek ariza -> KIRMIZI. TANIMSIZ = kor nokta -> kirmizi DEGIL
+      # (bugunun dersi: kalici kirmizi gurultuye doner ve gercek alarmi saklar).
+      - name: BAYAT VARSA KIRMIZI
+        if: steps.tazelik.outputs.kod == '1'
+        run: |
+          echo "::error::Bir veya daha fazla veri dosyasina TAZE VERI GELMIYOR. Ayrinti: veri/veri-tazelik-raporu.json"
           exit 1
