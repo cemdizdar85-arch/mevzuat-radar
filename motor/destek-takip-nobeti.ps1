@@ -27,6 +27,15 @@
 # ============================================================================
 param([switch]$kuru, [int]$mailSatirTavan = 15)
 $ErrorActionPreference = 'Stop'
+# KIMLIK SATIRLARI (25.08.2026) - EKSIKTI VE TUM DEPOYU KIRMIZI TUTUYORDU.
+# Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddediyor
+# ([[supabase-tarayici-kimligi]]). Bu yuzden arac/kimlik-denetimi.ps1 her
+# Supabase cagiran betikte bu iki satiri sart kosuyor. Bu dosya 21.08'de
+# eklenirken satirlar konmamis; sonuc: HER PUSH'ta Dogrulama Kapisi kirmizi
+# (17 kosu / 17 kirmizi, son yesil 19.08). 128 betikten eksigi olan TEK dosya
+# buydu - iki satir, alti gunluk kirmizi.
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here

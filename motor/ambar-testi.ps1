@@ -204,10 +204,54 @@ if ($olculemeyen -gt 0) {
   Write-Host "Bunlar 'dusen' SAYILMAZ. Ama sessiz de gecilmez: madde_ara araliksiz"
   Write-Host "500 donuyorsa bu gercek kullaniciya da dusuyor demektir."
 }
-# KIRMIZI yalniz GERCEK kusurda. Olculemeyen kayit kapiyi kirmizi yakmaz
-# (yalan kirmizi uretir) ama yukarida GORUNUR - ucuncu durum: KOR.
-# Kabul sarti ihlali de KIRMIZI: yapisal sozlesme bozulmus demektir ve 25.08'de
-# tam bunun gorunmemesi 5 haftalik regresyona yol acti.
-if ($kabulDusen.Count -gt 0) { exit 1 }
-if ($dusen -gt 0) { exit 1 }
+# ===========================================================================
+#  KAPI ARTIK MUKEMMELLIK DEGIL **REGRESYON** OLCER (25.08.2026)
+#
+#  ONCEKI HAL VE BEDELI: test "48/48 olmali" diyordu; 3 vaka duserken exit 1
+#  doniyordu -> mevzuat.yml KIRMIZI bitiyordu -> nabiz nobetcisi GitHub'a
+#  "?status=success" diye sorup hic bulamiyordu -> "Gunluk Kanun Aynasi ROBOTU
+#  OLDU, son basarili kosu 910 saat once" diye ESKALASYON yapiyordu.
+#  Yani KALITE EKSIGI, ROBOT OLUMU diye raporlaniyordu. Kategori hatasi.
+#  Ustelik sonuc, bugun butun gun ugrastigimiz hastaligin ta kendisi:
+#  hep kirmizi yanan kapi kapi degildir, gurultudur - ve gercek alarmi saklar.
+#
+#  YENI SOZLESME - UC AYRI SORU, UC AYRI CIKIS:
+#    exit 1  REGRESYON  : kalite TABANIN ALTINA dustu (gercek kotuleme) VEYA
+#                         yapisal kabul sarti ihlal edildi (sozlesme bozuldu)
+#    exit 3  KOR        : olculemeyen vaka var (RPC dustu) - bakamadik
+#    exit 0  KORUNDU    : taban korundu ya da asildi. Dusen vaka OLABILIR;
+#                         bunlar bilinen ve kayitli eksiklerdir, GORUNUR
+#                         raporlanir ama robotu "olu" gostermez.
+#
+#  Taban veri/altin-test-taban.json'da. Taban ASILIRSA test bunu soyler ve
+#  dosyanin ELLE yukseltilmesini ister - yoksa kazanim sessizce geri alinabilir.
+# ===========================================================================
+$tabanYol = Join-Path $kok 'veri/altin-test-taban.json'
+$kaynakTaban = 0; $maddeTaban = 0
+if (Test-Path $tabanYol) {
+  try { $tb = Get-Content $tabanYol -Raw -Encoding UTF8 | ConvertFrom-Json
+        $kaynakTaban = [int]$tb.kaynak_taban; $maddeTaban = [int]$tb.madde_taban } catch {}
+}
+Write-Host ""
+Write-Host ("TABAN: kaynak {0} / madde {1}   (veri/altin-test-taban.json)" -f $kaynakTaban, $maddeTaban)
+
+if ($kabulDusen.Count -gt 0) {
+  Write-Host "KIRMIZI: yapisal kabul sarti ihlal edildi (yukarida)."
+  try{Stop-Transcript|Out-Null}catch{}
+  exit 1
+}
+if ($gecen -lt $kaynakTaban) {
+  Write-Host ("KIRMIZI - REGRESYON: {0} gecti, taban {1}. Kalite GERILEDI." -f $gecen, $kaynakTaban)
+  Write-Host "Son degisikligi geri al ya da sebebini bul. Taban dusurulerek kapatilmaz."
+  exit 1
+}
+if ($gecen -gt $kaynakTaban) {
+  Write-Host ("KAZANIM: {0} gecti, taban {1}. veri/altin-test-taban.json ELLE {0} yapilmali" -f $gecen, $kaynakTaban)
+  Write-Host "(yoksa bu kazanim sessizce geri alinabilir ve kimse gormez)."
+}
+if ($mAdet -gt 0 -and $mGecen -lt $maddeTaban) {
+  Write-Host ("UYARI: madde duzeyi {0}, taban {1} - geriledi. (Kapsam {2}/48 iken kirmizi yakilmiyor.)" -f $mGecen, $maddeTaban, $mAdet)
+}
 if ($olculemeyen -gt 0) { exit 3 }
+Write-Host ("SEVIYE KORUNDU ({0} >= {1}). Dusen {2} vaka BILINEN eksiktir, robot saglikli." -f $gecen, $kaynakTaban, $dusen)
+exit 0

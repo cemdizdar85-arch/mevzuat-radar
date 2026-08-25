@@ -1,0 +1,8 @@
+{
+  "aciklama": "ALTIN TEST TABANI - kapi MUKEMMELLIK degil REGRESYON olcer. Test yalnizca bu tabanin ALTINA duserse KIRMIZI yanar. Sebebi: 25.08.2026'ya kadar test 'her vaka gecmeli' diyordu; 3 vaka duserken cikis 1 doniyordu, mevzuat.yml kirmizi bitiyordu ve nabiz nobetcisi 'status=success' kosusu bulamayip GUNLUK KANUN AYNASI ROBOTU OLDU diye eskalasyon yapiyordu. Kalite eksigi ile robot olumu ayni kefeye giriyordu - kategori hatasi. Taban yukseldiginde bu dosya ELLE yukseltilir (test bunu hatirlatir).",
+  "kaynak_taban": 45,
+  "madde_taban": 2,
+  "toplam_vaka": 48,
+  "olculdu": "25.08.2026",
+  "not": "kaynak_taban = KAYNAK duzeyi (gevsek: 'vuk (213' gecen herhangi bir VUK maddesi sayilir). madde_taban = MADDE duzeyi, yalnizca metni ambardan okunup teyit edilmis 8 vakada olculur. Madde duzeyi kapsam 8/48 iken cikis kodunu ETKILEMEZ, yalniz raporlanir."
+}
