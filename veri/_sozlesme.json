@@ -1,0 +1,24 @@
+{
+  "aciklama": "VERI SOZLESMESI (25.08.2026, Faz 1). Siteyi besleyen veri dosyalarinin yayina cikma sarti. arac/veri-kapisi.ps1 her robot commit'inden ONCE bu sozlesmeye bakar; gecmeyen dosya COMMIT EDILMEZ, son saglam surum (HEAD) yerinde birakilir. Boylece site 'bozuk' olamaz, en kotu ihtimalle 'biraz eski' olur. Sozlesmesi olmayan dosya faz 1'de ATLANIR (kapi genisledikce buraya eklenir).",
+  "neden": "Olculdu (25.08): 85 is akisi veri/*.json commit'liyor, bunlardan YALNIZ 1'i commit oncesi denetim yapiyor, ve GitHub Pages dogrudan main dalindan yayinliyor. Yani robot yazdigi an canliya cikiyor; tek bekci (arac/veri-bekcisi.ps1) olaydan SONRA kosuyor ve o kapi 6 gundur kirmiziydi. Sitenin 2-3 gunde bir 'patlamasi' bu bosluktan.",
+  "kurallar": {
+    "asgari_kayit": "Mutlak taban. Kayit olcusu: dizi ise eleman sayisi, nesne ise ust anahtar sayisi ile en buyuk ic dizinin buyugu.",
+    "dusus_tavani": "HEAD'deki son saglam surume gore izin verilen orani asan KAYIT ya da BAYT dususu -> RED. Kaynak patladiginda genelde hata vermez, AZ veri doner; bu kural onu yakalar.",
+    "azami_yas_saat": "Tazelik taahhudu. Faz 1 kapisi bunu DENETLEMEZ (yeni yazilan dosya her zaman tazedir); ayri bir bayatlik nobetcisi icin burada tutulur."
+  },
+  "varsayilan": { "dusus_tavani": 0.30 },
+  "dosyalar": {
+    "veri/alacak-arsiv.json":          { "asgari_kayit": 4000,  "dusus_tavani": 0.25, "azami_yas_saat": 48,  "not": "Alacak Radari havuzu - PARA KAPISI buna bagli. Odeme yapmis musteri bos liste gormemeli. Olculen: 5728 kayit / 15.188 KB." },
+    "veri/ihale-bulten-ilan.json":     { "asgari_kayit": 2000,  "dusus_tavani": 0.30, "azami_yas_saat": 48,  "not": "Ihale Radari bulteni. Olculen: 3141 / 7.339 KB." },
+    "veri/marka-yeni-basvurular.json": { "asgari_kayit": 20000, "dusus_tavani": 0.35, "azami_yas_saat": 192, "not": "Marka Izleme. Haftalik bulten oldugu icin dalgalanma paYI genis. Olculen: 31.037 / 3.276 KB." },
+    "veri/gtip-vergi.json":            { "asgari_kayit": 12000, "dusus_tavani": 0.15, "azami_yas_saat": 720, "not": "GTIP tarife kalbi. Tarife listesi ANI dusmez; tavan dar. Olculen: 14.303 / 482 KB." },
+    "veri/gtip-vergi-ulke.json":       { "asgari_kayit": 10000, "dusus_tavani": 0.15, "azami_yas_saat": 720, "not": "Ulke bazli oranlar. Olculen: 12.650 / 478 KB." },
+    "veri/gtip-durum.json":            { "asgari_kayit": 600,   "dusus_tavani": 0.20, "azami_yas_saat": 720, "not": "Gozetim teblig durumu - GTIP aracinin dayanagi. Olculen: 756 / 281 KB." },
+    "veri/fuar-destek.json":           { "asgari_kayit": 800,   "dusus_tavani": 0.30, "azami_yas_saat": 720, "not": "Destekler sayfasi fuar listesi. Olculen: 1186 / 505 KB." },
+    "veri/bilgi-tabani.json":          { "asgari_kayit": 300,   "dusus_tavani": 0.20, "azami_yas_saat": 720, "not": "Net Cevap bilgi tabani. Olculen: 403 / 316 KB." },
+    "veri/cagri-radar.json":           { "asgari_kayit": 60,    "dusus_tavani": 0.40, "azami_yas_saat": 48,  "not": "Destek cagrilari - 120 gunluk kayan pencere oldugu icin dogal dalgalanma var, tavan genis. Olculen: 134 / 63 KB." },
+    "veri/ihale-yurtici.json":         { "asgari_kayit": 120,   "dusus_tavani": 0.45, "azami_yas_saat": 48,  "not": "Gunluk ihale ilanlari - gunluk dalgalanma yuksek. Olculen: 250 / 331 KB." },
+    "veri/soru-bankasi.json":          { "asgari_kayit": 100,   "dusus_tavani": 0.30, "azami_yas_saat": 2160, "not": "Deneme sinavi soru havuzu. Olculen: 150 / 445 KB." },
+    "veri/kartlar-guncel.json":        { "asgari_kayit": 1,     "dusus_tavani": 0.90, "azami_yas_saat": 36,  "not": "Ana sayfa gunun kartlari. RG'de o gun duzenleme YOKSA kart sayisi mesru olarak 0'a yakin olabilir - bu yuzden dusus tavani cok genis, asil koruma asgari_kayit=1 (dosya en azindan kunye tasimali) ve bayatlik nobeti." }
+  }
+}

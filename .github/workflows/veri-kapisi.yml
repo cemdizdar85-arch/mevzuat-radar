@@ -1,0 +1,103 @@
+# .github/workflows/veri-kapisi.yml - BOZUK VERI SITEDE KALMASIN
+#
+# CEM (25.08): "sitede iki uc gunde bir veri aldiklari yer patliyor."
+# OLCUM: 85 is akisi veri/*.json commit'liyor, yalniz 1'i commit oncesi
+# denetim yapiyor, ve Pages DOGRUDAN main'den yayinliyor. Yani robot yazdigi
+# an canliya cikiyor; tek bekci olaydan SONRA kosuyordu (ve 6 gundur kirmiziydi).
+#
+# NEDEN 7 IS AKISINI DEGIL DE BUNU YAZDIM:
+# Kapiyi yazan robotlarin icine tek tek koymak "dogru" yerdir ama 85 dosya
+# demektir ve her biri ayri bir YAML kirma riskidir. Bu nobetci TEK dosyadir
+# ve veri/*.json'a dokunan HER push'u - 85'inin hepsini - ayni anda kapsar.
+# Bedeli: koruma commit'ten ~30-60 sn SONRA devreye girer. Bugunku hal ise
+# "gunlerce" idi. Once bu konur, sonra en riskli robotlarin ICINE de konur
+# (kusak + pantolon).
+#
+# NE YAPAR: arac/veri-kapisi.ps1'i kosturur. Sozlesmesi olan bir dosya
+# bozulduysa (parse etmiyor / asgari kayit alti / hacim dususu) betik onu
+# HEAD'deki SON SAGLAM SURUME dondurur; bu is akisi da o geri donusu
+# commit'ler. Site bozuk veri gormez; en kotu ihtimalle bir tur eski gorur.
+#
+# SONSUZ DONGU KORUMASI: kendi commit'i "[veri-kapisi]" tasir ve is akisi o
+# mesajla gelen push'ta kendini ATLAR.
+name: Veri Kapisi
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'veri/**.json'
+      - 'veri/_sozlesme.json'
+      - 'arac/veri-kapisi.ps1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: veri-kapisi
+  cancel-in-progress: false
+
+jobs:
+  kapi:
+    runs-on: ubuntu-latest
+    # kendi geri-alma commit'ini yeniden islemesin
+    if: "!contains(github.event.head_commit.message, '[veri-kapisi]')"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2          # HEAD~1 ile karsilastirma icin
+
+      - name: Kapiyi kos (bozuk dosyayi son saglam surume dondur)
+        id: kapi
+        shell: pwsh
+        run: |
+          # Bu push'ta DEGISEN veri dosyalarini bul; kapi calisma agacini
+          # HEAD ile karsilastirdigi icin once bir onceki surume geri saralim:
+          # boylece "yeni gelen" dosya calisma agacinda, "son saglam" HEAD'de olur.
+          $degisen = @(git diff --name-only HEAD~1 HEAD -- 'veri/*.json')
+          if($degisen.Count -eq 0){ Write-Host "Bu push'ta veri/*.json degismemis."; "red=0" >> $env:GITHUB_OUTPUT; exit 0 }
+          Write-Host ("Bu push'ta degisen veri dosyasi: {0}" -f $degisen.Count)
+          # HEAD'i bir geri al (index+calisma agaci degil, YALNIZ HEAD):
+          # calisma agacindaki YENI icerik durur, HEAD ise ONCEKI (saglam) hali gosterir.
+          git reset --soft HEAD~1
+          ./arac/veri-kapisi.ps1
+          $k = $LASTEXITCODE
+          # HEAD'i geri yerine koy (soft reset'i geri sar) - dosyalar korunur
+          git reset --soft "$(git rev-parse ORIG_HEAD)" 2>$null
+          if($k -eq 1){ "red=1" >> $env:GITHUB_OUTPUT } else { "red=0" >> $env:GITHUB_OUTPUT }
+          exit 0
+
+      # GUVENLIK: YALNIZ kapinin REDDETTIGI dosyalar commit'lenir.
+      # "git ls-files --modified" ile toplu ekleme YAPILMAZ - reset mantigi bir
+      # gun sasarsa o kalip TOPLU GERI ALMA yapar ve iyi veriyi de siler.
+      # Kapi ne reddettiyse raporda adiyla yazili; kaynak olarak o kullanilir.
+      - name: Geri alinani commit'le (yalniz reddedilen dosyalar)
+        if: always()
+        shell: pwsh
+        run: |
+          $r = 'veri/veri-kapisi-raporu.json'
+          if(-not (Test-Path $r)){ Write-Host "Rapor yok - yapacak sey yok."; exit 0 }
+          $j = Get-Content $r -Raw -Encoding UTF8 | ConvertFrom-Json
+          $reddedilen = @($j.reddedilenler | ForEach-Object { $_.dosya } | Where-Object { $_ })
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add $r 2>$null
+          foreach($d in $reddedilen){
+            if(Test-Path $d){ git add -- $d 2>$null; Write-Host ("geri alindi -> {0}" -f $d) }
+          }
+          $bekleyen = git diff --staged --name-only
+          if(-not $bekleyen){ Write-Host "Geri alinacak bir sey yok - veri temiz."; exit 0 }
+          git commit -m "Veri kapisi: $($reddedilen.Count) bozuk dosya geri alindi, son saglam surum yerinde [veri-kapisi]"
+          git pull --rebase --autostash 2>$null
+          git push 2>$null
+          if($LASTEXITCODE -ne 0){ Write-Host "push olmadi - sonraki kosu telafi eder" }
+          exit 0
+
+      # KIRMIZI: veri korunmus olsa bile bir ROBOT BOZUK URETIYOR demektir.
+      # Bu nadir bir olaydir; kalici kirmizi uretmez, o yuzden gurultu degil.
+      - name: KAPI DUSTUYSE GORUNUR OLSUN
+        if: steps.kapi.outputs.red == '1'
+        run: |
+          echo "::error::Veri kapisi en az bir dosyayi REDDETTI. Veri guvende (eski surum yerinde) ama bir robot bozuk uretiyor. Ayrinti: veri/veri-kapisi-raporu.json"
+          exit 1
