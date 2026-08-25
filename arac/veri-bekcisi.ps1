@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  VERI BEKCISI - "her baktigimiz yerde veri gelmiyor" sikayetine kalici sigorta
 #  (Cem 31.07). Tum HTML'lerin fetch ettigi veri/*.json dosyalarini bulur ve:
 #    1) dosya repo'da VAR MI
@@ -26,6 +26,14 @@ $desen = "veri/[A-Za-z0-9_\-\.]+\.json"
 $desenSerbest = "['""]([A-Za-z0-9_\-]+\.json)['""]"
 foreach($h in $htmller){
   $icerik = Get-Content $h.FullName -Raw -Encoding UTF8
+  # YORUMLARI AT (25.08): bekci yorum icindeki dosya adlarini da "cekiliyor"
+  # sayiyordu. alacak-radari.html gizli kasaya gecisi anlatan bir yorumda
+  # "veri/alacak-arsiv.json" adini ANIYOR ama CEKMIYOR; dosya .gitignore da
+  # oldugu icin CI temiz cikarmada bulunamiyor ve kapi HER PUSH ta kirmizi
+  # kaliyordu. Ardindaki adimlar (koku olcer, otomasyon, renk sabiti,
+  # kontrast) hic kosmuyordu. Blok yorumlar taramadan cikarildi.
+  $icerik = [regex]::Replace($icerik, "(?s)<!--.*?-->", " ")
+  $icerik = [regex]::Replace($icerik, "(?s)/\*.*?\*/", " ")
   $refler = @([regex]::Matches($icerik, $desen) | ForEach-Object { $_.Value })
   foreach($m in [regex]::Matches($icerik, $desenSerbest)){
     $aday = "veri/$($m.Groups[1].Value)"
