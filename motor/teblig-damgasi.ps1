@@ -72,6 +72,13 @@ if(-not (Test-Path $durumYol)){ Write-Host "gtip-durum.json yok - atlaniyor."; t
 $ham = [IO.File]::ReadAllText($durumYol, [Text.Encoding]::UTF8)
 $noSet = @{}
 foreach($m in [regex]::Matches($ham, 'MevzuatNo=(\d+)')){ $noSet[$m.Groups[1].Value] = 1 }
+# TÜR/TERTİP DE VERİDEN OKUNUR, KODA GÖMÜLMEZ (25.08). Eski hâl "9.5." önekini
+# sabit yazıyordu; bugün 172 kaydın hepsi 9/5 ama yarın bir kayıt farklı türle
+# gelirse sabit önek onu sessizce ölçemez hâle sokardı.
+$turHarita = @{}
+foreach($m in [regex]::Matches($ham, 'MevzuatNo=(\d+)\\u0026MevzuatTur=(\d+)\\u0026MevzuatTertip=(\d+)')){
+  $turHarita[$m.Groups[1].Value] = @{ tur=$m.Groups[2].Value; tertip=$m.Groups[3].Value }
+}
 $tebSet = @{}
 foreach($m in [regex]::Matches($ham, '"teblig":\s*"([^"]+)"')){ $tebSet[$m.Groups[1].Value] = 1 }
 $nolar = @($noSet.Keys | Sort-Object { [int]$_ })
@@ -105,6 +112,39 @@ function PdfMi([byte[]]$b, [string]$ctype){
   return ($b[0] -eq 0x25 -and $b[1] -eq 0x50 -and $b[2] -eq 0x44 -and $b[3] -eq 0x46)
 }
 
+# ---------------------------------------------------------------------------
+# 25.08 — PARMAK İZİ ARTIK BAYTTAN DEĞİL, METİNDEN ALINIYOR.
+#
+# Kör kalan 76 tebliğin doğru ucu bulundu: File/GeneratePdf. Ama o uç PDF'i
+# İSTEK ANINDA üretiyor ve içine üretim saatini gömüyor:
+#     /CreationDate (D:20260825124656+03'00')
+# Ölçtüm — aynı URL, üç ardışık çekim:
+#     BAYT hash : DACA104D… / 31B59688… / 74CEB613…   (üçü de farklı!)
+#     METİN hash: F37E83C5… / F37E83C5… / F37E83C5…   (üçü de aynı, 7.167 bayt)
+# Yani sadece URL'i düzeltseydik, az önce kapattığımız yalan kırmızı YENİ
+# KILIKTA geri gelirdi — bu kez 172 kaydın hepsinde. Baytı değil METNİ
+# damgalıyoruz; zaten sorumuz da "tebliğin METNİ değişti mi?".
+#
+# pdftotext yoksa bu bir ölçüm değildir -> KÖR sayılır, "değişti" sayılmaz.
+# (İş akışında poppler-utils 3. adımda kuruluyor, bu betik 8. adımda koşuyor.)
+# ---------------------------------------------------------------------------
+$script:pdftotextVar = [bool](Get-Command pdftotext -ErrorAction SilentlyContinue)
+function MetniCikar([byte[]]$b){
+  if(-not $script:pdftotextVar){ return $null }
+  $ge = [IO.Path]::GetTempFileName()
+  $pdf = "$ge.pdf"; $txt = "$ge.txt"
+  try {
+    [IO.File]::WriteAllBytes($pdf, $b)
+    & pdftotext -enc UTF-8 -q $pdf $txt 2>$null
+    if(-not (Test-Path $txt)){ return $null }
+    $t = [IO.File]::ReadAllBytes($txt)
+    # Boş/çöp çıktı da ölçüm değildir (taranmış görüntü PDF'i böyle davranır).
+    if($t.Length -lt 200){ return $null }
+    return $t
+  } catch { return $null }
+  finally { foreach($f in @($ge,$pdf,$txt)){ if(Test-Path $f){ Remove-Item $f -Force -ErrorAction SilentlyContinue } } }
+}
+
 $yeniTablo = [ordered]@{}
 $degisen = New-Object System.Collections.Generic.List[object]
 $inemeyen = New-Object System.Collections.Generic.List[string]
@@ -116,31 +156,47 @@ if($Sinir -gt 0 -and $Sinir -lt $nolar.Count){
 $sayac = 0
 foreach($no in $nolar){
   $sayac++
-  $url = "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.$no.pdf"
+  $tur    = if($turHarita.ContainsKey($no)){ $turHarita[$no].tur }    else { '9' }
+  $tertip = if($turHarita.ContainsKey($no)){ $turHarita[$no].tertip } else { '5' }
+  $url = "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$no&mevzuatTur=$tur&mevzuatTertip=$tertip"
+  # Sunucuya seri yagmuru yagdirma (03.08 dersi: mevzuat.gov.tr seri istegi kesiyor).
+  if($sayac -gt 1){ Start-Sleep -Milliseconds 700 }
   try {
     $r = Invoke-WebRequest -UseBasicParsing -Uri $url -UserAgent $UA -TimeoutSec 60
     $bayt = if($r.Content -is [byte[]]){ $r.Content } else { [Text.Encoding]::UTF8.GetBytes("$($r.Content)") }
     $ctype = "$($r.Headers['Content-Type'])"
     if($bayt.Length -lt 2000){ $inemeyen.Add("$no (govde cok kucuk: $($bayt.Length) bayt)"); continue }
-    # --- ÖLÇÜM KAPISI ---
+    # --- ÖLÇÜM KAPISI 1: gelen sey PDF mi? ---
     if(-not (PdfMi $bayt $ctype)){
       $bas = ''
       try { $bas = ([Text.Encoding]::ASCII.GetString($bayt[0..([Math]::Min(40,$bayt.Length-1))]) -replace '[\r\n]',' ').Trim() } catch {}
-      $olculemeyen.Add([ordered]@{ mevzuatNo=$no; ctype=$ctype; boyut=$bayt.Length; bas=$bas; url=$url })
+      $olculemeyen.Add([ordered]@{ mevzuatNo=$no; sebep='PDF gelmedi'; ctype=$ctype; boyut=$bayt.Length; bas=$bas; url=$url })
+      if($eski.ContainsKey($no)){ $yeniTablo[$no] = $eski[$no] }
+      continue
+    }
+    # --- ÖLÇÜM KAPISI 2: metni cikarabildik mi? ---
+    $metin = MetniCikar $bayt
+    if($null -eq $metin){
+      $sebep = if($script:pdftotextVar){ 'metin cikarilamadi (taranmis goruntu olabilir)' } else { 'pdftotext yok' }
+      $olculemeyen.Add([ordered]@{ mevzuatNo=$no; sebep=$sebep; ctype=$ctype; boyut=$bayt.Length; bas='%PDF'; url=$url })
       # Eski damgayı KORU: kayıt izlemeden düşmesin, URL onarılınca karşılaştırma
       # SON GERÇEK ölçümden devam etsin. Yeni damga YAZILMAZ - çünkü ölçüm yok.
       if($eski.ContainsKey($no)){ $yeniTablo[$no] = $eski[$no] }
       continue
     }
-    $d = Damga $bayt
-    $yeniTablo[$no] = [ordered]@{ damga=$d; boyut=$bayt.Length; kontrol=(Get-Date -Format 'dd.MM.yyyy HH:mm'); olcum='pdf' }
-    # GEÇİŞ TUZAĞI KAPATILDI (25.08): karşılaştırma yalnız eski kayıt da GERÇEK
-    # bir PDF ölçümüyse yapılır. 18.07-25.08 arasındaki damgalar HTML ana
-    # sayfanın hash'i - yani ölçüm değil, gürültü. Onlarla karşılaştırmak ilk
-    # düzgün koşuda 75 kaydı bir kez daha "değişti" diye yakardı. Bayrağı
-    # olmayan (eski dönem) kayıt SESSİZCE yeniden temellenir; karşılaştırma
-    # ikinci gerçek ölçümden itibaren başlar. Bir gün geç, ama yalan değil.
-    $eskiGercek = ($eski.ContainsKey($no) -and "$($eski[$no].olcum)" -eq 'pdf')
+    # DAMGA METİNDEN alınır (bayttan DEĞİL) - GeneratePdf her çekilişte farklı
+    # bayt üretiyor, metin ise sabit. Boyut da metin boyutudur.
+    $d = Damga $metin
+    $yeniTablo[$no] = [ordered]@{ damga=$d; boyut=$metin.Length; pdf_boyut=$bayt.Length
+                                  kontrol=(Get-Date -Format 'dd.MM.yyyy HH:mm'); olcum='metin' }
+    # GEÇİŞ TUZAĞI KAPATILDI (25.08): karşılaştırma yalnız eski kayıt da AYNI
+    # YÖNTEMLE (metin damgası) alınmışsa yapılır. Depodaki eski damgalar iki
+    # ayrı gürültü kuşağından geliyor: (a) 18.07-25.08 arası HTML ana sayfanın
+    # hash'i, (b) bayt-hash dönemi. İkisiyle de kıyaslamak ilk düzgün koşuda
+    # 172 kaydın hepsini "değişti" diye yakardı. Yöntem bayrağı taşımayan
+    # kayıt SESSİZCE yeniden temellenir; karşılaştırma ikinci koşudan başlar.
+    # Bir gün geç, ama yalan değil.
+    $eskiGercek = ($eski.ContainsKey($no) -and "$($eski[$no].olcum)" -eq 'metin')
     if(-not $ilkKurulum -and $eskiGercek -and "$($eski[$no].damga)" -ne $d){
       $degisen.Add([ordered]@{ mevzuatNo=$no; eski="$($eski[$no].damga)"; yeni=$d
                                eski_boyut=[int]"$($eski[$no].boyut)"; yeni_boyut=$bayt.Length; url=$url })
