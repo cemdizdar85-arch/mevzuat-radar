@@ -81,7 +81,7 @@
       <div id="seSiklar"></div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <button type="button" id="seGeri" style="background:#1b202b;color:var(--ink)">← Önceki</button>
+      <button type="button" id="seGeri" style="background:var(--yuzey);color:var(--ink)">← Önceki</button>
       <button type="button" id="seIleri">Sıradaki →</button>
     </div>
     <div id="sePalet" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:12px"></div>
@@ -262,7 +262,7 @@ function soruGoster(){
     var v = s.siklar ? s.siklar[h] : '';
     if(!v) return;
     var b = document.createElement('button'); b.type='button';
-    b.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:9px;font-size:14px;border:1px solid ' + (CANLI.cevap[s.id]===h ? 'var(--amber)' : 'var(--line2)') + ';background:' + (CANLI.cevap[s.id]===h ? 'rgba(245,165,36,.12)' : '#0d1016') + ';color:var(--ink);cursor:pointer';
+    b.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:9px;font-size:14px;border:1px solid ' + (CANLI.cevap[s.id]===h ? 'var(--amber)' : 'var(--line2)') + ';background:' + (CANLI.cevap[s.id]===h ? 'rgba(245,165,36,.12)' : 'var(--yuzey)') + ';color:var(--ink);cursor:pointer';
     b.innerHTML = '<b>' + h + ')</b> ' + esc(v);
     b.onclick = function(){ CANLI.cevap[s.id] = (CANLI.cevap[s.id]===h ? null : h); if(!CANLI.cevap[s.id]) delete CANLI.cevap[s.id]; soruGoster(); };
     sk.appendChild(b);
@@ -270,7 +270,7 @@ function soruGoster(){
   var pl = document.getElementById('sePalet'); pl.innerHTML='';
   CANLI.sorular.forEach(function(x,i){
     var p = document.createElement('button'); p.type='button'; p.textContent = i+1;
-    p.style.cssText = 'min-width:34px;padding:5px 0;border-radius:7px;font-size:12px;border:1px solid var(--line2);cursor:pointer;background:' + (i===CANLI.idx ? 'var(--amber)' : (CANLI.cevap[CANLI.sorular[i].id] ? 'rgba(61,220,151,.25)' : '#0d1016')) + ';color:' + (i===CANLI.idx ? '#0a0c10' : 'var(--ink)');
+    p.style.cssText = 'min-width:34px;padding:5px 0;border-radius:7px;font-size:12px;border:1px solid var(--line2);cursor:pointer;background:' + (i===CANLI.idx ? 'var(--amber)' : (CANLI.cevap[CANLI.sorular[i].id] ? 'rgba(61,220,151,.25)' : 'var(--yuzey)')) + ';color:' + (i===CANLI.idx ? '#0a0c10' : 'var(--ink)');
     p.onclick = function(){ CANLI.idx = i; soruGoster(); window.scrollTo(0,0); };
     pl.appendChild(p);
   });

@@ -65,7 +65,7 @@ var GtipAra = (function(){
       const sonAyrac = t.lastIndexOf('›');
       const zincir = sonAyrac >= 0 ? t.slice(0, sonAyrac).trim() : '';
       const kendi  = sonAyrac >= 0 ? t.slice(sonAyrac+1).trim() : t;
-      return `<div onclick="${secFnAdi}('${kod}')" style="padding:10px 12px;margin-top:6px;border:1px solid var(--line2);border-radius:10px;background:#06090f;cursor:pointer" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line2)'">
+      return `<div onclick="${secFnAdi}('${kod}')" style="padding:10px 12px;margin-top:6px;border:1px solid var(--line2);border-radius:10px;background:var(--kagit);cursor:pointer" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line2)'">
         <b style="color:var(--green);font-size:14px">${kod}</b>
         <div style="font-size:13px;color:var(--ink);margin-top:2px">${htmlEsc(kendi)}</div>
         ${zincir ? `<div style="font-size:11.5px;color:var(--dim);margin-top:2px">${htmlEsc(zincir)}</div>` : ''}

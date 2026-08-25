@@ -176,7 +176,7 @@ async function app(){
     const {data:uy}=await sb.from('marka_uyari').select('*').eq('goruldu',false).order('created_at',{ascending:false}).limit(15);
     if(uy&&uy.length){
       uyariBanner=`<div style="background:rgba(255,107,94,.10);border:1px solid rgba(255,107,94,.4);border-radius:14px;padding:16px 18px;margin:0 0 18px">
-        <div style="font-weight:800;color:#ff9d93;font-size:15px;margin-bottom:8px">🚨 ${uy.length} marka uyarısı</div>
+        <div style="font-weight:800;color:var(--red);font-size:15px;margin-bottom:8px">🚨 ${uy.length} marka uyarısı</div>
         ${uy.map(u=>(['durum-degisikligi','yenileme','portfoy-yenileme','rakip-yeni'].indexOf(u.tip)>=0)
           ?`<div style="font-size:13px;color:var(--muted);margin-bottom:5px">${u.tip==='rakip-yeni'?'🎯':(u.tip==='durum-degisikligi'?'📌':'🔔')} <b style="color:var(--ink)">${esc(u.marka)}</b>${u.tip==='rakip-yeni'?' → yeni marka: ':': '}${esc(u.benzer_ad)}</div>`
           :`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(u.marka)}</b> ← <b style="color:var(--ink)">${esc(u.benzer_ad)}</b> <span class="mini">(başvuru ${esc(u.basvuru_no)}, %${u.risk} risk${u.sinif_cakisiyor?', sınıf çakışıyor':''}${u.tip==='benzer-intl'?', 🌍 '+esc(u.ofis||'yurt dışı'):''})</span></div>`).join('')}
@@ -199,7 +199,7 @@ async function app(){
       const markaToplam=pf.reduce((t,p)=>t+(p.marka_sayisi||0),0);
       if(markaToplam) portfoyBanner=`<div style="background:rgba(245,165,36,.08);border:1px solid rgba(245,165,36,.32);border-radius:14px;padding:16px 18px;margin:0 0 18px">
         <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:8px">®️ Sicilde adına ${markaToplam} marka bulundu${acilToplam?` — ${acilToplam} tanesinin yenileme tarihi kapıda`:''}</div>
-        ${pf.filter(p=>p.marka_sayisi).map(p=>`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(p.unvan)}</b>: ${p.marka_sayisi} marka · ${p.tescilli||0} tescilli${p.yenileme_yakin?` · <b style="color:var(--amber)">${p.yenileme_yakin} yenileme penceresi açık</b>`:''}${p.ek_surede?` · <b style="color:#ff9d93">${p.ek_surede} ek sürede</b>`:''}${p.dusmus?` · ${p.dusmus} düşmüş`:''}</div>`).join('')}
+        ${pf.filter(p=>p.marka_sayisi).map(p=>`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(p.unvan)}</b>: ${p.marka_sayisi} marka · ${p.tescilli||0} tescilli${p.yenileme_yakin?` · <b style="color:var(--amber)">${p.yenileme_yakin} yenileme penceresi açık</b>`:''}${p.ek_surede?` · <b style="color:var(--red)">${p.ek_surede} ek sürede</b>`:''}${p.dusmus?` · ${p.dusmus} düşmüş`:''}</div>`).join('')}
         <div style="margin-top:8px;font-size:12.5px"><a href="marka-portfoy.html" style="color:var(--accent2);font-weight:700">Tarih takvimini aç →</a> <span class="mini">Koruma başvurudan 10 yıl, yenileme son 6 ayda (SMK m.23).</span></div>
       </div>`;
     }

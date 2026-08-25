@@ -622,7 +622,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
         ? `Yukarıdaki hesap genel %${SABIT.kvOran} orana göre. <b style="color:var(--ink)">Sanayi sicil belgeli imalatçının üretim kazancında</b> oran çok daha düşük, ve bu indirimden yalnız ŞİRKET yararlanır, şahıs imalatçı yararlanamaz:`
         : `Yukarıdaki hesap genel %${SABIT.kvOran} orana göre. Al-sat kazancında indirim yok; ama yaptığın ticaretin <b style="color:var(--ink)">ihracat kısmı</b> varsa o kazançta oran düşer:`;
       hesapHtml += `
-      <div style="margin-top:10px;padding:12px;border:1px solid var(--green);border-radius:11px;background:#0a1710">
+      <div style="margin-top:10px;padding:12px;border:1px solid var(--green);border-radius:11px;background:rgba(61,220,151,.10)">
         <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:8px">${baslikK}</div>
         <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">${girisK}</div>
         ${imalatci ? `<div class="satir"><b>İmalatçı, üretim kazancı (2026, %${o.imalatci2026})</b><span style="color:var(--green);font-weight:700">~${TLf(kvImal26)} TL</span></div>

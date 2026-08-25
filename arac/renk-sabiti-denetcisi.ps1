@@ -30,14 +30,26 @@
 #  Sabit renk her zaman kusur degildir. Su uc oberk bilerek sabit kalir:
 #    1. MARKA VE DURUM RENKLERI dolgu olarak: #f5a524 / #ffc24b (amber),
 #       #3ddc97 (basari), ve bunlarin uzerine binen koyu murekkep #03101f /
-#       #03140d. Bunlar iki temada da AYNI kalmali - jetona baglanirsa
-#       marka rengi temayla birlikte kayar.
+#       #03140d / #0a0c10 / #20160a. Bunlar iki temada da AYNI kalmali -
+#       jetona baglanirsa marka rengi temayla birlikte kayar.
 #    2. BASKI STILLERI: senaryo-raporu.html icindeki "@media print" blogu
 #       (23 renk). Kagit her zaman beyazdir; oradaki #111/#333/#ccc
 #       DOGRUDUR. Jetona baglanirsa site koyuya donunce ciktilar bozulur.
 #    3. KAGIT PALETI: marka-rapor.html mukellefe gonderilen bir BELGEDIR,
 #       sitenin temasini bilerek izlemez (kendi :root'u sayfanin sonunda,
 #       stil-acik.css'ten SONRA durur ki gercekten kazansin).
+#    4. GOSTERIM SAHNELERI: tetikte-marka.html markayi KOYU ve ACIK zemin
+#       uzerinde yan yana gosteren bir ic calisma sayfasidir; iki sahne de
+#       SABIT olmali, yoksa karsilastirmanin anlami kalmaz. Ayni sekilde
+#       deneme.html'deki "temaSepya" sinif varyanti bilerek sicak kagittir.
+#
+#  25.08 ODEME TURU: 398 -> 328. Kalan gercek borc ~24 satir; gerisi
+#  yukaridaki dort oberkte. Odenirken bulunan iki GERCEK kusur:
+#    - gtip-ara.js arama sonuc karti "background:#06090f" sabitti; acik
+#      temada var(--ink) siyah kartin uzerine biniyordu (1,13). Kart ancak
+#      arama yapilinca olustugu icin kontrast kapisi goremiyordu. Dort
+#      sayfayi etkiliyordu (gtip, fiyatfarki, senaryo-raporu, index).
+#    - canli-deneme.html JS ile uretilen sik zemini "#0d1016" sabitti.
 #  Bu ucu tabanda durur ve kapiyi dusurmez; amac YENI sabit renk eklenmesini
 #  engellemek, mesru olanlari kovalamak degil.
 #
