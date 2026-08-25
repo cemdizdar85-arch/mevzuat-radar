@@ -33,6 +33,22 @@ on:
     # 29.07 Cem: "RG gece yayinlaniyor, 8 gec bence daha erkene alalim".
     # 03:00 UTC = 06:00 Turkiye. RG gece yarisi civari yayimlandigi icin sabah
     # altida icerik hazir; musavir masaya oturdugunda kart onunde olur.
+    # 25.08 ERKEN NOBET (Cem: "RG'yi gece 4-5 gibi cekmek lazim, 9 cok gec").
+    # OLCULDU: cron ile GERCEK kosu saati arasinda SISTEMATIK gecikme var -
+    # GitHub zamanlanmis is akislarini 40-100 dk geciktiriyor. "03:07" yazan
+    # nobet 25.08'de 04:45'te kostu, kartlar 04:48'de canliya cikti. Yani
+    # bugunku hal zaten istenen pencerede AMA tasarimla degil, GECIKMEYLE.
+    # Bu nobet o tesadufu tasarima cevirir.
+    #
+    # 22:10 UTC = 01:10 TR (ERTESI gun). Is akisi gunu Europe/Istanbul ile
+    # hesapladigi icin dogru gune bakar. GitHub gecikmesiyle ~01:50-02:40 TR.
+    # RISKSIZ: RG o saatte HENUZ YAYIMLANMAMISSA kart uretilmez, damga
+    # yazilmaz ve 04:45 nobeti isi eskisi gibi yapar. Yayimlanmissa kartlar
+    # yaklasik IKI SAAT ERKEN canliya cikar.
+    # AYRICA BU BIR DENEYDIR: hangi nobetin "kart uretildi" dedigi commit
+    # mesajindan okunur; birkac gun sonra RG'nin GERCEK yayin saati bilinir ve
+    # ana nobet ona gore sabitlenir. Tahmin yerine olcum.
+    - cron: "10 22 * * *"    # 01:10 TR (ertesi gun) - ERKEN DENEME nobeti
     - cron: "7 0 * * *"      # 03:07 TR - ana nobet (Cem 31.07: sabah 5te hepsi bitmis olacak)
     # IKINCI NOBET: mukerrer sayilar gun icinde de cikabiliyor. Sabahki kosu
     # onlari goremez. 12:00 UTC = 15:00 Turkiye'de bir kez daha bakilir.
