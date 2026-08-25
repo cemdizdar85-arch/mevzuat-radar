@@ -4,6 +4,24 @@ name: yetki-devri-denetcisi
 # 5510 tavan 7,5->9 kat vakalari). Bu kapi, yetki-devri kalibi tasiyan kanuna
 # atifli YENI sayisal iddia gorunce KIRMIZI cikar; aday elle okunup
 # veri/yetki-devri-okundu.json'a karar notuyla yazilmadan yesile donmez.
+#
+# ============================================================================
+# 25.08 — KOR KALMA DUZELTMESI
+# Bu kapi 13 KOSU boyunca ust uste kirmizi kaldi (son yesil 19.08) ve kimse
+# NEDEN kirmizi oldugunu goremedi. Iki sebep:
+#   1. Betik raporunu veri/yetki-devri-riskleri.json'a YAZIYOR ama workflow
+#      onu DEPOYA ISLEMIYORDU. Rapor runner'la birlikte siliniyordu.
+#   2. GitHub is gunlugunu indirmek DEPO YONETICISI yetkisi istiyor (403);
+#      yetkisi olmayan hangi adayin "YENI" cikdigini goremiyor.
+# Yani kapi "bir sey yanlis" diyordu ama NE oldugunu soyleyemiyordu.
+# Artik rapor kirmizi olsa da depoya islenir - hangi iddia yeni cikti,
+# hangi sayfada, hangi kanuna atifli: hepsi dosyada durur.
+#
+# NOT (yanlis teshis kaydi): once ters bolulu yollarin ('veri\mevzuat')
+# Linux'ta kirdigini sandim. OLCTUM, YANLISTI - 15:47'deki yesil kosuda
+# betik ayni yollarla Linux'ta sorunsuz calisti. Yollar yine de ileri
+# boluye cevrildi (tasinabilirlik), ama SEBEP O DEGILDI.
+# ============================================================================
 on:
   push:
     branches: [main]
@@ -11,6 +29,9 @@ on:
   schedule:
     - cron: '30 5 * * 1'   # her pazartesi 08:30 TR — ambar guncellemeleri sonrasi haftalik tam tur
   workflow_dispatch: {}
+
+permissions:
+  contents: write   # raporu depoya isler (kor kalma)
 
 jobs:
   denetle:
@@ -20,3 +41,15 @@ jobs:
       - name: Denetciyi kos (YENI kirmizi aday varsa is KIRMIZI biter)
         shell: pwsh
         run: ./motor/yetki-devri-denetcisi.ps1
+
+      # KIRMIZI OLSA DA yayinlanir - kapinin ne gordugu gorunmezse kapi
+      # "bir sey yanlis" demekten ibaret kalir.
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/yetki-devri-riskleri.json || true
+          git diff --cached --quiet || git commit -m "Yetki devri raporu [veri-operasyonu]"
+          git pull --rebase --autostash || true
+          git push || true

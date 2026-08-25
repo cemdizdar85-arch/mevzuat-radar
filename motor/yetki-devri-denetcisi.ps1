@@ -27,14 +27,14 @@ param([switch]$SayfaDetay)
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$ciktiYol = Join-Path $kok 'veri\yetki-devri-riskleri.json'
+$ciktiYol = Join-Path $kok 'veri/yetki-devri-riskleri.json'
 
 # --- yetki-devri kaliplari (iki vakadan + m.4/6 tipi maddelerden turetildi) ---
 $reYetki = [regex]'(?i)(Cumhurba[şs]kan[ıi]|Bakanlar Kurulu)[^.]{0,160}?(yetkili|belirle|art[ıi]rmaya|indirmeye)|tebli[ğg]\s*ile\s*belirlen|y[öo]netmelik(le| ile)\s*belirlen|yeniden de[ğg]erleme oran[ıi]nda\s*art[ıi]r|her (takvim )?y[ıi]l[^.]{0,60}g[üu]ncellen|kat[ıi]na kadar art[ıi]rmaya|yar[ıi]s[ıi]na kadar indirmeye|s[ıi]f[ıi]ra kadar indirmeye'
 
 # --- A) ambar taramasi ---
 $riskliMaddeler = New-Object System.Collections.Generic.List[object]
-$ambarDir = Join-Path $kok 'veri\mevzuat'
+$ambarDir = Join-Path $kok 'veri/mevzuat'
 $dosyaSay = 0
 foreach($f in Get-ChildItem $ambarDir -Filter '*.json' | Where-Object { $_.Name -notmatch '^_' }){
   $dosyaSay++
@@ -88,7 +88,7 @@ foreach($x in $iddialar){
 
 # --- okundu listesi: elle okunup karara baglanmis adaylar tekrar KIRMIZI cikmaz ---
 # anahtar: sayfa|kanun|iddia (satir numarasi OYNAR, anahtara girmez)
-$okunduYol = Join-Path $kok 'veri\yetki-devri-okundu.json'
+$okunduYol = Join-Path $kok 'veri/yetki-devri-okundu.json'
 $okundu = @{}
 if(Test-Path $okunduYol){ try { foreach($o in (Get-Content $okunduYol -Raw -Encoding UTF8 | ConvertFrom-Json)){ $okundu["$($o.anahtar)"]=$true } } catch {} }
 $yeni = New-Object System.Collections.Generic.List[object]
