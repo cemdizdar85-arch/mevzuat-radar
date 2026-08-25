@@ -419,3 +419,9 @@ a:hover{color:var(--accent2)}
   .hero-ara-satir input{font-size:17px}
   .hero-ara-satir input::placeholder{font-size:15px}
 }
+
+/* Net Cevap: kaynak adi ile KENDI aracimiza giden baglanti ayrildi.
+   Kanun adi duz metin (dogru atif), araç baglantisi ne oldugu yazilarak. */
+.aracBag{font-size:.92em;color:var(--accent);text-decoration:none;
+  border-bottom:1px dotted rgba(180,83,9,.45);white-space:nowrap}
+.aracBag:hover{border-bottom-style:solid}

@@ -50,6 +50,10 @@ jobs:
         shell: pwsh
         run: ./arac/yapisal-denetci.ps1
 
+      - name: Eksik dosya kapisi (sayfalarin cagirdigi dosya depoda mi?)
+        shell: pwsh
+        run: ./arac/eksik-dosya-kapisi.ps1
+
       - name: Nokta-kontrol (bilinen kod -> dogru cevap regresyonu)
         shell: pwsh
         run: ./arac/nokta-kontrol.ps1

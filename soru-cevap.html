@@ -72,7 +72,7 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
     background:#f5a524 !important;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);
     font-size:0 !important;color:transparent !important;display:inline-block !important;
     place-items:unset !important;flex:none}
-</style>
+</style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
@@ -233,7 +233,22 @@ async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('so
       if(j.kapsamda && j.cevap){
         beyinIyi();
         localStorage.setItem(LSK, kullanilan()+1); hakYaz();
-        const kay=(j.kaynaklar||[]).map(k=>k.url?`<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.ad)}</a>`:esc(k.ad)).join(' · ');
+        /* 25.08 DUZELTME: kanun adi ARACIMIZA baglaniyordu.
+           Olculdu: {"ad":"488 sayili Damga Vergisi Kanunu","url":".../ihale-radari.html"}
+           Kullanici kanun adina tiklayip alakasiz bir arac sayfasina dusuyordu.
+           Tezimiz "cevabin altinda maddesi var"; kanun adini yanlis sayfaya
+           baglamak tam da o iddiayi curutur.
+           Bilgi tabaninda GERCEK mevzuat adresi YOK (403 kaydin hicbirinde),
+           dolayisiyla dogru baglanti UYDURULAMAZ. Cozum: kaynak adi DUZ METIN
+           kalir (dogru atif), kendi sayfamiza giden baglanti ayrica ve NE
+           OLDUGU YAZILARAK verilir. */
+        const bizimSite = location.origin;
+        const kay = (j.kaynaklar||[]).map(function(k){
+          if(!k.url) return esc(k.ad);
+          var kendi = k.url.indexOf(bizimSite) === 0 || /github\.io|tetikte\.com/.test(k.url);
+          if(kendi) return esc(k.ad) + ' <a href="' + esc(k.url) + '" class="aracBag">ilgili aracımız &rarr;</a>';
+          return '<a href="' + esc(k.url) + '" target="_blank" rel="noopener">' + esc(k.ad) + '</a>';
+        }).join(' · ');
         // 21.08: beyin kaynagi buldu ama OZETLEYEMEDI (LLM hatti olu). Ham
         // madde metni geliyor. Bunu "Net Cevap" diye sunmak yalan olur -
         // ayri baslikla, ozet olmadigi acikca yazilarak gosterilir ve
