@@ -74,6 +74,8 @@ jobs:
   kapilar:
     name: ${{ matrix.kapi.ad }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write     # yalniz "rapor" alani olan kapi depoya yazar
     strategy:
       fail-fast: false     # BIRI DUSSE DIGERLERI YINE OLCSUN - bu dosyanin varlik sebebi
       matrix:
@@ -119,8 +121,13 @@ jobs:
           # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
           # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
           # Chrome DevTools protokolu konusulur. ~4 dk surer, en yavas kapi.
+          # "rapor" verilen kapi ciktisini depoya isler - KOR KALMA kurali.
+          # Kapi CI'da dustugunde gunlugu okumak DEPO YONETICISI yetkisi
+          # istiyor; yetkisi olmayan NEDEN dustugunu goremiyor. Rapor depoda
+          # durursa herkes gorur.
           - { ad: "Kontrast kapisi (okunmayan metin yayina cikmasin)",
-              kabuk: bash, komut: "node arac/kontrast-kapisi.js" }
+              kabuk: bash, komut: "node arac/kontrast-kapisi.js",
+              rapor: "veri/kontrast-raporu.json" }
 
     steps:
       - name: Depoyu al
@@ -140,3 +147,15 @@ jobs:
         if: matrix.kapi.kabuk == 'bash'
         shell: bash
         run: ${{ matrix.kapi.komut }}
+
+      # KOR KALMA: kapi kirmizi olsa da raporu yayinlanir. Yoksa CI'da
+      # dustugunde sebebini yalniz depo yoneticisi gorebiliyor.
+      - name: "Raporu yayinla (kirmizi olsa da)"
+        if: always() && matrix.kapi.rapor != ''
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add "${{ matrix.kapi.rapor }}" || true
+          git diff --cached --quiet || git commit -m "Kontrast raporu [veri-operasyonu]"
+          git pull --rebase --autostash || true
+          git push || true

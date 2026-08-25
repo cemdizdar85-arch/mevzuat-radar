@@ -42,17 +42,40 @@ const ESIK_BYK = 3.0;
 const BEKLE_MS = 1200;                 // JS ile basilan stiller (menu.js vb.) yerlessin
 
 /* --- Chrome'u bul ------------------------------------------------------- */
+/* Nereye baktigi RAPORA yazilir; bulunamazsa "bulamadim" demek yetmez,
+   NEREYE baktigini da soylemeli - yoksa CI'da tesahis edilemez. */
+const BAKILAN_YOLLAR = [];
 function chromeBul(){
-  if(process.env.CHROME_PATH && fs.existsSync(process.env.CHROME_PATH)) return process.env.CHROME_PATH;
+  const dene = (y) => {
+    if(!y) return false;
+    BAKILAN_YOLLAR.push(y);
+    try { return fs.existsSync(y); } catch(e){ return false; }
+  };
+  /* 1) acikca verilen yol */
+  for(const ev of ['CHROME_PATH','CHROME_BIN','GOOGLE_CHROME_BIN']){
+    if(process.env[ev] && dene(process.env[ev])) return process.env[ev];
+  }
+  /* 2) bilinen kurulum yerleri */
   const adaylar = [
     '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable',
+    '/opt/google/chrome/chrome', '/opt/google/chrome/google-chrome',
     '/usr/bin/chromium-browser', '/usr/bin/chromium',
+    '/snap/bin/chromium',
     'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
     'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
     path.join(os.homedir(), 'AppData\\Local\\Google\\Chrome\\Application\\chrome.exe'),
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
   ];
-  for(const a of adaylar) if(fs.existsSync(a)) return a;
+  for(const a of adaylar) if(dene(a)) return a;
+  /* 3) PATH uzerinde ara - runner imaji yeri degistirirse yine bulunur */
+  const parcalar = (process.env.PATH||'').split(path.delimiter).filter(Boolean);
+  const adlar = process.platform==='win32'
+    ? ['chrome.exe','msedge.exe']
+    : ['google-chrome','google-chrome-stable','chromium','chromium-browser'];
+  for(const d of parcalar) for(const ad of adlar){
+    const y = path.join(d, ad);
+    if(dene(y)) return y;
+  }
   return null;
 }
 
@@ -233,6 +256,18 @@ class Cdp {
 
 const bekle=(ms)=>new Promise(r=>setTimeout(r,ms));
 
+/* --- rapor: kor kalma kurali -------------------------------------------
+   Kapi CI'da dustugunde gunlugu okumak icin depo yoneticisi yetkisi gerekiyor;
+   yetkisi olmayan (ben dahil) NEDEN dustugunu goremiyor. Bu yuzden kapi her
+   kosuda kendi raporunu depoya yazar - yesil de olsa kirmizi da olsa. */
+const RAPOR_YOL = path.join(KOK, 'veri', 'kontrast-raporu.json');
+function raporYaz(icerik){
+  try{
+    fs.mkdirSync(path.dirname(RAPOR_YOL), {recursive:true});
+    fs.writeFileSync(RAPOR_YOL, JSON.stringify(icerik, null, 2) + '\n');
+  }catch(e){ /* rapor yazilamazsa kapinin kendisi durmasin */ }
+}
+
 /* --- ana akis ----------------------------------------------------------- */
 (async function(){
   const secili=process.argv.slice(2).filter(a=>a.endsWith('.html'));
@@ -242,15 +277,20 @@ const bekle=(ms)=>new Promise(r=>setTimeout(r,ms));
 
   if(!sayfalar.length){ console.log('KONTRAST KAPISI: kokte .html yok, atlandi.'); process.exit(0); }
 
+  const ci = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
   const chrome=chromeBul();
   if(!chrome){
     /* Kor kalma kurali: olcemedigimizde "temiz" demeyiz, KOR deriz.
        CI'da Chrome hazir gelir - orada yoklugu ARIZADIR, sessizce gecilmez.
        Yoksa kapi aylarca kor koşar ve yesil sanilir (mevzuat.yml 164 kez
        boyle kirmizi koştu, kimse bakmadi). */
-    const ci = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
     console.log('KONTRAST KAPISI: KOR — Chrome bulunamadi, olcum YAPILAMADI.');
-    console.log('  ubuntu-latest\'te hazir gelir. Yerelde: CHROME_PATH=<yol> node arac/kontrast-kapisi.js');
+    console.log('  Bakilan yollar (' + BAKILAN_YOLLAR.length + '):');
+    for(const y of BAKILAN_YOLLAR.slice(0,14)) console.log('    ' + y);
+    console.log('  Yerelde: CHROME_PATH=<yol> node arac/kontrast-kapisi.js');
+    raporYaz({ durum:'KOR', sebep:'chrome-bulunamadi', ci:ci,
+               platform:process.platform, bakilan_yol_sayisi:BAKILAN_YOLLAR.length,
+               bakilan_yollar:BAKILAN_YOLLAR.slice(0,20) });
     process.exit(ci ? 1 : 0);
   }
 
@@ -268,6 +308,13 @@ const bekle=(ms)=>new Promise(r=>setTimeout(r,ms));
     'about:blank'
   ], { stdio:['ignore','ignore','pipe'] });
 
+  /* Chrome'un stderr'i toplanir: acilmazsa SEBEBI burada yazar
+     (eksik kutuphane, sandbox, /dev/shm...). Toplanmazsa kapi "acilmadi"
+     der ve nedenini kimse ogrenemez. */
+  let chromeHata = '';
+  cp.stderr.on('data', (d)=>{ if(chromeHata.length < 4000) chromeHata += d.toString(); });
+  cp.on('error', (e)=>{ chromeHata += '\nspawn hatasi: ' + e.message; });
+
   const bitir=(kod)=>{ try{cp.kill();}catch(e){} try{sunucu.kill();}catch(e){}
                        try{fs.rmSync(profil,{recursive:true,force:true});}catch(e){}
                        process.exit(kod); };
@@ -275,15 +322,28 @@ const bekle=(ms)=>new Promise(r=>setTimeout(r,ms));
   /* Chrome gercek portu DevToolsActivePort dosyasina yazar */
   /* Windows'ta Chrome dosyayi yazarken kilitli tutabiliyor (EBUSY) -
      var/yok bakmak yetmez, OKUMA denemesi de try icinde olmali. */
+  /* Soguk runner'da ilk acilis yavas olabilir - 20 sn bekle. */
   let dvPort=null;
-  for(let i=0;i<80;i++){
+  for(let i=0;i<200;i++){
     try{
       const s=fs.readFileSync(path.join(profil,'DevToolsActivePort'),'utf8').split('\n');
       if(s[0] && s[0].trim()){ dvPort=s[0].trim(); break; }
     }catch(e){ /* henuz yok ya da kilitli - beklemeye devam */ }
     await bekle(100);
   }
-  if(!dvPort){ console.log('KONTRAST KAPISI: KOR — Chrome acildi ama baglanilamadi, olcum YAPILAMADI.'); bitir(1); }
+  if(!dvPort){
+    console.log('KONTRAST KAPISI: KOR — Chrome acildi ama baglanilamadi, olcum YAPILAMADI.');
+    console.log('  chrome  : ' + chrome);
+    if(chromeHata.trim()){
+      console.log('  Chrome stderr:');
+      for(const s of chromeHata.trim().split('\n').slice(0,12)) console.log('    ' + s);
+    } else {
+      console.log('  Chrome stderr: (bos)');
+    }
+    raporYaz({ durum:'KOR', sebep:'devtools-portu-acilmadi', ci:ci,
+               chrome:chrome, chrome_stderr:chromeHata.trim().slice(0,2000) });
+    bitir(1);
+  }
 
   const surum=await (await fetch('http://127.0.0.1:'+dvPort+'/json/version')).json();
   const cdp=await Cdp.ac(surum.webSocketDebuggerUrl);
@@ -322,6 +382,24 @@ const bekle=(ms)=>new Promise(r=>setTimeout(r,ms));
   /* --- rapor ------------------------------------------------------------ */
   const kirikSayfalar=sonuc.filter(s=>s.kirik && s.kirik.length);
   const temiz=sonuc.filter(s=>s.kirik && !s.kirik.length).length;
+
+  raporYaz({
+    durum: toplamKirik ? 'KIRMIZI' : (olculemeyen ? 'KOR' : 'YESIL'),
+    ci: ci,
+    chrome: chrome,
+    sayfa: sayfalar.length,
+    temiz_sayfa: temiz,
+    denetlenen_metin: sonuc.reduce((t,s)=>t+(s.bakilan||0),0),
+    toplam_kirik: toplamKirik,
+    olculemeyen: olculemeyen,
+    esik: { normal: ESIK_NRM, buyuk: ESIK_BYK },
+    olculemeyenler: sonuc.filter(s=>s.olculemedi).map(s=>({ sayfa:s.sayfa, sebep:s.sebep||'bilinmiyor' })),
+    kirik_sayfalar: kirikSayfalar.map(s=>({
+      sayfa: s.sayfa,
+      adet: s.kirik.length,
+      ornekler: s.kirik.slice(0,6).map(k=>({ oge:k.oge, yazi:k.yazi, oran:k.oran, esik:k.esik, renk:k.renk, zemin:k.zemin }))
+    }))
+  });
   console.log('  Denetlenen metin ogesi: '+sonuc.reduce((t,s)=>t+(s.bakilan||0),0));
   console.log('  Temiz sayfa: '+temiz+'/'+sayfalar.length+'   Kirik: '+toplamKirik
               +(olculemeyen?('   OLCULEMEDI: '+olculemeyen):''));
