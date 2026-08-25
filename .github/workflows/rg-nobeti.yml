@@ -23,13 +23,32 @@ on:
   # TETIKLEMEZ. Yani bu nobet fiilen HIC kosmayacakti - karne ayni tuzaktan
   # hic kosmamisti (29.07'de bulundu). Ayna 07:00/16:00 TR'de kosuyor;
   # nobet birer saat arkasindan gelir. PARA HARCAMAZ.
+  # ==========================================================================
+  # 25.08 - SAATE DEGIL OLAYA BAGLANDI. OLCULEN SIRA BOZUKLUGU:
+  #
+  # Bu nobet mevzuat.yml'nin urettigi veri/madde-degisim.json'u okur; o yuzden
+  # cron'lari "aynadan biraz sonra" diye elle secilmisti (ayna 03:11, nobet
+  # 03:39). AMA GitHub zamanlanmis isleri 40-100 dk GECIKTIRIYOR ve gecikme
+  # her is icin FARKLI. 25.08 gecesi olculdu (TR):
+  #     Kanun Aynasi   basladi 04:49
+  #     RG Nobeti      basladi 05:05   <-- 16 dk sonra
+  #     Kanun Aynasi'nin commit adimi ~55. dakikada (05:44 civari)
+  # Yani nobet, aynanin madde-degisim.json'u YAZMASINDAN ~40 DK ONCE kosuyor
+  # ve DUNUN dosyasini okuyordu. Fark BUYUYOR da: teblig damgasi artik
+  # GeneratePdf kullaniyor ve o adim tek basina 34 dk suruyor.
+  #
+  # COZUM: takvim tahmini yerine workflow_run. Ayna BITTIGINDE koser -
+  # gecikme ne olursa olsun sira GARANTI. Bu, bir bagimliligi "umut ederek"
+  # degil "bildirerek" kurmaktir.
+  # ==========================================================================
+  workflow_run:
+    workflows: ["Günlük Kanun Aynası"]
+    types: [completed]
   schedule:
-    - cron: "39 0 * * *"     # 03:39 TR - sabah aynasindan sonra
-    - cron: "9 14 * * *"    # 17:00 TR — ogleden sonraki aynadan sonra
-    # 02.08 YEDEK: zamanlayici atlarsa "son tarama" damgasi bir gun geride
-    # kaliyor ve siteye giren bayat tarih goruyor. Bu is PARA HARCAMAZ.
-    - cron: "45 3 * * *"    # 06:45 TR - yedek
-    - cron: "45 6 * * *"    # 09:45 TR - yedek
+    # EMNIYET AGI: ayna hic kosmazsa (GitHub cron'u bazen ATLIYOR) nobet yine
+    # de gunde bir bakar. Tek cron yeter; digerleri artik gereksiz cunku asil
+    # tetik workflow_run.
+    - cron: "45 6 * * *"    # 09:45 TR - emniyet
   push:
     paths:
       - 'veri/madde-degisim.json'
@@ -55,7 +74,18 @@ jobs:
         run: |
           # Hasat sonrasi otomatik tetikte CEKME YAPILIR - nobetin isi budur.
           # Elle tetikte varsayilan olcumdur, bilerek acilir.
-          $uygula = ('${{ github.event_name }}' -eq 'push') -or ('${{ inputs.uygula }}' -eq 'true')
+          #
+          # 25.08 KRITIK DUZELTME: kosul yalnizca 'push' idi. AMA robot push'lari
+          # (GITHUB_TOKEN ile) yeni is akisi TETIKLEMEZ - bu zaten 29.07'de
+          # ogrenilmis ve cron o yuzden eklenmisti. Sonuc: 'push' dali FIILEN
+          # HIC CALISMADI, cron dali da uygula=false demek oldugu icin bu nobet
+          # BUGUNE KADAR TEK BIR SORU BILE YAYINDAN CEKMEDI. Zincirin son halkasi
+          # kurulmus ama BAGLANMAMISTI (bu depoda dordunc kez ayni desen).
+          # workflow_run = "ayna bitti, taze madde-degisim.json hazir" demektir;
+          # otomatik cekmenin DOGRU yeri burasidir.
+          $uygula = ('${{ github.event_name }}' -eq 'push') -or
+                    ('${{ github.event_name }}' -eq 'workflow_run') -or
+                    ('${{ inputs.uygula }}' -eq 'true')
           if($uygula){ ./motor/rg-nobeti.ps1 -uygula } else { ./motor/rg-nobeti.ps1 }
           $k = $LASTEXITCODE
           # 2 = esik asildi: kirmizi degil, "insan baksin" demektir. Kosuyu
