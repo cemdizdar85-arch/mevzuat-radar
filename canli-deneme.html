@@ -121,7 +121,7 @@ fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).
   d.oturumlar.forEach(function(o){
     var gecti = zamani(o) <= simdi;
     var sat = document.createElement('div');
-    sat.style.cssText = 'display:flex;gap:10px;font-size:13.5px;margin:6px 0;color:' + (gecti ? 'var(--dim)' : '#c8ccd2');
+    sat.style.cssText = 'display:flex;gap:10px;font-size:13.5px;margin:6px 0;color:' + (gecti ? 'var(--dim)' : 'var(--muted)');
     sat.innerHTML = '<span style="min-width:88px;font-weight:700;color:' + (gecti ? 'var(--dim)' : 'var(--amber)') + '">' + o.tarih + '</span><span><b>' + (o.sinav || '') + '</b> · ' + o.ad + (gecti ? ' · tamamlandı' : ' · ' + o.saat) + '</span>';
     tk.appendChild(sat);
   });

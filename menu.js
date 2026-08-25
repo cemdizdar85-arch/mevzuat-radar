@@ -36,7 +36,7 @@ try {
       if (document.getElementById('mrPerde')) return;
       var d = document.createElement('div');
       d.id = 'mrPerde';
-      d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#06090f;color:#eef2f7;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif';
+      d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:var(--taban);color:var(--ink);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif';
       /* 30.07: perde ziyaretcinin gordugu ILK ekran ve eski markayla duruyordu
          (koseli T kutusu + yesil nokta + yesil buton). Rebrand kurali: nobet
          lambasi + kehribar; yesil yalniz durum rengidir, marka rengi degil. */
@@ -44,14 +44,14 @@ try {
         '<div style="width:18px;height:18px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 7px rgba(245,165,36,.16),0 0 26px rgba(245,165,36,.6);display:inline-block;margin-bottom:20px;animation:mrNbz 2.2s ease-in-out infinite"></div>'+
         '<h1 style="font-size:30px;letter-spacing:-1px;margin:0 0 10px">Tetikte</h1>'+
         '<style>@keyframes mrNbz{0%,100%{opacity:1}50%{opacity:.4}}</style>'+
-        '<p style="color:#93a1b3;font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:#eef2f7">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
+        '<p style="color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:var(--ink)">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
         '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
-        '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:#0d141e;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:12px 14px">'+
+        '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:var(--kagit);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px">'+
         '<button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button>'+
         /* 30.07: pasif "katilinca kabul edersin" satiri acik riza DEGILDI -
            karne formundaki gibi zorunlu onay kutusuna cevrildi (KVKK).
            kvkk.html koku: perde alt sayfalarda da cikar, mutlak yol sart. */
-        '<label style="display:flex;gap:8px;align-items:flex-start;width:100%;justify-content:center;font-size:11.5px;color:#93a1b3;margin-top:10px;text-align:left"><input type="checkbox" required style="margin-top:2px;accent-color:#f5a524;flex:none;width:16px;height:16px;padding:0">'+
+        '<label style="display:flex;gap:8px;align-items:flex-start;width:100%;justify-content:center;font-size:11.5px;color:var(--muted);margin-top:10px;text-align:left"><input type="checkbox" required style="margin-top:2px;accent-color:#f5a524;flex:none;width:16px;height:16px;padding:0">'+
         '<span style="max-width:400px">E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İstediğimde çıkabilirim. <a href="/kvkk.html" target="_blank" style="color:#ffc24b">Aydınlatma metni</a></span></label></form>'+
         '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div></div>';
       document.body.appendChild(d);
@@ -134,39 +134,39 @@ var css=''+
 '#mrxKaplama{position:fixed;inset:0;z-index:99991;background:rgba(3,6,12,.82);backdrop-filter:blur(6px);'+
  'display:none;overflow-y:auto;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}'+
 '#mrxKaplama.acik{display:block}'+
-'.mrxIc{max-width:1000px;margin:0 auto;padding:26px 18px 60px;color:#eef2f7}'+
+'.mrxIc{max-width:1000px;margin:0 auto;padding:26px 18px 60px;color:var(--ink)}'+
 '.mrxUst{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}'+
 '.mrxLogo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#f5a524,#ffc24b);'+
  'display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}'+
 '.mrxUst b{font-size:16px}'+
-'.mrxUst a{color:#93a1b3;text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 14px;'+
+'.mrxUst a{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 14px;'+
  'border:1px solid rgba(255,255,255,.14);border-radius:10px}'+
 '.mrxUst a:hover{color:#fff}'+
 '.mrxUst a.mrxUye{background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;border:0;font-weight:800}'+
 '#mrxKapat{margin-left:auto;appearance:none;border:1px solid rgba(255,255,255,.16);background:transparent;'+
- 'color:#eef2f7;font-size:18px;border-radius:10px;padding:6px 13px;cursor:pointer}'+
+ 'color:var(--ink);font-size:18px;border-radius:10px;padding:6px 13px;cursor:pointer}'+
 '#mrxAra{width:100%;padding:13px 16px;border:1px solid rgba(255,255,255,.16);border-radius:12px;'+
- 'background:#0a0f17;color:#eef2f7;font-size:15px;font-family:inherit;margin-bottom:6px}'+
+ 'background:var(--yuzey);color:var(--ink);font-size:15px;font-family:inherit;margin-bottom:6px}'+
 '#mrxAra:focus{outline:none;border-color:#f5a524;box-shadow:0 0 0 3px rgba(245,165,36,.18)}'+
 '.mrxGrup{margin-top:24px}'+
-'.mrxGrup>h3{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#5d6b7c;margin:0 0 12px;'+
+'.mrxGrup>h3{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin:0 0 12px;'+
  'font-weight:800;display:flex;align-items:center;gap:10px}'+
 '.mrxGrup>h3:after{content:"";flex:1;height:1px;background:rgba(255,255,255,.09)}'+
 '.mrxGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}'+
 '@media(max-width:860px){.mrxGrid{grid-template-columns:repeat(2,1fr)}}'+
 '@media(max-width:540px){.mrxGrid{grid-template-columns:1fr}}'+
 '.mrxArac{display:flex;gap:11px;align-items:flex-start;padding:12px 14px;border:1px solid rgba(255,255,255,.09);'+
- 'border-radius:13px;background:#0d141e;text-decoration:none;color:#eef2f7;transition:border-color .15s}'+
+ 'border-radius:13px;background:var(--kagit);text-decoration:none;color:var(--ink);transition:border-color .15s}'+
 '.mrxArac:hover{border-color:rgba(245,165,36,.45)}'+
 '.mrxArac .em{font-size:20px;line-height:1;margin-top:2px}'+
 '.mrxArac b{display:block;font-size:13.5px;letter-spacing:-.2px}'+
-'.mrxArac span{display:block;font-size:12px;color:#93a1b3;margin-top:2px;line-height:1.4}'+
-'#mrxYok{display:none;text-align:center;color:#5d6b7c;padding:26px 0;font-size:14px}'+
+'.mrxArac span{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}'+
+'#mrxYok{display:none;text-align:center;color:var(--dim);padding:26px 0;font-size:14px}'+
 /* 30.07 Cem: arac sayfalarinin tepesindeki duz "Tetikte" yazisi logoyu
    temsil etmiyordu. Ana sayfadaki marka yazisinin aynisi (kucuk harf,
    noktasiz i + ustunde kehribar lamba noktasi) buradan her sayfaya girer. */
 '.mrxMarka{font-weight:800 !important;font-size:18px !important;letter-spacing:-.6px;'+
- 'color:#eef2f7 !important;text-decoration:none !important;line-height:1}'+
+ 'color:var(--ink) !important;text-decoration:none !important;line-height:1}'+
 '.mrxMarka .mi{position:relative}'+
 '.mrxMarka .mi:after{content:"";position:absolute;left:50%;top:-3px;transform:translateX(-50%);'+
  'width:5px;height:5px;border-radius:50%;background:#f5a524;box-shadow:0 0 8px rgba(245,165,36,.8)}'+
@@ -255,12 +255,12 @@ function kur(){
   try {
     if (!document.querySelector('a[href$="kvkk.html"]')) {
       var yf = document.createElement('div');
-      yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#5d6b7c;font-family:inherit;line-height:1.8';
-      yf.innerHTML = '<a href="kvkk.html" style="color:#93a1b3;text-decoration:none">KVKK Aydınlatma</a> · ' +
-        '<a href="uyelik-sozlesmesi.html" style="color:#93a1b3;text-decoration:none">Üyelik Koşulları</a> · ' +
-        '<a href="mesafeli-satis.html" style="color:#93a1b3;text-decoration:none">Mesafeli Satış</a> · ' +
-        '<a href="teslimat-iade.html" style="color:#93a1b3;text-decoration:none">Teslimat & İade</a> · ' +
-        '<a href="iletisim.html" style="color:#93a1b3;text-decoration:none">İletişim</a>' +
+      yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
+      yf.innerHTML = '<a href="kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a> · ' +
+        '<a href="uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
+        '<a href="mesafeli-satis.html" style="color:var(--muted);text-decoration:none">Mesafeli Satış</a> · ' +
+        '<a href="teslimat-iade.html" style="color:var(--muted);text-decoration:none">Teslimat & İade</a> · ' +
+        '<a href="iletisim.html" style="color:var(--muted);text-decoration:none">İletişim</a>' +
         '<br>Dizdar Denetim ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com';
       document.body.appendChild(yf);
     }
@@ -282,11 +282,11 @@ function ttSorguKapisi(anahtar){
     var d = document.createElement('div');
     d.id = 'ttDuvar';
     d.style.cssText = 'position:fixed;inset:0;background:rgba(3,6,10,.82);z-index:9999;display:grid;place-items:center;padding:20px';
-    d.innerHTML = '<div style="max-width:430px;background:#0d141e;border:1px solid rgba(255,194,75,.4);border-radius:16px;padding:26px;text-align:center;font-family:inherit">' +
-      '<div style="font-size:19px;font-weight:800;color:#eef2f7;margin-bottom:8px">Bu ayın 5 bedava sorgusunu kullandın</div>' +
-      '<div style="font-size:13.5px;color:#93a1b3;line-height:1.6;margin-bottom:16px">Ücretsiz üyelikte tüm araçlar sınırsız — üstelik panelde firmanı tanıt, robot seni ilgilendiren değişiklikte haber versin.</div>' +
+    d.innerHTML = '<div style="max-width:430px;background:var(--kagit);border:1px solid rgba(255,194,75,.4);border-radius:16px;padding:26px;text-align:center;font-family:inherit">' +
+      '<div style="font-size:19px;font-weight:800;color:var(--ink);margin-bottom:8px">Bu ayın 5 bedava sorgusunu kullandın</div>' +
+      '<div style="font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:16px">Ücretsiz üyelikte tüm araçlar sınırsız — üstelik panelde firmanı tanıt, robot seni ilgilendiren değişiklikte haber versin.</div>' +
       '<a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:15px;padding:12px 22px;border-radius:12px;text-decoration:none">Ücretsiz üye ol →</a>' +
-      '<div style="margin-top:12px"><a href="#" onclick="document.getElementById(\'ttDuvar\').remove();return false" style="color:#5d6b7c;font-size:12.5px">kapat</a></div></div>';
+      '<div style="margin-top:12px"><a href="#" onclick="document.getElementById(\'ttDuvar\').remove();return false" style="color:var(--dim);font-size:12.5px">kapat</a></div></div>';
     document.body.appendChild(d);
   } catch (e) {}
   return false;

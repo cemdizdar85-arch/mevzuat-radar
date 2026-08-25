@@ -24,10 +24,10 @@
     + 'border-radius:11px;padding:10px 12px;transition:border-color .15s,background .15s}'
     + '.mserit a:hover{border-color:rgba(245,165,36,.45);background:rgba(245,165,36,.06)}'
     + '.mserit a.aktif{border-color:rgba(245,165,36,.75);background:rgba(245,165,36,.10)}'
-    + '.mserit b{display:block;font-size:13.5px;color:#eef2f7;font-weight:800;letter-spacing:-.2px}'
-    + '.mserit span{display:block;font-size:11px;color:#8b98a9;margin-top:2px;line-height:1.35}'
+    + '.mserit b{display:block;font-size:13.5px;color:var(--ink);font-weight:800;letter-spacing:-.2px}'
+    + '.mserit span{display:block;font-size:11px;color:var(--muted);margin-top:2px;line-height:1.35}'
     + '.mserit em{font-style:normal;margin-right:5px}'
-    + '.mseritBas{font-size:11.5px;color:#5d6b7c;letter-spacing:1.1px;text-transform:uppercase;font-weight:800;margin:0 0 8px}';
+    + '.mseritBas{font-size:11.5px;color:var(--dim);letter-spacing:1.1px;text-transform:uppercase;font-weight:800;margin:0 0 8px}';
   document.head.appendChild(st);
 
   var kap = document.createElement("div");
