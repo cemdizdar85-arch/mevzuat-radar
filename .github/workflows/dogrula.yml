@@ -82,3 +82,17 @@ jobs:
       - name: "Otomasyon denetimi (yeni veri dosyasi elle beslenmesin)"
         shell: pwsh
         run: ./arac/otomasyon-denetimi.ps1
+
+      # 25.08 - acik temaya gecerken 551 kontrast kirigi cikti; hepsinin koku
+      # renklerin SABIT yazilmis olmasiydi. Iki kapi kuruldu: biri SEBEBI
+      # (sabit renk eklenmesini), digeri SONUCU (okunmayan metni) yakalar.
+      - name: "Renk sabiti denetcisi (sabit renk borcu artamaz - circir)"
+        shell: pwsh
+        run: ./arac/renk-sabiti-denetcisi.ps1
+
+      # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
+      # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
+      # Chrome DevTools protokolu konusulur.
+      - name: "Kontrast kapisi (okunmayan metin yayina cikmasin)"
+        shell: bash
+        run: node arac/kontrast-kapisi.js
