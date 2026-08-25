@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260825020647
+Start time: 20260825124847
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6e34d64f-e6d3-4226-8cb0-52e83d1713bb.ps1'
-Process ID: 2164
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a1758723-a20c-404c-9ea6-4d28126cfac2.ps1'
+Process ID: 2190
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -96,8 +96,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       506x  Maliyet Muhasebesi|ortak maliyet dagitimi
       484x  Finansal Tablolar ve Analizi|dikey yuzde analizi
       342x  Finansal Tablolar ve Analizi|finansal oran analizi
-      317x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
       317x  Maliyet Muhasebesi|satilan mamul maliyeti
+      317x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
       217x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
       216x  Finansal Tablolar ve Analizi|trend analizi
       211x  Maliyet Muhasebesi|gug yukleme katsayisi
@@ -107,9 +107,9 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       156x  Finansal Muhasebe|supheli alacak karsiligi
       134x  Finansal Muhasebe|gelecek aylara ait gider
       123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
+      113x  Finansal Muhasebe|amortisman ayirma
       113x  Finansal Muhasebe|gider yansitma kaydi
       113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
-      113x  Finansal Muhasebe|amortisman ayirma
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
        95x  Finansal Muhasebe|borc senedi reeskontu
 
@@ -178,5 +178,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260825020823
+End time: 20260825125112
 **********************
