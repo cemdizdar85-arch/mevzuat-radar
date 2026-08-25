@@ -250,6 +250,14 @@ jobs:
             git commit -m "gozetim: yururluk gunu gelen mutabakatli degisiklik basildi [veri-operasyonu]"
             git pull --rebase --autostash; git push
           }
+      # 25.08 — KAPI UC DURUMA AYRILDI. Onceki hali "degisen" ile "olculemedi"yi
+      # ayirt etmiyordu: mevzuat.gov.tr olu adrese HTTP 200 + ana sayfa HTML'i
+      # donduruyor, o sayfanin hash'i her cekiliste degistigi icin kapi 18.07'den
+      # beri HER kosuda "76 teblig degisti" deyip kirmizi bitiyordu (164 kosu).
+      # Bedeli kirmizi kosu degildi - kapi kurt masali anlatiyordu: GERCEK bir
+      # teblig degisikligi 75 hayaletin icinde gorunmezdi.
+      # Ayrica kirmizi, ARKASINDAKI PARALI onariciyi (if: failure()) her kosuda
+      # tetikliyordu. Kor hal artik kirmizi VERMEZ - onarici bosa kosmaz.
       - name: KAPI — gozetim tebligi degisti mi
         if: always()
         shell: pwsh
@@ -259,7 +267,19 @@ jobs:
           $t = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
           if($t.ilk_kurulum -eq $true){ Write-Host "Ilk kurulum - karsilastirilacak onceki hal yok."; exit 0 }
           $d = @($t.degisen)
-          if($d.Count -eq 0){ Write-Host ("TEMIZ: {0} gozetim tebliginin hicbiri degismemis." -f $t.izlenen); exit 0 }
+          $kor = @($t.olculemeyen)
+          if($d.Count -eq 0 -and $kor.Count -gt 0){
+            # KOR: bakamadigimiz kayit var. "Degismedi" DENEMEZ.
+            # Kirmizi degil (veri eskimis olabilir de olmayabilir de), ama sessiz
+            # de degil - yesil kosu "her sey yolunda" diye okunur.
+            Write-Host ("KOR: {0} teblig OLCULEMEDI (govde PDF degil - yumusak 404)." -f $kor.Count)
+            Write-Host ("     Gercekten olculen ve degismeyen: {0}" -f $t.olculen)
+            foreach($x in ($kor | Select-Object -First 5)){ Write-Host ("       mevzuatNo {0}  ctype={1}  {2} bayt" -f $x.mevzuatNo, $x.ctype, $x.boyut) }
+            Write-Host "     Kok sebep URL kalibi. Dogru uc bulunana kadar gozetim verisi DENETIMSIZ."
+            Write-Host "     Ayrinti: veri/teblig-damga.json -> olculemeyen"
+            exit 0
+          }
+          if($d.Count -eq 0){ Write-Host ("TEMIZ: olculen {0} gozetim tebliginin hicbiri degismemis." -f $t.olculen); exit 0 }
           Write-Host ("KIRMIZI: {0} gozetim tebligi DEGISTI - veri/gtip-durum.json ESKIDI." -f $d.Count)
           foreach($x in $d){ Write-Host ("  mevzuatNo {0}  ({1} -> {2} bayt)  {3}" -f $x.mevzuatNo, $x.eski_boyut, $x.yeni_boyut, $x.url) }
           Write-Host ""

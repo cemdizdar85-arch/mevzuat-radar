@@ -21,7 +21,41 @@
 #
 #  Çıktı: veri/teblig-damga.json (hash tablosu) + değişen varsa exit 1
 #  NOT: mevzuat.gov.tr çıplak curl'e 403 veriyor, tarayıcı User-Agent şart.
+#
+#  ---------------------------------------------------------------------------
+#  25.08.2026 — ÖLÇÜM KAPISI EKLENDİ. 38 GÜNLÜK YALAN KIRMIZI BURADAN ÇIKTI.
+#
+#  Bulgu: mevzuat.yml 18.07'den beri 164 koşu üst üste kırmızı bitti. Düşen
+#  adım hep bu betiğin kapısıydı: "76 tebliğ değişti". Ölçüm:
+#    - 76'nın 75'inde eski_boyut = yeni_boyut = 60.487 bayt. Birbirinden
+#      farklı 75 tebliğin aynı bayta düşmesi imkânsız.
+#    - URL Cem'in makinesinden (TR IP) çekildi: HTTP 200 ama
+#      Content-Type: text/html, gövde "Mevzuat Bilgi Sistemi" ANA SAYFASI.
+#      Yani IP engeli değil — bu URL kalıbı ÖLMÜŞ (yumuşak 404).
+#    - Aynı URL arka arkaya iki kez çekildi: aynı 60.487 bayt, FARKLI hash
+#      (79C5AE0B… / 59193566…). Sayfa her çekilişte değişen jeton taşıyor.
+#  Sonuç: betik her koşuda "75 tebliğ değişti" diyordu. Kapı sonsuz kırmızı.
+#
+#  Asıl bedel "kırmızı koşu" değil: kapı kurt masalı anlatıyordu. GERÇEK bir
+#  gözetim tebliği değişse 75 hayaletin içinde görünmezdi.
+#
+#  Tek kapı `$bayt.Length -lt 2000` idi; 60 KB'lık HTML oradan rahat geçiyordu.
+#  Artık İÇERİĞE bakılıyor: gövde PDF değilse o kayıt "ÖLÇÜLEMEDİ" sayılır —
+#  "DEĞİŞTİ" SAYILMAZ. Ölçemediğine kusur deme.
+#
+#  ÜÇ DAVRANIŞ AYRI:
+#    değişti      -> exit 1  KIRMIZI (gerçek sinyal; gtip-durum.json eskidi)
+#    ölçülemedi   -> exit 3  KÖR     (veri eskimiş olabilir de olmayabilir de;
+#                                     kırmızı DEĞİL ama sessiz de değil)
+#    temiz        -> exit 0
+#  Ölçülemeyenin eski damgası KORUNUR — kayıt izlemeden düşmesin, URL onarılınca
+#  karşılaştırma kaldığı yerden devam etsin.
 # ============================================================================
+param(
+  # Yalnız deneme için: ilk N tebliği ölç (172 isteklik yağmuru başlatmadan
+  # kapının çalıştığını görmek için). 0 = hepsi.
+  [int]$Sinir = 0
+)
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -58,9 +92,27 @@ function Damga([byte[]]$b){
   return (($sha.ComputeHash($b) | ForEach-Object { $_.ToString('x2') }) -join '').Substring(0,16)
 }
 
+# ÖLÇÜM KAPISI: elimizdeki gövde gerçekten PDF mi?
+# mevzuat.gov.tr ölü adreslere HTTP 200 + ana sayfa HTML'i döndürüyor (yumuşak
+# 404). O sayfa her çekilişte değişen jeton taşıdığı için hash'i her koşuda
+# farklı çıkar ve "tebliğ değişti" sanılır. İki bağımsız işaret aranır:
+# içerik türü ve dosyanın kendi imzası (%PDF). İkisinden biri bile HTML derse
+# bu bir ÖLÇÜM DEĞİLDİR.
+function PdfMi([byte[]]$b, [string]$ctype){
+  if($ctype -match 'html'){ return $false }
+  if($b.Length -lt 5){ return $false }
+  # %PDF = 0x25 0x50 0x44 0x46
+  return ($b[0] -eq 0x25 -and $b[1] -eq 0x50 -and $b[2] -eq 0x44 -and $b[3] -eq 0x46)
+}
+
 $yeniTablo = [ordered]@{}
 $degisen = New-Object System.Collections.Generic.List[object]
 $inemeyen = New-Object System.Collections.Generic.List[string]
+$olculemeyen = New-Object System.Collections.Generic.List[object]
+if($Sinir -gt 0 -and $Sinir -lt $nolar.Count){
+  Write-Host ("DENEME MODU: yalniz ilk {0} teblig olculuyor (dosya YAZILMAZ)." -f $Sinir)
+  $nolar = @($nolar | Select-Object -First $Sinir)
+}
 $sayac = 0
 foreach($no in $nolar){
   $sayac++
@@ -68,10 +120,28 @@ foreach($no in $nolar){
   try {
     $r = Invoke-WebRequest -UseBasicParsing -Uri $url -UserAgent $UA -TimeoutSec 60
     $bayt = if($r.Content -is [byte[]]){ $r.Content } else { [Text.Encoding]::UTF8.GetBytes("$($r.Content)") }
+    $ctype = "$($r.Headers['Content-Type'])"
     if($bayt.Length -lt 2000){ $inemeyen.Add("$no (govde cok kucuk: $($bayt.Length) bayt)"); continue }
+    # --- ÖLÇÜM KAPISI ---
+    if(-not (PdfMi $bayt $ctype)){
+      $bas = ''
+      try { $bas = ([Text.Encoding]::ASCII.GetString($bayt[0..([Math]::Min(40,$bayt.Length-1))]) -replace '[\r\n]',' ').Trim() } catch {}
+      $olculemeyen.Add([ordered]@{ mevzuatNo=$no; ctype=$ctype; boyut=$bayt.Length; bas=$bas; url=$url })
+      # Eski damgayı KORU: kayıt izlemeden düşmesin, URL onarılınca karşılaştırma
+      # SON GERÇEK ölçümden devam etsin. Yeni damga YAZILMAZ - çünkü ölçüm yok.
+      if($eski.ContainsKey($no)){ $yeniTablo[$no] = $eski[$no] }
+      continue
+    }
     $d = Damga $bayt
-    $yeniTablo[$no] = [ordered]@{ damga=$d; boyut=$bayt.Length; kontrol=(Get-Date -Format 'dd.MM.yyyy HH:mm') }
-    if(-not $ilkKurulum -and $eski.ContainsKey($no) -and "$($eski[$no].damga)" -ne $d){
+    $yeniTablo[$no] = [ordered]@{ damga=$d; boyut=$bayt.Length; kontrol=(Get-Date -Format 'dd.MM.yyyy HH:mm'); olcum='pdf' }
+    # GEÇİŞ TUZAĞI KAPATILDI (25.08): karşılaştırma yalnız eski kayıt da GERÇEK
+    # bir PDF ölçümüyse yapılır. 18.07-25.08 arasındaki damgalar HTML ana
+    # sayfanın hash'i - yani ölçüm değil, gürültü. Onlarla karşılaştırmak ilk
+    # düzgün koşuda 75 kaydı bir kez daha "değişti" diye yakardı. Bayrağı
+    # olmayan (eski dönem) kayıt SESSİZCE yeniden temellenir; karşılaştırma
+    # ikinci gerçek ölçümden itibaren başlar. Bir gün geç, ama yalan değil.
+    $eskiGercek = ($eski.ContainsKey($no) -and "$($eski[$no].olcum)" -eq 'pdf')
+    if(-not $ilkKurulum -and $eskiGercek -and "$($eski[$no].damga)" -ne $d){
       $degisen.Add([ordered]@{ mevzuatNo=$no; eski="$($eski[$no].damga)"; yeni=$d
                                eski_boyut=[int]"$($eski[$no].boyut)"; yeni_boyut=$bayt.Length; url=$url })
     }
@@ -81,15 +151,32 @@ foreach($no in $nolar){
   if($sayac % 10 -eq 0){ Write-Host ("  ...{0}/{1}" -f $sayac, $nolar.Count) }
 }
 
-Write-Host ("  indirilen : {0}" -f $yeniTablo.Count)
-Write-Host ("  inemeyen  : {0}" -f $inemeyen.Count)
-foreach($x in ($inemeyen | Select-Object -First 8)){ Write-Host ("     {0}" -f $x) }
+$olculen = $nolar.Count - $olculemeyen.Count - $inemeyen.Count
+Write-Host ("  gercekten olculen (PDF geldi) : {0}" -f $olculen)
+Write-Host ("  OLCULEMEDI (PDF gelmedi)      : {0}" -f $olculemeyen.Count)
+Write-Host ("  inemeyen (istek dustu)        : {0}" -f $inemeyen.Count)
+foreach($x in ($olculemeyen | Select-Object -First 5)){
+  Write-Host ("     {0}  ctype={1}  {2} bayt  bas='{3}'" -f $x.mevzuatNo, $x.ctype, $x.boyut, $x.bas)
+}
+foreach($x in ($inemeyen | Select-Object -First 5)){ Write-Host ("     {0}" -f $x) }
+
+if($Sinir -gt 0){
+  Write-Host ""
+  Write-Host "DENEME MODU: damga dosyasi YAZILMADI, kapi karari verilmedi."
+  try{Stop-Transcript|Out-Null}catch{}
+  exit 0
+}
 
 $cikti = [ordered]@{
   tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm')
   aciklama = "Gozetim tebliglerinin konsolide PDF parmak izi. Degisen teblig = veri/gtip-durum.json ESKIMIS demektir; tablo-hasat.ps1 yeniden kosmali (API gerekir)."
   ilk_kurulum = $ilkKurulum
   izlenen = $yeniTablo.Count
+  # 25.08: 'olculen' = govdesi gercekten PDF gelip hash'lenen sayi.
+  # 'olculemeyen' = HTTP 200 geldi ama PDF degil (yumusak 404 / HTML).
+  # Bu ikisi AYRI tutulur; olculemeyen ASLA 'degisen' sayilmaz.
+  olculen = $olculen
+  olculemeyen = $olculemeyen
   inemeyen = $inemeyen
   degisen = $degisen
   tebligler = $yeniTablo
@@ -105,7 +192,23 @@ if($ilkKurulum){
 }
 if($degisen.Count -eq 0){
   Write-Host ""
-  Write-Host "TEMIZ: izlenen tebliglerin hicbiri degismemis - gtip-durum.json guncel."
+  if($olculemeyen.Count -gt 0){
+    # KÖR HÂL. "Değişen yok" demek YETMEZ - çünkü bakamadığımız kayıtlar var.
+    # Bu kırmızı DEĞİL (veri eskimiş olabilir de olmayabilir de; bilmiyoruz),
+    # ama sessiz de değil: yeşil koşu "her sey yolunda" diye okunur.
+    Write-Host "======================================================================"
+    Write-Host ("  KOR: {0}/{1} teblig OLCULEMEDI - govde PDF degil (yumusak 404)." -f $olculemeyen.Count, $nolar.Count)
+    Write-Host "======================================================================"
+    Write-Host ("  Gercekten olculen ve degismeyen: {0}" -f $olculen)
+    Write-Host ""
+    Write-Host "  Bu kayitlar icin 'degismedi' DENEMEZ - bakilamadi. Kok sebep"
+    Write-Host "  URL kalibidir; MevzuatMetin/yonetmelik/9.5.<no>.pdf ucu ana sayfa"
+    Write-Host "  donduruyor. Dogru uc bulunana kadar gozetim verisi DENETIMSIZ."
+    Write-Host "  Ayrinti: veri/teblig-damga.json -> olculemeyen"
+    try{Stop-Transcript|Out-Null}catch{}
+    exit 3
+  }
+  Write-Host ("TEMIZ: olculen {0} tebligin hicbiri degismemis - gtip-durum.json guncel." -f $olculen)
   try{Stop-Transcript|Out-Null}catch{}
   exit 0
 }
