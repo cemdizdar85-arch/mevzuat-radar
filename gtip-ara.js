@@ -4,6 +4,7 @@
 // Sayfa tarafı yalnız "yapıştırma" yazar: girdi dinleyici + seçim fonksiyonu (kartlarHtml'e adı verilir).
 var GtipAra = (function(){
   let TANIM = null, IDX = null, SOZ = null;
+  const SEP = "›";
   function trFold(s){ return (''+s).toLocaleLowerCase('tr')
     .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/î/g,'i')
     .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/â/g,'a').replace(/û/g,'u'); }
@@ -38,10 +39,20 @@ var GtipAra = (function(){
       for(const p of parcalar){ if(txt.indexOf(p) < 0){ hepsiVar = false; break; } }
       if(!hepsiVar) continue;
       // puan: kelime kodun KENDİ tanımında (son › parçası) geçiyorsa öne al; kısa metin öne al
-      const sonAyrac = txt.lastIndexOf('›');
+      const sonAyrac = txt.lastIndexOf(SEP);
       const kendi = sonAyrac >= 0 ? txt.slice(sonAyrac+1) : txt;
+      // 25.08: FASIL BAŞLIĞI ağırlığı eklendi. Öncesinde "kahve" araması ahşap
+      // mutfak eşyasını (4419) öne alıyordu çünkü kelime onun son parçasında
+      // geçiyor ve metni kısa; gerçek kahve faslı (0901) 5. sıraya düşüyordu.
+      // Aranan kelime FASIL BAŞLIĞINDA (ilk › parçası) geçiyorsa o kayıt
+      // konunun kendisidir, yan değinme değil.
+      const ilkAyrac = txt.indexOf(SEP);
+      const baslik = ilkAyrac >= 0 ? txt.slice(0, ilkAyrac) : txt;
       let puan = 0;
-      for(const p of parcalar){ if(kendi.indexOf(p) >= 0) puan += 10; }
+      for(const p of parcalar){
+        if(baslik.indexOf(p) >= 0) puan += 25;   // konunun kendisi
+        if(kendi.indexOf(p) >= 0)  puan += 10;   // en alt kırılımda geçiyor
+      }
       puan -= txt.length / 800;
       bulunan.push([puan, kod]);
     }

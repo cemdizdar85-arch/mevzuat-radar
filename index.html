@@ -473,6 +473,33 @@ window.veriAl = (function(){
       <b>İşin neyse, nöbet onun üstünde</b>, hem de kaynağıyla.</p>
 
     <!-- 30.07 Cem onayi: "sen kimsin?" sorgu gibi soguktu - davetkar hale getirildi -->
+    <!-- ============ HERO ARAMASI (25.08.2026) ==========================
+         Cem: "muhendislik harikasi gibi olmamis."
+         Olcum haklı cikardi: ana sayfada CALISAN oge 4'tu, ucu menuydu.
+         5.953 piksellik brosur; elimizde ~6 MB dogrulanmis veri var ama
+         vitrinde 1 kart + 4 sayac gosteriliyordu.
+
+         Bu kutu urunu SAYFAYA getiriyor: 15.717 gumruk tarife kaydinda
+         anlik arama. Tarife cetveli KULLANICI YAZMAYA BASLAYINCA iniyor
+         (356 KB gzip), sayfa acilisi 52 KB kaliyor. Indikten sonra her
+         sorgu SIFIR ag istegiyle cevaplaniyor.
+
+         Sifirdan yazilmadi: gtip-ara.js zaten vardi ve iyiydi (Turkce
+         katlama, kelime-VE eslesmesi, puanlama, durust bos-sonuc mesaji).
+         Yeni indeks yazmak onu tekrar etmek olurdu.
+    ================================================================= -->
+    <div class="hero-ara">
+      <label for="heroAra">İthal edeceğin ürünü yaz, vergisini gör</label>
+      <div class="hero-ara-satir">
+        <input id="heroAra" type="search" autocomplete="off" spellcheck="false"
+               placeholder="ör. zeytinyağı, çelik boru, akıllı telefon, 8517…"
+               aria-describedby="heroAraNot" oninput="heroAraCalis()">
+        <span class="hero-ara-sayac" id="heroAraSayac" aria-live="polite"></span>
+      </div>
+      <div id="heroAraSonuc" role="region" aria-live="polite"></div>
+      <div class="hero-ara-not" id="heroAraNot">15.717 gümrük tarife kaydında arar · Resmî Gümrük Tarife Cetveli</div>
+    </div>
+
     <div class="sade-soru">Hangi iştesin? Kapın hazır.</div>
 
     <div class="sade-kapilar">
@@ -1357,6 +1384,60 @@ document.addEventListener('click',function(){ document.querySelectorAll('.navgro
 <link rel="stylesheet" href="stil-sade.css">
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
+<script src="gtip-ara.js" defer></script>
+<script>
+/* HERO ARAMASI — mevcut GtipAra modulunu kullanir, yeni motor yazilmadi.
+   Tembel yukleme: tarife cetveli KULLANICI 3. harfi yazinca iner. Sayfa
+   acilisinda tek bayt inmez. Indikten sonra arama tamamen tarayicida,
+   sifir ag istegiyle calisir. */
+var HERO_ZAMAN = null, HERO_YUKLENIYOR = false;
+function heroAraCalis(){ clearTimeout(HERO_ZAMAN); HERO_ZAMAN = setTimeout(heroAraYap, 200); }
+function heroAraYap(){
+  var g = document.getElementById('heroAra'),
+      out = document.getElementById('heroAraSonuc'),
+      say = document.getElementById('heroAraSayac');
+  if(!g || !out || typeof GtipAra === 'undefined') return;
+  var ham = g.value.trim();
+  if(GtipAra.trFold(ham).length < 3){ out.innerHTML = ''; say.textContent = ''; return; }
+
+  if(!GtipAra.hazir()){
+    if(!HERO_YUKLENIYOR){
+      HERO_YUKLENIYOR = true;
+      say.textContent = 'cetvel iniyor…';
+      out.innerHTML = '<div class="hero-ara-durum">Gümrük Tarife Cetveli ilk aramada bir kez iniyor. Sonrasında arama anlık.</div>';
+      GtipAra.yukle().then(function(){ HERO_YUKLENIYOR = false; heroAraYap(); });
+    }
+    return;
+  }
+
+  var t0 = performance.now();
+  var kodlar = GtipAra.ara(ham);
+  /* kod yazildiysa onekle eslesenler de gelsin */
+  if(!kodlar.length && /^\d{4,}$/.test(ham.replace(/\./g,''))) kodlar = GtipAra.onekli(ham, 6);
+  var sure = Math.max(1, Math.round(performance.now() - t0));
+
+  if(!kodlar.length){
+    say.textContent = '';
+    out.innerHTML = '<div class="hero-ara-durum">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır &mdash; ' +
+                    '“cep telefonu” yerine “telefon”, “buzdolabı” yerine “soğutucu” dene, ya da malzemesiyle ara.</div>';
+    return;
+  }
+  say.textContent = kodlar.length.toLocaleString('tr-TR') + ' kayıt · ' + sure + ' ms';
+  out.innerHTML = kodlar.slice(0,5).map(function(kod){
+    var t = GtipAra.tanim(kod) || '';
+    var i = t.lastIndexOf('›');
+    var kendi = i >= 0 ? t.slice(i+1).trim() : t;
+    var zincir = i >= 0 ? t.slice(0,i).trim() : '';
+    return '<a class="hero-ara-satirsonuc" href="gtip.html?kod=' + encodeURIComponent(kod) + '">' +
+           '<b>' + GtipAra.htmlEsc(kod) + '</b>' +
+           '<span class="hs-ad">' + GtipAra.htmlEsc(kendi) + '</span>' +
+           (zincir ? '<span class="hs-zincir">' + GtipAra.htmlEsc(zincir.slice(-90)) + '</span>' : '') +
+           '</a>';
+  }).join('') + (kodlar.length > 5
+      ? '<div class="hero-ara-durum">+' + (kodlar.length-5).toLocaleString('tr-TR') +
+        ' eşleşme daha. Kelime ekleyerek daralt.</div>' : '');
+}
+</script>
 <script src="ayrinti.js" defer></script>
 <link rel="stylesheet" href="stil-acik.css">
 </body>

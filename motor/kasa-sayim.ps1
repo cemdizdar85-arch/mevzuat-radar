@@ -405,7 +405,22 @@ try {
     tarih = (Get-Date -Format "dd.MM.yyyy")
     soru_uretilen = $toplam
     hakem_denetimi = $hakemSay
-    gtip_kayit = if($eski -and $eski.gtip_kayit){ $eski.gtip_kayit } else { 13400 }
+    # 25.08 DUZELTME: bu satir hicbir sey SAYMIYORDU - onceki degeri tasiyor,
+    # yoksa elle yazilmis 13400 koyuyordu. Vitrindeki "canli sayac" bu kalem
+    # icin donmus bir sabitti; sitede "her gun kendiliginden guncellenir"
+    # yazarken GTIP rakami sabit duruyordu. Olculdu: gercek 15.717.
+    # Artik gercekten SAYIYOR; okunamazsa eskiye duser, UYDURMAZ.
+    gtip_kayit = $(
+      $gYol = Join-Path $kok "veri\gtip-tanim.json"
+      $gSay = 0
+      if(Test-Path $gYol){
+        try{
+          $gObj = (Get-Content $gYol -Raw -Encoding UTF8) | ConvertFrom-Json
+          $gSay = @($gObj.PSObject.Properties).Count
+        } catch { $gSay = 0 }
+      }
+      if($gSay -gt 0){ $gSay } elseif($eski -and $eski.gtip_kayit){ $eski.gtip_kayit } else { 0 }
+    )
     arac = if($aracSayim -gt 0){ $aracSayim } elseif($eski -and $eski.arac){ $eski.arac } else { 26 }
   }
   [IO.File]::WriteAllText($vYol, ($vitrin | ConvertTo-Json -Depth 3), (New-Object Text.UTF8Encoding($false)))
