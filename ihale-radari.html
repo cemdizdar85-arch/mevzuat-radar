@@ -126,7 +126,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 .gunroz{font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 10px}
 .gunroz.iyi{background:rgba(61,220,151,.12);color:#3ddc97}
 .gunroz.orta{background:rgba(255,194,75,.14);color:var(--accent2)}
-.gunroz.acil{background:rgba(255,107,107,.14);color:#ff6b6b}
+.gunroz.acil{background:rgba(255,107,107,.14);color:var(--red)}
 .gunroz.belirsiz{background:rgba(255,255,255,.07);color:var(--dim)}
 /* kare + tikla-ac duzeni (genc.html standardi - uzun yazi yigini yerine) */
 .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
@@ -889,7 +889,7 @@ function yurtIciCiz(){
     const azOrnek = i.kirimOlculen < 10
       ? `<div style="font-size:11px;color:var(--amber);margin-top:4px">⚠️ Az örnek (${i.kirimOlculen} ihale): bu bir kesin oran değil, <b>eğilim</b>. Örnek biriktikçe netleşir.</div>` : '';
     return `<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);line-height:1.7">
-      <b style="color:#7ee0a5">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}${azOrnek}
+      <b style="color:var(--green)">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}${azOrnek}
       <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b>, idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. Kısmi teklife açık ihaleler ölçüme dahil değildir. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
     </div>`;
   };
@@ -918,7 +918,7 @@ function yurtIciCiz(){
     if(d.gecerlilik) ek.push(`Teklif geçerliliği <b style="color:var(--ink)">${esc(d.gecerlilik)} gün</b>`);
     if(d.sinirN) ek.push(`Sınır değer N=<b style="color:var(--ink)">${esc(d.sinirN)}</b>`);
     if(ek.length) s.push(ek.join(' · '));
-    if(d.yerliSart) s.push(`<span style="color:#7ee0a5;font-weight:700">🇹🇷 Yalnız yerli istekliler katılabilir</span>`);
+    if(d.yerliSart) s.push(`<span style="color:var(--green);font-weight:700">🇹🇷 Yalnız yerli istekliler katılabilir</span>`);
     if(d.isSuresi) s.push(`İşin süresi: ${esc(d.isSuresi)}`);
     // 14.08 Cem ("kaç tane alacan, hangi özellikli drone?"): MİKTAR ve TEKNİK
     // ÖZELLİK ilan metninde YOKTUR, ihale dokümanındadır. Uydurmuyoruz; nereden
@@ -952,7 +952,7 @@ function yurtIciCiz(){
       const yeter=[];
       if(b.isDeneyimi) yeter.push(`iş deneyimi <b style="color:var(--ink)">%${esc(b.isDeneyimi)}</b>`);
       if(b.ekonomik && !/belirtilmemiştir/i.test(b.ekonomik)) yeter.push(`mali yeterlik aranıyor`);
-      if(b.ekonomik && /belirtilmemiştir/i.test(b.ekonomik) && b.teknik && /belirtilmemiştir/i.test(b.teknik)) yeter.push(`<span style="color:#7ee0a5">ek yeterlik belgesi İSTENMİYOR</span>`);
+      if(b.ekonomik && /belirtilmemiştir/i.test(b.ekonomik) && b.teknik && /belirtilmemiştir/i.test(b.teknik)) yeter.push(`<span style="color:var(--green)">ek yeterlik belgesi İSTENMİYOR</span>`);
       if(yeter.length) bs.push(`<b style="color:var(--accent2)">Kimler katılabilir:</b> ${yeter.join(' · ')}`);
       // 14.08 Cem: "ne isterler bizden". "teknik yeterlik araniyor" demek bos laf -
       // ISTENEN BELGENIN ADI yaziliyor ("Tıbbi Cihaz Satış Merkezi Yetki Belgesi").

@@ -69,14 +69,16 @@
   --dim:#6b7280;
 
   /* marka: metin baglaminda koyu kehribar */
-  --accent:#b45309;
+  --accent:#b25209;
   --accent2:#92400e;
   --grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);
 
   /* durum renkleri - acik zeminde okunacak koyulukta */
   --red:#b91c1c;
-  --amber:#b45309;
-  --green:#15803d;
+  --amber:#a04a08;        /* METIN amberi - tintli amber zeminde bile 5,11 */
+  --amber-dolgu:#f5a524;  /* DOLGU amberi - uzerine koyu murekkep 9,59 */
+  --green:#146f35;
+  --link:#1d4ed8;
 }
 
 /* Sayfanin kendi koyu tema kalintilari ------------------------------------ */
@@ -425,3 +427,32 @@ a:hover{color:var(--accent2)}
 .aracBag{font-size:.92em;color:var(--accent);text-decoration:none;
   border-bottom:1px dotted rgba(180,83,9,.45);white-space:nowrap}
 .aracBag:hover{border-bottom-style:solid}
+
+/* ============================================================================
+   KOYU BANT JETONLARI + KALAN KALINTILAR — 25.08.2026
+   Koyu bantlar (#guven, nav, .top) renkleri OGE OGE ezip gidiyordu. O liste
+   her yeni ogede eksik kaliyor. Somut ornek ana sayfada:
+       <p class="reveal" style="color:var(--muted)">
+   satir ici stil oldugu icin listedeki hicbir kural onu yakalamadi; acik
+   temanin --muted degeri koyu bantta kaldi -> 2,31:1.
+   Cozum: rengi degil JETONU bantin icinde yeniden tanimla. Icerideki her
+   var(--muted) - satir ici stiller dahil - kendiliginden acilir.
+   Olculdu: ink 17,48 - muted 9,61 - dim 6,59 - amber 10,88 (esik 4,5).
+   ============================================================================ */
+#guven, nav, .top{
+  --ink:#ffffff;
+  --muted:#b9c1cb;
+  --dim:#96a0ac;
+  --accent:#ffc24b;
+  --accent2:#ffc24b;
+  --amber:#ffc24b;
+  --amber-dolgu:#ffc24b;
+  --link:#ffc24b;
+  --green:#3ddc97;
+  --red:#ff8a80;
+  --line:rgba(255,255,255,.12);
+  --line2:rgba(255,255,255,.20)}
+
+/* yapiskan ilerleme seridi: koyu yari saydam zemin acikta ters doner
+   (kontrol-listesi: .bar-t yazisi rgb(43,45,50) uzerinde 1,82 idi) */
+.ilerleme{background:rgba(251,250,248,.90);border-bottom-color:var(--line2)}

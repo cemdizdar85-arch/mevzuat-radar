@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
-  :root{--gradT:linear-gradient(135deg,#3ddc97 0%,#ffc24b 100%)}
+  :root{--gradT:linear-gradient(135deg,#3ddc97 0%,var(--amber) 100%)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:26px;color:var(--dim)}.top a{color:var(--muted);text-decoration:none;font-weight:600}
@@ -23,7 +23,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .sahne.koyu{background:var(--taban);border:1px solid var(--line)}
 .sahne.acik{background:#f4f7fb;border:1px solid #dde5ee}
 .sahne .etiket{font-size:10.5px;letter-spacing:1.4px;font-weight:800;color:var(--dim);text-transform:uppercase;align-self:flex-start;margin-bottom:6px}
-.sahne.acik .etiket{color:#8a97a6}
+.sahne.acik .etiket{color:var(--dim)}
 
 /* ---- VARYANT A: "radar i" — i'nin noktası nöbet ışığı ---- */
 .wm{font-weight:800;font-size:56px;letter-spacing:-2.5px;line-height:1;display:flex;align-items:baseline}
@@ -68,7 +68,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .karar{background:linear-gradient(135deg,rgba(61,220,151,.10),rgba(255,194,75,.05)),var(--panel);border:1px solid rgba(61,220,151,.3);border-radius:16px;padding:22px 26px}
 .karar h2{margin:0 0 8px;font-size:16px}
 .karar p{margin:0;font-size:13.5px;color:var(--muted)}
-.ic{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:#ffc24b;background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3);border-radius:999px;padding:4px 12px;margin-bottom:14px}
+.ic{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--amber);background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3);border-radius:999px;padding:4px 12px;margin-bottom:14px}
 </style>
 </head>
 <body>
