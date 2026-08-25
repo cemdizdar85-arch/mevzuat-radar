@@ -165,7 +165,6 @@ body,p,.lead,.sade-alt,.sk-ac,.konu span,.arac span,.mp-m,.gk p{
 
 /* acik zeminde odak halkasi kehribar degil koyu olmali, yoksa gorunmez */
 :focus-visible{outline:2px solid #b45309;outline-offset:2px}
-.atla{background:#b45309;color:#fff}
 
 /* Nav'daki dolu dugmenin yazisi gri geliyordu: .navlinks a{color:var(--muted)}
    ozgullukte (0,2,1) .btn'i (0,1,0) yeniyor. Bu KOYU temada da boyleydi -

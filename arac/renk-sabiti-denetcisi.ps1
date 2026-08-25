@@ -26,6 +26,21 @@
 #  KAPSAM DISI: stil.css ve stil-acik.css — jetonlarin TANIMLANDIGI yer.
 #  Renk oraya yazilir; kapinin amaci zaten renkleri oraya toplamaktir.
 #
+#  GEREKCELI BORC (25.08 taramasinda tek tek bakildi, JETONA CEVRILMEYECEK)
+#  Sabit renk her zaman kusur degildir. Su uc oberk bilerek sabit kalir:
+#    1. MARKA VE DURUM RENKLERI dolgu olarak: #f5a524 / #ffc24b (amber),
+#       #3ddc97 (basari), ve bunlarin uzerine binen koyu murekkep #03101f /
+#       #03140d. Bunlar iki temada da AYNI kalmali - jetona baglanirsa
+#       marka rengi temayla birlikte kayar.
+#    2. BASKI STILLERI: senaryo-raporu.html icindeki "@media print" blogu
+#       (23 renk). Kagit her zaman beyazdir; oradaki #111/#333/#ccc
+#       DOGRUDUR. Jetona baglanirsa site koyuya donunce ciktilar bozulur.
+#    3. KAGIT PALETI: marka-rapor.html mukellefe gonderilen bir BELGEDIR,
+#       sitenin temasini bilerek izlemez (kendi :root'u sayfanin sonunda,
+#       stil-acik.css'ten SONRA durur ki gercekten kazansin).
+#  Bu ucu tabanda durur ve kapiyi dusurmez; amac YENI sabit renk eklenmesini
+#  engellemek, mesru olanlari kovalamak degil.
+#
 #  API maliyeti SIFIR. Dis baglanti YOK.
 # ============================================================================
 param([switch]$Tazele)

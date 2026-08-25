@@ -11,8 +11,11 @@
 <style>
 /* Rapor sayfasi BELGE gibi: ekranda da acik tema, baskida temiz A4.
    Musavir bunu mukellefine gonderecek - koyu tema kagitta okunmaz. */
-  /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
-  :root{--ink:#111827;--muted:#4b5563;--dim:#6b7280;--line:#e5e7eb;--accent:#b45309;--red:#b91c1c;--amber:#b45309;--green:#15803d;--bg:#fff}
+    /* Bu sayfanin KAGIT PALETI sayfanin SONUNA tasindi (25.08).
+       Sebep: burada duruyordu ama stil-acik.css sonra yuklendigi icin
+       KAYBEDIYORDU. Bugun ikisi de acik oldugu icin fark edilmiyordu;
+       site bir gun koyuya donerse bu rapor kagitta okunmaz hale
+       gelirdi - tam da yukaridaki yorumun uyardigi sey. */
 *{box-sizing:border-box}
 body{margin:0;background:#f3f4f6;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.5;font-size:14px;font-variant-numeric:tabular-nums}
 .kagit{max-width:820px;margin:24px auto;background:#fff;padding:38px 44px 56px;box-shadow:0 2px 18px rgba(0,0,0,.08)}
@@ -154,5 +157,26 @@ function ciz(s){
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
 <link rel="stylesheet" href="stil-acik.css">
+
+<!-- ============================================================
+     KAGIT PALETI — bu sayfa ekran icin degil, MUKELLEFE GONDERILMEK
+     icindir. Musavir yazdirip verir ya da PDF olarak yollar; koyu
+     tema kagitta okunmaz. Bu yuzden sayfa sitenin temasini IZLEMEZ.
+     Blok bilerek stil-acik.css BAGLANTISINDAN SONRA duruyor: ayni
+     ozgullukte (:root) sonra gelen kazanir. Site hangi temaya
+     giderse gitsin bu rapor beyaz kagit uzerinde koyu murekkep kalir.
+     Degerler temanin OLCULMUS acik degerleridir (WCAG AA gecer).
+     ============================================================ -->
+<style>
+  :root{
+    --bg:#fbfaf8; --panel:#ffffff; --panel2:#f7f5f1;
+    --taban:#fbfaf8; --yuzey:#f4f2ee; --kagit:#ffffff;
+    --ink:#16191d; --muted:#4b5563; --dim:#6b7280;
+    --line:#e6e2da; --line2:#d5d0c6;   /* canli gorunumle birebir */
+    --accent:#a04a08; --accent2:#92400e;
+    --amber:#a04a08; --amber-dolgu:#f5a524;
+    --red:#b91c1c; --green:#146f35; --link:#1d4ed8;
+  }
+</style>
 </body>
 </html>

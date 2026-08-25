@@ -35,7 +35,7 @@ select,input[type=text]{width:100%;background:var(--panel2);border:1px solid var
 .pane{display:none}.pane.on{display:block}
 /* 14.08 Cem "yukarıda seçmeli olsa aşağıya inmez": paneIc içi bölüm seçici */
 .segnav{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 18px}
-.segbtn{background:var(--panel2,#0a0f17);border:1px solid var(--line2);color:var(--muted);border-radius:11px;font:700 13.5px inherit;padding:9px 14px;cursor:pointer;transition:.15s}
+.segbtn{background:var(--panel2);border:1px solid var(--line2);color:var(--muted);border-radius:11px;font:700 13.5px inherit;padding:9px 14px;cursor:pointer;transition:.15s}
 .segbtn:hover{color:var(--ink)}
 .segbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
 .yiSek h2:first-child{margin-top:0}
@@ -80,7 +80,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
 /* ===== CİLA KATMANI (Cem: "görüntü kalitesi daha iyi olsa") — additive, üstteki kuralları rafine eder ===== */
-h1{background:linear-gradient(100deg,#fff 30%,#9fd4ff 75%,#ffc24b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1.1px}
+h1{background:linear-gradient(100deg,var(--ink) 30%,var(--accent) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1.1px}
 .kutu{border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);backdrop-filter:blur(6px)}
 .kart{transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;box-shadow:0 4px 18px rgba(0,0,0,.25)}
 .kart:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.4);border-color:rgba(255,194,75,.35)}
@@ -124,7 +124,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 .ikart .gov .m{font-size:12px;color:var(--muted);line-height:1.6}
 .ikart .alt{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
 .gunroz{font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 10px}
-.gunroz.iyi{background:rgba(61,220,151,.12);color:#3ddc97}
+.gunroz.iyi{background:rgba(61,220,151,.12);color:var(--green)}
 .gunroz.orta{background:rgba(255,194,75,.14);color:var(--accent2)}
 .gunroz.acil{background:rgba(255,107,107,.14);color:var(--red)}
 .gunroz.belirsiz{background:rgba(255,255,255,.07);color:var(--dim)}
@@ -461,7 +461,7 @@ function bultenCiz(){
   const hepsi=[].concat(BD.iptal||[], BD.duzeltme||[]);
   const suz = sayi ? hepsi.filter(x=>trFold2(String(x.ikn||'')).includes(sayi)||trFold2(String(x.isAdi||'')).includes(sayi)||trFold2(String(x.idare||'')).includes(sayi)) : hepsi;
   const ip=(BD.iptal||[]).length, dz=(BD.duzeltme||[]).length;
-  let h=`<div class="belg" style="margin:0 0 10px">Bu çekimde <b style="color:#ff9a9a">${ip} iptal</b> · <b style="color:#ffd27a">${dz} düzeltme</b> ilanı var. İKN, iş adı ya da idare adıyla ara, <b style="color:var(--ink)">teklif hazırladığın ihale iptal olmuşsa boşuna emek harcama</b>.</div>`;
+  let h=`<div class="belg" style="margin:0 0 10px">Bu çekimde <b style="color:var(--red)">${ip} iptal</b> · <b style="color:var(--amber)">${dz} düzeltme</b> ilanı var. İKN, iş adı ya da idare adıyla ara, <b style="color:var(--ink)">teklif hazırladığın ihale iptal olmuşsa boşuna emek harcama</b>.</div>`;
   if(!suz.length){
     h += ara ? `<div class="kart" style="border-left-color:var(--dim)"><h3>Bu aramaya uyan iptal/düzeltme ilanı yok</h3><div class="belg">Bu, "ihalen iptal olmadı" anlamına gelmez, yalnız <b style="color:var(--ink)">bu çekimdeki bültenlerde</b> yok demektir. Kesin bilgi ${'<a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener" style="color:var(--accent2)">EKAP</a>'}'tadır.</div></div>`
                 : '<div class="belg">Bu çekimde iptal/düzeltme ilanı bulunmadı.</div>';
@@ -767,20 +767,20 @@ function yurtIciCiz(){
   // asıl ilana binen damga (iptal > düzeltme) — ihaleye gitmeden önce görülmesi gereken bilgi
   const damgaHtml=x=>{
     const d=damga[x.ilanNo];
-    if(d&&d.iptal) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ BU İHALE İPTAL EDİLDİ, iptal ilanı ${esc(d.iptal.ilanNo)}${d.iptal.tarih?' · '+esc(d.iptal.tarih):''} <a href="${esc(d.iptal.url)}" target="_blank" rel="noopener" style="color:#ff9a9a;text-decoration:underline">iptal metni →</a></div>`;
-    if(d&&d.duzeltme) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ DÜZELTME İLANI YAYIMLANDI, ${esc(d.duzeltme.ilanNo)}${d.duzeltme.tarih?' · '+esc(d.duzeltme.tarih):''}; şartlar değişmiş olabilir, <a href="${esc(d.duzeltme.url)}" target="_blank" rel="noopener" style="color:#ffd27a;text-decoration:underline">düzeltme metnini oku →</a></div>`;
+    if(d&&d.iptal) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:var(--red);font-weight:700">⛔ BU İHALE İPTAL EDİLDİ, iptal ilanı ${esc(d.iptal.ilanNo)}${d.iptal.tarih?' · '+esc(d.iptal.tarih):''} <a href="${esc(d.iptal.url)}" target="_blank" rel="noopener" style="color:var(--red);text-decoration:underline">iptal metni →</a></div>`;
+    if(d&&d.duzeltme) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:var(--amber);font-weight:700">✏️ DÜZELTME İLANI YAYIMLANDI, ${esc(d.duzeltme.ilanNo)}${d.duzeltme.tarih?' · '+esc(d.duzeltme.tarih):''}; şartlar değişmiş olabilir, <a href="${esc(d.duzeltme.url)}" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">düzeltme metnini oku →</a></div>`;
     // asıl ilanı havuzda olmayan düzeltme/iptal kaydı: açık ihale sanılmasın
-    if(x.durum==='iptal') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ Bu bir İPTAL ilanıdır${x.asilNo?', iptal edilen ihale: '+esc(x.asilNo):''}. Açık ihale değildir.</div>`;
+    if(x.durum==='iptal') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:var(--red);font-weight:700">⛔ Bu bir İPTAL ilanıdır${x.asilNo?', iptal edilen ihale: '+esc(x.asilNo):''}. Açık ihale değildir.</div>`;
     if(x.durum==='duzeltme'){
       // 14.08 Cem (ADM Elektrik kartı "hatalı görünüyor"): kart yalnız "bu bir
       // düzeltme ilanıdır" deyip bomboş kalıyordu. Düzeltme ilanında okunması
       // gereken şey NE DEĞİŞTİĞİ — o ilanda ihale yeri Denizli'den İzmir'e
       // taşınmış, tarih 19.08 15:00'ten 25.08 11:30'a kaymıştı. Artık yazılıyor.
       const dd=x.detay||{}, par=[];
-      if(dd.eskiTarih && dd.sonTeklif) par.push(`<b style="color:#ffd27a">Tarih değişti:</b> ${esc(dd.eskiTarih.replace(/\//g,'.'))} → <b style="color:var(--ink)">${esc(dd.sonTeklif)}</b>`);
-      if(dd.degisenler) par.push(`<b style="color:#ffd27a">Değişen maddeler:</b> ${esc(String(dd.degisenler).slice(0,220))}`);
+      if(dd.eskiTarih && dd.sonTeklif) par.push(`<b style="color:var(--amber)">Tarih değişti:</b> ${esc(dd.eskiTarih.replace(/\//g,'.'))} → <b style="color:var(--ink)">${esc(dd.sonTeklif)}</b>`);
+      if(dd.degisenler) par.push(`<b style="color:var(--amber)">Değişen maddeler:</b> ${esc(String(dd.degisenler).slice(0,220))}`);
       if(dd.asilDosya) par.push(`<span style="color:var(--dim)">İdarenin dosya no: ${esc(dd.asilDosya)}</span>`);
-      return `<div class="belg" style="margin:6px 0 0;padding:7px 9px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;line-height:1.65"><b>✏️ Bu bir DÜZELTME ilanıdır</b>${x.asilNo?', düzeltilen ihale: '+esc(x.asilNo):''}${par.length?'<br>'+par.join('<br>'):''}<br><span style="color:var(--muted);font-weight:400">Şartlar değişmiş olabilir; asıl ilan metnini de oku.</span></div>`;
+      return `<div class="belg" style="margin:6px 0 0;padding:7px 9px;border-radius:6px;background:rgba(240,180,40,.12);color:var(--amber);line-height:1.65"><b>✏️ Bu bir DÜZELTME ilanıdır</b>${x.asilNo?', düzeltilen ihale: '+esc(x.asilNo):''}${par.length?'<br>'+par.join('<br>'):''}<br><span style="color:var(--muted);font-weight:400">Şartlar değişmiş olabilir; asıl ilan metnini de oku.</span></div>`;
     }
     return '';
   };

@@ -128,10 +128,11 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK){
      ata zemini GORUNMEZ, aday sayilmaz. (Amber logo rozeti koyu seritte
      "1,09" diye kirmizi veriyordu; oysa rozetin kendi amberi seridi tamamen
      kapatiyor.) Bu yuzden katmanlar alttan ustte dogru toplanir. */
-  function zeminAdaylari(el){
+  function zeminAdaylari(el, kendiniAtla){
     /* 1) ustten alta katmanlari topla, ilk OPAK katmanda dur */
     const katmanlar=[];   /* [0] = en ustteki */
-    let n=el, derinlik=0;
+    let n = kendiniAtla ? el.parentElement : el;
+    let derinlik=0;
     while(n && derinlik<12){
       const st=getComputedStyle(n);
       const bi=st.backgroundImage;
@@ -191,8 +192,33 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK){
     const r=el.getBoundingClientRect();
     if(!r.width||!r.height) continue;
 
-    const onHam=ayikla(st.color); if(!onHam) continue;
-    const adaylar=zeminAdaylari(el);
+    /* METNIN GERCEK RENGI — ucuncu kor nokta (25.08'de ihale-radari'nda cikti)
+       Baslik "background-clip:text" ile boyanmisti:
+         h1{background:linear-gradient(100deg,#fff 30%,...);background-clip:text;
+            -webkit-text-fill-color:transparent}
+       Bu durumda "color" ozelligi HICBIR SEY ifade etmez - gorunen renk
+       DEGRADENIN KENDISIDIR. Yalniz st.color'a bakan olcum, mirasla gelen
+       koyu murekkebi okur ve "temiz" der; oysa basligin ilk %30'u acik
+       kagit uzerinde BEYAZ yaziliyordu (olculdu: 1,04:1).
+       Ayrica -webkit-text-fill-color, seffaf olmasa bile color'i EZER. */
+    const clip = st.webkitBackgroundClip || st.backgroundClip;
+    const metinKlipli = (clip === 'text');
+    let metinAdaylari = [];
+    if(metinKlipli){
+      const bi = st.backgroundImage;
+      if(bi && bi!=='none'){
+        metinAdaylari = (bi.match(/rgba?\([^)]+\)/g)||[]).map(ayikla).filter(c=>c&&c.a>0);
+      }
+    }
+    if(!metinAdaylari.length){
+      const dolgu = st.webkitTextFillColor;
+      const ham = ayikla(dolgu && !/rgba\(0,\s*0,\s*0,\s*0\)/.test(dolgu) ? dolgu : st.color);
+      if(ham) metinAdaylari = [ham];
+    }
+    if(!metinAdaylari.length) continue;
+    /* metin klipliyse ogenin KENDI zemini metni boyuyor demektir - arka plan
+       olarak ust ogenin zemini alinir, yoksa metni kendisiyle kiyaslariz. */
+    const adaylar=zeminAdaylari(el, metinKlipli);
 
     bakilan++;
     const px=parseFloat(st.fontSize);
@@ -200,14 +226,16 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK){
     const buyuk=(px>=24)||(px>=18.66 && kalin);
     const esik=buyuk?ESIK_BYK:ESIK_NRM;
 
-    /* en kotu aday zeminle yargila - degrade'in bir ucu okunmuyorsa kusurdur */
-    let o=Infinity, arka=adaylar[0];
+    /* EN KOTU ciftle yargila: her metin adayi x her zemin adayi.
+       Degradenin bir ucu okunmuyorsa kusurdur - ortalama almak kusuru gizler. */
+    let o=Infinity, arka=adaylar[0], on=metinAdaylari[0];
     for(const ad of adaylar){
-      const on = onHam.a<1 ? kat(onHam, ad) : onHam;
-      const d=oran(on, ad);
-      if(d<o){ o=d; arka=ad; }
+      for(const m of metinAdaylari){
+        const mm = m.a<1 ? kat(m, ad) : m;
+        const d = oran(mm, ad);
+        if(d<o){ o=d; arka=ad; on=mm; }
+      }
     }
-    const on = onHam.a<1 ? kat(onHam, arka) : onHam;
     if(o<esik){
       const sinif=(el.className && typeof el.className==='string')
         ? '.'+el.className.trim().split(/\s+/)[0] : '';
