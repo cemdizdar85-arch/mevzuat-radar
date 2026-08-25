@@ -73,15 +73,46 @@ function Sorgula([string]$soru) {
   # KURUM TAKMA ADI (edge ile AYNI): 'sgk' -> kanunun kendi dili
   $tokler = @($tokler | ForEach-Object { if ($_ -eq 'sgk') { 'sigortali','sosyal','prim' } else { $_ } }) | Select-Object -First 8
   if (-not $tokler) { return @() }
-  $govde = @{ sorgu = ($tokler -join ' '); adet = 6 } | ConvertTo-Json -Compress
+  # CESITLILIK TAVANI icin genis havuz iste (30), elemeden sonra ilk 6 kullanilir.
+  # edge/net-cevap.ts de zaten adet=30 cekip ayni elemeyi yapiyor - SENKRON.
+  $govde = @{ sorgu = ($tokler -join ' '); adet = 30 } | ConvertTo-Json -Compress
   # 25.08 — TEKRAR DENEME. madde_ara ARALIKLI 500 donuyor (olculdu: bir pencerede
   # 3 sorgu 500, sonraki pencerede ayni sorgu 12/12 basarili, ~300 ms). Tek atisla
   # sorulunca bu kapi kendi olcumunu kirletiyordu: bir kosuda 8 "dusen"in 5'i
   # aslinda RPC hatasiydi. Sunucu hatasi bir CEVAP DEGILDIR.
+  $havuz = $null
   foreach ($d in 1..4) {
-    try { return @(Invoke-RestMethod -Method Post -Uri "$SB/rest/v1/rpc/madde_ara" -Headers @{ apikey = $KEY; Authorization = "Bearer $KEY" } -ContentType 'application/json' -Body $govde) }
+    try { $havuz = @(Invoke-RestMethod -Method Post -Uri "$SB/rest/v1/rpc/madde_ara" -Headers @{ apikey = $KEY; Authorization = "Bearer $KEY" } -ContentType 'application/json' -Body $govde); break }
     catch { if ($d -eq 4) { throw }; Start-Sleep -Milliseconds (700 * $d) }
   }
+  # --- CESITLILIK TAVANI (25.08, olculdu: 44 -> 45/48) ---
+  # Ayni MADDEDEN en fazla 1, ayni BELGEDEN en fazla 2 parca. "tapu harci alim
+  # satim" sorgusunda top-6'nin 4'u ayni belgenin (Harclar GT 56 ek m.12) farkli
+  # parcalariydi; Harclar Kanunu'nun kendisi hic gorunmuyordu.
+  # edge/net-cevap.ts icindeki eleme ile BIREBIR AYNI olmali.
+  # DUZLESTIRME SART (25.08 canli yasandi): $havuz tek elemanli cikip o eleman
+  # 30'luk dizi olabiliyordu. O halde `foreach` BIR kez donuyor, `$ust += $d`
+  # bir dizi ekledigi icin CONCAT yapiyor ve 30 kaydin hepsi listeye giriyor.
+  # Sonuc iki katli yalan: (1) tavan hic calismiyor, (2) test top-6 yerine
+  # top-30'a bakip skoru SISIRIYOR (44 -> sahte 47). ArrayList + duzlestirme
+  # ikisini de kapatir. Ayni `+=` tuzagi arac/sirala-tarti.ps1'de de yasanmisti.
+  $havuz = @($havuz | ForEach-Object { $_ })
+  $ust = New-Object System.Collections.ArrayList
+  $mSay = @{}; $bSay = @{}
+  foreach ($d in $havuz) {
+    $ad = [string]$d.kaynak_ad
+    if (-not $ad) { continue }
+    $mk = ($ad -replace '\s*\[\d+/\d+\]\s*$','').Trim()
+    $bk = [regex]::Replace($mk, '\s+((gec\.|muk\.|mük\.|ek|mükerrer)\s+)?m\.\s*\d.*$', '')
+    $bk = [regex]::Replace($bk, '\s+(bolum|bölüm)\s+\d.*$', '', 'IgnoreCase').Trim()
+    if ([int]$mSay[$mk] -ge 1) { continue }
+    if ([int]$bSay[$bk] -ge 2) { continue }
+    $mSay[$mk] = [int]$mSay[$mk] + 1; $bSay[$bk] = [int]$bSay[$bk] + 1
+    [void]$ust.Add($d)
+    if ($ust.Count -ge 6) { break }
+  }
+  if ($env:TARTI_HATA_AYIKLA) { Write-Host ("      [ayikla] havuz=$($havuz.Count) ust=$($ust.Count) sorgu='$($tokler -join ' ')'") }
+  return @($ust)
 }
 
 # UC DURUM, IKI DEGIL (25.08): gecti / dustu / OLCULEMEDI.

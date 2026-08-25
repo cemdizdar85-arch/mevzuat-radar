@@ -36,6 +36,7 @@ param(
   [switch]$Topla,
   [switch]$Dene,
   [switch]$Dil,         # DIL KANALI: sorgu on-islemesi varyantlarini UCTAN UCA olcer
+  [switch]$Kapak,       # CESITLILIK TAVANI: ek soyma + ayni madde/belge elemesi
   [switch]$Ayrinti,
   [int]$Aday = 300,     # madde_ara'nin aday havuzu (v7: limit 300)
   [int]$Vaka = 0        # yalniz ilk N altin vakayi topla (hizli deneme; 0 = hepsi)
@@ -480,7 +481,98 @@ function Dil-Kanali {
   }
 }
 
+# ===========================================================================
+#  KAPAK MODU — ek soyma + CESITLILIK TAVANI birlikte (25.08)
+#
+#  Dil kanali ek soymayla 41 -> 44/48 verdi. Kalan 4 dusenden 'tapu harci'
+#  tam da cesitlilik tavaninin daha once duzelttigi vakaydi (o sorguda top-6'nin
+#  4'u AYNI maddenin (Harclar GT 56 ek m.12) farkli parcalariydi). Yani ikisi
+#  birlikte 45 olabilir - ama IDDIA EDILMEZ, OLCULUR.
+#
+#  ONEMLI: tavan da SQL GEREKTIRMIYOR. Istemci madde_ara'dan daha genis bir
+#  havuz ister (adet=30), ayni madde/belgeden fazlasini eler, kalan ilk 6'yi
+#  kullanir. Yani bu da edge tarafinda yapilabilir - v6 dersi: mantigi
+#  Postgres'in icine gomme.
+# ===========================================================================
+function Kapak-Olc {
+  $set = Get-Content -Raw -Encoding UTF8 $setYol | ConvertFrom-Json
+  $vakalar = @($set.vakalar)
+  if ($Vaka -gt 0 -and $Vaka -lt $vakalar.Count) { $vakalar = @($vakalar | Select-Object -First $Vaka) }
+
+  $script:sonCagri = [datetime]::MinValue
+  function Fren3([int]$ms = 900) {
+    $g = ([datetime]::UtcNow - $script:sonCagri).TotalMilliseconds
+    if ($g -lt $ms) { Start-Sleep -Milliseconds ([int]($ms - $g)) }
+    $script:sonCagri = [datetime]::UtcNow
+  }
+  function Sor3([string[]]$jet, [int]$adet) {
+    if (-not $jet) { return @() }
+    $govde = @{ sorgu = ($jet -join ' '); adet = $adet } | ConvertTo-Json -Compress
+    foreach ($d in 1..4) {
+      Fren3
+      try { return @(Invoke-RestMethod -Method Post -Uri "$SB/rest/v1/rpc/madde_ara?select=kaynak_ad" -Headers $H -ContentType 'application/json' -Body $govde) }
+      catch { if ($d -eq 4) { throw }; Start-Sleep -Seconds (2 * $d) }
+    }
+  }
+  # havuzdan tavani uygulayarak ilk 6'yi sec
+  function Suz([object[]]$r, [int]$maddeTavan, [int]$belgeTavan) {
+    $ust = @(); $mS = @{}; $bS = @{}
+    foreach ($d in $r) {
+      $mk = MaddeAnahtar ([string]$d.kaynak_ad); $bk = BelgeAnahtar ([string]$d.kaynak_ad)
+      if ([int]$mS[$mk] -ge $maddeTavan) { continue }
+      if ([int]$bS[$bk] -ge $belgeTavan) { continue }
+      $mS[$mk] = [int]$mS[$mk] + 1; $bS[$bk] = [int]$bS[$bk] + 1
+      $ust += $d
+      if ($ust.Count -ge 6) { break }
+    }
+    return $ust
+  }
+
+  $varyantlar = [ordered]@{
+    'ek5 kapaksiz'        = @{ ek=5; stop=$STOP; adet=6;  mt=99; bt=99 }
+    'ek5 + tavan(1/2)@30' = @{ ek=5; stop=$STOP; adet=30; mt=1;  bt=2  }
+    'ek5 + tavan(1/3)@30' = @{ ek=5; stop=$STOP; adet=30; mt=1;  bt=3  }
+    'ek5 + tavan(2/3)@30' = @{ ek=5; stop=$STOP; adet=30; mt=2;  bt=3  }
+    'ek5 + tavan(1/2)@60' = @{ ek=5; stop=$STOP; adet=60; mt=1;  bt=2  }
+    'mevcut + tavan(1/2)' = @{ ek=0; stop=$STOP; adet=30; mt=1;  bt=2  }
+  }
+
+  $rapor = @()
+  foreach ($vad in $varyantlar.Keys) {
+    $a = $varyantlar[$vad]
+    $gecen = 0; $olculemeyen = 0; $dusenler = @()
+    foreach ($v in $vakalar) {
+      $jet = Jetonla2 $v.soru $a.stop $a.ek
+      try { $r = Sor3 $jet $a.adet } catch { $olculemeyen++; continue }
+      $ust = Suz $r $a.mt $a.bt
+      $adlar = $ust | ForEach-Object { Fold ([string]$_.kaynak_ad) }
+      $tuttu = $false
+      foreach ($b in @($v.beklenen)) { if ($adlar | Where-Object { $_ -like "*$b*" }) { $tuttu = $true; break } }
+      if ($tuttu) { $gecen++ } else { $dusenler += $v.soru }
+    }
+    $rapor += [pscustomobject]@{ Varyant=$vad; Gecen=$gecen; Olculemeyen=$olculemeyen; Toplam=$vakalar.Count; Dusenler=$dusenler }
+    Write-Host ("  {0,-22} {1,3}/{2}   (olculemeyen: {3})" -f $vad, $gecen, $vakalar.Count, $olculemeyen)
+  }
+
+  Write-Host ""
+  Write-Host "============== CESITLILIK TAVANI OLCUMU =============="
+  $taban = ($rapor | Where-Object { $_.Varyant -eq 'ek5 kapaksiz' }).Gecen
+  $rapor | Sort-Object Gecen -Descending | ForEach-Object {
+    "{0,-22} {1,3}/{2}   {3:+#;-#;0}" -f $_.Varyant, $_.Gecen, $_.Toplam, ($_.Gecen - $taban)
+  }
+  Write-Host "------------------------------------------------------"
+  $en = $rapor | Sort-Object Gecen -Descending | Select-Object -First 1
+  Write-Host ("TABAN (ek5, tavansiz): {0}/{1}   EN IYI: {2} -> {3}/{1}" -f $taban, $en.Toplam, $en.Varyant, $en.Gecen)
+  if ($Ayrinti) {
+    foreach ($s in ($rapor | Sort-Object Gecen -Descending)) {
+      Write-Host ("--- {0} ({1}/{2}) dusenler:" -f $s.Varyant, $s.Gecen, $s.Toplam)
+      foreach ($d in $s.Dusenler) { Write-Host ("      {0}" -f $d) }
+    }
+  }
+}
+
 if ($Topla) { Topla-Havuz }
 elseif ($Dene) { Dene-Formuller }
 elseif ($Dil) { Dil-Kanali }
-else { Write-Host "Kullanim: -Topla | -Dene [-Ayrinti] | -Dil [-Ayrinti] [-Vaka N]" }
+elseif ($Kapak) { Kapak-Olc }
+else { Write-Host "Kullanim: -Topla | -Dene | -Dil | -Kapak  [-Ayrinti] [-Vaka N]" }

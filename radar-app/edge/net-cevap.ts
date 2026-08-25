@@ -263,7 +263,38 @@ Deno.serve(async (req) => {
           body: JSON.stringify({ sorgu: fts, adet: 30 }),
         });
         if (r.ok) {
-          const satirlar = (await r.json()).filter((d: any) => !AYIKLA.has(String(d.tur || ""))).slice(0, 6);
+          // -------------------------------------------------------------
+          // CESITLILIK TAVANI (25.08.2026) — OLCULEREK EKLENDI: 44 -> 45/48.
+          // Sorun: top-6'yi AYNI maddenin farkli parcalari dolduruyordu.
+          // "tapu harci alim satim" sorgusunda 6 sonucun 4'u ayni belgenin
+          // (Harclar GT 56 ek m.12) parcalariydi; Harclar Kanunu'nun kendisi
+          // hic gorunmuyordu. Kullanici acisindan da israf: alintilarin
+          // yarisi ayni metnin devami, cevap motoru bunlari bosuna okuyor.
+          // Kural: ayni MADDEDEN en fazla 1, ayni BELGEDEN en fazla 2 parca.
+          // Olcum (arac/sirala-tarti.ps1 -Kapak, 48 altin vaka, uctan uca):
+          //   ek soyma tek basina 44/48 · + tavan 45/48. Dort farkli tavan
+          //   ayari (1/2, 1/3, 2/3, havuz 60) AYNI 45'i verdi; en dar olani
+          //   secildi cunku puan esitken okuyucuya en cesitli sonucu verir.
+          // SQL GEREKTIRMEZ: zaten adet=30 cekiliyor, eleme burada yapiliyor.
+          // ⚠️ motor/ambar-testi.ps1 ile BIREBIR SENKRON kalmali.
+          // -------------------------------------------------------------
+          const maddeAnahtar = (k: string) => k.replace(/\s*\[\d+\/\d+\]\s*$/, "").trim();
+          const belgeAnahtar = (k: string) => maddeAnahtar(k)
+            .replace(/\s+((gec\.|muk\.|mük\.|ek|mükerrer)\s+)?m\.\s*\d.*$/, "")
+            .replace(/\s+(bolum|bölüm)\s+\d.*$/i, "")
+            .trim();
+          const havuz = (await r.json()).filter((d: any) => !AYIKLA.has(String(d.tur || "")));
+          const mSay = new Map<string, number>(); const bSay = new Map<string, number>();
+          const satirlar: any[] = [];
+          for (const d of havuz) {
+            const ad = String(d.kaynak_ad || "");
+            const mk = maddeAnahtar(ad); const bk = belgeAnahtar(ad);
+            if ((mSay.get(mk) || 0) >= 1) continue;
+            if ((bSay.get(bk) || 0) >= 2) continue;
+            mSay.set(mk, (mSay.get(mk) || 0) + 1); bSay.set(bk, (bSay.get(bk) || 0) + 1);
+            satirlar.push(d);
+            if (satirlar.length >= 6) break;
+          }
           for (const d of satirlar) parcalar.push({ ad: d.kaynak_ad + (d.belge_tarihi ? ` (${d.belge_tarihi})` : ""), metin: (d.baslik ? d.baslik + " — " : "") + String(d.metin).slice(0, 1200), url: d.kaynak_url });
         }
       }
