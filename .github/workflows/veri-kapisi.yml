@@ -145,6 +145,15 @@ jobs:
         shell: pwsh
         run: ./arac/zincir-haritasi.ps1
 
+      # SITEYE BASILAN DAMGA: her sayfanin cektigi veri dosyalarinin tazeligini
+      # (son git commit'i) sayfa basina cikarir; menu.js footer'a basar.
+      # Ziyaretci baktigi rakamin ne zamanki veriden geldigini GORUR - bugune
+      # kadar bunu yalniz biz goruyorduk.
+      - name: Tazelik damgasi uret (siteye basilan)
+        continue-on-error: true
+        shell: pwsh
+        run: ./arac/tazelik-damgasi-uret.ps1
+
       - name: Raporu commit'le
         if: always()
         run: |
@@ -153,6 +162,7 @@ jobs:
           git add veri/veri-tazelik-raporu.json 2>/dev/null || true
           git add veri/baglanmamis-raporu.json 2>/dev/null || true
           git add veri/zincir-haritasi.json 2>/dev/null || true
+          git add veri/tazelik-damgasi.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "Veri tazelik + baglanmamis katman nobeti [veri-kapisi]"
           git pull --rebase --autostash || true
           git push || true

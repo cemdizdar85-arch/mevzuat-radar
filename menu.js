@@ -261,8 +261,67 @@ function kur(){
         '<a href="mesafeli-satis.html" style="color:var(--muted);text-decoration:none">Mesafeli Satış</a> · ' +
         '<a href="teslimat-iade.html" style="color:var(--muted);text-decoration:none">Teslimat & İade</a> · ' +
         '<a href="iletisim.html" style="color:var(--muted);text-decoration:none">İletişim</a>' +
-        '<br>Dizdar Denetim ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com';
+        '<br>Dizdar Denetim ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com' +
+        '<br><span data-veri-damgasi></span>';
       document.body.appendChild(yf);
+    }
+  } catch (e) {}
+
+  /* ── VERİ TAZELİK DAMGASI (25.08.2026) ─────────────────────────────────
+     Cem: "bir daha site okunmayan eskide kalmayacak · son güncellenme
+     damgasını siteye koy."
+
+     NEDEN. Verinin tazeliğini bugüne kadar YALNIZ BİZ görüyorduk (tazelik
+     nöbetçisi, veri kapısı). Ziyaretçi baktığı rakamın ne zamanki veriden
+     geldiğini bilmiyordu. Ciddi hukuk yayıncılarının hepsinde bu damga var.
+     Yan faydası: bayat veriyi BİZ görmesek de müşteri görür — ikinci göz.
+
+     ÖLÇÜ. veri/tazelik-damgasi.json, her sayfanın çektiği veri dosyalarının
+     SON GİT COMMIT tarihinden üretilir; dosyanın İÇİNDEKİ tarihten değil.
+     (25.08 dersi: nice-siniflar.json içindeki "30.12.2016" kaynak tebliğin
+      RG tarihiydi, bayatlık damgası değil.)
+
+     DÜRÜSTLÜK. Tek rakam gösterip diğerini saklamıyoruz: görünen "son" (veri
+     en son ne zaman değişti), ipucu metninde "en eski" de var. Sözleşmedeki
+     azami yaş aşılmışsa damga UYARIYA döner — sessizce iyi göstermez.
+
+     Damga bulunamazsa HİÇBİR ŞEY yazılmaz (yanlış tarih basmaktansa boş). */
+  try {
+    /* Damga yasal footer'dan BAGIMSIZ olmali. Yasal footer yalniz sayfada
+       kvkk.html linki YOKSA basiliyor; gtip.html gibi kendi kunyesi olan
+       sayfalarda basilmiyor ve damga da onunla birlikte dusuyordu (canli
+       olculdu: gtip.html'de [data-veri-damgasi] hic olusmadi). Bu yuzden
+       yer bulunamazsa KENDI kabini olusturur. */
+    var yer = document.querySelector('[data-veri-damgasi]');
+    {
+      fetch('veri/tazelik-damgasi.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.sayfalar) return;
+          var ad = (location.pathname.split('/').pop() || 'index.html');
+          if (!ad) ad = 'index.html';
+          var k = d.sayfalar[ad];
+          if (!k || !k.son) return;                     // bu sayfa veri çekmiyorsa sus
+          /* Kap ancak GOSTERILECEK BIR SEY VARSA olusturulur. Onceki surumde
+             kap her sayfada pesin yaratiliyordu ve veri cekmeyen 27 sayfada
+             (kvkk.html gibi) BOS kalip 22px bosluk birakiyordu - canli
+             olculdu. Bos kap birakmaktansa hic birakma. */
+          if (!yer) {
+            var kab = document.createElement('div');
+            kab.style.cssText = 'max-width:980px;margin:0 auto;padding:0 18px 22px;font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
+            kab.innerHTML = '<span data-veri-damgasi></span>';
+            document.body.appendChild(kab);
+            yer = kab.firstChild;
+          }
+          if (!yer) return;
+          var gg = function (s) { var p = s.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; };
+          var ipucu = 'Bu sayfanın kullandığı ' + k.dosya + ' veri dosyası. ' +
+                      'En eski veri: ' + gg(k.en_eski) + '. Ölçü: verinin depoya son işlendiği an.';
+          yer.innerHTML = (k.bayat ? '⚠ ' : '') + 'Veri son güncelleme: ' +
+            '<time datetime="' + k.son + '" title="' + ipucu + '" style="color:var(--muted)">' + gg(k.son) + '</time>' +
+            (k.bayat ? ' <span style="color:var(--muted)">(beklenen tazelik aşıldı)</span>' : '');
+        })
+        .catch(function () { /* damga yoksa sessiz kal */ });
     }
   } catch (e) {}
 }
