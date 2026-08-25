@@ -76,7 +76,11 @@ if ($null -eq $toplam) { $toplam = 0 }
 
 # --- taban tazeleme -------------------------------------------------------
 if ($Tazele) {
-  $simdi | ConvertTo-Json | Set-Content -Path $tabanYol -Encoding UTF8
+  # BOM'SUZ yazilir. PowerShell 5.1'de "Set-Content -Encoding UTF8" dosyanin
+  # basina BOM koyar; BOM'lu JSON'u PowerShell okur ama Node/Python gibi
+  # standart ayristiricilar "Unexpected token" diye REDDEDER. Depoda JSON'u
+  # okuyan her sey PowerShell degil - bu yuzden BOM'suz yaziyoruz.
+  [IO.File]::WriteAllText($tabanYol, ($simdi | ConvertTo-Json), (New-Object Text.UTF8Encoding $false))
   Write-Host ("RENK SABITI DENETCISI: taban tazelendi - {0} dosya, {1} sabit renk." -f $simdi.Count, $toplam)
   Write-Host "  $tabanYol"
   exit 0
