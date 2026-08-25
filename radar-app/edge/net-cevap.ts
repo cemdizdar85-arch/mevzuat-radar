@@ -190,8 +190,50 @@ Deno.serve(async (req) => {
       // sorgusu icin: bilgi-tabani anahtarlarinda 'sgk' literal gectiginden
       // oradaki eslesmeye dokunulmaz.
       const ALIAS: Record<string, string[]> = { sgk: ["sigortali", "sosyal", "prim"] };
+      // ---------------------------------------------------------------------
+      // TURKCE EK SOYMA (25.08.2026) — OLCULEREK SECILDI.
+      // Sorun: kullanici cekimli yazar ("ticaret siciline"), kanun metni kok
+      // halinde durur ("sicil"). to_tsquery prefix'i ('kelime:*') yalniz SAGA
+      // genisler, yani sorgudaki EK belgeyi bulmayi ENGELLER. Kokle aramak
+      // kapsami GENISLETIR: 'sicil:*' hem sicili hem siciline hem sicilinde.
+      //
+      // arac/sirala-tarti.ps1 -Dil ile 48 altin vaka uzerinde UCTAN UCA olculdu:
+      //     mevcut 41/48 · genis durak listesi 41 (+0) ·
+      //     EK SOYMA kok>=5 -> 44 (+3) SECILEN · kok>=4 -> 40 (-1)
+      // kok>=4'un tabanin ALTINA dusmesi ogretici: 'vergisi'->'verg' gibi
+      // kiyimlar gurultu yayiyor. madde_ara v6 (19.08) koku Postgres'in icine
+      // gomup 48->41 dusurmus ve GERI ALINMISTI; dogru katman burasi (istemci)
+      // ve bu kez canliya yazmadan olculdu.
+      // Kural: EN UZUN eki dene, kok 5'in altina duserse HIC SOYMA. Yanlis ek
+      // soymak hic soymamaktan kotudur (cezasi->cezas gibi kelime-olmayan kok).
+      //
+      // ⚠️ motor/ambar-testi.ps1 ile BIREBIR SENKRON. Biri saparsa altin test
+      // canli davranisi olcmuyor demektir.
+      // ---------------------------------------------------------------------
+      const EKLER = ["lerinin","larinin","lerine","larina","lerini","larini","sinden","sindan","inden","indan",
+                     "lerin","larin","sinde","sinda","siyle","leri","lari","sinin","inde","inda","iyle",
+                     "ligi","lugi","lugu","mesi","masi","ler","lar","nin","nun","sine","sina","ine","ina",
+                     "den","dan","ten","tan","yle","lik","luk","mek","mak","in","un","ye","ya","de","da",
+                     "te","ta","le","la","si","su","me","ma","e","a","i","u"]
+                     .sort((x, y) => y.length - x.length);
+      const ekSoy = (w: string, enAz = 5): string => {
+        let x = w;
+        for (let tur = 0; tur < 3; tur++) {
+          const ek = EKLER.find((e) => x.endsWith(e));
+          if (!ek) break;
+          if (x.length - ek.length < enAz) break;   // kok cok kisalir -> DUR
+          x = x.slice(0, x.length - ek.length);
+        }
+        return x;
+      };
       const ftsTok: string[] = [];
-      for (const t of tok.slice(0, 8)) { const a = ALIAS[fold(t)]; if (a) ftsTok.push(...a); else ftsTok.push(fold(t)); }
+      // Ek soyma takma addan ONCE: 'sgk' 3 harf, soyulmaz; ALIAS davranisi aynen korunur.
+      for (const t of tok.slice(0, 8)) {
+        const f = ekSoy(fold(t));
+        if (f.length < 3) continue;
+        const a = ALIAS[f];
+        if (a) ftsTok.push(...a); else ftsTok.push(f);
+      }
       const fts = ftsTok.slice(0, 8).join(" ");
       if (fts) {
         // 21.08 KRITIK AYIKLAMA: ambarda cikmis sinavlar tur='cikmis-soru'

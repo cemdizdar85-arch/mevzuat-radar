@@ -92,3 +92,8 @@ motor/arsiv/
 
 # 23.08 - SGS (staja giris) kitapcik arsivi (telifli, depoya girmez)
 veri/sgs-arsiv/
+
+# 25.08 - siralama tartisinin aday havuzu onbellegi (arac/sirala-tarti.ps1 -Topla).
+# TUREVDIR: 48 altin vakanin 300'er adayi, istenince yeniden uretilir. Depoya
+# girmez - 20.08'de gecmisi 1 GB'dan 80 MB'a indirdik, ayni hatayi tekrarlamayiz.
+.tarti-havuz.json
