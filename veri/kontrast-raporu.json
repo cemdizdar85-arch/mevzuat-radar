@@ -1,16 +1,31 @@
 {
-  "durum": "YESIL",
+  "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
   "sayfa": 59,
-  "temiz_sayfa": 59,
-  "denetlenen_metin": 12216,
-  "toplam_kirik": 0,
+  "temiz_sayfa": 58,
+  "denetlenen_metin": 12202,
+  "toplam_kirik": 1,
   "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
     "buyuk": 3
   },
   "olculemeyenler": [],
-  "kirik_sayfalar": []
+  "kirik_sayfalar": [
+    {
+      "sayfa": "alacak-radari.html",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "div",
+          "yazi": "Aracı kendin kullanmak ücretsizdir (ayda",
+          "oran": 4.02,
+          "esik": 4.5,
+          "renk": "rgb(125, 139, 157)",
+          "zemin": "rgb(50,43,31)"
+        }
+      ]
+    }
+  ]
 }
