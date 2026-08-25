@@ -136,6 +136,15 @@ jobs:
         shell: pwsh
         run: ./arac/baglanmamis-tara.ps1
 
+      # ZINCIR HARITASI: "X'in urettigini Y okuyor ama sirasi TAKVIMLE kurulmus"
+      # ciftlerini bulur. 25.08'de elle bulunan vaka (rg-nobeti, aynanin
+      # dosyasini o yazmadan 40 dk once okuyordu) bir daha tesadufe kalmasin.
+      # Bulgu = is listesi, kapi degil.
+      - name: Zincir haritasi (sira riski)
+        continue-on-error: true
+        shell: pwsh
+        run: ./arac/zincir-haritasi.ps1
+
       - name: Raporu commit'le
         if: always()
         run: |
@@ -143,6 +152,7 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add veri/veri-tazelik-raporu.json 2>/dev/null || true
           git add veri/baglanmamis-raporu.json 2>/dev/null || true
+          git add veri/zincir-haritasi.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "Veri tazelik + baglanmamis katman nobeti [veri-kapisi]"
           git pull --rebase --autostash || true
           git push || true

@@ -1,0 +1,26 @@
+{
+    "tarih":  "25.08.2026 18:25",
+    "is_akisi":  119,
+    "cift":  31,
+    "olaya_bagli":  1,
+    "sira_riski":  2,
+    "riskliler":  [
+                      {
+                          "uretici":  "radar.yml",
+                          "tuketici":  "kaynak.yml",
+                          "dosya":  "veri/rg-destek-cagri.json",
+                          "workflow_run_bagli":  false,
+                          "ikisi_de_cron":  true,
+                          "risk":  true
+                      },
+                      {
+                          "uretici":  "kaynak.yml",
+                          "tuketici":  "uyari.yml",
+                          "dosya":  "veri/ihale-yurtici.json",
+                          "workflow_run_bagli":  false,
+                          "ikisi_de_cron":  true,
+                          "risk":  true
+                      }
+                  ],
+    "yontem_notu":  "Metin analizi: is akisi -\u003e cagirdigi betik -\u003e betigin yazdigi/okudugu veri/*.json. Kosula bagli ya da degiskenden kurulan dosya adlari KACAR; bulunanlar gercek, \u0027hepsi\u0027 iddia edilmez."
+}
