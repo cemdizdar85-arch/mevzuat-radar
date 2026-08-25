@@ -1,15 +1,35 @@
-# .github/workflows/uyari.yml  —  Radar uyarı robotu
+# .github/workflows/uyari.yml  -  Radar uyarı robotu
 # Her sabah firmaları profiline göre tarar, YENİ eşleşmeyi firma_uyarilari'na
 # yazar (panel "🔔 Radar uyarıların" gösterir); RESEND takılıysa mail de atar.
-# ÜCRETSİZ: AI çağrısı yok — Supabase okuma/yazma + depo dosyaları.
+# ÜCRETSİZ: AI çağrısı yok - Supabase okuma/yazma + depo dosyaları.
 # GEREKSİNİM: SUPABASE_SERVICE_KEY (takılı), RESEND_KEY + RESEND_FROM (opsiyonel).
-# 30.07: push tetiği + özet commit'i eklendi — 23.07'den beri betik depoda
+# 30.07: push tetiği + özet commit'i eklendi - 23.07'den beri betik depoda
 # olmadığı için cron her sabah boşa düşüyordu ve İZ BIRAKMIYORDU (kör kalma).
 name: Radar Uyarı Robotu
 
 on:
+  # ==========================================================================
+  # 25.08 - SAATE DEGIL OLAYA BAGLANDI (zincir-haritasi.ps1 buldu).
+  #
+  # BULGU: bu robot veri/ihale-yurtici.json'u OKUR; onu kaynak.yml YAZAR.
+  # Sira TAKVIMLE kurulmustu ve pay yalnizca 64 DAKIKAYDI:
+  #     kaynak.yml  00:13 UTC (03:13 TR)  yazar
+  #     uyari.yml   01:17 UTC (04:17 TR)  okur
+  # GitHub gecikmesi 25.08'de 13-96 dk arasinda olculdu ve HER IS ICIN FARKLI.
+  # Kotu gunde: kaynak 96 dk gecikip 01:49'da baslar, 20 dk surer, 02:09'da
+  # biter; uyari 13 dk gecikip 01:30'da baslar -> KAYNAK BITMEDEN OKUR.
+  # 64 dk pay bu oynamayi karsilamiyor. (25.08'de sans eseri tuttu: kaynak
+  # 05:04'te bitti, uyari 05:32'de basladi.)
+  #
+  # DUZELTME: uyari COK HAFIF bir is (0-1 dk), o yuzden kaynak'a workflow_run
+  # ile baglamak bedava. Artik kaynak BITTIGINDE koser - gecikme ne olursa
+  # olsun sira garanti. Cron EMNIYET AGI olarak kaldi (kaynak hic kosmazsa).
+  # ==========================================================================
+  workflow_run:
+    workflows: ["Kaynak Nobetcisi"]
+    types: [completed]
   schedule:
-    - cron: "17 1 * * *"     # 04:17 TR (ihale + kart hasadindan sonra)
+    - cron: "17 1 * * *"     # 04:17 TR - EMNIYET AGI (asil tetik workflow_run)
   workflow_dispatch:
   push:
     paths:

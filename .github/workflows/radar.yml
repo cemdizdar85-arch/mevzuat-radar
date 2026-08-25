@@ -5,6 +5,32 @@ name: Gunluk RG Taramasi
 
 on:
   schedule:
+    # ==========================================================================
+    # 25.08 ERKEN NOBET - SIRA HATASI DUZELTMESI (zincir-haritasi.ps1 buldu)
+    #
+    # BULGU: bu is akisi veri/rg-destek-cagri.json'u YAZAR; kaynak.yml onu OKUR.
+    # Ama cron'lar tersti - URETICI, TUKETICIDEN 43 DK SONRA zamanlanmisti:
+    #     kaynak.yml  03:13 TR  (okur)
+    #     radar.yml   03:56 TR  (yazar)
+    # Gercek kosuda da oyle oldu (25.08): kaynak 04:49->05:04, radar 05:09.
+    # Yani kaynak her sabah DUNUN havuzunu okuyordu.
+    #
+    # DUZELTME: mevcut nobet KALDI, oncesine bir nobet EKLENDI (22:00 UTC =
+    # 01:00 TR). Ekleme yapmak, mevcut saati kaydirmaktan guvenli:
+    #   * RG o saatte YAYIMLANMISSA -> havuz dolar, kaynak'in 04:49 kosusu
+    #     TAZE veriyi okur. Sira duzelir.
+    #   * YAYIMLANMAMISSA -> tarama 0 yeni bulur; havuz BIRIKIMLIDIR
+    #     (rg-tarama.ps1 eski kayitlari okuyup birlestirir, silmez), yani
+    #     KAYIP OLMAZ ve 03:56 nobeti isi eskisi gibi yapar. Bugunkunden
+    #     KOTU OLAMAZ.
+    # Gecikme payi: kaynak'in cron'u 00:13 UTC; bu nobet 22:00 UTC. GitHub
+    # 40-100 dk geciktirse bile arada saatler var.
+    #
+    # AYRICA DENEY: kartlar.yml'e eklenen 01:10 TR nobetiyle ayni soruyu sorar -
+    # "RG gece yarisindan hemen sonra hazir mi?" Birkac gun sonra ikisinin
+    # ciktisi bu soruyu OLCUMLE cevaplayacak.
+    # ==========================================================================
+    - cron: "0 22 * * *"   # 01:00 TR (ertesi gun) - ERKEN nobet, kaynak.yml'den ONCE
     - cron: "56 0 * * *"   # 03:56 TR
   workflow_dispatch:        # Actions sekmesinden elle de calistirilabilir
 

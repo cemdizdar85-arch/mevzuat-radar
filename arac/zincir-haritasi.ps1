@@ -74,6 +74,39 @@ foreach ($n in $isBetik.Keys) {
 }
 
 function CronVarMi([string]$n) { return ($isMetin[$n] -match '(?m)^\s*schedule:') }
+
+# --- CRON'LARI DAKIKAYA CEVIR (UTC gun ici) ---
+# Ilk surum "ikisi de cron -> RISK" diyordu ve DUZELTILMIS cifti bile risk
+# sayiyordu; yani kendi kurt masalini anlatiyordu (bugunun ana dersi kendi
+# aracima dondu). Artik SIRA gercekten yanlis mi diye BAKAR.
+function CronDakikalari([string]$n) {
+  $d = @()
+  foreach ($m in [regex]::Matches($isMetin[$n], "cron:\s*['""]([^'""]+)['""]")) {
+    $p = $m.Groups[1].Value -split '\s+'
+    if ($p.Count -ge 2 -and $p[0] -match '^\d+$' -and $p[1] -match '^\d+$') { $d += ([int]$p[1] * 60 + [int]$p[0]) }
+  }
+  return @($d | Sort-Object)
+}
+# Uretici ile tuketici arasindaki EN DAR pay (dakika). Gun donusu hesaba katilir:
+# uretici 22:00, tuketici 00:13 ise pay 133 dk'dir, -1307 degil.
+function EnDarPay([int[]]$ureticiler, [int[]]$tuketiciler) {
+  if (-not $ureticiler -or -not $tuketiciler) { return $null }
+  $enDar = 99999
+  foreach ($t in $tuketiciler) {
+    $buTuketiciIcinEnIyi = -99999
+    foreach ($u in $ureticiler) {
+      $pay = $t - $u
+      if ($pay -lt 0) { $pay = $pay + 1440 }   # uretici onceki gun
+      if ($pay -gt $buTuketiciIcinEnIyi) { }
+      # tuketiciden ONCE kosan EN YAKIN uretici pay'i belirler
+      if ($pay -lt $enDar) { $enDar = $pay }
+    }
+  }
+  return $enDar
+}
+# GitHub gecikmesi 13-96 dk arasinda olculdu (25.08). Iki isin gecikmesi farkli
+# olabildigi icin guvenli pay bu farkin uzerinde olmali: 120 dk secildi.
+$GUVENLI_PAY_DK = 120
 function WorkflowRunKaynagi([string]$n) {
   $m = [regex]::Match($isMetin[$n], 'workflow_run:\s*\r?\n\s*workflows:\s*\[([^\]]+)\]')
   if ($m.Success) { return ($m.Groups[1].Value -replace '"','' ) }
@@ -91,11 +124,18 @@ foreach ($tuketici in $isOkur.Keys) {
       $wr = WorkflowRunKaynagi $tuketici
       $bagli = ($wr -and $isAdi[$uretici] -and ($wr -like "*$($isAdi[$uretici])*"))
       $ikisiDeCron = (CronVarMi $uretici) -and (CronVarMi $tuketici)
+      $pay = $null
+      if ($ikisiDeCron) { $pay = EnDarPay (CronDakikalari $uretici) (CronDakikalari $tuketici) }
+      # RISK yalniz: bag YOK, ikisi de cron, VE pay guvenli esigin ALTINDA.
+      # Pay genisse sira takvimle kurulmus ama FIILEN DOGRU - bunu risk saymak
+      # yanlis alarmdir (tarayici kendi kurt masalini anlatmasin).
+      $risk = ((-not $bagli) -and $ikisiDeCron -and ($null -ne $pay) -and ($pay -lt $GUVENLI_PAY_DK))
       [void]$ciftler.Add([ordered]@{
         uretici = $uretici; tuketici = $tuketici; dosya = $dosya
         workflow_run_bagli = [bool]$bagli
         ikisi_de_cron = [bool]$ikisiDeCron
-        risk = ((-not $bagli) -and $ikisiDeCron)
+        pay_dk = $pay
+        risk = $risk
       })
     }
   }
@@ -106,7 +146,9 @@ $bagliOlan = @($ciftler | Where-Object { $_.workflow_run_bagli })
 
 Write-Host "=== ZINCIR HARITASI ==="
 Write-Host ("is akisi: {0} | bulunan uretici-tuketici cifti: {1}" -f $isMetin.Count, $ciftler.Count)
-Write-Host ("workflow_run ile BAGLI: {0} | SIRA RISKI (ikisi de cron, bag yok): {1}" -f $bagliOlan.Count, $riskli.Count)
+Write-Host ("workflow_run ile BAGLI: {0} | SIRA RISKI (pay < {1} dk): {2}" -f $bagliOlan.Count, $GUVENLI_PAY_DK, $riskli.Count)
+$genisPay = @($ciftler | Where-Object { (-not $_.risk) -and (-not $_.workflow_run_bagli) -and $_.ikisi_de_cron })
+Write-Host ("TAKVIMLE AMA PAY GENIS (kabul edilebilir): {0}" -f $genisPay.Count)
 if ($bagliOlan.Count -gt 0) {
   Write-Host ""
   Write-Host "--- ZATEN OLAYA BAGLI (dogru kurulmus) ---"
@@ -118,7 +160,8 @@ if ($riskli.Count -gt 0) {
   $g = $riskli | Group-Object { "$($_.uretici) -> $($_.tuketici)" }
   foreach ($x in ($g | Sort-Object Count -Descending | Select-Object -First 20)) {
     $d = @($x.Group | ForEach-Object { $_.dosya } | Select-Object -Unique -First 3) -join ', '
-    Write-Host ("  {0,-56} {1}" -f $x.Name, $d)
+    $py = ($x.Group | Select-Object -First 1).pay_dk
+    Write-Host ("  {0,-52} pay {1,4} dk   {2}" -f $x.Name, $py, $d)
   }
   if ($g.Count -gt 20) { Write-Host ("  ... ve {0} cift daha" -f ($g.Count - 20)) }
 }
