@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Sistem Durumu | Tetikte</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<!--
+  ============================================================================
+   SISTEM DURUM SAYFASI  (25.08.2026)
+
+   CEM: "mail teslimini garanti al."
+
+   DURUST CEVAP: e-posta teslimi HICBIR sistemde %100 garanti edilemez.
+   Spam suzgeci, alan adi itibari, saglayici kesintisi - hicbiri bizim
+   elimizde degil. Garanti edilebilecek olan sey teslime BAGIMLI OLMAMAKTIR.
+
+   Mail bir ITME (push) kanalidir: gitmezse haberin olmaz.
+   Bu sayfa bir CEKME (pull) kanalidir: ne zaman istersen acar, gercegi
+   gorursun. Spam suzgeci yok, itibar yok, teslim sorunu yok.
+   Ikisi birlikte: mail seni UYANDIRIR, bu sayfa DOGRUYU SOYLER.
+
+   NEDEN GEREKLI: 25.08'de olculdu - Gunluk Kanun Aynasi 38 GUN kirmizi
+   kaldi ve kimse fark etmedi. Her kosuda mail gidiyordu; ucuncusunden sonra
+   kimse okumaz. Gurultuye donen alarm, alarm degildir. Tek bakista
+   "her sey yolunda mi?" sorusunu cevaplayan bir yer lazimdi.
+
+   VERI KAYNAGI: depo PUBLIC oldugu icin GitHub Actions API'sine kimliksiz
+   sorulabiliyor - is akislarinin CANLI durumu dogrudan tarayicidan okunur.
+   Sunucu, anahtar, oturum GEREKMEZ. Nobet raporlari da veri/*.json'dan.
+
+   SINIR: kimliksiz GitHub API saatte 60 istek. Bu sayfa acilista TEK istek
+   yapar. Limit dolarsa sayfa bunu SOYLER, sessizce yesil gostermez.
+  ============================================================================
+-->
+<style>
+  .dz{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+  .dz h1{font-size:26px;letter-spacing:-.6px;margin:0 0 4px}
+  .dz .alt{color:var(--muted);font-size:13.5px;margin:0 0 22px;line-height:1.7}
+  .hkm{border-radius:14px;padding:18px 20px;margin:0 0 22px;border:1px solid rgba(255,255,255,.10);background:var(--kagit)}
+  .hkm .bas{font-size:19px;font-weight:800;letter-spacing:-.3px}
+  .hkm .ack{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.7}
+  .yesil{color:#3ddc97} .kirmizi{color:#ff6b6b} .sari{color:#f5a524} .gri{color:var(--dim)}
+  .bl{margin:0 0 26px}
+  .bl h2{font-size:14px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 10px;font-weight:700}
+  table.dt{width:100%;border-collapse:collapse;font-size:13.5px}
+  table.dt th{text-align:left;color:var(--dim);font-weight:600;font-size:12px;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+  table.dt td{padding:8px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+  table.dt tr:hover td{background:rgba(255,255,255,.02)}
+  .rz{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+  .not{color:var(--dim);font-size:12px;line-height:1.8;margin-top:8px}
+  .yuk{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="dz">
+  <h1>Sistem Durumu</h1>
+  <p class="alt">
+    Bu sayfa <b>çekme</b> kanalıdır: ne zaman açarsan gerçeği gösterir. Mail gitmese de,
+    spam'e düşse de burası çalışır. Veriyi doğrudan GitHub Actions'tan ve nöbet raporlarından okur —
+    sunucu, anahtar, oturum gerekmez.
+  </p>
+
+  <div class="hkm" id="hkm">
+    <div class="bas yuk">Okunuyor…</div>
+    <div class="ack">Nöbetçi raporları ve iş akışı durumları alınıyor.</div>
+  </div>
+
+  <div class="bl">
+    <h2>Nöbetçiler</h2>
+    <table class="dt"><thead><tr><th style="width:26%">Nöbet</th><th style="width:14%">Durum</th><th>Ne diyor</th></tr></thead>
+    <tbody id="nobetler"><tr><td colspan="3" class="yuk">okunuyor…</td></tr></tbody></table>
+  </div>
+
+  <div class="bl">
+    <h2>İş akışları — son 24 saat</h2>
+    <table class="dt"><thead><tr><th style="width:34%">İş</th><th style="width:12%">Koşu</th><th style="width:12%">Kırmızı</th><th>Son koşu</th></tr></thead>
+    <tbody id="akislar"><tr><td colspan="4" class="yuk">okunuyor…</td></tr></tbody></table>
+    <div class="not" id="akisNot"></div>
+  </div>
+
+  <div class="not">
+    Ölçü: iş akışı durumları GitHub Actions API'sinden canlı; nöbet raporları depodaki
+    <code>veri/*.json</code> dosyalarından. Bir kaynak okunamazsa bu sayfa bunu <b>söyler</b> —
+    sessizce yeşil göstermez.
+  </div>
+</div>
+
+<script>
+(function(){
+  var DEPO = 'cemdizdar85-arch/mevzuat-radar';
+
+  /* Nobet raporlari: dosya -> nasil yorumlanacagi.
+     Her nobet KENDI dilinde konusur; burada tek dile cevrilir.
+     "bilinmiyor" DA bir durumdur - okunamayan raporu yesil saymayiz. */
+  var NOBETLER = [
+    { ad:'Veri kapısı',        dosya:'veri/veri-kapisi-raporu.json',
+      oku:function(d){ return d.red>0 ? {d:'KIRMIZI', m:d.red+' dosya reddedildi (eski sağlam sürüm yerinde)'}
+                                      : {d:'TEMİZ', m:(d.denetlenen||0)+' dosya denetlendi, hepsi geçti'}; } },
+    { ad:'Veri tazeliği',      dosya:'veri/veri-tazelik-raporu.json',
+      oku:function(d){ return d.bayat>0 ? {d:'KIRMIZI', m:d.bayat+' dosyaya taze veri gelmiyor'}
+                                        : {d:'TEMİZ', m:'taze '+d.taze+' · bilinçli elle '+(d.bilincli_elle||0)+' · ritmi tanımsız '+(d.tanimsiz||0)}; } },
+    { ad:'Zincir sırası',      dosya:'veri/zincir-haritasi.json',
+      oku:function(d){ return d.sira_riski>0 ? {d:'UYARI', m:d.sira_riski+' çift takvime yaslanıyor'}
+                                             : {d:'TEMİZ', m:d.cift+' bağımlılık · olaya bağlı '+d.olaya_bagli+' · sıra riski 0'}; } },
+    { ad:'Bağlanmamış katman', dosya:'veri/baglanmamis-raporu.json',
+      oku:function(d){ var n=(d.cagrilmayan_betik||[]).length+(d.atesalmayan_push_dali||[]).length;
+                       return n>0 ? {d:'UYARI', m:n+' bulgu (iş listesi, kapı değil)'} : {d:'TEMİZ', m:'bulgu yok'}; } },
+    { ad:'Robot nabzı',        dosya:'veri/nabiz-raporu.json',
+      oku:function(d){ return (d.kirmizi>0) ? {d:'KIRMIZI', m:(d.maddeler&&d.maddeler[0])||d.durum}
+                                            : {d:'TEMİZ', m:'izlenen robot '+(d.izlenen_robot||'?')+' · '+d.durum}; } },
+    { ad:'Altın test tabanı',  dosya:'veri/altin-test-taban.json',
+      oku:function(d){ return {d:'BİLGİ', m:'taban: kaynak '+d.kaynak_taban+'/'+d.toplam_vaka+' · madde '+d.madde_taban}; } }
+  ];
+
+  function rz(d){ var c = d==='KIRMIZI'?'kirmizi' : d==='UYARI'?'sari' : d==='TEMİZ'?'yesil' : 'gri';
+                  return '<span class="rz" style="background:currentColor"></span>'.replace('currentColor', c==='kirmizi'?'#ff6b6b':c==='sari'?'#f5a524':c==='yesil'?'#3ddc97':'#5f6875'); }
+  function hucre(d){ var c = d==='KIRMIZI'?'kirmizi' : d==='UYARI'?'sari' : d==='TEMİZ'?'yesil' : 'gri';
+                     return '<span class="'+c+'">'+rz(d)+d+'</span>'; }
+
+  var sonuc = [];
+  Promise.all(NOBETLER.map(function(n){
+    return fetch(n.dosya, {cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(d){ var y=n.oku(d); return {ad:n.ad, durum:y.d, mesaj:y.m, tarih:d.tarih||''}; })
+      /* Okunamayan rapor YESIL SAYILMAZ - "bilinmiyor" ayri bir durumdur. */
+      .catch(function(){ return {ad:n.ad, durum:'BİLİNMİYOR', mesaj:'rapor okunamadı (henüz üretilmemiş olabilir)', tarih:''}; });
+  })).then(function(hepsi){
+    sonuc = hepsi;
+    document.getElementById('nobetler').innerHTML = hepsi.map(function(h){
+      return '<tr><td>'+h.ad+'</td><td>'+hucre(h.durum)+'</td><td>'+h.mesaj+
+             (h.tarih?'<div class="not">'+h.tarih+'</div>':'')+'</td></tr>';
+    }).join('');
+    hukum();
+  });
+
+  /* IS AKISLARI - depo public oldugu icin kimliksiz okunur. */
+  var akisDurum = null;
+  fetch('https://api.github.com/repos/'+DEPO+'/actions/runs?per_page=100')
+    .then(function(r){
+      if(r.status===403){ throw new Error('GitHub API saatlik limiti doldu (kimliksiz 60 istek/saat). Biraz sonra tekrar aç.'); }
+      if(!r.ok) throw new Error('GitHub API okunamadı (HTTP '+r.status+')');
+      return r.json();
+    })
+    .then(function(d){
+      var sinir = Date.now() - 24*3600*1000, grup = {};
+      (d.workflow_runs||[]).forEach(function(k){
+        if(k.name==='pages build and deployment') return;
+        if(new Date(k.created_at).getTime() < sinir) return;
+        if(!grup[k.name]) grup[k.name] = {kosu:0, kirmizi:0, son:null, sonSonuc:''};
+        var g = grup[k.name]; g.kosu++;
+        if(k.status==='completed' && k.conclusion!=='success') g.kirmizi++;
+        if(!g.son || new Date(k.created_at) > g.son){ g.son = new Date(k.created_at); g.sonSonuc = k.conclusion || k.status; }
+      });
+      var ad = Object.keys(grup).sort(function(a,b){ return grup[b].kirmizi - grup[a].kirmizi; });
+      akisDurum = { toplam: ad.length, kirmiziIs: ad.filter(function(x){ return grup[x].kirmizi>0; }).length };
+      document.getElementById('akislar').innerHTML = ad.length ? ad.map(function(x){
+        var g = grup[x], k = g.kirmizi>0;
+        return '<tr><td>'+x+'</td><td>'+g.kosu+'</td><td class="'+(k?'kirmizi':'gri')+'">'+(k?g.kirmizi:'—')+
+               '</td><td>'+g.son.toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+
+               ' · <span class="'+(g.sonSonuc==='success'?'yesil':'kirmizi')+'">'+g.sonSonuc+'</span></td></tr>';
+      }).join('') : '<tr><td colspan="4" class="gri">son 24 saatte koşu yok</td></tr>';
+      hukum();
+    })
+    .catch(function(e){
+      akisDurum = { hata: e.message };
+      document.getElementById('akislar').innerHTML = '<tr><td colspan="4" class="sari">'+e.message+'</td></tr>';
+      document.getElementById('akisNot').textContent = 'İş akışı durumu OKUNAMADI. Bu, "her şey yolunda" demek DEĞİLDİR.';
+      hukum();
+    });
+
+  /* TEK HUKUM: en kotu durum kazanir. Bilinmeyen, yesil sayilmaz. */
+  function hukum(){
+    if(!sonuc.length || akisDurum===null) return;
+    var kirmizi = sonuc.filter(function(s){ return s.durum==='KIRMIZI'; }).length;
+    var bilinmez = sonuc.filter(function(s){ return s.durum==='BİLİNMİYOR'; }).length;
+    var uyari = sonuc.filter(function(s){ return s.durum==='UYARI'; }).length;
+    if(akisDurum.hata) bilinmez++;
+    else if(akisDurum.kirmiziIs>0) kirmizi += akisDurum.kirmiziIs;
+
+    var bas, ack, snf;
+    if(kirmizi>0){ snf='kirmizi'; bas='DİKKAT — '+kirmizi+' yerde kırmızı';
+      ack='Aşağıdaki tabloda kırmızı satırlara bak. Veri güvende olabilir (kapı eski sağlam sürümü tutar) ama bir şey bozuk üretiyor.'; }
+    else if(bilinmez>0){ snf='sari'; bas='EKSİK ÖLÇÜM — '+bilinmez+' kaynak okunamadı';
+      ack='Okunamayan kaynak "yolunda" sayılmaz. Rapor henüz üretilmemiş ya da API limiti dolmuş olabilir.'; }
+    else if(uyari>0){ snf='sari'; bas='YOLUNDA — '+uyari+' iş listesi maddesi var';
+      ack='Kırmızı yok. Uyarılar kapı değil, tüketilebilir iş listesidir.'; }
+    else { snf='yesil'; bas='HER ŞEY YOLUNDA'; ack='Tüm nöbetçiler temiz, son 24 saatte kırmızı iş akışı yok.'; }
+    document.getElementById('hkm').innerHTML =
+      '<div class="bas '+snf+'">'+bas+'</div><div class="ack">'+ack+
+      '<br><span class="not">Okundu: '+new Date().toLocaleString('tr-TR')+'</span></div>';
+  }
+})();
+</script>
+<script src="menu.js"></script>
+</body>
+</html>
