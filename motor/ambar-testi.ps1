@@ -119,7 +119,25 @@ function Sorgula([string]$soru) {
 # Eskiden RPC hatasi DUSEN sayiliyordu - yani "bakamadim" ile "yanlis cevap"
 # ayni kefeye giriyordu. Bu, ayni gun mevzuat.yml'de 38 gunluk yalan kirmiziya
 # yol acan hatanin ta kendisi. Olcemedigine kusur deme.
+# ---------------------------------------------------------------------------
+#  IKI DUZEY (25.08): KAYNAK ve MADDE
+#  'beklenen' KAYNAK duzeyindedir: "vuk (213" gecen HERHANGI bir VUK maddesi
+#  vakayi gecirir. Bu GEVSEK ve olculdu: 'anayasaya gore vergi odevi'
+#  sorgusunda donen madde m.73 degil m.72 oldugu halde vaka GECIYORDU. Yani
+#  45/48 rakami gercek kaliteden IYIMSER.
+#  'beklenen_madde' dolu olan vakalarda ayrica MADDE duzeyi olculur. Alan,
+#  yalniz maddenin METNI AMBARDAN OKUNUP TEYIT EDILDIGI vakalarda doldurulur
+#  (ezberden yazilmaz - [[feedback-rakam-disiplini]] ile ayni disiplin).
+#  Bos birakilan vaka madde duzeyinde SAYILMAZ; test haksiz kirmizi yakmaz.
+#  Madde esleme SINIR-DUYARLI: "m.5" kalibi "m.53"e YANLIS eslesmesin diye
+#  desenin ardindan bosluk, '[' ya da satir sonu aranir.
+# ---------------------------------------------------------------------------
+function MaddeTutar([string]$ad, [string]$beklenen) {
+  return [regex]::IsMatch($ad, [regex]::Escape($beklenen) + '(\s|\[|$)')
+}
+
 $dusen = 0; $gecen = 0; $olculemeyen = 0; $olculemeyenler = @()
+$mAdet = 0; $mGecen = 0; $mDusen = @()
 foreach ($v in $set.vakalar) {
   $sonuc = @()
   try { $sonuc = Sorgula $v.soru }
@@ -133,9 +151,52 @@ foreach ($v in $set.vakalar) {
     Write-Host "DUSTU: '$($v.soru)'  beklenen: $($v.beklenen -join ' | ')"
     Write-Host "   top-6: $((($sonuc | ForEach-Object { $_.kaynak_ad }) | Select-Object -First 6) -join ' § ')"
   }
+  # --- MADDE DUZEYI (yalniz beklenen_madde dolu vakalarda) ---
+  if ($v.beklenen_madde) {
+    $mAdet++
+    $bm = Fold ([string]$v.beklenen_madde)
+    $mTuttu = $false
+    foreach ($a in $adlar) { if (MaddeTutar $a $bm) { $mTuttu = $true; break } }
+    if ($mTuttu) { $mGecen++ }
+    else { $mDusen += ("{0}  -> beklenen madde: {1}" -f $v.soru, $v.beklenen_madde) }
+  }
 }
+# ===========================================================================
+#  KABUL SARTLARI — SQL DOSYALARININ DIBINDEN BURAYA TASINDI (25.08.2026)
+#
+#  NEDEN. 17.07'de madde_ara v5 yazildi ve dosyasinin dibine kabul sorgusu
+#  konuldu: madde_ara('anayasaya gore vergi odevi nedir') -> Anayasa m.73.
+#  O sorgu bir SQL dosyasinin icinde YORUM olarak kaldi; kimse kosturmadi.
+#  30.07 yeniden yaziminda v5'in dar aday havuzu DUSTU, kabul sarti da
+#  sessizce ihlal edildi ve 5 HAFTA kimse gormedi. 25.08'de ayni hata koduyla
+#  (57014 statement timeout) geri geldi ve elle bulundu.
+#  DERS: bir kabul sarti KOSTURULMUYORSA sart degildir, dilektir.
+#  Bundan sonra her madde_ara surumunun kabul sarti BURAYA yazilir.
+#
+#  Bu blok RETRIEVAL kusuru olcmez, YAPISAL sozlesme olcer; o yuzden ayri
+#  raporlanir ve ayri cikis kodu uretir.
+# ===========================================================================
+$kabulDusen = @()
+# (1) CIKMIS SINAV SIZINTISI — v6/v7/v8 sozlesmesi: 'cikmis%' turu ASLA donmez.
+#     Bu belgeler tek satirda on binlerce karakter tasir ve FTS'i kazanir;
+#     sizarsa Net Cevap kanun yerine sinav kagidi alintilar.
+try {
+  $s1 = Sorgula 'yevmiye kaydi kurum kazanci kanunen kabul edilmeyen gider'
+  $sz = @($s1 | Where-Object { "$($_.tur)" -like 'cikmis*' }).Count
+  if ($sz -gt 0) { $kabulDusen += "cikmis% sizintisi: $sz kayit (beklenen 0)" }
+} catch { $kabulDusen += "cikmis% sizinti sinavi OLCULEMEDI (RPC)" }
+
 Write-Host "----------------------------------------------"
 Write-Host "ALTIN TEST: $gecen gecti, $dusen dustu, $olculemeyen OLCULEMEDI / $($set.vakalar.Count) vaka"
+if ($mAdet -gt 0) {
+  Write-Host "MADDE DUZEYI: $mGecen/$mAdet  (yalniz metni okunup teyit edilmis vakalar)"
+  foreach ($m in $mDusen) { Write-Host "   madde-dusen: $m" }
+}
+if ($kabulDusen.Count -gt 0) {
+  Write-Host ""
+  Write-Host "KABUL SARTI IHLALI (yapisal sozlesme):"
+  foreach ($k in $kabulDusen) { Write-Host "   $k" }
+}
 if ($olculemeyen -gt 0) {
   Write-Host ""
   Write-Host "OLCULEMEYENLER (4 denemede de RPC hatasi - retrieval kusuru DEGIL):"
@@ -143,7 +204,10 @@ if ($olculemeyen -gt 0) {
   Write-Host "Bunlar 'dusen' SAYILMAZ. Ama sessiz de gecilmez: madde_ara araliksiz"
   Write-Host "500 donuyorsa bu gercek kullaniciya da dusuyor demektir."
 }
-# KIRMIZI yalniz GERCEK retrieval kusurunda. Olculemeyen kayit kapiyi kirmizi
-# yakmaz (yalan kirmizi uretir) ama yukarida GORUNUR - ucuncu durum: KOR.
+# KIRMIZI yalniz GERCEK kusurda. Olculemeyen kayit kapiyi kirmizi yakmaz
+# (yalan kirmizi uretir) ama yukarida GORUNUR - ucuncu durum: KOR.
+# Kabul sarti ihlali de KIRMIZI: yapisal sozlesme bozulmus demektir ve 25.08'de
+# tam bunun gorunmemesi 5 haftalik regresyona yol acti.
+if ($kabulDusen.Count -gt 0) { exit 1 }
 if ($dusen -gt 0) { exit 1 }
 if ($olculemeyen -gt 0) { exit 3 }
