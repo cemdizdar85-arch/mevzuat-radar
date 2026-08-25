@@ -10,7 +10,18 @@
 #
 #  GERI DONUS: git revert ile tek commit geri alinir; perde blogu git
 #  tarihinde durur. Betik IDEMPOTENT: isaret yoksa "zaten acik" der, cikar.
+#
+#  --- 21.08.2026: -YalnizPerde ANAHTARI ---
+#  powershell -File motor\gong.ps1 -YalnizPerde
+#  YALNIZ perdeyi kaldirir; robots.txt KAPALI kalir (Disallow: /) ve onizleme
+#  sinirsizligi da durur. Neden: iyzico basvurusu "site yapim/demo asamasinda"
+#  gerekcesiyle reddedildi - incelemecinin siteyi gezebilmesi gerekiyor. Bu
+#  anahtar "INCELEME ACILISI" yapar: adresi bilen (ve iyzico) gezer, Google
+#  hala dizine almaz, yani pazarlama acilisi tetiklenmez.
+#  Pazarlama acilisi geldiginde betik ANAHTARSIZ tekrar kosulur; perde zaten
+#  gitmis olur, robots o zaman acilir.
 # ============================================================================
+param([switch]$YalnizPerde)
 $ErrorActionPreference = 'Stop'
 $kok = Split-Path -Parent $PSScriptRoot
 Set-Location $kok
@@ -30,35 +41,56 @@ if($menu -notmatch $deseni){
 $onizDeseni = '(?s)[ 	]*/* ==== ONIZLEME-SINIRSIZ-BASI.*?ONIZLEME-SINIRSIZ-SONU[^
 ]**/[ 	]*?
 '
-foreach($dosya in @('menu.js','deneme.html')){
-  $yol = Join-Path $kok $dosya
-  $icerik = [IO.File]::ReadAllText($yol)
-  if($icerik -match $onizDeseni){
-    $icerik = [regex]::Replace($icerik, $onizDeseni, '')
-    [IO.File]::WriteAllText($yol, $icerik, (New-Object Text.UTF8Encoding($false)))
-    Write-Host "ONIZLEME SINIRSIZLIGI KAPANDI ($dosya) - herkes normal hakka dondu."
-  } else {
-    Write-Host "Onizleme isareti yok ($dosya) - zaten kapali."
+if($YalnizPerde){
+  Write-Host "-YalnizPerde: onizleme sinirsizligi DOKUNULMADI (Cem'in cihazi rahat gezsin)."
+} else {
+  foreach($dosya in @('menu.js','deneme.html')){
+    $yol = Join-Path $kok $dosya
+    $icerik = [IO.File]::ReadAllText($yol)
+    if($icerik -match $onizDeseni){
+      $icerik = [regex]::Replace($icerik, $onizDeseni, '')
+      [IO.File]::WriteAllText($yol, $icerik, (New-Object Text.UTF8Encoding($false)))
+      Write-Host "ONIZLEME SINIRSIZLIGI KAPANDI ($dosya) - herkes normal hakka dondu."
+    } else {
+      Write-Host "Onizleme isareti yok ($dosya) - zaten kapali."
+    }
   }
 }
 
-$robots = @"
+if($YalnizPerde){
+  Write-Host "-YalnizPerde: ROBOTS ACILMADI - robots.txt 'Disallow: /' olarak KALDI, Google dizine almaz."
+} else {
+  $robots = @"
 User-agent: *
 Allow: /
 
 Sitemap: https://tetikte.com/sitemap.xml
 "@
-[IO.File]::WriteAllText("$kok\robots.txt", $robots, (New-Object Text.UTF8Encoding($false)))
-Write-Host "2/2 ROBOTS ACILDI (Allow: / + sitemap)."
+  [IO.File]::WriteAllText("$kok\robots.txt", $robots, (New-Object Text.UTF8Encoding($false)))
+  Write-Host "2/2 ROBOTS ACILDI (Allow: / + sitemap)."
+  if(-not (Test-Path "$kok\sitemap.xml")){ Write-Host "UYARI: sitemap.xml YOK - robots ona isaret ediyor!" }
+}
 
-if(-not (Test-Path "$kok\sitemap.xml")){ Write-Host "UYARI: sitemap.xml YOK - robots ona isaret ediyor!" }
-
-git add menu.js deneme.html robots.txt
-git commit -m "GONG: perde kalkti, onizleme sinirsizligi kapandi, robots acildi - tetikte.com YAYINDA"
+if($YalnizPerde){
+  git add menu.js
+  git commit -m "INCELEME ACILISI: perde kalkti (robots kapali) - odeme kurulusu incelemesi icin"
+} else {
+  git add menu.js deneme.html robots.txt
+  git commit -m "GONG: perde kalkti, onizleme sinirsizligi kapandi, robots acildi - tetikte.com YAYINDA"
+}
 git pull --rebase origin main
 git push origin HEAD:main
 Write-Host ""
-Write-Host "GONG VURULDU. 1-2 dk icinde tetikte.com perdesiz servis edilir."
-Write-Host "Elle kontrol listesi: (1) gizli pencerede tetikte.com ac - perde YOK mu?"
-Write-Host "(2) deneme.html'de ucretsiz 15 soru geliyor mu? (3) fiyat.html acik mi?"
-Write-Host "(4) Google Search Console'a sitemap bildir (opsiyonel, hizlandirir)."
+if($YalnizPerde){
+  Write-Host "INCELEME ACILISI YAPILDI. 1-2 dk icinde tetikte.com perdesiz servis edilir."
+  Write-Host "Elle kontrol listesi: (1) gizli pencerede tetikte.com ac - perde YOK mu?"
+  Write-Host "(2) fiyat.html'de 'Satin al' dugmeleri satin-al.html'e gidiyor mu?"
+  Write-Host "(3) satin-al.html tepesinde KIRMIZI 'KURULUM EKSIK' uyarisi VAR MI? Varsa IBAN girilmemis - iyzico'ya BASVURMA."
+  Write-Host "(4) robots.txt hala 'Disallow: /' mi? (evet olmali)"
+  Write-Host "Pazarlama acilisinda betigi ANAHTARSIZ tekrar kosur: powershell -File motor\gong.ps1"
+} else {
+  Write-Host "GONG VURULDU. 1-2 dk icinde tetikte.com perdesiz servis edilir."
+  Write-Host "Elle kontrol listesi: (1) gizli pencerede tetikte.com ac - perde YOK mu?"
+  Write-Host "(2) deneme.html'de ucretsiz 15 soru geliyor mu? (3) fiyat.html acik mi?"
+  Write-Host "(4) Google Search Console'a sitemap bildir (opsiyonel, hizlandirir)."
+}

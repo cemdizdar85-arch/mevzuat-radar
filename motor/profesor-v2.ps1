@@ -35,7 +35,9 @@ param(
                                # ikinci kez satin alinmasin (veri/hakem-hasadi.json)
   [string]$odak = 'genel',     # genel | ikili  (ikili = "iki dogru sik var mi" odagi)
 
-  [string]$model = 'claude-sonnet-4-5-20250929',
+  # 24.08.2026: model kimligi tazelendi. Eski varsayilan claude-sonnet-4-5-20250929'du.
+  # Sonnet 5 ayni fiyat basamaginda ve 31.08.2026'ya kadar TANITIM fiyatinda (asagi bak).
+  [string]$model = 'claude-sonnet-5',
   [string]$cikti = ''
 )
 $ErrorActionPreference = 'Stop'
@@ -323,25 +325,60 @@ Write-Host ""
 Write-Host "======== PROFESOR v2 HAZIRLIK ========"
 foreach($k in $ist.Keys){ Write-Host ("  {0,-14} {1}" -f $k, $ist[$k]) }
 
-# ---------------------------------------------------------------- maliyet tahmini
-$girisKr = 0; $cikisTahmin = 260   # JSON cevap ~260 token
+# ---------------------------------------------------------------- maliyet OLCUMU
+# 24.08.2026 — "3 karakter = 1 token" KABA CEVRIMI KALDIRILDI.
+# Anthropic'in count_tokens ucu BEDAVA ve KESIN sayar; tahmin etmeye gerek yok.
+# Ornek istemler gercekten saydirilir, ortalama tum partiye uygulanir. Ucu
+# cagiramazsak (ag/anahtar) eski kaba cevrime duseriz ve bunu ACIKCA soyleriz —
+# rakam uydurulmaz, nereden geldigi yazilir.
+$cikisTahmin = 260   # JSON cevap ~260 token (bu hala tahmindir; gercek fatura kosuda cikar)
+$girisKr = 0
 foreach($i in $isler){ $girisKr += $i.istem.Length }
-# Turkce metin icin kaba cevrim: ~3 karakter = 1 token (TAHMIN, olculmus deger degil)
+
+$tokenKaynagi = 'kaba cevrim (3 karakter = 1 token) — TAHMIN'
 $girisTok = [math]::Round($girisKr / 3)
+if($isler.Count -gt 0 -and $env:ANTHROPIC_API_KEY){
+  try {
+    # Sabit adimli ornek: partinin basindan/ortasindan/sonundan en fazla 12 istem.
+    $adim = [math]::Max(1, [math]::Floor($isler.Count / 12))
+    $ornekler = @(); for($oi=0; $oi -lt $isler.Count -and $ornekler.Count -lt 12; $oi+=$adim){ $ornekler += $isler[$oi] }
+    $sayHdr = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01' }
+    $toplamSayilan = 0; $toplamKarakter = 0
+    foreach($o in $ornekler){
+      $g = @{ model=$model; messages=@(@{ role='user'; content=$o.istem }) } | ConvertTo-Json -Depth 6
+      $c = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages/count_tokens' -Headers $sayHdr -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($g)) -TimeoutSec 60
+      $toplamSayilan += [int]$c.input_tokens; $toplamKarakter += $o.istem.Length
+    }
+    if($toplamKarakter -gt 0){
+      $karakterBasi = $toplamSayilan / $toplamKarakter        # olculmus token/karakter
+      $girisTok = [math]::Round($girisKr * $karakterBasi)
+      $tokenKaynagi = ("count_tokens ile OLCULDU ({0} ornek istem, {1:N3} token/karakter)" -f $ornekler.Count, $karakterBasi)
+    }
+  } catch {
+    $tokenKaynagi = "kaba cevrim — count_tokens cagrilamadi: $($_.Exception.Message)"
+  }
+}
 $cikisTok = $isler.Count * $cikisTahmin
 
-# LISTE FIYATI (1M token basina, USD) — Sonnet ailesi
-$FIY_GIRIS = 3.0
-$FIY_CIKIS = 15.0
+# LISTE FIYATI (1M token basina, USD) — Sonnet 5
+# 24.08.2026: Sonnet 5 liste fiyati 3/15; ancak 31.08.2026'ya kadar TANITIM
+# fiyati 2/10 gecerli. Tanitim penceresi kapaninca asagidaki tarih kapisi
+# kendiliginden liste fiyatina doner — eski fiyatla yanlis butce cikmasin.
+$TANITIM_SON = [datetime]'2026-08-31'
+if((Get-Date) -le $TANITIM_SON -and $model -like 'claude-sonnet-5*'){
+  $FIY_GIRIS = 2.0;  $FIY_CIKIS = 10.0; $fiyatNotu = "Sonnet 5 TANITIM fiyati (31.08.2026'ya kadar)"
+} else {
+  $FIY_GIRIS = 3.0;  $FIY_CIKIS = 15.0; $fiyatNotu = 'Sonnet 5 liste fiyati'
+}
 $hamUSD   = ($girisTok/1e6*$FIY_GIRIS) + ($cikisTok/1e6*$FIY_CIKIS)
 $batchUSD = $hamUSD / 2      # Batch API %50 indirim
 
 Write-Host ""
-Write-Host "======== MALIYET TAHMINI (TAHMINDIR, olculmus degil) ========"
+Write-Host "======== MALIYET HESABI ========"
 Write-Host ("  yargilanacak soru : {0}" -f $isler.Count)
-Write-Host ("  giris  ~{0:N0} token   (kaba cevrim: 3 karakter = 1 token)" -f $girisTok)
-Write-Host ("  cikis  ~{0:N0} token   (soru basina ~{1} token varsayimi)" -f $cikisTok, $cikisTahmin)
-Write-Host ("  model  : {0}" -f $model)
+Write-Host ("  giris  ~{0:N0} token   [{1}]" -f $girisTok, $tokenKaynagi)
+Write-Host ("  cikis  ~{0:N0} token   (soru basina ~{1} token VARSAYIMI - gercek fatura kosuda cikar)" -f $cikisTok, $cikisTahmin)
+Write-Host ("  model  : {0}   [{1}: {2}/{3} USD-M]" -f $model, $fiyatNotu, $FIY_GIRIS, $FIY_CIKIS)
 Write-Host ("  liste fiyati    : ~{0:N2} USD" -f $hamUSD)
 Write-Host ("  BATCH (%50 ind.): ~{0:N2} USD  <-- kullanilacak yol" -f $batchUSD)
 Write-Host ("  soru basina     : ~{0:N4} USD" -f $(if($isler.Count){ $batchUSD/$isler.Count } else { 0 }))
@@ -352,6 +389,9 @@ if($olcum){
   $ozet = [ordered]@{
     tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); kaynak=$kaynak; model=$model
     toplam=$ist.toplam; mevzuat_disi=$ist.mevzuatDisi; metin_yok=$ist.metinYok; yargilanabilir=$isler.Count
+    giris_token=$girisTok; token_kaynagi=$tokenKaynagi
+    cikis_token=$cikisTok; cikis_notu="soru basina $cikisTahmin token VARSAYIMI"
+    fiyat=[ordered]@{ not=$fiyatNotu; giris_usd_m=$FIY_GIRIS; cikis_usd_m=$FIY_CIKIS }
     tahmini_batch_usd=[math]::Round($batchUSD,2)
   }
   [IO.File]::WriteAllText((Join-Path $kok 'veri/profesor-olcum.json'), ($ozet | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))

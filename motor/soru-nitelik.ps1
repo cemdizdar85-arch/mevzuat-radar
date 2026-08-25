@@ -49,14 +49,28 @@ $hc.DefaultRequestHeaders.Add('Authorization', "Bearer $($env:SUPABASE_SERVICE_K
 $hc.DefaultRequestHeaders.UserAgent.ParseAdd('mevzuat-radar-robot/1.0')
 
 # --- kasa (PS5.1 dizi tuzagi: ForEach-Object ile duzlestir)
+# 24.08 ONARIMI - bu betik 20.08'den beri OLUYDU (500/57014 statement timeout).
+# IKI SEBEP UST USTE bindi, ikisi de kapatildi:
+#   (1) OFFSET sayfalamasi: offset buyudukce Postgres o kadar satiri atlayarak
+#       tarar (yayin-kapisi.ps1 19.08 dersi). -> anahtar-takipli (id=gt.sonId).
+#   (2) SAYFA AGIRLIGI: bu select `aciklama`yi da cekiyor; sik basina ayri
+#       ogretici metin oldugu icin 1000 satir ~2,7 MB ve OLCULDU: 6,9 saniye,
+#       sunucunun 8 sn'lik statement_timeout sinirinin DIBINDE. 500 satir 0,96 sn.
+#       -> sayfa 500. (Olcum 24.08: 1000=6866ms · 500=958ms · 250=502ms)
+# DERS: hafif select ile agir select ayni sayfa boyunu kaldirmaz.
+$SAYFA = 500
 $kasa = New-Object System.Collections.Generic.List[object]
-for($o=0; $o -lt 80000; $o+=1000){
-  $r = @(($hc.GetStringAsync("$U`?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,tablo,yevmiye&order=id&limit=1000&offset=$o").GetAwaiter().GetResult() | ConvertFrom-Json) | ForEach-Object { $_ })
+$sonId = ''
+for($sayfa=0; $sayfa -lt 200; $sayfa++){
+  $filtre = if($sonId){ "&id=gt." + [uri]::EscapeDataString($sonId) } else { "" }
+  $r = @(($hc.GetStringAsync("$U`?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,tablo,yevmiye&order=id&limit=$SAYFA$filtre").GetAwaiter().GetResult() | ConvertFrom-Json) | ForEach-Object { $_ })
   if(-not $r.Count){ break }
   foreach($x in $r){ $kasa.Add($x) }
-  if($r.Count -lt 1000){ break }
+  $sonId = "$(@($r)[-1].id)"
+  if($r.Count -lt $SAYFA){ break }
 }
 Write-Host ("Kasa: {0} soru" -f $kasa.Count)
+if($kasa.Count -lt 1000){ throw "Kasa kucuk gorundu ($($kasa.Count)) - sayfalama kirilmis olabilir; eksik kasa uzerinden benzer_grup/zorluk YAZILMAZ." }
 
 function Normalize([string]$t){
   $t = "$t".ToLowerInvariant()

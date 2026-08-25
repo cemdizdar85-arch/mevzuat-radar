@@ -26,10 +26,10 @@ $raporYol = Join-Path $kok 'veri/marka-watch-raporu.json'
 function RaporYaz($o){ Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $o -Depth 6) -Encoding UTF8 -NoNewline }
 
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - cikildi (bu robot Actions'ta kosar)."; RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='ATLANDI - anahtar yok' }); exit 0 }
-$KOK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
+$API_ADRES = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
 $SB  = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
-function SbGet($yol){ $w=Invoke-WebRequest -Uri "$KOK/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck; $ham=if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}; if([int]$w.StatusCode -ge 400){ throw ("Supabase {0}: {1}" -f $w.StatusCode,$ham) }; return @($ham | ConvertFrom-Json) }
-function SbPost($yol,$govde){ $b=[Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 6)); $w=Invoke-WebRequest -Uri "$KOK/$yol" -Method Post -Headers ($SB+@{'Content-Type'='application/json';Prefer='return=minimal'}) -Body $b -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; return [int]$w.StatusCode }
+function SbGet($yol){ $w=Invoke-WebRequest -Uri "$API_ADRES/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck; $ham=if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}; if([int]$w.StatusCode -ge 400){ throw ("Supabase {0}: {1}" -f $w.StatusCode,$ham) }; return @($ham | ConvertFrom-Json) }
+function SbPost($yol,$govde){ $b=[Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 6)); $w=Invoke-WebRequest -Uri "$API_ADRES/$yol" -Method Post -Headers ($SB+@{'Content-Type'='application/json';Prefer='return=minimal'}) -Body $b -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; return [int]$w.StatusCode }
 
 # --- benzerlik motoru (marka-izleme.html ile ayni mantik, PS'e portlu) ------
 function Norm($s){ $s="$s"; $m=@{ ([char]0x00E7)='c'; ([char]0x00C7)='c'; ([char]0x011F)='g'; ([char]0x011E)='g'; ([char]0x0131)='i'; ([char]0x0130)='i'; ([char]0x00F6)='o'; ([char]0x00D6)='o'; ([char]0x015F)='s'; ([char]0x015E)='s'; ([char]0x00FC)='u'; ([char]0x00DC)='u' }; foreach($k in $m.Keys){ $s=$s.Replace([string]$k,$m[$k]) }; return (($s.ToLowerInvariant()) -replace '[^a-z0-9]','') }

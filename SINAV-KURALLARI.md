@@ -187,6 +187,68 @@ verir.
 **E3.** Tuzak cümleleri **birbirinin kopyası olmayacak**. "karıştırılıyor"
 kelimesi her şıkta tekrarlanırsa kapı kendi kokusunu üretir.
 
+**E3-a. KOPYA İLE AYNI İSKELET AYRI ŞEYLERDİR.** *(25.08.2026 — Cem'in bulgusu)*
+E3 yalnız birebir kopyayı yasaklıyordu ve kapı da onu ölçüyordu (80 karakter aynı
+mı). Ama asıl kusur kopya değil **aynı cümle iskeleti**. Okunan vaka (ALTIN-04):
+
+> A: "**A şıkkı** … şart koşuyor; **oysa** kural … **bu yüzden A yanlıştır**."
+> B: "**B şıkkı** … iddia ediyor; **hâlbuki** metin … **bu yüzden B yanlıştır**."
+> C: "**C şıkkı** … kaldırıyor; **oysa** … **bu yüzden C yanlıştır**."
+
+Üçü de kopya değil ama üçü de aynı kalıp. Bu kalıp öğretmez: kuralı tekrar edip
+şıkkı reddeder. Öğrenci o kuralı zaten doğru şıkkın açıklamasında okumuştur.
+**Yasak:** dört yanlış şık açıklamasının aynı cümle iskeletiyle kurulması.
+
+**E3-b. YANLIŞ ŞIK AÇIKLAMASI DA DÖRT PARÇALIDIR.** *(25.08.2026)*
+Doğru şıkta dört parça (D-bölümü) zorunluydu; yanlış şık **serbest bırakılmıştı**.
+Oysa aday zamanının çoğunu yanlış şıkta geçirir. Her yanlış şıkta, bu sırayla:
+
+| Parça | Ne yapar |
+|---|---|
+| **Tuzak:** | Hangi iki kavram karıştırılıyor — adıyla |
+| **Nereden geliyor:** | Bu şık neden mantıklı görünüyor. Çoğu zaman **başka bir yerde doğru** olan bir kuraldır; orası söylenir |
+| **Kırılma noktası:** | Kaynaktaki tam ifade — hangi kelime bu şıkkı öldürüyor |
+| **Bu şık ne zaman doğru olurdu:** | Karşı olgu. Şık hangi şartta doğru olurdu |
+
+Son parça aynı zamanda **ücretsiz bir doğruluk kapısıdır**: yazılamıyorsa o şık
+gerçek bir hata yolundan türetilmemiş, yani çeldirici değil **gürültü**dür (bkz. B7).
+
+**E3-c. Ölçümü:** D8 kapısı artık yalnız doğru şıkka değil **dört yanlış şıkka da**
+bakar; D12 kapısı iskelet benzerliğini ölçer. İkisi de deterministiktir, 0 USD.
+
+**E3-d. TERİM AÇIKLANMADAN KULLANILMAZ.** *(25.08.2026 — Cem'in bulgusu)*
+Ürünün vaadi şudur: **konu okumadan, soru çözerek öğrenmek.** O hâlde "Kural"
+bölümünde geçen meslek terimi, adayın onu bildiği varsayılarak kullanılamaz.
+Okunan vaka (ALTIN-06):
+
+> *"…genel imal giderinden pay ile zorunlu ambalaj malzemesi bedelini kapsar;
+> **genel idare giderinden** payın maliyete katılması işletmenin tercihidir."*
+
+Konuyu bilen için tamam. Konuyu bilmeyen için **iki terim de boşlukta**: genel
+imal gideri ne, genel idare gideri ne, aralarındaki fark ne? Aday tam burada
+kaybolur ve soruyu ezberler — öğrenmez.
+
+**Kural:** "Kural" bölümünde geçen her meslek terimi, o soruda **ilk geçtiğinde**
+tek cümleyle ve **örnekle** açıklanır. Açıklama parantez, kısa çizgi ya da "yani"
+ile verilir; ayrı paragraf açılmaz.
+
+*Doğrusu şöyle olurdu:*
+
+> **Kural:** VUK m.275'e göre mamul maliyeti şunları kapsar: ilk madde ve malzeme
+> bedeli, işçilik, **genel imal giderinden** pay — *yani üretimin içinde olan ama
+> tek bir mamule doğrudan yazılamayan giderler: fabrika kirası, makine
+> amortismanı, ustabaşı ücreti* — ve zorunlu ambalaj bedeli. **Genel idare
+> gideri** ise *üretimle değil şirketin yönetimiyle ilgili giderdir: genel
+> müdürlük maaşları, muhasebe servisi, merkez ofis kirası.* Bunun maliyete
+> katılıp katılmaması işletmenin tercihine bırakılmıştır.
+
+**Neden bu kadar önemli:** iki terim birbirine çok benziyor ("genel imal" /
+"genel idare") ve sınavın en sık tuzağı tam bu benzerlik. Terimi açıklamayan
+açıklama, tuzağı **görünmez** bırakır.
+
+**E3-e. Ölçümü:** D13 kapısı, "Kural" bölümünde tanımsız geçen meslek terimlerini
+sayar. Terim sözlüğü `motor/terim-sozlugu.ps1` desenindedir; deterministik, 0 USD.
+
 **E4.** İsimler ve tutarlar **çeşitli** olacak: hep "ABC A.Ş." ve hep
 "100.000 TL" olmaz.
 

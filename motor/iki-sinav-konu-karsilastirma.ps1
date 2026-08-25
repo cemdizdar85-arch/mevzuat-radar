@@ -39,9 +39,12 @@ trap {
   RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; sunucu=$g; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
+# 24.08: KULLANICI ORTAMI yedegi + robot User-Agent eklendi (bkz. 13.08 dersi).
+if(-not $env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok."; exit 0 }
 $U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
-$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+# UA'siz istek sb_secret anahtarda TARAYICI sayilip 401 doner.
+$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent'='mevzuat-radar-robot/1.0' }
 function CekListe([string]$uri){
   $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
   $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
@@ -61,14 +64,21 @@ function Sade([string]$t){
   return (($sb.ToString()) -replace '\s+',' ').Trim()
 }
 
+# 24.08: OFFSET sayfalamasi kaldirildi - bkz. yayin-kapisi.ps1 19.08 notu.
+# Bu betik de 20.08'de statement timeout (500/57014) ile oldu ve o gunden
+# beri "HATA" raporu yaziyordu. Anahtar-takipli sayfalama sabit maliyettir.
 $kasa = New-Object System.Collections.Generic.List[object]
-for($o=0; $o -lt 60000; $o+=1000){
-  $r = CekListe "$U`?select=id,sinav,ders,konu&order=id&limit=1000&offset=$o"
+$sonId = ''
+for($sayfa=0; $sayfa -lt 60; $sayfa++){
+  $filtre = if($sonId){ "&id=gt." + [uri]::EscapeDataString($sonId) } else { "" }
+  $r = CekListe "$U`?select=id,sinav,ders,konu&order=id&limit=1000$filtre"
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
+  $sonId = "$(@($r)[-1].id)"
   if($r.Count -lt 1000){ break }
 }
 Write-Host ("Kasa: {0} soru" -f $kasa.Count)
+if($kasa.Count -lt 1000){ throw "Kasa kucuk gorundu ($($kasa.Count)) - sayfalama kirilmis olabilir." }
 
 function SinavAnaliz([string]$sinavAd, [string]$planYolu){
   $plan = @((Get-Content (Join-Path $kok $planYolu) -Raw -Encoding UTF8 | ConvertFrom-Json).plan)

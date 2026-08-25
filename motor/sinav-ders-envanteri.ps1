@@ -36,9 +36,15 @@ trap {
   RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; sunucu=$g; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
+# 24.08: elle calistirmada anahtar bulunamiyordu - yayin-kapisi.ps1'deki
+# KULLANICI ORTAMI yedegi burada yoktu.
+if(-not $env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok."; exit 0 }
 $U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
-$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+# 24.08: 'User-Agent' EKSIKTI -> 401. sb_secret anahtar robot UA ister; UA'siz
+# istek TARAYICI sayilip reddedilir (13.08 dersi, yayin-kapisi.ps1'de vardi,
+# burada yoktu). Yani bu betik timeout onarilsa bile yine olurdu.
+$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent'='mevzuat-radar-robot/1.0' }
 function CekListe([string]$uri){
   $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
   $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
@@ -58,14 +64,23 @@ function Sade([string]$t){
   return (($sb.ToString()) -replace '\s+',' ').Trim()
 }
 
+# 24.08: OFFSET sayfalamasi kaldirildi (yayin-kapisi.ps1'in 19.08 dersi burada
+# uygulanmamisti). offset buyudukce Postgres o kadar satiri atlayarak tarar;
+# son sayfalar agirlasip 20.08'de statement timeout (500/57014) uretti ve bu
+# betik O GUNDEN BERI OLUYDU - rapor "HATA" yaziyordu, kimse bakmadi.
+# Anahtar-takipli sayfalama (id=gt.sonId) her sayfada sabit maliyettir.
 $kasa = New-Object System.Collections.Generic.List[object]
-for($o=0; $o -lt 60000; $o+=1000){
-  $r = CekListe "$U`?select=id,sinav,ders,konu&order=id&limit=1000&offset=$o"
+$sonId = ''
+for($sayfa=0; $sayfa -lt 60; $sayfa++){
+  $filtre = if($sonId){ "&id=gt." + [uri]::EscapeDataString($sonId) } else { "" }
+  $r = CekListe "$U`?select=id,sinav,ders,konu&order=id&limit=1000$filtre"
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
+  $sonId = "$(@($r)[-1].id)"
   if($r.Count -lt 1000){ break }
 }
 Write-Host ("Kasa: {0} soru" -f $kasa.Count)
+if($kasa.Count -lt 1000){ throw "Kasa kucuk gorundu ($($kasa.Count)) - sayfalama kirilmis olabilir; olculemeyen sey saglam sayilmaz." }
 
 # --- SINAV dagilimi ---
 $sinavSay = @{}

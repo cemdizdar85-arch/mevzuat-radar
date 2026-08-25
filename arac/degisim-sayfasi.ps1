@@ -34,6 +34,8 @@ function HtmlKac([string]$s){
 # kelimeler ESKI tarafta "cikarilan", YENI tarafta "eklenen" olarak isaretlenir.
 function KelimeDizi([string]$s){ return @(($s -replace '\s+',' ').Trim() -split ' ' | Where-Object { $_ -ne '' }) }
 function OrtakDizi($a, $b){
+  # PS 5.1: tek elemanli dizi cozulur -> gelen deger STRING olabilir. Once sar.
+  $a = @($a); $b = @($b)
   $n = $a.Count; $m = $b.Count
   $t = New-Object 'int[,]' ($n+1), ($m+1)
   # PS TUZAGI: [Math]::Max($t[$i+1,$j], $t[$i,$j+1]) ifadesi ayristirilamiyor
@@ -64,7 +66,8 @@ function OrtakDizi($a, $b){
   return @{ a=$aOrtak; b=$bOrtak }
 }
 function FarkHtml([string]$metin, $ortak, [string]$sinif){
-  $kelimeler = KelimeDizi $metin
+  $kelimeler = @(KelimeDizi $metin)
+  $ortak = @($ortak)
   $sb = New-Object System.Text.StringBuilder
   for($i=0; $i -lt $kelimeler.Count; $i++){
     $k = HtmlKac $kelimeler[$i]
@@ -115,11 +118,25 @@ foreach($gd in $gunler){
     [void]$s.AppendLine('<div class="top"><a href="../../kartlar.html">← Günün Kartları</a> · <a href="../index.html">Arşiv</a></div>')
     [void]$s.AppendLine("<h1>Neyin nesi değişti?</h1>")
     [void]$s.AppendLine("<div class='alt'>$(HtmlKac $k.baslik_sade)<br><span style='color:var(--dim)'>$($gd.Name -replace '-','.') tarihli Resmî Gazete</span></div>")
-    [void]$s.AppendLine('<div class="uyari">Aşağıda tebliğin <b>yalnızca değişen kalemleri</b> var: solda eski hâli, sağda (telefonda altta) yeni hâli. <b>Kırmızı üstü çizili</b> kelimeler çıkarılanı, <b>yeşil kalın</b> kelimeler eklenen ya da değişeni gösterir. Karşılaştırma, tebliğin kendi metnindeki değişiklik cümlelerinden birebir çıkarıldı.</div>')
+    # 21.08.2026 - ESKI HAL TARIHSIZ GOSTERILMEZ. Tebliglerin resmi konsolide metni
+    # yok; "eskiden boyleydi" demek, o tarihten bugune baska degisiklik olmadigini
+    # iddia etmektir - bunu olcmedik. Bu yuzden iki kaynak ayri etiketlenir:
+    #   (1) eski_karsilastirma dolu  -> eski hal o tarihli RG metninden geldi
+    #   (2) satirin kaynagi 'metin'  -> tebligin kendi "X ibaresi Y seklinde
+    #       degistirilmistir" cumlesinden geldi, ayri bir RG okunmadi
+    $eskiRgTarih = "$($k.eski_karsilastirma)".Trim()
+    $gunNokta    = ($gd.Name -replace '-','.')
+    $rgSatir     = @($ciftler | Where-Object { "$($_.kaynak)" -ne 'metin' }).Count
+    $kaynakCumle = if($eskiRgTarih -and $rgSatir -gt 0){
+        "Eski hâl için $eskiRgTarih tarihli Resmî Gazete metni okundu; yeni hâl $gunNokta tarihli tebliğden alındı."
+      } else {
+        "Karşılaştırma, tebliğin kendi metnindeki değişiklik cümlelerinden birebir çıkarıldı."
+      }
+    [void]$s.AppendLine("<div class=""uyari"">Aşağıda tebliğin <b>yalnızca değişen kalemleri</b> var: solda eski hâli, sağda (telefonda altta) yeni hâli. <b>Kırmızı üstü çizili</b> kelimeler çıkarılanı, <b>yeşil kalın</b> kelimeler eklenen ya da değişeni gösterir. $kaynakCumle Eski hâl, o tarihteki metindir; <b>aradaki dönemde başka bir değişiklik olup olmadığı bu sayfada ölçülmez.</b></div>")
 
     foreach($c in $ciftler){
       $eski = "$($c.eski)"; $yeni = "$($c.yeni)"
-      $ea = KelimeDizi $eski; $yb = KelimeDizi $yeni
+      $ea = @(KelimeDizi $eski); $yb = @(KelimeDizi $yeni)
       $ort = OrtakDizi $ea $yb
       $eskiHtml = FarkHtml $eski $ort.a 'cik'
       $yeniHtml = FarkHtml $yeni $ort.b 'ekle'
@@ -127,8 +144,11 @@ foreach($gd in $gunler){
       $eklenen = @($ort.b | Where-Object { -not $_ }).Count
       [void]$s.AppendLine('<div class="blok">')
       [void]$s.AppendLine("<div class='nerede'>$(HtmlKac $c.konu)</div>")
-      [void]$s.AppendLine("<div class='hal eski'><span class='etiket'>ESKİ HÂLİ</span>$eskiHtml</div>")
-      [void]$s.AppendLine("<div class='hal yeni'><span class='etiket'>YENİ HÂLİ</span>$yeniHtml</div>")
+      # Etiket satir bazinda: bu satirin eski hali nereden geldi?
+      $eskiEtiket = "ESKİ HÂLİ · $gunNokta değişikliğinden önce"
+      $yeniEtiket = "YENİ HÂLİ · $gunNokta tarihli değişiklikle"
+      [void]$s.AppendLine("<div class='hal eski'><span class='etiket'>$eskiEtiket</span>$eskiHtml</div>")
+      [void]$s.AppendLine("<div class='hal yeni'><span class='etiket'>$yeniEtiket</span>$yeniHtml</div>")
       [void]$s.AppendLine("<div class='ozet'>$cikan kelime çıktı · $eklenen kelime geldi</div>")
       [void]$s.AppendLine('</div>')
       $blokToplam++

@@ -130,10 +130,10 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
 
 function Sha([string]$s){ $sha=[Security.Cryptography.SHA256]::Create(); ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16) }
 
-$KEY = $env:SUPABASE_SERVICE_KEY
+$SB_ANAHTAR = $env:SUPABASE_SERVICE_KEY
 # 07.08: sb_secret anahtar robot User-Agent ister ("Forbidden use of secret API
 # key in browser") - UA'siz IRM tarayici sayilip TUM ekleri reddediyordu.
-$H = if($KEY){ @{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' } } else { $null }
+$H = if($SB_ANAHTAR){ @{ apikey=$SB_ANAHTAR; Authorization="Bearer $SB_ANAHTAR"; 'User-Agent'='mevzuat-radar-robot/1.0' } } else { $null }
 $degisen = New-Object System.Collections.Generic.List[string]
 
 foreach($law in $manifest.kanunlar){
@@ -224,9 +224,9 @@ foreach($law in $manifest.kanunlar){
     if($flat.Length -lt 300){ Write-Host ("UYARI cok kisa metin ({0} kr) -> {1}, atlandi (indirme bozuk)" -f $flat.Length, $law.ad); continue }
     Write-Host ("MADDE DESENI TUTMADI ({0} parca) -> {1}: BOLUM parcalayicisi devrede" -f $docs.Count, $law.ad)
     $docs = New-Object System.Collections.Generic.List[object]
-    $BOY = 1800; $d = 0; $n = 1
+    $PARCA_BOYU = 1800; $d = 0; $n = 1
     while($d -lt $flat.Length){
-      $boy = [Math]::Min($BOY, $flat.Length - $d)
+      $boy = [Math]::Min($PARCA_BOYU, $flat.Length - $d)
       $kes = $flat.Substring($d, $boy)
       if($d + $boy -lt $flat.Length){
         $kir = $kes.LastIndexOf('. ')

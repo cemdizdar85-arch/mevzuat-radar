@@ -21,9 +21,9 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 
-$KEY = $env:SUPABASE_SERVICE_KEY
-if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - kasa sayimi atlandi."; exit 0 }
-$H = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
+$SB_ANAHTAR = $env:SUPABASE_SERVICE_KEY
+if(-not $SB_ANAHTAR){ Write-Host "SUPABASE_SERVICE_KEY yok - kasa sayimi atlandi."; exit 0 }
+$H = @{ apikey = $SB_ANAHTAR; Authorization = "Bearer $SB_ANAHTAR" }
 
 # KOR KALMA KURALI: Actions loglari bana kapali. Bu kosu uc kez YESIL bitti ve
 # uc kez dosya uretmedi; sebebini goremedigim icin uc kez TAHMIN ettim. Bir kanal

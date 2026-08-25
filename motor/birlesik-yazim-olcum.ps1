@@ -712,8 +712,8 @@ foreach($s in $secilen){
   #   madde 12 dogru sik en uzun   6/10                 -> aday okumadan bilir
   #   madde 18-ek senaryo tarihi   8/10 soru 2023-2024  -> standart 2025-2026
   # Ucu de "rica" ile duzelmez; oranlar gibi kimlikten atanir.
-  $HARFLER = @('A','B','C','D','E')
-  $hedefHarf = $HARFLER[(Kova ($kimlik + 'f')) % 5]
+  $SIK_HARFLERI = @('A','B','C','D','E')
+  $hedefHarf = $SIK_HARFLERI[(Kova ($kimlik + 'f')) % 5]
   $hedefYil  = if(((Kova ($kimlik + 'g')) % 2) -eq 0){ '2025' } else { '2026' }
   # 10.08: HARF TALIMATI ISTEMDEN CIKARILDI. Dogru cevabi belli bir harfe
   # koydurmak istem jetonu yakiyor ve modeli kisitliyordu; oysa bu is SAF

@@ -365,7 +365,7 @@ if(-not $env:SUPABASE_SERVICE_KEY){
   Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='ATLANDI - anahtar yok' }) -Depth 4) -Encoding UTF8 -NoNewline
   exit 0
 }
-$KOK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
+$API_ADRES = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
 $SB  = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
 # NOT: -SkipHttpErrorCheck yalniz pwsh 7'de var; bu betik yerelde (PS 5.1) de
 # kosabilsin diye hata yakalama try/catch ile yapiliyor. Yerelde kosabilmek
@@ -375,7 +375,7 @@ $SB  = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABAS
 $UA = 'mevzuat-radar-robot/1.0'
 function SbGet($yol){
   try{
-    $w = Invoke-WebRequest -Uri "$KOK/$yol" -Headers $SB -UserAgent $UA -UseBasicParsing -TimeoutSec 120
+    $w = Invoke-WebRequest -Uri "$API_ADRES/$yol" -Headers $SB -UserAgent $UA -UseBasicParsing -TimeoutSec 120
     $ham = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
     return @($ham | ConvertFrom-Json)
   }catch{
@@ -388,7 +388,7 @@ function SbGonder($yol,$metot,$govde,$ekBaslik){
   $b = [Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 8))
   $bsl = $SB + @{'Content-Type'='application/json'} + $ekBaslik
   try{
-    $w = Invoke-WebRequest -Uri "$KOK/$yol" -Method $metot -Headers $bsl -UserAgent $UA -Body $b -UseBasicParsing -TimeoutSec 90
+    $w = Invoke-WebRequest -Uri "$API_ADRES/$yol" -Method $metot -Headers $bsl -UserAgent $UA -Body $b -UseBasicParsing -TimeoutSec 90
     return [int]$w.StatusCode
   }catch{
     $kod = 0; $hata = ''

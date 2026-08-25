@@ -18,7 +18,11 @@
 #            oturum kodu veri/canli-deneme.json'daki oturumla eslesir:
 #            'SGS-2308' = SGS 23.08 / 'YET-3008' = Yeterlilik 30.08 ...
 # ============================================================================
-param([Parameter(Mandatory=$true)][string]$oturum)
+#  KAPI (20.08): bilesim eksik cikarsa paket URETILMEZ. 07.08'de 93/130 soruluk
+#  paket sessizce uretilip yayina hazir bekledi (uyari yalnizca ekrana yazildi).
+#  Eksikle devam etmek bilincli bir karardir: -zorla bayragi ister ve paketin
+#  yanina sifresiz KARNE dosyasi yazilir (soru metni YOK, yalniz ders x adet).
+param([Parameter(Mandatory=$true)][string]$oturum, [switch]$zorla)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -42,7 +46,30 @@ $SGS_BILESIM = @(
 )
 $YET_DERSLER = @('Finansal Muhasebe','Finansal Tablolar ve Analizi','Maliyet Muhasebesi','Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Hukuk','Meslek Hukuku','Sermaye Piyasası Mevzuatı')
 
-function Dnorm([string]$t){ return "$t".ToLowerInvariant().Replace('ç','c').Replace('ğ','g').Replace('ı','i').Replace('ö','o').Replace('ş','s').Replace('ü','u') -replace '\s+',' ' }
+# DIKKAT (olculdu 20.08): ToLowerInvariant() buyuk 'İ' (U+0130) harfini KUCULTMEZ.
+# Eski surumde once ToLowerInvariant cagrildigi icin 'İş ve Sosyal Guvenlik Hukuku'
+# -> 'İs ve sosyal guvenlik hukuku' kaliyor ve kasadaki 'Is ve...' ile ESLESMIYORDU:
+# 147 temiz soruluk ders pakete hic girmedi. Kural: ONCE harf cevir, SONRA kucult.
+function Dnorm([string]$t){
+  $s = "$t".Replace('İ','I').Replace('ı','i').Replace('Ş','S').Replace('ş','s').
+             Replace('Ğ','G').Replace('ğ','g').Replace('Ü','U').Replace('ü','u').
+             Replace('Ö','O').Replace('ö','o').Replace('Ç','C').Replace('ç','c')
+  return (($s.ToLowerInvariant()) -replace '\s+',' ').Trim()
+}
+# Kasadaki ders adi resmi bilesimdekiyle birebir olmayabilir (remap robotu kendi
+# adlandirmasini kullandi). Esanlam sozlugu: bilesim adi -> kasada gecen adlar.
+$DERS_ESANLAM = @{
+  'ataturk ilkeleri ve inkilap tarihi' = @('ataturk ilke ve inkilap tarihi','inkilap tarihi')
+  'is ve sosyal guvenlik hukuku'       = @('is ve sosyal guvenlik hukuku','is hukuku')
+  'yabanci dil'                        = @('yabanci dil','ingilizce')
+  'mali tablolar analizi'              = @('mali tablolar analizi','finansal tablolar ve analizi')
+}
+function DersEslesirMi($kasaDers, $planDers){
+  $k = Dnorm $kasaDers; $p = Dnorm $planDers
+  if($k -eq $p){ return $true }
+  if($DERS_ESANLAM.ContainsKey($p)){ foreach($a in $DERS_ESANLAM[$p]){ if($k -eq (Dnorm $a)){ return $true } } }
+  return $false
+}
 
 # --- temiz havuz (yayin_notu bos): hafif liste
 Write-Host 'Temiz havuz cekiliyor...'
@@ -65,8 +92,7 @@ $secim = New-Object System.Collections.Generic.List[object]
 $eksikler = @()
 $plan = if($sinav -eq 'SGS'){ $SGS_BILESIM } else { @($YET_DERSLER | ForEach-Object { @{ders=$_; n=10} }) }
 foreach($p in $plan){
-  $pd = Dnorm $p.ders
-  $aday = Karistir ($havuz | Where-Object { (Dnorm $_.ders) -eq $pd })
+  $aday = Karistir ($havuz | Where-Object { DersEslesirMi $_.ders $p.ders })
   $al=@(); $konuSayac=@{}
   foreach($s in $aday){
     if($al.Count -ge $p.n){ break }
@@ -81,8 +107,21 @@ foreach($p in $plan){
   if($al.Count -lt $p.n){ $eksikler += ("{0}: {1}/{2}" -f $p.ders, $al.Count, $p.n) }
   foreach($x in $al){ $secim.Add($x) }
 }
-Write-Host ("secim: {0} soru" -f $secim.Count)
-if($eksikler.Count){ Write-Host ("!! EKSIK DERSLER: " + ($eksikler -join ' | ')) }
+$hedef = ($plan | ForEach-Object { $_.n } | Measure-Object -Sum).Sum
+Write-Host ("secim: {0} / hedef {1}" -f $secim.Count, $hedef)
+if($eksikler.Count){
+  Write-Host ''
+  Write-Host '!! BILESIM EKSIK - resmi dagilim tutmuyor:'
+  foreach($e in $eksikler){ Write-Host ("   - " + $e) }
+  Write-Host ''
+  if(-not $zorla){
+    Write-Host ("PAKET URETILMEDI. Eksik dersleri temiz havuza kazandirin (yayin_notu bosaltilmis," )
+    Write-Host  "GM okumasindan gecmis soru gerekir) ya da bilinerek eksik oturum icin -zorla verin."
+    Write-Host  "Eksik oturum yayinlanacaksa katilimciya ILAN EDILEN soru sayisi da guncellenmelidir."
+    exit 2
+  }
+  Write-Host '-zorla verildi: eksik bilesimle devam ediliyor (karne dosyasina islenecek).'
+}
 
 # --- tam metinleri cek
 $tam = @{}
@@ -122,6 +161,20 @@ $cikJson = ConvertTo-Json -Compress -InputObject ([ordered]@{
 $keyDir = Join-Path (Split-Path -Parent $kok) 'canli-anahtarlar'
 New-Item -ItemType Directory -Force $keyDir | Out-Null
 [IO.File]::WriteAllText((Join-Path $keyDir "$oturum.key"), [Convert]::ToBase64String($aes.Key), (New-Object Text.UTF8Encoding($false)))
+
+# --- KARNE (sifresiz kapak): paket icerigi sifreli oldugu icin disaridan
+#     denetlenemiyordu. Karne yalnizca ders x adet tutar - soru metni, dogru sik
+#     ya da aciklama ICERMEZ, dolayisiyla public repoda durmasi sizinti degildir.
+$karne = [ordered]@{
+  oturum=$oturum; sinav=$sinav; uretim=$govde.uretim; sure_dk=$govde.sure_dk
+  hedef_soru=$hedef; paket_soru=$paketSoru.Count
+  bilesim = @($plan | ForEach-Object {
+      $pd=$_.ders
+      [ordered]@{ ders=$pd; hedef=$_.n; gelen=@($paketSoru | Where-Object { DersEslesirMi $_.ders $pd }).Count } })
+  eksikler = @($eksikler)
+}
+[IO.File]::WriteAllText((Join-Path $paketDir "$oturum-karne.json"), (ConvertTo-Json -InputObject $karne -Depth 5), (New-Object Text.UTF8Encoding($false)))
+Write-Host ("karne: veri/canli/{0}-karne.json ({1}/{2} soru)" -f $oturum, $paketSoru.Count, $hedef)
 
 Write-Host ("PAKET HAZIR: veri/canli/{0}.enc.json ({1} KB, {2} soru) | anahtar: canli-anahtarlar\{0}.key (REPO DISI)" -f $oturum, [int]($cikJson.Length/1kb), $paketSoru.Count)
 Write-Host 'Yayin ani: .\motor\canli-anahtar-yayinla.ps1 -oturum ' + $oturum

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DESTEK TAKIP NOBETI (21.08.2026) - Cem: "sihirbaz cevabini saklayip
 #  'profiline uyan yeni cagri acildi' maili".
 #
@@ -37,15 +37,15 @@ if(-not $env:SUPABASE_SERVICE_KEY){
   Write-Host "SUPABASE_SERVICE_KEY yok - cikildi (bu robot Actions'ta kosar)."
   RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='ATLANDI - anahtar yok' }); exit 0
 }
-$KOK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
+$API_ADRES = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
 $SB  = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
-function SbGet($yol){ $w=Invoke-WebRequest -Uri "$KOK/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck; $ham=if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}; if([int]$w.StatusCode -ge 400){ throw ("Supabase {0}: {1}" -f $w.StatusCode,$ham) }; return @($ham | ConvertFrom-Json) }
+function SbGet($yol){ $w=Invoke-WebRequest -Uri "$API_ADRES/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck; $ham=if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}; if([int]$w.StatusCode -ge 400){ throw ("Supabase {0}: {1}" -f $w.StatusCode,$ham) }; return @($ham | ConvertFrom-Json) }
 # PostgREST varsayilan tavani 1000 satirdir (kasa dersi). Sayfa sayfa cek.
 function SbGetTum($yol){
   $hepsi = New-Object System.Collections.Generic.List[object]; $bas = 0; $adim = 1000
   while($true){
     $h = $SB.Clone(); $h['Range-Unit']='items'; $h['Range'] = "$bas-$($bas+$adim-1)"
-    $w = Invoke-WebRequest -Uri "$KOK/$yol" -Headers $h -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck
+    $w = Invoke-WebRequest -Uri "$API_ADRES/$yol" -Headers $h -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck
     $ham = if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}
     if([int]$w.StatusCode -ge 400 -and [int]$w.StatusCode -ne 416){ throw ("Supabase {0}: {1}" -f $w.StatusCode,$ham) }
     if([int]$w.StatusCode -eq 416){ break }
@@ -56,8 +56,8 @@ function SbGetTum($yol){
   }
   return $hepsi
 }
-function SbPost($yol,$govde){ $b=[Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 6)); $w=Invoke-WebRequest -Uri "$KOK/$yol" -Method Post -Headers ($SB+@{'Content-Type'='application/json';Prefer='return=minimal'}) -Body $b -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; return [int]$w.StatusCode }
-function SbPatch($yol,$govde){ $b=[Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 6)); $w=Invoke-WebRequest -Uri "$KOK/$yol" -Method Patch -Headers ($SB+@{'Content-Type'='application/json';Prefer='return=minimal'}) -Body $b -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; return [int]$w.StatusCode }
+function SbPost($yol,$govde){ $b=[Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 6)); $w=Invoke-WebRequest -Uri "$API_ADRES/$yol" -Method Post -Headers ($SB+@{'Content-Type'='application/json';Prefer='return=minimal'}) -Body $b -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; return [int]$w.StatusCode }
+function SbPatch($yol,$govde){ $b=[Text.Encoding]::UTF8.GetBytes(($govde|ConvertTo-Json -Compress -Depth 6)); $w=Invoke-WebRequest -Uri "$API_ADRES/$yol" -Method Patch -Headers ($SB+@{'Content-Type'='application/json';Prefer='return=minimal'}) -Body $b -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; return [int]$w.StatusCode }
 
 # --- cagri radari -----------------------------------------------------------
 $cagriYol = Join-Path $kok 'veri/cagri-radar.json'
