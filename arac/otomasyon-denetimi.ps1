@@ -32,6 +32,13 @@ $kok = Split-Path -Parent $PSScriptRoot
 $siteDosyalari = New-Object 'System.Collections.Generic.HashSet[string]'
 foreach($h in (Get-ChildItem $kok -Filter *.html)){
   $icerik = [IO.File]::ReadAllText($h.FullName)
+    # YORUMLARI AT (25.08): bu tarama da yorum icindeki dosya adlarini
+    # "site bunu okuyor" sayiyordu. alacak-radari.html gizli kasaya gecisi
+    # anlatan blok yorumda veri/alacak-arsiv.json adini ANIYOR ama OKUMUYOR;
+    # dosya .gitignore'da oldugu icin kapi haksiz yere KIRMIZI kaliyordu.
+    # (Ayni kusur arac/veri-bekcisi.ps1'te de vardi, orada da giderildi.)
+    $icerik = [regex]::Replace($icerik, "(?s)<!--.*?-->", " ")
+    $icerik = [regex]::Replace($icerik, "(?s)/\*.*?\*/", " ")
   foreach($m in [regex]::Matches($icerik, 'veri/([A-Za-z0-9._-]+\.json)')){
     [void]$siteDosyalari.Add($m.Groups[1].Value)
   }
