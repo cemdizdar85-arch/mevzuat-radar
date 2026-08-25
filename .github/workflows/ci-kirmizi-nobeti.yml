@@ -1,0 +1,54 @@
+# .github/workflows/ci-kirmizi-nobeti.yml — CI KIRMIZI NOBETCISI
+#
+# NEDEN VAR (25.08.2026)
+# "Dogrulama Kapisi" 19.08'den 25.08'e kadar kirmizi kaldi, kimse fark etmedi.
+# Alti gun. O sure boyunca kapinin ardindaki dort adim hic kosmadi ve
+# korduklari sey denetimsiz yayina gitti.
+# GitHub kirmizi kosu icin zaten mail atar - ama gunde onlarca gelince
+# okunmaz olur, ve kirmizi KALICI olunca "zaten hep kirmizi" diye bakilmaz.
+#
+# BU NOBETCI FARKLI SORU SORUYOR: "hangi kapi UST USTE dusuyor?"
+# Tek kirmizi kosu alarm degildir (gecici ariza olabilir). Ust uste iki
+# kirmizi, insanin bakmasi gereken seydir.
+#
+# SPAM YAPMAZ: her kirmizi seri bir kez bildirilir, seri surerse haftada bir
+# hatirlatilir. Durum veri/ci-kirmizi-raporu.json'da tutulur (kor kalma:
+# rapor kirmizi olsa da yazilir ve depoya islenir).
+#
+# GH_TOKEN sart - 100 workflow taranacak, kimliksiz API saatte 60 istek verir.
+name: CI Kirmizi Nobetcisi
+
+on:
+  schedule:
+    - cron: "20 4 * * *"    # 07:20 TR — sabah ilk isten once masada olsun
+  workflow_dispatch:
+
+permissions:
+  contents: write     # raporu depoya isler
+  actions: read       # baska workflow'larin kosu gecmisini okur
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Kalici kirmizi kapilari olc ve alarm ver
+        shell: pwsh
+        env:
+          GH_TOKEN:    ${{ secrets.GITHUB_TOKEN }}
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./arac/ci-kirmizi-nobetcisi.ps1
+
+      # Rapor kirmizi olsa da yayinlanir - "kor kalma" kurali. Nobetcinin
+      # kendi ciktisi gorunmezse nobetci de kor kalmis olur.
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/ci-kirmizi-raporu.json || true
+          git diff --cached --quiet || git commit -m "CI kirmizi raporu [veri-operasyonu]"
+          git pull --rebase --autostash || true
+          git push || true

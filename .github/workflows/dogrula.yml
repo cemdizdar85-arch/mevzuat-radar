@@ -1,7 +1,34 @@
 # Bu dosyanin GitHub'daki yolu: .github/workflows/dogrula.yml
-# DOGRULAMA KAPISI (Katman 1): HER push'ta yapisal denetci + nokta-kontrol kosar.
+# DOGRULAMA KAPISI (Katman 1): HER push'ta butun denetciler kosar.
 # Amac: yanlis/celisik veri ana dala girer girmez KIRMIZI X + Cem'e mail.
 # (Onceden dogrulama yalniz robotun gunluk isinde vardi; elle push'lar denetimsizdi.)
+#
+# ============================================================================
+# 25.08 — TEK IS, ON BIR ADIM  ->  ON IKI BAGIMSIZ IS
+#
+# NEDEN DEGISTI
+# Hepsi TEK bir isin ardisik adimlariydi. GitHub bir adim duserse ardindakileri
+# CALISTIRMAZ, "skipped" gecer. O gun tam olarak bu oldu:
+#   10. adim (veri bekcisi) sahte alarmla dustu
+#   -> 11-14 arasi adimlar hic kosmadi: koku olcer, otomasyon denetimi ve
+#      ayni gun kurulan IKI GORUNUM KAPISI.
+# Yani sekiz saat boyunca dort kapi VARDI ama YOKTU. Daha kotusu: kapi
+# 19.08'den beri kirmiziydi ve kalici kirmizi olunca kimse bakmiyordu.
+#
+# SIMDIKI YAPI
+# Her denetci KENDI isinde kosar, "fail-fast: false" ile birbirini iptal
+# etmez. Bir kapi kirmizi olsa bile digerlerinin sonucunu GORURSUN; hangi
+# kapinin dustugu is listesinde tek bakista okunur.
+#
+# BEDELI: her is ayri checkout yapar (~10 sn). Depo PUBLIC oldugu icin
+# Actions dakikasi bedava; kazanc paralel kostuklari icin toplam sure de
+# kisaliyor. Kaybedilen sey yok.
+#
+# YENI DENETCI EKLEMEK: asagidaki "kapilar" matrisine bir satir ekle.
+#   - { ad: "...", kabuk: pwsh, komut: "./arac/yeni-denetci.ps1" }
+# Eklendikten SONRA kosuyu acip o isin gercekten kostugunu gor - kapiyi
+# kurmak kostugu anlamina gelmez.
+# ============================================================================
 name: Dogrulama Kapisi
 
 on:
@@ -10,15 +37,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  dogrula:
+  # --- Sir bekcisi ayri duruyor: satir ici cok satirli bash betigi, matrise
+  #     sigmaz. Depo PUBLIC oldugu icin bu kapi en kritik olanidir.
+  sir-bekcisi:
+    name: "Sir bekcisi (anahtar sizintisi — depo PUBLIC!)"
     runs-on: ubuntu-latest
     steps:
       - name: Depoyu al
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2   # diff-bekcisi HEAD~1 ile kiyas yapar
 
-      - name: Sir bekcisi (anahtar sizinti taramasi — depo PUBLIC!)
+      - name: Anahtar sizinti taramasi
         run: |
           # API anahtari / servis anahtari / uzun JWT desenleri tracked dosyalarda aranir.
           # sb_publishable_ anahtari kasten HARIC: o publishable'dir, sitede acik durur.
@@ -42,57 +70,73 @@ jobs:
           fi
           echo "Sir bekcisi temiz."
 
-      - name: Diff bekcisi (kazayla veri silme freni)
-        shell: pwsh
-        run: ./arac/diff-bekcisi.ps1
+  # --- geri kalan on denetci: her biri kendi isinde, birbirinden bagimsiz
+  kapilar:
+    name: ${{ matrix.kapi.ad }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false     # BIRI DUSSE DIGERLERI YINE OLCSUN - bu dosyanin varlik sebebi
+      matrix:
+        kapi:
+          - { ad: "Diff bekcisi (kazayla veri silme freni)",
+              kabuk: pwsh, komut: "./arac/diff-bekcisi.ps1" }
 
-      - name: Yapisal denetci (imkansiz/celisik veri)
-        shell: pwsh
-        run: ./arac/yapisal-denetci.ps1
+          - { ad: "Yapisal denetci (imkansiz/celisik veri)",
+              kabuk: pwsh, komut: "./arac/yapisal-denetci.ps1" }
 
-      - name: Eksik dosya kapisi (sayfalarin cagirdigi dosya depoda mi?)
-        shell: pwsh
-        run: ./arac/eksik-dosya-kapisi.ps1
+          - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
+              kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 
-      - name: Nokta-kontrol (bilinen kod -> dogru cevap regresyonu)
-        shell: pwsh
-        run: ./arac/nokta-kontrol.ps1
+          - { ad: "Nokta-kontrol (bilinen kod -> dogru cevap)",
+              kabuk: pwsh, komut: "./arac/nokta-kontrol.ps1" }
 
-      - name: API ceviri testi (Anthropic <-> OpenRouter yedek hatti; cagri YOK)
-        shell: pwsh
-        run: ./arac/api-ceviri-testi.ps1
+          - { ad: "API ceviri testi (yedek hat; cagri YOK)",
+              kabuk: pwsh, komut: "./arac/api-ceviri-testi.ps1" }
 
-      - name: Kimlik denetimi (Supabase cagiran betik kimliksiz kalmasin)
-        shell: pwsh
-        run: ./arac/kimlik-denetimi.ps1
+          - { ad: "Kimlik denetimi (Supabase betigi kimliksiz kalmasin)",
+              kabuk: pwsh, komut: "./arac/kimlik-denetimi.ps1" }
 
-      - name: "Veri bekcisi (her sayfanin cektigi json - var mi / parse / dolu mu)"
-        shell: pwsh
-        run: ./arac/veri-bekcisi.ps1
+          - { ad: "Veri bekcisi (cekilen json var mi / parse / dolu mu)",
+              kabuk: pwsh, komut: "./arac/veri-bekcisi.ps1" }
 
-      - name: "Koku olcer (YZ izi - jargon/klise kapisi, emoji/unlem raporu)"
-        shell: pwsh
-        run: ./arac/koku-olcer.ps1
+          - { ad: "Koku olcer (YZ izi - jargon/klise kapisi)",
+              kabuk: pwsh, komut: "./arac/koku-olcer.ps1" }
 
-      # 17.08 - Cem: "sitede otomatik guncellenmeyen veri kalmasin."
-      # Sitenin okudugu her veri/*.json icin sorar: ureten betik var mi, onu
-      # cagiran workflow var mi. Yoksa KIRMIZI. Bilinen eksikler
-      # veri/otomasyon-borcu.json'da gerekcesiyle kayitli ve kapiyi dusurmez -
-      # kapinin isi YENI elle beslenen dosya eklenmesini engellemek.
-      - name: "Otomasyon denetimi (yeni veri dosyasi elle beslenmesin)"
-        shell: pwsh
-        run: ./arac/otomasyon-denetimi.ps1
+          # 17.08 - Cem: "sitede otomatik guncellenmeyen veri kalmasin."
+          # Sitenin okudugu her veri/*.json icin sorar: ureten betik var mi, onu
+          # cagiran workflow var mi. Bilinen eksikler veri/otomasyon-borcu.json'da
+          # gerekcesiyle kayitli ve kapiyi dusurmez - kapinin isi YENI elle
+          # beslenen dosya eklenmesini engellemek.
+          - { ad: "Otomasyon denetimi (yeni veri elle beslenmesin)",
+              kabuk: pwsh, komut: "./arac/otomasyon-denetimi.ps1" }
 
-      # 25.08 - acik temaya gecerken 551 kontrast kirigi cikti; hepsinin koku
-      # renklerin SABIT yazilmis olmasiydi. Iki kapi kuruldu: biri SEBEBI
-      # (sabit renk eklenmesini), digeri SONUCU (okunmayan metni) yakalar.
-      - name: "Renk sabiti denetcisi (sabit renk borcu artamaz - circir)"
-        shell: pwsh
-        run: ./arac/renk-sabiti-denetcisi.ps1
+          # 25.08 - acik temaya gecerken 551 kontrast kirigi cikti; hepsinin koku
+          # renklerin SABIT yazilmis olmasiydi. Iki kapi: biri SEBEBI (sabit renk
+          # eklenmesini), digeri SONUCU (okunmayan metni) yakalar.
+          - { ad: "Renk sabiti denetcisi (sabit renk borcu artamaz)",
+              kabuk: pwsh, komut: "./arac/renk-sabiti-denetcisi.ps1" }
 
-      # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
-      # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
-      # Chrome DevTools protokolu konusulur.
-      - name: "Kontrast kapisi (okunmayan metin yayina cikmasin)"
+          # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
+          # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
+          # Chrome DevTools protokolu konusulur. ~4 dk surer, en yavas kapi.
+          - { ad: "Kontrast kapisi (okunmayan metin yayina cikmasin)",
+              kabuk: bash, komut: "node arac/kontrast-kapisi.js" }
+
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # diff-bekcisi HEAD~1 ile kiyas yapar
+
+      # Kabuk matristen geliyor. Tek adimda "shell: ${{ }}" yazmak yerine iki
+      # ayri adim + if kullanildi: shell alaninda ifade destegi surume bagli,
+      # bu yol her surumde calisir ve gunlukte hangi kabugun kostugu gorunur.
+      - name: "Denetci (pwsh)"
+        if: matrix.kapi.kabuk == 'pwsh'
+        shell: pwsh
+        run: ${{ matrix.kapi.komut }}
+
+      - name: "Denetci (bash)"
+        if: matrix.kapi.kabuk == 'bash'
         shell: bash
-        run: node arac/kontrast-kapisi.js
+        run: ${{ matrix.kapi.komut }}
