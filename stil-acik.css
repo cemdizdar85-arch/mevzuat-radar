@@ -69,7 +69,11 @@
   --dim:#6b7280;
 
   /* marka: metin baglaminda koyu kehribar */
+<<<<<<< HEAD
   --accent:#b25209;
+=======
+  --accent:#a04a08;
+>>>>>>> 66b789c7 (Kontrast kapisi yanlis pozitifi giderildi + son 3 gercek kusur + olu prototip kaldirildi)
   --accent2:#92400e;
   --grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);
 
@@ -368,7 +372,8 @@ a:hover{color:var(--accent2)}
 /* .top icindeki her sey aydinlik olmali; satir ici stil ve yuksek ozgullukte
    kural tasiyan ogeler de dahil. Olculdu: "Alacak Radarı" basligi koyu serit
    uzerinde 1,01:1 cikiyordu. */
-.top,.top *,.top h1,.top h2,.top span,.top div{color:#b9c1cb !important}
+.top,
+.top *:not([class*="logo"]):not([class*="mark"]){color:#b9c1cb !important}
 .top a,.top b,.top strong,.top h1,.top .logo{color:#ffffff !important}
 .top a:hover{color:#ffc24b !important}
 .top .kp-dugme kbd{color:#b9c1cb !important}

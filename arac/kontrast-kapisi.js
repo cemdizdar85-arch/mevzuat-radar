@@ -96,25 +96,54 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK){
      ve kusuru KACIRIR. Ornek:
        background:linear-gradient(180deg,#0b1119,#0a0f17)   <- koyu
      Acik temada uzerindeki var(--ink) okunmaz ama olcum "temiz" der.
-     Cozum: ogenin ve atalarinin degrade duraklarini da ADAY ZEMIN say;
-     en kotu (en dusuk kontrast veren) adayla yargila. */
+
+     Cozum: zemini TEK renk degil ADAY LISTESI olarak hesapla - degradenin
+     her duragi ayri bir adaydir - ve en kotusuyle yargila. Degradenin bir
+     ucunda okunmayan yazi kusurdur.
+
+     YANLIS POZITIF FRENI: oge KENDI opak degradesini boyuyorsa arkasindaki
+     ata zemini GORUNMEZ, aday sayilmaz. (Amber logo rozeti koyu seritte
+     "1,09" diye kirmizi veriyordu; oysa rozetin kendi amberi seridi tamamen
+     kapatiyor.) Bu yuzden katmanlar alttan ustte dogru toplanir. */
   function zeminAdaylari(el){
-    const taban=zemin(el);
-    const adaylar=[taban];
+    /* 1) ustten alta katmanlari topla, ilk OPAK katmanda dur */
+    const katmanlar=[];   /* [0] = en ustteki */
     let n=el, derinlik=0;
-    while(n && derinlik<6){
-      const bi=getComputedStyle(n).backgroundImage;
+    while(n && derinlik<12){
+      const st=getComputedStyle(n);
+      const bi=st.backgroundImage;
+      let opakDegrade=false;
       if(bi && bi!=='none' && /gradient/.test(bi)){
-        const duraklar=bi.match(/rgba?\([^)]+\)/g) || [];
-        for(const d of duraklar){
-          const c=ayikla(d);
-          if(c && c.a>0) adaylar.push(c.a>=1 ? {r:c.r,g:c.g,b:c.b} : kat(c, taban));
+        const duraklar=(bi.match(/rgba?\([^)]+\)/g)||[]).map(ayikla).filter(c=>c&&c.a>0);
+        if(duraklar.length){
+          katmanlar.push({tur:'degrade', duraklar});
+          opakDegrade=duraklar.every(c=>c.a>=1);
         }
       }
-      /* zemini opak olan ilk atada dur - onun ustu gorunmez */
-      const kc=ayikla(getComputedStyle(n).backgroundColor);
-      if(kc && kc.a>=1) break;
+      const kc=ayikla(st.backgroundColor);
+      if(kc && kc.a>0){
+        katmanlar.push({tur:'renk', renk:kc});
+        if(kc.a>=1) break;          /* opak renk: arkasi gorunmez */
+      }
+      if(opakDegrade) break;        /* opak degrade: arkasi gorunmez */
       n=n.parentElement; derinlik++;
+    }
+
+    /* 2) alttan uste karistir; degrade her adimda adaylari cogaltir */
+    let adaylar=[{r:255,g:255,b:255}];   /* hicbir sey yoksa kagit beyazi */
+    for(let i=katmanlar.length-1;i>=0;i--){
+      const k=katmanlar[i];
+      const yeni=[];
+      if(k.tur==='renk'){
+        if(k.renk.a>=1) yeni.push({r:k.renk.r,g:k.renk.g,b:k.renk.b});
+        else for(const a of adaylar) yeni.push(kat(k.renk,a));
+      }else{
+        for(const d of k.duraklar){
+          if(d.a>=1) yeni.push({r:d.r,g:d.g,b:d.b});
+          else for(const a of adaylar) yeni.push(kat(d,a));
+        }
+      }
+      adaylar = yeni.length ? yeni.slice(0,24) : adaylar;   /* patlamayi engelle */
     }
     return adaylar;
   }

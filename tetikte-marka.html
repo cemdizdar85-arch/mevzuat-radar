@@ -9,18 +9,22 @@
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
+<<<<<<< HEAD
   :root{--gradT:linear-gradient(135deg,#3ddc97 0%,var(--amber) 100%)}
+=======
+  :root{--gradT:linear-gradient(135deg,#3ddc97 0%,var(--amber-dolgu) 100%)}
+>>>>>>> 66b789c7 (Kontrast kapisi yanlis pozitifi giderildi + son 3 gercek kusur + olu prototip kaldirildi)
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:26px;color:var(--dim)}.top a{color:var(--muted);text-decoration:none;font-weight:600}
-.logoMR{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+.top .logoMR,.logoMR{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
 h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
 .lead{color:var(--muted);font-size:15px;margin:0 0 26px}
 .blok{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:18px}
 .blok h2{margin:0 0 4px;font-size:16px;letter-spacing:-.2px}
 .blok .not{font-size:12.5px;color:var(--dim);margin:0 0 20px}
 .sahne{border-radius:13px;padding:38px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:10px}
-.sahne.koyu{background:var(--taban);border:1px solid var(--line)}
+.sahne.koyu{background:#06090f;border:1px solid rgba(255,255,255,.10);color:var(--ink);--ink:#eef2f7;--muted:#b9c1cb;--dim:#96a0ac}
 .sahne.acik{background:#f4f7fb;border:1px solid #dde5ee}
 .sahne .etiket{font-size:10.5px;letter-spacing:1.4px;font-weight:800;color:var(--dim);text-transform:uppercase;align-self:flex-start;margin-bottom:6px}
 .sahne.acik .etiket{color:var(--dim)}
