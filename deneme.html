@@ -245,7 +245,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div id="tekrarKutu" style="display:none;margin:0 0 12px;padding:10px 13px;border:1px solid rgba(120,180,255,.3);background:rgba(120,180,255,.05);border-radius:11px;font-size:13px"></div>
       <div id="ustalikKutu" style="display:none;margin:0 0 14px;padding:12px 14px;border:1px solid var(--line2);background:var(--panel2);border-radius:11px"></div>
       <div id="olcumKutu" style="margin:0 0 14px;padding:12px 14px;border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:11px">
-        <b style="font-size:14px">📊 Hazırlık Ölçümü</b> <span style="font-size:12.5px;color:var(--muted)">· 20 karışık soru, üyeliksiz, hakkını yemez — sonunda Hazırlık Skorunu görürsün.</span>
+        <b style="font-size:14px">📊 Tetikte Skoru Ölçümü</b> <span style="font-size:12.5px;color:var(--muted)">· 20 karışık soru, üyeliksiz, hakkını yemez — sonunda Tetikte Skorunu görürsün.</span>
         <button class="sec" id="olcumBtn" onclick="olcumBasla()" style="display:block;margin-top:8px">Ölçümü başlat →</button>
       </div>
       <div class="etiket">1 · Ders seç</div>
@@ -1681,11 +1681,11 @@ function skorPaneliHtml(sinav, oturumYuzde){
   var h=hazirlikSkoru(sinav||'hepsi');
   if(!h.hazir){
     var kalanN=h.gerekli-h.cozulen;
-    return '<div style="border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:12px;padding:12px 15px;margin:0 0 14px;font-size:13.5px">📊 <b>Hazırlık Skorun hazırlanıyor:</b> '+h.cozulen+'/'+h.gerekli+' soru çözüldü. '+kalanN+' soru daha çöz, skorun açılsın.'+(oturumYuzde!=null?' <span style="color:var(--muted)">Bu oturum: %'+oturumYuzde+'.</span>':'')+'</div>';
+    return '<div style="border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:12px;padding:12px 15px;margin:0 0 14px;font-size:13.5px">📊 <b>Tetikte Skorun hazırlanıyor:</b> '+h.cozulen+'/'+h.gerekli+' soru çözüldü. '+kalanN+' soru daha çöz, skorun açılsın.'+(oturumYuzde!=null?' <span style="color:var(--muted)">Bu oturum: %'+oturumYuzde+'.</span>':'')+'</div>';
   }
   var renk=h.skor>=70?'var(--green)':(h.skor>=50?'var(--amber)':'var(--red)');
   var yorum=h.skor>=70?'Sınav bandındasın — temponu koru.':(h.skor>=50?'Sınıra yakınsın — zayıf derslerine yüklen.':'Daha yolun var — karnendeki kırmızı derslerden başla.');
-  return '<div style="border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:12px;padding:12px 15px;margin:0 0 14px"><span style="font-size:13px">📊 <b>Hazırlık Skorun</b> <span style="color:var(--muted)">· '+h.cozulen+' çözümden</span></span><div style="font-size:30px;font-weight:900;color:'+renk+';line-height:1.2">'+h.skor+'<span style="font-size:15px;color:var(--muted)">/100</span></div><div style="font-size:12.5px;color:var(--muted)">'+yorum+'</div></div>';
+  return '<div style="border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:12px;padding:12px 15px;margin:0 0 14px"><span style="font-size:13px">📊 <b>Tetikte Skorun</b> <span style="color:var(--muted)">· '+h.cozulen+' çözümden</span></span><div style="font-size:30px;font-weight:900;color:'+renk+';line-height:1.2">'+h.skor+'<span style="font-size:15px;color:var(--muted)">/100</span></div><div style="font-size:12.5px;color:var(--muted)">'+yorum+'</div></div>';
 }
 
 /* ===================== PERFORMANS KARNESI (29.07) =========================
