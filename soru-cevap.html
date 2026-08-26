@@ -211,6 +211,14 @@ function durustKutu(){
     +`<p>Sorunu kaydettim; kaynağını (madde/tebliğ/özelge) yükleyip ekleyeceğiz. Bu arada resmî kaynağa (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p>`
     +`<div class="neden"><b>Neden boş cevap veriyoruz?</b> Çünkü emin olmadığımızda konuşmak, emin olduğumuzda konuşmaktan daha kötüdür. Bilgi tabanımız her gün büyüyor, talebin ona ekleniyor.</div></div>`;
 }
+// 26.08: deneme.html "Hocaya sor" koprusu — ?soru=... ile gelinirse kutu dolu acilir
+// (otomatik SORMAZ: sorgu hakki kullanicinin bilincli tikiyla harcansin).
+(function(){
+  try{
+    var p=new URLSearchParams(location.search).get('soru');
+    if(p){ var k=document.getElementById('soru'); if(k){ k.value=p.slice(0,400); k.focus(); } }
+  }catch(e){}
+})();
 async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('sorucevap')) return;
   const q=$('#soru').value.trim(); if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }
   if(kullanilan()>=LIMIT){

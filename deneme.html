@@ -1220,6 +1220,9 @@ function cevabiGor(tekrarMi){
   h+=cilaV3Gorsel(s);
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
   if(s.dayanak && s.dayanak!==s.kaynak) h+='<div class="kaynakKutu">📖 Dayanak: <b>'+esc(s.dayanak)+'</b></div>';
+  // 26.08: HOCAYA SOR (Becker Newt sinifi) - Net Cevap motoru canliya alindi;
+  // soru konusu onceden doldurulmus halde soru-cevap sayfasina koprulenir.
+  h+='<div style="margin-top:10px"><a href="soru-cevap.html?soru='+encodeURIComponent('('+String(s.ders||'')+') '+String(s.konu||''))+'" target="_blank" rel="noopener" style="display:inline-block;border:1px solid rgba(120,180,255,.45);background:rgba(120,180,255,.08);border-radius:9px;padding:8px 12px;font-size:12.5px;color:var(--ink);text-decoration:none">🎓 <b>Hocaya sor</b> · bu konuyu kaynak maddesiyle anlattır →</a></div>';
   h+=notKutusu(s);   // 03.08: kendi notum (UWorld/Becker'da var)
   // SIKLIK KUNYESI (SINAV-KURALLARI D9, 02.08) — 35 donemlik cikmis kitapcik
   // sayimindan. Uydurma motivasyon DEGIL olcum; sayim yoksa kunye GOSTERILMEZ.
