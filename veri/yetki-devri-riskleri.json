@@ -1,29 +1,14 @@
 {
-  "tarih": "26.08.2026 11:37",
+  "tarih": "26.08.2026 11:42",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 814,
   "riskli_madde": 1266,
   "sayfa": 60,
   "atifli_iddia": 256,
-  "dayanaksiz_iddia": 270,
+  "dayanaksiz_iddia": 272,
   "kirmizi_aday": 29,
-  "yeni_aday": 2,
-  "yeni": [
-    {
-      "sayfa": "arge-kapi-hesabi.html",
-      "satir": 279,
-      "iddia": "40 katı",
-      "kanun": "4691",
-      "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
-    },
-    {
-      "sayfa": "bilgi.html",
-      "satir": 260,
-      "iddia": "%99,4",
-      "kanun": "4691",
-      "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
-    }
-  ],
+  "yeni_aday": 0,
+  "yeni": [],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -99,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 279,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 260,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -526,91 +511,103 @@
     },
     {
       "sayfa": "deneme.html",
-      "satir": 633,
+      "satir": 635,
       "iddia": "en az 3",
       "metin": "// Konu sicilinden zayif konular: en az 3 cozum + dogruluk %50 alti."
     },
     {
       "sayfa": "deneme.html",
-      "satir": 723,
+      "satir": 725,
       "iddia": "%40",
       "metin": "// NOBETCI KOC (#9): calisma modunda secimin ~%40'i zayif konulardan gelir -"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 938,
+      "satir": 940,
       "iddia": "%38",
       "metin": "2) Sik istatistigi \"adaylarin %38'i C'yi secti\" -> SIK_IST (robot uretir)"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 950,
+      "satir": 952,
       "iddia": "3 kisi",
       "metin": "/* Bir sikki kac aday secmis? Yeterli veri yoksa HIC gosterme - 3 kisilik"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 951,
+      "satir": 953,
       "iddia": "%33",
       "metin": "ornekten \"%33\" demek, rakam vermemekten kotudur (rakam disiplini). */"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1068,
+      "satir": 1070,
       "iddia": "%97",
       "metin": "// SABLON-GEREKCE BICIMLEYICI (30.07): kalite taramasi kasanin %97'sinde"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1072,
+      "satir": 1074,
       "iddia": "En az 2",
       "metin": "// bloklara boler. En az 2 baslik yoksa metne DOKUNMAZ (dogal cumleler,"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1237,
+      "satir": 1270,
       "iddia": "%20",
       "metin": "// hucreleri karisik tipte gelir (sayi, \"28915\", \"%20\", \"1.650.000\") - yalniz"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1632,
+      "satir": 1519,
+      "iddia": "30 gun",
+      "metin": "// aralik buyur (1->3->7->16->30 gun), yine yanlissa 1 gune doner. 30 gunu"
+    },
+    {
+      "sayfa": "deneme.html",
+      "satir": 1550,
+      "iddia": "30 gün",
+      "metin": ": ' · bugünlük tamam ✓ yanlış yaptıkça deste büyür, doğru çözdükçe aralık açılır (1-3-7-16-30 gün) ');"
+    },
+    {
+      "sayfa": "deneme.html",
+      "satir": 1744,
       "iddia": "%41",
       "metin": "Boylece \"adaylarin %41'i B'yi secti - en sik dusulen tuzak bu\" diyebiliriz;"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1643,
+      "satir": 1755,
       "iddia": "%50",
       "metin": "%50'sin\" demek, rakam vermemekten kotudur. */"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1688,
+      "satir": 1800,
       "iddia": "%25",
       "metin": "// %25'lik konusu olan ogrenciye \"zayif konun gorunmuyor\" dedik - sebep"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1707,
+      "satir": 1819,
       "iddia": "en az 20",
       "metin": ": ' Aday ortalaması henüz oluşmadı. Karşılaştırma, bir konuyu en az 20 aday çözünce açılır. ';"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 1711,
+      "satir": 1823,
       "iddia": "en az 20",
       "metin": "+ ' \"Adaylar\" sütunu, o konuyu en az 20 kez çözen adayların ortalamasıdır; az veri varsa boş bırakılır. Kimseye ait kişisel bilgi tutulmaz. ';"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 2075,
+      "satir": 2189,
       "iddia": "48 saat",
       "metin": "// basina yetmiyordu - sayilamiyor, 48 saat takibi olculemiyor ve en onemlisi"
     },
     {
       "sayfa": "deneme.html",
-      "satir": 2085,
+      "satir": 2199,
       "iddia": "17 gun",
       "metin": "// (17 gunde yalniz elle atilan test satiri vardi). cevap_kaydi'daki"
     },
