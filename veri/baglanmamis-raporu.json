@@ -1,23 +1,20 @@
 {
-    "tarih":  "25.08.2026 18:18",
-    "taranan_betik":  318,
-    "taranan_is_akisi":  119,
-    "cagrilmayan_betik":  [
-                              "motor/gozetim-durum-birlestir.js",
-                              "motor/kesik-madde-onar.ps1",
-                              "motor/kgk-standart-yut.ps1",
-                              "motor/kota-kur.ps1"
-                          ],
-    "commit_edilmeyen_cikti":  [
-
-                               ],
-    "toplu_ekleme_kalibi_var":  true,
-    "atesalmayan_push_dali":  [
-                                  {
-                                      "is_akisi":  "rg-nobeti.yml",
-                                      "robot_yoluna_bagli":  true,
-                                      "not":  "event_name==\u0027push\u0027 ile davranis degistiriyor. Robot push\u0027lari (GITHUB_TOKEN) is akisi TETIKLEMEZ; bu dal yalniz INSAN push\u0027unda calisir. Otomatik davranis buna baglanmissa FIILEN OLUDUR."
-                                  }
-                              ],
-    "kapsam_notu":  "MEKANIK olani arar. Calisma zamaninda olusan olu dallar (veri degeriyle kiyaslanan sabitler) ve \u0027adim hep skipped\u0027 durumu BU TARAYICIDA YOK - ilki insan okumasi, ikincisi GitHub API isi."
+  "tarih": "26.08.2026 07:10",
+  "taranan_betik": 310,
+  "taranan_is_akisi": 120,
+  "cagrilmayan_betik": [
+    "/home/runner/work/mevzuat-radar/mevzuat-radar/motor/gozetim-durum-birlestir.js",
+    "/home/runner/work/mevzuat-radar/mevzuat-radar/motor/kgk-standart-yut.ps1",
+    "/home/runner/work/mevzuat-radar/mevzuat-radar/motor/kota-kur.ps1"
+  ],
+  "commit_edilmeyen_cikti": [],
+  "toplu_ekleme_kalibi_var": true,
+  "atesalmayan_push_dali": [
+    {
+      "is_akisi": "rg-nobeti.yml",
+      "robot_yoluna_bagli": true,
+      "not": "event_name=='push' ile davranis degistiriyor. Robot push'lari (GITHUB_TOKEN) is akisi TETIKLEMEZ; bu dal yalniz INSAN push'unda calisir. Otomatik davranis buna baglanmissa FIILEN OLUDUR."
+    }
+  ],
+  "kapsam_notu": "MEKANIK olani arar. Calisma zamaninda olusan olu dallar (veri degeriyle kiyaslanan sabitler) ve 'adim hep skipped' durumu BU TARAYICIDA YOK - ilki insan okumasi, ikincisi GitHub API isi."
 }
