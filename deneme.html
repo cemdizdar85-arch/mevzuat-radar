@@ -238,6 +238,14 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <!-- 30.07 Cem (aksam): buradaki takvim kutusu KALDIRILDI - takvim ve
            cikan konular artik genc.html'deki bilgi karelerinde; kabin yalniz
            soru cozer. -->
+      <!-- 26.08 Cem "1-2-4 yap": rakip analizinden uc ozellik. Seri (streak)
+           dort ABD devinin HICBIRINDE yok - bos alan; olcum hunisi Surgent'in
+           kanitlanmis kancasi; skor karnede cizilir. -->
+      <div id="seriKutu" style="display:none;margin:0 0 12px;padding:10px 13px;border:1px solid rgba(245,165,36,.3);background:rgba(245,165,36,.06);border-radius:11px;font-size:13px"></div>
+      <div id="olcumKutu" style="margin:0 0 14px;padding:12px 14px;border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:11px">
+        <b style="font-size:14px">📊 Hazırlık Ölçümü</b> <span style="font-size:12.5px;color:var(--muted)">· 20 karışık soru, üyeliksiz, hakkını yemez — sonunda Hazırlık Skorunu görürsün.</span>
+        <button class="sec" id="olcumBtn" onclick="olcumBasla()" style="display:block;margin-top:8px">Ölçümü başlat →</button>
+      </div>
       <div class="etiket">1 · Ders seç</div>
       <div class="secgrup" id="dersSec"></div>
       <div class="etiket">2 · Soru sayısı</div>
@@ -1386,6 +1394,9 @@ function duvarGoster(){
   if(uk){ uk.classList.remove('gizli'); uk.scrollIntoView({behavior:'smooth', block:'center'}); }
 }
 function duvaraTakildiMi(){
+  // 26.08: Hazirlik Olcumu oturumu (tek seferlik 20 soru) duvara takilmaz -
+  // huninin butun amaci kayitsiza skoru TATTIRMAK (Surgent free-assessment modeli).
+  if(window.OLCUM) return false;
   /* ==== ONIZLEME-SINIRSIZ-BASI (gong.ps1 siler - ELLE DOKUNMA) ==== */
   /* 20.08 Cem: perde koduyla giren deneme cihazi soru duvarina takilmaz.
      NOT: bu duvari kaldirmak KASAYI acmaz - soru_havuzu okumasi RLS ile
@@ -1468,7 +1479,102 @@ function gorulenKaydet(id){
 // soru dogru cozulunce "Yanlislarim" havuzundan kendiliginden dusur (UWorld mantigi).
 function sicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteSoruSicil')||'{}'); }catch(e){ return {}; } }
 function sicilYaz(x){ try{ localStorage.setItem('tetikteSoruSicil', JSON.stringify(x)); }catch(e){} }
-function sicilKaydet(id, dogruMu){ var x=sicilOku(), k=x[id]||{d:0,y:0,isaret:0}; if(dogruMu){k.d++;}else{k.y++;} k.son=dogruMu?'d':'y'; x[id]=k; sicilYaz(x); }
+function sicilKaydet(id, dogruMu){ var x=sicilOku(), k=x[id]||{d:0,y:0,isaret:0}; if(dogruMu){k.d++;}else{k.y++;} k.son=dogruMu?'d':'y'; x[id]=k; sicilYaz(x); seriGuncelle(); }
+
+// ===== CALISMA SERISI (26.08, rakip analizi #4 - dort ABD devinde de YOK) =====
+// Her cevaplanmis soru gunu isler: dun de calistiysan seri buyur, gun atlarsan 1'e doner.
+function seriOku(){ try{ return JSON.parse(localStorage.getItem('mrSeri')||'{"son":"","seri":0,"enUzun":0}'); }catch(e){ return {son:'',seri:0,enUzun:0}; } }
+function seriGuncelle(){
+  try{
+    var s=seriOku(), bugun=new Date().toISOString().slice(0,10);
+    if(s.son===bugun) return;
+    var dun=new Date(Date.now()-86400000).toISOString().slice(0,10);
+    s.seri=(s.son===dun)?(s.seri+1):1;
+    if(s.seri>s.enUzun) s.enUzun=s.seri;
+    s.son=bugun;
+    localStorage.setItem('mrSeri', JSON.stringify(s));
+    seriKutuCiz();
+  }catch(e){}
+}
+function seriKutuCiz(){
+  var k=document.getElementById('seriKutu'); if(!k) return;
+  var s=seriOku(); if(!s.seri){ k.style.display='none'; return; }
+  var bugun=new Date().toISOString().slice(0,10);
+  var bugunMu=(s.son===bugun);
+  k.style.display='block';
+  k.innerHTML='🔥 <b>'+s.seri+' günlük çalışma serisi</b>'+(s.enUzun>s.seri?' <span style="color:var(--muted)">· rekorun '+s.enUzun+' gün</span>':' <span style="color:var(--muted)">· rekor sende</span>')+
+    (bugunMu?' <span style="color:var(--green)">· bugün tamam ✓</span>':' <span style="color:var(--amber)">· bugün henüz soru çözmedin, seri riskte!</span>');
+}
+document.addEventListener('DOMContentLoaded', seriKutuCiz);
+
+// ===== HAZIRLIK OLCUMU HUNISI (26.08, rakip analizi #2 - Surgent free-assessment) =====
+// Kayitsiz kullanici TEK SEFERLIK 20 karisik soru cozer, skorunu gorur, uyelige davet edilir.
+// Ders basina en fazla 3 soru: olcum tek dersten cikip yaniltmasin.
+function olcumBasla(){
+  try{ if(localStorage.getItem('mrOlcumKullanildi')==='1' && !window.UYE_MODU){
+    alert('Ölçüm hakkını kullandın — skorunun gelişimini görmek için ücretsiz üye ol.');
+    var uk=document.getElementById('uyeKapali'); if(uk){ uk.scrollIntoView({behavior:'smooth',block:'center'}); }
+    return;
+  } }catch(e){}
+  var havuz=BANKA.filter(function(s){ return sinavUyar(s); });
+  if(havuz.length<20){ alert('Ölçüm için yeterli soru yüklenemedi, sayfayı yenile.'); return; }
+  karistir(havuz);
+  var secim=[], dersSay={};
+  for(var i=0;i<havuz.length && secim.length<20;i++){
+    var dd=havuz[i].ders||'Genel';
+    if((dersSay[dd]||0)>=3) continue;
+    dersSay[dd]=(dersSay[dd]||0)+1; secim.push(havuz[i]);
+  }
+  for(var j=0;j<havuz.length && secim.length<20;j++){ if(secim.indexOf(havuz[j])<0) secim.push(havuz[j]); }
+  window.OLCUM=true; MOD='deneme';
+  document.getElementById('ekranKurulum').classList.add('gizli');
+  oturumYukle(secim, false);
+}
+document.addEventListener('DOMContentLoaded', function(){
+  // Banka 20 soruyu karsilayamiyorsa (vana kapali / yukleme hatasi) olcum kutusu
+  // hic gorunmesin - "basla" deyip alert yemek kotu ilk izlenimdir.
+  if(window.bankaHazir){ window.bankaHazir.then(function(){
+    try{ var ok=document.getElementById('olcumKutu');
+      if(ok && (!window.BANKA || BANKA.filter(function(s){return sinavUyar(s);}).length<20)){ ok.style.display='none'; }
+    }catch(e){}
+  }); }
+  try{ if(localStorage.getItem('mrOlcumKullanildi')==='1'){
+    var b=document.getElementById('olcumBtn');
+    if(b){ b.textContent='Ölçümünü gördün — üye ol, gelişimini takip et →'; b.onclick=function(){ var uk=document.getElementById('uyeKapali'); if(uk){ uk.scrollIntoView({behavior:'smooth',block:'center'}); } }; }
+  } }catch(e){}
+});
+
+// ===== HAZIRLIK SKORU (26.08, rakip analizi #1 - Surgent ReadySCORE sinifi) =====
+// Konu sicilinden ders dogruluklari, SGS'de resmi soru agirligiyla tartilir.
+// UYDURMA SKOR YOK: sinav basina 30 cozumden az veri varsa skor degil eksik soylenir.
+var SKOR_AGIRLIK_SGS={'Finansal Muhasebe':26,'Denetim':16,'Yabanci Dil':10,'Maliyet Muhasebesi':8,'Matematik':8,'Mali Tablolar Analizi':8,'Turkce':7,'Borclar Hukuku':6,'Ekonomi':6,'Maliye':6,'Vergi Hukuku':6,'Ticaret Hukuku':6,'Is ve Sosyal Guvenlik Hukuku':6,'Meslek Hukuku':6,'Ataturk Ilke ve Inkilap Tarihi':5};
+function hazirlikSkoru(sinav){
+  var ks=konuSicilOku(), ders={}, toplam=0;
+  Object.keys(ks).forEach(function(an){
+    var p=an.split('|'); if(p.length<3) return;
+    if(sinav && sinav!=='hepsi' && p[0] && p[0]!==sinav) return;
+    var d=ks[an].d||0, y=ks[an].y||0; if(!(d+y)) return;
+    var dd=p[1]||'Genel'; ders[dd]=ders[dd]||{d:0,t:0};
+    ders[dd].d+=d; ders[dd].t+=d+y; toplam+=d+y;
+  });
+  if(toplam<30) return {hazir:false, cozulen:toplam, gerekli:30};
+  var agirlikli=0, agirlikTop=0;
+  Object.keys(ders).forEach(function(dd){
+    var w=(sinav==='SGS' && SKOR_AGIRLIK_SGS[dd])?SKOR_AGIRLIK_SGS[dd]:1;
+    agirlikli+=w*(ders[dd].d/ders[dd].t); agirlikTop+=w;
+  });
+  return {hazir:true, skor:Math.round(100*agirlikli/agirlikTop), cozulen:toplam};
+}
+function skorPaneliHtml(sinav, oturumYuzde){
+  var h=hazirlikSkoru(sinav||'hepsi');
+  if(!h.hazir){
+    var kalanN=h.gerekli-h.cozulen;
+    return '<div style="border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:12px;padding:12px 15px;margin:0 0 14px;font-size:13.5px">📊 <b>Hazırlık Skorun hazırlanıyor:</b> '+h.cozulen+'/'+h.gerekli+' soru çözüldü. '+kalanN+' soru daha çöz, skorun açılsın.'+(oturumYuzde!=null?' <span style="color:var(--muted)">Bu oturum: %'+oturumYuzde+'.</span>':'')+'</div>';
+  }
+  var renk=h.skor>=70?'var(--green)':(h.skor>=50?'var(--amber)':'var(--red)');
+  var yorum=h.skor>=70?'Sınav bandındasın — temponu koru.':(h.skor>=50?'Sınıra yakınsın — zayıf derslerine yüklen.':'Daha yolun var — karnendeki kırmızı derslerden başla.');
+  return '<div style="border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:12px;padding:12px 15px;margin:0 0 14px"><span style="font-size:13px">📊 <b>Hazırlık Skorun</b> <span style="color:var(--muted)">· '+h.cozulen+' çözümden</span></span><div style="font-size:30px;font-weight:900;color:'+renk+';line-height:1.2">'+h.skor+'<span style="font-size:15px;color:var(--muted)">/100</span></div><div style="font-size:12.5px;color:var(--muted)">'+yorum+'</div></div>';
+}
 
 /* ===================== PERFORMANS KARNESI (29.07) =========================
    Cem: "Aday nereye calisacagini bilmiyor; asil satin aldigi sey bu."
@@ -1660,6 +1766,14 @@ function karneCiz(){
   SORULAR.forEach(function(s){ if(SURELER[s.id]){ topMs+=SURELER[s.id]; sureli++; } });
   var h= sureli ? ('<div style="font-size:12.5px;color:var(--muted);margin-bottom:12px">⏱ Toplam süre <b style="color:var(--ink)">'+sureFmt(topMs)+'</b> · soru başına ortalama <b style="color:var(--ink)">'+sureFmt(topMs/sureli)+'</b></div>') : '';
   if(MOD==='prova') h = provaPaneli(dogru,yanlis,bos,yuzde) + h;
+  // 26.08: Hazirlik Skoru karnenin tepesinde (rakip analizi #1); olcum
+  // oturumunda ustune uyelik CTA'si biner (huni #2 - Surgent modeli).
+  h = skorPaneliHtml(SINAV, yuzde) + h;
+  if(window.OLCUM){
+    try{ localStorage.setItem('mrOlcumKullanildi','1'); }catch(e){}
+    window.OLCUM=false;
+    h = '<div style="border:1px solid rgba(61,220,151,.4);background:rgba(61,220,151,.07);border-radius:12px;padding:14px 16px;margin:0 0 14px"><b style="font-size:15px">📊 Ölçümün tamam: 20 soruda %'+yuzde+' doğru.</b><div style="font-size:13px;color:var(--muted);margin-top:6px">Skorunun gelişimini görmek, yanlışlarını deftere yazdırmak ve her gün 15 soruyla seriyi büyütmek için <b style="color:var(--ink)">ücretsiz üye ol</b> — ölçüm sonucun kaydedilir, kaldığın yerden devam edersin.</div><a class="btn" href="#uyeKapali" style="display:inline-block;margin-top:10px">Ücretsiz üye ol →</a></div>' + h;
+  }
   h+='<h2>Ders kırılımı</h2><div class="tablosar"><table><tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Boş</th></tr>';
   Object.keys(ders).sort().forEach(function(k){ h+='<tr><td><b>'+esc(k)+'</b></td><td>'+ders[k].d+'</td><td>'+ders[k].y+'</td><td>'+ders[k].b+'</td></tr>'; });
   h+='</table></div>';
