@@ -242,6 +242,8 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
            dort ABD devinin HICBIRINDE yok - bos alan; olcum hunisi Surgent'in
            kanitlanmis kancasi; skor karnede cizilir. -->
       <div id="seriKutu" style="display:none;margin:0 0 12px;padding:10px 13px;border:1px solid rgba(245,165,36,.3);background:rgba(245,165,36,.06);border-radius:11px;font-size:13px"></div>
+      <div id="tekrarKutu" style="display:none;margin:0 0 12px;padding:10px 13px;border:1px solid rgba(120,180,255,.3);background:rgba(120,180,255,.05);border-radius:11px;font-size:13px"></div>
+      <div id="ustalikKutu" style="display:none;margin:0 0 14px;padding:12px 14px;border:1px solid var(--line2);background:var(--panel2);border-radius:11px"></div>
       <div id="olcumKutu" style="margin:0 0 14px;padding:12px 14px;border:1px solid rgba(120,180,255,.35);background:rgba(120,180,255,.06);border-radius:11px">
         <b style="font-size:14px">📊 Hazırlık Ölçümü</b> <span style="font-size:12.5px;color:var(--muted)">· 20 karışık soru, üyeliksiz, hakkını yemez — sonunda Hazırlık Skorunu görürsün.</span>
         <button class="sec" id="olcumBtn" onclick="olcumBasla()" style="display:block;margin-top:8px">Ölçümü başlat →</button>
@@ -1213,7 +1215,11 @@ function cevabiGor(tekrarMi){
   if(digerH){
     h+='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);padding:6px 0;user-select:none">▸ Diğer şıkların dersleri (neden yanlışlar?)</summary>'+digerH+'</details>';
   }
+  // 26.08 CILA V3 ALANLARI (Cem: "yapmistik deme, yap"): ana parti bu alanlari
+  // dolduracak; alan yoksa satir hic cizilmez, eski sorular bozulmaz.
+  h+=cilaV3Gorsel(s);
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
+  if(s.dayanak && s.dayanak!==s.kaynak) h+='<div class="kaynakKutu">📖 Dayanak: <b>'+esc(s.dayanak)+'</b></div>';
   h+=notKutusu(s);   // 03.08: kendi notum (UWorld/Becker'da var)
   // SIKLIK KUNYESI (SINAV-KURALLARI D9, 02.08) — 35 donemlik cikmis kitapcik
   // sayimindan. Uydurma motivasyon DEGIL olcum; sayim yoksa kunye GOSTERILMEZ.
@@ -1230,6 +1236,33 @@ function cevabiGor(tekrarMi){
   document.getElementById('gorBtn').classList.add('gizli');
   document.getElementById('devamBtn').classList.remove('gizli');
   navCiz();
+}
+
+// ===== CILA V3 GORSELLERI (26.08): sinav taktigi + notlandirici gozu +
+// cozum tablosu ({basliklar,satirlar} bicimi) + akis semasi (adim oklari) =====
+function cilaV3Gorsel(s){
+  var h='';
+  if(s.cozum_tablo && s.cozum_tablo.satirlar && s.cozum_tablo.satirlar.length){
+    var t=s.cozum_tablo, son=t.satirlar.length-1;
+    h+='<div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--accent2)">📊 Çözüm tablosu:</div><div class="yevmiye"><table>';
+    if(t.basliklar && t.basliklar.length){ h+='<tr>'; t.basliklar.forEach(function(k,i){ h+='<th'+(i>0?' style="text-align:right"':'')+'>'+esc(k)+'</th>'; }); h+='</tr>'; }
+    t.satirlar.forEach(function(sat,ri){
+      var vurgu=(ri===son && t.satirlar.length>1)?' style="background:rgba(61,220,151,.10);font-weight:900;border-top:2px solid rgba(61,220,151,.5)"':'';
+      h+='<tr'+vurgu+'>'; sat.forEach(function(c,ci){ h+='<td'+(ci>0?' style="text-align:right"':'')+'>'+esc(hucreFmt(c))+'</td>'; }); h+='</tr>';
+    });
+    h+='</table></div>';
+  }
+  if(s.akis && s.akis.length){
+    h+='<div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--accent2)">🧭 Çözüm akışı:</div><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px">';
+    s.akis.forEach(function(adim,i){
+      if(i>0) h+='<span style="color:var(--accent2);font-weight:900">→</span>';
+      h+='<span style="border:1px solid var(--line2);background:var(--panel2);border-radius:9px;padding:6px 10px;font-size:12.5px">'+esc(adim)+'</span>';
+    });
+    h+='</div>';
+  }
+  if(s.sinav_taktigi) h+='<div style="margin-top:12px;border-left:3px solid var(--accent2);background:rgba(120,180,255,.06);border-radius:0 9px 9px 0;padding:9px 12px;font-size:13px">🎯 <b>Sınav taktiği:</b> '+esc(s.sinav_taktigi)+'</div>';
+  if(s.notlandirici) h+='<div style="margin-top:8px;border-left:3px solid var(--amber);background:rgba(245,165,36,.06);border-radius:0 9px 9px 0;padding:9px 12px;font-size:13px">⚖️ <b>Notlandırıcı gözü:</b> '+esc(s.notlandirici)+'</div>';
+  return h;
 }
 
 function tl(n){ return Number(n).toLocaleString('tr-TR'); }
@@ -1479,7 +1512,86 @@ function gorulenKaydet(id){
 // soru dogru cozulunce "Yanlislarim" havuzundan kendiliginden dusur (UWorld mantigi).
 function sicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteSoruSicil')||'{}'); }catch(e){ return {}; } }
 function sicilYaz(x){ try{ localStorage.setItem('tetikteSoruSicil', JSON.stringify(x)); }catch(e){} }
-function sicilKaydet(id, dogruMu){ var x=sicilOku(), k=x[id]||{d:0,y:0,isaret:0}; if(dogruMu){k.d++;}else{k.y++;} k.son=dogruMu?'d':'y'; x[id]=k; sicilYaz(x); seriGuncelle(); }
+function sicilKaydet(id, dogruMu){ var x=sicilOku(), k=x[id]||{d:0,y:0,isaret:0}; if(dogruMu){k.d++;}else{k.y++;} k.son=dogruMu?'d':'y'; x[id]=k; sicilYaz(x); seriGuncelle(); srsKaydet(id, dogruMu); }
+
+// ===== ARALIKLI TEKRAR DESTESI - SRS (26.08, UWorld SmartCards sinifi) =====
+// Yanlis yapilan soru desteye girer (yarin gelir). Destede dogru cozulunce
+// aralik buyur (1->3->7->16->30 gun), yine yanlissa 1 gune doner. 30 gunu
+// dogru cozen soru "ogrenildi" sayilir ve desteden CIKAR.
+var SRS_ARALIK=[1,3,7,16,30];
+function srsOku(){ try{ return JSON.parse(localStorage.getItem('mrTekrarDeste')||'{}'); }catch(e){ return {}; } }
+function srsYaz(x){ try{ localStorage.setItem('mrTekrarDeste', JSON.stringify(x)); }catch(e){} }
+function srsKaydet(id, dogruMu){
+  try{
+    var x=srsOku(), k=x[id], bugun=Date.now();
+    if(!dogruMu){
+      var seviye=0;
+      x[id]={sev:seviye, due:bugun+SRS_ARALIK[0]*86400000};
+    } else if(k){
+      var yeni=(k.sev||0)+1;
+      if(yeni>=SRS_ARALIK.length){ delete x[id]; }           // ogrenildi, desteden cik
+      else { x[id]={sev:yeni, due:bugun+SRS_ARALIK[yeni]*86400000}; }
+    } else { return; }                                        // dogru + destede degil -> is yok
+    srsYaz(x); tekrarKutuCiz();
+  }catch(e){}
+}
+function srsVadesiGelen(){
+  var x=srsOku(), simdi=Date.now(), liste=[];
+  Object.keys(x).forEach(function(id){ if((x[id].due||0)<=simdi) liste.push(id); });
+  return liste;
+}
+function tekrarKutuCiz(){
+  var k=document.getElementById('tekrarKutu'); if(!k) return;
+  var due=srsVadesiGelen(), toplam=Object.keys(srsOku()).length;
+  if(!toplam){ k.style.display='none'; return; }
+  k.style.display='block';
+  k.innerHTML='🗂 <b>Tekrar desten:</b> '+toplam+' soru takipte'+
+    (due.length? ' · <b style="color:var(--amber)">'+due.length+' tanesinin vakti geldi</b> <button class="sec" onclick="tekrarBasla()" style="margin-left:8px">Desteyi çöz →</button>'
+                : ' · <span style="color:var(--green)">bugünlük tamam ✓</span> <span style="color:var(--muted)">yanlış yaptıkça deste büyür, doğru çözdükçe aralık açılır (1-3-7-16-30 gün)</span>');
+}
+function tekrarBasla(){
+  var due=srsVadesiGelen();
+  if(!due.length) return;
+  var stub={}; BANKA.forEach(function(s){ stub[s.id]=s; });
+  var secim=due.map(function(id){ return stub[id]||{id:id}; });
+  // kayitsiz/uye degilse Supabase yok -> yalniz bankada bulunanlar cozulur
+  if(!window.sb){ secim=secim.filter(function(s){ return !!s.soru; }); }
+  if(!secim.length){ alert('Destendeki sorular şu an yüklenemiyor — üye girişiyle deste her cihazda açılır.'); return; }
+  MOD='calisma';
+  document.getElementById('ekranKurulum').classList.add('gizli');
+  oturumYukle(secim, true);
+}
+document.addEventListener('DOMContentLoaded', tekrarKutuCiz);
+
+// ===== KONU USTALIK PANOSU (26.08): ders bazli dogruluk cubuklari =====
+function dersUstaligi(sinav){
+  var ks=konuSicilOku(), ders={};
+  Object.keys(ks).forEach(function(an){
+    var p=an.split('|'); if(p.length<3) return;
+    if(sinav && sinav!=='hepsi' && p[0] && p[0]!==sinav) return;
+    var d=ks[an].d||0, y=ks[an].y||0; if(!(d+y)) return;
+    var dd=p[1]||'Genel'; ders[dd]=ders[dd]||{d:0,t:0};
+    ders[dd].d+=d; ders[dd].t+=d+y;
+  });
+  return ders;
+}
+function ustalikKutuCiz(){
+  var k=document.getElementById('ustalikKutu'); if(!k) return;
+  var ders=dersUstaligi(typeof SINAV!=='undefined'?SINAV:'hepsi');
+  var adlar=Object.keys(ders).filter(function(dd){ return ders[dd].t>=5; });   // 5 cozum alti cubuk cizilmez
+  if(!adlar.length){ k.style.display='none'; return; }
+  adlar.sort(function(a,b){ return (ders[a].d/ders[a].t)-(ders[b].d/ders[b].t); });  // zayif ustte
+  var h='<b style="font-size:13.5px">📚 Ustalık panon</b> <span style="font-size:11.5px;color:var(--muted)">· zayıf ders üstte · en az 5 çözümü olan dersler</span>';
+  adlar.forEach(function(dd){
+    var o=Math.round(100*ders[dd].d/ders[dd].t);
+    var renk=o>=70?'var(--green)':(o>=50?'var(--amber)':'var(--red)');
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-top:6px;font-size:12.5px"><span style="flex:0 0 46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(dd)+'</span>'+
+       '<span style="flex:1;background:var(--panel2);border-radius:99px;height:9px;overflow:hidden"><span style="display:block;height:100%;width:'+o+'%;background:'+renk+'"></span></span>'+
+       '<b style="flex:0 0 52px;text-align:right;color:'+renk+'">%'+o+' <span style="color:var(--muted);font-weight:400;font-size:10.5px">('+ders[dd].t+')</span></b></div>';
+  });
+  k.style.display='block'; k.innerHTML=h;
+}
+document.addEventListener('DOMContentLoaded', ustalikKutuCiz);
 
 // ===== CALISMA SERISI (26.08, rakip analizi #4 - dort ABD devinde de YOK) =====
 // Her cevaplanmis soru gunu isler: dun de calistiysan seri buyur, gun atlarsan 1'e doner.
@@ -1769,6 +1881,8 @@ function karneCiz(){
   // 26.08: Hazirlik Skoru karnenin tepesinde (rakip analizi #1); olcum
   // oturumunda ustune uyelik CTA'si biner (huni #2 - Surgent modeli).
   h = skorPaneliHtml(SINAV, yuzde) + h;
+  // kurulum ekranindaki kutular bir SONRAKI ziyarete taze kalsin
+  try{ tekrarKutuCiz(); ustalikKutuCiz(); seriKutuCiz(); }catch(e){}
   if(window.OLCUM){
     try{ localStorage.setItem('mrOlcumKullanildi','1'); }catch(e){}
     window.OLCUM=false;
