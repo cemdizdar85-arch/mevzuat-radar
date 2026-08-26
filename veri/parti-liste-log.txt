@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260825015904
+Start time: 20260826020803
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/96d50af3-6d7b-4bc2-87b2-0530944abe0b.ps1'
-Process ID: 1959
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/79b3e6db-6cd0-4eea-8a1c-c2b4a15248a5.ps1'
+Process ID: 2322
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -22,11 +22,14 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 1: 100 parti (toplam 100)
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
-  sayfa 4: 79 parti (toplam 379)
+  sayfa 4: 82 parti (toplam 382)
 
-TOPLAM 379 parti bulundu.
+TOPLAM 382 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01VoU8kiyyuc7qodX1jnmGRy ended               2        0 08/26/2026 01:56:55
+msgbatch_01KzsSbGe5xo2fZVLNJccXQs ended               2        0 08/25/2026 23:32:11
+msgbatch_01XKcdySZy8Kv9WrE43fykac ended               2        0 08/25/2026 21:57:07
 msgbatch_01CBRCeeE7JPpGik8ZQvvjka ended               2        0 08/25/2026 01:50:48
 msgbatch_01XJPSw8gvBoxXetZJk57LRX ended               2        0 08/24/2026 23:28:55
 msgbatch_01FsafFiF1hPrpxHGWwuaQAx ended               3        0 08/24/2026 21:57:28
@@ -407,9 +410,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (379 kayit)
-HASADA HAZIR (ended + basarili>0): 379 parti,  sonuc
+-> veri/parti-listesi.json (382 kayit)
+HASADA HAZIR (ended + basarili>0): 382 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260825015906
+End time: 20260826020805
 **********************
