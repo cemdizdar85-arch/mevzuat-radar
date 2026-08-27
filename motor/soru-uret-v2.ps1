@@ -54,6 +54,12 @@ param(
   # tek satir yazilmaz.
   [string]$kurtarPartiler = ''
 )
+# --- HAT ON KONTROLU (25.08) -------------------------------------------------
+# Buyuk/kucuk harf cakismasi bu hatti 25.08'de BES kez sessizce curuttu.
+# Cakisma varsa bu betik HIC BASLAMAZ. Kirli olcum > hic olcmemek DEGILDIR.
+. (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'hat-onkontrol.ps1')
+HatOnKontrol $MyInvocation.MyCommand.Path
+# -----------------------------------------------------------------------------
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # 07.08: sb_secret anahtar tarayici User-Agent'iyla REDDEDILIR ("Forbidden use of
@@ -648,6 +654,50 @@ MUTLAK KURALLAR:
    kolay bolunen sayilar kullan (850, 1.200, 36.000); 733.727 / 849 gibi
    makine isteyen bolmeler YASAK. Islemin zorlugu degil KAVRAMIN tuzagi
    olculur - gercek sinav da artik boyle kuruyor.
+19. SIK BICIMI = SINAV BICIMI (27.08 arsiv dersi, Cem kurali): gercek sinavda
+   hesap sorusunun siklari YALNIZ sonuctur - "A) 1.200 TL'lik ertelenen vergi
+   varligi" gibi tutar + en fazla kisa isim etiketi. Sikka GEREKCE/HESAP YOLU
+   YAZILMAZ ("525.000 TL; 7 yillik kidem uzerinden hesaplanir" YASAK - dogru
+   cevabi ele verir). Gerekce ACIKLAMANIN isidir. Hukuk sorusunda sik tam
+   cumle olabilir ama o cumle IDDIAdir, iddianin gerekcesi sikta olmaz.
+   GERCEK CIKMIS ORNEK (bicim capasi, 2014-1 SGS): "A) 1.200 TL'lik ertelenen
+   vergi varligi B) 1.800 TL'lik ertelenen vergi yukumlulugu C) 3.000 TL'lik
+   indirilebilir gecici fark D) 4.200 TL'lik vergilendirilebilir gecici fark
+   E) 6.000 TL'lik surekli fark" - konuyu degil BICIMI ornek al.
+20. CEVAP SIZINTISI YASAGI (27.08 kor hakem: 60 sorunun 12'sinde cikti):
+   (a) celdiriciler "her durumda / hicbir sekilde / yalnizca / kesinlikle"
+   MUTLAKIYETCI kaliba yigilmasin - kalip bilen aday dogruyu bilgisiz bulur;
+   EN AZ BIR celdirici de dogru sik gibi nuansli/sartli kurulsun. (b) Dogru
+   sik tek "nuansli-uzun" sik olmasin. (c) Iki sik birbirinin birebir tersi
+   olmasin - yan yana okununca cevap sizar. (d) BUYUK harf vurgusu YALNIZ
+   olumsuz kok kelimesinde; sik metninde vurgulama yasak.
+21. KANUNI SINIR/TAVAN KURALI (27.08, Cem kurali): hesabin konusunda kanuni
+   tavan/taban/had olabilir (kidem tavani, istisna haddi, azami oran). Guncel
+   sinir dayanak metinde YOKSA senaryoyu sinira CARPMAYACAK sekilde kur ve
+   dogru sik aciklamasinda sinirin varligini bir cumleyle not et. Sinir
+   rakamini ASLA hafizadan yazma.
+22. KAVRAM KAPISI (27.08, Cem: "BDS 500 ne, ogretmiyoruz"): dogru sikkin
+   "Kural:" parcasinin ILK cumlesi dayanagin kimligini sade dille tanitir
+   ("BDS 500, 'Denetim Kaniti' standardidir; ..."). Paragraf/madde numarasi
+   tek basina anilmaz - once kavram adi, parantezde numara. Teknik jargon ilk
+   geciste yarim-cumle tanimla acilir: "anakitle (denetlenen kalemlerin tamami)".
+   DIKKAT: KYS gibi sayfa-etiketli kaynaklarda "p.N" SAYFA numarasidir,
+   paragraf atfi gibi kullanma.
+23. KAYNAK DIZGI HATASI SIKKA TASINMAZ (28.08): mevzuat.gov.tr metinlerinde
+   dizgi hatasi olabilir ("Gorevlen", "amaclan", "Odalarim" gibi). Dayanaktan
+   alinti yaparken bariz dizgi hatasini sik/aciklama metnine kopyalama;
+   kelimenin dogru yazimini kullan (hukum icerigini degistirmeden).
+24. VAKA TAKTIGI SATIRI (28.08, Cem karari "ekle"): kurgu=vaka VE
+   uzunluk=uzun ise (BDS 510/600 tipi uzun olay metni), dogru sik
+   aciklamasinin dort parcasindan SONRA ayri satirda "Vaka taktigi: ..."
+   cumlesi eklenir - adaya SINAV ANINDA zaman/okuma yonetimi ogretir.
+   Ornek yonler: once sorunun son cumlesini (ne istendigini) oku, sonra
+   metne don; tarih-tutar-taraf adlarini isaretle; takilirsan isaretle,
+   sona birak. Taktik SORUNUN kendi kurgusuna gore secilir - her soruda
+   ayni ezber cumle OLMAZ. Bu satir mevzuat icerigi tasimaz; rakam, oran,
+   sure de iceremez (dayanak-metin kurali geregi). Kisa vaka, bilgi, hesap
+   ve kayit sorularina EKLENMEZ. 400-700 karakter siniri bu satir HARIC
+   sayilir; satirin kendisi 90-200 karakter.
 
 ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>
@@ -1059,7 +1109,7 @@ function TrSayi([string]$s){
 }
 $reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*(?<esit>[=≈~])\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
 $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
-$reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
+$reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n|\(\s*yuvarlanm[ıi][şs]\s*\))'
 # 07.08 parantez destegi (aritmetik-kapisi ile IKIZ): "(a ± b) / c = d" once
 # ayri dogrulanir, kalan parantezler duz desene yarim girmesin diye silinir.
 $reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*(?<esit>[=≈~])\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
