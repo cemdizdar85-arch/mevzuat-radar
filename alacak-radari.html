@@ -609,7 +609,17 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       var turRenk = AI_TUR==='iflas'?'var(--red)':'var(--amber)';
       var drm = AI_DURUM ? (AI_DURUM_ADI[AI_DURUM]||[AI_DURUM,'var(--muted)']) : null;
       if(!turAdi && !drm){
-        sy.innerHTML='Arşivde <b style="color:var(--ink)">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+'</b> ilan var (son 1 yıl); aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. <b style="color:var(--ink)">Borçlu araması arşivin tamamında yapılır</b> — yukarıdaki alacak taraması kutusunu kullan.';
+        // 27.08 ÖLÇÜM SIRASINDA YAKALANAN İKİNCİ KUSUR: buradaki konkordato/iflas
+        // sayıları ekrandaki 60 KARTTAN sayılıyordu ("29 konkordato · 31 iflas") ve
+        // arşiv istatistiği gibi okunuyordu. Ayrıca "5.889 ilan (son 1 yıl)" derken
+        // 5.889 TÜM tabloyu sayar, tür sayaçları ise son 365 günü (5.832) — yan yana
+        // 57'lik bir çelişki duruyordu. İkisi de kasadan basılıp AÇIKÇA ayrıldı.
+        var y1='Arşivde <b style="color:var(--ink)">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+'</b> ilan var';
+        if(AI_TURSAY){
+          var tk=AI_TURSAY.konkordato||0, ti=AI_TURSAY.iflas||0, td=AI_TURSAY.diger||0;
+          y1+='; <b style="color:var(--ink)">son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+'</b> tanesi (<b style="color:var(--amber)">'+tk.toLocaleString('tr-TR')+'</b> konkordato · <b style="color:var(--red)">'+ti.toLocaleString('tr-TR')+'</b> iflas)';
+        }
+        sy.innerHTML=y1+'. Aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor. <b style="color:var(--ink)">Borçlu araması arşivin tamamında yapılır</b> — yukarıdaki alacak taraması kutusunu kullan.';
       } else {
         var bas=[];
         if(turAdi) bas.push('<b style="color:'+turRenk+';font-size:16px">'+turAdi+'</b>');
