@@ -159,11 +159,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <!-- 19.08 Cem: "yan yana koy, hangisini isterse" — tek radar / tam paket kıyaslamalı seçim -->
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
       <a href="radar-fiyat.html" style="flex:1;min-width:225px;text-decoration:none;background:var(--grad);color:#03101f;border-radius:12px;padding:13px 18px;text-align:center;box-shadow:0 6px 24px rgba(245,165,36,.35)">
-        <span style="display:block;font-weight:800;font-size:15.5px">Alacak Radarı</span>
-        <span style="display:block;font-size:12.5px;font-weight:700;opacity:.8;margin-top:2px">599 TL/ay · yalnız bu nöbet</span>
+        <!-- 27.08 Cem: "bizim adımız tetikte, burada Alacak Radarı yazıyor,
+             normal mi?" — ürün adı doğru (Tetikte = marka, Alacak Radarı =
+             o markanın nöbeti) ama düğme EYLEM söylemiyordu, menü bağlantısı
+             gibi duruyordu. Ad korundu, başına yapılacak iş yazıldı. -->
+        <span style="display:block;font-weight:800;font-size:15.5px">Alacak nöbetini başlat</span>
+        <span style="display:block;font-size:12.5px;font-weight:700;opacity:.8;margin-top:2px">599 TL/ay · Tetikte Alacak Radarı</span>
       </a>
       <a href="radar-fiyat.html" style="flex:1;min-width:225px;text-decoration:none;background:linear-gradient(135deg,rgba(61,220,151,.16),rgba(255,194,75,.08));border:1px solid rgba(61,220,151,.45);color:var(--ink);border-radius:12px;padding:12px 18px;text-align:center">
-        <span style="display:block;font-weight:800;font-size:15.5px">Tüm Radarlar</span>
+        <span style="display:block;font-weight:800;font-size:15.5px">Tüm nöbetleri başlat</span>
         <span style="display:block;font-size:12.5px;font-weight:700;color:var(--green);margin-top:2px">999 TL/ay · alacak + marka + ihale + süre</span>
       </a>
     </div>
@@ -396,6 +400,19 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     return g?JSON.parse(g):null;
   }
   var AI_ARSIV_ADET=0, AI_DURUM=null;
+  // 27.08 Cem kusuru (ekran goruntusuyle): "iflas basiyorum, kesin muhlet 1.354
+  // gorunuyor ama liste bos". KOK SEBEP: TUR suzgeci yalniz istemcideki 60 kartta
+  // calisiyordu; karar sayaclari ise ARSIV GENELINDEN geliyordu. Yani IFLAS
+  // ekraninda KONKORDATOYA ait bir rakam gosteriliyordu. Olculen gercek (27.08,
+  // son 365 gun, kasadan sayildi): iflas turunde kesin muhlet 0, gecici muhlet 0,
+  // uzatma 0, tasdik 0 — iflasin gercek dagilimi iflas/tasfiye 158, diger 198,
+  // alacak cagrisi 25, durusma 17, ret 6 (toplam 404).
+  // COZUM: tur de sunucuya gider; sayaclar ture gore sayilir.
+  // Goc: radar-app/sql/2026-08-27-alacak-vitrin-tur-suzgeci.sql
+  // Goc basilmadiysa RPC p_tur'u tanimaz -> AI_SUNUCU_TUR false'a duser, sayfa
+  // eski davranisa doner AMA sayac "bu rakamlar arsiv genelidir" serhini basar;
+  // sessizce yanlis rakam gostermez (kor kalma kurali).
+  var AI_SUNUCU_TUR=true, AI_SECILEN=null, AI_TURSAY=null, AI_SON_TARIH='', AI_BAYAT=0;
   // 20.08 KARAR DURUMU: etiketler kullanıcı diliyle, sıra ALACAKLI ÖNCELİĞİNE
   // göre — önce süresi işleyenler (çağrı/mühlet), sonra biten süreçler.
   var AI_DURUM_ADI={
@@ -421,40 +438,93 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     });
     g.innerHTML=h;
   }
-  // Durum seçimi SUNUCUDAN çeker: vitrin listesi 60 tavanlı, istemcide süzmek
-  // "kesin mühlet 1.361 ilan" derken ekranda 3 tane göstermek olurdu.
-  function aiDurumSec(k){
-    AI_DURUM=k; AI_GOSTER=8;
-    var g=document.getElementById('aiDurumlar');
-    if(g) g.style.opacity='.5';
-    sbRpc('alacak_vitrin', k?{p_durum:k}:{}).then(function(d){
-      if(d && d.ilanlar){ AI_L=d.ilanlar; aiCiz(); aiDurumCubugu(d.durumlar); }
-    }).catch(function(e){
-      var s=document.getElementById('aiSayac');
-      if(s) s.innerHTML='<span style="color:var(--red)">Durum süzgeci getirilemedi: '+aiKac(e.message||'bilinmeyen hata')+'</span>';
-    }).then(function(){ if(g) g.style.opacity='1'; });
-    aiKaydir('aiFiltreKutu');
+  // 27.08: TÜR de DURUM da SUNUCUDAN süzülür. Vitrin listesi 60 tavanlı olduğu
+  // için istemcide süzmek "kesin mühlet 1.354 ilan" derken ekranda 3 tane
+  // göstermek — ya da hiç göstermeyip "0 ilan uyuyor" demek — olurdu.
+  function aiGovde(){
+    var g={};
+    if(AI_DURUM) g.p_durum=AI_DURUM;
+    if(AI_SUNUCU_TUR && AI_TUR!=='hepsi') g.p_tur=AI_TUR;
+    return g;
   }
-  sbRpc('alacak_vitrin',{}).then(function(d){
-    if(!d) throw new Error('bos');
+  // BAYATLIK NÖBETİ (27.08): hasat kırılırsa "son 30 günde N ilan" rakamı sessizce
+  // küçülür, sayfa hâlâ canlı görünür. En yeni ilanın tarihi ölçülür; 3 günü aşan
+  // boşluk kullanıcıya AÇIKÇA yazılır (ölçemediğine kusur deme / kör kalma kuralı).
+  function aiBayatlik(iso){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(String(iso||''))) return 0;
+    var p=iso.split('-'), d=new Date(+p[0],+p[1]-1,+p[2]);
+    var b=new Date(); b.setHours(0,0,0,0);
+    return Math.max(0, Math.round((b-d)/86400000));
+  }
+  function aiDamgaBas(){
+    var e=document.getElementById('aiDamga'); if(!e) return;
+    var h='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN/TCKN ile aranabilir</span>';
+    if(AI_SON_TARIH) h+=' <span style="color:var(--dim)">· en yeni ilan '+aiKac(AI_SON_TARIH)+'</span>';
+    if(AI_BAYAT>3) h+='<div style="margin-top:6px;color:var(--red);font-weight:700">⚠️ Akış '+AI_BAYAT+' gündür yenilenmedi — aşağıdaki sayılar son çekimdendir, bugünü kapsamayabilir.</div>';
+    e.innerHTML=h;
+  }
+  // Tür düğmelerinin yanındaki rakamlar da kasadan basılır (rakam disiplini).
+  function aiTurCubugu(){
+    var g=document.getElementById('aiTurler'); if(!g||!AI_TURSAY) return;
+    var k=AI_TURSAY.konkordato||0, i=AI_TURSAY.iflas||0, dg=AI_TURSAY.diger||0;
+    var ad={hepsi:['Tümü',k+i+dg],konkordato:['Konkordato',k],iflas:['İflas',i]};
+    [].forEach.call(g.querySelectorAll('.tbtn'),function(b){
+      var a=ad[b.dataset.t]; if(!a) return;
+      b.innerHTML=a[0]+' <b style="color:var(--dim);font-weight:700">'+a[1].toLocaleString('tr-TR')+'</b>';
+    });
+  }
+  function aiUygula(d, ilk){
     AI_L=(d.ilanlar||[]);
-    aiDurumCubugu(d.durumlar);
-    AI_ILLER=(d.iller||[]);
-    AI_ARSIV_ADET=(d.adet||AI_L.length);
-    var e=document.getElementById('aiDamga');
-    if(e) e.innerHTML='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN/TCKN ile aranabilir</span>';
-    // RAKAM DISIPLINI: arsiv adedi tek yerden (kasadan) basilir, sayfaya elle yazilmaz.
-    ['aiAdet1','aiAdet2','aiAdet3'].forEach(function(id){ var n=document.getElementById(id); if(n) n.textContent=AI_ARSIV_ADET.toLocaleString('tr-TR'); });
-    // ROZET: yalnız ölçülmüş sayı basılır; alan yoksa rakamsız metin olduğu gibi kalır.
-    var rz=document.getElementById('aiRozet');
-    if(rz && d.son30>0){
-      rz.innerHTML='🚨 Son 30 günde <b style="font-size:14px">'+Number(d.son30).toLocaleString('tr-TR')+'</b> iflas ve konkordato ilanı · biri senin müşterin mi?';
+    if(d.durumlar) aiDurumCubugu(d.durumlar);
+    AI_SECILEN=(typeof d.secilenAdet==='number')?d.secilenAdet:null;
+    if(d.turSayilari){ AI_TURSAY=d.turSayilari; aiTurCubugu(); }
+    if(ilk){
+      AI_ILLER=(d.iller||[]);
+      AI_ARSIV_ADET=(d.adet||AI_L.length);
+      AI_SON_TARIH=d.enYeniTarih||((AI_L[0]||{}).tarih)||'';
+      AI_BAYAT=aiBayatlik(d.enYeniIso);
+      aiDamgaBas();
+      // RAKAM DISIPLINI: arsiv adedi tek yerden (kasadan) basilir, sayfaya elle yazilmaz.
+      ['aiAdet1','aiAdet2','aiAdet3'].forEach(function(id){ var n=document.getElementById(id); if(n) n.textContent=AI_ARSIV_ADET.toLocaleString('tr-TR'); });
+      var sc=document.getElementById('aiSonCekim');
+      if(sc && AI_SON_TARIH) sc.textContent=AI_SON_TARIH;
+      // ROZET: yalnız ölçülmüş sayı basılır; alan yoksa rakamsız metin olduğu gibi
+      // kalır. 27.08 Cem: "burası güncel alıyor deme" — rakamın yanına ÖLÇÜLEN
+      // son çekim tarihi de basılır, iddia kendi kanıtını taşır.
+      var rz=document.getElementById('aiRozet');
+      if(rz && d.son30>0){
+        rz.innerHTML='🚨 Son 30 günde <b style="font-size:14px">'+Number(d.son30).toLocaleString('tr-TR')+'</b> iflas ve konkordato ilanı · biri senin müşterin mi?'
+          +(AI_SON_TARIH?' <span style="opacity:.72">· son çekim '+aiKac(AI_SON_TARIH)+'</span>':'');
+      }
+      aiMakro();
     }
-    aiMakro(); aiCiz();
-  }).catch(function(){
-    var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.';
-    var l=document.getElementById('aiListe'); if(l) l.innerHTML='<div class="uyari">İlan akışı şu an yüklenemedi. Borçlu araması yukarıdaki kutudan yine denenebilir; sorun sürerse birazdan yenile.</div>';
-  });
+    aiCiz();
+  }
+  function aiHata(e, ilk){
+    if(ilk){
+      var d=document.getElementById('aiDamga'); if(d) d.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.';
+      var l=document.getElementById('aiListe'); if(l) l.innerHTML='<div class="uyari">İlan akışı şu an yüklenemedi. Borçlu araması yukarıdaki kutudan yine denenebilir; sorun sürerse birazdan yenile.</div>';
+      return;
+    }
+    var s=document.getElementById('aiSayac');
+    if(s) s.innerHTML='<span style="color:var(--red)">Süzgeç getirilemedi: '+aiKac(e&&e.message||'bilinmeyen hata')+'</span>';
+  }
+  function aiGetir(ilk, kaydir){
+    var g=document.getElementById('aiDurumlar'), t=document.getElementById('aiTurler');
+    if(g) g.style.opacity='.5'; if(t) t.style.opacity='.5';
+    function bitir(){ if(g) g.style.opacity='1'; if(t) t.style.opacity='1'; }
+    function tamam(d){ if(!d) throw new Error('bos'); aiUygula(d, ilk); bitir(); if(kaydir) aiKaydir('aiFiltreKutu'); }
+    sbRpc('alacak_vitrin', aiGovde()).then(tamam).catch(function(e){
+      // Göç henüz basılmadıysa p_tur'lu çağrı 404 döner: bir kez p_tur'suz dene.
+      if(AI_SUNUCU_TUR && AI_TUR!=='hepsi'){
+        AI_SUNUCU_TUR=false;
+        return sbRpc('alacak_vitrin', aiGovde()).then(tamam).catch(function(e2){ aiHata(e2, ilk); bitir(); });
+      }
+      aiHata(e, ilk); bitir();
+    });
+  }
+  function aiDurumSec(k){ AI_DURUM=k; AI_GOSTER=8; aiGetir(false,true); }
+  aiGetir(true,false);
   // 15.08 Cem "kendi verimizden yoğunluk sinyali": TCMB EVDS göçü oturana kadar,
   // elimizdeki resmî ilan havuzundan MAKRO eğilim. Sektör YOK (ilan metninde,
   // yapısal değil); yalnız il + tür (gerçek alanlar). Tek firma hükmü DEĞİL.
@@ -496,7 +566,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   // gerisi "Devamını göster" ile 20'şer açılır. Tür değişince sayaç sıfırlanır.
   var AI_GOSTER=8;
   function aiDaha(){ AI_GOSTER+=20; aiCiz(); }
-  function aiFiltre(t, kaydir){ AI_TUR=t; AI_GOSTER=8; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); if(kaydir) aiKaydir('aiFiltreKutu'); }
+  // 27.08: tür değişince KARAR DURUMU SIFIRLANIR. Yoksa "konkordato · kesin
+  // mühlet" seçiliyken İflas'a basan kullanıcı, iflasta karşılığı olmayan bir
+  // durumun içinde kalıp boş liste görüyordu (Cem'in bildirdiği kusur).
+  function aiFiltre(t, kaydir){
+    AI_TUR=t; AI_DURUM=null; AI_GOSTER=8;
+    var g=document.getElementById('aiTurler');
+    if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); }
+    aiGetir(false, kaydir);
+  }
   // 20.08 Cem "konkordato basiyorum ilanlar asagiya gelmiyor": scrollIntoView({behavior:'smooth'})
   // bazi tarayici/ayarlarda HIC ateslenmiyordu — buton olu gorunuyordu. Once yumusak denenir,
   // 450 ms sonra hala kimildamadiysa aninda goturulur. Olculen: yumusak 0 px, aninda 1471 px.
@@ -521,22 +599,33 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     });
     var ko=AI_L.filter(function(x){return x.tur==='konkordato';}).length;
     var ifl=AI_L.filter(function(x){return x.tur==='iflas';}).length;
+    // 27.08 KUSUR KAPANDI: eski sayaç "0 iflas ilan bu aramaya uyuyor" diyordu.
+    // Bu YANLIŞ HÜKÜMDÜ — liste 60 tavanlı olduğu için ekranda görünmeyen ilan
+    // "yok" sayılıyordu; oysa arşivde 404 iflas ilanı var. Toplam artık kasadan
+    // (secilenAdet) gelir; gelmiyorsa hüküm kurulmaz, şerh yazılır.
     var sy=document.getElementById('aiSayac');
     if(sy){
-      if(AI_DURUM && !q && AI_TUR==='hepsi'){
-        var da=AI_DURUM_ADI[AI_DURUM]||[AI_DURUM,'var(--muted)'];
-        sy.innerHTML='<b style="color:'+da[1]+';font-size:16px">'+da[0]+'</b> kararı taşıyan en yeni <b style="color:var(--ink)">'+AI_L.length+'</b> ilan listeleniyor. <span style="color:var(--dim)">Sayılar arşivin tamamındandır; liste en yeni 60 ile sınırlıdır.</span>';
-      } else if(q || AI_TUR!=='hepsi'){
-        var etiket = AI_TUR==='konkordato'?' konkordato':(AI_TUR==='iflas'?' iflas':'');
-        var aramaMetni=((document.getElementById('aiAra')||{}).value||'').trim();
-        sy.innerHTML='<b style="color:var(--accent2);font-size:16px">'+suz.length+'</b>'+etiket+' ilan bu aramaya uyuyor'
-          + (aramaMetni?' <span style="color:var(--dim)">· "'+aiKac(aramaMetni)+'"</span>':'')
-          + '<div style="margin-top:6px;font-size:12.5px"><a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 Bu borçlu için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>';
+      var turAdi = AI_TUR==='konkordato'?'Konkordato':(AI_TUR==='iflas'?'İflas':null);
+      var turRenk = AI_TUR==='iflas'?'var(--red)':'var(--amber)';
+      var drm = AI_DURUM ? (AI_DURUM_ADI[AI_DURUM]||[AI_DURUM,'var(--muted)']) : null;
+      if(!turAdi && !drm){
+        sy.innerHTML='Arşivde <b style="color:var(--ink)">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+'</b> ilan var (son 1 yıl); aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. <b style="color:var(--ink)">Borçlu araması arşivin tamamında yapılır</b> — yukarıdaki alacak taraması kutusunu kullan.';
       } else {
-        sy.innerHTML='Arşivde <b style="color:var(--ink)">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+'</b> ilan var (son 1 yıl); aşağıda <b style="color:var(--ink)">en yeni '+AI_L.length+'</b> tanesi listeleniyor · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. <b style="color:var(--ink)">Borçlu araması arşivin tamamında yapılır</b> — yukarıdaki alacak taraması kutusunu kullan.';
+        var bas=[];
+        if(turAdi) bas.push('<b style="color:'+turRenk+';font-size:16px">'+turAdi+'</b>');
+        if(drm)    bas.push('<b style="color:'+drm[1]+';font-size:16px">'+drm[0]+'</b>');
+        var basMetin=bas.join(' <span style="color:var(--dim)">·</span> ');
+        if(AI_SECILEN===null){
+          sy.innerHTML=basMetin+' — ekranda <b style="color:var(--ink)">'+suz.length+'</b> ilan listeleniyor. <span style="color:var(--red)">Sunucu tür süzgeci açık değil:</span> <span style="color:var(--dim)">yandaki karar sayıları arşivin GENELİNDENDİR, seçili türe ait değildir.</span>';
+        } else if(AI_SECILEN===0){
+          sy.innerHTML=basMetin+' — son 1 yılda bu seçime uyan ilan <b style="color:var(--ink)">yok</b>. <span style="color:var(--dim)">Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok demek değildir; yukarıdaki tarama kutusu arşivin tamamında arar.</span>';
+        } else {
+          sy.innerHTML=basMetin+' — son 1 yılda <b style="color:var(--ink)">'+AI_SECILEN.toLocaleString('tr-TR')+'</b> ilan var; aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor.'
+            +'<div style="margin-top:6px;font-size:12.5px"><a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 Kendi borçlun için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>';
+        }
       }
     }
-    if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu aramaya uyan ilan yok. Farklı bir ad/il dene ya da türü değiştir. Bu, "ilanı yok" anlamına gelmez, yalnız bu çekimdeki havuzda yok demektir, kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
+    if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu seçime uyan ilan listelenmedi. Türü ya da karar durumunu değiştir. Bu, aradığın firmanın "ilanı yok" anlamına gelmez — borçlu araması yukarıdaki tarama kutusundan arşivin tamamında yapılır; kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
     kutu.innerHTML = suz.slice(0,AI_GOSTER).map(function(x){
       var t=TUR[x.tur]||TUR.diger;
       // 20.08: karar durumu kartta da gorunur — listede "hangi asamada" bilgisi
@@ -579,8 +668,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <h2>Nasıl çalışır</h2>
   <div class="nasil">
     <div class="adim"><span class="no">1</span><div><b>Borçlu listeni ver.</b> Sana borcu olan firmaların VKN'lerini bir kez gir (muhasebe programından toplu alınır).</div></div>
-    <div class="adim"><span class="no">2</span><div><b>Sistem resmî ilanları her gün tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanları borçlu listenle VKN üzerinden eşleştirilir; aynı unvanlı farklı firmalar karışmaz.</div></div>
-    <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti, İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
+    <!-- 27.08 Cem: "günlük gerçekten çekiyoruz deme". ÖLÇÜLDÜ ve DOĞRU çıktı:
+         hasat .github/workflows/kaynak.yml ile günde iki kez (03:13 ve 17:13 TR)
+         koşuyor, eşleştirme robotu (uyari.yml) hasat biter bitmez tetikleniyor.
+         Yine de iddia artık HAVADA DURMUYOR: aşağıdaki "son çekim" tarihi
+         kasadaki en yeni ilandan basılır, akış durursa sayfa kendi kendini
+         ele verir (yukarıdaki bayatlık nöbeti). -->
+    <div class="adim"><span class="no">2</span><div><b>Sen girmesen de sistem tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanları günde iki kez çekilir, borçlu listenle <b>VKN üzerinden</b> eşleştirilir; aynı unvanlı farklı firmalar karışmaz. <span style="color:var(--dim)">Son çekim: <b id="aiSonCekim" style="color:var(--muted)">…</b></span></div></div>
+    <div class="adim"><span class="no">3</span><div><b>Sana ilan değil, yapılacak iş gelir.</b> "Müşterin X konkordato ilan etti, İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır — hangi maddeye dayandığı da yazılı.</div></div>
   </div>
 
   <!-- 19.08 Cem + rakip incelemesi (Creditsafe/Epiq/Findeks): ürün sayfasında derin
