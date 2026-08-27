@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260820184315
-Username: runnervm76f27\runner
-RunAs User: runnervm76f27\runner
+Start time: 20260827125418
+Username: runnervmgx7h7\runner
+RunAs User: runnervmgx7h7\runner
 Configuration Name: 
-Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/bd1fb0f9-b204-4c1a-a6c3-41d8a29e37b1.ps1'
-Process ID: 2193
+Machine: runnervmgx7h7 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b3f26b54-2e44-498f-ae3e-84695dc1e151.ps1'
+Process ID: 2196
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -46,85 +46,22 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
   ...100/3264
   ...500/3264
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
   ...600/3264
   ...700/3264
   ...800/3264
@@ -134,14 +71,33 @@ PS>TerminatingError(Invoke-WebRequest): "
   ...1200/3264
   ...1300/3264
   ...1400/3264
-  ...1600/3264
-  ...1700/3264
   ...1800/3264
   ...1900/3264
   ...2000/3264
   ...2100/3264
   ...2200/3264
   ...2300/3264
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST100",
+  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
+  "hint": null,
+  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST100",
+  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
+  "hint": null,
+  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST100",
+  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
+  "hint": null,
+  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
+}"
   ...2400/3264
   ...2500/3264
   ...2600/3264
@@ -152,37 +108,18 @@ PS>TerminatingError(Invoke-WebRequest): "
   ...3100/3264
 
 =========== KONU-KAYNAK KARNESI ===========
-  URET (kaynak var)        : 2559
-  KAYNAK YOK (once yut)    : 66
+  URET (kaynak var)        : 2625
+  KAYNAK YOK (once yut)    : 1
   MEVZUAT-DISI (elle yaz)  : 637
-  OLCULEMEDI (sorgu hatasi): 2
-  hatali sorgu toplami     : 5
+  OLCULEMEDI (sorgu hatasi): 1
+  hatali sorgu toplami     : 2
   -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi.json
 
 --- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
-    2 soru | Muhasebe                   | azalan bakiyelerden normale gecis amortismani
-    1 soru | Ekonomi                    | fayda fonksiyonu optimizasyonu
-    1 soru | Muhasebe                   | avansli satis teslim kaydi
-    1 soru | Muhasebe                   | azalan bakiyelerden esit tutara gecis
-    1 soru | Muhasebe                   | bagli ortaklik-istirak siniflamasi
-    1 soru | Muhasebe                   | banka kredisi faiz tahakkuku
-    1 soru | Muhasebe                   | bilanco duran varlik siniflamasi
-    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
-    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
-    1 soru | Muhasebe                   | cari oran-asit test hesabi
-    1 soru | Muhasebe                   | cek cirosunun bilanco esitligine etkisi
-    1 soru | Muhasebe                   | denetim amaci-prosedur eslestirmesi
-    1 soru | Muhasebe                   | denetim kaniti kiyaslamasi
-    1 soru | Muhasebe                   | duzenleyici hesap borclandirma (reeskont)
-    1 soru | Muhasebe                   | etik catismada danisilacak taraflar
-    1 soru | Muhasebe                   | faaliyet kar marjini etkilemeyenler
-    1 soru | Muhasebe                   | gelir tablosu gruplamasi (mk satis zarari)
-    1 soru | Muhasebe                   | gorus beyaninin rapordaki konumu
-    1 soru | Muhasebe                   | hazine bonosu tahsili vergi kesintili kayit
-    1 soru | Muhasebe                   | hile kaynakli yanlislikta denetci tutumu
+    1 soru | Ekonomi                    | tuketici tercih aksiyomlari
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260820194604
+End time: 20260827140920
 **********************
