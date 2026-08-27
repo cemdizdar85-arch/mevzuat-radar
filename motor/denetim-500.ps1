@@ -61,9 +61,9 @@ function Sade([string]$m){
 }
 # anlamli kelime kumesi (kisa baglaclar atilir - "ve/ile/bir" benzerligi sisirir)
 function Kume([string]$m){
-  $h = New-Object 'System.Collections.Generic.HashSet[string]'
-  foreach($w in (Sade $m) -split ' '){ if($w.Length -ge 5){ [void]$h.Add($w) } }
-  return $h
+  $hx = New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($w in (Sade $m) -split ' '){ if($w.Length -ge 5){ [void]$hx.Add($w) } }
+  return $hx
 }
 function Jaccard($a, $b){
   if($a.Count -eq 0 -or $b.Count -eq 0){ return 0.0 }
@@ -219,8 +219,8 @@ foreach($s in $sec){
 
   # G1
   $dgSay = 0; $doluYanlis = 0
-  foreach($h in $yanlisSik){
-    $a = "$($s.aciklama.$h)"; if($a.Trim().Length -eq 0){ continue }
+  foreach($hx in $yanlisSik){
+    $a = "$($s.aciklama.$hx)"; if($a.Trim().Length -eq 0){ continue }
     $doluYanlis++
     if($reDogrusu.IsMatch($a)){ $dgSay++ }
   }
@@ -242,8 +242,8 @@ foreach($s in $sec){
 
   # G3 - sikkin aciklamasi kendi sikkindan soz ediyor mu
   $ilgisiz = 0
-  foreach($h in @('A','B','C','D','E')){
-    $sik = "$($s.siklar.$h)"; $ack = "$($s.aciklama.$h)"
+  foreach($hx in @('A','B','C','D','E')){
+    $sik = "$($s.siklar.$hx)"; $ack = "$($s.aciklama.$hx)"
     if($sik.Trim().Length -lt 12 -or $ack.Trim().Length -lt 40){ continue }
     $ks = Kume $sik
     if($ks.Count -eq 0){ continue }
@@ -259,7 +259,7 @@ foreach($s in $sec){
 
   # G5 - yasakli kalip (tum aciklamalarda)
   $hepsi = ''
-  foreach($h in @('A','B','C','D','E')){ $hepsi += " " + "$($s.aciklama.$h)" }
+  foreach($hx in @('A','B','C','D','E')){ $hepsi += " " + "$($s.aciklama.$hx)" }
   if($reYasakli.IsMatch($hepsi)){ [void]$bayrak.Add('G5') }
 
   # G6 - etiket/kaynak ailesi
@@ -332,20 +332,20 @@ foreach($r in $sirali){
   [void]$sb.AppendLine("")
   [void]$sb.AppendLine("**SORU:** $($s.soru)")
   [void]$sb.AppendLine("")
-  foreach($h in @('A','B','C','D','E')){
-    $sik = "$($s.siklar.$h)"; if($sik.Trim().Length -eq 0){ continue }
-    $isaret = if("$($s.dogru)" -eq $h){ " **<-- ISARETLI DOGRU**" } else { "" }
-    [void]$sb.AppendLine("- **$h)** $sik$isaret")
+  foreach($hx in @('A','B','C','D','E')){
+    $sik = "$($s.siklar.$hx)"; if($sik.Trim().Length -eq 0){ continue }
+    $isaret = if("$($s.dogru)" -eq $hx){ " **<-- ISARETLI DOGRU**" } else { "" }
+    [void]$sb.AppendLine("- **$hx)** $sik$isaret")
   }
   [void]$sb.AppendLine("")
   [void]$sb.AppendLine("**ACIKLAMALAR (sik sik):**")
   [void]$sb.AppendLine("")
   $ackVar = $false
-  foreach($h in @('A','B','C','D','E')){
-    $ack = "$($s.aciklama.$h)"; if($ack.Trim().Length -eq 0){ continue }
+  foreach($hx in @('A','B','C','D','E')){
+    $ack = "$($s.aciklama.$hx)"; if($ack.Trim().Length -eq 0){ continue }
     $ackVar = $true
-    $im = if("$($s.dogru)" -eq $h){ "DOGRU" } else { "yanlis" }
-    [void]$sb.AppendLine("  - **$h ($im):** " + (Kirp $ack 800))
+    $im = if("$($s.dogru)" -eq $hx){ "DOGRU" } else { "yanlis" }
+    [void]$sb.AppendLine("  - **$hx ($im):** " + (Kirp $ack 800))
   }
   if(-not $ackVar){ [void]$sb.AppendLine("  - **ACIKLAMA OKUNAMADI / BOS** - INCELE") }
   [void]$sb.AppendLine("")

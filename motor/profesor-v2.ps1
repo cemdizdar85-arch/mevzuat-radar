@@ -40,6 +40,12 @@ param(
   [string]$model = 'claude-sonnet-5',
   [string]$cikti = ''
 )
+# --- HAT ON KONTROLU (25.08) -------------------------------------------------
+# Buyuk/kucuk harf cakismasi bu hatti 25.08'de BES kez sessizce curuttu.
+# Cakisma varsa bu betik HIC BASLAMAZ. Kirli olcum > hic olcmemek DEGILDIR.
+. (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'hat-onkontrol.ps1')
+HatOnKontrol $MyInvocation.MyCommand.Path
+# -----------------------------------------------------------------------------
 $ErrorActionPreference = 'Stop'
 # Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddeder.
 # (16.08.2026 olculdu: ayni sorgu UA'siz 401, UA'li 5 kayit. madde-coz.ps1
@@ -162,14 +168,14 @@ if($sorular.Count -eq 0){
 # ---------------------------------------------------------------- istem kurucu
 function IstemKur($s, $maddeMetni, $maddeEtiket){
   $sik = ""
-  foreach($h in @('A','B','C','D','E')){
-    $v = "$($s.siklar.$h)"
-    if($v.Trim().Length -gt 0){ $sik += "$h) $v`n" }
+  foreach($hx in @('A','B','C','D','E')){
+    $v = "$($s.siklar.$hx)"
+    if($v.Trim().Length -gt 0){ $sik += "$hx) $v`n" }
   }
   $ack = ""
-  foreach($h in @('A','B','C','D','E')){
-    $v = "$($s.aciklama.$h)"
-    if($v.Trim().Length -gt 0){ $ack += "$h : $v`n" }
+  foreach($hx in @('A','B','C','D','E')){
+    $v = "$($s.aciklama.$hx)"
+    if($v.Trim().Length -gt 0){ $ack += "$hx : $v`n" }
   }
   if($ack.Trim().Length -eq 0){ $ack = "(aciklama yok)" }
 
@@ -625,35 +631,35 @@ function Sadelestir([string]$t){
 $rapor = New-Object System.Collections.Generic.List[object]
 $sy = [ordered]@{ temiz=0; bayrak=0; alintiUydurma=0; hata=0 }
 foreach($i in $isler){
-  $h = $sonuclar[$i.id]
-  if(-not $h -or $h.hata){ $sy.hata++; continue }
-  $al = Sadelestir "$($h.alinti)"
+  $hx = $sonuclar[$i.id]
+  if(-not $hx -or $hx.hata){ $sy.hata++; continue }
+  $al = Sadelestir "$($hx.alinti)"
   $md = Sadelestir $i.metin
   $gecerli = ($al.Length -ge 20 -and $md.Contains($al))
   if(-not $gecerli){ $sy.alintiUydurma++ }
   if($odak -eq 'ikili'){
     # Odakli kosuda kusur tanimi DAR: tam olarak bir sik dogru olmali ve
     # isaretli cevap o sik olmali. "Madde birebir yazmiyor" burada bayrak degil.
-    $adet = [int]"$($h.dogru_sik_sayisi)"
-    $sorunlu = ($adet -ne 1) -or ("$($h.isaretli_dogru_mu)" -eq 'hayir')
+    $adet = [int]"$($hx.dogru_sik_sayisi)"
+    $sorunlu = ($adet -ne 1) -or ("$($hx.isaretli_dogru_mu)" -eq 'hayir')
     if($sorunlu){ $sy.bayrak++ } else { $sy.temiz++ }
     $rapor.Add([pscustomobject]@{
       id=$i.id; etiket=$i.etiket; odak='ikili'
-      dogru_sik_sayisi=$adet; dogru_siklar="$($h.dogru_siklar)"
-      isaretli_dogru_mu="$($h.isaretli_dogru_mu)"; isaretli="$($i.soru.dogru)"
-      gerekce="$($h.gerekce)"; alinti="$($h.alinti)"
+      dogru_sik_sayisi=$adet; dogru_siklar="$($hx.dogru_siklar)"
+      isaretli_dogru_mu="$($hx.isaretli_dogru_mu)"; isaretli="$($i.soru.dogru)"
+      gerekce="$($hx.gerekce)"; alinti="$($hx.alinti)"
       alinti_dogrulandi=$gecerli
       hukum = $(if(-not $gecerli){ 'GECERSIZ-GM-OKUSUN' } elseif($sorunlu){ 'BAYRAK' } else { 'TEMIZ' })
     })
     continue
   }
-  $sorunlu = ("$($h.destek)" -ne 'evet') -or ("$($h.tek_dogru)" -ne 'evet') -or ("$($h.celiski)" -eq 'evet')
+  $sorunlu = ("$($hx.destek)" -ne 'evet') -or ("$($hx.tek_dogru)" -ne 'evet') -or ("$($hx.celiski)" -eq 'evet')
   if($sorunlu){ $sy.bayrak++ } else { $sy.temiz++ }
   $rapor.Add([pscustomobject]@{
     id=$i.id; etiket=$i.etiket; kirpildi=$i.kirpildi
-    destek="$($h.destek)"; tek_dogru="$($h.tek_dogru)"; celiski="$($h.celiski)"
-    profesor_cevabi="$($h.dogru_sik)"; isaretli="$($i.soru.dogru)"
-    gerekce="$($h.gerekce)"; alinti="$($h.alinti)"
+    destek="$($hx.destek)"; tek_dogru="$($hx.tek_dogru)"; celiski="$($hx.celiski)"
+    profesor_cevabi="$($hx.dogru_sik)"; isaretli="$($i.soru.dogru)"
+    gerekce="$($hx.gerekce)"; alinti="$($hx.alinti)"
     alinti_dogrulandi=$gecerli
     hukum = $(if(-not $gecerli){ 'GECERSIZ-GM-OKUSUN' } elseif($sorunlu){ 'BAYRAK' } else { 'TEMIZ' })
   })

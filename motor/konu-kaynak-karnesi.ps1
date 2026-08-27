@@ -111,6 +111,16 @@ function KayitSay([string]$filtre){
 # ayni motor Yeterlilik arsivini de olcer; CI kosusu bu degiskenleri bilmez.
 $girdiAd = if($env:KARNE_GIRDI){ $env:KARNE_GIRDI } else { "sgs-analiz.json" }
 $analiz = Get-Content (Join-Path $kok "veri\$girdiAd") -Raw -Encoding UTF8 | ConvertFrom-Json
+
+# 25.08 gece — ELLE ESLESME TABLOSU ('bono aval' vakasi): anahtar-kelime adimi
+# 5 harften kisa kelimeleri atiyor ('bono'/'aval' 4'er harf -> konu hic
+# aranamiyordu) ve konu adi resmi terimle degil sinav diliyle soyluyor.
+# 66 'KAYNAK YOK' konusunun 36'si boyle sahte-eksikti. Tablo: veri/konu-kaynak-elle.json
+# Kural: tablo KANIT uretmez, sadece DOGRU SORUYU sorar - kayit sayimi yine
+# ambardan canli yapilir; 0 donerse elle eslesme gecersizdir, normal zincir kosar.
+$ELLE = @()
+$elleYol = Join-Path $kok "veri\konu-kaynak-elle.json"
+if(Test-Path $elleYol){ $ELLE = @((Get-Content $elleYol -Raw -Encoding UTF8 | ConvertFrom-Json).eslesmeler) }
 $konular = @{}
 foreach($d in @($analiz.donemler)){
   if(-not $d.konuSayim){ continue }
@@ -137,6 +147,22 @@ foreach($anahtar in ($konular.Keys | Sort-Object)){
   # 18.08: hiz siniri sigortasi - sorgular arasi kisa nefes
   Start-Sleep -Milliseconds 120
   $script:sorguHata = $false
+
+  # 0) elle eslesme tablosu (25.08) - desen konuya uyarsa rx ile ambar CANLI sayilir
+  $elleVurdu = $false
+  foreach($e in $ELLE){
+    if($konu -imatch $e.konu){
+      $q = if($e.tip -eq 'kaynak'){ 'kaynak_ad=ilike.' + [uri]::EscapeDataString($e.rx) }
+           else { $rxE=[uri]::EscapeDataString($e.rx); "or=(metin.imatch.$rxE,kaynak_ad.imatch.$rxE,baslik.imatch.$rxE)" }
+      $elleSayi = KayitSay $q
+      if($elleSayi -gt 0){
+        $karne.Add([ordered]@{ ders=$ders; konu=$konu; cikmisSoru=$adet; ambarKayit=$elleSayi; karar='URET'; not=("elle eslesme: " + $e.rx + " (" + $e.gerekce + ")") })
+        $say['URET']++; $elleVurdu = $true
+      }
+      break
+    }
+  }
+  if($elleVurdu){ continue }
 
   # 1) konuda standart atfi var mi (tms 40, tfrs 15, bds 260)
   $std = [regex]::Match($konu, '(tms|tfrs|bds)\s*(\d{1,3})', 'IgnoreCase')

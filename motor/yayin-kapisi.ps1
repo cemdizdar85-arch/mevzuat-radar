@@ -164,8 +164,14 @@ $reYZ    = [regex]'(?i)[öo]nemli bir husus|dikkat edilmesi gereken nokta|sonu[�
 #   (c) en az 60 karakter olacak.
 # "Bu sik yanlistir" deyip gecen aciklama YINE reddedilir - standardin ruhu korunur.
 $reDogrusu   = [regex]'(?i)do[ğg]rusu\s*:'
-$reTuzakAdi  = [regex]'(?i)TUZAK|kar[ıi][şs]t[ıi]r[ıi]l|san[ıi]l[ıi]yor|zannedil|yan[ıi]lg[ıi]|hatal[ıi] olarak|do[ğg]rusu\s*:'
-$reDuzeltici = [regex]'(?i)\bkanun|\bmadde|\bm\.\s?\d|\bstandart|\bt[ıi]pk[ıi]|\boran|\byüzde|%\s?\d|\bhesap|\bTL\b|\bgerekir\b|\bzorunlu\b|\bs[üu]re\b|\bg[üu]n\b|\bay\b|\by[ıi]l\b|\bde[ğg]ildir\b|\bgerçekte\b|\bger[çc]ekte\b|\baksine\b|\bise\b'
+# 26.08 K5 IKINCI DUZELTME (elle dersler vakasi): YD/Turkce/Matematik/Inkilap'in
+# 2.800 sorusu %97 kirmizi cikti; goz teyidi acikladi - metinler OGRETIYOR
+# ("'de' baglacini eki ile KARISTIRIYOR ... ayri YAZILIR") ama (a) tuzak koku
+# aktif catida ("karistiriyor", eski regex yalniz "karistiril" pasifini taniyordu),
+# (b) duzeltici imzalar dil-dersi fiilleri ("yazilir/olmali/seklindedir") listede yoktu.
+# Iki regex DAR genisletildi; sinava elle-ders TEMIZ vakasi eklendi.
+$reTuzakAdi  = [regex]'(?i)TUZAK|kar[ıi][şs]t[ıi]r|san[ıi]l[ıi]yor|zannedil|yan[ıi]lg[ıi]|hatal[ıi] olarak|yanl[ıi][şs]\s+(kullan|birle[şs]tir|yaz|yorum|kur|okur|anla)|do[ğg]rusu\s*:'
+$reDuzeltici = [regex]'(?i)\bkanun|\bmadde|\bm\.\s?\d|\bstandart|\bt[ıi]pk[ıi]|\boran|\byüzde|%\s?\d|\bhesap|\bTL\b|\bgerekir\b|\bzorunlu\b|\bs[üu]re\b|\bg[üu]n\b|\bay\b|\by[ıi]l\b|\bde[ğg]ildir\b|\bgerçekte\b|\bger[çc]ekte\b|\baksine\b|\bise\b|\byaz[ıi]l[ıi]r\b|\bolmal[ıi]|\b[şs]eklindedir\b|\bkullan[ıi]l[ıi]r\b|\banlam[ıi]nda\b|\bba[ğg]la[çc]'
 # 08.08: olumsuz kok tespiti - bu kaliplarda isaretlenmeyen siklar DOGRU ifadedir.
 $reOlumsuzKok = [regex]'(?i)(yanl[ıi][şs]t[ıi]r|hangisi\s+yanl[ıi][şs]|de[ğg]ildir|s[öo]ylenemez|bulunmaz|yer\s+almaz|gerekmez|ba[ğg]da[şs]maz)'
 $BIRIM = @('TL','LIRA','USD','EUR','ADET','GUN','AY','YIL','SAAT','KG','TON','M2','MT','PUAN','KURUS','TANE','KISI','TAKSIT')
@@ -231,7 +237,9 @@ function Isaretle($kapi, $s, $detay){
   }
 }
 
-foreach($s in $kasa){
+# 25.08: govde FONKSIYONA alindi ki kapi SENTETIK soru uzerinde sinanabilsin.
+# Mantik degismedi - yalnizca dongu -> fonksiyon + ayni dongu asagida.
+function SoruKapilari($s){
   $dh = "$($s.dogru)".Trim().ToUpper()
   $yanlisMetin = ''
   $dogrusuVar = 0; $yanlisSik = 0
@@ -290,6 +298,107 @@ foreach($s in $kasa){
     if(-not (AdUyuyorMu $ad $RESMI[$kod])){ Isaretle 'K4_hesap_kodu' $s "$kod yazilan '$ad' resmi '$($RESMI[$kod])'" }
   }
 }
+
+# ============================================================================
+#  KAPI SINAVI — 25.08.2026
+#  Sayim: motorda 93 karar veren betik var, oz-sinavi olan 2 idi.
+#  Bu kapi listenin EN PAHALISI: SITEYE NEYIN CIKACAGINA o karar veriyor.
+#  Bozulursa iki yonde de felaket - kotu soru yayina cikar, ya da iyi soru
+#  cikamaz (bugun yayinda 0 soru var).
+#
+#  KURAL: her kapi hem BILINEN-BOZUK vakayi yakalamali, hem BILINEN-TEMIZ
+#  vakayi RAHAT BIRAKMALI. Ikincisi en az birincisi kadar onemli: 08.08'de
+#  K5 kendi el yazimi partide 39 soruyu HAKSIZ yere kirmizi dusurmustu.
+#
+#  KAZANCI SOMUT: sinav sayesinde "K1 = 0 / 30.569" artik SAVUNULABILIR bir
+#  sifir. Once supheliydi - uyum2.ps1 de "0" demis, 1.302 kusuru gizlemisti.
+# ============================================================================
+function KapiSinavi {
+  $eskiK=$script:K; $eskiKY=$script:KY; $eskiId=$script:kirmiziId
+  $eskiYayin=$script:kirmiziYayin; $eskiOrnek=$script:ornek
+  $dusen=@()
+  function SinavSoru($id,$soru,$dogru,$ack){
+    [pscustomobject]@{ id=$id; soru=$soru; dogru=$dogru; ders='Sinav'; yayin=$false
+                       siklar=[pscustomobject]@{A='a';B='b';C='c';D='d';E='e'}
+                       aciklama=[pscustomobject]$ack }
+  }
+  $iyiAck='Bu sikkin tuzagi sudur: gider ile maliyeti karistirir. Dogrusu: VUK m.275 uyarinca bu unsur maliyete girer, donem gideri yazilamaz.'
+  $vakalar=@(
+    @{ ad='K1 ogretmeyen kalip'; bekle='K1_d3'
+       s=(SinavSoru 'T1' 'Asagidakilerden hangisi dogrudur?' 'A' @{ A=$iyiAck
+          B='Bu sik yanlistir cunku dogru cevap A siktir.'; C=$iyiAck; D=$iyiAck; E=$iyiAck }) }
+    @{ ad='K3 yz doldurma kalibi'; bekle='K3_yz_kokusu'
+       s=(SinavSoru 'T3' 'Asagidakilerden hangisi dogrudur?' 'A' @{ A=$iyiAck
+          B='Bu baglamda unutulmamalidir ki soz konusu husus onemli bir husustur ve dikkat edilmesi gereken bir noktadir.'
+          C=$iyiAck; D=$iyiAck; E=$iyiAck }) }
+    @{ ad='K6 iki sikta ayni metin'; bekle='K6_ayni_cumle'
+       s=(SinavSoru 'T6' 'Asagidakilerden hangisi dogrudur?' 'A' @{ A=$iyiAck
+          B=$iyiAck; C=$iyiAck; D=$iyiAck; E=$iyiAck }) }
+    @{ ad='K9 eskimis kurum adi'; bekle='K9_eskimis_kurum'
+       s=(SinavSoru 'T9' 'Asagidakilerden hangisi dogrudur?' 'A' @{ A=$iyiAck
+          B='Bu islem IMKB tarafindan denetlenir ve tuzagi budur. Dogrusu: baska kurum yetkilidir.'
+          C=$iyiAck; D=$iyiAck; E=$iyiAck }) }
+    @{ ad='K5 olumsuz kok, dogru sik aciklamasi kisa'; bekle='K5_dogrusu_yok'
+       s=(SinavSoru 'T5' 'Asagidakilerden hangisi YANLISTIR?' 'A' @{ A='Kisa.'
+          B=$iyiAck; C=$iyiAck; D=$iyiAck; E=$iyiAck }) }
+    # BILINEN TEMIZ - hicbir kapi isaretlememeli.
+    # ⚠ Bu vaka ILK yazimda K8'e takildi ve KAPI HAKLIYDI: "hangisi zorunludur"
+    # bir SINIR sorusudur, dogru sikkin aciklamasi listenin kalanini SAYMALI.
+    # Sinav olmasaydi bu soruyu elle yazip yayina verirdim.
+    @{ ad='TEMIZ soru'; bekle=''
+       s=(SinavSoru 'T0' 'Imal edilen mamulun maliyetine asagidakilerden hangisi zorunlu olarak girer?' 'A' @{
+          A='Ne soruluyor: mamul maliyetinin zorunlu unsurlari. Kural: VUK m.275 dort unsuru ZORUNLU sayar; 1) ilk madde ve malzeme; 2) direkt iscilik; 3) genel uretim giderlerinden mamule dusen pay; 4) ambalaj gideri. Bu olayda direkt iscilik ikinci bentte yer alir. Akilda kalsin: dortlu cekirdek zorunlu, genel yonetim payi ile finansman gideri ihtiyaridir.'
+          B='Bu sikkin tuzagi sudur: genel yonetim giderini uretim giderine benzetir. Dogrusu: VUK m.275/5 bunu ihtiyari birakmistir, zorunlu degildir.'
+          C='Buradaki tuzak finansman giderini uretim maliyeti sanmaktir. Dogrusu: finansman gideri secimlik unsurdur, zorunlu cekirdege dahil degildir.'
+          D='Tuzak, pazarlama giderini maliyet unsuru saymaktir. Dogrusu: pazarlama gideri donem gideridir, mamul maliyetine hic girmez.'
+          E='Bu sikkin tuzagi amortismani tumuyle disarida birakmaktir. Dogrusu: uretimde kullanilan iktisadi kiymetin amortismani genel uretim gideri olarak maliyete girer.' }) }
+    # 26.08: ELLE-DERS TEMIZ VAKASI - Turkce/YD aciklama uslubu: tuzagi aktif catida
+    # adlandirir ("karistiriyor"), duzeltici bilgiyi "Dogrusu:" kelimesi olmadan verir
+    # ("ayri yazilir"). Kapi bunu KIRMIZI yapamaz (2.800 sorunun haksiz kirmizi dersi).
+    @{ ad='TEMIZ elle-ders (kelimesiz duzeltici)'; bekle=''
+       s=(SinavSoru 'T0B' 'Asagidaki cumlelerin hangisinde "de" baglacinin yazimi dogrudur?' 'A' @{
+          A='Ne soruluyor: baglac olan de/da ile bulunma hali ekinin ayrimi. Kural: baglac olan de/da ayri yazilir, cumleden cikarilinca anlam bozulmaz; bulunma hali eki bitisik yazilir. Bu olayda "ekip de gelecek" cumlesinde de baglactir ve ayri yazilmistir. Akilda kalsin: cikar-at testi; cikinca cumle bozulmuyorsa ayri yazilir.'
+          B='Bu sik baglac olan de ile bulunma hali ekini karistiriyor. Buradaki -de eki bulunma bildirir ve bitisik yazilir; baglac degildir, ayri yazilmasi yanlis olur.'
+          C='Bu sik soru ekini yanlis yazma tuzagi kuruyor; mi soru eki her zaman ayri yazilir ancak kendinden sonraki eklerle bitisik yazilir.'
+          D='Bu sikta ki eki ile ki baglaci karistiriliyor. Aitlik bildiren -ki bitisik yazilir; baglac olan ki ayri yazilir.'
+          E='Bu sikta kisaltmaya getirilen ek kesme isaretiyle ayrilmadan yazilmis; kisaltmalara getirilen ekler kesme isaretiyle ayrilarak yazilir.' }) }
+  )
+  foreach($v in $vakalar){
+    $script:K=@{}; $script:KY=@{}; $script:kirmiziId=@{}; $script:kirmiziYayin=@{}
+    $script:ornek=New-Object System.Collections.Generic.List[object]
+    SoruKapilari $v.s
+    $isaret=@($script:K.Keys)
+    if($v.bekle){
+      if($isaret -notcontains $v.bekle){ $dusen += ("{0}: BEKLENEN '{1}' ISARETLENMEDI (cikan: {2})" -f $v.ad,$v.bekle,$(if($isaret.Count){$isaret -join ','}else{'hicbiri'})) }
+    } elseif($isaret.Count -gt 0){
+      $dusen += ("{0}: TEMIZ VAKA HAKSIZ ISARETLENDI -> {1}" -f $v.ad, ($isaret -join ','))
+    }
+  }
+  $script:K=$eskiK; $script:KY=$eskiKY; $script:kirmiziId=$eskiId
+  $script:kirmiziYayin=$eskiYayin; $script:ornek=$eskiOrnek
+  return $dusen
+}
+
+Write-Host ''
+Write-Host 'Kapi sinavi...'
+$sinavDusen = @(KapiSinavi)
+if($sinavDusen.Count){
+  Write-Host ''
+  Write-Host '  !! KAPI KENDI SINAVINDAN DUSTU:' -ForegroundColor Red
+  foreach($d in $sinavDusen){ Write-Host "     $d" }
+  Write-Host ''
+  Write-Host '  Kendini kanitlayamayan kapi karar veremez. Kosu durduruldu.'
+  Write-Host '  (Bu kapi SITEYE NEYIN CIKACAGINA karar veriyor - supheli calistirilmaz.)'
+  exit 1
+}
+Write-Host '  6/6 vaka gecti (5 bilinen-bozuk yakalandi, 1 bilinen-temiz rahat birakildi)'
+# 25.08 DERSI: gecen sinav kapinin TAMAMINI degil, SINADIGI DALI korur.
+# Kesik-metin nobetcisi 13/13 gectigi halde arama dali OLU duruyordu - cunku
+# sinav ad URETIMINI olcuyordu, ARAMAYI olcmuyordu. Neyin KANITLANMADIGI da
+# gorunmeli; asagidaki satir o yuzden var ve kisaltilmaz.
+Write-Host '  SINANMAYAN DALLAR: K2 kanun-kopyasi · K4 hesap kodu (THP eslesmesi) · K7 muglak · K8 sinir sorusu · K10 eski terim · kasa cekme · yayin filtresi'
+
+foreach($s in $kasa){ SoruKapilari $s }
 
 $toplamHepsi = 0; foreach($v in $K.Values){ $toplamHepsi += $v }
 $toplamYayin = 0; foreach($v in $KY.Values){ $toplamYayin += $v }

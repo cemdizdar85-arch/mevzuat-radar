@@ -123,11 +123,11 @@ foreach($s in $sec){
   [void]$sb.AppendLine("")
   [void]$sb.AppendLine("**SORU:** $($s.soru)")
   [void]$sb.AppendLine("")
-  foreach($h in @('A','B','C','D','E')){
-    $sik = "$($s.siklar.$h)"
+  foreach($hx in @('A','B','C','D','E')){
+    $sik = "$($s.siklar.$hx)"
     if($sik.Trim().Length -eq 0){ continue }
-    $isaret = if("$($s.dogru)" -eq $h){ " **<-- ISARETLI DOGRU**" } else { "" }
-    [void]$sb.AppendLine("- **$h)** $sik$isaret")
+    $isaret = if("$($s.dogru)" -eq $hx){ " **<-- ISARETLI DOGRU**" } else { "" }
+    [void]$sb.AppendLine("- **$hx)** $sik$isaret")
   }
   [void]$sb.AppendLine("")
   # 02.08 (Cem hatirlatmasi): "her cevaba karsilik adayin konuyu nasil
@@ -139,12 +139,12 @@ foreach($s in $sec){
   [void]$sb.AppendLine("**ACIKLAMALAR (sik sik - ogretiyor mu?):**")
   [void]$sb.AppendLine("")
   $ackVar = $false
-  foreach($h in @('A','B','C','D','E')){
-    $ack = "$($s.aciklama.$h)"
+  foreach($hx in @('A','B','C','D','E')){
+    $ack = "$($s.aciklama.$hx)"
     if($ack.Trim().Length -eq 0){ continue }
     $ackVar = $true
-    $im = if("$($s.dogru)" -eq $h){ "DOGRU" } else { "yanlis" }
-    [void]$sb.AppendLine("  - **$h ($im):** " + (Kirp $ack 700))
+    $im = if("$($s.dogru)" -eq $hx){ "DOGRU" } else { "yanlis" }
+    [void]$sb.AppendLine("  - **$hx ($im):** " + (Kirp $ack 700))
   }
   if(-not $ackVar){
     $duz = "$($s.aciklama)"

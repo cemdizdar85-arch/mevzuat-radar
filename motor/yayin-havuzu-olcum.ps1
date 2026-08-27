@@ -49,6 +49,10 @@ if($gm){ foreach($id in @($gm.idler)){ Ekle $kara "$id" 'GM-okuyucu-kusurlu' $se
 # --- yakin kopya (her gruptan biri tutuldu, digerleri dislandi — 13.08 Cem onayi)
 $kop = Oku 'kopya-dislanan.json'
 if($kop){ foreach($id in @($kop.idler)){ Ekle $kara "$id" 'KOPYA-dislanan' $sebepSayac } }
+# --- ic monolog sizintisi (25.08 gece — 50'lik orneklem idx12 dersi: uretici
+#     modelin coken ic konusmasi aciklama olarak yayinlanmis; motor/ic-monolog-tarama.ps1)
+$icm = Oku 'ic-monolog-raporu.json'
+if($icm){ foreach($id in @($icm.idler)){ Ekle $kara "$id" 'IC-MONOLOG' $sebepSayac } }
 
 # --- K1-K10 temiz liste
 $temiz = Oku 'yayin-kapisi-temiz-idler.json'

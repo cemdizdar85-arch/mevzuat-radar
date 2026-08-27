@@ -54,6 +54,12 @@ param(
   # tek satir yazilmaz.
   [string]$kurtarPartiler = ''
 )
+# --- HAT ON KONTROLU (25.08) -------------------------------------------------
+# Buyuk/kucuk harf cakismasi bu hatti 25.08'de BES kez sessizce curuttu.
+# Cakisma varsa bu betik HIC BASLAMAZ. Kirli olcum > hic olcmemek DEGILDIR.
+. (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'hat-onkontrol.ps1')
+HatOnKontrol $MyInvocation.MyCommand.Path
+# -----------------------------------------------------------------------------
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # 07.08: sb_secret anahtar tarayici User-Agent'iyla REDDEDILIR ("Forbidden use of
@@ -1059,7 +1065,7 @@ function TrSayi([string]$s){
 }
 $reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*(?<esit>[=≈~])\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
 $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
-$reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
+$reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n|\(\s*yuvarlanm[ıi][şs]\s*\))'
 # 07.08 parantez destegi (aritmetik-kapisi ile IKIZ): "(a ± b) / c = d" once
 # ayri dogrulanir, kalan parantezler duz desene yarim girmesin diye silinir.
 $reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*(?<esit>[=≈~])\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
