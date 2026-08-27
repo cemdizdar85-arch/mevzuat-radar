@@ -33,6 +33,10 @@ Get-ChildItem $dir -Filter *.json | ForEach-Object {
   $d = Get-Content $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach($b in @($d.belgeler)){
     if(-not $b.kaynak_ad -or -not $b.metin){ continue }
+    # 28.08 TEK-YAZAR KURALI: standart-madde (TMS/TFRS/BDS/GDS/KYS) bu betigin
+    # kapsami DISI - tek yazari standart-yut/kgk-standart-yut (KGK'dan dogrudan
+    # Supabase). 27.08 kiyimi iki-yazarli turden cikti; tur basina tek yazar.
+    if("$($b.tur)" -eq 'standart-madde'){ continue }
     $k = "$($b.kaynak_ad)"
     if($gorulen.ContainsKey($k)){ continue }
     $gorulen[$k] = $true
@@ -59,7 +63,7 @@ if($hepsi.Count -eq 0){ exit 0 }
 # 27.08 deseni). Mesru topyekun icin ZORLA_TOPYEKUN=1 (insan karari).
 if("$($env:ZORLA_TOPYEKUN)" -ne '1'){
   $canliAd = @{}
-  foreach($t in @('teori-notu','standart-madde','teblig','kanun-madde')){
+  foreach($t in @('teori-notu','teblig','kanun-madde')){
     $ofs=0
     while($true){
       $sayfa = @(Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&tur=eq.$t&limit=1000&offset=$ofs" -Headers $H -TimeoutSec 120)
@@ -96,7 +100,9 @@ if("$($env:ZORLA_TOPYEKUN)" -ne '1'){
 # sonra digerine gecilir. Boylece ayni anda yalnizca TEK tur bos kalir ve
 # penceresi kendi buyuklugu kadar surer. (Tam sifir pencere icin surum-kolonlu
 # mavi-yesil takas gerekir; o sema degisikligi istiyor, ayri is olarak duruyor.)
-$SILINECEK = @('teori-notu','standart-madde','teblig','kanun-madde')   # kucukten buyuge
+# 28.08: 'standart-madde' listeden CIKARILDI - tek yazari KGK yutucusu; bu
+# betik artik o tura ne yazar ne dokunur (KURAL: ekledigini siler, eklemedigine dokunmaz)
+$SILINECEK = @('teori-notu','teblig','kanun-madde')   # kucukten buyuge
 function TurSil($t){
   $tur_silinen = 0
   while($true){
