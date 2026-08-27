@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260827093943
-Username: runnervmgx7h7\runner
-RunAs User: runnervmgx7h7\runner
+Start time: 20260827130907
+Username: runnervm76f27\runner
+RunAs User: runnervm76f27\runner
 Configuration Name: 
-Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ca5b780c-7a01-45b1-b6aa-a0205a32fd3a.ps1'
-Process ID: 11031
+Machine: runnervm76f27 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/9cd86670-f23c-4223-8726-539be4e4f9ab.ps1'
+Process ID: 10975
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -17,28 +17,44 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 14
+Degisen madde : 482
 Haritadaki sayfa: 24
-  ayristirilan cift: 0
-  AYRISTIRILAMAYAN 14 kayit (gozden kacmasin diye yaziliyor):
-     BDS 315 p.3 - İç Denetim Fonksiyonunun Sorgulanması
-     BDS 315 p.4 - İç Denetim Fonksiyonunun Sorgulanması
-     TFRS 15 p.B88 - Ayrıştırılmış Hasılatın Açıklanması
-     TFRS 15 p.C5 - Geçiş
-     TFRS 15 p.C8 - Kullanılan uygulamalar ve
-     TFRS 16 p.0 - Künye ve yürürlük
-     TFRS 16 p.C8 - Daha önce faaliyet kiralaması olarak sınıflandırılmış kiralamalar
-     TFRS 17 p.0 - Künye ve yürürlük
-     TFRS 17 p.B115 - Gruba eklenen yeni sözleşmelerin etkisi (bakınız: 28’inci paragraf),
-     TFRS 17 p.B134 - C18 C19 C19A
-     TFRS 17 p.C1 - Yürürlük tarihi
-     TFRS 17 p.C8 - C14C C14D
-     TFRS 5 p.1 - Kapsam
-     TFRS 5 p.3 - Kapsam
+  ayristirilan cift: 15
+  AYRISTIRILAMAYAN 467 kayit (gozden kacmasin diye yaziliyor):
+     TTK (6102 s.K.) gec. m.15 (gec/ek serisi - normal madde ile eslestirilmedi)
+     BDS 200 p.0 - Künye ve yürürlük
+     BDS 200 p.10 - Yürürlük Tarihi
+     BDS 200 p.13 - Tanımlar
+     BDS 200 p.17 - Yeterli ve Uygun Denetim Kanıtı ve Denetim Riski
+     BDS 200 p.21 - BDS’lerde Belirtilen Amaçlar
+     BDS 200 p.6 - Finansal Tabloların Denetimi
+     BDS 200 p.A48 - Tespit Edememe Riski
+     BDS 200 p.A52 - Denetim Prosedürlerinin Niteliği
+     BDS 200 p.A57 - Denetimin Yapısal Kısıtlamalarını Etkileyen Diğer Hususlar
+     BDS 200 p.A76 - BDS’lerde Belirtilen Amaçlar (Bkz.: 21 inci paragraf)
+     BDS 200 p.A80 - İlgili Hükümlere Uyma (Bkz.: 22 nci paragraf)
+     BDS 220 p.0 - Künye ve yürürlük
+     BDS 220 p.12 - Tanımlar
+     BDS 220 p.18 - Bağımsızlıkla İlgili Olanlar Dâhil, Etik Hükümler
 
-Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
-(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
+======================================================================
+  KANUN DEGISTI - 3 SAYFA ETKILENDI
+======================================================================
+  kontrol-listesi.html
+      <- TTK (6102 s.K.) m.332
+  kurulus-evrak.html
+      <- TTK (6102 s.K.) m.332
+      <- TTK (6102 s.K.) m.580
+  kurulus.html
+      <- TTK (6102 s.K.) m.332
+      <- TTK (6102 s.K.) m.580
+
+  Bu sayfalar OKUNUP GUNCELLENMEDEN dogru sayilmaz.
+  -> veri/dayanak-uyari.json
+
+  KOSU BILEREK KIRMIZI BITIYOR: sessiz rapor okunmaz. Bu depoda dort
+  katman 'kuruldu ama kimse gormedi' diye bekledi; bu besincisi olmayacak.
 **********************
 PowerShell transcript end
-End time: 20260827093943
+End time: 20260827130907
 **********************
