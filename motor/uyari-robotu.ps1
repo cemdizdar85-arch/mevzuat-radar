@@ -191,7 +191,12 @@ foreach($f in $firmalar){
     if($mevcut.ContainsKey($ak)){ continue }
     $mevcut[$ak] = $true
     $yeni.Add([ordered]@{ firma_id=$f.id; user_id=$f.user_id; tur=$b.tur; baslik=$b.baslik; detay=$b.detay; url=$b.url; onem=$b.onem })
-    if($f.email){
+    # 27.08 TESLİM TEYİDİ: alacak uyarıları bu özet maile GİRMEZ. Onları
+    # motor/teslim-teyidi.ps1 kendi adanmış mailiyle gönderir — çünkü tek
+    # kritik uyarı odur (İİK süresi işliyor) ve "Okudum, işleme aldım"
+    # düğmesiyle teyit alınana kadar merdiven halinde tekrar edilir.
+    # Buradan da gönderilseydi kullanıcı aynı gün iki mail alırdı.
+    if($f.email -and $b.tur -ne 'alacak'){
       if(-not $mailKuyruk.ContainsKey($f.id)){ $mailKuyruk[$f.id] = @{ email=$f.email; ad=$f.firma_adi; satirlar=@() } }
       $mailKuyruk[$f.id].satirlar += "• [$($b.tur.ToUpper())] $($b.baslik)"
     }
