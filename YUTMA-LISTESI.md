@@ -584,3 +584,14 @@ tek tebliğ yazamadı) — bash'e seyrek filtresi + 120'lik ilk-kez tavanı + 2 
 - Sebep: kor hakem turu SMMM-19 reeskont sorusunda ic iskonto yontemini teyit edemedi (tebliğ ambarda yoktu)
 - Kaynak: Lexpera orijinal RG metni (GIB node 88514 olu, mevzuat.gov.tr fihristte 238 yok - MevzuatNo=12300 385 cikti)
 - Geri okuma: 6/6 parca, 'F = A - [A x 360/(360+m x t)]' formulu ve 'kisa vadeli avans' ifadesi sondajla teyit edildi
+
+## 28.08.2026 - TARAMA-2 EKSIKLERI KAPANISI (6 mevzuat + BDS 210 + 28 teori notu)
+- SPK Kredili Islemler Tebligi (V-65): 47 parca, SPK API kaynakli, yururluk 3 kanitla teyitli, m.7 birebir
+- Teminatli MK Tebligi (III-59.1): 56 parca konsolide (III-59.1a = degisiklik tebligi), m.21 birebir; EKLER yutulmadi (PDF icermiyor)
+- BDDK Ozkaynak Yon. (2013): 41 parca, resmi hat, %99,8, manifest+push ajan tarafindan (827de989)
+- BDDK Bankalar THP (Kurul metni, DokumanGetir/1043): 282 kayit TAM belge; mevzuat.gov.tr tutmuyor
+- Asgari Ucret Yon. (G7:5454): 19/19 birebir, m.7 sondaj isabet
+- TURMOB Birlik Yon. (G7:4661): 70 parca, 14.1.2026 degisikligi isli, %99,77
+- BDS 210: 6->66 parca (A28 dahil) - cilizmis
+- Teori notlari parti-2: 28 uretildi + hakem (19 kusursuz, 2 icerik hatasi yakalandi: UIE terim + ciro/defi TTK m.688-689) + 9 duzeltme birebir
+- Hepsi veri/mevzuat/*.json repo vatandasi; yetim testi 0 (sert kapi yesil)
