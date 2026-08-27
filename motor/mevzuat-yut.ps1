@@ -166,6 +166,11 @@ foreach($law in $manifest.kanunlar){
         foreach($d in @($hd)){ if($d.tur -eq 'kanun' -or -not $d.tur){ $d.tur = 'kanun-madde' } }   # 'kanun'->normalize; 'teblig' KORUNUR
         if(@($hd).Count -ge 5){
           $adPrefix = "$($law.ad)"; $q = [uri]::EscapeDataString("$adPrefix*")
+          # SILME FRENI (27.08): yedek yol da ayni frene tabi - ambarda bu kalipla
+          # kayit VARSA (durum dosyasi ne derse desin) eski repo-JSON canliyi ezemez
+          $mevcutSayi=-1
+          try { $wr=Invoke-WebRequest -Uri "$SB_URL/rest/v1/dokumanlar?select=id&limit=1&tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer='count=exact' }) -UseBasicParsing -TimeoutSec 60; $cr="$($wr.Headers['Content-Range'])"; if($cr -match '/(\d+)$'){ $mevcutSayi=[int]$Matches[1] } } catch {}
+          if($mevcutSayi -ne 0){ Write-Host ("  YEDEK-YOL FREN [{0}]: ambarda {1} kayit var (veya sayim KOR) - yedekten YAZILMADI" -f $law.ad,$mevcutSayi); continue }
           try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer="return=minimal" }) -TimeoutSec 120 | Out-Null } catch {}
           for($i=0; $i -lt @($hd).Count; $i += 500){
             $son=[Math]::Min($i+500,@($hd).Count)-1; $dilim=@($hd)[$i..$son]
@@ -253,6 +258,26 @@ foreach($law in $manifest.kanunlar){
   if($H){
     $adPrefix = "$($law.ad)"
     $q = [uri]::EscapeDataString("$adPrefix*")
+    # ================= SILME FRENI (27.08 KIYIM DERSI) =================
+    # 27.08: robot, Supabase'e dogrudan yapilmis onarimlarin (25.08 standart
+    # onarimi 6.051 parca) uzerine kendi ESKI parcalayici ciktisini basti -
+    # TFRS 16 213->12. Kural: yenisi mevcttakinin %70'inden AZSA bu kaynagi
+    # ATLA ve KIRMIZI raporla; kuculme mesruysa (madde ilga) insan onayiyla
+    # ZORLA_KUCULT=1 ortam degiskeni gecilir. Uc durum: YESIL/KIRMIZI/KOR.
+    $mevcutSayi = -1
+    try {
+      $wr = Invoke-WebRequest -Uri "$SB_URL/rest/v1/dokumanlar?select=id&limit=1&tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer='count=exact' }) -UseBasicParsing -TimeoutSec 60
+      $cr = "$($wr.Headers['Content-Range'])"; if($cr -match '/(\d+)$'){ $mevcutSayi = [int]$Matches[1] }
+    } catch { Write-Host "  FREN KOR: mevcut sayilamadi ($_) - guvenli taraf: SILME ATLANDI"; $durum[$law.slug].hash='FREN-KOR'; continue }
+    if($mevcutSayi -lt 0){ Write-Host "  FREN KOR: sayim belirsiz - SILME ATLANDI"; $durum[$law.slug].hash='FREN-KOR'; continue }
+    if($mevcutSayi -gt 20 -and $docs.Count -lt [math]::Ceiling($mevcutSayi * 0.7) -and "$($env:ZORLA_KUCULT)" -ne '1'){
+      Write-Host ("  FREN KIRMIZI [{0}]: ambarda {1} kayit var, yeni yukleme {2} parca (<%70) - SILME/YAZMA ATLANDI. Mesru kuculmeyse ZORLA_KUCULT=1 ile kos." -f $law.ad,$mevcutSayi,$docs.Count)
+      # damgayi FREN isaretine cek -> her kosuda yeniden dener ve BAGIRMAYA devam eder;
+      # sessiz kalici sapma olusmaz (27.08 dersi: fren sustugu gun sigorta degildir)
+      $durum[$law.slug].hash='FREN-KIRMIZI'
+      continue
+    }
+    # ===================================================================
     try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer="return=minimal" }) -TimeoutSec 120 | Out-Null } catch { Write-Host "  sil UYARI: $_" }
     for($i=0; $i -lt $docs.Count; $i += 500){
       $son=[Math]::Min($i+500,$docs.Count)-1; $dilim=$docs[$i..$son]
