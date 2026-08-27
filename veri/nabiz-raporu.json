@@ -1,11 +1,15 @@
 {
-  "tarih": "27.08.2026 14:07",
-  "durum": "TAMAM",
+  "tarih": "27.08.2026 16:04",
+  "durum": "KURTARMA",
   "kirmizi": 0,
-  "kurtarma": 0,
+  "kurtarma": 1,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan": [
+    "Kurum Duyuru Nobetcisi (gunluk) -> son basarili kosu 31.1 saat once (esik 30s) -> kurtarma: tetiklendi"
+  ],
+  "kurtarilan_anahtar": [
+    "KOSU:duyuru-nobetcisi.yml"
+  ]
 }
