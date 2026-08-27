@@ -1,14 +1,22 @@
 {
-  "tarih": "27.08.2026 11:32",
+  "tarih": "27.08.2026 12:49",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
-  "ambar_dosya": 815,
-  "riskli_madde": 1266,
+  "ambar_dosya": 816,
+  "riskli_madde": 1270,
   "sayfa": 60,
   "atifli_iddia": 262,
   "dayanaksiz_iddia": 270,
   "kirmizi_aday": 29,
-  "yeni_aday": 0,
-  "yeni": [],
+  "yeni_aday": 1,
+  "yeni": [
+    {
+      "sayfa": "alacak-radari.html",
+      "satir": 245,
+      "iddia": "7 gün",
+      "kanun": "299",
+      "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
+    }
+  ],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -49,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 245,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -2731,6 +2739,26 @@
       "dosya": "eihracat5986",
       "kaynak_ad": "E-İhracat Destekleri Kararı (5986 s. CB K.) m.18",
       "kesit": "...Karar kapsamındaki destek üst limitleri her takvim yılı başında (TÜFE + Yİ-ÜFE)/2 oranında güncellenir. Uygulama..."
+    },
+    {
+      "dosya": "elle-yutmalar-20260827",
+      "kaynak_ad": "Haksız Rekabet ve Reklam Yasağı Yön. m.8",
+      "kesit": "...madığı meslek unvanını kullanmak. e) Bu Yönetmelik ile belirlenen reklam ilke ve kurallarına aykırı davranmak. f) Mesleki ve akademik unvan dışında sahip olunan başka unvanları kullanmak...."
+    },
+    {
+      "dosya": "elle-yutmalar-20260827",
+      "kaynak_ad": "Haksız Rekabet ve Reklam Yasağı Yön. m.12",
+      "kesit": "...sında düzenlenen ve usul ve esasları bu Yönetmelikle belirlenen reklam yasağına uymakla yükümlüdürler...."
+    },
+    {
+      "dosya": "elle-yutmalar-20260827",
+      "kaynak_ad": "TTK (6102 s.K.) gec. m.13",
+      "kesit": "...len süreyi üç ay uzatmaya ve kısaltmaya Cumhurbaşkanı yetkilidir.116 (2) Genel kurulca 2019 yılı hesap dönemine ilişkin kâr payı dağıtımı kararı alınmış ancak henüz pay sahiplerine ödeme yapılmamışsa ..."
+    },
+    {
+      "dosya": "elle-yutmalar-20260827",
+      "kaynak_ad": "VUK (213 s.K.) m.370 - İzaha davet [2/2]",
+      "kesit": "...100 bin Türk lirasını (bu tutar her yıl yeniden değerleme oranında artırılarak uygulanır; 1.1.2025'ten itibaren 700.000 TL - VUK Genel Tebliği Sıra No: 577) geçmeyen veya bu tutarı geçse bile ilgili y..."
     },
     {
       "dosya": "emlakgt-9279",
