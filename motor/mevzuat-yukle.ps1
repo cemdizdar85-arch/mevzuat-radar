@@ -49,6 +49,38 @@ Get-ChildItem $dir -Filter *.json | ForEach-Object {
 Write-Host ("Yuklenecek: {0} madde-belgesi" -f $hepsi.Count)
 if($hepsi.Count -eq 0){ exit 0 }
 
+# ==================== SERT KAPI: YETIM KAYIT KORUMASI (27.08 KIYIM DERSI) ====
+# 27.08: bu betik "tum turu sil + repo json'larini yaz" calisir; Supabase'e
+# DOGRUDAN yutulmus ama repo json'unda TEMSIL EDILMEYEN her kayit (25.08
+# standart onarimi 6.051 parca + gunun 6 yutmasi) her kosuda YOK OLUYORDU.
+# KURAL: canli ambardaki (silinecek turlerden) kaynak_ad'lerden repo kumesinde
+# OLMAYAN varsa bu betik KOSMAYI REDDEDER ve yetimleri raporlar. Dogru akis:
+# elle yutulan her kaynak veri/mevzuat/ altina json olarak da eklenir (BDDK
+# 27.08 deseni). Mesru topyekun icin ZORLA_TOPYEKUN=1 (insan karari).
+if("$($env:ZORLA_TOPYEKUN)" -ne '1'){
+  $canliAd = @{}
+  foreach($t in @('teori-notu','standart-madde','teblig','kanun-madde')){
+    $ofs=0
+    while($true){
+      $sayfa = @(Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&tur=eq.$t&limit=1000&offset=$ofs" -Headers $H -TimeoutSec 120)
+      if(@($sayfa).Count -eq 0){ break }
+      foreach($x in $sayfa){ $canliAd["$($x.kaynak_ad)"]=$true }
+      if(@($sayfa).Count -lt 1000){ break }
+      $ofs += 1000
+    }
+  }
+  $yetim = @($canliAd.Keys | Where-Object { -not $gorulen.ContainsKey($_) })
+  if($yetim.Count -gt 0){
+    Write-Host ("SERT KAPI KIRMIZI: canli ambarda repo json'larinda TEMSIL EDILMEYEN {0} kaynak_ad var - silseydim GERI GELMEYECEKLERDI. Kosu REDDEDILDI." -f $yetim.Count)
+    $yetim | Select-Object -First 25 | ForEach-Object { Write-Host "  YETIM: $_" }
+    if($yetim.Count -gt 25){ Write-Host ("  ... ve {0} tane daha" -f ($yetim.Count-25)) }
+    Write-Host "COZUM: yetimleri veri/mevzuat/ altina json olarak ekle (elle-yutmalar deseni) YA DA bilincli topyekun icin ZORLA_TOPYEKUN=1."
+    exit 1
+  }
+  Write-Host ("Sert kapi YESIL: canli {0} kaynak_ad, tamami repo kumesinde." -f $canliAd.Count)
+}
+# ============================================================================
+
 # --- once eski kayitlari sil (idempotent) ---
 # 27.07.2026 DUZELTME: silme listesinde 'teblig' YOKTU. Dosyalardaki 1.288
 # teblig kaydi her kosuda siliNMEden yeniden ekleniyordu; ambarda ayni
