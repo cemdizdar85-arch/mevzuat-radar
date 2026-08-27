@@ -4,8 +4,8 @@
   "chrome": "/usr/bin/google-chrome",
   "sayfa": 60,
   "temiz_sayfa": 59,
-  "denetlenen_metin": 12256,
-  "toplam_kirik": 23,
+  "denetlenen_metin": 12258,
+  "toplam_kirik": 24,
   "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
@@ -15,7 +15,7 @@
   "kirik_sayfalar": [
     {
       "sayfa": "durum.html",
-      "adet": 23,
+      "adet": 24,
       "ornekler": [
         {
           "oge": "h1",
@@ -42,6 +42,14 @@
           "zemin": "rgb(255,255,255)"
         },
         {
+          "oge": "span.not",
+          "yazi": "Okundu: 27.08.2026 12:54:35",
+          "oran": 3.4,
+          "esik": 4.5,
+          "renk": "rgb(93, 107, 124)",
+          "zemin": "rgb(13,20,30)"
+        },
+        {
           "oge": "h2",
           "yazi": "Nöbetçiler",
           "oran": 2.63,
@@ -55,14 +63,6 @@
           "oran": 1,
           "esik": 4.5,
           "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "span.yesil",
-          "yazi": "TEMİZ",
-          "oran": 1.77,
-          "esik": 4.5,
-          "renk": "rgb(61, 220, 151)",
           "zemin": "rgb(255,255,255)"
         }
       ]
