@@ -1,5 +1,65 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 27.08.2026 — BDDK KARŞILIKLAR YÖNETMELİĞİ (2016) YUTULDU ('yakın izleme' boşluğu)
+*Sebep: KGK bankacılık çıkmış sorusu "yakın izleme" sınıflandırmasına dayanıyor; ölçüm: ifade ambarda mevzuat metni olarak HİÇ yoktu (yalnız Sorunlu Alacak Rehberi bölüm 83 + çıkmış sınav kâğıtları).*
+
+| Kaynak | Yapılan | Sonuç |
+|---|---|---|
+| **Kredilerin Sınıflandırılması ve Bunlar İçin Ayrılacak Karşılıklara İlişkin Usul ve Esaslar Hakkında Yönetmelik** (RG 22.06.2016/29750, BDDK) | mevzuat.gov.tr GÜNCEL KONSOLİDE (mevzuatNo=22599, G7; şerhler 2018/2019/2021, son değişiklik RG 24.05.2022/31845 — mülga 2006 versiyonu DEĞİL) indirildi, manifest'e `bddk-karsilik-yon` (seyrek) eklendi, `mevzuat-yut.ps1 SADECE=` ile yutuldu | **42 parça** (m.1–24 tam dizi + geç. m.1–2), kapsama %99,6; ambar kaydı `BDDK Kredilerin Siniflandirilmasi ve Karsiliklar Yonetmeligi (2016) m.N` |
+
+**Geri okuma (Supabase sondajları):** beş grup adı da bulundu (Birinci-Standart / İkinci-Yakın İzlemedeki m.4 [1/3] · Üçüncü-Tahsil İmkânı Sınırlı [2/3] · Dördüncü-Tahsili Şüpheli, Beşinci-Zarar [3/3]); "yakın izleme" m.10 genel karşılık (%1,5 / %3) bağlamında ✓; özel karşılık oranları %20/%50/%100 m.11'de ✓; "donuk alacak" 10, "yeniden yapılandır" 8 parçada ✓.
+**Adlandırma dersi:** kaynak adı bilerek `BDDK` önekiyle verildi — `soru-uret-v2.ps1` bankacılık ek-alan önek listesi (`'BDDK'`) yalnız bu önekle görür; tam resmî adla verilseydi üretici kaynağa KÖR kalırdı.
+**Sondaj dersi:** grup adları metinde "İkinci Grup-Yakın İzlemedeki Krediler" biçiminde (tirede boşluk yok) ve büyük İ (U+0130) `ilike`'ta 'i' ile eşleşmiyor — geri okuma sondajı gerçek yazımla, `like` ile yapılır.
+
+## ✅ 26.08.2026 — TMS 28 + TSRS 2 TEMMUZ DEĞİŞİKLİKLERİ KONSOLİDEYE İŞLENDİ (Cem: "bunu yapalım")
+*Dijital nüsha hiçbir resmî kaynakta yoktu; GM, taranmış RG nüshalarını (2+11 sayfa) sayfa görüntüsü olarak GÖZLE okudu (OCR değil), redline'ı çözdü, nihai metinleri `sql-yerel/kurul-karari-bekleyen/tsrs2-nihai-metinler.md`'ye yazdı ve ambara uyguladı. Her yazım geri okumayla birebir doğrulandı.*
+
+| Kaynak | Yapılan | Sonuç |
+|---|---|---|
+| **TMS 28** (Karar 44558, RG 31.07.2026) | p.18 + p.19 nihai metinle PATCH (GUD seçeneğinden "yatırım amaçlı sigorta fonları" çıktı; "benzer işletmeler"=TFRS 18 p.49(a) tanımı girdi); **p.45M eklendi**; karar ayrı yayın olarak eklendi | 4/4 geri okuma BİREBİR |
+| **TSRS 2** (Karar 01/44275, RG 28.07.2026) | 🔴 İKİ GİZLİ DELİK bulundu: (1) **Ek B (B1-B63) ve Ek C ambarda HİÇ yoktu**; (2) üç "p.29 [1-3/3]" kaydı yanlış etiketli ESKİ Ek B içeriğiydi (silinmiş GICS hükümleri dahil). Dijital konsolideden Ek B+C çıkarıldı, değişiklikler üstüne uygulandı (B21-B22 ek cümle · B24/B28/B37/B59/B62/B63 nihai metin · C4(b) B63A atfı · yeni: 29A-29C, B62A, B63A, C1A-C1B, C6), p.29 tam metinle yeniden kuruldu (3.926 krk, iki bent değişimi çapa-kontrollü), 3 yanlış etiketli kayıt kanıt loglanıp silindi | TSRS 2: 63 → **144 kayıt** (B 73 · C 8); 85 yazımın tamamı geri okuma BİREBİR; nokta teyitleri: B62'de GICS yok ✓ · C4'te B58-B63A ✓ · B21 ek cümle ✓ |
+
+**Ek (26.08 gece):** Nöbetçinin yakaladığı üçüncü karar **BDDK 11548 (RG 14.08.2026) İNCELENDİ-KAPANDI:** tek sayfa, BLG Varlık Yönetim A.Ş. faaliyet izni iptali — firma-spesifik idari işlem, **mevzuat değişikliği değil**, yutulacak norm yok. Ders: kurul kararı nöbetçisinin yakaladığı her karar yutma işi doğurmaz; önce türü okunur (norm mu, bireysel işlem mi).
+
+**Dersler:** (1) Taranmış RG nüshası OCR'a yenilse bile sayfa-görüntüsü + gözle okuma yolu çalışıyor — redline'lı kurul kararlarında standart yol bu olsun. (2) "Değişiklik kararı ambarda" ≠ "konsolide metin güncel" — ikisi ayrı ayrı ölçülür. (3) **AÇIK İŞ: TSRS 1'in Ek B/C kapsaması ölçülmeli** (TSRS 2'de delik çıktıysa kardeşinde de olabilir).
+⚠️ TMS 28/TSRS 2'ye dayanan kasa soruları "kaynağı değişti" sinyali alacak — yeniden-doğrulama kuyruğu + vana kuralı bunları zaten tutuyor (istenen davranış).
+
+## ✅ 25.08.2026 GECE — KARNE KÖRLÜĞÜ + TEK GERÇEK BOŞLUK (Cem: "1-2-3 başla")
+*Karnenin 66 "KAYNAK YOK" konusu tek tek sondajlandı: **62'si sahte-eksikti** (metin/teori notu ambarda VARDI; kök: 5-harf kelime filtresi "bono"/"aval"ı atıyor + konu adı resmî terimle örtüşmüyor + 19.08 teori notları karneye görünmüyordu). İlaç: `veri/konu-kaynak-elle.json` (62 kanıtlı bağ, her satırda ambar sayımı) + karneye adım-0 elle eşleşme (canlı sayımla; 0 dönerse geçersiz).*
+
+| İş | Sonuç |
+|---|---|
+| Teori Notu - tuketici tercih aksiyomlari | **tek gerçek boşluktu, yazıldı** (1.226 krk, tamlık/geçişlilik/doymazlık + "azalan marjinal ikame aksiyom değildir" tuzağı); geri okuma BİREBİR |
+| BDS/GDS A-serisi (uygulama paragrafları) | 17 standartta eksik ölçüldü (BDS 210/230/320/501/505/510/560/570/705/706/710/720/800/805/810 + GDS 3402 A'sız, **GDS 3400 ambarda hiç yoktu**); yutma reçetesiyle onarım AYNI GECE koşuldu ve **17/17 kapandı** — tablo aşağıda, her satır Supabase GERİ OKUMASIYLA sayıldı |
+
+**A-serisi onarımının sonuç tablosu (25.08 gece; önce → sonra, geri okumayla):**
+
+| Standart | Önce parça/A | Sonra parça/A | Karakter (önce→sonra) |
+|---|---|---|---|
+| BDS 210 | 6 / 0 | **66 / 39** | 7.966 → 55.655 |
+| BDS 230 | 15 / 0 | **41 / 24** | 31.618 → 30.187 |
+| BDS 320 | 12 / 0 | **29 / 14** | 24.733 → 23.783 |
+| BDS 501 | 13 / 0 | **41 / 27** | 7.200 → 23.531 |
+| BDS 505 | 13 / 0 | **42 / 25** | 27.256 → 25.894 |
+| BDS 510 | 3 / 0 | **23 / 9** | 7.757 → 22.147 |
+| BDS 560 | 13 / 0 | **38 / 20** | 29.622 → 28.594 |
+| BDS 570 | 28 / 0 | **64 / 37** | 67.934 → 65.758 |
+| BDS 705 | 30 / 0 | **59 / 28** | 75.047 → 72.518 |
+| BDS 706 | 19 / 0 | **31 / 18** | 38.417 → 36.986 |
+| BDS 710 | 21 / 0 | **33 / 13** | 45.569 → 44.213 |
+| BDS 720 | 56 / 0 | **85 / 59** | 145.562 → 142.691 |
+| BDS 800 | 23 / 0 | **37 / 22** | 56.972 → 55.417 |
+| BDS 805 | 27 / 0 | **46 / 28** | 66.184 → 64.459 |
+| BDS 810 | 47 / 0 | **55 / 27** | 51.828 → 60.420 |
+| GDS 3402 | 46 / 0 | **111 / 54** | 115.482 → 113.644 |
+| GDS 3400 | 8 / 0 | **32 / 0** | 23.284 → 22.503 (A-serisi kaynakta YOK — eski ISAE 3400 formatı, A=0 doğru) |
+
+**Kök sebep (kanıtlı):** Bu 16 PDF'te pdftotext'in varsayılan (okuma sırası) kipi paragraf numaralarını satır ORTASINA gömüyor ("Giriş Kapsam 1. Bu Bağımsız..."); kip sayacı satır başı numara bulamayınca TMS kipine düşüp SAYFA numaralarını paragraf sanıyordu. Parça sayısı makul (BDS 720 "56 parça" = 56 sayfa!) ve karakter toplamı TAM olduğu için küçülme freni de ötmedi — prova temiz göründü. İlaç: BDS/GDS'te düz ve `-layout` çıkarımları karşılaştırılır, satır başı numarası çok olan seçilir (`standart-yut.ps1`, öz-sınav 26/26).
+
+**İkinci kaza ve ilacı:** Reçete Adım 4 "bugünün TÜM yedeklerini" işlediğinden, aynı gün iki oturum koşunca gündüz onarımının yedeklerindeki onarım-öncesi artıklar "eksik ayrı yayın" sanılıp ambara GERİ BASILDI (+2.207 çöp; kesik 18→137). Aynı gece tespit edilip zaman penceresi + yedek-adı eşleşmesiyle 2.207'si de silindi (geri okuma: 0 kalan; kesik 18→2'ye düştü). Kalıcı ilaç: reçete Adım 4 artık yalnız KENDİ koşusunun yedeklerini işler; `eksik-kayit-tamamla.ps1`'e ARTIK FRENİ eklendi (taze bölmesi olan standardın önekiyle başlayan p./bölüm adları geri konmaz; Değişiklik/RG/Kurul Kararı adları her zaman konur).
+
+**Ders:** "KAYNAK YOK" hükmü verilmeden önce sondaj şart — karne yalnız kendi arama zincirini ölçer, ambarın kendisini değil. Teori notu POST'unda `belge_tarihi:""` date kolonuna geçmez (22007) — alan tümden atlanır.
+
 ## ✅ 24.08.2026 — KGK EKSİK 4 MODÜLÜN DERİNLİK YUTMASI (Cem: "yutma listesine başla")
 *Ölçüm: KGK sınavının 280 sorusunun 160'ında (SPK · Bankacılık · Sigortacılık-BES · Sürdürülebilirlik) kasada tek soru yoktu. Üretim planı 06.08'den beri hazırdı ama satırların dayanağı ÇERÇEVE KANUN düzeyindeydi; çıkmış sınav soruları tebliğ/yönetmelik düzeyinde. **22 kaynak, 1.060 madde** aynı gün yutuldu.*
 
@@ -518,3 +578,9 @@ tek tebliğ yazamadı) — bash'e seyrek filtresi + 120'lik ilk-kez tavanı + 2 
 - "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.
 - Her oturumda en az 1 metin yutulur; yakalanan yanlış ANINDA canlıda düzeltilir ve bu tabloya işlenir.
 - Robot nöbetçisi değişiklik tebliği yakalarsa ilgili metin listeye "yeniden yut" olarak döner.
+
+## 27.08.2026 - VUK Genel Tebligi Sira No: 238 (RG 02.03.1995/22218)
+- 6 bolum (A-F) yutuldu, tur=kanun-madde, kaynak_ad='VERGI USUL KANUNU GENEL TEBLIGI (SIRA NO: 238) bolum N'
+- Sebep: kor hakem turu SMMM-19 reeskont sorusunda ic iskonto yontemini teyit edemedi (tebliğ ambarda yoktu)
+- Kaynak: Lexpera orijinal RG metni (GIB node 88514 olu, mevzuat.gov.tr fihristte 238 yok - MevzuatNo=12300 385 cikti)
+- Geri okuma: 6/6 parca, 'F = A - [A x 360/(360+m x t)]' formulu ve 'kisa vadeli avans' ifadesi sondajla teyit edildi
