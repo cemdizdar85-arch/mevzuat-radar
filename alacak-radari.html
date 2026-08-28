@@ -211,6 +211,34 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div id="aiListe" style="padding-bottom:96px"></div>
   <script>
   var AI_L=[], AI_ILLER=[], AI_TUR='hepsi', AI_ILLER_SUZGECLI=false;
+  var AI_KAPSAM_ILK='', AI_KAPSAM_SON='', AI_KAPSAM_GUN=null;
+  // Kapsam eşiği: 1 yıl iddia edilen bir vitrinde 300 günün altı "eksik"tir.
+  // aiKapsam() TEK kaynak — hem makro başlığı hem liste sayacı buradan okur ki
+  // iki yerde farklı cümle kurulmasın (27.08 dersi: aynı rakam iki evrenden gelmez).
+  function aiKapsam(){
+    if(!AI_KAPSAM_ILK||!AI_KAPSAM_SON) return {metin:'', eksik:false};
+    var eksik=(AI_KAPSAM_GUN!==null && AI_KAPSAM_GUN<300);
+    return {metin:AI_KAPSAM_ILK+' – '+AI_KAPSAM_SON, eksik:eksik, gun:AI_KAPSAM_GUN};
+  }
+  // "Tümü" ekranında: kapsamı kısa olan TÜRLERİ adıyla söyler. Ölçülmemişse
+  // (göç basılmadıysa) HİÇBİR ŞEY yazmaz — sessiz kalır, uydurma etmez.
+  var AI_TUR_ILK=null, AI_TUR_GUN=null;
+  var AI_TUR_ADI={konkordato:'konkordato', iflas:'iflas', diger:'diğer'};
+  function aiTurKapsamNotu(){
+    if(!AI_TUR_ILK||!AI_TUR_GUN) return '';
+    var kisa=Object.keys(AI_TUR_GUN).filter(function(k){ return AI_TUR_GUN[k]<300 && AI_TUR_ILK[k]; });
+    if(!kisa.length) return '';
+    return '<div style="margin-top:6px;font-size:12.5px;color:var(--red);font-weight:700">⚠️ '
+      + kisa.map(function(k){
+          return (AI_TUR_ADI[k]||k)+' ilanları arşivde yalnız '+aiKac(AI_TUR_ILK[k])+' tarihinden itibaren var ('+AI_TUR_GUN[k]+' gün)';
+        }).join(' · ')
+      + ' — bu türün sayısı 1 yıllık değildir, diğerleriyle kıyaslanamaz.</div>';
+  }
+  function aiKapsamSerhi(k){
+    if(!k.eksik) return '';
+    return '<div style="margin-top:5px;color:var(--red);font-weight:700">⚠️ Bu seçimde arşiv son 1 yılın tamamını kapsamıyor — yalnız '
+      +k.gun+' günlük veri var. Başka türlerin oranlarıyla kıyaslanamaz.</div>';
+  }
   function aiFold(s){ return String(s==null?'':s).toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/\s+/g,' ').trim(); }
   function aiKac(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   // m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet
@@ -484,6 +512,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // Artık HER yanıtta tazelenir. (Kasa ayağı: aiMakro() üstündeki nota bak.)
     AI_ILLER=(d.iller||[]);
     AI_ILLER_SUZGECLI=(d.illerSuzgecli===true);
+    // 28.08 YANLIŞ HÜKÜM KAPANDI: sayfa "son 1 yıl" diye VARSAYIYORDU. Ölçüldü:
+    // konkordato 19.08.2025–28.08.2026 (~1 yıl) ama iflas 06.04.2026–28.08.2026
+    // (~4,7 AY) — çünkü 'iflas-ve-tasfiye' alt kategorisi havuzda 06.04 öncesi
+    // HİÇ YOK. Artık pencere varsayılmaz, seçili süzgecin ÖLÇÜLEN aralığı basılır;
+    // kapsam kısaysa kırmızı şerh çıkar. Göç: 2026-08-28-alacak-kapsam-serhi.sql
+    AI_KAPSAM_ILK=d.secilenIlk||''; AI_KAPSAM_SON=d.secilenSon||'';
+    AI_KAPSAM_GUN=(typeof d.secilenGun==='number')?d.secilenGun:null;
+    if(d.turIlk) AI_TUR_ILK=d.turIlk;
+    if(d.turGun) AI_TUR_GUN=d.turGun;
     if(ilk){
       AI_ARSIV_ADET=(d.adet||AI_L.length);
       AI_SON_TARIH=d.enYeniTarih||((AI_L[0]||{}).tarih)||'';
@@ -547,7 +584,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // Süzgeç sonucu boşsa ESKİ ÇUBUKLAR BIRAKILMAZ — bayat dağılım yeni süzgecin
     // sonucuymuş gibi okunur; bu da uydurma rakamdır.
     if(!top.length){
-      box.innerHTML='<div class="kutu" style="margin:0"><div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL · SON 1 YIL</div>'
+      box.innerHTML='<div class="kutu" style="margin:0"><div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL</div>'
         +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Bu seçim için coğrafi dağılım ölçülemedi.</div></div>';
       return;
     }
@@ -559,12 +596,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     if(AI_DURUM) etiket.push((AI_DURUM_ADI[AI_DURUM]||[AI_DURUM])[0]);
     var suzgecVar=(AI_TUR!=='hepsi'||!!AI_DURUM);
     var toplam=(typeof AI_SECILEN==='number')?AI_SECILEN:AI_ARSIV_ADET;
+    // 28.08: pencere VARSAYILMAZ, ölçülen aralık yazılır (bkz aiKapsam notu).
+    var kap=aiKapsam();
+    var araINA=kap.metin?(' <span style="color:var(--dim)">('+kap.metin+')</span>'):'';
     var basMetin;
     if(!suzgecVar){
-      basMetin='Arşivdeki '+toplam.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):';
+      basMetin='Arşivdeki '+toplam.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk'+araINA+':'+aiKapsamSerhi(kap);
     } else if(AI_ILLER_SUZGECLI){
-      basMetin='<b style="color:var(--ink)">'+aiKac(etiket.join(' · '))+'</b> — son 1 yıldaki '
-        +toplam.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):';
+      basMetin='<b style="color:var(--ink)">'+aiKac(etiket.join(' · '))+'</b> — '
+        +toplam.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk'+araINA+':'+aiKapsamSerhi(kap);
     } else {
       basMetin='Arşivdeki '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):'
         +'<div style="margin-top:5px;color:var(--red);font-weight:700">⚠️ Bu dağılım ARŞİV GENELİDİR; seçtiğin süzgece ('+aiKac(etiket.join(' · '))+') göre daralmamıştır.</div>';
@@ -581,7 +621,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       return '<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b style="color:var(--ink)">'+aiKac(o.il)+'</b><span style="color:var(--dim)">'+sag+'</span></div><div style="height:6px;background:var(--panel);border-radius:4px;margin-top:3px;overflow:hidden"><div style="height:100%;width:'+yuzde+'%;background:var(--grad)"></div></div></div>';
     }).join('');
     box.innerHTML='<div class="kutu" style="margin:0">'
-      +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL · SON 1 YIL</div>'
+      +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL</div>'
       +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">'+basMetin+'</div>'
       +satir
       +'<div id="aiResmi"></div>'
@@ -664,7 +704,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
           var tk=AI_TURSAY.konkordato||0, ti=AI_TURSAY.iflas||0, td=AI_TURSAY.diger||0;
           y1+='; <b style="color:var(--ink)">son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+'</b> tanesi (<b style="color:var(--amber)">'+tk.toLocaleString('tr-TR')+'</b> konkordato · <b style="color:var(--red)">'+ti.toLocaleString('tr-TR')+'</b> iflas)';
         }
-        sy.innerHTML=y1+'. Aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor. <b style="color:var(--ink)">Borçlu araması arşivin tamamında yapılır</b> — yukarıdaki alacak taraması kutusunu kullan.';
+        // 28.08: EN ÇOK GÖRÜLEN EKRAN buydu ve "son 1 yılda … 415 iflas" derken
+        // iflas verisinin yalnız 4,7 ay olduğunu söylemiyordu. Tarih sayfaya
+        // GÖMÜLMEZ; kasadan gelen turIlk/turGun okunur, kısa olan tür adıyla yazılır.
+        sy.innerHTML=y1+'. Aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor. <b style="color:var(--ink)">Borçlu araması arşivin tamamında yapılır</b> — yukarıdaki alacak taraması kutusunu kullan.'+aiTurKapsamNotu();
       } else {
         var bas=[];
         if(turAdi) bas.push('<b style="color:'+turRenk+';font-size:16px">'+turAdi+'</b>');
@@ -675,7 +718,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         } else if(AI_SECILEN===0){
           sy.innerHTML=basMetin+' — son 1 yılda bu seçime uyan ilan <b style="color:var(--ink)">yok</b>. <span style="color:var(--dim)">Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok demek değildir; yukarıdaki tarama kutusu arşivin tamamında arar.</span>';
         } else {
-          sy.innerHTML=basMetin+' — son 1 yılda <b style="color:var(--ink)">'+AI_SECILEN.toLocaleString('tr-TR')+'</b> ilan var; aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor.'
+          // 28.08: "son 1 yılda" VARSAYIMI kaldırıldı — ölçülen aralık yazılır.
+          var kapS=aiKapsam();
+          sy.innerHTML=basMetin+' — '+(kapS.metin?'<span style="color:var(--dim)">'+kapS.metin+'</span> arasında ':'')+'<b style="color:var(--ink)">'+AI_SECILEN.toLocaleString('tr-TR')+'</b> ilan var; aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor.'+aiKapsamSerhi(kapS)
             +'<div style="margin-top:6px;font-size:12.5px"><a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 Kendi borçlun için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>';
         }
       }
