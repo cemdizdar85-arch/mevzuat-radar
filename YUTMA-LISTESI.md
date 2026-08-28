@@ -10,7 +10,22 @@
 **Bölücü köşe vakası (elle yamalandı + geri okundu):** p.5'in (b) bendi ("Gelir vergileri — TMS 12") bölünürken düşmüştü; tek PATCH'le geri kondu. Bölücüde bent-satırı düşmesi izlenecek desen.
 **Kapı yanlış-pozitifi:** bütünlük kapısı p.4/6/96/97/98'i "eksik" saydı — beşi de resmî metinde **[Silinmiştir]**; kapıya "[Silinmiştir] = delik değil" ayrımı eklenmeli.
 **Zincir tamamlandı:** 90'lık `p90-KGK-27` sorusu taze kaynakla yeniden üretildi; `cok-cikan-30-KGK.html`'de mülga atıf 0 (TFRS 16×5, TFRS 17×5).
-**AÇIK:** ambar genelinde 41 mülga-atfın sınıflandırma taraması (çoğu meşru geçiş hükmü; kuşkulu kapsam/tanım atıfları TEK TEK — toptan düzeltme YASAK).
+**AÇIK → KAPANDI (aynı gece):** 41 mülga-atıf sınıflandırıldı — 11 kuşkulunun 11'i MEŞRU (TMS 39 hedge + koşullu atıflar güncel metinlerde de var); rapor `veri/fabrika/mulga-atif-taramasi.json`.
+
+### 28.08 devamı — SÜRÜM TAZELİĞİ KAPISI İLK SÜPÜRMESİ (37 standart; Cem: "hergün tara")
+`motor/surum-tazeligi.ps1` kuruldu (günlük 06:45 Windows görevi `MevzuatRadar-SurumTazeligi`); ilk süpürme 30 TUTARLI verdi ve şunları yakaladı — hepsi aynı gece kapatıldı:
+
+| Standart | Bulgu | Yapılan | Sonuç |
+|---|---|---|---|
+| **TFRS 8** | YARIM yutulmuş (6 parça) | tam yut | 6→**45 parça**, birebir ✓ |
+| **TMS 27** | YARIM (5 parça) | tam yut | 5→**15 parça**, birebir ✓ |
+| **TMS 8** | 6 mükerrer + eski bölme artığı (93→gerçek 79) | temiz sete çek | **79 parça**, birebir ✓ |
+| **TMS 1** | 🔴 ESKİ SÜRÜM (p.72A/139U — 2024 sınıflandırma değişikliği YOKTU) + Kırmızı 2026'dan çıkmış, uygulanan set MAVİ Kitap'ta | Mavi Kitap'tan yut | 158→**117 parça**, p.72A/139U imzası ✓ |
+| **TFRS 18** | ambarda yalnız 23 parçalık iz; Kırmızı 2026'da TMS 1'in YERİNİ ALDI (dosya adı `TFRS 18 .pdf` — sonda boşluk!) | tam yut | 23→**277 parça / 168k krk**, birebir ✓ |
+| TMS 28 | ambar set PDF'inden BÜYÜK | DOKUNULMADI — 26.08 elle işlenen Temmuz kurul kararları; ambar DAHA güncel | kapıda `ISTISNA-ELLE-ZENGIN` |
+
+**Türev envanteri (Cem: "biz bunları okuduk, başka yerde kalmış olabilir mi?"):** eski sürümle üretilmiş kasa sorusu sayımı (kanun_no='STD' + madde_no): TMS 1 **292** · TMS 37 **117** · TMS 8 **96** · TMS 27 **47** · TFRS 8 **22** = **574 soru** → damga-uyuşmazlığıyla yeniden-doğrulama kuyruğunda, cila partisinde öncelikli. 90'lık provadaki TMS 37 + TMS 1 soruları taze kaynakla yeniden üretildi. Net Cevap canlı ambardan okur (otomatik güncel); yerel yutma yedekleri repoya girmiyor (kontrol edildi).
+**Kapı öz-sınav dersleri (koda işlendi):** Write-Host `*>&1` ile yakalanır · sayı ayırıcıya `\D` · `%2520` çift kodlama standart listesinden TMS 27'yi düşürüyordu · KGK dosya adları kalıptan sapar (özel-yol tablosu) · elle-zengin kaynaklara istisna etiketi.
 
 ## ✅ 27.08.2026 — BDDK KARŞILIKLAR YÖNETMELİĞİ (2016) YUTULDU ('yakın izleme' boşluğu)
 *Sebep: KGK bankacılık çıkmış sorusu "yakın izleme" sınıflandırmasına dayanıyor; ölçüm: ifade ambarda mevzuat metni olarak HİÇ yoktu (yalnız Sorunlu Alacak Rehberi bölüm 83 + çıkmış sınav kâğıtları).*

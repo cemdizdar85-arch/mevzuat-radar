@@ -48,7 +48,8 @@ foreach($on in @('TMS','TFRS','TSRS')){
   $bas=0
   while($true){
     $r=@()
-    try{ $r=@(Invoke-RestMethod -Uri "$U`?select=kaynak_ad&kaynak_ad=ilike.$on%2520%25&limit=1000&offset=$bas" -Headers $H -UserAgent 'mevzuat-radar-robot/1.0' -TimeoutSec 120 | % { $_ }) }catch{ break }
+    # 28.08 dersi 3: %2520 CIFT kodlamaydi ('%20' literal araniyordu) - TMS 27'yi dusurdu
+    try{ $r=@(Invoke-RestMethod -Uri "$U`?select=kaynak_ad&kaynak_ad=ilike.$on%20%25&limit=1000&offset=$bas" -Headers $H -UserAgent 'mevzuat-radar-robot/1.0' -TimeoutSec 120 | % { $_ }) }catch{ break }
     if($r.Count -eq 0){ break }
     foreach($x in $r){ if("$($x.kaynak_ad)" -match '^((TMS|TFRS|TSRS)\s+\d+)'){ $adlar[$Matches[1]]=$true } }
     $bas+=1000; if($r.Count -lt 1000){ break }
