@@ -68,3 +68,31 @@
   /* rakam ve kod icin esit genislikli yazi */
   --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
 }
+
+/* ============================================================
+   ONAY KUTUSU / SECIM DUGMESI GORUNURLUGU (28.08.2026)
+
+   KUSUR: Sayfalarin cogunda tek bir satir vardi:
+     input,select,textarea{width:100%;padding:11px 13px;border-radius:11px;
+                           background:var(--panel2);border:1px solid ...;appearance:none}
+   Bu satir metin kutusu icin yazilmisti ama "input" dedigi icin ONAY
+   KUTUSUNA da uyguluyordu. Iki sonucu oldu:
+     1) appearance:none -> tarayicinin cizdigi tik isareti SILINIR. Kutu
+        isaretli de olsa isaretsiz de olsa AYNI gorunur; accent-color'in
+        hicbir etkisi kalmaz (o yalniz native cizimi boyar).
+     2) padding:11px 13px -> 16x16 istenen kutu 28x24 bos dikdortgen olur.
+   Olculdu (radar-app.html, canli): kutu tiklandiginda checked=true oluyor
+   ama ekranda HICBIR SEY degismiyor. Kullanici "tiklanmiyor" diye okuyor
+   ve uyelik onayini veremiyor -> KAYIT OLMUYOR.
+
+   COZUM: nitelik secicisi (0,1,1) sade "input" secicisini (0,0,1) yener,
+   bu dosya once yuklense bile kazanir. Kendi kutusunu bilerek bicimleyen
+   sayfa (ornek: kontrol-listesi.html ".md input[type=checkbox]", 0,2,1)
+   yine kazanmaya devam eder - o yuzden burada !important YOK.
+   ============================================================ */
+input[type=checkbox],input[type=radio]{
+  -webkit-appearance:auto;-moz-appearance:auto;appearance:auto;
+  width:16px;height:16px;min-width:0;min-height:0;flex:none;
+  padding:0;border:0;border-radius:0;background:none;box-shadow:none;
+  accent-color:var(--accent);cursor:pointer;vertical-align:middle;
+}

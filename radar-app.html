@@ -152,14 +152,32 @@ function giris(){
       <div class="hata" id="ahata"></div>
       <p class="mini" style="margin-top:8px">Erken erişim, ücretsiz. Verilerin yalnız sana ait.</p>
     </div>`;
-  $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=error.message; };
+  $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=trHata(error); };
   $('#kayitBtn').onclick=async()=>{
     if(!$('#kosulOnay').checked){ $('#ahata').textContent='Üyelik için koşulları ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
+    if(!$('#email').value.trim()){ $('#ahata').textContent='E-posta adresini yaz.'; return; }
+    if(($('#sifre').value||'').length<6){ $('#ahata').textContent='Şifre en az 6 karakter olmalı.'; return; }
     const {data,error}=await sb.auth.signUp({ email:$('#email').value.trim(), password:$('#sifre').value,
       options:{ data:{ kosul_kabul:new Date().toISOString(), pazarlama_rizasi:$('#rizaOnay').checked, riza_tarihi:($('#rizaOnay').checked?new Date().toISOString():null) } } });
-    if(error){$('#ahata').textContent=error.message;return;}
+    if(error){$('#ahata').textContent=trHata(error);return;}
     if(!data.session)$('#ahata').textContent='Kayıt alındı, giriş yapabilirsin.';
   };
+}
+
+// 28.08: Supabase hatalari INGILIZCE geliyordu ("Invalid login credentials"),
+// kullanici ne yapacagini anlamiyordu. Bilinen kodlar Turkcelestirilir;
+// taninmayan hata OLDUGU GIBI gosterilir (yutulmaz - yoksa sessiz kalir).
+function trHata(e){
+  const k=(e&&(e.code||e.error_code))||'', m=(e&&e.message)||'';
+  if(/invalid_credentials/i.test(k)||/invalid login/i.test(m)) return 'E-posta veya şifre hatalı. Henüz üye değilsen "Yeni üyelik"e bas.';
+  if(/weak_password/i.test(k)||/at least 6/i.test(m))          return 'Şifre en az 6 karakter olmalı.';
+  if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap"ı dene.';
+  if(/validation_failed/i.test(k)||/invalid.*email/i.test(m))   return 'E-posta adresi geçerli görünmüyor.';
+  if(/email_not_confirmed/i.test(k))                            return 'E-postanı doğrulaman gerekiyor: gelen kutunu kontrol et.';
+  if(/over_email_send_rate_limit|rate limit/i.test(k+m))        return 'Çok sık denendi. Bir dakika bekleyip tekrar dene.';
+  if(/signup_disabled/i.test(k))                                return 'Yeni üyelik şu an kapalı.';
+  if(/Failed to fetch|NetworkError/i.test(m))                   return 'Sunucuya ulaşılamadı. Bağlantını kontrol edip tekrar dene.';
+  return m||'Beklenmeyen bir hata oldu, tekrar dene.';
 }
 
 async function app(){
