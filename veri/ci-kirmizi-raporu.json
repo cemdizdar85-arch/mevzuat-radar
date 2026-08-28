@@ -1,11 +1,11 @@
 {
-  "olcum_tarihi": "2026-08-27T15:19:05.4718053+00:00",
+  "olcum_tarihi": "2026-08-28T16:42:48.1199308+00:00",
   "esik_ust_uste": 2,
   "hatirlatma_gun": 7,
   "aktif_workflow": 100,
   "bakilan": 99,
   "olculemeyen": 0,
-  "kalici_kirmizi": 18,
+  "kalici_kirmizi": 19,
   "yeni_bildirim": 2,
   "seriler": [
     {
@@ -25,12 +25,20 @@
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/32404471942"
     },
     {
+      "ad": "CI Kirmizi Nobetcisi",
+      "dosya": "ci-kirmizi-nobeti.yml",
+      "ust_uste": 2,
+      "son_sha": "6b096029",
+      "son_ne": "CI Kirmizi Nobetcisi",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/33087059338"
+    },
+    {
       "ad": "Dogrulama Kapisi",
       "dosya": "dogrula.yml",
       "ust_uste": 5,
-      "son_sha": "3212aef7",
-      "son_ne": "Tarama-2 eksik kapanisi: SPK V-65 + III-59.1 + BDDK THP(282) + Asgari…",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/33082804624"
+      "son_sha": "7f9cbd92",
+      "son_ne": "AMBAR ENVANTERI: tek dogru sayfa (Cem: 'ben sorunca hepsinin olduguna…",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/33186427905"
     },
     {
       "ad": "Formul Eksik Taramasi (0 USD)",
@@ -83,10 +91,10 @@
     {
       "ad": "Günlük Kanun Aynası",
       "dosya": "mevzuat.yml",
-      "ust_uste": 2,
-      "son_sha": "827de989",
-      "son_ne": "BDDK Ozkaynak Yonetmeligi ambara yutuldu (G7:18799, 41 parca) [veri-o…",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/33081112499"
+      "ust_uste": 4,
+      "son_sha": "5d45b9c8",
+      "son_ne": "Günlük Kanun Aynası",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/33166803427"
     },
     {
       "ad": "Mukerrer Eleme (0 USD)",
@@ -156,111 +164,117 @@
   "bildirilen": {
     "sinav-ders-envanteri.yml": {
       "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 5,
+      "seri_kok": 30950840972,
       "sebep": "bildirildi",
-      "seri_kok": 30950840972
+      "seri": 5
     },
     "dogrula.yml": {
-      "son_bildirim": "2026-08-27T15:19:05.4718053+00:00",
-      "seri": 5,
+      "son_bildirim": "2026-08-28T16:42:48.1199308+00:00",
+      "seri_kok": 33180812994,
       "sebep": "yeni seri",
-      "seri_kok": 33075374448
-    },
-    "gorsel-backfill.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 5,
-      "sebep": "bildirildi",
-      "seri_kok": 30152511552
+      "seri": 5
     },
     "sgs-tip-olcum.yml": {
       "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 5,
+      "seri_kok": 30756599089,
       "sebep": "bildirildi",
-      "seri_kok": 30756599089
+      "seri": 5
+    },
+    "gorsel-backfill.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 30152511552,
+      "sebep": "bildirildi",
+      "seri": 5
     },
     "onarim-tarama.yml": {
       "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 5,
+      "seri_kok": 31123133355,
       "sebep": "bildirildi",
-      "seri_kok": 31123133355
+      "seri": 5
     },
     "sik-hesap-kodu-oneri.yml": {
       "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 4,
+      "seri_kok": 31592448735,
       "sebep": "bildirildi",
-      "seri_kok": 31592448735
+      "seri": 4
     },
     "hap-onarim.yml": {
       "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 4,
+      "seri_kok": 31592448739,
       "sebep": "bildirildi",
-      "seri_kok": 31592448739
-    },
-    "aciklama-sozlesme-olcum.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 3,
-      "sebep": "bildirildi",
-      "seri_kok": 31592448717
-    },
-    "mukerrer-ele.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 3,
-      "sebep": "bildirildi",
-      "seri_kok": 31592448514
-    },
-    "kasa-bag.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 3,
-      "sebep": "bildirildi",
-      "seri_kok": 31592448646
-    },
-    "kapsam-maliyet-olcum.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 3,
-      "sebep": "bildirildi",
-      "seri_kok": 31592448721
-    },
-    "formul-eksik-tarama.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 3,
-      "sebep": "bildirildi",
-      "seri_kok": 31592448803
-    },
-    "acilis-tekduzelik-olcum.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 3,
-      "sebep": "bildirildi",
-      "seri_kok": 31592448760
-    },
-    "soru-nitelik.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 2,
-      "sebep": "bildirildi",
-      "seri_kok": 32404472489
-    },
-    "hakem-son-okuma.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 2,
-      "sebep": "bildirildi",
-      "seri_kok": 32224779369
-    },
-    "sik-karistir.yml": {
-      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 2,
-      "sebep": "bildirildi",
-      "seri_kok": 32224779136
+      "seri": 4
     },
     "mevzuat.yml": {
       "son_bildirim": "2026-08-27T15:19:05.4718053+00:00",
-      "seri": 2,
+      "seri_kok": 33075035271,
+      "sebep": "bildirildi",
+      "seri": 4
+    },
+    "aciklama-sozlesme-olcum.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 31592448717,
+      "sebep": "bildirildi",
+      "seri": 3
+    },
+    "mukerrer-ele.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 31592448514,
+      "sebep": "bildirildi",
+      "seri": 3
+    },
+    "kasa-bag.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 31592448646,
+      "sebep": "bildirildi",
+      "seri": 3
+    },
+    "kapsam-maliyet-olcum.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 31592448721,
+      "sebep": "bildirildi",
+      "seri": 3
+    },
+    "formul-eksik-tarama.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 31592448803,
+      "sebep": "bildirildi",
+      "seri": 3
+    },
+    "acilis-tekduzelik-olcum.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 31592448760,
+      "sebep": "bildirildi",
+      "seri": 3
+    },
+    "hakem-son-okuma.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 32224779369,
+      "sebep": "bildirildi",
+      "seri": 2
+    },
+    "ci-kirmizi-nobeti.yml": {
+      "son_bildirim": "2026-08-28T16:42:48.1199308+00:00",
+      "seri_kok": 32932235354,
       "sebep": "yeni seri",
-      "seri_kok": 33075035271
+      "seri": 2
+    },
+    "sik-karistir.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 32224779136,
+      "sebep": "bildirildi",
+      "seri": 2
+    },
+    "soru-nitelik.yml": {
+      "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
+      "seri_kok": 32404472489,
+      "sebep": "bildirildi",
+      "seri": 2
     },
     "taslak-linki.yml": {
       "son_bildirim": "2026-08-26T04:59:38.4734667+00:00",
-      "seri": 2,
+      "seri_kok": 31078621525,
       "sebep": "bildirildi",
-      "seri_kok": 31078621525
+      "seri": 2
     }
   }
 }
