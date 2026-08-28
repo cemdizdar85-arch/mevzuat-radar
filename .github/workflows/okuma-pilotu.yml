@@ -1,0 +1,57 @@
+# ============================================================================
+#  ALACAK ILANI OKUMA PILOTU - ELLE TETIKLENIR (29.08.2026)
+#
+#  NEDEN AYRI DOSYA: bu bir NOBET DEGIL, bir DENEYDIR. Gunluk akisa (kaynak.yml)
+#  girmemeli - her koşuda para/kota harcar ve sonucu ELLE degerlendirilir.
+#  Actions > "Alacak ilani okuma pilotu" > Run workflow ile calisir.
+#
+#  ANAHTAR SORUNU: pilot SUPABASE_SERVICE_KEY + GEMINI_API_KEY ister. Ikisi de
+#  depo secret'inda VAR ama yerel makinede yok. Bu akis sayesinde Cem tek dugmeye
+#  basar, anahtar hic disari cikmaz.
+#
+#  MALIYET (29.08 olcumu): 4 kovada 746 metinli ilan · 916 bin karakter
+#  (~305 bin token girdi). Gemini bedava kotasiyla 0 TL; kota biterse Haiku'ya
+#  duser, o da 1 dolardan az. Betik once Gemini dener (bkz api-tavan-engeli).
+#
+#  CIKTI: veri/alacak-okuma-pilot.json + koşu kutugunde kova bazli uyum tablosu
+#  ve ilk 10 uyusmazlik (alintilariyla). Sonuc ARTEFAKT olarak da yuklenir.
+#  Rapor depoya COMMIT EDILMEZ - deney ciktisi, veri degil.
+# ============================================================================
+name: Alacak ilani okuma pilotu
+
+on:
+  workflow_dispatch:
+    inputs:
+      hepsi:
+        description: '4 kovanin TAMAMINI oku (746 ilan). Hayir dersen ADET kadar ornek alinir.'
+        type: boolean
+        default: false
+      adet:
+        description: 'hepsi=false ise kac ilan okunsun (kovalara esit bolunur)'
+        default: '100'
+
+jobs:
+  oku:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pilotu kos
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          HEPSI: ${{ inputs.hepsi && '1' || '0' }}
+          ADET: ${{ inputs.adet }}
+        run: ./motor/alacak-ilan-okuyucu-pilot.ps1
+
+      # Rapor depoya girmez; artefakt olarak indirilir ve elle incelenir.
+      - name: Raporu artefakt olarak yukle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alacak-okuma-pilot
+          path: veri/alacak-okuma-pilot.json
+          if-no-files-found: warn
