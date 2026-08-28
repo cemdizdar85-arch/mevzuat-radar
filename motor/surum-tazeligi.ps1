@@ -87,7 +87,19 @@ foreach($std in $liste){
   Write-Host ("  [{0}/{1}] {2,-10} {3,-11} ambar {4}p/{5}k -> yeni {6}p/{7}k (oran {8})" -f $n,$liste.Count,$std,$durum,$ap,$ak,$yp,$yk,$oran)
 }
 
-# --- 3) karne yaz ---
+# --- 3) karne yaz (BIRLESTIREREK - 28.08 dersi 4: dar -yalniz kosusu tam
+#     supurmenin kaydini EZIYORDU; envanter tek dogru sayfa olacaksa karne
+#     onceki satirlari korur, yalniz kosulanlari gunceller) ---
+$hedef=Join-Path $kok 'veri\fabrika\surum-tazeligi-karnesi.json'
+if(Test-Path $hedef){
+  try{
+    $eski=Get-Content $hedef -Raw -Encoding UTF8 | ConvertFrom-Json
+    $simdiki=@{}; foreach($x in $karne){ $simdiki["$($x.standart)"]=$true }
+    foreach($e in @($eski.satirlar | % { $_ })){
+      if(-not $simdiki["$($e.standart)"]){ $karne.Add([pscustomobject]@{standart="$($e.standart)";durum="$($e.durum)";ambar_parca=[int]$e.ambar_parca;ambar_krk=[int]$e.ambar_krk;yeni_parca=[int]$e.yeni_parca;yeni_krk=[int]$e.yeni_krk;oran=$e.oran}) }
+    }
+  }catch{ Write-Host "  eski karne birlestirilemedi: $_" }
+}
 $ozet=[ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
   toplam=$karne.Count
