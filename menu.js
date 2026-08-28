@@ -123,7 +123,37 @@ var GRUPLAR=[
   ["hatirlatici.html","⏰","Süre Hatırlatıcı","DİİB · KDV · SGK kritik tarihleri"]]}
 ];
 
+/* ---- KÖK YOLU (28.08.2026) ------------------------------------------------
+   Menü, footer ve damga bağlantıları bugüne kadar "gtip.html" gibi GÖRECELİ
+   yazılıydı: kök dizindeki 55 sayfada doğru, alt klasördeki sayfalarda
+   (sayfalar/…) hepsi kırık olurdu. Kök bir kez hesaplanır, üretilen her
+   bağlantının başına eklenir — böylece menü her derinlikte aynı çalışır. */
+var KOK=(function(){
+  var p=location.pathname.replace(/^\/+/,'');
+  var derinlik=p.split('/').length-1;   /* dosya adı hariç klasör sayısı */
+  var s=''; for(var i=0;i<derinlik;i++) s+='../';
+  return s;
+})();
+
 var css=''+
+/* ---- GERİ BAĞLANTISI (28.08.2026, Cem: "geri gelme tuşu ekleyelim") -------
+   Ölçü: GOV.UK Design System "Back link" bileşeni — sayfanın EN ÜSTÜNE,
+   ana içerikten önce konur; breadcrumb ile BİRLİKTE kullanılmaz (bizde
+   breadcrumb yok, tepe şerit var). Rozet değil düz bağlantı: tarayıcının
+   geri tuşunun yerini almaz, onu görünür kılar. */
+'#mrxGeri{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:8px 14px 8px 11px;'+
+ 'border:1px solid var(--line2,rgba(255,255,255,.13));border-radius:999px;background:var(--yuzey,#0a0f17);'+
+ 'color:var(--muted,#93a1b3);text-decoration:none;letter-spacing:.1px;'+
+ 'font:600 13.5px/1 -apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;'+
+ 'transition:color .15s,border-color .15s,transform .15s}'+
+'#mrxGeri:hover{color:var(--ink,#eef2f7);border-color:rgba(245,165,36,.45);transform:translateX(-2px)}'+
+'#mrxGeri:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(245,165,36,.35)}'+
+'#mrxGeri .ok{font-size:15px;line-height:1}'+
+/* mobilde 44px dokunma hedefi - menü linklerine 14.08'de uygulanan ölçünün aynısı */
+/* 28.08 ölçüldü: 12px dolguda yükseklik 41px çıktı — 44px alt sınırın altında.
+   14px'e çıkarıldı, yeniden ölçüldü. */
+'@media(max-width:600px){#mrxGeri{padding:14px 16px;font-size:14px}}'+
+'@media print{#mrxGeri{display:none!important}}'+
 '#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid rgba(255,255,255,.16);'+
  'background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;'+
  'font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;padding:12px 18px;border-radius:999px;'+
@@ -174,8 +204,59 @@ var css=''+
 
 function trU(s){return s.replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');}
 
+/* ── GERİ BAĞLANTISI ─────────────────────────────────────────────────────
+   NEDEN. Site 62 sayfa ve araçlar birbirine link veriyor; bir araçtan
+   ötekine geçen kullanıcının sayfa İÇİNDE dönüş yolu yoktu — tek çare
+   tarayıcının geri tuşuydu (mobilde tarayıcı çubuğu gizlenince görünmez).
+
+   DÜRÜSTLÜK KURALI. Etiket ne yapacağını söyler:
+   · site içinden gelindiyse → "Geri" (history.back — sayfa eski hâliyle açılır)
+   · dışarıdan/doğrudan gelindiyse → "Ana sayfa" (geri gitmek siteden ÇIKARIRDI)
+   Yani düğme hiçbir zaman yalan söylemez.
+
+   YER. GOV.UK ölçüsü: en üstte, içerikten önce. Sayfanın kendi kabına
+   (.top şeridi / .wrap) sokulur ki metin sütunuyla hizalı dursun; kap
+   yoksa gövdenin başına 980px'lik kendi kabıyla girer.
+
+   ERİŞİLEBİLİRLİK. Gerçek <a href> — JS kapalıyken de, orta tıkta da
+   çalışır; klavye odağı halkası var; mobilde 44px dokunma hedefi. */
+function geriKur(){
+  if(document.getElementById('mrxGeri')) return;
+  var ad=(location.pathname.split('/').pop()||'index.html');
+  /* ana sayfada geri diye bir yer yok */
+  if(!KOK && (ad==='index.html'||ad==='')) return;
+
+  var icerden=false;
+  try{
+    var r=document.referrer;
+    icerden = !!r && new URL(r).origin===location.origin && r.split('#')[0]!==location.href.split('#')[0];
+  }catch(e){}
+
+  var a=document.createElement('a');
+  a.id='mrxGeri';
+  a.href=KOK+'index.html';                      /* JS'siz/orta-tık düşüşü */
+  a.innerHTML='<span class="ok" aria-hidden="true">←</span>'+(icerden?'Geri':'Ana sayfa');
+  a.setAttribute('aria-label', icerden?'Önceki sayfaya dön':'Ana sayfaya git');
+  if(icerden){
+    a.addEventListener('click',function(e){
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0) return;  /* yeni sekme hakkı */
+      e.preventDefault(); history.back();
+    });
+  }
+
+  var top=document.querySelector('.top');
+  if(top && top.parentNode){ top.parentNode.insertBefore(a,top); return; }
+  var wrap=document.querySelector('.wrap,main,article');
+  if(wrap){ wrap.insertBefore(a,wrap.firstChild); return; }
+  var kab=document.createElement('div');
+  kab.style.cssText='max-width:980px;margin:0 auto;padding:18px 18px 0';
+  kab.appendChild(a);
+  document.body.insertBefore(kab,document.body.firstChild);
+}
+
 function kur(){
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
+  try{ geriKur(); }catch(e){}
 
   var fab=document.createElement('button');
   fab.id='mrxFab'; fab.type='button'; fab.textContent='☰ Araçlar';
@@ -184,13 +265,13 @@ function kur(){
   var kap=document.createElement('div'); kap.id='mrxKaplama';
   var h='<div class="mrxIc"><div class="mrxUst">'+
     '<span class="mrxLogo">T</span><b>Tetikte</b>'+
-    '<a href="index.html">Ana Sayfa</a><a class="mrxUye" href="radar-app.html">Giriş / Üye Ol</a>'+
+    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'radar-app.html">Giriş / Üye Ol</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
     '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, ihale, fiş…" autocomplete="off">';
   GRUPLAR.forEach(function(g){
     h+='<div class="mrxGrup"><h3>'+g.ad+'</h3><div class="mrxGrid">';
     g.araclar.forEach(function(a){
-      h+='<a class="mrxArac" href="'+a[0]+'"><span class="em">'+a[1]+'</span><div><b>'+a[2]+'</b><span>'+a[3]+'</span></div></a>';
+      h+='<a class="mrxArac" href="'+KOK+a[0]+'"><span class="em">'+a[1]+'</span><div><b>'+a[2]+'</b><span>'+a[3]+'</span></div></a>';
     });
     h+='</div></div>';
   });
@@ -256,11 +337,11 @@ function kur(){
     if (!document.querySelector('a[href$="kvkk.html"]')) {
       var yf = document.createElement('div');
       yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
-      yf.innerHTML = '<a href="kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a> · ' +
-        '<a href="uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
-        '<a href="mesafeli-satis.html" style="color:var(--muted);text-decoration:none">Mesafeli Satış</a> · ' +
-        '<a href="teslimat-iade.html" style="color:var(--muted);text-decoration:none">Teslimat & İade</a> · ' +
-        '<a href="iletisim.html" style="color:var(--muted);text-decoration:none">İletişim</a>' +
+      yf.innerHTML = '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a> · ' +
+        '<a href="' + KOK + 'uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
+        '<a href="' + KOK + 'mesafeli-satis.html" style="color:var(--muted);text-decoration:none">Mesafeli Satış</a> · ' +
+        '<a href="' + KOK + 'teslimat-iade.html" style="color:var(--muted);text-decoration:none">Teslimat & İade</a> · ' +
+        '<a href="' + KOK + 'iletisim.html" style="color:var(--muted);text-decoration:none">İletişim</a>' +
         '<br>Dizdar Denetim ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com' +
         '<br><span data-veri-damgasi></span>';
       document.body.appendChild(yf);
@@ -294,7 +375,7 @@ function kur(){
        yer bulunamazsa KENDI kabini olusturur. */
     var yer = document.querySelector('[data-veri-damgasi]');
     {
-      fetch('veri/tazelik-damgasi.json', { cache: 'no-store' })
+      fetch(KOK + 'veri/tazelik-damgasi.json', { cache: 'no-store' })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
           if (!d || !d.sayfalar) return;
