@@ -26,6 +26,7 @@ $U='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar'
 # --- 1) CANLI SAYIM: tum kaynak_ad'ler sayfali cekilir, oneke indirgenir ---
 Write-Host 'Canli sayim (tum ambar)...'
 $say=@{}; $tur=@{}
+$arsiv=@{}   # 'SINAV|DONEM' -> soru sayisi (cikmis arsiv dokumu; Cem 28.08: "orda var mi?")
 $bas=0; $toplam=0
 while($true){
   $r=$null
@@ -36,7 +37,19 @@ while($true){
     $k="$($x.kaynak_ad)"
     $t="$($x.tur)"
     # tekil-belge kalabaligi tek gruba katlanir (envanter OKUNUR kalsin):
-    if($t -in @('cikmis-soru','cikmis-komisyon-cevabi')){ $on="[ARŞİV] ÇIKMIŞ SINAV ($t)" }
+    if($t -in @('cikmis-soru','cikmis-komisyon-cevabi')){
+      $on="[ARŞİV] ÇIKMIŞ SINAV ($t)"
+      if($t -in @('cikmis-soru','cikmis-komisyon-cevabi')){
+        $sv='?'; $dn='?'
+        if($k -match 'CIKMIS SINAV(?: KOMISYON CEVABI)?\s*-?\s*([A-ZÇĞİÖŞÜ]{2,})'){ $sv=$Matches[1] }
+        if($k -match '(\d{4}/\d)'){ $dn=$Matches[1] }
+        elseif($k -match '_(\d{4})[_\)]' -or $k -match '[_ ](\d{4})\)'){ $dn="y.$($Matches[1])" }
+        $ek=''; if($t -eq 'cikmis-komisyon-cevabi'){ $ek=' (yazılı/komisyon)' }
+        $ak="$sv$ek|$dn"
+        if(-not $arsiv[$ak]){ $arsiv[$ak]=0 }
+        $arsiv[$ak]++
+      }
+    }
     elseif($t -eq 'teori-notu' -or $k -match '^(TEORI|Teori Notu)'){ $on='[GRUP] TEORİ NOTLARI' }
     else{
       # onek cikarimi: ' m.', ' p.', ' ilke', ' ek m.', ' gec. m.' vb oncesi
@@ -57,27 +70,37 @@ Write-Host "  tekil kaynak (onek): $($say.Count) | toplam parca: $toplam"
 # Rapor yalniz SORUNLULARI listeler (is_listesi); temizler listede OLMAYANDIR.
 # Bu cikarim yalniz rapor TUM ambari taradiysa (kapsam bos) gecerli; dar
 # kapsamli (-yalniz) kosu varsa yalniz o kaynaklar hakkinda konusuruz.
+# Iki rapor okunur: butunluk-raporu-standartlar.json (kapsam=standartlar) +
+# butunluk-raporu.json (son kosu; -kanunlar kosuldugunda kapsam=kanunlar).
 $butunDelik=@{}
-$butunKapsam=''
-$bY=Join-Path $kok 'veri\butunluk-raporu.json'
+$olcKapsam=@{}   # 'standartlar'/'kanunlar' -> tarih
 $bTarih=''
-if(Test-Path $bY){
-  $bTarih=(Get-Item $bY).LastWriteTime.ToString('dd.MM.yyyy')
+foreach($bAd in @('butunluk-raporu-standartlar.json','butunluk-raporu.json')){
+  $bY=Join-Path $kok "veri\$bAd"
+  if(-not (Test-Path $bY)){ continue }
   try{
     $bj=Get-Content $bY -Raw -Encoding UTF8 | ConvertFrom-Json
-    $butunKapsam="$($bj.kapsam)"
+    $kp="$($bj.kapsam)"
+    if($kp -in @('standartlar','kanunlar')){ $olcKapsam[$kp]=(Get-Item $bY).LastWriteTime.ToString('dd.MM.yyyy'); $bTarih=$olcKapsam[$kp] }
     foreach($s in @($bj.is_listesi | % { $_ })){
-      $butunDelik["$($s.kaynak)"]="DELIK(par:$($s.eksik_paragraf)/kesik:$($s.kesik_belge)/oksuz:$($s.oksuz_belge))"
+      $butunDelik["$($s.kaynak)"]="par:$($s.eksik_paragraf)/kesik:$($s.kesik_belge)/oksuz:$($s.oksuz_belge)"
     }
-  }catch{ Write-Host "  butunluk raporu okunamadi: $_" }
+  }catch{ Write-Host "  butunluk raporu okunamadi ($bAd): $_" }
 }
-function ButunlukHukmu([string]$on,[string]$turAd){
-  if($butunDelik.ContainsKey($on)){ return $butunDelik[$on] }
-  if($turAd -ne 'standart-madde'){ return 'ÖLÇÜLMEDİ(kanun bütünlüğü ayrı kapı)' }
-  if(-not $bTarih){ return 'ÖLÇÜLMEDİ' }
-  # kapsam 'standartlar' = genel kosu; tek-kaynak adiysa dar kosudur
-  if($butunKapsam -and $butunKapsam -notin @('standartlar','kanunlar','TUMU') -and $butunKapsam -ne $on){ return 'ÖLÇÜLMEDİ(son koşu dar kapsamlıydı)' }
-  return 'TAM'
+function ButunlukHukmu([string]$on,[string]$turAd,[string]$surumDurum){
+  $delik=''
+  if($butunDelik.ContainsKey($on)){ $delik=$butunDelik[$on] }
+  $kanunMu = ($turAd -ne 'standart-madde')
+  $kapsamOlculdu = $false
+  if($kanunMu -and $olcKapsam.ContainsKey('kanunlar')){ $kapsamOlculdu=$true }
+  if(-not $kanunMu -and $olcKapsam.ContainsKey('standartlar')){ $kapsamOlculdu=$true }
+  if(-not $kapsamOlculdu){ return 'ÖLÇÜLMEDİ' }
+  if(-not $delik){ return 'TAM' }
+  # 28.08 CAPRAZ KURALI: surum kapisi ayni gun TUTARLI dediyse ambar guncel
+  # resmi PDF ile birebir demektir - "eksik" numaralar resmi metinde de yok
+  # ([Silinmistir] / atlanmis numara / ornek-rakam artefakti). Kusur DEGIL.
+  if($surumDurum -eq 'TUTARLI'){ return "TAM(set-birebir; kapı notu: $delik resmî metinde de yok)" }
+  return "DELİK-İNCELE($delik)"
 }
 
 # --- 3) SURUM sonuclari ---
@@ -95,17 +118,17 @@ if(Test-Path $sY){
 # --- 4) ENVANTER SATIRLARI ---
 $satirlar=New-Object System.Collections.Generic.List[object]
 foreach($on in ($say.Keys | Sort-Object)){
-  $b=ButunlukHukmu $on $tur[$on]
   $s='ÖLÇÜLMEDİ'
   $stdAd=''
   if($on -match '^((TMS|TFRS|TSRS)\s+\d+)'){ $stdAd=$Matches[1] }
   if($stdAd -and $surum.ContainsKey($stdAd)){ $s=$surum[$stdAd] }
   elseif(-not $stdAd){ $s='KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar)' }
+  $b=ButunlukHukmu $on $tur[$on] $s
   $satirlar.Add([pscustomobject]@{kaynak=$on;tur=$tur[$on];parca=$say[$on];tam=$b;guncel=$s})
 }
 $olculenB=@($satirlar | ? { $_.tam -notmatch '^ÖLÇÜLMEDİ' }).Count
 $olculenS=@($satirlar | ? { $_.guncel -notmatch '^ÖLÇÜLMEDİ|KAPSAM' }).Count
-$delik=@($satirlar | ? { $_.tam -match 'DELIK' }).Count
+$delik=@($satirlar | ? { $_.tam -match 'DEL[İI]K' }).Count
 $incele=@($satirlar | ? { $_.guncel -match 'INCELE|OLCULEMEDI' }).Count
 
 $ozet=[ordered]@{
@@ -115,6 +138,7 @@ $ozet=[ordered]@{
   butunluk_olculen=$olculenB; butunluk_delik=$delik; butunluk_tarihi=$bTarih
   surum_olculen=$olculenS; surum_incele=$incele; surum_tarihi=$sTarih
   kural='VAR/YOK cevabi YALNIZ bu envanterden verilir; OLCULMEDI hucresi yok sayilmaz.'
+  arsiv_dokumu=$arsiv
   satirlar=$satirlar.ToArray()
 }
 [IO.File]::WriteAllText((Join-Path $kok 'veri\fabrika\ambar-envanteri.json'),(ConvertTo-Json -InputObject $ozet -Depth 4),[Text.UTF8Encoding]::new($false))
@@ -127,6 +151,27 @@ $sb=[Text.StringBuilder]::new()
 [void]$sb.AppendLine("> **KURAL:** ""Eksik var mı?"" sorusunun cevabı YALNIZ bu sayfadan verilir. ""Var"" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi ""yok"" sayılmaz — dürüstçe ölçülmemiştir.")
 [void]$sb.AppendLine('')
 [void]$sb.AppendLine("**ÖZET:** $($ozet.toplam_parca) parça · $($ozet.tekil_kaynak) tekil kaynak | Bütünlük ölçülen: $olculenB (delikli: $delik; son ölçüm: $bTarih) | Sürüm ölçülen: $olculenS (sorunlu: $incele; son ölçüm: $sTarih)")
+[void]$sb.AppendLine('')
+[void]$sb.AppendLine('## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)')
+[void]$sb.AppendLine('')
+[void]$sb.AppendLine('> **TAM MI hücresi bu bölümde henüz ÖLÇÜLMEDİ:** resmî dönem listesiyle kıyas kapısı kurulmadı — aşağıdaki döküm "elimizde ne var"dır, "eksik yok" iddiası DEĞİLDİR. Sayılar BELGE (kitapçık/oturum dosyası) adedidir; soru adedi belgelerin içindedir (18-23.08 sayımı: 20.851 soru). "y.YYYY" = dönem etiketi dosya adından yıl olarak çıkarıldı; "?" = ad deseninden dönem okunamadı.')
+[void]$sb.AppendLine('')
+[void]$sb.AppendLine('| Sınav | Belge (canlı) | Dönem sayısı | Dönemler |')
+[void]$sb.AppendLine('|---|---:|---:|---|')
+$svGrup=@{}
+foreach($ak in $arsiv.Keys){
+  $p=$ak -split '\|'
+  if(-not $svGrup[$p[0]]){ $svGrup[$p[0]]=New-Object System.Collections.Generic.List[object] }
+  $svGrup[$p[0]].Add([pscustomobject]@{donem=$p[1];adet=$arsiv[$ak]})
+}
+foreach($sv in ($svGrup.Keys | Sort-Object)){
+  $ds=@($svGrup[$sv] | Sort-Object donem)
+  $topS=($ds | Measure-Object adet -Sum).Sum
+  $dListe=(@($ds | % { "$($_.donem)($($_.adet))" }) -join ' · ')
+  [void]$sb.AppendLine("| $sv | $topS | $($ds.Count) | $dListe |")
+}
+[void]$sb.AppendLine('')
+[void]$sb.AppendLine('## KAYNAK TABLOSU')
 [void]$sb.AppendLine('')
 [void]$sb.AppendLine('| Kaynak | Tür | Parça | TAM MI | GÜNCEL Mİ |')
 [void]$sb.AppendLine('|---|---|---:|---|---|')
