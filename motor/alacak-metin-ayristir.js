@@ -215,10 +215,23 @@ const DURUMLAR = [
   ['durusma',        /duru[şs]ma\s*g[üu]n/i],
   ['muhlet',         /m[üu]hlet/i]
 ];
+// 28.08 ÜRÜN KUSURU (ölçümle bulundu): "Konkordato talebinin REDDİ VE İFLASA
+// ilişkin mahkeme kararı" ve "Konkordato mühletinin kaldırılması VE İFLAS
+// kararına ilişkin…" ilanları 'ret_kaldirma' damgası yiyordu — çünkü ret kalıbı
+// listede iflastan önce geliyor. Oysa bunlar alacaklı için arşivdeki EN KRİTİK
+// haberdir: konkordato tutmadı, firma BATTI. Nötr "Ret / kaldırma" etiketinin
+// altında görünmez oluyor, üstelik 'tur' konkordato olduğu için İflas süzgecine
+// basan kullanıcı bunları HİÇ görmüyordu.
+// Ayrı damga: ret kalıbı VE iflas kelimesi birlikte geçiyorsa 'ret_iflas'.
+// NOT: /i bayrağı Türkçe İ↔i eşlemez (bkz. bu dosyadaki diğer harf sınıfları),
+// o yüzden ilk harf elle yazıldı: [iİIı].
+const RET_RX   = /reddine|reddi|kald[ıi]r[ıi]lmas|feshine|feshi\b|iptaline/i;
+const IFLAS_RX = /[iİIı]flas/i;
 function kararDurumu(baslik, metin) {
   const b = String(baslik || '');
   const m = String(metin || '').slice(0, 1500);
   let bulunan = null;
+  if (RET_RX.test(b) && IFLAS_RX.test(b)) return 'ret_iflas';
   for (const [ad, rx] of DURUMLAR) if (rx.test(b)) { bulunan = ad; break; }
   // 20.08 ÖLÇÜM: "Konkordato mühlet kararının ilanen tebliği" 520 ilanda geçiyor
   // ve geçici mi kesin mi SÖYLEMİYOR. Başlık belirsiz kaldıysa metne bakılır —
