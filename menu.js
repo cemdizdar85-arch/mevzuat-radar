@@ -140,20 +140,51 @@ var css=''+
    Ölçü: GOV.UK Design System "Back link" bileşeni — sayfanın EN ÜSTÜNE,
    ana içerikten önce konur; breadcrumb ile BİRLİKTE kullanılmaz (bizde
    breadcrumb yok, tepe şerit var). Rozet değil düz bağlantı: tarayıcının
-   geri tuşunun yerini almaz, onu görünür kılar. */
-'#mrxGeri{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:8px 14px 8px 11px;'+
- 'border:1px solid var(--line2,rgba(255,255,255,.13));border-radius:999px;background:var(--yuzey,#0a0f17);'+
- 'color:var(--muted,#93a1b3);text-decoration:none;letter-spacing:.1px;'+
- 'font:600 13.5px/1 -apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;'+
- 'transition:color .15s,border-color .15s,transform .15s}'+
-'#mrxGeri:hover{color:var(--ink,#eef2f7);border-color:rgba(245,165,36,.45);transform:translateX(-2px)}'+
-'#mrxGeri:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(245,165,36,.35)}'+
-'#mrxGeri .ok{font-size:15px;line-height:1}'+
-/* mobilde 44px dokunma hedefi - menü linklerine 14.08'de uygulanan ölçünün aynısı */
-/* 28.08 ölçüldü: 12px dolguda yükseklik 41px çıktı — 44px alt sınırın altında.
-   14px'e çıkarıldı, yeniden ölçüldü. */
-'@media(max-width:600px){#mrxGeri{padding:14px 16px;font-size:14px}}'+
-'@media print{#mrxGeri{display:none!important}}'+
+   geri tuşunun yerini almaz, onu görünür kılar.
+
+   28.08 İKİNCİ TUR — Cem: "geri tuşu emanet gibi duruyor". Doğruydu:
+   ilk sürüm kendi çerçeveli hapı olarak şeridin ÜSTÜNDE, boşlukta
+   duruyordu. Artık şeridin İÇİNE ilk öge olarak giriyor ve şeridin
+   tipografisini miras alıyor — ayrı bir nesne değil, gezinme şeridinin
+   parçası. Şerit yoksa (6 sayfa) eski hap biçimi .mrxGeriPul sürüyor. */
+/* Renk var(--muted) DEĞİL, inherit: şerit kendi rengini dayatır. Site
+   sayfalarının bir kısmı koyu, bir kısmı (alacak-radari gibi) açık temalı
+   ama şeridi koyu; açık temada --muted koyu gri (#4b5563) olduğu için
+   koyu şeridin üstünde okunmaz olurdu. inherit + saydamlık her iki temada
+   da şeridin kendi tonunu veriyor (ölçüldü: 7,27:1 → AAA). */
+'#mrxGeri{display:inline-flex;align-items:center;gap:6px;color:inherit;opacity:.85;'+
+ 'text-decoration:none;font-weight:700;letter-spacing:.1px;padding:2px 0;'+
+ 'transition:opacity .15s}'+
+'#mrxGeri:hover{opacity:1}'+
+'#mrxGeri:focus-visible{outline:2px solid #f5a524;outline-offset:3px;border-radius:4px}'+
+'#mrxGeri .ok{font-size:15px;line-height:1;transition:transform .15s}'+
+'#mrxGeri:hover .ok{transform:translateX(-3px)}'+
+/* şeridi olmayan sayfalarda tek başına durur; orada çerçeve gerekiyor */
+'#mrxGeri.mrxGeriPul{margin:0 0 12px;padding:8px 14px 8px 11px;'+
+ 'border:1px solid var(--line2,rgba(255,255,255,.13));border-radius:999px;'+
+ 'background:var(--yuzey,#0a0f17);font-size:13.5px}'+
+'#mrxGeri.mrxGeriPul:hover{border-color:rgba(245,165,36,.45)}'+
+/* mobilde 44px dokunma hedefi - menü linklerine 14.08'de uygulanan ölçünün aynısı.
+   28.08 ölçüldü: hapta 12px dolgu 41px veriyordu, 14px'e çekildi. Şerit içinde
+   .top a kuralı (15px dolgu) zaten 44px+ üretiyor. */
+'@media(max-width:600px){#mrxGeri{padding:15px 4px 15px 0}'+
+ '#mrxGeri.mrxGeriPul{padding:14px 16px;font-size:14px}}'+
+'@media print{#mrxGeri,.mrxAyrac{display:none!important}}'+
+/* tepe şeridi tam genişlik — hesap yorumu seritTamGenislik()'te.
+   Kutuyu kabından 50vw taşırıp aynı payı iç dolgu olarak geri veriyoruz:
+   kutu ekranı kaplıyor, YAZI içerik sütununun tam üstünde kalıyor
+   (barSol = içerikSol - pay, yazı = barSol + pay = içerikSol).
+   50vw kaydırma çubuğunu da sayar, yani şerit iki yandan ~7px taşar;
+   overflow-x:clip onu kırpar — clip, hidden DEĞİL: kaydırma kabı
+   oluşturmaz, position:sticky'yi bozmaz.
+   Tüm blok @supports içinde: clip bilmeyen eski tarayıcı yatay kaydırma
+   çubuğu yemesin diye şeridi hiç taşırmaz, eski görünümde kalır. */
+'@supports (overflow-x:clip){'+
+ 'html{overflow-x:clip}'+
+ '.mrxSeritGenis{margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;'+
+  'padding-left:calc(50vw - 50%)!important;padding-right:calc(50vw - 50%)!important}'+
+ '@media print{.mrxSeritGenis{margin:0!important;padding-left:0!important;padding-right:0!important}}'+
+'}'+
 '#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid rgba(255,255,255,.16);'+
  'background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;'+
  'font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;padding:12px 18px;border-radius:999px;'+
@@ -245,7 +276,17 @@ function geriKur(){
   }
 
   var top=document.querySelector('.top');
-  if(top && top.parentNode){ top.parentNode.insertBefore(a,top); return; }
+  if(top){
+    /* şeridin İLK ögesi olarak içine gir; ayracı şeridin kendi " · "
+       diliyle yaz ki sonradan eklenmiş görünmesin */
+    var ayrac=document.createElement('span');
+    ayrac.className='mrxAyrac';
+    ayrac.textContent=' · ';
+    top.insertBefore(ayrac,top.firstChild);
+    top.insertBefore(a,top.firstChild);
+    return;
+  }
+  a.classList.add('mrxGeriPul');
   var wrap=document.querySelector('.wrap,main,article');
   if(wrap){ wrap.insertBefore(a,wrap.firstChild); return; }
   var kab=document.createElement('div');
@@ -254,9 +295,53 @@ function geriKur(){
   document.body.insertBefore(kab,document.body.firstChild);
 }
 
+/* ── TEPE ŞERİDİ TAM GENİŞLİK (28.08.2026) ───────────────────────────────
+   Cem: "site yarım ekran görünüyor".
+
+   ÖLÇÜLDÜ (1440px pencere, alacak-radari.html): içerik kabı 820px, tepe
+   şeridi de 820px — ama şeridin KENDİ koyu zemini var. Sonuç: krem
+   sayfanın ortasında duran siyah bir levha; göz bunu "sayfa yarım"
+   diye okuyor.
+
+   RAKİP ÖLÇÜMÜ (aynı 1440px pencere, canlı):
+   · Companies House: başlık şeridi 1425px = pencerenin TAMAMI,
+     içindeki satır 960px (içerikle aynı sütun).
+   · SimplyDuty: başlık şeridi 1425px = pencerenin tamamı.
+   Yani profesyonel kalıp "içeriği genişlet" değil: ŞERİT tam genişlik,
+   İÇİNDEKİ satır içerik sütunuyla hizalı. Metin sütununu genişletmek
+   okunurluğu bozardı (820px zaten doğru satır uzunluğu).
+
+   NASIL. Şeridi kabından negatif kenar boşluğuyla taşırıp aynı miktarda
+   iç dolgu veriyoruz: kutu ekranı kaplıyor, yazı yerinden kımıldamıyor.
+   Ölçü vw ile değil documentElement.clientWidth ile alınır — vw kaydırma
+   çubuğunu da sayar ve yatay kaydırma doğurur.
+
+   YALNIZ zemini olan şeritlere dokunulur; koyu temalı sayfalarda şerit
+   saydamdır, orada taşırmanın görünür bir karşılığı yoktur. */
+function seritTamGenislik(){
+  var t=document.querySelector('.top');
+  if(!t) return;
+  var cs=getComputedStyle(t);
+  var z=cs.backgroundColor||'';
+  if(!z || z==='transparent' || /^rgba\(0, 0, 0, 0\)$/.test(z)) return;
+
+  /* Hesabı JS'e yaptırmak KIRILGAN çıktı: pencere değiştiğinde ölçüm
+     ortamında ne resize olayı ne ResizeObserver ateşledi, şerit 1425px'te
+     donup kaldı. Bu yüzden JS'in tek işi işareti koymak; ölçüyü tarayıcı
+     kendi yapıyor (yukarıdaki @supports bloğu), yani hiçbir olaya
+     bağımlı değil ve her pencere boyunda kendiliğinden doğru.
+
+     İç dolguya şeridin KENDİ dolgusu EKLENMEZ; eklenseydi şerit yazısı
+     içerik sütunundan 18px içeride kalırdı (ölçüldü: şerit 339, h1 321).
+     Companies House ölçüsü de bu: başlık satırı ile içerik sütunu birebir
+     aynı hizada. */
+  t.classList.add('mrxSeritGenis');
+}
+
 function kur(){
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
   try{ geriKur(); }catch(e){}
+  try{ seritTamGenislik(); }catch(e){}
 
   var fab=document.createElement('button');
   fab.id='mrxFab'; fab.type='button'; fab.textContent='☰ Araçlar';
