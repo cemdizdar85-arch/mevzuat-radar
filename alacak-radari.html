@@ -241,8 +241,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   }
   function aiKapsamSerhi(k){
     if(!k.eksik) return '';
+    // 28.08 CANLI ÖLÇÜMDE YAKALANAN EKSİK: "artış olarak okunamaz" uyarısı yalnız
+    // "Tümü" ekranındaydı. Oysa yanlış yorum riski EN YÜKSEK olan ekran, kullanıcının
+    // İflas'a basıp 415 sayısını gördüğü ekran. Aynı uyarı buraya da kondu.
     return '<div style="margin-top:5px;color:var(--red);font-weight:700">⚠️ Bu seçimde arşiv son 1 yılın tamamını kapsamıyor — yalnız '
-      +k.gun+' günlük veri var. Başka türlerin oranlarıyla kıyaslanamaz.</div>';
+      +k.gun+' günlük veri var. Başka türlerin oranlarıyla kıyaslanamaz ve <b>zaman içinde artış olarak da okunamaz</b> (kategori kaynakta bu tarihte açıldı).</div>';
   }
   function aiFold(s){ return String(s==null?'':s).toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/\s+/g,' ').trim(); }
   function aiKac(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
