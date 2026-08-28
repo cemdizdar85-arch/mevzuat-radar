@@ -56,10 +56,10 @@ DOGRU: {DOGRU}
   foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
   $c=Coz $y.metin
   if(-not $c -or -not $c.aciklama){ throw 'yeniden yazim bozuk' }
-  $feda=[ordered]@{ kaynak_not='FEDA ORNEGI - bilerek herkese acik; kasaya girmez'; soru=$eski.soru; siklar=$eski.siklar; dogru=$eski.dogru; aciklama=$c.aciklama; hap=$c.hap; sinav_taktigi=$c.sinav_taktigi; notlandirici=$c.notlandirici; dayanak=$eski.dayanak; sema=$c.sema }
-  [IO.File]::WriteAllText($FEDA,(ConvertTo-Json -InputObject $feda -Depth 6),[Text.UTF8Encoding]::new($false))
+  $fedaNesne=[ordered]@{ kaynak_not='FEDA ORNEGI - bilerek herkese acik; kasaya girmez'; soru=$eski.soru; siklar=$eski.siklar; dogru=$eski.dogru; aciklama=$c.aciklama; hap=$c.hap; sinav_taktigi=$c.sinav_taktigi; notlandirici=$c.notlandirici; dayanak=$eski.dayanak; sema=$c.sema }
+  [IO.File]::WriteAllText($FEDA,(ConvertTo-Json -InputObject $fedaNesne -Depth 6),[Text.UTF8Encoding]::new($false))
   Write-Host 'feda-ornek-1.json uretildi'
-  $c=$feda
+  $c=$fedaNesne
 }
 
 # --- 3) sema cizdiriciler (ton-prova ile ayni dil) ---
