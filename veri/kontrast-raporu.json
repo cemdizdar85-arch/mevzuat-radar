@@ -3,8 +3,8 @@
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
   "sayfa": 62,
-  "temiz_sayfa": 59,
-  "denetlenen_metin": 12450,
+  "temiz_sayfa": 60,
+  "denetlenen_metin": 12296,
   "toplam_kirik": 25,
   "olculemeyen": 0,
   "esik": {
@@ -14,22 +14,8 @@
   "olculemeyenler": [],
   "kirik_sayfalar": [
     {
-      "sayfa": "alacak-radari.html",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "b",
-          "yazi": "5.850",
-          "oran": 2.76,
-          "esik": 4.5,
-          "renk": "rgb(95, 104, 117)",
-          "zemin": "rgb(245,165,36)"
-        }
-      ]
-    },
-    {
       "sayfa": "durum.html",
-      "adet": 23,
+      "adet": 24,
       "ornekler": [
         {
           "oge": "h1",
@@ -56,6 +42,14 @@
           "zemin": "rgb(255,255,255)"
         },
         {
+          "oge": "span.not",
+          "yazi": "Okundu: 28.08.2026 21:15:48",
+          "oran": 3.4,
+          "esik": 4.5,
+          "renk": "rgb(93, 107, 124)",
+          "zemin": "rgb(13,20,30)"
+        },
+        {
           "oge": "h2",
           "yazi": "Nöbetçiler",
           "oran": 2.63,
@@ -69,14 +63,6 @@
           "oran": 1,
           "esik": 4.5,
           "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "span.yesil",
-          "yazi": "TEMİZ",
-          "oran": 1.77,
-          "esik": 4.5,
-          "renk": "rgb(61, 220, 151)",
           "zemin": "rgb(255,255,255)"
         }
       ]
