@@ -43,8 +43,12 @@ if (-not $env:GEMINI_API_KEY -and -not $env:ANTHROPIC_API_KEY) {
 }
 
 # --- 4 tartismali kovadan dengeli ornek ------------------------------------
+# 29.08 OLCULDU: 4 kovada metinli ilan 746, ortalama 1.227 karakter, toplam
+# 916 bin karakter (~305 bin token girdi). Gemini bedava kotasiyla 0 TL, Haiku'ya
+# duserse 1 dolardan az. Yani MALIYET KARAR VERICI DEGIL - orneklemi kucuk
+# tutmanin bir sebebi yok. HEPSI=1 ile 4 kovanin TAMAMI okunur.
 $KOVALAR = @('ret_kaldirma','ret_iflas','tasdik','iflas_kaldirma')
-$perKova = [Math]::Max(1, [int]($ADET / $KOVALAR.Count))
+$perKova = if ($env:HEPSI -eq '1') { 1000 } else { [Math]::Max(1, [int]($ADET / $KOVALAR.Count)) }
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Accept = 'application/json' }
 $bas = (Get-Date).AddDays(-365).ToString('yyyy-MM-dd')
 
