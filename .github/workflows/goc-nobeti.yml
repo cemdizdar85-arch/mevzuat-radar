@@ -31,6 +31,9 @@ on:
       - 'motor/goc-nobetcisi.ps1'
       - 'alacak-radari.html'
       - 'uyari-teyit.html'
+      # Nobetcinin KENDI tarifi degistiginde de kosar - 29.08'de bu satir yoktu
+      # ve nobetciye yapilan duzeltme dogrulanamadan bekledi.
+      - '.github/workflows/goc-nobeti.yml'
 
 permissions:
   contents: write     # raporu depoya isler
