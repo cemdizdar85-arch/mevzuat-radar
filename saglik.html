@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veri Sağlığı — Tetikte</title>
+<style>
+:root{--zemin:#161513;--kart:#1f1d1a;--kehribar:#e0a458;--metin:#e8e4dc;--soluk:#a89f90;--yesil:#8fc98f}
+*{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--zemin);color:var(--metin);line-height:1.6}
+.kap{max-width:860px;margin:0 auto;padding:40px 20px}
+h1{font-size:1.7em;margin:.2em 0}.alt{color:var(--soluk);font-size:1.02em;max-width:640px}
+.kartlar{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:30px 0}
+.kart{background:var(--kart);border:1px solid #35322c;border-radius:14px;padding:20px 18px}
+.sayi{font-size:2em;font-weight:800;color:var(--kehribar);font-variant-numeric:tabular-nums}
+.etiket{color:var(--soluk);font-size:.86em;margin-top:4px}
+.uc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:26px 0}
+.soru{background:var(--kart);border-left:3px solid var(--kehribar);border-radius:0 12px 12px 0;padding:16px}
+.soru b{color:var(--kehribar)}
+.taahhut{border:1px dashed var(--yesil);border-radius:12px;padding:16px 18px;color:var(--yesil);font-size:.95em;margin-top:26px}
+.tarih{color:var(--soluk);font-size:.85em;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="kap">
+  <h1>🩺 Veri Sağlığı</h1>
+  <p class="alt">Bir mevzuat platformunun en büyük vaadi günceldir — biz bu vaadi söylemekle bırakmayız, <b>her sabah makineyle ölçeriz</b>. Aşağıdaki sayılar insan eli değmeden, otomatik ölçümden gelir.</p>
+
+  <div class="kartlar">
+    <div class="kart"><div class="sayi" id="parca">—</div><div class="etiket">izlenen mevzuat parçası</div></div>
+    <div class="kart"><div class="sayi" id="kaynak">—</div><div class="etiket">ayrı kaynak (kanun · tebliğ · standart)</div></div>
+    <div class="kart"><div class="sayi" id="birebir">—</div><div class="etiket">standart, resmî kaynağıyla <b>bayt-birebir</b> doğrulandı</div></div>
+  </div>
+
+  <div class="uc">
+    <div class="soru"><b>VAR MI?</b><br>Her kaynak her gün canlı sayımla yoklanır — “vardı” değil, <i>şu an var</i>.</div>
+    <div class="soru"><b>TAM MI?</b><br>Bütünlük kapısı madde madde tarar: eksik paragraf, kesik metin, başıboş başlık arar.</div>
+    <div class="soru"><b>GÜNCEL Mİ?</b><br>Her standart, resmî kurumun güncel metniyle yeniden indirilip <i>birebir</i> karşılaştırılır.</div>
+  </div>
+
+  <div class="taahhut">✓ Ölçemediğimize “tamam” demeyiz: ölçülemeyen her kalem karnede açıkça “ölçülmedi” yazar. Bulduğumuz her farkı aynı gün kaynağından tazeleriz.</div>
+
+  <div class="tarih" id="tarih">Son ölçüm: yükleniyor…</div>
+</div>
+<script>
+fetch('veri/saglik-karnesi.json').then(r=>r.json()).then(v=>{
+  const b=(n)=>Number(n).toLocaleString('tr-TR');
+  document.getElementById('parca').textContent=b(v.mevzuat_parca);
+  document.getElementById('kaynak').textContent=b(v.kaynak_sayisi);
+  document.getElementById('birebir').textContent=b(v.standart_birebir)+' / '+b(v.standart_olculen);
+  document.getElementById('tarih').textContent='Son ölçüm: '+v.guncelleme+' · ölçüm her sabah 06:45’te otomatik yenilenir';
+}).catch(()=>{document.getElementById('tarih').textContent='Ölçüm dosyası okunamadı.';});
+</script>
+</body>
+</html>

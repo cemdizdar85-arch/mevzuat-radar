@@ -31,6 +31,23 @@ $ALANMAP=@{
   'alacak_abone'    =@('Alacak Radarı aboneleri','site (RLS) / robot')
   'canli_sonuc'     =@('Canlı deneme sonuçları','site (anon insert-only)')
   'hata_bildirim'   =@('Site hata bildirimleri','site (anon insert)')
+  # --- 28.08 gece: 16 sahipsizin kimligi KOLON ADLARINDAN cikarildi (ornek satir CEKILMEDI - kisisel veri okunmadi) ---
+  'belgeler'        =@('Evrak Radarı — belge kayıtları','site (RLS) / evrak robotu')
+  'cevap_kaydi'     =@('Deneme motoru çözüm kayıtları (adaptif/istatistik hammaddesi)','site (üye, RLS insert)')
+  'firma_uyarilari' =@('Radar SaaS firma uyarıları','nöbetçi robotlar')
+  'firmalar'        =@('Radar SaaS firma profilleri (KİŞİSEL VERİ - yalnız sayı)','site (RLS)')
+  'istekler'        =@('Evrak Radarı istek/talep hattı','site (RLS)')
+  'konu_karti'      =@('Konu kartı katmanı (hat 25.08 döşendi, henüz kart basılmadı)','konu-karti hattı (tek yazar)')
+  'konu_ortalama'   =@('Konu bazlı çözüm istatistiği','site istatistik robotu')
+  'konu_semasi'     =@('Konu şeması (şema mühürlenirse doğal ev)','şema hattı (tek yazar)')
+  'kullanim_delilleri'=@('Marka Radarı kullanım delilleri','site (RLS)')
+  'leadler'         =@('Pazarlama leadleri (KİŞİSEL VERİ - yalnız sayı)','site formu')
+  'mukellefler'     =@('Evrak Radarı mükellefleri (KİŞİSEL VERİ - yalnız sayı)','site (RLS)')
+  'paket_uyeler'    =@('Üyelik paketleri','Cem/site (elle+RLS)')
+  'rate_log'        =@('Hız sınırı günlüğü (AI uçları)','edge fonksiyonları')
+  'soru_bildirim'   =@('Soru hata bildirimleri (karantina beslemesi)','site (üye insert)')
+  'soru_istatistik' =@('Soru bazlı çözüm istatistiği','site istatistik robotu')
+  'sorular'         =@('Evrak Radarı soru-cevapları','site (RLS)')
 }
 # ihale/marka/destek tablo adlari kesfifte gelir; taniyorsak asagida yakala
 $ALANDESEN=@(

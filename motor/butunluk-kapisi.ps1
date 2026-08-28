@@ -207,7 +207,10 @@ if(-not $sessiz){ Write-Host ("  belge: {0}" -f $belgeler.Count) }
 # ---------------------------------------------------------------- OLC
 $duz=New-Object System.Collections.Generic.List[object]
 $kesikSayi=0; $oksuzSayi=0
+$olcN=0
 foreach($b in $belgeler){
+  $olcN++
+  if(-not $sessiz -and ($olcN % 3000) -eq 0){ Write-Host ("  olculen: {0}/{1}  ({2:HH:mm:ss})" -f $olcN,$belgeler.Count,(Get-Date)) }
   $ad="$($b.kaynak_ad)"; $metin="$($b.metin)"
   $kok = BK_Kok $ad
   if(-not $kok){ continue }
@@ -225,7 +228,16 @@ foreach($b in $belgeler){
 $isListesi=New-Object System.Collections.Generic.List[object]
 $kirmizi=0; $yesil=0
 $satirlar=New-Object System.Collections.Generic.List[object]
-foreach($g in ($duz | Group-Object kok | Sort-Object Name)){
+# 28.08: Group-Object 31k kayit x binlerce grup olceginde PS5.1'de felc oluyor
+# (kanunlar kosusu 4 saatte bitmedi) -> hashtable gruplama, ayni davranis.
+$gruplar=@{}
+foreach($x in $duz){
+  if(-not $gruplar.ContainsKey($x.kok)){ $gruplar[$x.kok]=New-Object System.Collections.Generic.List[object] }
+  $gruplar[$x.kok].Add($x)
+}
+if(-not $sessiz){ Write-Host ("  grup: {0} kaynak" -f $gruplar.Count) }
+foreach($kokAd in ($gruplar.Keys | Sort-Object)){
+  $g=[pscustomobject]@{ Name=$kokAd; Group=$gruplar[$kokAd] }
   $ar=@($g.Group | Where-Object { $_.tip -ne '' })
   if($ar.Count -eq 0){ continue }
   $delikler=@()
@@ -236,6 +248,9 @@ foreach($g in ($duz | Group-Object kok | Sort-Object Name)){
     foreach($x in $bu){ for($i=$x.a;$i -le $x.b;$i++){ [void]$kaps.Add($i) } }
     $enB=($bu | ForEach-Object { $_.b } | Measure-Object -Maximum).Maximum
     $enK=($bu | ForEach-Object { $_.a } | Measure-Object -Minimum).Minimum
+    # 28.08 asiri-aralik sigortasi: tek sapkin etiket (ornek-rakam 'p.900' vakasi)
+    # milyonluk donguyu ve sahte dev eksik listesini acmasin - isaretle, gec
+    if(($enB-$enK) -gt 5000){ $delikler += [pscustomobject]@{ tip="$tip-ASIRI-ARALIK"; enKucuk=$enK; enBuyuk=$enB; eksik=@() }; continue }
     $d=@(); for($i=$enK;$i -le $enB;$i++){ if(-not $kaps.Contains($i)){ $d += $i } }
     if($d.Count){ $delikler += [pscustomobject]@{ tip=$tip; enKucuk=$enK; enBuyuk=$enB; eksik=$d } }
   }
