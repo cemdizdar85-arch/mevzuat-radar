@@ -47,12 +47,33 @@ jobs:
 
       # Rapor KIRMIZI olsa da yayinlanir - "kor kalma" kurali: nobetcinin
       # kendi ciktisi gorunmezse nobetci de kor kalmis olur.
+      #
+      # ⚠ 29.08 OLCULDU: bu adimin ilk hali "git push || true" yaziyordu. Ilk
+      # kosuda nobetci CALISTI ve olctu, adim "success" dondu, ama rapor depoya
+      # HIC ISLENMEDI - itme sessizce dustu ve || true yuttu. Yani korlugu
+      # onlemesi gereken adimin kendisi kor kaldi. Artik: itme birden fazla
+      # denenir (robotlar dakikada bir itiyor, yarisma normaldir) ve hepsi
+      # duserse adim ACIKCA KIRMIZI yanar.
       - name: Raporu yayinla (kirmizi olsa da)
         if: always()
+        shell: bash
         run: |
+          set -uo pipefail
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/goc-nobeti-raporu.json || true
-          git diff --cached --quiet || git commit -m "Goc nobeti raporu [veri-operasyonu]"
-          git pull --rebase --autostash || true
-          git push || true
+          git add veri/goc-nobeti-raporu.json
+          if git diff --cached --quiet; then
+            echo "Rapor degismedi - islenecek bir sey yok."
+            exit 0
+          fi
+          git commit -m "Goc nobeti raporu [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin HEAD:main; then
+              echo "Rapor islendi (deneme $i)."
+              exit 0
+            fi
+            echo "Deneme $i dustu (robot itmesi olabilir), tekrar denenecek."
+            sleep $((i * 7))
+          done
+          echo "::error::Goc nobeti raporu 5 denemede islenemedi - nobetcinin ciktisi gorunmuyor (kor kalma)."
+          exit 1
