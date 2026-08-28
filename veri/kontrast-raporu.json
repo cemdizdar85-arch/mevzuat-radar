@@ -2,10 +2,10 @@
   "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 60,
+  "sayfa": 61,
   "temiz_sayfa": 59,
-  "denetlenen_metin": 12247,
-  "toplam_kirik": 23,
+  "denetlenen_metin": 12274,
+  "toplam_kirik": 24,
   "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
@@ -64,6 +64,20 @@
           "esik": 4.5,
           "renk": "rgb(61, 220, 151)",
           "zemin": "rgb(255,255,255)"
+        }
+      ]
+    },
+    {
+      "sayfa": "uyari-teyit.html",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "p.dip",
+          "yazi": "Tetikte · Alacak Radarı bildirimleri · S",
+          "oran": 3.4,
+          "esik": 4.5,
+          "renk": "rgb(93, 107, 124)",
+          "zemin": "rgb(13,20,30)"
         }
       ]
     }
