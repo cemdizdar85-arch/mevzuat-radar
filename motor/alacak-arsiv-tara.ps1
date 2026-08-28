@@ -2,11 +2,25 @@
 #  ALACAK ARSIV TARAYICI (bir defalik geriye donuk tarama) — 19.08.2026
 #  Cem: "arsiv turuna basla" (rakipte 19.309 kayit, bizde 19 gunluk havuz vardi)
 #
-#  ilan.gov.tr API'sinde KATEGORI/ARAMA FILTRESI YOK SAYILIYOR (uc varyant
-#  denendi: categoryId/categoryIds/adCategoryId + searchText/keyword/filterText
-#  -> hepsi genel listeyi donduruyor). Tek yol: derin sayfalama + slug suzme.
-#  Olculen tavan: skipCount ~25.000 calisiyor (20.09.2025'e ulasiyor),
-#  30.000 bos donuyor. Sayfa boyutu 20'de SABIT (50/100/200/500 istense de 20).
+#  29.08.2026 DUZELTME - eski notun hukmu yanlisti:
+#  Filtre calismiyor sanilmisti; asil sebep YANLIS ALAN gonderilmesiydi.
+#  Denenen adlar (categoryId/adCategoryId/searchText...) API'de yok; sitenin
+#  kendi istegi yakalandi, dogru alan 'keys.txv' + 'sorting':
+#    {"keys":{"txv":[12]},"sorting":"publish_time desc","skipCount":0,...}
+#    txv 12 = Iflas Hukuku Davalari (49 = konkordato, 50 = iflas/tasfiye)
+#  Sayfa boyutu 20'de SABIT (50/100/500 istense de 20 doner).
+#
+#  Eskiden: genel liste + slug eleme, ~1.250 istek (25.000 skip tavani).
+#  Simdi  : kategori dogrudan, ~286 istek. OLCULDU: 5.705 ilan, ~5 dakika.
+#
+#  IKI YONLU TARAMA: sayfalama tavani ~5.500-6.000 civarinda. Kategori bugun
+#  bunun altinda ama buyurse tek yon yetmez; bu yuzden hem 'desc' (en yeniden)
+#  hem 'asc' (en eskiden) taranip birlestirilir - iki pencere ortada bulusur.
+#
+#  KAYNAK PENCERESI (29.08.2026 olcumu): ilan.gov.tr TAM 365 GUN tutuyor.
+#  En eski konkordato ilani = bugun - 365 gun. Tarih suzgeci (ppdmin/ppdmax)
+#  ile 1 yil oncesi istendiginde SIFIR doner. Yani arsiv GERIYE buyumez;
+#  yalniz zamanla derinlesir - kaynaktan dusen kayitlari biz tuttugumuz icin.
 #
 #  Bu betik gunluk nobette KOSMAZ (alacak-ilan-hasat.ps1 o isi yapar);
 #  arsivi bir kez doldurmak icindir. Tekrar calistirilabilir (idempotent:
@@ -18,7 +32,7 @@ $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $yol  = Join-Path $kok 'veri\alacak-ilan-canli.json'
-$TAVAN = if ($env:TAVAN) { [int]$env:TAVAN } else { 28000 }
+$TAVAN = if ($env:TAVAN) { [int]$env:TAVAN } else { 8000 }   # kategorili tarama: 28.000'e gerek yok
 
 function IlanTur([string]$metin){
   $m = $metin.ToLowerInvariant()
@@ -29,51 +43,81 @@ function IlanTur([string]$metin){
 
 $H = @{ 'Accept'='application/json'; 'User-Agent'='Mozilla/5.0 (MevzuatRadar-AlacakRobotu)' }
 $bulunan = @{}   # ilanNo -> kayit
-$atla = 0; $bosTur = 0; $istek = 0
+$istek = 0; $donenToplam = 0; $slugDisi = 0
 $basla = Get-Date
 
-while ($atla -lt $TAVAN) {
-  $govde = @{ adFilterAttributes = @(); maxResultCount = 20; skipCount = $atla } | ConvertTo-Json -Depth 5
-  try {
-    $r = Invoke-RestMethod -Method Post -Uri 'https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter' `
-      -Headers $H -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType 'application/json' -TimeoutSec 90
-    $istek++
-  } catch {
-    Write-Host ("  istek hatasi (skip={0}): {1} - 3 sn bekle, devam" -f $atla, $_.Exception.Message)
-    Start-Sleep -Seconds 3
-    $atla += 20
-    continue
-  }
-  $sayfa = @($r.result.ads)
-  if (-not $sayfa.Count) { $bosTur++; if ($bosTur -ge 3) { Write-Host ("  bos sayfa x3 (skip={0}) -> TAVAN, duruluyor" -f $atla); break } }
-  else { $bosTur = 0 }
-
-  foreach ($a in @($sayfa | Where-Object { "$($_.slugifyTitle)" -match '^iflas-hukuku' })) {
-    $tarih = ''
-    if ($a.publishStartDate) { try { $tarih = ([datetime]$a.publishStartDate).ToString('dd.MM.yyyy') } catch { $tarih = "$($a.publishStartDate)".Substring(0,10) } }
-    $no = "$($a.adNo)"
-    if (-not $bulunan.ContainsKey($no)) {
-      $bulunan[$no] = [ordered]@{
-        ilanNo = $a.adNo
-        baslik = $a.title
-        kurum  = $a.advertiserName
-        il     = $a.addressCityName
-        ilce   = $a.addressCountyName
-        tarih  = $tarih
-        tur    = (IlanTur "$($a.title) $($a.slugifyTitle)")
-        url    = "https://www.ilan.gov.tr/ilan/$($a.id)/$($a.slugifyTitle)"
+$atlananSayfa = 0
+foreach ($yon in 'desc','asc') {
+  $atla = 0; $bosTur = 0
+  Write-Host ("--- {0} yonunde tarama ---" -f $yon)
+  while ($atla -lt $TAVAN) {
+    $govde = '{"keys":{"txv":[12]},"sorting":"publish_time ' + $yon + '","skipCount":' + $atla + ',"maxResultCount":20}'
+    # DIKKAT: hatayi 'veri bitti' SANMA - 29.08 olcumunde tam bu yuzden kategori
+    # toplami 5.001 olculmustu (dogrusu 5.705). Hata != bos sayfa. Ayni sayfa 3 kez
+    # denenir; ucu de duserse sayfa ATLANIR ama sayilir ve sonda rapor edilir.
+    $r = $null
+    for ($deneme = 1; $deneme -le 3 -and $null -eq $r; $deneme++) {
+      try {
+        $r = Invoke-RestMethod -Method Post -Uri 'https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter' `
+          -Headers $H -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType 'application/json' -TimeoutSec 90
+        $istek++
+      } catch {
+        Write-Host ("  istek hatasi ({0} skip={1}, deneme {2}/3): {3}" -f $yon, $atla, $deneme, $_.Exception.Message)
+        if ($deneme -lt 3) { Start-Sleep -Seconds 3 }
       }
     }
+    if ($null -eq $r) {
+      Write-Host ("  UYARI: {0} skip={1} sayfasi 3 denemede alinamadi - ATLANDI" -f $yon, $atla)
+      $atlananSayfa++
+      $atla += 20
+      continue
+    }
+    $sayfa = @($r.result.ads)
+    if (-not $sayfa.Count) { $bosTur++; if ($bosTur -ge 3) { Write-Host ("  bos sayfa x3 ({0} skip={1}) -> son, duruluyor" -f $yon, $atla); break } }
+    else { $bosTur = 0 }
+    $donenToplam += $sayfa.Count
+
+    foreach ($a in $sayfa) {
+      # slug suzgeci ARTIK YEDEK KEMER (kategori dogrudan istendi); elenen olursa say
+      if ("$($a.slugifyTitle)" -notmatch '^iflas-hukuku') { $slugDisi++; continue }
+      $tarih = ''
+      if ($a.publishStartDate) { try { $tarih = ([datetime]$a.publishStartDate).ToString('dd.MM.yyyy') } catch { $tarih = "$($a.publishStartDate)".Substring(0,10) } }
+      $no = "$($a.adNo)"
+      if (-not $bulunan.ContainsKey($no)) {
+        $bulunan[$no] = [ordered]@{
+          ilanNo = $a.adNo
+          baslik = $a.title
+          kurum  = $a.advertiserName
+          il     = $a.addressCityName
+          ilce   = $a.addressCountyName
+          tarih  = $tarih
+          tur    = (IlanTur "$($a.title) $($a.slugifyTitle)")
+          url    = "https://www.ilan.gov.tr/ilan/$($a.id)/$($a.slugifyTitle)"
+        }
+      }
+    }
+    $atla += 20
+    if ($atla % 1000 -eq 0) {
+      $sonT = if ($sayfa.Count) { try { ([datetime]$sayfa[-1].publishStartDate).ToString('dd.MM.yyyy') } catch { '?' } } else { '?' }
+      Write-Host ("  {0} skip={1,5} · birikim={2,5} · o sayfadaki tarih={3} · gecen={4:mm\:ss}" -f $yon, $atla, $bulunan.Count, $sonT, ((Get-Date) - $basla))
+    }
+    Start-Sleep -Milliseconds 200
   }
-  $atla += 20
-  if ($atla % 2000 -eq 0) {
-    $sonT = if ($sayfa.Count) { try { ([datetime]$sayfa[-1].publishStartDate).ToString('dd.MM.yyyy') } catch { '?' } } else { '?' }
-    Write-Host ("  skip={0,6} · toplanan iflas/konkordato={1,5} · o sayfadaki tarih={2} · gecen={3:mm\:ss}" -f $atla, $bulunan.Count, $sonT, ((Get-Date) - $basla))
-  }
-  Start-Sleep -Milliseconds 250
 }
 
 Write-Host ("TARAMA BITTI: {0} istek, {1} iflas/konkordato ilani bulundu ({2:mm\:ss})" -f $istek, $bulunan.Count, ((Get-Date) - $basla))
+if ($atlananSayfa -gt 0) {
+  Write-Host ("UYARI: {0} sayfa alinamadi (~{1} kayit gorulmedi). Tarama EKSIK - tekrar kosulmali." -f $atlananSayfa, ($atlananSayfa * 20))
+}
+
+# --- OZ-SINAV: txv suzgeci hala calisiyor mu? ---
+if ($donenToplam -gt 0) {
+  $oran = [math]::Round(100 * ($donenToplam - $slugDisi) / $donenToplam, 1)
+  if ($oran -lt 80) {
+    throw ("txv=12 suzgeci kaymis: donen {0} kaydin yalniz %{1}'i iflas-hukuku. Kaynak kategori kimligini degistirmis olabilir - ilan.gov.tr kategori sayfasindan txv teyit edilmeden arsiv YAZILMAZ." -f $donenToplam, $oran)
+  }
+  Write-Host ("oz-sinav: {0} kayit donen, %{1} iflas-hukuku (kategori suzgeci saglam)" -f $donenToplam, $oran)
+}
 
 # --- mevcut havuzla BIRLESTIR (mevcut kayitlar korunur: borclu/vkn zenginlestirmesi kaybolmasin) ---
 $mevcut = @()
