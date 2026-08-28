@@ -206,6 +206,12 @@ function muhletCikar(metin) {
 // Kaynak: 5.775 ilanın başlık dağılımı ölçülerek çıkarıldı, uydurulmadı.
 const DURUMLAR = [
   ['alacak_cagrisi', /alacaklar[ıi]n[ıi]\s*bildirme|alacakl[ıi]lara\s*[çc]a[ğg]r[ıi]|alacakl[ıi]lar[ıi]\s*davet|bildirmeye\s*davet|kay[ıi]t\s*ilan/i],
+  // 28.08: "İflasın kaldırılması" (İİK m.182) ret_kaldirma'ya düşüyordu ve
+  // alacaklıya İYİ HABERİ KÖTÜ HABER gibi gösteriyordu — borçlu iflastan
+  // ÇIKIYOR (borçlar ödendi / alacaklılar talebini geri aldı / konkordato
+  // tasdik edildi). ret_kaldirma'dan ÖNCE gelmeli, yoksa "kaldırılmas" kalıbı
+  // onu yutar. Konkordatolu olanlar zaten yukarıda ret_iflas'a ayrılıyor.
+  ['iflas_kaldirma', /[iİIı]flas[ıi]n\s*kald[ıi]r[ıi]lma/i],
   ['ret_kaldirma',   /reddine|reddi|kald[ıi]r[ıi]lmas|feshine|feshi\b|iptaline/i],
   ['tasdik',         /tasdik(?:ine|i\b|\s*karar)/i],
   ['iflas_tasfiye',  /iflas[ıi]n[ıi]n\s*a[çc][ıi]lmas|iflas\s*karar|s[ıi]ra\s*cetvel|basit\s*tasfiye|tasfiyesinin\s*a[çc][ıi]lmas|masa\b/i],
