@@ -155,11 +155,26 @@ select public.alacak_vitrin(null,'konkordato') ->> 'secilenAdet' as konkordato_i
        public.alacak_vitrin(null,'konkordato') ->  'durumlar'    as durum_dagilimi;
 ```
 
-`durum_dagilimi` içinden `tasdik` ve `ret_kaldirma` okunur.
-⚠️ `2026-08-28-alacak-ret-iflas-durumu.sql` basıldıktan sonra `ret_kaldirma`
-ikiye ayrılır (`ret_kaldirma` + `ret_iflas`). Postta **ikisinin toplamını**
-kullan ve istersen "bunların N tanesi doğrudan iflas kararıyla sonuçlandı"
-cümlesini ekle — bu, hiçbir rakibin yayınlamadığı bir rakamdır.
+`durum_dagilimi` içinden `tasdik` ve `ret_kaldirma` + `ret_iflas` okunur;
+**postta ikisinin TOPLAMI kullanılır** (28.08 ölçümü: 650 + 65 = **715**).
+
+🚫 **"Bunların 65'i iflas kararıyla sonuçlandı" CÜMLESİNİ YAZMA.** 28.08'de
+ölçüldü ve kurulamayacağı görüldü:
+
+| İl | Konkordato | ret_kaldırma | ret_iflas |
+|---|---|---|---|
+| İSTANBUL | 1.462 | 231 | <2 |
+| BURSA | 309 | 29 | **39** |
+| ADANA | 152 | 52 | <2 |
+
+İstanbul'da 231 ret ilanının neredeyse hiçbirinde "iflas" geçmiyor; oysa
+İİK m.308/b iflasa tabi şirketlerde iflas kararını **zorunlu** kılar. Yani
+`ret_iflas` sayısı olayı değil, **mahkemelerin başlık yazma alışkanlığını**
+ölçüyor. Bursa yazıyor, İstanbul yazmıyor. Bu rakamla ne ülke geneli ne il
+karşılaştırması yapılabilir. Sayfadaki filtreye de bu sınır şerh olarak kondu.
+
+✅ Gerçek rakam ilan METNİNDEN çıkarılabilir (kasada `metin` kolonu var,
+dışarı dönmez). Ölçülüp doğrulanmadan bu cümle postta yer almaz.
 
 ---
 
