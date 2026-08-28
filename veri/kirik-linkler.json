@@ -1,17 +1,37 @@
 {
-  "tarama": "27.08.2026 10:52",
-  "toplamLink": 1550,
-  "kirikSayisi": 7,
+  "tarama": "28.08.2026 12:42",
+  "toplamLink": 1551,
+  "kirikSayisi": 10,
   "kirikler": [
     {
+      "url": "https://kgk.gov.tr /ContentAssignmentDetail/5154/Etki-Muhasebesi-Webinarına-İlişkin-Duyuru",
+      "kod": "baglanti-yok",
+      "sayfalar": "veri/duyuru-yeni.json, veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://www.tobb.org.tr/TurkiyeTicaretSicilGazetesi/Sayfalar/Sorgulama.php",
+      "kod": "baglanti-yok",
+      "sayfalar": "alacakli-rehberi.html"
+    },
+    {
       "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qbozn-hyzesrsCTT-GDVwZxQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw==",
+      "kod": "baglanti-yok",
+      "sayfalar": "veri/cagri-radar.json, veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv",
       "kod": "baglanti-yok",
       "sayfalar": "veri/cagri-radar.json"
     },
     {
-      "url": "https://www.hamle.gov.tr/Home/CagriPlani",
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qfF3y-Sh2QhhH5RCQng7YmRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw==",
       "kod": "baglanti-yok",
       "sayfalar": "veri/cagri-radar.json, veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://www.tkdk.gov.tr/Dokuman/ipard-iii-12-basvuru-cagri-ilani-1612",
+      "kod": "baglanti-yok",
+      "sayfalar": "veri/cagri-radar.json"
     },
     {
       "url": "https://fonts.googleapis.com",
@@ -19,36 +39,91 @@
       "sayfalar": "tipografi-deneme.html, veri/kirik-linkler.json"
     },
     {
-      "url": "https://kgk.gov.tr /ContentAssignmentDetail/5154/Etki-Muhasebesi-Webinarına-İlişkin-Duyuru",
+      "url": "https://www.hamle.gov.tr/Home/CagriPlani",
       "kod": "baglanti-yok",
-      "sayfalar": "veri/duyuru-yeni.json, veri/kirik-linkler.json"
+      "sayfalar": "veri/cagri-radar.json, veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qdfQV9nf3wV0UhAGml1CNyZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw==",
+      "kod": "baglanti-yok",
+      "sayfalar": "veri/cagri-radar.json, veri/kirik-linkler.json"
     },
     {
       "url": "https://fonts.gstatic.com",
       "kod": 404,
       "sayfalar": "tipografi-deneme.html, veri/kirik-linkler.json"
-    },
-    {
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qfF3y-Sh2QhhH5RCQng7YmRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw==",
-      "kod": "baglanti-yok",
-      "sayfalar": "veri/cagri-radar.json"
-    },
-    {
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qdfQV9nf3wV0UhAGml1CNyZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw==",
-      "kod": "baglanti-yok",
-      "sayfalar": "veri/cagri-radar.json"
     }
   ],
-  "dogrulanamayanSayisi": 9,
+  "dogrulanamayanSayisi": 34,
   "dogrulanamayanNot": "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
   "dogrulanamayanlar": [
     {
-      "url": "https://www.resmigazete.gov.tr/eskiler/2024/02/20240216-6.htm",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2020/03/20200308-10.htm",
       "kod": "bot-engeli",
       "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
     },
     {
-      "url": "https://www.resmigazete.gov.tr/eskiler/2025/11/20251125-5.htm",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2020/03/20200321-6.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/03/20220311-8.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/01/20220118-12.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2024/06/20240613-3.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2020/03/20200308-11.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2024/08/20240828-2.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2025/04/20250417-3.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/03/20220308-12.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2025/02/20250215-6.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2024/05/20240516-6.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2023/10/20231024-7.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2025/08/20250815-3.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/01/20220122-16.htm",
       "kod": "bot-engeli",
       "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
     },
@@ -58,22 +133,82 @@
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
-      "url": "https://www.resmigazete.gov.tr/eskiler/2020/05/20200508-9.htm",
+      "url": "https://ekapv2.kik.gov.tr/",
+      "kod": "bot-engeli",
+      "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2023/12/20231220-6.htm",
       "kod": "bot-engeli",
       "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
     },
     {
-      "url": "https://www.resmigazete.gov.tr/eskiler/2022/12/20221217-17.htm",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2023/03/20230329-4.htm",
       "kod": "bot-engeli",
       "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
     },
     {
-      "url": "https://www.resmigazete.gov.tr/eskiler/2022/10/20221025-14.htm",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/01/20220118-19.htm",
       "kod": "bot-engeli",
       "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
     },
     {
-      "url": "https://www.resmigazete.gov.tr/eskiler/2020/06/20200602-17.htm",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2023/06/20230623-4.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2020/03/20200314-7.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2025/04/20250404-2.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2019/11/20191121-6.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/01/20220118-14.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/10/20221004-6.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2019/12/20191231-10.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2024/03/20240327-4.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2023/03/20230309-5.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2025/09/20250919-6.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/06/20220616-7.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2023/03/20230329-5.htm",
       "kod": "bot-engeli",
       "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
     },
@@ -83,9 +218,14 @@
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
-      "url": "https://ekapv2.kik.gov.tr/",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2022/09/20220930-5.htm",
       "kod": "bot-engeli",
-      "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2020/06/20200602-16.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/gozetim-teblig-zinciri.json, veri/rg-gozetim-haritasi.json"
     }
   ]
 }
