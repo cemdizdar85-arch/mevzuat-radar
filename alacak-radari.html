@@ -239,6 +239,22 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       // rampayı trend sanarız.
       + ' — bu türün sayısı 1 yıllık değildir, diğerleriyle kıyaslanamaz ve <b>zaman içinde artış olarak da okunamaz</b> (kategori kaynakta bu tarihte açıldı).</div>';
   }
+  // 28.08 GÖREV 2: sayfa dibindeki "Veri kaynağı" bloğu da "son 1 yılın tamamı
+  // var" diye VARSAYIYORDU — iflas için yanlış. Cümle artık kasadan kurulur;
+  // ölçüm yoksa hiçbir kapsam iddiası yazılmaz (boş bırakılır).
+  function aiKapsamCumlesi(){
+    var e=document.getElementById('aiKapsamCumle'); if(!e) return;
+    if(!AI_TUR_ILK||!AI_TUR_GUN){ e.innerHTML=''; return; }
+    var tam=[], kisa=[];
+    Object.keys(AI_TUR_GUN).forEach(function(k){
+      var ad=AI_TUR_ADI[k]||k;
+      if(AI_TUR_GUN[k]>=300) tam.push(ad); else kisa.push(ad+' ilanları '+aiKac(AI_TUR_ILK[k])+' tarihinden itibaren');
+    });
+    var h='';
+    if(tam.length)  h+=' — '+tam.join(' ve ')+' ilanlarında <b style="color:var(--ink)">son 1 yılın tamamı</b>';
+    if(kisa.length) h+=(tam.length?'; ':' — ')+'<b style="color:var(--ink)">'+kisa.join(', ')+'</b> (kaynakta bu tarihte ayrı kategori olarak açıldı)';
+    e.innerHTML=h;
+  }
   function aiKapsamSerhi(k){
     if(!k.eksik) return '';
     // 28.08 CANLI ÖLÇÜMDE YAKALANAN EKSİK: "artış olarak okunamaz" uyarısı yalnız
@@ -270,6 +286,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       // DURUŞMA GÜNÜ -> m.304 (tarih ilanda; geri sayım yok, hap var)
       if(/duruşma/.test(b))
         return {hap:'Konkordato tasdik duruşması günü ilan edildi. İtirazın varsa sebeplerini duruşmadan en az 3 gün önce yazılı bildir, duruşmaya katılabilirsin (m.304).'};
+      // 28.08: RET + İFLAS BİRLİKTE -> iflas ARTIK VERİLMİŞ (m.308/b: borçlu
+      // iflasa tabi şahıslardansa mahkeme reddle birlikte iflasına resen karar
+      // verir). Aşağıdaki genel ret hapı burada YANLIŞ olurdu: "iflasına karar
+      // verebilir" der, oysa ilan zaten verildiğini söylüyor. Geri sayım
+      // YAZILMAZ — m.219'un 1 ayı iflas dairesinin adi tasfiye ilanından işler,
+      // bu ilan o değildir; emin olmadığımız süreyi saymayız.
+      if(/iflas/.test(b) && /reddi|reddine|kaldırılmas|feshi/.test(b))
+        return {hap:'Konkordato reddedildi ve borçlunun <b>İFLASINA karar verildi</b> (m.308/b). Mühletteki takip yasağı sona erdi. Alacağın artık iflas masasına kaydedilir: iflas dairesi adi tasfiye ilanını yayımlayınca <b>o ilandan itibaren 1 ay içinde</b> alacağını kaydettir (m.219); kaçırırsan iflas kapanana dek geç kayıt mümkündür ama masrafı sana ait olur ve önceki paylaştırmalara katılamazsın (m.236).'};
       // RET -> m.308 (iflasa dönebilir)
       if(/reddine|talebinin red|davasının red| red\b/.test(b))
         return {hap:'Konkordato reddedildi. Borçlu iflasa tabiyse mahkeme iflasına karar verebilir; iflas açılırsa alacağını masaya kaydettir (m.308).'};
@@ -453,6 +477,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   // göre — önce süresi işleyenler (çağrı/mühlet), sonra biten süreçler.
   var AI_DURUM_ADI={
     alacak_cagrisi:['Alacak çağrısı','var(--red)'],
+    // 28.08: konkordato REDDEDİLDİ ve firma İFLASA gitti. Alacaklı için arşivdeki
+    // en kesin haber bu; eskiden nötr "Ret / kaldırma" içinde görünmez duruyordu.
+    // Türü konkordato KALIR (kaynakta o kategoride yayımlanıyor, konkordato
+    // dosyasının sonucudur); ayrımı DURUM taşır. Göç: 2026-08-28-alacak-ret-iflas-durumu.sql
+    ret_iflas     :['Konkordato reddi → İFLAS','var(--red)'],
     gecici_muhlet :['Geçici mühlet','var(--amber)'],
     kesin_muhlet  :['Kesin mühlet','var(--amber)'],
     uzatma        :['Mühlet uzatma','var(--muted)'],
@@ -529,6 +558,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     AI_KAPSAM_GUN=(typeof d.secilenGun==='number')?d.secilenGun:null;
     if(d.turIlk) AI_TUR_ILK=d.turIlk;
     if(d.turGun) AI_TUR_GUN=d.turGun;
+    aiKapsamCumlesi();
     if(ilk){
       AI_ARSIV_ADET=(d.adet||AI_L.length);
       AI_SON_TARIH=d.enYeniTarih||((AI_L[0]||{}).tarih)||'';
@@ -812,7 +842,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        Kanıt satışı destekler ama vuruştan SONRA gelir (Gazette/Creditsafe deseni). -->
   <details style="background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:18px 0 0">
     <summary style="cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(--ink)">Veri kaynağı ve hukuki dayanak</summary>
-    <div class="uyari" style="border:0;background:none;padding:0 0 14px;margin:0"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Elimizde <b style="color:var(--ink)">son 1 yılın tamamı var: <span id="aiAdet2">…</span> ilan</b>, VKN/TCKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
+    <div class="uyari" style="border:0;background:none;padding:0 0 14px;margin:0"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Arşivimizde <b style="color:var(--ink)"><span id="aiAdet2">…</span> ilan</b> var<span id="aiKapsamCumle"></span>, VKN/TCKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
   </details>
 
   <div class="dip">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr) · İcra ve İflas Kanunu m.288/294/299 · Tetikte. Kartlardaki süreler bilgilendirme amaçlıdır; kesin süre ve işlemler için ilan metnine ve avukatına danış.</div>
@@ -949,6 +979,31 @@ function taramaExcelIndir(){
     ws['!cols'] = [{wch:18},{wch:26},{wch:38},{wch:13},{wch:12},{wch:12},{wch:34},{wch:16},{wch:30},{wch:12},{wch:52},{wch:38}];
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Alacak Taraması');
+    // 28.08: "TEMİZ" satırı, taramanın HANGİ PENCEREDE yapıldığını bilmeden
+    // okunamaz. Müşavir bu dosyayı dosyaya koyuyor; 6 ay sonra açan kişi neyin
+    // tarandığını bilmeli. Kapsam ikinci sayfada, ölçülen değerlerle.
+    try{
+      const kap = [];
+      kap.push({Alan:'Tarama tarihi', Değer:new Date().toLocaleString('tr-TR')});
+      kap.push({Alan:'Arşivdeki toplam ilan', Değer:AI_ARSIV_ADET});
+      kap.push({Alan:'En yeni ilan (son çekim)', Değer:AI_SON_TARIH||'ölçülmedi'});
+      if(AI_TUR_ILK && AI_TUR_GUN){
+        Object.keys(AI_TUR_GUN).forEach(function(k){
+          kap.push({Alan:'Kapsam · '+(AI_TUR_ADI[k]||k),
+                    Değer:AI_TUR_ILK[k]+' tarihinden itibaren ('+AI_TUR_GUN[k]+' gün)'});
+        });
+        const kisa = Object.keys(AI_TUR_GUN).filter(function(k){ return AI_TUR_GUN[k]<300; });
+        if(kisa.length) kap.push({Alan:'⚠️ UYARI',
+          Değer:kisa.map(function(k){return AI_TUR_ADI[k]||k;}).join(', ')+' ilanları arşivde 1 yılın tamamını kapsamıyor; bu türde "ilan bulunamadı" sonucu, o tarihten öncesi için bilgi vermez.'});
+      } else {
+        kap.push({Alan:'⚠️ UYARI', Değer:'Tür bazlı kapsam ölçülemedi — bu dosyadaki sonuçlar tarama anındaki arşivle sınırlıdır.'});
+      }
+      kap.push({Alan:'Kaynak', Değer:'Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)'});
+      kap.push({Alan:'Not', Değer:'Kesin bilgi ilan metnindedir. Bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez.'});
+      const wsk = XLSX.utils.json_to_sheet(kap);
+      wsk['!cols'] = [{wch:32},{wch:90}];
+      XLSX.utils.book_append_sheet(wb, wsk, 'Kapsam');
+    }catch(e){}
     const d = new Date(), iki = n => String(n).padStart(2,'0');
     XLSX.writeFile(wb, 'alacak-taramasi-'+d.getFullYear()+iki(d.getMonth()+1)+iki(d.getDate())+'.xlsx');
   }catch(e){ alert('Excel oluşturulamadı: '+e.message); }
