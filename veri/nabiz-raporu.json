@@ -1,11 +1,15 @@
 {
-  "tarih": "28.08.2026 17:34",
-  "durum": "TAMAM",
+  "tarih": "28.08.2026 23:48",
+  "durum": "KURTARMA",
   "kirmizi": 0,
-  "kurtarma": 0,
+  "kurtarma": 1,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan": [
+    "Gunluk Kanun Aynasi -> son basarili kosu 35.2 saat once (esik 30s) -> kurtarma: tetiklendi"
+  ],
+  "kurtarilan_anahtar": [
+    "KOSU:mevzuat.yml"
+  ]
 }
