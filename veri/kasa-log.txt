@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260827102902
+Start time: 20260828121128
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1d65c7d0-77d7-45dc-aedc-a6a2d2de3247.ps1'
-Process ID: 2024
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/524643f7-feb3-483e-8842-99b48e9b961f.ps1'
+Process ID: 2234
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -60,31 +60,31 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      KGK        2166
 
   --- ders bazinda
-     Finansal Muhasebe                  9180
-     Maliyet Muhasebesi                 5377
-     Finansal Tablolar ve Analizi       2187
-     Hukuk                              2108
-     Yabanci Dil                        1560
-     Mali Tablolar Analizi              1526
-     Muhasebe Standartlari              1017
-     Denetim Standartlari               967
-     Muh. ve Mali Müş. Meslek Hukuku    922
-     Turkce                             911
-     Denetim                            903
-     Is ve Sosyal Guvenlik Hukuku       456
-     Sermaye Piyasası Mevzuatı          445
-     Ticaret Hukuku                     440
-     Borclar Hukuku                     426
-     Meslek Hukuku                      358
-     Vergi Hukuku                       348
-     Maliye                             346
-     Ekonomi                            212
-     Ataturk Ilke ve Inkilap Tarihi     194
-     Vergi Mevzuatı ve Uygulaması       187
-     Muhasebe Denetimi                  163
-     Matematik                          154
-     Finansal Yonetim                   103
-     Kurumsal Yonetim                   76
+     Finansal Muhasebe                  7205
+     Maliyet Muhasebesi                 4516
+     Hukuk                              3247
+     Vergi Mevzuatı ve Uygulaması       1650
+     Yabanci Dil                        1531
+     Mali Tablolar Analizi              1373
+     Finansal Tablolar ve Analizi       1355
+     Vergi Hukuku                       1232
+     Muhasebe Standartlari              1079
+     Muh. ve Mali Müş. Meslek Hukuku    1065
+     Ticaret Hukuku                     1034
+     Denetim Standartlari               966
+     Turkce                             928
+     Denetim                            859
+     Is ve Sosyal Guvenlik Hukuku       489
+     Meslek Hukuku                      353
+     Borclar Hukuku                     308
+     Sermaye Piyasası Mevzuatı          284
+     Maliye                             281
+     Ekonomi                            235
+     Matematik                          211
+     Muhasebe Denetimi                  133
+     Ataturk Ilke ve Inkilap Tarihi     114
+     Finansal Yonetim                   76
+     Kurumsal Yonetim                   42
      Surdurulebilirlik                  3
 
   --- kaynak tipi (bag kurulabilirlik)
@@ -92,28 +92,28 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      mevzuat disi (dil/matematik/teori)        : 8246
 
   --- EN YOGUN 20 KONU (kota sisteminin girdisi)
-     1389x  Hukuk|is sozlesmesi feshi
-      506x  Maliyet Muhasebesi|ortak maliyet dagitimi
-      484x  Finansal Tablolar ve Analizi|dikey yuzde analizi
-      342x  Finansal Tablolar ve Analizi|finansal oran analizi
-      317x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
-      317x  Maliyet Muhasebesi|satilan mamul maliyeti
-      217x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
-      216x  Finansal Tablolar ve Analizi|trend analizi
-      211x  Maliyet Muhasebesi|gug yukleme katsayisi
-      203x  Maliyet Muhasebesi|yan urun maliyeti
-      182x  Maliyet Muhasebesi|gug yukleme orani
-      176x  Finansal Tablolar ve Analizi|cari oran
-      156x  Finansal Muhasebe|supheli alacak karsiligi
-      134x  Finansal Muhasebe|gelecek aylara ait gider
-      123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
-      113x  Finansal Muhasebe|amortisman ayirma
-      113x  Finansal Muhasebe|gider yansitma kaydi
-      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
-      100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
-       95x  Finansal Muhasebe|hisse senedi satisi
+      292x  Finansal Tablolar ve Analizi|cari oran
+      231x  Finansal Tablolar ve Analizi|dikey yüzde analizi
+      193x  Yabanci Dil|preposition kullanimi
+      162x  Maliyet Muhasebesi|üretim maliyeti hesabı
+      152x  Maliyet Muhasebesi|birim maliyet hesaplama
+      132x  Finansal Tablolar ve Analizi|trend analizi
+      115x  Finansal Muhasebe|gelecek aylara ait gider mahsubu
+      108x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+       96x  Maliyet Muhasebesi|uretim maliyeti hesabi
+       93x  Mali Tablolar Analizi|yatay analiz
+       85x  Finansal Muhasebe|gelecek aylara ait gider
+       84x  Mali Tablolar Analizi|cari orandan dönen varlık
+       79x  Finansal Muhasebe|kredi faiz reeskontu
+       73x  Finansal Tablolar ve Analizi|dikey yuzde analizi
+       71x  Turkce|cumle ogeleri
+       63x  Hukuk|belirli süreli iş sözleşmesinin belirsiz süreli hale dönüşümü
+       62x  Maliyet Muhasebesi|satilan mamul maliyeti
+       62x  Finansal Tablolar ve Analizi|asit-test oranı
+       60x  Finansal Muhasebe|supheli alacak karsiligi
+       59x  Maliyet Muhasebesi|birim maliyet hesabi
 
-  --- tekil konu sayisi: 2264
+  --- tekil konu sayisi: 16395
 
   --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
      bakilan          30569
@@ -150,26 +150,26 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      GUVENLIK DURDURMASI: 20.000 asildi
      cekilen yayin=false kayit: 21000
      UYARI: sayim 30569 diyor, cekim 21000 getirdi - EKSIK.
-       Denetim                            1
        Finansal Muhasebe                  1
        Finansal Tablolar ve Analizi       1
+       Finansal Yonetim                   1
        Hukuk                              1
-       Kurumsal Yonetim                   1
        Mali Tablolar Analizi              1
        Maliyet Muhasebesi                 1
        Muhasebe Standartlari              1
-       Sermaye Piyasası Mevzuatı          1
+       Ticaret Hukuku                     1
+       Vergi Hukuku                       1
        Yabanci Dil                        1
 -> veri/denetim-kuyrugu.json  (21000 kimlik, profesor -idler icin)
      tam metin cekilen: 10 (istenen 10)
 -> veri/yeni-uretim-ornek.json  (10 yeni soru, GM okumasi icin)
 -> veri/pilot-ornek.json  (10 soru; suzgec sinav='SGS' ders='Finansal Muhasebe')
--> veri/pilot-kuyrugu.json  (5256 kimlik, hakem -idler icin)
+-> veri/pilot-kuyrugu.json  (4309 kimlik, hakem -idler icin)
    KAYNAK TURU TAM SAYIM (sinav='SGS' ders='Finansal Muhasebe', yayin=false):
-     standart (STD)    : 1302
-     hesap plani (THP) : 996
-     toplam            : 5256
-     standart+THP orani: %43.7
+     standart (STD)    : 1296
+     hesap plani (THP) : 1143
+     toplam            : 4309
+     standart+THP orani: %56.6
 
 -> veri/kasa-sayim.json
 -> arac sayimi: 38 kart tarandi, 28 calisan arac
@@ -178,5 +178,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260827103102
+End time: 20260828121309
 **********************
