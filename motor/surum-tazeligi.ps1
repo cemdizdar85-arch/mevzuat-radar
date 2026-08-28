@@ -17,7 +17,22 @@
 #  Cikti: veri/fabrika/surum-tazeligi-karnesi.json + konsol tablosu.
 #  0 USD, model yok. AYLIK zamanlanmis gorevle kosulur; elle de kosulabilir.
 # ============================================================================
-param([string]$yalniz='')   # 'TMS 37' gibi tek standart icin
+param([string]$yalniz='')   # 'TMS 37' ya da virgullu liste: 'TMS 1,TFRS 18'
+
+# --- 28.08 ilk supurme dersleri ---
+# OZEL YOL: KGK dosya adlari kaliptan sapabiliyor. TFRS 18 dosyasi 'TFRS 18 .pdf'
+# (sonda BOSLUK); TMS 1 Kirmizi Kitap 2026'dan CIKTI (yerini TFRS 18 aldi),
+# 2026'da fiilen uygulanan set MAVI Kitap'ta yasiyor - sinav mufredati o.
+$OZEL_URL=@{
+  'TMS 1'  ='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Mavi_Kitap/TMS/TMS%201.pdf'
+  'TFRS 18'='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS%2018%20.pdf'
+}
+# ELLE-ZENGIN ISTISNA: bu kaynaklarda ambar, set PDF'inden DAHA guncel/zengin
+# (26.08 elle islenen Temmuz 2026 kurul kararlari). Fark cikmasi MESRUDUR;
+# INCELE yerine ISTISNA yazilir - yeniden yutmak GERILEME olur.
+$ELLE_ZENGIN=@('TMS 28')
+# TSRS'ler ayri sette (URL kalibi farkli) + 26.08 elle guncel: v1'de olcum disi.
+$KAPSAM_DISI=@('TSRS 1','TSRS 2')
 $ErrorActionPreference='Continue'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -40,7 +55,7 @@ foreach($on in @('TMS','TFRS','TSRS')){
   }
 }
 $liste=@($adlar.Keys | Sort-Object { $_ -replace '\D','' -as [int] } | Sort-Object { ($_ -split ' ')[0] })
-if($yalniz){ $liste=@($liste | ? { $_ -eq $yalniz }) }
+if($yalniz){ $ist=@($yalniz -split ',' | % { $_.Trim() }); $liste=@($liste | ? { $ist -contains $_ }) }
 Write-Host "Standart listesi: $($liste.Count) adet"
 
 # --- 2) her biri icin kuru prova + siniflama ---
@@ -48,9 +63,15 @@ $karne=New-Object System.Collections.Generic.List[object]
 $n=0
 foreach($std in $liste){
   $n++
+  if($KAPSAM_DISI -contains $std){
+    $karne.Add([pscustomobject]@{standart=$std;durum='ISTISNA-KAPSAM-DISI';ambar_parca=0;ambar_krk=0;yeni_parca=0;yeni_krk=0;oran=0})
+    Write-Host ("  [{0}/{1}] {2,-10} ISTISNA (ayri set / elle guncel)" -f $n,$liste.Count,$std)
+    continue
+  }
   $cikti=''
   # 28.08 oz-sinav dersi 2: yutucu Write-Host kullaniyor -> 2>&1 yakalamaz, *>&1 gerekir
-  try{ $cikti=(& (Join-Path $here 'standart-yut.ps1') -standart $std *>&1 | Out-String) }catch{ $cikti="HATA: $_" }
+  $ekArg=@{}; if($OZEL_URL.ContainsKey($std)){ $ekArg['url']=$OZEL_URL[$std] }
+  try{ $cikti=(& (Join-Path $here 'standart-yut.ps1') -standart $std @ekArg *>&1 | Out-String) }catch{ $cikti="HATA: $_" }
   $ap=0;$ak=0;$yp=0;$yk=0
   # 28.08 oz-sinav dersi: '·' ayirici yakalama sirasinda farklilasabiliyor - \D ile gevsek oku
   if($cikti -match 'AMBARDAKI HALI\D+([\d\.]+) parca\D+([\d\.]+) karakter'){ $ap=[int]($Matches[1] -replace '\.',''); $ak=[int]($Matches[2] -replace '\.','') }
@@ -60,6 +81,7 @@ foreach($std in $liste){
     $oran=[math]::Round($yk/$ak,3)
     if([math]::Abs(1-$oran) -le 0.02 -and [math]::Abs($yp-$ap) -le [math]::Max(2,[int]($ap*0.05))){ $durum='TUTARLI' } else { $durum='INCELE' }
   } elseif($ak -gt 0 -and $yk -eq 0){ $durum='OLCULEMEDI' }
+  if($durum -eq 'INCELE' -and $ELLE_ZENGIN -contains $std -and $oran -lt 1){ $durum='ISTISNA-ELLE-ZENGIN' }
   $karne.Add([pscustomobject]@{standart=$std;durum=$durum;ambar_parca=$ap;ambar_krk=$ak;yeni_parca=$yp;yeni_krk=$yk;oran=$oran})
   Write-Host ("  [{0}/{1}] {2,-10} {3,-11} ambar {4}p/{5}k -> yeni {6}p/{7}k (oran {8})" -f $n,$liste.Count,$std,$durum,$ap,$ak,$yp,$yk,$oran)
 }
