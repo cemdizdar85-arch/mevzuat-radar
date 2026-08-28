@@ -1,0 +1,58 @@
+# .github/workflows/goc-nobeti.yml — GOC NOBETCISI
+#
+# NEDEN VAR (29.08.2026, Cem "1.2 yap")
+# 28.08'de olculdu: alacak-radari.html kasadan 'secilenGun' / 'turIlk' / 'turGun'
+# okuyordu ama o alanlari ureten goc Supabase'de BASILMAMISTI. Sayfa cokmedi -
+# SUSTU: kapsam serhini basmadi, "iflas arsivi yalniz 4,7 aylik" uyarisi hic
+# gorunmedi. Yani kusur ekranda BELLI OLMUYORDU ve haftalarca surebilirdi.
+#
+# CI depoyu denetler, KASAYI denetlemez. Goc dosyasi depoda duruyor olmasi
+# basildigi anlamina gelmiyor - "yazildi" ile "basildi" arasi denetimsizdi.
+# Bu nobetci her gun canli uctan cagirip sayfanin okudugu anahtarlarin
+# gercekten geldigini dogrular.
+#
+# SECRET ISTEMEZ: sayfalarin zaten icinde tasidigi acik (publishable) anahtarla
+# calisir - yani "anahtar yok" diye KOR'e dusmez.
+# YAZMAZ: manifestodaki yasakli ad listesi (uyari_teyit, marka_talep_ac,
+# alacak_yaz...) civatali; nobetci salt okur.
+#
+# Kutuk: radar-app/sql/UYGULANDI.md · Manifesto: radar-app/sql/goc-manifesto.json
+name: Goc Nobetcisi
+
+on:
+  schedule:
+    - cron: "35 4 * * *"    # 07:35 TR — CI kirmizi nobetcisinden hemen sonra
+  workflow_dispatch:
+  push:
+    paths:
+      # Goc ya da manifesto degistiginde ANINDA kos: yeni alan eklenip goc
+      # basilmadiysa aradan gun gecmesin.
+      - 'radar-app/sql/**'
+      - 'motor/goc-nobetcisi.ps1'
+      - 'alacak-radari.html'
+      - 'uyari-teyit.html'
+
+permissions:
+  contents: write     # raporu depoya isler
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sayfalarin okudugu anahtarlar kasadan geliyor mu
+        shell: pwsh
+        run: ./motor/goc-nobetcisi.ps1
+
+      # Rapor KIRMIZI olsa da yayinlanir - "kor kalma" kurali: nobetcinin
+      # kendi ciktisi gorunmezse nobetci de kor kalmis olur.
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/goc-nobeti-raporu.json || true
+          git diff --cached --quiet || git commit -m "Goc nobeti raporu [veri-operasyonu]"
+          git pull --rebase --autostash || true
+          git push || true
