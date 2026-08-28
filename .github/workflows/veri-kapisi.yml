@@ -154,6 +154,23 @@ jobs:
         shell: pwsh
         run: ./arac/tazelik-damgasi-uret.ps1
 
+      # GUNLUK NABIZ MAILI - "olu adam dugmesi".
+      # Alarm maili yalniz KOTU haberde gider; gitmezse sessizlik "her sey
+      # yolunda" sanilir. Bu mail HER GUN gider, iyi gunde de - boylece
+      # SESSIZLIK KENDISI SINYAL olur. Yalniz ZAMANLANMIS kosuda gonderilir
+      # ki elle tetikte gelen kutusu dolmasin (gunde tam bir tane).
+      # Gonderim sonucu veri/nabiz-maili-raporu.json'a yazilir: "gonder ve
+      # unut" bitti. (Not: "gonderildi" = saglayici kabul etti demektir,
+      # gelen kutusuna dustugu GARANTI DEGIL - kesin kaynak durum.html.)
+      - name: Gunluk nabiz maili
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./arac/gunluk-nabiz-maili.ps1
+
       - name: Raporu commit'le
         if: always()
         run: |
@@ -163,6 +180,7 @@ jobs:
           git add veri/baglanmamis-raporu.json 2>/dev/null || true
           git add veri/zincir-haritasi.json 2>/dev/null || true
           git add veri/tazelik-damgasi.json 2>/dev/null || true
+          git add veri/nabiz-maili-raporu.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "Veri tazelik + baglanmamis katman nobeti [veri-kapisi]"
           git pull --rebase --autostash || true
           git push || true

@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260827100547
-Username: runnervmgx7h7\runner
-RunAs User: runnervmgx7h7\runner
+Start time: 20260825015904
+Username: runnervm76f27\runner
+RunAs User: runnervm76f27\runner
 Configuration Name: 
-Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/0d74eee2-1238-42c7-9b7a-80b69be8b11f.ps1'
-Process ID: 2200
+Machine: runnervm76f27 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/96d50af3-6d7b-4bc2-87b2-0530944abe0b.ps1'
+Process ID: 1959
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -22,22 +22,11 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 1: 100 parti (toplam 100)
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
-  sayfa 4: 90 parti (toplam 390)
+  sayfa 4: 79 parti (toplam 379)
 
-TOPLAM 390 parti bulundu.
+TOPLAM 379 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
-msgbatch_01XwneJSewetWG6jvYsDAaPC ended               2        0 08/27/2026 09:37:52
-msgbatch_01NJfT4FGf6zBhPZQsmNGUEp ended               2        0 08/27/2026 04:28:38
-msgbatch_01AuGhuwmamcNzpdkytmBrs3 ended               2        0 08/27/2026 01:02:16
-msgbatch_01NHSUnTZvn4bU5VBGRYfHLj ended              19        0 08/26/2026 18:50:42
-msgbatch_01E7f1C8NCN8fTYUuXaaiTgN ended               3        0 08/26/2026 13:17:31
-msgbatch_01BZ7jSddHq7rVJYGXDUyJ58 ended              10        0 08/26/2026 13:11:40
-msgbatch_01RLPVyuHs3tGqRUcU1xtfrS ended              10        0 08/26/2026 12:56:58
-msgbatch_012UCneNLG3ooeEzpjC6HNCK ended               5        0 08/26/2026 12:32:34
-msgbatch_01VoU8kiyyuc7qodX1jnmGRy ended               2        0 08/26/2026 01:56:55
-msgbatch_01KzsSbGe5xo2fZVLNJccXQs ended               2        0 08/25/2026 23:32:11
-msgbatch_01XKcdySZy8Kv9WrE43fykac ended               2        0 08/25/2026 21:57:07
 msgbatch_01CBRCeeE7JPpGik8ZQvvjka ended               2        0 08/25/2026 01:50:48
 msgbatch_01XJPSw8gvBoxXetZJk57LRX ended               2        0 08/24/2026 23:28:55
 msgbatch_01FsafFiF1hPrpxHGWwuaQAx ended               3        0 08/24/2026 21:57:28
@@ -418,9 +407,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (390 kayit)
-HASADA HAZIR (ended + basarili>0): 390 parti,  sonuc
+-> veri/parti-listesi.json (379 kayit)
+HASADA HAZIR (ended + basarili>0): 379 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260827100550
+End time: 20260825015906
 **********************
