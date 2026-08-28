@@ -1,13 +1,13 @@
 {
-  "tarih": "27.08.2026 20:04",
+  "tarih": "28.08.2026 19:06",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
   "sayfa": 60,
   "atifli_iddia": 262,
-  "dayanaksiz_iddia": 277,
+  "dayanaksiz_iddia": 279,
   "kirmizi_aday": 29,
-  "yeni_aday": 3,
+  "yeni_aday": 1,
   "yeni": [
     {
       "sayfa": "alacak-radari.html",
@@ -15,20 +15,6 @@
       "iddia": "7 gün",
       "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
-    },
-    {
-      "sayfa": "arge-kapi-hesabi.html",
-      "satir": 279,
-      "iddia": "40 katı",
-      "kanun": "4691",
-      "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
-    },
-    {
-      "sayfa": "bilgi.html",
-      "satir": 260,
-      "iddia": "%99,4",
-      "kanun": "4691",
-      "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     }
   ],
   "kirmizi": [
@@ -76,7 +62,7 @@
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 688,
+      "satir": 733,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "3 Sana ilan değil, yapılacak iş gelir. \"Müşterin X konkordato ilan etti, İİK m.299, 15 gün içinde alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin.\" Mahkeme, dosya no"
@@ -106,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 279,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 260,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -293,91 +279,103 @@
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 496,
+      "satir": 501,
       "iddia": "30 gün",
       "metin": "rz.innerHTML='🚨 Son 30 günde '+Number(d.son30).toLocaleString('tr-TR')+' iflas ve konkordato ilanı · biri senin müşterin mi?'"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 533,
+      "satir": 544,
       "iddia": "1 yil",
       "metin": "// 19.08: il dagilimi artik ekrandaki 60 karttan degil, TUM ARSIVDEN (1 yil)"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 543,
+      "satir": 550,
+      "iddia": "1 YIL",
+      "metin": "box.innerHTML=' 📊 MAKRO SİNYAL · SON 1 YIL '"
+    },
+    {
+      "sayfa": "alacak-radari.html",
+      "satir": 566,
+      "iddia": "1 yıl",
+      "metin": "basMetin=' '+aiKac(etiket.join(' · '))+' — son 1 yıldaki '"
+    },
+    {
+      "sayfa": "alacak-radari.html",
+      "satir": 584,
       "iddia": "1 YIL",
       "metin": "+' 📊 MAKRO SİNYAL · SON 1 YIL '"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 614,
+      "satir": 659,
       "iddia": "1 yıl",
       "metin": "// arşiv istatistiği gibi okunuyordu. Ayrıca \"5.889 ilan (son 1 yıl)\" derken"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 615,
+      "satir": 660,
       "iddia": "365 gün",
       "metin": "// 5.889 TÜM tabloyu sayar, tür sayaçları ise son 365 günü (5.832) — yan yana"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 620,
+      "satir": 665,
       "iddia": "1 yıl",
       "metin": "y1+='; son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+' tanesi ( '+tk.toLocaleString('tr-TR')+' konkordato · '+ti.toLocaleString('tr-TR')+' iflas)';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 631,
+      "satir": 676,
       "iddia": "1 yıl",
       "metin": "sy.innerHTML=basMetin+' — son 1 yılda bu seçime uyan ilan yok . Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok demek değildir; yukarıdaki tarama kutusu arşivin tama"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 633,
+      "satir": 678,
       "iddia": "1 yıl",
       "metin": "sy.innerHTML=basMetin+' — son 1 yılda '+AI_SECILEN.toLocaleString('tr-TR')+' ilan var; aşağıda en yeni '+suz.length+' tanesi listeleniyor.'"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 736,
+      "satir": 781,
       "iddia": "%10",
       "metin": "if(((t1*7 - t2)%10 + 10)%10 !== d[9]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 737,
+      "satir": 782,
       "iddia": "%10",
       "metin": "if(d.slice(0,10).reduce((a,b)=>a+b,0)%10 !== d[10]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 747,
+      "satir": 792,
       "iddia": "% 9",
       "metin": "sum += (tmp === 9) ? 9 : (tmp * Math.pow(2, 9 - i)) % 9;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 749,
+      "satir": 794,
       "iddia": "% 10",
       "metin": "return v[9] === (10 - (sum % 10)) % 10;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 833,
+      "satir": 878,
       "iddia": "1 yil",
       "metin": "// 19.08: TAM ARSIV (5.728 ilan / 1 yil) yalniz tarama aninda yuklenir — sayfa"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1008,
+      "satir": 1053,
       "iddia": "1 yıl",
       "metin": "html += ' Arşiv eşleşmeleri · '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl) ';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1075,
+      "satir": 1120,
       "iddia": "1 yıl",
       "metin": "html += ' Son 1 yıllık arşivin tamamı tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve i"
     },
@@ -1391,7 +1389,7 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 93,
+      "satir": 103,
       "iddia": "3 yıl",
       "metin": "Ne yapmalısın: Tesisinin emisyon kategorisini (A/B/C) belirle ve 50.000 ton CO₂ eşdeğeri eşiğini kontrol et. Eğer kategori B veya C'ye giriyorsan, 3 yıl içinde Başkanlık'tan sera g"
     },
