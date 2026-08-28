@@ -1,17 +1,17 @@
 {
-  "tarih": "28.08.2026 20:41",
+  "tarih": "28.08.2026 21:03",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
   "sayfa": 62,
   "atifli_iddia": 262,
-  "dayanaksiz_iddia": 291,
+  "dayanaksiz_iddia": 292,
   "kirmizi_aday": 29,
   "yeni_aday": 3,
   "yeni": [
     {
       "sayfa": "alacak-radari.html",
-      "satir": 328,
+      "satir": 334,
       "iddia": "7 gün",
       "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
@@ -41,42 +41,42 @@
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 285,
+      "satir": 291,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 289,
+      "satir": 295,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// m.299 konkordato alacak kaydı 15 gün · m.219 iflas alacak kaydı ilandan 1 AY ·"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 300,
+      "satir": 306,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// KAYIT ÇAĞRISI -> m.299, 15 gün geri sayım (toplantı hariç)"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 302,
+      "satir": 308,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün', hap:'Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; b"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 328,
+      "satir": 334,
       "iddia": "7 gün",
       "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 839,
+      "satir": 845,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "3 Sana ilan değil, yapılacak iş gelir. \"Müşterin X konkordato ilan etti, İİK m.299, 15 gün içinde alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin.\" Mahkeme, dosya no"
@@ -311,145 +311,151 @@
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 280,
+      "satir": 282,
+      "iddia": "188 gün",
+      "metin": "// seçiliyken kısa kapsamın sebebi bu değil — 'iflas_kaldirma' 188 gün çıkıyor"
+    },
+    {
+      "sayfa": "alacak-radari.html",
+      "satir": 286,
       "iddia": "1 yıl",
       "metin": "return ' ⚠️ Bu seçimde arşiv son 1 yılın tamamını kapsamıyor — yalnız '"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 486,
+      "satir": 492,
       "iddia": "365 gun",
       "metin": "// son 365 gun, kasadan sayildi): iflas turunde kesin muhlet 0, gecici muhlet 0,"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 537,
+      "satir": 543,
       "iddia": "30 gün",
       "metin": "// BAYATLIK NÖBETİ (27.08): hasat kırılırsa \"son 30 günde N ilan\" rakamı sessizce"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 538,
+      "satir": 544,
       "iddia": "3 gün",
       "metin": "// küçülür, sayfa hâlâ canlı görünür. En yeni ilanın tarihi ölçülür; 3 günü aşan"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 574,
+      "satir": 580,
       "iddia": "1 yıl",
       "metin": "// 28.08 YANLIŞ HÜKÜM KAPANDI: sayfa \"son 1 yıl\" diye VARSAYIYORDU. Ölçüldü:"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 575,
+      "satir": 581,
       "iddia": "1 yıl",
       "metin": "// konkordato 19.08.2025–28.08.2026 (~1 yıl) ama iflas 06.04.2026–28.08.2026"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 576,
+      "satir": 582,
       "iddia": "7 AY",
       "metin": "// (~4,7 AY) — çünkü 'iflas-ve-tasfiye' alt kategorisi havuzda 06.04 öncesi"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 598,
+      "satir": 604,
       "iddia": "30 gün",
       "metin": "rz.innerHTML='🚨 Son 30 günde '+Number(d.son30).toLocaleString('tr-TR')+' iflas ve konkordato ilanı · biri senin müşterin mi?'"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 641,
+      "satir": 647,
       "iddia": "1 yil",
       "metin": "// 19.08: il dagilimi artik ekrandaki 60 karttan degil, TUM ARSIVDEN (1 yil)"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 759,
+      "satir": 765,
       "iddia": "1 yıl",
       "metin": "// arşiv istatistiği gibi okunuyordu. Ayrıca \"5.889 ilan (son 1 yıl)\" derken"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 760,
+      "satir": 766,
       "iddia": "365 gün",
       "metin": "// 5.889 TÜM tabloyu sayar, tür sayaçları ise son 365 günü (5.832) — yan yana"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 765,
+      "satir": 771,
       "iddia": "1 yıl",
       "metin": "y1+='; son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+' tanesi ( '+tk.toLocaleString('tr-TR')+' konkordato · '+ti.toLocaleString('tr-TR')+' iflas)';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 767,
+      "satir": 773,
       "iddia": "1 yıl",
       "metin": "// 28.08: EN ÇOK GÖRÜLEN EKRAN buydu ve \"son 1 yılda … 415 iflas\" derken"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 768,
+      "satir": 774,
       "iddia": "7 ay",
       "metin": "// iflas verisinin yalnız 4,7 ay olduğunu söylemiyordu. Tarih sayfaya"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 779,
+      "satir": 785,
       "iddia": "1 yıl",
       "metin": "sy.innerHTML=basMetin+' — son 1 yılda bu seçime uyan ilan yok . Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok demek değildir; yukarıdaki tarama kutusu arşivin tama"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 781,
+      "satir": 787,
       "iddia": "1 yıl",
       "metin": "// 28.08: \"son 1 yılda\" VARSAYIMI kaldırıldı — ölçülen aralık yazılır."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 887,
+      "satir": 893,
       "iddia": "%10",
       "metin": "if(((t1*7 - t2)%10 + 10)%10 !== d[9]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 888,
+      "satir": 894,
       "iddia": "%10",
       "metin": "if(d.slice(0,10).reduce((a,b)=>a+b,0)%10 !== d[10]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 898,
+      "satir": 904,
       "iddia": "% 9",
       "metin": "sum += (tmp === 9) ? 9 : (tmp * Math.pow(2, 9 - i)) % 9;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 900,
+      "satir": 906,
       "iddia": "% 10",
       "metin": "return v[9] === (10 - (sum % 10)) % 10;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 984,
+      "satir": 990,
       "iddia": "1 yil",
       "metin": "// 19.08: TAM ARSIV (5.728 ilan / 1 yil) yalniz tarama aninda yuklenir — sayfa"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1006,
+      "satir": 1012,
       "iddia": "6 ay",
       "metin": "// okunamaz. Müşavir bu dosyayı dosyaya koyuyor; 6 ay sonra açan kişi neyin"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1184,
+      "satir": 1190,
       "iddia": "1 yıl",
       "metin": "html += ' Arşiv eşleşmeleri · '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl) ';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1251,
+      "satir": 1257,
       "iddia": "1 yıl",
       "metin": "html += ' Son 1 yıllık arşivin tamamı tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve i"
     },
