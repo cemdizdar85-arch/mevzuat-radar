@@ -232,7 +232,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       + kisa.map(function(k){
           return (AI_TUR_ADI[k]||k)+' ilanları arşivde yalnız '+aiKac(AI_TUR_ILK[k])+' tarihinden itibaren var ('+AI_TUR_GUN[k]+' gün)';
         }).join(' · ')
-      + ' — bu türün sayısı 1 yıllık değildir, diğerleriyle kıyaslanamaz.</div>';
+      // 28.08 ÖLÇÜLDÜ (ilan.gov.tr API, 5.743 ilan, 13 ay): 'iflas-ve-tasfiye'
+      // alt kategorisi kaynakta 2026 Nisan'da AÇILDI, öncesi kesin sıfır; sonra
+      // 3→2→8→69→226 diye dolmaya başladı. Bu bir KATEGORİ RAMPASIDIR, iflasların
+      // arttığı anlamına GELMEZ. Şerh bunu da söylemeli, yoksa kullanıcı (ve biz)
+      // rampayı trend sanarız.
+      + ' — bu türün sayısı 1 yıllık değildir, diğerleriyle kıyaslanamaz ve <b>zaman içinde artış olarak da okunamaz</b> (kategori kaynakta bu tarihte açıldı).</div>';
   }
   function aiKapsamSerhi(k){
     if(!k.eksik) return '';
