@@ -88,16 +88,26 @@ Asagida Turkiye'de bir mahkeme/daire tarafindan yayimlanmis resmi ilanin metni v
 TEK SORU: Bu ilanda mahkeme NE KARAR VERDI?
 
 Secenekler:
-a) Konkordato muhleti verdi (gecici, kesin ya da uzatma)
+a) Konkordato MUHLETI VERDI (gecici, kesin ya da uzatma)
 b) Konkordato talebini REDDETTI - iflas karari YOK
 c) Konkordato talebini reddetti VE borclunun IFLASINA karar verdi
-d) Daha once verilmis IFLASI KALDIRDI (borclu iflastan cikiyor)
-e) Konkordatoyu TASDIK etti
+   (IIK m.292 ile kesin muhlet icinde iflasin acilmasi da buraya girer)
+d) Daha once verilmis IFLASI KALDIRDI - borclu iflastan CIKIYOR (IIK m.182)
+e) Konkordatoyu TASDIK etti (basarili sonuclandi)
+g) Konkordato MUHLETINI kaldirdi / sonlandirdi - ret de iflas da tasdik de DEGIL
 f) Yukaridakilerden hicbiri
+
+DIKKAT - en sik karistirilan ayrim: konkordato MUHLETININ kaldirilmasi (g),
+IFLASIN kaldirilmasi (d) DEGILDIR. Muhlet konkordato surecine aittir, iflas
+ayri bir hukumdur. Muhlet kaldirilmasinin SEBEBI tasdik ise cevap (e)'dir.
 
 Yalniz su iki satiri yaz, baska hicbir sey yazma:
 KARAR: <tek harf>
-ALINTI: <karari gecen cumleyi metinden AYNEN kopyala; bulamazsan YOK yaz>
+ALINTI: <karari gecen cumleyi metinden AYNEN kopyala>
+
+ALINTI ZORUNLUDUR. Metinde karari acikca soyleyen bir cumle BULAMIYORSAN
+karar harfi olarak (f) yaz ve ALINTI satirina YOK yaz. Kararini metne
+dayandiramadigin bir harf SECME.
 
 --- ILAN BASLIGI ---
 {BASLIK}
@@ -107,6 +117,7 @@ ALINTI: <karari gecen cumleyi metinden AYNEN kopyala; bulamazsan YOK yaz>
 
 $script:gkey = $env:GEMINI_API_KEY
 $script:sayacGemini = 0; $script:sayacHaiku = 0; $script:sayacHata = 0
+$script:geminiSebep = $(if ($env:GEMINI_API_KEY) { '' } else { 'GEMINI_API_KEY tanimli degil' })
 
 function Sor([string]$istem) {
   if ($script:gkey) {
@@ -118,9 +129,15 @@ function Sor([string]$istem) {
       $script:sayacGemini++
       return (@($r.candidates[0].content.parts) | ForEach-Object { $_.text }) -join ''
     } catch {
-      if ("$($_.Exception.Message)" -match '429|quota|RESOURCE_EXHAUSTED|Too Many') {
-        $script:gkey = $null; Write-Host "  Gemini kotasi doldu -> Haiku'ya donuluyor."
-      }
+      # 29.08 KUSUR: eski kod YALNIZ 429'da mesaj basiyordu; baska hatada Gemini
+      # SESSIZCE dusuyordu. Ilk kosuda "gemini 0 · haiku 746" cikti ve NEDEN
+      # oldugunu bilemedik - kendi kor kalma kuralimi kendi betigimde ihlal
+      # etmisim. Artik hata NE OLURSA OLSUN bir kez ACIKCA basilir ve sebebi
+      # ozette de tekrarlanir.
+      $m = "$($_.Exception.Message)"
+      $script:geminiSebep = $m.Substring(0, [Math]::Min(160, $m.Length))
+      Write-Host ("  GEMINI DUSTU -> Haiku'ya donuluyor. Sebep: {0}" -f $script:geminiSebep)
+      $script:gkey = $null   # 746 kez bosuna denemeyiz
     }
   }
   if ($env:ANTHROPIC_API_KEY) {
@@ -140,7 +157,11 @@ function Sor([string]$istem) {
 # Regex damgasi ile okuma cevabinin KARSILIGI
 $ESLESME = @{ 'a' = @('gecici_muhlet','kesin_muhlet','uzatma','muhlet')
               'b' = @('ret_kaldirma'); 'c' = @('ret_iflas')
-              'd' = @('iflas_kaldirma'); 'e' = @('tasdik') }
+              'd' = @('iflas_kaldirma'); 'e' = @('tasdik')
+              # 29.08: (g) muhletin kaldirilmasi. Ilk kosuda okuma bunu UC KEZ
+              # (d) iflasin kaldirilmasi sandi - iki ayri hukum. Kendi secenegi
+              # verildi; regex tarafinda ikisi de ret_kaldirma kovasinda durur.
+              'g' = @('ret_kaldirma') }
 
 $sonuc = @(); $uyum = 0; $uyumsuz = 0; $alintisiz = 0; $cevapsiz = 0
 $i = 0
@@ -150,10 +171,16 @@ foreach ($x in $ilanlar) {
   $c = Sor $istem
   if (-not $c) { $cevapsiz++; continue }
   $harf = ''; $alinti = ''
-  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-f])') { $harf = $Matches[1].ToLower() }
+  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-g])') { $harf = $Matches[1].ToLower() }
   if ($c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')     { $alinti = $Matches[1].Trim() }
   if (-not $harf) { $cevapsiz++; continue }
-  if (-not $alinti -or $alinti -match '^\s*YOK\s*$') { $alintisiz++ }
+  # 29.08 ASIL KUSUR: "alinti zorunlu" dedim ama ZORLAMADIM - ilk kosuda 290/746
+  # (%39) cevap alintisiz geldi ve ben onlari yine de uyum oranina KATTIM.
+  # Yani %72,8 olculmus bir sayi degildi. Artik alintisiz cevap AYRI tutulur ve
+  # OLCULEBILIR UYUM yalniz alintililardan hesaplanir. Kaynagini gosteremeyen
+  # cevap sayilmaz - regex'e uyguladigim kurali okumaya da uyguluyorum.
+  $alintiVar = [bool]($alinti -and $alinti -notmatch '^\s*YOK\s*\.?\s*$' -and $alinti.Length -ge 12)
+  if (-not $alintiVar) { $alintisiz++ }
 
   # ÖZ-SINAV (29.08 kusurundan sonra eklendi): karsilastirilan sey TEK bir damga
   # olmali. Dizi geldiyse cekim bozulmus demektir - sessizce %0 uyum uretmek
@@ -171,7 +198,7 @@ foreach ($x in $ilanlar) {
   $sonuc += [pscustomobject]@{
     ilan_no = $x.ilan_no; tarih = $x.tarih; il = $x.il
     baslik = "$($x.baslik)"; regex_damgasi = $damga
-    okuma_karari = $harf; okuma_alintisi = $alinti; uyuyor = $tutuyor
+    okuma_karari = $harf; okuma_alintisi = $alinti; alinti_var = $alintiVar; uyuyor = $tutuyor
   }
   if ($i % 10 -eq 0) { Write-Host ("  {0}/{1} okundu (uyum {2} · uyumsuz {3})" -f $i, $ilanlar.Count, $uyum, $uyumsuz) }
   Start-Sleep -Milliseconds 350
@@ -182,6 +209,10 @@ $cikti = [ordered]@{
   olcum      = (Get-Date).ToString('dd.MM.yyyy HH:mm')
   orneklem   = $ilanlar.Count
   okunan     = $sonuc.Count
+  uyum_ham          = $uyum
+  alintili_adet     = @($sonuc | Where-Object { $_.alinti_var }).Count
+  uyum_olculebilir  = @($sonuc | Where-Object { $_.alinti_var -and $_.uyuyor }).Count
+  gemini_sebep      = $script:geminiSebep
   uyum       = $uyum
   uyumsuz    = $uyumsuz
   alintisiz  = $alintisiz
@@ -194,18 +225,31 @@ $cikti = [ordered]@{
 Write-Host ''
 Write-Host ('=' * 72)
 if ($sonuc.Count) {
-  Write-Host ("OKUNAN: {0} · UYUM: {1} (%{2:N1}) · UYUMSUZ: {3} · alintisiz: {4} · cevapsiz: {5}" -f `
-    $sonuc.Count, $uyum, (100.0 * $uyum / $sonuc.Count), $uyumsuz, $alintisiz, $cevapsiz)
-  Write-Host ("HAT: gemini {0} · haiku {1} · hata {2}" -f $script:sayacGemini, $script:sayacHaiku, $script:sayacHata)
+  # OLCULEBILIR UYUM = yalniz ALINTILI cevaplar. Alintisiz cevap "okuma bildi"
+  # sayilmaz; kaynagini gosteremeyen cevap olcume girmez.
+  $alintili     = @($sonuc | Where-Object { $_.alinti_var })
+  $uyumAlintili = @($alintili | Where-Object { $_.uyuyor }).Count
+  Write-Host ("OKUNAN: {0} · cevapsiz: {1}" -f $sonuc.Count, $cevapsiz)
+  Write-Host ("HAM UYUM (alintisizlar dahil - GUVENILMEZ): {0}/{1} (%{2:N1})" -f `
+    $uyum, $sonuc.Count, (100.0 * $uyum / $sonuc.Count))
+  if ($alintili.Count) {
+    Write-Host ("OLCULEBILIR UYUM (yalniz alintili): {0}/{1} (%{2:N1})  <-- KARAR BU SAYIYA GORE VERILIR" -f `
+      $uyumAlintili, $alintili.Count, (100.0 * $uyumAlintili / $alintili.Count))
+  } else {
+    Write-Host 'OLCULEBILIR UYUM: KOR - hicbir cevap alinti tasimiyor, olcum yapilamaz.'
+  }
+  Write-Host ("ALINTISIZ (olcume GIRMEDI): {0} (%{1:N1})" -f $alintisiz, (100.0 * $alintisiz / $sonuc.Count))
+  Write-Host ("HAT: gemini {0} · haiku {1} · hata {2}{3}" -f $script:sayacGemini, $script:sayacHaiku, $script:sayacHata,
+    $(if ($script:geminiSebep) { " · GEMINI KULLANILMADI: $($script:geminiSebep)" } else { '' }))
   Write-Host ''
-  Write-Host 'KOVA BAZLI UYUM:'
-  $sonuc | Group-Object regex_damgasi | Sort-Object Name | ForEach-Object {
+  Write-Host 'KOVA BAZLI OLCULEBILIR UYUM (alintili cevaplar):'
+  $alintili | Group-Object regex_damgasi | Sort-Object Name | ForEach-Object {
     $t = @($_.Group | Where-Object { $_.uyuyor }).Count
     Write-Host ("  {0,-16} {1,3}/{2,-3} (%{3:N0})" -f $_.Name, $t, $_.Count, (100.0 * $t / $_.Count))
   }
   Write-Host ''
-  Write-Host 'ILK 10 UYUSMAZLIK (ELLE BAKILACAK - hangisi hakli, regex mi okuma mi?):'
-  $sonuc | Where-Object { -not $_.uyuyor } | Select-Object -First 10 | ForEach-Object {
+  Write-Host 'ILK 12 UYUSMAZLIK - YALNIZ ALINTILI (ELLE BAKILACAK: regex mi okuma mi hakli?):'
+  $alintili | Where-Object { -not $_.uyuyor } | Select-Object -First 12 | ForEach-Object {
     Write-Host ("  [{0}] regex={1} · okuma={2}" -f $_.il, $_.regex_damgasi, $_.okuma_karari)
     Write-Host ("     baslik : {0}" -f $_.baslik.Substring(0, [Math]::Min(66, $_.baslik.Length)))
     Write-Host ("     alinti : {0}" -f $(if ($_.okuma_alintisi) { $_.okuma_alintisi.Substring(0, [Math]::Min(90, $_.okuma_alintisi.Length)) } else { '-' }))
