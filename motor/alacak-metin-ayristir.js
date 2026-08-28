@@ -225,13 +225,21 @@ const DURUMLAR = [
 // Ayrı damga: ret kalıbı VE iflas kelimesi birlikte geçiyorsa 'ret_iflas'.
 // NOT: /i bayrağı Türkçe İ↔i eşlemez (bkz. bu dosyadaki diğer harf sınıfları),
 // o yüzden ilk harf elle yazıldı: [iİIı].
+// 28.08 AYNI GÜN DÜZELTİLDİ — ilk kural "ret kalıbı + iflas kelimesi"ydi ve
+// KİRLİ çıktı. Canlı ölçüm (60 ilan): 53 doğru, ama 6 tanesi "İflasın
+// kaldırılması kararının ilanen tebliği" (m.182 — borçlu iflastan ÇIKIYOR,
+// anlamı TAM TERS) ve 1 tanesi "Terekenin iflas hükümlerine göre tasfiyesi
+// kararının kaldırılması" (m.180 — konkordatoyla ilgisi yok).
+// DERS: kelime eşleşmesi anlam taşımaz. "kaldırılması + iflas" iki zıt olayı
+// birden eşliyor; ayıran şey KONKORDATO kelimesinin varlığı.
+const KONK_RX  = /konkordato/i;
 const RET_RX   = /reddine|reddi|kald[ıi]r[ıi]lmas|feshine|feshi\b|iptaline/i;
 const IFLAS_RX = /[iİIı]flas/i;
 function kararDurumu(baslik, metin) {
   const b = String(baslik || '');
   const m = String(metin || '').slice(0, 1500);
   let bulunan = null;
-  if (RET_RX.test(b) && IFLAS_RX.test(b)) return 'ret_iflas';
+  if (KONK_RX.test(b) && RET_RX.test(b) && IFLAS_RX.test(b)) return 'ret_iflas';
   for (const [ad, rx] of DURUMLAR) if (rx.test(b)) { bulunan = ad; break; }
   // 20.08 ÖLÇÜM: "Konkordato mühlet kararının ilanen tebliği" 520 ilanda geçiyor
   // ve geçici mi kesin mi SÖYLEMİYOR. Başlık belirsiz kaldıysa metne bakılır —

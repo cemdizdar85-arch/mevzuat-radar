@@ -292,7 +292,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       // verebilir" der, oysa ilan zaten verildiğini söylüyor. Geri sayım
       // YAZILMAZ — m.219'un 1 ayı iflas dairesinin adi tasfiye ilanından işler,
       // bu ilan o değildir; emin olmadığımız süreyi saymayız.
-      if(/iflas/.test(b) && /reddi|reddine|kaldırılmas|feshi/.test(b))
+      // 28.08 DÜZELTME: "konkordato" şartı olmadan bu dal, anlamı TAM TERS olan
+      // "İflasın kaldırılması" (m.182) ilanlarını da yakalıyordu. Ölçümle bulundu.
+      if(/konkordato/.test(b) && /iflas/.test(b) && /reddi|reddine|kaldırılmas|feshi/.test(b))
         return {hap:'Konkordato reddedildi ve borçlunun <b>İFLASINA karar verildi</b> (m.308/b). Mühletteki takip yasağı sona erdi. Alacağın artık iflas masasına kaydedilir: iflas dairesi adi tasfiye ilanını yayımlayınca <b>o ilandan itibaren 1 ay içinde</b> alacağını kaydettir (m.219); kaçırırsan iflas kapanana dek geç kayıt mümkündür ama masrafı sana ait olur ve önceki paylaştırmalara katılamazsın (m.236).'};
       // RET -> m.308 (iflasa dönebilir)
       if(/reddine|talebinin red|davasının red| red\b/.test(b))
