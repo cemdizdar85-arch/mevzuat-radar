@@ -1,0 +1,82 @@
+﻿# ============================================================================
+#  SURUM TAZELIGI KAPISI — 28.08.2026 (Cem: "1 yapalim ama yilda bir cok degil mi" -> AYLIK)
+#
+#  NEDEN VAR: TMS 37 vakasi — ambar KAPSAMA olarak tamdi ama SURUM olarak
+#  bayatti (mulga TMS 17/TFRS 4 atifli eski metin). Kapsama kapisi eksigi,
+#  kurul-karari nobetcisi YENI degisikligi yakalar; ikisi de VAR OLAN kaymayi
+#  yakalamaz. Bu kapi her standardi guncel KGK PDF'iyle KIYASLAR.
+#
+#  YONTEM: ambardaki her TMS/TFRS/TSRS standardi icin standart-yut.ps1 KURU
+#  PROVASI kosulur (indirir, boler, ambar toplamiyla karsilastirir - YAZMAZ).
+#  Sonuc uc renk (olcemedigine-kusur-deme kurali geregi ucuncu sonuc var):
+#    TUTARLI     : parca VE karakter farki kucuk (±%2)
+#    INCELE      : fark var - insan bakar (yeniden yutma adayi)
+#    OLCULEMEDI  : indirme/cozme basarisiz - kusur DEGIL, olcum yok
+#  BDS/GDS/KYS v1 kapsam disi (URL kalibi farkli; ayri tur).
+#
+#  Cikti: veri/fabrika/surum-tazeligi-karnesi.json + konsol tablosu.
+#  0 USD, model yok. AYLIK zamanlanmis gorevle kosulur; elle de kosulabilir.
+# ============================================================================
+param([string]$yalniz='')   # 'TMS 37' gibi tek standart icin
+$ErrorActionPreference='Continue'
+[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
+$here=Split-Path -Parent $MyInvocation.MyCommand.Path
+$kok=Split-Path -Parent $here
+$KEY=[Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User')
+if(-not $KEY){ $KEY=$env:SUPABASE_SERVICE_KEY }
+$H=@{apikey=$KEY;Authorization="Bearer $KEY"}
+$U='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar'
+
+# --- 1) ambardaki standart listesi ---
+$adlar=@{}
+foreach($on in @('TMS','TFRS','TSRS')){
+  $bas=0
+  while($true){
+    $r=@()
+    try{ $r=@(Invoke-RestMethod -Uri "$U`?select=kaynak_ad&kaynak_ad=ilike.$on%2520%25&limit=1000&offset=$bas" -Headers $H -UserAgent 'mevzuat-radar-robot/1.0' -TimeoutSec 120 | % { $_ }) }catch{ break }
+    if($r.Count -eq 0){ break }
+    foreach($x in $r){ if("$($x.kaynak_ad)" -match '^((TMS|TFRS|TSRS)\s+\d+)'){ $adlar[$Matches[1]]=$true } }
+    $bas+=1000; if($r.Count -lt 1000){ break }
+  }
+}
+$liste=@($adlar.Keys | Sort-Object { $_ -replace '\D','' -as [int] } | Sort-Object { ($_ -split ' ')[0] })
+if($yalniz){ $liste=@($liste | ? { $_ -eq $yalniz }) }
+Write-Host "Standart listesi: $($liste.Count) adet"
+
+# --- 2) her biri icin kuru prova + siniflama ---
+$karne=New-Object System.Collections.Generic.List[object]
+$n=0
+foreach($std in $liste){
+  $n++
+  $cikti=''
+  # 28.08 oz-sinav dersi 2: yutucu Write-Host kullaniyor -> 2>&1 yakalamaz, *>&1 gerekir
+  try{ $cikti=(& (Join-Path $here 'standart-yut.ps1') -standart $std *>&1 | Out-String) }catch{ $cikti="HATA: $_" }
+  $ap=0;$ak=0;$yp=0;$yk=0
+  # 28.08 oz-sinav dersi: '·' ayirici yakalama sirasinda farklilasabiliyor - \D ile gevsek oku
+  if($cikti -match 'AMBARDAKI HALI\D+([\d\.]+) parca\D+([\d\.]+) karakter'){ $ap=[int]($Matches[1] -replace '\.',''); $ak=[int]($Matches[2] -replace '\.','') }
+  if($cikti -match 'YENI HALI\D+([\d\.]+) parca\D+([\d\.]+) karakter'){ $yp=[int]($Matches[1] -replace '\.',''); $yk=[int]($Matches[2] -replace '\.','') }
+  $durum='OLCULEMEDI'; $oran=0
+  if($ak -gt 0 -and $yk -gt 0){
+    $oran=[math]::Round($yk/$ak,3)
+    if([math]::Abs(1-$oran) -le 0.02 -and [math]::Abs($yp-$ap) -le [math]::Max(2,[int]($ap*0.05))){ $durum='TUTARLI' } else { $durum='INCELE' }
+  } elseif($ak -gt 0 -and $yk -eq 0){ $durum='OLCULEMEDI' }
+  $karne.Add([pscustomobject]@{standart=$std;durum=$durum;ambar_parca=$ap;ambar_krk=$ak;yeni_parca=$yp;yeni_krk=$yk;oran=$oran})
+  Write-Host ("  [{0}/{1}] {2,-10} {3,-11} ambar {4}p/{5}k -> yeni {6}p/{7}k (oran {8})" -f $n,$liste.Count,$std,$durum,$ap,$ak,$yp,$yk,$oran)
+}
+
+# --- 3) karne yaz ---
+$ozet=[ordered]@{
+  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
+  toplam=$karne.Count
+  tutarli=@($karne|?{$_.durum -eq 'TUTARLI'}).Count
+  incele=@($karne|?{$_.durum -eq 'INCELE'}).Count
+  olculemedi=@($karne|?{$_.durum -eq 'OLCULEMEDI'}).Count
+  not='INCELE = otomatik kusur DEGIL; bolme/normalizasyon farki da olabilir - insan tek tek bakar. OLCULEMEDI = olcum yok, kusur sayilmaz (ucuncu-sonuc kurali). BDS/GDS/KYS v1 kapsam disi.'
+  satirlar=$karne.ToArray()
+}
+$hedef=Join-Path $kok 'veri\fabrika\surum-tazeligi-karnesi.json'
+[IO.File]::WriteAllText($hedef,(ConvertTo-Json -InputObject $ozet -Depth 4),[Text.UTF8Encoding]::new($false))
+""
+"OZET: $($ozet.toplam) standart | TUTARLI $($ozet.tutarli) | INCELE $($ozet.incele) | OLCULEMEDI $($ozet.olculemedi)"
+"karne: $hedef"
+if($ozet.incele -gt 0){ "INCELE listesi:"; @($karne|?{$_.durum -eq 'INCELE'}) | % { "  - $($_.standart) (oran $($_.oran))" } }
