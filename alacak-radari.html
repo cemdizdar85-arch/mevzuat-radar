@@ -210,7 +210,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div id="aiMakro" style="margin:0 0 14px"></div>
   <div id="aiListe" style="padding-bottom:96px"></div>
   <script>
-  var AI_L=[], AI_ILLER=[], AI_TUR='hepsi';
+  var AI_L=[], AI_ILLER=[], AI_TUR='hepsi', AI_ILLER_SUZGECLI=false;
   function aiFold(s){ return String(s==null?'':s).toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/\s+/g,' ').trim(); }
   function aiKac(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   // m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet
@@ -478,8 +478,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     if(d.durumlar) aiDurumCubugu(d.durumlar);
     AI_SECILEN=(typeof d.secilenAdet==='number')?d.secilenAdet:null;
     if(d.turSayilari){ AI_TURSAY=d.turSayilari; aiTurCubugu(); }
+    // 28.08 KUSUR (Cem, ekran görüntüsüyle): "Tümü / Konkordato / İflas'a basıyorum,
+    // MAKRO SİNYAL hiç değişmiyor." İSTEMCİ AYAĞI: il dağılımı yalnız İLK yanıttan
+    // okunuyordu, sonraki her süzgeç yanıtının 'iller' bloğu çöpe gidiyordu.
+    // Artık HER yanıtta tazelenir. (Kasa ayağı: aiMakro() üstündeki nota bak.)
+    AI_ILLER=(d.iller||[]);
+    AI_ILLER_SUZGECLI=(d.illerSuzgecli===true);
     if(ilk){
-      AI_ILLER=(d.iller||[]);
       AI_ARSIV_ADET=(d.adet||AI_L.length);
       AI_SON_TARIH=d.enYeniTarih||((AI_L[0]||{}).tarih)||'';
       AI_BAYAT=aiBayatlik(d.enYeniIso);
@@ -496,8 +501,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         rz.innerHTML='🚨 Son 30 günde <b style="font-size:14px">'+Number(d.son30).toLocaleString('tr-TR')+'</b> iflas ve konkordato ilanı · biri senin müşterin mi?'
           +(AI_SON_TARIH?' <span style="opacity:.72">· son çekim '+aiKac(AI_SON_TARIH)+'</span>':'');
       }
-      aiMakro();
     }
+    aiMakro();
     aiCiz();
   }
   function aiHata(e, ilk){
@@ -528,20 +533,56 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   // 15.08 Cem "kendi verimizden yoğunluk sinyali": TCMB EVDS göçü oturana kadar,
   // elimizdeki resmî ilan havuzundan MAKRO eğilim. Sektör YOK (ilan metninde,
   // yapısal değil); yalnız il + tür (gerçek alanlar). Tek firma hükmü DEĞİL.
+  // 28.08 KUSURUN KASA AYAĞI: alacak_vitrin'in 'iller' bloğu p_tur/p_durum'u HİÇ
+  // kullanmıyordu — süzgeç doğru gitse bile kasa hep aynı arşiv-geneli dağılımı
+  // döndürüyordu. Göç: radar-app/sql/2026-08-28-alacak-makro-suzgec.sql
+  // Göç basılmadıysa 'illerSuzgecli' alanı gelmez -> başlık AÇIKÇA "arşiv geneli"
+  // der; süzgeçli gibi gösterip yanlış hüküm kurmaz (kör kalma kuralı).
+  var AI_RESMI_HTML=null;   // TBB katmanı bir kez çekilir, her tıkta yeniden değil
   function aiMakro(){
-    var box=document.getElementById('aiMakro'); if(!box || !AI_L.length) return;
+    var box=document.getElementById('aiMakro'); if(!box) return;
     // 19.08: il dagilimi artik ekrandaki 60 karttan degil, TUM ARSIVDEN (1 yil)
     // sunucuda toplanip geliyor — hem daha dogru hem de tek satir veri sizdirmiyor.
     var top=(AI_ILLER||[]).slice(0,6).map(function(o){ return {il:o.il, d:{t:o.t,k:o.k,i:o.i}}; });
-    if(!top.length) return;
+    // Süzgeç sonucu boşsa ESKİ ÇUBUKLAR BIRAKILMAZ — bayat dağılım yeni süzgecin
+    // sonucuymuş gibi okunur; bu da uydurma rakamdır.
+    if(!top.length){
+      box.innerHTML='<div class="kutu" style="margin:0"><div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL · SON 1 YIL</div>'
+        +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Bu seçim için coğrafi dağılım ölçülemedi.</div></div>';
+      return;
+    }
+    // Seçimin adı ve o seçimin KENDİ toplamı — başlıktaki rakam ile aşağıdaki
+    // çubuklar aynı süzgeçten gelmeli, yoksa 5.917/5.850 gibi çelişki doğuyor.
+    var etiket=[];
+    if(AI_TUR==='konkordato') etiket.push('Konkordato');
+    else if(AI_TUR==='iflas') etiket.push('İflas');
+    if(AI_DURUM) etiket.push((AI_DURUM_ADI[AI_DURUM]||[AI_DURUM])[0]);
+    var suzgecVar=(AI_TUR!=='hepsi'||!!AI_DURUM);
+    var toplam=(typeof AI_SECILEN==='number')?AI_SECILEN:AI_ARSIV_ADET;
+    var basMetin;
+    if(!suzgecVar){
+      basMetin='Arşivdeki '+toplam.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):';
+    } else if(AI_ILLER_SUZGECLI){
+      basMetin='<b style="color:var(--ink)">'+aiKac(etiket.join(' · '))+'</b> — son 1 yıldaki '
+        +toplam.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):';
+    } else {
+      basMetin='Arşivdeki '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):'
+        +'<div style="margin-top:5px;color:var(--red);font-weight:700">⚠️ Bu dağılım ARŞİV GENELİDİR; seçtiğin süzgece ('+aiKac(etiket.join(' · '))+') göre daralmamıştır.</div>';
+    }
     var maxT=(top[0]?top[0].d.t:1);
+    // Tek tür seçiliyken "0 konk. / 18 iflas" kırılımı gereksiz (zaten o türdeyiz):
+    // yalnız toplam basılır.
+    var kirilimVar=!(AI_ILLER_SUZGECLI && AI_TUR!=='hepsi');
     var satir=top.map(function(o){
       var yuzde=Math.round(o.d.t/maxT*100);
-      return '<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b style="color:var(--ink)">'+aiKac(o.il)+'</b><span style="color:var(--dim)">'+o.d.t+' ilan · <span style="color:var(--amber)">'+o.d.k+' konk.</span> / <span style="color:var(--red)">'+o.d.i+' iflas</span></span></div><div style="height:6px;background:var(--panel);border-radius:4px;margin-top:3px;overflow:hidden"><div style="height:100%;width:'+yuzde+'%;background:var(--grad)"></div></div></div>';
+      var sag=kirilimVar
+        ? o.d.t+' ilan · <span style="color:var(--amber)">'+o.d.k+' konk.</span> / <span style="color:var(--red)">'+o.d.i+' iflas</span>'
+        : o.d.t+' ilan';
+      return '<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b style="color:var(--ink)">'+aiKac(o.il)+'</b><span style="color:var(--dim)">'+sag+'</span></div><div style="height:6px;background:var(--panel);border-radius:4px;margin-top:3px;overflow:hidden"><div style="height:100%;width:'+yuzde+'%;background:var(--grad)"></div></div></div>';
     }).join('');
     box.innerHTML='<div class="kutu" style="margin:0">'
       +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL · SON 1 YIL</div>'
-      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">Arşivdeki '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
+      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">'+basMetin+'</div>'
       +satir
       +'<div id="aiResmi"></div>'
       +'<div style="font-size:11px;color:var(--dim);margin-top:10px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir.</div>'
@@ -549,10 +590,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // RESMÎ KATMAN: TBB Risk Merkezi aylık bülteninden (protesto senet + karşılıksız
     // çek). Rakamlar bültende infografik; robot yeni bülteni yakalayıp teyit sinyali
     // atar, elle teyit sonrası risk-merkezi.json güncellenir -> yalnız teyitli rakam.
+    // 28.08: makro blok artık her süzgeç tıkında yeniden çizildiği için TBB katmanı
+    // bir kez çekilip saklanır; her tıkta ağ isteği atmaz.
+    if(AI_RESMI_HTML!==null){ var e0=document.getElementById('aiResmi'); if(e0) e0.innerHTML=AI_RESMI_HTML; return; }
     fetch('veri/risk-merkezi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
       var el=document.getElementById('aiResmi'); if(!el||!d||!d.veriler) return;
       var v=d.veriler, tl=function(n){return Number(n).toLocaleString('tr-TR');};
-      el.innerHTML='<div style="margin-top:12px;padding:10px 12px;background:linear-gradient(135deg,rgba(61,220,151,.08),transparent),var(--panel2);border:1px solid rgba(61,220,151,.22);border-radius:10px">'
+      AI_RESMI_HTML='<div style="margin-top:12px;padding:10px 12px;background:linear-gradient(135deg,rgba(61,220,151,.08),transparent),var(--panel2);border:1px solid rgba(61,220,151,.22);border-radius:10px">'
         +'<div style="font-size:12px;font-weight:800;color:var(--green)">🏦 RESMÎ: TBB RİSK MERKEZİ · '+aiKac(d.donem)+'</div>'
         +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.7">'
         +'Protesto edilen senet: <b style="color:var(--ink)">'+tl(v.protestoSenetTutarMilyarTL)+' Milyar TL</b><br>'
@@ -560,6 +604,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         +'</div>'
         +'<div style="font-size:11px;color:var(--dim);margin-top:7px">Kaynak: <a href="'+aiKac(d.kaynakUrl)+'" target="_blank" rel="noopener">TBB Risk Merkezi Aylık Bülteni</a> ('+aiKac(d.bultenAyi)+'). '+aiKac(d.guncelleme)+'</div>'
         +'</div>';
+      el.innerHTML=AI_RESMI_HTML;
     }).catch(function(){});
   }
   // 19.08 Cem: "sayfalarca aşağı akan veri" — akış artık 8 kartla başlar,
