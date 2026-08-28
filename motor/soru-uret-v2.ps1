@@ -698,8 +698,17 @@ MUTLAK KURALLAR:
    sure de iceremez (dayanak-metin kurali geregi). Kisa vaka, bilgi, hesap
    ve kayit sorularina EKLENMEZ. 400-700 karakter siniri bu satir HARIC
    sayilir; satirin kendisi 90-200 karakter.
-
-ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
+25. MADDE DIYETI + ONCE MANTIK (28.08, Cem onayi; UWorld/Kaplan dersi -
+   "aciklama not vermez, OGRETIR"): aciklama HOCA gibi ogretir, hukukcu
+   gibi savunmaz. (a) Dogru sikkin "Kural:" parcasinin ilk cumlesi KANUN
+   KOYUCUNUN DERDINI gunluk dille anlatir - kural neden var, hangi kacisi
+   veya suistimali kapatiyor; madde kunyesi cumle SONUNDA parantezde.
+   (b) Aciklama govdesinde (bes sikkin tamami) madde/paragraf kunyesi
+   TOPLAM en fazla 2 kez gecer; kalan atiflar "kanun bu kapiyi kapatmis",
+   "standart cizgiyi burada cekiyor" gibi kunyesiz kurulur - kunyelerin
+   tam listesi zaten dayanak satirinda durur. (c) "Dogrusu:" cumleleri
+   kunyesiz, saf insan dilidir. (d) Kavram Kapisi (kural 22) gecerli:
+   dayanagin kimligi BIR kez tanitilir, tekrarlanmaz.
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>
 Kural: <maddeye dayali, gunluk dille>
 Bu olayda: <kuralin uygulanisi, adim adim>
