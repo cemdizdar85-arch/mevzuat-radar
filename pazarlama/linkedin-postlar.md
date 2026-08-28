@@ -96,6 +96,73 @@ TTK 376 sermaye takibi?
 
 ---
 
+## POST 5 — KAPSAM+KANIT · konkordato tasdik/ret oranı (28.08.2026 ölçümü)
+
+> **Bu postun her rakamı kendi arşivimizde sayıldı.** Kaynak sorguları aşağıda;
+> yayınlamadan önce sayıları TAZELE (arşiv her gün iki kez büyüyor).
+> **İflas rakamı VERİLMEZ** — o kategori kaynakta 2026 Nisan'da açıldı, 12 aylık
+> serisi yok. Postun sonundaki dürüstlük notu bunu açıkça söylüyor; o not
+> çıkarılmaz, postun en değerli kısmı odur.
+
+Konkordato ilanlarını 12 aydır kaydediyoruz. Arşivde bugün **5.435 konkordato
+ilanı** var — 28.08.2025'ten bu yana, kesintisiz.
+
+İçinde bir rakam dikkatimi çekti. Aynı 12 ayda:
+
+→ **Tasdik** ilanı: **42**
+→ **Ret / kaldırma** ilanı: **709**
+
+Her tasdike karşılık yaklaşık **17 ret**.
+
+Buradan "konkordatoların %94'ü reddediliyor" sonucu ÇIKMAZ — ve ben de
+çıkarmıyorum. Çünkü bu iki sayı aynı dosyalara ait değil: bugün tasdik edilen
+bir konkordato geçen yıl açılmış olabilir. Bunlar bir yıl içinde YAYIMLANAN
+ilanların sayısıdır, bir kohortun sonucu değil.
+
+Ama şu kesin: **alacaklının bir yıl boyunca gördüğü tabloda tasdik istisna,
+ret kuraldır.**
+
+Pratik sonucu şu. Konkordato ilanını görünce "nasılsa anlaşırlar, sıraya
+girmeye gerek yok" diye düşünüyorsan, gördüğün ilanların dağılımı seni
+desteklemiyor. Süreç nasıl biterse bitsin, yapman gereken tek şey değişmiyor:
+alacağını **ilan tarihinden itibaren 15 gün içinde** komisere kaydettir
+(İİK m.299). Kaydettirmezsen, borçlunun bilançosunda kayıtlı değilsen
+müzakereye alınmazsın, oy kullanamazsın.
+
+Süre mektuptan değil **ilandan** işler. Adresin borçlunun kayıtlarında yoksa
+mektup zaten gelmez.
+
+Rakamların kaynağı: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr),
+mahkeme kaynaklı ilanlar. Ölçüm tarihi 28.08.2026.
+
+**Dürüstlük notu:** aynı arşivde iflas ilanları için 12 aylık veri YOK — o
+kategori kaynakta 2026 Nisan'da ayrı olarak açıldı. Elimizde 4,7 aylık seri
+var, o yüzden iflas için rakam vermiyorum. Kapsamı olmayan sayıyı yayınlamak,
+sayı vermemekten kötüdür.
+
+Kendi borçlunu arşivde ara:
+👉 https://tetikte.com/alacak-radari.html
+
+#konkordato #alacak #iik #kobi #finans
+
+### Kanıt sorguları (Supabase, yayından önce koş)
+
+```sql
+-- Postta geçen üç rakam
+select public.alacak_vitrin(null,'konkordato') ->> 'secilenAdet' as konkordato_ilan,
+       public.alacak_vitrin(null,'konkordato') ->> 'secilenIlk'  as ilk_tarih,
+       public.alacak_vitrin(null,'konkordato') ->> 'secilenGun'  as kapsam_gun,
+       public.alacak_vitrin(null,'konkordato') ->  'durumlar'    as durum_dagilimi;
+```
+
+`durum_dagilimi` içinden `tasdik` ve `ret_kaldirma` okunur.
+⚠️ `2026-08-28-alacak-ret-iflas-durumu.sql` basıldıktan sonra `ret_kaldirma`
+ikiye ayrılır (`ret_kaldirma` + `ret_iflas`). Postta **ikisinin toplamını**
+kullan ve istersen "bunların N tanesi doğrudan iflas kararıyla sonuçlandı"
+cümlesini ekle — bu, hiçbir rakibin yayınlamadığı bir rakamdır.
+
+---
+
 ## Kullanım notları
 
 - Sıra: Post 1 bugün → Post 2 formatı ertesi günden itibaren her gün → araya
