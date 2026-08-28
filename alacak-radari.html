@@ -501,6 +501,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // Türü konkordato KALIR (kaynakta o kategoride yayımlanıyor, konkordato
     // dosyasının sonucudur); ayrımı DURUM taşır. Göç: 2026-08-28-alacak-ret-iflas-durumu.sql
     ret_iflas     :['Konkordato reddi → İFLAS','var(--red)'],
+    // 28.08: m.182 — borçlu iflastan ÇIKIYOR. Alacaklı için bu İYİ HABERDİR ama
+    // "Ret / kaldırma" kovasında kötü haber gibi duruyordu. Yeşil, kendi etiketi.
+    iflas_kaldirma:['İflas kaldırıldı','var(--green)'],
     gecici_muhlet :['Geçici mühlet','var(--amber)'],
     kesin_muhlet  :['Kesin mühlet','var(--amber)'],
     uzatma        :['Mühlet uzatma','var(--muted)'],
