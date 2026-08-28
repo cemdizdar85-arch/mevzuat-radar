@@ -71,6 +71,20 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/alacak-supabase-yukle.ps1
 
+      # 28.08 YENI NOBET: karar_durumu damgalari BASLIK METNINDEN turetiliyor;
+      # o gun ogrenildi ki bu, olayi degil MAHKEMENIN YAZIM PRATIGINI olcebilir
+      # ('ret_iflas': Bursa 39 / Istanbul <2, oysa Istanbul konkordatonun %27'si).
+      # Nobet her durum icin "en buyuk ilin payi"ni arsivin kendi tabaniyla
+      # kiyaslar; katini asani SUPHELI isaretler. Kasaya yazma ADIMINDAN SONRA
+      # kosar (taze veriyi olcsun). Anahtar yoksa KOR doner, kirmizi degil.
+      # continue-on-error: nobet AKISI DURDURMAZ, rapor eder (kapi degil nobet).
+      - name: Karar durumu cografi yogunlasma nobeti
+        continue-on-error: true
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/karar-durumu-yogunlasma-nobeti.ps1
+
       # 19.08 Cem onayi: Cagri Radari - TUBITAK + KOSGEB + AB (Ufuk Avrupa) acik
       # destek cagrilari (destekler.html canli bolum + tesvik sihirbazi "diger
       # kapilar"). Gunde BIR cekim yeter (cagrilar saatlik degismez) -> yalniz
