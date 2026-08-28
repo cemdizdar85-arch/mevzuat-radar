@@ -56,7 +56,19 @@ $ilanlar = @()
 foreach ($k in $KOVALAR) {
   $u = "$URL/rest/v1/alacak_ilan?select=ilan_no,baslik,il,tur,karar_durumu,metin,tarih" +
        "&tarih=gte.$bas&karar_durumu=eq.$k&metin=not.is.null&order=tarih.desc&limit=$perKova"
-  try { $ilanlar += @(Invoke-RestMethod -Method Get -Uri $u -Headers $H -TimeoutSec 90) }
+  # 29.08 KUSUR: burada Invoke-RestMethod kullaniliyordu ve donen JSON dizisi
+  # DUZLESMIYORDU - her kova TEK nesneye sarilip alanlari dizi oluyordu
+  # ("Orneklem: 4 ilan", regex_damgasi = 644 elemanli dizi). Sonuc: modele 644
+  # ilanin metni BIRLESIK gitti ve karsilastirma dizi-ile-metin kiyasi yapip
+  # uyumu %0 gosterdi. Invoke-WebRequest + ConvertFrom-Json + @() ile garanti
+  # altina alindi; ayrica kova basina KAC satir geldigi BASILIR (sessiz
+  # kucultme bir daha fark edilmeden gecmesin).
+  try {
+    $ham  = Invoke-WebRequest -Method Get -Uri $u -Headers $H -TimeoutSec 90
+    $rows = @($ham.Content | ConvertFrom-Json)
+    foreach ($row in $rows) { $ilanlar += $row }
+    Write-Host ("  {0,-16} {1,4} ilan" -f $k, $rows.Count)
+  }
   catch { Write-Host ("  '{0}' kovasi cekilemedi: {1}" -f $k, $_.Exception.Message) }
 }
 if (-not $ilanlar.Count) { Write-Host "KOR: 0 ilan cekildi - olcum guvenilmez."; exit 0 }
@@ -143,13 +155,22 @@ foreach ($x in $ilanlar) {
   if (-not $harf) { $cevapsiz++; continue }
   if (-not $alinti -or $alinti -match '^\s*YOK\s*$') { $alintisiz++ }
 
+  # ÖZ-SINAV (29.08 kusurundan sonra eklendi): karsilastirilan sey TEK bir damga
+  # olmali. Dizi geldiyse cekim bozulmus demektir - sessizce %0 uyum uretmek
+  # yerine ACIKCA durup soyler. "Supheli sifiri guvenilir sifira cevirme" kurali.
+  $damga = "$($x.karar_durumu)"
+  if ($damga -match '\s') {
+    Write-Host "HATA: karar_durumu tek deger degil, DIZI geldi - cekim bozuk, olcum durduruldu."
+    Write-Host ("  ornek: {0}" -f $damga.Substring(0, [Math]::Min(60, $damga.Length)))
+    exit 1
+  }
   $beklenen = $ESLESME[$harf]
-  $tutuyor = ($beklenen -and ($beklenen -contains "$($x.karar_durumu)"))
+  $tutuyor = ($beklenen -and ($beklenen -contains $damga))
   if ($tutuyor) { $uyum++ } else { $uyumsuz++ }
 
   $sonuc += [pscustomobject]@{
     ilan_no = $x.ilan_no; tarih = $x.tarih; il = $x.il
-    baslik = "$($x.baslik)"; regex_damgasi = "$($x.karar_durumu)"
+    baslik = "$($x.baslik)"; regex_damgasi = $damga
     okuma_karari = $harf; okuma_alintisi = $alinti; uyuyor = $tutuyor
   }
   if ($i % 10 -eq 0) { Write-Host ("  {0}/{1} okundu (uyum {2} · uyumsuz {3})" -f $i, $ilanlar.Count, $uyum, $uyumsuz) }
