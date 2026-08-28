@@ -255,6 +255,23 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     if(kisa.length) h+=(tam.length?'; ':' — ')+'<b style="color:var(--ink)">'+kisa.join(', ')+'</b> (kaynakta bu tarihte ayrı kategori olarak açıldı)';
     e.innerHTML=h;
   }
+  // 28.08 ÖLÇÜLEN SINIR — bu şerh olmadan filtre YANLIŞ HÜKÜM üretir.
+  // ret_iflas damgası ilan BAŞLIĞINDAN çıkarılıyor. Ölçüm (son 1 yıl, kasadan):
+  //   İSTANBUL 1.462 konkordato · 231 ret ilanı · başlığında iflas geçen <2
+  //   BURSA      309 konkordato ·  29 ret ilanı · başlığında iflas geçen 39
+  // İİK m.308/b iflasa tabi şirketlerde iflas kararını ZORUNLU kılar; İstanbul'da
+  // 231 retin hiçbirinin iflasla bitmemesi imkânsız. Yani ölçtüğümüz şey olay
+  // değil, MAHKEMENİN BAŞLIK YAZMA ALIŞKANLIĞI. Bursa "reddi ve iflasa ilişkin"
+  // yazıyor, İstanbul sadece "reddine ilişkin" yazıyor — karar aynı olsa bile.
+  // Bu listede olmamak "iflas etmedi" demek DEĞİLDİR ve kullanıcı bunu bilmeli.
+  function aiDurumSerhi(){
+    if(AI_DURUM!=='ret_iflas') return '';
+    return '<div style="margin-top:8px;padding:9px 11px;background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.3);border-radius:8px;font-size:12.5px;color:var(--muted);line-height:1.6">'
+      +'<b style="color:var(--amber)">Bu etiketin sınırı:</b> yalnız <b style="color:var(--ink)">ilan başlığında iflas kararı açıkça yazan</b> ilanlar buraya girer. '
+      +'Bazı mahkemeler iflas kararını başlığa yazmaz, yalnız "talebin reddi" der. '
+      +'<b style="color:var(--ink)">Borçlunu bu listede görmemen, iflas etmediği anlamına gelmez</b> — "Ret / kaldırma" listesine de bak ve ilan metnini oku.'
+      +'</div>';
+  }
   function aiKapsamSerhi(k){
     if(!k.eksik) return '';
     // 28.08 CANLI ÖLÇÜMDE YAKALANAN EKSİK: "artış olarak okunamaz" uyarısı yalnız
@@ -761,6 +778,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
           // 28.08: "son 1 yılda" VARSAYIMI kaldırıldı — ölçülen aralık yazılır.
           var kapS=aiKapsam();
           sy.innerHTML=basMetin+' — '+(kapS.metin?'<span style="color:var(--dim)">'+kapS.metin+'</span> arasında ':'')+'<b style="color:var(--ink)">'+AI_SECILEN.toLocaleString('tr-TR')+'</b> ilan var; aşağıda <b style="color:var(--ink)">en yeni '+suz.length+'</b> tanesi listeleniyor.'+aiKapsamSerhi(kapS)
+            +aiDurumSerhi()
             +'<div style="margin-top:6px;font-size:12.5px"><a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 Kendi borçlun için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>';
         }
       }
