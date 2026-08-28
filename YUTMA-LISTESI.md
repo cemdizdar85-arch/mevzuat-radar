@@ -1,5 +1,17 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 28.08.2026 — TMS 37 GÜNCEL SÜRÜMLE YENİDEN YUTULDU (mülga-atıf bulgusu; Cem: "2 yap şimdi")
+*Sebep: Şema provası yakaladı — ambardaki `TMS 37 p.5 - Kapsam` ESKİ SÜRÜMDÜ (mülga TMS 17 + TFRS 4'e "bakınız" atfı; güncel metin TFRS 16/TFRS 17 der). 90'lık partideki TMS 37 sorusu bu yüzden eski atıfla üretilmişti (model kurallara uydu, kaynak bayattı). DERS: **kapsama tam ≠ sürüm güncel.***
+
+| Kaynak | Yapılan | Sonuç |
+|---|---|---|
+| **TMS 37** (KGK 2026 Kırmızı Kitap resmî PDF) | `standart-yut.ps1 -standart 'TMS 37' -uygula -kucultmeyeOnayVer` (küçülme %93 — eski kaynağın fazlalığı; onay öncesi PDF'in p.5'i elle teyit edildi: TFRS 16 ✓, mülga atıf 0 ✓) | 85 → **105 parça**; geri okuma birebir; p.5/(c)→TFRS 16, (e)→TFRS 17 |
+
+**Bölücü köşe vakası (elle yamalandı + geri okundu):** p.5'in (b) bendi ("Gelir vergileri — TMS 12") bölünürken düşmüştü; tek PATCH'le geri kondu. Bölücüde bent-satırı düşmesi izlenecek desen.
+**Kapı yanlış-pozitifi:** bütünlük kapısı p.4/6/96/97/98'i "eksik" saydı — beşi de resmî metinde **[Silinmiştir]**; kapıya "[Silinmiştir] = delik değil" ayrımı eklenmeli.
+**Zincir tamamlandı:** 90'lık `p90-KGK-27` sorusu taze kaynakla yeniden üretildi; `cok-cikan-30-KGK.html`'de mülga atıf 0 (TFRS 16×5, TFRS 17×5).
+**AÇIK:** ambar genelinde 41 mülga-atfın sınıflandırma taraması (çoğu meşru geçiş hükmü; kuşkulu kapsam/tanım atıfları TEK TEK — toptan düzeltme YASAK).
+
 ## ✅ 27.08.2026 — BDDK KARŞILIKLAR YÖNETMELİĞİ (2016) YUTULDU ('yakın izleme' boşluğu)
 *Sebep: KGK bankacılık çıkmış sorusu "yakın izleme" sınıflandırmasına dayanıyor; ölçüm: ifade ambarda mevzuat metni olarak HİÇ yoktu (yalnız Sorunlu Alacak Rehberi bölüm 83 + çıkmış sınav kâğıtları).*
 
