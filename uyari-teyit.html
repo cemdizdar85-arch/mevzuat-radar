@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Uyarı teyidi | Tetikte</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;display:grid;place-items:center;min-height:100vh;padding:24px}
+a{color:var(--accent2)}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px 32px;max-width:560px;width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+.mark{width:14px;height:14px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);display:inline-block;margin-bottom:18px}
+h1{font-size:21px;letter-spacing:-.5px;margin:0 0 10px;font-weight:800}
+p{color:var(--muted);font-size:14.5px;margin:0 0 12px}
+.ilan{background:var(--panel2);border:1px solid var(--line2);border-left:4px solid var(--red);border-radius:11px;padding:12px 15px;margin:14px 0;font-size:13.5px;color:var(--ink);line-height:1.55}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15.5px;padding:14px 28px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(245,165,36,.35)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.5;cursor:default;box-shadow:none}
+.dip{font-size:12px;color:var(--dim);margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+.gizli{display:none}
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="kutu" id="icerik" role="main">
+<div class="top ust-serit">
+  <a class="ust-marka" href="index.html">tetikte</a>
+</div>
+  <span class="mark"></span>
+  <h1 id="baslik">Uyarı okunuyor…</h1>
+  <p id="metin">Bir saniye.</p>
+  <div class="ilan gizli" id="ilanKutu"></div>
+  <div id="eylem" class="gizli">
+    <button class="btn" id="teyitDugmesi" type="button">Okudum, işleme aldım →</button>
+    <p style="font-size:12.5px;color:var(--dim);margin-top:12px">Bu düğmeye basınca uyarıyı tekrar göndermeyi bırakırız. Basmazsan e-postayı yinelemeye devam ederiz — çünkü İİK'daki süre, bizim gönderdiğimiz an değil, <b style="color:var(--muted)">ilanın yayımlandığı gün</b> işlemeye başlar.</p>
+  </div>
+  <p class="dip">Tetikte · Alacak Radarı bildirimleri · Sorun olursa <a href="mailto:cem@dizdardenetim.com">cem@dizdardenetim.com</a> · <a href="radar-app.html">Panele git</a></p>
+</div>
+
+<script>
+/* ===========================================================================
+   TESLİM TEYİDİ — kullanıcı "okudum" diyene kadar susmayan uyarının ucu.
+   Şema/RPC: radar-app/sql/2026-08-27-teslim-teyidi.sql
+   Merdiven : motor/teslim-teyidi.ps1
+
+   🔴 SAYFA AÇILIŞINDA TEYİT ALINMAZ — yalnızca DURUM okunur (uyari_teyit_durum).
+   Teyit ancak kullanıcı düğmeye BASINCA yazılır (uyari_teyit). Sebebi:
+   Outlook Safe Links / Gmail / kurumsal antivirüsler maildeki her bağlantıyı
+   kendiliğinden açar. Açılışta teyit alsaydık robotun taradığı link uyarıyı
+   "okundu" işaretler ve merdiven ilk basamakta susardı — yani özelliğin
+   tamamı sessizce işe yaramaz hale gelirdi.
+   =========================================================================== */
+(function(){
+  var SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
+  var SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+  var baslik=document.getElementById('baslik'), metin=document.getElementById('metin');
+  var ilanKutu=document.getElementById('ilanKutu'), eylem=document.getElementById('eylem');
+  var dugme=document.getElementById('teyitDugmesi');
+
+  function kac(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function yaz(b,m,renk){ baslik.textContent=b; metin.innerHTML=m; baslik.style.color=renk||'var(--ink)'; }
+
+  function rpc(ad, govde){
+    return fetch(SB_URL+'/rest/v1/rpc/'+ad,{
+      method:'POST',
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify(govde||{})
+    }).then(function(r){ return r.text().then(function(g){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return g?JSON.parse(g):null;
+    }); });
+  }
+
+  var t=(new URLSearchParams(location.search)).get('t')||'';
+  if(!/^[0-9a-fA-F-]{36}$/.test(t)){
+    yaz('Bağlantı eksik','Bu sayfaya, uyarı e-postandaki <b>“Okudum, işleme aldım”</b> bağlantısıyla gelinir. Uyarılarının tamamını <a href="radar-app.html">panelden</a> görebilirsin.','var(--amber)');
+    return;
+  }
+
+  function ilaniGoster(d){
+    if(!d.baslik) return;
+    ilanKutu.innerHTML='<b>İlgili uyarı:</b><br>'+kac(d.baslik)
+      + (d.url?'<div style="margin-top:7px"><a href="'+kac(d.url)+'" target="_blank" rel="noopener">resmî ilan metni →</a></div>':'');
+    ilanKutu.classList.remove('gizli');
+  }
+
+  rpc('uyari_teyit_durum',{p_token:t}).then(function(d){
+    if(!d || !d.ok){
+      yaz('Uyarı bulunamadı','Bu bağlantı geçersiz ya da uyarı silinmiş olabilir. Uyarılarının tamamı <a href="radar-app.html">panelde</a> duruyor.','var(--amber)');
+      return;
+    }
+    ilaniGoster(d);
+    if(d.zatenTeyitli){
+      yaz('Teyidin zaten alınmıştı','Bu uyarı için <b>daha önce</b> “okudum” dedin; tekrar göndermiyoruz. İlanı yeniden okumak istersen aşağıdaki bağlantıyı kullan.','var(--green)');
+      return;
+    }
+    yaz('Bu uyarıyı gördüğünü teyit et','Aşağıdaki düğmeye basana kadar bu uyarıyı sana hatırlatmaya devam ederiz.');
+    eylem.classList.remove('gizli');
+  }).catch(function(){
+    yaz('Şu an ulaşılamadı','Bağlantı kurulamadı. Birazdan tekrar dene ya da <a href="radar-app.html">panele</a> bak.','var(--amber)');
+  });
+
+  dugme.addEventListener('click', function(){
+    dugme.disabled=true; dugme.textContent='Kaydediliyor…';
+    rpc('uyari_teyit',{p_token:t}).then(function(d){
+      if(!d || !d.ok) throw new Error('bos');
+      eylem.classList.add('gizli');
+      yaz('Teyidin alındı','Bu uyarı için bir daha rahatsız etmeyeceğiz. <b>Süre yine de işliyor</b> — konkordatoda alacak kaydı ilan tarihinden itibaren 15 gündür (İİK m.299), iflasta 1 aydır (m.219). Ne yapman gerektiğini <a href="alacakli-rehberi.html">Alacaklı Rehberi</a>\'nde adım adım bulursun.','var(--green)');
+    }).catch(function(){
+      dugme.disabled=false; dugme.textContent='Okudum, işleme aldım →';
+      metin.innerHTML='<span style="color:var(--red)">Teyit kaydedilemedi, bağlantını kontrol edip tekrar dene.</span>';
+    });
+  });
+})();
+</script>
+</body>
+</html>
