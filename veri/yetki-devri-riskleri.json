@@ -1,11 +1,11 @@
 {
-  "tarih": "28.08.2026 19:06",
+  "tarih": "28.08.2026 19:20",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
   "sayfa": 60,
   "atifli_iddia": 262,
-  "dayanaksiz_iddia": 279,
+  "dayanaksiz_iddia": 281,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -1647,19 +1647,31 @@
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 286,
+      "satir": 159,
+      "iddia": "en az 6",
+      "metin": "if(($('#sifre').value||'').length<6){ $('#ahata').textContent='Şifre en az 6 karakter olmalı.'; return; }"
+    },
+    {
+      "sayfa": "radar-app.html",
+      "satir": 173,
+      "iddia": "en az 6",
+      "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
+    },
+    {
+      "sayfa": "radar-app.html",
+      "satir": 303,
       "iddia": "en az 3",
       "metin": "if(unvan.length Rakibin unvanını yaz (en az 3 karakter). '; return; }"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 512,
+      "satir": 529,
       "iddia": "6 ay",
       "metin": "${(f.markalar||[]).length?'● AKTİF':'○ MARKA GİR'} Marka radarı Yenileme 6 ay kala + benzer başvuru çıkınca uyarı."
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 513,
+      "satir": 530,
       "iddia": "15 gün",
       "metin": "${(f.borclu_vkn||[]).length?'● AKTİF':'○ VKN GİR'} Alacak radarı İzlediğin borçlu konkordato/iflas ilan ederse 15 günlük süreyle uyarı."
     },
