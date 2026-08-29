@@ -324,6 +324,16 @@ $('#t_ornek').onclick=()=>{ $('#t_unvan').value='ARÇELİK ANONİM ŞİRKETİ'; 
 // URL'de jeton varsa (mailden gelen bag) ya da son taramamiz varsa dogrudan ac
 const url=new URLSearchParams(location.search);
 if(url.get('jeton')) izle(url.get('jeton'));
+// 29.08: marka-radari.html (Marka Merkezi) ustundeki unvan kutusu buraya
+// ?unvan=... ile devreder. Tarama mantigi TEK yerde (burada) kalsin diye
+// merkez sayfaya kopyalanmadi; orasi sadece unvani tasiyor. Kutu doldurulur
+// ve ayni dugmeye basilir - yani tek akis, tek dogrulama, tek hata metni.
+const gelenUnvan=(url.get('unvan')||'').trim().slice(0,200);
+if(gelenUnvan && !url.get('jeton')){
+  $('#t_unvan').value=gelenUnvan;
+  $('#t_unvan').scrollIntoView({block:'center'});
+  $('#t_btn').click();
+}
 </script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Marka Yenileme Radarı — markan ne zaman düşüyor? (10 yıl / SMK m.23) | Tetikte</title>
-<meta name="description" content="Tescilli markanın koruma süresi başvuru tarihinden 10 yıl. Yenileme penceresi son 6 ay, kaçarsan 6 ay ek ücretli süre; hiç yenilemezsen marka düşer. Markanın bitiş tarihini ve durumunu gör, takibe al.">
+<title>Marka Radarı — markanla ilgili her şey tek yerde (portföy · yenileme · itiraz) | Tetikte</title>
+<meta name="description" content="Firma unvanını yaz, sicildeki bütün markaların gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -65,9 +65,34 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        rozet + cümle başlık + tek satır özet + ilk ekranda asıl eylem + 3 adım,
        uzun hukuk anlatımı aşağıda. Başlık zaten cümleydi, asıl kutu zaten ilk
        ekrandaydı; eksik olan rozet, kısa özet ve 3 adımdı. -->
+  <!-- 29.08 MARKA MERKEZİ (Cem: "marka ile ilgili her şeyi buraya atalım, tek
+       yerde olsun"). Marka isi ana sayfada BES ayri yere dagilmisti (acilir
+       menu, konu listesi, vitrin kutusu, akis seridi, arac katalogu, alt menu)
+       ve hicbiri "markamin evi" degildi. Ev aslinda ISMEN vardi: sitenin alti
+       yeri "Marka Radarı" deyip buraya bakiyor, ama arkasinda tek bir hesap
+       makinesi duruyordu. Bu sayfa artik ailenin evi: ustte asil is (unvandan
+       sicil taramasi), ortada bes aracin ne sordugu, altta yenileme hesabi.
+       LINK AMELIYATI YOK - site zaten buraya bakiyordu. -->
   <div><span class="gozalici">⏰ Markan sessizce düşebilir · süre başvurudan itibaren 10 yıl</span></div>
-  <h1>Marka Yenileme Radarı, markan ne zaman düşüyor?</h1>
-  <p class="lead">Marka adını ve başvuru tarihini yaz; bitiş tarihini, yenileme penceresini ve şu anki durumunu gör — <b style="color:var(--green)">ücretsiz</b>.</p>
+  <h1>Markanla ilgili her şey burada</h1>
+  <p class="lead">Firma unvanını yaz, <b style="color:var(--ink)">sicildeki bütün markaların</b> tarihleriyle gelsin. Marka adı bilmene gerek yok — koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23).</p>
+
+  <!-- Asil is en ustte. Tarama mantigi marka-portfoy.html'de TEK yerde durur;
+       burasi yalnizca unvani tasir (?unvan=...), orada ayni dugmeye basilir.
+       Kopya akis acilmadi - iki yerde iki dogrulama iki hata metni demekti. -->
+  <div class="form" style="margin-bottom:16px">
+    <label for="mm_unvan">FİRMA UNVANIN</label>
+    <input class="gir" id="mm_unvan" placeholder="ör. EGE SERAMİK SANAYİ VE TİCARET ANONİM ŞİRKETİ" autocomplete="organization">
+    <button class="btn" id="mm_btn">Sicildeki markalarımı getir →</button>
+    <div class="mini" style="margin-top:9px;color:var(--dim)">Ücretsiz, üyelik istemez. Unvanı sicildeki yazımıyla yaz; yazım varyantlarını (A.Ş. / ANONİM ŞİRKETİ) robot kendisi birleştirir.</div>
+  </div>
+
+  <!-- Bes aracin listesi marka-serit.js'te TEK dizide durur; yeni marka araci
+       eklenince yalniz orasi degisir, bu sayfa kendiliginden ogrenir. -->
+  <div id="mm_araclar" style="margin:18px 0 22px"></div>
+
+  <h2 style="font-size:19px;letter-spacing:-.4px;margin:26px 0 4px">Tek marka için hızlı hesap: ne zaman düşüyor?</h2>
+  <p class="lead" style="margin-bottom:12px">Sicili taratmak istemiyorsan marka adını ve başvuru tarihini yaz; bitiş tarihini, yenileme penceresini ve şu anki durumunu gör — <b style="color:var(--green)">ücretsiz</b>.</p>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0 14px">
     <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
@@ -262,7 +287,30 @@ function takip(){
     <div style="font-size:11px;color:var(--dim);margin-top:11px">Üyelik ücretsizdir · <a href="kvkk.html" style="color:var(--muted)">KVKK aydınlatma</a></div>
   </div>
   </div>
-<script src="marka-serit.js"></script>
+<!-- 29.08: bu sayfa artik ailenin EVI. Serit h1'in ustune kucuk bir gezinme
+     olarak degil, sayfanin govdesinde asil icerik olarak duruyor -> data-elle. -->
+<script src="marka-serit.js" data-elle="1"></script>
+<script>
+(function(){
+  var kap=document.getElementById('mm_araclar');
+  if(kap && typeof window.markaSeritCiz==='function')
+    window.markaSeritCiz(kap,'Marka araçların — hangisi hangi soruyu cevaplıyor');
+  var btn=document.getElementById('mm_btn'), gir=document.getElementById('mm_unvan');
+  if(!btn||!gir) return;
+  // Kaynak etiketi (?k=v6) devrederken KAYBOLMAMALI, yoksa hangi videonun
+  // tarama getirdigi olculemez. Not: 29.08 olcumu -> sql-marka-kaynak.sql
+  // basilmadigi icin etiket su an hicbir yere YAZILMIYOR; basilinca calisir.
+  var k=(new URLSearchParams(location.search).get('k')||'').slice(0,40);
+  function git(){
+    var u=(gir.value||'').trim();
+    if(u.length<3){ gir.focus(); gir.style.borderColor='var(--red)'; return; }
+    location.href='marka-portfoy.html?unvan='+encodeURIComponent(u)+(k?('&k='+encodeURIComponent(k)):'');
+  }
+  btn.addEventListener('click',git);
+  gir.addEventListener('keydown',function(e){ if(e.key==='Enter') git(); });
+  gir.addEventListener('input',function(){ gir.style.borderColor=''; });
+})();
+</script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
