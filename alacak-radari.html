@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
-  :root{--line2:rgba(255,255,255,.14);--dim:#7d8b9d;--amber:#ffb020}
+  :root{--dim:#7d8b9d;--amber:#ffb020}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
@@ -72,6 +72,8 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
 /* 14.08 canlı liste tür filtresi (İhale Radarı deseni) */
 .tbtn{background:var(--panel2);border:1px solid var(--line2);color:var(--muted);border-radius:9px;font:700 13px inherit;padding:11px 16px;cursor:pointer;min-height:42px}
 .tbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
+.tbtn b{color:var(--dim);font-weight:700}
+.tbtn.on b{color:inherit}
 .tbtn:hover{color:var(--ink)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
@@ -322,6 +324,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       // RET -> m.308 (iflasa dönebilir)
       if(/reddine|talebinin red|davasının red| red\b/.test(b))
         return {hap:'Konkordato reddedildi. Borçlu iflasa tabiyse mahkeme iflasına karar verebilir; iflas açılırsa alacağını masaya kaydettir (m.308).'};
+      // 29.08 FERAGAT -> borçlu davadan KENDİ vazgeçti. Ret'ten farklı: mahkeme
+      // konkordatoyu incelemedi, hüküm kurmadı. Alacaklı için sonuç aynı yönde
+      // (takip yasağı kalkar) ama sebebi bilmek önemli: borçlu süreci kendi
+      // bıraktı, yani genelde anlaşma ya da vazgeçme var.
+      if(/feragat/.test(b))
+        return {hap:'Borçlu konkordato talebinden kendi vazgeçti (feragat); mahkeme konkordatoyu incelemeden dava sona erdi. Mühlet ve tedbirler kalkar, takibini sürdürebilirsin. Feragat kesin hüküm sonucu doğurur — borçlu aynı taleple yeniden dava açamaz, ama YENİ bir konkordato başvurusu yapabilir.'};
       // MÜHLET KALDIRMA -> takip yasağı sona erer
       if(/kaldır/.test(b))
         return {hap:'Mühlet kaldırıldı; borçluya karşı takip yasağı sona erdi, takibini sürdürebilirsin.'};
@@ -510,6 +518,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // 28.08: m.182 — borçlu iflastan ÇIKIYOR. Alacaklı için bu İYİ HABERDİR ama
     // "Ret / kaldırma" kovasında kötü haber gibi duruyordu. Yeşil, kendi etiketi.
     iflas_kaldirma:['İflas kaldırıldı','var(--green)'],
+    // 29.08: ret_kaldirma 606 ilanla en kalabalık ve en heterojen kovaydı.
+    // Keşif ölçümü içinde iki AYIRT EDİCİ olay buldu (tedbir kaldırma ve
+    // komiser görevine son YAN HÜKÜM, %56/%42 ile neredeyse her ilanda var):
+    //   feragat        — borçlu davadan KENDİ vazgeçti; mahkeme reddetmedi.
+    //                    Alacaklı için farklı: hüküm kurulmadı, süreç kapandı.
+    //   muhlet_kaldirma— mühlet verilmişti, sona erdi. Ret'ten farklı: talep
+    //                    zaten kabul edilmişti.
+    feragat       :['Borçlu vazgeçti','var(--muted)'],
+    muhlet_kaldirma:['Mühlet kaldırıldı','var(--amber)'],
     gecici_muhlet :['Geçici mühlet','var(--amber)'],
     kesin_muhlet  :['Kesin mühlet','var(--amber)'],
     uzatma        :['Mühlet uzatma','var(--muted)'],
@@ -527,7 +544,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       var n=sayilar[k]||0; if(!n) return;   // ölçülmemiş durum düğme olmaz
       var ad=AI_DURUM_ADI[k];
       h+='<button type="button" class="tbtn'+(AI_DURUM===k?' on':'')+'" onclick="aiDurumSec(\''+k+'\')">'
-        +'<span style="color:'+ad[1]+'">'+ad[0]+'</span> <b style="color:var(--dim);font-weight:700">'+n.toLocaleString('tr-TR')+'</b></button>';
+        +'<span style="color:'+ad[1]+'">'+ad[0]+'</span> <b>'+n.toLocaleString('tr-TR')+'</b></button>';
     });
     g.innerHTML=h;
   }
@@ -563,7 +580,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var ad={hepsi:['Tümü',k+i+dg],konkordato:['Konkordato',k],iflas:['İflas',i]};
     [].forEach.call(g.querySelectorAll('.tbtn'),function(b){
       var a=ad[b.dataset.t]; if(!a) return;
-      b.innerHTML=a[0]+' <b style="color:var(--dim);font-weight:700">'+a[1].toLocaleString('tr-TR')+'</b>';
+      b.innerHTML=a[0]+' <b>'+a[1].toLocaleString('tr-TR')+'</b>';
     });
   }
   function aiUygula(d, ilk){
@@ -1343,7 +1360,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:var(--ink)">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı. Aynı gün dönüş yapacağız.</div>
