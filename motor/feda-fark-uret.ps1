@@ -5,15 +5,16 @@
 #  ve "1 soru çöz, farkı gör" sayfasını (fark.html) basar.
 #  Sayfa perde arkasında durur; menüye bağlamak SİTE oturumunun işidir.
 # ============================================================================
+param([string]$ID='p90-SGS-01-hesapli',[string]$fedaAd='feda-ornek-1.json')   # 29.08 Cem: kahraman = EN COK CIKAN konu (ortak maliyet dagitimi, SGS siklik 13)
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
 $SONUC=Join-Path $kok 'veri\fabrika\sik90-sonuc.jsonl'
-$FEDA=Join-Path $kok 'veri\feda-ornek-1.json'
+$FEDA=Join-Path $kok ('veri\'+$fedaAd)
 $HEDEF=Join-Path $kok 'fark.html'
-$ID='p90-SGS-14-vaka'   # TBK genel islem kosullari — kahraman ornek
+
 
 function Coz([string]$txt){
   $tt="$txt".Trim() -replace '^```json\s*','' -replace '^```\s*','' -replace '\s*```$',''
@@ -43,7 +44,8 @@ SEMA (soruya en uygun TEK tur; SORUNUN KENDI VERISIYLE konusur, jenerik cerceve 
 - "karar": {"tur":"karar","baslik":"...","kok":{"soru":"...?","evet":"kisa sonuc VEYA {soru,evet,hayir}","hayir":"..."}} (en fazla 2 seviye)
 - "akis": {"tur":"akis","baslik":"...","ogeler":["adim",...]}
 - "yevmiye": {"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[...]}}
-Cevap YALNIZ JSON: {"aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...}}
+Hesapli soruda "cozum_tablo" ZORUNLU: {"basliklar":[...],"satirlar":[[...],...]} - mevcut tablodan koru/iyilestir; son satir SONUC satiridir.
+Cevap YALNIZ JSON: {"cozum_tablo":{...},"aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...}}
 === SORU === {SORU}
 SIKLAR: {SIKLAR}
 DOGRU: {DOGRU}
@@ -57,12 +59,29 @@ DOGRU: {DOGRU}
   $c=Coz $y.metin
   if(-not $c -or -not $c.aciklama){ throw 'yeniden yazim bozuk' }
   $fedaNesne=[ordered]@{ kaynak_not='FEDA ORNEGI - bilerek herkese acik; kasaya girmez'; soru=$eski.soru; siklar=$eski.siklar; dogru=$eski.dogru; aciklama=$c.aciklama; hap=$c.hap; sinav_taktigi=$c.sinav_taktigi; notlandirici=$c.notlandirici; dayanak=$eski.dayanak; sema=$c.sema }
-  [IO.File]::WriteAllText($FEDA,(ConvertTo-Json -InputObject $fedaNesne -Depth 6),[Text.UTF8Encoding]::new($false))
+  [IO.File]::WriteAllText($FEDA,(ConvertTo-Json -InputObject $fedaNesne2 -Depth 6),[Text.UTF8Encoding]::new($false))
   Write-Host 'feda-ornek-1.json uretildi'
-  $c=$fedaNesne
+  $c=$fedaNesne2
 }
 
 # --- 3) sema cizdiriciler (ton-prova ile ayni dil) ---
+function TabloHtml($t){
+  if(-not $t -or -not $t.satirlar -or @($t.satirlar).Count -eq 0){ return '' }
+  $sb=[Text.StringBuilder]::new()
+  [void]$sb.Append("<div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div><table class='tcetvel'><tr>")
+  foreach($b in @($t.basliklar)){ [void]$sb.Append("<th>$(K $b)</th>") }
+  [void]$sb.Append('</tr>')
+  $n=@($t.satirlar).Count; $q=0
+  foreach($st in @($t.satirlar)){
+    $q++
+    $stil=''; if($q -eq $n){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
+    [void]$sb.Append("<tr$stil>")
+    foreach($hc in @($st)){ [void]$sb.Append("<td>$(K $hc)</td>") }
+    [void]$sb.Append('</tr>')
+  }
+  [void]$sb.Append('</table>')
+  return $sb.ToString()
+}
 function SemaHtml($s){
   if(-not $s -or -not $s.tur){ return '' }
   $sb=[Text.StringBuilder]::new()
@@ -133,6 +152,7 @@ foreach($hh in 'A','B','C','D','E'){
   [void]$acSb.Append("<p><b>$hh$isr)</b> $(K $c.aciklama.$hh)</p>")
 }
 $acBlok=$acSb.ToString()
+$tabloBlok=TabloHtml $c.cozum_tablo
 $semaBlok=SemaHtml $c.sema
 $sikBtnSb=[Text.StringBuilder]::new()
 foreach($hh in 'A','B','C','D','E'){
@@ -191,6 +211,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
     <div id="hukum"></div>
     <div id="acikla">
       $acBlok
+      $tabloBlok
       $semaBlok
       $(if($c.sinav_taktigi){"<div class='kutu'>🎯 <b>Sınav taktiği:</b> $(K $c.sinav_taktigi)</div>"})
       $(if($c.notlandirici){"<div class='kutu2'>⚖️ <b>Notlandırıcı gözü:</b> $(K $c.notlandirici)</div>"})
