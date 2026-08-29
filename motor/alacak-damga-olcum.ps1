@@ -171,8 +171,26 @@ $MUHLET_KALDIRMA = '(gecici|kesin)\s+muhlet\w*\s+(karari(nin)?\s+)?(sonuclarinin
 # olumsuzlama penceresine birakildi.
 $RET_KARARI = 'red(dine|dedilmesine|di\s+ile)\b'
 
+# 29.08 - 12 ATLANAN ILAN ELLE OKUNDU (Cem "sen oku") ve GERCEK KUSUR CIKTI:
+# eski desen 'feragat' kelimesini METNIN HERHANGI BIR YERINDE ariyordu. Ana hukum
+# muhlet kaldirma ya da ret olsa bile, ilanin baska bir yerinde gecen 'feragat'
+# ilani feragat kovasina atiyordu. 11 ilanin 7'sinde damga YANLISTI:
+#   MANISA  "...tasdiki talebinin REDDINE"                 -> ret_kaldirma olmali
+#   BURDUR  "...ayri ayri REDDINE; iflas YER OLMADIGINA"    -> ret_kaldirma olmali
+#   ISPARTA/MERSIN/AYDIN "kesin muhlet kararinin KALDIRILMASINA" -> muhlet_kaldirma
+#   (dogru cikanlar: "FERAGAT NEDENIYLE reddine" diyenler)
+# YENI KURAL: feragat, KARAR cumlesiyle AYNI PENCEREDE olmali. Kelimenin varligi
+# yetmez - hukmun SEBEBI olmali.
 function FeragatVar([string]$metin) {
-  return [bool](TemizEslesme (Sadelestir $metin) $FERAGAT_KARARI $OLUMSUZ_FERAGAT)
+  $m = Sadelestir $metin
+  foreach ($mm in [regex]::Matches($m, 'feragat')) {
+    $bas = [Math]::Max(0, $mm.Index - 70)
+    $son = [Math]::Min($m.Length, $mm.Index + $mm.Length + 130)
+    $p = $m.Substring($bas, $son - $bas)
+    # feragat, bir SONUCA baglanmis olmali: ret / dusme / sona erme
+    if ($p -match 'redd|reddine|dusme|sona\s+er|kabul' -and $p -notmatch $OLUMSUZ_FERAGAT) { return $true }
+  }
+  return $false
 }
 function MuhletKaldirmaVar([string]$metin) {
   return [bool](TemizEslesme (Sadelestir $metin) $MUHLET_KALDIRMA $OLUMSUZ_ORTAK)
