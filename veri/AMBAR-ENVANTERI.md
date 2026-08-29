@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **28.08.2026 23:06** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **30.08.2026 00:35** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 39237 parça · 1532 tekil kaynak | Bütünlük ölçülen: 1532 (delikli: 79; son ölçüm: 28.08.2026) | Sürüm ölçülen: 37 (sorunlu: 0; son ölçüm: 28.08.2026 18:38)
+**ÖZET:** 39878 parça · 1542 tekil kaynak | Bütünlük ölçülen: 1542 (delikli: 78; son ölçüm: 28.08.2026) | Sürüm ölçülen: 40 (sorunlu: 2; son ölçüm: 29.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -56,6 +56,7 @@
 | Ailenin Korunması K. (6284 s.K.) | kanun-madde | 32 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Anayasa (2709) | kanun-madde | 218 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Arabuluculuk K. (6325 s.K.) | kanun-madde | 56 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Araci Kurumlar, Portfoy Yonetim Sirketleri ve Kripto Varlik Hizmet Saglayicilar Tarafindan Kullanilacak Uzaktan Kimlik Tespiti Tebligi (III-42.1) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Ar-Ge Teşvik K. (5746 s.K.) | kanun-madde | 31 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | ASGARİ ÜCRET TESPİT KOMİSYONU KARARI (2026 - RG 26.12.2025/33119) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Asgari Ücret Yön. | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -415,13 +416,14 @@
 | Birlesme ve Bolunme Tebligi (II-23.2) | kanun-madde | 39 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BOBI FRS | standart-madde | 348 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BOBI FRS - on bolum | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Borclanma Araci Sahipleri Kurulu Tebligi (II-31/A.1) | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Borclanma Araclari Tebligi (VII-128.8) | kanun-madde | 49 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | CB Kararı 7887 - AŞ/Ltd asgari sermaye artırımı (RG 25.11.2023) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | CMK (5271 s.K.) | kanun-madde | 416 | DELİK-İNCELE(par:4/kesik:8/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Çek K. (5941 s.K.) | kanun-madde | 27 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Çevre K. (2872 s.K.) | kanun-madde | 94 | DELİK-İNCELE(par:5/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Dahilde İşleme Rejimi Kararı (2005/8391) | kanun-madde | 87 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Dahilde İşleme Rejimi Tebliği (İhracat 2006/12) | kanun-madde | 140 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Dahilde İşleme Rejimi Tebliği (İhracat 2006/12) | kanun-madde | 141 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Damga V.K. (488 s.K.) | kanun-madde | 83 | DELİK-İNCELE(par:2/kesik:16/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 43) | kanun-madde | 13 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 46) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -663,6 +665,8 @@
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SIRA NO: 43) | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HMK (6100 s.K.) | kanun-madde | 479 | DELİK-İNCELE(par:1/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Ihracat Destekleri Hakkinda Karar (5973 s. CB Karari) | kanun-madde | 59 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Istanbul Takas ve Saklama Bankasi A.S. Merkezi Karsi Taraf Yonetmeligi | kanun-madde | 67 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Istanbul Takas ve Saklama Bankasi A.S. Merkezi Takas Yonetmeligi | kanun-madde | 71 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Izahname ve Ihrac Belgesi Tebligi (II-5.1) | kanun-madde | 54 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | İİK — Konkordato (m.285-309) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | İİK (2004 s.K.) | kanun-madde | 496 | DELİK-İNCELE(par:3/kesik:5/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -701,8 +705,9 @@
 | KDVK — İstisnalar ve iade (m.11,12,32) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KDVK — Sorumluluk ve tevkifat (m.9) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KDVK (3065 s.K.) | kanun-madde | 168 | DELİK-İNCELE(par:2/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KGK Kurulus KHK (660 s.) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KGK Kurulus KHK (660 s.) | kanun-madde | 50 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KİK (4734 s.K.) | kanun-madde | 180 | DELİK-İNCELE(par:0/kesik:1/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Kitle Fonlamasi Tebligi (III-35/A.2) | kanun-madde | 71 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kooperatifler K. (1163 s.K.) | kanun-madde | 131 | DELİK-İNCELE(par:2/kesik:37/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kredi Riski Azaltim Tekniklerine Iliskin Teblig | kanun-madde | 92 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kredi Riski Azaltim Tekniklerine Iliskin Teblig - degisiklik kaydi (dipnotlar ve RG listesi) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -723,6 +728,8 @@
 | KYS 2 - on bolum | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KYS Duyuru | standart-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Menşe ve dolaşım belgeleri | rehber | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Merkezi Kayit Kurulusunun Kurulus, Faaliyet, Calisma ve Denetim Esaslari Hakkinda Yonetmelik | kanun-madde | 48 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Merkezi Takas Kuruluslarinin Kurulus ve Calisma Esaslari Hakkinda Genel Yonetmelik | kanun-madde | 97 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Mesleki Eğitim K. (3308 s.K.) | kanun-madde | 68 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Milletlerarası Tahkim K. (4686 s.K.) | kanun-madde | 32 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ ( SERİ NO:25 ) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -792,6 +799,7 @@
 | ÖZEL TÜKETİM VERGİSİ (IV) SAYILI LİSTE UYGULAMA GENEL TEBLİĞİ | kanun-madde | 88 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Pay Tebligi (VII-128.1) | kanun-madde | 106 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Perakende Ticaret K. (6585 s.K.) | kanun-madde | 43 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Portfoy Saklama Hizmetine ve Bu Hizmette Bulunacak Kuruluslara Iliskin Esaslar Tebligi (III-56.1) | kanun-madde | 30 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Portfoy Yonetim Sirketleri ve Bu Sirketlerin Faaliyetlerine Iliskin Esaslar Tebligi (III-55.1) | kanun-madde | 83 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Rekabet K. (4054 s.K.) | kanun-madde | 82 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sanayi Sicili K. (6948 s.K.) | kanun-madde | 19 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -961,8 +969,8 @@
 | SPK Kredili İşlemler Tebliği (V-65) künye | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Surdurulebilirlik Ilkeleri Uyum Cercevesi | kanun-madde | 11 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Yesil, Surdurulebilir ve Sosyal Sermaye Piyasasi Araclari Rehberi (11.08.2026) | kanun-madde | 38 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SSİY (Sos. Sig. İşlemleri Yön.) | kanun-madde | 332 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Suç Gelirleri/MASAK K. (5549 s.K.) | kanun-madde | 34 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SSİY (Sos. Sig. İşlemleri Yön.) | kanun-madde | 338 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Suç Gelirleri/MASAK K. (5549 s.K.) | kanun-madde | 35 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Surekli Egitim Tebligi | standart-madde | 24 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Surekli Egitim Tebligi - on bolum | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: B SIRA NO: 10) | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1002,7 +1010,7 @@
 | Teknoloji Gel. Bölg. K. (4691 s.K.) | kanun-madde | 41 | DELİK-İNCELE(par:210/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teminatli Menkul Kiymetler Tebligi (III-59.1) | kanun-madde | 56 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TFRS 1 | standart-madde | 127 | TAM(set-birebir; kapı notu: par:6/kesik:0/oksuz:4 resmî metinde de yok) | TUTARLI |
-| TFRS 10 | standart-madde | 7 | TAM | ÖLÇÜLMEDİ |
+| TFRS 10 | standart-madde | 7 | TAM | INCELE |
 | TFRS 11 | standart-madde | 93 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 12 | standart-madde | 87 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
 | TFRS 13 | standart-madde | 172 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
@@ -1301,7 +1309,7 @@
 | TMS 20 | standart-madde | 50 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 21 | standart-madde | 86 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 23 | standart-madde | 31 | TAM(set-birebir; kapı notu: par:10/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 24 | standart-madde | 6 | TAM | ÖLÇÜLMEDİ |
+| TMS 24 | standart-madde | 6 | TAM | INCELE |
 | TMS 26 | standart-madde | 43 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 27 | standart-madde | 15 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 28 | standart-madde | 58 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ISTISNA-ELLE-ZENGIN |
@@ -1314,7 +1322,7 @@
 | TMS 37 | standart-madde | 105 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 38 | standart-madde | 134 | TAM(set-birebir; kapı notu: par:8/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
 | TMS 40 | standart-madde | 90 | TAM(set-birebir; kapı notu: par:23/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 41 | standart-madde | 62 | DELİK-İNCELE(par:11/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
+| TMS 41 | standart-madde | 62 | TAM(set-birebir; kapı notu: par:11/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 7 | standart-madde | 71 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 8 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TOBB/Odalar K. (5174 s.K.) | kanun-madde | 162 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1548,7 +1556,9 @@
 | Yabancılar ve Uls. Koruma K. (6458 s.K.) | kanun-madde | 133 | DELİK-İNCELE(par:19/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yapı Denetimi K. (4708 s.K.) | kanun-madde | 47 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1) | kanun-madde | 66 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Yatirim Hizmet ve Faaliyetleri ile Yan Hizmetlere Iliskin Belge ve Kayit Duzeni Tebligi (III-45.1) | kanun-madde | 46 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yatirim Hizmetleri ve Faaliyetleri Tebligi (III-37.1) | kanun-madde | 125 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Yatirim Kuruluslarinin Kurulus ve Faaliyet Esaslari Tebligi (III-39.1) | kanun-madde | 116 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yatirimci Tazmin Merkezi Yonetmeligi | kanun-madde | 56 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yerli Mali Tebligi (SGM-2024/10) | kanun-madde | 35 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | YMM ve SMMM Sinav Yonetmeligi | kanun-madde | 28 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
