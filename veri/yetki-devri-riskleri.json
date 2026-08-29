@@ -1,12 +1,12 @@
 {
-  "tarih": "29.08.2026 05:20",
+  "tarih": "29.08.2026 05:51",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
-  "sayfa": 63,
-  "atifli_iddia": 262,
-  "dayanaksiz_iddia": 295,
-  "kirmizi_aday": 29,
+  "sayfa": 64,
+  "atifli_iddia": 264,
+  "dayanaksiz_iddia": 316,
+  "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
     {
@@ -27,49 +27,49 @@
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
-      "satir": 156,
+      "satir": 158,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "Konkordatoda alacak kaydı süresi, ilan tarihinden itibaren 15 gündür (İİK m.299); süresinde kaydını yaptırmayan alacaklı, borçlunun bilançosunda kayıtlı değilse müzakereye alınmaz "
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 291,
+      "satir": 293,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 295,
+      "satir": 297,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// m.299 konkordato alacak kaydı 15 gün · m.219 iflas alacak kaydı ilandan 1 AY ·"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 306,
+      "satir": 308,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// KAYIT ÇAĞRISI -> m.299, 15 gün geri sayım (toplantı hariç)"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 308,
+      "satir": 310,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün', hap:'Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; b"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 334,
+      "satir": 336,
       "iddia": "7 gün",
       "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 845,
+      "satir": 847,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "3 Sana ilan değil, yapılacak iş gelir. \"Müşterin X konkordato ilan etti, İİK m.299, 15 gün içinde alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin.\" Mahkeme, dosya no"
@@ -201,6 +201,13 @@
       "metin": "else if(g==='reklam'){ stopaj=\"%15\"; sRate=15; sMetin=\"İnternet reklam hizmeti, 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)"
     },
     {
+      "sayfa": "index-acik.html",
+      "satir": 732,
+      "iddia": "15 gün",
+      "kanun": "299",
+      "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
+    },
+    {
       "sayfa": "index.html",
       "satir": 756,
       "iddia": "15 gün",
@@ -232,223 +239,223 @@
   "dayanaksiz": [
     {
       "sayfa": "alacak-radari.html",
-      "satir": 79,
+      "satir": 81,
       "iddia": "% 100",
       "metin": "body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 104,
+      "satir": 106,
       "iddia": "1 yıl",
       "metin": "Vergi kimlik numarasını yaz, son 1 yılın tamamında ( … resmî ilan ) ara — tek sorgu ücretsiz ."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 146,
+      "satir": 148,
       "iddia": "15 gün",
       "metin": "İlan çıktığı gün, 15 günlük süresiyle"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 180,
+      "satir": 182,
       "iddia": "1 yıl",
       "metin": "İflas &amp; konkordato arşivi · son 1 yıl · günde iki kez otomatik güncellenir"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 202,
+      "satir": 204,
       "iddia": "7 gün",
       "metin": "Alacaklı için asıl ayrım budur: geçici mühlette itiraz 7 gün, kesin"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 203,
+      "satir": 205,
       "iddia": "15 gün",
       "metin": "mühlette alacak kaydı, alacak çağrısında 15 gün, RET'te iş bitmiş"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 215,
+      "satir": 217,
       "iddia": "1 yıl",
       "metin": "// Kapsam eşiği: 1 yıl iddia edilen bir vitrinde 300 günün altı \"eksik\"tir."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 235,
+      "satir": 237,
       "iddia": "13 ay",
       "metin": "// 28.08 ÖLÇÜLDÜ (ilan.gov.tr API, 5.743 ilan, 13 ay): 'iflas-ve-tasfiye'"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 240,
+      "satir": 242,
       "iddia": "1 yıl",
       "metin": "+ ' — bu türün sayısı 1 yıllık değildir, diğerleriyle kıyaslanamaz ve zaman içinde artış olarak da okunamaz (kategori kaynakta bu tarihte açıldı). ';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 242,
+      "satir": 244,
       "iddia": "1 yıl",
       "metin": "// 28.08 GÖREV 2: sayfa dibindeki \"Veri kaynağı\" bloğu da \"son 1 yılın tamamı"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 254,
+      "satir": 256,
       "iddia": "1 yıl",
       "metin": "if(tam.length) h+=' — '+tam.join(' ve ')+' ilanlarında son 1 yılın tamamı ';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 259,
+      "satir": 261,
       "iddia": "1 yıl",
       "metin": "// ret_iflas damgası ilan BAŞLIĞINDAN çıkarılıyor. Ölçüm (son 1 yıl, kasadan):"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 282,
+      "satir": 284,
       "iddia": "188 gün",
       "metin": "// seçiliyken kısa kapsamın sebebi bu değil — 'iflas_kaldirma' 188 gün çıkıyor"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 286,
+      "satir": 288,
       "iddia": "1 yıl",
       "metin": "return ' ⚠️ Bu seçimde arşiv son 1 yılın tamamını kapsamıyor — yalnız '"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 492,
+      "satir": 494,
       "iddia": "365 gun",
       "metin": "// son 365 gun, kasadan sayildi): iflas turunde kesin muhlet 0, gecici muhlet 0,"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 543,
+      "satir": 545,
       "iddia": "30 gün",
       "metin": "// BAYATLIK NÖBETİ (27.08): hasat kırılırsa \"son 30 günde N ilan\" rakamı sessizce"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 544,
+      "satir": 546,
       "iddia": "3 gün",
       "metin": "// küçülür, sayfa hâlâ canlı görünür. En yeni ilanın tarihi ölçülür; 3 günü aşan"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 580,
+      "satir": 582,
       "iddia": "1 yıl",
       "metin": "// 28.08 YANLIŞ HÜKÜM KAPANDI: sayfa \"son 1 yıl\" diye VARSAYIYORDU. Ölçüldü:"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 581,
+      "satir": 583,
       "iddia": "1 yıl",
       "metin": "// konkordato 19.08.2025–28.08.2026 (~1 yıl) ama iflas 06.04.2026–28.08.2026"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 582,
+      "satir": 584,
       "iddia": "7 AY",
       "metin": "// (~4,7 AY) — çünkü 'iflas-ve-tasfiye' alt kategorisi havuzda 06.04 öncesi"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 604,
+      "satir": 606,
       "iddia": "30 gün",
       "metin": "rz.innerHTML='🚨 Son 30 günde '+Number(d.son30).toLocaleString('tr-TR')+' iflas ve konkordato ilanı · biri senin müşterin mi?'"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 647,
+      "satir": 649,
       "iddia": "1 yil",
       "metin": "// 19.08: il dagilimi artik ekrandaki 60 karttan degil, TUM ARSIVDEN (1 yil)"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 765,
+      "satir": 767,
       "iddia": "1 yıl",
       "metin": "// arşiv istatistiği gibi okunuyordu. Ayrıca \"5.889 ilan (son 1 yıl)\" derken"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 766,
+      "satir": 768,
       "iddia": "365 gün",
       "metin": "// 5.889 TÜM tabloyu sayar, tür sayaçları ise son 365 günü (5.832) — yan yana"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 771,
+      "satir": 773,
       "iddia": "1 yıl",
       "metin": "y1+='; son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+' tanesi ( '+tk.toLocaleString('tr-TR')+' konkordato · '+ti.toLocaleString('tr-TR')+' iflas)';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 773,
+      "satir": 775,
       "iddia": "1 yıl",
       "metin": "// 28.08: EN ÇOK GÖRÜLEN EKRAN buydu ve \"son 1 yılda … 415 iflas\" derken"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 774,
+      "satir": 776,
       "iddia": "7 ay",
       "metin": "// iflas verisinin yalnız 4,7 ay olduğunu söylemiyordu. Tarih sayfaya"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 785,
+      "satir": 787,
       "iddia": "1 yıl",
       "metin": "sy.innerHTML=basMetin+' — son 1 yılda bu seçime uyan ilan yok . Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok demek değildir; yukarıdaki tarama kutusu arşivin tama"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 787,
+      "satir": 789,
       "iddia": "1 yıl",
       "metin": "// 28.08: \"son 1 yılda\" VARSAYIMI kaldırıldı — ölçülen aralık yazılır."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 893,
+      "satir": 895,
       "iddia": "%10",
       "metin": "if(((t1*7 - t2)%10 + 10)%10 !== d[9]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 894,
+      "satir": 896,
       "iddia": "%10",
       "metin": "if(d.slice(0,10).reduce((a,b)=>a+b,0)%10 !== d[10]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 904,
+      "satir": 906,
       "iddia": "% 9",
       "metin": "sum += (tmp === 9) ? 9 : (tmp * Math.pow(2, 9 - i)) % 9;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 906,
+      "satir": 908,
       "iddia": "% 10",
       "metin": "return v[9] === (10 - (sum % 10)) % 10;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 990,
+      "satir": 992,
       "iddia": "1 yil",
       "metin": "// 19.08: TAM ARSIV (5.728 ilan / 1 yil) yalniz tarama aninda yuklenir — sayfa"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1012,
+      "satir": 1014,
       "iddia": "6 ay",
       "metin": "// okunamaz. Müşavir bu dosyayı dosyaya koyuyor; 6 ay sonra açan kişi neyin"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1190,
+      "satir": 1192,
       "iddia": "1 yıl",
       "metin": "html += ' Arşiv eşleşmeleri · '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl) ';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1257,
+      "satir": 1259,
       "iddia": "1 yıl",
       "metin": "html += ' Son 1 yıllık arşivin tamamı tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve i"
     },
@@ -1285,6 +1292,132 @@
       "satir": 1045,
       "iddia": "%3",
       "metin": "v.innerHTML=` ✅ Bu sayaçlara göre engel yok.${ek} Sıradaki adım: yeterlik belgelerini sağla + teklif bedelinin %3'ü geçici teminat . Kesin karar idarenin değerlendirmesine bağlıdır"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 91,
+      "iddia": "% 2",
+      "metin": "radial-gradient(1100px 620px at 78% 2%, rgba(64,140,255,.42), rgba(64,140,255,.10) 34%, transparent 60%),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 92,
+      "iddia": "% 8",
+      "metin": "radial-gradient(760px 520px at 88% 8%, rgba(255,194,75,.28), transparent 52%),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 93,
+      "iddia": "% 118",
+      "metin": "radial-gradient(1200px 700px at 10% 118%, rgba(120,90,255,.16), transparent 55%),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 98,
+      "iddia": "% 50",
+      "metin": "background:radial-gradient(50% 50% at 50% 0%, rgba(64,150,255,.30), transparent 62%);"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 104,
+      "iddia": "% 60",
+      "metin": "mask-image:radial-gradient(ellipse 75% 60% at 50% 38%,#000 25%,transparent 72%)}"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 109,
+      "iddia": "% 22",
+      "metin": "radial-gradient(1.6px 1.6px at 18% 22%,#fff,transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 110,
+      "iddia": "% 12",
+      "metin": "radial-gradient(1.3px 1.3px at 62% 12%,rgba(255,255,255,.85),transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 111,
+      "iddia": "% 40",
+      "metin": "radial-gradient(2px 2px at 82% 40%,rgba(190,220,255,.95),transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 112,
+      "iddia": "% 64",
+      "metin": "radial-gradient(1.3px 1.3px at 40% 64%,rgba(255,255,255,.7),transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 113,
+      "iddia": "% 72",
+      "metin": "radial-gradient(1.5px 1.5px at 90% 72%,rgba(255,255,255,.75),transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 114,
+      "iddia": "% 34",
+      "metin": "radial-gradient(1.2px 1.2px at 30% 34%,rgba(255,255,255,.6),transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 115,
+      "iddia": "% 60",
+      "metin": "radial-gradient(1.7px 1.7px at 72% 60%,rgba(200,225,255,.8),transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 116,
+      "iddia": "% 82",
+      "metin": "radial-gradient(1.1px 1.1px at 52% 82%,rgba(255,255,255,.5),transparent),"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 117,
+      "iddia": "% 52",
+      "metin": "radial-gradient(1.4px 1.4px at 8% 52%,rgba(255,255,255,.6),transparent);"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 118,
+      "iddia": "% 85",
+      "metin": "mask-image:radial-gradient(ellipse 95% 85% at 55% 28%,#000,transparent 82%)}"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 310,
+      "iddia": "%3",
+      "metin": "select{appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2393a1b3' stroke"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 743,
+      "iddia": "30 gün",
+      "metin": "İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 1030,
+      "iddia": "%16",
+      "metin": "// olmadan \"(II/C/6.3.) -> (II/C/7.3)\" bolum referansindan \"%16 artis\""
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 1078,
+      "iddia": "18 gun",
+      "metin": "// Vitrinde 18 gunluk kart \"gercek tarama\" diye duruyordu; ziyaretci"
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 1079,
+      "iddia": "3 gun",
+      "metin": "// tarihi okumadan taze sanir. Veri 3 gunden eskiyse acikca yaziyoruz."
+    },
+    {
+      "sayfa": "index-acik.html",
+      "satir": 1087,
+      "iddia": "19 gun",
+      "metin": "// 30.07: \"Son tarama 11.07 - 19 gun once\" diye yaziyorduk; o tarih son"
     },
     {
       "sayfa": "index.html",
