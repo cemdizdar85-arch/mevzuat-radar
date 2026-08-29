@@ -93,7 +93,17 @@ function Sadelestir([string]$s) {
 #      Baslik "reddine" diyor, karar "KABULUNE" - hicbir kelime kalibi bunu
 #      ayiramaz, metni okumak gerekir. Alacakli icin TAM TERS bilgi: firma
 #      kurtulmus, biz "reddedildi" diyoruz.
-$IFLAS_KARARI = 'itibariyle\s+iflasina|iflasina\s+karar\s+veril(di|mis|mistir|erek)|iflas(inin|larin)\s+acilmasina|177/4'
+# 29.08 IKI HAT CATISTI, KURU KOSU YAKALADI: hakem turu 43 ilani ret_kaldirma'dan
+# ret_iflas'a tasimisti; regex hatti onlari GERI ALMAK istedi. Ornege bakinca
+# hakemin hakli oldugu gorulddu:
+#   DUZCE "IIK'nin 292 1-b maddesi GEREGINCE IFLASINA"
+# Desen 'itibariyle iflasina' ariyordu; "geregince/uyarinca iflasina" kalibini
+# tanimiyordu. YAZ=1 kosulsaydi 43 GERCEK iflas karari silinecekti.
+# COZUM: kok 'iflasina' uzerine kuruldu, ayirdedicilik OLUMSUZLAMA PENCERESINE
+# birakildi ("iflasina karar verilmesine YER OLMADIGINA" zaten eleniyor).
+# Firma adindaki "(iflas nedeniyle) tasfiye halinde ..." gibi kullanimlar
+# 'iflasina' cekimini tasimadigi icin YAKALANMAZ - olculdu.
+$IFLAS_KARARI = 'iflas(ina|larina)\b|iflas(inin|larin)\s+acilmasina|177/4'
 # TASDIK kalibi: mahkemenin KABUL hukmu. "tasdik talebinin reddine" TUZAKTIR -
 # olumsuzlama penceresi onu eler.
 # 29.08 KURU KOSU BIR FELAKETI ONLEDI: ilk tasdik deseni 24 GERCEK tasdiki
