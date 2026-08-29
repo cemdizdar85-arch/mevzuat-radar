@@ -204,6 +204,17 @@ jobs:
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           git add -A veri/mevzuat/ || true
+          # 30.08.2026 — veri/AMBAR-ENVANTERI.md BILEREK EKLENMEDI. Envanterin
+          # TAM MI / GUNCEL MI sutunlari veri/butunluk-raporu.json +
+          # veri/fabrika/surum-tazeligi-karnesi.json'dan gelir; ikisi de
+          # .gitignore'da, yani runner'da YOK. Burada uretilse iki sutun komple
+          # "olculmedi" olur ve depodaki iyi olcumleri EZER (olculdu: temiz
+          # worktree'de "butunluk olculen 0 / surum olculen 0"). mevzuat-yut.ps1
+          # sonundaki envanter tetigi bu yuzden CI'da kendini ATLAR.
+          # ACIK IS: CI ambara yazdiginda envanter Cem'in makinesindeki 06:45
+          # gorevine kadar BAYAT kalir. Kalici cozum: kapi ciktilarini depoya
+          # tasimak ya da envantere "son yutma > envanter uretimi" damgasi koyup
+          # sayfayi kendi bayatligini itiraf ettirmek.
           if [ -f veri/madde-degisim.json ]; then git add veri/madde-degisim.json || true; fi
           if [ -f veri/dayanak-uyari.json ]; then git add veri/dayanak-uyari.json || true; fi
           if [ -f veri/dayanak-nobet-log.txt ]; then git add veri/dayanak-nobet-log.txt || true; fi

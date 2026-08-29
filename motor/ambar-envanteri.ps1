@@ -141,7 +141,14 @@ $ozet=[ordered]@{
   arsiv_dokumu=$arsiv
   satirlar=$satirlar.ToArray()
 }
-[IO.File]::WriteAllText((Join-Path $kok 'veri\fabrika\ambar-envanteri.json'),(ConvertTo-Json -InputObject $ozet -Depth 4),[Text.UTF8Encoding]::new($false))
+# 30.08.2026 KUSUR (olculdu, envanter tetigi denemesinde cikti): veri/fabrika/
+# .gitignore'da (satir 15) - yani TEMIZ BIR KLONDA ve GitHub runner'inda YOK.
+# Bu satir klasoru varsaydigi icin orada patliyor, ve patlama BURADA oldugu
+# icin asagidaki AMBAR-ENVANTERI.md HIC YAZILMIYORDU. Sessiz sonuc: CI'da
+# envanter hicbir zaman tazelenmez, "tek dogru sayfa" bayat kalir.
+$fabrikaDir = Join-Path $kok 'veri\fabrika'
+if(-not (Test-Path $fabrikaDir)){ New-Item -ItemType Directory -Path $fabrikaDir -Force | Out-Null }
+[IO.File]::WriteAllText((Join-Path $fabrikaDir 'ambar-envanteri.json'),(ConvertTo-Json -InputObject $ozet -Depth 4),[Text.UTF8Encoding]::new($false))
 
 # --- 5) INSAN SAYFASI (md) ---
 $sb=[Text.StringBuilder]::new()
