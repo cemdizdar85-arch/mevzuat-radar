@@ -74,6 +74,12 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
      Kopya acilmaz; robot tarafindaki esi motor/destek-takip-nobeti.ps1. -->
 <script src="destek-kural.js"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
+<!-- 29.08 (Cem: "marka ile ilgili cok sey yapmistik ama burada goremiyorum"):
+     Marka araclarinin TAMAMI app() icindeydi, yani girisin arkasinda kaliyordu;
+     giris ekraninda tek bir marka baglantisi yoktu. Serit artik giris ekraninda
+     da cizilir - bu bes arac zaten giris ISTEMIYOR. data-elle="1" = kendiliginden
+     h1 ustune yerlesme, yerini biz secelim. defer YOK: giris() cizerken hazir olmali. -->
+<script src="marka-serit.js" data-elle="1"></script>
 <script type="module">
 const { createClient } = window.supabase || {};
 if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
@@ -151,7 +157,24 @@ function giris(){
       </div>
       <div class="hata" id="ahata"></div>
       <p class="mini" style="margin-top:8px">Erken erişim, ücretsiz. Verilerin yalnız sana ait.</p>
-    </div>`;
+    </div>
+    <div id="markaAraclar" style="margin-top:26px"></div>
+    <p class="mini" id="markaAraclarNot" style="margin-top:-8px;display:none">
+      Bu beş araç <b style="color:var(--ink)">giriş istemiyor</b> — şimdi açabilirsin.
+      Panele girdiğinde ayrıca <b style="color:var(--ink)">unvandan portföy taraması</b>, benzer başvuru uyarısı ve
+      <b style="color:var(--ink)">rakip nöbeti</b> açılır. Diğer radarlar için sağ alttaki ☰ Araçlar.
+    </p>`;
+  // 29.08: marka serit giris ekraninda. Betik senkron yuklendigi icin burada
+  // hazir olmali; degilse sessiz kalmasin diye load'da bir kez daha denenir.
+  (function markaSeridiCiz(){
+    const kap=$('#markaAraclar'); if(!kap) return;
+    if(typeof window.markaSeritCiz==='function'){
+      window.markaSeritCiz(kap,'Marka araçların — üye olmadan da açılır');
+      const not=$('#markaAraclarNot'); if(not) not.style.display='';
+    } else {
+      window.addEventListener('load',()=>{ if($('#markaAraclar')) markaSeridiCiz(); },{once:true});
+    }
+  })();
   $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=trHata(error); };
   $('#kayitBtn').onclick=async()=>{
     if(!$('#kosulOnay').checked){ $('#ahata').textContent='Üyelik için koşulları ve aydınlatma metnini kabul etmen gerekiyor.'; return; }

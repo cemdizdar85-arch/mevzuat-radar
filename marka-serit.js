@@ -6,6 +6,11 @@
    bulundugun sayfayi vurgular. Tek yerden bakim: yeni marka araci eklenince
    sadece asagidaki diziye satir eklenir.
    Kullanim: sayfanin sonuna  <script src="marka-serit.js"></script>
+   29.08 EK (Cem: "marka ile ilgili cok sey yapmistik ama panelde goremiyorum"):
+   Radar Paneli'nin GIRIS ekraninda hicbir marka baglantisi yoktu - marka islerinin
+   tamami app() icinde, yani girisin arkasindaydi. Betik artik data-elle="1" ile
+   cagrilirsa kendiliginden yerlestirmez, window.markaSeritCiz(hedef, baslik) ile
+   istenen yere cizilir. Arac listesi TEK yerde kalir (asagidaki ARACLAR dizisi).
 ============================================================================ */
 (function(){
   var ARACLAR = [
@@ -30,24 +35,41 @@
     + '.mseritBas{font-size:11.5px;color:var(--dim);letter-spacing:1.1px;text-transform:uppercase;font-weight:800;margin:0 0 8px}';
   document.head.appendChild(st);
 
-  var kap = document.createElement("div");
-  var h = '<div class="mseritBas">Marka araçları</div><div class="mserit">';
-  for (var i = 0; i < ARACLAR.length; i++) {
-    var a = ARACLAR[i], aktif = (a[0].toLowerCase() === burasi) ? " aktif" : "";
-    h += '<a class="mserit-a' + aktif + '" href="' + a[0] + '"><b><em>' + a[1] + '</em>' + a[2] + '</b><span>' + a[3] + '</span></a>';
+  function kur(baslik){
+    var kap = document.createElement("div");
+    var h = '<div class="mseritBas">' + (baslik || "Marka araçları") + '</div><div class="mserit">';
+    for (var i = 0; i < ARACLAR.length; i++) {
+      var a = ARACLAR[i];
+      h += '<a href="' + a[0] + '"><b><em>' + a[1] + '</em>' + a[2] + '</b><span>' + a[3] + '</span></a>';
+    }
+    h += '</div>';
+    kap.innerHTML = h;
+    kap.className = "mseritKap";
+    var linkler = kap.querySelectorAll("a");
+    for (var j = 0; j < linkler.length; j++) {
+      if (linkler[j].getAttribute("href").toLowerCase() === burasi) linkler[j].classList.add("aktif");
+    }
+    return kap;
   }
-  h += '</div>';
-  kap.innerHTML = h;
-  kap.className = "mseritKap";
-  // aktif sinifini dogru ogeye tasi (yukarida class adi birlesikti)
-  var linkler = kap.querySelectorAll("a");
-  for (var j = 0; j < linkler.length; j++) {
-    if (linkler[j].getAttribute("href").toLowerCase() === burasi) linkler[j].classList.add("aktif");
-  }
+
+  // Disari acilan uc: istenen kaba istenen baslikla ciz (radar-app giris ekrani).
+  window.MARKA_ARACLARI = ARACLAR;
+  window.markaSeritCiz = function(hedef, baslik){
+    if (!hedef) return null;
+    var k = kur(baslik);
+    hedef.innerHTML = '';
+    hedef.appendChild(k);
+    return k;
+  };
+
+  // data-elle="1" ile cagrildiysa kendiliginden yerlestirme yapma.
+  var kendi = document.currentScript;
+  if (kendi && kendi.getAttribute("data-elle") === "1") return;
 
   function yerlestir(){
     var kok = document.querySelector(".wrap") || document.body;
     var h1 = kok.querySelector("h1");
+    var kap = kur("Marka araçları");
     if (h1 && h1.parentNode) { h1.parentNode.insertBefore(kap, h1); }
     else { kok.insertBefore(kap, kok.firstChild); }
   }
