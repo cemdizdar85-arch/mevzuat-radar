@@ -25,7 +25,10 @@ name: yetki-devri-denetcisi
 on:
   push:
     branches: [main]
-    paths: ['*.html', 'veri/mevzuat/**', 'motor/yetki-devri-denetcisi.ps1']
+    # 29.08: kapinin KENDISI degisince de kossun - yoksa kapiya yapilan
+    # duzeltme bir sonraki icerik push'una kadar denenmemis kalir.
+    paths: ['*.html', 'veri/mevzuat/**', 'motor/yetki-devri-denetcisi.ps1',
+            'veri/yetki-devri-okundu.json', '.github/workflows/yetki-devri.yml']
   schedule:
     - cron: '30 5 * * 1'   # her pazartesi 08:30 TR — ambar guncellemeleri sonrasi haftalik tam tur
   workflow_dispatch: {}
@@ -38,9 +41,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # 29.08 KOR KALMA, IKINCI TUR: bu adim 29.08'de yine kirmizi bitti ama
+      # raporda yeni_aday=0 yaziyordu - yani "YENI aday var" sebebi DEGILDI ve
+      # gercek sebep gorulemedi (is gunlugu depo yoneticisi yetkisi istiyor;
+      # rapor adimi da `git push || true` oldugu icin yaris kaybedince sessizce
+      # kayboluyor). Artik betigin TUM ciktisi ve varsa istisnanin turu/yeri
+      # depoya islenen bir dosyaya yazilir. Kapi neden dustugunu SOYLEMELI.
       - name: Denetciyi kos (YENI kirmizi aday varsa is KIRMIZI biter)
         shell: pwsh
-        run: ./motor/yetki-devri-denetcisi.ps1
+        run: |
+          $log = 'veri/yetki-devri-log.txt'
+          "=== kosu $(Get-Date -Format 'dd.MM.yyyy HH:mm:ss') | pwsh $($PSVersionTable.PSVersion) | $($PSVersionTable.Platform) ===" | Set-Content $log
+          $kod = 0
+          try {
+            ./motor/yetki-devri-denetcisi.ps1 *>&1 | Tee-Object -FilePath $log -Append
+            if($null -ne $LASTEXITCODE){ $kod = $LASTEXITCODE }
+          } catch {
+            $kod = 1
+            "!! ISTISNA"                                    | Add-Content $log
+            "   tur   : $($_.Exception.GetType().FullName)" | Add-Content $log
+            "   mesaj : $($_.Exception.Message)"            | Add-Content $log
+            "   yer   : $($_.InvocationInfo.PositionMessage)" | Add-Content $log
+          }
+          "CIKIS KODU: $kod" | Add-Content $log
+          exit $kod
 
       # KIRMIZI OLSA DA yayinlanir - kapinin ne gordugu gorunmezse kapi
       # "bir sey yanlis" demekten ibaret kalir.
@@ -49,7 +73,12 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/yetki-devri-riskleri.json || true
+          git add veri/yetki-devri-riskleri.json veri/yetki-devri-log.txt || true
           git diff --cached --quiet || git commit -m "Yetki devri raporu [veri-operasyonu]"
-          git pull --rebase --autostash || true
-          git push || true
+          # 29.08: tek denemelik `push || true` yarisi kaybedince raporu SESSIZCE
+          # dusuruyordu - kapinin ne gordugu yine gorunmez kaliyordu. Uc deneme.
+          for i in 1 2 3; do
+            git pull --rebase --autostash || true
+            if git push; then echo "rapor islendi (deneme $i)"; break; fi
+            echo "push tutmadi (deneme $i) - tekrar deneniyor"; sleep 7
+          done
