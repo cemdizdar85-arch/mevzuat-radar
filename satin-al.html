@@ -36,6 +36,14 @@
   .pk .fy{ margin-left:auto; text-align:right; flex:none; padding-left:10px; }
   .pk .fy b{ font:800 19px/1.2 ui-monospace,Consolas,monospace; letter-spacing:-.5px; }
   .pk .fy span{ display:block; font-size:11px; color:var(--dim); }
+  .pk .fy s{ display:block; font-size:12px; color:var(--dim); }
+  .pk .harc{ display:block; font-size:11.5px; color:var(--green); margin-top:3px; }
+  .dersListe{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:7px; }
+  .dersListe label{ display:flex; align-items:center; gap:9px; background:var(--kagit);
+       border:1px solid var(--line); border-radius:10px; padding:9px 12px; font-size:13.5px; cursor:pointer; }
+  .dersListe label.sec{ border-color:rgba(245,165,36,.6); }
+  .dersListe input{ accent-color:var(--amber); width:16px; height:16px; flex:none; }
+  .dersListe label.kapali{ opacity:.45; cursor:not-allowed; }
 
   /* --- form --- */
   .satir{ display:flex; gap:12px; flex-wrap:wrap; }
@@ -95,8 +103,19 @@
 
 <div class="adim">1 · Paket</div>
 <div id="paketler"></div>
-<p class="kucuk" style="margin-top:2px">Erişim süreleri sınav gününe bağlıdır; sınav ertelenirse süren ek ücretsiz uzar.
-Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
+<p class="kucuk" style="margin-top:2px">Erişim 3 aydır. <b>Paketin en yakın sınav gününü kapsamıyorsa o sınava kadar
+ücretsiz uzatılır</b>; sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
+<b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
+
+<!-- Ders bazli paket secilince HANGI dersler oldugu sorulur. Sormazsak
+     erisimi neye acacagimizi bilemeyiz; "2 ders aldim" tek basina yetmez. -->
+<div class="kutu" id="dersKutu" style="display:none">
+  <h2 id="dersBaslik">Hangi dersler?</h2>
+  <p class="kucuk" style="margin:0 0 10px" id="dersNot">—</p>
+  <div id="dersListe" class="dersListe"></div>
+  <p class="kucuk" style="margin:10px 0 0">Sınav sonrası ders değiştirmek istersen bize yaz;
+  erişim süren içinde bir kez ücretsiz değiştiririz.</p>
+</div>
 
 <div class="adim">2 · Bilgilerin</div>
 <div class="kutu">
@@ -106,6 +125,10 @@ Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
   </div>
   <div class="satir">
     <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
+    <!-- Calisma Arkadasim: davet kodu. Adresteki ?d=KOD ile kendiliginden dolar
+         (arkadasin paylastigi bagbantidan gelinmisse). Elle de yazilabilir. -->
+    <div class="alan"><label class="et" for="davet">Davet kodu <span style="color:var(--dim)">— varsa; ikinize de +1 ay</span></label>
+      <input type="text" id="davet" maxlength="6" placeholder="örn. TT7K2M" style="text-transform:uppercase"></div>
   </div>
 
   <label class="et">Fatura tipi *</label>
@@ -201,16 +224,21 @@ var EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 var SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co';
 var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 
-/* ---- 1. adim: paketleri fiyat-motoru.js'ten ciz ---- */
-var PAKETLER = paketler(), secili = null;
+/* ---- 1. adim: paketleri fiyat-motoru.js'ten ciz ----
+   Icerigi hazir olmayan paket (acik:false) listede GORUNMEZ; dolu gorunen
+   bos paket satmayiz. Her satirda ayni kapsam icin odenecek RESMI HARC yazar. */
+var PAKETLER = acikPaketler(), secili = null;
 (function(){
   var kap = document.getElementById('paketler'), grup = '', h = '';
   PAKETLER.forEach(function(p){
     if(p.grup !== grup){ grup = p.grup; h += '<div class="grup">' + grup + '</div>'; }
     h += '<label class="pk" data-id="' + p.id + '">'
        + '<input type="radio" name="paket" value="' + p.id + '">'
-       + '<span><span class="ad">' + p.ad + '</span><br><span class="er">' + p.erisim + '</span></span>'
-       + '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b><span>' + p.not + '</span></span></label>';
+       + '<span><span class="ad">' + p.ad + '</span><br><span class="er">' + p.erisim + '</span>'
+       + '<span class="harc">' + p.harcYazi + '</span></span>'
+       + '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b>'
+       + (p.liste > p.fiyat ? '<s>' + tl(p.liste) + ' TL</s>' : '')
+       + '<span>' + p.not + '</span></span></label>';
   });
   kap.innerHTML = h;
   kap.addEventListener('change', function(e){
@@ -223,11 +251,59 @@ var PAKETLER = paketler(), secili = null;
   });
 })();
 
+/* ---- DERS SECICI ----
+   Sadece ders/modul bazli paketlerde acilir. Tam paketlerde (tum dersler,
+   tum moduller) gerek yok: kapsam zaten hepsi. */
+function dersSayisi(p){
+  if(!p) return 0;
+  if(p.id.indexOf('yeterlilik-') === 0 && p.ders && p.ders < 8) return p.ders;
+  if(p.id.indexOf('kgk-') === 0 && p.modul && p.modul < 4) return p.modul;
+  return 0;
+}
+function dersHavuzu(p){
+  return p && p.id.indexOf('kgk-') === 0 ? DERSLER.kgk : DERSLER.yeterlilik;
+}
+function secilenDersler(){
+  return Array.prototype.slice.call(
+    document.querySelectorAll('#dersListe input:checked')).map(function(i){ return i.value; });
+}
+function dersCiz(){
+  var kutu = document.getElementById('dersKutu'), n = dersSayisi(secili);
+  if(!n){ kutu.style.display = 'none'; document.getElementById('dersListe').innerHTML = ''; return; }
+  var havuz = dersHavuzu(secili), kgk = secili.id.indexOf('kgk-') === 0;
+  document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : 'Hangi dersler?';
+  document.getElementById('dersNot').innerHTML =
+    '<b>' + n + ' ' + (kgk ? 'modül' : 'ders') + '</b> seç — erişimin yalnız bu '
+    + (kgk ? 'modüllere' : 'derslere') + ' açılır. <span id="dersSayac"></span>';
+  document.getElementById('dersListe').innerHTML = havuz.map(function(d){
+    return '<label><input type="checkbox" value="' + d + '"><span>' + d + '</span></label>';
+  }).join('');
+  kutu.style.display = 'block';
+  dersSayacGuncelle();
+}
+function dersSayacGuncelle(){
+  var n = dersSayisi(secili), s = secilenDersler().length;
+  Array.prototype.forEach.call(document.querySelectorAll('#dersListe label'), function(l){
+    var i = l.querySelector('input');
+    var dolu = (s >= n) && !i.checked;
+    l.classList.toggle('kapali', dolu);
+    l.classList.toggle('sec', i.checked);
+    i.disabled = dolu;                    /* tavana gelince digerleri kapanir */
+  });
+  var sc = document.getElementById('dersSayac');
+  if(sc){
+    sc.innerHTML = s === n ? '<b style="color:var(--green)">✓ ' + s + '/' + n + ' seçildi</b>'
+                           : '<b style="color:var(--amber)">' + s + '/' + n + ' seçildi</b>';
+  }
+}
+document.getElementById('dersListe').addEventListener('change', dersSayacGuncelle);
+
 function ozetCiz(){
   document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
   document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Yukarıdan bir paket seç.';
   document.getElementById('ozTop').textContent = secili ? tl(secili.fiyat) + ' TL' : '—';
+  dersCiz();
 }
 ozetCiz();
 
@@ -237,6 +313,30 @@ ozetCiz();
   if(!q) return;
   var r = document.querySelector('input[name=paket][value="' + q.replace(/"/g,'') + '"]');
   if(r){ r.checked = true; r.dispatchEvent(new Event('change',{bubbles:true})); }
+})();
+
+/* ---- CALISMA ARKADASIM: davet kodu ----
+   Arkadasin payslastigi bagbanti .../satin-al.html?d=TT7K2M seklinde gelir.
+   Kod localStorage'a yazilir: adam once fiyat sayfasina bakip sonra donse de
+   kaybolmasin. Dogrulama SUNUCUDA yapilir (kod var mi, kendi kodu mu degil mi);
+   burada yalniz tasiniyor - istemcideki hicbir sey guvenlik degildir. */
+/* Kod BİÇİMİ: TT + 4 karakter, karışan harf/rakam (0/O, 1/I) havuzda yok.
+   Biçime uymayan kod SİPARİŞE HİÇ EKLENMEZ — çünkü tablo politikası biçimi
+   şart koşuyor ve uymayan bir değer siparişin TAMAMINI reddettirirdi.
+   Yanlış yazılmış kod yüzünden sipariş kaybetmeyiz; kod sessizce düşer. */
+var DAVET_BICIM = /^TT[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/;
+function davetTemizle(s){
+  s = (s || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,6);
+  return DAVET_BICIM.test(s) ? s : '';
+}
+function davetKodOku(){
+  var q = davetTemizle(new URLSearchParams(location.search).get('d'));
+  if(q){ try{ localStorage.setItem('tt_davet', q); }catch(e){} return q; }
+  try{ return davetTemizle(localStorage.getItem('tt_davet')); }catch(e){ return ''; }
+}
+(function(){
+  var k = davetKodOku();
+  if(k){ document.getElementById('davet').value = k; }
 })();
 
 /* ---- fatura tipi ---- */
@@ -281,9 +381,23 @@ btn.addEventListener('click', function(){
   if(!document.getElementById('onSoz').checked){ goster('Mesafeli satış sözleşmesini onaylaman gerekiyor.', false); return; }
   if(!document.getElementById('onKvkk').checked){ goster('KVKK onay kutusunu işaretle.', false); return; }
 
+  /* Ders bazli pakette secim EKSIKSE siparis alinmaz: erisimi neye acacagimizi
+     bilmeden para almak, tutamayacagimiz bir soz vermek olur. */
+  var gerekenDers = dersSayisi(secili), secilenD = secilenDersler();
+  if(gerekenDers && secilenD.length !== gerekenDers){
+    goster('Tam olarak ' + gerekenDers + ' ders/modül seçmelisin (' + secilenD.length + ' seçtin).', false);
+    document.getElementById('dersKutu').scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  var davet = davetTemizle(deger('davet'));
+
   var no = siparisNo();
   var kayit = { siparis_no:no, paket:secili.id, paket_ad:secili.ad, tutar:secili.fiyat,
+                liste_fiyat:secili.liste, dersler:(secili.ders || secili.modul || null),
+                secilen_dersler:(secilenD.length ? secilenD : null),
                 ad_soyad:ad, email:mail, telefon:tel, adres:adres, fatura:fatura,
+                davet_kodu:(davet || null),
                 odeme:'havale', durum:'odeme_bekliyor' };
 
   btn.disabled = true; goster('Siparişin kaydediliyor…', true);
@@ -307,7 +421,9 @@ btn.addEventListener('click', function(){
   var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify({ access_key:EPOSTA_ANAHTAR, subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(secili.fiyat) + ' TL',
         from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(secili.fiyat)+' TL',
-        'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres, 'Ödeme':'Havale/EFT' })});
+        'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
+        'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
+        'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT' })});
 
   if(!window.sb){
     posta.then(function(r){ if(r.ok) bitir(); else basarisiz(); }, basarisiz);

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Radar Abonelik Fiyatları | Tetikte</title>
-<meta name="description" content="Alacak, marka, ihale ve süre radarları için abonelik fiyatları. Tek radar 599 TL/ay, tüm radarlar 999 TL/ay. Araçlar ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir. KDV dahil.">
+<meta name="description" content="Alacak ve marka radarı abonelik fiyatları: Tek Firma 299, Tek Radar 599, Tam Paket 999 TL/ay + KDV. Araçlar, İhale Radarı ve Resmî Gazete Hap Kartı ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -26,6 +26,9 @@
   .aylik{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
   .aylik small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
   .yillik{ font-size:14.5px; font-weight:700; color:var(--muted); margin-top:6px; }
+  .liste{ font-size:13.5px; color:var(--dim); text-decoration:line-through; margin-top:5px; }
+  .liste b{ text-decoration:none; display:inline-block; color:var(--green); font-weight:800;
+            font-size:11.5px; letter-spacing:.3px; margin-left:6px; }
   .kdv{ font-size:11.5px; color:var(--dim); margin-top:3px; }
   .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
   .p li{ padding:5px 0 5px 21px; position:relative; color:var(--muted); }
@@ -54,10 +57,15 @@
   <div class="top"><span class="lamba"></span><a href="index.html">Tetikte</a> · <a href="alacak-radari.html">Alacak Radarı</a> · <a href="marka-radari.html">Marka Radarı</a> · Radar Fiyatları</div>
 
   <h1>Radar abonelikleri</h1>
-  <p class="alt">Araçları kullanmak ücretsizdir. Abonelik yalnız <b style="color:var(--ink)">sürekli izleme</b> içindir: sen bakmasan da sistem her gün tarar, eşleşme çıktığı gün yasal süresiyle birlikte e-postana bildirir. Fiyatlar KDV dahildir.</p>
+  <p class="alt">Araçları kullanmak ücretsizdir. Abonelik yalnız <b style="color:var(--ink)">sürekli izleme</b> içindir: sen bakmasan da sistem her gün tarar, eşleşme çıktığı gün yasal süresiyle birlikte e-postana bildirir. Abonelik fiyatları <b style="color:var(--ink)">KDV hariç</b> yazılmıştır; her satırın altında KDV dahil karşılığı vardır.</p>
 
   <div class="kartlar">
 
+    <!-- 29.08 KARARI: Ihale Radari ve Resmi Gazete Hap Karti PARALI listeden
+         UCRETSIZ'e tasindi. Olcum: ihalebul/ihalebulteni/ihalepro ihale bulteni
+         ve e-posta uyarisini BEDAVA veriyor (ihaletakip 10 TL/ay). Rakibin
+         bedava verdigi seyi 599'a satmak, fiyat listesinin en zayif halkasi
+         olurdu; kiyaslayan oradan bakip gerisini okumazdi. -->
     <div class="p">
       <h3>Ücretsiz</h3>
       <div class="kim">Kendin bak, para verme</div>
@@ -65,30 +73,53 @@
       <div class="yillik">Süresiz</div>
       <div class="kdv">Kart bilgisi istemiyoruz</div>
       <ul>
-        <li>Tüm araçlar: alacak taraması, GTİP, ceza asistanı, marka, ihale…</li>
-        <li>Excel/CSV yükleyip toplu tarama</li>
-        <li>Canlı iflas &amp; konkordato akışı</li>
-        <li>İİK süre hesabı ve yol haritası</li>
-        <li class="yok">Sürekli izleme (senin yerine tarama)</li>
+        <li>Tüm araçlar: alacak taraması, GTİP, ceza asistanı, marka…</li>
+        <li><b>İhale Radarı</b>: yeni ihale ve sonuç takibi</li>
+        <li><b>Resmî Gazete Hap Kartı</b>: her sabah günün özeti</li>
+        <li><b>Şirket Kuruluşu</b> aracı</li>
+        <li>Excel/CSV yükleyip toplu tarama · canlı iflas &amp; konkordato akışı</li>
+        <li class="yok">Alacak ve marka nöbeti (senin yerine tarama)</li>
         <li class="yok">Eşleşme uyarı e-postası</li>
       </ul>
       <a class="btn ikincil" href="alacak-radari.html">Araçları kullan</a>
       <p class="kucuk" style="margin:10px 0 0">Anonim kullanımda ayda 5 sorgu; <b>ücretsiz üyelikle sınırsız</b>.</p>
     </div>
 
+    <!-- 29.08: TEK FIRMA basamagi eklendi. Kendi sirketini izlemek isteyen
+         mukellefi yakalar (musavirden cok daha buyuk kitle) ve sayfanin
+         icinde 599'a kiyas noktasi verir. -->
+    <div class="p">
+      <h3>Tek Firma</h3>
+      <div class="kim">Kendi şirketini izle</div>
+      <div class="aylik" id="fyFirma">— <small>TL / ay</small></div>
+      <div class="liste" id="lsFirma"></div>
+      <div class="yillik" id="ylFirma"></div>
+      <div class="kdv" id="kdFirma">+ KDV · istediğin an bırakırsın</div>
+      <ul>
+        <li><b>3 vergi numarası + 3 marka</b> izleme</li>
+        <li>Eşleşme çıktığı gün e-posta uyarısı</li>
+        <li>Uyarıda <b>yasal süre + son gün + ne yapmalı</b></li>
+        <li>Günlük tek özet e-postası</li>
+        <li class="yok">SMS uyarısı</li>
+        <li class="yok">Sınırsız portföy</li>
+      </ul>
+      <a class="btn ikincil" href="#abone">Tek Firma'ya abone ol</a>
+    </div>
+
     <div class="p">
       <h3>Tek Radar</h3>
-      <div class="kim">Hangisi lazımsa: alacak, marka, ihale ya da süre</div>
-      <div class="aylik">599 <small>TL / ay</small></div>
-      <div class="yillik">5.990 TL / yıl <span style="color:var(--green);font-weight:700">· 2 ay bedava</span></div>
-      <div class="kdv">KDV dahil · istediğin an bırakırsın</div>
+      <div class="kim">Hangisi lazımsa: alacak ya da marka</div>
+      <div class="aylik" id="fyTek">— <small>TL / ay</small></div>
+      <div class="liste" id="lsTek"></div>
+      <div class="yillik" id="ylTek"></div>
+      <div class="kdv" id="kdTek">+ KDV · istediğin an bırakırsın</div>
       <ul>
-        <li>Seçtiğin radarda <b>sürekli izleme</b></li>
+        <li>Seçtiğin radarda <b>sınırsız sürekli izleme</b></li>
         <li>Portföyünü bir kez tanımla (VKN listesi)</li>
         <li>Eşleşme çıktığı gün e-posta uyarısı</li>
         <li>Uyarıda <b>yasal süre + son gün + ne yapmalı</b></li>
         <li>Günlük tek özet e-postası</li>
-        <li class="yok">Diğer radarlar</li>
+        <li class="yok">Diğer radar</li>
       </ul>
       <a class="btn ikincil" href="#abone">Tek radara abone ol</a>
     </div>
@@ -97,14 +128,15 @@
       <span class="rozet">EN ÇOK SEÇİLEN</span>
       <h3>Tam Paket</h3>
       <div class="kim">Tüm radarlar tek abonelikte</div>
-      <div class="aylik">999 <small>TL / ay</small></div>
-      <div class="yillik">9.990 TL / yıl <span style="color:var(--green);font-weight:700">· 2 ay bedava</span></div>
-      <div class="kdv">KDV dahil · istediğin an bırakırsın</div>
+      <div class="aylik" id="fyTam">— <small>TL / ay</small></div>
+      <div class="liste" id="lsTam"></div>
+      <div class="yillik" id="ylTam"></div>
+      <div class="kdv" id="kdTam">+ KDV · istediğin an bırakırsın</div>
       <ul>
         <li><b>Alacak Radarı</b>: konkordato/iflas ilanı izleme</li>
         <li><b>Marka Radarı</b>: yenileme penceresi + benzer başvuru</li>
-        <li><b>İhale Radarı</b>: yeni ihale ve sonuç takibi</li>
         <li><b>Süre Bekçisi</b>: yasal süre ve son gün nöbeti</li>
+        <li>Sınırsız VKN ve marka</li>
         <li>Tek günlük özet: hepsi tek e-postada</li>
         <li>Yeni radarlar çıktığında <b>ücretsiz dahil</b></li>
       </ul>
@@ -113,19 +145,32 @@
 
   </div>
 
+  <!-- 29.08 DUZELTMESI: "omur boyu SABIT 599" sozu KALDIRILDI.
+       (1) Enflasyon: TUIK Temmuz 2026 yillik TUFE %31,75 - 599 TL bes yilda
+           bugunku parayla ~151 TL'ye, on yilda ~38 TL'ye duser.
+       (2) Hukuk: Abonelik Sozlesmeleri Yonetmeligi'ne gore taahhut suresince
+           tuketici aleyhine degisiklik yapilamaz; "omur boyu sabit" yazarsak
+           bu fiyati HICBIR ZAMAN artiramayiz - geri donusu olmayan soz.
+       Yerine: rakami degil INDIRIMI donduruyoruz. -->
   <div class="kutu vurgu">
     <h2>Kurucu fiyatı: ilk 100 abone</h2>
-    <p style="margin:0;font-size:14px">Açılışa özel: <b class="a">Tam Paket, tek radar fiyatına — 599 TL/ay</b>.
-    Bu fiyat sana <b>ömür boyu sabit</b> kalır; liste büyüyüp fiyat artsa bile sen kurucu fiyatında kalırsın.
+    <p style="margin:0;font-size:14px">Açılışa özel: <b class="a">Tam Paket, tek radar fiyatına — <span id="fyKurucu">—</span> TL/ay + KDV</b>.
+    Bu fiyat <b>üç yıl boyunca değişmez</b>; sonrasında da <b class="a">ömür boyu liste fiyatının %<span id="kurucuOran">—</span> altında</b> kalırsın.</p>
+    <p class="kucuk" style="margin:10px 0 0">Neden "ömür boyu sabit rakam" demiyoruz: Türkiye'de enflasyon var
+    (TÜİK, Temmuz 2026 yıllık TÜFE %31,75) ve sabit bir rakam birkaç yıl içinde anlamsızlaşır.
+    Bunun yerine <b>indirim oranını</b> ömür boyu donduruyoruz — rakam eskir, indirim eskimez.
     Karşılığında tek şey istiyoruz: eksik gördüğün yeri bize yaz.</p>
   </div>
 
   <div class="kutu">
     <h2>Neden bu fiyat?</h2>
-    <p style="margin:0;font-size:14px">Piyasada <b>tek konulu</b> takip servisleri (yalnız konkordato/iflas ya da yalnız marka izleme)
-    <b class="a">800 – 1.480 TL/ay</b> bandında; tek markanın bülten takibi için vekil firmalarının yıllık ücreti
-    <b class="a">9.000 TL</b> düzeyinde <span class="kucuk">(19.08.2026'da servislerin kendi sitelerinden okundu)</span>.
-    Tam Paket, bunların <b>tek</b> konusundan daha ucuza dört nöbeti birden veriyor.</p>
+    <p style="margin:0;font-size:14px">Piyasada <b>tek konulu</b> takip servisleri
+    <b class="a">800 – 1.480 TL/ay</b> bandında (konkordato/iflas takibinde standart abonelik yılda
+    <b class="a">9.600 TL</b>, kurumsal <b class="a">17.760 TL</b>); tek markanın bülten takibi için
+    vekil firmalarının yıllık ücreti <b class="a">9.000 TL</b> düzeyinde
+    <span class="kucuk">(29.08.2026'da servislerin kendi sitelerinden okundu)</span>.
+    Tam Paket, bunların <b>tek</b> konusundan daha ucuza bütün nöbetleri birden veriyor —
+    üstelik <b>sınırsız</b> VKN ve marka ile.</p>
     <p style="margin:10px 0 0;font-size:14px">Farkımız fiyat değil, <b>karar</b>: rakipler ilanı haber verir,
     biz ilanın hangi maddeye göre kaç gün süre doğurduğunu ve ne yapman gerektiğini de söyleriz.</p>
   </div>
@@ -147,13 +192,8 @@
     <form class="form" onsubmit="return radarAbone(this)">
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0">
       <input type="email" name="email" required placeholder="ornek@firma.com">
-      <select name="paket">
-        <option value="Tam Paket (999 TL/ay)">Tam Paket — 999 TL/ay</option>
-        <option value="Tam Paket YILLIK (9.990 TL)">Tam Paket — 9.990 TL/yıl</option>
-        <option value="Tek Radar (599 TL/ay)">Tek Radar — 599 TL/ay</option>
-        <option value="Tek Radar YILLIK (5.990 TL)">Tek Radar — 5.990 TL/yıl</option>
-        <option value="KURUCU: Tam Paket 599 TL/ay">Kurucu fiyatı — Tam Paket 599 TL/ay</option>
-      </select>
+      <!-- Secenekler fiyat-motoru.js'teki RADAR'dan doldurulur; elle rakam yazilmaz. -->
+      <select name="paket" id="paketSec"></select>
       <button type="submit">Ödeme bilgilerini gönder →</button>
     </form>
     <div class="ok" id="aboneOk">✓ Talebin alındı. Fatura ve ödeme bilgilerini aynı gün e-postana göndereceğiz.</div>
@@ -170,15 +210,68 @@
     Makul kullanım sınırları içinde sınır koymuyoruz. Yüzlerce VKN'li kurumsal portföyler için bize yaz, birlikte planlayalım.</p>
     <p style="margin:8px 0;font-size:14px"><b>İstediğim zaman bırakabilir miyim?</b><br>
     Evet. Aylık abonelikte sonraki dönem tahsilat yapılmaz; yıllık abonelikte kalan süreye karşılık gelen kısım iade edilir.</p>
-    <p style="margin:8px 0;font-size:14px"><b>Fatura kesiliyor mu?</b><br>
-    Evet, Dizdar Denetim A.Ş. adına e-fatura/e-arşiv düzenlenir. Fiyatlar KDV dahildir.</p>
+    <p style="margin:8px 0;font-size:14px"><b>Yıllık aboneliğim kaça yenilenir?</b><br>
+    Yenileme tarihindeki güncel liste fiyatından yenilenir. Yenilemeden <b>en az 30 gün önce</b> e-postayla bildiririz;
+    yenilemek zorunda değilsin, bildirimin ardından hiçbir şey yapmazsan tahsilat yapılmaz.</p>
+    <p style="margin:8px 0;font-size:14px"><b>Fatura kesiliyor mu? Fiyatlara KDV dahil mi?</b><br>
+    Evet, Dizdar Denetim A.Ş. adına e-fatura/e-arşiv düzenlenir. Abonelik fiyatları <b>KDV hariç</b> yazılmıştır;
+    her kartın altında KDV dahil karşılığı gösterilir. KDV mükellefiysen indirim konusu yaparsın.</p>
   </div>
 
-  <p class="kucuk">Fiyatlar Türk Lirasıdır ve KDV dahildir. Tetikte bilgilendirme ve izleme aracıdır; hukuki danışmanlık hizmeti değildir.
+  <p class="kucuk">Fiyatlar Türk Lirasıdır. Abonelik fiyatları KDV hariç gösterilmiş olup KDV dahil karşılıkları
+  her kartın altında yazılıdır. Tetikte bilgilendirme ve izleme aracıdır; hukuki danışmanlık hizmeti değildir.
   Satıcı bilgileri ödeme açılışında bu sayfada yayımlanır.</p>
 </div>
 
+<!-- Fiyatlar fiyat-motoru.js'teki RADAR'dan okunur. Sayfada elle yazili
+     abonelik rakami YOKTUR; rakam yalniz motorda degisir. -->
+<script src="fiyat-motoru.js"></script>
 <script>
+(function(){
+  function kart(ek, r){
+    document.getElementById('fy' + ek).innerHTML = tl(r.ay.kurulus) + ' <small>TL / ay</small>';
+    var ls = document.getElementById('ls' + ek);
+    if(ls && r.ay.liste > r.ay.kurulus){
+      ls.innerHTML = tl(r.ay.liste) + ' TL <b>%' + indirimYuzde(r.ay.kurulus, r.ay.liste) + '</b>';
+    }
+    var yl = document.getElementById('yl' + ek);
+    if(yl && r.yil){
+      var aylikToplam = r.ay.kurulus * 12, bedava = Math.round((aylikToplam - r.yil.kurulus) / r.ay.kurulus);
+      yl.innerHTML = tl(r.yil.kurulus) + ' TL / yıl'
+        + (bedava > 0 ? ' <span style="color:var(--green);font-weight:700">· ' + bedava + ' ay bedava</span>' : '');
+    }
+    /* KDV DAHIL karsiligi: Fiyat Etiketi Yonetmeligi tuketiciye tek tutar
+       gosterilmesini istiyor; B2B dilini korurken kurali da karsiliyoruz. */
+    var kd = document.getElementById('kd' + ek);
+    if(kd){ kd.innerHTML = '+ KDV · <b>KDV dahil ' + kdvDahilYazi(r.ay.kurulus) + ' TL</b> · istediğin an bırakırsın'; }
+  }
+  kart('Firma', RADAR.tekFirma);
+  kart('Tek',   RADAR.tekRadar);
+  kart('Tam',   RADAR.tamPaket);
+
+  document.getElementById('fyKurucu').textContent  = tl(RADAR.kurucu.ay.kurulus);
+  document.getElementById('kurucuOran').textContent = Math.round((1 - RADAR.kurucu.omurBoyuOran) * 100);
+
+  /* Abone formunun secenekleri de ayni kaynaktan. */
+  var sec = document.getElementById('paketSec');
+  if(sec){
+    [['Tam Paket', RADAR.tamPaket, 'ay'], ['Tam Paket YILLIK', RADAR.tamPaket, 'yil'],
+     ['Tek Radar', RADAR.tekRadar, 'ay'], ['Tek Radar YILLIK', RADAR.tekRadar, 'yil'],
+     ['Tek Firma', RADAR.tekFirma, 'ay'], ['Tek Firma YILLIK', RADAR.tekFirma, 'yil']
+    ].forEach(function(x){
+      var f = x[1][x[2]].kurulus, birim = x[2] === 'ay' ? ' TL/ay' : ' TL/yıl';
+      var o = document.createElement('option');
+      o.value = x[0] + ' (' + tl(f) + birim + ' + KDV)';
+      o.textContent = x[0] + ' — ' + tl(f) + birim + ' + KDV';
+      sec.appendChild(o);
+    });
+    var k = document.createElement('option');
+    k.value = 'KURUCU: Tam Paket ' + tl(RADAR.kurucu.ay.kurulus) + ' TL/ay + KDV';
+    k.textContent = 'Kurucu fiyatı — Tam Paket ' + tl(RADAR.kurucu.ay.kurulus) + ' TL/ay + KDV';
+    sec.appendChild(k);
+  }
+})();
+
 function radarAbone(f){
   var e=(f.email.value||"").trim(), p=f.paket.value;
   if(!e) return false;
