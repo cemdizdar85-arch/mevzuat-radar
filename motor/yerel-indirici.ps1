@@ -42,7 +42,22 @@ if(-not (Test-Path $tmp)){ New-Item -ItemType Directory -Path $tmp | Out-Null }
 $pdftotext = Get-Command pdftotext -ErrorAction SilentlyContinue
 if($null -eq $pdftotext){ Log "HATA: pdftotext bulunamadi (poppler kurulu degil?)"; exit 1 }
 
-try { git pull --rebase origin main 2>&1 | Out-Null; Log "git pull tamam" } catch { Log "git pull UYARI: $_" }
+# 30.08.2026 KUSUR (olculdu): bu satir --autostash'siz oldugu icin CALISMA AGACI
+# KIRLIYSE DUSUYORDU: "error: cannot pull with rebase: You have unstaged changes".
+# 29.08 kosusunun logunda aynen bu var; kosu 21 hatayla ve 0 degisiklikle bitti.
+# KILITLENME: robotlar veri dosyasi yazar -> agac kirlenir -> pull duser ->
+# hicbir sey commit'lenmez -> agac SUREKLI kirli kalir -> ayna hic tazelenmez.
+# --autostash git'in kendi cozumu: kirli degisiklikleri gecici saklar, rebase
+# eder, geri koyar. Ayrica dusme artik SESSIZ degil - loga acikca yazilir.
+# PULL KALDIRILDI, YERINE FETCH. Indirme isi icin guncel bir CALISMA AGACINA
+# ihtiyac yok - manifest zaten diskte, hedef mevzuat.gov.tr. Pull'un tek islevi
+# push'u kolaylastirmakti; artik push gecici worktree'den yapiliyor (asagida).
+# fetch calisma agacina DOKUNMAZ: ne stash, ne rebase, ne catisma.
+try {
+  git fetch -q origin 2>&1 | Out-Null
+  if($LASTEXITCODE -eq 0){ Log 'git fetch tamam (calisma agacina dokunulmadi)' }
+  else { Log "!! git fetch TUTMADI (kod $LASTEXITCODE) - indirmeye devam ediliyor" }
+} catch { Log "!! git fetch HATASI: $_ - indirmeye devam ediliyor" }
 
 $manifest = Get-Content (Join-Path $kok 'veri/mevzuat-kaynaklar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $durum = @{}
@@ -94,20 +109,75 @@ $nabiz = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); makine=$env:CO
   not='Yerel indirici (Cem makinesi, TR IP). mevzuat.gov.tr GitHub runnerlarini engelledigi icin indirme buradan beslenir.' }
 Set-Content -LiteralPath (Join-Path $kok 'veri/yerel-indirici-nabiz.json') -Value (ConvertTo-Json $nabiz -Depth 3) -Encoding UTF8 -NoNewline
 
-git add veri/mevzuat-hazir veri/yerel-indirici-nabiz.json 2>&1 | Out-Null
-$degisiklikVar = $true
-git diff --cached --quiet 2>$null; if($LASTEXITCODE -eq 0){ $degisiklikVar = $false }
+# ============================================================================
+# 30.08.2026 — YAYIN YOLU BASTAN YAZILDI. Iki olculmus kusur vardi:
+#  (1) 'git commit' YOLSUZDU: indekste bekleyen BASKASININ dosyalarini da alip
+#      yayina iterdi. Bugun indekste iki sahipsiz SQL dosyasi duruyordu;
+#      robotun ilk basarili kosusu onlari PUBLIC depoya basacakti.
+#  (2) 'git pull --rebase' kirli agacta DUSUYORDU. 29.08 logu: "cannot pull
+#      with rebase: You have unstaged changes" -> kosu 21 hata / 0 degisiklik.
+#      Kilitlenme: robot veri yazar -> agac kirlenir -> pull duser -> commit
+#      olmaz -> agac hep kirli kalir -> ayna HIC tazelenmez.
+#
+# NEDEN --autostash ILE COZULMEDI: cozerdi, ama bu agacta 108 degisik dosya
+# var ve origin ayni dosyalarin bir kismini bugun degistirdi. Gozetimsiz
+# 09:30 kosusunda stash-pop CAKISIRSA dosyalarda catisma isaretleri kalirdi.
+# Robot, insanin calisma agacini ASLA riske atmamali.
+#
+# YENI DESEN (bugun elle kullanilip dogrulandi): ana calisma agacina HIC
+# DOKUNMADAN, origin/main uzerinde GECICI WORKTREE acilir, uretilen dosyalar
+# oraya kopyalanir, commit+push oradan yapilir, worktree silinir.
+# Boylece: stash yok, rebase yok, catisma yok, sizinti yok.
+# ============================================================================
+$YOLLAR = @('veri/mevzuat-hazir','veri/yerel-indirici-nabiz.json')
+$degisiklikVar = $false
+foreach($y in $YOLLAR){
+  git diff --quiet HEAD -- $y 2>$null
+  if($LASTEXITCODE -ne 0){ $degisiklikVar = $true }
+  git ls-files --others --exclude-standard -- $y 2>$null | ForEach-Object { $degisiklikVar = $true }
+}
 if($degisiklikVar){
-  git commit -m "Yerel indirici: $degisen kaynak guncellendi [veri-operasyonu]" 2>&1 | Out-Null
+  $wt = Join-Path $env:TEMP ("yerel-indirici-wt-" + [guid]::NewGuid().ToString('N').Substring(0,8))
   $pushOk = $false
-  foreach($i in 1..3){
-    git pull --rebase origin main 2>&1 | Out-Null
-    git push origin HEAD:main 2>&1 | Out-Null
-    if($LASTEXITCODE -eq 0){ $pushOk = $true; break }
-    Start-Sleep -Seconds 7
+  try {
+    git fetch -q origin 2>&1 | Out-Null
+    git worktree add -q --detach $wt origin/main 2>&1 | Out-Null
+    if(-not (Test-Path $wt)){ throw 'worktree acilamadi' }
+    foreach($y in $YOLLAR){
+      $kaynakY = Join-Path $kok $y
+      if(-not (Test-Path $kaynakY)){ continue }
+      $hedefY  = Join-Path $wt $y
+      if((Get-Item $kaynakY).PSIsContainer){
+        if(-not (Test-Path $hedefY)){ New-Item -ItemType Directory -Path $hedefY -Force | Out-Null }
+        Copy-Item (Join-Path $kaynakY '*') $hedefY -Recurse -Force
+      } else {
+        $ust = Split-Path -Parent $hedefY
+        if(-not (Test-Path $ust)){ New-Item -ItemType Directory -Path $ust -Force | Out-Null }
+        Copy-Item $kaynakY $hedefY -Force
+      }
+    }
+    Push-Location $wt
+    try {
+      git add -- $YOLLAR 2>&1 | Out-Null
+      git diff --cached --quiet -- $YOLLAR 2>$null
+      if($LASTEXITCODE -ne 0){
+        git commit -q -m "Yerel indirici: $degisen kaynak guncellendi [veri-operasyonu]" -- $YOLLAR 2>&1 | Out-Null
+        foreach($i in 1..3){
+          git push -q origin HEAD:main 2>&1 | Out-Null
+          if($LASTEXITCODE -eq 0){ $pushOk = $true; break }
+          git fetch -q origin 2>&1 | Out-Null
+          git rebase -q origin/main 2>&1 | Out-Null   # worktree TEMIZ: catisma riski yok
+          Start-Sleep -Seconds 5
+        }
+      } else { $pushOk = $true; Log 'worktree ile uzak ayni - push gerekmedi' }
+    } finally { Pop-Location }
+  } catch {
+    Log "!! YAYIN HATASI: $($_.Exception.Message)"
+  } finally {
+    try { git worktree remove --force $wt 2>&1 | Out-Null; git worktree prune 2>&1 | Out-Null } catch {}
   }
-  if($pushOk){ Log "PUSH tamam ($degisen degisiklik) - ayna tetiklenecek" } else { Log "!! PUSH TUTMADI" ; exit 1 }
-} else { Log "degisiklik yok - push edilmedi" }
+  if($pushOk){ Log "PUSH tamam ($degisen degisiklik) - ayna tetiklenecek" } else { Log '!! PUSH TUTMADI'; exit 1 }
+} else { Log 'degisiklik yok - push edilmedi' }
 
 # ---------------------------------------------------------------------------
 # 13.08 YANVERI NOBETI (Cem: "yan verilerin otomatik onarimi"): damping listesi
