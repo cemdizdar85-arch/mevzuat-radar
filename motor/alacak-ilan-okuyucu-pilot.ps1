@@ -81,11 +81,28 @@ foreach ($k in $KOVALAR) {
   # uyumu %0 gosterdi. Invoke-WebRequest + ConvertFrom-Json + @() ile garanti
   # altina alindi; ayrica kova basina KAC satir geldigi BASILIR (sessiz
   # kucultme bir daha fark edilmeden gecmesin).
+  # 29.08 SESSIZ KESILME: tum arsiv kosusunda kesin_muhlet 1000, gecici_muhlet
+  # 1000 geldi - gercekte 1.349 ve 1.104. PostgREST tavani sayfalamayi 1.000'de
+  # kesti ve rapor bunu SESSIZCE gecti (kova basina satir basiliyordu ama
+  # BEKLENEN sayiyla karsilastirilmiyordu). 453 ilan hic okunmadi.
+  # Cozum: Range header ile sayfala + her kova icin cekilen sayiyi BEKLENENLE
+  # karsilastir; eksikse ACIKCA uyar.
   try {
-    $ham  = Invoke-WebRequest -Method Get -Uri $u -Headers $H -TimeoutSec 90
-    $rows = @($ham.Content | ConvertFrom-Json)
-    foreach ($row in $rows) { $ilanlar += $row }
-    Write-Host ("  {0,-16} {1,4} ilan" -f $k, $rows.Count)
+    $onceki = $ilanlar.Count
+    $ofset = 0; $adim = 200
+    while ($true) {
+      $hh = $H.Clone(); $hh['Range'] = "$ofset-$($ofset + $adim - 1)"
+      $uu = "$URL/rest/v1/alacak_ilan?select=ilan_no,baslik,il,tur,karar_durumu,metin,tarih" +
+            "&tarih=gte.$bas&karar_durumu=eq.$k&metin=not.is.null&order=tarih.desc"
+      $ham  = Invoke-WebRequest -Method Get -Uri $uu -Headers $hh -TimeoutSec 300
+      $rows = @($ham.Content | ConvertFrom-Json)
+      if (-not $rows.Count) { break }
+      foreach ($row in $rows) { $ilanlar += $row }
+      if ($rows.Count -lt $adim) { break }
+      $ofset += $adim
+      if ($ofset -gt 20000) { Write-Host "  UYARI: 20.000 satir freni devreye girdi"; break }
+    }
+    Write-Host ("  {0,-16} {1,4} ilan" -f $k, ($ilanlar.Count - $onceki))
   }
   catch { Write-Host ("  '{0}' kovasi cekilemedi: {1}" -f $k, $_.Exception.Message) }
 }
@@ -115,6 +132,11 @@ e) Konkordatoyu TASDIK etti (basarili sonuclandi)
 g) Konkordato MUHLETINI kaldirdi / sonlandirdi - ret de iflas da tasdik de DEGIL
 h) Borclu davadan FERAGAT etti (KENDI vazgecti) - mahkeme reddetmedi, dava
    feragat nedeniyle sona erdi
+i) ALACAKLILARA CAGRI: alacaklilarin alacaklarini bildirmesi/kaydettirmesi
+   isteniyor (IIK m.299 konkordato alacak kaydi ya da m.219 iflas alacak kaydi)
+j) DURUSMA GUNU bildiriliyor (tasdik durusmasi, toplanti/davet gunu)
+k) IFLAS TASFIYE ISLEMI: sira cetveli, tasfiyenin tatili, masa islemleri,
+   iflasin kapanmasi - devam eden bir iflas surecinin islem ilani
 f) Yukaridakilerden hicbiri
 
 DIKKAT - en sik karistirilan UC ayrim:
@@ -249,7 +271,16 @@ $ESLESME = @{ 'a' = @('gecici_muhlet','kesin_muhlet','uzatma','muhlet')
               # 29.08: (h) feragat - borclu KENDI vazgecti. Onceki kosularda bu
               # secenek YOKTU ve model feragat ilanlarini (b) ret ya da (f)
               # hicbiri diyordu; yani yeni ayrim olculemiyordu.
-              'h' = @('feragat') }
+              # 29.08 UCUNCU KEZ AYNI HATA: kovalar genisletildi (14'e), SORU
+              # genisletilmedi. Tum arsiv kosusunda dort kova %0 uyum verdi -
+              # alacak_cagrisi 0/507, diger 0/301, durusma 0/245,
+              # iflas_tasfiye 0/48 - cunku model dogru cevabi VEREMIYORDU,
+              # secenek yoktu. 1.101 ilan olculemez bir soruyla sinandi.
+              'h' = @('feragat')
+              'i' = @('alacak_cagrisi')
+              'j' = @('durusma')
+              'k' = @('iflas_tasfiye')
+              'f' = @('diger') }
 
 $sonuc = @(); $uyum = 0; $uyumsuz = 0; $alintisiz = 0; $cevapsiz = 0
 $i = 0
@@ -259,7 +290,7 @@ foreach ($x in $ilanlar) {
   $c = Sor $istem
   if (-not $c) { $cevapsiz++; continue }
   $harf = ''; $alinti = ''
-  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-h])') { $harf = $Matches[1].ToLower() }
+  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-k])') { $harf = $Matches[1].ToLower() }
   if ($c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')     { $alinti = $Matches[1].Trim() }
   if (-not $harf) { $cevapsiz++; continue }
   # 29.08 ASIL KUSUR: "alinti zorunlu" dedim ama ZORLAMADIM - ilk kosuda 290/746
@@ -313,7 +344,10 @@ $DURUM_ACIK = @{
   'tasdik'='konkordato TASDIK edildi'; 'iflas_kaldirma'='daha once verilmis IFLAS KALDIRILDI'
   'feragat'='borclu davadan FERAGAT etti (kendi vazgecti)'
   'muhlet_kaldirma'='konkordato MUHLETI kaldirildi/sonlandirildi'
-  'alacak_cagrisi'='alacaklilara cagri'; 'durusma'='durusma gunu'; 'diger'='diger'
+  'alacak_cagrisi'='ALACAKLILARA CAGRI (alacaklarin bildirilmesi/kaydi isteniyor)'
+  'durusma'='DURUSMA GUNU bildiriliyor'
+  'iflas_tasfiye'='IFLAS TASFIYE ISLEMI (sira cetveli / tasfiye / masa / kapanma)'
+  'diger'='yukaridakilerden hicbiri'
 }
 $HAKEM = @'
 Asagida bir resmi ilanin metni var. Bu ilanin hangi karari tasidigi konusunda
@@ -479,6 +513,9 @@ $supheli = @($sonuc | Where-Object { -not $_.uyuyor -and $_.alinti_var } | ForEa
         'd' { [bool]($_.okuma_alintisi -match 'iflas[ıi]n\s*kald') }
         'g' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
         'h' { [bool]($_.okuma_alintisi -match 'feragat') }
+        'i' { [bool]($_.okuma_alintisi -match 'alacak|bildir|kayd|kayıt') }
+        'j' { [bool]($_.okuma_alintisi -match 'duruşma|durusma|gün|toplantı') }
+        'k' { [bool]($_.okuma_alintisi -match 'sıra cetvel|tasfiye|masa|kapan') }
         'a' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
         'b' { [bool]($_.okuma_alintisi -match 'red|ret\b') }
         default { $false }
