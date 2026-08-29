@@ -1,5 +1,8 @@
 # KAPSAM KONTROL — "kaçırmayı sistemle önle"
 
+> 🆕 **Yeni sınav adayı ölçümü:** SPK/SPL Düzey 1 çekirdeği (4 modül, 2025'te 67.062 başvuru)
+> → [veri/KAPSAM-KONTROL-SPK-DUZEY1.md](veri/KAPSAM-KONTROL-SPK-DUZEY1.md) — 21 belgenin 9'u ambarda (%42,9).
+
 ## 0) ALAN HARİTASI — "olmayanı nasıl buluruz"
 *Eksik iki türdür: (1) kapsadığımız alanın içindeki delik → resmî listeye çentik yakalar (bölüm 1+).
 (2) hiç dokunmadığımız KOMPLE alan → tehlikeli olan onu kapsıyormuş gibi göstermek. Bu harita her
