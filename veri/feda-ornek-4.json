@@ -1,0 +1,83 @@
+{
+    "kaynak_not":  "FEDA ORNEGI - bilerek herkese acik; kasaya girmez",
+    "soru":  "Ege Kimya Sanayi A.Ş., 31 Aralık 2025 tarihli finansal tablolarını hazırlamaktadır. Şirket, 2024 yılında ürettiği bir kimyasalın yol açtığı çevre kirliliği nedeniyle Marmara Çevre Derneği tarafından açılan tazminat davasıyla karşı karşıyadır; hukuk müşavirleri, davanın şirket aleyhine sonuçlanma olasılığının yüksek olduğunu ve tazminat tutarının güvenilir bir şekilde 2.400.000 TL olarak tahmin edilebileceğini bildirmiştir. Aynı dönemde, eski bayisi Deniz Kimyevi Ticaret Ltd. Şti.\u0027nin açtığı haksız rekabet iddialı başka bir davada ise hukuk müşavirleri, mahkemenin şirket aleyhine karar verme olasılığının düşük olduğunu belirtmiştir. Öte yandan şirket, Aralık 2025\u0027te bir hammadde tedarikçisinden aldığı mal için 850.000 TL tutarında fatura almış, tutar tedarikçiyle resmi olarak mutabık kalınmış ve ödemesi Ocak 2026\u0027da yapılacak şekilde kayıtlara alınmıştır. Ayrıca şirket, üretimde kullanılmayan eski bir depo binasını 2026 yılında satmayı planlamakta ve bu satıştan 500.000 TL kazanç elde etmeyi beklemektedir. Şirket yönetimi; çevre kirliliği tazminatı karşılığının bu beklenen satış kazancından etkilenip etkilenmeyeceğini, tedarikçi borcunun niteliğini ve haksız rekabet davasının nasıl raporlanacağını değerlendirmektedir. TMS 37 hükümleri uyarınca, Ege Kimya Sanayi A.Ş.\u0027nin 31.12.2025 tarihli finansal tablolarına ilişkin aşağıdakilerden hangisi doğrudur?",
+    "siklar":  {
+                   "A":  "Çevre kirliliği davası için 2.400.000 TL karşılık ayrılır; depodan beklenen 500.000 TL satış kazancı bu tutardan düşülmez",
+                   "B":  "Çevre kirliliği davası için karşılık, beklenen satış kazancı düşülerek 1.900.000 TL olarak ayrılır",
+                   "C":  "Haksız rekabet davası için de çevre davasındaki gibi ayrıca karşılık ayrılması gerekir",
+                   "D":  "Tedarikçiye olan 850.000 TL\u0027lik borç, ödemesi 2026\u0027da yapılacağından zaman belirsizliği taşır ve karşılık olarak sınıflandırılabilir",
+                   "E":  "Çevre kirliliği davası, haksız rekabet davası gibi sadece koşullu borç olarak dipnotlarda açıklanır"
+               },
+    "dogru":  "A",
+    "aciklama":  {
+                     "A":  "Ne soruluyor: Çevre kirliliği davasına ilişkin karşılığın ölçümünde, gelecekte beklenen bir varlık satış kazancının bu tutarı düşürüp düşürmeyeceği soruluyor. Kural: Kural koyucunun derdi şudur: bir işletme, üstlendiği bir yükümlülüğü, onunla hiçbir ilgisi olmayan gelecekteki bir kazançla küçültüp finansal tablo okuyucusunu yanıltmasın; karşılık yalnızca kendi büyüklüğüne göre ölçülür, ayrı bir işlemden (örneğin varlık satışından) doğması umulan kâr bu ölçüme karıştırılmaz (TMS 37 p.51). Bu olayda: Hukuk müşavirleri kaybetme olasılığını yüksek görmüş, tutar da 2.400.000 TL olarak güvenilir şekilde tahmin edilmiş; bu yüzden karşılık tam tutarıyla ayrılır ve depo satışından beklenen 500.000 TL\u0027lik kâr bu tutarı hiç etkilemez. Akılda kalsın: Karşılığın büyüklüğünü, ona hiç karışmayan başka bir kazanç haberi küçültemez.",
+                     "B":  "Netleştirme Tuzağı: TMS 37 p.51\u0027i \u0027beklenen kazancı karşılıktan düş\u0027 kuralı gibi okuyup net tutar hesaplayan öğrenci bu şıkkı işaretler (TMS 37 p.51). Dogrusu: Elden çıkarmadan doğması umulan kâr, karşılığın ölçümüne hiç dahil edilmez; karşılık brüt tutarıyla, yani 2.400.000 TL olarak ayrılır.",
+                     "C":  "Olasılık Eşitleme Tuzağı: Kaybetme olasılığı düşük olan bir davayı, olasılığı yüksek olan davayla aynı kefeye koyan öğrenci bu şıkkı işaretler. Dogrusu: Kaynak çıkışı olası görülmeyen davalarda karşılık ayrılmaz; haksız rekabet davası bu yüzden sadece koşullu borç olarak dipnotlarda açıklanır.",
+                     "D":  "Vade Belirsizliği Tuzağı: Ödemenin ileride yapılacak olmasını, karşılığı diğer borçlardan ayıran asıl özellik olan \u0027tutar ve zamanlama belirsizliği\u0027 ile karıştıran öğrenci bu şıkkı işaretler. Dogrusu: Fatura kesilmiş, tutarda tedarikçiyle mutabık kalınmış bir borç ticari borçtur; tutar (850.000 TL) ve vade (Ocak 2026) kesin olduğundan burada karşılık söz konusu olmaz.",
+                     "E":  "Tek Kategori Tuzağı: İki davayı da tek bir kategoride değerlendiren öğrenci bu şıkkı işaretler. Dogrusu: Kaynak çıkışı olası görülüp tutar güvenilir şekilde tahmin edilebiliyorsa mevcut yükümlülük karşılık olarak muhasebeleştirilir; çevre kirliliği davası bu koşulları taşıdığından karşılık ayrılır, yalnızca dipnotta açıklanmakla yetinilmez."
+                 },
+    "hap":  "TMS 37\u0027de karşılık / koşullu borç / ticari borç ayrımı, kaynak çıkışının olasılık derecesine ve tutarın belirliliğine göre yapılır; karşılığın ölçümü, o yükümlülükle ilgisiz varlık satışlarından beklenen kârdan asla etkilenmez.",
+    "sinav_taktigi":  "Önce sorunun son cümlesini oku (\u002731.12.2025 tarihli finansal tablolara ilişkin hangisi doğrudur\u0027); sonra metindeki her olayı taraf-tutar-olasılık üçlüsüyle kenara işaretle: çevre davası (yüksek olasılık / 2.400.000 TL), haksız rekabet davası (düşük olasılık), tedarikçi borcu (kesin tutar/vade), depo satışı (500.000 TL beklenen kâr). Dört olay çapraz kontrol edildiği için önce net olan tedarikçi borcunu (D) ve haksız rekabet davasını (C) eleyerek şık sayısını azalt, sonra p.51\u0027i \u0027netleştirme\u0027 değil \u0027etkisizlik\u0027 kuralı olarak oku.",
+    "notlandirici":  "Adaylar genellikle TMS 37 p.51\u0027deki \u0027elden çıkarma kârı karşılığı etkilemez\u0027 kuralını atlayıp net tutar (karşılık eksi beklenen kâr) hesaplama hatasına düşer; ayrıca olasılık derecesini (yüksek/düşük) karşılık-koşullu borç ayrımına doğru eşleştiremeyip her davayı aynı şekilde raporlar.",
+    "dayanak":  "TMS 37 Karşılıklar, Koşullu Borçlar ve Koşullu Varlıklar Standardı, paragraf 11, 13 ve 51.",
+    "sema":  {
+                 "tur":  "eleme",
+                 "baslik":  "TMS 37: 31.12.2025 Tablosunda Hangi Olay Karşılığa Dönüşür?",
+                 "ogeler":  [
+                                {
+                                    "aday":  "Çevre kirliliği davası (2.400.000 TL)",
+                                    "sebep":  "Kaybetme olasılığı yüksek, tutar güvenilir tahmin edilebiliyor; beklenen satış kârı ölçümü etkilemiyor",
+                                    "kalan":  true
+                                },
+                                {
+                                    "aday":  "Haksız rekabet davası",
+                                    "sebep":  "Kaybetme olasılığı düşük, kaynak çıkışı olası değil",
+                                    "kalan":  false
+                                },
+                                {
+                                    "aday":  "Tedarikçi borcu (850.000 TL)",
+                                    "sebep":  "Fatura kesilmiş, tutar ve vade kesin, ticari borç",
+                                    "kalan":  false
+                                },
+                                {
+                                    "aday":  "Depo binası satışı (500.000 TL beklenen kâr)",
+                                    "sebep":  "Elden çıkarma bekleniyor, karşılık ölçümüne dahil edilmez",
+                                    "kalan":  false
+                                }
+                            ]
+             },
+    "cozum_tablo":  {
+                        "basliklar":  [
+                                          "Olay",
+                                          "Kaynak çıkışı olasılığı / durumu",
+                                          "TMS 37 sonucu"
+                                      ],
+                        "satirlar":  [
+                                         [
+                                             "Çevre kirliliği davası (2.400.000 TL)",
+                                             "Olası (yüksek), tutar güvenilir tahmin edilebiliyor",
+                                             "Karşılık ayrılır (p.13), beklenen kâr düşülmez (p.51)"
+                                         ],
+                                         [
+                                             "Haksız rekabet davası",
+                                             "Olası değil (düşük olasılık)",
+                                             "Koşullu borç, sadece dipnotta açıklama (p.13)"
+                                         ],
+                                         [
+                                             "Tedarikçi borcu (850.000 TL)",
+                                             "Fatura kesilmiş, tutar/vade kesin",
+                                             "Ticari borç, karşılık değil (p.11)"
+                                         ],
+                                         [
+                                             "Depo binası satışı (500.000 TL beklenen kâr)",
+                                             "Elden çıkarma bekleniyor",
+                                             "Karşılık ölçümünde dikkate alınmaz (p.51)"
+                                         ],
+                                         [
+                                             "SONUÇ",
+                                             "—",
+                                             "31.12.2025: Çevre davası için 2.400.000 TL karşılık, satış kârından etkilenmeksizin ayrılır (Doğru şık: A)"
+                                         ]
+                                     ]
+                    }
+}

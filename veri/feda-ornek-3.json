@@ -1,0 +1,94 @@
+{
+    "kaynak_not":  "FEDA ORNEGI - bilerek herkese acik; kasaya girmez",
+    "soru":  "Eskişehir\u0027de faaliyet gösteren Karen Kimya A.Ş.\u0027nin 31.12.2025 tarihli bilançosuna göre aktif kalemlerinden bazıları şöyledir: Hazır Değerler 240.000 TL, Ticari Alacaklar (brüt) 400.000 TL, Şüpheli Ticari Alacaklar Karşılığı (-) 40.000 TL, Stoklar 600.000 TL, Duran Varlıklar (toplam) 800.000 TL, Aktif (Bilanço) Toplamı 2.000.000 TL. Dikey yüzde (yüzde) analizine göre, net ticari alacakların aktif toplamı içindeki payı (dikey yüzdesi) kaçtır?",
+    "siklar":  {
+                   "A":  "%18",
+                   "B":  "%20",
+                   "C":  "%22",
+                   "D":  "%30",
+                   "E":  "%45"
+               },
+    "dogru":  "A",
+    "aciklama":  {
+                     "A":  "Ne soruluyor: Net ticari alacakların bilanço (aktif) toplamı içindeki genel dikey yüzdesi isteniyor. Kural: Şüpheli alacak karşılığı gibi düzenleyici kalemler tabloda düşülmezse alacaklar olduğundan büyük görünür ve tablo okuyucusu yanılır; bu yüzden dikey yüzde hesabında taban aktif toplamı alınır, karşılık gibi negatif kalemler ilgili gruptan çıkarılıp net tutar üzerinden yüzde bulunur (Dikey Yüzdeler Yöntemi). Bu olayda: Net ticari alacak = 400.000-40.000 = 360.000 TL; 360.000/2.000.000x100 = %18. Akılda kalsın: Şüpheli alacak karşılığı düşülmeden hesaplanan yüzde, gerçek orandan her zaman yüksek çıkar.",
+                     "B":  "Karşılığı Unutma Tuzağı: Şüpheli alacak karşılığını düşürmeyi unutup brüt ticari alacağı doğrudan tabana bölen bir aday bu şıkkı seçer (400.000/2.000.000x100=%20). Dogrusu: aktifi düzenleyici bu negatif kalem çıkarılmadan net tutar bulunamaz; önce 360.000 TL\u0027ye inilip sonra tabana bölünmelidir.",
+                     "C":  "Ekleme Tuzağı: Karşılığı çıkarmak yerine tersine ticari alacağa ekleyen bir aday bu şıkkı seçer (400.000+40.000=440.000; 440.000/2.000.000x100=%22). Dogrusu: şüpheli alacak karşılığı alacağı azaltan bir kalemdir, eklenmez, tam tersine çıkarılır.",
+                     "D":  "Taban Karıştırma Tuzağı: Genel dikey yüzde yerine grup içi yüzdeyi hesaplayıp bunu genel yüzde sanan bir aday bu şıkkı seçer (360.000/1.200.000 dönen varlıklar toplamı x100=%30). Dogrusu: soru aktif toplamına göre genel yüzdeyi istemektedir; dönen varlıklar toplamına bölünen grup içi yüzde ayrı bir hesaptır ve burada sorulanla karıştırılmamalıdır.",
+                     "E":  "Yanlış Grup Tuzağı: Tabanı yanlış seçip net ticari alacağı, kalemin hiç ait olmadığı duran varlıklar toplamına bölen bir aday bu şıkkı seçer (360.000/800.000x100=%45). Dogrusu: taban ya aktif toplamı ya da kalemin ait olduğu dönen varlıklar grubu olmalı; duran varlıklar toplamının bu kalemle hiçbir ilgisi yoktur."
+                 },
+    "hap":  "Bilançoda dikey yüzdenin tabanı aktif toplamıdır; aktifi düzenleyici (negatif) kalemler ilgili grupta düşülerek net tutar üzerinden yüzde hesaplanır.",
+    "sinav_taktigi":  "Dikey yüzde sorularında önce sorunun net olarak hangi tabanı istediğini belirle (aktif toplamı mı, grup toplamı mı); ardından negatif işaretli (karşılık, amortisman) kalemleri düşürmeyi unutma; bulduğun yüzdeyi ilgili grubun toplam yüzdesiyle çapraz kontrol ederek doğrula.",
+    "notlandirici":  "Adaylar sıklıkla (i) şüpheli alacak karşılığını düşürmeyi atlar, (ii) grup içi yüzde ile genel yüzdeyi karıştırır, (iii) yanlış taban (duran varlıklar) seçer. Puan kaybı çoğunlukla karşılığın çıkarılmaması ve taban seçiminde yaşanır.",
+    "dayanak":  "[TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar] - bilançoda taban aktif toplamıdır, negatif kalemler eksi olarak gösterilir, grup içi yüzde ile genel yüzde farklıdır.",
+    "sema":  {
+                 "tur":  "eleme",
+                 "baslik":  "Net Ticari Alacaklar Dikey Yüzdesi - Taban ve Karşılık Testi",
+                 "ogeler":  [
+                                {
+                                    "aday":  "%20 (Brüt alacak/Aktif)",
+                                    "sebep":  "Şüpheli alacak karşılığı düşülmemiş",
+                                    "kalan":  false
+                                },
+                                {
+                                    "aday":  "%22 (Alacak+Karşılık/Aktif)",
+                                    "sebep":  "Karşılık çıkarılacakken yanlışlıkla eklenmiş",
+                                    "kalan":  false
+                                },
+                                {
+                                    "aday":  "%30 (Net alacak/Dönen Varlıklar)",
+                                    "sebep":  "Grup içi yüzde, genel yüzde ile karıştırılmış",
+                                    "kalan":  false
+                                },
+                                {
+                                    "aday":  "%45 (Net alacak/Duran Varlıklar)",
+                                    "sebep":  "İlgisiz taban seçilmiş",
+                                    "kalan":  false
+                                },
+                                {
+                                    "aday":  "%18 (Net alacak/Aktif Toplamı)",
+                                    "sebep":  "Karşılık düşülmüş net tutar doğru tabana bölünmüş",
+                                    "kalan":  true
+                                }
+                            ]
+             },
+    "cozum_tablo":  {
+                        "basliklar":  [
+                                          "Kalem",
+                                          "Tutar (TL)",
+                                          "İşlem",
+                                          "Sonuç"
+                                      ],
+                        "satirlar":  [
+                                         [
+                                             "Ticari Alacaklar (brüt)",
+                                             "400.000",
+                                             "-",
+                                             "-"
+                                         ],
+                                         [
+                                             "Şüpheli Ticari Alacaklar Karşılığı (-)",
+                                             "40.000",
+                                             "-",
+                                             "-"
+                                         ],
+                                         [
+                                             "Net Ticari Alacaklar",
+                                             "360.000",
+                                             "400.000-40.000",
+                                             "360.000"
+                                         ],
+                                         [
+                                             "Aktif (Bilanço) Toplamı",
+                                             "2.000.000",
+                                             "taban (%100)",
+                                             "2.000.000"
+                                         ],
+                                         [
+                                             "Dikey Yüzde",
+                                             "-",
+                                             "360.000/2.000.000x100",
+                                             "%18"
+                                         ]
+                                     ]
+                    }
+}
