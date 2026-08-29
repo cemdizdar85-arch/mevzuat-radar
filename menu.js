@@ -20,6 +20,35 @@ try {
   (document.head||document.documentElement).appendChild(dk);
 } catch(e){}
 
+/* ---- 29.08 CERCEVE KALKANI (anti-clickjacking) -----------------------------
+   Neden: GitHub Pages statik barindirma HTTP basligi yazdirmiyor; bu yuzden
+   X-Frame-Options ve CSP frame-ancestors GONDERILEMIYOR (olculdu: alti guvenlik
+   basliginin altisi da yok). Basliksiz sitede tek savunma JS tarafinda kalir.
+   Risk somut: ODEME sayfasi (satin-al.html) baskasinin iframe'ine alinip
+   ustune sahte form bindirilebilir - kullanici bizim adresi gorur, veriyi
+   dolandiriciya yazar. Bu blok sayfayi yabanci cerceve icinde CIZDIRMEZ.
+   Olculdu (29.08): depoda HICBIR sayfa iframe kullanmiyor (0 eslesme),
+   bu yuzden mesru bir kullanimi kirma ihtimali yok.
+   NOT: Bu blok PERDE-BASI isaretinin DISINDA duruyor - gong.ps1 acilista
+   perdeyi siler ama bu kalkan yerinde kalir. */
+try {
+  if (window.top !== window.self) {
+    var kacabildi = false;
+    try { window.top.location = window.self.location; kacabildi = true; } catch (e) {}
+    if (!kacabildi) {
+      /* Cerceve yabanci (cross-origin): disari cikamiyoruz, o halde icerigi
+         hic gostermeyelim ve kullaniciyi gercek adrese yollayalim. */
+      document.documentElement.innerHTML =
+        '<body style="margin:0;background:#0f1115;color:#e8e8ea;font:15px/1.6 -apple-system,\'Segoe UI\',system-ui,Roboto,Arial,sans-serif;'
+        + 'display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px">'
+        + '<div><p style="margin:0 0 14px"><b>Bu sayfa baska bir sitenin cercevesi icinde acilmis.</b><br>'
+        + 'Guvenligin icin icerik gosterilmiyor.</p>'
+        + '<p style="margin:0"><a href="https://tetikte.com/" target="_top" style="color:#f5a524;font-weight:700">'
+        + 'tetikte.com adresinden devam et &rarr;</a></p></div></body>';
+    }
+  }
+} catch (e) {}
+
 /* ==== PERDE-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
 /* ---- AÇILIŞ PERDESİ (23.07.2026, Cem: site bitmeden insanlar gezmesin) ----
    Gizli anahtar: siteye bir kez ?kapi=tetikte2026 ile girilince cihaz tanınır.
