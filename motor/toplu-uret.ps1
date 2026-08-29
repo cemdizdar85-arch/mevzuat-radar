@@ -10,7 +10,13 @@
 #  KAPILAR soru-uret.ps1 ile birebir ayni (kopya blok - degisiklikte IKISINI guncelle).
 #  ENV: ANTHROPIC_API_KEY zorunlu; SUPABASE_SERVICE_KEY istege (havuz doygunluk).
 # ============================================================================
-$ErrorActionPreference = "Stop"
+
+# --- HAT ON KONTROLU (25.08) -------------------------------------------------
+# Buyuk/kucuk harf cakismasi bu hatti 25.08'de BES kez sessizce curuttu.
+# Cakisma varsa bu betik HIC BASLAMAZ. Kirli olcum > hic olcmemek DEGILDIR.
+. (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'hat-onkontrol.ps1')
+HatOnKontrol $MyInvocation.MyCommand.Path
+# -----------------------------------------------------------------------------$ErrorActionPreference = "Stop"
 # Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddeder.
 # (16.08.2026 olculdu: ayni sorgu UA'siz 401, UA'li 5 kayit. madde-coz.ps1
 #  bu yuzden her kaynaga "ambarda-yok" diyordu.) IRM ve IWR AYRI yazilir.
@@ -282,7 +288,7 @@ function GeminiCoz($istem){
   if(-not $script:gkey){ return $null }
   try{
     $b = @{ contents = @(@{ parts = @(@{ text=$istem }) }) } | ConvertTo-Json -Depth 8 -Compress
-    $r = Invoke-RestMethod -Method Post -Uri ("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + $script:gkey) -Body ([Text.Encoding]::UTF8.GetBytes($b)) -ContentType "application/json" -TimeoutSec 60
+    $r = Invoke-RestMethod -Method Post -Uri ("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=" + $script:gkey) -Body ([Text.Encoding]::UTF8.GetBytes($b)) -ContentType "application/json" -TimeoutSec 60
     $script:geminiSayac++
     return (@($r.candidates[0].content.parts) | ForEach-Object { $_.text }) -join ""
   }catch{
