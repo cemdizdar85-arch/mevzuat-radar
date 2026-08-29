@@ -360,6 +360,68 @@ if ($env:HAKEM -eq '1') {
   Write-Host ''
   Write-Host ("KAPSAMA: {0}/{1} ilan KESINLESTI (%{2:N1}) · elle bakilacak {3}" -f `
     $kesin, $sonuc.Count, (100.0 * $kesin / $sonuc.Count), ($ikisiDe + $hakemsiz))
+
+  # --------------------------------------------------------------------------
+  #  HAKEM KARARINI DAMGAYA YAZ (HAKEM_YAZ=1)
+  #  Yalniz hakem "A" (OKUMA hakli) dediklerini yazar - "B" zaten mevcut damga.
+  #  TEK HEDEFI OLMAYAN harf ATLANIR: (a) dort muhlet kovasindan hangisi
+  #  oldugunu soylemiyor, (f) hicbiri demek. Bunlar elle listeye duser -
+  #  "emin degilsen yazma" kurali damgalamada da gecerli.
+  # --------------------------------------------------------------------------
+  if ($env:HAKEM_YAZ -eq '1') {
+    Write-Host ''
+    Write-Host 'HAKEM KARARLARI DAMGAYA YAZILIYOR...'
+    $yazilacak = @(); $atlanan = @()
+    foreach ($a in ($ayrisan | Where-Object { $_.hakem -eq 'A' })) {
+      $hedefler = @($ESLESME[$a.okuma_karari])
+      if ($hedefler.Count -ne 1) {
+        $atlanan += [pscustomobject]@{ ilan_no=$a.ilan_no; il=$a.il; baslik=$a.baslik
+          eski=$a.regex_damgasi; okuma=$a.okuma_karari
+          sebep=$(if ($hedefler.Count -eq 0) { "(f) hicbiri - hedef yok" } else { "harf ($($a.okuma_karari)) $($hedefler.Count) kovaya isaret ediyor, hangisi belirsiz" }) }
+        continue
+      }
+      $yazilacak += [pscustomobject]@{ ilan_no=$a.ilan_no; eski=$a.regex_damgasi; yeni=$hedefler[0]
+                                       okuma=$a.okuma_karari; alinti=$a.hakem_alinti }
+    }
+    Write-Host ("  yazilacak: {0} · atlanan (belirsiz hedef): {1}" -f $yazilacak.Count, $atlanan.Count)
+    if ($atlanan.Count) {
+      Write-Host '  ATLANANLAR - ELLE BAKILACAK:'
+      $atlanan | Select-Object -First 10 | ForEach-Object {
+        Write-Host ("    [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(52, $_.baslik.Length)))
+        Write-Host ("       {0} · {1}" -f $_.eski, $_.sebep)
+      }
+    }
+    if ($yazilacak.Count) {
+      # YEDEK ONCE - geri donus yolu acik olmadan yazma yapilmaz
+      $hy = Join-Path $kok 'veri\alacak-hakem-yedek.json'
+      [IO.File]::WriteAllText($hy, ([ordered]@{
+        olcum=(Get-Date).ToString('dd.MM.yyyy HH:mm')
+        aciklama='Hakem turundan ONCEKI damgalar. Geri almak icin her ilan_no eski degerine set edilir.'
+        adet=$yazilacak.Count; kayitlar=$yazilacak } | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding $false))
+      Write-Host ("  yedek: {0}" -f $hy)
+
+      $PH = @{ apikey=$KEY; Authorization="Bearer $KEY"; 'Content-Type'='application/json'; Prefer='return=minimal' }
+      $yaz = 0; $hataY = 0
+      foreach ($grup in ($yazilacak | Group-Object yeni)) {
+        $liste = @($grup.Group | ForEach-Object { $_.ilan_no })
+        for ($k = 0; $k -lt $liste.Count; $k += 20) {
+          $parca = $liste[$k..([Math]::Min($k + 19, $liste.Count - 1))]
+          $inL = ($parca | ForEach-Object { '"' + $_ + '"' }) -join ','
+          try {
+            Invoke-RestMethod -Method Patch -Uri "$URL/rest/v1/alacak_ilan?ilan_no=in.($inL)" -Headers $PH `
+              -Body ([Text.Encoding]::UTF8.GetBytes((@{ karar_durumu = $grup.Name } | ConvertTo-Json -Compress))) -TimeoutSec 90 | Out-Null
+            $yaz += $parca.Count
+          } catch { $hataY += $parca.Count; Write-Host ("    PATCH hatasi ({0}): {1}" -f $grup.Name, $_.Exception.Message) }
+          Start-Sleep -Milliseconds 200
+        }
+      }
+      Write-Host ("  YAZILDI: {0} · hata: {1}" -f $yaz, $hataY)
+      Write-Host '  GECIS DAGILIMI:'
+      $yazilacak | Group-Object { $_.eski + ' -> ' + $_.yeni } | Sort-Object Count -Descending |
+        ForEach-Object { Write-Host ("    {0,4}  {1}" -f $_.Count, $_.Name) }
+      if ($hataY -gt 0) { Write-Host 'KIRMIZI: bazi PATCH istekleri basarisiz. Yedek: veri/alacak-hakem-yedek.json'; exit 1 }
+    }
+  }
 }
 
 $hedef = Join-Path $kok 'veri\alacak-okuma-pilot.json'
