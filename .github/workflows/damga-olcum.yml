@@ -17,6 +17,10 @@ on:
         description: 'DAMGALARI GERCEKTEN GUNCELLE (kapaliyken yalniz olcer, hicbir sey degistirmez)'
         type: boolean
         default: false
+      kesif:
+        description: 'KESIF: ret_kaldirma kovasinin icinde ne var? (yalniz analiz, damgalama YOK)'
+        type: boolean
+        default: false
 
 jobs:
   olc:
@@ -29,6 +33,7 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           YAZ: ${{ inputs.yaz && '1' || '0' }}
+          KESIF: ${{ inputs.kesif && '1' || '0' }}
         run: ./motor/alacak-damga-olcum.ps1
 
       # Yazma yapildiysa GERI DONUS YOLU artefakt olarak saklanir. Depoya

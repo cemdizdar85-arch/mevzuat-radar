@@ -161,6 +161,60 @@ foreach ($k in $KOVA_ADLARI) {
 }
 if (-not $tum.Count) { Write-Host "KOR: 0 satir geldi, olcum guvenilmez."; exit 0 }
 
+# ============================================================================
+#  KESIF MODU (KESIF=1) - hicbir sey degistirmez, YALNIZ ANLAMAYA yarar.
+#  ret_kaldirma 606 ilanla en kalabalik ve en HETEROJEN kova: icinde "muhlet
+#  kaldirma", "usulden ret", "tedbir kaldirma", "feragat", "gorevsizlik" gibi
+#  BIRBIRINDEN COK FARKLI olaylar var ve alacakli icin anlamlari ayri.
+#  Alt tur tanimlamadan ONCE icinde NE OLDUGUNU olcmek gerekiyor - bugunun
+#  kurali: once olc, gozle bak, sonra damgala.
+# ============================================================================
+if ($env:KESIF -eq '1') {
+  $rk = @($tum | Where-Object { "$($_.karar_durumu)" -eq 'ret_kaldirma' })
+  Write-Host ''
+  Write-Host ('=' * 74)
+  Write-Host ("KESIF: ret_kaldirma kovasi - {0} ilan" -f $rk.Count)
+  Write-Host ''
+  Write-Host 'EN SIK 20 BASLIK KALIBI (sayilar/isimler N ile sadelestirildi):'
+  $rk | Group-Object { ((Sadelestir $_.baslik) -replace '\d+','N' -replace '\s+',' ').Trim() } |
+    Sort-Object Count -Descending | Select-Object -First 20 |
+    ForEach-Object { Write-Host ("  {0,4}  {1}" -f $_.Count, $_.Name.Substring(0, [Math]::Min(66, $_.Name.Length))) }
+
+  # Metinde hangi KARAR fiilleri geciyor? Bir ilan birden cok kalibi tasiyabilir.
+  $KALIPLAR = [ordered]@{
+    'muhletin kaldirilmasi'   = 'muhlet\w*\s+(sonuclarinin\s+)?kaldirilmasina'
+    'tedbirlerin kaldirilmasi'= 'tedbir\w*\s+(\S+\s+){0,2}kaldirilmasina'
+    'talebin/davanin reddi'   = '(talebinin|davasinin|davanin|isteminin)\s+reddine'
+    'USULDEN ret'             = 'usulden\s+red'
+    'FERAGAT'                 = 'feragat'
+    'GOREVSIZLIK'             = 'gorevsizlik|gorevsiz'
+    'ISTINAF/temyiz'          = 'istinaf|temyiz|bozma'
+    'komiser gorevine son'    = 'komiser\w*\s+(\S+\s+){0,3}gorev\w*\s+(son|sona)'
+    'DUSME/acilmamis sayilma' = 'dusmesine|acilmamis\s+sayilmasina'
+    'BIRLESTIRME/ayirma'      = 'birlestirilmesine|ayrilmasina|tefrik'
+  }
+  Write-Host ''
+  Write-Host 'METINDE GECEN KARAR KALIPLARI (bir ilan birden cok tasiyabilir):'
+  $sade = @($rk | ForEach-Object { Sadelestir $_.metin })
+  foreach ($k in $KALIPLAR.Keys) {
+    $n = @($sade | Where-Object { $_ -match $KALIPLAR[$k] }).Count
+    Write-Host ("  {0,4}  ({1,4:N1}%)  {2}" -f $n, (100.0 * $n / $rk.Count), $k)
+  }
+  $hicbiri = @($sade | Where-Object { $m=$_; -not (@($KALIPLAR.Values) | Where-Object { $m -match $_ }) }).Count
+  Write-Host ("  {0,4}  ({1,4:N1}%)  HICBIRI - elle bakilmali" -f $hicbiri, (100.0 * $hicbiri / $rk.Count))
+  Write-Host ''
+  Write-Host 'HICBIR KALIBA UYMAYANLARDAN 6 ORNEK:'
+  $rk | Where-Object { $m=(Sadelestir $_.metin); -not (@($KALIPLAR.Values) | Where-Object { $m -match $_ }) } |
+    Select-Object -First 6 | ForEach-Object {
+      Write-Host ("  [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(58, $_.baslik.Length)))
+      $s = ((Sadelestir $_.metin) -replace '\s+',' ')
+      Write-Host ("     {0}" -f $s.Substring([Math]::Min(180, $s.Length), [Math]::Min(150, [Math]::Max(0, $s.Length - 180))))
+    }
+  Write-Host ''
+  Write-Host 'KESIF BITTI - hicbir sey degistirilmedi.'
+  exit 0
+}
+
 $degisecek = @()
 foreach ($x in $tum) {
   $hedef = HedefDurum $x.metin
