@@ -88,7 +88,51 @@ foreach($law in $manifest.kanunlar){
   }
   $pdf = Join-Path $tmp "$slug.pdf"; $txt = Join-Path $tmp "$slug.txt"
   try {
-    Invoke-WebRequest -Uri (UrlKur $law) -OutFile $pdf -UserAgent $UA -Headers @{ Referer='https://www.mevzuat.gov.tr/' } -TimeoutSec 90 -UseBasicParsing
+    # ------------------------------------------------------------------------
+    # 30.08.2026 KUSUR (olculdu): "MevzuatMetin/<tur>.<tertip>.<no>.pdf" kalibi
+    # bazi kaynaklarda ARTIK PDF DONDURMUYOR - HTTP 200 + text/html (64 KB
+    # site sayfasi). Deponun "yumusak 404" diye adlandirdigi tuzagin aynisi.
+    # Somut zarar: yerli-mali-teblig, kik-esik-teblig, kik-genel-teblig,
+    # seddk-cbk47 ... 29.08 kosusunda 21 hata / 0 degisen kaynak.
+    # Eski kod PDF imzasini HIC kontrol etmiyordu; pdftotext HTML'i okuyup
+    # cop uretiyor, sonra "KISA/BOS" deniyor ve kaynak SESSIZCE eskiyordu.
+    #
+    # IKI ONLEM:
+    #  (1) %PDF IMZASI sart. HTML gelirse dosya kabul edilmez.
+    #  (2) YEDEK UC: pdfId "<tur>.<tertip>.<no>" kalibindaysa ayni belge
+    #      GeneratePdf ucundan istenir. Olculdu - ucu de oradan PDF geldi:
+    #      42656 -> YERLI MALI TEBLIGI · 44999 -> KAMU IHALE TEBLIGI 2026/1
+    #      13354 -> KAMU IHALE GENEL TEBLIGI
+    # ------------------------------------------------------------------------
+    function PdfMi([string]$y){
+      if(-not (Test-Path $y)){ return $false }
+      if((Get-Item $y).Length -lt 1000){ return $false }
+      $b = [IO.File]::ReadAllBytes($y)[0..3]
+      return ($b[0] -eq 0x25 -and $b[1] -eq 0x50 -and $b[2] -eq 0x44 -and $b[3] -eq 0x46)
+    }
+    # Yedek uc listesi IKI YONLU (ikisi de olculdu):
+    #  A) "<tur>.<tertip>.<no>" kalibi PDF yerine HTML doneriyorsa -> GeneratePdf
+    #  B) "G<tur>:<no>" kalibi tanimsiz bir tur tasiyorsa -> MevzuatMetin yolu
+    #     Olculdu: seddk-cbk47 pdfId'si G19:47 idi; G19 hicbir dala uymadigi icin
+    #     "MevzuatMetin/G19:47.pdf" gibi anlamsiz bir adres kuruluyordu.
+    #     Dogrusu MevzuatMetin/19.5.47.pdf -> 233 KB, SEDDK Teskilat CBK'si.
+    #     (GeneratePdf o tur icin HTTP 600 "FormValidate" doner - yani o kapi yok.)
+    $adresler = @((UrlKur $law))
+    $pid3 = "$($law.pdfId)"
+    if($pid3 -match '^(\d+)\.(\d+)\.(\d+)$'){
+      $turAd = switch($Matches[1]){ '1'{'Kanun'} '7'{'KurumVeKurulusYonetmeligi'} '9'{'Teblig'} default{$null} }
+      if($turAd){ $adresler += "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$($Matches[3])&mevzuatTur=$turAd&mevzuatTertip=$($Matches[2])" }
+    }
+    elseif($pid3 -match '^G(\d+):(\d+)$'){
+      $adresler += "https://www.mevzuat.gov.tr/MevzuatMetin/$($Matches[1]).5.$($Matches[2]).pdf"
+    }
+    $aldi = $false
+    foreach($adr in $adresler){
+      try { Invoke-WebRequest -Uri $adr -OutFile $pdf -UserAgent $UA -Headers @{ Referer='https://www.mevzuat.gov.tr/' } -TimeoutSec 90 -UseBasicParsing } catch { continue }
+      if(PdfMi $pdf){ $aldi = $true; if($adr -ne $adresler[0]){ Log "YEDEK UC kullanildi: $slug" }; break }
+      Start-Sleep -Milliseconds 800
+    }
+    if(-not $aldi){ $hata++; Log "PDF DEGIL (tum uclar denendi): $slug"; continue }
     & pdftotext -enc UTF-8 $pdf $txt 2>$null
     if(-not (Test-Path $txt) -or (Get-Item $txt).Length -lt 2000){ $hata++; Log "KISA/BOS: $slug"; continue }
     $indirilen++
