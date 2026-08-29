@@ -177,8 +177,18 @@ $degisecek | Group-Object { $_.eski + ' -> ' + $_.yeni } | Sort-Object Count -De
       $p = TemizEslesme (Sadelestir $_.metin) $kalip
       Write-Host ("     karar: {0}" -f $(if ($p) { ($p -replace '\s+',' ') } else { '-' }))
     } else {
-      $ilk = ((Sadelestir $_.metin) -replace '\s+',' ')
-      Write-Host ("     metin: {0}" -f $ilk.Substring(0, [Math]::Min(130, $ilk.Length)))
+      # 29.08: hedef ret_kaldirma ise METNIN BASI (kunye) hicbir sey anlatmiyor -
+      # asil soru "eski damganin kalibi neden tutmadi". Eski kovanin anahtar
+      # kelimesinin GECTIGI yeri basiyoruz ki desen eksigi gorulebilsin.
+      $anahtar = switch ($_.eski) { 'tasdik' { 'tasdik' } 'ret_iflas' { 'iflas' } default { $null } }
+      $sm = (Sadelestir $_.metin)
+      $yer = if ($anahtar) { [regex]::Match($sm, '.{0,60}' + $anahtar + '.{0,110}') } else { $null }
+      if ($yer -and $yer.Success) {
+        Write-Host ("     '{0}' gectigi yer: {1}" -f $anahtar, ($yer.Value -replace '\s+',' '))
+      } else {
+        $ilk = ($sm -replace '\s+',' ')
+        Write-Host ("     metin: {0}" -f $ilk.Substring(0, [Math]::Min(130, $ilk.Length)))
+      }
     }
   }
 }
