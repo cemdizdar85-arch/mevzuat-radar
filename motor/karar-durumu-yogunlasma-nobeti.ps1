@@ -40,21 +40,30 @@ if (-not $KEY) {
   exit 0
 }
 
-# --- veriyi cek (PostgREST 1.000 satir tavani: Range ile sayfala) ------------
+# --- veriyi cek: KEYSET sayfalama (ilan_no) ---------------------------------
+# 29.08 OLCULDU - BU NOBET KURULDUGU GUNDEN BERI HIC OLCUM YAPMAMIS.
+# Her kosuda "KOR: veri cekilemedi - The format of value '0-999' is invalid"
+# donuyordu: Range header'ini .NET reddediyor (PostgREST'in bekledigi ham
+# "0-999" bicimi HTTP Range dogrulamasindan gecmiyor).
+# IYI TARAF: KOR dedi, YESIL demedi - kor kalma kurali calisti, sahte bir
+# "sorun yok" uretmedi. Ama 28.08'den beri tek bir gercek olcum yok.
+# Ayni hata ayni gun okuma pilotunda da cikti; cozum orada da bu: keyset.
 $bas = (Get-Date).AddDays(-365).ToString('yyyy-MM-dd')
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Accept = 'application/json' }
 $satirlar = @()
-$adim = 1000; $ofset = 0
 try {
+  $son = ''; $adim = 1000; $tur = 0
   while ($true) {
-    $u = "$URL/rest/v1/alacak_ilan?select=il,karar_durumu&tarih=gte.$bas"
-    $hh = $H.Clone(); $hh['Range'] = "$ofset-$($ofset + $adim - 1)"
-    $p = Invoke-RestMethod -Method Get -Uri $u -Headers $hh -TimeoutSec 90
-    $p = @($p); if (-not $p.Count) { break }
+    $u = "$URL/rest/v1/alacak_ilan?select=ilan_no,il,karar_durumu&tarih=gte.$bas" +
+         "&order=ilan_no.asc&limit=$adim"
+    if ($son) { $u += "&ilan_no=gt.$son" }
+    $p = @(Invoke-RestMethod -Method Get -Uri $u -Headers $H -TimeoutSec 120)
+    if (-not $p.Count) { break }
     $satirlar += $p
+    $son = "$($p[-1].ilan_no)"
+    $tur++
     if ($p.Count -lt $adim) { break }
-    $ofset += $adim
-    if ($ofset -gt 60000) { break }   # kacak dongu freni
+    if ($tur -gt 60) { Write-Host "  UYARI: 60 sayfa freni devreye girdi"; break }
   }
 } catch {
   Write-Host ("KOR: veri cekilemedi - {0}" -f $_.Exception.Message)
