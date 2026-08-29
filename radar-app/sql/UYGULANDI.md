@@ -68,8 +68,7 @@ illerSuzgecli · iller · ilanlar`. Arşiv 5.917 ilan; konkordato 5.435 / iflas 
 | Dosya | Ne yapar | Durum |
 |---|---|---|
 | `2026-08-28-alacak-ret-iflas-durumu.sql` | "Konkordato reddi → İFLAS" ayrı durum | ✅ BASILI (`durumlar.ret_iflas` = 65) |
-| `2026-08-28-alacak-ret-iflas-onarim.sql` | Önceki göçün damga onarımı | ✅ BASILI **ve ölçüldü** (29.08 canlı: `ret_iflas` 65 · `ret_kaldirma` 650 · toplam 715 korunmuş · 60 ilanlık örnekte kirli kayıt 0) |
-| **`2026-08-29-alacak-ret-iflas-metinden.sql`** | `ret_iflas` damgası **başlıktan METNE** taşınır (iki yön: Bursa kalıbı çıkar, metninde iflas geçenler girer) | ⏳ **BASILMADI** — ölçüm: `alacak_vitrin(null,null)->'durumlar'->>'ret_iflas'` **65'ten farklı** olmalı; ayrıca `(null,'ret_iflas')->'iller'` içinde İSTANBUL görünmeli (eski damgada yoktu) |
+| `2026-08-28-alacak-ret-iflas-onarim.sql` | Önceki göçün damga onarımı | ⚠️ ÖLÇÜLMEDİ — `ret_iflas` sayısının doğruluğu ayrı ölçüm ister |
 | `2026-08-28-alacak-iflas-kaldirma-durumu.sql` | İİK m.182 "İflas kaldırıldı" ayrı durum | ✅ BASILI (`durumlar.iflas_kaldirma` = 6) |
 | `2026-08-20-alacak-metin-alanlari.sql` | İlan metni + yapılandırılmış alanlar | ✅ BASILI (vitrin `borclu · vkn · karar · muhletBitis` alanlarını döndürüyor) |
 | `2026-08-20-alacak-toplu-alanlar.sql` | Toplu taramadan ayrıştırılan alanlar | ✅ BASILI (aynı ölçüm) |
@@ -90,6 +89,9 @@ illerSuzgecli · iller · ilanlar`. Arşiv 5.917 ilan; konkordato 5.435 / iflas 
 | `2026-08-07-canli-deneme.sql` | `canli_sonuc` tablosu | ✅ BASILI — tablo var, anon'a 0 satır |
 | `veri/sql-soru-bildirim.sql` | `soru_bildirim` tablosu | ✅ BASILI — tablo var, anon'a 0 satır |
 | `veri/sql-marka-uyari.sql` | `marka_uyari` tablosu | ✅ BASILI — tablo var, anon'a 0 satır |
+| `veri/sql-marka-rakip.sql` | `marka_rakip` tablosu | ✅ BASILI — 29.08 ölçüldü: tablo var, anon'a 0 satır (RLS tutuyor) |
+| `veri/sql-marka-durum.sql` | `marka_durum` tablosu | ✅ BASILI — 29.08 ölçüldü: tablo var, anon'a 0 satır |
+| `veri/sql-marka-kaynak.sql` | `marka_talep_ac(p_unvan,p_email,**p_kaynak**)` | ❌ **BASILMAMIŞ** — 29.08 ölçüldü: `PGRST202`, ipucu birebir "Perhaps you meant `marka_talep_ac(p_email, p_unvan)`". Yani **3 parametreli imza yok, 2 parametreli var**. Site çökmüyor (`radar-app.html` fallback ile eski imzaya düşüyor) ama **Instagram/kampanya kaynak etiketi (`?k=v6`) hiçbir yere yazılmıyor** — 21.08 video paketinin ölçüm ayağı ölü. Ölçüm zararsızdır: boş unvanla çağrıldı, kayıt açılmadı. |
 | `veri/sql-karne.sql` | `karne` tablosu | ❌ **TABLO YOK** (`PGRST205`) — basılmamış ya da adı farklı |
 | `veri/sql-siparis.sql` | `siparis` tablosu | ❌ **TABLO YOK** (`PGRST205`) — ödeme hattı beklediği için normal olabilir |
 | `2026-07-17-rate-limit.sql` | `rate_limit` tablosu | ❌ **TABLO YOK** (`PGRST205`) — merkezî istek sınırı **yok** |
@@ -135,8 +137,10 @@ Aşağıdakiler tablo/fonksiyon ucu üzerinden dışarıdan görünmüyor. "Bas�
 (kova özel mi — Storage ucu ayrı ölçüm) · `2026-07-23-soru-havuzu` (kilitli havuz) ·
 `2026-07-24-hayalet` · `2026-07-24-tablo` (exhibit) · `2026-07-27-paket-ayrimi` ·
 `2026-08-07-soru-nitelik` · `2026-08-25-konu-semasi` · `veri/sql-cila-v3-kolonlar` ·
-`veri/sql-destek-takip-panel` · `veri/sql-marka-durum` · `veri/sql-marka-kaynak` ·
-`veri/sql-marka-rakip` · `veri/sql-yayin-kapisi` · `sql-yerel/2026-07-30-gm-onay-tasima`
+`veri/sql-destek-takip-panel` · `veri/sql-yayin-kapisi` · `sql-yerel/2026-07-30-gm-onay-tasima`
+
+> 29.08: `veri/sql-marka-durum`, `veri/sql-marka-kaynak` ve `veri/sql-marka-rakip`
+> bu listeden ÇIKTI — üçü de dışarıdan ölçülebildi, sonuçları yukarıdaki tabloda.
 
 Ölçüm reçetesi (servis anahtarıyla, Supabase SQL Editor):
 
