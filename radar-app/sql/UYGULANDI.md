@@ -68,7 +68,9 @@ illerSuzgecli · iller · ilanlar`. Arşiv 5.917 ilan; konkordato 5.435 / iflas 
 | Dosya | Ne yapar | Durum |
 |---|---|---|
 | `2026-08-28-alacak-ret-iflas-durumu.sql` | "Konkordato reddi → İFLAS" ayrı durum | ✅ BASILI (`durumlar.ret_iflas` = 65) |
-| `2026-08-28-alacak-ret-iflas-onarim.sql` | Önceki göçün damga onarımı | ⚠️ ÖLÇÜLMEDİ — `ret_iflas` sayısının doğruluğu ayrı ölçüm ister |
+| `2026-08-28-alacak-ret-iflas-onarim.sql` | Önceki göçün damga onarımı | ✅ BASILI **ve ölçüldü** (29.08 canlı: `ret_iflas` 65 · `ret_kaldirma` 650 · toplam 715 korunmuş · 60 ilanlık örnekte kirli kayıt 0) |
+| ~~`2026-08-29-alacak-ret-iflas-metinden.sql`~~ | `ret_iflas` damgasını başlıktan metne taşıyacaktı | 🚫 **GEÇERSİZ — BASMA.** Deseni kirli: *"iflasına karar **verilmesine yer olmadığına**"* gibi TERS anlamlı cümleleri yakalıyor, `292` tek başına çok geniş. Ölçüldü: bu desen **169** aday buluyor, düzeltilmiş desen aynı veride **46** → **123 yanlış pozitif**. Dosya kusur kaydı olarak duruyor |
+| `motor/alacak-damga-olcum.ps1` (SQL değil, betik) | Aynı işi **bağlam kontrollü** yapar: kesin kalıp + eşleşmenin ±90 karakter komşuluğunda olumsuzlama araması. Tek SQL regex'ine sığmadığı için damgalama da buradan yapılır | 📏 ÖLÇTÜ (run 33235435953): çıkacak **38/63** (Bursa 17) · girecek **46/633** (İstanbul 13 · Ankara 11 · Konya 10) · beklenen `ret_iflas` = **71** |
 | `2026-08-28-alacak-iflas-kaldirma-durumu.sql` | İİK m.182 "İflas kaldırıldı" ayrı durum | ✅ BASILI (`durumlar.iflas_kaldirma` = 6) |
 | `2026-08-20-alacak-metin-alanlari.sql` | İlan metni + yapılandırılmış alanlar | ✅ BASILI (vitrin `borclu · vkn · karar · muhletBitis` alanlarını döndürüyor) |
 | `2026-08-20-alacak-toplu-alanlar.sql` | Toplu taramadan ayrıştırılan alanlar | ✅ BASILI (aynı ölçüm) |
