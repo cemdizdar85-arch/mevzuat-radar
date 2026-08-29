@@ -21,6 +21,8 @@
 # ============================================================================
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 
 $URL = if ($env:SUPABASE_URL) { $env:SUPABASE_URL } else { 'https://bjrleanjpyujtajmazxn.supabase.co' }
 $KEY = $env:SUPABASE_SERVICE_KEY
@@ -67,21 +69,48 @@ function Sadelestir([string]$s) {
 # ("IIK 292 uyarinca iflas sartlari olusmadigindan..." da tutuyordu).
 # YENI KURAL: once KESIN kalip aranir, sonra eslesmenin KOMSULUGUNDA olumsuzlama
 # var mi diye bakilir. Desen degil, BAGLAM karar verir.
-$IFLAS_KARARI = 'itibariyle\s+iflasina|iflasina\s+karar\s+veril(di|mis|mistir|erek)|iflasinin\s+acilmasina|iflas(inin)?\s+acilmasina\s+karar'
+# 29.08 IKINCI TUR - 25 destekli uyusmazlik ELLE okundu, iki eksik cikti:
+#  (1) m.177/4 ve COGUL kalip kaciyordu:
+#      "IIK'nun 177/4 maddesi uyarinca ayri ayri IFLASLARA, IFLASLARIN
+#       07/01/2026 gunu saat 11:35 itibariyle ACILMASINA"
+#      Desen 'iflasinin acilmasina' (tekil) ariyordu, 'iflaslarin' yakalanmadi.
+#  (2) TASDIK hic olculmuyordu ve en buyuk kusur oradaydi: EN AZ 6 ilanin
+#      konkordatosu KABUL EDILMIS ama 'ret_kaldirma' kovasinda duruyor.
+#      Baslik "reddine" diyor, karar "KABULUNE" - hicbir kelime kalibi bunu
+#      ayiramaz, metni okumak gerekir. Alacakli icin TAM TERS bilgi: firma
+#      kurtulmus, biz "reddedildi" diyoruz.
+$IFLAS_KARARI = 'itibariyle\s+iflasina|iflasina\s+karar\s+veril(di|mis|mistir|erek)|iflas(inin|larin)\s+acilmasina|177/4'
+# TASDIK kalibi: mahkemenin KABUL hukmu. "tasdik talebinin reddine" TUZAKTIR -
+# olumsuzlama penceresi onu eler.
+$TASDIK_KARARI = 'tasdik(\s+talebinin)?\s+(kismen\s+)?kabulune|tasdik\s+(sart|kosul)lari(nin)?\s+(tamaminin\s+)?(gerceklestigi|olustugundan)|konkordato\s+tasdik\s+edildiginden|tasdikine\s+karar\s+veril(di|mis|mistir|mesine)'
 # Eslesmenin +-90 karakter komsulugunda bunlardan biri varsa KARAR YOKTUR:
-$OLUMSUZ = 'yer\s+olmadig|olusmadig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|talep\s+edebilec|kaldirilmasina\s+karar'
+$OLUMSUZ = 'yer\s+olmadig|olusmadig|gerceklesmedig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|talep\s+edebilec|kaldirilmasina\s+karar|talebinin\s+reddine'
 $TERS_TUZAK = 'iflasin\s+kaldirilmas'
 
-function IflasKarariVar([string]$metin) {
-  $m = Sadelestir $metin
-  if ($m -match $TERS_TUZAK) { return $false }
-  foreach ($mm in [regex]::Matches($m, $IFLAS_KARARI)) {
+# Ortak: kalip bulunur, komsulugunda olumsuzlama YOKSA gecerli sayilir.
+function TemizEslesme([string]$m, [string]$kalip) {
+  foreach ($mm in [regex]::Matches($m, $kalip)) {
     $bas = [Math]::Max(0, $mm.Index - 90)
     $son = [Math]::Min($m.Length, $mm.Index + $mm.Length + 90)
     $pencere = $m.Substring($bas, $son - $bas)
-    if ($pencere -notmatch $OLUMSUZ) { return $true }   # bir tane temiz eslesme yeter
+    if ($pencere -notmatch $OLUMSUZ) { return $pencere }
   }
-  return $false
+  return $null
+}
+function IflasKarariVar([string]$metin) {
+  $m = Sadelestir $metin
+  if ($m -match $TERS_TUZAK) { return $false }
+  return [bool](TemizEslesme $m $IFLAS_KARARI)
+}
+function TasdikVar([string]$metin) {
+  return [bool](TemizEslesme (Sadelestir $metin) $TASDIK_KARARI)
+}
+# HEDEF DURUM - siralama mantiksal: surec BASARIYLA bittiyse tasdik, IFLASLA
+# bittiyse ret_iflas, digeri ret_kaldirma. Bir ilan hem tasdik hem iflas olamaz.
+function HedefDurum([string]$metin) {
+  if (TasdikVar $metin)       { return 'tasdik' }
+  if (IflasKarariVar $metin)  { return 'ret_iflas' }
+  return 'ret_kaldirma'
 }
 function KararCumlesi([string]$metin) {
   $m = Sadelestir $metin
@@ -97,41 +126,61 @@ function KararCumlesi([string]$metin) {
 }
 
 Write-Host "Kasadan cekiliyor (salt okuma)..."
-$retIflas    = Cek 'ret_iflas'
-$retKaldirma = Cek 'ret_kaldirma'
-Write-Host ("  ret_iflas    : {0} metinli ilan" -f $retIflas.Count)
-Write-Host ("  ret_kaldirma : {0} metinli ilan" -f $retKaldirma.Count)
-if (-not $retIflas.Count -and -not $retKaldirma.Count) { Write-Host "KOR: 0 satir geldi, olcum guvenilmez."; exit 0 }
+# 29.08 IKINCI TUR: artik UC KOVA birden yeniden dagitiliyor. Ikili tasima
+# (ret_iflas <-> ret_kaldirma) yetmiyordu; en buyuk kusur TASDIK'te cikti ve
+# tasdik ucuncu kova. Bir ilanin hedefi METINDEN belirlenir, mevcut damgasindan
+# bagimsiz.
+$KOVA_ADLARI = @('ret_iflas','ret_kaldirma','tasdik')
+$tum = @()
+foreach ($k in $KOVA_ADLARI) {
+  $c = Cek $k
+  Write-Host ("  {0,-14}: {1,4} metinli ilan" -f $k, $c.Count)
+  $tum += $c
+}
+if (-not $tum.Count) { Write-Host "KOR: 0 satir geldi, olcum guvenilmez."; exit 0 }
 
-$A = @($retIflas    | Where-Object { -not (IflasKarariVar $_.metin) })   # cikacak
-$B = @($retKaldirma | Where-Object {      (IflasKarariVar $_.metin)  })  # girecek
+$degisecek = @()
+foreach ($x in $tum) {
+  $hedef = HedefDurum $x.metin
+  if ($hedef -ne "$($x.karar_durumu)") {
+    $degisecek += [pscustomobject]@{
+      ilan_no = $x.ilan_no; il = $x.il; baslik = "$($x.baslik)"; metin = "$($x.metin)"
+      eski = "$($x.karar_durumu)"; yeni = $hedef
+    }
+  }
+}
 
 Write-Host ''
 Write-Host ('=' * 74)
-Write-Host ("A) ret_iflas AMA metninde iflas karari YOK  -> CIKACAK : {0} / {1}" -f $A.Count, $retIflas.Count)
-Write-Host ("B) ret_kaldirma AMA metninde iflas karari VAR -> GIRECEK: {0} / {1}" -f $B.Count, $retKaldirma.Count)
-Write-Host ("   Goç sonrasi beklenen ret_iflas = {0} - {1} + {2} = {3}" -f `
-  $retIflas.Count, $A.Count, $B.Count, ($retIflas.Count - $A.Count + $B.Count))
+Write-Host ("TARANAN: {0} ilan · DEGISECEK: {1}" -f $tum.Count, $degisecek.Count)
 Write-Host ''
-Write-Host 'A KUMESI - IL DAGILIMI (Bursa kalibi burada gorunmeli):'
-$A | Group-Object il | Sort-Object Count -Descending | Select-Object -First 8 |
-  ForEach-Object { Write-Host ("  {0,-16} {1,3}" -f $_.Name, $_.Count) }
+Write-Host 'GECIS TIPLERI (eski -> yeni):'
+$degisecek | Group-Object { $_.eski + ' -> ' + $_.yeni } | Sort-Object Count -Descending |
+  ForEach-Object { Write-Host ("  {0,4}  {1}" -f $_.Count, $_.Name) }
 Write-Host ''
-Write-Host 'A KUMESI - ORNEK 6 (basligi iflas diyor, metni demiyor):'
-$A | Select-Object -First 6 | ForEach-Object {
-  Write-Host ("  [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(58, $_.baslik.Length)))
-  $ilk = (Sadelestir $_.metin); $ilk = ($ilk -replace '\s+', ' ')
-  Write-Host ("     metin: {0}" -f $ilk.Substring(0, [Math]::Min(120, $ilk.Length)))
+Write-Host 'SONRAKI KOVA BUYUKLUKLERI (beklenen):'
+foreach ($k in $KOVA_ADLARI) {
+  $once  = @($tum | Where-Object { "$($_.karar_durumu)" -eq $k }).Count
+  $cikan = @($degisecek | Where-Object { $_.eski -eq $k }).Count
+  $giren = @($degisecek | Where-Object { $_.yeni -eq $k }).Count
+  Write-Host ("  {0,-14} {1,4} - {2,3} + {3,3} = {4,4}" -f $k, $once, $cikan, $giren, ($once - $cikan + $giren))
 }
 Write-Host ''
-Write-Host 'B KUMESI - IL DAGILIMI (Istanbul burada gorunmeli):'
-$B | Group-Object il | Sort-Object Count -Descending | Select-Object -First 8 |
-  ForEach-Object { Write-Host ("  {0,-16} {1,3}" -f $_.Name, $_.Count) }
-Write-Host ''
-Write-Host 'B KUMESI - ORNEK 8 (metni iflas diyor, damgasi demiyor) - GOZLE BAK:'
-$B | Select-Object -First 8 | ForEach-Object {
-  Write-Host ("  [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(56, $_.baslik.Length)))
-  Write-Host ("     karar: {0}" -f (KararCumlesi $_.metin))
+Write-Host 'HER GECIS TIPINDEN 4 ORNEK - GOZLE BAK (kalip mi, gercek mi?):'
+$degisecek | Group-Object { $_.eski + ' -> ' + $_.yeni } | Sort-Object Count -Descending | ForEach-Object {
+  Write-Host ''
+  Write-Host ("--- {0}  ({1} ilan) ---" -f $_.Name, $_.Count)
+  $_.Group | Select-Object -First 4 | ForEach-Object {
+    Write-Host ("  [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(56, $_.baslik.Length)))
+    $kalip = if ($_.yeni -eq 'tasdik') { $TASDIK_KARARI } elseif ($_.yeni -eq 'ret_iflas') { $IFLAS_KARARI } else { $null }
+    if ($kalip) {
+      $p = TemizEslesme (Sadelestir $_.metin) $kalip
+      Write-Host ("     karar: {0}" -f $(if ($p) { ($p -replace '\s+',' ') } else { '-' }))
+    } else {
+      $ilk = ((Sadelestir $_.metin) -replace '\s+',' ')
+      Write-Host ("     metin: {0}" -f $ilk.Substring(0, [Math]::Min(130, $ilk.Length)))
+    }
+  }
 }
 
 # ============================================================================
@@ -151,9 +200,7 @@ Write-Host ''
 Write-Host ('=' * 74)
 Write-Host 'YAZMA MODU ACIK - damgalar guncellenecek.'
 
-$degisecek = @()
-$A | ForEach-Object { $degisecek += [pscustomobject]@{ ilan_no=$_.ilan_no; eski='ret_iflas';    yeni='ret_kaldirma' } }
-$B | ForEach-Object { $degisecek += [pscustomobject]@{ ilan_no=$_.ilan_no; eski='ret_kaldirma'; yeni='ret_iflas'    } }
+# $degisecek yukarida UC KOVA uzerinden hesaplandi (metinden hedef durum).
 if (-not $degisecek.Count) { Write-Host 'Degisecek kayit yok.'; exit 0 }
 
 # 1) YEDEK ONCE (geri donus yolu acik olmadan yazma yapilmaz)
@@ -171,7 +218,7 @@ Write-Host ("Yedek yazildi: {0} kayit -> {1}" -f $degisecek.Count, $yedekYol)
 # 2) PATCH - gruplar halinde (URL uzunluk sinirina takilmamak icin)
 $PH = @{ apikey = $KEY; Authorization = "Bearer $KEY"; 'Content-Type' = 'application/json'; Prefer = 'return=minimal' }
 $yazilan = 0; $hata = 0
-foreach ($hedefDurum in @('ret_kaldirma','ret_iflas')) {
+foreach ($hedefDurum in $KOVA_ADLARI) {
   $liste = @($degisecek | Where-Object { $_.yeni -eq $hedefDurum } | ForEach-Object { $_.ilan_no })
   for ($i = 0; $i -lt $liste.Count; $i += 20) {
     $parca = $liste[$i..([Math]::Min($i + 19, $liste.Count - 1))]
@@ -193,17 +240,26 @@ Write-Host ("Yazilan: {0} · hata: {1}" -f $yazilan, $hata)
 # 3) YAZ -> GERI OKU -> KARSILASTIR  (yukleyici-sessiz-kayip dersi)
 Write-Host ''
 Write-Host 'GERI OKUMA...'
-$yeniIflas    = Cek 'ret_iflas'
-$yeniKaldirma = Cek 'ret_kaldirma'
-$beklenen = $retIflas.Count - $A.Count + $B.Count
-Write-Host ("  ret_iflas    : {0}  (beklenen {1})" -f $yeniIflas.Count, $beklenen)
-Write-Host ("  ret_kaldirma : {0}  (beklenen {1})" -f $yeniKaldirma.Count, ($retKaldirma.Count + $A.Count - $B.Count))
-Write-Host ("  TOPLAM       : {0}  (once {1}) <- KORUNMALI" -f `
-  ($yeniIflas.Count + $yeniKaldirma.Count), ($retIflas.Count + $retKaldirma.Count))
-$kalanKirli = @($yeniIflas | Where-Object { -not (IflasKarariVar $_.metin) }).Count
-Write-Host ("  ret_iflas icinde metninde iflas karari OLMAYAN: {0} (0 olmali)" -f $kalanKirli)
-if ($yeniIflas.Count -ne $beklenen -or $kalanKirli -ne 0 -or
-    ($yeniIflas.Count + $yeniKaldirma.Count) -ne ($retIflas.Count + $retKaldirma.Count)) {
+$kirmizi = $false
+$yeniToplam = 0
+foreach ($k in $KOVA_ADLARI) {
+  $y      = Cek $k
+  $once   = @($tum | Where-Object { "$($_.karar_durumu)" -eq $k }).Count
+  $cikan  = @($degisecek | Where-Object { $_.eski -eq $k }).Count
+  $giren  = @($degisecek | Where-Object { $_.yeni -eq $k }).Count
+  $bekl   = $once - $cikan + $giren
+  $yeniToplam += $y.Count
+  $isaret = if ($y.Count -eq $bekl) { 'OK' } else { 'TUTMADI'; }
+  if ($y.Count -ne $bekl) { $kirmizi = $true }
+  Write-Host ("  {0,-14} {1,4}  (beklenen {2,4})  {3}" -f $k, $y.Count, $bekl, $isaret)
+  # Kova ICI temizlik: hedefi kendisi olmayan kayit kalmamali
+  $kalanKirli = @($y | Where-Object { (HedefDurum $_.metin) -ne $k }).Count
+  Write-Host ("     icinde hedefi baska olan: {0} (0 olmali)" -f $kalanKirli)
+  if ($kalanKirli -ne 0) { $kirmizi = $true }
+}
+Write-Host ("  TOPLAM         {0,4}  (once {1,4})  <- KORUNMALI" -f $yeniToplam, $tum.Count)
+if ($yeniToplam -ne $tum.Count) { $kirmizi = $true }
+if ($kirmizi) {
   Write-Host 'KIRMIZI: geri okuma beklenenle TUTMADI. Yedek: veri/alacak-damga-yedek.json'
   exit 1
 }
