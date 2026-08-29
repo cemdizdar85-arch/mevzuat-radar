@@ -508,7 +508,7 @@ foreach($t in $talepler){
   $sonucJson = $null; $hata = $null
   try{ $p = PortfoyKur $unv }catch{ $hata = $_.Exception.Message; $p = $null }
   if($p){
-    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; siniflar=@($p.siniflar); sinif_acigi=$p.sinif_acigi; kullanim_yakin=$p.kullanim_yakin; kullanim_dolmus=$p.kullanim_dolmus; markalar=@($p.markalar | Select-Object -First 300) }
+    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; siniflar=@($p.siniflar); sinif_acigi=$p.sinif_acigi; kullanim_yakin=$p.kullanim_yakin; kullanim_dolmus=$p.kullanim_dolmus; markalar=@($p.markalar) }
   }
   $talepIslenen++
   # 21.08: Talep GIRIS YAPMIS bir uyeden geldiyse (RPC auth.uid() yaziyor) sonuc
