@@ -1,0 +1,58 @@
+{
+    "olcum":  "2026-08-30T01:00:55",
+    "makine":  "GK",
+    "kullanici":  "cemdi",
+    "kok":  "C:\\Users\\cemdi\\OneDrive\\Masaüstü\\mevzuat işi\\mevzuat-radar",
+    "esik_saat":  36,
+    "hukum":  "KIRMIZI",
+    "gorevler":  [
+                     {
+                         "ad":  "MevzuatRadar-YerelAyna",
+                         "beklenen_saat":  "06:30",
+                         "durum":  "YESIL",
+                         "sebep":  "",
+                         "son_kosu":  "2026-08-29T06:30:01",
+                         "son_sonuc":  0,
+                         "gecikme_saat":  18.5
+                     },
+                     {
+                         "ad":  "MevzuatRadar-SurumTazeligi",
+                         "beklenen_saat":  "06:45",
+                         "durum":  "YESIL",
+                         "sebep":  "",
+                         "son_kosu":  "2026-08-29T06:45:01",
+                         "son_sonuc":  0,
+                         "gecikme_saat":  18.3
+                     },
+                     {
+                         "ad":  "MevzuatRadar-YerelIndirici",
+                         "beklenen_saat":  "09:30",
+                         "durum":  "KIRMIZI",
+                         "sebep":  "son kosu HATA ile bitti (kod 1)",
+                         "son_kosu":  "2026-08-29T11:13:56",
+                         "son_sonuc":  1,
+                         "gecikme_saat":  13.8
+                     }
+                 ],
+    "kurulum":  [
+                    {
+                        "ad":  "MevzuatRadar-YerelAyna",
+                        "kurulu":  true,
+                        "beyanla_ayni":  true,
+                        "yapilan":  "degismedi"
+                    },
+                    {
+                        "ad":  "MevzuatRadar-SurumTazeligi",
+                        "kurulu":  true,
+                        "beyanla_ayni":  false,
+                        "yapilan":  "guncellendi"
+                    },
+                    {
+                        "ad":  "MevzuatRadar-YerelIndirici",
+                        "kurulu":  true,
+                        "beyanla_ayni":  true,
+                        "yapilan":  "degismedi"
+                    }
+                ],
+    "not":  "Beyan motor/gorev-kur.ps1 icinde. Gorev dusseydi burasi KIRMIZI olur; CI nobetcisi (.github/workflows/gorev-nobeti.yml) bu dosyanin YASINA ve hukmune bakar."
+}

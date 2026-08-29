@@ -1,0 +1,190 @@
+﻿# ============================================================================
+#  GOREV KUR + GOREV NABZI (30.08.2026 — Cem: "1 yap")
+#
+#  NEDEN VAR (olculdu): gunluk robotlarin TAMAMI Cem'in dizustunde, Windows
+#  zamanlanmis gorevlerinde kosuyordu ve bu gorevlerin tanimi DEPODA HIC YOKTU
+#  - ne kurulum betigi, ne schtasks ciktisi. Tek gectikleri yer YUTMA-LISTESI'nde
+#  duz cumleydi. Ustelik gorev eylemlerine MUTLAK yol gomuluydu
+#  (OneDrive\Masaustu\...). Sonuc: makine degisirse, klasor adi degisirse ya da
+#  OneDrive yolu kayarsa DORT KAPILIK gunluk zincir SESSIZCE olur ve depoda
+#  bunu gosteren tek satir olmaz.
+#  "Surekli kirmizi kapi kapi degildir" kuralinin kardesi: HIC KOSMAYAN KAPI DA
+#  KAPI DEGILDIR.
+#
+#  BU BETIK IKI IS YAPAR:
+#   1) BEYAN -> KURULUM. Asagidaki $GOREVLER tablosu gorevlerin TEK DOGRU
+#      tanimidir. -uygula ile idempotent kurar/gunceller. Yollar betigin kendi
+#      konumundan HESAPLANIR, gomulmez - klasor tasinirsa yeniden kosmak yeter.
+#   2) NABIZ. Her kosuda gorevlerin gercek durumunu olcup veri/gorev-nabzi.json
+#      yazar (YESIL/KIRMIZI/KOR - ucuncu sonuc kurali). -yayinla ile YALNIZ o
+#      dosyayi commit+push eder; boylece CI nobetcisi (gorev-nobeti.yml)
+#      dizustune hic bakmadan "robotlar susmus mu?" sorusunu cevaplayabilir.
+#
+#  KULLANIM:
+#    powershell -File motor\gorev-kur.ps1            # yalniz olc + nabiz yaz
+#    powershell -File motor\gorev-kur.ps1 -uygula    # gorevleri kur/guncelle
+#    powershell -File motor\gorev-kur.ps1 -yayinla   # nabzi depoya bas
+#
+#  NOT (olculdu, degistirilmedi): uc gorevde de DisallowStartIfOnBatteries=True.
+#  Yani dizustu 06:45'te PILDEYSE o gunun zinciri HIC kosmaz ve kimse duymaz.
+#  Beyanda oldugu gibi birakildi (davranis degistirmek Cem'in karari); tek satir
+#  cevirmekle acilir: pilKosma=$true.
+# ============================================================================
+param([switch]$uygula, [switch]$yayinla, [switch]$sessiz)
+
+$ErrorActionPreference = 'Stop'
+$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$kok  = Split-Path -Parent $here
+$ps   = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
+
+# --- BEYAN: gorevlerin tek dogru tanimi -------------------------------------
+# betikler: sirayla kosacak motor\*.ps1 dosyalari (tek elemanliysa -File,
+# birden fazlaysa zincir -Command olarak kurulur, ciktilar log dosyasina).
+$GOREVLER = @(
+  @{ ad='MevzuatRadar-YerelAyna';     saat='06:30'; sinir='PT3H'; pilKosma=$false;
+     betikler=@('yerel-ayna.ps1') }
+  @{ ad='MevzuatRadar-SurumTazeligi'; saat='06:45'; sinir='PT2H'; pilKosma=$false;
+     log='veri\fabrika\surum-tazeligi-son-kosu.txt'
+     betikler=@('surum-tazeligi.ps1','ambar-envanteri.ps1','veri-katalogu.ps1','saglik-karnesi.ps1')
+     ek=@('gorev-kur.ps1 -yayinla') }   # zincirin sonunda nabiz yazilir ve depoya basilir
+  @{ ad='MevzuatRadar-YerelIndirici'; saat='09:30'; sinir='PT2H'; pilKosma=$false;
+     betikler=@('yerel-indirici.ps1') }
+)
+
+function EylemKur($g){
+  $parcalar = @()
+  foreach($b in $g.betikler){ $parcalar += ("& '{0}'" -f (Join-Path $here $b)) }
+  foreach($e in @($g.ek)){ if($e){ $parcalar += ("& '{0}' {1}" -f (Join-Path $here ($e -split ' ')[0]), (($e -split ' ',2)[1])) } }
+  if($parcalar.Count -eq 1 -and -not $g.log){
+    return @{ arg = ('-NoProfile -ExecutionPolicy Bypass -File "{0}"' -f (Join-Path $here $g.betikler[0])) }
+  }
+  $logYol = if($g.log){ Join-Path $kok $g.log } else { Join-Path $kok ('veri\fabrika\{0}-son-kosu.txt' -f $g.ad) }
+  $zincir = @()
+  for($i=0; $i -lt $parcalar.Count; $i++){
+    $yon = if($i -eq 0){ '*>' } else { '*>>' }
+    $zincir += ("{0} {1} '{2}'" -f $parcalar[$i], $yon, $logYol)
+  }
+  return @{ arg = ('-NoProfile -ExecutionPolicy Bypass -Command "{0}"' -f (($zincir -join '; ') -replace '"','`"')) }
+}
+
+# --- WORKTREE FRENI ---------------------------------------------------------
+# 30.08 denemesinde cikti: bu betik bir git WORKTREE'sinden kosarsa $kok gecici
+# bir klasoru gosterir ve -uygula gorevlere O YOLU gomer - worktree silinince
+# uc robot birden olur. Worktree'de .git bir DOSYADIR (dizin degil); kurulum
+# yalniz gercek calisma kopyasindan yapilir.
+$gitYol = Join-Path $kok '.git'
+$worktreeMi = (Test-Path $gitYol -PathType Leaf)
+if($uygula -and $worktreeMi){
+  Write-Host "KURULUM REDDEDILDI: burasi bir git worktree'si ($kok)." -ForegroundColor Red
+  Write-Host "  Gorevlere gecici yol gomulurdu. -uygula'yi GERCEK calisma kopyasindan kos." -ForegroundColor Red
+  exit 2
+}
+
+# --- 1) KURULUM (yalniz -uygula) --------------------------------------------
+$kurulumRapor = @()
+foreach($g in $GOREVLER){
+  $eylem = EylemKur $g
+  $mevcut = $null
+  try { $mevcut = Get-ScheduledTask -TaskName $g.ad -ErrorAction Stop } catch {}
+  $mevcutArg = if($mevcut){ ($mevcut.Actions | Select-Object -First 1).Arguments } else { $null }
+  $ayni = $mevcut -and ("$mevcutArg".Trim() -eq $eylem.arg.Trim())
+  $satir = [ordered]@{ ad=$g.ad; kurulu=[bool]$mevcut; beyanla_ayni=[bool]$ayni; yapilan='olculdu' }
+
+  if($uygula -and -not $ayni){
+    try {
+      $a = New-ScheduledTaskAction -Execute $ps -Argument $eylem.arg
+      $t = New-ScheduledTaskTrigger -Daily -At ([datetime]::ParseExact($g.saat,'HH:mm',$null))
+      $p = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
+      $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit ([TimeSpan]::Parse(($g.sinir -replace '^PT','' -replace 'H',':00:00')))
+      $s.DisallowStartIfOnBatteries = -not $g.pilKosma
+      $s.StopIfGoingOnBatteries     = -not $g.pilKosma
+      Register-ScheduledTask -TaskName $g.ad -Action $a -Trigger $t -Principal $p -Settings $s -Force | Out-Null
+      $satir.yapilan = if($mevcut){ 'guncellendi' } else { 'kuruldu' }
+    } catch { $satir.yapilan = "HATA: $($_.Exception.Message)" }
+  } elseif($uygula) { $satir.yapilan = 'degismedi' }
+  $kurulumRapor += [pscustomobject]$satir
+}
+
+# --- 2) NABIZ: gorevler gercekten kosuyor mu? -------------------------------
+# Gunluk gorev icin esik 36 saat: bir gun atlamak (makine kapali) tolere edilir,
+# IKI gun atlamak edilmez. Okuyamadigimiz gorev "yok" degil KOR'dur.
+$ESIK_SAAT = 36
+$simdi = Get-Date
+$nabiz = @()
+$hukum = 'YESIL'
+foreach($g in $GOREVLER){
+  $s = [ordered]@{ ad=$g.ad; beklenen_saat=$g.saat; durum='KOR'; sebep=''; son_kosu=$null; son_sonuc=$null; gecikme_saat=$null }
+  try {
+    $t = Get-ScheduledTask -TaskName $g.ad -ErrorAction Stop
+    $i = $t | Get-ScheduledTaskInfo -ErrorAction Stop
+    $s.son_kosu  = if($i.LastRunTime){ $i.LastRunTime.ToString('s') } else { $null }
+    $s.son_sonuc = $i.LastTaskResult
+    if($t.State -eq 'Disabled'){ $s.durum='KIRMIZI'; $s.sebep='gorev DEVRE DISI' }
+    elseif(-not $i.LastRunTime){ $s.durum='KIRMIZI'; $s.sebep='hic kosmamis' }
+    else {
+      $gec = [math]::Round(($simdi - $i.LastRunTime).TotalHours,1)
+      $s.gecikme_saat = $gec
+      if($gec -gt $ESIK_SAAT){ $s.durum='KIRMIZI'; $s.sebep=("son kosu {0} saat once (esik {1})" -f $gec,$ESIK_SAAT) }
+      elseif($i.LastTaskResult -ne 0){ $s.durum='KIRMIZI'; $s.sebep=("son kosu HATA ile bitti (kod {0})" -f $i.LastTaskResult) }
+      else { $s.durum='YESIL' }
+    }
+  } catch {
+    $s.durum='KOR'; $s.sebep=("gorev okunamadi: {0}" -f $_.Exception.Message)
+  }
+  if($s.durum -eq 'KIRMIZI'){ $hukum='KIRMIZI' }
+  elseif($s.durum -eq 'KOR' -and $hukum -eq 'YESIL'){ $hukum='KOR' }
+  $nabiz += [pscustomobject]$s
+}
+
+$nabizYol = Join-Path $kok 'veri\gorev-nabzi.json'
+$cikti = [ordered]@{
+  olcum   = $simdi.ToString('s')
+  makine  = $env:COMPUTERNAME
+  kullanici = $env:USERNAME
+  kok     = $kok
+  esik_saat = $ESIK_SAAT
+  hukum   = $hukum
+  gorevler = $nabiz
+  kurulum  = $kurulumRapor
+  not = 'Beyan motor/gorev-kur.ps1 icinde. Gorev dusseydi burasi KIRMIZI olur; CI nobetcisi (.github/workflows/gorev-nobeti.yml) bu dosyanin YASINA ve hukmune bakar.'
+}
+[IO.File]::WriteAllText($nabizYol, (ConvertTo-Json -InputObject $cikti -Depth 5), [Text.UTF8Encoding]::new($false))
+
+# --- 3) YAYIN: yalniz nabiz dosyasi (dirty agac tuzagina karsi) -------------
+# 30.08 DERSI: bu depoda `git add` + `git commit` GUVENLI DEGIL - indekste
+# baskasinin staged dosyalari birikiyor ve commit onlari da suruklüyor.
+# Bu yuzden YOL BELIRTILEREK commit edilir: `git commit -- <yol>` indeksin
+# geri kalanini gormezden gelir.
+if($yayinla){
+  try {
+    Push-Location $kok
+    & git add -- 'veri/gorev-nabzi.json' 2>&1 | Out-Null
+    $fark = & git diff --cached --name-only -- 'veri/gorev-nabzi.json'
+    if($fark){
+      & git commit -q -m ("gorev nabzi: {0} ({1})" -f $hukum, $simdi.ToString('dd.MM.yyyy HH:mm')) -- 'veri/gorev-nabzi.json' 2>&1 | Out-Null
+      & git fetch -q origin 2>&1 | Out-Null
+      & git push -q origin HEAD:main 2>&1 | Out-Null
+      if(-not $sessiz){ Write-Host 'NABIZ YAYINLANDI (yalniz veri/gorev-nabzi.json).' }
+    } elseif(-not $sessiz){ Write-Host 'NABIZ: degisiklik yok, commit yok.' }
+  } catch {
+    if(-not $sessiz){ Write-Host "NABIZ YAYIN UYARI (olcum etkilenmedi): $($_.Exception.Message)" }
+  } finally { Pop-Location }
+}
+
+if(-not $sessiz){
+  foreach($s in $nabiz){
+    $renk = switch($s.durum){ 'YESIL' {'Green'} 'KIRMIZI' {'Red'} default {'Yellow'} }
+    $ek = if($s.sebep){ " · $($s.sebep)" } elseif($s.gecikme_saat -ne $null){ " · son kosu $($s.gecikme_saat) saat once" } else { '' }
+    Write-Host ("[{0}] {1} ({2}){3}" -f $s.durum, $s.ad, $s.beklenen_saat, $ek) -ForegroundColor $renk
+  }
+  foreach($k in $kurulumRapor){ if($k.yapilan -ne 'olculdu'){ Write-Host ("  kurulum: {0} -> {1}" -f $k.ad, $k.yapilan) -ForegroundColor Cyan } }
+  if(-not $uygula){
+    $farkli = @($kurulumRapor | Where-Object { -not $_.beyanla_ayni })
+    if($farkli.Count){ Write-Host ("BEYANLA FARKLI: {0} gorev (-uygula ile duzelir): {1}" -f $farkli.Count, (($farkli.ad) -join ', ')) -ForegroundColor Yellow }
+  }
+  Write-Host ("HUKUM: {0}" -f $hukum) -ForegroundColor $(if($hukum -eq 'YESIL'){'Green'}elseif($hukum -eq 'KIRMIZI'){'Red'}else{'Yellow'})
+  Write-Host ("  -> veri/gorev-nabzi.json")
+}
+
+if($hukum -eq 'KIRMIZI'){ exit 1 }
+exit 0
