@@ -1,5 +1,5 @@
 {
-  "tarih": "29.08.2026 05:03",
+  "tarih": "29.08.2026 05:20",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
@@ -7,8 +7,23 @@
   "atifli_iddia": 262,
   "dayanaksiz_iddia": 295,
   "kirmizi_aday": 29,
-  "yeni_aday": 0,
-  "yeni": [],
+  "yeni_aday": 2,
+  "yeni": [
+    {
+      "sayfa": "arge-kapi-hesabi.html",
+      "satir": 279,
+      "iddia": "40 katı",
+      "kanun": "4691",
+      "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
+    },
+    {
+      "sayfa": "bilgi.html",
+      "satir": 260,
+      "iddia": "%99,4",
+      "kanun": "4691",
+      "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
+    }
+  ],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -84,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 279,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 260,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1723,31 +1738,31 @@
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 182,
+      "satir": 188,
       "iddia": "en az 6",
       "metin": "if(($('#sifre').value||'').length<6){ $('#ahata').textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 196,
+      "satir": 202,
       "iddia": "en az 6",
       "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 326,
+      "satir": 332,
       "iddia": "en az 3",
       "metin": "if(unvan.length Rakibin unvanını yaz (en az 3 karakter). '; return; }"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 565,
+      "satir": 571,
       "iddia": "6 ay",
       "metin": "${(f.markalar||[]).length?'● AKTİF':'○ MARKA GİR'} Marka radarı Yenileme 6 ay kala + benzer başvuru çıkınca uyarı."
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 566,
+      "satir": 572,
       "iddia": "15 gün",
       "metin": "${(f.borclu_vkn||[]).length?'● AKTİF':'○ VKN GİR'} Alacak radarı İzlediğin borçlu konkordato/iflas ilan ederse 15 günlük süreyle uyarı."
     },
