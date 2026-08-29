@@ -78,4 +78,14 @@ jobs:
           if git diff --cached --quiet; then echo "degisiklik yok"; exit 0; fi
           N=$(node -e "console.log(JSON.parse(require('fs').readFileSync('veri/alacak-supheli-damga.json','utf8')).supheli)")
           git commit -m "Supheli damga listesi tazelendi: $N kayit [okuma-pilotu]"
-          git push origin HEAD:main
+          # 29.08: PUSH 'fetch first' ile REDDEDILDI - kosu 20 dk suruyor ve o
+          # arada baska commit'ler (robot ya da diger oturum) geliyor. Depoda iki
+          # is akisi paralel calisiyor; tek seferlik push YETMEZ. Rebase edip
+          # birkac kez dene - kaybolan liste bir daha kaybolmasin.
+          for deneme in 1 2 3; do
+            if git push origin HEAD:main; then echo "push OK (deneme $deneme)"; exit 0; fi
+            echo "push reddedildi, rebase edilip tekrar denenecek ($deneme/3)"
+            git fetch origin main && git rebase origin/main || { git rebase --abort; exit 1; }
+            sleep 5
+          done
+          echo "3 denemede de push edilemedi"; exit 1
