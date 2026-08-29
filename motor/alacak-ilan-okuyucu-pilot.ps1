@@ -133,7 +133,10 @@ Asagida Turkiye'de bir mahkeme/daire tarafindan yayimlanmis resmi ilanin metni v
 TEK SORU: Bu ilanda mahkeme NE KARAR VERDI?
 
 Secenekler:
-a) Konkordato MUHLETI VERDI (gecici, kesin ya da uzatma)
+a) GECICI MUHLET verdi (ilk muhlet - IIK m.287; genelde 3 ay + 2 ay uzatilabilir)
+l) KESIN MUHLET verdi (IIK m.289; genelde 1 yil)
+m) Mevcut muhleti UZATTI (gecici ya da kesin muhletin suresi uzatildi)
+n) MUHLET verdi ama metinde GECICI mi KESIN mi oldugu ACIKCA yazmiyor
 b) Konkordato talebini REDDETTI - iflas karari YOK
 c) Konkordato talebini reddetti VE borclunun IFLASINA karar verdi
    (IIK m.292 ile kesin muhlet icinde iflasin acilmasi da buraya girer)
@@ -269,7 +272,18 @@ function Sor([string]$istem) {
 }
 
 # Regex damgasi ile okuma cevabinin KARSILIGI
-$ESLESME = @{ 'a' = @('gecici_muhlet','kesin_muhlet','uzatma','muhlet')
+# 30.08 MUHLET AILESI BOLUNDU. Tum arsiv turunda 163 ilan "belirsiz hedef"
+# diye ATLANDI cunku (a) tek secenekti ve DORT kovaya birden isaret ediyordu -
+# okuma "muhlet verdi" diyordu ama hangisi oldugunu soyleyemiyordu, damga
+# yazilamiyordu. Simdi her mühlet turu KENDI secenegini tasiyor; (n) de var:
+# metinde gercekten belirsizse model onu secer ve 'muhlet' kovasinda kalir -
+# "emin degilsen yazma" kurali secenegin KENDISINE gomuldu.
+# Ayrica (g) tek hedefe indirildi: model "muhleti kaldirdi" diyorsa ve ret
+# demiyorsa hedef muhlet_kaldirma'dir; ret varsa zaten (b) der.
+$ESLESME = @{ 'a' = @('gecici_muhlet')
+              'l' = @('kesin_muhlet')
+              'm' = @('uzatma')
+              'n' = @('muhlet')
               'b' = @('ret_kaldirma'); 'c' = @('ret_iflas')
               'd' = @('iflas_kaldirma'); 'e' = @('tasdik')
               # 29.08: (g) muhletin kaldirilmasi. Ilk kosuda okuma bunu UC KEZ
@@ -277,7 +291,7 @@ $ESLESME = @{ 'a' = @('gecici_muhlet','kesin_muhlet','uzatma','muhlet')
               # verildi. Damga tarafinda artik AYRI kova var (muhlet_kaldirma),
               # ama ret ile BIRLIKTE gecen ilanlar ret_kaldirma'da kalir -
               # ikisi de kabul edilir.
-              'g' = @('muhlet_kaldirma','ret_kaldirma')
+              'g' = @('muhlet_kaldirma')
               # 29.08: (h) feragat - borclu KENDI vazgecti. Onceki kosularda bu
               # secenek YOKTU ve model feragat ilanlarini (b) ret ya da (f)
               # hicbiri diyordu; yani yeni ayrim olculemiyordu.
@@ -300,7 +314,7 @@ foreach ($x in $ilanlar) {
   $c = Sor $istem
   if (-not $c) { $cevapsiz++; continue }
   $harf = ''; $alinti = ''
-  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-k])') { $harf = $Matches[1].ToLower() }
+  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-n])') { $harf = $Matches[1].ToLower() }
   if ($c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')     { $alinti = $Matches[1].Trim() }
   if (-not $harf) { $cevapsiz++; continue }
   # 29.08 ASIL KUSUR: "alinti zorunlu" dedim ama ZORLAMADIM - ilk kosuda 290/746
@@ -525,8 +539,11 @@ $supheli = @($sonuc | Where-Object { -not $_.uyuyor -and $_.alinti_var } | ForEa
         'h' { [bool]($_.okuma_alintisi -match 'feragat') }
         'i' { [bool]($_.okuma_alintisi -match 'alacak|bildir|kayd|kayıt') }
         'j' { [bool]($_.okuma_alintisi -match 'duruşma|durusma|gün|toplantı') }
+        'l' { [bool]($_.okuma_alintisi -match 'kesin\s*m[üu]hlet') }
+        'm' { [bool]($_.okuma_alintisi -match 'uzat') }
+        'n' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
         'k' { [bool]($_.okuma_alintisi -match 'sıra cetvel|tasfiye|masa|kapan') }
-        'a' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
+        'a' { [bool]($_.okuma_alintisi -match 'ge[çc]ici\s*m[üu]hlet|m[üu]hlet') }
         'b' { [bool]($_.okuma_alintisi -match 'red|ret\b') }
         default { $false }
       })
