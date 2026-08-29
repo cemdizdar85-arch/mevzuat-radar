@@ -534,7 +534,7 @@ async function pano(f){
   let uyarilar=[]; try{ const {data}=await sb.from('firma_uyarilari').select('*').eq('firma_id',f.id).order('created_at',{ascending:false}).limit(10); uyarilar=data||[]; }catch(e){}
   // 27.08 TESLİM TEYİDİ: alacak uyarısında "gönderdik" yetmez, TEYİT alınır.
   // Kart teyit durumunu ve merdivenin kaçıncı basamağında olduğunu gösterir;
-  // teyit vermeyen kullanıcı buradan da tek tıkla verebilir. (Teyit sayfası
+  // teyit vermeyen kullanıcı teyidini buradan da verebilir. (Teyit sayfası
   // uyari-teyit.html; motor motor/teslim-teyidi.ps1.)
   const teyitRozet = u => {
     if(u.tur!=='alacak') return '';

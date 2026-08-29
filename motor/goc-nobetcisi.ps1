@@ -165,7 +165,9 @@ $yasak = @($manifesto.yasakUclar)
 # --- 3) UCLARI SINA
 # PS 5.1 (Windows) TLS 1.2'yi kendiliginden secmez; PS 7 (CI, Linux) bu ayari
 # gereksiz kilar ve bazi surumlerde atar. Ikisinde de kosabilmesi icin sarmalli.
-try { [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 } catch {}
+try { [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0' } catch {}
 $basliklar = @{ apikey=$SB_KEY; Authorization="Bearer $SB_KEY"; 'Content-Type'='application/json' }
 $sonuclar = @()
 $sayfaOnbellek = @{}

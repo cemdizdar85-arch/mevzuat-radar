@@ -27,6 +27,8 @@
 # ============================================================================
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 
 $URL = $env:SUPABASE_URL;         if (-not $URL) { $URL = 'https://bjrleanjpyujtajmazxn.supabase.co' }
 $KEY = $env:SUPABASE_SERVICE_KEY
