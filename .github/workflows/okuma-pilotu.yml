@@ -19,6 +19,13 @@
 # ============================================================================
 name: Alacak ilani okuma pilotu
 
+# 29.08 KUSUR: supheli listesi commit'lendi ama PUSH 403 verdi
+# ("Permission to ... denied to github-actions[bot]"). Depodaki commit eden
+# akislarin hepsinde bu blok var; buraya konmamisti. Liste uretildi ama
+# kayboldu - tam da onlemek istedigim sey.
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
     inputs:
