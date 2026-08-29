@@ -35,7 +35,7 @@ $YAYIN = ($env:GECE_YAYIN -eq "1")  # 1 ise doğrudan bilgi-tabani'na yazar (kal
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key -and $env:OPENROUTER_KEY){ $key = 'openrouter' }   # 16.08: yedek hat da Claude sayilir
 $gkey = $env:GEMINI_API_KEY          # BEDAVA MOTOR (23.07.2026, Cem: "disarida bedava vardir"):
-$GMODEL = if($env:GEMINI_MODEL){ $env:GEMINI_MODEL } else { "gemini-2.0-flash" }
+$GMODEL = if($env:GEMINI_MODEL){ $env:GEMINI_MODEL } else { "gemini-flash-latest" }
 if(-not $key -and -not $gkey){ Write-Host "Ne ANTHROPIC/OPENROUTER ne GEMINI anahtari var — gece ajani atlandi."; exit 0 }
 
 # Gemini (ucretsiz kota) — varsa URETIM ve DOGRULAMA once bundan denenir;

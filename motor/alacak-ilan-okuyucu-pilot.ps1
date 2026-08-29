@@ -116,7 +116,7 @@ dayandiramadigin bir harf SECME.
 '@
 
 $script:gkey = $env:GEMINI_API_KEY
-$script:sayacGemini = 0; $script:sayacHaiku = 0; $script:sayacHata = 0
+$script:sayacGemini = 0; $script:sayacHaiku = 0; $script:sayacHata = 0; $script:geminiGecici = 0
 $script:geminiSebep = $(if ($env:GEMINI_API_KEY) { '' } else { 'GEMINI_API_KEY tanimli degil' })
 
 # 29.08 OLCULDU: 'gemini-2.0-flash' uc noktasi HTTP 404 doner - model adi artik
@@ -156,6 +156,7 @@ function Sor([string]$istem) {
       }
       $t = GeminiCagir $script:gmodel $istem
       $script:sayacGemini++
+      $script:geminiGecici = 0   # basarili cagri gecici hata sayacini sifirlar
       return $t
     } catch {
       # 29.08 KUSUR: eski kod YALNIZ 429'da mesaj basiyordu; baska hatada Gemini
@@ -165,8 +166,21 @@ function Sor([string]$istem) {
       # ozette de tekrarlanir.
       $m = "$($_.Exception.Message)"
       $script:geminiSebep = $m.Substring(0, [Math]::Min(160, $m.Length))
-      Write-Host ("  GEMINI DUSTU -> Haiku'ya donuluyor. Sebep: {0}" -f $script:geminiSebep)
-      $script:gkey = $null   # 746 kez bosuna denemeyiz
+      # 29.08 OLCULDU: model secildikten SONRA 503 (Service Unavailable) geldi ve
+      # eski kod hatti TAMAMEN kapatti. 503/429/500 GECICIDIR - kalici kapatmak
+      # bedava kotayi bir tek sarsintiya kurban eder. Gecicide sayac artar,
+      # esik asilirsa kapatilir; 404/401/403 gibi KALICI hatada aninda kapanir.
+      if ($m -match '\b(503|429|500|502|504|timed out|timeout)\b') {
+        $script:geminiGecici++
+        Write-Host ("  gemini gecici hata ({0}/5): {1}" -f $script:geminiGecici, $script:geminiSebep)
+        if ($script:geminiGecici -ge 5) {
+          Write-Host "  gemini 5 kez ust uste gecici hata verdi -> Haiku'ya donuluyor."
+          $script:gkey = $null
+        }
+      } else {
+        Write-Host ("  GEMINI KALICI HATA -> Haiku'ya donuluyor. Sebep: {0}" -f $script:geminiSebep)
+        $script:gkey = $null
+      }
     }
   }
   if ($env:ANTHROPIC_API_KEY) {
@@ -314,8 +328,12 @@ if ($sonuc.Count) {
     $(if ($script:gmodel) { $script:gmodel } else { '-' }), $script:sayacHaiku, $script:sayacHata,
     $(if ($script:geminiSebep) { " · GEMINI KULLANILMADI: $($script:geminiSebep)" } else { '' }))
   if ($script:gmodel) {
-    Write-Host ("  >> CALISAN GEMINI MODELI: '{0}' - ayni duzeltme motor/toplu-uret.ps1 ve" -f $script:gmodel)
-    Write-Host "     motor/gece-ajani.ps1 icine de tasinmali (ikisi de olu 'gemini-2.0-flash' kullaniyor)."
+    Write-Host ("  >> CALISAN GEMINI MODELI: '{0}'" -f $script:gmodel)
+    if ($script:gmodel -ne 'gemini-flash-latest') {
+      Write-Host "     DIKKAT: uretim hatlari (motor/toplu-uret.ps1, motor/gece-ajani.ps1)"
+      Write-Host "     'gemini-flash-latest' kullaniyor. Uc nokta yine degismis olabilir -"
+      Write-Host "     yukaridaki adi oraya da tasi."
+    }
   }
   Write-Host ''
   Write-Host 'KOVA BAZLI OLCULEBILIR UYUM (alintili cevaplar):'

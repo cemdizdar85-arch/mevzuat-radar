@@ -288,7 +288,7 @@ function GeminiCoz($istem){
   if(-not $script:gkey){ return $null }
   try{
     $b = @{ contents = @(@{ parts = @(@{ text=$istem }) }) } | ConvertTo-Json -Depth 8 -Compress
-    $r = Invoke-RestMethod -Method Post -Uri ("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + $script:gkey) -Body ([Text.Encoding]::UTF8.GetBytes($b)) -ContentType "application/json" -TimeoutSec 60
+    $r = Invoke-RestMethod -Method Post -Uri ("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=" + $script:gkey) -Body ([Text.Encoding]::UTF8.GetBytes($b)) -ContentType "application/json" -TimeoutSec 60
     $script:geminiSayac++
     return (@($r.candidates[0].content.parts) | ForEach-Object { $_.text }) -join ""
   }catch{
