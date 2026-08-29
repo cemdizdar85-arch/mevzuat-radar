@@ -82,7 +82,17 @@ function Sadelestir([string]$s) {
 $IFLAS_KARARI = 'itibariyle\s+iflasina|iflasina\s+karar\s+veril(di|mis|mistir|erek)|iflas(inin|larin)\s+acilmasina|177/4'
 # TASDIK kalibi: mahkemenin KABUL hukmu. "tasdik talebinin reddine" TUZAKTIR -
 # olumsuzlama penceresi onu eler.
-$TASDIK_KARARI = 'tasdik(\s+talebinin)?\s+(kismen\s+)?kabulune|tasdik\s+(sart|kosul)lari(nin)?\s+(tamaminin\s+)?(gerceklestigi|olustugundan)|konkordato\s+tasdik\s+edildiginden|tasdikine\s+karar\s+veril(di|mis|mistir|mesine)'
+# 29.08 KURU KOSU BIR FELAKETI ONLEDI: ilk tasdik deseni 24 GERCEK tasdiki
+# kaciriyordu (tasdik -> ret_kaldirma). YAZ=1 kosulsaydi 24 firmanin
+# "konkordatosu kabul edildi" bilgisi "reddedildi"ye donecekti - alacakliya
+# TAM TERS bilgi. Rapor once metnin BASINI (kunye) basiyordu, elenme sebebi
+# gorunmuyordu; anahtar kelimenin gectigi yeri basinca kalip eksigi cikti:
+#   "konkordato PROJESININ TASDIKINE, 2- TASDIK EDILEN konkordato projesi..."
+#   "tasdik talebinin kismen KABULU ile kismen reddine"   (kabulU, kabulUNE degil)
+#   "iflas ici konkordato PROJESININ TASDIKINE"
+# DERS: desen yazmak, o desenin NEYI KACIRDIGINI gormeden bitmez. Yakalananlara
+# bakmak yetmiyor - KACANLARA da bakilmali.
+$TASDIK_KARARI = 'projesinin\s+tasdikine|tasdik\s+edilen|tasdik(\s+talebinin)?\s+(kismen\s+)?kabul(u|une)|tasdik\s+(sart|kosul)lari(nin)?\s+(tamaminin\s+)?(gerceklestigi|olustugundan)|konkordato(nun)?\s+tasdik(ine|\s+edildiginden)|tasdikine\s+karar\s+veril(di|mis|mistir|mesine)'
 # Eslesmenin +-90 karakter komsulugunda bunlardan biri varsa KARAR YOKTUR:
 $OLUMSUZ = 'yer\s+olmadig|olusmadig|gerceklesmedig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|talep\s+edebilec|kaldirilmasina\s+karar|talebinin\s+reddine'
 $TERS_TUZAK = 'iflasin\s+kaldirilmas'
