@@ -234,7 +234,9 @@ var PAKETLER = acikPaketler(), secili = null;
     if(p.grup !== grup){ grup = p.grup; h += '<div class="grup">' + grup + '</div>'; }
     h += '<label class="pk" data-id="' + p.id + '">'
        + '<input type="radio" name="paket" value="' + p.id + '">'
-       + '<span><span class="ad">' + p.ad + '</span><br><span class="er">' + p.erisim + '</span>'
+       + '<span><span class="ad">' + p.ad + '</span><br>'
+       + (p.kim ? '<span class="er" style="color:var(--amber)">' + p.kim + '</span><br>' : '')
+       + '<span class="er">' + p.erisim + '</span>'
        + '<span class="harc">' + p.harcYazi + '</span></span>'
        + '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b>'
        + (p.liste > p.fiyat ? '<s>' + tl(p.liste) + ' TL</s>' : '')

@@ -132,9 +132,32 @@ var DERSLER = {
   yeterlilik: ['Finansal Muhasebe','Maliyet Muhasebesi','Finansal Tablolar ve Analizi',
                'Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Temel Hukuk',
                'Sermaye Piyasası Mevzuatı','Meslek Hukuku'],
-  kgk:        ['Muhasebe Standartları (TMS)','Denetim Standartları (TDS)',
-               'Kurumsal Yönetim İlkeleri','Finansal Yönetim']
+  /* ⚠️ 29.08 DÜZELTMESİ — KGK konuları KGK'nın kendi sayfasından okundu
+     (kgk.gov.tr/DynamicContentDetail/6617 ve /6618, 29.08.2026):
+       SMMM'ler DÖRT konudan sorumlu: (a) Muhasebe Standartları,
+       (b) Kurumsal Yönetim İlkeleri ve Finansal Yönetim, (c) Denetim,
+       (d) Sermaye Piyasası/Bankacılık/Sigortacılık/Özel Emeklilik Mevzuatı
+       — ve (d) için "bu sektörlerde denetim yapmayacaklar MUAFTIR".
+       Yani tipik SMMM fiilen ÜÇ konudan sınava giriyor.
+       YMM'ler ÜÇ konudan sorumlu: (a) Muhasebe Standartları, (b) Denetim,
+       (c) sektör mevzuatı — aynı muafiyetle fiilen İKİ konu.
+     Önceki liste YANLIŞTI: "Kurumsal Yönetim İlkeleri" ile "Finansal Yönetim"
+     iki ayrı modül sanılmıştı; KGK'da bunlar TEK konudur. Sektör mevzuatı ise
+     listede hiç yoktu. Dört modüllük kapsam sayısı doğruydu, içeriği değildi. */
+  kgk:        ['Muhasebe Standartları (TMS)',
+               'Kurumsal Yönetim İlkeleri ve Finansal Yönetim',
+               'Denetim (TDS · etik · bağımsızlık · iç kontrol)',
+               'Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı']
 };
+
+/* Kime hangi konular düşüyor — satın alma ekranı bunu kendisi söylesin ki
+   adam "ben kaç konu alacağım" diye aramasın. Kaynak: kgk.gov.tr (yukarıda). */
+var KGK_SORUMLULUK = [
+  { kim:'SMMM',                 konu:3, not:'sektör mevzuatı hariç (o sektörlerde denetim yapmayacaksan muafsın)' },
+  { kim:'SMMM · sektör denetimi', konu:4, not:'sermaye piyasası, bankacılık veya sigortacılık denetimi yapacaksan' },
+  { kim:'YMM',                  konu:2, not:'sektör mevzuatı hariç' },
+  { kim:'YMM · sektör denetimi',  konu:3, not:'sektör mevzuatı dahil' }
+];
 
 /* ---------------------------------------------------------------------------
    YARDIMCILAR
@@ -219,15 +242,30 @@ function paketler(){
 
   /* KGK'da harç çapası kullanılmaz (yukarıdaki nota bak); satır KURS fiyatını
      gösterir — 29.08'de rakiplerin kendi sitelerinden ölçüldü. */
+  /* KGK paketleri KONU SAYISINA göre değil, KİME göre adlandırılır — çünkü
+     alıcı "kaç modül lazım" diye değil "ben SMMM'yim, ne almalıyım" diye
+     bakıyor. SMMM 3, YMM 2 konudan sorumlu (muafiyet: sektör mevzuatı).
+     Harç çapası KGK'da kullanılmaz; satır KURS fiyatını gösterir. */
+  var KGK_ADLAR = {
+    1:'KGK — tek konu',
+    2:'KGK — YMM paketi (2 konu)',
+    3:'KGK — SMMM paketi (3 konu)'
+  };
+  var KGK_KIM = {
+    1:'Kaldığın tek konu için',
+    2:'YMM ruhsatlısına düşen kapsam',
+    3:'SMMM ruhsatlısına düşen kapsam — en çok alınan'
+  };
   for(var m = 1; m <= 3; m++){
     L.push({ id:'kgk-' + m, grup:'Bağımsız Denetçilik (KGK)',
-             ad:'KGK — ' + m + ' modül', modul:m,
+             ad:KGK_ADLAR[m], kim:KGK_KIM[m], modul:m,
              fiyat:FIYAT.kgk[m].kurulus, liste:FIYAT.kgk[m].liste,
              kota:KOTA.kgk, erisim:'3 ay', sinav:null,
              harcYazi:'Piyasada tek modül kursu 2.500 – 5.250 TL', acik:true });
   }
   L.push({ id:'kgk-tum', grup:'Bağımsız Denetçilik (KGK)',
-           ad:'KGK — temel alanın tamamı (4 modül)', modul:HARC.kgk.temelAlanKonu,
+           ad:'KGK — dört konunun tamamı', modul:HARC.kgk.temelAlanKonu,
+           kim:'Sektör mevzuatından da sorumluysan',
            fiyat:FIYAT.kgkTum.kurulus, liste:FIYAT.kgkTum.liste,
            kota:KOTA.kgk, erisim:'3 ay', sinav:null,
            harcYazi:'Piyasada tam paket kursu 13.500 – 15.120 TL', acik:true });

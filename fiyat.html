@@ -164,15 +164,16 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="kim">3 ay</div>
     <div class="gunluk" id="fyKgk">— <small>TL</small></div>
     <div class="liste" id="lsKgk"></div>
-    <div class="kdv">tüm modüller · KDV dahil · <span id="ktKgk"></span></div>
+    <div class="kdv">SMMM paketi · 3 konu · KDV dahil · <span id="ktKgk"></span></div>
     <ul>
-      <li><b>Tek modül <span id="fyKgk1">—</span> TL'den başlar</b></li>
-      <li>Temel alanın tamamı: <b>TMS · TDS · Kurumsal Yönetim · Finansal Yönetim</b></li>
+      <li><b>SMMM'ysen üç konudan sorumlusun</b> — sektör mevzuatı muaf</li>
+      <li>Muhasebe Standartları · Kurumsal Yönetim ve Finansal Yönetim · Denetim</li>
+      <li><b>YMM paketi (2 konu) <span id="fyKgk2">—</span> TL</b> · tek konu <span id="fyKgk1">—</span> TL</li>
       <li>Türkiye'nin tek interaktif KGK soru bankası</li>
       <li>Her soruda standart/madde kaynağı</li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn ikincil" href="satin-al.html?paket=kgk-tum">Satın al — kuruluş fiyatından</a>
+    <a class="btn ikincil" href="satin-al.html?paket=kgk-3">Satın al — kuruluş fiyatından</a>
   </div>
 
 </div>
@@ -235,13 +236,29 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><td>Tek modül kursu (Standartlar / Denetim / KY-FY)</td><td class="sag">5.250 TL</td></tr>
     <tr><td>Ek alan modülü kursu (SPK / Bankacılık / Sigortacılık)</td><td class="sag">2.500 TL</td></tr>
     <tr><td><b>Tam paket kursu</b></td><td class="sag"><b>13.500 – 15.120 TL</b></td></tr>
-    <tr><td><b>Tetikte — temel alanın tamamı</b></td><td class="sag"><b class="a" id="harcKgkBiz">—</b></td></tr>
+    <tr><td><b>Tetikte — SMMM paketi (3 konu)</b></td><td class="sag"><b class="a" id="harcKgkBiz">—</b></td></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Kurs fiyatları 29.08.2026'da iki kurumun kendi sitesinden okundu.
-  <b>Resmî sınav ücreti ayrıca ödenir:</b> konu başına 565 TL, e-sınavda 950 TL; temel alan dört konudur.
+  <b>Resmî sınav ücreti ayrıca ödenir:</b> konu başına 565 TL, e-sınavda 950 TL.
   Bağımsız Denetçi Belgesi 1.885 TL. Kaynak:
   <a href="https://www.alomaliye.com/2026/01/03/2026-yili-kamu-gozetimi-kurumu-hizmetlere-iliskin-ucret-listesi/" target="_blank" rel="noopener">KGK 2026 Ücret Listesi</a>
   (29.12.2025 tarihli Kurul kararı).</p>
+</div>
+
+<!-- MUAFIYET TABLOSU: KGK alicisinin ilk sorusu "ben kac konudan sorumluyum".
+     Rakiplerin hicbiri fiyat sayfasinda bunu soylemiyor; biz soyleyip
+     dogrudan dogru paketi gosteriyoruz. Kaynak KGK'nin kendi sayfasi. -->
+<div class="kutu vurgu">
+  <h2>Sen kaç konudan sorumlusun?</h2>
+  <div class="tabsar"><table id="kgkMuafiyet">
+    <tr><th>Durumun</th><th class="sag">Konu</th><th class="sag">Sana uygun paket</th></tr>
+  </table></div>
+  <p class="kucuk" style="margin-top:10px">Meslek mensubu <b>olmayan</b> adaylar (staj yoluyla gelenler)
+  bu konulara ek olarak Muhasebe ve Genel Hukuk Mevzuatı'ndan da sorumludur — o kapsam
+  şu an bankamızda yok, sayfada satmıyoruz. Kaynak:
+  <a href="https://kgk.gov.tr/DynamicContentDetail/6617/Bag%CC%86%C4%B1ms%C4%B1z-denetc%CC%A7ilik-s%C4%B1nav%C4%B1nda-SMMM%E2%80%99lerin-tabi-tutulacag%CC%86%C4%B1-konular-nelerdir" target="_blank" rel="noopener">KGK — SMMM'lerin tabi tutulacağı konular</a> ·
+  <a href="https://kgk.gov.tr/DynamicContentDetail/6618/Bag%CC%86%C4%B1ms%C4%B1z-denetc%CC%A7ilik-s%C4%B1nav%C4%B1nda-YMM%E2%80%99lerin-tabi-tutulacag%CC%86%C4%B1-konular-nelerdir" target="_blank" rel="noopener">YMM'lerin tabi tutulacağı konular</a>
+  (29.08.2026'da okundu).</p>
 </div>
 
 <!-- 29.08: GUN MERDIVENI KALDIRILDI, yerine UYE KOTASI.
@@ -382,7 +399,11 @@ function kart(id, p){
   var kt = document.getElementById('kt' + id);
   if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' üye'; }
 }
-var pSgs = paketBul('sgs'), pYet = paketBul('yeterlilik-tum'), pKgk = paketBul('kgk-tum');
+/* KGK karti SMMM PAKETINI gosterir (3 konu), "dort konunun tamami"ni degil:
+   KGK'da alicinin buyuk cogunlugu SMMM ve KGK'nin kendi sayfasina gore SMMM
+   sektor mevzuatindan MUAF. Vitrinde ona lazim olmayan paketi one koymak,
+   fiyati oldugundan pahali gosterirdi. */
+var pSgs = paketBul('sgs'), pYet = paketBul('yeterlilik-tum'), pKgk = paketBul('kgk-3');
 kart('Sgs', pSgs); kart('Yet', pYet); kart('Kgk', pKgk);
 
 // Erisim yazisi: "en yakin sinavi kapsamiyorsa ucretsiz uzatilir" kurali
@@ -393,6 +414,7 @@ document.getElementById('erYet').textContent = pYet.erisim;
 // "Tek ders/modul X TL'den baslar" — merdivenin ilk basamagi.
 document.getElementById('fyYet1').textContent = tl(paketBul('yeterlilik-1').fiyat);
 document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
+document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 
 // Deger yigini kutusundaki paket fiyati.
 document.getElementById('yiginFiyat').textContent = tl(pSgs.fiyat) + ' TL';
@@ -414,6 +436,22 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
                + tl(HARC.yeterlilik.ilkBasvuru) + ' TL</td>'
                + '<td class="sag simdi"><b>' + tl(pt.fiyat) + ' TL</b></td>';
   t.appendChild(tr);
+})();
+
+// MUAFIYET TABLOSU: kim kac konudan sorumlu -> hangi paket. Rakamlar
+// KGK_SORUMLULUK'tan; elle yazilmaz, KGK kurali degisirse tek yerden degisir.
+(function(){
+  var t = document.getElementById('kgkMuafiyet');
+  KGK_SORUMLULUK.forEach(function(r){
+    var p = paketBul(r.konu >= 4 ? 'kgk-tum' : 'kgk-' + r.konu);
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><b>' + r.kim + '</b><br><span class="kucuk">' + r.not + '</span></td>'
+      + '<td class="sag">' + r.konu + '</td>'
+      /* Paket adı DEĞİL konu sayısı yazılır: "YMM · sektör denetimi" satırı da
+         3 konuluk pakete düşüyor ve orada "SMMM paketi" yazması yanıltırdı. */
+      + '<td class="sag simdi">' + r.konu + ' konuluk paket<br><b>' + tl(p.fiyat) + ' TL</b></td>';
+    t.appendChild(tr);
+  });
 })();
 
 // KOTA TABLOSU: kurulus fiyati / liste fiyati / kota. Sayac gosterilmez.
