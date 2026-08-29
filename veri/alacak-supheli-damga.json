@@ -1,21 +1,11 @@
 {
-  "olcum": "29.08.2026 07:41",
+  "olcum": "29.08.2026 08:44",
   "aciklama": "Regex damgasi ile OKUMA sonucunun ayristigi ilanlar. Uyumsuzluk \"okuma hakli\" DEMEK DEGILDIR - elle bakilir. alinti_karari_destekliyor=false olanlar once elenmelidir.",
   "kaynak": "motor/alacak-ilan-okuyucu-pilot.ps1",
   "taranan": 743,
-  "supheli": 102,
+  "supheli": 98,
   "destekli": 0,
   "kayitlar": [
-    {
-      "ilan_no": "ILN02528189",
-      "tarih": "2026-08-11",
-      "il": "İSTANBUL",
-      "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "h",
-      "alinti": "Konkordato talep edenler şirket vekilinin 03/08/2026 tarihli feragat dilekçesi kapsamında mahkememizce düzenlenen 04/08/2026 tarihli ara karar ile; Gelecek duruşmanın 05/08/2026 günü saat 13.45'de yapılmasına dair ara karardan vazgeçilmesine, Davanın reddine",
-      "alinti_karari_destekliyor": false
-    },
     {
       "ilan_no": "ILN02524262",
       "tarih": "2026-08-05",
@@ -33,7 +23,7 @@
       "baslik": "Konkordato talebinin reddine ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "davacı TUNER YOL ASFALT NAKLİYAT VE İNŞAAT SANAYİ TİCARET LİMİTED ŞİRKETİ (Uluçınar Vergi Dairesi No.8670483890)'nin 13/07/2026 günü saat 15:30 itibariyle İİK'nın 179. maddesi gereğince İFLASINA",
+      "alinti": "Davacı şahıs Tuncay YENER yönünden açılan davanın REDDİNE, Davacı şahıs lehine Mahkememizce verilen geçici mühlet kararının ve tüm tedbirlerin derhal kaldırılmasına, komiserlerin görevlerinin derhal sonlandırılmasına, Gebze Ticaret Sicil Müdürlüğü'nün 16731 nolu sicilinde kayıtlı Osmanyılmaz Mah. 641. Sok. No:1 İç Kapı No:12 Gebze/KOCAELİ adresinde bulunan davacı TUNER YOL ASFALT NAKLİYAT VE İNŞAA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -53,7 +43,7 @@
       "baslik": "Konkordato kararının kaldırılması tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "konkordato talebinin REDDİNE, borçlu şirket hakkında mahkememizce verilen konkordato mühlet kararının ve tüm konkordato tedbirlerinin kaldırılmasına, komiserler heyetinin görevinin sona erdirilmesine, ART Giyim Sanayi Ve Ticaret Anonim Şirketinin İİK'nun 308. maddesi gereğince iflasına , iflasın 14/07/2026 günü ve saat 14.49 itibari ile açılmasına karar verildiği",
+      "alinti": "konkordato talebinin REDDİNE, borçlu şirket hakkında mahkememizce verilen konkordato mühlet kararının ve tüm konkordato tedbirlerinin kaldırılmasına, komiserler heyetinin görevinin sona erdirilmesine, ART Giyim Sanayi Ve Ticaret Anonim Şirketinin İİK'nun 308. maddesi gereğince iflasına, iflasın 14/07/2026 günü ve saat 14.49 itibari ile açılmasına karar verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -63,7 +53,7 @@
       "baslik": "Konkordato Davasının Reddi ve Tüm Tedbirlerin Kaldırılması Kararının İlanen Tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "\"TÜM DAVACILAR YÖNÜNDEN AÇILAN KONKORDATONUN TASDİKİNE İLİŞKİN ASIL ve BİRLEŞEN DAVANIN KOŞULLARI OLUŞMADIĞINDAN REDDİNE, Mahkememizce verilen tüm tedbir kararlarının kaldırılmasına, Konkordato komiser heyetinin görevine son verilmesine, a-İstanbul Ticaret Sicil Müdürlüğünün 198727-5 sicil nosunda kayıtlı davacı EVACARE GRANÜL PLASTİK SANAYİ VE TİCARET ANONİM ŞİRKETİ'nin İFLASINA\"",
+      "alinti": "TÜM DAVACILAR YÖNÜNDEN AÇILAN KONKORDATONUN TASDİKİNE İLİŞKİN ASIL ve BİRLEŞEN DAVANIN KOŞULLARI OLUŞMADIĞINDAN REDDİNE, Mahkememizce verilen tüm tedbir kararlarının kaldırılmasına, Konkordato komiser heyetinin görevine son verilmesine, a-İstanbul Ticaret Sicil Müdürlüğünün 198727-5 sicil nosunda kayıtlı davacı EVACARE GRANÜL PLASTİK SANAYİ VE TİCARET ANONİM ŞİRKETİ'nin İFLASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -83,7 +73,7 @@
       "baslik": "Konkordato davasının reddi ve iflasa ilişkin mahkeme kararı tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacılar Sunagro Kimyasal Üretim Tarım Hayvancılık Sanayi Ve Ticaret Limited Şirketi ve Tbt Tohum Tarım Ürünleri İnşaat Pazarlama Sanayi Ve Ticaret Limited Şirketi'nin konkordato taleplerinin REDDİNE, İİK 292. maddesi uyarınca İFLASINA, *İflasın 29/06/2026 günü saat 15:30 itibariyle açılmasına",
+      "alinti": "Davacılar Sunagro Kimyasal Üretim Tarım Hayvancılık Sanayi Ve Ticaret Limited Şirketi ve Tbt Tohum Tarım Ürünleri İnşaat Pazarlama Sanayi Ve Ticaret Limited Şirketi'nin konkordato taleplerinin REDDİNE, 2-İİK'nın 294,295,296 ve 297. Maddeleri uyarınca verilen tedbir kararlarının kaldırılmasına ve konkordato komiserinin görevine son verilmesine, 3-Mahkemece verilen kararın İİK 288 maddesi uyarınca i",
       "alinti_karari_destekliyor": false
     },
     {
@@ -93,7 +83,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılması",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacının kesin mühlet ve konkordato talebinin REDDİNE, 2-Davacı hakkında konkordato komiserlerinin görevleri dahil verilmiş olan tüm tedbirlerin ve geçici mühlet kararının 08/08/2025 tarihli oturumun (1) nolu ara kararı ile kaldırıldığından bu konuda karar verilmesine yer olmadığına, 3-Konkordato talep eden Kayseri Ticaret Sicil Müdürlüğünün 37795/Merkez sicil numarasında kayıtlı Eser Hadde Sanay",
+      "alinti": "\"1-Davacının kesin mühlet ve konkordato talebinin REDDİNE,2-Davacı hakkında konkordato komiserlerinin görevleri dahil verilmiş olan tüm tedbirlerin ve geçici mühlet kararının 08/08/2025 tarihli oturumun (1) nolu ara kararı ile kaldırıldığından bu konuda karar verilmesine yer olmadığına, 3-Konkordato talep eden Kayseri Ticaret Sicil Müdürlüğünün 37795/Merkez sicil numarasında kayıtlı Eser Hadde San",
       "alinti_karari_destekliyor": false
     },
     {
@@ -117,33 +107,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02489106",
-      "tarih": "2026-06-17",
-      "il": "İSTANBUL",
-      "baslik": "Konkordato Talebinin Reddi ve Kesin Mühletin Kaldırılmasının İlanen Tebliği",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "c",
-      "alinti": "konkordato talebinin REDDİNE, kesin mühletin kaldırılmasına",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02490407",
-      "tarih": "2026-06-17",
-      "il": "SAMSUN",
-      "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "h",
-      "alinti": "Davanın tüm davacılar yönünden feragat sebebiyle ayrı ayrı REDDİNE",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02484278",
       "tarih": "2026-06-11",
       "il": "DÜZCE",
       "baslik": "Konkordato talebinin reddinin ilanen tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacı Ali Yılmaz, davacı Kader Elif Yılmaz ve davacı Eva Mağazacılık Tekstil Ticaret Limited Şirketi'nin açtığı konkordato davasının her bir davacı yönünden ayrı ayrı REDDİNE, Düzce Ticaret Sicil Müdürlüğü'nün 11888 nolu sicilinde kayıtlı, Camikebir Mah. Nurettin Zafer Sk. Kapı No:4B Merkez/Düzce adresinde bulunan davacı Eva Mağazacılık Tekstil Ticaret Limited Şirketi (Düzce Vergi Dairesi No.3810",
+      "alinti": "\"Davacı Ali Yılmaz, davacı Kader Elif Yılmaz ve davacı Eva Mağazacılık Tekstil Ticaret Limited Şirketi'nin açtığı konkordato davasının her bir davacı yönünden ayrı ayrı REDDİNE, Düzce Ticaret Sicil Müdürlüğü'nün 11888 nolu sicilinde kayıtlı, Camikebir Mah. Nurettin Zafer Sk. Kapı No:4B Merkez/Düzce adresinde bulunan davacı Eva Mağazacılık Tekstil Ticaret Limited Şirketi (Düzce Vergi Dairesi No.381",
       "alinti_karari_destekliyor": false
     },
     {
@@ -163,7 +133,7 @@
       "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Konkordato taleplerinin ayrı ayrı reddine, İstanbul Ticaret Sicil Müdürlüğünün 935035-0 sicil numarasında kayıtlı 7810523514 Vergi Numaralı ST Sağlık Ürünleri İnşaat Sanayi Ve Ticaret Limited Şirketi 'nin İFLASINA , İflasın 21/05/2026 günü, saat 11:20 itibariyle AÇILMASINA karar verildi.",
+      "alinti": "Konkordato taleplerinin ayrı ayrı reddine, İstanbul Ticaret Sicil Müdürlüğünün 935035-0 sicil numarasında kayıtlı 7810523514 Vergi Numaralı ST Sağlık Ürünleri İnşaat Sanayi Ve Ticaret Limited Şirketi 'nin İFLASINA , İflasın 21/05/2026 günü, saat 11:20 itibariyle AÇILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -183,7 +153,7 @@
       "baslik": "Konkordato talebinin reddi ve iflasa ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacıların konkordato talebinin reddedildiğinin İİK'nun 288. maddesi gereçince ilanına ve ilgili yerlere bildirilmesine, 5- Eskişehir Ticaret Sicil Müdürlüğünün 46701 sicil nosunda kayıtlı ESVİLLA PREFABRİK HAFİF ÇELİK YAPI SİSTEMLERİ İNŞAAT NAKLİYE PEYZAJ TURİZM TİCARET LİMİTED ŞİRKETİ'nin İİK.nin 308 ve 179. maddeleriuyarınca iflasına, iflasın 20/05/2026 günü saat 14.57 itibarıyla açılmasına",
+      "alinti": "Eskişehir Ticaret Sicil Müdürlüğünün 46701 sicil nosunda kayıtlı ESVİLLA PREFABRİK HAFİF ÇELİK YAPI SİSTEMLERİ İNŞAAT NAKLİYE PEYZAJ TURİZM TİCARET LİMİTED ŞİRKETİ'nin İİK.nin 308 ve 179. maddeleriuyarınca iflasına, iflasın 20/05/2026 günü saat 14.57 itibarıyla açılmasına",
       "alinti_karari_destekliyor": false
     },
     {
@@ -213,7 +183,7 @@
       "baslik": "Konkordato talebinin reddi ve iflasa ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Konkordato talep eden SÜLEYMAN AKGÜL (T.C. Kimlik No: [TCKN])'ün 2004 sayılı İcra ve İflas Kanunu'nun 289. ve devamı maddeleri gereğince KONKORDATONUN TASDİKİ TALEBİNİN REDDİNE, B. Geçici mühletin sonuçlarının KALDIRILMASINA ve SÜLEYMAN AKGÜL (T.C. Kimlik No: [TCKN])'ün 2004 sayılı İcra ve İflas Kanunu'nun 289. ve devamı maddeleri gereğince maddesi gereğince İFLASINA",
+      "alinti": "Konkordatonun tasdiki talebinin reddine, geçici mühletin sonuçlarının kaldırılmasına ve Süleyman Akgül'ün iflasına karar verildi.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -223,7 +193,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacı SELÇUK ÜNAL (T.C No:[TCKN]) hakkında 03/02/2026tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup",
+      "alinti": "İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -233,7 +203,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "davacı ZEKAİ ÜNAL (T.C.No:[TCKN]) hakkında 03/02/2026 tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
+      "alinti": "davacı ZEKAİ ÜNAL (T.C.No:[TCKN]) hakkında 03/02/2026 tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -253,7 +223,17 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "davacı MUSTAFA ÜNAL (T.C No:[TCKN]) hakkında 03/02/2026tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup",
+      "alinti": "davacı MUSTAFA ÜNAL (T.C No:[TCKN]) hakkında 03/02/2026tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02459919",
+      "tarih": "2026-05-06",
+      "il": "ANKARA",
+      "baslik": "Konkordato tasdik talebinin reddine ilişkin mahkeme kararı",
+      "regex_damgasi": "ret_kaldirma",
+      "okuma_karari": "e",
+      "alinti": "\"davacı Egemen Plan Proje İnşaat Taahhüt Sanayi ve Ticaret Limited Şirketi'nin konkordato tasdik talebinin REDDİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -293,17 +273,7 @@
       "baslik": "Konkordato talebinin reddi ve iflasa ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "\"2004 s. İİK.nin 292/1-b maddesi gereğince, konkordato taleplerinin ve iflasın açılması taleplerinin REDDİNE\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02439713",
-      "tarih": "2026-04-06",
-      "il": "ADANA",
-      "baslik": "Konkordato davasında kesin mühlet kararının kaldırılmasına ilişkin duyuru",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "c",
-      "alinti": "KESİN MÜHLETİN KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN İİK'nın 292/1-c maddesi UYARINCA REDDİNE karar verilmiş olup",
+      "alinti": "2004 s. İİK'nin 292/1-b maddesi gereçinde, konkordato taleplerinin ve iflasın açılması taleplerinin REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -313,7 +283,7 @@
       "baslik": "Konkordato talebinin reddi ve iflasa ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Konkordato taleplerinin ayrı ayrı reddine; ... İFLASLARINA, İflas Tasfiyesinin her 3 şirket bakımından basit tasfiye olarak uygulanmasına karar verilmiştir.",
+      "alinti": "Konkordato taleplerinin ayrı ayrı reddine; ... İFLASLARINA, İflas Tasfiyesinin her 3 şirket bakımından basit tasfiye olarak uygulanmasına",
       "alinti_karari_destekliyor": false
     },
     {
@@ -343,7 +313,17 @@
       "baslik": "Konkordato talebinin reddi ve iflasa ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacıların konkordato talebinin reddedildiğinin İİK'nun 288. maddesi gereğince ilanına ve ilgili yerlere bildirilmesine, 5-Eskişehir Ticaret Sicil Müdürlüğü 45960 sicil numarasında kayıtlı HOME MOBİLYA DEKORASYON YAPI VE YAPI ELEMANLARI SANAYİ VE TİCARET ANONİM ŞİRKETİ'nin İİK.nin 292/1-b ve 179. maddeleriuyarınca iflasına, iflasın 11/03/2026 günü saat 12:00 itibarıyla açılmasına karar verildiği",
+      "alinti": "Davacıların konkordato talebinin reddedildiğinin İİK'nun 288. maddesi gereğince ilanına ve ilgili yerlere bildirilmesine, 5-Eskişehir Ticaret Sicil Müdürlüğü 45960 sicil numarasında kayıtlı HOME MOBİLYA DEKORASYON YAPI VE YAPI ELEMANLARI SANAYİ VE TİCARET ANONİM ŞİRKETİ'nin İİK.nin 292/1-b ve 179. maddeleriuyarınca iflasına, iflasın 11/03/2026 günü saat 12:00 itibarıyla açılmasına",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02418801",
+      "tarih": "2026-03-09",
+      "il": "ADANA",
+      "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
+      "regex_damgasi": "ret_kaldirma",
+      "okuma_karari": "c",
+      "alinti": "GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
       "alinti_karari_destekliyor": false
     },
     {
@@ -353,7 +333,7 @@
       "baslik": "Konkordato davasının reddi ve iflasa ilişkin mahkeme kararı tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Konkordatonun tasdikinin talebinin reddi ve kesin mühletin sona ermesi ile CAN AHMET DEMİR'in 2004 sayılı İcra ve İflas Kanunu'nun 292. maddesi gereğince İFLASINA karar verildi.",
+      "alinti": "Konkordato talep eden CAN AHMET DEMİR (T.C. Kimlik No: 23*******48) 2004 sayılı İcra ve İflas Kanunu'nun 292. maddesi gereğince KONKORDATONUN TASDİKİ TALEBİNİN REDDİNE, B. Kesin mühletin sonuçlarının KALDIRILMASINA, 2. Kesin mühletin sona ermesi ile kesin mühlet kararı ile doğan ve2004 sayılı İcra ve İflas Kanunun 294, 295, 296 ve 297. maddesinde düzenlenen sonuçların kalkmış olduğunun TESPİTİNE, ",
       "alinti_karari_destekliyor": false
     },
     {
@@ -363,7 +343,7 @@
       "baslik": "Konkordato davasının reddi ve iflasa ilişkin mahkeme kararı tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Konkordato talep eden Alanya Ticaret Sicil Müdürlüğü'nün 25138 sicil numarasında kayıtlı GEN DELUXE İNŞAAT EMLAK MÜHENDİSLİK MİMARLIK TURİZM TİCARET LİMİTED ŞİRKETİ'nin (Vergi No: 3910576606), Alanya Ticaret Sicil Müdürlüğü'nün 26286 sicil numarasında kayıtlı OKTA YAPI İNŞAAT MİMARLIK SANAYİ VE TİCARET LİMİTED ŞİRKETİ'nin (Vergi No: 6470352360), 2004 sayılı İcra ve İflas Kanunu'nun 292. maddesi ge",
+      "alinti": "\"Konkordato talep eden Alanya Ticaret Sicil Müdürlüğü'nün 25138 sicil numarasında kayıtlı GEN DELUXE İNŞAAT EMLAK MÜHENDİSLİK MİMARLIK TURİZM TİCARET LİMİTED ŞİRKETİ'nin (Vergi No: 3910576606), Alanya Ticaret Sicil Müdürlüğü'nün 26286 sicil numarasında kayıtlı OKTA YAPI İNŞAAT MİMARLIK SANAYİ VE TİCARET LİMİTED ŞİRKETİ'nin (Vergi No: 6470352360), 2004 sayılı İcra ve İflas Kanunu'nun 292. maddesi g",
       "alinti_karari_destekliyor": false
     },
     {
@@ -374,6 +354,16 @@
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
       "alinti": "Davacı borçlu İzmir Ticaret Sicil Müdürlüğü'nün Merkez 179825 ticaret sicil numaralı İzmir Sıhhi Tesisat Malzemeleri Pazarlama Sanayi ve Ticaret Limited Şirketi' nin kesin mühlet talebi ile konkordato davasının reddine, geçici mühletin ve tüm tedbirlerin kaldırılması ile konkordato komiser heyetinin görevine son verilmesine, borca batık olan davacı borçlu şirketin İFLASINA, İflas tasfiye işlemleri",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02412774",
+      "tarih": "2026-03-02",
+      "il": "İSTANBUL",
+      "baslik": "Konkordato Talebinin Reddinin Ve Tüm Tedbirlerin Kaldırılmasının İlanen Tebliği",
+      "regex_damgasi": "ret_kaldirma",
+      "okuma_karari": "a",
+      "alinti": "6070664170 Vergi Kimlik Numaralı Lacivert Oto Kiralama Ve Turizm Anonim Şirketi, -0012470493 Vergi Kimlik Numaralı 4E Taahhüt İnşaat Anonim Şirketi hakkında 05/03/2026 tarihindenbaşlamak üzere 1 YILLIK KESİN MÜHLET VERİLMESİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -413,7 +403,7 @@
       "baslik": "Konkordato talebinin feragat nedeni ile reddine ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "h",
-      "alinti": "Davacı İlgi Trafik Sistemleri Limited Şirketinin konkordato talebinin FERAGAT nedeni ile REDDİNE",
+      "alinti": "Ankara Ticaret Sicil Müdürlüğü'nün 411065 sırasına kayıtlı Davacı İlgi Trafik Sistemleri Limited Şirketinin konkordato talebinin FERAGAT nedeni ile REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -427,53 +417,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02390488",
-      "tarih": "2026-01-30",
-      "il": "İSTANBUL",
-      "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "h",
-      "alinti": "Konkordato talep eden şirket vekilinin 20.01.2026 tarihli feragat dilekçesi kapsamında mahkememizce düzenlenen 20.01.2026 tarihli ara karar ile; Gelecek duruşmanın 22.01.2026 günü saat 13.10'da yapılmasına dair ara karardan vazgeçilmesine, Davanın reddine",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02387124",
-      "tarih": "2026-01-26",
-      "il": "İSTANBUL",
-      "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "h",
-      "alinti": "borçluların konkordato talepli davasında feragat sebebiyle geçici mühletin kaldırılarak , kesin mühlet konkordato taleplerinin REDDİNE",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02383005",
-      "tarih": "2026-01-20",
-      "il": "MARDİN",
-      "baslik": "Konkordato talebinin reddine ilişkin ilanen tebliğ",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "h",
-      "alinti": "Feragat sebebiyle DAVANIN REDDİNE",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02380036",
       "tarih": "2026-01-14",
       "il": "HATAY",
       "baslik": "Konkordato davasında kesin mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacı tarafın KONKORDATO TALEBİNİN REDDİNE, 2-Davacılara 02/09/2025 tarihli celsede verilen 6 aylık ek kesin sürenin ve 03/06/2024 tarihli ara kararla uygulanan ihtiyati tedbirlerin KALDIRILMASINA, 3-Dörtyol Ticaret Sicili Memurluğu nezdinde 6176 sicil numarası ile kayıtlı Özgeyikçi Tarım Sanayi ve Ticaret Limited Şirketi'nin 2004 sayılı İİK'nın 297/3 md ile 292/1-c maddeleri gereğince İFLASINA, ",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02374951",
-      "tarih": "2026-01-05",
-      "il": "BURSA",
-      "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "h",
-      "alinti": "konkordato taleplerininferagat sebebiyle REDDİNE",
+      "alinti": "Davacı tarafın KONKORDATO TALEBİNİN REDDİNE, Davacılara 02/09/2025 tarihli celsede verilen 6 aylık ek kesin sürenin ve 03/06/2024 tarihli ara kararla uygulanan ihtiyati tedbirlerin KALDIRILMASINA, Dörtyol Ticaret Sicili Memurluğu nezdinde 6176 sicil numarası ile kayıtlı Özgeyikçi Tarım Sanayi ve Ticaret Limited Şirketi'nin 2004 sayılı İİK'nın 297/3 md ile 292/1-c maddeleri gereğince İFLASINA, kara",
       "alinti_karari_destekliyor": false
     },
     {
@@ -493,7 +443,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacı İSMAİL İKİZ (T.C No:[TCKN]) hakkında 07/10/2025 tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
+      "alinti": "Davacı İSMAİL İKİZ (T.C No:[TCKN]) hakkında 07/10/2025 tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -503,7 +453,7 @@
       "baslik": "Konkordato talebinin reddine ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacı Öztuğ İnşaat Turizm Sanayi Ve Ticaret Limited Şirketi'nin konkordato talebinin REDDİNE, a-Davacı hakkında mahkememizin 15.02.2025 tarihinden geçerli olmak üzere verilen KESİN mühlet kararının ve kararla birlikte verilen tedbirlerin kaldırılmasına, tedbirlerin kaldırılması hususunda ilgili yerlere müzekkere yazılmasına, b-Davacı şirket yönünden kesin mühletin kaldırılması nedeni ile İİK' nın",
+      "alinti": "davacı Öztuğ İnşaat Turizm Sanayi Ve Ticaret Limited Şirketi'nin konkordato talebinin REDDİNE, a-Davacı hakkında mahkememizin 15.02.2025 tarihinden geçerli olmak üzere verilen KESİN mühlet kararının ve kararla birlikte verilen tedbirlerin kaldırılmasına, tedbirlerin kaldırılması hususunda ilgili yerlere müzekkere yazılmasına, b-Davacı şirket yönünden kesin mühletin kaldırılması nedeni ile İİK' nın",
       "alinti_karari_destekliyor": false
     },
     {
@@ -517,13 +467,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02363565",
-      "tarih": "2025-12-19",
-      "il": "AFYONKARAHİSAR",
-      "baslik": "Konkordatonun reddi kararı",
+      "ilan_no": "ILN02371547",
+      "tarih": "2025-12-29",
+      "il": "ADANA",
+      "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "davacı şirketin ve tacir sıfatı olmayan gerçek kişinin iflasına karar verilmesine yer olmadığına",
+      "alinti": "\"GEÇİCİ MÜHLETİN İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-a-b-c maddesi uyarınca KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -543,7 +493,7 @@
       "baslik": "Konkordato talebinin reddi ve iflasa ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Konkordato taleplerinin ayrı ayrı reddine; Davacı gerçek kişilerin tacir sıfatı bulunmadığından haklarında iflas kararı verilmesine yer olmadığına, ALSEKO MAKİNA SANAYİ VE TİCARET ANONİM ŞİRKETİ ile ALSEKO METAL SANAYİ VE TİCARET ANONİM ŞİRKETİ'nin borca batık olması nedeniyle ayrı ayrı İFLASLARINA karar verilmiştir.",
+      "alinti": "Davacı gerçek kişilerin tacir sıfatı bulunmadığından haklarında iflas kararı verilmesine yer olmadığına,Bursa Ticaret Sicil Müdürlüğünün 81069 Sicil numarasına kayıtlı ALSEKO MAKİNA SANAYİ VE TİCARET ANONİM ŞİRKETİ (Mersis No : 0059033007000018), ile Bursa Ticaret Sicil Müdürlüğünün 31972 Sicil numarasına kayıtlı ALSEKO METAL SANAYİ VE TİCARET ANONİM ŞİRKETİ (Mersis No : 0059033040700001)'nin borc",
       "alinti_karari_destekliyor": false
     },
     {
@@ -563,7 +513,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Davacı ABDULLAH HAMİDİ (T.C No:[TCKN]) hakkında 17/09/2025 tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b-c MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
+      "alinti": "\"GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b-c MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -573,7 +523,7 @@
       "baslik": "Kesin mühlet kararının kaldırılması tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "h",
-      "alinti": "davacı Trend Kule Makina İnşaat Elektrik Sanayi ve Ticaret Limited Şirketinin konkordato talebinin FERAGAT nedeni ile REDDİNE",
+      "alinti": "Ankara 3. Asliye Ticaret Mahkemesi'nin 2024/626 Esas sayılı asıl dava dosyasında; a- Ankara Ticaret Sicil Müdürlüğü'nün 319908 sırasına kayıtlı davacı Trend Kule Makina İnşaat Elektrik Sanayi ve Ticaret Limited Şirketinin konkordato talebinin FERAGAT nedeni ile REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -603,7 +553,7 @@
       "baslik": "Konkordato davasının reddinin ilanen tebliği",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "h",
-      "alinti": "davacı KDG GÜVENLİK HİZMETLERİ ANONİM ŞİRKETİ hakkında açılan konkordato talepli davanın FERAGAT nedeniyle REDDİNE , geçici mühletin KALDIRILMASINA",
+      "alinti": "davacı KDG GÜVENLİK HİZMETLERİ ANONİM ŞİRKETİ hakkında açılan konkordato talepli davanın FERAGAT nedeniyle REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -653,7 +603,7 @@
       "baslik": "Konkordato talebinin reddine ilişkin tebligat",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Adana Ticaret Sicil Müdürlüğü'nün 99274sicil numarasında kayıtlı borçlu KARAYEL TARIM ÜRÜNLERİ SANAYİ VE TİCARET LİMİTED ŞİRKETİ (V.No:5230019224) hakkındaki KONKORDATO TALEBİNİN İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA REDDİNE karar verilmiş olup",
+      "alinti": "KONKORDATO TALEBİNİN İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA REDDİNE karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -663,7 +613,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "davacıların geçici mühletin uzatılması, kesin mühlet istemi ve konkordato isteminin İİK'nın 292 maddesi gereğince REDDİNE, 2-Mahkememizce her iki davacı yönünden verilen 29/05/2025 ve 29/08/2025 tarihli geçici mühlet kararlarının kalkmış olduğunun TESPİTİNE, 3-Geçici mühletin kanuni sonuçları olan İİK 294, 295, 296 ve 297. Maddesindeki sonuçların her iki davacı yönünden kalkmış olduğunun TESPİTİNE",
+      "alinti": "Davacı ALPYÜRÜK OTOMOTİV İNŞAAT MADENCİLİK NAKLİYAT GIDA TURİZM PETROL SANAYİ VE TİCARET ANONİM ŞİRKETİ (0580601953)'nin İİK 292/1 c-d maddeleri gereğince İFLASINA, 7-İflasın 28/10/2025 tarih saat 11:09 itibariyle AÇILMASINA, karar verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -693,7 +643,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup, İİK'nun 288. maddesi gereğince ilan olunur.",
+      "alinti": "\"GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -703,7 +653,7 @@
       "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b-c MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup",
+      "alinti": "GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b-c MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
       "alinti_karari_destekliyor": false
     },
     {
@@ -713,7 +663,7 @@
       "baslik": "Konkordato talebinin reddine ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "Bursa Ticaret Sicilinin 109580 sicil numarasında kayıtlı ALMİNA KUMAŞÇILIK TEKSTİL TURİZM İNŞAAT PETR. SAN. VE TİC. LTD. ŞTİ.'nin borca batık olması nedeniyle 15/10/2025 tarih saat:15:39 itirabiyle iflasına",
+      "alinti": "\"ALMİNA KUMAŞÇILIK TEKSTİL TURİZM İNŞAAT PETR. SAN. VE TİC. LTD. ŞTİ.'nin borca batık olması nedeniyle 15/10/2025 tarih saat:15:39 itirabiyle iflasına\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -723,7 +673,7 @@
       "baslik": "Konkordato davasında kesin mühletin kaldırılmasına ilişkin karar",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "davacı hakkında verilen mahkememizin 15/07/2024 tarihli kesin mühlet kararının ve kararla birlikte verilen tedbirlerin kaldırılmasına, tedbirlerin kaldırılması hususunda ilgili yerlere müzekkere yazılmasına, b -Davacı şirket yönünden KESİN mühletin kaldırılması nedeni ile İİK' nın 294,295,296 ve 297. maddesinde düzenlenen sonuçların kalkmış olduğunun tespitine, c-Komiserler kurulunun görevinin son",
+      "alinti": "davacı hakkında verilen mahkememizin 15/07/2024 tarihli kesin mühlet kararının ve kararla birlikte verilen tedbirlerin kaldırılmasına, tedbirlerin kaldırılması hususunda ilgili yerlere müzekkere yazılmasına, b -Davacı şirket yönünden KESİN mühletin kaldırılması nedeni ile İİK' nın 294,295,296 ve 297. maddesinde düzenlenen sonuçların kalkmış olduğunun tespitine... e-Ankara Ticaret Sicil Müdürlüğü'n",
       "alinti_karari_destekliyor": false
     },
     {
@@ -733,7 +683,7 @@
       "baslik": "Konkordato talebinin reddi ve iflasa ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "hakkındaki konkordato taleplerinin ayrı ayrı reddine, İnegöl Ticaret Sicilinin 13029 sicil numarasında kayıtlı SALVEZZA EZZA MOBİLYA SANAYİ TİCARET ANONİM ŞİRKETİ ( 1026444 Vergi No. )( 0742102644400001 Mersis No. )'nin borca batık olması nedeniyle 08/10/2025 tarih, saat 15:33 itibariyleİFLASINA",
+      "alinti": "\"konkordato taleplerinin ayrı ayrı reddine, İnegöl Ticaret Sicilinin 13029 sicil numarasında kayıtlı SALVEZZA EZZA MOBİLYA SANAYİ TİCARET ANONİM ŞİRKETİ ( 1026444 Vergi No. )( 0742102644400001 Mersis No. )'nin borca batık olması nedeniyle 08/10/2025 tarih, saat 15:33 itibariyleİFLASINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -757,23 +707,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02306240",
-      "tarih": "2025-10-06",
-      "il": "ADANA",
-      "baslik": "Konkordato davasında geçici mühlet kararının kaldırılmasına ilişkin duyuru",
-      "regex_damgasi": "ret_kaldirma",
-      "okuma_karari": "c",
-      "alinti": "borçlu [TCKN] T.C. numaralı HASAN KARA hakkında 04/07/2025 tarihli tensip zaptının 1 nolu ara kararı ile verilen 3 AYLIK GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACILARIN KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02298608",
       "tarih": "2025-09-24",
       "il": "İZMİR",
       "baslik": "Konkordato talebinin reddine ilişkin ilanen tebliğ",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "\"2-İzmir Ticaret Sicil Müdürlüğü Merkez 84063 sicil numarasında kayıtlı Ogün Turizm Taşımacılık Ticaret Ve Sanayi Limited Şirketi'nin kesin mühlet talebi ile açılan konkordato davasının reddine, geçici mühletin ve tüm tedbirlerin kaldırılması ile konkordato komiser heyetinin görevine son verilmesine, borca batık olan davacı borçlu şirketin İFLASINA İflasın 19/09/2025 günü saat 15:13'de açılmasına\"",
+      "alinti": "Ogün Turizm Taşımacılık Ticaret Ve Sanayi Limited Şirketi'nin kesin mühlet talebi ile açılan konkordato davasının reddine, geçici mühletin ve tüm tedbirlerin kaldırılması ile konkordato komiser heyetinin görevine son verilmesine, borca batık olan davacı borçlu şirketin İFLASINA İflasın 19/09/2025 günü saat 15:13'de açılmasına",
       "alinti_karari_destekliyor": false
     },
     {
@@ -797,13 +737,23 @@
       "alinti_karari_destekliyor": false
     },
     {
+      "ilan_no": "ILN02290842",
+      "tarih": "2025-09-10",
+      "il": "MANİSA",
+      "baslik": "Konkordato talebinin reddine ilişkin ilanen tebliğ",
+      "regex_damgasi": "ret_kaldirma",
+      "okuma_karari": "e",
+      "alinti": "\"Mahkememizin 2025/270 Esas sayılı dosyasında yapılan yargılama sonunda 26/08/2025tarihinde verilen karar ile; 1- Davacı Manisa Ticaret Sicil Müdürlüğü'nün 10223 sicil nosunda kayıtlı 7590423329 vergi numaralı Sekiz Eylül Sağlık Hizmetleri Sanayi ve Ticaret Anonim Şirketi'nin konkordatonun tasdiki talebinin REDDİNE\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
       "ilan_no": "ILN02288795",
       "tarih": "2025-09-05",
       "il": "ADANA",
       "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
       "regex_damgasi": "ret_kaldirma",
       "okuma_karari": "c",
-      "alinti": "davacı MEHMET DOĞRU (T.C.No: [TCKN]) hakkında 02/06/2025 tarihli tensip ara kararı ile verilen GEÇİCİ MÜHLETİN, İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş",
+      "alinti": "İİK'NUN 288/1. MADDESİ YOLLAMASIYLA İİK'nun 292/1-b MADDESİ UYARINCA KALDIRILMASINA VE DAVACININ KONKORDATO TALEBİNİN REDDİNE karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -823,7 +773,7 @@
       "baslik": "Konkordato davası kesin mühletin kaldırılması ilanen tebliği",
       "regex_damgasi": "ret_iflas",
       "okuma_karari": "g",
-      "alinti": "Başvurucu borçlular İmsan İnşaat Makina Pazarlama Sanayi ve Ticaret Limited Şirketi (VKN 4740045711), İmsan Jeneratör Makina Sanayi ve Ticaret Anonim Şirketi (VKN 4740745067), İmsan Yedek Parça Tarım Makina Pazarlama Sanayi ve Ticaret Limited Şirketi (VKN 4740779514), Emin Baha CAFEROĞLU (TC [TCKN]), Emrah CAFEROĞLU (TC [TCKN]) ve Mehmet Önder CAFEROĞLU (TC [TCKN]) hakkında verilen KESİN MÜHLETİN ",
+      "alinti": "\"Başvurucu borçlular İmsan İnşaat Makina Pazarlama Sanayi ve Ticaret Limited Şirketi (VKN 4740045711), İmsan Jeneratör Makina Sanayi ve Ticaret Anonim Şirketi (VKN 4740745067), İmsan Yedek Parça Tarım Makina Pazarlama Sanayi ve Ticaret Limited Şirketi (VKN 4740779514), Emin Baha CAFEROĞLU (TC [TCKN]), Emrah CAFEROĞLU (TC [TCKN]) ve Mehmet Önder CAFEROĞLU (TC [TCKN]) hakkında verilen KESİN MÜHLETİN",
       "alinti_karari_destekliyor": false
     },
     {
@@ -847,13 +797,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02375295",
-      "tarih": "2026-01-05",
-      "il": "AFYONKARAHİSAR",
-      "baslik": "Konkordatonun reddi kararı",
+      "ilan_no": "ILN02411029",
+      "tarih": "2026-03-02",
+      "il": "MERSİN",
+      "baslik": "Konkordato davasında kesin mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "tasdik",
-      "okuma_karari": "b",
-      "alinti": "Davacılar Kenan Özal ve Mustafa Özal yönünden yönünden KONKORDATO davasının REDDİNE",
+      "okuma_karari": "g",
+      "alinti": "Davacı yönünden geçici ve kesin mühletin etkilerinin kanundaki istisnalar saklı kalmak kaydıyla konkordatonun bağlayıcı hale geldiği 20/02/2026 tarihine kadar devam etmesine, Kesin mühletin sona ermesi ile kesin mühlet kararı ile doğan ve İİK 294,295,296 ve 297. Maddesinde düzenlenen sonuçların kalkmış olduğunun tespitine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -873,7 +823,7 @@
       "baslik": "Konkordato davası reddinin ilanen tebliği",
       "regex_damgasi": "feragat",
       "okuma_karari": "g",
-      "alinti": "davacı hakkında verilen kesin mühletin kaldırılmasına, kesin mühletin kaldırıldığına ve konkordatonun tasdiki talebinin reddine karar verildiğinin İİK. 289. maddesi gereğince ilana karar verilmiştir",
+      "alinti": "davacı hakkında verilen kesin mühletin kaldırılmasına, kesin mühletin kaldırıldığına ve konkordatonun tasdiki talebinin reddine karar verildi",
       "alinti_karari_destekliyor": false
     },
     {
@@ -883,7 +833,7 @@
       "baslik": "Konkordato davası reddinin ilanen tebliği",
       "regex_damgasi": "feragat",
       "okuma_karari": "c",
-      "alinti": "a)9040314784 vergi kimlik numaralı DAVACI ÜÇLER NAKLİYAT HAFRİYAT İNŞAAT VE TİCARET LİMİTED ŞİRKETİ'NİN 08/07/2026 günü saat 10:18 itibari ile İFLASINA\" karar verilmiştir.",
+      "alinti": "\"9040314784 vergi kimlik numaralı DAVACI ÜÇLER NAKLİYAT HAFRİYAT İNŞAAT VE TİCARET LİMİTED ŞİRKETİ'NİN 08/07/2026 günü saat 10:18 itibari ile İFLASINA\" karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -893,7 +843,7 @@
       "baslik": "Konkordato kesin mühlet kararının kaldırılmasının ilanen tebliği",
       "regex_damgasi": "feragat",
       "okuma_karari": "g",
-      "alinti": "Mahkememizce davacı hakkında 13/02/2025 tarihli tensip kararıyla verilen 1 yıllık kesin mühlet kararının KALDIRILMASINA",
+      "alinti": "\"Mahkememizce davacı hakkında 13/02/2025 tarihli tensip kararıyla verilen 1 yıllık kesin mühlet kararının KALDIRILMASINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -913,7 +863,27 @@
       "baslik": "Konkordato davası kesin mühletin kaldırılması ilanen tebliği",
       "regex_damgasi": "feragat",
       "okuma_karari": "g",
-      "alinti": "Başvurucu borçlular (davacılar) hakkında mahkememizce 25.11.2024 tarihinde verilen ve 24.11.2025 tarihi ile 30.03.2026 tarihinde uzatılan KESİN MÜHLETİN KALDIRILMASINA; konkordato taleplerinin feragat nedeniyle ayrı ayrı REDDİNE",
+      "alinti": "\"Başvurucu borçlular (davacılar) hakkında mahkememizce 25.11.2024 tarihinde verilen ve 24.11.2025 tarihi ile 30.03.2026 tarihinde uzatılan KESİN MÜHLETİN KALDIRILMASINA; konkordato taleplerinin feragat nedeniyle ayrı ayrı REDDİNE\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02470132",
+      "tarih": "2026-05-18",
+      "il": "İSTANBUL",
+      "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
+      "regex_damgasi": "feragat",
+      "okuma_karari": "b",
+      "alinti": "konkordato taleplerinin feragat nedeniyle ayrı ayrı REDDİNE",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02469483",
+      "tarih": "2026-05-14",
+      "il": "MERSİN",
+      "baslik": "Konkordato davasında kesin mühlet kararının kaldırılmasına ilişkin duyuru",
+      "regex_damgasi": "feragat",
+      "okuma_karari": "g",
+      "alinti": "\"Davacılar Tropik Fresh Meyve ve Sebze Gıda Tarım Ürünleri Sanayi ve Ticaret Limited Şirketi (Vergi No:8591080755) (Mersin Ticaret Sicil No: 52545), Antalya Tropik Fresh Meyve ve Sebze Gıda Sanayi ve Dış Ticaret Limited Şirketi, (Vergi No:0701076053) (Mersin Ticaret Sicil No: 69429) hakkında 22/06/2025 TARİHİNDEN İTİBAREN BAŞLAMAK ÜZEREVERİLEN 1 YIL KESİN MÜHLET KARARININ KALDIRILMASINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -933,7 +903,7 @@
       "baslik": "Konkordato Talebinin Reddinin Ve Tüm Tedbirlerin Kaldırılmasının İlanen Tebliği",
       "regex_damgasi": "feragat",
       "okuma_karari": "b",
-      "alinti": "Konkordato talep eden davacıların KONKORDATO TALEPLERİNİN AYRI AYRI REDDİNE, [TCKN] T.C. Kimlik Numaralı Hakan BENGİ'nin KONKORDATO TALEBİNİN FERAGAT NEDENİYLE REDDİNE",
+      "alinti": "Konkordato talep eden davacılar -1630387676 Vergi Numaralı Bengi kombi Mühendislik Isıtma Soğutma Ürünleri Satış Ve Pazarlama Sanayi Ve Ticaret Limited Şirketi, -1640793195 Vergi Numaralı Benmak Isıtma Soğutma Sistemleri Anonim Şirketi, -1770573924 Vergi Numaralı Bir Kombi Montaj Ve Servis Hizmetleri Limited Şirketi'nin KONKORDATO TALEPLERİNİN AYRI AYRI REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -943,7 +913,7 @@
       "baslik": "Konkordato kararının kaldırılmasının ilanen tebliği",
       "regex_damgasi": "feragat",
       "okuma_karari": "g",
-      "alinti": "\"BURDUR 2. ASLİYE HUKUK MAHKEMESİ'nin 18/03/2021 tarih ve 2018/280 Esas, 2021/80 Karar sayılı KARARININ KALDIRILMASINA\"",
+      "alinti": "\"Dairemizce verilen kararın İİK 308 atfı ile İİK 288. maddesi uyarınca İLANINA ve ilgili yerlere BİLDİRİLMESİNE\" karar verilmiş...",
       "alinti_karari_destekliyor": false
     },
     {
@@ -963,7 +933,7 @@
       "baslik": "Konkordato davasının reddine ilişkin mahkeme kararı",
       "regex_damgasi": "feragat",
       "okuma_karari": "g",
-      "alinti": "Feragat nedeniyle konkordato tasdik talebinin REDDİNE, ÇİMSA TEKSTİL SANAYİ VE TİCARET LİMİTED ŞİRKETİ (Kahramanmaraş Ticaret Sicil Müdürlüğünün14339 sırasında numarası ile kayıtlı Vergi No:2570690638 ) ve gerçek şahıs SAMİTTİN ÇİMEN (T.C Kimlik No:[TCKN]) hakkında yürütülen konkordato davasının İİK'nın 292/b-c maddeleri uyarınca REDDİNE , bu kapsamda 04/07/2025 tarihli 3 ay geçici mühlet kararı i",
+      "alinti": "bu kapsamda 04/07/2025 tarihli 3 ay geçici mühlet kararı ile 04/10/2025 tarihli 1 yıl süre ile kesin mühlet kararlarının ve mahkememizce konulan tüm tedbirlerin KALDIRILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -983,7 +953,7 @@
       "baslik": "Konkordato davasında kesin mühlet kararının kaldırılmasına ilişkin duyuru",
       "regex_damgasi": "feragat",
       "okuma_karari": "g",
-      "alinti": "mahkememizce 27/12/2024 tarihinden başlamak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET KARARININSÜRENİN DOLDUĞU 27/03/2025 TARİHİNDEN İTİBAREN 2 AYLIKUZATMA SÜRESİNİN DOLDUĞU TARİH GÖZETİLEREK 27/05/2025 TARİHİNDEN İTİBAREN BAŞLAMAK ÜZERE VERİLEN 1 YIL KESİN MÜHLET KARARININ KALDIRILMASINA",
+      "alinti": "mahkememizce verilen tüm İHTİYATİ TEDBİRLERİN KALDIRILMASINA, 4-)Konkordatonun başarıya ulaşmasının mümkün olup olmadığının yakından incelenmesi amacıyla 7101 sayılı Yasa ile değişik İİK'nın 287/3. Maddesi uyarınca mahkememizin 27/12/2024 tarihli tensip ara kararı ile KONKORDATO KOMİSERİ olarak görevlendirilen SONGÜL ABDAN'ın (TC No: [TCKN])'ın GÖREVİNİN KALDIRILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -993,17 +963,7 @@
       "baslik": "Konkordatonun reddi kararı",
       "regex_damgasi": "feragat",
       "okuma_karari": "b",
-      "alinti": "konkordato tasdik talebinin feragat nedeniyle reddine",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02341674",
-      "tarih": "2025-11-24",
-      "il": "AYDIN",
-      "baslik": "Konkordato geçici mühlet kararının kaldırılmasının ilanen tebliği",
-      "regex_damgasi": "feragat",
-      "okuma_karari": "g",
-      "alinti": "Davacılar hakkında feragat nedeniyle red kararı verildiğinden; Geçici mühlet kararının ve tedbirlerin kalktığının İİK'nun 288/3 maddesi aynı maddenin 2.fıkrası uyarınca ilanına ayrıca konkordato komiseri Mürşit UZ 'un görevinin sona erdiği hususu ilan olunur.",
+      "alinti": "Mahkememizin yazımız ekinde gönderilen 27/11/2025 tarihli kararı ile konkordato tasdik talebinin feragat nedeniyle reddine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1013,7 +973,7 @@
       "baslik": "Konkordato kesin mühletin kaldırılması",
       "regex_damgasi": "feragat",
       "okuma_karari": "g",
-      "alinti": "\"geçici mühletin kaldırılmasına ve İİK madde 288 gereğince kesin mühletin kaldırıldığının ilanına\"",
+      "alinti": "geçici mühletin kaldırılmasına ve İİK madde 288 gereğince kesin mühletin kaldırıldığının ilanına",
       "alinti_karari_destekliyor": false
     },
     {
