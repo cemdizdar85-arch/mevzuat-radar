@@ -97,3 +97,8 @@ veri/sgs-arsiv/
 # TUREVDIR: 48 altin vakanin 300'er adayi, istenince yeniden uretilir. Depoya
 # girmez - 20.08'de gecmisi 1 GB'dan 80 MB'a indirdik, ayni hatayi tekrarlamayiz.
 .tarti-havuz.json
+
+# 30.08.2026 - SPL resmi calisma notlari (telifli, 162 MB). Depo PUBLIC;
+# VERI-HARITASI kurali: buyuk ham kaynak yalniz diskte durur. Depoya yalniz
+# veri/spl-not-envanteri.json girer.
+_kaynak/
