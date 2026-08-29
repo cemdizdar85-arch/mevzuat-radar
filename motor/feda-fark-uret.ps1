@@ -75,10 +75,14 @@ DOGRU: {DOGRU}
 }
 
 # --- 3) cizdiriciler ---
-function TabloHtml($t){
+function TabloHtml($t,$ver){
   if(-not $t -or -not $t.satirlar -or @($t.satirlar).Count -eq 0){ return '' }
+  $verSet=@{}
+  foreach($vv in @($ver)){ if($vv -and @($vv).Count -ge 2){ $verSet["$(@($vv)[0]),$(@($vv)[1])"]=1 } }
   $sb=[Text.StringBuilder]::new()
-  [void]$sb.Append("<div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div><table class='tcetvel'><tr>")
+  [void]$sb.Append("<div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div>")
+  if($verSet.Count -gt 0){ [void]$sb.Append("<div style='font-size:.78em;color:#78b4ff;margin-top:3px'>🔷 mavi kenarlı hücreler <b>soruda VERİLENLERDİR</b> — biz bulmadık, soru verdi; kalanları biz hesapladık</div>") }
+  [void]$sb.Append("<table class='tcetvel'><tr>")
   foreach($b in @($t.basliklar)){ [void]$sb.Append("<th>$(K $b)</th>") }
   [void]$sb.Append('</tr>')
   $n=@($t.satirlar).Count; $q=0
@@ -87,7 +91,10 @@ function TabloHtml($t){
     $stil=''; if($q -eq $n){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
     [void]$sb.Append("<tr$stil>")
     $kc=0
-    foreach($hc in @($st)){ [void]$sb.Append("<td class='hcell' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>"); $kc++ }
+    foreach($hc in @($st)){
+      $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
+      [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>"); $kc++
+    }
     [void]$sb.Append('</tr>')
   }
   [void]$sb.Append('</table>')
@@ -162,7 +169,8 @@ foreach($hh in 'A','B','C','D','E'){
   [void]$acSb.Append("<p><b>$hh$isr)</b> $(K $veri.aciklama.$hh)</p>")
 }
 $acBlok=$acSb.ToString()
-$tabloBlok=TabloHtml $veri.cozum_tablo
+$verList=$null; if($veri.PSObject.Properties['verilen']){ $verList=$veri.verilen }
+$tabloBlok=TabloHtml $veri.cozum_tablo $verList
 $semaBlok=SemaHtml $veri.sema
 $sikSb=[Text.StringBuilder]::new()
 foreach($hh in 'A','B','C','D','E'){
@@ -224,6 +232,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .tcetvel td{padding:4px 8px;border-bottom:1px dotted #444}
 .ttutar{text-align:right;color:var(--kehribar);font-weight:700}
 .hcell.gizli{color:transparent;text-shadow:none}
+.hcell.verilen{box-shadow:inset 3px 0 0 #78b4ff}
 .hcell.parla{animation:parla .9s ease}
 @keyframes parla{0%{background:rgba(224,164,88,.55)}100%{background:transparent}}
 #cta{display:none;margin-top:26px;background:linear-gradient(160deg,rgba(224,164,88,.16),rgba(224,164,88,.05));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}

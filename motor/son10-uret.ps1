@@ -78,9 +78,15 @@ foreach($id in ($kayn.Keys | Sort-Object)){
 
 # --- FAZ 2 (29.08 Cem: "adim adim yasatalim"): cozum_tablosu olan her soruya adim senaryosu ---
 $adimIstem=@'
-Sen "Nobetci" adli hocasin. Asagidaki cozum tablosu ve aciklamadan ADIM ADIM COZUM SENARYOSU uret - ogrenci her tikta bir adim yasayacak, tablo hucre hucre dolacak.
-KURALLAR: 5-8 adim. Her adim: {"anlatim":"Nobetci agzi 1-2 cumle - simdi ne yapiyoruz ve NEDEN ('Once soruda ne verilmis ona bakalim...' gibi)","formul":"o adimda kullanilan formul/islem (yoksa bos)","doldur":[[satir,kolon],...]} - doldur = cozum_tablo.satirlar icinde O ADIMDA gorunur OLACAK hucreler (0-indexli; kumulatif DEGIL). Adim 1: soruda verilenler. Son adim: SONUC satiri. Rakamlar TABLODAKIYLE BIREBIR; yeni rakam uretme.
-Cevap YALNIZ JSON: {"adimlar":[...]}
+Sen "Nobetci" adli hocasin. Asagidaki SORU METNI, cozum tablosu ve aciklamadan ADIM ADIM COZUM SENARYOSU uret - ogrenci her tikta bir adim yasayacak, tablo hucre hucre dolacak. BU ANLATIM ISI HIC BILMEYENE YAPILIR.
+ALTIN AYRIM (Cem kurali, 29.08): SORUDA VERILEN ile BIZIM HESAPLADIGIMIZ asla karismaz - "biz bunu bulmadik, soru verdi" hep belli olacak.
+KURALLAR:
+1. Once SORU METNINI oku ve cozum_tablo hucrelerinden hangileri SORUDA VERILI tespit et (fiili miktarlar, katsayilar, TOPLAM ORTAK MALIYET gibi buyuk tutarlar dahil - tabloda gecen ama soruda verilmis HER hucre) -> "verilen":[[satir,kolon],...] listesine yaz.
+2. ADIM 1 = VERILENLER ADIMI: anlatimi "Soru bize sunlari VERMIS: ..." diliyle kur ve doldur listesinde TUM verilen hucreleri ac (240.000 gibi toplamlar dahil - sonradan "bulalim" DENMEZ, cunku soru verdi).
+3. Sonraki adimlar HESAP adimlaridir: anlatim "simdi BIZ hesapliyoruz" dilinde; her adim {"anlatim":"1-2 cumle, ne yapiyoruz ve NEDEN","formul":"o adimin formulu (yoksa bos)","doldur":[[r,c],...]} (0-indexli; kumulatif DEGIL). Son adim: SONUC satiri.
+4. 5-8 adim. Rakamlar TABLODAKIYLE BIREBIR; yeni rakam uretme.
+Cevap YALNIZ JSON: {"verilen":[[r,c],...],"adimlar":[...]}
+SORU METNI: {SORUM}
 COZUM_TABLO: {TABLO}
 ACIKLAMA (dogru sik): {ACIK}
 '@
@@ -88,14 +94,16 @@ $af=0
 foreach($id in ($don.Keys | Sort-Object)){
   $cvp=$don[$id]
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar -or @($cvp.cozum_tablo.satirlar).Count -eq 0){ continue }
-  if($cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar){ continue }
-  $ist2=$adimIstem.Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($kayn[$id].dogru))")
+  # 'verilen' alani yoksa ESKI senaryodur -> Cem'in verilen/hesaplanan ayrimi kuraliyla YENIDEN uret
+  if($cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
+  $ist2=$adimIstem.Replace('{SORUM}',"$($kayn[$id].soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($kayn[$id].dogru))")
   $y2=$null
   foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 8000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
   $t2="$($y2.metin)".Trim() -replace '^```json\s*','' -replace '\s*```$',''
   $a2=$null; try{ $a2=$t2|ConvertFrom-Json }catch{}
   if($a2 -and $a2.adimlar){
     $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue $a2.adimlar -Force
+    $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($a2.verilen) -Force
     $af++
     $dNesne=[ordered]@{}; foreach($kk in ($don.Keys|Sort-Object)){ $dNesne[$kk]=$don[$kk] }
     [IO.File]::WriteAllText($CACHE,(ConvertTo-Json -InputObject $dNesne -Depth 10),[Text.UTF8Encoding]::new($false))
@@ -105,10 +113,14 @@ foreach($id in ($don.Keys | Sort-Object)){
 "adim senaryolari: $af yeni"
 
 # --- cizdiriciler ---
-function TabloHtml($t){
+function TabloHtml($t,$ver){
   if(-not $t -or -not $t.satirlar -or @($t.satirlar).Count -eq 0){ return '' }
+  $verSet=@{}
+  foreach($vv in @($ver)){ if($vv -and @($vv).Count -ge 2){ $verSet["$(@($vv)[0]),$(@($vv)[1])"]=1 } }
   $sb=[Text.StringBuilder]::new()
-  [void]$sb.Append("<div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div><table class='tcetvel'><tr>")
+  [void]$sb.Append("<div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div>")
+  if($verSet.Count -gt 0){ [void]$sb.Append("<div style='font-size:.78em;color:#78b4ff;margin-top:3px'>🔷 mavi kenarlı hücreler <b>soruda VERİLENLERDİR</b> — biz bulmadık, soru verdi; kalanları biz hesapladık</div>") }
+  [void]$sb.Append("<table class='tcetvel'><tr>")
   foreach($b in @($t.basliklar)){ [void]$sb.Append("<th>$(K $b)</th>") }
   [void]$sb.Append('</tr>')
   $ns=@($t.satirlar).Count; $q=0
@@ -117,7 +129,10 @@ function TabloHtml($t){
     $stil=''; if($q -eq $ns){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
     [void]$sb.Append("<tr$stil>")
     $kc=0
-    foreach($hc in @($st)){ [void]$sb.Append("<td class='hcell' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>"); $kc++ }
+    foreach($hc in @($st)){
+      $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
+      [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>"); $kc++
+    }
     [void]$sb.Append('</tr>')
   }
   [void]$sb.Append('</table>')
@@ -212,6 +227,7 @@ table.tcetvel{border-collapse:collapse;margin-top:6px;font-size:.88em;width:100%
 .ttutar{text-align:right;color:#c9a227;font-weight:700}
 h1{font-size:1.3em}
 .hcell.gizli{color:transparent;text-shadow:none}
+.hcell.verilen{box-shadow:inset 3px 0 0 #78b4ff}
 .hcell.parla{animation:parla .9s ease}
 @keyframes parla{0%{background:rgba(224,164,88,.55)}100%{background:transparent}}
 .padim{background:#c9a227;color:#1b1b1f;font-weight:800;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-family:inherit;margin-top:10px}
@@ -242,7 +258,8 @@ foreach($sv in 'SGS','SMMM','KGK'){
       [void]$sb.Append("<p><b>$hh$isr)</b> $(K $cvp.aciklama.$hh)</p>")
     }
     if($adVar){ [void]$sb.Append("<div><button class='padim'>🎬 Bu çözümü adım adım yaşa</button><div class='panlat'><div class='psayac'></div><div class='pmetin' style='margin-top:3px;font-size:.93em'></div><div class='pformul'></div><button class='padim pileri' style='margin-top:8px;padding:6px 12px;font-size:.85em'>İleri →</button></div></div>") }
-    [void]$sb.Append((TabloHtml $cvp.cozum_tablo))
+    $verList=$null; if($cvp.PSObject.Properties['verilen']){ $verList=$cvp.verilen }
+    [void]$sb.Append((TabloHtml $cvp.cozum_tablo $verList))
     [void]$sb.Append((SemaHtml $cvp.sema))
     if($cvp.sinav_taktigi){ [void]$sb.Append("<div class='kutu'>🎯 <b>Sınav taktiği:</b> $(K $cvp.sinav_taktigi)</div>") }
     if($cvp.notlandirici){ [void]$sb.Append("<div class='kutu2'>⚖️ <b>Notlandırıcı gözü:</b> $(K $cvp.notlandirici)</div>") }
