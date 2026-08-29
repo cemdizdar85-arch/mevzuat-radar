@@ -324,6 +324,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       // RET -> m.308 (iflasa dönebilir)
       if(/reddine|talebinin red|davasının red| red\b/.test(b))
         return {hap:'Konkordato reddedildi. Borçlu iflasa tabiyse mahkeme iflasına karar verebilir; iflas açılırsa alacağını masaya kaydettir (m.308).'};
+      // 29.08 FERAGAT -> borçlu davadan KENDİ vazgeçti. Ret'ten farklı: mahkeme
+      // konkordatoyu incelemedi, hüküm kurmadı. Alacaklı için sonuç aynı yönde
+      // (takip yasağı kalkar) ama sebebi bilmek önemli: borçlu süreci kendi
+      // bıraktı, yani genelde anlaşma ya da vazgeçme var.
+      if(/feragat/.test(b))
+        return {hap:'Borçlu konkordato talebinden kendi vazgeçti (feragat); mahkeme konkordatoyu incelemeden dava sona erdi. Mühlet ve tedbirler kalkar, takibini sürdürebilirsin. Feragat kesin hüküm sonucu doğurur — borçlu aynı taleple yeniden dava açamaz, ama YENİ bir konkordato başvurusu yapabilir.'};
       // MÜHLET KALDIRMA -> takip yasağı sona erer
       if(/kaldır/.test(b))
         return {hap:'Mühlet kaldırıldı; borçluya karşı takip yasağı sona erdi, takibini sürdürebilirsin.'};
@@ -512,6 +518,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // 28.08: m.182 — borçlu iflastan ÇIKIYOR. Alacaklı için bu İYİ HABERDİR ama
     // "Ret / kaldırma" kovasında kötü haber gibi duruyordu. Yeşil, kendi etiketi.
     iflas_kaldirma:['İflas kaldırıldı','var(--green)'],
+    // 29.08: ret_kaldirma 606 ilanla en kalabalık ve en heterojen kovaydı.
+    // Keşif ölçümü içinde iki AYIRT EDİCİ olay buldu (tedbir kaldırma ve
+    // komiser görevine son YAN HÜKÜM, %56/%42 ile neredeyse her ilanda var):
+    //   feragat        — borçlu davadan KENDİ vazgeçti; mahkeme reddetmedi.
+    //                    Alacaklı için farklı: hüküm kurulmadı, süreç kapandı.
+    //   muhlet_kaldirma— mühlet verilmişti, sona erdi. Ret'ten farklı: talep
+    //                    zaten kabul edilmişti.
+    feragat       :['Borçlu vazgeçti','var(--muted)'],
+    muhlet_kaldirma:['Mühlet kaldırıldı','var(--amber)'],
     gecici_muhlet :['Geçici mühlet','var(--amber)'],
     kesin_muhlet  :['Kesin mühlet','var(--amber)'],
     uzatma        :['Mühlet uzatma','var(--muted)'],
