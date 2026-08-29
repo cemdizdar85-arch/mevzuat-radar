@@ -92,8 +92,13 @@ function TabloHtml($t,$ver){
     [void]$sb.Append("<tr$stil>")
     $kc=0
     foreach($hc in @($st)){
-      $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
-      [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>"); $kc++
+      # 29.08 Cem: KALEM kolonu (c=0) ISKELETTIR - oynatici gizleyemez, 'gelir tablosu gibi' hep okunur
+      if($kc -eq 0){ [void]$sb.Append("<td class='hbaslik' style='font-weight:600'>$(K $hc)</td>") }
+      else{
+        $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
+        [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>")
+      }
+      $kc++
     }
     [void]$sb.Append('</tr>')
   }
@@ -184,8 +189,8 @@ if($veri.adimlar){
   <button id='padim' class='dgm' style='padding:9px 16px;font-size:.9em'>🎬 Bu çözümü adım adım yaşa</button>
   <div id='panlat' style='display:none;border:1px solid var(--kehribar);border-radius:12px;padding:12px 14px;margin-top:10px;background:rgba(224,164,88,.07)'>
     <div style='font-size:.78em;color:var(--kehribar);font-weight:800' id='psayac'></div>
-    <div id='pmetin' style='margin-top:4px;font-size:.95em'></div>
-    <div id='pformul' style='margin-top:6px;font-family:Consolas,monospace;font-size:.9em;color:#78b4ff'></div>
+    <div id='pformul' style='margin-top:7px;font-family:Consolas,monospace;font-size:.98em;color:#8fd0ff;background:rgba(120,180,255,.10);border:1px solid rgba(120,180,255,.35);border-radius:8px;padding:8px 12px'></div>
+    <div id='pmetin' style='margin-top:7px;font-size:.95em'></div>
     <button id='pileri' class='dgm' style='padding:7px 14px;font-size:.85em;margin-top:10px'>İleri →</button>
   </div>
 </div>
@@ -293,7 +298,7 @@ if(ADIMLAR){
     const s=ADIMLAR[ad];
     document.getElementById('psayac').textContent='ADIM '+(ad+1)+' / '+ADIMLAR.length;
     document.getElementById('pmetin').textContent=s.anlatim;
-    document.getElementById('pformul').textContent=s.formul||'';
+    const pf=document.getElementById('pformul'); pf.textContent=s.formul||''; pf.style.display=s.formul?'block':'none';
     (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
     document.getElementById('pileri').textContent=(ad===ADIMLAR.length-1)?'🔄 Baştan':'İleri →';
   };

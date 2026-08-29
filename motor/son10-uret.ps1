@@ -83,7 +83,7 @@ ALTIN AYRIM (Cem kurali, 29.08): SORUDA VERILEN ile BIZIM HESAPLADIGIMIZ asla ka
 KURALLAR:
 1. Once SORU METNINI oku ve cozum_tablo hucrelerinden hangileri SORUDA VERILI tespit et (fiili miktarlar, katsayilar, TOPLAM ORTAK MALIYET gibi buyuk tutarlar dahil - tabloda gecen ama soruda verilmis HER hucre) -> "verilen":[[satir,kolon],...] listesine yaz.
 2. ADIM 1 = VERILENLER ADIMI: anlatimi "Soru bize sunlari VERMIS: ..." diliyle kur ve doldur listesinde TUM verilen hucreleri ac (240.000 gibi toplamlar dahil - sonradan "bulalim" DENMEZ, cunku soru verdi).
-3. Sonraki adimlar HESAP adimlaridir: anlatim "simdi BIZ hesapliyoruz" dilinde; her adim {"anlatim":"1-2 cumle, ne yapiyoruz ve NEDEN","formul":"o adimin formulu (yoksa bos)","doldur":[[r,c],...]} (0-indexli; kumulatif DEGIL). Son adim: SONUC satiri.
+3. Sonraki adimlar HESAP adimlaridir: anlatim "simdi BIZ hesapliyoruz" dilinde; her adim {"anlatim":"1-2 cumle, ne yapiyoruz ve NEDEN","formul":"OGRETMEN TAHTASI kurali: once GENEL formul, sonra sayili uygulanisi tek zincirde - ornek: 'Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 / 6.000 = 40 TL' (yoksa bos)","doldur":[[r,c],...]} (0-indexli; kumulatif DEGIL). Son adim: SONUC satiri.
 4. 5-8 adim. Rakamlar TABLODAKIYLE BIREBIR; yeni rakam uretme.
 Cevap YALNIZ JSON: {"verilen":[[r,c],...],"adimlar":[...]}
 SORU METNI: {SORUM}
@@ -130,8 +130,13 @@ function TabloHtml($t,$ver){
     [void]$sb.Append("<tr$stil>")
     $kc=0
     foreach($hc in @($st)){
-      $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
-      [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>"); $kc++
+      # 29.08 Cem: KALEM kolonu (c=0) ISKELETTIR - oynatici gizleyemez, 'gelir tablosu gibi' hep okunur
+      if($kc -eq 0){ [void]$sb.Append("<td class='hbaslik' style='font-weight:600'>$(K $hc)</td>") }
+      else{
+        $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
+        [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>")
+      }
+      $kc++
     }
     [void]$sb.Append('</tr>')
   }
@@ -233,7 +238,8 @@ h1{font-size:1.3em}
 .padim{background:#c9a227;color:#1b1b1f;font-weight:800;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-family:inherit;margin-top:10px}
 .panlat{display:none;border:1px solid #c9a227;border-radius:10px;padding:10px 12px;margin-top:8px;background:rgba(201,162,39,.07)}
 .psayac{font-size:.76em;color:#c9a227;font-weight:800}
-.pformul{margin-top:5px;font-family:Consolas,monospace;font-size:.88em;color:#78b4ff}
+.pformul{margin-top:6px;font-family:Consolas,monospace;font-size:.98em;color:#8fd0ff;background:rgba(120,180,255,.10);border:1px solid rgba(120,180,255,.35);border-radius:8px;padding:8px 12px}
+.pformul:empty{display:none}
 '@
 $sinavAd=@{ 'SGS'='Staja Giriş (SGS)'; 'SMMM'='SMMM Yeterlilik'; 'KGK'='KGK Bağımsız Denetçilik' }
 foreach($sv in 'SGS','SMMM','KGK'){
@@ -257,7 +263,7 @@ foreach($sv in 'SGS','SMMM','KGK'){
       $isr=''; if("$($e.dogru)" -eq $hh){ $isr=' ✓' }
       [void]$sb.Append("<p><b>$hh$isr)</b> $(K $cvp.aciklama.$hh)</p>")
     }
-    if($adVar){ [void]$sb.Append("<div><button class='padim'>🎬 Bu çözümü adım adım yaşa</button><div class='panlat'><div class='psayac'></div><div class='pmetin' style='margin-top:3px;font-size:.93em'></div><div class='pformul'></div><button class='padim pileri' style='margin-top:8px;padding:6px 12px;font-size:.85em'>İleri →</button></div></div>") }
+    if($adVar){ [void]$sb.Append("<div><button class='padim'>🎬 Bu çözümü adım adım yaşa</button><div class='panlat'><div class='psayac'></div><div class='pformul'></div><div class='pmetin' style='margin-top:6px;font-size:.93em'></div><button class='padim pileri' style='margin-top:8px;padding:6px 12px;font-size:.85em'>İleri →</button></div></div>") }
     $verList=$null; if($cvp.PSObject.Properties['verilen']){ $verList=$cvp.verilen }
     [void]$sb.Append((TabloHtml $cvp.cozum_tablo $verList))
     [void]$sb.Append((SemaHtml $cvp.sema))
