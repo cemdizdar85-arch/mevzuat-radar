@@ -7,7 +7,10 @@
      Google'in ilk gordugu sey bu ve markayi yanlis tanitiyordu. Yeni baslik
      uc arama niyetini birden karsiliyor (mevzuat takibi / GTIP / SMMM sinavi)
      ve ~60 karakterde kaliyor (Google bu civarda kesiyor). -->
-<title>Tetikte — mevzuat takibi, GTİP sorgulama, SMMM sınav bankası</title>
+<title>[AÇIK] Tetikte — mevzuat takibi, GTİP sorgulama, SMMM sınav bankası</title>
+<!-- KARAR BEKLEYEN TASARIM DENEMESI - aramaya kapali.
+     Ana sayfa olmaya karar verilirse bu satir KALDIRILIR. -->
+<meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Tetikte olan kaçırmaz: sınav sorusunu da, süreyi de, vergiyi de. Mali müşavir ve şirketler için mevzuat takibi, her cevapta kaynak maddesiyle.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="stil.css">
@@ -422,7 +425,7 @@ window.veriAl = (function(){
         <a href="firma-analizi.html">Rakip Firma Analizi<span>firma hangi ihaleleri kaça aldı</span></a>
         <a href="idare-analizi.html">İdare Analizi<span>kurum ne açtı, kaça kapandı, kaç teklif</span></a>
         <a href="alacak-radari.html">Alacak Radarı<span>müşterin konkordato/iflas ilan etti</span></a>
-        <a href="marka-radari.html">Marka Radarı<span>markanla ilgili her şey tek yerde</span></a>
+        <a href="marka-radari.html">Marka Radarı<span>yenileme + benzer başvuru</span></a>
         <a href="marka-itiraz.html">Marka İtiraz<span>benzerlik / itiraz analizi</span></a>
         <a href="evrak-radari.html">Evrak Radarı<span>mükellef evrak takibi</span></a>
         <a href="destekler.html">Destek Radarı<span>profiline göre KOSGEB, Eximbank</span></a>
@@ -473,33 +476,6 @@ window.veriAl = (function(){
       <b>İşin neyse, nöbet onun üstünde</b>, hem de kaynağıyla.</p>
 
     <!-- 30.07 Cem onayi: "sen kimsin?" sorgu gibi soguktu - davetkar hale getirildi -->
-    <!-- ============ HERO ARAMASI (25.08.2026) ==========================
-         Cem: "muhendislik harikasi gibi olmamis."
-         Olcum haklı cikardi: ana sayfada CALISAN oge 4'tu, ucu menuydu.
-         5.953 piksellik brosur; elimizde ~6 MB dogrulanmis veri var ama
-         vitrinde 1 kart + 4 sayac gosteriliyordu.
-
-         Bu kutu urunu SAYFAYA getiriyor: 15.717 gumruk tarife kaydinda
-         anlik arama. Tarife cetveli KULLANICI YAZMAYA BASLAYINCA iniyor
-         (356 KB gzip), sayfa acilisi 52 KB kaliyor. Indikten sonra her
-         sorgu SIFIR ag istegiyle cevaplaniyor.
-
-         Sifirdan yazilmadi: gtip-ara.js zaten vardi ve iyiydi (Turkce
-         katlama, kelime-VE eslesmesi, puanlama, durust bos-sonuc mesaji).
-         Yeni indeks yazmak onu tekrar etmek olurdu.
-    ================================================================= -->
-    <div class="hero-ara">
-      <label for="heroAra">İthal edeceğin ürünü yaz, vergisini gör</label>
-      <div class="hero-ara-satir">
-        <input id="heroAra" type="search" autocomplete="off" spellcheck="false"
-               placeholder="ör. zeytinyağı, çelik boru, akıllı telefon, 8517…"
-               aria-describedby="heroAraNot" oninput="heroAraCalis()">
-        <span class="hero-ara-sayac" id="heroAraSayac" aria-live="polite"></span>
-      </div>
-      <div id="heroAraSonuc" role="region" aria-live="polite"></div>
-      <div class="hero-ara-not" id="heroAraNot">15.717 gümrük tarife kaydında arar · Resmî Gümrük Tarife Cetveli</div>
-    </div>
-
     <div class="sade-soru">Hangi iştesin? Kapın hazır.</div>
 
     <div class="sade-kapilar">
@@ -780,20 +756,15 @@ window.veriAl = (function(){
         </span>
       </a>
       <!-- 30.07: hedef marka-radari.html'di ama o sayfada baglanma CTA'si yok
-           (cikmaz sokak). Kutu dogrudan niyetli panele gidiyordu.
-           29.08 DEGISTI (Cem karari "once deger, sonra duvar"): kutunun VAADI
-           ile gittigi yer uyusmuyordu - "unvani yaz, markalarin gelsin" deyip
-           UYELIK DUVARINA gonderiyorduk, oysa o tarama marka-portfoy.html'de
-           GIRISSIZ calisiyor. Artik Marka Merkezi'ne gider; kisi kendi marka
-           listesini bedava gorur, SONUC ekraninda "her gun izleyelim mi?" ile
-           uyelige davet edilir (marka-portfoy.html icindeki "Nöbete al"). -->
-      <a class="mp" href="marka-radari.html">
+           (cikmaz sokak). Kutu dogrudan niyetli panele gider: uyelikten sonra
+           ilk soru marka olur. -->
+      <a class="mp" href="radar-app.html?niyet=marka">
         <span class="mp-bar"><b>Marka Radarı</b></span>
         <span class="mp-ic">
-          <span class="mp-tag">FİRMA UNVANIN YETER · ÜYELİK İSTEMEZ</span>
+          <span class="mp-tag">FİRMA UNVANIN YETER</span>
           <span class="mp-b">Adına kaç marka var, hangisi düşüyor?</span>
           <span class="mp-m">Unvanı yaz, sicildeki bütün markaların tarihleriyle gelsin (SMK m.23: koruma 10 yıl, yenileme son 6 ay). Marka adı bilmene gerek yok.</span>
-          <span class="mp-git">Markalarımı getir →</span>
+          <span class="mp-git">Markanı radara bağla →</span>
         </span>
       </a>
       <!-- kopru seridi: iki rafa da sigmayan soru buradan sorulur -->
@@ -1195,7 +1166,7 @@ window.veriAl = (function(){
         <a class="arac" href="firma-analizi.html"><div><b>Rakip Firma Analizi</b><span>Bir firma kamu ihalelerinde kaç iş aldı, hangi bedelle, ne kırımla, rakibini tanı.</span></div></a>
         <a class="arac" href="idare-analizi.html"><div><b>İdare Analizi</b><span>Bir kurum geçmişte ne açtı, kaça kapandı, hangi firmalarla çalıştı, ortalama kaç teklif alıyor.</span></div></a>
         <a class="arac vitrinde" href="alacak-radari.html"><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilanına düşmüş mü, günü gününe gör; 15 günlük süreyi kaçırma.</span></div></a>
-        <a class="arac vitrinde" href="marka-radari.html"><div><b>Marka Radarı <span style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">· BAŞLANGIÇ</span></b><span>Marka ailesinin evi: unvanından sicil taraması, yenileme hesabı ve aşağıdaki beş aracın hepsi buradan.</span></div></a>
+        <a class="arac vitrinde" href="marka-radari.html"><div><b>Marka Radarı</b><span>Marka yenileme tarihin yaklaşınca ve benzer başvuru çıkınca uyarı.</span></div></a>
         <a class="arac" href="marka-itiraz.html"><div><b>Marka İtiraz &amp; Benzerlik</b><span>Yeni başvuru markana benziyor mu? İtiraz süren dolmadan gör.</span></div></a>
         <a class="arac vitrinde" href="marka-portfoy.html"><div><b>Marka Portföyü</b><span>Firma unvanını yaz; sicildeki bütün markaların, yenileme tarihleri, düşmüşler ve sınıf haritası tek ekranda.</span></div></a>
         <a class="arac" href="marka-izleme.html"><div><b>Marka İzleme Radarı</b><span>Markana benzeyen yeni başvuru düştü mü; itiraz süresi (yayımdan 2 ay) dolmadan gör.</span></div></a>
@@ -1389,60 +1360,6 @@ document.addEventListener('click',function(){ document.querySelectorAll('.navgro
 <link rel="stylesheet" href="stil-sade.css">
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
-<script src="gtip-ara.js" defer></script>
-<script>
-/* HERO ARAMASI — mevcut GtipAra modulunu kullanir, yeni motor yazilmadi.
-   Tembel yukleme: tarife cetveli KULLANICI 3. harfi yazinca iner. Sayfa
-   acilisinda tek bayt inmez. Indikten sonra arama tamamen tarayicida,
-   sifir ag istegiyle calisir. */
-var HERO_ZAMAN = null, HERO_YUKLENIYOR = false;
-function heroAraCalis(){ clearTimeout(HERO_ZAMAN); HERO_ZAMAN = setTimeout(heroAraYap, 200); }
-function heroAraYap(){
-  var g = document.getElementById('heroAra'),
-      out = document.getElementById('heroAraSonuc'),
-      say = document.getElementById('heroAraSayac');
-  if(!g || !out || typeof GtipAra === 'undefined') return;
-  var ham = g.value.trim();
-  if(GtipAra.trFold(ham).length < 3){ out.innerHTML = ''; say.textContent = ''; return; }
-
-  if(!GtipAra.hazir()){
-    if(!HERO_YUKLENIYOR){
-      HERO_YUKLENIYOR = true;
-      say.textContent = 'cetvel iniyor…';
-      out.innerHTML = '<div class="hero-ara-durum">Gümrük Tarife Cetveli ilk aramada bir kez iniyor. Sonrasında arama anlık.</div>';
-      GtipAra.yukle().then(function(){ HERO_YUKLENIYOR = false; heroAraYap(); });
-    }
-    return;
-  }
-
-  var t0 = performance.now();
-  var kodlar = GtipAra.ara(ham);
-  /* kod yazildiysa onekle eslesenler de gelsin */
-  if(!kodlar.length && /^\d{4,}$/.test(ham.replace(/\./g,''))) kodlar = GtipAra.onekli(ham, 6);
-  var sure = Math.max(1, Math.round(performance.now() - t0));
-
-  if(!kodlar.length){
-    say.textContent = '';
-    out.innerHTML = '<div class="hero-ara-durum">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır &mdash; ' +
-                    '“cep telefonu” yerine “telefon”, “buzdolabı” yerine “soğutucu” dene, ya da malzemesiyle ara.</div>';
-    return;
-  }
-  say.textContent = kodlar.length.toLocaleString('tr-TR') + ' kayıt · ' + sure + ' ms';
-  out.innerHTML = kodlar.slice(0,5).map(function(kod){
-    var t = GtipAra.tanim(kod) || '';
-    var i = t.lastIndexOf('›');
-    var kendi = i >= 0 ? t.slice(i+1).trim() : t;
-    var zincir = i >= 0 ? t.slice(0,i).trim() : '';
-    return '<a class="hero-ara-satirsonuc" href="gtip.html?kod=' + encodeURIComponent(kod) + '">' +
-           '<b>' + GtipAra.htmlEsc(kod) + '</b>' +
-           '<span class="hs-ad">' + GtipAra.htmlEsc(kendi) + '</span>' +
-           (zincir ? '<span class="hs-zincir">' + GtipAra.htmlEsc(zincir.slice(-90)) + '</span>' : '') +
-           '</a>';
-  }).join('') + (kodlar.length > 5
-      ? '<div class="hero-ara-durum">+' + (kodlar.length-5).toLocaleString('tr-TR') +
-        ' eşleşme daha. Kelime ekleyerek daralt.</div>' : '');
-}
-</script>
 <script src="ayrinti.js" defer></script>
 <link rel="stylesheet" href="stil-acik.css">
 </body>

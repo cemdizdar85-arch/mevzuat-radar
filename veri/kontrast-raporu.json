@@ -1,85 +1,20 @@
 {
-  "durum": "KIRMIZI",
-  "ci": true,
-  "chrome": "/usr/bin/google-chrome",
-  "sayfa": 63,
-  "temiz_sayfa": 61,
-  "denetlenen_metin": 12333,
-  "toplam_kirik": 24,
+  "durum": "YESIL",
+  "ci": false,
+  "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "sayfa": 64,
+  "temiz_sayfa": 64,
+  "denetlenen_metin": 12848,
+  "toplam_kirik": 0,
+  "denetlenen_sinir": 5060,
+  "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
-    "buyuk": 3
+    "buyuk": 3,
+    "sinir": 1.12
   },
+  "gorunmez_sinir_sayfalar": [],
   "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "durum.html",
-      "adet": 23,
-      "ornekler": [
-        {
-          "oge": "h1",
-          "yazi": "Sistem Durumu",
-          "oran": 1,
-          "esik": 3,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "p.alt",
-          "yazi": "Bu sayfa kanalıdır: ne zaman açarsan ger",
-          "oran": 2.63,
-          "esik": 4.5,
-          "renk": "rgb(147, 161, 179)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "b",
-          "yazi": "çekme",
-          "oran": 2.63,
-          "esik": 4.5,
-          "renk": "rgb(147, 161, 179)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "h2",
-          "yazi": "Nöbetçiler",
-          "oran": 2.63,
-          "esik": 4.5,
-          "renk": "rgb(147, 161, 179)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "td",
-          "yazi": "Veri kapısı",
-          "oran": 1,
-          "esik": 4.5,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "span.yesil",
-          "yazi": "TEMİZ",
-          "oran": 1.77,
-          "esik": 4.5,
-          "renk": "rgb(61, 220, 151)",
-          "zemin": "rgb(255,255,255)"
-        }
-      ]
-    },
-    {
-      "sayfa": "uyari-teyit.html",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "p.dip",
-          "yazi": "Tetikte · Alacak Radarı bildirimleri · S",
-          "oran": 3.4,
-          "esik": 4.5,
-          "renk": "rgb(93, 107, 124)",
-          "zemin": "rgb(13,20,30)"
-        }
-      ]
-    }
-  ]
+  "kirik_sayfalar": []
 }

@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
-  :root{--line2:rgba(255,255,255,.14);--amber:#ffb020}
+  :root{--amber:#ffb020}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
@@ -286,7 +286,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
          Rakip paritesi: SAM.gov (ABD) ve Find a Tender (İngiltere) kayitli aramayi
          bedava veriyor; bizde suzgec vardi ama HAFIZASI yoktu - adam her gelisinde
          ayni filtreyi elle kuruyordu. "Hatirlama bedava, hatirlatma parali." -->
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)">
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)">
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <!-- 14.08: dolgu 6px'ten 11px'e cikarildi - mobilde dugme 30px yuksekligindeydi,
              parmakla basmak icin onerilen alt sinir ~44px (olculdu). -->
@@ -541,7 +541,7 @@ function aramaSeridiCiz(mesaj){
   if(!d.length){ k.innerHTML=mesaj?`<div style="font-size:11.5px;color:var(--accent2)">${esc(mesaj)}</div>`:''; return; }
   k.innerHTML=(mesaj?`<div style="font-size:11.5px;color:var(--accent2);margin-bottom:6px">${esc(mesaj)}</div>`:'')
     +'<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">KAYITLI ARAMALARIN</div>'
-    +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+d.map((a,i)=>`<span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:5px 6px 5px 11px;font-size:12px">
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+d.map((a,i)=>`<span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:20px;padding:5px 6px 5px 11px;font-size:12px">
       <span onclick="aramaUygula(${i})" style="cursor:pointer;font-weight:600">${a.sekme==='dis'?'🇪🇺':'🇹🇷'} ${esc(a.ad||'arama')}</span>
       <span onclick="aramaSil(${i})" title="Sil" style="cursor:pointer;color:var(--dim);font-weight:800;padding:0 4px">×</span>
     </span>`).join('')+'</div>'

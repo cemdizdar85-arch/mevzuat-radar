@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
-  :root{--line2:rgba(255,255,255,.14);--dim:#7d8b9d;--amber:#ffb020}
+  :root{--dim:#7d8b9d;--amber:#ffb020}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
@@ -72,6 +72,8 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
 /* 14.08 canlı liste tür filtresi (İhale Radarı deseni) */
 .tbtn{background:var(--panel2);border:1px solid var(--line2);color:var(--muted);border-radius:9px;font:700 13px inherit;padding:11px 16px;cursor:pointer;min-height:42px}
 .tbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
+.tbtn b{color:var(--dim);font-weight:700}
+.tbtn.on b{color:#03101f}
 .tbtn:hover{color:var(--ink)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
@@ -527,7 +529,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       var n=sayilar[k]||0; if(!n) return;   // ölçülmemiş durum düğme olmaz
       var ad=AI_DURUM_ADI[k];
       h+='<button type="button" class="tbtn'+(AI_DURUM===k?' on':'')+'" onclick="aiDurumSec(\''+k+'\')">'
-        +'<span style="color:'+ad[1]+'">'+ad[0]+'</span> <b style="color:var(--dim);font-weight:700">'+n.toLocaleString('tr-TR')+'</b></button>';
+        +'<span style="color:'+ad[1]+'">'+ad[0]+'</span> <b>'+n.toLocaleString('tr-TR')+'</b></button>';
     });
     g.innerHTML=h;
   }
@@ -563,7 +565,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var ad={hepsi:['Tümü',k+i+dg],konkordato:['Konkordato',k],iflas:['İflas',i]};
     [].forEach.call(g.querySelectorAll('.tbtn'),function(b){
       var a=ad[b.dataset.t]; if(!a) return;
-      b.innerHTML=a[0]+' <b style="color:var(--dim);font-weight:700">'+a[1].toLocaleString('tr-TR')+'</b>';
+      b.innerHTML=a[0]+' <b>'+a[1].toLocaleString('tr-TR')+'</b>';
     });
   }
   function aiUygula(d, ilk){
@@ -1343,7 +1345,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:var(--ink)">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı. Aynı gün dönüş yapacağız.</div>

@@ -14,6 +14,27 @@
    alfa karisimi ust ogeye tirmanarak). Esik: normal metin 4,5 - buyuk
    metin 3,0. Kirik varsa 1 koduyla duser.
 
+   IKINCI OLCUM — GORUNMEZ SINIR (29.08.2026 eklendi)
+   Cem: "cok kucuk asagida kalmis, ben bile zor buldum". Sebep marka
+   kartlarinin cercevesiydi: `rgba(255,255,255,.10)` yazilmisti (betik site
+   KOYU temadayken yazilmis), site acik temaya gecince beyaz cerceve beyaz
+   kartin uzerinde KAYBOLDU. Kartlar bes sayfada ve panelde cercevesiz
+   metin yigini gibi duruyordu - ve bu kusur bir hafta boyunca bu kapinin
+   YESIL kosularindan gecti: kapi METIN kontrastini olcuyordu, CERCEVE ve
+   AYIRICI kontrastini degil (WCAG 1.4.11 metin-disi kontrast).
+
+   NEDEN 3:1 DEGIL: WCAG 1.4.11 metin-disi sinir icin 3:1 ister. Bizim
+   olculen dogru cercevemiz (#e6e2da / #fbfaf8) 1,24; Ahrefs ve Semrush
+   dahil hicbir kart tasarimi 3:1 cerceve kullanmiyor. 3:1 esigi SUREKLI
+   KIRMIZI bir kapi uretirdi - ve surekli kirmizi kapi kapi degildir.
+   Bu yuzden olculen sey WCAG uyumu degil, NIYET-SONUC UYUSMAZLIGI:
+   gelistirici cerceve YAZMIS ama ekranda hicbir sinir GORUNMUYOR.
+   Kusur sayilmasi icin UC KIYASIN UCU birden esigin altinda olmali:
+       cerceve x ic zemin · cerceve x dis zemin · ic zemin x dis zemin
+   Yani kutunun kenari hicbir yoldan secilemiyorsa kusurdur. Olculen
+   degerler: bozuk hal 1,00-1,04 · duzeltilmis hal 1,24-1,29. Esik 1,12
+   ikisini temiz ayirir (ESIK_SINIR).
+
    ICINE GOMULEN IKI DERS (ikisi de 25.08'de canli yasandi)
    1. IFRAME'DE OLCME. 58 sayfayi gizli iframe'e yukleyip olcunce 22 SAHTE
       kusur cikti; ayni sayfalar sekmede dogrudan olculunce temizdi.
@@ -39,6 +60,7 @@ const KOK      = path.resolve(__dirname, '..');
 const PORT     = 8137;                 // olcum sunucusu (gunluk kullanimla cakismasin)
 const ESIK_NRM = 4.5;
 const ESIK_BYK = 3.0;
+const ESIK_SINIR = 1.12;               // gorunmez sinir esigi - gerekcesi baslikta
 const BEKLE_MS = 1200;                 // JS ile basilan stiller (menu.js vb.) yerlessin
 
 /* --- Chrome'u bul ------------------------------------------------------- */
@@ -81,7 +103,7 @@ function chromeBul(){
 
 /* --- olcum islevi: tarayicinin icinde kosar ----------------------------- */
 /* Sayfa icine string olarak gonderilir; disaridan degisken almaz.          */
-const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK){
+const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK, ESIK_SINIR){
   function lum(r,g,b){
     const a=[r,g,b].map(function(v){ v/=255;
       return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); });
@@ -245,11 +267,94 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK){
         oran: Math.round(o*100)/100,
         esik: esik,
         renk: st.color,
+        iz: String(el.outerHTML||'').replace(/\s+/g,' ').slice(0,110),
         zemin: 'rgb('+Math.round(arka.r)+','+Math.round(arka.g)+','+Math.round(arka.b)+')'
       });
     }
   }
-  return { bakilan: bakilan, kirik: kirik };
+
+  /* ======================================================================
+     IKINCI TUR — GORUNMEZ SINIR (metin disi kontrast)
+     Gerekcesi ve esigin neden 3:1 olmadigi dosya basliginda yazili.
+     Kusur = gelistirici cerceve YAZMIS ama ekranda sinir GORUNMUYOR.
+     ====================================================================== */
+  const sinirKirik=[]; let sinirBakilan=0;
+  const YAN=[['Top','ust'],['Right','sag'],['Bottom','alt'],['Left','sol']];
+  for(let i=0;i<hepsi.length;i++){
+    const el=hepsi[i];
+    const st=getComputedStyle(el);
+    if(st.display==='none'||st.visibility==='hidden'||parseFloat(st.opacity)===0) continue;
+    const r=el.getBoundingClientRect();
+    /* Cok kucuk ogeler (ikon cizgisi, sus) sinir tasimaz sayilir; kutu ve
+       ayirici ariyoruz. Yatay ayirici (hr) yuksekligi 0 olabilir -> genislik
+       yeterse kabul edilir. */
+    if(!(r.width>=24 && (r.height>=24 || r.width>=120))) continue;
+
+    /* Bu ogenin GERCEK cerceveleri: sifir genislik / none / seffaf sayilmaz */
+    const yanlar=[];
+    for(const [Y,ad] of YAN){
+      const kal=parseFloat(st['border'+Y+'Width']);
+      const bicim=st['border'+Y+'Style'];
+      if(!(kal>=1) || bicim==='none' || bicim==='hidden') continue;
+      const c=ayikla(st['border'+Y+'Color']);
+      if(!c || c.a<=0.02) continue;
+      yanlar.push({ad, renk:c, kal});
+    }
+    if(!yanlar.length) continue;
+
+    /* ic = ogenin kendi zemini (cerceve bunun UZERINE boyanir, cunku
+       background varsayilan olarak border-box'a kadar uzanir)
+       dis = ust ogenin zemini */
+    const icAdaylar  = zeminAdaylari(el, false);
+    const disAdaylar = zeminAdaylari(el, true);
+    if(!icAdaylar.length || !disAdaylar.length) continue;
+
+    /* Zeminlerin kendi arasindaki EN GORUNUR farki: kutu, cerceve olmasa
+       bile zemin farkiyla secilebiliyorsa kusur yoktur. */
+    let zeminFarki=0;
+    for(const ic of icAdaylar) for(const ds of disAdaylar){
+      const d=oran(ic,ds); if(d>zeminFarki) zeminFarki=d;
+    }
+
+    sinirBakilan++;
+    for(const y of yanlar){
+      let enGorunur=zeminFarki, ornekIc=icAdaylar[0], ornekEf=null;
+      for(const ic of icAdaylar){
+        const ef = y.renk.a<1 ? kat(y.renk, ic) : {r:y.renk.r,g:y.renk.g,b:y.renk.b};
+        const dIc=oran(ef,ic);
+        if(dIc>enGorunur){ enGorunur=dIc; ornekIc=ic; ornekEf=ef; }
+        for(const ds of disAdaylar){
+          const dDis=oran(ef,ds);
+          if(dDis>enGorunur){ enGorunur=dDis; ornekIc=ic; ornekEf=ef; }
+        }
+      }
+      if(enGorunur<ESIK_SINIR){
+        const ef = ornekEf || (y.renk.a<1 ? kat(y.renk, ornekIc) : y.renk);
+        const sinif=(el.className && typeof el.className==='string')
+          ? '.'+el.className.trim().split(/\s+/)[0] : '';
+        sinirKirik.push({
+          /* KIMLIK: kusuru bulup duzeltebilmek icin etiket+sinif yetmiyor
+             (29.08: rapor "input" diyordu, sayfada uc ayri input vardi).
+             id ve ust ogenin sinifi da yazilir. */
+          oge: el.tagName.toLowerCase()+sinif,
+          kimlik: (el.id?('#'+el.id):'')
+                  +(el.parentElement && el.parentElement.className && typeof el.parentElement.className==='string'
+                    ? (' < .'+el.parentElement.className.trim().split(/\s+/)[0]) : ''),
+          iz: String(el.outerHTML||'').replace(/\s+/g,' ').slice(0,110),
+          yan: y.ad,
+          oran: Math.round(enGorunur*1000)/1000,
+          esik: ESIK_SINIR,
+          cerceve: 'rgba('+Math.round(y.renk.r)+','+Math.round(y.renk.g)+','+Math.round(y.renk.b)+','+y.renk.a+')',
+          gorunen: 'rgb('+Math.round(ef.r)+','+Math.round(ef.g)+','+Math.round(ef.b)+')',
+          zemin: 'rgb('+Math.round(ornekIc.r)+','+Math.round(ornekIc.g)+','+Math.round(ornekIc.b)+')'
+        });
+        break;   /* oge basina tek kayit yeter - kenar zaten gorunmuyor */
+      }
+    }
+  }
+
+  return { bakilan: bakilan, kirik: kirik,
+           sinirBakilan: sinirBakilan, sinirKirik: sinirKirik };
 };
 
 /* --- kucuk CDP istemcisi (yerlesik WebSocket) --------------------------- */
@@ -378,8 +483,8 @@ function raporYaz(icerik){
 
   console.log('KONTRAST KAPISI: '+sayfalar.length+' sayfa, esik '+ESIK_NRM+' (buyuk metin '+ESIK_BYK+').');
 
-  const sonuc=[]; let toplamKirik=0, olculemeyen=0;
-  const olcumIfade='('+OLCUM_KAYNAK.toString()+')('+ESIK_NRM+','+ESIK_BYK+')';
+  const sonuc=[]; let toplamKirik=0, olculemeyen=0, toplamSinir=0;
+  const olcumIfade='('+OLCUM_KAYNAK.toString()+')('+ESIK_NRM+','+ESIK_BYK+','+ESIK_SINIR+')';
 
   for(const sayfa of sayfalar){
     let hedef=null, oturum=null;
@@ -398,7 +503,12 @@ function raporYaz(icerik){
       const v=r.result.value;
       /* Hic metin gormediysek olcmus sayilmayiz - ucuncu sonuc: OLCULEMEDI */
       if(!v || !v.bakilan){ olculemeyen++; sonuc.push({sayfa, olculemedi:true}); }
-      else { toplamKirik+=v.kirik.length; sonuc.push({sayfa, bakilan:v.bakilan, kirik:v.kirik}); }
+      else {
+        toplamKirik+=v.kirik.length;
+        toplamSinir+=(v.sinirKirik||[]).length;
+        sonuc.push({sayfa, bakilan:v.bakilan, kirik:v.kirik,
+                    sinirBakilan:v.sinirBakilan||0, sinirKirik:v.sinirKirik||[]});
+      }
     }catch(e){
       olculemeyen++; sonuc.push({sayfa, olculemedi:true, sebep:String(e.message).slice(0,60)});
     }finally{
@@ -411,25 +521,36 @@ function raporYaz(icerik){
   const kirikSayfalar=sonuc.filter(s=>s.kirik && s.kirik.length);
   const temiz=sonuc.filter(s=>s.kirik && !s.kirik.length).length;
 
+  const sinirSayfalar=sonuc.filter(s=>s.sinirKirik && s.sinirKirik.length);
+
   raporYaz({
-    durum: toplamKirik ? 'KIRMIZI' : (olculemeyen ? 'KOR' : 'YESIL'),
+    durum: (toplamKirik||toplamSinir) ? 'KIRMIZI' : (olculemeyen ? 'KOR' : 'YESIL'),
     ci: ci,
     chrome: chrome,
     sayfa: sayfalar.length,
     temiz_sayfa: temiz,
     denetlenen_metin: sonuc.reduce((t,s)=>t+(s.bakilan||0),0),
     toplam_kirik: toplamKirik,
+    denetlenen_sinir: sonuc.reduce((t,s)=>t+(s.sinirBakilan||0),0),
+    toplam_gorunmez_sinir: toplamSinir,
     olculemeyen: olculemeyen,
-    esik: { normal: ESIK_NRM, buyuk: ESIK_BYK },
+    esik: { normal: ESIK_NRM, buyuk: ESIK_BYK, sinir: ESIK_SINIR },
+    gorunmez_sinir_sayfalar: sinirSayfalar.map(s=>({
+      sayfa: s.sayfa,
+      adet: s.sinirKirik.length,
+      ornekler: s.sinirKirik.slice(0,6)
+    })),
     olculemeyenler: sonuc.filter(s=>s.olculemedi).map(s=>({ sayfa:s.sayfa, sebep:s.sebep||'bilinmiyor' })),
     kirik_sayfalar: kirikSayfalar.map(s=>({
       sayfa: s.sayfa,
       adet: s.kirik.length,
-      ornekler: s.kirik.slice(0,6).map(k=>({ oge:k.oge, yazi:k.yazi, oran:k.oran, esik:k.esik, renk:k.renk, zemin:k.zemin }))
+      ornekler: s.kirik.slice(0,6).map(k=>({ oge:k.oge, yazi:k.yazi, oran:k.oran, esik:k.esik, renk:k.renk, zemin:k.zemin, iz:k.iz }))
     }))
   });
-  console.log('  Denetlenen metin ogesi: '+sonuc.reduce((t,s)=>t+(s.bakilan||0),0));
+  console.log('  Denetlenen metin ogesi: '+sonuc.reduce((t,s)=>t+(s.bakilan||0),0)
+              +'   sinir tasiyan oge: '+sonuc.reduce((t,s)=>t+(s.sinirBakilan||0),0));
   console.log('  Temiz sayfa: '+temiz+'/'+sayfalar.length+'   Kirik: '+toplamKirik
+              +'   Gorunmez sinir: '+toplamSinir
               +(olculemeyen?('   OLCULEMEDI: '+olculemeyen):''));
 
   if(olculemeyen){
@@ -453,8 +574,25 @@ function raporYaz(icerik){
     console.log('    metin  -> var(--ink) / var(--muted) / var(--dim) / var(--amber)');
     console.log('    zemin  -> var(--taban) / var(--yuzey) / var(--kagit) / var(--amber-dolgu)');
     console.log('  Degrade YEDEK rengi de sayilir:  linear-gradient(...),#0d141e  <- bu da kirar.');
-    bitir(1);
   }
+
+  if(toplamSinir){
+    console.log('');
+    console.log('  KIRMIZI — GORUNMEZ SINIR: cerceve yazilmis ama ekranda kenar yok.');
+    for(const s of sinirSayfalar){
+      console.log('    '+s.sayfa+'  ('+s.sinirKirik.length+')');
+      for(const k of s.sinirKirik.slice(0,5))
+        console.log('      '+k.oran+' / '+k.esik+'  '+k.oge+'  '+k.yan
+                    +'  cerceve '+k.cerceve+' -> gorunen '+k.gorunen+'  zemin '+k.zemin);
+      if(s.sinirKirik.length>5) console.log('      ... '+(s.sinirKirik.length-5)+' tane daha');
+    }
+    console.log('');
+    console.log('  Sebep genelde SABIT renk: rgba(255,255,255,...) koyu temada yazilir,');
+    console.log('  acik temada beyaz zeminde kaybolur. Tema jetonunu kullan:');
+    console.log('    cerceve -> var(--line) / var(--line2)     zemin -> var(--panel) / var(--yuzey)');
+  }
+
+  if(toplamKirik || toplamSinir) bitir(1);
 
   if(olculemeyen && !toplamKirik){
     console.log('');
@@ -462,6 +600,6 @@ function raporYaz(icerik){
     bitir(1);
   }
 
-  console.log('  Temiz - okunmayan metin yok.');
+  console.log('  Temiz - okunmayan metin ve gorunmez sinir yok.');
   bitir(0);
 })().catch(e=>{ console.log('KONTRAST KAPISI: KOR — '+e.message); process.exit(0); });

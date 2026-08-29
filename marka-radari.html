@@ -37,7 +37,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .takip .row{display:flex;gap:8px;flex-wrap:wrap}.takip input{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-family:inherit;font-size:14px}
 .kutu{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px 20px;margin-top:16px}
 .kutu h3{margin:0 0 10px;font-size:15px}.kutu .h{display:flex;gap:9px;font-size:13.5px;color:var(--muted);margin-bottom:9px;line-height:1.5}.kutu .h b{color:var(--ink)}.kutu .no{color:var(--accent2);font-weight:800;flex-shrink:0}
-.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(245,165,36,.45);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .hata{color:var(--red);font-size:14px;margin-top:10px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
 
@@ -153,20 +153,20 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div style="background:rgba(255,194,75,.09);border:1px solid rgba(255,194,75,.32);border-radius:12px;padding:13px 15px;margin:16px 0;font-size:13px;color:var(--muted);line-height:1.6">
     <b style="color:#ffc24b">⚠️ Önce şunu bil (ÜLKESELLİK İLKESİ):</b> Türkiye'de tescilli markan <b style="color:var(--ink)">YALNIZCA Türkiye'de</b> korunur. Başka ülkede korunması için o ülkede ayrıca tescil gerekir. "TÜRKPATENT'e tescilledim, tüm dünyada korunuyorum" doğru değildir.
   </div>
-  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">🌍 Markanı yurt dışında nasıl korursun: yollar + BİZİM ROLÜMÜZ (net)</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:var(--ink)">1) Madrid Protokolü (en pratik):</b> Türkiye 1/1/1999'dan beri taraf. TÜRKPATENT aracılığıyla <b>tek başvuruyla</b> Madrid'e taraf ~130 ülkede tescil ettirebilirsin. ŞART: önce Türkiye'de (menşe ofis) tescilli ya da başvurusu yapılmış "esas marka"n olmalı. Koruma 10 yıl, yenilenebilir. Başvuru: TÜRKPATENT Madrid E-filing / MM2 formu.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">2) AB markası (EUIPO):</b> Tek tescille 27 AB üyesi ülkenin tamamında koruma. AB pazarı hedefinse en verimli yol.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">3) Ulusal tescil:</b> Madrid'e taraf olmayan ya da tek ülke hedeflediğin durumda, doğrudan o ülkenin marka ofisine (genelde yerel vekille) başvuru.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">4) Rüçhan hakkı (Paris Sözleşmesi):</b> Türkiye'deki başvuru tarihinden itibaren <b>6 ay</b> içinde yurt dışına başvurursan, Türkiye'deki başvuru tarihin esas alınır. Bu süreyi kaçırma.</p>
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,.09);margin:12px 0">
+      <hr style="border:none;border-top:1px solid var(--line);margin:12px 0">
       <p style="margin:8px 0"><b style="color:#3ddc97">✅ Bizim yapabildiğimiz:</b> Hangi yol sana uygun, şartlar, süreler ve maliyet mantığı: bilgilendirme ve doğru kapıya yönlendirme.</p>
       <p style="margin:8px 0"><b style="color:#3ddc97">✅ Yurt dışı marka ARAMA (şimdi, ücretsiz):</b> Markanı resmî uluslararası veritabanlarında arat; kim benzerini tescil etmiş, hangi ülkede kayıtlı, gör:</p>
       <div style="margin:6px 0 10px">
-        <input type="text" id="ydMarka" placeholder="Markanı yaz (ör. NIVEA)" style="width:190px;padding:8px 10px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:var(--yuzey);color:var(--ink);font-size:14px;vertical-align:middle">
+        <input type="text" id="ydMarka" placeholder="Markanı yaz (ör. NIVEA)" style="width:190px;padding:8px 10px;border:1px solid var(--line2);border-radius:8px;background:var(--yuzey);color:var(--ink);font-size:14px;vertical-align:middle">
         <button onclick="var m=(document.getElementById('ydMarka').value||'').trim();if(!m){alert('Önce markanı yaz');return}navigator.clipboard&&navigator.clipboard.writeText(m);window.open('https://branddb.wipo.int/en/similarname','_blank','noopener')" title="Markan panoya kopyalanır; WIPO arama kutusuna yapıştır" style="padding:8px 14px;border:none;border-radius:8px;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">WIPO Global Brand DB ↗</button>
-        <button onclick="var m=encodeURIComponent((document.getElementById('ydMarka').value||'').trim());if(!m){alert('Önce markanı yaz');return}window.open('https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch='+m,'_blank','noopener')" style="padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:var(--yuzey);color:var(--ink);font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">EUIPO TMview ↗</button>
+        <button onclick="var m=encodeURIComponent((document.getElementById('ydMarka').value||'').trim());if(!m){alert('Önce markanı yaz');return}window.open('https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch='+m,'_blank','noopener')" style="padding:8px 14px;border:1px solid var(--line2);border-radius:8px;background:var(--yuzey);color:var(--ink);font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">EUIPO TMview ↗</button>
       </div>
       <p style="margin:8px 0"><b style="color:#ffc24b">⚠️ Yurt dışı OTOMATİK TAKİP henüz YOK (dürüst):</b> "Her gün tarayıp benzer başvuru/yenileme uyarısı gönderme" için WIPO/EUIPO'nun <b>resmî açık-veri API kaydı</b> ya da ücretli veri servisi gerekir. Bu veritabanları manuel aramaya açık ama sağlam otomasyon için resmî erişim şart. <b>Belgesiz kaynağı scraping'le "otomatik takip" diye satmayız.</b> Sistemimizde şu an <b>otomatik takip yalnızca yurt içidir (TÜRKPATENT).</b> Talep gelirse EUIPO açık-veri erişimiyle gerçek yurt dışı takibini kurarız.</p>
       <p style="margin:8px 0"><b style="color:var(--red)">❌ Bizim YAPAMADIĞIMIZ:</b> Tescil başvurusunu senin adına biz yapamayız, çünkü marka vekili / hukuki temsil değiliz. Başvuru için TÜRKPATENT Madrid E-filing'i kullan ya da bir marka vekiliyle çalış.</p>
@@ -174,7 +174,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </div>
   </details>
 
-  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">⚖️ Markan taklit edilirse / hükümsüzlük / kendi markan reddedilirse (SMK madde madde)</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:var(--red)">m.30 · Taklit CEZASI:</b> Markanı iktibas/iltibas (aynısını ya da ayırt edilemeyecek benzerini) kullanıp mal üreten/satan/ithal-ihraç eden kişi <b>1 yıldan 3 yıla kadar HAPİS + 20.000 güne kadar adli para</b> cezasıyla cezalandırılır. <b>ŞART: markanın Türkiye'de TESCİLLİ olması</b> (m.30/5); tescilsiz markada bu ceza yok. Suç şikâyete bağlıdır.</p>
