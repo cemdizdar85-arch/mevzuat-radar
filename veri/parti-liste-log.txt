@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260828113655
+Start time: 20260829071520
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/76e37736-f24f-45d1-90b4-880ed746cf04.ps1'
-Process ID: 2238
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/3937df5d-5344-4902-a094-739b9e4c0725.ps1'
+Process ID: 2234
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -22,11 +22,15 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 1: 100 parti (toplam 100)
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
-  sayfa 4: 99 parti (toplam 399)
+  sayfa 4: 100 parti (toplam 400)
+  sayfa 5: 2 parti (toplam 402)
 
-TOPLAM 399 parti bulundu.
+TOPLAM 402 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01C8Zgtre8U8VcbYSDDhof1s ended               2        0 08/29/2026 07:00:55
+msgbatch_01XPruV6Gvpsx8gpBBa3zP1v ended               2        0 08/29/2026 04:07:16
+msgbatch_017s4THqiGToxem42tdyeuSP ended               2        0 08/29/2026 03:20:23
 msgbatch_01C6wMEAHJXwXDatfmkZJAZK ended               2        0 08/28/2026 11:19:21
 msgbatch_01VjRkgaVrU5bDniypz2LFtZ ended               2        0 08/28/2026 06:52:01
 msgbatch_014rmjJFo49N9usAGkbSLFUc ended               2        0 08/28/2026 05:36:48
@@ -427,9 +431,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (399 kayit)
-HASADA HAZIR (ended + basarili>0): 399 parti,  sonuc
+-> veri/parti-listesi.json (402 kayit)
+HASADA HAZIR (ended + basarili>0): 402 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260828113657
+End time: 20260829071522
 **********************
