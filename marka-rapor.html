@@ -61,12 +61,22 @@ td{padding:6px 8px 6px 0;border-bottom:1px solid #f3f4f6;vertical-align:top}
   <span style="font-size:12px;color:#6b7280">Tarayıcının yazdırma penceresinde “Hedef: PDF olarak kaydet”i seç.</span>
 </div>
 
-<div class="kagit" id="icerik" role="main" id="kagit">
+<!-- 29.08 KUSUR: bu div'de IKI id vardi (id="icerik" ... id="kagit"). HTML
+     ayristiricisi BIRINCIYI alir, ikinciyi sessizce atar; betik ise ikinciyi
+     ariyordu -> getElementById hep null donuyordu ve sayfanin DORT dalinin
+     dordu de ilk satirinda patliyordu. Yani rapor sayfasi acilmiyordu:
+     ekranda sonsuza kadar "Rapor yukleniyor..." yaziyordu ve portfoy
+     panosundaki "Rapor al" dugmesi olu bir sayfaya goturuyordu.
+     id="icerik" korundu (sayfanin "Iceriğe atla" baglantisinin hedefi),
+     betik de artik ona bakiyor. -->
+<div class="kagit" id="icerik" role="main">
   <p id="durum" style="color:#6b7280">Rapor yükleniyor…</p>
 </div>
 
+<script src="kutuphane/supabase-2.112.3.js"></script>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = window.supabase || {};
+if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
 const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
 const kac=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ETIKET={ 'ek-sure':['EK SÜREDE','r-r'], 'yenileme-penceresi':['YENİLEME AÇIK','r-a'], 'surecte':['SÜREÇTE','r-n'], 'guvende':['GÜVENDE','r-g'], 'dusmus':['DÜŞMÜŞ','r-n'], 'bilinmiyor':['—','r-n'] };
@@ -76,7 +86,7 @@ try{ const nj=await (await fetch('veri/nice-siniflar.json')).json(); (nj.sinifla
 const bugun=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'});
 
 const jeton=new URLSearchParams(location.search).get('jeton');
-const kagit=document.getElementById('kagit');
+const kagit=document.getElementById('icerik');
 if(!jeton){
   kagit.innerHTML='<p class="hata">Rapor bağlantısı eksik.</p><p>Raporu üretmek için önce <a href="marka-portfoy.html">portföy panosunda</a> firma unvanıyla tarama yap, sonra “Rapor al” de.</p>';
 } else {

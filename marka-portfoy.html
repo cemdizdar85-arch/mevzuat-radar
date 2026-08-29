@@ -167,8 +167,10 @@ ciz();
      RPC marka_talep_sonuc(jeton) ile okur. Tablolar disari kapali (policy yok),
      giris yalniz bu iki SECURITY DEFINER fonksiyon (alacak kasasi deseni).
      ====================================================================== -->
+<script src="kutuphane/supabase-2.112.3.js"></script>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = window.supabase || {};
+if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
 const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
 const $=s=>document.querySelector(s);
 const kac=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
