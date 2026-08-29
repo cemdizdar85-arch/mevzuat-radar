@@ -1,11 +1,11 @@
 {
-  "tarih": "29.08.2026 07:54",
+  "tarih": "29.08.2026 08:25",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
   "sayfa": 63,
-  "atifli_iddia": 262,
-  "dayanaksiz_iddia": 296,
+  "atifli_iddia": 265,
+  "dayanaksiz_iddia": 297,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -1609,9 +1609,15 @@
     },
     {
       "sayfa": "marka-itiraz.html",
-      "satir": 66,
+      "satir": 94,
       "iddia": "5 yıl",
       "metin": "5 yıldan az 5 yıldan fazla"
+    },
+    {
+      "sayfa": "marka-itiraz.html",
+      "satir": 239,
+      "iddia": "en az 2",
+      "metin": "if(ad.length<2){ durum('Markanın adını yaz (en az 2 harf).'); return; }"
     },
     {
       "sayfa": "marka-izleme.html",
