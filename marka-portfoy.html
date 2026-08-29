@@ -216,6 +216,8 @@ function sonucCiz(s, jeton){
     kutu(acil,'işlem gerektiren',acil?'var(--amber)':'var(--ink)')+
     kutu(s.dusmus||0,'düşmüş','var(--dim)')+'</div>';
   if(toplam>s.sayi) h+='<div class="mini" style="margin-top:8px">Sicilde bu unvan(lar) adına <b style="color:var(--ink)">'+toplam+'</b> kayıt var; aşağıdaki sayımlar <b style="color:var(--ink)">en yeni '+s.sayi+'</b> kayıt üzerinden yapıldı.</div>';
+  if((s.markalar||[]).length < (s.sayi||0)) h+='<div class="mini liste-kesildi" style="margin-top:8px;color:var(--amber)">Aşağıdaki listede <b>'+(s.markalar||[]).length+'</b> kayıt var; sicilde bulunan <b>'+(s.sayi||0)+'</b> markanın <b>en acil olanları</b> listelendi. Özet sayıları (tescilli/düşmüş/yenileme) <b>tamamı</b> üzerinden hesaplandı — yani sayı ile liste arasındaki fark kesintidir, hata değil.</div>';
+
   if(acil) h+='<div class="uyari" style="margin-top:12px"><b>'+acil+' markanın yenileme tarihi kapıda.</b> Yenileme talebi koruma bitişinden önceki 6 ay içinde verilir; kaçırılırsa 6 ay ek süre + ek ücret, o da kaçarsa marka hakkı sona erer (SMK m.23, m.28/1-a).</div>';
   // --- 1) SINIF HARITASI (Nice) --------------------------------------------
   // Sinif adlari veri/nice-siniflar.json'dan; kaynagi TURKPATENT Mal ve Hizmet
