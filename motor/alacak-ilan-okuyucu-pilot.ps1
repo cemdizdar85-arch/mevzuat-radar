@@ -87,20 +87,30 @@ foreach ($k in $KOVALAR) {
   # BEKLENEN sayiyla karsilastirilmiyordu). 453 ilan hic okunmadi.
   # Cozum: Range header ile sayfala + her kova icin cekilen sayiyi BEKLENENLE
   # karsilastir; eksikse ACIKCA uyar.
+  # 29.08 IKI DENEME, IKI KUSUR:
+  #  (1) limit/offset -> PostgREST 1.000'de SESSIZCE kesti (kesin_muhlet 1.349
+  #      yerine 1.000 geldi, 453 ilan hic okunmadi).
+  #  (2) Range header -> .NET "The format of value '0-199' is invalid" dedi ve
+  #      14 kovanin HEPSI cekilemedi (kosu 0 ilanla bitti; oz-sinav durdurdu,
+  #      sessiz gecmedi).
+  # COZUM: KEYSET sayfalama - ilan_no'ya gore sirala, her turda "son gorulen
+  # ilan_no'dan buyuk olanlar"i iste. Tavan yok, offset yok, ozel header yok.
   try {
     $onceki = $ilanlar.Count
-    $ofset = 0; $adim = 200
+    $son = ''; $adim = 200; $tur = 0
     while ($true) {
-      $hh = $H.Clone(); $hh['Range'] = "$ofset-$($ofset + $adim - 1)"
       $uu = "$URL/rest/v1/alacak_ilan?select=ilan_no,baslik,il,tur,karar_durumu,metin,tarih" +
-            "&tarih=gte.$bas&karar_durumu=eq.$k&metin=not.is.null&order=tarih.desc"
-      $ham  = Invoke-WebRequest -Method Get -Uri $uu -Headers $hh -TimeoutSec 300
+            "&tarih=gte.$bas&karar_durumu=eq.$k&metin=not.is.null" +
+            "&order=ilan_no.asc&limit=$adim"
+      if ($son) { $uu += "&ilan_no=gt.$son" }
+      $ham  = Invoke-WebRequest -Method Get -Uri $uu -Headers $H -TimeoutSec 300
       $rows = @($ham.Content | ConvertFrom-Json)
       if (-not $rows.Count) { break }
       foreach ($row in $rows) { $ilanlar += $row }
+      $son = "$($rows[-1].ilan_no)"
+      $tur++
       if ($rows.Count -lt $adim) { break }
-      $ofset += $adim
-      if ($ofset -gt 20000) { Write-Host "  UYARI: 20.000 satir freni devreye girdi"; break }
+      if ($tur -gt 100) { Write-Host "  UYARI: 100 sayfa freni devreye girdi"; break }
     }
     Write-Host ("  {0,-16} {1,4} ilan" -f $k, ($ilanlar.Count - $onceki))
   }
