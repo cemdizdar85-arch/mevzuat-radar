@@ -196,6 +196,47 @@ if($veri.adimlar){
 </div>
 "@
 }
+# --- 29.08 "SIMDI SEN DENE" (Cem: 'BU SUPER OLUR'): rakamlari degismis ikiz, ogrenci doldurur ---
+$ikizBlok=''
+if($veri.PSObject.Properties['ikiz'] -and $veri.ikiz -and $veri.ikiz.tablo){
+  $ik=$veri.ikiz
+  $ikVer=@{}; foreach($vv in @($ik.verilen)){ if(@($vv).Count -ge 2){ $ikVer["$(@($vv)[0]),$(@($vv)[1])"]=1 } }
+  $ikBos=@{}; foreach($vv in @($ik.bosluk)){ if(@($vv).Count -ge 2){ $ikBos["$(@($vv)[0]),$(@($vv)[1])"]=1 } }
+  $tb=[Text.StringBuilder]::new()
+  [void]$tb.Append("<table class='tcetvel'><tr>")
+  foreach($b in @($ik.tablo.basliklar)){ [void]$tb.Append("<th>$(K $b)</th>") }
+  [void]$tb.Append('</tr>')
+  $ns=@($ik.tablo.satirlar).Count; $rq=0
+  foreach($st in @($ik.tablo.satirlar)){
+    $rq++
+    $stil=''; if($rq -eq $ns){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
+    [void]$tb.Append("<tr$stil>")
+    $cq=0
+    foreach($hc in @($st)){
+      $kkey="$($rq-1),$cq"
+      if($cq -eq 0){ [void]$tb.Append("<td style='font-weight:600'>$(K $hc)</td>") }
+      elseif($ikBos.ContainsKey($kkey)){ [void]$tb.Append("<td><input class='ikx' data-dogru='$(K $hc)' placeholder='?'></td>") }
+      elseif($ikVer.ContainsKey($kkey)){ [void]$tb.Append("<td class='hcell verilen'>$(K $hc)</td>") }
+      else{ [void]$tb.Append("<td>$(K $hc)</td>") }
+      $cq++
+    }
+    [void]$tb.Append('</tr>')
+  }
+  [void]$tb.Append('</table>')
+  $ikizBlok=@"
+<div style='margin-top:16px'>
+  <button id='ikizAc' class='dgm' style='padding:9px 16px;font-size:.9em;background:var(--yesil)'>✍️ Şimdi sen dene — aynı yöntemi yeni rakamlarla uygula</button>
+  <div id='ikiz' style='display:none;border:1px dashed var(--yesil);border-radius:12px;padding:14px;margin-top:10px'>
+    <p style='font-weight:600'>$(K $ik.soru)</p>
+    <p style='color:var(--yesil);font-size:.9em'>🎯 $(K $ik.hedef_cumle) — 🔷 maviler soruda verildi; boş hücreleri SEN doldur.</p>
+    $($tb.ToString())
+    <button id='ikizKontrol' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px'>Kontrol et</button>
+    <button id='ikizGoster' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:#78b4ff'>Doğruları göster</button>
+    <span id='ikizSkor' style='margin-left:10px;font-weight:800'></span>
+  </div>
+</div>
+"@
+}
 $taktikBlok=''; if($veri.sinav_taktigi){ $taktikBlok="<div class='kutu'>🎯 <b>Sınav taktiği:</b> $(K $veri.sinav_taktigi)</div>" }
 $notBlok=''; if($veri.notlandirici){ $notBlok="<div class='kutu2'>⚖️ <b>Notlandırıcı gözü:</b> $(K $veri.notlandirici)</div>" }
 $hapBlok=''; if($veri.hap){ $hapBlok="<div class='kutu2'><b>HAP:</b> $(K $veri.hap)</div>" }
@@ -238,6 +279,9 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .ttutar{text-align:right;color:var(--kehribar);font-weight:700}
 .hcell.gizli{color:transparent;text-shadow:none}
 .hcell.verilen{box-shadow:inset 3px 0 0 #78b4ff}
+.ikx{width:110px;background:#161513;border:1px solid #5a5648;border-radius:6px;color:var(--metin);padding:5px 8px;font-family:inherit;font-size:.92em}
+.ikx.dog{border-color:var(--yesil);background:rgba(143,201,143,.12)}
+.ikx.yan{border-color:var(--kirmizi);background:rgba(224,123,123,.12)}
 .hcell.parla{animation:parla .9s ease}
 @keyframes parla{0%{background:rgba(224,164,88,.55)}100%{background:transparent}}
 #cta{display:none;margin-top:26px;background:linear-gradient(160deg,rgba(224,164,88,.16),rgba(224,164,88,.05));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}
@@ -260,6 +304,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
       $acBlok
       $playerBlok
       $tabloBlok
+      $ikizBlok
       $semaBlok
       $taktikBlok
       $notBlok
@@ -289,6 +334,21 @@ document.querySelectorAll('.sik').forEach(b=>{
     h.scrollIntoView({behavior:'smooth',block:'center'});
   });
 });
+const ikizAc=document.getElementById('ikizAc');
+if(ikizAc){
+  const norm=t=>String(t||'').toLowerCase().replace(/tl|kg|%/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
+  ikizAc.addEventListener('click',()=>{ ikizAc.style.display='none'; document.getElementById('ikiz').style.display='block'; });
+  document.getElementById('ikizKontrol').addEventListener('click',()=>{
+    let d=0,t=0;
+    document.querySelectorAll('.ikx').forEach(i=>{ t++; const ok=norm(i.value)===norm(i.dataset.dogru); i.classList.remove('dog','yan'); i.classList.add(ok?'dog':'yan'); if(ok)d++; });
+    const sk=document.getElementById('ikizSkor');
+    sk.textContent=d+' / '+t+(d===t?' — HEPSİ DOĞRU! 🎉 Yöntem artık senin.':' doğru');
+    sk.style.color=(d===t)?'var(--yesil)':'var(--kehribar)';
+  });
+  document.getElementById('ikizGoster').addEventListener('click',()=>{
+    document.querySelectorAll('.ikx').forEach(i=>{ i.value=i.dataset.dogru; i.classList.remove('yan'); i.classList.add('dog'); });
+  });
+}
 const ADIMLAR=$adimJson;
 if(ADIMLAR){
   let ad=-1;

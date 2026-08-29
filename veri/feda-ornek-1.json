@@ -77,27 +77,28 @@
                     },
     "adimlar":  [
                     {
-                        "anlatim":  "Soru bize şunları VERMİŞ: Ürün Alfa (referans ürün) 2.000 kg üretilmiş ve katsayısı 1\u0027dir. Ürün Beta 1.000 kg üretilmiş ve katsayısı 3\u0027tür. Ürün Gama 500 kg üretilmiş ve katsayısı 2\u0027dir. Ayrıca döneme ait TOPLAM ORTAK MALİYET 240.000 TL olarak verilmiştir. Bu değerleri hiç değiştirmeden tabloya yerleştiriyoruz; bunları BİZ bulmadık, soru bize verdi.",
+                        "anlatim":  "Soru bize sunlari vermis: Alfa urunu (referans, katsayi 1) 2.000 kg uretilmis; Beta urunu katsayi 3 ile 1.000 kg uretilmis; Gama urunu katsayi 2 ile 500 kg uretilmis. Ayrica donemin toplam ortak maliyetinin 240.000 TL oldugu da soruda belirtilmis. Bu urunler yogunluk farki yuzunden fiziki olarak dogrudan toplanamadigi icin, her urunu referans urun cinsinden esdeger bir olcuye cevirecegiz.",
+                        "formul":  "Verilenler: Alfa fiili miktar=2.000 kg, katsayi=1; Beta fiili miktar=1.000 kg, katsayi=3; Gama fiili miktar=500 kg, katsayi=2; Toplam Ortak Maliyet=240.000 TL",
                         "doldur":  [
                                        [
                                            0,
                                            1
                                        ],
                                        [
-                                           1,
-                                           1
-                                       ],
-                                       [
-                                           2,
-                                           1
-                                       ],
-                                       [
                                            0,
                                            2
                                        ],
                                        [
                                            1,
+                                           1
+                                       ],
+                                       [
+                                           1,
                                            2
+                                       ],
+                                       [
+                                           2,
+                                           1
                                        ],
                                        [
                                            2,
@@ -110,8 +111,8 @@
                                    ]
                     },
                     {
-                        "anlatim":  "Ürünlerin yoğunlukları farklı olduğu için fiili kg\u0027ları doğrudan toplayamıyoruz. Bu yüzden her ürünü referans ürün (Alfa) cinsinden EŞDEĞER miktara çeviriyoruz. Şimdi BİZ hesaplıyoruz: her ürünün fiili miktarını kendi katsayısıyla çarpıyoruz.",
-                        "formul":  "Eşdeğer Miktar = Fiili Miktar × Katsayı  →  Alfa: 2.000×1=2.000 | Beta: 1.000×3=3.000 | Gama: 500×2=1.000",
+                        "anlatim":  "Simdi biz hesapliyoruz: her urunun fiili miktarini kendi katsayisiyla carparak esdeger miktarini buluyoruz, boylece farkli yogunluktaki urunler ortak bir olcude toplanabilir hale gelir.",
+                        "formul":  "Esdeger Miktar = Fiili Miktar x Katsayi\nAlfa: 2.000 (soruda verilen) x 1 (soruda verilen) = 2.000 kg\nBeta: 1.000 (soruda verilen) x 3 (soruda verilen) = 3.000 kg\nGama: 500 (soruda verilen) x 2 (soruda verilen) = 1.000 kg\nToplam Esdeger Miktar = 2.000 (bulduk) + 3.000 (bulduk) + 1.000 (bulduk) = 6.000 kg",
                         "doldur":  [
                                        [
                                            0,
@@ -124,26 +125,36 @@
                                        [
                                            2,
                                            3
+                                       ],
+                                       [
+                                           3,
+                                           3
                                        ]
                                    ]
                     },
                     {
-                        "anlatim":  "Şimdi BİZ toplam fiili miktarı ve toplam eşdeğer miktarı buluyoruz ki dağıtımı yapabilelim.",
-                        "formul":  "Toplam Fiili = 2.000+1.000+500=3.500 kg | Toplam Eşdeğer = 2.000+3.000+1.000=6.000 kg",
+                        "anlatim":  "Simdi biz hesapliyoruz: tabloyu tamamlamak icin urunlerin gercek (fiili) uretim miktarlarini da topluyoruz; bu deger daha sonra birim maliyet hesaplarinda kullanilacak.",
+                        "formul":  "Toplam Fiili Miktar = Alfa + Beta + Gama = 2.000 (soruda verilen) + 1.000 (soruda verilen) + 500 (soruda verilen) = 3.500 kg",
                         "doldur":  [
                                        [
                                            3,
                                            1
-                                       ],
-                                       [
-                                           3,
-                                           3
                                        ]
                                    ]
                     },
                     {
-                        "anlatim":  "Şimdi BİZ 240.000 TL\u0027lik toplam ortak maliyeti, toplam eşdeğer miktara bölerek 1 eşdeğer kg\u0027ın maliyetini buluyoruz, sonra her ürünün eşdeğer miktarıyla çarpıp payını hesaplıyoruz.",
-                        "formul":  "Birim Eşdeğer Maliyet = 240.000 / 6.000 = 40 TL  →  Ortak Maliyet Payı = Eşdeğer Miktar × 40  → Alfa: 2.000×40=80.000 | Beta: 3.000×40=120.000 | Gama: 1.000×40=40.000",
+                        "anlatim":  "Simdi biz hesapliyoruz: toplam ortak maliyeti toplam esdeger miktara bolerek bir birim esdeger urune dusen maliyeti buluyoruz. Alfa\u0027nin katsayisi 1 oldugu icin Alfa\u0027nin birim maliyeti dogrudan bu degere esit olur.",
+                        "formul":  "Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL\nAlfa katsayisi 1 oldugundan Alfa Birim Maliyeti = 40 TL/kg",
+                        "doldur":  [
+                                       [
+                                           0,
+                                           5
+                                       ]
+                                   ]
+                    },
+                    {
+                        "anlatim":  "Simdi biz hesapliyoruz: her urunun esdeger miktarini birim esdeger maliyetle carparak, o urune dusen ortak maliyet payini buluyoruz.",
+                        "formul":  "Ortak Maliyet Payi = Esdeger Miktar x Birim Esdeger Maliyet\nAlfa: 2.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 80.000 TL\nBeta: 3.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 120.000 TL\nGama: 1.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 40.000 TL",
                         "doldur":  [
                                        [
                                            0,
@@ -160,17 +171,9 @@
                                    ]
                     },
                     {
-                        "anlatim":  "Dikkat: Payı dağıtırken eşdeğer miktarı kullandık ama birim maliyeti bulurken her ürünün kendi GERÇEK (fiili) miktarına bölmemiz gerekir. Şimdi BİZ bunu hesaplıyoruz.",
-                        "formul":  "Birim Maliyet = Ortak Maliyet Payı / Fiili Miktar → Alfa: 80.000/2.000=40 | Beta: 120.000/1.000=120 | Gama: 40.000/500=80",
+                        "anlatim":  "Simdi biz hesapliyoruz: Gama urununun birim maliyetini bulmak icin ona dusen ortak maliyet payini kendi fiili (gercek) uretim miktarina boluyoruz.",
+                        "formul":  "Gama Birim Maliyeti = Gama Ortak Maliyet Payi / Gama Fiili Miktar = 40.000 (onceki adimda bulduk) / 500 (soruda verilen) = 80 TL/kg",
                         "doldur":  [
-                                       [
-                                           0,
-                                           5
-                                       ],
-                                       [
-                                           1,
-                                           5
-                                       ],
                                        [
                                            2,
                                            5
@@ -178,8 +181,18 @@
                                    ]
                     },
                     {
-                        "anlatim":  "SONUÇ: Beta ürününün ortak maliyet payı 120.000 TL\u0027dir ve bu pay kendi fiili üretimi olan 1.000 kg\u0027a bölündüğünde Beta\u0027nın birim maliyeti bulunur.",
-                        "formul":  "Beta Birim Maliyeti = 120.000 / 1.000 = 120 TL/kg",
+                        "anlatim":  "Simdi biz hesapliyoruz: sorunun sordugu Beta urununun birim maliyetini bulmak icin Beta\u0027ya dusen ortak maliyet payini Beta\u0027nin fiili (gercek) uretim miktarina boluyoruz. Dikkat: dagitimda esdeger miktar kullanildi ama birim maliyette fiili miktar kullaniliyor.",
+                        "formul":  "Beta Birim Maliyeti = Beta Ortak Maliyet Payi / Beta Fiili Miktar = 120.000 (onceki adimda bulduk) / 1.000 (soruda verilen) = 120 TL/kg",
+                        "doldur":  [
+                                       [
+                                           1,
+                                           5
+                                       ]
+                                   ]
+                    },
+                    {
+                        "anlatim":  "SONUC: Butun hesaplamalar tamamlandi. Ortak maliyet once esdeger miktara gore dagitildi, sonra her urunun birim maliyeti kendi fiili miktarina bolunerek bulundu. Ürün Beta\u0027nin birim maliyeti 120 TL/kg\u0027dir.",
+                        "formul":  "Beta Birim Maliyeti = 120.000 TL / 1.000 kg = 120 TL/kg",
                         "doldur":  [
                                        [
                                            3,
@@ -194,20 +207,20 @@
                         1
                     ],
                     [
-                        1,
-                        1
-                    ],
-                    [
-                        2,
-                        1
-                    ],
-                    [
                         0,
                         2
                     ],
                     [
                         1,
+                        1
+                    ],
+                    [
+                        1,
                         2
+                    ],
+                    [
+                        2,
+                        1
                     ],
                     [
                         2,
@@ -217,5 +230,133 @@
                         3,
                         4
                     ]
-                ]
+                ],
+    "ikiz":  {
+                 "soru":  "İzmit Petrokimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. Ürünlerin yoğunluk farkı nedeniyle fiziki miktarları doğrudan toplanamadığından işletme ortak maliyeti KATSAYI (eşdeğer ürün) yöntemiyle dağıtmaktadır. Ocak 2026 döneminde Ürün Delta (referans ürün, katsayı 1) 3.000 kg, Ürün Kappa (katsayı 4) 1.500 kg, Ürün Sigma (katsayı 2) 500 kg üretilmiş, döneme ait toplam ortak maliyet 300.000 TL olarak gerçekleşmiştir. Şimdi aynı yöntemi bu işletmede SEN uygula ve Ürün Kappa\u0027nın birim maliyetini bul.",
+                 "tablo":  {
+                               "basliklar":  [
+                                                 "Ürün",
+                                                 "Fiili Miktar (kg)",
+                                                 "Katsayı",
+                                                 "Eşdeğer Miktar (kg)",
+                                                 "Ortak Maliyet Payı (TL)",
+                                                 "Birim Maliyet (TL/kg)"
+                                             ],
+                               "satirlar":  [
+                                                [
+                                                    "Delta (referans)",
+                                                    "3.000",
+                                                    "1",
+                                                    "3.000",
+                                                    "90.000",
+                                                    "30"
+                                                ],
+                                                [
+                                                    "Kappa",
+                                                    "1.500",
+                                                    "4",
+                                                    "6.000",
+                                                    "180.000",
+                                                    "120"
+                                                ],
+                                                [
+                                                    "Sigma",
+                                                    "500",
+                                                    "2",
+                                                    "1.000",
+                                                    "30.000",
+                                                    "60"
+                                                ],
+                                                [
+                                                    "TOPLAM (SONUÇ)",
+                                                    "5.000",
+                                                    "-",
+                                                    "10.000",
+                                                    "300.000",
+                                                    "Kappa=120"
+                                                ]
+                                            ]
+                           },
+                 "verilen":  [
+                                 [
+                                     1,
+                                     1
+                                 ],
+                                 [
+                                     2,
+                                     1
+                                 ],
+                                 [
+                                     3,
+                                     1
+                                 ],
+                                 [
+                                     1,
+                                     2
+                                 ],
+                                 [
+                                     2,
+                                     2
+                                 ],
+                                 [
+                                     3,
+                                     2
+                                 ],
+                                 [
+                                     4,
+                                     4
+                                 ]
+                             ],
+                 "bosluk":  [
+                                [
+                                    1,
+                                    3
+                                ],
+                                [
+                                    2,
+                                    3
+                                ],
+                                [
+                                    3,
+                                    3
+                                ],
+                                [
+                                    1,
+                                    4
+                                ],
+                                [
+                                    2,
+                                    4
+                                ],
+                                [
+                                    3,
+                                    4
+                                ],
+                                [
+                                    1,
+                                    5
+                                ],
+                                [
+                                    2,
+                                    5
+                                ],
+                                [
+                                    3,
+                                    5
+                                ],
+                                [
+                                    4,
+                                    1
+                                ],
+                                [
+                                    4,
+                                    3
+                                ],
+                                [
+                                    4,
+                                    5
+                                ]
+                            ],
+                 "hedef_cumle":  "Tabloyu tamamen doldur ve Ürün Kappa\u0027nın birim maliyetini bul."
+             }
 }
