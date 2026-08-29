@@ -1,0 +1,78 @@
+{
+    "kaynak_not":  "FEDA ORNEGI - bilerek herkese acik; kasaya girmez",
+    "soru":  "Bursa Kimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. İşletme, ürünlerin yoğunluk farkı nedeniyle fiziki miktarları doğrudan toplayamadığından ortak maliyeti KATSAYI (eşdeğer ürün) yöntemiyle dağıtmaktadır. Ocak 2026 döneminde veriler şöyledir: Ürün Alfa (referans ürün, katsayı 1) 2.000 kg, Ürün Beta (katsayı 3) 1.000 kg, Ürün Gama (katsayı 2) 500 kg üretilmiştir. Döneme ait toplam ortak maliyet 240.000 TL\u0027dir. Bu verilere göre Ürün Beta\u0027nın birim maliyeti kaç TL/kg\u0027dır?",
+    "siklar":  {
+                   "A":  "40 TL/kg",
+                   "B":  "96 TL/kg",
+                   "C":  "144 TL/kg",
+                   "D":  "120 TL/kg",
+                   "E":  "60 TL/kg"
+               },
+    "dogru":  "D",
+    "aciklama":  {
+                     "A":  "Ne soruluyor: Beta\u0027nın birim maliyeti. Kural: Katsayı yöntemi, farklı yoğunluktaki ürünleri ortak bir ölçüye indirip maliyeti adil paylaştırmak için eşdeğer miktar üretir; ama bu eşdeğer miktar SADECE payı bulmaya yarar, birim maliyet daima ürünün FİİLİ miktarına bölünerek bulunur (Ortak maliyet dağıtımında katsayı/eşdeğer ürün yöntemi). Eşdeğer Miktara Bölme Tuzağı: Beta payını (120.000 TL) fiili miktar yerine eşdeğer miktara (3.000 kg) bölen aday 120.000/3.000=40 bulur; bu şekilde hesaplansa tüm ürünlerin birim maliyeti eşitlenir ve katsayı farkının anlamı kaybolur. Dogrusu: Pay, ürünün gerçekte üretildiği 1.000 kg\u0027a bölünmelidir.",
+                     "B":  "Ne soruluyor: Beta\u0027nın birim maliyeti. Kural: Katsayı yöntemi her ürüne kendi ağırlığını tanır ki maliyet ürünler arasında adil paylaşılsın; bu yüzden her ürün yalnızca KENDİ katsayısıyla çarpılır. Katsayı Karıştırma Tuzağı: Beta\u0027nın katsayısı (3) yerine Gama\u0027nın katsayısını (2) kullanan aday Beta\u0027nın eşdeğer miktarını 1.000×2=2.000 kg sanır; toplam eşdeğer miktar 2.000+2.000+1.000=5.000 kg, birim eşdeğer maliyet 240.000/5.000=48 TL, Beta payı 2.000×48=96.000 TL, birim maliyet 96.000/1.000=96 TL/kg çıkar. Dogrusu: Beta\u0027nın katsayısı 3\u0027tür, eşdeğer miktarı 1.000×3=3.000 kg olmalıdır.",
+                     "C":  "Ne soruluyor: Beta\u0027nın birim maliyeti. Kural: Ortak maliyetin doğru dağılması için toplam eşdeğer miktara sürecin ürettiği TÜM ürünler dahil edilmelidir; tek bir ürünün atlanması geri kalanların payını yapay biçimde şişirir. Ürün Unutma Tuzağı: Gama\u0027yı (500×2=1.000 kg eşdeğer) toplama katmayı unutan aday toplam eşdeğer miktarı 2.000+3.000=5.000 kg sanır; birim eşdeğer maliyet 240.000/5.000=48 TL, Beta payı 3.000×48=144.000 TL, birim maliyet 144.000/1.000=144 TL/kg çıkar. Dogrusu: Toplam eşdeğer miktara Gama\u0027nın 1.000 kg\u0027lık payı da eklenmeli, gerçek toplam 6.000 kg\u0027dır.",
+                     "D":  "Ne soruluyor: Beta ürününün birim maliyeti. Kural: İşletme, yoğunluğu farklı ürünleri fiziki olarak doğrudan toplayamadığı için her ürünü referans ürün cinsinden eşdeğer bir ölçüye çevirir; ortak maliyet bu eşdeğer miktara göre PAYLAŞTIRILIR, ama her ürünün birim maliyeti kendi gerçek (fiili) üretim miktarına bölünerek bulunur (Ortak maliyet dağıtımında katsayı/eşdeğer ürün yöntemi). Hesap: Eşdeğer miktarlar Alfa 2.000×1=2.000, Beta 1.000×3=3.000, Gama 500×2=1.000 kg, toplam 6.000 kg; birim eşdeğer maliyet 240.000/6.000=40 TL; Beta payı 3.000×40=120.000 TL; Beta birim maliyeti 120.000/1.000=120 TL/kg. Akılda kalsın: Dağıtımda eşdeğer miktar, birim maliyette ise fiili miktar kullanılır.",
+                     "E":  "Ne soruluyor: Beta\u0027nın birim maliyeti. Kural: Katsayı yönteminde yalnızca referans ürüne 1 katsayısı verilir, diğer TÜM ürünlere mutlaka kendi katsayıları uygulanır; aksi halde fiziki miktarlar doğrudan toplanmış olur ki bu, yöntemin var oluş nedenini ortadan kaldırır. Katsayı Uygulamama Tuzağı: Beta\u0027ya katsayı uygulamayı unutup fiili miktarını (1.000 kg) doğrudan eşdeğer miktar sayan aday toplam eşdeğer miktarı 2.000+1.000+1.000=4.000 kg bulur; birim eşdeğer maliyet 240.000/4.000=60 TL, Beta payı 1.000×60=60.000 TL, birim maliyet 60.000/1.000=60 TL/kg çıkar. Dogrusu: Yalnızca referans ürünün katsayısı 1\u0027dir, Beta\u0027nın katsayısı 3 olarak uygulanmalıdır."
+                 },
+    "hap":  "Katsayı (eşdeğer ürün) yönteminde ortak maliyetin PAYI eşdeğer miktarla dağıtılır, ama BİRİM MALİYET her zaman ürünün FİİLİ miktarına bölünerek bulunur; eşdeğer miktara bölünürse tüm ürünler için aynı birim maliyet çıkar ve yöntem anlamsızlaşır.",
+    "sinav_taktigi":  "Soruda \u0027katsayı/eşdeğer ürün\u0027 ifadesi görülür görülmez beş sütunlu bir tablo kur: Fiili Miktar - Katsayı - Eşdeğer Miktar - Pay - Birim Maliyet; toplam satırını mutlaka ekle ki bir ürünü atlama hatasını gözle yakalayasın, son sütunda payı hangi miktara böldüğünü (fiili mi eşdeğer mi) bir kez daha kontrol et.",
+    "notlandirici":  "Adaylar en çok şu iki noktada puan kaybeder: (1) birim maliyeti bulurken payı eşdeğer miktara bölmek, (2) toplam eşdeğer miktarı hesaplarken ürünlerden birini (genellikle düşük katsayılı olanı) toplama dahil etmeyi unutmak; ayrıca ürünler arası katsayıları birbirine karıştırma sık görülen bir diğer hatadır.",
+    "dayanak":  "[TEORI - Ortak maliyet dagitiminda katsayi (esdeger urun) yontemi]",
+    "sema":  {
+                 "tur":  "akis",
+                 "baslik":  "Katsayı (Eşdeğer Ürün) Yöntemiyle Beta\u0027nın Birim Maliyeti",
+                 "ogeler":  [
+                                "Fiili miktarları katsayılarla çarp: Alfa 2.000×1=2.000 kg, Beta 1.000×3=3.000 kg, Gama 500×2=1.000 kg eşdeğer",
+                                "Eşdeğer miktarları topla: 2.000+3.000+1.000=6.000 kg",
+                                "Birim eşdeğer maliyeti bul: 240.000 TL/6.000 kg=40 TL",
+                                "Beta\u0027nın payını hesapla: 3.000 kg×40 TL=120.000 TL",
+                                "Beta\u0027nın birim maliyetini bul: 120.000 TL/1.000 kg (fiili)=120 TL/kg"
+                            ]
+             },
+    "cozum_tablo":  {
+                        "basliklar":  [
+                                          "Ürün",
+                                          "Fiili Miktar (kg)",
+                                          "Katsayı",
+                                          "Eşdeğer Miktar (kg)",
+                                          "Ortak Maliyet Payı (TL)",
+                                          "Birim Maliyet (TL/kg)"
+                                      ],
+                        "satirlar":  [
+                                         [
+                                             "Alfa (referans)",
+                                             "2.000",
+                                             "1",
+                                             "2.000",
+                                             "80.000",
+                                             "40"
+                                         ],
+                                         [
+                                             "Beta",
+                                             "1.000",
+                                             "3",
+                                             "3.000",
+                                             "120.000",
+                                             "120"
+                                         ],
+                                         [
+                                             "Gama",
+                                             "500",
+                                             "2",
+                                             "1.000",
+                                             "40.000",
+                                             "80"
+                                         ],
+                                         [
+                                             "TOPLAM (SONUÇ)",
+                                             "3.500",
+                                             "-",
+                                             "6.000",
+                                             "240.000",
+                                             "Beta=120"
+                                         ]
+                                     ]
+                    }
+}

@@ -9,7 +9,8 @@
 .kap{max-width:860px;margin:0 auto;padding:36px 20px}
 h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .alt{color:var(--soluk);max-width:620px}
-.soruk{background:var(--kart);border:1px solid #35322c;border-radius:16px;padding:22px;margin-top:26px}
+.rozet{display:inline-block;background:rgba(224,164,88,.14);border:1px solid var(--kehribar);color:var(--kehribar);border-radius:999px;padding:4px 12px;font-size:.8em;font-weight:800;margin-top:14px}
+.soruk{background:var(--kart);border:1px solid #35322c;border-radius:16px;padding:22px;margin-top:14px}
 .soruk p.govde{font-weight:600;font-size:1.02em}
 .sik{display:block;width:100%;text-align:left;background:#26231f;border:1px solid #3b372f;border-radius:10px;color:var(--metin);padding:11px 14px;margin:7px 0;font-size:.95em;cursor:pointer;font-family:inherit;line-height:1.5}
 .sik:hover{border-color:var(--kehribar)}
@@ -29,7 +30,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .akisadim{border:1px solid #78b4ff;border-radius:999px;padding:4px 10px;font-size:.84em}
 .akisok{color:#78b4ff;font-weight:900}
 .tcetvel{border-collapse:collapse;margin-top:6px;font-size:.88em;width:100%}
-.tcetvel th{border-bottom:2px solid var(--yesil);color:var(--yesil);padding:4px 8px}
+.tcetvel th{border-bottom:2px solid var(--yesil);color:var(--yesil);padding:4px 8px;text-align:left}
 .tcetvel td{padding:4px 8px;border-bottom:1px dotted #444}
 .ttutar{text-align:right;color:var(--kehribar);font-weight:700}
 #cta{display:none;margin-top:26px;background:linear-gradient(160deg,rgba(224,164,88,.16),rgba(224,164,88,.05));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}
@@ -42,18 +43,19 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 <div class="kap">
   <h1>Yanlışını böyle öğrenirsin.</h1>
   <p class="alt">Aşağıdaki soru gerçek sınav ayarında hazırlandı. Bir şık seç — sonra ekranın ne yaptığına bak. <b>Fark, cevabı verdikten sonra başlıyor.</b></p>
+  <div class="rozet">📌 Bu konu, sınavların en çok soru çıkan konusudur</div>
 
   <div class="soruk">
-    <p class="govde"></p>
-    <button class='sik' data-h='A'>A) </button><button class='sik' data-h='B'>B) </button><button class='sik' data-h='C'>C) </button><button class='sik' data-h='D'>D) </button><button class='sik' data-h='E'>E) </button>
+    <p class="govde">Bursa Kimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. İşletme, ürünlerin yoğunluk farkı nedeniyle fiziki miktarları doğrudan toplayamadığından ortak maliyeti KATSAYI (eşdeğer ürün) yöntemiyle dağıtmaktadır. Ocak 2026 döneminde veriler şöyledir: Ürün Alfa (referans ürün, katsayı 1) 2.000 kg, Ürün Beta (katsayı 3) 1.000 kg, Ürün Gama (katsayı 2) 500 kg üretilmiştir. Döneme ait toplam ortak maliyet 240.000 TL'dir. Bu verilere göre Ürün Beta'nın birim maliyeti kaç TL/kg'dır?</p>
+    <button class='sik' data-h='A'>A) 40 TL/kg</button><button class='sik' data-h='B'>B) 96 TL/kg</button><button class='sik' data-h='C'>C) 144 TL/kg</button><button class='sik' data-h='D'>D) 120 TL/kg</button><button class='sik' data-h='E'>E) 60 TL/kg</button>
     <div id="hukum"></div>
     <div id="acikla">
-      <p><b>A)</b> </p><p><b>B)</b> </p><p><b>C)</b> </p><p><b>D)</b> </p><p><b>E)</b> </p>
-      
-      
-      
-      
-      
+      <p><b>A)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Katsayı yöntemi, farklı yoğunluktaki ürünleri ortak bir ölçüye indirip maliyeti adil paylaştırmak için eşdeğer miktar üretir; ama bu eşdeğer miktar SADECE payı bulmaya yarar, birim maliyet daima ürünün FİİLİ miktarına bölünerek bulunur (Ortak maliyet dağıtımında katsayı/eşdeğer ürün yöntemi). Eşdeğer Miktara Bölme Tuzağı: Beta payını (120.000 TL) fiili miktar yerine eşdeğer miktara (3.000 kg) bölen aday 120.000/3.000=40 bulur; bu şekilde hesaplansa tüm ürünlerin birim maliyeti eşitlenir ve katsayı farkının anlamı kaybolur. Dogrusu: Pay, ürünün gerçekte üretildiği 1.000 kg'a bölünmelidir.</p><p><b>B)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Katsayı yöntemi her ürüne kendi ağırlığını tanır ki maliyet ürünler arasında adil paylaşılsın; bu yüzden her ürün yalnızca KENDİ katsayısıyla çarpılır. Katsayı Karıştırma Tuzağı: Beta'nın katsayısı (3) yerine Gama'nın katsayısını (2) kullanan aday Beta'nın eşdeğer miktarını 1.000×2=2.000 kg sanır; toplam eşdeğer miktar 2.000+2.000+1.000=5.000 kg, birim eşdeğer maliyet 240.000/5.000=48 TL, Beta payı 2.000×48=96.000 TL, birim maliyet 96.000/1.000=96 TL/kg çıkar. Dogrusu: Beta'nın katsayısı 3'tür, eşdeğer miktarı 1.000×3=3.000 kg olmalıdır.</p><p><b>C)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Ortak maliyetin doğru dağılması için toplam eşdeğer miktara sürecin ürettiği TÜM ürünler dahil edilmelidir; tek bir ürünün atlanması geri kalanların payını yapay biçimde şişirir. Ürün Unutma Tuzağı: Gama'yı (500×2=1.000 kg eşdeğer) toplama katmayı unutan aday toplam eşdeğer miktarı 2.000+3.000=5.000 kg sanır; birim eşdeğer maliyet 240.000/5.000=48 TL, Beta payı 3.000×48=144.000 TL, birim maliyet 144.000/1.000=144 TL/kg çıkar. Dogrusu: Toplam eşdeğer miktara Gama'nın 1.000 kg'lık payı da eklenmeli, gerçek toplam 6.000 kg'dır.</p><p><b>D ✓)</b> Ne soruluyor: Beta ürününün birim maliyeti. Kural: İşletme, yoğunluğu farklı ürünleri fiziki olarak doğrudan toplayamadığı için her ürünü referans ürün cinsinden eşdeğer bir ölçüye çevirir; ortak maliyet bu eşdeğer miktara göre PAYLAŞTIRILIR, ama her ürünün birim maliyeti kendi gerçek (fiili) üretim miktarına bölünerek bulunur (Ortak maliyet dağıtımında katsayı/eşdeğer ürün yöntemi). Hesap: Eşdeğer miktarlar Alfa 2.000×1=2.000, Beta 1.000×3=3.000, Gama 500×2=1.000 kg, toplam 6.000 kg; birim eşdeğer maliyet 240.000/6.000=40 TL; Beta payı 3.000×40=120.000 TL; Beta birim maliyeti 120.000/1.000=120 TL/kg. Akılda kalsın: Dağıtımda eşdeğer miktar, birim maliyette ise fiili miktar kullanılır.</p><p><b>E)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Katsayı yönteminde yalnızca referans ürüne 1 katsayısı verilir, diğer TÜM ürünlere mutlaka kendi katsayıları uygulanır; aksi halde fiziki miktarlar doğrudan toplanmış olur ki bu, yöntemin var oluş nedenini ortadan kaldırır. Katsayı Uygulamama Tuzağı: Beta'ya katsayı uygulamayı unutup fiili miktarını (1.000 kg) doğrudan eşdeğer miktar sayan aday toplam eşdeğer miktarı 2.000+1.000+1.000=4.000 kg bulur; birim eşdeğer maliyet 240.000/4.000=60 TL, Beta payı 1.000×60=60.000 TL, birim maliyet 60.000/1.000=60 TL/kg çıkar. Dogrusu: Yalnızca referans ürünün katsayısı 1'dir, Beta'nın katsayısı 3 olarak uygulanmalıdır.</p>
+      <div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div><table class='tcetvel'><tr><th>Ürün</th><th>Fiili Miktar (kg)</th><th>Katsayı</th><th>Eşdeğer Miktar (kg)</th><th>Ortak Maliyet Payı (TL)</th><th>Birim Maliyet (TL/kg)</th></tr><tr><td>Alfa (referans)</td><td>2.000</td><td>1</td><td>2.000</td><td>80.000</td><td>40</td></tr><tr><td>Beta</td><td>1.000</td><td>3</td><td>3.000</td><td>120.000</td><td>120</td></tr><tr><td>Gama</td><td>500</td><td>2</td><td>1.000</td><td>40.000</td><td>80</td></tr><tr style='background:rgba(143,201,143,.12);font-weight:800'><td>TOPLAM (SONUÇ)</td><td>3.500</td><td>-</td><td>6.000</td><td>240.000</td><td>Beta=120</td></tr></table>
+      <div class='sema'><div class='semabaslik'>🗺️ Katsayı (Eşdeğer Ürün) Yöntemiyle Beta'nın Birim Maliyeti</div><div class='akis'><span class='akisadim'>Fiili miktarları katsayılarla çarp: Alfa 2.000×1=2.000 kg, Beta 1.000×3=3.000 kg, Gama 500×2=1.000 kg eşdeğer</span><span class='akisok'>→</span><span class='akisadim'>Eşdeğer miktarları topla: 2.000+3.000+1.000=6.000 kg</span><span class='akisok'>→</span><span class='akisadim'>Birim eşdeğer maliyeti bul: 240.000 TL/6.000 kg=40 TL</span><span class='akisok'>→</span><span class='akisadim'>Beta'nın payını hesapla: 3.000 kg×40 TL=120.000 TL</span><span class='akisok'>→</span><span class='akisadim'>Beta'nın birim maliyetini bul: 120.000 TL/1.000 kg (fiili)=120 TL/kg</span></div></div>
+      <div class='kutu'>🎯 <b>Sınav taktiği:</b> Soruda 'katsayı/eşdeğer ürün' ifadesi görülür görülmez beş sütunlu bir tablo kur: Fiili Miktar - Katsayı - Eşdeğer Miktar - Pay - Birim Maliyet; toplam satırını mutlaka ekle ki bir ürünü atlama hatasını gözle yakalayasın, son sütunda payı hangi miktara böldüğünü (fiili mi eşdeğer mi) bir kez daha kontrol et.</div>
+      <div class='kutu2'>⚖️ <b>Notlandırıcı gözü:</b> Adaylar en çok şu iki noktada puan kaybeder: (1) birim maliyeti bulurken payı eşdeğer miktara bölmek, (2) toplam eşdeğer miktarı hesaplarken ürünlerden birini (genellikle düşük katsayılı olanı) toplama dahil etmeyi unutmak; ayrıca ürünler arası katsayıları birbirine karıştırma sık görülen bir diğer hatadır.</div>
+      <div class='kutu2'><b>HAP:</b> Katsayı (eşdeğer ürün) yönteminde ortak maliyetin PAYI eşdeğer miktarla dağıtılır, ama BİRİM MALİYET her zaman ürünün FİİLİ miktarına bölünerek bulunur; eşdeğer miktara bölünürse tüm ürünler için aynı birim maliyet çıkar ve yöntem anlamsızlaşır.</div>
     </div>
   </div>
 
@@ -66,7 +68,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
   <div class="dip">Bu örnek soru tanıtım amacıyla herkese açıktır · Tetikte soru kasası kilitli ve kaynak-damgalıdır.</div>
 </div>
 <script>
-const DOGRU='';
+const DOGRU='D';
 document.querySelectorAll('.sik').forEach(b=>{
   b.addEventListener('click',()=>{
     document.querySelectorAll('.sik').forEach(x=>{x.disabled=true; if(x.dataset.h===DOGRU)x.classList.add('dogru');});
