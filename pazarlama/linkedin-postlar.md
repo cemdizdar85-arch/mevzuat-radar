@@ -109,12 +109,12 @@ ilanı** var — 28.08.2025'ten bu yana, kesintisiz.
 
 İçinde bir rakam dikkatimi çekti. Aynı 12 ayda:
 
-→ **Tasdik** ilanı: **42**
-→ **Ret / kaldırma** ilanı: **709**
+→ **Tasdik** ilanı: **61**
+→ **Ret / kaldırma** ilanı: **687**
 
-Her tasdike karşılık yaklaşık **17 ret**.
+Her tasdike karşılık yaklaşık **11 ret**.
 
-Buradan "konkordatoların %94'ü reddediliyor" sonucu ÇIKMAZ — ve ben de
+Buradan "konkordatoların %92'si reddediliyor" sonucu ÇIKMAZ — ve ben de
 çıkarmıyorum. Çünkü bu iki sayı aynı dosyalara ait değil: bugün tasdik edilen
 bir konkordato geçen yıl açılmış olabilir. Bunlar bir yıl içinde YAYIMLANAN
 ilanların sayısıdır, bir kohortun sonucu değil.
@@ -156,7 +156,15 @@ select public.alacak_vitrin(null,'konkordato') ->> 'secilenAdet' as konkordato_i
 ```
 
 `durum_dagilimi` içinden `tasdik` ve `ret_kaldirma` + `ret_iflas` okunur;
-**postta ikisinin TOPLAMI kullanılır** (28.08 ölçümü: 650 + 65 = **715**).
+**postta ikisinin TOPLAMI kullanılır** (29.08 ölçümü: 614 + 73 = **687**,
+tasdik **61**).
+
+🔴 **29.08'DE RAKAM DÜZELDİ — eski taslakta 42 tasdik / 715 ret yazıyordu ve
+YANLIŞTI.** Damgalar başlıktan geliyordu; okuma pilotu 18 ilanın konkordatosunun
+aslında **kabul edildiğini** buldu (başlık *"reddine"* diyor, karar *"KABULÜNE"*).
+Damga metinden yeniden kurulunca tasdik **42 → 61**, oran **17 → 11,3** oldu.
+**Ders: bir rakamı yayınlamadan önce, o rakamı üreten ETİKETİN nereden geldiğini
+sor.** Başlıktan gelen etiket, olayı değil kurumun yazım tercihini ölçüyordu.
 
 🚫 **"Bunların 65'i iflas kararıyla sonuçlandı" CÜMLESİNİ YAZMA.** 28.08'de
 ölçüldü ve kurulamayacağı görüldü:
