@@ -119,7 +119,10 @@ $TASDIK_KARARI = 'projesinin\s+tasdikine|tasdik\s+edilen|tasdik(\s+talebinin)?\s
 #    TALEBININ REDDINE..."  -> burada iflas VAR, ret baska bir davaciya ait.
 # Bir ilanda birden cok davaci olabilir ve her birine ayri hukum kurulur.
 # Olumsuzlama artik KALIBA OZEL.
-$OLUMSUZ_ORTAK  = 'yer\s+olmadig|olusmadig|gerceklesmedig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|talep\s+edebilec'
+# 'reddini isteyebilecekleri' = IIK m.288'in STANDART UYARI cumlesi, GECICI
+# MUHLET ilanlarinin hepsinde gecer. 20.08'de bu tuzak 1.405 ilana "ret"
+# damgasi basmisti; ret deseni genisletilince yeniden riskli hale geldi.
+$OLUMSUZ_ORTAK  = 'yer\s+olmadig|olusmadig|gerceklesmedig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|reddini\s+iste|talep\s+edebilec'
 $OLUMSUZ_TASDIK = $OLUMSUZ_ORTAK + '|talebinin\s+reddine|kaldirilmasina\s+karar'
 $TERS_TUZAK = 'iflasin\s+kaldirilmas'
 
@@ -154,7 +157,13 @@ function TasdikVar([string]$metin) {
 $FERAGAT_KARARI = 'davadan\s+feragat|feragat\s+(etti|ettigi|edildigi|nedeniyle|beyani)|feragati\s+(nedeniyle|sebebiyle)'
 $OLUMSUZ_FERAGAT = $OLUMSUZ_ORTAK + '|feragat\s+(edilmemesi|hakki|edilebilec)'
 $MUHLET_KALDIRMA = '(gecici|kesin)\s+muhlet\w*\s+(karari(nin)?\s+)?(sonuclarinin\s+)?kaldirilmasina|muhletin\s+(sonuclarinin\s+)?kaldirilmasina'
-$RET_KARARI = '(talebinin|talebinde|davasinin|davanin|isteminin|talepler(in|inin))\s+(ayri\s+ayri\s+)?reddine'
+# 29.08 KURU KOSU: desen ARAYA GIREN KELIMELERI kaldiramiyordu -
+#   "acilan davanin DAVA SARTI YOKLUGUNDAN USULDEN reddine"
+# 'davanin\s+reddine' bunu tutmuyor ve ilan yanlislikla muhlet_kaldirma'ya
+# dusuyordu. Oysa orada hem muhlet kaldirilmis HEM dava reddedilmis; alacakli
+# icin asil olay RET. Desen 'reddine' koku uzerine kuruldu, ayirdedicilik
+# olumsuzlama penceresine birakildi.
+$RET_KARARI = 'red(dine|dedilmesine|di\s+ile)\b'
 
 function FeragatVar([string]$metin) {
   return [bool](TemizEslesme (Sadelestir $metin) $FERAGAT_KARARI $OLUMSUZ_FERAGAT)
