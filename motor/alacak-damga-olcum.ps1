@@ -31,14 +31,28 @@ if (-not $KEY) { Write-Host "KOR: SUPABASE_SERVICE_KEY yok - olcum YAPILAMADI (s
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Accept = 'application/json' }
 $bas = (Get-Date).AddDays(-365).ToString('yyyy-MM-dd')
 
+# 29.08 KUSUR: 500'luk sayfa + 120 sn zaman asimi ret_kaldirma'da (606 ilan,
+# her biri ~1.200 karakter metin) PATLADI. Sayfa 200'e indirildi, sure 300'e
+# cikarildi ve gecici hataya karsi 3 deneme kondu. Cekim kirilirsa olcum
+# EKSIK veriyle devam etmemeli - hata firlatilir, KOR/kirmizi doner.
 function Cek([string]$durum) {
-  $hepsi = @(); $ofset = 0; $adim = 500
+  $hepsi = @(); $ofset = 0; $adim = 200
   while ($true) {
     $u = "$URL/rest/v1/alacak_ilan?select=ilan_no,il,baslik,metin,karar_durumu,tarih" +
          "&tarih=gte.$bas&karar_durumu=eq.$durum&metin=not.is.null" +
          "&order=tarih.desc&limit=$adim&offset=$ofset"
-    $ham  = Invoke-WebRequest -Method Get -Uri $u -Headers $H -TimeoutSec 120
-    $rows = @($ham.Content | ConvertFrom-Json)
+    $rows = $null
+    for ($d = 1; $d -le 3 -and -not $rows; $d++) {
+      try {
+        $ham  = Invoke-WebRequest -Method Get -Uri $u -Headers $H -TimeoutSec 300
+        $rows = @($ham.Content | ConvertFrom-Json)
+      } catch {
+        Write-Host ("    '{0}' ofset {1} deneme {2}/3 basarisiz: {3}" -f $durum, $ofset, $d,
+          "$($_.Exception.Message)".Substring(0, [Math]::Min(60, "$($_.Exception.Message)".Length)))
+        if ($d -eq 3) { throw }
+        Start-Sleep -Seconds (5 * $d)
+      }
+    }
     if (-not $rows.Count) { break }
     $hepsi += $rows
     if ($rows.Count -lt $adim) { break }
