@@ -50,9 +50,10 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
   <div class="kutu" style="border-color:rgba(245,165,36,.35)">
     <div style="font-weight:800;font-size:16px;margin-bottom:4px">🔎 Firmanın markalarını sicilden getir</div>
     <p class="mini" style="margin:0 0 10px">Unvanı yaz, TÜRKPATENT kayıtlarındaki <b style="color:var(--ink)">bütün markaları</b> tarihleriyle birlikte getirelim: hangisi güvende, hangisinin yenileme penceresi açıldı, hangisi düşmüş. <b style="color:var(--ink)">Vergi numarasıyla arama yok</b> — sicil unvan üzerinden tutuluyor, o yüzden firma adını isteriz.</p>
+    <p class="mini" style="margin:0 0 12px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.3);border-radius:10px;padding:10px 12px"><b style="color:var(--ink)">Bu arama anında bitmez, sebebi şu:</b> TÜRKPATENT sicili tarayıcıdan sorgulamaya kapalı. Bu yüzden aramayı <b style="color:var(--ink)">bizim robotumuz senin adına</b> yapıyor. Talebin kuyruğa giriyor ve robot sıradaki koşusunda alıyor — <b style="color:var(--ink)">çoğu zaman birkaç saat</b> sürüyor. <b style="color:var(--ink)">E-postanı yazman en iyisi:</b> sonucu sana yollarız, sayfayı beklemen gerekmez.</p>
     <div class="grid">
       <div><label>Firma / kişi unvanı *</label><input class="gir" id="t_unvan" placeholder="ör. ARÇELİK ANONİM ŞİRKETİ"></div>
-      <div><label>E-posta <span class="mini">(sonucu yollayalım, beklemeyesin)</span></label><input class="gir" id="t_mail" type="email" placeholder="ornek@firma.com"></div>
+      <div><label>E-posta <span class="mini" style="color:var(--accent2)">(önerilir — sonucu buraya yollarız, beklemene gerek kalmaz)</span></label><input class="gir" id="t_mail" type="email" placeholder="ornek@firma.com"></div>
     </div>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" id="t_btn">Sicilde ara</button><button class="btn ghost" id="t_ornek">Örnek: ARÇELİK</button></div>
     <div id="t_durum" class="mini" style="margin-top:10px"></div>
@@ -300,7 +301,7 @@ async function yokla(jeton){
   const dk=Math.floor(DENEME*20/60);
   // Ölçüm (21.08): kuyruğu işleyen robot cron'u yoğunlukta 30-50 dk gecikiyor;
   // "birkaç dakika" demek yanlış söz olur. E-posta yolu bu yüzden asıl yol.
-  durumYaz('⏳ Sırada… TÜRKPATENT kayıtları taranıyor'+(dk?(' — '+dk+' dk oldu'):'')+'. Tarama <b>genelde yarım saat içinde</b> biter; sayfayı açık bırakabilir ya da e-posta yazıp kapatabilirsin, sonucu yollarız.'+(DENEME>60?' <b>Uzadı — aşağıdaki bağlantını kaydet, birazdan tekrar aç.</b>':''));
+  durumYaz('⏳ <b>Talebin kuyruğa alındı</b>'+(dk?(' — '+dk+' dk oldu'):'')+'. Robot sıradaki koşusunda alacak; <b>çoğu zaman birkaç saat</b> sürüyor, bazen daha kısa. Sayfayı kapatabilirsin: <b>e-posta yazdıysan sonucu yollarız</b>, yazmadıysan aşağıdaki bağlantını kaydet ve sonra aç.'+(DENEME>60?' <b>Hâlâ sürüyor — bağlantını kaydettiğinden emin ol.</b>':''));
   if(DENEME>150) clearInterval(ZAMANLAYICI);   // ~50 dk yoklar, sonra birakir
 }
 

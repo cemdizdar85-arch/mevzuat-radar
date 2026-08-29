@@ -10,7 +10,20 @@ name: Marka talep kuyrugu
 
 on:
   schedule:
+    # 29.08 OLCULDU: burada '*/5' yaziyor ama GERCEK arasi 2-7 SAAT.
+    # GitHub zamanlanmis isleri yogunlukta kisiyor (bu depoda 124 workflow var).
+    # Sayfa ise kullaniciya "genelde yarim saat" diyordu - YANLIS SOZ idi.
+    # Cron BIRAKILDI (sessiz gunlerde taban), ama asil tetik artik push.
     - cron: '*/5 * * * *'
+  # PUSH TETIGI (29.08, Cem: "arcelik yazdim birsey gelmedi, anlamadim"):
+  # Bu depoya gunde onlarca push oluyor (botlar rapor isliyor - son 24 saatte
+  # 53 yayin kosusu). Kuyruk her push'ta bosaltilinca bekleme SAATLERDEN
+  # DAKIKALARA iner.
+  # DONGU RISKI YOK: bu is akisi depoya commit ATMIYOR, sonucu Supabase'e
+  # yaziyor - yani kendi kendini tetikleyemez.
+  # MALIYET 0: depo PUBLIC, Actions ucretsiz; bos kuyrukta is hemen biter.
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       mod:
