@@ -140,16 +140,31 @@ function Sor([string]$istem) {
     try {
       if (-not $script:gmodel) {
         # ILK CAGRI = SINAMA. Adaylar sirayla denenir, calisan kilitlenir.
+        # 29.08 IKINCI KUSUR: sinama dongusu 503'u "model gecersiz" sayip adayi
+        # ELIYORDU. Oysa 'gemini-flash-latest' 30 dk once CALISMISTI - model
+        # dogruydu, servis mesguldu. Sonuc: bes aday da elendi, hat kapandi,
+        # 743 istek Haiku'ya gitti. Gecici hatada aday ELENMEZ, kisa bekleyip
+        # UC KEZ denenir; ancak KALICI hata (404/400/401/403) adayi eler.
         foreach ($aday in $GEMINI_ADAYLAR) {
-          try {
-            $t = GeminiCagir $aday $istem
-            $script:gmodel = $aday
-            Write-Host ("  GEMINI MODELI SECILDI: {0}" -f $aday)
-            $script:sayacGemini++
-            return $t
-          } catch {
-            $mm = "$($_.Exception.Message)"
-            Write-Host ("  gemini adayi '{0}' olmadi: {1}" -f $aday, $mm.Substring(0, [Math]::Min(70, $mm.Length)))
+          $elendi = $false
+          for ($deneme = 1; $deneme -le 3 -and -not $elendi; $deneme++) {
+            try {
+              $t = GeminiCagir $aday $istem
+              $script:gmodel = $aday
+              Write-Host ("  GEMINI MODELI SECILDI: {0}" -f $aday)
+              $script:sayacGemini++
+              return $t
+            } catch {
+              $mm = "$($_.Exception.Message)"
+              $kisa = $mm.Substring(0, [Math]::Min(70, $mm.Length))
+              if ($mm -match '\b(503|429|500|502|504|timed out|timeout)\b') {
+                Write-Host ("  gemini '{0}' gecici hata (deneme {1}/3): {2}" -f $aday, $deneme, $kisa)
+                Start-Sleep -Seconds (3 * $deneme)
+              } else {
+                Write-Host ("  gemini adayi '{0}' ELENDI (kalici): {1}" -f $aday, $kisa)
+                $elendi = $true
+              }
+            }
           }
         }
         throw "hicbir gemini model adayi calismadi"
