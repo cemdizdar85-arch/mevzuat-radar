@@ -1,0 +1,26 @@
+# ============================================================================
+#  ALACAK DAMGA OLCUMU - ELLE TETIKLENIR, SALT OKUMA (29.08.2026)
+#
+#  2026-08-29-alacak-ret-iflas-metinden.sql goçünün BOYUTUNU basmadan once
+#  olcer. Hicbir sey degistirmez - ne kasada ne depoda. Ciktisi yalniz kosu
+#  kutugunde gorunur.
+#
+#  Neden ayri akis: bu bir NOBET degil, KARAR ONCESI OLCUM. Gunluk akisa
+#  girmemeli; goç basilmadan once bir kez, basildiktan sonra bir kez kosar.
+# ============================================================================
+name: Alacak damga olcumu (salt okuma)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Damga olcumu
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/alacak-damga-olcum.ps1
