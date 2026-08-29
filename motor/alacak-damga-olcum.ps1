@@ -127,11 +127,44 @@ function IflasKarariVar([string]$metin) {
 function TasdikVar([string]$metin) {
   return [bool](TemizEslesme (Sadelestir $metin) $TASDIK_KARARI $OLUMSUZ_TASDIK)
 }
-# HEDEF DURUM - siralama mantiksal: surec BASARIYLA bittiyse tasdik, IFLASLA
-# bittiyse ret_iflas, digeri ret_kaldirma. Bir ilan hem tasdik hem iflas olamaz.
+# 29.08 KESIF (KESIF=1, 606 ilan) ret_kaldirma'nin icini gosterdi:
+#   tedbirlerin kaldirilmasi 339 (%56) · talebin/davanin reddi 300 (%49)
+#   komiser gorevine son 256 (%42) · FERAGAT 163 (%27) · muhlet kaldirma 136 (%22)
+#   istinaf 99 · birlestirme 48 · usulden ret 12 · hicbiri 27 (%4,5)
+# "Tedbir kaldirma" ve "komiser gorevine son" YAN HUKUM - neredeyse her ilanda
+# var, ayirt edici DEGIL. Ayirt edici olan ikisi:
+#   FERAGAT      - borclu davadan KENDI vazgecti. Mahkeme reddetmedi; alacakli
+#                  icin anlami farkli (surec kapandi ama hukum kurulmadi).
+#   MUHLET KALD. - muhlet verilmisti, kaldirildi. Ret'ten farkli: talep zaten
+#                  kabul edilmisti, sonra sona erdi.
+$FERAGAT_KARARI = 'davadan\s+feragat|feragat\s+(etti|ettigi|edildigi|nedeniyle|beyani)|feragati\s+(nedeniyle|sebebiyle)'
+$OLUMSUZ_FERAGAT = $OLUMSUZ_ORTAK + '|feragat\s+(edilmemesi|hakki|edilebilec)'
+$MUHLET_KALDIRMA = '(gecici|kesin)\s+muhlet\w*\s+(karari(nin)?\s+)?(sonuclarinin\s+)?kaldirilmasina|muhletin\s+(sonuclarinin\s+)?kaldirilmasina'
+$RET_KARARI = '(talebinin|talebinde|davasinin|davanin|isteminin|talepler(in|inin))\s+(ayri\s+ayri\s+)?reddine'
+
+function FeragatVar([string]$metin) {
+  return [bool](TemizEslesme (Sadelestir $metin) $FERAGAT_KARARI $OLUMSUZ_FERAGAT)
+}
+function MuhletKaldirmaVar([string]$metin) {
+  return [bool](TemizEslesme (Sadelestir $metin) $MUHLET_KALDIRMA $OLUMSUZ_ORTAK)
+}
+function RetVar([string]$metin) {
+  return [bool](TemizEslesme (Sadelestir $metin) $RET_KARARI $OLUMSUZ_ORTAK)
+}
+
+# HEDEF DURUM - siralama MANTIKSAL, en belirleyici hukum once:
+#   tasdik   : surec BASARIYLA bitti
+#   ret_iflas: iflasla bitti
+#   feragat  : borclu vazgecti (mahkeme hukum kurmadi) - ret'ten ONCE, cunku
+#              "feragat nedeniyle davanin reddine" ilanlarinda ASIL olay feragat
+#   ret_kaldirma   : mahkeme reddetti
+#   muhlet_kaldirma: ret yok, yalnizca muhlet sona erdi
 function HedefDurum([string]$metin) {
-  if (TasdikVar $metin)       { return 'tasdik' }
-  if (IflasKarariVar $metin)  { return 'ret_iflas' }
+  if (TasdikVar $metin)          { return 'tasdik' }
+  if (IflasKarariVar $metin)     { return 'ret_iflas' }
+  if (FeragatVar $metin)         { return 'feragat' }
+  if (RetVar $metin)             { return 'ret_kaldirma' }
+  if (MuhletKaldirmaVar $metin)  { return 'muhlet_kaldirma' }
   return 'ret_kaldirma'
 }
 function KararCumlesi([string]$metin) {
@@ -152,7 +185,7 @@ Write-Host "Kasadan cekiliyor (salt okuma)..."
 # (ret_iflas <-> ret_kaldirma) yetmiyordu; en buyuk kusur TASDIK'te cikti ve
 # tasdik ucuncu kova. Bir ilanin hedefi METINDEN belirlenir, mevcut damgasindan
 # bagimsiz.
-$KOVA_ADLARI = @('ret_iflas','ret_kaldirma','tasdik')
+$KOVA_ADLARI = @('ret_iflas','ret_kaldirma','tasdik','feragat','muhlet_kaldirma')
 $tum = @()
 foreach ($k in $KOVA_ADLARI) {
   $c = Cek $k
@@ -248,9 +281,15 @@ $degisecek | Group-Object { $_.eski + ' -> ' + $_.yeni } | Sort-Object Count -De
   Write-Host ("--- {0}  ({1} ilan) ---" -f $_.Name, $_.Count)
   $_.Group | Select-Object -First 4 | ForEach-Object {
     Write-Host ("  [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(56, $_.baslik.Length)))
-    $kalip = if ($_.yeni -eq 'tasdik') { $TASDIK_KARARI } elseif ($_.yeni -eq 'ret_iflas') { $IFLAS_KARARI } else { $null }
+    $kalip = switch ($_.yeni) {
+      'tasdik'          { $TASDIK_KARARI }
+      'ret_iflas'       { $IFLAS_KARARI }
+      'feragat'         { $FERAGAT_KARARI }
+      'muhlet_kaldirma' { $MUHLET_KALDIRMA }
+      default           { $null }
+    }
     if ($kalip) {
-      $p = TemizEslesme (Sadelestir $_.metin) $kalip $(if($_.yeni -eq 'tasdik'){$OLUMSUZ_TASDIK}else{$OLUMSUZ_ORTAK})
+      $p = TemizEslesme (Sadelestir $_.metin) $kalip $(if($_.yeni -eq 'tasdik'){$OLUMSUZ_TASDIK}elseif($_.yeni -eq 'feragat'){$OLUMSUZ_FERAGAT}else{$OLUMSUZ_ORTAK})
       Write-Host ("     karar: {0}" -f $(if ($p) { ($p -replace '\s+',' ') } else { '-' }))
     } else {
       # 29.08: hedef ret_kaldirma ise METNIN BASI (kunye) hicbir sey anlatmiyor -
