@@ -97,6 +97,7 @@ function TabloHtml($t,$ver){
       else{
         $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
         [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>")
+        # (ikiz tablosu ayri 'verilen' class kullanir - oynatici .hcell kapsamina girmez)
       }
       $kc++
     }
@@ -216,7 +217,7 @@ if($veri.PSObject.Properties['ikiz'] -and $veri.ikiz -and $veri.ikiz.tablo){
       $kkey="$($rq-1),$cq"
       if($cq -eq 0){ [void]$tb.Append("<td style='font-weight:600'>$(K $hc)</td>") }
       elseif($ikBos.ContainsKey($kkey)){ [void]$tb.Append("<td><input class='ikx' data-dogru='$(K $hc)' placeholder='?'></td>") }
-      elseif($ikVer.ContainsKey($kkey)){ [void]$tb.Append("<td class='hcell verilen'>$(K $hc)</td>") }
+      elseif($ikVer.ContainsKey($kkey)){ [void]$tb.Append("<td class='verilen'>$(K $hc)</td>") }
       else{ [void]$tb.Append("<td>$(K $hc)</td>") }
       $cq++
     }
@@ -278,7 +279,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .tcetvel td{padding:4px 8px;border-bottom:1px dotted #444}
 .ttutar{text-align:right;color:var(--kehribar);font-weight:700}
 .hcell.gizli{color:transparent;text-shadow:none}
-.hcell.verilen{box-shadow:inset 3px 0 0 #78b4ff}
+.verilen{box-shadow:inset 3px 0 0 #78b4ff}
 .ikx{width:110px;background:#161513;border:1px solid #5a5648;border-radius:6px;color:var(--metin);padding:5px 8px;font-family:inherit;font-size:.92em}
 .ikx.dog{border-color:var(--yesil);background:rgba(143,201,143,.12)}
 .ikx.yan{border-color:var(--kirmizi);background:rgba(224,123,123,.12)}
@@ -302,10 +303,13 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
     <div id="hukum"></div>
     <div id="acikla">
       $acBlok
+      <div id="cozumBolge">
       $playerBlok
       $tabloBlok
-      $ikizBlok
       $semaBlok
+      </div>
+      <button id="cozumToggle" class="dgm" style="display:none;padding:7px 14px;font-size:.85em;background:#5a5648;margin-top:10px">🙈 Çözüm gizlendi — kopyasız dene! (tekrar göster)</button>
+      $ikizBlok
       $taktikBlok
       $notBlok
       $hapBlok
@@ -337,13 +341,19 @@ document.querySelectorAll('.sik').forEach(b=>{
 const ikizAc=document.getElementById('ikizAc');
 if(ikizAc){
   const norm=t=>String(t||'').toLowerCase().replace(/tl|kg|%/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
-  ikizAc.addEventListener('click',()=>{ ikizAc.style.display='none'; document.getElementById('ikiz').style.display='block'; });
+  const cb=document.getElementById('cozumBolge'), ct=document.getElementById('cozumToggle');
+  ikizAc.addEventListener('click',()=>{
+    ikizAc.style.display='none'; document.getElementById('ikiz').style.display='block';
+    if(cb){ cb.style.display='none'; ct.style.display='inline-block'; }
+  });
+  if(ct){ ct.addEventListener('click',()=>{ const acik=cb.style.display!=='none'; cb.style.display=acik?'none':'block'; ct.textContent=acik?'🙈 Çözüm gizlendi — kopyasız dene! (tekrar göster)':'🙈 Çözümü tekrar gizle'; }); }
   document.getElementById('ikizKontrol').addEventListener('click',()=>{
     let d=0,t=0;
     document.querySelectorAll('.ikx').forEach(i=>{ t++; const ok=norm(i.value)===norm(i.dataset.dogru); i.classList.remove('dog','yan'); i.classList.add(ok?'dog':'yan'); if(ok)d++; });
     const sk=document.getElementById('ikizSkor');
     sk.textContent=d+' / '+t+(d===t?' — HEPSİ DOĞRU! 🎉 Yöntem artık senin.':' doğru');
     sk.style.color=(d===t)?'var(--yesil)':'var(--kehribar)';
+    if(d===t){ const cb2=document.getElementById('cozumBolge'); if(cb2){ cb2.style.display='block'; document.getElementById('cozumToggle').style.display='none'; } }
   });
   document.getElementById('ikizGoster').addEventListener('click',()=>{
     document.querySelectorAll('.ikx').forEach(i=>{ i.value=i.dataset.dogru; i.classList.remove('yan'); i.classList.add('dog'); });
