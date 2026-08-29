@@ -12,15 +12,32 @@ name: Alacak damga olcumu (salt okuma)
 
 on:
   workflow_dispatch:
+    inputs:
+      yaz:
+        description: 'DAMGALARI GERCEKTEN GUNCELLE (kapaliyken yalniz olcer, hicbir sey degistirmez)'
+        type: boolean
+        default: false
 
 jobs:
   olc:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Damga olcumu
+      - name: Damga olcumu / onarimi
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          YAZ: ${{ inputs.yaz && '1' || '0' }}
         run: ./motor/alacak-damga-olcum.ps1
+
+      # Yazma yapildiysa GERI DONUS YOLU artefakt olarak saklanir. Depoya
+      # commit edilmez: icinde ilan_no listesi var, kasa disina cikmasin.
+      - name: Damga yedegini artefakt olarak sakla
+        if: always() && inputs.yaz
+        uses: actions/upload-artifact@v4
+        with:
+          name: alacak-damga-yedek
+          path: veri/alacak-damga-yedek.json
+          if-no-files-found: warn
+          retention-days: 90
