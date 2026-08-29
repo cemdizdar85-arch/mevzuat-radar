@@ -372,11 +372,35 @@ $degisecek | Group-Object { $_.eski + ' -> ' + $_.yeni } | Sort-Object Count -De
 #  bugun tam bunu SQL goçünde yasadik (169 vs 46).
 #  Geri alinabilir: degistirilen her satirin ESKI damgasi once yedege yazilir.
 # ============================================================================
-if ($env:YAZ -ne '1') {
+# ============================================================================
+#  29.08 - YAZMA MODU EMEKLI EDILDI. TEK OTORITE: OKUMA.
+#
+#  SEBEP (bugun yasandi): iki hat ayni veriyi damgaliyor ve BIRBIRINI EZIYOR.
+#  Hakem turu 43 ilani ret_kaldirma -> ret_iflas yapti; bu betik sonraki kosuda
+#  onlari GERI ALMAK istedi. Ornege bakinca hakemin hakli oldugu gorulddu
+#  ("IIK 292 1-b maddesi GEREGINCE IFLASINA" - regex bu kalibi tanimiyordu).
+#  Sadece kuru kosu kurtardi: YAZ=1 kosulsaydi 43 GERCEK iflas karari silinecekti.
+#
+#  Ayni gun regex 99 ayrismanin 70'inde YANILDI (okuma 29'unda). Damga otoritesi
+#  okuma olmali - Cem'in karari da bu: "birebir oku".
+#
+#  BU BETIK ARTIK: olcer (kuru kosu) ve kesfeder (KESIF=1). YAZMAZ.
+#  Damgalama motor/alacak-ilan-okuyucu-pilot.ps1 icinde, okuma + hakem turuyla.
+#  Buradaki desenler DEGERLI: pilotun "ikinci gorus" tarafi onlardan besleniyor.
+# ============================================================================
+if ($env:YAZ -eq '1') {
   Write-Host ''
-  Write-Host 'KURU KOSU: hicbir sey degistirilmedi. Gercek onarim icin YAZ=1 ile kos.'
+  Write-Host 'RET: YAZMA MODU EMEKLI EDILDI (29.08).'
+  Write-Host '  Sebep: iki hat ayni veriyi damgaliyordu ve birbirini eziyordu.'
+  Write-Host '  Hakem turu 43 ilani dogru tasimisti, bu betik geri almak istedi;'
+  Write-Host '  regex o gun 99 ayrismanin 70''inde yanilmisti.'
+  Write-Host '  DAMGA OTORITESI: motor/alacak-ilan-okuyucu-pilot.ps1 (okuma + hakem).'
+  Write-Host '  Bu betik olcer ve kesfeder, YAZMAZ. Yukaridaki kuru kosu ciktisi gecerlidir.'
   exit 0
 }
+Write-Host ''
+Write-Host 'OLCUM BITTI: bu betik yazmaz (29.08 karari). Damgalama okuma hattindan yapilir.'
+exit 0
 
 Write-Host ''
 Write-Host ('=' * 74)

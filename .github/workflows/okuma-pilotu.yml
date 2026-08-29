@@ -41,6 +41,13 @@ on:
         description: 'HAKEM KARARINI DAMGAYA YAZ (hakem acikken; belirsiz hedefliler atlanir)'
         type: boolean
         default: false
+      tum:
+        description: 'TUM ARSIV: 14 karar durumunun TAMAMINI oku (~5.900 ilan, ~4 saat, ~6 dolar)'
+        type: boolean
+        default: false
+      kovalar:
+        description: 'Yalniz belirli kovalar (virgullu, or: kesin_muhlet,gecici_muhlet). Bos = varsayilan 6 kova'
+        default: ''
       adet:
         description: 'hepsi=false ise kac ilan okunsun (kovalara esit bolunur)'
         default: '100'
@@ -48,7 +55,7 @@ on:
 jobs:
   oku:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
@@ -61,6 +68,8 @@ jobs:
           HEPSI: ${{ inputs.hepsi && '1' || '0' }}
           HAKEM: ${{ inputs.hakem && '1' || '0' }}
           HAKEM_YAZ: ${{ inputs.hakem_yaz && '1' || '0' }}
+          TUM: ${{ inputs.tum && '1' || '0' }}
+          KOVALAR: ${{ inputs.kovalar }}
           ADET: ${{ inputs.adet }}
         run: ./motor/alacak-ilan-okuyucu-pilot.ps1
 
