@@ -154,7 +154,13 @@ function TasdikVar([string]$metin) {
 #                  icin anlami farkli (surec kapandi ama hukum kurulmadi).
 #   MUHLET KALD. - muhlet verilmisti, kaldirildi. Ret'ten farkli: talep zaten
 #                  kabul edilmisti, sonra sona erdi.
-$FERAGAT_KARARI = 'davadan\s+feragat|feragat\s+(etti|ettigi|edildigi|nedeniyle|beyani)|feragati\s+(nedeniyle|sebebiyle)'
+# 29.08 PILOT (run 33240477857) BIR EKSIK DAHA BULDU: feragat kovasi %89 uyum
+# verdi ve uyusmazliklarin basinda su vardi:
+#   ISTANBUL "sirket vekilinin 03/08/2026 tarihli FERAGAT DILEKCESI kapsaminda"
+# Desen 'davadan feragat' ve 'feragat nedeniyle' ariyordu; mahkemenin feragati
+# BELGEYLE anlatan bicimi ("feragat dilekcesi/talebi/beyani/istemi") kaciyordu.
+# Bu, bugunun YEDINCI desen eksigi - bu veride hicbir desen ilk yazimda tam olmuyor.
+$FERAGAT_KARARI = 'davadan\s+feragat|feragat\s+(etti|ettigi|edildigi|nedeniyle|beyani|dilekce|talebi|istemi|sebebiyle)|feragati\s+(nedeniyle|sebebiyle|kapsaminda)'
 $OLUMSUZ_FERAGAT = $OLUMSUZ_ORTAK + '|feragat\s+(edilmemesi|hakki|edilebilec)'
 $MUHLET_KALDIRMA = '(gecici|kesin)\s+muhlet\w*\s+(karari(nin)?\s+)?(sonuclarinin\s+)?kaldirilmasina|muhletin\s+(sonuclarinin\s+)?kaldirilmasina'
 # 29.08 KURU KOSU: desen ARAYA GIREN KELIMELERI kaldiramiyordu -
