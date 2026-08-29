@@ -102,32 +102,24 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
   <div class="dip">Tetikte · Marka İzleme Radarı · Kaynak: TMview (tmdn.org) · TÜRKPATENT (TR) marka verisi · Hukuki dayanak (mevzuat.gov.tr birebir): <b>SMK 6769 m.6</b> (benzerlik/karıştırılma), <b>m.18</b> (yayıma itiraz 2 ay), <b>m.19/2</b> (kullanmama def'i) · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
+<script src="marka-benzerlik.js"></script>
 <script src="marka-serit.js"></script>
 <script src="menu.js"></script>
 <script>
 var MI_L=[], MI_META={};
-function norm(s){ return (s||'').toLowerCase().replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/İ/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/[^a-z0-9]/g,''); }
-function fon(s){ return norm(s).replace(/[iy]/g,'i').replace(/[uv]/g,'u').replace(/[kq]/g,'k').replace(/[sz]/g,'s').replace(/[cj]/g,'c').replace(/ph/g,'f').replace(/(.)\1+/g,'$1'); }
-function lev(a,b){ var m=a.length,n=b.length; if(!m)return n; if(!n)return m; var p=[],i,j; for(i=0;i<=n;i++)p[i]=i;
-  for(i=1;i<=m;i++){ var prev=p[0]; p[0]=i; for(j=1;j<=n;j++){ var t=p[j]; p[j]=Math.min(p[j]+1,p[j-1]+1,prev+(a.charAt(i-1)===b.charAt(j-1)?0:1)); prev=t; } } return p[n]; }
-function benz(a,b){ if(!a||!b)return 0; return Math.round((1-lev(a,b)/Math.max(a.length,b.length))*100); }
-function sinifSet(s){ var o={},p=(s||'').split(/[^0-9]+/).filter(Boolean); p.forEach(function(x){o[x]=1}); return o; }
+// 29.08: bu dort islev ve risk hesabi ARTIK marka-benzerlik.js'te.
+// Ayni motorun uc kopyasi vardi; Itiraz Radari dorduncusunu acacakti.
+// Yerel adlar KORUNDU - cagiran satirlarin hicbiri degismedi.
+var norm=MarkaBenzerlik.norm, fon=MarkaBenzerlik.fon, lev=MarkaBenzerlik.lev, benz=MarkaBenzerlik.benz;
+function sinifSet(x){ return MarkaBenzerlik.sinifSet(x); }
 function kesisim(a,b){ for(var k in a){ if(b[k]) return true; } return false; }
 function sinifBos(o){ for(var k in o){ return false; } return true; }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // Risk puani (#4): isaret = max(yazim,fonetik); sinif cakismasi puani cok degistirir.
 function riskHesapla(kad, ksin, x){
-  var yad=x.ad||'';
-  var yazim=benz(norm(kad),norm(yad)), fonetik=benz(fon(kad),fon(yad));
-  var isaret=Math.max(yazim,fonetik);
-  var xsin={}; (x.sinif||[]).forEach(function(c){ xsin[''+c]=1; });
-  var cak = (!sinifBos(ksin) && !sinifBos(xsin)) ? kesisim(ksin,xsin) : null; // null=bilinmiyor
-  var risk;
-  if(cak===true) risk=isaret;
-  else if(cak===null) risk=Math.round(isaret*0.85);
-  else risk=Math.round(isaret*0.55); // farkli sinif -> zayif (m.6)
-  return { risk:risk, isaret:isaret, yazim:yazim, fonetik:fonetik, cak:cak };
+  // Govde marka-benzerlik.js'e tasindi; imza ve donen alanlar AYNI.
+  return MarkaBenzerlik.riskHesapla(kad, ksin, x.ad||'', x.sinif||[]);
 }
 function seviye(r){ return r>=70?['YÜKSEK','y']:r>=45?['ORTA','o']:['DÜŞÜK','d']; }
 

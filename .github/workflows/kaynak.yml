@@ -289,6 +289,19 @@ jobs:
         shell: pwsh
         run: ./motor/marka-izleme-hasat.ps1 -Yaz
 
+      # ITIRAZ RADARI (29.08.2026, Cem "onay veriyorum itiraz radarini kur")
+      # Yukaridaki izleme YENI basvurulari getirir; onlar henuz YAYIMLANMAMIS
+      # oldugu icin itiraz suresi baslamamistir. Bu adim ise BULTENDE YAYIMLANMIS
+      # ve itiraz suresi HALA ACIK olanlari getirir - sure yayimdan iki aydir
+      # (SMK m.18) ve kacan sure geri gelmez.
+      # Betik kaynagin 92 gunluk penceresini KULLANMAZ, son gunu kendisi hesaplar;
+      # yazmadan once oz-sinav + tarih kapisi kosar, dusrse dosya YAZILMAZ.
+      - name: Itiraz radari - itiraz suresi acik basvurular (TMview TR)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/marka-itiraz-hasat.ps1
+
       # #6 logo/gorsel benzerlik: figuratif basvurularin kucuk gorselinden dHash
       # (ImageMagick, ubuntu'da kurulu). Incremental+tavanli; istemci yuklenen
       # logoyu bununla Hamming'le karsilastirir. Indeksten SONRA kosar.

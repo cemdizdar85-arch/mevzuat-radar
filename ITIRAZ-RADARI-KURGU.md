@@ -1,6 +1,24 @@
 # İtiraz Radarı — Sprint 2 kurgusu
 
-**29.08.2026 · Cem "3 yap" · Marka ailesinin son eksik ayağı**
+**29.08.2026 · Cem "3 yap" → "onay veriyorum itiraz radarını kur" · KURULDU**
+
+> ### ⚠️ Kurma turunda çıkan DÜZELTMELER (bu belgenin ilk hâli iki yerde yanlıştı)
+> **1. Sıralama parametresi `desc`, `sortDesc` değil.** İlk ölçümümde `sortDesc`
+> yazmıştım; API onu sessizce yok sayıp listeyi **artan** sırada verdi. Yani
+> "en yeni 100 başvuru" sandığım örneklem aslında **en eskilerdi** — ve
+> "7/100'ünün süresi dolmuş" cümlesi bu yüzden yanıltıcıydı. Doğrusu: süresi
+> dolmuş kayıtlar listenin **eski ucunda yığılıyor** (ölçüldü: `desc` ile
+> çekilen en yeni 100 kaydın hepsi açık, `asc` ile çekilen ilk 100'ün içinde
+> 2026-06-12 yayımlılar var ve onların süresi 12.08'de dolmuştu). Kusur
+> gerçektir, oranı değil.
+> **2. Tek geçiş yetmiyor.** `pageSize` tavanı **100** (200/300/500 → HTTP 400),
+> `page*pageSize ≤ 10.000` (sayfa 101 boş). `desc` geçişi 100. sayfada
+> 2026-07-27'ye iniyor; iki aylık pencere daha geriye gidiyor. Çözüm: `desc`
+> geçişi + gerekirse `asc` geçişi (asc 100. sayfada 2026-08-12'ye çıkıyor,
+> yani ikisi **örtüşüyor** ve birleşimleri 17.660'ın tamamını kapsıyor).
+> **3. Başvuru sahibi GÖSTERİLEMİYOR.** Yayımlanmış kayıtlarda bile
+> `applicantName = "Legally Restricted Until Publication Date"`. Kart bunu
+> açıkça söyler; 6. bölümdeki "sahibi" alanı bu yüzden çıkarıldı.
 
 ---
 
