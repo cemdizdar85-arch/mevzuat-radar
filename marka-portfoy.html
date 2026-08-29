@@ -265,8 +265,18 @@ function sonucCiz(s, jeton){
   h+='<h2 style="margin-top:22px">📄 Bütün kayıtlar</h2>';
   h+='<div style="margin-top:6px">'+s.markalar.map(m=>{
       const e=ETIKET[m.hal]||ETIKET.bilinmiyor;
-      return '<div class="kart '+e[1]+'"><div style="font-size:15px;font-weight:800">'+kac(m.ad)+' <span class="rz">'+e[0]+'</span></div>'+
-        '<div class="mini" style="margin-top:2px">'+kac(m.no)+' · başvuru '+kac(m.tarih)+(m.sinif?' · sınıf '+kac(m.sinif):'')+' · sicilde '+kac(durumTr(m.durum))+'</div>'+
+      /* 29.08 (Cem: "düşmüş olabilir diyor ama bilmiyoruz"): tarihin NEREDEN
+         geldiğini kartın kendisi söylesin. kesin=true ise robot koruma bitişini
+         TÜRKPATENT sicil kaydından (detay ucu, expiryDate) almıştır; false ise
+         hâlâ "başvuru + 10 yıl" tahminidir ve metin de öyle konuşur.
+         Rozet olmadan kullanıcı ikisini ayırt edemiyordu. */
+      const kb = m.kesin
+        ? '<span class="rz" style="background:rgba(61,220,151,.14);border-color:rgba(61,220,151,.4);color:var(--green)" title="Koruma bitişi TÜRKPATENT sicil kaydından alındı">SİCİL KAYDI</span>'
+        : '<span class="rz" style="background:rgba(255,194,75,.12);border-color:rgba(245,165,36,.45);color:var(--amber)" title="Koruma bitişi başvuru tarihinden hesaplandı; sicil teyidi alınamadı">TAHMİN</span>';
+      return '<div class="kart '+e[1]+'"><div style="font-size:15px;font-weight:800">'+kac(m.ad)+' <span class="rz">'+e[0]+'</span> '+kb+'</div>'+
+        '<div class="mini" style="margin-top:2px">'+kac(m.no)+' · başvuru '+kac(m.tarih)+(m.tescil?' · tescil '+kac(m.tescil):'')+(m.sinif?' · sınıf '+kac(m.sinif):'')+' · sicilde '+kac(durumTr(m.durum))+
+          (m.yenileme_sayisi?' · '+m.yenileme_sayisi+' yenileme'+(m.son_yenileme?' (son '+kac(m.son_yenileme)+')':''):'')+
+          (m.vekil?' · vekil '+kac(m.vekil):'')+'</div>'+
         '<div style="margin-top:6px;font-size:13px;color:var(--muted);line-height:1.6">'+kac(m.not)+
         (m.kullanim_notu?'<br><span style="color:var(--dim)">⏳ '+kac(m.kullanim_notu)+'</span>':'')+'</div></div>';
     }).join('')+'</div>';
