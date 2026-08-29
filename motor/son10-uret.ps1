@@ -295,6 +295,7 @@ document.querySelectorAll('.soru').forEach(soru=>{
     say.textContent='ADIM '+(ad+1)+' / '+adimlar.length;
     met.textContent=s.anlatim; frm.textContent=s.formul||'';
     (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
+    if(ad===adimlar.length-1){ hcs().forEach(el=>el.classList.remove('gizli')); } // son adimda acik hucre kalmaz
     ile.textContent=(ad===adimlar.length-1)?'🔄 Baştan':'İleri →';
   };
   btn.addEventListener('click',()=>{ hcs().forEach(el=>el.classList.add('gizli')); btn.style.display='none'; pan.style.display='block'; ad=0; g(); });

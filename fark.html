@@ -143,6 +143,7 @@ if(ADIMLAR){
     document.getElementById('pmetin').textContent=s.anlatim;
     const pf=document.getElementById('pformul'); pf.textContent=s.formul||''; pf.style.display=s.formul?'block':'none';
     (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
+    if(ad===ADIMLAR.length-1){ tum().forEach(el=>el.classList.remove('gizli')); } // son adimda acik hucre kalmaz (muhur-turu guvencesi)
     document.getElementById('pileri').textContent=(ad===ADIMLAR.length-1)?'🔄 Baştan':'İleri →';
   };
   document.getElementById('padim').addEventListener('click',()=>{
