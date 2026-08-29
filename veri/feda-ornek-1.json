@@ -232,7 +232,7 @@
                     ]
                 ],
     "ikiz":  {
-                 "soru":  "İzmit Petrokimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. Ürünlerin yoğunluk farkı nedeniyle fiziki miktarları doğrudan toplanamadığından işletme ortak maliyeti KATSAYI (eşdeğer ürün) yöntemiyle dağıtmaktadır. Ocak 2026 döneminde Ürün Delta (referans ürün, katsayı 1) 3.000 kg, Ürün Kappa (katsayı 4) 1.500 kg, Ürün Sigma (katsayı 2) 500 kg üretilmiş, döneme ait toplam ortak maliyet 300.000 TL olarak gerçekleşmiştir. Şimdi aynı yöntemi bu işletmede SEN uygula ve Ürün Kappa\u0027nın birim maliyetini bul.",
+                 "soru":  "İzmir Petrokimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. İşletme, ürünlerin fiziki özellik farkı nedeniyle ortak maliyeti KATSAYI (eşdeğer ürün) yöntemiyle dağıtmaktadır. Şubat 2026 döneminde Ürün Merkür (referans ürün, katsayı 1) 3.000 kg, Ürün Venüs (katsayı 2) 2.000 kg, Ürün Jüpiter (katsayı 4) 1.000 kg üretilmiştir. Döneme ait toplam ortak maliyet 330.000 TL\u0027dir.",
                  "tablo":  {
                                "basliklar":  [
                                                  "Ürün",
@@ -244,7 +244,7 @@
                                              ],
                                "satirlar":  [
                                                 [
-                                                    "Delta (referans)",
+                                                    "Merkür (referans)",
                                                     "3.000",
                                                     "1",
                                                     "3.000",
@@ -252,84 +252,80 @@
                                                     "30"
                                                 ],
                                                 [
-                                                    "Kappa",
-                                                    "1.500",
-                                                    "4",
-                                                    "6.000",
-                                                    "180.000",
-                                                    "120"
-                                                ],
-                                                [
-                                                    "Sigma",
-                                                    "500",
+                                                    "Venüs",
+                                                    "2.000",
                                                     "2",
-                                                    "1.000",
-                                                    "30.000",
+                                                    "4.000",
+                                                    "120.000",
                                                     "60"
                                                 ],
                                                 [
+                                                    "Jüpiter",
+                                                    "1.000",
+                                                    "4",
+                                                    "4.000",
+                                                    "120.000",
+                                                    "120"
+                                                ],
+                                                [
                                                     "TOPLAM (SONUÇ)",
-                                                    "5.000",
+                                                    "6.000",
                                                     "-",
-                                                    "10.000",
-                                                    "300.000",
-                                                    "Kappa=120"
+                                                    "11.000",
+                                                    "330.000",
+                                                    "Jüpiter=120"
                                                 ]
                                             ]
                            },
                  "verilen":  [
                                  [
+                                     0,
+                                     1
+                                 ],
+                                 [
+                                     0,
+                                     2
+                                 ],
+                                 [
                                      1,
                                      1
+                                 ],
+                                 [
+                                     1,
+                                     2
                                  ],
                                  [
                                      2,
                                      1
                                  ],
                                  [
-                                     3,
-                                     1
-                                 ],
-                                 [
-                                     1,
-                                     2
-                                 ],
-                                 [
                                      2,
                                      2
                                  ],
                                  [
                                      3,
-                                     2
-                                 ],
-                                 [
-                                     4,
                                      4
                                  ]
                              ],
                  "bosluk":  [
                                 [
+                                    0,
+                                    3
+                                ],
+                                [
+                                    0,
+                                    4
+                                ],
+                                [
+                                    0,
+                                    5
+                                ],
+                                [
                                     1,
                                     3
                                 ],
                                 [
-                                    2,
-                                    3
-                                ],
-                                [
-                                    3,
-                                    3
-                                ],
-                                [
                                     1,
-                                    4
-                                ],
-                                [
-                                    2,
-                                    4
-                                ],
-                                [
-                                    3,
                                     4
                                 ],
                                 [
@@ -338,25 +334,35 @@
                                 ],
                                 [
                                     2,
+                                    3
+                                ],
+                                [
+                                    2,
+                                    4
+                                ],
+                                [
+                                    2,
                                     5
                                 ],
                                 [
                                     3,
-                                    5
-                                ],
-                                [
-                                    4,
                                     1
                                 ],
                                 [
-                                    4,
+                                    3,
                                     3
                                 ],
                                 [
-                                    4,
+                                    3,
                                     5
                                 ]
                             ],
-                 "hedef_cumle":  "Tabloyu tamamen doldur ve Ürün Kappa\u0027nın birim maliyetini bul."
+                 "atla":  [
+                              [
+                                  3,
+                                  2
+                              ]
+                          ],
+                 "hedef_cumle":  "Aynı yöntemi SEN uygulayarak tabloyu doldur ve Ürün Jüpiter\u0027in birim maliyetinin kaç TL/kg olduğunu bul."
              }
 }
