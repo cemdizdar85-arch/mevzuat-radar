@@ -58,22 +58,41 @@ function Sadelestir([string]$s) {
   return $sb.ToString().ToLowerInvariant()
 }
 
-# KARAR deseni: mahkemenin VERDIGI iflas hukmu.
-$IFLAS_KARARI = 'iflasinin\s+acilmas|iflasina\s+karar\s+veril(di|mis|mesine)|itibariyle\s+iflasina|292'
-# ELENECEK: uyari cumlesi (IIK m.288 standart metni) ve TERS anlamli m.182
-$UYARI_TUZAK  = 'iflasina\s+karar\s+veril(ebilec|mesini\s+iste)'
-$TERS_TUZAK   = 'iflasin\s+kaldirilmas'
+# 29.08 ILK DESEN KIRLI CIKTI - GOZLE BAKINCA YAKALANDI. Eski desen 169 aday
+# buluyordu ama orneklerin yarisi TERS anlamliydi:
+#   "iflas sartlari olusmadigindan iflas karari VERILMESINE YER OLMADIGINA"
+#   "borca batik OLMAMASI nedeniyle iflasina karar VERILMESINE YER OLMADIGINA"
+# Yani mahkeme iflas karari VERMEMIS. Eski desen 'verilmesine' kismini yakalayip
+# 'yer olmadigina'yi gormuyordu; ayrica '292' tek basina cok genisti
+# ("IIK 292 uyarinca iflas sartlari olusmadigindan..." da tutuyordu).
+# YENI KURAL: once KESIN kalip aranir, sonra eslesmenin KOMSULUGUNDA olumsuzlama
+# var mi diye bakilir. Desen degil, BAGLAM karar verir.
+$IFLAS_KARARI = 'itibariyle\s+iflasina|iflasina\s+karar\s+veril(di|mis|mistir|erek)|iflasinin\s+acilmasina|iflas(inin)?\s+acilmasina\s+karar'
+# Eslesmenin +-90 karakter komsulugunda bunlardan biri varsa KARAR YOKTUR:
+$OLUMSUZ = 'yer\s+olmadig|olusmadig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|talep\s+edebilec|kaldirilmasina\s+karar'
+$TERS_TUZAK = 'iflasin\s+kaldirilmas'
 
 function IflasKarariVar([string]$metin) {
   $m = Sadelestir $metin
-  if ($m -match $UYARI_TUZAK) { return $false }
-  if ($m -match $TERS_TUZAK)  { return $false }
-  return [bool]($m -match $IFLAS_KARARI)
+  if ($m -match $TERS_TUZAK) { return $false }
+  foreach ($mm in [regex]::Matches($m, $IFLAS_KARARI)) {
+    $bas = [Math]::Max(0, $mm.Index - 90)
+    $son = [Math]::Min($m.Length, $mm.Index + $mm.Length + 90)
+    $pencere = $m.Substring($bas, $son - $bas)
+    if ($pencere -notmatch $OLUMSUZ) { return $true }   # bir tane temiz eslesme yeter
+  }
+  return $false
 }
 function KararCumlesi([string]$metin) {
   $m = Sadelestir $metin
-  $mm = [regex]::Match($m, '.{0,70}(' + $IFLAS_KARARI + ').{0,80}')
-  if ($mm.Success) { return ($mm.Value -replace '\s+', ' ') }
+  # Yalniz OLUMSUZLANMAMIS eslesmenin cevresini basar - gozle bakan kisi
+  # elenmis olani degil, KABUL EDILEN kalibi gormeli.
+  foreach ($mm in [regex]::Matches($m, $IFLAS_KARARI)) {
+    $bas = [Math]::Max(0, $mm.Index - 90)
+    $son = [Math]::Min($m.Length, $mm.Index + $mm.Length + 90)
+    $pencere = $m.Substring($bas, $son - $bas)
+    if ($pencere -notmatch $OLUMSUZ) { return ($pencere -replace '\s+', ' ') }
+  }
   return '-'
 }
 
