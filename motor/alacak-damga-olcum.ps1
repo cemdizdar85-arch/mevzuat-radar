@@ -92,28 +92,40 @@ $IFLAS_KARARI = 'itibariyle\s+iflasina|iflasina\s+karar\s+veril(di|mis|mistir|er
 #   "iflas ici konkordato PROJESININ TASDIKINE"
 # DERS: desen yazmak, o desenin NEYI KACIRDIGINI gormeden bitmez. Yakalananlara
 # bakmak yetmiyor - KACANLARA da bakilmali.
-$TASDIK_KARARI = 'projesinin\s+tasdikine|tasdik\s+edilen|tasdik(\s+talebinin)?\s+(kismen\s+)?kabul(u|une)|tasdik\s+(sart|kosul)lari(nin)?\s+(tamaminin\s+)?(gerceklestigi|olustugundan)|konkordato(nun)?\s+tasdik(ine|\s+edildiginden)|tasdikine\s+karar\s+veril(di|mis|mistir|mesine)'
-# Eslesmenin +-90 karakter komsulugunda bunlardan biri varsa KARAR YOKTUR:
-$OLUMSUZ = 'yer\s+olmadig|olusmadig|gerceklesmedig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|talep\s+edebilec|kaldirilmasina\s+karar|talebinin\s+reddine'
+# 3. KURU KOSU: iki kalip daha kacti.
+#   IZMIR "davacilarin KONKORDATOSUNUN iik 306 uyarinca TASDIKINE" -> ek farki
+#         ('konkordatoSUNUN'), desen 'konkordato(nun)?' ariyordu. \w* ile cozuldu.
+#   ANKARA "konkordato TASDIK KARARINA iliskin surecin bittigi" -> tasdik edilmis
+#         bir konkordatonun KAPANIS ilani; tasdik kovasinda kalmali.
+$TASDIK_KARARI = 'projesinin\s+tasdikine|tasdik\s+edilen|tasdik(\s+talebinin)?\s+(kismen\s+)?kabul(u|une)|tasdik\s+(sart|kosul)lari(nin)?\s+(tamaminin\s+)?(gerceklestigi|olustugundan)|konkordato\w*\s+(\S+\s+){0,4}?tasdik(ine|inin)|konkordato\s+tasdik\s+(edildiginden|karar)|tasdikine\s+karar\s+veril(di|mis|mistir|mesine)'
+# 29.08 TASARIM HATASI DUZELTILDI: tek bir $OLUMSUZ listesi hem iflas hem tasdik
+# kalibi icin kullaniliyordu. 'talebinin reddine' TASDIK icin dogru bir
+# olumsuzlama ('tasdik talebinin reddine' = tasdik yok) ama IFLAS icin YANLIS:
+#   "...15/04/2026 saat 14:37'den itibariyle IFLASINA, [X]'in konkordato
+#    TALEBININ REDDINE..."  -> burada iflas VAR, ret baska bir davaciya ait.
+# Bir ilanda birden cok davaci olabilir ve her birine ayri hukum kurulur.
+# Olumsuzlama artik KALIBA OZEL.
+$OLUMSUZ_ORTAK  = 'yer\s+olmadig|olusmadig|gerceklesmedig|gerek\s+olmadig|verilebilec|verilmesini\s+iste|talep\s+edebilec'
+$OLUMSUZ_TASDIK = $OLUMSUZ_ORTAK + '|talebinin\s+reddine|kaldirilmasina\s+karar'
 $TERS_TUZAK = 'iflasin\s+kaldirilmas'
 
-# Ortak: kalip bulunur, komsulugunda olumsuzlama YOKSA gecerli sayilir.
-function TemizEslesme([string]$m, [string]$kalip) {
+# Kalip bulunur, komsulugunda olumsuzlama YOKSA gecerli sayilir.
+function TemizEslesme([string]$m, [string]$kalip, [string]$olumsuz) {
   foreach ($mm in [regex]::Matches($m, $kalip)) {
     $bas = [Math]::Max(0, $mm.Index - 90)
     $son = [Math]::Min($m.Length, $mm.Index + $mm.Length + 90)
     $pencere = $m.Substring($bas, $son - $bas)
-    if ($pencere -notmatch $OLUMSUZ) { return $pencere }
+    if ($pencere -notmatch $olumsuz) { return $pencere }
   }
   return $null
 }
 function IflasKarariVar([string]$metin) {
   $m = Sadelestir $metin
   if ($m -match $TERS_TUZAK) { return $false }
-  return [bool](TemizEslesme $m $IFLAS_KARARI)
+  return [bool](TemizEslesme $m $IFLAS_KARARI $OLUMSUZ_ORTAK)
 }
 function TasdikVar([string]$metin) {
-  return [bool](TemizEslesme (Sadelestir $metin) $TASDIK_KARARI)
+  return [bool](TemizEslesme (Sadelestir $metin) $TASDIK_KARARI $OLUMSUZ_TASDIK)
 }
 # HEDEF DURUM - siralama mantiksal: surec BASARIYLA bittiyse tasdik, IFLASLA
 # bittiyse ret_iflas, digeri ret_kaldirma. Bir ilan hem tasdik hem iflas olamaz.
@@ -130,7 +142,7 @@ function KararCumlesi([string]$metin) {
     $bas = [Math]::Max(0, $mm.Index - 90)
     $son = [Math]::Min($m.Length, $mm.Index + $mm.Length + 90)
     $pencere = $m.Substring($bas, $son - $bas)
-    if ($pencere -notmatch $OLUMSUZ) { return ($pencere -replace '\s+', ' ') }
+    if ($pencere -notmatch $OLUMSUZ_ORTAK) { return ($pencere -replace '\s+', ' ') }
   }
   return '-'
 }
@@ -184,7 +196,7 @@ $degisecek | Group-Object { $_.eski + ' -> ' + $_.yeni } | Sort-Object Count -De
     Write-Host ("  [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(56, $_.baslik.Length)))
     $kalip = if ($_.yeni -eq 'tasdik') { $TASDIK_KARARI } elseif ($_.yeni -eq 'ret_iflas') { $IFLAS_KARARI } else { $null }
     if ($kalip) {
-      $p = TemizEslesme (Sadelestir $_.metin) $kalip
+      $p = TemizEslesme (Sadelestir $_.metin) $kalip $(if($_.yeni -eq 'tasdik'){$OLUMSUZ_TASDIK}else{$OLUMSUZ_ORTAK})
       Write-Host ("     karar: {0}" -f $(if ($p) { ($p -replace '\s+',' ') } else { '-' }))
     } else {
       # 29.08: hedef ret_kaldirma ise METNIN BASI (kunye) hicbir sey anlatmiyor -
