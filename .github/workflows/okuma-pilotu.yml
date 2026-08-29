@@ -37,6 +37,10 @@ on:
         description: 'HAKEM TURU: okuma ile regex ayrisan ilanlari IKINCI KEZ okut, hangisi hakli karar ver'
         type: boolean
         default: false
+      hakem_yaz:
+        description: 'HAKEM KARARINI DAMGAYA YAZ (hakem acikken; belirsiz hedefliler atlanir)'
+        type: boolean
+        default: false
       adet:
         description: 'hepsi=false ise kac ilan okunsun (kovalara esit bolunur)'
         default: '100'
@@ -56,6 +60,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           HEPSI: ${{ inputs.hepsi && '1' || '0' }}
           HAKEM: ${{ inputs.hakem && '1' || '0' }}
+          HAKEM_YAZ: ${{ inputs.hakem_yaz && '1' || '0' }}
           ADET: ${{ inputs.adet }}
         run: ./motor/alacak-ilan-okuyucu-pilot.ps1
 
