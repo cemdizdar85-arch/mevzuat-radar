@@ -138,6 +138,16 @@ function giris(){
     <h1>Radar Paneli</h1>
     <p class="lead">Firma profilini bir kez gir; ihale, alacak, marka ve süre uyarıları <b style="color:var(--ink)">sadece seni ilgilendireni</b> sana getirsin.</p>
     ${niyetSatiri}
+    <!-- 29.08 IKINCI TUR (Cem: "cok kucuk asagida kalmis, ben bile zor buldum").
+         Serit giris kutusunun ALTINDAYDI: uye olmayan kisi once duvari goruyor,
+         ucretsiz araclari gormuyordu. Referanslarda (Ahrefs/Semrush free tools)
+         aile listesi kahramanin HEMEN ALTINDA duruyor. Artik burada. -->
+    <div id="markaAraclar" style="margin:0 0 8px"></div>
+    <p class="mini" id="markaAraclarNot" style="margin:0 0 26px;display:none;max-width:640px">
+      Bu beş araç <b style="color:var(--ink)">giriş istemiyor</b> — şimdi açabilirsin.
+      Üye olursan robot bunları <b style="color:var(--ink)">her gün senin yerine</b> bakar:
+      unvandan portföy taraması, benzer başvuru uyarısı ve rakip nöbeti.
+    </p>
     <div class="kutu" style="max-width:440px">
       <label>E-posta</label><input id="email" type="email" placeholder="ornek@firma.com" autocomplete="email">
       <label>Şifre</label><input id="sifre" type="password" placeholder="••••••••" autocomplete="current-password">
@@ -158,18 +168,14 @@ function giris(){
       <div class="hata" id="ahata"></div>
       <p class="mini" style="margin-top:8px">Erken erişim, ücretsiz. Verilerin yalnız sana ait.</p>
     </div>
-    <div id="markaAraclar" style="margin-top:26px"></div>
-    <p class="mini" id="markaAraclarNot" style="margin-top:-8px;display:none">
-      Bu beş araç <b style="color:var(--ink)">giriş istemiyor</b> — şimdi açabilirsin.
-      Panele girdiğinde ayrıca <b style="color:var(--ink)">unvandan portföy taraması</b>, benzer başvuru uyarısı ve
-      <b style="color:var(--ink)">rakip nöbeti</b> açılır. Diğer radarlar için sağ alttaki ☰ Araçlar.
-    </p>`;
+    <p class="mini" style="margin-top:18px">Diğer radarlar (ihale · alacak · süre · Resmî Gazete) için sağ alttaki <b style="color:var(--ink)">☰ Araçlar</b>.</p>`;
   // 29.08: marka serit giris ekraninda. Betik senkron yuklendigi icin burada
   // hazir olmali; degilse sessiz kalmasin diye load'da bir kez daha denenir.
   (function markaSeridiCiz(){
     const kap=$('#markaAraclar'); if(!kap) return;
     if(typeof window.markaSeritCiz==='function'){
       window.markaSeritCiz(kap,'Marka araçların — üye olmadan da açılır');
+      kap.style.margin='0 0 8px';
       const not=$('#markaAraclarNot'); if(not) not.style.display='';
     } else {
       window.addEventListener('load',()=>{ if($('#markaAraclar')) markaSeridiCiz(); },{once:true});

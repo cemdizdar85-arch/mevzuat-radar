@@ -22,17 +22,38 @@
   ];
   var burasi = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 
+  // ==========================================================================
+  // 29.08 IKINCI TUR (Cem: "goruntu olmamis, ben bile zor buldum, cok kucuk
+  // asagida kalmis; diger siteler nasil yapiyor bakalim"). Iki referans
+  // olculdu -- Ahrefs "Free SEO Tools" ve Semrush "Free Tools":
+  //   1) Aile listesi kahramanin HEMEN ALTINDA duruyor, sayfa dibinde degil.
+  //   2) Kart BUYUK: ikon kendi kutusunda, ad 16-20px kalin, aciklama kucuk.
+  //   3) Kartin tiklanabilir oldugu okla/vurguyla belli ediliyor.
+  // Bizimki 13,5px ad + 11px aciklama + 8px bosluktu; goz onu "kart" diye
+  // okumuyordu. Olculer buyutuldu, ikon kendi kutusuna alindi, ok eklendi.
+  //
+  // 29.08 BIRINCI KUSUR (ayni turda): cerceve rgba(255,255,255,.10) yazilmisti
+  // - bu betik site KOYU temadayken (21.08) yazildi. Acik temada (kagit zemin
+  // #fbfaf8) beyaz cerceve beyaz zeminde KAYBOLMUSTU. Artik tema degiskeni.
+  // DERS: sabit renk yazan her satir, tema degisince sessizce kaybolur.
+  // ==========================================================================
   var st = document.createElement("style");
   st.textContent = ''
-    + '.mserit{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 20px}'
-    + '.mserit a{display:block;text-decoration:none;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.02);'
-    + 'border-radius:11px;padding:10px 12px;transition:border-color .15s,background .15s}'
-    + '.mserit a:hover{border-color:rgba(245,165,36,.45);background:rgba(245,165,36,.06)}'
-    + '.mserit a.aktif{border-color:rgba(245,165,36,.75);background:rgba(245,165,36,.10)}'
-    + '.mserit b{display:block;font-size:13.5px;color:var(--ink);font-weight:800;letter-spacing:-.2px}'
-    + '.mserit span{display:block;font-size:11px;color:var(--muted);margin-top:2px;line-height:1.35}'
-    + '.mserit em{font-style:normal;margin-right:5px}'
-    + '.mseritBas{font-size:11.5px;color:var(--dim);letter-spacing:1.1px;text-transform:uppercase;font-weight:800;margin:0 0 8px}';
+    + '.mserit{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:12px;margin:0 0 6px}'
+    + '.mserit a{position:relative;display:block;text-decoration:none;border:1px solid var(--line);background:var(--panel);'
+    + 'border-radius:14px;padding:15px 40px 15px 15px;transition:border-color .15s,box-shadow .15s,transform .15s}'
+    + '.mserit a:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(245,165,36,.16);transform:translateY(-2px)}'
+    + '.mserit a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}'
+    + '.mserit a.aktif{border-color:var(--accent);background:rgba(245,165,36,.07)}'
+    + '.mserit a::after{content:"\\2192";position:absolute;right:15px;top:14px;font-size:16px;font-weight:700;color:var(--dim);transition:color .15s,transform .15s}'
+    + '.mserit a:hover::after{color:var(--accent2);transform:translateX(3px)}'
+    + '.mserit a.aktif::after{content:"buradasın";font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--accent2);top:17px}'
+    + '.mserit em{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;'
+    + 'background:rgba(245,165,36,.13);font-size:19px;font-style:normal;margin:0 0 11px;line-height:1}'
+    + '.mserit b{display:block;font-size:15.5px;color:var(--ink);font-weight:800;letter-spacing:-.3px;line-height:1.25}'
+    + '.mserit span{display:block;font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.4}'
+    + '.mseritBas{font-size:12.5px;color:var(--dim);letter-spacing:1.1px;text-transform:uppercase;font-weight:800;margin:0 0 11px}'
+    + '@media (prefers-reduced-motion:reduce){.mserit a,.mserit a::after{transition:none}.mserit a:hover{transform:none}}';
   document.head.appendChild(st);
 
   function kur(baslik){
