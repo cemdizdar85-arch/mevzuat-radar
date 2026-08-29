@@ -1,5 +1,22 @@
--- ============================================================================
---  ret_iflas DAMGASI ARTIK METINDEN (29.08.2026)
+-- ############################################################################
+-- ##  !!!! BU DOSYAYI BASMA - DESENI KIRLI, GECERSIZ KILINDI (29.08) !!!!   ##
+-- ##                                                                        ##
+-- ##  Asagidaki regex "iflasina karar VERILMESINE YER OLMADIGINA" gibi TERS ##
+-- ##  anlamli cumleleri de yakaliyor ('verilmesine' kismini gorup 'yer      ##
+-- ##  olmadigina'yi gormuyor). Ayrica '292' tek basina cok genis:           ##
+-- ##  "IIK 292 uyarinca iflas sartlari OLUSMADIGINDAN" da tutuyor.          ##
+-- ##  OLCULDU (run 33235314437): bu desen 169 aday buluyor; duzeltilmis     ##
+-- ##  desen ayni veride 46 buluyor -> 123 YANLIS POZITIF.                   ##
+-- ##                                                                        ##
+-- ##  DOGRU MANTIK motor/alacak-damga-olcum.ps1 icinde: once KESIN kalip    ##
+-- ##  aranir, sonra eslesmenin +-90 karakter KOMSULUGUNDA olumsuzlama var   ##
+-- ##  mi bakilir. Bu, tek bir SQL regex'ine sigmiyor - damgalama da ayni    ##
+-- ##  betikten yapilacak (PostgREST PATCH), SQL'de tekrarlanmayacak.        ##
+-- ##                                                                        ##
+-- ##  Dosya SILINMEDI: kusurun kaydi olarak duruyor. Bkz. UYGULANDI.md      ##
+-- ############################################################################
+--
+--  ret_iflas DAMGASI ARTIK METINDEN (29.08.2026)  [GECERSIZ - yukariya bak]
 --  Supabase SQL Editor (bjrleanjpyujtajmazxn). Tek seferlik.
 --  ONCE basili olmali: 2026-08-28-alacak-ret-iflas-durumu.sql + -onarim.sql
 --  ⚠️ Bu goç TABLOYU gunceller, alacak_vitrin fonksiyonuna DOKUNMAZ -
