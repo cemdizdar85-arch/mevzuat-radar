@@ -1,5 +1,5 @@
 {
-  "tarih": "29.08.2026 04:23",
+  "tarih": "29.08.2026 04:43",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
@@ -7,16 +7,8 @@
   "atifli_iddia": 261,
   "dayanaksiz_iddia": 296,
   "kirmizi_aday": 29,
-  "yeni_aday": 1,
-  "yeni": [
-    {
-      "sayfa": "alacak-radari.html",
-      "satir": 334,
-      "iddia": "7 gün",
-      "kanun": "299",
-      "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
-    }
-  ],
+  "yeni_aday": 0,
+  "yeni": [],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -57,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 334,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -1737,31 +1729,31 @@
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 159,
+      "satir": 182,
       "iddia": "en az 6",
       "metin": "if(($('#sifre').value||'').length<6){ $('#ahata').textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 173,
+      "satir": 196,
       "iddia": "en az 6",
       "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 303,
+      "satir": 326,
       "iddia": "en az 3",
       "metin": "if(unvan.length Rakibin unvanını yaz (en az 3 karakter). '; return; }"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 542,
+      "satir": 565,
       "iddia": "6 ay",
       "metin": "${(f.markalar||[]).length?'● AKTİF':'○ MARKA GİR'} Marka radarı Yenileme 6 ay kala + benzer başvuru çıkınca uyarı."
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 543,
+      "satir": 566,
       "iddia": "15 gün",
       "metin": "${(f.borclu_vkn||[]).length?'● AKTİF':'○ VKN GİR'} Alacak radarı İzlediğin borçlu konkordato/iflas ilan ederse 15 günlük süreyle uyarı."
     },
