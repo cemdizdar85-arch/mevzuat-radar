@@ -53,6 +53,19 @@ if (-not $env:GEMINI_API_KEY -and -not $env:ANTHROPIC_API_KEY) {
 # muhlet_kaldirma 21). Pilot onlari OKUMUYORDU - yani yeni ayrimin dogru olup
 # olmadigi hic olculmemis oluyordu.
 $KOVALAR = @('ret_kaldirma','ret_iflas','tasdik','iflas_kaldirma','feragat','muhlet_kaldirma')
+# 29.08 - TUM ARSIV MODU. Bugune kadar yalniz 6 "tartismali" kova okundu (743
+# ilan = arsivin %13'u). Kalan ~5.170 ilanin damgasi hala YALNIZ regex'ten
+# geliyor ve ayni gun regex 99 ayrismanin 70'inde yanildi. KOVALAR env ile
+# ozel liste verilebilir (virgullu); TUM=1 ise butun karar durumlari okunur.
+if ($env:KOVALAR) {
+  $KOVALAR = @($env:KOVALAR -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+  Write-Host ("KOVA LISTESI env'den: {0}" -f ($KOVALAR -join ', '))
+} elseif ($env:TUM -eq '1') {
+  $KOVALAR = @('kesin_muhlet','gecici_muhlet','uzatma','ret_kaldirma','diger','alacak_cagrisi',
+               'durusma','iflas_tasfiye','feragat','ret_iflas','muhlet','tasdik',
+               'muhlet_kaldirma','iflas_kaldirma')
+  Write-Host "TUM ARSIV MODU: 14 karar durumu okunacak (~5.900 ilan)."
+}
 $perKova = if ($env:HEPSI -eq '1') { 1000 } else { [Math]::Max(1, [int]($ADET / $KOVALAR.Count)) }
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Accept = 'application/json' }
 $bas = (Get-Date).AddDays(-365).ToString('yyyy-MM-dd')
