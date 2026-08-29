@@ -47,7 +47,7 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
-<div class="wrap" id="icerik" role="main" id="wrap"><div class="bos">Yükleniyor…</div></div>
+<div class="wrap" id="icerik" role="main"><div class="bos">Yükleniyor…</div></div>
 <div class="toast" id="toast"></div>
 <!-- 19.08 OLCULDU: supabase-js dis CDN'den (esm.sh) geliyordu - 9 ayri parca, ~1,5 sn.
      Ayni satir DORT sayfada vardi (sinav, evrak, marka, uyelik): esm.sh yavaslarsa ya da
@@ -58,7 +58,7 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0
 const { createClient } = window.supabase || {};
 if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
 const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
-const $=s=>document.querySelector(s); const W=()=>$('#wrap');
+const $=s=>document.querySelector(s); const W=()=>$('#icerik');
 const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('on'),2400);}
 function fmt(d){ if(!d)return '—'; const x=new Date(d); return ('0'+x.getDate()).slice(-2)+'.'+('0'+(x.getMonth()+1)).slice(-2)+'.'+x.getFullYear(); }

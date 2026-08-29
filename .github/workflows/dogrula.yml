@@ -129,6 +129,18 @@ jobs:
               kabuk: bash, komut: "node arac/kontrast-kapisi.js",
               rapor: "veri/kontrast-raporu.json" }
 
+          # 29.08 (Cem "2 yap"): kurulu kapilarin hicbiri "bu sayfa gercekten
+          # aciliyor mu" diye sormuyordu. Kontrast kapisi RENGI, koku olcer
+          # DILI, renk sabiti KAYNAK METNI denetler. O gun marka-rapor.html'in
+          # kagit div'inde IKI id oldugu icin sayfanin acilmadigi ortaya cikti
+          # (sonsuza kadar "Rapor yukleniyor..."), ayni kusur marka-app ve
+          # evrak-app'te de vardi. Uc kapi da yesil koşuyordu.
+          # Bu kapi her sayfayi ACAR: yakalanmamis hata / asili kalan yuklenme
+          # metni / izinsiz dis kaynak / 404 alt kaynak arar.
+          - { ad: "Acilis kapisi (sayfa gercekten aciliyor mu)",
+              kabuk: bash, komut: "node arac/acilis-kapisi.js",
+              rapor: "veri/acilis-raporu.json" }
+
     steps:
       - name: Depoyu al
         uses: actions/checkout@v4
