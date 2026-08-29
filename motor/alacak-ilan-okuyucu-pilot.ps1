@@ -119,15 +119,44 @@ $script:gkey = $env:GEMINI_API_KEY
 $script:sayacGemini = 0; $script:sayacHaiku = 0; $script:sayacHata = 0
 $script:geminiSebep = $(if ($env:GEMINI_API_KEY) { '' } else { 'GEMINI_API_KEY tanimli degil' })
 
+# 29.08 OLCULDU: 'gemini-2.0-flash' uc noktasi HTTP 404 doner - model adi artik
+# gecerli degil. Ayni URL motor/toplu-uret.ps1 ve motor/gece-ajani.ps1 icinde de
+# duruyor; oralarda da sessizce Haiku'ya dusuyor ve bedava kota kullanilmiyor.
+# Model adini SABIT yazmak yerine ADAYLARI SIRAYLA SINAYIP calisani kilitliyoruz:
+# uc nokta bir daha degistiginde hat kendini onarir ve hangi modeli kullandigini
+# ACIKCA raporlar. (Bkz. bugunku "sessiz dusus" dersi.)
+$GEMINI_ADAYLAR = @('gemini-2.0-flash','gemini-2.5-flash','gemini-flash-latest',
+                    'gemini-2.0-flash-001','gemini-1.5-flash')
+$script:gmodel = $null
+function GeminiCagir([string]$model, [string]$istem) {
+  $b = @{ contents = @(@{ parts = @(@{ text = $istem }) }) } | ConvertTo-Json -Depth 8 -Compress
+  $r = Invoke-RestMethod -Method Post -TimeoutSec 90 `
+       -Uri ("https://generativelanguage.googleapis.com/v1beta/models/$model" + ":generateContent?key=" + $script:gkey) `
+       -Body ([Text.Encoding]::UTF8.GetBytes($b)) -ContentType 'application/json'
+  return (@($r.candidates[0].content.parts) | ForEach-Object { $_.text }) -join ''
+}
 function Sor([string]$istem) {
   if ($script:gkey) {
     try {
-      $b = @{ contents = @(@{ parts = @(@{ text = $istem }) }) } | ConvertTo-Json -Depth 8 -Compress
-      $r = Invoke-RestMethod -Method Post -TimeoutSec 90 `
-           -Uri ("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + $script:gkey) `
-           -Body ([Text.Encoding]::UTF8.GetBytes($b)) -ContentType 'application/json'
+      if (-not $script:gmodel) {
+        # ILK CAGRI = SINAMA. Adaylar sirayla denenir, calisan kilitlenir.
+        foreach ($aday in $GEMINI_ADAYLAR) {
+          try {
+            $t = GeminiCagir $aday $istem
+            $script:gmodel = $aday
+            Write-Host ("  GEMINI MODELI SECILDI: {0}" -f $aday)
+            $script:sayacGemini++
+            return $t
+          } catch {
+            $mm = "$($_.Exception.Message)"
+            Write-Host ("  gemini adayi '{0}' olmadi: {1}" -f $aday, $mm.Substring(0, [Math]::Min(70, $mm.Length)))
+          }
+        }
+        throw "hicbir gemini model adayi calismadi"
+      }
+      $t = GeminiCagir $script:gmodel $istem
       $script:sayacGemini++
-      return (@($r.candidates[0].content.parts) | ForEach-Object { $_.text }) -join ''
+      return $t
     } catch {
       # 29.08 KUSUR: eski kod YALNIZ 429'da mesaj basiyordu; baska hatada Gemini
       # SESSIZCE dusuyordu. Ilk kosuda "gemini 0 · haiku 746" cikti ve NEDEN
@@ -222,6 +251,48 @@ $cikti = [ordered]@{
 }
 [IO.File]::WriteAllText($hedef, ($cikti | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding $false))
 
+# --- SUPHELI DAMGA LISTESI (kalici veri, artefakt degil) --------------------
+# 29.08: uyusmazliklar simdiye kadar yalniz artefaktta duruyordu ve kosu
+# gecince kayboluyordu. Oysa bu liste, regex damgasinin yanildigi yeri bulmanin
+# EN UCUZ yolu: 29.08 kosusunda icinden en az 3 KESIN kusur cikti (Aksaray,
+# Sanliurfa, Ankara m.292 - hepsi gercek iflas karari ama sitede "ret/kaldirma"
+# kovasinda). Artik depoya yazilir, her kosuda tazelenir.
+# GIZLILIK: alintilar TCKN'si maskelenmis metinden gelir; VKN yazilmaz. Kalan
+# alanlar (ilan no, il, baslik) ilan.gov.tr'de zaten kamuya aciktir.
+$supheli = @($sonuc | Where-Object { -not $_.uyuyor -and $_.alinti_var } | ForEach-Object {
+  [ordered]@{
+    ilan_no = $_.ilan_no; tarih = $_.tarih; il = $_.il
+    baslik = $_.baslik
+    regex_damgasi = $_.regex_damgasi
+    okuma_karari  = $_.okuma_karari
+    alinti = $(if ($_.okuma_alintisi.Length -gt 400) { $_.okuma_alintisi.Substring(0,400) } else { $_.okuma_alintisi })
+    # alinti okumanin kararini DESTEKLIYOR mu? (29.08 dersi: alintinin varligi
+    # yetmiyor, %21'inde alinti karari dogrulamiyordu)
+    alinti_karari_destekliyor = $(
+      switch ($_.okuma_karari) {
+        'c' { [bool]($_.okuma_alintisi -match 'iflas') }
+        'e' { [bool]($_.okuma_alintisi -match 'tasdik|onay') }
+        'd' { [bool]($_.okuma_alintisi -match 'iflas[ıi]n\s*kald') }
+        'g' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
+        'a' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
+        'b' { [bool]($_.okuma_alintisi -match 'red|ret\b') }
+        default { $false }
+      })
+  }
+})
+$sHedef = Join-Path $kok 'veri\alacak-supheli-damga.json'
+$sCikti = [ordered]@{
+  olcum      = (Get-Date).ToString('dd.MM.yyyy HH:mm')
+  aciklama   = 'Regex damgasi ile OKUMA sonucunun ayristigi ilanlar. Uyumsuzluk "okuma hakli" DEMEK DEGILDIR - elle bakilir. alinti_karari_destekliyor=false olanlar once elenmelidir.'
+  kaynak     = 'motor/alacak-ilan-okuyucu-pilot.ps1'
+  taranan    = $sonuc.Count
+  supheli    = $supheli.Count
+  destekli   = @($supheli | Where-Object { $_.alinti_karari_destekliyor }).Count
+  kayitlar   = $supheli
+}
+[IO.File]::WriteAllText($sHedef, ($sCikti | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding $false))
+Write-Host ("Supheli damga listesi: {0} kayit -> {1}" -f $supheli.Count, $sHedef)
+
 Write-Host ''
 Write-Host ('=' * 72)
 if ($sonuc.Count) {
@@ -239,8 +310,13 @@ if ($sonuc.Count) {
     Write-Host 'OLCULEBILIR UYUM: KOR - hicbir cevap alinti tasimiyor, olcum yapilamaz.'
   }
   Write-Host ("ALINTISIZ (olcume GIRMEDI): {0} (%{1:N1})" -f $alintisiz, (100.0 * $alintisiz / $sonuc.Count))
-  Write-Host ("HAT: gemini {0} · haiku {1} · hata {2}{3}" -f $script:sayacGemini, $script:sayacHaiku, $script:sayacHata,
+  Write-Host ("HAT: gemini {0} ({1}) · haiku {2} · hata {3}{4}" -f $script:sayacGemini,
+    $(if ($script:gmodel) { $script:gmodel } else { '-' }), $script:sayacHaiku, $script:sayacHata,
     $(if ($script:geminiSebep) { " · GEMINI KULLANILMADI: $($script:geminiSebep)" } else { '' }))
+  if ($script:gmodel) {
+    Write-Host ("  >> CALISAN GEMINI MODELI: '{0}' - ayni duzeltme motor/toplu-uret.ps1 ve" -f $script:gmodel)
+    Write-Host "     motor/gece-ajani.ps1 icine de tasinmali (ikisi de olu 'gemini-2.0-flash' kullaniyor)."
+  }
   Write-Host ''
   Write-Host 'KOVA BAZLI OLCULEBILIR UYUM (alintili cevaplar):'
   $alintili | Group-Object regex_damgasi | Sort-Object Name | ForEach-Object {

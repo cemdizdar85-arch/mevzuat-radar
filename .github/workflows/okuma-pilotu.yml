@@ -47,7 +47,7 @@ jobs:
           ADET: ${{ inputs.adet }}
         run: ./motor/alacak-ilan-okuyucu-pilot.ps1
 
-      # Rapor depoya girmez; artefakt olarak indirilir ve elle incelenir.
+      # Ham rapor depoya girmez; artefakt olarak indirilir ve elle incelenir.
       - name: Raporu artefakt olarak yukle
         if: always()
         uses: actions/upload-artifact@v4
@@ -55,3 +55,20 @@ jobs:
           name: alacak-okuma-pilot
           path: veri/alacak-okuma-pilot.json
           if-no-files-found: warn
+
+      # 29.08: SUPHELI LISTESI artefakt DEGIL, kalici veri. Kosu gecince
+      # kaybolmamali - regex damgasinin yanildigi yeri bulmanin en ucuz yolu.
+      # Yalniz bu tek dosya commit edilir; ham rapor (metin parcalari daha uzun)
+      # artefaktta kalir.
+      - name: Supheli damga listesini depoya yaz
+        if: success()
+        shell: bash
+        run: |
+          if [ ! -f veri/alacak-supheli-damga.json ]; then echo "dosya yok, atlandi"; exit 0; fi
+          git config user.name  "tetikte-robot"
+          git config user.email "robot@tetikte.com"
+          git add veri/alacak-supheli-damga.json
+          if git diff --cached --quiet; then echo "degisiklik yok"; exit 0; fi
+          N=$(node -e "console.log(JSON.parse(require('fs').readFileSync('veri/alacak-supheli-damga.json','utf8')).supheli)")
+          git commit -m "Supheli damga listesi tazelendi: $N kayit [okuma-pilotu]"
+          git push origin HEAD:main
