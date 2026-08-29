@@ -337,6 +337,22 @@ if(gelenUnvan && !url.get('jeton')){
   $('#t_unvan').scrollIntoView({block:'center'});
   $('#t_btn').click();
 }
+
+// 29.08 KUSUR (Cem: "arcelik yazdim birsey gelmedi"): yukaridaki yorum
+// "ya da son taramamiz varsa dogrudan ac" diyordu ama KOD BUNU YAPMIYORDU.
+// izle() jetonu localStorage'a YAZIYOR (mrSonJeton) ama hicbir yerde OKUMUYOR.
+// Sonuc: tarama baslatip sayfayi kapatan kullanicinin sonucuna DONUS YOLU YOK -
+// bekleme saatler surdugu icin bu neredeyse herkesin basina geliyordu.
+// Artik URL'de jeton/unvan yoksa son tarama kaldigi yerden acilir.
+if(!url.get('jeton') && !gelenUnvan){
+  try{
+    const sonJeton = localStorage.getItem('mrSonJeton');
+    if(sonJeton){
+      durumYaz('Son taraman açılıyor…');
+      izle(sonJeton);
+    }
+  }catch(e){ /* gizli sekme: localStorage kapali olabilir, sessiz gec */ }
+}
 </script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
