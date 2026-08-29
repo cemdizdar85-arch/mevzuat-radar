@@ -183,9 +183,18 @@ foreach($y in $YOLLAR){
 if($degisiklikVar){
   $wt = Join-Path $env:TEMP ("yerel-indirici-wt-" + [guid]::NewGuid().ToString('N').Substring(0,8))
   $pushOk = $false
+  # 30.08.2026 KUSUR (olculdu, ilk deneme kosusunda): bu blok
+  # "!! YAYIN HATASI: warning: ... LF will be replaced by CRLF" ile DUSTU.
+  # O bir UYARI, hata degil. Sebep PowerShell 5.1'in yerlesik tuzagi: yerel bir
+  # komutun stderr'i "2>&1" ile yakalandiginda her satir bir ErrorRecord'a
+  # sarilir; dosya basindaki $ErrorActionPreference='Stop' ile bu TERMINATING
+  # hataya donusur. Yani git'in zararsiz satir-sonu uyarisi yayini oldurdu.
+  # Iki onlem: (1) blok boyunca EAP 'Continue', (2) "2>&1" kaldirildi.
+  $eskiEAP = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
   try {
-    git fetch -q origin 2>&1 | Out-Null
-    git worktree add -q --detach $wt origin/main 2>&1 | Out-Null
+    git fetch -q origin | Out-Null
+    git worktree add -q --detach $wt origin/main | Out-Null
     if(-not (Test-Path $wt)){ throw 'worktree acilamadi' }
     foreach($y in $YOLLAR){
       $kaynakY = Join-Path $kok $y
@@ -202,15 +211,15 @@ if($degisiklikVar){
     }
     Push-Location $wt
     try {
-      git add -- $YOLLAR 2>&1 | Out-Null
-      git diff --cached --quiet -- $YOLLAR 2>$null
+      git add -- $YOLLAR | Out-Null
+      git diff --cached --quiet -- $YOLLAR
       if($LASTEXITCODE -ne 0){
-        git commit -q -m "Yerel indirici: $degisen kaynak guncellendi [veri-operasyonu]" -- $YOLLAR 2>&1 | Out-Null
+        git commit -q -m "Yerel indirici: $degisen kaynak guncellendi [veri-operasyonu]" -- $YOLLAR | Out-Null
         foreach($i in 1..3){
-          git push -q origin HEAD:main 2>&1 | Out-Null
+          git push -q origin HEAD:main | Out-Null
           if($LASTEXITCODE -eq 0){ $pushOk = $true; break }
-          git fetch -q origin 2>&1 | Out-Null
-          git rebase -q origin/main 2>&1 | Out-Null   # worktree TEMIZ: catisma riski yok
+          git fetch -q origin | Out-Null
+          git rebase -q origin/main | Out-Null   # worktree TEMIZ: catisma riski yok
           Start-Sleep -Seconds 5
         }
       } else { $pushOk = $true; Log 'worktree ile uzak ayni - push gerekmedi' }
@@ -218,7 +227,8 @@ if($degisiklikVar){
   } catch {
     Log "!! YAYIN HATASI: $($_.Exception.Message)"
   } finally {
-    try { git worktree remove --force $wt 2>&1 | Out-Null; git worktree prune 2>&1 | Out-Null } catch {}
+    try { git worktree remove --force $wt | Out-Null; git worktree prune | Out-Null } catch {}
+    $ErrorActionPreference = $eskiEAP
   }
   if($pushOk){ Log "PUSH tamam ($degisen degisiklik) - ayna tetiklenecek" } else { Log '!! PUSH TUTMADI'; exit 1 }
 } else { Log 'degisiklik yok - push edilmedi' }
