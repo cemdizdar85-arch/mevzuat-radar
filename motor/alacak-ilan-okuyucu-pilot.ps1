@@ -30,6 +30,8 @@
 # ============================================================================
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
@@ -47,7 +49,10 @@ if (-not $env:GEMINI_API_KEY -and -not $env:ANTHROPIC_API_KEY) {
 # 916 bin karakter (~305 bin token girdi). Gemini bedava kotasiyla 0 TL, Haiku'ya
 # duserse 1 dolardan az. Yani MALIYET KARAR VERICI DEGIL - orneklemi kucuk
 # tutmanin bir sebebi yok. HEPSI=1 ile 4 kovanin TAMAMI okunur.
-$KOVALAR = @('ret_kaldirma','ret_iflas','tasdik','iflas_kaldirma')
+# 29.08: ret_kaldirma ayristirilinca iki kova daha dogdu (feragat 145,
+# muhlet_kaldirma 21). Pilot onlari OKUMUYORDU - yani yeni ayrimin dogru olup
+# olmadigi hic olculmemis oluyordu.
+$KOVALAR = @('ret_kaldirma','ret_iflas','tasdik','iflas_kaldirma','feragat','muhlet_kaldirma')
 $perKova = if ($env:HEPSI -eq '1') { 1000 } else { [Math]::Max(1, [int]($ADET / $KOVALAR.Count)) }
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Accept = 'application/json' }
 $bas = (Get-Date).AddDays(-365).ToString('yyyy-MM-dd')
@@ -95,11 +100,17 @@ c) Konkordato talebini reddetti VE borclunun IFLASINA karar verdi
 d) Daha once verilmis IFLASI KALDIRDI - borclu iflastan CIKIYOR (IIK m.182)
 e) Konkordatoyu TASDIK etti (basarili sonuclandi)
 g) Konkordato MUHLETINI kaldirdi / sonlandirdi - ret de iflas da tasdik de DEGIL
+h) Borclu davadan FERAGAT etti (KENDI vazgecti) - mahkeme reddetmedi, dava
+   feragat nedeniyle sona erdi
 f) Yukaridakilerden hicbiri
 
-DIKKAT - en sik karistirilan ayrim: konkordato MUHLETININ kaldirilmasi (g),
-IFLASIN kaldirilmasi (d) DEGILDIR. Muhlet konkordato surecine aittir, iflas
-ayri bir hukumdur. Muhlet kaldirilmasinin SEBEBI tasdik ise cevap (e)'dir.
+DIKKAT - en sik karistirilan UC ayrim:
+1) Konkordato MUHLETININ kaldirilmasi (g), IFLASIN kaldirilmasi (d) DEGILDIR.
+   Muhlet konkordato surecine aittir, iflas ayri bir hukumdur.
+2) Muhlet kaldirilmasinin SEBEBI tasdik ise cevap (e)'dir.
+3) "FERAGAT NEDENIYLE reddine" cevabi (h)'dir, (b) DEGILDIR: mahkeme
+   konkordatoyu incelemedi, borclu kendi vazgecti. Karari mahkeme degil
+   BORCLU verdi.
 
 Yalniz su iki satiri yaz, baska hicbir sey yazma:
 KARAR: <tek harf>
@@ -218,8 +229,14 @@ $ESLESME = @{ 'a' = @('gecici_muhlet','kesin_muhlet','uzatma','muhlet')
               'd' = @('iflas_kaldirma'); 'e' = @('tasdik')
               # 29.08: (g) muhletin kaldirilmasi. Ilk kosuda okuma bunu UC KEZ
               # (d) iflasin kaldirilmasi sandi - iki ayri hukum. Kendi secenegi
-              # verildi; regex tarafinda ikisi de ret_kaldirma kovasinda durur.
-              'g' = @('ret_kaldirma') }
+              # verildi. Damga tarafinda artik AYRI kova var (muhlet_kaldirma),
+              # ama ret ile BIRLIKTE gecen ilanlar ret_kaldirma'da kalir -
+              # ikisi de kabul edilir.
+              'g' = @('muhlet_kaldirma','ret_kaldirma')
+              # 29.08: (h) feragat - borclu KENDI vazgecti. Onceki kosularda bu
+              # secenek YOKTU ve model feragat ilanlarini (b) ret ya da (f)
+              # hicbiri diyordu; yani yeni ayrim olculemiyordu.
+              'h' = @('feragat') }
 
 $sonuc = @(); $uyum = 0; $uyumsuz = 0; $alintisiz = 0; $cevapsiz = 0
 $i = 0
@@ -229,7 +246,7 @@ foreach ($x in $ilanlar) {
   $c = Sor $istem
   if (-not $c) { $cevapsiz++; continue }
   $harf = ''; $alinti = ''
-  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-g])') { $harf = $Matches[1].ToLower() }
+  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-h])') { $harf = $Matches[1].ToLower() }
   if ($c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')     { $alinti = $Matches[1].Trim() }
   if (-not $harf) { $cevapsiz++; continue }
   # 29.08 ASIL KUSUR: "alinti zorunlu" dedim ama ZORLAMADIM - ilk kosuda 290/746
@@ -303,6 +320,7 @@ $supheli = @($sonuc | Where-Object { -not $_.uyuyor -and $_.alinti_var } | ForEa
         'e' { [bool]($_.okuma_alintisi -match 'tasdik|onay') }
         'd' { [bool]($_.okuma_alintisi -match 'iflas[ıi]n\s*kald') }
         'g' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
+        'h' { [bool]($_.okuma_alintisi -match 'feragat') }
         'a' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
         'b' { [bool]($_.okuma_alintisi -match 'red|ret\b') }
         default { $false }
