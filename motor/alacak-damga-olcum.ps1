@@ -133,6 +133,78 @@ $B | Select-Object -First 8 | ForEach-Object {
   Write-Host ("  [{0}] {1}" -f $_.il, $_.baslik.Substring(0, [Math]::Min(56, $_.baslik.Length)))
   Write-Host ("     karar: {0}" -f (KararCumlesi $_.metin))
 }
+
+# ============================================================================
+#  YAZMA MODU  (YAZ=1)  - varsayilan KAPALI
+#  Ayri bir "onarim betigi" YAZILMADI bilerek: desen mantigi TEK YERDE dursun.
+#  Iki dosyada ayni regex'i tasimak, birini duzeltip digerini unutmak demektir -
+#  bugun tam bunu SQL goçünde yasadik (169 vs 46).
+#  Geri alinabilir: degistirilen her satirin ESKI damgasi once yedege yazilir.
+# ============================================================================
+if ($env:YAZ -ne '1') {
+  Write-Host ''
+  Write-Host 'KURU KOSU: hicbir sey degistirilmedi. Gercek onarim icin YAZ=1 ile kos.'
+  exit 0
+}
+
 Write-Host ''
-Write-Host 'NOT: Bu betik HICBIR SEY DEGISTIRMEDI. Sayilar makulse goç basilir:'
-Write-Host '     radar-app/sql/2026-08-29-alacak-ret-iflas-metinden.sql'
+Write-Host ('=' * 74)
+Write-Host 'YAZMA MODU ACIK - damgalar guncellenecek.'
+
+$degisecek = @()
+$A | ForEach-Object { $degisecek += [pscustomobject]@{ ilan_no=$_.ilan_no; eski='ret_iflas';    yeni='ret_kaldirma' } }
+$B | ForEach-Object { $degisecek += [pscustomobject]@{ ilan_no=$_.ilan_no; eski='ret_kaldirma'; yeni='ret_iflas'    } }
+if (-not $degisecek.Count) { Write-Host 'Degisecek kayit yok.'; exit 0 }
+
+# 1) YEDEK ONCE (geri donus yolu acik olmadan yazma yapilmaz)
+$kok = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
+$yedekYol = Join-Path $kok 'veri\alacak-damga-yedek.json'
+$yedek = [ordered]@{
+  olcum   = (Get-Date).ToString('dd.MM.yyyy HH:mm')
+  aciklama= 'Damga onarimindan ONCEKI degerler. Geri almak icin her ilan_no eski degerine set edilir.'
+  adet    = $degisecek.Count
+  kayitlar= $degisecek
+}
+[IO.File]::WriteAllText($yedekYol, ($yedek | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding $false))
+Write-Host ("Yedek yazildi: {0} kayit -> {1}" -f $degisecek.Count, $yedekYol)
+
+# 2) PATCH - gruplar halinde (URL uzunluk sinirina takilmamak icin)
+$PH = @{ apikey = $KEY; Authorization = "Bearer $KEY"; 'Content-Type' = 'application/json'; Prefer = 'return=minimal' }
+$yazilan = 0; $hata = 0
+foreach ($hedefDurum in @('ret_kaldirma','ret_iflas')) {
+  $liste = @($degisecek | Where-Object { $_.yeni -eq $hedefDurum } | ForEach-Object { $_.ilan_no })
+  for ($i = 0; $i -lt $liste.Count; $i += 20) {
+    $parca = $liste[$i..([Math]::Min($i + 19, $liste.Count - 1))]
+    $inList = ($parca | ForEach-Object { '"' + $_ + '"' }) -join ','
+    $u = "$URL/rest/v1/alacak_ilan?ilan_no=in.($inList)"
+    $govde = @{ karar_durumu = $hedefDurum } | ConvertTo-Json -Compress
+    try {
+      Invoke-RestMethod -Method Patch -Uri $u -Headers $PH -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 90 | Out-Null
+      $yazilan += $parca.Count
+    } catch {
+      $hata += $parca.Count
+      Write-Host ("  PATCH hatasi ({0}, {1} kayit): {2}" -f $hedefDurum, $parca.Count, $_.Exception.Message)
+    }
+    Start-Sleep -Milliseconds 200
+  }
+}
+Write-Host ("Yazilan: {0} · hata: {1}" -f $yazilan, $hata)
+
+# 3) YAZ -> GERI OKU -> KARSILASTIR  (yukleyici-sessiz-kayip dersi)
+Write-Host ''
+Write-Host 'GERI OKUMA...'
+$yeniIflas    = Cek 'ret_iflas'
+$yeniKaldirma = Cek 'ret_kaldirma'
+$beklenen = $retIflas.Count - $A.Count + $B.Count
+Write-Host ("  ret_iflas    : {0}  (beklenen {1})" -f $yeniIflas.Count, $beklenen)
+Write-Host ("  ret_kaldirma : {0}  (beklenen {1})" -f $yeniKaldirma.Count, ($retKaldirma.Count + $A.Count - $B.Count))
+Write-Host ("  TOPLAM       : {0}  (once {1}) <- KORUNMALI" -f `
+  ($yeniIflas.Count + $yeniKaldirma.Count), ($retIflas.Count + $retKaldirma.Count))
+$kalanKirli = @($yeniIflas | Where-Object { -not (IflasKarariVar $_.metin) }).Count
+Write-Host ("  ret_iflas icinde metninde iflas karari OLMAYAN: {0} (0 olmali)" -f $kalanKirli)
+if ($yeniIflas.Count -ne $beklenen -or $kalanKirli -ne 0 -or
+    ($yeniIflas.Count + $yeniKaldirma.Count) -ne ($retIflas.Count + $retKaldirma.Count)) {
+  Write-Host 'KIRMIZI: geri okuma beklenenle TUTMADI. Yedek: veri/alacak-damga-yedek.json'
+  exit 1
+}
+Write-Host 'YESIL: damga onarildi, sayilar tutuyor.'
