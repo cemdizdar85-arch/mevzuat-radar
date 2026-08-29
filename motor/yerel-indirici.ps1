@@ -134,7 +134,18 @@ foreach($law in $manifest.kanunlar){
     }
     if(-not $aldi){ $hata++; Log "PDF DEGIL (tum uclar denendi): $slug"; continue }
     & pdftotext -enc UTF-8 $pdf $txt 2>$null
-    if(-not (Test-Path $txt) -or (Get-Item $txt).Length -lt 2000){ $hata++; Log "KISA/BOS: $slug"; continue }
+    # 30.08.2026 KUSUR (olculdu): esik 2000 BAYT idi ve GERCEK belgeleri
+    # reddediyordu. 15 VUK Genel Tebligi bu yuzden hic yutulmadi; olcum:
+    #   vukgt590 1886 · vukgt585 757 · vukgt580 1885 · vukgt574 757 ...
+    #   vukgt503 850   -> ONBESI DE GECERLI PDF, 757-1948 karakter.
+    # Bunlar gercekten kisa tebligler (yeniden degerleme orani vb. bir sayfa).
+    # Esik, PDF imza kapisi YOKKEN "HTML geldi mi?" testi gibi kullaniliyordu;
+    # artik imza kapisi var, bu esigin tek isi BOS cikarimi yakalamak.
+    # 250'ye indirildi; 2000 altindakiler yine de loga yazilir ki gorunur kalsin.
+    if(-not (Test-Path $txt)){ $hata++; Log "METIN CIKMADI: $slug"; continue }
+    $mLen = (Get-Item $txt).Length
+    if($mLen -lt 250){ $hata++; Log "BOS/BOZUK: $slug ($mLen bayt)"; continue }
+    if($mLen -lt 2000){ Log "KISA AMA GECERLI: $slug ($mLen bayt)" }
     $indirilen++
     $yeni = Get-Content $txt -Raw -Encoding UTF8
     $hedef = Join-Path $hazirDir "$slug.txt"
