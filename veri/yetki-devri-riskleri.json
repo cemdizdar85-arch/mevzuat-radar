@@ -1,14 +1,22 @@
 {
-  "tarih": "29.08.2026 04:18",
+  "tarih": "29.08.2026 04:23",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
   "sayfa": 63,
   "atifli_iddia": 261,
-  "dayanaksiz_iddia": 294,
+  "dayanaksiz_iddia": 296,
   "kirmizi_aday": 29,
-  "yeni_aday": 0,
-  "yeni": [],
+  "yeni_aday": 1,
+  "yeni": [
+    {
+      "sayfa": "alacak-radari.html",
+      "satir": 334,
+      "iddia": "7 gün",
+      "kanun": "299",
+      "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
+    }
+  ],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -49,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 334,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -826,6 +834,18 @@
       "satir": 102,
       "iddia": "45.000 TL",
       "metin": "{id:'s1',tip:'soru',metin:'12 Mart\\'taki 45.000 TL banka çıkışı ne içindi?',cevap:'Tedarikçi Öz İplik\\'e mal ödemesi',dosya:null,durum:'ok'},"
+    },
+    {
+      "sayfa": "fark.html",
+      "satir": 49,
+      "iddia": "240.000 TL",
+      "metin": "Bursa Kimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. İşletme, ürünlerin yoğunluk farkı nedeniyle fiziki miktarları doğrudan toplayamadığından ortak "
+    },
+    {
+      "sayfa": "fark.html",
+      "satir": 55,
+      "iddia": "240.000 TL",
+      "metin": "🗺️ Katsayı (Eşdeğer Ürün) Yöntemiyle Beta'nın Birim Maliyeti Fiili miktarları katsayılarla çarp: Alfa 2.000×1=2.000 kg, Beta 1.000×3=3.000 kg, Gama 500×2=1.000 kg eşdeğer → Eşdeğe"
     },
     {
       "sayfa": "firma-analizi.html",
