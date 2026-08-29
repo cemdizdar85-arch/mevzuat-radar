@@ -68,7 +68,8 @@ illerSuzgecli · iller · ilanlar`. Arşiv 5.917 ilan; konkordato 5.435 / iflas 
 | Dosya | Ne yapar | Durum |
 |---|---|---|
 | `2026-08-28-alacak-ret-iflas-durumu.sql` | "Konkordato reddi → İFLAS" ayrı durum | ✅ BASILI (`durumlar.ret_iflas` = 65) |
-| `2026-08-28-alacak-ret-iflas-onarim.sql` | Önceki göçün damga onarımı | ⚠️ ÖLÇÜLMEDİ — `ret_iflas` sayısının doğruluğu ayrı ölçüm ister |
+| `2026-08-28-alacak-ret-iflas-onarim.sql` | Önceki göçün damga onarımı | ✅ BASILI **ve ölçüldü** (29.08 canlı: `ret_iflas` 65 · `ret_kaldirma` 650 · toplam 715 korunmuş · 60 ilanlık örnekte kirli kayıt 0) |
+| **`2026-08-29-alacak-ret-iflas-metinden.sql`** | `ret_iflas` damgası **başlıktan METNE** taşınır (iki yön: Bursa kalıbı çıkar, metninde iflas geçenler girer) | ⏳ **BASILMADI** — ölçüm: `alacak_vitrin(null,null)->'durumlar'->>'ret_iflas'` **65'ten farklı** olmalı; ayrıca `(null,'ret_iflas')->'iller'` içinde İSTANBUL görünmeli (eski damgada yoktu) |
 | `2026-08-28-alacak-iflas-kaldirma-durumu.sql` | İİK m.182 "İflas kaldırıldı" ayrı durum | ✅ BASILI (`durumlar.iflas_kaldirma` = 6) |
 | `2026-08-20-alacak-metin-alanlari.sql` | İlan metni + yapılandırılmış alanlar | ✅ BASILI (vitrin `borclu · vkn · karar · muhletBitis` alanlarını döndürüyor) |
 | `2026-08-20-alacak-toplu-alanlar.sql` | Toplu taramadan ayrıştırılan alanlar | ✅ BASILI (aynı ölçüm) |
