@@ -74,5 +74,139 @@
                                              "Beta=120"
                                          ]
                                      ]
+                    },
+    "adimlar":  [
+                    {
+                        "anlatim":  "Önce soruda ne verilmiş ona bakalım: her ürünün fiili üretim miktarı ve eşdeğer katsayısı verilmiş, bunları tabloya yerleştirelim.",
+                        "formul":  "",
+                        "doldur":  [
+                                       [
+                                           0,
+                                           0
+                                       ],
+                                       [
+                                           0,
+                                           1
+                                       ],
+                                       [
+                                           0,
+                                           2
+                                       ],
+                                       [
+                                           1,
+                                           0
+                                       ],
+                                       [
+                                           1,
+                                           1
+                                       ],
+                                       [
+                                           1,
+                                           2
+                                       ],
+                                       [
+                                           2,
+                                           0
+                                       ],
+                                       [
+                                           2,
+                                           1
+                                       ],
+                                       [
+                                           2,
+                                           2
+                                       ],
+                                       [
+                                           3,
+                                           0
+                                       ],
+                                       [
+                                           3,
+                                           1
+                                       ],
+                                       [
+                                           3,
+                                           2
+                                       ]
+                                   ]
+                    },
+                    {
+                        "anlatim":  "Farklı yoğunluktaki ürünleri fiziki olarak doğrudan toplayamayız, bu yüzden her ürünü referans ürün cinsinden eşdeğer miktara çevirelim.",
+                        "formul":  "Eşdeğer Miktar = Fiili Miktar × Katsayı",
+                        "doldur":  [
+                                       [
+                                           0,
+                                           3
+                                       ],
+                                       [
+                                           1,
+                                           3
+                                       ],
+                                       [
+                                           2,
+                                           3
+                                       ],
+                                       [
+                                           3,
+                                           3
+                                       ]
+                                   ]
+                    },
+                    {
+                        "anlatim":  "Toplam ortak maliyetimiz 240.000 TL; bunu toplam eşdeğer miktara bölerek birim eşdeğer maliyeti bulalım.",
+                        "formul":  "Birim Eşdeğer Maliyet = 240.000 / 6.000 = 40 TL",
+                        "doldur":  [
+                                       [
+                                           3,
+                                           4
+                                       ]
+                                   ]
+                    },
+                    {
+                        "anlatim":  "Şimdi her ürünün ortak maliyetten alacağı payı, kendi eşdeğer miktarını birim eşdeğer maliyetle çarparak bulalım.",
+                        "formul":  "Pay = Eşdeğer Miktar × 40",
+                        "doldur":  [
+                                       [
+                                           0,
+                                           4
+                                       ],
+                                       [
+                                           1,
+                                           4
+                                       ],
+                                       [
+                                           2,
+                                           4
+                                       ]
+                                   ]
+                    },
+                    {
+                        "anlatim":  "Birim maliyeti hesaplarken artık eşdeğer değil, ürünün gerçek yani fiili miktarını kullanıyoruz çünkü fiilen üretilen miktar budur.",
+                        "formul":  "Birim Maliyet = Ortak Maliyet Payı / Fiili Miktar",
+                        "doldur":  [
+                                       [
+                                           0,
+                                           5
+                                       ],
+                                       [
+                                           1,
+                                           5
+                                       ],
+                                       [
+                                           2,
+                                           5
+                                       ]
+                                   ]
+                    },
+                    {
+                        "anlatim":  "Beta ürününün payı olan 120.000 TL\u0027yi kendi fiili miktarı olan 1.000 kg\u0027a bölünce birim maliyet 120 TL/kg çıkıyor, aradığımız sonuç bu.",
+                        "formul":  "120.000 / 1.000 = 120 TL/kg",
+                        "doldur":  [
+                                       [
+                                           3,
+                                           5
+                                       ]
+                                   ]
                     }
+                ]
 }

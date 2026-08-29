@@ -86,7 +86,8 @@ function TabloHtml($t){
     $q++
     $stil=''; if($q -eq $n){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
     [void]$sb.Append("<tr$stil>")
-    foreach($hc in @($st)){ [void]$sb.Append("<td>$(K $hc)</td>") }
+    $kc=0
+    foreach($hc in @($st)){ [void]$sb.Append("<td class='hcell' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>"); $kc++ }
     [void]$sb.Append('</tr>')
   }
   [void]$sb.Append('</table>')
@@ -167,6 +168,21 @@ $sikSb=[Text.StringBuilder]::new()
 foreach($hh in 'A','B','C','D','E'){
   [void]$sikSb.Append("<button class='sik' data-h='$hh'>$hh) $(K $veri.siklar.$hh)</button>")
 }
+$adimJson='null'; if($veri.adimlar){ $adimJson=ConvertTo-Json -InputObject @($veri.adimlar) -Depth 6 -Compress }
+$playerBlok=''
+if($veri.adimlar){
+  $playerBlok=@"
+<div id='player' style='margin-top:14px'>
+  <button id='padim' class='dgm' style='padding:9px 16px;font-size:.9em'>🎬 Bu çözümü adım adım yaşa</button>
+  <div id='panlat' style='display:none;border:1px solid var(--kehribar);border-radius:12px;padding:12px 14px;margin-top:10px;background:rgba(224,164,88,.07)'>
+    <div style='font-size:.78em;color:var(--kehribar);font-weight:800' id='psayac'></div>
+    <div id='pmetin' style='margin-top:4px;font-size:.95em'></div>
+    <div id='pformul' style='margin-top:6px;font-family:Consolas,monospace;font-size:.9em;color:#78b4ff'></div>
+    <button id='pileri' class='dgm' style='padding:7px 14px;font-size:.85em;margin-top:10px'>İleri →</button>
+  </div>
+</div>
+"@
+}
 $taktikBlok=''; if($veri.sinav_taktigi){ $taktikBlok="<div class='kutu'>🎯 <b>Sınav taktiği:</b> $(K $veri.sinav_taktigi)</div>" }
 $notBlok=''; if($veri.notlandirici){ $notBlok="<div class='kutu2'>⚖️ <b>Notlandırıcı gözü:</b> $(K $veri.notlandirici)</div>" }
 $hapBlok=''; if($veri.hap){ $hapBlok="<div class='kutu2'><b>HAP:</b> $(K $veri.hap)</div>" }
@@ -207,6 +223,9 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .tcetvel th{border-bottom:2px solid var(--yesil);color:var(--yesil);padding:4px 8px;text-align:left}
 .tcetvel td{padding:4px 8px;border-bottom:1px dotted #444}
 .ttutar{text-align:right;color:var(--kehribar);font-weight:700}
+.hcell.gizli{color:transparent;text-shadow:none}
+.hcell.parla{animation:parla .9s ease}
+@keyframes parla{0%{background:rgba(224,164,88,.55)}100%{background:transparent}}
 #cta{display:none;margin-top:26px;background:linear-gradient(160deg,rgba(224,164,88,.16),rgba(224,164,88,.05));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}
 #cta h2{margin:.2em 0;color:var(--kehribar)}
 .dgm{display:inline-block;background:var(--kehribar);color:#161513;font-weight:800;border-radius:10px;padding:12px 22px;text-decoration:none;margin-top:10px}
@@ -225,6 +244,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
     <div id="hukum"></div>
     <div id="acikla">
       $acBlok
+      $playerBlok
       $tabloBlok
       $semaBlok
       $taktikBlok
@@ -255,6 +275,31 @@ document.querySelectorAll('.sik').forEach(b=>{
     h.scrollIntoView({behavior:'smooth',block:'center'});
   });
 });
+const ADIMLAR=$adimJson;
+if(ADIMLAR){
+  let ad=-1;
+  const hc=(r,c)=>document.querySelector(".hcell[data-r='"+r+"'][data-c='"+c+"']");
+  const tum=()=>document.querySelectorAll('.hcell');
+  const goster=()=>{
+    const s=ADIMLAR[ad];
+    document.getElementById('psayac').textContent='ADIM '+(ad+1)+' / '+ADIMLAR.length;
+    document.getElementById('pmetin').textContent=s.anlatim;
+    document.getElementById('pformul').textContent=s.formul||'';
+    (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
+    document.getElementById('pileri').textContent=(ad===ADIMLAR.length-1)?'🔄 Baştan':'İleri →';
+  };
+  document.getElementById('padim').addEventListener('click',()=>{
+    tum().forEach(el=>el.classList.add('gizli'));
+    document.getElementById('padim').style.display='none';
+    document.getElementById('panlat').style.display='block';
+    ad=0; goster();
+    document.getElementById('panlat').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  document.getElementById('pileri').addEventListener('click',()=>{
+    if(ad===ADIMLAR.length-1){ tum().forEach(el=>el.classList.add('gizli')); ad=0; goster(); return; }
+    ad++; goster();
+  });
+}
 </script>
 </body>
 </html>
