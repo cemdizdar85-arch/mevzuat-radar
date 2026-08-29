@@ -58,7 +58,19 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     return $true
   }
 
-  $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:–—-]?|[–—-])'
+  # 30.08.2026 KUSUR (olculdu, III-45.1 vakasi): ayirici sinifi yalniz UC tire
+  # taniyordu: - (U+002D), – (U+2013), — (U+2014). Ama mevzuat.gov.tr PDF'lerinin
+  # bir kisminda madde ayiricisi ‒ (U+2012 FIGURE DASH) veya − (U+2212 MINUS).
+  # Gozle ayirt edilemez, regex icin baska karakterdir. SESSIZ zarar:
+  #   III-45.1 (Belge ve Kayit Duzeni): 33 maddenin 32'si kaciyor, tebligin
+  #     TAMAMI tek "m.5/A" blobu olarak yutuluyordu (23 parcaya bolunmus).
+  #   KGK Kurulus KHK 660: ambarda 1 parca / 1 madde - kaynakta 35 madde.
+  #     Zaten satilan bagimsiz denetim sinavinin KURUCU mevzuati, yillardir
+  #     tek blob. Envanterde satir VARDI, icerik YOKTU.
+  # Kapsama kapisi bunu yakalamadi cunku metin kaybi yok - metin tek maddede
+  # duruyor; kaybolan SINIRLAR. Ders: "kapsama %" madde SAYISINI olcmez.
+  # Olcum: tum _txt (706 dosya) tarandi - U+2012 76 kez / 4 dosyada, U+2212 8 kez.
+  $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:‐-―−-]?|[‐-―−-])'
   $m = $rx.Matches($flatMetin)
   $docs = New-Object System.Collections.Generic.List[object]
   for($i=0; $i -lt $m.Count; $i++){

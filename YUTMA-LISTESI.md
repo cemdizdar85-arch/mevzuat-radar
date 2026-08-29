@@ -1,5 +1,45 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 30.08.2026 — SPK/SPL DÜZEY 1 ÇEKİRDEĞİ: 10 KAYNAK YUTULDU + PARÇALAYICI KUSURU ONARILDI (Cem: "2 yap 11 belgeyi yut")
+*Sebep: [veri/KAPSAM-KONTROL-SPK-DUZEY1.md](veri/KAPSAM-KONTROL-SPK-DUZEY1.md) ölçümü — SPL'nin resmî sınav alt konu başlıkları ankor alındı; 21 belgenin 12'si ambarda yoktu, 10'u mevzuat.gov.tr'de. (Cem'e önce "11" denmişti — **yanlış sayım, doğrusu 10**; kalan 2 belge TSPB dokümanı, kaynak yeri ölçülmedi.)*
+
+**mevzuatNo'lar TAHMİN EDİLMEDİ:** 13 aday indirildi, PDF'in ilk sayfasındaki başlıkla karşılaştırıldı; **3 aday yanlış çıkıp elendi** (39081 ödeme kuruluşları · 19314 teminatlı menkul kıymetler · 23151 veraset).
+
+| Kaynak | pdfId | Parça | Madde |
+|---|---|---:|---:|
+| Borclanma Araci Sahipleri Kurulu Tebligi (II-31/A.1) | G9:34849 | 15 | 11 |
+| Yatirim Kuruluslarinin Kurulus ve Faaliyet Esaslari (III-39.1) | G9:19131 | 116 | 76 |
+| Belge ve Kayit Duzeni Tebligi (III-45.1) | G9:21018 | 46 | 33 |
+| Kitle Fonlamasi Tebligi (III-35/A.2) | G9:39017 | 71 | 33 |
+| Uzaktan Kimlik Tespiti Tebligi (III-42.1) | G9:39408 | 23 | 16 |
+| Portfoy Saklama Hizmeti Tebligi (III-56.1) | G9:18547 | 30 | 14 |
+| MKK Kurulus/Faaliyet/Calisma/Denetim Yonetmeligi | G7:19951 | 48 | 38 |
+| Merkezi Takas Kuruluslari Genel Yonetmeligi | G7:18413 | 97 | 64 |
+| Takasbank Merkezi Takas Yonetmeligi | G7:18598 | 71 | 64 |
+| Takasbank Merkezi Karsi Taraf Yonetmeligi | G7:18722 | 67 | 49 |
+| **TOPLAM** | | **584** | **398** |
+
+**Geri okuma:** her kaynağın ambardaki madde numaraları kaynak metniyle karşılaştırıldı — **açıklanamayan tek eksik yok**; atlananların hepsi metinde `(Mülga:` işaretli.
+
+### 🔴 AYNI TURDA ÇIKAN PARÇALAYICI KUSURU — U+2012 FIGURE DASH
+III-45.1 %83,2 kapsama uyarısı verdi; geri okuma sebebi buldu: **33 maddenin tamamı tek `m.5/A` blobu** olarak yutulmuştu. Kök sebep: `mevzuat-yut.ps1` ayırıcı sınıfı yalnız `-` (U+002D) · `–` (U+2013) · `—` (U+2014) tanıyordu; bazı mevzuat.gov.tr PDF'lerinde ayırıcı **`‒` (U+2012)** veya **`−` (U+2212)**. Gözle ayırt edilemez.
+
+**Kapsama kapısı yakalayamaz** — metin kaybı yok, kaybolan SINIRLAR. **Ders: "kapsama %" madde SAYISINI ölçmez.**
+
+Yayılım ölçüldü (706 `_txt`): U+2012 76 kez/4 dosya · U+2212 8 kez. Sınıf genişletildi, etkilenen 5 kaynak `ZORLA=1` ile yeniden yutuldu:
+
+| Kaynak | Önce | Sonra |
+|---|---:|---:|
+| **KGK Kurulus KHK (660 s.)** | **1 parça / 1 madde** | **50 / 35** ✓ kaynakla birebir |
+| Belge ve Kayit Duzeni (III-45.1) | 23 / 1 | 46 / 33 |
+| MASAK K. (5549) | 34 / 30 | 35 / 27 (+4 mülga doğru atlandı) |
+| SSİY | 332 | 338 |
+| Dahilde İşleme Rejimi Tebliği | 140 | 141 |
+
+🔴 **KGK 660 en ağırı:** zaten sattığımız bağımsız denetim sınavının KURUCU mevzuatı ambarda tek parça duruyordu — envanterde satır VARDI, içerik YOKTU. **Açık iş: bu kaynağa dayanan mevcut sorular yeniden-doğrulama kuyruğuna alınmalı.**
+
+**Üretici körlüğü kapatıldı:** `soru-uret-v2.ps1` ek-alan önek listesine 9 önek eklendi (eşleşme `kaynak_ad` başına çapalı; `Borclanma Araclari` öneki `Borclanma Araci Sahipleri`'ni GÖRMÜYORDU). Dokuzu da canlı kasada doğrulandı → 584 parçanın tamamı görünüyor.
+
 ## ✅ 28.08.2026 — TMS 37 GÜNCEL SÜRÜMLE YENİDEN YUTULDU (mülga-atıf bulgusu; Cem: "2 yap şimdi")
 *Sebep: Şema provası yakaladı — ambardaki `TMS 37 p.5 - Kapsam` ESKİ SÜRÜMDÜ (mülga TMS 17 + TFRS 4'e "bakınız" atfı; güncel metin TFRS 16/TFRS 17 der). 90'lık partideki TMS 37 sorusu bu yüzden eski atıfla üretilmişti (model kurallara uydu, kaynak bayattı). DERS: **kapsama tam ≠ sürüm güncel.***
 
