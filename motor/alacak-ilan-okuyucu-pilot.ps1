@@ -279,6 +279,89 @@ foreach ($x in $ilanlar) {
   Start-Sleep -Milliseconds 350
 }
 
+# ============================================================================
+#  HAKEM TURU (29.08, Cem: "100'u niye dogrulayamiyoruz, BIREBIR OKU")
+#
+#  %86 uyum "okuma %14 yaniliyor" DEMEK DEGIL - iki yontemin ANLASMADIGI oran.
+#  Bugun elle bakilan her uyusmazlikta cogunlukla OKUMA hakli cikti (18 tasdik,
+#  feragat dilekcesi, m.177/4 - hepsini okuma buldu, regex kacirdi). Asil kusur
+#  kurgudaydi: regex ANA damga, okuma "ikinci gorus" yapilmisti.
+#
+#  Hakem turu ayrisan ilanlari IKINCI KEZ okutur - bu sefer iki yorumu ONUNE
+#  koyarak. Model kendi ilk cevabini da sorgular. Sonucta her ilan uc kutudan
+#  birinde olur: IKI YONTEM ONAYLADI · HAKEM COZDU · ELLE BAKILACAK.
+#  "Olculmedi" kutusu KALMAZ.
+# ============================================================================
+$DURUM_ACIK = @{
+  'gecici_muhlet'='gecici muhlet verildi'; 'kesin_muhlet'='kesin muhlet verildi'
+  'uzatma'='muhlet uzatildi'; 'muhlet'='muhlet verildi (turu belirsiz)'
+  'ret_kaldirma'='konkordato talebi REDDEDILDI (iflas karari yok)'
+  'ret_iflas'='talep reddedildi VE IFLASA karar verildi'
+  'tasdik'='konkordato TASDIK edildi'; 'iflas_kaldirma'='daha once verilmis IFLAS KALDIRILDI'
+  'feragat'='borclu davadan FERAGAT etti (kendi vazgecti)'
+  'muhlet_kaldirma'='konkordato MUHLETI kaldirildi/sonlandirildi'
+  'alacak_cagrisi'='alacaklilara cagri'; 'durusma'='durusma gunu'; 'diger'='diger'
+}
+$HAKEM = @'
+Asagida bir resmi ilanin metni var. Bu ilanin hangi karari tasidigi konusunda
+IKI FARKLI yorum var. Metne bak ve HANGISININ DOGRU oldugunu soyle.
+
+YORUM A: {A}
+YORUM B: {B}
+
+Ikisi de yanlissa (C) de. Yalniz su iki satiri yaz:
+HAKEM: <A ya da B ya da C>
+ALINTI: <karari gecen cumleyi metinden AYNEN kopyala; yoksa YOK yaz>
+
+Kararini metne dayandiramiyorsan (C) yaz. Tahmin etme.
+
+--- ILAN BASLIGI ---
+{BASLIK}
+--- ILAN METNI ---
+{METIN}
+'@
+
+if ($env:HAKEM -eq '1') {
+  $ayrisan = @($sonuc | Where-Object { -not $_.uyuyor -and $_.alinti_var })
+  Write-Host ''
+  Write-Host ('=' * 74)
+  Write-Host ("HAKEM TURU: {0} ayrisan ilan ikinci kez okunuyor" -f $ayrisan.Count)
+  $okumaKazandi = 0; $regexKazandi = 0; $ikisiDe = 0; $hakemsiz = 0
+  $j = 0
+  foreach ($a in $ayrisan) {
+    $j++
+    $ilan = $ilanlar | Where-Object { "$($_.ilan_no)" -eq "$($a.ilan_no)" } | Select-Object -First 1
+    if (-not $ilan) { $hakemsiz++; continue }
+    # A = OKUMANIN dedigi, B = REGEX damgasinin dedigi
+    $okumaDurum = @($ESLESME[$a.okuma_karari])[0]
+    $aMetin = if ($okumaDurum -and $DURUM_ACIK[$okumaDurum]) { $DURUM_ACIK[$okumaDurum] } else { 'yukaridakilerden hicbiri' }
+    $bMetin = if ($DURUM_ACIK[$a.regex_damgasi]) { $DURUM_ACIK[$a.regex_damgasi] } else { $a.regex_damgasi }
+    $istem = $HAKEM.Replace('{A}', $aMetin).Replace('{B}', $bMetin).
+             Replace('{BASLIK}', "$($ilan.baslik)").Replace('{METIN}', (Maskele "$($ilan.metin)"))
+    $c = Sor $istem
+    $kar = ''; $al = ''
+    if ($c -and $c -match '(?im)^\s*HAKEM\s*:\s*\(?([ABC])') { $kar = $Matches[1].ToUpper() }
+    if ($c -and $c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')      { $al  = $Matches[1].Trim() }
+    switch ($kar) {
+      'A' { $okumaKazandi++ } 'B' { $regexKazandi++ } 'C' { $ikisiDe++ } default { $hakemsiz++ }
+    }
+    $a | Add-Member -NotePropertyName hakem        -NotePropertyValue $kar   -Force
+    $a | Add-Member -NotePropertyName hakem_alinti -NotePropertyValue $al    -Force
+    if ($j % 10 -eq 0) { Write-Host ("  {0}/{1} hakem (okuma {2} · regex {3} · ikisi de degil {4})" -f $j, $ayrisan.Count, $okumaKazandi, $regexKazandi, $ikisiDe) }
+    Start-Sleep -Milliseconds 350
+  }
+  Write-Host ''
+  Write-Host 'HAKEM SONUCU:'
+  Write-Host ("  OKUMA hakli   : {0}" -f $okumaKazandi)
+  Write-Host ("  REGEX hakli   : {0}" -f $regexKazandi)
+  Write-Host ("  IKISI DE degil: {0}  <- ELLE BAKILACAK" -f $ikisiDe)
+  Write-Host ("  hakem cevapsiz: {0}  <- ELLE BAKILACAK" -f $hakemsiz)
+  $kesin = $sonuc.Count - $ikisiDe - $hakemsiz
+  Write-Host ''
+  Write-Host ("KAPSAMA: {0}/{1} ilan KESINLESTI (%{2:N1}) · elle bakilacak {3}" -f `
+    $kesin, $sonuc.Count, (100.0 * $kesin / $sonuc.Count), ($ikisiDe + $hakemsiz))
+}
+
 $hedef = Join-Path $kok 'veri\alacak-okuma-pilot.json'
 $cikti = [ordered]@{
   olcum      = (Get-Date).ToString('dd.MM.yyyy HH:mm')

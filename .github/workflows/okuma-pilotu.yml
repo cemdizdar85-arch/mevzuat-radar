@@ -33,6 +33,10 @@ on:
         description: '4 kovanin TAMAMINI oku (746 ilan). Hayir dersen ADET kadar ornek alinir.'
         type: boolean
         default: false
+      hakem:
+        description: 'HAKEM TURU: okuma ile regex ayrisan ilanlari IKINCI KEZ okut, hangisi hakli karar ver'
+        type: boolean
+        default: false
       adet:
         description: 'hepsi=false ise kac ilan okunsun (kovalara esit bolunur)'
         default: '100'
@@ -51,6 +55,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           HEPSI: ${{ inputs.hepsi && '1' || '0' }}
+          HAKEM: ${{ inputs.hakem && '1' || '0' }}
           ADET: ${{ inputs.adet }}
         run: ./motor/alacak-ilan-okuyucu-pilot.ps1
 
