@@ -396,7 +396,14 @@ function ikiAySonra(iso) {
       const kayit = ayristir(fs.readFileSync(txt, 'utf8'));
       const itiraz = ikiAySonra(b.yayin_tarihi);
       const tam = kayit.filter(r => r.ad && r.sahip && r.sinif.length);
+      // TEKIL SAYI: veritabanina giden satir sayisi budur. (basvuru_no,
+      // bulten_no) anahtari ayni numarayi tek satira indirir; kutuge ham
+      // sayiyi yazmak sayaci yaniltiyordu (bulten 488'de 1 kayit fark).
+      const tekilSet = new Set(kayit.map(r => r.basvuru_no));
+      const tekil = tekilSet.size;
+      const tekrar = kayit.length - tekil;
       log(`   kayit: ${kayit.length} · tam (4 alan): ${tam.length} (%${(100 * tam.length / (kayit.length || 1)).toFixed(1)})`);
+      if (tekrar) log(`   tekrar eden basvuru no: ${tekrar} -> veritabanina ${tekil} satir yazilacak`);
 
       // KAPI: ölçülen bültende oran %100'dü. Ciddi düşüş ayrıştırıcının
       // bozulduğunu gösterir - bozuk veri yazmaktansa DURULUR.
@@ -412,11 +419,17 @@ function ikiAySonra(iso) {
         }
         log('');
         await sbYaz('marka_bulten_kutuk?on_conflict=bulten_no',
-          [{ bulten_no: b.bulten_no, yayin_tarihi: b.yayin_tarihi, kayit: kayit.length, boyut_bayt: boyut, durum: 'bitti', not_: null, guncelleme: new Date().toISOString() }],
+          [{
+            bulten_no: b.bulten_no, yayin_tarihi: b.yayin_tarihi,
+            kayit: tekil,                       // SAYILAN degil YAZILAN
+            boyut_bayt: boyut, durum: 'bitti',
+            not_: tekrar ? `${tekrar} tekrar eden basvuru no birlestirildi` : null,
+            guncelleme: new Date().toISOString()
+          }],
           'resolution=merge-duplicates,return=minimal');
       }
       log(`   itiraz son gunu: ${itiraz}  (SMK m.18 - yayimdan 2 ay)`);
-      rapor.islenen.push({ bulten_no: b.bulten_no, yayin_tarihi: b.yayin_tarihi, kayit: kayit.length, tam: tam.length, itiraz_son: itiraz });
+      rapor.islenen.push({ bulten_no: b.bulten_no, yayin_tarihi: b.yayin_tarihi, kayit: tekil, ham: kayit.length, tekrar, tam: tam.length, itiraz_son: itiraz });
     } catch (e) {
       console.error(`   !! HATA: ${e.message}`);
       rapor.hata.push({ bulten_no: b.bulten_no, mesaj: e.message });
