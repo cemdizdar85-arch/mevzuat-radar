@@ -64,6 +64,8 @@ jobs:
           HEDEFLER=(
             "mevzuat.gov.tr GeneratePdf (Teblig III-39.1)|https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131&mevzuatTur=Teblig&mevzuatTertip=5|PDF"
             "mevzuat.gov.tr MevzuatMetin (SPKn 6362)|https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf|PDF"
+            "resmigazete.gov.tr ana sayfa|https://www.resmigazete.gov.tr|HTML"
+            "resmigazete.gov.tr fihrist (gunluk tarama kaynagi)|https://www.resmigazete.gov.tr/fihrist?tarih=2026-08-29&mukerrer=0|HTML"
             "ekap.kik.gov.tr bulten indirme (IHALE kaynagi)|https://ekap.kik.gov.tr/ekap/ilan/bultenindirme.aspx|HTML"
             "api.ted.europa.eu arama (yurtdisi ihale)|https://api.ted.europa.eu/v3/notices/search|JSON"
             "mevzuat.spk.gov.tr API (Search/All)|https://mevzuat.spk.gov.tr/api/Search/All|JSON"
