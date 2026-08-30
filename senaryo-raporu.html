@@ -194,7 +194,7 @@ const ULKELER=[
 ];
 
 let VERGI={}, VERGI_ULKE={}, IGV_ULKE={}, DAMPING=[], KDV={}, VERI={}, TARIM={}, EMY_TARIM={},
-    BALIK={kodlar:{},gvUlke:[],emyUlke:[]}, ASKIYA={kodlar:{}};
+    BALIK={kodlar:{},gvUlke:[],emyUlke:[]}, ASKIYA={kodlar:{}}, NIHAI={kodlar:{}}, EKVERGI={};
 Promise.all([
   fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
@@ -213,9 +213,14 @@ Promise.all([
   // Balik kodlarinin 423'u baska HICBIR tabloda yok - arac onlara "kod
   // bulunamadi" diyordu. Askiya 1.924 tam GTIP kodunu ilgilendiriyor.
   fetch('veri/gtip-balik.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-askiya.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h,ug,tr,em,bl,as])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h};TARIM=tr||{};EMY_TARIM=em||{};
+  fetch('veri/gtip-askiya.json').then(r=>r.json()).catch(()=>({})),
+  // 30.08: VI/VII Sayili Listeler (nihai kullanim) + ek vergiler (KKDF).
+  // Ikisi de MENSEDEN BAGIMSIZ - siralamayi degistirmez, ama gercek maliyettir.
+  fetch('veri/gtip-nihai.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-ekvergi.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h,ug,tr,em,bl,as,nh,ek])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h};TARIM=tr||{};EMY_TARIM=em||{};
   BALIK=(bl&&bl.kodlar)?bl:{kodlar:{},gvUlke:[],emyUlke:[]}; ASKIYA=(as&&as.kodlar)?as:{kodlar:{}};
+  NIHAI=(nh&&nh.kodlar)?nh:{kodlar:{}}; EKVERGI=ek||{};
   UGRUP=ug; if(ug&&ug.ulkeler){ document.getElementById('ulkeList').innerHTML = ug.ulkeler.map(u=>`<option value="${u.ad}">`).join(''); }
 });
 let UGRUP=null; const OZEL_SECIM=[];
@@ -553,6 +558,16 @@ function olustur(){
   // degistirilmez, yalniz uyari verilir. Anahtarlar 8 haneli, noktasiz.
   const askiyaKod=Object.keys(ASKIYA.kodlar||{}).find(a=>nkod.startsWith(a));
   const askiyaTanim=askiyaKod?ASKIYA.kodlar[askiyaKod]:null;
+  // VI/VII Sayili Liste (nihai kullanim): anahtarlar 6/8/12 haneli on-ek olabilir,
+  // gtip.html ile AYNI eslesme (iki yonlu startsWith).
+  let nihai=null;
+  for(const p in (NIHAI.kodlar||{})){ if(nkod.startsWith(p)||p.startsWith(nkod)){ nihai=NIHAI.kodlar[p]; break; } }
+  // KKDF: MENSEDEN BAGIMSIZ - odeme sekline bagli. Siralamaya girmez (tum
+  // menselerde ayni, farki sifirlar) ama gercek, geri gelmeyen bir maliyettir;
+  // o yuzden TL karsiligi ayrica gosterilir. Oran veriden okunur, yazilmaz.
+  const kkdf=EKVERGI.kkdf||null;
+  const kkdfOran=(kkdf&&typeof kkdf.oran==='number')?kkdf.oran:null;
+  const kkdfTL=(kkdfOran!==null&&tutar)?(tutar*kkdfOran/100):0;
 
   // Siralama: once yuzde yuk. Yuzdeler ESITSE Tarim Payi ayirir - EMY gercek bir
   // ek maliyet, yuzde olmadigi icin toplama giremiyor ama beraberligi bozabilir.
@@ -634,6 +649,8 @@ function olustur(){
     ${(emyVar&&!balikEmyVar)?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);background:color-mix(in srgb,var(--amber) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🌾</span><div><b style="color:var(--amber)">Bu işlenmiş tarım ürününde gümrük vergisine EK olarak "Tarım Payı" (EMY) alınır.</b> Birimi <b>EURO/100 kg net</b>, yüzde değil, bu yüzden yukarıdaki yüzde sıralamasına eklenemez ${emyDegisken?'<b>ve menşeye göre değiştiği için nihai sıralamayı değiştirebilir</b>':''}. Ülke ülke tutarlar alttaki tabloda <b>Tarım Payı</b> sütununda; yıllık kilogramını bilen gümrük müşavirin bunu tutara çevirir.</div></div></div>`:''}
     ${balikEmyVar?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--green) 40%,transparent);background:color-mix(in srgb,var(--green) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🐟</span><div><b style="color:var(--green)">Bu ürün İthalat Rejimi IV Sayılı Liste'de (balıkçılık ve su ürünleri).</b> Gümrük vergisi bu listenin kendi menşe sütunlarından okundu. Buradaki <b>Ek Mali Yükümlülük (EMY)</b> — Toplu Konut Fonu işlevi — CIF kıymet üzerinden <b>yüzde</b> alınır, bu yüzden Tarım Payı'ndan farklı olarak <b>geri gelmeyen yüke dahil edilmiştir</b>. Kalem kalem dökümü alttaki tabloda.</div></div></div>`:''}
     ${askiyaTanim?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">⏸️</span><div><b style="color:var(--accent2)">Bu kod, gümrük vergisi ASKIYA ALINMIŞ ürünler listesinde (İthalat Rejimi V Sayılı Liste).</b> Şartları tutuyorsa gümrük vergisi <b>%0 olabilir</b> ve tablodaki oranlar bu ürün için geçerli olmayabilir — <b>tüm menşeleri birden etkiler, sıralamayı değiştirmez.</b> Askıya alma <b>şartlıdır</b> (nihai kullanım izni / dipnot), o yüzden tablodaki oranları kendiliğinden sıfırlamadık. Listedeki tanım: <i>${askiyaTanim}</i> — ürünün bu tanıma birebir uyup uymadığını gümrük müşavirine teyit ettir.</div></div></div>`:''}
+    ${nihai?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--green) 40%,transparent);background:color-mix(in srgb,var(--green) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🎯</span><div><b style="color:var(--green)">Nihai kullanım şartıyla gümrük vergisi indirimli ya da sıfır olabilir.</b> Bu kod İthalat Rejimi <b>${nihai.tur}</b> Sayılı Liste'de <i>${nihai.ad}</i> olarak geçiyor. <b>Şartlıdır:</b> nihai kullanım izni alınmalı ve ürün birebir o amaçla kullanılmalıdır. Tablodaki oranları bu yüzden indirmedik — <b>tüm menşeleri birden etkiler, sıralamayı değiştirmez.</b> İzni alabiliyorsan gerçek yükün tablodakinden düşük olur.</div></div></div>`:''}
+    ${kkdfOran!==null?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--amber) 40%,transparent);background:color-mix(in srgb,var(--amber) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🏦</span><div><b style="color:var(--amber)">Ödeme şeklin ${kkdfOran===6?'%6':'%'+fmtP(kkdfOran)} KKDF doğurabilir${kkdfTL?` — yılda ${fmtTL(kkdfTL)} ${tpb}`:''}.</b> ${kkdf.metin} <b>Menşeden bağımsızdır</b>, o yüzden yukarıdaki sıralamayı değiştirmez ve tasarruf farkına girmez — ama <b>geri gelmeyen gerçek bir maliyettir</b> ve ${kkdf.matrah?kkdf.matrah.charAt(0).toLowerCase()+kkdf.matrah.slice(1):'KDV matrahına dahil edilir'} ${kkdf.muafiyet?`<br><b>Muafiyet:</b> ${kkdf.muafiyet}`:''}<div style="font-size:11px;color:var(--dim);margin-top:4px">Dayanak: ${kkdf.dayanak||'88/12944'}</div></div></div></div>`:''}
     <div class="hero3">${hero3}</div>
     <div style="font-size:11px;color:var(--dim);margin:2px 0 4px">Oranların kaynağı: yürürlükteki İthalat Rejimi + İGV Kararı + damping tebliğleri, robot kontrol damgaları raporun altında.</div>
     <details class="kacc"><summary>📋 ${sonuc.length} menşenin tam tablosu, kalem kalem (Gümrük V. · İGV · Damping)</summary><div class="ic">
@@ -650,7 +667,7 @@ function olustur(){
       ${notlar}
     </div>
     <div class="varsayim">
-      <b>Varsayımlar ve kapsam:</b> Yük yüzdeleri gümrük kıymeti (CIF) üzerinden hesaplanmıştır. "Geri gelmeyen yük" = gümrük vergisi + İlave Gümrük Vergisi (İGV) + varsa dampinge/sübvansiyona karşı vergi. AB/STA oranlarını kapmak için ilgili <b>menşe/dolaşım belgesi şarttır</b>; belge yoksa gümrük en yüksek (Diğer Ülkeler) oranını uygular. Tarım ürünlerinde gümrük vergisi, İthalat Rejimi <b>tarım listelerinden her menşenin kendi sütunundan</b> okunur; <b>Tarım Payı (EMY)</b> ise EURO/100 kg net birimiyle alındığı için yüzde toplamına <b>dahil edilmez</b>, ayrı sütunda gösterilir. (*) işareti, o menşe için listede ayrı sütun bulunmadığını ve EK-1 kuralıyla "Diğer Ülkeler" sütununun uygulandığını gösterir. KKDF (vadeli ödemede %6), ÖTV, GEKAP, TRT bandrolü ve gözetim kıymet etkisi bu tabloya dahil değildir; ürününüze göre <a href="gtip.html">GTİP Kontrolü</a>'nden bakınız. Damping oranı aralık ise üretici firmaya göre değişir. Veri kaynağı: yürürlükteki İthalat Rejimi / İGV / damping tebliğleri / GİB KDV. Bu rapor bilgilendirme amaçlıdır; beyan öncesi gümrük müşaviri ve YMM teyidi gerekir.
+      <b>Varsayımlar ve kapsam:</b> Yük yüzdeleri gümrük kıymeti (CIF) üzerinden hesaplanmıştır. "Geri gelmeyen yük" = gümrük vergisi + İlave Gümrük Vergisi (İGV) + varsa dampinge/sübvansiyona karşı vergi. AB/STA oranlarını kapmak için ilgili <b>menşe/dolaşım belgesi şarttır</b>; belge yoksa gümrük en yüksek (Diğer Ülkeler) oranını uygular. Tarım ürünlerinde gümrük vergisi, İthalat Rejimi <b>tarım listelerinden her menşenin kendi sütunundan</b> okunur; <b>Tarım Payı (EMY)</b> ise EURO/100 kg net birimiyle alındığı için yüzde toplamına <b>dahil edilmez</b>, ayrı sütunda gösterilir. (*) işareti, o menşe için listede ayrı sütun bulunmadığını ve EK-1 kuralıyla "Diğer Ülkeler" sütununun uygulandığını gösterir. <b>KKDF</b> ödeme şekline bağlı olduğu ve menşeden bağımsız olduğu için tabloya değil, ayrı bir uyarıya konur — tutarı yukarıda gösterilir. <b>VI/VII Sayılı Liste</b> (nihai kullanım) kapsamındaki kodlarda gümrük vergisi izinle indirilebilir; şarta bağlı olduğu için oranlar kendiliğinden düşürülmez. ÖTV, GEKAP, TRT bandrolü ve gözetim kıymet etkisi bu tabloya dahil değildir; ürününüze göre <a href="gtip.html">GTİP Kontrolü</a>'nden bakınız. Damping oranı aralık ise üretici firmaya göre değişir. Veri kaynağı: yürürlükteki İthalat Rejimi / İGV / damping tebliğleri / GİB KDV. Bu rapor bilgilendirme amaçlıdır; beyan öncesi gümrük müşaviri ve YMM teyidi gerekir.
     </div>
     <div id="tazelikSatiri" style="margin-top:8px;font-size:11.5px;color:var(--dim);border:1px dashed var(--line2);border-radius:9px;padding:8px 12px">🕐 Veri tazeliği yükleniyor…</div>
     <div class="imza">
