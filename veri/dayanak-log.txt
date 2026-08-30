@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260830172434
+Start time: 20260830180417
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a93338da-b25d-4bfb-8b53-7e9114cf7271.ps1'
-Process ID: 2237
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/50ee9ef1-650a-401a-8731-3ad576a428a0.ps1'
+Process ID: 2233
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -47,405 +47,465 @@ Taranan sayfa: 64
 Tekil (kanun, madde) cifti: 86 - ambarda araniyor...
 PS>TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
-  "code": "57014",
+  "code": "PGRST002",
   "details": null,
   "hint": null,
-  "message": "canceling statement due to statement timeout"
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
 }"
 >> TerminatingError(Invoke-WebRequest): "
 {
@@ -639,5 +699,5 @@ PS>TerminatingError(Invoke-WebRequest): "
 -> veri/dayanak-haritasi.json  (25 sayfa, 86 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260830175543
+End time: 20260830180850
 **********************
