@@ -62,7 +62,8 @@ foreach($d in $desen.GetEnumerator()){
 $grup = @{}
 foreach($a in $hepsi){
   $b = "$($a.title)"; if($b.Length -gt 40){ $b = $b.Substring(0,40) }
-  $anahtar = ("$($a.advertiserName)|$b").ToLower()
+  # 30.08: kultur bagimli ToLower() ayni firmayi iki ayri gruba dusurebiliyordu
+  $anahtar = ("$($a.advertiserName)|$b").Replace([char]0x0130,'I').Replace([char]0x0131,'i').Replace([char]0x015E,'S').Replace([char]0x015F,'s').Replace([char]0x011E,'G').Replace([char]0x011F,'g').Replace([char]0x00DC,'U').Replace([char]0x00FC,'u').Replace([char]0x00D6,'O').Replace([char]0x00F6,'o').Replace([char]0x00C7,'C').Replace([char]0x00E7,'c').ToLowerInvariant()
   if(-not $grup.ContainsKey($anahtar)){ $grup[$anahtar] = @() }
   $grup[$anahtar] += $a
 }

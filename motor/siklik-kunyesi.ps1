@@ -1,4 +1,4 @@
-﻿# ============================================================================
+# ============================================================================
 #  SIKLIK KUNYESI (SINAV-KURALLARI D9) — 02.08.2026, 0 USD, API YOK
 #
 #  CEM: "senin onerin vardi onu yapacaktin." Dogru - siklik kunyesi BENIM
@@ -26,7 +26,12 @@ Write-Host ("Donem: {0}" -f $donemler.Count)
 # Turkce-toleransli normalize: kasadaki etiketle kitapciktaki etiket birebir
 # ayni yazilmiyor; aksan/buyuk-kucuk farkini eritip esitliyoruz.
 function Norm([string]$t){
-  $s = "$t".ToLower()
+  # 30.08 DUZELTME - TURKCE HARF SIRASI: once KATLA, sonra INVARIANT kucult.
+  # Olculdu (tr-TR): "IFLASINA".ToLower() -> "ıflasına" olur, 'iflas' arayan
+  # desen ISKALAR. en-US runner'da ise "INKILAP" -> "i̇nkilap" (i + birlesen
+  # nokta) olur ve asagidaki -replace 'İ' onu BULAMAZ. ToLower() ONCE
+  # kosarsa harf degistirme gec kalir. Dogru sira: KATLA -> ToLowerInvariant.
+  $s = "$t".Replace([char]0x0130,'I').Replace([char]0x0131,'i').Replace([char]0x015E,'S').Replace([char]0x015F,'s').Replace([char]0x011E,'G').Replace([char]0x011F,'g').Replace([char]0x00DC,'U').Replace([char]0x00FC,'u').Replace([char]0x00D6,'O').Replace([char]0x00F6,'o').Replace([char]0x00C7,'C').Replace([char]0x00E7,'c').ToLowerInvariant()
   $s = $s -replace '[çÇ]','c' -replace '[ğĞ]','g' -replace '[ıİİ]','i' -replace '[öÖ]','o' -replace '[şŞ]','s' -replace '[üÜ]','u'
   $s = $s -replace '[^a-z0-9| ]',' ' -replace '\s+',' '
   return $s.Trim()
