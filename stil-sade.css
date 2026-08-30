@@ -278,3 +278,30 @@ section p[style*="text-align: center"]{text-align:left !important}
 
 :focus-visible{outline:2px solid var(--accent2);outline-offset:2px;border-radius:3px}
 nav a:focus-visible,.konu a:focus-visible,.arac:focus-visible{outline-offset:3px}
+
+/* ================================================================
+   CUBUK GRAFIKLERI — 30.08.2026 KUSUR DUZELTMESI
+
+   Cem ana sayfa goruntusune bakip "dikkat cekmiyor, bir seyler ters"
+   dedi. Olculdu: "Nereden Alsam" ve "Ar-Ge Kapisi" cubuklari GRAFIK
+   DEGIL, KUSUR gibi duruyordu. Sebep: .mp-cubuk dar KART icin
+   yapilmisti (index.html satir ici <style>), sade katman kutulari
+   iki sutunlu listeye cevirirken bu kural HIC ele alinmamisti.
+   Genis ekranda cubuk ~740 px'e uzayip 7 px kalinliginda koyu
+   kirmizi bir CIZGIYE donusuyordu.
+
+   Iki eksik vardi:
+   1) Cubugun ust siniri yoktu -> kaba ile birlikte buyuyordu.
+   2) RAY (arka kanal) yoktu -> %37 ile %88 goz ile kiyaslanamiyordu.
+      Ray olmadan cubuk grafik degildir, sadece bir cizgidir.
+
+   Cozum: sabit izli grid (etiket 86 px + ray 200 px), rayin kendisi
+   ::after ile ciziliyor, dolgu cubugu onun ustunde duruyor. Boylece
+   satir ici width:%N degerleri 200 px'lik SABIT raya gore cozulur -
+   yani ayni yuzde her ekranda ayni uzunlugu verir.
+   ================================================================ */
+.mp-cubuk{position:relative;display:grid;grid-template-columns:86px 200px;
+  align-items:center;gap:10px;max-width:296px;font-size:11.5px;margin:2px 0}
+.mp-cubuk::after{content:"";position:absolute;left:96px;right:0;
+  height:9px;border-radius:5px;background:var(--line);z-index:0}
+.mp-cubuk i{position:relative;z-index:1;height:9px;border-radius:5px;opacity:.9}
