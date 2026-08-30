@@ -387,7 +387,14 @@ function KaynakBul([string]$konu, [string]$ders){
     # kaynak_ad'in BASINA capalidir (imatch.^onek), o yuzden mevcut 'Borclanma
     # Araclari' onegi 'Borclanma Araci Sahipleri'ni GORMEZ, 'Yatirim Hizmetleri'
     # de 'Yatirim Hizmet ve Faaliyetleri'ni gormez - ikisi de ayri yazildi.
-    @{ desen='(?i)sermaye piyasas'; on=@('Sermaye Piyasası K.','Pay Tebligi','Kar Payi Tebligi','Onemli Nitelikteki','Birlesme ve Bolunme','Gayrimenkul Yatirim','Portfoy Yonetim','Kaydilestirilen','Yatirimci Tazmin','Izahname ve Ihrac','Sermaye Piyasasi Araclarinin Satisi','Borclanma Araclari','Varantlar','Ozel Durumlar Tebligi','Yatirim Hizmetleri','Yatirim Fonlarina','Sermaye Piyasasinda Degerleme','SPK Surdurulebilirlik','SPK Yesil','Borclanma Araci Sahipleri','Yatirim Kuruluslarinin','Yatirim Hizmet ve Faaliyetleri','Kitle Fonlamasi','Araci Kurumlar','Portfoy Saklama','Merkezi Kayit Kurulusunun','Merkezi Takas Kuruluslarinin','Istanbul Takas ve Saklama') },
+    @{ desen='(?i)sermaye piyasas'; on=@('Sermaye Piyasası K.','Pay Tebligi','Kar Payi Tebligi','Onemli Nitelikteki','Birlesme ve Bolunme','Gayrimenkul Yatirim','Portfoy Yonetim','Kaydilestirilen','Yatirimci Tazmin','Izahname ve Ihrac','Sermaye Piyasasi Araclarinin Satisi','Borclanma Araclari','Varantlar','Ozel Durumlar Tebligi','Yatirim Hizmetleri','Yatirim Fonlarina','Sermaye Piyasasinda Degerleme','SPK Surdurulebilirlik','SPK Yesil','Borclanma Araci Sahipleri','Yatirim Kuruluslarinin','Yatirim Hizmet ve Faaliyetleri','Kitle Fonlamasi','Araci Kurumlar','Portfoy Saklama','Merkezi Kayit Kurulusunun','Merkezi Takas Kuruluslarinin','Istanbul Takas ve Saklama','SPK ') },
+    # 30.08.2026: 'SPK ' onegi eklendi. mevzuat.spk.gov.tr'den (SPK'nin KENDI
+    # sistemi) 364 belge / 3.613 parca yutuldu ve HEPSI "SPK " ile basliyor:
+    #   SPK Karari - ...  (258 ilke/kurul karari; mevzuat.gov.tr bunlari TUTMAZ)
+    #   SPK Teblig (...) · SPK Yonetmelik · SPK Rehber · SPK Diger
+    # Onek eklenmeseydi uretici bu 3.613 parcaya KOR kalirdi (24.08 BDDK dersi;
+    # eslesme kaynak_ad'in BASINA capalidir). Canli kasada dogrulandi: ^SPK -> 3709.
+    # 'SPK ' onegi mevcut 'SPK Surdurulebilirlik'/'SPK Yesil' oneklerini de kapsar.
     @{ desen='(?i)bankac[ıi]l[ıi]k'; on=@('Bankacılık K.','Bankalarin','Banka ve Kredi Kartları K.','BDDK','Varlik Yonetim','TCMB K.') },
     @{ desen='(?i)sigortac[ıi]l[ıi]k|[oö]zel emeklilik'; on=@('Sigortacılık K.','BES K.','Sigorta ve Reasurans','Sigorta Acenteleri','Sigorta Eksperleri','Guvence Hesabi','Emeklilik Yatirim Fonlarinin','Sigortacilik Tekduzen','SEDDK','Katilim Esaslari','Afet Sigortaları') },
     @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik raporlama'; on=@('TSRS','Bankalarin Yesil Varlik','SPK Surdurulebilirlik','SPK Yesil') },

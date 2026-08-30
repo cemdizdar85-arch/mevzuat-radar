@@ -1,5 +1,31 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 30.08.2026 — SPK MEVZUAT SİSTEMİ YUTULDU: 364 belge / 3.613 parça (Cem: "1 yap")
+*Kaynak: **https://mevzuat.spk.gov.tr** — Sermaye Piyasası Kurulu'nun (kamu kurumu) KENDİ mevzuat sistemi. Üçüncü taraf ayna kullanılmadı. Uçlar tarayıcıda **gerçek ağ istekleri okunarak** bulundu, tahmin edilmedi: `/api/{mevzuat|ilkekarari|rehber}/File/{id}`. Tuzak: bilinmeyen `/api/` yolları HTTP 200 + SPA kabuğu (2,8 KB HTML) döndürür — "200 geldi" yetmez, `%PDF` imzası şart.*
+
+**Ambar: 39.878 → 43.491 parça (+3.613) · 1.542 → 2.325 tekil kaynak.** İndirme 389/389 TAM (48 MB), yutma 364 belge (25 mükerrer atlandı), KIRMIZI 0.
+
+| Sınıf | Belge | Ambar parçası | Yol |
+|---|---:|---:|---|
+| İlke/Kurul Kararı | 258 | 405 | bütün belge (maddesiz) |
+| Tebliğ | — | 1.997 | madde madde |
+| Yönetmelik | — | 897 | madde madde |
+| Rehber | 10 | 215 | bölüm bölüm |
+
+**BU BİR BOŞLUĞU KAPATIYOR:** mevzuat.gov.tr **kurul kararlarını TUTMAZ** (bu depoda daha önce ölçüldü; `kurul-karari-hasat.ps1` tam bu yüzden RG fihristini tarıyor). 258 karar ihdas eden merciin kendi sisteminden geldi. En yeni karar **27.08.2026** — üç gün öncesi.
+
+**ÜÇ SINIF, ÜÇ YOL (75 belge örneklenerek ölçüldü):** İlke/Kurul Kararı medyan 1.305 krk ve 40/40'ında **sıfır MADDE** → maddeye bölünmez. Mevzuat medyan 44.842 krk, ort. 23 madde → madde madde. Rehber medyan 37.588 krk, 0 madde → bölüm bölüm. *Tek parçalayıcıyla hepsini ezmek kararları tek blob yapardı — III-45.1'de bugün tam bunun ne demek olduğunu gördük.*
+
+**MÜKERRER FRENİ:** `sayi` alanı dolu 90 mevzuat belgesinin 25'i zaten ambardaydı (mevzuat.gov.tr kopyası) — atlandı ve adlarıyla raporlandı. Atlananlar tam da bugün yutulan tebliğler: III-52.1 · III-37.1 · VII-128.1 · III-39.1 · III-45.1 · II-31/A.1 · III-56.1 · III-35/A.2 … Aynı metin ambara iki kez girmedi.
+
+**PROVA TURUNDA ÇIKAN KAPSAMA KUSURU (onarıldı):** madde parçalayıcı **ilk maddeden önceki metni düşürüyordu** — RG künyesi, "Amaç", "Dayanak", yürürlükten kaldırma cümlesi hep orada. Uzun tebliğde %2, kısa belgede **%40**: en düşük kapsama %59,4 (İMKB Üyelik Yönetmeliği), **42 belge %98 altındaydı**. `[giris]` kaydı eklendi → **%98 altı 42 → 1**, medyan %100, parça 3.674 → 3.886 (prova).
+
+**ÜRETİCİ KÖRLÜĞÜ KAPATILDI:** `soru-uret-v2.ps1` ek-alan önek listesine `'SPK '` eklendi; canlı kasada doğrulandı (`^SPK ` → 3.709 parça). Önek olmasaydı üretici bu kaynaklara kör kalırdı (24.08 BDDK dersi).
+
+**GERİ OKUMA:** ambar sayımı raporla birebir (+3.613). İçerik örneklendi: kararlarda bülten künyesi + karar metni, `[giris]` kayıtlarında RG künyesi.
+
+⏳ **AÇIK:** SPL Düzey 1 müfredatının iki kalemi (TSPB Meslek Kuralları · SP Çalışanları Etik İlkeleri) bu portalda **yok**. TSPB Statüsü geldi ama o, Meslek Kuralları'nın kendisi değil — kapandı denmez.
+
 ## ✅ 30.08.2026 — SPK/SPL DÜZEY 1 ÇEKİRDEĞİ: 10 KAYNAK YUTULDU + PARÇALAYICI KUSURU ONARILDI (Cem: "2 yap 11 belgeyi yut")
 *Sebep: [veri/KAPSAM-KONTROL-SPK-DUZEY1.md](veri/KAPSAM-KONTROL-SPK-DUZEY1.md) ölçümü — SPL'nin resmî sınav alt konu başlıkları ankor alındı; 21 belgenin 12'si ambarda yoktu, 10'u mevzuat.gov.tr'de. (Cem'e önce "11" denmişti — **yanlış sayım, doğrusu 10**; kalan 2 belge TSPB dokümanı, kaynak yeri ölçülmedi.)*
 
