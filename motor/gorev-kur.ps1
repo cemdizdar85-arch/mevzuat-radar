@@ -46,14 +46,22 @@ $GOREVLER = @(
      betikler=@('yerel-ayna.ps1') }
   @{ ad='MevzuatRadar-SurumTazeligi'; saat='06:45'; sinir='PT3H'; pilKosma=$true;
      log='veri\fabrika\surum-tazeligi-son-kosu.txt'
-     # 30.08 — BUTUNLUK KAPISI ZINCIRE GIRDI. Neden: envanterin TAM MI sutunu
-     # artik kapinin "olctugum kaynaklar" listesine BAGLI. Kapi kosmazsa liste
-     # bayatlar ve yeni yutulan her kaynak (dogru olarak) OLCULMEDI gorunur,
-     # ama sonsuza kadar oyle kalir. SIRA ONEMLI: kapi ENVANTERDEN ONCE kosar,
-     # yoksa envanter bir gun eski raporu okur.
-     # Sure: -hepsi ~43.600 belge tarar, olcum ~4 dakika. Bu yuzden gorev
-     # siniri PT2H -> PT3H yapildi.
-     betikler=@('surum-tazeligi.ps1','butunluk-kapisi.ps1 -hepsi','ambar-envanteri.ps1','veri-katalogu.ps1','saglik-karnesi.ps1','gorev-kur.ps1 -yayinla') }
+     # 30.08 AKSAM — DORT ADIM CI'YA TASINDI (.github/workflows/ambar-kapilari.yml)
+     # Cem: "bilgisayarim acik olmasa da calissin, tatile gitsem olmayacak mi?"
+     # Olculdu (veri/ip-olcum-raporu.md, runner IP 52.173.162.33):
+     #   mevzuat.gov.tr -> HTTP 000, baglanti bile kurulamiyor (ENGELLI)
+     #   diger hedefler -> hepsi iniyor
+     # butunluk-kapisi · ambar-envanteri · veri-katalogu · saglik-karnesi
+     # YALNIZ Supabase ile konusuyor - laptopa bagli kalmalari icin sebep yok.
+     # Artik CI'da 08:00 UTC'de kosuyorlar; laptop kapaliyken de olcum yapilir.
+     # BURADA BIRAKILMADILAR cunku iki yerde birden kosarlarsa ayni dosyalari
+     # yazip commit'te carpisirlar.
+     # Yerelde KALAN iki is:
+     #   surum-tazeligi -> kgk.gov.tr'den indiriyor; o site CI'dan OLCULUYOR,
+     #                     sonuc gelince o da tasinabilir.
+     #   gorev-kur -yayinla -> YEREL gorevlerin nabzini olcer; dogasi geregi
+     #                     bu makinede kosmali, CI oradan bakamaz.
+     betikler=@('surum-tazeligi.ps1','gorev-kur.ps1 -yayinla') }
   @{ ad='MevzuatRadar-YerelIndirici'; saat='09:30'; sinir='PT2H'; pilKosma=$true;
      betikler=@('yerel-indirici.ps1') }
 )
@@ -169,8 +177,24 @@ foreach($g in $GOREVLER){
     else {
       $gec = [math]::Round(($simdi - $i.LastRunTime).TotalHours,1)
       $s.gecikme_saat = $gec
-      if($gec -gt $ESIK_SAAT){ $s.durum='KIRMIZI'; $s.sebep=("son kosu {0} saat once (esik {1})" -f $gec,$ESIK_SAAT) }
-      elseif($i.LastTaskResult -ne 0){ $s.durum='KIRMIZI'; $s.sebep=("son kosu HATA ile bitti (kod {0})" -f $i.LastTaskResult) }
+      # 30.08 UCUNCU YALANCI SINYAL (olculdu): LastTaskResult'un HER SIFIR
+      # OLMAYAN degeri hata DEGILDIR. Windows zamanlayicisi bilgi amacli
+      # kodlar da dondurur ve bunlar 0'dan farklidir:
+      #   267009 (0x41301) SCHED_S_TASK_RUNNING   -> gorev SU ANDA kosuyor
+      #   267011 (0x41303) SCHED_S_TASK_HAS_NOT_RUN -> hic kosmamis
+      #   267010 (0x41302) SCHED_S_TASK_DISABLED
+      # Canli vaka: zincir kosarken nabiz "son kosu HATA ile bitti (kod 267009)"
+      # dedi. Kosan gorevi arizali ilan etmek, arizayi kacirmak kadar zararli -
+      # kurt masali nobetciyi degersizlestirir.
+      $BILGI_KODU = @(267009,267011,267010)
+      if($t.State -eq 'Running' -or $i.LastTaskResult -eq 267009){
+        $s.durum='YESIL'; $s.sebep='SU ANDA KOSUYOR'
+      }
+      elseif($gec -gt $ESIK_SAAT){ $s.durum='KIRMIZI'; $s.sebep=("son kosu {0} saat once (esik {1})" -f $gec,$ESIK_SAAT) }
+      elseif($i.LastTaskResult -ne 0 -and $BILGI_KODU -notcontains $i.LastTaskResult){
+        $s.durum='KIRMIZI'; $s.sebep=("son kosu HATA ile bitti (kod {0})" -f $i.LastTaskResult)
+      }
+      elseif($BILGI_KODU -contains $i.LastTaskResult){ $s.durum='KOR'; $s.sebep=("bilgi kodu {0} - gercek sonuc bilinmiyor" -f $i.LastTaskResult) }
       else { $s.durum='YESIL' }
     }
   } catch {

@@ -1,0 +1,104 @@
+# ============================================================================
+#  AMBAR KAPILARI (CI) — laptop kapalıyken de koşan günlük ölçüm zinciri
+#
+#  NEDEN VAR (Cem 30.08): "bilgisayarım açık olmasa da çalışsın, tatile gitsem
+#  olmayacak mı?" Günlük zincirin TAMAMI Cem'in dizüstündeydi. Ölçüldü
+#  (veri/ip-olcum-raporu.md, runner IP 52.173.162.33):
+#     mevzuat.gov.tr  -> HTTP 000, bağlantı bile kurulamıyor (ENGELLİ)
+#     diğer 6 hedef   -> hepsi iniyor
+#  Yani laptopa ZORUNLU olan tek iş mevzuat.gov.tr indirmesi. Bu dört adım
+#  yalnız Supabase ile konuşuyor; burada koşabilirler ve koşmalılar.
+#
+#  SIRA ÖNEMLİ: kapı ENVANTERDEN ÖNCE. Envanterin "TAM MI" sütunu kapının
+#  "ölçtüğüm kaynaklar" listesine bağlı; kapı koşmazsa envanter bir gün eski
+#  raporu okur ve 30.08'de kapattığımız "sahte TAM" kusuru geri gelir.
+#
+#  SAAT: 08:00 UTC = 11:00 TR. Yerel indirici 09:30 TR'de mevzuat aynasını
+#  tazeliyor; kapılar ONDAN SONRA ölçmeli, yoksa bir gün eski ambarı ölçer.
+#
+#  KAPI KIRMIZI DÖNSE BİLE zincir devam eder (continue-on-error): ölçüm
+#  raporları YAZILMALI. Kırmızı en sonda ayrı adımda görünür - sessiz kalmaz.
+# ============================================================================
+name: Ambar kapilari (0 USD, laptopsuz)
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ambar-kapilari.yml'
+      - 'motor/butunluk-kapisi.ps1'
+      - 'motor/ambar-envanteri.ps1'
+      - 'motor/kaynak-kok.ps1'
+
+permissions:
+  contents: write
+
+jobs:
+  kapilar:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ANAHTAR VAR MI (yoksa olcum YAPILMAZ)
+        shell: pwsh
+        run: |
+          if(-not $env:SUPABASE_SERVICE_KEY){
+            Write-Host 'KOR: SUPABASE_SERVICE_KEY secret yok - olcum yapilamaz.'
+            Write-Host '  Sessiz "temiz" DENMEZ; kosu burada durur.'
+            exit 1
+          }
+          Write-Host 'anahtar var.'
+
+      - name: BUTUNLUK KAPISI (tum kaynaklar)
+        id: kapi
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/butunluk-kapisi.ps1 -hepsi
+
+      - name: AMBAR ENVANTERI (tek dogru sayfa)
+        if: always()
+        shell: pwsh
+        run: ./motor/ambar-envanteri.ps1
+
+      - name: VERI KATALOGU
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/veri-katalogu.ps1
+
+      - name: SAGLIK KARNESI
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/saglik-karnesi.ps1
+
+      - name: SONUCLARI DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/butunluk-raporu.json veri/AMBAR-ENVANTERI.md veri/saglik-karnesi.json veri/veri-katalogu.json; do
+            [ -f "$f" ] && git add "$f" 2>/dev/null || true
+          done
+          if git diff --staged --quiet; then
+            echo "degisiklik yok - commit yok."
+          else
+            git commit -m "Ambar kapilari (CI): butunluk + envanter tazelendi [veri-operasyonu]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
+
+      - name: KAPI SONUCU
+        if: always()
+        run: |
+          echo "butunluk kapisi sonucu: ${{ steps.kapi.outcome }}"
+          if [ "${{ steps.kapi.outcome }}" != "success" ]; then
+            echo "KIRMIZI - ayrinti veri/butunluk-raporu.json is_listesi icinde."
+            echo "(Kirmizi 'is bitmedi' demek degil: olcum yapildi, DELIK bulundu.)"
+            exit 1
+          fi

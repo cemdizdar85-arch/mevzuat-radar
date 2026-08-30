@@ -19,6 +19,14 @@
 name: IP olcumu (kaynak siteler runner'dan iniyor mu)
 
 on:
+  # 30.08 — TEK KOSU KARAR VERDIRMEZ. Raporun kendi uyarisi: bir site gecici
+  # engel/oran siniri uyguluyor olabilir. Bu yuzden olcum GUNUN FARKLI
+  # SAATLERINDE tekrarlanir ve sonuclar UST USTE BIRIKIR (gecmis tablosu).
+  # Sunucu kiralama karari tek kosuya degil, birkac kosunun ortak sonucuna
+  # dayanmali.
+  schedule:
+    - cron: '30 5 * * *'    # 08:30 TR
+    - cron: '30 17 * * *'   # 20:30 TR
   workflow_dispatch:
   push:
     paths:
@@ -37,17 +45,15 @@ jobs:
         run: |
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
           R=veri/ip-olcum-raporu.md
+          BLOK=/tmp/ip-blok.md
           IP=$(curl -s -m 20 https://api.ipify.org || echo "?")
           {
-            echo "# IP ÖLÇÜMÜ — kaynak siteler runner'dan iniyor mu?"
-            echo ""
-            echo "> Koşu: $(date -u '+%Y-%m-%d %H:%M') UTC · runner çıkış IP'si: \`$IP\`"
-            echo "> Soru: günlük indirme Cem'in dizüstünden çıkabilir mi?"
-            echo "> Ölçüt: HTTP 200 YETMEZ — içerik tipi ve gerçek imza da doğrulanır."
+            echo "## Koşu $(date -u '+%Y-%m-%d %H:%M') UTC · çıkış IP \`$IP\`"
             echo ""
             echo "| # | Hedef | HTTP | İçerik tipi | Bayt | İmza | Sonuç |"
             echo "|---|---|---|---|---:|---|---|"
-          } > $R
+          } > $BLOK
+          R=$BLOK
 
           # ad|url|beklenen_imza(PDF|JSON|HTML)
           # NOT: burada HEREDOC KULLANILMAZ. Ilk denemede kullandim ve akis
@@ -64,6 +70,8 @@ jobs:
             "spl.com.tr calisma notu PDF (1001)|https://spl.com.tr/wp-content/uploads/2026/07/1001_MKT_300062026_202607140951.pdf|PDF"
             "tspb.org.tr Meslek Kurallari PDF|https://tspb.org.tr/wp-content/uploads/2025/06/TSPB_Meslek-Kurallari-Duzenlemesi.pdf|PDF"
             "spk.gov.tr dosya arama|https://spk.gov.tr/Web/DosyaAra?page=1&text=s%C4%B1nav|HTML"
+            "kgk.gov.tr standart PDF (TFRS 10, Kirmizi Kitap)|https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS%2010.pdf|PDF"
+            "kgk.gov.tr denetim standardi (BDS 200)|https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS%20200_2025.pdf|PDF"
           )
           i=0
           for satir in "${HEDEFLER[@]}"; do
@@ -86,17 +94,31 @@ jobs:
             sleep 2
           done
 
+          echo "" >> $BLOK
+
+          # --- BIRIKIMLI RAPOR: yeni kosu EN USTE, eskiler altta kalir --------
+          # Tek kosu karar verdirmez; sunucu kiralama karari birkac kosunun
+          # ortak sonucuna dayanmali. Bu yuzden eski bloklar SILINMEZ.
+          HEDEF=veri/ip-olcum-raporu.md
           {
+            echo "# IP ÖLÇÜMÜ — kaynak siteler runner'dan iniyor mu?"
             echo ""
-            echo "## Nasıl okunur"
-            echo "- **Hepsi ✅** → indirme işi runner'a taşınabilir; laptop bağımlılığı biter."
-            echo "- **mevzuat.gov.tr ❌, diğerleri ✅** → yalnız o site için TR-IP çözümü gerekir; gerisi CI'ya taşınır."
-            echo "- **Hepsi ❌** → 05.08 bulgusu duruyor; TR-IP'li sunucu şart."
+            echo "> **Bu dosya BİRİKİMLİDİR** — her koşu en üste eklenir, eskiler silinmez."
+            echo "> Soru: günlük indirme Cem'in dizüstünden çıkabilir mi?"
+            echo "> Ölçüt: HTTP 200 YETMEZ — içerik tipi ve gerçek imza da doğrulanır"
+            echo "> (bu depoda ölçüldü: ölü adres 200+HTML, bilinmeyen API yolu 200+SPA kabuğu döner)."
             echo ""
-            echo "*Not: bu ölçüm tek koşudur. Bir site geçici engel/oran sınırı uyguluyor olabilir;"
-            echo "karar vermeden önce farklı saatlerde iki koşu daha görmek doğru olur.*"
-          } >> $R
-          echo "--- RAPOR ---"; cat $R
+            echo "**Nasıl okunur:** hepsi ✅ → indirme CI'ya taşınır, laptop bağımlılığı biter ·"
+            echo "yalnız mevzuat.gov.tr ❌ → sadece o site için TR-IP çözümü gerekir ·"
+            echo "hepsi ❌ → TR-IP'li sunucu şart."
+            echo ""
+            cat $BLOK
+            if [ -f "$HEDEF" ]; then
+              sed -n '/^## Koşu/,$p' "$HEDEF" | head -400
+            fi
+          } > /tmp/ip-tam.md
+          mv /tmp/ip-tam.md "$HEDEF"
+          echo "--- BU KOSU ---"; cat $BLOK
 
       - name: RAPORU DEPOYA BAS
         if: always()
