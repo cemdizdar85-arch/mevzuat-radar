@@ -187,11 +187,31 @@ if($Kapat){
     }
   } else { Yaz "  itilecek commit yok" 'Green' }
 
+  # --- KİLİDİ BIRAK ------------------------------------------------------
+  # 30.08 KUSUR: burada filtre `$_.pid -ne $PID` idi ve HİÇBİR ZAMAN
+  # çalışmıyordu. Sebep: `-Ac` ayrı bir powershell süreci (PID X), `-Kapat`
+  # bambaşka bir süreç (PID Y). Filtre "Y'ye eşit olmayanları tut" dediği
+  # için X'i her seferinde KORUYORDU. Sonuç: "kilit bırakıldı" yazıyordu
+  # ama kilit duruyordu; bir sonraki oturum aynı kola giremiyordu.
+  # (Kendi kurduğum kapı beni durdurdu - kapı çalıştı, mantık yanlıştı.)
+  #
+  # Doğru ölçüt PID değil KOL: kapanan oturum hangi kolu açtıysa onu bırakır.
   $k = KilitOku
   if($k){
-    $kalan = @($k.oturumlar | Where-Object { $_.pid -ne $PID })
-    KilitYaz ([pscustomobject]@{ oturumlar = $kalan })
-    Yaz "  -> kilit bırakıldı"
+    $liste = @($k.oturumlar)
+    if($Kol -ne ""){
+      $kalan = @($liste | Where-Object { $_.kol -ne $Kol })
+      KilitYaz ([pscustomobject]@{ oturumlar = $kalan })
+      Yaz "  -> '$Kol' kilidi bırakıldı"
+    } elseif($liste.Count -eq 1){
+      # Tek kilit varsa belirsizlik yok, o bırakılır.
+      Yaz "  -> '$($liste[0].kol)' kilidi bırakıldı (tek açık kol)"
+      KilitYaz ([pscustomobject]@{ oturumlar = @() })
+    } elseif($liste.Count -gt 1){
+      Yaz "  ⚠ $($liste.Count) kol açık, hangisi kapanacağı belirsiz:" 'Yellow'
+      $liste | ForEach-Object { Yaz "      $($_.kol)" 'Yellow' }
+      Yaz "  -> kilit BIRAKILMADI. Şunu koş: ... -Kapat -Kol <kol>" 'Yellow'
+    }
   }
   Yaz "  ✅ OTURUM TEMİZ KAPANDI`n" 'Green'
   exit 0
