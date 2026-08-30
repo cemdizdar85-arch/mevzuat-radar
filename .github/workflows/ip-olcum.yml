@@ -166,6 +166,58 @@ jobs:
           mv /tmp/ip-tam.md "$HEDEF"
           echo "--- BU KOSU ---"; cat $BLOK
 
+      # ======================================================================
+      #  ARAÇ DA YÖNTEMİN PARÇASI (30.08 üçüncü ders)
+      #
+      #  ilan.gov.tr curl ile 000 veriyor - POST'a çevirince de, süreyi 120'ye
+      #  çıkarınca da, üretimin User-Agent'ıyla da. Buna karşılık üretim hattı
+      #  ÇALIŞIYOR ve kanıtı somut: veri/ihale-yurtici.json'u mevzuat-radar-bot
+      #  yazıyor, dosyanın kendi damgası "Son çekim: 29.08.2026 17:44" (akşam
+      #  koşusunun içi) ve iki ardışık CI koşusu arasında 18 ilan değişmiş.
+      #
+      #  Geriye tek fark kalıyor: ARAÇ. Üretim PowerShell/.NET'in
+      #  Invoke-RestMethod'unu kullanıyor, ölçüm curl'ü. Site büyük olasılıkla
+      #  TLS parmak izine bakıyor - curl'ü eliyor, .NET'i geçiriyor.
+      #
+      #  Bu yüzden aynı hedef bir de üretimin aracıyla ölçülür. İki satır
+      #  çelişirse doğru olan, üretimle aynı araç+yöntem+süre olanıdır.
+      # ======================================================================
+      - name: URETIM ARACIYLA OLC (PowerShell/.NET)
+        if: always()
+        shell: pwsh
+        run: |
+          $sonuc = @()
+          $hedefler = @(
+            @{ ad='ilan.gov.tr AdsByFilter'; url='https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter';
+               govde='{"skipCount":0,"maxResultCount":1}' }
+          )
+          foreach($h in $hedefler){
+            $satir = ''
+            try {
+              $y = Invoke-RestMethod -Method Post -Uri $h.url `
+                    -Headers @{ "Accept"="application/json"; "User-Agent"="Mozilla/5.0 (MevzuatRadar-IhaleRobotu)" } `
+                    -Body ([System.Text.Encoding]::UTF8.GetBytes($h.govde)) `
+                    -ContentType "application/json" -TimeoutSec 90
+              $n = 0
+              foreach($p in $y.PSObject.Properties){ if($p.Value -is [array] -and $p.Value.Count -gt $n){ $n = $p.Value.Count } }
+              if($y.result){ foreach($p in $y.result.PSObject.Properties){ if($p.Value -is [array] -and $p.Value.Count -gt $n){ $n = $p.Value.Count } } }
+              $satir = "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ ($n kayıt) |"
+              Write-Host "[INDI] $($h.ad) -> $n kayit"
+            } catch {
+              $m = "$($_.Exception.Message)" -replace '\|','/'
+              if($m.Length -gt 90){ $m = $m.Substring(0,90) }
+              $satir = "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ ($m) |"
+              Write-Host "[INMEDI] $($h.ad) -> $m"
+            }
+            $sonuc += $satir
+          }
+          $hedef = 'veri/ip-olcum-raporu.md'
+          $ic = Get-Content $hedef -Raw -Encoding UTF8
+          # bu koşunun tablosunun sonuna ekle (ilk boş satırdan önce)
+          $ek = ($sonuc -join "`n") + "`n"
+          $ic = $ic -replace '(?s)(## Koşu[^\n]*\n\n\|[^\n]*\n\|[^\n]*\n(?:\|[^\n]*\n)+)', ('$1' + $ek)
+          Set-Content $hedef -Value $ic -Encoding UTF8 -NoNewline
+
       - name: RAPORU DEPOYA BAS
         if: always()
         run: |
