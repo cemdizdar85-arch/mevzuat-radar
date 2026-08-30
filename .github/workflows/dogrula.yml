@@ -169,6 +169,16 @@ jobs:
               kabuk: pwsh, komut: "./arac/ihale-firma-adi-denetimi.ps1",
               rapor: "veri/ihale-kesik-firma-adi.json" }
 
+          # 30.08: veri/ihale-kesik-firma-adi.json'a CAKISMA ISARETLI bir surum
+          # itildi (autostash birlestirmesi cozulmeden commit'lendi) ve uzerine
+          # iki kosu daha yapildi - kimse fark etmedi. Bu dosyalari SITE okuyor;
+          # bozuk JSON = sayfa sessizce bos. Kapi 1.515 dosyayi tarar: cakisma
+          # isareti + yapi (baslangic/bitis) herkese, tam parse 2 MB altina.
+          # Buyukler ATLANIR ama atlandigi YAZILIR - "olculmedi" ile "temiz"
+          # karismasin. ~40 sn surer.
+          - { ad: "JSON butunluk kapisi (cakisma isareti / bozuk veri dosyasi)",
+              kabuk: pwsh, komut: "./arac/json-butunluk-kapisi.ps1" }
+
           # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
           # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
           # Chrome DevTools protokolu konusulur. ~4 dk surer, en yavas kapi.
