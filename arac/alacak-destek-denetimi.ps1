@@ -27,7 +27,8 @@
 # ============================================================================
 param(
   [string]$Rapor = '',          # varsayılan: veri/alacak-supheli-damga.json
-  [switch]$Ayrinti              # her kusurlu kaydın alıntısını da bas
+  [switch]$Ayrinti,             # her kusurlu kaydın alıntısını da bas
+  [switch]$Onar                 # raporun BOZUK alanını yerinde düzelt (aşağıya bak)
 )
 
 $ErrorActionPreference = 'Stop'
@@ -136,6 +137,39 @@ $hedef = Join-Path $KOK 'veri\alacak-destek-denetimi.json'
 ($cikti | ConvertTo-Json -Depth 6) | Set-Content $hedef -Encoding UTF8
 Write-Host ""
 Write-Host ("yazildi: veri/alacak-destek-denetimi.json" ) -ForegroundColor Green
+
+# --- ONARIM: kaynak raporun BOZUK alanini yerinde duzelt --------------------
+# NEDEN: alacak-supheli-damga.json'daki `alinti_karari_destekliyor` alani
+# 456 kaydin 456'sinda false diyor - Turkce buyuk harf tuzagi yuzunden.
+# O dosyayi okuyan bir sonraki is (insan ya da betik) yine "456 bozuk kayit
+# var" sanir. Alan YERINDE duzeltilir; kayit sayisi, sirasi ve diger
+# alanlar AYNEN korunur - yalniz bu bir alan yeniden hesaplanir.
+# Ustteki ozet alanlari (supheli/destekli) de tutarli hale getirilir.
+if($Onar){
+  $ham = Get-Content $Rapor -Raw -Encoding UTF8 | ConvertFrom-Json
+  $degisen = 0
+  foreach($k in @($ham.kayitlar)){
+    $dogru = AlintiDestekliyorMu $k.okuma_karari $k.alinti
+    if($k.alinti_karari_destekliyor -ne $dogru){
+      $k.alinti_karari_destekliyor = $dogru
+      $degisen++
+    }
+  }
+  $destekli = @($ham.kayitlar | Where-Object { $_.alinti_karari_destekliyor }).Count
+  if($ham.PSObject.Properties.Name -contains 'destekli'){ $ham.destekli = $destekli }
+  # Onarim izi: dosyanin kendisi neden degistigini soylesin.
+  $not = "30.08 ONARIM: alinti_karari_destekliyor alani $degisen kayitta duzeltildi. Eski deger Turkce buyuk harf tuzagi yuzunden yanlisti (PowerShell -match, tr-TR'de 'IFLASINA' ile 'iflas' eslesmez). Hesap arac/alacak-destek-denetimi.ps1 -Onar ile Katla() uzerinden yeniden yapildi."
+  if($ham.PSObject.Properties.Name -contains 'aciklama'){ $ham.aciklama = "$($ham.aciklama) | $not" }
+  else { $ham | Add-Member -NotePropertyName 'onarim_notu' -NotePropertyValue $not -Force }
+
+  ($ham | ConvertTo-Json -Depth 8) | Set-Content $Rapor -Encoding UTF8
+  Write-Host ""
+  Write-Host ("ONARILDI: {0} kayitta alinti_karari_destekliyor duzeltildi." -f $degisen) -ForegroundColor Green
+  Write-Host ("  destekli: 0 -> {0}   desteksiz: {1}" -f $destekli, ($ham.kayitlar.Count - $destekli)) -ForegroundColor Green
+  Write-Host ("  dosya: {0}" -f (Split-Path $Rapor -Leaf)) -ForegroundColor Green
+} else {
+  Write-Host "  (kaynak rapordaki bozuk alani duzeltmek icin: -Onar)" -ForegroundColor DarkGray
+}
 if($kusurlu.Count){
   Write-Host ""
   Write-Host "okuma-pilotu.yml > ilanlar girdisine yapistirilacak liste:" -ForegroundColor Cyan

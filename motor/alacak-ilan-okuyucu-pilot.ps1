@@ -1,4 +1,4 @@
-﻿# ============================================================================
+# ============================================================================
 #  ALACAK ILANI OKUYUCU - PILOT  (29.08.2026)
 #
 #  CEM'IN TESHISI (28.08 gecesi): "bu yazanlari tek tek okusak daha dogru karar
@@ -884,23 +884,18 @@ $supheli = @($sonuc | Where-Object { -not $_.uyuyor -and $_.alinti_var } | ForEa
     alinti = $(if ($_.okuma_alintisi.Length -gt 400) { $_.okuma_alintisi.Substring(0,400) } else { $_.okuma_alintisi })
     # alinti okumanin kararini DESTEKLIYOR mu? (29.08 dersi: alintinin varligi
     # yetmiyor, %21'inde alinti karari dogrulamiyordu)
-    alinti_karari_destekliyor = $(
-      switch ($_.okuma_karari) {
-        'RET_IFLAS'       { [bool]($_.okuma_alintisi -match 'iflas') }
-        'TASDIK'          { [bool]($_.okuma_alintisi -match 'tasdik|onay') }
-        'IFLAS_KALDIRMA'  { [bool]($_.okuma_alintisi -match 'iflas[ıi]n\s*kald') }
-        'MUHLET_KALDIRMA' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
-        'FERAGAT'         { [bool]($_.okuma_alintisi -match 'feragat') }
-        'ALACAK_CAGRISI'  { [bool]($_.okuma_alintisi -match 'alacak|bildir|kayd|kayıt') }
-        'DURUSMA'         { [bool]($_.okuma_alintisi -match 'duruşma|durusma|gün|toplantı') }
-        'KESIN_MUHLET'    { [bool]($_.okuma_alintisi -match 'kesin\s*m[üu]hlet') }
-        'UZATMA'          { [bool]($_.okuma_alintisi -match 'uzat') }
-        'MUHLET_BELIRSIZ' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
-        'IFLAS_TASFIYE'   { [bool]($_.okuma_alintisi -match 'sıra cetvel|tasfiye|masa|kapan') }
-        'GECICI_MUHLET'   { [bool]($_.okuma_alintisi -match 'ge[çc]ici\s*m[üu]hlet|m[üu]hlet') }
-        'RET'             { [bool]($_.okuma_alintisi -match 'red|ret\b') }
-        default { $false }
-      })
+    #
+    # 30.08 KUSUR DUZELTILDI - IKI AYRI HESAP VARDI:
+    # Burada HAM metin uzerinde "-match 'iflas'" kosuyordu; Katla() YOKTU.
+    # tr-TR'de "IFLASINA" ile 'iflas' ESLESMEZ (I ile i ayri harf), o yuzden
+    # rapora YANLIS "desteklemiyor" yaziliyordu. Olculdu: 456 kaydin 456'si
+    # "desteksiz" gorunuyordu, gercekte 32'si desteksizdi - 424 yanlis alarm.
+    # 08:06 kosusunda da 18 kaydin 8'i yanlis isaretlendi, yani kusur
+    # HER KOSUDA yeniden uretiliyordu.
+    # Ayni betikte ZATEN dogru fonksiyon vardi (AlintiDestekliyorMu, Katla
+    # uzerinden) ama yalniz YAZMA KAPISINDA kullaniliyordu; rapor eski
+    # switch blogundan besleniyordu. Tek kaynaga baglandi.
+    alinti_karari_destekliyor = (AlintiDestekliyorMu $_.okuma_karari $_.okuma_alintisi)
     alinti_celisiyor = [bool]$_.alinti_celisiyor
   }
 })
