@@ -1,0 +1,80 @@
+# ============================================================================
+#  İHALE ÖZETLERİNİ TAZELE — özet betiği değişince çıktı da değişsin
+#
+#  NEDEN VAR (30.08.2026): O gün motor/ihale-firma-ozet.ps1 ve
+#  ihale-idare-ozet.ps1'deki anahtar üretimi düzeltildi (kültüre bağlı
+#  .ToUpper() + -replace'in "I" harfini silmesi). Ama çıktı dosyaları
+#  ESKİ, bozuk anahtarlarla üretilmiş hâlde kaldı ve onları tazeleyecek
+#  hiçbir tetik yoktu:
+#    · ihale-yutma.yml       -> yalnız workflow_dispatch (elle), 6 şeritli
+#                               saatlerce süren backfill; özet için ağır
+#    · ihale-gunluk-tamlik   -> günlük ama önce bülten indirmeye girişir
+#  Yani "betiği düzelttim" ile "veri düzeldi" arasında köprü yoktu.
+#
+#  BU AKIŞ SADECE ÖZET ÜRETİR: kasadan okur, üç özeti yeniden hesaplar,
+#  değişmişse depoya yazar. PDF indirme YOK, model çağrısı YOK, maliyet 0.
+#
+#  push tetikleyicisi bilerek dar: yalnız özet betikleri ya da bu akış
+#  değişince koşar. Böylece bir daha "betik düzeldi ama veri eski kaldı"
+#  durumu oluşmaz.
+#
+#  Sonunda firma adı denetimi de koşar (arac/ihale-firma-adi-denetimi.ps1):
+#  yeni özette "özel adı kayıp yüklenici" sayısı ARTMIŞSA akış kırmızı
+#  biter - ayrıştırıcı ya da anahtar üretimi bozulmuş demektir.
+# ============================================================================
+name: Ihale ozetlerini tazele
+
+on:
+  push:
+    paths:
+      - 'motor/ihale-firma-ozet.ps1'
+      - 'motor/ihale-idare-ozet.ps1'
+      - 'motor/ihale-sonuc-ozet.ps1'
+      - '.github/workflows/ihale-ozet-tazele.yml'
+  workflow_dispatch:
+
+# Yutma koşarken kasadan aynı anda okumasın; sırayla çalışsınlar.
+concurrency:
+  group: ihale-yutma
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  tazele:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ozetleri yeniden uret (kasadan okur, PDF indirmez)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./motor/ihale-sonuc-ozet.ps1 -Yaz
+          ./motor/ihale-firma-ozet.ps1 -Yaz
+          ./motor/ihale-idare-ozet.ps1 -Yaz
+
+      - name: Firma adi denetimi (ozel adi kayip yuklenici artti mi)
+        shell: pwsh
+        continue-on-error: true   # rapor her halukarda yazilsin; sonuc asagida
+        run: ./arac/ihale-firma-adi-denetimi.ps1
+
+      - name: Depoya yaz
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "robot@tetikte.com"
+          git add veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json \
+                  veri/ihale-idare-ozet.json veri/ihale-kesik-firma-adi.json || true
+          if git diff --staged --quiet; then
+            echo "ozetler degismedi"
+          else
+            git commit -m "Ihale ozetleri tazelendi (duzeltilmis anahtar) [veri-operasyonu]"
+            for deneme in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main && git push && exit 0
+              echo "deneme $deneme reddedildi, tekrar..."; sleep 5
+            done
+            echo "5 denemede de yayinlanamadi"; exit 1
+          fi
