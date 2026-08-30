@@ -42,9 +42,9 @@ $ps   = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
 # ("betik.ps1 -anahtar"). Tek elemanli ve argumansizsa -File, degilse zincir
 # -Command olarak kurulur ve ciktilar log dosyasina yazilir.
 $GOREVLER = @(
-  @{ ad='MevzuatRadar-YerelAyna';     saat='06:30'; sinir='PT3H'; pilKosma=$false;
+  @{ ad='MevzuatRadar-YerelAyna';     saat='06:30'; sinir='PT3H'; pilKosma=$true;
      betikler=@('yerel-ayna.ps1') }
-  @{ ad='MevzuatRadar-SurumTazeligi'; saat='06:45'; sinir='PT3H'; pilKosma=$false;
+  @{ ad='MevzuatRadar-SurumTazeligi'; saat='06:45'; sinir='PT3H'; pilKosma=$true;
      log='veri\fabrika\surum-tazeligi-son-kosu.txt'
      # 30.08 — BUTUNLUK KAPISI ZINCIRE GIRDI. Neden: envanterin TAM MI sutunu
      # artik kapinin "olctugum kaynaklar" listesine BAGLI. Kapi kosmazsa liste
@@ -54,7 +54,7 @@ $GOREVLER = @(
      # Sure: -hepsi ~43.600 belge tarar, olcum ~4 dakika. Bu yuzden gorev
      # siniri PT2H -> PT3H yapildi.
      betikler=@('surum-tazeligi.ps1','butunluk-kapisi.ps1 -hepsi','ambar-envanteri.ps1','veri-katalogu.ps1','saglik-karnesi.ps1','gorev-kur.ps1 -yayinla') }
-  @{ ad='MevzuatRadar-YerelIndirici'; saat='09:30'; sinir='PT2H'; pilKosma=$false;
+  @{ ad='MevzuatRadar-YerelIndirici'; saat='09:30'; sinir='PT2H'; pilKosma=$true;
      betikler=@('yerel-indirici.ps1') }
 )
 
@@ -103,8 +103,23 @@ foreach($g in $GOREVLER){
   $mevcut = $null
   try { $mevcut = Get-ScheduledTask -TaskName $g.ad -ErrorAction Stop } catch {}
   $mevcutArg = if($mevcut){ ($mevcut.Actions | Select-Object -First 1).Arguments } else { $null }
-  $ayni = $mevcut -and ("$mevcutArg".Trim() -eq $eylem.arg.Trim())
-  $satir = [ordered]@{ ad=$g.ad; kurulu=[bool]$mevcut; beyanla_ayni=[bool]$ayni; yapilan='olculdu' }
+  # 30.08 KUSUR (olculdu, canli vaka): karsilastirma YALNIZ komut satirina
+  # bakiyordu. Pil ayarini beyanda cevirdim, kurulum "degismedi" dedi ve
+  # gorevler ESKI ayarla kaldi - cunku komut satiri ayniydi. Yani beyan ile
+  # gercek arasindaki AYAR farkini kurulum GOREMIYORDU. Ayni kor nokta tetik
+  # saati icin de gecerliydi: biri elle 06:45'i 09:00 yapsa yine "degismedi".
+  $farklar = @()
+  if($mevcut){
+    if("$mevcutArg".Trim() -ne $eylem.arg.Trim()){ $farklar += 'komut' }
+    $beklenenPilYasak = (-not $g.pilKosma)
+    if([bool]$mevcut.Settings.DisallowStartIfOnBatteries -ne $beklenenPilYasak){ $farklar += 'pilde-baslama' }
+    if([bool]$mevcut.Settings.StopIfGoingOnBatteries     -ne $beklenenPilYasak){ $farklar += 'pilde-durdur' }
+    $mevcutSaat = ''
+    try { $mevcutSaat = ([datetime]$mevcut.Triggers[0].StartBoundary).ToString('HH:mm') } catch {}
+    if($mevcutSaat -and $mevcutSaat -ne $g.saat){ $farklar += 'tetik-saati' }
+  }
+  $ayni = $mevcut -and ($farklar.Count -eq 0)
+  $satir = [ordered]@{ ad=$g.ad; kurulu=[bool]$mevcut; beyanla_ayni=[bool]$ayni; farklar=($farklar -join ','); yapilan='olculdu' }
 
   if($uygula -and -not $ayni){
     try {
