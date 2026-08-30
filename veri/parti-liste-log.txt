@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260829071520
+Start time: 20260830053822
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/3937df5d-5344-4902-a094-739b9e4c0725.ps1'
-Process ID: 2234
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/fe269c09-c116-47ed-8733-5ac21b029ab4.ps1'
+Process ID: 2247
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -23,11 +23,13 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
   sayfa 4: 100 parti (toplam 400)
-  sayfa 5: 2 parti (toplam 402)
+  sayfa 5: 4 parti (toplam 404)
 
-TOPLAM 402 parti bulundu.
+TOPLAM 404 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_017dbMr4CoP2YnSZHRuCoX6X ended               2        0 08/30/2026 01:12:41
+msgbatch_01MEfwZWKBjwfNYZh3MrRmgw ended               2        0 08/29/2026 23:35:18
 msgbatch_01C8Zgtre8U8VcbYSDDhof1s ended               2        0 08/29/2026 07:00:55
 msgbatch_01XPruV6Gvpsx8gpBBa3zP1v ended               2        0 08/29/2026 04:07:16
 msgbatch_017s4THqiGToxem42tdyeuSP ended               2        0 08/29/2026 03:20:23
@@ -431,9 +433,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (402 kayit)
-HASADA HAZIR (ended + basarili>0): 402 parti,  sonuc
+-> veri/parti-listesi.json (404 kayit)
+HASADA HAZIR (ended + basarili>0): 404 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260829071522
+End time: 20260830053824
 **********************
