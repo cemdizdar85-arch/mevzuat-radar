@@ -99,19 +99,28 @@ jobs:
         continue-on-error: true
         shell: pwsh
         run: |
-          $cikti = (& ./motor/standart-yut.ps1 -standart 'TFRS 16' *>&1 | Out-String)
-          $satir = ($cikti -split "`n") | Select-Object -First 40
-          $bas = @(
-            "# TEK STANDART HAM CIKTI (CI teshisi)",
-            "",
-            "> TFRS 16 icin standart-yut.ps1 kuru kosusu. Amac: surum kapisinin",
-            "> CI'da neden 'OLCULEMEDI' urettigini AYIRT ETMEK -",
-            "> betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?",
-            "",
-            '```'
-          ) + $satir + @('```')
-          $bas -join "`n" | Out-File 'veri/surum-teshis-ci.md' -Encoding utf8
-          Write-Host ($satir -join "`n")
+          # 30.08: ONCEKI DENEMEDE BU DOSYA HIC OLUSMADI. Sebep neredeyse kesin:
+          # standart-yut.ps1 icinde 'exit 1' var (HatOnKontrol / pdftotext
+          # kontrolu) ve PowerShell'de bir betigin 'exit'i CAGIRAN SURECI DE
+          # dusurur - adim dosyayi yazamadan olur, continue-on-error da bunu
+          # maskeler. Bu yuzden simdi: (1) dosya ONCE yazilir, (2) alt betik
+          # AYRI SUREC olarak cagrilir ki 'exit' bu adimi olduremesin.
+          $rapor = 'veri/surum-teshis-ci.md'
+          "# TEK STANDART HAM CIKTI (CI teshisi)`n`n> TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?`n" | Out-File $rapor -Encoding utf8
+          "## ortam" | Out-File $rapor -Append -Encoding utf8
+          $pt = (Get-Command pdftotext -ErrorAction SilentlyContinue)
+          "- pdftotext: $(if($pt){$pt.Source}else{'YOK'})" | Out-File $rapor -Append -Encoding utf8
+          "- SUPABASE_SERVICE_KEY uzunluk: $((''+$env:SUPABASE_SERVICE_KEY).Length)" | Out-File $rapor -Append -Encoding utf8
+          "- pwsh: $($PSVersionTable.PSVersion) · OS: $($PSVersionTable.OS)" | Out-File $rapor -Append -Encoding utf8
+          "`n## standart-yut.ps1 -standart 'TFRS 16' ciktisi`n" | Out-File $rapor -Append -Encoding utf8
+          '```' | Out-File $rapor -Append -Encoding utf8
+          # AYRI SUREC: alt betikteki exit bu adimi olduremez
+          $ham = & pwsh -NoProfile -Command "& './motor/standart-yut.ps1' -standart 'TFRS 16' *>&1 | Out-String" 2>&1 | Out-String
+          $kod = $LASTEXITCODE
+          ($ham -split "`n" | Select-Object -First 45) | Out-File $rapor -Append -Encoding utf8
+          '```' | Out-File $rapor -Append -Encoding utf8
+          "`n- alt surec cikis kodu: $kod" | Out-File $rapor -Append -Encoding utf8
+          Get-Content $rapor | Write-Host
 
       - name: SURUM KARNESI TESHISI (delili depoya al)
         if: always()
