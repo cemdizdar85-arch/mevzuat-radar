@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **30.08.2026 04:01** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **30.08.2026 04:06** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 43440 parça · 1750 tekil kaynak | Bütünlük ölçülen: 1684 (delikli: 348; son ölçüm: 30.08.2026) | Sürüm ölçülen: 0 (sorunlu: 0; son ölçüm: )
+**ÖZET:** 43440 parça · 1750 tekil kaynak | Bütünlük ölçülen: 1684 (delikli: 348; son ölçüm: 30.08.2026) | Sürüm ölçülen: 28 (sorunlu: 28; son ölçüm: 30.08.2026 04:05)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -1215,23 +1215,23 @@
 | Tebligat K. (7201 s.K.) | kanun-madde | 68 | DELİK-İNCELE(par:3/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teknoloji Gel. Bölg. K. (4691 s.K.) | kanun-madde | 41 | DELİK-İNCELE(par:210/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teminatli Menkul Kiymetler Tebligi (III-59.1) | kanun-madde | 56 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TFRS 1 | standart-madde | 127 | DELİK-İNCELE(par:6/kesik:0/oksuz:4) | ÖLÇÜLMEDİ |
+| TFRS 1 | standart-madde | 127 | DELİK-İNCELE(par:6/kesik:0/oksuz:4) | OLCULEMEDI |
 | TFRS 10 | standart-madde | 193 | TAM | ÖLÇÜLMEDİ |
-| TFRS 11 | standart-madde | 93 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TFRS 12 | standart-madde | 87 | DELİK-İNCELE(par:0/kesik:0/oksuz:3) | ÖLÇÜLMEDİ |
-| TFRS 13 | standart-madde | 172 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TFRS 14 | standart-madde | 77 | TAM | ÖLÇÜLMEDİ |
-| TFRS 15 | standart-madde | 239 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TFRS 16 | standart-madde | 213 | DELİK-İNCELE(par:4/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TFRS 17 | standart-madde | 259 | DELİK-İNCELE(par:7/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TFRS 18 | standart-madde | 277 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TFRS 2 | standart-madde | 144 | DELİK-İNCELE(par:3/kesik:0/oksuz:4) | ÖLÇÜLMEDİ |
-| TFRS 3 | standart-madde | 171 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TFRS 5 | standart-madde | 65 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TFRS 6 | standart-madde | 31 | TAM | ÖLÇÜLMEDİ |
+| TFRS 11 | standart-madde | 93 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
+| TFRS 12 | standart-madde | 87 | DELİK-İNCELE(par:0/kesik:0/oksuz:3) | OLCULEMEDI |
+| TFRS 13 | standart-madde | 172 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
+| TFRS 14 | standart-madde | 77 | TAM | OLCULEMEDI |
+| TFRS 15 | standart-madde | 239 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | OLCULEMEDI |
+| TFRS 16 | standart-madde | 213 | DELİK-İNCELE(par:4/kesik:0/oksuz:2) | OLCULEMEDI |
+| TFRS 17 | standart-madde | 259 | DELİK-İNCELE(par:7/kesik:0/oksuz:1) | OLCULEMEDI |
+| TFRS 18 | standart-madde | 277 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | OLCULEMEDI |
+| TFRS 2 | standart-madde | 144 | DELİK-İNCELE(par:3/kesik:0/oksuz:4) | OLCULEMEDI |
+| TFRS 3 | standart-madde | 171 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | OLCULEMEDI |
+| TFRS 5 | standart-madde | 65 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | OLCULEMEDI |
+| TFRS 6 | standart-madde | 31 | TAM | OLCULEMEDI |
 | TFRS 7 | standart-madde | 160 | DELİK-İNCELE(par:1/kesik:0/oksuz:3) | ÖLÇÜLMEDİ |
 | TFRS 8 | standart-madde | 45 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TFRS 9 | standart-madde | 11 | TAM | ÖLÇÜLMEDİ |
+| TFRS 9 | standart-madde | 11 | TAM | OLCULEMEDI |
 | THP 100 - Kasa | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 101 - ALINAN ÇEKLER | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 102 - Bankalar | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1506,40 +1506,40 @@
 | TİM ve İhr. Birlikleri K. (5910 s.K.) | kanun-madde | 35 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TKHK (6502 s.K.) | kanun-madde | 133 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TMK (4721 s.K.) | kanun-madde | 1023 | DELİK-İNCELE(par:11/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TMS 1 | standart-madde | 117 | DELİK-İNCELE(par:34/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TMS 10 | standart-madde | 26 | TAM | ÖLÇÜLMEDİ |
+| TMS 1 | standart-madde | 117 | DELİK-İNCELE(par:34/kesik:0/oksuz:0) | OLCULEMEDI |
+| TMS 10 | standart-madde | 26 | TAM | OLCULEMEDI |
 | TMS 12 | standart-madde | 128 | DELİK-İNCELE(par:806/kesik:0/oksuz:11) | ÖLÇÜLMEDİ |
 | TMS 16 | standart-madde | 84 | DELİK-İNCELE(par:12/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TMS 19 | standart-madde | 189 | DELİK-İNCELE(par:495/kesik:0/oksuz:7) | ÖLÇÜLMEDİ |
+| TMS 19 | standart-madde | 189 | DELİK-İNCELE(par:495/kesik:0/oksuz:7) | OLCULEMEDI |
 | TMS 2 | standart-madde | 7 | TAM | ÖLÇÜLMEDİ |
 | TMS 20 | standart-madde | 50 | DELİK-İNCELE(par:5/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
 | TMS 21 | standart-madde | 86 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TMS 23 | standart-madde | 31 | DELİK-İNCELE(par:10/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TMS 24 | standart-madde | 34 | TAM | ÖLÇÜLMEDİ |
+| TMS 23 | standart-madde | 31 | DELİK-İNCELE(par:10/kesik:0/oksuz:0) | OLCULEMEDI |
+| TMS 24 | standart-madde | 34 | TAM | OLCULEMEDI |
 | TMS 26 | standart-madde | 43 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TMS 27 | standart-madde | 15 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TMS 28 | standart-madde | 58 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TMS 28 Degisiklikleri - Istiraklerde Gercege Uygun Deger Secenegi (RG 31.07.2026-33326) | kanun-madde | 3 | TAM | ÖLÇÜLMEDİ |
+| TMS 27 | standart-madde | 15 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
+| TMS 28 | standart-madde | 58 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
+| TMS 28 Degisiklikleri - Istiraklerde Gercege Uygun Deger Secenegi (RG 31.07.2026-33326) | kanun-madde | 3 | TAM | OLCULEMEDI |
 | TMS 29 | standart-madde | 42 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TMS 32 | standart-madde | 87 | DELİK-İNCELE(par:45/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
+| TMS 32 | standart-madde | 87 | DELİK-İNCELE(par:45/kesik:0/oksuz:0) | OLCULEMEDI |
 | TMS 33 | standart-madde | 92 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TMS 34 | standart-madde | 68 | DELİK-İNCELE(par:8/kesik:0/oksuz:3) | ÖLÇÜLMEDİ |
-| TMS 36 | standart-madde | 160 | DELİK-İNCELE(par:10/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TMS 37 | standart-madde | 105 | DELİK-İNCELE(par:5/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TMS 38 | standart-madde | 134 | DELİK-İNCELE(par:8/kesik:0/oksuz:3) | ÖLÇÜLMEDİ |
+| TMS 34 | standart-madde | 68 | DELİK-İNCELE(par:8/kesik:0/oksuz:3) | OLCULEMEDI |
+| TMS 36 | standart-madde | 160 | DELİK-İNCELE(par:10/kesik:0/oksuz:2) | OLCULEMEDI |
+| TMS 37 | standart-madde | 105 | DELİK-İNCELE(par:5/kesik:0/oksuz:0) | OLCULEMEDI |
+| TMS 38 | standart-madde | 134 | DELİK-İNCELE(par:8/kesik:0/oksuz:3) | OLCULEMEDI |
 | TMS 40 | standart-madde | 90 | DELİK-İNCELE(par:23/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
 | TMS 41 | standart-madde | 62 | DELİK-İNCELE(par:11/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
 | TMS 7 | standart-madde | 71 | DELİK-İNCELE(par:2/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TMS 8 | standart-madde | 79 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
+| TMS 8 | standart-madde | 79 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
 | TOBB/Odalar K. (5174 s.K.) | kanun-madde | 162 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TPKK (1567 s.K.) | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSPB Sermaye Piyasasi Calisanlari Etik | kanun-madde | 79 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSPB Uyelerinin Sermaye Piyasasi Faaliyetlerini Yuruturken Uyacaklari Meslek Kurallari | kanun-madde | 37 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TSRS 1 | standart-madde | 104 | DELİK-İNCELE(par:8/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TSRS 1 - on bolum | standart-madde | 1 | TAM | ÖLÇÜLMEDİ |
-| TSRS 2 | standart-madde | 63 | DELİK-İNCELE(par:5/kesik:0/oksuz:2) | ÖLÇÜLMEDİ |
-| TSRS 2 - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) | kanun-madde | 9 | TAM | ÖLÇÜLMEDİ |
+| TSRS 1 | standart-madde | 104 | DELİK-İNCELE(par:8/kesik:0/oksuz:2) | ISTISNA-KAPSAM-DISI |
+| TSRS 1 - on bolum | standart-madde | 1 | TAM | ISTISNA-KAPSAM-DISI |
+| TSRS 2 | standart-madde | 63 | DELİK-İNCELE(par:5/kesik:0/oksuz:2) | ISTISNA-KAPSAM-DISI |
+| TSRS 2 - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ISTISNA-KAPSAM-DISI |
+| TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) | kanun-madde | 9 | TAM | ISTISNA-KAPSAM-DISI |
 | TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TTK (6102 s.K.) | kanun-madde | 1599 | DELİK-İNCELE(par:20/kesik:2/oksuz:3) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
