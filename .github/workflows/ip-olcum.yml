@@ -211,10 +211,18 @@ jobs:
           # Aynı sınav mevzuat.gov.tr'ye de uygulanır: eğer .NET ile iniyorsa
           # sunucu kiralamaya hiç gerek yok demektir.
           $getHedef = @(
-            @{ ad='mevzuat.gov.tr GeneratePdf (Teblig III-39.1)';
+            @{ ad='mevzuat.gov.tr GeneratePdf (Teblig III-39.1)'; bek='PDF';
                url='https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131&mevzuatTur=Teblig&mevzuatTertip=5' },
-            @{ ad='mevzuat.gov.tr MevzuatMetin (SPKn 6362)';
-               url='https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf' }
+            @{ ad='mevzuat.gov.tr MevzuatMetin (SPKn 6362)'; bek='PDF';
+               url='https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf' },
+            # 30.08 Cem: "biz bunu Resmî Gazete'den yapamıyor muyuz?"
+            # RG hattı zaten buluttan besleniyor (veri/rg-nobeti.json'u bot her
+            # gün yazıyor) ama curl ölçümünde 000 çıktı - ilan.gov.tr ile aynı
+            # yanılgı. Üretim aracıyla ölçülmeden "RG de engelli" denemez.
+            @{ ad='resmigazete.gov.tr ana sayfa'; bek='HTML';
+               url='https://www.resmigazete.gov.tr' },
+            @{ ad='resmigazete.gov.tr fihrist (gunluk taramanin kaynagi)'; bek='HTML';
+               url='https://www.resmigazete.gov.tr/fihrist?tarih=2026-08-29&mukerrer=0' }
           )
           $TARAYICI_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
 
@@ -245,11 +253,15 @@ jobs:
               $imza = 'bilinmiyor'
               try {
                 $ilk = $w.Content
-                if($ilk -is [byte[]]){ $imza = if(($ilk[0] -eq 0x25) -and ($ilk[1] -eq 0x50)){ 'PDF' } else { 'PDF-degil' } }
-                elseif("$ilk".StartsWith('%PDF')){ $imza = 'PDF' } else { $imza = 'PDF-degil' }
+                if($ilk -is [byte[]]){
+                  $imza = if(($ilk[0] -eq 0x25) -and ($ilk[1] -eq 0x50)){ 'PDF' }
+                          elseif(($ilk[0] -eq 0x3C)){ 'HTML' } else { 'bilinmiyor' }
+                } elseif("$ilk".StartsWith('%PDF')){ $imza = 'PDF' }
+                elseif("$ilk" -match '(?i)^\s*<(!doctype|html)'){ $imza = 'HTML' }
+                else { $imza = 'bilinmiyor' }
               } catch {}
-              $iyi = ($w.StatusCode -eq 200 -and $imza -eq 'PDF' -and $bayt -gt 500)
-              $isaret = if($iyi){ '✅ İNDİ' } else { "⚠️ 200 ama imza $imza" }
+              $iyi = ($w.StatusCode -eq 200 -and $imza -eq $h.bek -and $bayt -gt 500)
+              $isaret = if($iyi){ '✅ İNDİ' } else { "⚠️ $($w.StatusCode) ama imza $imza (beklenen $($h.bek))" }
               $sonuc += "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | $($w.StatusCode) | — | $bayt | $imza | $isaret |"
               Write-Host "[$isaret] $($h.ad) -> $bayt bayt, imza=$imza"
             } catch {
