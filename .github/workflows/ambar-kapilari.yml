@@ -62,10 +62,29 @@ jobs:
       # Cozum: surum kapisi da ayni kosuda ONCE kosar - karneyi kendisi uretir.
       # Bu mumkun cunku olculdu (ip-olcum): kgk.gov.tr runner'dan INIYOR
       # (TFRS 10 538 KB · BDS 200 1,25 MB, iki farkli runner IP'siyle).
+      # 30.08 IKINCI ONARIM: ilk denemede bu adim "success" gorundu ama GERCEKTE
+      # DUSTU - continue-on-error maskeliyordu. Sebep: betik veri/fabrika/
+      # altina yaziyor, o klasor gitignore'daydi ve TEMIZ KLONDA YOKTU.
+      # Olculdu: motor'daki 50 betikten 23'u ayni kusuru tasiyor. Cozum tek
+      # tek yama degil, klasoru depoda tutmak oldu (veri/fabrika/.gitkeep).
+      # DERS: maskelenmis adim, olculmemis adimdir - ciktisini dogrula.
       - name: SURUM TAZELIGI (kgk.gov.tr - runner'dan iniyor, olculdu)
         continue-on-error: true
         shell: pwsh
         run: ./motor/surum-tazeligi.ps1
+
+      - name: SURUM KARNESI GERCEKTEN YAZILDI MI
+        if: always()
+        shell: pwsh
+        run: |
+          $k = 'veri/fabrika/surum-tazeligi-karnesi.json'
+          if(Test-Path $k){
+            $j = Get-Content $k -Raw | ConvertFrom-Json
+            Write-Host ("KARNE VAR: {0} standart olculdu ({1})" -f @($j.satirlar).Count, $j.tarih)
+          } else {
+            Write-Host "KOR: $k YOK - envanterin 'Surum olculen' sutunu BOS cikacak."
+            Write-Host "  Bu, adim 'success' gorunse bile surum kapisinin KOSMADIGI anlamina gelir."
+          }
 
       - name: ONCEKI DELIK SAYISINI SAKLA
         if: always()
