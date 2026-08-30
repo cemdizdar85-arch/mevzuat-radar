@@ -36,6 +36,29 @@
 --  sayfa yayinlanmaz.
 -- ============================================================================
 
+-- ============================================================================
+--  ⭐ CEM: PANELDEN BASMANIN KOLAY YOLU — asagidaki "TEK SEFERDE" blogunu
+--  komple kopyala, Supabase > SQL Editor'e yapistir, bir kez Run.
+--
+--  Neden concurrently DEGIL: SQL Editor her calistirmayi transaction'a sarar,
+--  concurrently orada calismaz. Concurrently'siz surum tabloyu kisa sure
+--  kilitler - 43.440 satirda saniyeler surer, gece beklemeye gerek yok.
+--  (Asagidaki concurrently'li surum psql/CLI ile basacaklar icin duruyor.)
+--
+--  ---------------------------- TEK SEFERDE ---------------------------------
+--  create index if not exists dokumanlar_arama_fold_gin
+--    on public.dokumanlar using gin (arama_fold);
+--  create index if not exists dokumanlar_kaynak_ad_idx
+--    on public.dokumanlar (kaynak_ad);
+--  create index if not exists dokumanlar_tur_kaynak_idx
+--    on public.dokumanlar (tur, kaynak_ad);
+--  analyze public.dokumanlar;
+--  --------------------------------------------------------------------------
+--
+--  Bastiktan sonra BANA SOYLE, olcumu ben yapayim (okuma yetkim var):
+--  uc dogrulama sorgusu + canli uctan madde_ara + kaynak_ad testi.
+-- ============================================================================
+
 -- 1) Tam metin arama (madde_ara). En kritik olan bu: fonksiyon her token icin
 --    tum tabloda @@ sayimi yapiyor, indekssiz her cagri tam tarama demek.
 create index concurrently if not exists dokumanlar_arama_fold_gin
