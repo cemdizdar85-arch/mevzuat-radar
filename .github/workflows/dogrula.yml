@@ -158,6 +158,17 @@ jobs:
           - { ad: "Turkce katlama nobetcisi (I ile i karistiran eslestirme)",
               kabuk: pwsh, komut: "./arac/turkce-katlama-nobetcisi.ps1" }
 
+          # 30.08: veri/ihale-firma-ozet.json'da EN BUYUK kayit bir firma
+          # DEGIL: "Ticaret Limited Sirketi" - 295 ihale, 2,97 MILYAR TL.
+          # Firma adinin OZEL AD kismi kayip; ilgisiz onlarca firma tek
+          # kayitta toplaniyor ve Firma Analizi araci "bu firma 295 ihale
+          # kazandi" diyor. Olculdu: 115 kayit, 1.431 ihale, 7,94 milyar TL.
+          # Kapi CIRCIR: mevcut borc taban, ARTIS kirmizi - ayristirici
+          # bozulursa (PDF dizgisi degisirse) hemen goruluyor.
+          - { ad: "Ihale firma adi denetimi (ozel adi kayip yuklenici)",
+              kabuk: pwsh, komut: "./arac/ihale-firma-adi-denetimi.ps1",
+              rapor: "veri/ihale-kesik-firma-adi.json" }
+
           # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
           # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
           # Chrome DevTools protokolu konusulur. ~4 dk surer, en yavas kapi.
