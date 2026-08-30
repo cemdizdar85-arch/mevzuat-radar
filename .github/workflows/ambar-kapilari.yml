@@ -273,3 +273,54 @@ jobs:
           } else {
             Write-Host 'YESIL: sorunlu kaynak yok.'
           }
+
+      # ========================================================================
+      #  -match KULTUR TUZAGI (30.08 eklendi)
+      #
+      #  NEDEN: o gun okuma pilotunda UC KEZ ayni kusur cikti ve ucu de bu
+      #  runner'in kulturu sayesinde GIZLENMISTI:
+      #      "KARAR: KESIN_MUHLET" -match '...([A-Z_]{3,})'  ->  "KES"
+      #  PowerShell'in -match'i HER ZAMAN IgnoreCase kullanir; IgnoreCase ise
+      #  CurrentCulture'a bakar ve Turkce'de 'I' ile 'i' AYRI harftir. Linux
+      #  runner (invariant) dogru davranir, Cem'in tr-TR makinesi davranmaz.
+      #  Yani "CI yesil" bu kusur icin KANIT DEGIL - tarayici kulturu KENDI
+      #  zorlar (asagida TR kultur degiskenleri) ve farki olcer.
+      #
+      #  Ilk olcum: 360 betik · 66.226 satir · 30 KANITLI kusur · 15 riskli.
+      #  Ayni ev kurali: sabit borc SARI, borc BUYURSE KIRMIZI.
+      # ========================================================================
+      - name: -MATCH KULTUR TUZAGI (TR kulturu zorlanarak)
+        if: always()
+        continue-on-error: true
+        id: kultur
+        shell: pwsh
+        env:
+          DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY: 'false'
+          LANG: tr_TR.UTF-8
+          LC_ALL: tr_TR.UTF-8
+          ESIK: '9999'
+        run: |
+          [Threading.Thread]::CurrentThread.CurrentCulture = [Globalization.CultureInfo]::GetCultureInfo('tr-TR')
+          ./arac/match-kultur-tuzagi-tarayici.ps1
+
+      - name: KULTUR TUZAGI SONUCU (borc BUYUDUYSE kirmizi)
+        if: always()
+        shell: pwsh
+        env:
+          ONCEKI_KANITLI: '30'
+        run: |
+          $simdi = -1
+          if(Test-Path 'veri/match-kultur-taramasi.json'){
+            try { $simdi = [int](Get-Content 'veri/match-kultur-taramasi.json' -Raw | ConvertFrom-Json).kanitli } catch {}
+          }
+          $onceki = [int]"$env:ONCEKI_KANITLI"
+          Write-Host ("kanitli kultur kusuru : taban {0} -> simdi {1}" -f $onceki, $simdi)
+          if($simdi -lt 0){ Write-Host 'KOR: tarama raporu okunamadi - "temiz" DENMEZ.'; exit 1 }
+          if($simdi -gt $onceki){
+            Write-Host ("KIRMIZI: kultur kusuru BUYUDU (+{0}). Yeni satirlar veri/match-kultur-taramasi.json icinde." -f ($simdi-$onceki))
+            Write-Host '  Cozum: o satirda -match yerine -cmatch (ordinal) kullan.'
+            exit 1
+          }
+          if($simdi -gt 0){
+            Write-Host ("SARI: {0} kanitli kusur DURUYOR ama artmadi - bilinen borc." -f $simdi)
+          } else { Write-Host 'YESIL: kanitli kultur kusuru yok.' }
