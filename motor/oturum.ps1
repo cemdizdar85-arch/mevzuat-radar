@@ -142,6 +142,24 @@ if($Ac){
   if(-not $k){ $k = [pscustomobject]@{ oturumlar = @() } }
   $liste = @($k.oturumlar)
 
+  # 30.08.2026 KUSUR: kilit YALNIZCA yasa gore ($BAYAT_SA=4 sa) bayat sayiliyordu.
+  # Oturum cokerse / kapanis kosulmadan kapanirsa kilit ORTADA KALIYOR ve dort
+  # saat boyunca herkesi bloke ediyor. Bugun yasandi: pid 41864 olmustu, kol
+  # yarim saat bos yere kapali kaldi. Artik SAHIP YASIYOR MU diye bakiliyor.
+  # PID geri donusumu tuzagi: ayni numarayi baska bir surec almis olabilir -
+  # o yuzden surecin BASLAMA ZAMANI kilidin acilisindan sonraysa da sahipsiz sayilir.
+  function SahipYasiyorMu($o){
+    $p = Get-Process -Id $o.pid -ErrorAction SilentlyContinue
+    if(-not $p){ return $false }
+    try { if($p.StartTime -gt ([datetime]$o.acilis)){ return $false } } catch { }
+    return $true
+  }
+  $sahipsiz = @($liste | Where-Object { -not (SahipYasiyorMu $_) })
+  if($sahipsiz.Count){
+    foreach($o in $sahipsiz){ Yaz ("  ⚠ sahipsiz kilit temizlendi: {0} (pid={1} artik yok)" -f $o.kol, $o.pid) 'Yellow' }
+    $liste = @($liste | Where-Object { SahipYasiyorMu $_ })
+  }
+
   $cakisan = $liste | Where-Object { $_.kol -eq $Kol -and $_.pid -ne $PID }
   if($cakisan){
     $s = SaatFark $cakisan[0].acilis
