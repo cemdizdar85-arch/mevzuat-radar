@@ -193,7 +193,8 @@ const ULKELER=[
   {k:'eagu', ad:'En az gelişmiş ülke', em:'🌱', grup:'eagu', belge:'Menşe (EAGÜ tercihi)'}
 ];
 
-let VERGI={}, VERGI_ULKE={}, IGV_ULKE={}, DAMPING=[], KDV={}, VERI={}, TARIM={}, EMY_TARIM={};
+let VERGI={}, VERGI_ULKE={}, IGV_ULKE={}, DAMPING=[], KDV={}, VERI={}, TARIM={}, EMY_TARIM={},
+    BALIK={kodlar:{},gvUlke:[],emyUlke:[]}, ASKIYA={kodlar:{}};
 Promise.all([
   fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
@@ -207,8 +208,14 @@ Promise.all([
   // 30.08: tarim listeleri EKLENDI - bunlar yuklenmedigi icin 2.530 tarim kodunda
   // arac 16 ulkeye ayni orani yaziyordu (ya da kodu hic bulamiyordu).
   fetch('veri/gtip-vergi-tarim.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h,ug,tr,em])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h};TARIM=tr||{};EMY_TARIM=em||{};
+  fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({})),
+  // 30.08: IV Sayili Liste (balik/su urunleri) + V Sayili Liste (GV askiya).
+  // Balik kodlarinin 423'u baska HICBIR tabloda yok - arac onlara "kod
+  // bulunamadi" diyordu. Askiya 1.924 tam GTIP kodunu ilgilendiriyor.
+  fetch('veri/gtip-balik.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-askiya.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h,ug,tr,em,bl,as])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h};TARIM=tr||{};EMY_TARIM=em||{};
+  BALIK=(bl&&bl.kodlar)?bl:{kodlar:{},gvUlke:[],emyUlke:[]}; ASKIYA=(as&&as.kodlar)?as:{kodlar:{}};
   UGRUP=ug; if(ug&&ug.ulkeler){ document.getElementById('ulkeList').innerHTML = ug.ulkeler.map(u=>`<option value="${u.ad}">`).join(''); }
 });
 let UGRUP=null; const OZEL_SECIM=[];
@@ -278,8 +285,12 @@ function kodCoz(q){ // girilen kodu VERGI_ULKE / VERGI anahtarina coz
   q=q.trim(); const s=nrm(q);
   let keys=Object.keys(VERGI_ULKE).filter(k=>k===q||nrm(k).startsWith(s));
   if(keys.length) return keys.find(k=>k===q)||keys[0];
+  // 30.08: BALIK listesi de aranir - 569 kodun 423'u baska hicbir tabloda yok,
+  // arac onlara "vergi verisi bulunamadi" diyordu.
+  keys=Object.keys(BALIK.kodlar||{}).filter(k=>k===q||nrm(k).startsWith(s));
+  if(keys.length) return keys.find(k=>k===q)||keys[0];
   // 30.08: TARIM listesi de aranir - 1.023 tarim kodu hicbir yerde bulunamiyordu.
-  // Kodun HANGI tablodan hesaplanacagina ulkeYuk karar verir (TARIM varsa o kazanir).
+  // Kodun HANGI tablodan hesaplanacagina ulkeYuk karar verir (BALIK > TARIM > sanayi).
   keys=Object.keys(TARIM).filter(k=>/^\d/.test(k)&&(k===q||nrm(k).startsWith(s)));
   if(keys.length) return keys.find(k=>k===q)||keys[0];
   keys=Object.keys(VERGI).filter(k=>k===q||nrm(k).startsWith(s));
@@ -349,22 +360,76 @@ function tarimSutunSec(satir, u, tablo){
   if(satir[TARIM_DU]!==undefined) return {ad:TARIM_DU, varsayim:true};
   return null;
 }
-// EMY (Tarim Payi) degeri: birim EURO/100 kg NET, YUZDE DEGIL. T1/T2/(i) dipnot
-// kodlari bir sayiya cevrilmez - oldugu gibi aciklanir (gtip.html ile ayni mantik).
-function emyDeger(v){
+// 🔴 "EMY" ADI IKI FARKLI SEYI ANLATIR - birim PARAMETREYLE verilir, varsayilmaz:
+//   gtip-emy-tarim.json  -> Tarim Payi, birim EURO/100 kg net (YUZDE DEGIL)
+//                           => geri gelmeyen yuk YUZDESINE EKLENMEZ
+//   gtip-balik.json .emy -> Ek Mali Yukumluluk, CIF uzerinden YUZDE (0-35)
+//                           => geri gelmeyen yuke EKLENIR
+// Ayni ada bakip birim varsaymak, %35'lik yukumlulugu "35 EURO/100 kg" diye
+// yazdirir. T1/T2/(i) dipnot kodlari bir sayiya CEVRILMEZ (gtip.html ile ayni).
+function emyDeger(v, birim){
   if(v===null||v===undefined||v==='0'||v===0) return null;
-  if(/^\d+([.,]\d+)?$/.test(''+v)) return {tip:'sayi', txt:(''+v).replace('.',',')+' EURO/100 kg'};
-  if(/^T\d/i.test(''+v)) return {tip:'dipnot', txt:'bileşime göre (Tarım Payı Tablosu '+v+')'};
-  if(/^\(/.test(''+v)) return {tip:'dipnot', txt:'dipnot '+v};
-  return {tip:'dipnot', txt:''+v};
+  if(birim==='yuzde'){
+    const n=parseFloat(String(v).replace(',','.'));
+    if(isNaN(n)||n===0) return null;
+    return {tip:'sayi', birim:'yuzde', oran:n, txt:'%'+(Math.round(n*100)/100).toLocaleString('tr-TR')};
+  }
+  if(/^\d+([.,]\d+)?$/.test(''+v)) return {tip:'sayi', birim:'eur100kg', txt:(''+v).replace('.',',')+' EURO/100 kg'};
+  if(/^T\d/i.test(''+v)) return {tip:'dipnot', birim:'eur100kg', txt:'bileşime göre (Tarım Payı Tablosu '+v+')'};
+  if(/^\(/.test(''+v)) return {tip:'dipnot', birim:'eur100kg', txt:'dipnot '+v};
+  return {tip:'dipnot', birim:'eur100kg', txt:''+v};
+}
+// ============ BALIK KATMANI (IV Sayili Liste) ============
+// Sutunlar dizi + ayri ad listesi olarak gelir (gvUlke / emyUlke), tarimdaki
+// gibi ad->deger sozlugu degil. Ad listeleri BIRLESIK olabilir
+// ("EFTA / Bosna-Hersek / Faroe Ad.") - bu yuzden bolup tek tek karsilastiririz.
+const BALIK_DU=/^Diğer Ülkeler/;
+const BALIK_SUTUN={
+  ab:['AB / İngiltere'], gb:['AB / İngiltere'], kr:['Güney Kore'], my:['Malezya']
+  // cn/us/jp/in/ru/tw ve sutunu olmayanlar EK-1 ile "Diğer Ülkeler"e duser
+};
+function balikIndeks(adlar, u){
+  if(!Array.isArray(adlar)||!adlar.length) return null;
+  const sade=String(u.ad||'').replace(/\s*\(.*\)\s*/,'').trim();
+  const parcali=(x)=>String(x).split('/').map(s=>s.trim());
+  // 1) resmi sutun adi (adiyla eklenenlerde tasinir)  2) tam ad  3) eslesme tablosu
+  let i=adlar.indexOf(u.balikSutunAdi); if(i>=0) return {i, varsayim:false};
+  i=adlar.indexOf(u.ad); if(i>=0) return {i, varsayim:false};
+  for(const ad of (BALIK_SUTUN[u.k]||[])){ i=adlar.indexOf(ad); if(i>=0) return {i, varsayim:false}; }
+  // 4) birlesik sutun icinde gecen ulke ("Bosna-Hersek")
+  i=adlar.findIndex(x=>parcali(x).some(s=>s===u.ad||s===sade));
+  if(i>=0) return {i, varsayim:false};
+  i=adlar.findIndex(x=>BALIK_DU.test(x));
+  if(i<0) return null;
+  // 5) DU grubundaki ulke (Cin/ABD/Japonya/Hindistan/Rusya/Tayvan) icin
+  //    "Diger Ulkeler" DOGRU sutundur - varsayim DEGIL, kuralin kendisi.
+  if(grupKodu(u.grup)==='du') return {i, varsayim:false};
+  // 6) tercihli ama bu listede sutunu olmayan ulke -> EK-1 VARSAYIMI, isaretlenir
+  return {i, varsayim:true};
 }
 function ulkeYuk(dkod, nkod, u){ // dkod=noktalı, nkod=noktasız
   const idx=ULKE_SIRA.indexOf(grupKodu(u.grup));
   const uSat=VERGI_ULKE[dkod], iSat=IGV_ULKE[dkod], v=VERGI[dkod]||[null,null,null,null];
-  let gv=null, gvTah=false, igv=null, igvTah=false, tarimli=false, tarimVarsayim=false;
-  // 30.08: TARIM once - bu kod tarim listesindeyse ulke sutunu KESINDIR,
-  // sanayi tablosunun tek sayisi tum menseleri yanlislikla esitliyordu.
-  const tSat=TARIM[dkod];
+  let gv=null, gvTah=false, igv=null, igvTah=false, tarimli=false, tarimVarsayim=false,
+      balikli=false, balikVarsayim=false, balikEmy=null;
+  // 30.08: BALIK (IV Sayili Liste) EN ONCE - su urunlerinin kendi listesi var,
+  // bu kodlarin 423'u baska hicbir tabloda gecmiyor. TARIM ile CAKISMA YOK
+  // (olculdu: 569 balik kodunun 0'i tarim listesinde).
+  const bSat=BALIK.kodlar&&BALIK.kodlar[dkod];
+  if(bSat){
+    const sec=balikIndeks(BALIK.gvUlke,u);
+    if(sec&&bSat.gv&&bSat.gv[sec.i]!==null&&bSat.gv[sec.i]!==undefined){
+      gv=bSat.gv[sec.i]; balikli=true; balikVarsayim=sec.varsayim;
+    }
+    // balikta EMY = CIF uzerinden YUZDE (Toplu Konut Fonu islevi) -> yuke EKLENIR.
+    // Tarim Payi'ndan (EURO/100 kg) farklidir; birim acikca gecirilir.
+    const esec=balikIndeks(BALIK.emyUlke,u);
+    if(esec&&bSat.emy&&bSat.emy[esec.i]!==null&&bSat.emy[esec.i]!==undefined){
+      const d=emyDeger(bSat.emy[esec.i],'yuzde');
+      if(d) balikEmy={...d, varsayim:esec.varsayim};
+    }
+  }
+  const tSat=(gv===null)?TARIM[dkod]:null;
   if(tSat){
     const sec=tarimSutunSec(tSat,u,TARIM_SUTUN);
     if(sec){ const o=tSat[sec.ad]; if(o!==null&&o!==undefined&&!isNaN(parseFloat(o))){ gv=parseFloat(o); tarimli=true; tarimVarsayim=sec.varsayim; } }
@@ -381,12 +446,15 @@ function ulkeYuk(dkod, nkod, u){ // dkod=noktalı, nkod=noktasız
   const eSat=EMY_TARIM[dkod];
   if(eSat){
     const sec=tarimSutunSec(eSat,u,EMY_SUTUN);
-    if(sec){ const d=emyDeger(eSat[sec.ad]); if(d) emy={...d, varsayim:sec.varsayim}; }
+    if(sec){ const d=emyDeger(eSat[sec.ad],'eur100kg'); if(d) emy={...d, varsayim:sec.varsayim}; }
   }
   const dmp=dampingBul(nkod,u.damp);
+  // balik EMY'si YUZDE oldugu icin geri gelmeyen yuke girer; tarim EMY'si girmez.
+  const bEmyV=(balikEmy&&balikEmy.birim==='yuzde')?balikEmy.oran:0;
   const gvV=gv||0, igvV=igv||0, dLo=dmp?dmp.lo:0, dHi=dmp?dmp.hi:0;
-  return { u, idx, gv, igv, gvTah, igvTah, tarimli, tarimVarsayim, emy, dmp,
-           geriLo:gvV+igvV+dLo, geriHi:gvV+igvV+dHi, veriYok:(gv===null&&igv===null) };
+  return { u, idx, gv, igv, gvTah, igvTah, tarimli, tarimVarsayim, balikli, balikVarsayim, balikEmy, emy, dmp,
+           geriLo:gvV+igvV+bEmyV+dLo, geriHi:gvV+igvV+bEmyV+dHi,
+           veriYok:(gv===null&&igv===null&&!balikEmy) };
 }
 function fmtTL(n){ return n.toLocaleString('tr-TR',{maximumFractionDigits:0}); }
 function fmtP(n){ return (Math.round(n*100)/100).toLocaleString('tr-TR'); }
@@ -460,10 +528,31 @@ function olustur(){
     });
     secili=secili.concat(tarimEk);
   }
+  // Ayni mantik BALIK icin: IV Sayili Liste'de Singapur/Kosova/Venezuela/BAE ve
+  // Bosna-Hersek'in kendi sutunu var, 16'likte yoklar. Fark buyuk olabiliyor
+  // (0301.11: Singapur %5,8 · AB %55 · Diger Ulkeler %65).
+  if(BALIK.kodlar && BALIK.kodlar[dkod] && UGRUP && UGRUP.ulkeler){
+    const varOlan=new Set(secili.map(u=>u.ad));
+    const adlar={'Singapur':'Singapur','Kosova':'Kosova','Venezuela':'Bolivarcı Venezuela',
+                 'BAE':'Birleşik Arap Emirlikleri (BAE)','EFTA / Bosna-Hersek / Faroe Ad.':'Bosna-Hersek'};
+    const balikEk=[];
+    Object.keys(adlar).forEach(sut=>{
+      if((BALIK.gvUlke||[]).indexOf(sut)<0) return;            // bu listede sutunu yoksa ekleme
+      const u=UGRUP.ulkeler.find(x=>x.ad===adlar[sut]);
+      if(!u || varOlan.has(u.ad)) return;
+      balikEk.push({k:'bl_'+sut, ad:u.ad, em:u.em, grup:u.grup, belge:u.belge, damp:u.damp,
+                    tarimEkli:true, balikSutunAdi:sut});
+    });
+    secili=secili.concat(balikEk);
+  }
   const tutar=parseFloat(nrm(document.getElementById('tutar').value).replace(',','.'))||0;
   const pb=document.getElementById('pb').value;
   const kdv=kdvOran(nkod);
   const gozetim=Object.keys(VERI).some(k=>k===dkod||nrm(k).startsWith(nkod)||nkod.startsWith(nrm(k)));
+  // V Sayili Liste: GV askiya alinmis OLABILIR (%0) ama SARTLIDIR - oran
+  // degistirilmez, yalniz uyari verilir. Anahtarlar 8 haneli, noktasiz.
+  const askiyaKod=Object.keys(ASKIYA.kodlar||{}).find(a=>nkod.startsWith(a));
+  const askiyaTanim=askiyaKod?ASKIYA.kodlar[askiyaKod]:null;
 
   // Siralama: once yuzde yuk. Yuzdeler ESITSE Tarim Payi ayirir - EMY gercek bir
   // ek maliyet, yuzde olmadigi icin toplama giremiyor ama beraberligi bozabilir.
@@ -479,9 +568,13 @@ function olustur(){
   // 31.07 Cem onayi (a) UC KATLI MERDIVEN: ozet herkese bedava; tam siralama
   // ucretsiz uyeye (uye degilse ilk 3 satir acik, kalani bugulu); PDF uyelik kapili.
   const uye=uyeMi();
-  // 30.08: Tarim Payi sutunu yalnizca bu kodda EMY varsa cizilir (yoksa bos sutun gurultu).
-  const emyVar=sonuc.some(s=>s.emy);
-  const emyDegisken=emyVar && new Set(sonuc.map(s=>s.emy?s.emy.txt:'—')).size>1;
+  // 30.08: ek yukumluluk sutunu yalnizca bu kodda varsa cizilir (yoksa bos sutun gurultu).
+  // Tarim Payi (EURO/100 kg) ile balik EMY'si (%) AYRI seyler; kod ya birindedir
+  // ya digerinde (olculdu: 569 balik kodunun 0'i tarim listesinde), basligi ona gore secilir.
+  const balikEmyVar=sonuc.some(s=>s.balikEmy);
+  const emyVar=sonuc.some(s=>s.emy)||balikEmyVar;
+  const emyBaslik=balikEmyVar?'EMY':'Tarım Payı';
+  const emyDegisken=emyVar && new Set(sonuc.map(s=>(s.emy||s.balikEmy)?(s.emy||s.balikEmy).txt:'—')).size>1;
   // kac FARKLI vergi sonucu ciktigi - "neden bazi ulkeler ayni" kutusunda kullanilir
   const farkliDeger=new Set(gecerli.map(s=>s.geriLo.toFixed(2))).size;
   let satirlar=sonuc.map((s,si)=>{
@@ -492,8 +585,9 @@ function olustur(){
     const dT=s.dmp?(((s.dmp.lo>0||s.dmp.hi>0)?('+%'+fmtP(s.dmp.lo)+(s.dmp.hi>s.dmp.lo?'–'+fmtP(s.dmp.hi):'')):'')+(s.dmp.spesifik?(((s.dmp.lo>0||s.dmp.hi>0)?' + ':'')+'spesifik*'):'')||'—'):'—';
     const geriT=s.veriYok?'—':('%'+fmtP(s.geriLo)+(s.geriHi>s.geriLo?'–'+fmtP(s.geriHi):''));
     const roz=s===best?'<span class="rozet b">EN AVANTAJLI</span>':(s===worst&&worst!==best?'<span class="rozet w">EN PAHALI</span>':'')+(s.dmp?'<span class="rozet d">DAMPİNG</span>':'');
-    const emyT=s.emy?(s.emy.txt+(s.emy.varsayim?'*':'')):'—';
-    const emyTd=emyVar?`<td class="n"${s.emy&&s.emy.tip==='sayi'?' style="color:var(--amber);font-weight:700"':''}>${emyT}</td>`:'';
+    const eKay=s.emy||s.balikEmy;
+    const emyT=eKay?(eKay.txt+(eKay.varsayim?'*':'')):'—';
+    const emyTd=emyVar?`<td class="n"${eKay&&eKay.tip==='sayi'?' style="color:var(--amber);font-weight:700"':''}>${emyT}</td>`:'';
     const emyTdKilit=emyVar?`<td class="n" style="filter:blur(4px);user-select:none">${emyT}</td>`:'';
     if(kilitli) return `<tr style="cursor:pointer" onclick="location.href='radar-app.html?niyet=gtip'"><td>🔒 ${s.u.em} ${s.u.ad}</td><td class="n" style="filter:blur(4px);user-select:none">${gvT}</td><td class="n" style="filter:blur(4px);user-select:none">${igvT}</td><td class="n" style="filter:blur(4px);user-select:none">${dT}</td>${emyTdKilit}<td class="n" style="filter:blur(4px);user-select:none">${geriT}</td></tr>`;
     return `<tr class="${cls}"><td>${s.u.em} ${s.u.ad}${roz}</td><td class="n">${gvT}</td><td class="n">${igvT}</td><td class="n">${dT}</td>${emyTd}<td class="n">${geriT}</td></tr>`;
@@ -514,6 +608,9 @@ function olustur(){
     if(u.misilleme) ek+=' Bazı ürünlerde ABD menşeli mala <b>misilleme ek vergisi</b> uygulanabilir (2018/11973).';
     if(s.gvTah||s.igvTah) ek+=' <i>(*) Bu kodda ülke-bazlı kesin sütun yok; aralık üst sınırı kullanıldı.</i>';
     if(s.tarimli) ek+=' <i>Gümrük vergisi, İthalat Rejimi <b>tarım listesinden</b> bu menşenin kendi sütunundan okundu.</i>';
+    if(s.balikli) ek+=' <i>Gümrük vergisi, İthalat Rejimi <b>IV Sayılı Liste\'den</b> (balık/su ürünleri) bu menşenin kendi sütunundan okundu.</i>';
+    if(s.balikVarsayim) ek+=' <b style="color:var(--amber)">Bu menşenin IV Sayılı Liste\'de ayrı sütunu yok</b>, EK-1 kuralı gereği "Diğer Ülkeler" sütunu uygulandı.';
+    if(s.balikEmy) ek+=` <b style="color:var(--amber)">Ek Mali Yükümlülük: ${s.balikEmy.txt}</b> (Toplu Konut Fonu, CIF üzerinden), gümrük vergisine ek alınır ve yukarıdaki yüke <b>dahildir</b>.`;
     if(u.tarimEkli) ek+=' <b style="color:var(--green)">Bu menşe listende yoktu</b>, tarım listesinde kendi sütunu olduğu için karşılaştırmaya otomatik eklendi.';
     if(s.tarimVarsayim) ek+=' <b style="color:var(--amber)">Bu tarım kodunda bu ülkenin ayrı tercih sütunu yok</b>, EK-1 kuralı gereği "Diğer Ülkeler" sütunu uygulandı; tercihli oran iddian varsa gümrük müşavirine teyit ettir.';
     if(s.emy) ek+=` <b style="color:var(--amber)">Tarım Payı (EMY): ${s.emy.txt}</b>, gümrük vergisine EK alınır. Birim <b>EURO/100 kg net</b>, yüzde değildir; bu yüzden yukarıdaki yüzde sıralamasına dahil edilmedi.${s.emy.tip==='dipnot'?' Tutar ürünün süt/şeker/nişasta bileşimine göre resmî Tarım Payı Tablosu\'ndan hesaplanır, biz uydurmayız.':''}`;
@@ -534,12 +631,14 @@ function olustur(){
       <div class="buyuk">${tutar?'≈ '+fmtTL(tasarruf)+' '+tpb+' / yıl tasarruf':'%'+fmtP(farkP)+' puan fark'}</div>
       <div class="alt"><b>${best.u.ad}</b> (geri gelmeyen yük %${fmtP(best.geriLo)}) ile <b>${worst.u.ad}</b> (%${fmtP(worst.geriLo)}) arasındaki fark${tutar?', '+fmtTL(tutar)+' '+tpb+' yıllık hacimde yukarıdaki tutara denk gelir':''}. Bu fark <b>geri gelmez</b> (KDV değil).</div>
     </div>`:''}
-    ${emyVar?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid rgba(255,194,75,.45);background:rgba(255,194,75,.07);border-radius:12px;padding:12px 14px"><span class="ico">🌾</span><div><b style="color:var(--amber)">Bu işlenmiş tarım ürününde gümrük vergisine EK olarak "Tarım Payı" (EMY) alınır.</b> Birimi <b>EURO/100 kg net</b>, yüzde değil, bu yüzden yukarıdaki yüzde sıralamasına eklenemez ${emyDegisken?'<b>ve menşeye göre değiştiği için nihai sıralamayı değiştirebilir</b>':''}. Ülke ülke tutarlar alttaki tabloda <b>Tarım Payı</b> sütununda; yıllık kilogramını bilen gümrük müşavirin bunu tutara çevirir.</div></div></div>`:''}
+    ${(emyVar&&!balikEmyVar)?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);background:color-mix(in srgb,var(--amber) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🌾</span><div><b style="color:var(--amber)">Bu işlenmiş tarım ürününde gümrük vergisine EK olarak "Tarım Payı" (EMY) alınır.</b> Birimi <b>EURO/100 kg net</b>, yüzde değil, bu yüzden yukarıdaki yüzde sıralamasına eklenemez ${emyDegisken?'<b>ve menşeye göre değiştiği için nihai sıralamayı değiştirebilir</b>':''}. Ülke ülke tutarlar alttaki tabloda <b>Tarım Payı</b> sütununda; yıllık kilogramını bilen gümrük müşavirin bunu tutara çevirir.</div></div></div>`:''}
+    ${balikEmyVar?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--green) 40%,transparent);background:color-mix(in srgb,var(--green) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🐟</span><div><b style="color:var(--green)">Bu ürün İthalat Rejimi IV Sayılı Liste'de (balıkçılık ve su ürünleri).</b> Gümrük vergisi bu listenin kendi menşe sütunlarından okundu. Buradaki <b>Ek Mali Yükümlülük (EMY)</b> — Toplu Konut Fonu işlevi — CIF kıymet üzerinden <b>yüzde</b> alınır, bu yüzden Tarım Payı'ndan farklı olarak <b>geri gelmeyen yüke dahil edilmiştir</b>. Kalem kalem dökümü alttaki tabloda.</div></div></div>`:''}
+    ${askiyaTanim?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">⏸️</span><div><b style="color:var(--accent2)">Bu kod, gümrük vergisi ASKIYA ALINMIŞ ürünler listesinde (İthalat Rejimi V Sayılı Liste).</b> Şartları tutuyorsa gümrük vergisi <b>%0 olabilir</b> ve tablodaki oranlar bu ürün için geçerli olmayabilir — <b>tüm menşeleri birden etkiler, sıralamayı değiştirmez.</b> Askıya alma <b>şartlıdır</b> (nihai kullanım izni / dipnot), o yüzden tablodaki oranları kendiliğinden sıfırlamadık. Listedeki tanım: <i>${askiyaTanim}</i> — ürünün bu tanıma birebir uyup uymadığını gümrük müşavirine teyit ettir.</div></div></div>`:''}
     <div class="hero3">${hero3}</div>
     <div style="font-size:11px;color:var(--dim);margin:2px 0 4px">Oranların kaynağı: yürürlükteki İthalat Rejimi + İGV Kararı + damping tebliğleri, robot kontrol damgaları raporun altında.</div>
     <details class="kacc"><summary>📋 ${sonuc.length} menşenin tam tablosu, kalem kalem (Gümrük V. · İGV · Damping)</summary><div class="ic">
     <table>
-      <thead><tr><th>Menşe ülke</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th>${emyVar?'<th class="n">Tarım Payı</th>':''}<th class="n">Geri gelmeyen yük</th></tr></thead>
+      <thead><tr><th>Menşe ülke</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th>${emyVar?('<th class="n">'+emyBaslik+'</th>'):''}<th class="n">Geri gelmeyen yük</th></tr></thead>
       <tbody>${satirlar}</tbody>
     </table>
     ${kilitNot}
