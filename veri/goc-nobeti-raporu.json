@@ -1,16 +1,16 @@
 {
-  "tarih": "30.08.2026 11:02",
-  "durum": "YESIL",
-  "ozet": "5 kontrol · 5 yesil · 0 kirmizi · 0 kor",
+  "tarih": "30.08.2026 13:26",
+  "durum": "KOR",
+  "ozet": "5 kontrol · 4 yesil · 0 kirmizi · 1 kor",
   "kontroller": [
     {
       "ad": "Alacak vitrini (suzgecsiz)",
       "uc": "alacak_vitrin",
       "goc": "radar-app/sql/2026-08-28-alacak-kapsam-serhi.sql",
-      "durum": "YESIL",
+      "durum": "KOR",
       "eksik": [],
       "sayfadaYok": [],
-      "sebep": ""
+      "sebep": "istek basarisiz: Response status code does not indicate success: 500 (Internal Server Error)."
     },
     {
       "ad": "Alacak vitrini (tur suzgecli - 28.08 kusurunun tam yeri)",
