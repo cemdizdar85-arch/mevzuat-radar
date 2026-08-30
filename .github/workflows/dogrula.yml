@@ -134,6 +134,19 @@ jobs:
           - { ad: "Renk sabiti denetcisi (sabit renk borcu artamaz)",
               kabuk: pwsh, komut: "./arac/renk-sabiti-denetcisi.ps1" }
 
+          # 30.08: marka varliklari (favicon, ikonlar, paylasim kartlari)
+          # favicon.svg + logo.svg'den TURETILIYOR. Logo degisip varliklar
+          # yeniden basilmazsa sonuc sessiz ve utandirici olur: sekmede eski
+          # logo, paylasimda yeni logo, iPhone ana ekraninda bir ucuncusu.
+          # Hicbir kapi bunu yakalamaz - sayfalar acilir, konsol temizdir,
+          # kontrast dogrudur. Olcut: kaynaklarin SHA-256 parmak izi
+          # (veri/marka-varlik-kunyesi.json). Byte kiyasi ISE YARAMIYOR -
+          # Chrome ayni SVG'den her kosuda birebir ayni PNG uretmiyor
+          # (olculdu: 11,5 KB / 10,8 KB); git kutugu de ise yaramiyor -
+          # bu akis fetch-depth:2 ile SIG klon yapiyor.
+          - { ad: "Marka varlik kapisi (ikon/kart kaynaktan geri kalmasin)",
+              kabuk: pwsh, komut: "./arac/marka-varlik-kapisi.ps1" }
+
           # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
           # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
           # Chrome DevTools protokolu konusulur. ~4 dk surer, en yavas kapi.

@@ -92,5 +92,32 @@ p{font-size:27px}
 }
 
 Remove-Item $GEC -Recurse -Force -ErrorAction SilentlyContinue
+
+# --- KÜNYE: kaynakların parmak izi -----------------------------------------
+# arac/marka-varlik-kapisi.ps1 bunu okuyup "kaynak değişti mi ama varlıklar
+# yeniden basılmadı mı" diye bakar. Byte kıyaslaması işe yaramıyor (Chrome
+# aynı SVG'den her koşuda birebir aynı PNG üretmiyor), git kütüğü de
+# işe yaramıyor (dogrula.yml sığ klon yapıyor). Kalan sağlam ölçüt bu.
+# Yalnız TAM ÜRETİMDE yazılır; -YalnizIkon/-YalnizKart ile eksik üretim
+# yapıldıysa künye tazelenmez, kapı doğru şekilde kırmızı kalır.
+if(-not $YalnizIkon -and -not $YalnizKart){
+  function Ozet([string]$yol){
+    $tam = Join-Path $KOK $yol
+    if(-not (Test-Path $tam)){ return $null }
+    $s = [System.Security.Cryptography.SHA256]::Create()
+    try {
+      $ham = [System.IO.File]::ReadAllText($tam) -replace "`r`n", "`n"
+      return [BitConverter]::ToString($s.ComputeHash([Text.Encoding]::UTF8.GetBytes($ham))).Replace('-','').ToLowerInvariant()
+    } finally { $s.Dispose() }
+  }
+  $kunye = [ordered]@{
+    aciklama  = "Marka varliklarinin uretildigi KAYNAKLARIN parmak izi. arac/marka-varlik-kapisi.ps1 bunu bugunku ozetle kiyaslar; farkliysa varliklar bayattir. Tazelemek: arac/marka-varlik-uret.ps1"
+    kaynaklar = [ordered]@{ 'favicon.svg' = (Ozet 'favicon.svg'); 'logo.svg' = (Ozet 'logo.svg') }
+  }
+  $ky = Join-Path $KOK 'veri\marka-varlik-kunyesi.json'
+  ($kunye | ConvertTo-Json -Depth 5) | Set-Content $ky -Encoding UTF8
+  Write-Host "  kunye yazildi: veri/marka-varlik-kunyesi.json" -ForegroundColor DarkGray
+}
+
 Write-Host ""
 Write-Host "Bitti. Degisen varliklar commit'lenmeli." -ForegroundColor Green
