@@ -284,6 +284,10 @@ foreach($g in $isGunleri){
     # CIKTI YUTULMAZ: dusen kapinin NEDEN dustugu goruluyor olmali. Ilk surumde
     # "*> $null" yaziyordu ve "YUKLEME DUSTU (kod 1)" disinda hicbir sey
     # gorunmuyordu - sebebi bulmak icin betigi elle kosmak gerekti.
+    # Istenen gunu yukleyiciye bildir: bir is kolunda hic bulten cikmadiysa
+    # damga okunamiyor; kutuge "bu gun bostu" satirini yazabilmek icin gun lazim.
+    # Olmazsa o gun sonsuza kadar "eksik" kalir ve her kosuda tekrar cekilir.
+    $env:IHALE_ISTENEN_GUN = $bekle
     $yukCikti = & $yukle 2>&1
     if($LASTEXITCODE -ne 0){
       Write-Host ("  {0} · YUKLEME DUSTU (kod {1}) - kutuge centik atilmadi" -f $ts, $LASTEXITCODE)

@@ -24,7 +24,9 @@
 #  gorunumu TUM HAVUZ uzerinden hesaplar. Gun-ici hesap 1.133 kaydi yanlis
 #  olcmustu; ayni tuzagi tabloya tasimayalim.
 # ============================================================================
-param([switch]$Olc, [int]$Parti = 400)
+# Parti 400 -> 250 (30.08): 275.000 satirlik tabloda 400'luk upsert yuk altinda
+# statement timeout'a dusuyordu. Kucuk parti = kisa islem = daha az zaman asimi.
+param([switch]$Olc, [int]$Parti = 250)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -78,6 +80,28 @@ function IlkSatir($cevap) {
     else { return $z }
   }
   return $null
+}
+# 🔴 30.08 OLCUMU - PAHALI KAPI 419 GUNU DUSURDU:
+# Goc kapisi ve geri okuma her gun icin ihale_sayi() cagiriyordu. O fonksiyon
+# ihale_sonuc_v uzerinden calisiyor; gorunum IKN'e gore pencere fonksiyonu
+# tasiyor ve ustune count(distinct ikn) var. Havuz 275.000 satira cikip alti
+# serit birden sordugunda uc HTTP 500 dondurmeye basladi:
+#   "!! GOC KAPISI olculemedi: (500) Ic Sunucu Hatasi" -> o gun HIC yazilmadi.
+# 783 gunun 419'u boyle dustu. Bozulma olmadi (kapi yazmadan ONCE calisiyor)
+# ama yutmanin yarisindan cogu bosa gitti.
+# DERS: her yazmada calisan kapi, kasanin en pahali sorgusu OLAMAZ.
+# Kapi artik tek satirlik varlik yoklamasi; sayim da GORUNUM yerine TABLO
+# uzerinden (Content-Range) aliniyor.
+function Yokla([string]$yol) {
+  return Invoke-WebRequest -UseBasicParsing -Method Get -Uri "$SB_URL/rest/v1/$yol" `
+           -Headers $basliklar -TimeoutSec 120
+}
+function TabloSay([string]$tablo) {
+  $b = $basliklar.Clone(); $b['Prefer'] = 'count=exact'
+  $c = Invoke-WebRequest -UseBasicParsing -Method Get -Uri "$SB_URL/rest/v1/$tablo`?select=anahtar&limit=1" `
+         -Headers $b -TimeoutSec 180
+  if ("$($c.Headers['Content-Range'])" -match '/(\d+)$') { return [int]$Matches[1] }
+  return -1
 }
 function Sayi([object]$v) {
   if ($null -eq $v -or "$v".Trim() -eq '') { return $null }
@@ -141,21 +165,50 @@ if ($Olc) { Write-Host "`n(olcum modu - hicbir sey yazilmadi)"; exit 0 }
 # 2026-08-30-ihale-bulten-kutugu.sql basilmadan yazmak, damgasiz kayit uretir.
 # 36 aylik yutmayi damgasiz kosmak = 775.000 kaydin uzerine "hangi gunden
 # geldigini bilmiyorum" yazmak; ikinci kez yutmak gerekir. Bu yuzden kapi.
-# Olcut: ihale_sayi() cevabinda 'damgasiz' alani VAR MI. Eski surumde yok.
+# Olcut: bulten_tarih KOLONU kasada var mi (tek satirlik yoklama).
 # (kalici-sigorta 4. katman: kapi neden dustugunu SOYLER)
 try {
-  $on = IlkSatir (RpcCagir 'ihale_sayi' @{})
-  if ($null -eq $on -or $null -eq $on.PSObject.Properties['damgasiz']) {
+  # 🔴 KAPI YANLIS TESHIS KOYUYORDU (30.08, prova sirasinda olculdu):
+  # ilk surumde "istek dustu" = "goc basilmamis" sayiliyordu. Kasa yuk altinda
+  # zaman asimina dusunce kapi "BASILMAMIS" diye BAGIRDI - oysa goc basiliydi.
+  # Yanlis teshis koyan kapi, kapi olmaktan cikar; insan ona inanip bosuna
+  # SQL'e gider. Iki hal AYRILIR:
+  #   404 / PGRST205  -> tablo yok  = goc GERCEKTEN basilmamis
+  #   diger her hata  -> OLCULEMEDI = kasa mesgul; farkli mesaj, farkli tavsiye
+  # Yoklama en KUCUK tablodan yapilir (ihale_kutuk ~1.100 satir), ihale_sonuc'tan
+  # degil; 275.000 satirlik tabloya dokunan her sorgu yuk altinda zaman asimina
+  # dusuyor. Ucuncu bir savunma: uc deneme, artan bekleme.
+  $kolonVar = $false; $tabloYok = $false; $sonHataK = ''
+  for ($dn = 1; $dn -le 3 -and -not $kolonVar; $dn++) {
+    try { Yokla 'ihale_kutuk?select=gun&limit=1' | Out-Null; $kolonVar = $true }
+    catch {
+      $sonHataK = $_.Exception.Message
+      $kod = 0
+      if ($_.Exception.Response) { $kod = [int]$_.Exception.Response.StatusCode }
+      if ($kod -eq 404 -or $kod -eq 400) { $tabloYok = $true; break }
+      if ($dn -lt 3) { Start-Sleep -Seconds (5 * $dn) }
+    }
+  }
+  if (-not $kolonVar -and -not $tabloYok) {
+    Write-Host ''
+    Write-Host '!! OLCULEMEDI: kasa yanit vermedi, goc basili mi anlasilamadi.'
+    Write-Host ("   Son hata: {0}" -f $sonHataK)
+    Write-Host '   Bu "goc basilmamis" DEMEK DEGILDIR - kasa mesgul olabilir.'
+    Write-Host '   Yapilacak: birazdan tekrar kos. Surekli tekrar ediyorsa serit'
+    Write-Host '              sayisini dusur (ayni anda daha az yazma).'
+    exit 1
+  }
+  if ($tabloYok) {
     Write-Host ''
     Write-Host '!! DURDURULDU: bulten kutugu gocu Supabase-e BASILMAMIS.'
-    Write-Host '   Kanit: ihale_sayi() cevabinda "damgasiz" alani yok (eski surum).'
+    Write-Host '   Kanit: ihale_kutuk tablosu kasada yok (404/400).'
     Write-Host '   Yapilacak: Supabase SQL Editor -> radar-app/sql/2026-08-30-ihale-bulten-kutugu.sql'
     Write-Host '              (BOLUM BOLUM calistir, sonra bu betigi tekrar kos)'
     Write-Host '   Neden kapi: damgasiz yazilan kayit hangi gunden geldigini soylemez;'
     Write-Host '               36 aylik yutma bu haliyle bastan tekrar edilmek zorunda kalir.'
     exit 1
   }
-  Write-Host ("GOC KAPISI: acik · kasada {0:N0} kayit, {1:N0} tanesi damgasiz" -f [int]$on.kayit, [int]$on.damgasiz)
+  Write-Host 'GOC KAPISI: acik (ihale_kutuk tablosu var)'
 } catch {
   Write-Host ("!! GOC KAPISI olculemedi: {0}" -f $_.Exception.Message)
   exit 1
@@ -166,30 +219,50 @@ $yazilan = 0; $hatali = 0
 for ($i = 0; $i -lt $gonderilecek.Count; $i += $Parti) {
   $son   = [Math]::Min($i + $Parti - 1, $gonderilecek.Count - 1)
   $parca = @($gonderilecek[$i..$son])
-  try {
-    $n = RpcCagir 'ihale_yaz' @{ p_kayitlar = $parca }
-    $yazilan += [int]$n
-  } catch {
+  # YENIDEN DENEME (30.08 olculdu): kasa yuk altinda gecici olarak 500 /
+  # 57014 (statement timeout) donduruyor. Ayni parti 20 sn sonra sorunsuz
+  # geciyor. Tek denemede birakmak, 783 gunluk kosuda yuzlerce gunu bosa
+  # dusuruyordu. Uc deneme, artan bekleme.
+  $denendi = 0; $gecti = $false; $sonHata = ''
+  while (-not $gecti -and $denendi -lt 3) {
+    $denendi++
+    try {
+      $n = RpcCagir 'ihale_yaz' @{ p_kayitlar = $parca }
+      $yazilan += [int]$n
+      $gecti = $true
+    } catch {
+      $sonHata = $_.Exception.Message
+      if ($denendi -lt 3) { Start-Sleep -Seconds (5 * $denendi) }
+    }
+  }
+  if (-not $gecti) {
     $hatali += $parca.Count
-    Write-Host ("  ! parti {0}-{1} dustu: {2}" -f $i, $son, $_.Exception.Message)
+    Write-Host ("  ! parti {0}-{1} UC denemede de dustu: {2}" -f $i, $son, $sonHata)
+  } elseif ($denendi -gt 1) {
+    Write-Host ("  ~ parti {0}-{1} {2}. denemede gecti" -f $i, $son, $denendi)
   }
   if ((($i / $Parti) % 10) -eq 0) { Write-Host ("  ... {0:N0}/{1:N0}" -f ($son+1), $gonderilecek.Count) }
 }
 Write-Host ("`nYAZILAN: {0:N0} · dusen: {1:N0}" -f $yazilan, $hatali)
 
 # --- GERI OKU (yesil kosu = tam veri degildir) ------------------------------
-try {
-  $r = IlkSatir (RpcCagir 'ihale_sayi' @{})
-  Write-Host ("GERI OKUMA: kayit {0:N0} · tekil IKN {1:N0} · kirim olculen {2:N0} · kisimli {3:N0}" -f `
-              [int]$r.kayit, [int]$r.tekil_ikn, [int]$r.olculen, [int]$r.kisimli)
-  if ([int]$r.kayit -lt $gonderilecek.Count) {
-    Write-Host ("!! EKSIK: gonderilen {0:N0}, tabloda {1:N0}" -f $gonderilecek.Count, [int]$r.kayit)
-    exit 1
-  }
-} catch {
-  Write-Host ("!! geri okuma yapilamadi: {0}" -f $_.Exception.Message)
+# 🔴 30.08 - HER YAZMADA TAM SAYIM YAPILMAZ (iki kez olculdu):
+#   ihale_sayi()          -> gorunumde pencere fonksiyonu + count(distinct) -> 500
+#   count=exact (tablo)   -> 57014 "canceling statement due to statement timeout"
+# 275.000 satirda tam sayim kasanin tahammulunu asiyor; her gun cagrilinca
+# 783 gunun 419'unu dusurdu. Sayima IHTIYAC DA YOK: ihale_yaz zaten kac satir
+# yazdigini donduruyor. Dogrulama artik yazanin kendi raporundan.
+# Havuz butunlugu gun gun degil, SONDA ihale_kutuk_denetim() ile olculur -
+# pahali sorgu tek sefer kosar, her yazmada degil.
+if ($hatali -gt 0) {
+  Write-Host ("!! {0:N0} kayit dusen partilerde kaldi - kutuge centik atilmiyor" -f $hatali)
   exit 1
 }
+if ($yazilan -lt $gonderilecek.Count) {
+  Write-Host ("!! EKSIK: gonderilen {0:N0}, kasanin kabul ettigi {1:N0}" -f $gonderilecek.Count, $yazilan)
+  exit 1
+}
+Write-Host ("GERI OKUMA: kasa {0:N0} kaydi kabul etti (gonderilen {1:N0})" -f $yazilan, $gonderilecek.Count)
 
 # --- KUTUGE CENTIK (30.08) --------------------------------------------------
 # "Hangi bulten cekildi" sorusunun tek cevabi kasadaki ihale_kutuk olacak.
@@ -222,23 +295,44 @@ if (-not "$($env:HEDEF)".Trim() -and (Test-Path $damgaYol)) {
     }
     $c = 0
     foreach ($d in $damgalar) {
-      if (-not $d.tarih) {
-        Write-Host ("  kutuk atlandi ({0}): bulten tarihi kaynaktan okunamadi" -f $d.tur)
-        continue
+      # BULTENSIZ GUN (30.08 olculdu): KIK bazi gunler bir is kolunda hic
+      # bulten yayimlamiyor (ozellikle Danismanlik). O zaman metinden damga
+      # okunamiyor, kutuge satir yazilmiyor ve gun SONSUZA KADAR "eksik"
+      # kaliyor - her kosuda yeniden cekiliyor, hicbir zaman tamamlanmiyor.
+      # Cozum: "bulten yok/bos" sebebi varsa ISTENEN gun kutuge 0 kayitla
+      # yazilir (beklenen=0, bulunan=0 -> tam). "Cekildi, bostu" ile
+      # "hic cekilmedi" ayrimi kutugun kurulus sebebiydi; burada uygulaniyor.
+      # DIKKAT: yalniz BOS bulten icin. 'indirilemedi' (indirme dustu) satir
+      # yazmaz, gun geri gelir.
+      $gun = "$($d.tarih)"
+      if (-not $gun) {
+        $istenen = "$($env:IHALE_ISTENEN_GUN)".Trim()
+        if ($istenen -and "$($d.sebep)" -eq 'bulten yok/bos') {
+          $gun = $istenen
+          Write-Host ("  kutuk: {0} · {1,-12} · bulten YOK (bos gun, tam sayiliyor)" -f $gun, $d.tur)
+        } else {
+          Write-Host ("  kutuk atlandi ({0}): bulten tarihi okunamadi, sebep '{1}'" -f $d.tur, $d.sebep)
+          continue
+        }
       }
+      # bos bultende beklenen/bulunan 0 verilir ki "tam" cikabilsin
+      $bek = (Tam $d.beklenen); $bul = (Tam $d.bulunan)
+      if (-not $d.tarih) { $bek = 0; $bul = 0 }
       RpcCagir 'ihale_kutuk_yaz' @{
-        p_gun         = "$($d.tarih)"
+        p_gun         = $gun
         p_tur         = "$($d.tur)"
         p_bulten_sayi = (Tam $d.sayi)
         p_kayit       = $(if ($turSayim.ContainsKey("$($d.tur)")) { $turSayim["$($d.tur)"] } else { 0 })
-        p_beklenen    = (Tam $d.beklenen)
-        p_bulunan     = (Tam $d.bulunan)
+        p_beklenen    = $bek
+        p_bulunan     = $bul
         p_eksik_ikn   = @($d.eksikIkn)
         p_bos_sebep   = "$($d.sebep)"
       } | Out-Null
       $c++
-      Write-Host ("  kutuk: {0} · {1,-12} · beklenen {2} / bulunan {3} · {4}" -f `
-                  $d.tarih, $d.tur, $d.beklenen, $d.bulunan, $(if($d.tam){'TAM'}else{'EKSIK'}))
+      if ($d.tarih) {
+        Write-Host ("  kutuk: {0} · {1,-12} · beklenen {2} / bulunan {3} · {4}" -f `
+                    $gun, $d.tur, $bek, $bul, $(if($d.tam){'TAM'}else{'EKSIK'}))
+      }
     }
     Write-Host ("KUTUK: {0} (gun,tur) satiri yazildi" -f $c)
   } catch {
