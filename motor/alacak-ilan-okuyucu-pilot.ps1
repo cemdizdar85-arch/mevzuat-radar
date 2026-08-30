@@ -349,6 +349,18 @@ $ESLESME = @{ 'GECICI_MUHLET' = @('gecici_muhlet')
 # MUHLET" gecerken etiket GECICI_MUHLET ise bu cevap bir OLCUM DEGIL, gurultu.
 # Kapi yalniz METINDE ACIKCA AYRISAN durumlarda konusur (kesin/gecici/uzatma);
 # emin olamadigi yerde SUSAR - yanlis pozitif uretmez.
+# 30.08 OZ-SINAVDA IKI KEZ YAKALANDI: PowerShell'in -match operatoru IgnoreCase
+# icin CurrentCulture kullanir. Turkce kulturde "IFLASINA" ile 'iflas' kalibi
+# ESLESMEZ (I ile i ayri harftir). Kapi buyuk harfle yazilmis alintilarda
+# sessizce hicbir sey bulmuyordu. Butun eslestirme once buradan gecer:
+# Turkce harfler ASCII'ye katlanir, sonra KULTURDEN BAGIMSIZ kucultulur.
+function Katla([string]$s) {
+  if (-not $s) { return '' }
+  return $s.Replace('İ','I').Replace('ı','i').Replace('Ş','S').Replace('ş','s').
+           Replace('Ğ','G').Replace('ğ','g').Replace('Ü','U').Replace('ü','u').
+           Replace('Ö','O').Replace('ö','o').Replace('Ç','C').Replace('ç','c').ToLowerInvariant()
+}
+
 function CelisikMi([string]$etiket, [string]$alinti) {
   if (-not $alinti) { return $false }
   # 30.08 OZ-SINAVDA YAKALANDI: ToLower() MAKINENIN KULTURUNE bagli. tr-TR
@@ -356,47 +368,105 @@ function CelisikMi([string]$etiket, [string]$alinti) {
   # ISKALAR - kapi sessizce hicbir sey yakalamaz. Runner en-US oldugu icin
   # canlida calisirdi, yerelde calismazdi; boyle bir kapiya guvenilmez.
   # Once ASCII'ye katla, SONRA kulturden bagimsiz kucult.
-  $a = $alinti.Replace('İ','I').Replace('ı','i').Replace('Ş','S').Replace('ş','s').
-       Replace('Ğ','G').Replace('ğ','g').Replace('Ü','U').Replace('ü','u').
-       Replace('Ö','O').Replace('ö','o').Replace('Ç','C').Replace('ç','c').ToLowerInvariant()
+  $a = Katla $alinti
   # OZ-SINAVDA YAKALANDI: "once 3 ay gecici sonra 1 yil kesin muhlet verilen
   # borclunun alacaklilari..." cumlesinde iki kelime de var ama yalniz 'kesin'
   # muhlete bitisik - kapi bunu celiski sandi ve MESRU bir ALACAK_CAGRISI
   # cevabini olcumden atacakti. Kapinin isi kusuru yakalamak, olcum tabanini
   # eritmek degil: HER IKI kelime de geciyorsa cumle sureci ANLATIYOR demektir,
   # kapi susar ve karari hakeme birakir.
+  # 30.08 GENIS KAPI GERI CEKILDI. Ilk hali "alintida kesin muhlet geciyorsa
+  # etiket kesin_muhlet olmali" diyordu ve 29.08 yazma turunda 117 kayda
+  # takildi. Orneklere bakinca cogunun MESRU oldugu gorulda:
+  #   "kesin muhlet verilen borclu hakkinda ... REDDINE"  -> ret_iflas DOGRU
+  #   "Hakkinda kesin muhlet verilen ... alacakli olanlar" -> alacak_cagrisi DOGRU
+  # Bir ilan mühletli borclu hakkinda BASKA bir karar duyurabilir; "kesin
+  # muhlet" cumlede gecmesi etiketi baglamaz. Kapi artik YALNIZ iki muhlet
+  # etiketi ARASINDA konusur - orada alinti gercekten baglayicidir.
+  # DERS: kapinin dogru genisligi orneklerine bakilmadan secilmez; genis kapi
+  # yanlis pozitif uretip olcum tabanini eritir.
+  if ($etiket -ne 'GECICI_MUHLET' -and $etiket -ne 'KESIN_MUHLET') { return $false }
+  # Cumlede HER IKI kelime de geciyorsa sureci anlatiyordur ("once 3 ay gecici,
+  # sonra 1 yil kesin muhlet") - kapi susar, karari hakeme birakir. Bu kelime
+  # bazli kontrol, asagidaki kalip bazli kontrolden ONCE gelmeli: "gecici sonra
+  # 1 yil kesin muhlet" cumlesinde yalniz 'kesin' muhlete bitisiktir.
   if (($a -match 'kesin') -and ($a -match 'gecici')) { return $false }
   $kesin  = [bool]($a -match 'kesin\s+(konkordato\s+)?(muhlet|mehil|mehli)')
   $gecici = [bool]($a -match 'gecici\s+(konkordato\s+)?(muhlet|mehil|mehli)')
-  if ($kesin -and -not $gecici -and $etiket -ne 'KESIN_MUHLET'  -and $etiket -ne 'UZATMA' -and
-      $etiket -ne 'MUHLET_KALDIRMA') { return $true }
-  if ($gecici -and -not $kesin -and $etiket -ne 'GECICI_MUHLET' -and $etiket -ne 'UZATMA' -and
-      $etiket -ne 'MUHLET_KALDIRMA') { return $true }
+  if ($kesin  -and $etiket -eq 'GECICI_MUHLET') { return $true }
+  if ($gecici -and $etiket -eq 'KESIN_MUHLET')  { return $true }
   return $false
+}
+
+# --- ALINTI ETIKETI DESTEKLIYOR MU? (30.08 - yazma kapisi) -------------------
+# 29.08 yazma turunun 906 damgasi olculdu: 82'sinde (%9,1) alinti kendi
+# etiketini desteklemiyordu. En agiri: alinti "konkordato isteminin REDDINE"
+# diyor, etiket RET_IFLAS - metinde iflas YOK. O damga yazildi ve sitede
+# "ret + iflas" olarak duruyor. Bu hesap zaten yapiliyordu ama yalniz supheli
+# listesine yaziliyor, YAZMAYI engellemiyordu. Artik engelliyor.
+# Kaliplar KATLANMIS metne gore yazilir - Turkce harf YOKTUR icinde.
+$DESTEK = @{
+  'RET'             = 'red|ret\b'
+  'RET_IFLAS'       = 'iflas|m\.?\s*292|292\s*(ve|,|/)'
+  'TASDIK'          = 'tasdik|kabul|onay'
+  'IFLAS_KALDIRMA'  = 'iflas[a-z]*\s+kald|kaldirilmasina'
+  'MUHLET_KALDIRMA' = 'muhlet|mehil|mehli'
+  'FERAGAT'         = 'feragat|vazgec'
+  'ALACAK_CAGRISI'  = 'alacak|bildir|kayd|kayit'
+  'DURUSMA'         = 'durusma|gun|toplant|celse'
+  'IFLAS_TASFIYE'   = 'sira cetvel|tasfiye|masa|kapan'
+  'GECICI_MUHLET'   = 'muhlet|mehil|mehli'
+  'KESIN_MUHLET'    = 'muhlet|mehil|mehli'
+  'UZATMA'          = 'uzat'
+  'MUHLET_BELIRSIZ' = 'muhlet|mehil|mehli'
+}
+function AlintiDestekliyorMu([string]$etiket, [string]$alinti) {
+  if (-not $alinti) { return $false }
+  $k = $DESTEK[$etiket]
+  if (-not $k) { return $false }          # HICBIRI ve bilinmeyen: destek yok
+  return [bool]((Katla $alinti) -match $k)
 }
 
 # --- CELISKI KAPISININ OZ-SINAVI (93 kapi kurali: karar veren betik kendini
 # sinar). Vakalar 30.08 olcumunden GERCEK alintilardir. Kapi bozulursa kosu
 # BASLAMAZ - bozuk kapi sessizce yanlis olcum uretmesin.
+# Vakalarin hepsi 29-30.08 kosularindan GERCEK alintilardir; "bekleniyor"
+# sutunu elle okunarak konmustur. Son dort vaka GENIS KAPININ yanlis
+# pozitifleridir - kapi bir daha genislerse burada patlar.
 $KAPI_SINAVI = @(
   @{e='GECICI_MUHLET'; a='11/09/2025 tarihinden baslamak uzere 1 YILLIK KESIN MUHLET VERILMESINE'; b=$true },
   @{e='GECICI_MUHLET'; a='"1 YILLIK KESIN MUHLET VERILMISTIR"';                                    b=$true },
-  @{e='IFLAS_KALDIRMA';a='Verilen kesin muhlet kararinin kaldirilmasina';                          b=$true },
+  @{e='KESIN_MUHLET';  a='UC (3) AYLIK GECICI KONKORDATO MEHLI VERILMISTIR.';                      b=$true },
   @{e='KESIN_MUHLET';  a='17.07.2025 tarihinden baslamak uzere 1 yillik kesin muhlet verilmis';    b=$false},
   @{e='GECICI_MUHLET'; a='UC (3) AYLIK GECICI KONKORDATO MEHLI VERILMISTIR.';                      b=$false},
   @{e='UZATMA';        a='verilen 1 yillik kesin muhletin 6 ay UZATILMASINA';                      b=$false},
   @{e='MUHLET_KALDIRMA';a='Verilen kesin muhlet kararinin kaldirilmasina';                         b=$false},
-  @{e='TASDIK';        a='konkordato projesinin TASDIKINE karar verilmistir';                      b=$false},
-  @{e='ALACAK_CAGRISI';a='once 3 ay gecici sonra 1 yil kesin muhlet verilen borclunun alacaklilari';b=$false}
+  @{e='GECICI_MUHLET'; a='once 3 ay gecici sonra 1 yil kesin muhlet verilmesine karar verildi';    b=$false},
+  # --- genis kapinin yanlis pozitifleri (29.08 yazma turundan, ELLE okundu) ---
+  @{e='RET_IFLAS';     a='kesin muhlet verilen borclu hakkinda konkordatonun REDDINE ve IFLASINA'; b=$false},
+  @{e='ALACAK_CAGRISI';a='Hakkinda kesin muhlet verilen adi gecen sahistan alacakli olan kisiler'; b=$false},
+  @{e='FERAGAT';       a='kesin muhlet verilen davada konkordato talebinden feragat edilmis';      b=$false},
+  @{e='DURUSMA';       a='1 yillik kesin muhlet verilen dosyanin durusmasi 12.09.2026 gunudur';    b=$false}
 )
-$kapiKotu = @($KAPI_SINAVI | Where-Object { (CelisikMi $_.e $_.a) -ne $_.b })
+$DESTEK_SINAVI = @(
+  @{e='RET_IFLAS'; a='konkordato isteminin REDDINE'; b=$false},   # 29.08'de YAZILDI - kusur
+  @{e='RET_IFLAS'; a='REDDINE ve borclunun IFLASINA'; b=$true },
+  @{e='RET_IFLAS'; a="IIK'nun 292 ve 308. maddeleri geregince REDDINE"; b=$true },
+  @{e='TASDIK';    a='konkordato projesinin TASDIKINE'; b=$true },
+  @{e='DURUSMA';   a='durusma 12.09.2026 gunu saat 10:00'; b=$true },
+  @{e='HICBIRI';   a='herhangi bir cumle'; b=$false}
+)
+$kapiKotu = @($KAPI_SINAVI  | Where-Object { (CelisikMi $_.e $_.a) -ne $_.b }) +
+            @($DESTEK_SINAVI | Where-Object { (AlintiDestekliyorMu $_.e $_.a) -ne $_.b })
+$kapiToplam = $KAPI_SINAVI.Count + $DESTEK_SINAVI.Count
 if ($kapiKotu.Count) {
-  Write-Host ("HATA: celiski kapisi oz-sinavda {0}/{1} vakada BOZUK - kosu baslamiyor." -f `
-    $kapiKotu.Count, $KAPI_SINAVI.Count)
+  Write-Host ("HATA: yazma kapilari oz-sinavda {0}/{1} vakada BOZUK - kosu baslamiyor." -f `
+    $kapiKotu.Count, $kapiToplam)
   $kapiKotu | ForEach-Object { Write-Host ("  [{0}] beklenen {1} <- {2}" -f $_.e, $_.b, $_.a) }
   exit 1
 }
-Write-Host ("Celiski kapisi oz-sinavi: {0}/{0} gecti" -f $KAPI_SINAVI.Count)
+Write-Host ("Yazma kapilari oz-sinavi: {0}/{0} gecti (celiski {1} + destek {2})" -f `
+  $kapiToplam, $KAPI_SINAVI.Count, $DESTEK_SINAVI.Count)
 
 $sonuc = @(); $uyum = 0; $uyumsuz = 0; $alintisiz = 0; $cevapsiz = 0; $celisik = 0
 $i = 0
@@ -560,6 +630,16 @@ if ($env:HAKEM -eq '1') {
         $atlanan += [pscustomobject]@{ ilan_no=$a.ilan_no; il=$a.il; baslik=$a.baslik
           eski=$a.regex_damgasi; okuma=$a.okuma_karari
           sebep='alinti etiketi yalanliyor - hakeme bozuk yorum sunuldu' }
+        continue
+      }
+      # 30.08: alinti etiketi DESTEKLEMIYORSA yazilmaz. 29.08 turunda bu kapi
+      # yoktu ve "konkordato isteminin REDDINE" alintisiyla RET_IFLAS damgasi
+      # yazildi - metinde iflas gecmiyordu.
+      if (-not (AlintiDestekliyorMu $a.okuma_karari $a.hakem_alinti) -and
+          -not (AlintiDestekliyorMu $a.okuma_karari $a.okuma_alintisi)) {
+        $atlanan += [pscustomobject]@{ ilan_no=$a.ilan_no; il=$a.il; baslik=$a.baslik
+          eski=$a.regex_damgasi; okuma=$a.okuma_karari
+          sebep='alinti etiketi DESTEKLEMIYOR - metinde cekirdek kelime yok' }
         continue
       }
       $hedefler = @($ESLESME[$a.okuma_karari])
