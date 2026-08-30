@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260830142345
+Start time: 20260830172434
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/77bfc2ac-bdde-4fe3-b171-6a34ae78d343.ps1'
-Process ID: 2145
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a93338da-b25d-4bfb-8b53-7e9114cf7271.ps1'
+Process ID: 2237
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -136,6 +136,7 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
 >> TerminatingError(Invoke-WebRequest): "
 {
   "code": "57014",
@@ -241,6 +242,7 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
 >> TerminatingError(Invoke-WebRequest): "
 {
   "code": "57014",
@@ -297,7 +299,7 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
-PS>TerminatingError(Invoke-WebRequest): "
+>> TerminatingError(Invoke-WebRequest): "
 {
   "code": "57014",
   "details": null,
@@ -311,15 +313,282 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
-PS>TerminatingError(Invoke-WebRequest): "
+>> TerminatingError(Invoke-WebRequest): "
 {
   "code": "57014",
   "details": null,
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
-  ambarda BULUNAN : 47
-  BULUNAMAYAN     : 39
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+  ambarda BULUNAN : 0
+  BULUNAMAYAN     : 86
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
      193 m.1   [sorgu-hatasi]
@@ -358,9 +627,10 @@ PS>TerminatingError(Invoke-WebRequest): "
      213 m.4   [sorgu-hatasi]
      3065 m.10   [sorgu-hatasi]
      3065 m.13   [sorgu-hatasi]
-     5520 m.10   [sorgu-hatasi]
-     5520 m.13   [sorgu-hatasi]
-     5520 m.32   [sorgu-hatasi]
+     3065 m.17   [sorgu-hatasi]
+     3065 m.2   [sorgu-hatasi]
+     3065 m.29   [sorgu-hatasi]
+     3065 m.32   [sorgu-hatasi]
 
   NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
   olabilir ya da o kanun ambara henuz tam girmemis olabilir. GM
@@ -369,5 +639,5 @@ PS>TerminatingError(Invoke-WebRequest): "
 -> veri/dayanak-haritasi.json  (25 sayfa, 86 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260830143042
+End time: 20260830175543
 **********************
