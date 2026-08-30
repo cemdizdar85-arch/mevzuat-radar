@@ -84,7 +84,7 @@ $gorulen = @{}
 $okunanSorgu = 0
 
 foreach($sorgu in $sorgular){
-  $gecici = Join-Path ([IO.Path]::GetTempPath()) ("eib-ara-" + ($sorgu.q -replace '[^a-zA-Z]','') + ".json")
+  $gecici = Join-Path ([IO.Path]::GetTempPath()) ("eib-ara-" + ($sorgu.q -creplace '[^a-zA-Z]','') + ".json")
   Remove-Item $gecici -ErrorAction SilentlyContinue
   $adres = "https://www.eib.org.tr/Arama_JSON.Asp?q=" + [uri]::EscapeDataString($sorgu.q)
   # Cloudflare ara sira 525 veriyor (olculdu 19.08) - iki deneme

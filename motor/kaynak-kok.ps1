@@ -38,7 +38,7 @@ function KaynakKok([string]$kaynakAd, [string]$tur){
   $k = ($k -replace '\s*\[[^\]]{1,20}\]\s*$','').Trim()
 
   # 4) Konum ekini kirp: " m.5", " p.12", " ek m.3", " bolum 2", " kisim 1" ...
-  if($k -match '^(.*?)\s+(m\.|muk\. m\.|md\.|p\.\d|p\.[A-Z]|ilke|ek m\.|gec\. m\.|geçici m\.|Ek [A-Z]|b[oö]l[uü]m \d|bolum \d|k[iı]s[iı]m \d)'){
+  if($k -cmatch '^(.*?)\s+(m\.|muk\. m\.|md\.|p\.\d|p\.[A-Z]|ilke|ek m\.|gec\. m\.|geçici m\.|Ek [A-Z]|b[oö]l[uü]m \d|bolum \d|k[iı]s[iı]m \d)'){
     return $Matches[1].Trim()
   }
   return $k.Trim()

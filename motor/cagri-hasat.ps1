@@ -55,6 +55,16 @@ $bugun = (Get-Date).Date
 #
 #  Onbellek KAYNAKTAN TURETILIR, depoya girmez (.gitignore). Silinirse robot
 #  bir sonraki kosuda yeniden doldurur - veri kaybi degildir.
+# pdftotext YUKARIDA cozulur: hem TKDK ilan PDF*i hem BELGE YUTMA kullanir.
+# Yoksa ikisi de sessizce devre disi kalir (kor kalma: karnede gorunur).
+# curl YUKARIDA cozulur: AB/KA/TKDK cekimleri VE belge yutma kullanir.
+# 30.08 KUSUR: tanim AB bolumundeydi, TUBITAK ondan once kosuyordu ve belge
+# indirmesi bos komutla sessizce basarisiz oluyordu.
+$curlKomut = if(Get-Command curl.exe -ErrorAction SilentlyContinue){ "curl.exe" } else { "curl" }
+$pdf2txt = $null
+$pdfAdayUst = Get-Command pdftotext -ErrorAction SilentlyContinue
+if($pdfAdayUst){ $pdf2txt = $pdfAdayUst.Source }
+elseif(Test-Path "C:\Program Files\Git\mingw64\bin\pdftotext.exe"){ $pdf2txt = "C:\Program Files\Git\mingw64\bin\pdftotext.exe" }
 $onbellekDizin = Join-Path $kokDizin "veri\_cagri-onbellek"
 if(-not (Test-Path $onbellekDizin)){ New-Item -ItemType Directory -Path $onbellekDizin -Force | Out-Null }
 $obIsabet = 0; $obYazma = 0
@@ -206,7 +216,11 @@ function DuzMetin([string]$html){
   foreach($ham in ($t -split "`n")){
     $s = ($ham -replace '\s+',' ').Trim()
     if($s.Length -lt 45){ continue }                       # menu/etiket satiri
-    if($s -notmatch '[a-zçğıöşü]{3}\s+[a-zçğıöşü]{3}'){ continue }  # BASLIK KUTUSU (Her Kelime Buyuk)
+        # 30.08: -notmatch -> -cnotmatch. PowerShell'in -match'i HER ZAMAN
+    # IgnoreCase kullanir ve IgnoreCase kulture bagli; Turkce'de 'I' kucuk
+    # harf sayilip bu kalibi tutabiliyordu. Sonuc: BUYUK harfli baslik satiri
+    # "kucuk harf var" sanilip ICERIK olarak hasada giriyordu.
+    if($s -cnotmatch '[a-zçğıöşü]{3}\s+[a-zçğıöşü]{3}'){ continue }  # BASLIK KUTUSU (Her Kelime Buyuk)
     $satirlar += $s
   }
   # 30.08: satirlar BOSLUKLA birlestirilirse noktayla bitmeyen baslik satiri
@@ -318,7 +332,12 @@ $DESEN_KIM   = '(?i)(başvuru sahib|uygun başvuru|başvuru yapabil|kimler başv
 # almaktadır." cumlesi KIM desenine takiliyordu ama KIMSEYI tarif etmiyor,
 # okuyucuyu baska belgeye yolluyor. Yonlendirme cumlesi bilgi degildir.
 $DESEN_KIM_RED = '(?i)(rehber(in|de|ine)|ilanın sonuna|aşağıda (yer al|sunul)|ayrıntılı bilgi|bakınız|belirtilmiştir\.?$)'
-# 30.08 OLCULDU: KOSGEB sayfasinda "Kucuk ve Orta Olcekli Isletmeleri Gelistirme
+# BELGE KIPI: yutulan metin cagri sayfasi degil, ekindeki REHBER/CAGRI METNI
+# ise "rehber" reddi uygulanmaz - belgenin kendisi rehberdir ve icindeki
+# uygunluk cumleleri dogal olarak "bu rehberde ..." diye gecer (olculdu:
+# dokuz rehberin dokuzunda da kalip vardi ama hepsi bu yuzden eleniyordu).
+$DESEN_KIM_RED_BELGE = '(?i)(ilanın sonuna|ayrıntılı bilgi|bakınız)'
+$script:belgeKipi = $false# 30.08 OLCULDU: KOSGEB sayfasinda "Kucuk ve Orta Olcekli Isletmeleri Gelistirme
 # ve Destekleme Idaresi Baskanligi" cumlesi KIM alanina dusuyordu - bu KURUMUN
 # KENDI ADI, basvuru sahibi tarifi degil. Kurum adiyla biten satir reddedilir.
 $DESEN_KURUM_ADI = '(?i)(başkanlığı|bakanlığı|genel müdürlüğü|kalkınma ajansı|ajansı)\s*\.?\s*$'
@@ -377,6 +396,103 @@ function AsamaBul([string]$metin){
   $secilen = @($sirali | Where-Object { $_.n -ge 2 -or $_.n -eq $enCok } | Select-Object -First 3 | ForEach-Object { $_.ad })
   return ,$secilen
 }
+# 30.08 BELGE YUTMA: cagri sayfasinin ekindeki rehber/cagri metni PDF*i.
+# OLCULDU: TUBITAK 5/5, kalkinma ajanslari 23/25 cagrida ek PDF var; "kim
+# basvurabilir" bilgisi cogu zaman SAYFADA DEGIL O BELGEDE duruyor.
+# Belge metni de onbellege girer - ayni gun ikinci kez indirilmez ve
+# -YerelYut kipinde hic indirilmez.
+function BelgeMetni([string]$html, [string]$temelUrl){
+  if(-not $html -or -not $pdf2txt){ return "" }
+  $adaylar = @()
+  foreach($m in [regex]::Matches($html, '(?i)href=["''"]([^"''"]*\.pdf[^"''"]*)["''"]')){
+    $u = $m.Groups[1].Value -replace '&amp;','&'
+    if($u -match '(?i)css|favicon'){ continue }
+    if($adaylar -notcontains $u){ $adaylar += $u }
+  }
+  if(-not $adaylar.Count){ return "" }
+  # Dogru belgeyi sec: rehber/cagri metni/duyuru ONCELIKLI; sunum, imar plani,
+  # sablon gibi ekler ELENIR (olculdu: bir ajans sayfasinda 19 PDF vardi,
+  # ilki bilgilendirme sunumuydu - uygunluk bilgisi rehberdedir).
+  $iyi = @($adaylar | Where-Object { $_ -match '(?i)rehber|cagri|çağrı|basvuru|başvuru|metin|duyuru|kilavuz|kılavuz' })
+  $kotu = '(?i)sunum|imar|plan[_-]|sablon|şablon|taahhut|taahhüt|sozlesme|sözleşme|liste'
+  $iyi = @($iyi | Where-Object { $_ -notmatch $kotu })
+  $sec = if($iyi.Count){ $iyi[0] } else { @($adaylar | Where-Object { $_ -notmatch $kotu })[0] }
+  if(-not $sec){ return "" }
+  # goreli adresi mutlaklastir
+  if($sec -notmatch '^https?://'){
+    try { $sec = ([Uri]::new([Uri]$temelUrl, $sec)).AbsoluteUri } catch { return "" }
+  }
+  # PDF*in KENDISI degil, cikarilan METIN onbelleklenir (pdftotext yeniden
+  # kosmasin, yerel kipte poppler gerekmesin).
+  return (OnbellekliDosya ("belge://" + $sec) {
+    param($hedef)
+    $gp = Join-Path ([IO.Path]::GetTempPath()) ("belge-" + [IO.Path]::GetRandomFileName() + ".pdf")
+    & $curlKomut -sSL -m 120 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $gp $sec 2>$null
+    if(Test-Path $gp){
+      # 40 MB ustu belge indirilmis olsa da metne cevrilmez (kosuyu kilitler)
+      # -layout SART: cok sutunlu rehberlerde madde isaretleri ile metinler
+      # ayri bloklara dusuyor ve birlestirince ic ice geciyordu (olculdu).
+      if((Get-Item $gp).Length -lt 40MB){ & $pdf2txt -layout $gp $hedef 2>$null }
+      Remove-Item $gp -ErrorAction SilentlyContinue
+    }
+  })
+}
+# Sayfadan yutulani, belgeden yutulanla TAMAMLAR. Sayfa kazanir: sadece BOS
+# alanlar belgeden doldurulur, dolu alan asla ezilmez.
+# 30.08: uygunluk bilgisi rehberlerde CUMLE degil LISTE halinde duruyor:
+#   "Uygun Basvuru Sahipleri ve Ortaklar"
+#     - Kamu Kurum ve Kuruluslari
+#     - Universiteler ...
+# Cumle arayan yutma bunu asla bulamaz (satirlar kisa, nokta yok).
+# Basligi bulur, altindaki maddeleri BIREBIR toplar, " · " ile dizer.
+# Uydurma yok: tek yaptigi maddeleri yan yana yazmak.
+function ListeYakala([string]$metin, [int]$tavan){
+  if(-not $metin){ return "" }
+  $satirlar = @($metin -split "`r?`n")
+  $basDeseni = '(?i)^\s*(uygun ba.vuru sahip|kimler ba.vurabil|ba.vuru sahipleri|hedef kitle|uygun ba.vuru)'
+  for($i=0; $i -lt $satirlar.Count; $i++){
+    if($satirlar[$i] -notmatch $basDeseni){ continue }
+    if($satirlar[$i].Trim().Length -gt 70){ continue }   # basligin kendisi kisa olur
+    $maddeler = @()
+    for($j=$i+1; $j -lt [Math]::Min($i+30, $satirlar.Count); $j++){
+      $t = ($satirlar[$j] -replace '^[\s•\-\*\u2022\u25CF\u00B7]+','' -replace '\s+',' ').Trim()
+      if(-not $t){ if($maddeler.Count -ge 2){ break } else { continue } }
+      # yeni bir baslik geldiyse liste bitmistir
+      if($t -match '(?i)^(uygun olmayan|ba.vuru s[uü]resi|de.erlendirme|b[uü]t.e|ekler|i.indekiler)'){ break }
+      if($t.Length -lt 3 -or $t.Length -gt 120){ continue }
+      if($maddeler -notcontains $t){ $maddeler += $t }
+      if($maddeler.Count -ge 8){ break }
+    }
+    if($maddeler.Count -ge 2){ return (Kirp ($maddeler -join " · ") $tavan) }
+  }
+  return ""
+}
+function BelgeIleTamamla($y, [string]$belgeMetni, [string]$baslik){
+  if(-not $belgeMetni){ return $y }
+  if($y.kim -and $y.tutar -and $y.ozet){ return $y }
+  # pdftotext satirlari cumle ORTASINDA kirar: tek satir sonlari bosluga
+  # cevrilir, paragraf sonu (cift satir) korunur. Olculdu: 526 -> 281 parca.
+  $duzBelge = [regex]::Replace(($belgeMetni -replace "`r",""), "(?<!\n)\n(?!\n)", " ")
+  $script:belgeKipi = $true
+  try { $yb = YutSayfa $duzBelge $baslik } finally { $script:belgeKipi = $false }
+  # "Kim basvurabilir" icin ONCE liste denenir - rehberlerde uygunluk
+  # cumleyle degil maddelerle yazilir ve liste daha kesindir.
+  # ListeYakala dogru basligi bulsa da yanlis blogu toplayabilir: bir rehberde
+  # "Proje Butcesi: KDV dahil en fazla 750.000 TL" satirlari kim alanina
+  # dustu (olculdu). Liste sonucu IKI kapidan gecer: bir BASVURU SAHIBI TURU
+  # tasimali (DESEN_OZNE) ve para/butce cumlesi OLMAMALI - o "ne kadar"in isi.
+  if(-not $y.kim  ){
+    $liste = ListeYakala $belgeMetni 170
+    if($liste -and $liste -match $DESEN_OZNE -and $liste -notmatch $DESEN_TUTAR){ $y.kim = $liste }
+  }
+  if(-not $y.kim  ){ $y.kim   = $yb.kim }
+  if(-not $y.tutar){ $y.tutar = $yb.tutar }
+  if(-not $y.ozet ){ $y.ozet  = $yb.ozet }
+  # asama: belgeden cikan etiketler sayfadakine EKLENIR (en guclu uc kural
+  # AsamaBul icinde zaten uygulaniyor)
+  if(-not @($y.asama).Count){ $y.asama = $yb.asama }
+  return $y
+}
 function YutSayfa([string]$metin, [string]$baslik){
   # tek cagri metninden dort alan cikarir; bulunmayan alan BOS kalir.
   if(-not $metin){ return [ordered]@{ ozet=""; kim=""; tutar=""; asama=@() } }
@@ -388,7 +504,8 @@ function YutSayfa([string]$metin, [string]$baslik){
   $kimGecerli = {
     param($c)
     if(-not $c){ return $false }
-    if($c -match $DESEN_KIM_RED){ return $false }
+    $red = if($script:belgeKipi){ $DESEN_KIM_RED_BELGE } else { $DESEN_KIM_RED }
+    if($c -match $red){ return $false }
     if($c -match $DESEN_KURUM_ADI){ return $false }
     if($c -notmatch $DESEN_OZNE){ return $false }
     return $true
@@ -421,7 +538,8 @@ function YutSayfa([string]$metin, [string]$baslik){
   # 30.08 OLCULDU: "Yapilan bazi guncellemeler ve cagri takvimi ASAGIDA
   # SUNULMAKTADIR." cumlesi ozet diye yaziliyordu - cumledir ama hicbir sey
   # anlatmaz, okuyucuyu baska yere yollar. Yonlendirme cumlesi ozet olamaz.
-  if($o -and $o -match $DESEN_KIM_RED){ $o = "" }
+  $ozetRed = if($script:belgeKipi){ $DESEN_KIM_RED_BELGE } else { $DESEN_KIM_RED }
+  if($o -and $o -match $ozetRed){ $o = "" }
   # 30.08 oz-sinav: ayni cumle iki alanda birden yazilirsa kart kendini tekrar
   # eder (olculdu: 1831'de "kim" ve "ne kadar" ayni cumleydi; 1501'de "ozet" ve
   # "kim" ayni cumlenin iki farkli kirpimiydi - tam esitlik testi bunu KACIRDI).
@@ -554,6 +672,8 @@ if($blokBas -ge 0){
       $govdeBas = $duyuruHtml.IndexOf('region-content')
       $govde = if($govdeBas -ge 0){ $duyuruHtml.Substring($govdeBas) } else { $duyuruHtml }
       $yTb = YutSayfa (DuzMetin $govde) $bag.baslik
+      # sayfada cikmayan alanlari cagri metni PDF*inden tamamla
+      $yTb = BelgeIleTamamla $yTb (BelgeMetni $duyuruHtml ($tubitakKok + $bag.href)) $bag.baslik
       if($yTb.ozet -or $yTb.tutar -or $yTb.kim){ $yutulanAdet++ }
     }
     $cagrilar += [ordered]@{
@@ -641,7 +761,7 @@ Write-Host ("KOSGEB: {0}" -f $kaynakDurum["KOSGEB"])
 # --- 3) AB / Ufuk Avrupa (SEDIA) --------------------------------------------
 Write-Host "AB SEDIA API okunuyor..."
 $abAdet = 0; $abOlduMu = $false
-$curlKomut = if(Get-Command curl.exe -ErrorAction SilentlyContinue){ "curl.exe" } else { "curl" }
+# ($curlKomut betigin basinda tanimli - belge yutma da kullaniyor)
 $sediaDosya = Join-Path ([IO.Path]::GetTempPath()) "sedia-cagri.json"
 # PS'in native-arg tirnak ezmesine karsi form alanlari DOSYADAN verilir (-F 'ad=<dosya')
 # (duz -F "query={...}" PS 5.1'de ic tirnaklari yutuyor, API "internal error" donuyordu - olculdu)
@@ -881,6 +1001,9 @@ try {
         }
         if($kaMetin){
           $yKa = YutSayfa (DuzMetin $kaMetin) "$($destek.name)"
+          # 23/25 ajans ilaninda "Basvuru Rehberi" PDF*i var ve uygunluk
+          # kriterleri SAYFADA DEGIL orada yazili (olculdu).
+          $yKa = BelgeIleTamamla $yKa (BelgeMetni $kaMetin $kaAdres) "$($destek.name)"
           if($yKa.ozet -or $yKa.tutar -or $yKa.kim){ $yutulanAdet++ }
         }
       } catch {}
@@ -925,10 +1048,9 @@ Write-Host ("KALKINMA AJANSLARI: {0}" -f $kaynakDurum["Kalkınma Ajansları"])
 Write-Host "TKDK cagri ilanlari okunuyor..."
 $tkdkAdet = 0; $tkdkOlduMu = $false
 $tkdkKok = "https://www.tkdk.gov.tr"
-$pdf2txt = $null
-$pdfAday = Get-Command pdftotext -ErrorAction SilentlyContinue
-if($pdfAday){ $pdf2txt = $pdfAday.Source }
-elseif(Test-Path "C:\Program Files\Git\mingw64\bin\pdftotext.exe"){ $pdf2txt = "C:\Program Files\Git\mingw64\bin\pdftotext.exe" }
+# pdf2txt betigin BASINDA cozuldu (belge yutma da kullaniyor). Burada
+# yeniden atanmasi ustteki cozumu EZIYORDU: Poppler kurulu olsa bile Git
+# yolu yaziliyordu ve o yoksa TKDK sessizce olculemedi kaliyordu.
 if(-not $pdf2txt){
   Write-Host "  pdftotext yok - TKDK olculemedi (tarihsiz cagri 'acik' diye gosterilmez)"
 } else {

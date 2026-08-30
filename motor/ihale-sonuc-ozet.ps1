@@ -33,7 +33,19 @@ $s = @(Ihale-AmbarOku -Kok $kok)
 if(-not $s.Count){ Write-Host 'ambar bos/okunamadi - cikiliyor'; if($Yaz){ exit 1 }; return }
 Write-Host ("kaynak: {0} sonuc ilani" -f $s.Count)
 
-function Sade([string]$x){ ("$x".ToUpper() -replace '[^A-ZÇĞİÖŞÜ0-9 ]',' ' -replace '\s+',' ').Trim() }
+# 30.08 - IKI KULTUR TUZAGI BIR ARADA (bu satir TERS yonde bozuktu):
+#  (1) ToUpper() KULTURE BAGLI. Invariant kulturde 'ı'.ToUpper() = 'ı' (degismez!)
+#      ve sinifta 'ı' olmadigi icin BOSLUGA cevriliyordu. Yani firma adindaki
+#      'ı' harfleri RUNNER'DA siliniyor, Cem'in tr-TR makinesinde silinmiyordu.
+#      "KIRMIZI YAPI" -> runner'da "KIRM ZI YAPI".
+#  (2) -replace IgnoreCase oldugu icin sinif kulture gore yorumlanıyordu.
+# Cozum: Turkce kucuk harfleri ONCE acikca buyut (kulturden bagimsiz), sonra
+# ToUpperInvariant, sonra ORDINAL -creplace.
+function Sade([string]$x){
+  $u = "$x".Replace('ı','I').Replace('i','İ').Replace('ş','Ş').Replace('ğ','Ğ').
+             Replace('ü','Ü').Replace('ö','Ö').Replace('ç','Ç').ToUpperInvariant()
+  ($u -creplace '[^A-ZÇĞİÖŞÜ0-9 ]',' ' -creplace '\s+',' ').Trim()
+}
 function Ist($liste){
   # kirimi OLCULEBILEN kayitlarin istatistigi (digerleri sayilmaz)
   # AKIL SINIRI (15.08): kirim fiziksel olarak (-100,+100) disina cikamaz -

@@ -46,7 +46,7 @@ function OkuyucuA([string]$pdfYol){
   $bas=-1; $son=-1; $birim=''
   for($i=0;$i -lt $satirlar.Count;$i++){
     if($bas -lt 0 -and $satirlar[$i] -match 'Birim\s+G.mr.k'){ $bas=$i }
-    if($bas -ge 0 -and $birim -eq '' -and $satirlar[$i] -match 'Dolar[ıi]\s*/\s*([A-Za-z]+)'){ $birim=$Matches[1] }
+    if($bas -ge 0 -and $birim -eq '' -and $satirlar[$i] -cmatch 'Dolar[ıi]\s*/\s*([A-Za-z]+)'){ $birim=$Matches[1] }
     if($bas -ge 0 -and $satirlar[$i] -match '^\s*\*\s*(Kg|Ton|Adet)'){ $son=$i; break }
   }
   if($bas -lt 0 -or $son -lt 0){ return @{ kesin=$false; birim=''; satirlar=@{}; belirsiz=@('TABLO BULUNAMADI') } }

@@ -71,7 +71,7 @@ $kayit = @()
 foreach($ad in $grup.Keys){
   $sinif = if($ad -match ','){ 'coklu_yuklenici' }
            elseif($ad -match 'Ortaklığı'){ 'is_ortakligi' }
-           elseif($ad -match '-[A-ZÇĞİÖŞÜ]'){ 'sahis_eki' }
+           elseif($ad -cmatch '-[A-ZÇĞİÖŞÜ]'){ 'sahis_eki' }
            else { 'SADE_KESIK' }
   $kayit += [pscustomobject]@{ ad = $ad; sinif = $sinif; iknSayisi = $grup[$ad].Count; ikn = @($grup[$ad]) }
 }

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  CIKMIS SINAV SORULARINI INDIR VE OLC - 08.08.2026
 #
 #  CEM DEFALARCA SORDU, YAPILMADI:
@@ -44,7 +44,7 @@ foreach($k in $kayitlar){
   $i++
   if($tavan -gt 0 -and $i -gt $tavan){ break }
   $sv = "$($k.sinav)"; $don = "$($k.donem)"
-  $ad = ($sv + '-' + ($don -replace '[^0-9A-Za-z]','_') + '-' + $i)
+  $ad = ($sv + '-' + ($don -creplace '[^0-9A-Za-z]','_') + '-' + $i)
   $pdf = Join-Path $tmp ($ad + '.pdf')
   $txt = Join-Path $tmp ($ad + '.txt')
   if(Test-Path $txt){ $atla++; continue }          # daha once indirilmis

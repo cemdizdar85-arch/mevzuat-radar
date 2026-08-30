@@ -307,7 +307,10 @@ jobs:
         if: always()
         shell: pwsh
         env:
-          ONCEKI_KANITLI: '30'
+          # 30.08 aksami A sinifi 9 kusur duzeltildi -> taban 30'dan 23'e
+          # INDIRILDI. Borc azalinca taban da azalir, yoksa kapi bir daha
+          # dusmez ve yeni kusur eski borcun icinde gizlenir.
+          ONCEKI_KANITLI: '23'
         run: |
           $simdi = -1
           if(Test-Path 'veri/match-kultur-taramasi.json'){

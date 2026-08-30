@@ -1,0 +1,125 @@
+{
+    "olcum":  "30.08.2026 17:13",
+    "aciklama":  "alacak-radari.html acilis cagrisinin saglik olcumu. 30.08 aksami HTTP 500 \"statement timeout\" alindi, ikinci denemede gecti - kusur ARALIKLI, tek olcum yakalamaz.",
+    "kaynak":  "arac/alacak-vitrin-nobeti.ps1",
+    "tekrar":  4,
+    "esik_ms":  3000,
+    "cagri":  16,
+    "hatali":  0,
+    "yavas":  0,
+    "en_yavas":  2282,
+    "kayitlar":  [
+                     {
+                         "cagri":  "acilis (bos govde)",
+                         "deneme":  1,
+                         "ms":  2282,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "acilis (bos govde)",
+                         "deneme":  2,
+                         "ms":  862,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "acilis (bos govde)",
+                         "deneme":  3,
+                         "ms":  516,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "acilis (bos govde)",
+                         "deneme":  4,
+                         "ms":  579,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=konkordato",
+                         "deneme":  1,
+                         "ms":  469,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=konkordato",
+                         "deneme":  2,
+                         "ms":  443,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=konkordato",
+                         "deneme":  3,
+                         "ms":  442,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=konkordato",
+                         "deneme":  4,
+                         "ms":  455,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=iflas",
+                         "deneme":  1,
+                         "ms":  502,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=iflas",
+                         "deneme":  2,
+                         "ms":  421,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=iflas",
+                         "deneme":  3,
+                         "ms":  409,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "tur=iflas",
+                         "deneme":  4,
+                         "ms":  333,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "durum=tasdik",
+                         "deneme":  1,
+                         "ms":  402,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "durum=tasdik",
+                         "deneme":  2,
+                         "ms":  398,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "durum=tasdik",
+                         "deneme":  3,
+                         "ms":  375,
+                         "kod":  200,
+                         "hata":  ""
+                     },
+                     {
+                         "cagri":  "durum=tasdik",
+                         "deneme":  4,
+                         "ms":  334,
+                         "kod":  200,
+                         "hata":  ""
+                     }
+                 ]
+}

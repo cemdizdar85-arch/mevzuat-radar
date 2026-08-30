@@ -1,12 +1,12 @@
 {
-    "olcum":  "30.08.2026 13:38",
+    "olcum":  "30.08.2026 17:16",
     "aciklama":  "PowerShell -match HER ZAMAN IgnoreCase kullanir ve IgnoreCase CurrentCulture a bakar. Turkce kulturde I ile i ayri harftir; buyuk harfli metinde kucuk harfli kalip iskalar. Linux runner (invariant) bu tuzagi GIZLER.",
     "kaynak":  "arac/match-kultur-tuzagi-tarayici.ps1",
-    "betik":  360,
-    "satir":  66226,
-    "yuksek":  45,
-    "orta":  377,
-    "kanitli":  30,
+    "betik":  365,
+    "satir":  67797,
+    "yuksek":  38,
+    "orta":  387,
+    "kanitli":  23,
     "yuksek_kayitlar":  [
                             {
                                 "dosya":  "ambar-envanteri.ps1",
@@ -30,39 +30,11 @@
                                 "kod":  "if($m.Index -gt 0 -and $metin.Substring(0,$m.Index) -match \u0027(?:[x×X*/÷+\\-−]\\s*$|[A-Za-z\\^]\\s*$)\u0027){ continue }"
                             },
                             {
-                                "dosya":  "birlik-urge-hasat.ps1",
-                                "satir":  87,
-                                "kanitli":  true,
-                                "kanit":  "[^a-zA-Z] : \u0027I\u0027 IgnoreCase=True ordinal=False",
-                                "kod":  "$gecici = Join-Path ([IO.Path]::GetTempPath()) (\"eib-ara-\" + ($sorgu.q -replace \u0027[^a-zA-Z]\u0027,\u0027\u0027) + \".json\")"
-                            },
-                            {
                                 "dosya":  "butunluk-kapisi.ps1",
                                 "satir":  100,
                                 "kanitli":  true,
                                 "kanit":  "[A-Za-z] : \u0027I\u0027 IgnoreCase=False ordinal=True",
                                 "kod":  "if(\"$ad\" -match \u0027^((TMS|TFRS|BDS|GDS|TSRS)\\s*\\d+[A-Za-z]?)\u0027){ return ($Matches[1] -replace \u0027\\s+\u0027,\u0027 \u0027) }"
-                            },
-                            {
-                                "dosya":  "cagri-hasat.ps1",
-                                "satir":  124,
-                                "kanitli":  true,
-                                "kanit":  "[a-zçğıöşü] : \u0027I\u0027 IgnoreCase=True ordinal=False",
-                                "kod":  "if($s -notmatch \u0027[a-zçğıöşü]{3}\\s+[a-zçğıöşü]{3}\u0027){ continue }  # BASLIK KUTUSU (Her Kelime Buyuk)"
-                            },
-                            {
-                                "dosya":  "cikmis-soru-karnesi.ps1",
-                                "satir":  50,
-                                "kanitli":  true,
-                                "kanit":  "[^0-9A-Za-z] : \u0027I\u0027 IgnoreCase=True ordinal=False",
-                                "kod":  "$ad = ($sv + \u0027-\u0027 + ($don -replace \u0027[^0-9A-Za-z]\u0027,\u0027_\u0027) + \u0027-\u0027 + $i)"
-                            },
-                            {
-                                "dosya":  "cikmis-soru-yut.ps1",
-                                "satir":  47,
-                                "kanitli":  true,
-                                "kanit":  "[^0-9A-Za-z] : \u0027I\u0027 IgnoreCase=True ordinal=False",
-                                "kod":  "$ad = ($sv + \u0027-\u0027 + ($don -replace \u0027[^0-9A-Za-z]\u0027,\u0027_\u0027) + \u0027-\u0027 + $i)"
                             },
                             {
                                 "dosya":  "dayanak-nobetci.ps1",
@@ -79,25 +51,11 @@
                                 "kod":  "$yeniKel = @((Fold $konu) -split \u0027[^a-z0-9]+\u0027 | Where-Object { $_.Length -ge 4 })"
                             },
                             {
-                                "dosya":  "gozetim-onarici.ps1",
-                                "satir":  49,
-                                "kanitli":  true,
-                                "kanit":  "[A-Za-z] : \u0027I\u0027 IgnoreCase=False ordinal=True",
-                                "kod":  "if($bas -ge 0 -and $birim -eq \u0027\u0027 -and $satirlar[$i] -match \u0027Dolar[ıi]\\s*/\\s*([A-Za-z]+)\u0027){ $birim=$Matches[1] }"
-                            },
-                            {
                                 "dosya":  "havuz-dogrulayici.ps1",
                                 "satir":  90,
                                 "kanitli":  true,
                                 "kanit":  "[^a-zçğıöşü0-9] : \u0027I\u0027 IgnoreCase=False ordinal=True",
                                 "kod":  "$t = \"$($s.soru)\".ToLowerInvariant() -replace \u0027[^a-zçğıöşü0-9]\u0027,\u0027\u0027"
-                            },
-                            {
-                                "dosya":  "ihale-sonuc-ozet.ps1",
-                                "satir":  36,
-                                "kanitli":  true,
-                                "kanit":  "[^A-ZÇĞİÖŞÜ0-9 ] : \u0027i\u0027 IgnoreCase=False ordinal=True",
-                                "kod":  "function Sade([string]$x){ (\"$x\".ToUpper() -replace \u0027[^A-ZÇĞİÖŞÜ0-9 ]\u0027,\u0027 \u0027 -replace \u0027\\s+\u0027,\u0027 \u0027).Trim() }"
                             },
                             {
                                 "dosya":  "k15-sinav-teknigi.ps1",
@@ -133,13 +91,6 @@
                                 "kanitli":  false,
                                 "kanit":  "",
                                 "kod":  "$gelKel = @(((\"$($v.baslik)\") -replace \u0027[^a-zA-Z0-9ğüşıöçĞÜŞİÖÇ ]\u0027,\u0027 \u0027) -split \u0027 \u0027 | Where-Object { $_.Length -ge 4 })"
-                            },
-                            {
-                                "dosya":  "kaynak-kok.ps1",
-                                "satir":  41,
-                                "kanitli":  true,
-                                "kanit":  "[iı] : \u0027I\u0027 IgnoreCase=True ordinal=False",
-                                "kod":  "if($k -match \u0027^(.*?)\\s+(m\\.|muk\\. m\\.|md\\.|p\\.\\d|p\\.[A-Z]|ilke|ek m\\.|gec\\. m\\.|geçici m\\.|Ek [A-Z]|b[oö]l[uü]m \\d|bolum \\d|k[iı]s[iı]m \\d)\u0027){"
                             },
                             {
                                 "dosya":  "kesik-madde-onar.ps1",
@@ -240,6 +191,20 @@
                                 "kod":  "if($m.Index -gt 0 -and $metin.Substring(0,$m.Index) -match \u0027(?:[x×X*/÷+\\-−]\\s*$|[A-Za-z\\^]\\s*$)\u0027){ continue }"
                             },
                             {
+                                "dosya":  "standart-onar.ps1",
+                                "satir":  59,
+                                "kanitli":  true,
+                                "kanit":  "[A-Z] : \u0027i\u0027 IgnoreCase=True ordinal=False",
+                                "kod":  "if($s -match \u0027^([A-ZCGIOSU]+\\s*\\d+[A-Z]?)\u0027){ return ($Matches[1] -replace \u0027\\s+\u0027,\u0027 \u0027) }"
+                            },
+                            {
+                                "dosya":  "standart-onar.ps1",
+                                "satir":  60,
+                                "kanitli":  true,
+                                "kanit":  "[A-Z] : \u0027i\u0027 IgnoreCase=True ordinal=False",
+                                "kod":  "if($s -match \u0027^([A-ZÇĞİÖŞÜ]+\\s*\\d+[A-Z]?)\u0027){ return ($Matches[1] -replace \u0027\\s+\u0027,\u0027 \u0027) }"
+                            },
+                            {
                                 "dosya":  "standart-yut.ps1",
                                 "satir":  147,
                                 "kanitli":  true,
@@ -301,20 +266,6 @@
                                 "kanitli":  true,
                                 "kanit":  "[A-Za-z0-9_\\-\\.] : \u0027I\u0027 IgnoreCase=False ordinal=True",
                                 "kod":  "($icerik -match \"veri/[A-Za-z0-9_\\-\\.]+\\.json[^`n]{0,120}(WriteAllText|Set-Content|Out-File|writeFileSync)\")"
-                            },
-                            {
-                                "dosya":  "ihale-firma-adi-denetimi.ps1",
-                                "satir":  82,
-                                "kanitli":  true,
-                                "kanit":  "[A-ZÇĞİÖŞÜ] : \u0027i\u0027 IgnoreCase=True ordinal=False",
-                                "kod":  "$tireli   = @($kusurlu | Where-Object { $_.ad -match \u0027-[A-ZÇĞİÖŞÜ]\u0027 -and $_.ad -notmatch \u0027,\u0027 -and $_.ad -notmatch \u0027Ortaklığı\u0027 })"
-                            },
-                            {
-                                "dosya":  "ihale-kesik-ikn-cikar.ps1",
-                                "satir":  74,
-                                "kanitli":  true,
-                                "kanit":  "[A-ZÇĞİÖŞÜ] : \u0027i\u0027 IgnoreCase=True ordinal=False",
-                                "kod":  "elseif($ad -match \u0027-[A-ZÇĞİÖŞÜ]\u0027){ \u0027sahis_eki\u0027 }"
                             },
                             {
                                 "dosya":  "sirala-tarti.ps1",
@@ -487,97 +438,112 @@
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  106,
+                              "satir":  201,
                               "kod":  "$t = $html -replace \u0027(?s)\u003cscript.*?\u003c/script\u003e\u0027,\u0027 \u0027 -replace \u0027(?s)\u003cstyle.*?\u003c/style\u003e\u0027,\u0027 \u0027"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  108,
+                              "satir":  203,
                               "kod":  "$t = $t -replace \u0027\u003c(p|div|br|li|tr|h[1-6])[^\u003e]*\u003e\u0027,\"`n\" -replace \u0027\u003c[^\u003e]*\u003e\u0027,\u0027 \u0027"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  319,
+                              "satir":  409,
+                              "kod":  "if($u -match \u0027(?i)css|favicon\u0027){ continue }"
+                          },
+                          {
+                              "dosya":  "cagri-hasat.ps1",
+                              "satir":  416,
+                              "kod":  "$iyi = @($adaylar | Where-Object { $_ -match \u0027(?i)rehber|cagri|çağrı|basvuru|başvuru|metin|duyuru|kilavuz|kılavuz\u0027 })"
+                          },
+                          {
+                              "dosya":  "cagri-hasat.ps1",
+                              "satir":  461,
+                              "kod":  "if($t -match \u0027(?i)^(uygun olmayan|ba.vuru s[uü]resi|de.erlendirme|b[uü]t.e|ekler|i.indekiler)\u0027){ break }"
+                          },
+                          {
+                              "dosya":  "cagri-hasat.ps1",
+                              "satir":  591,
                               "kod":  "if($normA -notmatch \u0027cagri\u0027){ continue }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  335,
+                              "satir":  607,
                               "kod":  "if($tablo.Value -notmatch \u0027Tarih\u0027){ continue }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  347,
+                              "satir":  619,
                               "kod":  "if(($normlar -match \u0027acilis\u0027).Count -and ($normlar -match \u0027kapanis\u0027).Count){ $baslikSatir = $satir; break }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  353,
+                              "satir":  625,
                               "kod":  "if($iAcilis -lt 0 -and $normBaslik[$i] -match \u0027acilis\u0027){ $iAcilis = $i }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  354,
+                              "satir":  626,
                               "kod":  "if($iKapanis -lt 0 -and $normBaslik[$i] -match \u0027kapanis\u0027){ $iKapanis = $i }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  372,
+                              "satir":  644,
                               "kod":  "if($satir[$i] -match \u0027Tarih\u0027){"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  377,
+                              "satir":  649,
                               "kod":  "if($normEtiket -match \u0027acilis\u0027){ $acilis = $coz }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  378,
+                              "satir":  650,
                               "kod":  "if($normEtiket -match \u0027kapanis\u0027 -or $normEtiket -match \u0027son basvuru\u0027){ $sonTarih = $coz }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  437,
+                              "satir":  711,
                               "kod":  "if(-not ($normBaslik -match \u0027cagri\u0027 -or $normBaslik -match \u0027proje teklif\u0027)){ continue }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  753,
+                              "satir":  1059,
                               "kod":  "$no = \"\"; if($ilanYolu -match \u0027ipard-iii-(\\d+)-\u0027){ $no = $Matches[1] }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  763,
+                              "satir":  1072,
                               "kod":  "if($metin -match \u0027Ba.?vurular\\s+(\\d{2}\\.\\d{2}\\.\\d{4})\\s+tarihi\u0027){ $acilisTk = TrTarihCoz $Matches[1] }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  764,
+                              "satir":  1073,
                               "kod":  "if($metin -match \u0027son teslim tarihi\\s*(\\d{2}\\.\\d{2}\\.\\d{4})\u0027){ $sonTk = TrTarihCoz $Matches[1] }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  765,
+                              "satir":  1074,
                               "kod":  "if($metin -match \u0027Online Proje Ba.?vuru Sistemi\\s+(\\d{2}\\.\\d{2}\\.\\d{4})\u0027){"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  802,
+                              "satir":  1111,
                               "kod":  "$duz = ($hamleHtml -replace \u0027(?s)\u003cscript.*?\u003c/script\u003e\u0027,\u0027 \u0027) -replace \u0027\u003c[^\u003e]*\u003e\u0027,\"`n\""
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  813,
+                              "satir":  1122,
                               "kod":  "if($satirlar[$i] -notmatch \u0027Tarihi$\u0027){ continue }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  820,
+                              "satir":  1129,
                               "kod":  "if($normE -match \u0027baslangic\u0027 -and -not $hamleAcilis){ $hamleAcilis = $coz }"
                           },
                           {
                               "dosya":  "cagri-hasat.ps1",
-                              "satir":  822,
+                              "satir":  1131,
                               "kod":  "if($normE -match \u0027kesin basvuru bitis\u0027){ $hamleSon = $coz }"
                           },
                           {
@@ -619,6 +585,26 @@
                               "dosya":  "cta-cevir.ps1",
                               "satir":  76,
                               "kod":  "$tamam = ($geri -notmatch \u0027mrKatil\u0027) -and ($geri -notmatch \u0027açılınca ilk sen haberdar\u0027) -and"
+                          },
+                          {
+                              "dosya":  "damping-hasat.ps1",
+                              "satir":  96,
+                              "kod":  "if(-not $map.ContainsKey(\u0027oran\u0027)   -and $b -match \u0027ÖNLEM ORANI\u0027  ){ $map[\u0027oran\u0027]=$k;   continue }"
+                          },
+                          {
+                              "dosya":  "damping-hasat.ps1",
+                              "satir":  111,
+                              "kod":  "if($ad -match \u0027Kesin|Definitive\u0027){ $tip=\u0027Kesin\u0027 } elseif($ad -match \u0027Ge[çc]ici|Prov\u0027){ $tip=\u0027Gecici\u0027 }"
+                          },
+                          {
+                              "dosya":  "damping-sorusturma-hasat.ps1",
+                              "satir":  100,
+                              "kod":  "if(-not $map.ContainsKey(\u0027oran\u0027)   -and $b -match \u0027ÖNLEM ORANI\u0027  ){ $map[\u0027oran\u0027]=$k;   continue }"
+                          },
+                          {
+                              "dosya":  "damping-sorusturma-hasat.ps1",
+                              "satir":  122,
+                              "kod":  "if($ad -match \u0027Damping|Dumping\u0027){ $sinif=\u0027damping\u0027 } elseif($ad -match \u0027Subvansiyon|Sübvansiyon|Subsidy\u0027){ $sinif=\u0027subvansiyon\u0027 }"
                           },
                           {
                               "dosya":  "dayanak-nobetci.ps1",
@@ -997,7 +983,7 @@
                           },
                           {
                               "dosya":  "ihale-sonuc-ayristir.ps1",
-                              "satir":  195,
+                              "satir":  205,
                               "kod":  "$tmz = $bl -replace \u0027d\\)\\s*Yüklenicisi?\\s*:\u0027, \u0027 \u0027"
                           },
                           {
@@ -1816,6 +1802,11 @@
                               "kod":  "try { $gorselVar = @(\u0026 pdfimages -list $yol 2\u003e$null | Where-Object { $_ -match \u0027\\bimage\\b|\\bsmask\\b\u0027 }).Count -gt 0 } catch {}"
                           },
                           {
+                              "dosya":  "standart-onar.ps1",
+                              "satir":  156,
+                              "kod":  "$ozet = ($cikti -split \"`r?`n\" | Where-Object { $_ -match \u0027parca|PDF|KIRMIZI|HATA|yazildi|GERI OKU|indirildi\u0027 } | Select-Object -Last 3) -join \u0027 | \u0027"
+                          },
+                          {
                               "dosya":  "standart-yut.ps1",
                               "satir":  305,
                               "kod":  "if($c[0].metin -notmatch \u0027tum isletmeler icin gecerlidir\u0027){ $dusen += \u00271. paragrafin ikinci cumlesi KAYIP - govde birlestirme bozuk\u0027 }"
@@ -2001,9 +1992,19 @@
                               "kod":  "$onem = if(\"$($k.etki)\" -match \"aleyhine\"){ \"yuksek\" } else { \"orta\" }"
                           },
                           {
+                              "dosya":  "vergi-hasat-ulke.ps1",
+                              "satir":  65,
+                              "kod":  "elseif($v -match \u0027^(\\d+([.,]\\d+)?)\\s*(?i:MIN|MAX)\u0027){ $satir += [double]($Matches[1] -replace \u0027,\u0027,\u0027.\u0027) }"
+                          },
+                          {
                               "dosya":  "vergi-hasat.ps1",
                               "satir":  37,
                               "kod":  "if($ad -match \u0027^IV\u0027){ $kSon = 12 }"
+                          },
+                          {
+                              "dosya":  "vergi-hasat.ps1",
+                              "satir":  71,
+                              "kod":  "elseif($v -match \u0027^(\\d+([.,]\\d+)?)\\s*(?i:MIN|MAX)\u0027){ $oranlar += [double]($Matches[1] -replace \u0027,\u0027,\u0027.\u0027) } } }"
                           },
                           {
                               "dosya":  "vitrin-sec.ps1",
@@ -2167,12 +2168,12 @@
                           },
                           {
                               "dosya":  "paylasim-etiketi.ps1",
-                              "satir":  54,
+                              "satir":  58,
                               "kod":  "$ogBaslik = ($baslik -replace \u0027\\s*[—|–-]\\s*Tetikte\\s*$\u0027,\u0027\u0027).Trim()"
                           },
                           {
                               "dosya":  "paylasim-etiketi.ps1",
-                              "satir":  82,
+                              "satir":  86,
                               "kod":  "if($c -notmatch \u0027apple-touch-icon\u0027){ $ek += \"`n\u003clink rel=`\"apple-touch-icon`\" href=`\"favicon.svg`\"\u003e\" }"
                           },
                           {

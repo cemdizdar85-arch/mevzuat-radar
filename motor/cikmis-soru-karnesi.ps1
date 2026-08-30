@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  CIKMIS SINAV KARNESI - YIL YIL, SINAV SINAV - 08.08.2026
 #
 #  CEM: "3 sinavimizin eski sinavda cikmis konularini hepsini yut ve ezberle,
@@ -47,7 +47,7 @@ foreach($k in $kayitlar){
   $sv = "$($k.sinav)"; $don = "$($k.donem)"
   $yil = ($don -split '/')[0]
   $adresVar = ("$($k.url)" -match '^https?://')
-  $ad = ($sv + '-' + ($don -replace '[^0-9A-Za-z]','_') + '-' + $i)
+  $ad = ($sv + '-' + ($don -creplace '[^0-9A-Za-z]','_') + '-' + $i)
   $pdf = Join-Path $klasor ($ad + '.pdf')
   $txt = Join-Path $klasor ($ad + '.txt')
   $indi = Test-Path $pdf
