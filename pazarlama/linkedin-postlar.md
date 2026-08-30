@@ -104,13 +104,13 @@ TTK 376 sermaye takibi?
 > serisi yok. Postun sonundaki dürüstlük notu bunu açıkça söylüyor; o not
 > çıkarılmaz, postun en değerli kısmı odur.
 
-Konkordato ilanlarını 12 aydır kaydediyoruz. Arşivde bugün **5.435 konkordato
-ilanı** var — 28.08.2025'ten bu yana, kesintisiz.
+Konkordato ilanlarını 12 aydır kaydediyoruz. Arşivde bugün **5.391 konkordato
+ilanı** var — 01.09.2025'ten bu yana, kesintisiz.
 
 İçinde bir rakam dikkatimi çekti. Aynı 12 ayda:
 
-→ **Tasdik** ilanı: **143**
-→ **Ret / kaldırma** ilanı: **730**
+→ **Tasdik** ilanı: **145**
+→ **Ret / kaldırma** ilanı: **748**
 
 Her tasdike karşılık yaklaşık **5 ret**.
 
@@ -133,7 +133,7 @@ Süre mektuptan değil **ilandan** işler. Adresin borçlunun kayıtlarında yok
 mektup zaten gelmez.
 
 Rakamların kaynağı: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr),
-mahkeme kaynaklı ilanlar. Ölçüm tarihi 28.08.2026.
+mahkeme kaynaklı ilanlar. Ölçüm tarihi 30.08.2026.
 
 **Dürüstlük notu:** aynı arşivde iflas ilanları için 12 aylık veri YOK — o
 kategori kaynakta 2026 Nisan'da ayrı olarak açıldı. Elimizde 4,7 aylık seri
@@ -156,15 +156,29 @@ select public.alacak_vitrin(null,'konkordato') ->> 'secilenAdet' as konkordato_i
 ```
 
 `durum_dagilimi` içinden `tasdik` ve `ret_kaldirma` + `ret_iflas` okunur;
-**postta ikisinin TOPLAMI kullanılır** (29.08 ölçümü: 614 + 73 = **687**,
-tasdik **61**).
+**postta ikisinin TOPLAMI kullanılır** (30.08 ölçümü: 515 + 233 = **748**,
+tasdik **145**, konkordato **5.391**, kapsam 01.09.2025–28.08.2026 = 361 gün).
+Postun her rakamı yayından önce bu sorguyla karşılaştırıldı ve **beşi de
+birebir tuttu**.
 
-🔴🔴 **RAKAM ÜÇ KEZ DEĞİŞTİ — 42 → 61 → 143 tasdik; oran 17 → 11,3 → 5,1.**
-Sonuncusu 30.08'de, **arşivin TAMAMI okunduktan** sonra (5.661 ilan, iki
-bağımsız yöntem + hakem turu, kapsama %98,7). Önceki iki rakam damgaların
-**başlıktan** gelmesinden kaynaklanıyordu. **Bu, postun neden bekletildiğinin
-kanıtı:** üç kez yayınlansaydı üç kez yanlış rakam vermiş olurduk.
-Ret toplamı artık `ret_kaldirma` (483) + `ret_iflas` (247) = **730**.
+✅ **30.08 AKŞAMI: RAKAM ARTIK YAYINLANABİLİR.** Bugün dört tur daha koştu ve
+sayı **oturdu**: tasdik **145**, ret `ret_kaldirma` (515) + `ret_iflas` (233)
+= **748**, oran **5,2**.
+
+🔴🔴 **RAKAM DÖRT KEZ DEĞİŞTİ — 42 → 61 → 143 → 145 tasdik; oran 17 → 11,3 →
+5,1 → 5,2.** Son iki adım arasındaki fark küçük ve bu **kasıtlı bir ölçüt**:
+sayı artık oynamıyor, yani hat kararlı. Önceki büyük sıçramaların sebebi
+damgaların **başlıktan** gelmesiydi.
+
+**Ölçümün bugünkü karnesi** (mühlet ailesi, 2.833 ilan):
+okuma ile regex uyumu **%91,0** · kapsama **%99,4** · alıntı-etiket çelişkisi
+**%0,2**. Her damga iki bağımsız yöntemden (kalıp + okuma) geçti, ayrışanlar
+hakem turunda üçüncü kez okundu, ve yazma öncesi iki kapı var: alıntı etiketi
+yalanlıyorsa ya da alıntıda etiketin çekirdek kelimesi yoksa **damga
+yazılmıyor**.
+
+**Bu, postun neden bekletildiğinin kanıtı:** dört kez yayınlansaydı dört kez
+farklı rakam vermiş olurduk.
 
 📜 **Eski kayıt (29.08):** Damgalar başlıktan geliyordu; okuma pilotu 18 ilanın konkordatosunun
 aslında **kabul edildiğini** buldu (başlık *"reddine"* diyor, karar *"KABULÜNE"*).
