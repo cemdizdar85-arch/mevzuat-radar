@@ -1,11 +1,11 @@
 {
-  "tarih": "30.08.2026 10:55",
+  "tarih": "30.08.2026 11:33",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 837,
   "riskli_madde": 1280,
   "sayfa": 64,
   "atifli_iddia": 269,
-  "dayanaksiz_iddia": 312,
+  "dayanaksiz_iddia": 314,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1309,37 +1309,49 @@
     },
     {
       "sayfa": "ihale-radari.html",
-      "satir": 906,
+      "satir": 901,
+      "iddia": "%0",
+      "metin": "// MEDYAN 0 ya da NEGATİF olabiliyor — o zaman \"en az %0 altına inerek"
+    },
+    {
+      "sayfa": "ihale-radari.html",
+      "satir": 918,
       "iddia": "%91,7",
       "metin": "// negatif alt sınırı \"-%91,7\" diye yazmak kafa karıştırıyordu; sayı olarak veriliyor"
     },
     {
       "sayfa": "ihale-radari.html",
-      "satir": 955,
+      "satir": 929,
+      "iddia": "%100",
+      "metin": "// zaten ölçülenlerden kurulduğu için ikisi eşittir ve \"%100\" yazmak yanıltır."
+    },
+    {
+      "sayfa": "ihale-radari.html",
+      "satir": 975,
       "iddia": "%41",
       "metin": "// 14.08 Cem: \"ürün görünmüyor\". ÖLÇÜLDÜ (262 ilan): %41'inde 90+ karakterlik"
     },
     {
       "sayfa": "ihale-radari.html",
-      "satir": 957,
+      "satir": 977,
       "iddia": "%11",
       "metin": "// adet/kalem sayısı var, %11'inde miktar alanı iş adının TEKRARINDAN ibaret."
     },
     {
       "sayfa": "ihale-radari.html",
-      "satir": 959,
+      "satir": 979,
       "iddia": "%11",
       "metin": "// %11 doluymuş gibi yazılıyordu, (3) \"327 Kalem\" gibi sayı göze çarpmıyordu."
     },
     {
       "sayfa": "ihale-radari.html",
-      "satir": 1006,
+      "satir": 1026,
       "iddia": "%100",
       "metin": "// yazan, %100). Burada yalnız \"ilanla açıklanmaz\" gerçeği söylenir, rakam"
     },
     {
       "sayfa": "ihale-radari.html",
-      "satir": 1065,
+      "satir": 1085,
       "iddia": "%3",
       "metin": "v.innerHTML=` ✅ Bu sayaçlara göre engel yok.${ek} Sıradaki adım: yeterlik belgelerini sağla + teklif bedelinin %3'ü geçici teminat . Kesin karar idarenin değerlendirmesine bağlıdır"
     },
