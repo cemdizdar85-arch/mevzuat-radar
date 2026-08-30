@@ -45,6 +45,23 @@ const SB_URL = process.env.SUPABASE_URL || 'https://bjrleanjpyujtajmazxn.supabas
 const SB_KEY = process.env.SUPABASE_SERVICE_KEY || '';
 const PARTI = 500;
 
+/* SURE BUTCESI (30.08) - Cem: "hepsini indir basla".
+   Tam envanter 263 bulten / 113,8 GB. GitHub kosucusu olculen ~0,3 MB/sn ile
+   indiriyor; hepsi tek kosuda BITMEZ ve GitHub isi 6 saatte ZORLA keser.
+   Zorla kesilme kotudur: o an inen PDF yarim kalir ve kaynak "kaldigi yerden
+   devam"i DESTEKLEMEDIGI icin o bultenin tamami bosa gider.
+   Bu yuzden robot her bultene BASLAMADAN once "bu butceye siger mi" diye
+   bakar; sigmiyorsa temiz durur, kutugu tutarli birakir. Sonraki kosu
+   'bitti' olanlari atlayip kaldigi yerden devam eder. */
+const T0 = Date.now();
+const SURE_DK = Number(process.env.SURE_DK || 0);        // 0 = sinirsiz
+const gecenDk = () => (Date.now() - T0) / 60000;
+const kalanDk = () => (SURE_DK ? SURE_DK - gecenDk() : Infinity);
+/* Baslangic 0,30 MB/sn - 30.08'de GitHub kosucusundan OLCULDU (2,5 GB /
+   2 sa 15 dk). Ilk indirmeden sonra GERCEK hizla guncellenir, boylece butce
+   tahmini kosu ilerledikce dogrulasir. */
+let HIZ_MBSN = Number(process.env.HIZ_MBSN || 0.30);
+
 const arg = process.argv.slice(2);
 const bayrak = (a) => arg.includes(a);
 const deger = (a, d) => { const i = arg.indexOf(a); return i >= 0 && arg[i + 1] ? arg[i + 1] : d; };
@@ -266,7 +283,10 @@ async function indir(slug, hedef) {
   if (beklenen && inen !== beklenen) {
     throw new Error(`KESIK INDI: ${inen} bayt geldi, ${beklenen} bekleniyordu. Kaynak Range/devam DESTEKLEMIYOR, bastan inmeli.`);
   }
-  log(`   indi: ${(inen / 1048576).toFixed(0)} MB, ${((Date.now() - t0) / 1000).toFixed(0)} sn`);
+  const sn = (Date.now() - t0) / 1000;
+  if (sn > 5) HIZ_MBSN = (inen / 1048576) / sn;   // tahmin degil, OLCULEN hiz
+  log('   indi: ' + (inen / 1048576).toFixed(0) + ' MB, ' + sn.toFixed(0) + ' sn ('
+    + HIZ_MBSN.toFixed(2) + ' MB/sn)');
   return inen;
 }
 
@@ -343,7 +363,24 @@ function ikiAySonra(iso) {
   const gecici = fs.mkdtempSync(path.join(os.tmpdir(), 'bulten-'));
   const rapor = { tarih: new Date().toISOString().slice(0, 16).replace('T', ' '), islenen: [], hata: [] };
 
+  let atlanan = 0;
   for (const b of hedefler) {
+    /* BUTCE KAPISI: bu bulten kalan surede iner mi? Olculen hizla tahmin
+       edilir, ustune ayristirma+yazma icin 6 dk pay konur. Sigmiyorsa kosu
+       TEMIZ biter - yarim is birakmaktansa hic baslamamak iyidir. */
+    if (SURE_DK) {
+      const mb = (b.boyut || 400 * 1048576) / 1048576;
+      const tahminDk = mb / (HIZ_MBSN * 60) + 6;
+      if (tahminDk > kalanDk()) {
+        atlanan = hedefler.length - hedefler.indexOf(b);
+        log('');
+        log('SURE BUTCESI DOLDU (' + gecenDk().toFixed(0) + '/' + SURE_DK + ' dk). '
+          + b.bulten_no + ' icin ~' + tahminDk.toFixed(0) + ' dk gerekiyor, kalan '
+          + kalanDk().toFixed(0) + ' dk.');
+        log('  ' + atlanan + ' bulten sonraki kosuya birakildi - kutuk tutarli, veri kaybi yok.');
+        break;
+      }
+    }
     log(`\n=== ${b.bulten_no} sayili bulten (${b.yayin_tarihi}) ===`);
     const pdf = path.join(gecici, `b${b.bulten_no}.pdf`);
     const txt = path.join(gecici, `b${b.bulten_no}.txt`);
@@ -400,6 +437,10 @@ function ikiAySonra(iso) {
   try {
     fs.writeFileSync(path.join(__dirname, '..', 'veri', 'marka-bulten-raporu.json'), JSON.stringify(rapor, null, 1));
   } catch (_) { }
-  log(`\nBITTI: ${rapor.islenen.length} bulten islendi, ${rapor.hata.length} hata.`);
+  const kayitToplam = rapor.islenen.reduce((a, x) => a + x.kayit, 0);
+  log('');
+  log('BITTI: ' + rapor.islenen.length + ' bulten islendi (' + kayitToplam + ' kayit), '
+    + rapor.hata.length + ' hata, ' + gecenDk().toFixed(0) + ' dk.');
+  if (atlanan) log('SONRAKI KOSUYA KALAN: ' + atlanan + ' bulten.');
   if (rapor.hata.length) process.exit(1);
 })().catch(e => { console.error('!! ISTISNA: ' + (e && e.stack || e)); process.exit(1); });
