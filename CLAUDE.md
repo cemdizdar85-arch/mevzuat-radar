@@ -100,6 +100,32 @@ karşılama ekranı · `sitemap.xml` · ilgili radar sayfası. Biri unutulursa a
 
 ---
 
+## 🔎 GitHub CLI (`gh`) — Actions günlüğünü okumak için
+
+30.08'de kuruldu (`winget install GitHub.cli`, sürüm 2.98). **Yol:**
+`C:\Program Files\GitHub CLI\gh.exe` — yeni açılan kabukta `gh` olarak da
+çalışır, eski oturumda tam yol gerekir.
+
+🔴 **Giriş HENÜZ YAPILMADI.** Cem'in bir kez şunu koşması gerekir (tarayıcı
+açar, kimlik bilgisi Claude'a girilmez):
+
+```
+gh auth login
+```
+→ GitHub.com · HTTPS · "Login with a web browser" · çıkan kodu tarayıcıya gir.
+
+**Neden gerekli:** Actions günlüğünü okumak depo yöneticisi yetkisi ister.
+30.08'de `ihale-ozet-tazele.yml` üç kez düştü ve sebep görülemediği için üç
+tur tahminle harcandı. `gh` ile tek komut yeterdi:
+
+```bash
+gh run list --workflow=<akis>.yml --limit 5
+gh run view <id> --log-failed
+```
+
+Giriş yapıldıktan sonra bu iki komut, "kapı neden düştü" sorusunun en kısa
+cevabıdır — tahmin etmeden önce ona bak.
+
 ## 🌐 KAYNAK İNDİRME — nerede koşar
 
 30.08 ölçümü (`veri/ip-olcum-raporu.md`): 10 kaynaktan **8'i GitHub runner'dan iniyor**.
