@@ -118,10 +118,10 @@ Bu dört konu tek başına **67.062 başvuru = toplamın %50,7'si** (Düzey 1 ç
 | Özel Durumlar Tebliği II-15.1 | ✅ | 45 |
 | Kurumsal Yönetim Tebliği II-17.1 | ✅ | 47 |
 | Yatırım Fonları Tebliği III-52.1 | ✅ | 66 |
-| TSPB Üyelerinin Uyacakları Meslek Kuralları | ❌ | Kaynak yeri **ÖLÇÜLMEDİ** |
-| SP Çalışanları Etik İlkeleri ve Davranış Kuralları | ❌ | Kaynak yeri **ÖLÇÜLMEDİ** ⚠️ ambardaki "Etik Kurallar" (567 parça) **KGK etiğidir, bu değildir** |
+| TSPB Üyelerinin Uyacakları Meslek Kuralları | 🆕 ✅ | 34 madde (37 parça) |
+| SP Çalışanları Etik İlkeleri ve Davranış Kuralları | 🆕 ✅ | 79 parça, kapsama %100 ⚠️ ambardaki "Etik Kurallar" (567 parça) **KGK etiğidir, bu değildir** |
 
-**4/6**
+**6/6** — *30.08: iki kalem de TSPB'nin RESMİ sitesinden alındı. TSPB, SPKn 6362 **m.74** uyarınca "tüzel kişiliği haiz **kamu kurumu niteliğinde** bir meslek kuruluşu"dur (ambardaki 6362 metninden doğrulandı) — kendi düzenlemesi birincil kaynaktır. mevzuat.gov.tr bu iki belgeyi tutmuyor.*
 
 ### 1003 — Sermaye Piyasası Araçları 1 (17.395)
 | Resmî alt konu | Çentik | Madde |
@@ -163,10 +163,16 @@ Bu dört konu tek başına **67.062 başvuru = toplamın %50,7'si** (Düzey 1 ç
 | Ölçü | 29.08 | 30.08 (yutma sonrası) |
 |---|---:|---:|
 | Tekil mevzuat belgesi | 21 | 21 |
-| Ambarda VAR | 9 | **19** |
-| Ambarda YOK | 12 | **2** |
-| Belge kapsaması | %42,9 | **%90,5** |
-| Elimizdeki madde | 794 | **1.192** |
+| Ambarda VAR | 9 | **21** |
+| Ambarda YOK | 12 | **0** |
+| Belge kapsaması | %42,9 | **%100** |
+| Elimizdeki madde | 794 | **1.226** |
+
+*30.08 akşamı TSPB'nin iki dokümanı da resmî sitesinden alındı → 21/21.*
+🔴 **AMA "çekirdeği kapsıyoruz" HÂLÂ DENMEZ:** 1012'nin beş uygulama bölümü
+(BİST'te transfer-takas-temerrüt · türevde uzlaşma-fiziki teslim · Takasbank
+teminat yönetimi) mevzuat.gov.tr'de de SPK portalında da YOK. O modül
+15.036 başvuruluk ve kaynak hattı kurulmadan açılamaz.
 
 Yutulan: 10 kaynak · 584 parça · 398 madde. mevzuatNo'lar tahmin edilmedi — 13 aday indirilip PDF
 başlığıyla karşılaştırıldı, **3 aday yanlış çıkıp elendi**. Geri okuma yapıldı: **açıklanamayan eksik

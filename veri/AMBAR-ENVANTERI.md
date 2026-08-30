@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **30.08.2026 03:04** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **30.08.2026 03:15** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 43491 parça · 2325 tekil kaynak | Bütünlük ölçülen: 2325 (delikli: 78; son ölçüm: 30.08.2026) | Sürüm ölçülen: 40 (sorunlu: 2; son ölçüm: 29.08.2026 06:47)
+**ÖZET:** 43607 parça · 2327 tekil kaynak | Bütünlük ölçülen: 2327 (delikli: 78; son ölçüm: 30.08.2026) | Sürüm ölçülen: 40 (sorunlu: 2; son ölçüm: 29.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -2110,6 +2110,8 @@
 | TMS 8 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TOBB/Odalar K. (5174 s.K.) | kanun-madde | 162 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TPKK (1567 s.K.) | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSPB Sermaye Piyasasi Calisanlari Etik Ilkeleri ve Davranis Kurallari (Genelge 191) | kanun-madde | 79 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSPB Uyelerinin Sermaye Piyasasi Faaliyetlerini Yuruturken Uyacaklari Meslek Kurallari | kanun-madde | 37 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS 1 | standart-madde | 104 | DELİK-İNCELE(par:8/kesik:0/oksuz:2) | ISTISNA-KAPSAM-DISI |
 | TSRS 1 - on bolum | standart-madde | 1 | TAM | ISTISNA-KAPSAM-DISI |
 | TSRS 2 | standart-madde | 63 | DELİK-İNCELE(par:5/kesik:0/oksuz:3) | ISTISNA-KAPSAM-DISI |
