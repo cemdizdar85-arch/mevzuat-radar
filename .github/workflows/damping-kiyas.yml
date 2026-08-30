@@ -1,0 +1,85 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/damping-kiyas.yml
+#
+# DAMPING KIYAS NOBETI — "hasat yesil kostu" ile "veri tam" ayni sey degil.
+#
+# NEDEN VAR (30.08.2026):
+# damping-hasat.ps1 aylardir YESIL kosuyordu ve 141 kayit uretiyordu. Kimse
+# "kac olmali?" diye sormadigi icin, Ticaret Bakanligi'nin resmi listesindeki
+# 273 satirin 132'sinin dustugu goruldu — klima, agir ticari lastik, sicak
+# haddelenmis yassi celik, pet film dahil 27 urun sitede "damping onlemi yok"
+# gorunuyordu. Sebep tek karakterdi: paylasilan metin okuyucusunda (?s) yoktu,
+# Bakanlik'in alt alta yazdigi coklu-GTIP hucreleri BOS okunuyordu.
+#
+# Bu nobet o sorunun kendiliginden sorulmasi icindir:
+#   ambardaki (kod,ulke) ciftleri  <->  Bakanlik listesindeki (kod,ulke) ciftleri
+#
+# KIRMIZI OLCUSU:
+#   EKSIK > 0   : Bakanlik'ta olup bizde olmayan cift var  -> hasat kor kalmis
+#   FAZLA > 0   : bizde olup Bakanlik'ta olmayan cift var  -> onlem kalkmis ya da
+#                 ambarda uydurma kayit var; ikisi de insan gozu ister
+#   Betik hata verirse (link bulunamadi / sayfa degismis) de KIRMIZI — sessizce
+#   "kaynak yok" deyip gecmek YASAK (kor kalma kurali).
+#
+# NOBETCI YAZMAZ, OLCER: veri/*.json'a dokunmaz. Tazeleme isi yanveri.yml'de.
+# PARA HARCAMAZ: yalniz ticaret.gov.tr'den bir sayfa + iki xlsx iner, LLM yok.
+name: Damping Kiyas Nobeti
+
+on:
+  schedule:
+    # Pazartesi 08:30 TR — yanveri nobeti (07:20) haftanin verisini tazeledikten
+    # sonra "tazelenen sey TAM MI" sorusunu sorar.
+    - cron: "30 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kiyas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Node kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Kiyas (Bakanlik listesi <-> veri/gtip-damping.json)
+        continue-on-error: true
+        run: |
+          # ONCE ESKI RAPORU SIL: rapor depoda kayitli. Betik cokerse eski dosya
+          # yerinde kalir ve karar adimi onu TAZE sanip "YESIL" derdi - sessiz yalan.
+          rm -f motor/cikti/damping-kiyas.json
+          node motor/damping-kiyas.js 2>&1 | tee kiyas-cikti.txt
+
+      - name: Karar + gerekirse mail
+        shell: pwsh
+        run: |
+          $ciktiVar = Test-Path 'motor/cikti/damping-kiyas.json'
+          $eksik = -1; $fazla = -1; $ozet = ''
+          if($ciktiVar){
+            $r = Get-Content 'motor/cikti/damping-kiyas.json' -Raw -Encoding UTF8 | ConvertFrom-Json
+            $eksik = [int]$r.ozet.EKSIK_cift
+            $fazla = [int]$r.ozet.FAZLA_cift
+            $ozet  = "Bakanlik: $($r.ozet.bakanlik_satir) satir / $($r.ozet.bakanlik_kod_ulke_cifti) cift / $($r.ozet.bakanlik_urun) urun`nAmbar   : $($r.ozet.bizim_kayit) kayit / $($r.ozet.bizim_kod_ulke_cifti) cift`nEKSIK: $eksik  FAZLA: $fazla`nDevam eden sorusturma satiri: $($r.ozet.devam_eden_sorusturma_satir)`n12 ayda suresi dolacak: $($r.ozet.on_iki_ayda_dolacak)"
+          }
+          $log = if(Test-Path 'kiyas-cikti.txt'){ (Get-Content 'kiyas-cikti.txt' -Raw) } else { '(cikti yok)' }
+
+          # KOR KALMA: rapor hic uretilmediyse de kirmizi — "olcemedim" sessizce gecilmez.
+          $kirmizi = (-not $ciktiVar) -or ($eksik -ne 0) -or ($fazla -ne 0)
+
+          if($kirmizi){
+            $konu = if(-not $ciktiVar){ 'TETIKTE KIRMIZI - damping kiyasi KOSAMADI' }
+                    else { "TETIKTE KIRMIZI - damping ambari eksik/fazla (E:$eksik F:$fazla)" }
+            $ornek = ''
+            if($ciktiVar -and $r.eksikOrnek){ $ornek = "`n`nEKSIK ornekler:`n" + (($r.eksikOrnek | Select-Object -First 15 | ForEach-Object { "  $($_.kod) | $($_.ulke) | $($_.urun)" }) -join "`n") }
+            $govde = "Damping kiyas nobeti KIRMIZI.`n`n$ozet$ornek`n`nOnarim: motor/damping-hasat.ps1 kaynaktan yeniden kosulur (yanveri-onarici -Kaynak damping -Uygula).`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`n--- betik ciktisi ---`n$log"
+            $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject=$konu; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message=$govde } | ConvertTo-Json
+            try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body ([Text.Encoding]::UTF8.GetBytes($p)) | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
+            Write-Host "KIRMIZI - mail gonderildi."
+            exit 1
+          }
+          Write-Host "YESIL - ambar Bakanlik listesiyle birebir."
+          Write-Host $ozet

@@ -95,6 +95,7 @@ function SutunEsle($rows){
       if(-not $map.ContainsKey('teblig') -and $b -match 'TEBLİĞ NO'    ){ $map['teblig']=$k; continue }
       if(-not $map.ContainsKey('oran')   -and $b -match 'ÖNLEM ORANI'  ){ $map['oran']=$k;   continue }
       if(-not $map.ContainsKey('tur')    -and $b -match 'ÖNLEM TÜRÜ'   ){ $map['tur']=$k;    continue }
+      if(-not $map.ContainsKey('dolum')  -and $b -match 'DOLUM TARİHİ' ){ $map['dolum']=$k;  continue }
     }
     $map['_baslik']=$i
     return $map
@@ -124,6 +125,17 @@ foreach($ad in ($harita.Keys | Sort-Object)){
     # dort sayfa + bir kapi demek; oran ikisine birden yazilarak hepsi korunur.
     $oran = if($map.ContainsKey('oran')){ Al $h $map['oran'] } else { "" }
     $teb  = if($map.ContainsKey('teblig')){ Al $h $map['teblig'] } else { "" }
+    # 'sd' = NORMAL SURE DOLUM TARIHI (kesin onlem 5 yil sonra kalkar - Yonetmelik m.35).
+    # Excel tarihi seri numara olarak iner (1899-12-30 tabanli). Tarih OLMAYAN hucre
+    # (OEK satirlarinda bazen baska deger var) BOS birakilir - UYDURULMAZ.
+    $sd = ""
+    if($map.ContainsKey('dolum')){
+      $ham = Al $h $map['dolum']
+      $n = 0
+      if([double]::TryParse($ham, [ref]$n) -and $n -gt 20000 -and $n -lt 90000){
+        $sd = ([datetime]'1899-12-30').AddDays([math]::Floor($n)).ToString('yyyy-MM-dd')
+      }
+    }
     # baslik/bos satirlari ele
     if($gtipHam -match "G\.T\.İ\.P" -or $urun -eq "MADDE İSMİ"){ continue }
     # GTIP kodlarini ayikla (noktali kalibi olanlar)
@@ -140,7 +152,7 @@ foreach($ad in ($harita.Keys | Sort-Object)){
     if(-not $kodlar.Count -or -not $ulke){ continue }
     $onlemler += [ordered]@{
       k = ($kodlar -join " ")
-      u = $ulke; m = $urun; o = $oran; t = $oran; tb = $teb; tur = $tip
+      u = $ulke; m = $urun; o = $oran; t = $oran; tb = $teb; tur = $tip; sd = $sd
     }
   }
 }
