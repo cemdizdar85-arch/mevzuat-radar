@@ -62,6 +62,41 @@ jobs:
         continue-on-error: true   # rapor her halukarda yazilsin; sonuc asagida
         run: ./arac/ihale-firma-adi-denetimi.ps1
 
+      # 30.08 TESHIS ADIMI: "Depoya yaz" uc kez ust uste dustu ve sebebi
+      # gorulemedi (Actions gunlugunu okumak depo yoneticisi yetkisi ister;
+      # tahminle uc duzeltme denendi, ucu de tutmadi). Tahmin etmeyi birakip
+      # OLCUM kondu: once KUCUK bir kutuk dosyasi yazilip itilir.
+      #   bu adim GECERSE  -> push yetkisi ve hat saglam; sorun ozet
+      #                       dosyalarinda (boyut ya da cakisma)
+      #   bu adim DUSERSE  -> sorun push'un kendisinde
+      # Kutuk her kosuda uzerine yazilir, depoyu sismez.
+      - name: TESHIS - kucuk kutuk dosyasini it
+        continue-on-error: true
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "robot@tetikte.com"
+          mkdir -p veri
+          {
+            echo "son kosu : $(date -u '+%Y-%m-%d %H:%M') UTC"
+            echo "kosu no  : ${{ github.run_number }}"
+            echo "--- uretilen ozet dosyalari ---"
+            for f in veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json veri/ihale-idare-ozet.json; do
+              if [ -f "$f" ]; then echo "$f  $(wc -c < "$f") bayt"; else echo "$f  YOK"; fi
+            done
+            echo "--- calisma agaci ---"
+            git status --short | head -20
+          } > veri/ihale-ozet-tazele-log.txt
+          git add veri/ihale-ozet-tazele-log.txt
+          if git diff --staged --quiet; then
+            echo "kutuk degismedi"
+          else
+            git commit -m "Ozet tazeleme kutugu [veri-operasyonu]"
+            for d in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "KUTUK ITILDI"; break; }
+              echo "kutuk denemesi $d dustu"; sleep 4
+            done
+          fi
+
       - name: Depoya yaz
         run: |
           git config user.name  "tetikte-robot"
