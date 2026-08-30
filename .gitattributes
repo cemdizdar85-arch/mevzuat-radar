@@ -1,4 +1,4 @@
-* text=auto
+﻿* text=auto
 *.pdf binary
 *.png binary
 *.jpg binary
@@ -66,3 +66,15 @@ veri/kgk-arsiv/**     !merge
 veri/sgs-arsiv/**     !merge
 veri/smmm-arsiv/**    !merge
 veri/yutma-arsiv/**   !merge
+
+# 30.08 CAKISMA DERSI: veri/ihale-kesik-firma-adi.json cakisti ve merge=tetikte-robot
+# kurali onu KAPSAMIYORDU (desenler yalniz *-ozet / *-raporu / *-damga idi).
+# Iki taraf ICERIKCE AYNIYDI (115 kayit, 14.437 taranan); tek fark bicimdi -
+# yerel PS 5.1 dort bosluk girinti + \uXXXX kacisi, CI'daki pwsh 7 iki bosluk.
+# Yani ayni veri iki farkli JSON bicimiyle yaziliyor ve her seferinde cakisiyor.
+# Denetim/olcum ciktilarinin hepsi de robot ciktisidir: cakisma cikmasin.
+veri/*-denetimi.json      merge=tetikte-robot
+veri/*-olcum.json         merge=tetikte-robot
+veri/*-taramasi.json      merge=tetikte-robot
+veri/ihale-kesik-*.json   merge=tetikte-robot
+veri/URUN-KUNYELERI.json  merge=tetikte-robot
