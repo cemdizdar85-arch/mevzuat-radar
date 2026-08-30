@@ -197,7 +197,7 @@ let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 // Ekranda gösterilir — kullanıcı verinin ne kadar taze olduğunu BİLMELİ.
 const GOZETIM_HASAT = "20.08.2026";
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null, DMP_SORUSTURMA = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null, DMP_SORUSTURMA = null, DMP_GECMIS = null;
 Promise.all([
   // 29.07.2026 — GÖZETİM VERİSİNİN HASAT TARİHİ ekranda GÖSTERİLİR.
   // Sebebi: araç kod bulamayınca eskiden "bu kodda gözetim BULUNMUYOR" diye
@@ -226,8 +226,13 @@ Promise.all([
   // 30.08.2026 — DEVAM EDEN damping/sübvansiyon soruşturmaları. Yürürlükteki
   // önlem "bugün ne ödersin"i söyler; bu liste "yakında ne ödeyebilirsin"i.
   // Ölçüm: 148 GTİP kodunda açık soruşturma var, 101'inde bugün önlem YOK.
-  fetch('veri/damping-sorusturma.json').then(r=>r.json()).catch(()=>([]))
-]).then(([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,s])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; BALIK=m; ASKIYA=n; NIHAI=o; IHRKISIT=p; DMP_SORUSTURMA=s; });
+  fetch('veri/damping-sorusturma.json').then(r=>r.json()).catch(()=>([])),
+  // 30.08.2026 — GEÇMİŞ: süresi dolmuş / gözden geçirmede kalkmış önlemler +
+  // önlemsiz kapanmış soruşturmalar (110 kayıt). Üçüncü soruyu cevaplar:
+  // "bu üründe daha önce ne oldu?" Listeler farklı tarihlerde damgalı ve
+  // tamlığı doğrulanmamış → ORAN/OLASILIK ÇIKARILMAZ, tekil olay söylenir.
+  fetch('veri/damping-gecmis.json').then(r=>r.json()).catch(()=>({kayitlar:[]}))
+]).then(([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,s,gc])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; BALIK=m; ASKIYA=n; NIHAI=o; IHRKISIT=p; DMP_SORUSTURMA=s; DMP_GECMIS=gc; });
 
 // VI/VII Sayılı Liste: belirli nihai kullanımda indirimli/sıfır GV — şartlı
 function nihaiKart(kod){
@@ -811,6 +816,34 @@ function sorusturmaKart(q){
   return html;
 }
 
+// 30.08.2026 — GEÇMİŞ KARTI. "Bu üründe daha önce ne oldu?"
+// ⚠ SINIR: kaynak listeler farklı tarihlerde damgalı ve tamlığı doğrulanmamış
+// (gözden geçirme listesi 13.05.2022'den beri güncellenmemiş). Bu yüzden
+// ORAN/OLASILIK cümlesi kurulmaz ("soruşturmaların %X'i vergiyle biter" YASAK);
+// yalnız TEKİL olay ve tebliğ söylenir, damgası da ekranda yazar.
+function gecmisKart(q){
+  if(!DMP_GECMIS || !DMP_GECMIS.kayitlar || !DMP_GECMIS.kayitlar.length) return '';
+  const qd = q.replace(/\./g,'');
+  const bulunan = DMP_GECMIS.kayitlar.filter(x => (x.k||'').split(' ').some(k => k && (k.startsWith(qd) || qd.startsWith(k))));
+  if(!bulunan.length) return '';
+  const ETIKET = {
+    'suresi-doldu': 'önlem vardı, 5 yıllık süresi doldu',
+    'gozden-gecirmede-kalkti': 'önlem vardı, gözden geçirme sonucunda kaldırıldı',
+    'onlemsiz-kapandi': 'soruşturma açılmış, önlem alınmadan kapanmış'
+  };
+  const satir = bulunan.slice(0,8).map(x =>
+    `<div class="satir"><b>${x.u||'—'}</b><span>${ETIKET[x.tip]||x.tip}${x.tb?` · tebliğ ${x.tb}`:''}${x.rg?` · RG ${x.rg}`:''}</span></div>`
+  ).join('');
+  const d = DMP_GECMIS.damga || {};
+  const damgaYazi = ['dolan','kalkan','onlemsiz'].map(a => d[a] ? d[a].dosya : null).filter(Boolean).join(' · ');
+  return `<div class="kart" style="border-left-color:var(--dim)">
+    <div class="et" style="color:var(--muted)">🕘 BU ÜRÜNDE GEÇMİŞTE NE OLDU</div>
+    <h3>${bulunan[0].m||'Bu ürün grubu'}</h3>
+    ${satir}
+    <p style="color:var(--muted);font-size:13px;margin:10px 0 0">Geçmiş, bugünkü durumu bağlamaz — yukarıdaki kartlar bugünü gösterir. Buradaki kayıtlar yalnız <b>daha önce ne olduğunu</b> söyler: aynı üründe önlem konmuş ve kalkmış olması, yeni bir soruşturmanın açılabileceği anlamına da gelmez, gelmeyeceği anlamına da.</p>
+    <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Kaynak: Ticaret Bakanlığı tarihsel listeleri (${damgaYazi||'—'}). Listeler farklı tarihlerde yayımlandı; tamlığı Bakanlık yayınına bağlıdır.</div></div>`;
+}
+
 // damping/anti-damping önlem uyarısı: sorgulanan kod bir önleme dokunuyor mu?
 function dampingKart(q){
   if(!DAMPING || !DAMPING.length) return '';
@@ -1000,8 +1033,10 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
   const say2 = q.replace(/\./g,'');
   // damping uyarısı (varsa en üstte) + hemen ardından DEVAM EDEN soruşturma.
   // Sıra bilinçli: önce "bugün ne ödersin", sonra "yakında ne gelebilir".
-  const onlemHtml = dampingKart(q), sorHtml = sorusturmaKart(q);
-  const dHtml = onlemHtml + sorHtml;
+  const onlemHtml = dampingKart(q), sorHtml = sorusturmaKart(q), gecHtml = gecmisKart(q);
+  // Sıra: bugün ödediğin → yakında gelebilecek → geçmişte olan.
+  const dHtml = onlemHtml + sorHtml + gecHtml;
+  if(gecHtml) ttOlay('damping-gecmis-karti');
   // 30.08.2026 — sayaç: hangi kart GÖSTERİLDİ? (huni bu bayrağa bağlı)
   TT_KART_GORULDU = sorHtml ? 'damping-sorusturma' : (onlemHtml ? 'damping-onlem' : null);
   if(onlemHtml){
