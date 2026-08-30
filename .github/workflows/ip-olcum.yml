@@ -187,29 +187,63 @@ jobs:
         shell: pwsh
         run: |
           $sonuc = @()
-          $hedefler = @(
+          # POST hedefleri
+          $postHedef = @(
             @{ ad='ilan.gov.tr AdsByFilter'; url='https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter';
-               govde='{"skipCount":0,"maxResultCount":1}' }
+               govde='{"skipCount":0,"maxResultCount":1}'; ua='Mozilla/5.0 (MevzuatRadar-IhaleRobotu)' }
           )
-          foreach($h in $hedefler){
-            $satir = ''
+          # GET hedefleri — mevzuat.gov.tr BURADA. curl ile 000 veriyor ve
+          # 05.08'den beri "TR-IP'li sunucu şart" hükmünün TEK dayanağı o.
+          # ilan.gov.tr aynı hükmü aldı ve üretim aracıyla ölçülünce ÇÖKTÜ.
+          # Aynı sınav mevzuat.gov.tr'ye de uygulanır: eğer .NET ile iniyorsa
+          # sunucu kiralamaya hiç gerek yok demektir.
+          $getHedef = @(
+            @{ ad='mevzuat.gov.tr GeneratePdf (Teblig III-39.1)';
+               url='https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131&mevzuatTur=Teblig&mevzuatTertip=5' },
+            @{ ad='mevzuat.gov.tr MevzuatMetin (SPKn 6362)';
+               url='https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf' }
+          )
+          $TARAYICI_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
+
+          foreach($h in $postHedef){
             try {
               $y = Invoke-RestMethod -Method Post -Uri $h.url `
-                    -Headers @{ "Accept"="application/json"; "User-Agent"="Mozilla/5.0 (MevzuatRadar-IhaleRobotu)" } `
+                    -Headers @{ "Accept"="application/json"; "User-Agent"=$h.ua } `
                     -Body ([System.Text.Encoding]::UTF8.GetBytes($h.govde)) `
                     -ContentType "application/json" -TimeoutSec 90
               $n = 0
               foreach($p in $y.PSObject.Properties){ if($p.Value -is [array] -and $p.Value.Count -gt $n){ $n = $p.Value.Count } }
               if($y.result){ foreach($p in $y.result.PSObject.Properties){ if($p.Value -is [array] -and $p.Value.Count -gt $n){ $n = $p.Value.Count } } }
-              $satir = "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ ($n kayıt) |"
+              $sonuc += "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ ($n kayıt) |"
               Write-Host "[INDI] $($h.ad) -> $n kayit"
             } catch {
-              $m = "$($_.Exception.Message)" -replace '\|','/'
-              if($m.Length -gt 90){ $m = $m.Substring(0,90) }
-              $satir = "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ ($m) |"
+              $m = "$($_.Exception.Message)" -replace '\|','/'; if($m.Length -gt 90){ $m = $m.Substring(0,90) }
+              $sonuc += "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ ($m) |"
               Write-Host "[INMEDI] $($h.ad) -> $m"
             }
-            $sonuc += $satir
+          }
+
+          foreach($h in $getHedef){
+            try {
+              $w = Invoke-WebRequest -Uri $h.url -Headers @{ "User-Agent"=$TARAYICI_UA; "Referer"="https://www.mevzuat.gov.tr/" } `
+                    -UseBasicParsing -TimeoutSec 90
+              $bayt = if($w.RawContentLength){ $w.RawContentLength } else { $w.Content.Length }
+              # "200 geldi" YETMEZ: mevzuat.gov.tr ölü adrese 200 + HTML döner.
+              $imza = 'bilinmiyor'
+              try {
+                $ilk = $w.Content
+                if($ilk -is [byte[]]){ $imza = if(($ilk[0] -eq 0x25) -and ($ilk[1] -eq 0x50)){ 'PDF' } else { 'PDF-degil' } }
+                elseif("$ilk".StartsWith('%PDF')){ $imza = 'PDF' } else { $imza = 'PDF-degil' }
+              } catch {}
+              $iyi = ($w.StatusCode -eq 200 -and $imza -eq 'PDF' -and $bayt -gt 500)
+              $isaret = if($iyi){ '✅ İNDİ' } else { "⚠️ 200 ama imza $imza" }
+              $sonuc += "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | $($w.StatusCode) | — | $bayt | $imza | $isaret |"
+              Write-Host "[$isaret] $($h.ad) -> $bayt bayt, imza=$imza"
+            } catch {
+              $m = "$($_.Exception.Message)" -replace '\|','/'; if($m.Length -gt 90){ $m = $m.Substring(0,90) }
+              $sonuc += "| — | $($h.ad) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ ($m) |"
+              Write-Host "[INMEDI] $($h.ad) -> $m"
+            }
           }
           $hedef = 'veri/ip-olcum-raporu.md'
           $ic = Get-Content $hedef -Raw -Encoding UTF8
