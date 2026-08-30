@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260830114209
+Start time: 20260830132424
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c503c6ef-7a4c-4419-9615-4bb63749db12.ps1'
-Process ID: 2244
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c312ced3-1f7e-4b3d-a9fc-fb92019c3d53.ps1'
+Process ID: 2234
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -45,10 +45,66 @@ Taranan sayfa: 64
   uyari-teyit.html           1 dayanak
 
 Tekil (kanun, madde) cifti: 86 - ambarda araniyor...
-  ambarda BULUNAN : 85
-  BULUNAMAYAN     : 1
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  ambarda BULUNAN : 78
+  BULUNAMAYAN     : 8
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
+     193 m.1   [sorgu-hatasi]
+     193 m.13   [sorgu-hatasi]
+     193 m.17   [sorgu-hatasi]
+     193 m.47   [sorgu-hatasi]
+     193 m.65   [sorgu-hatasi]
+     193 m.89   [sorgu-hatasi]
+     193 m.9   [sorgu-hatasi]
      213 m.372   [ambarda-yok]
 
   NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
@@ -58,5 +114,5 @@ Tekil (kanun, madde) cifti: 86 - ambarda araniyor...
 -> veri/dayanak-haritasi.json  (25 sayfa, 86 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260830114313
+End time: 20260830132620
 **********************
