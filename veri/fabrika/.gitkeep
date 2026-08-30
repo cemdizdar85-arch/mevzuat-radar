@@ -1,0 +1,4 @@
+# Bu dosya KLASORU depoda tutmak icin var.
+# motor icindeki 23 betik veri/fabrika/ altina yaziyor ama klasoru
+# olusturmuyor; temiz klonda ve CI runner inda klasor yoksa hepsi patliyor.
+# Icerik .gitignore ile yok sayilir, yalniz bu dosya kalir.
