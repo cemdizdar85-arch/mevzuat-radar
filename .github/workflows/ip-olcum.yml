@@ -76,6 +76,25 @@ jobs:
             "spk.gov.tr dosya arama|https://spk.gov.tr/Web/DosyaAra?page=1&text=s%C4%B1nav|HTML"
             "kgk.gov.tr standart PDF (TFRS 10, Kirmizi Kitap)|https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS%2010.pdf|PDF"
             "kgk.gov.tr denetim standardi (BDS 200)|https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS%20200_2025.pdf|PDF"
+            # --- 30.08: VPS KARARI ICIN EKLENDI --------------------------------
+            # Soru: 94,99 TL/ay sunucu SADECE mevzuat.gov.tr icin kiralanacak.
+            # Once sunu olcelim: (a) domainin TAMAMI mi engelli yoksa yalniz
+            # dosya uclari mi, (b) TLS'siz iniyor mu, (c) ayni icerik BASKA
+            # kaynaktan alinabiliyor mu.
+            # YEREL OLCUM (Cem'in makinesi, TR IP - hepsi 200):
+            #   www5.tbmm.gov.tr/kanunlar/k6362.html  ->  64.046 bayt
+            #   mevzuat.gov.tr 1.5.6362.pdf           -> 1.482.842 bayt
+            # TBMM metninde "(Değişik", "(Ek:", "(Mülga" isareti SIFIR - yani
+            # kanun KABUL EDILDIGI HALIYLE duruyor, sonraki degisiklikler
+            # islenmemis. mevzuat.gov.tr'nin degeri KONSOLIDE metin olmasi.
+            # Bu yuzden TBMM YEDEK DEGIL; asagida yine de olculuyor ki
+            # "denemedik" denmesin.
+            "mevzuat.gov.tr ana sayfa (domainin TAMAMI mi engelli)|https://www.mevzuat.gov.tr|HTML"
+            "mevzuat.gov.tr TLS'siz (http)|http://www.mevzuat.gov.tr|HTML"
+            "TBMM kanun metni (OZGUN hal - konsolide DEGIL)|https://www5.tbmm.gov.tr/kanunlar/k6362.html|HTML"
+            "resmigazete arsiv sayfasi (ozgun yayim)|https://www.resmigazete.gov.tr/eskiler/2012/12/20121230-1.htm|HTML"
+            "gib.gov.tr mevzuat (vergi tarafi)|https://www.gib.gov.tr/gibmevzuat|HTML"
+            "mevzuat.adalet.gov.tr|https://mevzuat.adalet.gov.tr|HTML"
           )
           i=0
           for satir in "${HEDEFLER[@]}"; do
