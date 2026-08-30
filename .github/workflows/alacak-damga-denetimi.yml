@@ -1,0 +1,72 @@
+# ============================================================================
+#  ALACAK CANLI DAMGA DENETİMİ
+#
+#  NEDEN VAR (30.08.2026): O sabah 32 ilanda okuma alıntısının kendi
+#  etiketini desteklemediği ölçüldü. Ama o, OKUMA TURUNUN çıktısıydı;
+#  "bu kayıtlar CANLIDA da yanlış damgalı mı?" sorusu cevapsız kaldı.
+#
+#  Yerelde ölçülemedi ve sebebi ÖLÇÜLDÜ: bu makinedeki SUPABASE_SERVICE_KEY
+#  41 karakterlik yeni biçim bir anahtar ve yalnız `ihale_dokum` RPC'sine
+#  izinli — `alacak_ilan` ve `alacak_vitrin` uçları 401 döndürüyor.
+#  Yani alacak kasasını okumak service_role ister, o da yalnız CI'da.
+#
+#  BU AKIŞ CANLIYA YAZMAZ. Kasadaki karar_durumu damgasını çeker ve ilanın
+#  KENDİ METNİNİ o damgaya karşı sınar (Türkçe harf katlamasıyla).
+#  Desteklemiyorsa damga şüphelidir: site o firmayı yanlış gösteriyor olabilir.
+#
+#  Girdi: `ilanlar` (virgüllü ilan_no) — boşsa veri/alacak-destek-denetimi.json
+#  içindeki liste kullanılır.
+# ============================================================================
+name: Alacak canli damga denetimi
+
+on:
+  schedule:
+    - cron: '25 7 * * 1'      # Pazartesi 10:25 TR - haftalık kontrol
+  workflow_dispatch:
+    inputs:
+      ilanlar:
+        description: 'Denetlenecek ilan_no listesi (virgullu). Bos = veri/alacak-destek-denetimi.json'
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Canli damga olcumu
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if ('${{ github.event.inputs.ilanlar }}'.Trim()) {
+            ./arac/alacak-canli-damga-olcum.ps1 -IlanListesi '${{ github.event.inputs.ilanlar }}' -Ayrinti
+          } else {
+            ./arac/alacak-canli-damga-olcum.ps1 -Dosya 'veri/alacak-destek-denetimi.json' -Ayrinti
+          }
+
+      - name: Raporu depoya yaz
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "robot@tetikte.com"
+          git config merge.tetikte-robot.name "Tetikte robot ciktisi"
+          git config merge.tetikte-robot.driver true
+          if [ -f veri/alacak-canli-damga-olcum.json ]; then
+            git add veri/alacak-canli-damga-olcum.json
+          else
+            echo "rapor uretilmedi"; exit 0
+          fi
+          if git diff --staged --quiet; then
+            echo "rapor degismedi"
+          else
+            git commit -m "Alacak canli damga denetimi [veri-operasyonu]"
+            for d in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main && git push && exit 0
+              echo "deneme $d dustu"; sleep 5
+            done
+            echo "yayinlanamadi"; exit 1
+          fi
