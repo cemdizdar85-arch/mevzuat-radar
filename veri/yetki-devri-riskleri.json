@@ -1,11 +1,11 @@
 {
-  "tarih": "30.08.2026 00:19",
+  "tarih": "30.08.2026 04:52",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
   "sayfa": 63,
   "atifli_iddia": 267,
-  "dayanaksiz_iddia": 309,
+  "dayanaksiz_iddia": 310,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 342,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -138,42 +138,42 @@
     },
     {
       "sayfa": "destekler.html",
-      "satir": 222,
+      "satir": 224,
       "iddia": "120 gün",
       "kanun": "5973",
       "metin": "Pilot: Ege İhracatçı Birlikleri (İzmir). UR-GE proje katılım çağrıları ve sektörel ticaret/alım heyetleri 5973 s. Karar kapsamında desteklenir; duyuru yalnız birlik kanalından çıka"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 330,
+      "satir": 332,
       "iddia": "3 ay",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Yurt Dışı Fuar Katılım Desteği\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-gen"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 336,
+      "satir": 338,
       "iddia": "%50,",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Yurt Dışı Birim, Kira ve Tanıtım Destekleri\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karar"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 337,
+      "satir": 339,
       "iddia": "%50",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Pazara Giriş Belgesi Desteği\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genel"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 338,
+      "satir": 340,
       "iddia": "%50,",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Marka ve TURQUALITY® Destek Programı\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-ilisk"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 340,
+      "satir": 342,
       "iddia": "%50,",
       "kanun": "5986",
       "metin": "oran:[\"Temel oran %50, pazaryeri tanıtımında pazaryeri başına 3 yıl (5986 s. Karar m.4; e-ihracat tanıtım gideri sınırı: pazaryeri satışının %20'si)\",\"Sipariş karşılama (fulfilment"
@@ -745,37 +745,43 @@
     },
     {
       "sayfa": "destekler.html",
-      "satir": 412,
+      "satir": 417,
       "iddia": "0 gün",
       "metin": "// çağrı \"son 0 gün\" diye AÇIK görünüyordu. Artık TAM GÜN farkı hesaplanır:"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 413,
+      "satir": 418,
       "iddia": "9 gün",
       "metin": "// dün kapanan -1 (KAPANDI), bugün kapanan 0 (bugün son gün), 9 gün kalan 9."
     },
     {
       "sayfa": "destekler.html",
-      "satir": 601,
+      "satir": 478,
+      "iddia": "%82",
+      "metin": "// alanları \"Çağrı duyurusunda\" diyordu - liste %82 oranında boş kutuydu."
+    },
+    {
+      "sayfa": "destekler.html",
+      "satir": 641,
       "iddia": "%74",
       "metin": "// 21.08 adım 2: AB canlı verinin ~%74'ü (100/135). Kapalı akordeonda saklamak"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 666,
+      "satir": 706,
       "iddia": "En az 2",
       "metin": "if(q.length En az 2 harf yaz; '+FUAR.fuarlar.length+' fuar içinde arar. '; return; }"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 754,
+      "satir": 794,
       "iddia": "120 gün",
       "metin": "document.getElementById('urgeSayi').textContent = '· '+d.kayitlar.length+' duyuru (son 120 gün)';"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 765,
+      "satir": 805,
       "iddia": "120 gün",
       "metin": ": ' Son 120 günde UR-GE/heyet duyurusu yok. ';"
     },
