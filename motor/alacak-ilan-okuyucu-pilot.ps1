@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  ALACAK ILANI OKUYUCU - PILOT  (29.08.2026)
 #
 #  CEM'IN TESHISI (28.08 gecesi): "bu yazanlari tek tek okusak daha dogru karar
@@ -541,6 +541,36 @@ if ($ONBELLEK_ACIK -and (Test-Path $obHedef)) {
 }
 $script:obIsabet = 0; $script:obHakemIsabet = 0
 
+# --- AYRISTIRMA OZ-SINAVI (30.08) -------------------------------------------
+# Ucuncu kultur tuzagi burada yakalandi: '(?i)[A-Z_]' kalibi tr-TR makinede
+# "KESIN_MUHLET"i "KES" diye kesiyordu. Linux runner'da calistigi icin
+# kosularda hic gorunmedi. Artik her kosu once kendi ayristirmasini sinar -
+# cevaplari okuyamayan bir hat, sessizce "cevapsiz" uretmesin.
+$AYRISTIRMA_SINAVI = @('GECICI_MUHLET','KESIN_MUHLET','UZATMA','MUHLET_BELIRSIZ',
+  'RET','RET_IFLAS','TASDIK','IFLAS_KALDIRMA','MUHLET_KALDIRMA','FERAGAT',
+  'ALACAK_CAGRISI','DURUSMA','IFLAS_TASFIYE','HICBIRI')
+$ayrKotu = @()
+foreach ($et in $AYRISTIRMA_SINAVI) {
+  $ornek = "KARAR: $et`nALINTI: metinden alinmis bir cumle"
+  $c1 = ''
+  if ($ornek -cmatch '(?m)^\s*(?:KARAR|Karar|karar)\s*:\s*[\(\[]?\s*([A-Za-z_]{3,})') {
+    $c1 = $Matches[1].ToUpperInvariant().Trim('_')
+  }
+  if ($c1 -ne $et -or -not $ESLESME.ContainsKey($c1)) { $ayrKotu += "$et -> '$c1'" }
+}
+foreach ($h in @('A','B','C')) {
+  $ornek = "HAKEM: $h`nALINTI: cumle"
+  $c2 = ''
+  if ($ornek -cmatch '(?m)^\s*(?:HAKEM|Hakem|hakem)\s*:\s*[\(\[]?\s*([ABCabc])') { $c2 = $Matches[1].ToUpperInvariant() }
+  if ($c2 -ne $h) { $ayrKotu += "HAKEM $h -> '$c2'" }
+}
+if ($ayrKotu.Count) {
+  Write-Host ("HATA: cevap AYRISTIRMASI bozuk ({0} vaka) - kosu baslamiyor:" -f $ayrKotu.Count)
+  $ayrKotu | ForEach-Object { Write-Host "  $_" }
+  exit 1
+}
+Write-Host ("Ayristirma oz-sinavi: {0}/{0} etiket + 3/3 hakem gecti" -f $AYRISTIRMA_SINAVI.Count)
+
 $kapiToplam = $KAPI_SINAVI.Count + $DESTEK_SINAVI.Count
 if ($kapiKotu.Count) {
   Write-Host ("HATA: yazma kapilari oz-sinavda {0}/{1} vakada BOZUK - kosu baslamiyor." -f `
@@ -571,11 +601,23 @@ foreach ($x in $ilanlar) {
   # 30.08: harf yerine ETIKET okunuyor. Etiket listesi $ESLESME'nin anahtarlari
   # oldugu icin ikisi ASLA ayrisamaz - eski harf listesindeki gibi bir secenek
   # eklenip esleme unutulamaz.
-  if ($c -match '(?im)^\s*KARAR\s*:\s*[\(\[]?\s*([A-Z_]{3,})') {
-    $aday = $Matches[1].ToUpper().Trim('_')
+  # 30.08 UCUNCU KULTUR TUZAGI - bu sefer ANA AYRISTIRMADA. Kalip
+  # '(?im)...([A-Z_]{3,})' idi. tr-TR makinede IgnoreCase karakter SINIFINI da
+  # kulture gore yorumluyor ve 'I' harfini REDDEDIYOR:
+  #     "KARAR: KESIN_MUHLET"  ->  yakalanan "KES"
+  # Sonra ESLESME'de "KES" bulunamayip cevap SAYILMIYOR. Linux runner'da
+  # (invariant kultur) calistigi icin kosularda hic gorunmedi - yani hat
+  # DOGRU sonuc uretiyordu ama SEBEBI makinenin kulturuydu. Boyle bir
+  # ayristirmaya guvenilmez.
+  # COZUM: IgnoreCase KALDIRILDI, iki durum acikca yazildi. Sinifi ordinal
+  # yorumlaniyor, 'I' tutuyor.
+  if ($c -cmatch '(?m)^\s*(?:KARAR|Karar|karar)\s*:\s*[\(\[]?\s*([A-Za-z_]{3,})') {
+    $aday = $Matches[1].ToUpperInvariant().Trim('_')
     if ($ESLESME.ContainsKey($aday)) { $harf = $aday }
   }
-  if ($c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')     { $alinti = $Matches[1].Trim() }
+  # ALINTI etiketinin de her yazimi kabul edilir (model Turkce 'Alinti/Alintı'
+  # da yazabiliyor). IgnoreCase kullanilmaz - ayni 'I' tuzagi.
+  if ($c -cmatch '(?m)^\s*A[LlIi][IıiİI]?[Nn][Tt][IıiİI]?\s*:\s*(.+)$') { $alinti = $Matches[1].Trim() }
   if (-not $harf) { $cevapsiz++; continue }
   # 29.08 ASIL KUSUR: "alinti zorunlu" dedim ama ZORLAMADIM - ilk kosuda 290/746
   # (%39) cevap alintisiz geldi ve ben onlari yine de uyum oranina KATTIM.
@@ -697,8 +739,9 @@ if ($env:HAKEM -eq '1') {
       $c = Sor $istem
     }
     $kar = ''; $al = ''
-    if ($c -and $c -match '(?im)^\s*HAKEM\s*:\s*\(?([ABC])') { $kar = $Matches[1].ToUpper() }
-    if ($c -and $c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')      { $al  = $Matches[1].Trim() }
+    # IgnoreCase yok - bkz okuma ayristirmasindaki 'I' tuzagi.
+    if ($c -and $c -cmatch '(?m)^\s*(?:HAKEM|Hakem|hakem)\s*:\s*[\(\[]?\s*([ABCabc])') { $kar = $Matches[1].ToUpperInvariant() }
+    if ($c -and $c -cmatch '(?m)^\s*A[LlIi][IıiİI]?[Nn][Tt][IıiİI]?\s*:\s*(.+)$')       { $al  = $Matches[1].Trim() }
     switch ($kar) {
       'A' { $okumaKazandi++ } 'B' { $regexKazandi++ } 'C' { $ikisiDe++ } default { $hakemsiz++ }
     }
