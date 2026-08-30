@@ -8,15 +8,30 @@ name: Mevzuat Tam Yukleme
 
 on:
   workflow_dispatch:
-  # 27.07: GM elle yuttugu standart dosyalari (TMS/TFRS/BDS) push'layinca ambar
-  # kendiliginden tazelensin. Bu is API PARASI YEMEZ - yalniz Supabase yazimi.
-  push:
-    paths:
-      - 'veri/mevzuat/**'
-      # 27.07: yukleyicinin KENDISI degisince de kossun. Onceden yalniz veri
-      # yolu dinleniyordu; betikte duzeltme yapilinca ambar tazelenmiyordu.
-      - 'motor/mevzuat-yukle.ps1'
-      - '.github/workflows/yukle.yml'
+  # ==========================================================================
+  # 30.08.2026 — PUSH TETIGI KALDIRILDI (Cem onayi). ELLE TETIKLENIR.
+  #
+  # NEDEN: bu dosyanin KENDI BASLIGI "elle tetiklenir, felaket kurtarma,
+  # gunluk isi DEGIL" diyor. Ama push tetigi yuzunden veri/mevzuat/ altina
+  # yazan HER commit bu SIL-YAZ robotunu uyandiriyordu.
+  #
+  # OLCULEN ZARAR (30.08): rutin iki commit'im (mevzuat-kaynaklar.json ve
+  # mevzuat-yut.ps1) bu akisi tetikledi, kosu 'cancelled' oldu - yani SILME
+  # ile GERI YAZMA arasinda kesildi. Ambar 43.821 -> 36.014 dustu:
+  #     standart-madde 8.643 -> 4.449  (-4.194)
+  #     kanun-madde   33.846 -> 30.673 (-3.173)
+  #     teori-notu       281 ->    223
+  # Ayni sinif kiyim 27.08'de de yasanmis ve ders yaziya dokulmustu.
+  # Iki kez ayni sekilde vuran bir tetik, kolaylik degil TUZAKTIR.
+  #
+  # Bundan sonra: Actions > "Mevzuat Tam Yukleme" > Run workflow ile ELLE.
+  # Felaket kurtarma araci, felaket sebebi olmamali.
+  #
+  # ESKI HALI (kayit icin):
+  #   push:
+  #     paths: [ 'veri/mevzuat/**', 'motor/mevzuat-yukle.ps1',
+  #              '.github/workflows/yukle.yml' ]
+  # ==========================================================================
 
 permissions:
   contents: read

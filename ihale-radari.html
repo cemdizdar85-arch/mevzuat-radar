@@ -898,7 +898,19 @@ function yurtIciCiz(){
     // "ihalelerin yarısı bunun üstünde" der — teklif verecek için ölçü budur.
     const med=(i.kirimMedyan!==undefined?i.kirimMedyan:i.kirimOrt);
     const p=[];
-    p.push(`<b style="color:var(--ink)">${esc(r.nasil)} ${i.kirimOlculen} ihalenin</b> yarısı, yaklaşık maliyetin en az <b style="color:var(--accent2)">%${vr(med)}</b> altına inerek kapandı <span style="color:var(--dim)">(indirim/kırım oranı)</span>`);
+    // MEDYAN 0 ya da NEGATİF olabiliyor — o zaman "en az %0 altına inerek
+    // kapandı" saçmalıyordu (30.08 canlıda görüldü: bir idare kutusu birebir
+    // böyle yazıyordu). Medyan sıfırsa ihalelerin yarısı indirim YAPMADAN,
+    // negatifse maliyetin ÜSTÜNDE kapanmış demektir; ikisi de anlamlı bilgi,
+    // ikisi de "indirim" diliyle anlatılamaz.
+    const bas = `<b style="color:var(--ink)">${esc(r.nasil)} ${i.kirimOlculen} ihalenin</b> yarısı`;
+    if(med > 0){
+      p.push(`${bas}, yaklaşık maliyetin en az <b style="color:var(--accent2)">%${vr(med)}</b> altına inerek kapandı <span style="color:var(--dim)">(indirim/kırım oranı)</span>`);
+    } else if(med === 0){
+      p.push(`${bas}, yaklaşık maliyetin <b style="color:var(--accent2)">altına inmeden</b> kapandı <span style="color:var(--dim)">(indirim yok)</span>`);
+    } else {
+      p.push(`${bas}, yaklaşık maliyetin <b style="color:var(--amber)">%${vr(-med)} ÜSTÜNDE</b> kapandı <span style="color:var(--dim)">(indirim değil, aşım)</span>`);
+    }
     // 30.08: "aynı ihalelerde" eklendi. Rakam artık kırımın ölçüldüğü AYNI
     // kayıtlardan geliyor (ihale-sonuc-ozet.ps1 Ist); cümle de bunu söylesin ki
     // okuyan iki farklı kümeyi tek özneye bağlamasın.
@@ -909,9 +921,17 @@ function yurtIciCiz(){
     // n<10 = eğilim (kesin değil); n>=10 temiz. n<5 grup zaten yayımlanmıyor.
     const azOrnek = i.kirimOlculen < 10
       ? `<div style="font-size:11px;color:var(--amber);margin-top:4px">⚠️ Az örnek (${i.kirimOlculen} ihale): bu bir kesin oran değil, <b>eğilim</b>. Örnek biriktikçe netleşir.</div>` : '';
+    // KAPSAM ORANI (30.08). Dipnot "kısmi teklife açık ihaleler dahil değildir"
+    // diyordu ama BU KADARININ dışarıda kaldığını söylemiyordu; okuyan kaç
+    // ihaleden kaçını ölçtüğümüzü bilmiyordu. Zayıflık değil kanıt: ölçemediğine
+    // "ölçtüm" demediğimizi gösteren tek satır bu.
+    // Yalnız ihaleSayisi > kirimOlculen ise yazılır — kelime gruplarında havuz
+    // zaten ölçülenlerden kurulduğu için ikisi eşittir ve "%100" yazmak yanıltır.
+    const kapsam = (i.ihaleSayisi && i.ihaleSayisi > i.kirimOlculen)
+      ? `<div style="font-size:11px;color:var(--dim);margin-top:4px">Kapsam: <b style="color:var(--muted)">${i.ihaleSayisi} ihalenin ${i.kirimOlculen}'i</b> ölçülebildi (%${vr(Math.round(1000*i.kirimOlculen/i.ihaleSayisi)/10)}). Kalanı çok kısımlı: kısmın kendi yaklaşık maliyeti ilanda yazmadığı için tek bir kırım oranı vermiyor.</div>` : '';
     return `<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);line-height:1.7">
-      <b style="color:var(--green)">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}${azOrnek}
-      <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b>, idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. Kısmi teklife açık ihaleler ölçüme dahil değildir. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
+      <b style="color:var(--green)">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}${azOrnek}${kapsam}
+      <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b>, idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
     </div>`;
   };
   const detayHtml=x=>{

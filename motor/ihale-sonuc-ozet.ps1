@@ -58,7 +58,15 @@ function Ist($liste){
   $olculen = @($liste | Where-Object { $null -ne $_.kirimYuzde -and [double]$_.kirimYuzde -gt -100 -and [double]$_.kirimYuzde -lt 100 })
   $k = @($olculen | ForEach-Object { [double]$_.kirimYuzde })
   $t = @($olculen | Where-Object { $_.teklifSayisi } | ForEach-Object { [int]$_.teklifSayisi })
+  # KAYIT ile IHALE AYRI SEYDIR (30.08). Kisimli ihale havuzda kisim sayisi
+  # kadar SATIR tutuyor; "38.549 kayit" 38.549 ihale DEGIL. Kapsam oranini
+  # kayit uzerinden okumak tabloyu oolduugundan kotu gosteriyordu:
+  #   kayit duzeyinde  17.657 / 54.916 = %32
+  #   IHALE duzeyinde  17.657 / 23.945 = %73,7   <- dogru okuma
+  # Kart "kac ihaleden kacini olcebildik" diyebilsin diye tekil IKN sayiliyor.
   $o = [ordered]@{ kayit = @($liste).Count }
+  $iknler = @($liste | Where-Object { $_.ikn } | Select-Object -ExpandProperty ikn -Unique)
+  if($iknler.Count){ $o.ihaleSayisi = $iknler.Count }
   if($k.Count -ge 1){
     $m = ($k | Measure-Object -Average -Minimum -Maximum)
     $o.kirimOlculen = $k.Count
