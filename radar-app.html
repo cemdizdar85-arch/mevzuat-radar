@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
-  :root{--line2:rgba(255,255,255,.14);--amber:#ffb020}
+  :root{--amber:#ffb020}
 *{box-sizing:border-box}
 body{margin:0;background:var(--taban);position:relative;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
@@ -74,6 +74,12 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
      Kopya acilmaz; robot tarafindaki esi motor/destek-takip-nobeti.ps1. -->
 <script src="destek-kural.js"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
+<!-- 29.08 (Cem: "marka ile ilgili cok sey yapmistik ama burada goremiyorum"):
+     Marka araclarinin TAMAMI app() icindeydi, yani girisin arkasinda kaliyordu;
+     giris ekraninda tek bir marka baglantisi yoktu. Serit artik giris ekraninda
+     da cizilir - bu bes arac zaten giris ISTEMIYOR. data-elle="1" = kendiliginden
+     h1 ustune yerlesme, yerini biz secelim. defer YOK: giris() cizerken hazir olmali. -->
+<script src="marka-serit.js" data-elle="1"></script>
 <script type="module">
 const { createClient } = window.supabase || {};
 if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
@@ -132,6 +138,16 @@ function giris(){
     <h1>Radar Paneli</h1>
     <p class="lead">Firma profilini bir kez gir; ihale, alacak, marka ve süre uyarıları <b style="color:var(--ink)">sadece seni ilgilendireni</b> sana getirsin.</p>
     ${niyetSatiri}
+    <!-- 29.08 IKINCI TUR (Cem: "cok kucuk asagida kalmis, ben bile zor buldum").
+         Serit giris kutusunun ALTINDAYDI: uye olmayan kisi once duvari goruyor,
+         ucretsiz araclari gormuyordu. Referanslarda (Ahrefs/Semrush free tools)
+         aile listesi kahramanin HEMEN ALTINDA duruyor. Artik burada. -->
+    <div id="markaAraclar" style="margin:0 0 8px"></div>
+    <p class="mini" id="markaAraclarNot" style="margin:0 0 26px;display:none;max-width:640px">
+      Bu beş araç <b style="color:var(--ink)">giriş istemiyor</b> — şimdi açabilirsin.
+      Üye olursan robot bunları <b style="color:var(--ink)">her gün senin yerine</b> bakar:
+      unvandan portföy taraması, benzer başvuru uyarısı ve rakip nöbeti.
+    </p>
     <div class="kutu" style="max-width:440px">
       <label>E-posta</label><input id="email" type="email" placeholder="ornek@firma.com" autocomplete="email">
       <label>Şifre</label><input id="sifre" type="password" placeholder="••••••••" autocomplete="current-password">
@@ -151,7 +167,20 @@ function giris(){
       </div>
       <div class="hata" id="ahata"></div>
       <p class="mini" style="margin-top:8px">Erken erişim, ücretsiz. Verilerin yalnız sana ait.</p>
-    </div>`;
+    </div>
+    <p class="mini" style="margin-top:18px">Diğer radarlar (ihale · alacak · süre · Resmî Gazete) için sağ alttaki <b style="color:var(--ink)">☰ Araçlar</b>.</p>`;
+  // 29.08: marka serit giris ekraninda. Betik senkron yuklendigi icin burada
+  // hazir olmali; degilse sessiz kalmasin diye load'da bir kez daha denenir.
+  (function markaSeridiCiz(){
+    const kap=$('#markaAraclar'); if(!kap) return;
+    if(typeof window.markaSeritCiz==='function'){
+      window.markaSeritCiz(kap,'Marka araçların — üye olmadan da açılır');
+      kap.style.margin='0 0 8px';
+      const not=$('#markaAraclarNot'); if(not) not.style.display='';
+    } else {
+      window.addEventListener('load',()=>{ if($('#markaAraclar')) markaSeridiCiz(); },{once:true});
+    }
+  })();
   $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=trHata(error); };
   $('#kayitBtn').onclick=async()=>{
     if(!$('#kosulOnay').checked){ $('#ahata').textContent='Üyelik için koşulları ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
@@ -505,7 +534,7 @@ async function pano(f){
   let uyarilar=[]; try{ const {data}=await sb.from('firma_uyarilari').select('*').eq('firma_id',f.id).order('created_at',{ascending:false}).limit(10); uyarilar=data||[]; }catch(e){}
   // 27.08 TESLİM TEYİDİ: alacak uyarısında "gönderdik" yetmez, TEYİT alınır.
   // Kart teyit durumunu ve merdivenin kaçıncı basamağında olduğunu gösterir;
-  // teyit vermeyen kullanıcı buradan da tek tıkla verebilir. (Teyit sayfası
+  // teyit vermeyen kullanıcı teyidini buradan da verebilir. (Teyit sayfası
   // uyari-teyit.html; motor motor/teslim-teyidi.ps1.)
   const teyitRozet = u => {
     if(u.tur!=='alacak') return '';

@@ -107,10 +107,22 @@ function ciz(s){
   const toplam=(s.toplam&&s.toplam>s.sayi)?s.toplam:s.sayi;
   const satir=m=>{
     const e=ETIKET[m.hal]||ETIKET.bilinmiyor;
-    return '<tr><td><b>'+kac(m.ad)+'</b><br><span style="color:#6b7280;font-size:11px">'+kac(m.no)+(m.sinif?' · sınıf '+kac(m.sinif):'')+'</span></td>'+
+    /* 29.08: Bu belge müşavirin müvekkiline gönderdiği belgedir. Bir tarihin
+       SİCİL KAYDINDAN mı geldiği yoksa başvuru tarihinden HESAPLANDIĞI mı,
+       belgenin üstünde yazmak zorunda — yoksa okuyan ikisini aynı sanır.
+       kesin=true: robot koruma bitişini TÜRKPATENT detay kaydından (expiryDate)
+       almıştır. kesin=false: hâlâ "başvuru + 10 yıl" tahminidir. */
+    const kb = m.kesin
+      ? '<br><span style="color:#146f35;font-size:10px;font-weight:700">SİCİL KAYDI</span>'
+      : '<br><span style="color:#92400e;font-size:10px;font-weight:700">TAHMİN</span>';
+    const kunye = [(m.tescil?'tescil '+kac(m.tescil):''),
+                   (m.yenileme_sayisi?m.yenileme_sayisi+' yenileme'+(m.son_yenileme?' (son '+kac(m.son_yenileme)+')':''):''),
+                   (m.vekil?'vekil '+kac(m.vekil):'')].filter(Boolean).join(' · ');
+    return '<tr><td><b>'+kac(m.ad)+'</b><br><span style="color:#6b7280;font-size:11px">'+kac(m.no)+(m.sinif?' · sınıf '+kac(m.sinif):'')+
+        (kunye?'<br>'+kunye:'')+'</span></td>'+
       '<td>'+kac(m.tarih)+'</td><td>'+kac(DURUM_TR[m.durum]||m.durum)+'</td>'+
       '<td><span class="rz '+e[1]+'">'+e[0]+'</span></td>'+
-      '<td>'+kac(m.donem_sonu||'—')+(m.kalan_gun!=null?'<br><span style="color:#6b7280;font-size:11px">'+m.kalan_gun+' gün</span>':'')+'</td></tr>';
+      '<td>'+kac(m.donem_sonu||'—')+(m.kalan_gun!=null?'<br><span style="color:#6b7280;font-size:11px">'+m.kalan_gun+' gün</span>':'')+kb+'</td></tr>';
   };
   let h='<div class="ust"><div class="marka">TETİKTE<span>Marka Portföy Raporu</span></div>'+
     '<div style="text-align:right;font-size:11.5px;color:#6b7280">Rapor tarihi<br><b style="color:#111827;font-size:13px">'+bugun+'</b></div></div>';

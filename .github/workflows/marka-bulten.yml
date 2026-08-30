@@ -1,0 +1,86 @@
+name: Marka Bulteni
+# ============================================================================
+#  Cem (30.08.2026): "ŞU AN ARKADA SİSTEMDEN İNDİRİYORUZ, O YAPIYORSA BUNU
+#  YAPALIM MI? KARARINI SEN VER."  -> Karar: EVET, ana hat bu olacak.
+#
+#  KARARIN ÖLÇÜLMÜŞ GEREKÇESİ (30.08):
+#   · TMview aynasi : 3 kosu, 3 BASARISIZ, 0 kayit. Kaynak bizi bot korumasina
+#     aldi - HTTP 200 donup govdede engel sayfasi veriyor, hem bizim IP'den
+#     hem GitHub'dan. Yani "arkada iniyor" sanilan sey aslinda INMIYORDU.
+#   · Resmi Marka Bulteni : 477 MB PDF 5 dk 17 sn'de indi, 3.520 sayfadan
+#     7.860 kayit cikti, dort alanin dordu de %100 dolu. Engel yok.
+#   · Hukuken ASIL olan bu: itiraz suresi (SMK m.18, iki ay) bultenin YAYIM
+#     tarihinden isler. TMview bunun ikinci elden kopyasidir.
+#
+#  SIKLIK: Bulten ayda iki cikiyor (498 -> 12.08, 499 -> 27.08). Gunde bir
+#  bakmak fazlasiyla yeter; yeni bulten yoksa is saniyeler icinde biter.
+#  Yutulmus bulten tekrar INDIRILMEZ - bunun kontrolu marka_bulten_kutuk
+#  tablosundan okunur (robot icinde, 'durum=bitti' suzgeci). Bu satir bir kez
+#  KONTROL YOKKEN yazilmisti; belge olmayan bir davranisi anlatiyordu ve
+#  gunluk kosu her gece 477 MB'i bosuna indirecekti.
+#
+#  MALIYET 0: depo PUBLIC (Actions ucretsiz), kaynak kimliksiz/CAPTCHA'siz.
+#
+#  ILK KURULUM (Cem'in eli, bir kez):
+#    veri/sql-marka-bulten.sql -> Supabase SQL Editor
+# ============================================================================
+on:
+  schedule:
+    - cron: '40 2 * * *'      # her gun 05:40 TR
+  workflow_dispatch:
+    inputs:
+      mod:
+        description: 'son = en yeni bulteni yut · gecmis = son N bulteni yut · liste = yalniz bak · zorla = yutulmus olsa da yeniden yut'
+        type: choice
+        options: [son, gecmis, liste, zorla]
+        default: son
+      adet:
+        description: 'gecmis modunda kac bulten (en yeniden geriye)'
+        default: '6'
+
+concurrency:
+  group: marka-bulten
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  bulten:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180        # bulten basi ~8 dk; 6 bulten rahat siger
+    steps:
+      - uses: actions/checkout@v4
+
+      # pdftotext (poppler) ubuntu kosucusunda HAZIR GELMEZ - kurulmali.
+      # Bu satir olmadan robot "pdftotext calistirilamadi" diye duser.
+      - name: pdftotext kur
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      - name: Bulten hasadi
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          mod='${{ github.event.inputs.mod }}'; [ -z "$mod" ] && mod=son
+          adet='${{ github.event.inputs.adet }}'; [ -z "$adet" ] && adet=6
+          echo "mod: $mod"
+          case "$mod" in
+            liste)  node motor/marka-bulten-hasat.js --liste ;;
+            gecmis) node motor/marka-bulten-hasat.js --son "$adet" ;;
+            zorla)  node motor/marka-bulten-hasat.js --son "$adet" --zorla ;;
+            *)      node motor/marka-bulten-hasat.js --son 1 ;;
+          esac
+
+      # Kor kalma kurali: kirmizi olsa da ne gordugumuz depoda dursun.
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/marka-bulten-raporu.json || true
+          git diff --cached --quiet || git commit -m "Marka bulteni raporu [veri-operasyonu]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash || true
+            if git push; then echo "rapor islendi (deneme $i)"; break; fi
+            echo "push tutmadi (deneme $i)"; sleep 7
+          done

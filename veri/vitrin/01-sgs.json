@@ -1,0 +1,534 @@
+{
+  "aciklama": "SGS vitrin partisi - 21.08.2026 uretimi. Finansal Muhasebe 7 + Denetim 7. Kaynak dosyalari: video/sinav-reklam/01-SGS-FINANSAL-MUHASEBE.md ve 02-SGS-DENETIM.md",
+  "sorular": [
+    {
+      "id": "tv2601",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 40 yatirim amacli gayrimenkul",
+      "soru": "Bir sanayi işletmesinin portföyünde iki bina vardır. A binası tamamı bir lojistik firmasına kiraya verilmiştir; işletme yatırım amaçlı gayrimenkulleri için gerçeğe uygun değer yöntemini seçmiştir. B binası işletmenin genel müdürlüğü olarak kullanılmaktadır; işletme maddi duran varlıkları için yeniden değerleme modelini seçmiştir. 31.12.2026 itibarıyla her iki binanın da defter değeri 1.840.000 TL, gerçeğe uygun değeri 2.145.000 TL'dir. İki bina için de daha önce muhasebeleştirilmiş bir değer azalışı yoktur. Bu iki değer artışı 2026 finansal tablolarına sırasıyla nasıl yansıtılır?",
+      "siklar": {
+        "A": "Her ikisi de kâr veya zarara yansıtılır.",
+        "B": "A binasının artışı kâr veya zarara, B binasınınki diğer kapsamlı gelire yansıtılır.",
+        "C": "A binasının artışı diğer kapsamlı gelire, B binasınınki kâr veya zarara yansıtılır.",
+        "D": "Her ikisi de diğer kapsamlı gelirde muhasebeleştirilir.",
+        "E": "A binasının artışı kâr veya zarara, B binasınınki doğrudan geçmiş yıl kârlarına aktarılır."
+      },
+      "dogru": "B",
+      "aciklama": {
+        "A": "TUZAK: TMS 40 tek standartmış gibi okunuyor. Gerçeğe uygun değerle ölçmek ile artışı kâra yazmak aynı şey değildir; TMS 16 da gerçeğe uygun değere çıkar ama artışı kâra koymaz. Doğrusu: TMS 16 p.39 uyarınca maddi duran varlıktaki yeniden değerleme artışı diğer kapsamlı gelirde muhasebeleştirilir.",
+        "B": "Ne soruluyor: Aynı tutarda değer artışının, binanın ne amaçla tutulduğuna göre kâra mı yoksa özkaynağa mı yazılacağı soruluyor.\n\nKural: İki ayrı standart, iki ayrı adres söylüyor. TMS 40 p.35: yatırım amaçlı gayrimenkulün gerçeğe uygun değer değişiminden kaynaklanan kazanç veya kayıp, oluştuğu dönemde kâr veya zarar olarak finansal tablolara yansıtılır. TMS 16 p.39 ise maddi duran varlıkta artışı diğer kapsamlı gelire yollar ve özkaynakta 'yeniden değerleme değer artışı' adı altında toplar. Sınırı çizen ölçüt binanın kendisi değil, kullanım amacıdır: TMS 40 p.5 yatırım amaçlı gayrimenkulü kira geliri veya sermaye kazancı elde etmek için tutulan gayrimenkul diye tanımlar; idari amaçla kullanılan gayrimenkul bu tanımın dışındadır.\n\nBu olayda: 2.145.000 − 1.840.000 = 305.000 TL artış her iki binada da aynıdır. A binası kiraya verildiği için TMS 40 kapsamındadır; 305.000 TL doğrudan dönem kârını artırır. B binası genel müdürlük olarak kullanıldığı için TMS 16 kapsamındadır; 305.000 TL kâra hiç uğramaz, özkaynağa gider. Yani iki özdeş bina, işletmenin dönem kârını birbirinden 305.000 TL farklı gösterir.\n\nAkılda kalsın: Kiraya verdiğin bina kârını oynatır, içinde oturduğun bina özkaynağını.",
+        "C": "TUZAK: Sanılan şu — 'yatırım amaçlı olan daha sermaye işidir, özkaynağa gider.' Oysa mantık tam tersi kurulmuştur; standartlar amacı değil elde tutma niyetini esas alır. Doğrusu: TMS 40 p.35 artışı kâr veya zarara, TMS 16 p.39 diğer kapsamlı gelire yollar; şıktaki sıra ters çevrilmiştir.",
+        "D": "Bu şık, 'değerleme farkı kâra yazılmaz' diye genellenmiş bir ezberden çıkar. Böyle bir genel kural yoktur; adres standarda göre değişir. Doğrusu: TMS 40 p.35 açıkça 'kâr veya zarar' der — A binasının 305.000 TL'si dönem kârındadır.",
+        "E": "B için söylenen, TMS 16 p.41'deki sonraki bir işlemle karıştırılıyor: değer artışı özkaynakta biriktikten sonra, varlık elden çıkarıldığında ya da kullanıldıkça geçmiş yıl kârlarına aktarılabilir. Ama bu aktarım artışın doğduğu anda yapılmaz. Doğrusu: Artış önce diğer kapsamlı gelirde muhasebeleştirilir (p.39); geçmiş yıl kârlarına aktarım ayrı ve sonraki bir adımdır (p.41)."
+      },
+      "hap": "Yatırım amaçlı gayrimenkulde gerçeğe uygun değer artışı KÂRA (TMS 40 p.35); maddi duran varlıkta yeniden değerleme artışı DİĞER KAPSAMLI GELİRE (TMS 16 p.39) yazılır. Ayrımı yapan şey binanın türü değil, ne amaçla elde tutulduğudur.",
+      "kaynak": "TMS 40 p.5, p.35 · TMS 16 p.39, p.41",
+      "tablo": {
+        "baslik": "Aynı bina, aynı artış — iki ayrı adres",
+        "kolonlar": ["", "A binası (kiraya verilmiş)", "B binası (genel müdürlük)"],
+        "satirlar": [
+          ["Standart", "TMS 40", "TMS 16"],
+          ["Seçilen yöntem", "Gerçeğe uygun değer", "Yeniden değerleme"],
+          ["Defter değeri", "1.840.000", "1.840.000"],
+          ["Gerçeğe uygun değer", "2.145.000", "2.145.000"],
+          ["Değer artışı", "305.000", "305.000"],
+          ["Nereye yazılır ←", "Kâr veya zarar", "Diğer kapsamlı gelir"],
+          ["Dönem kârına etkisi", "Artırır", "Etkilemez"]
+        ]
+      }
+    },
+    {
+      "id": "tv2602",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 37 karsiliklar",
+      "soru": "Bir üretim işletmesinin 31.12.2026 tarihli finansal tabloları hazırlanırken üç durum tespit edilmiştir. I. Şirkete karşı açılmış bir tazminat davası vardır; hukuk müşaviri ödeme yapılmasının muhtemel olduğunu ve tutarın güvenilir biçimde 420.000 TL olarak tahmin edilebildiğini bildirmiştir. II. Şirket bir bayisinin banka kredisine kefil olmuştur; bayi bugün için borcunu ödemektedir, şirketten kaynak çıkma ihtimali düşüktür ancak uzak değildir. III. Şirketin açtığı bir davada lehte karar çıkmış, karşı taraf temyiz süresini geçirmiştir; 185.000 TL tazminatın tahsili neredeyse kesindir. Bu üç durumun 31.12.2026 finansal tablolarındaki karşılığı sırasıyla nedir?",
+      "siklar": {
+        "A": "I: karşılık ayrılır — II: dipnotta açıklanır — III: finansal tablolara alınır",
+        "B": "I: karşılık ayrılır — II: dipnotta açıklanır — III: dipnotta açıklanır",
+        "C": "I: dipnotta açıklanır — II: dipnotta açıklanır — III: finansal tablolara alınır",
+        "D": "I: karşılık ayrılır — II: finansal tablolara alınır — III: dipnotta açıklanır",
+        "E": "I: karşılık ayrılır — II: hiçbir işlem yapılmaz — III: dipnotta açıklanır"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Üç belirsiz durumun her birinin bilançoya mı, yalnızca dipnota mı gireceği, yoksa hiç yazılmayacağı mı soruluyor.\n\nKural: TMS 37 üç kapı kurar. Karşılık için p.14 üç şartı birlikte arar: geçmiş olaydan doğan mevcut bir yükümlülük, kaynak çıkışının muhtemel olması ve tutarın güvenilir tahmini. Koşullu borç p.27 uyarınca tabloya alınmaz; p.28 ise kaynak çıkışı ihtimali uzak olmadıkça dipnotta açıklanmasını ister. Koşullu varlık p.31 uyarınca tabloya alınmaz, p.34 uyarınca giriş olası ise dipnotta gösterilir. Sınırı çizen cümle p.33'tedir: gelirin elde edilmesi neredeyse kesin ise, ilgili varlık koşullu bir varlık değildir ve finansal tablolara yansıtılması uygundur.\n\nBu olayda: I üç şartı da taşır — muhtemel ödeme, güvenilir 420.000 TL tahmini — karşılık ayrılır. II kefalettir; kaynak çıkışı muhtemel değildir ama ihtimal uzak da değildir, bu yüzden borç yazılmaz, dipnotta açıklanır. III'te tahsil neredeyse kesin olduğu için varlık artık koşullu olmaktan çıkmıştır; 185.000 TL finansal tablolara alınır.\n\nAkılda kalsın: Kötü haber muhtemelse yazılır, iyi haber neredeyse kesinse yazılır — iyimserlik için çıta daha yüksektir.",
+        "B": "TUZAK: 'Koşullu varlık asla tabloya alınmaz' ezberi burada devreye giriyor. Kural mutlak değildir: tahsilin neredeyse kesin olması varlığı koşullu olmaktan çıkarır. Doğrusu: TMS 37 p.33 ve p.35 uyarınca giriş neredeyse kesinleşince varlık ve gelir, değişikliğin oluştuğu dönemin tablolarına yansıtılır.",
+        "C": "Bu şık, karşılığın üç şartından birini — güvenilir tahmini — sanki sağlanmamış gibi okuyor. Oysa soruda tutar açıkça 420.000 TL olarak verilmiştir. Doğrusu: p.14'ün üç şartı birlikte sağlandığında karşılık zorunludur, ihtiyari değildir.",
+        "D": "Kefalet burada mevcut bir yükümlülük sanılıyor. Kefalette borç, ana borçlu ödemediğinde doğar; bugün için kaynak çıkışı muhtemel değildir. Doğrusu: p.27 koşullu borcun finansal tablolara yansıtılmayacağını açıkça söyler.",
+        "E": "Burada 'muhtemel değilse ilgilenme' denilmiş. Standart iki ayrı eşik kullanır: muhtemel eşiği tabloya almak için, uzak eşiği dipnottan da çıkarmak için. Doğrusu: p.28 uyarınca ihtimal uzak olmadıkça koşullu borç dipnotta açıklanır; buradaki ihtimal düşüktür ama uzak değildir."
+      },
+      "hap": "Karşılık üç şart ister (mevcut yükümlülük + muhtemel kaynak çıkışı + güvenilir tahmin). Koşullu borç tabloya alınmaz, ihtimal uzak değilse dipnotta açıklanır. Koşullu varlık tabloya alınmaz; ama giriş 'neredeyse kesin' ise artık koşullu değildir ve tabloya alınır.",
+      "kaynak": "TMS 37 p.10, p.14, p.27-28, p.31, p.33-35",
+      "tablo": {
+        "baslik": "Karşılık · Koşullu borç · Koşullu varlık",
+        "kolonlar": ["Ölçüt", "Karşılık", "Koşullu borç", "Koşullu varlık"],
+        "satirlar": [
+          ["Finansal tabloya alınır mı?", "Evet", "Hayır (p.27)", "Hayır (p.31)"],
+          ["Şart", "Mevcut yükümlülük + muhtemel + güvenilir tahmin", "Muhtemel değil ya da ölçülemiyor", "Girişi olası"],
+          ["Dipnot", "—", "İhtimal uzak değilse (p.28)", "Girişi olası ise (p.34)"],
+          ["Hiç yazılmaz", "—", "İhtimal uzak ise", "Girişi uzak ise"],
+          ["Tabloya girer ←", "—", "—", "Giriş neredeyse kesinse (p.33)"],
+          ["Sorunun olayı ←", "I (420.000 TL)", "II (kefalet)", "III (185.000 TL)"]
+        ]
+      }
+    },
+    {
+      "id": "tv2603",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 36 deger dusuklugu",
+      "soru": "Bir işletmenin üretim makinesinde değer düşüklüğü belirtisi tespit edilmiştir. 31.12.2026 itibarıyla makinenin defter değeri 1.470.000 TL, satış maliyetleri düşülmüş gerçeğe uygun değeri 1.285.000 TL, kullanım değeri (gelecekteki nakit akışlarının bugünkü değeri) 1.362.000 TL'dir. Makine yeniden değerleme modeliyle izlenmemektedir. 2026 yılında muhasebeleştirilecek değer düşüklüğü zararı kaç TL'dir?",
+      "siklar": {
+        "A": "108.000",
+        "B": "185.000",
+        "C": "146.500",
+        "D": "77.000",
+        "E": "262.000"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Bir varlığın defter değeri ile gerçekte kaça çevrilebileceği arasındaki farkın ne kadarının zarar yazılacağı soruluyor.\n\nKural: TMS 36 p.6 iki tanımı üst üste koyar. Geri kazanılabilir tutar, satış maliyetleri düşülmüş gerçeğe uygun değer ile kullanım değerinden YÜKSEK olanıdır. Değer düşüklüğü zararı ise defter değerinin geri kazanılabilir tutarı aşan kısmıdır. p.59 indirgemeyi 'sadece ve sadece' geri kazanılabilir tutar defter değerinden düşükse yapar; p.60 uyarınca varlık yeniden değerlenmiş tutarıyla gösterilmiyorsa zarar derhal kâr veya zararda muhasebeleştirilir. Kural şu mantığa dayanır: işletmenin iki seçeneği vardır — varlığı satmak ya da kullanmaya devam etmek; rasyonel işletme iyi olanı seçer.\n\nBu olayda: İki ölçüden yüksek olan kullanım değeridir: 1.362.000 TL. Geri kazanılabilir tutar budur. Defter değeri 1.470.000 TL bunun üzerinde olduğu için makine değer düşüklüğüne uğramıştır. Zarar = 1.470.000 − 1.362.000 = 108.000 TL ve doğrudan dönem kârını azaltır. Makinenin yeni defter değeri 1.362.000 TL olur; p.63 uyarınca gelecek dönemlerin amortismanı bu yeni değer üzerinden yeniden hesaplanır.\n\nAkılda kalsın: Geri kazanılabilir tutarda yüksek olanı seç — işletme varlığından en iyi şekilde yararlanmaya çalışır, en kötüsüne razı olmaz.",
+        "B": "Bu rakama şöyle ulaşılır: 1.470.000 − 1.285.000. Hata: geri kazanılabilir tutar olarak DÜŞÜK olan alınmış; tanım ters hatırlanıyor. Muhasebede birçok yerde 'düşük olanı' kuralı (örneğin TMS 2 stoklarda) geçtiği için refleks buraya da taşınıyor. Doğrusu: TMS 36 p.6 geri kazanılabilir tutarı iki ölçüden YÜKSEK olanı diye tanımlar. Bir daha düşmemek için: stokta düşük, değer düşüklüğünde yüksek.",
+        "C": "1.470.000 − [(1.285.000 + 1.362.000) ÷ 2] = 1.470.000 − 1.323.500. Hata: iki ölçünün ORTALAMASI alınmış. Standart hiçbir yerde ortalama almaz; birini seçer. Doğrusu: p.6'ya göre iki tutardan biri seçilir, ortalanmaz — burada 1.362.000 TL.",
+        "D": "1.362.000 − 1.285.000 işleminden çıkar. Hata: iki geri kazanım ölçüsü birbirinden çıkarılmış; oysa bu iki tutar birbiriyle değil, DEFTER DEĞERİYLE karşılaştırılır. Doğrusu: Zarar, defter değeri ile geri kazanılabilir tutar arasındaki farktır (p.6).",
+        "E": "185.000 + 77.000 toplamıdır — yani hem yanlış ölçü seçilmiş hem de aradaki fark üstüne eklenmiştir. İki hatanın üst üste binmesidir. Doğrusu: Tek bir çıkarma yapılır: 1.470.000 − 1.362.000 = 108.000 TL."
+      },
+      "hap": "Geri kazanılabilir tutar = satış maliyetleri düşülmüş gerçeğe uygun değer ile kullanım değerinden YÜKSEK olanı. Değer düşüklüğü zararı = defter değeri − geri kazanılabilir tutar. Stokta 'düşük olanı', değer düşüklüğünde 'yüksek olanı'.",
+      "kaynak": "TMS 36 p.6, p.9, p.59-60, p.63",
+      "tablo": {
+        "baslik": "Değer düşüklüğü hesabı (TL)",
+        "kolonlar": ["Adım", "Kalem", "Tutar"],
+        "satirlar": [
+          ["1", "Satış maliyetleri düşülmüş gerçeğe uygun değer", "1.285.000"],
+          ["2", "Kullanım değeri", "1.362.000"],
+          ["3", "Geri kazanılabilir tutar = YÜKSEK olanı ←", "1.362.000"],
+          ["4", "Defter değeri", "1.470.000"],
+          ["5", "Değer düşüklüğü zararı ←", "108.000"],
+          ["6", "Yeni defter değeri", "1.362.000"]
+        ]
+      }
+    },
+    {
+      "id": "tv2604",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 2 net gerceklesebilir deger",
+      "soru": "Bir mobilya üreticisinin 31.12.2026 tarihli mamul stoğuyla ilgili veriler şunlardır: stoğun maliyeti 640.000 TL, tahmini satış fiyatı 705.000 TL, satışa hazır hâle getirmek için katlanılacak tahmini tamamlanma maliyeti 48.000 TL, satışı gerçekleştirmek için gerekli tahmini satış maliyetleri 39.000 TL. Ayrıca stoğun depoda beklemesi nedeniyle döneme 12.000 TL depolama gideri yüklenmiştir; bu depolama üretim sürecinin bir sonraki aşaması için gerekli değildir. Stoğun net gerçekleşebilir değere indirgenmesinden doğan tutar kaç TL'dir?",
+      "siklar": {
+        "A": "22.000",
+        "B": "34.000",
+        "C": "65.000",
+        "D": "87.000",
+        "E": "12.000"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Elde kalan mamulün bilançoda maliyetiyle mi yoksa daha düşük bir değerle mi gösterileceği, gösterilecekse farkın ne kadar olduğu soruluyor.\n\nKural: TMS 2 p.9 tek cümledir: stoklar, maliyet değeri ile net gerçekleşebilir değerin düşük olanı üzerinden ölçülür. Net gerçekleşebilir değer p.6'da şöyle tanımlanır: olağan iş akışı içindeki tahmini satış fiyatından, tahmini tamamlanma maliyetleri ve satışı gerçekleştirmek için gerekli tahmini maliyetler düşülerek bulunan tutar. Formül: NGD = Tahmini satış fiyatı − Tahmini tamamlanma maliyeti − Tahmini satış maliyetleri. Sınırı p.16 çizer: normalin üstündeki fireler, bir sonraki üretim aşaması için gerekli olmayan depolama maliyetleri, stokun mevcut konumuna katkısı olmayan genel yönetim giderleri ve satış maliyetleri stok maliyetine dâhil edilmez, gerçekleştikleri dönemde gider yazılır. p.34 uyarınca indirgeme tutarı, indirgemenin yapıldığı dönemde gider olur.\n\nBu olayda: NGD = 705.000 − 48.000 − 39.000 = 618.000 TL. Maliyet 640.000 TL bunun üzerindedir, dolayısıyla stok 618.000 TL'ye indirgenir. İndirgeme tutarı 640.000 − 618.000 = 22.000 TL'dir. 12.000 TL'lik depolama gideri hesaba hiç girmez; o zaten dönem gideri olarak ayrıca kayıtlıdır — NGD formülünden ikinci kez düşülmesi aynı gideri iki kez saymak olur.\n\nAkılda kalsın: NGD'de yalnız satıştan ÖNCE katlanacağın maliyetler düşülür; depoda çoktan yandığın maliyet oraya girmez.",
+        "B": "640.000 − (705.000 − 48.000 − 39.000 − 12.000) = 640.000 − 606.000. Hata: depolama gideri de NGD formülünden düşülmüş. Bu, aynı gideri hem dönem gideri hem de stok değerlemesi içinde iki kez saymaktır. Doğrusu: p.16-b uyarınca gerekli olmayan depolama maliyeti stok maliyetine dâhil edilmez ve NGD formülünün üç kaleminden biri değildir.",
+        "C": "705.000 − 640.000 işleminden gelir; yani satış fiyatı ile maliyet arasındaki KÂR bulunmuş ve zarar sanılmıştır. Bu şık işaretlendiğinde işaret ters çevrilmiştir. Doğrusu: İndirgeme, maliyet ile NGD arasındaki farktır; satış fiyatı tek başına ölçüt değildir (p.9).",
+        "D": "48.000 + 39.000 toplamıdır. Buradaki varsayım şudur: 'tamamlanma ve satış maliyetleri zaten stoktan düşülecek tutardır.' Oysa bu iki kalem stoktan değil, SATIŞ FİYATINDAN düşülür; sonuç ancak maliyetle karşılaştırıldıktan sonra anlam kazanır. Doğrusu: p.6'daki formül bu iki kalemi satış fiyatından indirir, doğrudan stok maliyetinden değil.",
+        "E": "Depolama gideri tek başına indirgeme sanılmış. Depolama gideri bir değerleme farkı değil, doğrudan bir dönem giderdir. Doğrusu: p.16-b bu tutarı gerçekleştiği dönemde gider yazdırır; stoğun defter değerini maliyet-NGD karşılaştırması belirler (p.9)."
+      },
+      "hap": "Stok = maliyet ile net gerçekleşebilir değerin DÜŞÜK olanı (TMS 2 p.9). NGD = tahmini satış fiyatı − tahmini tamamlanma maliyeti − tahmini satış maliyetleri. Gerekli olmayan depolama gideri NGD formülüne girmez, dönem gideridir (p.16-b).",
+      "kaynak": "TMS 2 p.6, p.9, p.16, p.28, p.33, p.34",
+      "tablo": {
+        "baslik": "Net gerçekleşebilir değer hesabı (TL)",
+        "kolonlar": ["Kalem", "Tutar", "NGD hesabına girer mi?"],
+        "satirlar": [
+          ["Tahmini satış fiyatı", "705.000", "Başlangıç tutarı"],
+          ["(−) Tahmini tamamlanma maliyeti", "48.000", "Girer"],
+          ["(−) Tahmini satış maliyetleri", "39.000", "Girer"],
+          ["Depolama gideri", "12.000", "GİRMEZ — dönem gideri (p.16-b)"],
+          ["Net gerçekleşebilir değer", "618.000", ""],
+          ["Maliyet", "640.000", ""],
+          ["İndirgeme = 640.000 − 618.000 ←", "22.000", ""]
+        ]
+      }
+    },
+    {
+      "id": "tv2605",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 8 muhasebe politikasi degisikligi",
+      "soru": "Bir işletme 2026 yılında üç değişiklik yapmıştır. I. Stok değerleme yöntemini ağırlıklı ortalama maliyetten ilk giren ilk çıkara çevirmiştir. II. Bir üretim makinesinin faydalı ömrüne ilişkin tahminini, teknolojik gelişme nedeniyle 10 yıldan 7 yıla indirmiştir. III. Aynı makinenin amortisman yöntemini doğrusal yöntemden azalan bakiyeler yöntemine çevirmiştir. Bu üç değişikliğin TMS 8'e göre niteliği ve uygulama yönü sırasıyla nedir?",
+      "siklar": {
+        "A": "I: politika – geçmişe dönük · II: tahmin – ileriye dönük · III: tahmin – ileriye dönük",
+        "B": "I: politika – geçmişe dönük · II: tahmin – ileriye dönük · III: politika – geçmişe dönük",
+        "C": "I: politika – geçmişe dönük · II: politika – geçmişe dönük · III: politika – geçmişe dönük",
+        "D": "I: tahmin – ileriye dönük · II: tahmin – ileriye dönük · III: tahmin – ileriye dönük",
+        "E": "I: politika – ileriye dönük · II: tahmin – geçmişe dönük · III: tahmin – ileriye dönük"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Yapılan bir değişikliğin geçmiş yılların tablolarını da düzeltmeyi gerektirip gerektirmediği soruluyor.\n\nKural: TMS 8 ikiye ayırır. Muhasebe politikası p.5'te finansal tabloların hazırlanmasında ve sunulmasında kullanılan belirli ilkeler, esaslar, gelenekler, kurallar ve uygulamalar olarak tanımlanır; değişikliği p.19-22 uyarınca GEÇMİŞE DÖNÜK uygulanır, yani en eski dönemin açılış tutarları düzeltilir ve karşılaştırmalı bilgiler yeni politika hep uygulanıyormuş gibi yeniden sunulur. Muhasebe tahmini değişikliği ise p.36 uyarınca İLERİYE DÖNÜK uygulanır; p.34 açıkça der ki bir tahminin revize edilmesi bir hata düzeltmesi olmadığı gibi önceki dönemlerle de ilişkili değildir. Sınırı iki cümle çizer ve ikisi ayrı standarttadır: TMS 8 p.35 — uygulanan DEĞERLEME YÖNTEMİNDE yapılan bir değişiklik muhasebe tahmini değişikliği değil, bir muhasebe politikası değişikliğidir. TMS 16 p.61 — amortisman yöntemi değişikliği TMS 8 uyarınca muhasebe TAHMİNİNDEKİ bir değişiklik olarak muhasebeleştirilir. Ayrımın belirsiz kaldığı hâlde ne yapılacağı da yazılıdır (p.35): değişiklik tahmin değişikliği sayılır.\n\nBu olayda: I bir değerleme yöntemi değişikliğidir — p.35 doğrudan 'politika' der, geçmişe dönük uygulanır. II faydalı ömür tahminidir; p.38 bunu örnek olarak sayar, geçmiş tablolara dokunulmaz. III sorunun kalbidir: adında 'yöntem' geçse de amortisman yöntemi değişikliği TAHMİN değişikliğidir (TMS 16 p.61), ileriye dönük uygulanır. Yani I ile III'ün ikisi de 'yöntem değişikliği' adını taşır ama zıt yönde işlem görür.\n\nAkılda kalsın: Değerleme yöntemi politikadır, amortisman yöntemi tahmindir — adı aynı, adresi ayrı.",
+        "B": "TUZAK: Sınavda en çok işaretlenen şık budur ve mantığı kusursuz görünür: 'yöntem değiştiyse politika değişmiştir.' Tuzak tam burada — TMS 16 bu tek konuda özel bir hüküm koymuştur. Doğrusu: TMS 16 p.61, amortisman yöntemindeki değişikliği TMS 8 anlamında TAHMİN değişikliği sayar; geçmiş dönem tabloları düzeltilmez.",
+        "C": "Faydalı ömür burada politika sanılıyor. Oysa faydalı ömür bir kural değil, gelecek hakkında bir ÖNGÖRÜDÜR; öngörü yeni bilgiyle güncellenir. Doğrusu: TMS 8 p.32 ve p.38, amortismana tabi varlıkların faydalı ömrünü doğrudan muhasebe tahmini örneği olarak sayar.",
+        "D": "Stok değerleme yöntemi de tahmin sanılmış. Ağırlıklı ortalama ile İGİÇ arasındaki seçim bir öngörü değil, uygulanacak KURALIN seçimidir. Doğrusu: TMS 8 p.35 değerleme yöntemi değişikliğini açıkça politika değişikliği ilan eder; geçmişe dönük uygulanır (p.19, p.22).",
+        "E": "Nitelikler kısmen doğru yakalanmış ama uygulama yönleri yer değiştirmiş: politikaya ileriye dönük, tahmine geçmişe dönük denmiş. Nitelik ile yön birbirine bağlıdır, bağımsız seçilemez. Doğrusu: Politika → geçmişe dönük (p.19, p.22); tahmin → ileriye dönük (p.36, p.38)."
+      },
+      "hap": "Muhasebe POLİTİKASI değişikliği geçmişe dönük (TMS 8 p.19, p.22); muhasebe TAHMİNİ değişikliği ileriye dönük (p.36, p.38) uygulanır. Değerleme yöntemi değişikliği politikadır (p.35); AMORTİSMAN yöntemi değişikliği ise tahmindir (TMS 16 p.61). Ayrım belirsizse tahmin sayılır.",
+      "kaynak": "TMS 8 p.5, p.19, p.22, p.32, p.34-38 · TMS 16 p.60-61",
+      "tablo": {
+        "baslik": "Politika mı, tahmin mi?",
+        "kolonlar": ["", "I — Stok değerleme yöntemi", "II — Faydalı ömür", "III — Amortisman yöntemi"],
+        "satirlar": [
+          ["Değişen ne?", "Ağırlıklı ortalama → İGİÇ", "10 yıl → 7 yıl", "Doğrusal → Azalan bakiyeler"],
+          ["Niteliği ←", "Muhasebe politikası", "Muhasebe tahmini", "Muhasebe tahmini"],
+          ["Dayanak", "TMS 8 p.35", "TMS 8 p.38", "TMS 16 p.61"],
+          ["Uygulama yönü ←", "Geçmişe dönük", "İleriye dönük", "İleriye dönük"],
+          ["Geçmiş yıl tabloları", "Düzeltilir", "Düzeltilmez", "Düzeltilmez"]
+        ]
+      }
+    },
+    {
+      "id": "tv2606",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 16 amortisman kist ve kalinti deger",
+      "soru": "Bir işletme 1 Nisan 2026 tarihinde, üzerindeki bina ile birlikte bir taşınmaz satın almıştır. Toplam bedel 4.800.000 TL olup, bunun 1.800.000 TL'si arsaya, 3.000.000 TL'si binaya isabet etmektedir. Bina aynı gün yönetimin istediği kullanıma hazır hâle gelmiştir. Binanın tahmini faydalı ömrü 25 yıl, tahmini kalıntı değeri 240.000 TL'dir ve doğrusal amortisman yöntemi uygulanmaktadır. Bina, Kasım ve Aralık aylarında tadilat nedeniyle iki ay boş (atıl) kalmıştır. 2026 yılı amortisman gideri kaç TL'dir?",
+      "siklar": {
+        "A": "82.800",
+        "B": "90.000",
+        "C": "136.800",
+        "D": "64.400",
+        "E": "110.400"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Yıl ortasında alınan, arsasıyla birlikte gelen ve bir süre boş kalan bir binaya bu yıl ne kadar amortisman ayrılacağı soruluyor.\n\nKural: Dört ayrı hüküm arka arkaya devreye girer. (1) Arsa amortismana tabi değildir — TMS 16 p.58: arsa ve binalar birlikte alınsalar bile ayrılabilir varlıklardır, ayrı muhasebeleştirilir; taş ocağı gibi istisnalar dışında arsaların sınırsız yararlı ömrü vardır ve amortismana tabi tutulmazlar. (2) Amortismana tabi tutar, kalıntı değer düşülerek bulunur (p.6 tanımı ve p.53): Amortismana tabi tutar = Maliyet − Kalıntı değer. (3) Amortisman, varlık kullanılabilir olduğunda başlar (p.55): varlık kullanılabilir olduğunda, örneğin yönetim tarafından istenilen yer ve duruma getirildiği zaman başlar. (4) Atıl kalmak amortismanı durdurmaz — yine p.55: amortisman ayırma işlemi, varlık tamamen itfa olmadıkça, atıl kaldığında ya da kullanımdan kaldırıldığında durmaz.\n\nBu olayda: Önce arsa ayrılır: 4.800.000 TL'nin 1.800.000 TL'si hiç amortismana girmez. Bina için amortismana tabi tutar 3.000.000 − 240.000 = 2.760.000 TL'dir. Yıllık amortisman 2.760.000 ÷ 25 = 110.400 TL. Bina 1 Nisan'da kullanılabilir olduğu için 2026'da dokuz ay amortisman ayrılır: 110.400 × 9/12 = 82.800 TL. Kasım-Aralıktaki iki aylık boşluk hesaptan düşülmez.\n\nAkılda kalsın: Arsa yaşlanmaz, kalıntı değer eskimez, boş duran bina ise yine de eskir.",
+        "B": "3.000.000 ÷ 25 × 9/12 = 120.000 × 0,75. Hata: KALINTI DEĞER DÜŞÜLMEMİŞ. Amortisman maliyetin tamamı üzerinden değil, geri kazanılmayacak kısım üzerinden ayrılır. Doğrusu: p.53 uyarınca amortismana tabi tutar maliyetten kalıntı değer düşülerek bulunur: 3.000.000 − 240.000 = 2.760.000 TL.",
+        "C": "(4.800.000 − 240.000) ÷ 25 × 9/12 = 182.400 × 0,75. Burada ARSA da amortismana sokulmuş — toplam bedel tek bir varlıkmış gibi ele alınmıştır. Doğrusu: p.58, arsa ile binanın birlikte alınsa bile ayrı varlıklar olduğunu ve arsanın amortismana tabi olmadığını söyler.",
+        "D": "110.400 × 7/12 işleminden çıkar. Atıl kalınan iki ay dokuz aydan düşülmüştür. Sezgi makul görünür: 'kullanılmayan varlık yıpranmaz.' Standart bu sezgiyi kabul etmez. Doğrusu: p.55, amortismanın varlık atıl kaldığında DURMAYACAĞINI açıkça yazar; süre 9 aydır.",
+        "E": "Tam yıllık amortisman tutarıdır; kıst hiç uygulanmamıştır. Varlık 1 Ocak'ta değil, 1 Nisan'da kullanılabilir hâle gelmiştir. Doğrusu: p.55 uyarınca amortisman varlığın kullanılabilir olduğu tarihte başlar; 2026'ya düşen süre dokuz aydır."
+      },
+      "hap": "Arsa amortismana tabi değildir (TMS 16 p.58). Amortismana tabi tutar = maliyet − kalıntı değer (p.53). Amortisman varlık kullanılabilir olduğunda başlar ve varlık ATIL KALDIĞINDA DURMAZ (p.55).",
+      "kaynak": "TMS 16 p.6, p.50, p.53, p.55, p.58",
+      "tablo": {
+        "baslik": "2026 amortisman hesabı (TL)",
+        "kolonlar": ["Adım", "Kalem", "Tutar", "Kural"],
+        "satirlar": [
+          ["1", "Arsa payı", "1.800.000", "Amortismana tabi DEĞİL (p.58)"],
+          ["2", "Bina payı", "3.000.000", "Amortismana tabi"],
+          ["3", "(−) Kalıntı değer", "240.000", "p.53"],
+          ["4", "Amortismana tabi tutar", "2.760.000", "p.6"],
+          ["5", "Yıllık = 2.760.000 ÷ 25", "110.400", "p.50"],
+          ["6", "Kullanılabilir olduğu tarih", "1 Nisan 2026", "p.55 — burada başlar"],
+          ["7", "2026'da geçen süre", "9 ay", "Nisan-Aralık"],
+          ["8", "Atıl kalınan 2 ay", "düşülmez", "p.55 — atılken durmaz"],
+          ["9", "2026 amortismanı = 110.400 × 9/12 ←", "82.800", ""]
+        ]
+      }
+    },
+    {
+      "id": "tv2607",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 40 siniflandirma siniri",
+      "soru": "Aşağıdaki gayrimenkullerden hangisi TMS 40 uyarınca yatırım amaçlı gayrimenkul olarak sınıflandırılmaz?",
+      "siklar": {
+        "A": "Uzun vadede sermaye kazancı elde etmek amacıyla elde tutulan arsa",
+        "B": "Gelecekte nasıl kullanılacağına henüz karar verilmemiş olan arsa",
+        "C": "İşletmenin sahip olduğu ve bir faaliyet kiralamasına konu edilen bina",
+        "D": "İşletmenin sahip olduğu ve bizzat işlettiği otel binası",
+        "E": "Gelecekte yatırım amaçlı kullanılmak üzere inşa edilmekte olan gayrimenkul"
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "Arsanın gelir getirmemesi bazen 'yatırım sayılmaz' diye okunur. Standart kira gelirini şart koşmaz; SERMAYE KAZANCI tek başına yeterlidir. Doğrusu: p.8-a bu arsayı yatırım amaçlı gayrimenkule örnek olarak sayar.",
+        "B": "Karar verilmemiş olması burada belirsizlik sanılıyor; standart ise bu belirsizliği kendisi çözmüştür. Doğrusu: p.8-b, işletme arsayı kullanmaya veya kısa vadede satmaya karar vermemişse arsanın sermaye kazancı için tutulduğunun VARSAYILACAĞINI söyler.",
+        "C": "Bu şık doğrudan tanımın merkezindedir; işaretlenmesi tanımın atlandığını gösterir. Doğrusu: p.8-c, bir veya daha fazla faaliyet kiralamasına konu edilen binaları yatırım amaçlı gayrimenkul sayar.",
+        "D": "Ne soruluyor: Bir gayrimenkulün 'yatırım' sayılması için kiraya verilmiş olmasının yetip yetmediği soruluyor.\n\nKural: TMS 40 p.5, yatırım amaçlı gayrimenkulü kira geliri veya sermaye kazancı ya da her ikisini elde etmek için tutulan gayrimenkul olarak tanımlar; mal/hizmet üretiminde, tedarikinde, idari amaçla kullanılan veya olağan iş akışında satılmak üzere tutulanlar bu tanımın dışındadır. p.8 kapsama girenleri sayar. Sınırı çizen ölçüt p.11 ve p.12'dedir: gayrimenkulün kullanıcılarına yardımcı hizmet sunuluyorsa, bu hizmetin toplam sözleşme içindeki ağırlığına bakılır. Ofis binasında güvenlik ve bakım hizmeti ÖNEMSİZDİR, gayrimenkul yatırım amaçlı kalır. Otelde ise sunulan hizmetler ÖNEMLİ boyuttadır; p.12 sonucu birebir yazar: sahibi tarafından işletilen otel yatırım amaçlı gayrimenkul değil, sahibi tarafından kullanılan gayrimenkuldür.\n\nBu olayda: Otelde işletme yalnızca binayı sunmuyor; konaklama, temizlik, yiyecek-içecek gibi hizmetleri de kendisi veriyor. Gelir, binanın kendisinden değil İŞLETİLMESİNDEN doğuyor. Bu yüzden otel TMS 40 kapsamında değil, TMS 16 kapsamındadır ve amortismana tabidir. Diğer dört şıkkın hepsi p.8'de sayılan örneklerdir.\n\nAkılda kalsın: Binayı kiraya verirsen yatırım, binayı sen işletirsen faaliyet — ölçü hizmetin ağırlığıdır.",
+        "E": "'Henüz bitmemiş, o hâlde sınıflandırılamaz' diye düşünülüyor. Standart tamamlanmayı şart koşmaz; belirleyici olan AMAÇTIR. Doğrusu: p.8-e, gelecekte yatırım amaçlı kullanılmak üzere inşa edilmekte veya geliştirilmekte olan gayrimenkulleri de kapsama alır."
+      },
+      "hap": "Yatırım amaçlı gayrimenkul = kira geliri veya sermaye kazancı için tutulan gayrimenkul (TMS 40 p.5). Yardımcı hizmet ÖNEMSİZ ise (ofiste güvenlik-bakım) yatırım amaçlı kalır; hizmet ÖNEMLİ ise (sahibinin işlettiği otel) sahibi tarafından kullanılan gayrimenkul olur (p.11-12).",
+      "kaynak": "TMS 40 p.4, p.5, p.8, p.11-12, p.57",
+      "tablo": {
+        "baslik": "Yatırım amaçlı mı, değil mi?",
+        "kolonlar": ["Durum", "Yatırım amaçlı mı?", "Dayanak"],
+        "satirlar": [
+          ["Sermaye kazancı için tutulan arsa", "Evet", "p.8-a"],
+          ["Kullanımına karar verilmemiş arsa", "Evet (sermaye kazancı varsayılır)", "p.8-b"],
+          ["Faaliyet kiralamasına konu bina", "Evet", "p.8-c"],
+          ["Kiralanmak üzere tutulan boş bina", "Evet", "p.8-d"],
+          ["Yatırım amaçlı inşa edilen gayrimenkul", "Evet", "p.8-e"],
+          ["Güvenlik/bakım sunulan ofis binası", "Evet (hizmet önemsiz)", "p.11"],
+          ["Sahibi tarafından işletilen otel ←", "HAYIR", "p.12"],
+          ["Tarımsal canlı varlık, maden hakları", "Standart hiç uygulanmaz", "p.4"]
+        ]
+      }
+    },
+    {
+      "id": "tv2611",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "denetim kaniti yeterliligi",
+      "soru": "Denetim kanıtının yeterliliği ve uygunluğu ile ilgili aşağıdaki ifadelerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Yeterlilik kanıtın miktarının, uygunluk ise kanıtın kalitesinin ölçütüdür.",
+        "B": "Önemli yanlışlık riski ne kadar yüksek değerlendirilirse muhtemelen o kadar çok kanıt gerekir.",
+        "C": "Kanıtın kalitesi arttıkça ihtiyaç duyulan kanıt miktarı azalabilir.",
+        "D": "Yeterince fazla kanıt toplanması, kanıtın düşük kalitesini telafi eder.",
+        "E": "Uygunluk, kanıtın ihtiyaca uygunluğunu ve güvenilirliğini birlikte ifade eder."
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "Bu ikisi sınavda sürekli yer değiştirir; işaretlenmesi tanımın ters ezberlendiğini gösterir. Doğrusu: BDS 500 p.5-c yeterliliği 'denetim kanıtının miktarının ölçütü', p.5-b uygunluğu 'denetim kanıtının kalitesinin ölçütü' diye tanımlar — şıktaki eşleştirme doğrudur.",
+        "B": "'Risk yüksekse denetçi zaten görüş vermez, kanıt aramaz' gibi bir sezgiyle elenebiliyor. Tersi doğrudur: risk yükseldikçe denetçi daha çok çalışır. Doğrusu: BDS 200 p.A31 birebir şöyle der: önemli yanlışlık riskinin ne kadar yüksek olduğu değerlendiriliyorsa muhtemelen daha fazla denetim kanıtı gerekecektir.",
+        "C": "Burada tereddüt 'azalabilir' kelimesinden doğar; standart kesin bir azalma değil, bir imkân söyler ve şık da aynı ihtiyatı taşır. Doğrusu: Yine p.A31: denetim kanıtının kalitesi arttıkça daha az denetim kanıtı gerekebilir.",
+        "D": "Ne soruluyor: Denetçinin 'az ama sağlam' mı yoksa 'çok ama zayıf' mı kanıt toplaması gerektiği soruluyor.\n\nKural: BDS 500 p.5 iki terimi ayırır. YETERLİLİK, denetim kanıtının MİKTARININ ölçütüdür; ihtiyaç duyulan miktar hem denetçinin önemli yanlışlık riski değerlendirmesinden hem de kanıtın kalitesinden etkilenir. UYGUNLUK ise kanıtın KALİTESİNİN ölçütüdür — kanıtın ihtiyaca uygunluğu ve güvenilirliği. İkisi birbiriyle ilişkilidir ama biri diğerinin yerine geçmez. BDS 200 p.A31 bu sınırı tek cümleyle koyar: ancak daha fazla denetim kanıtının elde edilmesi, denetim kanıtının düşük olan kalitesini telafi etmeyebilir.\n\nBu olayda: D şıkkı tam bu cümlenin tersini söylüyor. Kanıt miktarı ile kalite iki ayrı eksendir: zayıf kalitede bin belge toplamak, güvenilir tek bir dış teyit mektubunun yerini tutmaz. Diğer dört şıkkın hepsi standardın kendi ifadeleridir.\n\nAkılda kalsın: Kanıt tartılmaz, ölçülür — kilo ile kalite ayrı iki terazidir.",
+        "E": "Uygunluk çoğu zaman yalnızca 'güvenilirlik' sanılır; ihtiyaca uygunluk ayağı unutulur. Güvenilir ama sorulan yönetim beyanıyla ilgisiz bir kanıt uygun değildir. Doğrusu: BDS 500 p.5-b uygunluğu 'denetim kanıtının ihtiyaca uygunluğu ve güvenilirliği' olarak iki ayaklı tanımlar."
+      },
+      "hap": "YETERLİLİK = miktar, UYGUNLUK = kalite (ihtiyaca uygunluk + güvenilirlik). Risk yükselirse gereken miktar artar, kalite yükselirse miktar azalabilir — ama çok kanıt, KÖTÜ kanıtı telafi etmez (BDS 200 p.A31).",
+      "kaynak": "BDS 500 p.5, p.6 · BDS 200 p.A31, p.A32, p.A33",
+      "tablo": {
+        "baslik": "Yeterlilik ile uygunluk",
+        "kolonlar": ["", "YETERLİLİK", "UYGUNLUK"],
+        "satirlar": [
+          ["Neyin ölçütü?", "Miktar", "Kalite"],
+          ["Sorusu", "Kaç tane?", "İşe yarar mı, güvenilir mi?"],
+          ["Alt bileşeni", "—", "İhtiyaca uygunluk + güvenilirlik"],
+          ["Neyden etkilenir?", "Risk değerlendirmesi + kanıt kalitesi", "Kanıtın kaynağı, niteliği, şartları"],
+          ["Risk yükselirse", "Gereken miktar artar", "—"],
+          ["Kalite yükselirse", "Gereken miktar azalabilir", "—"],
+          ["Biri diğerinin yerini tutar mı? ←", "HAYIR — çok kanıt kötü kanıtı telafi etmez", ""]
+        ]
+      }
+    },
+    {
+      "id": "tv2612",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "denetim kaniti guvenilirligi",
+      "soru": "BDS 500 uyarınca denetim kanıtlarının güvenilirliğine ilişkin aşağıdaki genellemelerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Kanıt işletme dışındaki bağımsız kaynaklardan elde edilirse güvenilirliği artar.",
+        "B": "İşletmenin ilgili kontrolleri etkinse, işletme içinden elde edilen kanıtın güvenilirliği artar.",
+        "C": "Doğrudan denetçi tarafından elde edilen kanıt, sorgulama yoluyla elde edilenden daha güvenilirdir.",
+        "D": "Belgenin fotokopisinden elde edilen kanıt, belgenin aslından elde edilenden daha güvenilirdir.",
+        "E": "Belge şeklindeki kanıt, sözlü olarak elde edilen kanıttan daha güvenilirdir."
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "Bazı adaylar 'işletmeyi en iyi işletme bilir' diye düşünüp bu şıkkı yanlış sanır. Denetimin mantığı tersinedir: taraf olmayanın sözü daha ağırdır. Doğrusu: p.A31 birebir 'İşletme dışındaki bağımsız kaynaklardan elde edilmesi durumunda denetim kanıtının güvenilirliği artar' der.",
+        "B": "'İşletme içi kanıt her hâlükârda zayıftır' ezberi bu şıkkı eledirir. Standart mutlak bir zayıflık ilan etmez; iç kanıtın gücünü kontrollere bağlar. Doğrusu: p.A31, kanıtın hazırlanması ve korunması üzerindeki kontroller etkinse işletme içinden elde edilen kanıtın güvenilirliğinin arttığını söyler.",
+        "C": "Standardın kendi örneği bu şıkta gizlidir: bir kontrolün uygulanmasını GÖZLEMLEMEK, aynı kontrolü SORMAKTAN güçlüdür. Doğrusu: p.A31 bu iki örneği yan yana koyarak doğrudan elde edilen kanıtın dolaylı kanıttan daha güvenilir olduğunu belirtir.",
+        "D": "Ne soruluyor: Elindeki iki belgeden hangisine daha çok güvenebileceğin soruluyor.\n\nKural: BDS 500 p.A31, kanıtın güvenilirliğinin KAYNAĞINDAN, NİTELİĞİNDEN ve elde edildiği ŞARTLARDAN etkilendiğini söyler, sonra beş genelleme sıralar: dış bağımsız kaynak güvenilirliği artırır; işletme içi kanıtta ilgili kontroller etkinse güvenilirlik artar; doğrudan denetçi tarafından elde edilen kanıt dolaylı olandan güvenilirdir; belge sözlüden güvenilirdir; BELGENİN ASLI fotokopiden, fakstan, taranmış veya dijitalleştirilmiş kopyalardan güvenilirdir. Standardın kendi koyduğu sınır da önemlidir: farklı türdeki denetim kanıtlarının güvenilirliğine ilişkin genellemeler önemli istisnalara tabidir — bunlar mutlak kural değil, başlangıç varsayımıdır.\n\nBu olayda: D şıkkı bu beş genellemeden sonuncusunu TERS ÇEVİRMİŞTİR. Standart aslın kopyadan güvenilir olduğunu söyler; gerekçesi de yazılıdır: kopyanın güvenilirliği, o kopyanın hazırlanması ve korunması üzerindeki kontrollere bağlıdır.\n\nAkılda kalsın: Dışarıdan gelsin, elinle al, kâğıda dökülmüş olsun ve aslı olsun — dördü de kanıtı yukarı çeker.",
+        "E": "Şıkkın işaretlenmesi genellikle 'her yazılı belge güvenilir değildir' itirazından doğar. O itiraz doğrudur ama karşılaştırma sözlü kanıtla yapılmaktadır. Doğrusu: p.A31 örneği açıktır: toplantıda tutulan yazılı kayıtlar, aynı konudaki sonraki sözlü açıklamalardan daha güvenilirdir."
+      },
+      "hap": "BDS 500 p.A31'in beş genellemesi: dış bağımsız kaynak > iç kaynak · kontroller etkinse iç kanıt güçlenir · doğrudan denetçi > dolaylı · belge > sözlü · ASIL > fotokopi. Hepsi 'önemli istisnalara tabidir' — mutlak kural değil, başlangıç varsayımıdır.",
+      "kaynak": "BDS 500 p.A26, p.A31, p.7, p.9",
+      "tablo": {
+        "baslik": "Güvenilirlik merdiveni",
+        "kolonlar": ["Karşılaştırma", "Daha güvenilir", "Daha az güvenilir"],
+        "satirlar": [
+          ["Kaynak", "İşletme DIŞI bağımsız kaynak", "İşletme içi"],
+          ["İşletme içi kanıtta", "İlgili kontroller etkinse", "Kontroller zayıfsa"],
+          ["Elde etme yolu", "Doğrudan denetçi (gözlem)", "Dolaylı / sorgulama"],
+          ["Biçim", "Belge (basılı, elektronik)", "Sözlü açıklama"],
+          ["Belgenin hâli ←", "ASLI", "Fotokopi, faks, taranmış"]
+        ]
+      }
+    },
+    {
+      "id": "tv2613",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "denetim riski",
+      "soru": "Bir denetimde, işletmenin iç kontrollerindeki zayıflıklar nedeniyle önemli yanlışlık riski yüksek olarak değerlendirilmiştir. Denetçi, denetim riskini kabul edilebilir düşük bir seviyede tutmak istemektedir. Denetçinin bu durumda izlemesi gereken yol aşağıdakilerden hangisidir?",
+      "siklar": {
+        "A": "Tespit edememe riskini düşürür; örneklem büyüklüğünü genişletir.",
+        "B": "Tespit edememe riskini yükseltir; örneklem büyüklüğünü daraltır.",
+        "C": "Tespit edememe riskini değiştirmez; önemlilik düzeyini yükseltir.",
+        "D": "Denetim riskini yükselterek önemli yanlışlık riskini dengeler.",
+        "E": "Maddi doğrulama prosedürlerini kaldırıp yalnızca kontrol testi uygular."
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: İşletmesi riskli olan bir müşteride denetçinin işini azaltıp mı çoğaltıp mı yapacağı soruluyor.\n\nKural: BDS 200 p.5 denetim riskini tanımlar: finansal tabloların önemli bir yanlışlık içermesine rağmen denetçinin duruma uygun olmayan bir görüş vermesi riski. Denetçi bu riski kabul edilebilir düşük seviyeye indirdiğinde MAKUL GÜVENCE sağlamış olur — makul güvence yüksek bir güvence seviyesidir, ama mutlak değildir. p.A34 ilişkiyi kurar: denetim riski, önemli yanlışlık riskinin ve tespit edememe riskinin bir fonksiyonudur. Bu iki bileşenin doğası farklıdır: önemli yanlışlık riski işletmenin kendisinde mevcuttur, denetçi onu yalnızca ölçer; tespit edememe riski ise denetçinin kendi prosedürlerinden doğar ve denetçi onu ayarlayabilir. BDS 530 Ek-3 sonucu yazar: denetim riskini düşük tutmak için tespit edememe riskinin düşük olması gerekir ve denetçi maddi doğrulama prosedürlerine daha çok güvenecektir; ayrıca tespit edememe riski azaldıkça daha geniş bir örneklem büyüklüğü gerekir.\n\nBu olayda: Önemli yanlışlık riski yüksektir ve denetçi bunu düşüremez — iç kontrolü o düzeltemez. Çarpımın sonucunu düşük tutmanın tek yolu, çarpanın KENDİ ELİNDEKİ ayağını kısmaktır: tespit edememe riskini düşürmek. Bunun pratik karşılığı daha çok ve daha geniş maddi doğrulama, yani daha büyük örneklemdir.\n\nAkılda kalsın: Müşterinin riskini düşüremezsin, kendi körlüğünü düşürebilirsin — kalabalık dosyada daha çok örnek çekersin.",
+        "B": "İlişki doğru kurulmuş ama yön ters çevrilmiştir. Çarpanlardan biri büyükken diğerini de büyütmek sonucu daha da büyütür. Doğrusu: BDS 530 Ek-3 uyarınca denetim riskini düşük tutmak için tespit edememe riski DÜŞÜRÜLÜR, örneklem büyüklüğü genişler.",
+        "C": "Önemliliği yükseltmek daha az yanlışlığın 'önemli' sayılması demektir; yani denetçi kendi çıtasını indirmiş olur. Bu, riski yönetmek değil, riski görmezden gelmektir. Doğrusu: BDS 320 p.6 uyarınca önemlilik, risklere karşı bir tampon değil, prosedürlerin niteliğini ve kapsamını belirleyen bir ölçüttür.",
+        "D": "Denetim riski bir 'ayar düğmesi' gibi görülüyor. Oysa o, sürecin SONUCUDUR ve BDS 200 p.5 onun kabul edilebilir düşük seviyeye indirilmesini zorunlu kılar. Doğrusu: Denetim riski hedeftir, değişken değildir; denetçi bileşenler üzerinden sonuca ulaşır (p.A34).",
+        "E": "Soruda iç kontrollerin ZAYIF olduğu söylenmiştir; zayıf kontrole dayanarak kontrol testine yüklenmek, dayanağı olmayan bir güvendir. Doğrusu: BDS 530 Ek-3 uyarınca tespit edememe riski düşürülürken denetçi MADDİ DOĞRULAMA prosedürlerine daha çok dayanır; kontrol testine değil."
+      },
+      "hap": "Denetim riski = önemli yanlışlık riski ile tespit edememe riskinin fonksiyonu (BDS 200 p.A34). Önemli yanlışlık riski İŞLETMEDEDİR, denetçi onu değiştiremez; tespit edememe riski DENETÇİDEDİR. Risk yüksekse tespit edememe riski düşürülür → örneklem genişler (BDS 530 Ek-3).",
+      "kaynak": "BDS 200 p.5, p.A34, p.11 · BDS 530 Ek-3 · BDS 320 p.6",
+      "tablo": {
+        "baslik": "Üç risk — hangisi senin elinde?",
+        "kolonlar": ["", "Denetçinin kontrolünde mi?", "Bu olayda"],
+        "satirlar": [
+          ["Denetim riski (hedef)", "Hedef olarak belirlenir", "Kabul edilebilir DÜŞÜK tutulacak"],
+          ["Önemli yanlışlık riski", "Hayır — denetçi yalnız ÖLÇER", "YÜKSEK"],
+          ["Tespit edememe riski ←", "Evet — prosedürle AYARLAR", "DÜŞÜRÜLÜR"],
+          ["Sonuç: prosedür kapsamı", "Maddi doğrulamaya daha çok dayanılır", "Örneklem GENİŞLER"]
+        ]
+      }
+    },
+    {
+      "id": "tv2614",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "denetim gorusu turleri",
+      "soru": "İki ayrı denetimde şu durumlar ortaya çıkmıştır. I. Denetçi yeterli ve uygun denetim kanıtını elde etmiştir; stoklarda tespit ettiği yanlışlık önemlilik düzeyinin üzerindedir, ancak etkisi yalnızca stok kalemiyle sınırlıdır ve finansal tabloların önemli bir bölümünü temsil etmemektedir. II. Denetçi, bir bağlı ortaklığın kayıtlarına hiç erişememiştir; tespit edilmemiş yanlışlıkların finansal tablolar üzerindeki muhtemel etkilerinin hem önemli hem de yaygın olabileceği sonucuna varmıştır. Denetçinin bu iki denetimde vereceği görüşler sırasıyla nedir?",
+      "siklar": {
+        "A": "Sınırlı olumlu görüş — Görüş vermekten kaçınma",
+        "B": "Sınırlı olumlu görüş — Olumsuz görüş",
+        "C": "Olumsuz görüş — Görüş vermekten kaçınma",
+        "D": "Olumsuz görüş — Sınırlı olumlu görüş",
+        "E": "Sınırlı olumlu görüş — Sınırlı olumlu görüş"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Denetçinin raporunda hangi görüşü yazacağını belirleyen iki ölçütün ne olduğu soruluyor.\n\nKural: BDS 700 p.16 önce zemini kurar: finansal tablolar tüm önemli yönleriyle geçerli çerçeveye uygunsa OLUMLU GÖRÜŞ verilir. Uygun değilse BDS 705 devreye girer ve p.2 kararın İKİ EKSENE bağlı olduğunu söyler: (a) sorunun NİTELİĞİ — tablolar yanlışlık mı içeriyor, yoksa denetçi kanıt mı elde edememiş; (b) etkilerin YAYGINLIĞI. Bu iki eksen dört kutu üretir: yanlışlık var + önemli ama yaygın değil → sınırlı olumlu (p.7-a); yanlışlık var + önemli ve yaygın → olumsuz (p.8); kanıt yok + muhtemel etki önemli ama yaygın olmayabilir → sınırlı olumlu (p.7-b); kanıt yok + muhtemel etki önemli ve yaygın olabilir → görüş vermekten kaçınma (p.9).\n\nBu olayda: I'de denetçi kanıtı ELDE ETMİŞTİR, yanlışlık önemlidir ama stokla sınırlıdır — yaygın değildir. p.7-a: sınırlı olumlu görüş. II'de denetçi kanıtı hiç ELDE EDEMEMİŞTİR ve muhtemel etki hem önemli hem yaygındır. p.9: görüş vermekten kaçınma. Dikkat: II'de olumsuz görüş verilemez, çünkü olumsuz görüş ancak denetçi yanlışlığı KANITLAMIŞSA verilir — burada kanıt yoktur.\n\nAkılda kalsın: Yanlışı gördüysen 'olumsuz', göremediysen 'kaçınma' — yaygınlık ise sınırlı olumlu ile diğerini ayırır.",
+        "B": "TUZAK: En sık düşülen tuzak budur: 'durum çok kötü, o hâlde en ağır görüş verilir.' Ama ağırlık sırası değil, EKSEN belirleyicidir. Olumsuz görüş bir iddiadır; iddia için kanıt gerekir. Doğrusu: BDS 705 p.8 olumsuz görüşü yalnızca 'yeterli ve uygun denetim kanıtı elde etmiş olan' denetçiye tanır. II'de kanıt yoktur → p.9, görüş vermekten kaçınma.",
+        "C": "Burada yanlışlığın önemli olması yeterli sanılıyor; yaygınlık ölçütü atlanmış. Önemli her yanlışlık olumsuz görüş doğurmaz. Doğrusu: p.7-a uyarınca yanlışlık önemli ANCAK YAYGIN DEĞİLSE sınırlı olumlu görüş verilir.",
+        "D": "Nitelik ve yaygınlık doğru okunmuş ama iki denetim yer değiştirmiş. Kanıtı olan denetime 'kaçınma', olmayana 'sınırlı olumlu' düşmüş. Doğrusu: Kanıt varsa görüş bildirilir (p.7-a / p.8); kanıt yoksa ve etki yaygınsa görüş verilmez (p.9).",
+        "E": "Bu şık, yaygınlık ölçütünü hiç kullanmamaktan doğar — sanki her sorun 'şartlı' görüşle geçiştirilebilirmiş gibi. Doğrusu: BDS 200 p.12, sınırlı olumlu görüşün kullanıcılara bildirim açısından yetersiz kaldığı durumlarda denetçinin görüş bildirmekten KAÇINMASINI veya denetimden çekilmesini zorunlu kılar."
+      },
+      "hap": "Görüş türünü İKİ EKSEN belirler: (1) sorun yanlışlık mı, kanıt eksikliği mi; (2) etki yaygın mı değil mi. Yanlışlık + yaygın değil → sınırlı olumlu. Yanlışlık + yaygın → olumsuz. Kanıt yok + yaygın değil → sınırlı olumlu. Kanıt yok + yaygın → görüş vermekten kaçınma.",
+      "kaynak": "BDS 700 p.10-11, p.16-17 · BDS 705 p.2, p.5-b, p.6-10 · BDS 200 p.12",
+      "tablo": {
+        "baslik": "BDS 705 karar matrisi",
+        "kolonlar": ["Sorunun kaynağı", "Önemli ama YAYGIN DEĞİL", "Önemli ve YAYGIN"],
+        "satirlar": [
+          ["Tablolar yanlışlık içeriyor (kanıt var)", "Sınırlı olumlu görüş ← I", "Olumsuz görüş"],
+          ["Yeterli ve uygun kanıt elde edilemedi", "Sınırlı olumlu görüş", "Görüş vermekten kaçınma ← II"],
+          ["Sorun yok", "OLUMLU GÖRÜŞ (BDS 700 p.16)", "—"]
+        ]
+      }
+    },
+    {
+      "id": "tv2615",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "analitik prosedurler",
+      "soru": "Aşağıdaki denetim aşamalarından hangisinde veya hangilerinde analitik prosedür uygulanması zorunludur? I. Risk değerlendirme aşaması. II. Maddi doğrulama aşaması. III. Denetimin sonuna doğru genel sonuç oluşturma aşaması.",
+      "siklar": {
+        "A": "Yalnız I",
+        "B": "Yalnız III",
+        "C": "I ve II",
+        "D": "I ve III",
+        "E": "I, II ve III"
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "Başlangıçtaki zorunluluk biliniyor, kapanıştaki unutuluyor. Nihai gözden geçirme çoğu kaynakta 'isteğe bağlı bir kontrol' gibi anlatılır; standart öyle demez. Doğrusu: BDS 520 p.6, denetimin sonuna doğru genel sonuç oluştururken analitik prosedürlerin tasarlanıp uygulanmasını zorunlu kılar.",
+        "B": "Bu şıkta analitik prosedür yalnızca bir 'son kontrol' sanılıyor; oysa denetim daha başlarken riskleri görmek için kullanılır. Doğrusu: BDS 315 p.6, analitik prosedürleri risk değerlendirme prosedürleri arasında doğrudan sayar.",
+        "C": "Maddi doğrulamadaki kullanım zorunlu sanılmış. BDS 520'nin kapsam cümlesi bile bunu 'kullanması'na bağlar, 'kullanmak zorundadır'a değil. Doğrusu: p.5 uyarınca denetçi önce bu prosedürün uygunluğuna KARAR VERİR; detay testleriyle de yetinebilir.",
+        "D": "Ne soruluyor: Analitik prosedürün denetimin hangi anlarında 'isteğe bağlı' değil, 'mecburi' olduğu soruluyor.\n\nKural: BDS 520 p.4 analitik prosedürü tanımlar: finansal ve finansal olmayan veriler arasındaki anlamlı ilişkilerin analiz edilmesi yoluyla finansal bilgilerin değerlendirilmesi; ayrıca beklenenden ciddi ölçüde sapan dalgalanmaların araştırılmasını da kapsar. Zorunluluk üç yerde farklıdır. RİSK DEĞERLENDİRMEDE ZORUNLUDUR: BDS 315 p.6, risk değerlendirme prosedürlerini sayarken '(b) Analitik prosedürler' der; liste seçmeli değildir. MADDİ DOĞRULAMADA TERCİHE BAĞLIDIR: BDS 520 p.5, denetçinin analitik maddi doğrulama prosedürlerini 'tek başına veya detay testleri ile birlikte' kullanabileceğini, hatta önce uygunluğuna karar vereceğini söyler. NİHAİ GÖZDEN GEÇİRMEDE ZORUNLUDUR: BDS 520 p.6 — denetçi, denetimin sonuna doğru finansal tabloların işletme hakkındaki anlayışıyla tutarlı olup olmadığına dair genel bir sonuç oluştururken analitik prosedürleri tasarlar ve uygular.\n\nBu olayda: Zorunluluk I ve III'tedir; II bir seçenektir. Bu ayrım pratikte şu anlama gelir: denetçi tek bir hesapta analitik yöntem kullanmayabilir, ama denetime analitik bakışla BAŞLAMAK ve analitik bakışla BİTİRMEK zorundadır.\n\nAkılda kalsın: Analitik prosedür denetimin kapı girişi ve kapı çıkışıdır; ortadaki odalarda kullanmak denetçinin tercihidir.",
+        "E": "'Hepsi' cevabı, standardın üç aşama arasında yaptığı ayrımı tamamen siler. Zorunluluk ile imkânın aynı şey olmadığı gözden kaçmıştır. Doğrusu: Yalnız I (BDS 315 p.6) ve III (BDS 520 p.6) zorunludur; II tercihe bağlıdır."
+      },
+      "hap": "Analitik prosedür RİSK DEĞERLENDİRMEDE zorunlu (BDS 315 p.6) ve NİHAİ GÖZDEN GEÇİRMEDE zorunludur (BDS 520 p.6). Maddi doğrulama aşamasında kullanılması ise denetçinin tercihidir (BDS 520 p.5) — detay testi de seçilebilir.",
+      "kaynak": "BDS 520 p.1, p.4, p.5, p.6, p.7 · BDS 315 p.6",
+      "tablo": {
+        "baslik": "Hangi aşamada zorunlu?",
+        "kolonlar": ["Aşama", "Analitik prosedür", "Zorunlu mu?", "Dayanak"],
+        "satirlar": [
+          ["I. Risk değerlendirme ←", "Risk değerlendirme prosedürlerinin parçası", "ZORUNLU", "BDS 315 p.6-b"],
+          ["II. Maddi doğrulama", "Analitik maddi doğrulama prosedürü", "Tercihe bağlı", "BDS 520 p.1, p.5"],
+          ["III. Genel sonuç ←", "Tabloların anlayışla tutarlılığı", "ZORUNLU", "BDS 520 p.6"],
+          ["Fark bulunursa", "Yönetim sorgulanır + kanıt elde edilir", "Her hâlde", "BDS 520 p.7"]
+        ]
+      }
+    },
+    {
+      "id": "tv2616",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "onemlilik ve performans onemliligi",
+      "soru": "Önemlilik ve performans önemliliği ile ilgili aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Performans önemliliği, bir bütün olarak finansal tablolar için belirlenen önemlilikten daha düşük belirlenir.",
+        "B": "Performans önemliliği, düzeltilmemiş ve tespit edilmemiş yanlışlıkların toplamının önemliliği aşma ihtimalini azaltmak için belirlenir.",
+        "C": "Planlama sırasında belirlenen önemliliğin altında kalan yanlışlıklar her zaman önemsiz sayılır.",
+        "D": "Denetçi performans önemliliğini, riskleri değerlendirmek ve prosedürlere karar vermek amacıyla belirler.",
+        "E": "Denetçi, bariz biçimde önemsiz sayılanlar dışındaki yanlışlıkları denetim boyunca biriktirir."
+      },
+      "dogru": "C",
+      "aciklama": {
+        "A": "Bazen 'performans' kelimesi yüzünden bunun daha yüksek bir çıta olduğu sanılır. Tersinedir: denetçi kendine daha dar bir hedef koyar ki toplam sapma genel sınırı aşmasın. Doğrusu: BDS 320 p.9 performans önemliliğini 'daha düşük olarak belirlenen tutar veya tutarlar' diye tanımlar.",
+        "B": "Şık, amacı tam olarak yazdığı için bazen 'fazla teknik' görünüp elenir. Oysa cümle standardın kendi amaç ifadesidir. Doğrusu: p.9'un ikinci cümlesi bu amacı birebir bu şekilde kurar.",
+        "C": "Ne soruluyor: Önemlilik sınırının altında kalan bir hatanın gerçekten 'boş verilebilir' olup olmadığı soruluyor.\n\nKural: BDS 320 p.2, önemliliğe ilişkin yargıların 'yanlışlığın büyüklüğünden veya niteliğinden ya da bu ikisinin bileşiminden' etkilendiğini söyler — yani ölçüt tek başına tutar değildir. p.9 performans önemliliğini tanımlar: bir bütün olarak finansal tablolar için belirlenen önemlilikten DAHA DÜŞÜK olarak belirlenen tutar; amacı, düzeltilmemiş ve tespit edilmemiş yanlışlıkların TOPLAMININ önemliliği aşma ihtimalini uygun bir seviyeye indirmektir. p.11 bu tutarın riskleri değerlendirmek ve prosedürlerin niteliğine, zamanlamasına, kapsamına karar vermek için belirlendiğini ekler. BDS 450 p.5 ise en alt eşiği koyar: denetçi 'bariz biçimde önemsiz sayılanlar dışındaki' yanlışlıkları biriktirir. Sınırı çizen cümle p.6'dadır: planlama sırasında belirlenen önemlilik, bu tutarın altında kalan düzeltilmemiş yanlışlıkların her zaman önemsiz olarak değerlendirileceği bir tutar oluşturmayabilir; bazı yanlışlıklarla ilgili durumlar denetçinin söz konusu yanlışlıkları önemliliğin altında olsalar bile önemli olarak değerlendirmesine sebep olabilir.\n\nBu olayda: C şıkkı 'her zaman' diyerek bu istisnayı yok sayıyor. Küçük bir tutar, üst yönetimin kasıtlı bir işlemine işaret ediyorsa ya da bir sözleşme şartını ihlal edip etmediğini belirliyorsa, tutarı küçük olsa bile önemlidir.\n\nAkılda kalsın: Önemlilik bir kantar değil; küçük tutarlı hatanın kokusu büyük olabilir.",
+        "D": "Performans önemliliğinin yalnızca raporlama aşamasında kullanıldığı sanılıyor; oysa prosedürlerin kapsamını o belirler. Doğrusu: p.11 uyarınca denetçi performans önemliliğini önemli yanlışlık risklerini değerlendirmek ve müteakip prosedürlerin niteliğine, zamanlamasına, kapsamına karar vermek için belirler.",
+        "E": "'Denetçi bulduğu her şeyi yazar' ya da tam tersi 'yalnız önemli olanları yazar' diye iki uçtan da elenebiliyor. Standardın eşiği ikisinin arasındadır. Doğrusu: BDS 450 p.5, bariz biçimde önemsiz olanlar DIŞINDAKİ tüm yanlışlıkların biriktirilmesini zorunlu kılar."
+      },
+      "hap": "Performans önemliliği, genel önemlilikten DAHA DÜŞÜK belirlenir; amacı birikmiş yanlışlıkların genel önemliliği aşma ihtimalini düşürmektir (BDS 320 p.9). Önemliliğin ALTINDA kalan bir yanlışlık, NİTELİĞİ sebebiyle yine de önemli sayılabilir (p.6).",
+      "kaynak": "BDS 320 p.2-6, p.9, p.10, p.11, p.14 · BDS 450 p.5, p.15",
+      "tablo": {
+        "baslik": "Önemlilik katmanları",
+        "kolonlar": ["Katman", "Ne işe yarar?", "Dayanak"],
+        "satirlar": [
+          ["Genel önemlilik", "Genel denetim stratejisi kurulurken belirlenir", "BDS 320 p.10"],
+          ["Özel önemlilik düzeyi", "Belirli işlem sınıfı / hesap / açıklama için", "BDS 320 p.10"],
+          ["Performans önemliliği (daha DÜŞÜK)", "Birikmiş yanlışlıkların önemliliği aşmasını önler", "BDS 320 p.9, p.11"],
+          ["Bariz biçimde önemsiz eşiği", "Bunun altındakiler biriktirilmez", "BDS 450 p.5"],
+          ["Nitelik istisnası ←", "Önemliliğin ALTINDA kalan yanlışlık, niteliği sebebiyle önemli olabilir", "BDS 320 p.6"]
+        ]
+      }
+    },
+    {
+      "id": "tv2617",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "denetim calisma kagitlari",
+      "soru": "Çalışma kâğıtları ve denetim dosyası ile ilgili aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Çalışma kâğıtları, denetimle önceden hiç bağlantısı olmayan tecrübeli bir denetçinin anlayabileceği şekilde hazırlanır.",
+        "B": "Denetçi, denetim çalışmasını kimin yürüttüğünü ve çalışmanın tamamlandığı tarihi kayıt altına alır.",
+        "C": "Nihai denetim dosyası birleştirildikten sonra saklama süresi dolmadan çalışma kâğıtları yok edilemez.",
+        "D": "Denetçi raporu tarihinden sonra çalışma kâğıtlarına hiçbir şekilde ekleme yapılamaz.",
+        "E": "Denetim kuruluşları denetim çalışmalarına ilişkin her türlü belgeyi on yıl süreyle saklamak zorundadır."
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "Çalışma kâğıdının 'denetçinin kendi notu' olduğu sanılıyor. Standart onu bir İLETİŞİM BELGESİ sayar: başkası okuyup anlayabilmelidir. Doğrusu: BDS 230 p.8, kâğıtların 'söz konusu denetimle daha önceden hiçbir bağlantısı bulunmayan tecrübeli bir denetçinin' anlayabileceği şekilde hazırlanmasını zorunlu kılar.",
+        "B": "Bu ayrıntı bazen 'idari bilgi, standardın konusu değil' diye elenir. Oysa denetimin izlenebilirliğinin çekirdeğidir. Doğrusu: p.9 uyarınca denetçi; test edilen kalemlerin belirleyici özelliklerini, çalışmayı kimin yürüttüğünü ve tamamlanma tarihini, ayrıca kimin gözden geçirdiğini kayıt altına alır.",
+        "C": "Şık doğrudur ve D ile karıştırılarak elenir; ikisi aynı şey sanılır. Farkı görmek sorunun kilididir: biri ÇIKARMA, diğeri EKLEME. Doğrusu: p.15 silme/atma/yok etmeyi saklama süresi boyunca yasaklar — bu ifade doğrudur.",
+        "D": "Ne soruluyor: Denetim raporu imzalandıktan sonra dosyaya dokunulup dokunulamayacağı soruluyor.\n\nKural: BDS 230 iki ayrı fiili birbirinden ayırır. SİLME YASAKTIR: p.15 uyarınca nihai dosya birleştirildikten sonra denetçi, ne şekilde olursa olsun çalışma kâğıtlarını saklama süresi sona ermeden silemez, atamaz veya yok edemez. EKLEME İSE MÜMKÜNDÜR ama izlenebilir olmak zorundadır: p.16, denetçi değişiklik yapmayı veya yeni çalışma kâğıdı eklemeyi gerekli görürse, değişikliğin ÖZEL SEBEBİNİ ve NE ZAMAN, KİM TARAFINDAN yapıldığını ve gözden geçirildiğini belgelemesini ister. p.13 ayrıca istisnai durumlarda rapor tarihinden sonra yeni prosedür uygulanabileceğini kabul eder. Çalışma kâğıdının kalite ölçütü p.8'dedir. Saklama süresi ise BDS'de değil, Bağımsız Denetim Yönetmeliği m.35/1'dedir: ON YIL.\n\nBu olayda: D şıkkı yasağı olduğundan geniş kurmuştur — silme yasağını ekleme yasağına çevirmiştir. Standart ekleme yapmayı değil, İZSİZ ekleme yapmayı yasaklar.\n\nAkılda kalsın: Dosyadan bir şey çıkaramazsın; ekleyebilirsin ama imzanı ve tarihini bırakarak.",
+        "E": "Sürenin BDS 230'da aranması yüzünden bu şık 'kaynağı yok' diye elenebiliyor. Kaynak BDS değil, yönetmeliktir. Doğrusu: Bağımsız Denetim Yönetmeliği m.35/1, denetim kuruluşlarının ve denetim üstlenen bağımsız denetçilerin denetim çalışmalarına ve kalite yönetim sistemine ilişkin her türlü belgeyi ekleriyle birlikte ON YIL saklamasını zorunlu kılar."
+      },
+      "hap": "Nihai denetim dosyası birleştirildikten sonra çalışma kâğıdı SİLİNEMEZ (BDS 230 p.15); ama sebebi, tarihi ve kimin yaptığı belgelenerek EKLEME YAPILABİLİR (p.16). Saklama süresi BDS'de değil, Bağımsız Denetim Yönetmeliği m.35/1'de: ON YIL.",
+      "kaynak": "BDS 230 p.5-9, p.13-16 · Bağımsız Denetim Yönetmeliği m.35/1",
+      "tablo": {
+        "baslik": "Çalışma kâğıdı zaman çizelgesi",
+        "kolonlar": ["Zaman", "Ne yapılabilir?", "Şart", "Dayanak"],
+        "satirlar": [
+          ["Denetim sırasında", "Kâğıtlar zamanında hazırlanır", "—", "BDS 230 p.7"],
+          ["Rapor tarihinden sonra (istisnai)", "Yeni prosedür uygulanabilir", "Durum, prosedür, kanıt, sonuç belgelenir", "BDS 230 p.13"],
+          ["Nihai dosya sonrası — EKLEME ←", "MÜMKÜN", "Sebep + ne zaman + kim yaptı yazılır", "BDS 230 p.16"],
+          ["Nihai dosya sonrası — SİLME", "YASAK", "Saklama süresi dolana kadar", "BDS 230 p.15"],
+          ["Saklama süresi", "ON YIL", "Kuruluşlar ve bağımsız denetçiler", "BD Yönetmeliği m.35/1"]
+        ]
+      }
+    }
+  ]
+}

@@ -47,7 +47,7 @@ textarea{resize:vertical;min-height:44px}
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
-<div class="wrap" id="icerik" role="main" id="wrap"><div class="bos">Yükleniyor…</div></div>
+<div class="wrap" id="icerik" role="main"><div class="bos">Yükleniyor…</div></div>
 <div class="toast" id="toast"></div>
 
 <!-- 19.08 OLCULDU: supabase-js dis CDN'den (esm.sh) geliyordu - 9 ayri parca, ~1,5 sn.
@@ -62,7 +62,7 @@ const SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
 const SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 const sb = createClient(SB_URL, SB_KEY);
 const $ = s => document.querySelector(s);
-const W = () => $('#wrap');
+const W = () => $('#icerik');
 const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(window._t); window._t=setTimeout(()=>t.classList.remove('on'),2400); }
 

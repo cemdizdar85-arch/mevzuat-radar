@@ -30,7 +30,7 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:10p
 .notlar{margin-top:6px}.notlar .n{display:flex;gap:9px;font-size:13px;color:var(--muted);margin-bottom:8px;line-height:1.5}.notlar .n b{color:var(--ink)}.notlar .n .i{flex-shrink:0}
 .kutu{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px 20px;margin-top:16px}
 .kutu h3{margin:0 0 10px;font-size:15px}.kutu .h{display:flex;gap:9px;font-size:13.5px;color:var(--muted);margin-bottom:9px;line-height:1.5}.kutu .h b{color:var(--ink)}.kutu .no{color:var(--accent2);font-weight:800;flex-shrink:0}
-.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(245,165,36,.45);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
 .hata{color:var(--red);font-size:14px;margin-top:10px}
 
@@ -55,6 +55,34 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="marka-radari.html">Marka Yenileme</a> · <a href="gtip.html">GTİP</a> · İtiraz Değerlendirici</div>
   <h1>Markana benzer başvuru mu çıktı?, itiraz eder misin?</h1>
   <p class="lead">Kendi markanı ve şüpheli/yeni başvuruyu gir; <b>işaret + fonetik benzerliği</b> ve <b>sınıf çakışmasını</b> ölçelim, <b>karıştırılma ihtimalini</b> ve <b>itiraz edilebilirliğini</b> gösterelim. <b>Kullanmama def'i</b> ve <b>2 aylık itiraz süresi</b> dahil, boşa itiraz etme, gerçekten geçerliyse hareket et.</p>
+
+  <!-- ======================================================================
+       İTİRAZ RADARI (29.08.2026, Cem "onay veriyorum itiraz radarını kur")
+       Bu sayfada zaten benzerlik motoru vardı ama YEM yoktu: kullanıcı iki
+       markayı ELLE girmek zorundaydı. Yani "şu başvuru yayımlandı, senin
+       markana benziyor, süren şu gün doluyor" diyen kimse yoktu.
+       Robot (motor/marka-itiraz-hasat.ps1) itiraz süresi AÇIK başvuruları
+       veri/marka-itiraz-acik.json'a yazar; burası kullanıcının markasıyla
+       eşleştirir. Süre YAYIMDAN İKİ AY (SMK m.18) - kaynağın 92 günlük
+       penceresi KULLANILMAZ, robot son günü kendisi hesaplar.
+       ====================================================================== -->
+  <div class="kart" id="irKutu" style="border:1px solid rgba(245,165,36,.35);background:linear-gradient(135deg,rgba(245,165,36,.07),transparent);border-radius:14px;padding:18px 20px;margin:0 0 22px">
+    <div style="font-weight:850;font-size:17px;letter-spacing:-.3px;margin-bottom:4px">📡 Şu an itiraz süresi açık başvurular arasında markanı ara</div>
+    <p class="lead" style="font-size:13.5px;margin:0 0 12px">Markanın adını yaz; <b>bültende yayımlanmış ve itiraz süresi hâlâ dolmamış</b> başvurular arasında benzeyen var mı bakalım. Süre <b>yayımdan iki aydır (SMK m.18)</b> ve kaçan süre geri gelmez.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+      <div style="flex:1;min-width:200px">
+        <label style="display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px">MARKANIN ADI</label>
+        <input class="gir" id="irAd" placeholder="ör. TETİKTE" style="width:100%">
+      </div>
+      <div style="flex:0 1 190px;min-width:150px">
+        <label style="display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px">NICE SINIFLARIN <span style="color:var(--dim)">(virgülle)</span></label>
+        <input class="gir" id="irSinif" placeholder="ör. 9, 42" style="width:100%">
+      </div>
+      <button class="btn" id="irBtn" style="margin-top:0">Tara</button>
+    </div>
+    <div id="irDurum" class="mini" style="margin-top:10px;color:var(--dim)"></div>
+    <div id="irSonuc" style="margin-top:12px"></div>
+  </div>
 
   <div class="iki">
     <div><h3 class="a">SENİN MARKAN (önceki hak)</h3>
@@ -165,7 +193,7 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:var(--ink)">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı, aynı gün dönüş yapacağız.</div>
@@ -173,6 +201,107 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
   </div>
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
 </div>
+<!-- İTİRAZ RADARI — eşleştirme. Motor marka-benzerlik.js'te (ortak kaynak,
+     kopya açılmaz); veri robotun yazdığı statik dosyadan gelir (TMview CORS'a
+     kapalı olduğu için tarayıcı doğrudan çağıramaz — ihale/alacak deseni). -->
+<script src="marka-benzerlik.js"></script>
+<script>
+(function(){
+  var AMBAR=null, YUKLENIYOR=false;
+  var $=function(s){ return document.querySelector(s); };
+  var esc=function(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+  var durum=function(h){ var e=$('#irDurum'); if(e) e.innerHTML=h; };
+
+  function gunFark(iso){
+    var b=new Date(iso+'T00:00:00Z'), s=new Date();
+    var bugun=Date.UTC(s.getFullYear(),s.getMonth(),s.getDate());
+    return Math.round((b.getTime()-bugun)/86400000);
+  }
+
+  function ambarYukle(cb){
+    if(AMBAR){ cb(); return; }
+    if(YUKLENIYOR) return;
+    YUKLENIYOR=true;
+    durum('Yayımlanmış başvurular okunuyor…');
+    fetch('veri/marka-itiraz-acik.json',{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(j){ AMBAR=j; YUKLENIYOR=false; cb(); })
+      .catch(function(e){
+        YUKLENIYOR=false;
+        /* Kör kalma: veri yoksa "benzer yok" DEMEYİZ, okuyamadığımızı söyleriz. */
+        durum('<b style="color:var(--red)">Yayımlanmış başvuru listesi okunamadı</b> ('+esc(e.message)+'). '
+             +'Bu, "benzer başvuru yok" demek DEĞİLDİR — liste gelmedi. Aşağıdaki elle karşılaştırmayı kullanabilirsin.');
+      });
+  }
+
+  function tara(){
+    var ad=($('#irAd').value||'').trim();
+    if(ad.length<2){ durum('Markanın adını yaz (en az 2 harf).'); return; }
+    ambarYukle(function(){
+      var sinif=($('#irSinif').value||'').trim();
+      /* HAZIR DEĞİLSE "eşleşme yok" DEMEYİZ. Robot henüz koşmadıysa ya da
+         dosya numuneden üretildiyse liste eksiktir; eksik listeye bakıp
+         "kimse başvurmamış" demek, ürünün yapmaması gereken tek şeydir. */
+      if(AMBAR && AMBAR.hazir === false){
+        durum('<b style="color:var(--amber)">Yayımlanmış başvuru listesi henüz hasat edilmedi.</b> '
+             +'Robot günlük koşuyor; liste dolunca bu tarama gerçek sonuç verir. '
+             +'Şimdilik aşağıdaki elle karşılaştırmayı kullan.');
+        $('#irSonuc').innerHTML='';
+        return;
+      }
+      var kayitlar=(AMBAR&&AMBAR.kayitlar)||[];
+      var bulunan=[];
+      for(var i=0;i<kayitlar.length;i++){
+        var k=kayitlar[i];   // [ad,no,sinif,yayim,songun,st13]
+        var r=MarkaBenzerlik.riskHesapla(ad, sinif, k[0], k[2]);
+        if(r.risk>=MarkaBenzerlik.ESIK.orta) bulunan.push({k:k,r:r,kalan:gunFark(k[4])});
+      }
+      bulunan.sort(function(a,b){ return (b.r.risk-a.r.risk) || (a.kalan-b.kalan); });
+      ciz(ad, bulunan, kayitlar.length);
+    });
+  }
+
+  function ciz(ad, liste, toplam){
+    var g=(AMBAR&&AMBAR.guncelleme)||'?';
+    durum('Tarandı: <b>'+toplam+'</b> yayımlanmış başvuru · liste tazeliği <b>'+esc(g)+'</b> · süre hesabı <b>SMK m.18 (yayımdan 2 ay)</b>.');
+    var o=$('#irSonuc');
+    if(!liste.length){
+      o.innerHTML='<div class="uyari" style="margin-top:0"><b>Şu an açık itiraz süresi olan başvurular arasında "'+esc(ad)+'" ile karışacak bir kayıt çıkmadı.</b> '
+        +'Bu, kimsenin başvurmadığı anlamına gelmez: henüz <b>yayımlanmamış</b> başvurular bu listede olmaz (itiraz süresi yayımla başlar). '
+        +'Yeni başvuruları görmek için <a href="marka-izleme.html">Benzer Başvuru Radarı</a>.</div>';
+      return;
+    }
+    var h='<div style="font-weight:800;font-size:14px;margin-bottom:8px">'+liste.length+' başvuru dikkat istiyor</div>';
+    for(var i=0;i<Math.min(liste.length,25);i++){
+      var b=liste[i], k=b.k, sv=MarkaBenzerlik.seviye(b.r.risk);
+      var acil = b.kalan<=15;
+      var renk = acil?'var(--red)':(b.kalan<=30?'var(--amber)':'var(--muted)');
+      h+='<div style="border:1px solid var(--line);border-left:4px solid '+(sv[1]==='y'?'var(--red)':sv[1]==='o'?'var(--amber)':'var(--dim)')
+        +';border-radius:11px;padding:12px 14px;margin-bottom:9px;background:var(--panel)">'
+        +'<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline">'
+        +'<div style="font-weight:800;font-size:15px">'+esc(k[0])+'</div>'
+        +'<div style="font-size:12px;font-weight:800;color:'+renk+'">'
+          +(b.kalan<0 ? 'SÜRE DOLDU' : 'son gün '+esc(k[4])+' · '+b.kalan+' gün')+'</div></div>'
+        +'<div class="mini" style="margin-top:3px;color:var(--dim)">başvuru '+esc(k[1])
+          +(k[2]?(' · sınıf '+esc(k[2])):'')+' · bültende yayım '+esc(k[3])+'</div>'
+        +'<div style="font-size:13px;margin-top:6px">Karışma riski <b>%'+b.r.risk+'</b> ('+sv[0]+') — yazım %'+b.r.yazim+' · fonetik %'+b.r.fonetik
+        +' · sınıf '+(b.r.cak===true?'<b style="color:var(--red)">çakışıyor</b>':b.r.cak===false?'farklı (m.6: zayıf)':'bilinmiyor')+'</div>'
+        +'<div class="mini" style="margin-top:6px"><a href="https://www.tmdn.org/tmview/#/tmview/detail/'+encodeURIComponent(k[5])
+        +'" target="_blank" rel="noopener">Sicil kaydını aç ↗</a> · başvuru sahibi TMview\'de yayıma kadar gizlidir</div>'
+        +'</div>';
+    }
+    if(liste.length>25) h+='<div class="mini">… '+(liste.length-25)+' kayıt daha (en riskli 25 gösterildi)</div>';
+    h+='<div class="uyari" style="margin-top:12px"><b>İtiraz etmeden önce:</b> markan <b>5 yıldan eski tescilliyse ve kullanmıyorsan</b>, '
+      +'karşı taraf <b>kullanmama def\'i</b> ileri sürebilir ve itirazın <b>reddedilir</b> (SMK m.19/2). '
+      +'Kullanım delillerini (fatura, reklam, ambalaj) hazırla. Süre <b>yayımdan iki aydır (m.18)</b>; '
+      +'itiraz başvurusunu TÜRKPATENT\'e sen ya da marka vekilin yapar — <b>biz dosyalamıyoruz</b>.</div>';
+    $('#irSonuc').innerHTML=h;
+  }
+
+  var b=$('#irBtn'); if(b) b.addEventListener('click', tara);
+  var a=$('#irAd');  if(a) a.addEventListener('keydown', function(e){ if(e.key==='Enter') tara(); });
+})();
+</script>
 <script src="marka-serit.js"></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">

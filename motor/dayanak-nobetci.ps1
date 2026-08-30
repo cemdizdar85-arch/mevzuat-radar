@@ -62,8 +62,15 @@ if($degisenler.Count -eq 0){
 # gec./ek serileri AYRI maddedir - normal m.N ile karistirilmamali.
 $degisenCift = @{}
 $ayristirilamayan = New-Object System.Collections.Generic.List[string]
+$standartDegisen = 0; $tebligEkDegisen = 0
 foreach($d in $degisenler){
   $ad = "$($d.ad)"
+  # 28.08 TEK-YAZAR uyumu: standart parcalari (BDS/TMS/TFRS... p.N) ve teblig
+  # EK aileleri site sayfalarinin dayanak haritasina kanun_no|madde_no ile
+  # baglanmaz - bunlari 'ayristirilamayan' diye BAGIRMAK gurultu (27.08: 482
+  # degisenin coguydu). Sayilir, raporda ayri alanda gosterilir, liste kirletmez.
+  if($ad -match '^(BDS|GDS|SBDS|TMS|TFRS|TSRS|KYS|KKS)\s?\d+([A-Z])?\s+p\.'){ $standartDegisen++; continue }
+  if($ad -match '\sGT\s\d+\sEK\s|\bEK\s*\[|Teori Notu - '){ $tebligEkDegisen++; continue }
   if($ad -match '(?i)\b(gec|ek|muk)\.?\s*m\.'){ $ayristirilamayan.Add("$ad (gec/ek serisi - normal madde ile eslestirilmedi)"); continue }
   $kn = $null; $mn = $null
   if($ad -match '(\d{3,4})\s*s\.'){ $kn = $Matches[1] }
@@ -95,6 +102,8 @@ $cikti = [ordered]@{
   aciklama = "Damgasi degisen maddeye yaslanan sayfalar. Her biri GM tarafindan okunup guncellenmeden dogru sayilmaz."
   degisen_madde = $degisenler.Count
   etkilenen_sayfa = $uyari.Count
+  standart_degisen_bilgi = $standartDegisen
+  teblig_ek_degisen_bilgi = $tebligEkDegisen
   ayristirilamayan = $ayristirilamayan
   uyarilar = $uyari
 }

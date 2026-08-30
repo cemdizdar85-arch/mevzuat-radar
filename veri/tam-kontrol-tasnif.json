@@ -1,0 +1,188 @@
+{
+    "tarih":  "25.08.2026 02:06",
+    "kaynak":  "tam-kontrol-20260825-0204.json",
+    "toplam":  20,
+    "sayim":  {
+                  "TEMIZ":  0,
+                  "SUSLU":  0,
+                  "ONARILIR":  12,
+                  "OLDURUCU":  6,
+                  "OLCULEMEDI":  2
+              },
+    "kusur_kodlari":  {
+                          "M7":  18,
+                          "D7":  6,
+                          "M6":  5,
+                          "M3":  5,
+                          "M4":  4,
+                          "M9":  3,
+                          "M5":  3,
+                          "M2":  2,
+                          "M1":  2,
+                          "D2":  2,
+                          "D5":  1,
+                          "Y5":  1
+                      },
+    "oldurucu":  [
+                     {
+                         "id":  "1a861708-e029-4781-8ad2-9923e2f91476",
+                         "ders":  "Maliyet Muhasebesi",
+                         "konu":  "satilan mamul maliyeti",
+                         "kusur":  [
+                                       "M1 cevap-yanlis",
+                                       "M2 cift-dogru: E şıkkı (569.695 TL), D açıklamasındaki hesaplamanın doğru toplamına eşittir: 487.600+52.340+8.725+14.880+6.150=569.695. İşaretli D şıkkı 563.545 olup bu toplamla uyuşmuyor; matematiksel hata var.",
+                                       "M3 aciklama-celiskili: D açıklamasında verilen toplama işlemi (487.600+52.340+8.725+14.880+6.150) gerçekte 569.695 eder, ama D şıkkının değeri 563.545 olarak yazılmış; bu da E şıkkının açıklamasıyla (569.695\u0027i \u0027fazla faiz eklendiği için yanlış\u0027 diye reddetmesi) çelişir çünkü doğru toplam zaten 569.695\u0027tir."
+                                   ],
+                         "gerekce":  "D açıklamasındaki toplama işlemi matematiksel olarak 569.695 TL vermesine rağmen işaretli doğru şık 563.545 TL (D) olarak gösterilmiş; asıl doğru cevap E (569.695) olmalıydı, bu da soruyu ve açıklamaları çelişkili/hatalı kılıyor."
+                     },
+                     {
+                         "id":  "28453f9c-0fed-40a4-b793-5066398fb111",
+                         "ders":  "Maliyet Muhasebesi",
+                         "konu":  "siparis gug butce sapmasi",
+                         "kusur":  [
+                                       "M1 cevap-yanlis",
+                                       "M2 cift-dogru: ",
+                                       "M3 aciklama-celiskili: D şıkkının açıklamasında toplam 87.450+41.280+18.670+12.900=160.300 TL olarak hesaplanmış, fakat bu tutar 180\u0027e bölündüğünde 890,56 TL çıkar; açıklamada verilen 888,50 TL sonucu kendi toplamıyla çelişiyor.",
+                                       "M9 uydurma-rakam: 714,00 / 796,11 / 842,78 / 1.032,60 rakamları hiçbir tutarlı toplam-bölme işleminden türememektedir; hatta işaretli doğru şık olan 888,50 TL bile 160.300/180 işleminin doğru sonucu olan 890,56 TL ile uyuşmamaktadır."
+                                   ],
+                         "gerekce":  "Toplam maliyet 160.300 TL\u0027nin 180 adede bölünmesiyle doğru sonuç 890,56 TL çıkarken işaretli doğru şık olan D (888,50 TL) ve diğer tüm şıklar bu aritmetikle uyuşmamaktadır, dolayısıyla soru matematiksel olarak hatalıdır."
+                     },
+                     {
+                         "id":  "59e9228d-7141-4dcd-81fb-fcfcaa4ef575",
+                         "ders":  "Maliyet Muhasebesi",
+                         "konu":  "yan urun maliyeti",
+                         "kusur":  [
+                                       "M3 aciklama-celiskili: A, B, C"
+                                   ],
+                         "gerekce":  "Doğru şık (D) matematiksel olarak doğru olsa da yanlış şıkların (A, B, C) açıklamalarındaki sayısal gerekçeler o şıkların gerçek rakamsal değerleriyle uyuşmuyor, bu da \u0027her yanlış şık kendini doğru anlatıyor\u0027 ölçütünü ihlal ediyor."
+                     },
+                     {
+                         "id":  "8f716dda-82e5-4f93-ad72-0d6a26d47f35",
+                         "ders":  "Maliyet Muhasebesi",
+                         "konu":  "katsayili bolme yontemi",
+                         "kusur":  [
+                                       "M3 aciklama-celiskili: B ve D",
+                                       "M9 uydurma-rakam: B şıkkının 23.240 TL değeri ve C şıkkının 30.245 TL değeri, açıklamalarında belirtilen hesap mantığıyla (ilgili kalemlerin toplamıyla) türetilemiyor; bu rakamlar keyfi/uydurma görünüyor."
+                                   ],
+                         "gerekce":  "B ve C şıklarının sayısal değerleri, kendi açıklamalarında anlatılan hesaplama mantığıyla (B: ham madde+işçilik=31.240; C: işçilik+GÜG=16.795) örtüşmüyor, bu da \u0027her yanlış şıkkın açıklaması o şıkkı anlatmalı\u0027 kuralını ihlal ediyor."
+                     },
+                     {
+                         "id":  "990dfb6e-2379-47bb-a850-5043f638c0ba",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "finansman bonosu itfasi",
+                         "kusur":  [
+                                       "M9 uydurma-rakam: E şıkkının açıklamasında geçen \u0027en az beş yıl\u0027 süresi ne madde metninde ne soruda yer alıyor; hesaptan da türemiyor, uydurma bir rakamdır."
+                                   ],
+                         "gerekce":  "Madde metni yalnızca noterin poliçe suretini saklama yükümlülüğünü düzenleyen kopuk bir fıkra iken soru \u0027finansman bonosu itfası\u0027 konusunu ölçmeye çalışıyor; finansman bonosunun kambiyo senedi olmadığı ve protesto prosedürüne tabi olmadığı göz ardı edilerek hukuken tutarsız bir senaryo kurulmuş, ayrıca madde bu geniş konuyu (finansman bonosu itfası) gerçekten düzenlemiyor."
+                     },
+                     {
+                         "id":  "c043e531-3660-4cd2-bb2d-afbf019fd906",
+                         "ders":  "Maliyet Muhasebesi",
+                         "konu":  "asal ve donusum maliyeti",
+                         "kusur":  [
+                                       "M3 aciklama-celiskili: C şıkkının açıklaması sadece \u0027değer tespiti giderinin dahil olmadığını\u0027 söylüyor; oysa 337.280 TL rakamı hem değer tespiti (6.300) hem montaj (14.780) giderleri hariç tutularak elde edilmiştir (287.600+41.230+8.450=337.280). Açıklama montaj eksikliğinden hiç söz etmediği için sayısal gerçeği tam yansıtmıyor ve D şıkkının açıklamasıyla çelişecek şekilde eksik/yanıltıcı kalıyor."
+                                   ],
+                         "gerekce":  "C şıkkının açıklaması, 337.280 TL tutarının hem montaj hem değer tespiti giderlerinin dışlanmasıyla elde edildiğini söylemek yerine yalnızca değer tespiti eksikliğinden bahsettiği için matematiksel gerçeği eksik/yanlış temsil ediyor."
+                     }
+                 ],
+    "onarilir_ornek":  [
+                           {
+                               "id":  "047083e3-8a86-4eec-99d0-bd6c752ef851",
+                               "ders":  "Hukuk",
+                               "kusur":  [
+                                             "M7 yz-kokusu: Her şık açıklaması aynı \u0027TUZAK:\u0027 kalıbıyla başlıyor, D şıkkında \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 şablonu tekrarlanıyor; bu yapay bir simetri ve kalıp dil izlenimi veriyor."
+                                         ]
+                           },
+                           {
+                               "id":  "38eebdd5-8655-40cc-a30e-3c26433100d3",
+                               "ders":  "Hukuk",
+                               "kusur":  [
+                                             "M7 yz-kokusu: Her yanlış şık açıklaması \u0027TUZAK:\u0027 kalıbıyla başlıyor; D şıkkı \u0027Ne soruluyor/Kural/Bu olayda/Akılda kalsın\u0027 şablonik iskeletini kullanıyor - dört soruda da aynı kalıp tekrarlanıyor."
+                                         ]
+                           },
+                           {
+                               "id":  "49d719a5-d606-4a8f-b173-89e265e00c05",
+                               "ders":  "Hukuk",
+                               "kusur":  [
+                                             "Y5 mukerrer: 100% ortak -\u003e 93b08dd1",
+                                             "M7 yz-kokusu: Şık açıklamaları aynı kalıp iskelet ile yazılmış: \u0027TUZAK:\u0027, \u0027Ne soruluyor:\u0027, \u0027Kural:\u0027, \u0027Bu olayda:\u0027, \u0027Akılda kalsın:\u0027 başlıkları her soruda birebir tekrarlanıyor; bu şablon yapay zeka üretimi izlenimi veriyor ama içerik hatasına yol açmıyor."
+                                         ]
+                           },
+                           {
+                               "id":  "89b91152-d2d8-4695-b7d1-fe9a3a6f609b",
+                               "ders":  "Hukuk",
+                               "kusur":  [
+                                             "M7 yz-kokusu: Tüm şık açıklamaları aynı şablonla yazılmış: \u0027TUZAK:\u0027 ile başlayan yanlış şık açıklamaları, doğru şıkta \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 kalıp yapısı - bu iskelet önceki sorularla birebir aynı, tipik AI üretimi kalıp dil."
+                                         ]
+                           },
+                           {
+                               "id":  "909ad756-ad9e-4dde-83f1-6268b79031f1",
+                               "ders":  "Finansal Tablolar ve Analizi",
+                               "kusur":  [
+                                             "D7 hap-uzun:328 (hap degil ozet)",
+                                             "M5 kaynak-konu-uyumsuz",
+                                             "M6 ogretmiyor",
+                                             "M7 yz-kokusu: Her şıkta \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 kalıbı birebir tekrarlanıyor; D şıkkının açıklamasında konuyla ilgisiz biçimde \u0027Yılmaz Makina\u0027nın finansal tablolarında dikey analiz yapılırken...\u0027 gibi suni bir sahne kurgulanmış ama bu sahne sorunun çözümüne hiç katkı sağlamıyor, salt doldurma metin."
+                                         ]
+                           },
+                           {
+                               "id":  "92fc4906-3aa4-45cb-8a58-4024a8d7af1f",
+                               "ders":  "Maliyet Muhasebesi",
+                               "kusur":  [
+                                             "M7 yz-kokusu: Her şık açıklamasında aynı şablon tekrarlanıyor: \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 kalıbı, tüm sorularda birebir aynı iskelet kullanılmış; bu yapay/otomatik üretim izidir."
+                                         ]
+                           },
+                           {
+                               "id":  "a2e6d5b2-2f80-4892-b739-a1cc8cf47591",
+                               "ders":  "Maliyet Muhasebesi",
+                               "kusur":  [
+                                             "M7 yz-kokusu: Tüm şık açıklamaları aynı şablonla yazılmış: \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 ve TUZAK ifadesiyle başlayan tekrarlayan kalıp cümleler; suni simetri var ama içerik doğru."
+                                         ]
+                           },
+                           {
+                               "id":  "c602d682-090e-448d-b499-8eb1117aafda",
+                               "ders":  "Maliyet Muhasebesi",
+                               "kusur":  [
+                                             "M5 kaynak-konu-uyumsuz",
+                                             "M6 ogretmiyor",
+                                             "M7 yz-kokusu: Tüm şık açıklamaları aynı şablonla yazılmış (TUZAK:/Ne soruluyor:/Kural:/Bu olayda:/Akılda kalsın:), suni ve tekrarlayan bir kalıp; bu son soruda ayrıca DERS=\u0027Maliyet Muhasebesi\u0027 KONU=\u0027gug yukleme orani\u0027 etiketiyle TTK şirketler hukuku sorusu üretilmiş olması, soru bankasının otomatik/şablon üretim izlerini taşıdığını gösteriyor."
+                                         ]
+                           },
+                           {
+                               "id":  "e3127b33-45da-42d9-97a0-5eb817f346e7",
+                               "ders":  "Finansal Muhasebe",
+                               "kusur":  [
+                                             "D7 hap-uzun:227 (hap degil ozet)",
+                                             "M7 yz-kokusu: Tüm şık açıklamaları aynı şablonla ilerliyor: \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 ve TUZAK ifadesiyle başlayan tekrarlı kalıp cümleler; bu suni simetri yapay zeka üretimi izlenimi veriyor ancak hükmün doğruluğunu etkilemiyor."
+                                         ]
+                           },
+                           {
+                               "id":  "eb33436b-230e-42ac-aa69-25b66212ec61",
+                               "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                               "kusur":  [
+                                             "D7 hap-uzun:211 (hap degil ozet)",
+                                             "M7 yz-kokusu: Tüm şık açıklamaları aynı şablonla ilerliyor: \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 ve tuzak şıklarda \u0027TUZAK/YANILGI/KARIŞTIRILIYOR/ATILIYOR\u0027 başlıkları - suni simetrik ve tekrarlayan kalıp dil mevcut, ancak hukuki isabet açısından soruna yol açmıyor."
+                                         ]
+                           },
+                           {
+                               "id":  "fc902f9c-f412-41a2-a28a-97afa163609e",
+                               "ders":  "Hukuk",
+                               "kusur":  [
+                                             "D7 hap-uzun:404 (hap degil ozet)",
+                                             "M7 yz-kokusu: Tüm şık açıklamaları aynı iskeleti kullanıyor: \u0027Ne soruluyor / Kural / Bu olayda / Akılda kalsın\u0027 kalıbı ve TUZAK başlıklı tekrarlayan yapı; suni simetri var ancak içerik doğru ve tutarlı."
+                                         ]
+                           },
+                           {
+                               "id":  "fde36925-1e8a-40ea-9bbe-20384e2dfcb8",
+                               "ders":  "Hukuk",
+                               "kusur":  [
+                                             "M7 yz-kokusu: Tüm şık açıklamaları aynı şablonla yazılmış: \u0027TUZAK:\u0027, \u0027Ne soruluyor:\u0027, \u0027Kural:\u0027, \u0027Bu olayda:\u0027, \u0027Akılda kalsın:\u0027 başlıkları her soruda birebir tekrarlanıyor; bu suni ve kalıplaşmış bir yapı ancak sorunun doğruluğunu etkilemiyor."
+                                         ]
+                           }
+                       ],
+    "agirlik_tablosu":  {
+                            "oldurucu":  "M1,M2,M3,M8,M9,Y2,Y3",
+                            "onarilir":  "M4,M5,M6,M7,D1,D2,D7,D9,Y1,Y4,Y5",
+                            "sus":  "D3,D4,D5,D6,D8,D10"
+                        }
+}

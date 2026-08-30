@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Marka Yenileme Radarı — markan ne zaman düşüyor? (10 yıl / SMK m.23) | Tetikte</title>
-<meta name="description" content="Tescilli markanın koruma süresi başvuru tarihinden 10 yıl. Yenileme penceresi son 6 ay, kaçarsan 6 ay ek ücretli süre; hiç yenilemezsen marka düşer. Markanın bitiş tarihini ve durumunu gör, takibe al.">
+<title>Marka Radarı — markanla ilgili her şey tek yerde (portföy · yenileme · itiraz) | Tetikte</title>
+<meta name="description" content="Firma unvanını yaz, sicildeki bütün markaların gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -37,7 +37,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .takip .row{display:flex;gap:8px;flex-wrap:wrap}.takip input{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-family:inherit;font-size:14px}
 .kutu{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px 20px;margin-top:16px}
 .kutu h3{margin:0 0 10px;font-size:15px}.kutu .h{display:flex;gap:9px;font-size:13.5px;color:var(--muted);margin-bottom:9px;line-height:1.5}.kutu .h b{color:var(--ink)}.kutu .no{color:var(--accent2);font-weight:800;flex-shrink:0}
-.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(245,165,36,.45);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .hata{color:var(--red);font-size:14px;margin-top:10px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
 
@@ -65,9 +65,34 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        rozet + cümle başlık + tek satır özet + ilk ekranda asıl eylem + 3 adım,
        uzun hukuk anlatımı aşağıda. Başlık zaten cümleydi, asıl kutu zaten ilk
        ekrandaydı; eksik olan rozet, kısa özet ve 3 adımdı. -->
+  <!-- 29.08 MARKA MERKEZİ (Cem: "marka ile ilgili her şeyi buraya atalım, tek
+       yerde olsun"). Marka isi ana sayfada BES ayri yere dagilmisti (acilir
+       menu, konu listesi, vitrin kutusu, akis seridi, arac katalogu, alt menu)
+       ve hicbiri "markamin evi" degildi. Ev aslinda ISMEN vardi: sitenin alti
+       yeri "Marka Radarı" deyip buraya bakiyor, ama arkasinda tek bir hesap
+       makinesi duruyordu. Bu sayfa artik ailenin evi: ustte asil is (unvandan
+       sicil taramasi), ortada bes aracin ne sordugu, altta yenileme hesabi.
+       LINK AMELIYATI YOK - site zaten buraya bakiyordu. -->
   <div><span class="gozalici">⏰ Markan sessizce düşebilir · süre başvurudan itibaren 10 yıl</span></div>
-  <h1>Marka Yenileme Radarı, markan ne zaman düşüyor?</h1>
-  <p class="lead">Marka adını ve başvuru tarihini yaz; bitiş tarihini, yenileme penceresini ve şu anki durumunu gör — <b style="color:var(--green)">ücretsiz</b>.</p>
+  <h1>Markanla ilgili her şey burada</h1>
+  <p class="lead">Firma unvanını yaz, <b style="color:var(--ink)">sicildeki bütün markaların</b> tarihleriyle gelsin. Marka adı bilmene gerek yok — koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23).</p>
+
+  <!-- Asil is en ustte. Tarama mantigi marka-portfoy.html'de TEK yerde durur;
+       burasi yalnizca unvani tasir (?unvan=...), orada ayni dugmeye basilir.
+       Kopya akis acilmadi - iki yerde iki dogrulama iki hata metni demekti. -->
+  <div class="form" style="margin-bottom:16px">
+    <label for="mm_unvan">FİRMA UNVANIN</label>
+    <input class="gir" id="mm_unvan" placeholder="ör. EGE SERAMİK SANAYİ VE TİCARET ANONİM ŞİRKETİ" autocomplete="organization">
+    <button class="btn" id="mm_btn">Sicildeki markalarımı getir →</button>
+    <div class="mini" style="margin-top:9px;color:var(--dim)">Ücretsiz, üyelik istemez. Unvanı sicildeki yazımıyla yaz; yazım varyantlarını (A.Ş. / ANONİM ŞİRKETİ) robot kendisi birleştirir.</div>
+  </div>
+
+  <!-- Bes aracin listesi marka-serit.js'te TEK dizide durur; yeni marka araci
+       eklenince yalniz orasi degisir, bu sayfa kendiliginden ogrenir. -->
+  <div id="mm_araclar" style="margin:18px 0 22px"></div>
+
+  <h2 style="font-size:19px;letter-spacing:-.4px;margin:26px 0 4px">Tek marka için hızlı hesap: ne zaman düşüyor?</h2>
+  <p class="lead" style="margin-bottom:12px">Sicili taratmak istemiyorsan marka adını ve başvuru tarihini yaz; bitiş tarihini, yenileme penceresini ve şu anki durumunu gör — <b style="color:var(--green)">ücretsiz</b>.</p>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0 14px">
     <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
@@ -128,20 +153,20 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div style="background:rgba(255,194,75,.09);border:1px solid rgba(255,194,75,.32);border-radius:12px;padding:13px 15px;margin:16px 0;font-size:13px;color:var(--muted);line-height:1.6">
     <b style="color:#ffc24b">⚠️ Önce şunu bil (ÜLKESELLİK İLKESİ):</b> Türkiye'de tescilli markan <b style="color:var(--ink)">YALNIZCA Türkiye'de</b> korunur. Başka ülkede korunması için o ülkede ayrıca tescil gerekir. "TÜRKPATENT'e tescilledim, tüm dünyada korunuyorum" doğru değildir.
   </div>
-  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">🌍 Markanı yurt dışında nasıl korursun: yollar + BİZİM ROLÜMÜZ (net)</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:var(--ink)">1) Madrid Protokolü (en pratik):</b> Türkiye 1/1/1999'dan beri taraf. TÜRKPATENT aracılığıyla <b>tek başvuruyla</b> Madrid'e taraf ~130 ülkede tescil ettirebilirsin. ŞART: önce Türkiye'de (menşe ofis) tescilli ya da başvurusu yapılmış "esas marka"n olmalı. Koruma 10 yıl, yenilenebilir. Başvuru: TÜRKPATENT Madrid E-filing / MM2 formu.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">2) AB markası (EUIPO):</b> Tek tescille 27 AB üyesi ülkenin tamamında koruma. AB pazarı hedefinse en verimli yol.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">3) Ulusal tescil:</b> Madrid'e taraf olmayan ya da tek ülke hedeflediğin durumda, doğrudan o ülkenin marka ofisine (genelde yerel vekille) başvuru.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">4) Rüçhan hakkı (Paris Sözleşmesi):</b> Türkiye'deki başvuru tarihinden itibaren <b>6 ay</b> içinde yurt dışına başvurursan, Türkiye'deki başvuru tarihin esas alınır. Bu süreyi kaçırma.</p>
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,.09);margin:12px 0">
+      <hr style="border:none;border-top:1px solid var(--line);margin:12px 0">
       <p style="margin:8px 0"><b style="color:#3ddc97">✅ Bizim yapabildiğimiz:</b> Hangi yol sana uygun, şartlar, süreler ve maliyet mantığı: bilgilendirme ve doğru kapıya yönlendirme.</p>
       <p style="margin:8px 0"><b style="color:#3ddc97">✅ Yurt dışı marka ARAMA (şimdi, ücretsiz):</b> Markanı resmî uluslararası veritabanlarında arat; kim benzerini tescil etmiş, hangi ülkede kayıtlı, gör:</p>
       <div style="margin:6px 0 10px">
-        <input type="text" id="ydMarka" placeholder="Markanı yaz (ör. NIVEA)" style="width:190px;padding:8px 10px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:var(--yuzey);color:var(--ink);font-size:14px;vertical-align:middle">
+        <input type="text" id="ydMarka" placeholder="Markanı yaz (ör. NIVEA)" style="width:190px;padding:8px 10px;border:1px solid var(--line2);border-radius:8px;background:var(--yuzey);color:var(--ink);font-size:14px;vertical-align:middle">
         <button onclick="var m=(document.getElementById('ydMarka').value||'').trim();if(!m){alert('Önce markanı yaz');return}navigator.clipboard&&navigator.clipboard.writeText(m);window.open('https://branddb.wipo.int/en/similarname','_blank','noopener')" title="Markan panoya kopyalanır; WIPO arama kutusuna yapıştır" style="padding:8px 14px;border:none;border-radius:8px;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">WIPO Global Brand DB ↗</button>
-        <button onclick="var m=encodeURIComponent((document.getElementById('ydMarka').value||'').trim());if(!m){alert('Önce markanı yaz');return}window.open('https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch='+m,'_blank','noopener')" style="padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:var(--yuzey);color:var(--ink);font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">EUIPO TMview ↗</button>
+        <button onclick="var m=encodeURIComponent((document.getElementById('ydMarka').value||'').trim());if(!m){alert('Önce markanı yaz');return}window.open('https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch='+m,'_blank','noopener')" style="padding:8px 14px;border:1px solid var(--line2);border-radius:8px;background:var(--yuzey);color:var(--ink);font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">EUIPO TMview ↗</button>
       </div>
       <p style="margin:8px 0"><b style="color:#ffc24b">⚠️ Yurt dışı OTOMATİK TAKİP henüz YOK (dürüst):</b> "Her gün tarayıp benzer başvuru/yenileme uyarısı gönderme" için WIPO/EUIPO'nun <b>resmî açık-veri API kaydı</b> ya da ücretli veri servisi gerekir. Bu veritabanları manuel aramaya açık ama sağlam otomasyon için resmî erişim şart. <b>Belgesiz kaynağı scraping'le "otomatik takip" diye satmayız.</b> Sistemimizde şu an <b>otomatik takip yalnızca yurt içidir (TÜRKPATENT).</b> Talep gelirse EUIPO açık-veri erişimiyle gerçek yurt dışı takibini kurarız.</p>
       <p style="margin:8px 0"><b style="color:var(--red)">❌ Bizim YAPAMADIĞIMIZ:</b> Tescil başvurusunu senin adına biz yapamayız, çünkü marka vekili / hukuki temsil değiliz. Başvuru için TÜRKPATENT Madrid E-filing'i kullan ya da bir marka vekiliyle çalış.</p>
@@ -149,7 +174,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </div>
   </details>
 
-  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">⚖️ Markan taklit edilirse / hükümsüzlük / kendi markan reddedilirse (SMK madde madde)</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:var(--red)">m.30 · Taklit CEZASI:</b> Markanı iktibas/iltibas (aynısını ya da ayırt edilemeyecek benzerini) kullanıp mal üreten/satan/ithal-ihraç eden kişi <b>1 yıldan 3 yıla kadar HAPİS + 20.000 güne kadar adli para</b> cezasıyla cezalandırılır. <b>ŞART: markanın Türkiye'de TESCİLLİ olması</b> (m.30/5); tescilsiz markada bu ceza yok. Suç şikâyete bağlıdır.</p>
@@ -262,7 +287,30 @@ function takip(){
     <div style="font-size:11px;color:var(--dim);margin-top:11px">Üyelik ücretsizdir · <a href="kvkk.html" style="color:var(--muted)">KVKK aydınlatma</a></div>
   </div>
   </div>
-<script src="marka-serit.js"></script>
+<!-- 29.08: bu sayfa artik ailenin EVI. Serit h1'in ustune kucuk bir gezinme
+     olarak degil, sayfanin govdesinde asil icerik olarak duruyor -> data-elle. -->
+<script src="marka-serit.js" data-elle="1"></script>
+<script>
+(function(){
+  var kap=document.getElementById('mm_araclar');
+  if(kap && typeof window.markaSeritCiz==='function')
+    window.markaSeritCiz(kap,'Marka araçların — hangisi hangi soruyu cevaplıyor');
+  var btn=document.getElementById('mm_btn'), gir=document.getElementById('mm_unvan');
+  if(!btn||!gir) return;
+  // Kaynak etiketi (?k=v6) devrederken KAYBOLMAMALI, yoksa hangi videonun
+  // tarama getirdigi olculemez. Not: 29.08 olcumu -> sql-marka-kaynak.sql
+  // basilmadigi icin etiket su an hicbir yere YAZILMIYOR; basilinca calisir.
+  var k=(new URLSearchParams(location.search).get('k')||'').slice(0,40);
+  function git(){
+    var u=(gir.value||'').trim();
+    if(u.length<3){ gir.focus(); gir.style.borderColor='var(--red)'; return; }
+    location.href='marka-portfoy.html?unvan='+encodeURIComponent(u)+(k?('&k='+encodeURIComponent(k)):'');
+  }
+  btn.addEventListener('click',git);
+  gir.addEventListener('keydown',function(e){ if(e.key==='Enter') git(); });
+  gir.addEventListener('input',function(){ gir.style.borderColor=''; });
+})();
+</script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

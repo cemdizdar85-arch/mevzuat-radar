@@ -1,0 +1,275 @@
+# ============================================================================
+#  AMBAR KAPILARI (CI) — laptop kapalıyken de koşan günlük ölçüm zinciri
+#
+#  NEDEN VAR (Cem 30.08): "bilgisayarım açık olmasa da çalışsın, tatile gitsem
+#  olmayacak mı?" Günlük zincirin TAMAMI Cem'in dizüstündeydi. Ölçüldü
+#  (veri/ip-olcum-raporu.md, runner IP 52.173.162.33):
+#     mevzuat.gov.tr  -> HTTP 000, bağlantı bile kurulamıyor (ENGELLİ)
+#     diğer 6 hedef   -> hepsi iniyor
+#  Yani laptopa ZORUNLU olan tek iş mevzuat.gov.tr indirmesi. Bu dört adım
+#  yalnız Supabase ile konuşuyor; burada koşabilirler ve koşmalılar.
+#
+#  SIRA ÖNEMLİ: kapı ENVANTERDEN ÖNCE. Envanterin "TAM MI" sütunu kapının
+#  "ölçtüğüm kaynaklar" listesine bağlı; kapı koşmazsa envanter bir gün eski
+#  raporu okur ve 30.08'de kapattığımız "sahte TAM" kusuru geri gelir.
+#
+#  SAAT: 08:00 UTC = 11:00 TR. Yerel indirici 09:30 TR'de mevzuat aynasını
+#  tazeliyor; kapılar ONDAN SONRA ölçmeli, yoksa bir gün eski ambarı ölçer.
+#
+#  KAPI KIRMIZI DÖNSE BİLE zincir devam eder (continue-on-error): ölçüm
+#  raporları YAZILMALI. Kırmızı en sonda ayrı adımda görünür - sessiz kalmaz.
+# ============================================================================
+name: Ambar kapilari (0 USD, laptopsuz)
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ambar-kapilari.yml'
+      - 'motor/butunluk-kapisi.ps1'
+      - 'motor/ambar-envanteri.ps1'
+      - 'motor/kaynak-kok.ps1'
+      - 'motor/standart-yut.ps1'
+      - 'motor/surum-tazeligi.ps1'
+
+permissions:
+  contents: write
+
+jobs:
+  kapilar:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # 30.08 UCUNCU ONARIM (olculdu): .gitkeep duzeltmesinden sonra surum
+      # karnesi YAZILDI ama 28 standardin 28'i birden "sorunlu" cikti - yerelde
+      # 40 olculup 0 sorunlu cikarken. Sebep zincirin ucunda: surum kapisi
+      # standart-yut.ps1'i kuru kosuda cagiriyor, o da KGK PDF'ini PDFTOTEXT
+      # ile metne dokuyor. Runner'da poppler YOK -> her standart icin "yeni
+      # hali 0 parca" -> hepsi INCELE. Depodaki diger akislar (mevzuat.yml,
+      # kaynak.yml, kartlar.yml) zaten bu paketi kuruyor; burada eksikti.
+      # DERS: bir betigi CI'ya tasirken CAGIRDIGI betiklerin bagimliliklarina da bak.
+      - name: pdftotext kur (poppler-utils)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      - name: ANAHTAR VAR MI (yoksa olcum YAPILMAZ)
+        shell: pwsh
+        run: |
+          if(-not $env:SUPABASE_SERVICE_KEY){
+            Write-Host 'KOR: SUPABASE_SERVICE_KEY secret yok - olcum yapilamaz.'
+            Write-Host '  Sessiz "temiz" DENMEZ; kosu burada durur.'
+            exit 1
+          }
+          Write-Host 'anahtar var.'
+
+      # 30.08 GERILEME (olculdu, ilk CI kosusunda cikti): bu adim ONCE YOKTU ve
+      # envanterin "Surum olculen" sutunu 40 -> 0 dustu. Sebep: surum kapisinin
+      # ciktisi veri/fabrika/surum-tazeligi-karnesi.json GITIGNORE'da; CI'da o
+      # dosya olmadigi icin envanter surum sutununu HIC olcemedi ve YERELDEN
+      # DAHA KOTU bir envanteri origin/main'e bastim.
+      # DERS: bir adimi CI'ya tasirken GIRDISININ orada olup olmadigini da olc.
+      # Cozum: surum kapisi da ayni kosuda ONCE kosar - karneyi kendisi uretir.
+      # Bu mumkun cunku olculdu (ip-olcum): kgk.gov.tr runner'dan INIYOR
+      # (TFRS 10 538 KB · BDS 200 1,25 MB, iki farkli runner IP'siyle).
+      # 30.08 IKINCI ONARIM: ilk denemede bu adim "success" gorundu ama GERCEKTE
+      # DUSTU - continue-on-error maskeliyordu. Sebep: betik veri/fabrika/
+      # altina yaziyor, o klasor gitignore'daydi ve TEMIZ KLONDA YOKTU.
+      # Olculdu: motor'daki 50 betikten 23'u ayni kusuru tasiyor. Cozum tek
+      # tek yama degil, klasoru depoda tutmak oldu (veri/fabrika/.gitkeep).
+      # DERS: maskelenmis adim, olculmemis adimdir - ciktisini dogrula.
+      - name: SURUM TAZELIGI (kgk.gov.tr - runner'dan iniyor, olculdu)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/surum-tazeligi.ps1
+
+      # 30.08 TESHIS ADIMI: CI'nin surum olcumu yerelden kotu cikiyor
+      # (CI 30 olculen / 30 sorunlu · yerel 40 olculen / 0 sorunlu). Iki sebep
+      # bulundu (gitignore'lu klasor, eksik poppler) ama UCUNCU sebep duruyor.
+      # Log admin-kilitli oldugu icin KARNENIN KENDISI depoya alinir - delil
+      # dosyada durur, tahmin gerekmez. Karne veri/fabrika/ altinda (ignore'lu),
+      # bu yuzden izlenen bir yola KOPYALANIR.
+      # 30.08 KESIN TESHIS: karne "ambar 0p -> yeni 0p, OLCULEMEDI" diyor ama
+      # bu iki ayri sebepten olabilir - (a) betik hic calismadi, (b) calisti
+      # ama ambardan 0 kayit okudu. Ayirt etmenin tek yolu HAM CIKTIYI gormek.
+      # Tek standart icin kuru kosu yapilir ve TUM ciktisi depoya alinir.
+      - name: TEK STANDART HAM CIKTI (kesin teshis)
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          # 30.08: ONCEKI DENEMEDE BU DOSYA HIC OLUSMADI. Sebep neredeyse kesin:
+          # standart-yut.ps1 icinde 'exit 1' var (HatOnKontrol / pdftotext
+          # kontrolu) ve PowerShell'de bir betigin 'exit'i CAGIRAN SURECI DE
+          # dusurur - adim dosyayi yazamadan olur, continue-on-error da bunu
+          # maskeler. Bu yuzden simdi: (1) dosya ONCE yazilir, (2) alt betik
+          # AYRI SUREC olarak cagrilir ki 'exit' bu adimi olduremesin.
+          # 30.08 KENDI KUSURUM: bu rapora ZAMAN DAMGASI koymamistim. Icerik
+          # ayni kalirsa commit olmuyor; ben de eski dosyayi YENI kosunun
+          # ciktisi sanip "duzeltme ise yaramadi" diye okuyabiliyordum.
+          # Damgasiz kanit, kanit degildir.
+          $rapor = 'veri/surum-teshis-ci.md'
+          "# TEK STANDART HAM CIKTI (CI teshisi)`n`n> TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?`n" | Out-File $rapor -Encoding utf8
+          "## kosu kimligi" | Out-File $rapor -Append -Encoding utf8
+          "- zaman: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') UTC" | Out-File $rapor -Append -Encoding utf8
+          "- commit: ${{ github.sha }}" | Out-File $rapor -Append -Encoding utf8
+          "- kosu no: ${{ github.run_number }}" | Out-File $rapor -Append -Encoding utf8
+          "" | Out-File $rapor -Append -Encoding utf8
+          "## ortam" | Out-File $rapor -Append -Encoding utf8
+          $pt = (Get-Command pdftotext -ErrorAction SilentlyContinue)
+          "- pdftotext: $(if($pt){$pt.Source}else{'YOK'})" | Out-File $rapor -Append -Encoding utf8
+          "- SUPABASE_SERVICE_KEY uzunluk: $((''+$env:SUPABASE_SERVICE_KEY).Length)" | Out-File $rapor -Append -Encoding utf8
+          "- pwsh: $($PSVersionTable.PSVersion) · OS: $($PSVersionTable.OS)" | Out-File $rapor -Append -Encoding utf8
+          "`n## standart-yut.ps1 -standart 'TFRS 16' ciktisi`n" | Out-File $rapor -Append -Encoding utf8
+          '```' | Out-File $rapor -Append -Encoding utf8
+          # AYRI SUREC: alt betikteki exit bu adimi olduremez
+          $ham = & pwsh -NoProfile -Command "& './motor/standart-yut.ps1' -standart 'TFRS 16' *>&1 | Out-String" 2>&1 | Out-String
+          $kod = $LASTEXITCODE
+          ($ham -split "`n" | Select-Object -First 45) | Out-File $rapor -Append -Encoding utf8
+          '```' | Out-File $rapor -Append -Encoding utf8
+          "`n- alt surec cikis kodu: $kod" | Out-File $rapor -Append -Encoding utf8
+          Get-Content $rapor | Write-Host
+
+      - name: SURUM KARNESI TESHISI (delili depoya al)
+        if: always()
+        shell: pwsh
+        run: |
+          $k = 'veri/fabrika/surum-tazeligi-karnesi.json'
+          if(-not (Test-Path $k)){
+            Write-Host "KOR: $k YOK - surum kapisi kosmamis demektir."
+            '{"not":"karne uretilmedi - surum kapisi CI da kosmadi"}' | Out-File 'veri/surum-karnesi-ci.json' -Encoding utf8
+            exit 0
+          }
+          $j = Get-Content $k -Raw | ConvertFrom-Json
+          $sat = @($j.satirlar)
+          Write-Host ("KARNE VAR: {0} standart · tarih {1}" -f $sat.Count, $j.tarih)
+          $dag = $sat | Group-Object durum | ForEach-Object { "$($_.Name)=$($_.Count)" }
+          Write-Host ("durum dagilimi: {0}" -f ($dag -join ' · '))
+          Write-Host "--- ilk 8 satir (ambar vs yeni) ---"
+          $sat | Select-Object -First 8 | ForEach-Object {
+            Write-Host ("  {0,-12} {1,-22} ambar {2,5}p/{3,8}k -> yeni {4,5}p/{5,8}k" -f $_.standart,$_.durum,$_.ambar_parca,$_.ambar_krk,$_.yeni_parca,$_.yeni_krk)
+          }
+          $sifirYeni = @($sat | Where-Object { [int]$_.yeni_parca -eq 0 }).Count
+          Write-Host ("YENI HALI 0 PARCA olan: {0}/{1}  (yuksekse PDF/pdftotext sorunu)" -f $sifirYeni, $sat.Count)
+          Write-Host ("pdftotext: {0}" -f (& bash -lc 'command -v pdftotext || echo YOK'))
+          Copy-Item $k 'veri/surum-karnesi-ci.json' -Force
+
+      - name: ONCEKI DELIK SAYISINI SAKLA
+        if: always()
+        shell: pwsh
+        run: |
+          $onceki = -1
+          if(Test-Path 'veri/butunluk-raporu.json'){
+            try { $onceki = [int](Get-Content 'veri/butunluk-raporu.json' -Raw | ConvertFrom-Json).kaynak_sorunlu } catch {}
+          }
+          "ONCEKI_SORUNLU=$onceki" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Host "onceki sorunlu kaynak: $onceki"
+
+      - name: BUTUNLUK KAPISI (tum kaynaklar)
+        id: kapi
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/butunluk-kapisi.ps1 -hepsi
+
+      - name: AMBAR ENVANTERI (tek dogru sayfa)
+        if: always()
+        shell: pwsh
+        run: ./motor/ambar-envanteri.ps1
+
+      - name: VERI KATALOGU
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/veri-katalogu.ps1
+
+      - name: SAGLIK KARNESI
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/saglik-karnesi.ps1
+
+      # 30.08 KUCULME FRENI (ev kurali, burada da uygulandi).
+      # Olculdu: CI'nin urettigi envanter YERELDEN KOTU cikabiliyor - "Surum
+      # olculen" sutunu yerelde 40/0 sorunlu iken CI'da 30/30 sorunlu.
+      # Iki sebebi bulunup onarildi (gitignore'lu klasor, eksik poppler) ama
+      # UCUNCU bir sebep DURUYOR ve bulunmadi. O bulunana kadar CI, envanteri
+      # KENDINDEN IYI olan surumun uzerine YAZMAMALI.
+      # Kural: yeni olcum eskisinden AZ kaynak olcuyorsa envanter commit'lenmez;
+      # diger ciktilar yine yazilir ve durum acikca raporlanir.
+      - name: KUCULME FRENI (envanter geriye gitmesin)
+        if: always()
+        id: fren
+        shell: pwsh
+        run: |
+          function Oku([string]$metin,[string]$etiket){
+            if($metin -match ("$etiket" + ': (\d+)')){ return [int]$Matches[1] }
+            return -1
+          }
+          $yeniMetin = if(Test-Path 'veri/AMBAR-ENVANTERI.md'){ Get-Content 'veri/AMBAR-ENVANTERI.md' -Raw } else { '' }
+          $eskiMetin = ''
+          try { $eskiMetin = (git show origin/main:veri/AMBAR-ENVANTERI.md) -join "`n" } catch {}
+          $yb = Oku $yeniMetin 'Bütünlük ölçülen'; $ys = Oku $yeniMetin 'Sürüm ölçülen'
+          $eb = Oku $eskiMetin 'Bütünlük ölçülen'; $es = Oku $eskiMetin 'Sürüm ölçülen'
+          Write-Host ("butunluk olculen : eski {0} -> yeni {1}" -f $eb,$yb)
+          Write-Host ("surum olculen    : eski {0} -> yeni {1}" -f $es,$ys)
+          $kucuk = ($eb -ge 0 -and $yb -ge 0 -and $yb -lt $eb) -or ($es -ge 0 -and $ys -ge 0 -and $ys -lt $es)
+          if($kucuk){
+            Write-Host 'FREN: yeni envanter DAHA AZ olcuyor - COMMIT EDILMEYECEK.'
+            Write-Host '  Sebep bulunana kadar depodaki iyi surum korunur.'
+            git checkout -- veri/AMBAR-ENVANTERI.md 2>$null
+            "envanter_basildi=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } else {
+            "envanter_basildi=evet" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          }
+
+      - name: SONUCLARI DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/butunluk-raporu.json veri/AMBAR-ENVANTERI.md veri/saglik-karnesi.json veri/veri-katalogu.json veri/surum-karnesi-ci.json veri/surum-teshis-ci.md; do
+            [ -f "$f" ] && git add "$f" 2>/dev/null || true
+          done
+          if git diff --staged --quiet; then
+            echo "degisiklik yok - commit yok."
+          else
+            git commit -m "Ambar kapilari (CI): butunluk + envanter tazelendi [veri-operasyonu]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
+
+      # 30.08 — "SUREKLI KIRMIZI KAPI, KAPI DEGILDIR" (ev kurali).
+      # Ilk kosuda bu adim dustu ve DUSMEYE DEVAM EDERDI: kapi her gun 300+
+      # delik buluyor (mevcut borc). Her sabah kirmizi yanan bir akis birkac
+      # gunde GURULTU olur ve kimse bakmaz - yani nobetci degersizlesir.
+      # Dogru olcut: borc BUYUDU MU? Sabit borc icin kirmizi yanilmaz;
+      # yeni delik ciktiginda yanar. Sabit borc ayrica gorunur kalir (yazilir).
+      - name: KAPI SONUCU (borc BUYUDUYSE kirmizi)
+        if: always()
+        shell: pwsh
+        run: |
+          $simdi = -1
+          if(Test-Path 'veri/butunluk-raporu.json'){
+            try { $simdi = [int](Get-Content 'veri/butunluk-raporu.json' -Raw | ConvertFrom-Json).kaynak_sorunlu } catch {}
+          }
+          $onceki = [int]"$env:ONCEKI_SORUNLU"
+          Write-Host ("butunluk kapisi adimi : {0}" -f "${{ steps.kapi.outcome }}")
+          Write-Host ("sorunlu kaynak        : onceki {0} -> simdi {1}" -f $onceki, $simdi)
+          if($simdi -lt 0){
+            Write-Host 'KOR: rapor okunamadi - "temiz" DENMEZ.'
+            exit 1
+          }
+          if($onceki -ge 0 -and $simdi -gt $onceki){
+            Write-Host ("KIRMIZI: borc BUYUDU (+{0}). Yeni delikler veri/butunluk-raporu.json is_listesi icinde." -f ($simdi-$onceki))
+            exit 1
+          }
+          if($simdi -gt 0){
+            Write-Host ("SARI (kirmizi degil): {0} sorunlu kaynak DURUYOR ama artmadi - bilinen borc." -f $simdi)
+            Write-Host '  Tasnif edilmeden "kusurumuz var" da denmez, "temiz" de. Is listesi raporda.'
+          } else {
+            Write-Host 'YESIL: sorunlu kaynak yok.'
+          }

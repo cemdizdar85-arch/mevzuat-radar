@@ -1,0 +1,59 @@
+{
+    "tarih":  "25.08.2026 17:00",
+    "model":  "claude-sonnet-5",
+    "tur_sayisi":  3,
+    "gecmis":  [
+                   {
+                       "tur":  1,
+                       "uygun":  0,
+                       "bozuk":  5,
+                       "tipler":  {
+                                      "K1":  3,
+                                      "M7":  5,
+                                      "K2":  2,
+                                      "D13":  3
+                                  },
+                       "artan_tip":  [
+
+                                     ],
+                       "tur_basarili":  true,
+                       "ayrinti":  [
+                                       {
+                                           "id":  "KART-1",
+                                           "baslik":  "Tacir",
+                                           "hukum":  "kusurlu",
+                                           "kusur":  2
+                                       },
+                                       {
+                                           "id":  "KART-2",
+                                           "baslik":  "Haksız Rekabet (TTK m.54-56)",
+                                           "hukum":  "kusurlu",
+                                           "kusur":  3
+                                       },
+                                       {
+                                           "id":  "KART-3",
+                                           "baslik":  "Belirli Süreli İş Sözleşmesi",
+                                           "hukum":  "kusurlu",
+                                           "kusur":  2
+                                       },
+                                       {
+                                           "id":  "KART-4",
+                                           "baslik":  "İmal Edilen Emtiada Maliyet Bedeli",
+                                           "hukum":  "kusurlu",
+                                           "kusur":  4
+                                       },
+                                       {
+                                           "id":  "KART-5",
+                                           "baslik":  "İktisadi Kıymette Maliyet Bedeli",
+                                           "hukum":  "kusurlu",
+                                           "kusur":  2
+                                       }
+                                   ]
+                   }
+               ],
+    "fatura":  {
+                   "giris":  0,
+                   "cikis":  0,
+                   "usd":  0
+               }
+}

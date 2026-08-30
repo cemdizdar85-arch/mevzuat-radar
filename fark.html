@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1 Soru Çöz, Farkı Gör — Tetikte</title>
+<style>
+:root{--zemin:#161513;--kart:#1f1d1a;--kehribar:#e0a458;--metin:#e8e4dc;--soluk:#a89f90;--yesil:#8fc98f;--kirmizi:#e07b7b}
+*{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--zemin);color:var(--metin);line-height:1.6}
+.kap{max-width:860px;margin:0 auto;padding:36px 20px}
+h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
+.alt{color:var(--soluk);max-width:620px}
+.rozet{display:inline-block;background:rgba(224,164,88,.14);border:1px solid var(--kehribar);color:var(--kehribar);border-radius:999px;padding:4px 12px;font-size:.8em;font-weight:800;margin-top:14px}
+.soruk{background:var(--kart);border:1px solid #35322c;border-radius:16px;padding:22px;margin-top:14px}
+.soruk p.govde{font-weight:600;font-size:1.02em}
+.sik{display:block;width:100%;text-align:left;background:#26231f;border:1px solid #3b372f;border-radius:10px;color:var(--metin);padding:11px 14px;margin:7px 0;font-size:.95em;cursor:pointer;font-family:inherit;line-height:1.5}
+.sik:hover{border-color:var(--kehribar)}
+.sik.dogru{border-color:var(--yesil);background:rgba(143,201,143,.10)}
+.sik.yanlis{border-color:var(--kirmizi);background:rgba(224,123,123,.10)}
+.sik:disabled{cursor:default;opacity:.9}
+#hukum{font-weight:800;margin:14px 0 4px;font-size:1.05em;display:none}
+#acikla{display:none;background:#26262c;border-radius:12px;padding:16px;margin-top:14px;font-size:.93em;line-height:1.6}
+#acikla b{color:var(--kehribar)}
+.kutu{border-left:3px solid #78b4ff;background:rgba(120,180,255,.07);border-radius:0 8px 8px 0;padding:9px 12px;margin-top:10px;font-size:.9em}
+.kutu2{border-left:3px solid var(--kehribar);background:rgba(224,164,88,.08);border-radius:0 8px 8px 0;padding:9px 12px;margin-top:10px;font-size:.9em}
+.sema{border:1px dashed var(--yesil);border-radius:10px;padding:12px;margin-top:14px;background:rgba(143,201,143,.05)}
+.semabaslik{font-weight:800;color:var(--yesil);margin-bottom:8px;font-size:.94em}
+.elemasatir{display:flex;align-items:center;gap:10px;padding:6px 10px;margin:5px 0;border-radius:0 8px 8px 0;background:rgba(224,123,123,.05)}
+.elemaaday{font-weight:700;font-size:.88em;min-width:38%}
+.akis{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.akisadim{border:1px solid #78b4ff;border-radius:999px;padding:4px 10px;font-size:.84em}
+.akisok{color:#78b4ff;font-weight:900}
+.tcetvel{border-collapse:collapse;margin-top:6px;font-size:.88em;width:100%}
+.tcetvel th{border-bottom:2px solid var(--yesil);color:var(--yesil);padding:4px 8px;text-align:left}
+.tcetvel td{padding:4px 8px;border-bottom:1px dotted #444}
+.ttutar{text-align:right;color:var(--kehribar);font-weight:700}
+.hcell.gizli{color:transparent;text-shadow:none}
+.verilen{box-shadow:inset 3px 0 0 #78b4ff}
+.ikx{width:110px;background:#161513;border:1px solid #5a5648;border-radius:6px;color:var(--metin);padding:5px 8px;font-family:inherit;font-size:.92em}
+.ikx.dog{border-color:var(--yesil);background:rgba(143,201,143,.12)}
+.ikx.yan{border-color:var(--kirmizi);background:rgba(224,123,123,.12)}
+.hcell.parla{animation:parla .9s ease}
+@keyframes parla{0%{background:rgba(224,164,88,.55)}100%{background:transparent}}
+#cta{display:none;margin-top:26px;background:linear-gradient(160deg,rgba(224,164,88,.16),rgba(224,164,88,.05));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}
+#cta h2{margin:.2em 0;color:var(--kehribar)}
+.dgm{display:inline-block;background:var(--kehribar);color:#161513;font-weight:800;border-radius:10px;padding:12px 22px;text-decoration:none;margin-top:10px}
+.dip{color:var(--soluk);font-size:.82em;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="kap">
+  <h1>Yanlışını böyle öğrenirsin.</h1>
+  <p class="alt">Aşağıdaki soru gerçek sınav ayarında hazırlandı. Bir şık seç — sonra ekranın ne yaptığına bak. <b>Fark, cevabı verdikten sonra başlıyor.</b></p>
+  <div class="rozet">📌 Bu konu, sınavların en çok soru çıkan konusudur</div>
+
+  <div class="soruk">
+    <p class="govde">Bursa Kimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. İşletme, ürünlerin yoğunluk farkı nedeniyle fiziki miktarları doğrudan toplayamadığından ortak maliyeti KATSAYI (eşdeğer ürün) yöntemiyle dağıtmaktadır. Ocak 2026 döneminde veriler şöyledir: Ürün Alfa (referans ürün, katsayı 1) 2.000 kg, Ürün Beta (katsayı 3) 1.000 kg, Ürün Gama (katsayı 2) 500 kg üretilmiştir. Döneme ait toplam ortak maliyet 240.000 TL'dir. Bu verilere göre Ürün Beta'nın birim maliyeti kaç TL/kg'dır?</p>
+    <button class='sik' data-h='A'>A) 40 TL/kg</button><button class='sik' data-h='B'>B) 96 TL/kg</button><button class='sik' data-h='C'>C) 144 TL/kg</button><button class='sik' data-h='D'>D) 120 TL/kg</button><button class='sik' data-h='E'>E) 60 TL/kg</button>
+    <div id="hukum"></div>
+    <div id="acikla">
+      <p><b>A)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Katsayı yöntemi, farklı yoğunluktaki ürünleri ortak bir ölçüye indirip maliyeti adil paylaştırmak için eşdeğer miktar üretir; ama bu eşdeğer miktar SADECE payı bulmaya yarar, birim maliyet daima ürünün FİİLİ miktarına bölünerek bulunur (Ortak maliyet dağıtımında katsayı/eşdeğer ürün yöntemi). Eşdeğer Miktara Bölme Tuzağı: Beta payını (120.000 TL) fiili miktar yerine eşdeğer miktara (3.000 kg) bölen aday 120.000/3.000=40 bulur; bu şekilde hesaplansa tüm ürünlerin birim maliyeti eşitlenir ve katsayı farkının anlamı kaybolur. Dogrusu: Pay, ürünün gerçekte üretildiği 1.000 kg'a bölünmelidir.</p><p><b>B)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Katsayı yöntemi her ürüne kendi ağırlığını tanır ki maliyet ürünler arasında adil paylaşılsın; bu yüzden her ürün yalnızca KENDİ katsayısıyla çarpılır. Katsayı Karıştırma Tuzağı: Beta'nın katsayısı (3) yerine Gama'nın katsayısını (2) kullanan aday Beta'nın eşdeğer miktarını 1.000×2=2.000 kg sanır; toplam eşdeğer miktar 2.000+2.000+1.000=5.000 kg, birim eşdeğer maliyet 240.000/5.000=48 TL, Beta payı 2.000×48=96.000 TL, birim maliyet 96.000/1.000=96 TL/kg çıkar. Dogrusu: Beta'nın katsayısı 3'tür, eşdeğer miktarı 1.000×3=3.000 kg olmalıdır.</p><p><b>C)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Ortak maliyetin doğru dağılması için toplam eşdeğer miktara sürecin ürettiği TÜM ürünler dahil edilmelidir; tek bir ürünün atlanması geri kalanların payını yapay biçimde şişirir. Ürün Unutma Tuzağı: Gama'yı (500×2=1.000 kg eşdeğer) toplama katmayı unutan aday toplam eşdeğer miktarı 2.000+3.000=5.000 kg sanır; birim eşdeğer maliyet 240.000/5.000=48 TL, Beta payı 3.000×48=144.000 TL, birim maliyet 144.000/1.000=144 TL/kg çıkar. Dogrusu: Toplam eşdeğer miktara Gama'nın 1.000 kg'lık payı da eklenmeli, gerçek toplam 6.000 kg'dır.</p><p><b>D ✓)</b> Ne soruluyor: Beta ürününün birim maliyeti. Kural: İşletme, yoğunluğu farklı ürünleri fiziki olarak doğrudan toplayamadığı için her ürünü referans ürün cinsinden eşdeğer bir ölçüye çevirir; ortak maliyet bu eşdeğer miktara göre PAYLAŞTIRILIR, ama her ürünün birim maliyeti kendi gerçek (fiili) üretim miktarına bölünerek bulunur (Ortak maliyet dağıtımında katsayı/eşdeğer ürün yöntemi). Hesap: Eşdeğer miktarlar Alfa 2.000×1=2.000, Beta 1.000×3=3.000, Gama 500×2=1.000 kg, toplam 6.000 kg; birim eşdeğer maliyet 240.000/6.000=40 TL; Beta payı 3.000×40=120.000 TL; Beta birim maliyeti 120.000/1.000=120 TL/kg. Akılda kalsın: Dağıtımda eşdeğer miktar, birim maliyette ise fiili miktar kullanılır.</p><p><b>E)</b> Ne soruluyor: Beta'nın birim maliyeti. Kural: Katsayı yönteminde yalnızca referans ürüne 1 katsayısı verilir, diğer TÜM ürünlere mutlaka kendi katsayıları uygulanır; aksi halde fiziki miktarlar doğrudan toplanmış olur ki bu, yöntemin var oluş nedenini ortadan kaldırır. Katsayı Uygulamama Tuzağı: Beta'ya katsayı uygulamayı unutup fiili miktarını (1.000 kg) doğrudan eşdeğer miktar sayan aday toplam eşdeğer miktarı 2.000+1.000+1.000=4.000 kg bulur; birim eşdeğer maliyet 240.000/4.000=60 TL, Beta payı 1.000×60=60.000 TL, birim maliyet 60.000/1.000=60 TL/kg çıkar. Dogrusu: Yalnızca referans ürünün katsayısı 1'dir, Beta'nın katsayısı 3 olarak uygulanmalıdır.</p>
+      <div id="cozumBolge">
+      <div id='player' style='margin-top:14px'>
+  <button id='padim' class='dgm' style='padding:9px 16px;font-size:.9em'>🎬 Bu çözümü adım adım yaşa</button>
+  <div id='panlat' style='display:none;border:1px solid var(--kehribar);border-radius:12px;padding:12px 14px;margin-top:10px;background:rgba(224,164,88,.07)'>
+    <div style='font-size:.78em;color:var(--kehribar);font-weight:800' id='psayac'></div>
+    <div id='pformul' style='margin-top:7px;font-family:Consolas,monospace;font-size:.98em;color:#8fd0ff;background:rgba(120,180,255,.10);border:1px solid rgba(120,180,255,.35);border-radius:8px;padding:8px 12px'></div>
+    <div id='pmetin' style='margin-top:7px;font-size:.95em'></div>
+    <button id='pileri' class='dgm' style='padding:7px 14px;font-size:.85em;margin-top:10px'>İleri →</button>
+  </div>
+</div>
+      <div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div><div style='font-size:.78em;color:#78b4ff;margin-top:3px'>🔷 mavi kenarlı hücreler <b>soruda VERİLENLERDİR</b> — biz bulmadık, soru verdi; kalanları biz hesapladık</div><table class='tcetvel'><tr><th>Ürün</th><th>Fiili Miktar (kg)</th><th>Katsayı</th><th>Eşdeğer Miktar (kg)</th><th>Ortak Maliyet Payı (TL)</th><th>Birim Maliyet (TL/kg)</th></tr><tr><td class='hbaslik' style='font-weight:600'>Alfa (referans)</td><td class='hcell verilen' data-r='0' data-c='1'>2.000</td><td class='hcell verilen' data-r='0' data-c='2'>1</td><td class='hcell' data-r='0' data-c='3'>2.000</td><td class='hcell' data-r='0' data-c='4'>80.000</td><td class='hcell' data-r='0' data-c='5'>40</td></tr><tr><td class='hbaslik' style='font-weight:600'>Beta</td><td class='hcell verilen' data-r='1' data-c='1'>1.000</td><td class='hcell verilen' data-r='1' data-c='2'>3</td><td class='hcell' data-r='1' data-c='3'>3.000</td><td class='hcell' data-r='1' data-c='4'>120.000</td><td class='hcell' data-r='1' data-c='5'>120</td></tr><tr><td class='hbaslik' style='font-weight:600'>Gama</td><td class='hcell verilen' data-r='2' data-c='1'>500</td><td class='hcell verilen' data-r='2' data-c='2'>2</td><td class='hcell' data-r='2' data-c='3'>1.000</td><td class='hcell' data-r='2' data-c='4'>40.000</td><td class='hcell' data-r='2' data-c='5'>80</td></tr><tr style='background:rgba(143,201,143,.12);font-weight:800'><td class='hbaslik' style='font-weight:600'>TOPLAM (SONUÇ)</td><td class='hcell' data-r='3' data-c='1'>3.500</td><td class='hcell' data-r='3' data-c='2'>-</td><td class='hcell' data-r='3' data-c='3'>6.000</td><td class='hcell verilen' data-r='3' data-c='4'>240.000</td><td class='hcell' data-r='3' data-c='5'>Beta=120</td></tr></table>
+      <div class='sema'><div class='semabaslik'>🗺️ Katsayı (Eşdeğer Ürün) Yöntemiyle Beta'nın Birim Maliyeti</div><div class='akis'><span class='akisadim'>Fiili miktarları katsayılarla çarp: Alfa 2.000×1=2.000 kg, Beta 1.000×3=3.000 kg, Gama 500×2=1.000 kg eşdeğer</span><span class='akisok'>→</span><span class='akisadim'>Eşdeğer miktarları topla: 2.000+3.000+1.000=6.000 kg</span><span class='akisok'>→</span><span class='akisadim'>Birim eşdeğer maliyeti bul: 240.000 TL/6.000 kg=40 TL</span><span class='akisok'>→</span><span class='akisadim'>Beta'nın payını hesapla: 3.000 kg×40 TL=120.000 TL</span><span class='akisok'>→</span><span class='akisadim'>Beta'nın birim maliyetini bul: 120.000 TL/1.000 kg (fiili)=120 TL/kg</span></div></div>
+      </div>
+      <button id="cozumToggle" class="dgm" style="display:none;padding:7px 14px;font-size:.85em;background:#5a5648;margin-top:10px">🙈 Çözüm gizlendi — kopyasız dene! (tekrar göster)</button>
+      <div style='margin-top:16px'>
+  <button id='ikizAc' class='dgm' style='padding:9px 16px;font-size:.9em;background:var(--yesil)'>✍️ Şimdi sen dene — aynı yöntemi yeni rakamlarla uygula</button>
+  <div id='ikiz' style='display:none;border:1px dashed var(--yesil);border-radius:12px;padding:14px;margin-top:10px'>
+    <p style='font-weight:600'>İzmir Petrokimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde etmektedir. İşletme, ürünlerin fiziki özellik farkı nedeniyle ortak maliyeti KATSAYI (eşdeğer ürün) yöntemiyle dağıtmaktadır. Şubat 2026 döneminde Ürün Merkür (referans ürün, katsayı 1) 3.000 kg, Ürün Venüs (katsayı 2) 2.000 kg, Ürün Jüpiter (katsayı 4) 1.000 kg üretilmiştir. Döneme ait toplam ortak maliyet 330.000 TL'dir.</p>
+    <p style='color:var(--yesil);font-size:.9em'>🎯 Aynı yöntemi SEN uygulayarak tabloyu doldur ve Ürün Jüpiter'in birim maliyetinin kaç TL/kg olduğunu bul. — 🔷 maviler soruda verildi; boş hücreleri SEN doldur.</p>
+    <table class='tcetvel'><tr><th>Ürün</th><th>Fiili Miktar (kg)</th><th>Katsayı</th><th>Eşdeğer Miktar (kg)</th><th>Ortak Maliyet Payı (TL)</th><th>Birim Maliyet (TL/kg)</th></tr><tr><td style='font-weight:600'>Merkür (referans)</td><td class='verilen'>3.000</td><td class='verilen'>1</td><td><input class='ikx' data-dogru='3.000' placeholder='?'></td><td><input class='ikx' data-dogru='90.000' placeholder='?'></td><td><input class='ikx' data-dogru='30' placeholder='?'></td></tr><tr><td style='font-weight:600'>Venüs</td><td class='verilen'>2.000</td><td class='verilen'>2</td><td><input class='ikx' data-dogru='4.000' placeholder='?'></td><td><input class='ikx' data-dogru='120.000' placeholder='?'></td><td><input class='ikx' data-dogru='60' placeholder='?'></td></tr><tr><td style='font-weight:600'>Jüpiter</td><td class='verilen'>1.000</td><td class='verilen'>4</td><td><input class='ikx' data-dogru='4.000' placeholder='?'></td><td><input class='ikx' data-dogru='120.000' placeholder='?'></td><td><input class='ikx' data-dogru='120' placeholder='?'></td></tr><tr style='background:rgba(143,201,143,.12);font-weight:800'><td style='font-weight:600'>TOPLAM (SONUÇ)</td><td><input class='ikx' data-dogru='6.000' placeholder='?'></td><td>-</td><td><input class='ikx' data-dogru='11.000' placeholder='?'></td><td class='verilen'>330.000</td><td><input class='ikx' data-dogru='Jüpiter=120' placeholder='?'></td></tr></table>
+    <button id='ikizKontrol' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px'>Kontrol et</button>
+    <button id='ikizGoster' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:#78b4ff'>Doğruları göster</button>
+    <span id='ikizSkor' style='margin-left:10px;font-weight:800'></span>
+  </div>
+</div>
+      <div class='kutu'>🎯 <b>Sınav taktiği:</b> Soruda 'katsayı/eşdeğer ürün' ifadesi görülür görülmez beş sütunlu bir tablo kur: Fiili Miktar - Katsayı - Eşdeğer Miktar - Pay - Birim Maliyet; toplam satırını mutlaka ekle ki bir ürünü atlama hatasını gözle yakalayasın, son sütunda payı hangi miktara böldüğünü (fiili mi eşdeğer mi) bir kez daha kontrol et.</div>
+      <div class='kutu2'>⚖️ <b>Notlandırıcı gözü:</b> Adaylar en çok şu iki noktada puan kaybeder: (1) birim maliyeti bulurken payı eşdeğer miktara bölmek, (2) toplam eşdeğer miktarı hesaplarken ürünlerden birini (genellikle düşük katsayılı olanı) toplama dahil etmeyi unutmak; ayrıca ürünler arası katsayıları birbirine karıştırma sık görülen bir diğer hatadır.</div>
+      <div class='kutu2'><b>HAP:</b> Katsayı (eşdeğer ürün) yönteminde ortak maliyetin PAYI eşdeğer miktarla dağıtılır, ama BİRİM MALİYET her zaman ürünün FİİLİ miktarına bölünerek bulunur; eşdeğer miktara bölünürse tüm ürünler için aynı birim maliyet çıkar ve yöntem anlamsızlaşır.</div>
+    </div>
+  </div>
+
+  <div id="cta">
+    <h2>Bu ekrandan 30.000'den fazla var.</h2>
+    <p>Her soru; tuzağın adı, tek cümlelik doğrusu, konsept şeması ve sınav taktiğiyle birlikte gelir. Kaynağı her gün resmî metinle makine tarafından doğrulanır.</p>
+    <a class="dgm" href="canli-deneme.html">Ücretsiz Türkiye Geneli Canlı Denemeye Katıl →</a>
+  </div>
+
+  <div class="dip">Bu örnek soru tanıtım amacıyla herkese açıktır · Tetikte soru kasası kilitli ve kaynak-damgalıdır.</div>
+</div>
+<script>
+const DOGRU='D';
+document.querySelectorAll('.sik').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.sik').forEach(x=>{x.disabled=true; if(x.dataset.h===DOGRU)x.classList.add('dogru');});
+    const h=document.getElementById('hukum');
+    if(b.dataset.h===DOGRU){ h.textContent='✓ Doğru! Yine de açıklamayı oku — tuzakların adını öğren.'; h.style.color='var(--yesil)'; }
+    else{ b.classList.add('yanlis'); h.textContent='✗ Yanlış — ve şimdi bu yanlışı bir daha yapmayacaksın:'; h.style.color='var(--kirmizi)'; }
+    h.style.display='block';
+    document.getElementById('acikla').style.display='block';
+    document.getElementById('cta').style.display='block';
+    h.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+});
+const ikizAc=document.getElementById('ikizAc');
+if(ikizAc){
+  const norm=t=>String(t||'').toLowerCase().replace(/tl|kg|%/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
+  const cb=document.getElementById('cozumBolge'), ct=document.getElementById('cozumToggle');
+  ikizAc.addEventListener('click',()=>{
+    ikizAc.style.display='none'; document.getElementById('ikiz').style.display='block';
+    if(cb){ cb.style.display='none'; ct.style.display='inline-block'; }
+  });
+  if(ct){ ct.addEventListener('click',()=>{ const acik=cb.style.display!=='none'; cb.style.display=acik?'none':'block'; ct.textContent=acik?'🙈 Çözüm gizlendi — kopyasız dene! (tekrar göster)':'🙈 Çözümü tekrar gizle'; }); }
+  document.getElementById('ikizKontrol').addEventListener('click',()=>{
+    let d=0,t=0;
+    document.querySelectorAll('.ikx').forEach(i=>{ t++; const ok=norm(i.value)===norm(i.dataset.dogru); i.classList.remove('dog','yan'); i.classList.add(ok?'dog':'yan'); if(ok)d++; });
+    const sk=document.getElementById('ikizSkor');
+    sk.textContent=d+' / '+t+(d===t?' — HEPSİ DOĞRU! 🎉 Yöntem artık senin.':' doğru');
+    sk.style.color=(d===t)?'var(--yesil)':'var(--kehribar)';
+    if(d===t){ const cb2=document.getElementById('cozumBolge'); if(cb2){ cb2.style.display='block'; document.getElementById('cozumToggle').style.display='none'; } }
+  });
+  document.getElementById('ikizGoster').addEventListener('click',()=>{
+    document.querySelectorAll('.ikx').forEach(i=>{ i.value=i.dataset.dogru; i.classList.remove('yan'); i.classList.add('dog'); });
+  });
+}
+const ADIMLAR=[{"anlatim":"Soru bize sunlari vermis: Alfa urunu (referans, katsayi 1) 2.000 kg uretilmis; Beta urunu katsayi 3 ile 1.000 kg uretilmis; Gama urunu katsayi 2 ile 500 kg uretilmis. Ayrica donemin toplam ortak maliyetinin 240.000 TL oldugu da soruda belirtilmis. Bu urunler yogunluk farki yuzunden fiziki olarak dogrudan toplanamadigi icin, her urunu referans urun cinsinden esdeger bir olcuye cevirecegiz.","formul":"Verilenler: Alfa fiili miktar=2.000 kg, katsayi=1; Beta fiili miktar=1.000 kg, katsayi=3; Gama fiili miktar=500 kg, katsayi=2; Toplam Ortak Maliyet=240.000 TL","doldur":[[0,1],[0,2],[1,1],[1,2],[2,1],[2,2],[3,4]]},{"anlatim":"Simdi biz hesapliyoruz: her urunun fiili miktarini kendi katsayisiyla carparak esdeger miktarini buluyoruz, boylece farkli yogunluktaki urunler ortak bir olcude toplanabilir hale gelir.","formul":"Esdeger Miktar = Fiili Miktar x Katsayi\nAlfa: 2.000 (soruda verilen) x 1 (soruda verilen) = 2.000 kg\nBeta: 1.000 (soruda verilen) x 3 (soruda verilen) = 3.000 kg\nGama: 500 (soruda verilen) x 2 (soruda verilen) = 1.000 kg\nToplam Esdeger Miktar = 2.000 (bulduk) + 3.000 (bulduk) + 1.000 (bulduk) = 6.000 kg","doldur":[[0,3],[1,3],[2,3],[3,3]]},{"anlatim":"Simdi biz hesapliyoruz: tabloyu tamamlamak icin urunlerin gercek (fiili) uretim miktarlarini da topluyoruz; bu deger daha sonra birim maliyet hesaplarinda kullanilacak.","formul":"Toplam Fiili Miktar = Alfa + Beta + Gama = 2.000 (soruda verilen) + 1.000 (soruda verilen) + 500 (soruda verilen) = 3.500 kg","doldur":[[3,1]]},{"anlatim":"Simdi biz hesapliyoruz: toplam ortak maliyeti toplam esdeger miktara bolerek bir birim esdeger urune dusen maliyeti buluyoruz. Alfa\u0027nin katsayisi 1 oldugu icin Alfa\u0027nin birim maliyeti dogrudan bu degere esit olur.","formul":"Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL\nAlfa katsayisi 1 oldugundan Alfa Birim Maliyeti = 40 TL/kg","doldur":[[0,5]]},{"anlatim":"Simdi biz hesapliyoruz: her urunun esdeger miktarini birim esdeger maliyetle carparak, o urune dusen ortak maliyet payini buluyoruz.","formul":"Ortak Maliyet Payi = Esdeger Miktar x Birim Esdeger Maliyet\nAlfa: 2.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 80.000 TL\nBeta: 3.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 120.000 TL\nGama: 1.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 40.000 TL","doldur":[[0,4],[1,4],[2,4]]},{"anlatim":"Simdi biz hesapliyoruz: Gama urununun birim maliyetini bulmak icin ona dusen ortak maliyet payini kendi fiili (gercek) uretim miktarina boluyoruz.","formul":"Gama Birim Maliyeti = Gama Ortak Maliyet Payi / Gama Fiili Miktar = 40.000 (onceki adimda bulduk) / 500 (soruda verilen) = 80 TL/kg","doldur":[[2,5]]},{"anlatim":"Simdi biz hesapliyoruz: sorunun sordugu Beta urununun birim maliyetini bulmak icin Beta\u0027ya dusen ortak maliyet payini Beta\u0027nin fiili (gercek) uretim miktarina boluyoruz. Dikkat: dagitimda esdeger miktar kullanildi ama birim maliyette fiili miktar kullaniliyor.","formul":"Beta Birim Maliyeti = Beta Ortak Maliyet Payi / Beta Fiili Miktar = 120.000 (onceki adimda bulduk) / 1.000 (soruda verilen) = 120 TL/kg","doldur":[[1,5]]},{"anlatim":"SONUC: Butun hesaplamalar tamamlandi. Ortak maliyet once esdeger miktara gore dagitildi, sonra her urunun birim maliyeti kendi fiili miktarina bolunerek bulundu. Ürün Beta\u0027nin birim maliyeti 120 TL/kg\u0027dir.","formul":"Beta Birim Maliyeti = 120.000 TL / 1.000 kg = 120 TL/kg","doldur":[[3,5]]}];
+if(ADIMLAR){
+  let ad=-1;
+  const hc=(r,c)=>document.querySelector(".hcell[data-r='"+r+"'][data-c='"+c+"']");
+  const tum=()=>document.querySelectorAll('.hcell');
+  const goster=()=>{
+    const s=ADIMLAR[ad];
+    document.getElementById('psayac').textContent='ADIM '+(ad+1)+' / '+ADIMLAR.length;
+    document.getElementById('pmetin').textContent=s.anlatim;
+    const pf=document.getElementById('pformul'); pf.textContent=s.formul||''; pf.style.display=s.formul?'block':'none';
+    (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
+    if(ad===ADIMLAR.length-1){ tum().forEach(el=>el.classList.remove('gizli')); } // son adimda acik hucre kalmaz (muhur-turu guvencesi)
+    document.getElementById('pileri').textContent=(ad===ADIMLAR.length-1)?'🔄 Baştan':'İleri →';
+  };
+  document.getElementById('padim').addEventListener('click',()=>{
+    tum().forEach(el=>el.classList.add('gizli'));
+    document.getElementById('padim').style.display='none';
+    document.getElementById('panlat').style.display='block';
+    ad=0; goster();
+    document.getElementById('panlat').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  document.getElementById('pileri').addEventListener('click',()=>{
+    if(ad===ADIMLAR.length-1){ tum().forEach(el=>el.classList.add('gizli')); ad=0; goster(); return; }
+    ad++; goster();
+  });
+}
+</script>
+</body>
+</html>

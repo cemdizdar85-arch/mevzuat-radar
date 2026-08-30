@@ -28,6 +28,16 @@
       "sebep": "kaynak indirilmiyor"
     },
     {
+      "dosya": "altin-test-taban.json",
+      "hasatci": "ambar-testi.ps1 (yalniz OKUR)",
+      "sebep": "29.08: bu bir TEST TABANIDIR, hasat ciktisi degil - ambar-testi.ps1 onu okuyup karsilastirir, yazmaz. Taban ancak kasitli bir karar sonucu (kaynak/madde sayisi bilerek degistiginde) elle tazelenir; robot tazelerse test kendi kendini onaylar ve anlamini kaybeder. Ayrica cagiran mevzuat.yml 27.08 robot kiyimindan beri Disabled (bkz. hafiza: robot-kiyimi-20260827). BILINCLI ELLE."
+    },
+    {
+      "dosya": "saglik-karnesi.json",
+      "hasatci": "saglik-karnesi.ps1",
+      "sebep": "29.08 OLCULDU - GERCEK BOSLUK, gecici kayit: betik 28.08 gecesi yazilmis ('gunluk gorev 4. halka' diyor) ama NE KENDISI ne de girdisini ureten motor/ambar-envanteri.ps1 hicbir workflow'a baglanmamis. Yani saglik.html bayat json okuyor. Zinciri (ambar-envanteri -> saglik-karnesi) bagli hale getirmek o isi kuran oturumun niyetini bilmeyi gerektiriyor; kapiyi yanlis yesile boyamamak icin BORC olarak yazildi. KARAR BEKLIYOR: ya zincir gunluk gorevle baglanir, ya saglik.html kaldirilir."
+    },
+    {
       "dosya": "gecikme-zammi.json",
       "hasatci": "gecikme-hasat.ps1",
       "sebep": "gecikme zammi orani - RG karari, indirici yok. YILLIK RAKAM NOBETI kismen izliyor"

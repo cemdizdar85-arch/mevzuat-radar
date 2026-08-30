@@ -54,7 +54,7 @@ $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
 # (ortalama/fark-boluk hesabi) once ayri dogrulanir, sonra metinden cikarilir;
 # yoksa duz desen paranteze yarim girip yanlis alarm uretiyordu ((4,5+5,6)/2 vakasi).
 $reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*(?<esit>[=≈~])\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
-$reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
+$reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n|\(\s*yuvarlanm[ıi][şs]\s*\))'
 # 07.08 AKSAM (Cem %17,42 vakasi): ORAN DESENI - "(a / b) x 100 = %p" ve
 # parantezsiz "a / b x 100 = %p". Bu kalip UC kor noktadan kaciyordu:
 # reParen op1'i yalniz +/- taniyor; satir "ic-parantezleri sil" ifadeyi yok

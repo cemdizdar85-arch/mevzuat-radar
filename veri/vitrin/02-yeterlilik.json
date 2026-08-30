@@ -1,0 +1,543 @@
+{
+  "aciklama": "Yeterlilik vitrin partisi - 21.08.2026 uretimi. Finansal Muhasebe 7 + Vergi Mevzuati 7. Kaynak: video/sinav-reklam/03- ve 04- md dosyalari",
+  "sorular": [
+    {
+      "id": "tv2621",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "konu": "supheli alacak karsiligi",
+      "soru": "Bir işletmenin 31.12.2026 tarihi itibarıyla ticari alacaklarına ilişkin durum şöyledir. I. Hakkında dava açılmış, dava safhasında bulunan 340.000 TL tutarında teminatsız alacak. II. İcra safhasında bulunan 260.000 TL tutarında alacak; bu alacak için 95.000 TL değerinde ipotek teminatı vardır. III. Protesto edilmiş ve borçludan yazı ile iki kez istenmiş, 18.500 TL tutarında teminatsız alacak. IV. Vadesi altı ay önce geçmiş, ancak dava veya icra takibi başlatılmamış, protesto edilmemiş ve yazıyla istenmemiş 120.000 TL tutarında alacak. İlgili yılda VUK m.323/2'deki küçük alacak haddi 25.000 TL'dir. 2026 yılında ayrılabilecek şüpheli ticari alacak karşılığı toplamı kaç TL'dir?",
+      "siklar": {
+        "A": "523.500",
+        "B": "618.500",
+        "C": "505.000",
+        "D": "738.500",
+        "E": "643.500"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Tahsil edilemeyeceğinden şüphelenilen alacakların hangileri için, ne kadar gider yazılabileceği soruluyor.\n\nKural: VUK m.323 önce bir ön şart koyar: alacağın ticari ve zirai kazancın elde edilmesi ve idame ettirilmesi ile ilgili olması. Bu şart sağlanıyorsa iki yoldan biri aranır: (1) dava veya icra safhasında bulunan alacaklar — tutar sınırı YOKTUR; (2) yapılan protestoya veya yazı ile bir defadan fazla istenilmesine rağmen ödenmemiş ve belirlenen haddi aşmayan alacaklar. Kuralın sınırını üç cümle daha çizer: karşılık değerleme gününün tasarruf değerine göre PASİFTE ayrılır; bu karşılığın hangi alacaklara ait olduğu karşılık hesabında gösterilir; ve en kritiği: teminatlı alacaklarda bu karşılık teminattan geri kalan miktara inhisar eder. Ayrıca sonradan tahsil edilen tutarlar, TAHSİL EDİLDİKLERİ DÖNEMİN kâr-zarar hesabına alınır.\n\nBu olayda: I dava safhasındadır, teminatsızdır — 340.000 TL'nin tamamı. II icra safhasındadır ama 95.000 TL ipotekle teminatlıdır; karşılık yalnızca teminattan geri kalana ayrılır: 260.000 − 95.000 = 165.000 TL. III protesto edilmiş, yazıyla bir defadan fazla istenmiş ve 18.500 TL ilgili yılın 25.000 TL'lik haddini aşmamıştır — 18.500 TL. IV için hiçbir şart yerine gelmemiştir; sadece vadenin geçmiş olması karşılık ayırmaya yetmez — 0. Toplam: 340.000 + 165.000 + 18.500 = 523.500 TL.\n\nAkılda kalsın: Dava ve icrada tutar sınırı yok, protestoda var; teminat varsa yalnız açıkta kalan kısma karşılık ayrılır.",
+        "B": "340.000 + 260.000 + 18.500 toplamıdır. Hata: II'deki TEMİNAT DÜŞÜLMEMİŞ. İcra safhasında olmak karşılığın tamamını ayırmaya yetiyor sanılmıştır. Doğrusu: VUK m.323/3 uyarınca teminatlı alacaklarda karşılık 'teminattan geri kalan miktara inhisar eder' — 260.000 − 95.000 = 165.000 TL.",
+        "C": "340.000 + 165.000 işleminden gelir; III hesaba hiç katılmamıştır. Küçük tutarlı alacak 'önemsiz' sayılıp elenmiş ya da haddin altında kalmanın karşılığı engellediği sanılmıştır — oysa hadde KADAR olmak şartın kendisidir. Doğrusu: m.323/2, protesto edilmiş veya yazıyla bir defadan fazla istenmiş ve haddi AŞMAYAN alacakları şüpheli sayar; 18.500 TL bu kapsamdadır.",
+        "D": "618.500 + 120.000; yani hem teminat düşülmemiş hem de IV eklenmiştir. İki hata üst üste binmiştir. Doğrusu: IV için m.323'ün aradığı hiçbir şart yoktur; vade geçmesi tek başına şüphelilik doğurmaz.",
+        "E": "523.500 + 120.000. Karşılık doğru hesaplanmış, sonra IV de eklenmiştir. Bu şıkkı işaretleyen aday teminat kuralını bilmekte ama 'vadesi geçen alacak şüphelidir' ezberini kıramamaktadır. Doğrusu: Alacağın şüpheli sayılması için dava/icra safhası VEYA protesto/yazıyla istenmiş olma şartı aranır (m.323/1-2)."
+      },
+      "hap": "Dava veya icra safhasındaki alacakta TUTAR SINIRI YOKTUR; protesto/yazıyla istenen alacakta haddi aşmamak şarttır. Teminatlı alacakta karşılık yalnız TEMİNATTAN GERİ KALANA ayrılır (VUK m.323/3). Sonradan tahsil, TAHSİL EDİLDİĞİ DÖNEMİN kâr-zararına yazılır.",
+      "kaynak": "VUK m.323 · m.322 · m.324 · THP 128, 129, 654",
+      "tablo": {
+        "baslik": "Ayrılabilecek karşılık (TL)",
+        "kolonlar": ["Alacak", "Tutar", "Şart sağlanıyor mu?", "Teminat", "Karşılık"],
+        "satirlar": [
+          ["I — dava safhasında", "340.000", "Evet (VUK 323/1)", "yok", "340.000"],
+          ["II — icra safhasında ←", "260.000", "Evet (VUK 323/1)", "95.000 ipotek", "165.000"],
+          ["III — protesto + yazıyla iki kez", "18.500", "Evet (VUK 323/2, had 25.000)", "yok", "18.500"],
+          ["IV — hiçbir işlem yok", "120.000", "HAYIR", "—", "0"],
+          ["TOPLAM ←", "", "", "", "523.500"]
+        ]
+      },
+      "yevmiye": [
+        {"hesap": "128 ŞÜPHELİ TİCARİ ALACAKLAR", "borc": 523500, "alacak": 0},
+        {"hesap": "İlgili ticari alacak hesabı", "borc": 0, "alacak": 523500},
+        {"hesap": "654 KARŞILIK GİDERLERİ", "borc": 523500, "alacak": 0},
+        {"hesap": "129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (−)", "borc": 0, "alacak": 523500}
+      ]
+    },
+    {
+      "id": "tv2622",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "konu": "azalan bakiyeler amortisman",
+      "soru": "Bilanço esasına göre defter tutan bir işletme 2026 yılında iki makine satın almış ve her ikisi için de azalan bakiyeler usulüyle amortisman ayırmayı tercih etmiştir. Her iki makine de yılbaşında aktife girmiştir. A makinesinin maliyet bedeli 1.400.000 TL, Hazine ve Maliye Bakanlığınca ilan edilen faydalı ömrü 5 yıldır. B makinesinin maliyet bedeli 900.000 TL, faydalı ömrü 3 yıldır. 2026 yılında ayrılacak toplam amortisman tutarı kaç TL'dir?",
+      "siklar": {
+        "A": "1.010.000",
+        "B": "1.160.000",
+        "C": "580.000",
+        "D": "1.150.000",
+        "E": "860.000"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Azalan bakiyeler usulünde oranın nasıl bulunacağı ve bu oranın bir üst sınırı olup olmadığı soruluyor.\n\nKural: Yöntemin tanımı VUK mükerrer m.315'tedir: bilanço esasına göre defter tutan mükelleflerden dileyenler, amortismana tabi iktisadi değerlerini azalan bakiyeler üzerinden yok edebilir. Bu usulde her yıl amortisman hesaplanacak değer, evvelce ayrılmış olan amortismanlar toplamının tenzili suretiyle bulunur. Oranı belirleyen cümle şudur (mük. m.315/2): 'Bu usulde uygulanacak amortisman oranı %50'yi geçmemek üzere normal amortisman oranının iki katıdır.' Amortisman süresi ise normal amortisman nispetlerine göre hesaplanır; son yıla devreden bakiye değer o yıl tamamen yok edilir. Normal oran, VUK m.315 uyarınca Bakanlıkça ilan edilen ve faydalı ömre dayanan orandır.\n\nBu olayda: A makinesinin faydalı ömrü 5 yıl olduğu için normal oran %20, iki katı %40'tır; %50 tavanının altında kaldığı için doğrudan uygulanır: 1.400.000 × 0,40 = 560.000 TL. B makinesinin faydalı ömrü 3 yıl olduğundan normal oran %33,33, iki katı %66,67'dir — bu oran tavanı AŞAR, dolayısıyla %50'ye çekilir: 900.000 × 0,50 = 450.000 TL. Toplam 1.010.000 TL. Sorunun kilidi tam buradadır: iki makineye iki farklı oran uygulanır, ama ikisi de aynı kuraldan çıkar.\n\nAkılda kalsın: İki katını al, ama %50'de dur — beş yıldan kısa ömürde tavan devreye girer.",
+        "B": "560.000 + (900.000 × 0,6667 = 600.000). Hata: %50 TAVANI UYGULANMAMIŞ, B için %66,67 kullanılmıştır. Kuralın ilk yarısı ('iki katı') bilinip ikinci yarısı ('%50'yi geçmemek üzere') atlanmıştır. Doğrusu: VUK mük. m.315/2 oranı %50 ile sınırlar; B için uygulanacak oran %50'dir.",
+        "C": "(1.400.000 × 0,20 = 280.000) + (900.000 × 0,3333 = 300.000). Burada azalan bakiyeler usulü hiç uygulanmamış, normal amortisman hesaplanmıştır. Soru gövdesinde tercihin açıkça azalan bakiyeler olduğu yazılıdır. Doğrusu: Azalan bakiyeler usulünde oran normal oranın iki katıdır (tavan saklı).",
+        "D": "(1.400.000 × 0,50) + (900.000 × 0,50) = 700.000 + 450.000. Tavan bu kez HER İKİ makineye uygulanmıştır — sanki %50 bir oran değil de kuralın kendisiymiş gibi. Doğrusu: %50 bir ÜST SINIRDIR, sabit oran değil; A için hesaplanan %40 tavanın altında olduğundan aynen kullanılır.",
+        "E": "560.000 + 300.000. A doğru hesaplanmış, B için normal amortisman kullanılmıştır. Muhtemel düşünce: 'üç yıllık ömürde azalan bakiye uygulanamaz.' Böyle bir kısıt yoktur. Doğrusu: Yöntem tercihi bilanço esasına göre defter tutan mükellefe aittir ve faydalı ömre göre kısıtlanmaz; yalnız oran %50'yi aşamaz."
+      },
+      "hap": "Azalan bakiyeler oranı = normal amortisman oranının İKİ KATI, ancak %50'yi GEÇEMEZ (VUK mük. m.315/2). Faydalı ömür 4 yıl ve altındaysa iki kat %50'yi aşar ve tavan devreye girer.",
+      "kaynak": "VUK m.313 · m.315 · mükerrer m.315 · m.320",
+      "tablo": {
+        "baslik": "İki makine, iki farklı oran",
+        "kolonlar": ["", "A makinesi", "B makinesi"],
+        "satirlar": [
+          ["Maliyet bedeli", "1.400.000", "900.000"],
+          ["Faydalı ömür", "5 yıl", "3 yıl"],
+          ["Normal oran (1 ÷ ömür)", "%20", "%33,33"],
+          ["Normal oranın iki katı", "%40", "%66,67"],
+          ["%50 TAVANI ←", "%40 < %50 → sorun yok", "%66,67 > %50 → %50'ye çekilir"],
+          ["Uygulanacak oran", "%40", "%50"],
+          ["2026 amortismanı", "560.000", "450.000"],
+          ["TOPLAM ←", "1.010.000", ""]
+        ]
+      }
+    },
+    {
+      "id": "tv2623",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "konu": "borc senedi reeskontu",
+      "soru": "Bir işletmenin 31.12.2026 tarihli kayıtlarında şunlar yer almaktadır: vadesi 2027 yılında dolan alacak senetleri 850.000 TL (senetlerde faiz oranı açıklanmamıştır), vadesi gelmemiş senede bağlanmamış ticari alacaklar 400.000 TL, vadesi 2027 yılında dolan borç senetleri 600.000 TL. İşletme, alacak senetlerini değerleme gününün kıymetine irca etmiştir (reeskont ayırmıştır). Bu duruma ilişkin aşağıdakilerden hangisi doğrudur?",
+      "siklar": {
+        "A": "Senede bağlanmamış 400.000 TL'lik alacak için de reeskont ayrılabilir.",
+        "B": "İşletme, borç senetleri için de reeskont ayırmak zorundadır.",
+        "C": "Senetlerde faiz oranı açıklanmadığı için alacak senetlerine reeskont ayrılamaz.",
+        "D": "Reeskont ayrılabilmesi için senedin vadesinin gelmiş olması gerekir.",
+        "E": "Borç senetlerine reeskont ayrılması işletmenin tercihine bırakılmıştır."
+      },
+      "dogru": "B",
+      "aciklama": {
+        "A": "Vadeli her alacağın bugünkü değere indirilebileceği düşünülüyor. Kanun bunu belgeye bağlamıştır: elinde senet yoksa reeskont da yoktur. Doğrusu: VUK m.281/2 yalnızca 'vadesi gelmemiş olan SENEDE BAĞLI alacaklar' için reeskonta izin verir; senetsiz alacak mukayyet değeriyle değerlenir.",
+        "B": "Ne soruluyor: Alacaklarını bugünkü değerine indiren bir işletmenin, borçları için de aynısını yapmak zorunda olup olmadığı soruluyor.\n\nKural: VUK m.281 alacakları, m.285 borçları düzenler ve ikisi de aynı üç şartı kurar: senede bağlı olacak, vadesi gelmemiş olacak, iskonto oranı senette açıklanmışsa o oran, açıklanmamışsa Cumhuriyet Merkez Bankasının resmî iskonto haddi kullanılacak. Her iki maddede de fiil 'irca olunabilir'dir — yani reeskont kural olarak İHTİYARİDİR. Sınırı m.285'in son fıkrası çizer ve simetriyi zorunlu kılar: 'Alacak senetlerini değerleme gününün kıymetine irca eden mükellefler, borç senetlerini de aynı şekilde işleme tabi tutmak zorundadırlar.' Gerekçesi açıktır: alacağını küçültüp borcunu olduğu gibi bırakan bir işletme, matrahını tek yönlü aşağı çeker; kanun bu tek yönlü seçimi kapatmıştır.\n\nBu olayda: İşletme 850.000 TL'lik alacak senetlerine reeskont ayırmayı SEÇMİŞTİR. Bu seçimi yaptığı andan itibaren 600.000 TL'lik borç senetleri için reeskont artık bir tercih değil, ZORUNLULUKTUR. Senetlerde faiz oranı açıklanmadığı için her iki tarafta da TCMB resmî iskonto haddi uygulanır. 400.000 TL'lik senetsiz alacak ise hiçbir şekilde reeskonta konu olmaz.\n\nAkılda kalsın: Alacağını bugüne çekiyorsan borcunu da çekeceksin — reeskont tek taraflı oynanmaz.",
+        "C": "Bu şık, oranın bilinmemesini bir engel sanıyor. Kanun boşluğu kendisi doldurmuştur. Doğrusu: m.281/2 uyarınca senette faiz nispeti açıklanmışsa o nispet, 'açıklanmamışsa Cumhuriyet Merkez Bankasının resmi iskonto haddi' uygulanır.",
+        "D": "Şart tam tersine okunmuştur. Vadesi gelmiş bir senedin bugünkü değeri zaten nominal değeridir; indirgenecek bir şey kalmaz. Doğrusu: m.281 ve m.285 açıkça 'VADESİ GELMEMİŞ olan senede bağlı' alacak ve borçlardan söz eder.",
+        "E": "Maddenin ilk cümlesi ('irca olunabilir') doğru okunmuş, son fıkrası okunmamıştır. Kural gerçekten ihtiyaridir — ta ki alacak tarafında seçim yapılana kadar. Doğrusu: m.285 son fıkra, alacak senetlerine reeskont ayıran mükellefe borç senetleri için de aynı işlemi ZORUNLU kılar."
+      },
+      "hap": "Reeskont için üç şart: SENEDE BAĞLI olmak · VADESİ GELMEMİŞ olmak · oran senette yoksa TCMB resmî iskonto haddi. Kural ihtiyaridir; ama alacak senetlerine reeskont ayıran mükellef, borç senetlerine de ayırmak ZORUNDADIR (VUK m.285 son fıkra).",
+      "kaynak": "VUK m.281 · m.285 · m.283 · m.287 · THP 122, 322, 422",
+      "tablo": {
+        "baslik": "Alacak ve borç senedi reeskontu",
+        "kolonlar": ["Ölçüt", "Alacak senetleri (m.281)", "Borç senetleri (m.285)"],
+        "satirlar": [
+          ["Senede bağlı olması", "Zorunlu", "Zorunlu"],
+          ["Vadesi", "GELMEMİŞ olacak", "GELMEMİŞ olacak"],
+          ["Kural olarak", "İhtiyari (irca olunabilir)", "İhtiyari (irca olunabilir)"],
+          ["Alacak reeskontu yapılmışsa ←", "—", "ZORUNLU hâle gelir"],
+          ["Faiz oranı senette varsa", "O oran", "O oran"],
+          ["Açıklanmamışsa", "TCMB resmî iskonto haddi", "TCMB resmî iskonto haddi"],
+          ["Senetsiz alacak/borç", "Reeskont YAPILAMAZ", "Reeskont YAPILAMAZ"]
+        ]
+      }
+    },
+    {
+      "id": "tv2624",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "konu": "emtia degerleme ve emsal bedel",
+      "soru": "Emtianın değerlemesi ve kıymeti düşen mallar hakkında aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Emtia kural olarak maliyet bedeliyle değerlenir.",
+        "B": "Değerleme günündeki satış bedeli maliyet bedeline göre %10 ve daha fazla düşükse emsal bedel ölçüsü uygulanabilir.",
+        "C": "Bu uygulamada emsal bedelin ikinci sırası olan maliyet bedeli esası kullanılamaz.",
+        "D": "Bu durumda emsal bedel ölçüsünün uygulanması mükellefin tercihindedir.",
+        "E": "Yangın, deprem gibi afetler nedeniyle kıymeti düşen emtia maliyet bedeliyle değerlenir."
+      },
+      "dogru": "E",
+      "aciklama": {
+        "A": "Değer düşüklüğü konusu anlatılırken asıl kuralın kendisi unutulabiliyor; istisna kuralın yerini alıyor. Doğrusu: VUK m.274'ün ilk cümlesi budur — emtia kural olarak maliyet bedeliyle değerlenir; emsal bedel istisnadır.",
+        "B": "Eşik bazen %25 sanılır; o oran emsal bedelin BİRİNCİ SIRASINA ait bir şarttır ve farklı bir işi ölçer. Doğrusu: m.274'teki eşik %10'dur; %25 ise m.267'nin birinci sırasında aylık satış miktarına ilişkin şarttır.",
+        "C": "Bu yasak metnin ortasında, parantez gibi geçtiği için en çok atlanan hükümdür; şık doğru olduğu hâlde 'böyle bir şey duymadım' diye işaretlenebilir. Doğrusu: m.274 açıkça '267 nci maddenin ikinci sırasındaki usul hariç olmak üzere' der — maliyet bedeli esası bu uygulamada kullanılamaz.",
+        "D": "Bu şık 'kanun emrediyorsa uymak zorunludur' refleksiyle elenebiliyor. Oysa maddenin fiili 'tatbik EDEBİLİR'dir. Doğrusu: m.274'te emsal bedel uygulaması mükellefe tanınmış bir imkândır, zorunluluk değildir.",
+        "E": "Ne soruluyor: Değeri düşen malın hangi ölçüyle değerleneceği ve bu ölçünün seçiminde mükellefin serbest olup olmadığı soruluyor.\n\nKural: VUK m.274 kuralı koyar: 'Emtia, maliyet bedeliyle değerlenir.' Ardından bir kapı açar: satış bedelleri maliyet bedeline göre %10 ve daha fazla düşüklük gösteriyorsa mükellef, maliyet bedeli yerine emsal bedeli ölçüsünü TATBİK EDEBİLİR — fiil 'edebilir'dir, yani ihtiyaridir. Ancak bu kapıdan geçerken bir yasak vardır: '267'nci maddenin İKİNCİ SIRASINDAKİ USUL HARİÇ olmak üzere.' Sebebi mantıklıdır: ikinci sıra maliyet bedelinin üzerine kâr eklemektir; değeri düşmüş malı maliyetin ÜSTÜNDE değerlemek amaca aykırı olur. Ayrı bir hâli m.278 düzenler: yangın, deprem, su basması gibi afetler yüzünden veya bozulmak, çürümek, kırılmak, çatlamak, paslanmak gibi haller neticesinde iktisadi kıymetinde önemli azalış olan emtia ile hurdalar, döküntüler, üstüpü, deşe ve ıskartalar EMSAL BEDELİ İLE değerlenir. Burada 'edebilir' yoktur; hüküm doğrudandır.\n\nBu olayda: E şıkkı m.278'i tam tersine çevirmiştir. Afete uğramış bir emtianın maliyet bedeliyle değerlenmesi, zaten yanmış malı hiç yanmamış gibi göstermek olurdu. Sayısal örnek: maliyeti 720.000 TL olan bir ticari malın değerleme günündeki satış bedeli 630.000 TL ise düşüklük (720.000 − 630.000) ÷ 720.000 = %12,5'tir; %10 eşiğini aştığı için mükellef emsal bedel ölçüsünü uygulayabilir.\n\nAkılda kalsın: Fiyat düştüyse emsal bedel SEÇEBİLİRSİN; mal yandıysa emsal bedel ZORUNDASIN."
+      },
+      "hap": "Emtia kural olarak MALİYET BEDELİYLE değerlenir (VUK m.274). Satış bedeli %10 ve daha fazla düşükse emsal bedel SEÇİLEBİLİR — ama emsal bedelin 2. sırası (maliyet bedeli esası) kullanılamaz. Afet/bozulma hâlinde ise emsal bedel ZORUNLUDUR (m.278).",
+      "kaynak": "VUK m.274 · m.267 · m.278 · m.278/A · THP 158, 654",
+      "tablo": {
+        "baslik": "Emsal bedelin üç sırası (VUK m.267)",
+        "kolonlar": ["Sıra", "Adı", "Nasıl bulunur", "Şart / oran"],
+        "satirlar": [
+          ["1", "Ortalama fiyat esası", "Değerleme ayı veya önceki iki aydaki ortalama satış fiyatı", "Aylık satış miktarı %25'ten az olmayacak"],
+          ["2 ←", "Maliyet bedeli esası", "Maliyet bedeline ilave", "Toptan %5, perakende %10 — DEĞER DÜŞÜKLÜĞÜNDE KULLANILAMAZ"],
+          ["3", "Takdir esası", "Takdir komisyonu", "İlgililerin müracaatı üzerine"]
+        ]
+      }
+    },
+    {
+      "id": "tv2625",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "konu": "gelecek aylara ait giderler",
+      "soru": "Bir işletme 1 Ekim 2026 tarihinde kiraladığı işyeri için 18 aylık kira bedeli olan 540.000 TL'yi peşin ödemiştir. Kira dönemi 1 Ekim 2026'da başlamıştır. 31.12.2026 tarihli bilançoda bu ödemenin dönen ve duran varlıklar içindeki tutarları sırasıyla ne olur?",
+      "siklar": {
+        "A": "Dönen varlıklar 360.000 — Duran varlıklar 90.000",
+        "B": "Dönen varlıklar 450.000 — Duran varlıklar yok",
+        "C": "Dönen varlıklar 90.000 — Duran varlıklar 360.000",
+        "D": "Dönen varlıklar 540.000 — Duran varlıklar yok",
+        "E": "Dönen varlıklar 405.000 — Duran varlıklar yok"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Peşin ödenen 18 aylık kiranın, yıl sonu bilançosunda kaça bölüneceği soruluyor.\n\nKural: VUK m.283 peşin ödenen giderleri düzenler: 'Gelecek bir hesap dönemine ait olarak peşin ödenen giderler ile cari hesap dönemine ait olup da henüz tahsil edilmemiş olan hasılat, mukayyet değerleri üzerinden AKTİFLEŞTİRİLMEK suretiyle değerlenir.' Yani cari döneme düşmeyen kısım gider yazılmaz, VARLIK olarak taşınır. Bu varlığın bilançoda nereye yazılacağını Tekdüzen Hesap Planı belirler ve ölçüt BİR YILDIR: bilanço tarihini izleyen on iki ay içinde gidere dönüşecek kısım dönen varlıklarda (Gelecek Aylara Ait Giderler), on iki ayı aşan kısım duran varlıklarda 280 GELECEK YILLARA AİT GİDERLER hesabında gösterilir. 280'in resmî açıklaması ilişkiyi de kurar: ilgili hesap dönemlerinde bu hesabın alacağı karşılığında dönen varlıklardaki 'Gelecek Aylara Ait Giderler' hesabına gerekli aktarmalar yapılır.\n\nBu olayda: Aylık kira 540.000 ÷ 18 = 30.000 TL'dir. 2026'ya Ekim, Kasım, Aralık olmak üzere 3 ay düşer: 90.000 TL doğrudan 2026 gideridir. Geriye 15 ay kalır. Bunun 2027'ye ait 12 ayı bilanço tarihinden itibaren bir yıl içinde tükeneceği için DÖNEN VARLIKTIR: 360.000 TL. 2028'in Ocak-Mart aylarına ait 3 ayı ise bir yılı aştığı için DURAN VARLIKTIR: 90.000 TL. Kontrol: 90.000 + 360.000 + 90.000 = 540.000 TL.\n\nAkılda kalsın: Peşin ödenen gider üçe bölünür — bu yılın gideri, gelecek yılın dönen varlığı, ondan sonrasının duran varlığı.",
+        "B": "540.000 − 90.000 = 450.000; yani cari dönem gideri doğru ayrılmış ama kalan tutarın tamamı dönen varlık sayılmıştır. Bir yıl ölçütü hiç uygulanmamıştır. Doğrusu: Bilanço tarihinden itibaren on iki ayı aşan 90.000 TL duran varlıklarda 280 GELECEK YILLARA AİT GİDERLER hesabında gösterilir.",
+        "C": "Tutarlar bulunmuş ama yerleri TERS yazılmıştır. Yakın vadeli olan uzağa, uzak olan yakına konmuştur. Doğrusu: Yakın on iki ay dönen varlıktır (360.000); onu aşan kısım duran varlıktır (90.000).",
+        "D": "Ödemenin tamamı varlık olarak taşınmıştır; 2026'nın üç aylık kirası hiç gider yazılmamıştır. Bu, dönemselliği tümüyle görmezden gelmektir. Doğrusu: VUK m.283 yalnızca GELECEK hesap dönemine ait kısmın aktifleştirilmesini öngörür; cari döneme düşen 90.000 TL 2026 gideridir.",
+        "E": "540.000 ÷ 12 = 45.000 aylık kira varsayılmış, 3 ay gider yazılmış (135.000) ve kalan 405.000 TL dönen varlık sayılmıştır. Hata sözleşme süresinin 18 ay değil 12 ay okunmasıdır. Doğrusu: Süre 18 aydır; aylık kira 540.000 ÷ 18 = 30.000 TL'dir."
+      },
+      "hap": "Peşin ödenen gider ÜÇE bölünür: cari döneme düşen kısım GİDER, izleyen 12 aya düşen kısım DÖNEN VARLIK (Gelecek Aylara Ait Giderler), 12 ayı aşan kısım DURAN VARLIK (280 Gelecek Yıllara Ait Giderler). Dayanak: VUK m.283.",
+      "kaynak": "VUK m.283 · m.287 · THP 280, 480, 381, 481",
+      "tablo": {
+        "baslik": "18 aylık kiranın dönemlere dağılımı",
+        "kolonlar": ["Dönem", "Aylar", "Ay sayısı", "Tutar", "Nereye?"],
+        "satirlar": [
+          ["2026", "Ekim – Aralık", "3", "90.000", "2026 GİDERİ"],
+          ["2027 ←", "Ocak – Aralık", "12", "360.000", "DÖNEN VARLIK"],
+          ["2028 ←", "Ocak – Mart", "3", "90.000", "DURAN VARLIK (280)"],
+          ["Toplam", "", "18", "540.000", "Aylık kira 30.000"]
+        ]
+      }
+    },
+    {
+      "id": "tv2626",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "konu": "degersiz supheli vazgecilen alacak",
+      "soru": "Alacakların değerlemesine ilişkin aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Şüpheli alacaklar için değerleme gününün tasarruf değerine göre pasifte karşılık ayrılabilir.",
+        "B": "Değersiz alacaklar mukayyet kıymetleriyle zarara geçirilerek yok edilir.",
+        "C": "Vazgeçilen alacak borçlunun defterlerinde özel bir karşılık hesabına alınır ve üç yıl içinde zararla itfa edilmezse kâr hesabına nakledilir.",
+        "D": "Şüpheli alacakların sonradan tahsil edilen tutarları, karşılığın ayrıldığı dönemin kâr-zarar hesabına intikal ettirilir.",
+        "E": "Bir alacağın değersiz sayılabilmesi için kazai bir hüküm veya kanaat verici bir vesika aranır."
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "'Karşılık aktiften düşülür' diye hatırlandığı için bu şık yanlış sanılabiliyor. Bilançoda alacaktan indirilerek gösterilmesi ayrı, hesabın PASİF karakterli olması ayrı bir husustur. Doğrusu: m.323/3, karşılığın 'değerleme gününün tasarruf değerine göre pasifte' ayrılabileceğini birebir bu şekilde yazar.",
+        "B": "Bazen değersiz alacak için de karşılık ayrılacağı sanılıyor. Değersiz alacakta şüphe bitmiştir; ortada bekleyecek bir şey yoktur. Doğrusu: m.322/2 uyarınca değersiz alacaklar bu mahiyete girdikleri tarihte tasarruf değerlerini kaybeder ve mukayyet kıymetleriyle ZARARA GEÇİRİLEREK YOK EDİLİR.",
+        "C": "Bu şık iki yerden elenebiliyor: kaydın BORÇLUNUN defterinde olması şaşırtıyor, üç yıllık süre ise hatırlanmıyor. İkisi de maddenin lafzıdır. Doğrusu: m.324, konkordato veya sulh yoluyla vazgeçilen alacağın borçlunun defterlerinde özel bir karşılık hesabına alınacağını ve üç yıl içinde zararla itfa edilmezse kâr hesabına nakledileceğini söyler.",
+        "D": "Ne soruluyor: Karşılık ayrılmış bir alacak beklenmedik şekilde tahsil edilirse bu gelirin hangi yıla yazılacağı soruluyor.\n\nKural: VUK üç ayrı kavramı üç ayrı maddede düzenler. m.323 şüpheli alacağı tanımlar ve karşılığın 'değerleme gününün tasarruf değerine göre PASİFTE' ayrılabileceğini söyler. Aynı maddenin dördüncü fıkrası bu sorunun kilididir: 'Şüpheli alacakların sonradan tahsil edilen miktarları TAHSİL EDİLDİKLERİ DÖNEMDE kar-zarar hesabına intikal ettirilir.' m.322 değersiz alacağı tanımlar: kazai bir hükme veya kanaat verici bir vesikaya göre tahsiline artık imkân kalmayan alacaklar; bunlar mukayyet kıymetleriyle zarara geçirilerek yok edilir. m.324 ise yönü çevirir — vazgeçilen alacak BORÇLUNUN defterlerinde özel bir karşılık hesabına alınır ve alacaktan vazgeçildiği yılın sonundan başlayarak ÜÇ YIL içinde zararla itfa edilmediği takdirde kâr hesabına naklolunur.\n\nBu olayda: D şıkkı geliri yanlış döneme yazıyor. Karşılık ayrıldığı yıl gider yazılmış, tahsilat başka bir yılda gerçekleşmiştir; gelir de o yıla ait olmalıdır. Geriye dönüp karşılık ayrılan yılın kâr-zararını düzeltmek kanunun sözüne aykırıdır.\n\nAkılda kalsın: Şüpheli alacağın gideri ayrıldığı yılda, geliri tahsil edildiği yılda — geriye dönülmez.",
+        "E": "'Kanaat verici vesika' ifadesi belirsiz göründüğü için uydurma sanılabiliyor; oysa kanunun kendi terimidir. Doğrusu: m.322/1'in birebir ifadesi budur."
+      },
+      "hap": "ŞÜPHELİ alacak: dava/icra veya protesto → pasifte karşılık, sonradan tahsil TAHSİL EDİLDİĞİ DÖNEME. DEĞERSİZ alacak: kazai hüküm veya kanaat verici vesika → mukayyet kıymetle zarara. VAZGEÇİLEN alacak: BORÇLUNUN defterinde özel karşılık, üç yılda itfa edilmezse kâra.",
+      "kaynak": "VUK m.322 · m.323 · m.324 · m.288",
+      "tablo": {
+        "baslik": "Üç alacak, üç ayrı işlem",
+        "kolonlar": ["", "ŞÜPHELİ (m.323)", "DEĞERSİZ (m.322)", "VAZGEÇİLEN (m.324)"],
+        "satirlar": [
+          ["Durum", "Tahsili şüpheli", "Tahsili imkânsız", "Alacaklı vazgeçti"],
+          ["Aranan şey", "Dava/icra veya protesto + had", "Kazai hüküm veya kanaat verici vesika", "Konkordato veya sulh"],
+          ["Kimin defterinde ←", "Alacaklı", "Alacaklı", "BORÇLU"],
+          ["İşlem", "Tasarruf değerine göre pasifte karşılık", "Mukayyet kıymetle zarara geçirilir", "Özel karşılık hesabına"],
+          ["Süre", "—", "—", "ÜÇ YIL, sonra kâr hesabına"],
+          ["Sonradan tahsil ←", "TAHSİL EDİLDİĞİ dönemin kâr-zararına", "—", "—"]
+        ]
+      }
+    },
+    {
+      "id": "tv2627",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "konu": "imal edilen emtia maliyet bedeli",
+      "soru": "Bir üretim işletmesinin 2026 yılında ürettiği mamul partisine ilişkin veriler şunlardır: ilk madde ve malzeme bedeli 1.240.000 TL, mamule isabet eden işçilik 480.000 TL, genel üretim giderlerinden mamule düşen pay 365.000 TL, genel idare giderlerinden mamule düşen pay 118.000 TL, ambalaj malzemesi bedeli 74.000 TL (mamulün ambalajlı arzı zorunludur). İşletme, genel idare giderlerinden mamule düşen payı maliyete katmamayı tercih etmiştir. Mamulün VUK m.275'e göre maliyet bedeli kaç TL'dir?",
+      "siklar": {
+        "A": "2.159.000",
+        "B": "2.277.000",
+        "C": "2.085.000",
+        "D": "2.203.000",
+        "E": "1.720.000"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Üretilen bir mamulün maliyetine hangi giderlerin ZORUNLU, hangilerinin İSTEĞE BAĞLI olarak gireceği soruluyor.\n\nKural: VUK m.275 imal edilen emtianın (tam ve yarı mamul malların) maliyet bedelini beş unsurla sayar: (1) mamulün vücuda getirilmesinde sarf olunan ilk madde ve malzeme bedeli — kanun 'iptidai ve ham maddelerin bedeli' der; (2) mamule isabet eden işçilik; (3) genel üretim giderlerinden mamule düşen hisse — kanun 'genel imal giderleri' der, Tekdüzen Hesap Planı'nda hesap adı 730 GENEL ÜRETİM GİDERLERİ'dir ve sınav bu terimi sorar; (4) genel idare giderlerinden mamule düşen hisse — 'Bu hissenin mamulün maliyetine katılması İHTİYARİDİR'; (5) ambalajlı olarak piyasaya arzı zaruri olan mamullerde ambalaj malzemesinin bedeli. Maddenin devamı seçim serbestisini de tanır: mükellefler, imal ettikleri emtianın maliyet bedellerini yukarıki unsurları ihtiva etmek şartıyla diledikleri usulde tayin edebilirler. Yani yöntem serbest, UNSURLAR bağlayıcıdır — dördüncüsü hariç.\n\nBu olayda: Dört unsur zorunlu olarak maliyete girer: 1.240.000 + 480.000 + 365.000 + 74.000 = 2.159.000 TL. Genel idare giderinden düşen 118.000 TL, kanunun ihtiyari saydığı tek kalemdir ve soru gövdesinde işletmenin KATMAMAYI SEÇTİĞİ açıkça belirtilmiştir; dolayısıyla doğrudan dönem gideri olarak kalır. Ambalaj bedeli ise ambalajlı arz zorunlu olduğu için maliyete GİRER.\n\nAkılda kalsın: Beş unsurdan yalnız biri seçmelidir: genel idare payı. Diğer dördü tartışmasız maliyete girer.",
+        "B": "2.159.000 + 118.000. Genel idare payı da maliyete katılmıştır. Bu şık, m.275'i beş unsurun tamamı zorunluymuş gibi okumaktan doğar. Doğrusu: m.275/4'ün parantezi açıktır: 'Bu hissenin mamulün maliyetine katılması ihtiyaridir.' Soruda işletme katmamayı seçmiştir.",
+        "C": "1.240.000 + 480.000 + 365.000. Ambalaj malzemesi dışarıda bırakılmıştır. Ambalaj çoğu zaman bir pazarlama gideri sayıldığı için refleks böyle çalışır. Doğrusu: m.275/5, AMBALAJLI OLARAK ARZI ZARURİ olan mamullerde ambalaj malzemesi bedelini maliyet unsuru sayar; soruda bu zorunluluk belirtilmiştir.",
+        "D": "2.085.000 + 118.000. Burada iki hata birden yapılmıştır: ambalaj çıkarılmış, genel idare payı eklenmiştir. İki ayrı kural da ters uygulanmıştır. Doğrusu: Ambalaj girer (m.275/5), genel idare payı işletmenin tercihine bağlıdır (m.275/4) ve burada katılmamıştır.",
+        "E": "1.240.000 + 480.000. Yalnız ilk madde ve işçilik alınmış; genel üretim giderleri de unutulmuştur. Bu, tam maliyet yerine yalnız DİREKT maliyetleri toplamaktır. Doğrusu: m.275/3 genel üretim giderlerinden mamule düşen hisseyi zorunlu maliyet unsuru sayar — 365.000 TL maliyete girer."
+      },
+      "hap": "VUK m.275'te imal edilen emtianın BEŞ maliyet unsuru vardır: ilk madde ve malzeme · işçilik · genel üretim gideri payı · genel idare gideri payı (İHTİYARİ) · ambalaj (arzı zaruriyse). Yalnız dördüncüsü seçmelidir; diğer dördü zorunludur.",
+      "kaynak": "VUK m.275 · m.274",
+      "tablo": {
+        "baslik": "VUK m.275 maliyet unsurları (TL)",
+        "kolonlar": ["Unsur", "Tutar", "Maliyete girer mi?"],
+        "satirlar": [
+          ["1. İlk madde ve malzeme", "1.240.000", "ZORUNLU"],
+          ["2. Mamule isabet eden işçilik", "480.000", "ZORUNLU"],
+          ["3. Genel üretim giderlerinden pay", "365.000", "ZORUNLU"],
+          ["4. Genel idare giderlerinden pay ←", "118.000", "İHTİYARİ — işletme katmadı"],
+          ["5. Ambalaj malzemesi (arzı zaruri)", "74.000", "ZORUNLU"],
+          ["MALİYET BEDELİ ←", "2.159.000", ""]
+        ]
+      }
+    },
+    {
+      "id": "tv2631",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "kanunen kabul edilmeyen giderler",
+      "soru": "Bir anonim şirketin 2026 hesap dönemine ait ticari bilanço kârı 4.250.000 TL'dir. Şirket şu tutarları gider olarak kayıtlarına almıştır: ödenen trafik para cezaları 68.000 TL, ödenen gecikme zammı 45.000 TL, ödenen gecikme faizi 32.000 TL, esas faaliyet konusuyla ilgili olmayan teknenin giderleri ve amortismanı 210.000 TL, alkollü içki ilan ve reklam gideri 160.000 TL, Türk Ticaret Kanunu'na göre ayrılan kanuni yedek akçe 190.000 TL. Alkol ve tütün reklam giderlerinin kanunen kabul edilmeyen kısmına ilişkin oran ilgili dönem için Cumhurbaşkanınca değiştirilmemiştir. Kanunen kabul edilmeyen giderler toplamı kaç TL'dir?",
+      "siklar": {
+        "A": "625.000",
+        "B": "705.000",
+        "C": "435.000",
+        "D": "545.000",
+        "E": "355.000"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Şirketin defterine gider yazdığı harcamalardan hangilerinin vergi matrahına geri ekleneceği soruluyor.\n\nKural: KVK m.11 kurum kazancının tespitinde indirimi kabul edilmeyen giderleri TAHDİDİ olarak sayar. Bu sorunun ilgilendirdiği bentler: (ç) her ne şekilde ve ne isimle olursa olsun ayrılan YEDEK AKÇELER — Türk Ticaret Kanunu'na, kuruluş kanunlarına, Cumhurbaşkanlığı kararnamelerine, tüzük, ana statü veya sözleşmelere göre safi kazançtan ayrılan TÜM yedek akçeler dâhil; (d) kurumlar vergisi ile her türlü PARA CEZALARI, VERGİ CEZALARI, 6183 sayılı Kanun'a göre ödenen cezalar, GECİKME ZAMLARI VE FAİZLER ile VUK'a göre ödenen GECİKME FAİZLERİ; (f) yat, kotra, tekne, sürat teknesi gibi motorlu deniz taşıtları ile uçak, helikopter gibi hava taşıtlarından İŞLETMENİN ESAS FAALİYET KONUSU İLE İLGİLİ OLMAYANLARIN giderleri ve amortismanları; (ı) her türlü alkol ve alkollü içkiler ile tütün ve tütün mamullerine ait ilan ve reklam giderlerinin %50'si — Cumhurbaşkanı bu oranı %100'e kadar artırmaya veya sıfıra kadar indirmeye yetkilidir. Sınır önemlidir: bu bentlerin çoğunda gider TAMAMEN reddedilir; yalnız (ı) bendinde oransal bir red vardır.\n\nBu olayda: Dört kalem tamamıyla reddedilir: 68.000 + 45.000 + 32.000 + 210.000 = 355.000 TL. Alkollü içki reklamının 160.000 TL'sinin YARISI kabul edilmez: 160.000 × %50 = 80.000 TL. Kanuni yedek akçe olarak ayrılan 190.000 TL de tamamen reddedilir. Toplam: 355.000 + 80.000 + 190.000 = 625.000 TL. Kurum kazancı bu tutarın ticari bilanço kârına eklenmesiyle 4.875.000 TL olur.\n\nAkılda kalsın: Ceza, faiz ve gecikme zammının tamamı, alkol-tütün reklamının yarısı, yedek akçenin tamamı geri eklenir.",
+        "B": "625.000 + 80.000; yani alkollü içki reklamının TAMAMI (160.000 TL) KKEG sayılmıştır. Reklam giderinin tümüyle reddedildiği düşüncesi yaygındır çünkü diğer bentlerin hepsi 'tamamı' der. Doğrusu: KVK m.11/1-ı yalnızca %50'yi kabul etmez; kalan 80.000 TL indirilebilir giderdir.",
+        "C": "355.000 + 80.000. Yedek akçe hesaba katılmamıştır. Muhtemel gerekçe: 'yedek akçe zaten kârdan ayrılır, gider değildir.' Ama soruda şirket bunu GİDER YAZMIŞTIR ve kanun bu durumu ayrıca yasaklamıştır. Doğrusu: m.11/1-ç, ne şekilde ve ne isimle olursa olsun ayrılan tüm yedek akçelerin indirimini kabul etmez.",
+        "D": "625.000 − 80.000. Alkollü içki reklamı hiç KKEG sayılmamış, tamamı indirilebilir gider kabul edilmiştir. Doğrusu: m.11/1-ı uyarınca bu giderin %50'si (80.000 TL) kanunen kabul edilmez.",
+        "E": "Yalnızca 'tamamı reddedilen' dört kalem toplanmış; hem reklam payı hem yedek akçe atlanmıştır. Yani oransal red ve yedek akçe bendi hiç görülmemiştir. Doğrusu: Bu iki kalem de m.11 kapsamındadır: 80.000 + 190.000 = 270.000 TL ilave KKEG."
+      },
+      "hap": "KVK m.11: para/vergi cezaları, gecikme zammı ve faizleri (bent d), esas faaliyetle ilgisiz deniz-hava taşıtı giderleri (bent f) ve TÜM yedek akçeler (bent ç) TAMAMEN reddedilir. Alkol-tütün ilan ve reklam gideri ise yalnız %50 oranında reddedilir (bent ı).",
+      "kaynak": "KVK m.11 (bentler ç, d, f, ı)",
+      "tablo": {
+        "baslik": "Kanunen kabul edilmeyen giderler (TL)",
+        "kolonlar": ["Kalem", "Tutar", "KKEG tutarı", "Dayanak"],
+        "satirlar": [
+          ["Trafik para cezaları", "68.000", "68.000", "KVK 11/1-d"],
+          ["Gecikme zammı", "45.000", "45.000", "KVK 11/1-d"],
+          ["Gecikme faizi", "32.000", "32.000", "KVK 11/1-d"],
+          ["Esas faaliyetle ilgisiz tekne gideri", "210.000", "210.000", "KVK 11/1-f"],
+          ["Alkollü içki reklam gideri ←", "160.000", "80.000 (yalnız %50)", "KVK 11/1-ı"],
+          ["Kanuni yedek akçe", "190.000", "190.000", "KVK 11/1-ç"],
+          ["TOPLAM KKEG ←", "", "625.000", ""],
+          ["Kurum kazancı = 4.250.000 + 625.000", "", "4.875.000", ""]
+        ]
+      }
+    },
+    {
+      "id": "tv2632",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "ortulu sermaye ve finansman gider kisitlamasi",
+      "soru": "Örtülü sermaye ve finansman gider kısıtlaması ile ilgili aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Örtülü sermayede ölçüt, borcun hesap dönemi içinde herhangi bir tarihte öz sermayenin üç katını aşmasıdır.",
+        "B": "Örtülü sermaye hesabında öz sermaye, kurumun hesap dönemi başındaki öz sermayesidir.",
+        "C": "Ortakla ilişkili kişi sayılan banka veya benzeri kredi kurumlarından yapılan borçlanmalar %50 oranında dikkate alınır.",
+        "D": "Finansman gider kısıtlaması, yabancı kaynakları öz kaynaklarını aşan işletmelerde aşan kısma münhasır olmak üzere uygulanır.",
+        "E": "Finansman gider kısıtlamasında kabul edilmeyecek oran, kanunla doğrudan %10 olarak belirlenmiştir."
+      },
+      "dogru": "E",
+      "aciklama": {
+        "A": "Bu oran bazen %50 veya iki kat diye hatırlanır; %50 ise aynı maddedeki BANKA BORÇLANMALARINA ait ayrı bir orandır ve karıştırılır. Doğrusu: KVK m.12/1, öz sermayenin ÜÇ KATINI aşan kısmı örtülü sermaye sayar.",
+        "B": "'Öz sermaye' denince dönem sonu bilançosu akla geldiği için bu şık yanlış sanılabiliyor. Kanun tarihi özellikle sabitlemiştir; aksi hâlde dönem içi sermaye hareketleriyle ölçüt oynatılabilirdi. Doğrusu: m.12/3-b, öz sermayeyi 'hesap dönemi başındaki öz sermaye' olarak tanımlar.",
+        "C": "Bu hüküm bir 'indirim' gibi göründüğü için uydurma sanılabiliyor. Gerekçesi şudur: banka kredisi piyasa şartlarında alınmış sayıldığından ölçüte yarım girer. Doğrusu: m.12/2, ortak veya ortakla ilişkili kişi sayılan banka veya benzeri kredi kurumlarından yapılan borçlanmaların %50 oranında dikkate alınacağını söyler.",
+        "D": "Kısıtlamanın tüm finansman giderine uygulandığı sanılıyor. Oysa hesap iki aşamalıdır: önce aşan kısım bulunur, sonra ona isabet eden gidere oran uygulanır. Doğrusu: m.11/1-i, kısıtlamayı yabancı kaynakların öz kaynağı AŞAN KISMINA MÜNHASIR kılar.",
+        "E": "Ne soruluyor: Finansman giderlerinin ne kadarının reddedileceğini kanunun mu yoksa bir Cumhurbaşkanı Kararı'nın mı belirlediği soruluyor.\n\nKural: İki kurum birbirine benzer ama farklı çalışır. ÖRTÜLÜ SERMAYE (KVK m.12/1): kurumların ORTAKLARINDAN veya ortaklarla ilişkili kişilerden doğrudan veya dolaylı olarak temin ederek işletmede kullandıkları borçların, hesap dönemi içinde HERHANGİ BİR TARİHTE kurumun öz sermayesinin ÜÇ KATINI AŞAN KISMI örtülü sermaye sayılır. m.12/3-b öz sermayeyi hesap dönemi BAŞINDAKİ öz sermaye olarak tanımlar; m.12/2 uyarınca ortak sayılan bankalardan borçlanmalar %50 oranında dikkate alınır; m.12/3-a'ya göre ortakla ilişkili kişi eşiği en az %10'dur. FİNANSMAN GİDER KISITLAMASI (KVK m.11/1-i): kredi kuruluşları, finansal kuruluşlar, finansal kiralama, faktoring ve finansman şirketleri DIŞINDA, kullanılan yabancı kaynakları öz kaynaklarını aşan işletmelerde, AŞAN KISMA MÜNHASIR olmak üzere, yatırımın maliyetine eklenenler HARİÇ, faiz, komisyon, vade farkı, kâr payı, kur farkı ve benzeri adlar altında yapılan gider ve maliyet unsurları toplamının '%10'unu aşmamak üzere CUMHURBAŞKANINCA KARARLAŞTIRILAN KISMI' kabul edilmez. Cümlenin yapısı belirleyicidir: kanun bir TAVAN koyar, oranı BELİRLEME YETKİSİ Cumhurbaşkanındadır; oranı sektörler itibarıyla farklılaştırmaya da Cumhurbaşkanı, usul ve esasları belirlemeye MALİYE BAKANLIĞI yetkilidir.\n\nBu olayda: E şıkkı bu ayrımı siliyor ve %10'u kanunun doğrudan koyduğu bir oran gibi gösteriyor. Doğru okuma: %10 kanunun izin verdiği AZAMİ orandır; fiilen uygulanacak oran Cumhurbaşkanı Kararı ile belirlenir.\n\nAkılda kalsın: Örtülü sermayede ölçü KİMDEN borçlandığın, finansman kısıtlamasında NE KADAR borçlandığın — ve %10 kanunun tavanı, Cumhurbaşkanının kalemi."
+      },
+      "hap": "ÖRTÜLÜ SERMAYE: ortaktan alınan borç > öz sermayenin ÜÇ KATI (KVK m.12); öz sermaye DÖNEM BAŞINDAKİ; banka borçlanması %50 sayılır. FİNANSMAN GİDER KISITLAMASI: yabancı kaynak > öz kaynak, AŞAN KISMA münhasır; %10 kanunun TAVANI, oranı CUMHURBAŞKANI belirler (m.11/1-i).",
+      "kaynak": "KVK m.11/1-i · KVK m.12",
+      "tablo": {
+        "baslik": "İki benzer kurum, iki ayrı ölçüt",
+        "kolonlar": ["", "ÖRTÜLÜ SERMAYE (m.12)", "FİNANSMAN GİDER KISITLAMASI (m.11/1-i)"],
+        "satirlar": [
+          ["Kimden borçlanma?", "ORTAKLARDAN veya ilişkili kişilerden", "Herkesten — kaynak ayrımı yok"],
+          ["Ölçüt", "Borç > öz sermayenin ÜÇ KATI", "Yabancı kaynak > öz kaynak"],
+          ["Öz sermaye ne zamanki?", "HESAP DÖNEMİ BAŞINDAKİ", "—"],
+          ["Hangi kısım?", "Üç katı aşan kısım", "Aşan kısma münhasır"],
+          ["Kabul edilmeyen tutar", "Aşan kısma isabet eden faiz vb. tamamı", "%10'u aşmamak üzere CB'ce kararlaştırılan kısmı"],
+          ["Oranı kim belirler? ←", "—", "CUMHURBAŞKANI (kanun yalnız tavanı koyar)"],
+          ["Kapsam dışı", "—", "Kredi/finansal kuruluşlar, leasing, faktoring, finansman şirketleri"],
+          ["Banka borçlanması", "%50 oranında dikkate alınır", "—"]
+        ]
+      }
+    },
+    {
+      "id": "tv2633",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "isyeri kira geliri beyani",
+      "soru": "Gayrimenkul sermaye iradının beyanına ilişkin aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Binaların mesken olarak kiraya verilmesinden elde edilen hasılatın ilgili yıl için belirlenen tutarı gelir vergisinden müstesnadır.",
+        "B": "İstisna haddi üzerinde hasılat elde edilip beyan edilmemesi hâlinde bu istisnadan yararlanılamaz.",
+        "C": "Tevkifata tabi tutulmuş işyeri kira gelirleri, vergiye tâbi gelir toplamı tarifenin ikinci gelir dilimindeki tutarı aşmıyorsa beyan edilmez.",
+        "D": "Tevkifata ve istisna uygulamasına konu olmayan gayrimenkul sermaye iratları, tutarı ne olursa olsun beyan edilir.",
+        "E": "Telif haklarının müellifleri veya kanuni mirasçıları tarafından kiralanmasından doğan kazançlar serbest meslek kazancıdır."
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "İstisnanın işyeri kirasını da kapsadığı sanılabildiği için şık bazen 'eksik' görülüp işaretlenir. İstisna yalnız MESKEN içindir. Doğrusu: GVK m.21/1, istisnayı 'Binaların MESKEN olarak kiraya verilmesinden' elde edilen hasılatla sınırlar — şık doğrudur.",
+        "B": "Bu yaptırım sert göründüğü için uydurma sanılıyor; oysa maddenin kendi cümlesidir ve istisnanın kötüye kullanımını engeller. Doğrusu: m.21/1'in son cümlesi bunu birebir söyler.",
+        "C": "Eşik çoğu zaman 'dördüncü dilim' diye hatırlanır; dördüncü dilim ÜCRETLERE ve m.18 telif istisnasına ilişkin bir sınırdır. Dilimlerin karışması bu dersin en sık hatasıdır. Doğrusu: m.86/1-c, tevkifata tâbi gayrimenkul sermaye iratları için tarifenin İKİNCİ GELİR DİLİMİNDEKİ tutarı ölçüt alır.",
+        "D": "Ne soruluyor: Üzerinden hiç vergi kesilmemiş küçük bir kira gelirinin beyan edilip edilmeyeceği soruluyor.\n\nKural: GVK m.86 'Toplama yapılmayan haller' başlığı altında beyan dışı kalan gelirleri sayar. İki bendi önemlidir. m.86/1-c: vergiye tâbi gelir toplamının m.103'teki tarifenin İKİNCİ GELİR DİLİMİNDE yer alan tutarı aşmaması koşuluyla, Türkiye'de TEVKİFATA TÂBİ TUTULMUŞ olan birden fazla işverenden alınan ücretler, menkul sermaye iratları ve GAYRİMENKUL SERMAYE İRATLARI beyan edilmez. m.86/1-d: bir takvim yılı içinde elde edilen ve toplamı belirlenen tutarı aşmayan, TEVKİFATA VE İSTİSNA UYGULAMASINA KONU OLMAYAN menkul ve gayrimenkul sermaye iratları beyan edilmez (kanun metnindeki tutar 600 milyon liradır; parantez içi 22.000 TL, Seri No: 332 Gelir Vergisi Genel Tebliği ile 2026 takvim yılı için belirlenmiştir). Konut tarafını m.21 düzenler: mesken olarak kiraya verilen binalardan elde edilen hasılatın belirlenen tutarı istisnadır (2026 için 58.000 TL); ancak istisna haddi üzerinde hasılat elde edilip beyan edilmemesi veya eksik beyan edilmesi hâlinde bu istisnadan yararlanılamaz.\n\nBu olayda: D şıkkı m.86/1-d bendini yok sayıyor. Tevkifatsız ve istisnasız bir irat için kanun ayrı ve mütevazı bir eşik koymuştur; bu eşiğin altında kalan gelir beyan edilmez. 'Vergi kesilmemişse mutlaka beyan edilir' cümlesi sezgiye uygun görünür ama kanunun sözüne aykırıdır.\n\nAkılda kalsın: Kesinti yapılmamış olması beyan zorunluluğu doğurmaz; kanun oraya da küçük bir eşik koymuştur.",
+        "E": "m.70 gayrimenkul sermaye iratlarını sayarken telif haklarını da anar; bu yüzden şık yanlış sanılabiliyor. Ama aynı bentte parantez içinde bir istisna vardır. Doğrusu: GVK m.70/6, telif haklarının 'müellifleri veya bunların kanuni mirasçıları tarafından kiralanmasından doğan kazançlar, SERBEST MESLEK KAZANCIDIR' der."
+      },
+      "hap": "Tevkifatlı GMSİ: vergiye tâbi gelir toplamı tarifenin İKİNCİ gelir dilimini aşmıyorsa beyan edilmez (GVK m.86/1-c). Tevkifatsız ve istisnasız irat: belirlenen tutarı (2026: 22.000 TL) aşmıyorsa beyan edilmez (m.86/1-d). Konut istisnası 2026: 58.000 TL (m.21).",
+      "kaynak": "GVK m.21 · m.70 · m.86 · Seri No: 332 GVGT (2026 tutarları)",
+      "tablo": {
+        "baslik": "Beyan kapısı",
+        "kolonlar": ["Gelirin türü", "Beyan edilir mi?", "Eşik / kural", "Dayanak"],
+        "satirlar": [
+          ["Konut kirası — istisna haddinin altında", "Hayır", "2026: 58.000 TL", "GVK m.21"],
+          ["Konut kirası — haddin üstünde, beyan edilmemiş", "İstisnadan YARARLANILAMAZ", "—", "GVK m.21/1"],
+          ["İşyeri kirası — tevkifatlı", "Toplam ikinci dilimi aşmıyorsa HAYIR", "Tarifeye atıf", "GVK m.86/1-c"],
+          ["İrat — tevkifatsız ve istisnasız ←", "Belirlenen tutarı aşmıyorsa HAYIR", "2026: 22.000 TL", "GVK m.86/1-d"],
+          ["Telif hakkının müellifçe kiralanması", "GMSİ DEĞİL, serbest meslek kazancı", "—", "GVK m.70/6"]
+        ]
+      }
+    },
+    {
+      "id": "tv2634",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "telif kazanci istisnasi",
+      "soru": "GVK m.18'de düzenlenen serbest meslek kazançları istisnası ile ilgili aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "İstisna, eserlerin gazete, dergi, bilgisayar ve internet ortamı, radyo, televizyon ve videoda yayınlanmasından elde edilen hasılatı kapsar.",
+        "B": "Bu kazançların arızi olarak elde edilmesi istisna hükmünün uygulanmasına engel teşkil etmez.",
+        "C": "İstisna, GVK m.94 uyarınca tevkif suretiyle ödenecek vergiyi de kapsar.",
+        "D": "Bu madde kapsamındaki kazançları toplamı tarifenin dördüncü gelir dilimindeki tutarı aşanlar istisnadan faydalanamaz.",
+        "E": "Eserlerin neşir, temsil, icra ve teşhir gibi suretlerle değerlendirilmesi karşılığında alınan bedel ve ücretler istisnaya dâhildir."
+      },
+      "dogru": "C",
+      "aciklama": {
+        "A": "'İnternet ortamı' ifadesi eski bir maddede geçmez sanılıyor. Oysa fıkra 1999'da (4444 sayılı Kanun) bu ibareyle değiştirilmiştir. Doğrusu: m.18/1, 'gazete, dergi, bilgisayar ve internet ortamı, radyo, televizyon ve videoda yayınlamak' ifadesini birebir taşır.",
+        "B": "Serbest meslek faaliyetinin 'süreklilik' şartı olduğu bilindiği için, arızi kazancın istisna dışı kalacağı düşünülüyor. Kanun bu ihtimali özellikle kapatmıştır. Doğrusu: m.18/3: 'Yukarıda yazılı kazançların arızi olarak elde edilmesi istisna hükmünün uygulanmasına engel teşkil etmez.'",
+        "C": "Ne soruluyor: 'Gelir vergisinden müstesna' olan bir kazançtan yine de stopaj kesilip kesilmeyeceği soruluyor.\n\nKural: GVK m.18/1, sayılan kişilerin (müellif, mütercim, heykeltıraş, hattat, ressam, bestekâr, bilgisayar programcısı, mucitler) ve kanuni mirasçılarının, sayılan eserlerini yayınlamak, satmak, haklarını devir ve temlik etmek veya kiralamak suretiyle elde ettikleri hasılatı gelir vergisinden müstesna tutar. m.18/2 eserlerin 'neşir, temsil, icra ve teşhir gibi suretlerle değerlendirilmesi karşılığında alınan bedel ve ücretleri' de istisnaya dâhil eder. m.18/3 istisnanın ARIZİ kazançlarda da geçerli olduğunu belirtir. Sınırı iki fıkra çizer. m.18/4: 'Serbest meslek kazançları istisnasının, bu Kanunun 94 üncü maddesi uyarınca TEVKİF SURETİYLE ÖDENECEK VERGİYE ŞÜMULÜ YOKTUR.' Yani istisna yıllık beyanla ödenecek vergiyi kaldırır, STOPAJI KALDIRMAZ; ödemeyi yapan yine kesinti yapmak zorundadır. m.18/5 (Ek: 7194): bu madde kapsamındaki kazançları toplamı m.103 tarifesinin DÖRDÜNCÜ gelir diliminde yer alan tutarı AŞANLAR istisnadan faydalanamaz; bu durumda olanların m.94/1 kapsamında tevkifat yapma yükümlülüğü de yoktur.\n\nBu olayda: C şıkkı m.18/4'ün tam tersini söylüyor. Bu, sınavın klasik ayrımıdır: bir kazancın İSTİSNA olması ile STOPAJ DIŞI olması aynı şey değildir.\n\nAkılda kalsın: İstisna beyannameyi kurtarır, stopajı kurtarmaz.",
+        "D": "Bu üst sınır 2019'da eklendiği için eski kaynaklarda yoktur; bilmeyenler uydurma sanır. Doğrusu: m.18'e 7194 sayılı Kanun'la eklenen fıkra bu sınırı getirmiştir.",
+        "E": "Bu kalemler 'satış' sayılmadığı için istisna dışı sanılıyor. Kanun eserin DEĞERLENDİRİLMESİNİ de kapsama almıştır. Doğrusu: m.18/2 bu bedel ve ücretlerin istisnaya dâhil olduğunu açıkça söyler."
+      },
+      "hap": "GVK m.18 telif istisnası hasılatı gelir vergisinden müstesna tutar; arızi kazançta da geçerlidir. AMA istisnanın m.94 uyarınca TEVKİF SURETİYLE ödenecek vergiye ŞÜMULÜ YOKTUR (m.18/4) — istisna beyannameyi kurtarır, stopajı kurtarmaz. Kazanç toplamı tarifenin 4. dilimini aşanlar istisnadan yararlanamaz (m.18/5).",
+      "kaynak": "GVK m.18 · m.70/6 · m.94",
+      "tablo": {
+        "baslik": "İstisnanın kapsamı ve sınırı",
+        "kolonlar": ["Unsur", "İstisna kapsamında mı?", "Dayanak"],
+        "satirlar": [
+          ["Kimler?", "Müellif, mütercim, heykeltıraş, hattat, ressam, bestekâr, bilgisayar programcısı, mucitler ve kanuni mirasçıları", "m.18/1"],
+          ["Hangi yollarla?", "Yayınlamak · satmak · hak devir/temlik · kiralamak", "m.18/1"],
+          ["Neşir, temsil, icra, teşhir bedelleri", "DÂHİL", "m.18/2"],
+          ["Arızi elde edilmesi", "Engel DEĞİL", "m.18/3"],
+          ["Tevkifat (m.94) ←", "KAPSAM DIŞI — istisna tevkifatı önlemez", "m.18/4"],
+          ["Kazanç toplamı 4. dilimi aşanlar", "İstisnadan FAYDALANAMAZ", "m.18/5"]
+        ]
+      }
+    },
+    {
+      "id": "tv2635",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "ihrac kaydiyla teslim tecil terkin",
+      "soru": "Bir imalatçı, 10 Mart 2026 tarihinde ihracatçıya ihraç kaydıyla mal teslim etmiştir. Bu teslime ait katma değer vergisi vergi dairesince tarh ve tahakkuk ettirilerek tecil edilmiştir. Ortada mücbir sebep hâli yoktur. Tecil edilen verginin terkin edilebilmesi için ihracatın yapılması gereken son tarih ile, bu süre içinde ihracat yapılmazsa uygulanacak müeyyide sırasıyla nedir?",
+      "siklar": {
+        "A": "30 Haziran 2026 — 6183 sayılı Kanun m.51'e göre gecikme zammıyla tahsil",
+        "B": "10 Haziran 2026 — 6183 sayılı Kanun m.51'e göre gecikme zammıyla tahsil",
+        "C": "30 Haziran 2026 — 6183 sayılı Kanun m.48'e göre tecil faiziyle tahsil",
+        "D": "31 Mart 2026 — 6183 sayılı Kanun m.51'e göre gecikme zammıyla tahsil",
+        "E": "30 Eylül 2026 — 6183 sayılı Kanun m.48'e göre tecil faiziyle tahsil"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: İhraç kaydıyla teslimde sürenin ne zaman başladığı ve süre kaçarsa hangi ferinin işleyeceği soruluyor.\n\nKural: KDVK m.11/1-c üç adımı arka arkaya kurar. TECİL: ihraç edilmek şartıyla imalatçılar tarafından kendilerine teslim edilen mallara ait KDV, ihracatçılar tarafından ödenmez; mükelleflerce tahsil edilmeyen ancak ilgili dönem beyannamesinde beyan edilecek bu vergi, vergi dairesince tarh ve tahakkuk ettirilerek tecil olunur. TERKİN: 'Söz konusu malların, ihracatçıya TESLİM TARİHİNİ TAKİP EDEN AY BAŞINDAN İTİBAREN 3 AY İÇİNDE ihraç edilmesi halinde, tecil edilen vergi terkin olunur.' YAPTIRIM: ihracat şartlara uygun gerçekleşmezse tecil olunan vergi, TAHAKKUK ETTİRİLDİĞİ TARİHTEN İTİBAREN 6183 sayılı Kanun'un 51'inci maddesine göre belirlenen GECİKME ZAMMIYLA birlikte tahsil olunur. Ayrım kritiktir: MÜCBİR SEBEP varsa yaptırım değişir — vergi, TECİL EDİLDİĞİ TARİHTEN İTİBAREN 6183 sayılı Kanun'un 48'inci maddesine göre TECİL FAİZİ ile tahsil edilir. Ayrıca mücbir sebep veya beklenmedik durum nedeniyle üç ayda ihracat gerçekleşemezse, en geç üç aylık sürenin dolduğu tarihten itibaren ON BEŞ GÜN içinde başvuran ihracatçılara ÜÇ AYA KADAR ek süre verilebilir.\n\nBu olayda: Teslim 10 Mart 2026'dadır. Süre teslim gününden değil, TESLİM TARİHİNİ TAKİP EDEN AY BAŞINDAN işler: 1 Nisan 2026. Üç ay sonrası 30 Haziran 2026'dır. Soruda mücbir sebep bulunmadığı açıkça belirtildiği için yaptırım GECİKME ZAMMIDIR (6183 m.51), tecil faizi değil.\n\nAkılda kalsın: Saat teslim gününde değil, ERTESİ AY BAŞINDA kurulur; normal gecikmede gecikme zammı, mücbir sebepte tecil faizi.",
+        "B": "Süre, teslim tarihi olan 10 Mart'tan itibaren üç ay sayılmıştır. Yaptırım doğru seçilmiş, başlangıç yanlış alınmıştır. Doğrusu: m.11/1-c süreyi 'teslim tarihini takip eden AY BAŞINDAN itibaren' başlatır: 1 Nisan 2026 → 30 Haziran 2026.",
+        "C": "Tarih doğru bulunmuş ama fer'i yanlış seçilmiştir. Bu şık, MÜCBİR SEBEP hâline ait kuralı normal hâle uygulamaktan doğar — ve soru gövdesinde mücbir sebep olmadığı özellikle yazılmıştır. Doğrusu: Mücbir sebep yoksa 6183 m.51 uyarınca GECİKME ZAMMI uygulanır; m.48 tecil faizi yalnız mücbir sebep hâline özgüdür.",
+        "D": "Süre 'teslim ayının sonu' olarak okunmuştur; yani üç aylık süre hiç sayılmamıştır. Doğrusu: Ay başı yalnızca sürenin BAŞLANGIÇ noktasıdır; süre bundan sonra üç aydır.",
+        "E": "Üç aylık asıl süreye, ek süre olarak verilebilecek üç ay doğrudan eklenmiştir. Ek süre kendiliğinden işlemez. Doğrusu: Ek süre; mücbir sebep veya beklenmedik durum hâlinde, üç aylık sürenin dolduğu tarihten itibaren ON BEŞ GÜN İÇİNDE BAŞVURU üzerine ve idarenin uygun görmesiyle verilir."
+      },
+      "hap": "İhraç kaydıyla teslimde süre TESLİM TARİHİNİ TAKİP EDEN AY BAŞINDAN itibaren ÜÇ AYDIR (KDVK m.11/1-c). Süresinde ihraç edilmezse 6183 m.51 GECİKME ZAMMI; MÜCBİR SEBEPLE edilemezse 6183 m.48 TECİL FAİZİ uygulanır. Ek süre: 15 gün içinde başvuru → 3 aya kadar.",
+      "kaynak": "KDVK m.11/1-c · m.11/2 · 6183 s.K. m.48, m.51",
+      "tablo": {
+        "baslik": "Tecil-terkin süre çizelgesi",
+        "kolonlar": ["Adım", "Tarih / kural", "Dayanak"],
+        "satirlar": [
+          ["İhraç kaydıyla teslim", "10 Mart 2026", "KDVK m.11/1-c"],
+          ["Sürenin başlangıcı: takip eden AY BAŞI ←", "1 Nisan 2026", "m.11/1-c"],
+          ["Süre: 3 ay", "30 Haziran 2026", "m.11/1-c"],
+          ["Süresinde ihraç edilirse", "Tecil edilen vergi TERKİN olunur", "m.11/1-c"],
+          ["Süresinde edilmezse ←", "6183 m.51 GECİKME ZAMMI ile tahsil", "m.11/1-c"],
+          ["MÜCBİR SEBEPLE edilemezse", "6183 m.48 TECİL FAİZİ ile tahsil", "m.11/1-c"],
+          ["Ek süre", "15 gün içinde başvuru → 3 aya kadar", "m.11/1-c (Ek: 4842)"]
+        ]
+      }
+    },
+    {
+      "id": "tv2636",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "pismanlik ve islah",
+      "soru": "Vergi Usul Kanunu'nun 371'inci maddesinde düzenlenen pişmanlık ve ıslah hükümleri ile ilgili aşağıdakilerden hangisi yanlıştır?",
+      "siklar": {
+        "A": "Şartlar sağlandığında mükellef hakkında vergi ziyaı cezası kesilmez.",
+        "B": "Hiç verilmemiş beyannameler, haber verme dilekçesinin verildiği tarihten başlayarak on beş gün içinde verilmelidir.",
+        "C": "Ödeme süresi geçmiş vergiler, gecikme zammı oranında bir zamla birlikte on beş gün içinde ödenmelidir.",
+        "D": "Pişmanlık hükümleri emlak vergisi ile ilgili olarak da uygulanır.",
+        "E": "Haber verme dilekçesi, olayın ilgili olduğu vergi türüne ilişkin bir vergi incelemesine başlanmasından önce verilmiş olmalıdır."
+      },
+      "dogru": "D",
+      "aciklama": {
+        "A": "Pişmanlıkta cezanın 'indirileceği' sanılıyor — o, m.376'daki ayrı bir müessesedir. Pişmanlıkta ceza HİÇ DOĞMAZ. Doğrusu: m.371/1, şartların sağlanması hâlinde 'vergi ziyaı cezası kesilmez' der.",
+        "B": "Süre bazen otuz gün diye hatırlanır; otuz gün m.376'daki BAŞVURU süresidir. İki müessesenin süreleri karışır. Doğrusu: m.371/3 uyarınca hiç verilmemiş beyannameler, haber verme dilekçesinin verildiği tarihten başlayarak ON BEŞ GÜN içinde verilir.",
+        "C": "Bunun 'gecikme zammı' değil, aynı ORANDA hesaplanan ayrı bir zam olduğu ayrıntısı gözden kaçar ve şık yanlış sanılır. Doğrusu: m.371/5, 6183 sayılı Kanun'un 51'inci maddesindeki nispette uygulanacak 'gecikme zammı oranında bir zamla' ödemeyi arar — şık doğrudur.",
+        "D": "Ne soruluyor: Pişmanlık müessesesinin her vergi türü için geçerli olup olmadığı soruluyor.\n\nKural: VUK m.371, beyana dayanan vergilerde vergi ziyaı cezasını gerektiren fiilleri işleyen mükelleflerin ve bunların işlenişine iştirak eden diğer kişilerin, kanuna aykırı hareketlerini ilgili makamlara KENDİLİĞİNDEN DİLEKÇE İLE haber vermeleri hâlinde haklarında VERGİ ZİYAI CEZASI KESİLMEYECEĞİNİ söyler. Beş şart birlikte aranır: (1) haber verilen husus hakkında daha önce MUHBİR İHBARI yapılmamış olması; (2) dilekçenin, o VERGİ TÜRÜNE İLİŞKİN bir vergi incelemesine başlanmasından veya olayın ve vergi türünün takdir komisyonuna intikalinden önce (kaçakçılık suçu teşkil eden fiillerin tespitinden önce) verilmiş ve resmî kayıtlara geçirilmiş olması; (3) hiç verilmemiş beyannamelerin ON BEŞ GÜN içinde verilmesi; (4) eksik veya yanlış beyanın ON BEŞ GÜN içinde tamamlanması veya düzeltilmesi; (5) ödeme süresi geçmiş vergilerin, geciken HER AY VE KESRİ için 6183 sayılı Kanun'un 51'inci maddesindeki nispette GECİKME ZAMMI ORANINDA BİR ZAMLA birlikte ON BEŞ GÜN içinde ödenmesi. Maddenin sonunda tek cümlelik bir kapsam dışı hüküm vardır: 'Bu madde hükümleri, EMLAK VERGİSİ ile ilgili olarak UYGULANMAZ.'\n\nBu olayda: D şıkkı bu cümlenin tersini söylüyor. Sebebi de mantıklıdır: emlak vergisi beyana dayalı bir vergi olmaktan çıkarılmış, idarece tarh edilen bir yapıya geçmiştir; pişmanlık ise BEYANA DAYANAN vergiler için tasarlanmış bir kurumdur.\n\nAkılda kalsın: Pişmanlık beyana dayanan vergiler içindir; emlak vergisi bu kapının dışında bırakılmıştır.",
+        "E": "2021 değişikliğinden (7338 sayılı Kanun) önce 'herhangi bir vergi incelemesi' denirken, şimdi ölçüt HABER VERİLEN OLAYIN İLGİLİ OLDUĞU VERGİ TÜRÜ ile sınırlandırılmıştır; eski bilgiyle okuyan bu şıkkı yanlış sanabilir. Doğrusu: m.371/2'nin yürürlükteki hâli, dilekçenin 'haber verilen olayın ilgili olduğu vergi türüne ilişkin bir vergi incelemesine başlandığı' günden evvel verilmesini arar."
+      },
+      "hap": "Pişmanlıkta vergi ziyaı cezası HİÇ KESİLMEZ (m.371); beyanname/düzeltme/ödeme için ON BEŞER GÜN süre vardır. Ceza indirimi (m.376) ise ayrı bir müessesedir: ihbarnameden sonra 30 gün içinde başvuru → cezanın YARISI indirilir. Pişmanlık EMLAK VERGİSİNE UYGULANMAZ.",
+      "kaynak": "VUK m.371 · m.376",
+      "tablo": {
+        "baslik": "Pişmanlık ile cezalarda indirim",
+        "kolonlar": ["", "PİŞMANLIK VE ISLAH (m.371)", "CEZALARDA İNDİRİM (m.376)"],
+        "satirlar": [
+          ["Ne zaman devreye girer?", "İdare öğrenmeden ÖNCE, mükellef kendisi haber verir", "Ceza KESİLDİKTEN sonra, ihbarname tebliğinde"],
+          ["Sonucu", "Vergi ziyaı cezası HİÇ KESİLMEZ", "Kesilen cezanın YARISI indirilir"],
+          ["Süre", "Beyanname/düzeltme/ödeme: 15 gün", "Başvuru: 30 gün"],
+          ["Engel hâller", "Muhbir ihbarı · inceleme · takdire sevk · kaçakçılık tespiti", "—"],
+          ["Uygulanmayan vergi ←", "EMLAK VERGİSİ", "—"]
+        ]
+      }
+    },
+    {
+      "id": "tv2637",
+      "durum": "denetimde",
+      "erisim": "vitrin",
+      "sinav": "SMMM",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "vergi ziyai cezasi ve kacakcilik",
+      "soru": "2026 yılında yapılan bir vergi incelemesinde, bir mükellefin sahte belge kullanmak suretiyle 800.000 TL tutarında vergi ziyaına sebebiyet verdiği tespit edilmiştir. Aynı fiile, menfaati bulunmayan bir kişi de iştirak etmiştir. Mükellefe kesilecek vergi ziyaı cezası ile fiile iştirak edene kesilecek vergi ziyaı cezası sırasıyla kaç TL'dir?",
+      "siklar": {
+        "A": "2.400.000 — 800.000",
+        "B": "800.000 — 800.000",
+        "C": "2.400.000 — 2.400.000",
+        "D": "1.600.000 — 800.000",
+        "E": "800.000 — 400.000"
+      },
+      "dogru": "A",
+      "aciklama": {
+        "A": "Ne soruluyor: Sahte belge kullanan mükellefe kesilecek para cezasının kaç katı olacağı ve ona yardım edene aynı katın uygulanıp uygulanmayacağı soruluyor.\n\nKural: VUK m.344 vergi ziyaı cezasını kademelendirir. GENEL HÂL: m.341'de yazılı hâllerde vergi ziyaına sebebiyet verildiğinde mükellef veya sorumlu hakkında ziyaa uğratılan verginin BİR KATI tutarında ceza kesilir. AĞIRLAŞTIRILMIŞ HÂL (m.344/2): 'Vergi ziyaına 359 uncu maddede yazılı fiillerle sebebiyet verilmesi halinde bu ceza ÜÇ KAT, bu fiillere İŞTİRAK edenlere ise BİR KAT olarak uygulanır.' m.359/b sahte belgeyi tanımlar ve cezasını gösterir: belgelerin asıl veya suretlerini tamamen veya kısmen SAHTE olarak düzenleyenler VEYA BU BELGELERİ KULLANANLAR, üç yıldan sekiz yıla kadar hapis cezasıyla cezalandırılır; gerçek bir muamele veya durum olmadığı halde bunlar varmış gibi düzenlenen belge sahte belgedir. Maddenin son fıkrası iki yaptırımın birlikte uygulanacağını da söyler: kaçakçılık cezalarının uygulanması, m.344'teki vergi ziyaı cezasının AYRICA UYGULANMASINA ENGEL TEŞKİL ETMEZ.\n\nBu olayda: Sahte belge kullanmak m.359/b'de sayılan bir fiildir; dolayısıyla mükellefe kesilecek vergi ziyaı cezası ÜÇ KATTIR: 800.000 × 3 = 2.400.000 TL. Fiile iştirak edene ise aynı fıkra gereği BİR KAT uygulanır: 800.000 TL. Dikkat: iştirakçiye uygulanan bu bir kat, ceza indirimi değil, kanunun ayrıca belirlediği bir orandır.\n\nAkılda kalsın: Kaçakçılık fiiliyle ziya varsa asıl faile üç kat, iştirak edene bir kat — ve hapis cezası bunun üstüne ayrıca gelir.",
+        "B": "Her iki kişiye de genel hâldeki bir kat uygulanmıştır; m.359 fiilleri için öngörülen ağırlaştırma hiç devreye sokulmamıştır. Doğrusu: m.344/2, ziyaa m.359'daki fiillerle sebebiyet verilmesi hâlinde asıl faile ÜÇ KAT ceza öngörür.",
+        "C": "Üç kat doğru bulunmuş ama iştirak edene de aynısı uygulanmıştır. Aynı fıkranın ikinci yarısı okunmamıştır. Doğrusu: m.344/2 iştirak edenler için cezayı açıkça BİR KAT olarak belirler.",
+        "D": "800.000 × 2 işleminden gelir; ağırlaştırma İKİ KAT sanılmıştır. İki kat, VUK'un başka bir yerinde (azalan bakiyeler amortisman oranı) geçen bir çarpandır ve buraya taşınmıştır. Doğrusu: m.344/2'deki çarpan ÜÇTÜR.",
+        "E": "Asıl faile bir kat, iştirakçiye yarım kat uygulanmıştır. 'Yarısı' indirimi VUK m.360'ta vardır ama o, HAPİS CEZASINA ilişkindir: m.359'daki suçların işlenişine iştirak eden suç ortaklarının menfaati yoksa Türk Ceza Kanunu'nun iştirak hükümlerine göre verilecek cezanın yarısı indirilir. Vergi ziyaı cezasıyla ilgisi yoktur. Doğrusu: İdari nitelikteki vergi ziyaı cezası bakımından iştirakçiye m.344/2 uyarınca BİR KAT uygulanır: 800.000 TL."
+      },
+      "hap": "Vergi ziyaı cezası kural olarak BİR KAT (VUK m.344/1). Ziyaa m.359'daki fiillerle (sahte belge düzenleme/kullanma vb.) sebebiyet verilirse ÜÇ KAT, bu fiillere İŞTİRAK edenlere BİR KAT uygulanır (m.344/2). Hapis cezası ayrıca uygulanır (m.359 son fıkra).",
+      "kaynak": "VUK m.344 · m.359 · m.360 · m.371",
+      "tablo": {
+        "baslik": "Vergi ziyaı cezası matrisi",
+        "kolonlar": ["Durum", "Ceza", "Dayanak"],
+        "satirlar": [
+          ["Genel hâl (m.341 kapsamında ziya)", "Verginin BİR KATI", "m.344/1"],
+          ["Ziyaa m.359 fiilleriyle sebebiyet ←", "ÜÇ KAT → 800.000 × 3 = 2.400.000", "m.344/2"],
+          ["Bu fiillere İŞTİRAK edenler ←", "BİR KAT → 800.000", "m.344/2"],
+          ["Kanuni süresi geçtikten sonra beyanname", "Ceza %50 oranında", "m.344/3"],
+          ["Sahte belge düzenleme/kullanma (hapis)", "3 yıldan 8 yıla kadar", "m.359/b"],
+          ["Kaçakçılık cezası vergi ziyaı cezasını engeller mi?", "HAYIR — ikisi ayrı ayrı", "m.359 son fıkra"]
+        ]
+      }
+    }
+  ]
+}

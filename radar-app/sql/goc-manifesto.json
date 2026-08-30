@@ -1,0 +1,106 @@
+{
+  "aciklama": "GOC NOBETCISI MANIFESTOSU (29.08.2026). Sayfalarin kasadan okudugu anahtarlar burada durur; motor/goc-nobetcisi.ps1 her gun canli uctan cagirip dogrular. Yeni bir alan eklendiginde ONCE buraya yazilir - yoksa nobetci onu kollamaz. Kutuk: UYGULANDI.md",
+  "yasakUclar": [
+    "uyari_teyit",
+    "marka_talep_ac",
+    "destek_takip_iptal",
+    "cevap_kaydet",
+    "alacak_yaz",
+    "ihale_yaz",
+    "alacak_toplu",
+    "rate_limit_check"
+  ],
+  "yasakNotu": "Bu uclar YAZAR ya da sayac harcar. Nobetci salt okur - listedeki bir ad manifestoya girerse betik onu cagirmaz, KOR yazar.",
+  "kontroller": [
+    {
+      "ad": "Alacak vitrini (suzgecsiz)",
+      "sayfa": "alacak-radari.html",
+      "uc": "alacak_vitrin",
+      "govde": {},
+      "tur": "anahtar",
+      "goc": "radar-app/sql/2026-08-28-alacak-kapsam-serhi.sql",
+      "beklenen": [
+        "adet",
+        "son30",
+        "enYeniTarih",
+        "enYeniIso",
+        "turSayilari",
+        "durumlar",
+        "secilenAdet",
+        "secilenIlk",
+        "secilenSon",
+        "secilenGun",
+        "turIlk",
+        "turGun",
+        "illerSuzgecli",
+        "iller",
+        "ilanlar"
+      ]
+    },
+    {
+      "ad": "Alacak vitrini (tur suzgecli - 28.08 kusurunun tam yeri)",
+      "sayfa": "alacak-radari.html",
+      "uc": "alacak_vitrin",
+      "govde": {
+        "p_tur": "iflas"
+      },
+      "tur": "anahtar",
+      "goc": "radar-app/sql/2026-08-28-alacak-kapsam-serhi.sql",
+      "notu": "Suzgecli cagride kapsam alanlari gelmezse sayfa 'iflas arsivi yalniz 4,7 aylik' serhini BASAMAZ ve iki turun oranlari kiyaslanabilir gibi durur.",
+      "beklenen": [
+        "secilenAdet",
+        "secilenIlk",
+        "secilenSon",
+        "secilenGun",
+        "turIlk",
+        "turGun",
+        "illerSuzgecli",
+        "iller",
+        "ilanlar",
+        "durumlar"
+      ]
+    },
+    {
+      "ad": "Teslim teyidi durum ucu",
+      "sayfa": "uyari-teyit.html",
+      "uc": "uyari_teyit_durum",
+      "govde": {
+        "p_token": "00000000-0000-0000-0000-000000000000"
+      },
+      "tur": "varlik",
+      "goc": "radar-app/sql/2026-08-27-teslim-teyidi.sql",
+      "notu": "Anahtar denetimi YAPILAMAZ: var olmayan jetonda cevap yalniz {ok,sebep} olur. Bu yuzden varlik kontrolu - fonksiyon dusmusse PGRST202 doner."
+    },
+    {
+      "ad": "Alacak gizli arsiv arama ucu",
+      "sayfa": "alacak-radari.html",
+      "uc": "alacak_ara",
+      "govde": {
+        "p_sorgu": "zzzz-nobetci-sinamasi"
+      },
+      "tur": "varlik",
+      "goc": "radar-app/sql/2026-08-19-alacak-gizli-arsiv.sql",
+      "notu": "Havuz disari kapali; disari yalnizca bu tavanli RPC acik. Dusmesi = arama olen sayfa."
+    },
+    {
+      "ad": "Marka portfoy sonuc ucu",
+      "sayfa": "marka-portfoy.html",
+      "uc": "marka_talep_sonuc",
+      "govde": {
+        "p_jeton": "00000000-0000-0000-0000-000000000000"
+      },
+      "tur": "varlik",
+      "goc": "veri/sql-marka-portfoy.sql",
+      "notu": "Jeton uydurma - var olmayan talep icin bos doner, hicbir sey yazmaz."
+    }
+  ],
+  "bilinenKusurlar": [
+    {
+      "uc": "madde_ara",
+      "kusur": "TEK KELIMELIK sorguda 57014 (statement timeout). Olculdu 29.08: 'konkordato' 3.261 ms -> 500, 'reeskont' 3.316 ms -> 500, 'amortisman oranlari' 2.363 ms -> 200. Yani Net Cevap aramasi sik sorgularda cevapsiz kaliyor.",
+      "olcum": "POST /rest/v1/rpc/madde_ara {\"sorgu\":\"konkordato\",\"adet\":1}",
+      "goc": "radar-app/sql/2026-08-25-madde-ara-v8.sql",
+      "neden_kirmizi_degil": "Kusur nobetci kurulmadan ONCE de vardi ve acik is olarak kutukte duruyor. Kapiyi ilk gunden kirmiziya boyamak kapiyi kor eder (kalici-sigorta-3katman dersi). Duzeltilince buradan silinir ve kontrol olarak eklenir."
+    }
+  ]
+}

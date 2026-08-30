@@ -26,6 +26,7 @@
 #  edildi; -gonder/-indir 1 Eylul sabahi once -sinir 5 ile provalanir.
 # ============================================================================
 param([switch]$hazirla, [switch]$gonder, [switch]$durum, [switch]$indir, [switch]$uygula,
+      [switch]$tamamla,   # 26.08: max_tokens'a takilan/bozuk donenleri 16k tavanla yeniden gonderir
       [int]$sinir = 0, [string]$model = 'claude-sonnet-5')
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -107,7 +108,7 @@ if($hazirla){
       $istek=[ordered]@{
         custom_id="$($s.id)"
         params=[ordered]@{
-          model=$model; max_tokens=5000
+          model=$model; max_tokens=8000   # 26.08 prova dersi: 5000'de 4/10 dusunme payina takildi
           messages=@(@{ role='user'; content=(IstemKur $sablon $s (DayanakMetni $s)) })
         }
       }
@@ -126,6 +127,50 @@ if($hazirla){
     if($j.params.messages[0].content -notmatch 'notlandirici'){ throw 'OZ-SINAV KIRMIZI: istem v3 alanlari yok (eski sablon?)' }
   }
   "OZ-SINAV GECTI - $yazilan istek, $parcaNo dosya (cila-istek-*.jsonl)"
+}
+
+# ============================ -tamamla ============================
+# Sonuc dosyalarindaki GECERLI id'leri sayar; istek dosyalarindaki hedeflerden
+# eksik kalanlari 16k tavanla yeni bir batch olarak gonderir. Kural: sessiz kayip yok.
+if($tamamla){
+  $gecerli=@{}
+  foreach($f in (Get-ChildItem (Join-Path $FAB 'cila-sonuc-*.jsonl') -ErrorAction SilentlyContinue)){
+    foreach($sat in (Get-Content $f.FullName -Encoding UTF8)){
+      $r=$sat | ConvertFrom-Json
+      if($r.result.type -ne 'succeeded'){ continue }
+      $txt=(@($r.result.message.content) | ? { $_.type -eq 'text' } | Select-Object -Last 1).text
+      if(-not $txt){ continue }
+      $tt=$txt.Trim() -replace '^```json\s*','' -replace '^```\s*','' -replace '\s*```$',''
+      try{ $p=$tt | ConvertFrom-Json; if($p -and $p.aciklama){ $gecerli[$r.custom_id]=$true } }catch{}
+    }
+  }
+  $hedefler=@{}
+  foreach($f in (Get-ChildItem (Join-Path $FAB 'cila-istek-*.jsonl'))){
+    foreach($sat in (Get-Content $f.FullName -Encoding UTF8)){ $j=$sat | ConvertFrom-Json; $hedefler[$j.custom_id]=$true }
+  }
+  $eksik=@($hedefler.Keys | ? { -not $gecerli.ContainsKey($_) })
+  "hedef $($hedefler.Count) / gecerli $($gecerli.Count) / EKSIK $($eksik.Count)"
+  if($eksik.Count -eq 0){ 'tamamlanacak yok.'; }
+  else{
+    $sablon=IstemSablonOku
+    $istekler=@()
+    for($i=0;$i -lt $eksik.Count;$i+=50){
+      $grup=$eksik[$i..([Math]::Min($i+49,$eksik.Count-1))]
+      $filtre='id=in.(' + (($grup | % { '"'+$_+'"' }) -join ',') + ')'
+      $sorular=@(Invoke-RestMethod -Uri "$SBU/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,kanun_no,madde_no&$filtre" -Headers $SBH -TimeoutSec 180 | % { $_ })
+      foreach($s in $sorular){
+        $istekler += [ordered]@{ custom_id="$($s.id)"; params=[ordered]@{ model=$model; max_tokens=16000; messages=@(@{ role='user'; content=(IstemKur $sablon $s (DayanakMetni $s)) }) } }
+      }
+    }
+    $H=AntBas
+    $govde=@{ requests=$istekler } | ConvertTo-Json -Depth 10 -Compress
+    $r=Invoke-RestMethod -Method Post -Uri $ANT -Headers $H -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 300
+    "tamamlama batch: $($r.id) ($($istekler.Count) istek, tavan 16k)"
+    $mevcut=@(); $iy=Join-Path $FAB 'cila-batch-idler.json'
+    if(Test-Path $iy){ $mevcut=@(Get-Content $iy -Raw -Encoding UTF8 | ConvertFrom-Json) }
+    $mevcut += [pscustomobject]@{ dosya='(tamamlama)'; batch=$r.id; adet=$istekler.Count; tarih=(Get-Date -Format 's') }
+    $mevcut | ConvertTo-Json -Depth 3 | Out-File $iy -Encoding utf8
+  }
 }
 
 # ============================ -gonder ============================
@@ -172,6 +217,7 @@ if($uygula){
   catch{ throw 'KOLONLAR YOK - once veri/sql-cila-v3-kolonlar.sql Supabase''de basilmali.' }
   $damga='cila-v3 ' + (Get-Date -Format 'dd.MM.yyyy')
   $yaz=0; $bozuk=0; $supheli=New-Object System.Collections.Generic.List[object]
+  $govdeIhbar=New-Object System.Collections.Generic.List[object]   # 26.08: gormediklerimiz agi
   foreach($f in (Get-ChildItem (Join-Path $FAB 'cila-sonuc-*.jsonl'))){
     foreach($sat in (Get-Content $f.FullName -Encoding UTF8)){
       $r=$sat | ConvertFrom-Json
@@ -180,6 +226,7 @@ if($uygula){
       $ham=$ham.Trim() -replace '^```json\s*','' -replace '^```\s*','' -replace '\s*```$',''
       $c=$null; try{ $c=$ham | ConvertFrom-Json }catch{}
       if(-not $c -or -not $c.aciklama){ $bozuk++; continue }
+      if($c.govde_kusuru -and "$($c.govde_kusuru)".Trim() -ne ''){ $govdeIhbar.Add(@{ id=$r.custom_id; not="$($c.govde_kusuru)" }) }
       if($c.supheli_cevap){ $supheli.Add(@{ id=$r.custom_id; not=$c.supheli_not }); continue }
       $g=[ordered]@{ aciklama=$c.aciklama; hap=$c.hap; cila=$damga }
       if($c.sinav_taktigi){ $g.sinav_taktigi=$c.sinav_taktigi }
@@ -196,6 +243,7 @@ if($uygula){
     }
   }
   if($supheli.Count){ $supheli | ConvertTo-Json -Depth 3 | Out-File (Join-Path $FAB 'cila-supheli.json') -Encoding utf8 }
+  if($govdeIhbar.Count){ $govdeIhbar | ConvertTo-Json -Depth 3 | Out-File (Join-Path $FAB 'cila-govde-ihbar.json') -Encoding utf8; "  govde ihbari: $($govdeIhbar.Count) -> cila-govde-ihbar.json (kasaya yazilmadi, GM okuyacak)" }
   ''
   '======== UYGULAMA SONU ========'
   "  kasaya yazilan (geri okumali) : $yaz"

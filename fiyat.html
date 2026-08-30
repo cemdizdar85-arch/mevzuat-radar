@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Fiyatlar | Tetikte</title>
-<meta name="description" content="Staja Başlama ve Yeterlilik sınavı için soru bankası. Sınava tekrar girmenin bedeli 1.635 TL; Tetikte 1.790 TL. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
+<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Kuruluş fiyatı 1.790 TL'den başlar; her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -42,11 +42,14 @@
           font-size:11px; font-weight:800; letter-spacing:.6px; padding:4px 10px; border-radius:20px; }
   .p h3{ margin:0 0 2px; font-size:17px; }
   .p .kim{ font-size:12.5px; color:var(--muted); margin-bottom:14px; }
-  /* Gunluk maliyet ANA rakam, toplam altinda kucuk: karar veren sayi budur. */
+  /* 29.08: "X TL/gun" ve "3 taksitle" satirlari KALDIRILDI. Fiyati gunluge
+     bolmek ucuz marka refleksidir; rakiplerin hicbiri yapmiyor. Tek rakam. */
   .gunluk{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
   .gunluk small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
+  .liste{ font-size:14px; color:var(--dim); text-decoration:line-through; margin-top:6px; }
+  .liste b{ text-decoration:none; display:inline-block; color:var(--green); font-weight:800;
+            font-size:12px; letter-spacing:.3px; margin-left:6px; }
   .tutar{ font-size:14.5px; font-weight:700; color:var(--muted); margin-top:6px; }
-  .taksit{ color:var(--amber); font-size:13.5px; font-weight:700; margin-top:3px; }
   .kdv{ font-size:11.5px; color:var(--dim); margin-top:2px; }
   .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
   .p li{ padding:5px 0 5px 21px; position:relative; color:var(--muted); }
@@ -85,7 +88,7 @@
 <div class="vurus">
   <div class="buyuk">Sınava bir kez daha girmenin bedeli <b>1.635 TL</b>.<br>Biz <b>1.790 TL</b> istiyoruz, bir daha girmeyesin diye.</div>
   <p>Staja Giriş Sınavı başvuru bedeli 2026'da 1.635 TL. Kalırsan bu parayı yeniden ödersin, üstüne dört ay kaybedersin.
-  Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (02.08.2026'da okundu).</p>
+  Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
 
 <!-- Sahte aciliyet YOK: asagidaki sayilar TURMOB'un resmi takviminden hesaplaniyor. -->
@@ -115,76 +118,83 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <div class="p one">
     <span class="rozet">EN ÇOK SEÇİLEN</span>
     <h3>Staja Başlama</h3>
-    <div class="kim">Sınav gününe kadar sınırsız</div>
-    <div class="gunluk" id="gnSgs">— <small>TL / gün</small></div>
-    <div class="tutar" id="fySgs">1.790 TL</div>
-    <div class="taksit" id="tkSgs">3 taksitle aylık 597 TL</div>
-    <div class="kdv">KDV dahil · <span id="kdSgs">kuruluş fiyatı</span></div>
+    <div class="kim" id="erSgs">3 ay</div>
+    <div class="gunluk" id="fySgs">— <small>TL</small></div>
+    <div class="liste" id="lsSgs"></div>
+    <div class="kdv">KDV dahil · kuruluş fiyatı · <span id="ktSgs"></span></div>
     <ul>
       <li>Sınırsız soru: bankanın tamamı</li>
       <li><b>Birebir Prova</b>: 130 soru, resmî ders dağılımı</li>
       <li>Dört parçalı açıklama, tuzak anlatımı</li>
-      <li><b>Zayıf konu karnesi</b> + koç notu</li>
-      <li>Yanlışlarım havuzu, işaretleme</li>
+      <li>Her sorunun <b>yürürlükteki kanun maddesine bağı</b></li>
+      <li>Konu notu · SRS tekrar destesi · Tetikte Skoru</li>
       <li><b>Son 15 Gün dahil</b></li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn" href="satin-al.html?paket=sgs-donem">Satın al — kuruluş fiyatından</a>
+    <a class="btn" href="satin-al.html?paket=sgs">Satın al — kuruluş fiyatından</a>
   </div>
 
+  <!-- 29.08: DERS BAZLI SATIS acildi. Yeterlilik'te ders ders kaliniyor;
+       kaldigi 2 dersi olan adaya 8 derslik paket satmak onu disarida
+       birakiyordu. Merdivenin her basamagi RESMI HARCTAN ucuz. -->
   <div class="p">
-    <h3>Yeterlilik</h3>
-    <div class="kim">Sınav gününe kadar sınırsız</div>
-    <div class="gunluk" id="gnYeterlilik">— <small>TL / gün</small></div>
-    <div class="tutar" id="fyYeterlilik">2.790 TL</div>
-    <div class="taksit" id="tkYeterlilik">3 taksitle aylık 930 TL</div>
-    <div class="kdv">KDV dahil · <span id="kdYeterlilik">kuruluş fiyatı</span></div>
+    <h3>SMMM Yeterlilik</h3>
+    <div class="kim" id="erYet">3 ay</div>
+    <div class="gunluk" id="fyYet">— <small>TL</small></div>
+    <div class="liste" id="lsYet"></div>
+    <div class="kdv">tüm dersler · KDV dahil · <span id="ktYet"></span></div>
     <ul>
+      <li><b>Tek ders <span id="fyYet1">—</span> TL'den başlar</b> — kaldığın dersi seç</li>
       <li>Sınırsız soru: sekiz dersin tamamı</li>
       <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
-      <li>Dört parçalı açıklama, tuzak anlatımı</li>
-      <li><b>Zayıf konu karnesi</b> + koç notu</li>
-      <li>Yanlışlarım havuzu, işaretleme</li>
-      <li><b>Son 15 Gün dahil</b></li>
+      <li>Her sorunun <b>kanun maddesine bağı</b></li>
+      <li>Konu notu · SRS tekrar destesi</li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn ikincil" href="satin-al.html?paket=yeterlilik-donem">Satın al — kuruluş fiyatından</a>
+    <a class="btn ikincil" href="satin-al.html?paket=yeterlilik-tum">Satın al — kuruluş fiyatından</a>
   </div>
 
-  <!-- KGK karti: 06.08 aksam Cem onayi ("senin rakamlarini onayliyorum") ile
-       kurulus 2.490 -> 2.790. Pazar dayanagi kgk-pazar-06-08 hafizasinda:
-       kurslar ders basina 12.600-17.500, tek rakip soru iddiasi 980; 2.790
-       hala pazarin kucuk kesri. Merdiven BANKA-bazli kalir ama sonraki
-       basamak RAKAMLA yazilmaz (olcusuz rakam yasak). Gunluk-maliyet satiri
-       YOK cunku Kasim 2026 BD sinavinin kesin gunu heniz ILAN EDILMEDI
-       (teyitsiz tarih yazilmaz); ilan cikinca SINAVLAR dizisine eklenir. -->
+  <!-- KGK: Kasim 2026 BD sinavinin kesin gunu heniz ILAN EDILMEDI
+       (teyitsiz tarih yazilmaz); ilan cikinca SINAVLAR dizisine eklenir.
+       29.08 olcumu: piyasanin en buyuk ismi (Fuat Hoca) KGK'yi henuz
+       fiyatlamamis, on kayit topluyor. Fiyati belli tek KGK urunuyuz. -->
   <div class="p">
     <span class="rozet">YENİ</span>
     <h3>Bağımsız Denetçi (KGK)</h3>
-    <div class="kim">Kasım 2026 sınav dönemi sonuna kadar</div>
-    <div class="tutar">2.790 TL</div>
-    <div class="taksit">3 taksitle aylık 930 TL</div>
-    <div class="kdv">KDV dahil · kuruluş fiyatı</div>
+    <div class="kim">3 ay</div>
+    <div class="gunluk" id="fyKgk">— <small>TL</small></div>
+    <div class="liste" id="lsKgk"></div>
+    <div class="kdv">SMMM paketi · 3 konu · KDV dahil · <span id="ktKgk"></span></div>
     <ul>
-      <li>Temel alanın tamamı: <b>TMS · TDS · Kurumsal Yönetim · Finansal Yönetim</b></li>
+      <li><b>SMMM'ysen üç konudan sorumlusun</b> — sektör mevzuatı muaf</li>
+      <li>Muhasebe Standartları · Kurumsal Yönetim ve Finansal Yönetim · Denetim</li>
+      <li><b>YMM paketi (2 konu) <span id="fyKgk2">—</span> TL</b> · tek konu <span id="fyKgk1">—</span> TL</li>
       <li>Türkiye'nin tek interaktif KGK soru bankası</li>
-      <li>Dört parçalı açıklama, tuzak anlatımı</li>
       <li>Her soruda standart/madde kaynağı</li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn ikincil" href="satin-al.html?paket=kgk">Satın al — kuruluş fiyatından</a>
-    <p style="font-size:11.5px;color:var(--dim);margin:10px 0 0">Kuruluş fiyatı: banka büyüdükçe fiyat artar; erken gelen bu fiyatta kalır.</p>
+    <a class="btn ikincil" href="satin-al.html?paket=kgk-3">Satın al — kuruluş fiyatından</a>
   </div>
 
 </div>
 
-<!-- SURE MERDIVENI (uzun secenek): manseti yukseltmeden ortalama tahsilati yukseltir. -->
+<!-- 29.08 KARARI: iki donemlik paket KALDIRILDI. Piyasanin tamami adayin
+     kalacagini varsayan paketi satiyor; biz varsaymiyoruz. -->
+<div class="kutu vurgu">
+  <h2>İki dönemlik paket satmıyoruz</h2>
+  <p style="margin:0;font-size:14px">Piyasada satılan paketlerin çoğu <b>iki sınav dönemini</b> kapsıyor —
+  yani daha satarken senin bir kere kalacağını varsayıyorlar. Biz varsaymıyoruz.</p>
+  <p style="margin:10px 0 0;font-size:14px"><b class="a">Bir sınav. Üç ay.</b>
+  Geçemezsen ikinci dönem <b class="a">yarı fiyat</b> — peşin ödetmiyoruz.</p>
+  <p class="kucuk" style="margin:10px 0 0">Paketin, satın aldığın tarihteki en yakın sınav gününü
+  kapsamıyorsa <b>o sınava kadar ücretsiz uzatılır</b>. Sınav ertelenirse de süren uzar.</p>
+</div>
+
+<!-- KOPRU: merdiveni ayakta tutan tek mekanizma. -->
 <div class="kutu">
-  <h2>İki sınav dönemi birden</h2>
-  <p style="margin:0;font-size:14px">Bir dönemde bitirmeyi düşünmüyorsan, 12 aylık erişim daha ucuza gelir:
-  <a href="satin-al.html?paket=sgs-uzun"><b class="a">Staja Başlama 2.790 TL</b></a> ·
-  <a href="satin-al.html?paket=yeterlilik-uzun"><b class="a">Yeterlilik 3.990 TL</b></a>. İki sınav dönemini kapsar;
-  arada banka büyümeye devam eder.</p>
+  <h2>Bir üst sınava geçerken</h2>
+  <p style="margin:0;font-size:14px">Staja Başlama'yı bizimle geçersen <b class="a">Yeterlilik'te %30</b>,
+  Yeterlilik'i bizimle geçersen <b class="a">KGK'da %30</b> indirimin olur. Süresiz hak — üç yıl sonra da geçerli.</p>
 </div>
 
 <!-- CEM'IN FIKRI, BELGEYLE: bu mesleğin resmi bedeli. Saldirilamaz cunku TESMER'in kendi tarifesi. -->
@@ -200,27 +210,77 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><td>Yeterlilik: kaldığın her ders için</td><td class="sag">1.260 TL</td></tr>
     <tr><td><b>Toplam (yalnızca resmî ücretler)</b></td><td class="sag"><b>31.645 TL</b></td></tr>
   </table></div>
-  <p class="kucuk" style="margin-top:10px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Yılı Sınav ve Eğitim Ücretleri</a>, 02.08.2026'da okundu.
-  Bu tabloyu satış için değil, <b>kararını rakamla verebilesin</b> diye koyduk. Tetikte'nin payı bu tablonun yüzde beşi kadar.</p>
+  <p class="kucuk" style="margin-top:10px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Yılı Sınav ve Eğitim Ücretleri</a> (kendi PDF'i, 29.08.2026'da okundu).
+  Bu tabloyu satış için değil, <b>kararını rakamla verebilesin</b> diye koyduk.</p>
 </div>
 
-<div class="kutu">
-  <h2>Fiyat merdiveni: erken gelen az öder</h2>
-  <p class="kucuk" style="margin:0">Kayıtlar kapanmaz. Ama sınav yaklaştıkça fiyat yükselir; bugünkü basamak işaretli.
-  Üstü çizili sahte fiyat, "son 3 saat" sayacı ya da indirim kampanyası yapmıyoruz. Tek indirimimiz erken gelmek.</p>
-  <div class="tabsar"><table id="merdiven">
-    <tr><th>Ne zaman girersen</th><th>Staja Başlama</th><th>Yeterlilik</th></tr>
+<!-- 29.08: HARC KARSILASTIRMASI. Rakiplerin hicbiri bunu kuramaz cunku onlarin
+     fiyatlari harcin 3-5 kati. Rakamlar fiyat-motoru.js'teki HARC'tan gelir. -->
+<div class="kutu vurgu">
+  <h2>Yeterlilik: her basamak resmî harçtan ucuz</h2>
+  <div class="tabsar"><table id="harcYet">
+    <tr><th>Kaç dersten sorumlusun</th><th class="sag">Devlete ödeyeceğin harç</th><th class="sag">Tetikte</th></tr>
   </table></div>
-  <p class="kucuk" style="margin-top:10px"><b>Kuruluş fiyatına giren bir yıl boyunca o fiyatta kalır.</b>
-  Bu bir indirim değil, ilk dönem gelenin ödülü.</p>
+  <p class="kucuk" style="margin-top:10px">Harç kaynağı: TESMER 2026 tarifesi — kalınan her ders için
+  <b>1.260 TL</b>, ilk başvuruda sekiz ders <b>10.080 TL</b>.</p>
+</div>
+
+<!-- KGK'da harc CAPA OLARAK KULLANILMAZ: temel alan 4 konu, e-sinav harci
+     4x950 = 3.800 TL; bizim tum moduller 3.990 TL, yani harctan UCUZ DEGIL.
+     Yeterlilik'te "her basamak harctan ucuz" diyoruz cunku oyle; burada
+     ayni cumleyi kurmak yalan olurdu. KGK'nin capasi KURS fiyatidir. -->
+<div class="kutu vurgu">
+  <h2>KGK: bir modülün kursu 5.250 TL</h2>
+  <div class="tabsar"><table>
+    <tr><th>KGK hazırlığının piyasa fiyatı</th><th class="sag">Tutar</th></tr>
+    <tr><td>Tek modül kursu (Standartlar / Denetim / KY-FY)</td><td class="sag">5.250 TL</td></tr>
+    <tr><td>Ek alan modülü kursu (SPK / Bankacılık / Sigortacılık)</td><td class="sag">2.500 TL</td></tr>
+    <tr><td><b>Tam paket kursu</b></td><td class="sag"><b>13.500 – 15.120 TL</b></td></tr>
+    <tr><td><b>Tetikte — SMMM paketi (3 konu)</b></td><td class="sag"><b class="a" id="harcKgkBiz">—</b></td></tr>
+  </table></div>
+  <p class="kucuk" style="margin-top:10px">Kurs fiyatları 29.08.2026'da iki kurumun kendi sitesinden okundu.
+  <b>Resmî sınav ücreti ayrıca ödenir:</b> konu başına 565 TL, e-sınavda 950 TL.
+  Bağımsız Denetçi Belgesi 1.885 TL. Kaynak:
+  <a href="https://www.alomaliye.com/2026/01/03/2026-yili-kamu-gozetimi-kurumu-hizmetlere-iliskin-ucret-listesi/" target="_blank" rel="noopener">KGK 2026 Ücret Listesi</a>
+  (29.12.2025 tarihli Kurul kararı).</p>
+</div>
+
+<!-- MUAFIYET TABLOSU: KGK alicisinin ilk sorusu "ben kac konudan sorumluyum".
+     Rakiplerin hicbiri fiyat sayfasinda bunu soylemiyor; biz soyleyip
+     dogrudan dogru paketi gosteriyoruz. Kaynak KGK'nin kendi sayfasi. -->
+<div class="kutu vurgu">
+  <h2>Sen kaç konudan sorumlusun?</h2>
+  <div class="tabsar"><table id="kgkMuafiyet">
+    <tr><th>Durumun</th><th class="sag">Konu</th><th class="sag">Sana uygun paket</th></tr>
+  </table></div>
+  <p class="kucuk" style="margin-top:10px">Meslek mensubu <b>olmayan</b> adaylar (staj yoluyla gelenler)
+  bu konulara ek olarak Muhasebe ve Genel Hukuk Mevzuatı'ndan da sorumludur — o kapsam
+  şu an bankamızda yok, sayfada satmıyoruz. Kaynak:
+  <a href="https://kgk.gov.tr/DynamicContentDetail/6617/Bag%CC%86%C4%B1ms%C4%B1z-denetc%CC%A7ilik-s%C4%B1nav%C4%B1nda-SMMM%E2%80%99lerin-tabi-tutulacag%CC%86%C4%B1-konular-nelerdir" target="_blank" rel="noopener">KGK — SMMM'lerin tabi tutulacağı konular</a> ·
+  <a href="https://kgk.gov.tr/DynamicContentDetail/6618/Bag%CC%86%C4%B1ms%C4%B1z-denetc%CC%A7ilik-s%C4%B1nav%C4%B1nda-YMM%E2%80%99lerin-tabi-tutulacag%CC%86%C4%B1-konular-nelerdir" target="_blank" rel="noopener">YMM'lerin tabi tutulacağı konular</a>
+  (29.08.2026'da okundu).</p>
+</div>
+
+<!-- 29.08: GUN MERDIVENI KALDIRILDI, yerine UYE KOTASI.
+     Eski merdiven sinava kalan gune gore fiyati kendiliginden yukseltiyordu ve
+     29.08'de patladi: kutu 2.190 yazarken manset 1.790 diyordu. Kota bizim
+     kontrolumuzde, sessizce tetiklenmez. Sayac EKRANDA GOSTERILMEZ. -->
+<div class="kutu">
+  <h2>Kuruluş fiyatı: ilk gelenler</h2>
+  <div class="tabsar"><table id="kotaTablo">
+    <tr><th>Paket</th><th class="sag">Kuruluş fiyatı</th><th class="sag">Sonrası</th><th>Kota</th></tr>
+  </table></div>
+  <p class="kucuk" style="margin-top:10px"><b>Sahte indirim yapmıyoruz:</b> üstü çizili gösterdiğimiz rakam,
+  kota dolduğunda gerçekten uygulayacağımız fiyattır. "Son 3 saat" sayacı, üstü çizili uydurma fiyat
+  ya da kampanya tiyatrosu yok. <b>Kuruluş fiyatına giren bir yıl boyunca o fiyatta kalır.</b></p>
 </div>
 
 <!-- KATEGORI AYRIMI: eski "piyasadan yirmi kat ucuzuz" cumlesi KALDIRILDI (02.08).
      "Ucuz" demek kendi kalitemizi inkar etmekti; artik ayri kategori oldugumuzu soyluyoruz. -->
 <div class="kutu">
   <h2>Biz kurs değiliz, kursun yapmadığını yapıyoruz</h2>
-  <p style="margin:0;font-size:14px">Piyasadaki hazırlık kursları <b>8.800 – 16.800 TL</b> bandında
-  (02.08.2026'da dört kurumun kendi sitesinden okundu) ve iyi iş yapıyorlar: konuyu anlatıyorlar.
+  <p style="margin:0;font-size:14px">Piyasadaki hazırlık kursları <b>8.400 – 39.900 TL</b> bandında
+  (29.08.2026'da yedi kurumun kendi sitesinden okundu) ve iyi iş yapıyorlar: konuyu anlatıyorlar.
   Ama sınav, konuyu <b>bilmekle</b> değil, soruyu <b>çözmekle</b> kazanılıyor.</p>
   <p style="margin:10px 0 0;font-size:14px">Kursa gidiyorsan Tetikte antrenman salonun olur.
   Kursa gitmiyorsan zaten tek ihtiyacın bu. <b class="a">208 saat ders dinleyecek vaktin yoksa,
@@ -234,7 +294,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><td>Soru bankası: her sorunun kanun maddesiyle</td><td class="sag">1.490 TL</td></tr>
     <tr><td>Birebir Prova motoru (resmî ders dağılımı)</td><td class="sag">690 TL</td></tr>
     <tr><td>Son 15 Gün planı</td><td class="sag">890 TL</td></tr>
-    <tr><td>Zayıf konu karnesi + koç notu</td><td class="sag">490 TL</td></tr>
+    <tr><td>Zayıf konu karnesi + çalışma önerisi</td><td class="sag">490 TL</td></tr>
     <tr><td><b>Toplam değer</b></td><td class="sag"><b>3.560 TL</b></td></tr>
     <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">1.790 TL</b></td></tr>
   </table></div>
@@ -328,39 +388,85 @@ SINAVLAR.forEach(function(s){
 });
 tk.innerHTML = h;
 
-// Fiyati TAKVIMDEN hesapla: sayfada yazan rakam ile odenecek rakam hep ayni olsun.
-// ANA RAKAM GUNLUK maliyet — karar veren sayi bu; toplam hemen altinda durur.
-['sgs','yeterlilik'].forEach(function(k){
-  var s = SINAVLAR.filter(function(x){ return x.anahtar === k; })[0];
-  var g = gunFarki(s.tarih), b = basamak(g), f = FIYAT[k][b];
-  var id = k === 'sgs' ? 'Sgs' : 'Yeterlilik';
-  // Sinav gecmisse ya da cok yakinsa gunluk rakam anlamsizlasir - o zaman gizlenir.
-  var gun = document.getElementById('gn' + id);
-  if(g >= 7){
-    gun.innerHTML = tl(Math.round(f / g)) + ' <small>TL / gün</small>';
-  } else {
-    gun.innerHTML = tl(f) + ' <small>TL</small>';
+// Fiyatlar fiyat-motoru.js'ten okunur; sayfada elle yazili rakam YOKTUR.
+// 29.08: gunluk maliyet ve taksit satirlari kaldirildi (ucuz marka refleksi).
+function kart(id, p){
+  document.getElementById('fy' + id).innerHTML = tl(p.fiyat) + ' <small>TL</small>';
+  var ls = document.getElementById('ls' + id);
+  if(p.liste > p.fiyat){
+    ls.innerHTML = tl(p.liste) + ' TL <b>%' + p.indirim + '</b>';
   }
-  document.getElementById('fy' + id).textContent = tl(f) + ' TL' + (g >= 7 ? ' · sınav gününe kadar' : '');
-  document.getElementById('tk' + id).textContent = '3 taksitle aylık ' + tl(Math.round(f / 3)) + ' TL';
-  document.getElementById('kd' + id).textContent = basamakYazi(b);
-});
+  var kt = document.getElementById('kt' + id);
+  if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' üye'; }
+}
+/* KGK karti SMMM PAKETINI gosterir (3 konu), "dort konunun tamami"ni degil:
+   KGK'da alicinin buyuk cogunlugu SMMM ve KGK'nin kendi sayfasina gore SMMM
+   sektor mevzuatindan MUAF. Vitrinde ona lazim olmayan paketi one koymak,
+   fiyati oldugundan pahali gosterirdi. */
+var pSgs = paketBul('sgs'), pYet = paketBul('yeterlilik-tum'), pKgk = paketBul('kgk-3');
+kart('Sgs', pSgs); kart('Yet', pYet); kart('Kgk', pKgk);
 
-// Deger yigini kutusundaki paket fiyati da SGS'nin guncel basamagini gostersin.
-var gS = gunFarki(SINAVLAR[0].tarih);
-document.getElementById('yiginFiyat').textContent = tl(FIYAT.sgs[basamak(gS)]) + ' TL';
+// Erisim yazisi: "en yakin sinavi kapsamiyorsa ucretsiz uzatilir" kurali
+// motorda; sayfa onu yazar, ayri hesap yapmaz.
+document.getElementById('erSgs').textContent = pSgs.erisim;
+document.getElementById('erYet').textContent = pYet.erisim;
 
-// Merdiven tablosu: bugun hangi basamaktaysak O SATIR isaretli (SGS takvimine gore).
-var m = document.getElementById('merdiven');
-var bS = basamak(gS);
-[['Sınava 90+ gün','erken'],['90 – 30 gün','orta'],['Son 30 gün','son']].forEach(function(r){
-  var tr = document.createElement('tr');
-  var simdi = (r[1] === bS);
-  tr.innerHTML = '<td>' + r[0] + (simdi ? ' <span class="simdi">← şu an</span>' : '') + '</td>'
-    + '<td' + (simdi ? ' class="simdi"' : '') + '>' + tl(FIYAT.sgs[r[1]]) + ' TL</td>'
-    + '<td' + (simdi ? ' class="simdi"' : '') + '>' + tl(FIYAT.yeterlilik[r[1]]) + ' TL</td>';
-  m.appendChild(tr);
-});
+// "Tek ders/modul X TL'den baslar" — merdivenin ilk basamagi.
+document.getElementById('fyYet1').textContent = tl(paketBul('yeterlilik-1').fiyat);
+document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
+document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
+
+// Deger yigini kutusundaki paket fiyati.
+document.getElementById('yiginFiyat').textContent = tl(pSgs.fiyat) + ' TL';
+document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
+
+// HARC KARSILASTIRMASI: her basamak harctan ucuz mu, tablo kendisi gostersin.
+// Rakamlar HARC sabitinden gelir; elle yazilmaz, harc degisirse tek yerden degisir.
+(function(){
+  var t = document.getElementById('harcYet');
+  [1,2,3,4].forEach(function(n){
+    var p = paketBul('yeterlilik-' + n), harc = HARC.yeterlilik.ders * n;
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + n + ' ders</td><td class="sag">' + tl(harc) + ' TL</td>'
+                 + '<td class="sag simdi">' + tl(p.fiyat) + ' TL</td>';
+    t.appendChild(tr);
+  });
+  var pt = paketBul('yeterlilik-tum'), tr = document.createElement('tr');
+  tr.innerHTML = '<td><b>Tüm dersler (8)</b></td><td class="sag">'
+               + tl(HARC.yeterlilik.ilkBasvuru) + ' TL</td>'
+               + '<td class="sag simdi"><b>' + tl(pt.fiyat) + ' TL</b></td>';
+  t.appendChild(tr);
+})();
+
+// MUAFIYET TABLOSU: kim kac konudan sorumlu -> hangi paket. Rakamlar
+// KGK_SORUMLULUK'tan; elle yazilmaz, KGK kurali degisirse tek yerden degisir.
+(function(){
+  var t = document.getElementById('kgkMuafiyet');
+  KGK_SORUMLULUK.forEach(function(r){
+    var p = paketBul(r.konu >= 4 ? 'kgk-tum' : 'kgk-' + r.konu);
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><b>' + r.kim + '</b><br><span class="kucuk">' + r.not + '</span></td>'
+      + '<td class="sag">' + r.konu + '</td>'
+      /* Paket adı DEĞİL konu sayısı yazılır: "YMM · sektör denetimi" satırı da
+         3 konuluk pakete düşüyor ve orada "SMMM paketi" yazması yanıltırdı. */
+      + '<td class="sag simdi">' + r.konu + ' konuluk paket<br><b>' + tl(p.fiyat) + ' TL</b></td>';
+    t.appendChild(tr);
+  });
+})();
+
+// KOTA TABLOSU: kurulus fiyati / liste fiyati / kota. Sayac gosterilmez.
+(function(){
+  var t = document.getElementById('kotaTablo');
+  ['sgs','yeterlilik-tum','kgk-tum','yeterlilik-kgk'].forEach(function(id){
+    var p = paketBul(id);
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + p.ad + '</td>'
+      + '<td class="sag simdi">' + tl(p.fiyat) + ' TL</td>'
+      + '<td class="sag">' + tl(p.liste) + ' TL</td>'
+      + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üye' : '—') + '</td>';
+    t.appendChild(tr);
+  });
+})();
 </script>
 <script src="menu.js" defer></script><link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

@@ -12,7 +12,17 @@ veri/fabrika-yedek-denetim-oncesi/
 # 10 soruyla SINIRLANDI: kalite denetimi kor kalmasin, 745 soru da sizmasin.
 # On soru sizmasi ihmal edilebilir, 745 degildir.
 # ============================================================================
-veri/fabrika/
+# 30.08.2026 — KLASORUN KENDISI DEPODA KALIR, ICERIGI KALMAZ.
+# Olculdu: motor'daki 50 betikten 23'u veri/fabrika/ altina YAZIYOR ama
+# klasoru OLUSTURMUYOR. Cem'in laptopunda klasor var, o yuzden yillardir
+# fark edilmemis; TEMIZ KLONDA ve CI runner'inda hepsi PATLAR.
+# Canli vaka: surum-tazeligi.ps1 CI'da sessizce dustu (adim continue-on-error
+# ile maskeliydi), karne yazilamadi ve envanterin "Surum olculen" sutunu
+# 40 -> 0 dustu; CI yerelden KOTU bir envanteri origin/main'e bastI.
+# 23 betigi tek tek yamamak yerine KLASORU VAR EDIYORUZ: icerik yine yok
+# sayilir, yalniz .gitkeep depoda durur.
+veri/fabrika/*
+!veri/fabrika/.gitkeep
 
 # 30.07 - YEREL SQL: parali soru icerigi tasiyan SQL dosyalari depoya girmez.
 sql-yerel/

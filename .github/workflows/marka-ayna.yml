@@ -1,0 +1,94 @@
+name: Marka Aynasi
+# ============================================================================
+#  Cem (29.08.2026): "kendi aynamizi kuralim bir yere bagimli olmayalim...
+#  gunluk guncellememizi yaparsak bundan sonra hep dogru gitmis oluruz."
+#
+#  IKI IS:
+#   1) BACKFILL — 2,8 milyon TR kaydi, gece gece. Tek kosuda bitmez; her gece
+#      bekleyen dilimlerden bir parti islenir, kaldigi yerden devam eder.
+#      Ilerleme marka_ayna_dilim tablosunda; kesinti veri kaybettirmez.
+#   2) GUNLUK — backfill bittikten sonra aynayi ayakta tutan sey. Son 10 gunun
+#      basvurulari her gun tazelenir.
+#
+#  MALIYET 0: depo PUBLIC (Actions ucretsiz), TMview kimliksiz/CAPTCHA'siz.
+#  NAZIK OLMAK: istekler arasi 300 ms, dilim basi tavanli. Amac kaynagi
+#  yormadan, gunler icinde tamamlamak.
+#
+#  ILK KURULUM (Cem'in eli gerekiyor, bir kez):
+#    veri/sql-marka-ayna.sql -> Supabase SQL Editor
+#    sonra: Actions > Marka Aynasi > Run workflow > mod: plan
+# ============================================================================
+on:
+  schedule:
+    - cron: '20 1 * * *'    # her gece 04:20 TR - trafigin en dusuk oldugu saat
+  workflow_dispatch:
+    inputs:
+      mod:
+        description: 'plan = dilim planini kur (bir kez) · backfill = bekleyen dilimleri isle · gunluk = son gunleri tazele'
+        type: choice
+        options: [backfill, gunluk, plan]
+        default: backfill
+      dilim:
+        description: 'backfill: bu kosuda islenecek dilim sayisi'
+        default: '25'
+
+concurrency:
+  group: marka-ayna
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  ayna:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330      # uzun ama sinirli; takilirsa gece bitmeden durur
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ayna hasadi
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $log = 'veri/marka-ayna-log.txt'
+          "=== kosu $(Get-Date -Format 'dd.MM.yyyy HH:mm:ss') | pwsh $($PSVersionTable.PSVersion) ===" | Set-Content $log
+          $mod = '${{ github.event.inputs.mod }}'
+          if([string]::IsNullOrWhiteSpace($mod)){ $mod = 'backfill' }   # zamanlanmis kosu
+          $dilim = '${{ github.event.inputs.dilim }}'
+          if([string]::IsNullOrWhiteSpace($dilim)){ $dilim = '25' }
+          "mod: $mod | dilim: $dilim" | Add-Content $log
+          $kod = 0
+          try {
+            switch($mod){
+              'plan'   { ./motor/marka-ayna-hasat.ps1 -Plan *>&1 | Tee-Object -FilePath $log -Append }
+              'gunluk' { ./motor/marka-ayna-hasat.ps1 -Gunluk *>&1 | Tee-Object -FilePath $log -Append }
+              default  { ./motor/marka-ayna-hasat.ps1 -DilimBasi ([int]$dilim) *>&1 | Tee-Object -FilePath $log -Append }
+            }
+            if($null -ne $LASTEXITCODE){ $kod = $LASTEXITCODE }
+          } catch {
+            $kod = 1
+            "!! ISTISNA"                                      | Add-Content $log
+            "   tur   : $($_.Exception.GetType().FullName)"   | Add-Content $log
+            "   mesaj : $($_.Exception.Message)"              | Add-Content $log
+            "   yer   : $($_.InvocationInfo.PositionMessage)" | Add-Content $log
+          }
+          "CIKIS KODU: $kod" | Add-Content $log
+          Write-Host "----- gunluk -----"
+          if(Test-Path $log){ Get-Content $log | ForEach-Object { Write-Host $_ } }
+          exit $kod
+
+      # Kor kalma kurali: kirmizi olsa da ne gordugumuz depoda dursun.
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/marka-ayna-raporu.json || true
+          git add veri/marka-ayna-log.txt || true
+          git diff --cached --quiet || git commit -m "Marka aynasi raporu [veri-operasyonu]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash || true
+            if git push; then echo "rapor islendi (deneme $i)"; break; fi
+            echo "push tutmadi (deneme $i)"; sleep 7
+          done

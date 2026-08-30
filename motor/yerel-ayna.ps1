@@ -99,13 +99,20 @@ Write-Host '=== SORU-DAYANAK NOBETCISI ==='
 # --- sonucu bas (ayna ciktilarindaki degisiklikler + rapor)
 # 07.08 ilk kosu dersi: eslesmeyen joker (mevzuat-rapor*.json) git add'i sessizce
 # bosa dusurdu, commit atlandi. Klasor -A ile, rapor tek tek eklenir.
-git add -A veri/mevzuat
-git add veri/yerel-ayna-raporu.json
-git add veri/soru-dayanak-raporu.json 2>$null
-git diff --cached --quiet
+# 30.08.2026 - iki onarim (yerel-indirici ile ayni kusurlar):
+#  (1) commit YOLSUZDU -> indekste bekleyen baskasinin dosyalarini da yayina
+#      iterdi. Artik yol belirtilerek commit edilir.
+#  (2) pull --autostash'siz -> kirli agacta duserdi ("cannot pull with rebase:
+#      You have unstaged changes"). Robotlar veri dosyasi yazdigi icin agac
+#      neredeyse HER ZAMAN kirlidir; bu, aynayi kilitleyen dugumdu.
+$AYNA_YOLLAR = @('veri/mevzuat','veri/yerel-ayna-raporu.json','veri/soru-dayanak-raporu.json')
+git add -A -- veri/mevzuat
+git add -- veri/yerel-ayna-raporu.json
+git add -- veri/soru-dayanak-raporu.json 2>$null
+git diff --cached --quiet -- $AYNA_YOLLAR
 if($LASTEXITCODE -ne 0){
-  git commit -m 'Yerel ayna kosusu (TR-IP) [veri-operasyonu]' | Out-Null
-  git pull --rebase origin main 2>$null | Out-Null
+  git commit -m 'Yerel ayna kosusu (TR-IP) [veri-operasyonu]' -- $AYNA_YOLLAR | Out-Null
+  git pull --rebase --autostash origin main 2>$null | Out-Null
   git push origin HEAD:main 2>$null | Out-Null
   Write-Host 'commit + push tamam'
 } else { Write-Host 'degisiklik yok - commit atlanildi' }

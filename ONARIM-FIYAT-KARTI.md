@@ -1,4 +1,60 @@
-# ONARIM FİYAT KARTI — 02.08.2026
+# ONARIM FİYAT KARTI — 02.08.2026 · 🆕 25.08 ÖRNEKLEM · 🏁 26.08 PİLOT SONUCU + MODEL KARARI
+
+> ## 🏁 26.08.2026 — PİLOT 200 KOŞTU, MODEL KARARI VERİLDİ: **SONNET 5** (Cem: "hangi model karar ver")
+>
+> **Pilot:** aynı 100 soru (ince dersler ağırlıklı, tohum 20260826) × 2 model = 200 çağrı, 0 hata,
+> hepsi birincil Anthropic hattı. Gerçek fatura: **$6,2** (Sonnet kesilen 86'nın 3.500 tavanla
+> tekrarı dahil; ilk $4 tahmini aşıldı çünkü Sonnet ölçülen çıktısı ~2.800 tok/soru — tahminin 3,5 katı).
+>
+> **Kör kıyas (75 çift, 2 bağımsız hakem, model adları gizli, sıra çift başına rastgele):**
+> SONNET 59 üstün / HAIKU 8 / eşit 8 · puan 857-753 · kritik kusur S:8 H:11.
+> Haiku'yu düşüren: anlamı bozan Türkçe ("vergiden kaçınar", "duruşlama") + uydurma rakam türetimi
+> — tam da 25.08 örnekleminin ana kusur sınıfları. Sonnet'in kusurları yapısal/şablon (istemle düzelir).
+>
+> **KARAR: Ana cila partisi SONNET 5 + batch (1 Eylül) + REVİZE İSTEM.** İstem revizyonları (pilottan):
+> (1) özlülük emri — "her şık açıklaması ortalama 60-90 kelime; şişkinlik merit değil" (ölçülen 2.800 tok
+> çıktıyı ~1.600-1.800'e çeker); (2) "Hangisi YANLIŞTIR/çıkarılamaz" soru tipinde şablonun TERS kurulması
+> kuralı (Hakem B: no 44/71 deseni); (3) çıktı JSON şema kapısı (alan kaçağı %5-25 ölçüldü — bozuk yapı
+> otomatik yeniden istenir); (4) MaxTok 3500.
+>
+> **GÜNCEL FİYAT (ölçülen birimlerle, Sonnet batch post-intro $1.5/$7.5):**
+> | Kalem | Adet | Tutar |
+> |---|---:|---:|
+> | A. Cila — Sonnet batch, revize istem (giriş ~2.8k, çıkış hedef ~1.8k tok) | 12.539 | **$220-290** (özlülük emri tutarsa alt bant) |
+> | B. Cevap-şüphelisi yeniden üretim | ~1.700 | $79 |
+> | C. Hakem (Haiku) | 12.539 | $10 |
+> | D. Havuz dışı "Doğrusu:" (Haiku batch — hakem verisi Haiku'yu tek-cümle işte yeterli gösteriyor) | 10.366 | $22 |
+> | **TOPLAM ANA PARTİ** | | **≈ $330-400** |
+>
+> Not: Haiku-cila yolu ($104) FİYAT olarak cazipti ama kör kıyas kalitede sınıfta bıraktı (8/75) —
+> ucuz yol, %70 kusuru başka kusurla değiştirmek olurdu. Karar verildi, pazarlık kapandı.
+> **Pilot yan bulguları:** bir soruda mevzuatta olmayan merci şüphesi (no 62, "Yüksek Disiplin Kurulu"
+> — soru-düzeyi inceleme listesine alındı) · pilot çıktıları veri/fabrika/pilot-cila-20260826.json
+> (75 geçerli Sonnet cilası ana partide YENİDEN ürettirilmez, denetimden geçirilip kullanılır).
+
+> ## 🆕 25.08.2026 GECE — "%70 KUSUR" PARTİSİNİN MALİYETİ (Cem: "maliyeti çıkar")
+>
+> **Dayanaklar:** birim boyutlar 50'lik örneklemden ÖLÇÜLDÜ (soru+şık+açıklama+hap
+> ort. 2.687 karakter ≈ 900 token; cila girişi ≈ 3.500 token istem+madde dahil, çıkışı ≈ 800).
+> Model fiyatları güncel liste: Haiku 4.5 $1/$5 · Sonnet 5 $3/$15 (⚠️ tanıtım $2/$10
+> **31.08'de bitiyor**) · batch her zaman %50. Çapa ölçümler: dogrusu-ekle 02.08
+> (3.000+250 token/soru) · K2 hakem 27.07 (~$0,0013/soru) · üretim planı 24.08 (1.680 soru ≈ $52).
+>
+> | Kalem | Adet | ŞİMDİ (OpenRouter, batch yok, tanıtım fiyatı) | 1 EYLÜL (Anthropic batch, tanıtım bitmiş) |
+> |---|---:|---:|---:|
+> | A. Aday havuz cilası — açıklama katmanı yeniden yazımı (4 parça + tuzak adı + Doğrusu + kendi rakamını üreten çeldirici) | 12.539 | Sonnet ≈ **$188** / Haiku ≈ $94 | Sonnet ≈ **$141** / Haiku ≈ $47 |
+> | B. Cevap-şüphelisi yeniden üretim (K13 aritmetik 1.302 + kalıplı 129 + dengesiz 87 + GM kusurlu 53 + iç-monolog 104, çakışma payıyla ~1.700) | ~1.700 | ≈ **$105** | ≈ **$79** |
+> | C. Hakem yeniden yargılama (onarım sonrası tüm aday havuz, Haiku) | 12.539 | ≈ $20 | ≈ **$10** |
+> | D. (Opsiyonel, havuz BÜYÜTME) "Doğrusu:" ekleme — havuz DIŞI K5 ihlalliler | 10.366 | ≈ $44 | ≈ **$22** |
+> | **A+B+C (Sonnet yolu — ÖNERİM)** | | **≈ $313** | **≈ $230** (+%5 aracı payı ≈ $240) |
+> | A(Haiku)+B+C ucuz yolu | | ≈ $219 | ≈ $136 |
+>
+> **Öneri: 200 soruluk PİLOT ŞİMDİ (~$3-4, OpenRouter Sonnet) → çıktıyı okuyucular denetler,
+> gerçek birim fatura ölçülür → ana parti 1 EYLÜL'de Anthropic batch ile (~$230-240).**
+> 6 gün beklemenin kazancı ≈ $80. Cila modelini Haiku'ya düşürmek $94 kazandırır ama
+> örneklem kusurlarının türü (uydurma türetim, kaynak teyidi) muhakeme istiyor — pilot
+> iki modeli de 100'er soruyla deneyip kararı VERİYLE verdirebilir.
+> *(A/B/C/D türetilmiş tahmindir — ölçülü birimlerden hesaplandı, pilot faturası kesinleştirir.)*
 
 > ## 🔴 DÜZELTME 2 (02.08 gece geç) — "ÖNCE ELEME, PARALI İŞ KÜÇÜLÜR" GEREKÇESİ ÇÜRÜDÜ
 >

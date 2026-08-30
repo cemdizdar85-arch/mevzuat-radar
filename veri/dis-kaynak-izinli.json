@@ -1,0 +1,50 @@
+{
+  "baslik": "Açılış kapısı — bilinçli olarak izin verilen DIŞ kaynak sunucuları",
+  "tarih": "29.08.2026",
+  "dogus": "Sitenin dış istek sayısı 19.08'de bilerek sıfıra indirilmişti (supabase-js kendi sunucumuza alındı). Açılış kapısı kurulunca 63 sayfa ölçüldü: sıfır DEĞİL. Altı sayfa hâlâ dışarıya bağlanıyor. Hiçbiri kaza değil, ama hiçbiri de yazılı değildi — bu dosya onları yazıya döküyor.",
+  "kural": "Buraya bir satır eklemek, o sunucuya bağımlı olmayı KABUL ETMEKTİR. Eklerken NEDEN'ini ve DÜŞERSE NE OLUR'unu yaz. LİSTEDE OLMAYAN her dış sunucu KIRMIZIDIR — yeni bir üçüncü taraf bağımlılığı sessizce giremesin.",
+  "izinli": [
+    {
+      "sunucu": "bjrleanjpyujtajmazxn.supabase.co",
+      "ne": "Kendi arka ucumuz (Supabase): RPC ve REST çağrıları",
+      "neden": "Üçüncü taraf değil, bizim veri katmanımız. Sayfanın çalışması zaten buna bağlı.",
+      "duserse": "İlgili aracın verisi gelmez — beklenen ve kaçınılmaz."
+    },
+    {
+      "sunucu": "gc.zgo.at",
+      "ne": "GoatCounter ziyaretçi sayacı (30+ sayfada, async)",
+      "neden": "Gizlilik dostu, çerezsiz sayaç; ziyaretçi ölçümü için bilinçli seçildi.",
+      "duserse": "Sayfa normal çalışır, yalnız ziyaret sayılmaz — kullanıcıya etkisi yok."
+    },
+    {
+      "sunucu": "api.github.com",
+      "ne": "durum.html'in canlı iş akışı durumları",
+      "neden": "Depo public olduğu için kimliksiz okunabiliyor; sayfanın tüm varlık sebebi bu veri (sayfa kendi başlığında bunu yazıyor).",
+      "duserse": "Sayfa bunu SÖYLER (kimliksiz saatlik 60 istek sınırı dâhil), sessizce yeşil göstermez."
+    },
+    {
+      "sunucu": "cdnjs.cloudflare.com",
+      "ne": "SheetJS (xlsx) ve pdf.js — alacak-radari.html, fis-fabrikasi.html, risk-taramasi.html",
+      "neden": "Belge okuma kütüphaneleri; yerelleştirilmemiş.",
+      "duserse": "ÜÇ ARAÇTA GERÇEK KESİNTİ: Excel/PDF yükleme çalışmaz. ⚠️ YERELLEŞTİRME ADAYI — supabase-js 19.08'de tam bu sebeple kendi sunucumuza alınmıştı; bu iki kütüphane o turda atlanmış."
+    },
+    {
+      "sunucu": "flagcdn.com",
+      "ne": "ihale-radari.html'de ülke bayrağı görseli",
+      "neden": "Tek bir küçük görsel.",
+      "duserse": "Bayrak görünmez, sayfa çalışır. Yerelleştirmesi ucuz."
+    },
+    {
+      "sunucu": "fonts.googleapis.com",
+      "ne": "tipografi-deneme.html — yazı karakteri denemesi",
+      "neden": "Karar bekleyen TASARIM DENEMESİ sayfası; yayın sayfası değil. Yayındaki yazı karakteri zaten yerel (kutuphane/source-serif-600-tr.woff2).",
+      "duserse": "Yalnız deneme sayfası etkilenir."
+    },
+    {
+      "sunucu": "fonts.gstatic.com",
+      "ne": "tipografi-deneme.html — yukarıdaki stil dosyasının çektiği font dosyaları",
+      "neden": "Aynı deneme sayfası.",
+      "duserse": "Yalnız deneme sayfası etkilenir."
+    }
+  ]
+}

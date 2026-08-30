@@ -65,7 +65,15 @@ $YAZMA = 'WriteAllText|WriteAllBytes|Out-File|Set-Content|Export-Csv|Export-Clix
 $uretici    = New-Object 'System.Collections.Generic.Dictionary[string,string]'
 $sadeceOkur = New-Object 'System.Collections.Generic.Dictionary[string,string]'
 $oluKaynak = New-Object 'System.Collections.Generic.Dictionary[string,string]'
-foreach($p in (Get-ChildItem (Join-Path $kok 'motor') -Filter *.ps1)){
+# 29.08 KOR NOKTA DUZELTMESI (Cem "1 yap" - Sistem Durumu kirmizilarini ac):
+# Kapi ureticileri YALNIZ motor/ icinde ariyordu. Nobetci raporlarini (veri
+# kapisi, veri tazeligi, zincir haritasi, baglanmamis katman) uretenler ise
+# arac/ altinda duruyor ve veri-kapisi.yml onlari HER GUN cagiriyor. Kapi bu
+# dosyalari "elle besleniyor" diye KIRMIZI veriyordu - YANLIS ALARM. Dort
+# yanlis alarm, gercek olan iki bulguyu (saglik-karnesi, altin-test-taban)
+# gorunmez kiliyordu. Artik iki klasor de taranir.
+$ureticiKlasorleri = @('motor','arac')
+foreach($p in ($ureticiKlasorleri | ForEach-Object { Get-ChildItem (Join-Path $kok $_) -Filter *.ps1 -ErrorAction SilentlyContinue })){
   $icerik = [IO.File]::ReadAllText($p.FullName)
   $gecen  = New-Object 'System.Collections.Generic.HashSet[string]'
   foreach($m in [regex]::Matches($icerik, 'veri[/\\]([A-Za-z0-9._-]+\.json)')){ [void]$gecen.Add($m.Groups[1].Value) }
@@ -146,8 +154,13 @@ foreach($w in (Get-ChildItem (Join-Path $kok '.github/workflows') -Filter *.yml)
 foreach($tur in 1..2){   # iki tur: zincir iki halka derinlige kadar cozulur
   $eklenecek = New-Object 'System.Collections.Generic.List[string]'
   foreach($ad in $cagrilan){
-    $yol = Join-Path $kok ('motor/' + $ad)
-    if(-not (Test-Path $yol)){ continue }
+    # Dolayli cagri zinciri de iki klasorde aranir (bkz. yukaridaki kor nokta).
+    $yol = $null
+    foreach($kl in $ureticiKlasorleri){
+      $aday = Join-Path $kok ($kl + '/' + $ad)
+      if(Test-Path $aday){ $yol = $aday; break }
+    }
+    if(-not $yol){ continue }
     $ic = YorumsuzMetin ([IO.File]::ReadAllText($yol))
     foreach($m in [regex]::Matches($ic, '([A-Za-z0-9._-]+\.ps1)')){
       if(-not $cagrilan.Contains($m.Groups[1].Value)){ [void]$eklenecek.Add($m.Groups[1].Value) }

@@ -43,7 +43,7 @@ h1{font-size:clamp(23px,4.3vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .satir{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}.satir:last-child{border:0}
 .satir .v{font-weight:800;white-space:nowrap}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:12px 20px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:14px}
-.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(245,165,36,.45);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
@@ -77,7 +77,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="ilerle" id="ilerle"></div>
   <div id="ekran"></div>
 
-  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">⚖️ Her durumda işine yarayabilecek VUK savunma hükümleri (çoğu kişi bilmez)</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:var(--ink)">m.369 · Yanılma / görüş değişikliği:</b> İdare sana <b>YAZILI yanlış izahat</b> verdiyse ya da bir konudaki içtihat/tebliğ-sirküler sonradan değiştiyse → <b>ceza kesilmez ve gecikme faizi hesaplanmaz</b>; yeni görüş geriye dönük uygulanamaz. (En güçlü savunmalardan; özelge/GİB yazısına güvenip yaptıysan sakla.)</p>
@@ -91,7 +91,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </div>
   </details>
 
-  <details style="background:var(--kagit);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
+  <details style="background:var(--kagit);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">🛃 Gümrük cezası mekanizması: ne kadar, hangi kapı? (4458 madde madde)</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:var(--ink)">m.234 · Beyan/muayene farkı:</b> Serbest dolaşıma girişte GTİP/tarife ya da ölçü aykırılığında vergi farkı <b>%5'i aşarsa</b> farkın <b>3 KATI</b> ceza alınır; <b>KIYMET noksanlığında %5 eşiği YOKTUR</b>, fark vergisinin 3 katı doğrudan uygulanır (yalnız %5'i geçmeyen miktar farkı ve maddi hesap hatasından doğan noksan kıymette yarım kat). <b>İdare tespit etmeden kendin bildirirsen cezalar %10 nispetinde uygulanır</b> (m.234/3) — 3 kat yerine 0,3 kat. (Farkı önceden yakalamak için <a href="gtip.html">GTİP</a> ve <a href="fiyatfarki.html">Fiyat Farkı</a> araçlarıyla beyanını sağlam yap.)</p>
@@ -385,7 +385,7 @@ baslat();
     <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px">Bu işi uzmana bırakmak istersen</div>
     <div style="font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5">Araç sana yolu gösterir; dosyanı üstlenmek istersen <b style="color:var(--ink)">Dizdar Denetim A.Ş.</b> ekibi teklif versin. Yaz, aynı gün dönelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kısaca konun (ör. ceza geldi / ithalat planı)" style="flex:2;min-width:210px;background:var(--yuzey);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı. Aynı gün dönüş yapacağız.</div>

@@ -46,7 +46,7 @@ try {
         '<style>@keyframes mrNbz{0%,100%{opacity:1}50%{opacity:.4}}</style>'+
         '<p style="color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:var(--ink)">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
         '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
-        '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:var(--kagit);border:1px solid rgba(255,255,255,.14);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px">'+
+        '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:var(--kagit);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px">'+
         '<button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button>'+
         /* 30.07: pasif "katilinca kabul edersin" satiri acik riza DEGILDI -
            karne formundaki gibi zorunlu onay kutusuna cevrildi (KVKK).
@@ -161,7 +161,7 @@ var css=''+
 '#mrxGeri:hover .ok{transform:translateX(-3px)}'+
 /* şeridi olmayan sayfalarda tek başına durur; orada çerçeve gerekiyor */
 '#mrxGeri.mrxGeriPul{margin:0 0 12px;padding:8px 14px 8px 11px;'+
- 'border:1px solid var(--line2,rgba(255,255,255,.13));border-radius:999px;'+
+ 'border:1px solid var(--line2);border-radius:999px;'+
  'background:var(--yuzey,#0a0f17);font-size:13.5px}'+
 '#mrxGeri.mrxGeriPul:hover{border-color:rgba(245,165,36,.45)}'+
 /* mobilde 44px dokunma hedefi - menü linklerine 14.08'de uygulanan ölçünün aynısı.
@@ -185,7 +185,7 @@ var css=''+
   'padding-left:calc(50vw - 50%)!important;padding-right:calc(50vw - 50%)!important}'+
  '@media print{.mrxSeritGenis{margin:0!important;padding-left:0!important;padding-right:0!important}}'+
 '}'+
-'#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid rgba(255,255,255,.16);'+
+'#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid var(--line2);'+
  'background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;'+
  'font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;padding:12px 18px;border-radius:999px;'+
  'cursor:pointer;box-shadow:0 8px 28px rgba(46,140,255,.45);letter-spacing:.2px;'+
@@ -201,22 +201,22 @@ var css=''+
  'display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}'+
 '.mrxUst b{font-size:16px}'+
 '.mrxUst a{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 14px;'+
- 'border:1px solid rgba(255,255,255,.14);border-radius:10px}'+
+ 'border:1px solid var(--line2);border-radius:10px}'+
 '.mrxUst a:hover{color:#fff}'+
 '.mrxUst a.mrxUye{background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;border:0;font-weight:800}'+
-'#mrxKapat{margin-left:auto;appearance:none;border:1px solid rgba(255,255,255,.16);background:transparent;'+
+'#mrxKapat{margin-left:auto;appearance:none;border:1px solid var(--line2);background:transparent;'+
  'color:var(--ink);font-size:18px;border-radius:10px;padding:6px 13px;cursor:pointer}'+
-'#mrxAra{width:100%;padding:13px 16px;border:1px solid rgba(255,255,255,.16);border-radius:12px;'+
+'#mrxAra{width:100%;padding:13px 16px;border:1px solid var(--line2);border-radius:12px;'+
  'background:var(--yuzey);color:var(--ink);font-size:15px;font-family:inherit;margin-bottom:6px}'+
 '#mrxAra:focus{outline:none;border-color:#f5a524;box-shadow:0 0 0 3px rgba(245,165,36,.18)}'+
 '.mrxGrup{margin-top:24px}'+
 '.mrxGrup>h3{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin:0 0 12px;'+
  'font-weight:800;display:flex;align-items:center;gap:10px}'+
-'.mrxGrup>h3:after{content:"";flex:1;height:1px;background:rgba(255,255,255,.09)}'+
+'.mrxGrup>h3:after{content:"";flex:1;height:1px;background:var(--line)}'+
 '.mrxGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}'+
 '@media(max-width:860px){.mrxGrid{grid-template-columns:repeat(2,1fr)}}'+
 '@media(max-width:540px){.mrxGrid{grid-template-columns:1fr}}'+
-'.mrxArac{display:flex;gap:11px;align-items:flex-start;padding:12px 14px;border:1px solid rgba(255,255,255,.09);'+
+'.mrxArac{display:flex;gap:11px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);'+
  'border-radius:13px;background:var(--kagit);text-decoration:none;color:var(--ink);transition:border-color .15s}'+
 '.mrxArac:hover{border-color:rgba(245,165,36,.45)}'+
 '.mrxArac .em{font-size:20px;line-height:1;margin-top:2px}'+
@@ -421,7 +421,7 @@ function kur(){
   try {
     if (!document.querySelector('a[href$="kvkk.html"]')) {
       var yf = document.createElement('div');
-      yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
+      yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid var(--line);font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
       yf.innerHTML = '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a> · ' +
         '<a href="' + KOK + 'uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
         '<a href="' + KOK + 'mesafeli-satis.html" style="color:var(--muted);text-decoration:none">Mesafeli Satış</a> · ' +

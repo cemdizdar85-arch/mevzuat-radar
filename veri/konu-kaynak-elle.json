@@ -1,0 +1,932 @@
+﻿{
+    "baslik":  "Konu-kaynak karnesi ELLE ESLESME tablosu — karnenin arama korlugunu kapatir",
+    "tarih":  "26.08.2026 - KGK partisi eklendi",
+    "dogus":  "Karnenin 66 \u0027KAYNAK YOK\u0027 konusu tek tek okundu; 36\u0027sinin metni ambarda VARDI. Kok sebep \u0027cari oran\u0027 hastaligiyla ayni: (1) anahtar-kelime adimi 5 harften kisa kelimeleri atiyor (\u0027bono\u0027 ve \u0027aval\u0027 4\u0027er harf -\u003e konu hic aranamiyor), (2) konu adindaki yazim/cekim metinle birebir tutmuyor (\u0027mesleki supphecilik\u0027 cift p yazim hatasi), (3) konu adi kavrami metindeki resmi terimle degil sinav diliyle soyluyor (\u0027orneklemede kabul edilemez hata payi\u0027 = BDS 530 \u0027tolere edilebilir yanlislik\u0027).",
+    "kural":  "Tabloya YALNIZ ambar sondajiyla KANITLANMIS baglar yazilir (her satirin kanit sayisi asagida). desen KONU ADINA uygulanir (IgnoreCase); tutarsa rx ile ambar YENIDEN sayilir - kayit 0 donerse ELLE ESLESME GECERSIZDIR ve normal zincir calisir. Kelime-geciyor-diye baglama YASAK (konu-kaynak-eslestirme-yasagi): her rx, konunun GERCEK kaynagini hedefler.",
+    "eslesmeler":  [
+                       {
+                           "konu":  "^bono aval$",
+                           "tip":  "uc",
+                           "rx":  "aval",
+                           "kanit":  980,
+                           "gerekce":  "TTK m.700-702 aval hukumleri"
+                       },
+                       {
+                           "konu":  "^irade sakatligi korkutma$",
+                           "tip":  "uc",
+                           "rx":  "korkutma",
+                           "kanit":  27,
+                           "gerekce":  "TBK m.37-38"
+                       },
+                       {
+                           "konu":  "^irade sakatligi yanilma$",
+                           "tip":  "uc",
+                           "rx":  "esasl[iı] yan",
+                           "kanit":  10,
+                           "gerekce":  "TBK m.30-35 esasli yanilma"
+                       },
+                       {
+                           "konu":  "^tacir sayilmayanlar",
+                           "tip":  "uc",
+                           "rx":  "tacir say[iı]lmaz",
+                           "kanit":  8,
+                           "gerekce":  "TTK m.16/2 (Devlet, il ozel idaresi...)"
+                       },
+                       {
+                           "konu":  "^tacir sifati tasimayanlar$",
+                           "tip":  "uc",
+                           "rx":  "tacir say[iı]lmaz",
+                           "kanit":  8,
+                           "gerekce":  "TTK m.16/2"
+                       },
+                       {
+                           "konu":  "^anonim sirkete ayni sermaye olabilecekler$",
+                           "tip":  "uc",
+                           "rx":  "ayni sermaye",
+                           "kanit":  79,
+                           "gerekce":  "TTK m.342"
+                       },
+                       {
+                           "konu":  "^borclu temerrudu imkanlari$",
+                           "tip":  "uc",
+                           "rx":  "bor[cç]lunun temerr",
+                           "kanit":  44,
+                           "gerekce":  "TBK m.117 vd."
+                       },
+                       {
+                           "konu":  "^isci sendikasi kurabilecekler$",
+                           "tip":  "uc",
+                           "rx":  "sendika kurma",
+                           "kanit":  5,
+                           "gerekce":  "6356 sayili Kanun"
+                       },
+                       {
+                           "konu":  "^sendikadan ayrilmama",
+                           "tip":  "uc",
+                           "rx":  "sendikal tazminat",
+                           "kanit":  8,
+                           "gerekce":  "6356 m.25"
+                       },
+                       {
+                           "konu":  "^kdv tarh yeri$",
+                           "tip":  "uc",
+                           "rx":  "tarh yeri",
+                           "kanit":  13,
+                           "gerekce":  "KDVK m.43"
+                       },
+                       {
+                           "konu":  "^kacakciliga istirak",
+                           "tip":  "uc",
+                           "rx":  "ka[cç]ak[cç][iı]l[iı]k su[cç]",
+                           "kanit":  45,
+                           "gerekce":  "VUK m.359-360"
+                       },
+                       {
+                           "konu":  "^otv kanununda duzenlenmeyen kurum$",
+                           "tip":  "uc",
+                           "rx":  "[oö]zel t[uü]ketim vergisi",
+                           "kanit":  748,
+                           "gerekce":  "4760 sayili OTVK"
+                       },
+                       {
+                           "konu":  "^policede kapital faizi kaydi$",
+                           "tip":  "uc",
+                           "rx":  "faiz [sş]art[iı]",
+                           "kanit":  8,
+                           "gerekce":  "TTK m.675 policede faiz sarti"
+                       },
+                       {
+                           "konu":  "^ymm tasdik yasaklari$",
+                           "tip":  "uc",
+                           "rx":  "tasdik",
+                           "kanit":  724,
+                           "gerekce":  "3568 + tasdik yonetmeligi"
+                       },
+                       {
+                           "konu":  "^690 hesabin borcuna kapatilmayanlar$",
+                           "tip":  "uc",
+                           "rx":  "d[oö]nem kar[iı] veya zarar[iı]",
+                           "kanit":  51,
+                           "gerekce":  "THP 690 hesap aciklamasi"
+                       },
+                       {
+                           "konu":  "^cari oran",
+                           "tip":  "uc",
+                           "rx":  "asit[- ]test",
+                           "kanit":  39,
+                           "gerekce":  "finansal analiz teori notlari"
+                       },
+                       {
+                           "konu":  "^mesleki supphecilik$",
+                           "tip":  "uc",
+                           "rx":  "mesleki [sş][uü]phecilik",
+                           "kanit":  127,
+                           "gerekce":  "BDS 200 p.15 (konu adinda cift-p yazim hatasi var)"
+                       },
+                       {
+                           "konu":  "^hile ucgeni tesvik unsuru$",
+                           "tip":  "uc",
+                           "rx":  "hile riski",
+                           "kanit":  74,
+                           "gerekce":  "BDS 240"
+                       },
+                       {
+                           "konu":  "^hile kaynakli yanlislikta denetci tutumu$",
+                           "tip":  "uc",
+                           "rx":  "hile kaynakl[iı]",
+                           "kanit":  258,
+                           "gerekce":  "BDS 240"
+                       },
+                       {
+                           "konu":  "^gorus beyaninin rapordaki konumu$",
+                           "tip":  "uc",
+                           "rx":  "g[oö]r[uü][sş] paragraf[iı]",
+                           "kanit":  4,
+                           "gerekce":  "BDS 700"
+                       },
+                       {
+                           "konu":  "^denetim kaniti kiyaslamasi$",
+                           "tip":  "uc",
+                           "rx":  "denetim kan[iı]t[iı]",
+                           "kanit":  510,
+                           "gerekce":  "BDS 500"
+                       },
+                       {
+                           "konu":  "^denetim amaci-prosedur eslestirmesi$",
+                           "tip":  "uc",
+                           "rx":  "denetim prosed[uü]r",
+                           "kanit":  541,
+                           "gerekce":  "BDS 300/330/500"
+                       },
+                       {
+                           "konu":  "^orneklemede kabul edilemez hata payi$",
+                           "tip":  "kaynak",
+                           "rx":  "BDS 530*",
+                           "kanit":  40,
+                           "gerekce":  "BDS 530 (tolere edilebilir yanlislik)"
+                       },
+                       {
+                           "konu":  "^azalan bakiyelerden .*gecis",
+                           "tip":  "uc",
+                           "rx":  "normal amortisman",
+                           "kanit":  71,
+                           "gerekce":  "VUK muk. m.320/3"
+                       },
+                       {
+                           "konu":  "^yenileme fonu kullanimdan vazgecme$",
+                           "tip":  "uc",
+                           "rx":  "yenileme fonu",
+                           "kanit":  34,
+                           "gerekce":  "VUK m.328-329"
+                       },
+                       {
+                           "konu":  "^alinan siparis avanslarinin nitelikleri$",
+                           "tip":  "uc",
+                           "rx":  "sipari[sş] avans",
+                           "kanit":  95,
+                           "gerekce":  "THP 340/159"
+                       },
+                       {
+                           "konu":  "^bagli ortaklik-istirak siniflamasi$",
+                           "tip":  "uc",
+                           "rx":  "ba[gğ]l[iı] ortakl[iı]k",
+                           "kanit":  505,
+                           "gerekce":  "THP 242/245 + TFRS 10"
+                       },
+                       {
+                           "konu":  "^duzenleyici hesap borclandirma",
+                           "tip":  "uc",
+                           "rx":  "reeskont",
+                           "kanit":  177,
+                           "gerekce":  "THP 122/222 reeskont hesaplari"
+                       },
+                       {
+                           "konu":  "^etik catismada danisilacak taraflar$",
+                           "tip":  "kaynak",
+                           "rx":  "*etik*",
+                           "kanit":  591,
+                           "gerekce":  "KGK Etik Kurallar ambarda"
+                       },
+                       {
+                           "konu":  "^calisma kagitlarinin yararlari$",
+                           "tip":  "uc",
+                           "rx":  "[cç]al[iı][sş]ma k[aâ][gğ][iı]t",
+                           "kanit":  48,
+                           "gerekce":  "BDS 230"
+                       },
+                       {
+                           "konu":  "^kira stopaji brutlestirme kaydi$",
+                           "tip":  "kaynak",
+                           "rx":  "*GVK*94*",
+                           "kanit":  25,
+                           "gerekce":  "GVK m.94 stopaj"
+                       },
+                       {
+                           "konu":  "^banka kredisi faiz tahakkuku$",
+                           "tip":  "uc",
+                           "rx":  "faiz tahakkuk",
+                           "kanit":  55,
+                           "gerekce":  "THP 300/381"
+                       },
+                       {
+                           "konu":  "^kiralanan varlige asansor",
+                           "tip":  "uc",
+                           "rx":  "[oö]zel maliyet",
+                           "kanit":  82,
+                           "gerekce":  "VUK m.272 + THP 264"
+                       },
+                       {
+                           "konu":  "^hazine bonosu tahsili",
+                           "tip":  "uc",
+                           "rx":  "hazine bonosu",
+                           "kanit":  103,
+                           "gerekce":  "THP 112 + GVK gecici 67"
+                       },
+                       {
+                           "konu":  "^fayda fonksiyonu optimizasyonu$",
+                           "tip":  "uc",
+                           "rx":  "fayda fonksiyon",
+                           "kanit":  7,
+                           "gerekce":  "iktisat teori notlari"
+                       },
+                       {
+                           "konu":  "^tam rekabet firma optimizasyonu$",
+                           "tip":  "uc",
+                           "rx":  "tam rekabet",
+                           "kanit":  29,
+                           "gerekce":  "iktisat teori notlari"
+                       },
+                       {
+                           "konu":  "^disliyici etki$",
+                           "tip":  "uc",
+                           "rx":  "d[iı][sş]lama etkisi",
+                           "kanit":  3,
+                           "gerekce":  "maliye teori notu (crowding-out)"
+                       },
+                       {
+                           "konu":  "^mali surukleme$",
+                           "tip":  "uc",
+                           "rx":  "mali s[uü]r[uü]kle",
+                           "kanit":  2,
+                           "gerekce":  "19.08 teori notu"
+                       },
+                       {
+                           "konu":  "^maliye teorisyenleri$",
+                           "tip":  "uc",
+                           "rx":  "teorisyen",
+                           "kanit":  1,
+                           "gerekce":  "19.08 teori notu"
+                       },
+                       {
+                           "konu":  "^kamu harcamalari artis teorileri$",
+                           "tip":  "uc",
+                           "rx":  "kamu harcamalar[iı]n[iı]n art",
+                           "kanit":  7,
+                           "gerekce":  "maliye teori notlari (Wagner/Peacock)"
+                       },
+                       {
+                           "konu":  "^stagflasyonda maliye politikasi$",
+                           "tip":  "uc",
+                           "rx":  "stagflasyon",
+                           "kanit":  10,
+                           "gerekce":  "maliye teori notlari"
+                       },
+                       {
+                           "konu":  "^norwalk uzlasisi",
+                           "tip":  "uc",
+                           "rx":  "norwalk",
+                           "kanit":  3,
+                           "gerekce":  "19.08 teori notu (FASB-IASB)"
+                       },
+                       {
+                           "konu":  "^accountancy europe uyeligi$",
+                           "tip":  "uc",
+                           "rx":  "accountancy",
+                           "kanit":  3,
+                           "gerekce":  "19.08 teori notu"
+                       },
+                       {
+                           "konu":  "^vergi hukukunda tipleistirme$",
+                           "tip":  "uc",
+                           "rx":  "tiple[sş]tirme",
+                           "kanit":  1,
+                           "gerekce":  "19.08 teori notu"
+                       },
+                       {
+                           "konu":  "^faaliyet kar marjini etkilemeyenler$",
+                           "tip":  "uc",
+                           "rx":  "faaliyet k[aâ]r marj",
+                           "kanit":  9,
+                           "gerekce":  "19.08 teori notu"
+                       },
+                       {
+                           "konu":  "^kaldirac siniriyla kredi kapasitesi$",
+                           "tip":  "uc",
+                           "rx":  "kald[iı]ra[cç].{0,40}kapasit",
+                           "kanit":  2,
+                           "gerekce":  "19.08 teori notu"
+                       },
+                       {
+                           "konu":  "^islem etkisi",
+                           "tip":  "uc",
+                           "rx":  "aktif toplam",
+                           "kanit":  185,
+                           "gerekce":  "monografi/bilanco esitligi notlari"
+                       },
+                       {
+                           "konu":  "^sermaye giderleri .butce siniflamasi.$",
+                           "tip":  "uc",
+                           "rx":  "b[uü]t[cç]e s[iı]n[iı]fla",
+                           "kanit":  3,
+                           "gerekce":  "maliye teori notu — ZAYIF BAG"
+                       },
+                       {
+                           "konu":  "^dolayli vergi kaldirilmasinin yansimasi$",
+                           "tip":  "uc",
+                           "rx":  "verginin yans[iı]",
+                           "kanit":  3,
+                           "gerekce":  "maliye teori notu — ZAYIF BAG"
+                       },
+                       {
+                           "konu":  "^ab hibeleri vergi istisnasi$",
+                           "tip":  "uc",
+                           "rx":  "hibe",
+                           "kanit":  65,
+                           "gerekce":  "ZAYIF BAG — genis desen, uretici dayanagi okuyup karar verir"
+                       },
+                       {
+                           "konu":  "^akreditifli ithalat avans kaydi$",
+                           "tip":  "uc",
+                           "rx":  "akreditif",
+                           "kanit":  25,
+                           "gerekce":  "THP 159 akreditifler"
+                       },
+                       {
+                           "konu":  "^avans mahsuplu ilk madde alimi$",
+                           "tip":  "uc",
+                           "rx":  "sipari[sş] avans",
+                           "kanit":  95,
+                           "gerekce":  "THP 159"
+                       },
+                       {
+                           "konu":  "^avansli satis teslim kaydi$",
+                           "tip":  "uc",
+                           "rx":  "sipari[sş] avans",
+                           "kanit":  95,
+                           "gerekce":  "THP 340"
+                       },
+                       {
+                           "konu":  "^aktiflesen gider$",
+                           "tip":  "uc",
+                           "rx":  "aktifle[sş]tir",
+                           "kanit":  143,
+                           "gerekce":  "VUK 262/272 + TMS 16/23"
+                       },
+                       {
+                           "konu":  "^bilanco duran varlik siniflamasi$",
+                           "tip":  "uc",
+                           "rx":  "duran varl[iı]k",
+                           "kanit":  754,
+                           "gerekce":  "THP bilanco ilkeleri"
+                       },
+                       {
+                           "konu":  "^gelir tablosu gruplamasi",
+                           "tip":  "uc",
+                           "rx":  "gelir tablosu ilkeleri",
+                           "kanit":  3,
+                           "gerekce":  "MSUGT gelir tablosu ilkeleri"
+                       },
+                       {
+                           "konu":  "^kayittan islem cikarimi",
+                           "tip":  "uc",
+                           "rx":  "monografi",
+                           "kanit":  1,
+                           "gerekce":  "monografi cozum adimlari notu — ZAYIF BAG"
+                       },
+                       {
+                           "konu":  "^sermaye artisli kar-zarar hesabi$",
+                           "tip":  "uc",
+                           "rx":  "sermaye art[iı]r[iı]m[iı]",
+                           "kanit":  266,
+                           "gerekce":  "TTK sermaye artirimi + THP 500"
+                       },
+                       {
+                           "konu":  "^cek cirosunun bilanco esitligine etkisi$",
+                           "tip":  "uc",
+                           "rx":  "aktif toplam",
+                           "kanit":  185,
+                           "gerekce":  "bilanco esitligi notlari — ZAYIF BAG"
+                       },
+                       {
+                           "konu":  "^gazete ilaniyla bildirim suresi",
+                           "tip":  "uc",
+                           "rx":  "gazete ilan",
+                           "kanit":  1,
+                           "gerekce":  "ZAYIF BAG — tek kayit, uretici dayanagi dogrulamali"
+                       },
+                       {
+                           "konu":  "^listeden silmeye itiraz suresi",
+                           "tip":  "uc",
+                           "rx":  "listeden silin",
+                           "kanit":  4,
+                           "gerekce":  "3568 mevzuati — ZAYIF BAG"
+                       },
+                       {
+                           "konu":  "^onceki denetim sirketiyle gorusme$",
+                           "tip":  "uc",
+                           "rx":  "[oö]nceki denet[cç]i",
+                           "kanit":  68,
+                           "gerekce":  "BDS 300/510 + etik kurallar"
+                       },
+                       {
+                           "konu":  "^kutukten silinme halleri$",
+                           "tip":  "uc",
+                           "rx":  "k[uü]t[uü]kten silin",
+                           "kanit":  3,
+                           "gerekce":  "3568 / oda mevzuati"
+                       },
+                       {
+                           "konu":  "^bilanco esitliginden cikarim$",
+                           "tip":  "uc",
+                           "rx":  "bilan[cç]o e[sş]itli",
+                           "kanit":  4,
+                           "gerekce":  "temel muhasebe denklemi notlari"
+                       },
+                       {
+                           "konu":  "^denetim ustlenememe halleri$",
+                           "tip":  "uc",
+                           "rx":  "denetimi [uü]stlen",
+                           "kanit":  29,
+                           "gerekce":  "BDS 210 + TTK 400"
+                       },
+                       {
+                           "konu":  "^sermaye azalmasinda kurul tedbirleri$",
+                           "tip":  "uc",
+                           "rx":  "sermayenin kayb[iı]",
+                           "kanit":  3,
+                           "gerekce":  "TTK m.376"
+                       },
+                       {
+                           "konu":  "^sermaye azaltimi vergilendirmesi$",
+                           "tip":  "uc",
+                           "rx":  "sermaye azalt[iı]m[iı]",
+                           "kanit":  64,
+                           "gerekce":  "GVK/KVK sermaye azaltimi (7420)"
+                       },
+                       {
+                           "konu":  "^finansal kiralamali monografi$",
+                           "tip":  "uc",
+                           "rx":  "finansal kiralama",
+                           "kanit":  375,
+                           "gerekce":  "TMS/TFRS 16 + VUK muk.290"
+                       },
+                       {
+                           "konu":  "^kdv hesaplasmasi kaydi$",
+                           "tip":  "uc",
+                           "rx":  "indirilecek kdv",
+                           "kanit":  86,
+                           "gerekce":  "KDV indirim mekanizmasi + THP 191/391"
+                       },
+                       {
+                           "konu":  "^stok fire kaydi$",
+                           "tip":  "uc",
+                           "rx":  "zayi olan",
+                           "kanit":  22,
+                           "gerekce":  "KDVK m.30 + VUK 278"
+                       },
+                       {
+                           "konu":  "^bkn 5411 banka turlerine gore faaliyet yasaklari$",
+                           "tip":  "uc",
+                           "rx":  "kat[iıİI]l[iıİI]m bankalar",
+                           "kanit":  113,
+                           "gerekce":  "KGK sondaji 26.08: 5411 m.4 faaliyet konulari"
+                       },
+                       {
+                           "konu":  "^bkn 5411 ozel cari hesap$",
+                           "tip":  "uc",
+                           "rx":  "[oöOÖ]zel [cçCÇ]ar[iıİI] he[sşSŞ]ap",
+                           "kanit":  25,
+                           "gerekce":  "KGK sondaji 26.08: 5411 m.3 tanimlar"
+                       },
+                       {
+                           "konu":  "^denetim riski dengelemesi$",
+                           "tip":  "uc",
+                           "rx":  "te[sşSŞ]p[iıİI]t r[iıİI][sşSŞ]k[iıİI]",
+                           "kanit":  7,
+                           "gerekce":  "KGK sondaji 26.08: BDS 200 A-serisi"
+                       },
+                       {
+                           "konu":  "^dengelenen yanlisliklar$",
+                           "tip":  "uc",
+                           "rx":  "d[uüUÜ]zelt[iıİI]lmem[iıİI][sşSŞ] yanl[iıİI][sşSŞ]l[iıİI]k",
+                           "kanit":  94,
+                           "gerekce":  "KGK sondaji 26.08: BDS 450"
+                       },
+                       {
+                           "konu":  "^onemli risk uyarlamalari$",
+                           "tip":  "uc",
+                           "rx":  "[oöOÖ]neml[iıİI] r[iıİI][sşSŞ]k",
+                           "kanit":  38,
+                           "gerekce":  "KGK sondaji 26.08: BDS 315/330"
+                       },
+                       {
+                           "konu":  "^orneklemede gruplandirma$",
+                           "tip":  "uc",
+                           "rx":  "tabakaland[iıİI]rma",
+                           "kanit":  1,
+                           "gerekce":  "KGK sondaji 26.08: BDS 530 ek"
+                       },
+                       {
+                           "konu":  "^tamlik kaniti zorlugu$",
+                           "tip":  "uc",
+                           "rx":  "taml[iıİI]k",
+                           "kanit":  87,
+                           "gerekce":  "KGK sondaji 26.08: BDS 500 yonelim"
+                       },
+                       {
+                           "konu":  "^begenme kosullu satis$",
+                           "tip":  "uc",
+                           "rx":  "be[gğGĞ]enme k[oöOÖ][sşSŞ][uüUÜ]l",
+                           "kanit":  6,
+                           "gerekce":  "KGK sondaji 26.08: TBK m.249"
+                       },
+                       {
+                           "konu":  "^cari hesap sona erme$",
+                           "tip":  "uc",
+                           "rx":  "[cçCÇ]ar[iıİI] he[sşSŞ]ab",
+                           "kanit":  44,
+                           "gerekce":  "KGK sondaji 26.08: TTK m.89-101"
+                       },
+                       {
+                           "konu":  "^ilamsiz icra yollari$",
+                           "tip":  "uc",
+                           "rx":  "[iıİI]lam[sşSŞ][iıİI]z [iıİI][cçCÇ]ra",
+                           "kanit":  8,
+                           "gerekce":  "KGK sondaji 26.08: IIK m.42 vd."
+                       },
+                       {
+                           "konu":  "^sahista yanilma$",
+                           "tip":  "uc",
+                           "rx":  "e[sşSŞ]a[sşSŞ]l[iıİI] yan",
+                           "kanit":  10,
+                           "gerekce":  "KGK sondaji 26.08: TBK m.31"
+                       },
+                       {
+                           "konu":  "^aval kavrami$",
+                           "tip":  "uc",
+                           "rx":  "aval",
+                           "kanit":  980,
+                           "gerekce":  "KGK sondaji 26.08: TTK m.700-702"
+                       },
+                       {
+                           "konu":  "^bagislamadan donme suresi$",
+                           "tip":  "uc",
+                           "rx":  "ba[gğGĞ][iıİI][sşSŞ]lama",
+                           "kanit":  52,
+                           "gerekce":  "KGK sondaji 26.08: TBK m.295-297"
+                       },
+                       {
+                           "konu":  "^borcta vade uzatimi$",
+                           "tip":  "uc",
+                           "rx":  "vade [uüUÜ]zat",
+                           "kanit":  5,
+                           "gerekce":  "KGK sondaji 26.08: TBK kefalet/temerrut"
+                       },
+                       {
+                           "konu":  "^hisimlik dereceleri$",
+                           "tip":  "uc",
+                           "rx":  "h[iıİI][sşSŞ][iıİI]ml[iıİI]k",
+                           "kanit":  25,
+                           "gerekce":  "KGK sondaji 26.08: TMK m.17-18"
+                       },
+                       {
+                           "konu":  "^icra takibi yapilamayanlar$",
+                           "tip":  "uc",
+                           "rx":  "[iıİI][cçCÇ]ra tak[iıİI]b[iıİI]",
+                           "kanit":  125,
+                           "gerekce":  "KGK sondaji 26.08: IIK takip yasaklari"
+                       },
+                       {
+                           "konu":  "^iflasin takiplere etkisi$",
+                           "tip":  "uc",
+                           "rx":  "[iıİI]fla[sşSŞ][iıİI]n a[cçCÇ][iıİI]lma[sşSŞ][iıİI]",
+                           "kanit":  36,
+                           "gerekce":  "KGK sondaji 26.08: IIK m.193-194"
+                       },
+                       {
+                           "konu":  "^kacakcilikta uzlasma yasagi$",
+                           "tip":  "uc",
+                           "rx":  "[uüUÜ]zla[sşSŞ]ma",
+                           "kanit":  235,
+                           "gerekce":  "KGK sondaji 26.08: VUK ek m.1 + m.359"
+                       },
+                       {
+                           "konu":  "^kisitlinin kefaleti$",
+                           "tip":  "uc",
+                           "rx":  "kef[iıİI]l [oöOÖ]lma",
+                           "kanit":  18,
+                           "gerekce":  "KGK sondaji 26.08: TBK m.583 + TMK"
+                       },
+                       {
+                           "konu":  "^nispilik ilkesi istisnalari$",
+                           "tip":  "uc",
+                           "rx":  "n[iıİI][sşSŞ]p[iıİI]l[iıİI]k",
+                           "kanit":  7,
+                           "gerekce":  "KGK sondaji 26.08: 21.08 teori notu"
+                       },
+                       {
+                           "konu":  "^tescilin bildirici etkisi$",
+                           "tip":  "uc",
+                           "rx":  "b[iıİI]ld[iıİI]r[iıİI][cçCÇ][iıİI]",
+                           "kanit":  5,
+                           "gerekce":  "KGK sondaji 26.08: TTK m.36 tescil"
+                       },
+                       {
+                           "konu":  "^vergi kanunlarinin yorumu$",
+                           "tip":  "uc",
+                           "rx":  "lafz[iıİI] ve r[uüUÜ]h[uüUÜ]",
+                           "kanit":  7,
+                           "gerekce":  "KGK sondaji 26.08: VUK m.3"
+                       },
+                       {
+                           "konu":  "^vergi yargilamasi ilkeleri$",
+                           "tip":  "uc",
+                           "rx":  "ver[gğGĞ][iıİI] mahkeme[sşSŞ][iıİI]",
+                           "kanit":  95,
+                           "gerekce":  "KGK sondaji 26.08: IYUK/VUK yargi yolu"
+                       },
+                       {
+                           "konu":  "^tsrs 1 kaynak ve iliskilere baglilik$",
+                           "tip":  "uc",
+                           "rx":  "kaynaklara ve [iıİI]l[iıİI][sşSŞ]k[iıİI]lere",
+                           "kanit":  1,
+                           "gerekce":  "KGK sondaji 26.08: TSRS 1"
+                       },
+                       {
+                           "konu":  "^tsrs karsilastirmali tutar revizyonu$",
+                           "tip":  "uc",
+                           "rx":  "kar[sşSŞ][iıİI]la[sşSŞ]t[iıİI]rmal[iıİI] t[uüUÜ]tar",
+                           "kanit":  20,
+                           "gerekce":  "KGK sondaji 26.08: TSRS 1/2 gecis"
+                       },
+                       {
+                           "konu":  "^tsrs nicel bilgi acilamama istisnasi$",
+                           "tip":  "uc",
+                           "rx":  "n[iıİI][cçCÇ]el b[iıİI]l[gğGĞ][iıİI]",
+                           "kanit":  35,
+                           "gerekce":  "KGK sondaji 26.08: TSRS 2"
+                       },
+                       {
+                           "konu":  "^anuite",
+                           "tip":  "uc",
+                           "rx":  "an[uüUÜ][iıİI]te",
+                           "kanit":  7,
+                           "gerekce":  "KGK sondaji 26.08: finans teori notlari"
+                       },
+                       {
+                           "konu":  "^iceriden ogrenen ticareti$",
+                           "tip":  "uc",
+                           "rx":  "[iıİI][cçCÇ]er[iıİI]den [oöOÖ][gğGĞ]renen",
+                           "kanit":  7,
+                           "gerekce":  "KGK sondaji 26.08: SPKn m.106"
+                       },
+                       {
+                           "konu":  "^kurumsal yonetim etmenleri$",
+                           "tip":  "uc",
+                           "rx":  "k[uüUÜ]r[uüUÜ]m[sşSŞ]al y[oöOÖ]net[iıİI]m",
+                           "kanit":  194,
+                           "gerekce":  "KGK sondaji 26.08: 21.08 kurumsal yonetim notu + SPK mevzuati"
+                       },
+                       {
+                           "konu":  "^capm beta$",
+                           "tip":  "uc",
+                           "rx":  "[cçCÇ]apm",
+                           "kanit":  19,
+                           "gerekce":  "KGK sondaji 26.08: finans teori notlari"
+                       },
+                       {
+                           "konu":  "^komite uyelik kisiti$",
+                           "tip":  "uc",
+                           "rx":  "denet[iıİI]m k[oöOÖ]m[iıİI]te[sşSŞ][iıİI]",
+                           "kanit":  111,
+                           "gerekce":  "KGK sondaji 26.08: SPK KY + 6102"
+                       },
+                       {
+                           "konu":  "^pay sahipleriyle iletisimde oncu komite$",
+                           "tip":  "uc",
+                           "rx":  "pay [sşSŞ]ah[iıİI]pler[iıİI]",
+                           "kanit":  292,
+                           "gerekce":  "KGK sondaji 26.08: SPK KY ilkeleri"
+                       },
+                       {
+                           "konu":  "^piyasa vade siniflamasi$",
+                           "tip":  "uc",
+                           "rx":  "para p[iıİI]ya[sşSŞ]a[sşSŞ]",
+                           "kanit":  52,
+                           "gerekce":  "KGK sondaji 26.08: 21.08 piyasa vade ayrimi notu"
+                       },
+                       {
+                           "konu":  "^reel faiz hesabi$",
+                           "tip":  "uc",
+                           "rx":  "reel fa[iıİI]z",
+                           "kanit":  31,
+                           "gerekce":  "KGK sondaji 26.08: finans teori notlari"
+                       },
+                       {
+                           "konu":  "^sabit gider siniflamasi$",
+                           "tip":  "uc",
+                           "rx":  "[sşSŞ]ab[iıİI]t mal[iıİI]yet",
+                           "kanit":  83,
+                           "gerekce":  "KGK sondaji 26.08: maliyet teori + THP"
+                       },
+                       {
+                           "konu":  "^temettu ilisksizlik teorisi$",
+                           "tip":  "uc",
+                           "rx":  "temett[uüUÜ] p[oöOÖ]l[iıİI]t[iıİI]ka",
+                           "kanit":  16,
+                           "gerekce":  "KGK sondaji 26.08: finans teori notlari (MM)"
+                       },
+                       {
+                           "konu":  "^wacc hesabi$",
+                           "tip":  "uc",
+                           "rx":  "[sşSŞ]ermaye mal[iıİI]yet[iıİI]",
+                           "kanit":  63,
+                           "gerekce":  "KGK sondaji 26.08: finans teori notlari"
+                       },
+                       {
+                           "konu":  "^devlet tesvigi muhasebesi$",
+                           "tip":  "uc",
+                           "rx":  "devlet te[sşSŞ]v[iıİI]k",
+                           "kanit":  102,
+                           "gerekce":  "KGK sondaji 26.08: TMS 20"
+                       },
+                       {
+                           "konu":  "^kavramsal cerceve revizyonu$",
+                           "tip":  "uc",
+                           "rx":  "kavram[sşSŞ]al [cçCÇ]er[cçCÇ]eve",
+                           "kanit":  434,
+                           "gerekce":  "KGK sondaji 26.08: Kavramsal Cerceve 2018 (21.08 yutuldu)"
+                       },
+                       {
+                           "konu":  "^deger dusuklugu hesaplanmayan$",
+                           "tip":  "uc",
+                           "rx":  "de[gğGĞ]er d[uüUÜ][sşSŞ][uüUÜ]kl[uüUÜ][gğGĞ][uüUÜ]",
+                           "kanit":  512,
+                           "gerekce":  "KGK sondaji 26.08: TMS 36"
+                       },
+                       {
+                           "konu":  "^iadeli satis hasilati$",
+                           "tip":  "uc",
+                           "rx":  "[iıİI]ade y[uüUÜ]k[uüUÜ]ml[uüUÜ]l[uüUÜ][gğGĞ][uüUÜ]",
+                           "kanit":  11,
+                           "gerekce":  "KGK sondaji 26.08: TFRS 15"
+                       },
+                       {
+                           "konu":  "^bagli ortaklik temettusu$",
+                           "tip":  "uc",
+                           "rx":  "ba[gğGĞ]l[iıİI] [oöOÖ]rtakl[iıİI]k",
+                           "kanit":  498,
+                           "gerekce":  "KGK sondaji 26.08: THP 242 + TMS 27"
+                       },
+                       {
+                           "konu":  "^brut kar hesabi$",
+                           "tip":  "uc",
+                           "rx":  "br[uüUÜ]t [sşSŞ]at[iıİI][sşSŞ] kar[iıİI]",
+                           "kanit":  96,
+                           "gerekce":  "KGK sondaji 26.08: THP gelir tablosu"
+                       },
+                       {
+                           "konu":  "^cek ciro kaydi$",
+                           "tip":  "uc",
+                           "rx":  "[cçCÇ][iıİI]r[oöOÖ]",
+                           "kanit":  239,
+                           "gerekce":  "KGK sondaji 26.08: TTK ciro hukumleri"
+                       },
+                       {
+                           "konu":  "^dovizli kredi degerleme$",
+                           "tip":  "uc",
+                           "rx":  "k[uüUÜ]r fark[iıİI]",
+                           "kanit":  140,
+                           "gerekce":  "KGK sondaji 26.08: VUK m.280"
+                       },
+                       {
+                           "konu":  "^dovizli makine alimi$",
+                           "tip":  "uc",
+                           "rx":  "k[uüUÜ]r fark[iıİI]",
+                           "kanit":  140,
+                           "gerekce":  "KGK sondaji 26.08: VUK m.280 + 163 teblig"
+                       },
+                       {
+                           "konu":  "^dovizli mevduat degerleme$",
+                           "tip":  "uc",
+                           "rx":  "k[uüUÜ]r fark[iıİI]",
+                           "kanit":  140,
+                           "gerekce":  "KGK sondaji 26.08: VUK m.280"
+                       },
+                       {
+                           "konu":  "^hisse satis yevmiyesi$",
+                           "tip":  "uc",
+                           "rx":  "h[iıİI][sşSŞ][sşSŞ]e [sşSŞ]ened[iıİI]",
+                           "kanit":  387,
+                           "gerekce":  "KGK sondaji 26.08: THP 110"
+                       },
+                       {
+                           "konu":  "^kdv dahil kar hesabi$",
+                           "tip":  "uc",
+                           "rx":  "kdv dah[iıİI]l",
+                           "kanit":  75,
+                           "gerekce":  "KGK sondaji 26.08: KDV ic yuzde"
+                       },
+                       {
+                           "konu":  "^nakit cikissiz giderler$",
+                           "tip":  "uc",
+                           "rx":  "nak[iıİI]t ak[iıİI][sşSŞ]",
+                           "kanit":  745,
+                           "gerekce":  "KGK sondaji 26.08: TMS 7 nakit akis"
+                       },
+                       {
+                           "konu":  "^oz sermaye kiyaslamasiyla kar$",
+                           "tip":  "uc",
+                           "rx":  "[oöOÖ]z [sşSŞ]ermaye",
+                           "kanit":  169,
+                           "gerekce":  "KGK sondaji 26.08: GVK m.38 bilanco esasi"
+                       },
+                       {
+                           "konu":  "^stopajli hizmet kaydi$",
+                           "tip":  "uc",
+                           "rx":  "ver[gğGĞ][iıİI] ke[sşSŞ][iıİI]nt[iıİI][sşSŞ][iıİI]",
+                           "kanit":  190,
+                           "gerekce":  "KGK sondaji 26.08: GVK m.94"
+                       },
+                       {
+                           "konu":  "^degerleme standartlari tebligi uds yayimlayani$",
+                           "tip":  "uc",
+                           "rx":  "de[gğGĞ]erleme [sşSŞ]tandart",
+                           "kanit":  13,
+                           "gerekce":  "KGK sondaji 26.08: SPK III-62.1 / UDS"
+                       },
+                       {
+                           "konu":  "^izahname hazirlanmayan durumlar$",
+                           "tip":  "uc",
+                           "rx":  "[iıİI]zahname",
+                           "kanit":  337,
+                           "gerekce":  "KGK sondaji 26.08: SPKn + Pay Tebligi"
+                       },
+                       {
+                           "konu":  "^spkn 6362 kaydilestirme sonuclari$",
+                           "tip":  "uc",
+                           "rx":  "kayd[iıİI]le[sşSŞ]t[iıİI]r",
+                           "kanit":  91,
+                           "gerekce":  "KGK sondaji 26.08: Kaydilestirme Tebligi (24.08 yutuldu)"
+                       },
+                       {
+                           "konu":  "^opsiyon spekulatoru$",
+                           "tip":  "uc",
+                           "rx":  "[oöOÖ]p[sşSŞ][iıİI]y[oöOÖ]n",
+                           "kanit":  304,
+                           "gerekce":  "KGK sondaji 26.08: turev/volatilite notlari"
+                       },
+                       {
+                           "konu":  "^rizikonun sigortalanabilirligi$",
+                           "tip":  "uc",
+                           "rx":  "[sşSŞ][iıİI][gğGĞ][oöOÖ]rtalanab[iıİI]l[iıİI]r",
+                           "kanit":  23,
+                           "gerekce":  "KGK sondaji 26.08: 19.08 sigortalanabilirlik notu"
+                       },
+                       {
+                           "konu":  "^borsa istanbul piyasalari$",
+                           "tip":  "uc",
+                           "rx":  "b[oöOÖ]r[sşSŞ]a [iıİI][sşSŞ]tanb[uüUÜ]l",
+                           "kanit":  60,
+                           "gerekce":  "KGK sondaji 26.08: 21.08 Borsa Istanbul notu"
+                       },
+                       {
+                           "konu":  "^katılım sigortacılığı tekafül modeli$",
+                           "tip":  "uc",
+                           "rx":  "kat[iıİI]l[iıİI]m [sşSŞ][iıİI][gğGĞ][oöOÖ]rta[cçCÇ]",
+                           "kanit":  6,
+                           "gerekce":  "KGK sondaji 26.08: Katilim Sigortaciligi Yonetmeligi"
+                       },
+                       {
+                           "konu":  "^katilim sigortaciligi tekaful modeli$",
+                           "tip":  "uc",
+                           "rx":  "kat[iıİI]l[iıİI]m [sşSŞ][iıİI][gğGĞ][oöOÖ]rta[cçCÇ]",
+                           "kanit":  6,
+                           "gerekce":  "KGK sondaji 26.08: Katilim Sigortaciligi Yonetmeligi"
+                       },
+                       {
+                           "konu":  "^kys 1 sistem bilesenleri zafiyeti$",
+                           "tip":  "uc",
+                           "rx":  "kal[iıİI]te y[oöOÖ]net[iıİI]m [sşSŞ][iıİI][sşSŞ]tem[iıİI]",
+                           "kanit":  173,
+                           "gerekce":  "KGK sondaji 26.08: KYS 1"
+                       },
+                       {
+                           "konu":  "^kumi frs stok ve arge$",
+                           "tip":  "uc",
+                           "rx":  "k[uüUÜ]m[iıİI]",
+                           "kanit":  186,
+                           "gerekce":  "KGK sondaji 26.08: KUMI FRS"
+                       }
+                   ]
+}

@@ -1,65 +1,45 @@
-**********************
-PowerShell transcript start
-Start time: 20260807164100
-Username: runnervmvrwv9\runner
-RunAs User: runnervmvrwv9\runner
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260827214342
+Username: GK\cemdi
+RunAs User: GK\cemdi
 Configuration Name: 
-Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/176f54ac-1d64-4f07-b470-eda40ab01498.ps1'
-Process ID: 2267
-PSVersion: 7.6.3
-PSEdition: Core
-GitCommitId: 7.6.3
-OS: Ubuntu 24.04.4 LTS
-Platform: Unix
-PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
-PSRemotingProtocolVersion: 2.4
-SerializationVersion: 1.1.0.1
+Machine: GK (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; cd "C:\Users\cemdi\OneDrive\Masaüstü\mevzuat işi\mevzuat-radar"; .\motor\soru-uret-v2.ps1 -sinav KGK -sinir 30 -calistir -emirNo 'KGKPROVA2808' 2>&1 | Select-Object -Last 25 | % { "$_" }
+; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
+; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-cafa' -Encoding utf8 -NoNewline
+; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
+Process ID: 33016
+PSVersion: 5.1.26100.9168
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9168
+BuildVersion: 10.0.26100.9168
+CLRVersion: 4.0.30319.42000
 WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
 **********************
 SINAV: KGK   kota: veri/kgk-uretim-kotasi.json   plan satiri: 127
 Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
-  kasa: 30390 soru
-  konu-kelime indeksi: 1279 kelime
-  MADDE TAVANI: hedef havuz 5871 x %2 = 118 soru/madde | tavani dolmus madde: 37
-    dolu: 213|275 -> 5299 soru
-    dolu: 6102|720 -> 2030 soru
+  kasa: 30569 soru
+  konu-kelime indeksi: 1370 kelime
+  MADDE TAVANI: hedef havuz 5871 x %2 = 118 soru/madde | tavani dolmus madde: 40
+    dolu: 213|275 -> 5312 soru
+    dolu: 6102|720 -> 2034 soru
     dolu: 4857|11 -> 1442 soru
-    dolu: 5018|3 -> 1088 soru
-    dolu: 213|262 -> 727 soru
+    dolu: 213|262 -> 731 soru
+    dolu: 6102|516 -> 508 soru
   THP hesap indeksi: 266 kelime, 269 kayit
-KONU FILTRESI: 4 konu
 
-  planSatir    1
+  planSatir    6
   maddesiz     0
   metinsiz     0
-  hazir        5
-  tavanDolu    0
-  kaynak_standart 1
-MALIYET TAHMINI (Batch %50): ~0.14 USD
-KURU DENEME TAMAM - yazma yolu saglam.
-PARTI 1: 5 soru
-  parti kimligi: msgbatch_0165kN9J8KfCBYnYgp8nkQuw
-
-======== URETIM ========
-  uretilen       4
-  rakamRed       0
-  dilRed         0
-  sikRed         0
-  sablonRed      0
-  tuzakRed       0
-  dogrusuRed     0
-  atifRed        0
-  kokuRed        0
-  benzerRed      0
-  aritmetikRed   0
-  icTutarRed     1
-  cevapsiz       0
-  yazmaHatasi    0
-  GERCEK FATURA: ~0.20 USD
-  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
--> veri/uretim-rapor-43.json
+  hazir        30
+  tavanDolu    4
+  kaynak_standart 6
+MALIYET TAHMINI (Batch %50): ~0,90 USD
+ANTHROPIC_API_KEY yok.
 **********************
-PowerShell transcript end
-End time: 20260807164409
+Windows PowerShell transcript end
+End time: 20260827214452
 **********************

@@ -1,7 +1,10 @@
 # KAPSAM KONTROL — "kaçırmayı sistemle önle"
 
 > 🆕 **Yeni sınav adayı ölçümü:** SPK/SPL Düzey 1 çekirdeği (4 modül, 2025'te 67.062 başvuru)
-> → [veri/KAPSAM-KONTROL-SPK-DUZEY1.md](veri/KAPSAM-KONTROL-SPK-DUZEY1.md) — 21 belgenin 9'u ambarda (%42,9).
+> → [veri/KAPSAM-KONTROL-SPK-DUZEY1.md](veri/KAPSAM-KONTROL-SPK-DUZEY1.md) — 30.08.2026 yutma turundan sonra
+> 21 belgenin **19'u ambarda (%90,5)**. Kalan 2 belge TSPB dokümanı (kaynak yeri ölçülmedi).
+> ⚠️ Aynı turda **parçalayıcı kusuru** çıktı (U+2012 figure dash): KGK Kuruluş KHK 660 ambarda
+> **tek parça** duruyormuş — onarıldı, 35 maddeye çıktı. Ayrıntı raporun 3. bölümünde.
 
 ## 0) ALAN HARİTASI — "olmayanı nasıl buluruz"
 *Eksik iki türdür: (1) kapsadığımız alanın içindeki delik → resmî listeye çentik yakalar (bölüm 1+).

@@ -382,7 +382,18 @@ function KaynakBul([string]$konu, [string]$ders){
   # cerceve kanunun en yakin maddesine dusuyordu - kaynakli GORUNEN kaynaksiz
   # soru. Ayni gun 22 kaynak (1.060 madde) ambara yutuldu; onekler eklendi.
   $EK_ALAN_DERS = @(
-    @{ desen='(?i)sermaye piyasas'; on=@('Sermaye Piyasası K.','Pay Tebligi','Kar Payi Tebligi','Onemli Nitelikteki','Birlesme ve Bolunme','Gayrimenkul Yatirim','Portfoy Yonetim','Kaydilestirilen','Yatirimci Tazmin','Izahname ve Ihrac','Sermaye Piyasasi Araclarinin Satisi','Borclanma Araclari','Varantlar','Ozel Durumlar Tebligi','Yatirim Hizmetleri','Yatirim Fonlarina','Sermaye Piyasasinda Degerleme','SPK Surdurulebilirlik','SPK Yesil') },
+    # 30.08.2026 SPK/SPL DUZEY 1 GENISLEMESI: 10 kaynak (398 madde) ambara yutuldu.
+    # Onek EKLENMEZSE uretici kaynaga KOR kalir (24.08 BDDK dersi) - eslesme
+    # kaynak_ad'in BASINA capalidir (imatch.^onek), o yuzden mevcut 'Borclanma
+    # Araclari' onegi 'Borclanma Araci Sahipleri'ni GORMEZ, 'Yatirim Hizmetleri'
+    # de 'Yatirim Hizmet ve Faaliyetleri'ni gormez - ikisi de ayri yazildi.
+    @{ desen='(?i)sermaye piyasas'; on=@('Sermaye Piyasası K.','Pay Tebligi','Kar Payi Tebligi','Onemli Nitelikteki','Birlesme ve Bolunme','Gayrimenkul Yatirim','Portfoy Yonetim','Kaydilestirilen','Yatirimci Tazmin','Izahname ve Ihrac','Sermaye Piyasasi Araclarinin Satisi','Borclanma Araclari','Varantlar','Ozel Durumlar Tebligi','Yatirim Hizmetleri','Yatirim Fonlarina','Sermaye Piyasasinda Degerleme','SPK Surdurulebilirlik','SPK Yesil','Borclanma Araci Sahipleri','Yatirim Kuruluslarinin','Yatirim Hizmet ve Faaliyetleri','Kitle Fonlamasi','Araci Kurumlar','Portfoy Saklama','Merkezi Kayit Kurulusunun','Merkezi Takas Kuruluslarinin','Istanbul Takas ve Saklama','SPK ') },
+    # 30.08.2026: 'SPK ' onegi eklendi. mevzuat.spk.gov.tr'den (SPK'nin KENDI
+    # sistemi) 370 belge / ~3.9 bin parca yutuldu ve HEPSI "SPK " ile basliyor:
+    #   SPK Karari - ...    (258 ilke/kurul karari - mevzuat.gov.tr bunlari TUTMAZ)
+    #   SPK Teblig (...) - ... · SPK Yonetmelik - ... · SPK Rehber - ...
+    # Onek eklenmeseydi uretici bu 3.9 bin parcaya KOR kalirdi (24.08 BDDK dersi).
+    # 'SPK ' onegi mevcut 'SPK Surdurulebilirlik'/'SPK Yesil' oneklerini de kapsar.
     @{ desen='(?i)bankac[ıi]l[ıi]k'; on=@('Bankacılık K.','Bankalarin','Banka ve Kredi Kartları K.','BDDK','Varlik Yonetim','TCMB K.') },
     @{ desen='(?i)sigortac[ıi]l[ıi]k|[oö]zel emeklilik'; on=@('Sigortacılık K.','BES K.','Sigorta ve Reasurans','Sigorta Acenteleri','Sigorta Eksperleri','Guvence Hesabi','Emeklilik Yatirim Fonlarinin','Sigortacilik Tekduzen','SEDDK','Katilim Esaslari','Afet Sigortaları') },
     @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik raporlama'; on=@('TSRS','Bankalarin Yesil Varlik','SPK Surdurulebilirlik','SPK Yesil') },
@@ -698,8 +709,17 @@ MUTLAK KURALLAR:
    sure de iceremez (dayanak-metin kurali geregi). Kisa vaka, bilgi, hesap
    ve kayit sorularina EKLENMEZ. 400-700 karakter siniri bu satir HARIC
    sayilir; satirin kendisi 90-200 karakter.
-
-ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
+25. MADDE DIYETI + ONCE MANTIK (28.08, Cem onayi; UWorld/Kaplan dersi -
+   "aciklama not vermez, OGRETIR"): aciklama HOCA gibi ogretir, hukukcu
+   gibi savunmaz. (a) Dogru sikkin "Kural:" parcasinin ilk cumlesi KANUN
+   KOYUCUNUN DERDINI gunluk dille anlatir - kural neden var, hangi kacisi
+   veya suistimali kapatiyor; madde kunyesi cumle SONUNDA parantezde.
+   (b) Aciklama govdesinde (bes sikkin tamami) madde/paragraf kunyesi
+   TOPLAM en fazla 2 kez gecer; kalan atiflar "kanun bu kapiyi kapatmis",
+   "standart cizgiyi burada cekiyor" gibi kunyesiz kurulur - kunyelerin
+   tam listesi zaten dayanak satirinda durur. (c) "Dogrusu:" cumleleri
+   kunyesiz, saf insan dilidir. (d) Kavram Kapisi (kural 22) gecerli:
+   dayanagin kimligi BIR kez tanitilir, tekrarlanmaz.
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>
 Kural: <maddeye dayali, gunluk dille>
 Bu olayda: <kuralin uygulanisi, adim adim>

@@ -1,0 +1,81 @@
+{
+    "tarih":  "29.08.2026 00:22",
+    "durum":  "YESIL",
+    "ozet":  "5 kontrol · 5 yesil · 0 kirmizi · 0 kor",
+    "kontroller":  [
+                       {
+                           "ad":  "Alacak vitrini (suzgecsiz)",
+                           "uc":  "alacak_vitrin",
+                           "goc":  "radar-app/sql/2026-08-28-alacak-kapsam-serhi.sql",
+                           "durum":  "YESIL",
+                           "eksik":  [
+
+                                     ],
+                           "sayfadaYok":  [
+
+                                          ],
+                           "sebep":  ""
+                       },
+                       {
+                           "ad":  "Alacak vitrini (tur suzgecli - 28.08 kusurunun tam yeri)",
+                           "uc":  "alacak_vitrin",
+                           "goc":  "radar-app/sql/2026-08-28-alacak-kapsam-serhi.sql",
+                           "durum":  "YESIL",
+                           "eksik":  [
+
+                                     ],
+                           "sayfadaYok":  [
+
+                                          ],
+                           "sebep":  ""
+                       },
+                       {
+                           "ad":  "Teslim teyidi durum ucu",
+                           "uc":  "uyari_teyit_durum",
+                           "goc":  "radar-app/sql/2026-08-27-teslim-teyidi.sql",
+                           "durum":  "YESIL",
+                           "eksik":  [
+
+                                     ],
+                           "sayfadaYok":  [
+
+                                          ],
+                           "sebep":  ""
+                       },
+                       {
+                           "ad":  "Alacak gizli arsiv arama ucu",
+                           "uc":  "alacak_ara",
+                           "goc":  "radar-app/sql/2026-08-19-alacak-gizli-arsiv.sql",
+                           "durum":  "YESIL",
+                           "eksik":  [
+
+                                     ],
+                           "sayfadaYok":  [
+
+                                          ],
+                           "sebep":  ""
+                       },
+                       {
+                           "ad":  "Marka portfoy sonuc ucu",
+                           "uc":  "marka_talep_sonuc",
+                           "goc":  "veri/sql-marka-portfoy.sql",
+                           "durum":  "YESIL",
+                           "eksik":  [
+
+                                     ],
+                           "sayfadaYok":  [
+
+                                          ],
+                           "sebep":  ""
+                       }
+                   ],
+    "bilinenKusurlar":  [
+                            {
+                                "uc":  "madde_ara",
+                                "kusur":  "TEK KELIMELIK sorguda 57014 (statement timeout). Olculdu 29.08: \u0027konkordato\u0027 3.261 ms -\u003e 500, \u0027reeskont\u0027 3.316 ms -\u003e 500, \u0027amortisman oranlari\u0027 2.363 ms -\u003e 200. Yani Net Cevap aramasi sik sorgularda cevapsiz kaliyor.",
+                                "olcum":  "POST /rest/v1/rpc/madde_ara {\"sorgu\":\"konkordato\",\"adet\":1}",
+                                "goc":  "radar-app/sql/2026-08-25-madde-ara-v8.sql"
+                            }
+                        ],
+    "not":  "Beklenen anahtarlar radar-app/sql/goc-manifesto.json icinde; kutuk radar-app/sql/UYGULANDI.md"
+}

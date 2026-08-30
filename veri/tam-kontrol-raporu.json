@@ -1,0 +1,44 @@
+{
+    "tarih":  "25.08.2026 16:49",
+    "durum":  "TAMAM",
+    "model":  "claude-sonnet-5",
+    "havuz":  "iki-kanitli",
+    "tohum":  20260825,
+    "toplam":  100,
+    "uygun":  0,
+    "kusurlu":  100,
+    "olculemedi":  0,
+    "kusur_siniflari":  {
+                            "D9":  16,
+                            "D3":  4,
+                            "D12":  5,
+                            "D2":  5,
+                            "D8b":  396,
+                            "D13":  25,
+                            "D11":  5,
+                            "Y5":  2,
+                            "D7":  43,
+                            "D5":  7,
+                            "D10":  7,
+                            "D4":  4
+                        },
+    "parti":  {
+                  "hukum":  "RET",
+                  "kusurlar":  [
+                                   "P1 olumsuz-kok az: %4 (sinavda %17-30)",
+                                   "P2 cok-ciktili az: %1 (sinavda %6,7)",
+                                   "P3 veri noktasi az: 2.53 (sinavda 5,63)"
+                               ],
+                  "olumsuz_kok_yuzde":  4,
+                  "cok_ciktili_yuzde":  1,
+                  "veri_noktasi_ort":  2.53,
+                  "cevap_anahtari":  "A=19 B=15 C=19 D=30 E=17"
+              },
+    "fatura":  {
+                   "giris":  0,
+                   "cikis":  0,
+                   "usd":  0,
+                   "bin_soru_tahmini":  0
+               },
+    "not":  "Icerik dosyasi veri/fabrika/ altinda (gitignore). Bu rapor yalniz SAYI icerir."
+}

@@ -39,15 +39,15 @@
   .dz{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
   .dz h1{font-size:26px;letter-spacing:-.6px;margin:0 0 4px}
   .dz .alt{color:var(--muted);font-size:13.5px;margin:0 0 22px;line-height:1.7}
-  .hkm{border-radius:14px;padding:18px 20px;margin:0 0 22px;border:1px solid rgba(255,255,255,.10);background:var(--kagit)}
+  .hkm{border-radius:14px;padding:18px 20px;margin:0 0 22px;border:1px solid var(--line);background:var(--kagit)}
   .hkm .bas{font-size:19px;font-weight:800;letter-spacing:-.3px}
   .hkm .ack{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.7}
-  .yesil{color:#3ddc97} .kirmizi{color:#ff6b6b} .sari{color:#f5a524} .gri{color:var(--dim)}
+  .yesil{color:var(--green)} .kirmizi{color:var(--red)} .sari{color:var(--accent2)} .gri{color:var(--dim)}
   .bl{margin:0 0 26px}
   .bl h2{font-size:14px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 10px;font-weight:700}
   table.dt{width:100%;border-collapse:collapse;font-size:13.5px}
-  table.dt th{text-align:left;color:var(--dim);font-weight:600;font-size:12px;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
-  table.dt td{padding:8px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+  table.dt th{text-align:left;color:var(--dim);font-weight:600;font-size:12px;padding:6px 8px;border-bottom:1px solid var(--line)}
+  table.dt td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
   table.dt tr:hover td{background:rgba(255,255,255,.02)}
   .rz{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
   .not{color:var(--dim);font-size:12px;line-height:1.8;margin-top:8px}
@@ -195,5 +195,10 @@
 })();
 </script>
 <script src="menu.js"></script>
+<!-- 29.08 (gorunmez sinir kapisi yakaladi): bu sayfa acik temaya GECIRILMEMIS -
+     yalnizca stil.css (koyu) yukluyordu. Sonuc: 23 okunmayan metin + 26 gorunmez
+     cerceve, yani sayfa fiilen bozuktu. stil-acik.css EN SONA baglanir (esit
+     ozgullukte son yazan kazanir), diger sayfalardaki desenle ayni. -->
+<link rel="stylesheet" href="stil-acik.css">
 </body>
 </html>

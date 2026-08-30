@@ -46,7 +46,7 @@ param(
   # bitisini ve yenileme gecmisini KESIN veriyor. Marka basina 1 istek oldugu
   # icin tavanli ve varsayilan ACIK - cunku "olabilir" satilabilir bir cumle degil.
   [switch]$DetaySiz,             # detay ucunu KAPAT (hizli/nazik kosu)
-  [int]$DetayTavan = 1500,
+  [int]$DetayTavan = 250,
   [int]$DetayBeklemeMs = 250
 )
 $Detay = -not $DetaySiz
@@ -90,6 +90,58 @@ function Cekirdek($unvan){
   return $t
 }
 function Jstr($s){ if($null -eq $s){ return '""' }; return (ConvertTo-Json ([string]$s) -Compress) }
+
+# ============================================================================
+#  GIZLI SAHIPLI ADAY BASVURULAR  (29.08.2026)
+#  Cem: "dizdar denetim basvurusu goremiyor muyuz yeni basvurular gibi"
+#
+#  OLCULDU VE KESINLESTI: TURKPATENT/TMview, bir basvuru BULTENDE YAYIMLANANA
+#  KADAR SAHIBINI GIZLIYOR. Liste ucunda applicantName =
+#  "Legally Restricted Until Publication Date"; detay ucu ise o kayitlar icin
+#  HTTP 500 doner (yani oradan da ogrenilemiyor).
+#  Sonuc: UNVAN ARAMASI yayimlanmamis basvurulari YAPISAL OLARAK BULAMAZ.
+#  Kanit: fAName=["DIZDAR DENETIM ANONIM SIRKETI"] -> 0 sonuc; ayni anda
+#  ad aramasi "dizdar" -> 50 kayit, tamaminin sahibi gizli.
+#  Kendi basvurumuz da oyle: "tetikte" 2026-097164 (27.07.2026) GORUNUYOR
+#  ama sahibi gizli - yani kendi portfoy taramamizda cikmiyordu.
+#
+#  YAPILABILEN: MARKA ADI gorunuyor. Unvanin cekirdek kelimesiyle (DIZDAR)
+#  ad aramasi yapip SAHIBI GIZLI olanlari ayri bir baslikta gosteriyoruz.
+#  BUNLAR "SENIN MARKALARIN" DEGIL - aday. "dizdar turizm" baskasinin
+#  olabilir. Kart bunu acikca soyler; biz sahiplik iddia etmeyiz.
+# ============================================================================
+$GIZLI_SAHIP = 'Legally Restricted Until Publication'
+function AdayBasvurular($cekirdek){
+  $bos = New-Object System.Collections.Generic.List[object]
+  if([string]::IsNullOrWhiteSpace("$cekirdek")){ return $bos }
+  $kelime = (("$cekirdek" -split '\s+') | Where-Object { $_.Length -ge 3 } | Select-Object -First 1)
+  if(-not $kelime){ return $bos }
+  $alanDizi = '[' + ((@($ALAN) | ForEach-Object { Jstr $_ }) -join ',') + ']'
+  $sayfa = 1
+  while($sayfa -le 3){    # aday listesi tavanli: en yeni 300 kayit yeter
+    $g = '{"page":"' + $sayfa + '","pageSize":"100","criteria":"C","basicSearch":' + (Jstr $kelime) + ',"fOffices":["TR"],"sortColumn":"applicationDate","desc":true,"fields":' + $alanDizi + '}'
+    try{ $j = TmvIstek $g }catch{ break }
+    $kayit = @($j.tradeMarks)
+    if($kayit.Count -eq 0){ break }
+    foreach($k in $kayit){
+      $sh = ((@($k.applicantName) -join ', '))
+      if($sh -notlike ("*" + $GIZLI_SAHIP + "*")){ continue }   # sahibi BELLI olan zaten unvan aramasinda cikar
+      $bos.Add([pscustomobject]@{
+        ad    = "$($k.tmName)"
+        no    = "$($k.applicationNumber)"
+        tarih = (DTarih $k.applicationDate)
+        sinif = ((@($k.niceClass) -join ','))
+        durum = "$($k.tradeMarkStatus)"
+        yayim = (DTarih $k.oppositionPeriodStart)
+        st13  = "$($k.ST13)"
+      })
+    }
+    if($kayit.Count -lt 100){ break }
+    $sayfa++
+    Start-Sleep -Milliseconds $BeklemeMs
+  }
+  return $bos
+}
 # PS 5.1'de (try{...}catch{...}) IFADE olarak kullanilamaz (pwsh 7'de olur) -
 # betik hem yerelde (5.1) hem Actions'ta (pwsh) kossun diye tarih cevirisi fonksiyonda.
 function DTarih($v){ if(-not $v){ return '' }; try{ return ([datetime]$v).ToString('dd.MM.yyyy') }catch{ return '' } }
@@ -456,15 +508,38 @@ function PortfoyKur($unvan){
   # sicilde tam o yazimla kayitli olabilir (autocomplete bazen esitlemiyor).
   if(@($vars).Count -eq 0){ $vars = @($unvan) }
   $mrk  = SahipMarkalari $vars
+  # 29.08: yayimlanmamis basvurular unvanla BULUNAMAZ (sahip gizli) - ad
+  # uzerinden aday listesi cikarilir. Bunlar "senin markalarin" DEGIL.
+  $adaylar = AdayBasvurular (Cekirdek $unvan)
 
   # --- DETAY ZENGINLESTIRME: tahmini KESIN veriyle degistir -------------------
   # Liste ucu koruma bitisini vermiyor; detay ucu veriyor. Marka basina 1 istek
   # oldugu icin tavanli. Alinamayan kayit TAHMIN yoluna duser ve karti "tahmin"
   # dilini korur - kapali kaynaktan emin gibi konusmayiz.
   $script:DetayAlinan = 0; $script:DetayDenenen = 0
+  # 30.08 OLCULDU VE DARALTILDI: detay ucu marka basina 1 istek. TUM markalari
+  # zenginlestirmek Ege Seramik'te (329 marka) kosuyu 16+ DAKIKAYA cikardi;
+  # ARCELIK'te (1.179) ~50 dakika olurdu. Kuyruk robotu bu kadar bekleyemez -
+  # kesinlik kazanirken HIZI kaybetmistim, olcmeden yapmistim.
+  # Cozum: kesinlik SADECE ONEMLI OLDUGU YERDE alinir.
+  #   ek-sure / yenileme-penceresi / dusmus  -> tarih yanlissa PARA/HAK kaybi
+  #   donem sonuna <= 550 gun kalanlar       -> yakinda o gruba girecek
+  # Gerisi TAHMIN kalir ve kart bunu zaten "TAHMIN" rozetiyle SOYLUYOR.
+  # Once tahminle siniflandir, sonra yalniz adaylari zenginlestir.
   if($Detay){
+    $onSiniflar = @{}
+    foreach($m in $mrk){ $onSiniflar[$m.no] = (Hesapla $m) }
+    $adayNo = New-Object 'System.Collections.Generic.HashSet[string]'
+    foreach($m in $mrk){
+      $h = $onSiniflar[$m.no]
+      $onemli = ($h.hal -eq 'ek-sure' -or $h.hal -eq 'yenileme-penceresi' -or $h.hal -eq 'dusmus')
+      if(-not $onemli -and $null -ne $h.kalan_gun -and [int]$h.kalan_gun -le 550){ $onemli = $true }
+      if($onemli){ [void]$adayNo.Add("$($m.no)") }
+    }
+    Write-Host ("Detay hedefi: {0}/{1} marka (yalniz tarihi ONEMLI olanlar)." -f $adayNo.Count, @($mrk).Count)
     $sayac = 0
     foreach($m in $mrk){
+      if(-not $adayNo.Contains("$($m.no)")){ continue }
       if($sayac -ge $DetayTavan){ break }
       $sayac++; $script:DetayDenenen++
       $d = TmvDetay $m.st13
@@ -545,6 +620,10 @@ function PortfoyKur($unvan){
     ek_surede   = @($sirali | Where-Object { $_.hal -eq 'ek-sure' }).Count
     dusmus      = @($sirali | Where-Object { $_.hal -eq 'dusmus' }).Count
     surecte     = @($sirali | Where-Object { $_.hal -eq 'surecte' }).Count
+    # Sahibi sicilde GIZLI olan, adi unvanin cekirdegine benzeyen basvurular.
+    # Aday listesidir - sahiplik iddiasi degil.
+    adaylar     = @($adaylar)
+    aday_sayi   = @($adaylar).Count
   }
 }
 
@@ -712,7 +791,7 @@ foreach($t in $talepler){
   $sonucJson = $null; $hata = $null
   try{ $p = PortfoyKur $unv }catch{ $hata = $_.Exception.Message; $p = $null }
   if($p){
-    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; siniflar=@($p.siniflar); sinif_acigi=$p.sinif_acigi; kullanim_yakin=$p.kullanim_yakin; kullanim_dolmus=$p.kullanim_dolmus; markalar=@($p.markalar) }
+    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; siniflar=@($p.siniflar); sinif_acigi=$p.sinif_acigi; kullanim_yakin=$p.kullanim_yakin; kullanim_dolmus=$p.kullanim_dolmus; markalar=@($p.markalar); adaylar=@($p.adaylar); aday_sayi=$p.aday_sayi }
   }
   $talepIslenen++
   # 21.08: Talep GIRIS YAPMIS bir uyeden geldiyse (RPC auth.uid() yaziyor) sonuc

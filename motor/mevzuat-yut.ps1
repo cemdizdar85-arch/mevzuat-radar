@@ -58,7 +58,19 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     return $true
   }
 
-  $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:–—-]?|[–—-])'
+  # 30.08.2026 KUSUR (olculdu, III-45.1 vakasi): ayirici sinifi yalniz UC tire
+  # taniyordu: - (U+002D), – (U+2013), — (U+2014). Ama mevzuat.gov.tr PDF'lerinin
+  # bir kisminda madde ayiricisi ‒ (U+2012 FIGURE DASH) veya − (U+2212 MINUS).
+  # Gozle ayirt edilemez, regex icin baska karakterdir. SESSIZ zarar:
+  #   III-45.1 (Belge ve Kayit Duzeni): 33 maddenin 32'si kaciyor, tebligin
+  #     TAMAMI tek "m.5/A" blobu olarak yutuluyordu (23 parcaya bolunmus).
+  #   KGK Kurulus KHK 660: ambarda 1 parca / 1 madde - kaynakta 35 madde.
+  #     Zaten satilan bagimsiz denetim sinavinin KURUCU mevzuati, yillardir
+  #     tek blob. Envanterde satir VARDI, icerik YOKTU.
+  # Kapsama kapisi bunu yakalamadi cunku metin kaybi yok - metin tek maddede
+  # duruyor; kaybolan SINIRLAR. Ders: "kapsama %" madde SAYISINI olcmez.
+  # Olcum: tum _txt (706 dosya) tarandi - U+2012 76 kez / 4 dosyada, U+2212 8 kez.
+  $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:‐-―−-]?|[‐-―−-])'
   $m = $rx.Matches($flatMetin)
   $docs = New-Object System.Collections.Generic.List[object]
   for($i=0; $i -lt $m.Count; $i++){
@@ -383,4 +395,50 @@ try {
     }
   }
 } catch { Write-Host "SORU ETKI ZINCIRI UYARI (hasat etkilenmedi): $_" }
+
+# ============================================================================
+# ENVANTER TETIGI (30.08.2026 — Cem: "1 yap")
+#
+# NEDEN VAR: ev kurali "VAR/YOK cevabi YALNIZ veri/AMBAR-ENVANTERI.md'den
+# verilir" idi; ama envanteri hicbir yutucu ve hicbir workflow cagirmiyordu -
+# yalniz gunluk 06:45 gorevi kosuyordu. Sonuc: her yutmadan ERTESI SABAHA
+# KADAR envanter yalan soyluyordu.
+#   OLCULEN VAKA (30.08, ayni gece): 10 SPK kaynagi + 584 parca ambara yazildi;
+#   envanter 06:47 damgasiyla eski duruyordu. O saatte "SPK kaynagi var mi?"
+#   diye sorulsa, kural geregi envanterden okunup "YOK" denecekti - ambarda
+#   dururken. Cem sormasaydi kayit eksik kalacakti.
+# Artik ambara YAZILDIYSA envanter ayni kosuda tazelenir; tek dogru sayfa
+# gercekten tek dogru sayfa olur.
+#
+# DORT FREN: (1) yalniz yazma oldiysa kosar - bos kosuda ambar bastan taranmaz.
+# (2) anahtar yoksa ATLAR ve bunu SOYLER (sessiz atlama kor kalmadir).
+# (3) BOZUK-TAZELEME FRENI (asagida) - envanterin TAM MI / GUNCEL MI sutunlari
+#     veri/butunluk-raporu.json + veri/fabrika/surum-tazeligi-karnesi.json'dan
+#     gelir; ikisi de .gitignore'da, yani TEMIZ KLONDA ve CI runner'inda YOK.
+#     Orada kosarsa envanter uretilir ama iki sutun komple "olculmedi" olur ve
+#     depodaki IYI olcumleri EZER. Olculdu (30.08 denemesi): temiz worktree'de
+#     "butunluk olculen 0 / surum olculen 0" cikti. Bu yuzden iki girdi de
+#     yoksa TAZELEME YAPILMAZ - bayat envanter, yanlis envanterden iyidir.
+# (4) try/catch - envanter patlasa bile YUTMA BOZULMAZ; yutma zaten bitti,
+#     envanter yalnizca rapordur.
+# ============================================================================
+if($degisen.Count -gt 0 -and "$($env:ENVANTER_ATLA)" -ne '1'){
+  $butunVar = (Test-Path (Join-Path $kok 'veri\butunluk-raporu.json')) -or (Test-Path (Join-Path $kok 'veri\butunluk-raporu-standartlar.json'))
+  $surumVar = Test-Path (Join-Path $kok 'veri\fabrika\surum-tazeligi-karnesi.json')
+  if(-not $SB_ANAHTAR){
+    Write-Host "ENVANTER TETIGI: ATLANDI - SUPABASE_SERVICE_KEY yok, envanter ambari sayamaz. veri/AMBAR-ENVANTERI.md ESKIDIR."
+  } elseif(-not ($butunVar -and $surumVar)){
+    Write-Host ("ENVANTER TETIGI: ATLANDI - kapi ciktilari yok (butunluk:{0} surum:{1}). Tazelense TAM MI/GUNCEL MI sutunlari sifirlanir ve depodaki olcumler EZILIR." -f $butunVar, $surumVar)
+    Write-Host "  -> veri/AMBAR-ENVANTERI.md ESKI kaldi (bilerek). Tazeleme, kapilarin ciktisi duran makinede yapilir."
+  } else {
+    try {
+      Write-Host "ENVANTER TETIGI: ambara yazildi ($($degisen.Count) kaynak) - envanter tazeleniyor..."
+      & (Join-Path $here 'ambar-envanteri.ps1')
+      Write-Host "ENVANTER TETIGI: veri/AMBAR-ENVANTERI.md tazelendi."
+    } catch {
+      Write-Host "ENVANTER TETIGI UYARI (yutma etkilenmedi): $_"
+      Write-Host "  -> veri/AMBAR-ENVANTERI.md ESKI kaldi; 'eksik var mi?' cevabi bu kosu icin GUVENILMEZ."
+    }
+  }
+}
 exit 0

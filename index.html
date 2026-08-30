@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
-  :root{--panel2:#101927;--line:rgba(255,255,255,.08);--grad:linear-gradient(135deg,#f5a524 0%,#ffce6a 100%);--red-bg:rgba(255,107,94,.09);--amber-bg:rgba(255,194,75,.09);--green-bg:rgba(61,220,151,.09);--slate:#9fb0c2;--slate-bg:rgba(159,176,194,.08);--r:18px;--shadow:0 20px 60px rgba(0,0,0,.45)}
+  :root{--panel2:#101927;--grad:linear-gradient(135deg,#f5a524 0%,#ffce6a 100%);--red-bg:rgba(255,107,94,.09);--amber-bg:rgba(255,194,75,.09);--green-bg:rgba(61,220,151,.09);--slate:#9fb0c2;--slate-bg:rgba(159,176,194,.08);--r:18px;--shadow:0 20px 60px rgba(0,0,0,.45)}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);
@@ -422,7 +422,7 @@ window.veriAl = (function(){
         <a href="firma-analizi.html">Rakip Firma Analizi<span>firma hangi ihaleleri kaça aldı</span></a>
         <a href="idare-analizi.html">İdare Analizi<span>kurum ne açtı, kaça kapandı, kaç teklif</span></a>
         <a href="alacak-radari.html">Alacak Radarı<span>müşterin konkordato/iflas ilan etti</span></a>
-        <a href="marka-radari.html">Marka Radarı<span>yenileme + benzer başvuru</span></a>
+        <a href="marka-radari.html">Marka Radarı<span>markanla ilgili her şey tek yerde</span></a>
         <a href="marka-itiraz.html">Marka İtiraz<span>benzerlik / itiraz analizi</span></a>
         <a href="evrak-radari.html">Evrak Radarı<span>mükellef evrak takibi</span></a>
         <a href="destekler.html">Destek Radarı<span>profiline göre KOSGEB, Eximbank</span></a>
@@ -780,15 +780,20 @@ window.veriAl = (function(){
         </span>
       </a>
       <!-- 30.07: hedef marka-radari.html'di ama o sayfada baglanma CTA'si yok
-           (cikmaz sokak). Kutu dogrudan niyetli panele gider: uyelikten sonra
-           ilk soru marka olur. -->
-      <a class="mp" href="radar-app.html?niyet=marka">
+           (cikmaz sokak). Kutu dogrudan niyetli panele gidiyordu.
+           29.08 DEGISTI (Cem karari "once deger, sonra duvar"): kutunun VAADI
+           ile gittigi yer uyusmuyordu - "unvani yaz, markalarin gelsin" deyip
+           UYELIK DUVARINA gonderiyorduk, oysa o tarama marka-portfoy.html'de
+           GIRISSIZ calisiyor. Artik Marka Merkezi'ne gider; kisi kendi marka
+           listesini bedava gorur, SONUC ekraninda "her gun izleyelim mi?" ile
+           uyelige davet edilir (marka-portfoy.html icindeki "Nöbete al"). -->
+      <a class="mp" href="marka-radari.html">
         <span class="mp-bar"><b>Marka Radarı</b></span>
         <span class="mp-ic">
-          <span class="mp-tag">FİRMA UNVANIN YETER</span>
+          <span class="mp-tag">FİRMA UNVANIN YETER · ÜYELİK İSTEMEZ</span>
           <span class="mp-b">Adına kaç marka var, hangisi düşüyor?</span>
           <span class="mp-m">Unvanı yaz, sicildeki bütün markaların tarihleriyle gelsin (SMK m.23: koruma 10 yıl, yenileme son 6 ay). Marka adı bilmene gerek yok.</span>
-          <span class="mp-git">Markanı radara bağla →</span>
+          <span class="mp-git">Markalarımı getir →</span>
         </span>
       </a>
       <!-- kopru seridi: iki rafa da sigmayan soru buradan sorulur -->
@@ -1190,7 +1195,7 @@ window.veriAl = (function(){
         <a class="arac" href="firma-analizi.html"><div><b>Rakip Firma Analizi</b><span>Bir firma kamu ihalelerinde kaç iş aldı, hangi bedelle, ne kırımla, rakibini tanı.</span></div></a>
         <a class="arac" href="idare-analizi.html"><div><b>İdare Analizi</b><span>Bir kurum geçmişte ne açtı, kaça kapandı, hangi firmalarla çalıştı, ortalama kaç teklif alıyor.</span></div></a>
         <a class="arac vitrinde" href="alacak-radari.html"><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilanına düşmüş mü, günü gününe gör; 15 günlük süreyi kaçırma.</span></div></a>
-        <a class="arac vitrinde" href="marka-radari.html"><div><b>Marka Radarı</b><span>Marka yenileme tarihin yaklaşınca ve benzer başvuru çıkınca uyarı.</span></div></a>
+        <a class="arac vitrinde" href="marka-radari.html"><div><b>Marka Radarı <span style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">· BAŞLANGIÇ</span></b><span>Marka ailesinin evi: unvanından sicil taraması, yenileme hesabı ve aşağıdaki beş aracın hepsi buradan.</span></div></a>
         <a class="arac" href="marka-itiraz.html"><div><b>Marka İtiraz &amp; Benzerlik</b><span>Yeni başvuru markana benziyor mu? İtiraz süren dolmadan gör.</span></div></a>
         <a class="arac vitrinde" href="marka-portfoy.html"><div><b>Marka Portföyü</b><span>Firma unvanını yaz; sicildeki bütün markaların, yenileme tarihleri, düşmüşler ve sınıf haritası tek ekranda.</span></div></a>
         <a class="arac" href="marka-izleme.html"><div><b>Marka İzleme Radarı</b><span>Markana benzeyen yeni başvuru düştü mü; itiraz süresi (yayımdan 2 ay) dolmadan gör.</span></div></a>

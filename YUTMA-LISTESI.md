@@ -1,5 +1,32 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 28.08.2026 — TMS 37 GÜNCEL SÜRÜMLE YENİDEN YUTULDU (mülga-atıf bulgusu; Cem: "2 yap şimdi")
+*Sebep: Şema provası yakaladı — ambardaki `TMS 37 p.5 - Kapsam` ESKİ SÜRÜMDÜ (mülga TMS 17 + TFRS 4'e "bakınız" atfı; güncel metin TFRS 16/TFRS 17 der). 90'lık partideki TMS 37 sorusu bu yüzden eski atıfla üretilmişti (model kurallara uydu, kaynak bayattı). DERS: **kapsama tam ≠ sürüm güncel.***
+
+| Kaynak | Yapılan | Sonuç |
+|---|---|---|
+| **TMS 37** (KGK 2026 Kırmızı Kitap resmî PDF) | `standart-yut.ps1 -standart 'TMS 37' -uygula -kucultmeyeOnayVer` (küçülme %93 — eski kaynağın fazlalığı; onay öncesi PDF'in p.5'i elle teyit edildi: TFRS 16 ✓, mülga atıf 0 ✓) | 85 → **105 parça**; geri okuma birebir; p.5/(c)→TFRS 16, (e)→TFRS 17 |
+
+**Bölücü köşe vakası (elle yamalandı + geri okundu):** p.5'in (b) bendi ("Gelir vergileri — TMS 12") bölünürken düşmüştü; tek PATCH'le geri kondu. Bölücüde bent-satırı düşmesi izlenecek desen.
+**Kapı yanlış-pozitifi:** bütünlük kapısı p.4/6/96/97/98'i "eksik" saydı — beşi de resmî metinde **[Silinmiştir]**; kapıya "[Silinmiştir] = delik değil" ayrımı eklenmeli.
+**Zincir tamamlandı:** 90'lık `p90-KGK-27` sorusu taze kaynakla yeniden üretildi; `cok-cikan-30-KGK.html`'de mülga atıf 0 (TFRS 16×5, TFRS 17×5).
+**AÇIK → KAPANDI (aynı gece):** 41 mülga-atıf sınıflandırıldı — 11 kuşkulunun 11'i MEŞRU (TMS 39 hedge + koşullu atıflar güncel metinlerde de var); rapor `veri/fabrika/mulga-atif-taramasi.json`.
+
+### 28.08 devamı — SÜRÜM TAZELİĞİ KAPISI İLK SÜPÜRMESİ (37 standart; Cem: "hergün tara")
+`motor/surum-tazeligi.ps1` kuruldu (günlük 06:45 Windows görevi `MevzuatRadar-SurumTazeligi`); ilk süpürme 30 TUTARLI verdi ve şunları yakaladı — hepsi aynı gece kapatıldı:
+
+| Standart | Bulgu | Yapılan | Sonuç |
+|---|---|---|---|
+| **TFRS 8** | YARIM yutulmuş (6 parça) | tam yut | 6→**45 parça**, birebir ✓ |
+| **TMS 27** | YARIM (5 parça) | tam yut | 5→**15 parça**, birebir ✓ |
+| **TMS 8** | 6 mükerrer + eski bölme artığı (93→gerçek 79) | temiz sete çek | **79 parça**, birebir ✓ |
+| **TMS 1** | 🔴 ESKİ SÜRÜM (p.72A/139U — 2024 sınıflandırma değişikliği YOKTU) + Kırmızı 2026'dan çıkmış, uygulanan set MAVİ Kitap'ta | Mavi Kitap'tan yut | 158→**117 parça**, p.72A/139U imzası ✓ |
+| **TFRS 18** | ambarda yalnız 23 parçalık iz; Kırmızı 2026'da TMS 1'in YERİNİ ALDI (dosya adı `TFRS 18 .pdf` — sonda boşluk!) | tam yut | 23→**277 parça / 168k krk**, birebir ✓ |
+| TMS 28 | ambar set PDF'inden BÜYÜK | DOKUNULMADI — 26.08 elle işlenen Temmuz kurul kararları; ambar DAHA güncel | kapıda `ISTISNA-ELLE-ZENGIN` |
+
+**Türev envanteri (Cem: "biz bunları okuduk, başka yerde kalmış olabilir mi?"):** eski sürümle üretilmiş kasa sorusu sayımı (kanun_no='STD' + madde_no): TMS 1 **292** · TMS 37 **117** · TMS 8 **96** · TMS 27 **47** · TFRS 8 **22** = **574 soru** → damga-uyuşmazlığıyla yeniden-doğrulama kuyruğunda, cila partisinde öncelikli. 90'lık provadaki TMS 37 + TMS 1 soruları taze kaynakla yeniden üretildi. Net Cevap canlı ambardan okur (otomatik güncel); yerel yutma yedekleri repoya girmiyor (kontrol edildi).
+**Kapı öz-sınav dersleri (koda işlendi):** Write-Host `*>&1` ile yakalanır · sayı ayırıcıya `\D` · `%2520` çift kodlama standart listesinden TMS 27'yi düşürüyordu · KGK dosya adları kalıptan sapar (özel-yol tablosu) · elle-zengin kaynaklara istisna etiketi.
+
 ## ✅ 27.08.2026 — BDDK KARŞILIKLAR YÖNETMELİĞİ (2016) YUTULDU ('yakın izleme' boşluğu)
 *Sebep: KGK bankacılık çıkmış sorusu "yakın izleme" sınıflandırmasına dayanıyor; ölçüm: ifade ambarda mevzuat metni olarak HİÇ yoktu (yalnız Sorunlu Alacak Rehberi bölüm 83 + çıkmış sınav kâğıtları).*
 
@@ -584,3 +611,14 @@ tek tebliğ yazamadı) — bash'e seyrek filtresi + 120'lik ilk-kez tavanı + 2 
 - Sebep: kor hakem turu SMMM-19 reeskont sorusunda ic iskonto yontemini teyit edemedi (tebliğ ambarda yoktu)
 - Kaynak: Lexpera orijinal RG metni (GIB node 88514 olu, mevzuat.gov.tr fihristte 238 yok - MevzuatNo=12300 385 cikti)
 - Geri okuma: 6/6 parca, 'F = A - [A x 360/(360+m x t)]' formulu ve 'kisa vadeli avans' ifadesi sondajla teyit edildi
+
+## 28.08.2026 - TARAMA-2 EKSIKLERI KAPANISI (6 mevzuat + BDS 210 + 28 teori notu)
+- SPK Kredili Islemler Tebligi (V-65): 47 parca, SPK API kaynakli, yururluk 3 kanitla teyitli, m.7 birebir
+- Teminatli MK Tebligi (III-59.1): 56 parca konsolide (III-59.1a = degisiklik tebligi), m.21 birebir; EKLER yutulmadi (PDF icermiyor)
+- BDDK Ozkaynak Yon. (2013): 41 parca, resmi hat, %99,8, manifest+push ajan tarafindan (827de989)
+- BDDK Bankalar THP (Kurul metni, DokumanGetir/1043): 282 kayit TAM belge; mevzuat.gov.tr tutmuyor
+- Asgari Ucret Yon. (G7:5454): 19/19 birebir, m.7 sondaj isabet
+- TURMOB Birlik Yon. (G7:4661): 70 parca, 14.1.2026 degisikligi isli, %99,77
+- BDS 210: 6->66 parca (A28 dahil) - cilizmis
+- Teori notlari parti-2: 28 uretildi + hakem (19 kusursuz, 2 icerik hatasi yakalandi: UIE terim + ciro/defi TTK m.688-689) + 9 duzeltme birebir
+- Hepsi veri/mevzuat/*.json repo vatandasi; yetim testi 0 (sert kapi yesil)
