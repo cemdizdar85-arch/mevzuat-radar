@@ -35,6 +35,13 @@ on:
   # MALIYET 0: depo PUBLIC, Actions ucretsiz; bos kuyrukta is hemen biter.
   push:
     branches: [main]
+  # ASIL TETIK (30.08): Supabase'te bir marka talebi ACILIR ACILMAZ bu is akisi
+  # disaridan cagrilir -> kuyrukta bekleme SANIYELERE iner. Cron kisitlanabiliyor,
+  # bot push'lari tetiklemiyor; guvenilir tek yol bu.
+  # Kuran SQL: veri/sql-marka-talep-webhook.sql (marka_talep INSERT tetigi -> pg_net
+  # -> GitHub repository_dispatch). Cem'in yapmasi gereken tek sey token uretmek.
+  repository_dispatch:
+    types: [marka-talep]
   workflow_dispatch:
     inputs:
       mod:
