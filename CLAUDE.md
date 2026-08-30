@@ -28,8 +28,12 @@ Betik üç şeyi yapar ve **üçü de geçmeden çalışmaya başlanmaz:**
 ## 🔴 KAPANIŞ PROTOKOLÜ — iş biter bitmez, "sonra" yok
 
 ```powershell
-powershell -NoProfile -File motor/oturum.ps1 -Kapat
+powershell -NoProfile -File motor/oturum.ps1 -Kapat -Kol "<açtığın kol>"
 ```
+
+> `-Kol` **yaz**. Kilit koldan bırakılır, PID'den değil (`-Ac` ile `-Kapat`
+> ayrı süreçlerdir). Kol yazılmazsa: tek kilit varsa bırakılır, birden fazla
+> kol açıksa **hiçbiri bırakılmaz** ve sana sorulur.
 
 > Bu makinede `pwsh` (PowerShell 7) **yok**, `powershell` (5.1) var. Betikleri
 > `powershell -NoProfile -File` ile çağır. Ayrıca 5.1 BOM'suz UTF-8'i ANSI sanar:
