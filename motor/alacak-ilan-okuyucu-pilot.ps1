@@ -152,6 +152,14 @@ k) IFLAS TASFIYE ISLEMI: sira cetveli, tasfiyenin tatili, masa islemleri,
    iflasin kapanmasi - devam eden bir iflas surecinin islem ilani
 f) Yukaridakilerden hicbiri
 
+DIKKAT - MUHLET ILANLARINDA EN SIK HATA (30.08 olcumu):
+Bir konkordato ilani genelde SURECIN TAMAMINI anlatir:
+  "...once 3 AY GECICI MUHLET verilmisti, ... simdi 1 YIL KESIN MUHLET
+   verilmesine karar verilmistir."
+Sen ILANIN DUYURDUGU ASIL/SON karari sec - metinde gecen ILK karari DEGIL.
+Baslik da ipucu verir ama tek basina yeterli degildir; metindeki EN SON
+hukum cumlesine bak. ALINTI da o karari gostermeli.
+
 DIKKAT - en sik karistirilan UC ayrim:
 1) Konkordato MUHLETININ kaldirilmasi (g), IFLASIN kaldirilmasi (d) DEGILDIR.
    Muhlet konkordato surecine aittir, iflas ayri bir hukumdur.

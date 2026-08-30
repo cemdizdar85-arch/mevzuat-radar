@@ -61,12 +61,22 @@ td{padding:6px 8px 6px 0;border-bottom:1px solid #f3f4f6;vertical-align:top}
   <span style="font-size:12px;color:#6b7280">Tarayıcının yazdırma penceresinde “Hedef: PDF olarak kaydet”i seç.</span>
 </div>
 
-<div class="kagit" id="icerik" role="main" id="kagit">
+<!-- 29.08 KUSUR: bu div'de IKI id vardi (id="icerik" ... id="kagit"). HTML
+     ayristiricisi BIRINCIYI alir, ikinciyi sessizce atar; betik ise ikinciyi
+     ariyordu -> getElementById hep null donuyordu ve sayfanin DORT dalinin
+     dordu de ilk satirinda patliyordu. Yani rapor sayfasi acilmiyordu:
+     ekranda sonsuza kadar "Rapor yukleniyor..." yaziyordu ve portfoy
+     panosundaki "Rapor al" dugmesi olu bir sayfaya goturuyordu.
+     id="icerik" korundu (sayfanin "Iceriğe atla" baglantisinin hedefi),
+     betik de artik ona bakiyor. -->
+<div class="kagit" id="icerik" role="main">
   <p id="durum" style="color:#6b7280">Rapor yükleniyor…</p>
 </div>
 
+<script src="kutuphane/supabase-2.112.3.js"></script>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = window.supabase || {};
+if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
 const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
 const kac=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ETIKET={ 'ek-sure':['EK SÜREDE','r-r'], 'yenileme-penceresi':['YENİLEME AÇIK','r-a'], 'surecte':['SÜREÇTE','r-n'], 'guvende':['GÜVENDE','r-g'], 'dusmus':['DÜŞMÜŞ','r-n'], 'bilinmiyor':['—','r-n'] };
@@ -76,7 +86,7 @@ try{ const nj=await (await fetch('veri/nice-siniflar.json')).json(); (nj.sinifla
 const bugun=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'});
 
 const jeton=new URLSearchParams(location.search).get('jeton');
-const kagit=document.getElementById('kagit');
+const kagit=document.getElementById('icerik');
 if(!jeton){
   kagit.innerHTML='<p class="hata">Rapor bağlantısı eksik.</p><p>Raporu üretmek için önce <a href="marka-portfoy.html">portföy panosunda</a> firma unvanıyla tarama yap, sonra “Rapor al” de.</p>';
 } else {
@@ -112,6 +122,16 @@ function ciz(s){
      '<div><b>'+(s.surecte||0)+'</b><span>başvuru aşamasında</span></div>'+
      '<div><b style="color:#6b7280">'+(s.dusmus||0)+'</b><span>düşmüş</span></div></div>';
   if(toplam>s.sayi) h+='<p style="font-size:11.5px;color:#6b7280;margin:8px 0 0">Sicilde '+toplam+' kayıt görünüyor; bu rapor en yeni '+s.sayi+' kayıt üzerinden hazırlandı.</p>';
+  /* 29.08 SESSIZ KESINTI: hasatci sonuc jsonb'sine markalari 300'de kesiyor
+     (marka-portfoy-hasat.ps1) ama OZET SAYILARI tum kayitlar uzerinden.
+     ARCELIK olcumu: ozet 1.179 marka / 389 dusmus diyor, listede 300 kayit var
+     ve DUSMUSLERIN HICBIRI YOK. Yukaridaki uyari baska bir kapak icin
+     (toplam>sayi) ve burada tetiklenmiyor - iki sayi da esit.
+     Musavir bunu muvekkiline gonderiyor; "389 dusmus" deyip hicbirini
+     listelemeyen bir belge, sayinin kendisini supheli hale getirir.
+     Kesinti LISTENIN KENDISINDEN olculuyor: sunucu bayrak gondermese de
+     calisir, yani ESKI taramalar icin de gecerli. */
+  if(mk.length < (s.sayi||0)) h+='<p style="font-size:11.5px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px;margin:8px 0 0">Bu raporda <b>'+mk.length+'</b> kayıt listelendi; sicilde bulunan <b>'+(s.sayi||0)+'</b> markanın <b>en acil olanları</b> alındı. Yukarıdaki özet sayıları markaların <b>tamamı</b> üzerinden hesaplanmıştır — sayı ile liste arasındaki fark kesintidir, hata değil.</p>';
 
   if(acil.length){
     h+='<h2>Acil: yenileme tarihi geçmiş ya da yaklaşmış</h2><table><thead><tr><th>Marka</th><th>Başvuru</th><th>Sicil</th><th>Durum</th><th>Dönem sonu</th></tr></thead><tbody>'+

@@ -41,8 +41,15 @@ param(
   [int]$BeklemeMs = 200,
   [switch]$YalnizTalep,          # sik kosan kuyruk isleyici (marka-talep.yml, 10 dk)
   [switch]$YalnizUye,            # gunluk uye portfoyu tazeleme (kaynak.yml)
-  [switch]$Rakip                 # rakip nobeti: marka_rakip listesini tara, YENI basvuruyu haber ver
+  [switch]$Rakip,                # rakip nobeti: marka_rakip listesini tara, YENI basvuruyu haber ver
+  # 29.08 (Cem: "dusmus olabilir diyoruz ama bilmiyoruz"): detay ucu koruma
+  # bitisini ve yenileme gecmisini KESIN veriyor. Marka basina 1 istek oldugu
+  # icin tavanli ve varsayilan ACIK - cunku "olabilir" satilabilir bir cumle degil.
+  [switch]$DetaySiz,             # detay ucunu KAPAT (hizli/nazik kosu)
+  [int]$DetayTavan = 1500,
+  [int]$DetayBeklemeMs = 250
 )
+$Detay = -not $DetaySiz
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -103,6 +110,74 @@ function TmvIstek($govdeJson){
   }
   throw ("TMview JSON yerine sayfa dondurdu (bot korumasi olabilir, {0} bayt) - sonuc uretilmedi." -f "$son".Length)
 }
+# ============================================================================
+#  DETAY UCU — "olabilir" degil, KESIN  (29.08.2026, Cem: "duşmuş olabilir
+#  diyor ama bilmiyoruz, biz bundan nasil para kazanacagiz")
+#
+#  SORUN: liste ucu (api/search/results) koruma bitisini VERMIYOR. Biz de
+#  "basvuru + 10*n" ile TAHMIN edip karta "yenilenmediyse dolmus olmali,
+#  kesin tarihi sicilden teyit et" yaziyorduk. Bu satilabilir bir cumle degil;
+#  daha kotusu YANLIS olabiliyordu.
+#
+#  OLCULDU (29.08): GET /tmview/api/trademark/detail/{ST13}?translate=true
+#  sicilin kendi verisini doner:
+#    tradeMark.expiryDate            -> KESIN koruma bitisi
+#    tradeMark.codeRegistrationDate  -> tescil tarihi
+#    renewals[]                      -> YENILEME GECMISI (filingDate)
+#    applicants[].fullName           -> gercek sahip
+#    representatives[]               -> marka vekili
+#    cancellations[] / oppositions[] / recordals -> iptal, itiraz, degisiklikler
+#  GERCEK VAKA: "p 4000" (2006-31196) kartimizda "dusmus olabilir" yaziyordu;
+#  detay ucu 26.06.2026'da YENILEME BASVURUSU yapildigini gosterdi. Yani
+#  musteriye "markan dustu" diyecektik, oysa yenileniyordu.
+#
+#  MALIYET: marka basina 1 istek. Bu yuzden istege bagli (-Detay) ve tavanli.
+#  Detay ALINAMAZSA eski tahmin yolu ve "tahmin" dili AYNEN kalir - kapali
+#  bir kaynaktan emin gibi konusmayiz.
+# ============================================================================
+$TMDETAY = "https://www.tmdn.org/tmview/api/trademark/detail/"
+function IsoGun($s){ if([string]::IsNullOrWhiteSpace("$s")){ return '' } try{ return ([datetime]::Parse("$s",[Globalization.CultureInfo]::InvariantCulture,[Globalization.DateTimeStyles]::AdjustToUniversal)).ToString('dd.MM.yyyy') }catch{ return '' } }
+function TmvDetay($st13){
+  if([string]::IsNullOrWhiteSpace("$st13")){ return $null }
+  for($d=1; $d -le 3; $d++){
+    try{
+      $w = Invoke-WebRequest -Uri ($TMDETAY + [uri]::EscapeDataString("$st13") + "?translate=true") -Headers $TH -TimeoutSec 45 -UseBasicParsing
+      $t = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
+      if(-not (JsonMu $t)){ throw 'govde JSON degil' }
+      $j = $t | ConvertFrom-Json
+      $tm = $j.tradeMark
+      if(-not $tm){ return $null }
+      # DIZI YOK, hepsi SKALER: PS 5.1'in ConvertTo-Json'i ic dizileri
+      # {value,Count} icine sarar (bilinen kusur) ve istemci okuyamaz.
+      # Yenileme gecmisi bu yuzden METIN olarak tutulur.
+      $yen = @($j.renewals | Where-Object { $_ } | ForEach-Object { IsoGun $_.filingDate } | Where-Object { $_ })
+      $vek = @($j.representatives | Where-Object { $_ } | ForEach-Object { if($_.organizationName){ "$($_.organizationName)" } else { "$($_.fullName)" } } | Where-Object { $_ })
+      $sah = @($j.applicants | Where-Object { $_ } | ForEach-Object { "$($_.fullName)" } | Where-Object { $_ })
+      $kyt = @($j.recordals.basicRecords | Where-Object { $_ } | ForEach-Object { "$($_.kindTranslated)" } | Where-Object { $_ })
+      return [pscustomobject]@{
+        bitis          = IsoGun $tm.expiryDate
+        tescil         = IsoGun $tm.codeRegistrationDate
+        basvuru        = IsoGun $tm.applicationDate
+        sicil_no       = "$($tm.registrationNumber)"
+        durum_tr       = "$($tm.markCurrentStatusCodeTranslated)"
+        tur            = "$($tm.markFeatureTranslated)"
+        yenileme_sayisi= $yen.Count
+        son_yenileme   = $(if($yen.Count){ $yen[$yen.Count-1] } else { '' })
+        yenilemeler    = ($yen -join ' · ')
+        sahip          = ($sah -join ' · ')
+        vekil          = ($vek -join ' · ')
+        kayitlar       = ($kyt -join ' · ')
+        iptal_sayisi   = @($j.cancellations).Count
+        itiraz_sayisi  = @($j.oppositions).Count
+      }
+    }catch{
+      if($d -eq 3){ return $null }   # detay alinamadi: TAHMIN yoluna dus, yalan soyleme
+      Start-Sleep -Milliseconds (600 * $d)
+    }
+  }
+  return $null
+}
+
 # Sahip adi varyantlari: once tam unvan, bos donerse cekirdek, o da bossa ilk kelime
 function Varyantlar($unvan){
   $sonuc = New-Object System.Collections.Generic.List[string]   # cekirdekle BASLAYANLAR (guvenli)
@@ -197,7 +272,20 @@ function Hesapla($m){
   $d  = "$($m.durum)"
   $tescilliMi = ($d -match '(?i)regist')                       # Registered
   $bittiMi    = ($d -match '(?i)(ended|expir|withdraw|refus|invalid|surrender)')
-  $o = [ordered]@{ hal='bilinmiyor'; donem_sonu=''; kalan_gun=$null; ek_sure_sonu=''; not=''; kullanim_son=''; kullanim_kalan=$null; kullanim_notu=''; m68_son='' }
+  $o = [ordered]@{ hal='bilinmiyor'; donem_sonu=''; kalan_gun=$null; ek_sure_sonu=''; not=''; kullanim_son=''; kullanim_kalan=$null; kullanim_notu=''; m68_son=''; kesin=$false }
+  # 29.08: KESIN BITIS. Detay ucu sicilin kendi expiryDate'ini veriyor; varsa
+  # "basvuru + 10*n" TAHMINI hic kullanilmaz. kesin=$true olan kartta "olabilir /
+  # teyit et" dili YAZILMAZ - cunku artik biliyoruz.
+  $kesinBitis = $null
+  if($m.PSObject.Properties['bitis'] -and $m.bitis){ $kesinBitis = DdmmToDate $m.bitis }
+  if($kesinBitis){ $o.kesin = $true }
+  # Yenileme gecmisi cumlesi: kac kez, en son ne zaman (kurumsal kunye)
+  $yenCumle = ''
+  if($m.PSObject.Properties['yenileme_sayisi'] -and [int]"$($m.yenileme_sayisi)" -gt 0){
+    $yenCumle = ' Sicilde ' + $m.yenileme_sayisi + ' yenileme kaydı var'
+    if($m.son_yenileme){ $yenCumle += ' (sonuncusu ' + $m.son_yenileme + ')' }
+    $yenCumle += '.'
+  }
   # NOT metinleri KULLANICIYA gider (sayfa + mail) -> duzgun Turkce yazilir;
   # betik BOM'lu UTF-8 oldugu icin hem PS 5.1 hem pwsh 7 dogru okur.
   if(-not $bt){ $o.not = 'Başvuru tarihi okunamadı.'; return $o }
@@ -208,13 +296,37 @@ function Hesapla($m){
     # veya benzer ... basvuru, onceki marka sahibinin itirazi uzerine BU IKI YILLIK
     # SURE ICINDE MARKANIN KULLANILMIS OLMASI SARTIYLA reddedilir."
     # Sona erme tarihini sicil vermiyor -> basvuru+10*n ile TAHMIN, "tahmin" denir.
-    $nS = 1; while($bt.AddYears(10*$nS) -lt $simdi){ $nS++ }
-    $sonaTahmin = $bt.AddYears(10*($nS-1))
+    # KESIN bitis varsa tahmin YOK: sicil ne diyorsa o.
+    if($kesinBitis){
+      $sonaTahmin = $kesinBitis
+      $nS = 2   # kesin tarih var; m.6/8 penceresi her halukarda hesaplanir
+    } else {
+      $nS = 1; while($bt.AddYears(10*$nS) -lt $simdi){ $nS++ }
+      $sonaTahmin = $bt.AddYears(10*($nS-1))
+    }
     if($nS -gt 1){
       $o.donem_sonu = $sonaTahmin.ToString('dd.MM.yyyy')
       $o.m68_son    = $sonaTahmin.AddYears(2).ToString('dd.MM.yyyy')
       $kalan68 = [int]($sonaTahmin.AddYears(2) - $simdi).TotalDays
-      $o.not = 'Sicilde "' + $d + '" görünüyor — koruma sona ermiş (yenilenmediyse dönem ' + $o.donem_sonu + ' tarihinde dolmuş olmalı; kesin tarihi sicilden teyit et). '
+      if($kesinBitis){
+        # KURUMSAL KUNYE: kesin tarih + tescil + yenileme gecmisi + sicil durumu
+        $o.not = 'Koruma ' + $o.donem_sonu + ' tarihinde sona erdi (sicil kaydı).'
+        if($m.PSObject.Properties['durum_tr'] -and $m.durum_tr){ $o.not += ' Sicildeki durumu: "' + $m.durum_tr + '".' }
+        if($m.tescil){ $o.not += ' Başvuru ' + $m.tarih + ', tescil ' + $m.tescil + '.' }
+        $o.not += $yenCumle + ' '
+        # 29.08 (Cem'in gosterdigi gercek vaka - "p 4000"): son yenileme kaydi
+        # bitis tarihine cok yakinsa ya da SONRASINDAYSA, yenileme talebi
+        # verilmis ama sicil durumu henuz guncellenmemis olabilir. Bunu
+        # SOYLEMEZSEK musteriye "markan dustu" demis oluruz - oysa yenileniyor.
+        if($m.PSObject.Properties['son_yenileme'] -and $m.son_yenileme){
+          $sy = DdmmToDate $m.son_yenileme
+          if($sy -and ([int]($kesinBitis - $sy).TotalDays) -le 180){
+            $o.not += '⚠️ DİKKAT: son yenileme kaydı (' + $m.son_yenileme + ') koruma bitişiyle aynı döneme denk geliyor. Yenileme talebi verilmiş, sicil durumu henüz güncellenmemiş olabilir — bu markayı düşmüş saymadan önce TÜRKPATENT sicil kaydından teyit et. '
+          }
+        }
+      } else {
+        $o.not = 'Sicilde "' + $d + '" görünüyor — koruma sona ermiş (yenilenmediyse dönem ' + $o.donem_sonu + ' tarihinde dolmuş olmalı; kesin tarihi sicilden teyit et). '
+      }
       if($kalan68 -gt 0){ $o.not += 'Aynı ibareyi geri almak istersen: bu marka için ' + $o.m68_son + ' tarihine kadar (2 yıl) eski sahibin, o sürede markayı kullanıyorsa yeni başvuruya itiraz edip reddettirebilir (m.6/8) — kalan ' + $kalan68 + ' gün.' }
       # DIKKAT: PowerShell akilli tirnagi (U+2019) da string sinirlayici sayar -
       # "m.6/8'in" yazimi betigi dusuruyordu; kesme isaretsiz kuruldu.
@@ -225,9 +337,17 @@ function Hesapla($m){
     return $o
   }
   # sonraki 10 yillik donem sonu
-  $n = 1; while($bt.AddYears(10*$n) -lt $simdi){ $n++ }
-  $donemSonu = $bt.AddYears(10*$n)
-  $oncekiSonu = $bt.AddYears(10*($n-1))
+  # 29.08: KESIN bitis varsa tahmin edilmez. Onceki donem sonu da kesin
+  # bitisten geriye 10 yil sayilarak bulunur (m.23: donemler onar yillik).
+  if($kesinBitis){
+    $donemSonu  = $kesinBitis
+    $oncekiSonu = $kesinBitis.AddYears(-10)
+    $n = 1
+  } else {
+    $n = 1; while($bt.AddYears(10*$n) -lt $simdi){ $n++ }
+    $donemSonu = $bt.AddYears(10*$n)
+    $oncekiSonu = $bt.AddYears(10*($n-1))
+  }
   $o.donem_sonu = $donemSonu.ToString('dd.MM.yyyy')
   $o.kalan_gun = [int]($donemSonu - $simdi).TotalDays
   $o.ek_sure_sonu = $donemSonu.AddMonths(6).ToString('dd.MM.yyyy')
@@ -256,6 +376,56 @@ function Hesapla($m){
       $o.kullanim_notu = 'Tescilin üzerinden 5 yıl geçti (' + $o.kullanim_son + '). Markayı tescilli olduğu mal/hizmetlerde ciddi biçimde kullanmıyorsan iptal talebine açıksın (m.9/1, m.26/1-a). İptal talebi gelirse kullanım delili istenir; talepten önceki 3 ay içinde yapılan kullanım sayılmaz (m.26/4).'
     }
   }
+  # ===========================================================================
+  #  KESIN YOL (29.08) — sicil bitis tarihini verdiyse TAHMIN YAPILMAZ
+  #  Tahmin yolunda "onceki donem sonu"nu 10 yil geri sayarak buluyorduk ve
+  #  karta "yenilediysen X, yenilemediysen Y, sicilden teyit et" yaziyorduk.
+  #  expiryDate elimizdeyken bu cumleye gerek yok: bitis tarihi bellidir.
+  #    bitis gelecekte -> guvende / yenileme penceresi (kalan gune gore)
+  #    bitis gecmiste + sicil hala tescilli -> 6 aylik EK SURE (m.23/3)
+  #  Kart kurumsal kunye yazar: basvuru, tescil, sicil no, tur, yenileme
+  #  gecmisi, vekil ve varsa iptal/itiraz kaydi.
+  # ===========================================================================
+  if($kesinBitis){
+    $kunye = ''
+    if($m.tarih){ $kunye += ' Başvuru ' + $m.tarih }
+    if($m.tescil){ $kunye += ', tescil ' + $m.tescil }
+    if($m.PSObject.Properties['sicil_no'] -and $m.sicil_no){ $kunye += ', sicil no ' + $m.sicil_no }
+    if($m.PSObject.Properties['tur'] -and $m.tur){ $kunye += ' (' + $m.tur + ' marka)' }
+    if($kunye){ $kunye += '.' }
+    $ek = ''
+    if($m.PSObject.Properties['vekil'] -and $m.vekil){ $ek += ' Sicilde kayıtlı vekil: ' + $m.vekil + '.' }
+    if($m.PSObject.Properties['iptal_sayisi'] -and [int]"$($m.iptal_sayisi)" -gt 0){ $ek += ' DİKKAT: sicilde ' + $m.iptal_sayisi + ' iptal kaydı var.' }
+    if($m.PSObject.Properties['itiraz_sayisi'] -and [int]"$($m.itiraz_sayisi)" -gt 0){ $ek += ' Sicilde ' + $m.itiraz_sayisi + ' itiraz kaydı var.' }
+    if($m.PSObject.Properties['kayitlar'] -and $m.kayitlar){ $ek += ' Sicil işlemleri: ' + $m.kayitlar + '.' }
+
+    $gecen = [int]($simdi - $kesinBitis).TotalDays
+    if($gecen -gt 0){
+      # bitis GECMISTE ama sicil hala tescilli -> ek sure penceresi
+      $o.hal = 'ek-sure'
+      $o.donem_sonu   = $kesinBitis.ToString('dd.MM.yyyy')
+      $o.kalan_gun    = -$gecen
+      $o.ek_sure_sonu = $kesinBitis.AddMonths(6).ToString('dd.MM.yyyy')
+      $ekKalan = [int]($kesinBitis.AddMonths(6) - $simdi).TotalDays
+      $o.not = 'Koruma ' + $o.donem_sonu + ' tarihinde doldu (sicil kaydı); sicildeki durum hâlâ tescilli.' + $kunye + $yenCumle
+      if($ekKalan -ge 0){ $o.not += ' 6 aylık ek süre ' + $o.ek_sure_sonu + ' gününde doluyor — ek ücretle yenilenebilir (m.23/3), kalan ' + $ekKalan + ' gün. Bu tarih de geçerse marka hakkı sona erer (m.28/1-a).' }
+      else { $o.not += ' 6 aylık ek süre ' + $o.ek_sure_sonu + ' tarihinde doldu; yenileme yapılmadıysa marka hakkı sona ermiştir (m.28/1-a).' }
+      $o.not += $ek
+      return $o
+    }
+    $o.donem_sonu = $kesinBitis.ToString('dd.MM.yyyy')
+    $o.kalan_gun  = [int]($kesinBitis - $simdi).TotalDays
+    $o.ek_sure_sonu = $kesinBitis.AddMonths(6).ToString('dd.MM.yyyy')
+    if($o.kalan_gun -le $YenilemeGun){
+      $o.hal = 'yenileme-penceresi'
+      $o.not = 'Yenileme penceresi AÇIK: koruma ' + $o.donem_sonu + ' tarihinde bitiyor, kalan ' + $o.kalan_gun + ' gün (sicil kaydı).' + $kunye + $yenCumle + ' Talep bitişten önceki 6 ay içinde verilir; kaçırırsan ' + $o.ek_sure_sonu + ' tarihine kadar ek ücretle yenilenebilir (m.23).' + $ek
+    } else {
+      $o.hal = 'guvende'
+      $o.not = 'Koruma ' + $o.donem_sonu + ' tarihine kadar geçerli, kalan ' + $o.kalan_gun + ' gün (sicil kaydı — tahmin değil).' + $kunye + $yenCumle + ' Yenileme penceresi ' + $kesinBitis.AddMonths(-6).ToString('dd.MM.yyyy') + ' tarihinde açılır (m.23: bitişten önceki 6 ay).' + $ek
+    }
+    return $o
+  }
+
   # tescilli
   if($n -gt 1 -and ([int]($simdi - $oncekiSonu).TotalDays) -le 180){
     $o.hal = 'ek-sure'
@@ -286,10 +456,44 @@ function PortfoyKur($unvan){
   # sicilde tam o yazimla kayitli olabilir (autocomplete bazen esitlemiyor).
   if(@($vars).Count -eq 0){ $vars = @($unvan) }
   $mrk  = SahipMarkalari $vars
+
+  # --- DETAY ZENGINLESTIRME: tahmini KESIN veriyle degistir -------------------
+  # Liste ucu koruma bitisini vermiyor; detay ucu veriyor. Marka basina 1 istek
+  # oldugu icin tavanli. Alinamayan kayit TAHMIN yoluna duser ve karti "tahmin"
+  # dilini korur - kapali kaynaktan emin gibi konusmayiz.
+  $script:DetayAlinan = 0; $script:DetayDenenen = 0
+  if($Detay){
+    $sayac = 0
+    foreach($m in $mrk){
+      if($sayac -ge $DetayTavan){ break }
+      $sayac++; $script:DetayDenenen++
+      $d = TmvDetay $m.st13
+      Start-Sleep -Milliseconds $DetayBeklemeMs
+      if(-not $d){ continue }
+      $script:DetayAlinan++
+      # KESIN alanlar liste ucunu EZER (sicil ne diyorsa o)
+      $m | Add-Member -NotePropertyName bitis           -NotePropertyValue $d.bitis           -Force
+      $m | Add-Member -NotePropertyName yenileme_sayisi -NotePropertyValue $d.yenileme_sayisi -Force
+      $m | Add-Member -NotePropertyName son_yenileme    -NotePropertyValue $d.son_yenileme    -Force
+      $m | Add-Member -NotePropertyName yenilemeler     -NotePropertyValue $d.yenilemeler     -Force
+      $m | Add-Member -NotePropertyName vekil           -NotePropertyValue $d.vekil           -Force
+      $m | Add-Member -NotePropertyName sicil_no        -NotePropertyValue $d.sicil_no        -Force
+      $m | Add-Member -NotePropertyName durum_tr        -NotePropertyValue $d.durum_tr        -Force
+      $m | Add-Member -NotePropertyName tur             -NotePropertyValue $d.tur             -Force
+      $m | Add-Member -NotePropertyName kayitlar        -NotePropertyValue $d.kayitlar        -Force
+      $m | Add-Member -NotePropertyName iptal_sayisi    -NotePropertyValue $d.iptal_sayisi    -Force
+      $m | Add-Member -NotePropertyName itiraz_sayisi   -NotePropertyValue $d.itiraz_sayisi   -Force
+      if($d.tescil){ $m.tescil = $d.tescil }
+      if($d.sahip){  $m.sahip  = $d.sahip }
+    }
+    Write-Host ("Detay: {0}/{1} kayit sicilden KESIN alindi (kalani tahmin yolunda)." -f $script:DetayAlinan, $script:DetayDenenen)
+  }
+
   $liste = New-Object System.Collections.Generic.List[object]
   foreach($m in $mrk){
     $h = Hesapla $m
-    $liste.Add([pscustomobject]@{ ad=$m.ad; no=$m.no; tarih=$m.tarih; tescil=$m.tescil; sinif=$m.sinif; durum=$m.durum; sahip=$m.sahip; yayim=$m.yayim; hal=$h.hal; donem_sonu=$h.donem_sonu; kalan_gun=$h.kalan_gun; not=$h.not; kullanim_son=$h.kullanim_son; kullanim_kalan=$h.kullanim_kalan; kullanim_notu=$h.kullanim_notu; m68_son=$h.m68_son })
+    $liste.Add([pscustomobject]@{ ad=$m.ad; no=$m.no; tarih=$m.tarih; tescil=$m.tescil; sinif=$m.sinif; durum=$m.durum; sahip=$m.sahip; yayim=$m.yayim; hal=$h.hal; donem_sonu=$h.donem_sonu; kalan_gun=$h.kalan_gun; not=$h.not; kullanim_son=$h.kullanim_son; kullanim_kalan=$h.kullanim_kalan; kullanim_notu=$h.kullanim_notu; m68_son=$h.m68_son;
+      kesin=$h.kesin; sicil_no=$m.sicil_no; durum_tr=$m.durum_tr; tur=$m.tur; vekil=$m.vekil; yenileme_sayisi=$m.yenileme_sayisi; son_yenileme=$m.son_yenileme; yenilemeler=$m.yenilemeler; kayitlar=$m.kayitlar; iptal_sayisi=$m.iptal_sayisi; itiraz_sayisi=$m.itiraz_sayisi })
   }
   $sirali = @($liste | Sort-Object -Property @{Expression={ switch($_.hal){ 'ek-sure'{0} 'yenileme-penceresi'{1} 'surecte'{2} 'guvende'{3} 'dusmus'{4} default{5} } }}, @{Expression={ if($null -ne $_.kalan_gun){ $_.kalan_gun } else { 99999 } }})
 
@@ -508,7 +712,7 @@ foreach($t in $talepler){
   $sonucJson = $null; $hata = $null
   try{ $p = PortfoyKur $unv }catch{ $hata = $_.Exception.Message; $p = $null }
   if($p){
-    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; siniflar=@($p.siniflar); sinif_acigi=$p.sinif_acigi; kullanim_yakin=$p.kullanim_yakin; kullanim_dolmus=$p.kullanim_dolmus; markalar=@($p.markalar | Select-Object -First 300) }
+    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; siniflar=@($p.siniflar); sinif_acigi=$p.sinif_acigi; kullanim_yakin=$p.kullanim_yakin; kullanim_dolmus=$p.kullanim_dolmus; markalar=@($p.markalar) }
   }
   $talepIslenen++
   # 21.08: Talep GIRIS YAPMIS bir uyeden geldiyse (RPC auth.uid() yaziyor) sonuc
