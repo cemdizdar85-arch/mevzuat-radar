@@ -62,6 +62,17 @@ jobs:
         continue-on-error: true   # rapor her halukarda yazilsin; sonuc asagida
         run: ./arac/ihale-firma-adi-denetimi.ps1
 
+      # 30.08: denetim IKN'leri OZETTEN okuyor ve ozet IhaleTavan(10) ile
+      # kirpiyor - "Ticaret Limited Sirketi" 295 ilana sahipken elde 10 IKN
+      # kaliyordu. Olculdu: ozetten 249, kasadan 1.380 ilan (6 KAT fark).
+      # Bu adim HAM KASADAN tam listeyi cikarir; onarim turunun girdisi odur.
+      - name: Kesik firma adlarinin TAM IKN listesi (kasadan, tavansiz)
+        shell: pwsh
+        continue-on-error: true
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/ihale-kesik-ikn-cikar.ps1
+
       # 30.08 TESHIS ADIMI: "Depoya yaz" uc kez ust uste dustu ve sebebi
       # gorulemedi (Actions gunlugunu okumak depo yoneticisi yetkisi ister;
       # tahminle uc duzeltme denendi, ucu de tutmadi). Tahmin etmeyi birakip
@@ -115,7 +126,7 @@ jobs:
           # Artik her dosya AYRI eklenir - biri yoksa digerleri yine eklenir -
           # ve ne oldugu gunluge yazilir (kor kalma kurali: adim dustugunde
           # "neden" gorunmeliydi, gorunmuyordu).
-          for f in veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json veri/ihale-idare-ozet.json veri/ihale-kesik-firma-adi.json; do
+          for f in veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json veri/ihale-idare-ozet.json veri/ihale-kesik-firma-adi.json veri/ihale-kesik-ikn.json; do
             if [ -f "$f" ]; then git add "$f" && echo "eklendi: $f"; else echo "YOK (atlandi): $f"; fi
           done
           echo "--- staged ---"; git diff --staged --name-only
