@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Menşe Senaryo Raporu — hangi ülkeden alırsam ne kadar vergi öderim? | Tetikte</title>
-<meta name="description" content="Ürünün GTİP kodunu, yıllık ithalat tutarını ve aday ülkeleri gir; her menşe için toplam ithalat vergi yükünü (gümrük + İGV + damping + KDV) ve yıllık tasarruf farkını gösteren, yazdırılabilir imzaya hazır rapor."
+<meta name="description" content="Ürünün GTİP kodunu, yıllık ithalat tutarını ve aday ülkeleri gir; her menşe için toplam ithalat vergi yükünü (gümrük + İGV + damping + KDV) ve yıllık tasarruf farkını gösteren, yazdırılabilir imzaya hazır rapor.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <meta name="theme-color" content="#1b1a18">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.webmanifest">>
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -169,6 +169,7 @@ details.kacc>.ic{padding:2px 0 14px}
 </div>
 
 <script src="gtip-ara.js"></script>
+<script src="gtip-damping-oran.js"></script>
 <script>
 const EPOSTA_ENDPOINT="https://api.web3forms.com/submit", EPOSTA_ANAHTAR="5b227e56-94fb-4123-a39a-4286f63db14a";
 const ULKE_SIRA=["abSta","katar","bae","eagu","otdu","gyu","du"];
@@ -299,13 +300,19 @@ function kdvOran(nkod){ // menşe-bağımsız KDV oranı (indirimli varsa en dü
 function dampingBul(nkod, dampAd){ if(!dampAd) return null;
   const bul=DAMPING.filter(m=>(m.k||'').split(' ').some(k=>k&&(nrm(k).startsWith(nkod)||nkod.startsWith(nrm(k)))) && (m.u||'').indexOf(dampAd)>=0);
   if(!bul.length) return null;
-  // SADECE yüzde (%X) değerlerini yük toplamına al; spesifik vergi ($/ton, $/kg, $/m2…) yüzde DEĞİLDİR.
-  const yuzde=[]; let spesifik=false;
-  bul.forEach(m=>{ const t=String(m.t||'');
-    const pm=t.match(/%\s*\d+[.,]?\d*/g); if(pm) pm.forEach(x=>yuzde.push(parseFloat(x.replace(/[%\s]/g,'').replace(',','.'))));
-    if(/\$\s*\/\s*(ton|kg|kilo|adet|m2|m3|litre|çift|gram)/i.test(t)) spesifik=true;
+  // 30.08: oran çözümü ORTAK motora taşındı (gtip-damping-oran.js). Eski kod
+  // yalnız "%X" desenini tanıyordu; "0.29" (Excel ondalığı = %29) ve "21,12%"
+  // (yüzde sonda) biçimlerini SESSİZCE SIFIR sayıyordu → 140 GTİP kodunda
+  // damping yokmuş gibi görünüyordu. Spesifik vergi ($/ton, $/kg) hâlâ yüzde
+  // toplamına GİRMEZ, ayrı uyarı olarak taşınır.
+  const yuzde=[]; let spesifik=false, okunamadi=false;
+  bul.forEach(m=>{ const c=GtipDampingOran.coz(m.t);
+    c.yuzdeler.forEach(x=>yuzde.push(x));
+    if(c.spesifik) spesifik=true;
+    if(c.okunamadi) okunamadi=true;
   });
-  return { lo: yuzde.length?Math.min(...yuzde):0, hi: yuzde.length?Math.max(...yuzde):0, spesifik, txt: bul.map(m=>m.t).filter(Boolean).join('; '), tur: bul[0].tur };
+  return { lo: yuzde.length?Math.min(...yuzde):0, hi: yuzde.length?Math.max(...yuzde):0, spesifik, okunamadi,
+           txt: bul.map(m=>GtipDampingOran.yaz(m.t)).filter(Boolean).join('; '), tur: bul[0].tur };
 }
 // ============ TARIM KATMANI (30.08) ============
 // Ithalat Rejimi I/II/III sayili tarim listeleri ulke SUTUNLARINI ADIYLA verir

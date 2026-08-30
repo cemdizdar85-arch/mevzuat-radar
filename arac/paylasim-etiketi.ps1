@@ -42,7 +42,11 @@ foreach($f in $sayfalar){
   if($c -match 'og:title'){ $atlandi++; continue }
 
   $mt = [regex]::Match($c, '(?s)<title>(.*?)</title>')
-  $md = [regex]::Match($c, '<meta\s+name="description"\s+content="([^"]*)"')
+  # 30.08 DUZELTME: desen kapanis '>' isaretini de kapsamali. Kapsamadigi icin
+  # Insert() bloku tirnak ile '>' ARASINA sokuyordu; description etiketi
+  # kapanmadan kaliyor, artik kalan '>' de bir sonraki etikete yapisip
+  # 'favicon.svg">>' uretiyordu. 44 sayfa bu sekilde bozulmustu.
+  $md = [regex]::Match($c, '<meta\s+name="description"\s+content="([^"]*)"\s*/?>')
   if(-not $mt.Success -or -not $md.Success){ $kusurlu += "$($f.Name) (title/description eksik)"; continue }
 
   $baslik  = HtmlCoz $mt.Groups[1].Value

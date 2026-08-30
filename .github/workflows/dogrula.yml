@@ -202,6 +202,16 @@ jobs:
               kabuk: bash, komut: "node arac/acilis-kapisi.js",
               rapor: "veri/acilis-raporu.json" }
 
+          # 30.08: damping oranlari kaynak Excel'den UC AYRI bicimde iniyor
+          # ("%38,26-%45,99" / "21,12%-28,87%" / "0.29" = Excel ondaligi %29).
+          # Okuyucu yalnizca birincisini taniyordu; 141 kaydin 30'u SESSIZCE
+          # sifir sayiliyor, 140 GTIP kodunda "damping yok" gorunuyordu. En
+          # buyugu %56,50 (Cin, 8415.83 klima, teblig 2022/1) - arac cezali
+          # menseyi "en avantajli" diye oneriyordu. Bu kapi yeni bir bicim
+          # girerse KIRMIZI yanar; sessiz sifira geri donulmesin.
+          - { ad: "Damping oran kapisi (okunamayan onlem orani kalmasin)",
+              kabuk: bash, komut: "node arac/damping-oran-kapisi.js" }
+
     steps:
       - name: Depoyu al
         uses: actions/checkout@v4

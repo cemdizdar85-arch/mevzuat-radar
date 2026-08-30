@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GTİP Vergi Kontrolü — hangi ülkeden alırsan kaç vergi ödersin? | Tetikte</title>
-<meta name="description" content="GTİP kodunu ve menşe ülkeni gir; o ülkeden ithalatta ödeyeceğin gümrük vergisini kesin oranla gör, AB, Diğer Ülkeler (Çin/ABD/Japonya) ve ara gruplar arasındaki farkı saniyede öğren."
+<meta name="description" content="GTİP kodunu ve menşe ülkeni gir; o ülkeden ithalatta ödeyeceğin gümrük vergisini kesin oranla gör, AB, Diğer Ülkeler (Çin/ABD/Japonya) ve ara gruplar arasındaki farkı saniyede öğren.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <meta name="theme-color" content="#1b1a18">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.webmanifest">>
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -140,6 +140,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </div>
 
 <script src="gtip-ara.js"></script>
+<script src="gtip-damping-oran.js"></script>
 <script>
 // E-POSTA (index.html ile aynı Web3Forms anahtarı)
 const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
@@ -674,7 +675,11 @@ function dampingKart(q){
   if(!bulunan.length) return '';
   let html = '';
   for(const m of bulunan.slice(0,12)){
-    const oranDeg = m.o || m.t; const oran = oranDeg ? `<div class="satir"><b>Önlem oranı</b><span>${oranDeg}</span></div>` : `<div class="satir"><b>Önlem oranı</b><span>kaynağa bakınız</span></div>`;
+    // 30.08: ham değer basılıyordu; Excel ondalığı olan kayıtlarda kullanıcı
+    // "7.3700000000000002E-2" görüyordu (gerçekte %7,37). Ortak çözücü
+    // (gtip-damping-oran.js) üç biçimi de insan diline çevirir.
+    const oranDeg = GtipDampingOran.yaz(m.o || m.t);
+    const oran = (m.o || m.t) ? `<div class="satir"><b>Önlem oranı</b><span>${oranDeg}</span></div>` : `<div class="satir"><b>Önlem oranı</b><span>kaynağa bakınız</span></div>`;
     html += `<div class="kart" style="border-left-color:var(--amber)">
       <div class="et" style="color:var(--amber)">⚠ DAMPİNGE KARŞI ÖNLEM VAR</div>
       <h3>${m.m||'Bu ürün grubu'}</h3>

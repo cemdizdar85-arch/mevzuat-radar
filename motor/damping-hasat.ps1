@@ -47,8 +47,14 @@ foreach($sh in @(@{s="xl/worksheets/sheet2.xml";t="Kesin"}, @{s="xl/worksheets/s
     $gtipHam = Al $h 4
     $ulke = Al $h 5
     $urun = Al $h 2
+    # 30.08.2026: sutun 10 bu calisma kitabinda BOS geliyor (141 kaydin 141'inde),
+    # onlem orani sutun 11'de duruyor. Eskiden 'o' bos yaziliyor, oran 'tur' adiyla
+    # 't' alanina dusuyordu. Artik oran her iki sutundan da yakalanip 'o'ya yazilir;
+    # 't' geriye donuk uyumluluk icin ayni kalir (tuketiciler 'm.o || m.t' okur).
     $oran = Al $h 10
-    $tur  = Al $h 11
+    $oranYedek = Al $h 11
+    if(-not $oran){ $oran = $oranYedek }
+    $tur  = $oranYedek
     $teb  = Al $h 7
     # baslik/bos satirlari ele
     if($gtipHam -match "G\.T\.İ\.P" -or $urun -eq "MADDE İSMİ"){ continue }
