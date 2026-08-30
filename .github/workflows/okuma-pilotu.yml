@@ -74,13 +74,21 @@ jobs:
         run: ./motor/alacak-ilan-okuyucu-pilot.ps1
 
       # Ham rapor depoya girmez; artefakt olarak indirilir ve elle incelenir.
+      # 30.08: YEDEK DOSYASI DA BURAYA EKLENDI. Yazma turu her kosuda
+      # veri/alacak-hakem-yedek.json uretiyordu (damgalarin ONCEKI hali) ama bu
+      # dosya ne commit ediliyor ne yukleniyordu - runner silinince kayboluyordu.
+      # 29.08'de 815 damga yazildi ve GERI DONUS DOSYASI YOKTU; ancak ham
+      # rapordan yeniden kurulabildi. Yazma geri alinamiyorsa yazilmamali.
       - name: Raporu artefakt olarak yukle
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: alacak-okuma-pilot
-          path: veri/alacak-okuma-pilot.json
+          path: |
+            veri/alacak-okuma-pilot.json
+            veri/alacak-hakem-yedek.json
           if-no-files-found: warn
+          retention-days: 90
 
       # 29.08: SUPHELI LISTESI artefakt DEGIL, kalici veri. Kosu gecince
       # kaybolmamali - regex damgasinin yanildigi yeri bulmanin en ucuz yolu.
@@ -94,9 +102,13 @@ jobs:
           git config user.name  "tetikte-robot"
           git config user.email "robot@tetikte.com"
           git add veri/alacak-supheli-damga.json
+          # 30.08: yedek de depoya. Artefakt 90 gun tutar, depo kalicidir -
+          # "hangi damga neydi" sorusunun cevabi bir daha kaybolmasin.
+          if [ -f veri/alacak-hakem-yedek.json ]; then git add veri/alacak-hakem-yedek.json; fi
           if git diff --cached --quiet; then echo "degisiklik yok"; exit 0; fi
           N=$(node -e "console.log(JSON.parse(require('fs').readFileSync('veri/alacak-supheli-damga.json','utf8')).supheli)")
-          git commit -m "Supheli damga listesi tazelendi: $N kayit [okuma-pilotu]"
+          Y=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('veri/alacak-hakem-yedek.json','utf8')).adet)}catch(e){console.log(0)}")
+          git commit -m "Supheli damga $N kayit · yazma yedegi $Y kayit [okuma-pilotu]"
           # 29.08: PUSH 'fetch first' ile REDDEDILDI - kosu 20 dk suruyor ve o
           # arada baska commit'ler (robot ya da diger oturum) geliyor. Depoda iki
           # is akisi paralel calisiyor; tek seferlik push YETMEZ. Rebase edip
