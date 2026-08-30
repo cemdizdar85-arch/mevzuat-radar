@@ -52,19 +52,17 @@
     background:rgba(6,9,15,.65);backdrop-filter:blur(18px) saturate(1.4);
     border-bottom:1px solid transparent;transition:border-color .3s}
   nav.scrolled{border-bottom-color:var(--line)}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
-  .brand .lamba{width:14px;height:14px;border-radius:50%;background:var(--accent);
-    box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);flex:none}
-  .brand .kelime{font-size:26px;font-weight:800;letter-spacing:-.7px;position:relative}
-  /* noktasiz 'ı' + ustune kendi noktamiz: logonun aynisi */
-  .brand .kelime .i{position:relative}
-  .brand .kelime .i::after{content:"";position:absolute;left:50%;top:-4px;transform:translateX(-50%);
-    width:6.5px;height:6.5px;border-radius:50%;background:var(--accent);
-    box-shadow:0 0 10px rgba(245,165,36,.8)}
+  /* 30.08: marka isaretinin KOPYA tanimi buradan kaldirildi - ayni motif
+     uc sayfada uc ayri sekilde yaziliydi ve menu.js dorduncu bir motif
+     (kare + "T") gosteriyordu. Tek kaynak: stil.css > .marka bileseni
+     (lamba + "ı"nin ustundeki nokta, --marka-lamba-1/2 jetonlariyla;
+     logo.svg ve favicon.svg ile birebir ayni renk). Buradan yalniz
+     OLCU veriliyor. */
+  .marka{--marka-olcu:26px}
   .mark{width:34px;height:34px;border-radius:9px;background:var(--grad);
     display:grid;place-items:center;font-weight:800;font-size:15px;color:#03101f;
     box-shadow:0 4px 18px rgba(245,165,36,.35)}
-  .brand b{font-size:15.5px;letter-spacing:.1px}
+  .marka b{font-size:15.5px;letter-spacing:.1px}
   .navlinks{display:flex;align-items:center;gap:26px;font-size:13.5px}
   .navlinks a{color:var(--muted);text-decoration:none;transition:color .2s}
   .navlinks a:hover{color:var(--ink)}
@@ -419,7 +417,7 @@ window.veriAl = (function(){
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
 <nav id="nav">
-  <a class="brand" href="#"><span class="lamba" aria-hidden="true"></span><b class="kelime">tet<span class="i">ı</span>kte</b></a>
+  <a class="marka" href="#"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>
   <div class="navlinks">
     <div class="navgroup nl">
       <button class="navtrigger" type="button">Araçlar <span class="car">▾</span></button>
