@@ -14,6 +14,19 @@ on:
 permissions:
   contents: write
 
+# 30.08: bu akista concurrency HIC YOKTU. Iki kosu ust uste binerse (sabah
+# kosusu gecikip aksam kosusuyla cakisirsa, ya da elle tetiklenirse) ayni
+# kaynaklar iki kez cekiliyor ve IKISI BIRDEN ayni dosyalara yaziyor - sonra
+# ikisi de push etmeye calisiyor. O gun dusen "Degisiklik varsa yayinla"
+# adiminin zeminini bu hazirliyor.
+#
+# cancel-in-progress: false — BILEREK. Bu akis VERI YAZIYOR (ihale, alacak,
+# marka, destek, TED hasadi). Yarida kesmek yarim hasat birakir; yenisi
+# eskisini BEKLER.
+concurrency:
+  group: kaynak-nobetcisi
+  cancel-in-progress: false
+
 jobs:
   nobet:
     runs-on: ubuntu-latest

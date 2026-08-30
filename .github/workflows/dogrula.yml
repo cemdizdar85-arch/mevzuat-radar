@@ -36,6 +36,22 @@ on:
     branches: [ main ]     # SIR BEKCISI her push'ta calissin diye paths filtresi kaldirildi
   workflow_dispatch:
 
+# 30.08 OLCUMU: bu akis her push'ta kosuyor ve 13 is birden aciyor. O gun
+# arka arkaya 10+ push atildi; kosular ust uste bindi, birbirinin adimlarini
+# yarida kesti ve API'de conclusion'i BOS ("") isler birakti - yani "dustu mu,
+# iptal mi oldu" ayirt edilemiyordu. Kapinin kendisi de okunamaz hale geliyor.
+#
+# Ayni dal icin tek kosu yeter: son push'un durumu gecerli olandir, aradaki
+# ara durumlar zaten yayinlanmiyor. Yenisi eskisini iptal eder.
+#
+# NOT: burada cancel-in-progress DOGRU secim, cunku bu akis VERI YAZMIYOR -
+# yalniz denetliyor ve rapor birakiyor. Veri yazan akislarda (kaynak.yml,
+# ihale-yutma) iptal etmek yarim is birakirdi; oralarda cancel-in-progress
+# KAPALI ve concurrency yalniz siraya sokmak icin kullaniliyor.
+concurrency:
+  group: dogrula-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # --- Sir bekcisi ayri duruyor: satir ici cok satirli bash betigi, matrise
   #     sigmaz. Depo PUBLIC oldugu icin bu kapi en kritik olanidir.
