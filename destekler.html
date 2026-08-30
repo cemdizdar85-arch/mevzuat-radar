@@ -66,7 +66,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .frow.d-acik{border-left-color:rgba(255,107,94,.55)}
 .frow.d-yakinda{border-left-color:rgba(61,220,151,.45)}
 .frow .ust{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:5px}
-.frow h3{margin:0 0 10px;font-size:15.5px;letter-spacing:-.2px;font-weight:700}
+.frow h3{margin:0 0 8px;font-size:15.5px;letter-spacing:-.2px;font-weight:700}
+/* 30.08: satırda bir cümlelik özet — çağrının ne olduğu listeden çıkmadan okunur */
+.fozet{margin:0 0 10px;font-size:12.5px;color:var(--muted);line-height:1.55;border-left:2px solid var(--line2);padding-left:10px}
 .dcip{font-size:10px;font-weight:800;letter-spacing:.7px;padding:2px 8px;border-radius:5px}
 .dcip.acik{background:rgba(255,107,94,.14);color:var(--red)}
 .dcip.surekli{background:rgba(61,220,151,.13);color:var(--green)}
@@ -166,7 +168,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div id="sayac"></div>
   <div id="liste"></div>
 
-  <div class="uyari" id="uyariKutu">⚠ Bu sayfa <b>yön vericidir</b>: <b>SÜREKLİ</b> etiketli satırlar programın var olduğunu gösterir, güncel tutar ve oran dönemsel çağrıya göre değişir. <b>AÇIK</b> etiketliler robotun o gün kurum sitesinden çektiği çağrılardır; kim başvurabilir ve ne kadar bilgisi çağrı duyurusunda yazar, o yüzden kartta iddia etmiyoruz. Yanlış rakam vermektense kaynağa yönlendiriyoruz.</div>
+  <div class="uyari" id="uyariKutu">⚠ Bu sayfa <b>yön vericidir</b>: <b>SÜREKLİ</b> etiketli satırlar programın var olduğunu gösterir, güncel tutar ve oran dönemsel çağrıya göre değişir. <b>AÇIK</b> etiketliler robotun o gün kurum sitesinden çektiği çağrılardır; kim başvurabilir ve ne kadar bilgisi çağrı duyurusunda yazar, o yüzden kartta iddia etmiyoruz. Yanlış rakam vermektense kaynağa yönlendiriyoruz. Satırlardaki <b>özet, "kim başvurabilir" ve "ne kadar"</b> bilgileri robotun çağrı sayfasından aldığı <b>birebir alıntılardır</b>, bizim yorumumuz değildir; <b>AŞAMA etiketleri</b> ise çağrı metninden türetilmiştir, resmî bir sınıflandırma değildir — başvurmadan önce duyuruyu oku.</div>
 
   <h2 style="font-size:19px;letter-spacing:-.4px;margin:34px 0 4px">Ek araçlar</h2>
   <p style="font-size:13px;color:var(--dim);margin:0 0 12px">Listeye sığmayan, kendi içinde aranan veriler: fuar listesi, güncel kredi oranları, kefalet paketleri.</p>
@@ -375,8 +377,11 @@ const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",finansma
 
 // ---- TEK LİSTE MODELİ (21.08 Cem "3-1-2") ----
 // Kart sözleşmesi: HER satır aynı 4 alanı taşır (GOV.UK Find a Grant düzeni).
-// Çağrı verisinde 'kim başvurabilir' ve 'ne kadar' ALANI YOK - o yüzden çağrı
-// satırlarında "Çağrı duyurusunda" yazar, uydurmuyoruz. Buna karşılık
+// 30.08'e kadar çağrı verisinde 'kim başvurabilir' ve 'ne kadar' ALANI YOKTU;
+// 133 çağrı satırı birden "Çağrı duyurusunda" diyordu. Artık robot çağrının
+// detay metnini de yutuyor (motor/cagri-hasat.ps1 YUTMA KATMANI): bu alanlar
+// kaynak metinden BİREBİR alıntıdır. Metinden çıkmayan alan yine
+// "Çağrı duyurusunda" der - uydurmuyoruz.
 // "nereden başvurulur" her satırda doludur: YOLLAR'daki kanıtlı kanaldan gelir.
 const KANAL = {
   "KOSGEB":             "KOSGEB e-hizmetler (önce KBS kaydı + KOBİ Beyannamesi)",
@@ -468,6 +473,18 @@ function kartHtml(p, acik){
 // 21.08: 31.07'nin KARE ızgarası kalktı. Gerekçe: kare yalnız ad + aşama etiketi
 // taşıyabiliyordu, kart sözleşmesinin 4 alanı kareye sığmıyor. Yerine aynı
 // "tıkla-aç" davranışını koruyan SATIR düzeni geldi (site standardı korunuyor).
+// 30.08 Cem: "sadece bilgi vermek değil hepsini yutsak ve kısaca bilgiler
+// versek". ÖLÇÜLDÜ: 162 satırın 133'ünde "Kim başvurabilir" ve "Ne kadar"
+// alanları "Çağrı duyurusunda" diyordu - liste %82 oranında boş kutuydu.
+// Artık motor/cagri-hasat.ps1 çağrının DETAY metnini de yutuyor; kim/tutar/özet
+// alanları oradan gelir. Cümleler kaynaktan BİREBİR alıntıdır, üretilmez;
+// bulunamayan alan yine "Çağrı duyurusunda" der (kör kalmak > yanlış rakam).
+const bosMu = s => !s || !String(s).trim();
+// Yutulan metin DIŞ SİTEDEN gelir ve innerHTML'e giriyor: kaçışsız basmak
+// kurum sayfasındaki bir işareti bizim sayfamızda çalıştırılabilir kılar.
+// Program kartlarındaki metinler bizim yazdığımız (kasıtlı <b>/<a> içerir),
+// onlara dokunulmaz — kaçış YALNIZ robotun dışarıdan getirdiği alanlara.
+const kacir = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function alanlarHtml(f){
   const nereden = KANAL[f.kurum] || 'Çağrı duyurusunda';
   let kim, neKadar, son;
@@ -477,14 +494,21 @@ function alanlarHtml(f){
     neKadar = o ? duzMetin(o) : 'Çağrı duyurusunda';
     son     = f.p.sonKisa || 'Çağrı dönemine bağlı';
   } else {
-    // çağrı verisinde bu iki alan YOK - boş bırakmak yerine nerede olduğunu söyle
-    kim = neKadar = 'Çağrı duyurusunda';
+    kim     = bosMu(f.kim)   ? 'Çağrı duyurusunda' : kacir(f.kim);
+    neKadar = bosMu(f.tutar) ? 'Çağrı duyurusunda' : kacir(f.tutar);
     son = f.sonTarih ? gd(f.sonTarih) : 'Tarih duyuruda';
   }
   return '<dl class="alanlar"><dt>Kim başvurabilir</dt><dd>'+kim+'</dd>'
     + '<dt>Ne kadar</dt><dd>'+neKadar+'</dd>'
     + '<dt>Son başvuru</dt><dd>'+son+'</dd>'
     + '<dt>Nereden başvurulur</dt><dd><b>'+nereden+'</b></dd></dl>';
+}
+// Satırdaki bir cümlelik özet: çağrının NE OLDUĞUNU listeden çıkmadan söyler.
+// AB portalı yalnız İngilizce yayımlıyor; çevirmek uydurma olur, dili yazılır.
+function ozetHtml(f){
+  if(f.tip==='program' || bosMu(f.ozet)) return '';
+  const dil = f.ozetDil==='en' ? ' <span style="color:var(--dim);font-weight:600">(AB portalı, İngilizce)</span>' : '';
+  return '<p class="fozet">'+kacir(f.ozet)+dil+'</p>';
 }
 function durumCip(f){
   if(f.durum==='surekli') return '<span class="dcip surekli">SÜREKLİ</span>';
@@ -497,14 +521,18 @@ function durumCip(f){
 function cagriDetay(f){
   const t = (f.tarihler&&f.tarihler.length>1) ? f.tarihler.map(x=>
     '<div style="display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:12.5px"><span style="color:var(--muted)">'+x.etiket+'</span><span style="color:var(--ink);white-space:nowrap">'+gd(x.tarih)+'</span></div>').join('') : '';
-  return '<div class="kart">'+(f.kod?'<div class="et">'+f.kod+'</div>':'')
+  return '<div class="kart">'+(f.kod?'<div class="et">'+kacir(f.kod)+'</div>':'')
     + '<p style="margin:6px 0 10px;font-size:13px;color:var(--muted)">Bu bir <b style="color:var(--ink)">çağrı duyurusudur</b>: kimin başvurabileceği, destek tutarı ve gider kalemleri duyuru metninde yazar. Kartta iddia etmiyoruz, kaynağa gönderiyoruz.</p>'
     + t + '<p style="margin:10px 0 0"><a class="gore" href="'+f.url+'" target="_blank" rel="noopener">Çağrı duyurusu: şartlar ve başvuru →</a></p></div>';
 }
 function satirHtml(f,i){
+  // program adları bizim yazdığımız metinler (kasıtlı biçimlendirme taşıyabilir);
+  // çağrı adı kurum sitesinden gelir, kaçırılır.
+  const ad = f.tip==='program' ? f.ad : kacir(f.ad);
   return '<div class="frow d-'+f.durum+'" id="fr_'+i+'" onclick="fAc(\''+i+'\')">'
-    + '<div class="ust">'+durumCip(f)+'<span class="kur">'+f.kurum+'</span></div><h3>'+f.ad+'</h3>'
+    + '<div class="ust">'+durumCip(f)+'<span class="kur">'+kacir(f.kurum)+'</span></div><h3>'+ad+'</h3>'
     + (f.neden?'<p class="nedenm"><span>✓</span><span>'+f.neden+'</span></p>':'')
+    + ozetHtml(f)
     + alanlarHtml(f)+'</div>'
     + '<div class="fkic" id="fi_'+i+'">'+(f.tip==='program'?kartHtml(f.p,true):cagriDetay(f))+'</div>';
 }
@@ -556,9 +584,16 @@ function ciz(){
   let veri = FIRSATLAR.filter(f => F.durum.has(f.durum) && F.kaynak.has(f.kurum));
   let not = '';
   if(F.asama!=='hepsi'){
+    // 30.08 KIRIK GİDERİLDİ: aşama etiketi yalnız 29 sürekli programda vardı,
+    // 133 çağrının hepsinde null'dı. Bir aşamaya basınca AÇIK ÇAĞRILARIN TAMAMI
+    // birden düşüyordu - tuş "hiçbir işe yaramıyor" görünmesinin sebebi buydu.
+    // Artık robot çağrının metninden de aşama türetiyor; etiketi hâlâ
+    // çıkmayanları SESSİZCE ELEMEK yerine sayısını yazıyoruz (kör kalma kuralı).
+    const oncesi = veri.length;
+    const etiketsiz = veri.filter(f => !f.asama || !f.asama.length).length;
     veri = veri.filter(f => f.asama && f.asama.includes(F.asama));
-    // kör kalma kuralı: ölçemediğimiz şeyi sessizce elemeyiz, söyleriz
-    not = ' · <span style="color:var(--amber)">aşama filtresi yalnız SÜREKLİ programlarda çalışır, çağrı duyurularında aşama bilgisi yok</span>';
+    if(etiketsiz) not = ' · <span style="color:var(--amber)">'+etiketsiz+' kaydın metninden aşama etiketi çıkarılamadı, bu süzgeçte görünmüyor</span>';
+    else if(!veri.length && oncesi) not = ' · <span style="color:var(--amber)">bu aşamada kayıt yok, başka aşamaya bak</span>';
   }
   veri.sort((a,b)=>sira(a)-sira(b));
   sayac.innerHTML = '<b>'+veri.length+'</b> fırsat gösteriliyor · toplam '+FIRSATLAR.length+' · kapanışı en yakın olan üstte'+not;
@@ -594,8 +629,13 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
     // Artık KAPANDI ayrı durumdur ve varsayılan görünümde yer almaz.
     const g = kalanGun(c.sonTarih);
     const durum = c.durum==='yakinda' ? 'yakinda' : ((g!==null && g<0) ? 'kapandi' : 'acik');
+    // 30.08: özet/kim/tutar/aşama artık robotun yuttuğu alanlardan gelir.
+    // Eski (yutma öncesi) json'da bu alanlar yoktur - undefined kalır ve kart
+    // eskisi gibi "Çağrı duyurusunda" der, sayfa kırılmaz.
     FIRSATLAR.push({ tip:'cagri', durum, kurum:(KAYNAK_KURUM[c.kaynak]||c.kaynak), ad:c.baslik,
-      url:c.url, kod:c.kod||(c.program||''), acilis:c.acilis, sonTarih:c.sonTarih, tarihler:c.tarihler, asama:null });
+      url:c.url, kod:c.kod||(c.program||''), acilis:c.acilis, sonTarih:c.sonTarih, tarihler:c.tarihler,
+      ozet:c.ozet, kim:c.kim, tutar:c.tutar, ozetDil:c.ozetDil,
+      asama:(Array.isArray(c.asama) && c.asama.length) ? c.asama : null });
   });
   FIRSATLAR.forEach(f=>F.kaynak.add(f.kurum));
   // 21.08 adım 2: AB canlı verinin ~%74'ü (100/135). Kapalı akordeonda saklamak
