@@ -114,14 +114,27 @@
         var tazeYazi  = (gun===null) ? 'ölçülmedi'
                        : (gun===0 ? 'bugün' : (gun===1 ? 'dün' : gun + ' gün önce'));
 
-        var robotSinif = (u.robot_sayisi>0) ? 'yesil' : 'kirmizi';
-        var robotYazi  = (u.robot_sayisi>0) ? (u.robot_sayisi + ' robot') : 'ELLE';
+        var rs = (typeof u.robot_sayisi === 'number') ? u.robot_sayisi : 0;
+        var robotSinif = (rs>0) ? 'yesil' : 'kirmizi';
+        var robotYazi  = (rs>0) ? (rs + ' robot') : 'ELLE';
 
         var kayit = (u.kayit_sayisi>0) ? kacik(u.kayit_sayisi) : '<span class="olcum">ölçülmedi</span>';
         var ekOlc = (u.olculemeyen>0) ? '<span class="kucuk">' + u.olculemeyen + ' dosya okunamadı</span>' : '';
 
-        var robotListe = (u.robotlar&&u.robotlar.length)
-              ? u.robotlar.map(function(x){ return x.replace(/\.yml/,''); }).join('<br>')
+        // PowerShell 5.1'in ConvertTo-Json'u diziyi ÜÇ FARKLI ŞEKİLDE yazar ve
+        // üçü de burada karşımıza çıktı (30.08):
+        //   çok elemanlı -> gerçek dizi          ["a","b"]
+        //   tek elemanlı -> DÜZ STRING           "a"
+        //   boş          -> OBJE                 {"value":[],"Count":0}
+        // Savunmasız bırakılınca önce .map patladı (tüm pano "ölçüm okunamadı"
+        // dedi), düzeltince boşlar "[object Object]" bastı. Üçü de karşılanır.
+        var ham = u.robotlar, rl;
+        if (Array.isArray(ham))                     rl = ham;
+        else if (ham && Array.isArray(ham.value))   rl = ham.value;
+        else if (typeof ham === 'string' && ham)    rl = [ham];
+        else                                        rl = [];
+        var robotListe = rl.length
+              ? rl.map(function(x){ return String(x).replace(/\.yml/,''); }).join('<br>')
               : '<span class="olcum">zamanlanmış robot yok — Cem’in makinesinde koşuyor</span>';
 
         var tr = document.createElement('tr');
