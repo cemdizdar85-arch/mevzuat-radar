@@ -21,7 +21,23 @@
 --  ambarın toptan çekilmesini bu engeller.
 -- ============================================================================
 
-create extension if not exists pg_trgm with schema extensions;
+-- ---------------------------------------------------------------------------
+-- 0) pg_trgm - ŞEMASI VARSAYILMAZ, BULUNUR
+--    30.08 CANLI HATA: "extensions.gin_trgm_ops does not exist for access
+--    method gin". Sebep: pg_trgm'in HANGİ şemada kurulu olduğunu varsaymıştım.
+--    Supabase kurulumdan kuruluma değişiyor (extensions / public). Artık
+--    eklenti nereye kuruluysa oradan okunuyor; tahmin yok.
+-- ---------------------------------------------------------------------------
+do $ext$
+begin
+  if not exists (select 1 from pg_extension where extname = 'pg_trgm') then
+    begin
+      execute 'create extension pg_trgm with schema extensions';
+    exception when others then
+      execute 'create extension pg_trgm';        -- extensions şeması yoksa
+    end;
+  end if;
+end $ext$;
 
 -- ---------------------------------------------------------------------------
 -- 1) NORMALİZASYON - tek doğru yer burası
@@ -65,7 +81,19 @@ create table if not exists public.marka_bulten (
   primary key (basvuru_no, bulten_no)
 );
 
-create index if not exists ix_mb_adnorm  on public.marka_bulten using gin (ad_norm extensions.gin_trgm_ops);
+-- Trigram indeksi: operatör sınıfı pg_trgm'in GERÇEK şemasından alınır.
+do $ix$
+declare s text;
+begin
+  select n.nspname into s
+    from pg_extension e join pg_namespace n on n.oid = e.extnamespace
+   where e.extname = 'pg_trgm';
+  if s is null then raise exception 'pg_trgm kurulu degil - 0. adim dusmus.'; end if;
+  execute format(
+    'create index if not exists ix_mb_adnorm on public.marka_bulten using gin (ad_norm %I.gin_trgm_ops)', s);
+  raise notice 'pg_trgm semasi: %', s;
+end $ix$;
+
 create index if not exists ix_mb_sinif   on public.marka_bulten using gin (sinif);
 create index if not exists ix_mb_yayin   on public.marka_bulten (yayin_tarihi desc);
 create index if not exists ix_mb_itiraz  on public.marka_bulten (itiraz_son);
@@ -108,16 +136,16 @@ language sql security definer set search_path = public, extensions as $$
   select b.basvuru_no, b.bulten_no, b.yayin_tarihi, b.itiraz_son,
          (b.itiraz_son - current_date)::int as kalan_gun,
          b.ad, b.sahip, b.sinif,
-         extensions.similarity(b.ad_norm, h.n) as benzerlik,
+         similarity(b.ad_norm, h.n) as benzerlik,
          (p_sinif is not null and b.sinif && p_sinif) as ayni_sinif
     from public.marka_bulten b, h
    where h.n <> ''
      and b.yayin_tarihi >= current_date - greatest(p_gun,1)
      and (b.ad_norm % h.n or b.ad_norm like '%' || h.n || '%')
-     and extensions.similarity(b.ad_norm, h.n) >= p_esik
+     and similarity(b.ad_norm, h.n) >= p_esik
      and (p_sinif is null or b.sinif && p_sinif)
    order by (p_sinif is not null and b.sinif && p_sinif) desc,
-            extensions.similarity(b.ad_norm, h.n) desc,
+            similarity(b.ad_norm, h.n) desc,
             b.itiraz_son asc
    limit least(greatest(p_tavan,1), 300);
 $$;
