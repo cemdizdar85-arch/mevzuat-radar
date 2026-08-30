@@ -1,13 +1,13 @@
 {
-  "tarih": "30.08.2026 13:44",
+  "tarih": "30.08.2026 14:00",
   "kapsam": "hepsi",
   "durum": "KIRMIZI",
-  "belge": 43466,
-  "kaynak_temiz": 1404,
-  "kaynak_sorunlu": 372,
-  "kesik_belge": 920,
-  "oksuz_belge": 257,
-  "olculen_kaynak_sayisi": 1776,
+  "belge": 43703,
+  "kaynak_temiz": 1410,
+  "kaynak_sorunlu": 357,
+  "kesik_belge": 897,
+  "oksuz_belge": 244,
+  "olculen_kaynak_sayisi": 1767,
   "olculen_kaynaklar": [
     "[ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi)",
     "[ARŞİV] ÇIKMIŞ SINAV (cikmis-soru)",
@@ -324,7 +324,6 @@
     "BDS 320",
     "BDS 330",
     "BDS 402",
-    "BDS 402 - on bolum",
     "BDS 450",
     "BDS 500",
     "BDS 501",
@@ -347,7 +346,6 @@
     "BDS 540",
     "BDS 550",
     "BDS 560",
-    "BDS 560 - on bolum",
     "BDS 570",
     "BDS 580",
     "BDS 600",
@@ -365,7 +363,6 @@
     "BDS 805",
     "BDS 805 - on bolum",
     "BDS 810",
-    "BDS 810 - on bolum",
     "Belediye Gelirleri K. (2464 s.K.)",
     "BES K. (4632 s.K.)",
     "Bilirkişilik K. (6754 s.K.)",
@@ -1229,7 +1226,6 @@
     "TFRS 12",
     "TFRS 13",
     "TFRS 14",
-    "TFRS 14 - on bolum",
     "TFRS 15",
     "TFRS 16",
     "TFRS 17",
@@ -1240,7 +1236,6 @@
     "TFRS 3",
     "TFRS 5",
     "TFRS 6",
-    "TFRS 6 - on bolum",
     "TFRS 7",
     "TFRS 8",
     "TFRS 9",
@@ -1525,20 +1520,16 @@
     "TMS 19",
     "TMS 2",
     "TMS 20",
-    "TMS 20 - on bolum",
     "TMS 21",
     "TMS 23",
     "TMS 24",
     "TMS 26",
-    "TMS 26 - on bolum",
     "TMS 27",
     "TMS 28",
     "TMS 29",
     "TMS 32",
-    "TMS 32 - on bolum",
     "TMS 33",
     "TMS 34",
-    "TMS 34 - on bolum",
     "TMS 36",
     "TMS 37",
     "TMS 38",
@@ -6361,170 +6352,6 @@
       "delikler": []
     },
     {
-      "kaynak": "BDS 250",
-      "parca": 51,
-      "eksik_paragraf": 16,
-      "kesik_belge": 1,
-      "oksuz_belge": 2,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 3.0,
-          "enBuyuk": 30.0,
-          "eksik": [
-            7.0,
-            10.0,
-            15.0,
-            25.0,
-            26.0,
-            27.0,
-            29.0
-          ]
-        },
-        {
-          "tip": "ek",
-          "enKucuk": 5.0,
-          "enBuyuk": 36.0,
-          "eksik": [
-            12.0,
-            15.0,
-            16.0,
-            20.0,
-            25.0,
-            30.0,
-            32.0,
-            34.0,
-            35.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "BDS 402",
-      "parca": 36,
-      "eksik_paragraf": 75,
-      "kesik_belge": 7,
-      "oksuz_belge": 3,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 89.0,
-          "eksik": [
-            7.0,
-            11.0,
-            14.0,
-            16.0,
-            17.0,
-            18.0,
-            20.0,
-            21.0,
-            22.0,
-            23.0,
-            24.0,
-            25.0,
-            26.0,
-            27.0,
-            28.0,
-            29.0,
-            30.0,
-            31.0,
-            32.0,
-            33.0,
-            34.0,
-            35.0,
-            36.0,
-            37.0,
-            38.0,
-            39.0,
-            40.0,
-            41.0,
-            42.0,
-            43.0,
-            44.0,
-            45.0,
-            46.0,
-            47.0,
-            48.0,
-            49.0,
-            50.0,
-            51.0,
-            52.0,
-            53.0,
-            54.0,
-            55.0,
-            56.0,
-            57.0,
-            58.0,
-            59.0,
-            60.0,
-            61.0,
-            62.0,
-            63.0,
-            64.0,
-            65.0,
-            66.0,
-            67.0,
-            68.0,
-            69.0,
-            70.0,
-            71.0,
-            72.0,
-            73.0,
-            74.0,
-            75.0,
-            76.0,
-            77.0,
-            78.0,
-            79.0,
-            80.0,
-            81.0,
-            82.0,
-            83.0,
-            84.0,
-            85.0,
-            86.0,
-            87.0,
-            88.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "BDS 402 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
-    },
-    {
-      "kaynak": "BDS 560",
-      "parca": 19,
-      "eksik_paragraf": 2,
-      "kesik_belge": 7,
-      "oksuz_belge": 1,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 13.0,
-          "eksik": [
-            11.0,
-            12.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "BDS 560 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
-    },
-    {
       "kaynak": "BDS 710",
       "parca": 32,
       "eksik_paragraf": 3,
@@ -6600,33 +6427,6 @@
     },
     {
       "kaynak": "BDS 805 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
-    },
-    {
-      "kaynak": "BDS 810",
-      "parca": 46,
-      "eksik_paragraf": 3,
-      "kesik_belge": 8,
-      "oksuz_belge": 4,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 28.0,
-          "eksik": [
-            21.0,
-            23.0,
-            25.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "BDS 810 - on bolum",
       "parca": 1,
       "eksik_paragraf": 0,
       "kesik_belge": 0,
@@ -12641,37 +12441,6 @@
       "delikler": []
     },
     {
-      "kaynak": "TFRS 14",
-      "parca": 45,
-      "eksik_paragraf": 7,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 36.0,
-          "eksik": [
-            15.0,
-            16.0,
-            20.0,
-            23.0,
-            25.0,
-            28.0,
-            30.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "TFRS 14 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
-    },
-    {
       "kaynak": "TFRS 15",
       "parca": 239,
       "eksik_paragraf": 0,
@@ -12822,32 +12591,6 @@
       "delikler": []
     },
     {
-      "kaynak": "TFRS 6",
-      "parca": 24,
-      "eksik_paragraf": 2,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 26.0,
-          "eksik": [
-            17.0,
-            25.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "TFRS 6 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
-    },
-    {
       "kaynak": "TFRS 7",
       "parca": 160,
       "eksik_paragraf": 1,
@@ -12942,23 +12685,6 @@
             120.0,
             123.0,
             124.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "TMS 10",
-      "parca": 9,
-      "eksik_paragraf": 1,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 22.0,
-          "eksik": [
-            7.0
           ]
         }
       ]
@@ -13787,8 +13513,8 @@
     },
     {
       "kaynak": "TMS 16",
-      "parca": 78,
-      "eksik_paragraf": 10,
+      "parca": 84,
+      "eksik_paragraf": 12,
       "kesik_belge": 0,
       "oksuz_belge": 0,
       "delikler": [
@@ -13797,16 +13523,18 @@
           "enKucuk": 1.0,
           "enBuyuk": 81.0,
           "eksik": [
-            13.0,
-            26.0,
+            27.0,
+            31.0,
             32.0,
             33.0,
+            34.0,
             35.0,
+            36.0,
+            37.0,
             38.0,
-            54.0,
-            61.0,
-            64.0,
-            69.0
+            39.0,
+            40.0,
+            64.0
           ]
         }
       ]
@@ -14342,20 +14070,17 @@
     },
     {
       "kaynak": "TMS 20",
-      "parca": 41,
-      "eksik_paragraf": 8,
+      "parca": 50,
+      "eksik_paragraf": 5,
       "kesik_belge": 0,
-      "oksuz_belge": 0,
+      "oksuz_belge": 1,
       "delikler": [
         {
           "tip": "par",
           "enKucuk": 1.0,
-          "enBuyuk": 48.0,
+          "enBuyuk": 49.0,
           "eksik": [
-            14.0,
-            34.0,
             37.0,
-            40.0,
             42.0,
             43.0,
             44.0,
@@ -14366,7 +14091,15 @@
     },
     {
       "kaynak": "TMS 21",
-      "parca": 59,
+      "parca": 86,
+      "eksik_paragraf": 0,
+      "kesik_belge": 0,
+      "oksuz_belge": 1,
+      "delikler": []
+    },
+    {
+      "kaynak": "TMS 23",
+      "parca": 31,
       "eksik_paragraf": 10,
       "kesik_belge": 0,
       "oksuz_belge": 0,
@@ -14374,67 +14107,38 @@
         {
           "tip": "par",
           "enKucuk": 1.0,
-          "enBuyuk": 60.0,
+          "enBuyuk": 40.0,
           "eksik": [
-            26.0,
-            27.0,
-            28.0,
-            29.0,
             30.0,
             31.0,
             32.0,
             33.0,
             34.0,
-            35.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "TMS 23",
-      "parca": 7,
-      "eksik_paragraf": 2,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 25.0,
-          "eksik": [
-            10.0,
-            11.0
+            35.0,
+            36.0,
+            37.0,
+            38.0,
+            39.0
           ]
         }
       ]
     },
     {
       "kaynak": "TMS 26",
-      "parca": 34,
-      "eksik_paragraf": 4,
+      "parca": 43,
+      "eksik_paragraf": 1,
       "kesik_belge": 0,
-      "oksuz_belge": 1,
+      "oksuz_belge": 0,
       "delikler": [
         {
           "tip": "par",
           "enKucuk": 1.0,
           "enBuyuk": 38.0,
           "eksik": [
-            4.0,
-            18.0,
-            34.0,
             37.0
           ]
         }
       ]
-    },
-    {
-      "kaynak": "TMS 26 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
     },
     {
       "kaynak": "TMS 28",
@@ -14446,8 +14150,8 @@
     },
     {
       "kaynak": "TMS 29",
-      "parca": 39,
-      "eksik_paragraf": 4,
+      "parca": 42,
+      "eksik_paragraf": 2,
       "kesik_belge": 0,
       "oksuz_belge": 0,
       "delikler": [
@@ -14457,8 +14161,6 @@
           "enBuyuk": 42.0,
           "eksik": [
             23.0,
-            35.0,
-            39.0,
             41.0
           ]
         }
@@ -14466,8 +14168,8 @@
     },
     {
       "kaynak": "TMS 32",
-      "parca": 82,
-      "eksik_paragraf": 48,
+      "parca": 87,
+      "eksik_paragraf": 45,
       "kesik_belge": 0,
       "oksuz_belge": 0,
       "delikler": [
@@ -14476,9 +14178,6 @@
           "enKucuk": 1.0,
           "enBuyuk": 97.0,
           "eksik": [
-            6.0,
-            32.0,
-            50.0,
             51.0,
             52.0,
             53.0,
@@ -14523,18 +14222,10 @@
             92.0,
             93.0,
             94.0,
-            96.0
+            95.0
           ]
         }
       ]
-    },
-    {
-      "kaynak": "TMS 32 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
     },
     {
       "kaynak": "TMS 33",
@@ -14555,38 +14246,27 @@
     },
     {
       "kaynak": "TMS 34",
-      "parca": 55,
-      "eksik_paragraf": 11,
+      "parca": 68,
+      "eksik_paragraf": 8,
       "kesik_belge": 0,
-      "oksuz_belge": 0,
+      "oksuz_belge": 3,
       "delikler": [
         {
           "tip": "par",
           "enKucuk": 1.0,
-          "enBuyuk": 60.0,
+          "enBuyuk": 61.0,
           "eksik": [
             13.0,
-            16.0,
             17.0,
             18.0,
+            40.0,
+            42.0,
             46.0,
             47.0,
-            48.0,
-            52.0,
-            53.0,
-            56.0,
-            57.0
+            48.0
           ]
         }
       ]
-    },
-    {
-      "kaynak": "TMS 34 - on bolum",
-      "parca": 1,
-      "eksik_paragraf": 0,
-      "kesik_belge": 0,
-      "oksuz_belge": 1,
-      "delikler": []
     },
     {
       "kaynak": "TMS 36",
@@ -14738,17 +14418,16 @@
     },
     {
       "kaynak": "TMS 7",
-      "parca": 65,
-      "eksik_paragraf": 3,
+      "parca": 71,
+      "eksik_paragraf": 2,
       "kesik_belge": 0,
-      "oksuz_belge": 0,
+      "oksuz_belge": 1,
       "delikler": [
         {
           "tip": "par",
           "enKucuk": 1.0,
-          "enBuyuk": 63.0,
+          "enBuyuk": 65.0,
           "eksik": [
-            2.0,
             29.0,
             30.0
           ]
@@ -14757,30 +14436,11 @@
     },
     {
       "kaynak": "TMS 8",
-      "parca": 65,
-      "eksik_paragraf": 11,
+      "parca": 79,
+      "eksik_paragraf": 0,
       "kesik_belge": 0,
       "oksuz_belge": 1,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 54.0,
-          "eksik": [
-            5.0,
-            10.0,
-            14.0,
-            15.0,
-            23.0,
-            33.0,
-            34.0,
-            36.0,
-            39.0,
-            41.0,
-            49.0
-          ]
-        }
-      ]
+      "delikler": []
     },
     {
       "kaynak": "TSPB Sermaye Piyasasi Calisanlari Etik",
