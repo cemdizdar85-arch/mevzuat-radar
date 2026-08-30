@@ -1,21 +1,11 @@
 {
-  "olcum": "30.08.2026 00:39",
+  "olcum": "30.08.2026 02:13",
   "aciklama": "Regex damgasi ile OKUMA sonucunun ayristigi ilanlar. Uyumsuzluk \"okuma hakli\" DEMEK DEGILDIR - elle bakilir. alinti_karari_destekliyor=false olanlar once elenmelidir.",
   "kaynak": "motor/alacak-ilan-okuyucu-pilot.ps1",
-  "taranan": 2907,
-  "supheli": 495,
+  "taranan": 2891,
+  "supheli": 489,
   "destekli": 0,
   "kayitlar": [
-    {
-      "ilan_no": "ILN02284778",
-      "tarih": "2025-08-29",
-      "il": "ERZURUM",
-      "baslik": "Konkordato komiserliğinde alacaklılara bildiri tebliği",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "i",
-      "alinti": "\"1 YILLIK KESİN MÜHLET VERİLMİŞTİR.\"",
-      "alinti_karari_destekliyor": false
-    },
     {
       "ilan_no": "ILN02286331",
       "tarih": "2025-09-03",
@@ -33,7 +23,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "Konkordato projesini müzakere etmek üzere aşağıda belirtilen yer ve zamanda adi alacaklılar toplantısı yapılacaktır.",
+      "alinti": "\"Konkordato projesini müzakere etmek üzere aşağıda belirtilen yer ve zamanda adi alacaklılar toplantısı yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -73,7 +63,7 @@
       "baslik": "Konkordato alacaklılarına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "i",
-      "alinti": "\"05.08.2025 tarihinden başlamak üzere 1 yıllık kesin mühlet verilmiş\"",
+      "alinti": "05.08.2025 tarihinden başlamak üzere 1 yıllık kesin mühlet verilmiş",
       "alinti_karari_destekliyor": false
     },
     {
@@ -83,7 +73,17 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"Yukarıdaki davacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 27/08/2025 TARİHİNDEN İTİBAREN 2 (İKİ ) AY SÜRE İLE UZATILMIŞTIR.\"",
+      "alinti": "Yukarıdaki davacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 27/08/2025 TARİHİNDEN İTİBAREN 2 (İKİ ) AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02290057",
+      "tarih": "2025-09-08",
+      "il": "İSTANBUL",
+      "baslik": "Mahkeme kararının ilanen tebliği",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "a",
+      "alinti": "11/09/2025 tarihinden başlamak üzere 1 YILLIK KESİN MÜHLET VERİLMESİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -93,7 +93,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "Yukarıda isimleri geçen davacılara 22/08/2025 tarihli tensip kararlarıyla birlikte ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
+      "alinti": "\"ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -113,7 +113,7 @@
       "baslik": "Alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"09.12.2024 tarihli mahkeme kararı ile geçici mühlet kararı 1 yıllık kesin mühlete çevrilmiştir.\"",
+      "alinti": "09.12.2024 tarihli mahkeme kararı ile geçici mühlet kararı 1 yıllık kesin mühlete çevrilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -123,7 +123,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
+      "alinti": "Yukarıda isimleri geçen davacılara 03/09/2025 tarihli tensip kararlarıyla birlikte ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -132,8 +132,8 @@
       "il": "İSTANBUL",
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "g",
-      "alinti": "geçici mühletin, kesin mühletin ve tüm tedbir kararlarının 09.09.2025 günü saat 10:30 itibari ile kaldırılmasına",
+      "okuma_karari": "b",
+      "alinti": "Davacının konkordatonun tasdiki talebinin reddine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -173,7 +173,7 @@
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "d",
-      "alinti": "Verilen kesin mühlet kararının kaldırılmasına -Mahkememizce bu dosya nedeniyle verilen ihtiyati tedbirlerin hüküm tarihi (11/09/2025) itibariyle kaldırılmasına, kararın ilgili yerlere bildirilmesine karar verildiği",
+      "alinti": "Verilen kesin mühlet kararının kaldırılmasına",
       "alinti_karari_destekliyor": false
     },
     {
@@ -193,7 +193,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"tüm borçları için geçici mühlet kararının bitiş tarihi olan 04/02/2025 tarihinden başlamak üzere 1 YILLIK KESİN MÜHLET VERİLMİŞTİR\"",
+      "alinti": "\"1 YILLIK KESİN MÜHLET VERİLMİŞTİR\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -202,8 +202,8 @@
       "il": "EDİRNE",
       "baslik": "Konkordato Mühletinin Kararı ve Mahkeme günü tebliği",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "j",
-      "alinti": "mahkememizce duruşma günü tayin etme zorunluluğu nedeniyle duruşmanın 10/10/2025 günü saat 11:00'de mahkememiz duruşma salonunda yapılacağı",
+      "okuma_karari": "a",
+      "alinti": "\"hakkında 25/10/2024 tarihinden itibaren bir yıl süre ile kesin mühlet verildiği\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -273,7 +273,7 @@
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "16.11.2024 tarihinden başlamak üzere bir yıllık kesin mühlet verilmiş",
+      "alinti": "\"16.11.2024 tarihinden başlamak üzere bir yıllık kesin mühlet verilmiş\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -333,7 +333,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "b",
-      "alinti": "geçici mühletin kaldırılarak , kesin mühlet konkordato taleplerinin REDDİNE ; iflas şartları oluşmadığından iflas kararı verilmesine yer olmadığına",
+      "alinti": "kesin mühlet konkordato taleplerinin REDDİNE; iflas şartları oluşmadığından iflas kararı verilmesine yer olmadığına",
       "alinti_karari_destekliyor": false
     },
     {
@@ -383,7 +383,7 @@
       "baslik": "Konkordato Komiserleri Kurulundan alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "Borçluların Konkordato projesini görüşmek üzere, 18.10.2025 Cumartesi günü, saat 13.00'd e aşağıda yazılı adreste alacaklılar toplantısı yapılacağından",
+      "alinti": "Borçluların Konkordato projesini görüşmek üzere, 18.10.2025 Cumartesi günü, saat 13.00'd e aşağıda yazılı adreste alacaklılar toplantısı yapılacağından, alacaklıların bu toplantıya gelmeleri veya yetkili bir vekil ile kendilerini temsil ettirmeleri",
       "alinti_karari_destekliyor": false
     },
     {
@@ -403,7 +403,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"borçlunun konkordato projesini müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir.\"",
+      "alinti": "\"Komiserliğimce İİK m.301 uyarınca Çerkeşli OSB, İMES 1 Bulvarı , No:15, 41455 Dilovası/Kocaeli adresinde, 14.10.2025 tarihinde saat 14:00'de borçlunun konkordato projesini müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -423,7 +423,7 @@
       "baslik": "Konkordato davasında red kararına ilişkin tebligat",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "b",
-      "alinti": "Davacı Remsu Mermer Sanayi ve Ticaret Limited Şirketi'nin konkordato tasdik talebinin REDDİNE , Kesin mühletin sonuçlarının kaldırılmasına, Komiser heyetinin görevine son verilmesine",
+      "alinti": "Davacı Remsu Mermer Sanayi ve Ticaret Limited Şirketi'nin konkordato tasdik talebinin REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -443,7 +443,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "Yukarıda isimleri geçen davacılara 11/07/2025 tarihli tensip kararlarıyla birlikte ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
+      "alinti": "ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -453,7 +453,7 @@
       "baslik": "Konkordato alacaklılarına çağrı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "23.05.2025 tarihinde 1 (Bir) yıllık konkordato kesin mühlet kararı verilmiştir.",
+      "alinti": "\"23.05.2025 tarihinde 1 (Bir) yıllık konkordato kesin mühlet kararı verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -483,7 +483,7 @@
       "baslik": "Konkordato kesin mühletin devamı ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"1 yıllık kesin mühlet uzatım süresinin 02.10.2025 tarihinde sona erecek olması nedeni ile İİK 304 hükmü uyarınca 02.10.2025 TARİHİNDEN İTİBAREN GELECEK DURUŞMA TARİHİ OLAN 18.12.2025 TARİHİNE KADAR DEVAMINA karar verilmiştir.\"",
+      "alinti": "1 yıllık kesin mühlet uzatım süresinin 02.10.2025 tarihinde sona erecek olması nedeni ile İİK 304 hükmü uyarınca 02.10.2025 TARİHİNDEN İTİBAREN GELECEK DURUŞMA TARİHİ OLAN 18.12.2025 TARİHİNE KADAR DEVAMINA karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -503,7 +503,7 @@
       "baslik": "Alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "Konkordato mühleti içerisinde alacaklılar toplantısının yapılacağı ana kadar Kanunda öngörülen tüm işlerin tamamlanmasını müteakip, toplantı için hazırlıklara başlanıldığı ve bu çerçevede borçlular; -ZYS OLUKLU MUKAVVA KAĞIT AMBALAJ SAN. VE TİC. LTD. ŞTİ.'nin konkordato teklifini adi alacaklılar yönünden müzakere etmek üzere 06.11.2025 tarihi saat 11:00-12.00 arasında...alacaklılar toplantısı gerç",
+      "alinti": "Konkordato mühleti içerisinde alacaklılar toplantısının yapılacağı ana kadar Kanunda öngörülen tüm işlerin tamamlanmasını müteakip, toplantı için hazırlıklara başlanıldığı ve bu çerçevede borçlular; -ZYS OLUKLU MUKAVVA KAĞIT AMBALAJ SAN. VE TİC. LTD. ŞTİ.'nin konkordato teklifini adi alacaklılar yönünden müzakere etmek üzere 06.11.2025 tarihi saat 11:00-12.00 arasında, [...]",
       "alinti_karari_destekliyor": false
     },
     {
@@ -523,7 +523,7 @@
       "baslik": "Alacaklılar toplantısına davet ilanı düzeltme",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"Konkordato teklifini müzakere etmek üzere; İlamet Metal Nakliye ve Tic. Ltd. Şti'in tüm alacaklılar için 17 Ekim 2025 tarihinde saat:13.00-16.00 arasında \"Mevlana Mahallesi, Özgür Caddesi. No 36/A Gebze KOCAELİ adresinde alacaklılar toplantısı gerçekleştirileceği\"",
+      "alinti": "\"Konkordato teklifini müzakere etmek üzere; İlamet Metal Nakliye ve Tic. Ltd. Şti'in tüm alacaklılar için 17 Ekim 2025 tarihinde saat:13.00-16.00 arasında \"Mevlana Mahallesi, Özgür Caddesi. No 36/A Gebze KOCAELİ adresinde alacaklılar toplantısı gerçekleştirileceği,\" duyurulmuştur.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -533,7 +533,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Yukarıdaki davacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 10/10/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti": "\"Yukarıdaki davacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 10/10/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -557,23 +557,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02313922",
-      "tarih": "2025-10-16",
-      "il": "ISPARTA",
-      "baslik": "Konkordato Komiserliğinden Adi/Rehinli Alacaklılar Toplantısına Davet İlanı",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"17.02.2025 tarihinden itibaren bir (1) yıl süreyle kesin mühlet verilmesine karar verilmiştir.\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02313929",
       "tarih": "2025-10-16",
       "il": "ISPARTA",
       "baslik": "Konkordato Komiserliğinden Adi/Rehinli Alacaklılar Toplantısına Davet İlanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "Alacaklıların İİK m.301 gereği toplantı tarihinden önceki yedi (7) gün içinde borçlunun merkez adresinde konkordato ön projesi ve belgeleri inceleme hakkı bulunmaktadır.",
+      "alinti": "\"alacaklılar toplantısı davet ilanı yapılması gerekmektedir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -643,7 +633,7 @@
       "baslik": "Konkordato Komiserliğinden Alacaklılar Toplantısına Davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"alacaklıların toplantısının yapılabilmesi için gerekli tüm işlemler tamamlanmış olduğundan, komiser heyetimizce İİK. m. 301 uyarınca, aşağıda belirtilen yer, gün ve saatlerde borçlunun konkordato teklifi müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir.\"",
+      "alinti": "\"aşağıda belirtilen yer, gün ve saatlerde borçlunun konkordato teklifi müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -653,7 +643,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"aşağıda belirtilen yer, gün ve saatlerde borçlunun konkordato teklifi müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir.\"",
+      "alinti": "\"aşağıda belirtilen yer, gün ve saatlerde borçlunun konkordato teklifi müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -673,7 +663,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "e",
-      "alinti": "konkordato taleplerinin İİK 305.maddesi gereçince KABULÜ ile İİK 306.maddesi gereçince TASDİKİNE",
+      "alinti": "\"konkordato taleplerinin İİK 305.maddesi gereğince KABULÜ ile İİK 306.maddesi gereğince TASDİKİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -693,7 +683,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.\"",
+      "alinti": "ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -713,7 +703,7 @@
       "baslik": "Alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"alacaklılar toplantısı yapılabilmesi için gerekli işlemler tamamlanmış olduğundan, Komiser Heyetimizce İİK m.301 uyarınca adi alacaklılar ile 17.11.2025 günü saat 12:30 de ve rehinli alacaklılar ile 17.11.2025 günü saat 12:45 da Hacı Bayram Veli Mahallesi Atatürk Bulvarı No:40 Sıhhiye/Ankara adresinde mukim Ankara Adliyesi Konferans Salonu nda, borçlunun konkordato teklifini müzakere etmek üzere ",
+      "alinti": "alacaklılar toplantısı yapılabilmesi için gerekli işlemler tamamlanmış olduğundan, Komiser Heyetimizce İİK m.301 uyarınca adi alacaklılar ile 17.11.2025 günü saat 12:30 de ve rehinli alacaklılar ile 17.11.2025 günü saat 12:45 da Hacı Bayram Veli Mahallesi Atatürk Bulvarı No:40 Sıhhiye/Ankara adresinde mukim Ankara Adliyesi Konferans Salonu nda, borçlunun konkordato teklifini müzakere etmek üzere a",
       "alinti_karari_destekliyor": false
     },
     {
@@ -753,7 +743,7 @@
       "baslik": "Konkordato kesin mühlet kararının sonlandırılması kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"a)-1750711576 VERGİ NUMARALI DAVACI BİNDEKS İNŞAAT TAAHHÜT VE TİCARET LİMİTED ŞİRKETİ hakkında 2004 Sayılı İİK'nın 289/1-2-3 maddesi gereğince; 01/11/2024 TARİHİNDEN İTİBAREN BAŞLAMAK ÜZERE1 YIL SÜRE İLE KESİN MÜHLET VERİLMESİNE \" İLİŞKİN KARARIN KALDIRILMASINA\"",
+      "alinti": "\"Esas Mahkememizin 22/10/2025 tarihli duruşma kararı ile; 1)-\" a)-1750711576 VERGİ NUMARALI DAVACI BİNDEKS İNŞAAT TAAHHÜT VE TİCARET LİMİTED ŞİRKETİ hakkında 2004 Sayılı İİK'nın 289/1-2-3 maddesi gereğince; 01/11/2024 TARİHİNDEN İTİBAREN BAŞLAMAK ÜZERE1 YIL SÜRE İLE KESİN MÜHLET VERİLMESİNE \" İLİŞKİN KARARIN KALDIRILMASINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -793,7 +783,17 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"06.01.2025 tarihinde borçlu AGES ALIŞVERİŞ BİLİŞİM TEK. ELEKTRİK ELEKTRONİK AYAKKABICILIK İNŞAAT MEDİKAL SAN, Tic. LTD. ŞTİ. Ve borçlu Alper GÖRER hakkında bir yıl süre ile kesin mühlet verilmiştir.\"",
+      "alinti": "\"aşağıda belirtilen yer, gün ve saatlerde borçlunun konkordato teklifi müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir.\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02325521",
+      "tarih": "2025-11-05",
+      "il": "ANTALYA",
+      "baslik": "Konkordato Komiserliğinden Alacaklılar Toplantısı İlanı",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "a",
+      "alinti": "\"05.12.2024 tarihli kararı ile 1 yıllık kesin mühlet kararı verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -827,16 +827,6 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02327951",
-      "tarih": "2025-11-06",
-      "il": "AĞRI",
-      "baslik": "Mahkeme kararının ilanen tebligi",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "j",
-      "alinti": "\"İİK'nın 301. maddesi uyarınca Konkordato Projesini müzakere etmek üzere aşağıda belirtilen yer ve zamanda \"Alacaklılar Toplantısı\" yapılacaktır.\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02327955",
       "tarih": "2025-11-06",
       "il": "AĞRI",
@@ -863,7 +853,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"Yukarıda isimleri geçen davalılara 24/10/2025 tarihli tensip kararlarıyla birlikte ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.\"",
+      "alinti": "Yukarıda isimleri geçen davalılara 24/10/2025 tarihli tensip kararlarıyla birlikte ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -873,7 +863,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "b",
-      "alinti": "KONKORDATO TALEBİNİN REDDİNE",
+      "alinti": "\"a)- Davacı Bodrum Ticaret Sicil Müdürlüğü'nün 14596 sicil numarasında kayıtlı davacı BODRUM BEYZA YEMEK ÜRETİM DAĞITIM PAZARLAMA TURİZM VE TİCARET LİMİTED ŞİRKETİ (1781229040 V.NO) HAKKINDA KONKORDATO TALEBİNİN REDDİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -893,7 +883,17 @@
       "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "kesin mühletin İİK'nun 289. maddesi uyarınca 14/11/2025 tarihinden başlamak üzere 2 ay süre ile uzatılmasına",
+      "alinti": "kesin mühletin İİK'nun 289. maddesi uyarınca 14/11/2025 tarihinden başlamak üzere 2 ay süre ile uzatılmasına karar verilmiş olup",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02332147",
+      "tarih": "2025-11-12",
+      "il": "GAZİANTEP",
+      "baslik": "Alacaklıları alacaklılar toplantısına davet ilanı",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "j",
+      "alinti": "\"Alacaklıların alacak bildirimi ve tahkiki ile konkordato projesi tamamlanmakla, İİK 301 gereğince, davacı şirketten alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile 15.12.2025 tarihinde aşağıda belirtilen yer ve saatlerde konkordato projesinin müzakeresi için toplantı yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -903,7 +903,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 07/11/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti": "\"Yukarıkidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 07/11/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -912,8 +912,8 @@
       "il": "GAZİANTEP",
       "baslik": "Alacaklıları alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"13.02.2025 tarihinde 1 Yıllık Kesin Mühlet Kararı verilmiş olduğundan\"",
+      "okuma_karari": "j",
+      "alinti": "Alacaklıların alacak bildirimi ve tahkiki ile konkordato projesi tamamlanmakla, İİK 301 gereğince, davacı şirketten alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile 15.12.2025 tarihinde aşağıda belirtilen yer ve saatlerde konkordato projesinin müzakeresi için toplantı yapılacaktır.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -923,7 +923,7 @@
       "baslik": "Alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"İİK 301 maddesi gereçince Konkordato projesini müzakere etmek için, Rehinli Alacaklılar için; 05 Aralık 2025 Cuma günü saat 11:00-13:00 arası, Adi Alacaklılar için; 05 Aralık 2025 Cuma günü saat 13:30-15:30 arası, \"Saray Mah. Akdeniz Cad. No:61 A Anamur-Mersin\" adresinde alacaklılar toplantısı yapılacaktır.\"",
+      "alinti": "Hakkında kesin mühlet kararı verilmiş bulunan adı geçen şirketten alacaklı durumda olan tüm gerçek ve tüzel kişiler; İİK 299 maddesine göre alacaklarını yazdırmış olup bu kez İİK 301 maddesi gereğince Konkordato projesini müzakere etmek için, Rehinli Alacaklılar için; 05 Aralık 2025 Cuma günü saat 11:00-13:00 arası, Adi Alacaklılar için; 05 Aralık 2025 Cuma günü saat 13:30-15:30 arası, \"Saray Mah.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -943,17 +943,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "2004 Sayılı İ.İ.K nun 301. maddesi uyarınca, ONAY ISI SİSTEMLERİ MÜHENDİSLİK BİLİŞİM PAZARLAMA SANAYİ VE TİCARET ANONİM ŞİRKETİ'nden alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile aşağıda belirtilen yer, tarih ve zamanlarda konkordato projesinin müzakeresi için Alacaklılar Toplantısı yapılacaktır.",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02336669",
-      "tarih": "2025-11-19",
-      "il": "İZMİR",
-      "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"22.10.2025 tarihinde 1 Yıllık Kesin Mühlet Kararı verilmiş olduğundan\"",
+      "alinti": "\"2004 Sayılı İ.İ.K nun 301. maddesi uyarınca, ONAY ISI SİSTEMLERİ MÜHENDİSLİK BİLİŞİM PAZARLAMA SANAYİ VE TİCARET ANONİM ŞİRKETİ'nden alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile aşağıda belirtilen yer, tarih ve zamanlarda konkordato projesinin müzakeresi için Alacaklılar Toplantısı yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -963,7 +953,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 13/11/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti": "\"Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 13/11/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -973,7 +963,7 @@
       "baslik": "Konkordato davasında kesin mühlet kararının aynen devamına ilişkin karar",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"16/01/2025 günü saat 14:26'dan itibaren verilen KESİN MÜHLET KARARININ AYNEN DEVAMINA\"",
+      "alinti": "KESİN MÜHLET KARARININ AYNEN DEVAMINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1043,7 +1033,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"19/11/2025 tarihinden itibaren ÜÇ (3) AYLIK GEÇİCİ MÜHLET VERİLMİŞTİR.\"",
+      "alinti": "19/11/2025 tarihinden itibaren ÜÇ (3) AYLIK GEÇİCİ MÜHLET VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1053,7 +1043,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "Konkordato talep eden Eray Grup Metal Tekstil İnşaat Elektronik Hurdacılık Otomotiv Kuyumculuk Sanayi ve Ticaret Limited Şirketi ve Eray GENÇ'in sunmuş olduğu konkordato projesinin müzakeresi amacıyla 16.12.2025 Salı günü aşağıda belirtilen saatlerde \"İvedik Köyü Hurdacılar Sit. 3809. Cad. No:39 Yenimahalle /Ankara\" adresinde alacağını bildirenler veya bilançoda kayıtlı olan alacaklıların katılımı",
+      "alinti": "Konkordato talep eden Eray Grup Metal Tekstil İnşaat Elektronik Hurdacılık Otomotiv Kuyumculuk Sanayi ve Ticaret Limited Şirketi ve Eray GENÇ'in sunmuş olduğu konkordato projesinin müzakeresi amacıyla 16.12.2025 Salı günü aşağıda belirtilen saatlerde alacaklıların katılımıyla Alacaklılar Toplantısı gerçekleştirilecektir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1073,7 +1063,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 22/11/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.\"",
+      "alinti": "Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 22/11/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1093,7 +1083,7 @@
       "baslik": "Konkordato alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"davacıya 1 (bir) yıllık kesin mühlet verilmiştir\"",
+      "alinti": "davacıya 1 (bir) yıllık kesin mühlet verilmiştir",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1103,7 +1093,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR\"",
+      "alinti": "ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1113,7 +1103,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"Yukarıdakidavacılara 29/08/2025 tarihli t ensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 29/11/2025 TARİHİNDEN İTİBAREN 2 (İKİ ) AY SÜRE İLE UZATILMIŞTIR.\"",
+      "alinti": "\"üç aylık geçici konkordato mühleti 29/11/2025 TARİHİNDEN İTİBAREN 2 (İKİ ) AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1153,7 +1143,7 @@
       "baslik": "Konkordato alacaklılarına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"Mahkeme'nin 14.02.2025 tarihli kararıyla, [TCKN] T.C. kimlik numaralı Mustafa NEİYİ'ye 14.02.2025 tarihinden itibaren geçerli olmak üzere1 (bir) yıllık kesin mühlet verilmiştir.\"",
+      "alinti": "2004 sayılı İİK'nın 301. maddesi gereğince 07.01.2026 tarihinde Nişantaş Mahallesi Dr. M. Hulusi Baybal Caddesi No:9 Selçuklu/KONYA (BERA KONYA OTEL) adresindeki toplantı salonunda konkordato projesi müzakere edilmek ve oylanmak üzere, \"Alacaklılar Toplantısı\" yapılacaktır.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1173,7 +1163,7 @@
       "baslik": "Konkordato karar duruşmasına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "Davacılara 03/12/2025 tarihinden itibaren başlamak üzere üç aylık geçici mühlet verildiği",
+      "alinti": "\"Davacılara 03/12/2025 tarihinden itibaren başlamak üzere üç aylık geçici mühlet verildiği\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1183,7 +1173,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"Davacı borçlulara ilişkin 13.11.2025 TARİHİNDEN İTİBAREN ÜÇ AYLIK GEÇİCİ MÜHLET VERİLMİŞTİR.\"",
+      "alinti": "Davacı borçlulara ilişkin 13.11.2025 TARİHİNDEN İTİBAREN ÜÇ AYLIK GEÇİCİ MÜHLET VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1223,7 +1213,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 08/12/2025TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti": "\"Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 08/12/2025TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1273,7 +1263,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"Mahkememizin 03/09/2025 tarihli tensip kararıyla verilen üç aylık geçici mühlet 03/12/2025 tarihinden itibaren iki ay süre ile uzatılmış olduğundan\"",
+      "alinti": "Mahkememizin 03/09/2025 tarihli tensip kararıyla verilen üç aylık geçici mühlet 03/12/2025 tarihinden itibaren iki ay süre ile uzatılmış olduğundan",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1293,7 +1283,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 18/12/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti": "\"Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 18/12/2025 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1303,7 +1293,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "Yukarıda isimleri geçen davalılar 12/12/2025 tarihli tensip kararlarıyla birlikte ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
+      "alinti": "\"ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1393,7 +1383,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"Davacılar hakkında verilen kesin mühlet kararının kaldırılmasına, davacıların konkordato taleplerinin reddine, Davacı şirketler borca batık olmadıklarından iflas kararı verilmesine yer olmadığına, Tüm konkordato tedbirlerinin kaldırılmasına, konkordato komiserlerinin görevlerine son verilmesine,\"",
+      "alinti": "Davacılar hakkında verilen kesin mühlet kararının kaldırılmasına, davacıların konkordato taleplerinin reddine, Davacı şirketler borca batık olmadıklarından iflas kararı verilmesine yer olmadığına, Tüm konkordato tedbirlerinin kaldırılmasına, konkordato komiserlerinin görevlerine son verilmesine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1423,7 +1413,7 @@
       "baslik": "Konkordato Komiserleri Kurulundan alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "i",
-      "alinti": "Yukarıda unvanı/adı yazılı şirketten/şahıstan geçici mühlet mühlet tarihi olan 17.02.2025 tarihi öncesine dayalı alacaklı olan gerçek ve tüzel kişilerin, aşağıda belirtilen usulde alacaklarını İİK m. 299 gereğince ilan tarihinden itibaren on beş gün içinde aşağıda gösterilen adrese ulaşacak şekilde bildirmeleri",
+      "alinti": "\"haklarında 16.05.2025 tarihli ara kararı ile 16.05.2025 tarihinden itibaren bir (1) yıllık kesin mühlet kararı verilen borçlular\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1463,7 +1453,7 @@
       "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"kesin mühletin, İİK Madde 289/5 uyarınca kesin mühletin 13/01/2026 tarihinden itibaren 6 AY SÜRE İLE UZATILMASINA, karar verildiği\"",
+      "alinti": "kesin mühletin, İİK Madde 289/5 uyarınca kesin mühletin 13/01/2026 tarihinden itibaren 6 AY SÜRE İLE UZATILMASINA, \" karar verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1483,7 +1473,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "Davacıların kesin mühlet verilmesi ve konkordatonun tasdiki taleplerinin reddine, Davacı borçlular İstanbul Ticaret Sicil Müdürlüğünün 941236-0 sicil numarasına kayıtlı BEYDAĞ ÇİFTLİĞİ GIDA SANAYİ VE TİCARET ANONİM ŞİRKETİ (Vergi No: 1671261844, Mersis No: 0167126184400001), İstanbul Ticaret Sicil Müdürlüğünün 382108-5 sicil numarasına kayıtlı TANZİM SÜT VE GIDA ÜRÜNLERİ SANAYİ TİCARET LİMİTED ŞİR",
+      "alinti": "mahkememizce verilen geçici mühlet kararının ve tüm tedbirlerin kaldırılmasına, Konkordato komiser heyetinin görevine son verilmesine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1493,7 +1483,7 @@
       "baslik": "Konkordato davasında kesin mühlet kararına ilişkin duyuru",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "davacı EMRE GÜLAP hakkında Mahkememizce 30 /12/2025 tarih saat 15:00'dan başlamak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET KARARI ve ihtiyati tedbir kararı verilerek",
+      "alinti": "davacı EMRE GÜLAP hakkında Mahkememizce 30 /12/2025 tarih saat 15:00'dan başlamak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET KARARI ve ihtiyati tedbir kararı verilerek, geçici konkordato komiseri olarak mali müşavir Bülent KOÇAK atanmıştır.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1503,7 +1493,7 @@
       "baslik": "Konkordato komiserliğinden alacaklılara davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "17.06.2025 tarihinden itibaren 3 ay süreyle konkordato geçici mühleti ve 07.11.2025 tarihinden itibaren de 1 yıl süre ile konkordato kesin mühleti verilmiştir.",
+      "alinti": "\"17.06.2025 tarihinden itibaren 3 ay süreyle konkordato geçici mühleti ve 07.11.2025 tarihinden itibaren de 1 yıl süre ile konkordato kesin mühleti verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1533,7 +1523,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"borçlu Kut-San Tarımsal Pazarlama ve Ticaret Limited Şirketi'nin konkordato teklifinin müzakeresi ve oylanması amacıyla, aşağıda belirtilen yer, gün ve saatte ALACAKLILAR TOPLANTISI yapılmasına karar verilmiştir.\"",
+      "alinti": "\"İİK m. 301 uyarınca, borçlu Kut-San Tarımsal Pazarlama ve Ticaret Limited Şirketi'nin konkordato teklifinin müzakeresi ve oylanması amacıyla, aşağıda belirtilen yer, gün ve saatte ALACAKLILAR TOPLANTISI yapılmasına karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1583,7 +1573,7 @@
       "baslik": "Konkordato davası kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"...Konkordato talep eden Ali Turhan Erol ve Mari Sırmabıyıkoğlu yönünden tefrik tarihi olan 09.01.2026 günü itibarıyla konkordato kesin mühlet tedbir hükümlerinin ve diğer tüm tedbirlerin kaldırılmasına...\"",
+      "alinti": "\"...Konkordato talep eden Ali Turhan Erol ve Mari Sırmabıyıkoğlu yönünden tefrik tarihi olan 09.01.2026 günü itibarıyla konkordato kesin mühlet tedbir hükümlerinin ve diğer tüm tedbirlerin kaldırılmasına, komiser heyetinin görevine son verilmesine...\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1613,7 +1603,17 @@
       "baslik": "Konkordato davası ilanen tebligat",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "''Davacının kesin mühlet verilmesi ve konkordatonun tasdiki talebinin reddine, Davacı borçlular İstanbul Ticaret Sicil Müdürlüğünün 77834-5 sicil numasına kayıtlı SERET ET VE GIDA SANAYİ TİCARET LİMİTED ŞİRKETİ (Vergi No: 8560381522, Mersis No: 0856038152200001) ve [TCKN] T.C. Kimlik Nolu SERVET BEKAR hakkında mahkememizce verilen geçici mühlet kararının, kesin mühlet kararının ve tüm tedbirlerin ",
+      "alinti": "geçici mühlet kararının ve tüm tedbirlerin kaldırıldığına karar verildiğinin Ticaret Sicil Gazetesi ve Basın İlan Kurumu resmi ilan portalında ilan edilmesine",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02384696",
+      "tarih": "2026-01-20",
+      "il": "BURSA",
+      "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "j",
+      "alinti": "21/02/2026 tarihinde saat 11:00 'da Kale Mah. Balıkçıali Cd. No:5-1/2 Kestel/ BURSA adresinde Rehinli alacaklılar toplantısı yapılacağı, 21/02/2026 tarihinde saat 12:00 'da Kale Mah. Balıkçıali Cd. No:5-1/2 Kestel/ BURSA adresinde Rehinsiz alacaklılar toplantısı yapılacağı",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1623,7 +1623,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 21/01/2026 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti": "\"Yukarıdakidavacılara tensip kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 21/01/2026 TARİHİNDEN İTİBAREN 2 AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1643,7 +1643,7 @@
       "baslik": "Konkordato komiserliğinden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"bir yıllık kesin mühlet kararı verilen konkordato talep eden Sertel Vida Metal A.Ş.\"",
+      "alinti": "bir yıllık kesin mühlet kararı verilen konkordato talep eden Sertel Vida Metal A.Ş.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1653,7 +1653,7 @@
       "baslik": "Konkordato mühlet kararı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"1 YIL SÜREYLE KONKORDATO KESİN MÜHLETİ VERİLMESİNE\"",
+      "alinti": "1 YIL SÜREYLE KONKORDATO KESİN MÜHLETİ VERİLMESİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1683,7 +1683,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Davalı tarafa 24/10/2025 tarihli ara kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 24/01/2026 TARİHİNDEN İTİBAREN 2( İKİ) AY SÜRE İLE UZATILMIŞTIR.",
+      "alinti": "\"Davalı tarafa 24/10/2025 tarihli ara kararlarıyla birlikte verilen üç aylık geçici konkordato mühleti 24/01/2026 TARİHİNDEN İTİBAREN 2( İKİ) AY SÜRE İLE UZATILMIŞTIR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1713,7 +1713,7 @@
       "baslik": "Alacaklıların alacağını bildirme ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"06/11/2025 tarihinde 1 Yıllık Kesin Mühlet Kararı verilmiş olduğundan\"",
+      "alinti": "06/11/2025 tarihinde 1 Yıllık Kesin Mühlet Kararı verilmiş olduğundan",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1733,7 +1733,7 @@
       "baslik": "Konkordato Mühlet Kararı tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"Mahkememizce yapılan yargılamada 14/11/2025 tarihli 2.celse 2 no'lu ara karar ile davacı şirket GÜR KARDEŞLER DAYANIKLI TÜKETİM MALLARI GIDA TURİZM SANAYİ VE TİCARET LİMİTED ŞİRKETİ'nin kesin mühlet talebinin kabulü ile İİK.nun 289/3 maddesi gereğince 19/11/2025 tarihinden itibaren 1 (Bir) yıllık kesin mühlet verilmesine karar verilmiştir.\"",
+      "alinti": "\"davacı şirket GÜR KARDEŞLER DAYANIKLI TÜKETİM MALLARI GIDA TURİZM SANAYİ VE TİCARET LİMİTED ŞİRKETİ'nin kesin mühlet talebinin kabulü ile İİK.nun 289/3 maddesi gereğince 19/11/2025 tarihinden itibaren 1 (Bir) yıllık kesin mühlet verilmesine karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1743,7 +1743,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "e",
-      "alinti": "\"konkordatonun İİK'nın 306 ncı maddesi uyarınca her iki şirket yönünden de TASDİKİNE\"",
+      "alinti": "konkordatonun İİK'nın 306 ncı maddesi uyarınca her iki şirket yönünden de TASDİKİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1773,17 +1773,7 @@
       "baslik": "Konkordato komiserliğinden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "26/05/2025 tarihinden başlamak üzere Kesin Mühlet verilmiştir.",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02398150",
-      "tarih": "2026-02-11",
-      "il": "ANKARA",
-      "baslik": "Konkordato Kesin Mühlet ve Alacak Bildirimi İlanı",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"3 aylık konkordato geçici mühleti kararı verilmiş\"",
+      "alinti": "\"26/05/2025 tarihinden başlamak üzere Kesin Mühlet verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1903,7 +1893,7 @@
       "baslik": "Konkordato alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"2004 sayılı İİK'nın 301. maddesi gereğince 26.03.2026 tarihi Perşembe günü - Konya Organize Sanayi Bölgesi Müdürlüğü Konferans Salonu, Büyükkayacık Mah. Evrenköy Cad. No:12Selçuklu/KONYA adresindeki toplantı salonunda konkordato projesi müzakere edilmek ve oylanmak üzere, \"Alacaklılar Toplantısı\" yapılacaktır.\"",
+      "alinti": "2004 sayılı İİK'nın 301. maddesi gereğince 26.03.2026 tarihi Perşembe günü - Konya Organize Sanayi Bölgesi Müdürlüğü Konferans Salonu, Büyükkayacık Mah. Evrenköy Cad. No:12Selçuklu/KONYA adresindeki toplantı salonunda konkordato projesi müzakere edilmek ve oylanmak üzere, \"Alacaklılar Toplantısı\" yapılacaktır.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1933,7 +1923,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "20.02.2026 tarihinden itibaren 1 yıllık kesin mühlet verilmesine",
+      "alinti": "\"20.02.2026 tarihinden itibaren 1 yıllık kesin mühlet verilmesine\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1943,7 +1933,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "e",
-      "alinti": "konkordatosunun İİK 306. Maddesi uyarınca TASDİKİNE",
+      "alinti": "\"konkordatosunun İİK 306. Maddesi uyarınca TASDİKİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1952,8 +1942,8 @@
       "il": "ANKARA",
       "baslik": "Alacaklılar toplantısı davet ilanı",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"Ankara Batı Asliye Ticaret Mahkemesinin 2025/25 Esas sayılı dosyasından verilen kararla, 08/04/2025 günü saat 14:09'dan itibaren başlamak üzere 1 YIL SÜREYLE KESİN MÜHLET verilmesi\"",
+      "okuma_karari": "j",
+      "alinti": "ALACAKLILAR TOPLANTISI, İİK madde 301 uyarınca 16.03.2026 günü saat 14.00-17.00 arası SO TECH GRUP PLASTİK SANAYİ VE TİCARET LİMİTED ŞİRKETİ, ofisinde (1). Kat,Fatih Mahallesi Turgut Özal Bulvarı No:60 KAHRAMANKAZAN/ANKARA adresinde yapılacaktır.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1963,7 +1953,7 @@
       "baslik": "Konkordato mühlet kararına ilişkin ilanen tebliğ",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Daha sonra Mahkemenin 10.11.2025 tarihli kararıyla 1 yıl süre ile kesin mühlet kararı verilerek Konkordato Komiserler Kuruluna Av. Arb. Sinan YAZICI ve Yeminli Mali Müşavir Abdulkadir BOZDOGAN atanmışlardır.",
+      "alinti": "\"Daha sonra Mahkemenin 10.11.2025 tarihli kararıyla 1 yıl süre ile kesin mühlet kararı verilerek Konkordato Komiserler Kuruluna Av. Arb. Sinan YAZICI ve Yeminli Mali Müşavir Abdulkadir BOZDOGAN atanmışlardır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -1977,23 +1967,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02415979",
-      "tarih": "2026-03-06",
-      "il": "MARDİN",
-      "baslik": "Alacaklılar toplantısına davet ilanı",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "18/04/2025 tarihinden başlamak üzere, 1 yıl süre ile kesin mühlet kararı verilmiştir.",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02418032",
       "tarih": "2026-03-09",
       "il": "BALIKESİR",
       "baslik": "Konkordato talebine ilişkin mahkeme kararı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "h",
-      "alinti": "\"konkordato talebinin FERAGAT NEDENİYLE REDDİNE\"",
+      "alinti": "konkordato talebinin FERAGAT NEDENİYLE REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2003,7 +1983,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"Konkordato Komiser heyetince anılan borçlu şirketin konkordato teklifini müzakere etmek üzere 27/03/2026 tarihinde saat 10:00- 10:30 arasında Adi (Rehinsiz) alacaklılarla, 11:00 – 11:30 saatleri arasında Rehinli alacaklılarla şirket merkezi adresi olan \"23 Nisan Mah. Turuncu Cad. Mirhan Rezidans Sitesi No:65/H Nilüfer BURSA\" adresinde aynı gün aynı yerde olmak üzere borçlu şahıs Sinan Çam'ın konk",
+      "alinti": "Konkordato Komiser heyetince anılan borçlu şirketin konkordato teklifini müzakere etmek üzere 27/03/2026 tarihinde saat 10:00- 10:30 arasında Adi (Rehinsiz) alacaklılarla, 11:00 – 11:30 saatleri arasında Rehinli alacaklılarla şirket merkezi adresi olan \"23 Nisan Mah. Turuncu Cad. Mirhan Rezidans Sitesi No:65/H Nilüfer BURSA\" adresinde aynı gün aynı yerde olmak üzere borçlu şahıs Sinan Çam'ın konko",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2013,7 +1993,7 @@
       "baslik": "Konkordato davası komiserlik heyeti alacaklılar toplantı davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"Davacı (T.C No: [TCKN]) Ahmet Zengin'den alacaklı olan ve alacaklarını bildirenler ile alacağını bildirmemekle beraber, bilançoda kayıtlı alacaklıların da katılabilecekleri 09/04/2026 Perşembe günü...ALACAKLILAR TOPLANTISI tertip edilmiş olup\"",
+      "alinti": "\"davacı (T.C No:[TCKN]) Ahmet Zengin'den alacaklı olan ve alacaklarını bildirenler ile alacağını bildirmemekle beraber, bilançoda kayıtlı alacaklıların da katılabilecekleri 09/04/2026 Perşembe günü...ALACAKLILAR TOPLANTISI tertip edilmiş olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2037,13 +2017,23 @@
       "alinti_karari_destekliyor": false
     },
     {
+      "ilan_no": "ILN02421802",
+      "tarih": "2026-03-13",
+      "il": "BALIKESİR",
+      "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "j",
+      "alinti": "2004 Sayılı İ.İ.K nun 301. maddesi uyarınca, Komutan Pet Gıda Otomotiv İnşaat Ve İnşaat Malzemeleri Hayvancılık Sanayi Ve Ticaret Limited Şirketi, Yıldırım Pet Gıda Otomotiv İnşaat Ve İnşaat Malzemeleri Hayvancılık Sanayi Ve Ticaret Limited Şirketinden alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile aşağıda belirtilen yer, ",
+      "alinti_karari_destekliyor": false
+    },
+    {
       "ilan_no": "ILN02424157",
       "tarih": "2026-03-16",
       "il": "İZMİR",
       "baslik": "Konkordato davası, alacaklıların alacaklarını beyana çağrılması",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "i",
-      "alinti": "hakkında, 21.11.2025 tarihinden itibaren 1 yıllık kesin mühlet verilmiştir. Borçlu şirketler ve şahıslardan alacaklı olanların ilanın yayımlandığı günden başlayarak ON BEŞ gün içinde Konkordato Komiseri Cem Çeliker'in 210 Sokak No : 4 Daire : 8 Yalı Mahallesi Güzelbahçe / İZMİR adresine; mesai saatleri içinde elden, taahhütlü posta / kargo yolu ile ALACAKLARINI bildirmelerini",
+      "alinti": "21.11.2025 tarihinden itibaren 1 yıllık kesin mühlet verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2093,7 +2083,7 @@
       "baslik": "Konkordato kaldırma kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"konkordato geçici mühletin ve tüm konkordato tedbirlerinin kaldırılmasına karar verildiği\"",
+      "alinti": "konkordato geçici mühletin ve tüm konkordato tedbirlerinin kaldırılmasına, borçluların konkordato konkordato kesin mühlet ve konkordato taleplerinin ayrı ayrı reddine, komiser heyetinin görevinin sonlandırılmasına karar verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2102,8 +2092,8 @@
       "il": "ESKİŞEHİR",
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"10.09.2025 tarihinden geçerli olmak üzere 1 (bir) yıllık kesin mühlet kararı verilmiş olduğundan\"",
+      "okuma_karari": "j",
+      "alinti": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2123,7 +2113,7 @@
       "baslik": "Konkordato Mühlet Kararı ve Alacaklılara davet tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"Konkordato Talep Eden davacılarhakkında 27/08/2025 tarih ve saat 17:00'dan itibaren3 ay süre ile geçici mühlet verilmesine\"",
+      "alinti": "\"27/08/2025 tarih ve saat 17:00'dan itibaren 3 ay süre ile geçici mühlet verilmesine\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2133,7 +2123,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "geçici mühletin kaldırılmasına",
+      "alinti": "\"Davacı UM KE Enerji Sanayi Ticaret Limited Şirketi'nin kesin mühlet verilmesi talebinin reddine, geçici mühletin kaldırılmasına, Davacı şirket borca batık olmadığından iflas kararı verilmesine yer olmadığına, Tüm konkordato tedbirlerinin kaldırılmasına ve Konkordato Komiserlerinin görevlerine son verilmesine\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2143,7 +2133,7 @@
       "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "3 AYLIK GEÇİCİ MÜHLET VERİLMESİNE, konkordato komiseri olarak, Talha Apak, Mustafa Necati Demirtaş ve Muhammed Cihad Munis 'in atanmasına ve duruşmanın 10/06/2026 günü saat 14:30 'da yapılmasına karar verilmiştir.",
+      "alinti": "\"3 AYLIK GEÇİCİ MÜHLET VERİLMESİNE, konkordato komiseri olarak, Talha Apak, Mustafa Necati Demirtaş ve Muhammed Cihad Munis 'in atanmasına ve duruşmanın 10/06/2026 günü saat 14:30 'da yapılmasına karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2173,17 +2163,7 @@
       "baslik": "Konkordato davasında alacaklılara davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "kesin mühlet kararıyla birlikte, Dr. İlker DURGUT'un 28/07/2025 tarihinden itibaren Kesin Konkordato Komiseri olarak görevlendirilmesine hükmedilmiştir.",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02435498",
-      "tarih": "2026-03-31",
-      "il": "TEKİRDAĞ",
-      "baslik": "Konkordato Mühlet Kararı ve Mahkeme Günü tebliği",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "davacılar lehine 28/03/2026 tarihi saat 10:00'dan itibaren 1 (bir) yıl kesin mühlet verilmesine",
+      "alinti": "\"28/07/2025 tarihinden başlamak üzere 1 yıllık kesin mühlet verildiği\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2213,7 +2193,7 @@
       "baslik": "İflas kararının tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "c",
-      "alinti": "Gebze Ticaret Sicil Müdürlüğü'nün 42318 nolu sicilinde kayıtlı davacılar DDC TEKNOLOJİ VE MAKİNA SANAYİ ANONİM ŞİRKETİ (Uluçınar Vergi Dairesi No.2721163266)'nin ve Gebze Ticaret Sicil Müdürlüğü'nün 43173 nolu sicilinde kayıtlı DDC DİJİTAL BASKI REKLAM SANAYİ ANONİM ŞİRKETİ (Uluçınar Vergi Dairesi No.2720839601)'nin 26/03/2026 günü saat 14:30 itibariyle İİK'nın 179. maddesi gereğince İFLASINA kara",
+      "alinti": "davacılar DDC TEKNOLOJİ VE MAKİNA SANAYİ ANONİM ŞİRKETİ (Uluçınar Vergi Dairesi No.2721163266)'nin ve Gebze Ticaret Sicil Müdürlüğü'nün 43173 nolu sicilinde kayıtlı DDC DİJİTAL BASKI REKLAM SANAYİ ANONİM ŞİRKETİ (Uluçınar Vergi Dairesi No.2720839601)'nin 26/03/2026 günü saat 14:30 itibariyle İİK'nın 179. maddesi gereğince İFLASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2233,7 +2213,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"kesin mühletin kaldırılarak borçlunun konkordato talebinin nedeniyle REDDİNE\"",
+      "alinti": "Mahkememizce verilen kesin mühletin kaldırılarak borçlunun konkordato talebinin nedeniyle REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2243,7 +2223,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"22/10/2025 tarihinden itibaren 1 (bir) yıllık konkordato kesin mühlet süresinin verildiği\"",
+      "alinti": "22/10/2025 tarihinden itibaren 1 (bir) yıllık konkordato kesin mühlet süresinin verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2253,7 +2233,7 @@
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "davacı Erdem Çikolata Gıda Sanayi Ve Ticaret Limited Şirketi b)-Birleşen dosya davacısı [TCKN] T.C. Kimlik Numarasında kayıtlı Serkan Reyhanoğlu hakkındaki kesin mühletin kaldırılmasına, -Mahkememizce daha önce bu dosya nedeniyle ihdas olunan tedbirlerin kaldırılmasına karar verilmiştir.",
+      "alinti": "davacı Erdem Çikolata Gıda Sanayi Ve Ticaret Limited Şirketi b)-Birleşen dosya davacısı [TCKN] T.C. Kimlik Numarasıyla T.C. Kimlik Numaralı Serkan Reyhanoğlu hakkındaki kesin mühletin kaldırılmasına, -Mahkememizce daha önce bu dosya nedeniyle ihdas olunan tedbirlerin kaldırılmasına karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2263,7 +2243,7 @@
       "baslik": "Konkordato Komiserliğinden alacaklılar toplantısına çağrı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"anılan dosya kapsamında 08.05.2026 Cuma saat: 15:00 tarihinde MG Hill Residence Butik Hotel, Cevatpasa, Turgut Özal Bulvarı, 44900, Malatya adresinde borçlunun konkordato teklifi müzakere etmek üzere alacaklılar toplantısı yapılmasına karar verilmiştir.\"",
+      "alinti": "\"23/10/2025 tarihinden itibaren başlamak ve anılan tarihten itibaren geçerli olmak üzere 1 yıl süre ile kesin mühlet kararı verildiği\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2293,7 +2273,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "2004 Sayılı İ.İ.K nun 301. maddesi uyarınca, Bahas Özel Sağlık Hizmetleri Danışmanlık Medikal Ürünler İlaç Kozmetik Turizm İnşaat İthalat İhracat Sanayi Ve Ticaret Limited Şirketinden alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile aşağıda belirtilen yer, tarih ve zamanlarda konkordato projesinin müzakeresi için Alacaklılar",
+      "alinti": "Alacaklılar Toplantısına Davet İlanı",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2303,7 +2283,7 @@
       "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"07/04/2026 tarih saat 15:18'denbaşlamak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET KARARI VERİLDİĞİ\"",
+      "alinti": "07/04/2026 tarih saat 15:18'denbaşlamak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET KARARI VERİLDİĞİ",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2323,7 +2303,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"Alacaklıların alacak bildirimi ve tahkiki ile konkordato projesi tamamlanmakla, İİK 301 gereğince, davacı şirketten alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile 28.04.2026 tarihinde aşağıda belirtilen yer ve saatlerde konkordato projesinin müzakeresi için toplantı yapılacaktır.\"",
+      "alinti": "\"İİK 301 gereğince, davacı şirketten alacaklı olup; alacaklarını bildirenler veya alacağını bildirmemekle birlikte bilançoda kayıtlı alacaklıların katılımı ile 28.04.2026 tarihinde aşağıda belirtilen yer ve saatlerde konkordato projesinin müzakeresi için toplantı yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2333,7 +2313,7 @@
       "baslik": "Konkordato komiserliğinde alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"1 yıllık kesin mühlet süresi 15/05/2026 tarihine kadar 6 ay süre ile uzatılmış\"",
+      "alinti": "1 yıllık kesin mühlet süresi 15/05/2026 tarihine kadar 6 ay süre ile uzatılmış",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2343,7 +2323,7 @@
       "baslik": "Konkordato kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "n",
-      "alinti": "01/07/2026 günü saat 17.00'ye kadar konkordato kesin mühlet hükümlerinin devamına",
+      "alinti": "\"01/07/2026 günü saat 17.00'ye kadar konkordato kesin mühlet hükümlerinin devamına...karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2363,7 +2343,7 @@
       "baslik": "Konkordato komiserliğinden alacaklıların alacaklarını bildirim ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "22.04.2025 tarihinde 3 ay süre ile Konkordato Geçici Mühleti verilmiştir.",
+      "alinti": "\"22.04.2025 tarihinde 3 ay süre ile Konkordato Geçici Mühleti verilmiştir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2403,17 +2383,7 @@
       "baslik": "Alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"07.05.2026 tarihinde Karakuyu Mah. Mehmet Akif Ersoy Bulvarı No: 151 Merkez/Uşak adresinde (Petrol Ofisi) saat 13:30'da borçluların konkordato projesinin müzakeresi ve oylanması amacıyla alacaklılar toplantısı yapılacaktır.\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02453668",
-      "tarih": "2026-04-24",
-      "il": "İSTANBUL",
-      "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"27.06.2025 tarihinden başlamak üzere (Bir) yıllık kesin mühlet kararıyla birlikte Geçici Konkordato Komiser heyeti olarak görevlerine devam etmesine karar verilmiştir.\"",
+      "alinti": "adı geçen borçluların konkordato projesinin müzakeresi ve oylanması amacıyla alacaklılar toplantısı yapılacaktır.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2423,7 +2393,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "e",
-      "alinti": "Davacı şirketin konkordatoya tabi borçlarını %25 fazlasıyla ilk taksit ödemesine 20/05/2026 tarihinden itibaren başlamak üzere, 30 aylık dönemde aylık eşit taksitler halinde ÖDENMESİNE , buna göre komiser heyeti tarafından sunulan 17/04/2026 tarihli rapor ekinde sunulan ödeme planının bu kararın eki sayılmasına",
+      "alinti": "\"Davacı şirketin konkordatoya tabi borçlarını %25 fazlasıyla ilk taksit ödemesine 20/05/2026 tarihinden itibaren başlamak üzere, 30 aylık dönemde aylık eşit taksitler halinde ÖDENMESİNE , buna göre komiser heyeti tarafından sunulan 17/04/2026 tarihli rapor ekinde sunulan ödeme planının bu kararın eki sayılmasına\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2473,7 +2443,7 @@
       "baslik": "Alacaklılar toplantısının ertelenmesine ilişkin mahkeme kararı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "24.04.2026 Cuma günü saat 14.00'te, rehinli alacaklılarla müzakerenin ise saat 16.00'da yapılacağı ilan edilen alacaklılar toplantısının ERTELENMESİNE",
+      "alinti": "24.04.2026 Cuma günü saat 14.00'te, rehinli alacaklılarla müzakerenin ise saat 16.00'dayapılacağı ilan edilen alacaklılar toplantısının ERTELENMESİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2483,7 +2453,7 @@
       "baslik": "Konkordato Mühlet Kararı tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "b",
-      "alinti": "Emre ERDİNÇ'in (T.C. Kimlik No: [TCKN]) ve Erdem ERDİNÇ'in (T.C. Kimlik No: [TCKN]) KESİN MÜHLET VERİLMESİ İLE KONKORDATO TALEPLERİNİN AYRI AYRI REDDİNE",
+      "alinti": "Emre ERDİNÇ'in (T.C. Kimlik No: [TCKN]) ve Erdem ERDİNÇ'in (T.C. Kimlik No: [TCKN]) KESİN MÜHLET VERİLMESİ İLE KONKORDATO TALEPLERİNİN AYRI AYRI REDDİNE karar verildiği hususu ilan olunur.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2517,6 +2487,16 @@
       "alinti_karari_destekliyor": false
     },
     {
+      "ilan_no": "ILN02458819",
+      "tarih": "2026-05-04",
+      "il": "ADANA",
+      "baslik": "Konkordato alacaklılarına çağrı",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "a",
+      "alinti": "\"10.09.2025 tarihli duruşmada 1 yıllık kesin mühlet verilmiştir.\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
       "ilan_no": "ILN02459790",
       "tarih": "2026-05-04",
       "il": "ÇANAKKALE",
@@ -2532,18 +2512,8 @@
       "il": "KONYA",
       "baslik": "Konkordato mühlet kararı",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
+      "okuma_karari": "n",
       "alinti": "\"28.11.2025 tarihinden itibaren 3 ay süreyle konkordato geçici mühleti ve 15.04.2026 tarihinden itibaren de 1 yıl süre ile konkordato kesin mühleti verilmiştir.\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02462457",
-      "tarih": "2026-05-08",
-      "il": "KOCAELİ",
-      "baslik": "Konkordato komiserliğinden alacaklılara davet ilanı",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"önce geçici mühlet kararı daha sonra yapılan duruşma ile 30/06/2025 tarihinden başlamak üzere 1 YIL SÜRE İLE KESİN MÜHLET KARARI verildiği\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2593,7 +2563,7 @@
       "baslik": "Konkordato kesin mühletin devamının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "KESİN MÜHLETİN DEVAMINA karar verilmiştir.",
+      "alinti": "\"İİK. 289. maddesi uyarınca 15/01/2026 tarihi itibari ile verilen KESİN MÜHLETİN DEVAMINA karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2603,17 +2573,7 @@
       "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "davacılar yönünden kesin mühletin kaldırılması nedeni ile İİK' nın 294,295,296 ve 297. maddesinde düzenlenen sonuçların kalkmış olduğunun tespitine",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02468594",
-      "tarih": "2026-05-15",
-      "il": "DİYARBAKIR",
-      "baslik": "Konkordato Komiser Heyetinden alacaklılar toplantısına davet",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "i",
-      "alinti": "Yukarıda ünvanı yazılı şirketten alacaklı olanların, alacaklarının dayanaklarını (sözleşme, temlikname, fatura, irsaliye, mutabakat mektubu, hesap ekstresi vs.) gösteren belgeleri Komiserliğimize hitaben yazacakları bir dilekçe ile, İİK m. 299 gereğince İLAN tarihinden itibaren 15 gün içerisinde Komiserliğimizin adresine tatil günleri hariç 09:30-12:00 13:00 – 16:00 saatleri arasında bizzat veya v",
+      "alinti": "kesin mühletin kaldırılması nedeni ile İİK' nın 294,295,296 ve 297. maddesinde düzenlenen sonuçların kalkmış olduğunun tespitine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2623,7 +2583,7 @@
       "baslik": "Alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"Borçluların konkordato projesinin müzakeresi ve oylanması amacıyla 16.06.2026 Salı günü Bestekar Sadi Hoşses Sok. No:30/1 Zeynep Hanım Apt. Kat 2 Daire 5 Bostanlı İZMİR adresinde tek bir toplantı yapılacak olup\"",
+      "alinti": "Borçluların konkordato projesinin müzakeresi ve oylanması amacıyla 16.06.2026 Salı günü Bestekar Sadi Hoşses Sok. No:30/1 Zeynep Hanım Apt. Kat 2 Daire 5 Bostanlı İZMİR adresinde tek bir toplantı yapılacak olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2673,7 +2633,7 @@
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "verilen KESİN MÜHLETİN 15/05/2026 GÜNÜ SAAT 14:23 İTİBARİYLE KALDIRILMASINA",
+      "alinti": "Ağrı Ticaret Sicil Müdürlüğü'nün 5632 Sicil Numarasında kayıtlı Asal Petrol İnşaat Gıda Nakliyat Turizm Sanayi ve Ticaret Limited Şirketi ile [TCKN] T.C. Kimlik Numaralı Mehmet Yılmaz Aslan hakkında verilen KESİN MÜHLETİN 15/05/2026 GÜNÜ SAAT 14:23 İTİBARİYLE KALDIRILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2683,7 +2643,7 @@
       "baslik": "Konkordato komiseri görevlendirilmesi tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"2004 s. İİK.nin 289/3. maddeleri gereçince [TCKN] T.C. kimlik numaralı davacı GÜNGÖR ÇALIK'a 15.05.2026 tarihinden itibaren geçerli olmak üzere 1 YIL SÜREYLE KONKORDATO KESİN MÜHLETİ VERİLMESİNE\"",
+      "alinti": "2004 s. İİK.nin 289/3. maddeleri gereğince [TCKN] T.C. kimlik numaralı davacı GÜNGÖR ÇALIK'a 15.05.2026 tarihinden itibaren geçerli olmak üzere 1 YIL SÜREYLE KONKORDATO KESİN MÜHLETİ VERİLMESİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2707,23 +2667,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02474988",
-      "tarih": "2026-05-22",
-      "il": "BURSA",
-      "baslik": "Konkordato mühlet kararının ilanen tebliği",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"Talep eden borçlular Bursa Ticaret Sicil Memurluğunun 89762 nosunda kayıtlı olan, 0790374143 vergi numaralı, ARKAT ALÜMİNYUM SANAYİ TİCARET ANONİM ŞİRKETİ, [TCKN] TC Kimlik numaralı EMİR ÇOKÇAĞLAYAN ve [TCKN] TC Kimlik Numaralı MURAT BUYRUK ''a 20/05/2026 tarihinden itibaren 1 (BİR) YILLIK KESİN MÜHLET VERİLMESİNE\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02475327",
       "tarih": "2026-05-25",
       "il": "DİYARBAKIR",
       "baslik": "Konkordato Komiser Heyetinden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "i",
-      "alinti": "\"17/09/2025 tarihinden itibaren 1 yıllık kesin mühlet kararı verildiği; kesin mühlet kararıyla birlikte konkordato komiserinin görevinin devam etmesine hükmedilmiştir.\"",
+      "alinti": "kesin mühlet kararıyla birlikte konkordato komiserinin görevinin devam etmesine hükmedilmiştir. Yukarıda unvanı yazılı davacı şirket ile davacı şahıstan alacaklı olanların, alacaklarının dayanaklarını (sözleşme, temlikname, mutabakat mektubu, muavin defter dökümü, cari hesap ekstresi, çek ve senet fotokopilerinin vs.) gösteren belgelerin onaylı suretlerini, İcra ve İflas Kanununun 299. maddesi ger",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2733,7 +2683,7 @@
       "baslik": "Konkordato davasına ilişkin tebliğ",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"mahkememizin 26/08/2025 tarihli duruşma zaptı ile 28/08/2025 tarihinden başlamak üzere verilen 1 YILLIK KESİN MÜHLET KARARININ KALDIRILMASINA\"",
+      "alinti": "mahkememizin 26/08/2025 tarihli duruşma zaptı ile 28/08/2025 tarihinden başlamak üzere verilen 1 YILLIK KESİN MÜHLET KARARININ KALDIRILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2743,17 +2693,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"3-Davacılar; EMRE GÖK TARIM ÜRÜNLERİ SANAYİ TİCARET LİMİTED ŞİRKETİ ve EMRE GÖK hakkında mahkememizin 21/10/2025 tarihli duruşma zaptı ile 21/10/2025 tarihinden başlamak üzere verilen 1 YILLIK KESİN MÜHLET KARARININ KALDIRILMASINA\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02478510",
-      "tarih": "2026-06-04",
-      "il": "KARABÜK",
-      "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"22/05/2026 tarihinden itibaren başlamak üzere BİR (1) YIL SÜRE İLE KESİN MÜHLET VERİLMESİNE\"",
+      "alinti": "\"3-Davacılar; EMRE GÖK TARIM ÜRÜNLERİ SANAYİ TİCARET LİMİTED ŞİRKETİ ve EMRE GÖK hakkında mahkememizin 21/10/2025 tarihli duruşma zaptı ile 21/10/2025 tarihinden başlamak üzere verilen 1 YILLIK KESİN MÜHLET KARARININ KALDIRILMASINA,\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2763,7 +2703,7 @@
       "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "b",
-      "alinti": "Konkordato talep edenlerin kesin mühlet verilmesi ve konkordatonun tasdiki taleplerinin ayrı ayrı reddine, karar verilmiş olup",
+      "alinti": "Konkordato talep edenlerin kesin mühlet verilmesi ve konkordatonun tasdiki taleplerinin ayrı ayrı reddine, Mahkememiz dosyasından hükmedilen tüm ihtiyati tedbirlerin kaldırılmasına karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2774,6 +2714,16 @@
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
       "alinti": "Konkordato Komiser heyetince Anılan borçlu şirketin konkordato teklifini müzakere etmek üzere 17.07.2026 tarihinde saat 10:00- 10:30 arasında Adi (Rehinsiz) alacaklılarla, 11:00 – 11:30 saatleri arasında Rehinli alacaklılarla şirket merkezi adresi olan Balkan Mah. 602. Sokak No:3 Nilüfer-BURSA\" adresinde alacaklılar toplantısı gerçekleştirilmesine karar verildiği",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02483466",
+      "tarih": "2026-06-10",
+      "il": "İZMİR",
+      "baslik": "Alacaklılar toplantısına davet",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "j",
+      "alinti": "\"Borçluların konkordato projesinin müzakeresi ve oylanması amacıyla 07.07.2026 Salı günü Yazıbaşı Bahçelievler Mah.431 Sok. B Blok No:8/A Torbalı-İZMİR adresinde tek bir toplantı yapılacak olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2807,23 +2757,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02486951",
-      "tarih": "2026-06-16",
-      "il": "ANKARA",
-      "baslik": "Konkordato Komiserliği Kurulu alacaklılar toplantı daveti",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"26/06/2025 gününden geçerli olmak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET VERİLMESİNE\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02487726",
       "tarih": "2026-06-15",
       "il": "DENİZLİ",
       "baslik": "Konkordato davasında alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"borçlunun konkordato proje ve teklifleri oylanmak üzere 30.06.2026 günü saat 16.00-17.00 arasında Saraylar Mahallesi Doktorlar Caddesi Baysal Apartmanı Kat 5 D.5-6 Merkez efendi/ Denizli adresinde alacaklılar toplantısı yapılmasına karar verilmiştir\"",
+      "alinti": "\"30.06.2026 günü saat 16.00-17.00 arasında Saraylar Mahallesi Doktorlar Caddesi Baysal Apartmanı Kat 5 D.5-6 Merkez efendi/ Denizli adresinde alacaklılar toplantısı yapılmasına karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2833,7 +2773,7 @@
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "i",
-      "alinti": "22/05/2026 tarihli duruşma tutanağı ile Aykut HACIYİRMİBEŞOĞLU'nun konkordato talebi yerinde görülerek 22/05/2026 tarihinden itibaren başlamak üzere 1 ( bir) yıllık süre için İİK nun 289 maddesi gereğince kesin mühlet kararı verilmiştir.",
+      "alinti": "\"2004 sayılı İİK nun 7101 sayılı kanunun 27.maddesi ile değişik 299.maddesi uyarınca konkordato kesin mühleti alanlardan alacağı bulunan alacaklıların, Geçici mühlet kararının verildiği 24/02/2026 tarihi esas olmak üzere; 1- Alacak Tutarını, 2- Alacağın İcra Takibine Konu Olup Olmadığını, 3- Alacak Teminatlı İse Teminat Bilgilerini...\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2843,7 +2783,7 @@
       "baslik": "Konkordato davasında hükmün ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "e",
-      "alinti": "İİK 305 maddesi gereçince KABULÜ İLE, İİK 306. Maddesi gereçince TASDİKİNE",
+      "alinti": "\"Gerekçesi ayrıntılı kararda gösterilmek üzere; 1-Uşak Ticaret Sicil Müdürlüğünün 11746 sicil numarasında kayıtlı 1950728489 vergi nolu BYC GRUP İHTALAT İHRACAT A.Ş'nin ve Abdullah Klavuz'un konkordato taleplerinin İİK 305 maddesi gereğince KABULÜ İLE, İİK 306. Maddesi gereğince TASDİKİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2853,7 +2793,7 @@
       "baslik": "Konkordato mühlet kararına ilişkin ilanen tebliğ",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "davacı yararına 2004 sayılı İİK'nun 289/1 maddesi uyarınca verilen KESİN MÜHLETİN DEVAMINA",
+      "alinti": "\"davacı yararına 2004 sayılı İİK'nun 289/1 maddesi uyarınca verilen KESİN MÜHLETİN DEVAMINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2863,7 +2803,7 @@
       "baslik": "Konkordato kesin mühlet kararının devamının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"Davacı hakkında 19/09/2025 tarihli duruşmada verilen 1 yıllık kesin mühlet sürecinin, konkordato tedbirlerinin ve komiser heyetinin görevinin aynen devamına, \" şeklinde karar verilmiş olup",
+      "alinti": "\"Davacı hakkında 19/09/2025 tarihli duruşmada verilen 1 yıllık kesin mühlet sürecinin, konkordato tedbirlerinin ve komiser heyetinin görevinin aynen devamına,\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2873,7 +2813,7 @@
       "baslik": "Konkordato Mühlet Kararı tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"İİK m.289/3 maddesi gereğince geçici mühletin dolduğu tarihten (16/06/2026) itibaren 1 YILLIK KESİN MÜHLET VERİLMESİNE\"",
+      "alinti": "\"geçici mühletin dolduğu tarihden (16/06/2026) itibaren 1 YILLIK KESİN MÜHLET VERİLMESİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2883,7 +2823,17 @@
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "g",
-      "alinti": "davacılar (başvurucular) Ayhan AK ve Orhan AK hakkında verilen geçici mühletin kaldırıldığı, konkordato talebinin ret ile sonuçlandığı ve konkordato sürecinin sona erdiği 2004 sayılı İİK'nın 288/2. maddesi uyarınca ilan olunur.",
+      "alinti": "davacılar (başvurucular) Ayhan AK ve Orhan AK hakkında verilen geçici mühletin kaldırıldığı, konkordato talebinin ret ile sonuçlandığı ve konkordato sürecinin sona erdiği",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02492306",
+      "tarih": "2026-06-22",
+      "il": "İSTANBUL",
+      "baslik": "Konkordato mühlet kararının ilanen tebliği",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "a",
+      "alinti": "\"24/06/2025 TARİHİNDEN İTİBAREN BİR YIL SÜRE İLE KESİN MÜHLET VERİLMESİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2893,7 +2843,7 @@
       "baslik": "Konkordato mühlet kararına ilişkin ilanen tebliğ",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "Kesin Mühlet tarihi dikkate alınarak duruşmanın 10/02/2027 günü saat 14:00'a bırakılmasına, şeklinde kesin olmak üzere karar verildiği",
+      "alinti": "\"Ankara Ticaret Sicil Memurluğunun 392570 nosunda kayıtlı olan, 6310725076 vergi numaralı, MEDSAN ENERJİ İNŞAAT VE MADENCİLİK ANONİM ŞİRKETİ'nin yararına 11/02/2026 tarihinden (saat 14:27'den) itibaren başlamak üzere verilen KESİN MÜHLET KARARININ AYNEN DEVAMINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2913,7 +2863,7 @@
       "baslik": "Alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"alacaklılar toplantısı öncesi tüm işlemler tamamlanmış olmakla borçlu şirketin ve borçlu gerçek kişinin konkordato teklifini müzakere etmek üzere; - Ceyhan Dağhan Yapı İnş. Malz. İth. İhr. San. Ve Tic. Ltd. Şti. yönünden ADİ ALACAKLILAR toplantısının 22.07.2026günü saat 14.00 da\"",
+      "alinti": "\"alacaklılar toplantısı öncesi tüm işlemler tamamlanmış olmakla borçlu şirketin ve borçlu gerçek kişinin konkordato teklifini müzakere etmek üzere; - Ceyhan Dağhan Yapı İnş. Malz. İth. İhr. San. Ve Tic. Ltd. Şti. yönünden ADİ ALACAKLILAR toplantısının 22.07.2026günü saat 14.00 da, REHİNLİ ALACAKLILAR toplantısının saat 15.00 da\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2922,8 +2872,8 @@
       "il": "ANKARA",
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "n",
-      "alinti": "\"01.08.2025 tarihinden (saat 14.20'den) itibaren başlamak üzere 3 (üç) ay süre ile GEÇİCİ MÜHLET KARARI daha sonra da 01.12.2025 tarihinde (saat 11,15)'den itibaren başlamak üzere Sayın Mahkemece 1 YIL süre ile KESİN MÜHLET KARARI verilmiştir.\"",
+      "okuma_karari": "j",
+      "alinti": "\"İİK. 301. maddesi gereçince 1 8.07.2026 tarihinde Cumartesi günü alacaklılar toplantısı yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2933,7 +2883,7 @@
       "baslik": "Konkordato komiserliğinden alacaklılara davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "i",
-      "alinti": "Borçlulardan alacaklı olanların, alacaklarının dayanaklarını gösteren belgelerin suretlerini asıllarıyla birlikte bir dilekçeye ekli olarak İcra ve İflas Kanunu'nun 299. maddesi gereğince ilan tarihinden itibaren 15 gün içerisinde, konkordato komiserliğimizin \"Onur AKPINAR - Kocaeli Üniversitesi Turizm Fakültesi 41080 B. Derbent – Kartepe / KOCAELİ\" adresine tatil günleri hariç 09:30 – 15:30 saatl",
+      "alinti": "borçlular hakkında bir yıl süreyle kesin mühlet verilmesine, İİK'nın 289/3.fıkrası gereğince konkordato komiserinin görevinin devamına karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -2993,7 +2943,17 @@
       "baslik": "Konkordato davası Alacak Bildirim İlanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"16/02/2026 tarihli kararı ile bir yıl kesin mühlet kararı verilmiş\"",
+      "alinti": "\"19.09.2025 tarihinden itibaren üç ay süreyle geçici mühlet kararı verilmiş\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02501726",
+      "tarih": "2026-07-03",
+      "il": "İSTANBUL",
+      "baslik": "Konkordato mühlet kararının ilanen tebliği",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "a",
+      "alinti": "\"07/05/2026 TARİHİNDEN İTİBAREN 3 AY 22 GÜN SÜRE İLE KESİN MÜHLET VERİLMESİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3023,7 +2983,7 @@
       "baslik": "Konkordato kesin mühlet kararının bildirimi ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "KESİN MÜHLETİN DEVAMINA , kesin mühlete ilişkin bu kararın İİK 293/1 maddesi uyarınca KESİN olarak verildiğinin ihtarına",
+      "alinti": "İİK 293/1 maddesi uyarınca 11/03/2026 tarihli celsede verilen KESİN MÜHLETİN DEVAMINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3034,16 +2994,6 @@
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
       "alinti": "\"24.09.2025 tarihinde bir yıl süreyle kesin mühlet kararı verilmiş olup\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02509399",
-      "tarih": "2026-07-16",
-      "il": "ANKARA",
-      "baslik": "Konkordato mühlet kararına ilişkin ilanen tebliğ",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "2004 sayılı İİK'nun 289/1 maddesi uyarınca 01/07/2026 tarihinden (saat 14:53'den) itibaren başlamak üzere 1 YIL SÜREYLE KESİN MÜHLET verilmesine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3083,7 +3033,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "24/07/2026 tarihinden geçerli olmak üzere 1 yıl süre ile kesin mühlet verilmesine",
+      "alinti": "\"24/07/2026 tarihinden geçerli olmak üzere 1 yıl süre ile kesin mühlet verilmesine\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3103,7 +3053,17 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"13/07/2026 tarihinden itibaren geçerli olmak üzere 3 ay süreyle geçici mühlet kararı verilmiş olup\"",
+      "alinti": "13/07/2026 tarihinden itibaren geçerli olmak üzere 3 ay süreyle geçici mühlet kararı verilmiş olup",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02513475",
+      "tarih": "2026-07-23",
+      "il": "KONYA",
+      "baslik": "Konkordato alacaklılar toplantısına davet",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "a",
+      "alinti": "\"davacıya 1 (bir) yıllık kesin mühlet verilmiştir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3132,18 +3092,8 @@
       "il": "ESKİŞEHİR",
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "j",
-      "alinti": "\"10.08.2026 Pazartesi günü saat 13.30 - 14.30 arasındaÇamlıca Mahallesi Mustafa Paşa Sokak No:61 Tepebaşı / ESKİŞEHİR adresinde bulunan ANEMON OTEL' de ) adresinde alacaklılar toplantısı yapılmasına kararverilmiştir.\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02513906",
-      "tarih": "2026-07-21",
-      "il": "BURSA",
-      "baslik": "Konkordato mühlet kararının ilanen tebliği",
-      "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "\"Talep eden borçlu Bursa Ticaret Sicil Memurluğunun 23900 nosunda kayıtlı olan, 6130020776 vergi numaralı, MATTAŞ ENDÜSTRİYEL MUTFAK SANAYİ ANONİM ŞİRKETİ 'ne 17/07/2026 tarihinden itibaren 1 (BİR) YILLIK KESİN MÜHLET VERİLMESİNE\"",
+      "alinti": "\"10/09/2025 tarihinden itibaren başlamak üzere 1 yıl süre ile kesin mühlet kararı kararı verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3153,17 +3103,7 @@
       "baslik": "Konkordato Komiserliğinden adi rehinli alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "19/09/2025 tarihinden itibaren bir (1) yıl süreyle kesin mühlet verilmesine karar verilmiştir.",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02515135",
-      "tarih": "2026-07-23",
-      "il": "BURSA",
-      "baslik": "Konkordato mühlet kararının ilanen tebliği",
-      "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "a",
-      "alinti": "\"konkordato isteyenlere 14/07/2026 tarihinden itibaren bir yıl kesin mühlet verilmesine\"",
+      "alinti": "\"19/09/2025 tarihinden itibaren bir (1) yıl süreyle kesin mühlet verilmesine\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3187,13 +3127,23 @@
       "alinti_karari_destekliyor": false
     },
     {
+      "ilan_no": "ILN02516172",
+      "tarih": "2026-07-24",
+      "il": "GAZİANTEP",
+      "baslik": "Konkordato davası kesin mühlet kararı ilanen tebliği",
+      "regex_damgasi": "kesin_muhlet",
+      "okuma_karari": "a",
+      "alinti": "\"12/03/2026 tarihinde 1 Yıllık Kesin Mühlet Kararı verilmiş olduğundan\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
       "ilan_no": "ILN02518539",
       "tarih": "2026-07-28",
       "il": "DİYARBAKIR",
       "baslik": "Konkordato Komiser Heyetinden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
-      "okuma_karari": "i",
-      "alinti": "\"Yukarıda ünvanı yazılı şirketlerden ve şahıs firmasından alacaklı olanların, alacaklarının dayanaklarını (sözleşme, temlikname, fatura, irsaliye mutabakat mektubu, muavin defter dökümü, cari hesap ekstresi, çek ve senet fotokopilerinin, iletişim bilgilerinin vs.) gösteren belgelerin onaylı suretlerini, İcra ve İflas Kanununun 299. maddesi gereğince İLAN tarihinden itibaren 15 gün içerisinde konko",
+      "okuma_karari": "j",
+      "alinti": "\"kesin mühlet kararıyla birlikte konkordato komiser heyeti olarak Murat Demir, Tahsin Yaşar ve Emel Karakoyun'un görevlendirmelerine hükmedildiği, Yukarıda ünvanı yazılı şirketlerden ve şahıs firmasından alacaklı olanların, alacaklarının dayanaklarını...gösteren belgelerin onaylı suretlerini, İcra ve İflas Kanununun 299. maddesi gereğince İLAN tarihinden itibaren 15 gün içerisinde konkordato komis",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3213,7 +3163,7 @@
       "baslik": "Konkordato kesin mühlet kararının ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"02/08/2026 tarihinden başlamak üzere 1 yıllık süre ile kesin mühlet süresinin uzatılmasına karar verildiği\"",
+      "alinti": "02/08/2026 tarihinden başlamak üzere 1 yıllık süre ile kesin mühlet süresinin uzatılmasına karar verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3223,7 +3173,7 @@
       "baslik": "Konkordato alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"Mahkemenin 31.12.2025 tarihli kararı ile 3 ay süreyle geçici mühlet, 25.03.2026 tarihli kararı ile ise 1 yıl süreyle kesin mühlet verilmiş olup, aynı kararlarla tarafım Konkordato Komiseri olarak görevlendirilmiştir.\"",
+      "alinti": "\"2004 sayılı İcra ve İflas Kanunu'nun 301. maddesi uyarınca konkordato projesinin müzakere edilmesi ve oylanması amacıyla aşağıda belirtilen tarihlerde Rehinli Alacaklılar Toplantısı ile Adi Alacaklılar Toplantısı yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3233,7 +3183,7 @@
       "baslik": "Konkordato davası mahkeme kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "b",
-      "alinti": "Davacı borçlunun kesin mühlet talebi ile konkordato davasının REDDİNE, Geçici mühletin ve tüm tedbirlerin kaldırılmasına, konkordato komiser heyetinin görevine son verilmesine",
+      "alinti": "Davacı borçlunun kesin mühlet talebi ile konkordato davasının REDDİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3243,7 +3193,7 @@
       "baslik": "Konkordato davasında alacaklılara davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "alacaklılar toplantısı yapılmasına karar verilmiştir.",
+      "alinti": "alacaklılar toplantısı yapılmasına karar verilmiştir",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3253,7 +3203,7 @@
       "baslik": "Konkordato alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "\"konkordato projesinin müzakere edilmesi ve oylanması amacıyla, aşağıda belirtilen tarih, saat ve yerde Rehinli/İpotekli Alacaklılar Toplantısı ile Adi Alacaklılar Toplantısı yapılacaktır.\"",
+      "alinti": "\"aşağıda belirtilen tarih, saat ve yerde Rehinli/İpotekli Alacaklılar Toplantısı ile Adi Alacaklılar Toplantısı yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3263,7 +3213,7 @@
       "baslik": "Konkordato kesin mühlet kararının ilanen tebliği",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"06/08/2026 günü saat 12.00'dan itibaren başlamak üzere verilmiş olan bir yıllık konkordato kesin mühletinin İİK'nın 289/5. maddesi gereğince 06/12/2026 günü saat 12.00'a kadar 4 AY SÜREYLE UZATILMASINA\"",
+      "alinti": "\"verilmiş olan bir yıllık konkordato kesin mühletininİİK'nın 289/5. maddesi gereğince 06/12/2026 günü saat 12.00'a kadar 4 AY SÜREYLE UZATILMASINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3273,7 +3223,7 @@
       "baslik": "Konkordato komiserliğinden alacaklılar toplantısına davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "Alacaklılar Toplantısı, İİK m.301 uyarınca 31.08.2026 pazartesi günü adi alacaklılarla saat:13:00'da, imtiyazlı alacaklılarla saat 13:30'da \"Hatipler Mah. 101-1 Sk No:8/Z01 Manavgat/ANTALYA \" adresinde yapılacaktır.",
+      "alinti": "\"Alacaklılar Toplantısı, İİK m.301 uyarınca 31.08.2026 pazartesi günü adi alacaklılarla saat:13:00'da, imtiyazlı alacaklılarla saat 13:30'da \"Hatipler Mah. 101-1 Sk No:8/Z01 Manavgat/ANTALYA \" adresinde yapılacaktır.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3283,7 +3233,7 @@
       "baslik": "Konkordato Komiserliği'nden alacaklılar toplantısına davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "j",
-      "alinti": "İ.İ.K. m. 301 uyarınca borçlunun konkordato proje ve teklifleri oylanmak üzere 10.08.2026 Pazartesi günü saat 13.30 - 14.30 arasında yapılacak olan alacaklılar toplantısının ERTELENEREK 22.08.2026 cumartesi günü saat 14.00 - 15.00 arasındaÇamlıca Mahallesi Mustafa Paşa Sokak No:61 Tepebaşı / ESKİŞEHİR adresinde bulunan ANEMON OTEL' deyapılmasına kararverilmiştir.",
+      "alinti": "İ.İ.K. m. 301 uyarınca borçlunun konkordato proje ve teklifleri oylanmak üzere 10.08.2026 Pazartesi günü saat 13.30 - 14.30 arasında yapılacak olan alacaklılar toplantısının ERTELENEREK 22.08.2026 cumartesi günü saat 14.00 - 15.00 arasında Çamlıca Mahallesi Mustafa Paşa Sokak No:61 Tepebaşı / ESKİŞEHİR adresinde bulunan ANEMON OTEL' de yapılmasına karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3323,7 +3273,7 @@
       "baslik": "Konkordato Komiserliğinden Alacaklılar Toplantısına Davet",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "m",
-      "alinti": "İİK m. 289 uyarınca hakkında 02/04/2025 tarihinden itibaren bir (1) yıllık kesin mühlet verilmiş, bu süre altı ay daha uzatılmış olan",
+      "alinti": "İİK m. 289 uyarınca hakkında 02/04/2025 tarihinden itibaren bir (1) yıllık kesin mühlet verilmiş , bu süre altı ay daha uzatılmış olan",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3333,7 +3283,7 @@
       "baslik": "Alacaklılar toplantısı davet ilanı",
       "regex_damgasi": "kesin_muhlet",
       "okuma_karari": "a",
-      "alinti": "mahkemece 25.08.2025 tarihli 2026/108 E. sayılı karar ile İsmail Baştuğ ,Mehmet Baştuğ ,Sevim Baştuğ , Emre Baştuğ EMNİYET SANAYİ ZİRAİ ALETLER YEDEK PAR. İML. SAN. TİC. LTD. ŞTİ., EMNİYET SANAYİ İÇ VE DIS TİCARET LTD. STİ.'ne GEÇİCİ MÜHLET KARARI VERİLMİŞTİR.",
+      "alinti": "\"mahkemece 25.08.2025 tarihli 2026/108 E. sayılı karar ile İsmail Baştuğ ,Mehmet Baştuğ ,Sevim Baştuğ , Emre Baştuğ EMNİYET SANAYİ ZİRAİ ALETLER YEDEK PAR. İML. SAN. TİC. LTD. ŞTİ., EMNİYET SANAYİ İÇ VE DIS TİCARET LTD. STİ.'ne GEÇİCİ MÜHLET KARARI VERİLMİŞTİR.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3367,43 +3317,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02284700",
-      "tarih": "2025-08-29",
-      "il": "İZMİR",
-      "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
-      "regex_damgasi": "gecici_muhlet",
-      "okuma_karari": "m",
-      "alinti": "geçici mühletin zorunlu olarak takdiren bir ay süre ile UZATILMASINA",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02284847",
-      "tarih": "2025-08-29",
-      "il": "MUĞLA",
-      "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
-      "regex_damgasi": "gecici_muhlet",
-      "okuma_karari": "m",
-      "alinti": "\"İLİŞKİN GEÇİCİ MÜHLET KARARININ 27/08/2025 TARİHİNDEN İTİBAREN 2004 SAYILI İİK'NIN 287/4 MADDESİ GEREĞİNCE 2 AY UZATILMASINA, karar verilmiş olup\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02285439",
-      "tarih": "2025-08-29",
-      "il": "UŞAK",
-      "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
-      "regex_damgasi": "gecici_muhlet",
-      "okuma_karari": "m",
-      "alinti": "geçici mühletin 26/08/2025 tarihinden başlamak üzere 27/10/2025 tarihine kadar 2 AY SÜRE İLE UZATILMASINA, dair karar verilmiş olup",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02287670",
       "tarih": "2025-09-05",
       "il": "ADIYAMAN",
       "baslik": "Konkordato geçici mühlet kararı ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "İİK'nun 287/4. maddesi uyarınca geçici mühlet süresinin 2 ay süre ile uzatılmasına karar verilmiş olup",
+      "alinti": "\"mahkememizce 03/06/2025 tarihli ara kararı ile verilen geçici mühlet kararının sona erme tarihi olan 03/09/2025 tarihinden itibaren geçerli olmak üzere, İİK'nun 287/4. maddesi uyarınca geçici mühlet süresinin 2 ay süre ile uzatılmasına karar verilmiş olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3423,7 +3343,7 @@
       "baslik": "Konkordato geçici mühlet kararı ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "b",
-      "alinti": "Geçici Mühletin Uzatılması Talebinin Reddine, Geçici Mühletin Kaldırılmasına, Davacıların Konkordato Talebinin Reddine, Mahkememizce konulan tüm tedbirlerin kaldırılmasına karar verilmiş olup",
+      "alinti": "Davacıların Konkordato Talebinin Reddine, Mahkememizce konulan tüm tedbirlerin kaldırılmasına karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3453,7 +3373,7 @@
       "baslik": "Konkordato geçici mühlet kararı ve duruşma günü tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "geçici mühlet kararının 10/09/2025tarihinden itibaren 1 ay süre ile uzatılmasına",
+      "alinti": "\"geçici mühlet kararının 10/09/2025tarihinden itibaren 1 ay süre ile uzatılmasına\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3463,7 +3383,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"11/09/2025 tarihinden itibaren 2 AY SÜRE İLE EK GEÇİCİ MÜHLET KARARI VERİLDİĞİ\"",
+      "alinti": "11/09/2025 tarihinden itibaren 2 AY SÜRE İLE EK GEÇİCİ MÜHLET KARARI VERİLDİĞİ",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3523,7 +3443,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "geçici mühletin 30/09/2025 tarihi itibariyle sona erecek olan geçici mühletin 30/09/2025 tarihinden başlamak üzere 09/11/2025 tarihine kadar 40 GÜN SÜREYLE UZATILMASINA, dair karar verilmiş olup",
+      "alinti": "geçici mühletin 30/09/2025 tarihinden başlamak üzere 09/11/2025 tarihine kadar 40 GÜN SÜREYLE UZATILMASINA, dair karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3533,7 +3453,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "geçici mühletin İİK. 287/4 maddesi uyarınca 01/10/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir.",
+      "alinti": "\"geçici mühletin İİK. 287/4 maddesi uyarınca 01/10/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3543,7 +3463,7 @@
       "baslik": "Konkordato davası geçici mühlet kararının tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "l",
-      "alinti": "\"kesinmühletin 04/10/2025 tarihinden itibaren başlamak ve anılan tarihten itibaren geçerli olmak üzere 1 YIL SÜRE İLE KESİN MÜHLET KARARI VERİLMESİNE\"",
+      "alinti": "1 YIL SÜRE İLE KESİN MÜHLET KARARI VERİLMESİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3573,7 +3493,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "16/07/2025tarihinde verilen geçici mühletin İİK. 287/4 maddesi uyarınca 16/10/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir.",
+      "alinti": "\"geçici mühletin İİK. 287/4 maddesi uyarınca 16/10/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3593,7 +3513,17 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"Borçlular İstanbul Ticaret Sicili Müdürlüğünün 503530-0 sicilnumarasında kayıtlı davacı (borçlu) SANTEKS TEKSTİL MAKİNELERİ SANAYİ İTHALAT İHRACAT VE TİCARET LİMİTED ŞİRKETİ, davacı (borçlu) AYNUR ASLAN (T.C. NO [TCKN]) ile davacı (borçlu) TÜRKER ASLAN (T.C. NO [TCKN]) hakkında Mahkememizce verilen geçici mühletin kaldırılarak konkordato taleplerinin ayrı ayrı REDDİNE\"",
+      "alinti": "Mahkememizce verilen geçici mühletin kaldırılarak konkordato taleplerinin ayrı ayrı REDDİNE",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02319902",
+      "tarih": "2025-10-24",
+      "il": "TEKİRDAĞ",
+      "baslik": "Konkordato Mühleti ve Alacaklılarının Kayıt tebliği",
+      "regex_damgasi": "gecici_muhlet",
+      "okuma_karari": "l",
+      "alinti": "\"18.02.2025 tarihli duruşma zaptı ile; davacı şirket lehine 20/02/2025 tarihi saat 16:00'dan itibaren 1 (bir) yıl kesin mühlet verilmesine\" karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3633,7 +3563,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "Mahkememizce 11.08.2025 tarihinden itibaren 3 ay süre ile verilen GEÇİCİ MÜHLETİN İİK 287/4. maddesi uyarınca 11.11.2025 tarihinden başlamak üzere 2 AY SÜRE İLE UZATILMASINA karar verildiği",
+      "alinti": "\"Mahkememizce 11.08.2025 tarihinden itibaren 3 ay süre ile verilen GEÇİCİ MÜHLETİN İİK 287/4. maddesi uyarınca 11.11.2025 tarihinden başlamak üzere 2 AY SÜRE İLE UZATILMASINA\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3653,7 +3583,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"GEÇİCİ MÜHLET KARARININ KALDIRILMASINA\"",
+      "alinti": "\"GEÇİCİ MÜHLET KARARININ KALDIRILMASINA,\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3663,7 +3593,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "İLİŞKİN GEÇİCİ MÜHLET KARARININ KALDIRILMASINA",
+      "alinti": "İLİŞKİN GEÇİCİ MÜHLET KARARININ KALDIRILMASINA,dair 09/07/2025 tarihli celsede karar verilip karar gereği işlemler yapıldığından bu hususta yeniden karar verilmesine yer olmadığına",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3673,7 +3603,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "İLİŞKİN GEÇİCİ MÜHLET KARARININ KALDIRILMASINA dair 09/07/2025 tarihli celsede karar verilip karar gereği işlemler yapıldığından bu hususta yeniden karar verilmesine yer olmadığına",
+      "alinti": "\"İLİŞKİN GEÇİCİ MÜHLET KARARININ KALDIRILMASINA dair 09/07/2025 tarihli celsede karar verilip\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3693,7 +3623,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"16/07/2025tarihinde verilen geçici mühletin İİK. 287/4 maddesi uyarınca 16/11/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir.\"",
+      "alinti": "\"geçici mühletin İİK. 287/4 maddesi uyarınca 16/11/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3703,7 +3633,7 @@
       "baslik": "Konkordato geçici mühlet kararı ve duruşma günü tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "geçici mühlet kararının 12/11/2025tarihinden itibaren 1 ay süre ile uzatılmasına",
+      "alinti": "\"geçici mühlet kararının 12/11/2025tarihinden itibaren 1 ay süre ile uzatılmasına\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3713,7 +3643,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"2004 SAYILI İİK'NIN 287/4 MADDESİ GEREĞİNCE 2 AYUZATILMASINA\" karar verilmiş olup",
+      "alinti": "\"GEÇİCİ MÜHLET KARARININ 27/11/2025 TARİHİNDEN İTİBAREN 2004 SAYILI İİK'NIN 287/4 MADDESİ GEREĞİNCE 2 AY UZATILMASINA karar verilmiş olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3733,7 +3663,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "27/08/2025tarihinde verilen geçici mühletin İİK. 287/4 maddesi uyarınca 27/11/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir.",
+      "alinti": "\"27/08/2025tarihinde verilen geçici mühletin İİK. 287/4 maddesi uyarınca 27/11/2025 tarihinden itibaren 1 AY UZATILMASINA karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3803,7 +3733,7 @@
       "baslik": "Konkordato geçici mühlet kararı ve duruşma tarihinin ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "Diyarbakır BAM. 6. Hukuk Dairesinin 2024/393 Esas 2025/1023 Karar sayılı ilamı ile kaldırılmakla",
+      "alinti": "Diyarbakır BAM. 6. Hukuk Dairesinin 2024/393 Esas 2025/1023 Karar sayılı ilamı ile kaldırılmakla duruşma tarihinin 16.01.2026 günü saat 14:00'e bırakıldığı",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3833,7 +3763,7 @@
       "baslik": "Konkordato geçici mühlet kararının tebligi",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "Söz konusu verilen geçici mühlet kararının Mahkememizin 25/12/2025 tarihli duruşmasının 3 nolu ara kararı gereğince 06/01/2026 tarihinden itibaren 2 ay süre daha uzatılmasına karar verilmiştir.",
+      "alinti": "\"Söz konusu verilen geçici mühlet kararının Mahkememizin 25/12/2025 tarihli duruşmasının 3 nolu ara kararı gereğince 06/01/2026 tarihinden itibaren 2 ay süre daha uzatılmasına karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3863,7 +3793,7 @@
       "baslik": "Konkordato Mühletinin Kararı ve Mahkeme günü tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "l",
-      "alinti": "[TCKN] TC Kimlik nolu Mecit ÇOĞAL hakkında 02/01/2026 günü saat 16:58'den itibaren 1 yıllık kesin mühlet verilmesine",
+      "alinti": "02/01/2026 günü saat 16:58'den itibaren 1 yıllık kesin mühlet verilmesine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3903,7 +3833,7 @@
       "baslik": "Konkordato davasında geçici mühlet verilmesine ilişkin mahkeme kararı",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "05.12.2025 tarihli ara kararı ile 12.12.2025 tarihinden geçerli olmak üzere 2 ay süre ile uzatılmasına kararı verildiği",
+      "alinti": "05.12.2025 tarihli ara kararı ile 12.12.2025 tarihından geçerli olmak üzere 2 ay süre ile uzatılmasına kararı verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3913,7 +3843,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "geçici mühletin İİK. 287/4 maddesi uyarınca 03/02/2026 tarihinden itibaren 1 AY DAHA UZATILMASINA karar verilmiştir.",
+      "alinti": "verilen geçici mühletin İİK. 287/4 maddesi uyarınca 03/02/2026 tarihinden itibaren 1 AY DAHA UZATILMASINA karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3933,7 +3863,7 @@
       "baslik": "Konkordato komiserliğinden alacaklılara davet ilanı",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"28.09.2025 tarihinden itibaren 1 yıllık kesin mehil kararı verilmiştir.\"",
+      "alinti": "25.04.2025 tarihinde geçici mühlet kararı, 28.09.2025 tarihinden itibaren 1 yıllık kesin mehil kararı verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3953,7 +3883,7 @@
       "baslik": "Alacaklılar toplantısına davet",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "l",
-      "alinti": "24.09.2025 tarihinden itibaren 1 yıllık kesin mehil kararı verilmiştir.",
+      "alinti": "\"24.09.2025 tarihinden itibaren 1 yıllık kesin mehil kararı verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -3963,7 +3893,7 @@
       "baslik": "Konkordato geçici mühlet kararı ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"borçlular Acarlar Grup ... Ltd. Şti. ile Uğur Acar İnşaat Ltd. Şti. yönünden 21.02.2026 tarihinden itibaren; borçlular Muhammet Emin ACAR ve Uğur ACAR yönünden ise 05.03.2026 tarihinden itibaren 23.03.2026 tarihine kadar UZATILMASINA karar verilmiştir.\"",
+      "alinti": "\"3 aylık geçici mühletin borçlular Acarlar Grup ... Ltd. Şti. ile Uğur Acar İnşaat Ltd. Şti. yönünden 21.02.2026 tarihinden itibaren; borçlular Muhammet Emin ACAR ve Uğur ACAR yönünden ise 05.03.2026 tarihinden itibaren 23.03.2026 tarihine kadar UZATILMASINA karar verilmiştir.\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4013,7 +3943,7 @@
       "baslik": "Konkordato geçici mühlet kararının ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"13.03.2026 tarihinde yapılan duruşmada geçici mühlet süresinin geçici mühletin bitim tarihi olan 29.03.2026 tarihinden itibaren 2 ay süre ile uzatılmasına karar verilmiştir.\"",
+      "alinti": "\"13.03.2026 tarihinde yapılan duruşmada geçici mühlet süresinin geçici mühletin bitim tarihi olan 29.03.2026 tarihinden itibaren 2 ay süre ile uzatılmasına\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4023,7 +3953,7 @@
       "baslik": "Mahkeme kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "davacı Kaplanlar Bcf İplik Sanayi Ve Ticaret Anonim Şirketi ve [TCKN] T.C. Kimlik Numaralı Hasan Kaplan hakkında verilen geçici mühletin kaldırılmasına, Mahkememizce bu dosya nedeniyleverilen ihtiyati tedbirlerin hüküm tarihi (26/03/2026) itibariyle kaldırılmasına karar verilmiştir.",
+      "alinti": "Kaplanlar Bcf İplik Sanayi Ve Ticaret Anonim Şirketi ve [TCKN] T.C. Kimlik Numaralı Hasan Kaplan hakkında verilen geçici mühletin kaldırılmasına, Mahkememizce bu dosya nedeniyleverilen ihtiyati tedbirlerin hüküm tarihi (26/03/2026) itibariyle kaldırılmasına karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4037,13 +3967,23 @@
       "alinti_karari_destekliyor": false
     },
     {
+      "ilan_no": "ILN02435752",
+      "tarih": "2026-04-02",
+      "il": "ANKARA",
+      "baslik": "Mahkeme kararının ilanen tebliğ",
+      "regex_damgasi": "gecici_muhlet",
+      "okuma_karari": "m",
+      "alinti": "\"22/12/2025 tarihinden (saat 08:30'tan) itibaren başlamak üzere verilen GEÇİCİ MÜHLET KARARININ AYNEN DEVAMINA\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
       "ilan_no": "ILN02435774",
       "tarih": "2026-04-02",
       "il": "ANKARA",
       "baslik": "Mahkeme kararının ilanen tebliğ",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"verilen GEÇİCİ MÜHLET KARARININ AYNEN DEVAMINA\"",
+      "alinti": "25/12/2025 tarihinden (saat 16:05'dan) itibaren başlamak üzere verilen GEÇİCİ MÜHLET KARARININ AYNEN DEVAMINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4083,7 +4023,7 @@
       "baslik": "Konkordato kaldırılma kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "konkordato geçici mühletinin ve tüm konkordato tedbirlerinin 03/04/2026 günü saat 11.45 itibariyle kaldırılmasına, borçlu Mehmet Yaşa'nın konkordato talebinin reddine, komiser heyetinin görevinin bu borçlu yönünden sonlandırılmasına karar verildiği",
+      "alinti": "Talep eden borçlu Mehmet Yaşa hakkında Mahkememizin 2026/14 Esas sayılı dosyasında verilmiş olan konkordato geçici mühletinin ve tüm konkordato tedbirlerinin 03/04/2026 günü saat 11.45 itibariyle kaldırılmasına, borçlu Mehmet Yaşa'nın konkordato talebinin reddine, komiser heyetinin görevinin bu borçlu yönünden sonlandırılmasına karar verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4093,7 +4033,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"15/04/2026 TARİHİNDEN İTİBAREN 2004 SAYILI İİK'NIN 287/4 MADDESİ GEREĞİNCE 2 AY UZATILMASINA\"",
+      "alinti": "\"15/04/2026 TARİHİNDEN İTİBAREN 2004 SAYILI İİK'NIN 287/4 MADDESİ GEREĞİNCE 2 AY UZATILMASINA,\" kararı verilmiş\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4103,7 +4043,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "\"3 aylık geçici mühletin (13/04/2026 tarihinden itibaren) İİK 287/4 maddesi uyarınca 2 AY UZATILMASINA\"",
+      "alinti": "3 aylık geçici mühletin (13/04/2026 tarihinden itibaren) İİK 287/4 maddesi uyarınca 2 AY UZATILMASINA , birleşen Mahkememizin 2026/86 Esas sayılı dosyasında borçlu MUHARREM BALTACI (T.C: [TCKN] ) hakkında 25/02/2026 tarihinde verilen 3 aylık geçici mühletin 25/05/2026 tarihından itibaren İİK 287/4 maddesi uyarınca 1 AY UZATILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4153,7 +4093,17 @@
       "baslik": "Konkordato geçici mühlet kararının ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "davacılar hakkında 02/03/2026 tarihinden itibaren geçerli olmak üzere verilen geçici mühlet kararının ve tedbirlerin 02/06/2026 tarihinden geçerli olmak üzere 2 AY SÜRE İLE UZATILMASINA",
+      "alinti": "\"davacılar hakkında 02/03/2026 tarihinden itibaren geçerli olmak üzere verilen geçici mühlet kararının ve tedbirlerin 02/06/2026 tarihinden geçerli olmak üzere 2 AY SÜRE İLE UZATILMASINA\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02471514",
+      "tarih": "2026-05-18",
+      "il": "BATMAN",
+      "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
+      "regex_damgasi": "gecici_muhlet",
+      "okuma_karari": "l",
+      "alinti": "14/05/2026 tarihinden itibaren başlamak üzere 1(Bir) yıl süre ile KESİN MÜHLET VERİLMESİNE",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4163,7 +4113,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "Davacılar/borçlular ŞENAN KERÇİN ([TCKN] T.C. No'lu) ile EMRE ÇARKCI ([TCKN] T.C. No'lu) hakkında Mahkememizin 2026/145 esas sayılı dosyasından verilen geçici mühletin KALDIRILMASINA,",
+      "alinti": "Davacılar/borçlular ŞENAN KERÇİN ([TCKN] T.C. No'lu) ile EMRE ÇARKCI ([TCKN] T.C. No'lu) hakkında Mahkememizin 2026/145 esas sayılı dosyasından verilen geçici mühletin KALDIRILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4183,7 +4133,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "verilmiş olan konkordato geçici mühletinin ve tüm konkordato tedbirlerinin 22/05/2026 günü saat 15:10 itibariyle kaldırılmasına, borçlu şirketin konkordato talebinin reddine, konkordato komiserinin görevinin sonlandırılmasına karar verildiği",
+      "alinti": "hakkında verilmiş olan konkordato geçici mühletinin ve tüm konkordato tedbirlerinin 22/05/2026 günü saat 15:10 itibariyle kaldırılmasına, borçlu şirketin konkordato talebinin reddine, konkordato komiserinin görevinin sonlandırılmasına karar verildiği",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4223,7 +4173,7 @@
       "baslik": "Konkordato kaldırıma kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "\"verilen geçici mühlet kararının ve tüm tedbirlerin kaldırılmasına karar verildiği\"",
+      "alinti": "Mahkememizin 24/06/2026 gün ve 2026/255 Esas sayılı duruşma ara kararı ile asıl ve birleşen (Mahkememizin 2026/276 Esas sayılı dosyası) dava dosyalarında; asıl dava yönünden davanın reddine, Gerede Ticaret Sicil Müdürlüğü'nün 2289 numarasında kayıtlı olan 0470057891800010 mersis numaralıİLAMET METAL NAKLİYE TİCARET VE SANAYİ LİMİTED ŞİRKETİ hakkında Mahkememizin 03/02/2026 ve 30/04/2026 tarihli ar",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4233,7 +4183,7 @@
       "baslik": "Konkordato geçici mühlet kararının ve duruşma gününün ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "m",
-      "alinti": "davacılar hakkında 03/07/2026 tarihinden itibaren geçerli olmak üzere verilen geçici mühlet kararının ve tedbirlerin 03/07/2026tarihinden geçerli olmak üzere 2 AY SÜRE İLE UZATILMASINA, konkordato tedbirlerinin ve konkordato komiserinin görevinin devamına karar verilmiş olup",
+      "alinti": "\"davacılar hakkında 03/07/2026 tarihinden itibaren geçerli olmak üzere verilen geçici mühlet kararının ve tedbirlerin 03/07/2026tarihinden geçerli olmak üzere 2 AY SÜRE İLE UZATILMASINA, konkordato tedbirlerinin ve konkordato komiserinin görevinin devamına karar verilmiş olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4273,7 +4223,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "Mahkememizce talep edenler lehine verilen 1 yıllık kesin mühletin ve ihtiyati tedbirlerin tüm sonuçları ile birlikte DERHAL KALDIRILMASINA",
+      "alinti": "talep edenler lehine verilen 1 yıllık kesin mühletin ve ihtiyati tedbirlerin tüm sonuçları ile birlikte DERHAL KALDIRILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4283,7 +4233,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "g",
-      "alinti": "Mahkememizce 30/04/2026 tarihinde talep eden lehine verilen 3 aylık geçici mühletin ve ihtiyati tedbirlerin tüm sonuçları ile birlikte DERHAL KALDIRILMASINA karar verildiği",
+      "alinti": "3 aylık geçici mühletin ve ihtiyati tedbirlerin tüm sonuçları ile birlikte DERHAL KALDIRILMASINA",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4293,7 +4243,7 @@
       "baslik": "Konkordato geçici mühlet kararının ilanen tebliği",
       "regex_damgasi": "gecici_muhlet",
       "okuma_karari": "l",
-      "alinti": "\"T.C. Gebze Asliye Ticaret Mahkemesinin 2025/394 Esas sayılı dosyasında, 22.09.2025 tarihinden başlamak üzere 1 yıllık kesin mühlet kararı verilmiş olup\"",
+      "alinti": "\"22.09.2025 tarihinden başlamak üzere 1 yıllık kesin mühlet kararı verilmiş olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4367,26 +4317,6 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02296886",
-      "tarih": "2025-09-23",
-      "il": "ANTALYA",
-      "baslik": "Konkordato geçici mühletin uzatılması ve duruşmaya davet",
-      "regex_damgasi": "uzatma",
-      "okuma_karari": "a",
-      "alinti": "\"3 AY SÜRE İLE GEÇİCİ MÜHLET KARARI VERİLMESİNE, karar verilmiş olup\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
-      "ilan_no": "ILN02312851",
-      "tarih": "2025-10-15",
-      "il": "TEKİRDAĞ",
-      "baslik": "Konkordato Mühleti ve Alacaklılarının Kayıt tebliği",
-      "regex_damgasi": "uzatma",
-      "okuma_karari": "a",
-      "alinti": "\"03.01.2025 tarih ve saat 16.45'ten itibaren 3 ay süre ile geçici mühlet verilmesine\"",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02313884",
       "tarih": "2025-10-17",
       "il": "BOLU",
@@ -4423,7 +4353,7 @@
       "baslik": "Konkordato mühletinin uzatılmasına ilişkin mahkeme kararı",
       "regex_damgasi": "uzatma",
       "okuma_karari": "a",
-      "alinti": "3 AYLIK GEÇİCİ MÜHLET VERİLMESİNE, karar verilmiş olup",
+      "alinti": "24/10/2025 günü saat 15:30 itibariyle 3 AYLIK GEÇİCİ MÜHLET VERİLMESİNE, karar verilmiş olup",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4473,7 +4403,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "uzatma",
       "okuma_karari": "g",
-      "alinti": "\"geçici mühlet, geçici mühletin uzatılmasına ilişkin kararların ve tüm tedbirlerin kaldırılmasına, Konkordato komiser heyetinin görevine son verilmesine\"",
+      "alinti": "\"geçici mühletin uzatılmasına ilişkin kararların ve tüm tedbirlerin kaldırılmasına, Konkordato komiser heyetinin görevine son verilmesine\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4527,16 +4457,6 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02385882",
-      "tarih": "2026-01-22",
-      "il": "KOCAELİ",
-      "baslik": "Konkordato mühlet kararının ilanen tebliği",
-      "regex_damgasi": "uzatma",
-      "okuma_karari": "l",
-      "alinti": "İİK'nın 289. Maddesi gereğince davacılar için ayrı ayrı 1 yıl süre ile kesin mühlet kararı verilmiş olup",
-      "alinti_karari_destekliyor": false
-    },
-    {
       "ilan_no": "ILN02386180",
       "tarih": "2026-01-22",
       "il": "KOCAELİ",
@@ -4557,13 +4477,13 @@
       "alinti_karari_destekliyor": false
     },
     {
-      "ilan_no": "ILN02417037",
-      "tarih": "2026-03-06",
+      "ilan_no": "ILN02395191",
+      "tarih": "2026-02-06",
       "il": "TEKİRDAĞ",
       "baslik": "Konkordato Mühlet Kararı ve Alacaklılara davet tebliği",
       "regex_damgasi": "uzatma",
-      "okuma_karari": "l",
-      "alinti": "\"kesin mühlet talebinin KABULÜNE, davacılar lehine 27/01/2026 tarihi saat 17:00 den itibaren ayrı ayrı 1 (bir) yıl kesin mühlet verilmesine\"",
+      "okuma_karari": "a",
+      "alinti": "\"23.06.2025 tarihinden itibaren 3 aylık geçici mühlet ve devamında 23.09.2025 tarihinden itibaren geçici mühletin 2 ay uzatılması ve devamında 23.11.2025saat:10:30'dan itibaren 1 yıllık kesin mühlet kararı verilmiş olduğundan\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4583,7 +4503,7 @@
       "baslik": "Konkordato davasının ilanen tebliği",
       "regex_damgasi": "uzatma",
       "okuma_karari": "g",
-      "alinti": "geçici mühletin kaldırılmasına, Hakkında konkordato talep edilen borçlu şirket borca batık olmadığından iflas kararı verilmesine yer olmadığına, Tüm konkordato tedbirlerinin kaldırılmasına ve Konkordato Komiserlerinin görevlerine son verilmesine",
+      "alinti": "geçici mühletin kaldırılmasına, Hakkında konkordato talep edilen borçlu şirket borca batık olmadığından iflas kararı verilmesine yer olmadığına, Tüm konkordato tedbirlerinin kaldırılmasına",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4613,7 +4533,17 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "uzatma",
       "okuma_karari": "l",
-      "alinti": "29/05/2026 tarihinden başlamak üzere 1 YIL SÜRE İLE KESİN MÜHLET KARARI verilmiş olup",
+      "alinti": "\"29/05/2026 tarihinden başlamak üzere 1 YIL SÜRE İLE KESİN MÜHLET KARARI verilmiş olup\"",
+      "alinti_karari_destekliyor": false
+    },
+    {
+      "ilan_no": "ILN02478054",
+      "tarih": "2026-06-02",
+      "il": "ISPARTA",
+      "baslik": "Konkordato davasında rehin alacaklılar toplantısına davet ilanı",
+      "regex_damgasi": "uzatma",
+      "okuma_karari": "l",
+      "alinti": "05.02.2025 tarihinden itibaren bir (1) yıl süreyle kesin mühlet verilmesine",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4633,7 +4563,7 @@
       "baslik": "Konkordato Mühlet ve Alacaklılara Davet tebliği",
       "regex_damgasi": "uzatma",
       "okuma_karari": "a",
-      "alinti": "\"Melike SIRIKLIGİL, Şemsettin KALEM ve Ümmügülsüm KALEM hakkında 11.03.2025 tarihinden itibaren geçici mühlet ve devamında 11.08.2025 saat:16:30 'en itibaren 1 yıllık kesin mühlet kararı verilmiştir.\"",
+      "alinti": "\"davacı müvekkil hakkında TENSİBEN 3 AY GECİCİ MÜHLET KARARI İLE BİRLİKTE İCRA VE İFLAS KANUNIN 287 VE 294 MADDESİ GEREĞİNCE İHTİYATİ TEDBİR KARARI VERİLMESİNE\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4643,7 +4573,7 @@
       "baslik": "Konkordato Mühlet Kararı tebliği",
       "regex_damgasi": "uzatma",
       "okuma_karari": "g",
-      "alinti": "Çerkezköy Ticaret Sicil Müdürlüğünün 8492 Sicil Nosunda kayıtlı ESKA PLASTİK VE METAL TURİZM İNŞAAT NAKLİYE TİCARET LİMİTED ŞİRKETİ ve [TCKN] TC Kimlik nolu KADİR YALÇIN hakkında verilen geçici mühletin kaldırılmasına",
+      "alinti": "\"Çerkezköy Ticaret Sicil Müdürlüğünün 8492 Sicil Nosunda kayıtlı ESKA PLASTİK VE METAL TURİZM İNŞAAT NAKLİYE TİCARET LİMİTED ŞİRKETİ ve [TCKN] TC Kimlik nolu KADİR YALÇIN hakkında verilen geçici mühletin kaldırılmasına\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4653,7 +4583,7 @@
       "baslik": "Konkordato Mühlet ve Alacaklılara Davet tebliği",
       "regex_damgasi": "uzatma",
       "okuma_karari": "l",
-      "alinti": "\"15.03.2026 tarihi saat 16:50'den itibaren 1 (bir) yıl kesin mühlet kararı verilerek Konkordato Komiser Heyeti olarak Kadir Akkaya , Hakan Karakaş ve Emre Turgutlugil'in görevinin devamına karar verilmiştir.\"",
+      "alinti": "\"15.03.2026 tarihi saat 16:50'den itibaren 1 (bir) yıl kesin mühlet kararı verilerek\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4693,7 +4623,7 @@
       "baslik": "Konkordato Mühlet ve Alacaklılara Davet tebliği",
       "regex_damgasi": "uzatma",
       "okuma_karari": "a",
-      "alinti": "\"18.11.2025 tarihinden itibaren 3 aylık geçici mühlet ve devamında 18.02.2026 tarihinden itibaren geçici mühletin 2 ay uzatılması ve devamında 18.04.2026saat:10:00'dan itibaren 1 yıllık kesin mühlet kararı verilmiş olduğundan\"",
+      "alinti": "\"davacı AKYAK ENERJİ VE NAKLİYE PAZARLAMA TİCARET LİMİTED ŞİRKETİ, şirket ortağı FEYZA KİREMİTÇİ hakkında 18.11.2025 tarihinden itibaren 3 aylık geçici mühlet ve devamında 18.02.2026 tarihinden itibaren geçici mühletin 2 ay uzatılması ve devamında 18.04.2026saat:10:00'dan itibaren 1 yıllık kesin mühlet kararı verilmiş\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4702,8 +4632,8 @@
       "il": "TEKİRDAĞ",
       "baslik": "Konkordato Mühlet ve Alacaklılara Davet tebliği",
       "regex_damgasi": "uzatma",
-      "okuma_karari": "a",
-      "alinti": "\"haklarında konkordato talep edilen Hunca Ambalaj Sanayi ve Ticaret Anonim Şirketi ve Hunca Kozmetik Sanayi Anonim Şirketi' nin her biri hakkında ayrı ayrı 04/04/2025 tarih ve saat 15:00'dan itibaren 3 ay süreyle geçıcı mühlet verılmesıne\"",
+      "okuma_karari": "j",
+      "alinti": "Konkordato teklifini oylamak üzere konkordato talep eden tüzel kişi şirketlerden Hunca Ambalaj Sanayi ve Ticaret Anonim Şirketi'nden alacaklı olan; Adi Alacaklıların toplantısı 09 Eylül 2026 Çarşamba Günü, saat:13.00-13.30 arasında, Rehinli Alacakların toplantısı 09 Eylül 2026 Çarşamba Günü, saat:13.30-13.45 arasında, Hunca Kozmetik Sanayi Anonim Şirketi'nden alacaklı olan; Adi Alacaklıların topla",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4713,7 +4643,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "muhlet",
       "okuma_karari": "a",
-      "alinti": "ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
+      "alinti": "Yukarıda isimleri geçen davacılara 22/08/2025 tarihli tensip kararlarıyla birlikte ÜÇ (3) AYLIK GEÇİCİ KONKORDATO MEHLİ VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4723,7 +4653,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "muhlet",
       "okuma_karari": "a",
-      "alinti": "\"05/09/2025 tarihinden başlamak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET KARARI verilmiş olup\"",
+      "alinti": "\"haklarında 05/09/2025 tarihinden başlamak üzere 3 AY SÜRE İLE GEÇİCİ MÜHLET KARARI verilmiş olup\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4783,7 +4713,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "muhlet",
       "okuma_karari": "i",
-      "alinti": "\"alacaklı olanların, alacaklarının dayanaklarını gösteren belgeleri Komiserliğimize hitaben yazacakları bir dilekçe ile, İİK m. 299 gereğince İLAN tarihinden itibaren 15 gün içerisinde Komiserliğimizin adresinde tatil günleri hariç 10:30 - 17:30 saatleri arasında bizzat veya vekilleri aracılığıyla kayıt yaptırabilecekleri\"",
+      "alinti": "Alacaklıları alacaklarını bildirmeye davet ilanı",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4833,7 +4763,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "muhlet",
       "okuma_karari": "g",
-      "alinti": "LEHLERİNE UYGULANAN KONKORDATO MÜHLET HÜKÜMLERİNİN KALDIRILMASINA",
+      "alinti": "LEHLERİNE UYGULANAN KONKORDATO MÜHLET HÜKÜMLERİNİN KALDIRILMASINA, KOMİSER HEYETİ GÖREVİNİN HÜKÜM TARİHİ İTİBARİ İLE SONLANDIRILMASINA dair alacaklı ilişkili kişiler yönünden ilan tarihinden itibaren 2 haftalık süre içerisinde anılan kararın İstanbul İstanbul Bölge Adliye Mahkemesi'ne istinaf yolu açık olmak üzere oybirliğiyle karar verilmiştir.",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4843,7 +4773,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "muhlet",
       "okuma_karari": "a",
-      "alinti": "\"hakkında 24.12.2025 tarihinden başlamak üzere 3 ay süre ile geçici mühlet kararı verilmesine\"",
+      "alinti": "\"24.12.2025 tarihinden başlamak üzere 3 ay süre ile geçici mühlet kararı verilmesine\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4867,13 +4797,23 @@
       "alinti_karari_destekliyor": false
     },
     {
+      "ilan_no": "ILN02393867",
+      "tarih": "2026-02-05",
+      "il": "İSTANBUL",
+      "baslik": "Konkordato mühlet kararının ilanen tebliği",
+      "regex_damgasi": "muhlet",
+      "okuma_karari": "a",
+      "alinti": "İİK 289/4 maddesi gereğince alacaklılar kuruluna ücret taktir edilmesine yer olmadığına karar verilmiştir.",
+      "alinti_karari_destekliyor": false
+    },
+    {
       "ilan_no": "ILN02521470",
       "tarih": "2026-07-30",
       "il": "KÜTAHYA",
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "muhlet",
       "okuma_karari": "a",
-      "alinti": "alacakların mehil talebine iş bu ilanın gazetede ilan tarihinden itibaren 7 gün içinde mahkememize itiraz edebilecekleri İİK'nun 287. maddesi gereğince ilan olunur.",
+      "alinti": "\"üç aylık konkordato mehil talebinde bulunduğundan alacakların mehil talebine iş bu ilanın gazetede ilan tarihinden itibaren 7 gün içinde mahkememize itiraz edebilecekleri İİK'nun 287. maddesi gereğince ilan olunur\"",
       "alinti_karari_destekliyor": false
     },
     {
@@ -4933,7 +4873,7 @@
       "baslik": "Konkordato mühlet kararının ilanen tebliği",
       "regex_damgasi": "muhlet",
       "okuma_karari": "a",
-      "alinti": "İİK. 287. maddesi gereğince 17/08/2026 tarihi saat 14:00'dan itibaren 3 AY GEÇİCİ MÜHLET VERİLMİŞTİR.",
+      "alinti": "İİK. 288. maddesi yollamasıyla İİK. 287. maddesi gereğince 17/08/2026 tarihi saat 14:00'dan itibaren 3 AY GEÇİCİ MÜHLET VERİLMİŞTİR.",
       "alinti_karari_destekliyor": false
     },
     {
