@@ -176,11 +176,32 @@ create or replace function public.marka_bulten_durum()
 returns table (kayit bigint, bulten bigint, ilk_yayin date, son_yayin date,
                acik_itiraz bigint)
 language sql security definer set search_path = public as $$
-  select (select count(*) from public.marka_bulten),
-         (select count(*) from public.marka_bulten_kutuk where durum='bitti'),
-         (select min(yayin_tarihi) from public.marka_bulten),
-         (select max(yayin_tarihi) from public.marka_bulten),
-         (select count(*) from public.marka_bulten where itiraz_son >= current_date);
+  -- 30.08 CANLI KUSUR: eski surum marka_bulten uzerinde BES AYRI count(*)
+  -- calistiriyordu. Ambar 100 bini gecince "canceling statement due to
+  -- statement timeout" vermeye basladi; 1,8 milyonda hic donmeyecekti.
+  -- Sessiz olum: sayac calismadi diye kimse uyarilmaz, ekran bos gorunur.
+  --
+  -- COZUM: sayilari KUTUKTEN oku. Robot her bulteni yutarken kac kayit
+  -- yazdigini zaten marka_bulten_kutuk.kayit alanina isliyor; kutuk 263
+  -- satir olacak, yani sayim ANLIK.
+  --
+  -- acik_itiraz: itiraz suresi yayimdan iki aydir (SMK m.18). Kutukte yayin
+  -- tarihi var, dolayisiyla suresi acik bultenlerin kayitlari toplanir.
+  --
+  -- DOGRULANDI (30.08, 14 bulten / 100.991 kayit): bu yontem acik_itiraz icin
+  -- 30.477 verdi - eski fonksiyonun zaman asimina dusmeden onceki son
+  -- degeriyle BIREBIR ayni.
+  --
+  -- SINIR - BILEREK: rakam kutugun soyledigi, tablonun sayildigi degil.
+  -- Ikisi ayrisirsa yutmada sessiz kayip var demektir; o ayri bir nobetin isi.
+  select coalesce(sum(k.kayit), 0)::bigint,
+         count(*)::bigint,
+         min(k.yayin_tarihi),
+         max(k.yayin_tarihi),
+         coalesce(sum(k.kayit) filter (
+           where k.yayin_tarihi + interval '2 months' >= current_date), 0)::bigint
+    from public.marka_bulten_kutuk k
+   where k.durum = 'bitti';
 $$;
 
 revoke all on function public.marka_bulten_itiraz(text,int[],int,real,int,boolean) from public;
