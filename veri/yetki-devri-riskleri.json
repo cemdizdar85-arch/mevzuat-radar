@@ -1,11 +1,11 @@
 {
-  "tarih": "30.08.2026 07:59",
+  "tarih": "30.08.2026 10:55",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 837,
   "riskli_madde": 1280,
   "sayfa": 64,
-  "atifli_iddia": 268,
-  "dayanaksiz_iddia": 314,
+  "atifli_iddia": 269,
+  "dayanaksiz_iddia": 312,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -871,12 +871,6 @@
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 11,
-      "iddia": "1.790 TL",
-      "metin": "<meta name=\"description\" content=\"Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Kuruluş fiyatı 1.790 TL'den başlar; her basamak resmî harçtan ucuz. KDV da"
-    },
-    {
-      "sayfa": "fiyat.html",
       "satir": 150,
       "iddia": "15 Gün",
       "metin": "Son 15 Gün dahil"
@@ -1153,63 +1147,69 @@
     },
     {
       "sayfa": "gtip.html",
-      "satir": 212,
+      "satir": 213,
       "iddia": "%0",
       "metin": "✅ GÜMRÜK VERGİSİ ASKIYA ALINMIŞ OLABİLİR (%0), V Sayılı Liste"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 214,
+      "satir": 215,
       "iddia": "%0",
       "metin": "Bu listede yer alan ürünlerde gümrük vergisi %0'a askıya alınmıştır , ama ŞARTLIDIR (ürün tanımı birebir uymalı, çoğu nihai kullanım/dipnot şartına tabi). Kesin GV için tam kodun t"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 298,
+      "satir": 299,
       "iddia": "%6",
       "metin": "⚠ KKDF, ÇOĞU İTHALATÇININ ATLADIĞI %6"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 407,
+      "satir": 408,
       "iddia": "%20",
       "metin": "// bir çapraz-atıf açıklamasıdır, o kodu dışlamamalı — yoksa 84.02 buhar kazanı yanlış %20 olur."
     },
     {
       "sayfa": "gtip.html",
-      "satir": 418,
+      "satir": 419,
       "iddia": "%20",
       "metin": "// kod bazında değerlendirilir (8703 dersi: yeni binek oto %20; yalnız kullanılmış %1). Ayrı gösterilir."
     },
     {
       "sayfa": "gtip.html",
-      "satir": 425,
+      "satir": 426,
       "iddia": "%20",
       "metin": "Aşağıdaki hüküm bir koşula bağlıdır (ör. yalnız kullanılmış/ikinci el ). Ürün sıfır/yeni ise genel oran %20 'dir; koşulu sağlıyorsan indirimli olabilir, gümrük müşavirinle teyit et"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 437,
+      "satir": 438,
       "iddia": "%1",
       "metin": "if(o1u.length) oranEt.push('%1');"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 438,
+      "satir": 439,
       "iddia": "%10",
       "metin": "if(o10u.length) oranEt.push('%10');"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 467,
+      "satir": 468,
       "iddia": "%50.0094",
       "metin": "// (muz GV'si dosyada 50.009399999999999); ekrana \"%50.0094\" diye düşüyordu."
     },
     {
       "sayfa": "gtip.html",
-      "satir": 507,
+      "satir": 508,
       "iddia": "%0,4",
       "metin": "// 15.717 kodun 63'ü (%0,4) bu durumda: 20'si fasıl 95, 14'ü fasıl 99."
+    },
+    {
+      "sayfa": "gtip.html",
+      "satir": 679,
+      "iddia": "%7,37",
+      "metin": "// \"7.3700000000000002E-2\" görüyordu (gerçekte %7,37). Ortak çözücü"
     },
     {
       "sayfa": "hatirlatici.html",
@@ -1531,21 +1531,15 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 86,
+      "satir": 68,
       "iddia": "1.200.000 TL",
       "metin": "Ne oldu: Doğal Afet Sigortaları Kurumu'nun çalışma yönetmeliğinde beş ayrı değişikliğe gidilmiştir. Fon yatırımına ilişkin çeşitlendirme ilkeleri yeniden düzenlenmiş, satın alma eş"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 100,
+      "satir": 82,
       "iddia": "1.200.000 TL",
       "metin": "Ne yapmalısın: Kurum, fon yatırım portföyünü yeni çeşitlendirme ve Hazine enstrümanı ağırlığı kurallarıyla uyumlu hâle getirmelidir. Satın alma emirlerinde 1.200.000 TL eşiği yeni "
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 227,
-      "iddia": "3 yıl",
-      "metin": "Ne yapmalısın: Tesisinin emisyon kategorisini (A/B/C) belirle ve 50.000 ton CO₂ eşdeğeri eşiğini kontrol et. Eğer kategori B veya C'ye giriyorsan, 3 yıl içinde Başkanlık'tan sera g"
     },
     {
       "sayfa": "kdv-iade-rehberi.html",
@@ -1891,12 +1885,6 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 11,
-      "iddia": "7 gün",
-      "metin": "<meta name=\"description\" content=\"Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, 7 gün koşulsuz iade, e-arşiv fatura.\""
-    },
-    {
-      "sayfa": "satin-al.html",
       "satir": 149,
       "iddia": "1 ay",
       "metin": "Davet kodu — varsa; ikinize de +1 ay"
@@ -1915,49 +1903,55 @@
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 239,
+      "satir": 240,
       "iddia": "4 gun",
       "metin": "// KONTROL DAMGALARI kullaniciya da gosterilir; 4 gunden eski damga AMBER olur."
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 252,
+      "satir": 253,
       "iddia": "4 gün",
       "metin": "if(bayat){ el.style.borderColor='rgba(255,194,75,.5)'; el.innerHTML += ', bir damga 4 günden eski görünüyor; rakamları beyandan önce GTİP Kontrolü/resmî kaynakla teyit et. '; }"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 267,
+      "satir": 268,
       "iddia": "en az 2",
       "metin": ": n===1 ? 'Seçili: 1, kıyas için en az 2 gerekir; tek seçimde yine hepsini sıralarız'"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 294,
+      "satir": 295,
       "iddia": "%1",
       "metin": "if(o1.length&&o10.length) return {r:10,t:'%1 veya %10 (indirimli, ürün tanımına göre)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 295,
+      "satir": 296,
       "iddia": "%1",
       "metin": "if(o1.length) return {r:1,t:'%1 (indirimli)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 296,
+      "satir": 297,
       "iddia": "%10",
       "metin": "if(o10.length) return {r:10,t:'%10 (indirimli)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 297,
+      "satir": 298,
       "iddia": "%20",
       "metin": "return {r:20,t:'%20 (genel)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 463,
+      "satir": 304,
+      "iddia": "%29",
+      "metin": "// yalnız \"%X\" desenini tanıyordu; \"0.29\" (Excel ondalığı = %29) ve \"21,12%\""
+    },
+    {
+      "sayfa": "senaryo-raporu.html",
+      "satir": 470,
       "iddia": "%0",
       "metin": "// (Ornek: yogurtta AB ve Kosova ikisi de %0; Kosova'nin Tarim Payi YOK -> once o.)"
     },
@@ -1966,12 +1960,6 @@
       "satir": 6,
       "iddia": "5 Saat",
       "metin": "Son Gün 5 Saat: SGS sınav öncesi tek oturumluk plan | Tetikte"
-    },
-    {
-      "sayfa": "songun.html",
-      "satir": 7,
-      "iddia": "5 saat",
-      "metin": "<meta name=\"description\" content=\"SGS'den önceki son gün için 5 saatlik çalışma planı: dakikalar çıkmış soru haritasının ağırlıklarına göre dağıtılır; her blokta kaynaklı hap kartl"
     },
     {
       "sayfa": "songun.html",

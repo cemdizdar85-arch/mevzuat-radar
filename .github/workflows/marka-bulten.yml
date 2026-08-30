@@ -36,7 +36,7 @@ on:
         default: son
       adet:
         description: 'gecmis modunda kac bulten (en yeniden geriye)'
-        default: '6'
+        default: '263'
 
 concurrency:
   group: marka-bulten
@@ -48,7 +48,7 @@ permissions:
 jobs:
   bulten:
     runs-on: ubuntu-latest
-    timeout-minutes: 180        # bulten basi ~8 dk; 6 bulten rahat siger
+    timeout-minutes: 350        # bulten basi ~8 dk; 6 bulten rahat siger
     steps:
       - uses: actions/checkout@v4
 
@@ -60,6 +60,9 @@ jobs:
       - name: Bulten hasadi
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # Is 350 dk'da kesilir; robot 320'de KENDISI durup kutugu tutarli
+          # birakir. Zorla kesilme yarim inen PDF birakir ve o bulten bosa gider.
+          SURE_DK: "320"
         run: |
           mod='${{ github.event.inputs.mod }}'; [ -z "$mod" ] && mod=son
           adet='${{ github.event.inputs.adet }}'; [ -z "$adet" ] && adet=6

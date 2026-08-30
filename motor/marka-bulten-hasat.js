@@ -45,6 +45,23 @@ const SB_URL = process.env.SUPABASE_URL || 'https://bjrleanjpyujtajmazxn.supabas
 const SB_KEY = process.env.SUPABASE_SERVICE_KEY || '';
 const PARTI = 500;
 
+/* SURE BUTCESI (30.08) - Cem: "hepsini indir basla".
+   Tam envanter 263 bulten / 113,8 GB. GitHub kosucusu olculen ~0,3 MB/sn ile
+   indiriyor; hepsi tek kosuda BITMEZ ve GitHub isi 6 saatte ZORLA keser.
+   Zorla kesilme kotudur: o an inen PDF yarim kalir ve kaynak "kaldigi yerden
+   devam"i DESTEKLEMEDIGI icin o bultenin tamami bosa gider.
+   Bu yuzden robot her bultene BASLAMADAN once "bu butceye siger mi" diye
+   bakar; sigmiyorsa temiz durur, kutugu tutarli birakir. Sonraki kosu
+   'bitti' olanlari atlayip kaldigi yerden devam eder. */
+const T0 = Date.now();
+const SURE_DK = Number(process.env.SURE_DK || 0);        // 0 = sinirsiz
+const gecenDk = () => (Date.now() - T0) / 60000;
+const kalanDk = () => (SURE_DK ? SURE_DK - gecenDk() : Infinity);
+/* Baslangic 0,30 MB/sn - 30.08'de GitHub kosucusundan OLCULDU (2,5 GB /
+   2 sa 15 dk). Ilk indirmeden sonra GERCEK hizla guncellenir, boylece butce
+   tahmini kosu ilerledikce dogrulasir. */
+let HIZ_MBSN = Number(process.env.HIZ_MBSN || 0.30);
+
 const arg = process.argv.slice(2);
 const bayrak = (a) => arg.includes(a);
 const deger = (a, d) => { const i = arg.indexOf(a); return i >= 0 && arg[i + 1] ? arg[i + 1] : d; };
@@ -161,38 +178,79 @@ function ayristir(ham) {
 }
 
 /* ===================== KAYNAK ============================================ */
-async function bultenListesi() {
-  const r = await fetch(LISTE_URL, { headers: { 'User-Agent': 'mevzuat-radar-robot/1.0' } });
-  if (!r.ok) patla('Bulten listesi alinamadi: HTTP ' + r.status);
-  const html = await r.text();
-  const t = /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/.exec(html);
-  if (!t) patla('__NEXT_DATA__ bulunamadi - site yapisi degismis olabilir.');
-  const nd = JSON.parse(t[1]);
+/* ---------------------------------------------------------------------------
+   BULTEN LISTESI - API'den, TAMAMI
 
+   30.08 KUSUR (Cem yakaladi: "biz tumunu indirmek icin anlasmistik"):
+   Ilk surum listeyi /bultenler SAYFASININ HTML'inden okuyordu. O sayfa ilk
+   yuklemede yalnizca 20 kayit basiyor - icinden 6'si marka bulteni. Robot da
+   "kaynakta 6 bulten var" deyip 6'sini indirip BITTI dedi. Robot dogru
+   calisti; ona YANLIS LISTE verilmisti. Ders: "kaynakta su kadar var"
+   hukmu, kaynagin SAYFALAMASI olculmeden kurulmaz.
+
+   OLCULEN GERCEK: site listeyi /api/news ucundan IMLECLI (lastId) sayfalama
+   ile cekiyor; kategori 'marka'. Tam envanter:
+     264 Resmi Marka Bulteni PDF - Subat 2017'den Agustos 2026'ya - 113,9 GB
+     yilda duzenli 24 bulten (ayda iki)
+
+   IKI ACIKLAMA BICIMI VAR, ikisi de karsilanir:
+     "27.08.2026 Tarih ve 499 Sayılı Resmi Marka Bülteni"  (tarihli, 229 adet)
+     "270 Sayılı Resmi Marka Bulteni"                       (tarihsiz, 35 adet)
+   Tarihsizde yayin tarihi PDF'in yuklenme tarihinden alinir. ITIRAZ SURESI
+   BU TARIHTEN HESAPLANDIGI ICIN hangisini kullandigimiz kayda gecer
+   (tarihKaynagi) ve ekranda "yaklasik" diye gosterilmesi gerekir.
+--------------------------------------------------------------------------- */
+const API_URL = 'https://www.turkpatent.gov.tr/api/news';
+
+async function bultenListesi() {
+  const filtre = encodeURIComponent(JSON.stringify({ category: 'marka' }));
+  let lastId = 'null', tur = 0;
   const bulundu = [];
-  (function gez(o) {
-    if (!o || typeof o !== 'object') return;
-    if (Array.isArray(o)) return o.forEach(gez);
-    const aciklama = o.meta && o.meta.description;
-    if (aciklama && /Resmi Marka B[üu]lteni/i.test(aciklama) && Array.isArray(o.media)) {
-      const pdf = o.media.find(x => x && x.mime === 'application/pdf' && x.slug);
-      const g = /(\d{2})\.(\d{2})\.(\d{4})\s*Tarih\s*ve\s*(\d+)\s*Say/i.exec(aciklama);
-      if (pdf && g) {
-        bulundu.push({
-          bulten_no: Number(g[4]),
-          yayin_tarihi: `${g[3]}-${g[2]}-${g[1]}`,
-          slug: pdf.slug, boyut: pdf.size || null, aciklama
-        });
+
+  while (tur < 100) {
+    tur++;
+    const u = API_URL + '?locale=tr&category=marka&lastId=' + lastId + '&limit=100&filters=' + filtre;
+    const r = await fetch(u, { headers: { 'User-Agent': 'mevzuat-radar-robot/1.0' } });
+    if (!r.ok) patla('Bulten listesi alinamadi: HTTP ' + r.status);
+    const j = await r.json();
+    if (!j || j.success !== true) patla('Liste ucu beklenmeyen cevap verdi (site yapisi degismis olabilir).');
+    const p = j.payload || {}, d = p.data || [];
+    if (!d.length) break;
+
+    for (const o of d) {
+      const ac = (o.meta && o.meta.description) || '';
+      if (!/Resmi Marka B[\u00fcu]lteni/i.test(ac)) continue;   // Gazete / toplu arsiv haric
+      const pdf = (o.media || []).find(x => x && x.mime === 'application/pdf' && x.slug);
+      if (!pdf) continue;
+
+      let no = null, tarih = null, tarihKaynagi = 'aciklama';
+      const g1 = /(\d{2})\.(\d{2})\.(\d{4})\s*Tarih\s*ve\s*(\d+)\s*Say/i.exec(ac);
+      if (g1) { no = Number(g1[4]); tarih = g1[3] + '-' + g1[2] + '-' + g1[1]; }
+      else {
+        const g2 = /(\d+)\s*Say[\u0131i]l[\u0131i]\s*Resmi\s*Marka\s*B[\u00fcu]lteni/i.exec(ac);
+        if (g2) {
+          no = Number(g2[1]);
+          const t = pdf.created_at || o.publish_at || o.created_at;
+          if (t) { tarih = String(t).slice(0, 10); tarihKaynagi = 'yukleme'; }
+        }
       }
+      if (!no || !tarih) continue;
+      bulundu.push({ bulten_no: no, yayin_tarihi: tarih, tarihKaynagi, slug: pdf.slug, boyut: pdf.size || null, aciklama: ac });
     }
-    Object.values(o).forEach(gez);
-  })(nd);
+
+    lastId = d[d.length - 1].id;
+    if (!p.more) break;
+  }
 
   const tek = new Map();
-  bulundu.forEach(b => { if (!tek.has(b.bulten_no)) tek.set(b.bulten_no, b); });
-  return [...tek.values()].sort((a, b) => b.bulten_no - a.bulten_no);
+  for (const b of bulundu) if (!tek.has(b.bulten_no)) tek.set(b.bulten_no, b);
+  const liste = [...tek.values()].sort((a, b) => b.bulten_no - a.bulten_no);
+  const supheli = liste.filter(b => b.tarihKaynagi === 'yukleme').length;
+  const gb = (liste.reduce((a, b) => a + (b.boyut || 0), 0) / 1073741824).toFixed(1);
+  log('Kaynakta ' + liste.length + ' marka bulteni (' + tur + ' tur, ' + gb + ' GB)'
+    + ' - tarihi aciklamada olmayan: ' + supheli);
+  return liste;
 }
-
 async function indir(slug, hedef) {
   // AKITARAK yazilir, bellege toplanmaz. Ilk surum 477 MB'i once RAM'e
   // aliyordu: hem savurgan, hem de dosya ancak SONUNDA olustugu icin
@@ -225,7 +283,10 @@ async function indir(slug, hedef) {
   if (beklenen && inen !== beklenen) {
     throw new Error(`KESIK INDI: ${inen} bayt geldi, ${beklenen} bekleniyordu. Kaynak Range/devam DESTEKLEMIYOR, bastan inmeli.`);
   }
-  log(`   indi: ${(inen / 1048576).toFixed(0)} MB, ${((Date.now() - t0) / 1000).toFixed(0)} sn`);
+  const sn = (Date.now() - t0) / 1000;
+  if (sn > 5) HIZ_MBSN = (inen / 1048576) / sn;   // tahmin degil, OLCULEN hiz
+  log('   indi: ' + (inen / 1048576).toFixed(0) + ' MB, ' + sn.toFixed(0) + ' sn ('
+    + HIZ_MBSN.toFixed(2) + ' MB/sn)');
   return inen;
 }
 
@@ -302,7 +363,24 @@ function ikiAySonra(iso) {
   const gecici = fs.mkdtempSync(path.join(os.tmpdir(), 'bulten-'));
   const rapor = { tarih: new Date().toISOString().slice(0, 16).replace('T', ' '), islenen: [], hata: [] };
 
+  let atlanan = 0;
   for (const b of hedefler) {
+    /* BUTCE KAPISI: bu bulten kalan surede iner mi? Olculen hizla tahmin
+       edilir, ustune ayristirma+yazma icin 6 dk pay konur. Sigmiyorsa kosu
+       TEMIZ biter - yarim is birakmaktansa hic baslamamak iyidir. */
+    if (SURE_DK) {
+      const mb = (b.boyut || 400 * 1048576) / 1048576;
+      const tahminDk = mb / (HIZ_MBSN * 60) + 6;
+      if (tahminDk > kalanDk()) {
+        atlanan = hedefler.length - hedefler.indexOf(b);
+        log('');
+        log('SURE BUTCESI DOLDU (' + gecenDk().toFixed(0) + '/' + SURE_DK + ' dk). '
+          + b.bulten_no + ' icin ~' + tahminDk.toFixed(0) + ' dk gerekiyor, kalan '
+          + kalanDk().toFixed(0) + ' dk.');
+        log('  ' + atlanan + ' bulten sonraki kosuya birakildi - kutuk tutarli, veri kaybi yok.');
+        break;
+      }
+    }
     log(`\n=== ${b.bulten_no} sayili bulten (${b.yayin_tarihi}) ===`);
     const pdf = path.join(gecici, `b${b.bulten_no}.pdf`);
     const txt = path.join(gecici, `b${b.bulten_no}.txt`);
@@ -359,6 +437,10 @@ function ikiAySonra(iso) {
   try {
     fs.writeFileSync(path.join(__dirname, '..', 'veri', 'marka-bulten-raporu.json'), JSON.stringify(rapor, null, 1));
   } catch (_) { }
-  log(`\nBITTI: ${rapor.islenen.length} bulten islendi, ${rapor.hata.length} hata.`);
+  const kayitToplam = rapor.islenen.reduce((a, x) => a + x.kayit, 0);
+  log('');
+  log('BITTI: ' + rapor.islenen.length + ' bulten islendi (' + kayitToplam + ' kayit), '
+    + rapor.hata.length + ' hata, ' + gecenDk().toFixed(0) + ' dk.');
+  if (atlanan) log('SONRAKI KOSUYA KALAN: ' + atlanan + ' bulten.');
   if (rapor.hata.length) process.exit(1);
 })().catch(e => { console.error('!! ISTISNA: ' + (e && e.stack || e)); process.exit(1); });
