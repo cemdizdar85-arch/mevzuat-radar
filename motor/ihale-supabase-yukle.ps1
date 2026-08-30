@@ -38,10 +38,15 @@ if (-not $anahtar) {
   exit 0
 }
 
+# IS KLASORU (30.08): paralel seritler ayni ara dosyalari eziyordu. Ayristirici
+# gunluk havuzu ve kosu damgasini buraya yaziyor, yukleyici buradan okuyor.
+# Verilmezse eski davranis aynen (kok\veri).
+$isKls = if ("$($env:IHALE_IS_KLASORU)".Trim()) { $env:IHALE_IS_KLASORU } else { Join-Path $kok 'veri' }
+
 $hedef = if ("$($env:HEDEF)".Trim()) {
   # HEDEF tam yol da olabilir (baska calisma kopyasindaki ambari yuklerken)
   if ([IO.Path]::IsPathRooted($env:HEDEF)) { $env:HEDEF } else { Join-Path $kok $env:HEDEF }
-} else { Join-Path $kok 'veri\ihale-sonuc.json' }
+} else { Join-Path $isKls 'ihale-sonuc.json' }
 if (-not (Test-Path $hedef)) { Write-Host "kaynak dosya yok: $hedef"; exit 0 }
 
 Write-Host ("KAYNAK: {0} ({1:N1} MB)" -f (Split-Path $hedef -Leaf), ((Get-Item $hedef).Length/1MB))
@@ -193,13 +198,28 @@ try {
 # 4 gun diyordu, kasada 62+ gun vardi).
 # Yalniz VARSAYILAN kaynak yuklenirken atilir: $env:HEDEF ile baska bir
 # ambar yuklenirken elimizdeki damga o ambara ait DEGILDIR.
-$damgaYol = Join-Path $kok 'veri\ihale-son-kosu-damga.json'
+$damgaYol = Join-Path $isKls 'ihale-son-kosu-damga.json'
 if (-not "$($env:HEDEF)".Trim() -and (Test-Path $damgaYol)) {
   try {
     # ConvertFrom-Json boru hattinda diziyi ACMAZ (PS 5.1) - @(...) ic ice dizi
     # uretir ve $d.tarih dizi olarak gider, kutuk cagrisi patlar. Once degiskene.
     $damgaHam = ConvertFrom-Json -InputObject (Get-Content $damgaYol -Raw -Encoding UTF8)
     $damgalar = @($damgaHam)
+
+    # 🔴 30.08 OLCUMU - KUTUK ELMA-ARMUT KARSILASTIRIYORDU:
+    # kutuge AYRISTIRILAN satir sayisi yaziliyordu, tabloda ise TEKIL ANAHTAR
+    # duruyor. Ayni bultende ayni (ikn|sozlesmeTarih|bedel|yuklenici) dortlusu
+    # birden fazla geciyor (ozellikle Hizmet'te; bir gunde 88 fark olculdu) ve
+    # yukleyici bunlari birlestiriyor. Sonuc: ihale_kutuk_denetim() 120'den fazla
+    # gunu "tutmuyor" diye isaretliyordu - hepsi ZARARSIZ, ama surekli kirmizi
+    # yanan kapi kapi degildir; gercek bozulmayi (tabloda 0) icinde gizler.
+    # DOGRUSU: kutuk KASAYA YAZILANI sayar. Ayristiricinin ham sayimi kutugun
+    # isi degil. Tur tur tekil anahtar sayilir.
+    $turSayim = New-Object 'System.Collections.Generic.Dictionary[string,int]' ([StringComparer]::Ordinal)
+    foreach ($g in $gonderilecek) {
+      $tt = "$($g.tur)"
+      if ($tt) { if ($turSayim.ContainsKey($tt)) { $turSayim[$tt] += 1 } else { $turSayim[$tt] = 1 } }
+    }
     $c = 0
     foreach ($d in $damgalar) {
       if (-not $d.tarih) {
@@ -210,7 +230,7 @@ if (-not "$($env:HEDEF)".Trim() -and (Test-Path $damgaYol)) {
         p_gun         = "$($d.tarih)"
         p_tur         = "$($d.tur)"
         p_bulten_sayi = (Tam $d.sayi)
-        p_kayit       = (Tam $d.kayit)
+        p_kayit       = $(if ($turSayim.ContainsKey("$($d.tur)")) { $turSayim["$($d.tur)"] } else { 0 })
         p_beklenen    = (Tam $d.beklenen)
         p_bulunan     = (Tam $d.bulunan)
         p_eksik_ikn   = @($d.eksikIkn)

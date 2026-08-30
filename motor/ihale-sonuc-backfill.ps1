@@ -71,9 +71,20 @@ $kok  = Split-Path -Parent $here
 $hasat    = Join-Path $here "ihale-bulten-hasat.ps1"
 $ayristir = Join-Path $here "ihale-sonuc-ayristir.ps1"
 $yukle    = Join-Path $here "ihale-supabase-yukle.ps1"
-$ambar    = Join-Path $kok  "veri\ihale-sonuc.json"
-$damgaYol = Join-Path $kok  "veri\ihale-son-kosu-damga.json"
-$atlanYol = Join-Path $kok  "veri\ihale-backfill-atlanan.json"
+# 🔴 IS KLASORU (30.08, yutma sirasinda olculdu — kok sebep):
+# Indirme klasoru serit serit ayrilmisti ama ARA DOSYALAR ortakti. Alti serit
+# ayni ihale-sonuc.json ve ihale-son-kosu-damga.json'a yazinca:
+#   - "dosyaya erisemiyor" hatalari
+#   - bir serit BASKA seridin damgasini okuyup sahte "ARSIV VERMEDI" yazdi
+#     (istenen 2025-09-22, gelen 2026-08-27) ve gunu KALICI atlama listesine
+#     soktu -> o gun bir daha hic cekilmezdi. Sessiz kapsam kaybi.
+# Ara dosyalar artik seridin kendi klasorunde; atlama listesi de oyle, cunku
+# sahte atlamalar ortak listeye yazilinca butun seritleri zehirliyordu.
+$isKls    = if("$($env:IHALE_IS_KLASORU)".Trim()){ $env:IHALE_IS_KLASORU } else { Join-Path $kok 'veri' }
+if(-not (Test-Path $isKls)){ New-Item -ItemType Directory -Force $isKls | Out-Null }
+$ambar    = Join-Path $isKls "ihale-sonuc.json"
+$damgaYol = Join-Path $isKls "ihale-son-kosu-damga.json"
+$atlanYol = Join-Path $isKls "ihale-backfill-atlanan.json"
 
 $SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co'
 $anahtar = "$($env:SUPABASE_SERVICE_KEY)".Trim()
