@@ -84,7 +84,8 @@ illerSuzgecli · iller · ilanlar`. Arşiv 5.917 ilan; konkordato 5.435 / iflas 
 | Dosya / şema | Uç | Durum (29.08 ölçümü) |
 |---|---|---|
 | `2026-08-27-teslim-teyidi.sql` | `uyari_teyit_durum` | ✅ BASILI — sıfır jetonda `{"ok":false,"sebep":"BULUNAMADI"}` |
-| `2026-08-20-ihale-gizli-arsiv.sql` | `ihale_sayi`, `ihale_dokum` | ✅ BASILI — `401 42501` (var, anon'a kapalı: gizli kasa çalışıyor) |
+| `2026-08-20-ihale-gizli-arsiv.sql` | `ihale_sayi`, `ihale_dokum` | ⬆️ **ESKİDİ** — `2026-08-30-ihale-bulten-kutugu.sql` görünümü + `ihale_yaz`/`ihale_dokum`/`ihale_sayi`'yı yeniden yazar. Tablo/kasa kuralları aynen korunur. |
+| `2026-08-30-ihale-bulten-kutugu.sql` | `ihale_kutuk`, `ihale_kutuk_yaz`, `ihale_eksik_gun`, `ihale_kutuk_denetim`, `ihale_sayi` (v2) | ❌ **BASILMAMIŞ** (30.08, yazıldı — ölçülmedi). Eskitir: `2026-08-20-ihale-gizli-arsiv.sql`. **Ölçüm komutu:** `./motor/ihale-kapsama-raporu.ps1` → "damgasız alanı yok" derse basılmamıştır. Basılmadan `motor/ihale-supabase-yukle.ps1` **kendini durdurur** (göç kapısı) — bilerek: damgasız yutulan kayıt hangi bültenden geldiğini söylemez, 36 aylık yutma baştan tekrar edilir. |
 | `veri/sql-marka-portfoy.sql` | `marka_talep_sonuc` | ✅ BASILI — 200 |
 | `evrak-app/schema.sql` | `istek_getir` | ✅ BASILI — 200 (`p_token` ile) |
 | `veri/sql-destek-takip.sql` | `destek_takip` tablosu | ✅ BASILI — tablo var, anon'a 0 satır (RLS tutuyor) |

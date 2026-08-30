@@ -1,0 +1,118 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/ihale-yutma.yml
+#
+# IHALE SONUC BULTENI TAM YUTMA (30.08.2026)
+# Cem: "bir hafta bekleyemeyiz."
+#
+# NIYE PARALEL: tek gun + tek is kolu indirme ve PDF->metin cevrimi 22,7 saniye
+# olculdu (30.08, gercek kosu). 36 ay = ~780 is gunu; gunun zip'i tum is
+# kollarini birlikte getirdigi icin is birimi GUNDUR:
+#     780 gun x ~23 sn x 4 is kolu  ~= 14 saat  (tek serit)
+# Actions'ta bir kosu 6 saatte kesilir. Serit serit bolununce:
+#     6 serit  -> ~2,4 saat     8 serit -> ~1,8 saat
+# Yani is bir haftalik degil, BIR AKSAMLIK. Depo public oldugu icin Actions
+# dakikasi ucretsiz; maliyet sifir.
+#
+# KIK'E NAZIK: her serit kendi icinde gunler arasi 2 sn bekler. 6 seritte
+# saniyede ~0,26 istek duser - insan trafiginin altinda.
+#
+# SERITLER BIRBIRINI EZMEZ: her is kendi runner'inda kendi gecici klasorunu
+# kullanir (IHALE_BULTEN_KLASOR). Ayni makinede iki serit ayni sonuc-mal.txt'yi
+# ezerdi ve biri digerinin bultenini ayristirirdi - sessiz, en kotu tur hata.
+#
+# IS LISTESI PAYLASILMAZ, HESAPLANIR: her serit kasadaki ihale_eksik_gun()
+# listesinden kendi payini (index % serit sayisi) alir. Bir serit duserse
+# digerleri etkilenmez; dusen seridin gunleri kutukte "eksik" kalir ve bir
+# sonraki kosuda kendiliginden geri gelir.
+#
+# ON SART: radar-app/sql/2026-08-30-ihale-bulten-kutugu.sql Supabase'de BASILI
+# olmali. Basili degilse yukleyici kendini durdurur (goc kapisi) ve is duser -
+# bilerek: damgasiz yutulan 775.000 kayit bastan tekrar yutulmak zorunda kalir.
+
+name: Ihale Yutma (backfill)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ay_geri:
+        description: "Kac ay geriye yutulsun"
+        required: false
+        default: "36"
+      serit_sayisi:
+        description: "Paralel serit sayisi (1-8)"
+        required: false
+        default: "6"
+      gun_tavan:
+        description: "Serit basina azami gun (0 = sinirsiz; 6 saat sinirina dikkat)"
+        required: false
+        default: "0"
+
+# Iki yutma kosusu ayni anda calisirsa ayni gunleri iki kez ceker (zararsiz ama
+# bosuna); yenisi eskisini bekler.
+concurrency:
+  group: ihale-yutma
+  cancel-in-progress: false
+
+jobs:
+  yut:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350          # Actions tavani 360; oncesinde duzgun bitsin
+    strategy:
+      fail-fast: false            # bir serit duserse digerleri devam etsin
+      matrix:
+        serit: [0, 1, 2, 3, 4, 5]
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: pdftotext kur (bulten PDF -> metin)
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Serit ${{ matrix.serit }} — eksik gunleri yut
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # her serit KENDI klasoru (runner ayri olsa da acik yazilir)
+          IHALE_BULTEN_KLASOR: ${{ runner.temp }}/bulten-serit-${{ matrix.serit }}
+        run: |
+          ./motor/ihale-sonuc-backfill.ps1 `
+            -AyGeri ${{ github.event.inputs.ay_geri || 36 }} `
+            -Serit ${{ matrix.serit }} `
+            -SeritSayisi ${{ github.event.inputs.serit_sayisi || 6 }} `
+            -Gun ${{ github.event.inputs.gun_tavan || 0 }}
+
+  # Seritler bitince TEK sefer kapsam olculur ve ozet yeniden uretilir.
+  # "Yesil kosu = tam veri degildir": seritlerin yesil bitmesi havuzun tam
+  # oldugunu KANITLAMAZ; kaniti kapsama raporu verir.
+  rapor:
+    needs: yut
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Kapsama raporu (kutukten olculur)
+        shell: pwsh
+        continue-on-error: true    # KIRMIZI cikarsa da ozet uretilsin, sonuc loga yazili
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/ihale-kapsama-raporu.ps1 -AyGeri ${{ github.event.inputs.ay_geri || 36 }}
+
+      - name: Buyuyen havuzdan ozetleri yeniden uret
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./motor/ihale-sonuc-ozet.ps1 -Yaz
+          ./motor/ihale-firma-ozet.ps1 -Yaz
+          ./motor/ihale-idare-ozet.ps1 -Yaz
+
+      - name: Ozetleri depoya yaz
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "robot@tetikte.com"
+          git add veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json veri/ihale-idare-ozet.json
+          git diff --cached --quiet || git commit -m "Ihale yutma: ozetler yeniden uretildi [veri-operasyonu]"
+          git push

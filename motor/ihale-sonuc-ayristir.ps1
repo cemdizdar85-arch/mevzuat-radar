@@ -32,7 +32,12 @@ param([switch]$Yaz, [int]$Ornek = 0)
 $ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$kls  = Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten"
+# PARALEL SERIT (30.08): 36 aylik yutma tek seritte ~14 saat surer. Serit serit
+# bolununce her serit KENDI gecici klasorune indirmeli, yoksa ikisi ayni
+# sonuc-mal.txt'yi ezer ve biri digerinin bultenini ayristirir - sessiz, en kotu
+# tur hata. Klasor disaridan verilebilir; verilmezse eski davranis aynen.
+$kls  = if("$($env:IHALE_BULTEN_KLASOR)".Trim()){ $env:IHALE_BULTEN_KLASOR }
+        else { Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten" }
 
 function Alan([string]$b, [string]$d){
   $m = [regex]::Match($b, $d)
@@ -49,7 +54,63 @@ function Para([string]$s){
   return $null
 }
 
+# ===== BULTEN DAMGASI (30.08.2026) =========================================
+# Kaydin HANGI GUNUN bulteninden geldigi bugune kadar hicbir yere yazilmiyordu;
+# "hangi gunler kasada, hangileri eksik" sorusu bu yuzden cevapsizdi.
+#
+# Tarih UYDURULMAZ, KAYNAKTAN okunur: bultenin her sayfasinin ust bilgisinde
+# "27 AĞUSTOS 2026 – Sayı 5686" yazili (tek gunun Mal bulteninde 919 kez,
+# hepsi ayni - 30.08'de olculdu). Asagidaki SonuclariCoz bu satiri sayfa
+# altbilgisi diye SILIYOR; damga o yuzden silmeden ONCE alinir.
+#
+# NIYE "-Tarih parametresinden al" DEGIL: hasat betigi arsiv formunu yanlis
+# doldurursa KIK sessizce BUGUNUN bultenini dondurur (14.08'de bir kez oldu).
+# Istenen gun ile GELEN gun ancak kaynaktan okunursa karsilastirilabilir;
+# backfill bu farki gorunce o gunu "yapildi" diye kutuge YAZMAZ.
+$script:AYLAR = @{ 'OCAK'=1;'ŞUBAT'=2;'MART'=3;'NİSAN'=4;'MAYIS'=5;'HAZİRAN'=6
+                   'TEMMUZ'=7;'AĞUSTOS'=8;'EYLÜL'=9;'EKİM'=10;'KASIM'=11;'ARALIK'=12 }
+function BultenDamgasi([string]$hamMetin){
+  $d = $hamMetin -replace '\s+',' '
+  $m = [regex]::Match($d, '(\d{1,2})\s+(OCAK|ŞUBAT|MART|NİSAN|MAYIS|HAZİRAN|TEMMUZ|AĞUSTOS|EYLÜL|EKİM|KASIM|ARALIK)\s+(\d{4})\s*[–—-]\s*Sayı\s*(\d+)')
+  if(-not $m.Success){ return @{ tarih = $null; sayi = $null } }
+  $ay = $script:AYLAR[$m.Groups[2].Value]
+  if(-not $ay){ return @{ tarih = $null; sayi = $null } }
+  return @{
+    tarih = ('{0:0000}-{1:00}-{2:00}' -f [int]$m.Groups[3].Value, $ay, [int]$m.Groups[1].Value)
+    sayi  = [int]$m.Groups[4].Value
+  }
+}
+
+# ===== TAM INDI MI (30.08.2026, Cem: "tam indirdigimizi BILELIM") ==========
+# Bultenin KENDI icinde capraz kontrolu var: basindaki ICINDEKILER bolumu o
+# gunun butun IKN'lerini listeler, govde ayni IKN'leri tekrarlar.
+# 27.08 Mal bulteninde olculdu: ICINDEKILER 225 tekil IKN · govde 225 · fark 0.
+#
+# NIYE ISE YARAR: indirme yarida keserse ya da PDF->metin bir sayfa dusurse
+# GOVDE kucululur, ICINDEKILER aynen kalir - fark aninda gorunur. Kendi
+# sayimimizi kendi sayimimizla degil, KAYNAGIN kendi listesiyle denetliyoruz.
+# ("yesil kosu = tam veri degildir" kuralinin bu hattaki karsiligi)
+function TamlikOlc([string]$hamMetin){
+  $d = $hamMetin -replace '\s+',' '
+  $ilk = $d.IndexOf('İhale kayıt numarası')
+  $b = -1
+  foreach($mm in [regex]::Matches($d, '1\.\s*İHALE SONUÇLARININ İLANLARI')){
+    if($ilk -lt 0 -or $mm.Index -lt $ilk){ $b = $mm.Index } else { break }
+  }
+  if($b -lt 0){ return @{ beklenen = $null; bulunan = $null; eksik = @() } }
+  $ic  = $d.Substring(0, $b)
+  $gov = $d.Substring($b)
+  $toc = @([regex]::Matches($ic,  '(\d{4}/\d{5,8})') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+  $gvd = @([regex]::Matches($gov, 'İhale kayıt numarası\s*:\s*(\d{4}/\d+)') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+  return @{
+    beklenen = $toc.Count
+    bulunan  = $gvd.Count
+    eksik    = @($toc | Where-Object { $gvd -notcontains $_ })
+  }
+}
+
 function SonuclariCoz([string]$metin, [string]$tur){
+  $damga = BultenDamgasi $metin
   $duz = $metin -replace '\s+',' '
   # sayfa altbilgisi ilan metninin ortasina dusuyor (ilan ayristiricisinda da
   # ayni tuzak vardi) - kaynakta silinir
@@ -90,6 +151,9 @@ function SonuclariCoz([string]$metin, [string]$tur){
     $rec = [ordered]@{
       ikn        = $bas[$i].Groups[1].Value
       tur        = $tur
+      # kaynagin kendi ust bilgisinden okundu (bkz. BultenDamgasi)
+      bultenTarih = $damga.tarih
+      bultenSayi  = $damga.sayi
       # TUZAK (olculdu): kapsam disi ilanlarda "b) Yapılacağı..." satiri YOK;
       # desen 180 karakter tasip "3- Teklifler a) Toplam Teklif Sayısı :6"
       # kuyrugunu is adina katiyordu (2026/1270737'de gorundu).
@@ -144,15 +208,51 @@ function SonuclariCoz([string]$metin, [string]$tur){
 }
 
 $hepsi = New-Object Collections.ArrayList
-foreach($t in @('Mal','Yapim','Hizmet')){
+# KOSU DAMGASI (30.08): bu kosuda HANGI bultenin islendigi disari yazilir.
+# Backfill bunu iki is icin okur: (1) istedigi gun ile GELEN gunu karsilastirip
+# yanlis bulteni "yapildi" saymamak, (2) kasadaki kutuge (gun,tur,sayi,kayit)
+# satirini yazmak. Kutuk olmadan "hangi gun eksik" sorusu cevapsizdir.
+$damgalar = New-Object Collections.ArrayList
+# IS KOLU DORT (30.08, Cem sarti). KIK bulten sayfasindaki "Ihale Turu"
+# listesinden okundu: Mal(1) · Yapim(2) · Hizmet(3) · Danismanlik(4).
+# 30.08'e kadar burada UC tur donuyordu; gunluk is akisi Danismanlik bultenini
+# INDIRIYOR ama bu dongu ona hic bakmiyordu - koca bir is kolu sessizce
+# cope gidiyordu (27.08 olcumu: Danismanlik sonuc bulteni 1 ilan).
+$eksikTur = @()
+foreach($t in @('Mal','Yapim','Hizmet','Danismanlik')){
   $p = Join-Path $kls ("sonuc-{0}.txt" -f $t.ToLower())
-  if(-not (Test-Path $p)){ Write-Host ("{0,-8}: sonuc metni yok (once motor/ihale-bulten-hasat.ps1)" -f $t); continue }
+  if(-not (Test-Path $p)){
+    Write-Host ("{0,-12}: sonuc metni yok (once motor/ihale-bulten-hasat.ps1)" -f $t)
+    [void]$damgalar.Add([ordered]@{ tur=$t; tarih=$null; sayi=$null; kayit=0
+                                    beklenen=$null; bulunan=$null; tam=$false; eksikIkn=@(); sebep='indirilemedi' })
+    $eksikTur += $t
+    continue
+  }
   $m = [IO.File]::ReadAllText($p,[Text.Encoding]::UTF8)
-  $c = @(SonuclariCoz $m $t)
-  Write-Host ("{0,-8}: {1} sonuc ilani" -f $t, $c.Count)
+  $c  = @(SonuclariCoz $m $t)
+  $dm = BultenDamgasi $m
+  $tm = TamlikOlc $m
+  $tam = ($null -ne $tm.beklenen -and $null -ne $tm.bulunan -and $tm.beklenen -eq $tm.bulunan)
+  Write-Host ("{0,-12}: {1,5} kayit · bulten {2} (sayi {3}) · icindekiler {4} / govde {5} -> {6}" -f `
+              $t, $c.Count, $(if($dm.tarih){$dm.tarih}else{'OKUNAMADI'}), $dm.sayi,
+              $tm.beklenen, $tm.bulunan, $(if($tam){'TAM'}else{'EKSIK'}))
+  if(-not $tam -and $tm.eksik.Count){
+    $eksikTur += $t
+    Write-Host ("   !! {0} ilan ICINDEKILER'de var, govdede YOK: {1}" -f $tm.eksik.Count, (($tm.eksik | Select-Object -First 6) -join ', '))
+  }
   if($m.Length -gt 50000 -and $c.Count -eq 0){ Write-Host ("   !! UYARI: {0} sonuc bulteni {1:N0} karakter geldi ama HIC kayit cikmadi" -f $t, $m.Length) }
+  $sebep = if($c.Count -gt 0){ $null } elseif($m.Length -lt 50000){ 'bulten yok/bos' } else { 'ayristirilamadi' }
+  [void]$damgalar.Add([ordered]@{ tur=$t; tarih=$dm.tarih; sayi=$dm.sayi; kayit=$c.Count
+                                  beklenen=$tm.beklenen; bulunan=$tm.bulunan; tam=$tam
+                                  eksikIkn=@($tm.eksik); sebep=$sebep })
   foreach($x in $c){ [void]$hepsi.Add($x) }
 }
+if($eksikTur.Count){
+  Write-Host ("`n!! TAM INMEDI: {0} · bu gun kutuge 'tam' diye YAZILMAZ, yeniden cekilir." -f ($eksikTur -join ', '))
+}
+# Damga dosyasi BOS KOSUDA DA yazilir: "cekildi ama bostu" ile "hic cekilmedi"
+# ayri seylerdir; ayirmayan kutuk yalan soyler.
+($damgalar | ConvertTo-Json -Depth 4) | Out-File (Join-Path $kok "veri\ihale-son-kosu-damga.json") -Encoding utf8
 if(-not $hepsi.Count){ Write-Host "Hic sonuc ilani cikmadi."; if($Yaz){ exit 1 }; return }
 
 # ===== KISIMLI IHALE TUZAGI (14.08 olculdu, ilk hesap YANLISTI) =============
