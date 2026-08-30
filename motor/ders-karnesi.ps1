@@ -42,6 +42,19 @@ $MESLEK   = 'meslek hukuku|3568|smmm|ymm|etik|mesleki deger|oda |turmob|ruhsat|s
 $BORCLAR  = 'borclar|tbk|sozlesme|tazminat|sebepsiz zenginle|haksiz fiil|temerrut|ifa|zamanasimi (borc)|kefalet|vekalet|satim|kira|hukumsuzluk|irade|muteselsil|alacagin devri|takas'
 
 function ResmiDers([string]$eskiDers, [string]$konu){
+  # 30.08 ETKI OLCULDU - GECMISTE HASAR YOK:
+  # Duzeltmeden sonra "peki bugune kadar kac konu yanlis derse atandi?" diye
+  # olculdu. Eski ve yeni surum ayni veriye (veri/konu-kaynak-karnesi.json,
+  # 3.264 konu) uygulandi: FARK SIFIR. Sebep: kusur yalniz BUYUK "I" harfi
+  # desenle eslesmesi gereken yerde ortaya cikiyor ("INKILAP" -> tr-TR
+  # ToLower -> "ınkilap", desen 'inkilap' iskalar) ve gercek veride tamami
+  # buyuk harfli konu adi YOK (olculdu: 0 kayit; buyuk "I" iceren tek kayit
+  # "OKUNAMADI" adli ayristirma hatasi). Yani duzeltme bir SAVUNMA - yeni
+  # gelen buyuk harfli konu adi sessizce yanlis derse dusmesin diye.
+  # Kanit vakasi: ResmiDers 'Genel Kultur' 'INKILAP TARIHI'
+  #   eski -> "Turkce"                              (YANLIS)
+  #   yeni -> "Ataturk Ilkeleri ve Inkilap Tarihi"  (dogru)
+  #
   # 30.08 DUZELTME - TURKCE HARF SIRASI: once KATLA, sonra INVARIANT kucult.
   # Olculdu (tr-TR): "IFLASINA".ToLower() -> "iflasina" DEGIL "ıflasına";
   # 'iflas' arayan desen ISKALAR. en-US'ta ise "INKILAP" -> "i̇nkilap"
