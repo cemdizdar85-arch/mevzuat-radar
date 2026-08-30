@@ -156,34 +156,51 @@ if(-not $anahtar){
   exit 1
 }
 
+# 🔴 DEGISKEN CAKISMASI (30.08, canli yutmayi durdurdu — ADI GECEN TUZAK):
+# Is listesi bu satirlarda "$gunler" degiskeninde tutuluyordu. Betige sonradan
+# "[string]$Gunler" PARAMETRESI eklendi ve PowerShell degisken adlarinda
+# BUYUK-KUCUK HARF AYIRMAZ -> ikisi AYNI degisken. Ustelik parametre [string]
+# TIPLI oldugu icin 783 elemanlik dizi atanir atanmaz SESSIZCE tek bir metne
+# ("2026-08-28 2026-08-27 ...") donusuyordu. Sonuc: "1 tekil gun", alti serit
+# de bir gun isleyip cikti. Hata YOK, uyari YOK.
+# Ayni kusur -Gunler yeniden isleme yolunu da bozuyordu (o da tek metne dusuyordu).
+# Cozum: yerel liste $isGunleri adiyla ayrildi; parametre adi korundu.
+# Kural: [[ps-degisken-cakismasi]] — parametre adiyla yerel degisken adi
+# harf farkiyla ayrilamaz.
 if($Gunler.Trim()){
   # YENIDEN ISLEME: is listesi kasadan degil, disaridan geliyor. Bu gunler
   # "eksik" DEGIL - zaten cekilmis. Bilerek yeniden cekiliyorlar (bkz. param).
-  $gunler = @($Gunler -split '[,; ]+' | ForEach-Object { $_.Trim() } | Where-Object { $_ } | Sort-Object -Descending)
-  $bozuk = @($gunler | Where-Object { $_ -notmatch '^\d{4}-\d{2}-\d{2}$' })
+  $isGunleri = @($Gunler -split '[,; ]+' | ForEach-Object { $_.Trim() } | Where-Object { $_ } | Sort-Object -Descending)
+  $bozuk = @($isGunleri | Where-Object { $_ -notmatch '^\d{4}-\d{2}-\d{2}$' })
   if($bozuk.Count){ Write-Host ("Gun bicimi yyyy-MM-dd olmali. Bozuk: {0}" -f ($bozuk -join ', ')) -ForegroundColor Red; exit 1 }
-  Write-Host ("YENIDEN ISLEME: {0} gun elle verildi (kasadaki eksik listesi kullanilmadi)" -f $gunler.Count) -ForegroundColor Yellow
+  Write-Host ("YENIDEN ISLEME: {0} gun elle verildi (kasadaki eksik listesi kullanilmadi)" -f $isGunleri.Count) -ForegroundColor Yellow
 } else {
   $eksik = EksikGunler $AyGeri $Turler
   if($null -eq $eksik){ exit 1 }
 
   # (gun,tur) satirlarini GUNE indirge: bir gunun bulteni tek indirmede tum
   # turleri getiriyor (zip icinde). Gun bazli calisip turleri birlikte isliyoruz.
-  $gunler = @($eksik | ForEach-Object { "$($_.gun)" } | Select-Object -Unique | Sort-Object -Descending)
-  Write-Host ("EKSIK: {0} (gun,tur) satiri -> {1} tekil gun" -f @($eksik).Count, $gunler.Count)
-  if(-not $gunler.Count){ Write-Host 'Eksik gun yok - havuz tam.'; exit 0 }
+  $isGunleri = @($eksik | ForEach-Object { "$($_.gun)" } | Select-Object -Unique | Sort-Object -Descending)
+  Write-Host ("EKSIK: {0} (gun,tur) satiri -> {1} tekil gun" -f @($eksik).Count, $isGunleri.Count)
+  if(-not $isGunleri.Count){ Write-Host 'Eksik gun yok - havuz tam.'; exit 0 }
+}
+# AKIL SINIRI: 36 aylik aralikta tek gun cikmasi imkansiz. Cakisma geri gelirse
+# saatler bosa gitmeden BURADA durur.
+if(-not $Gunler.Trim() -and $isGunleri.Count -lt 5 -and @($eksik).Count -gt 100){
+  Write-Host ("!! DURDURULDU: {0} eksik satirdan yalniz {1} tekil gun cikti - liste bozuk." -f @($eksik).Count, $isGunleri.Count)
+  exit 1
 }
 
 # serit payi: siradaki her SeritSayisi'nci gun bu seride duser
 if($SeritSayisi -gt 1){
   $pay = New-Object Collections.ArrayList
-  for($i=0; $i -lt $gunler.Count; $i++){ if(($i % $SeritSayisi) -eq $Serit){ [void]$pay.Add($gunler[$i]) } }
-  $gunler = @($pay)
-  Write-Host ("   bu seride: {0} gun" -f $gunler.Count)
+  for($i=0; $i -lt $isGunleri.Count; $i++){ if(($i % $SeritSayisi) -eq $Serit){ [void]$pay.Add($isGunleri[$i]) } }
+  $isGunleri = @($pay)
+  Write-Host ("   bu seride: {0} gun" -f $isGunleri.Count)
 }
 
 $islenen=0; $tamam=0; $eksikKaldi=0; $arsivYok=0; $hata=0
-foreach($g in $gunler){
+foreach($g in $isGunleri){
   if($Gun -gt 0 -and $islenen -ge $Gun){ break }
   $d = [datetime]::ParseExact("$g".Substring(0,10), 'yyyy-MM-dd', [Globalization.CultureInfo]::InvariantCulture)
   $ts = $d.ToString('dd.MM.yyyy')
