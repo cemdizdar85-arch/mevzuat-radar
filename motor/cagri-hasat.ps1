@@ -243,6 +243,29 @@ function Kirp([string]$c, [int]$tavan){
   if($bosluk -gt ($tavan*0.6)){ $kes = $kes.Substring(0,$bosluk) }
   return ($kes.TrimEnd(' ',',',';') + '…')
 }
+# 30.08 (3) OLCULDU: genis kapilar acilinca iki kusur cikti.
+#  (a) OZET bazen CUMLE degil BASLIK SATIRI seciyordu ("1501 - TUBITAK Sanayi
+#      Ar-Ge Projeleri Destekleme Programi"). Govde cumlesi NOKTA/soru/unlem
+#      ile BITER; sayfadaki baslik ve etiket satirlari bitmez. Tek ayrac bu.
+function CumleMi([string]$c){
+  if(-not $c){ return $false }
+  return ($c.TrimEnd() -match "[\.\!\?]$")
+}
+#  (b) KIM bazen BASLIGIN yeniden yazimini seciyordu (1707 cagrisinda
+#      olculdu). Ilk-24-karakter testi bunu KACIRIYOR cunku cumle baska
+#      kelimeyle basliyor. Gercek olcut KELIME ORTUSMESI: cumlenin anlamli
+#      kelimelerinin cogu basliktaysa, o cumle yeni bilgi tasimiyordur.
+function BaslikTekrariMi([string]$c, [string]$baslik){
+  if(-not $c -or -not $baslik){ return $false }
+  $ayir = { param($x) @(($x.ToLowerInvariant() -replace "[^\p{L}\p{Nd}]"," ") -split "\s+" |
+              Where-Object { $_.Length -ge 4 }) }
+  $bk = & $ayir $baslik
+  $ck = & $ayir $c
+  if($ck.Count -lt 4){ return $false }
+  $ortak = 0
+  foreach($w in $ck){ if($bk -contains $w){ $ortak++ } }
+  return (($ortak / $ck.Count) -ge 0.6)
+}
 function CumleSec([string]$metin, [string]$desen, [int]$tavan, [string]$baslik, [string[]]$kacin){
   # desene UYAN ilk cumleyi BIREBIR dondurur (uydurma yok). Yoksa bos.
   # 30.08: iki oz-sinav eklendi - (1) secilen cumle BASLIGIN kopyasiysa bilgi
@@ -270,6 +293,10 @@ function CumleSec([string]$metin, [string]$desen, [int]$tavan, [string]$baslik, 
       }
       if($carpisti){ continue }
     }
+    # govde cumlesi mi, yoksa sayfadaki bir baslik/etiket satiri mi?
+    if(-not (CumleMi $c)){ continue }
+    # basligin yeniden yazimi bilgi degildir
+    if(BaslikTekrariMi $c $baslik){ continue }
     return (Kirp $c $tavan)
   }
   return ""
@@ -298,6 +325,19 @@ $DESEN_OZNE = '(?i)(işletme|firma|şirket|KOBİ|kooperatif|üretici|girişimci|
 # Ozet: cagrinin NE OLDUGUNU soyleyen amac/kapsam cumlesi. 30.08: "programi",
 # "cagri", "proje" gibi her yerde gecen kelimeler cikarildi - baslik tekrarini
 # ozet diye yaziyorlardi. Amac bildiren YUKLEM aranir.
+# 30.08 (2) OLCULDU: yukaridaki KALIP listesi dardi - TUBITAK'in 5 cagrisinda
+# yalniz 2'sinde tuttu, TKDK/KOSGEB/HAMLE'de hic tutmadi. Kurum duyurulari
+# hedef kitleyi kalipla degil DUZ CUMLEYLE yaziyor. IKINCI KAPI: cumlede bir
+# BASVURU SAHIBI TURU (DESEN_OZNE) ile ona bagli bir fiil BIRLIKTE geciyorsa
+# o cumle kim sorusunu cevapliyordur. Kalip listesi ONCE denenir (daha kesin);
+# tutmazsa bu genis kapi acilir ve ayni RED kapilarindan gecer.
+$DESEN_KIM2  = '(?i)(destekle(n|me)|yararlan|başvur|verilecek|sağlanacak|hibe|uygun)'
+# OZET GERI CEKILMESI: amac kalibi tutmazsa cagrinin ILK anlamli govde
+# cumlesi ozettir - kurum duyurulari boyle yazilir ("... cagrisi acildi").
+# Baslik tekrari ve kim/tutar ile cakisan cumle zaten eleniyor; kalan ilk
+# cumle UYDURMA DEGIL, sayfanin kendi giris cumlesidir. Bu kapi olmadan
+# TUBITAK'in 5 cagrisinin 5'inde de ozet BOS kaldi (olculdu).
+$DESEN_OZET2 = '(?i)(açıl|başla|yürüt|kapsam|destek|proje|çağrı|program)'
 $DESEN_OZET  = '(?i)(amacıyla|amacı ile|amaçlanmakta|amacını taşı|hedeflenmekte|hedefiyle|desteklenmesi|desteklenmekte|sağlanmasına yönelik|kapsamında[^\.]{0,80}(destek|proje|başvuru)|için (hibe|destek|kaynak) (sağlan|verilecek|aktarıl))'
 # Asama etiketi: BASLIK + metinden TURETILIR (kural tabanli, tek tek anahtar
 # kelime). Turetilmis olduğu icin karta "aşama" olarak degil filtreye yem olarak
@@ -337,8 +377,24 @@ function YutSayfa([string]$metin, [string]$baslik){
   if(-not $metin){ return [ordered]@{ ozet=""; kim=""; tutar=""; asama=@() } }
   # sira onemli: once KIM ve NE KADAR (kesin bilgi), sonra OZET - ozet bu
   # ikisinin cumlesini tekrarlamayan ilk amac cumlesini secer.
-  $k = CumleSec $metin $DESEN_KIM   150 $baslik @()
-  if($k -and ($k -match $DESEN_KIM_RED -or $k -match $DESEN_KURUM_ADI -or $k -notmatch $DESEN_OZNE)){ $k = "" }
+  # KIM iki kapidan gecer: once kesin kalip listesi, tutmazsa OZNE+fiil.
+  # Ikisi de ayni RED kapilarina tabidir (yonlendirme cumlesi, kurum adi,
+  # ozne tasimayan cumle kabul edilmez).
+  $kimGecerli = {
+    param($c)
+    if(-not $c){ return $false }
+    if($c -match $DESEN_KIM_RED){ return $false }
+    if($c -match $DESEN_KURUM_ADI){ return $false }
+    if($c -notmatch $DESEN_OZNE){ return $false }
+    return $true
+  }
+  $k = CumleSec $metin $DESEN_KIM 150 $baslik @()
+  if(-not (& $kimGecerli $k)){ $k = "" }
+  if(-not $k){
+    $genisKapi = $DESEN_OZNE + '[^\.]{0,120}?' + $DESEN_KIM2
+    $k = CumleSec $metin $genisKapi 150 $baslik @()
+    if(-not (& $kimGecerli $k)){ $k = "" }
+  }
   $t = CumleSec $metin $DESEN_TUTAR 150 $baslik @($k)
   # 30.08 oz-sinav: desen cumlenin ILERISINDEKI rakami gorup tutabiliyor, ama
   # karta yalniz KIRPILMIS hali yaziliyor - kullanici rakamsiz bir "Ne kadar"
@@ -346,6 +402,7 @@ function YutSayfa([string]$metin, [string]$baslik){
   # bu alan cevap vermiyordur, bos birakilir.
   if($t -and $t -notmatch '\d'){ $t = "" }
   $o = CumleSec $metin $DESEN_OZET  190 $baslik @($k,$t)
+  if(-not $o){ $o = CumleSec $metin $DESEN_OZET2 190 $baslik @($k,$t) }
   # 30.08 oz-sinav: ayni cumle iki alanda birden yazilirsa kart kendini tekrar
   # eder (olculdu: 1831'de "kim" ve "ne kadar" ayni cumleydi; 1501'de "ozet" ve
   # "kim" ayni cumlenin iki farkli kirpimiydi - tam esitlik testi bunu KACIRDI).
