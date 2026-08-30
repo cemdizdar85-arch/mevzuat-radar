@@ -70,16 +70,225 @@ function IsoTarih($ham){
   return ""
 }
 function GuvenliCek([string]$adres){
-  # IWR .Content ikili-bozma dersi burada gecerli degil (HTML metin) ama
   # UseBasicParsing + UA standart; hata firlatmaz, bos doner (olculemedi).
+  # 30.08 TURKCE HARF DERSI: sunucu Content-Type'ta charset yazmazsa PS govdeyi
+  # ISO-8859-1 sayar ve "Döngüsel" -> "D ng sel" olur (KOSGEB'de OLCULDU).
+  # Bu tarih okumasinda goze batmiyordu, yutulan CUMLEDE bariz. Cozum: ham
+  # BAYT alinir, meta charset'e bakilmaksizin UTF-8 cozulur; cozum bozuksa
+  # (replacement karakteri cok) ISO-8859-9'a dusulur.
   try {
     $yanit = Invoke-WebRequest -Uri $adres -UserAgent "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -TimeoutSec 60 -UseBasicParsing
+    $bayt = $null
+    try { $bayt = $yanit.RawContentStream.ToArray() } catch {}
+    if($bayt -and $bayt.Length){
+      $utf = [Text.Encoding]::UTF8.GetString($bayt)
+      $bozuk = ([regex]::Matches($utf, [string][char]0xFFFD)).Count
+      if($bozuk -gt 3){ return [Text.Encoding]::GetEncoding(28599).GetString($bayt) }
+      return $utf
+    }
     return [string]$yanit.Content
   } catch { Write-Host ("  cekilemedi: {0} ({1})" -f $adres, $_.Exception.Message); return "" }
 }
 
+# --- YUTMA KATMANI (30.08 Cem: "sadece bilgi vermek degil hepsini yutsak ve
+#     kisaca bilgiler versek") ---------------------------------------------------
+# TESHIS: 162 firsatin 133'unde "Kim basvurabilir" ve "Ne kadar" alanlari
+# "Cagri duyurusunda" yaziyordu - liste %82 oraninda BOS bilgi tasiyordu.
+# Cozum: robot cagrinin DETAY metnini de yutar; kim/tutar/ozet/asama alanlari
+# metinden CIKARILIR.
+#
+# UYDURMA YASAGI (Cem'in en sert kurali): bu fonksiyonlarin hicbiri cumle
+# URETMEZ - kaynak metinden BIREBIR cumle secer, yalniz kirpar. Desen tutmazsa
+# BOS doner ve kart eskisi gibi "Cagri duyurusunda" der. Kor kalmak, yanlis
+# rakam vermekten iyidir.
+function DuzMetin([string]$html){
+  if(-not $html){ return "" }
+  $t = $html -replace '(?s)<script.*?</script>',' ' -replace '(?s)<style.*?</style>',' '
+  $t = $t -replace '(?s)<nav.*?</nav>',' ' -replace '(?s)<header.*?</header>',' ' -replace '(?s)<footer.*?</footer>',' '
+  $t = $t -replace '<(p|div|br|li|tr|h[1-6])[^>]*>',"`n" -replace '<[^>]*>',' '
+  # 30.08 TURKCE HARF DERSI (ikinci vaka): KOSGEB govdesi Turkce harfleri
+  # ADLANDIRILMIS entity ile yaziyor (&Ccedil;, &uuml;…). Toptan '&[a-z]+;' -> ' '
+  # kurali bunlari BOSLUGA cevirip "Çağrı" -> " ağrı", "düzenlenecek" ->
+  # "d zenlenecek" yapiyordu - OLCULDU. Once harfler cozulur, sonra kalan
+  # entity'ler bosluga iner.
+  $t = [Net.WebUtility]::HtmlDecode($t)
+  $t = $t -replace '&nbsp;',' ' -replace '&[a-zA-Z]+;',' ' -replace '&#\d+;',' '
+  # 30.08 OLCULDU: 25 karakter esigi menuyu GECIRIYORDU ("Erisilebilirlik
+  # Ayarlarini Temizle", "Sifir Atik ve Dongusel Ekonomi" gibi menu/etiket
+  # satirlari "Ne kadar" alanina dusuyordu). Govde cumlesinin menuden farki:
+  # UZUN olur VE icinde cumle noktalamasi ya da bagli bir yuklem bulunur.
+  $satirlar = @()
+  foreach($ham in ($t -split "`n")){
+    $s = ($ham -replace '\s+',' ').Trim()
+    if($s.Length -lt 45){ continue }                       # menu/etiket satiri
+    if($s -notmatch '[a-zçğıöşü]{3}\s+[a-zçğıöşü]{3}'){ continue }  # BASLIK KUTUSU (Her Kelime Buyuk)
+    $satirlar += $s
+  }
+  # 30.08: satirlar BOSLUKLA birlestirilirse noktayla bitmeyen baslik satiri
+  # ("… Çağrısı Açıldı") kendinden sonraki gercek cumleye YAPISIR ve 540
+  # karakterlik blok olusur (olculdu) - blok da uzunluk elemesine takilip
+  # bilgiyi tamamen dusuruyordu. HTML blok siniri KORUNUR; cumle bolme once
+  # satira, sonra cumleye iner.
+  return ($satirlar -join "`n")
+}
+function Cumleler([string]$metin){
+  if(-not $metin){ return @() }
+  # nokta+bosluk+buyuk harf (TR harfler dahil) sinirindan bol.
+  # 30.08 DUZELTME: "2026 yili 2. Cagrisi" gibi SIRA SAYISINDAN sonraki nokta
+  # cumle sonu degildir - basliklar orta yerinden kesiliyordu. Nokta'nin
+  # oncesi tek/cift haneli sayiysa bolunmez.
+  # (lookahead'de rakam da kabul edilir: "…sunulmaktadır. 1501-Sanayi…" gibi
+  #  program koduyla BASLAYAN cumleler yoksa oncekine yapisiyordu - olculdu.)
+  $cikan = @()
+  foreach($satir in ($metin -split "`n")){
+    foreach($c in [regex]::Split($satir, '(?<![\s\(]\d{1,2})(?<=[\.\!\?:])\s+(?=[A-ZÇĞİÖŞÜ]|\d{3,})')){
+      $d = ($c -replace '\s+',' ').Trim()
+      if($d.Length -ge 40){ $cikan += $d }
+    }
+  }
+  return ,$cikan
+}
+function Kirp([string]$c, [int]$tavan){
+  if(-not $c){ return "" }
+  $c = $c.Trim()
+  if($c.Length -le $tavan){ return $c }
+  # kelime ortasindan kesme
+  $kes = $c.Substring(0,$tavan)
+  $bosluk = $kes.LastIndexOf(' ')
+  if($bosluk -gt ($tavan*0.6)){ $kes = $kes.Substring(0,$bosluk) }
+  return ($kes.TrimEnd(' ',',',';') + '…')
+}
+function CumleSec([string]$metin, [string]$desen, [int]$tavan, [string]$baslik, [string[]]$kacin){
+  # desene UYAN ilk cumleyi BIREBIR dondurur (uydurma yok). Yoksa bos.
+  # 30.08: iki oz-sinav eklendi - (1) secilen cumle BASLIGIN kopyasiysa bilgi
+  # degildir, atlanir; (2) 400 karakteri asan cumle genelde birlesmis blok olur.
+  $bas = ""
+  if($baslik){ $bas = (($baslik -replace '[^\p{L}\p{Nd}]','')).ToLowerInvariant() }
+  foreach($c in (Cumleler $metin)){
+    if($c -notmatch $desen){ continue }
+    if($c.Length -gt 400){ continue }
+    if($bas.Length -ge 12){
+      $sade = (($c -replace '[^\p{L}\p{Nd}]','')).ToLowerInvariant()
+      # cumle basligi tekrarliyorsa (ya da baslik cumleyi yutuyorsa) bos bilgidir
+      if($sade.StartsWith($bas.Substring(0,[Math]::Min(24,$bas.Length)))){ continue }
+      if($bas.StartsWith($sade.Substring(0,[Math]::Min(24,$sade.Length)))){ continue }
+    }
+    # zaten baska bir alana yazilmis cumleyi TEKRAR ETME - siradakine bak
+    if($kacin){
+      $sadeC = (($c -replace '[^\p{L}\p{Nd}]','')).ToLowerInvariant()
+      $carpisti = $false
+      foreach($k in $kacin){
+        if(-not $k){ continue }
+        $sadeK = (($k -replace '[^\p{L}\p{Nd}]','')).ToLowerInvariant()
+        $n = [Math]::Min(60, [Math]::Min($sadeC.Length, $sadeK.Length))
+        if($n -ge 20 -and $sadeC.Substring(0,$n) -eq $sadeK.Substring(0,$n)){ $carpisti = $true; break }
+      }
+      if($carpisti){ continue }
+    }
+    return (Kirp $c $tavan)
+  }
+  return ""
+}
+# "Ne kadar": oran/tutar cumlesi. 30.08 SIKILASTIRILDI - eski desen bagalamsiz
+# "%" ya da "firmalar" gorunce tutuyordu ve alakasiz cumle yaziyordu (olculdu:
+# 1501 cagrisinda gercek oran yerine giris cumlesi secilmisti). Artik PARA
+# BAGLAMI + RAKAM birlikte aranir; rakamsiz cumle "ne kadar" cevabi degildir.
+$DESEN_TUTAR = '(?i)(?=.*\d)((destek oran|hibe destek|üst limit|üst sınır|azami|en fazla|en çok|toplam bütçe|bütçesi|destek tutar|geri ödemesiz|ödenek|katkı(sı)?)[^\.]{0,60}?(%\s?\d|\d[\d\.\,]{2,}|\d+\s?(bin|milyon|milyar))|(%\s?\d{1,3})[^\.]{0,40}?(destek|oran|hibe)|\d[\d\.\,]{2,}\s?(TL|₺)|\d+\s?(bin|milyon|milyar)\s?(TL|₺|Avro|Euro|€))'
+# "Kim basvurabilir": uygunluk cumlesi. 30.08 SIKILASTIRILDI - tek basina
+# "firmalar"/"isletmeler" her cumlede geciyordu; artik UYGUNLUK KALIBI sart.
+$DESEN_KIM   = '(?i)(başvuru sahib|uygun başvuru|başvuru yapabil|kimler başvur|başvurabilecek|başvurabilir|yararlanabil|hedef kitle|ölçeğindeki (kuruluş|işletme|firma)|KOBİ (ölçeğ|niteliğ|vasfı)|küçük ve orta (büyüklük|ölçek)|(sermaye şirket|kooperatif|üretici örgüt|ticaret şirket)[^\.]{0,60}(başvur|yararlan|uygun))'
+# 30.08 OLCULDU: "…uygunluk kriterleri, başvuru koşulları … rehberinde yer
+# almaktadır." cumlesi KIM desenine takiliyordu ama KIMSEYI tarif etmiyor,
+# okuyucuyu baska belgeye yolluyor. Yonlendirme cumlesi bilgi degildir.
+$DESEN_KIM_RED = '(?i)(rehber(in|de|ine)|ilanın sonuna|aşağıda (yer al|sunul)|ayrıntılı bilgi|bakınız|belirtilmiştir\.?$)'
+# 30.08 OLCULDU: KOSGEB sayfasinda "Kucuk ve Orta Olcekli Isletmeleri Gelistirme
+# ve Destekleme Idaresi Baskanligi" cumlesi KIM alanina dusuyordu - bu KURUMUN
+# KENDI ADI, basvuru sahibi tarifi degil. Kurum adiyla biten satir reddedilir.
+$DESEN_KURUM_ADI = '(?i)(başkanlığı|bakanlığı|genel müdürlüğü|kalkınma ajansı|ajansı)\s*\.?\s*$'
+# 30.08: "Kim basvurabilir" bir OZNE tarif etmelidir. Basvuru PROSEDURUNU
+# anlatan cumleler ("…KAYS sistemi uzerinde olusturulan Taahhutname…") desene
+# takiliyor ama kimseyi tarif etmiyordu - olculdu. Cumlede bir basvuru sahibi
+# TURU gecmiyorsa alan bos birakilir.
+$DESEN_OZNE = '(?i)(işletme|firma|şirket|KOBİ|kooperatif|üretici|girişimci|kuruluş|üniversite|dernek|vakıf|birlik|oda|belediye|tüzel kişi|gerçek kişi|sivil toplum|kamu kurum|araştırmacı|ihracatçı|yatırımcı|çiftçi|esnaf|sanayici)'
+# Ozet: cagrinin NE OLDUGUNU soyleyen amac/kapsam cumlesi. 30.08: "programi",
+# "cagri", "proje" gibi her yerde gecen kelimeler cikarildi - baslik tekrarini
+# ozet diye yaziyorlardi. Amac bildiren YUKLEM aranir.
+$DESEN_OZET  = '(?i)(amacıyla|amacı ile|amaçlanmakta|amacını taşı|hedeflenmekte|hedefiyle|desteklenmesi|desteklenmekte|sağlanmasına yönelik|kapsamında[^\.]{0,80}(destek|proje|başvuru)|için (hibe|destek|kaynak) (sağlan|verilecek|aktarıl))'
+# Asama etiketi: BASLIK + metinden TURETILIR (kural tabanli, tek tek anahtar
+# kelime). Turetilmis olduğu icin karta "aşama" olarak degil filtreye yem olarak
+# girer; eslesme yoksa BOS kalir (etiket uydurulmaz).
+#  AB kayitlari INGILIZCE gelir (SEDIA yalniz en yayimliyor) - Turkce desen
+#  onlarda hicbir zaman tutmuyordu, 100 AB cagrisi asama suzgecinin disinda
+#  kaliyordu. Her satira Ingilizce karsiliklari da eklendi.
+$ASAMA_DESEN = [ordered]@{
+  ihracat   = '(?i)(ihracat|dış ticaret|yurt dışı pazar|uluslararasılaş|fuar|ihracatçı|export|internationalisation|foreign market|trade fair)'
+  arge      = '(?i)(ar-?ge|araştırma[ -]geliştirme|yenilik|inovasyon|prototip|teknoloji geliştirme|patent|TEYDEB|research and innovation|innovation action|R&D|prototyp|technology development|pilot demonstration)'
+  istihdam  = '(?i)(istihdam|işe alım|çalışan sayısı|mesleki eğitim|staj|işbaşı eğitim|employment|workforce|skills development|vocational training|job creation)'
+  donusum   = '(?i)(dijital dönüşüm|dijitalleş|yeşil dönüşüm|yeşil büyüme|enerji verimlil|sürdürülebilir|karbon|iklim|digital transition|digitalis|green transition|energy efficien|sustainab|decarbonis|climate)'
+  finansman = '(?i)(kredi|faiz|kefalet|teminat|finansman|sigorta|kâr payı|kar payı|loan|guarantee scheme|financial instrument|equity|blended finance)'
+  kurulus   = '(?i)(yeni kurul|girişimci|start-?up|iş kurma|kuruluş aşaması|ilk kez|genç girişim|entrepreneur|newly established|spin-?off|incubat)'
+  buyume    = '(?i)(kapasite artır|yatırım|makine|teçhizat|büyüme|ölçek|modernizasyon|üretim tesisi|scale-?up|capacity build|investment|manufacturing facility|market uptake)'
+}
+function AsamaBul([string]$metin){
+  # 30.08 OLCULDU: genis metinde YEDI etiketin ALTISI birden tutuyordu. Her
+  # filtrede cikan kayit hicbir filtrede ayirt edici degildir - "tusa basinca
+  # bir sey degismiyor" hissinin ikinci kaynagi buydu. Artik etiketler metinde
+  # KAC KEZ gectigine gore siralanir ve EN GUCLU UCU alinir; tek kez gecen
+  # yan degini etiket sayilmaz (>=2 gecis ya da ilk sirada olma sarti).
+  if(-not $metin){ return ,@() }
+  $skor = @()
+  foreach($ad in $ASAMA_DESEN.Keys){
+    $n = ([regex]::Matches($metin, $ASAMA_DESEN[$ad])).Count
+    if($n -gt 0){ $skor += [pscustomobject]@{ ad=$ad; n=$n } }
+  }
+  if(-not $skor.Count){ return ,@() }
+  $sirali = @($skor | Sort-Object -Property @{Expression='n';Descending=$true}, @{Expression='ad'})
+  $enCok = $sirali[0].n
+  $secilen = @($sirali | Where-Object { $_.n -ge 2 -or $_.n -eq $enCok } | Select-Object -First 3 | ForEach-Object { $_.ad })
+  return ,$secilen
+}
+function YutSayfa([string]$metin, [string]$baslik){
+  # tek cagri metninden dort alan cikarir; bulunmayan alan BOS kalir.
+  if(-not $metin){ return [ordered]@{ ozet=""; kim=""; tutar=""; asama=@() } }
+  # sira onemli: once KIM ve NE KADAR (kesin bilgi), sonra OZET - ozet bu
+  # ikisinin cumlesini tekrarlamayan ilk amac cumlesini secer.
+  $k = CumleSec $metin $DESEN_KIM   150 $baslik @()
+  if($k -and ($k -match $DESEN_KIM_RED -or $k -match $DESEN_KURUM_ADI -or $k -notmatch $DESEN_OZNE)){ $k = "" }
+  $t = CumleSec $metin $DESEN_TUTAR 150 $baslik @($k)
+  # 30.08 oz-sinav: desen cumlenin ILERISINDEKI rakami gorup tutabiliyor, ama
+  # karta yalniz KIRPILMIS hali yaziliyor - kullanici rakamsiz bir "Ne kadar"
+  # okuyor (olculdu: 1831 Yesil Inovasyon). Gosterilecek metinde rakam yoksa
+  # bu alan cevap vermiyordur, bos birakilir.
+  if($t -and $t -notmatch '\d'){ $t = "" }
+  $o = CumleSec $metin $DESEN_OZET  190 $baslik @($k,$t)
+  # 30.08 oz-sinav: ayni cumle iki alanda birden yazilirsa kart kendini tekrar
+  # eder (olculdu: 1831'de "kim" ve "ne kadar" ayni cumleydi; 1501'de "ozet" ve
+  # "kim" ayni cumlenin iki farkli kirpimiydi - tam esitlik testi bunu KACIRDI).
+  # Karsilastirma ON EK uzerinden yapilir; ayni cumleden gelen alanin zayifi
+  # bosaltilir (rakam tasiyan "ne kadar", uygunluk kalibi tasiyan "kim" kalir).
+  $onek = { param($x) if(-not $x){ "" } else { (($x -replace '[^\p{L}\p{Nd}]','')).ToLowerInvariant() } }
+  $ayniMi = { param($a,$b)
+    $x = & $onek $a; $y = & $onek $b
+    if(-not $x -or -not $y){ return $false }
+    $n = [Math]::Min(60, [Math]::Min($x.Length, $y.Length))
+    if($n -lt 20){ return ($x -eq $y) }
+    return ($x.Substring(0,$n) -eq $y.Substring(0,$n))
+  }
+  if((& $ayniMi $k $t)){ if($t -match '\d'){ $k = "" } else { $t = "" } }
+  if((& $ayniMi $o $k)){ $o = "" }
+  if((& $ayniMi $o $t)){ $o = "" }
+  # 30.08: asama etiketi BASLIK + SAYFA METNI uzerinden turetilir. Once yalniz
+  # yutulan uc cumleye bakiyorduk - 133 kaydin 101'i etiketsiz kaliyor ve asama
+  # suzgeci yine bos donuyordu (olculdu). Gurultu riskini AsamaBul'un "en guclu
+  # uc etiket" kurali karsilar; metin tavani sayfanin konu tasiyan bas kismidir.
+  $asamaMetni = ($baslik + " " + $metin)
+  if($asamaMetni.Length -gt 4000){ $asamaMetni = $asamaMetni.Substring(0,4000) }
+  return [ordered]@{ ozet=$o; kim=$k; tutar=$t; asama=(AsamaBul $asamaMetni) }
+}
+
 $cagrilar = @()
 $kaynakDurum = [ordered]@{}
+$yutulanAdet = 0
 
 # --- 1) TUBITAK --------------------------------------------------------------
 Write-Host "TUBITAK cagri blogu okunuyor..."
@@ -177,10 +386,21 @@ if($blokBas -ge 0){
     }
     # kapanis etiketi yoksa etiketli son-tarih adaylarindan en gec olani (temkin: yalniz etiketlilerden)
     if(-not $sonTarih -and $tarihler.Count){ $sonTarih = ($tarihler | ForEach-Object { $_.tarih } | Sort-Object | Select-Object -Last 1) }
+    # YUTMA: duyuru sayfasi ZATEN cekildi (yukarida tarih tablosu icin) - eskiden
+    # metni atiyorduk. Govde region-content'ten sonra baslar; oncesi site menusu.
+    $yTb = YutSayfa "" ""
+    if($duyuruHtml){
+      $govdeBas = $duyuruHtml.IndexOf('region-content')
+      $govde = if($govdeBas -ge 0){ $duyuruHtml.Substring($govdeBas) } else { $duyuruHtml }
+      $yTb = YutSayfa (DuzMetin $govde) $bag.baslik
+      if($yTb.ozet -or $yTb.tutar -or $yTb.kim){ $yutulanAdet++ }
+    }
     $cagrilar += [ordered]@{
       kaynak="TÜBİTAK"; kod=$kod; baslik=$bag.baslik; durum="acik"
       acilis=$acilis; sonTarih=$sonTarih
       tarihler=$tarihler
+      ozet=$yTb.ozet; kim=$yTb.kim; tutar=$yTb.tutar
+      asama=(&{ if(@($yTb.asama).Count){ ,@($yTb.asama) } else { AsamaBul $bag.baslik } })
       url=($tubitakKok + $bag.href)
     }
     $tubitakAdet++
@@ -241,9 +461,14 @@ foreach($href in $kosgebHavuz.Keys){
   if($sonK){
     try { if([datetime]::ParseExact($sonK,"yyyy-MM-dd",$null) -lt $bugun){ continue } } catch {}
   }
+  # YUTMA: detay sayfasi ZATEN cekildi (tarih cumlesi icin) - metni de okuyoruz.
+  $yKo = YutSayfa (DuzMetin $detayHtml) $baslik
+  if($yKo.ozet -or $yKo.tutar -or $yKo.kim){ $yutulanAdet++ }
   $cagrilar += [ordered]@{
     kaynak="KOSGEB"; kod=""; baslik=$baslik; durum="acik"
     acilis=$acilisK; sonTarih=$sonK; tarihler=@()
+    ozet=$yKo.ozet; kim=$yKo.kim; tutar=$yKo.tutar
+    asama=(&{ if(@($yKo.asama).Count){ ,@($yKo.asama) } else { AsamaBul $baslik } })
     url=("https://www.kosgeb.gov.tr" + $href)
   }
   $kosgebAdet++
@@ -343,11 +568,51 @@ try {
         if($acilisAB){ try { $acilisGelecekte = ([datetime]::ParseExact($acilisAB,"yyyy-MM-dd",$null) -ge $bugun) } catch {} }
         if(-not $sonAB -and -not $acilisGelecekte){ continue }
       }
+      # --- YUTMA (AB) ---------------------------------------------------------
+      # EK ISTEK YOK: SEDIA metadata'sinda zaten duruyordu, eskiden atiyorduk.
+      #  * descriptionByte -> "Expected Outcome" ozeti (portal metni INGILIZCE;
+      #    ceviri UYDURMA olur, oldugu gibi verilir ve kartta boyle etiketlenir)
+      #  * budgetOverview  -> bu konuya ayrilan butce/hibe basina tutar (SAYI
+      #    kaynaktan gelir, yalniz bicimlenir)
+      #  * typesOfAction   -> hangi aksiyon tipi (kim/nasil basvurur sinyali)
+      $ozetAB = ""; $tutarAB = ""; $kimAB = ""; $abTamMetin = ""
+      if($meta.descriptionByte){
+        # asama turetmesi TAM aciklamadan yapilir (kirpilmis 190 karakter konuyu
+        # tasimiyordu - AB'nin 100 cagrisi asama suzgecine hic girmiyordu)
+        $abTamMetin = (DuzMetin "$($meta.descriptionByte[0])") -replace '^\s*Expected Outcome:?\s*',''
+        if($abTamMetin.Length -gt 4000){ $abTamMetin = $abTamMetin.Substring(0,4000) }
+        $ozetAB = Kirp $abTamMetin 190
+      }
+      if($meta.typesOfAction){ $kimAB = "$($meta.typesOfAction[0])" }
+      if($meta.budgetOverview){
+        try {
+          $bo = "$($meta.budgetOverview[0])" | ConvertFrom-Json
+          foreach($grup in $bo.budgetTopicActionMap.PSObject.Properties){
+            foreach($ak in @($grup.Value)){
+              if("$($ak.action)" -like "$kimlik*"){
+                $enAz = [double]$ak.minContribution; $enCok = [double]$ak.maxContribution
+                $adet = [int]$ak.expectedGrants
+                if($enCok -gt 0){
+                  $bicim = { param($x) if($x -ge 1000000){ ("{0:N1} milyon €" -f ($x/1000000)) } else { ("{0:N0} €" -f $x) } }
+                  $aralik = if($enAz -gt 0 -and $enAz -ne $enCok){ (& $bicim $enAz) + " – " + (& $bicim $enCok) } else { (& $bicim $enCok) }
+                  $tutarAB = "Proje başına " + $aralik
+                  if($adet -gt 0){ $tutarAB += ("; yaklaşık {0} proje desteklenecek" -f $adet) }
+                }
+                break
+              }
+            }
+            if($tutarAB){ break }
+          }
+        } catch {}
+      }
+      if($ozetAB -or $tutarAB){ $yutulanAdet++ }
       $abListe += [ordered]@{
         kaynak="AB"; kod="$($meta.callIdentifier)"; baslik=$baslikAB; durum=$durumAB
         program=$programAB
         acilis=$acilisAB; sonTarih=$sonAB
         tarihler=@()
+        ozet=$ozetAB; kim=$kimAB; tutar=$tutarAB; ozetDil="en"
+        asama=(AsamaBul ($baslikAB + " " + $kimAB + " " + $abTamMetin))
         url=("https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/" + $kimlik)
       }
     }
@@ -413,12 +678,31 @@ try {
       if($bitis){
         try { if([datetime]::ParseExact($bitis,"yyyy-MM-dd",$null) -lt $bugun){ continue } } catch {}
       }
+      # --- YUTMA (Kalkinma Ajanslari) ----------------------------------------
+      # 30.08 OLCULDU: ka.gov.tr API'si YALNIZ ad+tarih+redirect verir - butce ve
+      # uygunluk YOK ("bu API'de alan yok" hukmu tahminle degil, alan dokumuyle
+      # kuruldu). Bilgi ajansin KENDI ilan sayfasindadir; redirect izlenip metin
+      # oradan yutulur. 26 ajans = 26 ayri HTML; bu yuzden desen tabanli, sayfa
+      # tanimayan okuma yapilir, tutmazsa alan BOS kalir.
+      $kaDetayDosya = Join-Path ([IO.Path]::GetTempPath()) "ka-detay.html"
+      Remove-Item $kaDetayDosya -ErrorAction SilentlyContinue
+      $yKa = YutSayfa "" ""
+      try {
+        & $curlKomut -sSL -m 45 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $kaDetayDosya "$($destek.redirect_url)" 2>$null
+        if(Test-Path $kaDetayDosya){
+          $yKa = YutSayfa (DuzMetin (Get-Content $kaDetayDosya -Raw -Encoding UTF8)) "$($destek.name)"
+          if($yKa.ozet -or $yKa.tutar -or $yKa.kim){ $yutulanAdet++ }
+        }
+      } catch {}
       $kaListe += [ordered]@{
         kaynak="Kalkınma Ajansları"; kod="$($destek.agency_code)".ToUpperInvariant(); baslik="$($destek.name)"; durum="acik"
         acilis=(IsoTarih $destek.support_start_date); sonTarih=$bitis
         tarihler=@()
+        ozet=$yKa.ozet; kim=$yKa.kim; tutar=$yKa.tutar
+        asama=(&{ if(@($yKa.asama).Count){ ,@($yKa.asama) } else { AsamaBul "$($destek.name)" } })
         url="$($destek.redirect_url)"
       }
+      Start-Sleep -Milliseconds 250
     }
     if($kaSayfa -ge $kaToplamSayfa){ break }
     $kaSayfa++
@@ -484,9 +768,15 @@ if(-not $pdf2txt){
       # yalniz son teslimi GELECEKTE olan ilan "acik"tir; tarih cozulemeyen ilan gosterilmez
       if(-not $sonTk){ continue }
       try { if([datetime]::ParseExact($sonTk,"yyyy-MM-dd",$null) -lt $bugun){ continue } } catch { continue }
+      # YUTMA: ilan PDF'inin metni ZATEN cikarildi ($metin) - tedbir adlari,
+      # kimin basvurabilecegi ve butce orada yazar; eskiden yalniz tarih aliniyordu.
+      $yTk = YutSayfa $metin "IPARD III $no. Basvuru Cagri Ilani"
+      if($yTk.ozet -or $yTk.tutar -or $yTk.kim){ $yutulanAdet++ }
       $cagrilar += [ordered]@{
         kaynak="TKDK (IPARD)"; kod=(&{ if($no){"IPARD III $no. Çağrı"} else {""} }); baslik="IPARD III $no. Başvuru Çağrı İlanı"
         durum="acik"; acilis=$acilisTk; sonTarih=$sonTk; tarihler=$tarihlerTk
+        ozet=$yTk.ozet; kim=$yTk.kim; tutar=$yTk.tutar
+        asama=(&{ if(@($yTk.asama).Count){ ,@($yTk.asama) } else { AsamaBul "IPARD tarım kırsal yatırım" } })
         url=($tkdkKok + $ilanYolu)
       }
       $tkdkAdet++
@@ -543,9 +833,13 @@ if($hamleHtml -and $hamleHtml.Length -gt 5000){
   $hamleGecerli = $false
   if($hamleSon){ try { $hamleGecerli = ([datetime]::ParseExact($hamleSon,"yyyy-MM-dd",$null) -ge $bugun) } catch {} }
   if($hamleBaslik -and $hamleGecerli){
+    $yHa = YutSayfa (DuzMetin $hamleHtml) $hamleBaslik
+    if($yHa.ozet -or $yHa.tutar -or $yHa.kim){ $yutulanAdet++ }
     $cagrilar += [ordered]@{
       kaynak="HAMLE (Teknoloji Odaklı Sanayi Hamlesi)"; kod="TYKH"; baslik=$hamleBaslik; durum="acik"
       acilis=$hamleAcilis; sonTarih=$hamleSon; tarihler=$hamleTarihler
+      ozet=$yHa.ozet; kim=$yHa.kim; tutar=$yHa.tutar
+      asama=(&{ if(@($yHa.asama).Count){ ,@($yHa.asama) } else { AsamaBul ($hamleBaslik + " yatırım teknoloji") } })
       url="https://www.hamle.gov.tr/Home/CagriPlani"
     }
     $hamleAdet = 1
@@ -582,6 +876,10 @@ if(Test-Path $rgHavuzYolu){
         kaynak="KKYDP / RG tebliği"; kod="RG"; baslik=$teblig.baslik; durum="acik"
         acilis=$yayimT; sonTarih=""
         tarihler=@()
+        # teblig metni havuzda tutulmuyor - kim/tutar BOS birakilir (kor kalma
+        # kurali: olcemedigimiz alani doldurmayiz), asama basliktan turetilir.
+        ozet=""; kim=""; tutar=""
+        asama=(AsamaBul "$($teblig.baslik) tarım kırsal kalkınma yatırım")
         url=$teblig.url
       }
       $kkydpAdet++
@@ -615,11 +913,16 @@ if((Test-Path $ciktiYolu) -and ($olculenler.Count -lt $KAYNAK_SAYISI)){
       $olculdu = $false
       foreach($o in $olculenler){ if($eskiAd.StartsWith($o) -or $o.StartsWith($eskiAd)){ $olculdu = $true; break } }
       if(-not $olculdu){
+        # 30.08: yutulan alanlar da TASINIR - yoksa olculemeyen kaynagin eski
+        # kayitlari bilgisini kaybeder ve kart yeniden "Cagri duyurusunda" der.
         $cagrilar += [ordered]@{
           kaynak=$eskiKayit.kaynak; kod="$($eskiKayit.kod)"; baslik=$eskiKayit.baslik; durum=$eskiKayit.durum
           program="$($eskiKayit.program)"
           acilis="$($eskiKayit.acilis)"; sonTarih="$($eskiKayit.sonTarih)"
           tarihler=@($eskiKayit.tarihler | ForEach-Object { [ordered]@{ etiket=$_.etiket; tarih=$_.tarih } })
+          ozet="$($eskiKayit.ozet)"; kim="$($eskiKayit.kim)"; tutar="$($eskiKayit.tutar)"
+          ozetDil="$($eskiKayit.ozetDil)"
+          asama=@($eskiKayit.asama)
           url=$eskiKayit.url
         }
       }
@@ -664,3 +967,23 @@ $cikti = [ordered]@{
 $geriOkuma = Get-Content $ciktiYolu -Raw -Encoding UTF8 | ConvertFrom-Json
 Write-Host ("CAGRI HASAT: {0} cagri yazildi ({1}) -> veri/cagri-radar.json [geri okuma: {2}]" -f @($cagrilar).Count, ($olculenler -join "+"), @($geriOkuma.cagrilar).Count)
 if(@($geriOkuma.cagrilar).Count -ne @($cagrilar).Count){ Write-Host "HATA: geri okuma sayimi tutmadi"; exit 1 }
+
+# --- YUTMA KARNESI (30.08) ---------------------------------------------------
+# "kac kayit yazildi" yetmez, "kac kayit BILGI TASIYOR" olculur. Sayilar
+# GERI OKUNAN dosyadan uretilir - bellekteki degiskenden degil.
+$gc = @($geriOkuma.cagrilar)
+$doluTutar = @($gc | Where-Object { "$($_.tutar)".Trim() }).Count
+$doluKim   = @($gc | Where-Object { "$($_.kim)".Trim() }).Count
+$doluOzet  = @($gc | Where-Object { "$($_.ozet)".Trim() }).Count
+$doluAsama = @($gc | Where-Object { @($_.asama).Count -gt 0 }).Count
+Write-Host ("YUTMA KARNESI: ozet {0}/{1} · kim {2}/{1} · tutar {3}/{1} · asama {4}/{1}" -f $doluOzet, $gc.Count, $doluKim, $doluTutar, $doluAsama)
+$bosKaynak = @()
+foreach($grup in ($gc | Group-Object kaynak)){
+  $g = @($grup.Group | Where-Object { "$($_.ozet)".Trim() -or "$($_.tutar)".Trim() -or "$($_.kim)".Trim() }).Count
+  Write-Host ("  {0}: {1}/{2} kayitta bilgi var" -f $grup.Name, $g, $grup.Count)
+  if($g -eq 0 -and $grup.Count -gt 0){ $bosKaynak += $grup.Name }
+}
+# Kor kalma kurali: bir kaynagin HICBIR kaydinda bilgi cikmadiysa desen bozulmus
+# olabilir - alarm verilir ama dosya yazildigi icin cikis 0 kalir (eski davranis
+# bozulmaz); denetimde gorunur.
+if($bosKaynak.Count){ Write-Host ("UYARI: su kaynaklarda hicbir kayittan bilgi cikmadi (desen bozulmus olabilir): {0}" -f ($bosKaynak -join ", ")) }
