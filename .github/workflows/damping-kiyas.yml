@@ -26,13 +26,15 @@ name: Damping Kiyas Nobeti
 
 on:
   schedule:
-    # Pazartesi 08:30 TR — yanveri nobeti (07:20) haftanin verisini tazeledikten
-    # sonra "tazelenen sey TAM MI" sorusunu sorar.
-    - cron: "30 5 * * 1"
+    # 08:30 TR HER GUN — yanveri nobeti (07:20) veriyi tazeledikten sonra
+    # "tazelenen sey TAM MI" diye sorar. 30.08.2026 Cem: "sorusturma gunluk yap."
+    # Sebep: yeni bir damping sorusturmasi acildigi gun ithalatcinin karari
+    # degisir; haftalik kontrol o gunu 6 gun geciktirir.
+    - cron: "30 5 * * *"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write   # yalniz veri/damping-pencere-bildirim.json kutugu icin (nobet verisi YAZMAZ)
 
 jobs:
   kiyas:
@@ -88,3 +90,55 @@ jobs:
           }
           Write-Host "YESIL - ambar Bakanlik listesiyle birebir."
           Write-Host $ozet
+
+      # ---- NGGS BASVURU PENCERESI (takvim, kapi DEGIL) ----
+      # Kesin onlem 5 yilda kalkar; yerli uretici nihai gozden gecirme talebini
+      # sure bitiminden EN GEC 3 AY ONCE vermek zorundadir (Yonetmelik m.35/2).
+      # O gun kacarsa onlem KENDILIGINDEN kalkar. Robot hatirlatmazsa kimse
+      # hatirlamaz - 30.08 olcumu: ilk pencere 17.10.2026'da kapaniyor.
+      - name: NGGS basvuru penceresi (takvim hatirlatmasi)
+        if: always()
+        shell: pwsh
+        run: |
+          node motor/damping-pencere.js --gun 60 | Tee-Object -FilePath pencere-cikti.txt
+          if(-not (Test-Path 'motor/cikti/damping-pencere.json')){ Write-Host 'pencere raporu uretilemedi'; exit 0 }
+          $p = Get-Content 'motor/cikti/damping-pencere.json' -Raw -Encoding UTF8 | ConvertFrom-Json
+          # GUNLUK KOSUYORUZ AMA HER GUN MAIL ATMIYORUZ.
+          # Esik gunune TAM esitlik ararsak (kalan -eq 30) tek bir atlanan kosu
+          # bildirimi tamamen kacirir - GitHub cron'u gecikebilir/atlayabilir.
+          # Bu yuzden KUTUK tutulur: her onlem icin en son hangi esikte haber
+          # verildigi yazilir; kalan gun daha kucuk bir esige DUSTUGUNDE bir kez
+          # daha haber verilir. Kosu atlansa da esik kacmaz, tekrar da olmaz.
+          $esikler = @(60,30,14,7,3,1)
+          $kutukYol = 'veri/damping-pencere-bildirim.json'
+          $kutuk = @{}
+          if(Test-Path $kutukYol){
+            try { (Get-Content $kutukYol -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $kutuk[$_.Name] = [int]$_.Value } } catch { $kutuk = @{} }
+          }
+          $uyar = @()
+          foreach($s in $p.basvuruPenceresiAcilan){
+            $kalan = [int]$s.basvurayaGun
+            $uygun = @($esikler | Where-Object { $kalan -le $_ })      # kalan gunun altina dustugu esikler
+            if(-not $uygun.Count){ continue }
+            $simdiki = ($uygun | Measure-Object -Minimum).Minimum       # en dar esik
+            $anahtar = "$($s.urun)|$($s.sureDolumu)"
+            $onceki = if($kutuk.ContainsKey($anahtar)){ $kutuk[$anahtar] } else { 9999 }
+            if($simdiki -lt $onceki){ $uyar += $s; $kutuk[$anahtar] = $simdiki }
+          }
+          if(-not $uyar.Count){ Write-Host "Pencere: yeni esige dusen onlem yok, mail atilmadi."; exit 0 }
+          ($kutuk | ConvertTo-Json) | Set-Content $kutukYol -Encoding utf8
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add $kutukYol
+          git diff --cached --quiet          # fark VARSA cikis kodu 1 dondurur
+          if($LASTEXITCODE -ne 0){
+            git commit -m "Damping pencere bildirim kutugu [veri-operasyonu]" | Out-Null
+            git pull --rebase --autostash 2>&1 | Out-Null
+            git push 2>&1 | Out-Null
+          }
+          $satirlar = ($uyar | ForEach-Object {
+            "  $($_.basvurayaGun) GUN KALDI - son gun $($_.basvuruSonGunu) | $($_.urun) | $($_.ulkeler -join ', ') | teblig $($_.teblig) | onlemin suresi $($_.sureDolumu) tarihinde doluyor"
+          }) -join "`n"
+          $govde = "Dampinge karsi onlemde NIHAI GOZDEN GECIRME basvuru penceresi kapanmak uzere.`n`nYonetmelik m.35/2: talep, yururluk suresinin sona ermesinden EN GEC 3 AY ONCE Ticaret Bakanligi Ithalat Genel Mudurlugu'ne yazili verilir. Kacirilirsa onlem kendiliginden kalkar.`n`n$satirlar`n`nBu bir bilgilendirmedir; basvuruyu YERLI URETICI yapar (destek esigi: m.20/3).`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          $mb = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject="TETIKTE TAKVIM - NGGS basvuru penceresi ($($uyar.Count) onlem)"; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message=$govde } | ConvertTo-Json
+          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body ([Text.Encoding]::UTF8.GetBytes($mb)) | Out-Null; Write-Host "Pencere maili gonderildi ($($uyar.Count) onlem)." } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
