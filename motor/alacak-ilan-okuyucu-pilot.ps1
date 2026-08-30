@@ -169,6 +169,14 @@ Sen ILANIN DUYURDUGU ASIL/SON karari sec - metinde gecen ILK karari DEGIL.
 Baslik da ipucu verir ama tek basina yeterli degildir; metindeki EN SON
 hukum cumlesine bak. ALINTI da o karari gostermeli.
 
+DIKKAT - "DEVAM" UZATMA DEGILDIR (30.08 olcumu):
+  "kesin muhletin DEVAMINA"          -> muhlet SURUYOR, yeni karar yok
+  "kesin muhlet hukumlerinin devamina" -> yine ayni
+  "muhletin 2 AY UZATILMASINA"       -> UZATMA (yeni sure verildi)
+Mahkeme sureyi UZATMIYOR, mevcut muhletin surdugunu bildiriyorsa cevap
+UZATMA DEGILDIR - o muhletin kendi turudur (KESIN_MUHLET / GECICI_MUHLET).
+Alintida "uzatilmasina / uzatilmistir" gecmiyorsa UZATMA yazma.
+
 ETIKET ILE ALINTI AYNI SEYI SOYLEMELI (30.08 olcumu - 222 ilanda bozuldu):
 Alintiladigin cumlede "KESIN muhlet" yaziyorsa etiket KESIN_MUHLET olur;
 "GECICI muhlet" yaziyorsa GECICI_MUHLET olur. Once alintiyi sec, sonra o

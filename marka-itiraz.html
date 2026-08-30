@@ -21,7 +21,8 @@
 <meta name="twitter:description" content="Markana benzer bir başvuru mu çıktı? İşaret + fonetik benzerliği ve Nice sınıf çakışmasını ölç, karıştırılma ihtimalini ve itiraz edilebilirliği gör; kullanmama def'i ve 2 aylık itiraz süresi dahil.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <meta name="theme-color" content="#1b1a18">
-<link rel="apple-touch-icon" href="favicon.svg">>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -224,16 +225,13 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
 <script src="marka-benzerlik.js"></script>
 <script>
 (function(){
-  var AMBAR=null, YUKLENIYOR=false;
+  /* AMBAR / gunFark KALDIRILDI: ikisi de JSON dosyasından okuyan eski
+     sürümündü. Kalan gün artık sunucudan geliyor (kalan_gun) - tarayıcının
+     saat dilimine göre bir gün kayma riski de böylece ortadan kalktı. */
+  var YUKLENIYOR=false;
   var $=function(s){ return document.querySelector(s); };
   var esc=function(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
   var durum=function(h){ var e=$('#irDurum'); if(e) e.innerHTML=h; };
-
-  function gunFark(iso){
-    var b=new Date(iso+'T00:00:00Z'), s=new Date();
-    var bugun=Date.UTC(s.getFullYear(),s.getMonth(),s.getDate());
-    return Math.round((b.getTime()-bugun)/86400000);
-  }
 
   function ambarYukle(cb){
     if(AMBAR){ cb(); return; }
