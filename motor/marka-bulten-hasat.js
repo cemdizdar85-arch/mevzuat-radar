@@ -161,38 +161,79 @@ function ayristir(ham) {
 }
 
 /* ===================== KAYNAK ============================================ */
-async function bultenListesi() {
-  const r = await fetch(LISTE_URL, { headers: { 'User-Agent': 'mevzuat-radar-robot/1.0' } });
-  if (!r.ok) patla('Bulten listesi alinamadi: HTTP ' + r.status);
-  const html = await r.text();
-  const t = /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/.exec(html);
-  if (!t) patla('__NEXT_DATA__ bulunamadi - site yapisi degismis olabilir.');
-  const nd = JSON.parse(t[1]);
+/* ---------------------------------------------------------------------------
+   BULTEN LISTESI - API'den, TAMAMI
 
+   30.08 KUSUR (Cem yakaladi: "biz tumunu indirmek icin anlasmistik"):
+   Ilk surum listeyi /bultenler SAYFASININ HTML'inden okuyordu. O sayfa ilk
+   yuklemede yalnizca 20 kayit basiyor - icinden 6'si marka bulteni. Robot da
+   "kaynakta 6 bulten var" deyip 6'sini indirip BITTI dedi. Robot dogru
+   calisti; ona YANLIS LISTE verilmisti. Ders: "kaynakta su kadar var"
+   hukmu, kaynagin SAYFALAMASI olculmeden kurulmaz.
+
+   OLCULEN GERCEK: site listeyi /api/news ucundan IMLECLI (lastId) sayfalama
+   ile cekiyor; kategori 'marka'. Tam envanter:
+     264 Resmi Marka Bulteni PDF - Subat 2017'den Agustos 2026'ya - 113,9 GB
+     yilda duzenli 24 bulten (ayda iki)
+
+   IKI ACIKLAMA BICIMI VAR, ikisi de karsilanir:
+     "27.08.2026 Tarih ve 499 Sayılı Resmi Marka Bülteni"  (tarihli, 229 adet)
+     "270 Sayılı Resmi Marka Bulteni"                       (tarihsiz, 35 adet)
+   Tarihsizde yayin tarihi PDF'in yuklenme tarihinden alinir. ITIRAZ SURESI
+   BU TARIHTEN HESAPLANDIGI ICIN hangisini kullandigimiz kayda gecer
+   (tarihKaynagi) ve ekranda "yaklasik" diye gosterilmesi gerekir.
+--------------------------------------------------------------------------- */
+const API_URL = 'https://www.turkpatent.gov.tr/api/news';
+
+async function bultenListesi() {
+  const filtre = encodeURIComponent(JSON.stringify({ category: 'marka' }));
+  let lastId = 'null', tur = 0;
   const bulundu = [];
-  (function gez(o) {
-    if (!o || typeof o !== 'object') return;
-    if (Array.isArray(o)) return o.forEach(gez);
-    const aciklama = o.meta && o.meta.description;
-    if (aciklama && /Resmi Marka B[üu]lteni/i.test(aciklama) && Array.isArray(o.media)) {
-      const pdf = o.media.find(x => x && x.mime === 'application/pdf' && x.slug);
-      const g = /(\d{2})\.(\d{2})\.(\d{4})\s*Tarih\s*ve\s*(\d+)\s*Say/i.exec(aciklama);
-      if (pdf && g) {
-        bulundu.push({
-          bulten_no: Number(g[4]),
-          yayin_tarihi: `${g[3]}-${g[2]}-${g[1]}`,
-          slug: pdf.slug, boyut: pdf.size || null, aciklama
-        });
+
+  while (tur < 100) {
+    tur++;
+    const u = API_URL + '?locale=tr&category=marka&lastId=' + lastId + '&limit=100&filters=' + filtre;
+    const r = await fetch(u, { headers: { 'User-Agent': 'mevzuat-radar-robot/1.0' } });
+    if (!r.ok) patla('Bulten listesi alinamadi: HTTP ' + r.status);
+    const j = await r.json();
+    if (!j || j.success !== true) patla('Liste ucu beklenmeyen cevap verdi (site yapisi degismis olabilir).');
+    const p = j.payload || {}, d = p.data || [];
+    if (!d.length) break;
+
+    for (const o of d) {
+      const ac = (o.meta && o.meta.description) || '';
+      if (!/Resmi Marka B[\u00fcu]lteni/i.test(ac)) continue;   // Gazete / toplu arsiv haric
+      const pdf = (o.media || []).find(x => x && x.mime === 'application/pdf' && x.slug);
+      if (!pdf) continue;
+
+      let no = null, tarih = null, tarihKaynagi = 'aciklama';
+      const g1 = /(\d{2})\.(\d{2})\.(\d{4})\s*Tarih\s*ve\s*(\d+)\s*Say/i.exec(ac);
+      if (g1) { no = Number(g1[4]); tarih = g1[3] + '-' + g1[2] + '-' + g1[1]; }
+      else {
+        const g2 = /(\d+)\s*Say[\u0131i]l[\u0131i]\s*Resmi\s*Marka\s*B[\u00fcu]lteni/i.exec(ac);
+        if (g2) {
+          no = Number(g2[1]);
+          const t = pdf.created_at || o.publish_at || o.created_at;
+          if (t) { tarih = String(t).slice(0, 10); tarihKaynagi = 'yukleme'; }
+        }
       }
+      if (!no || !tarih) continue;
+      bulundu.push({ bulten_no: no, yayin_tarihi: tarih, tarihKaynagi, slug: pdf.slug, boyut: pdf.size || null, aciklama: ac });
     }
-    Object.values(o).forEach(gez);
-  })(nd);
+
+    lastId = d[d.length - 1].id;
+    if (!p.more) break;
+  }
 
   const tek = new Map();
-  bulundu.forEach(b => { if (!tek.has(b.bulten_no)) tek.set(b.bulten_no, b); });
-  return [...tek.values()].sort((a, b) => b.bulten_no - a.bulten_no);
+  for (const b of bulundu) if (!tek.has(b.bulten_no)) tek.set(b.bulten_no, b);
+  const liste = [...tek.values()].sort((a, b) => b.bulten_no - a.bulten_no);
+  const supheli = liste.filter(b => b.tarihKaynagi === 'yukleme').length;
+  const gb = (liste.reduce((a, b) => a + (b.boyut || 0), 0) / 1073741824).toFixed(1);
+  log('Kaynakta ' + liste.length + ' marka bulteni (' + tur + ' tur, ' + gb + ' GB)'
+    + ' - tarihi aciklamada olmayan: ' + supheli);
+  return liste;
 }
-
 async function indir(slug, hedef) {
   // AKITARAK yazilir, bellege toplanmaz. Ilk surum 477 MB'i once RAM'e
   // aliyordu: hem savurgan, hem de dosya ancak SONUNDA olustugu icin
