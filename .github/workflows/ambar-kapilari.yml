@@ -84,18 +84,35 @@ jobs:
         shell: pwsh
         run: ./motor/surum-tazeligi.ps1
 
-      - name: SURUM KARNESI GERCEKTEN YAZILDI MI
+      # 30.08 TESHIS ADIMI: CI'nin surum olcumu yerelden kotu cikiyor
+      # (CI 30 olculen / 30 sorunlu · yerel 40 olculen / 0 sorunlu). Iki sebep
+      # bulundu (gitignore'lu klasor, eksik poppler) ama UCUNCU sebep duruyor.
+      # Log admin-kilitli oldugu icin KARNENIN KENDISI depoya alinir - delil
+      # dosyada durur, tahmin gerekmez. Karne veri/fabrika/ altinda (ignore'lu),
+      # bu yuzden izlenen bir yola KOPYALANIR.
+      - name: SURUM KARNESI TESHISI (delili depoya al)
         if: always()
         shell: pwsh
         run: |
           $k = 'veri/fabrika/surum-tazeligi-karnesi.json'
-          if(Test-Path $k){
-            $j = Get-Content $k -Raw | ConvertFrom-Json
-            Write-Host ("KARNE VAR: {0} standart olculdu ({1})" -f @($j.satirlar).Count, $j.tarih)
-          } else {
-            Write-Host "KOR: $k YOK - envanterin 'Surum olculen' sutunu BOS cikacak."
-            Write-Host "  Bu, adim 'success' gorunse bile surum kapisinin KOSMADIGI anlamina gelir."
+          if(-not (Test-Path $k)){
+            Write-Host "KOR: $k YOK - surum kapisi kosmamis demektir."
+            '{"not":"karne uretilmedi - surum kapisi CI da kosmadi"}' | Out-File 'veri/surum-karnesi-ci.json' -Encoding utf8
+            exit 0
           }
+          $j = Get-Content $k -Raw | ConvertFrom-Json
+          $sat = @($j.satirlar)
+          Write-Host ("KARNE VAR: {0} standart · tarih {1}" -f $sat.Count, $j.tarih)
+          $dag = $sat | Group-Object durum | ForEach-Object { "$($_.Name)=$($_.Count)" }
+          Write-Host ("durum dagilimi: {0}" -f ($dag -join ' · '))
+          Write-Host "--- ilk 8 satir (ambar vs yeni) ---"
+          $sat | Select-Object -First 8 | ForEach-Object {
+            Write-Host ("  {0,-12} {1,-22} ambar {2,5}p/{3,8}k -> yeni {4,5}p/{5,8}k" -f $_.standart,$_.durum,$_.ambar_parca,$_.ambar_krk,$_.yeni_parca,$_.yeni_krk)
+          }
+          $sifirYeni = @($sat | Where-Object { [int]$_.yeni_parca -eq 0 }).Count
+          Write-Host ("YENI HALI 0 PARCA olan: {0}/{1}  (yuksekse PDF/pdftotext sorunu)" -f $sifirYeni, $sat.Count)
+          Write-Host ("pdftotext: {0}" -f (& bash -lc 'command -v pdftotext || echo YOK'))
+          Copy-Item $k 'veri/surum-karnesi-ci.json' -Force
 
       - name: ONCEKI DELIK SAYISINI SAKLA
         if: always()
@@ -170,7 +187,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          for f in veri/butunluk-raporu.json veri/AMBAR-ENVANTERI.md veri/saglik-karnesi.json veri/veri-katalogu.json; do
+          for f in veri/butunluk-raporu.json veri/AMBAR-ENVANTERI.md veri/saglik-karnesi.json veri/veri-katalogu.json veri/surum-karnesi-ci.json; do
             [ -f "$f" ] && git add "$f" 2>/dev/null || true
           done
           if git diff --staged --quiet; then
