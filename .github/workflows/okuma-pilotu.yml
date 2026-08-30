@@ -96,6 +96,7 @@ jobs:
           path: |
             veri/alacak-okuma-pilot.json
             veri/alacak-hakem-yedek.json
+            veri/alacak-okuma-onbellek.json
           if-no-files-found: warn
           retention-days: 90
 
@@ -125,10 +126,26 @@ jobs:
           # arada baska commit'ler (robot ya da diger oturum) geliyor. Depoda iki
           # is akisi paralel calisiyor; tek seferlik push YETMEZ. Rebase edip
           # birkac kez dene - kaybolan liste bir daha kaybolmasin.
+          # 30.08 KUSUR: burada REBASE vardi ve muhlet turunda CAKISTI:
+          #   "error: could not apply ... Supheli damga 257 kayit"
+          # Sebep: bu uc dosya her kosuda BASTAN yazilan robot ciktisi. Iki kosu
+          # ust uste gelince git satir satir birlestirmeye calisiyor - oysa
+          # birlestirilecek bir sey yok, EN YENI KOSU dogrudur. Olcum ve kasaya
+          # yazma basariliydi; yalniz bu adim dustu ve 2.872 kayitlik onbellek
+          # kayboldu (artefakta da konmamisti).
+          # COZUM: rebase yerine "ana telin ustune yeniden yaz". Dosyalar
+          # calisma kopyasinda duruyor; commit cozulup ana telin tepesine
+          # yeniden konuyor, cakisma dogmuyor.
           for deneme in 1 2 3; do
             if git push origin HEAD:main; then echo "push OK (deneme $deneme)"; exit 0; fi
-            echo "push reddedildi, rebase edilip tekrar denenecek ($deneme/3)"
-            git fetch origin main && git rebase origin/main || { git rebase --abort; exit 1; }
+            echo "push reddedildi, ana telin ustune yeniden yazilacak ($deneme/3)"
+            git fetch origin main || exit 1
+            git reset --soft origin/main
+            git add veri/alacak-supheli-damga.json
+            [ -f veri/alacak-hakem-yedek.json ]   && git add veri/alacak-hakem-yedek.json
+            [ -f veri/alacak-okuma-onbellek.json ] && git add veri/alacak-okuma-onbellek.json
+            if git diff --cached --quiet; then echo "degisiklik kalmadi"; exit 0; fi
+            git commit -m "Supheli damga $N kayit · yazma yedegi $Y kayit [okuma-pilotu]"
             sleep 5
           done
           echo "3 denemede de push edilemedi"; exit 1
