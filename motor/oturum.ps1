@@ -19,6 +19,12 @@ param(
   [switch]$Durum,
   [switch]$Nabiz,     # oturum açılışında otomatik koşar (hook)
   [string]$Kol = "",
+  # 30.08: iki oturum AYNI çalışma ağacını paylaşıyor. `site` kolu 44 HTML
+  # dosyasını düzenlerken `alacak` kolu kapanmak istedi ve kapı düştü —
+  # oysa o dosyalar BAŞKA KOLUN canlı işiydi, commit'lemek yanlış olurdu.
+  # Kapıyı gevşetmek yerine bilinçli çıkış yolu açıldı: gerekçe YAZILIR ve
+  # bırakılan dosyalar kütüğe geçer. Gerekçesiz bırakma yok.
+  [string]$Birak = "",
   [switch]$Zorla      # bayat kilidi ez (yalnız Cem söylerse)
 )
 
@@ -166,11 +172,23 @@ if($Kapat){
   $bekleyen = @(git -C $KOK status --short | Where-Object { $_ -match '^( M|M |MM|A |AM|\?\?)' })
   $izlenen  = @($bekleyen | Where-Object { $_ -notmatch '^\?\?' })
 
-  if($izlenen.Count -gt 0){
+  if($izlenen.Count -gt 0 -and $Birak -eq ""){
     Yaz "`n  ⛔ $($izlenen.Count) dosya commit'lenmemiş — OTURUM BİTMEDİ:" 'Red'
     $izlenen | Select-Object -First 15 | ForEach-Object { Yaz "     $_" 'Red' }
-    Yaz "`n  Ya commit'le ya da bilerek bıraktığını söyle." 'Red'
+    Yaz "`n  Ya commit'le ya da bilerek bıraktığını söyle:" 'Red'
+    Yaz "     ... -Kapat -Kol $Kol -Birak `"neden bırakıldığı`"" 'Yellow'
     exit 1
+  }
+  if($izlenen.Count -gt 0){
+    # Bilinçli bırakma: sessizce geçilmez, KÜTÜĞE YAZILIR. Böylece "kim
+    # bıraktı, neden" sorusu üç gün sonra da cevaplanabilir.
+    Yaz "`n  ⚠ $($izlenen.Count) dosya BİLEREK bırakıldı: $Birak" 'Yellow'
+    $izlenen | Select-Object -First 10 | ForEach-Object { Yaz "     $_" 'DarkGray' }
+    $kutuk = Join-Path $KOK 'veri\oturum-birakilanlar.txt'
+    $satir = "{0} · kol={1} · gerekce={2} · dosya={3}`r`n{4}`r`n" -f `
+      (Get-Date -Format 'dd.MM.yyyy HH:mm'), $Kol, $Birak, $izlenen.Count, (($izlenen | ForEach-Object { "    $_" }) -join "`r`n")
+    Add-Content -Path $kutuk -Value $satir -Encoding UTF8
+    Yaz "  -> kütüğe yazıldı: veri/oturum-birakilanlar.txt" 'DarkGray'
   }
 
   git -C $KOK fetch origin main -q 2>&1 | Out-Null
