@@ -59,6 +59,19 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .wrap{position:relative;z-index:1}
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
+/* 30.08 kanit seridi — Senaryo Raporu'ndaki desenin ikizi. Tum renkler tema jetonundan. */
+.kanit{border:1px solid color-mix(in srgb,var(--green) 32%,transparent);background:color-mix(in srgb,var(--green) 5%,transparent);border-radius:14px;padding:14px 16px;margin:0 0 20px}
+.kanit-ust{font-size:11.5px;font-weight:800;letter-spacing:.4px;color:var(--green);text-transform:uppercase;margin-bottom:9px}
+.kanit-ust span{color:var(--dim);font-weight:600;text-transform:none;letter-spacing:0}
+.kanit-tablo{width:100%;border-collapse:collapse;font-size:13px}
+.kanit-tablo td{padding:9px 8px 9px 0;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+.kanit-tablo td:first-child{white-space:nowrap;width:1%;padding-right:16px}
+.kanit-tablo tr:last-child td{border-bottom:0}
+.kanit-tablo td b{color:var(--ink);font-weight:700}
+.kanit-tablo td small{display:block;font-size:10.5px;color:var(--dim);margin-top:3px;white-space:normal}
+.kanit-alt{font-size:11.5px;color:var(--dim);margin-top:9px;line-height:1.5}
+.kanit-alt a{color:var(--accent2);font-weight:600}
+@media(max-width:560px){.kanit-tablo,.kanit-tablo tbody,.kanit-tablo tr,.kanit-tablo td{display:block;width:100%}.kanit-tablo tr{padding:8px 0;border-bottom:1px solid var(--line)}.kanit-tablo td{border:0;padding:2px 0}.kanit-tablo td:first-child{white-space:normal;padding-right:0}}
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -85,6 +98,32 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div><span class="gozalici">🔍 Bu ürüne kaç vergi ödersin?</span></div>
   <h1>GTİP Vergi Kontrolü</h1>
   <p class="lead">Bir ürünün kodunu gir; o ürünü ithal ederken <b style="color:var(--ink)">ne kadar vergi ödersin</b> (gümrük, KDV, ÖTV, damping…), <b style="color:var(--ink)">hangi ülkeden almak daha avantajlı</b> ve nelere dikkat etmen gerektiğini sade Türkçeyle, saniyede gör. Satıyorsan ihracat tarafını da gösteririz.</p>
+
+  <!-- 30.08: KANIT SERIDI (Senaryo Raporu'ndaki desenin ikizi). Vaat degil,
+       aracin gercekten bulduklari. Uc ornek UC AYRI katman tipini gosterir:
+       ust uste binen ithalat kapilari / IHRACAT kesintisi / vergi olmayan yuk.
+       Rakamlar veriden: gtip-damping.json, gtip-durum.json (gozetim),
+       gtip-vergi.json, gtip-ekvergi.json (DFIF, TRT). -->
+  <div class="kanit noprint">
+    <div class="kanit-ust">Tek kodda kaç ayrı kapı var? <span>aracın bulduğu gerçek örnekler</span></div>
+    <table class="kanit-tablo">
+      <tbody>
+        <tr>
+          <td><b>BOPP film</b><small>3920.20.21.00.19</small></td>
+          <td>Gümrük vergisi %6,5 · İGV %10 · <b>üç ayrı ülkeden damping</b> (Çin %16,76–62,94 · Mısır %12,85–42,62 · Rusya %47,14) · üstüne <b>gözetim</b><small>dördü aynı kodda, dördü ayrı tebliğde</small></td>
+        </tr>
+        <tr>
+          <td><b>İç fındık</b><small>0802.22 · ihracat</small></td>
+          <td>İhracatta <b>8 Cent/kg DFİF kesintisi</b> — ithalat değil, <b>satarken</b> ödersin<small>88/13384 sayılı Karar; çoğu ihracatçı bunu maliyete koymuyor</small></td>
+        </tr>
+        <tr>
+          <td><b>Televizyon</b><small>85. fasıl</small></td>
+          <td><b>TRT bandrol payı</b> — vergi değil, ama bandrolsüz mal gümrükten çekilemez<small>3093 sayılı Kanun; vergi tablosunda görünmez</small></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="kanit-alt">Hiçbiri gizli değil — hepsi ayrı bir tebliğde, ayrı bir kararda. Araç bunları tek ekranda topluyor. Menşe karşılaştırması arıyorsan: <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a>.</div>
+  </div>
 
   <div class="ara">
     <input id="gtip" placeholder="ör. 6910.10.00.00.00" inputmode="numeric" autocomplete="off">
