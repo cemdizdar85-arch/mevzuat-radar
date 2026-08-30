@@ -70,7 +70,39 @@ $perKova = if ($env:HEPSI -eq '1') { 1000 } else { [Math]::Max(1, [int]($ADET / 
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Accept = 'application/json' }
 $bas = (Get-Date).AddDays(-365).ToString('yyyy-MM-dd')
 
+# --- HEDEFLI OKUMA: ILANLAR env (30.08) ------------------------------------
+# 29.08 yazma turunda destek kapisi YOKTU ve 43 damga alintisi kendini
+# desteklemeden yazildi (en agiri: alinti "konkordato isteminin REDDINE",
+# damga ret_iflas - metinde iflas yok). Bunlari duzeltmek icin TUM kovayi
+# yeniden okumak gerekmiyor; yalniz o ilan_no'lari okumak yetiyor.
+# ILANLAR="ILN...,ILN..." verilirse kova secimi ATLANIR.
 $ilanlar = @()
+if ($env:ILANLAR) {
+  $hedef = @($env:ILANLAR -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+  Write-Host ("HEDEFLI OKUMA: {0} belirli ilan (kova secimi atlandi)" -f $hedef.Count)
+  $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Accept = 'application/json' }
+  foreach ($parca in 0..([Math]::Ceiling($hedef.Count / 50.0) - 1)) {
+    $dilim = @($hedef | Select-Object -Skip ($parca * 50) -First 50)
+    if (-not $dilim.Count) { continue }
+    $liste = ($dilim | ForEach-Object { '"' + $_ + '"' }) -join ','
+    $uu = "$URL/rest/v1/alacak_ilan?select=ilan_no,baslik,il,tur,karar_durumu,metin,tarih" +
+          "&ilan_no=in.($liste)"
+    try {
+      $ham  = Invoke-WebRequest -Method Get -Uri $uu -Headers $H -TimeoutSec 300
+      foreach ($row in @($ham.Content | ConvertFrom-Json)) { $ilanlar += $row }
+    } catch { Write-Host ("  dilim {0} cekilemedi: {1}" -f $parca, $_.Exception.Message) }
+  }
+  # OZ-SINAV: istenen ile gelen ayni degilse SESSIZ GECME. Silinmis/metinsiz
+  # ilan olabilir - ama kac tane oldugu SOYLENIR.
+  if ($ilanlar.Count -ne $hedef.Count) {
+    Write-Host ("  UYARI: {0} istendi, {1} geldi - {2} ilan bulunamadi (silinmis ya da metinsiz)" -f `
+      $hedef.Count, $ilanlar.Count, ($hedef.Count - $ilanlar.Count))
+  }
+  if (-not $ilanlar.Count) { Write-Host "KOR: hedefli okumada 0 ilan cekildi."; exit 0 }
+  Write-Host ("Orneklem: {0} ilan (hedefli)" -f $ilanlar.Count)
+}
+
+if (-not $env:ILANLAR) {
 foreach ($k in $KOVALAR) {
   $u = "$URL/rest/v1/alacak_ilan?select=ilan_no,baslik,il,tur,karar_durumu,metin,tarih" +
        "&tarih=gte.$bas&karar_durumu=eq.$k&metin=not.is.null&order=tarih.desc&limit=$perKova"
@@ -118,6 +150,7 @@ foreach ($k in $KOVALAR) {
 }
 if (-not $ilanlar.Count) { Write-Host "KOR: 0 ilan cekildi - olcum guvenilmez."; exit 0 }
 Write-Host ("Orneklem: {0} ilan ({1} kova)" -f $ilanlar.Count, $KOVALAR.Count)
+}
 
 # --- KISISEL VERI MASKESI (dis servise gitmeden once) -----------------------
 # 11 haneli sayi = TCKN adayi. VKN 10 hanedir, o KALIR (tuzel kisi, kamuya acik).
@@ -466,6 +499,48 @@ $DESTEK_SINAVI = @(
 )
 $kapiKotu = @($KAPI_SINAVI  | Where-Object { (CelisikMi $_.e $_.a) -ne $_.b }) +
             @($DESTEK_SINAVI | Where-Object { (AlintiDestekliyorMu $_.e $_.a) -ne $_.b })
+# ============================================================================
+#  ONBELLEK (30.08) - "ayni ilani iki kez okuma"
+#
+#  NEDEN: yazma turu, olcum turunun AYNISINI bastan kosuyordu. 2.891 ilan =
+#  ~95 dakika ve iki kat para; hakem turu da sifirdan tekrar okuyordu. Oysa
+#  ayni istem + ayni ilan + ayni regex damgasi = ayni cevap.
+#
+#  GECERLILIK UC KOSULA BAGLI - biri bozulursa kayit KULLANILMAZ:
+#   1) ISTEM IMZASI ayni (SORU + HAKEM metninin hash'i). Istemi degistirdim mi
+#      onbellek topluca duser - 30.08'de istem uc kez degisti, her seferinde
+#      eski cevaplar gecersizdi.
+#   2) REGEX DAMGASI ayni. Damga tasindiysa hakeme sunulan iki yorumdan biri
+#      degismis demektir; eski hakem karari o ilan icin anlamsizdir.
+#   3) ONBELLEK=0 verilmemis (taze olcum icin kapatma anahtari).
+#
+#  DIKKAT: onbellek OLCUMU degil CEVABI saklar. Uyum orani her kosuda yeniden
+#  hesaplanir; kapilardan da yeniden gecer. Yani kapi duzelirse onbellekteki
+#  eski cevap YINE yakalanir.
+$ONBELLEK_ACIK = ($env:ONBELLEK -ne '0')
+$obHedef = Join-Path $kok 'veri\alacak-okuma-onbellek.json'
+$sha = [Security.Cryptography.SHA1]::Create()
+$ISTEM_IMZASI = [BitConverter]::ToString(
+  $sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($SORU + '||' + $HAKEM))).Replace('-','').Substring(0,16)
+$OB = @{}
+if ($ONBELLEK_ACIK -and (Test-Path $obHedef)) {
+  try {
+    $obj = Get-Content $obHedef -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ("$($obj.imza)" -eq $ISTEM_IMZASI) {
+      foreach ($p in $obj.kayitlar.PSObject.Properties) { $OB[$p.Name] = $p.Value }
+      Write-Host ("Onbellek: {0} kayit yuklendi (imza {1})" -f $OB.Count, $ISTEM_IMZASI)
+    } else {
+      Write-Host ("Onbellek ATILDI: istem degismis ({0} -> {1}) - tum cevaplar yeniden alinacak." -f `
+        $obj.imza, $ISTEM_IMZASI)
+    }
+  } catch { Write-Host ("Onbellek okunamadi, yok sayildi: {0}" -f $_.Exception.Message) }
+} elseif (-not $ONBELLEK_ACIK) {
+  Write-Host 'Onbellek KAPALI (ONBELLEK=0) - her ilan yeniden okunacak.'
+} else {
+  Write-Host ("Onbellek yok - ilk kosu (imza {0})" -f $ISTEM_IMZASI)
+}
+$script:obIsabet = 0; $script:obHakemIsabet = 0
+
 $kapiToplam = $KAPI_SINAVI.Count + $DESTEK_SINAVI.Count
 if ($kapiKotu.Count) {
   Write-Host ("HATA: yazma kapilari oz-sinavda {0}/{1} vakada BOZUK - kosu baslamiyor." -f `
@@ -480,8 +555,17 @@ $sonuc = @(); $uyum = 0; $uyumsuz = 0; $alintisiz = 0; $cevapsiz = 0; $celisik =
 $i = 0
 foreach ($x in $ilanlar) {
   $i++
-  $istem = $SORU.Replace('{BASLIK}', "$($x.baslik)").Replace('{METIN}', (Maskele "$($x.metin)"))
-  $c = Sor $istem
+  # ONBELLEK: ayni ilan + ayni damga + ayni istem => yeniden sorma
+  $obK = "$($x.ilan_no)"
+  $obV = $null
+  if ($OB.ContainsKey($obK) -and "$($OB[$obK].regex_damgasi)" -eq "$($x.karar_durumu)") { $obV = $OB[$obK] }
+  if ($obV) {
+    $c = "KARAR: $($obV.harf)`nALINTI: $($obV.alinti)"
+    $script:obIsabet++
+  } else {
+    $istem = $SORU.Replace('{BASLIK}', "$($x.baslik)").Replace('{METIN}', (Maskele "$($x.metin)"))
+    $c = Sor $istem
+  }
   if (-not $c) { $cevapsiz++; continue }
   $harf = ''; $alinti = ''
   # 30.08: harf yerine ETIKET okunuyor. Etiket listesi $ESLESME'nin anahtarlari
@@ -529,8 +613,13 @@ foreach ($x in $ilanlar) {
     okuma_karari = $harf; okuma_alintisi = $alinti; alinti_var = $alintiVar
     alinti_celisiyor = $celiskiVar; uyuyor = $tutuyor
   }
-  if ($i % 10 -eq 0) { Write-Host ("  {0}/{1} okundu (uyum {2} · uyumsuz {3})" -f $i, $ilanlar.Count, $uyum, $uyumsuz) }
-  Start-Sleep -Milliseconds 350
+  if ($i % 10 -eq 0) { Write-Host ("  {0}/{1} okundu (uyum {2} · uyumsuz {3} · onbellek {4})" -f `
+    $i, $ilanlar.Count, $uyum, $uyumsuz, $script:obIsabet) }
+  if (-not $obV) { Start-Sleep -Milliseconds 350 }   # onbellekten gelene bekleme yok
+}
+if ($script:obIsabet) {
+  Write-Host ("ONBELLEK: {0}/{1} cevap yeniden sorulmadan geldi (%{2:N0})" -f `
+    $script:obIsabet, $ilanlar.Count, (100.0 * $script:obIsabet / $ilanlar.Count))
 }
 
 # ============================================================================
@@ -593,9 +682,20 @@ if ($env:HAKEM -eq '1') {
     $okumaDurum = @($ESLESME[$a.okuma_karari])[0]
     $aMetin = if ($okumaDurum -and $DURUM_ACIK[$okumaDurum]) { $DURUM_ACIK[$okumaDurum] } else { 'yukaridakilerden hicbiri' }
     $bMetin = if ($DURUM_ACIK[$a.regex_damgasi]) { $DURUM_ACIK[$a.regex_damgasi] } else { $a.regex_damgasi }
-    $istem = $HAKEM.Replace('{A}', $aMetin).Replace('{B}', $bMetin).
-             Replace('{BASLIK}', "$($ilan.baslik)").Replace('{METIN}', (Maskele "$($ilan.metin)"))
-    $c = Sor $istem
+    # ONBELLEK: hakem karari da saklanir. Kosul okuma ile ayni + hakeme sunulan
+    # OKUMA YORUMU da ayni olmali (harf/etiket degistiyse eski hukum gecersiz).
+    $hK = "$($a.ilan_no)"; $hV = $null
+    if ($OB.ContainsKey($hK) -and $OB[$hK].hakem -and
+        "$($OB[$hK].regex_damgasi)" -eq "$($a.regex_damgasi)" -and
+        "$($OB[$hK].harf)" -eq "$($a.okuma_karari)") { $hV = $OB[$hK] }
+    if ($hV) {
+      $c = "HAKEM: $($hV.hakem)`nALINTI: $($hV.hakem_alinti)"
+      $script:obHakemIsabet++
+    } else {
+      $istem = $HAKEM.Replace('{A}', $aMetin).Replace('{B}', $bMetin).
+               Replace('{BASLIK}', "$($ilan.baslik)").Replace('{METIN}', (Maskele "$($ilan.metin)"))
+      $c = Sor $istem
+    }
     $kar = ''; $al = ''
     if ($c -and $c -match '(?im)^\s*HAKEM\s*:\s*\(?([ABC])') { $kar = $Matches[1].ToUpper() }
     if ($c -and $c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')      { $al  = $Matches[1].Trim() }
@@ -604,8 +704,13 @@ if ($env:HAKEM -eq '1') {
     }
     $a | Add-Member -NotePropertyName hakem        -NotePropertyValue $kar   -Force
     $a | Add-Member -NotePropertyName hakem_alinti -NotePropertyValue $al    -Force
-    if ($j % 10 -eq 0) { Write-Host ("  {0}/{1} hakem (okuma {2} · regex {3} · ikisi de degil {4})" -f $j, $ayrisan.Count, $okumaKazandi, $regexKazandi, $ikisiDe) }
-    Start-Sleep -Milliseconds 350
+    if ($j % 10 -eq 0) { Write-Host ("  {0}/{1} hakem (okuma {2} · regex {3} · ikisi de degil {4} · onbellek {5})" -f `
+      $j, $ayrisan.Count, $okumaKazandi, $regexKazandi, $ikisiDe, $script:obHakemIsabet) }
+    if (-not $hV) { Start-Sleep -Milliseconds 350 }
+  }
+  if ($script:obHakemIsabet) {
+    Write-Host ("ONBELLEK (hakem): {0}/{1} hukum yeniden sorulmadan geldi" -f `
+      $script:obHakemIsabet, $ayrisan.Count)
   }
   Write-Host ''
   Write-Host 'HAKEM SONUCU:'
@@ -768,6 +873,39 @@ $sCikti = [ordered]@{
 }
 [IO.File]::WriteAllText($sHedef, ($sCikti | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding $false))
 Write-Host ("Supheli damga listesi: {0} kayit -> {1}" -f $supheli.Count, $sHedef)
+
+# --- ONBELLEGI YAZ ----------------------------------------------------------
+# Bu kosunun cevaplari + hakem hukumleri saklanir. Onceki onbellekteki
+# kayitlar KORUNUR (bu kosu 5 kova okuduysa diger 9 kovanin cevaplari
+# silinmemeli); ayni ilan_no icin yeni cevap eskisini ezer.
+if ($ONBELLEK_ACIK) {
+  $yeni = @{}
+  foreach ($p in $OB.GetEnumerator()) { $yeni[$p.Key] = $p.Value }
+  # NOT: hakem turu Add-Member'i $ayrisan uzerinde yapiyor, ama $ayrisan
+  # $sonuc'un SUZULMUS hali - PowerShell nesneleri referanstir, ayni nesne.
+  # Yani hakem alani buradan gorunur.
+  foreach ($r in $sonuc) {
+    $var = ($r.PSObject.Properties.Name -contains 'hakem')
+    $yeni["$($r.ilan_no)"] = [ordered]@{
+      regex_damgasi = $r.regex_damgasi
+      harf          = $r.okuma_karari
+      alinti        = $r.okuma_alintisi
+      hakem         = $(if ($var) { "$($r.hakem)" } else { '' })
+      hakem_alinti  = $(if ($var) { "$($r.hakem_alinti)" } else { '' })
+    }
+  }
+  $obCikti = [ordered]@{
+    imza       = $ISTEM_IMZASI
+    aciklama   = 'Okuma + hakem cevaplarinin onbellegi. imza = SORU+HAKEM istemlerinin hash i; istem degisirse tum onbellek DUSER. Kayit yalniz regex_damgasi ayni kaldigi surece kullanilir.'
+    guncelleme = (Get-Date).ToString('dd.MM.yyyy HH:mm')
+    adet       = $yeni.Count
+    kayitlar   = $yeni
+  }
+  [IO.File]::WriteAllText((Join-Path $kok 'veri\alacak-okuma-onbellek.json'),
+    ($obCikti | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding $false))
+  Write-Host ("Onbellek yazildi: {0} kayit (bu kosuda {1} okuma + {2} hakem isabeti)" -f `
+    $yeni.Count, $script:obIsabet, $script:obHakemIsabet)
+}
 
 Write-Host ''
 Write-Host ('=' * 72)
