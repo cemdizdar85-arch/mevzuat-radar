@@ -115,7 +115,18 @@ function OnK_OzSinav {
   # 25.08 dersi: ilk nobetci surumunun regex'i 2+ karakter istiyordu, yani
   # aradigi tek harfli $H/$h'yi YAPISAL OLARAK goremiyordu. Kendi sinavi
   # olmasa "motor temiz" derdi ve YALAN olurdu.
-  $gecici = Join-Path $env:TEMP ("onk-" + [Guid]::NewGuid().ToString('N').Substring(0,8))
+  # 30.08.2026 KUSUR (CI'dan damgali delille bulundu): burada $env:TEMP vardi.
+  # O degisken LINUX'TA YOKTUR. Join-Path -Path $null soyle patlar:
+  #   "Cannot bind argument to parameter 'Path' because it is null."
+  # Sonuc: hat on kontrolunun KENDI OZ-SINAVI Linux'ta cokuyor, dolayisiyla
+  # HatOnKontrol'u cagiran betik daha ilk satirinda oluyor - hicbir sey yazmadan.
+  # GORUNEN BELIRTI BASKA YERE ISARET EDIYORDU: surum karnesinde 31 standardin
+  # 29'u "OLCULEMEDI · ambar 0p -> yeni 0p" cikiyordu; sanki Supabase ya da
+  # pdftotext sorunu varmis gibi. Ikisi de saglamdi (CI: /usr/bin/pdftotext,
+  # anahtar 219 krk, pwsh 7.6.5 Ubuntu 24.04).
+  # [IO.Path]::GetTempPath() her isletim sisteminde dogru deger verir.
+  $tmpKok = if($env:TEMP){ $env:TEMP } elseif($env:TMPDIR){ $env:TMPDIR } else { [IO.Path]::GetTempPath() }
+  $gecici = Join-Path $tmpKok ("onk-" + [Guid]::NewGuid().ToString('N').Substring(0,8))
   $null = New-Item -ItemType Directory -Force $gecici
   try {
     $bom = New-Object Text.UTF8Encoding($true)
