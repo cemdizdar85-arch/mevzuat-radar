@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 110" role="img" aria-label="Tetikte">
+  <!-- ============================================================
+       TETIKTE LOGO — açık zemin sürümü (30.08.2026)
+
+       Site 29-30.08'de acik temaya gecti (64 sayfanin 64'u). Koyu
+       zeminli logo.svg beyaz sayfaya konursa KOYU BIR KUTU birakir -
+       bu yuzden ayri sürüm var. Isaret ve renkler AYNI; degisen tek
+       sey: zemin yok, kelime koyu murekkep (--ink #16191d).
+
+       Amber lamba her iki surumde de #f5a524/#ffc24b kalir - marka
+       rengi temaya gore DEGISMEZ. (Sitedeki --accent acik temada
+       #a04a08'e donuyor ama o METIN amberi; LAMBA marka isaretidir.)
+       ============================================================ -->
+  <defs>
+    <linearGradient id="amberA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5a524"/>
+      <stop offset="1" stop-color="#ffc24b"/>
+    </linearGradient>
+    <radialGradient id="haloA" cx="50%" cy="50%" r="50%">
+      <stop offset="52%" stop-color="#f5a524" stop-opacity=".26"/>
+      <stop offset="100%" stop-color="#f5a524" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="62" cy="60" r="34" fill="url(#haloA)"/>
+  <circle cx="62" cy="60" r="19" fill="url(#amberA)"/>
+
+  <text x="112" y="78" font-family="Inter,Segoe UI,system-ui,-apple-system,Arial,sans-serif"
+        font-size="58" font-weight="800" letter-spacing="-1.4" textLength="181" lengthAdjust="spacingAndGlyphs" fill="#16191d">tetıkte</text>
+
+  <circle cx="197" cy="30" r="7" fill="url(#amberA)"/>
+</svg>

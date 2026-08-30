@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 110" role="img" aria-label="Tetikte">
+  <!-- ============================================================
+       TETIKTE LOGO — koyu zeminli tam sürüm (30.08.2026)
+
+       NEDEN VAR: markanın logosu bugüne kadar YALNIZ CSS'ti
+       (index.html .brand blogu). Yani maile, sosyal medyaya, faturaya,
+       sunuma koyacak bir logo DOSYASI yoktu. Cem logoyu paylasinca
+       olculdu: depoda hicbir logo varligi yok.
+
+       Marka isareti: amber lamba + noktasiz "ı"nin ustundeki KENDI
+       noktasi. Renkler siteyle ayni jetonlardan: #f5a524 / #ffc24b.
+       Koyu taban #1b1a18 - marka kimliginin zemini.
+
+       AÇIK ZEMİN İÇİN logo-acik.svg kullanilir (ayni isaret, koyu yazi,
+       zemin yok). Beyaz sayfaya BU dosyayi koymak koyu bir kutu birakir.
+       ============================================================ -->
+  <defs>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5a524"/>
+      <stop offset="1" stop-color="#ffc24b"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="52%" stop-color="#f5a524" stop-opacity=".34"/>
+      <stop offset="100%" stop-color="#f5a524" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="320" height="110" rx="18" fill="#1b1a18"/>
+
+  <!-- lamba + parlamasi -->
+  <circle cx="62" cy="60" r="34" fill="url(#halo)"/>
+  <circle cx="62" cy="60" r="19" fill="url(#amber)"/>
+
+  <!-- kelime: noktasiz "ı", noktasi ayri cizilir -->
+  <text x="112" y="78" font-family="Inter,Segoe UI,system-ui,-apple-system,Arial,sans-serif"
+        font-size="58" font-weight="800" letter-spacing="-1.4" textLength="181" lengthAdjust="spacingAndGlyphs" fill="#ffffff">tetıkte</text>
+
+  <!-- "ı"nin kendi noktasi - markanin imzasi -->
+  <circle cx="197" cy="30" r="7" fill="url(#amber)"/>
+</svg>

@@ -1,14 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tetikte">
+  <!-- ============================================================
+       TETIKTE FAVICON — 30.08.2026
+       Onceki favicon MAVIYDI (#2f7bff -> #26d0fe) ve markayla hicbir
+       iliskisi yoktu; 56 sayfada bagliydi, her sekmede yanlis renk
+       gorunuyordu. Marka: amber lamba + noktasiz "ı"nin ustundeki
+       kendi noktasi. Renkler siteyle ayni (--accent #f5a524,
+       --accent2 #ffc24b); zemin marka kimliginin koyu tabani.
+       16x16'da yazi okunmaz, o yuzden yalniz LAMBA + NOKTA cizilir.
+       ============================================================ -->
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2f7bff"/>
-      <stop offset="1" stop-color="#26d0fe"/>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5a524"/>
+      <stop offset="1" stop-color="#ffc24b"/>
     </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="55%" stop-color="#f5a524" stop-opacity=".38"/>
+      <stop offset="100%" stop-color="#f5a524" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#g)"/>
-  <circle cx="32" cy="32" r="17" fill="none" stroke="#03101f" stroke-opacity=".35" stroke-width="2"/>
-  <circle cx="32" cy="32" r="9" fill="none" stroke="#03101f" stroke-opacity=".35" stroke-width="2"/>
-  <path d="M32 32 L45 19" stroke="#03101f" stroke-width="3.4" stroke-linecap="round"/>
-  <circle cx="32" cy="32" r="3.2" fill="#03101f"/>
-  <circle cx="22" cy="40" r="2.6" fill="#03101f" fill-opacity=".8"/>
+
+  <!-- koyu taban: marka kimliginin zemini -->
+  <rect width="64" height="64" rx="14" fill="#1b1a18"/>
+
+  <!-- lambanin parlamasi (sitede box-shadow ile yapilan halo) -->
+  <circle cx="27" cy="38" r="21" fill="url(#halo)"/>
+
+  <!-- ana lamba -->
+  <circle cx="27" cy="38" r="13" fill="url(#amber)"/>
+
+  <!-- "ı" uzerindeki kendi noktamiz: markanin imzasi -->
+  <circle cx="45" cy="19" r="5.2" fill="url(#amber)"/>
 </svg>
