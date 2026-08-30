@@ -43,6 +43,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 30.08 UCUNCU ONARIM (olculdu): .gitkeep duzeltmesinden sonra surum
+      # karnesi YAZILDI ama 28 standardin 28'i birden "sorunlu" cikti - yerelde
+      # 40 olculup 0 sorunlu cikarken. Sebep zincirin ucunda: surum kapisi
+      # standart-yut.ps1'i kuru kosuda cagiriyor, o da KGK PDF'ini PDFTOTEXT
+      # ile metne dokuyor. Runner'da poppler YOK -> her standart icin "yeni
+      # hali 0 parca" -> hepsi INCELE. Depodaki diger akislar (mevzuat.yml,
+      # kaynak.yml, kartlar.yml) zaten bu paketi kuruyor; burada eksikti.
+      # DERS: bir betigi CI'ya tasirken CAGIRDIGI betiklerin bagimliliklarina da bak.
+      - name: pdftotext kur (poppler-utils)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
       - name: ANAHTAR VAR MI (yoksa olcum YAPILMAZ)
         shell: pwsh
         run: |
