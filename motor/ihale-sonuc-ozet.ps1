@@ -40,8 +40,24 @@ function Ist($liste){
   # bedel negatif olamaz (>%100 imkansiz), <-%100 bedel>2xmaliyet demek =
   # neredeyse her zaman ayristirma hatasi ( or. 8,29 MILYAR bedel okunmus tek
   # kayit ortalamayi -%135'e cekmisti). Band disi = OLCULEMEZ, sayilmaz.
-  $k = @($liste | Where-Object { $null -ne $_.kirimYuzde -and [double]$_.kirimYuzde -gt -100 -and [double]$_.kirimYuzde -lt 100 } | ForEach-Object { [double]$_.kirimYuzde })
-  $t = @($liste | Where-Object { $_.teklifSayisi } | ForEach-Object { [int]$_.teklifSayisi })
+  # 30.08 DUZELTME - KANITLI HATA: teklif ortalamasi TUM kayitlardan, kirim ise
+  # yalniz olculebilenlerden hesaplaniyordu. Kart ikisini TEK cumlede birlestirip
+  # "olculen 7.178 ihalenin ... ortalama 10,2 firma teklif verdi" diyordu; oysa
+  # 10,2 rakami 38.548 kayittan geliyordu. Iki ayri kume, tek ozne.
+  #
+  # DAHA KOTUSU (28.08 bulteninde olculdu): kisimli ihalenin HER KISMI havuzda
+  # ayri satir ve her satirda AYNI toplam teklif sayisi yazili. Ornek:
+  #   IKN 2026/1220377 -> 3 kayit, ucunde de teklif=7
+  # Yani cok kisimli ihaleler rekabet ortalamasina kisim sayisi kadar giriyordu;
+  # ortalama ihale basina degil KISIM basina agirlikliydi.
+  #
+  # DOGRUSU: kutunun dort satiri da AYNI kayit kumesinden konussun. Teklif de
+  # kirimin olculdugu (tek sozlesmeli, band ici) kayitlardan hesaplanir. Bu
+  # kayitlarda IKN havuzda tekil oldugu icin cifte sayim da yapisal olarak biter.
+  # (kelime gruplarinda zaten boyleydi; tur ve idare gruplari ona hizalandi)
+  $olculen = @($liste | Where-Object { $null -ne $_.kirimYuzde -and [double]$_.kirimYuzde -gt -100 -and [double]$_.kirimYuzde -lt 100 })
+  $k = @($olculen | ForEach-Object { [double]$_.kirimYuzde })
+  $t = @($olculen | Where-Object { $_.teklifSayisi } | ForEach-Object { [int]$_.teklifSayisi })
   $o = [ordered]@{ kayit = @($liste).Count }
   if($k.Count -ge 1){
     $m = ($k | Measure-Object -Average -Minimum -Maximum)

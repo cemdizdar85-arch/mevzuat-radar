@@ -881,7 +881,10 @@ function yurtIciCiz(){
     const med=(i.kirimMedyan!==undefined?i.kirimMedyan:i.kirimOrt);
     const p=[];
     p.push(`<b style="color:var(--ink)">${esc(r.nasil)} ${i.kirimOlculen} ihalenin</b> yarısı, yaklaşık maliyetin en az <b style="color:var(--accent2)">%${vr(med)}</b> altına inerek kapandı <span style="color:var(--dim)">(indirim/kırım oranı)</span>`);
-    if(i.teklifOrt) p.push(`ortalama <b style="color:var(--ink)">${vr(i.teklifOrt)}</b> firma teklif verdi <span style="color:var(--dim)">(rekabet)</span>`);
+    // 30.08: "ayni ihalelerde" eklendi. Rakam artik kirimin olculdugu AYNI
+    // kayitlardan geliyor (ihale-sonuc-ozet.ps1 Ist); cumle de bunu soylesin ki
+    // okuyan iki farkli kumeyi tek ozneye baglamasin.
+    if(i.teklifOrt) p.push(`aynı ihalelerde ortalama <b style="color:var(--ink)">${vr(i.teklifOrt)}</b> firma teklif verdi <span style="color:var(--dim)">(rekabet)</span>`);
     // negatif alt sınırı "-%91,7" diye yazmak kafa karıştırıyordu; sayı olarak veriliyor
     if(i.maliyetUstu) p.push(`<span style="color:var(--amber)">${i.maliyetUstu} tanesi maliyetin üstünde kapandı</span>`);
     // DÜRÜSTLÜK KADEMESİ: az örnekli grupta sayı "kesin oran" gibi okunmasın.
