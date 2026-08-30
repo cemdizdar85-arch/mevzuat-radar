@@ -24,7 +24,12 @@
   --mavi-acik:#1e40af;   /* ogretmen tahtasi formul metni - bir ton koyu */
   --kenar:#d5d0c6;       /* stil-acik --line2  */
   --kart2:#f7f5f1;       /* stil-acik --panel2 */
-  --kart3:#f4f2ee;       /* stil-acik --bg2    */
+  /* --kart3 YALNIZ .soruk'un SINIRIDIR (tek kullanim). Ilk gecişte --bg2
+     (#f4f2ee) verilmisti; beyaz kart uzerinde oran 1,118 cikti ve kontrast
+     kapisi "gorunmez sinir" diye dusurdu (esik 1,12 - kil payi). Koyu temada
+     ayni jeton koyu zemine karsi gorunuyordu, acik temada gorunmuyor.
+     Sinir rolune uygun ton: stil-acik --line2. */
+  --kart3:#d5d0c6;       /* stil-acik --line2  : .soruk siniri */
   --kart4:#e6e2da;       /* stil-acik --line   */
   --gri:#f4f2ee;
   --soluk-kenar:#d5d0c6;}
