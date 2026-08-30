@@ -24,6 +24,8 @@ const SAYFA = 'https://ticaret.gov.tr/ithalat/ticaret-politikasi-savunma-araclar
 const args = process.argv.slice(2);
 const yerelIdx = args.indexOf('--yerel');
 const YEREL = yerelIdx > -1 ? args[yerelIdx + 1] : null;
+const ambarIdx = args.indexOf('--ambar');            // kiyaslanacak json (varsayilan: veri/gtip-damping.json)
+const AMBAR = ambarIdx > -1 ? args[ambarIdx + 1] : path.join(KOK, 'veri', 'gtip-damping.json');
 
 /* ---------------------------------------------------------------- yardimci */
 const trUp = s => String(s || '').toLocaleUpperCase('tr-TR');
@@ -137,7 +139,10 @@ function baglantiBul(html, kalip) {
 
 /* ==================================================================== ANA */
 (async () => {
-  const rapor = { tarih: new Date().toISOString().slice(0, 10), kaynak: {}, ozet: {}, bulgular: [] };
+  // NOT: rapora ZAMAN DAMGASI konmaz. Depo kurali (CLAUDE.md): zaman alani tasiyan
+  // rapor, sonuc hic degismese bile her kosuda "degismis" gorunur -> bos commit +
+  // kapanis denetiminde gurultu. Ne zaman kosuldugunu commit tarihi zaten soyler.
+  const rapor = { kaynak: {}, ozet: {}, bulgular: [] };
 
   /* 1) kaynak dosyalari: yerel klasor ya da canli kesif */
   let onlemBuf, sorusturmaBuf, onlemUrl = null, sorusturmaUrl = null;
@@ -199,7 +204,8 @@ function baglantiBul(html, kalip) {
 
   /* 3) BIZIM AMBAR */
   // PowerShell'in Out-File -Encoding utf8'i BOM yazar; Node'da JSON.parse patlar (tarayici BOM'u atar).
-  const bizimHam = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'gtip-damping.json'), 'utf8').replace(/^﻿/, ''));
+  const bizimHam = JSON.parse(fs.readFileSync(AMBAR, 'utf8').replace(/^﻿/, ''));
+  rapor.kaynak.ambar = AMBAR;
   const bizim = bizimHam.map(x => ({ kodlar: String(x.k || '').split(/\s+/).filter(Boolean), ulke: norm(x.u), urun: norm(x.m), oran: norm(x.o), tur: norm(x.t), tip: x.tur }));
 
   /* 4) (kod, ulke) ciftleri */
