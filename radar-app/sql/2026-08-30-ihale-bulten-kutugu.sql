@@ -31,10 +31,24 @@
 --  ayirir (satir var + kayit=0  vs  satir yok). Bu ayrim olmadan kutuk yine
 --  yalan soyler.
 --
---  Calistirma: Supabase SQL Editor (proje bjrleanjpyujtajmazxn) -> BOLUM BOLUM.
+--  CALISTIRMA: Supabase SQL Editor (proje bjrleanjpyujtajmazxn) - TEK SEFERDE.
+--  Dosyanin TAMAMI kopyalanip yapistirilir, tek Run yeter.
+--
+--  NIYE TEK PARCA (30.08 degisikligi): eskiden "bolum bolum kos" yaziyordu,
+--  cunku uzun blok SOHBETTEN kopyalanirken kesilebiliyordu. Kopyalama artik
+--  dosyadan/kopyala dugmesinden yapiliyor, kesilme riski yok. Bolum bolum
+--  kosmanin GERCEK zarari ise su: BOLUM 2 gorunumu ve ihale_dokum'u DUSURUYOR,
+--  BOLUM 4 geri kuruyor. Arada durulursa okuma ucu kasada YOK kalir ve ozet
+--  ureten uc betik sessizce coker.
+--
+--  Bu yuzden dosya begin/commit ile SARILDI: Postgres'te DDL islemseldir -
+--  ya hepsi uygulanir ya hicbiri. Yarim kalmis goc artik mumkun degil.
+--
 --  Eskittigi dosya: 2026-08-20-ihale-gizli-arsiv.sql (gorunum + ihale_yaz +
 --  ihale_dokum yeniden yazilir; tablo/kasa kurallari AYNEN korunur).
 -- ============================================================================
+
+begin;
 
 
 -- ---------------------------------------------------------------- BOLUM 1/6
@@ -323,6 +337,8 @@ end;
 $fn$;
 
 revoke all on function public.ihale_sayi() from public, anon, authenticated;
+
+commit;
 
 -- ============================================================================
 --  BITTI. Dogrulama (SQL Editor'de, service_role oldugun icin doner):
