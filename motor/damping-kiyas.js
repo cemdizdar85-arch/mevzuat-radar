@@ -239,6 +239,20 @@ function baglantiBul(html, kalip) {
     }
   }
 
+  /* 6b) SORUSTURMA AMBARI da kiyaslanir (veri/damping-sorusturma.json)
+         Onlem listesi gibi bu da sessizce yarim kalabilir; kapi ayni. */
+  const sorusturmaYolu = path.join(KOK, 'veri', 'damping-sorusturma.json');
+  let sorusturmaEksik = null, sorusturmaFazla = null, ambarSorusturma = 0;
+  if (fs.existsSync(sorusturmaYolu)) {
+    const amb = JSON.parse(fs.readFileSync(sorusturmaYolu, 'utf8').replace(/^﻿/, ''));
+    ambarSorusturma = amb.length;
+    const bakSet = new Set(), ambSet = new Set();
+    for (const r of sorusturmalar) for (const k of r.kodlar) bakSet.add(cift(k, r.ulke));
+    for (const r of amb) for (const k of String(r.k || '').split(/\s+/).filter(Boolean)) ambSet.add(cift(k, r.u));
+    sorusturmaEksik = [...bakSet].filter(k => !ambSet.has(k)).length;
+    sorusturmaFazla = [...ambSet].filter(k => !bakSet.has(k)).length;
+  }
+
   /* 7) SURE DOLUMU PENCERESI */
   const bugun = new Date().toISOString().slice(0, 10);
   const birYilSonra = new Date(Date.now() + 365 * 86400000).toISOString().slice(0, 10);
@@ -265,6 +279,9 @@ function baglantiBul(html, kalip) {
     bizde_oran_alani_bos: oranBos,
     bizde_tur_alaninda_rakam: turdeOran,
     devam_eden_sorusturma_satir: sorusturmalar.length,
+    sorusturma_ambar_kayit: ambarSorusturma,
+    SORUSTURMA_EKSIK: sorusturmaEksik,     // null = ambar dosyasi yok (henuz kurulmamis)
+    SORUSTURMA_FAZLA: sorusturmaFazla,
     dolum_tarihi_okunan: dolumOkunan.length,
     dolum_okunamayan: bakanlik.length - dolumOkunan.length,
     on_iki_ayda_dolacak: pencere.length,
@@ -291,7 +308,8 @@ function baglantiBul(html, kalip) {
   console.log(`EKSIK (Bakanlikta var, bizde yok) : ${y.EKSIK_cift}`);
   console.log(`FAZLA (bizde var, Bakanlikta yok) : ${y.FAZLA_cift}`);
   console.log(`Sutun kaymasi izi : oran alani bos ${y.bizde_oran_alani_bos}/${y.bizim_kayit} · tur alaninda rakam ${y.bizde_tur_alaninda_rakam}/${y.bizim_kayit}`);
-  console.log(`Devam eden sorusturma satiri : ${y.devam_eden_sorusturma_satir}`);
+  console.log(`Devam eden sorusturma satiri : ${y.devam_eden_sorusturma_satir}` +
+    (y.SORUSTURMA_EKSIK === null ? '  (ambar dosyasi YOK)' : `  · ambar ${y.sorusturma_ambar_kayit} kayit · EKSIK ${y.SORUSTURMA_EKSIK} / FAZLA ${y.SORUSTURMA_FAZLA}`));
   console.log(`Sure dolumu : okunan ${y.dolum_tarihi_okunan}, okunamayan ${y.dolum_okunamayan}, 12 ayda dolacak ${y.on_iki_ayda_dolacak}`);
   console.log('\n--- EKSIK ilk 15 ---');
   rapor.eksikOrnek.slice(0, 15).forEach(r => console.log(`  ${r.kod} | ${r.ulke} | ${r.urun} [${r.sayfa}]`));

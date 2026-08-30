@@ -42,6 +42,17 @@ $KAYNAKLAR = @{
     cikti     = 'gtip-damping.json'
     anahtarAlan = 'm'   # cipa esles(tir)me alani (urun adi)
   }
+  # 30.08.2026 EKLENDI: DEVAM EDEN sorusturmalar. Yururlukteki onlem "bugun ne
+  # odersin"i, bu liste "yakinda ne odeyebilirsin"i soyler - 148 GTIP kodunda
+  # acik sorusturma var ve 101'inde bugun hicbir onlem YOK. Ayni bes kapidan
+  # (K1 cift indirme .. K5 cipa) gecer; ayri bir nobet yazmaya gerek yok.
+  'damping-sorusturma' = @{
+    sayfa     = 'https://ticaret.gov.tr/ithalat/ticaret-politikasi-savunma-araclari/damping-ve-subvansiyon/sorusturmalar'
+    linkDesen = 'href="([^"]*Y[^"]*r[^"]*t[^"]*len[^"]*Soru[^"]*\.xlsx)"'
+    hasatci   = 'damping-sorusturma-hasat.ps1'
+    cikti     = 'damping-sorusturma.json'
+    anahtarAlan = 'm'
+  }
   # IGV (3351) / REJIM (3350) LISTELERI - 13.08 kesif notu:
   # ticaret.gov.tr konsolide sayfalari robota ACIK (200) ama xlsx linkleri
   # govdede YOK (icerik ayri bilesenden). DOGRU KAYNAK YOLU: listelerin resmi

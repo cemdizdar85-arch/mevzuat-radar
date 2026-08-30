@@ -58,21 +58,26 @@ jobs:
         shell: pwsh
         run: |
           $ciktiVar = Test-Path 'motor/cikti/damping-kiyas.json'
-          $eksik = -1; $fazla = -1; $ozet = ''
+          $eksik = -1; $fazla = -1; $sEksik = $null; $sFazla = $null; $ozet = ''
           if($ciktiVar){
             $r = Get-Content 'motor/cikti/damping-kiyas.json' -Raw -Encoding UTF8 | ConvertFrom-Json
             $eksik = [int]$r.ozet.EKSIK_cift
             $fazla = [int]$r.ozet.FAZLA_cift
-            $ozet  = "Bakanlik: $($r.ozet.bakanlik_satir) satir / $($r.ozet.bakanlik_kod_ulke_cifti) cift / $($r.ozet.bakanlik_urun) urun`nAmbar   : $($r.ozet.bizim_kayit) kayit / $($r.ozet.bizim_kod_ulke_cifti) cift`nEKSIK: $eksik  FAZLA: $fazla`nDevam eden sorusturma satiri: $($r.ozet.devam_eden_sorusturma_satir)`n12 ayda suresi dolacak: $($r.ozet.on_iki_ayda_dolacak)"
+            # sorusturma ambari (veri/damping-sorusturma.json) — dosya yoksa null gelir
+            if($null -ne $r.ozet.SORUSTURMA_EKSIK){ $sEksik = [int]$r.ozet.SORUSTURMA_EKSIK; $sFazla = [int]$r.ozet.SORUSTURMA_FAZLA }
+            $sSatir = if($null -eq $sEksik){ '(ambar dosyasi YOK)' } else { "ambar $($r.ozet.sorusturma_ambar_kayit) kayit / EKSIK $sEksik / FAZLA $sFazla" }
+            $ozet  = "ONLEM AMBARI`n  Bakanlik: $($r.ozet.bakanlik_satir) satir / $($r.ozet.bakanlik_kod_ulke_cifti) cift / $($r.ozet.bakanlik_urun) urun`n  Ambar   : $($r.ozet.bizim_kayit) kayit / $($r.ozet.bizim_kod_ulke_cifti) cift`n  EKSIK: $eksik  FAZLA: $fazla`n`nSORUSTURMA AMBARI`n  Bakanlik: $($r.ozet.devam_eden_sorusturma_satir) satir`n  $sSatir`n`n12 ayda suresi dolacak: $($r.ozet.on_iki_ayda_dolacak)"
           }
           $log = if(Test-Path 'kiyas-cikti.txt'){ (Get-Content 'kiyas-cikti.txt' -Raw) } else { '(cikti yok)' }
 
           # KOR KALMA: rapor hic uretilmediyse de kirmizi — "olcemedim" sessizce gecilmez.
-          $kirmizi = (-not $ciktiVar) -or ($eksik -ne 0) -or ($fazla -ne 0)
+          # Sorusturma ambari HENUZ YOKSA (null) o kalem kirmizi yapmaz; VARSA sifir olmali.
+          $kirmizi = (-not $ciktiVar) -or ($eksik -ne 0) -or ($fazla -ne 0) `
+                     -or (($null -ne $sEksik) -and (($sEksik -ne 0) -or ($sFazla -ne 0)))
 
           if($kirmizi){
             $konu = if(-not $ciktiVar){ 'TETIKTE KIRMIZI - damping kiyasi KOSAMADI' }
-                    else { "TETIKTE KIRMIZI - damping ambari eksik/fazla (E:$eksik F:$fazla)" }
+                    else { "TETIKTE KIRMIZI - damping ambari (onlem E:$eksik F:$fazla · sorusturma E:$sEksik F:$sFazla)" }
             $ornek = ''
             if($ciktiVar -and $r.eksikOrnek){ $ornek = "`n`nEKSIK ornekler:`n" + (($r.eksikOrnek | Select-Object -First 15 | ForEach-Object { "  $($_.kod) | $($_.ulke) | $($_.urun)" }) -join "`n") }
             $govde = "Damping kiyas nobeti KIRMIZI.`n`n$ozet$ornek`n`nOnarim: motor/damping-hasat.ps1 kaynaktan yeniden kosulur (yanveri-onarici -Kaynak damping -Uygula).`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`n--- betik ciktisi ---`n$log"

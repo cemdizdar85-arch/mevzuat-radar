@@ -43,12 +43,19 @@ jobs:
         shell: pwsh
         run: ./motor/yanveri-onarici.ps1 -Kaynak damping -Uygula
 
+      # 30.08.2026: DEVAM EDEN sorusturmalar da ayni bes kapidan gecerek tazelenir.
+      # Yururlukteki onlem "bugun ne odersin"i, bu liste "yakinda ne odeyebilirsin"i
+      # soyler. continue-on-error YOK: sessizce eskimesin, dusen kapi gorunsun.
+      - name: Devam eden sorusturmalari TAZELE
+        shell: pwsh
+        run: ./motor/yanveri-onarici.ps1 -Kaynak damping-sorusturma -Uygula
+
       - name: Degisiklik varsa yayinla
         if: always()
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          for f in veri/gtip-damping.json veri/yanveri-damga.json veri/arac-uyari.json; do
+          for f in veri/gtip-damping.json veri/damping-sorusturma.json veri/yanveri-damga.json veri/arac-uyari.json; do
             git add "$f" 2>/dev/null || true
           done
           if git diff --cached --quiet; then
