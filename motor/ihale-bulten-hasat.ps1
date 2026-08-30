@@ -29,7 +29,11 @@ param(
   [string]$Tarih = "",
   # Varsayilan gecici klasor PLATFORM BAGIMSIZ olmali: bu betik GitHub Actions'ta
   # (Linux + PowerShell 7) da kosuyor, sabit Windows yolu orada patlar.
-  [string]$Klasor = (Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten")
+  # PARALEL SERIT (30.08): her serit kendi klasorune indirsin diye disaridan
+  # verilebilir (IHALE_BULTEN_KLASOR). Ayristirici da ayni degiskene bakar;
+  # ikisi ayni yeri gormezse serit baskasinin bultenini ayristirir.
+  [string]$Klasor = $(if("$($env:IHALE_BULTEN_KLASOR)".Trim()){ $env:IHALE_BULTEN_KLASOR }
+                      else { Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten" })
 )
 $ErrorActionPreference = "Stop"
 # 14.08 OLCUM (Actions teshis adimi): AYNI makineden curl KIK'e http=200 aliyor ve

@@ -99,6 +99,11 @@ foreach ($x in $kayitlar) {
     sozlesme_bedeli  = (Sayi $x.sozlesmeBedeli)
     yuklenici        = "$($x.yuklenici)"
     kisim_kaniti     = [bool]$x.kisimKaniti
+    # BULTEN DAMGASI (30.08): kaydin hangi gunun bulteninden geldigi. Kaynaktan
+    # okunur (ayristirici), burada yalniz tasinir. Bos gecerse tabloda NULL
+    # kalir ve ihale_sayi().damgasiz sayaci bunu gorunur kilar.
+    bulten_tarih     = $(if("$($x.bultenTarih)".Trim()){ "$($x.bultenTarih)".Trim() } else { $null })
+    bulten_sayi      = (Tam $x.bultenSayi)
   })
 }
 # ayni anahtardan iki kayit varsa sonuncusu gecerlidir (havuz kurali)
@@ -113,6 +118,30 @@ $gonderilecek = @($tekil.Values)
 Write-Host ("HAZIR : {0:N0} tekil kayit (anahtarsiz atlanan: {1})" -f $gonderilecek.Count, $anahtarsiz)
 
 if ($Olc) { Write-Host "`n(olcum modu - hicbir sey yazilmadi)"; exit 0 }
+
+# --- GOC KAPISI (30.08) -----------------------------------------------------
+# 2026-08-30-ihale-bulten-kutugu.sql basilmadan yazmak, damgasiz kayit uretir.
+# 36 aylik yutmayi damgasiz kosmak = 775.000 kaydin uzerine "hangi gunden
+# geldigini bilmiyorum" yazmak; ikinci kez yutmak gerekir. Bu yuzden kapi.
+# Olcut: ihale_sayi() cevabinda 'damgasiz' alani VAR MI. Eski surumde yok.
+# (kalici-sigorta 4. katman: kapi neden dustugunu SOYLER)
+try {
+  $on = @(RpcCagir 'ihale_sayi' @{})[0]
+  if ($null -eq $on.PSObject.Properties['damgasiz']) {
+    Write-Host ''
+    Write-Host '!! DURDURULDU: bulten kutugu gocu Supabase-e BASILMAMIS.'
+    Write-Host '   Kanit: ihale_sayi() cevabinda "damgasiz" alani yok (eski surum).'
+    Write-Host '   Yapilacak: Supabase SQL Editor -> radar-app/sql/2026-08-30-ihale-bulten-kutugu.sql'
+    Write-Host '              (BOLUM BOLUM calistir, sonra bu betigi tekrar kos)'
+    Write-Host '   Neden kapi: damgasiz yazilan kayit hangi gunden geldigini soylemez;'
+    Write-Host '               36 aylik yutma bu haliyle bastan tekrar edilmek zorunda kalir.'
+    exit 1
+  }
+  Write-Host ("GOC KAPISI: acik · kasada {0:N0} kayit, {1:N0} tanesi damgasiz" -f [int]$on.kayit, [int]$on.damgasiz)
+} catch {
+  Write-Host ("!! GOC KAPISI olculemedi: {0}" -f $_.Exception.Message)
+  exit 1
+}
 
 # --- parti parti yaz --------------------------------------------------------
 $yazilan = 0; $hatali = 0
@@ -143,4 +172,42 @@ try {
 } catch {
   Write-Host ("!! geri okuma yapilamadi: {0}" -f $_.Exception.Message)
   exit 1
+}
+
+# --- KUTUGE CENTIK (30.08) --------------------------------------------------
+# "Hangi bulten cekildi" sorusunun tek cevabi kasadaki ihale_kutuk olacak.
+# Centik YAZMA BASARILI OLDUKTAN SONRA atilir - once kutuge yazip sonra
+# yuklemede patlamak, tam da bu goce sebep olan yalani uretir (yerel kutuk
+# 4 gun diyordu, kasada 62+ gun vardi).
+# Yalniz VARSAYILAN kaynak yuklenirken atilir: $env:HEDEF ile baska bir
+# ambar yuklenirken elimizdeki damga o ambara ait DEGILDIR.
+$damgaYol = Join-Path $kok 'veri\ihale-son-kosu-damga.json'
+if (-not "$($env:HEDEF)".Trim() -and (Test-Path $damgaYol)) {
+  try {
+    $damgalar = @(Get-Content $damgaYol -Raw -Encoding UTF8 | ConvertFrom-Json)
+    $c = 0
+    foreach ($d in $damgalar) {
+      if (-not $d.tarih) {
+        Write-Host ("  kutuk atlandi ({0}): bulten tarihi kaynaktan okunamadi" -f $d.tur)
+        continue
+      }
+      RpcCagir 'ihale_kutuk_yaz' @{
+        p_gun         = "$($d.tarih)"
+        p_tur         = "$($d.tur)"
+        p_bulten_sayi = (Tam $d.sayi)
+        p_kayit       = (Tam $d.kayit)
+        p_beklenen    = (Tam $d.beklenen)
+        p_bulunan     = (Tam $d.bulunan)
+        p_eksik_ikn   = @($d.eksikIkn)
+        p_bos_sebep   = "$($d.sebep)"
+      } | Out-Null
+      $c++
+      Write-Host ("  kutuk: {0} · {1,-12} · beklenen {2} / bulunan {3} · {4}" -f `
+                  $d.tarih, $d.tur, $d.beklenen, $d.bulunan, $(if($d.tam){'TAM'}else{'EKSIK'}))
+    }
+    Write-Host ("KUTUK: {0} (gun,tur) satiri yazildi" -f $c)
+  } catch {
+    Write-Host ("!! kutuge yazilamadi: {0}" -f $_.Exception.Message)
+    exit 1
+  }
 }

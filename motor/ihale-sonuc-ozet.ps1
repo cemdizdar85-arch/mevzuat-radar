@@ -68,7 +68,10 @@ function Ist($liste){
 
 # --- 1) TUR bazinda (her kartta gosterilebilir, kapsam %100) ----------------
 $turler = [ordered]@{}
-foreach($t in @('Mal','Yapim','Hizmet')){
+# DORDUNCU IS KOLU (30.08): Danismanlik da yutuluyor artik. Kayit gelmezse
+# grup hic yazilmaz (Ist yalniz dolu gruplar icin cagriliyor), yani kart
+# davranisinda degisiklik olmaz; ama veri gelince sessizce dusmez.
+foreach($t in @('Mal','Yapim','Hizmet','Danismanlik')){
   $g = @($s | Where-Object { $_.tur -eq $t })
   if($g.Count){ $turler[$t] = (Ist $g) }
 }

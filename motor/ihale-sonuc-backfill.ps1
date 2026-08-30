@@ -1,72 +1,189 @@
-# ============================================================================
-#  SONUC ILANI BACKFILL (15.08.2026) - Cem "backfili 24 aylik yapsak daha iyi".
+﻿# ============================================================================
+#  SONUC ILANI BACKFILL - v2 (30.08.2026)
 #
-#  NEDEN: "bu is gercekte kaca yapiliyor" istatistigi az ornekten (n) besleniyor;
-#  gecmis SONUC ilanlarini biriktirince gruplar n>=10'u gecip guvenilir olur.
-#  Kirim bir ORAN (%) oldugu icin enflasyondan bagimsiz - 24 ay eskimeeden ise yarar.
+#  Cem 30.08: "asama 0'i bitir, bir hafta bekleyemeyiz" + "tam indirdigimizi,
+#  is kollarini tam indirdigimizi BILELIM".
 #
-#  NASIL: her IS GUNU icin bulteni ARSIVDEN indir (-Tarih), SONUC ayristir -Yaz
-#  (ambara IKN+sozlesme anahtariyla mukerrersiz birlesir). RESUMABLE: yapilan
-#  gunler veri/ihale-backfill-gunlog.json'da; tekrar kosulunca kaldigi yerden.
-#  THROTTLE: iki gun arasi bekleme (KIK sunucusuna nazik). Hafta sonu atlanir.
+#  ---------------------------------------------------------------------------
+#  v1 NEDEN 36 AYI KALDIRAMAZDI (olculdu, tahmin degil):
+#  Eski akista her gun icin  hasat -> ayristir -Yaz  kosuluyordu ve ayristirici
+#  BIRIKIMLI: veri/ihale-sonuc.json'i bastan okuyup tamamini yeniden yaziyor.
+#  Yani 2.250. gun, 2.250 gunluk dosyayi (yaklasik 900 MB) tekrar seri hale
+#  getiriyor. Maliyet O(n^2): 36 aylik kosuda toplam ~1 TB JSON yazimi ve
+#  ConvertTo-Json'un 775.000 nesnede saatlere cikmasi. 3 aylik backfill'in
+#  yavas olmasinin sebebi de buydu; kimse olcmemisti.
 #
-#  KULLANIM:
-#    ./ihale-sonuc-backfill.ps1 -Gun 5            # en yeni 5 (yapilmamis) is gunu - dogrulama
-#    ./ihale-sonuc-backfill.ps1 -AyGeri 24        # 24 ay tamami (uzun surer)
-#    ./ihale-sonuc-backfill.ps1 -AyGeri 24 -Gun 20  # bu kosuda en fazla 20 gun (Actions parcali)
+#  v2'DE: gunluk havuz her gun SIFIRDAN kurulur, gun biter bitmez KASAYA
+#  yuklenir. Biriktiren yer artik Supabase. Maliyet O(n), ve gunler birbirinden
+#  BAGIMSIZ hale gelir -> SERIT SERIT PARALEL kosulabilir.
+#
+#  ---------------------------------------------------------------------------
+#  IS LISTESI NEREDEN: kasadaki ihale_eksik_gun(). Yerel dosya degil, cunku
+#  yerel kutuk (ihale-backfill-gunlog.json) 4 gun yaziyordu, kasada 62+ gunluk
+#  veri vardi - yani yerel kutuk YALAN SOYLUYORDU. Tek dogru kaynak kasadir.
+#  ihale_eksik_gun IKI hali birden doner: "hic cekilmedi" ve "eksik indi"
+#  (icindekiler ile govdesi tutmayan gun). Ikincisi de yeniden cekilir.
+#
+#  TAM INDI MI: ayristirici bultenin ICINDEKILER bolumundeki IKN listesiyle
+#  govdedeki IKN listesini karsilastirir; kutuge beklenen/bulunan/tam yazilir.
+#  Tam degilse o gun kutukte "eksik" kalir ve bir sonraki kosuda geri gelir.
+#
+#  ISTENEN GUN <> GELEN GUN: KIK arsiv formu yanlis doldurulursa sessizce
+#  BUGUNUN bultenini dondurur (14.08'de bir kez oldu). Damga kaynaktan okundugu
+#  icin fark goruluyor; o gun "yapildi" sayilmaz, yerel atlanan listesine
+#  yazilir ve sonsuz tekrar donmez.
+#
+#  KULLANIM
+#    tek makine, 36 ay      : ./ihale-sonuc-backfill.ps1 -AyGeri 36
+#    Actions parcali (6 sa) : ./ihale-sonuc-backfill.ps1 -AyGeri 36 -Gun 400
+#    6 paralel serit        : ./ihale-sonuc-backfill.ps1 -AyGeri 36 -Serit 0 -SeritSayisi 6
+#                             (her serit AYRI makinede ya da AYRI klasorde:
+#                              $env:IHALE_BULTEN_KLASOR ayarlanir)
+#    kuru kosu (yazmaz)     : ./ihale-sonuc-backfill.ps1 -AyGeri 36 -Gun 2 -Olc
 # ============================================================================
 param(
-  [int]$AyGeri = 24,
-  [int]$Gun = 0,               # bu kosuda islenecek azami is gunu (0 = aralik boyunca hepsi)
-  [double]$BeklemeSn = 2.0,    # iki gun arasi bekleme (KIK'e nazik)
-  [string[]]$Turler = @('Mal','Yapim','Hizmet')
+  [int]$AyGeri = 36,
+  [int]$Gun = 0,                 # bu kosuda islenecek azami gun (0 = hepsi)
+  [double]$BeklemeSn = 2.0,      # gunler arasi bekleme (KIK'e nazik)
+  [string[]]$Turler = @('Mal','Yapim','Hizmet','Danismanlik'),
+  [int]$Serit = 0,               # bu seridin sirasi (0..SeritSayisi-1)
+  [int]$SeritSayisi = 1,         # toplam paralel serit
+  [switch]$Olc                   # olcum modu: indirir, ayristirir, YAZMAZ
 )
 $ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$hasat  = Join-Path $here "ihale-bulten-hasat.ps1"
+$hasat    = Join-Path $here "ihale-bulten-hasat.ps1"
 $ayristir = Join-Path $here "ihale-sonuc-ayristir.ps1"
-$ambar  = Join-Path $kok "veri\ihale-sonuc.json"
-$logYol = Join-Path $kok "veri\ihale-backfill-gunlog.json"
+$yukle    = Join-Path $here "ihale-supabase-yukle.ps1"
+$ambar    = Join-Path $kok  "veri\ihale-sonuc.json"
+$damgaYol = Join-Path $kok  "veri\ihale-son-kosu-damga.json"
+$atlanYol = Join-Path $kok  "veri\ihale-backfill-atlanan.json"
 
-function AmbarSay(){ if(-not (Test-Path $ambar)){ return 0 }; try{ return @((Get-Content $ambar -Raw -Encoding UTF8 | ConvertFrom-Json).sonuclar).Count }catch{ return 0 } }
+$SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co'
+$anahtar = "$($env:SUPABASE_SERVICE_KEY)".Trim()
 
-# yapilan gunler (resumable)
-$yapildi = @{}
-if(Test-Path $logYol){ try{ (Get-Content $logYol -Raw -Encoding UTF8 | ConvertFrom-Json).gunler | ForEach-Object { $yapildi["$_"] = $true } }catch{} }
+# --- is listesi: kasadan ----------------------------------------------------
+function EksikGunler([int]$ayGeri, [string[]]$turler){
+  if(-not $anahtar){ return $null }
+  $bugun = Get-Date
+  $govde = @{
+    p_bas    = $bugun.AddMonths(-$ayGeri).ToString('yyyy-MM-dd')
+    p_bit    = $bugun.AddDays(-1).ToString('yyyy-MM-dd')
+    p_turler = @($turler)
+  } | ConvertTo-Json -Compress
+  $bas = @{ apikey=$anahtar; Authorization="Bearer $anahtar"; 'Content-Type'='application/json'
+            Accept='application/json'; 'User-Agent'='MevzuatRadar-Backfill' }
+  try{
+    $c = Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/rpc/ihale_eksik_gun" `
+           -Headers $bas -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 300
+    # TUZAK (20.08 dersi): fonksiyon icinde Invoke-RestMethod dizisi tek ogeye
+    # sarilabiliyor; @() acmiyor. Bir kat duzlestir.
+    $duz = New-Object Collections.ArrayList
+    foreach($z in $c){ if($z -is [Array]){ foreach($y in $z){ [void]$duz.Add($y) } } else { [void]$duz.Add($z) } }
+    return @($duz)
+  }catch{
+    Write-Host ("!! is listesi kasadan alinamadi: {0}" -f $_.Exception.Message)
+    Write-Host "   (goc basili mi? radar-app/sql/2026-08-30-ihale-bulten-kutugu.sql)"
+    return $null
+  }
+}
 
-# Date.Now yok - gunu ambar guncelleme damgasindan degil, sistemden alamayiz;
-# param disi calismasin diye bugunu -RefTarih ile de verebilelim (Actions'ta UTC).
-$bugun = Get-Date
-$sinir = $bugun.AddMonths(-$AyGeri)
-$baslangicSayi = AmbarSay
-Write-Host ("BACKFILL basliyor · ambar simdi: {0} kayit · aralik: {1:dd.MM.yyyy} <- {2:dd.MM.yyyy} · bu kosu azami {3} gun" -f $baslangicSayi, $sinir, $bugun, $(if($Gun){$Gun}else{'hepsi'}))
+# atlanan gunler (arsivin vermedigi) - sonsuz tekrari onler
+$atlanan = @{}
+if(Test-Path $atlanYol){
+  try{ foreach($p in (Get-Content $atlanYol -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties){ $atlanan[$p.Name] = $p.Value } }catch{}
+}
 
-$d = $bugun.AddDays(-1)
-$islenen = 0; $bulunan = 0; $bos = 0
-while($d -ge $sinir){
+Write-Host ("BACKFILL v2 · {0} ay · is kolu: {1} · serit {2}/{3}" -f $AyGeri, ($Turler -join ','), $Serit, $SeritSayisi)
+if(-not $anahtar){
+  Write-Host '!! DURDURULDU: SUPABASE_SERVICE_KEY yok.'
+  Write-Host '   v2 gunluk kayitlari dogrudan kasaya yazar; anahtarsiz kosmak'
+  Write-Host '   yerelde 900 MB dosya sisirmekten baska ise yaramaz.'
+  Write-Host '   Yerelde: anahtar-kur.cmd  |  Actions: Secrets -> SUPABASE_SERVICE_KEY'
+  exit 1
+}
+
+$eksik = EksikGunler $AyGeri $Turler
+if($null -eq $eksik){ exit 1 }
+
+# (gun,tur) satirlarini GUNE indirge: bir gunun bulteni tek indirmede tum
+# turleri getiriyor (zip icinde). Gun bazli calisip turleri birlikte isliyoruz.
+$gunler = @($eksik | ForEach-Object { "$($_.gun)" } | Select-Object -Unique | Sort-Object -Descending)
+Write-Host ("EKSIK: {0} (gun,tur) satiri -> {1} tekil gun" -f @($eksik).Count, $gunler.Count)
+if(-not $gunler.Count){ Write-Host 'Eksik gun yok - havuz tam.'; exit 0 }
+
+# serit payi: siradaki her SeritSayisi'nci gun bu seride duser
+if($SeritSayisi -gt 1){
+  $pay = New-Object Collections.ArrayList
+  for($i=0; $i -lt $gunler.Count; $i++){ if(($i % $SeritSayisi) -eq $Serit){ [void]$pay.Add($gunler[$i]) } }
+  $gunler = @($pay)
+  Write-Host ("   bu seride: {0} gun" -f $gunler.Count)
+}
+
+$islenen=0; $tamam=0; $eksikKaldi=0; $arsivYok=0; $hata=0
+foreach($g in $gunler){
   if($Gun -gt 0 -and $islenen -ge $Gun){ break }
-  $wd = $d.DayOfWeek
-  if($wd -eq 'Saturday' -or $wd -eq 'Sunday'){ $d = $d.AddDays(-1); continue }
+  $d = [datetime]::ParseExact("$g".Substring(0,10), 'yyyy-MM-dd', [Globalization.CultureInfo]::InvariantCulture)
   $ts = $d.ToString('dd.MM.yyyy')
-  if($yapildi[$ts]){ $d = $d.AddDays(-1); continue }
+  if($atlanan.ContainsKey($ts)){ continue }
 
-  $oncekiSay = AmbarSay
+  # HER GUN SIFIRDAN: birikimli havuz O(n^2) idi. Biriktiren yer kasa.
+  if(Test-Path $ambar){ Remove-Item $ambar -Force -ErrorAction SilentlyContinue }
+  if(Test-Path $damgaYol){ Remove-Item $damgaYol -Force -ErrorAction SilentlyContinue }
+
   try{
     & $hasat -Turler $Turler -Tarih $ts *> $null
     & $ayristir -Yaz *> $null
-  }catch{ Write-Host ("   ! {0} hata: {1}" -f $ts, $_.Exception.Message) }
-  $sonrakiSay = AmbarSay
-  $delta = $sonrakiSay - $oncekiSay
-  if($delta -gt 0){ $bulunan += $delta } else { $bos++ }
-  Write-Host ("  {0} · +{1} kayit (ambar {2})" -f $ts, $delta, $sonrakiSay)
+  }catch{
+    Write-Host ("  {0} · HATA: {1}" -f $ts, $_.Exception.Message); $hata++
+    $islenen++; Start-Sleep -Seconds $BeklemeSn; continue
+  }
 
-  $yapildi[$ts] = $true
-  @{ guncelleme = ("Son islenen: {0}" -f $ts); gunler = @($yapildi.Keys) } | ConvertTo-Json | Out-File $logYol -Encoding utf8
+  if(-not (Test-Path $damgaYol)){
+    Write-Host ("  {0} · damga uretilmedi (bulten inmedi?)" -f $ts); $hata++
+    $islenen++; Start-Sleep -Seconds $BeklemeSn; continue
+  }
+  $dmg = @(Get-Content $damgaYol -Raw -Encoding UTF8 | ConvertFrom-Json)
+
+  # ISTENEN GUN = GELEN GUN MU? Arsiv formu tutmazsa KIK bugunun bultenini
+  # doner; damga kaynaktan okundugu icin bu fark GORUNUR. Yanlis bulteni o
+  # gunun verisi diye yazmak, havuza sessiz kirlilik sokar.
+  $gelen = @($dmg | Where-Object { $_.tarih } | Select-Object -ExpandProperty tarih -Unique)
+  $bekle = $d.ToString('yyyy-MM-dd')
+  if($gelen.Count -and ($gelen -notcontains $bekle)){
+    Write-Host ("  {0} · ARSIV VERMEDI (istenen {1}, gelen {2}) - atlaniyor" -f $ts, $bekle, ($gelen -join ','))
+    $atlanan[$ts] = ("istenen {0}, gelen {1}" -f $bekle, ($gelen -join ','))
+    ($atlanan | ConvertTo-Json) | Out-File $atlanYol -Encoding utf8
+    $arsivYok++; $islenen++; Start-Sleep -Seconds $BeklemeSn; continue
+  }
+
+  $toplam = (@($dmg | ForEach-Object { [int]$_.kayit }) | Measure-Object -Sum).Sum
+  $tamMi  = -not @($dmg | Where-Object { -not $_.tam -and $_.beklenen }).Count
+
+  if($Olc){
+    Write-Host ("  {0} · {1,5} kayit · {2}  (OLCUM - yazilmadi)" -f $ts, $toplam, $(if($tamMi){'TAM'}else{'EKSIK'}))
+  } else {
+    # yukleyici hem kayitlari hem KUTUGU yazar (damga dosyasindan)
+    & $yukle *> $null
+    if($LASTEXITCODE -ne 0){
+      Write-Host ("  {0} · YUKLEME DUSTU (kod {1}) - kutuge centik atilmadi" -f $ts, $LASTEXITCODE)
+      $hata++; $islenen++; Start-Sleep -Seconds $BeklemeSn; continue
+    }
+    Write-Host ("  {0} · {1,5} kayit · {2}" -f $ts, $toplam, $(if($tamMi){'TAM'}else{'EKSIK -> tekrar cekilecek'}))
+  }
+  if($tamMi){ $tamam++ } else { $eksikKaldi++ }
   $islenen++
-  $d = $d.AddDays(-1)
   Start-Sleep -Seconds $BeklemeSn
 }
-$bitisSayi = AmbarSay
-Write-Host ("`nBITTI · islenen gun: {0} · yeni kayit: {1} · bos/tekrar gun: {2}" -f $islenen, ($bitisSayi-$baslangicSayi), $bos)
-Write-Host ("ambar: {0} -> {1} kayit" -f $baslangicSayi, $bitisSayi)
+
+Write-Host ""
+Write-Host ("BITTI · islenen gun: {0} · tam: {1} · eksik kaldi: {2} · arsiv vermedi: {3} · hata: {4}" -f `
+            $islenen, $tamam, $eksikKaldi, $arsivYok, $hata)
+if($eksikKaldi -or $hata){
+  Write-Host "   Eksik/hatali gunler kutukte 'tam=false' kaldi; betigi tekrar kosunca yalniz onlar cekilir."
+}
+if($arsivYok){
+  Write-Host ("   Arsivin vermedigi {0} gun veri/ihale-backfill-atlanan.json'da sebebiyle yazili." -f $arsivYok)
+}
+Write-Host "   Kapsama raporu: ./motor/ihale-kapsama-raporu.ps1"

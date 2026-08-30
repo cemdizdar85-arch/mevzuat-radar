@@ -86,6 +86,8 @@ function Ihale-AmbarOku {
         kisimSayisi     = $r.kisim_sayisi
         kisimliMi       = $r.kisimli_mi
         kirimYuzde      = $r.kirim_yuzde
+        bultenTarih     = $r.bulten_tarih
+        bultenSayi      = $r.bulten_sayi
       })
     }
     $offset += $parca.Count
