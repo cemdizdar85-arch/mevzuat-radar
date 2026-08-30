@@ -139,6 +139,19 @@ details.kacc>.ic{padding:2px 0 14px}
           <select class="gir" id="pb" style="width:auto"><option value="TL">TL</option><option value="USD">USD</option><option value="EUR">EUR</option></select>
         </div>
       </div>
+      <!-- 30.08: KKDF'yi bilgiden HESABA cevirir. Odeme sekli KKDF'yi belirler,
+           malin kendisi degil (88/12944 m.3/d) - o yuzden kullaniciya sorulur.
+           Menseden bagimsiz oldugu icin siralamayi ve tasarruf farkini
+           DEGISTIRMEZ, yalnizca her satirin gercek yukunu tamamlar. -->
+      <div>
+        <label>ÖDEME ŞEKLİ (KKDF'yi bu belirler)</label>
+        <select class="gir" id="odeme">
+          <option value="">Seçilmedi — KKDF hesaba katılmasın</option>
+          <option value="pesin">Peşin · akreditif · vesaik mukabili → KKDF yok</option>
+          <option value="vadeli">Vadeli · mal mukabili · kabul kredili → KKDF var</option>
+        </select>
+        <div class="ipucu" style="font-size:11.5px;color:var(--dim);margin-top:5px">Vadeli seçersen fatura bedeli üzerinden KKDF her menşede aynı oranda eklenir; sıralama değişmez, toplam maliyet gerçeğe yaklaşır. DİİB ve yatırım teşvik belgesi kapsamı muaftır.</div>
+      </div>
     </div>
     <!-- 31.07 Cem onayi (a): ulke secimi ZORUNLU degil - biz hepsini hesaplayip siralariz;
          kutucuklar yalnizca daraltma suzgeci (bos = tum ulkeler) -->
@@ -568,12 +581,20 @@ function olustur(){
   const kkdf=EKVERGI.kkdf||null;
   const kkdfOran=(kkdf&&typeof kkdf.oran==='number')?kkdf.oran:null;
   const kkdfTL=(kkdfOran!==null&&tutar)?(tutar*kkdfOran/100):0;
+  // 30.08: odeme sekli secildiyse KKDF artik yalniz "bilgi" degil, HESABA girer.
+  // Menseden bagimsiz oldugu icin her satira AYNI oran eklenir: siralama ve
+  // tasarruf farki degismez, satirlarin toplam yuku gercege yaklasir.
+  const odeme=(document.getElementById('odeme')||{}).value||'';
+  const kkdfUygula=(odeme==='vadeli'&&kkdfOran!==null)?kkdfOran:0;
 
   // Siralama: once yuzde yuk. Yuzdeler ESITSE Tarim Payi ayirir - EMY gercek bir
   // ek maliyet, yuzde olmadigi icin toplama giremiyor ama beraberligi bozabilir.
   // (Ornek: yogurtta AB ve Kosova ikisi de %0; Kosova'nin Tarim Payi YOK -> once o.)
   const emyPuan=s=>!s.emy?0:(s.emy.tip==='sayi'?(parseFloat(String(s.emy.txt).replace(',','.'))||1):1);
-  let sonuc=secili.map(u=>ulkeYuk(dkod,nkod,u)).sort((a,b)=>(a.geriLo-b.geriLo)||(emyPuan(a)-emyPuan(b)));
+  let sonuc=secili.map(u=>ulkeYuk(dkod,nkod,u)).map(s=>kkdfUygula
+      ? {...s, kkdf:kkdfUygula, geriLo:s.geriLo+kkdfUygula, geriHi:s.geriHi+kkdfUygula}
+      : s)
+    .sort((a,b)=>(a.geriLo-b.geriLo)||(emyPuan(a)-emyPuan(b)));
   const gecerli=sonuc.filter(s=>!s.veriYok);
   const best=gecerli.length?gecerli[0]:null, worst=gecerli.length?gecerli[gecerli.length-1]:null;
   const farkP=(best&&worst)?(worst.geriLo-best.geriLo):0;
@@ -604,8 +625,12 @@ function olustur(){
     const emyT=eKay?(eKay.txt+(eKay.varsayim?'*':'')):'—';
     const emyTd=emyVar?`<td class="n"${eKay&&eKay.tip==='sayi'?' style="color:var(--amber);font-weight:700"':''}>${emyT}</td>`:'';
     const emyTdKilit=emyVar?`<td class="n" style="filter:blur(4px);user-select:none">${emyT}</td>`:'';
-    if(kilitli) return `<tr style="cursor:pointer" onclick="location.href='radar-app.html?niyet=gtip'"><td>🔒 ${s.u.em} ${s.u.ad}</td><td class="n" style="filter:blur(4px);user-select:none">${gvT}</td><td class="n" style="filter:blur(4px);user-select:none">${igvT}</td><td class="n" style="filter:blur(4px);user-select:none">${dT}</td>${emyTdKilit}<td class="n" style="filter:blur(4px);user-select:none">${geriT}</td></tr>`;
-    return `<tr class="${cls}"><td>${s.u.em} ${s.u.ad}${roz}</td><td class="n">${gvT}</td><td class="n">${igvT}</td><td class="n">${dT}</td>${emyTd}<td class="n">${geriT}</td></tr>`;
+    // KKDF sutunu: uygulandiginda satirin toplami tutsun diye gorunur olmali
+    const kkdfT=kkdfUygula?('+%'+fmtP(kkdfUygula)):'—';
+    const kkdfTd=kkdfUygula?`<td class="n">${kkdfT}</td>`:'';
+    const kkdfTdKilit=kkdfUygula?`<td class="n" style="filter:blur(4px);user-select:none">${kkdfT}</td>`:'';
+    if(kilitli) return `<tr style="cursor:pointer" onclick="location.href='radar-app.html?niyet=gtip'"><td>🔒 ${s.u.em} ${s.u.ad}</td><td class="n" style="filter:blur(4px);user-select:none">${gvT}</td><td class="n" style="filter:blur(4px);user-select:none">${igvT}</td><td class="n" style="filter:blur(4px);user-select:none">${dT}</td>${emyTdKilit}${kkdfTdKilit}<td class="n" style="filter:blur(4px);user-select:none">${geriT}</td></tr>`;
+    return `<tr class="${cls}"><td>${s.u.em} ${s.u.ad}${roz}</td><td class="n">${gvT}</td><td class="n">${igvT}</td><td class="n">${dT}</td>${emyTd}${kkdfTd}<td class="n">${geriT}</td></tr>`;
   }).join('');
   // 13.08 cila: en avantajli 3 mense KART olarak one cikar (tablo detay katmanina iner)
   const hero3=gecerli.slice(0,3).map((s,i)=>{
@@ -650,12 +675,18 @@ function olustur(){
     ${balikEmyVar?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--green) 40%,transparent);background:color-mix(in srgb,var(--green) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🐟</span><div><b style="color:var(--green)">Bu ürün İthalat Rejimi IV Sayılı Liste'de (balıkçılık ve su ürünleri).</b> Gümrük vergisi bu listenin kendi menşe sütunlarından okundu. Buradaki <b>Ek Mali Yükümlülük (EMY)</b> — Toplu Konut Fonu işlevi — CIF kıymet üzerinden <b>yüzde</b> alınır, bu yüzden Tarım Payı'ndan farklı olarak <b>geri gelmeyen yüke dahil edilmiştir</b>. Kalem kalem dökümü alttaki tabloda.</div></div></div>`:''}
     ${askiyaTanim?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">⏸️</span><div><b style="color:var(--accent2)">Bu kod, gümrük vergisi ASKIYA ALINMIŞ ürünler listesinde (İthalat Rejimi V Sayılı Liste).</b> Şartları tutuyorsa gümrük vergisi <b>%0 olabilir</b> ve tablodaki oranlar bu ürün için geçerli olmayabilir — <b>tüm menşeleri birden etkiler, sıralamayı değiştirmez.</b> Askıya alma <b>şartlıdır</b> (nihai kullanım izni / dipnot), o yüzden tablodaki oranları kendiliğinden sıfırlamadık. Listedeki tanım: <i>${askiyaTanim}</i> — ürünün bu tanıma birebir uyup uymadığını gümrük müşavirine teyit ettir.</div></div></div>`:''}
     ${nihai?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--green) 40%,transparent);background:color-mix(in srgb,var(--green) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🎯</span><div><b style="color:var(--green)">Nihai kullanım şartıyla gümrük vergisi indirimli ya da sıfır olabilir.</b> Bu kod İthalat Rejimi <b>${nihai.tur}</b> Sayılı Liste'de <i>${nihai.ad}</i> olarak geçiyor. <b>Şartlıdır:</b> nihai kullanım izni alınmalı ve ürün birebir o amaçla kullanılmalıdır. Tablodaki oranları bu yüzden indirmedik — <b>tüm menşeleri birden etkiler, sıralamayı değiştirmez.</b> İzni alabiliyorsan gerçek yükün tablodakinden düşük olur.</div></div></div>`:''}
-    ${kkdfOran!==null?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--amber) 40%,transparent);background:color-mix(in srgb,var(--amber) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🏦</span><div><b style="color:var(--amber)">Ödeme şeklin ${kkdfOran===6?'%6':'%'+fmtP(kkdfOran)} KKDF doğurabilir${kkdfTL?` — yılda ${fmtTL(kkdfTL)} ${tpb}`:''}.</b> ${kkdf.metin} <b>Menşeden bağımsızdır</b>, o yüzden yukarıdaki sıralamayı değiştirmez ve tasarruf farkına girmez — ama <b>geri gelmeyen gerçek bir maliyettir</b> ve ${kkdf.matrah?kkdf.matrah.charAt(0).toLowerCase()+kkdf.matrah.slice(1):'KDV matrahına dahil edilir'} ${kkdf.muafiyet?`<br><b>Muafiyet:</b> ${kkdf.muafiyet}`:''}<div style="font-size:11px;color:var(--dim);margin-top:4px">Dayanak: ${kkdf.dayanak||'88/12944'}</div></div></div></div>`:''}
+    ${kkdfOran!==null?`<div class="notlar" style="margin:10px 0 0"><div class="n" style="border:1px solid color-mix(in srgb,var(--amber) 40%,transparent);background:color-mix(in srgb,var(--amber) 7%,transparent);border-radius:12px;padding:12px 14px"><span class="ico">🏦</span><div>${
+      odeme==='vadeli'
+        ? `<b style="color:var(--amber)">Vadeli ödeme seçtin: %${fmtP(kkdfOran)} KKDF her menşenin yüküne EKLENDİ${kkdfTL?` — yılda ${fmtTL(kkdfTL)} ${tpb}`:''}.</b> Menşeden bağımsız olduğu için sıralamayı ve yukarıdaki tasarruf farkını <b>değiştirmez</b>; satırlardaki toplam yükü gerçeğe yaklaştırır. <b>Peşin, akreditifli veya vesaik mukabili ödemeye geçersen bu yük tamamen kalkar.</b>`
+        : odeme==='pesin'
+        ? `<b style="color:var(--green)">Peşin/akreditif/vesaik mukabili ödeme seçtin: KKDF YOK.</b> Bu ödeme şekillerinde KKDF doğmaz, tablodaki yükler eksiksizdir. Vadeye geçersen fatura bedeli üzerinden %${fmtP(kkdfOran)}${kkdfTL?` (yılda ${fmtTL(kkdfTL)} ${tpb})`:''} eklenir.`
+        : `<b style="color:var(--amber)">Ödeme şeklin %${fmtP(kkdfOran)} KKDF doğurabilir${kkdfTL?` — yılda ${fmtTL(kkdfTL)} ${tpb}`:''}.</b> ${kkdf.metin} Yukarıdaki formdan <b>ödeme şeklini seçersen hesaba katarız.</b>`
+    } ${kkdf.matrah?kkdf.matrah:''} ${kkdf.muafiyet?`<br><b>Muafiyet:</b> ${kkdf.muafiyet}`:''}<div style="font-size:11px;color:var(--dim);margin-top:4px">Dayanak: ${kkdf.dayanak||'88/12944'}</div></div></div></div>`:''}
     <div class="hero3">${hero3}</div>
     <div style="font-size:11px;color:var(--dim);margin:2px 0 4px">Oranların kaynağı: yürürlükteki İthalat Rejimi + İGV Kararı + damping tebliğleri, robot kontrol damgaları raporun altında.</div>
     <details class="kacc"><summary>📋 ${sonuc.length} menşenin tam tablosu, kalem kalem (Gümrük V. · İGV · Damping)</summary><div class="ic">
     <table>
-      <thead><tr><th>Menşe ülke</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th>${emyVar?('<th class="n">'+emyBaslik+'</th>'):''}<th class="n">Geri gelmeyen yük</th></tr></thead>
+      <thead><tr><th>Menşe ülke</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th>${emyVar?('<th class="n">'+emyBaslik+'</th>'):''}${kkdfUygula?'<th class="n">KKDF</th>':''}<th class="n">Geri gelmeyen yük</th></tr></thead>
       <tbody>${satirlar}</tbody>
     </table>
     ${kilitNot}
