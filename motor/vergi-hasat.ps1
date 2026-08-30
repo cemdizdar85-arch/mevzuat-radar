@@ -42,7 +42,7 @@ function XlsxOran($xlsx){
   # tum sheet'ler (fasillar ayri sheet olabilir)
   $sheetler = $zip.Entries | Where-Object { $_.FullName -match "xl/worksheets/sheet\d+\.xml$" }
   $ss = @()
-  if($ssXml){ foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
+  if($ssXml){ foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'(?s)<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
   $rowRx = [regex]'(?s)<row[^>]*>(.*?)</row>'
   $cellRx = [regex]'(?s)<c r="([A-Z]+\d+)"(?:[^>]*t="([^"]+)")?[^>]*>(?:<v>(.*?)</v>|<is><t[^>]*>(.*?)</t></is>)?</c>'
   foreach($sh in $sheetler){
@@ -61,7 +61,14 @@ function XlsxOran($xlsx){
       if($a -notmatch '^\d{12}$'){ continue }
       $oranlar = @()
       # dipnotlu oranlar da okunur: "10(3)", "0(1) (2)" -> sayi kismi (8703 binek oto satirlari boyleydi)
-      for($k=$kBas;$k -le $kSon;$k++){ if($h.ContainsKey($k)){ $v=($h[$k] -as [string]).Trim(); if($v -match '^(\d+([.,]\d+)?)\s*(\(\d+\)\s*)*$'){ $oranlar += [double]($Matches[1] -replace ',','.') } } }
+      # 30.08.2026 TAVANLI ORAN: bazi hucreler "8 (yeni satir) Max2,8 EUR/m2" ya da
+      # "3,8 MIN 0,6 EUR/100 Kg" yazar - yuzde VAR, ustune tavan/taban spesifik vergi.
+      # Bunlar sessizce null'a dusuyordu (5701.10.90 halilarda oldugu gibi).
+      # AYRIM SART: "1,7 EUR/1000 kg" gibi hucrede bastaki sayi YUZDE DEGIL, spesifik
+      # verginin kendisidir - onu yuzde sanmak halka yanlis oran gosterir, alinmaz.
+      for($k=$kBas;$k -le $kSon;$k++){ if($h.ContainsKey($k)){ $v=($h[$k] -as [string]).Trim()
+        if($v -match '^(\d+([.,]\d+)?)\s*(\(\d+\)\s*)*$'){ $oranlar += [double]($Matches[1] -replace ',','.') }
+        elseif($v -match '^(\d+([.,]\d+)?)\s*(?i:MIN|MAX)'){ $oranlar += [double]($Matches[1] -replace ',','.') } } }
       if($oranlar.Count){ $sonuc[(Noktali $a)] = $oranlar }
     }
   }

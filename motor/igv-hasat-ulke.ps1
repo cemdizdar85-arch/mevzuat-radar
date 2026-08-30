@@ -32,7 +32,7 @@ function XlsxUlkeOran($xlsx){
   $ssXml = OkuE $zip "xl/sharedStrings.xml"
   $sheetler = $zip.Entries | Where-Object { $_.FullName -match "xl/worksheets/sheet\d+\.xml$" }
   $ss = @()
-  if($ssXml){ foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
+  if($ssXml){ foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'(?s)<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
   $rowRx = [regex]'(?s)<row[^>]*>(.*?)</row>'
   $cellRx = [regex]'(?s)<c r="([A-Z]+\d+)"(?:[^>]*t="([^"]+)")?[^>]*>(?:<v>(.*?)</v>|<is><t[^>]*>(.*?)</t></is>)?</c>'
   foreach($sh in $sheetler){

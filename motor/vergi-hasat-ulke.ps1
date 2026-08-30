@@ -35,7 +35,7 @@ function XlsxUlkeOran($xlsx){
   $ssXml = OkuE $zip "xl/sharedStrings.xml"
   $sheetler = $zip.Entries | Where-Object { $_.FullName -match "xl/worksheets/sheet\d+\.xml$" }
   $ss = @()
-  if($ssXml){ foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
+  if($ssXml){ foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'(?s)<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
   $rowRx = [regex]'(?s)<row[^>]*>(.*?)</row>'
   $cellRx = [regex]'(?s)<c r="([A-Z]+\d+)"(?:[^>]*t="([^"]+)")?[^>]*>(?:<v>(.*?)</v>|<is><t[^>]*>(.*?)</t></is>)?</c>'
   foreach($sh in $sheetler){
@@ -59,6 +59,10 @@ function XlsxUlkeOran($xlsx){
           $v=($h[$k] -as [string]).Trim()
           # dipnotlu oranlar da okunur: "10(3)", "0(1) (2)", "6,5(3)" -> sayi kismi (8703 binek oto satirlari boyleydi)
           if($v -match '^(\d+([.,]\d+)?)\s*(\(\d+\)\s*)*$'){ $satir += [double]($Matches[1] -replace ',','.') }
+          # 30.08.2026 TAVANLI ORAN: "8 (yeni satir) Max2,8 EUR/m2" / "3,8 MIN 0,6 EUR/100Kg"
+          # -> yuzde kismi alinir. "1,7 EUR/1000 kg" gibi SALT SPESIFIK hucrede bastaki
+          # sayi yuzde DEGILDIR; oraya girilmez, null kalir (uydurma yasagi).
+          elseif($v -match '^(\d+([.,]\d+)?)\s*(?i:MIN|MAX)'){ $satir += [double]($Matches[1] -replace ',','.') }
           else { $satir += $null }
         } else { $satir += $null }
       }

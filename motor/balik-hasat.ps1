@@ -26,7 +26,7 @@ if(-not $dosya){ Write-Host "IV Sayili Liste bulunamadi!"; exit 1 }
 
 $zip = [System.IO.Compression.ZipFile]::OpenRead($dosya.FullName)
 $e = $zip.Entries | Where-Object { $_.FullName -eq "xl/sharedStrings.xml" }
-$ss=@(); if($e){ $sr=New-Object System.IO.StreamReader($e.Open(),[System.Text.Encoding]::UTF8); $ssXml=$sr.ReadToEnd(); $sr.Close(); foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
+$ss=@(); if($e){ $sr=New-Object System.IO.StreamReader($e.Open(),[System.Text.Encoding]::UTF8); $ssXml=$sr.ReadToEnd(); $sr.Close(); foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'(?s)<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) } }
 $cikti = [ordered]@{}
 $cellRx=[regex]'(?s)<c r="([A-Z]+\d+)"(?:[^>]*t="([^"]+)")?[^>]*>(?:<v>(.*?)</v>|<is><t[^>]*>(.*?)</t></is>)?</c>'
 foreach($sh in ($zip.Entries | Where-Object { $_.FullName -match "xl/worksheets/sheet\d+\.xml$" })){

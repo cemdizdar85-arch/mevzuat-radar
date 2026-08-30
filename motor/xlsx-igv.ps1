@@ -28,7 +28,7 @@ if($ssXml){
   $rx = [regex]'(?s)<si>(.*?)</si>'
   foreach($m in $rx.Matches($ssXml)){
     $ic = $m.Groups[1].Value
-    $metin = -join ([regex]'<t[^>]*>(.*?)</t>').Matches($ic).ForEach({ $_.Groups[1].Value })
+    $metin = -join ([regex]'(?s)<t[^>]*>(.*?)</t>').Matches($ic).ForEach({ $_.Groups[1].Value })
     $ss += [System.Net.WebUtility]::HtmlDecode($metin)
   }
 }

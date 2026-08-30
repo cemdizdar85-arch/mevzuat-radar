@@ -29,7 +29,7 @@ if(-not $III){ Write-Host "III Sayili Liste bulunamadi!"; exit 1 }
 
 $zip = [System.IO.Compression.ZipFile]::OpenRead($III.FullName)
 $e = $zip.Entries | Where-Object { $_.FullName -eq "xl/sharedStrings.xml" }; $sr=New-Object System.IO.StreamReader($e.Open(),[System.Text.Encoding]::UTF8); $ssXml=$sr.ReadToEnd(); $sr.Close()
-$ss=@(); foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) }
+$ss=@(); foreach($m in ([regex]'(?s)<si>(.*?)</si>').Matches($ssXml)){ $ss += [System.Net.WebUtility]::HtmlDecode((-join ([regex]'(?s)<t[^>]*>(.*?)</t>').Matches($m.Groups[1].Value).ForEach({ $_.Groups[1].Value }))) }
 $sh = $zip.Entries | Where-Object { $_.FullName -match "sheet1\.xml$" }; $sr2=New-Object System.IO.StreamReader($sh.Open(),[System.Text.Encoding]::UTF8); $shXml=$sr2.ReadToEnd(); $sr2.Close()
 $zip.Dispose()
 $cellRx=[regex]'(?s)<c r="([A-Z]+\d+)"(?:[^>]*t="([^"]+)")?[^>]*>(?:<v>(.*?)</v>|<is><t[^>]*>(.*?)</t></is>)?</c>'
