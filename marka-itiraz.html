@@ -79,10 +79,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        Bu sayfada zaten benzerlik motoru vardı ama YEM yoktu: kullanıcı iki
        markayı ELLE girmek zorundaydı. Yani "şu başvuru yayımlandı, senin
        markana benziyor, süren şu gün doluyor" diyen kimse yoktu.
-       Robot (motor/marka-itiraz-hasat.ps1) itiraz süresi AÇIK başvuruları
-       veri/marka-itiraz-acik.json'a yazar; burası kullanıcının markasıyla
-       eşleştirir. Süre YAYIMDAN İKİ AY (SMK m.18) - kaynağın 92 günlük
-       penceresi KULLANILMAZ, robot son günü kendisi hesaplar.
+       30.08: KAYNAK DEGISTI. Eskiden TMview'den beslenen bir JSON dosyasi
+       okunuyordu; o robot kaynagin bot korumasina takildi ve dosyada 0 kayit
+       kaldi - yani bu kutu canlida hicbir sey gostermiyordu. Artik TURKPATENT
+       Resmi Marka Bulteni ambarindan (Supabase, marka_bulten_itiraz RPC)
+       okuyor. Sure YAYIMDAN IKI AY (SMK m.18); son gunu sunucu hesaplar ve
+       suresi DOLMUS kayitlar hic gonderilmez.
        ====================================================================== -->
   <div class="kart" id="irKutu" style="border:1px solid rgba(245,165,36,.35);background:linear-gradient(135deg,rgba(245,165,36,.07),transparent);border-radius:14px;padding:18px 20px;margin:0 0 22px">
     <div style="font-weight:850;font-size:17px;letter-spacing:-.3px;margin-bottom:4px">📡 Şu an itiraz süresi açık başvurular arasında markanı ara</div>
@@ -233,76 +235,102 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
   var esc=function(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
   var durum=function(h){ var e=$('#irDurum'); if(e) e.innerHTML=h; };
 
-  function ambarYukle(cb){
-    if(AMBAR){ cb(); return; }
-    if(YUKLENIYOR) return;
-    YUKLENIYOR=true;
-    durum('Yayımlanmış başvurular okunuyor…');
-    fetch('veri/marka-itiraz-acik.json',{cache:'no-store'})
-      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(function(j){ AMBAR=j; YUKLENIYOR=false; cb(); })
-      .catch(function(e){
-        YUKLENIYOR=false;
-        /* Kör kalma: veri yoksa "benzer yok" DEMEYİZ, okuyamadığımızı söyleriz. */
-        durum('<b style="color:var(--red)">Yayımlanmış başvuru listesi okunamadı</b> ('+esc(e.message)+'). '
-             +'Bu, "benzer başvuru yok" demek DEĞİLDİR — liste gelmedi. Aşağıdaki elle karşılaştırmayı kullanabilirsin.');
-      });
-  }
+  /* ======================================================================
+     30.08 - VERI KAYNAGI DEGISTI: JSON dosyasi -> RESMI BULTEN AMBARI
+
+     ESKISI NEDEN BIRAKILDI: burasi veri/marka-itiraz-acik.json okuyordu; o
+     dosyayi TMview'den besleyen robot 30.08'de kaynagin bot korumasina
+     takildi (HTTP 200 + engel sayfasi) ve dosyada OLCULDU: 0 kayit. Yani bu
+     kutu canlida hicbir sey gostermiyordu.
+
+     YENISI: Resmi Marka Bulteni ambari (TURKPATENT'in kendi yayini).
+     30.08 olcumu: 6 bulten, 42.429 kayit, 30.477'sinin itiraz suresi acik.
+     Itiraz hakki hukuken bultenin YAYIM tarihinden isler (SMK m.18) - yani
+     artik ikinci elden kopyaya degil, ASIL belgeye bakiyoruz.
+
+     NEDEN SUNUCUDA ARANIYOR: 42 bin kaydi tarayiciya indirmek hem megabaytlar
+     eder hem ambari toptan disari verir. Kasa deseni: tablo RLS ile kapali,
+     yalniz marka_bulten_itiraz() uzerinden tavanli sonuc cikar.
+     ====================================================================== */
+  var SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
+  var SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 
   function tara(){
     var ad=($('#irAd').value||'').trim();
     if(ad.length<2){ durum('Markanın adını yaz (en az 2 harf).'); return; }
-    ambarYukle(function(){
-      var sinif=($('#irSinif').value||'').trim();
-      /* HAZIR DEĞİLSE "eşleşme yok" DEMEYİZ. Robot henüz koşmadıysa ya da
-         dosya numuneden üretildiyse liste eksiktir; eksik listeye bakıp
-         "kimse başvurmamış" demek, ürünün yapmaması gereken tek şeydir. */
-      if(AMBAR && AMBAR.hazir === false){
-        durum('<b style="color:var(--amber)">Yayımlanmış başvuru listesi henüz hasat edilmedi.</b> '
-             +'Robot günlük koşuyor; liste dolunca bu tarama gerçek sonuç verir. '
-             +'Şimdilik aşağıdaki elle karşılaştırmayı kullan.');
-        $('#irSonuc').innerHTML='';
-        return;
-      }
-      var kayitlar=(AMBAR&&AMBAR.kayitlar)||[];
-      var bulunan=[];
-      for(var i=0;i<kayitlar.length;i++){
-        var k=kayitlar[i];   // [ad,no,sinif,yayim,songun,st13]
-        var r=MarkaBenzerlik.riskHesapla(ad, sinif, k[0], k[2]);
-        if(r.risk>=MarkaBenzerlik.ESIK.orta) bulunan.push({k:k,r:r,kalan:gunFark(k[4])});
-      }
+    if(YUKLENIYOR) return;
+    YUKLENIYOR=true;
+    durum('Resmî bültende yayımlanmış başvurular aranıyor…');
+    $('#irSonuc').innerHTML='';
+
+    var ham=($('#irSinif').value||'').trim();
+    var sinifDizi=(ham.match(/\d{1,2}/g)||[]).map(Number).filter(function(n){ return n>=1&&n<=45; });
+
+    fetch(SB_URL+'/rest/v1/rpc/marka_bulten_itiraz',{
+      method:'POST',
+      headers:{'Content-Type':'application/json', apikey:SB_KEY, Authorization:'Bearer '+SB_KEY},
+      body:JSON.stringify({
+        p_ad:ad,
+        p_sinif:(sinifDizi.length?sinifDizi:null),
+        p_gun:120, p_esik:0.30, p_tavan:60,
+        /* Suresi DOLMUS kayit gosterilmez - yoksa kullanici "itiraz
+           edebilirim" sanir: dogru veriyle yanlis vaat. */
+        p_yalniz_acik:true
+      })
+    })
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(j){
+      YUKLENIYOR=false;
+      if(!Array.isArray(j)) throw new Error('beklenmeyen cevap');
+      /* ISTEMCIDE IKINCI KEZ ELEME YOK. Adayi sunucu secti (trigram esigi +
+         sinif + sure). Burada tekrar esik uygularsak "3 aday incelendi, 0
+         sonuc" gibi kendi kendini yalanlayan bir ekran cikar. riskHesapla
+         yalniz NEDEN benzedigini aciklamak icin calisir. */
+      var bulunan=j.map(function(x){
+        return { x:x, r:MarkaBenzerlik.riskHesapla(ad, ham, x.ad, (x.sinif||[]).join(',')), kalan:(x.kalan_gun|0) };
+      });
       bulunan.sort(function(a,b){ return (b.r.risk-a.r.risk) || (a.kalan-b.kalan); });
-      ciz(ad, bulunan, kayitlar.length);
+      ciz(ad, bulunan, j.length);
+    })
+    .catch(function(e){
+      YUKLENIYOR=false;
+      /* Kor kalma: veri gelmediyse "benzer yok" DEMEYIZ. */
+      durum('<b style="color:var(--red)">Bülten ambarına ulaşılamadı</b> ('+esc(e.message)+'). '
+           +'Bu, "benzer başvuru yok" demek DEĞİLDİR - sorgu cevapsız kaldı. '
+           +'Aşağıdaki elle karşılaştırmayı kullanabilirsin.');
     });
   }
 
-  function ciz(ad, liste, toplam){
-    var g=(AMBAR&&AMBAR.guncelleme)||'?';
-    durum('Tarandı: <b>'+toplam+'</b> yayımlanmış başvuru · liste tazeliği <b>'+esc(g)+'</b> · süre hesabı <b>SMK m.18 (yayımdan 2 ay)</b>.');
+  function ciz(ad, liste, aday){
+    durum('Resmî Marka Bülteni ambarında arandı · <b>'+aday+'</b> aday incelendi · '
+         +'yalnızca <b>itiraz süresi HÂLÂ AÇIK</b> başvurular listelenir · süre <b>SMK m.18 (yayımdan 2 ay)</b>.');
     var o=$('#irSonuc');
     if(!liste.length){
-      o.innerHTML='<div class="uyari" style="margin-top:0"><b>Şu an açık itiraz süresi olan başvurular arasında "'+esc(ad)+'" ile karışacak bir kayıt çıkmadı.</b> '
-        +'Bu, kimsenin başvurmadığı anlamına gelmez: henüz <b>yayımlanmamış</b> başvurular bu listede olmaz (itiraz süresi yayımla başlar). '
-        +'Yeni başvuruları görmek için <a href="marka-izleme.html">Benzer Başvuru Radarı</a>.</div>';
+      o.innerHTML='<div class="uyari" style="margin-top:0"><b>"'+esc(ad)+'" ile karışacak, itiraz süresi açık bir başvuru çıkmadı.</b> '
+        +'Bu, kimsenin başvurmadığı anlamına gelmez: henüz <b>yayımlanmamış</b> başvurular bültende olmaz '
+        +'(itiraz süresi yayımla başlar), süresi <b>dolmuş</b> olanlar da bilerek gösterilmez. '
+        +'Sınıf yazdıysan onu boş bırakıp tekrar dene - sınıf süzgeci sonucu daraltır.</div>';
       return;
     }
     var h='<div style="font-weight:800;font-size:14px;margin-bottom:8px">'+liste.length+' başvuru dikkat istiyor</div>';
     for(var i=0;i<Math.min(liste.length,25);i++){
-      var b=liste[i], k=b.k, sv=MarkaBenzerlik.seviye(b.r.risk);
-      var acil = b.kalan<=15;
-      var renk = acil?'var(--red)':(b.kalan<=30?'var(--amber)':'var(--muted)');
+      var b=liste[i], k=b.x, sv=MarkaBenzerlik.seviye(b.r.risk);
+      var renk = b.kalan<=15?'var(--red)':(b.kalan<=30?'var(--amber)':'var(--muted)');
       h+='<div style="border:1px solid var(--line);border-left:4px solid '+(sv[1]==='y'?'var(--red)':sv[1]==='o'?'var(--amber)':'var(--dim)')
         +';border-radius:11px;padding:12px 14px;margin-bottom:9px;background:var(--panel)">'
         +'<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline">'
-        +'<div style="font-weight:800;font-size:15px">'+esc(k[0])+'</div>'
-        +'<div style="font-size:12px;font-weight:800;color:'+renk+'">'
-          +(b.kalan<0 ? 'SÜRE DOLDU' : 'son gün '+esc(k[4])+' · '+b.kalan+' gün')+'</div></div>'
-        +'<div class="mini" style="margin-top:3px;color:var(--dim)">başvuru '+esc(k[1])
-          +(k[2]?(' · sınıf '+esc(k[2])):'')+' · bültende yayım '+esc(k[3])+'</div>'
-        +'<div style="font-size:13px;margin-top:6px">Karışma riski <b>%'+b.r.risk+'</b> ('+sv[0]+') — yazım %'+b.r.yazim+' · fonetik %'+b.r.fonetik
-        +' · sınıf '+(b.r.cak===true?'<b style="color:var(--red)">çakışıyor</b>':b.r.cak===false?'farklı (m.6: zayıf)':'bilinmiyor')+'</div>'
-        +'<div class="mini" style="margin-top:6px"><a href="https://www.tmdn.org/tmview/#/tmview/detail/'+encodeURIComponent(k[5])
-        +'" target="_blank" rel="noopener">Sicil kaydını aç ↗</a> · başvuru sahibi TMview\'de yayıma kadar gizlidir</div>'
+        +'<div style="font-weight:800;font-size:15px">'+esc(k.ad)+'</div>'
+        +'<div style="font-size:12px;font-weight:800;color:'+renk+'">son gün '+esc(k.itiraz_son)+' · '+b.kalan+' gün</div></div>'
+        +'<div class="mini" style="margin-top:3px;color:var(--dim)">başvuru '+esc(k.basvuru_no)
+          +((k.sinif&&k.sinif.length)?(' · sınıf '+esc(k.sinif.join(', '))):'')
+          +' · '+esc(k.bulten_no)+' sayılı bültende yayım '+esc(k.yayin_tarihi)+'</div>'
+        /* BASVURU SAHIBI ARTIK GIZLI DEGIL: bulten onu yayimliyor. Eski metin
+           "TMview'de yayima kadar gizlidir" diyordu; resmi kaynakta oyle degil. */
+        +(k.sahip?'<div class="mini" style="margin-top:3px"><b>Başvuru sahibi:</b> '+esc(k.sahip)+'</div>':'')
+        +'<div style="font-size:13px;margin-top:6px">Karışma riski <b>%'+b.r.risk+'</b> ('+sv[0]+') - yazım %'+b.r.yazim+' · fonetik %'+b.r.fonetik
+        +' · sınıf '+(k.ayni_sinif===true?'<b style="color:var(--red)">ÇAKIŞIYOR</b>'
+                     :b.r.cak===true?'<b style="color:var(--red)">çakışıyor</b>'
+                     :b.r.cak===false?'farklı (m.6: zayıf)':'bilinmiyor')+'</div>'
         +'</div>';
     }
     if(liste.length>25) h+='<div class="mini">… '+(liste.length-25)+' kayıt daha (en riskli 25 gösterildi)</div>';
