@@ -8,8 +8,9 @@
 #  Analizi aracı "bu firma 295 ihale kazandı" diyor. Alacaklıya/kullanıcıya
 #  TERS bilgi.
 #
-#  ÖLÇÜLDÜ: 93 kayıt jenerik bir kelimeyle başlıyor — 1.284 ihale,
-#  7,34 milyar TL. (14.416 firmanın 2.716'sı 30 karakterden kısa ama
+#  ÖLÇÜLDÜ (30.08): 115 kayıt jenerik kelimeyle başlıyor ama HEPSİ kusur
+#  DEĞİL: 5 çoklu yüklenici + 1 iş ortaklığı + 3 şahıs eki + 107 SADE
+#  KESİK. Onarım hedefi o 107: 1.380 ihale, 7,40 milyar TL. (14.416 firmanın 2.716'sı 30 karakterden kısa ama
 #  çoğu ŞAHIS firması: "Mehmet ...", "Ahmet ..." — onlar normaldir,
 #  kısalık tek başına kusur değildir. Kusur ölçütü ŞİRKET EKİYLE BAŞLAMAK.)
 #
@@ -65,11 +66,34 @@ $kusurlu = @($hepsi | Where-Object { "$($_.ad)" -match $desen })
 $toplamIhale = ($kusurlu | Measure-Object ihaleSayisi -Sum).Sum
 $toplamBedel = ($kusurlu | Measure-Object toplamBedel -Sum).Sum
 
+# --- SINIFLANDIRMA (30.08): "kesik" sanilan her kayit kusur DEGIL ----------
+# Jenerik kelimeyle baslayan 115 kaydin hepsi ayristirma kusuru degildi;
+# uc ayri sebep birbirine karisiyordu. Onarim hedefi ancak ayirinca netlesti:
+#   · virgul iceren  -> COKLU YUKLENICI ("X Ltd Sti, Y Lojistik Ltd Sti").
+#     Bunlar tek alanda iki firma; ayristirici kesmemis, ilan boyle yaziyor.
+#   · "Ortakligi"    -> IS ORTAKLIGI kaydi, yine coklu yuklenici.
+#   · tire + buyuk harf -> sahis eki ("Insaat Taahhut Isleri-Muzaffer Tosun");
+#     ozel ad TIRENIN SAGINDA duruyor, kayip degil.
+#   · geri kalan     -> SADE KESIK: gercek ayristirma kusuru, onarim hedefi.
+# Olculdu: 115 = 5 virgullu + 1 ortaklik + 3 tireli + 107 SADE KESIK.
+$virgullu = @($kusurlu | Where-Object { $_.ad -match ',' })
+$ortaklik = @($kusurlu | Where-Object { $_.ad -match 'Ortaklığı' -and $_.ad -notmatch ',' })
+$tireli   = @($kusurlu | Where-Object { $_.ad -match '-[A-ZÇĞİÖŞÜ]' -and $_.ad -notmatch ',' -and $_.ad -notmatch 'Ortaklığı' })
+$sadeKesik= @($kusurlu | Where-Object { $_.ad -notmatch ',' -and $_.ad -notmatch 'Ortaklığı' -and $_.ad -notmatch '-[A-ZÇĞİÖŞÜ]' })
+$sadeIhale = ($sadeKesik | Measure-Object ihaleSayisi -Sum).Sum
+$sadeBedel = ($sadeKesik | Measure-Object toplamBedel -Sum).Sum
+
 Write-Host ("IHALE FIRMA ADI DENETIMI: {0} firma kaydi tarandi." -f $hepsi.Count)
 Write-Host ("  Ozel adi KAYIP (jenerik kelimeyle basliyor): {0}" -f $kusurlu.Count) -ForegroundColor $(if($kusurlu.Count){'Red'}else{'Green'})
 if($kusurlu.Count){
   Write-Host ("  Etkilenen ihale : {0}" -f $toplamIhale) -ForegroundColor Red
   Write-Host ("  Etkilenen bedel : {0:N0} TL" -f $toplamBedel) -ForegroundColor Red
+  Write-Host ""
+  Write-Host "  SINIFLANDIRMA (hepsi ayristirma kusuru DEGIL):" -ForegroundColor Cyan
+  Write-Host ("    coklu yuklenici (virgullu)  : {0,4}   <- ilan boyle yaziyor, kusur degil" -f $virgullu.Count)
+  Write-Host ("    is ortakligi                : {0,4}   <- coklu yuklenici" -f $ortaklik.Count)
+  Write-Host ("    sahis eki (tire + buyuk harf): {0,3}   <- ozel ad tirenin saginda" -f $tireli.Count)
+  Write-Host ("    SADE KESIK (ONARIM HEDEFI)  : {0,4}   · {1} ihale · {2:N0} TL" -f $sadeKesik.Count, $sadeIhale, $sadeBedel) -ForegroundColor Red
   Write-Host ""
   Write-Host "  EN BUYUK 8:" -ForegroundColor Cyan
   $kusurlu | Sort-Object { [double]$_.toplamBedel } -Descending | Select-Object -First 8 | ForEach-Object {
@@ -92,6 +116,12 @@ $cikti = [pscustomobject]@{
   kaynak = "veri/ihale-firma-ozet.json"
   taranan = $hepsi.Count
   kusurlu = $kusurlu.Count
+  sinif_coklu_yuklenici = $virgullu.Count
+  sinif_is_ortakligi = $ortaklik.Count
+  sinif_sahis_eki = $tireli.Count
+  sinif_SADE_KESIK = $sadeKesik.Count
+  sade_kesik_ihale = $sadeIhale
+  sade_kesik_bedel = $sadeBedel
   etkilenen_ihale = $toplamIhale
   etkilenen_bedel = $toplamBedel
   kayitlar = @($kusurlu | Sort-Object { [double]$_.toplamBedel } -Descending | ForEach-Object {
@@ -116,6 +146,12 @@ if($Tazele){
     aciklama = "Kesik (ozel adi kayip) yuklenici kaydi tabani. ARTIS kirmizidir; azalirsa -Tazele ile indirilir. Onarim malzemesi: veri/ihale-kesik-firma-adi.json (IKN listeleri)."
     olcum = (Get-Date).ToString('dd.MM.yyyy HH:mm')
     kusurlu = $kusurlu.Count
+  sinif_coklu_yuklenici = $virgullu.Count
+  sinif_is_ortakligi = $ortaklik.Count
+  sinif_sahis_eki = $tireli.Count
+  sinif_SADE_KESIK = $sadeKesik.Count
+  sade_kesik_ihale = $sadeIhale
+  sade_kesik_bedel = $sadeBedel
     etkilenen_ihale = $toplamIhale
   } | ConvertTo-Json -Depth 3) | Set-Content $TABAN -Encoding UTF8
   Write-Host ("  taban tazelendi: {0} kusurlu kayit" -f $kusurlu.Count) -ForegroundColor Green
