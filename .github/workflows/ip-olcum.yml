@@ -1,0 +1,109 @@
+# ============================================================================
+#  IP ÖLÇÜMÜ — "kaynak siteler GitHub sunucusundan iniyor mu?"
+#
+#  NEDEN VAR (Cem 30.08): "bilgisayarım açık olmasa da çalışsın, tatile gitsem
+#  olmayacak mı?" Günlük indirme işi Cem'in dizüstünde koşuyor ve TEK sebebi
+#  şu kayıt: 05.08.2026'da mevzuat.gov.tr GitHub runner IP'lerini ENGELLİYORDU
+#  (runner'dan 6/6 başarısız, aynı adresler Cem'in makinesinden 6/6 HTTP 200).
+#
+#  AMA O KANIT ESKİDİ. Siteler değişir. Bu akış tek soruyu ölçer:
+#  BUGÜN runner'dan iniyor mu? İniyorsa laptop bağımlılığı tamamen biter.
+#
+#  ÖLÇÜM DİSİPLİNİ: "HTTP 200 geldi" YETMEZ. Bu depoda ölçüldü - mevzuat.gov.tr
+#  ölü adrese 200 + HTML döndürüyor ("yumuşak 404"), SPK portalı bilinmeyen
+#  /api/ yoluna 200 + SPA kabuğu veriyor. Bu yüzden her hedefte ÜÇ şey birden
+#  bakılır: HTTP kodu · içerik tipi · gerçek imza (%PDF / JSON / HTML).
+#
+#  Sonuç depoya yazılır (veri/ip-olcum-raporu.md) - Actions logu admin kilitli.
+# ============================================================================
+name: IP olcumu (kaynak siteler runner'dan iniyor mu)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ip-olcum.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: HEDEFLERI OLC
+        run: |
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+          R=veri/ip-olcum-raporu.md
+          IP=$(curl -s -m 20 https://api.ipify.org || echo "?")
+          {
+            echo "# IP ÖLÇÜMÜ — kaynak siteler runner'dan iniyor mu?"
+            echo ""
+            echo "> Koşu: $(date -u '+%Y-%m-%d %H:%M') UTC · runner çıkış IP'si: \`$IP\`"
+            echo "> Soru: günlük indirme Cem'in dizüstünden çıkabilir mi?"
+            echo "> Ölçüt: HTTP 200 YETMEZ — içerik tipi ve gerçek imza da doğrulanır."
+            echo ""
+            echo "| # | Hedef | HTTP | İçerik tipi | Bayt | İmza | Sonuç |"
+            echo "|---|---|---|---|---:|---|---|"
+          } > $R
+
+          # ad|url|beklenen_imza(PDF|JSON|HTML)
+          HEDEFLER=$(cat <<'LISTE'
+mevzuat.gov.tr GeneratePdf (Teblig III-39.1)|https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131&mevzuatTur=Teblig&mevzuatTertip=5|PDF
+mevzuat.gov.tr MevzuatMetin (SPKn 6362)|https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf|PDF
+mevzuat.spk.gov.tr API (Search/All)|https://mevzuat.spk.gov.tr/api/Search/All|JSON
+mevzuat.spk.gov.tr belge (Teblig III-52.1)|https://mevzuat.spk.gov.tr/api/mevzuat/File/167|PDF
+spl.com.tr calisma notu sayfasi|https://spl.com.tr/sinav-calisma-notlari/|HTML
+spl.com.tr calisma notu PDF (1001)|https://spl.com.tr/wp-content/uploads/2026/07/1001_MKT_300062026_202607140951.pdf|PDF
+tspb.org.tr Meslek Kurallari PDF|https://tspb.org.tr/wp-content/uploads/2025/06/TSPB_Meslek-Kurallari-Duzenlemesi.pdf|PDF
+spk.gov.tr dosya arama|https://spk.gov.tr/Web/DosyaAra?page=1&text=s%C4%B1nav|HTML
+LISTE
+)
+          i=0; basarili=0; toplam=0
+          echo "$HEDEFLER" | while IFS='|' read -r ad url bek; do
+            [ -z "$ad" ] && continue
+            i=$((i+1))
+            out=$(curl -s -m 45 -L -A "$UA" -H "Referer: https://www.mevzuat.gov.tr/" \
+                  -o /tmp/h.bin -w "%{http_code}|%{content_type}|%{size_download}" "$url" || echo "000||0")
+            kod=$(echo "$out" | cut -d'|' -f1)
+            tip=$(echo "$out" | cut -d'|' -f2 | cut -d';' -f1)
+            boy=$(echo "$out" | cut -d'|' -f3)
+            imza="?"
+            if head -c 4 /tmp/h.bin 2>/dev/null | grep -q '%PDF'; then imza="PDF"
+            elif head -c 1 /tmp/h.bin 2>/dev/null | grep -qE '\[|\{'; then imza="JSON"
+            elif head -c 400 /tmp/h.bin 2>/dev/null | grep -qi '<html\|<!doctype'; then imza="HTML"
+            else imza="bilinmiyor"; fi
+            if [ "$kod" = "200" ] && [ "$imza" = "$bek" ] && [ "$boy" -gt 500 ]; then sonuc="✅ İNDİ"; else sonuc="❌ İNMEDİ"; fi
+            echo "| $i | $ad | $kod | $tip | $boy | $imza (beklenen $bek) | $sonuc |" >> $R
+            echo "[$sonuc] $ad -> kod=$kod tip=$tip boyut=$boy imza=$imza"
+            sleep 2
+          done
+
+          {
+            echo ""
+            echo "## Nasıl okunur"
+            echo "- **Hepsi ✅** → indirme işi runner'a taşınabilir; laptop bağımlılığı biter."
+            echo "- **mevzuat.gov.tr ❌, diğerleri ✅** → yalnız o site için TR-IP çözümü gerekir; gerisi CI'ya taşınır."
+            echo "- **Hepsi ❌** → 05.08 bulgusu duruyor; TR-IP'li sunucu şart."
+            echo ""
+            echo "*Not: bu ölçüm tek koşudur. Bir site geçici engel/oran sınırı uyguluyor olabilir;"
+            echo "karar vermeden önce farklı saatlerde iki koşu daha görmek doğru olur.*"
+          } >> $R
+          echo "--- RAPOR ---"; cat $R
+
+      - name: RAPORU DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/ip-olcum-raporu.md || true
+          if git diff --staged --quiet; then
+            echo "rapor degismedi"
+          else
+            git commit -m "IP olcumu: kaynak siteler runner'dan iniyor mu [veri-operasyonu]" -- veri/ip-olcum-raporu.md
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
