@@ -68,6 +68,20 @@ tr.best td{background:rgba(61,220,151,.07)}tr.worst td{background:rgba(255,107,9
 .cta .tk:hover{border-color:var(--accent)}.cta .tk small{display:block;color:var(--dim);font-weight:500;font-size:11px;margin-top:2px}
 .uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(245,165,36,.45);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .hata{color:var(--red);font-size:14px;margin-top:12px}
+/* 30.08 kanit seridi: vaat degil olculmus ornek. Tum renkler tema jetonundan. */
+.kanit{border:1px solid color-mix(in srgb,var(--green) 32%,transparent);background:color-mix(in srgb,var(--green) 5%,transparent);border-radius:14px;padding:14px 16px;margin:0 0 20px}
+.kanit-ust{font-size:11.5px;font-weight:800;letter-spacing:.4px;color:var(--green);text-transform:uppercase;margin-bottom:9px}
+.kanit-ust span{color:var(--dim);font-weight:600;text-transform:none;letter-spacing:0}
+.kanit-tablo{width:100%;border-collapse:collapse;font-size:13px}
+.kanit-tablo th{font-size:10.5px;letter-spacing:.3px;color:var(--dim);text-transform:uppercase;font-weight:700;text-align:left;padding:0 8px 6px 0;border-bottom:1px solid var(--line)}
+.kanit-tablo td{padding:9px 8px 9px 0;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+.kanit-tablo tr:last-child td{border-bottom:0}
+.kanit-tablo td b{color:var(--ink);font-weight:700}
+.kanit-tablo td small{display:block;font-size:10.5px;color:var(--dim);margin-top:2px}
+.kanit-tablo .n{text-align:right;font-weight:800;color:var(--green);white-space:nowrap}
+.kanit-tablo th.n{text-align:right;color:var(--dim);font-weight:700}
+.kanit-alt{font-size:11.5px;color:var(--dim);margin-top:9px;line-height:1.5}
+@media(max-width:560px){.kanit-tablo,.kanit-tablo tbody,.kanit-tablo tr,.kanit-tablo td{display:block;width:100%}.kanit-tablo thead{display:none}.kanit-tablo tr{padding:8px 0;border-bottom:1px solid var(--line)}.kanit-tablo td{border:0;padding:2px 0}.kanit-tablo .n{text-align:left}}
 @media print{
   body{background:#fff;color:#111}
   .top,.form,.cta,.noprint,nav{display:none!important}
@@ -123,6 +137,23 @@ details.kacc>.ic{padding:2px 0 14px}
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Menşe Senaryo Raporu</div>
   <h1>Menşe Senaryo Raporu, hangi ülkeden alırsam ne kadar öderim?</h1>
   <p class="lead">Ürünün <b>GTİP kodunu</b> (bilmiyorsan <b>adını</b>) ve <b>yıllık ithalat tutarını</b> gir, <b>16 menşe seçeneğinin tamamını</b> hesaplayıp en ucuzdan pahalıya sıralayalım; <b>yıllık tasarruf farkın</b> büyük puntoyla önüne gelsin. En avantajlı 3 menşe herkese açık; tam tablo ücretsiz üyelikte, <b>imzaya hazır PDF rapor</b> üyelikle. <span style="color:var(--dim)">Vergi verisi GTİP Kontrolü ile aynı doğrulanmış kaynaktan.</span></p>
+
+  <!-- 30.08: KANIT SERIDI. Vaat yerine olculmus ornek gosterilir; uc satirin
+       ucu de aracin kendi ciktisi, kaynagi yazili. Klimadaki %56,50 damping
+       RG 02.02.2022 Teblig 2022/1'in oran tablosundan, BOPP filmdeki %47,14
+       RG 23.07.2025/32964 Teblig 2025/19'dan BIREBIR dogrulandi. -->
+  <div class="kanit noprint">
+    <div class="kanit-ust">Aracın bulduğu gerçek örnekler <span>10.000.000 TL yıllık ithalatta</span></div>
+    <table class="kanit-tablo">
+      <thead><tr><th>Ürün</th><th>En ucuz menşe</th><th>En pahalı</th><th class="n">Yıllık fark</th></tr></thead>
+      <tbody>
+        <tr><td>Klima / fan coil<small>8415.83.00.90.00</small></td><td>🇪🇺 AB <b>%0</b></td><td>🇨🇳 Çin <b>%59,2</b><small>%2,7 vergi + %56,5 damping</small></td><td class="n">5.920.000 TL</td></tr>
+        <tr><td>Süsleme balığı<small>0301.11.00.00.00</small></td><td>🇰🇷 G. Kore <b>%0</b></td><td>🇦🇪 BAE <b>%65</b><small>%30 vergi + %35 EMY</small></td><td class="n">6.500.000 TL</td></tr>
+        <tr><td>Ördek eti<small>0207.45.10.00.11</small></td><td>🇧🇦 Bosna-Hersek <b>%0</b></td><td>diğer hepsi <b>%65</b><small>AB, Çin, ABD dahil</small></td><td class="n">6.500.000 TL</td></tr>
+      </tbody>
+    </table>
+    <div class="kanit-alt">Üçü de gizli bilgi değil — resmî listelerde açıkça yazıyor. Kimse 16 ülkeyi tek tek karşılaştırmadığı için görünmüyor. Kaynak: yürürlükteki İthalat Rejimi Kararı listeleri + dampinge karşı önlem tebliğleri.</div>
+  </div>
 
   <div class="form noprint">
     <div class="satirlar">
