@@ -262,6 +262,34 @@ function sonucCiz(s, jeton){
       '</div>';
   }
 
+  /* ======================================================================
+     GİZLİ SAHİPLİ ADAY BAŞVURULAR (29.08.2026)
+     Cem: "dizdar denetim başvurusu göremiyor muyuz yeni başvurular gibi"
+     ÖLÇÜLDÜ: TÜRKPATENT bir başvuruyu BÜLTENDE YAYIMLANANA KADAR sahibini
+     gizliyor (applicantName = "Legally Restricted Until Publication Date";
+     detay ucu o kayıtlar için HTTP 500). Yani UNVAN araması yayımlanmamış
+     başvuruları yapısal olarak bulamaz — kendi TETİKTE başvurumuz dâhil.
+     Marka ADI ise görünüyor. Bu blok, unvanın çekirdek kelimesiyle ad
+     araması yapıp sahibi gizli olanları gösterir.
+     DİKKAT: bunlar "senin markaların" DEĞİL, ADAY. "dizdar turizm"
+     başkasının olabilir. Metin sahiplik iddia etmiyor.
+     ====================================================================== */
+  if(s.adaylar && s.adaylar.length){
+    h+='<h2 style="margin-top:22px">🕵️ Sahibi henüz gizli olan başvurular <span class="mini" style="text-transform:none;letter-spacing:0">('+s.adaylar.length+' aday)</span></h2>';
+    h+='<div class="uyari" style="margin-top:0">TÜRKPATENT, bir başvuruyu <b>bültende yayımlanana kadar sahibini gizli tutuyor</b>. '
+      +'Bu yüzden yeni başvurular <b>unvan aramasında çıkmaz</b> — seninki de çıkmaz. '
+      +'Aşağıdakiler, adında firmanın çekirdek kelimesi geçen ve <b>sahibi henüz açıklanmamış</b> başvurular. '
+      +'<b>Bunlar senin markaların değil, adaydır</b> — başkasının olabilir. Kendi başvurunu burada görürsen takibe alabilirsin; '
+      +'yayımlandığı gün sahibi görünür hale gelir ve itiraz süresi başlar (yayımdan 2 ay, SMK m.18).'
+      +'<br><br><b style="color:var(--ink)">Kendi başvurunu göremiyor musun?</b> Burada arama <b>firma unvanının</b> çekirdek kelimesiyle yapılır. '
+      +'Markanın adı firmandan farklıysa (çoğu zaman öyledir) bu listede çıkmaz — <b>markanın adını yukarıdaki kutuya yazıp bir tarama daha yap</b>, '
+      +'ad üzerinden bulunur.</div>';
+    h+='<div style="margin-top:10px">'+s.adaylar.slice(0,60).map(a=>
+        '<div class="kart n"><div style="font-size:14.5px;font-weight:800">'+kac(a.ad)+'</div>'+
+        '<div class="mini" style="margin-top:2px">'+kac(a.no)+' · başvuru '+kac(a.tarih)+(a.sinif?' · sınıf '+kac(a.sinif):'')+' · sicilde '+kac(durumTr(a.durum))+
+        (a.yayim?' · bültende yayım '+kac(a.yayim):' · henüz yayımlanmadı')+'</div></div>').join('')+'</div>';
+    if(s.adaylar.length>60) h+='<div class="mini">… '+(s.adaylar.length-60)+' aday daha (en yeni 60 gösterildi)</div>';
+  }
   h+='<h2 style="margin-top:22px">📄 Bütün kayıtlar</h2>';
   h+='<div style="margin-top:6px">'+s.markalar.map(m=>{
       const e=ETIKET[m.hal]||ETIKET.bilinmiyor;
