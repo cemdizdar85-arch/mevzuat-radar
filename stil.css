@@ -24,6 +24,14 @@
    ============================================================ */
 
 :root{
+  /* ---- MARKA İŞARETİ (30.08) — TEMAYA GÖRE DEĞİŞMEZ ------------------
+     Logo lambası bir marka varlığıdır, durum rengi değil. --accent açık
+     temada #a04a08'e döner (METİN amberi, okunurluk için) ama lamba
+     her iki temada da AYNI kalmalı - logo dosyalarıyla (logo.svg,
+     logo-acik.svg, favicon.svg) birebir aynı değer.
+     Bu yüzden iki stil dosyasında da AYNI iki satır duruyor. */
+  --marka-lamba-1:#f5a524;
+  --marka-lamba-2:#ffc24b;
   color-scheme:dark;
 
   /* zemin ve yuzeyler */
@@ -96,3 +104,48 @@ input[type=checkbox],input[type=radio]{
   padding:0;border:0;border-radius:0;background:none;box-shadow:none;
   accent-color:var(--accent);cursor:pointer;vertical-align:middle;
 }
+
+/* ============================================================================
+   MARKA İŞARETİ — TEK KAYNAK (30.08.2026)
+
+   NEDEN: aynı işaret üç ayrı yerde, üç ayrı şekilde çiziliyordu —
+   index.html, radar-app.html ve radar-fiyat.html kendi .brand CSS'ini
+   tekrarlıyordu; menu.js ise BAŞKA BİR MOTİF gösteriyordu (turuncu kare
+   içinde "T" harfi) ve o 54/64 sayfada görünüyordu. Yani en çok görünen
+   marka işareti, markanın kendi işareti DEĞİLDİ.
+   Biri değişince diğerleri sapıyordu; tanım tek yere alındı.
+
+   MOTİF: amber lamba + noktasız "ı"nın ÜSTÜNDEKİ kendi noktası.
+   logo.svg / logo-acik.svg / favicon.svg ile birebir aynı renk
+   (--marka-lamba-1/2, temaya göre değişmez).
+
+   KULLANIM:
+     <a class="marka" href="/">
+       <span class="marka-lamba" aria-hidden="true"></span>
+       <b class="marka-ad">tet<span class="i">ı</span>kte</b>
+     </a>
+   Boyut: kapsayıcıya --marka-olcu ver (varsayılan 26px).
+   Yalnız rozet gerekiyorsa (uygulama ikonu bağlamı): <span class="marka-rozet">
+   ============================================================================ */
+.marka{display:inline-flex;align-items:center;gap:.38em;text-decoration:none;
+  color:var(--ink);font-size:var(--marka-olcu,26px)}
+.marka .marka-lamba{width:.54em;height:.54em;border-radius:50%;flex:none;
+  background:var(--marka-lamba-1);
+  box-shadow:0 0 0 .19em color-mix(in srgb,var(--marka-lamba-1) 16%,transparent),
+             0 0 .7em color-mix(in srgb,var(--marka-lamba-1) 55%,transparent)}
+.marka .marka-ad{font-size:1em;font-weight:800;letter-spacing:-.027em;position:relative}
+.marka .marka-ad .i{position:relative}
+.marka .marka-ad .i::after{content:"";position:absolute;left:50%;top:-.15em;
+  transform:translateX(-50%);width:.25em;height:.25em;border-radius:50%;
+  background:var(--marka-lamba-1);
+  box-shadow:0 0 .38em color-mix(in srgb,var(--marka-lamba-1) 80%,transparent)}
+
+/* Rozet: yalnız lamba + nokta (favicon'un CSS karşılığı). Kare + harf DEĞİL. */
+.marka-rozet{position:relative;display:inline-block;flex:none;
+  width:var(--rozet-olcu,22px);height:var(--rozet-olcu,22px);border-radius:50%;
+  background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));
+  box-shadow:0 0 0 .18em color-mix(in srgb,var(--marka-lamba-1) 15%,transparent)}
+.marka-rozet::after{content:"";position:absolute;right:-.16em;top:-.2em;
+  width:.34em;height:.34em;border-radius:50%;
+  background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));
+  box-shadow:0 0 .3em color-mix(in srgb,var(--marka-lamba-1) 70%,transparent)}

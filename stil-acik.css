@@ -51,6 +51,14 @@
    ========================================================================== */
 
 :root{
+  /* ---- MARKA İŞARETİ (30.08) — TEMAYA GÖRE DEĞİŞMEZ ------------------
+     Logo lambası bir marka varlığıdır, durum rengi değil. --accent açık
+     temada #a04a08'e döner (METİN amberi, okunurluk için) ama lamba
+     her iki temada da AYNI kalmalı - logo dosyalarıyla (logo.svg,
+     logo-acik.svg, favicon.svg) birebir aynı değer.
+     Bu yüzden iki stil dosyasında da AYNI iki satır duruyor. */
+  --marka-lamba-1:#f5a524;
+  --marka-lamba-2:#ffc24b;
   color-scheme:light;
 
   /* zemin ve yuzeyler */

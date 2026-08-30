@@ -109,9 +109,23 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK, ESIK_SINIR){
       return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); });
     return 0.2126*a[0] + 0.7152*a[1] + 0.0722*a[2];
   }
+  /* 30.08 KUSUR: bu ayiklayici YALNIZ rgb()/rgba() taniyordu.
+     Chrome, color-mix(in srgb, ...) sonucunu "color(srgb r g b / a)" diye
+     raporluyor - 0-1 arasi ondalik, virgul yok. O bicim gelince null donuyor,
+     null donunce: zemin yiginda o katman ATLANIYOR (alfa karisimi hic
+     hesaplanmiyor), metin renginde ise oge TUMDEN olcum disi kaliyor.
+     Yani kapi "temiz" diyordu ama o ogelere HIC BAKMAMISTI.
+     Bugun color-mix pano.html, fark.html ve menu.js'e girdigi icin kor nokta
+     buyuyecekti. Ayrica modern Chrome "rgb(0 0 0 / .5)" (bosluklu, virgulsuz)
+     bicimini de kullanabiliyor; eski split(',') onda da patliyordu. */
   function ayikla(s){
-    const m=String(s).match(/rgba?\(([^)]+)\)/); if(!m) return null;
-    const p=m[1].split(',').map(parseFloat);
+    const t=String(s);
+    let m=t.match(/^color\(srgb\s+([\d.eE+-]+)\s+([\d.eE+-]+)\s+([\d.eE+-]+)(?:\s*\/\s*([\d.eE+-]+))?\s*\)/);
+    if(m) return { r:parseFloat(m[1])*255, g:parseFloat(m[2])*255, b:parseFloat(m[3])*255,
+                   a:m[4]!==undefined ? parseFloat(m[4]) : 1 };
+    m=t.match(/rgba?\(([^)]+)\)/); if(!m) return null;
+    const p=m[1].split(/[,\s\/]+/).filter(function(x){ return x!==''; }).map(parseFloat);
+    if(p.length<3 || p.some(isNaN)) return null;
     return { r:p[0], g:p[1], b:p[2], a:p.length>3 ? p[3] : 1 };
   }
   function kat(ust, alt){   /* ust rengi altin uzerine karistir */
@@ -160,7 +174,7 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK, ESIK_SINIR){
       const bi=st.backgroundImage;
       let opakDegrade=false;
       if(bi && bi!=='none' && /gradient/.test(bi)){
-        const duraklar=(bi.match(/rgba?\([^)]+\)/g)||[]).map(ayikla).filter(c=>c&&c.a>0);
+        const duraklar=(bi.match(/color\(srgb[^)]+\)|rgba?\([^)]+\)/g)||[]).map(ayikla).filter(c=>c&&c.a>0);
         if(duraklar.length){
           katmanlar.push({tur:'degrade', duraklar});
           opakDegrade=duraklar.every(c=>c.a>=1);
@@ -229,7 +243,7 @@ const OLCUM_KAYNAK = function(ESIK_NRM, ESIK_BYK, ESIK_SINIR){
     if(metinKlipli){
       const bi = st.backgroundImage;
       if(bi && bi!=='none'){
-        metinAdaylari = (bi.match(/rgba?\([^)]+\)/g)||[]).map(ayikla).filter(c=>c&&c.a>0);
+        metinAdaylari = (bi.match(/color\(srgb[^)]+\)|rgba?\([^)]+\)/g)||[]).map(ayikla).filter(c=>c&&c.a>0);
       }
     }
     if(!metinAdaylari.length){

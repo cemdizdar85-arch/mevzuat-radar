@@ -76,7 +76,7 @@ try {
         '<p style="color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:var(--ink)">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
         '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
         '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:var(--kagit);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px">'+
-        '<button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button>'+
+        '<button type="submit" style="background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button>'+
         /* 30.07: pasif "katilinca kabul edersin" satiri acik riza DEGILDI -
            karne formundaki gibi zorunlu onay kutusuna cevrildi (KVKK).
            kvkk.html koku: perde alt sayfalarda da cikar, mutlak yol sart. */
@@ -215,24 +215,29 @@ var css=''+
  '@media print{.mrxSeritGenis{margin:0!important;padding-left:0!important;padding-right:0!important}}'+
 '}'+
 '#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid var(--line2);'+
- 'background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;'+
+ 'background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:14px;'+
  'font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;padding:12px 18px;border-radius:999px;'+
  'cursor:pointer;box-shadow:0 8px 28px rgba(46,140,255,.45);letter-spacing:.2px;'+
  'transition:transform .28s ease,opacity .28s ease}'+
 '#mrxFab:hover{transform:translateY(-2px)}'+
 '#mrxFab.mrxGizli{transform:translateY(140%);opacity:0;pointer-events:none}'+
-'#mrxKaplama{position:fixed;inset:0;z-index:99991;background:rgba(3,6,12,.82);backdrop-filter:blur(6px);'+
+'#mrxKaplama{position:fixed;inset:0;z-index:99991;background:color-mix(in srgb,var(--taban) 93%,transparent);backdrop-filter:blur(6px);'+
  'display:none;overflow-y:auto;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}'+
 '#mrxKaplama.acik{display:block}'+
 '.mrxIc{max-width:1000px;margin:0 auto;padding:26px 18px 60px;color:var(--ink)}'+
 '.mrxUst{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}'+
-'.mrxLogo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#f5a524,#ffc24b);'+
- 'display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}'+
+/* 30.08: burada TURUNCU KARE ICINDE "T" HARFI vardi ve bu 54/64 sayfada
+   gorunuyordu - yani sitede en cok gorunen marka isareti, markanin kendi
+   isareti DEGILDI. Marka motifi: amber lamba + "ı"nin ustundeki kendi noktasi.
+   Tanim stil.css'teki .marka-rozet'e tasindi (tek kaynak); burada yalniz
+   olcu veriliyor. Renkler --marka-lamba-1/2 jetonlarindan gelir ve temaya
+   gore DEGISMEZ - logo.svg/favicon.svg ile birebir ayni. */
+'.mrxLogo{--rozet-olcu:26px;margin-right:2px}'+
 '.mrxUst b{font-size:16px}'+
 '.mrxUst a{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 14px;'+
  'border:1px solid var(--line2);border-radius:10px}'+
-'.mrxUst a:hover{color:#fff}'+
-'.mrxUst a.mrxUye{background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;border:0;font-weight:800}'+
+'.mrxUst a:hover{color:var(--ink)}'+
+'.mrxUst a.mrxUye{background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;border:0;font-weight:800}'+
 '#mrxKapat{margin-left:auto;appearance:none;border:1px solid var(--line2);background:transparent;'+
  'color:var(--ink);font-size:18px;border-radius:10px;padding:6px 13px;cursor:pointer}'+
 '#mrxAra{width:100%;padding:13px 16px;border:1px solid var(--line2);border-radius:12px;'+
@@ -378,7 +383,7 @@ function kur(){
 
   var kap=document.createElement('div'); kap.id='mrxKaplama';
   var h='<div class="mrxIc"><div class="mrxUst">'+
-    '<span class="mrxLogo">T</span><b>Tetikte</b>'+
+    '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
     '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'radar-app.html">Giriş / Üye Ol</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
     '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, ihale, fiş…" autocomplete="off">';
@@ -539,7 +544,7 @@ function ttSorguKapisi(anahtar){
     d.innerHTML = '<div style="max-width:430px;background:var(--kagit);border:1px solid rgba(255,194,75,.4);border-radius:16px;padding:26px;text-align:center;font-family:inherit">' +
       '<div style="font-size:19px;font-weight:800;color:var(--ink);margin-bottom:8px">Bu ayın 5 bedava sorgusunu kullandın</div>' +
       '<div style="font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:16px">Ücretsiz üyelikte tüm araçlar sınırsız — üstelik panelde firmanı tanıt, robot seni ilgilendiren değişiklikte haber versin.</div>' +
-      '<a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:15px;padding:12px 22px;border-radius:12px;text-decoration:none">Ücretsiz üye ol →</a>' +
+      '<a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:15px;padding:12px 22px;border-radius:12px;text-decoration:none">Ücretsiz üye ol →</a>' +
       '<div style="margin-top:12px"><a href="#" onclick="document.getElementById(\'ttDuvar\').remove();return false" style="color:var(--dim);font-size:12.5px">kapat</a></div></div>';
     document.body.appendChild(d);
   } catch (e) {}
