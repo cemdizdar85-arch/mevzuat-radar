@@ -24,12 +24,24 @@
 #  Cikti: veri/butunluk-raporu.json + veri/yutma-is-listesi.json
 #  0 USD, model yok.
 # ============================================================================
-param([switch]$sessiz, [string]$yalniz = '', [switch]$kanunlar)
+# 30.08.2026 — KAPI KOR NOKTASI (olculdu): asagidaki $desen yuzunden kapi
+# ambardaki 2.327 kaynagin yalniz 178'ine bakiyordu:
+#   -kanunlar  -> yalniz "(NNNN s.K.)" tasiyan numarali kanunlar (96)
+#   varsayilan -> yalniz TMS/TFRS/BDS/GDS/TSRS ile baslayanlar (82)
+# Teblig, yonetmelik, kurul karari, TSPB, THP, rehber... HICBIRINE bakmiyordu.
+# Sonuc: envanterin TAM MI sutunu 2.216 kaynaga TAM diyordu ama bunlarin
+# cogunu kapi hic gormemisti - "bakilmamak" ile "temiz cikmak" ayni sonucu
+# uretiyordu. -hepsi anahtari bu kor noktayi kapatir.
+param([switch]$sessiz, [string]$yalniz = '', [switch]$kanunlar, [switch]$hepsi)
 
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 . (Join-Path $here 'hat-onkontrol.ps1')
 HatOnKontrol $MyInvocation.MyCommand.Path
+# 30.08: kok adi kurali ORTAK dosyadan okunur. Envanter de ayni dosyayi
+# kullanir; iki taraf farkli turetirse "olculen kaynak" listesi envanter
+# satirlariyla eslesmez ve TAM MI baglamasi sessizce ise yaramaz.
+. (Join-Path $here 'kaynak-kok.ps1')
 $depoKok = Split-Path -Parent $here
 
 # ---------------------------------------------------------------- ARALIK
@@ -187,43 +199,45 @@ function BK_Cek([string]$adres){
 }
 
 # id ile sayfalama (kaynak_ad ile sayfalama 500 veriyor - 25.08 olcumu)
-$desen = if($kanunlar){ '\(\s*[0-9]+\s*s\.K\.\s*\)' } else { '^(TMS|TFRS|BDS|GDS|TSRS)\s' }
+# 30.08: -hepsi -> ad SUZGECI YOK, ambardaki her kaynak taranir.
+$desen = if($hepsi){ '' } elseif($kanunlar){ '\(\s*[0-9]+\s*s\.K\.\s*\)' } else { '^(TMS|TFRS|BDS|GDS|TSRS)\s' }
 if($yalniz){ $desen = '^' + [regex]::Escape($yalniz) }
-$belgeler=New-Object System.Collections.Generic.List[object]
+
+# 30.08 AKIS OLCUMU: eskiden TUM belgeler (metinleriyle) once bellege yigiliyor,
+# sonra olculuyordu. -hepsi ile bu 43.600+ kayit / yuz MB'larca metin demek;
+# PS 5.1'de sisme riski. Artik her SAYFA indigi anda olculur ve yalniz kucuk
+# ozet nesnesi ($duz) saklanir - metin bellekte tutulmaz.
+$duz=New-Object System.Collections.Generic.List[object]
+$kesikSayi=0; $oksuzSayi=0; $belgeSayi=0
 $sonId=''
-if(-not $sessiz){ Write-Host 'Ambar taraniyor...' }
-for($sayfa=0; $sayfa -lt 200; $sayfa++){
-  $u="$ambarUcu`?select=id,kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&order=id&limit=500"
+if(-not $sessiz){ Write-Host ("Ambar taraniyor{0}..." -f $(if($hepsi){' (TUM kaynaklar)'}else{''})) }
+for($sayfa=0; $sayfa -lt 400; $sayfa++){
+  $u="$ambarUcu`?select=id,kaynak_ad,tur,metin&order=id&limit=500"
+  if($desen){ $u += "&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) }
   if($sonId){ $u += "&id=gt.$sonId" }
   $sayfaVeri = BK_Cek $u
   if($sayfaVeri.Count -eq 0){ break }
-  foreach($x in $sayfaVeri){ $belgeler.Add($x) }
+  foreach($b in $sayfaVeri){
+    $belgeSayi++
+    $ad="$($b.kaynak_ad)"; $metin="$($b.metin)"
+    $kok = KaynakKok $ad "$($b.tur)"
+    if(-not $kok){ continue }
+    $ar = BK_Aralik $ad
+    $kesik = BK_Kesik $metin
+    $oksuz = BK_BaslikOnly $metin
+    if($kesik){ $kesikSayi++ }
+    if($oksuz){ $oksuzSayi++ }
+    $duz.Add([pscustomobject]@{
+      kok=$kok; ad=$ad; tip=$(if($ar){$ar.tip}else{''})
+      a=$(if($ar){$ar.a}else{0}); b=$(if($ar){$ar.b}else{0})
+      kesik=$kesik; oksuz=$oksuz; uzunluk=$metin.Length })
+  }
   $sonId="$($sayfaVeri[$sayfaVeri.Count-1].id)"
+  if(-not $sessiz -and ($sayfa % 20) -eq 0 -and $sayfa -gt 0){ Write-Host ("  olculen: {0}  ({1:HH:mm:ss})" -f $belgeSayi,(Get-Date)) }
   if($sayfaVeri.Count -lt 500){ break }
-  if($sayfa -eq 199){ throw 'SAYFA TAVANI - sessiz kirpma riski, tarama gecersiz' }
+  if($sayfa -eq 399){ throw 'SAYFA TAVANI - sessiz kirpma riski, tarama gecersiz' }
 }
-if(-not $sessiz){ Write-Host ("  belge: {0}" -f $belgeler.Count) }
-
-# ---------------------------------------------------------------- OLC
-$duz=New-Object System.Collections.Generic.List[object]
-$kesikSayi=0; $oksuzSayi=0
-$olcN=0
-foreach($b in $belgeler){
-  $olcN++
-  if(-not $sessiz -and ($olcN % 3000) -eq 0){ Write-Host ("  olculen: {0}/{1}  ({2:HH:mm:ss})" -f $olcN,$belgeler.Count,(Get-Date)) }
-  $ad="$($b.kaynak_ad)"; $metin="$($b.metin)"
-  $kok = BK_Kok $ad
-  if(-not $kok){ continue }
-  $ar = BK_Aralik $ad
-  $kesik = BK_Kesik $metin
-  $oksuz = BK_BaslikOnly $metin
-  if($kesik){ $kesikSayi++ }
-  if($oksuz){ $oksuzSayi++ }
-  $duz.Add([pscustomobject]@{
-    kok=$kok; ad=$ad; tip=$(if($ar){$ar.tip}else{''})
-    a=$(if($ar){$ar.a}else{0}); b=$(if($ar){$ar.b}else{0})
-    kesik=$kesik; oksuz=$oksuz; uzunluk=$metin.Length })
-}
+if(-not $sessiz){ Write-Host ("  belge: {0}" -f $belgeSayi) }
 
 $isListesi=New-Object System.Collections.Generic.List[object]
 $kirmizi=0; $yesil=0
@@ -282,12 +296,19 @@ if(-not $sessiz){
 }
 
 $isDuz=@(); foreach($i in $isListesi){ $isDuz += ,$i }
+# 30.08 — OLCULEN KAYNAK LISTESI. Bu alan olmadan envanter "bu kaynaga bakildi
+# mi?" sorusunu CEVAPLAYAMIYOR; sorun listesinde olmayan her kaynaga TAM diyor
+# ve BAKILMAMAK ile TEMIZ CIKMAK ayni sonucu uretiyordu. Envanterin TAM MI
+# sutunu artik bu listeye baglanacak: adi burada YOKSA cevap OLCULMEDI'dir.
+$olculenler=@($gruplar.Keys | Sort-Object)
 [IO.File]::WriteAllText((Join-Path $depoKok 'veri/butunluk-raporu.json'),
   (ConvertTo-Json -InputObject ([ordered]@{
-    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); kapsam=$(if($kanunlar){'kanunlar'}elseif($yalniz){$yalniz}else{'standartlar'})
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); kapsam=$(if($hepsi){'hepsi'}elseif($kanunlar){'kanunlar'}elseif($yalniz){$yalniz}else{'standartlar'})
     durum=$(if($kirmizi){'KIRMIZI'}else{'YESIL'})
-    belge=$belgeler.Count; kaynak_temiz=$yesil; kaynak_sorunlu=$kirmizi
+    belge=$belgeSayi; kaynak_temiz=$yesil; kaynak_sorunlu=$kirmizi
     kesik_belge=$kesikSayi; oksuz_belge=$oksuzSayi
+    olculen_kaynak_sayisi=$olculenler.Count
+    olculen_kaynaklar=$olculenler
     is_listesi=$isDuz }) -Depth 10),(New-Object Text.UTF8Encoding($false)))
 if(-not $sessiz){ Write-Host ''; Write-Host '-> veri/butunluk-raporu.json  (yutma is listesi icinde)' }
 if($kirmizi){ exit 1 } else { exit 0 }

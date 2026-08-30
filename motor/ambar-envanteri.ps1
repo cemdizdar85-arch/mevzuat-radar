@@ -73,28 +73,49 @@ Write-Host "  tekil kaynak (onek): $($say.Count) | toplam parca: $toplam"
 # Iki rapor okunur: butunluk-raporu-standartlar.json (kapsam=standartlar) +
 # butunluk-raporu.json (son kosu; -kanunlar kosuldugunda kapsam=kanunlar).
 $butunDelik=@{}
-$olcKapsam=@{}   # 'standartlar'/'kanunlar' -> tarih
+$olcKapsam=@{}   # 'standartlar'/'kanunlar'/'hepsi' -> tarih
 $bTarih=''
+# 30.08 — KAYNAK DUZEYINDE OLCUM LISTESI. Kapi artik BAKTIGI kaynaklarin
+# ADINI raporluyor (butunluk-kapisi.ps1 -> olculen_kaynaklar). TAM MI hukmu
+# bu listeye baglanir; adi burada yoksa cevap OLCULMEDI'dir.
+# ONCEKI KUSUR: hukum KAPSAM duzeyindeydi - "kanunlar taramasi bir kez kostu
+# mu?" diye soruyordu. Kostuysa, sorun listesinde adi gecmeyen HER kaynaga
+# TAM diyordu. Ama kapinin HIC BAKMADIGI kaynak da sorun listesinde olmaz;
+# yani BAKILMAMAK ile TEMIZ CIKMAK ayni sonucu uretiyordu.
+# Olcum (30.08): kapi 178 kaynagin adini biliyordu, envanter 2.216 kaynaga
+# TAM damgasi vurmustu. TSPB/SPK kaynaklarinin hicbirine bakilmamisti.
+$olculenKaynak=New-Object System.Collections.Generic.HashSet[string]
 foreach($bAd in @('butunluk-raporu-standartlar.json','butunluk-raporu.json')){
   $bY=Join-Path $kok "veri\$bAd"
   if(-not (Test-Path $bY)){ continue }
   try{
     $bj=Get-Content $bY -Raw -Encoding UTF8 | ConvertFrom-Json
     $kp="$($bj.kapsam)"
-    if($kp -in @('standartlar','kanunlar')){ $olcKapsam[$kp]=(Get-Item $bY).LastWriteTime.ToString('dd.MM.yyyy'); $bTarih=$olcKapsam[$kp] }
+    if($kp -in @('standartlar','kanunlar','hepsi')){ $olcKapsam[$kp]=(Get-Item $bY).LastWriteTime.ToString('dd.MM.yyyy'); $bTarih=$olcKapsam[$kp] }
     foreach($s in @($bj.is_listesi | % { $_ })){
       $butunDelik["$($s.kaynak)"]="par:$($s.eksik_paragraf)/kesik:$($s.kesik_belge)/oksuz:$($s.oksuz_belge)"
     }
+    foreach($o in @($bj.olculen_kaynaklar | % { $_ })){ if("$o"){ [void]$olculenKaynak.Add("$o") } }
   }catch{ Write-Host "  butunluk raporu okunamadi ($bAd): $_" }
 }
+$olculenListeVar = ($olculenKaynak.Count -gt 0)
+Write-Host ("  kapinin olctugu kaynak: {0}" -f $olculenKaynak.Count)
 function ButunlukHukmu([string]$on,[string]$turAd,[string]$surumDurum){
   $delik=''
   if($butunDelik.ContainsKey($on)){ $delik=$butunDelik[$on] }
   $kanunMu = ($turAd -ne 'standart-madde')
-  $kapsamOlculdu = $false
-  if($kanunMu -and $olcKapsam.ContainsKey('kanunlar')){ $kapsamOlculdu=$true }
-  if(-not $kanunMu -and $olcKapsam.ContainsKey('standartlar')){ $kapsamOlculdu=$true }
-  if(-not $kapsamOlculdu){ return 'ÖLÇÜLMEDİ' }
+  if($olculenListeVar){
+    # YENI YOL (30.08): kaynak DUZEYINDE. Adi kapinin olctugu listede yoksa,
+    # bu kaynak hakkinda soyleyecek sozumuz YOKTUR.
+    if(-not $olculenKaynak.Contains($on)){ return 'ÖLÇÜLMEDİ' }
+  } else {
+    # ESKI YOL - yalniz kapi henuz olculen-liste yazmayan ESKI bir rapor
+    # biraktiysa devreye girer. Yeni kosuda kendiliginden kapanir.
+    $kapsamOlculdu = $false
+    if($kanunMu -and $olcKapsam.ContainsKey('kanunlar')){ $kapsamOlculdu=$true }
+    if(-not $kanunMu -and $olcKapsam.ContainsKey('standartlar')){ $kapsamOlculdu=$true }
+    if(-not $kapsamOlculdu){ return 'ÖLÇÜLMEDİ' }
+  }
   if(-not $delik){ return 'TAM' }
   # 28.08 CAPRAZ KURALI: surum kapisi ayni gun TUTARLI dediyse ambar guncel
   # resmi PDF ile birebir demektir - "eksik" numaralar resmi metinde de yok
