@@ -1,97 +1,78 @@
 -- ============================================================================
 --  AMBAR INDEKSLERI — madde arama ve kaynak filtresi 500 vermesin (30.08.2026)
 --
---  CEM (30.08): "madde goruntuleyici sayfa — ambardaki 43.440 parcayi ilk kez
---  kullaniciya acar."  Sayfa yazilmadan ONCE altyapi olculdu ve TIKALI cikti.
+--  ⭐ BU DOSYAYI KOMPLE KOPYALA, Supabase > SQL Editor'e yapistir, bir kez Run.
+--     Baska bir sey yapmana gerek yok.
 --
---  OLCUM (anon anahtarla, canli uctan):
---    GET /dokumanlar?select=id&limit=1                        -> 200  (hizli)
---    GET /dokumanlar?tur=eq.kanun-madde&limit=3               -> 200  (hizli)
+--  🔴 30.08 KUSUR VE DUZELTME: ilk surumde calisan satirlar
+--     "create index CONCURRENTLY" idi. Supabase SQL Editor her calistirmayi
+--     TRANSACTION'a sarar ve concurrently orada CALISMAZ - panel
+--     "CREATE INDEX CONCURRENTLY cannot run inside a transaction block"
+--     der ve HICBIR INDEKS BASILMAZ. Cem bastigini soyledi, olcum yine 500
+--     dondu; sebep buydu. Kolay yolu YORUM icine yazmak da benim kusurumdu:
+--     dosyayi yapistiran kisi yorumlari degil, calisan satirlari basar.
+--     Artik calisan satirlar CONCURRENTLY'SIZ. Tablo kisa sure kilitlenir;
+--     43.440 satirda GIN indeksi birkac dakika surebilir, bu NORMALDIR -
+--     bitene kadar okuma sorgulari yavaslar ya da zaman asimi verebilir.
+--
+--  NEDEN GEREKLI - OLCUM (anon anahtarla, canli uctan):
+--    GET /dokumanlar?select=id&limit=1                        -> 200  hizli
+--    GET /dokumanlar?tur=eq.kanun-madde&limit=3               -> 200  hizli
 --    GET /dokumanlar?kaynak_ad=eq.<5973 s. Karar>&limit=3     -> 500  57014
---    GET /dokumanlar?tur=eq.kanun-madde&kaynak_ad=eq.<...>    -> 500  4.4 sn
---    POST /rpc/madde_ara {"sorgu":"ihracat & destek"}         -> 500  8.1 sn
---  Yani: 'tur' filtresi calisiyor, 'kaynak_ad' iceren HER sorgu ve tam metin
---  aramasinin TAMAMI zaman asimina dusuyor. Hafizadaki "madde_ara 500" kusuru
---  budur ve sebebi olculdu: bu iki sutunda indeks yok, 43.440 satir tam
---  taraniyor.
+--    GET /dokumanlar?tur=eq...&kaynak_ad=eq.<...>             -> 500  57014
+--    POST /rpc/madde_ara {"sorgu":"ihracat & destek"}         -> 500  57014
+--  madde_ara HIC DEVREDE DEGILKEN tek satirlik kaynak_ad esitligi bile zaman
+--  asimina dusuyor. SERVIS ANAHTARIYLA da ayni sonuc - yani RLS degil.
+--  Goc kutugu "madde_ara sekiz surum yazildi, timeout hala oluyor" diyordu:
+--  sorun FONKSIYONDA DEGIL, INDEKSTE. Ambar 13 binden 43.440 parcaya buyudu;
+--  kaynak_ad ve arama_fold sutunlarinda indeks yok, her sorgu tam tarama.
+--  tur filtresinin calismasi da bunu dogruluyor (onda indeks var).
 --
---  madde_ara v4'un kendi yorumu (16.07) "13 bin satirin tamamini puanlamak
---  zaman asimi verdi" diyor ve iki asamali hale getirilmisti. Ambar o gunden
---  bugune 13 bin -> 43.440 buyudu; v4'un ts_rank adaylama adimi da artik
---  indekssiz calisamiyor.
---
---  BU GOC UC INDEKS BASAR (tablo yapisi DEGISMEZ, veri DEGISMEZ):
---    1) arama_fold GIN   -> madde_ara'nin @@ operatoru ve IDF alt sorgulari
---    2) kaynak_ad        -> "bu kaynagin maddelerini getir" (madde goruntuleyici,
---                           Destek Radari dayanak bagi)
---    3) tur + kaynak_ad  -> ikisiyle birlikte daraltan sorgular
---
---  CONCURRENTLY: canli tabloyu KILITLEMEZ. Supabase SQL editorunde her satiri
---  TEK TEK calistir - concurrently transaction blogu icinde calismaz, hepsini
---  birden yapistirirsan "CREATE INDEX CONCURRENTLY cannot run inside a
---  transaction block" hatasi alirsin.
---
---  BASILDIKTAN SONRA OLCUM (kabul kriteri): asagidaki dogrulama bolumu.
---  Ucu de 200 donmeden madde goruntuleyici sayfa YAZILMAZ - test edilemeyen
---  sayfa yayinlanmaz.
+--  Tablo yapisi DEGISMEZ, veri DEGISMEZ. Geri almak: drop index <ad>;
 -- ============================================================================
 
--- ============================================================================
---  ⭐ CEM: PANELDEN BASMANIN KOLAY YOLU — asagidaki "TEK SEFERDE" blogunu
---  komple kopyala, Supabase > SQL Editor'e yapistir, bir kez Run.
---
---  Neden concurrently DEGIL: SQL Editor her calistirmayi transaction'a sarar,
---  concurrently orada calismaz. Concurrently'siz surum tabloyu kisa sure
---  kilitler - 43.440 satirda saniyeler surer, gece beklemeye gerek yok.
---  (Asagidaki concurrently'li surum psql/CLI ile basacaklar icin duruyor.)
---
---  ---------------------------- TEK SEFERDE ---------------------------------
---  create index if not exists dokumanlar_arama_fold_gin
---    on public.dokumanlar using gin (arama_fold);
---  create index if not exists dokumanlar_kaynak_ad_idx
---    on public.dokumanlar (kaynak_ad);
---  create index if not exists dokumanlar_tur_kaynak_idx
---    on public.dokumanlar (tur, kaynak_ad);
---  analyze public.dokumanlar;
---  --------------------------------------------------------------------------
---
---  Bastiktan sonra BANA SOYLE, olcumu ben yapayim (okuma yetkim var):
---  uc dogrulama sorgusu + canli uctan madde_ara + kaynak_ad testi.
--- ============================================================================
-
--- 1) Tam metin arama (madde_ara). En kritik olan bu: fonksiyon her token icin
---    tum tabloda @@ sayimi yapiyor, indekssiz her cagri tam tarama demek.
-create index concurrently if not exists dokumanlar_arama_fold_gin
+-- 1) Tam metin arama (madde_ara'nin kalbi). Fonksiyon her token icin tum
+--    tabloda @@ sayimi yapiyor; indekssiz her cagri tam tarama demek.
+create index if not exists dokumanlar_arama_fold_gin
   on public.dokumanlar using gin (arama_fold);
 
 -- 2) Kaynak bazli okuma: "5973 s. Karar'in maddeleri" gibi sorgular.
-create index concurrently if not exists dokumanlar_kaynak_ad_idx
+--    Madde goruntuleyici sayfa ve Destek Radari dayanak bagi bunu kullanacak.
+create index if not exists dokumanlar_kaynak_ad_idx
   on public.dokumanlar (kaynak_ad);
 
--- 3) Tur + kaynak birlikte daraltma (envanter ve goruntuleyici bu ikisini
---    birlikte kullaniyor).
-create index concurrently if not exists dokumanlar_tur_kaynak_idx
+-- 3) Tur + kaynak birlikte daraltma.
+create index if not exists dokumanlar_tur_kaynak_idx
   on public.dokumanlar (tur, kaynak_ad);
 
--- (istege bagli, indeksler basildiktan sonra) planlayiciya taze istatistik:
--- analyze public.dokumanlar;
+-- planlayiciya taze istatistik
+analyze public.dokumanlar;
 
 -- ============================================================================
---  DOGRULAMA — bu ucu de HATASIZ ve HIZLI donmeli
+--  DOGRULAMA — Run'dan sonra bunlar da calisir; ciktilari bana soyle
 -- ============================================================================
--- (a) kaynak bazli okuma
-select count(*) as madde_sayisi
-from public.dokumanlar
-where kaynak_ad = 'Ihracat Destekleri Hakkinda Karar (5973 s. CB Karari)';
--- beklenen: 59 (30.08 envanter olcumu)
 
--- (b) tam metin arama
-select kaynak_ad from public.madde_ara('ihracat destegi', 3);
--- beklenen: 3 satir, hata yok
-
--- (c) indeksler yerinde mi
+-- (a) indeksler yerinde mi? Uc yeni ad listede gorunmeli:
+--     dokumanlar_arama_fold_gin · dokumanlar_kaynak_ad_idx · dokumanlar_tur_kaynak_idx
 select indexname from pg_indexes
 where schemaname = 'public' and tablename = 'dokumanlar'
 order by indexname;
--- beklenen: dokumanlar_arama_fold_gin · dokumanlar_kaynak_ad_idx ·
---           dokumanlar_tur_kaynak_idx (+ mevcut olanlar)
+
+-- (b) kaynak bazli okuma (beklenen: 59 - 30.08 envanter olcumu)
+select count(*) as madde_sayisi
+from public.dokumanlar
+where kaynak_ad = 'Ihracat Destekleri Hakkinda Karar (5973 s. CB Karari)';
+
+-- (c) tam metin arama (beklenen: 3 satir, hata yok)
+select kaynak_ad from public.madde_ara('ihracat destegi', 3);
+
+-- ============================================================================
+--  psql / Supabase CLI ile basacaklar icin (panelde DEGIL):
+--    create index concurrently if not exists dokumanlar_arama_fold_gin
+--      on public.dokumanlar using gin (arama_fold);
+--    create index concurrently if not exists dokumanlar_kaynak_ad_idx
+--      on public.dokumanlar (kaynak_ad);
+--    create index concurrently if not exists dokumanlar_tur_kaynak_idx
+--      on public.dokumanlar (tur, kaynak_ad);
+--  concurrently tabloyu kilitlemez ama transaction disinda calistirilmalidir.
+-- ============================================================================
