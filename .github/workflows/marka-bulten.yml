@@ -13,8 +13,11 @@ name: Marka Bulteni
 #     tarihinden isler. TMview bunun ikinci elden kopyasidir.
 #
 #  SIKLIK: Bulten ayda iki cikiyor (498 -> 12.08, 499 -> 27.08). Gunde bir
-#  bakmak fazlasiyla yeter; yeni bulten yoksa is saniyeler icinde biter
-#  (kutuk'te 'bitti' olan bulten tekrar indirilmez).
+#  bakmak fazlasiyla yeter; yeni bulten yoksa is saniyeler icinde biter.
+#  Yutulmus bulten tekrar INDIRILMEZ - bunun kontrolu marka_bulten_kutuk
+#  tablosundan okunur (robot icinde, 'durum=bitti' suzgeci). Bu satir bir kez
+#  KONTROL YOKKEN yazilmisti; belge olmayan bir davranisi anlatiyordu ve
+#  gunluk kosu her gece 477 MB'i bosuna indirecekti.
 #
 #  MALIYET 0: depo PUBLIC (Actions ucretsiz), kaynak kimliksiz/CAPTCHA'siz.
 #
@@ -27,9 +30,9 @@ on:
   workflow_dispatch:
     inputs:
       mod:
-        description: 'son = en yeni bulteni yut · gecmis = son N bulteni yut · liste = yalniz bak'
+        description: 'son = en yeni bulteni yut · gecmis = son N bulteni yut · liste = yalniz bak · zorla = yutulmus olsa da yeniden yut'
         type: choice
-        options: [son, gecmis, liste]
+        options: [son, gecmis, liste, zorla]
         default: son
       adet:
         description: 'gecmis modunda kac bulten (en yeniden geriye)'
@@ -64,6 +67,7 @@ jobs:
           case "$mod" in
             liste)  node motor/marka-bulten-hasat.js --liste ;;
             gecmis) node motor/marka-bulten-hasat.js --son "$adet" ;;
+            zorla)  node motor/marka-bulten-hasat.js --son "$adet" --zorla ;;
             *)      node motor/marka-bulten-hasat.js --son 1 ;;
           esac
 
