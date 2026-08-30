@@ -5,7 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Veri Sağlığı — Tetikte</title>
 <style>
-:root{--zemin:#161513;--kart:#1f1d1a;--kehribar:#e0a458;--metin:#e8e4dc;--soluk:#a89f90;--yesil:#8fc98f}
+:root{
+  /* ACIK TEMA (30.08) - degerler stil-acik.css'ten aynen alindi.
+     fark.html ile ayni gecis: 64 sayfanin 62'si acik temadaydi, koyu kalan
+     iki sayfadan biri buydu. Ayni jeton adlari, ayni palet. */
+  --zemin:#fbfaf8;    /* --bg     */
+  --kart:#ffffff;     /* --panel  */
+  --kehribar:#a04a08; /* --accent : METIN baglaminda koyu kehribar */
+  --metin:#16191d;    /* --ink    */
+  --soluk:#4b5563;    /* --muted  */
+  --yesil:#146f35;}   /* --green  : acik zeminde okunacak koyulukta */
 *{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--zemin);color:var(--metin);line-height:1.6}
 .kap{max-width:860px;margin:0 auto;padding:40px 20px}
 h1{font-size:1.7em;margin:.2em 0}.alt{color:var(--soluk);font-size:1.02em;max-width:640px}

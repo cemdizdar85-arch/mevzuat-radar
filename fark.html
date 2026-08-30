@@ -4,15 +4,30 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>1 Soru Çöz, Farkı Gör — Tetikte</title>
 <style>
-:root{--zemin:#161513;--kart:#1f1d1a;--kehribar:#e0a458;--metin:#e8e4dc;--soluk:#a89f90;--yesil:#8fc98f;--kirmizi:#e07b7b;
-  /* 30.08: asagidakiler sabit yazilmis renklerden JETONA cevrildi. Degerler
-     birebir korundu - mühürlü sayfanin gorunumu degismesin diye. */
-  --mavi:#78b4ff;        /* ALTIN AYRIM: "soruda verilen" mavi kenari */
-  --mavi-acik:#8fd0ff;   /* ogretmen tahtasi formul metni */
-  --kenar:#5a5648;       /* ikiz kutusu ve gizle dugmesi kenari */
-  --kart2:#26231f; --kart3:#35322c; --kart4:#3b372f;
-  --gri:#26262c;         /* adim oynatici zemini */
-  --soluk-kenar:#444;}
+:root{
+  /* ---- ACIK TEMA (30.08) ----------------------------------------------
+     Cem: "site rengini beyaz yaptik, burasi siyah kalmis."
+     Olculdu: 64 sayfanin 62'si acik temada; yalniz fark.html ve saglik.html
+     koyu kalmisti. Bu sayfa PAZARLAMANIN YUZU (kahraman ekran kurgusu) -
+     siteden buraya gecen kullanici baska bir yere dustugunu hissetmemeli.
+     Degerler stil-acik.css'ten AYNEN alindi, uydurulmadi.
+     Renkler jetonda oldugu icin bu gecis TEK BLOK degisikligiyle yapildi;
+     dagitik sabit renk olsaydi mumkun degildi. ------------------------- */
+  --zemin:#fbfaf8;       /* stil-acik --bg     : sicak kagit */
+  --kart:#ffffff;        /* stil-acik --panel  : kagit katmani */
+  --kehribar:#a04a08;    /* stil-acik --accent : METIN baglaminda koyu kehribar */
+  --metin:#16191d;       /* stil-acik --ink    : saf siyah degil, goz yormaz */
+  --soluk:#4b5563;       /* stil-acik --muted  */
+  --yesil:#146f35;       /* stil-acik --green  : acik zeminde okunacak koyulukta */
+  --kirmizi:#b91c1c;     /* stil-acik --red    */
+  --mavi:#1d4ed8;        /* stil-acik --link   : ALTIN AYRIM "soruda verilen" */
+  --mavi-acik:#1e40af;   /* ogretmen tahtasi formul metni - bir ton koyu */
+  --kenar:#d5d0c6;       /* stil-acik --line2  */
+  --kart2:#f7f5f1;       /* stil-acik --panel2 */
+  --kart3:#f4f2ee;       /* stil-acik --bg2    */
+  --kart4:#e6e2da;       /* stil-acik --line   */
+  --gri:#f4f2ee;
+  --soluk-kenar:#d5d0c6;}
 *{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--zemin);color:var(--metin);line-height:1.6}
 .kap{max-width:860px;margin:0 auto;padding:36px 20px}
 h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
