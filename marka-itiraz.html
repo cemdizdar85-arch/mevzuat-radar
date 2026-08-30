@@ -102,6 +102,42 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </div>
     <div id="irDurum" class="mini" style="margin-top:10px;color:var(--dim)"></div>
     <div id="irSonuc" style="margin-top:12px"></div>
+
+    <!-- ====================================================================
+         MARKA NÖBETİ (30.08.2026, Cem: "uyarı bacağını kur")
+         Yukarısı ANLIK bakış: bugün ne var. Burası SÜREKLİ nöbet: kullanıcı
+         markasını bir kez bırakır, her yeni bültende benzer başvuru çıkarsa
+         e-posta alır. İtiraz süresi yayımdan iki aydır (SMK m.18) ve
+         UZATILAMAZ - kaçıran hakkını kaybeder. Ürünün paralı tarafı burası.
+         ==================================================================== -->
+    <div id="nbKutu" style="margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--panel)">
+      <div style="font-weight:850;font-size:15.5px;margin-bottom:3px">🔔 Bir daha aramana gerek kalmasın</div>
+      <p class="lead" style="font-size:13.5px;margin:0 0 12px">
+        Markanı bırak; <b>her yeni bültende</b> benzeyen başvuru çıkarsa sana yazalım.
+        Süre <b>yayımdan iki ay</b> ve uzatılamaz — kaçıran itiraz hakkını kaybeder.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div style="flex:1;min-width:180px">
+          <label style="display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px">MARKANIN ADI</label>
+          <input class="gir" id="nbAd" placeholder="ör. TETİKTE" style="width:100%">
+        </div>
+        <div style="flex:0 1 150px;min-width:130px">
+          <label style="display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px">NICE SINIFLARIN</label>
+          <input class="gir" id="nbSinif" placeholder="9, 42" style="width:100%">
+        </div>
+        <div style="flex:1;min-width:200px">
+          <label style="display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px">E-POSTA</label>
+          <input class="gir" id="nbMail" type="email" placeholder="ornek@firma.com" style="width:100%">
+        </div>
+        <button class="btn" id="nbBtn" type="button">Nöbeti kur</button>
+      </div>
+      <label class="kvkk-row" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:12px;color:var(--dim)">
+        <input id="nbKvkk" type="checkbox" style="width:16px;height:16px;margin-top:2px;accent-color:var(--accent)">
+        <span>Bildirim alabilmem için e-posta adresimin bu amaçla işlenmesini kabul ediyorum.
+        Her e-postada tek tıkla çıkış bağlantısı bulunur.
+        <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metni</a></span>
+      </label>
+      <div id="nbDurum" class="mini" style="margin-top:10px;min-height:18px"></div>
+    </div>
   </div>
 
   <div class="iki">
@@ -341,6 +377,61 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
     $('#irSonuc').innerHTML=h;
   }
 
+  /* --- MARKA NÖBETİ ------------------------------------------------------
+     Kayıt sunucuda kasa fonksiyonuyla açılır (marka_takip_ac). E-posta listesi
+     tabloya doğrudan okunamaz; kullanıcı kendi kaydına ancak elindeki jetonla
+     ulaşır. Jetonu tarayıcıda saklarız ki "kurdum mu?" sorusu cevapsız kalmasın. */
+  var nbDurum=function(h){ var e=$('#nbDurum'); if(e) e.innerHTML=h; };
+
+  function nobetKur(){
+    var ad=($('#nbAd').value||'').trim();
+    var mail=($('#nbMail').value||'').trim();
+    var ham=($('#nbSinif').value||'').trim();
+    var sinif=(ham.match(/\d{1,2}/g)||[]).map(Number).filter(function(n){return n>=1&&n<=45;});
+    if(ad.length<2){ nbDurum('Markanın adını yaz (en az 2 harf).'); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/.test(mail)){ nbDurum('E-posta adresi geçerli görünmüyor.'); return; }
+    if(!$('#nbKvkk').checked){ nbDurum('Devam etmek için onay kutusunu işaretle.'); return; }
+
+    nbDurum('Nöbet kuruluyor…');
+    fetch(SB_URL+'/rest/v1/rpc/marka_takip_ac',{
+      method:'POST',
+      headers:{'Content-Type':'application/json', apikey:SB_KEY, Authorization:'Bearer '+SB_KEY},
+      body:JSON.stringify({p_ad:ad, p_sinif:(sinif.length?sinif:null), p_eposta:mail})
+    })
+    .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error((j&&j.message)||('HTTP '+r.status)); return j; }); })
+    .then(function(j){
+      var k=Array.isArray(j)?j[0]:j;
+      if(!k||!k.jeton) throw new Error('Kayıt döndü ama jeton yok');
+      try{ localStorage.setItem('nbJeton', k.jeton); }catch(e){}
+      nbDurum('<b style="color:var(--green,#2e7d32)">Nöbet kuruldu.</b> '
+        +'Bundan sonra <b>'+esc(k.ad)+'</b> markasına benzer bir başvuru yayımlanırsa '
+        +'<b>'+esc(mail)+'</b> adresine yazacağız. '
+        +'<a href="?nobet=kapat&jeton='+encodeURIComponent(k.jeton)+'">Nöbeti kapat</a>');
+    })
+    .catch(function(e){ nbDurum('<b style="color:var(--red)">Nöbet kurulamadı:</b> '+esc(e.message)); });
+  }
+
+  /* E-postadaki tek tıklık çıkış bağlantısı buraya düşer. */
+  (function(){
+    var q=new URLSearchParams(location.search);
+    if(q.get('nobet')!=='kapat') return;
+    var j=q.get('jeton')||'';
+    if(!j){ nbDurum('Çıkış bağlantısı eksik.'); return; }
+    nbDurum('Nöbet kapatılıyor…');
+    fetch(SB_URL+'/rest/v1/rpc/marka_takip_kapat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json', apikey:SB_KEY, Authorization:'Bearer '+SB_KEY},
+      body:JSON.stringify({p_jeton:j})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(v){
+      nbDurum(v===true ? '<b>Nöbet kapatıldı.</b> Bu marka için artık e-posta göndermeyeceğiz.'
+                       : 'Bu bağlantıya ait açık bir nöbet bulunamadı (zaten kapatılmış olabilir).');
+    })
+    .catch(function(e){ nbDurum('<b style="color:var(--red)">Kapatılamadı:</b> '+esc(e.message)); });
+  })();
+
+  var nb=$('#nbBtn'); if(nb) nb.addEventListener('click', nobetKur);
   var b=$('#irBtn'); if(b) b.addEventListener('click', tara);
   var a=$('#irAd');  if(a) a.addEventListener('keydown', function(e){ if(e.key==='Enter') tara(); });
 })();

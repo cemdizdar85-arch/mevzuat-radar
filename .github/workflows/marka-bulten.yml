@@ -74,6 +74,19 @@ jobs:
             *)      node motor/marka-bulten-hasat.js --son 1 ;;
           esac
 
+      # NOBET UYARILARI - yutmadan SONRA kosar.
+      # Sira onemli: once bulten ambara girer, sonra haber gider. Tersi olsa
+      # yeni bultendeki basvurular bir TUR gecikirdi; itiraz suresi iki ay ve
+      # uzatilamiyor, bir tur gecikme musteriye hak kaybettirebilir.
+      # if: always() -> yutma kismen dusse bile INEN bultenler icin haber gider.
+      - name: Nobet uyarilari
+        if: always()
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/marka-uyari.js
+
       # Kor kalma kurali: kirmizi olsa da ne gordugumuz depoda dursun.
       - name: Raporu yayinla (kirmizi olsa da)
         if: always()
