@@ -38,25 +38,41 @@ $kok  = Split-Path -Parent $here
 $ps   = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
 
 # --- BEYAN: gorevlerin tek dogru tanimi -------------------------------------
-# betikler: sirayla kosacak motor\*.ps1 dosyalari (tek elemanliysa -File,
-# birden fazlaysa zincir -Command olarak kurulur, ciktilar log dosyasina).
+# betikler: sirayla kosacak motor\*.ps1 dosyalari. Her girdi ARGUMAN tasiyabilir
+# ("betik.ps1 -anahtar"). Tek elemanli ve argumansizsa -File, degilse zincir
+# -Command olarak kurulur ve ciktilar log dosyasina yazilir.
 $GOREVLER = @(
   @{ ad='MevzuatRadar-YerelAyna';     saat='06:30'; sinir='PT3H'; pilKosma=$false;
      betikler=@('yerel-ayna.ps1') }
-  @{ ad='MevzuatRadar-SurumTazeligi'; saat='06:45'; sinir='PT2H'; pilKosma=$false;
+  @{ ad='MevzuatRadar-SurumTazeligi'; saat='06:45'; sinir='PT3H'; pilKosma=$false;
      log='veri\fabrika\surum-tazeligi-son-kosu.txt'
-     betikler=@('surum-tazeligi.ps1','ambar-envanteri.ps1','veri-katalogu.ps1','saglik-karnesi.ps1')
-     ek=@('gorev-kur.ps1 -yayinla') }   # zincirin sonunda nabiz yazilir ve depoya basilir
+     # 30.08 — BUTUNLUK KAPISI ZINCIRE GIRDI. Neden: envanterin TAM MI sutunu
+     # artik kapinin "olctugum kaynaklar" listesine BAGLI. Kapi kosmazsa liste
+     # bayatlar ve yeni yutulan her kaynak (dogru olarak) OLCULMEDI gorunur,
+     # ama sonsuza kadar oyle kalir. SIRA ONEMLI: kapi ENVANTERDEN ONCE kosar,
+     # yoksa envanter bir gun eski raporu okur.
+     # Sure: -hepsi ~43.600 belge tarar, olcum ~4 dakika. Bu yuzden gorev
+     # siniri PT2H -> PT3H yapildi.
+     betikler=@('surum-tazeligi.ps1','butunluk-kapisi.ps1 -hepsi','ambar-envanteri.ps1','veri-katalogu.ps1','saglik-karnesi.ps1','gorev-kur.ps1 -yayinla') }
   @{ ad='MevzuatRadar-YerelIndirici'; saat='09:30'; sinir='PT2H'; pilKosma=$false;
      betikler=@('yerel-indirici.ps1') }
 )
 
 function EylemKur($g){
+  # 30.08: her betik girdisi "dosya.ps1 [arguman]" olabilir. Bolme YALNIZ ilk
+  # bosluktan yapilir; kalan kisim aynen arguman olarak gecer.
   $parcalar = @()
-  foreach($b in $g.betikler){ $parcalar += ("& '{0}'" -f (Join-Path $here $b)) }
+  foreach($b in @($g.betikler)){
+    if(-not $b){ continue }
+    $d = ($b -split ' ',2)
+    $dosya = Join-Path $here $d[0]
+    if($d.Count -gt 1 -and $d[1]){ $parcalar += ("& '{0}' {1}" -f $dosya, $d[1]) }
+    else { $parcalar += ("& '{0}'" -f $dosya) }
+  }
   foreach($e in @($g.ek)){ if($e){ $parcalar += ("& '{0}' {1}" -f (Join-Path $here ($e -split ' ')[0]), (($e -split ' ',2)[1])) } }
-  if($parcalar.Count -eq 1 -and -not $g.log){
-    return @{ arg = ('-NoProfile -ExecutionPolicy Bypass -File "{0}"' -f (Join-Path $here $g.betikler[0])) }
+  $tekArgumansiz = (@($g.betikler).Count -eq 1) -and (@($g.betikler)[0] -notmatch ' ') -and (-not @($g.ek))
+  if($tekArgumansiz -and -not $g.log){
+    return @{ arg = ('-NoProfile -ExecutionPolicy Bypass -File "{0}"' -f (Join-Path $here (@($g.betikler)[0]))) }
   }
   $logYol = if($g.log){ Join-Path $kok $g.log } else { Join-Path $kok ('veri\fabrika\{0}-son-kosu.txt' -f $g.ad) }
   $zincir = @()
