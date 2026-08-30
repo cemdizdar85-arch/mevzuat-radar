@@ -35,7 +35,10 @@ $ELLE_ZENGIN=@('TMS 28')
 $KAPSAM_DISI=@('TSRS 1','TSRS 2')
 $ErrorActionPreference='Continue'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
-$here=Split-Path -Parent $MyInvocation.MyCommand.Path
+# 30.08: $PSScriptRoot once denenir. $MyInvocation.MyCommand.Path bir betik
+# BASKA BIR BETIKTEN "&" ile cagrildiginda (PS7/Linux) NULL gelebiliyor;
+# standart-yut.ps1 tam bu yuzden CI'da ilk satirinda oluyordu.
+$here=if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $kok=Split-Path -Parent $here
 $KEY=[Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User')
 if(-not $KEY){ $KEY=$env:SUPABASE_SERVICE_KEY }

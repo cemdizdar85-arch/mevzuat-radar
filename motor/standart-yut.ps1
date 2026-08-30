@@ -30,9 +30,22 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+# 30.08.2026 KUSUR (CI'dan DELILLE bulundu): asagidaki satir eskiden
+#   $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+# idi. Bu betik BASKA BIR BETIGIN ICINDEN "&" ile cagrildiginda (surum-tazeligi
+# tam bunu yapar) PowerShell 7 / Linux'ta $MyInvocation.MyCommand.Path NULL
+# gelir ve Split-Path patlar:
+#   "standart-yut.ps1: Cannot bind argument to parameter 'Path' because it is null."
+# Betik daha ILK KURULUM SATIRINDA olur; hicbir sey yazmaz.
+# GORUNEN SONUC baska yere isaret ediyordu: surum karnesinde 31 standardin
+# 29'u "OLCULEMEDI · ambar 0p -> yeni 0p" cikiyordu; sanki Supabase ya da
+# pdftotext sorunu varmis gibi. Ikisi de saglamdi (CI teshisi: pdftotext
+# /usr/bin/pdftotext · anahtar 219 karakter · pwsh 7.6.5 Ubuntu 24.04).
+# $PSScriptRoot bu baglamda DOGRU deger verir; eski yol yedek olarak kalir.
+$here = if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 . (Join-Path $here 'hat-onkontrol.ps1')
-HatOnKontrol $MyInvocation.MyCommand.Path
+$buBetik = if($PSCommandPath){ $PSCommandPath } else { Join-Path $here 'standart-yut.ps1' }
+HatOnKontrol $buBetik
 $depoKok = Split-Path -Parent $here
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
