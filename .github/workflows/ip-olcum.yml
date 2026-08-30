@@ -158,6 +158,17 @@ jobs:
             echo "yalnız mevzuat.gov.tr ❌ → sadece o site için TR-IP çözümü gerekir ·"
             echo "hepsi ❌ → TR-IP'li sunucu şart."
             echo ""
+            echo "> ⚠️ **BİR SATIRA \"ENGEL\" DEMEDEN ÖNCE ÜRETİM ARACI SATIRINA BAK.**"
+            echo "> 30.08'de ölçüldü: \`ilan.gov.tr\` curl ile üç koşuda da \`000\` (ENGEL) dedi —"
+            echo "> POST'a çevrilince de, süre 120 sn'ye çıkarılınca da, üretimin User-Agent'ıyla da."
+            echo "> **Aynı koşuda, aynı runner'dan, PowerShell/.NET ile 200 ve 81 kayıt indi.**"
+            echo "> Yani \"engel\" hükmü sitenin değil, ÖLÇÜM ARACININ sonucuydu (TLS parmak izi)."
+            echo "> Tabloda \`üretim aracı (pwsh/.NET)\` satırları bu yüzden var: curl satırıyla"
+            echo "> çelişirlerse **doğru olan üretim aracı satırıdır** — üretim hattı onu kullanıyor."
+            echo ">"
+            echo "> Aynı sınav mevzuat.gov.tr'ye de uygulandı: o **iki araçla da inmedi**."
+            echo "> Yani TR-IP ihtiyacı gerçek, ama **tek kaynağa** iniyor."
+            echo ""
             cat $BLOK
             if [ -f "$HEDEF" ]; then
               sed -n '/^## Koşu/,$p' "$HEDEF" | head -400
