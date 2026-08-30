@@ -1,5 +1,5 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "YESIL",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
   "sayfa": 64,
@@ -7,32 +7,14 @@
   "denetlenen_metin": 12634,
   "toplam_kirik": 0,
   "denetlenen_sinir": 5106,
-  "toplam_gorunmez_sinir": 1,
+  "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
     "buyuk": 3,
     "sinir": 1.12
   },
-  "gorunmez_sinir_sayfalar": [
-    {
-      "sayfa": "fark.html",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "div.soruk",
-          "kimlik": " < .kap",
-          "iz": "<div class=\"soruk\"> <p class=\"govde\">Bursa Kimya A.Ş., tek bir üretim sürecinden üç farklı kimyasal ürün elde ",
-          "yan": "ust",
-          "oran": 1.118,
-          "esik": 1.12,
-          "cerceve": "rgba(244,242,238,1)",
-          "gorunen": "rgb(244,242,238)",
-          "zemin": "rgb(255,255,255)"
-        }
-      ]
-    }
-  ],
+  "gorunmez_sinir_sayfalar": [],
   "olculemeyenler": [],
   "kirik_sayfalar": []
 }
