@@ -158,7 +158,7 @@ let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 // Ekranda gösterilir — kullanıcı verinin ne kadar taze olduğunu BİLMELİ.
 const GOZETIM_HASAT = "20.08.2026";
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null, DMP_SORUSTURMA = null;
 Promise.all([
   // 29.07.2026 — GÖZETİM VERİSİNİN HASAT TARİHİ ekranda GÖSTERİLİR.
   // Sebebi: araç kod bulamayınca eskiden "bu kodda gözetim BULUNMUYOR" diye
@@ -183,8 +183,12 @@ Promise.all([
   fetch('veri/gtip-balik.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-askiya.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-nihai.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-ihracat-kisit.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; BALIK=m; ASKIYA=n; NIHAI=o; IHRKISIT=p; });
+  fetch('veri/gtip-ihracat-kisit.json').then(r=>r.json()).catch(()=>({})),
+  // 30.08.2026 — DEVAM EDEN damping/sübvansiyon soruşturmaları. Yürürlükteki
+  // önlem "bugün ne ödersin"i söyler; bu liste "yakında ne ödeyebilirsin"i.
+  // Ölçüm: 148 GTİP kodunda açık soruşturma var, 101'inde bugün önlem YOK.
+  fetch('veri/damping-sorusturma.json').then(r=>r.json()).catch(()=>([]))
+]).then(([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,s])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; BALIK=m; ASKIYA=n; NIHAI=o; IHRKISIT=p; DMP_SORUSTURMA=s; });
 
 // VI/VII Sayılı Liste: belirli nihai kullanımda indirimli/sıfır GV — şartlı
 function nihaiKart(kod){
@@ -667,6 +671,69 @@ function abdMisillemeKart(){
   </div>`;
 }
 
+// 30.08.2026 — ÖNLEMİN SÜRESİ. Kesin önlemler yürürlüğe girdikten 5 yıl sonra
+// kendiliğinden kalkar (İthalatta Haksız Rekabetin Önlenmesi Hakkında Yönetmelik
+// m.35). İki taraf için de karar bilgisidir: ithalatçı "vergi kalkabilir mi"yi,
+// yerli üretici "nihai gözden geçirme talebini ne zamana kadar vermeliyim"i
+// buradan görür (talep, süre bitiminden EN GEÇ 3 AY ÖNCE verilir — m.35/2).
+// Tarih yoksa satır HİÇ BASILMAZ; "süresiz" demeyiz (155/273 kayıtta tarih var).
+function sureSatiri(m){
+  if(!m || !m.sd) return '';
+  const t = new Date(m.sd + 'T00:00:00');
+  if(isNaN(t)) return '';
+  const gun = Math.round((t - new Date(new Date().toDateString())) / 86400000);
+  const yaz = t.toLocaleDateString('tr-TR', {day:'2-digit', month:'2-digit', year:'numeric'});
+  if(gun < 0) return `<div class="satir"><b>Normal süre dolumu</b><span>${yaz} (geçti — gözden geçirme ile uzamış olabilir)</span></div>`;
+  const ek = gun <= 365 ? ` <b style="color:var(--amber)">· ${gun} gün kaldı</b>` : '';
+  return `<div class="satir"><b>Normal süre dolumu</b><span>${yaz}${ek}</span></div>`;
+}
+
+// 30.08.2026 — DEVAM EDEN SORUŞTURMA. gtip-damping.json "bugün ne ödersin"i
+// söyler; bu kart "yakında ne ödeyebilirsin"i. Ölçüm: 148 GTİP kodunda açık
+// soruşturma var ve 101'inde BUGÜN hiçbir önlem yok — o kodlarda mal şu an
+// vergisiz giriyor, soruşturma sonuçlanırsa geçici/kesin vergi gelebilir.
+// Yönetmelik m.30: soruşturma 1 yılda sonuçlanır, Kurulca 6 ay uzatılabilir.
+function sorusturmaKart(q){
+  if(!DMP_SORUSTURMA || !DMP_SORUSTURMA.length) return '';
+  const qd = q.replace(/\./g,'');
+  const bulunan = DMP_SORUSTURMA.filter(s => (s.k||'').split(' ').some(k => k && (k.startsWith(qd) || qd.startsWith(k))));
+  if(!bulunan.length) return '';
+  // aynı ürün+tebliğ için birden çok ülke satırı olur; tek kartta topla
+  const grup = {};
+  for(const s of bulunan){
+    const ad = (s.m||'') + '|' + (s.tb||'');
+    (grup[ad] = grup[ad] || {ilk:s, ulke:[]}).ulke.push(s.u);
+  }
+  let html = '';
+  for(const g of Object.values(grup).slice(0,6)){
+    const s = g.ilk;
+    const ulkeler = [...new Set(g.ulke)].join(', ');
+    const turAd = s.st === 'NGGS' ? 'Nihai gözden geçirme (yürürlükteki önlem sürecek mi?)'
+                : s.st === 'DS'   ? 'Yeni damping soruşturması'
+                : (s.st || 'Soruşturma');
+    let acilis = '';
+    if(s.ta){
+      const t = new Date(s.ta + 'T00:00:00');
+      if(!isNaN(t)){
+        const ay = Math.floor((new Date() - t) / 2592000000);
+        acilis = `<div class="satir"><b>Açılış</b><span>${t.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'})}${ay>0?` · ${ay} ay önce`:''}</span></div>`;
+      }
+    }
+    const gecici = `<div class="satir"><b>Geçici önlem</b><span>${s.go || 'henüz yok'}</span></div>`;
+    html += `<div class="kart" style="border-left-color:var(--amber)">
+      <div class="et" style="color:var(--amber)">🔍 BU KODDA DAMPİNG SORUŞTURMASI AÇIK</div>
+      <h3>${s.m||'Bu ürün grubu'}</h3>
+      <div class="satir"><b>Soruşturulan menşe</b><span>${ulkeler}</span></div>
+      <div class="satir"><b>Soruşturma türü</b><span>${turAd}</span></div>
+      ${acilis}
+      ${gecici}
+      <div class="satir"><b>Dayanak tebliğ</b><span>${s.tb||'—'}</span></div>
+      <p style="color:var(--muted);font-size:13px;margin:10px 0 0">Anlamı: <b>bugün bu koda dampinge karşı vergi çıkmayabilir, ama süreç yürüyor.</b> Soruşturma özel durumlar dışında 1 yılda sonuçlanır (6 ay uzatılabilir); sonuçlanırsa <b style="color:var(--ink)">${ulkeler}</b> menşeli ithalatta ek vergi gelebilir, geçici önlem daha erken uygulanabilir. Uzun vadeli sipariş/akreditif bağlıyorsan sözleşmene <b>vergi değişikliği şartı</b> koy. Yerli üreticiysen soruşturmaya taraf olarak görüş verebilirsin.</p>
+      <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Kaynak: Ticaret Bakanlığı İthalat Genel Müdürlüğü "Yürütülen Soruşturmalar" listesi · Dayanak: İthalatta Haksız Rekabetin Önlenmesi Hakkında Yönetmelik m.20/m.30.</div></div>`;
+  }
+  return html;
+}
+
 // damping/anti-damping önlem uyarısı: sorgulanan kod bir önleme dokunuyor mu?
 function dampingKart(q){
   if(!DAMPING || !DAMPING.length) return '';
@@ -687,6 +754,7 @@ function dampingKart(q){
       ${oran}
       <div class="satir"><b>Önlem türü</b><span>${m.tur||'—'}</span></div>
       <div class="satir"><b>Dayanak tebliğ</b><span>${m.tb||'—'}</span></div>
+      ${sureSatiri(m)}
       <p style="color:var(--muted);font-size:13px;margin:10px 0 0">Anlamı: bu koddan <b>${m.u}</b> menşeli ithalatta, normal gümrük vergisine <b>ek olarak</b> dampinge karşı vergi ödenir. Kaçıran en yüksek oranı yer, mutlaka kontrol et.</p></div>`;
   }
   return html;
@@ -853,7 +921,9 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
 
   SON_SORGU = q;
   const say2 = q.replace(/\./g,'');
-  const dHtml = dampingKart(q);   // damping uyarısı (varsa en üstte)
+  // damping uyarısı (varsa en üstte) + hemen ardından DEVAM EDEN soruşturma.
+  // Sıra bilinçli: önce "bugün ne ödersin", sonra "yakında ne gelebilir".
+  const dHtml = dampingKart(q) + sorusturmaKart(q);
   // 20.08.2026 — POZİSYON DÜZEYİ EŞLEŞME.
   // Bazı gözetim tebliğleri kodu 12 hane değil POZİSYON düzeyinde yazar
   // (2015/8 → 8431.41 · 2017/13 → 9608.10 · 2004/15 → 6802.23). Eski süzgeç
