@@ -66,8 +66,15 @@ jobs:
         run: |
           git config user.name  "tetikte-robot"
           git config user.email "robot@tetikte.com"
-          git add veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json \
-                  veri/ihale-idare-ozet.json veri/ihale-kesik-firma-adi.json || true
+          # 30.08: ilk surumde dosyalar TEK "git add" cagrisinda ve "\" satir
+          # devamiyla veriliyordu; adim dustu ve ozetler depoya girmedi.
+          # Artik her dosya AYRI eklenir - biri yoksa digerleri yine eklenir -
+          # ve ne oldugu gunluge yazilir (kor kalma kurali: adim dustugunde
+          # "neden" gorunmeliydi, gorunmuyordu).
+          for f in veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json veri/ihale-idare-ozet.json veri/ihale-kesik-firma-adi.json; do
+            if [ -f "$f" ]; then git add "$f" && echo "eklendi: $f"; else echo "YOK (atlandi): $f"; fi
+          done
+          echo "--- staged ---"; git diff --staged --name-only
           if git diff --staged --quiet; then
             echo "ozetler degismedi"
           else
