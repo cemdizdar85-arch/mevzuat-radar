@@ -75,12 +75,31 @@ $API = "$SB_URL/rest/v1"
 $SB = @{ apikey=$SB_KEY; Authorization=("Bearer " + $SB_KEY); 'Content-Type'='application/json' }
 
 # --- ortak yardimcilar ------------------------------------------------------
+# Turkce harf katlama: hashtable KULLANILMAZ - PowerShell hash anahtarlari
+# buyuk/kucuk harf ayirmadigi icin 'Ç' ile 'ç' cakisiyor ve betik parse
+# edilmiyor. Iki paralel dizi + IndexOf ORDINAL calisir, kulture bagli degildir.
+$script:HARF_K = 'ÇçĞğİIıiÖöŞşÜüÂâÎîÛû'
+$script:HARF_H = 'ccggiiiioossuuaaiiuu'
 function JsonMu($t){ $s = "$t".TrimStart(); return ($s.StartsWith('{') -or $s.StartsWith('[')) }
 function Norm([string]$s){
-  if($null -eq $s){ return '' }
-  $x = $s.ToLower()
-  $x = $x -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'i̇','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u' -replace 'â','a' -replace 'î','i' -replace 'û','u'
-  return ($x -replace '[^a-z0-9]','')
+  # 30.08 - CI'da OZ-SINAV bu islevi DUSURDU: "arcelkanonmsrket" (butun i'ler
+  # kayip). Sebep .NET globalizasyon farki: Windows'ta 'İ'.ToLower() = 'i',
+  # Linux/ICU'da 'i' + U+0307 (ayri birlesen nokta). Eski surum bu ikinci
+  # bicimi karsilayamiyordu ve harfi komple siliyordu.
+  # Duzeltilmeseydi ayna 2,8 milyon sahip adini YANLIS normalize edecek,
+  # unvan aramasi hicbir zaman tutmayacakti - hem de sessizce.
+  # Artik kulture HIC guvenilmiyor: harfler elle esleniyor, gerisi ASCII
+  # kucultmeden geciyor, kalan her sey (birlesen isaretler dahil) atiliyor.
+  # SQL tarafiyla ayni sonucu verir (lower + translate + [^a-z0-9] temizligi).
+  if([string]::IsNullOrEmpty($s)){ return '' }
+  $sb = New-Object Text.StringBuilder
+  foreach($ch in $s.ToCharArray()){
+    $i = $script:HARF_K.IndexOf($ch)
+    if($i -ge 0){ [void]$sb.Append($script:HARF_H[$i]); continue }
+    $c = [char]::ToLowerInvariant($ch)
+    if(($c -ge 'a' -and $c -le 'z') -or ($c -ge '0' -and $c -le '9')){ [void]$sb.Append($c) }
+  }
+  return $sb.ToString()
 }
 function IsoGun($s){
   if([string]::IsNullOrWhiteSpace("$s")){ return $null }
@@ -134,6 +153,13 @@ function OzSinav(){
   if($orta.AddDays(1) -gt $s1){ throw 'OZ-SINAV: ikinci parca bos kaldi' }
   if((Norm 'ARÇELİK ANONİM ŞİRKETİ') -ne 'arcelikanonimsirketi'){ throw ('OZ-SINAV: Norm yanlis -> ' + (Norm 'ARÇELİK ANONİM ŞİRKETİ')) }
   if((Norm 'Öz-Şahin & Co.') -ne 'ozsahinco'){ throw ('OZ-SINAV: Norm noktalama -> ' + (Norm 'Öz-Şahin & Co.')) }
+  # 30.08: ASIL TUZAK BUYDU. Linux/ICU'da 'İ'.ToLower() tek harf DEGIL,
+  # 'i' + U+0307 (birlesen nokta) uretiyor. Windows'ta uretmiyor - bu yuzden
+  # kusur yerelde gorunmeyip CI'da patladi. Sinav artik AYRISIK bicimi de
+  # dogruluyor, yani Windows'ta kosulan sinav Linux davranisini da kapsiyor.
+  $ayrisik = 'i' + [char]0x0307 + 'stanbul'
+  if((Norm $ayrisik) -ne 'istanbul'){ throw ('OZ-SINAV: ayrisik (Linux) bicim -> ' + (Norm $ayrisik)) }
+  if((Norm 'ARÇELİK') -ne (Norm 'arçelik')){ throw 'OZ-SINAV: buyuk/kucuk harf ayni sonucu vermiyor' }
   if((IsoGun '2026-06-27T12:00:00.000Z') -ne '2026-06-27'){ throw 'OZ-SINAV: IsoGun yanlis' }
   return $true
 }
