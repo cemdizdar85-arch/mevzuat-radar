@@ -50,19 +50,24 @@ jobs:
           } > $R
 
           # ad|url|beklenen_imza(PDF|JSON|HTML)
-          HEDEFLER=$(cat <<'LISTE'
-mevzuat.gov.tr GeneratePdf (Teblig III-39.1)|https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131&mevzuatTur=Teblig&mevzuatTertip=5|PDF
-mevzuat.gov.tr MevzuatMetin (SPKn 6362)|https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf|PDF
-mevzuat.spk.gov.tr API (Search/All)|https://mevzuat.spk.gov.tr/api/Search/All|JSON
-mevzuat.spk.gov.tr belge (Teblig III-52.1)|https://mevzuat.spk.gov.tr/api/mevzuat/File/167|PDF
-spl.com.tr calisma notu sayfasi|https://spl.com.tr/sinav-calisma-notlari/|HTML
-spl.com.tr calisma notu PDF (1001)|https://spl.com.tr/wp-content/uploads/2026/07/1001_MKT_300062026_202607140951.pdf|PDF
-tspb.org.tr Meslek Kurallari PDF|https://tspb.org.tr/wp-content/uploads/2025/06/TSPB_Meslek-Kurallari-Duzenlemesi.pdf|PDF
-spk.gov.tr dosya arama|https://spk.gov.tr/Web/DosyaAra?page=1&text=s%C4%B1nav|HTML
-LISTE
-)
-          i=0; basarili=0; toplam=0
-          echo "$HEDEFLER" | while IFS='|' read -r ad url bek; do
+          # NOT: burada HEREDOC KULLANILMAZ. Ilk denemede kullandim ve akis
+          # HIC KOSMADI: heredoc govdesi 0. sutundan basliyor, bu da YAML'in
+          # "|" blok girintisini kiriyor -> workflow ayristirilamiyor, is bile
+          # olusmuyor (API'de jobs listesi BOS, ad yerine dosya yolu gorunuyor).
+          # Dizi kullanmak girintiyi korur.
+          HEDEFLER=(
+            "mevzuat.gov.tr GeneratePdf (Teblig III-39.1)|https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131&mevzuatTur=Teblig&mevzuatTertip=5|PDF"
+            "mevzuat.gov.tr MevzuatMetin (SPKn 6362)|https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf|PDF"
+            "mevzuat.spk.gov.tr API (Search/All)|https://mevzuat.spk.gov.tr/api/Search/All|JSON"
+            "mevzuat.spk.gov.tr belge (Teblig III-52.1)|https://mevzuat.spk.gov.tr/api/mevzuat/File/167|PDF"
+            "spl.com.tr calisma notu sayfasi|https://spl.com.tr/sinav-calisma-notlari/|HTML"
+            "spl.com.tr calisma notu PDF (1001)|https://spl.com.tr/wp-content/uploads/2026/07/1001_MKT_300062026_202607140951.pdf|PDF"
+            "tspb.org.tr Meslek Kurallari PDF|https://tspb.org.tr/wp-content/uploads/2025/06/TSPB_Meslek-Kurallari-Duzenlemesi.pdf|PDF"
+            "spk.gov.tr dosya arama|https://spk.gov.tr/Web/DosyaAra?page=1&text=s%C4%B1nav|HTML"
+          )
+          i=0
+          for satir in "${HEDEFLER[@]}"; do
+            IFS='|' read -r ad url bek <<< "$satir"
             [ -z "$ad" ] && continue
             i=$((i+1))
             out=$(curl -s -m 45 -L -A "$UA" -H "Referer: https://www.mevzuat.gov.tr/" \
