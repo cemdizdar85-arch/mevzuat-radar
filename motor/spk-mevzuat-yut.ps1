@@ -140,6 +140,7 @@ if($atlanan.Count){ Write-Host ("  atlanma sebepleri: {0}" -f (($am.GetEnumerato
 
 # --- yut -------------------------------------------------------------------
 $rapor=@(); $toplamParca=0; $i=0
+$tumBelgeler = New-Object System.Collections.Generic.List[object]   # repo JSON icin biriktirilir
 foreach($p in $plan){
   $i++
   $pdf = Join-Path $pdfDir $p.dosya
@@ -169,6 +170,7 @@ foreach($p in $plan){
       }
       $rapor += [pscustomobject]@{ ad=$p.kokAd; parca=@($docs).Count; durum='YESIL'; sebep="kapsama %$kapsama" }
       $toplamParca += @($docs).Count
+      foreach($d in @($docs)){ $tumBelgeler.Add([pscustomobject]@{ sinif=$p.sinif; kayit=$d }) | Out-Null }
     } catch {
       $rapor += [pscustomobject]@{ ad=$p.kokAd; parca=@($docs).Count; durum='KIRMIZI'; sebep="yukleme hatasi: $($_.Exception.Message)" }
     }
@@ -177,6 +179,33 @@ foreach($p in $plan){
     $toplamParca += @($docs).Count
   }
   if($i % 40 -eq 0){ Write-Host ("  [{0}/{1}] {2} parca (toplam {3})" -f $i,$plan.Count,@($docs).Count,$toplamParca) }
+}
+
+# ============================================================================
+# 30.08 AKSAM — REPO JSON'A DA YAZ. Bu adim EKLENMEDEN once 3.613 parca
+# ambara yazildi ve AYNI GUN SILINDI.
+# SEBEP: motor/mevzuat-yukle.ps1 ("Mevzuat Tam Yukleme") ambari
+# veri/mevzuat/*.json'dan SIL-YAZ yapar. Repo JSON'unda olmayan her sey
+# ucar. Betigin kendi yorumunda kural aynen yazili:
+#   "elle yutulan her kaynak veri/mevzuat/ altina json olarak da eklenir"
+# 27.08'de ayni sey yasanmis ve kural ORADAN cikarilmis; ben kurali bilip
+# uygulamadim. Kanit: ayni gun yutulan TSPB (mevzuat-yut + manifest yolundan
+# gectigi icin repo JSON'u vardi) HAYATTA KALDI - 116 parca duruyor.
+# Artik yutma iki yere birden yazar: canli ambar + repo JSON.
+# ============================================================================
+if($uygula -and $KEY -and $toplamParca -gt 0){
+  $repoDir = Join-Path $kok 'veri\mevzuat'
+  if(-not (Test-Path $repoDir)){ New-Item -ItemType Directory -Path $repoDir -Force | Out-Null }
+  $sinifDosya = @{ 'IlkeKarari'='spk-portal-karar'; 'Mevzuat'='spk-portal-mevzuat'; 'Rehber'='spk-portal-rehber' }
+  foreach($s in $sinifDosya.Keys){
+    $bu = @($tumBelgeler | Where-Object { $_.sinif -eq $s })
+    if($bu.Count -eq 0){ continue }
+    $govde = @{ belgeler = @($bu | ForEach-Object { $_.kayit }) }
+    $yol = Join-Path $repoDir ($sinifDosya[$s] + '.json')
+    [IO.File]::WriteAllText($yol, (ConvertTo-Json -InputObject $govde -Depth 6), [Text.UTF8Encoding]::new($false))
+    Write-Host ("  repo JSON yazildi: veri/mevzuat/{0}.json ({1} parca)" -f $sinifDosya[$s], $bu.Count)
+  }
+  Write-Host '  -> bu dosyalar COMMIT EDILMELI; yoksa tam-yukleme robotu ambari yine siler.'
 }
 
 $kirmizi = @($rapor | Where-Object { $_.durum -eq 'KIRMIZI' })
