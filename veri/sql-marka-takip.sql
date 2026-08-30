@@ -134,26 +134,38 @@ returns table (
   yayin_tarihi date, itiraz_son date, kalan_gun int,
   benzerlik real, ayni_sinif boolean)
 language sql security definer set search_path = public, extensions as $$
+  -- 30.08 CANLI KUSUR: duz JOIN 49.533 kayitta bile "statement timeout"
+  -- verdi; planlayici trigram indeksini kullanmayip carpim uretiyordu.
+  -- 1,8 milyon kayitta hic donmezdi. Cozum: ABONE BASINA LATERAL ->
+  -- her abone icin ayri indeks aramasi + abone basina tavan.
   select t.id, t.eposta, t.jeton, t.ad, t.sinif,
          b.basvuru_no, b.bulten_no, b.ad, b.sahip, b.sinif,
-         b.yayin_tarihi, b.itiraz_son, (b.itiraz_son - current_date)::int,
-         similarity(b.ad_norm, t.ad_norm),
-         (cardinality(t.sinif) > 0 and b.sinif && t.sinif)
+         b.yayin_tarihi, b.itiraz_son, b.kalan_gun, b.benzerlik, b.ayni_sinif
     from public.marka_takip t
-    join public.marka_bulten b
-      on b.ad_norm % t.ad_norm
-     and similarity(b.ad_norm, t.ad_norm) >= t.esik
+    cross join lateral (
+      select x.basvuru_no, x.bulten_no, x.ad, x.sahip, x.sinif,
+             x.yayin_tarihi, x.itiraz_son,
+             (x.itiraz_son - current_date)::int              as kalan_gun,
+             similarity(x.ad_norm, t.ad_norm)                as benzerlik,
+             (cardinality(t.sinif) > 0 and x.sinif && t.sinif) as ayni_sinif
+        from public.marka_bulten x
+       where x.ad_norm % t.ad_norm                      -- GIN indeksi burada
+         -- SÜRESİ DOLMUŞ UYARILMAZ: geç kalınmış haber, haber değildir.
+         and x.itiraz_son >= current_date
+         -- Sınıf verdiyse sınıf çakışması şart (SMK m.6/1).
+         and (cardinality(t.sinif) = 0 or x.sinif && t.sinif)
+         -- Kendi markasını kendine haber verme.
+         and x.ad_norm <> t.ad_norm
+         and similarity(x.ad_norm, t.ad_norm) >= t.esik
+         -- AYNI BAŞVURU İKİ KEZ UYARILMAZ.
+         and not exists (select 1 from public.marka_takip_gonderim g
+                          where g.takip_id = t.id and g.basvuru_no = x.basvuru_no)
+       order by (cardinality(t.sinif) > 0 and x.sinif && t.sinif) desc,
+                x.itiraz_son asc
+       limit 200                                        -- abone basina tavan
+    ) b
    where t.aktif
-     -- SÜRESİ DOLMUŞ UYARILMAZ: geç kalınmış bir haber, haber değildir.
-     and b.itiraz_son >= current_date
-     -- Sınıf verdiyse sınıf çakışması şart (SMK m.6/1).
-     and (cardinality(t.sinif) = 0 or b.sinif && t.sinif)
-     -- Kendi markasını kendine haber verme.
-     and b.ad_norm <> t.ad_norm
-     -- AYNI BAŞVURU İKİ KEZ UYARILMAZ.
-     and not exists (select 1 from public.marka_takip_gonderim g
-                      where g.takip_id = t.id and g.basvuru_no = b.basvuru_no)
-   order by t.id, (b.sinif && t.sinif) desc, b.itiraz_son asc
+   order by t.id, b.ayni_sinif desc, b.itiraz_son asc
    limit least(greatest(p_tavan, 1), 5000);
 $$;
 
@@ -197,7 +209,15 @@ grant execute on function public.marka_takip_ac(text,int[],text) to anon, authen
 grant execute on function public.marka_takip_kapat(text)         to anon, authenticated;
 grant execute on function public.marka_takip_gor(text)           to anon, authenticated;
 grant execute on function public.marka_takip_sayac()             to anon, authenticated;
--- bekleyen() ve isaretle() BİLEREK verilmedi: yalnız servis anahtarı çağırır.
+-- 🔴 30.08 CANLI OLCUM: "grant vermemek" YETMIYOR. bekleyen() anon anahtariyla
+-- CAGRILABILDI (izin hatasi degil, zaman asimi dondu - yani calisti). Supabase'de
+-- anon/authenticated rolleri, PUBLIC'ten gelen varsayilan EXECUTE hakkini
+-- devraliyor; sadece "grant yazmamak" kapi degildir. ACIKCA GERI ALINIYOR.
+-- Kayit sayisi azken gorunmedi; abone dolunca butun e-postalar disari sizardi.
+revoke execute on function public.marka_takip_bekleyen(int)        from anon, authenticated;
+revoke execute on function public.marka_takip_isaretle(uuid,jsonb) from anon, authenticated;
+-- Teyit (anon anahtariyla cagir): "permission denied for function" DONMELI.
+-- Bos dizi ya da zaman asimi donuyorsa kapi KAPANMAMIStir.
 
 -- ---------------------------------------------------------------------------
 -- 5) TEYİT
