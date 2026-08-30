@@ -56,12 +56,15 @@ $GOREVLER = @(
      # Artik CI'da 08:00 UTC'de kosuyorlar; laptop kapaliyken de olcum yapilir.
      # BURADA BIRAKILMADILAR cunku iki yerde birden kosarlarsa ayni dosyalari
      # yazip commit'te carpisirlar.
-     # Yerelde KALAN iki is:
-     #   surum-tazeligi -> kgk.gov.tr'den indiriyor; o site CI'dan OLCULUYOR,
-     #                     sonuc gelince o da tasinabilir.
-     #   gorev-kur -yayinla -> YEREL gorevlerin nabzini olcer; dogasi geregi
-     #                     bu makinede kosmali, CI oradan bakamaz.
-     betikler=@('surum-tazeligi.ps1','gorev-kur.ps1 -yayinla') }
+     # 30.08 (ikinci tur): SURUM TAZELIGI DE CI'YA TASINDI. Olculdu -
+     # kgk.gov.tr runner'dan INIYOR (TFRS 10 538 KB · BDS 200 1,25 MB, iki
+     # farkli runner IP'siyle). Ustelik CI'da kalmasi ZORUNLU oldu: surum
+     # karnesi gitignore'da oldugu icin CI envanteri o veriyi ancak AYNI
+     # KOSUDA uretirse gorebiliyor (ilk denemede "Surum olculen 0" gerilemesi
+     # tam bundan cikti).
+     # Bu gorevde yerelde KALAN tek is: gorev-kur -yayinla. O da dogasi geregi
+     # burada kosmali - YEREL gorevlerin nabzini olcer, CI oradan bakamaz.
+     betikler=@('gorev-kur.ps1 -yayinla') }
   @{ ad='MevzuatRadar-YerelIndirici'; saat='09:30'; sinir='PT2H'; pilKosma=$true;
      betikler=@('yerel-indirici.ps1') }
 )

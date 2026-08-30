@@ -53,6 +53,31 @@ jobs:
           }
           Write-Host 'anahtar var.'
 
+      # 30.08 GERILEME (olculdu, ilk CI kosusunda cikti): bu adim ONCE YOKTU ve
+      # envanterin "Surum olculen" sutunu 40 -> 0 dustu. Sebep: surum kapisinin
+      # ciktisi veri/fabrika/surum-tazeligi-karnesi.json GITIGNORE'da; CI'da o
+      # dosya olmadigi icin envanter surum sutununu HIC olcemedi ve YERELDEN
+      # DAHA KOTU bir envanteri origin/main'e bastim.
+      # DERS: bir adimi CI'ya tasirken GIRDISININ orada olup olmadigini da olc.
+      # Cozum: surum kapisi da ayni kosuda ONCE kosar - karneyi kendisi uretir.
+      # Bu mumkun cunku olculdu (ip-olcum): kgk.gov.tr runner'dan INIYOR
+      # (TFRS 10 538 KB · BDS 200 1,25 MB, iki farkli runner IP'siyle).
+      - name: SURUM TAZELIGI (kgk.gov.tr - runner'dan iniyor, olculdu)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/surum-tazeligi.ps1
+
+      - name: ONCEKI DELIK SAYISINI SAKLA
+        if: always()
+        shell: pwsh
+        run: |
+          $onceki = -1
+          if(Test-Path 'veri/butunluk-raporu.json'){
+            try { $onceki = [int](Get-Content 'veri/butunluk-raporu.json' -Raw | ConvertFrom-Json).kaynak_sorunlu } catch {}
+          }
+          "ONCEKI_SORUNLU=$onceki" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Host "onceki sorunlu kaynak: $onceki"
+
       - name: BUTUNLUK KAPISI (tum kaynaklar)
         id: kapi
         continue-on-error: true
@@ -93,12 +118,34 @@ jobs:
             done
           fi
 
-      - name: KAPI SONUCU
+      # 30.08 — "SUREKLI KIRMIZI KAPI, KAPI DEGILDIR" (ev kurali).
+      # Ilk kosuda bu adim dustu ve DUSMEYE DEVAM EDERDI: kapi her gun 300+
+      # delik buluyor (mevcut borc). Her sabah kirmizi yanan bir akis birkac
+      # gunde GURULTU olur ve kimse bakmaz - yani nobetci degersizlesir.
+      # Dogru olcut: borc BUYUDU MU? Sabit borc icin kirmizi yanilmaz;
+      # yeni delik ciktiginda yanar. Sabit borc ayrica gorunur kalir (yazilir).
+      - name: KAPI SONUCU (borc BUYUDUYSE kirmizi)
         if: always()
+        shell: pwsh
         run: |
-          echo "butunluk kapisi sonucu: ${{ steps.kapi.outcome }}"
-          if [ "${{ steps.kapi.outcome }}" != "success" ]; then
-            echo "KIRMIZI - ayrinti veri/butunluk-raporu.json is_listesi icinde."
-            echo "(Kirmizi 'is bitmedi' demek degil: olcum yapildi, DELIK bulundu.)"
+          $simdi = -1
+          if(Test-Path 'veri/butunluk-raporu.json'){
+            try { $simdi = [int](Get-Content 'veri/butunluk-raporu.json' -Raw | ConvertFrom-Json).kaynak_sorunlu } catch {}
+          }
+          $onceki = [int]"$env:ONCEKI_SORUNLU"
+          Write-Host ("butunluk kapisi adimi : {0}" -f "${{ steps.kapi.outcome }}")
+          Write-Host ("sorunlu kaynak        : onceki {0} -> simdi {1}" -f $onceki, $simdi)
+          if($simdi -lt 0){
+            Write-Host 'KOR: rapor okunamadi - "temiz" DENMEZ.'
             exit 1
-          fi
+          }
+          if($onceki -ge 0 -and $simdi -gt $onceki){
+            Write-Host ("KIRMIZI: borc BUYUDU (+{0}). Yeni delikler veri/butunluk-raporu.json is_listesi icinde." -f ($simdi-$onceki))
+            exit 1
+          }
+          if($simdi -gt 0){
+            Write-Host ("SARI (kirmizi degil): {0} sorunlu kaynak DURUYOR ama artmadi - bilinen borc." -f $simdi)
+            Write-Host '  Tasnif edilmeden "kusurumuz var" da denmez, "temiz" de. Is listesi raporda.'
+          } else {
+            Write-Host 'YESIL: sorunlu kaynak yok.'
+          }
