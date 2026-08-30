@@ -40,7 +40,13 @@ $wf = Get-ChildItem (Join-Path $KOK '.github\workflows') -Filter *.yml -ErrorAct
 $robotlar = @()
 foreach($f in $wf){
   $ic = Get-Content $f.FullName -Raw -Encoding UTF8
-  $cron = if($ic -match "cron:\s*'([^']+)'"){ $Matches[1] } else { $null }
+  # 30.08 KUSUR: bu desen yalnız TEK TIRNAK arıyordu (cron: '...'). YAML her
+  # ikisini de kabul eder ve kaynak.yml ÇİFT tırnak kullanıyor (cron: "13 0 * * *").
+  # Sonuç: sistemin en çok iş yapan robotu -ihale, alacak, marka, TED, destek
+  # hasadının hepsini günde 2 kez koşturan akış- hiç sayılmadı ve pano
+  # "Alacak: 0 robot / ELLE" dedi. Tek karakterlik desen hatası, karar
+  # değiştiren yanlış cümle üretti. Artık iki tırnak da kabul edilir.
+  $cron = if($ic -match 'cron:\s*[''"]([^''"]+)[''"]'){ $Matches[1] } else { $null }
   if($cron){ $robotlar += [pscustomobject]@{ dosya=$f.Name; cron=$cron; icerik=$ic } }
 }
 
@@ -60,19 +66,44 @@ foreach($u in $URUNLER){
     try { $sonCommit = (git -C $KOK log -1 --format='%ci' -- $yollar 2>$null) } catch {}
   }
 
-  # Bu ürünü besleyen zamanlanmış robotlar.
+  # Bu ürünü besleyen zamanlanmış robotlar. Ölçüt İKİ KEZ düzeltildi (30.08):
   #
-  # 30.08 DERSİ: ilk sürüm workflow METNİNDE anahtar kelime arıyordu ve YALAN
-  # SÖYLÜYORDU - "Mevzuat/RG" 20 robot gösterdi, yani neredeyse hepsini; çünkü
-  # "madde", "duyuru" gibi kelimeler her akışın yorumunda geçiyor. Sınav satırında
-  # marka-ayna, destek satırında marka-talep çıkıyordu.
+  # 1. DENEME - workflow METNİNDE anahtar kelime aramak: YALAN SÖYLEDİ.
+  #    "Mevzuat/RG" 20 robot gösterdi (neredeyse hepsi), çünkü "madde"/"duyuru"
+  #    her akışın yorumunda geçiyor. Sınav satırında marka-ayna çıkıyordu.
   #
-  # ÖLÇÜLEBİLİR ÖLÇÜT: bir robot bir ürüne aitse o ürünün veri dosyasına YAZAR.
-  # Workflow'un dokunduğu veri/*.json yollarını çıkarıp desene bakıyoruz.
-  # Tahmin değil, ölçüm.
+  # 2. DENEME - workflow'un metninde geçen veri/*.json yolları: YİNE EKSİKTİ.
+  #    Bu kez ters yöne kaydı: İhale Radarı "0 robot - ELLE" dedi, oysa
+  #    kaynak.yml günde 2 kez (03:13 ve 17:00 TR) ihale/alacak/marka/TED
+  #    hasadının HEPSİNİ koşturuyordu. Sebep: kaynak.yml dosya adı yazmıyor,
+  #    "git ls-files ... 'veri/*.json' | xargs git add" ile toplu ekliyor.
+  #    Kanıt git kütüğünde: veri/ihale-ted.json'u mevzuat-radar-bot güncelliyor.
+  #
+  # 3. ÖLÇÜT (bu) - İKİ ADIMLI ZİNCİR, gerçek üretim yolunu izler:
+  #      workflow -> çağırdığı motor/*.ps1|js -> o betiğin YAZDIĞI veri dosyası
+  #    Ayrıca workflow metninde açık geçen veri yolları da sayılır (iki yöntemi
+  #    de kullanan akışlar var). Bir robotu kaçırmak, "0 robot = ELLE" gibi
+  #    yanlış ve karar değiştiren bir cümle ürettiği için ölçüt geniş tutulur.
   $benim = @()
   foreach($rb in $robotlar){
-    $yazdiklari = [regex]::Matches($rb.icerik, 'veri/([A-Za-z0-9\-_/]+\.json)') | ForEach-Object { Split-Path $_.Groups[1].Value -Leaf } | Sort-Object -Unique
+    $yazdiklari = New-Object System.Collections.Generic.HashSet[string]
+
+    # (a) workflow metninde açıkça geçen veri yolları
+    [regex]::Matches($rb.icerik, 'veri/([A-Za-z0-9\-_/]+\.json)') | ForEach-Object {
+      [void]$yazdiklari.Add((Split-Path $_.Groups[1].Value -Leaf))
+    }
+
+    # (b) workflow'un çağırdığı motor betiklerinin yazdıkları
+    $cagirdigi = [regex]::Matches($rb.icerik, 'motor/([A-Za-z0-9\-_\.]+\.(?:ps1|js))') | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique
+    foreach($bet in $cagirdigi){
+      $yol = Join-Path $KOK "motor\$bet"
+      if(-not (Test-Path $yol)){ continue }
+      $bic = Get-Content $yol -Raw -Encoding UTF8
+      [regex]::Matches($bic, 'veri/([A-Za-z0-9\-_/]+\.json)') | ForEach-Object {
+        [void]$yazdiklari.Add((Split-Path $_.Groups[1].Value -Leaf))
+      }
+    }
+
     foreach($y in $yazdiklari){
       if($y -match $u.desen){ $benim += "$($rb.dosya) [$($rb.cron)]"; break }
     }

@@ -391,5 +391,23 @@ jobs:
           # --exclude-standard yok sayilanlari eler, kalanlari eklemek serbest.
           git ls-files -z --modified --others --exclude-standard -- 'veri/*.json' | xargs -0 -r git add --
           git diff --cached --quiet || git commit -m "Kaynak nobetcisi: kaynak/veri guncellendi ($(date +%d.%m.%Y))"
-          git pull --rebase --autostash || true
-          git push
+          # 30.08 DERSI - HASAT CALISIYOR, YAYIN DUSUYORDU: bu adim tek denemeydi
+          # (pull || true; push). Ana tele bu sirada baska bir robot yazarsa push
+          # reddedilir, adim KIRMIZI olur ve O KOSUNUN TUM HASADI YAYINLANMAZ -
+          # ihale, alacak, marka, destek, TED besleyicilerinin hepsi birden.
+          # Olculdu: son 8 kosudan 2'si tam bu adimda dustu (30.08 05:19, 29.08 06:59);
+          # hasat adimlari yesildi, yalniz yayin dusuyordu. Yani veri toplaniyor
+          # ama depoya girmiyordu - "kosu yesil ama veri eski" tam bu.
+          # "|| true" da zararliydi: pull'un basarisizligini yutup push'u yine deniyordu.
+          basarili=0
+          for deneme in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push; then
+              echo "yayinlandi (deneme $deneme)"; basarili=1; break
+            fi
+            echo "deneme $deneme reddedildi (baska robot araya girdi), tekrar..."
+            sleep 5
+          done
+          if [ "$basarili" != "1" ]; then
+            echo "5 denemede de yayinlanamadi - adim bilerek KIRMIZI biter, sessiz kalmaz"
+            exit 1
+          fi
