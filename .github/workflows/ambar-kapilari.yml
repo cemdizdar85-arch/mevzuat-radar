@@ -131,6 +131,40 @@ jobs:
         shell: pwsh
         run: ./motor/saglik-karnesi.ps1
 
+      # 30.08 KUCULME FRENI (ev kurali, burada da uygulandi).
+      # Olculdu: CI'nin urettigi envanter YERELDEN KOTU cikabiliyor - "Surum
+      # olculen" sutunu yerelde 40/0 sorunlu iken CI'da 30/30 sorunlu.
+      # Iki sebebi bulunup onarildi (gitignore'lu klasor, eksik poppler) ama
+      # UCUNCU bir sebep DURUYOR ve bulunmadi. O bulunana kadar CI, envanteri
+      # KENDINDEN IYI olan surumun uzerine YAZMAMALI.
+      # Kural: yeni olcum eskisinden AZ kaynak olcuyorsa envanter commit'lenmez;
+      # diger ciktilar yine yazilir ve durum acikca raporlanir.
+      - name: KUCULME FRENI (envanter geriye gitmesin)
+        if: always()
+        id: fren
+        shell: pwsh
+        run: |
+          function Oku([string]$metin,[string]$etiket){
+            if($metin -match ("$etiket" + ': (\d+)')){ return [int]$Matches[1] }
+            return -1
+          }
+          $yeniMetin = if(Test-Path 'veri/AMBAR-ENVANTERI.md'){ Get-Content 'veri/AMBAR-ENVANTERI.md' -Raw } else { '' }
+          $eskiMetin = ''
+          try { $eskiMetin = (git show origin/main:veri/AMBAR-ENVANTERI.md) -join "`n" } catch {}
+          $yb = Oku $yeniMetin 'Bütünlük ölçülen'; $ys = Oku $yeniMetin 'Sürüm ölçülen'
+          $eb = Oku $eskiMetin 'Bütünlük ölçülen'; $es = Oku $eskiMetin 'Sürüm ölçülen'
+          Write-Host ("butunluk olculen : eski {0} -> yeni {1}" -f $eb,$yb)
+          Write-Host ("surum olculen    : eski {0} -> yeni {1}" -f $es,$ys)
+          $kucuk = ($eb -ge 0 -and $yb -ge 0 -and $yb -lt $eb) -or ($es -ge 0 -and $ys -ge 0 -and $ys -lt $es)
+          if($kucuk){
+            Write-Host 'FREN: yeni envanter DAHA AZ olcuyor - COMMIT EDILMEYECEK.'
+            Write-Host '  Sebep bulunana kadar depodaki iyi surum korunur.'
+            git checkout -- veri/AMBAR-ENVANTERI.md 2>$null
+            "envanter_basildi=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } else {
+            "envanter_basildi=evet" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          }
+
       - name: SONUCLARI DEPOYA BAS
         if: always()
         run: |
