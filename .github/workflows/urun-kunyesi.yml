@@ -1,0 +1,51 @@
+# ============================================================================
+#  ÜRÜN KÜNYESİ — "sorduğumda net cevap ver"
+#
+#  NEDEN VAR (Cem 30.08): ürünlerin durumu bugüne kadar HAFIZADAN
+#  söyleniyordu; hafıza eskiyor ve yanlış cevap veriyor. Bu akış her gün
+#  ölçer ve depoya yazar: kaç kayıt, ne zaman güncellendi, kaç robot besliyor.
+#  pano.html bu dosyayı okur.
+#
+#  fetch-depth: 0 ŞART — künye "son güncelleme"yi git kütüğünden alır,
+#  sığ klon ile o bilgi yoktur ve alan sessizce boş kalır.
+# ============================================================================
+name: Urun kunyesi (her urunun olculmus fotografi)
+
+on:
+  schedule:
+    - cron: '10 6 * * *'    # 09:10 TR - günün robotları koştuktan sonra
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/urun-kunyesi.ps1'
+      - '.github/workflows/urun-kunyesi.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: KUNYE URET
+        shell: pwsh
+        run: pwsh -File motor/urun-kunyesi.ps1
+
+      - name: DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/URUN-KUNYELERI.json || true
+          if git diff --staged --quiet; then
+            echo "kunye degismedi"
+          else
+            git commit -m "Urun kunyeleri olculdu [veri-operasyonu]" -- veri/URUN-KUNYELERI.json
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi

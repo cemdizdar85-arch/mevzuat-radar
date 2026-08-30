@@ -1,0 +1,92 @@
+﻿{
+    "olcum_zamani":  "2026-08-30T08:44:55.4869927+03:00",
+    "aciklama":  "Yerel veri/*.json dosyalarindan olculdu. Supabase kasasindaki tablolar buradan GORUNMEZ - onlar icin \u0027olculmedi\u0027 gecerlidir.",
+    "toplam_json":  374,
+    "zamanli_robot":  22,
+    "urunler":  [
+                    {
+                        "urun":  "Alacak Radarı",
+                        "yuz":  "alacak-radari.html",
+                        "yuz_var":  true,
+                        "dosya_sayisi":  5,
+                        "kayit_sayisi":  6823,
+                        "olculemeyen":  0,
+                        "son_guncelleme":  "2026-08-30 05:34:18 +0000",
+                        "kasa":  "alacak_vitrin (Supabase) — kasa içeriği buradan ÖLÇÜLMEDİ",
+                        "robotlar":  {
+
+                                     },
+                        "robot_sayisi":  0
+                    },
+                    {
+                        "urun":  "Marka Radarı",
+                        "yuz":  "marka-radari.html",
+                        "yuz_var":  true,
+                        "dosya_sayisi":  6,
+                        "kayit_sayisi":  31558,
+                        "olculemeyen":  0,
+                        "son_guncelleme":  "2026-08-30 08:27:59 +0300",
+                        "kasa":  "marka_talep · marka_rakip · marka_durum — kasa içeriği buradan ÖLÇÜLMEDİ",
+                        "robotlar":  [
+                                         "marka-ayna.yml [20 1 * * *]",
+                                         "marka-bulten.yml [40 2 * * *]"
+                                     ],
+                        "robot_sayisi":  2
+                    },
+                    {
+                        "urun":  "Destek Radarı",
+                        "yuz":  "destekler.html",
+                        "yuz_var":  true,
+                        "dosya_sayisi":  7,
+                        "kayit_sayisi":  307,
+                        "olculemeyen":  0,
+                        "son_guncelleme":  "2026-08-30 07:52:11 +0300",
+                        "kasa":  "destek_takip — kasa içeriği buradan ÖLÇÜLMEDİ",
+                        "robotlar":  {
+
+                                     },
+                        "robot_sayisi":  0
+                    },
+                    {
+                        "urun":  "İhale Radarı",
+                        "yuz":  "ihale-radari.html",
+                        "yuz_var":  true,
+                        "dosya_sayisi":  13,
+                        "kayit_sayisi":  26633,
+                        "olculemeyen":  0,
+                        "son_guncelleme":  "2026-08-30 08:27:59 +0300",
+                        "kasa":  "ihale (gizli kasa) — kasa içeriği buradan ÖLÇÜLMEDİ",
+                        "robotlar":  {
+
+                                     },
+                        "robot_sayisi":  0
+                    },
+                    {
+                        "urun":  "Sınav / Soru",
+                        "yuz":  "soru-cevap.html",
+                        "yuz_var":  true,
+                        "dosya_sayisi":  36,
+                        "kayit_sayisi":  20365,
+                        "olculemeyen":  0,
+                        "son_guncelleme":  "2026-08-30 08:27:59 +0300",
+                        "kasa":  "soru bankası (RLS korumalı) — kasa içeriği buradan ÖLÇÜLMEDİ",
+                        "robotlar":  [
+                                         "ders-etiket.yml [10 4 * * 1]",
+                                         "sik-istatistigi.yml [25 3 * * *]"
+                                     ],
+                        "robot_sayisi":  2
+                    },
+                    {
+                        "urun":  "Mevzuat / RG",
+                        "yuz":  "radar.html",
+                        "yuz_var":  true,
+                        "dosya_sayisi":  14,
+                        "kayit_sayisi":  4026,
+                        "olculemeyen":  0,
+                        "son_guncelleme":  "2026-08-30 05:31:19 +0000",
+                        "kasa":  "madde_ara — kasa içeriği buradan ÖLÇÜLMEDİ",
+                        "robotlar":  "duyuru-nobetcisi.yml [30 5 * * *]",
+                        "robot_sayisi":  1
+                    }
+                ]
+}

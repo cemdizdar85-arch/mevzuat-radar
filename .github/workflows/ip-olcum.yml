@@ -64,6 +64,10 @@ jobs:
           HEDEFLER=(
             "mevzuat.gov.tr GeneratePdf (Teblig III-39.1)|https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131&mevzuatTur=Teblig&mevzuatTertip=5|PDF"
             "mevzuat.gov.tr MevzuatMetin (SPKn 6362)|https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf|PDF"
+            "ilan.gov.tr ana sayfa (ALACAK+IHALE kaynagi)|https://www.ilan.gov.tr/|HTML"
+            "ilan.gov.tr AdDetail API|https://www.ilan.gov.tr/api/api/services/app/AdDetail/GetAdDetail?id=1|JSON"
+            "ekap.kik.gov.tr bulten indirme (IHALE kaynagi)|https://ekap.kik.gov.tr/ekap/ilan/bultenindirme.aspx|HTML"
+            "api.ted.europa.eu arama (yurtdisi ihale)|https://api.ted.europa.eu/v3/notices/search|JSON"
             "mevzuat.spk.gov.tr API (Search/All)|https://mevzuat.spk.gov.tr/api/Search/All|JSON"
             "mevzuat.spk.gov.tr belge (Teblig III-52.1)|https://mevzuat.spk.gov.tr/api/mevzuat/File/167|PDF"
             "spl.com.tr calisma notu sayfasi|https://spl.com.tr/sinav-calisma-notlari/|HTML"
@@ -88,7 +92,14 @@ jobs:
             elif head -c 1 /tmp/h.bin 2>/dev/null | grep -qE '\[|\{'; then imza="JSON"
             elif head -c 400 /tmp/h.bin 2>/dev/null | grep -qi '<html\|<!doctype'; then imza="HTML"
             else imza="bilinmiyor"; fi
-            if [ "$kod" = "200" ] && [ "$imza" = "$bek" ] && [ "$boy" -gt 500 ]; then sonuc="✅ İNDİ"; else sonuc="❌ İNMEDİ"; fi
+            # 30.08: TEK BIR "INMEDI" YETMIYOR. "Baglanti hic kurulmadi" (IP engeli)
+            # ile "erisim var ama bu adres GET/imza beklentisine uymadi" (or. POST
+            # isteyen API) BAMBASKA seylerdir - ilki sunucu kiralamayi gerektirir,
+            # ikincisi sadece istegin duzeltilmesini. Ayni satira yazmak yanlis
+            # karar verdirir.
+            if [ "$kod" = "200" ] && [ "$imza" = "$bek" ] && [ "$boy" -gt 500 ]; then sonuc="✅ İNDİ"
+            elif [ "$kod" = "000" ]; then sonuc="❌ ENGEL — bağlantı kurulamadı"
+            else sonuc="⚠️ ERİŞİM VAR — kod $kod, imza $imza (istek düzeltilmeli)"; fi
             echo "| $i | $ad | $kod | $tip | $boy | $imza (beklenen $bek) | $sonuc |" >> $R
             echo "[$sonuc] $ad -> kod=$kod tip=$tip boyut=$boy imza=$imza"
             sleep 2

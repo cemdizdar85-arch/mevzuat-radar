@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ürün Panosu | Tetikte</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<!--
+  ============================================================================
+   ÜRÜN PANOSU (30.08.2026)
+
+   CEM: "sana onunla ilgili bir bilgi sorduğumda en net ve gerçekçi cevabı
+   bana veresin. Ve onların her gün güncellenmesi varsa ordan kolay yapılsın."
+
+   BU SAYFA O SORUNUN CEVABIDIR. Bugüne kadar "Marka Radarı güncel mi?"
+   sorusunun cevabı HAFIZADAN veriliyordu - hafıza eskiyor, yanlış cevap verir.
+   Burada her rakam ÖLÇÜLMÜŞTÜR: motor/urun-kunyesi.ps1 her gün 09:10'da
+   koşar, veri/URUN-KUNYELERI.json'u yazar, bu sayfa onu okur.
+
+   ÖLÇÜM SINIRI - DÜRÜSTÇE: bu sayfa yalnız depodaki veri/*.json dosyalarını
+   görür. Supabase kasasındaki tablolar (soru bankası, alacak_vitrin, ihale)
+   buradan GÖRÜNMEZ. O hücreler "ölçülmedi" yazar - "yok" YAZMAZ. Ölçülmemiş
+   ile boş aynı şey değildir.
+
+   "ROBOT" SÜTUNU EN ÖNEMLİSİ: 0 robot demek, o ürünün Cem'in bilgisayarı
+   açıkken elle güncellendiği demektir. 30.08'de ölçüldü: Alacak Radarı 0,
+   İhale Radarı 0. En büyük iki ürün otomatik güncellenmiyordu.
+  ============================================================================
+-->
+<style>
+  .sar{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
+  .ust{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin-bottom:6px}
+  .ust h1{margin:0;font-size:26px}
+  .zaman{color:var(--dim,#5d6b7c);font-size:13px}
+  .uyari{border-left:3px solid #ffc24b;background:rgba(255,194,75,.07);padding:12px 14px;margin:18px 0;font-size:14px;line-height:1.6}
+  table{width:100%;border-collapse:collapse;margin-top:18px;font-size:14.5px}
+  th,td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--line,rgba(255,255,255,.09));vertical-align:top}
+  th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted,#93a1b3);font-weight:600}
+  td.sag,th.sag{text-align:right;font-variant-numeric:tabular-nums}
+  .urun{font-weight:600}
+  .kucuk{font-size:12.5px;color:var(--dim,#5d6b7c);display:block;margin-top:3px}
+  .rz{display:inline-block;padding:2px 8px;border-radius:11px;font-size:12px;font-weight:600}
+  .yesil{background:rgba(60,200,120,.14);color:#5fd39a}
+  .sari{background:rgba(255,194,75,.14);color:#ffc24b}
+  .kirmizi{background:rgba(255,90,90,.14);color:#ff7a7a}
+  .olcum{color:var(--dim,#5d6b7c);font-style:italic}
+  .sar>p.dip{margin-top:26px;font-size:13px;color:var(--dim,#5d6b7c);line-height:1.7}
+  .kaydir{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="sar">
+  <div class="ust">
+    <h1>Ürün Panosu</h1>
+    <span class="zaman" id="zaman">ölçülüyor…</span>
+  </div>
+  <p class="zaman">Her rakam ölçülmüştür. Ölçülemeyen hücre <b>“ölçülmedi”</b> yazar — “yok” yazmaz.</p>
+
+  <div class="uyari">
+    <b>Bu pano yalnız depodaki <code>veri/*.json</code> dosyalarını görür.</b>
+    Supabase kasasındaki tablolar (soru bankası, <code>alacak_vitrin</code>, ihale kasası)
+    buradan görünmez; o satırlarda “kasa” sütunu ne olduğunu söyler ama sayı vermez.
+    Bir ürünün <b>0 robot</b> göstermesi, onun elle güncellendiği anlamına gelir —
+    bilgisayar kapalıyken güncellenmez.
+  </div>
+
+  <div class="kaydir">
+    <table>
+      <thead>
+        <tr>
+          <th>Ürün</th>
+          <th class="sag">Kayıt</th>
+          <th class="sag">Dosya</th>
+          <th>Son güncelleme</th>
+          <th class="sag">Robot</th>
+          <th>Beslenme</th>
+        </tr>
+      </thead>
+      <tbody id="govde">
+        <tr><td colspan="6" class="olcum">yükleniyor…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="dip" id="dip"></p>
+</div>
+
+<script>
+(function(){
+  var G = document.getElementById('govde');
+  var Z = document.getElementById('zaman');
+  var D = document.getElementById('dip');
+
+  function kacik(n){ return (n==null) ? '—' : n.toLocaleString('tr-TR'); }
+
+  function gecenGun(iso){
+    if(!iso) return null;
+    var t = new Date(iso); if(isNaN(t)) return null;
+    return Math.floor((Date.now() - t.getTime()) / 86400000);
+  }
+
+  fetch('veri/URUN-KUNYELERI.json', {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(k){
+      var ol = new Date(k.olcum_zamani);
+      Z.textContent = 'ölçüm: ' + ol.toLocaleString('tr-TR');
+
+      G.innerHTML = '';
+      (k.urunler||[]).forEach(function(u){
+        var gun = gecenGun(u.son_guncelleme);
+        var tazeSinif = (gun===null) ? 'sari' : (gun<=1 ? 'yesil' : (gun<=7 ? 'sari' : 'kirmizi'));
+        var tazeYazi  = (gun===null) ? 'ölçülmedi'
+                       : (gun===0 ? 'bugün' : (gun===1 ? 'dün' : gun + ' gün önce'));
+
+        var robotSinif = (u.robot_sayisi>0) ? 'yesil' : 'kirmizi';
+        var robotYazi  = (u.robot_sayisi>0) ? (u.robot_sayisi + ' robot') : 'ELLE';
+
+        var kayit = (u.kayit_sayisi>0) ? kacik(u.kayit_sayisi) : '<span class="olcum">ölçülmedi</span>';
+        var ekOlc = (u.olculemeyen>0) ? '<span class="kucuk">' + u.olculemeyen + ' dosya okunamadı</span>' : '';
+
+        var robotListe = (u.robotlar&&u.robotlar.length)
+              ? u.robotlar.map(function(x){ return x.replace(/\.yml/,''); }).join('<br>')
+              : '<span class="olcum">zamanlanmış robot yok — Cem’in makinesinde koşuyor</span>';
+
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td class="urun">' + u.urun +
+            '<span class="kucuk">' + (u.yuz_var ? u.yuz : '⚠ sayfa bulunamadı: ' + u.yuz) + '</span>' +
+            '<span class="kucuk">' + (u.kasa||'') + '</span></td>' +
+          '<td class="sag">' + kayit + ekOlc + '</td>' +
+          '<td class="sag">' + kacik(u.dosya_sayisi) + '</td>' +
+          '<td><span class="rz ' + tazeSinif + '">' + tazeYazi + '</span></td>' +
+          '<td class="sag"><span class="rz ' + robotSinif + '">' + robotYazi + '</span></td>' +
+          '<td class="kucuk" style="margin:0">' + robotListe + '</td>';
+        G.appendChild(tr);
+      });
+
+      D.innerHTML = 'Depoda toplam <b>' + kacik(k.toplam_json) + '</b> veri dosyası ve <b>' +
+        kacik(k.zamanli_robot) + '</b> zamanlanmış robot var. ' +
+        'Künyeyi <code>motor/urun-kunyesi.ps1</code> üretir, ' +
+        '<code>.github/workflows/urun-kunyesi.yml</code> her gün 09:10’da koşturur.';
+    })
+    .catch(function(e){
+      G.innerHTML = '<tr><td colspan="6" class="olcum">Künye okunamadı (' + e.message +
+        '). <code>veri/URUN-KUNYELERI.json</code> henüz üretilmemiş olabilir — ' +
+        '<code>motor/urun-kunyesi.ps1</code> bir kez koşturulmalı.</td></tr>';
+      Z.textContent = 'ölçüm okunamadı';
+    });
+})();
+</script>
+</body>
+</html>
