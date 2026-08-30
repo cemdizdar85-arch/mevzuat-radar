@@ -8,3 +8,60 @@
 *.woff binary
 *.woff2 binary
 *.zip binary
+
+# ============================================================================
+#  ROBOT ÇIKTISI — ÇAKIŞMA ÇÖZÜMÜ (30.08.2026)
+#
+#  NEDEN: O gün iki tel 3 gün ayrı kaldı ve 89 dosya çakıştı. Ölçüldü:
+#  89'un 80'i veri/ kökündeki ROBOT RAPORUYDU, yalnız 9'u insan işiydi.
+#  Çarpışmanın %90'ı, "her koşuda yeniden üretilen" dosyaların iki yerde
+#  birden üretilmesinden geliyordu. Bu dosyaların çakışması ANLAMSIZDIR:
+#  içerikleri son robot koşusunun fotoğrafıdır, bir sonraki koşuda tazelenir.
+#
+#  ⚠ DRIVER ADI "ours" OLAMAZ. Git'in built-in merge driver'ları yalnız
+#  üç tanedir: text · binary · union. `merge=ours` yazmak SESSİZCE HİÇBİR ŞEY
+#  YAPMAZ - 30.08'de denendi, dosya yine çakıştı, kural çalışıyor sanıldı.
+#  Bu yüzden aşağıdaki "tetikte-robot" driver'ı git config'de TANIMLANMAK
+#  ZORUNDADIR; tanımını `motor/oturum.ps1 -Ac` her açılışta kurar
+#  (merge.tetikte-robot.driver = true → hiçbir şey yapmaz, yereldeki kalır).
+#  Tanım yoksa kural yine sessizce çalışmaz - oturum betiği bunu denetler.
+#
+#  ⛔ BU KURALA ASLA GERÇEK VERİ SOKULMAZ. Desenler yalnız veri/ KÖKÜNDEKİ
+#  rapor/damga/nöbet çıktılarına vurur (gitattributes'te "*" eğik çizgiyi
+#  geçmez). Elle yutulan mevzuat (veri/mevzuat/**, 841 dosya), çıkmış sınav
+#  arşivleri (kgk-arsiv 609 · sgs-arsiv 824 · smmm-arsiv 901) ve soru
+#  fabrikası (veri/fabrika/**) DIŞARIDADIR - içlerinde yeniden üretilemeyen
+#  iş vardır, normal birleşirler.
+#
+#  30.08 ölçümü sınırı da gösterdi: 21 dosyada uzak sürüm küçüktü ama
+#  hiçbirinde gerçek kayıp yoktu; buna karşılık 3 İNSAN İŞİ dosyasında YEREL
+#  doğruydu. Kural bu yüzden yalnız robot çıktısına uygulanır, insan işine asla.
+#
+#  TEST EDİLDİ (30.08): desen içindeki dosya çakışmadan çözüldü, desen
+#  dışındaki dosya normal çakıştı. Kural çalışıyor.
+# ============================================================================
+veri/*-raporu.json        merge=tetikte-robot
+veri/*-rapor.json         merge=tetikte-robot
+veri/*-raporu.txt         merge=tetikte-robot
+veri/*-log.txt            merge=tetikte-robot
+veri/*-damga.json         merge=tetikte-robot
+veri/*-damgasi.json       merge=tetikte-robot
+veri/*-nobeti.json        merge=tetikte-robot
+veri/*-nobet-log.txt      merge=tetikte-robot
+veri/*-durum.json         merge=tetikte-robot
+veri/*-karnesi.json       merge=tetikte-robot
+veri/*-olcum.json         merge=tetikte-robot
+veri/*-kapisi.json        merge=tetikte-robot
+veri/nabiz-*.json         merge=tetikte-robot
+veri/gorev-nabzi.json     merge=tetikte-robot
+veri/sabah-rapor.json     merge=tetikte-robot
+veri/URUN-KUNYELERI.json  merge=tetikte-robot
+
+# İSTİSNA — gerçek veri, normal birleşir (yukarıdaki desenler zaten alt
+# klasörlere vurmaz; burası niyeti açıkça yazmak içindir):
+veri/mevzuat/**       !merge
+veri/fabrika/**       !merge
+veri/kgk-arsiv/**     !merge
+veri/sgs-arsiv/**     !merge
+veri/smmm-arsiv/**    !merge
+veri/yutma-arsiv/**   !merge

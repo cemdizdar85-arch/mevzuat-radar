@@ -97,6 +97,18 @@ if($Ac){
     Yaz "HATA: -Kol ver. Geçerli: $($KOLLAR -join ' · ')" 'Red'; exit 1
   }
 
+  # --- 0/3 · MERGE DRIVER'I KUR ------------------------------------------
+  # .gitattributes'teki "merge=tetikte-robot" kuralı, driver git config'de
+  # TANIMLI DEĞİLSE sessizce hiçbir şey yapmaz - kural çalışıyor sanılır ve
+  # robot çıktıları yine çakışır (30.08'de "merge=ours" ile tam bu yaşandı;
+  # "ours" git'in built-in driver'ı DEĞİL, yalnız text/binary/union var).
+  # Tanım yerel config'de durur, depoda taşınamaz - o yüzden her açılışta kurulur.
+  if(-not (git -C $KOK config --get merge.tetikte-robot.driver)){
+    git -C $KOK config merge.tetikte-robot.name "Tetikte robot ciktisi: cakismada yereldeki korunur"
+    git -C $KOK config merge.tetikte-robot.driver "true"
+    Yaz "  robot-cikti merge driver'i kuruldu" 'DarkGray'
+  }
+
   Yaz "`n=== 1/3 · ANA TELLE HİZALAMA ===" 'Cyan'
   git -C $KOK fetch origin main -q 2>&1 | Out-Null
   $geri  = [int](git -C $KOK rev-list --count HEAD..origin/main)
