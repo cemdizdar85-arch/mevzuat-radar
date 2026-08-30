@@ -217,3 +217,49 @@ grant execute on function public.marka_bulten_durum()                         to
 --      select * from public.marka_bulten_itiraz('tetikte', array[9,42], 90);
 --    Beklenen ilk koşuda: kayit=0. Robot bülteni yutunca dolar.
 -- ---------------------------------------------------------------------------
+
+-- ============================================================================
+--  MUTABAKAT NÖBETÇİSİ — "kütük mü doğru, tablo mu?"  (30.08.2026)
+--
+--  NEDEN: marka_bulten_durum() artık sayıları KÜTÜKTEN okuyor (tabloyu saymak
+--  100 bin satırda zaman aşımına düşüyordu). Bu hızlı ama bir varsayıma
+--  dayanıyor: "robot kaç kayıt yazdığını doğru yazdı."
+--
+--  O varsayım kırılırsa ne olur: ekran "7.860 kayıt" der, tabloda 7.400 vardır.
+--  Kimse fark etmez. Eksik 460 marka için kimseye uyarı gitmez ve itiraz
+--  süresi (2 ay) sessizce akar. En tehlikeli kusur türü budur: kırmızı yanmaz.
+--
+--  KIRILMA YOLLARI (uydurma değil, bu hattın gerçek riskleri):
+--   · Aynı bültende aynı başvuru numarası iki kez geçerse upsert onları
+--     tek satıra indirir -> tablo < kütük.
+--   · Yazma partisi ortasında koşu kesilirse bir kısmı yazılmamış olur.
+--   · Ayrıştırıcı bozulup boş/eksik satır üretirse.
+--
+--  BU DOSYA NE YAPAR: bülten bülten kütükle tabloyu karşılaştıran bir kapı
+--  kurar. Nöbetçi (motor/marka-mutabakat.js) her koşuda çağırır; fark varsa
+--  KIRMIZI yanar ve hangi bültende kaç kayıt eksik olduğunu söyler.
+-- ============================================================================
+
+-- Bülten başına sayım için indeks. Birincil anahtar (basvuru_no, bulten_no)
+-- olduğundan bulten_no tek başına indeksli DEĞİL; onsuz her sayım tam tarama
+-- olur ve nöbetçinin kendisi zaman aşımına düşer.
+create index if not exists ix_mb_bulten on public.marka_bulten (bulten_no);
+
+create or replace function public.marka_bulten_mutabakat()
+returns table (bulten_no int, yayin_tarihi date, kutuk int, tablo bigint, fark bigint)
+language sql security definer set search_path = public as $$
+  select k.bulten_no, k.yayin_tarihi, k.kayit, s.n, s.n - k.kayit
+    from public.marka_bulten_kutuk k
+    cross join lateral (
+      select count(*) as n from public.marka_bulten b where b.bulten_no = k.bulten_no
+    ) s
+   where k.durum = 'bitti'
+   order by abs(s.n - k.kayit) desc, k.bulten_no desc;
+$$;
+
+-- Nöbetçi robot çağırır; dışarı açılmasına gerek yok.
+revoke all     on function public.marka_bulten_mutabakat() from public;
+revoke execute on function public.marka_bulten_mutabakat() from anon, authenticated;
+
+-- TEYİT: select * from public.marka_bulten_mutabakat() where fark <> 0;
+--        Boş dönmeli. Satır dönüyorsa o bültende sessiz kayıp var.

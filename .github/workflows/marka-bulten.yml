@@ -79,6 +79,21 @@ jobs:
       # yeni bultendeki basvurular bir TUR gecikirdi; itiraz suresi iki ay ve
       # uzatilamiyor, bir tur gecikme musteriye hak kaybettirebilir.
       # if: always() -> yutma kismen dusse bile INEN bultenler icin haber gider.
+      # MUTABAKAT NOBETCISI - "kutuk mu dogru, tablo mu?"
+      # Sayac artik KUTUKTEN okuyor (tabloyu saymak zaman asimina dusuyordu).
+      # Bu hizli ama bir varsayima dayaniyor: robot kac kayit yazdigini dogru
+      # yazdi. Varsayim kirilirsa ekran "7.860" der, tabloda 7.400 vardir ve
+      # kimse fark etmez - eksik markalar icin uyari gitmez, itiraz suresi
+      # sessizce akar. Nobetci o bosluğu kapatir.
+      # continue-on-error: nobetci KIRMIZI yansa bile indirme zinciri durmaz;
+      # kirmizi rapora ve kutuge yazilir, is akisi ozetinde gorunur.
+      - name: Mutabakat nobetcisi
+        if: always()
+        continue-on-error: true
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node motor/marka-mutabakat.js
+
       - name: Nobet uyarilari
         if: always()
         env:
@@ -94,6 +109,7 @@ jobs:
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           git add veri/marka-bulten-raporu.json || true
+          git add veri/marka-mutabakat-raporu.json || true
           git diff --cached --quiet || git commit -m "Marka bulteni raporu [veri-operasyonu]"
           for i in 1 2 3; do
             git pull --rebase --autostash || true
