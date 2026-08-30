@@ -1,154 +1,20 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "YESIL",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
   "sayfa": 64,
-  "temiz_sayfa": 63,
-  "denetlenen_metin": 12801,
-  "toplam_kirik": 39,
-  "denetlenen_sinir": 5135,
-  "toplam_gorunmez_sinir": 42,
+  "temiz_sayfa": 64,
+  "denetlenen_metin": 12634,
+  "toplam_kirik": 0,
+  "denetlenen_sinir": 5106,
+  "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
     "buyuk": 3,
     "sinir": 1.12
   },
-  "gorunmez_sinir_sayfalar": [
-    {
-      "sayfa": "pano.html",
-      "adet": 42,
-      "ornekler": [
-        {
-          "oge": "th",
-          "kimlik": "",
-          "iz": "<th>Ürün</th>",
-          "yan": "alt",
-          "oran": 1,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,0.09)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "th.sag",
-          "kimlik": "",
-          "iz": "<th class=\"sag\">Kayıt</th>",
-          "yan": "alt",
-          "oran": 1,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,0.09)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "th.sag",
-          "kimlik": "",
-          "iz": "<th class=\"sag\">Dosya</th>",
-          "yan": "alt",
-          "oran": 1,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,0.09)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "th",
-          "kimlik": "",
-          "iz": "<th>Son güncelleme</th>",
-          "yan": "alt",
-          "oran": 1,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,0.09)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "th.sag",
-          "kimlik": "",
-          "iz": "<th class=\"sag\">Robot</th>",
-          "yan": "alt",
-          "oran": 1,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,0.09)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(255,255,255)"
-        },
-        {
-          "oge": "th",
-          "kimlik": "",
-          "iz": "<th>Beslenme</th>",
-          "yan": "alt",
-          "oran": 1,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,0.09)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(255,255,255)"
-        }
-      ]
-    }
-  ],
+  "gorunmez_sinir_sayfalar": [],
   "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "pano.html",
-      "adet": 39,
-      "ornekler": [
-        {
-          "oge": "h1",
-          "yazi": "Ürün Panosu",
-          "oran": 1,
-          "esik": 3,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<h1>Ürün Panosu</h1>"
-        },
-        {
-          "oge": "div.uyari",
-          "yazi": "Supabase kasasındaki tablolar (soru bank",
-          "oran": 1.03,
-          "esik": 4.5,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,251,242)",
-          "iz": "<div class=\"uyari\"> <b>Bu pano yalnız depodaki <code>veri/*.json</code> dosyalarını görür.</b> Supabase kasası"
-        },
-        {
-          "oge": "b",
-          "yazi": "Bu pano yalnız depodaki dosyalarını görü",
-          "oran": 1.03,
-          "esik": 4.5,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,251,242)",
-          "iz": "<b>Bu pano yalnız depodaki <code>veri/*.json</code> dosyalarını görür.</b>"
-        },
-        {
-          "oge": "code",
-          "yazi": "veri/*.json",
-          "oran": 1.03,
-          "esik": 4.5,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,251,242)",
-          "iz": "<code>veri/*.json</code>"
-        },
-        {
-          "oge": "code",
-          "yazi": "alacak_vitrin",
-          "oran": 1.03,
-          "esik": 4.5,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,251,242)",
-          "iz": "<code>alacak_vitrin</code>"
-        },
-        {
-          "oge": "b",
-          "yazi": "0 robot",
-          "oran": 1.03,
-          "esik": 4.5,
-          "renk": "rgb(255, 255, 255)",
-          "zemin": "rgb(255,251,242)",
-          "iz": "<b>0 robot</b>"
-        }
-      ]
-    }
-  ]
+  "kirik_sayfalar": []
 }
