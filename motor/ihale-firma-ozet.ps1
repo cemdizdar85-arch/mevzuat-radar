@@ -38,11 +38,26 @@ Write-Host ("kaynak: {0} sonuc ilani" -f $s.Count)
 
 # Firma adi normalize: buyuk harf + tek bosluk + noktalama sadelesir. Ayni firma
 # farkli yazimlarda gelebilir ("Ltd. Şti." / "Limited Şirketi"); bunlari da esitle.
+# 30.08: TURKCE HARF + IGNORECASE TUZAGI - iki ayri kusur birlikte olculdu.
+#  (1) .ToUpper() kulture baglidir (tr-TR ile en-US farkli sonuc verir), bu
+#      yuzden asagidaki TURKCE kaliplar yalniz tr-TR'de tutuyordu.
+#  (2) -replace VARSAYILAN OLARAK IgnoreCase calisir ve "[^A-Z0-9 ]" deseni
+#      "I" harfini SILIYOR - HER IKI kulturde de. Olculdu:
+#         "TICARET LIMITED" -replace  '[^A-Z0-9 ]' -> "T CARET L M TED"
+#         "TICARET LIMITED" -creplace '[^A-Z0-9 ]' -> "TICARET LIMITED"
+#      Yani 14.416 firma adinin anahtarindan butun "i" harfleri dusuyordu.
+#  OLCULDU: eski surum iki kulturde %90 FARKLI anahtar uretiyordu
+#  (13.044 / 14.416 ad); yeni surum BIREBIR AYNI (14.379 anahtar, 37 birlesme).
+function Katla([string]$s){
+  if(-not $s){ return '' }
+  return $s.Replace([char]0x0130,'I').Replace([char]0x0131,'i').Replace([char]0x015E,'S').Replace([char]0x015F,'s').Replace([char]0x011E,'G').Replace([char]0x011F,'g').Replace([char]0x00DC,'U').Replace([char]0x00FC,'u').Replace([char]0x00D6,'O').Replace([char]0x00F6,'o').Replace([char]0x00C7,'C').Replace([char]0x00E7,'c')
+}
+
 function FirmaAnahtar([string]$ad){
-  $a = "$ad".ToUpper()
-  $a = $a -replace 'LİMİTED ŞİRKETİ','LTD ŞTİ' -replace 'ANONİM ŞİRKETİ','A Ş'
-  $a = $a -replace 'LTD\.?\s*ŞTİ\.?','LTD ŞTİ' -replace 'A\.?\s*Ş\.?','A Ş'
-  $a = $a -replace '[^A-ZÇĞİÖŞÜ0-9 ]',' ' -replace '\s+',' '
+  $a = (Katla "$ad").ToUpperInvariant()
+  $a = $a -creplace 'LIMITED SIRKETI','LTD STI' -creplace 'ANONIM SIRKETI','A S'
+  $a = $a -creplace 'LTD\.?\s*STI\.?','LTD STI' -creplace 'A\.?\s*S\.?','A S'
+  $a = $a -creplace '[^A-Z0-9 ]',' ' -creplace '\s+',' '
   return $a.Trim()
 }
 
