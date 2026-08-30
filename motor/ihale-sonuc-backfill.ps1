@@ -48,7 +48,22 @@ param(
   [string[]]$Turler = @('Mal','Yapim','Hizmet','Danismanlik'),
   [int]$Serit = 0,               # bu seridin sirasi (0..SeritSayisi-1)
   [int]$SeritSayisi = 1,         # toplam paralel serit
-  [switch]$Olc                   # olcum modu: indirir, ayristirir, YAZMAZ
+  [switch]$Olc,                  # olcum modu: indirir, ayristirir, YAZMAZ
+  # 30.08 EKLENDI - YENIDEN ISLEME:
+  # Kasada 2.097 kayitta yuklenici adi jenerik bir sirket ekiyle BASLIYOR
+  # ("Ticaret Limited Sirketi") - firmanin ozel adi kayip. Olculdu: bugunun
+  # dort bulteni URETIMDEKI ayristiriciyla yeniden okundu, KESIK AD URETMEDI.
+  # Yani ayristirici artik saglam; kusur eski bir turdan kalma. Onarim =
+  # ayni gunu bugunun ayristiricisiyla yeniden isle, kasaya upsert et.
+  # Ama is listesi ihale_eksik_gun()'den geliyor ve o gunler "cekilmis"
+  # sayildigi icin bir daha gelmiyorlardi. Bu parametre listeyi ELLE verir.
+  #   ./ihale-sonuc-backfill.ps1 -Gunler '2026-08-27,2026-08-28'
+  # AYRI BIR CIKARICI YAZILMADI - bilerek. 30.08'de denendi ve dustu:
+  # KISIMLI ihalede bir IKN'nin BIRDEN COK yuklenicisi var (her kisma bir
+  # sozlesme). "IKN -> tek ad" modeli 1.295 kaydi yanlis eslestirdi. Dogru
+  # anahtar IKN degil, IKN+sozlesme; onu zaten uretimdeki ayristirici
+  # cikariyor. Onarim onun uzerinden yurur.
+  [string]$Gunler = ""
 )
 $ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -130,14 +145,23 @@ if(-not $anahtar){
   exit 1
 }
 
-$eksik = EksikGunler $AyGeri $Turler
-if($null -eq $eksik){ exit 1 }
+if($Gunler.Trim()){
+  # YENIDEN ISLEME: is listesi kasadan degil, disaridan geliyor. Bu gunler
+  # "eksik" DEGIL - zaten cekilmis. Bilerek yeniden cekiliyorlar (bkz. param).
+  $gunler = @($Gunler -split '[,; ]+' | ForEach-Object { $_.Trim() } | Where-Object { $_ } | Sort-Object -Descending)
+  $bozuk = @($gunler | Where-Object { $_ -notmatch '^\d{4}-\d{2}-\d{2}$' })
+  if($bozuk.Count){ Write-Host ("Gun bicimi yyyy-MM-dd olmali. Bozuk: {0}" -f ($bozuk -join ', ')) -ForegroundColor Red; exit 1 }
+  Write-Host ("YENIDEN ISLEME: {0} gun elle verildi (kasadaki eksik listesi kullanilmadi)" -f $gunler.Count) -ForegroundColor Yellow
+} else {
+  $eksik = EksikGunler $AyGeri $Turler
+  if($null -eq $eksik){ exit 1 }
 
-# (gun,tur) satirlarini GUNE indirge: bir gunun bulteni tek indirmede tum
-# turleri getiriyor (zip icinde). Gun bazli calisip turleri birlikte isliyoruz.
-$gunler = @($eksik | ForEach-Object { "$($_.gun)" } | Select-Object -Unique | Sort-Object -Descending)
-Write-Host ("EKSIK: {0} (gun,tur) satiri -> {1} tekil gun" -f @($eksik).Count, $gunler.Count)
-if(-not $gunler.Count){ Write-Host 'Eksik gun yok - havuz tam.'; exit 0 }
+  # (gun,tur) satirlarini GUNE indirge: bir gunun bulteni tek indirmede tum
+  # turleri getiriyor (zip icinde). Gun bazli calisip turleri birlikte isliyoruz.
+  $gunler = @($eksik | ForEach-Object { "$($_.gun)" } | Select-Object -Unique | Sort-Object -Descending)
+  Write-Host ("EKSIK: {0} (gun,tur) satiri -> {1} tekil gun" -f @($eksik).Count, $gunler.Count)
+  if(-not $gunler.Count){ Write-Host 'Eksik gun yok - havuz tam.'; exit 0 }
+}
 
 # serit payi: siradaki her SeritSayisi'nci gun bu seride duser
 if($SeritSayisi -gt 1){
