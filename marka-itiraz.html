@@ -224,16 +224,13 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
 <script src="marka-benzerlik.js"></script>
 <script>
 (function(){
-  var AMBAR=null, YUKLENIYOR=false;
+  /* AMBAR / gunFark KALDIRILDI: ikisi de JSON dosyasından okuyan eski
+     sürümündü. Kalan gün artık sunucudan geliyor (kalan_gun) - tarayıcının
+     saat dilimine göre bir gün kayma riski de böylece ortadan kalktı. */
+  var YUKLENIYOR=false;
   var $=function(s){ return document.querySelector(s); };
   var esc=function(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
   var durum=function(h){ var e=$('#irDurum'); if(e) e.innerHTML=h; };
-
-  function gunFark(iso){
-    var b=new Date(iso+'T00:00:00Z'), s=new Date();
-    var bugun=Date.UTC(s.getFullYear(),s.getMonth(),s.getDate());
-    return Math.round((b.getTime()-bugun)/86400000);
-  }
 
   function ambarYukle(cb){
     if(AMBAR){ cb(); return; }

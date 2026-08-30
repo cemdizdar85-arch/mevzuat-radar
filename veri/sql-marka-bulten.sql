@@ -122,12 +122,19 @@ alter table public.marka_bulten_kutuk enable row level security;
 --     "Benim markama benzer, YENİ yayımlanmış, AYNI SINIFTA başvuru var mı?"
 --     SMK m.6/1: karıştırılma ihtimali işaret + sınıf birlikteliğiyle doğar.
 --     Bu yüzden sınıf kesişimi burada, sunucuda süzülür.
+--     🔴 30.08 CANLI KUSUR: p_gun "son N günde YAYIMLANAN" demek; süresi
+--     DOLMUŞ kayıtlar da dönüyordu (kalan_gun -18 gibi). Rakam doğruydu ama
+--     müşteri ekranda görüp "itiraz edebilirim" sanardı - doğru veriyle yanlış
+--     vaat. p_yalniz_acik VARSAYILAN TRUE: süresi geçmiş kayıt ancak bilerek
+--     istenirse döner.
+drop function if exists public.marka_bulten_itiraz(text, int[], int, real, int);
 create or replace function public.marka_bulten_itiraz(
-  p_ad     text,
-  p_sinif  int[]   default null,
-  p_gun    int     default 60,
-  p_esik   real    default 0.32,
-  p_tavan  int     default 100)
+  p_ad          text,
+  p_sinif       int[]   default null,
+  p_gun         int     default 60,
+  p_esik        real    default 0.32,
+  p_tavan       int     default 100,
+  p_yalniz_acik boolean default true)
 returns table (
   basvuru_no text, bulten_no int, yayin_tarihi date, itiraz_son date,
   kalan_gun int, ad text, sahip text, sinif int[], benzerlik real, ayni_sinif boolean)
@@ -144,6 +151,7 @@ language sql security definer set search_path = public, extensions as $$
      and (b.ad_norm % h.n or b.ad_norm like '%' || h.n || '%')
      and similarity(b.ad_norm, h.n) >= p_esik
      and (p_sinif is null or b.sinif && p_sinif)
+     and (not p_yalniz_acik or b.itiraz_son >= current_date)
    order by (p_sinif is not null and b.sinif && p_sinif) desc,
             similarity(b.ad_norm, h.n) desc,
             b.itiraz_son asc
@@ -175,10 +183,10 @@ language sql security definer set search_path = public as $$
          (select count(*) from public.marka_bulten where itiraz_son >= current_date);
 $$;
 
-revoke all on function public.marka_bulten_itiraz(text,int[],int,real,int) from public;
+revoke all on function public.marka_bulten_itiraz(text,int[],int,real,int,boolean) from public;
 revoke all on function public.marka_bulten_sahip(text,int)                 from public;
 revoke all on function public.marka_bulten_durum()                         from public;
-grant execute on function public.marka_bulten_itiraz(text,int[],int,real,int) to anon, authenticated;
+grant execute on function public.marka_bulten_itiraz(text,int[],int,real,int,boolean) to anon, authenticated;
 grant execute on function public.marka_bulten_sahip(text,int)                 to anon, authenticated;
 grant execute on function public.marka_bulten_durum()                         to anon, authenticated;
 
