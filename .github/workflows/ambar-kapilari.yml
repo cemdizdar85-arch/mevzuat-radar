@@ -90,6 +90,29 @@ jobs:
       # Log admin-kilitli oldugu icin KARNENIN KENDISI depoya alinir - delil
       # dosyada durur, tahmin gerekmez. Karne veri/fabrika/ altinda (ignore'lu),
       # bu yuzden izlenen bir yola KOPYALANIR.
+      # 30.08 KESIN TESHIS: karne "ambar 0p -> yeni 0p, OLCULEMEDI" diyor ama
+      # bu iki ayri sebepten olabilir - (a) betik hic calismadi, (b) calisti
+      # ama ambardan 0 kayit okudu. Ayirt etmenin tek yolu HAM CIKTIYI gormek.
+      # Tek standart icin kuru kosu yapilir ve TUM ciktisi depoya alinir.
+      - name: TEK STANDART HAM CIKTI (kesin teshis)
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $cikti = (& ./motor/standart-yut.ps1 -standart 'TFRS 16' *>&1 | Out-String)
+          $satir = ($cikti -split "`n") | Select-Object -First 40
+          $bas = @(
+            "# TEK STANDART HAM CIKTI (CI teshisi)",
+            "",
+            "> TFRS 16 icin standart-yut.ps1 kuru kosusu. Amac: surum kapisinin",
+            "> CI'da neden 'OLCULEMEDI' urettigini AYIRT ETMEK -",
+            "> betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?",
+            "",
+            '```'
+          ) + $satir + @('```')
+          $bas -join "`n" | Out-File 'veri/surum-teshis-ci.md' -Encoding utf8
+          Write-Host ($satir -join "`n")
+
       - name: SURUM KARNESI TESHISI (delili depoya al)
         if: always()
         shell: pwsh
@@ -187,7 +210,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          for f in veri/butunluk-raporu.json veri/AMBAR-ENVANTERI.md veri/saglik-karnesi.json veri/veri-katalogu.json veri/surum-karnesi-ci.json; do
+          for f in veri/butunluk-raporu.json veri/AMBAR-ENVANTERI.md veri/saglik-karnesi.json veri/veri-katalogu.json veri/surum-karnesi-ci.json veri/surum-teshis-ci.md; do
             [ -f "$f" ] && git add "$f" 2>/dev/null || true
           done
           if git diff --staged --quiet; then
