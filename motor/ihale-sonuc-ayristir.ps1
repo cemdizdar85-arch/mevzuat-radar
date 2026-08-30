@@ -38,6 +38,16 @@ $kok  = Split-Path -Parent $here
 # tur hata. Klasor disaridan verilebilir; verilmezse eski davranis aynen.
 $kls  = if("$($env:IHALE_BULTEN_KLASOR)".Trim()){ $env:IHALE_BULTEN_KLASOR }
         else { Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten" }
+# 🔴 IS KLASORU (30.08, yutma sirasinda olculdu): indirme klasoru serit serit
+# ayrilmisti ama ARA DOSYALAR (gunluk havuz + kosu damgasi) hala ORTAKTI.
+# Alti serit ayni veri\ihale-sonuc.json ve ihale-son-kosu-damga.json'a yazinca:
+#   - "dosyaya erisemiyor" hatalari (serit-0)
+#   - bir serit BASKA seridin damgasini okuyup sahte "ARSIV VERMEDI" yazdi
+#     (istenen 2025-09-22, gelen 2026-08-27) ve o gunu KALICI atlama listesine
+#     soktu -> sessiz kapsam kaybi.
+# Ara dosyalar artik seridin kendi klasorunde. Verilmezse eski davranis aynen.
+$isKls = if("$($env:IHALE_IS_KLASORU)".Trim()){ $env:IHALE_IS_KLASORU } else { Join-Path $kok 'veri' }
+if(-not (Test-Path $isKls)){ New-Item -ItemType Directory -Force $isKls | Out-Null }
 
 function Alan([string]$b, [string]$d){
   $m = [regex]::Match($b, $d)
@@ -252,7 +262,7 @@ if($eksikTur.Count){
 }
 # Damga dosyasi BOS KOSUDA DA yazilir: "cekildi ama bostu" ile "hic cekilmedi"
 # ayri seylerdir; ayirmayan kutuk yalan soyler.
-($damgalar | ConvertTo-Json -Depth 4) | Out-File (Join-Path $kok "veri\ihale-son-kosu-damga.json") -Encoding utf8
+($damgalar | ConvertTo-Json -Depth 4) | Out-File (Join-Path $isKls "ihale-son-kosu-damga.json") -Encoding utf8
 if(-not $hepsi.Count){ Write-Host "Hic sonuc ilani cikmadi."; if($Yaz){ exit 1 }; return }
 
 # ===== KISIMLI IHALE TUZAGI (14.08 olculdu, ilk hesap YANLISTI) =============
@@ -309,7 +319,7 @@ if($Ornek -gt 0){
   }
 }
 if($Yaz){
-  $yol = Join-Path $kok "veri\ihale-sonuc.json"
+  $yol = Join-Path $isKls "ihale-sonuc.json"
   # BIRIKIMLI: gecmis sonuclar birikince "bu is kaca yapiliyor" sorusu
   # cevaplanabilir hale gelir. Ayni IKN tekrar gelirse yenisi gecerlidir.
   # ANAHTAR TUZAGI (olculdu): ilk surumde anahtar sadece IKN idi; 1395 kayit
