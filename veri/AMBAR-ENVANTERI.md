@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **30.08.2026 04:06** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **30.08.2026 04:09** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 43440 parça · 1750 tekil kaynak | Bütünlük ölçülen: 1684 (delikli: 348; son ölçüm: 30.08.2026) | Sürüm ölçülen: 28 (sorunlu: 28; son ölçüm: 30.08.2026 04:05)
+**ÖZET:** 43440 parça · 1750 tekil kaynak | Bütünlük ölçülen: 1684 (delikli: 348; son ölçüm: 30.08.2026) | Sürüm ölçülen: 30 (sorunlu: 30; son ölçüm: 30.08.2026 04:08)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -1511,17 +1511,17 @@
 | TMS 12 | standart-madde | 128 | DELİK-İNCELE(par:806/kesik:0/oksuz:11) | ÖLÇÜLMEDİ |
 | TMS 16 | standart-madde | 84 | DELİK-İNCELE(par:12/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
 | TMS 19 | standart-madde | 189 | DELİK-İNCELE(par:495/kesik:0/oksuz:7) | OLCULEMEDI |
-| TMS 2 | standart-madde | 7 | TAM | ÖLÇÜLMEDİ |
+| TMS 2 | standart-madde | 7 | TAM | OLCULEMEDI |
 | TMS 20 | standart-madde | 50 | DELİK-İNCELE(par:5/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
 | TMS 21 | standart-madde | 86 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
 | TMS 23 | standart-madde | 31 | DELİK-İNCELE(par:10/kesik:0/oksuz:0) | OLCULEMEDI |
 | TMS 24 | standart-madde | 34 | TAM | OLCULEMEDI |
-| TMS 26 | standart-madde | 43 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
+| TMS 26 | standart-madde | 43 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | OLCULEMEDI |
 | TMS 27 | standart-madde | 15 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
 | TMS 28 | standart-madde | 58 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
 | TMS 28 Degisiklikleri - Istiraklerde Gercege Uygun Deger Secenegi (RG 31.07.2026-33326) | kanun-madde | 3 | TAM | OLCULEMEDI |
 | TMS 29 | standart-madde | 42 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
-| TMS 32 | standart-madde | 87 | DELİK-İNCELE(par:45/kesik:0/oksuz:0) | OLCULEMEDI |
+| TMS 32 | standart-madde | 87 | DELİK-İNCELE(par:45/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
 | TMS 33 | standart-madde | 92 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
 | TMS 34 | standart-madde | 68 | DELİK-İNCELE(par:8/kesik:0/oksuz:3) | OLCULEMEDI |
 | TMS 36 | standart-madde | 160 | DELİK-İNCELE(par:10/kesik:0/oksuz:2) | OLCULEMEDI |
@@ -1529,7 +1529,7 @@
 | TMS 38 | standart-madde | 134 | DELİK-İNCELE(par:8/kesik:0/oksuz:3) | OLCULEMEDI |
 | TMS 40 | standart-madde | 90 | DELİK-İNCELE(par:23/kesik:0/oksuz:0) | ÖLÇÜLMEDİ |
 | TMS 41 | standart-madde | 62 | DELİK-İNCELE(par:11/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TMS 7 | standart-madde | 71 | DELİK-İNCELE(par:2/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
+| TMS 7 | standart-madde | 71 | DELİK-İNCELE(par:2/kesik:0/oksuz:1) | OLCULEMEDI |
 | TMS 8 | standart-madde | 79 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | OLCULEMEDI |
 | TOBB/Odalar K. (5174 s.K.) | kanun-madde | 162 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TPKK (1567 s.K.) | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
