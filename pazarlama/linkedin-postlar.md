@@ -4,12 +4,19 @@ Site: https://tetikte.com/
 Kural: her rakam kaynaklı. Post sonuna link + 3-5 etiket. Kendi sesinizle küçük
 dokunuşlar yapın — bunlar taslak, anayasa değil.
 
+⚠️ **UNVAN KURALI (30.08.2026):** Bu metinlerde "mali müşavir / SMMM" **unvan
+olarak yazılmaz** — SMMM Çalışma Usul ve Esasları Yönetmeliği, RG 24/2/2025-32823:
+ticari faaliyette bulunan meslek mensubu mesleki unvan kullanamaz. Cem her yerde
+*"Tetikte'nin kurucusu"*. POST 1'deki "Yıllardır SMMM'yim" bu tarihte kaldırıldı.
+Etiketlerdeki `#smmm` hedef kitle etiketidir, unvan iddiası değil — kalabilir.
+"Bir müşterim" de yazılmaz; yerine "bir kullanıcımız" / "bir firma".
+
 ---
 
 ## POST 1 — Açılış (kişisel hikâye; ilk gün bu)
 
-Yıllardır SMMM'yim. İtiraf edeyim: Resmî Gazete'yi her gün düzenli okumak,
-bu işi meslek edinmiş biri için bile zor.
+Yıllardır mevzuatın içindeyim. İtiraf edeyim: Resmî Gazete'yi her gün düzenli
+okumak, bu işi meslek edinmiş biri için bile zor.
 
 Peki 30 kişilik bir imalatçının patronu bunu nasıl yapsın?
 
