@@ -313,6 +313,19 @@ revoke all on function public.ihale_kutuk_denetim() from public, anon, authentic
 
 -- ihale_sayi'ya DAMGASIZ sayaci eklendi: yutma ilerledikce bu sayinin
 -- 54.792'den 0'a inmesi beklenir. Inmiyorsa damga hatti calismiyordur.
+--
+-- 🔴 DROP SART (30.08'de canlida olculdu, ilk deneme bu yuzden dustu):
+--   ERROR 42P13: cannot change return type of existing function
+--   DETAIL: Row type defined by OUT parameters is different.
+-- "create or replace" bir fonksiyonun GOVDESINI degistirebilir ama RETURNS
+-- TABLE satirini DEGISTIREMEZ. Buraya 3 yeni sutun eklendigi icin (damgasiz,
+-- ilk_bulten, son_bulten) once dusurulmesi gerekiyor.
+-- ihale_dokum'da bu tuzaga BOLUM 2'de dusulmustu (orada drop var); ihale_sayi
+-- atlanmisti. KURAL: RETURNS TABLE sutunlari degisiyorsa drop + create.
+-- Islem begin/commit icinde oldugu icin ilk deneme geri sarildi, kasa el
+-- degmeden kaldi - tam da bu yuzden tek parca yapmistik.
+drop function if exists public.ihale_sayi();
+
 create or replace function public.ihale_sayi()
 returns table(kayit bigint, tekil_ikn bigint, olculen bigint, kisimli bigint,
               damgasiz bigint, ilk_bulten date, son_bulten date)
