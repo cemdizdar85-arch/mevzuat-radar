@@ -147,6 +147,17 @@ jobs:
           - { ad: "Marka varlik kapisi (ikon/kart kaynaktan geri kalmasin)",
               kabuk: pwsh, komut: "./arac/marka-varlik-kapisi.ps1" }
 
+          # 30.08: PowerShell'in -match/.ToLower() IgnoreCase icin
+          # CurrentCulture kullanir. tr-TR'de "IFLASINA".ToLower() -> "ıflasına"
+          # olur ve 'iflas' arayan desen ISKALAR; en-US runner'da ise
+          # "İNKILAP" -> "i̇nkilap" (i + U+0307) olur ve -replace 'İ' bulamaz.
+          # Ayni kod iki makinede iki farkli sonuc verir ve kusur SESSIZDIR.
+          # Iki kez canli yasandi: alacak damgasinda 456 kaydin 456'si yanlis
+          # "desteksiz" gorundu (gercekte 32); ders-karnesi'nde 6 vakanin 4'u
+          # eslesmiyordu. Circir: mevcut borc taban, YENI ekleme kirmizi.
+          - { ad: "Turkce katlama nobetcisi (I ile i karistiran eslestirme)",
+              kabuk: pwsh, komut: "./arac/turkce-katlama-nobetcisi.ps1" }
+
           # ubuntu-latest imajinda Google Chrome hazir gelir; ek kurulum yok.
           # Bagimlilik da yok - Node'un yerlesik fetch + WebSocket'i ile dogrudan
           # Chrome DevTools protokolu konusulur. ~4 dk surer, en yavas kapi.
