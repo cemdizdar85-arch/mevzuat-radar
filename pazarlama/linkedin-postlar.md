@@ -103,7 +103,7 @@ TTK 376 sermaye takibi?
 
 ---
 
-## POST 5 — KAPSAM+KANIT · konkordato tasdik/ret oranı (28.08.2026 ölçümü)
+## POST 5 — KAPSAM+KANIT · konkordato tasdik/ret oranı (30.08.2026 ölçümü) ✅ YAYINA HAZIR
 
 > **Bu postun her rakamı kendi arşivimizde sayıldı.** Kaynak sorguları aşağıda;
 > yayınlamadan önce sayıları TAZELE (arşiv her gün iki kez büyüyor).
@@ -116,8 +116,8 @@ ilanı** var — 01.09.2025'ten bu yana, kesintisiz.
 
 İçinde bir rakam dikkatimi çekti. Aynı 12 ayda:
 
-→ **Tasdik** ilanı: **145**
-→ **Ret / kaldırma** ilanı: **748**
+→ **Tasdik** ilanı: **146**
+→ **Ret / kaldırma** ilanı: **750**
 
 Her tasdike karşılık yaklaşık **5 ret**.
 
@@ -163,24 +163,40 @@ select public.alacak_vitrin(null,'konkordato') ->> 'secilenAdet' as konkordato_i
 ```
 
 `durum_dagilimi` içinden `tasdik` ve `ret_kaldirma` + `ret_iflas` okunur;
-**postta ikisinin TOPLAMI kullanılır** (30.08 ölçümü: 515 + 233 = **748**,
-tasdik **145**, konkordato **5.391**, kapsam 01.09.2025–28.08.2026 = 361 gün).
-Postun her rakamı yayından önce bu sorguyla karşılaştırıldı ve **beşi de
-birebir tuttu**.
+**postta ikisinin TOPLAMI kullanılır** (30.08 akşam ölçümü: 516 + 234 = **750**,
+tasdik **146**, konkordato **5.391**, kapsam 01.09.2025–28.08.2026 = 361 gün).
+
+🔁 **BU SORGUYU YAYIN ANINDA BİR KEZ DAHA KOŞ.** Aynı gün içinde 145 → 146 ve
+748 → 750 oldu (robot günde iki kez hasat ediyor). Rakam kaymadı, **arşiv
+büyüdü** — ama postta yazan sayı ile canlıdaki sayı ayrışırsa "kendi
+arşivimizde saydık" iddiası çürür. Oranı da yeniden hesapla (750/146 = 5,1).
 
 ✅ **30.08 AKŞAMI: RAKAM ARTIK YAYINLANABİLİR.** Bugün dört tur daha koştu ve
-sayı **oturdu**: tasdik **145**, ret `ret_kaldirma` (515) + `ret_iflas` (233)
-= **748**, oran **5,2**.
+sayı **oturdu**: tasdik **146**, ret `ret_kaldirma` (516) + `ret_iflas` (234)
+= **750**, oran **5,1**.
 
-🔴🔴 **RAKAM DÖRT KEZ DEĞİŞTİ — 42 → 61 → 143 → 145 tasdik; oran 17 → 11,3 →
-5,1 → 5,2.** Son iki adım arasındaki fark küçük ve bu **kasıtlı bir ölçüt**:
-sayı artık oynamıyor, yani hat kararlı. Önceki büyük sıçramaların sebebi
-damgaların **başlıktan** gelmesiydi.
+🔴🔴 **RAKAM DÖRT KEZ DEĞİŞTİ — 42 → 61 → 143 → 146 tasdik; oran 17 → 11,3 →
+5,1.** Büyük sıçramaların sebebi damgaların **başlıktan** gelmesiydi; son
+adımdaki ufak oynama ise düzeltme değil, **arşivin büyümesi** (aynı gün 145 →
+146). İkisini ayırt etmek önemli: biri kusur, diğeri veri akışı.
 
-**Ölçümün bugünkü karnesi** (mühlet ailesi, 2.833 ilan):
-okuma ile regex uyumu **%91,0** · kapsama **%99,4** · alıntı-etiket çelişkisi
-**%0,2**. Her damga iki bağımsız yöntemden (kalıp + okuma) geçti, ayrışanlar
-hakem turunda üçüncü kez okundu, ve yazma öncesi iki kapı var: alıntı etiketi
+**Ölçümün bugünkü karnesi** (mühlet ailesi, 2.799 ölçülebilir ilan):
+
+| | |
+|---|---|
+| iki yöntem baştan aynı dedi | 2.583 |
+| ayrıştı, hakem **damgayı** haklı buldu | 177 |
+| **= damga doğru** | **2.760 (%98,6)** |
+| damga yanlıştı, bu turda düzeltildi | 23 |
+| belirsiz, elle bakılacak | 16 |
+
+⚠️ **İki sayıyı karıştırma:** "okuma ile kalıbın uyumu" **%92,3** — bu iki
+yöntemin *anlaşma* oranı. "Damga doğruluğu" **%98,6** — hakem hükmüyle
+düzeltilmiş hâli. Aradaki fark, okumanın yanılıp kalıbın haklı çıktığı
+177 ilan. Postta kullanılan rakamlar ikincisine dayanıyor.
+
+Her damga iki bağımsız yöntemden (kalıp + okuma) geçti, ayrışanlar hakem
+turunda üçüncü kez okundu, ve yazma öncesi iki kapı var: alıntı etiketi
 yalanlıyorsa ya da alıntıda etiketin çekirdek kelimesi yoksa **damga
 yazılmıyor**.
 
