@@ -60,7 +60,9 @@ function BK_Makul($a,$b){
 function BK_Aralik([string]$ad){
   # Belge adindan paragraf/madde araligini cikarir: @{ tip; a; b } ya da $null.
   # Desteklenen: "p.5-8" · "p.12" · "p.A25" · "m.269" · "m.107/A" · "gec. m.1"
+  #              "[2/5]" (bolunmus parca) · "bolum 3"
   # ⚠ Ek/appendix paragraflari (A25) AYRI SAYI UZAYIDIR - p.25 ile karistirilmaz.
+
   if("$ad" -match '(?i)\bp\.\s*A\s*(\d+)\s*-\s*A?\s*(\d+)'){ if(BK_Makul ([int]$Matches[1]) ([int]$Matches[2])){ return @{ tip='ek'; a=[int]$Matches[1]; b=[int]$Matches[2] } } else { return $null } }
   if("$ad" -match '(?i)\bp\.\s*A\s*(\d+)'){ if(BK_Makul ([int]$Matches[1]) ([int]$Matches[1])){ return @{ tip='ek'; a=[int]$Matches[1]; b=[int]$Matches[1] } } else { return $null } }
   if("$ad" -match '(?i)\bp\.\s*(\d+)\s*-\s*(\d+)'){ if(BK_Makul ([int]$Matches[1]) ([int]$Matches[2])){ return @{ tip='par'; a=[int]$Matches[1]; b=[int]$Matches[2] } } else { return $null } }
@@ -68,6 +70,27 @@ function BK_Aralik([string]$ad){
   if("$ad" -match '(?i)\bgec\.\s*m\.\s*(\d+)'){               return @{ tip='gecici'; a=[int]$Matches[1]; b=[int]$Matches[1] } }
   if("$ad" -match '(?i)\bmuk\.\s*m\.\s*(\d+)'){               return @{ tip='mukerrer'; a=[int]$Matches[1]; b=[int]$Matches[1] } }
   if("$ad" -match '(?i)\bm\.\s*(\d+)'){                       return @{ tip='madde'; a=[int]$Matches[1]; b=[int]$Matches[1] } }
+
+  # --- EN SONDA: sirf bolunmus parca olanlar --------------------------------
+  # 30.08 KOR NOKTA (bugun ben yarattim): uzun belgeler "[i/n]" diye bolunuyor
+  # (SPK kararlari, rehberler). Kapi bu kalibi TANIMIYORDU; [2/5] parcasi
+  # kaybolsa gorulmezdi - kaynak "delik yok" diye TAM gorunurdu.
+  #
+  # ⚠ SIRA ONEMLI - ILK DENEMEDE BUNU BASA KOYDUM ve kapi KENDI OZ-SINAVINDAN
+  # DUSTU (dogru davranis, yazmayi reddetti):
+  #   "VUK (213 s.K.) gec. m.32 [1/5]" -> beklenen gecici 32-32, cikan parca 1-1
+  # Yani BOLUNMUS BIR MADDE, "parca" sanildi ve madde kimligini kaybetti.
+  # Madde/paragraf kimligi HER ZAMAN oncelikli; "[i/n]" yalniz baska hicbir
+  # numara tasimayan adlarda anlamlidir.
+  #
+  # 'toplam' beyan edilen SON parca numarasini tasir: son parca kaybolsa bile
+  # yakalanir (yoksa max=4 olur ve eksik hic gorunmez).
+  if("$ad" -match '\[\s*(\d+)\s*/\s*(\d+)\s*\]'){
+    $i=[int]$Matches[1]; $n=[int]$Matches[2]
+    if($n -ge 1 -and $i -ge 1 -and $i -le $n -and $n -le 5000){ return @{ tip='parca'; a=$i; b=$i; toplam=$n } }
+    return $null
+  }
+  if("$ad" -match '(?i)\bb[oö]l[uü]m\s+(\d+)'){ return @{ tip='bolum'; a=[int]$Matches[1]; b=[int]$Matches[1] } }
   return $null
 }
 
@@ -119,6 +142,13 @@ function BK_OzSinav {
     @{ ad='VUK (213 s.K.) m.269 - Gayrimenkul'; t='madde'; a=269; b=269 }
     @{ ad='VUK (213 s.K.) gec. m.32 [1/5]';     t='gecici'; a=32; b=32 }
     @{ ad='VUK (213 s.K.) muk. m.298 [8/16]';   t='mukerrer'; a=298; b=298 }
+    # 30.08 EKLENEN VAKA: madde/paragraf numarasi TASIMAYAN saf bolunmus parca.
+    # Yukaridaki iki vaka "bolunmus MADDE madde kimligini korumali" der; bu
+    # vaka da "kimligi olmayan parca, PARCA olarak sayilmali" der. Ikisi birlikte
+    # BK_Aralik'taki sira kuralini kilitler - "[i/n]" en SONDA denenmelidir.
+    # (Ilk denemede basa koydum, kapi kendi oz-sinavindan dustu ve yazmayi
+    #  REDDETTI: 'gec. m.32 [1/5]' -> parca 1-1 cikmisti.)
+    @{ ad='SPK Karari - i-SPK 128.30 [2/5]';    t='parca'; a=2; b=2 }
   )
   foreach($x in $av){
     $r = BK_Aralik $x.ad
@@ -165,7 +195,7 @@ if($sinavDusen.Count){
   exit 1
 }
 if(-not $sessiz){
-  Write-Host 'Oz-sinav: 23/23 vaka gecti (aralik 6 + sagduyu freni 4 + ek/par ayrimi 1 + kok 3 + kesik 6 + oksuz 2, 1 kombine)'
+  Write-Host 'Oz-sinav: 24/24 vaka gecti (aralik 7 + sagduyu freni 4 + ek/par ayrimi 1 + kok 3 + kesik 6 + oksuz 2, 1 kombine)'
   Write-Host '  SINANMAYAN DALLAR: ambar sorgusu · sayfalama · rapor yazimi · gercek belge adlarinin cesitliligi'
   Write-Host ''
 }
@@ -230,6 +260,7 @@ for($sayfa=0; $sayfa -lt 400; $sayfa++){
     $duz.Add([pscustomobject]@{
       kok=$kok; ad=$ad; tip=$(if($ar){$ar.tip}else{''})
       a=$(if($ar){$ar.a}else{0}); b=$(if($ar){$ar.b}else{0})
+      toplam=$(if($ar -and $ar.ContainsKey('toplam')){$ar.toplam}else{0})
       kesik=$kesik; oksuz=$oksuz; uzunluk=$metin.Length })
   }
   $sonId="$($sayfaVeri[$sayfaVeri.Count-1].id)"
@@ -252,16 +283,29 @@ foreach($x in $duz){
 if(-not $sessiz){ Write-Host ("  grup: {0} kaynak" -f $gruplar.Count) }
 foreach($kokAd in ($gruplar.Keys | Sort-Object)){
   $g=[pscustomobject]@{ Name=$kokAd; Group=$gruplar[$kokAd] }
+  # 30.08 KUSUR (olculdu): burada "aralik yoksa GRUBU TUMDEN ATLA" vardi
+  #   $ar=@(...); if($ar.Count -eq 0){ continue }
+  # Sonuc: aralik tasimayan kaynaklarin KESIK ve OKSUZ kontrolu de hic
+  # yapilmiyordu. Olcum: 2.327 kaynak "olculdu" listesine giriyordu ama
+  # yalniz 584'u (334 temiz + 250 sorunlu) gercekten degerlendiriliyordu -
+  # kalan ~1.743'u icin kapinin soyleyecek sozu yoktu, yine de TAM goruniyordu.
+  # Artik ATLAMA YOK: aralik yoksa yalniz DELIK cozumlemesi atlanir; kesik/
+  # oksuz her grupta olculur ve grup temiz/sorunlu sayimina girer.
   $ar=@($g.Group | Where-Object { $_.tip -ne '' })
-  if($ar.Count -eq 0){ continue }
   $delikler=@()
-  foreach($tip in @('par','ek','madde','gecici','mukerrer')){
+  foreach($tip in @('par','ek','madde','gecici','mukerrer','parca','bolum')){
     $bu=@($ar | Where-Object { $_.tip -eq $tip })
     if($bu.Count -lt 2){ continue }
     $kaps=New-Object 'System.Collections.Generic.HashSet[int]'
     foreach($x in $bu){ for($i=$x.a;$i -le $x.b;$i++){ [void]$kaps.Add($i) } }
     $enB=($bu | ForEach-Object { $_.b } | Measure-Object -Maximum).Maximum
     $enK=($bu | ForEach-Object { $_.a } | Measure-Object -Minimum).Minimum
+    # "[i/n]" kalibinda BEYAN EDILEN son parca numarasi bilinir; onu tavan al
+    # ki SON parcanin eksikligi de yakalansin (yoksa max=4 olur, eksik gorunmez).
+    if($tip -eq 'parca'){
+      $beyan=($bu | ForEach-Object { $_.toplam } | Measure-Object -Maximum).Maximum
+      if($beyan -gt $enB){ $enB=$beyan }
+    }
     # 28.08 asiri-aralik sigortasi: tek sapkin etiket (ornek-rakam 'p.900' vakasi)
     # milyonluk donguyu ve sahte dev eksik listesini acmasin - isaretle, gec
     if(($enB-$enK) -gt 5000){ $delikler += [pscustomobject]@{ tip="$tip-ASIRI-ARALIK"; enKucuk=$enK; enBuyuk=$enB; eksik=@() }; continue }

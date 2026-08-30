@@ -18,6 +18,8 @@ $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
+# 30.08: kaynak kok adi kurali ORTAK - butunluk kapisi da ayni dosyayi okur.
+. (Join-Path $here 'kaynak-kok.ps1')
 $KEY=[Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User')
 if(-not $KEY){ $KEY=$env:SUPABASE_SERVICE_KEY }
 $H=@{apikey=$KEY;Authorization="Bearer $KEY"}
@@ -52,9 +54,11 @@ while($true){
     }
     elseif($t -eq 'teori-notu' -or $k -match '^(TEORI|Teori Notu)'){ $on='[GRUP] TEORİ NOTLARI' }
     else{
-      # onek cikarimi: ' m.', ' p.', ' ilke', ' ek m.', ' gec. m.' vb oncesi
-      $on=$k
-      if($k -match '^(.*?)\s+(m\.|muk\. m\.|md\.|p\.\d|p\.[A-Z]|ilke|ek m\.|gec\. m\.|geçici m\.|Ek [A-Z]|b[oö]l[uü]m \d|bolum \d|k[iı]s[iı]m \d)'){ $on=$Matches[1].Trim() }
+      # 30.08: onek cikarimi ARTIK ORTAK DOSYADAN (motor/kaynak-kok.ps1).
+      # Envanter ile butunluk kapisi ayni kurali kullanmak ZORUNDA: kapinin
+      # "olctugum kaynaklar" listesi bu adlarla eslesecek. Ayri turetirlerse
+      # TAM MI baglamasi sessizce ise yaramaz.
+      $on = KaynakKok $k $t
     }
     if(-not $say[$on]){ $say[$on]=0; $tur[$on]=$t }
     $say[$on]++

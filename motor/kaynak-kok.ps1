@@ -27,7 +27,17 @@ function KaynakKok([string]$kaynakAd, [string]$tur){
   # 2) Teori notlari tek grup
   if($t -eq 'teori-notu' -or $k -match '^(TEORI|Teori Notu)'){ return '[GRUP] TEORİ NOTLARI' }
 
-  # 3) Konum ekini kirp: " m.5", " p.12", " ek m.3", " bolum 2", " kisim 1" ...
+  # 3) SONDAKI KOSELI EK kirpilir: " [2/5]" (bolunmus parca) · " [giris]"
+  # 30.08 EKLENDI: bu kirpma OLMADAN her parca AYRI kaynak sayiliyordu.
+  # Iki zarar birden: (a) envanterde 405 SPK karari + 215 rehber parcasi ayri
+  # ayri satir aciyordu, (b) butunluk kapisi parcalari GRUPLAYAMADIGI icin
+  # "[2/5] eksik" gibi bir deligi ASLA goremiyordu (her grup tek uyeli kaliyor,
+  # kapi da tek uyeli grupta aralik cozumlemesi yapmiyor).
+  # DIKKAT: yalniz SONDAKI koseli ek kirpilir - "[ARŞİV] ..." gibi BASTAKI
+  # etiketler korunur.
+  $k = ($k -replace '\s*\[[^\]]{1,20}\]\s*$','').Trim()
+
+  # 4) Konum ekini kirp: " m.5", " p.12", " ek m.3", " bolum 2", " kisim 1" ...
   if($k -match '^(.*?)\s+(m\.|muk\. m\.|md\.|p\.\d|p\.[A-Z]|ilke|ek m\.|gec\. m\.|geçici m\.|Ek [A-Z]|b[oö]l[uü]m \d|bolum \d|k[iı]s[iı]m \d)'){
     return $Matches[1].Trim()
   }
