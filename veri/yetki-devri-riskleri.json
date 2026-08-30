@@ -1,11 +1,11 @@
 {
-  "tarih": "30.08.2026 13:24",
+  "tarih": "30.08.2026 13:42",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 840,
   "riskli_madde": 1307,
   "sayfa": 64,
   "atifli_iddia": 269,
-  "dayanaksiz_iddia": 319,
+  "dayanaksiz_iddia": 320,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 360,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1921,81 +1921,87 @@
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 247,
+      "satir": 252,
       "iddia": "4 gun",
       "metin": "// KONTROL DAMGALARI kullaniciya da gosterilir; 4 gunden eski damga AMBER olur."
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 260,
+      "satir": 265,
       "iddia": "4 gün",
       "metin": "if(bayat){ el.style.borderColor='rgba(255,194,75,.5)'; el.innerHTML += ', bir damga 4 günden eski görünüyor; rakamları beyandan önce GTİP Kontrolü/resmî kaynakla teyit et. '; }"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 275,
+      "satir": 280,
       "iddia": "en az 2",
       "metin": ": n===1 ? 'Seçili: 1, kıyas için en az 2 gerekir; tek seçimde yine hepsini sıralarız'"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 306,
+      "satir": 311,
       "iddia": "%1",
       "metin": "if(o1.length&&o10.length) return {r:10,t:'%1 veya %10 (indirimli, ürün tanımına göre)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 307,
+      "satir": 312,
       "iddia": "%1",
       "metin": "if(o1.length) return {r:1,t:'%1 (indirimli)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 308,
+      "satir": 313,
       "iddia": "%10",
       "metin": "if(o10.length) return {r:10,t:'%10 (indirimli)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 309,
+      "satir": 314,
       "iddia": "%20",
       "metin": "return {r:20,t:'%20 (genel)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 315,
+      "satir": 320,
       "iddia": "%29",
       "metin": "// yalnız \"%X\" desenini tanıyordu; \"0.29\" (Excel ondalığı = %29) ve \"21,12%\""
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 368,
+      "satir": 373,
       "iddia": "%35",
       "metin": "// Ayni ada bakip birim varsaymak, %35'lik yukumlulugu \"35 EURO/100 kg\" diye"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 533,
+      "satir": 538,
       "iddia": "%5,8",
       "metin": "// (0301.11: Singapur %5,8 · AB %55 · Diger Ulkeler %65)."
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 552,
+      "satir": 557,
       "iddia": "%0",
       "metin": "// V Sayili Liste: GV askiya alinmis OLABILIR (%0) ama SARTLIDIR - oran"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 559,
+      "satir": 574,
       "iddia": "%0",
       "metin": "// (Ornek: yogurtta AB ve Kosova ikisi de %0; Kosova'nin Tarim Payi YOK -> once o.)"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 636,
+      "satir": 651,
       "iddia": "%0",
       "metin": "${askiyaTanim?` ⏸️ Bu kod, gümrük vergisi ASKIYA ALINMIŞ ürünler listesinde (İthalat Rejimi V Sayılı Liste). Şartları tutuyorsa gümrük vergisi %0 olabilir ve tablodaki oranlar bu ü"
+    },
+    {
+      "sayfa": "senaryo-raporu.html",
+      "satir": 653,
+      "iddia": "%6",
+      "metin": "${kkdfOran!==null?` 🏦 Ödeme şeklin ${kkdfOran===6?'%6':'%'+fmtP(kkdfOran)} KKDF doğurabilir${kkdfTL?` — yılda ${fmtTL(kkdfTL)} ${tpb}`:''}. ${kkdf.metin} Menşeden bağımsızdır , o "
     },
     {
       "sayfa": "songun.html",
