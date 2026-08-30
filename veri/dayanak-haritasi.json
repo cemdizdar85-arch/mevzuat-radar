@@ -1,16 +1,10 @@
 {
-  "tarih": "25.08.2026 14:03",
+  "tarih": "30.08.2026 05:11",
   "aciklama": "Hangi sayfa hangi kanun maddesine yaslaniyor. Ambar damgasi degisince bu listeden hangi sayfanin etkilendigi bulunur.",
   "sayfa_sayisi": 25,
-  "tekil_dayanak": 85,
-  "ambarda_bulunan": 83,
+  "tekil_dayanak": 86,
+  "ambarda_bulunan": 85,
   "bulunamayan": [
-    {
-      "kanun_no": "213",
-      "madde_no": "370",
-      "desen": "213 s.K.",
-      "durum": "ambarda-yok"
-    },
     {
       "kanun_no": "213",
       "madde_no": "372",
@@ -21,7 +15,7 @@
   "sayfalar": [
     {
       "sayfa": "alacak-radari.html",
-      "dayanak_sayisi": 3,
+      "dayanak_sayisi": 4,
       "dayanak": [
         {
           "kanun_no": "2004",
@@ -34,6 +28,10 @@
         {
           "kanun_no": "2004",
           "madde_no": "301"
+        },
+        {
+          "kanun_no": "2004",
+          "madde_no": "308"
         }
       ]
     },
@@ -224,24 +222,6 @@
         {
           "kanun_no": "5520",
           "madde_no": "30"
-        }
-      ]
-    },
-    {
-      "sayfa": "index-sade.html",
-      "dayanak_sayisi": 3,
-      "dayanak": [
-        {
-          "kanun_no": "2004",
-          "madde_no": "299"
-        },
-        {
-          "kanun_no": "3065",
-          "madde_no": "32"
-        },
-        {
-          "kanun_no": "6769",
-          "madde_no": "23"
         }
       ]
     },
@@ -473,7 +453,7 @@
     },
     {
       "sayfa": "marka-itiraz.html",
-      "dayanak_sayisi": 3,
+      "dayanak_sayisi": 4,
       "dayanak": [
         {
           "kanun_no": "6769",
@@ -485,17 +465,25 @@
         },
         {
           "kanun_no": "6769",
+          "madde_no": "2"
+        },
+        {
+          "kanun_no": "6769",
           "madde_no": "6"
         }
       ]
     },
     {
       "sayfa": "marka-portfoy.html",
-      "dayanak_sayisi": 4,
+      "dayanak_sayisi": 5,
       "dayanak": [
         {
           "kanun_no": "6769",
           "madde_no": "1"
+        },
+        {
+          "kanun_no": "6769",
+          "madde_no": "18"
         },
         {
           "kanun_no": "6769",
@@ -638,6 +626,16 @@
         {
           "kanun_no": "6102",
           "madde_no": "64"
+        }
+      ]
+    },
+    {
+      "sayfa": "uyari-teyit.html",
+      "dayanak_sayisi": 1,
+      "dayanak": [
+        {
+          "kanun_no": "2004",
+          "madde_no": "299"
         }
       ]
     }
