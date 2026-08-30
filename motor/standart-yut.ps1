@@ -576,7 +576,28 @@ Write-Host ''
 Write-Host ("Yedek yazildi: {0}" -f (Split-Path $yedekYolu -Leaf))
 
 # --- 5) SIL + YAZ
-$turDegeri = if($eski.Count -and "$($eski[0].tur)"){ "$($eski[0].tur)" } else { 'standart-madde' }
+# ⚠ 30.08 KUSUR — TUR MIRASI YANLIS ETIKET YAYIYORDU.
+# Eski hali: $turDegeri = $eski[0].tur (varsa), yoksa 'standart-madde'.
+# Yani yeni kayitlarin turu, AMBARDAKI ILK ESKI KAYDIN turundan miras
+# aliniyordu. Bir standardin kayitlari arasinda yanlislikla tek bir
+# 'kanun-madde' varsa ve o ilk sirada geldiyse, standardin TAMAMI
+# 'kanun-madde' olarak yeniden yaziliyordu.
+# OLCULEN ZARAR (30.08 toplu onarim): GDS 3410'un 214 parcasi ve TMS 28'in
+# 58 parcasi 'kanun-madde' olarak yazildi. Yutucu kendi geri okumasinda
+# "DOGRULANDI" dedi - cunku o, TUR'e degil kaynak_ad'e bakiyor. Kayitlar
+# standart olcumlerinde GORUNMEZ oldu (ambar 0 parca).
+# IKINCI VE DAHA AGIR ETKI: 'kanun-madde' mevzuat-yukle.ps1'in SILME
+# kapsamindadir, 'standart-madde' degildir. Yanlis etiketlenen bir standart,
+# bir sonraki tam yuklemede SILINIR ve repo json'unda karsiligi olmadigi
+# icin GERI GELMEZ. Yani bu kusur, sessizce kalici veri kaybi uretir.
+# DOGRUSU: bu betik standart yutar; yazdigi tur her zaman 'standart-madde'
+# olmalidir. Miras yalnizca BASKA BIR STANDART turu icinse kabul edilir.
+$STANDART_TURLERI = @('standart-madde')
+$mirasTur  = if($eski.Count){ "$($eski[0].tur)" } else { '' }
+$turDegeri = if($mirasTur -and ($STANDART_TURLERI -contains $mirasTur)){ $mirasTur } else { 'standart-madde' }
+if($mirasTur -and $mirasTur -ne $turDegeri){
+  Write-Host ("  ! TUR DUZELTILDI: ambardaki eski kayitlar '{0}' turundeydi - yenisi '{1}' yaziliyor." -f $mirasTur,$turDegeri) -ForegroundColor Yellow
+}
 $urlDegeri = $url
 Write-Host 'Eski kayitlar siliniyor...'
 $null = Invoke-RestMethod -Method Delete -Uri "$ambarUcu`?$suzgec" -Headers ($basliklar + @{ Prefer='return=minimal' }) -TimeoutSec 240
@@ -600,9 +621,21 @@ for($i=0; $i -lt $yeni.Count; $i += 50){
 # YUTMA-LISTESI.md "122 parca yutuldu" derken ambarda 12 vardi. Bir daha
 # olmayacak: yazdiktan sonra GERI OKUNUR, tutmuyorsa KIRMIZI.
 Start-Sleep -Seconds 2
-$geriHam = SY_Cek "$ambarUcu`?select=id,metin&$suzgec&limit=2000"
+$geriHam = SY_Cek "$ambarUcu`?select=id,metin,tur&$suzgec&limit=2000"
 $geri = @($geriHam)
 $geriKarakter = 0; foreach($g in $geri){ $geriKarakter += "$($g.metin)".Length }
+
+# 30.08 DERSI: bu sigorta parca sayisi + karakter topluyordu ama TUR'e HIC
+# BAKMIYORDU. GDS 3410 ve TMS 28 yanlis turle ('kanun-madde') yazildi, sigorta
+# "DOGRULANDI" dedi ve 272 kayit standart olcumlerinde GORUNMEZ oldu.
+# Sayi tutuyor olmasi, kaydin DOGRU YERDE oldugu anlamina gelmez.
+$yanlisTur = @($geri | Where-Object { "$($_.tur)" -ne $turDegeri })
+if($yanlisTur.Count -gt 0){
+  Write-Host ("!! TUR TUTMUYOR — {0} kayit '{1}' yerine baska turde: {2}" -f `
+    $yanlisTur.Count, $turDegeri, (($yanlisTur | ForEach-Object { "$($_.tur)" } | Sort-Object -Unique) -join ', ')) -ForegroundColor Red
+  Write-Host ("   Yedek duruyor: {0}" -f (Split-Path $yedekYolu -Leaf)) -ForegroundColor Red
+  exit 1
+}
 Write-Host ''
 Write-Host ("GERI OKUMA: {0} parca · {1:N0} karakter" -f $geri.Count,$geriKarakter)
 if($geri.Count -ne $yeni.Count -or [Math]::Abs($geriKarakter-$yeniKarakter) -gt 100){
