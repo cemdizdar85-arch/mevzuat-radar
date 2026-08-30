@@ -33,8 +33,17 @@ on:
   # DONGU RISKI YOK: bu is akisi depoya commit ATMIYOR, sonucu Supabase'e
   # yaziyor - yani kendi kendini tetikleyemez.
   # MALIYET 0: depo PUBLIC, Actions ucretsiz; bos kuyrukta is hemen biter.
-  push:
-    branches: [main]
+  #
+  # 🔴 30.08: PUSH TETIGI KALDIRILDI. Iki olculmus zarari vardi, faydasi yoktu:
+  #   1) Bot push'lari zaten tetiklemiyordu (yukarida olculdu) -> fayda YOK.
+  #   2) Kod uzerinde calisirken ard arda insan push'i attigimda her push yeni
+  #      kosu acti; concurrency 'cancel-in-progress: false' oldugu icin bekleyen
+  #      kosular BIRBIRINI IPTAL ETTI. Olculdu: 00:46, 00:54, 01:12, 01:17,
+  #      01:18 kosularinin BESI DE 'cancelled' - kuyruk hic islenmedi, EGE
+  #      SERAMIK talebi saatlerce 'bekliyor' kaldi.
+  #   3) Ayrica kod duzenlerken kaynaga (TMview) bosuna istek attirdi; 30.08'de
+  #      TMview bizi bot korumasina aldi.
+  # ASIL TETIK asagidaki repository_dispatch (Supabase webhook).
   # ASIL TETIK (30.08): Supabase'te bir marka talebi ACILIR ACILMAZ bu is akisi
   # disaridan cagrilir -> kuyrukta bekleme SANIYELERE iner. Cron kisitlanabiliyor,
   # bot push'lari tetiklemiyor; guvenilir tek yol bu.

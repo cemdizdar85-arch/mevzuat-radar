@@ -30,7 +30,7 @@ on:
         default: backfill
       dilim:
         description: 'backfill: bu kosuda islenecek dilim sayisi'
-        default: '40'
+        default: '25'
 
 concurrency:
   group: marka-ayna
@@ -56,7 +56,7 @@ jobs:
           $mod = '${{ github.event.inputs.mod }}'
           if([string]::IsNullOrWhiteSpace($mod)){ $mod = 'backfill' }   # zamanlanmis kosu
           $dilim = '${{ github.event.inputs.dilim }}'
-          if([string]::IsNullOrWhiteSpace($dilim)){ $dilim = '40' }
+          if([string]::IsNullOrWhiteSpace($dilim)){ $dilim = '25' }
           "mod: $mod | dilim: $dilim" | Add-Content $log
           $kod = 0
           try {

@@ -51,11 +51,12 @@ param(
   [switch]$Kuru,                  # Supabase'e YAZMA, yalniz olc
   [string]$Bas = '',              # kuru sinav icin aralik
   [string]$Son = '',
-  [int]$DilimBasi = 40,           # bir kosuda islenecek dilim sayisi
+  [int]$DilimBasi = 25,           # bir kosuda islenecek dilim sayisi
   [int]$Esik = 9000,              # dilim bu sayiyi asarsa IKIYE bolunur (tavan 10.000)
   [int]$GunlukGun = 10,
-  [int]$BeklemeMs = 300,
-  [int]$YazmaParti = 500
+  [int]$BeklemeMs = 1200,      # 30.08: 300 ms bot korumasini tetikledi
+  [int]$YazmaParti = 500,
+  [int]$IstekTavan = 3000        # bir kosuda TMview e en fazla kac istek
 )
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -113,20 +114,36 @@ function JStr([string]$s){
 function JVal($s){ if([string]::IsNullOrWhiteSpace("$s")){ return 'null' } return (JStr "$s") }
 
 # --- TMview cagrisi: bot korumasi freni -------------------------------------
-# 20.08'de yasandi: cok istekten sonra HTTP 200 donup govdede JS challenge
-# SAYFASI geliyor. Sessizce yutulursa "bu dilimde marka yok" diye YANLIS
-# cevap uretir ve ayna EKSIK dolar. Govde JSON mu diye BAKILIR.
+# 30.08'de YASANDI (tahmin degil): cok istekten sonra HTTP 200 donup govdede
+# engel SAYFASI geldi - hem GitHub sunucusundan hem Cem'in tarayicisindan.
+# Sessizce yutulursa "bu dilimde marka yok" diye YANLIS cevap uretir ve ayna
+# EKSIK dolup "bitti" diye isaretlenir. Govde JSON mu diye BAKILIR.
+#
+# O gun neyi yanlis yaptik: istekler arasi 300 ms + daraltilmamis detay
+# zenginlestirmesi (30+ dakika ard arda istek). Uc fren birden kondu:
+#   (a) istekler arasi 1,2 sn        -> $BeklemeMs
+#   (b) kosu basi istek TAVANI       -> $IstekTavan
+#   (c) engel gorulunce ERKEN DUR    -> inatla denemek engeli UZATIR
+$script:Istek = 0
+$script:Engel = $false
 function TmvSorgu($govde){
+  if($script:Engel){ throw 'KAYNAK ENGELI surdugu icin kosu durduruldu - bu kosuda tekrar denenmeyecek. Kaldigi yerden devam eder.' }
+  if($script:Istek -ge $IstekTavan){ throw ("Kosu basi istek tavanina ulasildi (" + $IstekTavan + ") - kaynagi yormamak icin duruldu. Kaldigi yerden devam eder.") }
   $b = [Text.Encoding]::UTF8.GetBytes($govde)
-  for($d=1; $d -le 4; $d++){
+  for($d=1; $d -le 3; $d++){
     try{
+      $script:Istek++
       $w = Invoke-WebRequest -Uri $TMV -Method Post -Headers $TH -ContentType 'application/json' -Body $b -TimeoutSec 90 -UseBasicParsing
       $t = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
-      if(-not (JsonMu $t)){ throw 'govde JSON degil (bot korumasi olabilir)' }
+      if(-not (JsonMu $t)){
+        $script:Engel = $true
+        throw 'KAYNAK ENGELI: HTTP 200 geldi ama govde JSON degil (engel sayfasi). Kosu durduruluyor.'
+      }
       return ($t | ConvertFrom-Json)
     }catch{
-      if($d -eq 4){ throw ("TMview yanit vermedi: " + $_.Exception.Message) }
-      Start-Sleep -Seconds (6 * $d)
+      if($script:Engel){ throw $_ }                       # engelde bekleyip tekrar deneme
+      if($d -eq 3){ throw ("TMview yanit vermedi: " + $_.Exception.Message) }
+      Start-Sleep -Seconds (15 * $d)
     }
   }
 }
@@ -324,6 +341,8 @@ if(@($bekleyen).Count -eq 0){
 }
 Write-Host ("{0} dilim islenecek." -f @($bekleyen).Count)
 $topCekilen = 0; $topYazilan = 0; $hatali = 0
+$islenen  = 0
+$durduran = $null
 foreach($d in $bekleyen){
   # DIKKAT: .Split('..') .NET'te KARAKTER dizisi olarak yorumlanir (nokta nokta
   # degil, "nokta"lar). Regex bolme kullaniliyor ki dilim metni her zaman
@@ -340,14 +359,25 @@ foreach($d in $bekleyen){
     }
     Write-Host ("  {0}: {1} kayit" -f $d.dilim, $l.Count)
   }catch{
+    # KAYNAK ENGELI / ISTEK TAVANI DILIMIN SUCU DEGIL. "hata" diye damgalarsak
+    # dilim denemesini bosuna yakar, tekrar tekrar denenirse listeden dusebilir.
+    # Bu iki durumda dilim BEKLIYOR kalir ve kosu SESSIZCE degil, ACIKCA durur.
+    if($script:Engel -or $script:Istek -ge $IstekTavan){
+      $durduran = $_.Exception.Message
+      Write-Host ("  DURDURULDU: {0}" -f $durduran)
+      Write-Host ("  {0} dilim islendi, kalanlar 'bekliyor' olarak DURUYOR - veri kaybi yok." -f $islenen)
+      break
+    }
     $hatali++
     Write-Host ("  {0}: HATA - {1}" -f $d.dilim, $_.Exception.Message)
     if(-not $Kuru){
       SbYaz 'marka_ayna_dilim?on_conflict=dilim' ('[{"dilim":' + (JStr $d.dilim) + ',"durum":"hata","deneme":' + ([int]$d.deneme + 1) + ',"guncelleme":"' + (Get-Date).ToUniversalTime().ToString('o') + '"}]') 'resolution=merge-duplicates,return=minimal'
     }
   }
+  $islenen++
   Start-Sleep -Milliseconds $BeklemeMs
 }
-$rapor = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='dilim'; islenen=@($bekleyen).Count; cekilen=$topCekilen; yazilan=$topYazilan; hatali=$hatali }
+$rapor = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='dilim'; islenen=$islenen; cekilen=$topCekilen; yazilan=$topYazilan; hatali=$hatali; istek=$script:Istek; durduran=$durduran }
 [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $rapor -Depth 4), (New-Object Text.UTF8Encoding($false)))
-Write-Host ("BITTI: {0} dilim · {1} kayit cekildi · {2} yazildi · {3} hata" -f @($bekleyen).Count, $topCekilen, $topYazilan, $hatali)
+Write-Host ("BITTI: {0}/{1} dilim · {2} kayit cekildi · {3} yazildi · {4} hata · {5} istek" -f $islenen, @($bekleyen).Count, $topCekilen, $topYazilan, $hatali, $script:Istek)
+if($durduran){ Write-Host ("DURDURAN SEBEP: " + $durduran) }
