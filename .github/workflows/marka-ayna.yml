@@ -74,6 +74,8 @@ jobs:
             "   yer   : $($_.InvocationInfo.PositionMessage)" | Add-Content $log
           }
           "CIKIS KODU: $kod" | Add-Content $log
+          Write-Host "----- gunluk -----"
+          if(Test-Path $log){ Get-Content $log | ForEach-Object { Write-Host $_ } }
           exit $kod
 
       # Kor kalma kurali: kirmizi olsa da ne gordugumuz depoda dursun.
@@ -82,7 +84,8 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/marka-ayna-raporu.json veri/marka-ayna-log.txt || true
+          git add veri/marka-ayna-raporu.json || true
+          git add veri/marka-ayna-log.txt || true
           git diff --cached --quiet || git commit -m "Marka aynasi raporu [veri-operasyonu]"
           for i in 1 2 3; do
             git pull --rebase --autostash || true
