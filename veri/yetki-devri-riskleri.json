@@ -1,11 +1,11 @@
 {
-  "tarih": "30.08.2026 04:58",
+  "tarih": "30.08.2026 05:01",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 824,
   "riskli_madde": 1271,
   "sayfa": 63,
   "atifli_iddia": 267,
-  "dayanaksiz_iddia": 310,
+  "dayanaksiz_iddia": 311,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 342,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -1903,45 +1903,51 @@
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 217,
+      "satir": 221,
       "iddia": "4 gun",
       "metin": "// KONTROL DAMGALARI kullaniciya da gosterilir; 4 gunden eski damga AMBER olur."
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 230,
+      "satir": 234,
       "iddia": "4 gün",
       "metin": "if(bayat){ el.style.borderColor='rgba(255,194,75,.5)'; el.innerHTML += ', bir damga 4 günden eski görünüyor; rakamları beyandan önce GTİP Kontrolü/resmî kaynakla teyit et. '; }"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 245,
+      "satir": 249,
       "iddia": "en az 2",
       "metin": ": n===1 ? 'Seçili: 1, kıyas için en az 2 gerekir; tek seçimde yine hepsini sıralarız'"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 268,
+      "satir": 276,
       "iddia": "%1",
       "metin": "if(o1.length&&o10.length) return {r:10,t:'%1 veya %10 (indirimli, ürün tanımına göre)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 269,
+      "satir": 277,
       "iddia": "%1",
       "metin": "if(o1.length) return {r:1,t:'%1 (indirimli)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 270,
+      "satir": 278,
       "iddia": "%10",
       "metin": "if(o10.length) return {r:10,t:'%10 (indirimli)'};"
     },
     {
       "sayfa": "senaryo-raporu.html",
-      "satir": 271,
+      "satir": 279,
       "iddia": "%20",
       "metin": "return {r:20,t:'%20 (genel)'};"
+    },
+    {
+      "sayfa": "senaryo-raporu.html",
+      "satir": 445,
+      "iddia": "%0",
+      "metin": "// (Ornek: yogurtta AB ve Kosova ikisi de %0; Kosova'nin Tarim Payi YOK -> once o.)"
     },
     {
       "sayfa": "songun.html",
