@@ -29,6 +29,7 @@ param([switch]$Ayrinti, [switch]$Tazele)
 
 $ErrorActionPreference = 'Continue'
 $KOK = Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'rapor-yaz.ps1')   # icerik degismediyse dosyaya dokunma
 $OZET = Join-Path $KOK 'veri\ihale-firma-ozet.json'
 
 # Şirket adı jenerik bir sıfat/ekle BAŞLAMAZ. Bu liste "adın başında olursa
@@ -132,9 +133,8 @@ $cikti = [pscustomobject]@{
   })
 }
 $hedef = Join-Path $KOK 'veri\ihale-kesik-firma-adi.json'
-($cikti | ConvertTo-Json -Depth 6) | Set-Content $hedef -Encoding UTF8
+RaporYaz -Hedef $hedef -Nesne $cikti | Out-Null
 Write-Host ""
-Write-Host "  yazildi: veri/ihale-kesik-firma-adi.json" -ForegroundColor Green
 
 # --- CIRCIR: mevcut borc taban, ARTIS kirmizi -----------------------------
 # 115 kayit BUGUN duruyor. Kapiyi "kusur varsa kirmizi" yaparsak surekli

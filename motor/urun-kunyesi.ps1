@@ -132,8 +132,8 @@ $cikti = [pscustomobject]@{
 }
 
 $hedef = Join-Path $KOK 'veri\URUN-KUNYELERI.json'
-($cikti | ConvertTo-Json -Depth 6) | Set-Content $hedef -Encoding UTF8
-Write-Host "yazildi: veri/URUN-KUNYELERI.json" -ForegroundColor Green
+. (Join-Path (Split-Path $PSScriptRoot -Parent) 'arac\rapor-yaz.ps1')
+RaporYaz -Hedef $hedef -Nesne $cikti | Out-Null
 foreach($s in $sonuc){
   $kt = if($s.olculemeyen -gt 0){ "$($s.kayit_sayisi) (+$($s.olculemeyen) olculemedi)" } else { "$($s.kayit_sayisi)" }
   "{0,-15} {1,3} dosya · {2,10} kayit · {3} robot · {4}" -f $s.urun, $s.dosya_sayisi, $kt, $s.robot_sayisi, $(if($s.son_guncelleme){ ([datetime]::Parse($s.son_guncelleme)).ToString('dd.MM HH:mm') } else { 'olculmedi' })

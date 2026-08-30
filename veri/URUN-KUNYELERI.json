@@ -1,29 +1,32 @@
 ﻿{
-    "olcum_zamani":  "2026-08-30T09:31:30.1970571+03:00",
+    "olcum_zamani":  "2026-08-30T13:37:31.0497660+03:00",
     "aciklama":  "Yerel veri/*.json dosyalarindan olculdu. Supabase kasasindaki tablolar buradan GORUNMEZ - onlar icin \u0027olculmedi\u0027 gecerlidir.",
-    "toplam_json":  374,
-    "zamanli_robot":  55,
+    "toplam_json":  382,
+    "zamanli_robot":  56,
     "urunler":  [
                     {
                         "urun":  "Alacak Radarı",
                         "yuz":  "alacak-radari.html",
                         "yuz_var":  true,
-                        "dosya_sayisi":  5,
-                        "kayit_sayisi":  6823,
+                        "dosya_sayisi":  7,
+                        "kayit_sayisi":  6161,
                         "olculemeyen":  0,
-                        "son_guncelleme":  "2026-08-30 05:34:18 +0000",
+                        "son_guncelleme":  "2026-08-30 11:46:04 +0300",
                         "kasa":  "alacak_vitrin (Supabase) — kasa içeriği buradan ÖLÇÜLMEDİ",
-                        "robotlar":  "kaynak.yml [13 0 * * *]",
-                        "robot_sayisi":  1
+                        "robotlar":  [
+                                         "alacak-damga-denetimi.yml [25 7 * * 1]",
+                                         "kaynak.yml [13 0 * * *]"
+                                     ],
+                        "robot_sayisi":  2
                     },
                     {
                         "urun":  "Marka Radarı",
                         "yuz":  "marka-radari.html",
                         "yuz_var":  true,
-                        "dosya_sayisi":  6,
+                        "dosya_sayisi":  7,
                         "kayit_sayisi":  31558,
                         "olculemeyen":  0,
-                        "son_guncelleme":  "2026-08-30 08:27:59 +0300",
+                        "son_guncelleme":  "2026-08-30 11:12:33 +0300",
                         "kasa":  "marka_talep · marka_rakip · marka_durum — kasa içeriği buradan ÖLÇÜLMEDİ",
                         "robotlar":  [
                                          "kaynak.yml [13 0 * * *]",
@@ -49,10 +52,10 @@
                         "urun":  "İhale Radarı",
                         "yuz":  "ihale-radari.html",
                         "yuz_var":  true,
-                        "dosya_sayisi":  13,
-                        "kayit_sayisi":  26633,
+                        "dosya_sayisi":  16,
+                        "kayit_sayisi":  26893,
                         "olculemeyen":  0,
-                        "son_guncelleme":  "2026-08-30 08:27:59 +0300",
+                        "son_guncelleme":  "2026-08-30 10:32:25 +0000",
                         "kasa":  "ihale (gizli kasa) — kasa içeriği buradan ÖLÇÜLMEDİ",
                         "robotlar":  [
                                          "ihale-gunluk-tamlik.yml [0 4 * * *]",
@@ -70,7 +73,7 @@
                         "dosya_sayisi":  36,
                         "kayit_sayisi":  20367,
                         "olculemeyen":  0,
-                        "son_guncelleme":  "2026-08-30 05:48:12 +0000",
+                        "son_guncelleme":  "2026-08-30 09:27:50 +0000",
                         "kasa":  "soru bankası (RLS korumalı) — kasa içeriği buradan ÖLÇÜLMEDİ",
                         "robotlar":  [
                                          "ders-etiket.yml [10 4 * * 1]",
@@ -96,19 +99,20 @@
                         "yuz":  "radar.html",
                         "yuz_var":  true,
                         "dosya_sayisi":  14,
-                        "kayit_sayisi":  4026,
+                        "kayit_sayisi":  9881,
                         "olculemeyen":  0,
-                        "son_guncelleme":  "2026-08-30 05:58:43 +0000",
+                        "son_guncelleme":  "2026-08-30 10:35:12 +0000",
                         "kasa":  "madde_ara — kasa içeriği buradan ÖLÇÜLMEDİ",
                         "robotlar":  [
                                          "duyuru-nobetcisi.yml [30 5 * * *]",
+                                         "ip-olcum.yml [30 5 * * *]",
                                          "kartlar.yml [10 22 * * *]",
                                          "kaynak.yml [13 0 * * *]",
                                          "mevzuat.yml [11 0 * * *]",
                                          "radar.yml [0 22 * * *]",
                                          "rg-nobeti.yml [45 6 * * *]"
                                      ],
-                        "robot_sayisi":  6
+                        "robot_sayisi":  7
                     }
                 ]
 }

@@ -33,6 +33,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $KOK = Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'rapor-yaz.ps1')   # icerik degismediyse dosyaya dokunma
 if(-not $Rapor){ $Rapor = Join-Path $KOK 'veri\alacak-supheli-damga.json' }
 
 # --- okuyucudaki kapının BİREBİR aynısı (tek kaynak olmadığı için kopya;
@@ -134,9 +135,8 @@ $cikti = [pscustomobject]@{
   kayitlar = $kusurlu
 }
 $hedef = Join-Path $KOK 'veri\alacak-destek-denetimi.json'
-($cikti | ConvertTo-Json -Depth 6) | Set-Content $hedef -Encoding UTF8
+RaporYaz -Hedef $hedef -Nesne $cikti | Out-Null
 Write-Host ""
-Write-Host ("yazildi: veri/alacak-destek-denetimi.json" ) -ForegroundColor Green
 
 # --- ONARIM: kaynak raporun BOZUK alanini yerinde duzelt --------------------
 # NEDEN: alacak-supheli-damga.json'daki `alinti_karari_destekliyor` alani

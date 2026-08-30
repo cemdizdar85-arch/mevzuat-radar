@@ -27,6 +27,7 @@ param(
 
 $ErrorActionPreference = 'Continue'
 $KOK = Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'rapor-yaz.ps1')   # icerik degismediyse dosyaya dokunma
 $SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co'
 
 function Katla([string]$s) {
@@ -151,7 +152,6 @@ $cikti = [pscustomobject]@{
   })
 }
 $hedef = Join-Path $KOK 'veri\alacak-canli-damga-olcum.json'
-($cikti | ConvertTo-Json -Depth 6) | Set-Content $hedef -Encoding UTF8
+RaporYaz -Hedef $hedef -Nesne $cikti | Out-Null
 Write-Host ""
-Write-Host "  yazildi: veri/alacak-canli-damga-olcum.json" -ForegroundColor Green
 exit 0

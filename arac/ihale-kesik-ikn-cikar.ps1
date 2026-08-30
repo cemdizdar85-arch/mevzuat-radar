@@ -19,6 +19,7 @@ param([switch]$Ayrinti)
 
 $ErrorActionPreference = 'Continue'
 $KOK  = Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'rapor-yaz.ps1')   # icerik degismediyse dosyaya dokunma
 $MOTOR = Join-Path $KOK 'motor'
 
 # Denetim betiğiyle AYNI ölçüt (tek kaynak olmadığı için kopya; ayrışırsa
@@ -105,7 +106,6 @@ $cikti = [pscustomobject]@{
   kayitlar = $kayit
 }
 $hedef = Join-Path $KOK 'veri\ihale-kesik-ikn.json'
-($cikti | ConvertTo-Json -Depth 6) | Set-Content $hedef -Encoding UTF8
+RaporYaz -Hedef $hedef -Nesne $cikti | Out-Null
 Write-Host ""
-Write-Host "  yazildi: veri/ihale-kesik-ikn.json" -ForegroundColor Green
 exit 0
