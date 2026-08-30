@@ -65,14 +65,20 @@ function SO_Kok([string]$s){
 # Donus: sayi, ya da -1 (olculemedi). Uc deneme; hepsi duserse -1.
 function SO_AmbarSay([string]$kok){
   $desen = [uri]::EscapeDataString($kok + ' *')
-  for($i=1; $i -le 3; $i++){
+  # 30.08 OLCULEN: bu sorgu YUK ALTINDA duser. Sunucu govdesi acikca soyluyor:
+  #   {"code":"57014","message":"canceling statement due to statement timeout"}
+  # kaynak_ad uzerinde onek taramasi indekssiz; ~10 sn'lik ifade tavanina
+  # takiliyor. Ayni sorgu bos anda 2 sn'de donuyor. Yani "olculemedi" cogu
+  # zaman GECICI - uc hizli deneme yetmiyor, sabir gerekiyor. BDS 200 bu
+  # yuzden iki kez atlandi.
+  for($i=1; $i -le 5; $i++){
     try {
       $y = Invoke-WebRequest -UseBasicParsing -Method Get -Headers $basliklar `
-           -Uri "$ambarUcu`?select=id&tur=eq.standart-madde&kaynak_ad=like.$desen&limit=1" -TimeoutSec 90
+           -Uri "$ambarUcu`?select=id&tur=eq.standart-madde&kaynak_ad=like.$desen&limit=1" -TimeoutSec 150
       $cr = ($y.Headers['Content-Range'] -join '')
       if($cr -match '/(\d+)$'){ return [int]$Matches[1] }
       return -1
-    } catch { Start-Sleep -Milliseconds 800 }
+    } catch { Start-Sleep -Seconds ($i * 3) }   # 3-6-9-12 sn: yuk gecsin diye
   }
   return -1
 }
