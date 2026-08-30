@@ -928,7 +928,10 @@ function yurtIciCiz(){
     // Yalnız ihaleSayisi > kirimOlculen ise yazılır — kelime gruplarında havuz
     // zaten ölçülenlerden kurulduğu için ikisi eşittir ve "%100" yazmak yanıltır.
     const kapsam = (i.ihaleSayisi && i.ihaleSayisi > i.kirimOlculen)
-      ? `<div style="font-size:11px;color:var(--dim);margin-top:4px">Kapsam: <b style="color:var(--muted)">${i.ihaleSayisi} ihalenin ${i.kirimOlculen}'i</b> ölçülebildi (%${vr(Math.round(1000*i.kirimOlculen/i.ihaleSayisi)/10)}). Kalanı çok kısımlı: kısmın kendi yaklaşık maliyeti ilanda yazmadığı için tek bir kırım oranı vermiyor.</div>` : '';
+      // "7166'i" yanlış ek — doğrusu "7166'sı". Sayının okunuşuna göre değişen
+      // eki koda gömmek yerine eki HİÇ gerektirmeyen kalıp kullanılıyor:
+      // "N ihaleden M tanesi". Rakam değiştikçe dil bozulmaz.
+      ? `<div style="font-size:11px;color:var(--dim);margin-top:4px">Kapsam: <b style="color:var(--muted)">${i.ihaleSayisi} ihaleden ${i.kirimOlculen} tanesi</b> ölçülebildi (%${vr(Math.round(1000*i.kirimOlculen/i.ihaleSayisi)/10)}). Kalanı çok kısımlı: kısmın kendi yaklaşık maliyeti ilanda yazmadığı için tek bir kırım oranı vermiyor.</div>` : '';
     return `<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);line-height:1.7">
       <b style="color:var(--green)">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}${azOrnek}${kapsam}
       <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b>, idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
