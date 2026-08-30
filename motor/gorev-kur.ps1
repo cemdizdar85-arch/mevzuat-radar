@@ -129,13 +129,27 @@ $simdi = Get-Date
 $nabiz = @()
 $hukum = 'YESIL'
 foreach($g in $GOREVLER){
-  $s = [ordered]@{ ad=$g.ad; beklenen_saat=$g.saat; durum='KOR'; sebep=''; son_kosu=$null; son_sonuc=$null; gecikme_saat=$null }
+  $s = [ordered]@{ ad=$g.ad; beklenen_saat=$g.saat; durum='KOR'; sebep=''; son_kosu=$null; son_sonuc=$null; gecikme_saat=$null; gorev_durumu=$null; pilde_bekliyor=$false }
   try {
     $t = Get-ScheduledTask -TaskName $g.ad -ErrorAction Stop
     $i = $t | Get-ScheduledTaskInfo -ErrorAction Stop
     $s.son_kosu  = if($i.LastRunTime){ $i.LastRunTime.ToString('s') } else { $null }
     $s.son_sonuc = $i.LastTaskResult
+    $s.gorev_durumu = "$($t.State)"
+    # 30.08 YALANCI YESIL (olculdu, canli vaka): gorev 'Queued' halinde
+    # SAATLERCE bekleyebilir ve HIC KOSMAZ - en yaygin sebep
+    # DisallowStartIfOnBatteries=True + dizustunun pilde olmasi.
+    # Tuzak: Windows bu durumda bile LastRunTime'i TETIKLEME anina gunceller
+    # ve LastTaskResult onceki BASARILI kosudan 0 kalir. Yani nabiz
+    # "az once kostu, sonuc 0" diye YESIL derdi - gorev hic baslamamisken.
+    # Olculen vaka: 30.08 04:22 tetiklendi, 15 dk sonra hala Queued,
+    # BatteryStatus=1 (pilde, %61), zincir hic kosmadi.
+    $pilde = $false
+    try { $bat = Get-CimInstance -ClassName Win32_Battery -ErrorAction Stop; if($bat -and $bat.BatteryStatus -eq 1){ $pilde = $true } } catch {}
+    $s.pilde_bekliyor = ($pilde -and $t.Settings.DisallowStartIfOnBatteries -and $t.State -eq 'Queued')
     if($t.State -eq 'Disabled'){ $s.durum='KIRMIZI'; $s.sebep='gorev DEVRE DISI' }
+    elseif($s.pilde_bekliyor){ $s.durum='KIRMIZI'; $s.sebep='KUYRUKTA BEKLIYOR: makine PILDE ve gorev "pilde baslama" yasagi tasiyor - zincir KOSMUYOR' }
+    elseif($t.State -eq 'Queued'){ $s.durum='KOR'; $s.sebep='gorev KUYRUKTA (henuz baslamadi) - son kosu bilgisi guvenilmez' }
     elseif(-not $i.LastRunTime){ $s.durum='KIRMIZI'; $s.sebep='hic kosmamis' }
     else {
       $gec = [math]::Round(($simdi - $i.LastRunTime).TotalHours,1)
