@@ -132,41 +132,62 @@ $SORU = @'
 Asagida Turkiye'de bir mahkeme/daire tarafindan yayimlanmis resmi ilanin metni var.
 TEK SORU: Bu ilanda mahkeme NE KARAR VERDI?
 
-Secenekler:
-a) GECICI MUHLET verdi (ilk muhlet - IIK m.287; genelde 3 ay + 2 ay uzatilabilir)
-l) KESIN MUHLET verdi (IIK m.289; genelde 1 yil)
-m) Mevcut muhleti UZATTI (gecici ya da kesin muhletin suresi uzatildi)
-n) MUHLET verdi ama metinde GECICI mi KESIN mi oldugu ACIKCA yazmiyor
-b) Konkordato talebini REDDETTI - iflas karari YOK
-c) Konkordato talebini reddetti VE borclunun IFLASINA karar verdi
-   (IIK m.292 ile kesin muhlet icinde iflasin acilmasi da buraya girer)
-d) Daha once verilmis IFLASI KALDIRDI - borclu iflastan CIKIYOR (IIK m.182)
-e) Konkordatoyu TASDIK etti (basarili sonuclandi)
-g) Konkordato MUHLETINI kaldirdi / sonlandirdi - ret de iflas da tasdik de DEGIL
-h) Borclu davadan FERAGAT etti (KENDI vazgecti) - mahkeme reddetmedi, dava
-   feragat nedeniyle sona erdi
-i) ALACAKLILARA CAGRI: alacaklilarin alacaklarini bildirmesi/kaydettirmesi
-   isteniyor (IIK m.299 konkordato alacak kaydi ya da m.219 iflas alacak kaydi)
-j) DURUSMA GUNU bildiriliyor (tasdik durusmasi, toplanti/davet gunu)
-k) IFLAS TASFIYE ISLEMI: sira cetveli, tasfiyenin tatili, masa islemleri,
-   iflasin kapanmasi - devam eden bir iflas surecinin islem ilani
-f) Yukaridakilerden hicbiri
+Cevabini asagidaki ETIKETLERDEN BIRINI AYNEN yazarak ver.
+
+MUHLET AILESI (konkordato sureci DEVAM EDIYOR):
+  GECICI_MUHLET    - GECICI muhlet verdi (ilk muhlet - IIK m.287; genelde 3+2 ay)
+  KESIN_MUHLET     - KESIN muhlet verdi (IIK m.289; genelde 1 yil)
+  UZATMA           - mevcut muhletin SURESINI uzatti (gecici ya da kesin)
+  MUHLET_BELIRSIZ  - muhlet verdi ama metinde GECICI mi KESIN mi yazmiyor
+
+SUREC BITTI:
+  TASDIK           - konkordatoyu TASDIK etti (basarili sonuclandi)
+  RET              - konkordato talebini REDDETTI - iflas karari YOK
+  RET_IFLAS        - talebi reddetti VE borclunun IFLASINA karar verdi
+                     (IIK m.292 ile kesin muhlet icinde iflas da buraya girer)
+  FERAGAT          - borclu davadan FERAGAT etti (KENDI vazgecti); mahkeme
+                     konkordatoyu incelemedi, dava feragatle sona erdi
+  MUHLET_KALDIRMA  - konkordato MUHLETINI kaldirdi/sonlandirdi - ret de iflas
+                     da tasdik de DEGIL
+  IFLAS_KALDIRMA   - daha once verilmis IFLASI KALDIRDI, borclu iflastan
+                     CIKIYOR (IIK m.182)
+
+USUL ILANLARI (mahkeme yeni bir esas karar vermiyor, duyuru yapiyor):
+  ALACAK_CAGRISI   - alacaklilardan alacaklarini bildirmesi/kaydettirmesi
+                     isteniyor (IIK m.299 ya da m.219)
+  DURUSMA          - DURUSMA/TOPLANTI GUNU bildiriliyor
+  IFLAS_TASFIYE    - sira cetveli, tasfiyenin tatili, masa islemi, iflasin
+                     kapanmasi - devam eden bir iflas surecinin islem ilani
+
+  HICBIRI          - yukaridakilerden hicbiri
+
+DIKKAT - MUHLET ILANLARINDA EN SIK HATA (30.08 olcumu):
+Bir konkordato ilani genelde SURECIN TAMAMINI anlatir:
+  "...once 3 AY GECICI MUHLET verilmisti, ... simdi 1 YIL KESIN MUHLET
+   verilmesine karar verilmistir."
+Sen ILANIN DUYURDUGU ASIL/SON karari sec - metinde gecen ILK karari DEGIL.
+Baslik da ipucu verir ama tek basina yeterli degildir; metindeki EN SON
+hukum cumlesine bak. ALINTI da o karari gostermeli.
+
+ETIKET ILE ALINTI AYNI SEYI SOYLEMELI (30.08 olcumu - 222 ilanda bozuldu):
+Alintiladigin cumlede "KESIN muhlet" yaziyorsa etiket KESIN_MUHLET olur;
+"GECICI muhlet" yaziyorsa GECICI_MUHLET olur. Once alintiyi sec, sonra o
+alintinin soyledigi etiketi yaz. Alinti bir sey, etiket baska sey OLAMAZ.
 
 DIKKAT - en sik karistirilan UC ayrim:
-1) Konkordato MUHLETININ kaldirilmasi (g), IFLASIN kaldirilmasi (d) DEGILDIR.
-   Muhlet konkordato surecine aittir, iflas ayri bir hukumdur.
-2) Muhlet kaldirilmasinin SEBEBI tasdik ise cevap (e)'dir.
-3) "FERAGAT NEDENIYLE reddine" cevabi (h)'dir, (b) DEGILDIR: mahkeme
-   konkordatoyu incelemedi, borclu kendi vazgecti. Karari mahkeme degil
-   BORCLU verdi.
+1) MUHLET_KALDIRMA ile IFLAS_KALDIRMA AYNI SEY DEGILDIR. Muhlet konkordato
+   surecine aittir; iflasin kaldirilmasi ayri bir hukumdur.
+2) Muhlet kaldirilmasinin SEBEBI tasdik ise cevap TASDIK'tir.
+3) "FERAGAT NEDENIYLE reddine" cevabi FERAGAT'tir, RET DEGILDIR: karari
+   mahkeme degil BORCLU verdi.
 
 Yalniz su iki satiri yaz, baska hicbir sey yazma:
-KARAR: <tek harf>
+KARAR: <etiket>
 ALINTI: <karari gecen cumleyi metinden AYNEN kopyala>
 
 ALINTI ZORUNLUDUR. Metinde karari acikca soyleyen bir cumle BULAMIYORSAN
-karar harfi olarak (f) yaz ve ALINTI satirina YOK yaz. Kararini metne
-dayandiramadigin bir harf SECME.
+etiket olarak HICBIRI yaz ve ALINTI satirina YOK yaz. Kararini metne
+dayandiramadigin bir etiket SECME.
 
 --- ILAN BASLIGI ---
 {BASLIK}
@@ -280,18 +301,35 @@ function Sor([string]$istem) {
 # "emin degilsen yazma" kurali secenegin KENDISINE gomuldu.
 # Ayrica (g) tek hedefe indirildi: model "muhleti kaldirdi" diyorsa ve ret
 # demiyorsa hedef muhlet_kaldirma'dir; ret varsa zaten (b) der.
-$ESLESME = @{ 'a' = @('gecici_muhlet')
-              'l' = @('kesin_muhlet')
-              'm' = @('uzatma')
-              'n' = @('muhlet')
-              'b' = @('ret_kaldirma'); 'c' = @('ret_iflas')
-              'd' = @('iflas_kaldirma'); 'e' = @('tasdik')
+#
+# 30.08 UCUNCU OLCUM - HARF KODLAMASI KALDIRILDI. Ikinci muhlet olcumunde
+# kesin_muhlet uyumu %71'de CAKILI KALDI. Sebebi "ilk karar/son karar" tuzagi
+# SANDIM, istem uyarisi ekledim, HICBIR SEY DEGISMEDI (%71 -> %71). Artefakti
+# acip alinti ile cevabi karsilastirinca gercek sebep cikti:
+#     alinti "1 YILLIK KESIN MUHLET VERILMESINE" · cevap (a) gecici muhlet
+#     alinti "kesin muhlet kararinin kaldirilmasina" · cevap (d) iflas kaldirma
+# 152 kesin_muhlet + 70 gecici_muhlet = 222 ilanda model DOGRU cumleyi
+# aliniyor, sonra YANLIS HARFI isaretliyordu. Bu okuma hatasi degil; 14
+# secenegi a-n harflerine dagitan LISTENIN kusuru. Kovalar 8'den 14'e
+# cikarken yeni secenekler (l)(m)(n) listenin SONUNA eklenmisti; "kesin
+# muhlet" 12. harfte, "gecici muhlet" 1. harfte kaldi.
+# COZUM: harf araciligi tamamen kaldirildi - model artik etiketin KENDISINI
+# yaziyor (KESIN_MUHLET). Bir de kapi kondu: etiket ile alinti celisirse
+# cevap OLCUME GIRMEZ (bkz. CelisikMi).
+# DERS: bir modele "sec" dedigin listede secenegin ADI ile KODU arasinda
+# ceviri varsa, olctugun sey anlama degil ceviriye sadakattir.
+$ESLESME = @{ 'GECICI_MUHLET' = @('gecici_muhlet')
+              'KESIN_MUHLET' = @('kesin_muhlet')
+              'UZATMA' = @('uzatma')
+              'MUHLET_BELIRSIZ' = @('muhlet')
+              'RET' = @('ret_kaldirma'); 'RET_IFLAS' = @('ret_iflas')
+              'IFLAS_KALDIRMA' = @('iflas_kaldirma'); 'TASDIK' = @('tasdik')
               # 29.08: (g) muhletin kaldirilmasi. Ilk kosuda okuma bunu UC KEZ
               # (d) iflasin kaldirilmasi sandi - iki ayri hukum. Kendi secenegi
               # verildi. Damga tarafinda artik AYRI kova var (muhlet_kaldirma),
               # ama ret ile BIRLIKTE gecen ilanlar ret_kaldirma'da kalir -
               # ikisi de kabul edilir.
-              'g' = @('muhlet_kaldirma')
+              'MUHLET_KALDIRMA' = @('muhlet_kaldirma')
               # 29.08: (h) feragat - borclu KENDI vazgecti. Onceki kosularda bu
               # secenek YOKTU ve model feragat ilanlarini (b) ret ya da (f)
               # hicbiri diyordu; yani yeni ayrim olculemiyordu.
@@ -300,13 +338,67 @@ $ESLESME = @{ 'a' = @('gecici_muhlet')
               # alacak_cagrisi 0/507, diger 0/301, durusma 0/245,
               # iflas_tasfiye 0/48 - cunku model dogru cevabi VEREMIYORDU,
               # secenek yoktu. 1.101 ilan olculemez bir soruyla sinandi.
-              'h' = @('feragat')
-              'i' = @('alacak_cagrisi')
-              'j' = @('durusma')
-              'k' = @('iflas_tasfiye')
-              'f' = @('diger') }
+              'FERAGAT' = @('feragat')
+              'ALACAK_CAGRISI' = @('alacak_cagrisi')
+              'DURUSMA' = @('durusma')
+              'IFLAS_TASFIYE' = @('iflas_tasfiye')
+              'HICBIRI' = @('diger') }
 
-$sonuc = @(); $uyum = 0; $uyumsuz = 0; $alintisiz = 0; $cevapsiz = 0
+# --- ETIKET ile ALINTI CELISIYOR MU? (30.08 - 222 ilanlik kusurun kapisi) ----
+# Model dogru cumleyi alinip yanlis etiketi yazabiliyor. Alintida "KESIN
+# MUHLET" gecerken etiket GECICI_MUHLET ise bu cevap bir OLCUM DEGIL, gurultu.
+# Kapi yalniz METINDE ACIKCA AYRISAN durumlarda konusur (kesin/gecici/uzatma);
+# emin olamadigi yerde SUSAR - yanlis pozitif uretmez.
+function CelisikMi([string]$etiket, [string]$alinti) {
+  if (-not $alinti) { return $false }
+  # 30.08 OZ-SINAVDA YAKALANDI: ToLower() MAKINENIN KULTURUNE bagli. tr-TR
+  # makinede "KESIN" -> "kesın" (noktasiz i) olur ve 'kesin' arayan regex
+  # ISKALAR - kapi sessizce hicbir sey yakalamaz. Runner en-US oldugu icin
+  # canlida calisirdi, yerelde calismazdi; boyle bir kapiya guvenilmez.
+  # Once ASCII'ye katla, SONRA kulturden bagimsiz kucult.
+  $a = $alinti.Replace('İ','I').Replace('ı','i').Replace('Ş','S').Replace('ş','s').
+       Replace('Ğ','G').Replace('ğ','g').Replace('Ü','U').Replace('ü','u').
+       Replace('Ö','O').Replace('ö','o').Replace('Ç','C').Replace('ç','c').ToLowerInvariant()
+  # OZ-SINAVDA YAKALANDI: "once 3 ay gecici sonra 1 yil kesin muhlet verilen
+  # borclunun alacaklilari..." cumlesinde iki kelime de var ama yalniz 'kesin'
+  # muhlete bitisik - kapi bunu celiski sandi ve MESRU bir ALACAK_CAGRISI
+  # cevabini olcumden atacakti. Kapinin isi kusuru yakalamak, olcum tabanini
+  # eritmek degil: HER IKI kelime de geciyorsa cumle sureci ANLATIYOR demektir,
+  # kapi susar ve karari hakeme birakir.
+  if (($a -match 'kesin') -and ($a -match 'gecici')) { return $false }
+  $kesin  = [bool]($a -match 'kesin\s+(konkordato\s+)?(muhlet|mehil|mehli)')
+  $gecici = [bool]($a -match 'gecici\s+(konkordato\s+)?(muhlet|mehil|mehli)')
+  if ($kesin -and -not $gecici -and $etiket -ne 'KESIN_MUHLET'  -and $etiket -ne 'UZATMA' -and
+      $etiket -ne 'MUHLET_KALDIRMA') { return $true }
+  if ($gecici -and -not $kesin -and $etiket -ne 'GECICI_MUHLET' -and $etiket -ne 'UZATMA' -and
+      $etiket -ne 'MUHLET_KALDIRMA') { return $true }
+  return $false
+}
+
+# --- CELISKI KAPISININ OZ-SINAVI (93 kapi kurali: karar veren betik kendini
+# sinar). Vakalar 30.08 olcumunden GERCEK alintilardir. Kapi bozulursa kosu
+# BASLAMAZ - bozuk kapi sessizce yanlis olcum uretmesin.
+$KAPI_SINAVI = @(
+  @{e='GECICI_MUHLET'; a='11/09/2025 tarihinden baslamak uzere 1 YILLIK KESIN MUHLET VERILMESINE'; b=$true },
+  @{e='GECICI_MUHLET'; a='"1 YILLIK KESIN MUHLET VERILMISTIR"';                                    b=$true },
+  @{e='IFLAS_KALDIRMA';a='Verilen kesin muhlet kararinin kaldirilmasina';                          b=$true },
+  @{e='KESIN_MUHLET';  a='17.07.2025 tarihinden baslamak uzere 1 yillik kesin muhlet verilmis';    b=$false},
+  @{e='GECICI_MUHLET'; a='UC (3) AYLIK GECICI KONKORDATO MEHLI VERILMISTIR.';                      b=$false},
+  @{e='UZATMA';        a='verilen 1 yillik kesin muhletin 6 ay UZATILMASINA';                      b=$false},
+  @{e='MUHLET_KALDIRMA';a='Verilen kesin muhlet kararinin kaldirilmasina';                         b=$false},
+  @{e='TASDIK';        a='konkordato projesinin TASDIKINE karar verilmistir';                      b=$false},
+  @{e='ALACAK_CAGRISI';a='once 3 ay gecici sonra 1 yil kesin muhlet verilen borclunun alacaklilari';b=$false}
+)
+$kapiKotu = @($KAPI_SINAVI | Where-Object { (CelisikMi $_.e $_.a) -ne $_.b })
+if ($kapiKotu.Count) {
+  Write-Host ("HATA: celiski kapisi oz-sinavda {0}/{1} vakada BOZUK - kosu baslamiyor." -f `
+    $kapiKotu.Count, $KAPI_SINAVI.Count)
+  $kapiKotu | ForEach-Object { Write-Host ("  [{0}] beklenen {1} <- {2}" -f $_.e, $_.b, $_.a) }
+  exit 1
+}
+Write-Host ("Celiski kapisi oz-sinavi: {0}/{0} gecti" -f $KAPI_SINAVI.Count)
+
+$sonuc = @(); $uyum = 0; $uyumsuz = 0; $alintisiz = 0; $cevapsiz = 0; $celisik = 0
 $i = 0
 foreach ($x in $ilanlar) {
   $i++
@@ -314,7 +406,13 @@ foreach ($x in $ilanlar) {
   $c = Sor $istem
   if (-not $c) { $cevapsiz++; continue }
   $harf = ''; $alinti = ''
-  if ($c -match '(?im)^\s*KARAR\s*:\s*\(?([a-n])') { $harf = $Matches[1].ToLower() }
+  # 30.08: harf yerine ETIKET okunuyor. Etiket listesi $ESLESME'nin anahtarlari
+  # oldugu icin ikisi ASLA ayrisamaz - eski harf listesindeki gibi bir secenek
+  # eklenip esleme unutulamaz.
+  if ($c -match '(?im)^\s*KARAR\s*:\s*[\(\[]?\s*([A-Z_]{3,})') {
+    $aday = $Matches[1].ToUpper().Trim('_')
+    if ($ESLESME.ContainsKey($aday)) { $harf = $aday }
+  }
   if ($c -match '(?im)^\s*ALINTI\s*:\s*(.+)$')     { $alinti = $Matches[1].Trim() }
   if (-not $harf) { $cevapsiz++; continue }
   # 29.08 ASIL KUSUR: "alinti zorunlu" dedim ama ZORLAMADIM - ilk kosuda 290/746
@@ -324,6 +422,15 @@ foreach ($x in $ilanlar) {
   # cevap sayilmaz - regex'e uyguladigim kurali okumaya da uyguluyorum.
   $alintiVar = [bool]($alinti -and $alinti -notmatch '^\s*YOK\s*\.?\s*$' -and $alinti.Length -ge 12)
   if (-not $alintiVar) { $alintisiz++ }
+
+  # 30.08 CELISKI KAPISI: alinti ile etiket ayni seyi soylemiyorsa bu cevap
+  # olcume GIRMEZ. Alintisiz cevaba uyguladigim kuralin ayni bu - "kaynagini
+  # gosteremeyen cevap sayilmaz"in devami: kaynagi kendi cevabini YALANLAYAN
+  # cevap da sayilmaz. Kayit atilmaz, isaretlenir; hakem turunda tekrar okunur.
+  # NOT: alinti_var'a DOKUNULMAZ - celisik kayit hakem turuna GIRMELI, orada
+  # iki yorum onune konunca cozuluyor. Kapi yalniz UYUM ORANINDAN dusurur.
+  $celiskiVar = $false
+  if ($alintiVar -and (CelisikMi $harf $alinti)) { $celiskiVar = $true; $celisik++ }
 
   # ÖZ-SINAV (29.08 kusurundan sonra eklendi): karsilastirilan sey TEK bir damga
   # olmali. Dizi geldiyse cekim bozulmus demektir - sessizce %0 uyum uretmek
@@ -341,7 +448,8 @@ foreach ($x in $ilanlar) {
   $sonuc += [pscustomobject]@{
     ilan_no = $x.ilan_no; tarih = $x.tarih; il = $x.il
     baslik = "$($x.baslik)"; regex_damgasi = $damga
-    okuma_karari = $harf; okuma_alintisi = $alinti; alinti_var = $alintiVar; uyuyor = $tutuyor
+    okuma_karari = $harf; okuma_alintisi = $alinti; alinti_var = $alintiVar
+    alinti_celisiyor = $celiskiVar; uyuyor = $tutuyor
   }
   if ($i % 10 -eq 0) { Write-Host ("  {0}/{1} okundu (uyum {2} · uyumsuz {3})" -f $i, $ilanlar.Count, $uyum, $uyumsuz) }
   Start-Sleep -Milliseconds 350
@@ -435,7 +543,7 @@ if ($env:HAKEM -eq '1') {
   # --------------------------------------------------------------------------
   #  HAKEM KARARINI DAMGAYA YAZ (HAKEM_YAZ=1)
   #  Yalniz hakem "A" (OKUMA hakli) dediklerini yazar - "B" zaten mevcut damga.
-  #  TEK HEDEFI OLMAYAN harf ATLANIR: (a) dort muhlet kovasindan hangisi
+  #  TEK HEDEFI OLMAYAN etiket ATLANIR: HICBIRI hangi kovaya gidecegini
   #  oldugunu soylemiyor, (f) hicbiri demek. Bunlar elle listeye duser -
   #  "emin degilsen yazma" kurali damgalamada da gecerli.
   # --------------------------------------------------------------------------
@@ -444,11 +552,21 @@ if ($env:HAKEM -eq '1') {
     Write-Host 'HAKEM KARARLARI DAMGAYA YAZILIYOR...'
     $yazilacak = @(); $atlanan = @()
     foreach ($a in ($ayrisan | Where-Object { $_.hakem -eq 'A' })) {
+      # 30.08: hakeme sunulan "YORUM A" okumanin ETIKETIDIR. Etiket alintiyla
+      # celisiyorsa hakem YANLIS yorumu onaylamis olabilir - hakem metni gorse
+      # bile onune konan iki secenekten biri bastan bozuktu. Bu kayitlar
+      # YAZILMAZ, elle listeye duser.
+      if ($a.alinti_celisiyor) {
+        $atlanan += [pscustomobject]@{ ilan_no=$a.ilan_no; il=$a.il; baslik=$a.baslik
+          eski=$a.regex_damgasi; okuma=$a.okuma_karari
+          sebep='alinti etiketi yalanliyor - hakeme bozuk yorum sunuldu' }
+        continue
+      }
       $hedefler = @($ESLESME[$a.okuma_karari])
       if ($hedefler.Count -ne 1) {
         $atlanan += [pscustomobject]@{ ilan_no=$a.ilan_no; il=$a.il; baslik=$a.baslik
           eski=$a.regex_damgasi; okuma=$a.okuma_karari
-          sebep=$(if ($hedefler.Count -eq 0) { "(f) hicbiri - hedef yok" } else { "harf ($($a.okuma_karari)) $($hedefler.Count) kovaya isaret ediyor, hangisi belirsiz" }) }
+          sebep=$(if ($hedefler.Count -eq 0) { "HICBIRI - hedef kova yok" } else { "etiket ($($a.okuma_karari)) $($hedefler.Count) kovaya isaret ediyor, hangisi belirsiz" }) }
         continue
       }
       $yazilacak += [pscustomobject]@{ ilan_no=$a.ilan_no; eski=$a.regex_damgasi; yeni=$hedefler[0]
@@ -532,21 +650,22 @@ $supheli = @($sonuc | Where-Object { -not $_.uyuyor -and $_.alinti_var } | ForEa
     # yetmiyor, %21'inde alinti karari dogrulamiyordu)
     alinti_karari_destekliyor = $(
       switch ($_.okuma_karari) {
-        'c' { [bool]($_.okuma_alintisi -match 'iflas') }
-        'e' { [bool]($_.okuma_alintisi -match 'tasdik|onay') }
-        'd' { [bool]($_.okuma_alintisi -match 'iflas[ıi]n\s*kald') }
-        'g' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
-        'h' { [bool]($_.okuma_alintisi -match 'feragat') }
-        'i' { [bool]($_.okuma_alintisi -match 'alacak|bildir|kayd|kayıt') }
-        'j' { [bool]($_.okuma_alintisi -match 'duruşma|durusma|gün|toplantı') }
-        'l' { [bool]($_.okuma_alintisi -match 'kesin\s*m[üu]hlet') }
-        'm' { [bool]($_.okuma_alintisi -match 'uzat') }
-        'n' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
-        'k' { [bool]($_.okuma_alintisi -match 'sıra cetvel|tasfiye|masa|kapan') }
-        'a' { [bool]($_.okuma_alintisi -match 'ge[çc]ici\s*m[üu]hlet|m[üu]hlet') }
-        'b' { [bool]($_.okuma_alintisi -match 'red|ret\b') }
+        'RET_IFLAS'       { [bool]($_.okuma_alintisi -match 'iflas') }
+        'TASDIK'          { [bool]($_.okuma_alintisi -match 'tasdik|onay') }
+        'IFLAS_KALDIRMA'  { [bool]($_.okuma_alintisi -match 'iflas[ıi]n\s*kald') }
+        'MUHLET_KALDIRMA' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
+        'FERAGAT'         { [bool]($_.okuma_alintisi -match 'feragat') }
+        'ALACAK_CAGRISI'  { [bool]($_.okuma_alintisi -match 'alacak|bildir|kayd|kayıt') }
+        'DURUSMA'         { [bool]($_.okuma_alintisi -match 'duruşma|durusma|gün|toplantı') }
+        'KESIN_MUHLET'    { [bool]($_.okuma_alintisi -match 'kesin\s*m[üu]hlet') }
+        'UZATMA'          { [bool]($_.okuma_alintisi -match 'uzat') }
+        'MUHLET_BELIRSIZ' { [bool]($_.okuma_alintisi -match 'm[üu]hlet') }
+        'IFLAS_TASFIYE'   { [bool]($_.okuma_alintisi -match 'sıra cetvel|tasfiye|masa|kapan') }
+        'GECICI_MUHLET'   { [bool]($_.okuma_alintisi -match 'ge[çc]ici\s*m[üu]hlet|m[üu]hlet') }
+        'RET'             { [bool]($_.okuma_alintisi -match 'red|ret\b') }
         default { $false }
       })
+    alinti_celisiyor = [bool]$_.alinti_celisiyor
   }
 })
 $sHedef = Join-Path $kok 'veri\alacak-supheli-damga.json'
@@ -567,7 +686,8 @@ Write-Host ('=' * 72)
 if ($sonuc.Count) {
   # OLCULEBILIR UYUM = yalniz ALINTILI cevaplar. Alintisiz cevap "okuma bildi"
   # sayilmaz; kaynagini gosteremeyen cevap olcume girmez.
-  $alintili     = @($sonuc | Where-Object { $_.alinti_var })
+  # 30.08: alintisi kendi etiketini YALANLAYAN cevaplar da olcume girmez.
+  $alintili     = @($sonuc | Where-Object { $_.alinti_var -and -not $_.alinti_celisiyor })
   $uyumAlintili = @($alintili | Where-Object { $_.uyuyor }).Count
   Write-Host ("OKUNAN: {0} · cevapsiz: {1}" -f $sonuc.Count, $cevapsiz)
   Write-Host ("HAM UYUM (alintisizlar dahil - GUVENILMEZ): {0}/{1} (%{2:N1})" -f `
@@ -579,6 +699,12 @@ if ($sonuc.Count) {
     Write-Host 'OLCULEBILIR UYUM: KOR - hicbir cevap alinti tasimiyor, olcum yapilamaz.'
   }
   Write-Host ("ALINTISIZ (olcume GIRMEDI): {0} (%{1:N1})" -f $alintisiz, (100.0 * $alintisiz / $sonuc.Count))
+  Write-Host ("ALINTI-ETIKET CELISKISI (olcume GIRMEDI, hakeme gitti): {0} (%{1:N1})" -f `
+    $celisik, (100.0 * $celisik / $sonuc.Count))
+  if ($celisik -gt (0.05 * $sonuc.Count)) {
+    Write-Host "  DIKKAT: celiski orani %5'in ustunde - istemdeki secenek listesi yine"
+    Write-Host "  karistiriyor olabilir. Once bunu duzelt, yazma turunu KOSMA."
+  }
   Write-Host ("HAT: gemini {0} ({1}) · haiku {2} · hata {3}{4}" -f $script:sayacGemini,
     $(if ($script:gmodel) { $script:gmodel } else { '-' }), $script:sayacHaiku, $script:sayacHata,
     $(if ($script:geminiSebep) { " · GEMINI KULLANILMADI: $($script:geminiSebep)" } else { '' }))
