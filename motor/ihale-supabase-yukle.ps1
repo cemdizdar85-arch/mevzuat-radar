@@ -61,6 +61,19 @@ function RpcCagir([string]$ad, $govde) {
   Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/rpc/$ad" `
     -Headers $basliklar -Body ([Text.Encoding]::UTF8.GetBytes($json)) -TimeoutSec 300
 }
+# 🔴 30.08 OLCUMU: Invoke-RestMethod tek satirlik JSON dizisini ACMADAN
+# akitiyor; @(...)[0] o zaman SATIRI degil, iceren DIZIYI verir.
+# $r.kayit yine calisir (PowerShell uye numaralandirmasi diziye de uygulanir)
+# ama $r.PSObject.Properties['damgasiz'] calismaz - PSObject dizinin kendisine
+# aittir. Goc kapisi tam bu yuzden basili gocu "basilmamis" sandi ve provanin
+# iki gunu de dustu. Bir kat duzlestirip ILK SATIRI donduruyoruz.
+function IlkSatir($cevap) {
+  foreach ($z in $cevap) {
+    if ($z -is [Array]) { foreach ($y in $z) { return $y } }
+    else { return $z }
+  }
+  return $null
+}
 function Sayi([object]$v) {
   if ($null -eq $v -or "$v".Trim() -eq '') { return $null }
   $d = 0.0
@@ -126,8 +139,8 @@ if ($Olc) { Write-Host "`n(olcum modu - hicbir sey yazilmadi)"; exit 0 }
 # Olcut: ihale_sayi() cevabinda 'damgasiz' alani VAR MI. Eski surumde yok.
 # (kalici-sigorta 4. katman: kapi neden dustugunu SOYLER)
 try {
-  $on = @(RpcCagir 'ihale_sayi' @{})[0]
-  if ($null -eq $on.PSObject.Properties['damgasiz']) {
+  $on = IlkSatir (RpcCagir 'ihale_sayi' @{})
+  if ($null -eq $on -or $null -eq $on.PSObject.Properties['damgasiz']) {
     Write-Host ''
     Write-Host '!! DURDURULDU: bulten kutugu gocu Supabase-e BASILMAMIS.'
     Write-Host '   Kanit: ihale_sayi() cevabinda "damgasiz" alani yok (eski surum).'
@@ -161,8 +174,7 @@ Write-Host ("`nYAZILAN: {0:N0} · dusen: {1:N0}" -f $yazilan, $hatali)
 
 # --- GERI OKU (yesil kosu = tam veri degildir) ------------------------------
 try {
-  $s = RpcCagir 'ihale_sayi' @{}
-  $r = @($s)[0]
+  $r = IlkSatir (RpcCagir 'ihale_sayi' @{})
   Write-Host ("GERI OKUMA: kayit {0:N0} · tekil IKN {1:N0} · kirim olculen {2:N0} · kisimli {3:N0}" -f `
               [int]$r.kayit, [int]$r.tekil_ikn, [int]$r.olculen, [int]$r.kisimli)
   if ([int]$r.kayit -lt $gonderilecek.Count) {
@@ -184,7 +196,10 @@ try {
 $damgaYol = Join-Path $kok 'veri\ihale-son-kosu-damga.json'
 if (-not "$($env:HEDEF)".Trim() -and (Test-Path $damgaYol)) {
   try {
-    $damgalar = @(Get-Content $damgaYol -Raw -Encoding UTF8 | ConvertFrom-Json)
+    # ConvertFrom-Json boru hattinda diziyi ACMAZ (PS 5.1) - @(...) ic ice dizi
+    # uretir ve $d.tarih dizi olarak gider, kutuk cagrisi patlar. Once degiskene.
+    $damgaHam = ConvertFrom-Json -InputObject (Get-Content $damgaYol -Raw -Encoding UTF8)
+    $damgalar = @($damgaHam)
     $c = 0
     foreach ($d in $damgalar) {
       if (-not $d.tarih) {

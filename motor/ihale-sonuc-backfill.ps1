@@ -74,19 +74,45 @@ function EksikGunler([int]$ayGeri, [string[]]$turler){
   } | ConvertTo-Json -Compress
   $bas = @{ apikey=$anahtar; Authorization="Bearer $anahtar"; 'Content-Type'='application/json'
             Accept='application/json'; 'User-Agent'='MevzuatRadar-Backfill' }
+  # 🔴 SAYFALAMA SART (30.08 olcumu): PostgREST sayfa basina 1.000 satirda
+  # kesiyor. 36 aylik aralik 3.124 (gun,is kolu) satiri donuyor; sayfalamasiz
+  # istenirse yalnizca en yeni 1.000'i gorulur ve is listesi SESSIZCE kirpilir.
+  # Content-Range basligi gercek toplami veriyor ("0-999/3124") - okunur ve
+  # kirpilma olup olmadigi ekrana YAZILIR.
+  # Ayrica -UseBasicParsing sart (PS 5.1 etkilesimsiz kabukta IE motorunu arar)
+  # ve bos JSON dizisi ([]) Invoke-RestMethod'da tek ogeye sariliyor; bu yuzden
+  # govde METIN alinip kendimiz ayristiriyoruz.
+  $hepsi = New-Object Collections.ArrayList
+  $off = 0; $toplam = $null
   try{
-    $c = Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/rpc/ihale_eksik_gun" `
-           -Headers $bas -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 300
-    # TUZAK (20.08 dersi): fonksiyon icinde Invoke-RestMethod dizisi tek ogeye
-    # sarilabiliyor; @() acmiyor. Bir kat duzlestir.
-    $duz = New-Object Collections.ArrayList
-    foreach($z in $c){ if($z -is [Array]){ foreach($y in $z){ [void]$duz.Add($y) } } else { [void]$duz.Add($z) } }
-    return @($duz)
+    while($true){
+      $c = Invoke-WebRequest -UseBasicParsing -Method Post `
+             -Uri "$SB_URL/rest/v1/rpc/ihale_eksik_gun?limit=1000&offset=$off" `
+             -Headers ($bas + @{ Prefer='count=exact' }) `
+             -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 300
+      if($null -eq $toplam -and "$($c.Headers['Content-Range'])" -match '/(\d+)$'){ $toplam = [int]$Matches[1] }
+      # ConvertFrom-Json boru hattinda diziyi ACMAZ (PS 5.1) - once degiskene
+      # al, sonra @() ile ac. Yoksa 1.000 satir "1" gorunur ve dongu hemen biter.
+      $parca = @()
+      if("$($c.Content)".Trim()){
+        $coz = ConvertFrom-Json -InputObject $c.Content
+        if($null -ne $coz){ $parca = @($coz) }
+      }
+      if(-not $parca.Count){ break }
+      foreach($p in $parca){ [void]$hepsi.Add($p) }
+      $off += $parca.Count
+      if($null -ne $toplam -and $off -ge $toplam){ break }
+    }
   }catch{
     Write-Host ("!! is listesi kasadan alinamadi: {0}" -f $_.Exception.Message)
     Write-Host "   (goc basili mi? radar-app/sql/2026-08-30-ihale-bulten-kutugu.sql)"
     return $null
   }
+  if($null -ne $toplam -and $hepsi.Count -lt $toplam){
+    Write-Host ("!! is listesi EKSIK alindi: {0}/{1} satir - kirpilmis liste ile kosulmaz" -f $hepsi.Count, $toplam)
+    return $null
+  }
+  return @($hepsi)
 }
 
 # atlanan gunler (arsivin vermedigi) - sonsuz tekrari onler
@@ -132,6 +158,28 @@ foreach($g in $gunler){
   if(Test-Path $ambar){ Remove-Item $ambar -Force -ErrorAction SilentlyContinue }
   if(Test-Path $damgaYol){ Remove-Item $damgaYol -Force -ErrorAction SilentlyContinue }
 
+  # 🔴 BAYAT DOSYA TUZAGI (30.08 provasinda olculdu, sessizdi):
+  # hasat indirdigi bulteni $Klasor'e yaziyor; bir turun indirmesi DUSERSE eski
+  # gunun sonuc-<tur>.txt'si orada KALIYOR ve ayristirici onu yeniden ayristiriyor.
+  # Provada tam bu oldu: 27.08 kosusunda Mal, 28.08'in metniydi. Damga kaynaktan
+  # okundugu icin kutuk yalan soylemedi (satir 2026-08-28 yazildi) ama gun "TAM"
+  # sayildi ve 27.08 Mal sessizce atlandi.
+  # Cozum: gun baslamadan turlerin metin/pdf/zip dosyalari SILINIR. Indirme
+  # duserse "sonuc metni yok" denir, gun TAM sayilmaz ve listeye geri gelir.
+  $kls = if("$($env:IHALE_BULTEN_KLASOR)".Trim()){ $env:IHALE_BULTEN_KLASOR }
+         else { Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten" }
+  if(Test-Path $kls){
+    foreach($t in $Turler){
+      $tl = $t.ToLower()
+      foreach($uzanti in @('txt','pdf','zip','ham')){
+        foreach($on in @('sonuc','bulten')){
+          $yol = Join-Path $kls ("{0}-{1}.{2}" -f $on, $tl, $uzanti)
+          if(Test-Path $yol){ Remove-Item $yol -Force -ErrorAction SilentlyContinue }
+        }
+      }
+    }
+  }
+
   try{
     & $hasat -Turler $Turler -Tarih $ts *> $null
     & $ayristir -Yaz *> $null
@@ -144,7 +192,11 @@ foreach($g in $gunler){
     Write-Host ("  {0} · damga uretilmedi (bulten inmedi?)" -f $ts); $hata++
     $islenen++; Start-Sleep -Seconds $BeklemeSn; continue
   }
-  $dmg = @(Get-Content $damgaYol -Raw -Encoding UTF8 | ConvertFrom-Json)
+  # ConvertFrom-Json boru hattinda diziyi ACMAZ (PS 5.1): @(... | ConvertFrom-Json)
+  # ic ice dizi verir, $_.tarih bulunamaz, kayit toplami [int]'e cevrilemez.
+  # Once degiskene al, sonra @() ile ac.
+  $dmgHam = ConvertFrom-Json -InputObject (Get-Content $damgaYol -Raw -Encoding UTF8)
+  $dmg = @($dmgHam)
 
   # ISTENEN GUN = GELEN GUN MU? Arsiv formu tutmazsa KIK bugunun bultenini
   # doner; damga kaynaktan okundugu icin bu fark GORUNUR. Yanlis bulteni o
@@ -158,16 +210,32 @@ foreach($g in $gunler){
     $arsivYok++; $islenen++; Start-Sleep -Seconds $BeklemeSn; continue
   }
 
+  # IKINCI AG: tur tur damga kontrolu. Yukaridaki kontrol "turlerden BIRI bile
+  # dogru gunse gec" diyor; karisik gun (bir tur bugun, bir tur dun) oradan
+  # siziyordu. Burada BASKA gune damgali her tur ayri ayri yakalanir.
+  $yanlisGun = @($dmg | Where-Object { $_.tarih -and $_.tarih -ne $bekle })
+  foreach($y in $yanlisGun){
+    Write-Host ("  {0} · !! {1} bulteni {2} damgali - bu gune SAYILMIYOR" -f $ts, $y.tur, $y.tarih)
+  }
+
   $toplam = (@($dmg | ForEach-Object { [int]$_.kayit }) | Measure-Object -Sum).Sum
-  $tamMi  = -not @($dmg | Where-Object { -not $_.tam -and $_.beklenen }).Count
+  # TAM olcutu: her is kolu hem dogru gune damgali OLACAK hem icindekiler=govde
+  # tutacak. Biri bile saglanmazsa gun TAM degildir ve listeye geri gelir.
+  $tamMi = ($yanlisGun.Count -eq 0) -and
+           (-not @($dmg | Where-Object { -not $_.tam -and $_.beklenen }).Count) -and
+           (-not @($dmg | Where-Object { $_.sebep -eq 'indirilemedi' }).Count)
 
   if($Olc){
     Write-Host ("  {0} · {1,5} kayit · {2}  (OLCUM - yazilmadi)" -f $ts, $toplam, $(if($tamMi){'TAM'}else{'EKSIK'}))
   } else {
     # yukleyici hem kayitlari hem KUTUGU yazar (damga dosyasindan)
-    & $yukle *> $null
+    # CIKTI YUTULMAZ: dusen kapinin NEDEN dustugu goruluyor olmali. Ilk surumde
+    # "*> $null" yaziyordu ve "YUKLEME DUSTU (kod 1)" disinda hicbir sey
+    # gorunmuyordu - sebebi bulmak icin betigi elle kosmak gerekti.
+    $yukCikti = & $yukle 2>&1
     if($LASTEXITCODE -ne 0){
       Write-Host ("  {0} · YUKLEME DUSTU (kod {1}) - kutuge centik atilmadi" -f $ts, $LASTEXITCODE)
+      foreach($sat in @($yukCikti | Select-Object -Last 6)){ Write-Host ("       | {0}" -f $sat) }
       $hata++; $islenen++; Start-Sleep -Seconds $BeklemeSn; continue
     }
     Write-Host ("  {0} · {1,5} kayit · {2}" -f $ts, $toplam, $(if($tamMi){'TAM'}else{'EKSIK -> tekrar cekilecek'}))
