@@ -107,8 +107,17 @@ jobs:
           # dusurur - adim dosyayi yazamadan olur, continue-on-error da bunu
           # maskeler. Bu yuzden simdi: (1) dosya ONCE yazilir, (2) alt betik
           # AYRI SUREC olarak cagrilir ki 'exit' bu adimi olduremesin.
+          # 30.08 KENDI KUSURUM: bu rapora ZAMAN DAMGASI koymamistim. Icerik
+          # ayni kalirsa commit olmuyor; ben de eski dosyayi YENI kosunun
+          # ciktisi sanip "duzeltme ise yaramadi" diye okuyabiliyordum.
+          # Damgasiz kanit, kanit degildir.
           $rapor = 'veri/surum-teshis-ci.md'
           "# TEK STANDART HAM CIKTI (CI teshisi)`n`n> TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?`n" | Out-File $rapor -Encoding utf8
+          "## kosu kimligi" | Out-File $rapor -Append -Encoding utf8
+          "- zaman: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') UTC" | Out-File $rapor -Append -Encoding utf8
+          "- commit: ${{ github.sha }}" | Out-File $rapor -Append -Encoding utf8
+          "- kosu no: ${{ github.run_number }}" | Out-File $rapor -Append -Encoding utf8
+          "" | Out-File $rapor -Append -Encoding utf8
           "## ortam" | Out-File $rapor -Append -Encoding utf8
           $pt = (Get-Command pdftotext -ErrorAction SilentlyContinue)
           "- pdftotext: $(if($pt){$pt.Source}else{'YOK'})" | Out-File $rapor -Append -Encoding utf8
