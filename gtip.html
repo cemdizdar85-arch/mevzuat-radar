@@ -710,6 +710,44 @@ function abdMisillemeKart(){
   </div>`;
 }
 
+/* ── 30.08.2026 — OLAY SAYACI ────────────────────────────────────────────────
+   NEDEN: sitede bugüne kadar YALNIZ sayfa görüntüleme sayılıyordu. "Damping
+   kartını kaç kişi gördü, gören ne yaptı?" sorusu ölçülemiyordu — kampanya
+   sayaçsız başlarsa "işe yaradı mı" sorusu yine cevapsız kalır.
+   GoatCounter olayı kullanılır: çerez YOK, kişisel veri YOK, sunucuya yalnız
+   olay adı gider. Sayaç yüklenmemişse sessizce hiçbir şey yapmaz (bir kez
+   1,5 sn sonra tekrar dener; ikinci denemede de yoksa vazgeçer).
+   Kampanya etiketi (?k=...) olaya taşınır ki hangi gönderiden geldiği görülsün. */
+let TT_OLAY_KUYRUK = [];
+function ttOlay(ad){
+  try{
+    const k = new URLSearchParams(location.search).get('k');
+    const yol = 'olay/' + ad + (k ? '?k=' + encodeURIComponent(k) : '');
+    if(window.goatcounter && window.goatcounter.count){
+      window.goatcounter.count({ path: yol, title: 'olay: ' + ad, event: true });
+    } else if(TT_OLAY_KUYRUK.length < 12){
+      TT_OLAY_KUYRUK.push(yol);
+      if(TT_OLAY_KUYRUK.length === 1) setTimeout(()=>{
+        if(window.goatcounter && window.goatcounter.count){
+          TT_OLAY_KUYRUK.forEach(y => window.goatcounter.count({ path:y, title:'olay (gec)', event:true }));
+        }
+        TT_OLAY_KUYRUK = [];
+      }, 1500);
+    }
+  }catch(e){ /* sayaç asla sayfayı bozmaz */ }
+}
+// Huni: damping/soruşturma kartını GÖRDÜKTEN sonra hangi araca gidiyor?
+let TT_KART_GORULDU = null;
+document.addEventListener('click', function(e){
+  if(!TT_KART_GORULDU) return;
+  const a = e.target && e.target.closest ? e.target.closest('a') : null;
+  if(!a) return;
+  const h = a.getAttribute('href') || '';
+  if(/toplu-gtip\.html/.test(h))      ttOlay(TT_KART_GORULDU + '-sonrasi-toplu-gtip');
+  else if(/radar-app\.html/.test(h))  ttOlay(TT_KART_GORULDU + '-sonrasi-uyelik');
+  else if(/senaryo-raporu\.html/.test(h)) ttOlay(TT_KART_GORULDU + '-sonrasi-senaryo');
+});
+
 // 30.08.2026 — ÖNLEMİN SÜRESİ. Kesin önlemler yürürlüğe girdikten 5 yıl sonra
 // kendiliğinden kalkar (İthalatta Haksız Rekabetin Önlenmesi Hakkında Yönetmelik
 // m.35). İki taraf için de karar bilgisidir: ithalatçı "vergi kalkabilir mi"yi,
@@ -962,7 +1000,18 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
   const say2 = q.replace(/\./g,'');
   // damping uyarısı (varsa en üstte) + hemen ardından DEVAM EDEN soruşturma.
   // Sıra bilinçli: önce "bugün ne ödersin", sonra "yakında ne gelebilir".
-  const dHtml = dampingKart(q) + sorusturmaKart(q);
+  const onlemHtml = dampingKart(q), sorHtml = sorusturmaKart(q);
+  const dHtml = onlemHtml + sorHtml;
+  // 30.08.2026 — sayaç: hangi kart GÖSTERİLDİ? (huni bu bayrağa bağlı)
+  TT_KART_GORULDU = sorHtml ? 'damping-sorusturma' : (onlemHtml ? 'damping-onlem' : null);
+  if(onlemHtml){
+    ttOlay('damping-onlem-karti');
+    // süre satırı ayrı sayılır: "vergi kalkabilir/başvuru penceresi" mesajı
+    // kartın kendisinden farklı bir değer taşıyor (m.35).
+    if(/Normal süre dolumu/.test(onlemHtml)) ttOlay('damping-sure-dolumu');
+    if(/gün kaldı/.test(onlemHtml))          ttOlay('damping-sure-dolumu-yakin');
+  }
+  if(sorHtml) ttOlay('damping-sorusturma-karti');
   // 20.08.2026 — POZİSYON DÜZEYİ EŞLEŞME.
   // Bazı gözetim tebliğleri kodu 12 hane değil POZİSYON düzeyinde yazar
   // (2015/8 → 8431.41 · 2017/13 → 9608.10 · 2004/15 → 6802.23). Eski süzgeç

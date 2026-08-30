@@ -304,6 +304,17 @@ Promise.all([
   fetch('veri/damping-sorusturma.json').then(r=>r.json()).catch(()=>([]))
 ]).then(([a,b,c,d,e,f,g,h,s])=>{ VERI=a; VERGI=b; DAMPING=c; VERGI_ULKE=d; IGV_ULKE=e; KDV=f; OTV=g; EKVERGI=h; DMP_SORUSTURMA=s; });
 
+/* 30.08.2026 — OLAY SAYACI (gtip.html ile aynı desen).
+   GoatCounter olayı: çerez yok, kişisel veri yok. Sayaç yüklenmemişse
+   sessizce hiçbir şey yapmaz — sayaç asla sayfayı bozmaz. */
+function ttOlay(ad){
+  try{
+    const k = new URLSearchParams(location.search).get('k');
+    if(window.goatcounter && window.goatcounter.count){
+      window.goatcounter.count({ path:'olay/'+ad+(k?'?k='+encodeURIComponent(k):''), title:'olay: '+ad, event:true });
+    }
+  }catch(e){}
+}
 function htmlEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function asArr(v){ return Array.isArray(v) ? v : (v===null || v===undefined || v==='' || typeof v==='object') ? [] : [v]; }
 function say(s){ if(!s) return null; const m=(''+s).replace(/\./g,'').match(/\d+/); return m?parseInt(m[0],10):null; }
@@ -383,6 +394,7 @@ function tara(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('risk'))
         const ay=Math.floor((new Date()-t)/2592000000);
         acilisSatir = `<div class="satir"><b>Açılış</b><span>${t.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'})}${ay>0?' · '+ay+' ay önce':''}</span></div>`; } }
       sari++;
+      ttOlay('risk-damping-sorusturma-karti');   // 30.08.2026 sayaç
       html += kart('sari','🟡 DİKKAT','Bu kodda damping soruşturması AÇIK — bugün değil, yarın vergi çıkabilir',
         `<p><b style="color:var(--ink)">${htmlEsc(s.m||'Bu ürün grubu')}</b></p>
          <div class="satir"><b>Soruşturulan menşe</b><span>${htmlEsc(ulkeler)}</span></div>
