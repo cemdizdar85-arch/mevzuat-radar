@@ -29,14 +29,36 @@ if(-not $anahtar){
 }
 $bas = @{ apikey=$anahtar; Authorization="Bearer $anahtar"; 'Content-Type'='application/json'
           Accept='application/json'; 'User-Agent'='MevzuatRadar-KapsamaRaporu' }
+# 🔴 30.08 OLCUMU: Invoke-RestMethod BOS JSON dizisini ([]) tek ogeye sariyor.
+# @(IRM ...) -> Count 1. Bu yuzden karne "1 bulten tam inmemis" diye YALAN
+# soyledi, altina yazacak satir bulamadi. Cozum: govdeyi METIN al, kendimiz
+# ayristir. (Ayni aile: 20.08'de ihale-ambar-oku'daki sarma tuzagi.)
+# Ayrica -UseBasicParsing SART: PS 5.1 etkilesimsiz kabukta IE motorunu
+# aramaya kalkiyor ve "NonInteractive mode" ile duruyor.
+function Govde([string]$uri, [string]$yontem = 'Get', $govde = $null, [switch]$Sayim){
+  $bx = $bas.Clone()
+  if($Sayim){ $bx['Prefer'] = 'count=exact' }
+  $par = @{ UseBasicParsing = $true; Method = $yontem; Uri = $uri; Headers = $bx; TimeoutSec = 300 }
+  if($null -ne $govde){ $par['Body'] = [Text.Encoding]::UTF8.GetBytes(($govde | ConvertTo-Json -Depth 6 -Compress)) }
+  $c = Invoke-WebRequest @par
+  # 🔴 ConvertFrom-Json BORU HATTINDA diziyi ACMAZ (PS 5.1): tek nesne olarak
+  # akitir, @(...) da onu tek ogeye sarar -> 3.124 satir "1" gorunur.
+  # Once DEGISKENE al, sonra @() ile ac. Bos dizi de boylece 0 olur.
+  $satir = @()
+  if("$($c.Content)".Trim()){
+    $coz = ConvertFrom-Json -InputObject $c.Content
+    if($null -ne $coz){ $satir = @($coz) }
+  }
+  # PostgREST sayfa basina 1.000 satirda kesiyor; GERCEK toplam yalniz
+  # Content-Range basliginda ("0-999/3124"). Kesilmis sayiyi gercek sanmak
+  # "sessiz kirpma" - bu depoda yasak.
+  $toplam = $satir.Count
+  $cr = "$($c.Headers['Content-Range'])"
+  if($cr -match '/(\d+)$'){ $toplam = [int]$Matches[1] }
+  return [pscustomobject]@{ satir = $satir; toplam = $toplam; kirpildi = ($toplam -gt $satir.Count) }
+}
 function Rpc([string]$ad, $govde){
-  $j = $govde | ConvertTo-Json -Depth 6 -Compress
-  $c = Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/rpc/$ad" `
-         -Headers $bas -Body ([Text.Encoding]::UTF8.GetBytes($j)) -TimeoutSec 300
-  # dizi tek ogeye sarilabiliyor (20.08 tuzagi) - bir kat duzlestir
-  $duz = New-Object Collections.ArrayList
-  foreach($z in $c){ if($z -is [Array]){ foreach($y in $z){ [void]$duz.Add($y) } } else { [void]$duz.Add($z) } }
-  return @($duz)
+  return (Govde "$SB_URL/rest/v1/rpc/$ad" 'Post' $govde).satir
 }
 
 $kirmizi = 0; $kor = 0
@@ -75,26 +97,30 @@ Write-Host ''
 Write-Host "--- 1) KAPSAM (son $AyGeri ay) ------------------------------------"
 try{
   $bugun = Get-Date
-  $eks = Rpc 'ihale_eksik_gun' @{
+  $c = Govde "$SB_URL/rest/v1/rpc/ihale_eksik_gun" 'Post' @{
     p_bas    = $bugun.AddMonths(-$AyGeri).ToString('yyyy-MM-dd')
     p_bit    = $bugun.AddDays(-1).ToString('yyyy-MM-dd')
     p_turler = @('Mal','Yapim','Hizmet','Danismanlik')
-  }
-  if(-not $eks.Count){
+  } -Sayim
+  $eks = $c.satir
+  if($c.toplam -eq 0){
     Write-Host 'YESIL: eksik (gun,is kolu) yok - aralik tam.'
   } else {
     $kirmizi++
+    Write-Host ("KIRMIZI: {0:N0} (gun,is kolu) eksik" -f $c.toplam)
+    if($c.kirpildi){
+      Write-Host ("   (asagidaki dagilim ilk {0} satirdan; toplam yukaridaki sayidir)" -f $eks.Count)
+    }
     $hic  = @($eks | Where-Object { $_.sebep -eq 'hic cekilmedi' })
     $yari = @($eks | Where-Object { $_.sebep -eq 'eksik indi' })
-    Write-Host ("KIRMIZI: {0} (gun,is kolu) eksik" -f $eks.Count)
     Write-Host ("   hic cekilmedi : {0}" -f $hic.Count)
     Write-Host ("   eksik indi    : {0}  (icindekiler ile govde tutmuyor)" -f $yari.Count)
     Write-Host '   is kolu dagilimi:'
     foreach($g in ($eks | Group-Object tur | Sort-Object Count -Descending)){
       Write-Host ("     {0,-12} {1}" -f $g.Name, $g.Count)
     }
-    Write-Host ("   en yeni eksik gun: {0}" -f @($eks)[0].gun)
-    Write-Host '   Kapatmak icin: ./motor/ihale-sonuc-backfill.ps1 -AyGeri ' -NoNewline; Write-Host $AyGeri
+    if($eks.Count){ Write-Host ("   en yeni eksik gun: {0}" -f $eks[0].gun) }
+    Write-Host ("   Kapatmak icin: ./motor/ihale-sonuc-backfill.ps1 -AyGeri {0}" -f $AyGeri)
   }
 }catch{
   $kor++; Write-Host ("KOR: eksik gun sorgusu dustu - {0}" -f $_.Exception.Message)
@@ -108,7 +134,7 @@ Write-Host ''
 Write-Host '--- 2) TAMLIK (inen bultenlerin ic tutarliligi) -------------------'
 try{
   $u = "$SB_URL/rest/v1/ihale_kutuk?select=gun,tur,beklenen,bulunan,eksik_ikn&tam=is.false&order=gun.desc&limit=25"
-  $ek = @(Invoke-RestMethod -Method Get -Uri $u -Headers $bas -TimeoutSec 120)
+  $ek = (Govde $u).satir
   if(-not $ek.Count){
     Write-Host 'YESIL: cekilen her bultende icindekiler = govde.'
   } else {

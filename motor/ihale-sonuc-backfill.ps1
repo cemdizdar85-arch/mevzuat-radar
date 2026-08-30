@@ -74,19 +74,45 @@ function EksikGunler([int]$ayGeri, [string[]]$turler){
   } | ConvertTo-Json -Compress
   $bas = @{ apikey=$anahtar; Authorization="Bearer $anahtar"; 'Content-Type'='application/json'
             Accept='application/json'; 'User-Agent'='MevzuatRadar-Backfill' }
+  # 🔴 SAYFALAMA SART (30.08 olcumu): PostgREST sayfa basina 1.000 satirda
+  # kesiyor. 36 aylik aralik 3.124 (gun,is kolu) satiri donuyor; sayfalamasiz
+  # istenirse yalnizca en yeni 1.000'i gorulur ve is listesi SESSIZCE kirpilir.
+  # Content-Range basligi gercek toplami veriyor ("0-999/3124") - okunur ve
+  # kirpilma olup olmadigi ekrana YAZILIR.
+  # Ayrica -UseBasicParsing sart (PS 5.1 etkilesimsiz kabukta IE motorunu arar)
+  # ve bos JSON dizisi ([]) Invoke-RestMethod'da tek ogeye sariliyor; bu yuzden
+  # govde METIN alinip kendimiz ayristiriyoruz.
+  $hepsi = New-Object Collections.ArrayList
+  $off = 0; $toplam = $null
   try{
-    $c = Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/rpc/ihale_eksik_gun" `
-           -Headers $bas -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 300
-    # TUZAK (20.08 dersi): fonksiyon icinde Invoke-RestMethod dizisi tek ogeye
-    # sarilabiliyor; @() acmiyor. Bir kat duzlestir.
-    $duz = New-Object Collections.ArrayList
-    foreach($z in $c){ if($z -is [Array]){ foreach($y in $z){ [void]$duz.Add($y) } } else { [void]$duz.Add($z) } }
-    return @($duz)
+    while($true){
+      $c = Invoke-WebRequest -UseBasicParsing -Method Post `
+             -Uri "$SB_URL/rest/v1/rpc/ihale_eksik_gun?limit=1000&offset=$off" `
+             -Headers ($bas + @{ Prefer='count=exact' }) `
+             -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 300
+      if($null -eq $toplam -and "$($c.Headers['Content-Range'])" -match '/(\d+)$'){ $toplam = [int]$Matches[1] }
+      # ConvertFrom-Json boru hattinda diziyi ACMAZ (PS 5.1) - once degiskene
+      # al, sonra @() ile ac. Yoksa 1.000 satir "1" gorunur ve dongu hemen biter.
+      $parca = @()
+      if("$($c.Content)".Trim()){
+        $coz = ConvertFrom-Json -InputObject $c.Content
+        if($null -ne $coz){ $parca = @($coz) }
+      }
+      if(-not $parca.Count){ break }
+      foreach($p in $parca){ [void]$hepsi.Add($p) }
+      $off += $parca.Count
+      if($null -ne $toplam -and $off -ge $toplam){ break }
+    }
   }catch{
     Write-Host ("!! is listesi kasadan alinamadi: {0}" -f $_.Exception.Message)
     Write-Host "   (goc basili mi? radar-app/sql/2026-08-30-ihale-bulten-kutugu.sql)"
     return $null
   }
+  if($null -ne $toplam -and $hepsi.Count -lt $toplam){
+    Write-Host ("!! is listesi EKSIK alindi: {0}/{1} satir - kirpilmis liste ile kosulmaz" -f $hepsi.Count, $toplam)
+    return $null
+  }
+  return @($hepsi)
 }
 
 # atlanan gunler (arsivin vermedigi) - sonsuz tekrari onler
