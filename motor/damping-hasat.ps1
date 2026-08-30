@@ -159,9 +159,13 @@ $eskiN = 0
 if(Test-Path $ciktiYol){
   try { $eskiN = @((Get-Content $ciktiYol -Raw -Encoding UTF8 | ConvertFrom-Json)).Count } catch { $eskiN = 0 }
 }
-if($eskiN -gt 0 -and $onlemler.Count -lt $eskiN -and -not $ZorlaAzalt){
-  throw "KIRMIZI (azalma kapisi): yeni hasat $($onlemler.Count) kayit, mevcut dosyada $eskiN kayit. Azalma = kayip suphesi; gtip-damping.json'a DOKUNULMADI. Gercekten onlem kalktiysa: -ZorlaAzalt"
+# Esik %10: onlemler 5 yillik surelerle DAGINIK doluyor, bir listede kayitlarin
+# onda birinden fazlasinin birden dusmesi dogal degildir. Kucuk azalma (suresi
+# dolan bir iki onlem) KIRMIZI'ya dusurulmez - surekli kirmizi kapi, kapi degildir.
+if($eskiN -gt 0 -and -not $ZorlaAzalt -and ($eskiN - $onlemler.Count) -gt [math]::Ceiling($eskiN*0.10)){
+  throw "KIRMIZI (azalma kapisi): yeni hasat $($onlemler.Count) kayit, mevcut dosyada $eskiN kayit - %10'dan fazla azalma = kayip suphesi. gtip-damping.json'a DOKUNULMADI. Gercekten toplu onlem kalktiysa: -ZorlaAzalt"
 }
+if($onlemler.Count -lt $eskiN){ "UYARI: kayit sayisi $eskiN -> $($onlemler.Count) (esik altinda, yazildi)." }
 ($onlemler | ConvertTo-Json -Depth 3 -Compress) | Out-File $ciktiYol -Encoding utf8
 
 "BITTI. Damping onlemi: $($onlemler.Count) kayit -> veri\gtip-damping.json ($([math]::Round((Get-Item (Join-Path $veriDir 'gtip-damping.json')).Length/1KB)) KB)"
