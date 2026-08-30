@@ -26,7 +26,10 @@ name: Marka Bulteni
 # ============================================================================
 on:
   schedule:
-    - cron: '40 2 * * *'      # her gun 05:40 TR
+    # 30.08: 05:40 TR -> 02:10 TR. Indirme gunduz kostugunda canli arama
+    # coktu (5 aramadan 4'u zaman asimi; indirme yokken 1,5 sn). Toplu
+    # indirme artik yalniz gece; sabaha site serbest kaliyor.
+    - cron: '10 23 * * *'     # 02:10 TR
   workflow_dispatch:
     inputs:
       mod:
@@ -48,7 +51,7 @@ permissions:
 jobs:
   bulten:
     runs-on: ubuntu-latest
-    timeout-minutes: 350        # bulten basi ~8 dk; 6 bulten rahat siger
+    timeout-minutes: 260      # robot 230'da kendisi durur, bu son emniyet        # bulten basi ~8 dk; 6 bulten rahat siger
     steps:
       - uses: actions/checkout@v4
 
@@ -62,9 +65,14 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           # Is 350 dk'da kesilir; robot 320'de KENDISI durup kutugu tutarli
           # birakir. Zorla kesilme yarim inen PDF birakir ve o bulten bosa gider.
-          SURE_DK: "320"
+          # 230 dk: 02:10'da baslayan kosu ~06:00 TR'de kendi isteğiyle durur.
+          # Zorla kesilme yarim inen PDF birakir; kaynak devam desteklemiyor.
+          SURE_DK: "230"
         run: |
-          mod='${{ github.event.inputs.mod }}'; [ -z "$mod" ] && mod=son
+          # Zamanlanmis kosunun varsayilani GECMIS: 263 bultenin listesini
+          # alir, 'bitti' olanlari atlar, kalanlari yutar. Yeni cikan bulten de
+          # bu listede oldugu icin ayri bir 'son' kosusuna gerek yok.
+          mod='${{ github.event.inputs.mod }}'; [ -z "$mod" ] && mod=gecmis
           adet='${{ github.event.inputs.adet }}'; [ -z "$adet" ] && adet=6
           echo "mod: $mod"
           case "$mod" in
