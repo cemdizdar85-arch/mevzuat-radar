@@ -142,6 +142,35 @@ Kanal: sektör birlikleri + LinkedIn. Ürün: aynı kart.
 - Oran/tarih uydurulmaz; kampanyadaki her rakam yayın gününde
   `node motor/damping-kiyas.js` çıktısıyla teyit edilir.
 
+### 🚫 TABAN ORAN YASAĞI (30.08.2026 — ölçüm sırasında kondu)
+
+**"Soruşturmaların yüzde X'i vergiyle sonuçlanıyor" cümlesi KULLANILMAZ.**
+Pazarlama açısından en güçlü cümle bu olurdu; tam da bu yüzden yanlış çıkarsa
+en pahalı hata olur.
+
+Neden yasak — ölçüldü: Bakanlık üç tarihsel liste yayımlıyor ve üçü de
+**farklı tarihlerde damgalanmış, kısa ve tamlığı doğrulanmamış**:
+
+| Liste | Satır | Damga |
+|---|---|---|
+| Önlem alınmadan sonuçlandırılan soruşturmalar | 53 | 31.12.2025 |
+| Yürürlükte kalma süresi sona eren önlemler | 47 | 07.01.2025 |
+| Gözden geçirme sonucu kaldırılan önlemler | 14 | **13.05.2022** |
+
+Bu listelerden kaba bir bölme "önlemle biten ~%86" der. **Bu sayı kampanyada
+kullanılamaz:** (a) listeler farklı tarihlerde donmuş, (b) satır ≠ soruşturma
+(bir soruşturma birden çok ürün-ülke satırı üretir), (c) 30 yılda yalnız 47
+önlemin süresinin dolmuş olması listelerin **eksik** olduğunu düşündürüyor.
+Ayrıca "Tamamlanan Soruşturmalar" adlı sayfa gerçekte **devam edenleri**
+listeliyor — sonuç arşivi diye bir yayın yok.
+
+Bu iddia ancak **Resmî Gazete kapanış tebliğleri sayılarak** kurulabilir.
+O ölçüm yapılana kadar kampanya ürün ve tarih söyler, **olasılık söylemez**.
+
+Söylenebilecek olan (ölçülmüş, güvenli): *"Bu üründe soruşturma açık"* ·
+*"Şu tarihte açıldı"* · *"Önlemin süresi şu tarihte doluyor"* ·
+*"Bu üründe geçmişte önlem vardı, süresi doldu"* (tarihsel listeden, damgasıyla).
+
 ---
 
 ## 8. Ne ölçeceğiz
@@ -150,4 +179,18 @@ Kanal: sektör birlikleri + LinkedIn. Ürün: aynı kart.
 2. Kartı gören kullanıcının **Toplu GTİP / üyelik** hunisine geçiş oranı
 3. Kampanya bağlantısından gelen (`?k=` etiketi) oturumların kart görme oranı
 
-Üçü de bugün ölçülmüyor; kampanya başlamadan önce sayaç kancası konmalı.
+**Sayaç 30.08.2026'da kuruldu** (GoatCounter olayı, çerez yok): `damping-onlem-karti`,
+`damping-sorusturma-karti`, `damping-sure-dolumu`, `damping-sure-dolumu-yakin`,
+`risk-damping-sorusturma-karti` + huni olayları (`…-sonrasi-toplu-gtip`,
+`-sonrasi-uyelik`, `-sonrasi-senaryo`). Kampanya etiketi `?k=` olay yoluna taşınır.
+
+**Kampanya bağlantıları etiketli üretilir:** LinkedIn `?k=li-damping` ·
+Instagram `?k=ig-damping` · e-posta `?k=mail-damping`. Etiketsiz bağlantı
+huniyi kanal bazında ayırmaz.
+
+⚠ **Olay verisi 30.08.2026'dan ÖNCESİ için YOKTUR** — olay sayacı o güne kadar
+hiç yoktu, üretilmemiş veri geri alınamaz. Sayfa görüntüleme geçmişi
+GoatCounter panelinde durur ama panel dışarıya kapalı (401); taban trafiği
+için panelden CSV dışa aktarma ya da API anahtarı gerekir.
+**Kartın gösterim sayısını taban trafiği olmadan yorumlama** — "40 kişi gördü"
+ancak "sayfayı 400 kişi açtı" ile bir şey söyler.
