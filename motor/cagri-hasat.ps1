@@ -26,12 +26,97 @@
 #  ve kaynak durumu "OLCULEMEDI" yazilir; UC kaynak birden olculemezse dosyaya
 #  DOKUNULMAZ ve betik 1 ile cikar (workflow alarmi tetiklenir).
 # ============================================================================
+param(
+  # Desen gelistirme kipi: kurum sitelerine HIC cikilmaz, metin yalniz
+  # veri/_cagri-onbellek'ten okunur. Yutma desenini degistirip sonucu saniyeler
+  # icinde gormek icin: powershell -File motor/cagri-hasat.ps1 -YerelYut
+  # Onbellekte olmayan kaynak bu kipte BOS gelir - "olculemedi" sayilir,
+  # eski kayitlar korunur (kor kalma kurali bozulmaz).
+  [switch]$YerelYut
+)
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $buradir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kokDizin = Split-Path -Parent $buradir
 $ciktiYolu = Join-Path $kokDizin "veri\cagri-radar.json"
 $bugun = (Get-Date).Date
+
+# --- CAGRI METNI ONBELLEGI (30.08 Cem: "hepsini yutacak miyiz yani") --------
+#  EVET, hepsini yutuyoruz: 133 cagrinin 133'unun sayfasi cekilip okunuyor.
+#  Eksik olan okuma degildi, SAKLAMAYDI - okunan metin atiliyordu. Sonuc:
+#  yutma desenleri iyilestirilirken kurum sitelerine ayni gun DORT KEZ gidildi
+#  (her tur ~4 dakika + 130'ar gereksiz istek).
+#
+#  NEDEN AMBAR DEGIL: ambar (Supabase dokumanlar) KALICI mevzuat icindir ve
+#  "TAM MI / GUNCEL MI" ile olculur. Cagri duyurusu UCUCUDUR - her gun 133 kayit
+#  degisir, kapanan cagri duser. Ambara konursa butunluk kapisi her sabah
+#  kirmizi yanar ve ambarin "eksik var mi" sorusuna cevap verme yetenegi bozulur.
+#  Cagrinin DAYANAGI (5973, 5986, IPARD) zaten ambardadir; kalici olan odur.
+#
+#  Onbellek KAYNAKTAN TURETILIR, depoya girmez (.gitignore). Silinirse robot
+#  bir sonraki kosuda yeniden doldurur - veri kaybi degildir.
+$onbellekDizin = Join-Path $kokDizin "veri\_cagri-onbellek"
+if(-not (Test-Path $onbellekDizin)){ New-Item -ItemType Directory -Path $onbellekDizin -Force | Out-Null }
+$obIsabet = 0; $obYazma = 0
+
+function OnbellekYolu([string]$adres){
+  # URL -> sabit dosya adi (SHA1). Adres degisirse anahtar da degisir.
+  $sha = [Security.Cryptography.SHA1]::Create()
+  $ham = $sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($adres))
+  $sha.Dispose()
+  return (Join-Path $onbellekDizin ((($ham | ForEach-Object { $_.ToString('x2') }) -join '') + ".txt"))
+}
+function OnbellekliDosya([string]$anahtar, [scriptblock]$cekici){
+  # API/PDF gibi DOSYAYA inen cekimler icin onbellek. $cekici gecici bir dosya
+  # yolu alir, doldurur; icerik onbellege yazilir ve METIN olarak dondurulur.
+  # 30.08 KUSUR: -YerelYut ilk surumde yalniz sayfa GOVDELERINI kapsiyordu;
+  # AB/KA/TKDK API cekimleri aga cikmaya devam ediyordu, yani "aga cikilmadi"
+  # vaadi YALANDI (olculdu: yerel kip 10 dakikada bitmedi). Vaat tutulmali.
+  $yol = OnbellekYolu $anahtar
+  if(Test-Path $yol){
+    if(((Get-Item $yol).LastWriteTime.Date -eq $bugun) -or $YerelYut){
+      $script:obIsabet++
+      $ham = [IO.File]::ReadAllText($yol)
+      $ilk = $ham.IndexOf("`n")
+      return $(if($ilk -ge 0){ $ham.Substring($ilk+1) } else { "" })
+    }
+  }
+  if($YerelYut){ return "" }
+  $gecici = Join-Path ([IO.Path]::GetTempPath()) ("ob-" + [IO.Path]::GetRandomFileName())
+  try { & $cekici $gecici } catch { }
+  $icerik = ""
+  if(Test-Path $gecici){
+    try { $icerik = [IO.File]::ReadAllText($gecici) } catch {}
+    Remove-Item $gecici -ErrorAction SilentlyContinue
+  }
+  if($icerik){
+    [IO.File]::WriteAllText($yol, ("# $anahtar  ·  " + (Get-Date -Format 'yyyy-MM-dd HH:mm') + "`n" + $icerik), [Text.UTF8Encoding]::new($false))
+    $script:obYazma++
+  }
+  return $icerik
+}
+function OnbellekliCek([string]$adres){
+  # Ayni GUN icinde ayni adres bir kez cekilir. -YerelYut verilmisse aga hic
+  # cikilmaz: yalniz onbellekten okunur (desen gelistirme kipi).
+  $yol = OnbellekYolu $adres
+  if(Test-Path $yol){
+    $tazeMi = ((Get-Item $yol).LastWriteTime.Date -eq $bugun)
+    if($tazeMi -or $YerelYut){
+      $script:obIsabet++
+      $icerik = [IO.File]::ReadAllText($yol)
+      # ilk satir kaynak damgasidir (izlenebilirlik), govde ondan sonra baslar
+      $ilk = $icerik.IndexOf("`n")
+      return $(if($ilk -ge 0){ $icerik.Substring($ilk+1) } else { "" })
+    }
+  }
+  if($YerelYut){ return "" }   # onbellekte yok ve aga cikmak yasak
+  $govde = GuvenliCek $adres
+  if($govde){
+    [IO.File]::WriteAllText($yol, ("# $adres  ·  " + (Get-Date -Format 'yyyy-MM-dd HH:mm') + "`n" + $govde), [Text.UTF8Encoding]::new($false))
+    $script:obYazma++
+  }
+  return $govde
+}
 
 # --- ortak yardimcilar -------------------------------------------------------
 function Normalize([string]$metin){
@@ -293,7 +378,7 @@ $yutulanAdet = 0
 # --- 1) TUBITAK --------------------------------------------------------------
 Write-Host "TUBITAK cagri blogu okunuyor..."
 $tubitakKok = "https://tubitak.gov.tr"
-$tubitakHtml = GuvenliCek "$tubitakKok/tr/destekler/sanayi/ulusal-destek-programlari"
+$tubitakHtml = OnbellekliCek "$tubitakKok/tr/destekler/sanayi/ulusal-destek-programlari"
 $tubitakAdet = 0; $tubitakOlduMu = $false
 $blokBas = $tubitakHtml.IndexOf('view-id-cagrilar')
 if($blokBas -ge 0){
@@ -308,7 +393,7 @@ if($blokBas -ge 0){
   # sinyali tasiyanlar eklenir: 4 haneli program kodu YA DA sanayi/kobi/girisim/
   # bigg/ar-ge/teknoloji/patent/yatirim kelimesi. Akademik cagrilar (Kutup
   # Arastirmalari, Gokyuzu Gozlem) boylece elenir - kitlemiz SIRKET.
-  $anaHtmlTb = GuvenliCek $tubitakKok
+  $anaHtmlTb = OnbellekliCek $tubitakKok
   if($anaHtmlTb){
     $mevcutBasliklar = @($bagLinkler | ForEach-Object { (Normalize $_.baslik) })
     $ekAdaylar = [regex]::Matches($anaHtmlTb, '<a[^>]*href="(/tr/duyuru/[^"]+)"[^>]*>([^<]{5,160})</a>') |
@@ -329,7 +414,7 @@ if($blokBas -ge 0){
   foreach($bag in ($bagLinkler | Select-Object -First 18)){
     $kod = ""; if($bag.baslik -match '^\s*(\d{4})'){ $kod = $Matches[1] }
     $acilis = ""; $sonTarih = ""; $tarihler = @()
-    $duyuruHtml = GuvenliCek ($tubitakKok + $bag.href)
+    $duyuruHtml = OnbellekliCek ($tubitakKok + $bag.href)
     if($duyuruHtml){
       foreach($tablo in [regex]::Matches($duyuruHtml, '(?s)<table.*?</table>')){
         if($tablo.Value -notmatch 'Tarih'){ continue }
@@ -404,7 +489,7 @@ if($blokBas -ge 0){
       url=($tubitakKok + $bag.href)
     }
     $tubitakAdet++
-    Start-Sleep -Milliseconds 300
+    if(-not $YerelYut){ Start-Sleep -Milliseconds 300 }
   }
 }
 $kaynakDurum["TÜBİTAK"] = if($tubitakOlduMu){ "OK ($tubitakAdet çağrı)" } else { "ÖLÇÜLEMEDİ" }
@@ -420,7 +505,7 @@ Write-Host "KOSGEB ana sayfa + duyuru akisi okunuyor..."
 $kosgebAdet = 0; $kosgebOlduMu = $false
 $kosgebHavuz = @{}
 foreach($kaynakSayfasi in @("https://www.kosgeb.gov.tr","https://www.kosgeb.gov.tr/site/tr/genel/duyurular")){
-  $kosgebHtml = GuvenliCek $kaynakSayfasi
+  $kosgebHtml = OnbellekliCek $kaynakSayfasi
   if(-not $kosgebHtml){ continue }
   $bulunan = [regex]::Matches($kosgebHtml, '(?s)<a[^>]*href="(/site/tr/genel/detay/[^"]*)"[^>]*>(.{5,250}?)</a>')
   if(@($bulunan).Count -ge 3){ $kosgebOlduMu = $true }   # en az bir kanal okunabildi
@@ -438,7 +523,7 @@ foreach($href in $kosgebHavuz.Keys){
   # detaydan tarih: "basvurular[,] 20 Nisan - 8 Mayis 2026 tarihleri arasinda"
   # (ilk tarihte yil OLMAYABILIR - bitisin yili kullanilir)
   $acilisK = ""; $sonK = ""
-  $detayHtml = GuvenliCek ("https://www.kosgeb.gov.tr" + $href)
+  $detayHtml = OnbellekliCek ("https://www.kosgeb.gov.tr" + $href)
   if($detayHtml){
     $cumle = [regex]::Match($detayHtml, '(?is)ba.{0,2}vurular[^<>]{0,120}?tarihleri\s+aras')
     if($cumle.Success){
@@ -472,7 +557,7 @@ foreach($href in $kosgebHavuz.Keys){
     url=("https://www.kosgeb.gov.tr" + $href)
   }
   $kosgebAdet++
-  Start-Sleep -Milliseconds 200
+  if(-not $YerelYut){ Start-Sleep -Milliseconds 200 }
 }
 $kaynakDurum["KOSGEB"] = if($kosgebOlduMu){ "OK ($kosgebAdet açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)" } else { "ÖLÇÜLEMEDİ" }
 Write-Host ("KOSGEB: {0}" -f $kaynakDurum["KOSGEB"])
@@ -498,20 +583,27 @@ try {
     # baglanti ortada kopabiliyor (19.08: sayfa 2'de Recv failure -> kesik JSON) - 2 deneme
     $sedia = $null
     foreach($deneme in 1,2){
-      Remove-Item $sediaDosya -ErrorAction SilentlyContinue
-      & $curlKomut -sS --connect-timeout 25 -m 90 -X POST "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey=SEDIA&text=***&pageSize=100&pageNumber=$sayfa" `
-        -F "query=<$sorguDosya;type=application/json" `
-        -F "languages=<$dilDosya;type=application/json" `
-        -F "sort=<$siraDosya;type=application/json" `
-        -o $sediaDosya
-      if(-not (Test-Path $sediaDosya)){ continue }
-      $sediaHam = Get-Content $sediaDosya -Raw -Encoding UTF8
+      # 30.08: her SEDIA SAYFASI ayri onbellek anahtaridir. Yerel kipte aga
+      # cikilmaz; onbellekte olmayan sayfa BOS gelir ve asagidaki "okunamadi"
+      # kolu AB'yi OLCULEMEDI sayar - eski kayitlar korunur.
+      $sediaHam = OnbellekliDosya "sedia://sayfa/$sayfa" {
+        param($hedef)
+        & $curlKomut -sS --connect-timeout 25 -m 90 -X POST "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey=SEDIA&text=***&pageSize=100&pageNumber=$sayfa" `
+          -F "query=<$sorguDosya;type=application/json" `
+          -F "languages=<$dilDosya;type=application/json" `
+          -F "sort=<$siraDosya;type=application/json" `
+          -o $hedef
+      }
+      if(-not $sediaHam){ if($YerelYut){ break }; continue }
       # cift anahtar temizligi (DATASOURCE/datasource) - iki dizilis de olabilir
       $sediaHam = $sediaHam -replace ',"datasource":\[[^\]]*\]','' -replace '"datasource":\[[^\]]*\],',''
       try { $sedia = $sediaHam | ConvertFrom-Json; break }
       catch { Write-Host ("  sayfa {0} deneme {1}: kesik/bozuk yanit, yeniden denenecek" -f $sayfa, $deneme); Start-Sleep -Seconds 2 }
     }
-    if(-not $sedia){ throw "SEDIA sayfa $sayfa iki denemede de okunamadi" }
+    if(-not $sedia){
+      if($YerelYut){ Write-Host "  -YerelYut: SEDIA sayfa $sayfa onbellekte yok, AB burada kesiliyor"; break }
+      throw "SEDIA sayfa $sayfa iki denemede de okunamadi"
+    }
     if($sedia.totalResults -lt 1){ break }
     $toplamAB = $sedia.totalResults
     $abOlduMu = $true
@@ -664,10 +756,13 @@ $kaDosya = Join-Path ([IO.Path]::GetTempPath()) "ka-supports.json"
 try {
   $kaListe = @(); $kaSayfa = 1; $kaToplamSayfa = 1; $kaToplam = 0
   while($kaSayfa -le [Math]::Min($kaToplamSayfa, 15)){
-    & $curlKomut -sS -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" `
-      -o $kaDosya "https://ka.gov.tr/api/supports?filter_details=1&page=$kaSayfa"
-    if(-not (Test-Path $kaDosya)){ break }
-    $ka = Get-Content $kaDosya -Raw -Encoding UTF8 | ConvertFrom-Json
+    $kaHam = OnbellekliDosya "ka://supports/$kaSayfa" {
+      param($hedef)
+      & $curlKomut -sS -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" `
+        -o $hedef "https://ka.gov.tr/api/supports?filter_details=1&page=$kaSayfa"
+    }
+    if(-not $kaHam){ if($YerelYut){ Write-Host "  -YerelYut: ka.gov.tr sayfa $kaSayfa onbellekte yok" }; break }
+    $ka = $kaHam | ConvertFrom-Json
     if(-not $ka.state){ break }
     $kaToplamSayfa = [int]$ka.info.total_page
     $kaToplam = [int]$ka.info.total
@@ -684,13 +779,32 @@ try {
       # kuruldu). Bilgi ajansin KENDI ilan sayfasindadir; redirect izlenip metin
       # oradan yutulur. 26 ajans = 26 ayri HTML; bu yuzden desen tabanli, sayfa
       # tanimayan okuma yapilir, tutmazsa alan BOS kalir.
-      $kaDetayDosya = Join-Path ([IO.Path]::GetTempPath()) "ka-detay.html"
-      Remove-Item $kaDetayDosya -ErrorAction SilentlyContinue
+      # 30.08: bu 25 detay cekimi onbellekten gecer. KA redirect'i ajansin kendi
+      # sitesine gider (26 ayri site); ayni gun ikinci kosuda hicbirine
+      # dokunulmaz. curl kullanilir cunku redirect zinciri + bazi ajans
+      # sertifikalari IWR'de takiliyor (19.08 dersi).
       $yKa = YutSayfa "" ""
       try {
-        & $curlKomut -sSL -m 45 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $kaDetayDosya "$($destek.redirect_url)" 2>$null
-        if(Test-Path $kaDetayDosya){
-          $yKa = YutSayfa (DuzMetin (Get-Content $kaDetayDosya -Raw -Encoding UTF8)) "$($destek.name)"
+        $kaAdres = "$($destek.redirect_url)"
+        $kaYol = OnbellekYolu $kaAdres
+        $kaMetin = ""
+        if((Test-Path $kaYol) -and (((Get-Item $kaYol).LastWriteTime.Date -eq $bugun) -or $YerelYut)){
+          $obIsabet++
+          $ham = [IO.File]::ReadAllText($kaYol)
+          $ilkSatir = $ham.IndexOf("`n")
+          $kaMetin = $(if($ilkSatir -ge 0){ $ham.Substring($ilkSatir+1) } else { "" })
+        } elseif(-not $YerelYut){
+          $kaDetayDosya = Join-Path ([IO.Path]::GetTempPath()) "ka-detay.html"
+          Remove-Item $kaDetayDosya -ErrorAction SilentlyContinue
+          & $curlKomut -sSL -m 45 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $kaDetayDosya $kaAdres 2>$null
+          if(Test-Path $kaDetayDosya){
+            $kaMetin = Get-Content $kaDetayDosya -Raw -Encoding UTF8
+            [IO.File]::WriteAllText($kaYol, ("# $kaAdres  ·  " + (Get-Date -Format 'yyyy-MM-dd HH:mm') + "`n" + $kaMetin), [Text.UTF8Encoding]::new($false))
+            $obYazma++
+          }
+        }
+        if($kaMetin){
+          $yKa = YutSayfa (DuzMetin $kaMetin) "$($destek.name)"
           if($yKa.ozet -or $yKa.tutar -or $yKa.kim){ $yutulanAdet++ }
         }
       } catch {}
@@ -702,11 +816,11 @@ try {
         asama=(&{ if(@($yKa.asama).Count){ ,@($yKa.asama) } else { AsamaBul "$($destek.name)" } })
         url="$($destek.redirect_url)"
       }
-      Start-Sleep -Milliseconds 250
+      if(-not $YerelYut){ Start-Sleep -Milliseconds 250 }
     }
     if($kaSayfa -ge $kaToplamSayfa){ break }
     $kaSayfa++
-    Start-Sleep -Milliseconds 300
+    if(-not $YerelYut){ Start-Sleep -Milliseconds 300 }
   }
   # imkansiz-veri sigortasi: API "N guncel destek" derken listeye 0 dustuyse olcum bozuktur
   if($kaOlduMu -and $kaToplam -ge 10 -and (@($kaListe).Count) -eq 0){
@@ -743,22 +857,26 @@ if(-not $pdf2txt){
   Write-Host "  pdftotext yok - TKDK olculemedi (tarihsiz cagri 'acik' diye gosterilmez)"
 } else {
   try {
-    $arsivDosya = Join-Path ([IO.Path]::GetTempPath()) "tkdk-arsiv.html"
-    & $curlKomut -sS -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $arsivDosya "$tkdkKok/ProjeIslemleri/CagriIlanArsiv"
-    $arsivHtml = if(Test-Path $arsivDosya){ Get-Content $arsivDosya -Raw -Encoding UTF8 } else { "" }
+    $arsivHtml = OnbellekliDosya "tkdk://arsiv" {
+      param($hedef)
+      & $curlKomut -sS -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $hedef "$tkdkKok/ProjeIslemleri/CagriIlanArsiv"
+    }
     $ilanlar = [regex]::Matches($arsivHtml, '"(/Dokuman/ipard-[^"]*cagri-ilani-\d+)"') |
       ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique -First 2
     if(@($ilanlar).Count){ $tkdkOlduMu = $true }   # arsiv okunabildi
     foreach($ilanYolu in $ilanlar){
       $no = ""; if($ilanYolu -match 'ipard-iii-(\d+)-'){ $no = $Matches[1] }
-      $pdfDosya = Join-Path ([IO.Path]::GetTempPath()) "tkdk-ilan.pdf"
-      $txtDosya = Join-Path ([IO.Path]::GetTempPath()) "tkdk-ilan.txt"
-      Remove-Item $pdfDosya,$txtDosya -ErrorAction SilentlyContinue
-      & $curlKomut -sSL -m 90 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $pdfDosya ($tkdkKok + $ilanYolu)
-      if(-not (Test-Path $pdfDosya)){ continue }
-      & $pdf2txt $pdfDosya $txtDosya 2>$null
-      if(-not (Test-Path $txtDosya)){ continue }
-      $metin = (Get-Content $txtDosya -Raw -Encoding UTF8) -replace '\s+',' '
+      # PDF'in KENDISI degil, cikarilan METIN onbelleklenir: pdftotext yeniden
+      # kosmasin ve yerel kipte poppler gerekmesin.
+      $metin = OnbellekliDosya ("tkdk://ilan-metin" + $ilanYolu) {
+        param($hedef)
+        $pdfDosya = Join-Path ([IO.Path]::GetTempPath()) "tkdk-ilan.pdf"
+        Remove-Item $pdfDosya -ErrorAction SilentlyContinue
+        & $curlKomut -sSL -m 90 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $pdfDosya ($tkdkKok + $ilanYolu)
+        if(Test-Path $pdfDosya){ & $pdf2txt $pdfDosya $hedef 2>$null }
+      }
+      if(-not $metin){ continue }
+      $metin = $metin -replace '\s+',' '
       $acilisTk = ""; $sonTk = ""; $tarihlerTk = @()
       if($metin -match 'Ba.?vurular\s+(\d{2}\.\d{2}\.\d{4})\s+tarihi'){ $acilisTk = TrTarihCoz $Matches[1] }
       if($metin -match 'son teslim tarihi\s*(\d{2}\.\d{2}\.\d{4})'){ $sonTk = TrTarihCoz $Matches[1] }
@@ -795,7 +913,7 @@ Write-Host ("TKDK: {0}" -f $kaynakDurum["TKDK (IPARD)"])
 # Bitis Tarihi"). Tarih bicimi "20 Mayis 2026" (TrTarihCoz cozer).
 Write-Host "HAMLE cagri plani okunuyor..."
 $hamleAdet = 0; $hamleOlduMu = $false
-$hamleHtml = GuvenliCek "https://www.hamle.gov.tr/Home/CagriPlani"
+$hamleHtml = OnbellekliCek "https://www.hamle.gov.tr/Home/CagriPlani"
 if($hamleHtml -and $hamleHtml.Length -gt 5000){
   $hamleOlduMu = $true
   # duz metne indir: etiket ve tarih ayri etiketlerde duruyor
@@ -977,6 +1095,10 @@ $doluKim   = @($gc | Where-Object { "$($_.kim)".Trim() }).Count
 $doluOzet  = @($gc | Where-Object { "$($_.ozet)".Trim() }).Count
 $doluAsama = @($gc | Where-Object { @($_.asama).Count -gt 0 }).Count
 Write-Host ("YUTMA KARNESI: ozet {0}/{1} · kim {2}/{1} · tutar {3}/{1} · asama {4}/{1}" -f $doluOzet, $gc.Count, $doluKim, $doluTutar, $doluAsama)
+# Onbellek karnesi: kuruma kac kez gidildi, kac kez gidilmedi. "Nazik robot"
+# olculur - iddia edilmez.
+$obDosya = @(Get-ChildItem $onbellekDizin -Filter *.txt -ErrorAction SilentlyContinue).Count
+Write-Host ("ONBELLEK: {0} sayfa onbellekten okundu · {1} sayfa kurumdan cekildi · dizinde {2} sayfa{3}" -f $obIsabet, $obYazma, $obDosya, $(if($YerelYut){' · KIP: -YerelYut (aga cikilmadi)'}else{''}))
 $bosKaynak = @()
 foreach($grup in ($gc | Group-Object kaynak)){
   $g = @($grup.Group | Where-Object { "$($_.ozet)".Trim() -or "$($_.tutar)".Trim() -or "$($_.kim)".Trim() }).Count
