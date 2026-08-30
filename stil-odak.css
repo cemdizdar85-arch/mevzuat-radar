@@ -1,0 +1,132 @@
+/* ================================================================
+   ODAK KATMANI — 30.08.2026 GÖRÜNÜM DENEMESİ (index-odak.html)
+
+   NEDEN VAR
+   Cem 30.08'de ana sayfaya bakıp "kurumsal firmalar böyle yapmaz,
+   sanki önemli konular var içinde ama dikkat çekmiyor" dedi.
+   Teşhis: sorun SADELİK DEĞİL, ODAKSIZLIK.
+
+   24.08'deki sade katmanın kendi ilkesi doğruydu:
+     "Her şeyi kutuya koymak 'hiçbiri diğerinden önemli değil'
+      demektir; yani editoryal karar VERİLMEMİŞ demektir."
+   Ama kutu söküldükten sonra yerine HİYERARŞİ konmadı. Şimdi bir
+   rafın altı satırı da aynı puntoda, aynı ağırlıkta, aynı ince
+   çizgiyle duruyor. Aynı hata ters yönden tekrarlanıyor: karar
+   yine verilmemiş, sadece kılığı değişmiş.
+
+   BU KATMANIN İDDİASI
+   Kutu duvarına DÖNMEDEN hiyerarşi kurulabilir. İki hamle:
+     1. Her rafta BİR baş satır — büyük punto, geniş nefes, iki
+        sütunu birden kaplar. Kalan satırlar sessiz kalır.
+        Ayrımı yapan yine boşluk ve punto; çerçeve değil.
+     2. Sayfaya ürünün KENDİ ekranı girer. Ana sayfada 0 görsel,
+        0 SVG vardı (ölçüldü) — baştan sona gri metin. Ciddi ürün
+        sitesinin ayırt edici işareti dekorasyon değil, ürünün
+        kendisidir.
+
+   KURULUM
+   stil-acik.css'ten SONRA yüklenir; en son katman odur. Yalnız
+   index-odak.html bağlar — CANLI index.html'e DOKUNMAZ.
+   Karar verilince ya bu katman index.html'e bağlanır ya da bu
+   dosya + index-odak.html silinir. Denemenin ömrü karara kadardır.
+   ================================================================ */
+
+
+/* ================================================================
+   1. RAFIN BAŞ SATIRI — editoryal karar burada veriliyor
+   Her rafın ilk satırı öne çıkar: Kazandıranlar'da KDV İadesi,
+   Koruyanlar'da Alacak Radarı, Pencereler'de Destek Radarı.
+   Çerçeve yok, tint yok — sadece punto ve boşluk.
+   ================================================================ */
+.mini-pencereler .mp:first-child{
+  grid-column:1/-1;
+  padding:4px 0 26px !important;
+  border-bottom:1px solid var(--line2) !important;
+}
+.mini-pencereler .mp:first-child .mp-bar{margin-bottom:8px}
+.mini-pencereler .mp:first-child .mp-bar b{
+  font-size:clamp(22px,2.6vw,30px);line-height:1.12;letter-spacing:-.5px}
+.mini-pencereler .mp:first-child .mp-tag{font-size:11px;letter-spacing:1.2px}
+.mini-pencereler .mp:first-child .mp-b{font-size:17px;font-weight:600;color:var(--ink)}
+.mini-pencereler .mp:first-child .mp-m{font-size:14.5px;max-width:74ch;line-height:1.62}
+.mini-pencereler .mp:first-child .mp-git{font-size:14.5px;font-weight:700;margin-top:6px}
+
+/* Baş satırdaki çubuk grafiği de büyür ki okunsun (Nereden Alsam
+   Kazandıranlar'ın baş satırı olursa diye — sıra değişebilir). */
+.mini-pencereler .mp:first-child .mp-cubuk{
+  grid-template-columns:110px 280px;max-width:400px;font-size:12.5px}
+.mini-pencereler .mp:first-child .mp-cubuk::after{left:120px;height:11px}
+.mini-pencereler .mp:first-child .mp-cubuk i{height:11px}
+
+/* Raf başlığı biraz daha ayırt edici: baş satırın üstünde durduğu
+   için görevi "bölüm adı" olmaktan "rafın vaadi"ne yaklaşıyor. */
+.mini-baslik{font-size:12px;letter-spacing:1.6px;color:var(--muted)}
+
+
+/* ================================================================
+   2. ÜRÜNÜN KENDİ EKRANI — sayfadaki tek odak
+   İçerik UYDURULMADI: aşağıdaki tuzak adı, hesap ve "Doğrusu"
+   cümlesi fark.html'deki GERÇEK sorudan birebir alındı
+   (katsayı/eşdeğer ürün yöntemi, doğru şık D = 120 TL/kg).
+   Görsel dosya değil saf CSS: her çözünürlükte net, eskimez.
+   ================================================================ */
+/* Panel .sade-ic'in İÇİNDE duruyor (max-width:1180 + padding:20 orada
+   zaten var) - burada tekrar genişlik/dolgu verilmez, yoksa iki kez
+   içeri kaçar ve raflarla hizası bozulur. */
+/* text-align:left ŞART — panel hero'nun içinde duruyor ve hero ortalı.
+   stil-sade.css:139 raflara/kapılara tek tek sola alma veriyor, bu panel
+   o listede yok. Ortalı gövde metni ürün panelini zayıf gösteriyordu
+   (ilk denemede görüldü). */
+.odak-urun{margin:34px 0 4px;padding-top:30px;border-top:1px solid var(--line);text-align:left}
+.odak-urun .ou-in{display:grid;grid-template-columns:1fr 1.05fr;
+  gap:38px;align-items:center}
+
+.ou-et{font-size:11px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.ou-bas{font-size:clamp(26px,3.4vw,38px);line-height:1.1;letter-spacing:-.6px;
+  margin:0 0 12px;color:var(--ink)}
+.ou-alt{font-size:15.5px;line-height:1.62;color:var(--muted);margin:0 0 16px;max-width:46ch}
+.ou-alt b{color:var(--ink)}
+.ou-git{font-size:15px;font-weight:700;color:var(--accent);text-decoration:none}
+.ou-git:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ekran: sahte tarayıcı çubuğu YOK - o süs. Ekranın kendisi konuşur. */
+.ou-ekran{background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:18px 18px 16px;box-shadow:var(--shadow)}
+.ou-soru{font-size:12.5px;color:var(--dim);line-height:1.55;margin:0 0 12px;
+  padding-bottom:12px;border-bottom:1px solid var(--line)}
+
+.ou-sik{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-size:14px;font-weight:600;border-radius:8px;padding:9px 12px;margin-bottom:10px}
+.ou-sik span{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.ou-yanlis{background:var(--red-bg);color:var(--red);
+  border:1px solid color-mix(in srgb,var(--red) 30%,transparent)}
+
+.ou-blok{font-size:13.5px;line-height:1.6;border-radius:8px;padding:11px 13px;margin-bottom:10px}
+.ou-blok b{display:block;margin-bottom:3px}
+.ou-tuzak{background:var(--red-bg);color:var(--ink)}
+.ou-tuzak b{color:var(--red);font-size:13px;letter-spacing:.2px}
+.ou-dogru{background:var(--green-bg);color:var(--ink);margin-bottom:0}
+.ou-dogru b{display:inline;color:var(--green)}
+.ou-dogru i{font-style:normal;font-weight:800;color:var(--green)}
+
+.ou-dip{font-size:11.5px;color:var(--dim);margin-top:10px;text-align:right}
+.ou-dip a{color:var(--dim)}
+
+@media(max-width:900px){
+  .odak-urun .ou-in{grid-template-columns:1fr;gap:22px}
+  .ou-alt{max-width:none}
+  .ou-dip{text-align:left}
+}
+
+
+/* ================================================================
+   3. DENEME ŞERİDİ — bu sayfa canlı sayfa DEĞİL
+   Karşılaştırma yaparken hangisine baktığın karışmasın diye.
+   Karar verilip katman index.html'e taşınırsa bu şerit gelmez
+   (yalnız index-odak.html'de duruyor).
+   ================================================================ */
+.deneme-serit{position:sticky;top:0;z-index:999;background:var(--amber-bg);
+  color:var(--ink);border-bottom:1px solid var(--accent);
+  font-size:12px;font-weight:700;letter-spacing:.4px;text-align:center;padding:7px 14px}
+.deneme-serit a{color:var(--accent);font-weight:800}
