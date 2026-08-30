@@ -87,6 +87,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .frow h3{margin:0 0 8px;font-size:15.5px;letter-spacing:-.2px;font-weight:700}
 /* 30.08: satırda bir cümlelik özet — çağrının ne olduğu listeden çıkmadan okunur */
 .fozet{margin:0 0 10px;font-size:12.5px;color:var(--muted);line-height:1.55;border-left:2px solid var(--line2);padding-left:10px}
+/* 30.08: sihirbaz sonucunda sürekli programlarla açık çağrıları ayıran şerit */
+.uygunAyrac{margin:18px 0 10px;padding:10px 14px;border-radius:10px;font-size:12.5px;color:var(--muted);line-height:1.6;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.3)}
+.uygunAyrac b{color:var(--accent2)}
 .dcip{font-size:10px;font-weight:800;letter-spacing:.7px;padding:2px 8px;border-radius:5px}
 .dcip.acik{background:rgba(255,107,94,.14);color:var(--red)}
 .dcip.surekli{background:rgba(61,220,151,.13);color:var(--green)}
@@ -568,28 +571,59 @@ const sira = f => {
   return f.durum==='kapandi' ? 30000 : 20000;
 };
 const DURUM_AD = {acik:"Açık", surekli:"Sürekli", yakinda:"Yakında", kapandi:"Kapandı"};
+// 30.08 KIRIK GİDERİLDİ: sayaçlar TÜM listeden hesaplanıyordu, o yüzden
+// "YAKINDA 40" yazıyordu ama o 40 kaydın 40'ı da AB'ydi ve AB varsayılan
+// KAPALI — tuşa basınca boş liste geliyordu. Boş liste döndüren tuş,
+// çalışmayan tuştur. Artık her satırın sayısı ÖTEKİ süzgeçlerden geçenler
+// üzerinden sayılır: kaynak kapalıysa onun kayıtları hiçbir sayaçta görünmez,
+// sayı 0 olan tuş da zaten çizilmez. Sayı ile ekran çelişmez.
 function filtreCiz(){
-  const say = fn => FIRSATLAR.filter(fn).length;
+  const kaynakGecti = f => F.kaynak.has(f.kurum);
+  const durumGecti  = f => F.durum.has(f.durum);
+  const asamaGecti  = f => F.asama==='hepsi' || (f.asama && f.asama.includes(F.asama));
+  // her grup KENDİ boyutu hariç öteki süzgeçlere göre sayılır
+  const sayDurum = v => FIRSATLAR.filter(f => f.durum===v && kaynakGecti(f) && asamaGecti(f)).length;
+  const sayKaynak= k => FIRSATLAR.filter(f => f.kurum===k && durumGecti(f)  && asamaGecti(f)).length;
+  const sayAsama = a => FIRSATLAR.filter(f => f.asama && f.asama.includes(a) && durumGecti(f) && kaynakGecti(f)).length;
   const cip = (v,ad,n,on) => '<button class="fbtn'+(on?' on':'')+'" data-v="'+v+'">'+ad+' <span class="sy">'+n+'</span></button>';
   const sat = (et,g,ic) => ic ? '<div class="fsatir"><span class="fet">'+et+'</span><div class="filtre" data-g="'+g+'">'+ic+'</div></div>' : '';
-  const durumlar = ["acik","surekli","yakinda","kapandi"].map(v=>{ const n=say(f=>f.durum===v);
-    return n ? cip(v,DURUM_AD[v],n,F.durum.has(v)) : ''; }).join('');
+  const durumlar = ["acik","surekli","yakinda","kapandi"].map(v=>{ const n=sayDurum(v);
+    // AÇIK olan bir durum, sayısı 0'a düşse de çizilir — yoksa kullanıcı kendi
+    // açtığı süzgeci geri kapatamaz (tuş ekrandan kaybolur).
+    return (n || F.durum.has(v)) ? cip(v,DURUM_AD[v],n,F.durum.has(v)) : ''; }).join('');
   const kurumlar = [...new Set(FIRSATLAR.map(f=>f.kurum))]
-    .sort((a,b)=>say(f=>f.kurum===b)-say(f=>f.kurum===a))
-    .map(k=>cip(k,k,say(f=>f.kurum===k),F.kaynak.has(k))).join('');
+    .sort((a,b)=>sayKaynak(b)-sayKaynak(a))
+    .map(k=>{ const n=sayKaynak(k);
+      return (n || F.kaynak.has(k)) ? cip(k,k,n,F.kaynak.has(k)) : ''; }).join('');
   const asamalar = '<button class="fbtn'+(F.asama==='hepsi'?' on':'')+'" data-v="hepsi">Tümü</button>'
-    + Object.keys(ETIKET).map(a=>{ const n=say(f=>f.asama&&f.asama.includes(a));
-      return n ? cip(a,ETIKET[a],n,F.asama===a) : ''; }).join('');
+    + Object.keys(ETIKET).map(a=>{ const n=sayAsama(a);
+      return (n || F.asama===a) ? cip(a,ETIKET[a],n,F.asama===a) : ''; }).join('');
   document.getElementById('firsatFiltre').innerHTML =
     sat('DURUM','durum',durumlar) + sat('KAYNAK','kaynak',kurumlar) + sat('AŞAMA','asama',asamalar);
 }
 function ciz(){
   const liste = document.getElementById('liste'), sayac = document.getElementById('sayac');
   if(UYGUNLAR){
-    sayac.innerHTML = '<b>'+UYGUNLAR.length+'</b> program profiline uydu · en hedefli olan en üstte'
+    // 30.08: liste artık sürekli program + o günün açık çağrılarını birlikte
+    // taşıyor; sayaç ikisini AYRI söyler, yoksa "program" derken çağrıyı da
+    // saymış oluruz.
+    const uPrg = UYGUNLAR.filter(f=>f.tip==='program').length;
+    const uCgr = UYGUNLAR.length - uPrg;
+    sayac.innerHTML = '<b>'+UYGUNLAR.length+'</b> destek profiline uydu · '
+      + uPrg + ' sürekli program' + (uCgr ? ' + ' + uCgr + ' açık çağrı' : '') + ' · en hedefli olan en üstte'
       + (ELENEN.length?' · <span style="color:var(--red)">'+ELENEN.length+' program elendi, gerekçesi aşağıda</span>':'');
+    // Çağrılar programlardan SONRA gelir (program eşleşmesi kesin, çağrı
+    // eşleşmesi metinden türetilmiş) ama sonda kaybolmasınlar diye ARALARINA
+    // ayraç konur: tarihli olan bunlar, kaçırılan çağrı geri gelmiyor.
     liste.innerHTML = (UYGUNLAR.length
-        ? UYGUNLAR.map((f,i)=>satirHtml(f,'u'+i)).join('')
+        ? UYGUNLAR.map((f,i)=>{
+            const ilkCagri = (f.tip==='cagri' && (i===0 || UYGUNLAR[i-1].tip!=='cagri'));
+            return (ilkCagri
+              ? '<div class="uygunAyrac"><b>Bugün açık çağrılar</b> — profiline yakın olanlar, '
+                + 'son başvuru tarihi yaklaşana göre sıralı. Eşleşme çağrı metninden türetildi; '
+                + 'başvurmadan önce duyurudaki şartı oku.</div>'
+              : '') + satirHtml(f,'u'+i);
+          }).join('')
         : '<div class="kart"><h3>Bu profile birebir oturan program çıkmadı.</h3><p>Filtrelerden tüm listeye bakabilirsin; profilin değişince (ör. ihracata başlayınca) yeni kapılar açılır.</p></div>')
       + (ELENEN.length ? '<div class="elendi"><h4>Şunlara uygun DEĞİLSİN, boşuna dosya hazırlama</h4>'
           // aynı gerekçe birden çok programı eliyorsa gerekçeyi BİR kez yaz
@@ -894,9 +928,46 @@ function dOner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('destek
     tip:'program', durum:'surekli', kurum:p.kurum, ad:p.ad, url:p.url, asama:p.asama, p:p,
     neden: (p.t ? ['d','f','i','n'].filter(k=>p.t[k]).map(k=>CEVAP_AD[k][DC[CEVAP_ANAHTAR[k]]]).filter(Boolean).join(' · ') : 'Herkese açık')
   }));
+  // 30.08 KIRIK GİDERİLDİ: sihirbaz YALNIZ 29 sürekli programı tarıyordu;
+  // o günün AÇIK ÇAĞRILARI (133 kayıt) eşleşmeye hiç girmiyordu. Kullanıcı beş
+  // soruyu cevaplayıp bugün başvurabileceği çağrıyı göremiyordu.
+  // Eşleşme AŞAMA etiketi üzerinden kurulur — programlardaki 't' etiketi
+  // çağrılarda YOK, olmayanı uydurmayız. Aşama etiketi çağrı METNİNDEN
+  // TÜRETİLMİŞTİR, resmî bir sınıflandırma değildir; bu yüzden çağrılar
+  // programlardan SONRA, ayrı başlık altında ve "şartı duyurudan teyit et"
+  // uyarısıyla listelenir. İDDİA DEĞİL, YÖNLENDİRMEDİR.
+  const profilAsama = new Set();
+  if(DC.durum==='kurmadim' || DC.durum==='yeni') profilAsama.add('kurulus');
+  if(DC.durum==='kurulu') profilAsama.add('buyume');
+  if(DC.faaliyet==='imalat') profilAsama.add('buyume');
+  if(DC.faaliyet==='teknoloji') profilAsama.add('arge');
+  if(DC.ihracat==='var' || DC.ihracat==='hedef') profilAsama.add('ihracat');
+  if(DC.ihtiyac==='finans' || DC.ihtiyac==='hepsi') profilAsama.add('finansman');
+  const ASAMA_NEDEN = {kurulus:'kuruluş aşamasındasın', buyume:'kurulu işletmen büyüyor',
+    arge:'yazılım/teknoloji yapıyorsun', ihracat:'ihracat gündeminde', finansman:'finansman arıyorsun',
+    donusum:'dijital/yeşil dönüşüm', istihdam:'istihdam'};
+  // 30.08 ÖLÇÜMDE YAKALANDI: sihirbaz AB çağrısı öneriyordu, oysa kullanıcı AB
+  // kaynağını KAPALI görüyor. Ekranda kapalı olan bir kaynağı sihirbazın
+  // önermesi tutarsızdır; üstelik AB çağrıları İngilizce ve çoğu konsorsiyum
+  // istiyor. Sihirbaz da AYNI kaynak süzgecine uyar — kullanıcı AB'yi açarsa
+  // sihirbazda da görünür.
+  const UYGUN_CAGRI = FIRSATLAR.filter(f =>
+      f.tip==='cagri' && f.durum!=='kapandi' && f.asama &&
+      F.kaynak.has(f.kurum) &&
+      f.asama.some(a=>profilAsama.has(a)))
+    .map(f=>Object.assign({}, f, {
+      neden: f.asama.filter(a=>profilAsama.has(a)).map(a=>ASAMA_NEDEN[a]).filter(Boolean).join(' · ')
+             + ' — eşleşme çağrı metninden türetildi, şartı duyurudan teyit et'
+    }))
+    .sort((a,b)=>sira(a)-sira(b));
+  UYGUNLAR = UYGUNLAR.concat(UYGUN_CAGRI);
   s.style.display='block'; s.style.color='var(--green)';
+  const prgAdet = uyan.length, cgrAdet = UYGUN_CAGRI.length;
   s.innerHTML = UYGUNLAR.length
-    ? '✅ <b>Bu destekleri kullanabilirsin</b> (' + UYGUNLAR.length + ' program). Önce şuna bak: <b>' + UYGUNLAR[0].ad + '</b>. Satıra tıkla, "ne gerekli, nasıl başvurulur" adımları açılır. 👇'
+    ? '✅ <b>Bu destekleri kullanabilirsin</b> (' + prgAdet + ' sürekli program'
+      + (cgrAdet ? ' + <b>' + cgrAdet + ' açık çağrı</b>' : '') + '). Önce şuna bak: <b>'
+      + UYGUNLAR[0].ad + '</b>. Satıra tıkla, "ne gerekli, nasıl başvurulur" adımları açılır. 👇'
+      + (cgrAdet ? '<br><span style="font-weight:600;color:var(--dim);font-size:12.5px">Çağrılar bugün açık olanlardır ve tarihlidir; kaçırmamak için aşağıdan takibe al.</span>' : '')
     : 'Bu profile birebir oturan program çıkmadı; aşağıdaki gerekçelere bak, çoğu tek şart yüzünden eleniyor.';
   filtreCiz(); ciz(); takipKapsamCiz();
   document.getElementById('sayac').scrollIntoView({behavior:'smooth', block:'start'});

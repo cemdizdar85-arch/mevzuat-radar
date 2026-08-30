@@ -249,7 +249,11 @@ function Kirp([string]$c, [int]$tavan){
 #      ile BITER; sayfadaki baslik ve etiket satirlari bitmez. Tek ayrac bu.
 function CumleMi([string]$c){
   if(-not $c){ return $false }
-  return ($c.TrimEnd() -match "[\.\!\?]$")
+  # 30.08 DUZELTME: Kirp uzun cumleyi kisaltinca sonuna "…" koyuyor; salt nokta
+  # sarti bunlari da eliyordu (ozet 125 -> 103 dustu, olculdu). "…" ile biten
+  # zaten GOVDE cumlesidir - sayfadaki baslik satiri kisa oldugu icin kirpilmaz
+  # ve "…" almaz, yani ayrac bozulmuyor.
+  return ($c.TrimEnd() -match "[\.\!\?…]$")
 }
 #  (b) KIM bazen BASLIGIN yeniden yazimini seciyordu (1707 cagrisinda
 #      olculdu). Ilk-24-karakter testi bunu KACIRIYOR cunku cumle baska
@@ -293,10 +297,11 @@ function CumleSec([string]$metin, [string]$desen, [int]$tavan, [string]$baslik, 
       }
       if($carpisti){ continue }
     }
-    # govde cumlesi mi, yoksa sayfadaki bir baslik/etiket satiri mi?
-    if(-not (CumleMi $c)){ continue }
-    # basligin yeniden yazimi bilgi degildir
+    # basligin yeniden yazimi bilgi degildir (her alanda gecerli)
     if(BaslikTekrariMi $c $baslik){ continue }
+    # 30.08 DUZELTME: nokta sarti (CumleMi) burada DEGIL, yalniz ozette
+    # uygulanir. Burada uygulaninca "…en fazla 20 M TL*" gibi dipnot
+    # yildiziyla biten GECERLI tutar cumlesi eleniyordu (olculdu).
     return (Kirp $c $tavan)
   }
   return ""
@@ -390,19 +395,33 @@ function YutSayfa([string]$metin, [string]$baslik){
   }
   $k = CumleSec $metin $DESEN_KIM 150 $baslik @()
   if(-not (& $kimGecerli $k)){ $k = "" }
-  if(-not $k){
-    $genisKapi = $DESEN_OZNE + '[^\.]{0,120}?' + $DESEN_KIM2
-    $k = CumleSec $metin $genisKapi 150 $baslik @()
-    if(-not (& $kimGecerli $k)){ $k = "" }
-  }
+  # 30.08 (4) OLCULDU ve GERI ALINDI: "OZNE + fiil" genis kapisi kim alanini
+  # 12/33 -> 19/33 cikardi ama ISABETI dusurdu - IPARD kayitinda kurum
+  # tanitimi, KOSGEB kayitinda sonuc cumlesi, MEVKA kayitinda ajans tanitimi
+  # "kim basvurabilir" diye yazildi. Yanlis SART gostermek bos birakmaktan
+  # kotudur: kullanici bosuna dosya hazirlar ya da hakkindan vazgecer.
+  # KIM artik YALNIZ kesin kalip listesinden dolar. Genis kapinin buldugu
+  # cumle atilmaz - asagida OZET adayi olur; orada sart iddiasi degil,
+  # cagri hakkinda bilgidir.
+  $genisKapi = $DESEN_OZNE + '[^\.]{0,120}?' + $DESEN_KIM2
   $t = CumleSec $metin $DESEN_TUTAR 150 $baslik @($k)
   # 30.08 oz-sinav: desen cumlenin ILERISINDEKI rakami gorup tutabiliyor, ama
   # karta yalniz KIRPILMIS hali yaziliyor - kullanici rakamsiz bir "Ne kadar"
   # okuyor (olculdu: 1831 Yesil Inovasyon). Gosterilecek metinde rakam yoksa
   # bu alan cevap vermiyordur, bos birakilir.
   if($t -and $t -notmatch '\d'){ $t = "" }
+  # OZET zinciri (kaliteliden zayifa): amac kalibi -> OZNE+fiil cumlesi ->
+  # sayfanin giris cumlesi. Her adim ayni RED kapisindan gecer.
   $o = CumleSec $metin $DESEN_OZET  190 $baslik @($k,$t)
   if(-not $o){ $o = CumleSec $metin $DESEN_OZET2 190 $baslik @($k,$t) }
+  # OZET, sayfadaki bir baslik/etiket satiri DEGIL gercek bir govde cumlesi
+  # olmali: "1501 - TUBITAK Sanayi Ar-Ge Projeleri Destekleme Programi"
+  # ozet diye yaziliyordu (olculdu). Govde cumlesi noktalama ile biter.
+  if($o -and -not (CumleMi $o)){ $o = "" }
+  # 30.08 OLCULDU: "Yapilan bazi guncellemeler ve cagri takvimi ASAGIDA
+  # SUNULMAKTADIR." cumlesi ozet diye yaziliyordu - cumledir ama hicbir sey
+  # anlatmaz, okuyucuyu baska yere yollar. Yonlendirme cumlesi ozet olamaz.
+  if($o -and $o -match $DESEN_KIM_RED){ $o = "" }
   # 30.08 oz-sinav: ayni cumle iki alanda birden yazilirsa kart kendini tekrar
   # eder (olculdu: 1831'de "kim" ve "ne kadar" ayni cumleydi; 1501'de "ozet" ve
   # "kim" ayni cumlenin iki farkli kirpimiydi - tam esitlik testi bunu KACIRDI).
