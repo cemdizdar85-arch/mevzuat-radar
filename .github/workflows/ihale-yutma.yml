@@ -115,4 +115,10 @@ jobs:
           git config user.email "robot@tetikte.com"
           git add veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json veri/ihale-idare-ozet.json
           git diff --cached --quiet || git commit -m "Ihale yutma: ozetler yeniden uretildi [veri-operasyonu]"
-          git push
+          # 30.08: tek denemeydi. Saatler suren yutmanin ozeti, son saniyede baska
+          # bir robot ana tele yazdi diye kaybolmasin (kaynak.yml'de tam bu oldu).
+          for deneme in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main && git push && exit 0
+            echo "deneme $deneme reddedildi, tekrar..."; sleep 5
+          done
+          echo "5 denemede de yayinlanamadi"; exit 1

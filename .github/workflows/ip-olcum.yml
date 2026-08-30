@@ -112,14 +112,21 @@ jobs:
           # yani ilan.gov.tr GitHub runner'indan CALISIYOR.
           # KURAL: bir kaynagi, uretimde KULLANILAN yontemle olc. GET ile olculup
           # "engelli" denen kaynak, POST ile calisiyor olabilir.
+          # ad|url|govde|user-agent|timeout  -> UA ve sure de URETIMDEKI ile AYNI olmali.
+          # 30.08 ikinci ders: POST'a cevirmek yetmedi, ilan.gov.tr yine 000 dedi.
+          # Sebep sure: uretimdeki betik -TimeoutSec 90 kullaniyor, olcum 45'te
+          # kesiyordu. Site runner'dan YAVAS cevap veriyor; 45 sn'de "engel",
+          # 90 sn'de "iniyor" gorunuyor. Yani "engel" hukmu ayar farkindan
+          # doguyordu. Kaynak dosyasinin kendi damgasi da CI'yi dogruluyor:
+          # veri/ihale-yurtici.json "Son cekim: 29.08.2026 17:44" - aksam kosusu.
           POST_HEDEF=(
-            "ilan.gov.tr AdsByFilter (ALACAK+IHALE kaynagi)|https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter|{\"skipCount\":0,\"maxResultCount\":1}"
-            "api.ted.europa.eu arama (yurtdisi ihale)|https://api.ted.europa.eu/v3/notices/search|{\"query\":\"classification-cpv IN (45000000)\",\"fields\":[\"publication-number\"],\"limit\":1,\"page\":1}"
+            "ilan.gov.tr AdsByFilter (ALACAK+IHALE kaynagi)|https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter|{\"skipCount\":0,\"maxResultCount\":1}|Mozilla/5.0 (MevzuatRadar-IhaleRobotu)|120"
+            "api.ted.europa.eu arama (yurtdisi ihale)|https://api.ted.europa.eu/v3/notices/search|{\"query\":\"classification-cpv IN (45000000)\",\"fields\":[\"publication-number\"],\"limit\":1,\"page\":1}|$UA|90"
           )
           for satir in "${POST_HEDEF[@]}"; do
-            IFS='|' read -r ad url govde <<< "$satir"
+            IFS='|' read -r ad url govde pua psure <<< "$satir"
             i=$((i+1))
-            out=$(curl -s -m 45 -X POST -A "$UA" -H "Content-Type: application/json" -H "Accept: application/json" \
+            out=$(curl -s -m "$psure" -X POST -A "$pua" -H "Content-Type: application/json" -H "Accept: application/json" \
                   -d "$govde" -o /tmp/p.bin -w "%{http_code}|%{content_type}|%{size_download}" "$url" || echo "000||0")
             kod=$(echo "$out" | cut -d'|' -f1)
             tip=$(echo "$out" | cut -d'|' -f2 | cut -d';' -f1)

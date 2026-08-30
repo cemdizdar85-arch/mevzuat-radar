@@ -1,0 +1,81 @@
+# ============================================================================
+#  IHALE BULTEN TAMLIGI — günlük, hafif
+#
+#  NEDEN VAR (30.08.2026): ihale-yutma.yml 36 aylık arşivi 6 şeritte yutuyor
+#  ama YALNIZ ELLE tetikleniyor. Yani dün bir gün eksik kaldıysa, biri fark
+#  edip elle koşturana kadar eksik kalıyor. "Yeşil koşu ≠ tam veri" dersinin
+#  ikizi: hiç koşmayan robot da tam veri üretmez.
+#
+#  Bu akış yutmanın KÜÇÜK kardeşi: tek şerit, yalnız son 2 ay. Eksik gün
+#  listesini kasadaki ihale_eksik_gun() veriyor; boşsa iş saniyeler içinde
+#  biter, doluysa dünün bülteni kendiliğinden kapanır.
+#
+#  BUYUK YUTMAYI EZMEZ: aynı concurrency grubunu kullanır (ihale-yutma), yani
+#  36 aylık backfill koşarken bu bekler. İki koşu aynı günleri iki kez çekmez.
+#
+#  ekap.kik.gov.tr GitHub runner'ından ölçüldü ve İNİYOR (30.08 ip-olcum) -
+#  bu iş Cem'in makinesine hiç ihtiyaç duymaz.
+# ============================================================================
+name: Ihale bulten tamligi (gunluk)
+
+on:
+  schedule:
+    - cron: '0 4 * * *'      # 07:00 TR - günün bülteni yayınlandıktan sonra
+  workflow_dispatch:
+    inputs:
+      ay_geri:
+        description: "Kac ay geriye bakilsin"
+        required: false
+        default: "2"
+
+concurrency:
+  group: ihale-yutma          # büyük backfill ile aynı grup - biri diğerini beklesin
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  tamla:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: pdftotext kur (bulten PDF -> metin)
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Eksik gunleri kapat (tek serit, son ${{ github.event.inputs.ay_geri || 2 }} ay)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          IHALE_BULTEN_KLASOR: ${{ runner.temp }}/bulten-gunluk
+        run: |
+          ./motor/ihale-sonuc-backfill.ps1 `
+            -AyGeri ${{ github.event.inputs.ay_geri || 2 }} `
+            -Serit 0 -SeritSayisi 1 -Gun 0
+
+      - name: Ozetleri yeniden uret
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./motor/ihale-sonuc-ozet.ps1 -Yaz
+          ./motor/ihale-firma-ozet.ps1 -Yaz
+          ./motor/ihale-idare-ozet.ps1 -Yaz
+
+      - name: Depoya yaz
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "robot@tetikte.com"
+          git add veri/ihale-sonuc-ozet.json veri/ihale-firma-ozet.json veri/ihale-idare-ozet.json
+          if git diff --cached --quiet; then
+            echo "ozetler degismedi"
+          else
+            git commit -m "Ihale bulten tamligi: ozetler tazelendi [veri-operasyonu]"
+            for deneme in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main && git push && exit 0
+              echo "deneme $deneme reddedildi, tekrar..."; sleep 5
+            done
+            echo "5 denemede de yayinlanamadi"; exit 1
+          fi
