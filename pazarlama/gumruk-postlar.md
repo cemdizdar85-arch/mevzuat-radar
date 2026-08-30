@@ -28,15 +28,17 @@ yaptığı iş farklı: yanlışını değil, **bakmadığın yeri** gösteriyor
 
 ## POST 1 — Rakamla açılış (LinkedIn)
 
-10 milyon TL'lik BOPP film ithal ediyorsun.
+10 milyon TL'lik klima (fan coil) ithal ediyorsun.
 
-Rusya'dan alırsan yükün **%63,64**. Aynı malı Avrupa'dan alırsan **%0**.
+Çin'den alırsan yükün **%59,2**. Aynı cihazı Avrupa'dan alırsan **%0**.
 
-Aradaki fark yılda **6.364.000 TL** — ve bu fark KDV değil, geri gelmiyor.
+Aradaki fark yılda **5.920.000 TL** — ve bu fark KDV değil, geri gelmiyor.
 
-Peki neden? Gümrük vergisi %6,5, İlave Gümrük Vergisi %10, üstüne Rusya
-menşeine **%47,14 dampinge karşı vergi**. Sonuncusu Resmî Gazete'de duruyor:
-23.07.2025 tarihli 32964 sayılı sayı, Tebliğ No 2025/19.
+Peki neden? Gümrük vergisi %2,7, üstüne Çin menşeine **%56,50 dampinge karşı
+vergi**. Sonuncusu Resmî Gazete'de duruyor: 02.02.2022 tarihli sayı, Tebliğ
+No 2022/1. Tablosunda aynen şöyle yazıyor: *8415.83.00.90.00 — yalnız belirli
+salon tipi sıcak ve soğuk hava cihazları (fancoil) — Çin Halk Cumhuriyeti —
+CIF bedelin %'si: 56,50.*
 
 Bu tebliği okumuş muydun? Çoğu ithalatçı okumamış oluyor. Okuyacak vakti de yok.
 
@@ -121,21 +123,29 @@ göstermek, vaat etmekten iyidir:
 
 | Ürün | En ucuz menşe | En pahalı | 10 M TL'de yıllık fark |
 |---|---|---|---|
-| BOPP film (3920.20.21) | AB %0 | Rusya %63,64 | 6.364.000 TL |
+| Klima / fan coil (8415.83) | AB %0 | Çin %59,2 | 5.920.000 TL |
 | Süsleme balığı (0301.11) | G. Kore %0 | BAE %65 | 6.500.000 TL |
 | Ördek eti (0207.45.10) | Bosna-Hersek %0 | herkes %65 | 6.500.000 TL |
 
-Rakamların kaynağı: yürürlükteki İthalat Rejimi Kararı listeleri + damping
-tebliğleri. BOPP film satırındaki %47,14 damping RG 23.07.2025/32964 sayılı
-Tebliğ 2025/19'dan birebir doğrulandı.
+✅ **Bu tablo 30.08.2026'da siteye kondu** — `senaryo-raporu.html`, formun
+hemen üstünde. Vaat yerine ölçülmüş örnek gösteriyor.
 
 ---
 
-## Kullanılmayan rakam — ve nedeni
+## Rakamların teyit durumu
 
-Elimizde daha çarpıcı bir örnek var: 8415.83 fan coil/klima kodunda Çin menşeine
-**%56,50** damping (Tebliğ 2022/1). Araçta doğru görünüyor, ama **pazarlamada
-kullanmadım**: o tebliğin oran tablosu Resmî Gazete'ye görüntü olarak konmuş,
-metni okunamıyor, birincil kaynaktan teyit edemedim. Teyit edilmemiş rakam
-reklama girmez. Biri o tabloya gözle bakıp teyit ederse, POST 1 bu rakamla
-daha güçlü olur.
+| Rakam | Kaynak | Teyit |
+|---|---|---|
+| Klima, Çin %56,50 damping | RG 02.02.2022, Tebliğ 2022/1 | ✅ tablo görüntüsünden birebir okundu |
+| BOPP film, Rusya %47,14 damping | RG 23.07.2025/32964, Tebliğ 2025/19 | ✅ tablo metninden birebir okundu |
+| Süsleme balığı %0 / %65 | İthalat Rejimi IV Sayılı Liste | ✅ resmî liste sütunları |
+| Ördek eti %0 / %65 | İthalat Rejimi tarım listesi | ✅ resmî liste sütunları |
+
+**Not (30.08):** 2022/1'in oran tablosu Resmî Gazete'ye *görüntü* olarak konmuş,
+metin ayrıştırıcı boş dönüyordu — bu yüzden bir süre "teyit edilemedi" diye
+beklettik. Sayfadaki gömülü görsel indirilip okundu, rakam doğrulandı ve POST 1
+bu rakamla yeniden yazıldı. Klima, BOPP filmden çok daha tanıdık bir ürün.
+
+**Yedek rakam (BOPP film):** POST 1'i değiştirmek istersen, aynı kurgu şu
+rakamlarla da çalışır — AB %0 vs Rusya %63,64 (GV %6,5 + İGV %10 + damping
+%47,14), 10 M TL'de yılda 6.364.000 TL.
