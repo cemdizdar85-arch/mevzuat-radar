@@ -132,6 +132,38 @@ select prosrc from pg_proc where proname = 'madde_ara';
 Çıkan gövde v8 dosyasıyla karşılaştırılır. Bu, `net-cevap-motoru` hafızasındaki
 "madde_ara 500" açığının kök ölçümüdür.
 
+### 🔴 30.08 — kök sebep ÖLÇÜLDÜ: sorun fonksiyonda değil, İNDEKSTE
+
+Sekiz sürüm boyunca hep **fonksiyon** yeniden yazıldı. 30.08'de fonksiyondan
+bağımsız, **saf tablo sorgusu** ölçüldü (anon anahtar, canlı uç):
+
+| İstek | Sonuç |
+|---|---|
+| `GET /dokumanlar?select=id&limit=1` | ✅ 200, hızlı |
+| `GET /dokumanlar?tur=eq.kanun-madde&limit=3` | ✅ 200, hızlı |
+| `GET /dokumanlar?kaynak_ad=eq.<5973 s. Karar>&limit=3` | ❌ **500 · 57014** |
+| `GET /dokumanlar?tur=eq.kanun-madde&kaynak_ad=eq.<…>` | ❌ **500 · 57014** (4,4 sn) |
+| `POST /rpc/madde_ara {"sorgu":"ihracat & destek"}` | ❌ 500 · 57014 (8,1 sn) |
+
+**`madde_ara` hiç devrede değilken, tek satırlık `kaynak_ad` eşitliği bile
+zaman aşımına düşüyor.** Fonksiyonu ne kadar iyileştirirsek iyileştirelim
+düzelmemesinin sebebi bu: `dokumanlar` 13 binden 43.440 parçaya büyüdü ve
+`kaynak_ad` ile `arama_fold` sütunlarında indeks yok — her sorgu tam tarama.
+`tur` filtresinin çalışması da bunu doğruluyor (onda indeks var).
+
+Göç: **`2026-08-30-ambar-index.sql`** — üç indeks basar (arama_fold GIN,
+kaynak_ad, tur+kaynak_ad), tablo yapısına ve veriye dokunmaz.
+⚠️ `concurrently` kullanıyor: Supabase SQL editöründe satırları **tek tek**
+çalıştır, hepsini birden yapıştırma.
+
+| Dosya | Durum |
+|---|---|
+| `2026-08-30-ambar-index.sql` | ⏳ **BASILMADI** — Cem'in basması bekleniyor. Basılınca dosyanın sonundaki üç doğrulama sorgusu koşulur; üçü de hatasız dönmeden madde görüntüleyici sayfa yazılmaz. |
+
+Bu indeksler basılmadan: Net Cevap araması cevapsız kalmaya devam eder ve
+Destek Radarı'ndaki "Dayanağı" satırı ambardaki maddeye **bağlanamaz**
+(bağ bugün metin olarak duruyor, tıklanabilir değil).
+
 ## Ölçülmedi (servis anahtarı ya da oturum ister)
 
 Aşağıdakiler tablo/fonksiyon ucu üzerinden dışarıdan görünmüyor. "Basılı değil"

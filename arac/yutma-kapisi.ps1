@@ -34,12 +34,18 @@
 # ============================================================================
 param(
   [string]$Onceki = "HEAD",
-  [switch]$Deneme
+  [switch]$Deneme,
+  # 30.08: esigi GERIYE DONUK olcebilmek icin. Kapiyi gecmis surum ciftleriyle
+  # kosturup "bu esik gecmiste kac kez bosuna kirmizi yanardi" sorusunu bugun
+  # cevaplayabiliyoruz - bir sabah beklemeye gerek kalmiyor.
+  [string]$Hedef = "",
+  # Log'a yazma (geriye donuk tarama canli log'u kirletmesin)
+  [switch]$LogYazma
 )
 $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$hedef = Join-Path $kok "veri\cagri-radar.json"
+$hedef = if($Hedef){ $Hedef } else { Join-Path $kok "veri\cagri-radar.json" }
 $logYolu = Join-Path $kok "veri\yutma-kapisi-log.txt"
 
 # bir kaynakta bilgi tasiyan kayit orani bu kadar PUAN duserse kirmizi
@@ -71,14 +77,14 @@ Not ("YUTMA KAPISI - " + (Get-Date -Format "dd.MM.yyyy HH:mm"))
 
 if(-not (Test-Path $hedef)){
   Not "  ATLANDI: veri/cagri-radar.json yok - denetlenecek bir sey yok."
-  [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false))
+  if(-not $LogYazma){ [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false)) }
   exit 0
 }
 
 $yeni = $null
 try { $yeni = (Get-Content $hedef -Raw -Encoding UTF8) | ConvertFrom-Json }
 catch { Not ("  KIRMIZI: cagri-radar.json COZULEMEDI - " + $_.Exception.Message)
-        [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false))
+        if(-not $LogYazma){ [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false)) }
         exit 1 }
 
 $yeniHarita = KaynakHarita @($yeni.cagrilar)
@@ -91,14 +97,14 @@ try { $eskiHam = (git -C $kok show "${Onceki}:veri/cagri-radar.json" 2>$null) -j
 if(-not $eskiHam){
   # Kor kalma kurali: kiyas yapamadigimizi SOYLERIZ, "gecti" diye yutmayiz.
   Not "  KIYAS YAPILAMADI: onceki surum okunamadi ($Onceki). Kapi bu kosuda OLCMEDI."
-  [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false))
+  if(-not $LogYazma){ [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false)) }
   exit 0
 }
 $eski = $null
 try { $eski = $eskiHam | ConvertFrom-Json } catch {}
 if(-not $eski){
   Not "  KIYAS YAPILAMADI: onceki surum cozulemedi. Kapi bu kosuda OLCMEDI."
-  [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false))
+  if(-not $LogYazma){ [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false)) }
   exit 0
 }
 $eskiHarita = KaynakHarita @($eski.cagrilar)
@@ -148,8 +154,10 @@ if($kirmizi.Count){
   Not ""
   Not "YESIL - hicbir kaynakta cokus/korlesme yok."
 }
-[IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false))
-Write-Host ("  -> " + $logYolu)
+if(-not $LogYazma){
+  [IO.File]::WriteAllText($logYolu, ($satirlar -join "`r`n"), [Text.UTF8Encoding]::new($false))
+  Write-Host ("  -> " + $logYolu)
+}
 
 if($kirmizi.Count -and -not $Deneme){ exit 1 }
 exit 0

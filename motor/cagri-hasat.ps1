@@ -463,10 +463,21 @@ function TabloKarismasiMi([string]$c){
 function ListeYakala([string]$metin, [int]$tavan){
   if(-not $metin){ return "" }
   $satirlar = @($metin -split "`r?`n")
-  $basDeseni = '(?i)^\s*(uygun ba.vuru sahip|kimler ba.vurabil|ba.vuru sahipleri|hedef kitle|uygun ba.vuru)'
+  # 30.08 (2) OLCULDU - basligi tasiyan SEKIZ rehberde ilk surum sunu yapti:
+  # 5'inde hicbir sey bulamadi, 3'unde YANLIS BLOGU topladi ("Proje Butcesi:
+  # KDV dahil 750.000 TL", "Ajans tarafindan desteklenen projelerin...").
+  # KOK SEBEP: baslik belgede BIRDEN COK gecer - once ICINDEKILER tablosunda,
+  # sonra asil bolumde. Ilk geciste durunca icindekilerin altini topluyorduk.
+  # COZUM: butun gecisler denenir, her aday liste PUANLANIR, en iyisi secilir.
+  # Puan = kac madde bir BASVURU SAHIBI TURU tasiyor. Kimseyi tarif etmeyen
+  # blok 0 puan alir, yani "yanlis blok" secilemez hale gelir.
+  $basDeseni = '(?i)^\s*[\d\.\s]*(uygun ba.vuru sahip|kimler ba.vurabil|ba.vuru sahipleri|hedef kitle|uygun ba.vuru|ba.vuru yapabilecek)'
+  $enIyi = ""; $enIyiPuan = 0
   for($i=0; $i -lt $satirlar.Count; $i++){
     if($satirlar[$i] -notmatch $basDeseni){ continue }
     if($satirlar[$i].Trim().Length -gt 70){ continue }   # basligin kendisi kisa olur
+    # ICINDEKILER satiri: "Uygun Basvuru Sahipleri ....... 12" ya da sonu sayfa no
+    if($satirlar[$i] -match '\.{3,}\s*\d+\s*$' -or $satirlar[$i] -match '\s\d{1,3}\s*$'){ continue }
     $maddeler = @()
     for($j=$i+1; $j -lt [Math]::Min($i+30, $satirlar.Count); $j++){
       $t = ($satirlar[$j] -replace '^[\s•\-\*\u2022\u25CF\u00B7]+','' -replace '\s+',' ').Trim()
@@ -477,8 +488,19 @@ function ListeYakala([string]$metin, [int]$tavan){
       if($maddeler -notcontains $t){ $maddeler += $t }
       if($maddeler.Count -ge 8){ break }
     }
-    if($maddeler.Count -ge 2){ return (Kirp ($maddeler -join " · ") $tavan) }
+    if($maddeler.Count -lt 2){ continue }
+    # PUAN: kac madde bir basvuru sahibi turu tarif ediyor
+    $puan = 0
+    foreach($md in $maddeler){ if($md -match $DESEN_OZNE){ $puan++ } }
+    # para/butce blogu "kim" listesi degildir - o "ne kadar"in isi
+    if(($maddeler -join " ") -match $DESEN_TUTAR){ $puan = 0 }
+    if($puan -gt $enIyiPuan){
+      $enIyiPuan = $puan
+      $enIyi = (Kirp ($maddeler -join " · ") $tavan)
+    }
   }
+  # en az IKI madde kimseyi tarif etmiyorsa bu liste "kim" cevabi degildir
+  if($enIyiPuan -ge 2){ return $enIyi }
   return ""
 }
 function BelgeIleTamamla($y, [string]$belgeMetni, [string]$baslik){
