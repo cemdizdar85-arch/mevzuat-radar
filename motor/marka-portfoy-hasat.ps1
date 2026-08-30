@@ -46,7 +46,7 @@ param(
   # bitisini ve yenileme gecmisini KESIN veriyor. Marka basina 1 istek oldugu
   # icin tavanli ve varsayilan ACIK - cunku "olabilir" satilabilir bir cumle degil.
   [switch]$DetaySiz,             # detay ucunu KAPAT (hizli/nazik kosu)
-  [int]$DetayTavan = 1500,
+  [int]$DetayTavan = 250,
   [int]$DetayBeklemeMs = 250
 )
 $Detay = -not $DetaySiz
@@ -517,9 +517,29 @@ function PortfoyKur($unvan){
   # oldugu icin tavanli. Alinamayan kayit TAHMIN yoluna duser ve karti "tahmin"
   # dilini korur - kapali kaynaktan emin gibi konusmayiz.
   $script:DetayAlinan = 0; $script:DetayDenenen = 0
+  # 30.08 OLCULDU VE DARALTILDI: detay ucu marka basina 1 istek. TUM markalari
+  # zenginlestirmek Ege Seramik'te (329 marka) kosuyu 16+ DAKIKAYA cikardi;
+  # ARCELIK'te (1.179) ~50 dakika olurdu. Kuyruk robotu bu kadar bekleyemez -
+  # kesinlik kazanirken HIZI kaybetmistim, olcmeden yapmistim.
+  # Cozum: kesinlik SADECE ONEMLI OLDUGU YERDE alinir.
+  #   ek-sure / yenileme-penceresi / dusmus  -> tarih yanlissa PARA/HAK kaybi
+  #   donem sonuna <= 550 gun kalanlar       -> yakinda o gruba girecek
+  # Gerisi TAHMIN kalir ve kart bunu zaten "TAHMIN" rozetiyle SOYLUYOR.
+  # Once tahminle siniflandir, sonra yalniz adaylari zenginlestir.
   if($Detay){
+    $onSiniflar = @{}
+    foreach($m in $mrk){ $onSiniflar[$m.no] = (Hesapla $m) }
+    $adayNo = New-Object 'System.Collections.Generic.HashSet[string]'
+    foreach($m in $mrk){
+      $h = $onSiniflar[$m.no]
+      $onemli = ($h.hal -eq 'ek-sure' -or $h.hal -eq 'yenileme-penceresi' -or $h.hal -eq 'dusmus')
+      if(-not $onemli -and $null -ne $h.kalan_gun -and [int]$h.kalan_gun -le 550){ $onemli = $true }
+      if($onemli){ [void]$adayNo.Add("$($m.no)") }
+    }
+    Write-Host ("Detay hedefi: {0}/{1} marka (yalniz tarihi ONEMLI olanlar)." -f $adayNo.Count, @($mrk).Count)
     $sayac = 0
     foreach($m in $mrk){
+      if(-not $adayNo.Contains("$($m.no)")){ continue }
       if($sayac -ge $DetayTavan){ break }
       $sayac++; $script:DetayDenenen++
       $d = TmvDetay $m.st13
