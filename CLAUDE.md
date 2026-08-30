@@ -59,6 +59,9 @@ git fetch origin main; git merge origin/main --no-edit; git push origin HEAD:mai
 | `_kaynak/` ve büyük PDF'leri commit'lemek | Depo 1 GB'a şişer; 80 MB'a indirildi, orada kalacak. |
 | Ölçmediğine "var/yok" demek | VAR/YOK iddiası yalnız `veri/AMBAR-ENVANTERI.md`'den. Ölçülmemiş hücre = "ölçülmedi". |
 | Rakam uydurmak / hafızadan rakam yazmak | Her rakamın kaynağı gösterilir. Yıl-yıl değişen tutarlara sabit rakam yazılmaz. |
+| Uzun commit mesajını `-m` ile vermek | Git mesajın bir kısmını dosya adı sanıp **sessizce commit atlıyor** — sonra "PUSH OK" der ama ortada commit yoktur. 30.08'de iki kez oldu. Uzun mesaj **her zaman** `git commit -F <dosya>`. |
+| Yeni HTML sayfasını `stil-acik.css` bağlamadan eklemek | Sayfa açık temada **beyaz zeminde beyaz yazı** olur. `stil.css`'ten SONRA bağlanır (eşit özgüllükte sonraki kazanır). 29.08'de `durum.html`, 30.08'de `pano.html` bu yüzden kırmızıya düştü. |
+| Sabit renk yazmak (`#abc`, `rgba(...)`) | `arac/renk-sabiti-denetcisi.ps1` kapısı düşer. Tema jetonu kullanılır; saydamlık için `color-mix(in srgb,var(--jeton) X%,transparent)`. **`var(--dim,#5d6b7c)` gibi YEDEK DEĞER de sabittir.** Renk gerçekten sabit kalmalıysa tabanı tazele ve **nedenini commit'e yaz**. |
 
 ---
 
