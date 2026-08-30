@@ -278,6 +278,27 @@ function ikiAySonra(iso) {
     hedefler = liste.slice(0, Number(deger('--son', '1')));
   }
 
+  // YUTULMUŞ BÜLTENİ TEKRAR İNDİRME.
+  // Bu kontrol ilk sürümde YOKTU ama iş akışına "indirmez" diye yazmıştım -
+  // yani belge yalan söylüyordu. Sonucu: her gece 05:40'ta aynı 477 MB
+  // boşuna inecekti. Kütük tek doğru kaynak; hafızadan "yuttuk" denmez.
+  if (!KURU && !bayrak('--zorla')) {
+    const y = await fetch(`${SB_URL}/rest/v1/marka_bulten_kutuk?durum=eq.bitti&select=bulten_no`,
+      { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } });
+    if (y.ok) {
+      const bitti = new Set((await y.json()).map(r => r.bulten_no));
+      const once = hedefler.length;
+      hedefler = hedefler.filter(b => !bitti.has(b.bulten_no));
+      if (once !== hedefler.length) {
+        log(`   ${once - hedefler.length} bulten zaten yutulmus, atlandi. (--zorla ile yeniden yutulur)`);
+      }
+    } else {
+      log('   UYARI: kutuk okunamadi, atlama yapilmadan devam ediliyor.');
+    }
+  }
+  if (!hedefler.length) { log('Yutulacak yeni bulten yok.'); return; }
+  log(`Yutulacak: ${hedefler.map(b => b.bulten_no).join(', ')}`);
+
   const gecici = fs.mkdtempSync(path.join(os.tmpdir(), 'bulten-'));
   const rapor = { tarih: new Date().toISOString().slice(0, 16).replace('T', ' '), islenen: [], hata: [] };
 
