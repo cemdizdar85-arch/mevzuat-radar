@@ -404,6 +404,30 @@ const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",finansma
 // kaynak metinden BİREBİR alıntıdır. Metinden çıkmayan alan yine
 // "Çağrı duyurusunda" der - uydurmuyoruz.
 // "nereden başvurulur" her satırda doludur: YOLLAR'daki kanıtlı kanaldan gelir.
+// 30.08 Cem: "çağrı kartından ambardaki maddeye köprü".
+// ÖLÇÜLDÜ (veri/AMBAR-ENVANTERI.md): ambarda destek mevzuatı olarak YALNIZ ÜÇ
+// kaynak var — 5973 s. Karar (59 madde), 5986 s. Karar (26), Fuar Genelgesi
+// (85). Üçü de Ticaret Bakanlığı ihracat destekleri. KOSGEB, TÜBİTAK, kalkınma
+// ajansı ve TKDK mevzuatı ambarda YOK; onlara dayanak yazmıyoruz — ölçmediğimiz
+// şeyi "ambarımızda var" diye göstermek, envanter kuralının ihlalidir.
+// Not: sitede henüz madde görüntüleyici sayfa olmadığı için bağ METİN olarak
+// kurulur; görüntüleyici geldiğinde buraya madde linki eklenir.
+const DAYANAK = {
+  "TİCARET BAKANLIĞI": "5973 s. Cumhurbaşkanı Kararı (İhracat Destekleri Hakkında Karar) — mevzuat ambarımızda"
+};
+// program/çağrı adı fuar ya da e-ihracat diyorsa dayanak daha dardır
+const DAYANAK_OZEL = [
+  {desen:/fuar/i,        ad:"5973 s. Karar + Fuar Desteklerine İlişkin Genelge — mevzuat ambarımızda"},
+  {desen:/e-?ihracat/i,  ad:"5986 s. Cumhurbaşkanı Kararı (E-İhracat Destekleri) — mevzuat ambarımızda"}
+];
+function dayanakHtml(kurum, ad){
+  let d = DAYANAK[kurum];
+  for(const o of DAYANAK_OZEL){ if(o.desen.test(ad||'')){ d = o.ad; break; } }
+  if(!d) return '';
+  return '<p style="margin:8px 0 0;font-size:12px;color:var(--dim)">'
+       + '<b style="color:var(--muted)">Dayanağı:</b> ' + d + '</p>';
+}
+
 const KANAL = {
   "KOSGEB":             "KOSGEB e-hizmetler (önce KBS kaydı + KOBİ Beyannamesi)",
   "TİCARET BAKANLIĞI":  "DYS, üyesi olduğun ihracatçı birliği üzerinden",
@@ -487,6 +511,7 @@ function kartHtml(p, acik){
         <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Kaynaklı oran ve limitleri kartta gösteriyoruz; çağrı dönemine bağlı değişen kalemler için resmî sayfa son kontrol noktandır. Başvuru dosyanı muhasebecin/danışmanınla birlikte hazırla, reddedilen başvuru, kaçan dönemdir.</p>
       </div>
     </details>
+    ${dayanakHtml(p.kurum, p.ad)}
     <a class="gore" href="${p.url}" target="_blank" rel="noopener">Resmî sayfa: güncel çağrı ve oranlar →</a>
   </div>`;
 }
@@ -544,6 +569,7 @@ function cagriDetay(f){
     '<div style="display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:12.5px"><span style="color:var(--muted)">'+x.etiket+'</span><span style="color:var(--ink);white-space:nowrap">'+gd(x.tarih)+'</span></div>').join('') : '';
   return '<div class="kart">'+(f.kod?'<div class="et">'+kacir(f.kod)+'</div>':'')
     + '<p style="margin:6px 0 10px;font-size:13px;color:var(--muted)">Bu bir <b style="color:var(--ink)">çağrı duyurusudur</b>: kimin başvurabileceği, destek tutarı ve gider kalemleri duyuru metninde yazar. Kartta iddia etmiyoruz, kaynağa gönderiyoruz.</p>'
+    + dayanakHtml(f.kurum, f.ad)
     + t + '<p style="margin:10px 0 0"><a class="gore" href="'+f.url+'" target="_blank" rel="noopener">Çağrı duyurusu: şartlar ve başvuru →</a></p></div>';
 }
 function satirHtml(f,i){

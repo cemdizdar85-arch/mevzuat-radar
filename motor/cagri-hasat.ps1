@@ -446,6 +446,20 @@ function BelgeMetni([string]$html, [string]$temelUrl){
 # Cumle arayan yutma bunu asla bulamaz (satirlar kisa, nokta yok).
 # Basligi bulur, altindaki maddeleri BIREBIR toplar, " · " ile dizer.
 # Uydurma yok: tek yaptigi maddeleri yan yana yazmak.
+# 30.08 OLCULDU: bazi rehberler TABLO duzenli. pdftotext -layout satirlari
+# duzeltse de hucreler yan yana oldugu icin BASLIK kelimesi cumlenin ortasina
+# karisiyor: "organize sanayi Basvuru bolgesi ve sanayi siteleri" ya da
+# "Kooperatifin Orgutlenmenin faaliyet konusuna ... Guclendirilmesi sekilde".
+# Kelimeler kaynaktan gelir (uydurma yok) ama DIZILIM bozuktur ve okuyan
+# anlamaz. Sinyal: rehber BASLIK kelimesi cumlenin ortasinda, kucuk harfli iki
+# kelimenin arasinda buyuk harfle duruyorsa o metin tablodan karismistir.
+function TabloKarismasiMi([string]$c){
+  if(-not $c -or $c.Length -lt 40){ return $false }
+  # ilk 20 karakter cumlenin dogal basi olabilir ("Uygun Başvuru Sahipleri…"),
+  # karisma bundan SONRA aranir.
+  $govde = $c.Substring(20)
+  return ($govde -cmatch '[a-zçğıöşü]\s+(Başvuru|Uygun|Öncelik|Sahipleri|Ortaklar|Güçlendirilmesi|Bütçesi|Süresi)\s+[a-zçğıöşü]')
+}
 function ListeYakala([string]$metin, [int]$tavan){
   if(-not $metin){ return "" }
   $satirlar = @($metin -split "`r?`n")
@@ -483,9 +497,9 @@ function BelgeIleTamamla($y, [string]$belgeMetni, [string]$baslik){
   # tasimali (DESEN_OZNE) ve para/butce cumlesi OLMAMALI - o "ne kadar"in isi.
   if(-not $y.kim  ){
     $liste = ListeYakala $belgeMetni 170
-    if($liste -and $liste -match $DESEN_OZNE -and $liste -notmatch $DESEN_TUTAR){ $y.kim = $liste }
+    if($liste -and $liste -match $DESEN_OZNE -and $liste -notmatch $DESEN_TUTAR -and -not (TabloKarismasiMi $liste)){ $y.kim = $liste }
   }
-  if(-not $y.kim  ){ $y.kim   = $yb.kim }
+  if(-not $y.kim -and -not (TabloKarismasiMi $yb.kim)){ $y.kim = $yb.kim }
   if(-not $y.tutar){ $y.tutar = $yb.tutar }
   if(-not $y.ozet ){ $y.ozet  = $yb.ozet }
   # asama: belgeden cikan etiketler sayfadakine EKLENIR (en guclu uc kural

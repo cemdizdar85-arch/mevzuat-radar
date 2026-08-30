@@ -110,6 +110,22 @@ jobs:
         shell: pwsh
         run: ./motor/cagri-hasat.ps1
 
+      # 30.08 Cem: "yutma karnesini CI kapisina baglayalim ki kurum sayfasi
+      # degisince kartlar sessizce bosalmasin."
+      # Cagri kartlarindaki ozet/kim/tutar DESENLE cikariliyor. Kurum sayfasini
+      # yeniden tasarlarsa desen tutmaz ama betik HATA VERMEZ: 133 cagriyi yine
+      # yazar, yalniz alanlari bos olur. Bu kapi ONCEKI SURUMLE kiyaslar; bir
+      # kaynakta doluluk cokmusse ya da bilgi ureten kaynak artik hic
+      # uretmiyorsa KIRMIZI yanar. Sebebi veri/yutma-kapisi-log.txt'ye yazar.
+      # continue-on-error: DEGERI KIRMIZI OLSUN ama hasat zincirini kesmesin -
+      # veri zaten yazildi ve dogru; kapi "bilgi kayboldu" diyor, "veri bozuk"
+      # demiyor.
+      - name: Yutma kapisi (cagri kartlari sessizce bosalmasin)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./arac/yutma-kapisi.ps1
+
       # 21.08 Cem: "sihirbaz cevabini saklayip 'profiline uyan yeni cagri acildi'
       # maili". Cagri hasadindan HEMEN SONRA kosar (taze veri sart). Abonenin
       # profili hangi kurumlari aciyorsa o kurumlarin YENI cagrilarini mailler.
