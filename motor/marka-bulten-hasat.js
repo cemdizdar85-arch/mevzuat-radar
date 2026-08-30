@@ -43,7 +43,10 @@ const LISTE_URL = 'https://www.turkpatent.gov.tr/bultenler';
 const DOSYA_URL = 'https://webim.turkpatent.gov.tr/file/';
 const SB_URL = process.env.SUPABASE_URL || 'https://bjrleanjpyujtajmazxn.supabase.co';
 const SB_KEY = process.env.SUPABASE_SERVICE_KEY || '';
-const PARTI = 500;
+// 30.08: 500 -> 200. Ambar 106 bine gelince 500'luk upsert "statement
+// timeout" vermeye basladi (bulten 485 bu yuzden dustu). GIN trigram
+// indeksinin guncelleme maliyeti satir sayisiyla artiyor.
+const PARTI = 200;
 
 /* SURE BUTCESI (30.08) - Cem: "hepsini indir basla".
    Tam envanter 263 bulten / 113,8 GB. GitHub kosucusu olculen ~0,3 MB/sn ile
@@ -298,6 +301,27 @@ function metneCevir(pdf, txt) {
 }
 
 /* ===================== SUPABASE ========================================== */
+/* Zaman asiminda PARTIYI BOLEREK yazar. Upsert oldugu icin tekrar yazmak
+   guvenli - ayni satir uzerine yazilir, kopya uretmez. 25'in altina inmez;
+   orada da dusuyorsa sorun parti boyutu degildir, gorunur hata verilir. */
+async function sbYazBolerek(yol, satirlar, prefer, derinlik) {
+  derinlik = derinlik || 0;
+  try {
+    await sbYaz(yol, satirlar, prefer);
+    return satirlar.length;
+  } catch (e) {
+    const zamanAsimi = /57014|statement timeout|HTTP 5\d\d/.test(e.message);
+    if (!zamanAsimi || satirlar.length <= 25 || derinlik >= 4) throw e;
+    const orta = Math.ceil(satirlar.length / 2);
+    log(`   yazma zorlandi (${satirlar.length} satir) -> ikiye bolunuyor`);
+    await new Promise(z => setTimeout(z, 1500));
+    let y = 0;
+    y += await sbYazBolerek(yol, satirlar.slice(0, orta), prefer, derinlik + 1);
+    y += await sbYazBolerek(yol, satirlar.slice(orta), prefer, derinlik + 1);
+    return y;
+  }
+}
+
 async function sbYaz(yol, govde, prefer) {
   const r = await fetch(`${SB_URL}/rest/v1/${yol}`, {
     method: 'POST',
@@ -413,7 +437,7 @@ function ikiAySonra(iso) {
       if (!KURU) {
         const satir = kayit.map(r => ({ ...r, bulten_no: b.bulten_no, yayin_tarihi: b.yayin_tarihi, itiraz_son: itiraz }));
         for (let i = 0; i < satir.length; i += PARTI) {
-          await sbYaz('marka_bulten?on_conflict=basvuru_no,bulten_no', satir.slice(i, i + PARTI),
+          await sbYazBolerek('marka_bulten?on_conflict=basvuru_no,bulten_no', satir.slice(i, i + PARTI),
             'resolution=merge-duplicates,return=minimal');
           process.stdout.write(`\r   yaziliyor: ${Math.min(i + PARTI, satir.length)}/${satir.length}`);
         }
