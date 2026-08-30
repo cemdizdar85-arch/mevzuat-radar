@@ -66,6 +66,15 @@ jobs:
         run: |
           git config user.name  "tetikte-robot"
           git config user.email "robot@tetikte.com"
+          # 30.08: .gitattributes'teki "merge=tetikte-robot" kurali driver
+          # git config'de TANIMLI DEGILSE sessizce yok sayilir - yerelde
+          # motor/oturum.ps1 kuruyor ama CI'da kimse kurmuyordu. Ozet
+          # dosyalari buyuk ve robotlar sik yaziyor; rebase cakisirsa pull
+          # duser, 5 deneme de duser ve adim KIRMIZI olur. Driver burada
+          # kuruluyor: cakisma cikmaz, yerel surum kalir, bir sonraki kosu
+          # zaten yeniden uretir.
+          git config merge.tetikte-robot.name "Tetikte robot ciktisi"
+          git config merge.tetikte-robot.driver true
           # 30.08: ilk surumde dosyalar TEK "git add" cagrisinda ve "\" satir
           # devamiyla veriliyordu; adim dustu ve ozetler depoya girmedi.
           # Artik her dosya AYRI eklenir - biri yoksa digerleri yine eklenir -
@@ -79,9 +88,23 @@ jobs:
             echo "ozetler degismedi"
           else
             git commit -m "Ihale ozetleri tazelendi (duzeltilmis anahtar) [veri-operasyonu]"
+            basarili=0
             for deneme in 1 2 3 4 5; do
-              git pull --rebase --autostash origin main && git push && exit 0
-              echo "deneme $deneme reddedildi, tekrar..."; sleep 5
+              # Neden dustugu GORUNSUN: pull ve push ciktilari gunluge basilir.
+              # Ilk surumde adim sessizce kirmizi bitiyordu ve sebep
+              # anlasilamiyordu (log yetkisi olmayan sebebi goremez).
+              if git pull --rebase --autostash origin main 2>&1; then
+                if git push 2>&1; then basarili=1; break; fi
+                echo "PUSH reddedildi (deneme $deneme)"
+              else
+                echo "PULL/REBASE dustu (deneme $deneme)"
+                git rebase --abort 2>/dev/null || true
+              fi
+              sleep 5
             done
-            echo "5 denemede de yayinlanamadi"; exit 1
+            if [ "$basarili" != "1" ]; then
+              echo "--- 5 denemede de yayinlanamadi ---"
+              git status --short | head -20
+              exit 1
+            fi
           fi
