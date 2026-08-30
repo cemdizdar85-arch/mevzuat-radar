@@ -102,7 +102,21 @@ Yaz ("  eksik standart: {0} · eksik parca: {1} · olculemeyen: {2}" -f `
      $eksikler.Count, (($eksikler | Measure-Object eksik -Sum).Sum), $olculemeyen.Count)
 foreach($e in $eksikler){ Yaz ("    {0,-12} damga {1,4} -> ambar {2,4}  EKSIK {3,4}" -f $e.std,$e.damga,$e.ambar,$e.eksik) 'DarkGray' }
 
+if($olculemeyen.Count -gt 0){
+  Yaz ("  OLCULEMEYEN: {0}" -f ($olculemeyen -join ', ')) 'Yellow'
+}
+
+# ⚠ 30.08 KENDI KUSURUM: burada yalniz $eksikler.Count'a bakiyordum ve
+# "eksik standart: 0 · olculemeyen: 1" durumunda ekrana YESIL basiyordum.
+# BDS 200 tam bu yuzden iki kez atlandi: sayimi yuk yuzunden dustu, betik
+# onu "sorun yok" sandi. Oysa deponun kurali acik: OLCULMEMIS HUCRE
+# "saglam" DEGILDIR, ucuncu sonuctur. Olculemeyen varken YESIL yazilmaz.
 if($eksikler.Count -eq 0){
+  if($olculemeyen.Count -gt 0){
+    Yaz ("`nOLCULEMEDI: {0} standardin sayimi alinamadi - 'eksik yok' DENEMEZ." -f $olculemeyen.Count) 'Yellow'
+    Yaz "  Ambar yuk altindayken tekrar dene." 'Yellow'
+    exit 2
+  }
   Yaz "`nYESIL: eksik yok." 'Green'
   exit 0
 }
@@ -153,7 +167,11 @@ $halaEksik = @($kalan | Where-Object { $_.durum -eq 'EKSIK' })
 Yaz ("  duzelen: {0}/{1} · kazanilan parca: {2} · hala eksik: {3}" -f $duzelen,$sira.Count,$kazanilan,$halaEksik.Count)
 foreach($h in $halaEksik){ Yaz ("    {0,-12} damga {1,4} -> ambar {2,4}" -f $h.std,$h.damga,$h.ambar) 'Yellow' }
 
-$sonuc = if($halaEksik.Count -eq 0){ 'YESIL' } else { 'KIRMIZI' }
+# Ucuncu sonuc: olculemeyen varken YESIL yazilmaz. Kusur da sayilmaz -
+# "OLCULEMEDI" kendi basina bir sonuctur, iyimser yorumlanmaz.
+$sonuc = if($halaEksik.Count -gt 0){ 'KIRMIZI' }
+         elseif($olculemeyen.Count -gt 0 -or @($kalan | Where-Object { $_.durum -eq 'OLCULEMEDI' }).Count -gt 0){ 'OLCULEMEDI' }
+         else { 'YESIL' }
 $cikti = [ordered]@{
   olcum          = (Get-Date -Format 'dd.MM.yyyy HH:mm')
   sonuc          = $sonuc
@@ -167,6 +185,7 @@ $cikti = [ordered]@{
 . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
 RaporYaz -Hedef $raporYol -Nesne $cikti | Out-Null
 
-Yaz ("`n{0}" -f $sonuc) $(if($sonuc -eq 'YESIL'){'Green'}else{'Red'})
+Yaz ("`n{0}" -f $sonuc) $(if($sonuc -eq 'YESIL'){'Green'}elseif($sonuc -eq 'OLCULEMEDI'){'Yellow'}else{'Red'})
 if($sonuc -eq 'KIRMIZI'){ exit 1 }
+if($sonuc -eq 'OLCULEMEDI'){ exit 2 }
 exit 0
