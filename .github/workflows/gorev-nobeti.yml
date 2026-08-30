@@ -1,0 +1,92 @@
+# ============================================================================
+#  GOREV NOBETI (30.08.2026) — "dizustundeki robotlar susmus mu?"
+#
+#  NEDEN VAR: gunluk robotlarin (yerel-ayna, surum-tazeligi zinciri,
+#  yerel-indirici) TAMAMI Cem'in makinesindeki Windows gorevlerinde kosuyor.
+#  CI o makineyi GOREMEZ. Gorevler dusse - makine formatlansa, klasor adi
+#  degisse, OneDrive yolu kaysa - depoda bunu gosteren tek satir olmazdi.
+#
+#  COZUM: makine her gun kendi nabzini depoya basar
+#  (motor/gorev-kur.ps1 -yayinla -> veri/gorev-nabzi.json), bu nobetci de
+#  o dosyanin YASINA ve HUKMUNE bakar. Nabiz gelmiyorsa robot olmustur.
+#
+#  UC SONUC (ev kurali): YESIL / KIRMIZI / KOR. "Nabiz dosyasi yok" KIRMIZI
+#  degil KOR'dur - henuz hic basilmamis olabilir; ama SESSIZ de degildir.
+#
+#  4. KATMAN: kapi neden dustugunu SOYLER - veri/gorev-nobet-log.txt'ye
+#  gerekcesini yazip commit'ler (Actions logu admin-kilitli, okunmuyor).
+# ============================================================================
+name: Gorev nobeti (yerel robotlar yasiyor mu)
+
+on:
+  schedule:
+    - cron: '30 9 * * *'      # 12:30 TR - uc gorevin de (06:30/06:45/09:30) kosmus olmasi gereken saat
+  workflow_dispatch:
+  push:
+    paths:
+      - 'veri/gorev-nabzi.json'
+      - 'motor/gorev-kur.ps1'
+      - '.github/workflows/gorev-nobeti.yml'   # kapinin KENDI dosyalari da tetikler
+
+permissions:
+  contents: write
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: NABZI OKU ve hukum ver
+        id: olc
+        shell: pwsh
+        run: |
+          $yol = 'veri/gorev-nabzi.json'
+          $log = 'veri/gorev-nobet-log.txt'
+          $satir = @()
+          $satir += "GOREV NOBETI $(Get-Date -Format 'yyyy-MM-dd HH:mm') UTC"
+          if(-not (Test-Path $yol)){
+            $satir += "KOR: $yol yok - makine henuz hic nabiz basmamis olabilir."
+            $satir += "  Yapilacak: Cem'in makinesinde bir kez ->  powershell -File motor\gorev-kur.ps1 -uygula -yayinla"
+            $satir | Set-Content $log -Encoding utf8
+            $satir | ForEach-Object { Write-Host $_ }
+            "hukum=KOR" >> $env:GITHUB_OUTPUT
+            exit 0
+          }
+          $n = Get-Content $yol -Raw | ConvertFrom-Json
+          $yas = [math]::Round(((Get-Date) - [datetime]$n.olcum).TotalHours, 1)
+          $satir += "nabiz olcum: $($n.olcum)  ($yas saat once)  makine: $($n.makine)"
+          $satir += "nabizdaki hukum: $($n.hukum)"
+          foreach($g in $n.gorevler){
+            $satir += ("  [{0}] {1} ({2}) son kosu: {3} sonuc: {4} {5}" -f $g.durum,$g.ad,$g.beklenen_saat,$g.son_kosu,$g.son_sonuc,$(if($g.sebep){"· $($g.sebep)"}else{''}))
+          }
+          # 48 saat: bir gun atlamak (makine kapali) tolere edilir, IKI gun edilmez.
+          $hukum = 'YESIL'
+          if($yas -gt 48){ $hukum='KIRMIZI'; $satir += "KIRMIZI SEBEBI: nabiz $yas saattir tazelenmedi (esik 48) - yerel robotlar susmus." }
+          elseif($n.hukum -eq 'KIRMIZI'){ $hukum='KIRMIZI'; $satir += "KIRMIZI SEBEBI: nabiz KIRMIZI - yukaridaki gorev satirina bak." }
+          elseif($n.hukum -eq 'KOR'){ $hukum='KOR'; $satir += "KOR SEBEBI: en az bir gorev OKUNAMADI." }
+          $satir += "HUKUM: $hukum"
+          $satir | Set-Content $log -Encoding utf8
+          $satir | ForEach-Object { Write-Host $_ }
+          "hukum=$hukum" >> $env:GITHUB_OUTPUT
+
+      - name: LOGU DEPOYA BAS (sessiz kapi okunmaz)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/gorev-nobet-log.txt || true
+          if git diff --staged --quiet; then
+            echo "log degismedi - commit yok."
+          else
+            git commit -m "gorev nobeti: ${{ steps.olc.outputs.hukum }} [veri-operasyonu]" -- veri/gorev-nobet-log.txt
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
+
+      - name: KAPI
+        if: steps.olc.outputs.hukum == 'KIRMIZI'
+        run: |
+          echo "Gorev nobeti KIRMIZI - ayrinti veri/gorev-nobet-log.txt"
+          exit 1

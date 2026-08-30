@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260825094623
-Username: runnervm76f27\runner
-RunAs User: runnervm76f27\runner
+Start time: 20260830004939
+Username: runnervmgx7h7\runner
+RunAs User: runnervmgx7h7\runner
 Configuration Name: 
-Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/abfc6efa-3450-45ff-b5a0-15dc122e0fc7.ps1'
-Process ID: 11005
+Machine: runnervmgx7h7 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/98d82b9b-68c6-47e4-a10f-ad948b164650.ps1'
+Process ID: 11893
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -18,9 +18,15 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
+  ...10/172
+  ...20/172
+  ...30/172
+  ...40/172
+  ...50/172
   ...60/172
   ...70/172
   ...80/172
+  ...90/172
   ...100/172
   ...110/172
   ...120/172
@@ -29,26 +35,13 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 96
-  OLCULEMEDI (PDF gelmedi)      : 76
+  gercekten olculen (PDF geldi) : 172
+  OLCULEMEDI (PDF gelmedi)      : 0
   inemeyen (istek dustu)        : 0
-     8602  ctype=text/html; charset=utf-8  64854 bayt  bas='<!DOCTYPE html>  <html lang="tr">  <hea'
-     8624  ctype=text/html; charset=utf-8  64854 bayt  bas='<!DOCTYPE html>  <html lang="tr">  <hea'
-     8814  ctype=text/html; charset=utf-8  64854 bayt  bas='<!DOCTYPE html>  <html lang="tr">  <hea'
-     8823  ctype=text/html; charset=utf-8  64854 bayt  bas='<!DOCTYPE html>  <html lang="tr">  <hea'
-     8824  ctype=text/html; charset=utf-8  64854 bayt  bas='<!DOCTYPE html>  <html lang="tr">  <hea'
 -> veri/teblig-damga.json
 
-======================================================================
-  KOR: 76/172 teblig OLCULEMEDI - govde PDF degil (yumusak 404).
-======================================================================
-  Gercekten olculen ve degismeyen: 96
-
-  Bu kayitlar icin 'degismedi' DENEMEZ - bakilamadi. Kok sebep
-  URL kalibidir; MevzuatMetin/yonetmelik/9.5.<no>.pdf ucu ana sayfa
-  donduruyor. Dogru uc bulunana kadar gozetim verisi DENETIMSIZ.
-  Ayrinti: veri/teblig-damga.json -> olculemeyen
+TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20260825101132
+End time: 20260830012325
 **********************

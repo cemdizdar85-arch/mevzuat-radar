@@ -1,5 +1,92 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 30.08.2026 — TSPB'NİN İKİ DOKÜMANI YUTULDU: SPL Düzey 1 müfredatı 21/21 kapandı
+*Cem: "TSPB'nin iki doküman resmi" — haklı. **SPKn 6362 m.74** (ambardaki 6362 metninden doğrulandı): TSPB "tüzel kişiliği haiz **kamu kurumu niteliğinde** bir meslek kuruluşu"dur. Kendi düzenlemesi birincil kaynaktır; mevzuat.gov.tr bu iki belgeyi tutmuyor → HAZIR metin yolu.*
+
+| Belge | Resmî kaynak | Ambar |
+|---|---|---:|
+| TSPB Üyelerinin Uyacakları Meslek Kuralları | tspb.org.tr/mevzuat → Meslek Kuralları Düzenlemesi (7 sayfa) | **34 madde / 37 parça** |
+| SP Çalışanları Etik İlkeleri ve Davranış Kuralları | tspb.org.tr → Genelge 191 (63 sayfa) | **79 parça**, kapsama %100 |
+
+**Geri okuma:** kaynak metinde 34 tekil madde numarası → ambarda **34 tekil madde**. Birebir.
+
+**Yapı ölçüldü, varsayılmadı:** meslek kuralları 34 MADDE taşıyor → madde parçalayıcı; etik genelgesi **0 MADDE** → yutucu bölüm parçalayıcıya kendisi geçti ve loga yazdı ("MADDE DESENI TUTMADI → BOLUM parcalayicisi devrede").
+
+**Metin kalitesi ölçüldü:** meslek kuralları PDF'inin üst damga satırı bozuk kodlamalı (gömülü fontun özel kodlaması). Gövdede 18+ harflik bozuk blok **0**, Türkçe anahtar kelime 529 → gövde temiz. Bozukluk yalnız damgada; belge kullanılabilir.
+
+**Üretici körlüğü:** `soru-uret-v2` önek listesine `TSPB` eklendi.
+
+**Envanter tetiği çalıştı:** bugün kurulan tetik kendiliğinden koştu — 43.491 → **43.607 parça**, 2.325 → **2.327 kaynak**.
+
+**SONUÇ: SPL Düzey 1 çekirdeğinin 21 belgesinin 21'i ambarda (%42,9 → %100).**
+🔴 Ama "çekirdeği kapsıyoruz" HÂLÂ DENMEZ: 1012'nin beş uygulama bölümü (BİST'te transfer-takas-temerrüt · türevde uzlaşma-fiziki teslim · Takasbank teminat yönetimi) ne mevzuat.gov.tr'de ne SPK portalında var. O modül 15.036 başvuruluk ve kaynak hattı kurulmadan açılamaz.
+
+## ✅ 30.08.2026 — SPK MEVZUAT SİSTEMİ YUTULDU: 364 belge / 3.613 parça (Cem: "1 yap")
+*Kaynak: **https://mevzuat.spk.gov.tr** — Sermaye Piyasası Kurulu'nun (kamu kurumu) KENDİ mevzuat sistemi. Üçüncü taraf ayna kullanılmadı. Uçlar tarayıcıda **gerçek ağ istekleri okunarak** bulundu, tahmin edilmedi: `/api/{mevzuat|ilkekarari|rehber}/File/{id}`. Tuzak: bilinmeyen `/api/` yolları HTTP 200 + SPA kabuğu (2,8 KB HTML) döndürür — "200 geldi" yetmez, `%PDF` imzası şart.*
+
+**Ambar: 39.878 → 43.491 parça (+3.613) · 1.542 → 2.325 tekil kaynak.** İndirme 389/389 TAM (48 MB), yutma 364 belge (25 mükerrer atlandı), KIRMIZI 0.
+
+| Sınıf | Belge | Ambar parçası | Yol |
+|---|---:|---:|---|
+| İlke/Kurul Kararı | 258 | 405 | bütün belge (maddesiz) |
+| Tebliğ | — | 1.997 | madde madde |
+| Yönetmelik | — | 897 | madde madde |
+| Rehber | 10 | 215 | bölüm bölüm |
+
+**BU BİR BOŞLUĞU KAPATIYOR:** mevzuat.gov.tr **kurul kararlarını TUTMAZ** (bu depoda daha önce ölçüldü; `kurul-karari-hasat.ps1` tam bu yüzden RG fihristini tarıyor). 258 karar ihdas eden merciin kendi sisteminden geldi. En yeni karar **27.08.2026** — üç gün öncesi.
+
+**ÜÇ SINIF, ÜÇ YOL (75 belge örneklenerek ölçüldü):** İlke/Kurul Kararı medyan 1.305 krk ve 40/40'ında **sıfır MADDE** → maddeye bölünmez. Mevzuat medyan 44.842 krk, ort. 23 madde → madde madde. Rehber medyan 37.588 krk, 0 madde → bölüm bölüm. *Tek parçalayıcıyla hepsini ezmek kararları tek blob yapardı — III-45.1'de bugün tam bunun ne demek olduğunu gördük.*
+
+**MÜKERRER FRENİ:** `sayi` alanı dolu 90 mevzuat belgesinin 25'i zaten ambardaydı (mevzuat.gov.tr kopyası) — atlandı ve adlarıyla raporlandı. Atlananlar tam da bugün yutulan tebliğler: III-52.1 · III-37.1 · VII-128.1 · III-39.1 · III-45.1 · II-31/A.1 · III-56.1 · III-35/A.2 … Aynı metin ambara iki kez girmedi.
+
+**PROVA TURUNDA ÇIKAN KAPSAMA KUSURU (onarıldı):** madde parçalayıcı **ilk maddeden önceki metni düşürüyordu** — RG künyesi, "Amaç", "Dayanak", yürürlükten kaldırma cümlesi hep orada. Uzun tebliğde %2, kısa belgede **%40**: en düşük kapsama %59,4 (İMKB Üyelik Yönetmeliği), **42 belge %98 altındaydı**. `[giris]` kaydı eklendi → **%98 altı 42 → 1**, medyan %100, parça 3.674 → 3.886 (prova).
+
+**ÜRETİCİ KÖRLÜĞÜ KAPATILDI:** `soru-uret-v2.ps1` ek-alan önek listesine `'SPK '` eklendi; canlı kasada doğrulandı (`^SPK ` → 3.709 parça). Önek olmasaydı üretici bu kaynaklara kör kalırdı (24.08 BDDK dersi).
+
+**GERİ OKUMA:** ambar sayımı raporla birebir (+3.613). İçerik örneklendi: kararlarda bülten künyesi + karar metni, `[giris]` kayıtlarında RG künyesi.
+
+⏳ **AÇIK:** SPL Düzey 1 müfredatının iki kalemi (TSPB Meslek Kuralları · SP Çalışanları Etik İlkeleri) bu portalda **yok**. TSPB Statüsü geldi ama o, Meslek Kuralları'nın kendisi değil — kapandı denmez.
+
+## ✅ 30.08.2026 — SPK/SPL DÜZEY 1 ÇEKİRDEĞİ: 10 KAYNAK YUTULDU + PARÇALAYICI KUSURU ONARILDI (Cem: "2 yap 11 belgeyi yut")
+*Sebep: [veri/KAPSAM-KONTROL-SPK-DUZEY1.md](veri/KAPSAM-KONTROL-SPK-DUZEY1.md) ölçümü — SPL'nin resmî sınav alt konu başlıkları ankor alındı; 21 belgenin 12'si ambarda yoktu, 10'u mevzuat.gov.tr'de. (Cem'e önce "11" denmişti — **yanlış sayım, doğrusu 10**; kalan 2 belge TSPB dokümanı, kaynak yeri ölçülmedi.)*
+
+**mevzuatNo'lar TAHMİN EDİLMEDİ:** 13 aday indirildi, PDF'in ilk sayfasındaki başlıkla karşılaştırıldı; **3 aday yanlış çıkıp elendi** (39081 ödeme kuruluşları · 19314 teminatlı menkul kıymetler · 23151 veraset).
+
+| Kaynak | pdfId | Parça | Madde |
+|---|---|---:|---:|
+| Borclanma Araci Sahipleri Kurulu Tebligi (II-31/A.1) | G9:34849 | 15 | 11 |
+| Yatirim Kuruluslarinin Kurulus ve Faaliyet Esaslari (III-39.1) | G9:19131 | 116 | 76 |
+| Belge ve Kayit Duzeni Tebligi (III-45.1) | G9:21018 | 46 | 33 |
+| Kitle Fonlamasi Tebligi (III-35/A.2) | G9:39017 | 71 | 33 |
+| Uzaktan Kimlik Tespiti Tebligi (III-42.1) | G9:39408 | 23 | 16 |
+| Portfoy Saklama Hizmeti Tebligi (III-56.1) | G9:18547 | 30 | 14 |
+| MKK Kurulus/Faaliyet/Calisma/Denetim Yonetmeligi | G7:19951 | 48 | 38 |
+| Merkezi Takas Kuruluslari Genel Yonetmeligi | G7:18413 | 97 | 64 |
+| Takasbank Merkezi Takas Yonetmeligi | G7:18598 | 71 | 64 |
+| Takasbank Merkezi Karsi Taraf Yonetmeligi | G7:18722 | 67 | 49 |
+| **TOPLAM** | | **584** | **398** |
+
+**Geri okuma:** her kaynağın ambardaki madde numaraları kaynak metniyle karşılaştırıldı — **açıklanamayan tek eksik yok**; atlananların hepsi metinde `(Mülga:` işaretli.
+
+### 🔴 AYNI TURDA ÇIKAN PARÇALAYICI KUSURU — U+2012 FIGURE DASH
+III-45.1 %83,2 kapsama uyarısı verdi; geri okuma sebebi buldu: **33 maddenin tamamı tek `m.5/A` blobu** olarak yutulmuştu. Kök sebep: `mevzuat-yut.ps1` ayırıcı sınıfı yalnız `-` (U+002D) · `–` (U+2013) · `—` (U+2014) tanıyordu; bazı mevzuat.gov.tr PDF'lerinde ayırıcı **`‒` (U+2012)** veya **`−` (U+2212)**. Gözle ayırt edilemez.
+
+**Kapsama kapısı yakalayamaz** — metin kaybı yok, kaybolan SINIRLAR. **Ders: "kapsama %" madde SAYISINI ölçmez.**
+
+Yayılım ölçüldü (706 `_txt`): U+2012 76 kez/4 dosya · U+2212 8 kez. Sınıf genişletildi, etkilenen 5 kaynak `ZORLA=1` ile yeniden yutuldu:
+
+| Kaynak | Önce | Sonra |
+|---|---:|---:|
+| **KGK Kurulus KHK (660 s.)** | **1 parça / 1 madde** | **50 / 35** ✓ kaynakla birebir |
+| Belge ve Kayit Duzeni (III-45.1) | 23 / 1 | 46 / 33 |
+| MASAK K. (5549) | 34 / 30 | 35 / 27 (+4 mülga doğru atlandı) |
+| SSİY | 332 | 338 |
+| Dahilde İşleme Rejimi Tebliği | 140 | 141 |
+
+🔴 **KGK 660 en ağırı:** zaten sattığımız bağımsız denetim sınavının KURUCU mevzuatı ambarda tek parça duruyordu — envanterde satır VARDI, içerik YOKTU. **Açık iş: bu kaynağa dayanan mevcut sorular yeniden-doğrulama kuyruğuna alınmalı.**
+
+**Üretici körlüğü kapatıldı:** `soru-uret-v2.ps1` ek-alan önek listesine 9 önek eklendi (eşleşme `kaynak_ad` başına çapalı; `Borclanma Araclari` öneki `Borclanma Araci Sahipleri`'ni GÖRMÜYORDU). Dokuzu da canlı kasada doğrulandı → 584 parçanın tamamı görünüyor.
+
 ## ✅ 28.08.2026 — TMS 37 GÜNCEL SÜRÜMLE YENİDEN YUTULDU (mülga-atıf bulgusu; Cem: "2 yap şimdi")
 *Sebep: Şema provası yakaladı — ambardaki `TMS 37 p.5 - Kapsam` ESKİ SÜRÜMDÜ (mülga TMS 17 + TFRS 4'e "bakınız" atfı; güncel metin TFRS 16/TFRS 17 der). 90'lık partideki TMS 37 sorusu bu yüzden eski atıfla üretilmişti (model kurallara uydu, kaynak bayattı). DERS: **kapsama tam ≠ sürüm güncel.***
 

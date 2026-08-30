@@ -26,8 +26,7 @@ create table if not exists public.siparisler (
   -- "kota dolunca uygulanacak fiyat" sözünün kaydıdır: sipariş anında hangi
   -- listeye karşı hangi kuruluş fiyatı verildiği sonradan da görülebilsin.
   liste_fiyat integer check (liste_fiyat is null or liste_fiyat between 100 and 50000),
-  -- Ders/modül sayısı (Yeterlilik 1-8, KGK 1-7). Ders bazlı satışın kaydı;
-  -- erişim açılırken paket_uyeler.dersler buradan doldurulur.
+  -- Ders/modül sayısı (Yeterlilik 1-8, KGK 1-4). Ders bazlı satışın kaydı.
   dersler     smallint check (dersler is null or dersler between 1 and 8),
   -- HANGİ dersler/modüller: "2 ders aldım" tek başına yetmez, erişimi neye
   -- açacağımızı bilmemiz gerekir. Liste fiyat-motoru.js'teki DERSLER'den gelir.
@@ -111,6 +110,8 @@ create policy siparisler_ekle
     --    Kodun GERÇEKTEN var olup olmadığı burada sınanmaz (anon kullanıcı
     --    paket_uyeler'i okuyamaz, okumamalı da). Geçersiz kod sipariş satırında
     --    durur, erişim açılırken davet_uygula() sessizce eler.
+    --    satin-al.html biçime uymayan kodu ZATEN göndermez (davetTemizle):
+    --    yanlış yazılmış bir kod yüzünden siparişin tamamı reddedilmesin.
     and (davet_kodu is null
          or davet_kodu ~ '^TT[ACDEFHJKLMNPRTUVXYZ2345679]{4}$')
   );

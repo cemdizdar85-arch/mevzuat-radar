@@ -1,0 +1,11 @@
+=== kosu 30.08.2026 03:49:37 | pwsh 7.6.5 ===
+mod: plan | dilim: 25
+Oz-sinav gecti (dilim bolme + Norm + tarih).
+DILIM PLANI kuruluyor (ozyinelemeli bolme)...
+!! ISTISNA
+   tur   : System.Management.Automation.RuntimeException
+   mesaj : KAYNAK ENGELI: HTTP 200 geldi ama govde JSON degil (engel sayfasi). Kosu durduruluyor.
+   yer   : At /home/runner/work/mevzuat-radar/mevzuat-radar/motor/marka-ayna-hasat.ps1:140 char:9
++         throw 'KAYNAK ENGELI: HTTP 200 geldi ama govde JSON degil (en …
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CIKIS KODU: 1

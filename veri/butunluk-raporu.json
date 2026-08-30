@@ -1,13 +1,13 @@
 {
-    "tarih":  "30.08.2026 06:54",
+    "tarih":  "30.08.2026 04:15",
     "kapsam":  "hepsi",
     "durum":  "KIRMIZI",
-    "belge":  43440,
-    "kaynak_temiz":  1400,
+    "belge":  43607,
+    "kaynak_temiz":  1401,
     "kaynak_sorunlu":  350,
-    "kesik_belge":  807,
-    "oksuz_belge":  232,
-    "olculen_kaynak_sayisi":  1750,
+    "kesik_belge":  885,
+    "oksuz_belge":  231,
+    "olculen_kaynak_sayisi":  1751,
     "olculen_kaynaklar":  [
                               "[ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi)",
                               "[ARŞİV] ÇIKMIŞ SINAV (cikmis-soru)",
@@ -632,6 +632,7 @@
                               "Kabahatler K. (5326 s.K.)",
                               "Kaçakçılıkla Müc. K. (5607 s.K.)",
                               "Kamu Finansmanı ve Borç Yönetimi K. (4749 s.K.)",
+                              "Kamu Ihale Genel Tebligi",
                               "Kamu Ihale Tebligi (2026/1) - esik degerler",
                               "Kamu İhale Sözl. K. (4735 s.K.)",
                               "Kamu Malî Yönetimi K. (5018 s.K.)",
@@ -9650,6 +9651,26 @@
                                         ]
                        },
                        {
+                           "kaynak":  "Kamu Ihale Genel Tebligi",
+                           "parca":  381,
+                           "eksik_paragraf":  4,
+                           "kesik_belge":  78,
+                           "oksuz_belge":  0,
+                           "delikler":  [
+                                            {
+                                                "tip":  "madde",
+                                                "enKucuk":  1,
+                                                "enBuyuk":  100,
+                                                "eksik":  [
+                                                              37,
+                                                              49,
+                                                              57,
+                                                              82
+                                                          ]
+                                            }
+                                        ]
+                       },
+                       {
                            "kaynak":  "Kamu İhale Sözl. K. (4735 s.K.)",
                            "parca":  58,
                            "eksik_paragraf":  0,
@@ -12471,16 +12492,6 @@
                                                               38
                                                           ]
                                             }
-                                        ]
-                       },
-                       {
-                           "kaynak":  "TFRS 10",
-                           "parca":  193,
-                           "eksik_paragraf":  0,
-                           "kesik_belge":  0,
-                           "oksuz_belge":  1,
-                           "delikler":  [
-
                                         ]
                        },
                        {
