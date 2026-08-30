@@ -16,6 +16,17 @@ on:
     # Cron BIRAKILDI (sessiz gunlerde taban), ama asil tetik artik push.
     - cron: '*/5 * * * *'
   # PUSH TETIGI (29.08, Cem: "arcelik yazdim birsey gelmedi, anlamadim"):
+  #
+  # 🔴 30.08 OLCUM DUZELTMESI - ASAGIDAKI "gunde onlarca push" GEREKCESI EKSIK:
+  # GitHub, Actions'in KENDI bot'unun (GITHUB_TOKEN ile) attigi push'lardan
+  # YENI IS AKISI TETIKLEMEZ (sonsuz dongu korumasi). Bu depodaki push'larin
+  # neredeyse tamami bot'un rapor commit'leri -> ONLAR TETIKLEMIYOR.
+  # OLCULDU: kosular 00:17/00:18/00:19 (hepsi INSAN push'i), ardindan gelen
+  # 00:21/00:23/00:24 BOT push'lari hicbir kosu baslatmadi.
+  # Yani push tetigi yalniz insan/PAT push'inda calisir; sessiz gunlerde
+  # bekleme yine cron'a (2-7 saat) duser.
+  # GERCEK COZUM: Supabase Database Webhook -> repository_dispatch (Cem'in
+  # panelinden). Bu satir o kurulana kadar KISMI bir iyilestirmedir.
   # Bu depoya gunde onlarca push oluyor (botlar rapor isliyor - son 24 saatte
   # 53 yayin kosusu). Kuyruk her push'ta bosaltilinca bekleme SAATLERDEN
   # DAKIKALARA iner.
