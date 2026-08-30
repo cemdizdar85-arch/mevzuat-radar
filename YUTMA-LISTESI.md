@@ -1,5 +1,26 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 30.08.2026 — TSPB'NİN İKİ DOKÜMANI YUTULDU: SPL Düzey 1 müfredatı 21/21 kapandı
+*Cem: "TSPB'nin iki doküman resmi" — haklı. **SPKn 6362 m.74** (ambardaki 6362 metninden doğrulandı): TSPB "tüzel kişiliği haiz **kamu kurumu niteliğinde** bir meslek kuruluşu"dur. Kendi düzenlemesi birincil kaynaktır; mevzuat.gov.tr bu iki belgeyi tutmuyor → HAZIR metin yolu.*
+
+| Belge | Resmî kaynak | Ambar |
+|---|---|---:|
+| TSPB Üyelerinin Uyacakları Meslek Kuralları | tspb.org.tr/mevzuat → Meslek Kuralları Düzenlemesi (7 sayfa) | **34 madde / 37 parça** |
+| SP Çalışanları Etik İlkeleri ve Davranış Kuralları | tspb.org.tr → Genelge 191 (63 sayfa) | **79 parça**, kapsama %100 |
+
+**Geri okuma:** kaynak metinde 34 tekil madde numarası → ambarda **34 tekil madde**. Birebir.
+
+**Yapı ölçüldü, varsayılmadı:** meslek kuralları 34 MADDE taşıyor → madde parçalayıcı; etik genelgesi **0 MADDE** → yutucu bölüm parçalayıcıya kendisi geçti ve loga yazdı ("MADDE DESENI TUTMADI → BOLUM parcalayicisi devrede").
+
+**Metin kalitesi ölçüldü:** meslek kuralları PDF'inin üst damga satırı bozuk kodlamalı (gömülü fontun özel kodlaması). Gövdede 18+ harflik bozuk blok **0**, Türkçe anahtar kelime 529 → gövde temiz. Bozukluk yalnız damgada; belge kullanılabilir.
+
+**Üretici körlüğü:** `soru-uret-v2` önek listesine `TSPB` eklendi.
+
+**Envanter tetiği çalıştı:** bugün kurulan tetik kendiliğinden koştu — 43.491 → **43.607 parça**, 2.325 → **2.327 kaynak**.
+
+**SONUÇ: SPL Düzey 1 çekirdeğinin 21 belgesinin 21'i ambarda (%42,9 → %100).**
+🔴 Ama "çekirdeği kapsıyoruz" HÂLÂ DENMEZ: 1012'nin beş uygulama bölümü (BİST'te transfer-takas-temerrüt · türevde uzlaşma-fiziki teslim · Takasbank teminat yönetimi) ne mevzuat.gov.tr'de ne SPK portalında var. O modül 15.036 başvuruluk ve kaynak hattı kurulmadan açılamaz.
+
 ## ✅ 30.08.2026 — SPK MEVZUAT SİSTEMİ YUTULDU: 364 belge / 3.613 parça (Cem: "1 yap")
 *Kaynak: **https://mevzuat.spk.gov.tr** — Sermaye Piyasası Kurulu'nun (kamu kurumu) KENDİ mevzuat sistemi. Üçüncü taraf ayna kullanılmadı. Uçlar tarayıcıda **gerçek ağ istekleri okunarak** bulundu, tahmin edilmedi: `/api/{mevzuat|ilkekarari|rehber}/File/{id}`. Tuzak: bilinmeyen `/api/` yolları HTTP 200 + SPA kabuğu (2,8 KB HTML) döndürür — "200 geldi" yetmez, `%PDF` imzası şart.*
 
