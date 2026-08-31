@@ -227,3 +227,118 @@ revoke execute on function public.marka_takip_isaretle(uuid,jsonb) from anon, au
 --    select * from public.marka_takip_gor('<jeton>');
 --    select public.marka_takip_kapat('<jeton>');
 -- ---------------------------------------------------------------------------
+
+-- ============================================================================
+--  UYARI KADEMELERİ — "harf benzerliği tek başına yetmiyor"  (31.08.2026)
+--
+--  Cem, gerçek bir uyarıyı okuyup sordu: "TETRİ ismini almak istemiş, ben
+--  TETİKTE — aynı değil, çok farklı değil mi? Mahkeme nasıl karar veriyor?"
+--  Haklıydı. Ölçüm de onu doğruladı.
+--
+--  ── ÖLÇÜLEN SORUN (6 gerçek marka, canlı ambar) ─────────────────────────
+--  Trigram (harf) benzerliği sinyalle gürültüyü AYIRAMIYOR:
+--    "tetik yum lojistik"  %38   <- GERÇEK tehdit (markayı olduğu gibi içerir)
+--    "etik"                %38   <- gürültü (alakasız kelime)
+--    "bek"                 %50   <- GERÇEK tehdit (kısaltma)
+--    "bedeko"              %50   <- gürültü
+--  Aynı puan, zıt anlam. Eşiği yükseltmek gerçek tehdidi de atardı.
+--
+--  ── AYIRAN ŞEY: KELİME BÜTÜNLÜĞÜ ────────────────────────────────────────
+--  Hukukun baktığı yere yakın: marka, adayın içinde BİR KELİME OLARAK geçiyor
+--  mu? (SMK m.6/1 bütünsel değerlendirme; tüketici kelimenin başına daha çok
+--  dikkat eder.) Bunun için boşlukları KORUYAN bir normalleştirme gerekiyor -
+--  mevcut marka_norm() boşlukları siliyor ve "tuana tetik" içindeki kelime
+--  sınırı kayboluyor.
+--
+--  ── ÜÇ KADEME ───────────────────────────────────────────────────────────
+--   YUKSEK : marka, adayda kelime başında geçiyor  (tetikte, tuana tetik)
+--            ya da aday markanın kısaltması        (beko -> bek)
+--   ORTA   : harf benzerliği >= 0.45 ve uzunluk farkı <= 3
+--   ZAYIF  : gerisi -> MAİL GİTMEZ, sitede görülebilir
+--
+--  Doğrulandı (ölçülen 6 markanın hepsinde): etik/tet lojistik/bedeko/
+--  asçelik ZAYIF'a düşüyor; tuana tetik/tetik yum lojistik/bek/vestel güzel
+--  YUKSEK'e çıkıyor.
+--
+--  SINIR: kısa markalarda (4-5 harf) gürültü sıfırlanmaz. Kademe azaltır.
+--  Son karar her zaman insanda - biz "bak buna" deriz, "itiraz et" demeyiz.
+-- ============================================================================
+
+-- Boşlukları KORUYAN normalleştirme. marka_norm() ile aynı harf katlaması,
+-- tek farkı: kelime sınırı kaybolmuyor.
+create or replace function public.marka_norm_bosluklu(p text)
+returns text language sql immutable as $$
+  select trim(regexp_replace(
+           regexp_replace(
+             translate(lower(coalesce(p,'')), 'çğıîöşüâûİI', 'cgiiosuau' || 'i' || 'i'),
+             '[^a-z0-9 ]', ' ', 'g'),
+           ' +', ' ', 'g'));
+$$;
+
+create or replace function public.marka_takip_bekleyen(p_tavan int default 500)
+returns table (
+  takip_id uuid, eposta text, jeton text, takip_ad text, takip_sinif int[],
+  basvuru_no text, bulten_no int, ad text, sahip text, sinif int[],
+  yayin_tarihi date, itiraz_son date, kalan_gun int,
+  benzerlik real, ayni_sinif boolean, kademe text, sebep text)
+language sql security definer set search_path = public, extensions as $$
+  select t.id, t.eposta, t.jeton, t.ad, t.sinif,
+         b.basvuru_no, b.bulten_no, b.ad, b.sahip, b.sinif,
+         b.yayin_tarihi, b.itiraz_son, b.kalan_gun, b.benzerlik, b.ayni_sinif,
+         b.kademe, b.sebep
+    from public.marka_takip t
+    cross join lateral (
+      select x.basvuru_no, x.bulten_no, x.ad, x.sahip, x.sinif,
+             x.yayin_tarihi, x.itiraz_son,
+             (x.itiraz_son - current_date)::int                as kalan_gun,
+             similarity(x.ad_norm, t.ad_norm)                  as benzerlik,
+             (cardinality(t.sinif) > 0 and x.sinif && t.sinif) as ayni_sinif,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'YUKSEK'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'YUKSEK'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'ORTA'
+               else 'ZAYIF'
+             end as kademe,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'markanız bu başvuruda bir kelime olarak geçiyor'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'başvuru, markanızın kısaltılmış hâline benziyor'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'yazılış olarak yakın, uzunluk benzer'
+               else 'yalnızca harf benzerliği'
+             end as sebep
+        from public.marka_bulten x
+       where x.ad_norm % t.ad_norm
+         and x.itiraz_son >= current_date
+         and (cardinality(t.sinif) = 0 or x.sinif && t.sinif)
+         and x.ad_norm <> t.ad_norm
+         and similarity(x.ad_norm, t.ad_norm) >= t.esik
+         and not exists (select 1 from public.marka_takip_gonderim g
+                          where g.takip_id = t.id and g.basvuru_no = x.basvuru_no)
+       order by (cardinality(t.sinif) > 0 and x.sinif && t.sinif) desc,
+                x.itiraz_son asc
+       limit 200
+    ) b
+   where t.aktif
+     -- ZAYIF olanlar MAİL LİSTESİNE GİRMEZ. Müşteriye zayıf uyarı yollamak,
+     -- ya boşuna vekil masrafı ya da ürüne güvenin kaybı demektir.
+     and b.kademe <> 'ZAYIF'
+   order by t.id, (b.kademe = 'YUKSEK') desc, b.itiraz_son asc
+   limit least(greatest(p_tavan, 1), 5000);
+$$;
+
+revoke all     on function public.marka_takip_bekleyen(int) from public;
+revoke execute on function public.marka_takip_bekleyen(int) from anon, authenticated;
+
+-- TEYİT (servis anahtarıyla): dönen her satırda kademe YUKSEK ya da ORTA
+-- olmalı; ZAYIF hiç görünmemeli.

@@ -73,7 +73,13 @@ function mailGovde(takipAd, kayitlar, jeton) {
         </div>
         ${k.sahip ? `<div style="font-size:12px;color:#5d6b7c;margin-top:2px"><b>Sahibi:</b> ${esc(k.sahip)}</div>` : ''}
         <div style="font-size:13px;margin-top:6px">
-          Benzerlik <b>%${Math.round((k.benzerlik || 0) * 100)}</b>${k.ayni_sinif ? ' · <b style="color:#c62828">AYNI SINIF</b>' : ''}
+          ${k.kademe === 'YUKSEK'
+            ? '<b style="color:#c62828">YAKIN BENZERLİK</b>'
+            : '<b style="color:#a1670b">İHTİMAL</b>'}
+          — ${esc(k.sebep || '')}${k.ayni_sinif ? ' · <b style="color:#c62828">AYNI SINIF</b>' : ''}
+        </div>
+        <div style="font-size:12px;color:#5d6b7c;margin-top:4px">
+          harf benzerliği %${Math.round((k.benzerlik || 0) * 100)}
           · itiraz son gün <b>${esc(k.itiraz_son)}</b> (<b>${k.kalan_gun} gün</b>)
         </div>
       </td>
@@ -89,6 +95,11 @@ function mailGovde(takipAd, kayitlar, jeton) {
   <p style="font-size:13px;margin:18px 0 0">
     Ayrıntılı karşılaştırma: <a href="${SITE}/marka-itiraz.html">${SITE}/marka-itiraz.html</a></p>
   <p style="font-size:12px;color:#5d6b7c;margin:14px 0 0;line-height:1.55">
+    <b>Kademeler ne demek:</b> <b>YAKIN BENZERLİK</b> = markanız başvuruda bir kelime olarak
+    geçiyor ya da kısaltılmış hâline benziyor. <b>İHTİMAL</b> = yazılışı yakın, karıştırılma
+    tartışılabilir. Karıştırılma ihtimali görsel, işitsel ve kavramsal benzerliğin
+    <b>bütünüyle</b> değerlendirilir (SMK m.6/1); son kararı TÜRKPATENT ve mahkeme verir.
+    Biz “bakmaya değer” diyoruz, “itiraz et” demiyoruz.<br><br>
     <b>İtiraz etmeden önce:</b> markanız <b>5 yıldan eski tescilliyse ve kullanmıyorsanız</b>, karşı taraf
     <b>kullanmama def’i</b> ileri sürebilir ve itirazınız reddedilir (SMK m.19/2). Kullanım delillerinizi
     (fatura, reklam, ambalaj) hazırlayın. İtiraz başvurusunu TÜRKPATENT’e siz ya da marka vekiliniz yapar —
@@ -131,9 +142,14 @@ async function mailGonder(kime, konu, html) {
   let gonderilen = 0, hatali = 0, isaretlenen = 0;
   for (const [id, g] of grup) {
     const enYakin = Math.min(...g.k.map(x => x.kalan_gun));
-    const konu = `“${g.ad}” markanıza benzer ${g.k.length} yeni başvuru — itiraza ${enYakin} gün`;
+    /* Konu satiri kademeye gore: her uyariyi ayni sertlikte yazmak, zamanla
+       hepsinin okunmamasina yol acar. YUKSEK varsa oyle soylenir. */
+    const yuksek = g.k.filter(x => x.kademe === 'YUKSEK').length;
+    const konu = yuksek
+      ? `“${g.ad}” markanıza YAKIN ${yuksek} başvuru yayımlandı — itiraza ${enYakin} gün`
+      : `“${g.ad}” markanıza benzeme ihtimali olan ${g.k.length} başvuru — itiraza ${enYakin} gün`;
     log(`  ${g.eposta} · "${g.ad}" · ${g.k.length} başvuru · en yakın ${enYakin} gün`);
-    g.k.slice(0, 3).forEach(x => log(`      ${x.ad} (%${Math.round(x.benzerlik * 100)}${x.ayni_sinif ? ', AYNI SINIF' : ''}, ${x.kalan_gun} gün)`));
+    g.k.slice(0, 4).forEach(x => log(`      [${x.kademe}] ${x.ad} · %${Math.round(x.benzerlik * 100)}${x.ayni_sinif ? ' · AYNI SINIF' : ''} · ${x.kalan_gun} gün · ${x.sebep}`));
     if (KURU) continue;
 
     try {
