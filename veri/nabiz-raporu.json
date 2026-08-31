@@ -1,11 +1,17 @@
 {
-  "tarih": "30.08.2026 21:49",
-  "durum": "TAMAM",
+  "tarih": "31.08.2026 09:55",
+  "durum": "KURTARMA",
   "kirmizi": 0,
-  "kurtarma": 0,
+  "kurtarma": 2,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan": [
+    "Kaynak Nobetcisi (ihale+kaynaklar) -> son basarili kosu 37.2 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 29.08.2026 17:44 (40 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
+  ],
+  "kurtarilan_anahtar": [
+    "KOSU:kaynak.yml",
+    "VERI:ihale-yurtici.json"
+  ]
 }
