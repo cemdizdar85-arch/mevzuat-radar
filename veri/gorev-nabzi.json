@@ -1,37 +1,43 @@
 {
-    "olcum":  "2026-08-30T04:21:10",
+    "olcum":  "2026-08-31T08:16:38",
     "makine":  "GK",
     "kullanici":  "cemdi",
     "kok":  "C:\\Users\\cemdi\\OneDrive\\Masaüstü\\mevzuat işi\\mevzuat-radar",
     "esik_saat":  36,
-    "hukum":  "KIRMIZI",
+    "hukum":  "YESIL",
     "gorevler":  [
                      {
                          "ad":  "MevzuatRadar-YerelAyna",
                          "beklenen_saat":  "06:30",
                          "durum":  "YESIL",
-                         "sebep":  "",
-                         "son_kosu":  "2026-08-29T06:30:01",
-                         "son_sonuc":  0,
-                         "gecikme_saat":  21.9
+                         "sebep":  "SU ANDA KOSUYOR",
+                         "son_kosu":  "2026-08-31T08:15:41",
+                         "son_sonuc":  267009,
+                         "gecikme_saat":  0,
+                         "gorev_durumu":  "Running",
+                         "pilde_bekliyor":  false
                      },
                      {
                          "ad":  "MevzuatRadar-SurumTazeligi",
                          "beklenen_saat":  "06:45",
                          "durum":  "YESIL",
-                         "sebep":  "",
-                         "son_kosu":  "2026-08-29T06:45:01",
-                         "son_sonuc":  0,
-                         "gecikme_saat":  21.6
+                         "sebep":  "SU ANDA KOSUYOR",
+                         "son_kosu":  "2026-08-31T08:15:41",
+                         "son_sonuc":  267009,
+                         "gecikme_saat":  0,
+                         "gorev_durumu":  "Running",
+                         "pilde_bekliyor":  false
                      },
                      {
                          "ad":  "MevzuatRadar-YerelIndirici",
                          "beklenen_saat":  "09:30",
-                         "durum":  "KIRMIZI",
-                         "sebep":  "son kosu HATA ile bitti (kod 1)",
-                         "son_kosu":  "2026-08-29T11:13:56",
-                         "son_sonuc":  1,
-                         "gecikme_saat":  17.1
+                         "durum":  "YESIL",
+                         "sebep":  "",
+                         "son_kosu":  "2026-08-30T09:30:00",
+                         "son_sonuc":  0,
+                         "gecikme_saat":  22.8,
+                         "gorev_durumu":  "Ready",
+                         "pilde_bekliyor":  false
                      }
                  ],
     "kurulum":  [
@@ -39,19 +45,22 @@
                         "ad":  "MevzuatRadar-YerelAyna",
                         "kurulu":  true,
                         "beyanla_ayni":  true,
-                        "yapilan":  "degismedi"
+                        "farklar":  "",
+                        "yapilan":  "olculdu"
                     },
                     {
                         "ad":  "MevzuatRadar-SurumTazeligi",
                         "kurulu":  true,
-                        "beyanla_ayni":  false,
-                        "yapilan":  "guncellendi"
+                        "beyanla_ayni":  true,
+                        "farklar":  "",
+                        "yapilan":  "olculdu"
                     },
                     {
                         "ad":  "MevzuatRadar-YerelIndirici",
                         "kurulu":  true,
                         "beyanla_ayni":  true,
-                        "yapilan":  "degismedi"
+                        "farklar":  "",
+                        "yapilan":  "olculdu"
                     }
                 ],
     "not":  "Beyan motor/gorev-kur.ps1 icinde. Gorev dusseydi burasi KIRMIZI olur; CI nobetcisi (.github/workflows/gorev-nobeti.yml) bu dosyanin YASINA ve hukmune bakar."
