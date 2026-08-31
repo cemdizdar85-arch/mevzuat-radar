@@ -227,3 +227,323 @@ revoke execute on function public.marka_takip_isaretle(uuid,jsonb) from anon, au
 --    select * from public.marka_takip_gor('<jeton>');
 --    select public.marka_takip_kapat('<jeton>');
 -- ---------------------------------------------------------------------------
+
+-- ============================================================================
+--  UYARI KADEMELERİ — "harf benzerliği tek başına yetmiyor"  (31.08.2026)
+--
+--  Cem, gerçek bir uyarıyı okuyup sordu: "TETRİ ismini almak istemiş, ben
+--  TETİKTE — aynı değil, çok farklı değil mi? Mahkeme nasıl karar veriyor?"
+--  Haklıydı. Ölçüm de onu doğruladı.
+--
+--  ── ÖLÇÜLEN SORUN (6 gerçek marka, canlı ambar) ─────────────────────────
+--  Trigram (harf) benzerliği sinyalle gürültüyü AYIRAMIYOR:
+--    "tetik yum lojistik"  %38   <- GERÇEK tehdit (markayı olduğu gibi içerir)
+--    "etik"                %38   <- gürültü (alakasız kelime)
+--    "bek"                 %50   <- GERÇEK tehdit (kısaltma)
+--    "bedeko"              %50   <- gürültü
+--  Aynı puan, zıt anlam. Eşiği yükseltmek gerçek tehdidi de atardı.
+--
+--  ── AYIRAN ŞEY: KELİME BÜTÜNLÜĞÜ ────────────────────────────────────────
+--  Hukukun baktığı yere yakın: marka, adayın içinde BİR KELİME OLARAK geçiyor
+--  mu? (SMK m.6/1 bütünsel değerlendirme; tüketici kelimenin başına daha çok
+--  dikkat eder.) Bunun için boşlukları KORUYAN bir normalleştirme gerekiyor -
+--  mevcut marka_norm() boşlukları siliyor ve "tuana tetik" içindeki kelime
+--  sınırı kayboluyor.
+--
+--  ── ÜÇ KADEME ───────────────────────────────────────────────────────────
+--   YUKSEK : marka, adayda kelime başında geçiyor  (tetikte, tuana tetik)
+--            ya da aday markanın kısaltması        (beko -> bek)
+--   ORTA   : harf benzerliği >= 0.45 ve uzunluk farkı <= 3
+--   ZAYIF  : gerisi -> MAİL GİTMEZ, sitede görülebilir
+--
+--  Doğrulandı (ölçülen 6 markanın hepsinde): etik/tet lojistik/bedeko/
+--  asçelik ZAYIF'a düşüyor; tuana tetik/tetik yum lojistik/bek/vestel güzel
+--  YUKSEK'e çıkıyor.
+--
+--  SINIR: kısa markalarda (4-5 harf) gürültü sıfırlanmaz. Kademe azaltır.
+--  Son karar her zaman insanda - biz "bak buna" deriz, "itiraz et" demeyiz.
+-- ============================================================================
+
+-- Boşlukları KORUYAN normalleştirme. marka_norm() ile aynı harf katlaması,
+-- tek farkı: kelime sınırı kaybolmuyor.
+create or replace function public.marka_norm_bosluklu(p text)
+returns text language sql immutable as $$
+  select trim(regexp_replace(
+           regexp_replace(
+             translate(lower(coalesce(p,'')), 'çğıîöşüâûİI', 'cgiiosuau' || 'i' || 'i'),
+             '[^a-z0-9 ]', ' ', 'g'),
+           ' +', ' ', 'g'));
+$$;
+
+-- 31.08 CANLI HATA: "42P13 cannot change return type of existing function".
+-- Fonksiyona kademe ve sebep sutunlari eklendi; Postgres donus tipini
+-- degistirmeye izin vermez, once DUSURULMESI gerekir. marka_bulten_itiraz
+-- icin bu satiri yazmistim, burada unutmusum - sutun ekleyen her guncellemede
+-- drop sarttir.
+drop function if exists public.marka_takip_bekleyen(int);
+create or replace function public.marka_takip_bekleyen(p_tavan int default 500)
+returns table (
+  takip_id uuid, eposta text, jeton text, takip_ad text, takip_sinif int[],
+  basvuru_no text, bulten_no int, ad text, sahip text, sinif int[],
+  yayin_tarihi date, itiraz_son date, kalan_gun int,
+  benzerlik real, ayni_sinif boolean, kademe text, sebep text)
+language sql security definer set search_path = public, extensions as $$
+  select t.id, t.eposta, t.jeton, t.ad, t.sinif,
+         b.basvuru_no, b.bulten_no, b.ad, b.sahip, b.sinif,
+         b.yayin_tarihi, b.itiraz_son, b.kalan_gun, b.benzerlik, b.ayni_sinif,
+         b.kademe, b.sebep
+    from public.marka_takip t
+    cross join lateral (
+      select x.basvuru_no, x.bulten_no, x.ad, x.sahip, x.sinif,
+             x.yayin_tarihi, x.itiraz_son,
+             (x.itiraz_son - current_date)::int                as kalan_gun,
+             similarity(x.ad_norm, t.ad_norm)                  as benzerlik,
+             (cardinality(t.sinif) > 0 and x.sinif && t.sinif) as ayni_sinif,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'YUKSEK'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'YUKSEK'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'ORTA'
+               else 'ZAYIF'
+             end as kademe,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'markanız bu başvuruda bir kelime olarak geçiyor'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'başvuru, markanızın kısaltılmış hâline benziyor'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'yazılış olarak yakın, uzunluk benzer'
+               else 'yalnızca harf benzerliği'
+             end as sebep
+        from public.marka_bulten x
+       where x.ad_norm % t.ad_norm
+         and x.itiraz_son >= current_date
+         and (cardinality(t.sinif) = 0 or x.sinif && t.sinif)
+         and x.ad_norm <> t.ad_norm
+         and similarity(x.ad_norm, t.ad_norm) >= t.esik
+         and not exists (select 1 from public.marka_takip_gonderim g
+                          where g.takip_id = t.id and g.basvuru_no = x.basvuru_no)
+       order by (cardinality(t.sinif) > 0 and x.sinif && t.sinif) desc,
+                x.itiraz_son asc
+       limit 200
+    ) b
+   where t.aktif
+     -- ZAYIF olanlar MAİL LİSTESİNE GİRMEZ. Müşteriye zayıf uyarı yollamak,
+     -- ya boşuna vekil masrafı ya da ürüne güvenin kaybı demektir.
+     and b.kademe <> 'ZAYIF'
+   order by t.id, (b.kademe = 'YUKSEK') desc, b.itiraz_son asc
+   limit least(greatest(p_tavan, 1), 5000);
+$$;
+
+revoke all     on function public.marka_takip_bekleyen(int) from public;
+revoke execute on function public.marka_takip_bekleyen(int) from anon, authenticated;
+
+-- TEYİT (servis anahtarıyla): dönen her satırda kademe YUKSEK ya da ORTA
+-- olmalı; ZAYIF hiç görünmemeli.
+
+-- ============================================================================
+--  KADEME ÖZ-SINAVI  (31.08.2026)
+--
+--  Cem: "1 yap."  (kademe mantığını kalıcı nöbetçiye çevir)
+--
+--  NEDEN: kademe mantığını 31.08'de ELLE sınadım — geçici nöbet açtım, sonucu
+--  okudum, kaydı sildim. İşe yaradığını gördük ama o sınav hiçbir yerde
+--  DURMUYOR. Mantık ileride değişirse (eşik, uzunluk kuralı, kelime sınırı)
+--  bozulduğunu kimse fark etmez: uyarılar sessizce yanlışlaşır. Müşteri ya
+--  boşuna vekile gider ya gerçek tehdidi kaçırır.
+--
+--  BU FONKSİYON: bilinen çiftleri her koşuda dener. Ambardaki gerçek veriye
+--  DEĞİL, verilen isim çiftlerine bakar — yani ambar değiştikçe sonuç
+--  değişmez, yalnız MANTIK değişirse değişir. Sınav böyle olmalı.
+--
+--  Beklenenler 31.08 ölçümünden alındı (uydurma değil, canlı ambarda görüldü):
+--    tetik  ↔ tetikte              YUKSEK  (kelime olarak geçiyor)
+--    tetik  ↔ tuana tetik          YUKSEK  (kelime olarak geçiyor)
+--    tetik  ↔ tetik yum lojistik   YUKSEK  (kelime olarak geçiyor)
+--    beko   ↔ bek                  YUKSEK  (kısaltma)
+--    tetik  ↔ etik                 ZAYIF   (sadece harf benzerliği)
+--    tetik  ↔ tet lojistik         ZAYIF
+--    beko   ↔ bedeko               ORTA    (yazılış yakın)
+--    tetikte↔ tetri                ZAYIF   ← Cem'in yakaladığı vaka
+--    arcelik↔ asçelik              ORTA
+-- ============================================================================
+
+create or replace function public.marka_kademe_hesap(p_marka text, p_aday text)
+returns text language sql immutable as $$
+  -- marka_takip_bekleyen() içindeki kademe mantığının AYNISI, tek başına
+  -- sınanabilir hâlde. İkisi ayrışırsa sınav bunu yakalar.
+  select case
+    when public.marka_norm_bosluklu(p_aday) ~ ('(^| )' || public.marka_norm(p_marka))
+      then 'YUKSEK'
+    when public.marka_norm(p_marka) like public.marka_norm(p_aday) || '%'
+         and length(public.marka_norm(p_aday)) >= 3
+         and length(public.marka_norm(p_aday))::real
+             / greatest(length(public.marka_norm(p_marka)),1) >= 0.6
+      then 'YUKSEK'
+    when extensions.similarity(public.marka_norm(p_aday), public.marka_norm(p_marka)) >= 0.45
+         and abs(length(public.marka_norm(p_aday)) - length(public.marka_norm(p_marka))) <= 3
+      then 'ORTA'
+    else 'ZAYIF'
+  end;
+$$;
+
+create or replace function public.marka_kademe_sinav()
+returns table (marka text, aday text, beklenen text, cikan text, sonuc text)
+language sql security definer set search_path = public, extensions as $$
+  with sinav(marka, aday, beklenen) as (values
+    ('tetik',   'tetikte',            'YUKSEK'),
+    ('tetik',   'tuana tetik',        'YUKSEK'),
+    ('tetik',   'tetik yum lojistik', 'YUKSEK'),
+    ('beko',    'bek',                'YUKSEK'),
+    ('ipek',    'ipekel',             'YUKSEK'),
+    ('vestel',  'vestel güzel',       'YUKSEK'),
+    ('tetik',   'etik',               'ZAYIF'),
+    ('tetik',   'tet lojistik',       'ZAYIF'),
+    ('tetikte', 'tetri',              'ZAYIF'),
+    ('beko',    'bedeko',             'ORTA'),
+    ('arcelik', 'asçelik',            'ORTA')
+  )
+  select s.marka, s.aday, s.beklenen,
+         public.marka_kademe_hesap(s.marka, s.aday),
+         case when public.marka_kademe_hesap(s.marka, s.aday) = s.beklenen
+              then 'GECTI' else 'DUSTU' end
+    from sinav s
+   order by (public.marka_kademe_hesap(s.marka, s.aday) = s.beklenen), s.marka, s.aday;
+$$;
+
+revoke all     on function public.marka_kademe_sinav() from public;
+revoke execute on function public.marka_kademe_sinav() from anon, authenticated;
+revoke all     on function public.marka_kademe_hesap(text,text) from public;
+revoke execute on function public.marka_kademe_hesap(text,text) from anon, authenticated;
+
+-- TEYİT: select * from public.marka_kademe_sinav();
+--        Her satırda sonuc = 'GECTI' olmalı. DUSTU varsa kademe mantığı
+--        bozulmuş demektir; uyarılar sessizce yanlışlaşır.
+
+-- ============================================================================
+--  HATIRLATMA HALKASI  (31.08.2026)
+--
+--  Cem, ilk gerçek maili okuyup: "çok soğuk bir mesaj... göndermezler ise
+--  tekrar mail geleceği... onlarla ilgilendiğimizi göstermemiz lazım."
+--
+--  Mail artık "cevap alamazsak size bir kez daha yazacağız" diyor.
+--  BU SÖZ TUTULMAZSA MAİL YALAN SÖYLER. Bu göç, sözü gerçek yapar.
+--
+--  İKİ HATIRLATMA, kademeli:
+--    1. hatırlatma : itiraza <= 20 gün kaldığında
+--    2. hatırlatma : itiraza <=  7 gün kaldığında  (son çağrı)
+--  Daha sık yazmak bunaltır, daha seyrek yazmak süreyi kaçırtır. Süre
+--  yayımdan iki aydır (SMK m.18) ve UZATILAMAZ - kaçıran hakkını kaybeder.
+--
+--  TASARIM: gönderim kaydı silinmiyor (aynı başvuru için ilk uyarı bir kez
+--  gider). Üstüne bir sayaç konuyor: kaç kez hatırlattık. Böylece "iki kez
+--  uyarma" freni korunuyor ama hatırlatma mümkün oluyor.
+-- ============================================================================
+
+alter table public.marka_takip_gonderim
+  add column if not exists hatirlatma int not null default 0;
+
+drop function if exists public.marka_takip_bekleyen(int);
+create or replace function public.marka_takip_bekleyen(p_tavan int default 500)
+returns table (
+  takip_id uuid, eposta text, jeton text, takip_ad text, takip_sinif int[],
+  basvuru_no text, bulten_no int, ad text, sahip text, sinif int[],
+  yayin_tarihi date, itiraz_son date, kalan_gun int,
+  benzerlik real, ayni_sinif boolean, kademe text, sebep text,
+  tur text, hatirlatma int)
+language sql security definer set search_path = public, extensions as $$
+  select t.id, t.eposta, t.jeton, t.ad, t.sinif,
+         b.basvuru_no, b.bulten_no, b.ad, b.sahip, b.sinif,
+         b.yayin_tarihi, b.itiraz_son, b.kalan_gun, b.benzerlik, b.ayni_sinif,
+         b.kademe, b.sebep, b.tur, b.hatirlatma
+    from public.marka_takip t
+    cross join lateral (
+      select x.basvuru_no, x.bulten_no, x.ad, x.sahip, x.sinif,
+             x.yayin_tarihi, x.itiraz_son,
+             (x.itiraz_son - current_date)::int                as kalan_gun,
+             similarity(x.ad_norm, t.ad_norm)                  as benzerlik,
+             (cardinality(t.sinif) > 0 and x.sinif && t.sinif) as ayni_sinif,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'YUKSEK'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'YUKSEK'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'ORTA'
+               else 'ZAYIF'
+             end as kademe,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'markanız bu başvuruda bir kelime olarak geçiyor'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'başvuru, markanızın kısaltılmış hâline benziyor'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'yazılış olarak yakın, uzunluk benzer'
+               else 'yalnızca harf benzerliği'
+             end as sebep,
+             case when g.basvuru_no is null then 'ilk' else 'hatirlatma' end as tur,
+             coalesce(g.hatirlatma, 0) as hatirlatma
+        from public.marka_bulten x
+        left join public.marka_takip_gonderim g
+               on g.takip_id = t.id and g.basvuru_no = x.basvuru_no
+       where x.ad_norm % t.ad_norm
+         and x.itiraz_son >= current_date
+         and (cardinality(t.sinif) = 0 or x.sinif && t.sinif)
+         and x.ad_norm <> t.ad_norm
+         and similarity(x.ad_norm, t.ad_norm) >= t.esik
+         and (
+           -- ilk uyarı: hiç yazmadıysak
+           g.basvuru_no is null
+           -- 1. hatırlatma: 20 gün kala
+           or (g.hatirlatma < 1 and (x.itiraz_son - current_date) <= 20)
+           -- 2. hatırlatma: 7 gün kala (son çağrı)
+           or (g.hatirlatma < 2 and (x.itiraz_son - current_date) <= 7)
+         )
+       order by (cardinality(t.sinif) > 0 and x.sinif && t.sinif) desc,
+                x.itiraz_son asc
+       limit 200
+    ) b
+   where t.aktif
+     and b.kademe <> 'ZAYIF'
+   order by t.id, (b.kademe = 'YUKSEK') desc, b.itiraz_son asc
+   limit least(greatest(p_tavan, 1), 5000);
+$$;
+
+-- İşaretleme: ilk gönderimde kayıt açar, hatırlatmada sayacı artırır.
+create or replace function public.marka_takip_isaretle(
+  p_takip_id uuid, p_kayitlar jsonb)
+returns int
+language plpgsql security definer set search_path = public as $$
+declare v int;
+begin
+  insert into public.marka_takip_gonderim (takip_id, basvuru_no, bulten_no, hatirlatma)
+  select p_takip_id, x->>'no', (x->>'bulten')::int, 0
+    from jsonb_array_elements(p_kayitlar) x
+  on conflict (takip_id, basvuru_no) do update
+     set hatirlatma = public.marka_takip_gonderim.hatirlatma + 1,
+         gonderim   = now();
+  get diagnostics v = row_count;
+  update public.marka_takip set son_uyari = now(), son_bakis = now()
+   where id = p_takip_id;
+  return v;
+end;
+$$;
+
+revoke all     on function public.marka_takip_bekleyen(int) from public;
+revoke execute on function public.marka_takip_bekleyen(int) from anon, authenticated;
+revoke all     on function public.marka_takip_isaretle(uuid,jsonb) from public;
+revoke execute on function public.marka_takip_isaretle(uuid,jsonb) from anon, authenticated;

@@ -35,8 +35,11 @@ on:
       mod:
         description: 'son = en yeni bulteni yut · gecmis = son N bulteni yut · liste = yalniz bak · zorla = yutulmus olsa da yeniden yut'
         type: choice
-        options: [son, gecmis, liste, zorla]
+        options: [son, gecmis, liste, zorla, bulten]
         default: son
+      numara:
+        description: 'bulten modunda: hangi bulten (or. 488). Kutukte bitti olsa bile yeniden yutar.'
+        default: ''
       adet:
         description: 'gecmis modunda kac bulten (en yeniden geriye)'
         default: '263'
@@ -73,12 +76,18 @@ jobs:
           # alir, 'bitti' olanlari atlar, kalanlari yutar. Yeni cikan bulten de
           # bu listede oldugu icin ayri bir 'son' kosusuna gerek yok.
           mod='${{ github.event.inputs.mod }}'; [ -z "$mod" ] && mod=gecmis
-          adet='${{ github.event.inputs.adet }}'; [ -z "$adet" ] && adet=6
+          # 31.08: yedek 6 -> 263. Zamanlanmis kosu input GONDERMEZ, bu satir
+          # devreye girer. Dugmedeki varsayilani 263 yapip burayi 6 birakinca
+          # gece kosusu 248 bulten beklerken "yutulacak yeni bulten yok" dedi.
+          numara='${{ github.event.inputs.numara }}'
+          adet='${{ github.event.inputs.adet }}'; [ -z "$adet" ] && adet=263
           echo "mod: $mod"
           case "$mod" in
             liste)  node motor/marka-bulten-hasat.js --liste ;;
             gecmis) node motor/marka-bulten-hasat.js --son "$adet" ;;
             zorla)  node motor/marka-bulten-hasat.js --son "$adet" --zorla ;;
+            bulten) if [ -z "$numara" ]; then echo "numara bos - hangi bulten?"; exit 1; fi
+                    node motor/marka-bulten-hasat.js --bulten "$numara" --zorla ;;
             *)      node motor/marka-bulten-hasat.js --son 1 ;;
           esac
 

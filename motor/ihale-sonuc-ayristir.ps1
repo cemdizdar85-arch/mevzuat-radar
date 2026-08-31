@@ -112,10 +112,22 @@ function TamlikOlc([string]$hamMetin){
   $gov = $d.Substring($b)
   $toc = @([regex]::Matches($ic,  '(\d{4}/\d{5,8})') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
   $gvd = @([regex]::Matches($gov, 'İhale kayıt numarası\s*:\s*(\d{4}/\d+)') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+  # 🔴 OLCUT DUZELTMESI (31.08, 2.038 satirda olculdu):
+  # "bulunan = govdedeki tekil IKN" idi ve tamlik esitlikle olculuyordu. Ama
+  # govde ICINDEKILER'den FAZLA da cikabiliyor (471 satirda oldu; ort. 1-2 ilan
+  # icindekiler dizininde gorunmuyor ama govdede var). Fazlalik KAYIP DEGILDIR;
+  # buna ragmen gun "EKSIK" damgalaniyor ve sonsuza kadar yeniden cekiliyordu.
+  # Dogru soru: "ICINDEKILER'deki bir ilan govdede YOK mu?"
+  # Bu yuzden bulunan = ICINDEKILER'den govdede BULUNAN sayisi. Boylece
+  # tam = (beklenen = bulunan) tam olarak "hic ilan dusmedi" demek olur ve
+  # kasadaki ihale_kutuk_yaz'in esitlik mantigi degistirilmeden dogru calisir.
+  # Govdenin kendi toplami ayrica tasinir (log icin), olcute girmez.
+  $eksik = @($toc | Where-Object { $gvd -notcontains $_ })
   return @{
     beklenen = $toc.Count
-    bulunan  = $gvd.Count
-    eksik    = @($toc | Where-Object { $gvd -notcontains $_ })
+    bulunan  = $toc.Count - $eksik.Count
+    govde    = $gvd.Count
+    eksik    = $eksik
   }
 }
 
@@ -232,10 +244,22 @@ $eksikTur = @()
 foreach($t in @('Mal','Yapim','Hizmet','Danismanlik')){
   $p = Join-Path $kls ("sonuc-{0}.txt" -f $t.ToLower())
   if(-not (Test-Path $p)){
-    Write-Host ("{0,-12}: sonuc metni yok (once motor/ihale-bulten-hasat.ps1)" -f $t)
+    # 🔴 "INDIRME DUSTU" ile "O GUN BULTEN YOK" AYRIMI (31.08 olculdu):
+    # 349 Danismanlik gunu "indirilemedi" sayiliyordu ve o gunler HICBIR ZAMAN
+    # tamamlanamiyordu - her kosuda yeniden cekiliyorlardi. Olcum: 25.10.2023
+    # icin zip 988 KB olarak INDI, icinde ilan PDF'i vardi ama SONUC PDF'i YOKTU.
+    # Yani KIK o gun o is kolunda sonuc bulteni yayimlamamis. Indirme hatasi degil.
+    # AYIRT EDICI: zip/pdf klasorde duruyorsa indirme BASARILI olmus, sonuc
+    # bolumu yok demektir -> "bulten yok/bos" (kutuge 0 kayitla TAM yazilir).
+    # Zip de yoksa gercekten inmemistir -> "indirilemedi" (gun geri gelir).
+    $zip = Join-Path $kls ("bulten-{0}.zip" -f $t.ToLower())
+    $pdf = Join-Path $kls ("bulten-{0}.pdf" -f $t.ToLower())
+    $indi = (Test-Path $zip) -or (Test-Path $pdf)
+    $sbp  = if($indi){ 'bulten yok/bos' } else { 'indirilemedi' }
+    Write-Host ("{0,-12}: sonuc metni yok -> {1}" -f $t, $sbp)
     [void]$damgalar.Add([ordered]@{ tur=$t; tarih=$null; sayi=$null; kayit=0
-                                    beklenen=$null; bulunan=$null; tam=$false; eksikIkn=@(); sebep='indirilemedi' })
-    $eksikTur += $t
+                                    beklenen=$null; bulunan=$null; tam=$false; eksikIkn=@(); sebep=$sbp })
+    if(-not $indi){ $eksikTur += $t }
     continue
   }
   $m = [IO.File]::ReadAllText($p,[Text.Encoding]::UTF8)
@@ -243,9 +267,9 @@ foreach($t in @('Mal','Yapim','Hizmet','Danismanlik')){
   $dm = BultenDamgasi $m
   $tm = TamlikOlc $m
   $tam = ($null -ne $tm.beklenen -and $null -ne $tm.bulunan -and $tm.beklenen -eq $tm.bulunan)
-  Write-Host ("{0,-12}: {1,5} kayit · bulten {2} (sayi {3}) · icindekiler {4} / govde {5} -> {6}" -f `
+  Write-Host ("{0,-12}: {1,5} kayit · bulten {2} (sayi {3}) · icindekiler {4} / bulunan {5} (govde {6}) -> {7}" -f `
               $t, $c.Count, $(if($dm.tarih){$dm.tarih}else{'OKUNAMADI'}), $dm.sayi,
-              $tm.beklenen, $tm.bulunan, $(if($tam){'TAM'}else{'EKSIK'}))
+              $tm.beklenen, $tm.bulunan, $tm.govde, $(if($tam){'TAM'}else{'EKSIK'}))
   if(-not $tam -and $tm.eksik.Count){
     $eksikTur += $t
     Write-Host ("   !! {0} ilan ICINDEKILER'de var, govdede YOK: {1}" -f $tm.eksik.Count, (($tm.eksik | Select-Object -First 6) -join ', '))
