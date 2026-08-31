@@ -475,89 +475,205 @@ window.veriAl = (function(){
 <header class="hero hero-sade">
   <div class="sade-ic">
     <!-- 30.07 Cem: "isinin nobetcisi / Turkiye mevzuati rozetini sevmedim".
-         Slogan zaten her yerde, kategori etiketi ise bos laf. Yerine CANLI
-         nobet damgasi: kart-durum.json'dan son RG turu tarihi dolar
-         ("soze degil tarihe bak"). Okunamazsa sabit metin kalir. -->
-    <span class="eyebrow" id="nbDamga">Nöbette: robot her sabah Resmî Gazete'yi okur</span>
-    <script>
-    veriAl("veri/kart-durum.json").then(d=>{
-      if(d && d.sonTarama) document.getElementById("nbDamga").innerHTML =
-        "Nöbette · son Resmî Gazete turu: " + '<span data-tarih="'+d.sonTarama+'">'+String(d.sonTarama).replace(/-/g,".")+'</span>';
-    }).catch(function(){});
-    </script>
-    <h1><span class="g">Tetikte</span> olan kaçırmaz.</h1>
-    <!-- 29.07: eski alt cumle YALNIZ BIR KAPIYA sesleniyordu ("Resmi
-         Gazete'den seni ilgilendireni buluruz"). Sinava hazirlanan ogrenci
-         bunu okuyunca "bu bana gore degil" deyip cikiyordu. Uc kisiye acilan
-         bir kapida tek kisiye konusulmaz. Yeni cumle ucunun de isini SOMUT
-         isimlerle sayiyor ve kapilara baglaniyor. -->
-    <p class="sade-alt">Sınav sorusunu da, süreyi de, vergiyi de.
-      <b>İşin neyse, nöbet onun üstünde</b>, hem de kaynağıyla.</p>
+         Yerine CANLI nobet damgasi konmustu: kart-durum.json'dan son RG
+         turu tarihi ("soze degil tarihe bak").
+         31.08 KALDIRILDI - sebep OLCUM, tercih degil: damga kart-durum.json'
+         dan 30.08, hemen yanindaki nobet defteri uyari-ozet.json'dan
+         31.08 okuyordu. Ayni ekranda birbirini yalanlayan iki tarih.
+         Nobet defteri damganin isini zaten daha iyi yapiyor (tarih + saat
+         + sayilar + kaynak baglantilari), ustelik sola hizali; damga
+         ortaliydi ve tek basina duruyordu. Iki tarihten zayif olani cikti.
+         Geri istenirse: bu blok geri konur, AMA iki kaynak once
+         birlestirilmeli - yoksa celiski geri gelir. -->
 
-    <!-- 30.07 Cem onayi: "sen kimsin?" sorgu gibi soguktu - davetkar hale getirildi -->
-    <!-- ============ HERO ARAMASI (25.08.2026) ==========================
-         Cem: "muhendislik harikasi gibi olmamis."
-         Olcum haklı cikardi: ana sayfada CALISAN oge 4'tu, ucu menuydu.
-         5.953 piksellik brosur; elimizde ~6 MB dogrulanmis veri var ama
-         vitrinde 1 kart + 4 sayac gosteriliyordu.
+    <!-- ============ HERO: BAŞLIK + NÖBET DEFTERİ (31.08.2026) ===========
+         Cem, sırasıyla üç kurguyu geri çevirdi ve her seferinde haklıydı:
+           · iki panel        -> uzlaşma, dağınık
+           · ekran görüntüsü  -> motorun FOTOĞRAFI, motor değil
+           · soru kutusu      -> ziyaretçiyi kapıda SINAVA sokuyor
+           · açıklama paneli  -> SORUSU OLMAYAN CEVAP (görmeyen için gürültü)
 
-         Bu kutu urunu SAYFAYA getiriyor: 15.717 gumruk tarife kaydinda
-         anlik arama. Tarife cetveli KULLANICI YAZMAYA BASLAYINCA iniyor
-         (356 KB gzip), sayfa acilisi 52 KB kaliyor. Indikten sonra her
-         sorgu SIFIR ag istegiyle cevaplaniyor.
+         Dördünde de ortak hatam: yeni bir şey icat etmeye çalıştım.
+         Oysa cevap depoda hazır duruyordu: veri/uyari-ozet.json'u robot
+         HER SABAH yazıyor (uyari-robotu.ps1 · .github/workflows/uyari.yml)
+         ve bugüne kadar hiçbir sayfada okunmuyordu — üretilip çöpe giden
+         veri. Nöbet defteri onu ilk kez vitrine çıkarıyor.
 
-         Sifirdan yazilmadi: gtip-ara.js zaten vardi ve iyiydi (Turkce
-         katlama, kelime-VE eslesmesi, puanlama, durust bos-sonuc mesaji).
-         Yeni indeks yazmak onu tekrar etmek olurdu.
+         NEDEN BU KUTU İŞE YARAR
+         · Tek bakışta okunur — okumak değil SAYMAK yeter.
+         · Ziyaretçiden hiçbir şey istemez; ona bir şey gösterir.
+         · Dört kapıya birden kanıt verir: sınav · RG · ihale (· marka).
+           "Hem sınav hem şirket" isteği uzlaşmayla değil mekanizmayla
+           çözülüyor.
+         · Rakip kopyalayamaz: saat damgası koymak için her sabah
+           gerçekten okumak gerekir.
+
+         SINAV BLOĞU EN ÜSTTE (Cem 31.08: "yukarıya sınavla ilgili de bir
+         şey eklersek süper olur") ve (B) kararıyla uyumlu: sınav önde.
+
+         RAKAMLARIN KAYNAĞI - hiçbiri hafızadan değil:
+         · 21.11.2026 (SGS) ve 28.11.2026 (Yeterlilik): genc.html +
+           veri/canli-deneme.json, TÜRMOB resmî takvimi. Geri sayım
+           tarayıcıda HESAPLANIR, elle yazılmaz.
+         · Başvuru penceresi 21 Eylül - 9 Ekim: canli-deneme.json
+           "Başvuru Denemesi" notundan.
+         · Sıradaki canlı deneme 27.09.2026 SGS: canli-deneme.json.
+         · RG kartı ve ihale ilanı sayısı: veri/uyari-ozet.json (canlı).
+           Okunamazsa HTML'deki son gerçek değer kalır.
+
+         BİLEREK YOK: konkordato/iflas ve marka satırı. uyari-ozet.json'da
+         GÜNLÜK TOPLAM yok (izlenen_borclu/alacak_eslesme kişiye özel
+         alanlar, ikisi de 0 çünkü henüz izlenen firma yok). Sayısı
+         olmayan satır YAZILMAZ; robota eklenince gelir.
     ================================================================= -->
-    <div class="hero-ara">
-      <label for="heroAra">İthal edeceğin ürünü yaz, vergisini gör</label>
-      <div class="hero-ara-satir">
-        <input id="heroAra" type="search" autocomplete="off" spellcheck="false"
-               placeholder="ör. zeytinyağı, çelik boru, akıllı telefon, 8517…"
-               aria-describedby="heroAraNot" oninput="heroAraCalis()">
-        <span class="hero-ara-sayac" id="heroAraSayac" aria-live="polite"></span>
+    <div class="hero-2">
+      <div class="hero-sol">
+        <h1><span class="g">Tetikte</span> olan kaçırmaz.</h1>
+        <p class="sade-alt">Sınavda tuzak var, mevzuatta süre.
+          <b>İkisini de kaynağıyla önüne koyarız</b> — her sabah.</p>
+        <a class="hero-cta" href="radar.html">Bugün ne çıktı, gör →</a>
       </div>
-      <div id="heroAraSonuc" role="region" aria-live="polite"></div>
-      <div class="hero-ara-not" id="heroAraNot">15.717 gümrük tarife kaydında arar · Resmî Gümrük Tarife Cetveli</div>
+
+      <div class="hero-sag">
+        <div class="nd">
+          <div class="nd-ust">
+            <b>Nöbet defteri</b>
+            <span id="ndTarih">31.08.2026</span>
+          </div>
+
+          <div class="nd-blok">
+            <div class="nd-baslik">Sınav</div>
+            <a class="nd-satir" href="genc.html">
+              <span class="nd-ne">Staja Giriş'e</span>
+              <span class="nd-kac" id="ndSgs">82 gün</span></a>
+            <a class="nd-satir" href="genc.html">
+              <span class="nd-ne">Yeterlilik'e</span>
+              <span class="nd-kac" id="ndYet">89 gün</span></a>
+            <a class="nd-satir" href="genc.html">
+              <span class="nd-ne">Başvuru penceresi</span>
+              <span class="nd-kac">21 Eylül'de açılıyor</span></a>
+            <a class="nd-satir" href="canli-deneme.html">
+              <span class="nd-ne">Canlı deneme</span>
+              <span class="nd-kac">27.09 · kayıt açık</span></a>
+          </div>
+
+          <div class="nd-blok">
+            <div class="nd-baslik">Mevzuat · bu sabah <span id="ndSaat">07:03</span></div>
+            <a class="nd-satir" href="kartlar.html">
+              <span class="nd-ne">Resmî Gazete okundu</span>
+              <span class="nd-kac" id="ndRg">3 değişiklik</span></a>
+            <a class="nd-satir" href="ihale-radari.html">
+              <span class="nd-ne">İhale ilanları süzüldü</span>
+              <span class="nd-kac" id="ndIhale">250 ilan</span></a>
+          </div>
+
+          <div class="nd-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="sade-soru">Hangi iştesin? Kapın hazır.</div>
-
     <div class="sade-kapilar">
-      <!-- 29.07 FIYATLAR KAPILARDAN KALKTI. Kapi "sen kimsin" diye sorar,
-           "ne odeyeceksin" diye degil. Bizi hic tanimayan biri ilk ekranda uc
-           rakam goruyordu - o ekran karsilama degil KASA oluyordu.
-           Kapinin alt satiri artik YAPILACAK IS. Fiyat asagida ve kendi
-           sayfasinda; once is, sonra para. -->
+      <!-- 29.07: kapi "sen kimsin" diye sorar, "ne odeyeceksin" diye degil.
+           31.08 Cem: "diger iki kolonu teke dusurelim" - Mali Musavirim +
+           Sirket sahibiyim -> IS BASINDAYIM. Ad "Sinava hazirlaniyorum"un
+           tam karsiti: hazirlanan / calisan; ikisi de kendini bulur. -->
       <a class="sk" href="genc.html">
         <span class="sk-ust">01</span>
         <b>Sınava hazırlanıyorum</b>
-        <span class="sk-et">Staja Giriş · Staj Bitirme</span>
+        <span class="sk-et">Staja Giriş · Staj Bitirme · KGK</span>
         <span class="sk-ac">Soru bankası, her şıkkın gerekçesi, zayıf konu karnesi</span>
         <span class="sk-git">Ücretsiz soru çözmeye başla →</span>
       </a>
-      <!-- 30.07 Cem: "Mali Müşavirim'e girdiğimde hiçbir şey çıkmıyor."
-           Hakliydi: kart #araclar capasina gidiyordu - metin "panelini gör"
-           diye soz verip yalnizca sayfayi asagi kaydiriyordu. Uc kapidan
-           ikisi gercek sayfaya giderken (deneme, gtip) bu yarim kalmisti.
-           Artik gercek panele gidiyor; girissiz kullanici orada duzgun bir
-           "Giriş yap" ekrani gorur - bos kaydirmadan iyidir. -->
-      <a class="sk" href="radar-app.html?niyet=musavir">
+      <!-- Hedef karne.html: GIRISSIZ calisiyor ve "sadece SENI etkileyen
+           yukumlulukler" diyor. Eski 02 kapisi radar-app.html'e gidip
+           girissiz kullaniciyi duvara carpiyordu (30.07'de Cem yakaladi). -->
+      <a class="sk" href="karne.html">
         <span class="sk-ust">02</span>
-        <b>Mali Müşavirim</b>
-        <span class="sk-et">Büro · çoklu mükellef</span>
-        <span class="sk-ac">Tüm mükelleflerin tek panelde: süre, ceza ve marka takibi + banka ekstresinden hazır fişe Fiş Fabrikası</span>
-        <span class="sk-git">Müşavir panelini gör →</span>
-      </a>
-      <a class="sk" href="gtip.html">
-        <span class="sk-ust">03</span>
-        <b>Şirket sahibiyim</b>
-        <span class="sk-et">İthalat · ihracat · üretim</span>
-        <span class="sk-ac">GTİP vergileri, ceza kapıları, alacak ve ihale radarı</span>
-        <span class="sk-git">GTİP kodunu sorgula →</span>
+        <b>İş başındayım</b>
+        <span class="sk-et">Büro · şirket · mükellef</span>
+        <span class="sk-ac">Süre, ceza, marka, alacak ve ihale nöbeti; sadece seni bağlayanlar</span>
+        <span class="sk-git">Yükümlülüklerini gör →</span>
       </a>
     </div>
+
+    <!-- ============ GTİP ARAMASI — KENDİ SATIRINA İNDİ ==================
+         25.08'de hero'ya konmuştu ve gerekçesi doğruydu: "ürünü SAYFAYA
+         getiriyor". Sorun kutunun kendisi değil, ilk ekranda ÜÇÜNCÜ istek
+         olmasıydı (ara / kendini tanıt / oku). Artık kapıların altında
+         kendi satırında; sayfadaki tek "yaz ve gör" kutusu.
+         SİLİNMEDİ - taşındı; 15.717 kayıtlık arama yerinde. -->
+    <div class="gtip-satir">
+      <div class="hero-ara">
+        <label for="heroAra">İthal edeceğin ürünü yaz, vergisini gör</label>
+        <div class="hero-ara-satir">
+          <input id="heroAra" type="search" autocomplete="off" spellcheck="false"
+                 placeholder="ör. zeytinyağı, çelik boru, akıllı telefon, 8517…"
+                 aria-describedby="heroAraNot" oninput="heroAraCalis()">
+          <span class="hero-ara-sayac" id="heroAraSayac" aria-live="polite"></span>
+        </div>
+        <div id="heroAraSonuc" role="region" aria-live="polite"></div>
+        <div class="hero-ara-not" id="heroAraNot">15.717 gümrük tarife kaydında arar · Resmî Gümrük Tarife Cetveli</div>
+      </div>
+    </div>
+
+    <script>
+    /* NÖBET DEFTERİ — canlı doldurma.
+       Kural (index'in her yerinde olduğu gibi): HTML'de son GERÇEK değer
+       durur; JSON okunabilirse üzerine yazılır, okunamazsa HTML kalır.
+       Böylece ağ düşse bile kutu boş görünmez ve YALAN da söylemez. */
+    (function(){
+      var SINAVLAR = [
+        /* TÜRMOB resmî takvimi - genc.html + veri/canli-deneme.json */
+        {id:'ndSgs', tarih:'2026-11-21'},
+        {id:'ndYet', tarih:'2026-11-28'}
+      ];
+      function gunFarki(hedef){
+        var b = new Date(), h = new Date(hedef + 'T00:00:00');
+        b.setHours(0,0,0,0);
+        return Math.round((h - b) / 86400000);
+      }
+      SINAVLAR.forEach(function(s){
+        var e = document.getElementById(s.id); if(!e) return;
+        var g = gunFarki(s.tarih);
+        /* Sınav geçtiyse geri sayım yazılmaz - "eksi 3 gün" demek yerine
+           satır dürüstçe susar. */
+        e.textContent = g > 0 ? (g + ' gün') : (g === 0 ? 'bugün' : 'geçti');
+      });
+
+      var iki = function(n){ return (n<10?'0':'') + n; };
+      fetch('veri/uyari-ozet.json', {cache:'no-store'})
+        .then(function(y){ return y.ok ? y.json() : null; })
+        .then(function(d){
+          if(!d) return;
+          var v = d.veri || {};
+          if(typeof v.rg_karti === 'number')
+            document.getElementById('ndRg').textContent = v.rg_karti + ' değişiklik';
+          if(typeof v.ihale_ilani === 'number')
+            document.getElementById('ndIhale').textContent = v.ihale_ilani + ' ilan';
+
+          /* tarih "31.08.2026 07:03" biçiminde geliyor */
+          var p = String(d.tarih || '').split(' ');
+          if(p[0]) document.getElementById('ndTarih').textContent = p[0];
+          if(p[1]) document.getElementById('ndSaat').textContent = p[1];
+
+          /* BAYAT VERİ NÖBETÇİSİ: nöbet iddiası kuran bir kutu, kendi
+             verisi eskiyse bunu SÖYLEMEK zorunda. Sessiz bayat veri,
+             yanlış veriden tehlikelidir. */
+          var g = p[0] ? p[0].split('.') : null;
+          if(g && g.length === 3){
+            var kosu = new Date(+g[2], +g[1]-1, +g[0]);
+            var bugun = new Date(); bugun.setHours(0,0,0,0);
+            var fark = Math.round((bugun - kosu) / 86400000);
+            if(fark >= 1){
+              var dip = document.getElementById('ndDip');
+              dip.textContent = 'Son robot koşusu ' + p[0] + ' — ' + fark + ' gün önce.';
+              dip.classList.add('nd-bayat');
+            }
+          }
+        })
+        .catch(function(){ /* okunamadi: HTML'deki son gercek deger kalir */ });
+    })();
+    </script>
 
     <!-- ============ ÜRÜN PENCERESİ (30.07 Cem: "Amerika firması gibi") =====
          ABD SaaS sayfalarının kalbi "ekran içinde ürün"dür (Linear/Stripe
@@ -585,44 +701,6 @@ window.veriAl = (function(){
          diliyle konusur. Icerik dayanaklari gercek: KDVK m.32 (iade + izleyen
          2. takvim yili sonu suresi), IIK m.299, SMK m.23, RG karti gunun
          onarilmis kartindan, evye satiri RG'den teyitli. -->
-
-    <!-- ============ ÜRÜNÜN KENDİ EKRANI ================================
-         30.08 Cem: "kurumsal firmalar böyle yapmaz, sanki önemli konular
-         var içinde ama dikkat çekmiyor." Ölçüldü: ana sayfada 0 görsel,
-         0 SVG vardı — baştan sona gri metin. Ciddi ürün sitesinin ayırt
-         edici işareti dekorasyon değil, ürünün KENDİSİdir.
-         31.08 Cem "BAĞLA" — deneme (index-odak.html) canlıya alındı.
-
-         İÇERİK UYDURULMADI — fark.html'deki gerçek sorudan birebir:
-         katsayı (eşdeğer ürün) yöntemi, doğru şık D = 120 TL/kg,
-         tuzağın adı "Eşdeğer Miktara Bölme Tuzağı", yanlış hesap
-         120.000/3.000=40. Rakamların tamamı o sayfadan alındı; fark.html
-         değişirse burası da elle tazelenir (bağlı değil, kopya metindir).
-
-         Görsel DOSYA değil, saf CSS: her çözünürlükte net, eskimez,
-         bakım istemez. (30.07'de kaldırılan büyük ürün penceresinden
-         farkı: o TAM EKRAN kaplıyordu, bu rafların üstünde tek band.)
-         Biçim kuralları stil-odak.css'te.
-    ================================================================= -->
-    <div class="odak-urun">
-      <div class="ou-in">
-        <div class="ou-sol">
-          <div class="ou-et">Ürünün kendi ekranı · açıklama</div>
-          <h2 class="ou-bas">Yanlışını böyle öğrenirsin.</h2>
-          <p class="ou-alt">Cevabı vermekle bitmiyor. Ekran, seni yanlış şıkka götüren düşünceyi <b>adıyla</b> söyler, sonra doğru yolu tek cümlede kurar. <b>Fark, cevabı verdikten sonra başlıyor.</b></p>
-          <a class="ou-git" href="fark.html">Gerçek soruyu dene →</a>
-        </div>
-        <div class="ou-sag">
-          <div class="ou-ekran">
-            <p class="ou-soru">Ortak maliyet, katsayı (eşdeğer ürün) yöntemiyle dağıtılıyor. Ürün Beta'nın birim maliyeti kaç TL/kg?</p>
-            <div class="ou-sik ou-yanlis">A) 40 TL/kg <span>senin cevabın</span></div>
-            <div class="ou-blok ou-tuzak"><b>Eşdeğer Miktara Bölme Tuzağı</b>Beta'nın payını (120.000 TL) fiili miktar yerine eşdeğer miktara (3.000 kg) böldün: 120.000 / 3.000 = 40. Böyle hesaplanırsa bütün ürünlerin birim maliyeti eşitlenir, katsayının anlamı kaybolur.</div>
-            <div class="ou-blok ou-dogru"><b>Doğrusu:</b> Pay, ürünün gerçekte üretildiği 1.000 kg'a bölünür → <i>120 TL/kg</i>. Dağıtımda eşdeğer miktar, birim maliyette fiili miktar kullanılır.</div>
-          </div>
-          <div class="ou-dip">Gerçek soru, gerçek açıklama · <a href="fark.html">fark.html</a></div>
-        </div>
-      </div>
-    </div>
 
     <!-- ============ RAF DÜZENİ 30.08.2026 (Cem "1.2.3 yap") ================
          Konular listesi asagi indikten sonra bu raf ILK EKRANDAN hemen sonra

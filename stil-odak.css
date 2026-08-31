@@ -35,8 +35,8 @@
    canlı sayfaya dokunulmadı. 31.08 Cem "BAĞLA" dedi; katman
    index.html'e bağlandı, deneme sayfası silindi (ömrü karara
    kadardı, kopya olduğu için bekletilirse çürürdü).
-   Geri almak: index.html'den bu satırı ve .odak-urun bloğunu
-   çıkarmak yeter; kalan sayfa 30.08 hâline döner.
+   Geri almak: index.html'den bu satırı ve .hero-2 bloğunu çıkarmak
+   yeter; kalan sayfa 30.08 hâline döner.
    ================================================================ */
 
 
@@ -72,62 +72,78 @@
 
 
 /* ================================================================
-   2. ÜRÜNÜN KENDİ EKRANI — sayfadaki tek odak
-   İçerik UYDURULMADI: aşağıdaki tuzak adı, hesap ve "Doğrusu"
-   cümlesi fark.html'deki GERÇEK sorudan birebir alındı
-   (katsayı/eşdeğer ürün yöntemi, doğru şık D = 120 TL/kg).
-   Görsel dosya değil saf CSS: her çözünürlükte net, eskimez.
+   2. HERO İKİ SÜTUN + NÖBET DEFTERİ  (31.08.2026)
+
+   Buradaki eski ".odak-urun" kuralları SİLİNDİ. Sebebi Cem'in
+   itirazıydı ve ölçülebilir bir kusurdu: o panel SORUSU OLMAYAN
+   CEVAP gösteriyordu ("A) 40 ✗ → Doğrusu: 120"). Soruyu görmemiş
+   biri için anlamsız; açıklama, sorusundan koparılınca gürültüdür.
+
+   Yerine nöbet defteri geldi: okumak değil SAYMAK yeten, tek bakışta
+   anlaşılan, tarih ve saat damgalı canlı kütük. Ziyaretçiden hiçbir
+   şey istemez, ona bir şey gösterir.
+
+   BAŞLIK ÖLÇÜSÜ: bizimki 52 px ve ORTALI'ydı, ilk ekranın %84'ü boştu.
+   Cem'in beğendiği üçü sola dayalı ve büyük — Wolters Kluwer 102 px,
+   Ramp ~64, Fonoa ~56. Buradaki clamp o aralığa oturuyor.
    ================================================================ */
-/* Panel .sade-ic'in İÇİNDE duruyor (max-width:1180 + padding:20 orada
-   zaten var) - burada tekrar genişlik/dolgu verilmez, yoksa iki kez
-   içeri kaçar ve raflarla hizası bozulur. */
-/* text-align:left ŞART — panel hero'nun içinde duruyor ve hero ortalı.
-   stil-sade.css:139 raflara/kapılara tek tek sola alma veriyor, bu panel
-   o listede yok. Ortalı gövde metni ürün panelini zayıf gösteriyordu
-   (ilk denemede görüldü). */
-.odak-urun{margin:34px 0 4px;padding-top:30px;border-top:1px solid var(--line);text-align:left}
-.odak-urun .ou-in{display:grid;grid-template-columns:1fr 1.05fr;
-  gap:38px;align-items:center}
+.hero-sade .sade-ic{padding-top:56px}
 
-.ou-et{font-size:11px;font-weight:700;letter-spacing:1.6px;
-  text-transform:uppercase;color:var(--dim);margin-bottom:10px}
-.ou-bas{font-size:clamp(26px,3.4vw,38px);line-height:1.1;letter-spacing:-.6px;
-  margin:0 0 12px;color:var(--ink)}
-.ou-alt{font-size:15.5px;line-height:1.62;color:var(--muted);margin:0 0 16px;max-width:46ch}
-.ou-alt b{color:var(--ink)}
-.ou-git{font-size:15px;font-weight:700;color:var(--accent);text-decoration:none}
-.ou-git:hover{text-decoration:underline;text-underline-offset:3px}
+.hero-2{display:grid;grid-template-columns:1fr 1fr;gap:44px;
+  align-items:center;text-align:left}
+.hero-sol h1{text-align:left;font-size:clamp(38px,5.6vw,76px);line-height:1.03;
+  letter-spacing:-1.4px;margin:0 0 14px;max-width:12ch}
+.hero-sol .sade-alt{text-align:left;font-size:clamp(15px,1.4vw,18px);
+  max-width:42ch;margin:0 0 20px}
+.hero-cta{display:inline-block;font-size:15px;font-weight:700;color:var(--accent);
+  text-decoration:none}
+.hero-cta:hover{text-decoration:underline;text-underline-offset:3px}
 
-/* ekran: sahte tarayıcı çubuğu YOK - o süs. Ekranın kendisi konuşur. */
-.ou-ekran{background:var(--panel);border:1px solid var(--line);
-  border-radius:12px;padding:18px 18px 16px;box-shadow:var(--shadow)}
-.ou-soru{font-size:12.5px;color:var(--dim);line-height:1.55;margin:0 0 12px;
-  padding-bottom:12px;border-bottom:1px solid var(--line)}
+/* --- nöbet defteri ------------------------------------------------ */
+.nd{border:1px solid var(--line);border-radius:14px;background:var(--panel);
+  box-shadow:var(--shadow);overflow:hidden}
+.nd-ust{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding:13px 16px;border-bottom:1px solid var(--line);background:var(--bg2)}
+.nd-ust b{font-size:12px;font-weight:800;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--ink)}
+.nd-ust span{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
 
-.ou-sik{display:flex;align-items:center;justify-content:space-between;gap:10px;
-  font-size:14px;font-weight:600;border-radius:8px;padding:9px 12px;margin-bottom:10px}
-.ou-sik span{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
-.ou-yanlis{background:var(--red-bg);color:var(--red);
-  border:1px solid color-mix(in srgb,var(--red) 30%,transparent)}
+.nd-blok{padding:11px 16px 13px}
+.nd-blok + .nd-blok{border-top:1px solid var(--line)}
+.nd-baslik{font-size:10.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--dim);margin-bottom:7px}
 
-.ou-blok{font-size:13.5px;line-height:1.6;border-radius:8px;padding:11px 13px;margin-bottom:10px}
-.ou-blok b{display:block;margin-bottom:3px}
-.ou-tuzak{background:var(--red-bg);color:var(--ink)}
-.ou-tuzak b{color:var(--red);font-size:13px;letter-spacing:.2px}
-.ou-dogru{background:var(--green-bg);color:var(--ink);margin-bottom:0}
-.ou-dogru b{display:inline;color:var(--green)}
-.ou-dogru i{font-style:normal;font-weight:800;color:var(--green)}
+/* satır bir BAĞLANTI: her nöbet kalemi kendi aracına gider */
+.nd-satir{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:7px 0;text-decoration:none;border-bottom:1px solid var(--line2);
+  transition:padding-left .14s}
+.nd-satir:last-child{border-bottom:0}
+.nd-satir:hover{padding-left:5px}
+.nd-ne{font-size:13.5px;color:var(--muted)}
+.nd-satir:hover .nd-ne{color:var(--ink)}
+.nd-kac{font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.nd-satir:hover .nd-kac{color:var(--accent)}
 
-.ou-dip{font-size:11.5px;color:var(--dim);margin-top:10px;text-align:right}
-.ou-dip a{color:var(--dim)}
+.nd-dip{font-size:11px;color:var(--dim);padding:0 16px 12px;line-height:1.5}
+/* bayat veri nöbetçisi: kutu kendi verisi eskiyse bunu SÖYLER */
+.nd-dip.nd-bayat{color:var(--red);font-weight:600}
+
+/* --- GTİP araması kendi satırında --------------------------------- */
+.gtip-satir{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);
+  text-align:left}
+.gtip-satir .hero-ara{max-width:620px;margin:0}
 
 @media(max-width:900px){
-  .odak-urun .ou-in{grid-template-columns:1fr;gap:22px}
-  .ou-alt{max-width:none}
-  .ou-dip{text-align:left}
+  .hero-2{grid-template-columns:1fr;gap:26px}
+  .hero-sol h1{max-width:none}
+  .hero-sol .sade-alt{max-width:none}
+  .hero-sade .sade-ic{padding-top:40px}
+  /* Dokunma alanı: nöbet satırları telefonda parmakla açılacak.
+     31.08'de iki kez (konu başlıkları, kitle anahtarı) 44 px'in altında
+     öge yakalandı; artık her tıklanır öge ölçülüyor. */
+  .nd-satir{padding:11px 0;min-height:44px;align-items:center}
 }
-
-
 /* 31.08: .deneme-serit kuralı SİLİNDİ — index-odak.html ile birlikte
    sahibi kalmadı. Ölü kural bırakılmaz; bir dahakine bakan "bu nerede
    kullanılıyor?" diye arar ve bulamaz. */
