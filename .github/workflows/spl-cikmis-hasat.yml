@@ -38,6 +38,10 @@ name: SPL cikmis sinav arsivi hasati
 
 env:
   TAVAN: '0'           # 0 = tamami · deneme icin kucuk tut
+  # MOD: 'tani' = SALT OLCUM (ambara yazmaz) · 'yaz' = AMBARA YUT.
+  # Once 'tani' kosar ve karne okunur; ayristirmanin bu kitapciklarda ne
+  # verdigi GORULMEDEN 'yaz'a gecilmez - yarim yutma boyle olur.
+  MOD: 'tani'
 
 on:
   workflow_dispatch:
@@ -99,7 +103,9 @@ jobs:
             $n = @(Get-ChildItem _kaynak/spl-cikmis -Filter *.pdf).Count
             "ayristirilacak PDF: $n" | Set-Content $log
             if($n -gt 0){
-              pwsh -File motor/cikmis-soru-ayristir.ps1 -klasor _kaynak/spl-cikmis -sinavAdi 'SPK Lisanslama' -tani *>&1 |
+              $bayrak = if("$env:MOD" -eq 'yaz'){ '-yaz' } else { '-tani' }
+              "mod: $bayrak" | Add-Content $log
+              pwsh -File motor/cikmis-soru-ayristir.ps1 -klasor _kaynak/spl-cikmis -sinavAdi 'SPK Lisanslama' $bayrak *>&1 |
                 Tee-Object -FilePath $log -Append
             }
           } else { 'indirme klasoru yok' | Set-Content $log }
