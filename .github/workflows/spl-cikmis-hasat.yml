@@ -74,12 +74,19 @@ jobs:
             }
           } else { Write-Host 'indirme klasoru yok' }
 
+      - name: KARNE ("yarim yutmadik" kapisi)
+        if: always()
+        shell: pwsh
+        run: pwsh -File motor/spl-cikmis-karne.ps1
+
       - name: RAPORU DEPOYA BAS
         if: always()
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/spl-cikmis-indirme.json veri/spl-cikmis-envanteri.json veri/SPL-CIKMIS-KESIF.md veri/cikmis-soru-ayrisma.json veri/cikmis-soru-bosluk-haritasi.json 2>/dev/null || true
+          git add veri/spl-cikmis-indirme.json veri/spl-cikmis-envanteri.json veri/SPL-CIKMIS-KESIF.md \
+                  veri/spl-cikmis-karne.json veri/SPL-CIKMIS-KARNE.md \
+                  veri/cikmis-soru-ayrisma.json veri/cikmis-soru-bosluk-haritasi.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "rapor degismedi"
           else

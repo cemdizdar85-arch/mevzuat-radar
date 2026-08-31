@@ -183,6 +183,16 @@ foreach($s in $snapshot){
   if(-not $ham){ Yaz ("  [{0}] okunamadi" -f $s.damga) 'Yellow'; continue }
   $okunan++
 
+  # 31.08 OLCUM: sayfanin yapisi su -
+  #     <baslik>  6-7 KASIM 2010 LISANSLAMA SINAVLARI </baslik>
+  #        Temel Duzey Cumartesi 1.Oturum  [A KITAPCIGI] - [B KITAPCIGI]
+  #        Turev Araclar Cumartesi 1.Oturum [A KITAPCIGI] - [B KITAPCIGI]
+  # DERS baglantinin hemen onunde; DONEM ise cok yukarida bir BASLIKTA.
+  # Bu yuzden donem, baglantidan ONCEKI SON tarih ifadesinden okunur. Dar
+  # pencereyle okunmaya calisilirsa 334 kitapcigin donemi "?" cikar.
+  $AYLAR = 'ocak|subat|şubat|mart|nisan|mayis|mayıs|haziran|temmuz|agustos|ağustos|eylul|eylül|ekim|kasim|kasım|aralik|aralık'
+  $tarihler = @([regex]::Matches($ham, "(?i)(\d{1,2}\s*[-–—]\s*\d{1,2}\s+($AYLAR)\s+\d{4}|\d{1,2}\s+($AYLAR)\s+\d{4}|($AYLAR)\s+\d{4})"))
+
   $bulunan = 0
   $eslesme = [regex]::Matches($ham, '(?is)<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>')
   foreach($m in $eslesme){
@@ -218,18 +228,25 @@ foreach($s in $snapshot){
     $onceki = ([Net.WebUtility]::HtmlDecode($onceki) -replace '\s+', ' ').Trim()
     if($onceki.Length -gt 260){ $onceki = $onceki.Substring($onceki.Length - 260) }
 
+    # Baglantidan ONCEKI son tarih ifadesi = donem ipucu
+    $donemIpucu = ''
+    foreach($t in $tarihler){
+      if($t.Index -lt $m.Index){ $donemIpucu = ($t.Value -replace '\s+', ' ').Trim() } else { break }
+    }
+
     $anahtar = $temiz.ToLower()
     if(-not $pdfler.ContainsKey($anahtar)){
-      $pdfler[$anahtar] = [ordered]@{ url=$temiz; etiket=$metin; onceki_metin=$onceki; ilk_goruldu=$s.damga; goruldu=@() }
+      $pdfler[$anahtar] = [ordered]@{ url=$temiz; etiket=$metin; donem_ipucu=$donemIpucu; onceki_metin=$onceki; ilk_goruldu=$s.damga; goruldu=@() }
     }
     if($metin -and -not $pdfler[$anahtar].etiket){ $pdfler[$anahtar].etiket = $metin }
     if($onceki -and -not $pdfler[$anahtar].onceki_metin){ $pdfler[$anahtar].onceki_metin = $onceki }
+    if($donemIpucu -and -not $pdfler[$anahtar].donem_ipucu){ $pdfler[$anahtar].donem_ipucu = $donemIpucu }
     $pdfler[$anahtar].goruldu += $s.damga
     $bulunan++
   }
   Yaz ("  [{0}] {1} baglanti · birikmis tekil: {2}" -f $s.damga, $bulunan, $pdfler.Count)
 }
-$rapor.sayfadan_pdf = @($pdfler.Values | ForEach-Object { [ordered]@{ url=$_.url; etiket=$_.etiket; onceki_metin=$_.onceki_metin; ilk_goruldu=$_.ilk_goruldu } })
+$rapor.sayfadan_pdf = @($pdfler.Values | ForEach-Object { [ordered]@{ url=$_.url; etiket=$_.etiket; donem_ipucu=$_.donem_ipucu; onceki_metin=$_.onceki_metin; ilk_goruldu=$_.ilk_goruldu } })
 
 # ============================================================================
 #  4) EMNIYET AGI - DOMAIN GENELI PDF TARAMASI

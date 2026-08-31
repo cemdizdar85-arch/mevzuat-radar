@@ -90,7 +90,48 @@ foreach($p in @($kesif.sayfadan_pdf)){
     if(-not $var[0].etiket){ $var[0] | Add-Member -NotePropertyName etiket -NotePropertyValue $et -Force }
     continue
   }
-  [void]$havuz.Add([pscustomobject]@{ url=$p.url; damga=$p.ilk_goruldu; ad=$ad; sinif=$sinif; etiket=$et })
+  [void]$havuz.Add([pscustomobject]@{ url=$p.url; damga=$p.ilk_goruldu; ad=$ad; sinif=$sinif; etiket=$et
+                                      donem_ipucu="$($p.donem_ipucu)"; onceki_metin="$($p.onceki_metin)" })
+}
+
+# --- ANLAMLI DOSYA ADI ------------------------------------------------------
+#  GUID adiyla inen kitapcik ayristiriciya "donemi okunamayan belge" olarak
+#  girer - ambarda hangi sinava ait oldugu KAYBOLUR. Ayristirici donemi dosya
+#  adindan okuyor (desen: <sinav>-<donem>-<geri kalani>), o yuzden ad sayfadaki
+#  baglamdan YENIDEN KURULUR: spk-2010_kasim-temel_duzey_a.pdf
+#  Baglam okunamazsa AD UYDURULMAZ; GUID korunur ve karnede "donem ?" sayilir.
+$AYLAR_TR = @{ 'ocak'='ocak'; 'subat'='subat'; 'şubat'='subat'; 'mart'='mart'; 'nisan'='nisan'
+               'mayis'='mayis'; 'mayıs'='mayis'; 'haziran'='haziran'; 'temmuz'='temmuz'
+               'agustos'='agustos'; 'ağustos'='agustos'; 'eylul'='eylul'; 'eylül'='eylul'
+               'ekim'='ekim'; 'kasim'='kasim'; 'kasım'='kasim'; 'aralik'='aralik'; 'aralık'='aralik' }
+function AsciiSade([string]$s){
+  $s = $s -replace 'ı','i' -replace 'İ','I' -replace 'ş','s' -replace 'Ş','S' -replace 'ğ','g' -replace 'Ğ','G'
+  $s = $s -replace 'ü','u' -replace 'Ü','U' -replace 'ö','o' -replace 'Ö','O' -replace 'ç','c' -replace 'Ç','C'
+  return $s
+}
+function AnlamliAd($h){
+  if(-not $h.donem_ipucu){ return $null }
+  $ip = AsciiSade ("$($h.donem_ipucu)".ToLower())
+  $ay = ''; $yil = ''
+  foreach($k in $AYLAR_TR.Keys){ if($ip -match [regex]::Escape((AsciiSade $k))){ $ay = $AYLAR_TR[$k]; break } }
+  $my = [regex]::Match($ip, '(20\d{2}|19\d{2})'); if($my.Success){ $yil = $my.Groups[1].Value }
+  if(-not $ay -or -not $yil){ return $null }
+
+  # ders: baglantinin onundeki metnin kuyrugu ("... Temel Duzey Cumartesi 1.Oturum")
+  $t = AsciiSade "$($h.onceki_metin)"
+  $t = $t -replace '(?i)(a-b|a|b)\s*kitapcigi', ' '
+  $t = $t -replace '(?i)cevap anahtari', ' '
+  $t = $t -replace '(?i)<[^>]*>', ' '
+  $t = ($t -replace '[^A-Za-z0-9\. ]', ' ') -replace '\s+', ' '
+  $t = $t.Trim()
+  if($t.Length -gt 60){ $t = $t.Substring($t.Length - 60).Trim() }
+  $ders = ($t -replace '\s+', '_').ToLower()
+  if(-not $ders){ $ders = 'bilinmeyen' }
+
+  $grup = if("$($h.etiket)" -match '(?i)a-b'){ 'ab' } elseif("$($h.etiket)" -match '(?i)^\s*a\b'){ 'a' } elseif("$($h.etiket)" -match '(?i)^\s*b\b'){ 'b' } else { 'x' }
+  $tur  = if("$($h.etiket)" -match '(?i)cevap'){ 'cevap' } else { 'soru' }
+  $ad = ('spk-{0}_{1}-{2}_{3}_{4}.pdf' -f $yil, $ay, $ders, $grup, $tur)
+  return ($ad -replace '[^\w\.\-]', '_')
 }
 
 # Ayni dosya birden fazla host altinda arsivlenmis olabilir
@@ -120,11 +161,18 @@ function GecerliPdfMi([string]$yol){
 }
 
 $kayit = New-Object System.Collections.ArrayList
+$kullanilanAd = @{}
 $i = 0
 foreach($a in $adaylar){
   $i++
-  # Dosya adi diske guvenli hale getirilir (arsivde %20, parantez vb. var)
-  $guvenli = ($a.ad -replace '[^\w\.\-]', '_')
+  # Dosya adi diske guvenli hale getirilir (arsivde %20, parantez vb. var).
+  # Sayfa baglami okunabildiyse GUID yerine anlamli ad kullanilir.
+  $guvenli = AnlamliAd $a
+  if(-not $guvenli){ $guvenli = ($a.ad -replace '[^\w\.\-]', '_') }
+  if($kullanilanAd.ContainsKey($guvenli)){
+    $kullanilanAd[$guvenli]++
+    $guvenli = ($guvenli -replace '\.pdf$', ('_{0}.pdf' -f $kullanilanAd[$guvenli]))
+  } else { $kullanilanAd[$guvenli] = 1 }
   $yol = Join-Path $Hedef $guvenli
   $s = [ordered]@{ dosya=$guvenli; ad=$a.ad; etiket="$($a.etiket)"; url=$a.url; kaynak=''; durum='KIRMIZI'; sebep=''
                    bayt=0; sayfa=0; metin_krk=0; hash=$null }
