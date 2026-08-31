@@ -6,13 +6,14 @@
 #  DERS (iki kez yaşandı): PS harf ayırmaz — yol=$FEDA_YOL, nesne=$fedaNesne;
 #  WriteAllText'e nesne geçerse ToString'i DOSYA ADI olur (sessiz kaçak).
 # ============================================================================
-param([string]$ID='p90-SGS-01-hesapli',[string]$fedaAd='feda-ornek-1.json')
+param([string]$ID='p90-SGS-01-hesapli',[string]$fedaAd='feda-ornek-1.json',[switch]$FarkZorla)
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoKok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
 $SONUC=Join-Path $repoKok 'veri\fabrika\sik90-sonuc.jsonl'
+$PLAN=Join-Path $repoKok 'veri\fabrika\sik90-plan.json'
 $FEDA_YOL=Join-Path $repoKok ('veri\'+$fedaAd)
 $HEDEF=Join-Path $repoKok 'fark.html'
 
@@ -31,12 +32,29 @@ foreach($sat in (Get-Content $SONUC -Encoding UTF8)){
 }
 if(-not $eski -or -not $eski.soru){ throw "kaynak soru bulunamadi: $ID" }
 
+# --- 1b) KUNYE (31.08 Cem: "mühürlü örneklerin hiçbirinde sinav/ders yok") ---
+#  Feda dosyası kendi kimliğini TAŞIR; yoksa her kullanımda soru yeniden ölçülür.
+#  Alan adları vitrin bankasıyla birebir: sinav · ders · konu.
+#  PS 5.1 tuzağı: @($x | ConvertFrom-Json) diziyi AÇMAZ — önce ata, sonra sar.
+$kunye=$null
+if(Test-Path $PLAN){
+  $planHam=Get-Content $PLAN -Raw -Encoding UTF8 | ConvertFrom-Json
+  $kunye=@($planHam) | Where-Object { $_.custom_id -eq $ID } | Select-Object -First 1
+}
+if(-not $kunye -or -not $kunye.sinav -or -not $kunye.ders){ throw "plan kunyesi (sinav/ders) bulunamadi: $ID" }
+
 # --- 2) feda uret (gecerli dosya varsa yeniden uretme) ---
 $veri=$null
 if(Test-Path $FEDA_YOL){
   $veri=Get-Content $FEDA_YOL -Raw -Encoding UTF8 | ConvertFrom-Json
   if(-not $veri.soru){ Remove-Item $FEDA_YOL -Force; $veri=$null; Write-Host 'bozuk feda silindi - yeniden uretilecek' }
-  else { Write-Host "feda mevcut: $fedaAd" }
+  else {
+    Write-Host "feda mevcut: $fedaAd"
+    # eski (kunyesiz) dosyalar sessizce gecmesin - tamamlayiciya yonlendir
+    if(-not $veri.PSObject.Properties['sinav'] -or -not $veri.PSObject.Properties['ders']){
+      Write-Warning "$fedaAd KUNYESIZ (sinav/ders yok) - kos: powershell -NoProfile -File motor/feda-kunye-tamamla.ps1 -Uygula"
+    }
+  }
 }
 if(-not $veri){
   $istem=@'
@@ -63,6 +81,7 @@ DOGRU: {DOGRU}
   if(-not $cvp -or -not $cvp.aciklama){ throw 'yeniden yazim bozuk' }
   $fedaNesne=[ordered]@{
     kaynak_not='FEDA ORNEGI - bilerek herkese acik; kasaya girmez'
+    kaynak_id=$ID; sinav="$($kunye.sinav)"; ders="$($kunye.ders)"; konu="$($kunye.konu)"
     soru=$eski.soru; siklar=$eski.siklar; dogru=$eski.dogru
     aciklama=$cvp.aciklama; hap=$cvp.hap; sinav_taktigi=$cvp.sinav_taktigi
     notlandirici=$cvp.notlandirici; dayanak=$eski.dayanak
@@ -389,5 +408,24 @@ if(ADIMLAR){
 </body>
 </html>
 "@
+# --- 5) GERI GIDIS FRENI (31.08 — bir kez basıldı, geri alındı) -------------
+#  Canlı fark.html, ŞABLONUN ÖNÜNDE: 30.08'de sayfaya açık tema (renk jetonu +
+#  color-mix), OG/Twitter paylaşım kartı ve favicon/manifest ELLE eklendi; bu
+#  betiğin içindeki şablon hâlâ koyu tema + SABİT renk üretiyor. Betik körü
+#  körüne bassaydı o iş sessizce silinir, üstelik renk-sabiti kapısı düşerdi.
+#  Fren: canlı sayfada VAR olup yeni çıktıda OLMAYAN bir imza görülürse yazma.
+#  Şablon güncellendiğinde imzalar kendiliğinden eşleşir, fren açılır.
+$imzalar=@('og:image','color-mix(','manifest.webmanifest')
+$kayip=@()
+if(Test-Path $HEDEF){
+  $canli=Get-Content $HEDEF -Raw -Encoding UTF8
+  foreach($im in $imzalar){ if($canli.Contains($im) -and -not $html.Contains($im)){ $kayip+=$im } }
+}
+if($kayip.Count -gt 0 -and -not $FarkZorla){
+  Write-Warning ("fark.html YAZILMADI - sablon canlinin GERISINDE. Canlida var, yeni ciktida yok: " + ($kayip -join ' · '))
+  Write-Warning "Once sablonu (bu betikteki `$html) canliyla hizala. Yine de basmak icin: -FarkZorla"
+  "fark.html KORUNDU | feda: $fedaAd | tablo: $([bool]$tabloBlok) | sema: $($veri.sema.tur)"
+  return
+}
 [IO.File]::WriteAllText($HEDEF,$html,[Text.UTF8Encoding]::new($false))
 "fark.html basildi ($([math]::Round((Get-Item $HEDEF).Length/1KB)) KB) | tablo: $([bool]$tabloBlok) | sema: $($veri.sema.tur)"
