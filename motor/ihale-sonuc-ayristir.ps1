@@ -121,7 +121,14 @@ function TamlikOlc([string]$hamMetin){
   # KAYBOLMAMISTI, olcut uyduruyordu.
   # DOGRUSU: icindekiler satiri "<sira no>. <IKN> <baslik> ... <sayfa>" seklinde;
   # gercek kayit SIRA NUMARASINDAN hemen sonraki IKN'dir. Desen ona capalandi.
-  $toc = @([regex]::Matches($ic, '(?:^|\s)\d{1,4}\.\s+(\d{4}/\d{4,8})(?=\s)') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+  # YIL AKIL SINIRI (31.08): PDF'ten metne cevrimde sayilar birbirine
+  # karisabiliyor; kutukte "4904/148719" diye bir IKN "eksik" gorundu. Ihale
+  # kayit numarasinin yili 2000-2099 disinda OLAMAZ. Bant disi eslesme
+  # ayristirma artigidir, beklenen kayit sayilmaz.
+  $toc = @([regex]::Matches($ic, '(?:^|\s)\d{1,4}\.\s+(\d{4}/\d{4,8})(?=\s)') |
+             ForEach-Object { $_.Groups[1].Value } |
+             Where-Object { [int]($_.Substring(0,4)) -ge 2000 -and [int]($_.Substring(0,4)) -le 2099 } |
+             Select-Object -Unique)
   $gvd = @([regex]::Matches($gov, 'İhale kayıt numarası\s*:\s*(\d{4}/\d+)') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
   # 🔴 OLCUT DUZELTMESI (31.08, 2.038 satirda olculdu):
   # "bulunan = govdedeki tekil IKN" idi ve tamlik esitlikle olculuyordu. Ama
