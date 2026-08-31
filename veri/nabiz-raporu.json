@@ -1,17 +1,14 @@
 {
-  "tarih": "31.08.2026 09:55",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 2,
+  "tarih": "31.08.2026 11:53",
+  "durum": "ALARM",
+  "kirmizi": 2,
+  "kurtarma": 0,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
-  "maddeler": [],
-  "kurtarilan": [
-    "Kaynak Nobetcisi (ihale+kaynaklar) -> son basarili kosu 37.2 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 29.08.2026 17:44 (40 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
+  "maddeler": [
+    "ESKALASYON: Kaynak Nobetcisi (ihale+kaynaklar) -> kurtarma ise yaramadi (son basarili kosu 39.2 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Kaynak Nobetcisi -> kurtarma ise yaramadi (Yurt ici ihale beslemesi damgasi 29.08.2026 17:44 (42 saat eski; esik 36s)). Actions loguna bak."
   ],
-  "kurtarilan_anahtar": [
-    "KOSU:kaynak.yml",
-    "VERI:ihale-yurtici.json"
-  ]
+  "kurtarilan": [],
+  "kurtarilan_anahtar": []
 }
