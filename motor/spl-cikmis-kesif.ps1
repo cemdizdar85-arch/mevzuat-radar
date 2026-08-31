@@ -201,17 +201,35 @@ foreach($s in $snapshot){
     $metin = [Net.WebUtility]::HtmlDecode($metin) -replace '\s+', ' '
     $metin = $metin.Trim()
 
+    # 31.08 BULGU: SPL'nin yeni CMS'i sinav kitapciklarini GUID adiyla
+    # (docs/other/fa0b822b-40b0-45.pdf) sunuyor. Yani DOSYA ADINDA "sinav"
+    # ya da "soru" GECMIYOR - ada bakan bir suzgec 334 kitapcigin HEPSINI
+    # sessizce eler. Anlam TAMAMEN sayfadaki baglamda:
+    #   baslik = donem ("31 Mayis - 1 Haziran 2014 ...")
+    #   satir  = ders ("Temel Duzey", "Ileri Duzey", ...)
+    #   link   = "A KITAPCIGI" / "B KITAPCIGI" / "A-B KITAPCIGI"
+    # Bu yuzden her baglantinin ONUNDEKI metin de saklanir; siniflandirma
+    # dosya adiyla degil BU BAGLAMLA yapilir.
+    $onceki = ''
+    $bas = [Math]::Max(0, $m.Index - 700)
+    $onceki = $ham.Substring($bas, $m.Index - $bas)
+    $onceki = [regex]::Replace($onceki, '(?is)<(script|style).*?</\1>', ' ')
+    $onceki = [regex]::Replace($onceki, '<[^>]+>', ' ')
+    $onceki = ([Net.WebUtility]::HtmlDecode($onceki) -replace '\s+', ' ').Trim()
+    if($onceki.Length -gt 260){ $onceki = $onceki.Substring($onceki.Length - 260) }
+
     $anahtar = $temiz.ToLower()
     if(-not $pdfler.ContainsKey($anahtar)){
-      $pdfler[$anahtar] = [ordered]@{ url=$temiz; etiket=$metin; ilk_goruldu=$s.damga; goruldu=@() }
+      $pdfler[$anahtar] = [ordered]@{ url=$temiz; etiket=$metin; onceki_metin=$onceki; ilk_goruldu=$s.damga; goruldu=@() }
     }
     if($metin -and -not $pdfler[$anahtar].etiket){ $pdfler[$anahtar].etiket = $metin }
+    if($onceki -and -not $pdfler[$anahtar].onceki_metin){ $pdfler[$anahtar].onceki_metin = $onceki }
     $pdfler[$anahtar].goruldu += $s.damga
     $bulunan++
   }
   Yaz ("  [{0}] {1} baglanti · birikmis tekil: {2}" -f $s.damga, $bulunan, $pdfler.Count)
 }
-$rapor.sayfadan_pdf = @($pdfler.Values | ForEach-Object { [ordered]@{ url=$_.url; etiket=$_.etiket; ilk_goruldu=$_.ilk_goruldu } })
+$rapor.sayfadan_pdf = @($pdfler.Values | ForEach-Object { [ordered]@{ url=$_.url; etiket=$_.etiket; onceki_metin=$_.onceki_metin; ilk_goruldu=$_.ilk_goruldu } })
 
 # ============================================================================
 #  4) EMNIYET AGI - DOMAIN GENELI PDF TARAMASI
@@ -229,6 +247,19 @@ $sorgular = @(
   "url=spl.com.tr&matchType=domain&output=text&fl=timestamp,original,statuscode,mimetype&collapse=urlkey&filter=statuscode:200&filter=original:.*%5C.[Pp][Dd][Ff]$&limit=8000"
   "url=spl.com.tr&matchType=domain&output=text&fl=timestamp,original,statuscode,mimetype&collapse=urlkey&filter=statuscode:200&filter=original:.*[Ss]oru.*|.*[Cc]evap.*|.*[Ss][Ii1I][Nn][Aa][Vv].*|.*[Aa]nahtar.*&limit=8000"
 )
+# EMNIYET AGI-2 (31.08, ilk kosunun bulgusu uzerine): 1715 dosyalik domain
+# taramasinda 2013 ve 2014 sinavlarinin YALNIZ CEVAP ANAHTARLARI cikti, soru
+# kitapciklari cikmadi. Sebep muhtemelen su: o donemin dosyalari oep.spl.com.tr
+# gibi AYRI SUNUCULARDA ve arsiv oralari daha az taramis. Bu yuzden bilinen
+# TUM yukleme koklerine AYRI AYRI ve SUZGECSIZ prefix sorgusu atilir - "adinda
+# sinav gecmiyor" diye elenen dosya kalmasin.
+foreach($kokYol in @('oep.spl.com.tr/pdf/','spl.com.tr/Images/Uploads/','www.spl.com.tr/Images/Uploads/',
+                     'spl.com.tr/PDF/','www.spl.com.tr/PDF/','spl.com.tr/Docs/','www.spl.com.tr/Docs/',
+                     'spl.com.tr/Content/','www.spl.com.tr/Content/','spl.com.tr/Upload/','www.spl.com.tr/Upload/',
+                     'basvuru.spl.com.tr/','www.spl.com.tr/spl/','spl.com.tr/spl/')){
+  $sorgular += "url=$([uri]::EscapeDataString($kokYol))&matchType=prefix&output=text&fl=timestamp,original,statuscode,mimetype&collapse=urlkey&limit=5000"
+}
+
 $tumPdfHash = @{}
 foreach($sq in $sorgular){
   $r = CdxSorgu $sq

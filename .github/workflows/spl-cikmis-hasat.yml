@@ -17,7 +17,10 @@
 name: SPL cikmis sinav arsivi hasati
 
 env:
-  TAVAN: '10'          # 0 = tamami · deneme icin kucuk tut
+  TAVAN: '0'           # 0 = tamami · deneme icin kucuk tut
+                       # 31.08: deneme (10) gecti - indirme+dort kapi calisiyor.
+                       # Siniflandirma kusuru (GUID adli 334 kitapcik eleniyordu)
+                       # duzeltildi; artik TAM kosu.
 
 on:
   workflow_dispatch:
@@ -46,6 +49,12 @@ jobs:
           sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-tur
           pdftotext -v || true
 
+      # Kesif ONCE burada kosar - ayri akisa birakilirsa indirme ESKI envanteri
+      # okur ve "yarim liste" ile calisir. Tek zincir, yaris yok.
+      - name: KESIF (adres listesi tazele)
+        shell: pwsh
+        run: pwsh -File motor/spl-cikmis-kesif.ps1
+
       - name: INDIR
         shell: pwsh
         env:
@@ -70,7 +79,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/spl-cikmis-indirme.json veri/cikmis-soru-ayrisma.json veri/cikmis-soru-bosluk-haritasi.json 2>/dev/null || true
+          git add veri/spl-cikmis-indirme.json veri/spl-cikmis-envanteri.json veri/SPL-CIKMIS-KESIF.md veri/cikmis-soru-ayrisma.json veri/cikmis-soru-bosluk-haritasi.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "rapor degismedi"
           else

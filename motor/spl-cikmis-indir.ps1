@@ -66,15 +66,31 @@ foreach($d in @($kesif.domain_pdf)){
   $ad = [uri]::UnescapeDataString((($d.url -split '\?')[0] -split '/')[-1])
   if($ad -notmatch '(?i)\.pdf$'){ continue }
   $sinif = if($ad -match $EVRAK){ 'sinav-evraki' } elseif($ad -match $GENIS){ 'sinav-belgesi' } else { 'ilgisiz' }
-  [void]$havuz.Add([pscustomobject]@{ url=$d.url; damga=$d.damga; ad=$ad; sinif=$sinif })
+  [void]$havuz.Add([pscustomobject]@{ url=$d.url; damga=$d.damga; ad=$ad; sinif=$sinif; etiket='' })
 }
-# Sayfa okumasindan cikan adresler de havuza katilir (etiketleri daha guvenilir).
+# 31.08 KUSUR (ilk deneme kosusunda yakalandi - tam da Cem'in "yarim yutma"
+# uyarisi): SPL'nin resmi arsiv sayfasindaki 334 kitapcik GUID adiyla duruyor
+# (docs/other/fa0b822b-40b0-45.pdf). Dosya adinda "sinav/soru/cevap" GECMIYOR,
+# yani ada bakan $GENIS suzgeci bu 334 dosyanin HEPSINI sessizce eliyordu.
+# Sayfadan gelen kayitlarda karar ADA DEGIL ETIKETE gore verilir:
+# "A KITAPCIGI" / "B KITAPCIGI" / "A-B KITAPCIGI" / "... CEVAP ANAHTARI".
+$ETIKET_BELGE = '(?i)(kitap[cç]i[gğ]i|kitapcigi|cevap anahtari|cevap anahtarı)'
 foreach($p in @($kesif.sayfadan_pdf)){
   $ad = [uri]::UnescapeDataString((($p.url -split '\?')[0] -split '/')[-1])
   if($ad -notmatch '(?i)\.pdf$'){ continue }
-  if($havuz | Where-Object { $_.url -eq $p.url }){ continue }
-  $sinif = if($ad -match $EVRAK){ 'sinav-evraki' } elseif($ad -match $GENIS){ 'sinav-belgesi' } else { 'ilgisiz' }
-  [void]$havuz.Add([pscustomobject]@{ url=$p.url; damga=$p.ilk_goruldu; ad=$ad; sinif=$sinif })
+  $et = "$($p.etiket)"
+  $sinif = if($et -match $ETIKET_BELGE){ 'sinav-belgesi' }
+           elseif($ad -match $EVRAK){ 'sinav-evraki' }
+           elseif($ad -match $GENIS){ 'sinav-belgesi' }
+           else { 'ilgisiz' }
+  $var = @($havuz | Where-Object { $_.url -eq $p.url })
+  if($var.Count){
+    # Ayni adres domain taramasindan da gelmisse ETIKET KAZANIR (daha guvenilir).
+    if($sinif -eq 'sinav-belgesi'){ $var[0].sinif = 'sinav-belgesi' }
+    if(-not $var[0].etiket){ $var[0] | Add-Member -NotePropertyName etiket -NotePropertyValue $et -Force }
+    continue
+  }
+  [void]$havuz.Add([pscustomobject]@{ url=$p.url; damga=$p.ilk_goruldu; ad=$ad; sinif=$sinif; etiket=$et })
 }
 
 # Ayni dosya birden fazla host altinda arsivlenmis olabilir
@@ -110,7 +126,7 @@ foreach($a in $adaylar){
   # Dosya adi diske guvenli hale getirilir (arsivde %20, parantez vb. var)
   $guvenli = ($a.ad -replace '[^\w\.\-]', '_')
   $yol = Join-Path $Hedef $guvenli
-  $s = [ordered]@{ dosya=$guvenli; ad=$a.ad; url=$a.url; kaynak=''; durum='KIRMIZI'; sebep=''
+  $s = [ordered]@{ dosya=$guvenli; ad=$a.ad; etiket="$($a.etiket)"; url=$a.url; kaynak=''; durum='KIRMIZI'; sebep=''
                    bayt=0; sayfa=0; metin_krk=0; hash=$null }
 
   if((Test-Path $yol) -and -not $Zorla -and (GecerliPdfMi $yol)){
