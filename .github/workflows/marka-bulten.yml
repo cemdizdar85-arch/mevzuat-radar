@@ -73,7 +73,10 @@ jobs:
           # alir, 'bitti' olanlari atlar, kalanlari yutar. Yeni cikan bulten de
           # bu listede oldugu icin ayri bir 'son' kosusuna gerek yok.
           mod='${{ github.event.inputs.mod }}'; [ -z "$mod" ] && mod=gecmis
-          adet='${{ github.event.inputs.adet }}'; [ -z "$adet" ] && adet=6
+          # 31.08: yedek 6 -> 263. Zamanlanmis kosu input GONDERMEZ, bu satir
+          # devreye girer. Dugmedeki varsayilani 263 yapip burayi 6 birakinca
+          # gece kosusu 248 bulten beklerken "yutulacak yeni bulten yok" dedi.
+          adet='${{ github.event.inputs.adet }}'; [ -z "$adet" ] && adet=263
           echo "mod: $mod"
           case "$mod" in
             liste)  node motor/marka-bulten-hasat.js --liste ;;

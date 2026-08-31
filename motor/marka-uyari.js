@@ -25,9 +25,20 @@
 'use strict';
 
 const SB_URL = process.env.SUPABASE_URL || 'https://bjrleanjpyujtajmazxn.supabase.co';
-const SB_KEY = process.env.SUPABASE_SERVICE_KEY || '';
-const RESEND = process.env.RESEND_KEY || '';
-const FROM = process.env.RESEND_FROM || 'Tetikte <bildirim@tetikte.com>';
+const SB_KEY = sir('SUPABASE_SERVICE_KEY');
+/* 31.08 CANLI ARIZA: RESEND_KEY'in basinda U+FEFF (BOM) vardi. fetch basligi
+   ByteString ister; "character at index 7 has a value of 65279" deyip patladi
+   ve uyari maili HIC gitmedi - ustelik sessizce degil, ama tek satirlik bir
+   hata olarak. Panele yapistirirken bulasmis olmali.
+   Sirlar artik ayiklanir: BOM, sifir genislikli karakterler ve bosluklar. */
+function sir(ad) {
+  return String(process.env[ad] || '')
+    .replace(/^\uFEFF/, '')
+    .replace(/[\u200B-\u200D\u2060]/g, '')
+    .trim();
+}
+const RESEND = sir('RESEND_KEY');
+const FROM = sir('RESEND_FROM') || 'Tetikte <bildirim@tetikte.com>';
 const SITE = 'https://tetikte.com';
 const KURU = process.argv.includes('--kuru');
 const TAVAN = 25;                    // bir mailde en fazla kaç başvuru
