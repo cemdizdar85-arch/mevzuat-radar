@@ -34,7 +34,7 @@
 #    pwsh -File motor/spl-cikmis-kesif.ps1
 #    pwsh -File motor/spl-cikmis-kesif.ps1 -Sessiz
 # ============================================================================
-param([switch]$Sessiz, [int]$SnapshotSayisi = 8)
+param([switch]$Sessiz, [int]$SnapshotSayisi = 90)
 
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -122,10 +122,14 @@ foreach($a in $canliAdresler){
 #  2) ARSIVDE SAYFANIN ANLIK GORUNTULERI
 # ============================================================================
 Yaz "`n=== 2/4 - ARSIV ANLIK GORUNTULERI ===" 'Cyan'
+# 31.08 KUSUR (ilk kosuda olculdu, 0 anlik goruntu dondu): matchType=prefix ile
+# adresin sonuna '*' KONULMAZ - yildiz kacis karakteri degil, adresin PARCASI
+# sayilir ve hicbir sey eslesmez. Yildiz yalniz matchType'i kendisi belirleten
+# "url=...*" YAZIMINDA gecerlidir, ikisi birlikte kullanilmaz.
 $sayfaUrlleri = @(
-  'spl.com.tr/gecmis-donem-lisanslama-sinavlari*'
-  'spl.com.tr/icerik/gecmis-donem-lisanslama-sinavlari*'
-  'www.spl.com.tr/icerik/gecmis-donem-lisanslama-sinavlari*'
+  'spl.com.tr/gecmis-donem-lisanslama-sinavlari'
+  'spl.com.tr/icerik/gecmis-donem-lisanslama-sinavlari'
+  'www.spl.com.tr/icerik/gecmis-donem-lisanslama-sinavlari'
 )
 $snapshot = New-Object System.Collections.ArrayList
 foreach($su in $sayfaUrlleri){
@@ -134,7 +138,27 @@ foreach($su in $sayfaUrlleri){
   Yaz ("  {0,-58} anlik goruntu: {1}" -f $su, @($r).Count)
   foreach($x in @($r)){ [void]$snapshot.Add($x) }
 }
-$snapshot = @($snapshot | Sort-Object damga -Descending)
+
+# EMNIYET AGI-1: adres tahmin etmeyi birak, ARSIVE SOR. spl.com.tr altinda
+# adresinde sinav/gecmis/lisanslama/soru gecen TUM HTML sayfalari aday listeye
+# girer. Boylece 2010-2014 arasindaki ESKI CMS'in bilmedigimiz yollari da
+# (ornek: /Sayfa/..., /Sinavlar/...) kendiliginden yakalanir.
+$aramaQ = "url=spl.com.tr&matchType=domain&output=text&fl=timestamp,original,statuscode,mimetype" +
+          "&filter=statuscode:200&filter=mimetype:text/html" +
+          "&filter=original:.*[Ss][Ii1I][Nn][Aa][Vv].*|.*[Gg]ecmis.*|.*[Ll]isanslama.*|.*[Ss]oru.*" +
+          "&collapse=urlkey&limit=800"
+$adaySayfa = CdxSorgu $aramaQ
+Yaz ("  arsivden aday HTML sayfasi: {0}" -f @($adaySayfa).Count)
+foreach($x in @($adaySayfa)){ [void]$snapshot.Add($x) }
+
+# Ayni adresin birden fazla kaydi olabilir; adres basina EN YENI kayit tutulur,
+# sonra yeniden eskiye siralanir.
+$enYeni = @{}
+foreach($s in @($snapshot)){
+  $a = $s.url.ToLower()
+  if(-not $enYeni.ContainsKey($a) -or $s.damga -gt $enYeni[$a].damga){ $enYeni[$a] = $s }
+}
+$snapshot = @($enYeni.Values | Sort-Object damga -Descending)
 $rapor.snapshotlar = @($snapshot | ForEach-Object { [ordered]@{ damga=$_.damga; url=$_.url } })
 
 if($snapshot.Count -eq 0){
@@ -199,9 +223,11 @@ Yaz "`n=== 4/4 - DOMAIN GENELI PDF TARAMASI (emniyet agi) ===" 'Cyan'
 # Iki ayri suzgecle sorulur ve BIRLESTIRILIR - tek suzgece guvenilmez:
 #  (a) mimetype: arsivin kaydettigi tip; bazi PDF'ler octet-stream damgali.
 #  (b) adres uzantisi: tip yanlis damgali olsa da adres .pdf ile bitiyor.
+#  (c) adi soru/cevap/sinav gecen HER dosya - uzantisi ne olursa olsun.
 $sorgular = @(
   "url=spl.com.tr&matchType=domain&output=text&fl=timestamp,original,statuscode,mimetype&collapse=urlkey&filter=statuscode:200&filter=mimetype:application/pdf&limit=8000"
   "url=spl.com.tr&matchType=domain&output=text&fl=timestamp,original,statuscode,mimetype&collapse=urlkey&filter=statuscode:200&filter=original:.*%5C.[Pp][Dd][Ff]$&limit=8000"
+  "url=spl.com.tr&matchType=domain&output=text&fl=timestamp,original,statuscode,mimetype&collapse=urlkey&filter=statuscode:200&filter=original:.*[Ss]oru.*|.*[Cc]evap.*|.*[Ss][Ii1I][Nn][Aa][Vv].*|.*[Aa]nahtar.*&limit=8000"
 )
 $tumPdfHash = @{}
 foreach($sq in $sorgular){
@@ -210,8 +236,8 @@ foreach($sq in $sorgular){
   foreach($x in @($r)){ if(-not $tumPdfHash.ContainsKey($x.url.ToLower())){ $tumPdfHash[$x.url.ToLower()] = $x } }
 }
 $tumPdf = @($tumPdfHash.Values | Sort-Object url)
-Yaz ("  arsivde spl.com.tr altinda tekil PDF: {0}" -f @($tumPdf).Count)
-$rapor.domain_pdf = @($tumPdf | ForEach-Object { [ordered]@{ damga=$_.damga; url=$_.url } })
+Yaz ("  arsivde spl.com.tr altinda tekil dosya: {0}" -f @($tumPdf).Count)
+$rapor.domain_pdf = @($tumPdf | ForEach-Object { [ordered]@{ damga=$_.damga; url=$_.url; tip=$_.tip } })
 
 # --- HUKUM ------------------------------------------------------------------
 if(@($pdfler.Keys).Count -gt 0){
