@@ -475,7 +475,11 @@ Write-Host "`n--- OKUMA TURU ---"
 foreach($ot in ($rapor.okuma | Sort-Object -Unique)){ Write-Host ("  {0,-12} {1} kitapcik" -f $ot, @($rapor | Where-Object { $_.okuma -eq $ot }).Count) }
 Write-Host ("`nTOPLAM AYRISAN SORU: {0}" -f $topSoru)
 if($yaz){ Write-Host ("AMBARA YENI YAZILAN: {0} | TAZELENEN: {1} | DOKUNULMAYAN: {2} | HATA: {3}" -f $yazilan,$tazelenen,$zatenVar,$yazHata) }
-[IO.File]::WriteAllText((Join-Path $kok 'veri\cikmis-soru-ayrisma.json'),
+# 31.08 TASINABILIRLIK KUSURU: yol 'veri\...' idi. Linux'ta ters bolu AYIRICI
+# DEGIL, dosya adinin PARCASIDIR - runner'da depo kokune "veri\cikmis-soru-
+# ayrisma.json" adinda tek bir dosya olusuyor, veri/ altina hicbir sey
+# yazilmiyor ve akisin `git add veri/...` adimi sessizce bos donuyordu.
+[IO.File]::WriteAllText((Join-Path $kok 'veri/cikmis-soru-ayrisma.json'),
   (ConvertTo-Json -InputObject ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); toplamSoru=$topSoru; yazilan=$yazilan; kitapciklar=$rapor.ToArray() }) -Depth 4),
   (New-Object Text.UTF8Encoding($false)))
 Write-Host "Rapor: veri/cikmis-soru-ayrisma.json"
@@ -488,7 +492,7 @@ if($tani){
   if($hedefSayi -gt 0){ Write-Host ("Hic gorulmeyen (hedefSayi={0} icinde hicbir aile yakalamadi): {1}" -f $hedefSayi,$topHicGorulmeyen) }
   $sebepGrup = @($bosluklar.filtrelenenler | ForEach-Object { $_.sebep }) | Group-Object
   foreach($sg in $sebepGrup){ Write-Host ("  {0,-16} {1}" -f $sg.Name,$sg.Count) }
-  [IO.File]::WriteAllText((Join-Path $kok 'veri\cikmis-soru-bosluk-haritasi.json'),
+  [IO.File]::WriteAllText((Join-Path $kok 'veri/cikmis-soru-bosluk-haritasi.json'),
     (ConvertTo-Json -InputObject ([ordered]@{
        tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
        aciklama='Kazanan aile+stilin ATLADIGI numaralar ve sebebi. Ayristirma mantigina dokunulmadi - salt olcum.'

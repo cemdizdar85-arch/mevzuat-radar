@@ -111,6 +111,14 @@ veri/sgs-arsiv/
 # Oturum kilidi - yereldir, git'e girmez (30.08)
 veri/OTURUM-KILIDI.json
 
+# ============================================================================
+# 31.08 - HAM KAYNAK KLASORU DEPOYA GIRMEZ (kural CLAUDE.md'de yaziliydi ama
+# .gitignore'da KARSILIGI YOKTU - yalniz "kimse yanlislikla eklemesin" diye
+# dayaniyordu). SPL cikmis sinav arsivi hasadi bu klasore 334 TELIFLI kitapcik
+# indiriyor; depo PUBLIC. Kural artik yazili degil, UYGULANIYOR.
+# ============================================================================
+_kaynak/
+
 # Destek Radari cagri metni onbellegi (30.08). Robot cagri sayfalarinin HAM
 # metnini buraya yazar; yutma desenleri iyilestirilirken kurum sitelerine
 # yeniden gidilmesin diye. Kaynaktan turetilir, istenince yeniden uretilir -
