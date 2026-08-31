@@ -1,25 +1,25 @@
 {
-  "tarih": "30.08.2026 15:40",
-  "durum": "KOR",
-  "ozet": "5 kontrol · 2 yesil · 0 kirmizi · 3 kor",
+  "tarih": "31.08.2026 11:06",
+  "durum": "YESIL",
+  "ozet": "5 kontrol · 5 yesil · 0 kirmizi · 0 kor",
   "kontroller": [
     {
       "ad": "Alacak vitrini (suzgecsiz)",
       "uc": "alacak_vitrin",
       "goc": "radar-app/sql/2026-08-28-alacak-kapsam-serhi.sql",
-      "durum": "KOR",
+      "durum": "YESIL",
       "eksik": [],
       "sayfadaYok": [],
-      "sebep": "istek basarisiz: Response status code does not indicate success: 500 (Internal Server Error)."
+      "sebep": ""
     },
     {
       "ad": "Alacak vitrini (tur suzgecli - 28.08 kusurunun tam yeri)",
       "uc": "alacak_vitrin",
       "goc": "radar-app/sql/2026-08-28-alacak-kapsam-serhi.sql",
-      "durum": "KOR",
+      "durum": "YESIL",
       "eksik": [],
       "sayfadaYok": [],
-      "sebep": "istek basarisiz: Response status code does not indicate success: 500 (Internal Server Error)."
+      "sebep": ""
     },
     {
       "ad": "Teslim teyidi durum ucu",
@@ -34,10 +34,10 @@
       "ad": "Alacak gizli arsiv arama ucu",
       "uc": "alacak_ara",
       "goc": "radar-app/sql/2026-08-19-alacak-gizli-arsiv.sql",
-      "durum": "KOR",
+      "durum": "YESIL",
       "eksik": [],
       "sayfadaYok": [],
-      "sebep": "istek basarisiz: Response status code does not indicate success: 500 (Internal Server Error)."
+      "sebep": ""
     },
     {
       "ad": "Marka portfoy sonuc ucu",
