@@ -367,11 +367,13 @@ function ikiAySonra(iso) {
   // Bu kontrol ilk sürümde YOKTU ama iş akışına "indirmez" diye yazmıştım -
   // yani belge yalan söylüyordu. Sonucu: her gece 05:40'ta aynı 477 MB
   // boşuna inecekti. Kütük tek doğru kaynak; hafızadan "yuttuk" denmez.
+  let bittiSayisi = null;      // bos tur nobetcisi icin
   if (!KURU && !bayrak('--zorla')) {
     const y = await fetch(`${SB_URL}/rest/v1/marka_bulten_kutuk?durum=eq.bitti&select=bulten_no`,
       { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } });
     if (y.ok) {
       const bitti = new Set((await y.json()).map(r => r.bulten_no));
+      bittiSayisi = bitti.size;
       const once = hedefler.length;
       hedefler = hedefler.filter(b => !bitti.has(b.bulten_no));
       if (once !== hedefler.length) {
@@ -479,5 +481,20 @@ function ikiAySonra(iso) {
   log('BITTI: ' + rapor.islenen.length + ' bulten islendi (' + kayitToplam + ' kayit), '
     + rapor.hata.length + ' hata, ' + gecenDk().toFixed(0) + ' dk.');
   if (atlanan) log('SONRAKI KOSUYA KALAN: ' + atlanan + ' bulten.');
+
+  /* BOS TUR NOBETCISI (31.08 dersi)
+     O gece kosu YESIL bitti ama hicbir sey yutulmadi: adet yedegi 6 kalmisti,
+     robot en yeni 6 bultene bakti, hepsi 'bitti' idi ve "yutulacak yeni bulten
+     yok" deyip cikti. 248 bulten sirada bekliyordu. Kosu yesil oldugu icin
+     kimse fark etmedi - kusurun en sinsi turu: is yapilmadi ama hata da yok.
+     Bundan sonra: sirada bekleyen varken 0 bulten yutulduysa KIRMIZI. */
+  if (!KURU && rapor.islenen.length === 0 && !atlanan
+      && bittiSayisi !== null && liste.length > bittiSayisi) {
+    log('');
+    log('!! BOS TUR: hicbir bulten yutulmadi ama sirada ' + (liste.length - bittiSayisi) + ' bulten var.');
+    log('   Muhtemel sebep: adet parametresi cok kucuk (su an ' + hedefler.length + ' aday secildi)');
+    log('   ya da liste yalniz en yeni N bulteni kapsiyor. Kosu KIRMIZI isaretleniyor.');
+    process.exit(1);
+  }
   if (rapor.hata.length) process.exit(1);
 })().catch(e => { console.error('!! ISTISNA: ' + (e && e.stack || e)); process.exit(1); });
