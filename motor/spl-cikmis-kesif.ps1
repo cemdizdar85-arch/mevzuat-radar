@@ -226,7 +226,11 @@ foreach($s in $snapshot){
     $onceki = [regex]::Replace($onceki, '(?is)<(script|style).*?</\1>', ' ')
     $onceki = [regex]::Replace($onceki, '<[^>]+>', ' ')
     $onceki = ([Net.WebUtility]::HtmlDecode($onceki) -replace '\s+', ' ').Trim()
-    if($onceki.Length -gt 260){ $onceki = $onceki.Substring($onceki.Length - 260) }
+    # 31.08: pencere 260 iken uzun ders adlari basindan kirpiliyordu
+    # ("...edi Derecelendirme ve Kurumsal Derecelendirme Uzmanligi").
+    # Bir satirda ders adi + oturum + onceki satirin "A KITAPCIGI -" kuyrugu
+    # rahatca 300 karakteri gecebiliyor.
+    if($onceki.Length -gt 420){ $onceki = $onceki.Substring($onceki.Length - 420) }
 
     # Baglantidan ONCEKI son tarih ifadesi = donem ipucu
     $donemIpucu = ''

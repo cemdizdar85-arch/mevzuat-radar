@@ -39,7 +39,10 @@ concurrency:
 jobs:
   hasat:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    # 31.08: ilk tam kosu 120 dakikayi asti ve HICBIR rapor yazilamadi -
+    # is tavana carpinca `if: always()` adimlari da kosmaz, cikti tamamen
+    # kaybolur. Tavan yukseltildi VE indirme raporu kendi adiminda basiliyor.
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
 
@@ -60,6 +63,23 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: pwsh -File motor/spl-cikmis-indir.ps1 -Tavan ([int]$env:TAVAN)
+
+      # Indirme raporu KENDI adiminda basilir. Ayristirma uzun surer; is
+      # tavana carparsa en azindan "ne indi, ne inmedi" ana telde durur.
+      - name: INDIRME RAPORUNU BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/spl-cikmis-indirme.json veri/spl-cikmis-envanteri.json veri/SPL-CIKMIS-KESIF.md 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "indirme raporu degismedi"
+          else
+            git commit -m "SPL cikmis: indirme raporu [veri-operasyonu]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
 
       - name: AYRISTIR (salt olcum - ambara YAZMAZ)
         shell: pwsh

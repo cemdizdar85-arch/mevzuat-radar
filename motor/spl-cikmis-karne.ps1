@@ -45,6 +45,7 @@ if(-not $kesif){ throw 'veri/spl-cikmis-envanteri.json yok - once motor/spl-cikm
 # Bu yuzden donem ve ders, baglantinin ONUNDEKI metinden okunur. Okunamazsa
 # UYDURULMAZ - "?" yazilir ve karnede ayri satirda sayilir.
 $AYLAR = 'ocak|subat|şubat|mart|nisan|mayis|mayıs|haziran|temmuz|agustos|ağustos|eylul|eylül|ekim|kasim|kasım|aralik|aralık'
+$AYLAR_SADE = 'ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik'
 function DonemCoz([string]$ipucu, [string]$metin){
   if($ipucu){ return $ipucu }
   if(-not $metin){ return '?' }
@@ -55,30 +56,80 @@ function DonemCoz([string]$ipucu, [string]$metin){
   return '?'
 }
 function GrupCoz([string]$etiket){
-  if($etiket -match '(?i)a-b'){ return 'A-B' }
-  if($etiket -match '(?i)^\s*a\b'){ return 'A' }
-  if($etiket -match '(?i)^\s*b\b'){ return 'B' }
+  $e = TrSade $etiket
+  if($e -match 'a-b'){ return 'A-B' }
+  if($e -match '^\s*a\b'){ return 'A' }
+  if($e -match '^\s*b\b'){ return 'B' }
   return '?'
 }
+# Sayfanin gercek dizilisi (31.08 olculdu):
+#     ... Turev Araclar Cumartesi 1.Oturum [A KITAPCIGI] - [B KITAPCIGI]
+#         Gayrimenkul Degerleme Uzmanligi Pazar 1.Oturum [A KITAPCIGI] - ...
+# Yani DERS, baglantidan onceki SON "KITAPCIGI" isaretinden SONRA baslar.
+# B baglantisi icin son isaret hemen onundeki "A KITAPCIGI"dir; o durumda bir
+# onceki isaret alinir. Sabit uzunlukta kuyruk almak (ilk denemem) bir onceki
+# satirin dersini icine cekiyordu - olculdu, o yuzden boyle yazildi.
+# NOT: TrSade tek karakteri tek karakterle degistirdigi icin sade metnin
+# indeksleri orijinalle BIREBIR ortusur; kesme orijinal metinde yapilir.
 function DersCoz([string]$metin, [string]$donem){
   if(-not $metin){ return '?' }
-  # Baglantinin hemen onundeki en son anlamli parca ders adidir. Donem basligi
-  # ve "A/B KITAPCIGI" etiketleri temizlenir.
+  $sade = TrSade $metin
+  # Bir donemin ILK satirinda onunde hic "KITAPCIGI" isareti yoktur - onunde
+  # BASLIK vardir ("... Lisanslama Sinavi Soru Kitapciklari"). O durumda
+  # basligin kuyrugu ders adina yapisiyordu; basliklar da kesme noktasi sayilir.
+  $isaret = [regex]::Matches($sade, 'kitapcigi|anahtari|kitapciklari|sinavlari|sinavi')
   $t = $metin
+  if($isaret.Count -gt 0){
+    $son = $isaret[$isaret.Count - 1]
+    $kuyruk = $sade.Length - ($son.Index + $son.Length)
+    if($kuyruk -le 8 -and $isaret.Count -ge 2){ $son = $isaret[$isaret.Count - 2] }
+    $t = $metin.Substring($son.Index + $son.Length)
+  }
+  # bastaki ayirici ve sondaki "A KITAPCIGI -" kuyrugu temizlenir
+  $t = $t -replace '^[\s\-–—:·]+', ''
+  $ts = TrSade $t
+  $kes = [regex]::Match($ts, '\s*(a-b|a|b)\s*kitapcigi\s*[-–—]*\s*$')
+  if($kes.Success){ $t = $t.Substring(0, $kes.Index) }
   if($donem -ne '?'){ $t = $t -replace [regex]::Escape($donem), ' ' }
-  $t = $t -replace '(?i)(a-b|a|b)\s*kitap[cç]i[gğ]i', ' '
-  $t = $t -replace '(?i)cevap anahtar[iı]', ' '
   $t = ($t -replace '\s+', ' ').Trim()
-  if($t.Length -gt 70){ $t = $t.Substring($t.Length - 70).Trim() }
   if(-not $t){ return '?' }
+  if($t.Length -gt 70){ $t = $t.Substring($t.Length - 70).Trim() }
   return $t
 }
 
+# Ayni sinav sayfada uc farkli yazimla gecebiliyor ("28-29 Aralik 2013",
+# "28– 29 Aralik 2013", "29 Aralik 2013"). Karne bunlari AYRI DONEM sayarsa
+# kapsama tablosu yalan soyler. Donem AY+YIL'a indirgenir - SPL'nin sinav
+# takviminde ayni ay icinde iki ayri sinav yok.
+function DonemNormal([string]$d){
+  if(-not $d -or $d -eq '?'){ return '?' }
+  $s = TrSade $d
+  $m = [regex]::Match($s, "($AYLAR_SADE)\s+((?:19|20)\d{2})")
+  if($m.Success){ return ('{0} {1}' -f $m.Groups[1].Value, $m.Groups[2].Value) }
+  return $d
+}
+
 # --- 1) LISTELENEN ----------------------------------------------------------
-$ETIKET_BELGE = '(?i)(kitap[cç]i[gğ]i|kitapcigi|cevap anahtari|cevap anahtarı)'
+# TURKCE BUYUK I TUZAGI (31.08 olculdu): .NET IgnoreCase invariant kulturdur,
+# 'İ' ile 'i' orada AYNI HARF DEGILDIR. "A KİTAPÇIĞI" etiketi `(?i)kitapcigi`
+# desenine TUTMAZ. Once ASCII'ye katlanir, sonra eslestirilir.
+# IKI KATMANLI TUZAK, ikisi de olculdu:
+#  (a) PS'de `-replace` harf ayirmaz -> 'Ç' de kucuk 'c' olur, ad bozulur.
+#  (b) tr-TR kulturunde Regex `(?i)` 'I'yi NOKTASIZ 'ı'ya katlar -> "ANAHTARI"
+#      ile 'anahtari' TR makinede eslesmez (runner en-US oldugu icin orada
+#      eslesir: kusur yerelde gorunur, CI'da gorunmez).
+# Cozum: buyuk/kucuk TUM Turkce harfleri tek tek katla, InvariantCulture ile
+# kucult, desenleri kucuk harf yaz, `(?i)` KULLANMA.
+function TrSade([string]$s){
+  if(-not $s){ return '' }
+  $s = $s -replace '[İIıi]','i' -replace '[Şş]','s' -replace '[Ğğ]','g'
+  $s = $s -replace '[Üü]','u'   -replace '[Öö]','o' -replace '[Çç]','c'
+  return $s.ToLowerInvariant()
+}
+$ETIKET_BELGE = '(kitapcigi|cevap\s*anahtari)'
 $listelenen = New-Object System.Collections.ArrayList
 foreach($p in @($kesif.sayfadan_pdf)){
-  if("$($p.etiket)" -notmatch $ETIKET_BELGE){ continue }
+  if((TrSade "$($p.etiket)") -notmatch $ETIKET_BELGE){ continue }
   $ad = [uri]::UnescapeDataString((($p.url -split '\?')[0] -split '/')[-1])
   $don = DonemCoz "$($p.donem_ipucu)" "$($p.onceki_metin)"
   [void]$listelenen.Add([pscustomobject]@{
@@ -87,18 +138,35 @@ foreach($p in @($kesif.sayfadan_pdf)){
     url    = $p.url
     etiket = "$($p.etiket)"
     grup   = GrupCoz "$($p.etiket)"
-    donem  = $don
+    donem  = DonemNormal $don
+    donem_ham = $don
     ders   = DersCoz "$($p.onceki_metin)" $don
-    tur    = if("$($p.etiket)" -match '(?i)cevap'){ 'cevap-anahtari' } else { 'soru-kitapcigi' }
+    tur    = if((TrSade "$($p.etiket)") -match 'cevap'){ 'cevap-anahtari' } else { 'soru-kitapcigi' }
   })
 }
-$listelenen = @($listelenen)
+# 31.08 KUSUR (olculdu): sayfa her kitapcigi IKI KEZ veriyor - bir kez
+# spl.com.tr, bir kez www.spl.com.tr adresiyle. Ham sayim 334 diyordu;
+# tekil dosya 167. Tekillestirilmeseydi karne "334 listelendi / 166 arsivde"
+# yani %50 gibi YANLIS bir kapsama gosterecekti. Gercek oran 166/167.
+# Ayni dosyanin iki adresi de saklanir (biri inmezse oteki denenir).
+$tekilAd = [ordered]@{}
+foreach($l in $listelenen){
+  if($tekilAd.Contains($l.ad)){
+    $tekilAd[$l.ad].adresler += $l.url
+  } else {
+    $l | Add-Member -NotePropertyName adresler -NotePropertyValue @($l.url) -Force
+    $tekilAd[$l.ad] = $l
+  }
+}
+$listelenen = @($tekilAd.Values)
 
 # --- 2) ARSIVDE KAYDI OLAN --------------------------------------------------
 $arsivde = @{}
 foreach($d in @($kesif.domain_pdf)){ $arsivde[$d.url.ToLower()] = $d.damga }
 foreach($l in $listelenen){
-  $l | Add-Member -NotePropertyName arsiv_kaydi -NotePropertyValue ($arsivde.ContainsKey($l.url.ToLower())) -Force
+  $var = $false
+  foreach($u in @($l.adresler)){ if($arsivde.ContainsKey("$u".ToLower())){ $var = $true } }
+  $l | Add-Member -NotePropertyName arsiv_kaydi -NotePropertyValue $var -Force
 }
 
 # --- 3/4) INEN + METNI CIKAN ------------------------------------------------
@@ -108,7 +176,8 @@ foreach($l in $listelenen){
 $inen = @{}
 if($indirme){ foreach($f in @($indirme.dosyalar)){ $inen["$($f.url)".ToLower()] = $f } }
 foreach($l in $listelenen){
-  $f = $inen[$l.url.ToLower()]
+  $f = $null
+  foreach($u in @($l.adresler)){ if(-not $f){ $f = $inen["$u".ToLower()] } }
   if($f){ $l | Add-Member -NotePropertyName dosya -NotePropertyValue "$($f.dosya)" -Force }
   $l | Add-Member -NotePropertyName indi      -NotePropertyValue ($null -ne $f -and $f.durum -ne 'KIRMIZI') -Force
   $l | Add-Member -NotePropertyName metin_krk -NotePropertyValue $(if($f){ [int]$f.metin_krk } else { 0 }) -Force

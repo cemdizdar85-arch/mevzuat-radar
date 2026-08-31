@@ -74,12 +74,37 @@ foreach($d in @($kesif.domain_pdf)){
 # yani ada bakan $GENIS suzgeci bu 334 dosyanin HEPSINI sessizce eliyordu.
 # Sayfadan gelen kayitlarda karar ADA DEGIL ETIKETE gore verilir:
 # "A KITAPCIGI" / "B KITAPCIGI" / "A-B KITAPCIGI" / "... CEVAP ANAHTARI".
-$ETIKET_BELGE = '(?i)(kitap[cç]i[gğ]i|kitapcigi|cevap anahtari|cevap anahtarı)'
+#
+# 31.08 IKINCI KUSUR - YUKARIDAKI DUZELTMENIN KENDISI TUTMADI (olculdu: 334
+# yerine 4 eslesme). Sebep TURKCE BUYUK I: etiket "A KITAPCIGI" degil
+# "A KİTAPÇIĞI"dir. .NET'in IgnoreCase'i INVARIANT kultur kullanir ve
+# 'İ' (U+0130) ile 'i' (U+0069) ORADA AYNI HARF DEGILDIR - desen sessizce
+# tutmaz. Ders: Turkce metinde `-match '(?i)...'` tek basina yeterli degil;
+# once ASCII'ye katlanir, sonra eslestirilir.
+# 31.08 UCUNCU KUSUR - DUZELTMENIN DUZELTMESI. Yukaridaki TrSade'nin ILK hali
+# de tutmadi, iki ayri sebeple; ikisi de bu makinede OLCULDU:
+#   (a) PowerShell'de `-replace` VARSAYILAN OLARAK HARF AYIRMAZ. Yani
+#       `-replace 'ç','c'` buyuk 'Ç'yi de yakalar ve yerine KUCUK 'c' koyar:
+#       "KİTAPÇIĞI" -> "KITAPcIgI". Harf ayirmak icin `-creplace` gerekir.
+#   (b) Kultur tr-TR oldugunda .NET Regex'in `(?i)` bayragi 'I' harfini
+#       NOKTASIZ 'ı'ya katlar. Yani "ANAHTARI" ile 'anahtari' deseni
+#       TR makinede ESLESMEZ. (Runner en-US oldugu icin orada eslesir -
+#       yani kusur yerelde gorunur, CI'da gorunmez: en sinsi tur.)
+# Cozum: harf ayrimini hic isin icine sokma. Turkce harflerin BUYUK VE KUCUK
+# hallerini tek tek ASCII karsiligina katla, sonra InvariantCulture ile
+# kucult; desenler de kucuk harf yazilir, `(?i)` KULLANILMAZ.
+function TrSade([string]$s){
+  if(-not $s){ return '' }
+  $s = $s -replace '[İIıi]','i' -replace '[Şş]','s' -replace '[Ğğ]','g'
+  $s = $s -replace '[Üü]','u'   -replace '[Öö]','o' -replace '[Çç]','c'
+  return $s.ToLowerInvariant()
+}
+$ETIKET_BELGE = '(kitapcigi|cevap\s*anahtari)'
 foreach($p in @($kesif.sayfadan_pdf)){
   $ad = [uri]::UnescapeDataString((($p.url -split '\?')[0] -split '/')[-1])
   if($ad -notmatch '(?i)\.pdf$'){ continue }
   $et = "$($p.etiket)"
-  $sinif = if($et -match $ETIKET_BELGE){ 'sinav-belgesi' }
+  $sinif = if((TrSade $et) -match $ETIKET_BELGE){ 'sinav-belgesi' }
            elseif($ad -match $EVRAK){ 'sinav-evraki' }
            elseif($ad -match $GENIS){ 'sinav-belgesi' }
            else { 'ilgisiz' }
@@ -104,32 +129,28 @@ $AYLAR_TR = @{ 'ocak'='ocak'; 'subat'='subat'; 'şubat'='subat'; 'mart'='mart'; 
                'mayis'='mayis'; 'mayıs'='mayis'; 'haziran'='haziran'; 'temmuz'='temmuz'
                'agustos'='agustos'; 'ağustos'='agustos'; 'eylul'='eylul'; 'eylül'='eylul'
                'ekim'='ekim'; 'kasim'='kasim'; 'kasım'='kasim'; 'aralik'='aralik'; 'aralık'='aralik' }
-function AsciiSade([string]$s){
-  $s = $s -replace 'ı','i' -replace 'İ','I' -replace 'ş','s' -replace 'Ş','S' -replace 'ğ','g' -replace 'Ğ','G'
-  $s = $s -replace 'ü','u' -replace 'Ü','U' -replace 'ö','o' -replace 'Ö','O' -replace 'ç','c' -replace 'Ç','C'
-  return $s
-}
 function AnlamliAd($h){
   if(-not $h.donem_ipucu){ return $null }
-  $ip = AsciiSade ("$($h.donem_ipucu)".ToLower())
+  $ip = TrSade "$($h.donem_ipucu)"
   $ay = ''; $yil = ''
-  foreach($k in $AYLAR_TR.Keys){ if($ip -match [regex]::Escape((AsciiSade $k))){ $ay = $AYLAR_TR[$k]; break } }
+  foreach($k in $AYLAR_TR.Keys){ if($ip -match [regex]::Escape((TrSade $k))){ $ay = $AYLAR_TR[$k]; break } }
   $my = [regex]::Match($ip, '(20\d{2}|19\d{2})'); if($my.Success){ $yil = $my.Groups[1].Value }
   if(-not $ay -or -not $yil){ return $null }
 
-  # ders: baglantinin onundeki metnin kuyrugu ("... Temel Duzey Cumartesi 1.Oturum")
-  $t = AsciiSade "$($h.onceki_metin)"
-  $t = $t -replace '(?i)(a-b|a|b)\s*kitapcigi', ' '
-  $t = $t -replace '(?i)cevap anahtari', ' '
-  $t = $t -replace '(?i)<[^>]*>', ' '
-  $t = ($t -replace '[^A-Za-z0-9\. ]', ' ') -replace '\s+', ' '
+  # ders: baglantinin onundeki metnin kuyrugu ("... temel duzey cumartesi 1.oturum")
+  $t = TrSade "$($h.onceki_metin)"
+  $t = $t -replace '<[^>]*>', ' '
+  $t = $t -replace '(a-b|a|b)\s*kitapcigi', ' '
+  $t = $t -replace 'cevap\s*anahtari', ' '
+  $t = ($t -replace '[^a-z0-9\. ]', ' ') -replace '\s+', ' '
   $t = $t.Trim()
   if($t.Length -gt 60){ $t = $t.Substring($t.Length - 60).Trim() }
-  $ders = ($t -replace '\s+', '_').ToLower()
+  $ders = ($t -replace '\s+', '_')
   if(-not $ders){ $ders = 'bilinmeyen' }
 
-  $grup = if("$($h.etiket)" -match '(?i)a-b'){ 'ab' } elseif("$($h.etiket)" -match '(?i)^\s*a\b'){ 'a' } elseif("$($h.etiket)" -match '(?i)^\s*b\b'){ 'b' } else { 'x' }
-  $tur  = if("$($h.etiket)" -match '(?i)cevap'){ 'cevap' } else { 'soru' }
+  $et = TrSade "$($h.etiket)"
+  $grup = if($et -match 'a-b'){ 'ab' } elseif($et -match '^\s*a\b'){ 'a' } elseif($et -match '^\s*b\b'){ 'b' } else { 'x' }
+  $tur  = if($et -match 'cevap'){ 'cevap' } else { 'soru' }
   $ad = ('spk-{0}_{1}-{2}_{3}_{4}.pdf' -f $yil, $ay, $ders, $grup, $tur)
   return ($ad -replace '[^\w\.\-]', '_')
 }
@@ -160,6 +181,32 @@ function GecerliPdfMi([string]$yol){
   return ($b[0] -eq 0x25 -and $b[1] -eq 0x50 -and $b[2] -eq 0x44 -and $b[3] -eq 0x46)
 }
 
+# --- RESMI ADRES CANLI MI? (dosya basina degil, BIR KEZ olculur) ------------
+# 31.08 KUSUR: her dosya icin once resmi adres deneniyordu. 500 dosya x bir
+# istek = 500 bosa istek; ustelik arsiv istekleri 3 deneme x 240 sn tavanla
+# yapiliyordu ve ilk tam kosu 120 dakikalik is tavanini asti, HICBIR rapor
+# yazilamadi (is tavana carpinca `if: always()` adimlari da kosmaz).
+# Dogrusu: resmi adresin olu olup olmadigi ORNEKLE olculur, sonuc yazilir.
+$ornekler = @($adaylar | Select-Object -First 3)
+$resmiCanli = $false
+foreach($o in $ornekler){
+  $u = $o.url -replace '^http://', 'https://' -replace ':80/', '/'
+  $t = [IO.Path]::GetTempFileName()
+  & $curl -sS -m 45 -A $UA -L -o $t $u 2>$null | Out-Null
+  if(GecerliPdfMi $t){ $resmiCanli = $true }
+  Remove-Item $t -Force -ErrorAction SilentlyContinue
+  if($resmiCanli){ break }
+}
+Yaz ("RESMI ADRES: {0}" -f $(if($resmiCanli){'CANLI - once oradan denenecek'}else{'OLU (ornek 3 adres gecerli PDF vermedi) - dogrudan arsiv kopyasi'})) `
+    $(if($resmiCanli){'Green'}else{'Yellow'})
+
+# --- ARSIV DAMGASI HARITASI -------------------------------------------------
+# Sayfadan gelen kayitlarin damgasi SAYFANIN damgasidir, dosyanin degil.
+# Dosyanin kendi damgasi varsa o kullanilir; yoksa "arsivde kaydi yok" hukmu
+# TEK denemeyle verilir - 12 dakikalik zaman asimi zinciri kurulmaz.
+$arsivDamga = @{}
+foreach($d in @($kesif.domain_pdf)){ $arsivDamga[$d.url.ToLower()] = $d.damga }
+
 $kayit = New-Object System.Collections.ArrayList
 $kullanilanAd = @{}
 $i = 0
@@ -177,28 +224,38 @@ foreach($a in $adaylar){
   $s = [ordered]@{ dosya=$guvenli; ad=$a.ad; etiket="$($a.etiket)"; url=$a.url; kaynak=''; durum='KIRMIZI'; sebep=''
                    bayt=0; sayfa=0; metin_krk=0; hash=$null }
 
+  # Dosyanin KENDI arsiv damgasi varsa o kullanilir; yoksa sayfanin damgasi
+  # (arsiv en yakin kopyaya yonlendirir, ama kayit hic yoksa 404 doner).
+  $kendiDamga = $arsivDamga[$a.url.ToLower()]
+  $damgaVar = [bool]$kendiDamga
+  if(-not $kendiDamga){ $kendiDamga = $a.damga }
+  $s.arsiv_kaydi = $damgaVar
+
   if((Test-Path $yol) -and -not $Zorla -and (GecerliPdfMi $yol)){
     $s.kaynak = 'diskte'
   } else {
-    # 1) ONCE RESMI ADRES (http -> https, port temizlenir)
-    $resmi = $a.url -replace '^http://', 'https://' -replace ':80/', '/'
-    & $curl -sS -m 180 -A $UA -L -o $yol $resmi 2>$null | Out-Null
-    if(GecerliPdfMi $yol){ $s.kaynak = 'resmi' }
-    else {
-      # 2) OLMADI -> ARSIV KOPYASI ("id_" = arsivin kendi basligi eklenmemis HAM bayt)
+    if($resmiCanli){
+      $resmi = $a.url -replace '^http://', 'https://' -replace ':80/', '/'
+      & $curl -sS -m 60 -A $UA -L -o $yol $resmi 2>$null | Out-Null
+      if(GecerliPdfMi $yol){ $s.kaynak = 'resmi' }
+    }
+    if(-not $s.kaynak){
+      # ARSIV KOPYASI ("id_" = arsivin kendi basligi eklenmemis HAM bayt).
+      # Kaydi olan dosyaya 2 deneme; kaydi olmayana TEK deneme - yoksa yok.
       Remove-Item $yol -Force -ErrorAction SilentlyContinue
-      $ayna = "https://web.archive.org/web/{0}id_/{1}" -f $a.damga, $a.url
-      for($d = 1; $d -le 3; $d++){
-        & $curl -sS -m 240 -A $UA -L -o $yol $ayna 2>$null | Out-Null
+      $ayna = "https://web.archive.org/web/{0}id_/{1}" -f $kendiDamga, $a.url
+      $kacDeneme = if($damgaVar){ 2 } else { 1 }
+      for($d = 1; $d -le $kacDeneme; $d++){
+        & $curl -sS -m 90 -A $UA -L -o $yol $ayna 2>$null | Out-Null
         if(GecerliPdfMi $yol){ break }
-        Start-Sleep -Seconds (5 * $d)
+        if($d -lt $kacDeneme){ Start-Sleep -Seconds 4 }
       }
       if(GecerliPdfMi $yol){ $s.kaynak = 'ayna' }
     }
   }
 
   if(-not $s.kaynak){
-    $s.sebep = 'ne resmi adresten ne arsivden gecerli PDF geldi'
+    $s.sebep = if($damgaVar){ 'arsivde kaydi VAR ama gecerli PDF inmedi' } else { 'ARSIVDE KAYDI YOK - SPL listeledi, arsiv taramamis' }
     [void]$kayit.Add([pscustomobject]$s)
     Yaz ("  [{0}/{1}] [KIRMIZI] {2} · {3}" -f $i, $adaylar.Count, $guvenli, $s.sebep) 'Red'
     continue
@@ -252,6 +309,7 @@ $rapor = [ordered]@{
   tam        = $yesil.Count
   olculemeyen = $kor.Count
   eksik      = $kirmizi.Count
+  arsivde_kaydi_yok = @($kayit | Where-Object { -not $_.arsiv_kaydi -and $_.durum -eq 'KIRMIZI' }).Count
   hukum      = $hukum
   kaynak_dagilimi = @{
     resmi  = @($kayit | Where-Object { $_.kaynak -eq 'resmi' }).Count
