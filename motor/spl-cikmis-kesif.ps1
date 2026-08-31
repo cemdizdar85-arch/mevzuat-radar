@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SPL CIKMIS SINAV ARSIVI - KESIF (31.08.2026)
 #
 #  Cem: "SPK cikmis sinav arsivi indirelim yutalim ... hepsini yuttugumuza
