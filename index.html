@@ -586,6 +586,44 @@ window.veriAl = (function(){
          2. takvim yili sonu suresi), IIK m.299, SMK m.23, RG karti gunun
          onarilmis kartindan, evye satiri RG'den teyitli. -->
 
+    <!-- ============ ÜRÜNÜN KENDİ EKRANI ================================
+         30.08 Cem: "kurumsal firmalar böyle yapmaz, sanki önemli konular
+         var içinde ama dikkat çekmiyor." Ölçüldü: ana sayfada 0 görsel,
+         0 SVG vardı — baştan sona gri metin. Ciddi ürün sitesinin ayırt
+         edici işareti dekorasyon değil, ürünün KENDİSİdir.
+         31.08 Cem "BAĞLA" — deneme (index-odak.html) canlıya alındı.
+
+         İÇERİK UYDURULMADI — fark.html'deki gerçek sorudan birebir:
+         katsayı (eşdeğer ürün) yöntemi, doğru şık D = 120 TL/kg,
+         tuzağın adı "Eşdeğer Miktara Bölme Tuzağı", yanlış hesap
+         120.000/3.000=40. Rakamların tamamı o sayfadan alındı; fark.html
+         değişirse burası da elle tazelenir (bağlı değil, kopya metindir).
+
+         Görsel DOSYA değil, saf CSS: her çözünürlükte net, eskimez,
+         bakım istemez. (30.07'de kaldırılan büyük ürün penceresinden
+         farkı: o TAM EKRAN kaplıyordu, bu rafların üstünde tek band.)
+         Biçim kuralları stil-odak.css'te.
+    ================================================================= -->
+    <div class="odak-urun">
+      <div class="ou-in">
+        <div class="ou-sol">
+          <div class="ou-et">Ürünün kendi ekranı · açıklama</div>
+          <h2 class="ou-bas">Yanlışını böyle öğrenirsin.</h2>
+          <p class="ou-alt">Cevabı vermekle bitmiyor. Ekran, seni yanlış şıkka götüren düşünceyi <b>adıyla</b> söyler, sonra doğru yolu tek cümlede kurar. <b>Fark, cevabı verdikten sonra başlıyor.</b></p>
+          <a class="ou-git" href="fark.html">Gerçek soruyu dene →</a>
+        </div>
+        <div class="ou-sag">
+          <div class="ou-ekran">
+            <p class="ou-soru">Ortak maliyet, katsayı (eşdeğer ürün) yöntemiyle dağıtılıyor. Ürün Beta'nın birim maliyeti kaç TL/kg?</p>
+            <div class="ou-sik ou-yanlis">A) 40 TL/kg <span>senin cevabın</span></div>
+            <div class="ou-blok ou-tuzak"><b>Eşdeğer Miktara Bölme Tuzağı</b>Beta'nın payını (120.000 TL) fiili miktar yerine eşdeğer miktara (3.000 kg) böldün: 120.000 / 3.000 = 40. Böyle hesaplanırsa bütün ürünlerin birim maliyeti eşitlenir, katsayının anlamı kaybolur.</div>
+            <div class="ou-blok ou-dogru"><b>Doğrusu:</b> Pay, ürünün gerçekte üretildiği 1.000 kg'a bölünür → <i>120 TL/kg</i>. Dağıtımda eşdeğer miktar, birim maliyette fiili miktar kullanılır.</div>
+          </div>
+          <div class="ou-dip">Gerçek soru, gerçek açıklama · <a href="fark.html">fark.html</a></div>
+        </div>
+      </div>
+    </div>
+
     <!-- ============ RAF DÜZENİ 30.08.2026 (Cem "1.2.3 yap") ================
          Konular listesi asagi indikten sonra bu raf ILK EKRANDAN hemen sonra
          geliyor. 10 kutu ust uste yine "duvar" etkisi yapiyordu - bu kez ikna
@@ -1642,5 +1680,6 @@ function heroAraYap(){
 </script>
 <script src="ayrinti.js" defer></script>
 <link rel="stylesheet" href="stil-acik.css">
+<link rel="stylesheet" href="stil-odak.css">
 </body>
 </html>

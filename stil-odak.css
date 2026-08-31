@@ -1,5 +1,5 @@
 /* ================================================================
-   ODAK KATMANI — 30.08.2026 GÖRÜNÜM DENEMESİ (index-odak.html)
+   ODAK KATMANI — 30.08.2026 denendi · 31.08.2026 CANLIYA ALINDI
 
    NEDEN VAR
    Cem 30.08'de ana sayfaya bakıp "kurumsal firmalar böyle yapmaz,
@@ -25,10 +25,18 @@
         kendisidir.
 
    KURULUM
-   stil-acik.css'ten SONRA yüklenir; en son katman odur. Yalnız
-   index-odak.html bağlar — CANLI index.html'e DOKUNMAZ.
-   Karar verilince ya bu katman index.html'e bağlanır ya da bu
-   dosya + index-odak.html silinir. Denemenin ömrü karara kadardır.
+   index.html'de stil-acik.css'ten SONRA yüklenir; en son katman
+   odur. Sıra bozulursa (araya yeni stylesheet girerse) baş satır
+   büyümesi sessizce kaybolur — yeni stylesheet BUNUN ÜSTÜNE değil,
+   ALTINA eklenir.
+
+   TARİHÇE
+   30.08: index-odak.html + bu dosya ile deneme olarak yayınlandı,
+   canlı sayfaya dokunulmadı. 31.08 Cem "BAĞLA" dedi; katman
+   index.html'e bağlandı, deneme sayfası silindi (ömrü karara
+   kadardı, kopya olduğu için bekletilirse çürürdü).
+   Geri almak: index.html'den bu satırı ve .odak-urun bloğunu
+   çıkarmak yeter; kalan sayfa 30.08 hâline döner.
    ================================================================ */
 
 
@@ -120,13 +128,6 @@
 }
 
 
-/* ================================================================
-   3. DENEME ŞERİDİ — bu sayfa canlı sayfa DEĞİL
-   Karşılaştırma yaparken hangisine baktığın karışmasın diye.
-   Karar verilip katman index.html'e taşınırsa bu şerit gelmez
-   (yalnız index-odak.html'de duruyor).
-   ================================================================ */
-.deneme-serit{position:sticky;top:0;z-index:999;background:var(--amber-bg);
-  color:var(--ink);border-bottom:1px solid var(--accent);
-  font-size:12px;font-weight:700;letter-spacing:.4px;text-align:center;padding:7px 14px}
-.deneme-serit a{color:var(--accent);font-weight:800}
+/* 31.08: .deneme-serit kuralı SİLİNDİ — index-odak.html ile birlikte
+   sahibi kalmadı. Ölü kural bırakılmaz; bir dahakine bakan "bu nerede
+   kullanılıyor?" diye arar ve bulamaz. */
