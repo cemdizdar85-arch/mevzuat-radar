@@ -49,12 +49,21 @@ $hedef = if ("$($env:HEDEF)".Trim()) {
   # HEDEF tam yol da olabilir (baska calisma kopyasindaki ambari yuklerken)
   if ([IO.Path]::IsPathRooted($env:HEDEF)) { $env:HEDEF } else { Join-Path $kok $env:HEDEF }
 } else { Join-Path $isKls 'ihale-sonuc.json' }
-if (-not (Test-Path $hedef)) { Write-Host "kaynak dosya yok: $hedef"; exit 0 }
+$damgaYol = Join-Path $isKls 'ihale-son-kosu-damga.json'
 
-Write-Host ("KAYNAK: {0} ({1:N1} MB)" -f (Split-Path $hedef -Leaf), ((Get-Item $hedef).Length/1MB))
-$kayitlar = @((Get-Content $hedef -Raw -Encoding UTF8 | ConvertFrom-Json).sonuclar)
-if (-not $kayitlar.Count) { Write-Host 'kaynakta sonuc ilani yok - cikiliyor'; exit 0 }
-Write-Host ("        {0:N0} sonuc ilani" -f $kayitlar.Count)
+# KAYIT YOKSA DA CIKILMAZ: resmi tatilde hicbir is kolunda bulten cikmiyor,
+# havuz dosyasi hic olusmuyor. Eskiden burada "kaynak dosya yok" deyip
+# cikiliyordu ve kutuge tek satir yazilmadigi icin o gunler sonsuza kadar
+# "hic cekilmedi" kaliyordu. Artik bayrak konur, kutuk yine yazilir.
+$kaynakVar = (Test-Path $hedef)
+$kayitlar = @()
+if ($kaynakVar) {
+  Write-Host ("KAYNAK: {0} ({1:N1} MB)" -f (Split-Path $hedef -Leaf), ((Get-Item $hedef).Length/1MB))
+  $kayitlar = @((Get-Content $hedef -Raw -Encoding UTF8 | ConvertFrom-Json).sonuclar)
+  Write-Host ("        {0:N0} sonuc ilani" -f $kayitlar.Count)
+} else {
+  Write-Host ("KAYNAK YOK: {0} - bu gun hicbir is kolunda kayit uretilmedi" -f (Split-Path $hedef -Leaf))
+}
 
 $basliklar = @{
   'apikey'        = $anahtar
@@ -108,6 +117,63 @@ function Sayi([object]$v) {
   $d = 0.0
   if ([double]::TryParse("$v", [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)) { return $d }
   return $null
+}
+# 🔴 TAMAMEN BOS GUN KUTUGE HIC YAZILMIYORDU (31.08 olculdu):
+# Resmi tatillerde HICBIR is kolunda bulten cikmiyor. O gun ayristirici kayit
+# uretmiyor, veri\ihale-sonuc.json hic olusmuyor ve bu betik en basta
+# "kaynak dosya yok" deyip cikiyordu - kutuge tek satir bile yazilmadan.
+# Sonuc: ~34 gun x 4 is kolu = 136 (gun,is kolu) sonsuza kadar "hic cekilmedi"
+# kaliyor, her turda yeniden indiriliyor ve hicbir zaman tamamlanmiyordu.
+# Kutuk yazimi artik AYRI bir islev; kayit olsa da olmasa da calisiyor.
+# "Cekildi, bostu" ile "hic cekilmedi" ayrimi kutugun kurulus sebebiydi;
+# tamamen bos gun bu ayrimin en uc halidir.
+function KutugeYaz($gonderilecek) {
+  if ("$($env:HEDEF)".Trim()) { return }          # baska ambar yukleniyor
+  if (-not (Test-Path $damgaYol)) { return }
+  try {
+    $damgaHam = ConvertFrom-Json -InputObject (Get-Content $damgaYol -Raw -Encoding UTF8)
+    $damgalar = @($damgaHam)
+    $turSayim = New-Object 'System.Collections.Generic.Dictionary[string,int]' ([StringComparer]::Ordinal)
+    foreach ($g in @($gonderilecek)) {
+      $tt = "$($g.tur)"
+      if ($tt) { if ($turSayim.ContainsKey($tt)) { $turSayim[$tt] += 1 } else { $turSayim[$tt] = 1 } }
+    }
+    $c = 0
+    foreach ($d in $damgalar) {
+      $gun = "$($d.tarih)"
+      if (-not $gun) {
+        $istenen = "$($env:IHALE_ISTENEN_GUN)".Trim()
+        if ($istenen -and "$($d.sebep)" -eq 'bulten yok/bos') {
+          $gun = $istenen
+          Write-Host ("  kutuk: {0} · {1,-12} · bulten YOK (bos gun, tam sayiliyor)" -f $gun, $d.tur)
+        } else {
+          Write-Host ("  kutuk atlandi ({0}): bulten tarihi okunamadi, sebep '{1}'" -f $d.tur, $d.sebep)
+          continue
+        }
+      }
+      $bek = (Tam $d.beklenen); $bul = (Tam $d.bulunan)
+      if (-not $d.tarih) { $bek = 0; $bul = 0 }
+      RpcCagir 'ihale_kutuk_yaz' @{
+        p_gun         = $gun
+        p_tur         = "$($d.tur)"
+        p_bulten_sayi = (Tam $d.sayi)
+        p_kayit       = $(if ($turSayim.ContainsKey("$($d.tur)")) { $turSayim["$($d.tur)"] } else { 0 })
+        p_beklenen    = $bek
+        p_bulunan     = $bul
+        p_eksik_ikn   = @($d.eksikIkn)
+        p_bos_sebep   = "$($d.sebep)"
+      } | Out-Null
+      $c++
+      if ($d.tarih) {
+        Write-Host ("  kutuk: {0} · {1,-12} · beklenen {2} / bulunan {3} · {4}" -f `
+                    $gun, $d.tur, $bek, $bul, $(if($d.tam){'TAM'}else{'EKSIK'}))
+      }
+    }
+    Write-Host ("KUTUK: {0} (gun,tur) satiri yazildi" -f $c)
+  } catch {
+    Write-Host ("!! kutuge yazilamadi: {0}" -f $_.Exception.Message)
+    exit 1
+  }
 }
 function Tam([object]$v) {
   $d = Sayi $v
@@ -214,6 +280,13 @@ try {
   exit 1
 }
 
+# Yazilacak kayit yok ama gun ISLENDI: kutuge "bu gun bostu" satirlari yazilir
+# ve gun tamamlanir. Yoksa her turda yeniden indirilir, hicbir zaman bitmez.
+if (-not $kaynakVar -or -not $kayitlar.Count) {
+  KutugeYaz @()
+  exit 0
+}
+
 # --- parti parti yaz --------------------------------------------------------
 $yazilan = 0; $hatali = 0
 for ($i = 0; $i -lt $gonderilecek.Count; $i += $Parti) {
@@ -264,79 +337,10 @@ if ($yazilan -lt $gonderilecek.Count) {
 }
 Write-Host ("GERI OKUMA: kasa {0:N0} kaydi kabul etti (gonderilen {1:N0})" -f $yazilan, $gonderilecek.Count)
 
-# --- KUTUGE CENTIK (30.08) --------------------------------------------------
-# "Hangi bulten cekildi" sorusunun tek cevabi kasadaki ihale_kutuk olacak.
+# --- KUTUGE CENTIK ----------------------------------------------------------
+# "Hangi bulten cekildi" sorusunun tek cevabi kasadaki ihale_kutuk.
 # Centik YAZMA BASARILI OLDUKTAN SONRA atilir - once kutuge yazip sonra
-# yuklemede patlamak, tam da bu goce sebep olan yalani uretir (yerel kutuk
-# 4 gun diyordu, kasada 62+ gun vardi).
-# Yalniz VARSAYILAN kaynak yuklenirken atilir: $env:HEDEF ile baska bir
-# ambar yuklenirken elimizdeki damga o ambara ait DEGILDIR.
-$damgaYol = Join-Path $isKls 'ihale-son-kosu-damga.json'
-if (-not "$($env:HEDEF)".Trim() -and (Test-Path $damgaYol)) {
-  try {
-    # ConvertFrom-Json boru hattinda diziyi ACMAZ (PS 5.1) - @(...) ic ice dizi
-    # uretir ve $d.tarih dizi olarak gider, kutuk cagrisi patlar. Once degiskene.
-    $damgaHam = ConvertFrom-Json -InputObject (Get-Content $damgaYol -Raw -Encoding UTF8)
-    $damgalar = @($damgaHam)
-
-    # 🔴 30.08 OLCUMU - KUTUK ELMA-ARMUT KARSILASTIRIYORDU:
-    # kutuge AYRISTIRILAN satir sayisi yaziliyordu, tabloda ise TEKIL ANAHTAR
-    # duruyor. Ayni bultende ayni (ikn|sozlesmeTarih|bedel|yuklenici) dortlusu
-    # birden fazla geciyor (ozellikle Hizmet'te; bir gunde 88 fark olculdu) ve
-    # yukleyici bunlari birlestiriyor. Sonuc: ihale_kutuk_denetim() 120'den fazla
-    # gunu "tutmuyor" diye isaretliyordu - hepsi ZARARSIZ, ama surekli kirmizi
-    # yanan kapi kapi degildir; gercek bozulmayi (tabloda 0) icinde gizler.
-    # DOGRUSU: kutuk KASAYA YAZILANI sayar. Ayristiricinin ham sayimi kutugun
-    # isi degil. Tur tur tekil anahtar sayilir.
-    $turSayim = New-Object 'System.Collections.Generic.Dictionary[string,int]' ([StringComparer]::Ordinal)
-    foreach ($g in $gonderilecek) {
-      $tt = "$($g.tur)"
-      if ($tt) { if ($turSayim.ContainsKey($tt)) { $turSayim[$tt] += 1 } else { $turSayim[$tt] = 1 } }
-    }
-    $c = 0
-    foreach ($d in $damgalar) {
-      # BULTENSIZ GUN (30.08 olculdu): KIK bazi gunler bir is kolunda hic
-      # bulten yayimlamiyor (ozellikle Danismanlik). O zaman metinden damga
-      # okunamiyor, kutuge satir yazilmiyor ve gun SONSUZA KADAR "eksik"
-      # kaliyor - her kosuda yeniden cekiliyor, hicbir zaman tamamlanmiyor.
-      # Cozum: "bulten yok/bos" sebebi varsa ISTENEN gun kutuge 0 kayitla
-      # yazilir (beklenen=0, bulunan=0 -> tam). "Cekildi, bostu" ile
-      # "hic cekilmedi" ayrimi kutugun kurulus sebebiydi; burada uygulaniyor.
-      # DIKKAT: yalniz BOS bulten icin. 'indirilemedi' (indirme dustu) satir
-      # yazmaz, gun geri gelir.
-      $gun = "$($d.tarih)"
-      if (-not $gun) {
-        $istenen = "$($env:IHALE_ISTENEN_GUN)".Trim()
-        if ($istenen -and "$($d.sebep)" -eq 'bulten yok/bos') {
-          $gun = $istenen
-          Write-Host ("  kutuk: {0} · {1,-12} · bulten YOK (bos gun, tam sayiliyor)" -f $gun, $d.tur)
-        } else {
-          Write-Host ("  kutuk atlandi ({0}): bulten tarihi okunamadi, sebep '{1}'" -f $d.tur, $d.sebep)
-          continue
-        }
-      }
-      # bos bultende beklenen/bulunan 0 verilir ki "tam" cikabilsin
-      $bek = (Tam $d.beklenen); $bul = (Tam $d.bulunan)
-      if (-not $d.tarih) { $bek = 0; $bul = 0 }
-      RpcCagir 'ihale_kutuk_yaz' @{
-        p_gun         = $gun
-        p_tur         = "$($d.tur)"
-        p_bulten_sayi = (Tam $d.sayi)
-        p_kayit       = $(if ($turSayim.ContainsKey("$($d.tur)")) { $turSayim["$($d.tur)"] } else { 0 })
-        p_beklenen    = $bek
-        p_bulunan     = $bul
-        p_eksik_ikn   = @($d.eksikIkn)
-        p_bos_sebep   = "$($d.sebep)"
-      } | Out-Null
-      $c++
-      if ($d.tarih) {
-        Write-Host ("  kutuk: {0} · {1,-12} · beklenen {2} / bulunan {3} · {4}" -f `
-                    $gun, $d.tur, $bek, $bul, $(if($d.tam){'TAM'}else{'EKSIK'}))
-      }
-    }
-    Write-Host ("KUTUK: {0} (gun,tur) satiri yazildi" -f $c)
-  } catch {
-    Write-Host ("!! kutuge yazilamadi: {0}" -f $_.Exception.Message)
-    exit 1
-  }
-}
+# yuklemede patlamak, tam da bu goce sebep olan yalani uretir.
+# Govde KutugeYaz islevine tasindi (31.08): kayit uretilmeyen gunlerde de
+# calismasi gerekiyor, o yuzden tek yerde durup iki yerden cagriliyor.
+KutugeYaz $gonderilecek
