@@ -1,0 +1,55 @@
+# ============================================================================
+#  SPL CIKMIS SINAV ARSIVI - KESIF
+#
+#  NEDEN RUNNER'DA KOSAR (31.08.2026 olcumu, Cem'in makinesi):
+#    Resolve-DnsName web.archive.org -> 207.241.237.3  (DNS CALISIYOR)
+#    Test-NetConnection 207.241.237.3 -Port 443 -> TcpTestSucceeded: False
+#    curl https://web.archive.org/ -> (28) Failed to connect after 21 sn
+#    Ayni anda http://archive.org/wayback/available -> 429 (yani BAGLANIYOR)
+#  Yani engel TR agindan web.archive.org'a; arac kusuru degil, olculdu.
+#  CLAUDE.md kurali zaten: "Yeni indirme isi yazarken varsayilan GitHub Actions."
+#
+#  BU AKIS INDIRMEZ, YUTMAZ. Yalniz adres listesini cikarir ve depoya yazar.
+#  Indirme/yutma karari (telif basligi dahil) Cem'de - bkz veri/SPL-CIKMIS-KESIF.md
+# ============================================================================
+name: SPL cikmis sinav arsivi kesfi
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/spl-cikmis-kesif.yml'
+      - 'motor/spl-cikmis-kesif.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spl-cikmis-kesif
+  cancel-in-progress: false
+
+jobs:
+  kesif:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: KESFI KOS
+        shell: pwsh
+        run: pwsh -File motor/spl-cikmis-kesif.ps1
+
+      - name: SONUCU DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/spl-cikmis-envanteri.json veri/SPL-CIKMIS-KESIF.md || true
+          if git diff --staged --quiet; then
+            echo "kesif sonucu degismedi"
+          else
+            git commit -m "SPL cikmis sinav arsivi kesfi [veri-operasyonu]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
