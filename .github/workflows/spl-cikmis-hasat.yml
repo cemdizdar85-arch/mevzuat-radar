@@ -1,0 +1,81 @@
+# ============================================================================
+#  SPL CIKMIS SINAV ARSIVI - HASAT (indir + ayristir)
+#
+#  Runner'da kosar cunku ARSIV TR AGINDAN ENGELLI (olcum: web.archive.org
+#  DNS cozuluyor 207.241.237.3, TCP 443 acilmiyor). Ayrica olculdu ki
+#  SPL'nin 2010-2014 sinav PDF'lerinin RESMI kopyalari artik 404 - tek
+#  kopya arsivde. Ayrinti: motor/spl-cikmis-indir.ps1 basligi.
+#
+#  TAVAN ile calisir: once DENEME (birkac dosya), gorulup dogrulandiktan
+#  sonra TAVAN=0 (tamami). Tavan degeri asagida sabit; degistirip push
+#  edilince akis yeniden kosar.
+#
+#  BU AKIS AMBARA YAZMAZ. Ayristirici -tani (salt olcum) modunda kosar.
+#  Yutma ayri bir adim olacak - once ayristirmanin bu kitapciklarda ne
+#  verdigi GORULECEK (yarim yutma riski).
+# ============================================================================
+name: SPL cikmis sinav arsivi hasati
+
+env:
+  TAVAN: '10'          # 0 = tamami · deneme icin kucuk tut
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/spl-cikmis-hasat.yml'
+      - 'motor/spl-cikmis-indir.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spl-cikmis-hasat
+  cancel-in-progress: false
+
+jobs:
+  hasat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: PDF ARACLARI
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-tur
+          pdftotext -v || true
+
+      - name: INDIR
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: pwsh -File motor/spl-cikmis-indir.ps1 -Tavan ([int]$env:TAVAN)
+
+      - name: AYRISTIR (salt olcum - ambara YAZMAZ)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if (Test-Path _kaynak/spl-cikmis) {
+            $n = @(Get-ChildItem _kaynak/spl-cikmis -Filter *.pdf).Count
+            Write-Host "ayristirilacak PDF: $n"
+            if($n -gt 0){
+              pwsh -File motor/cikmis-soru-ayristir.ps1 -klasor _kaynak/spl-cikmis -sinavAdi 'SPK Lisanslama' -tani
+            }
+          } else { Write-Host 'indirme klasoru yok' }
+
+      - name: RAPORU DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/spl-cikmis-indirme.json veri/cikmis-soru-ayrisma.json veri/cikmis-soru-bosluk-haritasi.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "rapor degismedi"
+          else
+            git commit -m "SPL cikmis sinav arsivi hasat raporu [veri-operasyonu]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
