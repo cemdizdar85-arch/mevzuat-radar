@@ -275,6 +275,12 @@ returns text language sql immutable as $$
            ' +', ' ', 'g'));
 $$;
 
+-- 31.08 CANLI HATA: "42P13 cannot change return type of existing function".
+-- Fonksiyona kademe ve sebep sutunlari eklendi; Postgres donus tipini
+-- degistirmeye izin vermez, once DUSURULMESI gerekir. marka_bulten_itiraz
+-- icin bu satiri yazmistim, burada unutmusum - sutun ekleyen her guncellemede
+-- drop sarttir.
+drop function if exists public.marka_takip_bekleyen(int);
 create or replace function public.marka_takip_bekleyen(p_tavan int default 500)
 returns table (
   takip_id uuid, eposta text, jeton text, takip_ad text, takip_sinif int[],
