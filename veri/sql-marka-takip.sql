@@ -348,3 +348,82 @@ revoke execute on function public.marka_takip_bekleyen(int) from anon, authentic
 
 -- TEYİT (servis anahtarıyla): dönen her satırda kademe YUKSEK ya da ORTA
 -- olmalı; ZAYIF hiç görünmemeli.
+
+-- ============================================================================
+--  KADEME ÖZ-SINAVI  (31.08.2026)
+--
+--  Cem: "1 yap."  (kademe mantığını kalıcı nöbetçiye çevir)
+--
+--  NEDEN: kademe mantığını 31.08'de ELLE sınadım — geçici nöbet açtım, sonucu
+--  okudum, kaydı sildim. İşe yaradığını gördük ama o sınav hiçbir yerde
+--  DURMUYOR. Mantık ileride değişirse (eşik, uzunluk kuralı, kelime sınırı)
+--  bozulduğunu kimse fark etmez: uyarılar sessizce yanlışlaşır. Müşteri ya
+--  boşuna vekile gider ya gerçek tehdidi kaçırır.
+--
+--  BU FONKSİYON: bilinen çiftleri her koşuda dener. Ambardaki gerçek veriye
+--  DEĞİL, verilen isim çiftlerine bakar — yani ambar değiştikçe sonuç
+--  değişmez, yalnız MANTIK değişirse değişir. Sınav böyle olmalı.
+--
+--  Beklenenler 31.08 ölçümünden alındı (uydurma değil, canlı ambarda görüldü):
+--    tetik  ↔ tetikte              YUKSEK  (kelime olarak geçiyor)
+--    tetik  ↔ tuana tetik          YUKSEK  (kelime olarak geçiyor)
+--    tetik  ↔ tetik yum lojistik   YUKSEK  (kelime olarak geçiyor)
+--    beko   ↔ bek                  YUKSEK  (kısaltma)
+--    tetik  ↔ etik                 ZAYIF   (sadece harf benzerliği)
+--    tetik  ↔ tet lojistik         ZAYIF
+--    beko   ↔ bedeko               ORTA    (yazılış yakın)
+--    tetikte↔ tetri                ZAYIF   ← Cem'in yakaladığı vaka
+--    arcelik↔ asçelik              ORTA
+-- ============================================================================
+
+create or replace function public.marka_kademe_hesap(p_marka text, p_aday text)
+returns text language sql immutable as $$
+  -- marka_takip_bekleyen() içindeki kademe mantığının AYNISI, tek başına
+  -- sınanabilir hâlde. İkisi ayrışırsa sınav bunu yakalar.
+  select case
+    when public.marka_norm_bosluklu(p_aday) ~ ('(^| )' || public.marka_norm(p_marka))
+      then 'YUKSEK'
+    when public.marka_norm(p_marka) like public.marka_norm(p_aday) || '%'
+         and length(public.marka_norm(p_aday)) >= 3
+         and length(public.marka_norm(p_aday))::real
+             / greatest(length(public.marka_norm(p_marka)),1) >= 0.6
+      then 'YUKSEK'
+    when extensions.similarity(public.marka_norm(p_aday), public.marka_norm(p_marka)) >= 0.45
+         and abs(length(public.marka_norm(p_aday)) - length(public.marka_norm(p_marka))) <= 3
+      then 'ORTA'
+    else 'ZAYIF'
+  end;
+$$;
+
+create or replace function public.marka_kademe_sinav()
+returns table (marka text, aday text, beklenen text, cikan text, sonuc text)
+language sql security definer set search_path = public, extensions as $$
+  with sinav(marka, aday, beklenen) as (values
+    ('tetik',   'tetikte',            'YUKSEK'),
+    ('tetik',   'tuana tetik',        'YUKSEK'),
+    ('tetik',   'tetik yum lojistik', 'YUKSEK'),
+    ('beko',    'bek',                'YUKSEK'),
+    ('ipek',    'ipekel',             'YUKSEK'),
+    ('vestel',  'vestel güzel',       'YUKSEK'),
+    ('tetik',   'etik',               'ZAYIF'),
+    ('tetik',   'tet lojistik',       'ZAYIF'),
+    ('tetikte', 'tetri',              'ZAYIF'),
+    ('beko',    'bedeko',             'ORTA'),
+    ('arcelik', 'asçelik',            'ORTA')
+  )
+  select s.marka, s.aday, s.beklenen,
+         public.marka_kademe_hesap(s.marka, s.aday),
+         case when public.marka_kademe_hesap(s.marka, s.aday) = s.beklenen
+              then 'GECTI' else 'DUSTU' end
+    from sinav s
+   order by (public.marka_kademe_hesap(s.marka, s.aday) = s.beklenen), s.marka, s.aday;
+$$;
+
+revoke all     on function public.marka_kademe_sinav() from public;
+revoke execute on function public.marka_kademe_sinav() from anon, authenticated;
+revoke all     on function public.marka_kademe_hesap(text,text) from public;
+revoke execute on function public.marka_kademe_hesap(text,text) from anon, authenticated;
+
+-- TEYİT: select * from public.marka_kademe_sinav();
+--        Her satırda sonuc = 'GECTI' olmalı. DUSTU varsa kademe mantığı
+--        bozulmuş demektir; uyarılar sessizce yanlışlaşır.

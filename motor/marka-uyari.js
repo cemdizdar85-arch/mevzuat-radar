@@ -125,6 +125,29 @@ async function mailGonder(kime, konu, html) {
 (async () => {
   if (!SB_KEY) { console.error('!! SUPABASE_SERVICE_KEY yok'); process.exit(1); }
 
+  /* KADEME OZ-SINAVI - gercek veriye dokunmadan, bilinen ciftlerle.
+     31.08'de kademe mantigini ELLE sinamistim; o sinav hicbir yerde
+     durmuyordu. Mantik degisirse (esik, uzunluk kurali, kelime siniri)
+     bozuldugunu kimse fark etmezdi: uyarilar SESSIZCE yanlislasirdi.
+     Dusen sinav varsa mail GONDERILMEZ - yanlis uyari yollamaktansa hic
+     yollamamak iyidir. */
+  try {
+    const sinav = await rpc('marka_kademe_sinav');
+    const dusen = (sinav || []).filter(x => x.sonuc !== 'GECTI');
+    if (dusen.length) {
+      console.error('!! KADEME OZ-SINAVI DUSTU - mail gonderilmiyor:');
+      dusen.forEach(x => console.error(
+        '   ' + x.marka + ' <- ' + x.aday + ': beklenen ' + x.beklenen + ', cikan ' + x.cikan));
+      process.exit(1);
+    }
+    log('Kademe oz-sinavi gecti (' + (sinav || []).length + ' cift).');
+  } catch (e) {
+    // Sinav CAGRILAMADIYSA da durulur: olculmemis mantikla mail atilmaz.
+    console.error('!! Kademe oz-sinavi calistirilamadi: ' + e.message);
+    console.error('   SQL basilmamis olabilir (veri/sql-marka-takip.sql). Mail gonderilmiyor.');
+    process.exit(1);
+  }
+
   const sayac = (await rpc('marka_takip_sayac'))[0] || {};
   log(`Aktif nöbet: ${sayac.aktif_nobet || 0} · bugüne kadar uyarılan başvuru: ${sayac.uyarilan || 0}`);
 
