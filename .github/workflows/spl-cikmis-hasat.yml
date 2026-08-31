@@ -1,26 +1,43 @@
 # ============================================================================
-#  SPL CIKMIS SINAV ARSIVI - HASAT (indir + ayristir)
+#  SPL CIKMIS SINAV ARSIVI - HASAT (kesif + indir + ayristir + karne)
 #
 #  Runner'da kosar cunku ARSIV TR AGINDAN ENGELLI (olcum: web.archive.org
 #  DNS cozuluyor 207.241.237.3, TCP 443 acilmiyor). Ayrica olculdu ki
 #  SPL'nin 2010-2014 sinav PDF'lerinin RESMI kopyalari artik 404 - tek
 #  kopya arsivde. Ayrinti: motor/spl-cikmis-indir.ps1 basligi.
 #
-#  TAVAN ile calisir: once DENEME (birkac dosya), gorulup dogrulandiktan
-#  sonra TAVAN=0 (tamami). Tavan degeri asagida sabit; degistirip push
-#  edilince akis yeniden kosar.
-#
 #  BU AKIS AMBARA YAZMAZ. Ayristirici -tani (salt olcum) modunda kosar.
-#  Yutma ayri bir adim olacak - once ayristirmanin bu kitapciklarda ne
-#  verdigi GORULECEK (yarim yutma riski).
+#
+#  ----------------------------------------------------------------------
+#  31.08 - NEDEN ADIMLAR BU KADAR PARCALI VE NEDEN HER ADIM GUNLUK YAZIYOR
+#
+#  4. kosuda su yasandi: INDIR adimi BASARILI gorundu, "INDIRME RAPORUNU
+#  BAS" adimi da BASARILI gorundu, ama ana telde rapor DEGISMEDI (hala bir
+#  onceki deneme kosusunun 10 dosyalik raporu duruyordu). Yani adim yesildi,
+#  is olmamisti.
+#
+#  Sebep gorulemedi cunku Actions GUNLUK METNI depo yoneticisi yetkisi ister
+#  (kimliksiz istek 403 doner); `gh auth login` bu makinede henuz yapilmadi.
+#  Kimliksiz API yalnizca ADIM SONUCLARINI veriyor.
+#
+#  Bu yuzden iki sey degisti:
+#   (1) Git isi TEK blok degil, DORT AYRI ADIM (ekle/commit/rebase/push).
+#       Hangisinin dustugu adim sonucundan okunur - gunluk metni gerekmez.
+#   (2) Her pwsh adimi ciktisini veri/ altina GUNLUK DOSYASI olarak yazar ve
+#       o gunlukler depoya basilir. Boylece "kapi neden dustu" sorusunun
+#       cevabi depoda durur. (Ev kurali: kapi neden dustugunu SOYLEMELI.)
+#
+#  NOT: veri/spl-hasat-*-log.txt dosyalari GECICIDIR. `gh auth login` bir kez
+#  yapilirsa Actions gunlugu dogrudan okunur ve bu dosyalar kaldirilir.
+#
+#  Ayrica `git add a b c || true` deseni terk edildi: git add pathspec'lerden
+#  BIRI bile yoksa HICBIRINI eklemez ve `|| true` bunu yutar - "eklendi"
+#  saniliyor, sonra "degisiklik yok" deniyor. Artik dosyalar TEK TEK eklenir.
 # ============================================================================
 name: SPL cikmis sinav arsivi hasati
 
 env:
   TAVAN: '0'           # 0 = tamami · deneme icin kucuk tut
-                       # 31.08: deneme (10) gecti - indirme+dort kapi calisiyor.
-                       # Siniflandirma kusuru (GUID adli 334 kitapcik eleniyordu)
-                       # duzeltildi; artik TAM kosu.
 
 on:
   workflow_dispatch:
@@ -40,8 +57,7 @@ jobs:
   hasat:
     runs-on: ubuntu-latest
     # 31.08: ilk tam kosu 120 dakikayi asti ve HICBIR rapor yazilamadi -
-    # is tavana carpinca `if: always()` adimlari da kosmaz, cikti tamamen
-    # kaybolur. Tavan yukseltildi VE indirme raporu kendi adiminda basiliyor.
+    # is tavana carpinca `if: always()` adimlari da kosmaz, cikti kaybolur.
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
@@ -50,68 +66,90 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-tur
-          pdftotext -v || true
+          mkdir -p veri
+          pdftotext -v 2> veri/spl-hasat-00-arac-log.txt || true
 
-      # Kesif ONCE burada kosar - ayri akisa birakilirsa indirme ESKI envanteri
-      # okur ve "yarim liste" ile calisir. Tek zincir, yaris yok.
       - name: KESIF (adres listesi tazele)
+        if: always()
         shell: pwsh
-        run: pwsh -File motor/spl-cikmis-kesif.ps1
+        run: |
+          $ErrorActionPreference = 'Continue'
+          pwsh -File motor/spl-cikmis-kesif.ps1 *>&1 |
+            Tee-Object -FilePath veri/spl-hasat-01-kesif-log.txt
+          "CIKIS KODU: $LASTEXITCODE" | Add-Content veri/spl-hasat-01-kesif-log.txt
 
       - name: INDIR
-        shell: pwsh
-        env:
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: pwsh -File motor/spl-cikmis-indir.ps1 -Tavan ([int]$env:TAVAN)
-
-      # Indirme raporu KENDI adiminda basilir. Ayristirma uzun surer; is
-      # tavana carparsa en azindan "ne indi, ne inmedi" ana telde durur.
-      - name: INDIRME RAPORUNU BAS
         if: always()
+        shell: pwsh
         run: |
-          git config user.name "mevzuat-radar-bot"
-          git config user.email "bot@users.noreply.github.com"
-          git add veri/spl-cikmis-indirme.json veri/spl-cikmis-envanteri.json veri/SPL-CIKMIS-KESIF.md 2>/dev/null || true
-          if git diff --staged --quiet; then
-            echo "indirme raporu degismedi"
-          else
-            git commit -m "SPL cikmis: indirme raporu [veri-operasyonu]"
-            for i in 1 2 3; do
-              git pull --rebase --autostash origin main && git push && break || sleep 5
-            done
-          fi
+          $ErrorActionPreference = 'Continue'
+          pwsh -File motor/spl-cikmis-indir.ps1 -Tavan ([int]$env:TAVAN) *>&1 |
+            Tee-Object -FilePath veri/spl-hasat-02-indir-log.txt
+          "CIKIS KODU: $LASTEXITCODE" | Add-Content veri/spl-hasat-02-indir-log.txt
 
       - name: AYRISTIR (salt olcum - ambara YAZMAZ)
+        if: always()
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          if (Test-Path _kaynak/spl-cikmis) {
+          $ErrorActionPreference = 'Continue'
+          $log = 'veri/spl-hasat-03-ayristir-log.txt'
+          if(Test-Path _kaynak/spl-cikmis){
             $n = @(Get-ChildItem _kaynak/spl-cikmis -Filter *.pdf).Count
-            Write-Host "ayristirilacak PDF: $n"
+            "ayristirilacak PDF: $n" | Set-Content $log
             if($n -gt 0){
-              pwsh -File motor/cikmis-soru-ayristir.ps1 -klasor _kaynak/spl-cikmis -sinavAdi 'SPK Lisanslama' -tani
+              pwsh -File motor/cikmis-soru-ayristir.ps1 -klasor _kaynak/spl-cikmis -sinavAdi 'SPK Lisanslama' -tani *>&1 |
+                Tee-Object -FilePath $log -Append
             }
-          } else { Write-Host 'indirme klasoru yok' }
+          } else { 'indirme klasoru yok' | Set-Content $log }
+          "CIKIS KODU: $LASTEXITCODE" | Add-Content $log
 
       - name: KARNE ("yarim yutmadik" kapisi)
         if: always()
         shell: pwsh
-        run: pwsh -File motor/spl-cikmis-karne.ps1
+        run: |
+          $ErrorActionPreference = 'Continue'
+          pwsh -File motor/spl-cikmis-karne.ps1 *>&1 |
+            Tee-Object -FilePath veri/spl-hasat-04-karne-log.txt
+          "CIKIS KODU: $LASTEXITCODE" | Add-Content veri/spl-hasat-04-karne-log.txt
 
-      - name: RAPORU DEPOYA BAS
+      # --- GIT: DORT AYRI ADIM ------------------------------------------
+      - name: GIT 1 - EKLE
         if: always()
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/spl-cikmis-indirme.json veri/spl-cikmis-envanteri.json veri/SPL-CIKMIS-KESIF.md \
-                  veri/spl-cikmis-karne.json veri/SPL-CIKMIS-KARNE.md \
-                  veri/cikmis-soru-ayrisma.json veri/cikmis-soru-bosluk-haritasi.json 2>/dev/null || true
+          echo "dal: $(git rev-parse --abbrev-ref HEAD)"
+          for f in veri/spl-cikmis-indirme.json veri/spl-cikmis-envanteri.json \
+                   veri/SPL-CIKMIS-KESIF.md veri/spl-cikmis-karne.json \
+                   veri/SPL-CIKMIS-KARNE.md veri/cikmis-soru-ayrisma.json \
+                   veri/cikmis-soru-bosluk-haritasi.json \
+                   veri/spl-hasat-00-arac-log.txt veri/spl-hasat-01-kesif-log.txt \
+                   veri/spl-hasat-02-indir-log.txt veri/spl-hasat-03-ayristir-log.txt \
+                   veri/spl-hasat-04-karne-log.txt; do
+            if [ -f "$f" ]; then git add -- "$f" && echo "eklendi: $f"; else echo "YOK: $f"; fi
+          done
+          echo "--- staged ---"
+          git diff --staged --name-only
+
+      - name: GIT 2 - COMMIT
+        if: always()
+        run: |
           if git diff --staged --quiet; then
-            echo "rapor degismedi"
+            echo "staged degisiklik yok"
           else
             git commit -m "SPL cikmis sinav arsivi hasat raporu [veri-operasyonu]"
-            for i in 1 2 3; do
-              git pull --rebase --autostash origin main && git push && break || sleep 5
-            done
+            git log -1 --format='%h %s'
           fi
+
+      - name: GIT 3 - REBASE
+        if: always()
+        run: |
+          git fetch origin main
+          git rebase origin/main
+          git log -1 --format='%h %s'
+
+      - name: GIT 4 - PUSH
+        if: always()
+        run: git push origin HEAD:main
