@@ -254,8 +254,25 @@ foreach($t in @('Mal','Yapim','Hizmet','Danismanlik')){
     # Zip de yoksa gercekten inmemistir -> "indirilemedi" (gun geri gelir).
     $zip = Join-Path $kls ("bulten-{0}.zip" -f $t.ToLower())
     $pdf = Join-Path $kls ("bulten-{0}.pdf" -f $t.ToLower())
+    $ham = Join-Path $kls ("bulten-{0}.ham" -f $t.ToLower())
     $indi = (Test-Path $zip) -or (Test-Path $pdf)
     $sbp  = if($indi){ 'bulten yok/bos' } else { 'indirilemedi' }
+    # 🔴 IKINCI AYIRT EDICI (31.08 olculdu): 249 Danismanlik gunu hala
+    # "indirilemedi" kaliyordu ve hicbir zaman tamamlanamiyordu. Olcum
+    # (19.08.2026, Danismanlik): sunucu 200 dondu ama zip vermedi - gelen sey
+    # EKAP arsiv sayfasinin KENDISI (37 KB HTML). Yani baglanti kurulmus,
+    # istek islenmis, o gun o is kolunda bulten YOK.
+    # Bayt duzeyinde kesin: zip 'PK' (0x50 0x4B) ile baslar, HTML '<' ile.
+    # ham cevap var ama zip degilse -> sunucu cevapladi, bulten yok.
+    # ham hic yoksa -> baglanti kurulamadi, gercekten indirilemedi.
+    if(-not $indi -and (Test-Path $ham)){
+      try{
+        $bay = [IO.File]::ReadAllBytes($ham)
+        if($bay.Length -gt 2 -and -not ($bay[0] -eq 0x50 -and $bay[1] -eq 0x4B)){
+          $sbp = 'bulten yok/bos'
+        }
+      }catch{}
+    }
     Write-Host ("{0,-12}: sonuc metni yok -> {1}" -f $t, $sbp)
     [void]$damgalar.Add([ordered]@{ tur=$t; tarih=$null; sayi=$null; kayit=0
                                     beklenen=$null; bulunan=$null; tam=$false; eksikIkn=@(); sebep=$sbp })
