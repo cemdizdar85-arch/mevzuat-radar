@@ -427,3 +427,123 @@ revoke execute on function public.marka_kademe_hesap(text,text) from anon, authe
 -- TEYİT: select * from public.marka_kademe_sinav();
 --        Her satırda sonuc = 'GECTI' olmalı. DUSTU varsa kademe mantığı
 --        bozulmuş demektir; uyarılar sessizce yanlışlaşır.
+
+-- ============================================================================
+--  HATIRLATMA HALKASI  (31.08.2026)
+--
+--  Cem, ilk gerçek maili okuyup: "çok soğuk bir mesaj... göndermezler ise
+--  tekrar mail geleceği... onlarla ilgilendiğimizi göstermemiz lazım."
+--
+--  Mail artık "cevap alamazsak size bir kez daha yazacağız" diyor.
+--  BU SÖZ TUTULMAZSA MAİL YALAN SÖYLER. Bu göç, sözü gerçek yapar.
+--
+--  İKİ HATIRLATMA, kademeli:
+--    1. hatırlatma : itiraza <= 20 gün kaldığında
+--    2. hatırlatma : itiraza <=  7 gün kaldığında  (son çağrı)
+--  Daha sık yazmak bunaltır, daha seyrek yazmak süreyi kaçırtır. Süre
+--  yayımdan iki aydır (SMK m.18) ve UZATILAMAZ - kaçıran hakkını kaybeder.
+--
+--  TASARIM: gönderim kaydı silinmiyor (aynı başvuru için ilk uyarı bir kez
+--  gider). Üstüne bir sayaç konuyor: kaç kez hatırlattık. Böylece "iki kez
+--  uyarma" freni korunuyor ama hatırlatma mümkün oluyor.
+-- ============================================================================
+
+alter table public.marka_takip_gonderim
+  add column if not exists hatirlatma int not null default 0;
+
+drop function if exists public.marka_takip_bekleyen(int);
+create or replace function public.marka_takip_bekleyen(p_tavan int default 500)
+returns table (
+  takip_id uuid, eposta text, jeton text, takip_ad text, takip_sinif int[],
+  basvuru_no text, bulten_no int, ad text, sahip text, sinif int[],
+  yayin_tarihi date, itiraz_son date, kalan_gun int,
+  benzerlik real, ayni_sinif boolean, kademe text, sebep text,
+  tur text, hatirlatma int)
+language sql security definer set search_path = public, extensions as $$
+  select t.id, t.eposta, t.jeton, t.ad, t.sinif,
+         b.basvuru_no, b.bulten_no, b.ad, b.sahip, b.sinif,
+         b.yayin_tarihi, b.itiraz_son, b.kalan_gun, b.benzerlik, b.ayni_sinif,
+         b.kademe, b.sebep, b.tur, b.hatirlatma
+    from public.marka_takip t
+    cross join lateral (
+      select x.basvuru_no, x.bulten_no, x.ad, x.sahip, x.sinif,
+             x.yayin_tarihi, x.itiraz_son,
+             (x.itiraz_son - current_date)::int                as kalan_gun,
+             similarity(x.ad_norm, t.ad_norm)                  as benzerlik,
+             (cardinality(t.sinif) > 0 and x.sinif && t.sinif) as ayni_sinif,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'YUKSEK'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'YUKSEK'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'ORTA'
+               else 'ZAYIF'
+             end as kademe,
+             case
+               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                 then 'markanız bu başvuruda bir kelime olarak geçiyor'
+               when t.ad_norm like public.marka_norm(x.ad) || '%'
+                    and length(public.marka_norm(x.ad)) >= 3
+                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
+                 then 'başvuru, markanızın kısaltılmış hâline benziyor'
+               when similarity(x.ad_norm, t.ad_norm) >= 0.45
+                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
+                 then 'yazılış olarak yakın, uzunluk benzer'
+               else 'yalnızca harf benzerliği'
+             end as sebep,
+             case when g.basvuru_no is null then 'ilk' else 'hatirlatma' end as tur,
+             coalesce(g.hatirlatma, 0) as hatirlatma
+        from public.marka_bulten x
+        left join public.marka_takip_gonderim g
+               on g.takip_id = t.id and g.basvuru_no = x.basvuru_no
+       where x.ad_norm % t.ad_norm
+         and x.itiraz_son >= current_date
+         and (cardinality(t.sinif) = 0 or x.sinif && t.sinif)
+         and x.ad_norm <> t.ad_norm
+         and similarity(x.ad_norm, t.ad_norm) >= t.esik
+         and (
+           -- ilk uyarı: hiç yazmadıysak
+           g.basvuru_no is null
+           -- 1. hatırlatma: 20 gün kala
+           or (g.hatirlatma < 1 and (x.itiraz_son - current_date) <= 20)
+           -- 2. hatırlatma: 7 gün kala (son çağrı)
+           or (g.hatirlatma < 2 and (x.itiraz_son - current_date) <= 7)
+         )
+       order by (cardinality(t.sinif) > 0 and x.sinif && t.sinif) desc,
+                x.itiraz_son asc
+       limit 200
+    ) b
+   where t.aktif
+     and b.kademe <> 'ZAYIF'
+   order by t.id, (b.kademe = 'YUKSEK') desc, b.itiraz_son asc
+   limit least(greatest(p_tavan, 1), 5000);
+$$;
+
+-- İşaretleme: ilk gönderimde kayıt açar, hatırlatmada sayacı artırır.
+create or replace function public.marka_takip_isaretle(
+  p_takip_id uuid, p_kayitlar jsonb)
+returns int
+language plpgsql security definer set search_path = public as $$
+declare v int;
+begin
+  insert into public.marka_takip_gonderim (takip_id, basvuru_no, bulten_no, hatirlatma)
+  select p_takip_id, x->>'no', (x->>'bulten')::int, 0
+    from jsonb_array_elements(p_kayitlar) x
+  on conflict (takip_id, basvuru_no) do update
+     set hatirlatma = public.marka_takip_gonderim.hatirlatma + 1,
+         gonderim   = now();
+  get diagnostics v = row_count;
+  update public.marka_takip set son_uyari = now(), son_bakis = now()
+   where id = p_takip_id;
+  return v;
+end;
+$$;
+
+revoke all     on function public.marka_takip_bekleyen(int) from public;
+revoke execute on function public.marka_takip_bekleyen(int) from anon, authenticated;
+revoke all     on function public.marka_takip_isaretle(uuid,jsonb) from public;
+revoke execute on function public.marka_takip_isaretle(uuid,jsonb) from anon, authenticated;
