@@ -1,18 +1,7 @@
 {
-  "tarih": "31.08.2026 01:24",
-  "durum": "TAMAM",
-  "mod": "URETIM",
-  "hedef": 2,
-  "hasat": 2,
-  "yazilan": 1,
-  "red": {
-    "diakritik": 0,
-    "ayni": 0,
-    "uzunluk": 1,
-    "atif": 0
-  },
-  "partiler": [
-    "msgbatch_01WWXkHi8tc568Zg2DfFMEoF"
-  ],
-  "not": "Yazilan hap'ler yayin durumunu DEGISTIRMEZ. Dusenler bir sonraki kalite taramasinda yeniden sayilir."
+  "tarih": "31.08.2026 05:28",
+  "durum": "HATA",
+  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
+  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}",
+  "satir": 107
 }
