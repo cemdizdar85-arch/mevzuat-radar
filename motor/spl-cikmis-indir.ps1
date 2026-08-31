@@ -111,8 +111,14 @@ foreach($p in @($kesif.sayfadan_pdf)){
   $var = @($havuz | Where-Object { $_.url -eq $p.url })
   if($var.Count){
     # Ayni adres domain taramasindan da gelmisse ETIKET KAZANIR (daha guvenilir).
+    # 31.08 KUSUR: burada yalniz sinif+etiket tasiniyordu; donem/baglam
+    # TASINMIYORDU. Sonuc: iki listede birden gecen 239 kitapcik anlamli ad
+    # alamiyor, GUID adiyla iniyor ve ambarda hangi sinava ait oldugu
+    # KAYBOLUYORDU. Baglam da tasinir.
     if($sinif -eq 'sinav-belgesi'){ $var[0].sinif = 'sinav-belgesi' }
-    if(-not $var[0].etiket){ $var[0] | Add-Member -NotePropertyName etiket -NotePropertyValue $et -Force }
+    $var[0] | Add-Member -NotePropertyName etiket       -NotePropertyValue $et                     -Force
+    $var[0] | Add-Member -NotePropertyName donem_ipucu  -NotePropertyValue "$($p.donem_ipucu)"     -Force
+    $var[0] | Add-Member -NotePropertyName onceki_metin -NotePropertyValue "$($p.onceki_metin)"    -Force
     continue
   }
   [void]$havuz.Add([pscustomobject]@{ url=$p.url; damga=$p.ilk_goruldu; ad=$ad; sinif=$sinif; etiket=$et
@@ -222,7 +228,7 @@ foreach($a in $adaylar){
   } else { $kullanilanAd[$guvenli] = 1 }
   $yol = Join-Path $Hedef $guvenli
   $s = [ordered]@{ dosya=$guvenli; ad=$a.ad; etiket="$($a.etiket)"; url=$a.url; kaynak=''; durum='KIRMIZI'; sebep=''
-                   bayt=0; sayfa=0; metin_krk=0; hash=$null }
+                   son_http=''; arsiv_kaydi=$false; bayt=0; sayfa=0; metin_krk=0; hash=$null }
 
   # Dosyanin KENDI arsiv damgasi varsa o kullanilir; yoksa sayfanin damgasi
   # (arsiv en yakin kopyaya yonlendirir, ama kayit hic yoksa 404 doner).
@@ -242,20 +248,36 @@ foreach($a in $adaylar){
     if(-not $s.kaynak){
       # ARSIV KOPYASI ("id_" = arsivin kendi basligi eklenmemis HAM bayt).
       # Kaydi olan dosyaya 2 deneme; kaydi olmayana TEK deneme - yoksa yok.
+      # 31.08 OLCUM: 349 dosyalik ilk tam kosuda 163'u indi, 186'si "inmedi"
+      # dedi - ve 185'inin ARSIVDE KAYDI VARDI. Yani dosyalar orada duruyordu.
+      # Bu, dosya eksikligi degil ORAN SINIRI imzasidir: arsiv arka arkaya
+      # gelen istekleri bir yerden sonra 429 ile geri ceviriyor.
+      # "Eksik" demek yalan olurdu (ev kurali: olcumu araca sorma, aracin
+      # kendi sinirini olc). Bu yuzden: (a) istekler arasi bekleme, (b) HTTP
+      # kodu KAYDA GECER, (c) 429/503'te sabirli geri cekilme.
       Remove-Item $yol -Force -ErrorAction SilentlyContinue
       $ayna = "https://web.archive.org/web/{0}id_/{1}" -f $kendiDamga, $a.url
-      $kacDeneme = if($damgaVar){ 2 } else { 1 }
+      $kacDeneme = if($damgaVar){ 4 } else { 1 }
       for($d = 1; $d -le $kacDeneme; $d++){
-        & $curl -sS -m 90 -A $UA -L -o $yol $ayna 2>$null | Out-Null
+        $kod = "$(& $curl -sS -m 120 -A $UA -L -o $yol -w '%{http_code}' $ayna 2>$null)".Trim()
+        $s.son_http = $kod
         if(GecerliPdfMi $yol){ break }
-        if($d -lt $kacDeneme){ Start-Sleep -Seconds 4 }
+        if($d -lt $kacDeneme){
+          # 429/503 = oran siniri: uzun bekle. Digerleri kisa.
+          if($kod -eq '429' -or $kod -eq '503'){ Start-Sleep -Seconds (30 * $d) } else { Start-Sleep -Seconds 5 }
+        }
       }
       if(GecerliPdfMi $yol){ $s.kaynak = 'ayna' }
+      # Arsivi yormamak icin istekler arasi sabit bekleme. 349 dosya x 1,5 sn
+      # ~ 9 dakika; 330 dakikalik is tavaninin yaninda hicbir sey.
+      Start-Sleep -Milliseconds 1500
     }
   }
 
   if(-not $s.kaynak){
-    $s.sebep = if($damgaVar){ 'arsivde kaydi VAR ama gecerli PDF inmedi' } else { 'ARSIVDE KAYDI YOK - SPL listeledi, arsiv taramamis' }
+    $s.sebep = if(-not $damgaVar){ 'ARSIVDE KAYDI YOK - SPL listeledi, arsiv taramamis' }
+               elseif($s.son_http -eq '429' -or $s.son_http -eq '503'){ ("ORAN SINIRI (HTTP {0}) - dosya arsivde VAR, arsiv vermedi" -f $s.son_http) }
+               else { ("arsivde kaydi VAR ama gecerli PDF inmedi (HTTP {0})" -f $s.son_http) }
     [void]$kayit.Add([pscustomobject]$s)
     Yaz ("  [{0}/{1}] [KIRMIZI] {2} · {3}" -f $i, $adaylar.Count, $guvenli, $s.sebep) 'Red'
     continue
