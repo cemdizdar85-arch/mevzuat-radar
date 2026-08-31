@@ -110,7 +110,18 @@ function TamlikOlc([string]$hamMetin){
   if($b -lt 0){ return @{ beklenen = $null; bulunan = $null; eksik = @() } }
   $ic  = $d.Substring(0, $b)
   $gov = $d.Substring($b)
-  $toc = @([regex]::Matches($ic,  '(\d{4}/\d{5,8})') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+  # 🔴 ICINDEKILER DESENI YANLIS CAPALANMISTI (31.08, kaynaga kadar takip edildi):
+  # "her IKN benzeri dizi" aliniyordu; oysa BASLIKLARIN ICINDE de IKN geciyor.
+  # 26.08.2026 Hizmet bulteninde birebir:
+  #   5. 2026/1380697  "2026/334314 IKN'Li IS KAPSAMINDA VERI TOPLAMA HIZMET..."
+  # Gercek kayit 2026/1380697; 2026/334314 baslikta gecen BASKA bir ihalenin
+  # numarasi. Eski desen onu da "beklenen kayit" sayip govdede bulamayinca
+  # gunu EKSIK damgaliyordu. Olculdu: eski desen 123 kayit/1 eksik, yeni desen
+  # 121 kayit/0 eksik - govde 122. Yani "118 dusen ilan"in buyuk kismi HIC
+  # KAYBOLMAMISTI, olcut uyduruyordu.
+  # DOGRUSU: icindekiler satiri "<sira no>. <IKN> <baslik> ... <sayfa>" seklinde;
+  # gercek kayit SIRA NUMARASINDAN hemen sonraki IKN'dir. Desen ona capalandi.
+  $toc = @([regex]::Matches($ic, '(?:^|\s)\d{1,4}\.\s+(\d{4}/\d{4,8})(?=\s)') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
   $gvd = @([regex]::Matches($gov, 'İhale kayıt numarası\s*:\s*(\d{4}/\d+)') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
   # 🔴 OLCUT DUZELTMESI (31.08, 2.038 satirda olculdu):
   # "bulunan = govdedeki tekil IKN" idi ve tamlik esitlikle olculuyordu. Ama
