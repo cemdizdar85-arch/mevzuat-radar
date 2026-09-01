@@ -15,7 +15,11 @@ param(
   [string]$Sinav='SGS',
   [string]$DersRegex='Finansal Muhasebe',
   [int]$Adet=30,
-  [string]$Etiket='sgs-fmuh-30'
+  [string]$Etiket='sgs-fmuh-30',
+  # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
+  # KAYIT-ODAKLI parti icin analiz/ileri-TMS konulari regex'le DISLANIR (dislanan
+  # konu kendi dersinin partisine gider, cope degil).
+  [string]$KonuDisla=''
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -65,11 +69,61 @@ function DesenUret($kayit){
     }
   }
   if($d.Count -eq 0){
-    # teori/eslesmemis: konu adiyla ad-aramasi (teori notlari konu adini tasir)
-    $kel=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 4 } | Select-Object -First 2)
+    # teori/eslesmemis: konu adiyla ad-aramasi. 01.09 dersi (7. ek-tuzagi vakasi):
+    # 'tahakkuku' ambardaki 'TAHAKKUKLARI' ile eslesmiyordu - kelime KOKUNE inilir
+    # (>=6 harfli kelimenin son 2 harfi atilir, joker girer).
+    $kel=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 4 } | Select-Object -First 2 | ForEach-Object { if($_.Length -ge 6){ $_.Substring(0,$_.Length-2) } else { $_ } })
     if($kel.Count -ge 1){ $d.Add('%'+($kel -join '%')+'%') }
   }
   return @($d | Select-Object -Unique)
+}
+# Haritanin YANLIS dayanak yazdigi konular icin elle dogru kaynak (01.09:
+# 'gelir tahakkuku'na 3568 m.29, 'hesap isleyisi'ne TTK 720 yazilmisti - ikisi de
+# alakasiz ZAYIF tahmin; gercek kaynaklar THP/VUK).
+$OZEL_DESEN=@{
+  'gelir tahakkuku' = @('THP 181%','THP 281%','VUK (213 s.K.) m.22%','VUK (213 s.K.) m.283%')
+  'hesap isleyisi'  = @('THP 102%','THP 120%','THP 320%','THP 191%','THP 391%')
+  # 01.09 hakem-red onarimlari: kuralin YASADIGI paragraflar (tanim+yururluk degil)
+  'tms 36 deger dusuklugu'   = @('TMS 36 p.2%','TMS 36 p.4%','TMS 36 p.6%','TMS 36 p.8%','TMS 36 p.9%','TMS 36 p.59%','TMS 36 p.60%')
+  'nakit akis tablosu'       = @('TMS 7 p.10%','TMS 7 p.13%','TMS 7 p.14%','TMS 7 p.16%','TMS 7 p.18%','TMS 7 p.19%','TMS 7 p.20%')
+  'tms 7 nakit akis tablosu' = @('TMS 7 p.7%','TMS 7 p.8%','TMS 7 p.45%','TMS 7 p.46%','TMS 7 p.10%')
+  'tms 12 ertelenmis vergi'  = @('TMS 12 p.5%','TMS 12 p.15%','TMS 12 p.16%','TMS 12 p.20%','TMS 12 p.24%','TMS 12 p.47%')
+  # 01.09 kayit-odakli yeni konular (FMuh suzgeci sonrasi)
+  'kar dagitimi kaydi'       = @('TTK (6102 s.K.) m.519%','TTK (6102 s.K.) m.523%','THP 570%','THP 590%','THP 591%')
+  'kar dagitimi'             = @('TTK (6102 s.K.) m.519%','TTK (6102 s.K.) m.523%','THP 570%','THP 590%','THP 591%')
+  'fifo yontemi'             = @('TMS 2 p.25%','TMS 2 p.27%','VUK (213 s.K.) m.274%','THP 153%')
+  'finansman bonosu ihraci'  = @('THP 305%','THP 308%','THP 300%')
+  'hazine bonosu tahsili'    = @('THP 112%','THP 111%','THP 102%')
+  'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
+  'önemlilik kavramı'        = @('MSUGT 1 kavram%')
+  'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
+  'kesin mizan'              = @('%mizan%','THP 100%','MSUGT 1%')
+}
+# Hakem yakalamalarindan dogan konu-ozel uretim uyarilari (isteme eklenir)
+$OZEL_NOT=@{
+  'kar dagitimi kaydi' = "DIKKAT (hakem yakaladi): TTK m.519/2-c'ye gore II. tertip kanuni yedek, 'pay sahiplerine %5 kar payi odendikten sonra KARA KATILACAK KISILERE DAGITILMASI KARARLASTIRILAN TOPLAM TUTARIN %10'u'dur - 'dagitim sonrasi kalan tutarin %10'u' DEGILDIR. Hesabi bu dogru kuralla kur."
+  # 01.09 ders-uyum hakemi yakalamalari: konu mesru, SORU acisi kaymisti - KAYIT acisiyla kur
+  'muhasebe bilgi sistemi' = "DERS UYARISI (hakem yakaladi): belgenin vergi-hukuku gecerliligini SORMA; belge->yevmiye->defter KAYIT AKISINI ve muhasebe surecindeki rolunu sor (FMuh boyutu)."
+  'amortisman ayirma'      = "DERS UYARISI (hakem yakaladi): amortisman HESAPLAMA teknigi/oran secimi Vergi Hukuku'na kacar; burada AYIRMA KAYDINI sor - 7xx/730 gider, 257 Birikmis Amortismanlar isleyisi, dogrudan/endirekt kayit yontemi. Hesap sade tutulur (duz amortisman, tam yil)."
+  'gelir tablosu hesaplari'= "DERS UYARISI (hakem yakaladi): dikey yuzde/oran analizi Mali Tablolar Analizi'ne kacar; burada 6xx GELIR TABLOSU HESAPLARININ ISLEYISINI sor - hangi islem hangi hesaba, yansitma/kapanis kayitlari, brut satistan net kara akisin KAYIT boyutu."
+}
+
+# --- DERS PROFILI (01.09 Cem: "Excel'de ders ders gonderdim") ----------------
+# Resmi ders tanimi veri/ders-profili.json'dan okunur (2-DERSLER sekmesi kokenli).
+$DERS_TARIF=''; $KOMSULAR=''
+$profYol=Join-Path $kok 'veri\ders-profili.json'
+if(Test-Path $profYol){
+  $prof=Get-Content $profYol -Raw -Encoding UTF8 | ConvertFrom-Json
+  $svTam=@($prof.sinavlar.PSObject.Properties.Name | Where-Object { $_ -match [regex]::Escape($Sinav) }) | Select-Object -First 1
+  if($svTam){
+    $dAd=@($prof.sinavlar.$svTam.PSObject.Properties.Name | Where-Object { $_ -match $DersRegex }) | Select-Object -First 1
+    if($dAd){
+      $dp=$prof.sinavlar.$svTam.$dAd
+      if($dp.kapsam_tarifi){ $DERS_TARIF="$($dp.kapsam_tarifi)" }
+      $KOMSULAR=(@($dp.komsu_dersler) -join ', ')
+      "ders profili: $svTam / $dAd | tarif: $($DERS_TARIF.Length) kr | komsu: $(@($dp.komsu_dersler).Count) ders"
+    }
+  }
 }
 
 # --- KONULAR: kopruden en cok cikan (tekil) ---------------------------------
@@ -78,6 +132,7 @@ $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ("$($_.bizim_ders)$($_
 $gorulen=@{}; $KONULAR=New-Object System.Collections.Generic.List[object]; $sira=0
 foreach($a in $adaylar){
   $kAd="$($a.konu)".ToLowerInvariant()
+  if($KonuDisla -and $kAd -match $KonuDisla){ continue }
   if($gorulen[$kAd]){ continue }
   $gorulen[$kAd]=1; $sira++
   $KONULAR.Add(@{ id=('kp-{0:d2}' -f $sira); kayit=$a })
@@ -120,9 +175,17 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 2. 5 sik, TEK dogru; her yanlis sik BIR ADLI TUZAGIN sonucu.
 3. Aciklama takimi her sik icin: Ne soruluyor / Kural (kural-koyucunun derdiyle acilir; kunye SONDA parantezde; tum sette en fazla 2 kunye) / [Ad] Tuzagi: izah / Dogrusu: kunyesiz saf dil. Dogru sikta Hesap: zinciri (hesapliysa).
 4. HESAPLI konuysa COZUM TABLOSU ZORUNLU ({"basliklar":[...],"satirlar":[[...]]}, ilk kolon kalem, SON SATIR SONUC). Teorik konuysa cozum_tablo null olabilir ama SEMA ZORUNLU.
+4b. MALI TABLO FORMU (Cem: "bilanco/gelir tablosu gibi gorelim"): konu finansal durum/
+   bilanco/oran tipiyse tablo BILANCO duzeninde kurulur - bolum basligi AYRI SATIR olur
+   ve tutar kolonlari '-' birakilir (or. ["DONEN VARLIKLAR","-"]), altina kalemler,
+   sonra ["Donen Varliklar Toplami","120.000"]. Gelir tablosu tipiyse GELIR TABLOSU
+   akisi (Brut Satislar'dan asagi). Yevmiye tipiyse sema tur=yevmiye zaten T-cetveli verir.
 5. SEMA: soruya uygun TEK tur (yevmiye soran soruda yevmiye ZORUNLU; eleme/karar/akis) - SORUNUN KENDI VERISIYLE, jenerik yasak.
 6. hap (tek cumle kalici kural), sinav_taktigi (1 cumle), notlandirici (en cok puan kaybettiren nokta).
 7. Rakamlar her katmanda BIREBIR tutarli.
+8. DERS KAPSAMI (RESMI - 01.09): {DERS_TARIF}
+   Bu kapsamin DISINA cikan soru uretme; konu kapsama uymuyorsa soruyu KAPSAMA
+   UYAN acisiyla kur (or. TMS konusu geldiyse KAYIT boyutunu sor, olcum teknigi degil).
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
@@ -136,18 +199,39 @@ foreach($kk in $KONULAR){
   $id=$kk.id
   if($don.Contains($id) -and $don[$id].soru){ continue }
   $ky=$kk.kayit
-  $amb=AmbarCek (DesenUret $ky)
+  $konuLc="$($ky.konu)".ToLowerInvariant()
+  $desenler=if($OZEL_DESEN.ContainsKey($konuLc)){ $OZEL_DESEN[$konuLc] } else { DesenUret $ky }
+  $amb=AmbarCek $desenler
   if(-not $amb.metin -or $amb.metin.Length -lt 300){
     $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | dayanak: $($ky.dayanak) / $($ky.cikmis_dayanak)")
     Write-Host "  KAYNAK BORCU: $($ky.konu)" -ForegroundColor Yellow
     continue
   }
-  $ist=$soruIstem.Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin)
+  # KAPI A (01.09 Cem: "boyle yanlislar olursa ben yanarim"): kaynak-konu ALAKA denetimi.
+  # Konu kelime koklerinden en az biri kaynak metninde gecmeli; gecmiyorsa kaynak
+  # ALAKASIZ demektir (haritanin yanlis dayanagi ambarda var diye soruya sizamaz).
+  # 10. Turkce vakasi: kokler ve metin AYNI katlamadan gecmeli ('dagiti' vs 'dağıtı')
+  function KokKatla([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant() }
+  $konuKokler=@(("$($ky.konu)" -split '\s+') | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^\d' } | ForEach-Object { $k2=KokKatla $_; if($k2.Length -ge 6){ $k2.Substring(0,$k2.Length-2) } else { $k2 } })
+  $ambLc=KokKatla $amb.metin
+  $alaka=($konuKokler.Count -eq 0) -or (@($konuKokler | Where-Object { $ambLc.Contains($_) }).Count -ge 1)
+  if(-not $alaka){
+    $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | KAPI-A: cekilen kaynak konuyla ALAKASIZ ($((@($amb.adlar)|Select-Object -First 2) -join '; '))")
+    Write-Host "  KAPI-A RED (alakasiz kaynak): $($ky.konu)" -ForegroundColor Yellow
+    continue
+  }
+  $ekNot=if($OZEL_NOT.ContainsKey($konuLc)){ "`nOZEL UYARI: $($OZEL_NOT[$konuLc])" } else { '' }
+  $ist=$soruIstem.Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin)+$ekNot
   $y=$null
   foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
   $cvp=Coz $y.metin
   if($cvp -and $cvp.soru -and $cvp.aciklama){
+    # sema alan-adi normalizasyonu (01.09 bug: model 'ogeler' yerine 'adimlar' dondurdu -> bos cizim)
+    if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
+      $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
+    }
     $cvp | Add-Member -NotePropertyName konu -NotePropertyValue "$($ky.konu)" -Force
+    $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force
     $cvp | Add-Member -NotePropertyName donem -NotePropertyValue $ky.donem -Force
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
     $don[$id]=$cvp; CacheYaz
@@ -215,6 +299,65 @@ foreach($id in @($don.Keys)){
   } else { $rapor.Add("IKIZ REDDEDILDI (kapsama denetimi): $id"); Write-Host "  IKIZ RED: $id" -ForegroundColor Yellow }
 }
 
+# --- KAPI B: DAYANAK HAKEMI (01.09 Cem guvencesi) ----------------------------
+# Bagimsiz ucuz gozle her soru sinanir: "dogru sikkin kurali kaynaktan cikiyor mu?"
+# HAYIR -> sayfada kirmizi HAKEM REDDI damgasi; kasa yolunda karantina demektir.
+$hakemIstem=@'
+Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
+1) DAYANAK: sorunun DOGRU sikkinin dayandigi kural/bilgi, verilen KAYNAK METNINDEN gercekten cikiyor mu?
+   Kaynakta ACIKCA destegi varsa EVET; kural kaynakta yoksa ya da celisiyorsa HAYIR.
+   (Parasal senaryo tutarlari kaynakta olmak zorunda degil; KURAL/oran/tanim kaynaktan olmali.)
+2) DERS UYUMU (KAPI C - 01.09): soru "{DERS}" dersinin RESMI KAPSAMINA uyuyor mu,
+   yoksa su komsu derslerden birinin sorusu mu: {KOMSULAR}?
+   RESMI KAPSAM: {TARIF}
+   Kapsama uyuyorsa EVET; baska dersin sorusuysa DERS-DISI (+hangi ders).
+Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)"}
+=== SORU === {SORU}
+=== DOGRU SIK ({DOGRU}) === {SIK}
+=== DOGRU SIKKIN ACIKLAMASI === {ACIK}
+=== KAYNAK METNI === {KAYNAK}
+'@
+foreach($id in @($don.Keys)){
+  $cvp=$don[$id]
+  if(-not $cvp.soru){ continue }
+  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum']){ continue }
+  # sema normalizasyonu geriye donuk (ogeler<-adimlar)
+  if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
+    $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
+  }
+  $kMetin=''
+  if($cvp.PSObject.Properties['kaynak_metin_ozet'] -and $cvp.kaynak_metin_ozet){ $kMetin=$cvp.kaynak_metin_ozet }
+  elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
+    $parca=New-Object System.Collections.Generic.List[string]
+    foreach($ka in (@($cvp.kaynak_adlar) | Select-Object -First 4)){
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
+      try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
+    }
+    $kMetin=($parca -join "`n---`n"); if($kMetin.Length -gt 4500){ $kMetin=$kMetin.Substring(0,4500) }
+  }
+  else{
+    # hakem-red onarimi: kaynak alanlari silinmisse OZEL_DESEN/DesenUret ile TAZE cek
+    $konuLc2="$($cvp.konu)".ToLowerInvariant()
+    $ds=if($OZEL_DESEN.ContainsKey($konuLc2)){ $OZEL_DESEN[$konuLc2] } else { DesenUret ([pscustomobject]@{konu=$cvp.konu;dayanak=$cvp.dayanak;cikmis_dayanak=''}) }
+    $amb2=AmbarCek $ds
+    $kMetin=$amb2.metin
+    if($amb2.adlar.Count){ $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb2.adlar) -Force }
+  }
+  if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); continue }
+  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KAYNAK}',$kMetin)
+  $yh=$null
+  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  $hk=Coz $yh.metin
+  if($hk -and $hk.karar){
+    $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force
+    CacheYaz
+    $renk=if("$($hk.karar)" -eq 'EVET'){'Green'}else{'Red'}
+    Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
+  } else { $rapor.Add("HAKEM CIKTISI BOZUK: $id") }
+}
+$hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.karar)" -eq 'HAYIR' })
+$dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
+
 # --- ARITMETIK KAPISI --------------------------------------------------------
 function SayiCoz([string]$s){ $t=$s -replace '\.','' -replace ',','.'; $v=0.0; if([double]::TryParse($t,[Globalization.NumberStyles]::Any,[Globalization.CultureInfo]::InvariantCulture,[ref]$v)){ return $v }; return $null }
 # 01.09 v2: TAM-ZINCIR degerlendirme - "a + b + c = d" gibi cok terimlileri
@@ -224,7 +367,8 @@ $aritUyari=New-Object System.Collections.Generic.List[string]
 foreach($id in @($don.Keys)){
   foreach($a in @($don[$id].adimlar)){
     foreach($sat in ("$($a.formul)" -split "`n")){
-      $tmz=$sat -replace '\([^)]*\)',' '
+      # birim sozcukleri sayi zincirini kirmasin ('108.000 TL x 6/12' vakasi)
+      $tmz=$sat -replace '×','x' -replace 'X','x' -replace '\([^)]*\)',' ' -replace '%\s*([\d\.,]+)','$1/100 ' -replace '(?i)\b(TL|USD|EUR|kg|ton|adet|ay|yil|gun|saat|birim|kisi)\b',' '
       foreach($m in [regex]::Matches($tmz,'((?:[\d\.,]+\s*[x*/+\-]\s*)+[\d\.,]+)\s*=\s*([\d\.,]+)')){
         $sol=$m.Groups[1].Value; $c1=SayiCoz $m.Groups[2].Value
         if($null -eq $c1){ continue }
@@ -265,9 +409,13 @@ $ekCss=@'
 $sb=[Text.StringBuilder]::new()
 [void]$sb.Append("<!doctype html><html lang=""tr""><head><meta charset=""utf-8""><title>KALIP PARTİSİ — $Sinav $DersRegex ($($don.Count) soru)</title><style>$css$ekCss</style></head><body>")
 [void]$sb.Append("<h1>🧪 KALIP PARTİSİ — $Sinav / $DersRegex — SÖZLEŞMENİN TAMAMI, TIKLANABİLİR</h1><p style='color:#aaa;font-size:13px'>Şık seç → tuzak kutusu → açıklama → 🎬 adım adım → ✍️ ikiz + 💡 ipucu. Konular köprüden, kaynaklar ambardan. KASAYA YAZILMADI.</p>")
-if($kaynakBorcu.Count){ [void]$sb.Append("<div style='border:1px solid #e07b7b;border-radius:10px;padding:10px;margin:10px 0;font-size:.85em'><b>📌 KAYNAK BORCU (üretilmedi — yutulacak):</b><br>$(K ($kaynakBorcu -join '<br>'))</div>") }
+if($kaynakBorcu.Count){ [void]$sb.Append("<div style='border:1px solid #e07b7b;border-radius:10px;padding:10px;margin:10px 0;font-size:.85em'><b>📌 KAYNAK BORCU (üretilmedi — yutulacak):</b><br>$(($kaynakBorcu | ForEach-Object { K $_ }) -join '<br>')</div>") }
 if($rapor.Count){ [void]$sb.Append("<p style='color:#e0a458;font-size:12px'>Üretim notları: $(K ($rapor -join ' · '))</p>") }
 if($aritUyari.Count){ [void]$sb.Append("<p style='color:#ff8080;font-size:12px'>⚠ Aritmetik uyarı ($($aritUyari.Count)): $(K (($aritUyari|Select-Object -First 6) -join ' · '))</p>") }
+if($hakemRed.Count){ [void]$sb.Append("<div style='border:2px solid #ff6b5e;border-radius:10px;padding:10px;margin:10px 0;font-size:.85em'><b>⛔ HAKEM REDDİ ($($hakemRed.Count)) — kasa yolunda karantina:</b><br>$(($hakemRed | ForEach-Object { K ("$_ : "+$don[$_].hakem.gerekce) }) -join '<br>')</div>") }
+else{ [void]$sb.Append("<p style='color:#7fc98f;font-size:12.5px'>✅ Dayanak Hakemi: $(@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] }).Count) sorunun tamamı ONAYLI.</p>") }
+if($dersRed.Count){ [void]$sb.Append("<div style='border:2px solid #e0a458;border-radius:10px;padding:10px;margin:10px 0;font-size:.85em'><b>📚 DERS-DIŞI ($($dersRed.Count)) — kendi dersinin partisine devredilecek:</b><br>$(($dersRed | ForEach-Object { K ("$_ ($($don[$_].konu)) : "+$don[$_].hakem.ders_gerekce) }) -join '<br>')</div>") }
+else{ [void]$sb.Append("<p style='color:#7fc98f;font-size:12.5px'>✅ Ders-Uyum Hakemi (KAPI C): tüm sorular '$DersRegex' resmî kapsamına uygun.</p>") }
 $adet=0
 $amap=[ordered]@{}; $vmap=[ordered]@{}; $tzmap=[ordered]@{}; $ikmap=[ordered]@{}
 foreach($id in ($don.Keys|Sort-Object)){
@@ -283,7 +431,12 @@ foreach($id in ($don.Keys|Sort-Object)){
     if($mt.Success){ $tz[$hh]=$mt.Groups[1].Value.Trim() }
   }
   $tzmap[$id]=$tz
-  [void]$sb.Append("<div class='soru' data-sid='$id' data-dogru='$($cvp.dogru)'><span class='tip'>YENİ</span><span class='konu'>#$adet · $(K $cvp.konu)</span><span class='rozet2'>📌 Çıkmış arşivde $($cvp.donem) dönemde soruldu</span><div style='font-size:.72em;color:#777;margin-top:2px'>kaynak: $(K ((@($cvp.kaynak_adlar)|Select-Object -First 2) -join '; '))</div>")
+  $hkDamga=''
+  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem){
+    if("$($cvp.hakem.karar)" -eq 'EVET'){ $hkDamga="<span style='color:#7fc98f;font-size:.72em;font-weight:800;margin-left:8px'>✅ hakem onaylı</span>" }
+    else{ $hkDamga="<span style='color:#ff6b5e;font-size:.72em;font-weight:800;margin-left:8px'>⛔ HAKEM REDDİ: $(K $cvp.hakem.gerekce)</span>" }
+  }
+  [void]$sb.Append("<div class='soru' data-sid='$id' data-dogru='$($cvp.dogru)'><span class='tip'>YENİ</span><span class='konu'>#$adet · $(K $cvp.konu)</span><span class='rozet2'>📌 Çıkmış arşivde $($cvp.donem) dönemde soruldu</span>$hkDamga<div style='font-size:.72em;color:#777;margin-top:2px'>kaynak: $(K ((@($cvp.kaynak_adlar)|Select-Object -First 2) -join '; '))</div>")
   [void]$sb.Append("<p><b>$(K $cvp.soru)</b></p>")
   foreach($hh in 'A','B','C','D','E'){ [void]$sb.Append("<button class='sikbtn' data-h='$hh'>$hh) $(K $cvp.siklar.$hh)</button>") }
   [void]$sb.Append("<div class='tzk'></div><div class='acik'><div class='ac'>")
