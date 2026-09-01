@@ -51,7 +51,9 @@ foreach($svAd in @($prof.sinavlar.PSObject.Properties.Name)){
   [void]$md.AppendLine("`n## $svAd`n")
   foreach($dAd in @($prof.sinavlar.$svAd.PSObject.Properties.Name)){
     $dp=$prof.sinavlar.$svAd.$dAd
-    $dKat=Katla $dAd
+    # 'd) Bankacilik Mevzuati' gibi madde-onekleri eslesmeyi bozar - cekirdegi al
+    $dCek=($dAd -replace '^[a-zA-ZçğıöşüÇĞİÖŞÜ]\)\s*','' -replace '\s*\[\d+\]\s*$','').Trim()
+    $dKat=Katla $dCek
     # 2) cikmis konular + 3) dayanak parmak izi (kopruden)
     $tipik=@(); $aile=@()
     if($kisa){
@@ -65,7 +67,8 @@ foreach($svAd in @($prof.sinavlar.PSObject.Properties.Name)){
     $dp | Add-Member -NotePropertyName cikmis_tipik_konular -NotePropertyValue $tipik -Force
     $dp | Add-Member -NotePropertyName dayanak_ailesi -NotePropertyValue $aile -Force
     if($resmiAlt.Count){ $dp | Add-Member -NotePropertyName resmi_alt_konular -NotePropertyValue $resmiAlt -Force }
-    # taslak tarif (FMuh'un ONAYLI eli degmez)
+    # taslak tarif (ONAYLI olana el degmez; BEKLIYOR taslagi taze veriyle yeniden kurulur)
+    if($dp.PSObject.Properties['_onay'] -and "$($dp._onay)" -match 'BEKLIYOR'){ $dp.kapsam_tarifi='' }
     if(-not $dp.kapsam_tarifi){
       $parca=New-Object System.Collections.Generic.List[string]
       $parca.Add("Resmi ders: $dAd ($svAd). Liste dayanagi: $($dp.liste_dayanagi).")
