@@ -24,9 +24,10 @@ function Katla([string]$s){
 }
 # sinav kisa-ad esleme (kopru 'SGS/SMMM/KGK' kullanir)
 function SinavKisa([string]$tamAd){
-  if($tamAd -match 'SGS|STAJA'){ return 'SGS' }
-  if($tamAd -match 'YETERLILIK|SMMM'){ return 'SMMM' }
-  if($tamAd -match 'BAGIMSIZ|KGK'){ return 'KGK' }
+  $k=Katla $tamAd   # Turkce G/I katlamasi sart ('BAGIMSIZ' ASCII, ad 'BAĞIMSIZ')
+  if($k -match 'SGS|STAJA'){ return 'SGS' }
+  if($k -match 'YETERLILIK|SMMM'){ return 'SMMM' }
+  if($k -match 'BAGIMSIZ|KGK'){ return 'KGK' }
   return ''
 }
 # SPL resmî alt-konu listesi (3-SPL ALT KONU cekimi scratchpad'te)
