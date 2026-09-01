@@ -377,7 +377,13 @@ revoke execute on function public.marka_takip_bekleyen(int) from anon, authentic
 -- ============================================================================
 
 create or replace function public.marka_kademe_hesap(p_marka text, p_aday text)
-returns text language sql immutable as $$
+-- 01.09 CANLI HATA: "42883 function extensions.similarity(text,text) does not
+-- exist". pg_trgm EXTENSIONS semasinda degil, PUBLIC'te kurulu. Diger
+-- fonksiyonlarda search_path kullandigim icin sorun cikmamisti; burada semayi
+-- ELLE yazmisim. DERS: sema adi hicbir yerde sabit yazilmaz, search_path ile
+-- cozulur - bu dosyanin basinda pg_trgm semasini BULAN bir blok bile var.
+returns text language sql immutable
+set search_path = public, extensions as $
   -- marka_takip_bekleyen() içindeki kademe mantığının AYNISI, tek başına
   -- sınanabilir hâlde. İkisi ayrışırsa sınav bunu yakalar.
   select case
@@ -388,7 +394,7 @@ returns text language sql immutable as $$
          and length(public.marka_norm(p_aday))::real
              / greatest(length(public.marka_norm(p_marka)),1) >= 0.6
       then 'YUKSEK'
-    when extensions.similarity(public.marka_norm(p_aday), public.marka_norm(p_marka)) >= 0.45
+    when similarity(public.marka_norm(p_aday), public.marka_norm(p_marka)) >= 0.45
          and abs(length(public.marka_norm(p_aday)) - length(public.marka_norm(p_marka))) <= 3
       then 'ORTA'
     else 'ZAYIF'
