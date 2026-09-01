@@ -152,8 +152,12 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
 # eklenir (metin kaybi sifir), (c) tarih deseni (31.12.2025) eslesemez cunku
 # no parcalari en fazla 2 hane + ardindan BUYUK harf sarti var.
 function ParcalaKilavuz([string]$flatMetin, [string]$kanunAd, [string]$url){
-  $rx = [regex]'(?<=\s)(?<no>\d{1,2}(?:\.\d{1,2}){0,3})\.\s+(?=[A-ZÇĞİÖŞÜ])'
-  $adaylar = $rx.Matches($flatMetin)
+  # Iki bicim var (01.09 olculdu): KVK GUT "10.5. Baslik" (noktali biter),
+  # KUMI/BOBI FRS "1.1 Bu bolum..." (noktasiz, en az bir ondalik). Ikisi de
+  # denenir, MONOTON kabul sayisi buyuk olan kazanir - yanlis desen dogal
+  # olarak az kabul uretir (sira tutmaz).
+  $rxNoktali  = [regex]'(?<=\s)(?<no>\d{1,2}(?:\.\d{1,2}){0,3})\.\s+(?=[A-ZÇĞİÖŞÜ])'
+  $rxNoktasiz = [regex]'(?<=\s)(?<no>\d{1,2}(?:\.\d{1,2}){1,3})\s+(?=[A-ZÇĞİÖŞÜ])'
   function NoParcala([string]$n){ @($n -split '\.') | ForEach-Object { [int]$_ } }
   function NoKiyas($a,$b){ # a<b => -1
     $pa=NoParcala $a; $pb=NoParcala $b
@@ -163,12 +167,18 @@ function ParcalaKilavuz([string]$flatMetin, [string]$kanunAd, [string]$url){
     }
     return 0
   }
-  $kabul = New-Object System.Collections.Generic.List[object]
-  $onceki = '0'
-  foreach($a in $adaylar){
-    $no=$a.Groups['no'].Value
-    if((NoKiyas $onceki $no) -lt 0){ $kabul.Add(@{no=$no;idx=$a.Index}); $onceki=$no }
+  function MonotonKabul($adaylar){
+    $kl = New-Object System.Collections.Generic.List[object]
+    $onceki = '0'
+    foreach($a in $adaylar){
+      $no=$a.Groups['no'].Value
+      if((NoKiyas $onceki $no) -lt 0){ $kl.Add(@{no=$no;idx=$a.Index}); $onceki=$no }
+    }
+    return ,$kl
   }
+  $kabul1 = MonotonKabul ($rxNoktali.Matches($flatMetin))
+  $kabul2 = MonotonKabul ($rxNoktasiz.Matches($flatMetin))
+  $kabul = if($kabul2.Count -gt $kabul1.Count){ $kabul2 } else { $kabul1 }
   $docs = New-Object System.Collections.Generic.List[object]
   for($i=0; $i -lt $kabul.Count; $i++){
     $start=$kabul[$i].idx
