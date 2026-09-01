@@ -338,7 +338,9 @@ foreach($id in @($don.Keys)){
   $cvp=$don[$id]
   if(-not $cvp.soru -or -not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   $cvp.sema=SemaNormalize $cvp.sema
-  if($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye'){ continue }
+  # atlama SIKI: tur=yevmiye YETMEZ, yapisi da standart olmali (01.09: 11 soruda
+  # modelin serbest 'madde/kayit' bicimi cizdiriciye BOS tablo bastirdi)
+  if($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye' -and $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.ogeler -and $cvp.sema.ogeler.PSObject.Properties['borc'] -and @($cvp.sema.ogeler.borc).Count -ge 1){ continue }
   $istY=$yevmiyeIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress)).Replace('{ACIK}',(AciklamaDuz $cvp.aciklama.$($cvp.dogru)))
   $yv=$null
   foreach($d in 1..3){ try{ $yv=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istY -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
