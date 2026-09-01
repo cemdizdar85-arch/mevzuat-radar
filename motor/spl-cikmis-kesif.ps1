@@ -278,7 +278,13 @@ foreach($kokYol in @('oep.spl.com.tr/pdf/','spl.com.tr/Images/Uploads/','www.spl
                      'spl.com.tr/PDF/','www.spl.com.tr/PDF/','spl.com.tr/Docs/','www.spl.com.tr/Docs/',
                      'spl.com.tr/Content/','www.spl.com.tr/Content/','spl.com.tr/Upload/','www.spl.com.tr/Upload/',
                      'basvuru.spl.com.tr/','www.spl.com.tr/spl/','spl.com.tr/spl/')){
-  $sorgular += "url=$([uri]::EscapeDataString($kokYol))&matchType=prefix&output=text&fl=timestamp,original,statuscode,mimetype&collapse=urlkey&limit=5000"
+  # 01.09 KUSUR: bu onek sorgularinda `filter=statuscode:200` YOKTU.
+  # Sonuc: damga, arsivin o adreste 404 gordugu ANI gosterebiliyordu. Sonra
+  # `web/<damga>id_/<adres>` istegi arsivlenmis 404 sayfasini donduruyor,
+  # indirici de "gecerli PDF gelmedi (HTTP 404)" diyordu - ve bu "dosya
+  # arsivde yok" gibi okunuyordu. Oysa dosya VAR, damga YANLIS ANI gosteriyordu.
+  # 349 adayin 173'u tam bu yuzden dustu.
+  $sorgular += "url=$([uri]::EscapeDataString($kokYol))&matchType=prefix&output=text&fl=timestamp,original,statuscode,mimetype&filter=statuscode:200&collapse=urlkey&limit=5000"
 }
 
 $tumPdfHash = @{}
@@ -289,7 +295,9 @@ foreach($sq in $sorgular){
 }
 $tumPdf = @($tumPdfHash.Values | Sort-Object url)
 Yaz ("  arsivde spl.com.tr altinda tekil dosya: {0}" -f @($tumPdf).Count)
-$rapor.domain_pdf = @($tumPdf | ForEach-Object { [ordered]@{ damga=$_.damga; url=$_.url; tip=$_.tip } })
+# `kod` DE YAZILIR. Yazilmadigi icin "damga bir 404 anini mi gosteriyor?"
+# sorusu envanterden cevaplanamiyordu ve teshis iki tur bosa gitti.
+$rapor.domain_pdf = @($tumPdf | ForEach-Object { [ordered]@{ damga=$_.damga; url=$_.url; kod=$_.kod; tip=$_.tip } })
 
 # --- HUKUM ------------------------------------------------------------------
 if(@($pdfler.Keys).Count -gt 0){

@@ -253,6 +253,12 @@ foreach($a in $adaylar){
   }
   if($adresler.Count -eq 0){ $adresler = @(,@{ url=$a.url; damga=$a.damga; kayit=$false }) }
   $adresler = @($adresler | Sort-Object @{ Expression = { -not $_.kayit } })
+  # SON CARE: damga yanlis ani gosteriyor olabilir. Arsiv, verilen damgaya EN
+  # YAKIN kopyaya yonlendirir; bu yuzden her adres icin bir de "genel damga"
+  # denemesi eklenir. Bir kez daha yanlis damga yuzunden dosya kaybetmeyelim.
+  foreach($x in @($adresler | Where-Object { $_.kayit } | Select-Object -First 2)){
+    $adresler += ,@{ url = $x.url; damga = '2015'; kayit = $true }
+  }
   $s.arsiv_kaydi = [bool](@($adresler | Where-Object { $_.kayit }).Count)
   $s.adres_sayisi = $adresler.Count
 
