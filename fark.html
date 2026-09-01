@@ -27,14 +27,8 @@
 <title>1 Soru Çöz, Farkı Gör — Tetikte</title>
 <style>
 :root{
-  /* ---- ACIK TEMA (30.08) ----------------------------------------------
-     Cem: "site rengini beyaz yaptik, burasi siyah kalmis."
-     Olculdu: 64 sayfanin 62'si acik temada; yalniz fark.html ve saglik.html
-     koyu kalmisti. Bu sayfa PAZARLAMANIN YUZU (kahraman ekran kurgusu) -
-     siteden buraya gecen kullanici baska bir yere dustugunu hissetmemeli.
-     Degerler stil-acik.css'ten AYNEN alindi, uydurulmadi.
-     Renkler jetonda oldugu icin bu gecis TEK BLOK degisikligiyle yapildi;
-     dagitik sabit renk olsaydi mumkun degildi. ------------------------- */
+  /* ---- ACIK TEMA (30.08; sablona 01.09'da esitlendi) --------------------
+     Degerler stil-acik.css'ten AYNEN alindi, uydurulmadi. --------------- */
   --zemin:#fbfaf8;       /* stil-acik --bg     : sicak kagit */
   --kart:#ffffff;        /* stil-acik --panel  : kagit katmani */
   --kehribar:#a04a08;    /* stil-acik --accent : METIN baglaminda koyu kehribar */
@@ -46,12 +40,7 @@
   --mavi-acik:#1e40af;   /* ogretmen tahtasi formul metni - bir ton koyu */
   --kenar:#d5d0c6;       /* stil-acik --line2  */
   --kart2:#f7f5f1;       /* stil-acik --panel2 */
-  /* --kart3 YALNIZ .soruk'un SINIRIDIR (tek kullanim). Ilk gecişte --bg2
-     (#f4f2ee) verilmisti; beyaz kart uzerinde oran 1,118 cikti ve kontrast
-     kapisi "gorunmez sinir" diye dusurdu (esik 1,12 - kil payi). Koyu temada
-     ayni jeton koyu zemine karsi gorunuyordu, acik temada gorunmuyor.
-     Sinir rolune uygun ton: stil-acik --line2. */
-  --kart3:#d5d0c6;       /* stil-acik --line2  : .soruk siniri */
+  --kart3:#d5d0c6;       /* stil-acik --line2  : .soruk siniri (kontrast kapisi dersi) */
   --kart4:#e6e2da;       /* stil-acik --line   */
   --gri:#f4f2ee;
   --soluk-kenar:#d5d0c6;}
@@ -163,13 +152,7 @@ td.verilen.parla{animation:parla 1.4s ease}
 </div>
 <script>
 const DOGRU='D';
-// 01.09 TUZAK TEPKISI (ORNEK - Cem karari bekliyor): yanlis sikka basildigi AN
-// dusulen tuzagin ADI soylenir. Cevap/cozum SIZDIRILMAZ - ayrinti zaten hemen
-// alttaki aciklama ekraninda; burada yalniz tuzagin kimligi gosterilir.
-const TUZAK={A:'Eşdeğer Miktara Bölme Tuzağı — payı, ürünün gerçek miktarı yerine eşdeğer miktara böldün.',
-             B:'Katsayı Karıştırma Tuzağı — Beta\'ya kendi katsayısı yerine komşusunun katsayısını uyguladın.',
-             C:'Ürün Unutma Tuzağı — toplam eşdeğer miktara ürünlerden birini katmadın.',
-             E:'Katsayı Uygulamama Tuzağı — Beta\'nın fiili miktarını katsayıyla çarpmadan doğrudan topladın.'};
+const TUZAK={"A":"Eşdeğer Miktara Bölme Tuzağı — payı, ürünün gerçek miktarı yerine eşdeğer miktara böldün.","B":"Katsayı Karıştırma Tuzağı — Beta\u0027ya kendi katsayısı yerine komşusunun katsayısını uyguladın.","C":"Ürün Unutma Tuzağı — toplam eşdeğer miktara ürünlerden birini katmadın.","E":"Katsayı Uygulamama Tuzağı — Beta\u0027nın fiili miktarını katsayıyla çarpmadan doğrudan topladın."};
 document.querySelectorAll('.sik').forEach(b=>{
   b.addEventListener('click',()=>{
     document.querySelectorAll('.sik').forEach(x=>{x.disabled=true; if(x.dataset.h===DOGRU)x.classList.add('dogru');});
@@ -177,7 +160,7 @@ document.querySelectorAll('.sik').forEach(b=>{
     if(b.dataset.h===DOGRU){ h.textContent='✓ Doğru! Yine de açıklamayı oku — tuzakların adını öğren.'; h.style.color='var(--yesil)'; }
     else{ b.classList.add('yanlis'); h.textContent='✗ Yanlış — ve şimdi bu yanlışı bir daha yapmayacaksın:'; h.style.color='var(--kirmizi)';
       const tk=document.getElementById('tuzakKutu');
-      if(tk&&TUZAK[b.dataset.h]){ tk.innerHTML='🪤 <b>Düştüğün tuzağın adı:</b> '+TUZAK[b.dataset.h]+' <span style="color:var(--soluk)">Aşağıda bu tuzağın nasıl çalıştığını adım adım göreceksin.</span>'; tk.style.display='block'; } }
+      if(tk&&TUZAK&&TUZAK[b.dataset.h]){ tk.innerHTML='🪤 <b>Düştüğün tuzağın adı:</b> '+TUZAK[b.dataset.h]+' <span style="color:var(--soluk)">Aşağıda bu tuzağın nasıl çalıştığını adım adım göreceksin.</span>'; tk.style.display='block'; } }
     h.style.display='block';
     document.getElementById('acikla').style.display='block';
     document.getElementById('cta').style.display='block';
@@ -204,35 +187,28 @@ if(ikizAc){
   document.getElementById('ikizGoster').addEventListener('click',()=>{
     document.querySelectorAll('.ikx').forEach(i=>{ i.value=i.dataset.dogru; i.classList.remove('yan'); i.classList.add('dog'); });
   });
-  // 01.09 IPUCU MERDIVENI: cevabi vermeden kademeli yardim (iskele kurma).
-  // 1) hangi formul  2) soru sana ne verdi  3) ilk adimi beraber yap - kalani sende.
-  const IPUCU=[
-    {b:'💡 İPUCU 1/3 — Hangi formül zinciri?',
-     m:'Cevabı söylemiyorum — yolu gösteriyorum. Bu soru tipi hep aynı beş adımla çözülür:',
-     f:'1) Eşdeğer Miktar = Fiili Miktar × Katsayı  (her ürün için)\n2) Toplam Eşdeğer Miktar = eşdeğerlerin toplamı\n3) Birim Eşdeğer Maliyet = Toplam Ortak Maliyet / Toplam Eşdeğer Miktar\n4) Ürünün Payı = Ürünün Eşdeğer Miktarı × Birim Eşdeğer Maliyet\n5) Birim Maliyet = Ürünün Payı / FİİLİ miktarı (eşdeğere DEĞİL!)'},
-    {b:'💡 İPUCU 2/3 — Soru sana ne verdi?',
-     m:'Mavi kenarlı hücrelere bak — bunlar SORUNUN verdikleri: Merkür 3.000 kg (katsayı 1), Venüs 2.000 kg (katsayı 2), Jüpiter 1.000 kg (katsayı 4) ve toplam ortak maliyet 330.000 TL. İlk işin: her ürünün fiili miktarını KENDİ katsayısıyla çarpıp eşdeğer miktar sütununu doldurmak.'},
-    {b:'💡 İPUCU 3/3 — İlk adımı beraber yapalım',
-     m:'Merkür referans ürün: 3.000 kg × katsayı 1 = 3.000 kg eşdeğer. Neden katsayıyla çarptık? Ürünler farklı özellikte, doğrudan toplanamaz — katsayı her ürünü referans ürün cinsine çevirir ki hepsi aynı ölçüde toplanabilsin. Bu hücreyi senin için doldurdum — aynı işlemi Venüs (×2) ve Jüpiter (×4) için SEN yap, sonra zincirin kalanı gelir.',
-     doldur:'3.000'}
-  ];
-  let ipN=0;
+  // 01.09 IPUCU MERDIVENI: cevabi vermeden kademeli yardim - 1 formul, 2 verilenler, 3 ilk hucre.
+  const IPUCU=[{"b":"💡 İPUCU 1/3 — Hangi formül zinciri?","m":"Cevabı söylemiyorum — yolu gösteriyorum. Bu soru tipi hep aynı beş adımla çözülür:","f":"1) Eşdeğer Miktar = Fiili Miktar × Katsayı  (her ürün için)\n2) Toplam Eşdeğer Miktar = eşdeğerlerin toplamı\n3) Birim Eşdeğer Maliyet = Toplam Ortak Maliyet / Toplam Eşdeğer Miktar\n4) Ürünün Payı = Ürünün Eşdeğer Miktarı × Birim Eşdeğer Maliyet\n5) Birim Maliyet = Ürünün Payı / FİİLİ miktarı (eşdeğere DEĞİL!)"},{"b":"💡 İPUCU 2/3 — Soru sana ne verdi?","m":"Mavi kenarlı hücrelere bak — bunlar SORUNUN verdikleri: Merkür 3.000 kg (katsayı 1), Venüs 2.000 kg (katsayı 2), Jüpiter 1.000 kg (katsayı 4) ve toplam ortak maliyet 330.000 TL. İlk işin: her ürünün fiili miktarını KENDİ katsayısıyla çarpıp eşdeğer miktar sütununu doldurmak."},{"b":"💡 İPUCU 3/3 — İlk adımı beraber yapalım","m":"Merkür referans ürün: 3.000 kg × katsayı 1 = 3.000 kg eşdeğer. Neden katsayıyla çarptık? Ürünler farklı özellikte, doğrudan toplanamaz — katsayı her ürünü referans ürün cinsine çevirir ki hepsi aynı ölçüde toplanabilsin. Bu hücreyi senin için doldurdum — aynı işlemi Venüs (×2) ve Jüpiter (×4) için SEN yap, sonra zincirin kalanı gelir.","doldur":"3.000"}];
   const ipBtn=document.getElementById('ipucuAl');
-  ipBtn.addEventListener('click',()=>{
-    if(ipN>=IPUCU.length) return;
-    const ip=IPUCU[ipN], p=document.getElementById('ipucuPanel');
-    document.getElementById('ipucuBaslik').textContent=ip.b;
-    document.getElementById('ipucuMetin').textContent=ip.m;
-    const f=document.getElementById('ipucuFormul'); f.textContent=ip.f||''; f.style.display=ip.f?'block':'none';
-    if(ipN===1){ document.querySelectorAll('#ikiz td.verilen').forEach(td=>{ td.classList.remove('parla'); void td.offsetWidth; td.classList.add('parla'); }); }
-    if(ip.doldur){ const ilk=document.querySelector('#ikiz .ikx'); if(ilk&&!ilk.value){ ilk.value=ip.doldur; ilk.classList.add('dog'); } }
-    p.style.display='block';
-    ipN++;
-    ipBtn.textContent=(ipN>=IPUCU.length)?'💡 İpucu bitti — kalanı sende!':'💡 Takıldım — ipucu ver ('+(ipN+1)+'/3)';
-    if(ipN>=IPUCU.length){ ipBtn.style.opacity='.55'; ipBtn.style.cursor='default'; }
-  });
+  if(IPUCU&&ipBtn){
+    let ipN=0;
+    ipBtn.addEventListener('click',()=>{
+      if(ipN>=IPUCU.length) return;
+      const ip=IPUCU[ipN];
+      document.getElementById('ipucuBaslik').textContent=ip.b;
+      document.getElementById('ipucuMetin').textContent=ip.m;
+      const f=document.getElementById('ipucuFormul'); f.textContent=ip.f||''; f.style.display=ip.f?'block':'none';
+      if(ipN===1){ document.querySelectorAll('#ikiz td.verilen').forEach(td=>{ td.classList.remove('parla'); void td.offsetWidth; td.classList.add('parla'); }); }
+      if(ip.doldur){ const ilk=document.querySelector('#ikiz .ikx'); if(ilk&&!ilk.value){ ilk.value=ip.doldur; ilk.classList.add('dog'); } }
+      document.getElementById('ipucuPanel').style.display='block';
+      ipN++;
+      ipBtn.textContent=(ipN>=IPUCU.length)?'💡 İpucu bitti — kalanı sende!':'💡 Takıldım — ipucu ver ('+(ipN+1)+'/3)';
+      if(ipN>=IPUCU.length){ ipBtn.style.opacity='.55'; ipBtn.style.cursor='default'; }
+    });
+  } else if(ipBtn){ ipBtn.style.display='none'; }
 }
-const ADIMLAR=[{"anlatim":"Soru bize sunlari vermis: Alfa urunu (referans, katsayi 1) 2.000 kg uretilmis; Beta urunu katsayi 3 ile 1.000 kg uretilmis; Gama urunu katsayi 2 ile 500 kg uretilmis. Ayrica donemin toplam ortak maliyetinin 240.000 TL oldugu da soruda belirtilmis. Bu urunler yogunluk farki yuzunden fiziki olarak dogrudan toplanamadigi icin, her urunu referans urun cinsinden esdeger bir olcuye cevirecegiz.","formul":"Verilenler: Alfa fiili miktar=2.000 kg, katsayi=1; Beta fiili miktar=1.000 kg, katsayi=3; Gama fiili miktar=500 kg, katsayi=2; Toplam Ortak Maliyet=240.000 TL","vtablo":"<div style='font-weight:800;font-size:.82em;margin-bottom:4px'>📋 SORUNUN VERDİKLERİ</div><table class='vtab'><tr><th>Ürün</th><th>Fiili Miktar</th><th>Katsayı</th></tr><tr><td>Alfa (referans)</td><td>2.000 kg</td><td>1</td></tr><tr><td>Beta</td><td>1.000 kg</td><td>3</td></tr><tr><td>Gama</td><td>500 kg</td><td>2</td></tr><tr><td colspan='2'>Toplam Ortak Maliyet</td><td>240.000 TL</td></tr></table>","doldur":[[0,1],[0,2],[1,1],[1,2],[2,1],[2,2],[3,4]]},{"anlatim":"Simdi biz hesapliyoruz: her urunun fiili miktarini kendi katsayisiyla carparak esdeger miktarini buluyoruz, boylece farkli yogunluktaki urunler ortak bir olcude toplanabilir hale gelir.","formul":"Esdeger Miktar = Fiili Miktar x Katsayi\nAlfa: 2.000 (soruda verilen) x 1 (soruda verilen) = 2.000 kg\nBeta: 1.000 (soruda verilen) x 3 (soruda verilen) = 3.000 kg\nGama: 500 (soruda verilen) x 2 (soruda verilen) = 1.000 kg\nToplam Esdeger Miktar = 2.000 (bulduk) + 3.000 (bulduk) + 1.000 (bulduk) = 6.000 kg","doldur":[[0,3],[1,3],[2,3],[3,3]]},{"anlatim":"Simdi biz hesapliyoruz: tabloyu tamamlamak icin urunlerin gercek (fiili) uretim miktarlarini da topluyoruz; bu deger daha sonra birim maliyet hesaplarinda kullanilacak.","formul":"Toplam Fiili Miktar = Alfa + Beta + Gama = 2.000 (soruda verilen) + 1.000 (soruda verilen) + 500 (soruda verilen) = 3.500 kg","doldur":[[3,1]]},{"anlatim":"Simdi biz hesapliyoruz: toplam ortak maliyeti toplam esdeger miktara bolerek bir birim esdeger urune dusen maliyeti buluyoruz. Alfa\u0027nin katsayisi 1 oldugu icin Alfa\u0027nin birim maliyeti dogrudan bu degere esit olur.","formul":"Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL\nAlfa katsayisi 1 oldugundan Alfa Birim Maliyeti = 40 TL/kg","doldur":[[0,5]]},{"anlatim":"Simdi biz hesapliyoruz: her urunun esdeger miktarini birim esdeger maliyetle carparak, o urune dusen ortak maliyet payini buluyoruz.","formul":"Ortak Maliyet Payi = Esdeger Miktar x Birim Esdeger Maliyet\nAlfa: 2.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 80.000 TL\nBeta: 3.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 120.000 TL\nGama: 1.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 40.000 TL","doldur":[[0,4],[1,4],[2,4]]},{"anlatim":"Simdi biz hesapliyoruz: Gama urununun birim maliyetini bulmak icin ona dusen ortak maliyet payini kendi fiili (gercek) uretim miktarina boluyoruz.","formul":"Gama Birim Maliyeti = Gama Ortak Maliyet Payi / Gama Fiili Miktar = 40.000 (onceki adimda bulduk) / 500 (soruda verilen) = 80 TL/kg","doldur":[[2,5]]},{"anlatim":"Simdi biz hesapliyoruz: sorunun sordugu Beta urununun birim maliyetini bulmak icin Beta\u0027ya dusen ortak maliyet payini Beta\u0027nin fiili (gercek) uretim miktarina boluyoruz. Dikkat: dagitimda esdeger miktar kullanildi ama birim maliyette fiili miktar kullaniliyor.","formul":"Beta Birim Maliyeti = Beta Ortak Maliyet Payi / Beta Fiili Miktar = 120.000 (onceki adimda bulduk) / 1.000 (soruda verilen) = 120 TL/kg","doldur":[[1,5]]},{"anlatim":"SONUC: Butun hesaplamalar tamamlandi. Ortak maliyet once esdeger miktara gore dagitildi, sonra her urunun birim maliyeti kendi fiili miktarina bolunerek bulundu. Ürün Beta\u0027nin birim maliyeti 120 TL/kg\u0027dir.","formul":"Beta Birim Maliyeti = 120.000 TL / 1.000 kg = 120 TL/kg","doldur":[[3,5]]}];
+const ADIMLAR=[{"anlatim":"Soru bize sunlari vermis: Alfa urunu (referans, katsayi 1) 2.000 kg uretilmis; Beta urunu katsayi 3 ile 1.000 kg uretilmis; Gama urunu katsayi 2 ile 500 kg uretilmis. Ayrica donemin toplam ortak maliyetinin 240.000 TL oldugu da soruda belirtilmis. Bu urunler yogunluk farki yuzunden fiziki olarak dogrudan toplanamadigi icin, her urunu referans urun cinsinden esdeger bir olcuye cevirecegiz.","formul":"Verilenler: Alfa fiili miktar=2.000 kg, katsayi=1; Beta fiili miktar=1.000 kg, katsayi=3; Gama fiili miktar=500 kg, katsayi=2; Toplam Ortak Maliyet=240.000 TL","doldur":[[0,1],[0,2],[1,1],[1,2],[2,1],[2,2],[3,4]],"vtablo":"\u003cdiv style=\u0027font-weight:800;font-size:.82em;margin-bottom:4px\u0027\u003e📋 SORUNUN VERDİKLERİ\u003c/div\u003e\u003ctable class=\u0027vtab\u0027\u003e\u003ctr\u003e\u003cth\u003eÜrün\u003c/th\u003e\u003cth\u003eFiili Miktar\u003c/th\u003e\u003cth\u003eKatsayı\u003c/th\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eAlfa (referans)\u003c/td\u003e\u003ctd\u003e2.000 kg\u003c/td\u003e\u003ctd\u003e1\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eBeta\u003c/td\u003e\u003ctd\u003e1.000 kg\u003c/td\u003e\u003ctd\u003e3\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eGama\u003c/td\u003e\u003ctd\u003e500 kg\u003c/td\u003e\u003ctd\u003e2\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd colspan=\u00272\u0027\u003eToplam Ortak Maliyet\u003c/td\u003e\u003ctd\u003e240.000 TL\u003c/td\u003e\u003c/tr\u003e\u003c/table\u003e"},{"anlatim":"Simdi biz hesapliyoruz: her urunun fiili miktarini kendi katsayisiyla carparak esdeger miktarini buluyoruz, boylece farkli yogunluktaki urunler ortak bir olcude toplanabilir hale gelir.","formul":"Esdeger Miktar = Fiili Miktar x Katsayi\nAlfa: 2.000 (soruda verilen) x 1 (soruda verilen) = 2.000 kg\nBeta: 1.000 (soruda verilen) x 3 (soruda verilen) = 3.000 kg\nGama: 500 (soruda verilen) x 2 (soruda verilen) = 1.000 kg\nToplam Esdeger Miktar = 2.000 (bulduk) + 3.000 (bulduk) + 1.000 (bulduk) = 6.000 kg","doldur":[[0,3],[1,3],[2,3],[3,3]]},{"anlatim":"Simdi biz hesapliyoruz: tabloyu tamamlamak icin urunlerin gercek (fiili) uretim miktarlarini da topluyoruz; bu deger daha sonra birim maliyet hesaplarinda kullanilacak.","formul":"Toplam Fiili Miktar = Alfa + Beta + Gama = 2.000 (soruda verilen) + 1.000 (soruda verilen) + 500 (soruda verilen) = 3.500 kg","doldur":[[3,1]]},{"anlatim":"Simdi biz hesapliyoruz: toplam ortak maliyeti toplam esdeger miktara bolerek bir birim esdeger urune dusen maliyeti buluyoruz. Alfa\u0027nin katsayisi 1 oldugu icin Alfa\u0027nin birim maliyeti dogrudan bu degere esit olur.","formul":"Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL\nAlfa katsayisi 1 oldugundan Alfa Birim Maliyeti = 40 TL/kg","doldur":[[0,5]]},{"anlatim":"Simdi biz hesapliyoruz: her urunun esdeger miktarini birim esdeger maliyetle carparak, o urune dusen ortak maliyet payini buluyoruz.","formul":"Ortak Maliyet Payi = Esdeger Miktar x Birim Esdeger Maliyet\nAlfa: 2.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 80.000 TL\nBeta: 3.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 120.000 TL\nGama: 1.000 (onceki adimda bulduk) x 40 (onceki adimda bulduk) = 40.000 TL","doldur":[[0,4],[1,4],[2,4]]},{"anlatim":"Simdi biz hesapliyoruz: Gama urununun birim maliyetini bulmak icin ona dusen ortak maliyet payini kendi fiili (gercek) uretim miktarina boluyoruz.","formul":"Gama Birim Maliyeti = Gama Ortak Maliyet Payi / Gama Fiili Miktar = 40.000 (onceki adimda bulduk) / 500 (soruda verilen) = 80 TL/kg","doldur":[[2,5]]},{"anlatim":"Simdi biz hesapliyoruz: sorunun sordugu Beta urununun birim maliyetini bulmak icin Beta\u0027ya dusen ortak maliyet payini Beta\u0027nin fiili (gercek) uretim miktarina boluyoruz. Dikkat: dagitimda esdeger miktar kullanildi ama birim maliyette fiili miktar kullaniliyor.","formul":"Beta Birim Maliyeti = Beta Ortak Maliyet Payi / Beta Fiili Miktar = 120.000 (onceki adimda bulduk) / 1.000 (soruda verilen) = 120 TL/kg","doldur":[[1,5]]},{"anlatim":"SONUC: Butun hesaplamalar tamamlandi. Ortak maliyet once esdeger miktara gore dagitildi, sonra her urunun birim maliyeti kendi fiili miktarina bolunerek bulundu. Ürün Beta\u0027nin birim maliyeti 120 TL/kg\u0027dir.","formul":"Beta Birim Maliyeti = 120.000 TL / 1.000 kg = 120 TL/kg","doldur":[[3,5]]}];
+const VTABLO="\u003cdiv style=\u0027font-weight:800;font-size:.82em;margin-bottom:4px\u0027\u003e📋 SORUNUN VERDİKLERİ\u003c/div\u003e\u003ctable class=\u0027vtab\u0027\u003e\u003ctr\u003e\u003cth\u003eÜrün\u003c/th\u003e\u003cth\u003eFiili Miktar\u003c/th\u003e\u003cth\u003eKatsayı\u003c/th\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eAlfa (referans)\u003c/td\u003e\u003ctd\u003e2.000 kg\u003c/td\u003e\u003ctd\u003e1\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eBeta\u003c/td\u003e\u003ctd\u003e1.000 kg\u003c/td\u003e\u003ctd\u003e3\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eGama\u003c/td\u003e\u003ctd\u003e500 kg\u003c/td\u003e\u003ctd\u003e2\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd colspan=\u00272\u0027\u003eToplam Ortak Maliyet\u003c/td\u003e\u003ctd\u003e240.000 TL\u003c/td\u003e\u003c/tr\u003e\u003c/table\u003e";
 if(ADIMLAR){
   let ad=-1;
   const hc=(r,c)=>document.querySelector(".hcell[data-r='"+r+"'][data-c='"+c+"']");
@@ -241,9 +217,9 @@ if(ADIMLAR){
     const s=ADIMLAR[ad];
     document.getElementById('psayac').textContent='ADIM '+(ad+1)+' / '+ADIMLAR.length;
     document.getElementById('pmetin').textContent=s.anlatim;
-    // vtablo: verilenler tablo halinde (Cem 01.09) - icerik uretici kalibindan gelir, kullanici girdisi degildir
+    // 01.09 Cem: adim-1 verilenleri duz metin yerine TABLO halinde (vtablo uretici tarafinda kurulur)
     const pf=document.getElementById('pformul');
-    if(s.vtablo){ pf.innerHTML=s.vtablo; pf.style.display='block'; }
+    if(ad===0&&VTABLO){ pf.innerHTML=VTABLO; pf.style.display='block'; }
     else { pf.textContent=s.formul||''; pf.style.display=s.formul?'block':'none'; }
     (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
     if(ad===ADIMLAR.length-1){ tum().forEach(el=>el.classList.remove('gizli')); } // son adimda acik hucre kalmaz (muhur-turu guvencesi)

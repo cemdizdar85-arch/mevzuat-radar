@@ -99,15 +99,15 @@ function TabloHtml($t,$ver){
   $verSet=@{}
   foreach($vv in @($ver)){ if($vv -and @($vv).Count -ge 2){ $verSet["$(@($vv)[0]),$(@($vv)[1])"]=1 } }
   $sb=[Text.StringBuilder]::new()
-  [void]$sb.Append("<div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:12px'>📊 Çözüm tablosu</div>")
-  if($verSet.Count -gt 0){ [void]$sb.Append("<div style='font-size:.78em;color:#78b4ff;margin-top:3px'>🔷 mavi kenarlı hücreler <b>soruda VERİLENLERDİR</b> — biz bulmadık, soru verdi; kalanları biz hesapladık</div>") }
+  [void]$sb.Append("<div style='font-weight:800;font-size:.9em;color:var(--mavi);margin-top:12px'>📊 Çözüm tablosu</div>")
+  if($verSet.Count -gt 0){ [void]$sb.Append("<div style='font-size:.78em;color:var(--mavi);margin-top:3px'>🔷 mavi kenarlı hücreler <b>soruda VERİLENLERDİR</b> — biz bulmadık, soru verdi; kalanları biz hesapladık</div>") }
   [void]$sb.Append("<table class='tcetvel'><tr>")
   foreach($b in @($t.basliklar)){ [void]$sb.Append("<th>$(K $b)</th>") }
   [void]$sb.Append('</tr>')
   $n=@($t.satirlar).Count; $q=0
   foreach($st in @($t.satirlar)){
     $q++
-    $stil=''; if($q -eq $n){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
+    $stil=''; if($q -eq $n){ $stil=" style='background:color-mix(in srgb,var(--yesil) 12%,transparent);font-weight:800'" }
     [void]$sb.Append("<tr$stil>")
     $kc=0
     foreach($hc in @($st)){
@@ -132,8 +132,8 @@ function SemaHtml($s){
   switch("$($s.tur)"){
     'eleme'{
       foreach($og in @($s.ogeler)){
-        $isr='✗'; $rk='#e07b7b'; $st='opacity:.85'
-        if($og.kalan){ $isr='✓'; $rk='#8fc98f'; $st='background:rgba(143,201,143,.10)' }
+        $isr='✗'; $rk='var(--kirmizi)'; $st='opacity:.85'
+        if($og.kalan){ $isr='✓'; $rk='var(--yesil)'; $st='background:color-mix(in srgb,var(--yesil) 10%,transparent)' }
         [void]$sb.Append("<div class='elemasatir' style='border-left:3px solid $rk;$st'><span style='color:$rk;font-weight:900;min-width:16px'>$isr</span><span class='elemaaday'>$(K $og.aday)</span><span style='color:$rk;font-size:.84em;flex:1'>$(K $og.sebep)</span></div>")
       }
     }
@@ -158,22 +158,22 @@ function SemaHtml($s){
       if($kk){
         $W=[Math]::Max(430,[int]((Yap $kk)*($BW+$GAP))); $Hh=[int](20+((Derin $kk)+1)*$LH)
         $sv=[Text.StringBuilder]::new()
-        [void]$sv.Append("<svg viewBox='0 0 $W $Hh' style='width:100%;max-width:${W}px;height:auto;display:block;margin:0 auto' xmlns='http://www.w3.org/2000/svg'><defs><marker id='fok' markerWidth='7' markerHeight='7' refX='5' refY='3.5' orient='auto'><path d='M0,0 L7,3.5 L0,7 z' fill='#8ab'/></marker></defs>")
+        [void]$sv.Append("<svg viewBox='0 0 $W $Hh' style='width:100%;max-width:${W}px;height:auto;display:block;margin:0 auto' xmlns='http://www.w3.org/2000/svg'><defs><marker id='fok' markerWidth='7' markerHeight='7' refX='5' refY='3.5' orient='auto'><path d='M0,0 L7,3.5 L0,7 z' style='fill:var(--soluk)'/></marker></defs>")
         function Yerles($n,[double]$x0,[int]$sev,[string]$dal){
           $y=10+$sev*$LH
           if(-not (DugumMu $n)){
-            $cx=($x0+0.5)*($BW+$GAP); $rk='#8fc98f'; if($dal -eq 'hayir'){ $rk='#e07b7b' }
-            [void]$sv.Append("<foreignObject x='$([int]($cx-$BW/2))' y='$([int]$y)' width='$([int]$BW)' height='$([int]$BH)'><div xmlns='http://www.w3.org/1999/xhtml' style='height:100%;display:flex;align-items:center;justify-content:center;text-align:center;border:1.6px solid $rk;border-radius:10px;color:$rk;font-size:12px;line-height:1.25;padding:4px 8px;box-sizing:border-box;background:rgba(0,0,0,.25)'>$(K "$n")</div></foreignObject>")
+            $cx=($x0+0.5)*($BW+$GAP); $rk='var(--yesil)'; if($dal -eq 'hayir'){ $rk='var(--kirmizi)' }
+            [void]$sv.Append("<foreignObject x='$([int]($cx-$BW/2))' y='$([int]$y)' width='$([int]$BW)' height='$([int]$BH)'><div xmlns='http://www.w3.org/1999/xhtml' style='height:100%;display:flex;align-items:center;justify-content:center;text-align:center;border:1.6px solid $rk;border-radius:10px;color:$rk;font-size:12px;line-height:1.25;padding:4px 8px;box-sizing:border-box;background:color-mix(in srgb,$rk 6%,transparent)'>$(K "$n")</div></foreignObject>")
             return @($cx,1)
           }
           $sol=Yerles $n.evet $x0 ($sev+1) 'evet'
           $sag=Yerles $n.hayir ($x0+$sol[1]) ($sev+1) 'hayir'
           $cx=($sol[0]+$sag[0])/2
-          [void]$sv.Append("<foreignObject x='$([int]($cx-$BW/2))' y='$([int]$y)' width='$([int]$BW)' height='$([int]$BH)'><div xmlns='http://www.w3.org/1999/xhtml' style='height:100%;display:flex;align-items:center;justify-content:center;text-align:center;border:1.8px solid #e0a458;border-radius:10px;color:#e8e4dc;font-weight:700;font-size:12.5px;line-height:1.25;padding:4px 8px;box-sizing:border-box;background:rgba(224,164,88,.10)'>$(K "$($n.soru)")</div></foreignObject>")
+          [void]$sv.Append("<foreignObject x='$([int]($cx-$BW/2))' y='$([int]$y)' width='$([int]$BW)' height='$([int]$BH)'><div xmlns='http://www.w3.org/1999/xhtml' style='height:100%;display:flex;align-items:center;justify-content:center;text-align:center;border:1.8px solid var(--mavi);border-radius:10px;color:var(--metin);font-weight:700;font-size:12.5px;line-height:1.25;padding:4px 8px;box-sizing:border-box;background:color-mix(in srgb,var(--mavi) 8%,transparent)'>$(K "$($n.soru)")</div></foreignObject>")
           $py=$y+$BH; $cy=10+($sev+1)*$LH
-          foreach($cf in @(@($sol[0],'EVET','#8fc98f'),@($sag[0],'HAYIR','#e07b7b'))){
-            [void]$sv.Append("<path d='M $([int]$cx) $([int]$py) C $([int]$cx) $([int]($py+28)), $([int]$cf[0]) $([int]($cy-28)), $([int]$cf[0]) $([int]$cy)' fill='none' stroke='$($cf[2])' stroke-width='1.6' marker-end='url(#fok)'/>")
-            [void]$sv.Append("<text x='$([int](($cx+$cf[0])/2))' y='$([int](($py+$cy)/2))' fill='$($cf[2])' font-size='11' font-weight='800' text-anchor='middle' style='paint-order:stroke;stroke:#161513;stroke-width:4px'>$($cf[1])</text>")
+          foreach($cf in @(@($sol[0],'EVET','var(--yesil)'),@($sag[0],'HAYIR','var(--kirmizi)'))){
+            [void]$sv.Append("<path d='M $([int]$cx) $([int]$py) C $([int]$cx) $([int]($py+28)), $([int]$cf[0]) $([int]($cy-28)), $([int]$cf[0]) $([int]$cy)' fill='none' style='stroke:$($cf[2])' stroke-width='1.6' marker-end='url(#fok)'/>")
+            [void]$sv.Append("<text x='$([int](($cx+$cf[0])/2))' y='$([int](($py+$cy)/2))' font-size='11' font-weight='800' text-anchor='middle' style='fill:$($cf[2]);paint-order:stroke;stroke:var(--zemin);stroke-width:4px'>$($cf[1])</text>")
           }
           return @($cx,($sol[1]+$sag[1]))
         }
@@ -265,9 +265,9 @@ if($veri.adimlar){
   $playerBlok=@"
 <div id='player' style='margin-top:14px'>
   <button id='padim' class='dgm' style='padding:9px 16px;font-size:.9em'>🎬 Bu çözümü adım adım yaşa</button>
-  <div id='panlat' style='display:none;border:1px solid var(--kehribar);border-radius:12px;padding:12px 14px;margin-top:10px;background:rgba(224,164,88,.07)'>
+  <div id='panlat' style='display:none;border:1px solid var(--kehribar);border-radius:12px;padding:12px 14px;margin-top:10px;background:color-mix(in srgb,var(--kehribar) 7%,transparent)'>
     <div style='font-size:.78em;color:var(--kehribar);font-weight:800' id='psayac'></div>
-    <div id='pformul' style='margin-top:7px;font-family:Consolas,monospace;font-size:.98em;color:#8fd0ff;background:rgba(120,180,255,.10);border:1px solid rgba(120,180,255,.35);border-radius:8px;padding:8px 12px'></div>
+    <div id='pformul' style='margin-top:7px;font-family:Consolas,monospace;font-size:.98em;color:var(--mavi-acik);background:color-mix(in srgb,var(--mavi) 10%,transparent);border:1px solid color-mix(in srgb,var(--mavi) 35%,transparent);border-radius:8px;padding:8px 12px'></div>
     <div id='pmetin' style='margin-top:7px;font-size:.95em'></div>
     <button id='pileri' class='dgm' style='padding:7px 14px;font-size:.85em;margin-top:10px'>İleri →</button>
   </div>
@@ -287,7 +287,7 @@ if($veri.PSObject.Properties['ikiz'] -and $veri.ikiz -and $veri.ikiz.tablo){
   $ns=@($ik.tablo.satirlar).Count; $rq=0
   foreach($st in @($ik.tablo.satirlar)){
     $rq++
-    $stil=''; if($rq -eq $ns){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
+    $stil=''; if($rq -eq $ns){ $stil=" style='background:color-mix(in srgb,var(--yesil) 12%,transparent);font-weight:800'" }
     [void]$tb.Append("<tr$stil>")
     $cq=0
     foreach($hc in @($st)){
@@ -309,8 +309,8 @@ if($veri.PSObject.Properties['ikiz'] -and $veri.ikiz -and $veri.ikiz.tablo){
     <p style='color:var(--yesil);font-size:.9em'>🎯 $(K $ik.hedef_cumle) — 🔷 maviler soruda verildi; boş hücreleri SEN doldur.</p>
     $($tb.ToString())
     <button id='ikizKontrol' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px'>Kontrol et</button>
-    <button id='ipucuAl' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:#78b4ff'>💡 Takıldım — ipucu ver (1/3)</button>
-    <button id='ikizGoster' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:#5a5648;color:var(--metin)'>Doğruları göster</button>
+    <button id='ipucuAl' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:var(--mavi)'>💡 Takıldım — ipucu ver (1/3)</button>
+    <button id='ikizGoster' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:var(--kenar);color:var(--metin)'>Doğruları göster</button>
     <span id='ikizSkor' style='margin-left:10px;font-weight:800'></span>
     <div id='ipucuPanel'><span class='ipb' id='ipucuBaslik'></span><div id='ipucuMetin' style='margin-top:5px'></div><div class='ipf' id='ipucuFormul' style='display:none'></div></div>
   </div>
@@ -326,57 +326,97 @@ $html=@"
 <html lang="tr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1b1a18">
+<!-- 30.08: BU SAYFA PAZARLAMANIN YUZU ama paylasim etiketi HIC YOKTU -
+     favicon bile bagli degildi. Link atildiginda ciplak adres goruluyordu.
+     Kendi karti var (og-kahraman.png): kilitli cumle + dort perde.
+     Genel kapak (og-kapak.png) DEGIL - kahraman sayfasi kendi vaadini gostermeli. -->
+<meta property="og:type" content="article">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Tetikte">
+<meta property="og:url" content="https://tetikte.com/fark.html">
+<meta property="og:title" content="Yanlışını böyle öğrenirsin.">
+<meta property="og:description" content="Bir soru çöz. Cevabı vermekle bitmiyor — tuzağın adı, doğrusu, adım adım çözüm ve kendi denemen ondan sonra başlıyor.">
+<meta property="og:image" content="https://tetikte.com/og-kahraman.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tetikte — Yanlışını böyle öğrenirsin.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Yanlışını böyle öğrenirsin.">
+<meta name="twitter:description" content="Bir soru çöz. Fark, cevabı verdikten sonra başlıyor.">
+<meta name="twitter:image" content="https://tetikte.com/og-kahraman.png">
 <title>1 Soru Çöz, Farkı Gör — Tetikte</title>
 <style>
-:root{--zemin:#161513;--kart:#1f1d1a;--kehribar:#e0a458;--metin:#e8e4dc;--soluk:#a89f90;--yesil:#8fc98f;--kirmizi:#e07b7b}
+:root{
+  /* ---- ACIK TEMA (30.08; sablona 01.09'da esitlendi) --------------------
+     Degerler stil-acik.css'ten AYNEN alindi, uydurulmadi. --------------- */
+  --zemin:#fbfaf8;       /* stil-acik --bg     : sicak kagit */
+  --kart:#ffffff;        /* stil-acik --panel  : kagit katmani */
+  --kehribar:#a04a08;    /* stil-acik --accent : METIN baglaminda koyu kehribar */
+  --metin:#16191d;       /* stil-acik --ink    : saf siyah degil, goz yormaz */
+  --soluk:#4b5563;       /* stil-acik --muted  */
+  --yesil:#146f35;       /* stil-acik --green  : acik zeminde okunacak koyulukta */
+  --kirmizi:#b91c1c;     /* stil-acik --red    */
+  --mavi:#1d4ed8;        /* stil-acik --link   : ALTIN AYRIM "soruda verilen" */
+  --mavi-acik:#1e40af;   /* ogretmen tahtasi formul metni - bir ton koyu */
+  --kenar:#d5d0c6;       /* stil-acik --line2  */
+  --kart2:#f7f5f1;       /* stil-acik --panel2 */
+  --kart3:#d5d0c6;       /* stil-acik --line2  : .soruk siniri (kontrast kapisi dersi) */
+  --kart4:#e6e2da;       /* stil-acik --line   */
+  --gri:#f4f2ee;
+  --soluk-kenar:#d5d0c6;}
 *{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--zemin);color:var(--metin);line-height:1.6}
 .kap{max-width:860px;margin:0 auto;padding:36px 20px}
 h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .alt{color:var(--soluk);max-width:620px}
-.rozet{display:inline-block;background:rgba(224,164,88,.14);border:1px solid var(--kehribar);color:var(--kehribar);border-radius:999px;padding:4px 12px;font-size:.8em;font-weight:800;margin-top:14px}
-.soruk{background:var(--kart);border:1px solid #35322c;border-radius:16px;padding:22px;margin-top:14px}
+.rozet{display:inline-block;background:color-mix(in srgb,var(--kehribar) 14%,transparent);border:1px solid var(--kehribar);color:var(--kehribar);border-radius:999px;padding:4px 12px;font-size:.8em;font-weight:800;margin-top:14px}
+.soruk{background:var(--kart);border:1px solid var(--kart3);border-radius:16px;padding:22px;margin-top:14px}
 .soruk p.govde{font-weight:600;font-size:1.02em}
-.sik{display:block;width:100%;text-align:left;background:#26231f;border:1px solid #3b372f;border-radius:10px;color:var(--metin);padding:11px 14px;margin:7px 0;font-size:.95em;cursor:pointer;font-family:inherit;line-height:1.5}
+.sik{display:block;width:100%;text-align:left;background:var(--kart2);border:1px solid var(--kart4);border-radius:10px;color:var(--metin);padding:11px 14px;margin:7px 0;font-size:.95em;cursor:pointer;font-family:inherit;line-height:1.5}
 .sik:hover{border-color:var(--kehribar)}
-.sik.dogru{border-color:var(--yesil);background:rgba(143,201,143,.10)}
-.sik.yanlis{border-color:var(--kirmizi);background:rgba(224,123,123,.10)}
+.sik.dogru{border-color:var(--yesil);background:color-mix(in srgb,var(--yesil) 10%,transparent)}
+.sik.yanlis{border-color:var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 10%,transparent)}
 .sik:disabled{cursor:default;opacity:.9}
 #hukum{font-weight:800;margin:14px 0 4px;font-size:1.05em;display:none}
-#acikla{display:none;background:#26262c;border-radius:12px;padding:16px;margin-top:14px;font-size:.93em;line-height:1.6}
+#acikla{display:none;background:var(--gri);border-radius:12px;padding:16px;margin-top:14px;font-size:.93em;line-height:1.6}
 #acikla b{color:var(--kehribar)}
-.kutu{border-left:3px solid #78b4ff;background:rgba(120,180,255,.07);border-radius:0 8px 8px 0;padding:9px 12px;margin-top:10px;font-size:.9em}
-.kutu2{border-left:3px solid var(--kehribar);background:rgba(224,164,88,.08);border-radius:0 8px 8px 0;padding:9px 12px;margin-top:10px;font-size:.9em}
-.sema{border:1px dashed var(--yesil);border-radius:10px;padding:12px;margin-top:14px;background:rgba(143,201,143,.05)}
+.kutu{border-left:3px solid var(--mavi);background:color-mix(in srgb,var(--mavi) 7%,transparent);border-radius:0 8px 8px 0;padding:9px 12px;margin-top:10px;font-size:.9em}
+.kutu2{border-left:3px solid var(--kehribar);background:color-mix(in srgb,var(--kehribar) 8%,transparent);border-radius:0 8px 8px 0;padding:9px 12px;margin-top:10px;font-size:.9em}
+.sema{border:1px dashed var(--yesil);border-radius:10px;padding:12px;margin-top:14px;background:color-mix(in srgb,var(--yesil) 5%,transparent)}
 .semabaslik{font-weight:800;color:var(--yesil);margin-bottom:8px;font-size:.94em}
-.elemasatir{display:flex;align-items:center;gap:10px;padding:6px 10px;margin:5px 0;border-radius:0 8px 8px 0;background:rgba(224,123,123,.05)}
+.elemasatir{display:flex;align-items:center;gap:10px;padding:6px 10px;margin:5px 0;border-radius:0 8px 8px 0;background:color-mix(in srgb,var(--kirmizi) 5%,transparent)}
 .elemaaday{font-weight:700;font-size:.88em;min-width:38%}
 .akis{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.akisadim{border:1px solid #78b4ff;border-radius:999px;padding:4px 10px;font-size:.84em}
-.akisok{color:#78b4ff;font-weight:900}
+.akisadim{border:1px solid var(--mavi);border-radius:999px;padding:4px 10px;font-size:.84em}
+.akisok{color:var(--mavi);font-weight:900}
 .tcetvel{border-collapse:collapse;margin-top:6px;font-size:.88em;width:100%}
 .tcetvel th{border-bottom:2px solid var(--yesil);color:var(--yesil);padding:4px 8px;text-align:left}
-.tcetvel td{padding:4px 8px;border-bottom:1px dotted #444}
+.tcetvel td{padding:4px 8px;border-bottom:1px dotted var(--soluk-kenar)}
 .ttutar{text-align:right;color:var(--kehribar);font-weight:700}
 .hcell.gizli{color:transparent;text-shadow:none}
-.verilen{box-shadow:inset 3px 0 0 #78b4ff}
-.ikx{width:110px;background:#161513;border:1px solid #5a5648;border-radius:6px;color:var(--metin);padding:5px 8px;font-family:inherit;font-size:.92em}
-.ikx.dog{border-color:var(--yesil);background:rgba(143,201,143,.12)}
-.ikx.yan{border-color:var(--kirmizi);background:rgba(224,123,123,.12)}
+.verilen{box-shadow:inset 3px 0 0 var(--mavi)}
+.ikx{width:110px;background:var(--zemin);border:1px solid var(--kenar);border-radius:6px;color:var(--metin);padding:5px 8px;font-family:inherit;font-size:.92em}
+.ikx.dog{border-color:var(--yesil);background:color-mix(in srgb,var(--yesil) 12%,transparent)}
+.ikx.yan{border-color:var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 12%,transparent)}
 .hcell.parla{animation:parla .9s ease}
-@keyframes parla{0%{background:rgba(224,164,88,.55)}100%{background:transparent}}
-/* 01.09 Cem "UCUNU KUR": tuzak tepkisi + ipucu merdiveni + verilenler tablosu */
+@keyframes parla{0%{background:color-mix(in srgb,var(--kehribar) 55%,transparent)}100%{background:transparent}}
+/* 01.09 ipucu merdiveni: takilan ogrenci cevabi gormeden kademeli yardim alir */
 td.verilen.parla{animation:parla 1.4s ease}
-#tuzakKutu{display:none;border-left:3px solid var(--kirmizi);background:rgba(224,123,123,.08);border-radius:0 8px 8px 0;padding:9px 12px;margin:10px 0 0;font-size:.92em}
-#ipucuPanel{display:none;border:1px solid #78b4ff;border-radius:10px;padding:10px 13px;margin-top:10px;background:rgba(120,180,255,.07);font-size:.92em}
-#ipucuPanel .ipb{font-weight:800;color:#78b4ff;font-size:.82em}
-#ipucuPanel .ipf{font-family:Consolas,monospace;font-size:.93em;color:#8fd0ff;background:rgba(120,180,255,.10);border-radius:8px;padding:7px 10px;margin-top:6px;white-space:pre-line}
+#ipucuPanel{display:none;border:1px solid var(--mavi);border-radius:10px;padding:10px 13px;margin-top:10px;background:color-mix(in srgb,var(--mavi) 6%,transparent);font-size:.92em}
+#ipucuPanel .ipb{font-weight:800;color:var(--mavi);font-size:.82em}
+#ipucuPanel .ipf{font-family:Consolas,monospace;font-size:.93em;color:var(--mavi-acik);background:color-mix(in srgb,var(--mavi) 10%,transparent);border-radius:8px;padding:7px 10px;margin-top:6px;white-space:pre-line}
+#tuzakKutu{display:none;border-left:3px solid var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 7%,transparent);border-radius:0 8px 8px 0;padding:9px 12px;margin:10px 0 0;font-size:.92em}
+/* 01.09 Cem: adim-1 verilenleri duz metin yerine TABLO halinde (okunurluk) */
 .vtab{border-collapse:collapse;width:100%;font-size:.95em;font-family:inherit}
-.vtab th{color:#8fd0ff;border-bottom:2px solid rgba(120,180,255,.45);text-align:left;padding:4px 9px;font-size:.88em}
-.vtab td{padding:4px 9px;border-bottom:1px dotted rgba(120,180,255,.30)}
+.vtab th{color:var(--mavi-acik);border-bottom:2px solid color-mix(in srgb,var(--mavi) 45%,transparent);text-align:left;padding:4px 9px;font-size:.88em}
+.vtab td{padding:4px 9px;border-bottom:1px dotted color-mix(in srgb,var(--mavi) 30%,transparent)}
 .vtab tr:last-child td{border-bottom:0;font-weight:800}
-#cta{display:none;margin-top:26px;background:linear-gradient(160deg,rgba(224,164,88,.16),rgba(224,164,88,.05));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}
+#cta{display:none;margin-top:26px;background:linear-gradient(160deg,color-mix(in srgb,var(--kehribar) 16%,transparent),color-mix(in srgb,var(--kehribar) 5%,transparent));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}
 #cta h2{margin:.2em 0;color:var(--kehribar)}
-.dgm{display:inline-block;background:var(--kehribar);color:#161513;font-weight:800;border-radius:10px;padding:12px 22px;text-decoration:none;margin-top:10px}
+.dgm{display:inline-block;background:var(--kehribar);color:var(--zemin);font-weight:800;border-radius:10px;padding:12px 22px;text-decoration:none;margin-top:10px}
 .dip{color:var(--soluk);font-size:.82em;margin-top:26px}
 </style>
 </head>
@@ -398,7 +438,7 @@ td.verilen.parla{animation:parla 1.4s ease}
       $tabloBlok
       $semaBlok
       </div>
-      <button id="cozumToggle" class="dgm" style="display:none;padding:7px 14px;font-size:.85em;background:#5a5648;margin-top:10px">🙈 Çözüm gizlendi — kopyasız dene! (tekrar göster)</button>
+      <button id="cozumToggle" class="dgm" style="display:none;padding:7px 14px;font-size:.85em;background:var(--kenar);margin-top:10px">🙈 Çözüm gizlendi — kopyasız dene! (tekrar göster)</button>
       $ikizBlok
       $taktikBlok
       $notBlok
