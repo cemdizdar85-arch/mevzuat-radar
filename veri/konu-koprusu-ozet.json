@@ -4565,5 +4565,9 @@
                                "guc":  "ZAYIF"
                            }
                        ],
-    "not":  "V1 tohum: xlsx kaynakli. V2: kasa+arsiv etiketlerinden canli turetim (gunluk halka) - bekleyenlerde."
+    "alias_katmani":  {
+                          "aciklama":  "dayanak_anahtar/cikmis_dayanak_anahtar = DayanakAnormalize edilmis kanonik ad (arac/dayanak-normalize.ps1); kisa/uzun/madde-ekli yazimlar ayni anahtara iner",
+                          "ham_farkli_anahtar_ayni":  1012
+                      },
+    "not":  "V1 tohum: xlsx kaynakli + 01.09 alias katmani. V2: kasa+arsiv etiketlerinden canli turetim (gunluk halka) - bekleyenlerde."
 }

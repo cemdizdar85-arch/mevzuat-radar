@@ -22,6 +22,9 @@ $ErrorActionPreference='Stop'
 $here=if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $kok=Split-Path -Parent $here
 if(-not (Test-Path $xlsxYol)){ throw "harita bulunamadi: $xlsxYol" }
+# 01.09 Cem "alias'i kopru V2 ile birlestir": kaynak-ADI eslemesi (kisa/uzun/
+# madde-ekli ad ayni anahtara iner) - KUMI/KVK GUT/Seri-X yanilgilarinin ilaci
+. (Join-Path $kok 'arac\dayanak-normalize.ps1')
 
 Write-Host 'Harita okunuyor (Excel COM)...'
 $xl=New-Object -ComObject Excel.Application; $xl.DisplayAlerts=$false
@@ -40,6 +43,8 @@ for($r=2;$r -le $n;$r++){
     durum="$($V[$r,7])"; dayanak="$($V[$r,8])"
     cikmis_dayanak="$($V[$r,9])"; guc="$($V[$r,10])"
     donem=[int]"0$($V[$r,11])"
+    dayanak_anahtar=(DayanakAnahtar "$($V[$r,8])")
+    cikmis_dayanak_anahtar=(DayanakAnahtar "$($V[$r,9])")
   })
 }
 $wb.Close($false); $xl.Quit()
@@ -79,7 +84,11 @@ $ozet=[ordered]@{
   ders_koprusu=$dersListe.ToArray()
   agir_bosluk_sayisi=$agir.Count
   agir_bosluklar=@($agir | Sort-Object donem -Descending)
-  not='V1 tohum: xlsx kaynakli. V2: kasa+arsiv etiketlerinden canli turetim (gunluk halka) - bekleyenlerde.'
+  alias_katmani=[ordered]@{
+    aciklama='dayanak_anahtar/cikmis_dayanak_anahtar = DayanakAnormalize edilmis kanonik ad (arac/dayanak-normalize.ps1); kisa/uzun/madde-ekli yazimlar ayni anahtara iner'
+    ham_farkli_anahtar_ayni=@($kayitlar | Where-Object { $_.dayanak -and $_.cikmis_dayanak -and $_.dayanak -ne $_.cikmis_dayanak -and $_.dayanak_anahtar -eq $_.cikmis_dayanak_anahtar }).Count
+  }
+  not='V1 tohum: xlsx kaynakli + 01.09 alias katmani. V2: kasa+arsiv etiketlerinden canli turetim (gunluk halka) - bekleyenlerde.'
 }
 . (Join-Path $kok 'arac\rapor-yaz.ps1')
 RaporYaz -Hedef (Join-Path $kok 'veri\konu-koprusu-ozet.json') -Nesne $ozet
