@@ -21,9 +21,13 @@ $kok  = Split-Path -Parent $here
 $UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
 $manYol = Join-Path $kok 'veri\mevzuat-kaynaklar.json'
 $raporYol = Join-Path $kok 'veri\teblig-hasat-raporu.json'
-function RaporYaz($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 5), (New-Object Text.UTF8Encoding($false))) }
+# 01.09: dogrudan WriteAllText her kosuda 'tarih' damgasiyla dosyayi kirletiyordu,
+# uc oturum ust uste kapanista takildi. Ortak yazici icerik ayniysa dokunmaz;
+# 'tarih' bu betigin zaman alani oldugu icin kiyastan haric tutulur.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
+function Raporla($n){ RaporYaz -Hedef $raporYol -Nesne $n -ZamanAlanlari @('tarih') | Out-Null }
 trap {
-  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
+  Raporla ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
 
@@ -76,7 +80,7 @@ if($yeniler.Count){
   [IO.File]::WriteAllText($manYol, (ConvertTo-Json -InputObject $man -Depth 6), (New-Object Text.UTF8Encoding($false)))
   Write-Host 'manifest guncellendi.'
 }
-RaporYaz ([ordered]@{
+Raporla ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='TAMAM'
   taranan_baslik=@($TAKIP).Count; yeni=$yeniler.Count
   eklenenler=@($yeniler | Select-Object slug,ad,pdfId,rg)
