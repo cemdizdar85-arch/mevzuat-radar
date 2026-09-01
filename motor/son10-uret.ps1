@@ -5,6 +5,9 @@
 #  Dönüşümler veri/fabrika/son10-donusum.json'da CACHE'lenir (kaldığı yerden
 #  devam eder; tek-sefer-üretim ilkesi).
 # ============================================================================
+# 01.09 Cem: "her sinavdan 10, toplam 30" hizli okuma seti -> -TekSayfa -SinavBasina 10; DIKKAT: param adi $Adet OLAMAZ - dongudeki $adet sayaciyla cakisti (PS harf ayirmaz), First 10 yerine First 30 calisti (01.09 yasandi)
+# uc sinavi TEK dosyada basar (son-karar-10x3.html); uclu 30'luk basim degismez.
+param([int]$SinavBasina=10,[switch]$TekSayfa,[string]$Ders='')
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -333,4 +336,109 @@ document.querySelectorAll('.soru').forEach(soru=>{
   $hedef=Join-Path $SQLY ("son-karar-30-{0}.html" -f $sv)
   [IO.File]::WriteAllText($hedef,$sb.ToString(),[Text.UTF8Encoding]::new($false))
   "yazildi: son-karar-30-$sv.html ($adet soru)"
+}
+
+# === 01.09 TEK SAYFA MODU (Cem: "her sinavdan 10 toplam 30 - Finansal Muhasebe
+# olsun, tablo gorelim") ==================================================
+# -TekSayfa: uc sinavi TEK dosyada basar. -Ders 'Muhasebe': ders adi eslesen VE
+# COZUM TABLOLU sorular (Cem tabloyu gormek istiyor - tablosuz girmez).
+# Render kodu yukaridaki donguyle AYNI tutulur (degisiklik ikisine birden islenir).
+if($TekSayfa){
+  $sb=[Text.StringBuilder]::new()
+  $etiket=$(if($Ders){"$Ders (tablolu)"}else{'karma'})
+  [void]$sb.Append("<!doctype html><html lang=""tr""><head><meta charset=""utf-8""><title>Her Sınavdan $SinavBasina — $etiket</title><style>$css</style></head><body>")
+  [void]$sb.Append("<h1>Her sınavdan $SinavBasina soru — $etiket — HIZLI OKUMA SETİ</h1><p style='color:#aaa;font-size:13.5px'>01.09.2026 · en güncel kalıp (verilenler tablosu dahil). KASAYA YAZILMADI.</p>")
+  $secilenTum=@()
+  foreach($sv in 'SGS','SMMM','KGK'){
+    $idler=@($don.Keys | ? { $_ -match "^p90-$sv-" } | Sort-Object | ? {
+      $c2=$don[$_]
+      $dOk=(-not $Ders) -or ("$($plan[$_].ders)" -match $Ders)
+      $tOk=(-not $Ders) -or ($c2.cozum_tablo -and @($c2.cozum_tablo.satirlar).Count -gt 0)
+      $dOk -and $tOk
+    } | Select-Object -First $SinavBasina)
+    $secilenTum+=$idler
+    [void]$sb.Append("<h1 style='margin-top:34px;border-top:2px solid #444;padding-top:18px'>$($sinavAd[$sv]) — $(@($idler).Count) soru</h1>")
+    $adet=0
+    foreach($id in $idler){
+      $e=$kayn[$id]; $cvp=$don[$id]; $pp=$plan[$id]
+      if(-not $e -or -not $cvp){ continue }
+      $adet++
+      $adVar=($cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar)
+      [void]$sb.Append("<div class='soru' data-sid='$id'><span class='tip'>$($pp.tip)</span><span class='konu'>#$adet · $($pp.ders) · $(K $pp.konu)</span>")
+      [void]$sb.Append("<p><b>$(K $e.soru)</b></p>")
+      foreach($hh in 'A','B','C','D','E'){
+        $cls='sik'; if("$($e.dogru)" -eq $hh){ $cls='sik dogru' }
+        [void]$sb.Append("<div class='$cls'>$hh) $(K $e.siklar.$hh)</div>")
+      }
+      [void]$sb.Append("<div class='ac'>")
+      foreach($hh in 'A','B','C','D','E'){
+        $isr=''; if("$($e.dogru)" -eq $hh){ $isr=' ✓' }
+        [void]$sb.Append("<p><b>$hh$isr)</b> $(K $cvp.aciklama.$hh)</p>")
+      }
+      if($adVar){ [void]$sb.Append("<div><button class='padim'>🎬 Bu çözümü adım adım yaşa</button><div class='panlat'><div class='psayac'></div><div class='pformul'></div><div class='pmetin' style='margin-top:6px;font-size:.93em'></div><button class='padim pileri' style='margin-top:8px;padding:6px 12px;font-size:.85em'>İleri →</button></div></div>") }
+      $verList=$null; if($cvp.PSObject.Properties['verilen']){ $verList=$cvp.verilen }
+      [void]$sb.Append((TabloHtml $cvp.cozum_tablo $verList))
+      [void]$sb.Append((SemaHtml $cvp.sema))
+      if($cvp.sinav_taktigi){ [void]$sb.Append("<div class='kutu'>🎯 <b>Sınav taktiği:</b> $(K $cvp.sinav_taktigi)</div>") }
+      if($cvp.notlandirici){ [void]$sb.Append("<div class='kutu2'>⚖️ <b>Notlandırıcı gözü:</b> $(K $cvp.notlandirici)</div>") }
+      if($cvp.hap){ [void]$sb.Append("<div class='kutu2'><b>HAP:</b> $(K $cvp.hap)</div>") }
+      [void]$sb.Append("</div></div>")
+    }
+  }
+  # birlesik adim + verilenler haritalari (yalniz secilen sorular)
+  $amap=[ordered]@{}; $vmap=[ordered]@{}
+  foreach($id2 in $secilenTum){
+    $c2=$don[$id2]
+    if($c2.PSObject.Properties['adimlar'] -and $c2.adimlar){ $amap[$id2]=@($c2.adimlar) }
+    if($c2.PSObject.Properties['verilen'] -and $c2.verilen -and $c2.cozum_tablo){
+      $vb=[Text.StringBuilder]::new()
+      [void]$vb.Append("<div style='font-weight:800;font-size:.8em;margin-bottom:4px'>📋 SORUNUN VERDİKLERİ</div><table class='vtab'><tr><th>Kalem</th><th>Alan</th><th>Değer</th></tr>")
+      $ok=$true
+      foreach($vv in @($c2.verilen)){
+        $r=@($vv)[0]; $c=@($vv)[1]
+        $sat=@(@($c2.cozum_tablo.satirlar)[$r])
+        if($null -eq $sat -or $c -ge @($sat).Count){ $ok=$false; break }
+        [void]$vb.Append("<tr><td>$(K $sat[0])</td><td>$(K @($c2.cozum_tablo.basliklar)[$c])</td><td>$(K $sat[$c])</td></tr>")
+      }
+      [void]$vb.Append('</table>')
+      if($ok){ $vmap[$id2]=$vb.ToString() }
+    }
+  }
+  $amapJson='{}'; if($amap.Count -gt 0){ $amapJson=ConvertTo-Json -InputObject $amap -Depth 7 -Compress }
+  $vmapJson='{}'; if($vmap.Count -gt 0){ $vmapJson=ConvertTo-Json -InputObject $vmap -Depth 3 -Compress }
+  [void]$sb.Append(@"
+<script>
+const ADIMMAP=$amapJson;
+const VTMAP=$vmapJson;
+document.querySelectorAll('.soru').forEach(soru=>{
+  const sid=soru.dataset.sid, adimlar=ADIMMAP[sid];
+  const btn=soru.querySelector('.padim:not(.pileri)');
+  if(!adimlar||!btn) return;
+  const pan=soru.querySelector('.panlat'), say=soru.querySelector('.psayac'),
+        met=soru.querySelector('.pmetin'), frm=soru.querySelector('.pformul'),
+        ile=soru.querySelector('.pileri');
+  const hcs=()=>soru.querySelectorAll('.hcell');
+  const hc=(r,c)=>soru.querySelector(".hcell[data-r='"+r+"'][data-c='"+c+"']");
+  let ad=-1;
+  const g=()=>{
+    const s=adimlar[ad];
+    say.textContent='ADIM '+(ad+1)+' / '+adimlar.length;
+    met.textContent=s.anlatim;
+    if(ad===0&&VTMAP[sid]){ frm.innerHTML=VTMAP[sid]; }
+    else { frm.textContent=s.formul||''; }
+    (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
+    if(ad===adimlar.length-1){ hcs().forEach(el=>el.classList.remove('gizli')); }
+    ile.textContent=(ad===adimlar.length-1)?'🔄 Baştan':'İleri →';
+  };
+  btn.addEventListener('click',()=>{ hcs().forEach(el=>el.classList.add('gizli')); btn.style.display='none'; pan.style.display='block'; ad=0; g(); });
+  ile.addEventListener('click',()=>{ if(ad===adimlar.length-1){ hcs().forEach(el=>el.classList.add('gizli')); ad=0; g(); return; } ad++; g(); });
+});
+</script>
+"@)
+  [void]$sb.Append("</body></html>")
+  $tekAd='son-karar-10x3.html'
+  if($Ders){ $kisa=($Ders.ToLower() -replace '[^a-z]',''); if($kisa.Length -gt 12){ $kisa=$kisa.Substring(0,12) }; $tekAd="son-karar-$kisa-10x3.html" }
+  $hedefT=Join-Path $SQLY $tekAd
+  [IO.File]::WriteAllText($hedefT,$sb.ToString(),[Text.UTF8Encoding]::new($false))
+  "yazildi (TEK SAYFA): $tekAd ($(@($secilenTum).Count) soru)"
 }
