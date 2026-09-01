@@ -376,7 +376,7 @@ foreach($id in @($don.Keys)){
         # hesap zinciri DEGIL, degerlendirilemez. Ayni sekilde salt-yuzde toplami
         # ('50/100 + 30/100 ... = 100') yuzde-puani toplamidir, atlanir.
         if($sol -match '^\s*[\d\.,]+\s*/\s*100\s*$'){ continue }
-        if($sol -match '^[\s\d\.,+]*(/\s*100[\s+]*)+$' -and $sol -notmatch '[x*]'){ continue }
+        if($sol -match '^(\s*[\d\.,]+\s*/\s*100\s*\+?\s*)+$'){ continue }
         if($null -eq $c1){ continue }
         $parcalar=[regex]::Matches($sol,'([\d\.,]+)|([x*/+\-])')
         $hes=$null; $op=$null; $gecerli=$true
