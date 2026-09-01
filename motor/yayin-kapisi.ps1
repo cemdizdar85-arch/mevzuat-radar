@@ -38,15 +38,18 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $raporYol = Join-Path $kok 'veri/yayin-kapisi.json'
 
-function RaporYaz($n){
+# 01.09: dogrudan yazim her kosuda 'tarih' damgasiyla dosyayi kirletiyordu
+# (son 60 commit'te 7 bos commit). Ortak yazici icerik ayniysa dokunmaz.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
+function Raporla($n){
   $j = ConvertTo-Json -InputObject $n -Depth 5
-  if($j.Length -gt 60000){ $j = ConvertTo-Json -Depth 2 -InputObject @{ karar='DURDU'; sebep='rapor sismis - icerik sizmis olabilir'; boyut=$j.Length } }
-  Set-Content -LiteralPath $raporYol -Value $j -Encoding UTF8 -NoNewline
+  if($j.Length -gt 60000){ $n = @{ karar='DURDU'; sebep='rapor sismis - icerik sizmis olabilir'; boyut=$j.Length } }
+  RaporYaz -Hedef $raporYol -Nesne $n -Derinlik 5 -ZamanAlanlari @('tarih') | Out-Null
 }
 trap {
   $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
   # Kapi COKERSE de GECER demez - olculemeyen sey guvenli sayilmaz.
-  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); karar='DURDU'
+  Raporla ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); karar='DURDU'
     sebep='kapi kosarken hata aldi - olculemeyen sey guvenli sayilmaz'
     hata="$($_.Exception.Message)"; sunucu=$g; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
@@ -110,7 +113,7 @@ foreach($f in (Get-ChildItem (Join-Path $kok 'veri/mevzuat/msugt*.json') -ErrorA
   } catch {}
 }
 if($RESMI.Count -lt 200){
-  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); karar='DURDU'
+  Raporla ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); karar='DURDU'
     sebep="THP resmi listesi okunamadi (okunan: $($RESMI.Count)) - hesap kodu kapisi calisamaz" })
   Write-Host "DURDU: THP listesi okunamadi."; exit 1
 }
@@ -445,7 +448,7 @@ $rapor = [ordered]@{
   kural='KARAR yayindaki sorulara bakar (ogrenciye giden odur). ENVANTER tum kasayi kapsar - Cem 27.478 soruya degil bu rapora bakar.'
   not='Bu kapi kasaya DOKUNMAZ, yalniz olcer. Kirmizi sorulari yayindan indirmek ayri ve Cem onayli bir adimdir.'
 }
-RaporYaz $rapor
+Raporla $rapor
 # 13.08: kapi artik TEMIZ ID LISTESINI de yazar (eskiden ayri bir kosudan geliyordu,
 # 10.08 tarihli liste bayatlamisti ve K5 duzeltmesi sonrasi havuzu yansitmiyordu).
 $temizListe = New-Object System.Collections.Generic.List[object]

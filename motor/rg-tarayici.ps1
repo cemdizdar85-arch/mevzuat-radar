@@ -123,7 +123,9 @@ if(-not $SadeceArsiv){
     tarih = $Tarih
     maddeler = @($firsatGrup | ForEach-Object { [ordered]@{ baslik = $_.baslik; url = $_.url } })
   }
-  [IO.File]::WriteAllText($firsatYol, (ConvertTo-Json -InputObject $fj -Depth 4), (New-Object Text.UTF8Encoding($false)))
+  # 01.09: dogrudan yazim yalniz-damga degisiminde de dosyayi kirletiyordu.
+  . (Join-Path (Split-Path -Parent $here) 'arac\rapor-yaz.ps1')
+  RaporYaz -Hedef $firsatYol -Nesne $fj -Derinlik 4 -ZamanAlanlari @('tarih') | Out-Null
   Write-Host ("-> veri/firsat-guncel.json ({0} firsat maddesi)" -f $firsatGrup.Count)
 }
 

@@ -19,7 +19,10 @@ $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 # KOR KALMA KURALI (30.07): kosu iz birakmali - yesil bitip sessiz kalmak yok.
 # veri/uyari-ozet.json YALNIZ SAYI tasir (depo public; e-posta/VKN asla girmez).
 $ozetYol = Join-Path $kok "veri/uyari-ozet.json"
-function OzetYaz($n){ [IO.File]::WriteAllText($ozetYol, (ConvertTo-Json -InputObject $n -Depth 4), (New-Object Text.UTF8Encoding($false))) }
+# 01.09: dogrudan yazim yalniz-damga degisiminde de dosyayi kirletiyordu.
+# Ortak yazici icerik ayniysa dokunmaz.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
+function OzetYaz($n){ RaporYaz -Hedef $ozetYol -Nesne $n -Derinlik 4 -ZamanAlanlari @('tarih') | Out-Null }
 trap {
   OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="HATA"
     hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })

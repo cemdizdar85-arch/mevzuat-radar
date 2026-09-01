@@ -46,8 +46,11 @@ $SITE_KOK     = "https://tetikte.com"
 # KÖR KALMA: koşu iz bırakmalı. Depo PUBLIC — özete e-posta/telefon/VKN ASLA
 # yazılmaz, yalnız sayı ve durum.
 $ozetYol = Join-Path $kok "veri/teslim-teyidi-ozet.json"
+# 01.09: dogrudan yazim yalniz-damga degisiminde de dosyayi kirletiyordu.
+# Ortak yazici icerik ayniysa dokunmaz.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
 function OzetYaz($n){
-  [IO.File]::WriteAllText($ozetYol, (ConvertTo-Json -InputObject $n -Depth 5), (New-Object Text.UTF8Encoding($false)))
+  RaporYaz -Hedef $ozetYol -Nesne $n -Derinlik 5 -ZamanAlanlari @('tarih') | Out-Null
 }
 trap {
   OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="HATA"

@@ -38,6 +38,9 @@ if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - cikil
 $API = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"   # 18.08: adi $KOK idi ve $kok (depo koku) ile CAKISIYORDU - PS harf ayirmaz, URL depo yolunu ezdi, nobet "Cannot find drive https" ile olduruyordu (ps-degisken-cakismasi 4. vaka)
 $SB  = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
 $raporYol = Join-Path $kok 'veri/bildirim-nobeti-raporu.json'
+# 01.09: dogrudan yazim yalniz-damga degisiminde de dosyayi kirletiyordu.
+# Ortak yazici icerik ayniysa dokunmaz.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
 
 function Getir($yol){
   $w = Invoke-WebRequest -Uri "$API/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck
@@ -63,7 +66,7 @@ try {
     sunucu = $g
     olasi_sebep = 'Tablo henuz yok (veri/sql-soru-bildirim.sql calistirilmamis), kolon adi degismis ya da service key yetkisiz.'
   }
-  Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $hataRapor -Depth 4) -Encoding UTF8 -NoNewline
+  RaporYaz -Hedef $raporYol -Nesne $hataRapor -Derinlik 4 -ZamanAlanlari @('tarih') | Out-Null
   Write-Host ("Bildirim tablosu okunamadi (HTTP {0}): {1} | {2}" -f $kod, $_.Exception.Message, $g)
   Write-Host "-> $raporYol"
   exit 1
@@ -71,7 +74,7 @@ try {
 Write-Host ("Bakilmamis bildirim: {0}" -f $bildirimler.Count)
 if($bildirimler.Count -eq 0){
   $bos = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='IS YOK'; bildirim=0 }
-  Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $bos -Depth 4) -Encoding UTF8 -NoNewline
+  RaporYaz -Hedef $raporYol -Nesne $bos -Derinlik 4 -ZamanAlanlari @('tarih') | Out-Null
   exit 0
 }
 
@@ -156,9 +159,7 @@ $ozet = [ordered]@{
   tek_bildirimli_sorular = $tekBildirim.ToArray()
   not = "Esigi gecen soru kendiliginden yayindan cekildi (H5: once cek, sonra tartis). Bildirimlerin durumu 'yeni' kaldi - GM okuyup hakli/haksiz karari verecek (H7: 48 saat)."
 }
-$j = ConvertTo-Json -InputObject $ozet -Depth 6
-if($j -isnot [string]){ $j = ($j -join [Environment]::NewLine) }
-Set-Content -LiteralPath $raporYol -Value ([string]$j) -Encoding UTF8 -NoNewline
+RaporYaz -Hedef $raporYol -Nesne $ozet -Derinlik 6 -ZamanAlanlari @('tarih') | Out-Null
 Write-Host ""
 Write-Host ("Yayindan cekilen: {0} | tek bildirimli (izlemede): {1} | hata: {2}" -f $cekilen.Count, $tekBildirim.Count, $hata)
 Write-Host ("-> {0}" -f $raporYol)

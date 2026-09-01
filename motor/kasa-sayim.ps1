@@ -19,6 +19,9 @@ $PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
+# 01.09: vitrin-sayilar dogrudan yazimla yalniz-damga degisiminde de kirleniyordu.
+# Ortak yazici icerik ayniysa dokunmaz.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 
 $SB_ANAHTAR = $env:SUPABASE_SERVICE_KEY
@@ -423,7 +426,7 @@ try {
     )
     arac = if($aracSayim -gt 0){ $aracSayim } elseif($eski -and $eski.arac){ $eski.arac } else { 26 }
   }
-  [IO.File]::WriteAllText($vYol, ($vitrin | ConvertTo-Json -Depth 3), (New-Object Text.UTF8Encoding($false)))
+  RaporYaz -Hedef $vYol -Nesne $vitrin -Derinlik 3 -ZamanAlanlari @('tarih') | Out-Null
   Write-Host ("-> veri/vitrin-sayilar.json  (soru {0}, hakem {1}, arac {2})" -f $toplam, $hakemSay, $vitrin.arac)
 } catch { Write-Host ("vitrin sayilari yazilamadi: {0}" -f $_.Exception.Message) }
 

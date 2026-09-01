@@ -78,7 +78,14 @@ const izinliMi = (u)=>{
 function raporYaz(icerik){
   try{
     fs.mkdirSync(path.dirname(RAPOR_YOL), {recursive:true});
-    fs.writeFileSync(RAPOR_YOL, JSON.stringify({ tarih:new Date().toISOString().slice(0,19).replace('T',' '), ...icerik }, null, 2));
+    const yeni = JSON.stringify({ tarih:new Date().toISOString().slice(0,19).replace('T',' '), ...icerik }, null, 2);
+    // 01.09: yalniz 'tarih' degistiyse dosyaya dokunma (rapor-yaz.ps1 ilkesi;
+    // son 60 commit'te 5 bos commit bu damgadan cikti).
+    const notrle = (j)=>j.replace(/("tarih"\s*:\s*)"[^"]*"/, '$1"@@ZAMAN@@"').replace(/\r\n/g,'\n').trim();
+    let eski = null;
+    try{ eski = fs.readFileSync(RAPOR_YOL, 'utf8'); }catch(e){}
+    if(eski !== null && notrle(eski) === notrle(yeni)){ return; }
+    fs.writeFileSync(RAPOR_YOL, yeni);
   }catch(e){ console.log('  (rapor yazilamadi: '+e.message+')'); }
 }
 

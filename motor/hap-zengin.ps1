@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  HAP ZENGINLESTIRME (faz-2) — 4.640 kisa hap icin Haiku parti hatti.
 #  (30.07.2026 hazirlik; 1 Agustos'ta emir #17 acilinca kosar.)
 #
@@ -37,6 +37,11 @@ $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 $AAPI   = "https://api.anthropic.com/v1"
 $raporYol = Join-Path $kok "veri/hap-zengin-rapor.json"
 $partiYol = Join-Path $kok "veri/bekleyen-hap-partileri.json"
+# 01.09: hasat-sonu bosaltma her kosuda taze 'tarih' basip dosyayi kirletiyordu
+# (60 commit'te 3 bos commit). Ortak yazici icerik ayniysa dokunmaz. Parti-id
+# yazimi (asagida) BILEREK dogrudan kaldi: odenen partinin kimligi kosulsuz
+# ve aninda diske iner, kiyas maliyeti bile istemiyoruz.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
 
 function Rapor($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 5), (New-Object Text.UTF8Encoding($false))) }
 trap {
@@ -237,7 +242,7 @@ if($gecen.Count){
 
 # Basari: bekleyen partiler hasat edilip yazildi - dosyayi BOSALT (silme:
 # workflow'un commit adimi yalniz var olan dosyayi stage'ler, silinme yansimaz).
-[IO.File]::WriteAllText($partiYol, (ConvertTo-Json -InputObject ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); partiler=@(); istek=0; not="hasat tamamlandi" }) -Depth 3), (New-Object Text.UTF8Encoding($false)))
+RaporYaz -Hedef $partiYol -Derinlik 3 -ZamanAlanlari @('tarih') -Nesne ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); partiler=@(); istek=0; not="hasat tamamlandi" }) | Out-Null
 
 Rapor ([ordered]@{
   tarih = (Get-Date -Format "dd.MM.yyyy HH:mm"); durum = "TAMAM"

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KAYNAK BUTUNLUK DENETIMI (03.08.2026) — 0 USD, API YOK
 #
 #  CEM: "boyle eksik okudugumuz baska bir sey var mi? Korkum benim
@@ -26,10 +26,13 @@ $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $raporYol = Join-Path $kok 'veri/kaynak-butunluk.json'
+# 01.09: dogrudan yazim yalniz-damga degisiminde de dosyayi kirletiyordu
+# (son 60 commit'te 7 bos commit). Ortak yazici icerik ayniysa dokunmaz.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
 
 trap {
-  Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
-    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber }))
+  RaporYaz -Hedef $raporYol -Derinlik 3 -ZamanAlanlari @('tarih') -Nesne ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber }) | Out-Null
   Write-Host ("HATA: {0}" -f $_.Exception.Message); exit 1
 }
 
@@ -129,7 +132,7 @@ $rapor = [ordered]@{
   parcali_kaynaklar=$parcali.ToArray()
   vaka='03.08: msugt-thp-tam.json tek basina okunuyordu (199 hesap); msugt-thp2.json okunmuyordu. 100 KASA, 102 BANKALAR, 600 YURTICI SATISLAR, 730 GENEL URETIM GIDERLERI kayipti. Birlesince 230 hesap.'
 }
-Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $rapor -Depth 6) -Encoding UTF8 -NoNewline
+RaporYaz -Hedef $raporYol -Nesne $rapor -Derinlik 6 -ZamanAlanlari @('tarih') | Out-Null
 Write-Host "`n=== KAYNAK BUTUNLUK ==="
 foreach($r in $yuksek){ Write-Host ("  YUKSEK  {0,-26} -> {1} (kaynak '{2}' {3} dosyaya bolunmus)" -f $r.okuyucu, $r.sabit_dosya, $r.kaynak, $r.kaynak_dosya_sayisi) }
 foreach($p in $parcali){ Write-Host ("  parcali {0,-16} {1} dosya, {2} belge" -f $p.kaynak, $p.dosya_sayisi, $p.toplam_belge) }
