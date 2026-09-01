@@ -91,11 +91,6 @@ jobs:
             *)      node motor/marka-bulten-hasat.js --son 1 ;;
           esac
 
-      # NOBET UYARILARI - yutmadan SONRA kosar.
-      # Sira onemli: once bulten ambara girer, sonra haber gider. Tersi olsa
-      # yeni bultendeki basvurular bir TUR gecikirdi; itiraz suresi iki ay ve
-      # uzatilamiyor, bir tur gecikme musteriye hak kaybettirebilir.
-      # if: always() -> yutma kismen dusse bile INEN bultenler icin haber gider.
       # MUTABAKAT NOBETCISI - "kutuk mu dogru, tablo mu?"
       # Sayac artik KUTUKTEN okuyor (tabloyu saymak zaman asimina dusuyordu).
       # Bu hizli ama bir varsayima dayaniyor: robot kac kayit yazdigini dogru
@@ -111,14 +106,6 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: node motor/marka-mutabakat.js
 
-      - name: Nobet uyarilari
-        if: always()
-        env:
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          RESEND_KEY: ${{ secrets.RESEND_KEY }}
-          RESEND_FROM: ${{ secrets.RESEND_FROM }}
-        run: node motor/marka-uyari.js
-
       # Kor kalma kurali: kirmizi olsa da ne gordugumuz depoda dursun.
       - name: Raporu yayinla (kirmizi olsa da)
         if: always()
@@ -133,3 +120,27 @@ jobs:
             if git push; then echo "rapor islendi (deneme $i)"; break; fi
             echo "push tutmadi (deneme $i)"; sleep 7
           done
+
+  # ==========================================================================
+  #  UYARI HATTI - AYRI IS
+  #  31.08 ve 01.09 gecelerinde kosu KIRMIZI bitti ama indirme SORUNSUZDU:
+  #  12 bulten indi, mutabakat YESIL; kirmizinin sebebi mail adimiydi.
+  #  Iki gece ust uste boyle olunca "kirmizi normaldir" aliskanligi dogar ve
+  #  gercek bir indirme arizasi gozden kacar. O yuzden ayrildi.
+  #  needs + if: always() -> indirme dusse bile INEN bultenler icin haber gider.
+  #  continue-on-error KULLANILMADI: mail hatasi gorunur kalmali, yutulmamali.
+  # ==========================================================================
+  uyari:
+    needs: bulten
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nobet uyarilari
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          RESEND_YANIT: ${{ secrets.RESEND_YANIT }}
+        run: node motor/marka-uyari.js
