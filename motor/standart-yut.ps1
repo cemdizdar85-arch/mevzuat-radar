@@ -299,7 +299,7 @@ function SY_LayoutGerekli([string]$metin, [string]$std){
   # freni de otmedi - prova temiz gorundu, A-serisi hic yazilmadi.
   # KURAL: BDS/GDS metninde satir basi numara sayisi tek basina duran sayi
   # sayisini GECMIYORSA cikarim bozuktur -> -layout ile yeniden cikar.
-  if($std -notmatch '^(BDS|GDS)\s'){ return $false }
+  if($std -notmatch '^(BDS|GDS|SBDS|SGDS)\s'){ return $false }
   $sat = $metin -split "`r?`n"
   $tek = @($sat | Where-Object { $_.Trim() -match '^\d{1,3}$' }).Count
   $sb  = @($sat | Where-Object { $_.Trim() -match '^A?\d{1,3}\.\s+\S' }).Count
@@ -534,7 +534,7 @@ if(-not $url){
   if($standart -match '^(TMS|TFRS)\s'){
     $tip = ($standart -split ' ')[0]
     $url = "$kokAdres/TMS_TFRS_Setleri/$yil/Kirmizi_Kitap/$tip/$standart.pdf"
-  } elseif($standart -match '^(BDS|GDS)\s'){
+  } elseif($standart -match '^(BDS|GDS|SBDS|SGDS)\s'){
     $url = "$kokAdres/TDS/TDS_2025_Seti/${standart}_2025.pdf"
   } else {
     Write-Host "URL verilmeli - '$standart' icin kalip bilinmiyor (TSRS ayri yayin)."; exit 1
@@ -565,7 +565,7 @@ Write-Host ("  metin    : {0:N0} karakter" -f $tamMetin.Length)
 # numaralarini satir ortasina gomer; kip sayaci TMS'e duser ve SAYFA
 # numaralari paragraf sanilir (16 standartta A-serisi boyle kayboldu).
 # Karar fonksiyonu oz-sinavli: SY_LayoutGerekli.
-if((-not $duzen) -and ($standart -match '^(BDS|GDS)\s')){
+if((-not $duzen) -and ($standart -match '^(BDS|GDS|SBDS|SGDS)\s')){
   # ⚠ 25.08 gece EK DERSI (BDS 501): varsayilan cikarimda satir basi numara
   # sayisi sayfa numarasini GECIYORDU (15>13) ama yine de paragraflarin yarisi
   # satir ortasindaydi (p.2, p.3, p.5, A2-A4 kacti). "Bozuk mu" sorusu yerine
