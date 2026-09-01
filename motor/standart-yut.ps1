@@ -80,7 +80,20 @@ function SY_Bol([string]$metin, [string]$std){
   $satirlar = $metin -split "`r?`n"
   $tekBasina = @($satirlar | Where-Object { $_.Trim() -match '^\d{1,3}$' }).Count
   $satirBasi = @($satirlar | Where-Object { $_.Trim() -match '^A?\d{1,3}\.\s+\S' }).Count
-  $satirBasiKip = ($satirBasi -gt $tekBasina)
+  # ⚠⚠ UCUNCU DUZEN (01.09, BOBI/KUMI FRS olculdu): paragraf numarasi ONDALIKLI
+  # ve NOKTASIZ, satir basinda metinle birlikte ("10.5 Bir varlik ...").
+  # Ne TMS kipi (tek basina sayi = burada SAYFA no) ne BDS kipi ("N." noktali)
+  # yakaliyordu -> BOBI 350 parcanin 339'u tek "m.7" yiginina akmisti (%97).
+  # Icindekiler satirlari ("1.1 Kapsam ..... 5") ayni desene benzer - dolgu
+  # freni ('....' iceren govde paragraf sayilmaz) onlari eler.
+  # Iki alt-duzen var (01.09 olculdu): KUMI numara+metin AYNI satirda
+  # ("1.1 Bu bolum..."), BOBI ise numara KENDI SATIRINDA tek ("1.3" bir satir,
+  # govde sonraki satirlarda; 746 adet olculdu). Ikisi de kilavuz kipidir.
+  $kilavuzSay = @($satirlar | Where-Object { $_.Trim() -match '^\d{1,2}(\.\d{1,2}){1,3}\s+\S' -and $_ -notmatch '\.{5,}' }).Count
+  $kilavuzTek = @($satirlar | Where-Object { $_.Trim() -match '^\d{1,2}(\.\d{1,2}){1,3}$' }).Count
+  $kilavuzToplam = $kilavuzSay + $kilavuzTek
+  $kilavuzKip = ($kilavuzToplam -gt $tekBasina) -and ($kilavuzToplam -gt $satirBasi)
+  $satirBasiKip = (-not $kilavuzKip) -and ($satirBasi -gt $tekBasina)
   $parcalar = New-Object System.Collections.Generic.List[object]
   $baslik = ''
   $suAn = $null
@@ -105,6 +118,27 @@ function SY_Bol([string]$metin, [string]$std){
       if($s.Length -gt 0 -and $s -notmatch '^\d{1,3}$'){ $suAn.govde.Add($s) }   # sayfa numarasi metne girmez
       continue
     }
+
+    # --- KILAVUZ KIPI (01.09): ondalikli noktasiz numara ("10.5 Metin ...") --
+    if($kilavuzKip -and $s -match '^(\d{1,2}(?:\.\d{1,2}){1,3})\s+(\S.{3,})$' -and -not ($Matches[2] -cmatch '^[a-zçğıöşü]') -and $s -notmatch '\.{5,}'){
+      $gNoStr=$Matches[1]; $gGovde=$Matches[2]
+      if($suAn){ $parcalar.Add($suAn) }
+      $sozlukModu=$false
+      $suAn = [ordered]@{ onek=''; no=$gNoStr; sonek=''; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $suAn.govde.Add($gGovde)
+      continue
+    }
+    # kilavuz kipi, ondalikli numara KENDI SATIRINDA ("1.3" tek) - BOBI duzeni
+    if($kilavuzKip -and $s -match '^(\d{1,2}(?:\.\d{1,2}){1,3})$'){
+      if($suAn){ $parcalar.Add($suAn) }
+      $sozlukModu=$false
+      $suAn = [ordered]@{ onek=''; no=$Matches[1]; sonek=''; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      continue
+    }
+    # kilavuz kipinde tek basina duran sayi = SAYFA numarasi
+    if($kilavuzKip -and $s -match '^\d{1,3}$'){ continue }
+    # kilavuz kipinde dolgu satiri = ICINDEKILER navigasyonu, metin degil
+    if($kilavuzKip -and $s -match '\.{5,}'){ continue }
 
     # --- BDS/GDS KIPI: numara satir basinda metinle birlikte -------------
     # "10. Bu BDS ... yururluge girer."   ya da   "A3. Finansal tablolarin ..."
@@ -144,7 +178,7 @@ function SY_Bol([string]$metin, [string]$std){
     if($satirBasiKip -and $s -match '^\d{1,3}$'){ continue }
 
     # --- numarali paragraf: 12 · A1 · B9 · C20D   (kendi satirinda)
-    if((-not $satirBasiKip) -and $s -match '^([A-D]?)(\d{1,3})([A-Z]?)$'){
+    if((-not $satirBasiKip) -and (-not $kilavuzKip) -and $s -match '^([A-D]?)(\d{1,3})([A-Z]?)$'){
       if($suAn){ $parcalar.Add($suAn) }
       $sozlukModu = $false
       $suAn = [ordered]@{ onek=$Matches[1]; no=[int]$Matches[2]; sonek=$Matches[3]; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
@@ -179,7 +213,13 @@ function SY_Bol([string]$metin, [string]$std){
     # ⚠ 25.08 gece: "...yurutulur.18" gibi DIPNOT NUMARASIYLA biten cumle
     # satiri noktayla bitmedigi icin baslik saniliyor ve govdeden DUSUYORDU
     # (BDS 805 p.A4'un ikinci satiri boyle kayboldu). Nokta+rakam = cumle sonu.
-    if($s.Length -le 70 -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and $s -cmatch '^[A-ZÇĞİÖŞÜ]' -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
+    # ⚠ 01.09 KILAVUZ dersi (BOBI olculdu): 60-70 krlik YARIM CUMLELER
+    # ("Raporlama doneminden sonraki on iki ay icinde paraya cevrilmesinin")
+    # sonu noktasiz + buyuk harfle baslayinca baslik saniliyor ve govdeden
+    # dusuyordu (60 sondadan 3 kayip). Kilavuz kipinde gercek bolum basliklari
+    # kisadir - esik 70 -> 45.
+    $baslikEsik = if($kilavuzKip){ 45 } else { 70 }
+    if($s.Length -le $baslikEsik -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and $s -cmatch '^[A-ZÇĞİÖŞÜ]' -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
       $baslik = $s
       continue
     }
@@ -347,6 +387,50 @@ C21 Bu Standart asagidaki Standart ve Yorumlarin yerini alir ve gecerlidir.
   }
   $ekB = @($e | Where-Object { $_.kaynak_ad -match 'p\.B9' })
   if($ekB.Count -ne 1){ $dusen += "EK B p.B9 bulunamadi ($($ekB.Count))" }
+  # --- KILAVUZ KIPI (01.09: BOBI/KUMI FRS "10.5 Metin" duzeni) ---
+  # Icindekiler dolgu satiri paragraf sayilmamali; sayfa numarasi atlanmali.
+  $kilOrnek = @"
+BOLUM 1 KAVRAMLAR
+
+1.1 Kapsam ................ 5
+
+1.2 Tanimlar ................ 7
+
+Kapsam
+
+1.1 Bu bolum, finansal tablolarin hazirlanmasina iliskin temel ilkeleri duzenlemektedir.
+
+12
+
+1.2 Finansal tablolar, isletmenin finansal durumu hakkinda bilgi sunar ve yilda bir hazirlanir.
+
+10.5 Bir varlik ancak gelecekte ekonomik fayda saglamasi muhtemel oldugunda finansal tablolara alinir.
+"@
+  $kv = @(SY_Bol $kilOrnek 'TEST K')
+  $kAdlar = @($kv | ForEach-Object { $_.kaynak_ad })
+  if(@($kv | Where-Object { $_.kaynak_ad -match 'p\.1\.1\b' }).Count -ne 1){ $dusen += "KILAVUZ p.1.1 bulunamadi: $($kAdlar -join ' | ')" }
+  if(@($kv | Where-Object { $_.kaynak_ad -match 'p\.10\.5\b' }).Count -ne 1){ $dusen += "KILAVUZ p.10.5 bulunamadi" }
+  $tumMetin = ($kv | ForEach-Object { $_.metin }) -join ' '
+  if($tumMetin -match 'Kapsam \.{3,}'){ $dusen += 'KILAVUZ: icindekiler dolgu satiri paragraf govdesine girdi' }
+  if($tumMetin -match '(^| )12( |$)' -and $tumMetin -notmatch 'yilda bir'){ $dusen += 'KILAVUZ: sayfa numarasi metne sizdi' }
+  # BOBI alt-duzeni: ondalikli numara KENDI SATIRINDA, govde sonraki satirda
+  $kilOrnek2 = @"
+Kapsam
+
+2.1
+
+Bu standart buyuk ve orta boy isletmelerin finansal raporlamasina uygulanir.
+
+47
+
+2.2
+
+Isletme siniflari her yil Kurum tarafindan ilan edilen olcutlere gore belirlenir.
+"@
+  $kv2 = @(SY_Bol $kilOrnek2 'TEST K2')
+  if(@($kv2 | Where-Object { $_.kaynak_ad -match 'p\.2\.1\b' }).Count -ne 1){ $dusen += "KILAVUZ-TEK p.2.1 bulunamadi: $((@($kv2|ForEach-Object kaynak_ad)) -join ' | ')" }
+  if(@($kv2 | Where-Object { $_.kaynak_ad -match 'p\.2\.2\b' }).Count -ne 1){ $dusen += 'KILAVUZ-TEK p.2.2 bulunamadi' }
+  if((($kv2 | ForEach-Object metin) -join ' ') -match '(^| )47( |$)'){ $dusen += 'KILAVUZ-TEK: sayfa numarasi metne sizdi' }
   # --- BDS/GDS DUZENI (25.08 provasinda bulundu: numara SATIR BASINDA) ---
   # Bu dal sinanmadan BDS toplu kosulursa 30 standart birden coplenir:
   # TMS kipi BDS metninde yalniz SAYFA NUMARALARINI gorur.
@@ -429,7 +513,7 @@ if($sinav.Count){
   foreach($d in $sinav){ Write-Host "   $d" }
   exit 1
 }
-Write-Host 'Oz-sinav: 26/26 vaka gecti (TMS kipi 11 · BDS kipi 5 · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3)'
+Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3)'
 Write-Host '  SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma'
 Write-Host ''
 
