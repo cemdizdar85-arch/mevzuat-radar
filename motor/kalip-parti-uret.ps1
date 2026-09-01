@@ -371,6 +371,12 @@ foreach($id in @($don.Keys)){
       $tmz=$sat -replace '×','x' -replace 'X','x' -replace '\([^)]*\)',' ' -replace '%\s*([\d\.,]+)','$1/100 ' -replace '(?i)\b(TL|USD|EUR|kg|ton|adet|ay|yil|gun|saat|birim|kisi)\b',' '
       foreach($m in [regex]::Matches($tmz,'((?:[\d\.,]+\s*[x*/+\-]\s*)+[\d\.,]+)\s*=\s*([\d\.,]+)')){
         $sol=$m.Groups[1].Value; $c1=SayiCoz $m.Groups[2].Value
+        # DIL-IFADESI filtresi (01.09, Cem yakaladi): "X'in %5'i = Y" carpim isareti
+        # icermez; %-normalizasyonu sonrasi tek basina 'N/100 = Y' kalir - bu bir
+        # hesap zinciri DEGIL, degerlendirilemez. Ayni sekilde salt-yuzde toplami
+        # ('50/100 + 30/100 ... = 100') yuzde-puani toplamidir, atlanir.
+        if($sol -match '^\s*[\d\.,]+\s*/\s*100\s*$'){ continue }
+        if($sol -match '^[\s\d\.,+]*(/\s*100[\s+]*)+$' -and $sol -notmatch '[x*]'){ continue }
         if($null -eq $c1){ continue }
         $parcalar=[regex]::Matches($sol,'([\d\.,]+)|([x*/+\-])')
         $hes=$null; $op=$null; $gecerli=$true
