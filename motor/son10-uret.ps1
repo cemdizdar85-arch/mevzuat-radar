@@ -88,6 +88,19 @@ KURALLAR:
 2. ADIM 1 = VERILENLER ADIMI: anlatimi "Soru bize sunlari vermis: ..." diliyle kur ve doldur listesinde TUM verilen hucreleri ac (240.000 gibi toplamlar dahil - sonradan "bulalim" DENMEZ, cunku soru verdi). ANLATIMDA BUYUK HARF VURGUSU YASAK - ayrim kelimeyle yapilir, bagirarak degil.
 3. Sonraki adimlar HESAP adimlaridir: anlatim "simdi biz hesapliyoruz" dilinde (buyuk harf vurgusu YOK); her adim {"anlatim":"1-2 cumle, ne yapiyoruz ve NEDEN","formul":"OGRETMEN TAHTASI kurali: once GENEL formul, sonra sayili uygulanisi tek zincirde - ornek: 'Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL' - formuldeki HER sayinin kimligi parantezle belli olur: (soruda verilen) ya da (N. adimda bulduk); formul tek basina konuyu anlatir (yoksa bos)","doldur":[[r,c],...]} (0-indexli; kumulatif DEGIL). Son adim: SONUC satiri.
 4. 5-8 adim. Rakamlar TABLODAKIYLE BIREBIR; yeni rakam uretme.
+5. GENC DILI (Cem 01.09 iki karar): BIZ SORU COZEREK KONU ANLATAN SITEYIZ - anlatim
+   OGRETIR, kisilmaz; ama GENCIN DILIYLE. Kurallar:
+   (a) Her adim anlatimi 2-3 KISA cumle (cumle basina ~12 kelime): once KAVRAM
+       (bu adimda ogrenilen sey, konuyu hic okumamis genc buradan kapar), sonra
+       NEDEN (mantigi tek cumleyle), varsa DIKKAT/TUZAK (vurucu, <=12 kelime).
+   (b) Konusur gibi yaz: "simdi", "bak", "dikkat", soru sorup cevaplamak serbest
+       ("Neden normal kapasite? Cunku az uretince birim maliyet sismesin.").
+   (c) RESMI RAPOR DILI YASAK: "su sekildedir", "niteliginde olup", "dikkate
+       alinir", "soz konusu", "kapsaminda", "belirtilen" GECMEZ.
+   (d) Formul tahtasi hesabi ZATEN gosterir - anlatim formulu ve sayilari duz
+       yaziyla TEKRARLAMAZ; kavrami ve nedeni anlatir.
+   Ornek ton: "Ustabasi dogrudan uretimde calismaz - ucreti GUG'dur. Dikkat:
+   siparise fiili tutar degil, yukleme oraniyla hesaplanan pay girer."
 Cevap YALNIZ JSON: {"verilen":[[r,c],...],"adimlar":[...]}
 SORU METNI: {SORUM}
 COZUM_TABLO: {TABLO}
@@ -101,9 +114,10 @@ foreach($id in ($don.Keys | Sort-Object)){
   if($cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
   $ist2=$adimIstem.Replace('{SORUM}',"$($kayn[$id].soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($kayn[$id].dogru))")
   $y2=$null
-  foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 8000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+  foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
   $t2="$($y2.metin)".Trim() -replace '^```json\s*','' -replace '\s*```$',''
-  $a2=$null; try{ $a2=$t2|ConvertFrom-Json }catch{}
+  # 01.09: kesik JSON kurtarmasi (FAZ1'deki Coz gibi) - SGS-17 iki kez bundan dustu
+  $a2=$null; try{ $a2=$t2|ConvertFrom-Json }catch{ $son=$t2.LastIndexOf('}'); if($son -gt 0){ try{ $a2=$t2.Substring(0,$son+1)|ConvertFrom-Json }catch{} } }
   if($a2 -and $a2.adimlar){
     $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue $a2.adimlar -Force
     $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($a2.verilen) -Force
