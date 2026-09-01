@@ -44,6 +44,10 @@ on:
         description: "Hash'e bakmadan TUM kanunlari yeniden yut (parcalayici degisince gerekir)"
         type: boolean
         default: false
+      sadece:
+        description: "Yalniz bu slug(lar) yutulsun, virgullu (orn: kvkgut) - zorla ile birlikte hedefli yeniden-yutma"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -147,6 +151,7 @@ jobs:
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
           ZORLA: ${{ inputs.zorla && '1' || '0' }}   # hash'e bakmadan hepsini yeniden yut
+          SADECE: ${{ inputs.sadece }}               # 01.09: hedefli yeniden-yutma (or. kvkgut)
         run: ./motor/mevzuat-yut.ps1
       # KATMAN 3 — RG NOBETI. Damga bugune kadar KANUN bazindaydi: bir kanun
       # degisince "degisti" diyorduk ama HANGI MADDE degisti bilmiyorduk;

@@ -140,6 +140,69 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
   return $docs
 }
 
+# --- 01.09 KILAVUZ-BOLUM PARCALAYICISI (Cem: "KVK GUT bolucu onarimi yap") -----
+# KVK GUT (1 Seri No) gibi kilavuz tebligler "10.5. Baslik" bolum yapisindadir;
+# MADDE deseni metnin ICINDE alintilanan kanun maddelerini baslik sanar (olculdu:
+# 505 parcada 6 sahte ana-madde + 'gec. m.3' altinda 405 parcalik yigin, 105
+# sahte-kesik). docs>=5 esigi de tetiklenmedigi icin bolum-parcalayici hic
+# devreye girmedi. Manifest kaydinda parcalayici='kilavuz-bolum' olan kaynaklar
+# bu fonksiyonla bolunur; genel Parcala'ya DOKUNULMADI.
+# Sahte-pozitif frenleri: (a) bolum no MONOTON artmali (metin ici "213." gibi
+# atiflar sirayi bozar -> atilir), (b) 120 karakterden kisa bolum onceki bolume
+# eklenir (metin kaybi sifir), (c) tarih deseni (31.12.2025) eslesemez cunku
+# no parcalari en fazla 2 hane + ardindan BUYUK harf sarti var.
+function ParcalaKilavuz([string]$flatMetin, [string]$kanunAd, [string]$url){
+  $rx = [regex]'(?<=\s)(?<no>\d{1,2}(?:\.\d{1,2}){0,3})\.\s+(?=[A-ZÇĞİÖŞÜ])'
+  $adaylar = $rx.Matches($flatMetin)
+  function NoParcala([string]$n){ @($n -split '\.') | ForEach-Object { [int]$_ } }
+  function NoKiyas($a,$b){ # a<b => -1
+    $pa=NoParcala $a; $pb=NoParcala $b
+    for($q=0;$q -lt [Math]::Max($pa.Count,$pb.Count);$q++){
+      $x=if($q -lt $pa.Count){$pa[$q]}else{-1}; $y=if($q -lt $pb.Count){$pb[$q]}else{-1}
+      if($x -ne $y){ return [Math]::Sign($x-$y) }
+    }
+    return 0
+  }
+  $kabul = New-Object System.Collections.Generic.List[object]
+  $onceki = '0'
+  foreach($a in $adaylar){
+    $no=$a.Groups['no'].Value
+    if((NoKiyas $onceki $no) -lt 0){ $kabul.Add(@{no=$no;idx=$a.Index}); $onceki=$no }
+  }
+  $docs = New-Object System.Collections.Generic.List[object]
+  for($i=0; $i -lt $kabul.Count; $i++){
+    $start=$kabul[$i].idx
+    $end = if($i -lt $kabul.Count-1){ $kabul[$i+1].idx } else { $flatMetin.Length }
+    $govde = $flatMetin.Substring($start, $end-$start).Trim()
+    if($govde.Length -lt 120){
+      if($docs.Count -gt 0){ $docs[$docs.Count-1].metin = "$($docs[$docs.Count-1].metin) $govde" }
+      continue
+    }
+    $ad = "$kanunAd b.$($kabul[$i].no)"
+    $PARCA_BOY = 1800
+    $parcalar = New-Object System.Collections.Generic.List[string]
+    if($govde.Length -le $PARCA_BOY){ $parcalar.Add($govde) }
+    else {
+      $kalan = $govde
+      while($kalan.Length -gt $PARCA_BOY){
+        $kes = $kalan.Substring(0, $PARCA_BOY)
+        $kir = $kes.LastIndexOf('. ')
+        if($kir -lt 900){ $kir = $kes.LastIndexOf(' ') }
+        if($kir -lt 900){ $kir = $PARCA_BOY - 1 }
+        $parcalar.Add($kalan.Substring(0, $kir+1).Trim())
+        $kalan = $kalan.Substring($kir+1).Trim()
+      }
+      if($kalan.Length -gt 0){ $parcalar.Add($kalan) }
+    }
+    for($p=0; $p -lt $parcalar.Count; $p++){
+      $adTam = if($parcalar.Count -eq 1){ $ad } else { "$ad [$($p+1)/$($parcalar.Count)]" }
+      $docs.Add([ordered]@{ tur="kanun-madde"; kaynak_ad=$adTam; baslik=''; metin=$parcalar[$p]; kaynak_url=$url; belge_tarihi=$bugun })
+    }
+  }
+  $g=@{}; foreach($d in $docs){ $k=$d.kaynak_ad; if($g.ContainsKey($k)){ $g[$k]++; $d.kaynak_ad="$k ($($g[$k]))" } else { $g[$k]=1 } }
+  return $docs
+}
+
 function Sha([string]$s){ $sha=[Security.Cryptography.SHA256]::Create(); ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16) }
 
 $SB_ANAHTAR = $env:SUPABASE_SERVICE_KEY
@@ -228,7 +291,8 @@ foreach($law in $manifest.kanunlar){
 
   $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
          else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
-  $docs = Parcala $flat "$($law.ad)" $url
+  # 01.09: kilavuz-bolum yapili kaynak (manifest isareti) ozel parcalayiciyla bolunur
+  $docs = if($law.PSObject.Properties['parcalayici'] -and "$($law.parcalayici)" -eq 'kilavuz-bolum'){ ParcalaKilavuz $flat "$($law.ad)" $url } else { Parcala $flat "$($law.ad)" $url }
   # 02.08 CEM KURALI: madde deseni tutmayan metin (teblig/bolum yapili) ARTIK
   # ATLANMIYOR - bolum bolum yutuluyor. Eski hal "az madde -> atlandi" diyip
   # metni ambarin disinda birakiyordu. Indirme gercekten bozuksa metin cok
