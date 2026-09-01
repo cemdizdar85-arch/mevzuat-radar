@@ -390,7 +390,7 @@ create or replace function public.marka_kademe_hesap(p_marka text, p_aday text)
 -- ELLE yazmisim. DERS: sema adi hicbir yerde sabit yazilmaz, search_path ile
 -- cozulur - bu dosyanin basinda pg_trgm semasini BULAN bir blok bile var.
 returns text language sql immutable
-set search_path = public, extensions as $
+set search_path = public, extensions as $$
   -- marka_takip_bekleyen() içindeki kademe mantığının AYNISI, tek başına
   -- sınanabilir hâlde. İkisi ayrışırsa sınav bunu yakalar.
   select case
