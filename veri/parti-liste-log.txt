@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260831055301
+Start time: 20260901052623
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/aab272fb-d15f-47f1-a2d8-8716f098504c.ps1'
-Process ID: 2169
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c0ad232a-c6c6-435f-9470-1f5546115795.ps1'
+Process ID: 2174
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -23,11 +23,14 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
   sayfa 4: 100 parti (toplam 400)
-  sayfa 5: 6 parti (toplam 406)
+  sayfa 5: 9 parti (toplam 409)
 
-TOPLAM 406 parti bulundu.
+TOPLAM 409 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01KD6K7mAFfuZzPHKgGQBhc9 ended               1        0 09/01/2026 05:02:28
+msgbatch_01BETUqPG5GAf7rn7rXyNMYj ended               1        0 09/01/2026 01:46:16
+msgbatch_01BMaZkMGTqD2qhqt54KRpnC ended               1        0 09/01/2026 00:47:02
 msgbatch_01WWXkHi8tc568Zg2DfFMEoF ended               2        0 08/31/2026 01:19:54
 msgbatch_01MtGss7yFacrpdgmeo2nytf ended               2        0 08/30/2026 23:48:26
 msgbatch_017dbMr4CoP2YnSZHRuCoX6X ended               2        0 08/30/2026 01:12:41
@@ -435,9 +438,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (406 kayit)
-HASADA HAZIR (ended + basarili>0): 406 parti,  sonuc
+-> veri/parti-listesi.json (409 kayit)
+HASADA HAZIR (ended + basarili>0): 409 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260831055302
+End time: 20260901052625
 **********************
