@@ -198,8 +198,11 @@ foreach($no in $nolar){
     # Bir gün geç, ama yalan değil.
     $eskiGercek = ($eski.ContainsKey($no) -and "$($eski[$no].olcum)" -eq 'metin')
     if(-not $ilkKurulum -and $eskiGercek -and "$($eski[$no].damga)" -ne $d){
+      # 01.09: yeni_boyut PDF bayti yaziyordu, eski_boyut ise METIN boyutu -
+      # 44987'de 1 karakterlik metin farki "21203 -> 97401" diye dev degisim
+      # gibi raporlandi. Kiyas neyin uzerindeyse (metin) boyut da onun olmali.
       $degisen.Add([ordered]@{ mevzuatNo=$no; eski="$($eski[$no].damga)"; yeni=$d
-                               eski_boyut=[int]"$($eski[$no].boyut)"; yeni_boyut=$bayt.Length; url=$url })
+                               eski_boyut=[int]"$($eski[$no].boyut)"; yeni_boyut=$metin.Length; url=$url })
     }
   } catch {
     $inemeyen.Add("$no ($($_.Exception.Message))")
@@ -237,7 +240,12 @@ $cikti = [ordered]@{
   degisen = $degisen
   tebligler = $yeniTablo
 }
-[IO.File]::WriteAllText($damgaYol, ($cikti | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
+# 01.09: dogrudan yazim her kosuda tepe 'tarih' + 172 kayittaki 'kontrol'
+# damgasiyla ~%65'i gurultu olan diff uretiyordu. Ortak yazici icerik (damga/
+# boyut) ayniysa dosyaya dokunmaz; 'kontrol' alanini kimse okumuyor (olculdu),
+# kiyastan haric ama dosyada durmaya devam ediyor.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
+RaporYaz -Hedef $damgaYol -Nesne $cikti -Derinlik 6 -ZamanAlanlari @('tarih','kontrol') | Out-Null
 Write-Host ("-> veri/teblig-damga.json" )
 
 if($ilkKurulum){
