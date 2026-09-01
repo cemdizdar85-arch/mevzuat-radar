@@ -153,7 +153,13 @@ jobs:
         if: always()
         run: |
           git fetch origin main
-          git rebase origin/main
+          # --autostash ŞART. 9. koşuda bu adım düştü ve raporun tamamı
+          # kayboldu: koşu sırasında betiklerin dokunduğu ama commit'lenmeyen
+          # başka bir izlenen dosya kaldığında rebase "unstaged changes" ile
+          # reddediyor. Tek blokken bu `|| sleep 5` içinde yutuluyordu —
+          # adım YEŞİL görünüyor, ana telde hiçbir şey yok.
+          git status --short | head -30
+          git rebase --autostash origin/main
           git log -1 --format='%h %s'
 
       - name: GIT 4 - PUSH
