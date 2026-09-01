@@ -38,6 +38,32 @@ function Coz([string]$txt){
   return $c
 }
 function K([string]$t){ return "$t".Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;') }
+# 01.09 Cem yakaladi: model aciklamayi bazen YAPILI nesne dondurur; ekrana ham
+# '@{ne_soruluyor=...}' dokulur. Nesneyse alanlarindan okunur metin derlenir.
+function AciklamaDuz($a){
+  if($null -eq $a){ return '' }
+  if($a -is [string]){ return $a }
+  $p=New-Object System.Collections.Generic.List[string]
+  if($a.PSObject.Properties['ne_soruluyor'] -and $a.ne_soruluyor){ $p.Add("Ne soruluyor: $($a.ne_soruluyor)") }
+  if($a.PSObject.Properties['kural'] -and $a.kural){ $p.Add("Kural: $($a.kural)") }
+  if($a.PSObject.Properties['tuzak'] -and $a.tuzak){ $p.Add("$($a.tuzak)") }
+  if($a.PSObject.Properties['hesap'] -and $a.hesap){ $p.Add("Hesap: $($a.hesap)") }
+  if($a.PSObject.Properties['dogrusu'] -and $a.dogrusu){ $p.Add("Dogrusu: $($a.dogrusu)") }
+  if($p.Count -eq 0){ foreach($pr in $a.PSObject.Properties){ $p.Add("$($pr.Value)") } }
+  return ($p -join ' ')
+}
+# sema tur adlari serbest donebiliyor - cizdiricinin tanidigi enum'a indir
+function SemaNormalize($s){
+  if($null -eq $s -or -not $s.tur){ return $s }
+  $t="$($s.tur)".ToLowerInvariant() -replace 'ş','s' -replace 'ı','i'
+  $yeni=switch -Regex ($t){ 'yevmiye' {'yevmiye'} 'elem' {'eleme'} 'karar' {'karar'} 'akis|akis' {'akis'} default {''} }
+  if(-not $yeni){
+    if($s.PSObject.Properties['ogeler'] -and $s.ogeler -and $s.ogeler.PSObject.Properties['borc']){ $yeni='yevmiye' }
+    elseif($s.PSObject.Properties['ogeler'] -and @($s.ogeler).Count -and @($s.ogeler)[0] -is [string]){ $yeni='akis' }
+  }
+  if($yeni){ $s.tur=$yeni }
+  return $s
+}
 function AmbarCek([string[]]$desenler,[int]$tavan=9000){
   $topla=New-Object System.Collections.Generic.List[string]
   $adlar=New-Object System.Collections.Generic.List[string]
@@ -173,14 +199,14 @@ Sen "Nobetci" adli hoca-yazarsin. {SINAV} sinavinin {DERS} dersinden, verilen KO
 KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 1. YALNIZ asagidaki KAYNAK METNINE dayan; kural/oran/tanim kaynaktan. Senaryo tutarlari serbest.
 2. 5 sik, TEK dogru; her yanlis sik BIR ADLI TUZAGIN sonucu.
-3. Aciklama takimi her sik icin: Ne soruluyor / Kural (kural-koyucunun derdiyle acilir; kunye SONDA parantezde; tum sette en fazla 2 kunye) / [Ad] Tuzagi: izah / Dogrusu: kunyesiz saf dil. Dogru sikta Hesap: zinciri (hesapliysa).
+3. Aciklama takimi her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK): "Ne soruluyor: ... Kural: ... [Ad] Tuzagi: ... Dogrusu: ..." akisiyla. Dogru sikta Hesap: zinciri (hesapliysa).
 4. HESAPLI konuysa COZUM TABLOSU ZORUNLU ({"basliklar":[...],"satirlar":[[...]]}, ilk kolon kalem, SON SATIR SONUC). Teorik konuysa cozum_tablo null olabilir ama SEMA ZORUNLU.
 4b. MALI TABLO FORMU (Cem: "bilanco/gelir tablosu gibi gorelim"): konu finansal durum/
    bilanco/oran tipiyse tablo BILANCO duzeninde kurulur - bolum basligi AYRI SATIR olur
    ve tutar kolonlari '-' birakilir (or. ["DONEN VARLIKLAR","-"]), altina kalemler,
    sonra ["Donen Varliklar Toplami","120.000"]. Gelir tablosu tipiyse GELIR TABLOSU
    akisi (Brut Satislar'dan asagi). Yevmiye tipiyse sema tur=yevmiye zaten T-cetveli verir.
-5. SEMA: soruya uygun TEK tur (yevmiye soran soruda yevmiye ZORUNLU; eleme/karar/akis) - SORUNUN KENDI VERISIYLE, jenerik yasak.
+5. SEMA: tur alani YALNIZ su dort degerden biri olabilir: "yevmiye" | "eleme" | "karar" | "akis" (baska ad/varyant YASAK). Bu ders KAYIT dersiyse ve soru bir islemin muhasebesine dokunuyorsa tur=yevmiye ZORUNLUDUR ({"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"181 GELIR TAHAKKUKLARI","tutar":"..."}],"alacak":[...]}}) - T-cetveli budur. SORUNUN KENDI VERISIYLE, jenerik yasak.
 6. hap (tek cumle kalici kural), sinav_taktigi (1 cumle), notlandirici (en cok puan kaybettiren nokta).
 7. Rakamlar her katmanda BIREBIR tutarli.
 8. DERS KAPSAMI (RESMI - 01.09): {DERS_TARIF}
@@ -297,6 +323,30 @@ foreach($id in @($don.Keys)){
     $cvp | Add-Member -NotePropertyName ikiz -NotePropertyValue $a3 -Force
     CacheYaz; Write-Host "  IKIZ OK $id"
   } else { $rapor.Add("IKIZ REDDEDILDI (kapsama denetimi): $id"); Write-Host "  IKIZ RED: $id" -ForegroundColor Yellow }
+}
+
+# --- FAZ S: YEVMIYE TAMAMLAMA (01.09 Cem: "muhasebe kaydini gostermiyorsun,
+# T-cetveli soru cozecektik") - KAYIT dersinde tablolu her soru yevmiyesiz kalamaz.
+$yevmiyeIstem=@'
+Asagidaki cozulmus muhasebe sorusunun ILGILI YEVMIYE KAYDINI (T-cetveli) uret. Rakamlar soru/tablodakiyle BIREBIR; hesap adlari Tekduzen Hesap Plani kodlariyla ("180 GELECEK AYLARA AIT GIDERLER" gibi). Birden fazla madde gerekiyorsa en ogretici TEK maddeyi sec (baslikta hangi islem oldugunu soyle).
+Cevap YALNIZ JSON: {"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[{"hesap":"...","tutar":"..."}]}}
+=== SORU === {SORU}
+=== COZUM TABLOSU === {TABLO}
+=== DOGRU ACIKLAMA === {ACIK}
+'@
+foreach($id in @($don.Keys)){
+  $cvp=$don[$id]
+  if(-not $cvp.soru -or -not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
+  $cvp.sema=SemaNormalize $cvp.sema
+  if($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye'){ continue }
+  $istY=$yevmiyeIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress)).Replace('{ACIK}',(AciklamaDuz $cvp.aciklama.$($cvp.dogru)))
+  $yv=$null
+  foreach($d in 1..3){ try{ $yv=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istY -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  $sv2=Coz $yv.metin
+  if($sv2 -and $sv2.ogeler -and $sv2.ogeler.borc){
+    $cvp | Add-Member -NotePropertyName sema -NotePropertyValue $sv2 -Force
+    CacheYaz; Write-Host "  YEVMIYE OK $id"
+  } else { $rapor.Add("YEVMIYE BOZUK: $id") }
 }
 
 # --- KAPI B: DAYANAK HAKEMI (01.09 Cem guvencesi) ----------------------------
@@ -433,7 +483,7 @@ foreach($id in ($don.Keys|Sort-Object)){
   $tz=[ordered]@{}
   foreach($hh in 'A','B','C','D','E'){
     if("$($cvp.dogru)" -eq $hh){ continue }
-    $mt=[regex]::Match("$($cvp.aciklama.$hh)",'([A-ZÇĞİÖŞÜ][\w çğıöşüÇĞİÖŞÜ\-]{2,60}?Tuza[ğg]ı)')
+    $mt=[regex]::Match((AciklamaDuz $cvp.aciklama.$hh),'([A-ZÇĞİÖŞÜ][\w çğıöşüÇĞİÖŞÜ\-]{2,60}?Tuza[ğg]ı)')
     if($mt.Success){ $tz[$hh]=$mt.Groups[1].Value.Trim() }
   }
   $tzmap[$id]=$tz
@@ -448,7 +498,7 @@ foreach($id in ($don.Keys|Sort-Object)){
   [void]$sb.Append("<div class='tzk'></div><div class='acik'><div class='ac'>")
   foreach($hh in 'A','B','C','D','E'){
     $isr=''; if("$($cvp.dogru)" -eq $hh){ $isr=' ✓' }
-    [void]$sb.Append("<p><b>$hh$isr)</b> $(K $cvp.aciklama.$hh)</p>")
+    [void]$sb.Append("<p><b>$hh$isr)</b> $(K (AciklamaDuz $cvp.aciklama.$hh))</p>")
   }
   if($adVar){ [void]$sb.Append("<div><button class='padim'>🎬 Bu çözümü adım adım yaşa</button><div class='panlat'><div class='psayac'></div><div class='pformul'></div><div class='pmetin' style='margin-top:6px;font-size:.93em'></div><button class='padim pileri' style='margin-top:8px;padding:6px 12px;font-size:.85em'>İleri →</button></div></div>") }
   $verList=$null; if($cvp.PSObject.Properties['verilen']){ $verList=$cvp.verilen }
