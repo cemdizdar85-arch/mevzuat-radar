@@ -61,7 +61,9 @@ foreach($h in (Get-ChildItem $kok -Filter *.html)){
 # Ayrica workflow'lar da dosya yazabiliyor: kartlar.yml veri/kart-durum.json'u
 # dogrudan `echo ... > veri/kart-durum.json` ile uretiyor. Bu yuzden yml'ler de
 # uretici olarak taranir.
-$YAZMA = 'WriteAllText|WriteAllBytes|Out-File|Set-Content|Export-Csv|Export-Clixml'
+# 01.09: RaporYaz eklendi - 8 betik dogrudan yazimdan ortak yaziciya gecince
+# (bos-commit onarimi) bu desen yazarlarini goremez oldu, 4 dosya haksiz KIRMIZI.
+$YAZMA = 'WriteAllText|WriteAllBytes|Out-File|Set-Content|Export-Csv|Export-Clixml|RaporYaz\s+-Hedef'
 $uretici    = New-Object 'System.Collections.Generic.Dictionary[string,string]'
 $sadeceOkur = New-Object 'System.Collections.Generic.Dictionary[string,string]'
 $oluKaynak = New-Object 'System.Collections.Generic.Dictionary[string,string]'

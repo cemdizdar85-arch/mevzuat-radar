@@ -93,6 +93,11 @@
       "sebep": "VKN'li TOHUM dosya (eslestirme motorunun cekirdegi) - canli besleme ayri dosyada (alacak-ilan-canli.json, alacak-ilan-hasat.ps1 yaziyor, otomatik). Tohum elle buyur."
     },
     {
+      "dosya": "damping-gecmis.json",
+      "hasatci": "YOK - bilincli (01.09 eklendi)",
+      "sebep": "30.08'de (f4fadf46) Ticaret Bakanligi xlsx'lerinden TEK SEFERLIK donusturulen GECMIS olay arsivi (suresi dolan/kalkan onlemler; dosyanin kendi 'uyari' alani tamligin dogrulanmadigini soyluyor). Gecmis listesi nadiren degisir; guncel onlemler zaten gtip-damping.json hattinda otomatik. Bakanlik yeni gecmis-listesi yayimlarsa ayni donusum elle tekrarlanir."
+    },
+    {
       "dosya": "nice-siniflar.json",
       "hasatci": "YOK - bilincli",
       "sebep": "Guncel teblig TURKPATENT 2024/2 (RG 20.12.2024/32758) ama o metnin PDF'i makine-okunur DEGIL (font haritasi yok), otomatik cikarilamiyor. Sinif basliklari 2016/2 teblig ekinden birebir alindi; dosyanin kendi \"serh\" alani bunu yaziyor. Nice siniflandirmasi yilda bir degisir ve baslik metinleri neredeyse hic degismez - elle besleme burada dogru karar. 2024/2 metni makine-okunur yayimlanirsa hasatci yazilir."

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  ALACAK VITRIN SAGLIK NOBETI  (30.08.2026)
 #
 #  NEDEN VAR: 30.08 aksami POST 5'in rakamlarini yayin oncesi dogrularken
@@ -22,6 +22,9 @@
 #  Env: TEKRAR (varsayilan 4) · SURE_ESIGI_MS (varsayilan 3000)
 # ============================================================================
 $ErrorActionPreference = 'Stop'
+# 01.09 kimlik-denetimi bulgusu: Supabase kimliksiz istegi 401 ile reddeder (16.08 dersi)
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path

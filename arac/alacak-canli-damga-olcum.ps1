@@ -26,6 +26,9 @@ param(
 )
 
 $ErrorActionPreference = 'Continue'
+# 01.09 kimlik-denetimi bulgusu: Supabase kimliksiz istegi 401 ile reddeder (16.08 dersi)
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 $KOK = Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'rapor-yaz.ps1')   # icerik degismediyse dosyaya dokunma
 $SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co'

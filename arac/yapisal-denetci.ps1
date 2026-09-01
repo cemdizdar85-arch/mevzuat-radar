@@ -179,7 +179,11 @@ Get-ChildItem $veri -Filter *.json | ForEach-Object {
   # GORMEDI). Cokme yerine ACIK hata: bos json ya silinmeli ya doldurulmali.
   if([string]::IsNullOrWhiteSpace($metin)){ Hata "$($_.Name) : BOS JSON dosyasi - ya sessiz veri kaybi ya unutulmus kalinti. Sil ya da doldur."; return }
   foreach($k in $ikincilKaynaklar){
-    if($metin.ToLower().Contains($k.ToLower())){ Hata "$($_.Name) : IKINCIL KAYNAK '$k' geciyor - Kural 1 ihlali. Bu veri gercek birincilden (RG/mevzuat.gov.tr/GIB) teyit edilip damga degistirilmeli." }
+    # 01.09: ham Contains, SPL envanterindeki ScriptResource URL'lerinin base64
+    # copunde 'pwc' alt-dizisini yakaladi (L9pwct...) ve 3 workflow'u birden
+    # dusurdu. Kelime siniriyla esle: gercek 'PwC'/'KPMG' aniliyorsa yine yakalar,
+    # rastgele dizgideki alt-dizi yakalamaz.
+    if([regex]::IsMatch($metin, '\b' + [regex]::Escape($k) + '\b', 'IgnoreCase')){ Hata "$($_.Name) : IKINCIL KAYNAK '$k' geciyor - Kural 1 ihlali. Bu veri gercek birincilden (RG/mevzuat.gov.tr/GIB) teyit edilip damga degistirilmeli." }
   }
 }
 # Kritik sayisal dosyalar birincil DAMGA tasimali (kaynak/not alaninda resmi isaret)
@@ -195,7 +199,11 @@ if($CV  -and -not (ResmiIsaretVar "$($CV.kaynak)")){ Hata "cvoa-oranlar.json : k
 # --- 8) KRITIK JS DUZELTME KAYNAK-ISARETCISI (port-test JS'i dogrudan korumaz; bu korur) ---
 # Bu turda duzeltilen JS bug'lari geri alinirsa yakala. Isaretci = duzeltmenin karakteristik kod parcasi.
 $kritikDuzeltmeler = @(
-  @{ dosya='senaryo-raporu.html'; isaret=@('spesifik','match(/%'); ac='damping dolar/ton->yuzde bug fix (spesifik ayrimi)' }
+  # 01.09: 'match(/%' isaretcisi bayatlamisti - 30.08'de (5b05d8fe) damping cozumu
+  # ortak cozucuye (gtip-damping-oran.js) tasindi ve ayri CI kapisi kuruldu.
+  # Yeni isaretler: HTML ortak cozucuyu YUKLUYOR mu + cozucude cekirdek fonksiyonlar duruyor mu.
+  @{ dosya='senaryo-raporu.html';    isaret=@('spesifik','gtip-damping-oran.js'); ac='damping dolar/ton->yuzde bug fix (ortak cozucu baglantisi)' }
+  @{ dosya='gtip-damping-oran.js';   isaret=@('function coz','function yaz'); ac='damping 4-bicim ortak cozucu (30.08 kurulumu)' }
   @{ dosya='gtip.html';           isaret=@('rec.kismi','Array.isArray(rad)'); ac='kurk kismi + radar normalize' }
 )
 foreach($kd in $kritikDuzeltmeler){

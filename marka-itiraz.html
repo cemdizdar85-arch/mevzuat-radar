@@ -133,7 +133,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <label class="kvkk-row" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:12px;color:var(--dim)">
         <input id="nbKvkk" type="checkbox" style="width:16px;height:16px;margin-top:2px;accent-color:var(--accent)">
         <span>Bildirim alabilmem için e-posta adresimin bu amaçla işlenmesini kabul ediyorum.
-        Her e-postada tek tıkla çıkış bağlantısı bulunur.
+        Her e-postanın altında çıkış bağlantısı bulunur.
         <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metni</a></span>
       </label>
       <div id="nbDurum" class="mini" style="margin-top:10px;min-height:18px"></div>
@@ -403,7 +403,7 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
       var k=Array.isArray(j)?j[0]:j;
       if(!k||!k.jeton) throw new Error('Kayıt döndü ama jeton yok');
       try{ localStorage.setItem('nbJeton', k.jeton); }catch(e){}
-      nbDurum('<b style="color:var(--green,#2e7d32)">Nöbet kuruldu.</b> '
+      nbDurum('<b style="color:var(--green)">Nöbet kuruldu.</b> '
         +'Bundan sonra <b>'+esc(k.ad)+'</b> markasına benzer bir başvuru yayımlanırsa '
         +'<b>'+esc(mail)+'</b> adresine yazacağız. '
         +'<a href="?nobet=kapat&jeton='+encodeURIComponent(k.jeton)+'">Nöbeti kapat</a>');
