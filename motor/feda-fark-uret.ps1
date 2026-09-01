@@ -409,6 +409,16 @@ td.verilen.parla{animation:parla 1.4s ease}
 #ipucuPanel .ipb{font-weight:800;color:var(--mavi);font-size:.82em}
 #ipucuPanel .ipf{font-family:Consolas,monospace;font-size:.93em;color:var(--mavi-acik);background:color-mix(in srgb,var(--mavi) 10%,transparent);border-radius:8px;padding:7px 10px;margin-top:6px;white-space:pre-line}
 #tuzakKutu{display:none;border-left:3px solid var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 7%,transparent);border-radius:0 8px 8px 0;padding:9px 12px;margin:10px 0 0;font-size:.92em}
+/* 01.09 Cem "TUZAK KARNESI KUR": dunyada elle tutulan error-log'un otomatigi -
+   yanlislar tuzak ADIYLA birikir, karne tarayicida saklanir (uyelikte tasinacak) */
+#karne{display:none;margin-top:26px;border:1px solid var(--kirmizi);border-radius:16px;padding:18px 20px;background:color-mix(in srgb,var(--kirmizi) 4%,transparent)}
+#karne h2{margin:.1em 0 .4em;color:var(--kirmizi);font-size:1.15em}
+.karneSatir{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px dotted var(--soluk-kenar);font-size:.93em}
+.karneSatir:last-of-type{border-bottom:0}
+.karneSayi{min-width:52px;text-align:center;font-weight:900;color:var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 10%,transparent);border-radius:8px;padding:3px 8px}
+.karneAd{font-weight:700;flex:1}
+.karneSon{color:var(--soluk);font-size:.85em}
+#karneNot{color:var(--soluk);font-size:.83em;margin-top:10px}
 /* 01.09 Cem: adim-1 verilenleri duz metin yerine TABLO halinde (okunurluk) */
 .vtab{border-collapse:collapse;width:100%;font-size:.95em;font-family:inherit}
 .vtab th{color:var(--mavi-acik);border-bottom:2px solid color-mix(in srgb,var(--mavi) 45%,transparent);text-align:left;padding:4px 9px;font-size:.88em}
@@ -452,11 +462,45 @@ td.verilen.parla{animation:parla 1.4s ease}
     <a class="dgm" href="canli-deneme.html">Ücretsiz Türkiye Geneli Canlı Denemeye Katıl →</a>
   </div>
 
+  <div id="karne">
+    <h2>🗂️ Tuzak Karnem</h2>
+    <div style="color:var(--soluk);font-size:.88em;margin-bottom:6px">En sık düştüğün tuzaklar — yanlışın adı belli olunca, bir daha düşmemek mümkün olur.</div>
+    <div id="karneListe"></div>
+    <div id="karneNot">Karnen şimdilik bu tarayıcıda saklanır · üyelik açıldığında karnen seninle taşınacak, hangi tuzağın ikizleri gerekiyorsa onları önereceğiz.</div>
+  </div>
+
   <div class="dip">Bu örnek soru tanıtım amacıyla herkese açıktır · Tetikte soru kasası kilitli ve kaynak-damgalıdır.</div>
 </div>
 <script>
 const DOGRU='$($veri.dogru)';
 const TUZAK=$tuzakJson;
+const SORU_ID='$ID';
+// 01.09 TUZAK KARNESI (Cem: "KUR"): yanlislar tuzak ADIYLA localStorage'da birikir.
+// Ortak sema - buyuk basimin her soru sayfasi ayni anahtara yazar:
+//   tetikte_tuzak_karnesi = { "<tuzak adi>": {sayi,son,ornek:[soruId...]} }
+// localStorage her ortamda yok (gizli pencere vs.) -> her erisim try/catch.
+function karneOku(){ try{ return JSON.parse(localStorage.getItem('tetikte_tuzak_karnesi')||'{}'); }catch(e){ return null; } }
+function karneKaydet(tuzakTam){
+  const ad=String(tuzakTam).split('—')[0].trim();
+  const k=karneOku(); if(k===null) return 0;
+  const kk=k[ad]||{sayi:0,son:'',ornek:[]};
+  kk.sayi++; kk.son=new Date().toLocaleDateString('tr-TR');
+  if(SORU_ID && kk.ornek.indexOf(SORU_ID)<0) kk.ornek.push(SORU_ID);
+  k[ad]=kk;
+  try{ localStorage.setItem('tetikte_tuzak_karnesi', JSON.stringify(k)); }catch(e){}
+  return kk.sayi;
+}
+function karneCiz(){
+  const k=karneOku(); if(!k) return;
+  const kayitlar=Object.entries(k).sort((a,b)=>b[1].sayi-a[1].sayi);
+  if(!kayitlar.length) return;
+  const liste=document.getElementById('karneListe');
+  liste.innerHTML=kayitlar.map(([ad,v])=>
+    "<div class='karneSatir'><span class='karneSayi'>"+v.sayi+"×</span><span class='karneAd'>🪤 "+ad+"</span><span class='karneSon'>son: "+v.son+"</span></div>"
+  ).join('');
+  document.getElementById('karne').style.display='block';
+}
+karneCiz();
 document.querySelectorAll('.sik').forEach(b=>{
   b.addEventListener('click',()=>{
     document.querySelectorAll('.sik').forEach(x=>{x.disabled=true; if(x.dataset.h===DOGRU)x.classList.add('dogru');});
@@ -464,7 +508,12 @@ document.querySelectorAll('.sik').forEach(b=>{
     if(b.dataset.h===DOGRU){ h.textContent='✓ Doğru! Yine de açıklamayı oku — tuzakların adını öğren.'; h.style.color='var(--yesil)'; }
     else{ b.classList.add('yanlis'); h.textContent='✗ Yanlış — ve şimdi bu yanlışı bir daha yapmayacaksın:'; h.style.color='var(--kirmizi)';
       const tk=document.getElementById('tuzakKutu');
-      if(tk&&TUZAK&&TUZAK[b.dataset.h]){ tk.innerHTML='🪤 <b>Düştüğün tuzağın adı:</b> '+TUZAK[b.dataset.h]+' <span style="color:var(--soluk)">Aşağıda bu tuzağın nasıl çalıştığını adım adım göreceksin.</span>'; tk.style.display='block'; } }
+      if(tk&&TUZAK&&TUZAK[b.dataset.h]){
+        const kacinci=karneKaydet(TUZAK[b.dataset.h]);
+        const kacTxt=(kacinci>1)?(' <b style="color:var(--kirmizi)">Bu tuzağa '+kacinci+'. düşüşün.</b>'):'';
+        tk.innerHTML='🪤 <b>Düştüğün tuzağın adı:</b> '+TUZAK[b.dataset.h]+kacTxt+' <span style="color:var(--soluk)">Aşağıda bu tuzağın nasıl çalıştığını adım adım göreceksin.</span>'; tk.style.display='block';
+        karneCiz();
+      } }
     h.style.display='block';
     document.getElementById('acikla').style.display='block';
     document.getElementById('cta').style.display='block';
