@@ -128,6 +128,18 @@ jobs:
           - { ad: "Otomasyon denetimi (yeni veri elle beslenmesin)",
               kabuk: pwsh, komut: "./arac/otomasyon-denetimi.ps1" }
 
+          # 01.09 - Cem: "SQL kapisini kur."
+          # O gun depoya CALISTIRILAMAZ bir SQL girdi: "$" yerine tek "$"
+          # yazilmisti (yamayi kabuk uzerinden yazarken bash bir dolari yedi).
+          # JS'e node --check, PowerShell'e parser vardi; SQL'e HICBIR SEY yoktu.
+          # Kapi 52 .sql dosyasini yurur: kapanmamis dolar tirnagi, yalniz duran
+          # $, parantez dengesi, BOM. Adlandirilmis tirnaklari ($fn$...$fn$)
+          # gercekten ayristirir - ilk surumum onlari bilmedigi icin 24 yanlis
+          # alarm vermisti ve GURULTULU KAPI, KAPI DEGILDIR.
+          # Kapinin kendi oz-sinavi var (8 ornek); o dusserse olcum yapilmaz.
+          - { ad: "SQL kapisi (calistirilamaz SQL depoya girmesin)",
+              kabuk: bash, komut: "node arac/sql-kapisi.js" }
+
           # 25.08 - acik temaya gecerken 551 kontrast kirigi cikti; hepsinin koku
           # renklerin SABIT yazilmis olmasiydi. Iki kapi: biri SEBEBI (sabit renk
           # eklenmesini), digeri SONUCU (okunmayan metni) yakalar.
