@@ -37,6 +37,8 @@ function DayanakAnahtar([string]$ad){
   # 2) madde/parca eklerini at: ' m.6', ' gec. m.3', ' [73/405]', ' par.12', ' md.5'
   $s = $s -replace '\s+\[\d+/\d+\]',''
   $s = $s -replace '\s+(GEC\.\s*)?M(D)?\.\s*\d+[A-Z]?(/\d+)?(\s|$).*$',''
+  # kilavuz-bolum eki (01.09 KVK GUT yeniden bolme: 'b.10.3.2.1' gibi)
+  $s = $s -replace '\s+B\.\s*\d+(\.\d+)*(\s|$).*$',''
   $s = $s -replace '\s+PAR\.\s*\d+.*$',''
   # 3) sondaki RG/karar kunyesini at: '(Kurul Karari ...; RG ...)' - ama
   #    '(SERI NO: 1)' / '(SERI: X, NO: 22)' / '(6362 S.K.)' gibi KIMLIK parantezleri KALIR
