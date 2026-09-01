@@ -161,11 +161,21 @@ foreach($l in $listelenen){
 $listelenen = @($tekilAd.Values)
 
 # --- 2) ARSIVDE KAYDI OLAN --------------------------------------------------
+# 01.09 - ADRES NORMALIZASYONU (bkz motor/spl-cikmis-indir.ps1 aciklamasi):
+# arsiv "http://spl.com.tr:80/..." yaziyor, sayfa "https://www.spl.com.tr/...".
+# Ham kiyas ISKALIYOR ve karne "arsivde kaydi olan: 0" diyordu.
+function UrlAnahtar([string]$u){
+  $x = "$u".Trim()
+  $x = $x -replace '^https?://', ''
+  $x = $x -replace '^www\.', ''
+  $x = $x -replace ':(80|443)/', '/'
+  return $x.ToLowerInvariant()
+}
 $arsivde = @{}
-foreach($d in @($kesif.domain_pdf)){ $arsivde[$d.url.ToLower()] = $d.damga }
+foreach($d in @($kesif.domain_pdf)){ $arsivde[(UrlAnahtar $d.url)] = $d.damga }
 foreach($l in $listelenen){
   $var = $false
-  foreach($u in @($l.adresler)){ if($arsivde.ContainsKey("$u".ToLower())){ $var = $true } }
+  foreach($u in @($l.adresler)){ if($arsivde.ContainsKey((UrlAnahtar $u))){ $var = $true } }
   $l | Add-Member -NotePropertyName arsiv_kaydi -NotePropertyValue $var -Force
 }
 
@@ -174,10 +184,10 @@ foreach($l in $listelenen){
 # degistiriyor (spk-2010_kasim-temel_duzey_a_soru.pdf), ada bakan eslestirme
 # hepsini "INDIRILMEDI" gosterirdi.
 $inen = @{}
-if($indirme){ foreach($f in @($indirme.dosyalar)){ $inen["$($f.url)".ToLower()] = $f } }
+if($indirme){ foreach($f in @($indirme.dosyalar)){ $inen[(UrlAnahtar $f.url)] = $f } }
 foreach($l in $listelenen){
   $f = $null
-  foreach($u in @($l.adresler)){ if(-not $f){ $f = $inen["$u".ToLower()] } }
+  foreach($u in @($l.adresler)){ if(-not $f){ $f = $inen[(UrlAnahtar $u)] } }
   if($f){ $l | Add-Member -NotePropertyName dosya -NotePropertyValue "$($f.dosya)" -Force }
   $l | Add-Member -NotePropertyName indi      -NotePropertyValue ($null -ne $f -and $f.durum -ne 'KIRMIZI') -Force
   $l | Add-Member -NotePropertyName metin_krk -NotePropertyValue $(if($f){ [int]$f.metin_krk } else { 0 }) -Force

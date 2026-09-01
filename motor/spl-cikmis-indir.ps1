@@ -223,8 +223,32 @@ Yaz ("RESMI ADRES: {0}" -f $(if($resmiCanli){'CANLI - once oradan denenecek'}els
 # Sayfadan gelen kayitlarin damgasi SAYFANIN damgasidir, dosyanin degil.
 # Dosyanin kendi damgasi varsa o kullanilir; yoksa "arsivde kaydi yok" hukmu
 # TEK denemeyle verilir - 12 dakikalik zaman asimi zinciri kurulmaz.
+#
+# 01.09 - ASIL KOK SEBEP (uc turluk yanlis teshisin altindan bu cikti):
+# Arsivin kaydettigi adres ile sayfanin verdigi adres AYNI DOSYA icin farkli
+# yaziliyor ve ham metin karsilastirmasi ISKALIYOR:
+#     arsiv (CDX original) : http://spl.com.tr:80/docs/other/X.pdf
+#     sayfa (SPL listesi)  : https://www.spl.com.tr/docs/other/X.pdf
+# Sema, ':80' portu ve 'www.' oneki AYNI KAYNAGI gosterir; anahtar bunlardan
+# arindirilmadan kurulunca "arsivde kaydi yok" hukmu cikiyordu. Oysa 7.846
+# kaydin TAMAMI kod 200 ve docs/other altinda 301 kayit var.
+# Once "www/wwwsuz host" sandim, sonra "oran siniri", sonra "yanlis damga" -
+# ucu de yanlisti. Dogru olcum: ADRESI NORMALIZE ET, SONRA KIYASLA.
+# (Ev kurali: ham bayt/ham metin farki yaniltir - once normalize et.)
+function UrlAnahtar([string]$u){
+  $x = "$u".Trim()
+  $x = $x -replace '^https?://', ''
+  $x = $x -replace '^www\.', ''
+  $x = $x -replace ':(80|443)/', '/'
+  return $x.ToLowerInvariant()
+}
 $arsivDamga = @{}
-foreach($d in @($kesif.domain_pdf)){ $arsivDamga[$d.url.ToLower()] = $d.damga }
+foreach($d in @($kesif.domain_pdf)){
+  $k = UrlAnahtar $d.url
+  # Ayni dosyanin birden fazla kaydi olabilir; ARSIVIN KENDI ADRESI saklanir,
+  # cunku istek o adresle yapilmali.
+  if(-not $arsivDamga.ContainsKey($k)){ $arsivDamga[$k] = @{ damga = $d.damga; url = $d.url } }
+}
 
 $kayit = New-Object System.Collections.ArrayList
 $kullanilanAd = @{}
@@ -248,16 +272,26 @@ foreach($a in $adaylar){
   #  arsiv cogunlukla yalnizca birini taramis.)
   $adresler = @()
   foreach($x in @($a.adresler)){
-    $d = $arsivDamga["$($x.url)".ToLower()]
-    $adresler += ,@{ url = $x.url; damga = $(if($d){ $d } else { $x.damga }); kayit = [bool]$d }
+    $d = $arsivDamga[(UrlAnahtar $x.url)]
+    if($d){
+      # Arsivin KENDI adresiyle istenir (http + :80 dahil) - normalize edilmis
+      # hali degil. Arsiv istegi ham adresle esler.
+      $adresler += ,@{ url = $d.url; damga = $d.damga; kayit = $true }
+    } else {
+      $adresler += ,@{ url = $x.url; damga = $x.damga; kayit = $false }
+    }
   }
   if($adresler.Count -eq 0){ $adresler = @(,@{ url=$a.url; damga=$a.damga; kayit=$false }) }
   $adresler = @($adresler | Sort-Object @{ Expression = { -not $_.kayit } })
-  # SON CARE: damga yanlis ani gosteriyor olabilir. Arsiv, verilen damgaya EN
-  # YAKIN kopyaya yonlendirir; bu yuzden her adres icin bir de "genel damga"
-  # denemesi eklenir. Bir kez daha yanlis damga yuzunden dosya kaybetmeyelim.
-  foreach($x in @($adresler | Where-Object { $_.kayit } | Select-Object -First 2)){
-    $adresler += ,@{ url = $x.url; damga = '2015'; kayit = $true }
+  # SON CARE - HER ADRES ICIN, kaydi olsun olmasin. Arsiv verilen damgaya EN
+  # YAKIN kopyaya yonlendirdigi icin genel damga bazen tutar. Bu deneme
+  # 01.09'da SART oldu: sayfada listelenen 165 GUID'li kitapcigin HICBIRI
+  # CDX'te 200 kaydiyla gorunmuyor. "Arsivde yok" demeden once dogrudan
+  # sorulmali - ambardaki kural: olcmeden var/yok denmez.
+  foreach($x in @($adresler)){
+    foreach($gd in @('2016','2023')){
+      $adresler += ,@{ url = $x.url; damga = $gd; kayit = $x.kayit }
+    }
   }
   $s.arsiv_kaydi = [bool](@($adresler | Where-Object { $_.kayit }).Count)
   $s.adres_sayisi = $adresler.Count
