@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260901053745
+Start time: 20260901065327
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b6d88eb9-5b86-4a83-83da-e43b1328b34a.ps1'
-Process ID: 2292
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b40ae6d9-5220-4a23-85fb-d92d693a93cf.ps1'
+Process ID: 2142
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -108,8 +108,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        73x  Finansal Tablolar ve Analizi|dikey yuzde analizi
        71x  Turkce|cumle ogeleri
        63x  Hukuk|belirli süreli iş sözleşmesinin belirsiz süreli hale dönüşümü
-       62x  Finansal Tablolar ve Analizi|asit-test oranı
        62x  Maliyet Muhasebesi|satilan mamul maliyeti
+       62x  Finansal Tablolar ve Analizi|asit-test oranı
        60x  Finansal Muhasebe|supheli alacak karsiligi
        59x  Maliyet Muhasebesi|birim maliyet hesabi
 
@@ -173,10 +173,11 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
 
 -> veri/kasa-sayim.json
 -> arac sayimi: 38 kart tarandi, 28 calisan arac
+  degismedi, dokunulmadi: vitrin-sayilar.json
 -> veri/vitrin-sayilar.json  (soru 30569, hakem 16284, arac 28)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260901053938
+End time: 20260901065547
 **********************
