@@ -1,3 +1,10 @@
+-- ⚠️ BU DOSYA CANLIDA BASILI OLANI ANLATIR (01.09.2026 itibariyla).
+--    Depoda durmasi basildigi anlamina gelmez; ama depodaki metin canlidan
+--    FARKLI olursa, dosyayi yeniden basmak iyi surumu bozar. 01.09'da tam bu
+--    risk dogdu: Cem'e yapistirdigim son surumde kademe hesabi TEK YERE
+--    (marka_kademe_hesap) tasinmisti, dosya ise kopyali surumu tutuyordu.
+--    Duzeltildi. Bundan sonra: canliya basilan her degisiklik AYNI GUN bu
+--    dosyaya da islenir.
 -- ============================================================================
 --  MARKA NÖBETİ — UYARI BACAĞI  (30.08.2026)
 --
@@ -458,6 +465,10 @@ alter table public.marka_takip_gonderim
   add column if not exists hatirlatma int not null default 0;
 
 drop function if exists public.marka_takip_bekleyen(int);
+-- 01.09: KADEME HESABI TEK YERDE. Eskiden bu fonksiyon kademe mantığını kendi
+-- içine KOPYALIYORDU; öz-sınav ise marka_kademe_hesap()'ı sınıyordu. İkisi
+-- ayrışırsa sınav YEŞİL yanar ama mail YANLIŞ kademe gönderir - kusurun en
+-- sinsi türü. Artık tek kaynak: sınav neyi sınıyorsa hat tam onu kullanıyor.
 create or replace function public.marka_takip_bekleyen(p_tavan int default 500)
 returns table (
   takip_id uuid, eposta text, jeton text, takip_ad text, takip_sinif int[],
@@ -477,28 +488,13 @@ language sql security definer set search_path = public, extensions as $$
              (x.itiraz_son - current_date)::int                as kalan_gun,
              similarity(x.ad_norm, t.ad_norm)                  as benzerlik,
              (cardinality(t.sinif) > 0 and x.sinif && t.sinif) as ayni_sinif,
-             case
-               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
-                 then 'YUKSEK'
-               when t.ad_norm like public.marka_norm(x.ad) || '%'
-                    and length(public.marka_norm(x.ad)) >= 3
-                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
-                 then 'YUKSEK'
-               when similarity(x.ad_norm, t.ad_norm) >= 0.45
-                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
-                 then 'ORTA'
-               else 'ZAYIF'
-             end as kademe,
-             case
-               when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
-                 then 'markanız bu başvuruda bir kelime olarak geçiyor'
-               when t.ad_norm like public.marka_norm(x.ad) || '%'
-                    and length(public.marka_norm(x.ad)) >= 3
-                    and length(public.marka_norm(x.ad))::real / greatest(length(t.ad_norm),1) >= 0.6
-                 then 'başvuru, markanızın kısaltılmış hâline benziyor'
-               when similarity(x.ad_norm, t.ad_norm) >= 0.45
-                    and abs(length(x.ad_norm) - length(t.ad_norm)) <= 3
-                 then 'yazılış olarak yakın, uzunluk benzer'
+             public.marka_kademe_hesap(t.ad, x.ad)             as kademe,
+             case public.marka_kademe_hesap(t.ad, x.ad)
+               when 'YUKSEK' then
+                 case when public.marka_norm_bosluklu(x.ad) ~ ('(^| )' || t.ad_norm)
+                      then 'markanız bu başvuruda bir kelime olarak geçiyor'
+                      else 'başvuru, markanızın kısaltılmış hâline benziyor' end
+               when 'ORTA' then 'yazılış olarak yakın, uzunluk benzer'
                else 'yalnızca harf benzerliği'
              end as sebep,
              case when g.basvuru_no is null then 'ilk' else 'hatirlatma' end as tur,
@@ -524,6 +520,7 @@ language sql security definer set search_path = public, extensions as $$
        limit 200
     ) b
    where t.aktif
+     -- ZAYIF olanlar MAİL LİSTESİNE GİRMEZ.
      and b.kademe <> 'ZAYIF'
    order by t.id, (b.kademe = 'YUKSEK') desc, b.itiraz_son asc
    limit least(greatest(p_tavan, 1), 5000);
