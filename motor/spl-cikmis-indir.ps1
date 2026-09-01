@@ -166,7 +166,20 @@ function AnlamliAd($h){
 $tekil = @{}
 foreach($h in $havuz){
   $a = $h.ad.ToLower()
-  if(-not $tekil.ContainsKey($a)){ $tekil[$a] = $h }
+  if(-not $tekil.ContainsKey($a)){
+    $h | Add-Member -NotePropertyName adresler -NotePropertyValue @() -Force
+    $tekil[$a] = $h
+  }
+  # 31.08 - ASIL KUSUR BURADAYDI (HTTP kodu kayda gecince ortaya cikti):
+  # tekillestirme ilk goruleni tutup OTEKI ADRESI ATIYORDU. SPL arsiv sayfasi
+  # her dosyayi IKI host'la veriyor (spl.com.tr ve www.spl.com.tr) ve arsiv
+  # cogunlukla YALNIZ BIRINI taramis. Atilan adres arsivde olan adres oldugunda
+  # indirme HTTP 404 doner - ve bu "dosya yok" gibi okunur, oysa dosya VAR,
+  # yalniz oteki adreste. Ilk tam kosuda 349'un 172'si tam bu yuzden dustu;
+  # once oran sinirina yordum, HTTP kodu 429 degil 404 cikinca gercek gorundu.
+  # DERS: "inmedi" hukmu HTTP KODU YAZILMADAN kurulmaz.
+  # Artik dosyanin TUM adresleri saklanir ve sirayla denenir.
+  $tekil[$a].adresler += ,@{ url = $h.url; damga = $h.damga }
 }
 $adaylar = @($tekil.Values | Where-Object { $_.sinif -eq 'sinav-belgesi' } | Sort-Object ad)
 $evrak   = @($tekil.Values | Where-Object { $_.sinif -eq 'sinav-evraki' })
@@ -228,14 +241,20 @@ foreach($a in $adaylar){
   } else { $kullanilanAd[$guvenli] = 1 }
   $yol = Join-Path $Hedef $guvenli
   $s = [ordered]@{ dosya=$guvenli; ad=$a.ad; etiket="$($a.etiket)"; url=$a.url; kaynak=''; durum='KIRMIZI'; sebep=''
-                   son_http=''; arsiv_kaydi=$false; bayt=0; sayfa=0; metin_krk=0; hash=$null }
+                   son_http=''; arsiv_kaydi=$false; adres_sayisi=0; bayt=0; sayfa=0; metin_krk=0; hash=$null }
 
-  # Dosyanin KENDI arsiv damgasi varsa o kullanilir; yoksa sayfanin damgasi
-  # (arsiv en yakin kopyaya yonlendirir, ama kayit hic yoksa 404 doner).
-  $kendiDamga = $arsivDamga[$a.url.ToLower()]
-  $damgaVar = [bool]$kendiDamga
-  if(-not $kendiDamga){ $kendiDamga = $a.damga }
-  $s.arsiv_kaydi = $damgaVar
+  # Dosyanin butun adresleri, arsiv kaydi OLANLAR ONCE gelecek sekilde sirali.
+  # (Ayni dosya spl.com.tr ve www.spl.com.tr olarak iki kez listeleniyor;
+  #  arsiv cogunlukla yalnizca birini taramis.)
+  $adresler = @()
+  foreach($x in @($a.adresler)){
+    $d = $arsivDamga["$($x.url)".ToLower()]
+    $adresler += ,@{ url = $x.url; damga = $(if($d){ $d } else { $x.damga }); kayit = [bool]$d }
+  }
+  if($adresler.Count -eq 0){ $adresler = @(,@{ url=$a.url; damga=$a.damga; kayit=$false }) }
+  $adresler = @($adresler | Sort-Object @{ Expression = { -not $_.kayit } })
+  $s.arsiv_kaydi = [bool](@($adresler | Where-Object { $_.kayit }).Count)
+  $s.adres_sayisi = $adresler.Count
 
   if((Test-Path $yol) -and -not $Zorla -and (GecerliPdfMi $yol)){
     $s.kaynak = 'diskte'
@@ -247,37 +266,31 @@ foreach($a in $adaylar){
     }
     if(-not $s.kaynak){
       # ARSIV KOPYASI ("id_" = arsivin kendi basligi eklenmemis HAM bayt).
-      # Kaydi olan dosyaya 2 deneme; kaydi olmayana TEK deneme - yoksa yok.
-      # 31.08 OLCUM: 349 dosyalik ilk tam kosuda 163'u indi, 186'si "inmedi"
-      # dedi - ve 185'inin ARSIVDE KAYDI VARDI. Yani dosyalar orada duruyordu.
-      # Bu, dosya eksikligi degil ORAN SINIRI imzasidir: arsiv arka arkaya
-      # gelen istekleri bir yerden sonra 429 ile geri ceviriyor.
-      # "Eksik" demek yalan olurdu (ev kurali: olcumu araca sorma, aracin
-      # kendi sinirini olc). Bu yuzden: (a) istekler arasi bekleme, (b) HTTP
-      # kodu KAYDA GECER, (c) 429/503'te sabirli geri cekilme.
+      # HER ADRES sirayla denenir; 429/503'te sabirli geri cekilme.
       Remove-Item $yol -Force -ErrorAction SilentlyContinue
-      $ayna = "https://web.archive.org/web/{0}id_/{1}" -f $kendiDamga, $a.url
-      $kacDeneme = if($damgaVar){ 4 } else { 1 }
-      for($d = 1; $d -le $kacDeneme; $d++){
-        $kod = "$(& $curl -sS -m 120 -A $UA -L -o $yol -w '%{http_code}' $ayna 2>$null)".Trim()
-        $s.son_http = $kod
-        if(GecerliPdfMi $yol){ break }
-        if($d -lt $kacDeneme){
-          # 429/503 = oran siniri: uzun bekle. Digerleri kisa.
+      :adresDongusu foreach($ad2 in $adresler){
+        $ayna = "https://web.archive.org/web/{0}id_/{1}" -f $ad2.damga, $ad2.url
+        $kacDeneme = if($ad2.kayit){ 3 } else { 1 }
+        for($d = 1; $d -le $kacDeneme; $d++){
+          $kod = "$(& $curl -sS -m 120 -A $UA -L -o $yol -w '%{http_code}' $ayna 2>$null)".Trim()
+          $s.son_http = $kod
+          if(GecerliPdfMi $yol){ break adresDongusu }
+          # 404 = BU adreste yok; beklemenin anlami yok, siradaki adrese gec.
+          if($kod -eq '404'){ break }
           if($kod -eq '429' -or $kod -eq '503'){ Start-Sleep -Seconds (30 * $d) } else { Start-Sleep -Seconds 5 }
         }
+        Start-Sleep -Milliseconds 400
       }
       if(GecerliPdfMi $yol){ $s.kaynak = 'ayna' }
-      # Arsivi yormamak icin istekler arasi sabit bekleme. 349 dosya x 1,5 sn
-      # ~ 9 dakika; 330 dakikalik is tavaninin yaninda hicbir sey.
-      Start-Sleep -Milliseconds 1500
+      # Arsivi yormamak icin dosyalar arasi bekleme.
+      Start-Sleep -Milliseconds 1200
     }
   }
 
   if(-not $s.kaynak){
-    $s.sebep = if(-not $damgaVar){ 'ARSIVDE KAYDI YOK - SPL listeledi, arsiv taramamis' }
+    $s.sebep = if(-not $s.arsiv_kaydi){ 'ARSIVDE KAYDI YOK - SPL listeledi, arsiv taramamis' }
                elseif($s.son_http -eq '429' -or $s.son_http -eq '503'){ ("ORAN SINIRI (HTTP {0}) - dosya arsivde VAR, arsiv vermedi" -f $s.son_http) }
-               else { ("arsivde kaydi VAR ama gecerli PDF inmedi (HTTP {0})" -f $s.son_http) }
+               else { ("{0} adresin hepsi denendi, gecerli PDF gelmedi (son HTTP {1})" -f $s.adres_sayisi, $s.son_http) }
     [void]$kayit.Add([pscustomobject]$s)
     Yaz ("  [{0}/{1}] [KIRMIZI] {2} · {3}" -f $i, $adaylar.Count, $guvenli, $s.sebep) 'Red'
     continue
