@@ -1,20 +1,23 @@
 {
-  "tarih": "01.09.2026 00:07",
+  "tarih": "01.09.2026 09:11",
   "durum": "ALARM",
-  "kirmizi": 4,
-  "kurtarma": 1,
+  "kirmizi": 1,
+  "kurtarma": 4,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [
-    "ESKALASYON: Kaynak Nobetcisi (ihale+kaynaklar) -> kurtarma ise yaramadi (son basarili kosu 51.4 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Hap Kartlar -> kurtarma ise yaramadi (son basarili kosu 35.8 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 38.6 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Kaynak Nobetcisi -> kurtarma ise yaramadi (Yurt ici ihale beslemesi damgasi 29.08.2026 17:44 (54 saat eski; esik 36s)). Actions loguna bak."
+    "ESKALASYON: Hap Kartlar -> kurtarma ise yaramadi (RG tarama damgasi damgasi 30.08.2026 (57 saat eski; esik 48s)). Actions loguna bak."
   ],
   "kurtarilan": [
-    "Hap Kartlar -> RG tarama damgasi damgasi 30.08.2026 (48 saat eski; esik 48s) -> kurtarma: tetiklendi"
+    "Kaynak Nobetcisi (ihale+kaynaklar) -> son basarili kosu 60.5 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
+    "Hap Kartlar -> son basarili kosu 44.9 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 47.7 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 29.08.2026 17:44 (63 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
   ],
   "kurtarilan_anahtar": [
-    "VERI:kart-durum.json"
+    "KOSU:kaynak.yml",
+    "KOSU:kartlar.yml",
+    "KOSU:mevzuat.yml",
+    "VERI:ihale-yurtici.json"
   ]
 }
