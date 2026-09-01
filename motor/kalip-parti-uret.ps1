@@ -59,6 +59,7 @@ function SemaNormalize($s){
   $yeni=switch -Regex ($t){ 'yevmiye' {'yevmiye'} 'elem' {'eleme'} 'karar' {'karar'} 'akis|akis' {'akis'} default {''} }
   if(-not $yeni){
     if($s.PSObject.Properties['ogeler'] -and $s.ogeler -and $s.ogeler.PSObject.Properties['borc']){ $yeni='yevmiye' }
+    elseif($s.PSObject.Properties['kayitlar'] -and $s.kayitlar){ $yeni='yevmiye' }
     elseif($s.PSObject.Properties['ogeler'] -and @($s.ogeler).Count -and @($s.ogeler)[0] -is [string]){ $yeni='akis' }
   }
   if($yeni){ $s.tur=$yeni }
@@ -328,8 +329,10 @@ foreach($id in @($don.Keys)){
 # --- FAZ S: YEVMIYE TAMAMLAMA (01.09 Cem: "muhasebe kaydini gostermiyorsun,
 # T-cetveli soru cozecektik") - KAYIT dersinde tablolu her soru yevmiyesiz kalamaz.
 $yevmiyeIstem=@'
-Asagidaki cozulmus muhasebe sorusunun ILGILI YEVMIYE KAYDINI (T-cetveli) uret. Rakamlar soru/tablodakiyle BIREBIR; hesap adlari Tekduzen Hesap Plani kodlariyla ("180 GELECEK AYLARA AIT GIDERLER" gibi). Birden fazla madde gerekiyorsa en ogretici TEK maddeyi sec (baslikta hangi islem oldugunu soyle).
-Cevap YALNIZ JSON: {"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[{"hesap":"...","tutar":"..."}]}}
+Asagidaki cozulmus muhasebe sorusunun YEVMIYE KAYDINI/KAYITLARINI (T-cetveli) uret. Rakamlar soru/tablodakiyle BIREBIR; hesap adlari Tekduzen Hesap Plani kod+adiyla ("121 ALACAK SENETLERI" gibi).
+ZINCIR KURALI (Cem 01.09): Soruda birden fazla islem (OLAY ZINCIRI) varsa her islemin maddesi AYRI kayit olarak SIRAYLA verilir - ornek: 1) Satis kaydi: 120 ALICILAR borc / 600 YURTICI SATISLAR alacak + 391 HESAPLANAN KDV alacak, 2) Policenin kabulu: 121 ALACAK SENETLERI borc / 120 ALICILAR alacak. Ogrenci "bu kayit nereden geldi" diye gormeli. Tek islem varsa tek kayit yeterli. Her kayit basligi "1) ...", "2) ..." diye numarali ve islemi soyler.
+Cevap YALNIZ JSON: {"tur":"yevmiye","baslik":"...","kayitlar":[{"baslik":"1) ...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[{"hesap":"...","tutar":"..."}]}}]}
+ISTISNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (ornek: ozkaynak = aktif - borclar hesabi, TMS kavram sorusu) ve yevmiye kaydi GERCEKTEN uygulanmiyorsa UYDURMA kayit yazma - su JSON'u dondur: {"tur":"yok","sebep":"tek cumle neden"}
 === SORU === {SORU}
 === COZUM TABLOSU === {TABLO}
 === DOGRU ACIKLAMA === {ACIK}
@@ -339,16 +342,51 @@ foreach($id in @($don.Keys)){
   if(-not $cvp.soru -or -not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   $cvp.sema=SemaNormalize $cvp.sema
   # atlama SIKI: tur=yevmiye YETMEZ, yapisi da standart olmali (01.09: 11 soruda
-  # modelin serbest 'madde/kayit' bicimi cizdiriciye BOS tablo bastirdi)
-  if($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye' -and $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.ogeler -and $cvp.sema.ogeler.PSObject.Properties['borc'] -and @($cvp.sema.ogeler.borc).Count -ge 1){ continue }
+  # modelin serbest 'madde/kayit' bicimi cizdiriciye BOS tablo bastirdi).
+  # 01.09 zincir kurali: artik ZORUNLU bicim 'kayitlar' dizisi - eski tek-'ogeler'
+  # kayitlar yeniden basilir ki olay zinciri (satis + police) tam gorunsun.
+  $ky0=$null; if($cvp.sema -and $cvp.sema.PSObject.Properties['kayitlar']){ $ky0=@($cvp.sema.kayitlar) }
+  if($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye' -and $ky0 -and $ky0.Count -ge 1 -and -not @($ky0 | Where-Object { -not ($_.ogeler -and $_.ogeler.PSObject.Properties['borc'] -and @($_.ogeler.borc).Count -ge 1) }).Count){ continue }
+  # gerekceli 'yevmiye uygulanmaz' karari (kp-07 ozkaynak hesabi, kp-21 TMS kavrami) - tekrar denenmez
+  if($cvp.PSObject.Properties['yevmiye_yok'] -and $cvp.yevmiye_yok){ continue }
   $istY=$yevmiyeIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress)).Replace('{ACIK}',(AciklamaDuz $cvp.aciklama.$($cvp.dogru)))
   $yv=$null
   foreach($d in 1..3){ try{ $yv=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istY -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
   $sv2=Coz $yv.metin
-  if($sv2 -and $sv2.ogeler -and $sv2.ogeler.borc){
+  # 01.09: her tablolu soru kayit sorusu degil - model gerekcesiyle 'yok' derse
+  # uydurma kayit YAZDIRILMAZ. Sozel sema (eleme/karar/akis) varsa korunur;
+  # sahte tek-yevmiye varsa dusurulur (sema='yok' -> cizdirici hic basmaz).
+  if($sv2 -and "$($sv2.tur)" -eq 'yok'){
+    $sozel=($cvp.sema -and (@('eleme','karar','akis') -contains "$($cvp.sema.tur)") -and $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.ogeler)
+    if(-not $sozel){ $cvp | Add-Member -NotePropertyName sema -NotePropertyValue ([pscustomobject]@{tur='yok'}) -Force }
+    $cvp | Add-Member -NotePropertyName yevmiye_yok -NotePropertyValue "$($sv2.sebep)" -Force
+    CacheYaz; Write-Host "  YEVMIYE GEREKMIYOR (gerekceli) $id"; continue
+  }
+  # zincir bicimi dogrulama: kayitlar[] var ve HER kayitta borc dolu; eski tek-ogeler de kabul (sarmalanir)
+  if($sv2 -and -not ($sv2.PSObject.Properties['kayitlar'] -and $sv2.kayitlar) -and $sv2.ogeler -and $sv2.ogeler.borc){
+    $sv2 | Add-Member -NotePropertyName kayitlar -NotePropertyValue @(,([pscustomobject]@{baslik='';ogeler=$sv2.ogeler})) -Force
+  }
+  if($sv2 -and $sv2.kayitlar -and @($sv2.kayitlar).Count -ge 1 -and -not @(@($sv2.kayitlar) | Where-Object { -not ($_.ogeler -and $_.ogeler.borc) }).Count){
     $cvp | Add-Member -NotePropertyName sema -NotePropertyValue $sv2 -Force
     CacheYaz; Write-Host "  YEVMIYE OK $id"
   } else { $rapor.Add("YEVMIYE BOZUK: $id") }
+}
+
+# --- YEVMIYE DENKLIK KAPISI (01.09 Cem: "altinda toplam borcun alacagin tuttugu")
+# Her kayitta borc toplami = alacak toplami olmali; tutmayan uretim notuna duser.
+function YvT2([string]$t){ $s=("$t" -replace '(?i)\s*tl\s*','' -replace '[^\d\.,]',''); if(-not $s){ return $null }; try{ return [decimal]::Parse($s,[Globalization.CultureInfo]::GetCultureInfo('tr-TR')) }catch{ return $null } }
+foreach($id in @($don.Keys)){
+  $cvp=$don[$id]
+  if(-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye' -and $cvp.sema.PSObject.Properties['kayitlar'])){ continue }
+  $ki=0
+  foreach($ky in @($cvp.sema.kayitlar)){
+    $ki++
+    if(-not $ky.ogeler){ continue }
+    $tB=[decimal]0; $tA=[decimal]0; $tam=$true
+    foreach($og in @($ky.ogeler.borc)){ $n=YvT2 $og.tutar; if($null -ne $n){ $tB+=$n } else { $tam=$false } }
+    foreach($og in @($ky.ogeler.alacak)){ $n=YvT2 $og.tutar; if($null -ne $n){ $tA+=$n } else { $tam=$false } }
+    if($tam -and $tB -ne $tA){ $rapor.Add("YEVMIYE DENK DEGIL: $id kayit $ki (borc $tB / alacak $tA)") }
+  }
 }
 
 # --- KAPI B: DAYANAK HAKEMI (01.09 Cem guvencesi) ----------------------------

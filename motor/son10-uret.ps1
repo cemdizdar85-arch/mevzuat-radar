@@ -86,7 +86,7 @@ ALTIN AYRIM (Cem kurali, 29.08): SORUDA VERILEN ile BIZIM HESAPLADIGIMIZ asla ka
 KURALLAR:
 1. Once SORU METNINI oku ve cozum_tablo hucrelerinden hangileri SORUDA VERILI tespit et (fiili miktarlar, katsayilar, TOPLAM ORTAK MALIYET gibi buyuk tutarlar dahil - tabloda gecen ama soruda verilmis HER hucre) -> "verilen":[[satir,kolon],...] listesine yaz.
 2. ADIM 1 = VERILENLER ADIMI: anlatimi "Soru bize sunlari vermis: ..." diliyle kur ve doldur listesinde TUM verilen hucreleri ac (240.000 gibi toplamlar dahil - sonradan "bulalim" DENMEZ, cunku soru verdi). ANLATIMDA BUYUK HARF VURGUSU YASAK - ayrim kelimeyle yapilir, bagirarak degil.
-3. Sonraki adimlar HESAP adimlaridir: anlatim "simdi biz hesapliyoruz" dilinde (buyuk harf vurgusu YOK); her adim {"anlatim":"1-2 cumle, ne yapiyoruz ve NEDEN","formul":"OGRETMEN TAHTASI kurali: once GENEL formul, sonra sayili uygulanisi tek zincirde - ornek: 'Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL' - formuldeki HER sayinin kimligi parantezle belli olur: (soruda verilen) ya da (N. adimda bulduk); formul tek basina konuyu anlatir (yoksa bos)","doldur":[[r,c],...]} (0-indexli; kumulatif DEGIL). Son adim: SONUC satiri.
+3. Sonraki adimlar HESAP adimlaridir: anlatim "simdi biz hesapliyoruz" dilinde (buyuk harf vurgusu YOK); her adim {"anlatim":"1-2 cumle, ne yapiyoruz ve NEDEN","formul":"OGRETMEN TAHTASI kurali: once GENEL formul, sonra sayili uygulanisi tek zincirde - ornek: 'Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL' - formuldeki HER sayinin kimligi parantezle belli olur: (soruda verilen) ya da (N. adimda bulduk); formul tek basina konuyu anlatir. MUHASEBE KAYDI adimlarinda formul seridi YEVMIYE SATIRIDIR: '120 ALICILAR (BORC) 120.000 = 100.000 mal (soruda verilen) + 20.000 KDV (1. adimda bulduk)' gibi - formul HICBIR HESAP ADIMINDA bos birakilmaz","doldur":[[r,c],...]} (0-indexli; kumulatif DEGIL). Son adim: SONUC satiri.
 4. 5-8 adim. Rakamlar TABLODAKIYLE BIREBIR; yeni rakam uretme.
 5. GENC DILI (Cem 01.09 iki karar): BIZ SORU COZEREK KONU ANLATAN SITEYIZ - anlatim
    OGRETIR, kisilmaz; ama GENCIN DILIYLE. Kurallar:
@@ -143,12 +143,21 @@ function TabloHtml($t,$ver){
   $ns=@($t.satirlar).Count; $q=0
   foreach($st in @($t.satirlar)){
     $q++
-    $stil=''; if($q -eq $ns){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
+    # 01.09 Cem: "bilanco/gelir tablosu gibi gorelim" - satir siniflamasi:
+    #  BOLUM BASLIGI: tutar kolonlari bos/'-' (DONEN VARLIKLAR gibi) -> kalin altin
+    #  ARA TOPLAM  : kalem 'Toplam' iceriyor -> ustu cizgili yari-kalin
+    $stil=''; $kalemStil=''
+    $tutarlar=@($st | Select-Object -Skip 1 | Where-Object { "$_" -ne '' -and "$_" -ne '-' })
+    $kalem0="$(@($st)[0])"
+    if($q -eq $ns){ $stil=" style='background:rgba(143,201,143,.12);font-weight:800'" }
+    elseif($tutarlar.Count -eq 0){ $stil=" style='font-weight:800;color:#c9a227'"; $kalemStil='padding-top:10px' }
+    elseif($kalem0 -match '(?i)toplam'){ $stil=" style='font-weight:700;border-top:1px solid #666'" }
+    else{ $kalemStil='padding-left:16px' }
     [void]$sb.Append("<tr$stil>")
     $kc=0
     foreach($hc in @($st)){
       # 29.08 Cem: KALEM kolonu (c=0) ISKELETTIR - oynatici gizleyemez, 'gelir tablosu gibi' hep okunur
-      if($kc -eq 0){ [void]$sb.Append("<td class='hbaslik' style='font-weight:600'>$(K $hc)</td>") }
+      if($kc -eq 0){ [void]$sb.Append("<td class='hbaslik' style='font-weight:600;$kalemStil'>$(K $hc)</td>") }
       else{
         $vcls=''; if($verSet.ContainsKey("$($q-1),$kc")){ $vcls=' verilen' }
         [void]$sb.Append("<td class='hcell$vcls' data-r='$($q-1)' data-c='$kc'>$(K $hc)</td>")
@@ -162,6 +171,7 @@ function TabloHtml($t,$ver){
 }
 function SemaHtml($s){
   if(-not $s -or -not $s.tur){ return '' }
+  if("$($s.tur)" -eq 'yok'){ return '' }  # gerekceli 'yevmiye uygulanmaz' karari - sema basilmaz
   $sb=[Text.StringBuilder]::new()
   [void]$sb.Append("<div class='sema'><div class='semabaslik'>🗺️ $(K $s.baslik)</div>")
   switch("$($s.tur)"){
@@ -172,17 +182,42 @@ function SemaHtml($s){
         [void]$sb.Append("<div class='elemasatir' style='border-left:3px solid $rk;$st'><span style='color:$rk;font-weight:900;min-width:16px'>$isr</span><span class='elemaaday'>$(K $og.aday)</span><span style='color:$rk;font-size:.84em;flex:1'>$(K $og.sebep)</span></div>")
       }
     }
-    'akis'{ [void]$sb.Append("<div class='akis'>" + ((@($s.ogeler) | % { "<span class='akisadim'>$(K $_)</span>" }) -join "<span class='akisok'>→</span>") + "</div>") }
+    'akis'{
+      # 01.09: model bazen ogeler yerine 'adimlar' adiyla donduruyor - bos sema basma
+      $og=@($s.ogeler); if($og.Count -eq 0 -and $s.PSObject.Properties['adimlar']){ $og=@($s.adimlar) }
+      [void]$sb.Append("<div class='akis'>" + (($og | % { "<span class='akisadim'>$(K $_)</span>" }) -join "<span class='akisok'>→</span>") + "</div>")
+    }
     'yevmiye'{
-      [void]$sb.Append("<table class='tcetvel'><tr><th colspan='2'>BORÇ</th><th colspan='2'>ALACAK</th></tr>")
-      $bl=@($s.ogeler.borc); $al=@($s.ogeler.alacak); $ns=[Math]::Max($bl.Count,$al.Count)
-      for($q=0;$q -lt $ns;$q++){
-        $bh='';$bt='';$ah='';$at=''
-        if($q -lt $bl.Count){ $bh=K $bl[$q].hesap; $bt=K $bl[$q].tutar }
-        if($q -lt $al.Count){ $ah=K $al[$q].hesap; $at=K $al[$q].tutar }
-        [void]$sb.Append("<tr><td>$bh</td><td class='ttutar'>$bt</td><td style='padding-left:26px'>$ah</td><td class='ttutar'>$at</td></tr>")
+      # 01.09 Cem: olay ZINCIRI tek kayitla ogretilmez - 'kayitlar' dizisi varsa her
+      # islemin maddesi sirayla cizilir (1. satis kaydi, 2. police kaydi...). Eski tek
+      # 'ogeler' bicimi de calismaya devam eder (geri uyum).
+      $kyt=@()
+      if($s.PSObject.Properties['kayitlar'] -and $s.kayitlar){ $kyt=@($s.kayitlar) }
+      elseif($s.ogeler){ $kyt=@(,([pscustomobject]@{baslik='';ogeler=$s.ogeler})) }
+      # 01.09 Cem: GERCEK DEFTER GORUNUMU - tek tablo HESAP|BORC|ALACAK, borc hesabi
+      # solda, alacak hesabi girintili, ALTTA TOPLAM satiri (borc = alacak denkligi).
+      foreach($ky in $kyt){
+        if(-not $ky.ogeler){ continue }
+        if("$($ky.baslik)".Trim()){ [void]$sb.Append("<div style='margin:10px 0 4px;font-weight:800;font-size:.92em;color:#78b4ff'>$(K $ky.baslik)</div>") }
+        [void]$sb.Append("<table class='tcetvel'><tr><th style='text-align:left'>HESAP</th><th style='width:110px'>BORÇ</th><th style='width:110px'>ALACAK</th></tr>")
+        $tB=[decimal]0; $tA=[decimal]0; $sayOk=$true
+        function YvT([string]$t){ $s=("$t" -replace '(?i)\s*tl\s*','' -replace '[^\d\.,]',''); if(-not $s){ return $null }; try{ return [decimal]::Parse($s,[Globalization.CultureInfo]::GetCultureInfo('tr-TR')) }catch{ return $null } }
+        foreach($og in @($ky.ogeler.borc)){
+          $n=YvT $og.tutar; if($null -ne $n){ $tB+=$n } else { $sayOk=$false }
+          [void]$sb.Append("<tr><td style='text-align:left'>$(K $og.hesap)</td><td class='ttutar'>$(K $og.tutar)</td><td></td></tr>")
+        }
+        foreach($og in @($ky.ogeler.alacak)){
+          $n=YvT $og.tutar; if($null -ne $n){ $tA+=$n } else { $sayOk=$false }
+          [void]$sb.Append("<tr><td style='text-align:left;padding-left:38px'>$(K $og.hesap)</td><td></td><td class='ttutar'>$(K $og.tutar)</td></tr>")
+        }
+        if($sayOk){
+          $tr=[Globalization.CultureInfo]::GetCultureInfo('tr-TR')
+          $denk="<span style='color:#8fc98f;font-weight:900'> ✓ denk</span>"
+          if($tB -ne $tA){ $denk="<span style='color:#e07b7b;font-weight:900'> ✗ DENK DEĞİL</span>" }
+          [void]$sb.Append("<tr style='border-top:2px solid #78b4ff;font-weight:800'><td style='text-align:left'>TOPLAM$denk</td><td class='ttutar'>$($tB.ToString('N0',$tr))</td><td class='ttutar'>$($tA.ToString('N0',$tr))</td></tr>")
+        }
+        [void]$sb.Append("</table>")
       }
-      [void]$sb.Append("</table>")
     }
     'karar'{
       function DugumMu($nn){ return ($nn -isnot [string]) -and $nn.PSObject -and $nn.PSObject.Properties['soru'] }
