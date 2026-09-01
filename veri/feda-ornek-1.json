@@ -112,7 +112,8 @@
                                            3,
                                            4
                                        ]
-                                   ]
+                                   ],
+                        "vtablo":  "\u003cdiv style=\u0027font-weight:800;font-size:.82em;margin-bottom:4px\u0027\u003e📋 SORUNUN VERDİKLERİ\u003c/div\u003e\u003ctable class=\u0027vtab\u0027\u003e\u003ctr\u003e\u003cth\u003eÜrün\u003c/th\u003e\u003cth\u003eFiili Miktar\u003c/th\u003e\u003cth\u003eKatsayı\u003c/th\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eAlfa (referans)\u003c/td\u003e\u003ctd\u003e2.000 kg\u003c/td\u003e\u003ctd\u003e1\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eBeta\u003c/td\u003e\u003ctd\u003e1.000 kg\u003c/td\u003e\u003ctd\u003e3\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eGama\u003c/td\u003e\u003ctd\u003e500 kg\u003c/td\u003e\u003ctd\u003e2\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd colspan=\u00272\u0027\u003eToplam Ortak Maliyet\u003c/td\u003e\u003ctd\u003e240.000 TL\u003c/td\u003e\u003c/tr\u003e\u003c/table\u003e"
                     },
                     {
                         "anlatim":  "Simdi biz hesapliyoruz: her urunun fiili miktarini kendi katsayisiyla carparak esdeger miktarini buluyoruz, boylece farkli yogunluktaki urunler ortak bir olcude toplanabilir hale gelir.",
@@ -368,5 +369,27 @@
                               ]
                           ],
                  "hedef_cumle":  "Aynı yöntemi SEN uygulayarak tabloyu doldur ve Ürün Jüpiter\u0027in birim maliyetinin kaç TL/kg olduğunu bul."
-             }
+             },
+    "tuzaklar":  {
+                     "A":  "Eşdeğer Miktara Bölme Tuzağı — payı, ürünün gerçek miktarı yerine eşdeğer miktara böldün.",
+                     "B":  "Katsayı Karıştırma Tuzağı — Beta\u0027ya kendi katsayısı yerine komşusunun katsayısını uyguladın.",
+                     "C":  "Ürün Unutma Tuzağı — toplam eşdeğer miktara ürünlerden birini katmadın.",
+                     "E":  "Katsayı Uygulamama Tuzağı — Beta\u0027nın fiili miktarını katsayıyla çarpmadan doğrudan topladın."
+                 },
+    "ipuclari":  [
+                     {
+                         "b":  "💡 İPUCU 1/3 — Hangi formül zinciri?",
+                         "m":  "Cevabı söylemiyorum — yolu gösteriyorum. Bu soru tipi hep aynı beş adımla çözülür:",
+                         "f":  "1) Eşdeğer Miktar = Fiili Miktar × Katsayı  (her ürün için)\n2) Toplam Eşdeğer Miktar = eşdeğerlerin toplamı\n3) Birim Eşdeğer Maliyet = Toplam Ortak Maliyet / Toplam Eşdeğer Miktar\n4) Ürünün Payı = Ürünün Eşdeğer Miktarı × Birim Eşdeğer Maliyet\n5) Birim Maliyet = Ürünün Payı / FİİLİ miktarı (eşdeğere DEĞİL!)"
+                     },
+                     {
+                         "b":  "💡 İPUCU 2/3 — Soru sana ne verdi?",
+                         "m":  "Mavi kenarlı hücrelere bak — bunlar SORUNUN verdikleri: Merkür 3.000 kg (katsayı 1), Venüs 2.000 kg (katsayı 2), Jüpiter 1.000 kg (katsayı 4) ve toplam ortak maliyet 330.000 TL. İlk işin: her ürünün fiili miktarını KENDİ katsayısıyla çarpıp eşdeğer miktar sütununu doldurmak."
+                     },
+                     {
+                         "b":  "💡 İPUCU 3/3 — İlk adımı beraber yapalım",
+                         "m":  "Merkür referans ürün: 3.000 kg × katsayı 1 = 3.000 kg eşdeğer. Neden katsayıyla çarptık? Ürünler farklı özellikte, doğrudan toplanamaz — katsayı her ürünü referans ürün cinsine çevirir ki hepsi aynı ölçüde toplanabilsin. Bu hücreyi senin için doldurdum — aynı işlemi Venüs (×2) ve Jüpiter (×4) için SEN yap, sonra zincirin kalanı gelir.",
+                         "doldur":  "3.000"
+                     }
+                 ]
 }

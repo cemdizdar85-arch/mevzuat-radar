@@ -240,6 +240,10 @@ h1{font-size:1.3em}
 .psayac{font-size:.76em;color:#c9a227;font-weight:800}
 .pformul{margin-top:6px;font-family:Consolas,monospace;font-size:.98em;color:#8fd0ff;background:rgba(120,180,255,.10);border:1px solid rgba(120,180,255,.35);border-radius:8px;padding:8px 12px}
 .pformul:empty{display:none}
+/* 01.09 Cem "UCUNU KUR": adim-1 verilenleri tablo halinde */
+.vtab{border-collapse:collapse;width:100%;font-size:.95em;font-family:inherit}
+.vtab th{color:#8fd0ff;border-bottom:2px solid rgba(120,180,255,.45);text-align:left;padding:4px 9px;font-size:.85em}
+.vtab td{padding:4px 9px;border-bottom:1px dotted rgba(120,180,255,.30)}
 '@
 $sinavAd=@{ 'SGS'='Staja Giriş (SGS)'; 'SMMM'='SMMM Yeterlilik'; 'KGK'='KGK Bağımsız Denetçilik' }
 foreach($sv in 'SGS','SMMM','KGK'){
@@ -277,9 +281,29 @@ foreach($sv in 'SGS','SMMM','KGK'){
   foreach($id2 in ($don.Keys | ? { $_ -match "^p90-$sv-" })){ $c2=$don[$id2]; if($c2.PSObject.Properties['adimlar'] -and $c2.adimlar){ $amap[$id2]=@($c2.adimlar) } }
   $amapJson='{}'
   if($amap.Count -gt 0){ $amapJson=ConvertTo-Json -InputObject $amap -Depth 7 -Compress }
+  # 01.09 Cem "UCUNU KUR": adim-1 icin VERILENLER TABLOSU - LLM'siz, verilen koordinatlarindan turetilir
+  $vmap=[ordered]@{}
+  foreach($id2 in $amap.Keys){
+    $c2=$don[$id2]
+    if(-not ($c2.PSObject.Properties['verilen'] -and $c2.verilen -and $c2.cozum_tablo)){ continue }
+    $vb=[Text.StringBuilder]::new()
+    [void]$vb.Append("<div style='font-weight:800;font-size:.8em;margin-bottom:4px'>📋 SORUNUN VERDİKLERİ</div><table class='vtab'><tr><th>Kalem</th><th>Alan</th><th>Değer</th></tr>")
+    $ok=$true
+    foreach($vv in @($c2.verilen)){
+      $r=@($vv)[0]; $c=@($vv)[1]
+      $sat=@(@($c2.cozum_tablo.satirlar)[$r])
+      if($null -eq $sat -or $c -ge @($sat).Count){ $ok=$false; break }
+      [void]$vb.Append("<tr><td>$(K $sat[0])</td><td>$(K @($c2.cozum_tablo.basliklar)[$c])</td><td>$(K $sat[$c])</td></tr>")
+    }
+    [void]$vb.Append('</table>')
+    if($ok){ $vmap[$id2]=$vb.ToString() }
+  }
+  $vmapJson='{}'
+  if($vmap.Count -gt 0){ $vmapJson=ConvertTo-Json -InputObject $vmap -Depth 3 -Compress }
   [void]$sb.Append(@"
 <script>
 const ADIMMAP=$amapJson;
+const VTMAP=$vmapJson;
 document.querySelectorAll('.soru').forEach(soru=>{
   const sid=soru.dataset.sid, adimlar=ADIMMAP[sid];
   const btn=soru.querySelector('.padim:not(.pileri)');
@@ -293,7 +317,9 @@ document.querySelectorAll('.soru').forEach(soru=>{
   const g=()=>{
     const s=adimlar[ad];
     say.textContent='ADIM '+(ad+1)+' / '+adimlar.length;
-    met.textContent=s.anlatim; frm.textContent=s.formul||'';
+    met.textContent=s.anlatim;
+    if(ad===0&&VTMAP[sid]){ frm.innerHTML=VTMAP[sid]; }
+    else { frm.textContent=s.formul||''; }
     (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
     if(ad===adimlar.length-1){ hcs().forEach(el=>el.classList.remove('gizli')); } // son adimda acik hucre kalmaz
     ile.textContent=(ad===adimlar.length-1)?'🔄 Baştan':'İleri →';

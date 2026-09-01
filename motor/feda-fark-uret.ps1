@@ -202,6 +202,64 @@ foreach($hh in 'A','B','C','D','E'){
   [void]$sikSb.Append("<button class='sik' data-h='$hh'>$hh) $(K $veri.siklar.$hh)</button>")
 }
 $adimJson='null'; if($veri.adimlar){ $adimJson=ConvertTo-Json -InputObject @($veri.adimlar) -Depth 6 -Compress }
+
+# --- 01.09 Cem "UCUNU KUR": tuzak sozlugu + ipucu merdiveni + verilenler tablosu ---
+# Uc veri de once feda json'undan (elle yazilmis, en zengin), yoksa OTOMATIK turetilir.
+# 1) TUZAK: yanlis sikka basildigi an tuzagin ADI soylenir (cevap/hesap SIZDIRILMAZ).
+$tuzakSoz=[ordered]@{}
+if($veri.PSObject.Properties['tuzaklar'] -and $veri.tuzaklar){
+  foreach($p in $veri.tuzaklar.PSObject.Properties){ $tuzakSoz[$p.Name]=$p.Value }
+} else {
+  foreach($hh in 'A','B','C','D','E'){
+    if("$($veri.dogru)" -eq $hh){ continue }
+    $mt=[regex]::Match("$($veri.aciklama.$hh)",'([A-ZÇĞİÖŞÜ][\w çğıöşüÇĞİÖŞÜ\-]{2,60}?Tuza[ğg]ı)')
+    if($mt.Success){ $tuzakSoz[$hh]=$mt.Groups[1].Value.Trim() }
+  }
+}
+$tuzakJson=ConvertTo-Json -InputObject $tuzakSoz -Depth 2 -Compress
+# 2) IPUCU MERDIVENI (yalniz ikiz varsa anlamli): 1=formul zinciri, 2=verilenlere bak, 3=ilk hucreyi beraber doldur.
+#    Kural (01.09): her ipucu en fazla 2 cumle yardim + 1 cumle neden; ders anlatimina DONUSMEZ.
+$ipucuJson='null'
+if($veri.PSObject.Properties['ikiz'] -and $veri.ikiz -and $veri.ikiz.tablo){
+  if($veri.PSObject.Properties['ipuclari'] -and $veri.ipuclari){
+    $ipucuJson=ConvertTo-Json -InputObject @($veri.ipuclari) -Depth 4 -Compress
+  } elseif($veri.adimlar){
+    $genel=New-Object System.Collections.Generic.List[string]
+    foreach($aa in @($veri.adimlar)){
+      $ilkSatir=@("$($aa.formul)" -split "`n")[0].Trim()
+      if($ilkSatir -and $ilkSatir -notmatch '^Verilenler' -and $ilkSatir -match '=' ){
+        # sayili uygulanisi at, genel formul kalsin (ilk '=' oncesi + ilk esitlik govdesi sayisizsa)
+        $gnl=($ilkSatir -split '=')[0].Trim()+' = '+(($ilkSatir -split '=')[1]).Trim()
+        if($gnl -notmatch '\d{2}' -and -not $genel.Contains($gnl)){ [void]$genel.Add($gnl) }
+      }
+    }
+    $ilkBos=$null
+    foreach($vv in @($veri.ikiz.bosluk)){ $ilkBos=$vv; break }
+    $ilkDeger=''; if($ilkBos){ $ilkDeger="$(@(@($veri.ikiz.tablo.satirlar)[$ilkBos[0]])[$ilkBos[1]])" }
+    $ipListe=@(
+      @{ b='💡 İPUCU 1/3 — Hangi formül zinciri?'; m='Cevabı söylemiyorum — yolu gösteriyorum. Bu soru tipi şu formül zinciriyle çözülür:'; f=(($genel | ForEach-Object -Begin{$q=0} -Process{ $q++; "$q) $_" }) -join "`n") },
+      @{ b='💡 İPUCU 2/3 — Soru sana ne verdi?'; m='Mavi kenarlı hücrelere bak — bunlar sorunun verdikleri. Önce bunları formül zincirine yerleştir; ilk işin verilenlerden ilk ara değeri hesaplamak.' },
+      @{ b='💡 İPUCU 3/3 — İlk adımı beraber yapalım'; m=('İlk boş hücreyi senin için doldurdum: {0}. Aynı yöntemi kalan hücrelere SEN uygula — zincirin kalanı gelir.' -f $ilkDeger); doldur=$ilkDeger }
+    )
+    $ipucuJson=ConvertTo-Json -InputObject $ipListe -Depth 4 -Compress
+  }
+}
+# 3) VERILENLER TABLOSU (adim-1 formul kutusu yerine): adimlar[0].vtablo elle varsa o;
+#    yoksa 'verilen' koordinatlarindan Kalem|Alan|Deger tablosu turetilir.
+$vtabloHtml=''
+if($veri.adimlar -and @($veri.adimlar)[0].PSObject.Properties['vtablo']){ $vtabloHtml="$(@($veri.adimlar)[0].vtablo)" }
+elseif($veri.adimlar -and $verList -and $veri.cozum_tablo){
+  $vb=[Text.StringBuilder]::new()
+  [void]$vb.Append("<div style='font-weight:800;font-size:.82em;margin-bottom:4px'>📋 SORUNUN VERDİKLERİ</div><table class='vtab'><tr><th>Kalem</th><th>Alan</th><th>Değer</th></tr>")
+  foreach($vv in @($verList)){
+    $r=@($vv)[0]; $c=@($vv)[1]
+    $sat=@(@($veri.cozum_tablo.satirlar)[$r])
+    [void]$vb.Append("<tr><td>$(K $sat[0])</td><td>$(K @($veri.cozum_tablo.basliklar)[$c])</td><td>$(K $sat[$c])</td></tr>")
+  }
+  [void]$vb.Append('</table>')
+  $vtabloHtml=$vb.ToString()
+}
+$vtabloJson=ConvertTo-Json -InputObject $vtabloHtml -Compress
 $playerBlok=''
 if($veri.adimlar){
   $playerBlok=@"
@@ -251,8 +309,10 @@ if($veri.PSObject.Properties['ikiz'] -and $veri.ikiz -and $veri.ikiz.tablo){
     <p style='color:var(--yesil);font-size:.9em'>🎯 $(K $ik.hedef_cumle) — 🔷 maviler soruda verildi; boş hücreleri SEN doldur.</p>
     $($tb.ToString())
     <button id='ikizKontrol' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px'>Kontrol et</button>
-    <button id='ikizGoster' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:#78b4ff'>Doğruları göster</button>
+    <button id='ipucuAl' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:#78b4ff'>💡 Takıldım — ipucu ver (1/3)</button>
+    <button id='ikizGoster' class='dgm' style='padding:8px 15px;font-size:.88em;margin-top:10px;background:#5a5648;color:var(--metin)'>Doğruları göster</button>
     <span id='ikizSkor' style='margin-left:10px;font-weight:800'></span>
+    <div id='ipucuPanel'><span class='ipb' id='ipucuBaslik'></span><div id='ipucuMetin' style='margin-top:5px'></div><div class='ipf' id='ipucuFormul' style='display:none'></div></div>
   </div>
 </div>
 "@
@@ -304,6 +364,16 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 .ikx.yan{border-color:var(--kirmizi);background:rgba(224,123,123,.12)}
 .hcell.parla{animation:parla .9s ease}
 @keyframes parla{0%{background:rgba(224,164,88,.55)}100%{background:transparent}}
+/* 01.09 Cem "UCUNU KUR": tuzak tepkisi + ipucu merdiveni + verilenler tablosu */
+td.verilen.parla{animation:parla 1.4s ease}
+#tuzakKutu{display:none;border-left:3px solid var(--kirmizi);background:rgba(224,123,123,.08);border-radius:0 8px 8px 0;padding:9px 12px;margin:10px 0 0;font-size:.92em}
+#ipucuPanel{display:none;border:1px solid #78b4ff;border-radius:10px;padding:10px 13px;margin-top:10px;background:rgba(120,180,255,.07);font-size:.92em}
+#ipucuPanel .ipb{font-weight:800;color:#78b4ff;font-size:.82em}
+#ipucuPanel .ipf{font-family:Consolas,monospace;font-size:.93em;color:#8fd0ff;background:rgba(120,180,255,.10);border-radius:8px;padding:7px 10px;margin-top:6px;white-space:pre-line}
+.vtab{border-collapse:collapse;width:100%;font-size:.95em;font-family:inherit}
+.vtab th{color:#8fd0ff;border-bottom:2px solid rgba(120,180,255,.45);text-align:left;padding:4px 9px;font-size:.88em}
+.vtab td{padding:4px 9px;border-bottom:1px dotted rgba(120,180,255,.30)}
+.vtab tr:last-child td{border-bottom:0;font-weight:800}
 #cta{display:none;margin-top:26px;background:linear-gradient(160deg,rgba(224,164,88,.16),rgba(224,164,88,.05));border:1px solid var(--kehribar);border-radius:16px;padding:22px;text-align:center}
 #cta h2{margin:.2em 0;color:var(--kehribar)}
 .dgm{display:inline-block;background:var(--kehribar);color:#161513;font-weight:800;border-radius:10px;padding:12px 22px;text-decoration:none;margin-top:10px}
@@ -320,6 +390,7 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
     <p class="govde">$(K $veri.soru)</p>
     $($sikSb.ToString())
     <div id="hukum"></div>
+    <div id="tuzakKutu"></div>
     <div id="acikla">
       $acBlok
       <div id="cozumBolge">
@@ -345,12 +416,15 @@ h1{font-size:1.9em;margin:.1em 0;letter-spacing:-.5px}
 </div>
 <script>
 const DOGRU='$($veri.dogru)';
+const TUZAK=$tuzakJson;
 document.querySelectorAll('.sik').forEach(b=>{
   b.addEventListener('click',()=>{
     document.querySelectorAll('.sik').forEach(x=>{x.disabled=true; if(x.dataset.h===DOGRU)x.classList.add('dogru');});
     const h=document.getElementById('hukum');
     if(b.dataset.h===DOGRU){ h.textContent='✓ Doğru! Yine de açıklamayı oku — tuzakların adını öğren.'; h.style.color='var(--yesil)'; }
-    else{ b.classList.add('yanlis'); h.textContent='✗ Yanlış — ve şimdi bu yanlışı bir daha yapmayacaksın:'; h.style.color='var(--kirmizi)'; }
+    else{ b.classList.add('yanlis'); h.textContent='✗ Yanlış — ve şimdi bu yanlışı bir daha yapmayacaksın:'; h.style.color='var(--kirmizi)';
+      const tk=document.getElementById('tuzakKutu');
+      if(tk&&TUZAK&&TUZAK[b.dataset.h]){ tk.innerHTML='🪤 <b>Düştüğün tuzağın adı:</b> '+TUZAK[b.dataset.h]+' <span style="color:var(--soluk)">Aşağıda bu tuzağın nasıl çalıştığını adım adım göreceksin.</span>'; tk.style.display='block'; } }
     h.style.display='block';
     document.getElementById('acikla').style.display='block';
     document.getElementById('cta').style.display='block';
@@ -377,8 +451,28 @@ if(ikizAc){
   document.getElementById('ikizGoster').addEventListener('click',()=>{
     document.querySelectorAll('.ikx').forEach(i=>{ i.value=i.dataset.dogru; i.classList.remove('yan'); i.classList.add('dog'); });
   });
+  // 01.09 IPUCU MERDIVENI: cevabi vermeden kademeli yardim - 1 formul, 2 verilenler, 3 ilk hucre.
+  const IPUCU=$ipucuJson;
+  const ipBtn=document.getElementById('ipucuAl');
+  if(IPUCU&&ipBtn){
+    let ipN=0;
+    ipBtn.addEventListener('click',()=>{
+      if(ipN>=IPUCU.length) return;
+      const ip=IPUCU[ipN];
+      document.getElementById('ipucuBaslik').textContent=ip.b;
+      document.getElementById('ipucuMetin').textContent=ip.m;
+      const f=document.getElementById('ipucuFormul'); f.textContent=ip.f||''; f.style.display=ip.f?'block':'none';
+      if(ipN===1){ document.querySelectorAll('#ikiz td.verilen').forEach(td=>{ td.classList.remove('parla'); void td.offsetWidth; td.classList.add('parla'); }); }
+      if(ip.doldur){ const ilk=document.querySelector('#ikiz .ikx'); if(ilk&&!ilk.value){ ilk.value=ip.doldur; ilk.classList.add('dog'); } }
+      document.getElementById('ipucuPanel').style.display='block';
+      ipN++;
+      ipBtn.textContent=(ipN>=IPUCU.length)?'💡 İpucu bitti — kalanı sende!':'💡 Takıldım — ipucu ver ('+(ipN+1)+'/3)';
+      if(ipN>=IPUCU.length){ ipBtn.style.opacity='.55'; ipBtn.style.cursor='default'; }
+    });
+  } else if(ipBtn){ ipBtn.style.display='none'; }
 }
 const ADIMLAR=$adimJson;
+const VTABLO=$vtabloJson;
 if(ADIMLAR){
   let ad=-1;
   const hc=(r,c)=>document.querySelector(".hcell[data-r='"+r+"'][data-c='"+c+"']");
@@ -387,7 +481,10 @@ if(ADIMLAR){
     const s=ADIMLAR[ad];
     document.getElementById('psayac').textContent='ADIM '+(ad+1)+' / '+ADIMLAR.length;
     document.getElementById('pmetin').textContent=s.anlatim;
-    const pf=document.getElementById('pformul'); pf.textContent=s.formul||''; pf.style.display=s.formul?'block':'none';
+    // 01.09 Cem: adim-1 verilenleri duz metin yerine TABLO halinde (vtablo uretici tarafinda kurulur)
+    const pf=document.getElementById('pformul');
+    if(ad===0&&VTABLO){ pf.innerHTML=VTABLO; pf.style.display='block'; }
+    else { pf.textContent=s.formul||''; pf.style.display=s.formul?'block':'none'; }
     (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
     if(ad===ADIMLAR.length-1){ tum().forEach(el=>el.classList.remove('gizli')); } // son adimda acik hucre kalmaz (muhur-turu guvencesi)
     document.getElementById('pileri').textContent=(ad===ADIMLAR.length-1)?'🔄 Baştan':'İleri →';
