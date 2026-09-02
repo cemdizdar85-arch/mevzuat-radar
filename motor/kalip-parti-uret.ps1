@@ -497,7 +497,15 @@ foreach($kk in $KONULAR){
     $y=$null
     foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 8000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
     $aday=Coz $y.metin
-    if(-not ($aday -and $aday.soru -and $aday.aciklama)){ continue }
+    if(-not ($aday -and $aday.soru -and $aday.aciklama)){
+      # 02.09 KAPI 4. KATMAN: "BOZUK" tek basina hicbir sey soylemiyordu (kp-05/06 iki
+      # koşuda da bozuk cikti, sebep gorulemedi). Ham cevap + durma sebebi dosyaya yazilir.
+      $bozukYol=Join-Path $kok ("veri\fabrika\bozuk-$Etiket-$id-d$deneme.txt")
+      $sebep=if(-not $aday){ 'JSON COZULEMEDI' } elseif(-not $aday.soru){ 'soru alani yok' } else { 'aciklama alani yok' }
+      [IO.File]::WriteAllText($bozukYol,("sebep: $sebep | durma: $($y.dur) | cikti token: $($y.cikti) | uzunluk: $("$($y.metin)".Length) kr`n`n$($y.metin)"),[Text.UTF8Encoding]::new($false))
+      Write-Host "  BOZUK SEBEP ($id d$deneme): $sebep, durma=$($y.dur), $("$($y.metin)".Length) kr -> $(Split-Path $bozukYol -Leaf)" -ForegroundColor DarkYellow
+      continue
+    }
     $uz="$($aday.soru)".Length
     if($uz -le $UZUNLUK_TAVAN){ $cvp=$aday; break }
     Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow

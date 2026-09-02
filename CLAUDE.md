@@ -157,6 +157,7 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
 
 ## 🧾 SINAV / SORU İŞİ
 
+- ⭐ **Sınavla ilgili "var mı / kaç / eksik ne" sorusunun TEK cevabı `veri/SINAV-TEK-SAYFA.md`** (02.09.2026, Cem: "tek yerden, hızlı, güvenilir, kaybolmadan"). 7 bölüm = Cem'in 7 sorusu: dersler · çıkmış sorular · yeterli miyiz · ambar · kaynak sağlığı · yutulmayan mevzuat · basılacaklar. Üretici `motor/sinav-tek-sayfa.ps1`, robot `sinav-tek-sayfa.yml` (her sabah 08:30 TR). Elle düzenlenmez; **⚠ işaretli satır = girdisi bayat/kırık, o sayı "ölçülmedi"dir** — önce bölüm 5'teki girdi tazelenir. Hafızadan sınav rakamı YAZILMAZ, bu sayfadan okunur.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.

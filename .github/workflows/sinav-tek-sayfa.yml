@@ -1,0 +1,66 @@
+# ============================================================================
+#  SINAV TEK SAYFA (0 USD, laptopsuz)
+#
+#  NEDEN VAR (02.09.2026, Cem): "sınavla ilgili her şey tek yerden, hızlı,
+#  güvenilir, kaybolmadan". 31.08 Excel haritası masaüstünde donuk kalmıştı;
+#  bu akış aynı sayfayı her sabah depoda yeniden kurar.
+#
+#  SAAT: 05:30 UTC = 08:30 TR. Girdileri üreten robotlar daha erken koşuyor
+#  (kasa-sayim 00:41 UTC, parti-liste 00:26, soru-dayanak 03:40). Ambar
+#  kapıları 08:00 UTC'de koşar; onun çıktısı ertesi sabahki sayfaya girer
+#  (bir gün gecikme kabul: sayfa zaten damgayı yanına yazıyor).
+#
+#  Betik ağ kullanmaz, yalnız depodaki JSON'ları birleştirir. İçerik aynıysa
+#  dosyaya dokunmaz (RaporYaz) — boş commit üretmez.
+# ============================================================================
+name: Sinav tek sayfa (0 USD, laptopsuz)
+
+on:
+  schedule:
+    - cron: '30 5 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/sinav-tek-sayfa.ps1'
+      - '.github/workflows/sinav-tek-sayfa.yml'
+      - 'veri/kasa-sayim.json'
+      - 'veri/ders-profili.json'
+
+permissions:
+  contents: write
+
+jobs:
+  tek-sayfa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: TEK SAYFAYI KUR
+        shell: pwsh
+        run: ./motor/sinav-tek-sayfa.ps1
+
+      - name: KAPI — sayfa üretildi mi, bayat girdi kaç
+        shell: pwsh
+        run: |
+          if(-not (Test-Path 'veri/sinav-tek-sayfa.json')){ Write-Host 'KOR: sayfa üretilmedi.'; exit 1 }
+          $j = Get-Content 'veri/sinav-tek-sayfa.json' -Raw | ConvertFrom-Json
+          $bayat = @($j.kaynak_sagligi | Where-Object { $_.durum -ne 'TAZE' })
+          Write-Host ("girdi: {0} · taze olmayan: {1}" -f @($j.kaynak_sagligi).Count, $bayat.Count)
+          foreach($b in $bayat){ Write-Host ("  {0,-22} {1,-28} {2}" -f $b.ad, $b.durum, $b.dosya) }
+          Write-Host 'Bayat girdi kapıyı düşürmez (bilinen borç, sayfada ⚠ ile görünür); KIRIK girdi düşürür.'
+          if(@($bayat | Where-Object { $_.durum -like 'KIRIK*' }).Count){ exit 1 }
+
+      - name: SONUCU DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/SINAV-TEK-SAYFA.md veri/sinav-tek-sayfa.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "degisiklik yok - commit yok."
+          else
+            git commit -m "Sinav tek sayfa tazelendi [veri-operasyonu]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi
