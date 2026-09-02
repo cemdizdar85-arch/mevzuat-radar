@@ -1,14 +1,16 @@
 ﻿{
-    "aciklama":  "En cok yigilan dayanaklarin GERCEK dogruluk olcumu. Hakeme dayanagin AMBARDAKI MADDE METNI verilir (kunye tek basina yaniltir - olculdu). Yanlis orani esigi asan dayanak KARA LISTEye girer: uretici o dayanaga guvenmez, konuyu dogrudan ambarda arar. Kopru kaydi SILINMEZ.",
+    "aciklama":  "En cok yigilan dayanaklarin GERCEK dogruluk olcumu. Hakeme dayanagin AMBARDAKI MADDE METNI verilir (kunye tek basina yaniltir - olculdu). Yanlis orani esigi asan dayanak KARA LISTEye girer: uretici o dayanaga guvenmez, konuyu dogrudan ambarda arar. Kopru kaydi SILINMEZ. Olcumler birikimlidir (ders suzgecli kosular oncekileri ezmez).",
     "esik_yuzde":  50,
-    "olculen_dayanak":  60,
+    "son_kosu":  "suzgec: sinav=KGK ders=Kurumsal Y|Finansal Y (12 dayanak)",
+    "olculen_dayanak":  72,
     "kara_liste":  [
                        "TTK (6102 s.K.) m.720",
                        "SMMM K. (3568 s.K.) m.29",
                        "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
-                       "Teori Notu - oran analizi likidite"
+                       "Teori Notu - oran analizi likidite",
+                       "Teori Notu - isletme sermayesi yonetimi"
                    ],
-    "tahmini_yanlis_kayit_toplami":  1951,
+    "tahmini_yanlis_kayit_toplami":  1965,
     "ayrinti":  [
                     {
                         "dayanak":  "VUK (213 s.K.) m.275 - İmal edilen emtia",
@@ -396,7 +398,7 @@
                                              ]
                     },
                     {
-                        "dayanak":  "TSRS 2",
+                        "dayanak":  "KUMI FRS",
                         "bagli_konu":  79,
                         "orneklem":  0,
                         "dogru":  0,
@@ -410,7 +412,7 @@
                                              ]
                     },
                     {
-                        "dayanak":  "KUMI FRS",
+                        "dayanak":  "TSRS 2",
                         "bagli_konu":  79,
                         "orneklem":  0,
                         "dogru":  0,
@@ -557,20 +559,6 @@
                                              ]
                     },
                     {
-                        "dayanak":  "TMS 16 p.1 - Amaç",
-                        "bagli_konu":  66,
-                        "orneklem":  8,
-                        "dogru":  8,
-                        "yanlis":  0,
-                        "olculemedi":  0,
-                        "yanlis_yuzde":  0,
-                        "durum":  "guvenilir",
-                        "tahmini_yanlis_kayit":  0,
-                        "yanlis_ornekleri":  [
-
-                                             ]
-                    },
-                    {
                         "dayanak":  "SMMM K. (3568 s.K.) m.27",
                         "bagli_konu":  66,
                         "orneklem":  8,
@@ -582,6 +570,20 @@
                         "tahmini_yanlis_kayit":  8,
                         "yanlis_ornekleri":  [
                                                  "oda gelirleri"
+                                             ]
+                    },
+                    {
+                        "dayanak":  "TMS 16 p.1 - Amaç",
+                        "bagli_konu":  66,
+                        "orneklem":  8,
+                        "dogru":  8,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  0,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
                                              ]
                     },
                     {
@@ -657,6 +659,20 @@
                                              ]
                     },
                     {
+                        "dayanak":  "TMS 36 p.100-102 - Sirket varliklari",
+                        "bagli_konu":  60,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ]
+                    },
+                    {
                         "dayanak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
                         "bagli_konu":  60,
                         "orneklem":  8,
@@ -673,8 +689,8 @@
                                              ]
                     },
                     {
-                        "dayanak":  "TMS 36 p.100-102 - Sirket varliklari",
-                        "bagli_konu":  60,
+                        "dayanak":  "KVK GUT (1 Seri No)",
+                        "bagli_konu":  58,
                         "orneklem":  0,
                         "dogru":  0,
                         "yanlis":  0,
@@ -712,20 +728,6 @@
                         "tahmini_yanlis_kayit":  7,
                         "yanlis_ornekleri":  [
                                                  "yerindelik testi"
-                                             ]
-                    },
-                    {
-                        "dayanak":  "KVK GUT (1 Seri No)",
-                        "bagli_konu":  58,
-                        "orneklem":  0,
-                        "dogru":  0,
-                        "yanlis":  0,
-                        "olculemedi":  0,
-                        "yanlis_yuzde":  -1,
-                        "durum":  "olculemedi (ambarda metin yok)",
-                        "tahmini_yanlis_kayit":  0,
-                        "yanlis_ornekleri":  [
-
                                              ]
                     },
                     {
@@ -788,20 +790,6 @@
                                              ]
                     },
                     {
-                        "dayanak":  "MSUGT Tekduzen Hesap Plani",
-                        "bagli_konu":  51,
-                        "orneklem":  0,
-                        "dogru":  0,
-                        "yanlis":  0,
-                        "olculemedi":  0,
-                        "yanlis_yuzde":  -1,
-                        "durum":  "olculemedi (ambarda metin yok)",
-                        "tahmini_yanlis_kayit":  0,
-                        "yanlis_ornekleri":  [
-
-                                             ]
-                    },
-                    {
                         "dayanak":  "VUK (213 s.K.) m.279 - Menkul kıymetler",
                         "bagli_konu":  51,
                         "orneklem":  8,
@@ -817,17 +805,17 @@
                                              ]
                     },
                     {
-                        "dayanak":  "TMS 37 p.1 - Kapsam",
-                        "bagli_konu":  50,
-                        "orneklem":  8,
-                        "dogru":  5,
-                        "yanlis":  1,
-                        "olculemedi":  2,
-                        "yanlis_yuzde":  17,
-                        "durum":  "guvenilir",
-                        "tahmini_yanlis_kayit":  8,
+                        "dayanak":  "MSUGT Tekduzen Hesap Plani",
+                        "bagli_konu":  51,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
                         "yanlis_ornekleri":  [
-                                                 "TFRS 15 uyarınca sözleşmelerin birleştirilmesi ve hasılat muhasebeleştirilmesi"
+
                                              ]
                     },
                     {
@@ -842,6 +830,20 @@
                         "tahmini_yanlis_kayit":  0,
                         "yanlis_ornekleri":  [
 
+                                             ]
+                    },
+                    {
+                        "dayanak":  "TMS 37 p.1 - Kapsam",
+                        "bagli_konu":  50,
+                        "orneklem":  8,
+                        "dogru":  5,
+                        "yanlis":  1,
+                        "olculemedi":  2,
+                        "yanlis_yuzde":  17,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  8,
+                        "yanlis_ornekleri":  [
+                                                 "TFRS 15 uyarınca sözleşmelerin birleştirilmesi ve hasılat muhasebeleştirilmesi"
                                              ]
                     },
                     {
@@ -886,6 +888,192 @@
                         "yanlis_ornekleri":  [
 
                                              ]
+                    },
+                    {
+                        "dayanak":  "SPK Karari",
+                        "bagli_konu":  40,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "TEORI",
+                        "bagli_konu":  29,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "SPK Rehber",
+                        "bagli_konu":  29,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "SPK Tebliğ (Seri: X, No: 22)",
+                        "bagli_konu":  24,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "Kurumsal Yonetim Tebligi (II-17.1)",
+                        "bagli_konu":  22,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "TTK (6102 s.K.) m.375",
+                        "bagli_konu":  19,
+                        "orneklem":  8,
+                        "dogru":  8,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  0,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "SPK Tebliğ (Seri: V, No: 34)",
+                        "bagli_konu":  18,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "VUK (213 s.K.) m.275 - İmal edilen emtia",
+                        "bagli_konu":  17,
+                        "orneklem":  8,
+                        "dogru":  5,
+                        "yanlis":  3,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  38,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  6,
+                        "yanlis_ornekleri":  [
+                                                 "temettü dağıtım politikası",
+                                                 "temettu kar payi politikasi",
+                                                 "kurumsal yonetim tebligi ii-17.1 uygulama kapsami grup yapilari"
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "Teori Notu - isletme sermayesi yonetimi",
+                        "bagli_konu":  13,
+                        "orneklem":  8,
+                        "dogru":  3,
+                        "yanlis":  5,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  62,
+                        "durum":  "KARA LISTE",
+                        "tahmini_yanlis_kayit":  8,
+                        "yanlis_ornekleri":  [
+                                                 "merkezi yonetim kapsamı tanımlaması",
+                                                 "kamu mali yonetimi yasal cercevesi",
+                                                 "ozel gelir tanimi ve siniflandirilmasi",
+                                                 "kamu gideri tanımı ve kapsamı",
+                                                 "kamu geliri tasnifi ve butce gelirleri"
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "Kamu Finansmanı ve Borç Yönetimi K. (4749 s.K.)",
+                        "bagli_konu":  11,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "Teori Notu",
+                        "bagli_konu":  10,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
+                    },
+                    {
+                        "dayanak":  "Bankalarin Sermaye Yeterliliginin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik",
+                        "bagli_konu":  9,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ],
+                        "kapsam":  "KGK/Kurumsal Y|Finansal Y"
                     }
                 ]
 }
