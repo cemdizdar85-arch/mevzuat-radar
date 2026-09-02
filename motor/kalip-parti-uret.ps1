@@ -117,8 +117,32 @@ function KaraMi([string]$dayanak){
 }
 # dayanak ham metninden ambar sorgu desenleri türet
 $KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.)'; 'GVK'='GVK (193 s.K.)'; 'KVK'='KVK GUT (1 Seri No)'; 'KDV'='KDV%'; 'SPK'='Sermaye Piyasası K. (6362 s.K.)'; 'İİK'='İİK%'; 'SGK'='SGK%' }
+# --- MULGA / YENIDEN ADLANDIRILMIS STANDART ESLEMESI (02.09, olcumle bulundu)
+# Cem "yut onlari" dedi; olculdu ki YUTULACAK BIR SEY YOK - ucu de ambarda mevcut,
+# yalnizca ADLARI degismis ya da YERLERINE yeni standart gelmis:
+#   KKS 1  -> KYS 1  (2022: Kalite KONTROL Std. yerine Kalite YONETIM Std.; ambarda 107 parca)
+#   TMS 11 -> TFRS 15 (2018: Insaat Sozlesmeleri, Hasilat'a devroldu; ambarda 239 parca)
+#   TFRS 4 -> TFRS 17 (2023: Sigorta Sozlesmeleri; ambarda 259 parca)
+# Mulga metni yutmak YANLIS olurdu: ogrenciye yururlukten kalkmis kural ogretirdik.
+$STANDART_HALEF=@{
+  'KKS 1'='KYS 1'; 'KKS1'='KYS 1'
+  'TMS 11'='TFRS 15'; 'TMS11'='TFRS 15'
+  'TFRS 4'='TFRS 17'; 'TFRS4'='TFRS 17'
+}
+function HalefStandart([string]$ad){
+  $t=($ad -replace '\s+',' ').Trim()
+  foreach($eski in $STANDART_HALEF.Keys){
+    if($t -match ('(?i)\b'+[regex]::Escape($eski)+'\b')){ return $STANDART_HALEF[$eski] }
+  }
+  return ''
+}
 function DesenUret($kayit){
   $d=New-Object System.Collections.Generic.List[string]
+  # halef standart varsa ONCE onun desenini koy (mulga ad ambarda hic yok)
+  foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)","$($kayit.konu)")){
+    $halef=HalefStandart $ham
+    if($halef){ $d.Add("$halef p.%"); break }
+  }
   foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
     if(-not $ham){ continue }
     # 02.09: kara listedeki dayanak DESEN URETIMINE GIRMEZ - olculdu ki konularin
