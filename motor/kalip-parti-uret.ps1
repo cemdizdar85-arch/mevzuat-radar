@@ -14,6 +14,7 @@
 param(
   [string]$Sinav='SGS',
   [string]$DersRegex='Finansal Muhasebe',
+  [string]$KonuDosya='',
   [int]$Adet=30,
   [string]$Etiket='sgs-fmuh-30',
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
@@ -290,6 +291,15 @@ if(Test-Path $profYol){
 # --- KONULAR: kopruden en cok cikan (tekil) ---------------------------------
 $tam=Get-Content (Join-Path $kok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ("$($_.bizim_ders)$($_.arsiv_ders)" -match $DersRegex) -and $_.donem -ge 1 } | Sort-Object donem -Descending)
+# 03.09 (Cem "bir ve ikiyi yap" -> 1): AGIR BOSLUK partisi. Konu listesi DOSYADAN verilir
+# (json dizi: konu adlari); ders suzgeci yalniz PROFIL secimi icin kalir, konu secimi listeden.
+# Neden: bosluk konularinin bizim_ders'i bos (bizde yok), arsiv etiketi 'Hukuk' gibi genis;
+# ders ancak dayanagin kanunundan bilinir - o esleme disarida yapilip listeye yazilir.
+if($KonuDosya -and (Test-Path $KonuDosya)){
+  $istenen=@(Get-Content $KonuDosya -Raw -Encoding UTF8 | ConvertFrom-Json | ForEach-Object { "$_".ToLowerInvariant() })
+  $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ($istenen -contains "$($_.konu)".ToLowerInvariant()) } | Sort-Object donem -Descending)
+  "konu dosyasi: $KonuDosya -> $($adaylar.Count) aday (istenen $($istenen.Count))"
+}
 $gorulen=@{}; $KONULAR=New-Object System.Collections.Generic.List[object]; $sira=0
 foreach($a in $adaylar){
   $kAd="$($a.konu)".ToLowerInvariant()
