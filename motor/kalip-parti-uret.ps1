@@ -380,23 +380,68 @@ foreach($id in @($don.Keys)){
   } else { $rapor.Add("YEVMIYE BOZUK: $id") }
 }
 
+# --- FAZ S2: IKIZ YEVMIYESI (02.09 Cem "1 YAP" - GM onerisi 1: ikiz ile denk
+# oyunu birlesir). Ogrenci ayni kaydi IKINCI KEZ, ikizin YENI rakamlariyla yazar;
+# kas hafizasi burada olusur. Asil kaydin YAPISI korunur, tutarlar ikizden gelir.
+$ikizYevIstem=@'
+Asagida bir muhasebe sorusunun ASIL YEVMIYE KAYDI/KAYITLARI ve ayni yontemin IKIZ sorusu (farkli rakamlar) var.
+IKIZ SORUNUN yevmiye kaydini uret: hesap yapisi asil kayitla AYNI mantikta, tutarlar IKIZ SORUNUN rakamlarindan hesaplanir (ikiz tablosuyla BIREBIR tutarli). Hesap adlari Tekduzen kod+adiyla. Zincir varsa her islem ayri numarali kayit.
+Cevap YALNIZ JSON: {"tur":"yevmiye","baslik":"...","kayitlar":[{"baslik":"1) ...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[{"hesap":"...","tutar":"..."}]}}]}
+Ikiz sorunun rakamlariyla kayit KURULAMIYORSA: {"tur":"yok","sebep":"tek cumle"}
+=== ASIL KAYIT === {ASIL}
+=== IKIZ SORU === {IKIZSORU}
+=== IKIZ TABLO (dogru degerler) === {IKIZTABLO}
+'@
+foreach($id in @($don.Keys)){
+  $cvp=$don[$id]
+  if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz)){ continue }
+  if(-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye')){ continue }
+  if($cvp.PSObject.Properties['ikiz_sema'] -and $cvp.ikiz_sema){ continue }
+  if($cvp.PSObject.Properties['ikiz_yev_yok'] -and $cvp.ikiz_yev_yok){ continue }
+  $asil=ConvertTo-Json -InputObject $cvp.sema -Depth 6 -Compress
+  $istI=$ikizYevIstem.Replace('{ASIL}',$asil).Replace('{IKIZSORU}',"$($cvp.ikiz.ikiz_soru)").Replace('{IKIZTABLO}',(ConvertTo-Json -InputObject $cvp.ikiz.tablo -Depth 5 -Compress))
+  $yi=$null
+  foreach($d in 1..3){ try{ $yi=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istI -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  $si=Coz $yi.metin
+  if($si -and "$($si.tur)" -eq 'yok'){
+    $cvp | Add-Member -NotePropertyName ikiz_yev_yok -NotePropertyValue "$($si.sebep)" -Force
+    CacheYaz; Write-Host "  IKIZ-YEVMIYE GEREKMIYOR $id"; continue
+  }
+  if($si -and -not ($si.PSObject.Properties['kayitlar'] -and $si.kayitlar) -and $si.ogeler -and $si.ogeler.borc){
+    $si | Add-Member -NotePropertyName kayitlar -NotePropertyValue @(,([pscustomobject]@{baslik='';ogeler=$si.ogeler})) -Force
+  }
+  if($si -and $si.kayitlar -and @($si.kayitlar).Count -ge 1 -and -not @(@($si.kayitlar) | Where-Object { -not ($_.ogeler -and $_.ogeler.borc) }).Count){
+    $cvp | Add-Member -NotePropertyName ikiz_sema -NotePropertyValue $si -Force
+    CacheYaz; Write-Host "  IKIZ YEVMIYE OK $id"
+  } else { $rapor.Add("IKIZ YEVMIYE BOZUK: $id") }
+}
+
 # --- YEVMIYE DENKLIK KAPISI (01.09 Cem: "altinda toplam borcun alacagin tuttugu")
 # Her kayitta borc toplami = alacak toplami olmali; tutmayan uretim notuna duser.
 function YvT2([string]$t){ $s=("$t" -replace '(?i)\s*tl\s*','' -replace '[^\d\.,]',''); if(-not $s){ return $null }; try{ return [decimal]::Parse($s,[Globalization.CultureInfo]::GetCultureInfo('tr-TR')) }catch{ return $null } }
+# 02.09: kayit listesini tek yerden cikaran yardimci (asil + ikiz, eski/yeni bicim)
+function KayitListesi($sema){
+  if(-not $sema -or "$($sema.tur)" -ne 'yevmiye'){ return @() }
+  if($sema.PSObject.Properties['kayitlar'] -and $sema.kayitlar){ return @($sema.kayitlar) }
+  if($sema.PSObject.Properties['ogeler'] -and $sema.ogeler){ return @(,([pscustomobject]@{baslik='';ogeler=$sema.ogeler})) }
+  return @()
+}
 foreach($id in @($don.Keys)){
   $cvp=$don[$id]
-  if(-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye')){ continue }
-  $denetKayit=@()
-  if($cvp.sema.PSObject.Properties['kayitlar'] -and $cvp.sema.kayitlar){ $denetKayit=@($cvp.sema.kayitlar) }
-  elseif($cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.ogeler){ $denetKayit=@(,([pscustomobject]@{baslik='';ogeler=$cvp.sema.ogeler})) }
-  $ki=0
-  foreach($ky in $denetKayit){
-    $ki++
-    if(-not $ky.ogeler){ continue }
-    $tB=[decimal]0; $tA=[decimal]0; $tam=$true
-    foreach($og in @($ky.ogeler.borc)){ $n=YvT2 $og.tutar; if($null -ne $n){ $tB+=$n } else { $tam=$false } }
-    foreach($og in @($ky.ogeler.alacak)){ $n=YvT2 $og.tutar; if($null -ne $n){ $tA+=$n } else { $tam=$false } }
-    if($tam -and $tB -ne $tA){ $rapor.Add("YEVMIYE DENK DEGIL: $id kayit $ki (borc $tB / alacak $tA)") }
+  foreach($hangi in @('sema','ikiz_sema')){
+    if(-not ($cvp.PSObject.Properties[$hangi] -and $cvp.$hangi)){ continue }
+    # DIKKAT: bu degiskene '$etiket' DENMEZ - PS harf ayirmaz, -Etiket parametresini
+    # ezer ve sonda "yazildi: kalip-parti-.html" gibi bos ad basar (02.09 yasandi).
+    $denetEtiket=if($hangi -eq 'ikiz_sema'){ 'IKIZ ' } else { '' }
+    $ki=0
+    foreach($ky in (KayitListesi $cvp.$hangi)){
+      $ki++
+      if(-not $ky.ogeler){ continue }
+      $tB=[decimal]0; $tA=[decimal]0; $tam=$true
+      foreach($og in @($ky.ogeler.borc)){ $n=YvT2 $og.tutar; if($null -ne $n){ $tB+=$n } else { $tam=$false } }
+      foreach($og in @($ky.ogeler.alacak)){ $n=YvT2 $og.tutar; if($null -ne $n){ $tA+=$n } else { $tam=$false } }
+      if($tam -and $tB -ne $tA){ $rapor.Add("${denetEtiket}YEVMIYE DENK DEGIL: $id kayit $ki (borc $tB / alacak $tA)") }
+    }
   }
 }
 
@@ -516,8 +561,32 @@ $ekCss=@'
 .dkx.dog{border-color:#7fc98f;background:rgba(127,201,143,.12)}.dkx.yan{border-color:#e07b7b;background:rgba(224,123,123,.12)}
 .rozet2{display:inline-block;background:rgba(201,162,39,.14);border:1px solid #c9a227;color:#c9a227;border-radius:999px;padding:2px 10px;font-size:.78em;font-weight:800;margin-left:8px}
 '@
+# DENK OYUNU cizdiricisi (02.09) - asil kayit ve IKIZ kayit ayni fonksiyondan.
+# $ekSinif='ikiz' ise oyun ikiz blogunun icine gomulur (kendi kapsaminda calisir).
+function OyunHtml($kayitlar,[string]$dugmeYazi,[string]$anlatim,[string]$ekSinif){
+  if(-not $kayitlar -or @($kayitlar).Count -eq 0){ return '' }
+  $dk=[Text.StringBuilder]::new()
+  $bg=if($ekSinif -eq 'ikiz'){ '#78b4ff' } else { '#8fc98f' }
+  [void]$dk.Append("<div class='dkSar $ekSinif' style='margin-top:12px'><button class='dgm2 dkAc' style='background:$bg'>$dugmeYazi</button><div class='dkB'><p style='font-size:.88em'>$anlatim</p>")
+  foreach($ky in @($kayitlar)){
+    if(-not ($ky.ogeler -and $ky.ogeler.PSObject.Properties['borc'])){ return '' }
+    if("$($ky.baslik)".Trim()){ [void]$dk.Append("<div style='margin:10px 0 4px;font-weight:800;font-size:.9em;color:#78b4ff'>$(K $ky.baslik)</div>") }
+    [void]$dk.Append("<table class='tcetvel'><tr><th style='text-align:left'>HESAP</th><th style='width:118px'>BORÇ</th><th style='width:118px'>ALACAK</th></tr>")
+    $tumOg=@()
+    foreach($og in @($ky.ogeler.borc)){ $tumOg+=,@{h="$($og.hesap)";t="$($og.tutar)";taraf='b'} }
+    foreach($og in @($ky.ogeler.alacak)){ $tumOg+=,@{h="$($og.hesap)";t="$($og.tutar)";taraf='a'} }
+    foreach($og in @($tumOg | Sort-Object { $_.h })){
+      $db=''; $da=''; if($og.taraf -eq 'b'){ $db=$og.t } else { $da=$og.t }
+      [void]$dk.Append("<tr><td style='text-align:left'>$(K $og.h)</td><td><input class='dkx' data-d='$(K $db)'></td><td><input class='dkx' data-d='$(K $da)'></td></tr>")
+    }
+    [void]$dk.Append("<tr style='border-top:2px solid #78b4ff;font-weight:800'><td style='text-align:left'>TOPLAM</td><td class='ttutar dkTb'>—</td><td class='ttutar dkTa'>—</td></tr></table>")
+  }
+  [void]$dk.Append("<button class='dgm2 dkKontrol'>⚖️ Denk mi?</button><button class='dgm2 dkGoster' style='background:#5a5648;color:#e8e6e3'>Doğruları göster</button><div class='dkMesaj' style='margin-top:8px;font-weight:800'></div></div></div>")
+  return $dk.ToString()
+}
 $sb=[Text.StringBuilder]::new()
 [void]$sb.Append("<!doctype html><html lang=""tr""><head><meta charset=""utf-8""><title>KALIP PARTİSİ — $Sinav $DersRegex ($($don.Count) soru)</title><style>$css$ekCss</style></head><body>")
+[void]$sb.Append("<div id='seriKutu' style='position:sticky;top:0;z-index:50;background:#1b1b1f;border-bottom:1px solid #3b372f;padding:7px 10px;margin:-10px -10px 12px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:.9em'><span id='seriSerit' style='color:#8a8a8a'>⚖️ Denk serisi: 0</span><span id='seriRekor' style='color:#8a8a8a;font-weight:600;font-size:.85em'></span></div>")
 [void]$sb.Append("<h1>🧪 KALIP PARTİSİ — $Sinav / $DersRegex — SÖZLEŞMENİN TAMAMI, TIKLANABİLİR</h1><p style='color:#aaa;font-size:13px'>Şık seç → tuzak kutusu → açıklama → 🎬 adım adım → ✍️ ikiz + 💡 ipucu. Konular köprüden, kaynaklar ambardan. KASAYA YAZILMADI.</p>")
 if($kaynakBorcu.Count){ [void]$sb.Append("<div style='border:1px solid #e07b7b;border-radius:10px;padding:10px;margin:10px 0;font-size:.85em'><b>📌 KAYNAK BORCU (üretilmedi — yutulacak):</b><br>$(($kaynakBorcu | ForEach-Object { K $_ }) -join '<br>')</div>") }
 if($rapor.Count){ [void]$sb.Append("<p style='color:#e0a458;font-size:12px'>Üretim notları: $(K ($rapor -join ' · '))</p>") }
@@ -569,31 +638,10 @@ foreach($id in ($don.Keys|Sort-Object)){
   # Hesaplar kod sirasiyla TEK listede verilir ki taraf bilgisi sizmasin.
   # 02.09: eski tek-'ogeler' biciminde kalan sorular (cozum_tablo'su olmadigi icin
   # FAZ-S'ye hic girmeyenler) da oyun alir - cizdiricideki geri uyumun aynisi.
-  $oyunKayit=@()
-  if($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye'){
-    if($cvp.sema.PSObject.Properties['kayitlar'] -and $cvp.sema.kayitlar){ $oyunKayit=@($cvp.sema.kayitlar) }
-    elseif($cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.ogeler){ $oyunKayit=@(,([pscustomobject]@{baslik='';ogeler=$cvp.sema.ogeler})) }
-  }
-  if($oyunKayit.Count){
-    $dk=[Text.StringBuilder]::new()
-    [void]$dk.Append("<div style='margin-top:12px'><button class='dgm2 dkAc' style='background:#8fc98f'>⚖️ Kaydı SEN yap — denk tutturabilecek misin?</button><div class='dkB'><p style='font-size:.88em'>Hesaplar ve tutarlar sende — ama tutarı hangi tarafa yazacağına <b>sen</b> karar vereceksin: borç mu, alacak mı? Bitince <b>Denk mi?</b> düğmesine bas — yevmiyenin ilk kontrolü budur.</p>")
-    $oyunOk=$true
-    foreach($ky in $oyunKayit){
-      if(-not ($ky.ogeler -and $ky.ogeler.PSObject.Properties['borc'])){ $oyunOk=$false; break }
-      if("$($ky.baslik)".Trim()){ [void]$dk.Append("<div style='margin:10px 0 4px;font-weight:800;font-size:.9em;color:#78b4ff'>$(K $ky.baslik)</div>") }
-      [void]$dk.Append("<table class='tcetvel'><tr><th style='text-align:left'>HESAP</th><th style='width:118px'>BORÇ</th><th style='width:118px'>ALACAK</th></tr>")
-      $tumOg=@()
-      foreach($og in @($ky.ogeler.borc)){ $tumOg+=,@{h="$($og.hesap)";t="$($og.tutar)";taraf='b'} }
-      foreach($og in @($ky.ogeler.alacak)){ $tumOg+=,@{h="$($og.hesap)";t="$($og.tutar)";taraf='a'} }
-      foreach($og in @($tumOg | Sort-Object { $_.h })){
-        $db=''; $da=''; if($og.taraf -eq 'b'){ $db=$og.t } else { $da=$og.t }
-        [void]$dk.Append("<tr><td style='text-align:left'>$(K $og.h)</td><td><input class='dkx' data-d='$(K $db)'></td><td><input class='dkx' data-d='$(K $da)'></td></tr>")
-      }
-      [void]$dk.Append("<tr style='border-top:2px solid #78b4ff;font-weight:800'><td style='text-align:left'>TOPLAM</td><td class='ttutar dkTb'>—</td><td class='ttutar dkTa'>—</td></tr></table>")
-    }
-    [void]$dk.Append("<button class='dgm2 dkKontrol'>⚖️ Denk mi?</button><button class='dgm2 dkGoster' style='background:#5a5648;color:#e8e6e3'>Doğruları göster</button><div class='dkMesaj' style='margin-top:8px;font-weight:800'></div></div></div>")
-    if($oyunOk){ [void]$sb.Append($dk.ToString()) }
-  }
+  # @() SART: PS fonksiyondan donen tek elemanli diziyi COZER, .Count null olur ve
+  # oyun sessizce basilmaz (02.09: 23 kayittan 14'u boyle kayboldu).
+  $oyunKayit=@(KayitListesi $cvp.sema)
+  if($oyunKayit.Count){ [void]$sb.Append((OyunHtml $oyunKayit '⚖️ Kaydı SEN yap — denk tutturabilecek misin?' 'Hesaplar ve tutarlar sende — ama tutarı hangi tarafa yazacağına <b>sen</b> karar vereceksin: borç mu, alacak mı? Bitince <b>Denk mi?</b> düğmesine bas — yevmiyenin ilk kontrolü budur.' '')) }
   if($ikVar){
     $ik=$cvp.ikiz
     $ikVerK=@{}; foreach($v in @($ik.verilen)){ $ikVerK["$(@($v)[0]),$(@($v)[1])"]=1 }
@@ -618,7 +666,13 @@ foreach($id in ($don.Keys|Sort-Object)){
       [void]$tb.Append('</tr>')
     }
     [void]$tb.Append('</table>')
-    [void]$sb.Append("<div style='margin-top:12px'><button class='dgm2 ikizAcB'>✍️ Şimdi sen dene — aynı yöntemi yeni rakamlarla</button><div class='ikizB'><p style='font-weight:600'>$(K $ik.ikiz_soru)</p><p style='color:#7fc98f;font-size:.88em'>🎯 $(K $ik.hedef_cumle) — 🔷 maviler soruda verildi; boşları SEN doldur.</p>$($tb.ToString())<button class='dgm2 ikKontrol'>Kontrol et</button><button class='dgm2 ipAl' style='background:#78b4ff'>💡 Takıldım — ipucu (1/3)</button><button class='dgm2 ikGoster' style='background:#5a5648;color:#e8e6e3'>Doğruları göster</button><span class='ikSkor' style='margin-left:8px;font-weight:800'></span><div class='ipP'><span style='font-weight:800;color:#78b4ff;font-size:.8em' class='ipB'></span><div class='ipM' style='margin-top:4px'></div><div class='ipf' style='display:none'></div></div></div></div>")
+    # 02.09 GM onerisi 1 (Cem "1 YAP"): ikizin KAYIT versiyonu AYNI blogun icinde -
+    # ogrenci ayni yontemi ikinci kez, YENI rakamlarla uygular. Kas hafizasi burada.
+    $ikOyun=''
+    if($cvp.PSObject.Properties['ikiz_sema'] -and $cvp.ikiz_sema){
+      $ikOyun=OyunHtml (KayitListesi $cvp.ikiz_sema) '⚖️ Şimdi kaydı da sen yaz — yeni rakamlarla' 'Aynı yöntem, yeni rakamlar. Tutarları hangi tarafa yazacağına yine <b>sen</b> karar ver.' 'ikiz'
+    }
+    [void]$sb.Append("<div style='margin-top:12px'><button class='dgm2 ikizAcB'>✍️ Şimdi sen dene — aynı yöntemi yeni rakamlarla</button><div class='ikizB'><p style='font-weight:600'>$(K $ik.ikiz_soru)</p><p style='color:#7fc98f;font-size:.88em'>🎯 $(K $ik.hedef_cumle) — 🔷 maviler soruda verildi; boşları SEN doldur.</p>$($tb.ToString())<button class='dgm2 ikKontrol'>Kontrol et</button><button class='dgm2 ipAl' style='background:#78b4ff'>💡 Takıldım — ipucu (1/3)</button><button class='dgm2 ikGoster' style='background:#5a5648;color:#e8e6e3'>Doğruları göster</button><span class='ikSkor' style='margin-left:8px;font-weight:800'></span><div class='ipP'><span style='font-weight:800;color:#78b4ff;font-size:.8em' class='ipB'></span><div class='ipM' style='margin-top:4px'></div><div class='ipf' style='display:none'></div></div>$ikOyun</div></div>")
     # ipucu verisi: formul zinciri adimlardan
     $genel=New-Object System.Collections.Generic.List[string]
     foreach($aa in @($cvp.adimlar)){
@@ -662,6 +716,23 @@ $ikJson='{}'; if($ikmap.Count){ $ikJson=ConvertTo-Json -InputObject $ikmap -Dept
 [void]$sb.Append(@"
 <script>
 const ADIMMAP=$amapJson; const VTMAP=$vmapJson; const TUZAKMAP=$tzJson; const IPUCUMAP=$ikJson;
+// 02.09 GM onerisi 2 (Cem "2 YAP"): SERI SERIDI sayfanin tepesinde sabit durur -
+// ogrenci seriyi kirmamak icin devam eder. Tek kaynak: localStorage.
+const SERISER=document.getElementById('seriSerit'), SERIREK=document.getElementById('seriRekor');
+function SERI(delta){
+  let s=0,r=0;
+  try{ s=parseInt(localStorage.getItem('tetikte_denk_seri')||'0'); r=parseInt(localStorage.getItem('tetikte_denk_rekor')||'0'); }catch(e){}
+  if(delta===0){ s=0; } else if(delta){ s+=delta; }
+  if(s>r){ r=s; }
+  try{ localStorage.setItem('tetikte_denk_seri',String(s)); localStorage.setItem('tetikte_denk_rekor',String(r)); }catch(e){}
+  if(SERISER){
+    SERISER.textContent=(s>0?('🔥 Denk serisi: '+s+' kayıt'):'⚖️ Denk serisi: 0 — ilk kaydı tuttur');
+    SERISER.style.color=(s>=3)?'#c9a227':(s>0?'#8fc98f':'#8a8a8a');
+  }
+  if(SERIREK){ SERIREK.textContent=(r>0?('en iyi: '+r):''); }
+  return s;
+}
+SERI();
 document.querySelectorAll('.soru').forEach(soru=>{
   const sid=soru.dataset.sid, DOGRU=soru.dataset.dogru, TZ=TUZAKMAP[sid]||{};
   // SIK -> tuzak + aciklama
@@ -711,33 +782,32 @@ document.querySelectorAll('.soru').forEach(soru=>{
         if(n>=IP.length){ ipBtn.style.opacity='.55'; } }); }
     else if(ipBtn){ ipBtn.style.display='none'; }
   }
-  // DENK OYUNU (01.09): tutari dogru tarafa yaz -> toplamlar canli -> rozet + seri
-  const dkA=soru.querySelector('.dkAc');
-  if(dkA){
+  // DENK OYUNU (01.09; 02.09 coklu: asil kayit + IKIZ kayit ayni soruda)
+  soru.querySelectorAll('.dkSar').forEach(sar=>{
+    const dkA=sar.querySelector('.dkAc'); if(!dkA) return;
     const nrm=t=>String(t||'').toLowerCase().replace(/tl/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
     const say=t=>{const n=parseFloat(nrm(t));return isNaN(n)?0:n;};
     const fmt=n=>n.toLocaleString('tr-TR');
-    dkA.addEventListener('click',()=>{ dkA.style.display='none'; soru.querySelector('.dkB').style.display='block'; });
-    const topla=()=>{ soru.querySelectorAll('.dkB table').forEach(tb=>{
+    dkA.addEventListener('click',()=>{ dkA.style.display='none'; sar.querySelector('.dkB').style.display='block'; });
+    const topla=()=>{ sar.querySelectorAll('.dkB table').forEach(tb=>{
         let b=0,a=0; tb.querySelectorAll('tr').forEach(tr=>{ const ins=tr.querySelectorAll('.dkx'); if(ins.length===2){ b+=say(ins[0].value); a+=say(ins[1].value);} });
         const cb=tb.querySelector('.dkTb'), ca=tb.querySelector('.dkTa');
         if(cb){ cb.textContent=fmt(b); ca.textContent=fmt(a); const denk=(b===a&&b>0); cb.style.color=denk?'#8fc98f':'#e07b7b'; ca.style.color=cb.style.color; }
       });};
-    soru.querySelectorAll('.dkx').forEach(i=>i.addEventListener('input',topla));
-    soru.querySelector('.dkKontrol').addEventListener('click',()=>{
+    sar.querySelectorAll('.dkx').forEach(i=>i.addEventListener('input',topla));
+    sar.querySelector('.dkKontrol').addEventListener('click',()=>{
       let d=0,t=0,denkHepsi=true;
-      soru.querySelectorAll('.dkx').forEach(i=>{ t++; const ok=nrm(i.value)===nrm(i.dataset.d); i.classList.remove('dog','yan'); i.classList.add(ok?'dog':'yan'); if(ok)d++; });
+      sar.querySelectorAll('.dkx').forEach(i=>{ t++; const ok=nrm(i.value)===nrm(i.dataset.d); i.classList.remove('dog','yan'); i.classList.add(ok?'dog':'yan'); if(ok)d++; });
       topla();
-      soru.querySelectorAll('.dkB table').forEach(tb=>{ let b=0,a=0; tb.querySelectorAll('tr').forEach(tr=>{ const ins=tr.querySelectorAll('.dkx'); if(ins.length===2){ b+=say(ins[0].value); a+=say(ins[1].value);} }); if(b!==a||b===0) denkHepsi=false; });
-      const ms=soru.querySelector('.dkMesaj'); let seri=0;
-      try{ seri=parseInt(localStorage.getItem('tetikte_denk_seri')||'0'); }catch(e){}
-      if(d===t&&denkHepsi){ seri++; try{ localStorage.setItem('tetikte_denk_seri',String(seri)); }catch(e){}
+      sar.querySelectorAll('.dkB table').forEach(tb=>{ let b=0,a=0; tb.querySelectorAll('tr').forEach(tr=>{ const ins=tr.querySelectorAll('.dkx'); if(ins.length===2){ b+=say(ins[0].value); a+=say(ins[1].value);} }); if(b!==a||b===0) denkHepsi=false; });
+      const ms=sar.querySelector('.dkMesaj');
+      if(d===t&&denkHepsi){ const seri=SERI(+1);
         ms.innerHTML='🏅 <span style="color:#8fc98f">DENK! Kayıt senin.</span> Seri: '+seri+' kayıt'+(seri>=3?' 🔥':''); ms.style.color='#8fc98f'; }
-      else { try{ localStorage.setItem('tetikte_denk_seri','0'); }catch(e){}
+      else { SERI(0);
         ms.textContent=denkHepsi?('Toplamlar denk ama '+(t-d)+' hücre yanlış — tutar doğru tarafta mı? Kırmızılara bak.'):'Denk değil — hangi taraf eksik? TOPLAM satırı söylüyor. (Seri sıfırlandı)'; ms.style.color='#e07b7b'; }
     });
-    soru.querySelector('.dkGoster').addEventListener('click',()=>{ soru.querySelectorAll('.dkx').forEach(i=>{ i.value=i.dataset.d; i.classList.remove('yan','dog'); if(i.dataset.d){ i.classList.add('dog'); } }); topla(); });
-  }
+    sar.querySelector('.dkGoster').addEventListener('click',()=>{ sar.querySelectorAll('.dkx').forEach(i=>{ i.value=i.dataset.d; i.classList.remove('yan','dog'); if(i.dataset.d){ i.classList.add('dog'); } }); topla(); });
+  });
 });
 </script>
 "@)
