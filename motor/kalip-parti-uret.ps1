@@ -140,6 +140,21 @@ $OZEL_DESEN=@{
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
   # 02.09: teori notu yazilip yutuldu (veri/mevzuat/teori-mizan-20260902.json)
   'kesin mizan'              = @('TEORI - Mizan%')
+  # 02.09 KOPRU YANLIS ESLESMESI ONARIMI: bu alti konu kopruDE yanlis dayanaga
+  # baglanmisti (ucu birden "VUK m.275 - Imal edilen emtia"). KAPI-A yanlis
+  # eslesmeyi dogru yakaladi; asagidaki desenler AMBARDA TEK TEK OLCULDU (hepsi VAR).
+  'ozkaynak hesaplama'          = @('THP 500%','THP 540%','THP 570%','THP 590%','THP 529%')
+  'dönemsellik kavramı'         = @('MSUGT 1 kavram%','THP 180%','THP 380%','THP 181%','THP 381%')
+  'duran varlik satisi'         = @('VUK (213 s.K.) m.328%','THP 253%','THP 257%','THP 679%','THP 689%')
+  'kollektif sirket kar dagitimi'= @('TTK (6102 s.K.) m.62%','TTK (6102 s.K.) m.63%','TTK (6102 s.K.) m.64%')
+  'yasal yedek akce'            = @('TTK (6102 s.K.) m.519%','THP 540%','THP 541%')
+  'kasa sayim farki'            = @('THP 197%','THP 397%','THP 100%')
+  # 02.09 HAKEM (KAPI-B) yakalamalari - ikisi de ayni sinif: kopru yanlis dayanak.
+  # kp-04: soru 381 GIDER TAHAKKUKLARI (PASIF gecici) sorarken kopru VUK m.283'e
+  #        (AKTIF gecici hesaplar) baglamisti - dogrusu m.287.
+  # kp-29: 690'a devir KAYIT teknigi sorarken kopru TMS 1'e (sunulus) baglamisti.
+  'gider tahakkuku'             = @('VUK (213 s.K.) m.287%','THP 381%','THP 770%')
+  'gelir tablosu hesaplari'     = @('THP 690%','THP 600%','THP 611%','THP 621%')
 }
 # Hakem yakalamalarindan dogan konu-ozel uretim uyarilari (isteme eklenir)
 $OZEL_NOT=@{
@@ -332,6 +347,14 @@ foreach($kk in $KONULAR){
   $konuKokler=@(("$($ky.konu)" -split '\s+') | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^\d' } | ForEach-Object { $k2=KokKatla $_; if($k2.Length -ge 6){ $k2.Substring(0,$k2.Length-2) } else { $k2 } })
   $ambLc=KokKatla $amb.metin
   $alaka=($konuKokler.Count -eq 0) -or (@($konuKokler | Where-Object { $ambLc.Contains($_) }).Count -ge 1)
+  # 02.09: OZEL_DESEN'deki kaynaklar ELLE OLCULEREK secildi (konu-kaynak eslesmesi
+  # GM tarafindan dogrulandi). Kok-arama orada yanlis red uretebilir - ornegin
+  # 'ozkaynak' kelimesi THP 500 SERMAYE metninde gecmeyebilir ama kaynak DOGRUDUR.
+  # Guvenlik kaybi yok: dayanak hakemi (KAPI B) bu sorulari yine de siniyor.
+  if(-not $alaka -and $OZEL_DESEN.ContainsKey($konuLc)){
+    $alaka=$true
+    Write-Host "  KAPI-A atlandi (OZEL_DESEN elle dogrulanmis): $($ky.konu)" -ForegroundColor DarkGray
+  }
   if(-not $alaka){
     if($amb.agHatasi){
       $rapor.Add("OLCULEMEDI (ag hatasi, eksik kaynakla alaka denetimi): $($ky.konu)")
