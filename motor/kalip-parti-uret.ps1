@@ -76,14 +76,23 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
   foreach($d in $desenler){
     if(-not $d){ continue }
     $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($d)+'&limit=6'
-    try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60 }catch{ continue }
+    # 02.09 KRITIK: eski hali 'catch{ continue }' idi - AG HATASI sessizce
+    # "kaynak yok" gibi davraniyordu ve konu KAPI-A'dan 'alakasiz kaynak' diye
+    # duduyordu. Olculemeyen ile YOK ayni sey degildir: artan bekleme ile 3 kez
+    # denenir, yine olmazsa AG HATASI olarak isaretlenir (kaynak borcu DEGIL).
+    $r=$null; $agHatasi=$null
+    foreach($dn in 1..3){
+      try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; $agHatasi=$null; break }
+      catch{ $agHatasi=$_.Exception.Message; if($dn -lt 3){ Start-Sleep -Seconds (4*$dn) } }
+    }
+    if($agHatasi){ $script:AMBAR_AG_HATASI=$agHatasi; continue }
     foreach($x in @($r)){
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
     if($adlar.Count -ge 10){ break }
   }
   $m=($topla -join "`n---`n"); if($m.Length -gt $tavan){ $m=$m.Substring(0,$tavan) }
-  return @{ metin=$m; adlar=@($adlar) }
+  return @{ metin=$m; adlar=@($adlar); agHatasi=$script:AMBAR_AG_HATASI }
 }
 # dayanak ham metninden ambar sorgu desenleri türet
 $KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.)'; 'GVK'='GVK (193 s.K.)'; 'KVK'='KVK GUT (1 Seri No)'; 'KDV'='KDV%'; 'SPK'='Sermaye Piyasası K. (6362 s.K.)'; 'İİK'='İİK%'; 'SGK'='SGK%' }
@@ -272,8 +281,10 @@ if(Test-Path $kalipYol){
       if($toplamSayilan -gt 0){
         foreach($t in $tipSira){
           if(-not $dk.tip_dagilim.PSObject.Properties[$t]){ continue }
-          $adet=[math]::Round($Adet*([int]$dk.tip_dagilim.$t/[double]$toplamSayilan))
-          for($q=0;$q -lt $adet;$q++){ $TIP_HEDEF.Add($t) }
+          # DIKKAT: '$adet' DENMEZ - PS harf ayirmaz, -Adet parametresini ezer ve
+          # kota her turda kuculur (02.09: 30 soru icin 14/4/1 uretti, dogrusu 12/8/6).
+          $tipAdet=[math]::Round($Adet*([int]$dk.tip_dagilim.$t/[double]$toplamSayilan))
+          for($q=0;$q -lt $tipAdet;$q++){ $TIP_HEDEF.Add($t) }
         }
         while($TIP_HEDEF.Count -lt $Adet){ $TIP_HEDEF.Add('kayit') }
         "tip kotasi: " + (($TIP_HEDEF | Group-Object | ForEach-Object { "$($_.Name)=$($_.Count)" }) -join ' ')
@@ -300,7 +311,14 @@ foreach($kk in $KONULAR){
   $ky=$kk.kayit
   $konuLc="$($ky.konu)".ToLowerInvariant()
   $desenler=if($OZEL_DESEN.ContainsKey($konuLc)){ $OZEL_DESEN[$konuLc] } else { DesenUret $ky }
+  $script:AMBAR_AG_HATASI=$null
   $amb=AmbarCek $desenler
+  # AG HATASI != KAYNAK YOK. Olculemeyen konu borca yazilmaz, ayri raporlanir.
+  if($amb.agHatasi -and (-not $amb.metin -or $amb.metin.Length -lt 300)){
+    $rapor.Add("OLCULEMEDI (ag hatasi, kaynak borcu DEGIL): $($ky.konu)")
+    Write-Host "  AG HATASI (kaynak cekilemedi, tekrar denenecek): $($ky.konu)" -ForegroundColor Magenta
+    continue
+  }
   if(-not $amb.metin -or $amb.metin.Length -lt 300){
     $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | dayanak: $($ky.dayanak) / $($ky.cikmis_dayanak)")
     Write-Host "  KAYNAK BORCU: $($ky.konu)" -ForegroundColor Yellow
@@ -315,6 +333,11 @@ foreach($kk in $KONULAR){
   $ambLc=KokKatla $amb.metin
   $alaka=($konuKokler.Count -eq 0) -or (@($konuKokler | Where-Object { $ambLc.Contains($_) }).Count -ge 1)
   if(-not $alaka){
+    if($amb.agHatasi){
+      $rapor.Add("OLCULEMEDI (ag hatasi, eksik kaynakla alaka denetimi): $($ky.konu)")
+      Write-Host "  AG HATASI (eksik kaynak - KAPI-A guvenilmez): $($ky.konu)" -ForegroundColor Magenta
+      continue
+    }
     $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | KAPI-A: cekilen kaynak konuyla ALAKASIZ ($((@($amb.adlar)|Select-Object -First 2) -join '; '))")
     Write-Host "  KAPI-A RED (alakasiz kaynak): $($ky.konu)" -ForegroundColor Yellow
     continue
