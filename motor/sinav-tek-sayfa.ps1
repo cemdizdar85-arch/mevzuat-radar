@@ -41,7 +41,7 @@ $GIRDILER = @(
   @{ ad='kota-smmm';          yol='veri\uretim-kotasi.json';              uretici='motor/kota-kur.ps1';                   robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
   @{ ad='kota-sgs';           yol='veri\sgs-uretim-kotasi.json';          uretici='motor/sgs-kota-kur.ps1';               robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
   @{ ad='kota-kgk';           yol='veri\kgk-uretim-kotasi.json';          uretici='motor/kota-kur.ps1 (elle)';            robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
-  @{ ad='konu-koprusu';       yol='veri\konu-koprusu-ozet.json';          uretici='motor/konu-koprusu-kur.ps1';           robot='yok (V2 bekliyor: kasadan türetme)';    damga='' }
+  @{ ad='konu-koprusu';       yol='veri\konu-koprusu-ozet.json';          uretici='motor/konu-koprusu-kur.ps1';           robot='yok (V2 bekliyor: kasadan türetme)';    damga='kaynak' }
   @{ ad='ambar-envanteri';    yol='veri\AMBAR-ENVANTERI.md';              uretici='motor/ambar-envanteri.ps1';            robot='ambar-kapilari.yml · her gün 11:00 TR'; damga='md' }
   @{ ad='butunluk-raporu';    yol='veri\butunluk-raporu.json';            uretici='motor/butunluk-kapisi.ps1';            robot='ambar-kapilari.yml · her gün 11:00 TR'; damga='tarih' }
   @{ ad='cikmis-karnesi';     yol='veri\cikmis-soru-karnesi.json';        uretici='motor/cikmis-soru-karnesi.ps1';        robot='yok';                                   damga='tarih' }
@@ -124,9 +124,17 @@ foreach($g in $GIRDILER){
   $durum = 'YOK'; $yas = -1; $mtime = ''; $damgaMetin = ''
   $nesne = $null
   if(Test-Path $tam){
+    # Dosya tarihi = son COMMIT tarihi (CI'da checkout her dosyayı "bugün" yapar, mtime yalan
+    # söyler; git tarihi hem yerelde hem CI'da aynıdır). Git yoksa mtime.
     $bilgi = Get-Item $tam
-    $mtime = $bilgi.LastWriteTime.ToString('dd.MM.yyyy HH:mm')
-    $yas = [int]($simdi - $bilgi.LastWriteTime).TotalDays
+    $sonYazim = $bilgi.LastWriteTime
+    try {
+      $gitTarih = (& git -C $depoKok log -1 --format=%cI -- $g.yol 2>$null)
+      if($gitTarih){ $sonYazim = [datetime]::Parse("$gitTarih", [Globalization.CultureInfo]::InvariantCulture) }
+    } catch {}
+    if($bilgi.LastWriteTime -gt $sonYazim.AddMinutes(5) -and -not $env:GITHUB_ACTIONS){ $sonYazim = $bilgi.LastWriteTime }  # yerelde commit'siz taze dosya
+    $mtime = $sonYazim.ToString('dd.MM.yyyy HH:mm')
+    $yas = [int]($simdi - $sonYazim).TotalDays
     if($g.yol -like '*.json'){
       $nesne = Yukle $g.yol
       if($script:SON_YUKLEME_HATASI -or $null -eq $nesne){ $durum = 'KIRIK (json okunamadı)' }

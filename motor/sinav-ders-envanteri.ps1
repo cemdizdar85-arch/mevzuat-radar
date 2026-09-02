@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SINAV + DERS ENVANTERI (05.08.2026) — 0 USD, API YOK, YAZMA YOK
 #
 #  NEDEN: mevcut motor/etiket-duzelt.ps1 (29.07) kasada bir SINAV alani
@@ -154,15 +154,22 @@ foreach($k in ($sinavSay.Keys | Sort-Object { -$sinavSay[$_] })){
 $yanlisListe = Sirala $yanlisDers 30
 $topYanlis = 0; foreach($k in $yanlisDers.Keys){ $topYanlis += $yanlisDers[$k].soru }
 
-RaporYaz ([ordered]@{
-  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='TAMAM'; mod='OLCUM (0 USD, yazma yok)'
-  kasa=$kasa.Count
-  SINAV_dagilimi=@($sinavListe)
-  sinav_ders_dagilimi=@(Sirala $sd 40)
-  YANLIS_DERS_ADAYI_toplam=$topYanlis
-  yanlis_ders_gecisleri=@($yanlisListe)
-  not='Yalniz OLCUM. Bu rapor bu gecenin iki olcumundeki EKSIGI kapatir: konu-dagilim ve bosluk-dogrulama SINAV alanini filtrelemiyordu, bu yuzden SGS sorulari "plan disi"/"yanlis" gorunuyordu. Etiket tasimasi ancak bu envanter okunduktan sonra yapilmalidir.'
-})
+# 02.09 KUSUR (tek sayfa kurulurken bulundu): bu rapor 25.08'den beri "HATA / Argument
+# types do not match / satir 157" yaziyordu. Sebep PS 5.1 tuzagi: [ordered]@{ ... }
+# LITERALININ icinde @($liste) degerleri (liste elemanlari da [ordered]) patliyor.
+# Cozum: sozluk BOS acilir, alanlar tek tek atanir. Ayni tuzak sinav-tek-sayfa.ps1'de
+# de ilk kosuda vurdu; ders [[ps-degisken-cakismasi]] hafizasina yazildi.
+$rapor = [ordered]@{}
+$rapor['tarih'] = (Get-Date -Format 'dd.MM.yyyy HH:mm')
+$rapor['durum'] = 'TAMAM'
+$rapor['mod'] = 'OLCUM (0 USD, yazma yok)'
+$rapor['kasa'] = $kasa.Count
+$rapor['SINAV_dagilimi'] = $sinavListe.ToArray()
+$rapor['sinav_ders_dagilimi'] = @(Sirala $sd 40)
+$rapor['YANLIS_DERS_ADAYI_toplam'] = $topYanlis
+$rapor['yanlis_ders_gecisleri'] = @($yanlisListe)
+$rapor['not'] = 'Yalniz OLCUM. Bu rapor bu gecenin iki olcumundeki EKSIGI kapatir: konu-dagilim ve bosluk-dogrulama SINAV alanini filtrelemiyordu, bu yuzden SGS sorulari "plan disi"/"yanlis" gorunuyordu. Etiket tasimasi ancak bu envanter okunduktan sonra yapilmalidir.'
+RaporYaz $rapor
 Write-Host "`n=== SINAV DAGILIMI ==="
 $sinavListe | ForEach-Object { Write-Host ("  {0,-10} {1,6} soru   (Yeterlilik dersi {2}, listede olmayan {3})" -f $_.sinav, $_.soru, $_.dersi_Yeterlilik_listesinde, $_.dersi_listede_YOK) }
 Write-Host ("`n=== YANLIS DERS ADAYI: {0} soru ===" -f $topYanlis)

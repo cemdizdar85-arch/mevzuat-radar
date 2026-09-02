@@ -1,5 +1,5 @@
 ﻿{
-    "olcum":  "02.09.2026 18:08",
+    "olcum":  "02.09.2026 18:14",
     "kural":  "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
     "kaynak_sagligi":  [
                            {
@@ -27,7 +27,7 @@
                                "dosya":  "veri/uretim-kotasi.json",
                                "durum":  "SABİT (karar dosyası)",
                                "damga":  "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
-                               "mtime":  "31.07.2026 10:14",
+                               "mtime":  "31.07.2026 10:15",
                                "yas_gun":  33,
                                "uretici":  "motor/kota-kur.ps1",
                                "robot":  "yok (Cem kararı; tarih anlamsız)"
@@ -47,7 +47,7 @@
                                "dosya":  "veri/kgk-uretim-kotasi.json",
                                "durum":  "SABİT (karar dosyası)",
                                "damga":  "01.08.2026 (Cem plan onayi ayni gun: \u0027ONAY VERIYORUM\u0027)",
-                               "mtime":  "24.08.2026 17:44",
+                               "mtime":  "24.08.2026 21:15",
                                "yas_gun":  32,
                                "uretici":  "motor/kota-kur.ps1 (elle)",
                                "robot":  "yok (Cem kararı; tarih anlamsız)"
@@ -56,8 +56,8 @@
                                "ad":  "konu-koprusu",
                                "dosya":  "veri/konu-koprusu-ozet.json",
                                "durum":  "TAZE",
-                               "damga":  "",
-                               "mtime":  "01.09.2026 15:59",
+                               "damga":  "SINAVKONUDAYANAKHARITASI31082026.xlsx / 4-KONU BIRLESIK (31.08 olcumu; 5/5 sondaj dogrulamali)",
+                               "mtime":  "01.09.2026 16:00",
                                "yas_gun":  1,
                                "uretici":  "motor/konu-koprusu-kur.ps1",
                                "robot":  "yok (V2 bekliyor: kasadan türetme)"
@@ -67,7 +67,7 @@
                                "dosya":  "veri/AMBAR-ENVANTERI.md",
                                "durum":  "TAZE",
                                "damga":  "02.09.2026 17:57",
-                               "mtime":  "02.09.2026 17:57",
+                               "mtime":  "02.09.2026 17:59",
                                "yas_gun":  0,
                                "uretici":  "motor/ambar-envanteri.ps1",
                                "robot":  "ambar-kapilari.yml · her gün 11:00 TR"
@@ -77,7 +77,7 @@
                                "dosya":  "veri/butunluk-raporu.json",
                                "durum":  "TAZE",
                                "damga":  "02.09.2026 14:53",
-                               "mtime":  "02.09.2026 17:59",
+                               "mtime":  "02.09.2026 17:54",
                                "yas_gun":  0,
                                "uretici":  "motor/butunluk-kapisi.ps1",
                                "robot":  "ambar-kapilari.yml · her gün 11:00 TR"
@@ -97,7 +97,7 @@
                                "dosya":  "veri/siklik-kunyesi.json",
                                "durum":  "TAZE",
                                "damga":  "30.08.2026 08:43",
-                               "mtime":  "30.08.2026 11:46",
+                               "mtime":  "30.08.2026 11:44",
                                "yas_gun":  3,
                                "uretici":  "motor/siklik-kunyesi.ps1",
                                "robot":  "konu-eslesme.yml · yalnız push"
@@ -157,7 +157,7 @@
                                "dosya":  "veri/dayanak-metinsiz-raporu.json",
                                "durum":  "TAZE",
                                "damga":  "",
-                               "mtime":  "02.09.2026 15:23",
+                               "mtime":  "02.09.2026 15:24",
                                "yas_gun":  0,
                                "uretici":  "arac/dayanak-metinsiz-tarama.ps1",
                                "robot":  "yok"
@@ -167,7 +167,7 @@
                                "dosya":  "veri/dayanak-kara-liste.json",
                                "durum":  "TAZE",
                                "damga":  "",
-                               "mtime":  "02.09.2026 15:31",
+                               "mtime":  "02.09.2026 15:32",
                                "yas_gun":  0,
                                "uretici":  "arac/dayanak-kara-liste.ps1",
                                "robot":  "yok"
@@ -185,10 +185,10 @@
                            {
                                "ad":  "sinav-ders-envanteri",
                                "dosya":  "veri/sinav-ders-envanteri.json",
-                               "durum":  "KIRIK (durum=HATA: Argument types do not match)",
+                               "durum":  "TAZE",
                                "damga":  "",
-                               "mtime":  "25.08.2026 16:46",
-                               "yas_gun":  8,
+                               "mtime":  "02.09.2026 18:14",
+                               "yas_gun":  0,
                                "uretici":  "motor/sinav-ders-envanteri.ps1",
                                "robot":  "sinav-ders-envanteri.yml · yalnız push"
                            }
