@@ -65,7 +65,9 @@ foreach($cift in $ARSIV){
   foreach($donem in @($analiz.donemler)){ if(-not $donem.konuSayim){ continue }; $dk="$($donem.donem)"; if(-not $donemGrup.ContainsKey($dk)){ $donemGrup[$dk]=New-Object System.Collections.Generic.List[object] }; $donemGrup[$dk].Add($donem) }
   $karantinaDonem=@{}
   foreach($dk in $donemGrup.Keys){
-    $girdiler=@($donemGrup[$dk]); if($girdiler.Count -lt 3){ continue }
+    # PS 5.1 TUZAĞI (02.09 gece, iki koşuyu sessizce öldürdü): JSON'dan gelen nesnelerin
+    # List'ini @() ile sarmak "Argument types do not match" fırlatır. .ToArray() kullanılır.
+    $girdiler=$donemGrup[$dk].ToArray(); if($girdiler.Count -lt 3){ continue }
     # PS 5.1: ForEach-Object icinde ',@()' ile dizi-dizisi kurulamiyor (ilk denemede duzlesti,
     # kapi hic tetiklenmedi). Her ders girdisi icin ayri HashSet kurulur.
     $kumeler=New-Object System.Collections.Generic.List[object]
@@ -88,7 +90,7 @@ foreach($cift in $ARSIV){
     if($supheli -ge 3){ $karantinaDonem[$dk]="$supheli/$($girdiler.Count) ders girdisi birbirinin aynısı (ders etiketi güvenilmez)"; Write-Host "  KARANTİNA $sinavAd $dk : $($karantinaDonem[$dk])" -ForegroundColor Yellow }
   }
   if(-not $script:KARANTINA){ $script:KARANTINA=New-Object System.Collections.Generic.List[object] }
-  foreach($dk in $karantinaDonem.Keys){ $script:KARANTINA.Add([pscustomobject]@{ sinav=$sinavAd; donem=$dk; sebep=$karantinaDonem[$dk]; atlanan_girdi=@($donemGrup[$dk]).Count }) }
+  foreach($dk in $karantinaDonem.Keys){ $script:KARANTINA.Add([pscustomobject]@{ sinav=$sinavAd; donem=$dk; sebep=$karantinaDonem[$dk]; atlanan_girdi=$donemGrup[$dk].Count }) }
   $donemSay=0
   foreach($donem in @($analiz.donemler)){
     if(-not $donem.konuSayim){ continue }
