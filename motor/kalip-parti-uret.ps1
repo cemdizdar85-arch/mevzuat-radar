@@ -94,12 +94,38 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
   $m=($topla -join "`n---`n"); if($m.Length -gt $tavan){ $m=$m.Substring(0,$tavan) }
   return @{ metin=$m; adlar=@($adlar); agHatasi=$script:AMBAR_AG_HATASI }
 }
+# --- DAYANAK KARA LISTESI (02.09 Cem: "cop dayanaklari bosalt") --------------
+# Kopru dayanaklari Excel'den geliyor ve bir kismi cop: tek maddeye binlerce konu
+# baglanmis. AMA korlemesine bosaltmak ZARARLI - olculdu: VUK m.275'e 2.088 konu
+# bagli ve %80'i DOGRU; onu bosaltmak 1.670 dogru dayanagi silerdi.
+# Bu yuzden yalnizca OLCULMUS copler (yanlis orani >=%50) listeye alinir; uretici
+# o dayanagi YOK SAYAR ve konuyu dogrudan ambarda arar. Kopru kaydi silinmez.
+# Olcum araci: arac/dayanak-kara-liste.ps1 (hakem, maddenin GERCEK metniyle sorar).
+$KARA_DAYANAK=New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+$klYol=Join-Path $kok 'veri\dayanak-kara-liste.json'
+if(Test-Path $klYol){
+  try{
+    $kl=Get-Content $klYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($d in @($kl.kara_liste)){ if("$d".Trim()){ [void]$KARA_DAYANAK.Add("$d".Trim()) } }
+    if($KARA_DAYANAK.Count){ "kara liste: $($KARA_DAYANAK.Count) guvenilmez dayanak yok sayilacak" }
+  }catch{ "kara liste okunamadi: $($_.Exception.Message)" }
+}
+function KaraMi([string]$dayanak){
+  $t=($dayanak -replace '\s*\(\d+\)\s*$','').Trim()
+  if(-not $t){ return $false }
+  return $KARA_DAYANAK.Contains($t)
+}
 # dayanak ham metninden ambar sorgu desenleri türet
 $KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.)'; 'GVK'='GVK (193 s.K.)'; 'KVK'='KVK GUT (1 Seri No)'; 'KDV'='KDV%'; 'SPK'='Sermaye Piyasası K. (6362 s.K.)'; 'İİK'='İİK%'; 'SGK'='SGK%' }
 function DesenUret($kayit){
   $d=New-Object System.Collections.Generic.List[string]
   foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
     if(-not $ham){ continue }
+    # 02.09: kara listedeki dayanak DESEN URETIMINE GIRMEZ - olculdu ki konularin
+    # cogunlugu o maddeyle ilgisiz (TTK m.720 %80, SMMM K. m.29 %70 yanlis).
+    # Boyle bir konu dayanaksiz sayilir ve asagidaki kok-joker yoluyla ambarda
+    # KONU ADIYLA aranir; bulunamazsa kaynak borcu olarak raporlanir.
+    if(KaraMi $ham){ continue }
     foreach($m in [regex]::Matches($ham,'(TMS|TFRS|BDS|GDS|TSRS|SBDS)\s*(\d+)')){ $d.Add("$($m.Groups[1].Value) $($m.Groups[2].Value) p.%") }
     foreach($m in [regex]::Matches($ham,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
     foreach($m in [regex]::Matches($ham,'(VUK|TTK|TBK|GVK)[^m]*m\.?\s*(\d+)(?:\s*[-–]\s*(\d+))?')){

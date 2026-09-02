@@ -1,0 +1,168 @@
+﻿{
+    "aciklama":  "En cok yigilan dayanaklarin GERCEK dogruluk olcumu. Hakeme dayanagin AMBARDAKI MADDE METNI verilir (kunye tek basina yaniltir - olculdu). Yanlis orani esigi asan dayanak KARA LISTEye girer: uretici o dayanaga guvenmez, konuyu dogrudan ambarda arar. Kopru kaydi SILINMEZ.",
+    "esik_yuzde":  50,
+    "olculen_dayanak":  10,
+    "kara_liste":  [
+                       "TTK (6102 s.K.) m.720",
+                       "SMMM K. (3568 s.K.) m.29"
+                   ],
+    "tahmini_yanlis_kayit_toplami":  1593,
+    "ayrinti":  [
+                    {
+                        "dayanak":  "VUK (213 s.K.) m.275 - İmal edilen emtia",
+                        "bagli_konu":  2088,
+                        "orneklem":  10,
+                        "dogru":  8,
+                        "yanlis":  2,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  20,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  418,
+                        "yanlis_ornekleri":  [
+                                                 "vuk maliyet bedeli unsurları (m.262)",
+                                                 "özsermaye değişimleri ve dönem sonuçlarının muhasebeleştirilmesi"
+                                             ]
+                    },
+                    {
+                        "dayanak":  "TTK (6102 s.K.) m.720",
+                        "bagli_konu":  978,
+                        "orneklem":  10,
+                        "dogru":  2,
+                        "yanlis":  8,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  80,
+                        "durum":  "KARA LISTE",
+                        "tahmini_yanlis_kayit":  782,
+                        "yanlis_ornekleri":  [
+                                                 "kar dagitimi kaydi",
+                                                 "bilanco pasif hesaplari",
+                                                 "noter masrafinin yevmiye kaydi",
+                                                 "bağlı menkul kıymetlerin maliyet bedeliyle kaydı",
+                                                 "tahvil ihracı ve ihraç primi",
+                                                 "gelir tablosunun yapısı ve kalemlerinin sınıflandırılması"
+                                             ]
+                    },
+                    {
+                        "dayanak":  "İş K. (4857 s.K.) m.11",
+                        "bagli_konu":  614,
+                        "orneklem":  10,
+                        "dogru":  9,
+                        "yanlis":  1,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  10,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  61,
+                        "yanlis_ornekleri":  [
+                                                 "is sozlesmesi feshi"
+                                             ]
+                    },
+                    {
+                        "dayanak":  "SPK Tebliğ (Seri: X, No: 22)",
+                        "bagli_konu":  346,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ]
+                    },
+                    {
+                        "dayanak":  "TTK (6102 s.K.) m.482",
+                        "bagli_konu":  264,
+                        "orneklem":  10,
+                        "dogru":  7,
+                        "yanlis":  3,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  30,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  79,
+                        "yanlis_ornekleri":  [
+                                                 "sermaye artirimi-ic kaynaklar",
+                                                 "nakliye sigortası priminin muhasebeleştirilmesi",
+                                                 "gider tahakkukları kaydı"
+                                             ]
+                    },
+                    {
+                        "dayanak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                        "bagli_konu":  256,
+                        "orneklem":  10,
+                        "dogru":  10,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  0,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ]
+                    },
+                    {
+                        "dayanak":  "TTK (6102 s.K.) m.516",
+                        "bagli_konu":  233,
+                        "orneklem":  10,
+                        "dogru":  6,
+                        "yanlis":  4,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  40,
+                        "durum":  "guvenilir",
+                        "tahmini_yanlis_kayit":  93,
+                        "yanlis_ornekleri":  [
+                                                 "aktif karlılık oranı",
+                                                 "genel üretim gideri yükleme ve sipariş maliyeti hesabı",
+                                                 "net kar marjı",
+                                                 "mamul maliyetine giren zorunlu unsurlar"
+                                             ]
+                    },
+                    {
+                        "dayanak":  "SMMM K. (3568 s.K.) m.29",
+                        "bagli_konu":  229,
+                        "orneklem":  10,
+                        "dogru":  3,
+                        "yanlis":  7,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  70,
+                        "durum":  "KARA LISTE",
+                        "tahmini_yanlis_kayit":  160,
+                        "yanlis_ornekleri":  [
+                                                 "gelir tablosu duzenleme",
+                                                 "gelir tablosu kar kalemleri",
+                                                 "kapsamlı gelir tablosu ve bileşenleri",
+                                                 "muhasebe kaydi",
+                                                 "brüt satış kârı hesaplaması",
+                                                 "duran varlik maliyetine dahil edilmeyen giderler - kasko sigortasi kaydi"
+                                             ]
+                    },
+                    {
+                        "dayanak":  "SPK Karari",
+                        "bagli_konu":  219,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ]
+                    },
+                    {
+                        "dayanak":  "TTK (6102 s.K.)",
+                        "bagli_konu":  177,
+                        "orneklem":  0,
+                        "dogru":  0,
+                        "yanlis":  0,
+                        "olculemedi":  0,
+                        "yanlis_yuzde":  -1,
+                        "durum":  "olculemedi (ambarda metin yok)",
+                        "tahmini_yanlis_kayit":  0,
+                        "yanlis_ornekleri":  [
+
+                                             ]
+                    }
+                ]
+}
