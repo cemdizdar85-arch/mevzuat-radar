@@ -338,7 +338,8 @@ foreach($id in @($don.Keys)){
 # T-cetveli soru cozecektik") - KAYIT dersinde tablolu her soru yevmiyesiz kalamaz.
 $yevmiyeIstem=@'
 Asagidaki cozulmus muhasebe sorusunun YEVMIYE KAYDINI/KAYITLARINI (T-cetveli) uret. Rakamlar soru/tablodakiyle BIREBIR; hesap adlari Tekduzen Hesap Plani kod+adiyla ("121 ALACAK SENETLERI" gibi).
-ZINCIR KURALI (Cem 01.09): Soruda birden fazla islem (OLAY ZINCIRI) varsa her islemin maddesi AYRI kayit olarak SIRAYLA verilir - ornek: 1) Satis kaydi: 120 ALICILAR borc / 600 YURTICI SATISLAR alacak + 391 HESAPLANAN KDV alacak, 2) Policenin kabulu: 121 ALACAK SENETLERI borc / 120 ALICILAR alacak. Ogrenci "bu kayit nereden geldi" diye gormeli. Tek islem varsa tek kayit yeterli. Her kayit basligi "1) ...", "2) ..." diye numarali ve islemi soyler.
+ZINCIR KURALI (Cem 01.09): Soruda birden fazla islem (OLAY ZINCIRI) varsa her islemin maddesi AYRI kayit olarak SIRAYLA verilir - ornek: 1) Satis kaydi: 120 ALICILAR borc / 600 YURTICI SATISLAR alacak + 391 HESAPLANAN KDV alacak, 2) Policenin kabulu: 121 ALACAK SENETLERI borc / 120 ALICILAR alacak. Ogrenci "bu kayit nereden geldi" diye gormeli. Tek islem varsa tek kayit yeterli.
+BASLIK KURALI (02.09 - SIZINTI YASAGI): Kayit basligi ogrenciye kaydi KENDISI yaptirdigimiz oyunda da gorunur. Bu yuzden baslik YALNIZCA "N) <tarih varsa tarih> - <islemin adi>" olur; ornek: "2) 22.03.2026 - Policenin teslim alinmasi", "1) Malin satisi". Basliga HESAP ADI/KODU, TUTAR, ORAN, YONTEM ADI (FIFO, normal amortisman vb.), MADDE NUMARASI ve GEREKCE YAZILMAZ - bunlar cevabin kendisidir. Baslik 45 karakteri asmaz.
 Cevap YALNIZ JSON: {"tur":"yevmiye","baslik":"...","kayitlar":[{"baslik":"1) ...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[{"hesap":"...","tutar":"..."}]}}]}
 ISTISNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (ornek: ozkaynak = aktif - borclar hesabi, TMS kavram sorusu) ve yevmiye kaydi GERCEKTEN uygulanmiyorsa UYDURMA kayit yazma - su JSON'u dondur: {"tur":"yok","sebep":"tek cumle neden"}
 === SORU === {SORU}
@@ -557,12 +558,40 @@ $ekCss=@'
 .ipP .ipf{font-family:Consolas,monospace;font-size:.92em;color:#8fd0ff;background:rgba(120,180,255,.10);border-radius:8px;padding:6px 9px;margin-top:5px;white-space:pre-line}
 .dgm2{display:inline-block;background:#c9a227;color:#1b1b1f;font-weight:800;border:none;border-radius:8px;padding:7px 13px;cursor:pointer;font-family:inherit;margin:8px 6px 0 0;font-size:.88em}
 .dkB{display:none;border:1px dashed #78b4ff;border-radius:12px;padding:12px;margin-top:10px}
+/* 02.09 mobil: genis icerik SAYFAYI degil KENDINI kaydirir */
+.tkay{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.tcetvel{min-width:340px}
+@media (max-width:640px){
+  body{padding:0 11px;font-size:15.5px}
+  .dkx,.ikx{width:88px;font-size:16px;padding:7px 8px}
+  .sikbtn{padding:12px 13px}
+  .dgm2,.padim{padding:11px 15px;font-size:.92em}
+  #seriKutu{margin:-10px -11px 12px}
+}
 .dkx{width:96px;background:#1b1b1f;border:1px solid #5a5648;border-radius:6px;color:#e8e6e3;padding:4px 7px;font-family:inherit;font-size:.9em}
 .dkx.dog{border-color:#7fc98f;background:rgba(127,201,143,.12)}.dkx.yan{border-color:#e07b7b;background:rgba(224,123,123,.12)}
 .rozet2{display:inline-block;background:rgba(201,162,39,.14);border:1px solid #c9a227;color:#c9a227;border-radius:999px;padding:2px 10px;font-size:.78em;font-weight:800;margin-left:8px}
 '@
 # DENK OYUNU cizdiricisi (02.09) - asil kayit ve IKIZ kayit ayni fonksiyondan.
 # $ekSinif='ikiz' ise oyun ikiz blogunun icine gomulur (kendi kapsaminda calisir).
+# 02.09 SIZINTI FRENI: oyunda gosterilen kayit basligi cevabi ele vermemeli.
+# Istem artik kisa baslik istiyor ama ESKI cache'te uzun basliklar var; bu fonksiyon
+# parantez icini ve gerekce kuyrugunu atar, 'N) tarih - islem' cekirdegini birakir.
+function BaslikTemiz([string]$b){
+  $t="$b".Trim()
+  if(-not $t){ return '' }
+  $t=[regex]::Replace($t,'\s*\([^)]*\)','')                 # parantezli aciklama = cogu sizinti
+  $t=[regex]::Replace($t,'\s*[:,]\s*(FIFO|LIFO|ortalama).*$','',[Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $t=[regex]::Replace($t,'\s*-\s*(cunku|zira|oldugundan|nedeniyle).*$','',[Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  # tutar sizintisi - ama TARIH bozulmaz: '(\.\d{3})+' sonrasi rakam gelirse (01.09.2025
+  # icindeki '09.202' gibi) eslesme IPTAL edilir. (02.09'da tarihler '01.5'e dusmustu.)
+  $t=[regex]::Replace($t,'(?<![\d\.])\d{1,3}(\.\d{3})+(?!\d)(,\d+)?\s*(TL|₺)?','')
+  $t=[regex]::Replace($t,'\s*%\s*\d+([,\.]\d+)?','')                        # oran sizintisi
+  $t=[regex]::Replace($t,'\s*\b[1-7]\d{2}\s+[A-ZÇĞİÖŞÜ][A-ZÇĞİÖŞÜ\s]{3,}','')  # hesap kodu+adi
+  $t=($t -replace '\s{2,}',' ').Trim(' ','-',':',',')
+  if($t.Length -gt 45){ $t=$t.Substring(0,44).TrimEnd(' ','-',':',',')+'…' }
+  return $t
+}
 function OyunHtml($kayitlar,[string]$dugmeYazi,[string]$anlatim,[string]$ekSinif){
   if(-not $kayitlar -or @($kayitlar).Count -eq 0){ return '' }
   $dk=[Text.StringBuilder]::new()
@@ -570,8 +599,9 @@ function OyunHtml($kayitlar,[string]$dugmeYazi,[string]$anlatim,[string]$ekSinif
   [void]$dk.Append("<div class='dkSar $ekSinif' style='margin-top:12px'><button class='dgm2 dkAc' style='background:$bg'>$dugmeYazi</button><div class='dkB'><p style='font-size:.88em'>$anlatim</p>")
   foreach($ky in @($kayitlar)){
     if(-not ($ky.ogeler -and $ky.ogeler.PSObject.Properties['borc'])){ return '' }
-    if("$($ky.baslik)".Trim()){ [void]$dk.Append("<div style='margin:10px 0 4px;font-weight:800;font-size:.9em;color:#78b4ff'>$(K $ky.baslik)</div>") }
-    [void]$dk.Append("<table class='tcetvel'><tr><th style='text-align:left'>HESAP</th><th style='width:118px'>BORÇ</th><th style='width:118px'>ALACAK</th></tr>")
+    $bTemiz=BaslikTemiz $ky.baslik
+    if($bTemiz){ [void]$dk.Append("<div style='margin:10px 0 4px;font-weight:800;font-size:.9em;color:#78b4ff'>$(K $bTemiz)</div>") }
+    [void]$dk.Append("<div class='tkay'><table class='tcetvel'><tr><th style='text-align:left'>HESAP</th><th style='width:118px'>BORÇ</th><th style='width:118px'>ALACAK</th></tr>")
     $tumOg=@()
     foreach($og in @($ky.ogeler.borc)){ $tumOg+=,@{h="$($og.hesap)";t="$($og.tutar)";taraf='b'} }
     foreach($og in @($ky.ogeler.alacak)){ $tumOg+=,@{h="$($og.hesap)";t="$($og.tutar)";taraf='a'} }
@@ -579,13 +609,13 @@ function OyunHtml($kayitlar,[string]$dugmeYazi,[string]$anlatim,[string]$ekSinif
       $db=''; $da=''; if($og.taraf -eq 'b'){ $db=$og.t } else { $da=$og.t }
       [void]$dk.Append("<tr><td style='text-align:left'>$(K $og.h)</td><td><input class='dkx' data-d='$(K $db)'></td><td><input class='dkx' data-d='$(K $da)'></td></tr>")
     }
-    [void]$dk.Append("<tr style='border-top:2px solid #78b4ff;font-weight:800'><td style='text-align:left'>TOPLAM</td><td class='ttutar dkTb'>—</td><td class='ttutar dkTa'>—</td></tr></table>")
+    [void]$dk.Append("<tr style='border-top:2px solid #78b4ff;font-weight:800'><td style='text-align:left'>TOPLAM</td><td class='ttutar dkTb'>—</td><td class='ttutar dkTa'>—</td></tr></table></div>")
   }
   [void]$dk.Append("<button class='dgm2 dkKontrol'>⚖️ Denk mi?</button><button class='dgm2 dkGoster' style='background:#5a5648;color:#e8e6e3'>Doğruları göster</button><div class='dkMesaj' style='margin-top:8px;font-weight:800'></div></div></div>")
   return $dk.ToString()
 }
 $sb=[Text.StringBuilder]::new()
-[void]$sb.Append("<!doctype html><html lang=""tr""><head><meta charset=""utf-8""><title>KALIP PARTİSİ — $Sinav $DersRegex ($($don.Count) soru)</title><style>$css$ekCss</style></head><body>")
+[void]$sb.Append("<!doctype html><html lang=""tr""><head><meta charset=""utf-8""><meta name=""viewport"" content=""width=device-width, initial-scale=1""><title>KALIP PARTİSİ — $Sinav $DersRegex ($($don.Count) soru)</title><style>$css$ekCss</style></head><body>")
 [void]$sb.Append("<div id='seriKutu' style='position:sticky;top:0;z-index:50;background:#1b1b1f;border-bottom:1px solid #3b372f;padding:7px 10px;margin:-10px -10px 12px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:.9em'><span id='seriSerit' style='color:#8a8a8a'>⚖️ Denk serisi: 0</span><span id='seriRekor' style='color:#8a8a8a;font-weight:600;font-size:.85em'></span></div>")
 [void]$sb.Append("<h1>🧪 KALIP PARTİSİ — $Sinav / $DersRegex — SÖZLEŞMENİN TAMAMI, TIKLANABİLİR</h1><p style='color:#aaa;font-size:13px'>Şık seç → tuzak kutusu → açıklama → 🎬 adım adım → ✍️ ikiz + 💡 ipucu. Konular köprüden, kaynaklar ambardan. KASAYA YAZILMADI.</p>")
 if($kaynakBorcu.Count){ [void]$sb.Append("<div style='border:1px solid #e07b7b;border-radius:10px;padding:10px;margin:10px 0;font-size:.85em'><b>📌 KAYNAK BORCU (üretilmedi — yutulacak):</b><br>$(($kaynakBorcu | ForEach-Object { K $_ }) -join '<br>')</div>") }
