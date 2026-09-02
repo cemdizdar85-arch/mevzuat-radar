@@ -221,6 +221,37 @@ $OZEL_NOT=@{
   'tms 2 stoklar'          = "DERS UYARISI (hakem yakaladi): NGD/GUD gibi ileri OLCUM-KAVRAM ayrimlari Denetim/ileri MTA'ya kacar. Burada stoklarin KAYIT boyutunu sor: 153 Ticari Mallar maliyetine neyin girip neyin girmedigi (nakliye, sigorta, alis iskontosu), 157 Diger Stoklar, deger dusuklugu karsiliginin (158) ayrilma KAYDI. Sade tutarlarla, tek islem."
 }
 
+# --- YAZIM KAPISI (02.09 Cem: "soru cevap kismini begenmedim") ---------------
+# Olculdu: 30 sorunun 26'sinda ASCII yazim kusuru vardi ("Dogrusu", "Tuzagi").
+# Sebep: istem ASCII yazilmisti, model taklit ediyordu. Istem duzeltildi; bu kapi
+# ESKI cache'i ve modelin kacak ASCII'sini de onarir. Yalniz TAM KELIME eslesir -
+# kaynak metinlerindeki resmi yazimlara ve hesap adlarina dokunmaz.
+# DIKKAT: hashtable ANAHTARLARI da harf ayirmaz ('\bDogrusu\b' ile '\bdogrusu\b'
+# ayni kutudur) - bu yuzden sozluk degil DIZI CIFTI kullaniliyor. Eslesme harfe
+# DUYARLI olmali ki 'Dogrusu' -> 'Doğrusu', 'dogrusu' -> 'doğrusu' ayri gitsin.
+$YAZIM_DUZELT=@(
+  @('\bDogrusu\b','Doğrusu'), @('\bdogrusu\b','doğrusu')
+  @('\bTuzagi\b','Tuzağı'),   @('\btuzagi\b','tuzağı')
+  @('\bHesak\b','Hesap'),     @('\bhesak\b','hesap')
+  @('\bYanlisi\b','Yanlışı'), @('\byanlisi\b','yanlışı')
+  @('\bYanlislik\b','Yanlışlık'), @('\bDikkat\s+:\s*','Dikkat: ')
+)
+function YazimOnar([string]$metin){
+  if(-not $metin){ return $metin }
+  $t=$metin
+  foreach($cift in $YAZIM_DUZELT){
+    $t=[regex]::Replace($t,$cift[0],$cift[1],[Text.RegularExpressions.RegexOptions]::None)
+  }
+  return $t
+}
+# yanlis siklarda tekrarlanan "Ne soruluyor:" cumlesini kirp (olculdu: 16/30 soruda
+# bes sik ayni cumleyle basliyordu - ogrenci ayni satiri bes kez okuyordu)
+function TekrarKirp([string]$metin,[bool]$dogruSik){
+  if($dogruSik -or -not $metin){ return $metin }
+  $t=[regex]::Replace($metin,'^\s*Ne soruluyor:.*?(?=(Kural:|[A-ZÇĞİÖŞÜ][^:]{2,40}\s*Tuza[ğg][ıi]:))','',[Text.RegularExpressions.RegexOptions]::Singleline)
+  return $t.Trim()
+}
+
 # --- DERS PROFILI (01.09 Cem: "Excel'de ders ders gonderdim") ----------------
 # Resmi ders tanimi veri/ders-profili.json'dan okunur (2-DERSLER sekmesi kokenli).
 $DERS_TARIF=''; $KOMSULAR=''
@@ -286,7 +317,21 @@ Sen "Nobetci" adli hoca-yazarsin. {SINAV} sinavinin {DERS} dersinden, verilen KO
 KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 1. YALNIZ asagidaki KAYNAK METNINE dayan; kural/oran/tanim kaynaktan. Senaryo tutarlari serbest.
 2. 5 sik, TEK dogru; her yanlis sik BIR ADLI TUZAGIN sonucu.
-3. Aciklama takimi her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK): "Ne soruluyor: ... Kural: ... [Ad] Tuzagi: ... Dogrusu: ..." akisiyla. Dogru sikta Hesap: zinciri (hesapliysa).
+3. ACIKLAMA - her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK).
+   TURKCE HARFLER TAM YAZILIR: "Doğrusu", "Tuzağı", "Kural", "Hesap" - ASCII yazim
+   ("Dogrusu", "Tuzagi") KUSURDUR, sayfada oyle gorunur ve urunu ucuzlatir.
+   3a. DOGRU SIK: "Ne soruluyor: <tek cumle> Kural: <dayanaktan cikan kural>
+       Hesap: <sayi zinciri, hesapliysa> Doğrusu: <tek cumle sonuc>"
+   3b. YANLIS SIKLAR: "Ne soruluyor" CUMLESINI TEKRARLAMA - ogrenci onu dogru sikta
+       zaten okudu. Dogrudan tuzaga gir: "<Ad> Tuzağı: <ogrencinin nasil dusundugu>
+       Doğrusu: <tek cumle>". Yanlis sik aciklamasi EN FAZLA 2 CUMLE / 250 karakter.
+3c. TUZAK ADLARI CESITLI OLACAK: ayni parti icinde 'Ters Kayıt' gibi tek bir tuzak
+   adini iki soruda birden kullanma. Her yanlis sik FARKLI bir kavram yanilgisini
+   temsil etsin: hesap secimi, taraf (borc/alacak), tutar/oran, zamanlama (donem),
+   kapsam (hangi islem), belge/kanit, vergi katmani gibi.
+3d. CELDIRICI DERINLIGI: 'dogru kaydin aynisini ters cevirmek' UCUZ celdiricidir -
+   partide en fazla bir kez kullan. Iyi celdirici, ogrencinin GERCEKTEN yapabilecegi
+   hatayi tasir (yanlis hesap kodu, gun kesri unutma, KDV'yi matraha katma gibi).
 4. HESAPLI konuysa COZUM TABLOSU ZORUNLU ({"basliklar":[...],"satirlar":[[...]]}, ilk kolon kalem, SON SATIR SONUC). Teorik konuysa cozum_tablo null olabilir ama SEMA ZORUNLU.
 4b. MALI TABLO FORMU (Cem: "bilanco/gelir tablosu gibi gorelim"): konu finansal durum/
    bilanco/oran tipiyse tablo BILANCO duzeninde kurulur - bolum basligi AYRI SATIR olur
@@ -442,18 +487,21 @@ foreach($kk in $KONULAR){
     if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }
   ))+$ekNot
   # UZUNLUK KAPISI (02.09): asan soru KABUL EDILMEZ - 2 kez kisaltma istenir.
+  # 02.09 HIZ: MaxTok 20.000'di ama gercek cevap ~1.900 karakter (olculdu) - yuksek
+  # tavan modeli uzun dusundurup cagriyi yavaslatiyordu. 8.000 fazlasiyla yeter.
+  # Uzunluk kapisi da 3 denemeden 2'ye indi: 30 soruluk parti 4,5 saatten ~25 dk'ya iner.
   $cvp=$null
-  foreach($deneme in 1..3){
+  foreach($deneme in 1..2){
     $istBu=$ist
     if($deneme -gt 1){ $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." }
     $y=$null
-    foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+    foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 8000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
     $aday=Coz $y.metin
     if(-not ($aday -and $aday.soru -and $aday.aciklama)){ continue }
     $uz="$($aday.soru)".Length
     if($uz -le $UZUNLUK_TAVAN){ $cvp=$aday; break }
     Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow
-    if($deneme -eq 3){
+    if($deneme -eq 2){
       $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)")
       $cvp=$aday   # 3 denemede inmediyse en sonuncuyu al ama RAPORA yaz
     }
@@ -703,6 +751,26 @@ foreach($id in @($don.Keys)){
 $hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.karar)" -eq 'HAYIR' })
 $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
 
+# --- TUZAK CESITLILIGI KAPISI (02.09 Cem: "begenmedim") ----------------------
+# Olculdu: 120 tuzagin 11'i tek bir adla ('Ters Kayit') tekrarlaniyordu ve 12 soruda
+# celdiriciler yalnizca hesap degistiriyordu. Ayni tuzak adi 2'den cok tekrarlaniyorsa
+# parti TEKDUZE demektir - rapora yazilir, Cem gormeden kasaya gitmez.
+$tuzakSayaci=@{}
+foreach($id in @($don.Keys)){
+  $cvpT=$don[$id]
+  if(-not $cvpT.soru -or -not $cvpT.aciklama){ continue }
+  foreach($hh in 'A','B','C','D','E'){
+    if("$($cvpT.dogru)" -eq $hh){ continue }
+    $mt=[regex]::Match((AciklamaDuz $cvpT.aciklama.$hh),'([A-ZÇĞİÖŞÜ][\w çğıöşüÇĞİÖŞÜ\-]{2,60}?)\s*Tuza[ğg][ıi]')
+    if(-not $mt.Success){ continue }
+    $ad=($mt.Groups[1].Value.Trim())
+    if(-not $tuzakSayaci.ContainsKey($ad)){ $tuzakSayaci[$ad]=0 }
+    $tuzakSayaci[$ad]++
+  }
+}
+$tekduze=@($tuzakSayaci.Keys | Where-Object { $tuzakSayaci[$_] -ge 3 } | Sort-Object { -$tuzakSayaci[$_] })
+foreach($ad in $tekduze){ $rapor.Add("TUZAK TEKDUZE: '$ad' $($tuzakSayaci[$ad]) kez kullanildi (en fazla 2 olmali)") }
+
 # --- ARITMETIK KAPISI --------------------------------------------------------
 function SayiCoz([string]$s){ $t=$s -replace '\.','' -replace ',','.'; $v=0.0; if([double]::TryParse($t,[Globalization.NumberStyles]::Any,[Globalization.CultureInfo]::InvariantCulture,[ref]$v)){ return $v }; return $null }
 # 01.09 v2: TAM-ZINCIR degerlendirme - "a + b + c = d" gibi cok terimlileri
@@ -841,7 +909,7 @@ foreach($id in ($don.Keys|Sort-Object)){
   $tz=[ordered]@{}
   foreach($hh in 'A','B','C','D','E'){
     if("$($cvp.dogru)" -eq $hh){ continue }
-    $mt=[regex]::Match((AciklamaDuz $cvp.aciklama.$hh),'([A-ZÇĞİÖŞÜ][\w çğıöşüÇĞİÖŞÜ\-]{2,60}?Tuza[ğg]ı)')
+    $mt=[regex]::Match((YazimOnar (AciklamaDuz $cvp.aciklama.$hh)),'([A-ZÇĞİÖŞÜ][\w çğıöşüÇĞİÖŞÜ\-]{2,60}?Tuza[ğg]ı)')
     if($mt.Success){ $tz[$hh]=$mt.Groups[1].Value.Trim() }
   }
   $tzmap[$id]=$tz
@@ -855,8 +923,10 @@ foreach($id in ($don.Keys|Sort-Object)){
   foreach($hh in 'A','B','C','D','E'){ [void]$sb.Append("<button class='sikbtn' data-h='$hh'>$hh) $(K $cvp.siklar.$hh)</button>") }
   [void]$sb.Append("<div class='tzk'></div><div class='acik'><div class='ac'>")
   foreach($hh in 'A','B','C','D','E'){
-    $isr=''; if("$($cvp.dogru)" -eq $hh){ $isr=' ✓' }
-    [void]$sb.Append("<p><b>$hh$isr)</b> $(K (AciklamaDuz $cvp.aciklama.$hh))</p>")
+    $isr=''; $dogruMu=("$($cvp.dogru)" -eq $hh); if($dogruMu){ $isr=' ✓' }
+    # 02.09: yazim onarimi + yanlis siklarda tekrarlanan "Ne soruluyor" kirpma
+    $acikMetin=YazimOnar (TekrarKirp (AciklamaDuz $cvp.aciklama.$hh) $dogruMu)
+    [void]$sb.Append("<p><b>$hh$isr)</b> $(K $acikMetin)</p>")
   }
   if($adVar){ [void]$sb.Append("<div><button class='padim'>🎬 Bu çözümü adım adım yaşa</button><div class='panlat'><div class='psayac'></div><div class='pformul'></div><div class='pmetin' style='margin-top:6px;font-size:.93em'></div><button class='padim pileri' style='margin-top:8px;padding:6px 12px;font-size:.85em'>İleri →</button></div></div>") }
   $verList=$null; if($cvp.PSObject.Properties['verilen']){ $verList=$cvp.verilen }
