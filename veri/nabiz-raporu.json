@@ -1,17 +1,14 @@
 {
-  "tarih": "02.09.2026 16:32",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 2,
+  "tarih": "02.09.2026 21:58",
+  "durum": "ALARM",
+  "kirmizi": 2,
+  "kurtarma": 0,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
-  "maddeler": [],
-  "kurtarilan": [
-    "Gunluk Kanun Aynasi -> son basarili kosu 79.1 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Radar Uyari Robotu -> Uyari robotu ozeti damgasi 01.09.2026 06:48 (34 saat eski; esik 30s) -> kurtarma: tetiklendi"
+  "maddeler": [
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 84.5 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Radar Uyari Robotu -> kurtarma ise yaramadi (Uyari robotu ozeti damgasi 01.09.2026 06:48 (39 saat eski; esik 30s)). Actions loguna bak."
   ],
-  "kurtarilan_anahtar": [
-    "KOSU:mevzuat.yml",
-    "VERI:uyari-ozet.json"
-  ]
+  "kurtarilan": [],
+  "kurtarilan_anahtar": []
 }
