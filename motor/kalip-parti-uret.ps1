@@ -503,8 +503,10 @@ foreach($kk in $KONULAR){
     # kesiliyor (OpenRouter hattinda akil yurutme jetonu max_tokens'a dahil). Hiz icin
     # 20k->8k indirilen tavan bu 4 konuyu oldurdu. Cozum: bos+kesik cevapta BIR KEZ
     # 20.000 ile yeniden dene; diger 26 soru 8k'da kaldigi icin hiz kaybi yok.
-    if("$($y.dur)" -eq 'max_tokens' -and -not "$($y.metin)".Trim()){
-      Write-Host "  KESIK-BOS ($id): 8k tavan dusunmeye gitti, 20k ile yeniden" -ForegroundColor DarkYellow
+    # (kp-21 ile ikinci yuz: 1.962 kr yazip JSON'un ortasinda kesilmek - metin var ama
+    # cozulmuyor. Iki hal de ayni ilac: kesik + cozulemeyen cevap => 20k ile bir kez daha.)
+    if("$($y.dur)" -eq 'max_tokens' -and (-not "$($y.metin)".Trim() -or -not (Coz $y.metin))){
+      Write-Host "  KESIK ($id): 8k tavanda kesildi ($("$($y.metin)".Length) kr), 20k ile yeniden" -ForegroundColor DarkYellow
       foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
     }
     $aday=Coz $y.metin
