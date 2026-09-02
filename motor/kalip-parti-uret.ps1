@@ -48,7 +48,9 @@ function AciklamaDuz($a){
   if($a.PSObject.Properties['kural'] -and $a.kural){ $p.Add("Kural: $($a.kural)") }
   if($a.PSObject.Properties['tuzak'] -and $a.tuzak){ $p.Add("$($a.tuzak)") }
   if($a.PSObject.Properties['hesap'] -and $a.hesap){ $p.Add("Hesap: $($a.hesap)") }
-  if($a.PSObject.Properties['dogrusu'] -and $a.dogrusu){ $p.Add("Dogrusu: $($a.dogrusu)") }
+  # 02.09 akşam ölçümü: 26 sorunun 2'sinde "Dogrusu:" sızmıştı — kaynağı model değil,
+  # BU SATIRDI (üretici kendi kusurunu yazıyordu; yazım kapısı bundan ÖNCE koşuyor).
+  if($a.PSObject.Properties['dogrusu'] -and $a.dogrusu){ $p.Add("Doğrusu: $($a.dogrusu)") }
   if($p.Count -eq 0){ foreach($pr in $a.PSObject.Properties){ $p.Add("$($pr.Value)") } }
   return ($p -join ' ')
 }
