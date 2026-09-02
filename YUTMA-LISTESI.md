@@ -1,5 +1,11 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## 03.09.2026 — 27 teori notu (Cem onayı 03.09 02:30) — KGK Finansal Yönetim 6 + SGS Ekonomi/Maliye/Analiz/Denetim 21
+
+- Kaynak dosyalar: eri/mevzuat/teori-notlari-20260903-kgk-fy.json (6) · eri/mevzuat/teori-notlari-20260903-sgs-eko-maliye.json (21). Ambara doğrudan POST (tur=teori-notu), geri okuma 27/27 birebir.
+- Neden: 03.09 SGS Excel'inde 'kaynak yok' çıkan 133 konu (108 tekil dayanak) + KGK partisinin 6 borçlu konusu. Ölçüldü: yutulacak MEVZUAT yoktu, eksik teori notuydu.
+- Elle yutma deseni: repo json'u aynı gün eklendi (27.08 robot kıyımı dersi; mevzuat-yukle sert kapısı yeşil kalır).
+
 ## ✅ 30.08.2026 — TSPB'NİN İKİ DOKÜMANI YUTULDU: SPL Düzey 1 müfredatı 21/21 kapandı
 *Cem: "TSPB'nin iki doküman resmi" — haklı. **SPKn 6362 m.74** (ambardaki 6362 metninden doğrulandı): TSPB "tüzel kişiliği haiz **kamu kurumu niteliğinde** bir meslek kuruluşu"dur. Kendi düzenlemesi birincil kaynaktır; mevzuat.gov.tr bu iki belgeyi tutmuyor → HAZIR metin yolu.*
 
