@@ -176,8 +176,13 @@ function DesenUret($kayit){
   # Cozum: HER konu icin teori notlarinda tek tek kelime araması da eklenir
   # (TEORI/Teori Notu onekli, >=5 harfli kokler). Kaynak metni yalniz ad ile bulunur;
   # metin icinde arama yok, dolayisiyla yanlis-pozitif sinirli; KAPI-A ve hakem yine siniyor.
-  $teoriKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch '^(hesabi|hesaplama|yontemi|teorisi|kavrami|ilkesi|degeri|suresi|araclari|sartlari|haklari|problemi)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
-  foreach($tk in $teoriKok){ $d.Add("TEORI%$tk%"); $d.Add("Teori Notu%$tk%") }
+  $teoriKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch '^(hesabi|hesaplama|yontemi|teorisi|kavrami|ilkesi|degeri|suresi|araclari|sartlari|haklari|problemi|sistemi|tanimi|unsurlari)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+  # 03.09 OLCULDU (SMMM denetim partisi, 8 hakem reddi): TEK kok cok gevsek - 'sistem' ->
+  # doviz kuru riski notu, 'sozlesme' -> sigorta zeyilname notu. Cem "1.2.3 yap" -> 3:
+  # teori deseni EN AZ IKI kok ister (iki sirada da); tek kok yalniz konu tek kelimeyse.
+  if($teoriKok.Count -ge 2){
+    for($i=0;$i -lt $teoriKok.Count;$i++){ for($j=0;$j -lt $teoriKok.Count;$j++){ if($i -eq $j){ continue }; $d.Add("TEORI%$($teoriKok[$i])%$($teoriKok[$j])%"); $d.Add("Teori Notu%$($teoriKok[$i])%$($teoriKok[$j])%") } }
+  } elseif($teoriKok.Count -eq 1){ $d.Add("TEORI%$($teoriKok[0])%"); $d.Add("Teori Notu%$($teoriKok[0])%") }
   return @($d | Select-Object -Unique)
 }
 # Haritanin YANLIS dayanak yazdigi konular icin elle dogru kaynak (01.09:
@@ -428,6 +433,21 @@ foreach($kk in $KONULAR){
   if($don.Contains($id) -and $don[$id].soru -and "$($don[$id].konu)" -ne "$($kk.kayit.konu)"){
     Write-Host "  CACHE DUSTU (konu degisti): $id '$($don[$id].konu)' -> '$($kk.kayit.konu)'" -ForegroundColor Yellow
     $don.Remove($id)
+  }
+  # 03.09 (Cem "1.2.3 yap" -> 3): cache KONU anahtarli kurtarma. Kopru degisince ayni konu
+  # baska id'ye kayiyor ve yeniden uretiliyordu (02.09 gecesi 6+ soru bosa gitti). Bu id
+  # bos ve AYNI konunun sorusu cache'te baska bir id'de (o id'nin yeni konusu farkli) duruyorsa
+  # tasinir; para harcanmaz. Sadece bu KONULAR listesinde o id'ye artik baska konu dustuyse.
+  if(-not ($don.Contains($id) -and $don[$id].soru)){
+    $konuAd="$($kk.kayit.konu)"
+    $eskiId=$null
+    foreach($ek in @($don.Keys)){
+      if($ek -eq $id){ continue }
+      if("$($don[$ek].konu)" -ne $konuAd){ continue }
+      $ekSahibi=$KONULAR | Where-Object { $_.id -eq $ek } | Select-Object -First 1
+      if(-not $ekSahibi -or "$($ekSahibi.kayit.konu)" -ne $konuAd){ $eskiId=$ek; break }
+    }
+    if($eskiId){ $don[$id]=$don[$eskiId]; $don.Remove($eskiId); CacheYaz; Write-Host "  CACHE TASINDI (konu anahtari): $eskiId -> $id '$konuAd'" -ForegroundColor DarkGray }
   }
   # 02.09: HAKEM REDDI + kaynak degisti -> yeniden bas. Hakem "dayanak kaynaktan
   # cikmiyor" dediyse ve o konuya sonradan elle olculmus OZEL_DESEN eklendiyse,
