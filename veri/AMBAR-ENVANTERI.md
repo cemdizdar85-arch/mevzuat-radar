@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **30.08.2026 17:23** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **02.09.2026 17:57** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 43785 parça · 1770 tekil kaynak | Bütünlük ölçülen: 1701 (delikli: 325; son ölçüm: 30.08.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
+**ÖZET:** 44300 parça · 2401 tekil kaynak | Bütünlük ölçülen: 2401 (delikli: 329; son ölçüm: 02.09.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -22,7 +22,7 @@
 |---|---|---:|---|---|
 | [ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi) | cikmis-komisyon-cevabi | 403 | DELİK-İNCELE(par:0/kesik:39/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | [ARŞİV] ÇIKMIŞ SINAV (cikmis-soru) | cikmis-soru | 253 | DELİK-İNCELE(par:0/kesik:34/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| [GRUP] TEORİ NOTLARI | teori-notu | 281 | DELİK-İNCELE(par:497/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| [GRUP] TEORİ NOTLARI | teori-notu | 282 | DELİK-İNCELE(par:497/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. Is K. (kidem tazminati | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. İş K. (kıdem | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 2006 YILI SERBEST MUHASEBECİLİK, SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK ASGARİ ÜCRET TARİFESİ | kanun-madde | 35 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -61,7 +61,7 @@
 | ASGARİ ÜCRET TESPİT KOMİSYONU KARARI (2026 - RG 26.12.2025/33119) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Asgari Ücret Yön. | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Avukatlık K. (1136 s.K.) | kanun-madde | 269 | DELİK-İNCELE(par:10/kesik:4/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Avukatlık K. (1136 s.K.) ek | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Avukatlık K. (1136 s.K.) ek | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | AYM K./Bireysel Başvuru (6216 s.K.) | kanun-madde | 97 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bagimsiz Denetim Yonetmeligi | kanun-madde | 82 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bagimsiz Denetime Tabi Sirketlerin Belirlenmesine Dair Karar (CB Karari 6434, 29.11.2022) | kanun-madde | 11 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -380,8 +380,7 @@
 | Bilirkişilik K. (6754 s.K.) | kanun-madde | 33 | DELİK-İNCELE(par:29/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BİM-İdare-Vergi Mahk. K. (2576 s.K.) | kanun-madde | 51 | DELİK-İNCELE(par:3/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Birlesme ve Bolunme Tebligi (II-23.2) | kanun-madde | 39 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BOBI FRS | standart-madde | 348 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BOBI FRS - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS | standart-madde | 561 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Borclanma Araci Sahipleri Kurulu Tebligi (II-31/A.1) | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Borclanma Araclari Tebligi (VII-128.8) | kanun-madde | 49 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | CB Kararı 7887 - AŞ/Ltd asgari sermaye artırımı (RG 25.11.2023) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -678,13 +677,646 @@
 | Kredi Riski Azaltim Tekniklerine Iliskin Teblig - degisiklik kaydi (dipnotlar ve RG listesi) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kredi Riski Azaltim Tekniklerine Iliskin Teblig EK-1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KUMI FRS | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) | kanun-madde | 142 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.1.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.25 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.26 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.29 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.30 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.31 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.32 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.33 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.34 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.35 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.36 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.37 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.38 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.39 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.40 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.41 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.42 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.43 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.44 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.45 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.46 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.47 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.48 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.49 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.50 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.51 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.52 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.53 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.54 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.55 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.56 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.10.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.25 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.26 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.29 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.30 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.31 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.32 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.33 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.34 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.35 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.36 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.37 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.38 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.11.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.25 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.26 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.29 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.12.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.25 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.26 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.29 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.13.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.14.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.14.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.14.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.14.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.14.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.14.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.15.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.16.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.17.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.18.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.19.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.19.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.19.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.19.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.19.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.25 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.26 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.2.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.20.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.20.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.20.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.7 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.21.8 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.11 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.13 | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.22.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.3.10 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.3.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.3.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.3.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.3.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.3.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.3.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.4.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.4.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.4.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.4.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.4.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.22 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.25 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.26 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.5.9 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.7 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.6.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.25 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.26 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.29 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.30 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.31 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.32 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.33 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.34 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.35 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.36 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.37 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.39 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.40 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.41 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.42 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.7.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.14 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.16 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.17 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.19 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.20 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.23 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.8.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KUMI FRS - Kucuk ve Mikro Isletmeler icin Finansal Raporlama Standardi (Kurul Karari 20.12.2022; RG 16.01.2023-32075 muk.) b.9.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KURUMLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 86) | kanun-madde | 28 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kurumsal Yonetim Tebligi (II-17.1) | kanun-madde | 47 | DELİK-İNCELE(par:0/kesik:15/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK (5520 s.K.) | kanun-madde | 206 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK 30 Tevkifat Oranlari BKK (2009/14593) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KVK GUT (1 Seri No) | kanun-madde | 505 | DELİK-İNCELE(par:33/kesik:105/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.12.5 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.13 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.13.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.13.2 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.13.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.13.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.14.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.14.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.14.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.14.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.14.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.1.1 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.10 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.10.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.10.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.10.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.10.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.10.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.10.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.11.1 | kanun-madde | 4 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.2.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.2.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.2.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.3.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.3.2 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.3.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.1 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.4 | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.6 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7.4 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7.5 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.15.6.7.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.16.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.16.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.16.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.1.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.1.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.17.7 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.18 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.2.2.1 | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.2.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.2.2.3 | kanun-madde | 2 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.3.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.3.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.3.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.19.4 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.20.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.20.2 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.20.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.21 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.21.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.21.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.21.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.21.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.2.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.2.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.2.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.2.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.2.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.22.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.23.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.23.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.24 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.25.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.25.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.25.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.25.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.26 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.27 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.28 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.28.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.29 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.3 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.10.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.10.2 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.10.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.10.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.10.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.11 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.11.1 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.4 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.4.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.5.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.5.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.5.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.30.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.31 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.1 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.10 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.11 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.12 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.4 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.5 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.6 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.7 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.8 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.1.2.9 | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.10.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.10.2 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.11 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.12 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.12.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.12.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.12.3 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.13 | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.3 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.4 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.5 | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.7 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.8 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.2.9 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.3.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.3.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.3.2.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.3.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.3.2.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.3.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.2 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.4 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.5 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.6 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.7 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.7.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.7.2 | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.7.3 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.4.8 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.5.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.5.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.5.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.5.4 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.5.5 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.32.5.6 | kanun-madde | 13 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.33.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.33.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.33.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.33.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.33.5 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.33.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.33.7 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.6 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.7 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.34.8 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.35 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.36.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.36.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.36.3 | kanun-madde | 6 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.37 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.38.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.38.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.1.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.1.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.2.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.2.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.3.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.3.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.3.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.3.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.3.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.6.1 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.6.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.6.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.6.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.39.6.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.1 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.1.1 | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.1.2 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.1.3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.1.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.1.5 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.2 | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.3.3 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.4 | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK GUT (1 Seri No) b.40.5 | kanun-madde | 3 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVKK (6698 s.K.) | kanun-madde | 47 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KYS 1 | standart-madde | 106 | DELİK-İNCELE(par:34/kesik:23/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KYS 1 - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -767,8 +1399,7 @@
 | Portfoy Yonetim Sirketleri ve Bu Sirketlerin Faaliyetlerine Iliskin Esaslar Tebligi (III-55.1) | kanun-madde | 83 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Rekabet K. (4054 s.K.) | kanun-madde | 82 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sanayi Sicili K. (6948 s.K.) | kanun-madde | 19 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SBDS 2400 | standart-madde | 31 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SBDS 2400 - on bolum | standart-madde | 86 | DELİK-İNCELE(par:0/kesik:29/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SBDS 2400 | standart-madde | 246 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SBDS 2410 | standart-madde | 31 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SBDS 2410 - on bolum | standart-madde | 31 | DELİK-İNCELE(par:0/kesik:26/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SEDDK Teskilat ve Gorevleri Hakkinda CBK (47 s.) | kanun-madde | 32 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -843,13 +1474,13 @@
 | SPK Karari - Kurul Karar Organı’nın 17/06/2026 Tarih ve 37/1118 Sayılı Kararı Uyarı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 21.07.2022 Tarihli ve 38-1086 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 23.06.2022 Tarih ve 34/977 Sayılı Kararı | kanun-madde | 4 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul Karar Organı’nın 23.07.2010 Tarihli ve 21/655 Sayılı İlke Kararı | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul Karar Organı’nın 23.07.2010 Tarihli ve 21/655 Sayılı İlke Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 23.08.2024 Tarih ve 47-1336 Sayılı Kararı Uyarı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 23/03/2025 Tarih ve 18/574 Sayılı Kararı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 25/04/2026 Tarih ve 27/807 Sayılı Kararı Uyarın | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 25/6/2025 Tarih ve 36/1137 Sayılı Kararı Uyarın | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 26/03/2026 Tarih ve 18/617 Sayılı Kararı Uyarın | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul Karar Organı’nın 27.10.2022 Tarihli ve 63-1580 Sayılı İlke Karar | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul Karar Organı’nın 27.10.2022 Tarihli ve 63-1580 Sayılı İlke Karar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 27/06/2025 Tarih ve 37/1177 Sayılı Kararı Uyarı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 28.03.2026 Tarihli ve 19/625 Sayılı Kararı Uyar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı’nın 28.08.2024 Tarih ve 48-1367 Sayılı Kararı Uyarı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -901,9 +1532,9 @@
 | SPK Karari - Kurul Karar Organı'nın 8.2.2024 Tarih ve 9-221 Sayılı Kararı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı'nın i-SPK 54.4.Aj (16.02.2024 Tarihli ve 11/255 Say | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organının i-SPK.4632 S.Kn.17.3.Ğ (23.11.2018 Tarihli ve 58 | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul Karar Organı'nın i-SPK.4632 S.Kn.17.3.Ü Sayılı İlke Kararı | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul Karar Organı'nın i-SPK.4632 S.Kn.17.3.Ü Sayılı İlke Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul Karar Organı'nın i-SPK.52.4.Ae (07/04/2022 Tarihli ve 17/513 S.K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul Karar Organı'nın i-SPK.52.4.Ai Sayılı İlke Kararı | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul Karar Organı'nın i-SPK.52.4.Ai Sayılı İlke Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un 02.10.2015 Tarih ve 26/1199 Sayılı Kararı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un 02.10.2015 Tarih ve 26/1215 Sayılı Kararı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un 04.02.2016 Tarih ve 4/117 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -935,39 +1566,39 @@
 | SPK Karari - Kurul’un 27.02.2015 Tarih ve 5/263 Sayılı Kararı | kanun-madde | 2 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un 27.02.2015 Tarih ve 5/265 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un 30/11/2016 Tarih ve 33/1162 Sayılı Kararı(07.03.2024 Tarihli | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK 128.14 (03/11/2016 Tarihli ve 30/1046 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK 22.4 (11/11/2016 Tarihli ve 31/1081 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK 128.14 (03/11/2016 Tarihli ve 30/1046 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK 22.4 (11/11/2016 Tarihli ve 31/1081 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK 4632 S.Kn.16-1 (02.10.2015 Tarih ve 26/1199 S.K.) Sayıl | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK 55.1 (08/09/2017 Tarihli ve 33/1110 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK. 17.5 (27.01.2016 Tarihli ve 3/73 S.K.) Sayılı İlke Kar | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK. 22.2 (27.01.2016 Tarihli ve 3/77 S.K.) Sayılı İlke Kar | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK. 37.4 (15.07.2016 Tarihli ve 22/802 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK 55.1 (08/09/2017 Tarihli ve 33/1110 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK. 17.5 (27.01.2016 Tarihli ve 3/73 S.K.) Sayılı İlke Kar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK. 22.2 (27.01.2016 Tarihli ve 3/77 S.K.) Sayılı İlke Kar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK. 37.4 (15.07.2016 Tarihli ve 22/802 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK. 4632 S.Kn.17.3 (03.03.2016 Tarihli ve 7/223 S.K.) Sayı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.102.1 (08.07.2014 Tarihli ve 21/681 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.103.1 (05.06.2014 Tarihli ve 17/564 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.104.1 (28.05.2014 Tarihli ve 16/514 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.104.2 (05.06.2014 Tarihli ve 17/563 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.104.3 (04.03.2016 Tarih ve 8/262 S.K.) Sayılı İlke Kara | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.128.10 (03.12.2014 Tarih ve 34/1185 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.128.9 (30.10.2014 Tarihli ve 31/1059 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.15.1 (04.03.2016 Tarih ve 8/253 S.K.) Sayılı İlke Karar | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.102.1 (08.07.2014 Tarihli ve 21/681 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.103.1 (05.06.2014 Tarihli ve 17/564 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.104.1 (28.05.2014 Tarihli ve 16/514 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.104.2 (05.06.2014 Tarihli ve 17/563 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.104.3 (04.03.2016 Tarih ve 8/262 S.K.) Sayılı İlke Kara | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.128.10 (03.12.2014 Tarih ve 34/1185 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.128.9 (30.10.2014 Tarihli ve 31/1059 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.15.1 (04.03.2016 Tarih ve 8/253 S.K.) Sayılı İlke Karar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK.22.2 (21.08.2015 Tarih ve 21/1023) Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.43.1 (01/06/2016 Tarihli ve 18/618 S.K.) Sayılı İlke Ka | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.43.1 (01/06/2016 Tarihli ve 18/618 S.K.) Sayılı İlke Ka | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK.4632 S.Kn.17.3.Ç (09.05.2017 Tarihli ve 20/688 S.K.) Sa | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK.4632 S.Kn.17.3.D (23.08.2017 Tarihli ve 32/1091 S.K.) S | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK.4632 S.Kn.17.3.E (29.09.2017 Tarihli ve 35/1201 S.K. | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK.4632 S.Kn.17.3.F (01.03.2018 Tarihli ve 9/316 S.K) Sayı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK.4632 S.Kn.17.3.G (20.06.2018 Tarihli ve 26/740 S.K.) Sa | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul’un i-SPK.4632 S.Kn.17.3.H (13.12.2018 Tarihli ve 63/1453 S.K.) S | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.48.3.A (20.06.2018 Tarihli ve 26/740 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.52.4.K (09/05/2017 Tarihli ve 20/688 S.K.) Sayılı İlke | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.52.4.L (23.08.2017 Tarihli ve 32/1091 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.52.4.M (29.09.2017 Tarihli ve 35/1201 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.52.4.N (01.03.2018 Tarihli ve 9/316 S.K.) Sayılı İlke K | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.52.4.O (20.06.2018 Tarihli ve 26/740 S.K.) Sayılı İlke | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.52.4.Ö (16.08.2018 Tarihli ve 38/964 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.52.4.P (13.12.2018 Tarihli ve 63/1453 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul’un i-SPK.61.2 (05.06.2014 Tarih ve 17/552 S.K.) Sayılı İlke Kara | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.48.3.A (20.06.2018 Tarihli ve 26/740 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.52.4.K (09/05/2017 Tarihli ve 20/688 S.K.) Sayılı İlke | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.52.4.L (23.08.2017 Tarihli ve 32/1091 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.52.4.M (29.09.2017 Tarihli ve 35/1201 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.52.4.N (01.03.2018 Tarihli ve 9/316 S.K.) Sayılı İlke K | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.52.4.O (20.06.2018 Tarihli ve 26/740 S.K.) Sayılı İlke | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.52.4.Ö (16.08.2018 Tarihli ve 38/964 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.52.4.P (13.12.2018 Tarihli ve 63/1453 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul’un i-SPK.61.2 (05.06.2014 Tarih ve 17/552 S.K.) Sayılı İlke Kara | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 01.02.2013 Tarih ve 4/88 Sayılı Kararı | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 01.02.2013 Tarihli 4/131 Sayılı Kararı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 01.02.2013 Tarihli 4/89 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -979,7 +1610,7 @@
 | SPK Karari - Kurulumuzun 10.04.2014 Tarih ve 11/352 Sayılı Kararı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 13.12.2013 Tarih ve 41/1334 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 14.03.2013 Tarih ve 9/304 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulumuzun 14.03.2013 Tarih ve 9/319 Sayılı İlke Kararı | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulumuzun 14.03.2013 Tarih ve 9/319 Sayılı İlke Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 16.12.2014 Tarih ve 35/1256 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 21.11.2013 Tarih ve 38/1236 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 21.11.2013 Tarih ve 38/1237 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -990,11 +1621,11 @@
 | SPK Karari - Kurulumuzun 25.10.2013 Tarih ve 1157 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 29.11.2013 Tarih ve 39/1276 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun 30.10.2014 Tarih ve 31/1043 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulumuzun i-SPK. 17.4 (27.02.2015 Tarih ve 5/225 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulumuzun i-SPK. 23.2 (16.12.2014 Tarih ve 35/1207 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulumuzun i-SPK. 17.4 (27.02.2015 Tarih ve 5/225 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulumuzun i-SPK. 23.2 (16.12.2014 Tarih ve 35/1207 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun i-SPK.101.1.A (27.11.2015 Tarihli ve 32/1527 S.K.) Sayılı | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulumuzun i-SPK.128.11 (27.11.2015 Tarih ve 32/1494 S.K.) Sayılı İlk | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulumuzun i-SPK.45.2 (27.11.2015 Tarih ve 32/1494 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulumuzun i-SPK.45.2 (27.11.2015 Tarih ve 32/1494 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurulun 03.02.2015 Tarih ve 3/142 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un 03/01/2019 Tarih ve 1/21 Sayılı Kararı | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un 03/02/2017 Tarih ve 5/173 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1034,44 +1665,44 @@
 | SPK Karari - Kurul'un 31/12/2020 Tarih ve 79/1624 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un 31/12/2020 Tarih ve 79/1627 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un 31/12/2020 Tarih ve 79/1639 Sayılı Kararı | kanun-madde | 7 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK 31.2 (27/02/2020 Tarih ve 12/305 S.K.) Sayılı İlke Kara | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK 48.10 (26/12/2019 Tarih ve 76/1680 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK 48.11 (03/12/2020 Tarih ve 75/1482 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK 48.12 (24/12/2020 Tarih ve 78/1586 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK 52.4.Ü (05/12/2019 Tarihli ve 70/1567 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK 52.4.V (13/02/2020 Tarih ve 10/232 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK 52.4.Y (02/06/2020 Tarih ve 33/673 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK. 52.4.R (07/02/2019 Tarihli ve 8/184 S.K.) Sayılı İlke | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK 31.2 (27/02/2020 Tarih ve 12/305 S.K.) Sayılı İlke Kara | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK 48.10 (26/12/2019 Tarih ve 76/1680 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK 48.11 (03/12/2020 Tarih ve 75/1482 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK 48.12 (24/12/2020 Tarih ve 78/1586 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK 52.4.Ü (05/12/2019 Tarihli ve 70/1567 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK 52.4.V (13/02/2020 Tarih ve 10/232 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK 52.4.Y (02/06/2020 Tarih ve 33/673 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK. 52.4.R (07/02/2019 Tarihli ve 8/184 S.K.) Sayılı İlke | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK. Iı-17.6 (15.10.2020 Tarihli ve 64/1284 S.K.) Sayılı İl | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.101.1.B (31.01.2019 Tarihli ve 7/168 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.128.16 (24.12.2020 Tarih ve 78/1573 S.K.) Sayılı İlke K | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.128.17 (14/07/2021 Tarih ve 37/1119 Sayılı İlke Kararı | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulun i-SPK.128.7 (17.07.2014 Tarihli ve 22/735 Sayılı) Sayılı İlke | kanun-madde | 5 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.128.7. (17.07.2014 Tarihli ve 22/7359 Sayılı) İlke Kara | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulun i-SPK.128.8 (29.08.2014 Tarihli ve 26/856 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.13.2.A (10.07.2020 Tarihli ve 42/866 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.13.3 (23.07.2020 Tarihli ve 47/954 S.K.)sayılı İlke Kar | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulun i-SPK.22.1 (24.07.2014 Tarih ve 23/759 S.K.) Sayılı İlke Karar | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.22.5 (01.07.2021 Tarih ve 33/1028) Sayılı İlke Kararı | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.27.1 (23/07/2020 Tarihli ve 47/944 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.35/A.1 (01.04.2021 Tarihli ve 17/551 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulun i-SPK.45.1 (14.03.2014 Tarih ve 8/230 S.K.) Sayılı İlke Kararı | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurulun i-SPK.45.2 (17.07.2014 Tarih ve 22/711 S.K.) Sayılı İlke Karar | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.45.3 (10.09.2020 Tarih ve 56/1139 S.K.) Sayılı İlke Kar | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.101.1.B (31.01.2019 Tarihli ve 7/168 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.128.16 (24.12.2020 Tarih ve 78/1573 S.K.) Sayılı İlke K | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.128.17 (14/07/2021 Tarih ve 37/1119 Sayılı İlke Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulun i-SPK.128.7 (17.07.2014 Tarihli ve 22/735 Sayılı) Sayılı İlke | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.128.7. (17.07.2014 Tarihli ve 22/7359 Sayılı) İlke Kara | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulun i-SPK.128.8 (29.08.2014 Tarihli ve 26/856 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.13.2.A (10.07.2020 Tarihli ve 42/866 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.13.3 (23.07.2020 Tarihli ve 47/954 S.K.)sayılı İlke Kar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulun i-SPK.22.1 (24.07.2014 Tarih ve 23/759 S.K.) Sayılı İlke Karar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.22.5 (01.07.2021 Tarih ve 33/1028) Sayılı İlke Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.27.1 (23/07/2020 Tarihli ve 47/944 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.35/A.1 (01.04.2021 Tarihli ve 17/551 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulun i-SPK.45.1 (14.03.2014 Tarih ve 8/230 S.K.) Sayılı İlke Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurulun i-SPK.45.2 (17.07.2014 Tarih ve 22/711 S.K.) Sayılı İlke Karar | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.45.3 (10.09.2020 Tarih ve 56/1139 S.K.) Sayılı İlke Kar | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK.4632 S.Kn.17.3.I (27/05/2019 Tarihli ve 31/729 S.K.) Sa | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK.4632 S.Kn.17.3.İ (30/05/2019 Tarihli ve 32/756 S.K.) Sa | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK.4632 S.Kn.17.3.J (27/06/2019 Tarihli 38/864 S.K.) Sayıl | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK.4632 S.Kn.17.3.K (24/10/2019 Tarihli ve 61/1374 S.K.) S | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK.4632 S.Kn.17.3.M (05/03/2020 Tarih ve 15/327 S.K.) Sayı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK.4632 S.Kn.17.3.N (12/03/2020 Tarih ve 16/383 S.K.) Sayı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.48.3.B (10/12/2020 Tarihli ve 76/1519 S.K.) Sayılı İlke | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.48.6.A (13/02/2020 Tarih ve 10/230 S.K.) Sayılı İlke Ka | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.52.4 (20.06.2014 Tarih ve 19/614 S.K.) Sayılı İlke Kara | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.48.3.B (10/12/2020 Tarihli ve 76/1519 S.K.) Sayılı İlke | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.48.6.A (13/02/2020 Tarih ve 10/230 S.K.) Sayılı İlke Ka | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.52.4 (20.06.2014 Tarih ve 19/614 S.K.) Sayılı İlke Kara | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'un i-SPK.52.4 (20.06.2014 Tarih ve 19/614 Sayılı Kararı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.52.4.S (12/03/2019 Tarihli ve 16/347 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.52.4.Ş (09/05/2019 Tarihli ve 27/621 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.52.4.T (27/06/2019 Tarihli ve 38/864 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Karari - Kurul'un i-SPK.52.4.U (24/10/2019 Tarihli ve 61/1372 S.K.) Sayılı İlke | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.52.4.S (12/03/2019 Tarihli ve 16/347 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.52.4.Ş (09/05/2019 Tarihli ve 27/621 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.52.4.T (27/06/2019 Tarihli ve 38/864 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Karari - Kurul'un i-SPK.52.4.U (24/10/2019 Tarihli ve 61/1372 S.K.) Sayılı İlke | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Karari - Kurul'unkurul’un i-SPK.48.6 (01.03.2018 Tarihli ve 9/316 S.K.) Sayılı | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Kredili İşlemler Tebliği (V-65) | kanun-madde | 38 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Kredili İşlemler Tebliği (V-65) dipnot: 14.02.2023 Kurul Kararı duyurusu | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1081,13 +1712,13 @@
 | SPK Kredili İşlemler Tebliği (V-65) EK/3 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Kredili İşlemler Tebliği (V-65) EK/4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Kredili İşlemler Tebliği (V-65) EK/5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Kredili İşlemler Tebliği (V-65) Geçici | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Kredili İşlemler Tebliği (V-65) Geçici | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Kredili İşlemler Tebliği (V-65) künye | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Rehber - Emeklilik Yatırım Fonlarına İlişkin Rehber | kanun-madde | 49 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Rehber - Kar Payı Rehberi | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Rehber - Önemli Nitelikteki İşlemler ve Ayrılma Hakkı Tebliği Uygulama Rehberi | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Rehber - Özel Durumlar Rehberi | kanun-madde | 21 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SPK Rehber - Sorumlu Yönetim İlkeleri Rehberi | kanun-madde | 7 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SPK Rehber - Sorumlu Yönetim İlkeleri Rehberi | kanun-madde | 7 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Rehber - Sürdürülebilirlik Bağlantılı Sermaye Piyasası Araçları Rehberi | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Rehber - Yatırım Fonlarına İlişkin Rehber | kanun-madde | 57 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Rehber - Yatırım Hizmet ve Faaliyetleri İle Yatırım Kuruluşlarına İlişkin Rehbe | kanun-madde | 39 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1425,7 +2056,7 @@
 | THP 503 - SERMAYE DÜZELTMESİ OLUMSUZ FARKLARI (-) | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 520 - HİSSE SENEDİ İHRAÇ PRİMLERİ | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 521 - HİSSE SENEDİ İPTAL KARLARI | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| THP 522 - M.D.V. YENİDEN DEĞERLEME ARTIŞLARI | standart-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| THP 522 - M.D.V. YENİDEN DEĞERLEME ARTIŞLARI | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 523 - İŞTİRAKLER YENİDEN DEĞERLEME ARTIŞLARI | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 529 - DİĞER SERMAYE YEDEKLERİ | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 540 - YASAL YEDEKLER | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1564,8 +2195,8 @@
 | Turizm Payı K. (7183 s.K.) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Teşvik K. (2634 s.K.) | kanun-madde | 90 | DELİK-İNCELE(par:5/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TÜRMOB Birlik Yön. | kanun-madde | 70 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TÜRMOB Etik İlkeler Yön. | kanun-madde | 9 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TÜRMOB Etik İlkeler Yön. EK | kanun-madde | 22 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TÜRMOB Etik İlkeler Yön. | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TÜRMOB Etik İlkeler Yön. EK | kanun-madde | 22 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Uluslararası İşgücü K. (6735 s.K.) | kanun-madde | 35 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Ürün Güvenliği K. (7223 s.K.) | kanun-madde | 42 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Vakıflar K. (5737 s.K.) | kanun-madde | 65 | DELİK-İNCELE(par:36/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1772,11 +2403,11 @@
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:420) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:429) | kanun-madde | 5 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:545) | kanun-madde | 16 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VUK — Ceza sistemi (m.341-376) | kanun | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VUK — Ceza sistemi (m.341-376) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK — Değerleme ve karşılıklar (m.281,322,323) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK — Fatura ve belge düzeni (m.229-232,313-320) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK (213 s.K.) | kanun-madde | 584 | DELİK-İNCELE(par:430/kesik:29/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VUK (213 s.K.) ek | kanun-madde | 13 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VUK (213 s.K.) ek | kanun-madde | 13 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK 509 GT | kanun-madde | 204 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK GT 389 (amortisman faydali omur listeleri) | kanun-madde | 10 | DELİK-İNCELE(par:0/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK GT 577 EK (1.1.2025 had ve tutarlari listesi) | kanun-madde | 15 | DELİK-İNCELE(par:456/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
