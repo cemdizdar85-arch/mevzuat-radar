@@ -498,6 +498,15 @@ foreach($kk in $KONULAR){
     if($deneme -gt 1){ $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." }
     $y=$null
     foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 8000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+    # 02.09 gece OLCULDU (bozuk-*.txt kapisi sayesinde): 4 konu "durma=max_tokens, 0 kr"
+    # ile bozuktu - model 8.000 jetonun TAMAMINI dusunmeye harcayip metin yazamadan
+    # kesiliyor (OpenRouter hattinda akil yurutme jetonu max_tokens'a dahil). Hiz icin
+    # 20k->8k indirilen tavan bu 4 konuyu oldurdu. Cozum: bos+kesik cevapta BIR KEZ
+    # 20.000 ile yeniden dene; diger 26 soru 8k'da kaldigi icin hiz kaybi yok.
+    if("$($y.dur)" -eq 'max_tokens' -and -not "$($y.metin)".Trim()){
+      Write-Host "  KESIK-BOS ($id): 8k tavan dusunmeye gitti, 20k ile yeniden" -ForegroundColor DarkYellow
+      foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+    }
     $aday=Coz $y.metin
     if(-not ($aday -and $aday.soru -and $aday.aciklama)){
       # 02.09 KAPI 4. KATMAN: "BOZUK" tek basina hicbir sey soylemiyordu (kp-05/06 iki
