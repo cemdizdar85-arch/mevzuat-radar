@@ -55,9 +55,32 @@ foreach($cift in $ARSIV){
   $sinavAd=$cift[0]; $analiz=Yukle $cift[1]
   if(-not $analiz){ Write-Host "  UYARI: $($cift[1]) yok - $sinavAd çıkmış tarafı BOŞ kalır" -ForegroundColor Yellow; continue }
   $arsivDamga[$sinavAd]="$($analiz.guncelleme)"
+  # KARANTİNA KAPISI (02.09 gece, ölçüldü): SMMM 2026/3'te 8 dersin kitapçığı AYNI sermaye
+  # piyasası içeriğiydi (TESMER bağlantıları aynı/bozuk dosyayı vermiş), analiz her dosyayı
+  # kendi dersiyle etiketlemişti → 7 derse 140 yanlış çıkmış-konu girdi, "Muhasebe Denetimi"
+  # partisi sermaye piyasası sorusu üretti. Kural: aynı dönemde ≥3 ders girdisi birbiriyle
+  # ≥%50 aynı konuyu taşıyorsa o dönemin ders etiketleri güvenilmezdir → dönem ATLANIR ve
+  # özete yazılır. Veri elle düzeltilmez; sinav-analiz o dönemi yeniden indirince kendiliğinden açılır.
+  $donemGrup=@{}
+  foreach($donem in @($analiz.donemler)){ if(-not $donem.konuSayim){ continue }; $dk="$($donem.donem)"; if(-not $donemGrup.ContainsKey($dk)){ $donemGrup[$dk]=New-Object System.Collections.Generic.List[object] }; $donemGrup[$dk].Add($donem) }
+  $karantinaDonem=@{}
+  foreach($dk in $donemGrup.Keys){
+    $girdiler=@($donemGrup[$dk]); if($girdiler.Count -lt 3){ continue }
+    $kumeler=@($girdiler | ForEach-Object { ,@($_.konuSayim.PSObject.Properties | ForEach-Object { Norm (("$($_.Name)" -split '\|',2)[1]) }) })
+    $supheli=0
+    for($i=0;$i -lt $kumeler.Count;$i++){
+      $enYuksek=0
+      for($j=0;$j -lt $kumeler.Count;$j++){ if($i -eq $j -or $kumeler[$i].Count -eq 0){ continue }; $ortak=@($kumeler[$i] | Where-Object { $kumeler[$j] -contains $_ }).Count; $oran=100*$ortak/[Math]::Max(1,$kumeler[$i].Count); if($oran -gt $enYuksek){ $enYuksek=$oran } }
+      if($enYuksek -ge 50){ $supheli++ }
+    }
+    if($supheli -ge 3){ $karantinaDonem[$dk]="$supheli/$($girdiler.Count) ders girdisi birbirinin aynısı (ders etiketi güvenilmez)"; Write-Host "  KARANTİNA $sinavAd $dk : $($karantinaDonem[$dk])" -ForegroundColor Yellow }
+  }
+  if(-not $script:KARANTINA){ $script:KARANTINA=New-Object System.Collections.Generic.List[object] }
+  foreach($dk in $karantinaDonem.Keys){ $script:KARANTINA.Add([pscustomobject]@{ sinav=$sinavAd; donem=$dk; sebep=$karantinaDonem[$dk]; atlanan_girdi=@($donemGrup[$dk]).Count }) }
   $donemSay=0
   foreach($donem in @($analiz.donemler)){
     if(-not $donem.konuSayim){ continue }
+    if($karantinaDonem.ContainsKey("$($donem.donem)")){ continue }
     $donemSay++
     $donemKimlik="$($donem.donem)"
     foreach($p in $donem.konuSayim.PSObject.Properties){
@@ -206,6 +229,7 @@ $ozet['kasa_okunan_soru']=$okunan
 $ozet['arsiv_damgasi']=$arsivDamga
 $ozet['sozlukle_koprulenen_kasa_etiketi']=$sozluk.Count
 $ozet['cikmis_dayanak_olculmedi']=$dayanakOlculmedi
+$ozet['karantina_donem']=$(if($script:KARANTINA){ $script:KARANTINA.ToArray() } else { @() })
 $ozet['ders_koprusu']=$dersListe.ToArray()
 $ozet['agir_bosluk_sayisi']=$agir.Count
 $ozet['agir_bosluklar']=@($agir | Sort-Object donem -Descending)
