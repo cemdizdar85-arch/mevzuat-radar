@@ -66,11 +66,23 @@ foreach($cift in $ARSIV){
   $karantinaDonem=@{}
   foreach($dk in $donemGrup.Keys){
     $girdiler=@($donemGrup[$dk]); if($girdiler.Count -lt 3){ continue }
-    $kumeler=@($girdiler | ForEach-Object { ,@($_.konuSayim.PSObject.Properties | ForEach-Object { Norm (("$($_.Name)" -split '\|',2)[1]) }) })
+    # PS 5.1: ForEach-Object icinde ',@()' ile dizi-dizisi kurulamiyor (ilk denemede duzlesti,
+    # kapi hic tetiklenmedi). Her ders girdisi icin ayri HashSet kurulur.
+    $kumeler=New-Object System.Collections.Generic.List[object]
+    foreach($g in $girdiler){
+      $set=New-Object 'System.Collections.Generic.HashSet[string]'
+      foreach($pp in $g.konuSayim.PSObject.Properties){ $nk=Norm (("$($pp.Name)" -split '\|',2)[1]); if($nk){ [void]$set.Add($nk) } }
+      $kumeler.Add($set)
+    }
     $supheli=0
     for($i=0;$i -lt $kumeler.Count;$i++){
       $enYuksek=0
-      for($j=0;$j -lt $kumeler.Count;$j++){ if($i -eq $j -or $kumeler[$i].Count -eq 0){ continue }; $ortak=@($kumeler[$i] | Where-Object { $kumeler[$j] -contains $_ }).Count; $oran=100*$ortak/[Math]::Max(1,$kumeler[$i].Count); if($oran -gt $enYuksek){ $enYuksek=$oran } }
+      if($kumeler[$i].Count -eq 0){ continue }
+      for($j=0;$j -lt $kumeler.Count;$j++){
+        if($i -eq $j){ continue }
+        $ortak=0; foreach($e in $kumeler[$i]){ if($kumeler[$j].Contains($e)){ $ortak++ } }
+        $oran=100*$ortak/$kumeler[$i].Count; if($oran -gt $enYuksek){ $enYuksek=$oran }
+      }
       if($enYuksek -ge 50){ $supheli++ }
     }
     if($supheli -ge 3){ $karantinaDonem[$dk]="$supheli/$($girdiler.Count) ders girdisi birbirinin aynısı (ders etiketi güvenilmez)"; Write-Host "  KARANTİNA $sinavAd $dk : $($karantinaDonem[$dk])" -ForegroundColor Yellow }
