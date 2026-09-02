@@ -133,7 +133,7 @@ $KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.
 $DERS_KANUN=@{
   'Ticaret Hukuku'=@('TTK (6102 s.K.)'); 'Borclar Hukuku'=@('TBK (6098 s.K.)')
   'Is ve Sosyal Guvenlik Hukuku'=@('İş K. (4857 s.K.)','5510 s. SGK Kanunu')
-  'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)')
+  'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','AATUHK (6183 s.K.)','İİK (2004 s.K.)')
   'Meslek Hukuku'=@('SMMM K. (3568 s.K.)'); 'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
   'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('THP')
 }
