@@ -53,6 +53,11 @@ function AciklamaDuz($a){
   return ($p -join ' ')
 }
 # sema tur adlari serbest donebiliyor - cizdiricinin tanidigi enum'a indir
+function Katla2([string]$s){
+  ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' `
+        -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' `
+        -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant()
+}
 function SemaNormalize($s){
   if($null -eq $s -or -not $s.tur){ return $s }
   $t="$($s.tur)".ToLowerInvariant() -replace 'ş','s' -replace 'ı','i'
@@ -214,6 +219,15 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 8. DERS KAPSAMI (RESMI - 01.09): {DERS_TARIF}
    Bu kapsamin DISINA cikan soru uretme; konu kapsama uymuyorsa soruyu KAPSAMA
    UYAN acisiyla kur (or. TMS konusu geldiyse KAYIT boyutunu sor, olcum teknigi degil).
+9. UZUNLUK - SINAV AYARI (02.09 Cem karari, cikmis sinav olcumuyle): soru govdesi
+   (siklar HARIC) EN FAZLA {TAVAN} KARAKTER. Gercek {DERS} sorularinin olculen kalibi:
+   {KALIP}. Bu bir uslup tercihi degil KAPIDIR - asan soru reddedilip yeniden yazilir.
+   NASIL KISALTILIR: tek islem anlat (olay zinciri sart degilse kurma), sirket/kisi
+   hikayesi ve gereksiz tarih-adres detayi yazma, "asagidakilerden hangisidir" ile bitir.
+   Gercek sinav ornegi (251 kr): "Isletme, gercek kisiden kiraladigi yonetim binasina ait
+   olan 100.000 TL'lik temmuz ayi kira tutarini %20 gelir vergisi kesintisi (stopaj)
+   yaptiktan sonra banka araciligiyla odemistir. Soz konusu isleme iliskin muhasebe kaydi
+   asagidakilerden hangisidir?" - ZORLUK AYRIMDA olur, kelime sayisinda DEGIL.
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
@@ -223,6 +237,28 @@ Cevap YALNIZ JSON:
 '@
 $rapor=New-Object System.Collections.Generic.List[string]
 $kaynakBorcu=New-Object System.Collections.Generic.List[string]
+
+# --- GERCEK SINAV KALIBI (02.09 Cem: "sinavda sorulan sorulari ders ders
+# ayristir, o kalipta yapacagiz ... 350 diye degis") ---------------------------
+# arac/cikmis-ders-kalibi.ps1 cikmis kitapciklari derse ayirip olcuyor.
+# Olculen SGS gercegi: Finansal Muhasebe medyan 317 kr, p90 504 kr,
+# tip dagilimi kayit %41 / hesaplama %26 / teori %18.
+# Cem karari: TAVAN 350 (medyanin hemen ustu - gercek sinavin ~%65'i bu bandin altinda).
+$UZUNLUK_TAVAN=350
+$KALIP_TIP=''
+$kalipYol=Join-Path $kok ("veri\cikmis-ders-kalibi-" + ($Sinav.ToLowerInvariant()) + ".json")
+if(Test-Path $kalipYol){
+  try{
+    $kp=Get-Content $kalipYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $dAd=@($kp.dersler.PSObject.Properties.Name | Where-Object { $_ -match $DersRegex -or (Katla2 $_) -match (Katla2 $DersRegex) }) | Select-Object -First 1
+    if($dAd){
+      $dk=$kp.dersler.$dAd
+      $tipler=@($dk.tip_dagilim.PSObject.Properties | Sort-Object { -[int]$_.Value } | ForEach-Object { "$($_.Name) %$([math]::Round(100*[int]$_.Value/[int]$dk.soru_sayisi))" })
+      $KALIP_TIP=($tipler -join ', ')
+      "gercek kalip [$dAd]: n=$($dk.soru_sayisi) medyan=$($dk.medyan) p90=$($dk.p90) | tip: $KALIP_TIP"
+    }
+  }catch{ "kalip dosyasi okunamadi: $($_.Exception.Message)" }
+} else { "kalip dosyasi YOK ($kalipYol) - tavan $UZUNLUK_TAVAN ile devam" }
 foreach($kk in $KONULAR){
   $id=$kk.id
   # 02.09: cache id-bazli; konu listesi degisince (dislama kalkti/yeni konu girdi)
@@ -230,6 +266,12 @@ foreach($kk in $KONULAR){
   # farkliysa kayit dusurulur, yeniden uretilir.
   if($don.Contains($id) -and $don[$id].soru -and "$($don[$id].konu)" -ne "$($kk.kayit.konu)"){
     Write-Host "  CACHE DUSTU (konu degisti): $id '$($don[$id].konu)' -> '$($kk.kayit.konu)'" -ForegroundColor Yellow
+    $don.Remove($id)
+  }
+  # 02.09 uzunluk kapisi GERIYE DONUK: tavani asan eski sorular yeniden basilir
+  # (soru degisince adim/ikiz/yevmiye de dusurulur ki tutarli kalsin).
+  if($don.Contains($id) -and $don[$id].soru -and "$($don[$id].soru)".Length -gt $UZUNLUK_TAVAN){
+    Write-Host "  CACHE DUSTU (uzun: $("$($don[$id].soru)".Length) kr > $UZUNLUK_TAVAN): $id $($kk.kayit.konu)" -ForegroundColor Yellow
     $don.Remove($id)
   }
   if($don.Contains($id) -and $don[$id].soru){ continue }
@@ -256,10 +298,24 @@ foreach($kk in $KONULAR){
     continue
   }
   $ekNot=if($OZEL_NOT.ContainsKey($konuLc)){ "`nOZEL UYARI: $($OZEL_NOT[$konuLc])" } else { '' }
-  $ist=$soruIstem.Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin)+$ekNot
-  $y=$null
-  foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
-  $cvp=Coz $y.metin
+  $ist=$soruIstem.Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"}))+$ekNot
+  # UZUNLUK KAPISI (02.09): asan soru KABUL EDILMEZ - 2 kez kisaltma istenir.
+  $cvp=$null
+  foreach($deneme in 1..3){
+    $istBu=$ist
+    if($deneme -gt 1){ $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." }
+    $y=$null
+    foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+    $aday=Coz $y.metin
+    if(-not ($aday -and $aday.soru -and $aday.aciklama)){ continue }
+    $uz="$($aday.soru)".Length
+    if($uz -le $UZUNLUK_TAVAN){ $cvp=$aday; break }
+    Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow
+    if($deneme -eq 3){
+      $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)")
+      $cvp=$aday   # 3 denemede inmediyse en sonuncuyu al ama RAPORA yaz
+    }
+  }
   if($cvp -and $cvp.soru -and $cvp.aciklama){
     # sema alan-adi normalizasyonu (01.09 bug: model 'ogeler' yerine 'adimlar' dondurdu -> bos cizim)
     if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){

@@ -1,0 +1,191 @@
+﻿{
+    "aciklama":  "Cikmis SGS kitapciklarindan ders bazli GERCEK soru kalibi. Uretici her dersin \u0027tavan\u0027 degerini soru govdesi ust siniri olarak kullanir. Sinıflandirma anahtar-kelime bazli; guveni dusuk sorular \u0027belirsiz\u0027 sayilip kalip disi birakilir.",
+    "sinav":  "SGS",
+    "kitapcik_sayisi":  10,
+    "toplam_soru":  1291,
+    "siniflandirilamayan":  416,
+    "dersler":  {
+                    "Finansal Muhasebe":  {
+                                              "soru_sayisi":  148,
+                                              "ortalama":  325,
+                                              "medyan":  317,
+                                              "p75":  414,
+                                              "p90":  504,
+                                              "en_uzun":  828,
+                                              "tavan":  504,
+                                              "tip_dagilim":  {
+                                                                  "kayit":  60,
+                                                                  "hesaplama":  38,
+                                                                  "teori":  27,
+                                                                  "diger":  23
+                                                              }
+                                          },
+                    "Denetim":  {
+                                    "soru_sayisi":  119,
+                                    "ortalama":  202,
+                                    "medyan":  177,
+                                    "p75":  263,
+                                    "p90":  356,
+                                    "en_uzun":  873,
+                                    "tavan":  356,
+                                    "tip_dagilim":  {
+                                                        "teori":  78,
+                                                        "diger":  40,
+                                                        "hesaplama":  1
+                                                    }
+                                },
+                    "Ticaret ve Borclar":  {
+                                               "soru_sayisi":  102,
+                                               "ortalama":  219,
+                                               "medyan":  136,
+                                               "p75":  276,
+                                               "p90":  458,
+                                               "en_uzun":  1165,
+                                               "tavan":  458,
+                                               "tip_dagilim":  {
+                                                                   "teori":  66,
+                                                                   "diger":  30,
+                                                                   "hesaplama":  6
+                                                               }
+                                           },
+                    "Matematik":  {
+                                      "soru_sayisi":  82,
+                                      "ortalama":  147,
+                                      "medyan":  146,
+                                      "p75":  206,
+                                      "p90":  236,
+                                      "en_uzun":  350,
+                                      "tavan":  236,
+                                      "tip_dagilim":  {
+                                                          "hesaplama":  34,
+                                                          "diger":  30,
+                                                          "teori":  18
+                                                      }
+                                  },
+                    "Meslek Hukuku":  {
+                                          "soru_sayisi":  76,
+                                          "ortalama":  259,
+                                          "medyan":  212,
+                                          "p75":  300,
+                                          "p90":  423,
+                                          "en_uzun":  888,
+                                          "tavan":  423,
+                                          "tip_dagilim":  {
+                                                              "teori":  45,
+                                                              "diger":  31
+                                                          }
+                                      },
+                    "Is ve Sosyal Guvenlik":  {
+                                                  "soru_sayisi":  67,
+                                                  "ortalama":  247,
+                                                  "medyan":  147,
+                                                  "p75":  275,
+                                                  "p90":  624,
+                                                  "en_uzun":  986,
+                                                  "tavan":  624,
+                                                  "tip_dagilim":  {
+                                                                      "teori":  40,
+                                                                      "diger":  20,
+                                                                      "hesaplama":  7
+                                                                  }
+                                              },
+                    "Maliyet Muhasebesi":  {
+                                               "soru_sayisi":  62,
+                                               "ortalama":  586,
+                                               "medyan":  551,
+                                               "p75":  746,
+                                               "p90":  900,
+                                               "en_uzun":  1155,
+                                               "tavan":  900,
+                                               "tip_dagilim":  {
+                                                                   "hesaplama":  51,
+                                                                   "teori":  9,
+                                                                   "diger":  1,
+                                                                   "kayit":  1
+                                                               }
+                                           },
+                    "Turkce":  {
+                                   "soru_sayisi":  57,
+                                   "ortalama":  272,
+                                   "medyan":  174,
+                                   "p75":  386,
+                                   "p90":  608,
+                                   "en_uzun":  875,
+                                   "tavan":  608,
+                                   "tip_dagilim":  {
+                                                       "diger":  44,
+                                                       "teori":  9,
+                                                       "hesaplama":  4
+                                                   }
+                               },
+                    "Vergi Hukuku":  {
+                                         "soru_sayisi":  44,
+                                         "ortalama":  192,
+                                         "medyan":  156,
+                                         "p75":  263,
+                                         "p90":  349,
+                                         "en_uzun":  608,
+                                         "tavan":  349,
+                                         "tip_dagilim":  {
+                                                             "teori":  23,
+                                                             "diger":  15,
+                                                             "hesaplama":  6
+                                                         }
+                                     },
+                    "Mali Tablolar Analizi":  {
+                                                  "soru_sayisi":  39,
+                                                  "ortalama":  294,
+                                                  "medyan":  266,
+                                                  "p75":  411,
+                                                  "p90":  539,
+                                                  "en_uzun":  632,
+                                                  "tavan":  539,
+                                                  "tip_dagilim":  {
+                                                                      "hesaplama":  21,
+                                                                      "diger":  11,
+                                                                      "teori":  7
+                                                                  }
+                                              },
+                    "Ataturk Ilkeleri":  {
+                                             "soru_sayisi":  30,
+                                             "ortalama":  138,
+                                             "medyan":  127,
+                                             "p75":  156,
+                                             "p90":  243,
+                                             "en_uzun":  280,
+                                             "tavan":  243,
+                                             "tip_dagilim":  {
+                                                                 "teori":  18,
+                                                                 "diger":  11,
+                                                                 "hesaplama":  1
+                                                             }
+                                         },
+                    "Ekonomi":  {
+                                    "soru_sayisi":  25,
+                                    "ortalama":  200,
+                                    "medyan":  180,
+                                    "p75":  266,
+                                    "p90":  320,
+                                    "en_uzun":  461,
+                                    "tavan":  320,
+                                    "tip_dagilim":  {
+                                                        "diger":  13,
+                                                        "teori":  11,
+                                                        "hesaplama":  1
+                                                    }
+                                },
+                    "Maliye":  {
+                                   "soru_sayisi":  24,
+                                   "ortalama":  202,
+                                   "medyan":  212,
+                                   "p75":  315,
+                                   "p90":  387,
+                                   "en_uzun":  393,
+                                   "tavan":  387,
+                                   "tip_dagilim":  {
+                                                       "teori":  15,
+                                                       "diger":  9
+                                                   }
+                               }
+                }
+}
