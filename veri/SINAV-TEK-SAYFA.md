@@ -1,6 +1,6 @@
 # SINAV TEK SAYFA — üç sınavın tek doğru sayfası
 
-> Üretim: **02.09.2026 23:59** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
+> Üretim: **02.09.2026 21:00** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
 > **KURAL:** Sınavla ilgili "var mı / kaç tane / eksik ne" sorusunun TEK cevabı bu sayfadır. Başında **⚠** olan satırın girdisi bayat (> 7 gün) ya da kırıktır: o sayı **ölçülmedi** sayılır, önce girdisi tazelenir (bölüm 5).
 > Bu sayfa hiçbir şeyi kendisi ölçmez; ölçüm robotlarının çıktılarını birleştirir ve her sayının yanına kaynağını + tarihini yazar.
 
@@ -98,9 +98,9 @@ Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ila
 
 | Sınav | Yıl sayısı | Evren | Diskte | Ambarda | Çıkarılan soru |
 |---|---:|---:|---:|---:|---:|
+| KGK | 1 | 112 | 112 | 108 | 12.131 |
 | SGS | 22 | 249 | 185 | 129 | 8.400 |
 | SMMM | 19 | 419 | 419 | 419 | 320 |
-| KGK | 1 | 112 | 112 | 108 | 12.131 |
 
 **SGS sıklık künyesi** — 35 dönem, 3.248 tekil konu (veri/siklik-kunyesi.json). En çok çıkan 12 konu:
 
@@ -135,18 +135,18 @@ Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ila
 
 | Sınav | Arşiv dersi (köprüsüz) | Konu |
 |---|---|---:|
-| KGK | Kurumsal Yönetim İlkeleri ve Finansal Yönetim | 776 |
+| KGK | Kurumsal Yönetim İlkeleri ve Finansal Yönetim | 792 |
 | KGK | Genel Hukuk Mevzuatı | 563 |
-| KGK | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı | 540 |
+| KGK | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı | 554 |
 | KGK | Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi | 247 |
 | KGK | Sigortacılık ve Özel Emeklilik Mevzuatı | 224 |
 | KGK | Bankacılık Mevzuatı | 222 |
 | KGK | Sermaye Piyasası Mevzuatı | 207 |
 | KGK | Bankacılık | 40 |
-| KGK | Sigortacılık ve Özel Emeklilik | 40 |
 | KGK | kurumsal yonetim ve finansal yonetim | 40 |
 | KGK | Sermaye Piyasası | 40 |
 | KGK | sermaye piyasasi bankacilik sigortacilik | 40 |
+| KGK | Sigortacılık ve Özel Emeklilik | 40 |
 
 ## 3 · BASTIĞIMIZ SORULAR YETERLİ Mİ? (kota × kasa)
 
@@ -192,27 +192,27 @@ Bu sayfanın her girdisi aşağıda. **TAZE** = ≤ 7 gün · **BAYAT** = daha e
 
 | Girdi | Dosya | Durum | Ölçüm damgası | Dosya tarihi | Üretici | Robot |
 |---|---|---|---|---|---|---|
-| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 01.09.2026 22:31 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
-| kasa-sayim | veri/kasa-sayim.json | TAZE | 02.09.2026 05:03 | 02.09.2026 09:01 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
-| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 31.07.2026 10:15 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 08.08.2026 10:33 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 24.08.2026 21:15 | motor/kota-kur.ps1 (elle) | yok (Cem kararı; tarih anlamsız) |
-| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 02.09.2026 23:54 | 02.09.2026 23:54 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
-| ambar-envanteri | veri/AMBAR-ENVANTERI.md | TAZE | 02.09.2026 17:57 | 02.09.2026 17:59 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 02.09.2026 14:53 | 02.09.2026 17:54 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| cikmis-karnesi | veri/cikmis-soru-karnesi.json | **BAYAT (9 gün)** | 24.08.2026 00:05 | 25.08.2026 12:41 | motor/cikmis-soru-karnesi.ps1 | yok |
-| siklik-kunyesi | veri/siklik-kunyesi.json | TAZE | 30.08.2026 08:43 | 30.08.2026 11:44 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
-| kgk-analiz | veri/kgk-analiz.json | **BAYAT (14 gün)** | 19.08.2026 (TAM ARSIV) | 19.08.2026 19:32 | motor/kgk-siklik-derle.ps1 | yok |
-| ders-karnesi | veri/ders-karnesi.json | TAZE | 2026-08-26 00:11 | 30.08.2026 08:54 | motor/ders-karnesi.ps1 | dogrula.yml |
-| karne-sgs | veri/konu-kaynak-karnesi.json | TAZE | 2026-08-27 14:09 | 30.08.2026 08:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml · sgs-analiz push tetikli |
-| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | TAZE | 2026-08-26 00:51 | 30.08.2026 08:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | TAZE | 2026-08-26 03:00 | 30.08.2026 08:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 02.09.2026 15:24 | arac/dayanak-metinsiz-tarama.ps1 | yok |
-| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 02.09.2026 23:42 | arac/dayanak-kara-liste.ps1 | yok |
-| bekleyen-partiler | veri/bekleyen-partiler.json | **BAYAT (21 gün)** |  | 12.08.2026 22:10 | motor/parti-hasat.ps1 | parti-liste.yml · her gün 03:26 TR |
-| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 02.09.2026 18:15 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
+| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 02.09.2026 20:59 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
+| kasa-sayim | veri/kasa-sayim.json | TAZE | 02.09.2026 05:03 | 02.09.2026 20:59 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
+| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 02.09.2026 20:59 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 02.09.2026 20:59 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 02.09.2026 20:59 | motor/kota-kur.ps1 (elle) | yok (Cem kararı; tarih anlamsız) |
+| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 02.09.2026 20:55 | 02.09.2026 20:59 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
+| ambar-envanteri | veri/AMBAR-ENVANTERI.md | TAZE | 02.09.2026 17:57 | 02.09.2026 20:59 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 02.09.2026 14:53 | 02.09.2026 20:59 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| cikmis-karnesi | veri/cikmis-soru-karnesi.json | **BAYAT (9 gün)** | 24.08.2026 00:05 | 02.09.2026 20:59 | motor/cikmis-soru-karnesi.ps1 | yok |
+| siklik-kunyesi | veri/siklik-kunyesi.json | TAZE | 30.08.2026 08:43 | 02.09.2026 20:59 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
+| kgk-analiz | veri/kgk-analiz.json | **BAYAT (14 gün)** | 19.08.2026 (TAM ARSIV) | 02.09.2026 20:59 | motor/kgk-siklik-derle.ps1 | yok |
+| ders-karnesi | veri/ders-karnesi.json | TAZE | 2026-08-26 00:11 | 02.09.2026 20:59 | motor/ders-karnesi.ps1 | dogrula.yml |
+| karne-sgs | veri/konu-kaynak-karnesi.json | TAZE | 2026-08-27 14:09 | 02.09.2026 20:59 | motor/konu-kaynak-karnesi.ps1 | karne.yml · sgs-analiz push tetikli |
+| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | TAZE | 2026-08-26 00:51 | 02.09.2026 20:59 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | TAZE | 2026-08-26 03:00 | 02.09.2026 20:59 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 02.09.2026 20:59 | arac/dayanak-metinsiz-tarama.ps1 | yok |
+| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 02.09.2026 20:59 | arac/dayanak-kara-liste.ps1 | yok |
+| bekleyen-partiler | veri/bekleyen-partiler.json | TAZE |  | 02.09.2026 20:59 | motor/parti-hasat.ps1 | parti-liste.yml · her gün 03:26 TR |
+| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 02.09.2026 20:59 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
 
-**Şu an TAZE olmayan girdi: 7 / 19.**
+**Şu an TAZE olmayan girdi: 6 / 19.**
 
 ## 6 · ÇIKMIŞ SORULARA GÖRE YUTMADIĞIMIZ MEVZUAT
 
@@ -248,22 +248,22 @@ KAYNAK YOK örnekleri (SGS):
 - Ekonomi › tuketici tercih aksiyomlari (1 çıkmış)
 
 KAYNAK YOK örnekleri (SMMM):
-- Muhasebe Denetimi › denetim ustlenememe halleri (1 çıkmış)
-- Muhasebe Denetimi › sermaye azalmasinda kurul tedbirleri (1 çıkmış)
-- Vergi Mevzuatı ve Uygulaması › sermaye azaltimi vergilendirmesi (1 çıkmış)
 - Finansal Muhasebe › finansal kiralamali monografi (1 çıkmış)
 - Finansal Muhasebe › kdv hesaplasmasi kaydi (1 çıkmış)
 - Finansal Muhasebe › stok fire kaydi (1 çıkmış)
+- Muhasebe Denetimi › denetim ustlenememe halleri (1 çıkmış)
+- Muhasebe Denetimi › sermaye azalmasinda kurul tedbirleri (1 çıkmış)
+- Vergi Mevzuatı ve Uygulaması › sermaye azaltimi vergilendirmesi (1 çıkmış)
 
 KAYNAK YOK örnekleri (KGK):
-- muhasebe standartlari › deger dusuklugu hesaplanmayan (1 çıkmış)
-- Muhasebe Standartlari › iadeli satis hasilati (1 çıkmış)
-- Muhasebe Standartları › devlet tesvigi muhasebesi (1 çıkmış)
-- Muhasebe Standartları › kavramsal cerceve revizyonu (1 çıkmış)
-- Muhasebe › cek ciro kaydi (1 çıkmış)
-- Muhasebe › dovizli kredi degerleme (1 çıkmış)
-- Muhasebe › bagli ortaklik temettusu (1 çıkmış)
-- Muhasebe › brut kar hesabi (1 çıkmış)
+- Bankacılık Mevzuatı › bkn 5411 banka turlerine gore faaliyet yasaklari (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › kurumsal yonetim etmenleri (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › pay sahipleriyle iletisimde oncu komite (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › piyasa vade siniflamasi (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › reel faiz hesabi (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › sabit gider siniflamasi (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › temettu ilisksizlik teorisi (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › wacc hesabi (1 çıkmış)
 
 **Dayanak kara listesi** (hakemle ölçüldü, yanlış oranı > %50; üretici yok sayar — veri/dayanak-kara-liste.json):
 
@@ -290,8 +290,8 @@ KAYNAK YOK örnekleri (KGK):
 | SGS | Is ve Sosyal Guvenlik Hukuku | 1.020 | 489 | **531** | %48 |
 | KGK | b) Türkiye Denetim Standartları | 1.360 | 966 | **394** | %71 |
 | KGK | ç) Sermaye Piyasası Mevzuatı | 360 | 0 | **360** | %0 |
-| KGK | e) Sigortacılık ve Özel Emeklilik Mevzuatı | 360 | 0 | **360** | %0 |
 | KGK | d) Bankacılık Mevzuatı | 360 | 0 | **360** | %0 |
+| KGK | e) Sigortacılık ve Özel Emeklilik Mevzuatı | 360 | 0 | **360** | %0 |
 | SGS | Ataturk Ilkeleri ve Inkilap Tarihi | 469 | 114 | **355** | %24 |
 | KGK | a) Türkiye Muhasebe Standartları | 1.391 | 1.079 | **312** | %78 |
 | KGK | g) Sürdürülebilirlik Denetimi | 300 | 0 | **300** | %0 |
@@ -302,7 +302,7 @@ KAYNAK YOK örnekleri (KGK):
 
 | Sınav | Konu | Dönem | Çıkmış soru | Arşiv dersi | Dayanak | Güç |
 |---|---|---:|---:|---|---|---|
-| KGK | yonetim kurulu komiteleri | 15 | 15 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim | TOBB/Odalar K. (5174 s.K.) | ZAYIF |
+| KGK | yonetim kurulu komiteleri | 15 | 15 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM | TOBB/Odalar K. (5174 s.K.) | ZAYIF |
 | KGK | kayitli sermaye sistemi | 10 | 10 | Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik | TTK (6102 s.K.) m.482 | TEYITLI |
 | KGK | sermaye piyasasi kurumlari | 10 | 10 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası |  | OLCULMEDI |
 | KGK | sermaye piyasasi suclari | 10 | 10 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası |  | OLCULMEDI |
@@ -311,22 +311,22 @@ KAYNAK YOK örnekleri (KGK):
 | SGS | kelime bilgisi | 9 | 14 | Yabanci Dil |  | OLCULMEDI |
 | KGK | ic kontrol bilesenleri | 8 | 8 | Denetim | BDS 315 | ZAYIF |
 | SGS | sozcukte anlam | 8 | 8 | Genel Kultur-Genel Yetenek |  | OLCULMEDI |
+| KGK | sistematik olmayan risk | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM | TFRS 17 | ZAYIF |
 | KGK | azalan bakiyeler amortisman | 7 | 7 | Muhasebe | VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman | TEYITLI |
-| KGK | banka kurulus sartlari | 7 | 7 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Bankacılık Mevzuatı / Bankacılık | Bankacılık K. (5411 s.K.) | ZAYIF |
-| KGK | kar payi avansi | 7 | 7 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı | Kar Payi Tebligi (II-19.1) | ZAYIF |
-| KGK | bilesik faiz hesabi | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim | SPK Tebliğ (Seri: V, No: 34) | ZAYIF |
-| KGK | faaliyet raporu icerigi | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim | SPK Karari | ZAYIF |
+| KGK | banka kurulus sartlari | 7 | 7 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Bankacılık / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati | Bankacılık K. (5411 s.K.) | ZAYIF |
 | KGK | bds 600 topluluk denetimi | 7 | 7 | Türkiye Denetim Standartları / Denetim | BDS 600 | GUCLU |
+| KGK | bilesik faiz hesabi | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim | SPK Tebliğ (Seri: V, No: 34) | ZAYIF |
+| KGK | kar payi avansi | 7 | 7 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı | Kar Payi Tebligi (II-19.1) | ZAYIF |
 | KGK | tahvil özellikleri | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim | SPK Karari | ZAYIF |
 | KGK | ticari isletme unsurlari | 7 | 7 | Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati |  | OLCULMEDI |
-| SMMM | gelir tablosu duzenleme | 7 | 7 | Finansal Muhasebe | SMMM K. (3568 s.K.) m.29 | TEYITLI |
-| KGK | sistematik olmayan risk | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim | TFRS 17 | ZAYIF |
 | SGS | cumle tamamlama-kosul | 7 | 7 | Yabanci Dil |  | OLCULMEDI |
-| KGK | bds 510 acilis bakiyeleri | 6 | 6 | Türkiye Denetim Standartları / Denetim | BDS 510 | GUCLU |
+| SMMM | gelir tablosu duzenleme | 7 | 7 | Finansal Muhasebe | SMMM K. (3568 s.K.) m.29 | TEYITLI |
+| KGK | faaliyet raporu icerigi | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim | SPK Karari | ZAYIF |
 | KGK | bds 320 onemlilik | 6 | 6 | Denetim / Türkiye Denetim Standartları | BDS 320 | GUCLU |
-| KGK | menfaat sahipleri | 6 | 6 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim | Kurumsal Yonetim Tebligi (II-17.1) | ZAYIF |
 | KGK | bilanco hesaplari | 6 | 6 | Muhasebe | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 555) | ZAYIF |
-| KGK | satilan mal maliyeti | 6 | 6 | Muhasebe | THP 622 | TEYITLI |
+| KGK | eldeki kus teorisi | 6 | 6 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim |  | OLCULMEDI |
+| KGK | stok devir hizi | 6 | 6 | Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim | VUK (213 s.K.) m.278 - Kıymeti düşen mallar | TEYITLI |
+| KGK | menfaat sahipleri | 6 | 6 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim | Kurumsal Yonetim Tebligi (II-17.1) | ZAYIF |
 
 Bekleyen üretim partisi: 0 (veri/bekleyen-partiler.json).
 
