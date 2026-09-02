@@ -15,6 +15,7 @@ param(
   [string]$Sinav='SGS',
   [string]$DersRegex='Finansal Muhasebe',
   [string]$KonuDosya='',
+  [switch]$RedYenile,      # 03.09: hakem HAYIR / DERS-DISI kalan cache kayitlarini dusur, yeniden uret
   [int]$Adet=30,
   [string]$Etiket='sgs-fmuh-30',
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
@@ -133,7 +134,7 @@ $KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.
 $DERS_KANUN=@{
   'Ticaret Hukuku'=@('TTK (6102 s.K.)'); 'Borclar Hukuku'=@('TBK (6098 s.K.)')
   'Is ve Sosyal Guvenlik Hukuku'=@('İş K. (4857 s.K.)','5510 s. SGK Kanunu')
-  'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','AATUHK (6183 s.K.)','İİK (2004 s.K.)')
+  'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)')
   'Meslek Hukuku'=@('SMMM K. (3568 s.K.)'); 'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
   'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('THP')
 }
@@ -194,7 +195,11 @@ function DesenUret($kayit){
   # Cozum: HER konu icin teori notlarinda tek tek kelime araması da eklenir
   # (TEORI/Teori Notu onekli, >=5 harfli kokler). Kaynak metni yalniz ad ile bulunur;
   # metin icinde arama yok, dolayisiyla yanlis-pozitif sinirli; KAPI-A ve hakem yine siniyor.
-  $teoriKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch '^(hesabi|hesaplama|yontemi|teorisi|kavrami|ilkesi|degeri|suresi|araclari|sartlari|haklari|problemi|sistemi|tanimi|unsurlari)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+  # 03.09 olcumu (cek hukuku -> TFRS 10 + Noterlik K.): 'hukuku', 'kanunu' gibi GENEL kokler her seyi
+  # esliyor; stop listesi genisletildi. Kanun ici (@) arama icin 3-4 harfli ozgul kokler de alinir (cek, bono).
+  $GENEL_KOK='^(hesabi|hesaplama|yontemi|yontem|teorisi|kavrami|kavram|ilkesi|ilkeler|degeri|suresi|araclari|sartlari|haklari|problemi|sistemi|tanimi|unsurlari|hukuku|hukuk|kanunu|kanun|mevzuat|standart|standardi|genel|temel|ozel|turleri|halleri|kurali|kurallari|islemi|islemleri|kaydi|kayitlari|analizi|hesaplari)$'
+  $teoriKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch $GENEL_KOK } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+  $kanunKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch $GENEL_KOK -and $_ -notmatch '^(ve|ile|icin|bir|bu|olan|dair)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
   # 03.09 OLCULDU (SMMM denetim partisi, 8 hakem reddi): TEK kok cok gevsek - 'sistem' ->
   # doviz kuru riski notu, 'sozlesme' -> sigorta zeyilname notu. Cem "1.2.3 yap" -> 3:
   # teori deseni EN AZ IKI kok ister (iki sirada da); tek kok yalniz konu tek kelimeyse.
@@ -214,13 +219,18 @@ function DesenUret($kayit){
     foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$onek|$tk") }
     break
   }
-  # dayanak hic yoksa: dersin ana kanunlarinda konu kokuyle metin aramasi
-  if(-not "$($kayit.dayanak)".Trim() -and -not "$($kayit.cikmis_dayanak)".Trim() -and $teoriKok.Count -ge 1){
+  # dayanak yoksa YA DA zayif/olculmemisse (03.09 olcumu: 'SPK Rehber' zayif dayanagi bono sorusuna
+  # SPK Kanunu getirdi, TTK m.776 hic aranmadi): dersin ana kanunlarinda konu kokuyle metin aramasi.
+  # Zayif dayanakta bu desenler ONE alinir ki model once dogru kanunu gorsun.
+  $dayanakZayif=(-not "$($kayit.dayanak)".Trim() -and -not "$($kayit.cikmis_dayanak)".Trim()) -or ("$($kayit.guc)" -match 'ZAYIF|OLCULMEDI|^$')
+  if($dayanakZayif -and $kanunKok.Count -ge 1){
     $dersAdi=($DersRegex -replace '[\^\$\\]','')
+    $one=New-Object System.Collections.Generic.List[string]
     foreach($dk in $DERS_KANUN.Keys){
       if($dersAdi -notmatch [regex]::Escape($dk)){ continue }
-      foreach($onek2 in $DERS_KANUN[$dk]){ foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$onek2|$tk") } }
+      foreach($onek2 in $DERS_KANUN[$dk]){ foreach($tk in ($kanunKok | Select-Object -First 2)){ $one.Add("@$onek2|$tk") } }
     }
+    if($one.Count){ $d.InsertRange(0,$one) }
   }
   return @($d | Select-Object -Unique)
 }
@@ -513,6 +523,12 @@ foreach($kk in $KONULAR){
   # sonradan OZEL_NOT (ders acisi duzeltmesi) yazildiysa soru yeniden kurulur.
   if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI' -and $OZEL_NOT.ContainsKey("$($kk.kayit.konu)".ToLowerInvariant())){
     Write-Host "  CACHE DUSTU (ders-disi + ders acisi notu): $id $($kk.kayit.konu)" -ForegroundColor Yellow
+    $don.Remove($id)
+  }
+  # 03.09 -RedYenile: arama/profil duzeltmesinden sonra hakemin reddettigi sorular yeniden
+  # (kaynak degismis olabilir; red kalici kalmasin). Yalniz bayrakla - normalde para harcanmaz.
+  if($RedYenile -and $don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['hakem'] -and ("$($don[$id].hakem.karar)" -ne 'EVET' -or "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI')){
+    Write-Host "  CACHE DUSTU (-RedYenile: hakem $($don[$id].hakem.karar)/$($don[$id].hakem.ders_uyum)): $id $($kk.kayit.konu)" -ForegroundColor Yellow
     $don.Remove($id)
   }
   # 02.09 uzunluk kapisi GERIYE DONUK: tavani asan eski sorular yeniden basilir
