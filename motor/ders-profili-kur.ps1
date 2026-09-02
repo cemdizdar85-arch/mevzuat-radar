@@ -64,7 +64,7 @@ foreach($svAd in @($prof.sinavlar.PSObject.Properties.Name)){
       # TAM ESITLIK ile aranir.
       # (KGK f/g: arsiv etiketi "Kurumsal Surdurulebilirlik Raporlamasi VE Denetimi" iki dersi
       #  birden kapsar -> etiket dKat ile baslayip 'VE' ile devam ediyorsa da esler; 'MALIYE'+'T...' eslemez)
-      $kayitlar=@($tam | Where-Object { $_.sinav -eq $kisa -and $_.donem -ge 1 -and ( ((Katla "$($_.bizim_ders)") -eq $dKat) -or (@(("$($_.arsiv_ders)" -split ' / ') | ForEach-Object { Katla $_ } | Where-Object { $_ -eq $dKat -or $_.StartsWith($dKat+'VE') -or $_.EndsWith('VE'+$dKat) -or $_.Contains('VE'+$dKat+'VE') }).Count -gt 0) ) })
+      $kayitlar=@($tam | Where-Object { $_.sinav -eq $kisa -and $_.donem -ge 1 -and ( ((Katla "$($_.bizim_ders)") -eq $dKat) -or (@(("$($_.arsiv_ders)" -split ' / ') | ForEach-Object { Katla $_ } | Where-Object { $_ -eq $dKat -or $_.StartsWith($dKat+' VE ') -or $_.EndsWith(' VE '+$dKat) -or $_.Contains(' VE '+$dKat+' VE ') }).Count -gt 0) ) })
       $tipik=@($kayitlar | Sort-Object donem -Descending | Select-Object -First 20 | ForEach-Object { "$($_.konu) ($($_.donem)d)" })
       $aile=@($kayitlar | Where-Object { $_.cikmis_dayanak_anahtar } | Group-Object cikmis_dayanak_anahtar | Sort-Object Count -Descending | Select-Object -First 8 | ForEach-Object { "$($_.Name) ($($_.Count))" })
     }
