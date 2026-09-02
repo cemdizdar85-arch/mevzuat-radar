@@ -79,6 +79,14 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
   foreach($d in $desenler){
     if(-not $d){ continue }
     $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($d)+'&limit=6'
+    # 03.09 (SGS bosluk partisi olcumu): dayanak madde NUMARASIZ kanun ("TTK (6102 s.K.)") ise
+    # ad aramasi bos donuyor, konu 'kaynak borcu' oluyordu - oysa TTK m.776 (bono unsurlari)
+    # ambarda. '@<kanun oneki>|<kelime>' deseni: o kanunun maddeleri icinde METIN aramasi.
+    if($d.StartsWith('@')){
+      $parca=$d.Substring(1) -split '\|',2
+      if($parca.Count -lt 2 -or -not $parca[1]){ continue }
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&metin=ilike.'+[uri]::EscapeDataString('%'+$parca[1]+'%')+'&limit=4'
+    }
     # 02.09 KRITIK: eski hali 'catch{ continue }' idi - AG HATASI sessizce
     # "kaynak yok" gibi davraniyordu ve konu KAPI-A'dan 'alakasiz kaynak' diye
     # duduyordu. Olculemeyen ile YOK ayni sey degildir: artan bekleme ile 3 kez
@@ -184,6 +192,19 @@ function DesenUret($kayit){
   if($teoriKok.Count -ge 2){
     for($i=0;$i -lt $teoriKok.Count;$i++){ for($j=0;$j -lt $teoriKok.Count;$j++){ if($i -eq $j){ continue }; $d.Add("TEORI%$($teoriKok[$i])%$($teoriKok[$j])%"); $d.Add("Teori Notu%$($teoriKok[$i])%$($teoriKok[$j])%") } }
   } elseif($teoriKok.Count -eq 1){ $d.Add("TEORI%$($teoriKok[0])%"); $d.Add("Teori Notu%$($teoriKok[0])%") }
+  # 03.09: kanun var, MADDE YOK ("TTK (6102 s.K.)", "5510 sayılı Kanun") -> o kanunun maddeleri
+  # icinde konu kelimesiyle METIN aramasi (AmbarCek '@' deseni). Ilk iki kok ayri ayri denenir.
+  foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
+    if(-not $ham -or $ham -match '\bm\.?\s*\d+'){ continue }
+    $onek=''
+    foreach($ks in @('VUK','TTK','TBK','GVK','KVK','SPK')){ if($ham -match ('\b'+$ks+'\b') -and $KANUN.ContainsKey($ks) -and $KANUN[$ks] -notmatch '%$'){ $onek=$KANUN[$ks]; break } }
+    if(-not $onek -and $ham -match '5510'){ $onek='5510 s. SGK Kanunu' }
+    if(-not $onek -and $ham -match '4857'){ $onek='İş K. (4857 s.K.)' }
+    if(-not $onek -and $ham -match '3568'){ $onek='SMMM K. (3568 s.K.)' }
+    if(-not $onek){ continue }
+    foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$onek|$tk") }
+    break
+  }
   return @($d | Select-Object -Unique)
 }
 # Haritanin YANLIS dayanak yazdigi konular icin elle dogru kaynak (01.09:
