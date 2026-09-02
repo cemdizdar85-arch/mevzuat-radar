@@ -19,7 +19,13 @@
 param(
   [int]$DayanakSayisi=10,     # en cok yigilan kac dayanak olculecek
   [int]$OrnekBasina=10,       # her dayanak icin kac konu orneklenecek
-  [int]$KaraListeEsigi=50     # yanlis orani %N ve uzeriyse kara listeye girer
+  [int]$KaraListeEsigi=50,    # yanlis orani %N ve uzeriyse kara listeye girer
+  # 02.09 gece (Cem "1.2.3 yap" -> 2): tek DERS icin olcum. KGK Kurumsal Yon.+Fin. Yon.
+  # partisinde hakem 3 soruyu yanlis dayanaktan reddetti ("yonetim kurulu komiteleri" ->
+  # Varlik Yonetim Sirketleri Yonetmeligi). Ders suzgeci verilirse yalniz o dersin
+  # kopru kayitlari sayilir; sonuc mevcut kara listeye BIRLESTIRILEREK yazilir (ezmez).
+  [string]$Sinav='',
+  [string]$DersRegex=''
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -51,6 +57,9 @@ function AmbarMetni([string]$kunye){
 }
 
 $tam=Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+if($Sinav){ $tam=@($tam | Where-Object { $_.sinav -eq $Sinav }) }
+if($DersRegex){ $tam=@($tam | Where-Object { ("$($_.bizim_ders)$($_.arsiv_ders)") -match $DersRegex }) }
+Write-Host "kopru kaydi (suzgec sonrasi): $(@($tam).Count)"
 # dayanak -> tekil konu kumesi
 $sayac=@{}
 foreach($r in @($tam)){
@@ -117,18 +126,38 @@ foreach($dayanak in $enCok){
   })
   Write-Host ("  {0,-52} bagli={1,-5} yanlis=%{2,-4} -> {3}" -f $dayanak.Substring(0,[Math]::Min(52,$dayanak.Length)),$bagliSayi,$(if($null -ne $oran){$oran}else{'?'}),$durum)
 }
+# BIRLESTIRME: onceki olcumler korunur; ayni dayanak yeniden olculduyse yenisi gecer.
+$hedefYol=Join-Path $depoKok 'veri\dayanak-kara-liste.json'
+$eskiAyrinti=@{}; $eskiKara=New-Object System.Collections.Generic.List[string]
+if(Test-Path $hedefYol){
+  try{
+    $eski=Get-Content $hedefYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($e in @($eski.ayrinti)){ $eskiAyrinti["$($e.dayanak)"]=$e }
+    foreach($k in @($eski.kara_liste)){ $eskiKara.Add("$k") }
+  }catch{}
+}
+# Kapsam anahtari: ders suzgecli olcum, ayni dayanagin GENEL olcumunu EZMEZ (ilk denemede
+# VUK m.275'in 2.088 konuluk genel satiri 17 konuluk KGK satiriyla degisti, tahmin 1.951->1.423 dustu).
+$kapsam=$(if($Sinav -or $DersRegex){ "$Sinav/$DersRegex" } else { 'genel' })
+$eskiAyrinti2=@{}
+foreach($e in $eskiAyrinti.Values){ $ek=$(if($e.PSObject.Properties['kapsam'] -and $e.kapsam){ "$($e.kapsam)" } else { 'genel' }); $eskiAyrinti2["$($e.dayanak)|$ek"]=$e }
+foreach($s in $sonuclar){ $s | Add-Member -NotePropertyName kapsam -NotePropertyValue $kapsam -Force; $eskiAyrinti2["$($s.dayanak)|$kapsam"]=$s }
+$birlesikAyrinti=@($eskiAyrinti2.Values | Sort-Object { -[int]$_.bagli_konu })
+$birlesikKara=New-Object System.Collections.Generic.List[string]
+foreach($s in $birlesikAyrinti){ if("$($s.durum)" -eq 'KARA LISTE' -and -not $birlesikKara.Contains("$($s.dayanak)")){ $birlesikKara.Add("$($s.dayanak)") } }
 $toplamTahmin=0
-foreach($s in $sonuclar){ $toplamTahmin += [int]$s.tahmini_yanlis_kayit }
+foreach($s in $birlesikAyrinti){ $toplamTahmin += [int]$s.tahmini_yanlis_kayit }
 $cikti=[pscustomobject][ordered]@{
-  aciklama="En cok yigilan dayanaklarin GERCEK dogruluk olcumu. Hakeme dayanagin AMBARDAKI MADDE METNI verilir (kunye tek basina yaniltir - olculdu). Yanlis orani esigi asan dayanak KARA LISTEye girer: uretici o dayanaga guvenmez, konuyu dogrudan ambarda arar. Kopru kaydi SILINMEZ."
+  aciklama="En cok yigilan dayanaklarin GERCEK dogruluk olcumu. Hakeme dayanagin AMBARDAKI MADDE METNI verilir (kunye tek basina yaniltir - olculdu). Yanlis orani esigi asan dayanak KARA LISTEye girer: uretici o dayanaga guvenmez, konuyu dogrudan ambarda arar. Kopru kaydi SILINMEZ. Olcumler birikimlidir (ders suzgecli kosular oncekileri ezmez)."
   esik_yuzde=$KaraListeEsigi
-  olculen_dayanak=$sonuclar.Count
+  son_kosu=$(if($Sinav -or $DersRegex){ "suzgec: sinav=$Sinav ders=$DersRegex ($($sonuclar.Count) dayanak)" } else { "genel ($($sonuclar.Count) dayanak)" })
+  olculen_dayanak=$birlesikAyrinti.Count
   # .ToArray() SART: hashtable literali icinde List'i '@(...)' ile sarmak PS 5.1'de
   # "Bagimsiz degisken turleri eslesmiyor" ile duser (02.09 olculdu; @() / [ordered]
   # / once-degiskene-al varyantlarinin UCU DE dustu, calisan tek yol ToArray()).
-  kara_liste=$karaListe.ToArray()
+  kara_liste=$birlesikKara.ToArray()
   tahmini_yanlis_kayit_toplami=$toplamTahmin
-  ayrinti=$sonuclar.ToArray()
+  ayrinti=$birlesikAyrinti
 }
 . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
 RaporYaz -Hedef (Join-Path $depoKok 'veri\dayanak-kara-liste.json') -Nesne $cikti

@@ -168,6 +168,16 @@ function DesenUret($kayit){
     $kel=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 4 } | Select-Object -First 2 | ForEach-Object { if($_.Length -ge 6){ $_.Substring(0,$_.Length-2) } else { $_ } })
     if($kel.Count -ge 1){ $d.Add('%'+($kel -join '%')+'%') }
   }
+  # 02.09 gece OLCULDU (KGK Kurumsal Yon.+Fin. Yon. partisi, 22 "kaynak borcu"): ambarda
+  # "Teori Notu - kaldirac ve basabas", "- risk getiri portfoy", "- sermaye butcelemesi
+  # NPV IRR" gibi notlar VARDI ama bulunamadi. Iki sebep: (1) dayanak varsa (SPK Tebligi
+  # gibi ambarda olmayan bir kunye) konu adiyla HIC aranmiyordu; (2) konu-ad deseni
+  # kelimeleri SIRAYLA istiyordu ('%basabas%noktas%'), not adi baska sirada.
+  # Cozum: HER konu icin teori notlarinda tek tek kelime araması da eklenir
+  # (TEORI/Teori Notu onekli, >=5 harfli kokler). Kaynak metni yalniz ad ile bulunur;
+  # metin icinde arama yok, dolayisiyla yanlis-pozitif sinirli; KAPI-A ve hakem yine siniyor.
+  $teoriKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch '^(hesabi|hesaplama|yontemi|teorisi|kavrami|ilkesi|degeri|suresi|araclari|sartlari|haklari|problemi)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+  foreach($tk in $teoriKok){ $d.Add("TEORI%$tk%"); $d.Add("Teori Notu%$tk%") }
   return @($d | Select-Object -Unique)
 }
 # Haritanin YANLIS dayanak yazdigi konular icin elle dogru kaynak (01.09:
