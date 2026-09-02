@@ -146,7 +146,11 @@ $OZEL_DESEN=@{
   'ozkaynak hesaplama'          = @('THP 500%','THP 540%','THP 570%','THP 590%','THP 529%')
   'dönemsellik kavramı'         = @('MSUGT 1 kavram%','THP 180%','THP 380%','THP 181%','THP 381%')
   'duran varlik satisi'         = @('VUK (213 s.K.) m.328%','THP 253%','THP 257%','THP 679%','THP 689%')
-  'kollektif sirket kar dagitimi'= @('TTK (6102 s.K.) m.62%','TTK (6102 s.K.) m.63%','TTK (6102 s.K.) m.64%')
+  # Iki yanlis denemeden sonra OLCUYLE bulundu: kollektif sirkette kar payi hakki ve
+  # zarara katilma TTK m.226-228'de ("E) Kar payi hakki ve zarara katilma" baslikli
+  # bolum; m.227 kar dagitimi karari, m.228 ortagin kar payini isteme hakki).
+  # m.62%/m.638 denemeleri sirket turu ve LIMITED sirket hukumlerini getirmisti.
+  'kollektif sirket kar dagitimi'= @('TTK (6102 s.K.) m.227%','TTK (6102 s.K.) m.228%','TTK (6102 s.K.) m.226%','THP 331%','THP 590%')
   'yasal yedek akce'            = @('TTK (6102 s.K.) m.519%','THP 540%','THP 541%')
   'kasa sayim farki'            = @('THP 197%','THP 397%','THP 100%')
   # 02.09 HAKEM (KAPI-B) yakalamalari - ikisi de ayni sinif: kopru yanlis dayanak.
@@ -163,6 +167,8 @@ $OZEL_NOT=@{
   'muhasebe bilgi sistemi' = "DERS UYARISI (hakem yakaladi): belgenin vergi-hukuku gecerliligini SORMA; belge->yevmiye->defter KAYIT AKISINI ve muhasebe surecindeki rolunu sor (FMuh boyutu)."
   'amortisman ayirma'      = "DERS UYARISI (hakem yakaladi): amortisman HESAPLAMA teknigi/oran secimi Vergi Hukuku'na kacar; burada AYIRMA KAYDINI sor - 7xx/730 gider, 257 Birikmis Amortismanlar isleyisi, dogrudan/endirekt kayit yontemi. Hesap sade tutulur (duz amortisman, tam yil)."
   'gelir tablosu hesaplari'= "DERS UYARISI (hakem yakaladi): dikey yuzde/oran analizi Mali Tablolar Analizi'ne kacar; burada 6xx GELIR TABLOSU HESAPLARININ ISLEYISINI sor - hangi islem hangi hesaba, yansitma/kapanis kayitlari, brut satistan net kara akisin KAYIT boyutu."
+  # 02.09 ders-uyum hakemi yakalamasi
+  'tms 2 stoklar'          = "DERS UYARISI (hakem yakaladi): NGD/GUD gibi ileri OLCUM-KAVRAM ayrimlari Denetim/ileri MTA'ya kacar. Burada stoklarin KAYIT boyutunu sor: 153 Ticari Mallar maliyetine neyin girip neyin girmedigi (nakliye, sigorta, alis iskontosu), 157 Diger Stoklar, deger dusuklugu karsiliginin (158) ayrilma KAYDI. Sade tutarlarla, tek islem."
 }
 
 # --- DERS PROFILI (01.09 Cem: "Excel'de ders ders gonderdim") ----------------
@@ -314,6 +320,20 @@ foreach($kk in $KONULAR){
   # farkliysa kayit dusurulur, yeniden uretilir.
   if($don.Contains($id) -and $don[$id].soru -and "$($don[$id].konu)" -ne "$($kk.kayit.konu)"){
     Write-Host "  CACHE DUSTU (konu degisti): $id '$($don[$id].konu)' -> '$($kk.kayit.konu)'" -ForegroundColor Yellow
+    $don.Remove($id)
+  }
+  # 02.09: HAKEM REDDI + kaynak degisti -> yeniden bas. Hakem "dayanak kaynaktan
+  # cikmiyor" dediyse ve o konuya sonradan elle olculmus OZEL_DESEN eklendiyse,
+  # soru ESKI yanlis kaynakla uretilmis demektir; cache'te birakmak reddi kalicilastirir.
+  if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.karar)" -ne 'EVET' -and $OZEL_DESEN.ContainsKey("$($kk.kayit.konu)".ToLowerInvariant())){
+    $eskiKaynak=(@($don[$id].kaynak_adlar) | Select-Object -First 1)
+    Write-Host "  CACHE DUSTU (hakem reddi + yeni kaynak): $id $($kk.kayit.konu) [eski: $eskiKaynak]" -ForegroundColor Yellow
+    $don.Remove($id)
+  }
+  # ayni mantik DERS-DISI icin: KAPI C 'baska dersin sorusu' dediyse ve konuya
+  # sonradan OZEL_NOT (ders acisi duzeltmesi) yazildiysa soru yeniden kurulur.
+  if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI' -and $OZEL_NOT.ContainsKey("$($kk.kayit.konu)".ToLowerInvariant())){
+    Write-Host "  CACHE DUSTU (ders-disi + ders acisi notu): $id $($kk.kayit.konu)" -ForegroundColor Yellow
     $don.Remove($id)
   }
   # 02.09 uzunluk kapisi GERIYE DONUK: tavani asan eski sorular yeniden basilir
@@ -653,6 +673,13 @@ foreach($id in @($don.Keys)){
         if($sol -match '^\s*[\d\.,]+\s*/\s*100\s*$'){ continue }
         if($sol -match '^(\s*[\d\.,]+\s*/\s*100\s*\+?\s*)+$'){ continue }
         if($null -eq $c1){ continue }
+        # HESAP KODU filtresi (02.09, kp-17 vakasi): "770 + 180 = 102" bir toplama
+        # DEGIL, yevmiye satirinin THP hesap kodlaridir (770 Genel Yonetim Gideri,
+        # 180 Gelecek Aylara Ait Giderler, 102 Bankalar). Tum terimler VE sonuc
+        # 3 haneli THP kodu araligindaysa (100-799, ondaliksiz) zincir atlanir.
+        $terimler=@([regex]::Matches($sol,'[\d\.,]+') | ForEach-Object { $_.Value })
+        $hepsiKod=($terimler.Count -ge 2) -and (-not @($terimler | Where-Object { $_ -notmatch '^[1-7]\d{2}$' }).Count) -and ("$($m.Groups[2].Value)" -match '^[1-7]\d{2}$')
+        if($hepsiKod){ continue }
         $parcalar=[regex]::Matches($sol,'([\d\.,]+)|([x*/+\-])')
         $hes=$null; $op=$null; $gecerli=$true
         foreach($pp in $parcalar){
