@@ -1,1811 +1,1813 @@
-{
-  "olcum": "02.09.2026 21:00",
-  "kural": "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
-  "kaynak_sagligi": [
-    {
-      "ad": "ders-profili",
-      "dosya": "veri/ders-profili.json",
-      "durum": "SABİT (karar dosyası)",
-      "damga": "",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "motor/ders-profili-kur.ps1",
-      "robot": "yok (resmî liste; Cem onayıyla değişir)"
-    },
-    {
-      "ad": "kasa-sayim",
-      "dosya": "veri/kasa-sayim.json",
-      "durum": "TAZE",
-      "damga": "02.09.2026 05:03",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "motor/kasa-sayim.ps1",
-      "robot": "kasa-sayim.yml · her gün 03:41 TR"
-    },
-    {
-      "ad": "kota-smmm",
-      "dosya": "veri/uretim-kotasi.json",
-      "durum": "SABİT (karar dosyası)",
-      "damga": "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 33,
-      "uretici": "motor/kota-kur.ps1",
-      "robot": "yok (Cem kararı; tarih anlamsız)"
-    },
-    {
-      "ad": "kota-sgs",
-      "dosya": "veri/sgs-uretim-kotasi.json",
-      "durum": "SABİT (karar dosyası)",
-      "damga": "31.07.2026 10:4x (Cem ders-ders tablosu)",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 33,
-      "uretici": "motor/sgs-kota-kur.ps1",
-      "robot": "yok (Cem kararı; tarih anlamsız)"
-    },
-    {
-      "ad": "kota-kgk",
-      "dosya": "veri/kgk-uretim-kotasi.json",
-      "durum": "SABİT (karar dosyası)",
-      "damga": "01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM')",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 32,
-      "uretici": "motor/kota-kur.ps1 (elle)",
-      "robot": "yok (Cem kararı; tarih anlamsız)"
-    },
-    {
-      "ad": "konu-koprusu",
-      "dosya": "veri/konu-koprusu-ozet.json",
-      "durum": "TAZE",
-      "damga": "02.09.2026 20:55",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "motor/konu-koprusu-kur.ps1 (V2 canlı)",
-      "robot": "konu-koprusu.yml · her gün 07:40 TR"
-    },
-    {
-      "ad": "ambar-envanteri",
-      "dosya": "veri/AMBAR-ENVANTERI.md",
-      "durum": "TAZE",
-      "damga": "02.09.2026 17:57",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "motor/ambar-envanteri.ps1",
-      "robot": "ambar-kapilari.yml · her gün 11:00 TR"
-    },
-    {
-      "ad": "butunluk-raporu",
-      "dosya": "veri/butunluk-raporu.json",
-      "durum": "TAZE",
-      "damga": "02.09.2026 14:53",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "motor/butunluk-kapisi.ps1",
-      "robot": "ambar-kapilari.yml · her gün 11:00 TR"
-    },
-    {
-      "ad": "cikmis-karnesi",
-      "dosya": "veri/cikmis-soru-karnesi.json",
-      "durum": "BAYAT (9 gün)",
-      "damga": "24.08.2026 00:05",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 9,
-      "uretici": "motor/cikmis-soru-karnesi.ps1",
-      "robot": "yok"
-    },
-    {
-      "ad": "siklik-kunyesi",
-      "dosya": "veri/siklik-kunyesi.json",
-      "durum": "TAZE",
-      "damga": "30.08.2026 08:43",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 3,
-      "uretici": "motor/siklik-kunyesi.ps1",
-      "robot": "konu-eslesme.yml · yalnız push"
-    },
-    {
-      "ad": "kgk-analiz",
-      "dosya": "veri/kgk-analiz.json",
-      "durum": "BAYAT (14 gün)",
-      "damga": "19.08.2026 (TAM ARSIV)",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 14,
-      "uretici": "motor/kgk-siklik-derle.ps1",
-      "robot": "yok"
-    },
-    {
-      "ad": "ders-karnesi",
-      "dosya": "veri/ders-karnesi.json",
-      "durum": "TAZE",
-      "damga": "2026-08-26 00:11",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 7,
-      "uretici": "motor/ders-karnesi.ps1",
-      "robot": "dogrula.yml"
-    },
-    {
-      "ad": "karne-sgs",
-      "dosya": "veri/konu-kaynak-karnesi.json",
-      "durum": "TAZE",
-      "damga": "2026-08-27 14:09",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 6,
-      "uretici": "motor/konu-kaynak-karnesi.ps1",
-      "robot": "karne.yml · sgs-analiz push tetikli"
-    },
-    {
-      "ad": "karne-smmm",
-      "dosya": "veri/konu-kaynak-karnesi-smmm.json",
-      "durum": "TAZE",
-      "damga": "2026-08-26 00:51",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 7,
-      "uretici": "motor/konu-kaynak-karnesi.ps1",
-      "robot": "karne.yml"
-    },
-    {
-      "ad": "karne-kgk",
-      "dosya": "veri/konu-kaynak-karnesi-kgk.json",
-      "durum": "TAZE",
-      "damga": "2026-08-26 03:00",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 7,
-      "uretici": "motor/konu-kaynak-karnesi.ps1",
-      "robot": "karne.yml"
-    },
-    {
-      "ad": "dayanak-metinsiz",
-      "dosya": "veri/dayanak-metinsiz-raporu.json",
-      "durum": "TAZE",
-      "damga": "",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "arac/dayanak-metinsiz-tarama.ps1",
-      "robot": "yok"
-    },
-    {
-      "ad": "dayanak-kara-liste",
-      "dosya": "veri/dayanak-kara-liste.json",
-      "durum": "TAZE",
-      "damga": "",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "arac/dayanak-kara-liste.ps1",
-      "robot": "yok"
-    },
-    {
-      "ad": "bekleyen-partiler",
-      "dosya": "veri/bekleyen-partiler.json",
-      "durum": "TAZE",
-      "damga": "",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "motor/parti-hasat.ps1",
-      "robot": "parti-liste.yml · her gün 03:26 TR"
-    },
-    {
-      "ad": "sinav-ders-envanteri",
-      "dosya": "veri/sinav-ders-envanteri.json",
-      "durum": "TAZE",
-      "damga": "",
-      "mtime": "02.09.2026 20:59",
-      "yas_gun": 0,
-      "uretici": "motor/sinav-ders-envanteri.ps1",
-      "robot": "sinav-ders-envanteri.yml · yalnız push"
-    }
-  ],
-  "sinav_ozet": [
-    {
-      "sinav": "SGS",
-      "ders": 15,
-      "kasa": 15827,
-      "hedef": 14603,
-      "eksik": 4529,
-      "kotasiz_ders": 0
-    },
-    {
-      "sinav": "SMMM",
-      "ders": 8,
-      "kasa": 12576,
-      "hedef": 8080,
-      "eksik": 1603,
-      "kotasiz_ders": 0
-    },
-    {
-      "sinav": "KGK",
-      "ders": 8,
-      "kasa": 2166,
-      "hedef": 5871,
-      "eksik": 3705,
-      "kotasiz_ders": 0
-    }
-  ],
-  "dersler": [
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Turkce",
-      "bolum": "Genel Kultur ve Yetenek",
-      "sinav_soru": 7,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 928,
-      "hedef": 656,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Matematik",
-      "bolum": "Genel Kultur ve Yetenek",
-      "sinav_soru": 8,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 211,
-      "hedef": 750,
-      "eksik": 539,
-      "doluluk": 28
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
-      "bolum": "Genel Kultur ve Yetenek",
-      "sinav_soru": 5,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 114,
-      "hedef": 469,
-      "eksik": 355,
-      "doluluk": 24
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Yabanci Dil",
-      "bolum": "Yabanci Dil",
-      "sinav_soru": 10,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1531,
-      "hedef": 938,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Finansal Muhasebe",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 26,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 4309,
-      "hedef": 1500,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Maliyet Muhasebesi",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 8,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 2570,
-      "hedef": 1040,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Mali Tablolar Analizi",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 8,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1373,
-      "hedef": 1050,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Denetim",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 16,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 859,
-      "hedef": 1050,
-      "eksik": 191,
-      "doluluk": 82
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Ekonomi",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 6,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 235,
-      "hedef": 1030,
-      "eksik": 795,
-      "doluluk": 23
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Maliye",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 6,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 281,
-      "hedef": 1020,
-      "eksik": 739,
-      "doluluk": 28
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Meslek Hukuku",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 6,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 353,
-      "hedef": 1020,
-      "eksik": 667,
-      "doluluk": 35
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Is ve Sosyal Guvenlik Hukuku",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 6,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 489,
-      "hedef": 1020,
-      "eksik": 531,
-      "doluluk": 48
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Vergi Hukuku",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 6,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1232,
-      "hedef": 1020,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Ticaret Hukuku",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 6,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1034,
-      "hedef": 1020,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SGS",
-      "sinav_uzun": "STAJA BAŞLAMA (SGS)",
-      "ders": "Borclar Hukuku",
-      "bolum": "Alan Bilgisi",
-      "sinav_soru": 6,
-      "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 308,
-      "hedef": 1020,
-      "eksik": 712,
-      "doluluk": 30
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Finansal Muhasebe",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 2896,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Finansal Tablolar ve Analizi",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1355,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Maliyet Muhasebesi",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1946,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Muhasebe Denetimi",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 133,
-      "hedef": 1010,
-      "eksik": 877,
-      "doluluk": 13
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1650,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 3247,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1065,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
-    },
-    {
-      "sinav": "SMMM",
-      "sinav_uzun": "STAJ BİTİRME / YETERLİLİK (SMMM)",
-      "ders": "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
-      "bolum": "Yeterlilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 284,
-      "hedef": 1010,
-      "eksik": 726,
-      "doluluk": 28
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "a) Türkiye Muhasebe Standartları",
-      "bolum": "temel alan (SMMM+YMM)",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 1079,
-      "hedef": 1391,
-      "eksik": 312,
-      "doluluk": 78
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "b) Türkiye Denetim Standartları",
-      "bolum": "temel alan (SMMM+YMM)",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 966,
-      "hedef": 1360,
-      "eksik": 394,
-      "doluluk": 71
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "bolum": "temel alan (yalnız SMMM)",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 118,
-      "hedef": 1440,
-      "eksik": 1322,
-      "doluluk": 8
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "ç) Sermaye Piyasası Mevzuatı",
-      "bolum": "ek alan — sermaye piyasası",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": 360,
-      "eksik": 360,
-      "doluluk": 0
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "d) Bankacılık Mevzuatı",
-      "bolum": "ek alan — bankacılık",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": 360,
-      "eksik": 360,
-      "doluluk": 0
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "bolum": "ek alan — sigortacılık ve özel emeklilik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": 360,
-      "eksik": 360,
-      "doluluk": 0
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "f) Kurumsal Sürdürülebilirlik Raporlaması",
-      "bolum": "ek alan — sürdürülebilirlik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 3,
-      "hedef": 300,
-      "eksik": 297,
-      "doluluk": 1
-    },
-    {
-      "sinav": "KGK",
-      "sinav_uzun": "BAĞIMSIZ DENETÇİLİK (KGK)",
-      "ders": "g) Sürdürülebilirlik Denetimi",
-      "bolum": "ek alan — sürdürülebilirlik",
-      "sinav_soru": 0,
-      "liste_dayanagi": "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": 300,
-      "eksik": 300,
-      "doluluk": 0
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Dar Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları  [1001]",
-      "bolum": "Bilgi Sistemleri Bağımsız Denetim",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Sermaye Piyasası Araçları 1  [1003]",
-      "bolum": "Türev Araçlar",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Yatırım Kuruluşları  [1005]",
-      "bolum": "Türev Araçlar",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Takas, Saklama ve Operasyon İşlemleri  [1012]",
-      "bolum": "Düzey 3 (Sermaye Piyasası Faaliyetleri Düzey 3)",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Geniş Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları  [1002]",
-      "bolum": "Kredi Derecelendirme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Sermaye Piyasası Araçları 2  [1004]",
-      "bolum": "Türev Araçlar",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Finansal Piyasalar  [1006]",
-      "bolum": "Türev Araçlar",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Finansal Yönetim ve Mali Analiz  [1007]",
-      "bolum": "Düzey 3 (Sermaye Piyasası Faaliyetleri Düzey 3)",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Ticaret Hukuku  [1010]",
-      "bolum": "Kredi Derecelendirme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Muhasebe ve Finansal Raporlama  [1016]",
-      "bolum": "Kredi Derecelendirme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Genel Ekonomi  [1008]",
-      "bolum": "Düzey 3 (Sermaye Piyasası Faaliyetleri Düzey 3)",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Temel Finans Matematiği ve Değerleme Yöntemleri  [1009]",
-      "bolum": "Kredi Derecelendirme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Kurumlarda ve Sermaye Piyasasında Vergilendirme  [1013]",
-      "bolum": "Türev Araçlar",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Türev Araçlar, Piyasalar ve Risk Yönetimi  [1011]",
-      "bolum": "Türev Araçlar",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Kurumsal Yönetim  [1018]",
-      "bolum": "Kurumsal Yönetim Derecelendirme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Kredi Derecelendirmesi  [1017]",
-      "bolum": "Kredi Derecelendirme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Gayrimenkul Değerleme Esasları  [1014]",
-      "bolum": "Gayrimenkul Değerleme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "İnşaat ve Gayrimenkul Muhasebesi  [1015]",
-      "bolum": "Gayrimenkul Değerleme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Gayrimenkul Mevzuatı  [1019]",
-      "bolum": "Gayrimenkul Değerleme",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Bilgi Sistemleri Yönetimi ve Denetimi  [1020]",
-      "bolum": "Bilgi Sistemleri Bağımsız Denetim",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Bilgi Sistemleri Geliştirilmesi ve Uygulanması  [1021]",
-      "bolum": "Bilgi Sistemleri Bağımsız Denetim",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Bilgi Sistemleri İşletimi  [1022]",
-      "bolum": "Bilgi Sistemleri Bağımsız Denetim",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    },
-    {
-      "sinav": "SPL",
-      "sinav_uzun": "SPK LİSANSLAMA (SPL)",
-      "ders": "Bilgi Sistemleri Güvenliği  [1023]",
-      "bolum": "Bilgi Sistemleri Bağımsız Denetim",
-      "sinav_soru": 0,
-      "liste_dayanagi": "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
-      "onay": "ONAYLI (Cem 01.09)",
-      "bizim": 0,
-      "hedef": -1,
-      "eksik": -1,
-      "doluluk": -1
-    }
-  ],
-  "plan_disi_etiketler": [],
-  "cikmis": {
-    "arsiv": [
-      {
-        "sinav": "KGK",
-        "yil": 1,
-        "evren": 112,
-        "diskte": 112,
-        "ambarda": 108,
-        "soru": 12131
-      },
-      {
-        "sinav": "SGS",
-        "yil": 22,
-        "evren": 249,
-        "diskte": 185,
-        "ambarda": 129,
-        "soru": 8400
-      },
-      {
-        "sinav": "SMMM",
-        "yil": 19,
-        "evren": 419,
-        "diskte": 419,
-        "ambarda": 419,
-        "soru": 320
-      }
-    ],
-    "sgs_siklik": {
-      "donem": 35,
-      "konu": 3248,
-      "en_cok": [
-        {
-          "konu": "Yabanci Dil|cumle tamamlama",
-          "donem": 18,
-          "soru": 51
-        },
-        {
-          "konu": "Genel Kultur-Genel Yetenek|yazim kurallari",
-          "donem": 16,
-          "soru": 17
-        },
-        {
-          "konu": "Genel Kultur-Genel Yetenek|noktalama isaretleri",
-          "donem": 15,
-          "soru": 16
-        },
-        {
-          "konu": "Genel Kultur-Genel Yetenek|anlatim bozuklugu",
-          "donem": 15,
-          "soru": 15
-        },
-        {
-          "konu": "Muhasebe|ortak maliyet dagitimi",
-          "donem": 13,
-          "soru": 13
-        },
-        {
-          "konu": "Muhasebe|dikey yuzde analizi",
-          "donem": 11,
-          "soru": 12
-        },
-        {
-          "konu": "Hukuk|disiplin cezalari",
-          "donem": 11,
-          "soru": 11
-        },
-        {
-          "konu": "Muhasebe|muhasebe bilgi sistemi",
-          "donem": 10,
-          "soru": 10
-        },
-        {
-          "konu": "Yabanci Dil|kelime bilgisi",
-          "donem": 9,
-          "soru": 14
-        },
-        {
-          "konu": "Muhasebe|denetim kaniti yeterliligi",
-          "donem": 9,
-          "soru": 11
-        },
-        {
-          "konu": "Hukuk|genel islem kosullari",
-          "donem": 9,
-          "soru": 9
-        },
-        {
-          "konu": "Hukuk|meslek etik ilkeleri",
-          "donem": 9,
-          "soru": 9
-        }
-      ]
-    },
-    "kgk": {
-      "donem": 29,
-      "soru": 6080
-    },
-    "kopru_durum": [
-      {
-        "durum": "YALNIZ BIZDE",
-        "konu": 12517
-      },
-      {
-        "durum": "BOSLUK - cikmisda var, bizde YOK",
-        "konu": 7236
-      },
-      {
-        "durum": "IKISI DE VAR",
-        "konu": 1580
-      }
-    ],
-    "kopru_ders": [
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Bankacılık",
-        "bizim_ders": "",
-        "konu": 40,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Bankacılık Mevzuatı",
-        "bizim_ders": "",
-        "konu": 222,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Denetim",
-        "bizim_ders": "Denetim Standartlari",
-        "konu": 602,
-        "koprusuz": false
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Genel Hukuk Mevzuatı",
-        "bizim_ders": "",
-        "konu": 563,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
-        "bizim_ders": "",
-        "konu": 247,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-        "bizim_ders": "",
-        "konu": 792,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "kurumsal yonetim ve finansal yonetim",
-        "bizim_ders": "",
-        "konu": 40,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Muhasebe",
-        "bizim_ders": "Muhasebe Standartlari",
-        "konu": 465,
-        "koprusuz": false
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Muhasebe Standartları",
-        "bizim_ders": "Muhasebe Standartlari",
-        "konu": 639,
-        "koprusuz": false
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Sermaye Piyasası",
-        "bizim_ders": "",
-        "konu": 40,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "sermaye piyasasi bankacilik sigortacilik",
-        "bizim_ders": "",
-        "konu": 40,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
-        "bizim_ders": "",
-        "konu": 554,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Sermaye Piyasası Mevzuatı",
-        "bizim_ders": "",
-        "konu": 207,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Sigortacılık ve Özel Emeklilik",
-        "bizim_ders": "",
-        "konu": 40,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı",
-        "bizim_ders": "",
-        "konu": 224,
-        "koprusuz": true
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Türkiye Denetim Standartları",
-        "bizim_ders": "Denetim Standartlari",
-        "konu": 200,
-        "koprusuz": false
-      },
-      {
-        "sinav": "KGK",
-        "arsiv_ders": "Türkiye Muhasebe Standartları",
-        "bizim_ders": "Muhasebe Standartlari",
-        "konu": 248,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SGS",
-        "arsiv_ders": "Ekonomi",
-        "bizim_ders": "Ekonomi",
-        "konu": 185,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SGS",
-        "arsiv_ders": "Genel Kultur-Genel Yetenek",
-        "bizim_ders": "Turkce",
-        "konu": 284,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SGS",
-        "arsiv_ders": "Hukuk",
-        "bizim_ders": "Ticaret Hukuku",
-        "konu": 765,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SGS",
-        "arsiv_ders": "Maliye",
-        "bizim_ders": "Maliye",
-        "konu": 169,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SGS",
-        "arsiv_ders": "Matematik-Istatistik",
-        "bizim_ders": "Matematik",
-        "konu": 194,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SGS",
-        "arsiv_ders": "Muhasebe",
-        "bizim_ders": "Finansal Muhasebe",
-        "konu": 1497,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SGS",
-        "arsiv_ders": "Yabanci Dil",
-        "bizim_ders": "Yabanci Dil",
-        "konu": 154,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Finansal Muhasebe",
-        "bizim_ders": "Finansal Muhasebe",
-        "konu": 318,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Finansal Tablolar ve Analizi",
-        "bizim_ders": "Finansal Tablolar ve Analizi",
-        "konu": 52,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Hukuk",
-        "bizim_ders": "Hukuk",
-        "konu": 100,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Maliyet Muhasebesi",
-        "bizim_ders": "Maliyet Muhasebesi",
-        "konu": 80,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Muh. ve Mali Müş. Meslek Hukuku",
-        "bizim_ders": "Muh. ve Mali Müş. Meslek Hukuku",
-        "konu": 78,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Muhasebe Denetimi",
-        "bizim_ders": "Muhasebe Denetimi",
-        "konu": 79,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Sermaye Piyasası Mevzuatı",
-        "bizim_ders": "Sermaye Piyasası Mevzuatı",
-        "konu": 84,
-        "koprusuz": false
-      },
-      {
-        "sinav": "SMMM",
-        "arsiv_ders": "Vergi Mevzuatı ve Uygulaması",
-        "bizim_ders": "Vergi Mevzuatı ve Uygulaması",
-        "konu": 75,
-        "koprusuz": false
-      }
-    ],
-    "karantina": [
-      "SMMM 2026/3: 8/8 ders girdisi birbirinin aynısı (ders etiketi güvenilmez) (8 girdi atlandı)"
-    ]
-  },
-  "ambar": {
-    "ozet_satiri": "ÖZET: 44300 parça · 2401 tekil kaynak | Bütünlük ölçülen: 2401 (delikli: 329; son ölçüm: 02.09.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)",
-    "butunluk": {
-      "tarih": "02.09.2026 14:53",
-      "durum": "KIRMIZI",
-      "belge": 44300,
-      "kaynak_temiz": 2041,
-      "kaynak_sorunlu": 360,
-      "kesik_belge": 771,
-      "oksuz_belge": 244
-    }
-  },
-  "yutulmayan": {
-    "metinsiz": {
-      "kopru_dayanak": 4667,
-      "bulunan": 1049,
-      "bulunmayan": 148,
-      "yuzde": "12.4",
-      "etkilenen": 455
-    },
-    "en_cok": [
-      "MSUGT Tekduzen Hesap Plani -> 53 kayit",
-      "KKS 1  ⚠ ambarda YOK -> 16 kayit",
-      "5510 sayılı Kanun m.18 -> 9 kayit",
-      "TDK mecaz anlam kuralı -> 9 kayit",
-      "5510 sayılı Kanun m.34 -> 7 kayit",
-      "BDS 720 p.11/11T - AMACLAR (uluslararasi 4 amac / Turkiye 5 amac + AYRI RAPOR) -> 7 kayit",
-      "3568 s. SMMM K. m.25/son fıkra -> 7 kayit",
-      "Third Conditional (Type 3) kullanım kuralı -> 6 kayit",
-      "3568 sayili Kanun m.48 (disiplin cezalari) ve Disiplin Yonetmeligi -> 6 kayit",
-      "TMS 18  ⚠ ambarda YOK -> 5 kayit",
-      "TDK çok anlamlılık kuralı -> 5 kayit",
-      "TDK terim anlam kuralı -> 5 kayit",
-      "TMS 11  ⚠ ambarda YOK -> 5 kayit",
-      "TFRS 4  ⚠ ambarda YOK -> 5 kayit",
-      "Causative Form (have something done) kullanım kuralı -> 4 kayit"
-    ],
-    "karne": [
-      {
-        "sinav": "SGS",
-        "uret": 2625,
-        "kaynak_yok": 1,
-        "mevzuat_disi": 637,
-        "olculemedi": 1,
-        "ornekler": [
-          "Ekonomi › tuketici tercih aksiyomlari (1 çıkmış)"
-        ]
-      },
-      {
-        "sinav": "SMMM",
-        "uret": 1004,
-        "kaynak_yok": 6,
-        "mevzuat_disi": 0,
-        "olculemedi": 0,
-        "ornekler": [
-          "Finansal Muhasebe › finansal kiralamali monografi (1 çıkmış)",
-          "Finansal Muhasebe › kdv hesaplasmasi kaydi (1 çıkmış)",
-          "Finansal Muhasebe › stok fire kaydi (1 çıkmış)",
-          "Muhasebe Denetimi › denetim ustlenememe halleri (1 çıkmış)",
-          "Muhasebe Denetimi › sermaye azalmasinda kurul tedbirleri (1 çıkmış)",
-          "Vergi Mevzuatı ve Uygulaması › sermaye azaltimi vergilendirmesi (1 çıkmış)"
-        ]
-      },
-      {
-        "sinav": "KGK",
-        "uret": 5082,
-        "kaynak_yok": 65,
-        "mevzuat_disi": 0,
-        "olculemedi": 0,
-        "ornekler": [
-          "Bankacılık Mevzuatı › bkn 5411 banka turlerine gore faaliyet yasaklari (1 çıkmış)",
-          "Kurumsal Yönetim İlkeleri ve Finansal Yönetim › kurumsal yonetim etmenleri (1 çıkmış)",
-          "Kurumsal Yönetim İlkeleri ve Finansal Yönetim › pay sahipleriyle iletisimde oncu komite (1 çıkmış)",
-          "Kurumsal Yönetim İlkeleri ve Finansal Yönetim › piyasa vade siniflamasi (1 çıkmış)",
-          "Kurumsal Yönetim İlkeleri ve Finansal Yönetim › reel faiz hesabi (1 çıkmış)",
-          "Kurumsal Yönetim İlkeleri ve Finansal Yönetim › sabit gider siniflamasi (1 çıkmış)",
-          "Kurumsal Yönetim İlkeleri ve Finansal Yönetim › temettu ilisksizlik teorisi (1 çıkmış)",
-          "Kurumsal Yönetim İlkeleri ve Finansal Yönetim › wacc hesabi (1 çıkmış)"
-        ]
-      }
-    ],
-    "kara_liste": [
-      "TTK (6102 s.K.) m.720",
-      "SMMM K. (3568 s.K.) m.29",
-      "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
-      "Teori Notu - oran analizi likidite",
-      "Teori Notu - isletme sermayesi yonetimi"
-    ]
-  },
-  "basilacak": {
-    "ders_eksik": [
-      {
-        "sinav": "KGK",
-        "ders": "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-        "hedef": 1440,
-        "bizim": 118,
-        "eksik": 1322,
-        "doluluk": 8
-      },
-      {
-        "sinav": "SMMM",
-        "ders": "Muhasebe Denetimi",
-        "hedef": 1010,
-        "bizim": 133,
-        "eksik": 877,
-        "doluluk": 13
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Ekonomi",
-        "hedef": 1030,
-        "bizim": 235,
-        "eksik": 795,
-        "doluluk": 23
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Maliye",
-        "hedef": 1020,
-        "bizim": 281,
-        "eksik": 739,
-        "doluluk": 28
-      },
-      {
-        "sinav": "SMMM",
-        "ders": "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
-        "hedef": 1010,
-        "bizim": 284,
-        "eksik": 726,
-        "doluluk": 28
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Borclar Hukuku",
-        "hedef": 1020,
-        "bizim": 308,
-        "eksik": 712,
-        "doluluk": 30
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Meslek Hukuku",
-        "hedef": 1020,
-        "bizim": 353,
-        "eksik": 667,
-        "doluluk": 35
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Matematik",
-        "hedef": 750,
-        "bizim": 211,
-        "eksik": 539,
-        "doluluk": 28
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Is ve Sosyal Guvenlik Hukuku",
-        "hedef": 1020,
-        "bizim": 489,
-        "eksik": 531,
-        "doluluk": 48
-      },
-      {
-        "sinav": "KGK",
-        "ders": "b) Türkiye Denetim Standartları",
-        "hedef": 1360,
-        "bizim": 966,
-        "eksik": 394,
-        "doluluk": 71
-      },
-      {
-        "sinav": "KGK",
-        "ders": "ç) Sermaye Piyasası Mevzuatı",
-        "hedef": 360,
-        "bizim": 0,
-        "eksik": 360,
-        "doluluk": 0
-      },
-      {
-        "sinav": "KGK",
-        "ders": "d) Bankacılık Mevzuatı",
-        "hedef": 360,
-        "bizim": 0,
-        "eksik": 360,
-        "doluluk": 0
-      },
-      {
-        "sinav": "KGK",
-        "ders": "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
-        "hedef": 360,
-        "bizim": 0,
-        "eksik": 360,
-        "doluluk": 0
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
-        "hedef": 469,
-        "bizim": 114,
-        "eksik": 355,
-        "doluluk": 24
-      },
-      {
-        "sinav": "KGK",
-        "ders": "a) Türkiye Muhasebe Standartları",
-        "hedef": 1391,
-        "bizim": 1079,
-        "eksik": 312,
-        "doluluk": 78
-      },
-      {
-        "sinav": "KGK",
-        "ders": "g) Sürdürülebilirlik Denetimi",
-        "hedef": 300,
-        "bizim": 0,
-        "eksik": 300,
-        "doluluk": 0
-      },
-      {
-        "sinav": "KGK",
-        "ders": "f) Kurumsal Sürdürülebilirlik Raporlaması",
-        "hedef": 300,
-        "bizim": 3,
-        "eksik": 297,
-        "doluluk": 1
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Denetim",
-        "hedef": 1050,
-        "bizim": 859,
-        "eksik": 191,
-        "doluluk": 82
-      }
-    ],
-    "agir_bosluk_sayisi": 361,
-    "agir_bosluklar": [
-      {
-        "sinav": "KGK",
-        "konu": "yonetim kurulu komiteleri",
-        "donem": 15,
-        "cikmis": 15,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
-        "dayanak": "TOBB/Odalar K. (5174 s.K.)",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "kayitli sermaye sistemi",
-        "donem": 10,
-        "cikmis": 10,
-        "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik",
-        "dayanak": "TTK (6102 s.K.) m.482",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "sermaye piyasasi kurumlari",
-        "donem": 10,
-        "cikmis": 10,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "sermaye piyasasi suclari",
-        "donem": 10,
-        "cikmis": 10,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "net isletme sermayesi",
-        "donem": 9,
-        "cikmis": 12,
-        "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-        "dayanak": "Teori Notu - isletme sermayesi yonetimi",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "tespit edememe riski",
-        "donem": 9,
-        "cikmis": 9,
-        "arsiv_ders": "Denetim",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "SGS",
-        "konu": "kelime bilgisi",
-        "donem": 9,
-        "cikmis": 14,
-        "arsiv_ders": "Yabanci Dil",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "ic kontrol bilesenleri",
-        "donem": 8,
-        "cikmis": 8,
-        "arsiv_ders": "Denetim",
-        "dayanak": "BDS 315",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "SGS",
-        "konu": "sozcukte anlam",
-        "donem": 8,
-        "cikmis": 8,
-        "arsiv_ders": "Genel Kultur-Genel Yetenek",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "sistematik olmayan risk",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
-        "dayanak": "TFRS 17",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "azalan bakiyeler amortisman",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Muhasebe",
-        "dayanak": "VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "banka kurulus sartlari",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Bankacılık / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
-        "dayanak": "Bankacılık K. (5411 s.K.)",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "bds 600 topluluk denetimi",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
-        "dayanak": "BDS 600",
-        "guc": "GUCLU"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "bilesik faiz hesabi",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-        "dayanak": "SPK Tebliğ (Seri: V, No: 34)",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "kar payi avansi",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı",
-        "dayanak": "Kar Payi Tebligi (II-19.1)",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "tahvil özellikleri",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
-        "dayanak": "SPK Karari",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "ticari isletme unsurlari",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "SGS",
-        "konu": "cumle tamamlama-kosul",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Yabanci Dil",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "SMMM",
-        "konu": "gelir tablosu duzenleme",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Finansal Muhasebe",
-        "dayanak": "SMMM K. (3568 s.K.) m.29",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "faaliyet raporu icerigi",
-        "donem": 7,
-        "cikmis": 7,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
-        "dayanak": "SPK Karari",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "bds 320 onemlilik",
-        "donem": 6,
-        "cikmis": 6,
-        "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
-        "dayanak": "BDS 320",
-        "guc": "GUCLU"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "bilanco hesaplari",
-        "donem": 6,
-        "cikmis": 6,
-        "arsiv_ders": "Muhasebe",
-        "dayanak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 555)",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "eldeki kus teorisi",
-        "donem": 6,
-        "cikmis": 6,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "stok devir hizi",
-        "donem": 6,
-        "cikmis": 6,
-        "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-        "dayanak": "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "menfaat sahipleri",
-        "donem": 6,
-        "cikmis": 6,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
-        "dayanak": "Kurumsal Yonetim Tebligi (II-17.1)",
-        "guc": "ZAYIF"
-      }
-    ],
-    "sgs_ders_karari": [
-      {
-        "ders": "Finansal Muhasebe",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Denetim",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Yabanci Dil",
-        "hazirlik": 0,
-        "karar": "FABRIKA GIRMEZ (elle yazilir)"
-      },
-      {
-        "ders": "Maliyet Muhasebesi",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Matematik",
-        "hazirlik": 0,
-        "karar": "FABRIKA GIRMEZ (elle yazilir)"
-      },
-      {
-        "ders": "Mali Tablolar Analizi",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Turkce",
-        "hazirlik": 0,
-        "karar": "FABRIKA GIRMEZ (elle yazilir)"
-      },
-      {
-        "ders": "Borclar Hukuku",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Ekonomi",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Maliye",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Vergi Hukuku",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Ticaret Hukuku",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Is ve Sosyal Guvenlik Hukuku",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Meslek Hukuku",
-        "hazirlik": 100,
-        "karar": "ACIK - musluk acilabilir"
-      },
-      {
-        "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
-        "hazirlik": 0,
-        "karar": "FABRIKA GIRMEZ (elle yazilir)"
-      }
-    ],
-    "bekleyen_parti": 0
-  }
+﻿{
+    "olcum":  "03.09.2026 01:13",
+    "kural":  "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
+    "kaynak_sagligi":  [
+                           {
+                               "ad":  "ders-profili",
+                               "dosya":  "veri/ders-profili.json",
+                               "durum":  "SABİT (karar dosyası)",
+                               "damga":  "",
+                               "mtime":  "01.09.2026 22:31",
+                               "yas_gun":  1,
+                               "uretici":  "motor/ders-profili-kur.ps1",
+                               "robot":  "yok (resmî liste; Cem onayıyla değişir)"
+                           },
+                           {
+                               "ad":  "kasa-sayim",
+                               "dosya":  "veri/kasa-sayim.json",
+                               "durum":  "TAZE",
+                               "damga":  "02.09.2026 05:03",
+                               "mtime":  "02.09.2026 09:01",
+                               "yas_gun":  1,
+                               "uretici":  "motor/kasa-sayim.ps1",
+                               "robot":  "kasa-sayim.yml · her gün 03:41 TR"
+                           },
+                           {
+                               "ad":  "kota-smmm",
+                               "dosya":  "veri/uretim-kotasi.json",
+                               "durum":  "SABİT (karar dosyası)",
+                               "damga":  "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
+                               "mtime":  "31.07.2026 10:15",
+                               "yas_gun":  34,
+                               "uretici":  "motor/kota-kur.ps1",
+                               "robot":  "yok (Cem kararı; tarih anlamsız)"
+                           },
+                           {
+                               "ad":  "kota-sgs",
+                               "dosya":  "veri/sgs-uretim-kotasi.json",
+                               "durum":  "SABİT (karar dosyası)",
+                               "damga":  "31.07.2026 10:4x (Cem ders-ders tablosu)",
+                               "mtime":  "08.08.2026 10:33",
+                               "yas_gun":  34,
+                               "uretici":  "motor/sgs-kota-kur.ps1",
+                               "robot":  "yok (Cem kararı; tarih anlamsız)"
+                           },
+                           {
+                               "ad":  "kota-kgk",
+                               "dosya":  "veri/kgk-uretim-kotasi.json",
+                               "durum":  "SABİT (karar dosyası)",
+                               "damga":  "01.08.2026 (Cem plan onayi ayni gun: \u0027ONAY VERIYORUM\u0027)",
+                               "mtime":  "24.08.2026 21:15",
+                               "yas_gun":  33,
+                               "uretici":  "motor/kota-kur.ps1 (elle)",
+                               "robot":  "yok (Cem kararı; tarih anlamsız)"
+                           },
+                           {
+                               "ad":  "konu-koprusu",
+                               "dosya":  "veri/konu-koprusu-ozet.json",
+                               "durum":  "TAZE",
+                               "damga":  "02.09.2026 20:55",
+                               "mtime":  "02.09.2026 23:55",
+                               "yas_gun":  1,
+                               "uretici":  "motor/konu-koprusu-kur.ps1 (V2 canlı)",
+                               "robot":  "konu-koprusu.yml · her gün 07:40 TR"
+                           },
+                           {
+                               "ad":  "ambar-envanteri",
+                               "dosya":  "veri/AMBAR-ENVANTERI.md",
+                               "durum":  "TAZE",
+                               "damga":  "02.09.2026 17:57",
+                               "mtime":  "02.09.2026 17:59",
+                               "yas_gun":  1,
+                               "uretici":  "motor/ambar-envanteri.ps1",
+                               "robot":  "ambar-kapilari.yml · her gün 11:00 TR"
+                           },
+                           {
+                               "ad":  "butunluk-raporu",
+                               "dosya":  "veri/butunluk-raporu.json",
+                               "durum":  "TAZE",
+                               "damga":  "02.09.2026 14:53",
+                               "mtime":  "02.09.2026 17:54",
+                               "yas_gun":  1,
+                               "uretici":  "motor/butunluk-kapisi.ps1",
+                               "robot":  "ambar-kapilari.yml · her gün 11:00 TR"
+                           },
+                           {
+                               "ad":  "cikmis-karnesi",
+                               "dosya":  "veri/cikmis-soru-karnesi.json",
+                               "durum":  "BAYAT (10 gün)",
+                               "damga":  "24.08.2026 00:05",
+                               "mtime":  "25.08.2026 12:41",
+                               "yas_gun":  10,
+                               "uretici":  "motor/cikmis-soru-karnesi.ps1",
+                               "robot":  "yok"
+                           },
+                           {
+                               "ad":  "siklik-kunyesi",
+                               "dosya":  "veri/siklik-kunyesi.json",
+                               "durum":  "TAZE",
+                               "damga":  "30.08.2026 08:43",
+                               "mtime":  "30.08.2026 11:44",
+                               "yas_gun":  4,
+                               "uretici":  "motor/siklik-kunyesi.ps1",
+                               "robot":  "konu-eslesme.yml · yalnız push"
+                           },
+                           {
+                               "ad":  "kgk-analiz",
+                               "dosya":  "veri/kgk-analiz.json",
+                               "durum":  "BAYAT (15 gün)",
+                               "damga":  "19.08.2026 (TAM ARSIV)",
+                               "mtime":  "19.08.2026 19:32",
+                               "yas_gun":  15,
+                               "uretici":  "motor/kgk-siklik-derle.ps1",
+                               "robot":  "yok"
+                           },
+                           {
+                               "ad":  "ders-karnesi",
+                               "dosya":  "veri/ders-karnesi.json",
+                               "durum":  "BAYAT (8 gün)",
+                               "damga":  "2026-08-26 00:11",
+                               "mtime":  "30.08.2026 08:54",
+                               "yas_gun":  8,
+                               "uretici":  "motor/ders-karnesi.ps1",
+                               "robot":  "dogrula.yml"
+                           },
+                           {
+                               "ad":  "karne-sgs",
+                               "dosya":  "veri/konu-kaynak-karnesi.json",
+                               "durum":  "TAZE",
+                               "damga":  "2026-08-27 14:09",
+                               "mtime":  "30.08.2026 08:54",
+                               "yas_gun":  7,
+                               "uretici":  "motor/konu-kaynak-karnesi.ps1",
+                               "robot":  "karne.yml · sgs-analiz push tetikli"
+                           },
+                           {
+                               "ad":  "karne-smmm",
+                               "dosya":  "veri/konu-kaynak-karnesi-smmm.json",
+                               "durum":  "BAYAT (8 gün)",
+                               "damga":  "2026-08-26 00:51",
+                               "mtime":  "30.08.2026 08:54",
+                               "yas_gun":  8,
+                               "uretici":  "motor/konu-kaynak-karnesi.ps1",
+                               "robot":  "karne.yml"
+                           },
+                           {
+                               "ad":  "karne-kgk",
+                               "dosya":  "veri/konu-kaynak-karnesi-kgk.json",
+                               "durum":  "BAYAT (8 gün)",
+                               "damga":  "2026-08-26 03:00",
+                               "mtime":  "30.08.2026 08:54",
+                               "yas_gun":  8,
+                               "uretici":  "motor/konu-kaynak-karnesi.ps1",
+                               "robot":  "karne.yml"
+                           },
+                           {
+                               "ad":  "dayanak-metinsiz",
+                               "dosya":  "veri/dayanak-metinsiz-raporu.json",
+                               "durum":  "TAZE",
+                               "damga":  "",
+                               "mtime":  "03.09.2026 01:13",
+                               "yas_gun":  0,
+                               "uretici":  "arac/dayanak-metinsiz-tarama.ps1",
+                               "robot":  "yok"
+                           },
+                           {
+                               "ad":  "dayanak-kara-liste",
+                               "dosya":  "veri/dayanak-kara-liste.json",
+                               "durum":  "TAZE",
+                               "damga":  "",
+                               "mtime":  "02.09.2026 23:42",
+                               "yas_gun":  0,
+                               "uretici":  "arac/dayanak-kara-liste.ps1",
+                               "robot":  "yok"
+                           },
+                           {
+                               "ad":  "bekleyen-partiler",
+                               "dosya":  "veri/bekleyen-partiler.json",
+                               "durum":  "BAYAT (21 gün)",
+                               "damga":  "",
+                               "mtime":  "12.08.2026 22:10",
+                               "yas_gun":  21,
+                               "uretici":  "motor/parti-hasat.ps1",
+                               "robot":  "parti-liste.yml · her gün 03:26 TR"
+                           },
+                           {
+                               "ad":  "sinav-ders-envanteri",
+                               "dosya":  "veri/sinav-ders-envanteri.json",
+                               "durum":  "TAZE",
+                               "damga":  "",
+                               "mtime":  "02.09.2026 18:15",
+                               "yas_gun":  0,
+                               "uretici":  "motor/sinav-ders-envanteri.ps1",
+                               "robot":  "sinav-ders-envanteri.yml · yalnız push"
+                           }
+                       ],
+    "sinav_ozet":  [
+                       {
+                           "sinav":  "SGS",
+                           "ders":  15,
+                           "kasa":  15827,
+                           "hedef":  14603,
+                           "eksik":  4529,
+                           "kotasiz_ders":  0
+                       },
+                       {
+                           "sinav":  "SMMM",
+                           "ders":  8,
+                           "kasa":  12576,
+                           "hedef":  8080,
+                           "eksik":  1603,
+                           "kotasiz_ders":  0
+                       },
+                       {
+                           "sinav":  "KGK",
+                           "ders":  8,
+                           "kasa":  2166,
+                           "hedef":  5871,
+                           "eksik":  3705,
+                           "kotasiz_ders":  0
+                       }
+                   ],
+    "dersler":  [
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Turkce",
+                        "bolum":  "Genel Kultur ve Yetenek",
+                        "sinav_soru":  7,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  928,
+                        "hedef":  656,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Matematik",
+                        "bolum":  "Genel Kultur ve Yetenek",
+                        "sinav_soru":  8,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  211,
+                        "hedef":  750,
+                        "eksik":  539,
+                        "doluluk":  28
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+                        "bolum":  "Genel Kultur ve Yetenek",
+                        "sinav_soru":  5,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  114,
+                        "hedef":  469,
+                        "eksik":  355,
+                        "doluluk":  24
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Yabanci Dil",
+                        "bolum":  "Yabanci Dil",
+                        "sinav_soru":  10,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1531,
+                        "hedef":  938,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Finansal Muhasebe",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  26,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  4309,
+                        "hedef":  1500,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Maliyet Muhasebesi",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  8,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  2570,
+                        "hedef":  1040,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Mali Tablolar Analizi",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  8,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1373,
+                        "hedef":  1050,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Denetim",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  16,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  859,
+                        "hedef":  1050,
+                        "eksik":  191,
+                        "doluluk":  82
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Ekonomi",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  6,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  235,
+                        "hedef":  1030,
+                        "eksik":  795,
+                        "doluluk":  23
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Maliye",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  6,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  281,
+                        "hedef":  1020,
+                        "eksik":  739,
+                        "doluluk":  28
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Meslek Hukuku",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  6,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  353,
+                        "hedef":  1020,
+                        "eksik":  667,
+                        "doluluk":  35
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Is ve Sosyal Guvenlik Hukuku",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  6,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  489,
+                        "hedef":  1020,
+                        "eksik":  531,
+                        "doluluk":  48
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Vergi Hukuku",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  6,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1232,
+                        "hedef":  1020,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Ticaret Hukuku",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  6,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1034,
+                        "hedef":  1020,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SGS",
+                        "sinav_uzun":  "STAJA BAŞLAMA (SGS)",
+                        "ders":  "Borclar Hukuku",
+                        "bolum":  "Alan Bilgisi",
+                        "sinav_soru":  6,
+                        "liste_dayanagi":  "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  308,
+                        "hedef":  1020,
+                        "eksik":  712,
+                        "doluluk":  30
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Finansal Muhasebe",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  2896,
+                        "hedef":  1010,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Finansal Tablolar ve Analizi",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1355,
+                        "hedef":  1010,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Maliyet Muhasebesi",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1946,
+                        "hedef":  1010,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Muhasebe Denetimi",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  133,
+                        "hedef":  1010,
+                        "eksik":  877,
+                        "doluluk":  13
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Vergi Mevzuatı ve Uygulaması",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1650,
+                        "hedef":  1010,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  3247,
+                        "hedef":  1010,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1065,
+                        "hedef":  1010,
+                        "eksik":  0,
+                        "doluluk":  100
+                    },
+                    {
+                        "sinav":  "SMMM",
+                        "sinav_uzun":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                        "bolum":  "Yeterlilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  284,
+                        "hedef":  1010,
+                        "eksik":  726,
+                        "doluluk":  28
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "a) Türkiye Muhasebe Standartları",
+                        "bolum":  "temel alan (SMMM+YMM)",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  1079,
+                        "hedef":  1391,
+                        "eksik":  312,
+                        "doluluk":  78
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "b) Türkiye Denetim Standartları",
+                        "bolum":  "temel alan (SMMM+YMM)",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  966,
+                        "hedef":  1360,
+                        "eksik":  394,
+                        "doluluk":  71
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                        "bolum":  "temel alan (yalnız SMMM)",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  118,
+                        "hedef":  1440,
+                        "eksik":  1322,
+                        "doluluk":  8
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "ç) Sermaye Piyasası Mevzuatı",
+                        "bolum":  "ek alan — sermaye piyasası",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  360,
+                        "eksik":  360,
+                        "doluluk":  0
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "d) Bankacılık Mevzuatı",
+                        "bolum":  "ek alan — bankacılık",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  360,
+                        "eksik":  360,
+                        "doluluk":  0
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
+                        "bolum":  "ek alan — sigortacılık ve özel emeklilik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  360,
+                        "eksik":  360,
+                        "doluluk":  0
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
+                        "bolum":  "ek alan — sürdürülebilirlik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  3,
+                        "hedef":  300,
+                        "eksik":  297,
+                        "doluluk":  1
+                    },
+                    {
+                        "sinav":  "KGK",
+                        "sinav_uzun":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "ders":  "g) Sürdürülebilirlik Denetimi",
+                        "bolum":  "ek alan — sürdürülebilirlik",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "Bağımsız Denetim Yönetmeliği m.16/3 (RG 26.12.2012-28509; konu listesi Değişik: RG-15/6/2024-32577)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  300,
+                        "eksik":  300,
+                        "doluluk":  0
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Dar Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları  [1001]",
+                        "bolum":  "Bilgi Sistemleri Bağımsız Denetim",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Sermaye Piyasası Araçları 1  [1003]",
+                        "bolum":  "Türev Araçlar",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Yatırım Kuruluşları  [1005]",
+                        "bolum":  "Türev Araçlar",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Takas, Saklama ve Operasyon İşlemleri  [1012]",
+                        "bolum":  "Düzey 3 (Sermaye Piyasası Faaliyetleri Düzey 3)",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Geniş Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları  [1002]",
+                        "bolum":  "Kredi Derecelendirme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Sermaye Piyasası Araçları 2  [1004]",
+                        "bolum":  "Türev Araçlar",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Finansal Piyasalar  [1006]",
+                        "bolum":  "Türev Araçlar",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Finansal Yönetim ve Mali Analiz  [1007]",
+                        "bolum":  "Düzey 3 (Sermaye Piyasası Faaliyetleri Düzey 3)",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Ticaret Hukuku  [1010]",
+                        "bolum":  "Kredi Derecelendirme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Muhasebe ve Finansal Raporlama  [1016]",
+                        "bolum":  "Kredi Derecelendirme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Genel Ekonomi  [1008]",
+                        "bolum":  "Düzey 3 (Sermaye Piyasası Faaliyetleri Düzey 3)",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Temel Finans Matematiği ve Değerleme Yöntemleri  [1009]",
+                        "bolum":  "Kredi Derecelendirme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Kurumlarda ve Sermaye Piyasasında Vergilendirme  [1013]",
+                        "bolum":  "Türev Araçlar",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Türev Araçlar, Piyasalar ve Risk Yönetimi  [1011]",
+                        "bolum":  "Türev Araçlar",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Kurumsal Yönetim  [1018]",
+                        "bolum":  "Kurumsal Yönetim Derecelendirme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Kredi Derecelendirmesi  [1017]",
+                        "bolum":  "Kredi Derecelendirme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Gayrimenkul Değerleme Esasları  [1014]",
+                        "bolum":  "Gayrimenkul Değerleme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "İnşaat ve Gayrimenkul Muhasebesi  [1015]",
+                        "bolum":  "Gayrimenkul Değerleme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Gayrimenkul Mevzuatı  [1019]",
+                        "bolum":  "Gayrimenkul Değerleme",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Bilgi Sistemleri Yönetimi ve Denetimi  [1020]",
+                        "bolum":  "Bilgi Sistemleri Bağımsız Denetim",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Bilgi Sistemleri Geliştirilmesi ve Uygulanması  [1021]",
+                        "bolum":  "Bilgi Sistemleri Bağımsız Denetim",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Bilgi Sistemleri İşletimi  [1022]",
+                        "bolum":  "Bilgi Sistemleri Bağımsız Denetim",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    },
+                    {
+                        "sinav":  "SPL",
+                        "sinav_uzun":  "SPK LİSANSLAMA (SPL)",
+                        "ders":  "Bilgi Sistemleri Güvenliği  [1023]",
+                        "bolum":  "Bilgi Sistemleri Bağımsız Denetim",
+                        "sinav_soru":  0,
+                        "liste_dayanagi":  "VII-128.7 sayılı Tebliğ m.9/1 (lisans türüne göre sınav konuları) · m.8 (konuların tamamı)",
+                        "onay":  "ONAYLI (Cem 01.09)",
+                        "bizim":  0,
+                        "hedef":  -1,
+                        "eksik":  -1,
+                        "doluluk":  -1
+                    }
+                ],
+    "plan_disi_etiketler":  [
+
+                            ],
+    "cikmis":  {
+                   "arsiv":  [
+                                 {
+                                     "sinav":  "SGS",
+                                     "yil":  22,
+                                     "evren":  249,
+                                     "diskte":  185,
+                                     "ambarda":  129,
+                                     "soru":  8400
+                                 },
+                                 {
+                                     "sinav":  "SMMM",
+                                     "yil":  19,
+                                     "evren":  419,
+                                     "diskte":  419,
+                                     "ambarda":  419,
+                                     "soru":  320
+                                 },
+                                 {
+                                     "sinav":  "KGK",
+                                     "yil":  1,
+                                     "evren":  112,
+                                     "diskte":  112,
+                                     "ambarda":  108,
+                                     "soru":  12131
+                                 }
+                             ],
+                   "sgs_siklik":  {
+                                      "donem":  35,
+                                      "konu":  3248,
+                                      "en_cok":  [
+                                                     {
+                                                         "konu":  "Yabanci Dil|cumle tamamlama",
+                                                         "donem":  18,
+                                                         "soru":  51
+                                                     },
+                                                     {
+                                                         "konu":  "Genel Kultur-Genel Yetenek|yazim kurallari",
+                                                         "donem":  16,
+                                                         "soru":  17
+                                                     },
+                                                     {
+                                                         "konu":  "Genel Kultur-Genel Yetenek|noktalama isaretleri",
+                                                         "donem":  15,
+                                                         "soru":  16
+                                                     },
+                                                     {
+                                                         "konu":  "Genel Kultur-Genel Yetenek|anlatim bozuklugu",
+                                                         "donem":  15,
+                                                         "soru":  15
+                                                     },
+                                                     {
+                                                         "konu":  "Muhasebe|ortak maliyet dagitimi",
+                                                         "donem":  13,
+                                                         "soru":  13
+                                                     },
+                                                     {
+                                                         "konu":  "Muhasebe|dikey yuzde analizi",
+                                                         "donem":  11,
+                                                         "soru":  12
+                                                     },
+                                                     {
+                                                         "konu":  "Hukuk|disiplin cezalari",
+                                                         "donem":  11,
+                                                         "soru":  11
+                                                     },
+                                                     {
+                                                         "konu":  "Muhasebe|muhasebe bilgi sistemi",
+                                                         "donem":  10,
+                                                         "soru":  10
+                                                     },
+                                                     {
+                                                         "konu":  "Yabanci Dil|kelime bilgisi",
+                                                         "donem":  9,
+                                                         "soru":  14
+                                                     },
+                                                     {
+                                                         "konu":  "Muhasebe|denetim kaniti yeterliligi",
+                                                         "donem":  9,
+                                                         "soru":  11
+                                                     },
+                                                     {
+                                                         "konu":  "Hukuk|genel islem kosullari",
+                                                         "donem":  9,
+                                                         "soru":  9
+                                                     },
+                                                     {
+                                                         "konu":  "Hukuk|meslek etik ilkeleri",
+                                                         "donem":  9,
+                                                         "soru":  9
+                                                     }
+                                                 ]
+                                  },
+                   "kgk":  {
+                               "donem":  29,
+                               "soru":  6080
+                           },
+                   "kopru_durum":  [
+                                       {
+                                           "durum":  "YALNIZ BIZDE",
+                                           "konu":  12517
+                                       },
+                                       {
+                                           "durum":  "BOSLUK - cikmisda var, bizde YOK",
+                                           "konu":  7236
+                                       },
+                                       {
+                                           "durum":  "IKISI DE VAR",
+                                           "konu":  1580
+                                       }
+                                   ],
+                   "kopru_ders":  [
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Bankacılık",
+                                          "bizim_ders":  "",
+                                          "konu":  40,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Bankacılık Mevzuatı",
+                                          "bizim_ders":  "",
+                                          "konu":  222,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Denetim",
+                                          "bizim_ders":  "Denetim Standartlari",
+                                          "konu":  602,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Genel Hukuk Mevzuatı",
+                                          "bizim_ders":  "",
+                                          "konu":  563,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
+                                          "bizim_ders":  "",
+                                          "konu":  247,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                                          "bizim_ders":  "",
+                                          "konu":  792,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "kurumsal yonetim ve finansal yonetim",
+                                          "bizim_ders":  "",
+                                          "konu":  40,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Muhasebe",
+                                          "bizim_ders":  "Muhasebe Standartlari",
+                                          "konu":  465,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Muhasebe Standartları",
+                                          "bizim_ders":  "Muhasebe Standartlari",
+                                          "konu":  639,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Sermaye Piyasası",
+                                          "bizim_ders":  "",
+                                          "konu":  40,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "sermaye piyasasi bankacilik sigortacilik",
+                                          "bizim_ders":  "",
+                                          "konu":  40,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                                          "bizim_ders":  "",
+                                          "konu":  554,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Sermaye Piyasası Mevzuatı",
+                                          "bizim_ders":  "",
+                                          "konu":  207,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Sigortacılık ve Özel Emeklilik",
+                                          "bizim_ders":  "",
+                                          "konu":  40,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                                          "bizim_ders":  "",
+                                          "konu":  224,
+                                          "koprusuz":  true
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Türkiye Denetim Standartları",
+                                          "bizim_ders":  "Denetim Standartlari",
+                                          "konu":  200,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "KGK",
+                                          "arsiv_ders":  "Türkiye Muhasebe Standartları",
+                                          "bizim_ders":  "Muhasebe Standartlari",
+                                          "konu":  248,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SGS",
+                                          "arsiv_ders":  "Ekonomi",
+                                          "bizim_ders":  "Ekonomi",
+                                          "konu":  185,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SGS",
+                                          "arsiv_ders":  "Genel Kultur-Genel Yetenek",
+                                          "bizim_ders":  "Turkce",
+                                          "konu":  284,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SGS",
+                                          "arsiv_ders":  "Hukuk",
+                                          "bizim_ders":  "Ticaret Hukuku",
+                                          "konu":  765,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SGS",
+                                          "arsiv_ders":  "Maliye",
+                                          "bizim_ders":  "Maliye",
+                                          "konu":  169,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SGS",
+                                          "arsiv_ders":  "Matematik-Istatistik",
+                                          "bizim_ders":  "Matematik",
+                                          "konu":  194,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SGS",
+                                          "arsiv_ders":  "Muhasebe",
+                                          "bizim_ders":  "Finansal Muhasebe",
+                                          "konu":  1497,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SGS",
+                                          "arsiv_ders":  "Yabanci Dil",
+                                          "bizim_ders":  "Yabanci Dil",
+                                          "konu":  154,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Finansal Muhasebe",
+                                          "bizim_ders":  "Finansal Muhasebe",
+                                          "konu":  318,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Finansal Tablolar ve Analizi",
+                                          "bizim_ders":  "Finansal Tablolar ve Analizi",
+                                          "konu":  52,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Hukuk",
+                                          "bizim_ders":  "Hukuk",
+                                          "konu":  100,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Maliyet Muhasebesi",
+                                          "bizim_ders":  "Maliyet Muhasebesi",
+                                          "konu":  80,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                                          "bizim_ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                                          "konu":  78,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Muhasebe Denetimi",
+                                          "bizim_ders":  "Muhasebe Denetimi",
+                                          "konu":  79,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Sermaye Piyasası Mevzuatı",
+                                          "bizim_ders":  "Sermaye Piyasası Mevzuatı",
+                                          "konu":  84,
+                                          "koprusuz":  false
+                                      },
+                                      {
+                                          "sinav":  "SMMM",
+                                          "arsiv_ders":  "Vergi Mevzuatı ve Uygulaması",
+                                          "bizim_ders":  "Vergi Mevzuatı ve Uygulaması",
+                                          "konu":  75,
+                                          "koprusuz":  false
+                                      }
+                                  ],
+                   "karantina":  [
+                                     "SMMM 2026/3: 8/8 ders girdisi birbirinin aynısı (ders etiketi güvenilmez) (8 girdi atlandı)"
+                                 ]
+               },
+    "ambar":  {
+                  "ozet_satiri":  "ÖZET: 44300 parça · 2401 tekil kaynak | Bütünlük ölçülen: 2401 (delikli: 329; son ölçüm: 02.09.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)",
+                  "butunluk":  {
+                                   "tarih":  "02.09.2026 14:53",
+                                   "durum":  "KIRMIZI",
+                                   "belge":  44300,
+                                   "kaynak_temiz":  2041,
+                                   "kaynak_sorunlu":  360,
+                                   "kesik_belge":  771,
+                                   "oksuz_belge":  244
+                               }
+              },
+    "yutulmayan":  {
+                       "metinsiz":  {
+                                        "kopru_dayanak":  4377,
+                                        "bulunan":  2794,
+                                        "bulunmayan":  115,
+                                        "yuzde":  "2.6",
+                                        "etkilenen":  142
+                                    },
+                       "en_cok":  [
+                                      "TEORI - Vergileme ilkeleri ve temel vergi kavramlari (ogreti notu) -\u003e 9 kayit",
+                                      "TEORI - Kamu borclanmasi ve butce aciklari (ogreti notu) -\u003e 5 kayit",
+                                      "TEORI - Kamusal mallar, dissalliklar ve kamusal tercih (ogreti notu) -\u003e 5 kayit",
+                                      "Mali Analiz Teknikleri – Dikey Yüzde (Yüzde) Yöntemi -\u003e 4 kayit",
+                                      "TEORI - Uluslararasi iktisat: mukayeseli ustunlukler ve dis ticaret teoremleri (ogreti notu) -\u003e 3 kayit",
+                                      "Mali Analiz Teknikleri - Dikey Yüzdeler (Yüzde Yöntemiyle Analiz) -\u003e 3 kayit",
+                                      "Marshall-Lerner Koşulu (Esneklikler Yaklaşımı) -\u003e 2 kayit",
+                                      "Kamu Maliyesi Teorisi - GSYH Deflatörü ile Reel Değere Geçiş -\u003e 2 kayit",
+                                      "Maliye Politikası Teorisi - Stagflasyon Kavramı -\u003e 2 kayit",
+                                      "Mikroekonomi Teorisi - Gelir Esnekliği -\u003e 2 kayit",
+                                      "TÜİK Ulusal Hesaplar Sistemi - Reel GSYH Hesaplama Yöntemi -\u003e 1 kayit",
+                                      "J-Eğrisi Modeli (Esneklikler Yaklaşımı, Ödemeler Bilançosu Teorisi) -\u003e 1 kayit",
+                                      "Maliye Politikası Teorisi - Arz Yönlü Şoklar ve Stagflasyon Analizi -\u003e 1 kayit",
+                                      "Mikroekonomi Talep Teorisi - İkame Mallarda Çapraz Fiyat Esnekliği -\u003e 1 kayit",
+                                      "J-Eğrisi Modeli (Esneklikler Yaklaşımı) -\u003e 1 kayit"
+                                  ],
+                       "karne":  [
+                                     {
+                                         "sinav":  "SGS",
+                                         "uret":  2625,
+                                         "kaynak_yok":  1,
+                                         "mevzuat_disi":  637,
+                                         "olculemedi":  1,
+                                         "ornekler":  [
+                                                          "Ekonomi › tuketici tercih aksiyomlari (1 çıkmış)"
+                                                      ]
+                                     },
+                                     {
+                                         "sinav":  "SMMM",
+                                         "uret":  1004,
+                                         "kaynak_yok":  6,
+                                         "mevzuat_disi":  0,
+                                         "olculemedi":  0,
+                                         "ornekler":  [
+                                                          "Muhasebe Denetimi › denetim ustlenememe halleri (1 çıkmış)",
+                                                          "Muhasebe Denetimi › sermaye azalmasinda kurul tedbirleri (1 çıkmış)",
+                                                          "Vergi Mevzuatı ve Uygulaması › sermaye azaltimi vergilendirmesi (1 çıkmış)",
+                                                          "Finansal Muhasebe › finansal kiralamali monografi (1 çıkmış)",
+                                                          "Finansal Muhasebe › kdv hesaplasmasi kaydi (1 çıkmış)",
+                                                          "Finansal Muhasebe › stok fire kaydi (1 çıkmış)"
+                                                      ]
+                                     },
+                                     {
+                                         "sinav":  "KGK",
+                                         "uret":  5082,
+                                         "kaynak_yok":  65,
+                                         "mevzuat_disi":  0,
+                                         "olculemedi":  0,
+                                         "ornekler":  [
+                                                          "muhasebe standartlari › deger dusuklugu hesaplanmayan (1 çıkmış)",
+                                                          "Muhasebe Standartlari › iadeli satis hasilati (1 çıkmış)",
+                                                          "Muhasebe Standartları › devlet tesvigi muhasebesi (1 çıkmış)",
+                                                          "Muhasebe Standartları › kavramsal cerceve revizyonu (1 çıkmış)",
+                                                          "Muhasebe › cek ciro kaydi (1 çıkmış)",
+                                                          "Muhasebe › dovizli kredi degerleme (1 çıkmış)",
+                                                          "Muhasebe › bagli ortaklik temettusu (1 çıkmış)",
+                                                          "Muhasebe › brut kar hesabi (1 çıkmış)"
+                                                      ]
+                                     }
+                                 ],
+                       "kara_liste":  [
+                                          "TTK (6102 s.K.) m.720",
+                                          "SMMM K. (3568 s.K.) m.29",
+                                          "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
+                                          "Teori Notu - oran analizi likidite",
+                                          "Teori Notu - isletme sermayesi yonetimi"
+                                      ]
+                   },
+    "basilacak":  {
+                      "ders_eksik":  [
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                                             "hedef":  1440,
+                                             "bizim":  118,
+                                             "eksik":  1322,
+                                             "doluluk":  8
+                                         },
+                                         {
+                                             "sinav":  "SMMM",
+                                             "ders":  "Muhasebe Denetimi",
+                                             "hedef":  1010,
+                                             "bizim":  133,
+                                             "eksik":  877,
+                                             "doluluk":  13
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Ekonomi",
+                                             "hedef":  1030,
+                                             "bizim":  235,
+                                             "eksik":  795,
+                                             "doluluk":  23
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Maliye",
+                                             "hedef":  1020,
+                                             "bizim":  281,
+                                             "eksik":  739,
+                                             "doluluk":  28
+                                         },
+                                         {
+                                             "sinav":  "SMMM",
+                                             "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                                             "hedef":  1010,
+                                             "bizim":  284,
+                                             "eksik":  726,
+                                             "doluluk":  28
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Borclar Hukuku",
+                                             "hedef":  1020,
+                                             "bizim":  308,
+                                             "eksik":  712,
+                                             "doluluk":  30
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Meslek Hukuku",
+                                             "hedef":  1020,
+                                             "bizim":  353,
+                                             "eksik":  667,
+                                             "doluluk":  35
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Matematik",
+                                             "hedef":  750,
+                                             "bizim":  211,
+                                             "eksik":  539,
+                                             "doluluk":  28
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Is ve Sosyal Guvenlik Hukuku",
+                                             "hedef":  1020,
+                                             "bizim":  489,
+                                             "eksik":  531,
+                                             "doluluk":  48
+                                         },
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "b) Türkiye Denetim Standartları",
+                                             "hedef":  1360,
+                                             "bizim":  966,
+                                             "eksik":  394,
+                                             "doluluk":  71
+                                         },
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "ç) Sermaye Piyasası Mevzuatı",
+                                             "hedef":  360,
+                                             "bizim":  0,
+                                             "eksik":  360,
+                                             "doluluk":  0
+                                         },
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
+                                             "hedef":  360,
+                                             "bizim":  0,
+                                             "eksik":  360,
+                                             "doluluk":  0
+                                         },
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "d) Bankacılık Mevzuatı",
+                                             "hedef":  360,
+                                             "bizim":  0,
+                                             "eksik":  360,
+                                             "doluluk":  0
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+                                             "hedef":  469,
+                                             "bizim":  114,
+                                             "eksik":  355,
+                                             "doluluk":  24
+                                         },
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "a) Türkiye Muhasebe Standartları",
+                                             "hedef":  1391,
+                                             "bizim":  1079,
+                                             "eksik":  312,
+                                             "doluluk":  78
+                                         },
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "g) Sürdürülebilirlik Denetimi",
+                                             "hedef":  300,
+                                             "bizim":  0,
+                                             "eksik":  300,
+                                             "doluluk":  0
+                                         },
+                                         {
+                                             "sinav":  "KGK",
+                                             "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
+                                             "hedef":  300,
+                                             "bizim":  3,
+                                             "eksik":  297,
+                                             "doluluk":  1
+                                         },
+                                         {
+                                             "sinav":  "SGS",
+                                             "ders":  "Denetim",
+                                             "hedef":  1050,
+                                             "bizim":  859,
+                                             "eksik":  191,
+                                             "doluluk":  82
+                                         }
+                                     ],
+                      "agir_bosluk_sayisi":  361,
+                      "agir_bosluklar":  [
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "yonetim kurulu komiteleri",
+                                                 "donem":  15,
+                                                 "cikmis":  15,
+                                                 "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+                                                 "dayanak":  "TOBB/Odalar K. (5174 s.K.)",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "sermaye piyasasi suclari",
+                                                 "donem":  10,
+                                                 "cikmis":  10,
+                                                 "arsiv_ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
+                                                 "dayanak":  "",
+                                                 "guc":  "OLCULMEDI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "sermaye piyasasi kurumlari",
+                                                 "donem":  10,
+                                                 "cikmis":  10,
+                                                 "arsiv_ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
+                                                 "dayanak":  "",
+                                                 "guc":  "OLCULMEDI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "kayitli sermaye sistemi",
+                                                 "donem":  10,
+                                                 "cikmis":  10,
+                                                 "arsiv_ders":  "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik",
+                                                 "dayanak":  "TTK (6102 s.K.) m.482",
+                                                 "guc":  "TEYITLI"
+                                             },
+                                             {
+                                                 "sinav":  "SGS",
+                                                 "konu":  "kelime bilgisi",
+                                                 "donem":  9,
+                                                 "cikmis":  14,
+                                                 "arsiv_ders":  "Yabanci Dil",
+                                                 "dayanak":  "",
+                                                 "guc":  "OLCULMEDI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "tespit edememe riski",
+                                                 "donem":  9,
+                                                 "cikmis":  9,
+                                                 "arsiv_ders":  "Denetim",
+                                                 "dayanak":  "",
+                                                 "guc":  "OLCULMEDI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "net isletme sermayesi",
+                                                 "donem":  9,
+                                                 "cikmis":  12,
+                                                 "arsiv_ders":  "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                                                 "dayanak":  "Teori Notu - isletme sermayesi yonetimi",
+                                                 "guc":  "TEYITLI"
+                                             },
+                                             {
+                                                 "sinav":  "SGS",
+                                                 "konu":  "sozcukte anlam",
+                                                 "donem":  8,
+                                                 "cikmis":  8,
+                                                 "arsiv_ders":  "Genel Kultur-Genel Yetenek",
+                                                 "dayanak":  "",
+                                                 "guc":  "OLCULMEDI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "ic kontrol bilesenleri",
+                                                 "donem":  8,
+                                                 "cikmis":  8,
+                                                 "arsiv_ders":  "Denetim",
+                                                 "dayanak":  "BDS 315",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "bds 600 topluluk denetimi",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Türkiye Denetim Standartları / Denetim",
+                                                 "dayanak":  "BDS 600",
+                                                 "guc":  "GUCLU"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "bilesik faiz hesabi",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                                                 "dayanak":  "SPK Tebliğ (Seri: V, No: 34)",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "banka kurulus sartlari",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Bankacılık / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+                                                 "dayanak":  "Bankacılık K. (5411 s.K.)",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "sistematik olmayan risk",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+                                                 "dayanak":  "TFRS 17",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "azalan bakiyeler amortisman",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Muhasebe",
+                                                 "dayanak":  "VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman",
+                                                 "guc":  "TEYITLI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "faaliyet raporu icerigi",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
+                                                 "dayanak":  "SPK Karari",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "SGS",
+                                                 "konu":  "cumle tamamlama-kosul",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Yabanci Dil",
+                                                 "dayanak":  "",
+                                                 "guc":  "OLCULMEDI"
+                                             },
+                                             {
+                                                 "sinav":  "SMMM",
+                                                 "konu":  "gelir tablosu duzenleme",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Finansal Muhasebe",
+                                                 "dayanak":  "SMMM K. (3568 s.K.) m.29",
+                                                 "guc":  "TEYITLI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "ticari isletme unsurlari",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
+                                                 "dayanak":  "",
+                                                 "guc":  "OLCULMEDI"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "kar payi avansi",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı",
+                                                 "dayanak":  "Kar Payi Tebligi (II-19.1)",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "tahvil özellikleri",
+                                                 "donem":  7,
+                                                 "cikmis":  7,
+                                                 "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+                                                 "dayanak":  "SPK Karari",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "bds 510 acilis bakiyeleri",
+                                                 "donem":  6,
+                                                 "cikmis":  6,
+                                                 "arsiv_ders":  "Türkiye Denetim Standartları / Denetim",
+                                                 "dayanak":  "BDS 510",
+                                                 "guc":  "GUCLU"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "bds 320 onemlilik",
+                                                 "donem":  6,
+                                                 "cikmis":  6,
+                                                 "arsiv_ders":  "Denetim / Türkiye Denetim Standartları",
+                                                 "dayanak":  "BDS 320",
+                                                 "guc":  "GUCLU"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "net bugunku deger",
+                                                 "donem":  6,
+                                                 "cikmis":  6,
+                                                 "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim",
+                                                 "dayanak":  "SPK Tebliğ (III-59.1)",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "menfaat sahipleri",
+                                                 "donem":  6,
+                                                 "cikmis":  6,
+                                                 "arsiv_ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
+                                                 "dayanak":  "Kurumsal Yonetim Tebligi (II-17.1)",
+                                                 "guc":  "ZAYIF"
+                                             },
+                                             {
+                                                 "sinav":  "KGK",
+                                                 "konu":  "bilanco hesaplari",
+                                                 "donem":  6,
+                                                 "cikmis":  6,
+                                                 "arsiv_ders":  "Muhasebe",
+                                                 "dayanak":  "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 555)",
+                                                 "guc":  "ZAYIF"
+                                             }
+                                         ],
+                      "sgs_ders_karari":  [
+                                              {
+                                                  "ders":  "Finansal Muhasebe",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Denetim",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Yabanci Dil",
+                                                  "hazirlik":  0,
+                                                  "karar":  "FABRIKA GIRMEZ (elle yazilir)"
+                                              },
+                                              {
+                                                  "ders":  "Maliyet Muhasebesi",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Matematik",
+                                                  "hazirlik":  0,
+                                                  "karar":  "FABRIKA GIRMEZ (elle yazilir)"
+                                              },
+                                              {
+                                                  "ders":  "Mali Tablolar Analizi",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Turkce",
+                                                  "hazirlik":  0,
+                                                  "karar":  "FABRIKA GIRMEZ (elle yazilir)"
+                                              },
+                                              {
+                                                  "ders":  "Borclar Hukuku",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Ekonomi",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Maliye",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Vergi Hukuku",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Ticaret Hukuku",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Is ve Sosyal Guvenlik Hukuku",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Meslek Hukuku",
+                                                  "hazirlik":  100,
+                                                  "karar":  "ACIK - musluk acilabilir"
+                                              },
+                                              {
+                                                  "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+                                                  "hazirlik":  0,
+                                                  "karar":  "FABRIKA GIRMEZ (elle yazilir)"
+                                              }
+                                          ],
+                      "bekleyen_parti":  0
+                  }
 }

@@ -46,6 +46,13 @@ function DayanakAnahtar([string]$ad){
   # 4) yazim sadelestirme: 'SERI:X' -> 'SERI: X', 'NO:22' -> 'NO: 22', coklu bosluk tek
   $s = $s -replace '(SERI|NO)\s*:\s*','$1: '
   $s = ($s -replace '\s+',' ').Trim().TrimEnd('-',',',';').Trim()
+  # 4b) 03.09 KANUN NUMARASI KANONU (Cem "1 yap"): ayni kanun uc adla yasiyor -
+  #     "5510 sayili Kanun" / "5510 s. SGK Kanunu" / "SSGSSK (5510 s.K.)"; "3568 s. SMMM K." /
+  #     "SMMM K. (3568 s.K.)". Olculdu: metinsiz raporunun 148 "bulunmayan"inin buyuk kismi
+  #     bu ad farkiydi, ambarda hepsi vardi. Kanun numarasi varsa anahtar = K<numara>.
+  #     (madde eki 2. adimda zaten atildi; kanun-duzeyi anahtar kopru semantigiyle ayni)
+  $mk=[regex]::Match($s,'\b(\d{3,4})\s*(SAYILI|S\.\s*K\.|S\.(?=\s))')
+  if($mk.Success){ return "K$($mk.Groups[1].Value)" }
   # 5) uzun-ad kuyrugunu alias sozlugune sor; yoksa ' - ' oncesi govdeyi de dene
   if($script:DAYANAK_ALIAS.ContainsKey($s)){ return $script:DAYANAK_ALIAS[$s] }
   $govde = ($s -split '\s+-\s+')[0].Trim()
@@ -67,6 +74,12 @@ if($args -contains '-Sinav'){
     @{ a='Sermaye Piyasası Kanunu'; b='SPKn'; ayni=$true }
     @{ a='Bankacılık K. (5411 s.K.)'; b='Sermaye Piyasası K. (6362 s.K.)'; ayni=$false }
     @{ a='TMS 12'; b='TMS 19'; ayni=$false }
+    # 03.09 kanun-numarasi kanonu
+    @{ a='5510 sayılı Kanun m.18'; b='5510 s. SGK Kanunu m.18'; ayni=$true }
+    @{ a='3568 s. SMMM K. m.25/son fıkra'; b='SMMM K. (3568 s.K.) m.25'; ayni=$true }
+    @{ a='3568 sayili Kanun m.48 (disiplin cezalari) ve Disiplin Yonetmeligi'; b='SMMM K. (3568 s.K.) m.48'; ayni=$true }
+    @{ a='TTK (6102 s.K.) m.482'; b='TBK (6098 s.K.) m.20'; ayni=$false }
+    @{ a='VUK (213 s.K.) m.275 - İmal edilen emtia'; b='VUK m.275'; ayni=$false }
   )
   $kotu=0
   foreach($v in $vakalar){
