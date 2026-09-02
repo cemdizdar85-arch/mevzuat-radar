@@ -235,17 +235,24 @@ $varSayi=0; $yokKayit=0; $disiKayit=0
 $yolSayac=@{}
 $adaylar=@($sayac.Keys | Where-Object { $sayac[$_] -ge $EnAzKonu })
 $ilerleme=0
+# 03.09 (Cem: sinav sinav Excel): her dayanagin durumu TEK TEK yazilir - Excel/tek sayfa
+# konu satirlarinda "ambarda var mi / uretilebilir mi" bundan okunur (fabrika klasoru, gitignore)
+$dayanakDurum=[ordered]@{}
 foreach($dayanak in $adaylar){
   $ilerleme++
   if($ilerleme % 500 -eq 0){ Write-Host "  ...$ilerleme / $($adaylar.Count)" }
-  if(MevzuatDisiMi $dayanak){ $disiKayit += $sayac[$dayanak]; $mevzuatDisi.Add([pscustomobject][ordered]@{ dayanak=$dayanak; etkilenen_kayit=$sayac[$dayanak] }); continue }
+  if(MevzuatDisiMi $dayanak){ $disiKayit += $sayac[$dayanak]; $mevzuatDisi.Add([pscustomobject][ordered]@{ dayanak=$dayanak; etkilenen_kayit=$sayac[$dayanak] }); $dayanakDurum[$dayanak]='MEVZUAT-DISI'; continue }
   $durum=AmbardaVarMi $dayanak
-  if($durum){ $varSayi++; if(-not $yolSayac.ContainsKey($durum)){ $yolSayac[$durum]=0 }; $yolSayac[$durum]++; continue }
+  if($durum){ $varSayi++; if(-not $yolSayac.ContainsKey($durum)){ $yolSayac[$durum]=0 }; $yolSayac[$durum]++; $dayanakDurum[$dayanak]="VAR ($durum)"; continue }
+  $dayanakDurum[$dayanak]='YOK'
   $yokKayit += $sayac[$dayanak]
   $metinsiz.Add([pscustomobject][ordered]@{ dayanak=$dayanak; etkilenen_kayit=$sayac[$dayanak] })
 }
 $sirali2=@($metinsiz | Sort-Object { -[int]$_.etkilenen_kayit })
 $siraliDisi=@($mevzuatDisi | Sort-Object { -[int]$_.etkilenen_kayit })
+$fab=Join-Path $depoKok 'veri\fabrika'; if(-not (Test-Path $fab)){ New-Item -ItemType Directory -Path $fab -Force | Out-Null }
+[IO.File]::WriteAllText((Join-Path $fab 'dayanak-durum.json'),(ConvertTo-Json -InputObject $dayanakDurum -Depth 2),[Text.UTF8Encoding]::new($false))
+Write-Host "  dayanak durumu yazildi: veri/fabrika/dayanak-durum.json ($($dayanakDurum.Count) dayanak)"
 
 $cikti=[pscustomobject][ordered]@{
   aciklama="Koprudeki dayanaklarin ambarda KARSILIGI var mi taramasi. Karsiligi olmayan dayanak = OLCULEMEZ konu: hakem dogrulayamaz, uretici kaynak metnini cekemez, soru uretilemez. Bunlar cop DEGILDIR - kaynak eksigidir. Eslesme uc yolla denenir: birebir ad, ' - aciklama' atilmis cekirdek, onek eslesmesi."
