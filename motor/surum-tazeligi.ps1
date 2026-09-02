@@ -78,8 +78,13 @@ foreach($std in $liste){
   try{ $cikti=(& (Join-Path $here 'standart-yut.ps1') -standart $std @ekArg *>&1 | Out-String) }catch{ $cikti="HATA: $_" }
   $ap=0;$ak=0;$yp=0;$yk=0
   # 28.08 oz-sinav dersi: '·' ayirici yakalama sirasinda farklilasabiliyor - \D ile gevsek oku
-  if($cikti -match 'AMBARDAKI HALI\D+([\d\.]+) parca\D+([\d\.]+) karakter'){ $ap=[int]($Matches[1] -replace '\.',''); $ak=[int]($Matches[2] -replace '\.','') }
-  if($cikti -match 'YENI HALI\D+([\d\.]+) parca\D+([\d\.]+) karakter'){ $yp=[int]($Matches[1] -replace '\.',''); $yk=[int]($Matches[2] -replace '\.','') }
+  # 02.09 UCUNCU SEBEP BULUNDU (CI teshisi kosu 21): standart-yut Linux'ta TAM CALISIYOR
+  # ("AMBARDAKI HALI : 213 parca · 107,719 karakter") ama binlik ayiraci Linux
+  # kulturunde VIRGUL. Regex yalniz nokta tanidigi icin karakter sayisi okunamiyor,
+  # $ak=0 kaliyor ve 20/22 standart "OLCULEMEDI" cikiyordu -> KUCULME FRENI envanteri
+  # 30.08'den beri commit'lemedi. Nokta da virgul de ayirac sayilir.
+  if($cikti -match 'AMBARDAKI HALI\D+([\d\.,]+) parca\D+([\d\.,]+) karakter'){ $ap=[int]($Matches[1] -replace '[\.,]',''); $ak=[int]($Matches[2] -replace '[\.,]','') }
+  if($cikti -match 'YENI HALI\D+([\d\.,]+) parca\D+([\d\.,]+) karakter'){ $yp=[int]($Matches[1] -replace '[\.,]',''); $yk=[int]($Matches[2] -replace '[\.,]','') }
   $durum='OLCULEMEDI'; $oran=0
   if($ak -gt 0 -and $yk -gt 0){
     $oran=[math]::Round($yk/$ak,3)
