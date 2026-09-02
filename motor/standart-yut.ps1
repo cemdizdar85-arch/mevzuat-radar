@@ -520,7 +520,14 @@ Write-Host ''
 # --- 1) PDF
 $arac = SY_PdfAraci
 if(-not $arac){ Write-Host 'pdftotext bulunamadi.'; exit 1 }
-$gecici = Join-Path $env:TEMP ('sy-' + ($standart -replace '[^A-Za-z0-9]','') )
+# 02.09.2026 UCUNCU SEBEP (CI teshisi veri/surum-teshis-ci.md, kosu 20): 30.08'de
+# $env:TEMP kusuru hat-onkontrol.ps1'de yamanmisti ama AYNISI burada da duruyordu.
+# Linux runner'da $env:TEMP yok -> "Cannot bind argument to parameter 'Path'
+# because it is null." -> surum kapisi 24/26 OLCULEMEDI -> KUCULME FRENI envanteri
+# 30.08'den beri commit'lemedi (BOBI FRS canli 561, envanter 348 diyordu).
+# DERS: ayni kusur icin BUTUN motoru tara, yalniz dusen dosyayi yamama.
+$tmpKok = if($env:TEMP){ $env:TEMP } elseif($env:TMPDIR){ $env:TMPDIR } else { [IO.Path]::GetTempPath() }
+$gecici = Join-Path $tmpKok ('sy-' + ($standart -replace '[^A-Za-z0-9]','') )
 $null = New-Item -ItemType Directory -Force $gecici
 $pdfYolu = Join-Path $gecici 'kaynak.pdf'
 $txtYolu = Join-Path $gecici 'kaynak.txt'
