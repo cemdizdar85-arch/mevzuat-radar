@@ -127,7 +127,16 @@ function KaraMi([string]$dayanak){
   return $KARA_DAYANAK.Contains($t)
 }
 # dayanak ham metninden ambar sorgu desenleri türet
-$KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.)'; 'GVK'='GVK (193 s.K.)'; 'KVK'='KVK GUT (1 Seri No)'; 'KDV'='KDV%'; 'SPK'='Sermaye Piyasası K. (6362 s.K.)'; 'İİK'='İİK%'; 'SGK'='SGK%' }
+$KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.)'; 'GVK'='GVK (193 s.K.)'; 'KVK'='KVK GUT (1 Seri No)'; 'KDV'='KDV%'; 'SPK'='Sermaye Piyasası K. (6362 s.K.)'; 'İİK'='İİK%'; 'SGK'='5510 s. SGK Kanunu'; 'SMMM'='SMMM K. (3568 s.K.)' }
+# 03.09 (bosluk partisi olcumu): dayanagi HIC olmayan konu (bizde yok, kopru dayanak yazamamis)
+# icin dersin ANA KANUNU icinde metin aramasi. Ders profil adi ($DersRegex) -> kanun onek(ler)i.
+$DERS_KANUN=@{
+  'Ticaret Hukuku'=@('TTK (6102 s.K.)'); 'Borclar Hukuku'=@('TBK (6098 s.K.)')
+  'Is ve Sosyal Guvenlik Hukuku'=@('İş K. (4857 s.K.)','5510 s. SGK Kanunu')
+  'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)')
+  'Meslek Hukuku'=@('SMMM K. (3568 s.K.)'); 'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
+  'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('THP')
+}
 # --- MULGA / YENIDEN ADLANDIRILMIS STANDART ESLEMESI (02.09, olcumle bulundu)
 # Cem "yut onlari" dedi; olculdu ki YUTULACAK BIR SEY YOK - ucu de ambarda mevcut,
 # yalnizca ADLARI degismis ya da YERLERINE yeni standart gelmis:
@@ -163,7 +172,7 @@ function DesenUret($kayit){
     if(KaraMi $ham){ continue }
     foreach($m in [regex]::Matches($ham,'(TMS|TFRS|BDS|GDS|TSRS|SBDS)\s*(\d+)')){ $d.Add("$($m.Groups[1].Value) $($m.Groups[2].Value) p.%") }
     foreach($m in [regex]::Matches($ham,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
-    foreach($m in [regex]::Matches($ham,'(VUK|TTK|TBK|GVK)[^m]*m\.?\s*(\d+)(?:\s*[-–]\s*(\d+))?')){
+    foreach($m in [regex]::Matches($ham,'(VUK|TTK|TBK|GVK|SMMM)[^m]*m\.?\s*(\d+)(?:\s*[-–]\s*(\d+))?')){
       $ka=$KANUN[$m.Groups[1].Value]; $n1=[int]$m.Groups[2].Value
       $n2=if($m.Groups[3].Success){[int]$m.Groups[3].Value}else{$n1}
       if($n2-$n1 -gt 8){ $n2=$n1+8 }
@@ -204,6 +213,14 @@ function DesenUret($kayit){
     if(-not $onek){ continue }
     foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$onek|$tk") }
     break
+  }
+  # dayanak hic yoksa: dersin ana kanunlarinda konu kokuyle metin aramasi
+  if(-not "$($kayit.dayanak)".Trim() -and -not "$($kayit.cikmis_dayanak)".Trim() -and $teoriKok.Count -ge 1){
+    $dersAdi=($DersRegex -replace '[\^\$\\]','')
+    foreach($dk in $DERS_KANUN.Keys){
+      if($dersAdi -notmatch [regex]::Escape($dk)){ continue }
+      foreach($onek2 in $DERS_KANUN[$dk]){ foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$onek2|$tk") } }
+    }
   }
   return @($d | Select-Object -Unique)
 }
