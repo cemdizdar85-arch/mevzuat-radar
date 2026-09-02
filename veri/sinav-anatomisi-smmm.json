@@ -1,0 +1,708 @@
+﻿{
+    "aciklama":  "SMMM sinavinin cikmis kitapciklardan olculen ANATOMISI. Zorluk puani 0-100; olculebilir belirteclerden hesaplanir (uzunluk, sayisal yuk, hesap kodu, negatif kalip, onculu kalip, tip) - subjektif degil. Ders sinifi anahtar-kelime bazlidir; guveni dusuk sorular \u0027belirsiz\u0027 sayilip ders olcumlerine girmez.",
+    "sinav":  "SMMM",
+    "kitapcik":  [
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_08) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_07) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_06) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_05) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_04) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_03) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_02) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_01) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_08) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_07) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_06) -\u003e 20 soru",
+                     "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_05) -\u003e 20 soru"
+                 ],
+    "toplam_soru":  240,
+    "siniflandirilamayan":  72,
+    "A_ders_dagilimi":  {
+                            "Meslek Hukuku":  {
+                                                  "toplam":  40,
+                                                  "donem_basina":  {
+                                                                       "n":  2,
+                                                                       "ortalama":  20,
+                                                                       "medyan":  20,
+                                                                       "p90":  null,
+                                                                       "en_az":  20,
+                                                                       "en_cok":  20
+                                                                   },
+                                                  "sabit_mi":  "evet (donemden doneme +-1)"
+                                              },
+                            "Vergi Hukuku":  {
+                                                 "toplam":  29,
+                                                 "donem_basina":  {
+                                                                      "n":  2,
+                                                                      "ortalama":  14.5,
+                                                                      "medyan":  15,
+                                                                      "p90":  null,
+                                                                      "en_az":  14,
+                                                                      "en_cok":  15
+                                                                  },
+                                                 "sabit_mi":  "evet (donemden doneme +-1)"
+                                             },
+                            "Denetim":  {
+                                            "toplam":  20,
+                                            "donem_basina":  {
+                                                                 "n":  1,
+                                                                 "ortalama":  20,
+                                                                 "medyan":  20,
+                                                                 "p90":  null,
+                                                                 "en_az":  20,
+                                                                 "en_cok":  20
+                                                             },
+                                            "sabit_mi":  "evet (donemden doneme +-1)"
+                                        },
+                            "Is ve Sosyal Guvenlik":  {
+                                                          "toplam":  18,
+                                                          "donem_basina":  {
+                                                                               "n":  2,
+                                                                               "ortalama":  9,
+                                                                               "medyan":  10,
+                                                                               "p90":  null,
+                                                                               "en_az":  8,
+                                                                               "en_cok":  10
+                                                                           },
+                                                          "sabit_mi":  "evet (donemden doneme +-1)"
+                                                      },
+                            "Ticaret ve Borclar":  {
+                                                       "toplam":  17,
+                                                       "donem_basina":  {
+                                                                            "n":  2,
+                                                                            "ortalama":  8.5,
+                                                                            "medyan":  9,
+                                                                            "p90":  null,
+                                                                            "en_az":  8,
+                                                                            "en_cok":  9
+                                                                        },
+                                                       "sabit_mi":  "evet (donemden doneme +-1)"
+                                                   },
+                            "Finansal Muhasebe":  {
+                                                      "toplam":  15,
+                                                      "donem_basina":  {
+                                                                           "n":  2,
+                                                                           "ortalama":  7.5,
+                                                                           "medyan":  14,
+                                                                           "p90":  null,
+                                                                           "en_az":  1,
+                                                                           "en_cok":  14
+                                                                       },
+                                                      "sabit_mi":  "evet (donemden doneme +-1)"
+                                                  },
+                            "Maliyet Muhasebesi":  {
+                                                       "toplam":  12,
+                                                       "donem_basina":  {
+                                                                            "n":  1,
+                                                                            "ortalama":  12,
+                                                                            "medyan":  12,
+                                                                            "p90":  null,
+                                                                            "en_az":  12,
+                                                                            "en_cok":  12
+                                                                        },
+                                                       "sabit_mi":  "evet (donemden doneme +-1)"
+                                                   },
+                            "Matematik":  {
+                                              "toplam":  8,
+                                              "donem_basina":  {
+                                                                   "n":  1,
+                                                                   "ortalama":  8,
+                                                                   "medyan":  8,
+                                                                   "p90":  null,
+                                                                   "en_az":  8,
+                                                                   "en_cok":  8
+                                                               },
+                                              "sabit_mi":  "evet (donemden doneme +-1)"
+                                          },
+                            "Turkce":  {
+                                           "toplam":  5,
+                                           "donem_basina":  {
+                                                                "n":  2,
+                                                                "ortalama":  2.5,
+                                                                "medyan":  4,
+                                                                "p90":  null,
+                                                                "en_az":  1,
+                                                                "en_cok":  4
+                                                            },
+                                           "sabit_mi":  "evet (donemden doneme +-1)"
+                                       },
+                            "Mali Tablolar Analizi":  {
+                                                          "toplam":  4,
+                                                          "donem_basina":  {
+                                                                               "n":  2,
+                                                                               "ortalama":  2,
+                                                                               "medyan":  3,
+                                                                               "p90":  null,
+                                                                               "en_az":  1,
+                                                                               "en_cok":  3
+                                                                           },
+                                                          "sabit_mi":  "evet (donemden doneme +-1)"
+                                                      }
+                        },
+    "B_soru_numarasi_blogu":  {
+                                  "Denetim":  {
+                                                  "ilk_soru":  1,
+                                                  "son_soru":  20,
+                                                  "medyan_no":  10
+                                              },
+                                  "Ticaret ve Borclar":  {
+                                                             "ilk_soru":  2,
+                                                             "son_soru":  19,
+                                                             "medyan_no":  9
+                                                         },
+                                  "Turkce":  {
+                                                 "ilk_soru":  6,
+                                                 "son_soru":  20,
+                                                 "medyan_no":  14
+                                             },
+                                  "Meslek Hukuku":  {
+                                                        "ilk_soru":  1,
+                                                        "son_soru":  20,
+                                                        "medyan_no":  11
+                                                    },
+                                  "Is ve Sosyal Guvenlik":  {
+                                                                "ilk_soru":  1,
+                                                                "son_soru":  16,
+                                                                "medyan_no":  11
+                                                            },
+                                  "Vergi Hukuku":  {
+                                                       "ilk_soru":  1,
+                                                       "son_soru":  19,
+                                                       "medyan_no":  10
+                                                   },
+                                  "Maliyet Muhasebesi":  {
+                                                             "ilk_soru":  1,
+                                                             "son_soru":  19,
+                                                             "medyan_no":  12
+                                                         },
+                                  "Finansal Muhasebe":  {
+                                                            "ilk_soru":  1,
+                                                            "son_soru":  20,
+                                                            "medyan_no":  11
+                                                        },
+                                  "Mali Tablolar Analizi":  {
+                                                                "ilk_soru":  3,
+                                                                "son_soru":  15,
+                                                                "medyan_no":  13
+                                                            },
+                                  "Matematik":  {
+                                                    "ilk_soru":  4,
+                                                    "son_soru":  20,
+                                                    "medyan_no":  17
+                                                }
+                              },
+    "C_ders_kalibi":  {
+                          "Meslek Hukuku":  {
+                                                "soru_sayisi":  40,
+                                                "uzunluk":  {
+                                                                "n":  40,
+                                                                "ortalama":  260.6,
+                                                                "medyan":  240,
+                                                                "p90":  461,
+                                                                "en_az":  98,
+                                                                "en_cok":  737
+                                                            },
+                                                "zorluk":  {
+                                                               "n":  40,
+                                                               "ortalama":  21.3,
+                                                               "medyan":  21,
+                                                               "p90":  30,
+                                                               "en_az":  5,
+                                                               "en_cok":  65
+                                                           },
+                                                "tip_dagilim":  {
+                                                                    "teori":  {
+                                                                                  "adet":  29,
+                                                                                  "yuzde":  72
+                                                                              },
+                                                                    "diger":  {
+                                                                                  "adet":  11,
+                                                                                  "yuzde":  28
+                                                                              }
+                                                                },
+                                                "negatif_soru_yuzde":  45,
+                                                "onculu_soru_yuzde":  8,
+                                                "mevzuat_atifli_yuzde":  18,
+                                                "rakam_adedi":  {
+                                                                    "n":  40,
+                                                                    "ortalama":  0.6,
+                                                                    "medyan":  0,
+                                                                    "p90":  1,
+                                                                    "en_az":  0,
+                                                                    "en_cok":  11
+                                                                },
+                                                "hesap_kodu_adedi":  {
+                                                                         "n":  40,
+                                                                         "ortalama":  0,
+                                                                         "medyan":  0,
+                                                                         "p90":  0,
+                                                                         "en_az":  0,
+                                                                         "en_cok":  1
+                                                                     },
+                                                "sik_uzunlugu":  {
+                                                                     "n":  40,
+                                                                     "ortalama":  46.1,
+                                                                     "medyan":  36,
+                                                                     "p90":  108,
+                                                                     "en_az":  2,
+                                                                     "en_cok":  155
+                                                                 },
+                                                "rakam_sikli_soru_yuzde":  12
+                                            },
+                          "Vergi Hukuku":  {
+                                               "soru_sayisi":  29,
+                                               "uzunluk":  {
+                                                               "n":  29,
+                                                               "ortalama":  390.1,
+                                                               "medyan":  331,
+                                                               "p90":  730,
+                                                               "en_az":  74,
+                                                               "en_cok":  1006
+                                                           },
+                                               "zorluk":  {
+                                                              "n":  29,
+                                                              "ortalama":  39.8,
+                                                              "medyan":  28,
+                                                              "p90":  64,
+                                                              "en_az":  12,
+                                                              "en_cok":  75
+                                                          },
+                                               "tip_dagilim":  {
+                                                                   "teori":  {
+                                                                                 "adet":  15,
+                                                                                 "yuzde":  52
+                                                                             },
+                                                                   "hesaplama":  {
+                                                                                     "adet":  10,
+                                                                                     "yuzde":  34
+                                                                                 },
+                                                                   "diger":  {
+                                                                                 "adet":  4,
+                                                                                 "yuzde":  14
+                                                                             }
+                                                               },
+                                               "negatif_soru_yuzde":  24,
+                                               "onculu_soru_yuzde":  3,
+                                               "mevzuat_atifli_yuzde":  100,
+                                               "rakam_adedi":  {
+                                                                   "n":  29,
+                                                                   "ortalama":  4.4,
+                                                                   "medyan":  2,
+                                                                   "p90":  9,
+                                                                   "en_az":  1,
+                                                                   "en_cok":  16
+                                                               },
+                                               "hesap_kodu_adedi":  {
+                                                                        "n":  29,
+                                                                        "ortalama":  1.4,
+                                                                        "medyan":  1,
+                                                                        "p90":  3,
+                                                                        "en_az":  0,
+                                                                        "en_cok":  5
+                                                                    },
+                                               "sik_uzunlugu":  {
+                                                                    "n":  29,
+                                                                    "ortalama":  72.7,
+                                                                    "medyan":  75,
+                                                                    "p90":  171,
+                                                                    "en_az":  2,
+                                                                    "en_cok":  192
+                                                                },
+                                               "rakam_sikli_soru_yuzde":  34
+                                           },
+                          "Denetim":  {
+                                          "soru_sayisi":  20,
+                                          "uzunluk":  {
+                                                          "n":  20,
+                                                          "ortalama":  334.8,
+                                                          "medyan":  238,
+                                                          "p90":  950,
+                                                          "en_az":  74,
+                                                          "en_cok":  1161
+                                                      },
+                                          "zorluk":  {
+                                                         "n":  20,
+                                                         "ortalama":  23,
+                                                         "medyan":  22,
+                                                         "p90":  45,
+                                                         "en_az":  9,
+                                                         "en_cok":  47
+                                                     },
+                                          "tip_dagilim":  {
+                                                              "teori":  {
+                                                                            "adet":  15,
+                                                                            "yuzde":  75
+                                                                        },
+                                                              "diger":  {
+                                                                            "adet":  5,
+                                                                            "yuzde":  25
+                                                                        }
+                                                          },
+                                          "negatif_soru_yuzde":  35,
+                                          "onculu_soru_yuzde":  10,
+                                          "mevzuat_atifli_yuzde":  10,
+                                          "rakam_adedi":  {
+                                                              "n":  20,
+                                                              "ortalama":  0.1,
+                                                              "medyan":  0,
+                                                              "p90":  1,
+                                                              "en_az":  0,
+                                                              "en_cok":  1
+                                                          },
+                                          "hesap_kodu_adedi":  {
+                                                                   "n":  20,
+                                                                   "ortalama":  0,
+                                                                   "medyan":  0,
+                                                                   "p90":  0,
+                                                                   "en_az":  0,
+                                                                   "en_cok":  0
+                                                               },
+                                          "sik_uzunlugu":  {
+                                                               "n":  20,
+                                                               "ortalama":  129.4,
+                                                               "medyan":  150,
+                                                               "p90":  229,
+                                                               "en_az":  9,
+                                                               "en_cok":  247
+                                                           },
+                                          "rakam_sikli_soru_yuzde":  0
+                                      },
+                          "Is ve Sosyal Guvenlik":  {
+                                                        "soru_sayisi":  18,
+                                                        "uzunluk":  {
+                                                                        "n":  18,
+                                                                        "ortalama":  195.5,
+                                                                        "medyan":  174,
+                                                                        "p90":  363,
+                                                                        "en_az":  92,
+                                                                        "en_cok":  469
+                                                                    },
+                                                        "zorluk":  {
+                                                                       "n":  18,
+                                                                       "ortalama":  19.3,
+                                                                       "medyan":  22,
+                                                                       "p90":  27,
+                                                                       "en_az":  7,
+                                                                       "en_cok":  35
+                                                                   },
+                                                        "tip_dagilim":  {
+                                                                            "teori":  {
+                                                                                          "adet":  11,
+                                                                                          "yuzde":  61
+                                                                                      },
+                                                                            "diger":  {
+                                                                                          "adet":  7,
+                                                                                          "yuzde":  39
+                                                                                      }
+                                                                        },
+                                                        "negatif_soru_yuzde":  44,
+                                                        "onculu_soru_yuzde":  0,
+                                                        "mevzuat_atifli_yuzde":  100,
+                                                        "rakam_adedi":  {
+                                                                            "n":  18,
+                                                                            "ortalama":  1.6,
+                                                                            "medyan":  1,
+                                                                            "p90":  3,
+                                                                            "en_az":  1,
+                                                                            "en_cok":  4
+                                                                        },
+                                                        "hesap_kodu_adedi":  {
+                                                                                 "n":  18,
+                                                                                 "ortalama":  0,
+                                                                                 "medyan":  0,
+                                                                                 "p90":  0,
+                                                                                 "en_az":  0,
+                                                                                 "en_cok":  0
+                                                                             },
+                                                        "sik_uzunlugu":  {
+                                                                             "n":  18,
+                                                                             "ortalama":  50.1,
+                                                                             "medyan":  25,
+                                                                             "p90":  128,
+                                                                             "en_az":  1,
+                                                                             "en_cok":  134
+                                                                         },
+                                                        "rakam_sikli_soru_yuzde":  11
+                                                    },
+                          "Ticaret ve Borclar":  {
+                                                     "soru_sayisi":  17,
+                                                     "uzunluk":  {
+                                                                     "n":  17,
+                                                                     "ortalama":  229.1,
+                                                                     "medyan":  157,
+                                                                     "p90":  445,
+                                                                     "en_az":  108,
+                                                                     "en_cok":  871
+                                                                 },
+                                                     "zorluk":  {
+                                                                    "n":  17,
+                                                                    "ortalama":  19.2,
+                                                                    "medyan":  17,
+                                                                    "p90":  30,
+                                                                    "en_az":  8,
+                                                                    "en_cok":  45
+                                                                },
+                                                     "tip_dagilim":  {
+                                                                         "diger":  {
+                                                                                       "adet":  10,
+                                                                                       "yuzde":  59
+                                                                                   },
+                                                                         "teori":  {
+                                                                                       "adet":  7,
+                                                                                       "yuzde":  41
+                                                                                   }
+                                                                     },
+                                                     "negatif_soru_yuzde":  24,
+                                                     "onculu_soru_yuzde":  18,
+                                                     "mevzuat_atifli_yuzde":  94,
+                                                     "rakam_adedi":  {
+                                                                         "n":  17,
+                                                                         "ortalama":  1.2,
+                                                                         "medyan":  1,
+                                                                         "p90":  2,
+                                                                         "en_az":  0,
+                                                                         "en_cok":  2
+                                                                     },
+                                                     "hesap_kodu_adedi":  {
+                                                                              "n":  17,
+                                                                              "ortalama":  0,
+                                                                              "medyan":  0,
+                                                                              "p90":  0,
+                                                                              "en_az":  0,
+                                                                              "en_cok":  0
+                                                                          },
+                                                     "sik_uzunlugu":  {
+                                                                          "n":  17,
+                                                                          "ortalama":  35.9,
+                                                                          "medyan":  13,
+                                                                          "p90":  86,
+                                                                          "en_az":  1,
+                                                                          "en_cok":  213
+                                                                      },
+                                                     "rakam_sikli_soru_yuzde":  24
+                                                 },
+                          "Finansal Muhasebe":  {
+                                                    "soru_sayisi":  15,
+                                                    "uzunluk":  {
+                                                                    "n":  15,
+                                                                    "ortalama":  318.7,
+                                                                    "medyan":  242,
+                                                                    "p90":  982,
+                                                                    "en_az":  75,
+                                                                    "en_cok":  982
+                                                                },
+                                                    "zorluk":  {
+                                                                   "n":  15,
+                                                                   "ortalama":  31.3,
+                                                                   "medyan":  28,
+                                                                   "p90":  68,
+                                                                   "en_az":  8,
+                                                                   "en_cok":  68
+                                                               },
+                                                    "tip_dagilim":  {
+                                                                        "diger":  {
+                                                                                      "adet":  5,
+                                                                                      "yuzde":  33
+                                                                                  },
+                                                                        "hesaplama":  {
+                                                                                          "adet":  5,
+                                                                                          "yuzde":  33
+                                                                                      },
+                                                                        "teori":  {
+                                                                                      "adet":  4,
+                                                                                      "yuzde":  27
+                                                                                  },
+                                                                        "kayit":  {
+                                                                                      "adet":  1,
+                                                                                      "yuzde":  7
+                                                                                  }
+                                                                    },
+                                                    "negatif_soru_yuzde":  7,
+                                                    "onculu_soru_yuzde":  0,
+                                                    "mevzuat_atifli_yuzde":  13,
+                                                    "rakam_adedi":  {
+                                                                        "n":  15,
+                                                                        "ortalama":  4.2,
+                                                                        "medyan":  3,
+                                                                        "p90":  12,
+                                                                        "en_az":  1,
+                                                                        "en_cok":  12
+                                                                    },
+                                                    "hesap_kodu_adedi":  {
+                                                                             "n":  15,
+                                                                             "ortalama":  1.4,
+                                                                             "medyan":  1,
+                                                                             "p90":  5,
+                                                                             "en_az":  0,
+                                                                             "en_cok":  5
+                                                                         },
+                                                    "sik_uzunlugu":  {
+                                                                         "n":  15,
+                                                                         "ortalama":  44.3,
+                                                                         "medyan":  23,
+                                                                         "p90":  324,
+                                                                         "en_az":  2,
+                                                                         "en_cok":  324
+                                                                     },
+                                                    "rakam_sikli_soru_yuzde":  60
+                                                },
+                          "Maliyet Muhasebesi":  {
+                                                     "soru_sayisi":  12,
+                                                     "uzunluk":  {
+                                                                     "n":  12,
+                                                                     "ortalama":  384.6,
+                                                                     "medyan":  469,
+                                                                     "p90":  624,
+                                                                     "en_az":  69,
+                                                                     "en_cok":  624
+                                                                 },
+                                                     "zorluk":  {
+                                                                    "n":  12,
+                                                                    "ortalama":  46.4,
+                                                                    "medyan":  54,
+                                                                    "p90":  74,
+                                                                    "en_az":  11,
+                                                                    "en_cok":  74
+                                                                },
+                                                     "tip_dagilim":  {
+                                                                         "hesaplama":  {
+                                                                                           "adet":  7,
+                                                                                           "yuzde":  58
+                                                                                       },
+                                                                         "teori":  {
+                                                                                       "adet":  4,
+                                                                                       "yuzde":  33
+                                                                                   },
+                                                                         "kayit":  {
+                                                                                       "adet":  1,
+                                                                                       "yuzde":  8
+                                                                                   }
+                                                                     },
+                                                     "negatif_soru_yuzde":  8,
+                                                     "onculu_soru_yuzde":  0,
+                                                     "mevzuat_atifli_yuzde":  17,
+                                                     "rakam_adedi":  {
+                                                                         "n":  12,
+                                                                         "ortalama":  6.4,
+                                                                         "medyan":  7,
+                                                                         "p90":  16,
+                                                                         "en_az":  0,
+                                                                         "en_cok":  16
+                                                                     },
+                                                     "hesap_kodu_adedi":  {
+                                                                              "n":  12,
+                                                                              "ortalama":  3.2,
+                                                                              "medyan":  4,
+                                                                              "p90":  10,
+                                                                              "en_az":  0,
+                                                                              "en_cok":  10
+                                                                          },
+                                                     "sik_uzunlugu":  {
+                                                                          "n":  12,
+                                                                          "ortalama":  48.9,
+                                                                          "medyan":  37,
+                                                                          "p90":  247,
+                                                                          "en_az":  3,
+                                                                          "en_cok":  247
+                                                                      },
+                                                     "rakam_sikli_soru_yuzde":  50
+                                                 },
+                          "Matematik":  {
+                                            "soru_sayisi":  8,
+                                            "uzunluk":  {
+                                                            "n":  8,
+                                                            "ortalama":  128.5,
+                                                            "medyan":  112,
+                                                            "p90":  293,
+                                                            "en_az":  71,
+                                                            "en_cok":  293
+                                                        },
+                                            "zorluk":  {
+                                                           "n":  8,
+                                                           "ortalama":  11.1,
+                                                           "medyan":  11,
+                                                           "p90":  19,
+                                                           "en_az":  6,
+                                                           "en_cok":  19
+                                                       },
+                                            "tip_dagilim":  {
+                                                                "diger":  {
+                                                                              "adet":  8,
+                                                                              "yuzde":  100
+                                                                          }
+                                                            },
+                                            "negatif_soru_yuzde":  0,
+                                            "onculu_soru_yuzde":  0,
+                                            "mevzuat_atifli_yuzde":  0,
+                                            "rakam_adedi":  {
+                                                                "n":  8,
+                                                                "ortalama":  1.9,
+                                                                "medyan":  2,
+                                                                "p90":  2,
+                                                                "en_az":  1,
+                                                                "en_cok":  2
+                                                            },
+                                            "hesap_kodu_adedi":  {
+                                                                     "n":  8,
+                                                                     "ortalama":  0,
+                                                                     "medyan":  0,
+                                                                     "p90":  0,
+                                                                     "en_az":  0,
+                                                                     "en_cok":  0
+                                                                 },
+                                            "sik_uzunlugu":  {
+                                                                 "n":  8,
+                                                                 "ortalama":  20.4,
+                                                                 "medyan":  13,
+                                                                 "p90":  98,
+                                                                 "en_az":  3,
+                                                                 "en_cok":  98
+                                                             },
+                                            "rakam_sikli_soru_yuzde":  88
+                                        }
+                      },
+    "K_donemsel_degisim":  {
+                               "2026/1":  {
+                                              "soru":  80,
+                                              "medyan_uzunluk":  203,
+                                              "ortalama_zorluk":  26.7,
+                                              "onculu_yuzde":  10,
+                                              "negatif_yuzde":  44
+                                          },
+                               "2026/2":  {
+                                              "soru":  160,
+                                              "medyan_uzunluk":  211,
+                                              "ortalama_zorluk":  24.7,
+                                              "onculu_yuzde":  5,
+                                              "negatif_yuzde":  21
+                                          }
+                           },
+    "L_konu_tekrari":  {
+                           "durum":  "olculdu",
+                           "toplam_konu":  895,
+                           "konu_basina_donem":  {
+                                                     "n":  895,
+                                                     "ortalama":  1.2,
+                                                     "medyan":  1,
+                                                     "p90":  2,
+                                                     "en_az":  1,
+                                                     "en_cok":  8
+                                                 },
+                           "her_donem_cikan":  1,
+                           "tek_donemlik":  778,
+                           "en_cok_cikan":  [
+                                                "dikey yüzde analizi (8 donem)",
+                                                "gelir tablosu duzenleme (7 donem)",
+                                                "amortisman ayirma (7 donem)",
+                                                "şüpheli alacak karşılığı (6 donem)",
+                                                "finansal oran analizi (6 donem)",
+                                                "bilanco duzenleme (6 donem)",
+                                                "gelecek aylara ait gider (5 donem)",
+                                                "satis ve maliyet kaydi (5 donem)",
+                                                "acilis kaydi (4 donem)",
+                                                "gider yansitma kaydi (4 donem)",
+                                                "ortak maliyet dagitimi (4 donem)",
+                                                "trend analizi (4 donem)"
+                                            ]
+                       }
+}

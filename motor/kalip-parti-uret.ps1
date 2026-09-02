@@ -228,6 +228,7 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
    olan 100.000 TL'lik temmuz ayi kira tutarini %20 gelir vergisi kesintisi (stopaj)
    yaptiktan sonra banka araciligiyla odemistir. Soz konusu isleme iliskin muhasebe kaydi
    asagidakilerden hangisidir?" - ZORLUK AYRIMDA olur, kelime sayisinda DEGIL.
+10. SORU TIPI (02.09 - gercek sinavin tip dagilimindan gelen kota): {TIP_TARIF}
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
@@ -246,6 +247,12 @@ $kaynakBorcu=New-Object System.Collections.Generic.List[string]
 # Cem karari: TAVAN 350 (medyanin hemen ustu - gercek sinavin ~%65'i bu bandin altinda).
 $UZUNLUK_TAVAN=350
 $KALIP_TIP=''
+$TIP_HEDEF=New-Object System.Collections.Generic.List[string]
+$TIP_TARIF=@{
+  'kayit'     = "KAYIT sorusu: bir islemin muhasebe kaydini sorar - 'Soz konusu isleme iliskin muhasebe kaydi asagidakilerden hangisidir?' Siklar YEVMIYE MADDESI olur (borc/alacak hesaplari + tutarlar)."
+  'hesaplama' = "HESAPLAMA sorusu: verilen rakamlardan bir tutar/oran bulunur - 'ne kadardir / kac TL'dir'. Siklar RAKAM olur."
+  'teori'     = "TEORI sorusu: kural/tanim/ilke sorar - 'asagidakilerden hangisi ... degildir/yanlistir'. Siklar CUMLE olur, rakam gerekmez; cozum tablosu da gerekmez (sema yeter)."
+}
 $kalipYol=Join-Path $kok ("veri\cikmis-ders-kalibi-" + ($Sinav.ToLowerInvariant()) + ".json")
 if(Test-Path $kalipYol){
   try{
@@ -256,6 +263,21 @@ if(Test-Path $kalipYol){
       $tipler=@($dk.tip_dagilim.PSObject.Properties | Sort-Object { -[int]$_.Value } | ForEach-Object { "$($_.Name) %$([math]::Round(100*[int]$_.Value/[int]$dk.soru_sayisi))" })
       $KALIP_TIP=($tipler -join ', ')
       "gercek kalip [$dAd]: n=$($dk.soru_sayisi) medyan=$($dk.medyan) p90=$($dk.p90) | tip: $KALIP_TIP"
+      # TIP KOTASI (02.09 Cem "3 yap"): parti, gercek sinavin tip dagilimini taklit
+      # eder. 'diger' kotasi dagitilmaz - dolgu tipi degil, olcum artigidir.
+      $TIP_HEDEF=New-Object System.Collections.Generic.List[string]
+      $tipSira=@('kayit','hesaplama','teori')
+      $toplamSayilan=0
+      foreach($t in $tipSira){ if($dk.tip_dagilim.PSObject.Properties[$t]){ $toplamSayilan+=[int]$dk.tip_dagilim.$t } }
+      if($toplamSayilan -gt 0){
+        foreach($t in $tipSira){
+          if(-not $dk.tip_dagilim.PSObject.Properties[$t]){ continue }
+          $adet=[math]::Round($Adet*([int]$dk.tip_dagilim.$t/[double]$toplamSayilan))
+          for($q=0;$q -lt $adet;$q++){ $TIP_HEDEF.Add($t) }
+        }
+        while($TIP_HEDEF.Count -lt $Adet){ $TIP_HEDEF.Add('kayit') }
+        "tip kotasi: " + (($TIP_HEDEF | Group-Object | ForEach-Object { "$($_.Name)=$($_.Count)" }) -join ' ')
+      }
     }
   }catch{ "kalip dosyasi okunamadi: $($_.Exception.Message)" }
 } else { "kalip dosyasi YOK ($kalipYol) - tavan $UZUNLUK_TAVAN ile devam" }
@@ -298,7 +320,11 @@ foreach($kk in $KONULAR){
     continue
   }
   $ekNot=if($OZEL_NOT.ContainsKey($konuLc)){ "`nOZEL UYARI: $($OZEL_NOT[$konuLc])" } else { '' }
-  $ist=$soruIstem.Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"}))+$ekNot
+  $ist=$soruIstem.Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+    $buTip=''
+    if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
+    if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }
+  ))+$ekNot
   # UZUNLUK KAPISI (02.09): asan soru KABUL EDILMEZ - 2 kez kisaltma istenir.
   $cvp=$null
   foreach($deneme in 1..3){
