@@ -231,6 +231,7 @@ $kop = $veri['konu-koprusu']
 if($kop){
   $cikmis.kopru_durum = @($kop.durum.PSObject.Properties | ForEach-Object { [pscustomobject]@{ durum=$_.Name; konu=(Sayi $_.Value) } })
   $cikmis.kopru_ders = @(@($kop.ders_koprusu) | ForEach-Object { [pscustomobject]@{ sinav="$($_.sinav)"; arsiv_ders="$($_.arsiv_ders)"; bizim_ders="$($_.bizim_ders)"; konu=(Sayi $_.konu_sayisi); koprusuz=(-not "$($_.bizim_ders)") } })
+  if($kop.PSObject.Properties['karantina_donem']){ $cikmis.karantina = @(@($kop.karantina_donem) | Where-Object { $_ -and "$($_.donem)" } | ForEach-Object { "$($_.sinav) $($_.donem): $($_.sebep) ($($_.atlanan_girdi) girdi atlandı)" }) }
 }
 
 # ---------------------------------------------------------------------------
@@ -383,6 +384,12 @@ if($cikmis.kopru_durum){
   Satir ''
   foreach($d in $cikmis.kopru_durum){ Satir "- $(K $d.durum): $(Bin $d.konu) konu" }
   Satir ''
+  if($cikmis.karantina -and @($cikmis.karantina).Count){
+    Satir "**⛔ Karantinadaki arşiv dönemleri** (aynı dönemde ders kitapçıkları birbirinin aynısı çıktı; ders etiketi güvenilmez, köprüye alınmadı — yeniden indirilince kendiliğinden açılır):"
+    Satir ''
+    foreach($kq in $cikmis.karantina){ Satir "- $(K $kq)" }
+    Satir ''
+  }
   $koprusuz = @($cikmis.kopru_ders | Where-Object { $_.koprusuz })
   Satir "**Arşiv dersi → bizim ders köprüsü:** $(@($cikmis.kopru_ders).Count) arşiv ders etiketi; **$($koprusuz.Count) tanesinin bizim tarafta karşılığı yok** (köprüsüz ders = o dersin çıkmış soruları hiçbir ölçüme girmiyor)."
   if($koprusuz.Count){
