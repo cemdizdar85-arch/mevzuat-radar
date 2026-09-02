@@ -1,0 +1,73 @@
+# ============================================================================
+#  KONU KÖPRÜSÜ V2 (0 USD, laptopsuz)
+#
+#  NEDEN VAR (02.09.2026, Cem "1 ve 2 yap" → 1): köprü V1 masaüstündeki 31.08
+#  Excel'inden tohumlanmıştı; sayıları o günün sayılarıydı. V2 kasadan ve üç
+#  arşiv analiz dosyasından CANLI türetir. Bu akış onu her sabah tazeler; tek
+#  sayfa (05:30 UTC) bu çıktıyı okur.
+#
+#  SAAT: 04:40 UTC = 07:40 TR. kasa-sayim 00:41 UTC'de koşmuş olur (bağımlılık
+#  yok, köprü kasayı kendisi okur; yalnız sıra tutarlılığı için).
+#
+#  Yalnız veri/konu-koprusu-ozet.json depoya girer. TAM köprü (veri/fabrika,
+#  ~7 MB) gitignore'dadır; parti üreticisi yerelde koşarken kendisi üretir.
+# ============================================================================
+name: Konu koprusu V2 (0 USD, laptopsuz)
+
+on:
+  schedule:
+    - cron: '40 4 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/konu-koprusu-kur.ps1'
+      - '.github/workflows/konu-koprusu.yml'
+      - 'veri/kopru-dayanak-sozlugu.json'
+      - 'veri/konu-eslesme.json'
+      - 'veri/sgs-analiz.json'
+      - 'veri/smmm-analiz.json'
+      - 'veri/kgk-analiz.json'
+
+permissions:
+  contents: write
+
+jobs:
+  kopru:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ANAHTAR VAR MI (yoksa köprü KURULMAZ)
+        shell: pwsh
+        run: |
+          if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host 'KOR: SUPABASE_SERVICE_KEY yok - kasa okunamaz.'; exit 1 }
+          Write-Host 'anahtar var.'
+
+      - name: KÖPRÜYÜ KUR
+        shell: pwsh
+        run: ./motor/konu-koprusu-kur.ps1
+
+      - name: KAPI — özet sağlam mı
+        shell: pwsh
+        run: |
+          $o = Get-Content 'veri/konu-koprusu-ozet.json' -Raw | ConvertFrom-Json
+          Write-Host ("konu {0} · kasa okunan {1} · dayanak ölçülmedi {2} · ağır boşluk {3}" -f $o.konu_sayisi, $o.kasa_okunan_soru, $o.cikmis_dayanak_olculmedi, $o.agir_bosluk_sayisi)
+          if([int]$o.kasa_okunan_soru -lt 20000){ Write-Host 'KIRMIZI: kasa eksik okundu - köprü güvenilmez.'; exit 1 }
+          if([int]$o.konu_sayisi -lt 15000){ Write-Host 'KIRMIZI: konu sayısı beklenenin çok altında.'; exit 1 }
+
+      - name: SONUCU DEPOYA BAS
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/konu-koprusu-ozet.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "degisiklik yok - commit yok."
+          else
+            git commit -m "Konu koprusu V2 tazelendi [veri-operasyonu]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && break || sleep 5
+            done
+          fi

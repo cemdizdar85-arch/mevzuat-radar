@@ -41,7 +41,7 @@ $GIRDILER = @(
   @{ ad='kota-smmm';          yol='veri\uretim-kotasi.json';              uretici='motor/kota-kur.ps1';                   robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
   @{ ad='kota-sgs';           yol='veri\sgs-uretim-kotasi.json';          uretici='motor/sgs-kota-kur.ps1';               robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
   @{ ad='kota-kgk';           yol='veri\kgk-uretim-kotasi.json';          uretici='motor/kota-kur.ps1 (elle)';            robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
-  @{ ad='konu-koprusu';       yol='veri\konu-koprusu-ozet.json';          uretici='motor/konu-koprusu-kur.ps1';           robot='yok (V2 bekliyor: kasadan türetme)';    damga='kaynak' }
+  @{ ad='konu-koprusu';       yol='veri\konu-koprusu-ozet.json';          uretici='motor/konu-koprusu-kur.ps1 (V2 canlı)'; robot='konu-koprusu.yml · her gün 07:40 TR';  damga='olcum' }
   @{ ad='ambar-envanteri';    yol='veri\AMBAR-ENVANTERI.md';              uretici='motor/ambar-envanteri.ps1';            robot='ambar-kapilari.yml · her gün 11:00 TR'; damga='md' }
   @{ ad='butunluk-raporu';    yol='veri\butunluk-raporu.json';            uretici='motor/butunluk-kapisi.ps1';            robot='ambar-kapilari.yml · her gün 11:00 TR'; damga='tarih' }
   @{ ad='cikmis-karnesi';     yol='veri\cikmis-soru-karnesi.json';        uretici='motor/cikmis-soru-karnesi.ps1';        robot='yok';                                   damga='tarih' }
@@ -379,7 +379,7 @@ $isr2c = Isaret @('kgk-analiz')
 if($cikmis.kgk){ Satir "$($isr2c)**KGK arşivi** — $($cikmis.kgk.donem) dönem, $(Bin $cikmis.kgk.soru) soru, tamamı etiketli (veri/kgk-analiz.json)."; Satir '' }
 $isr2d = Isaret @('konu-koprusu')
 if($cikmis.kopru_durum){
-  Satir "$($isr2d)**Konu köprüsü** (bizim konu adları ↔ çıkmış arşiv etiketleri; veri/konu-koprusu-ozet.json — V1 tohumu 31.08 haritasından, V2 kasadan türetme BEKLİYOR):"
+  Satir "$($isr2d)**Konu köprüsü** (bizim konu adları ↔ çıkmış arşiv etiketleri; veri/konu-koprusu-ozet.json — V2: sayılar canlı kasadan + arşiv analizlerinden, çıkmış dayanağı 31.08 sözlüğünden; sözlükte olmayan konu 'dayanak ölçülmedi'):"
   Satir ''
   foreach($d in $cikmis.kopru_durum){ Satir "- $(K $d.durum): $(Bin $d.konu) konu" }
   Satir ''
