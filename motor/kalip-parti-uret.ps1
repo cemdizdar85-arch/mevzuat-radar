@@ -86,7 +86,18 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     if($d.StartsWith('@')){
       $parca=$d.Substring(1) -split '\|',2
       if($parca.Count -lt 2 -or -not $parca[1]){ continue }
-      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&metin=ilike.'+[uri]::EscapeDataString('%'+$parca[1]+'%')+'&limit=4'
+      # 03.09: konu kokleri ASCII ('buro'), ambar metni Turkce ('büro') -> ilike kacirir. Her harf
+      # Turkce esiyle karakter sinifina cevrilip PostgREST 'imatch' (buyuk/kucuk duyarsiz regex)
+      # kullanilir (konu-kaynak-karnesi.ps1 TurkceRegex dersi).
+      $rx=''
+      foreach($ch in $parca[1].ToLowerInvariant().ToCharArray()){
+        switch -CaseSensitive ("$ch"){
+          'c' { $rx+='[cç]' } 'g' { $rx+='[gğ]' } 'i' { $rx+='[iıİI]' } 'o' { $rx+='[oö]' } 's' { $rx+='[sş]' } 'u' { $rx+='[uü]' }
+          ' ' { $rx+='\s?' }
+          default { if("$ch" -match '[a-z0-9]'){ $rx+="$ch" } else { $rx+='.' } }
+        }
+      }
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&metin=imatch.'+[uri]::EscapeDataString($rx)+'&limit=4'
     }
     # 02.09 KRITIK: eski hali 'catch{ continue }' idi - AG HATASI sessizce
     # "kaynak yok" gibi davraniyordu ve konu KAPI-A'dan 'alakasiz kaynak' diye
