@@ -296,7 +296,11 @@ $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ("$($_.bizim_ders)$($_
 # Neden: bosluk konularinin bizim_ders'i bos (bizde yok), arsiv etiketi 'Hukuk' gibi genis;
 # ders ancak dayanagin kanunundan bilinir - o esleme disarida yapilip listeye yazilir.
 if($KonuDosya -and (Test-Path $KonuDosya)){
-  $istenen=@(Get-Content $KonuDosya -Raw -Encoding UTF8 | ConvertFrom-Json | ForEach-Object { "$_".ToLowerInvariant() })
+  # PS 5.1: ConvertFrom-Json JSON dizisini TEK nesne olarak verir; boru ile "$_" yapinca
+  # butun liste tek metin olur ("istenen 1" - 03.09 ilk kosu boyle 0 aday secti). foreach ile acilir.
+  $istenenListe=New-Object System.Collections.Generic.List[string]
+  foreach($x in @((Get-Content $KonuDosya -Raw -Encoding UTF8 | ConvertFrom-Json))){ $istenenListe.Add("$x".ToLowerInvariant()) }
+  $istenen=$istenenListe.ToArray()
   $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ($istenen -contains "$($_.konu)".ToLowerInvariant()) } | Sort-Object donem -Descending)
   "konu dosyasi: $KonuDosya -> $($adaylar.Count) aday (istenen $($istenen.Count))"
 }
