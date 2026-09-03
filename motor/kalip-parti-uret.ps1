@@ -270,18 +270,26 @@ function DesenUret($kayit){
   # ambarda VAR ("... Tebligi (III-45.1) m.1", 46 madde) ama aranmiyordu; uretici SPKn m.3'e kayiyor,
   # KAPI D konu-disi diyordu. Kod -> '%(III-45.1)%' ad deseni EN ONE. TSPB kurallari adiyla; Teblig/
   # Yonetmelik adli konular icin ilk uc ozgul kelimeyle Turkce toleransli ad aramasi ('~' = imatch).
+  # 03.09 ikinci olcum (1005 kp-03/05 hala SPKn m.3): kod deseni listeye ILK eklenmisti ama ders-kanun
+  # '@' desenleri sonradan InsertRange(0) ile ONUNE geciyor, AmbarCek 10 kaynakta duruyor -> Teblig hic
+  # cekilmiyordu. Kod desenleri AYRI listede toplanir ve EN SONDA basa konur. Teblig icinde konu
+  # kokuyle metin aramasi da eklenir ('@%(KOD)%|kok') ki m.1-3 (amac/kapsam/tanim) yerine esas madde gelsin.
+  $kodOne=New-Object System.Collections.Generic.List[string]
   $konuKat0=(Katla2 "$($kayit.konu)")
+  $TEBLIG_BOS='^(hakkinda|iliskin|esaslar|esaslari|esaslarina|genel|tebligi|teblig|yonetmelik|yonetmeligi|anonim|sirketi|bolumler|kurulmasina|tarafindan|kullanilacak|yontemlerine|ortamda|sermaye|piyasasi|piyasalari|ve|ile)$'
   foreach($src in @("$($kayit.konu)","$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
     foreach($m in [regex]::Matches($src,'(?i)\b([IVX]{1,4})\s*-\s*(\d{1,3}(?:\.\d+)?(?:/[A-Za-z]\.?\d*)?)')){
       $kod=($m.Groups[1].Value.ToUpperInvariant()+'-'+$m.Groups[2].Value.ToUpperInvariant())
-      $d.Add("%($kod)%")
+      $kokler=@(($konuKat0 -replace '\(.*?\)','' -replace '[ivx]+-[\d./a-z]+','' -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch $TEBLIG_BOS } | Select-Object -First 2 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+      foreach($kk in $kokler){ $kodOne.Add("@%($kod)%|$kk") }
+      $kodOne.Add("%($kod)%")
     }
   }
-  if($konuKat0 -match 'etik ilke|davranis kural'){ $d.Add('TSPB Sermaye Piyasasi Calisanlari Etik%') }
-  if($konuKat0 -match 'meslek kural'){ $d.Add('TSPB Uyelerinin%Meslek Kurallari%') }
-  if($d.Count -eq 0 -and $konuKat0 -match 'yonetmeli|teblig|genelge|rehber|ilke'){
-    $adKel=@(($konuKat0 -replace '\(.*?\)','' -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch '^(hakkinda|iliskin|esaslar|esaslari|genel|tebligi|teblig|yonetmelik|yonetmeligi|anonim|sirketi|bolumler)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
-    if($adKel.Count -ge 2){ $d.Add('~'+($adKel -join ' ')) }
+  if($konuKat0 -match 'etik ilke|davranis kural'){ $kodOne.Add('TSPB Sermaye Piyasasi Calisanlari Etik%') }
+  if($konuKat0 -match 'meslek kural'){ $kodOne.Add('TSPB Uyelerinin%Meslek Kurallari%') }
+  if($kodOne.Count -eq 0 -and $konuKat0 -match 'yonetmeli|teblig|genelge|rehber|ilke'){
+    $adKel=@(($konuKat0 -replace '\(.*?\)','' -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch $TEBLIG_BOS } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+    if($adKel.Count -ge 2){ $kodOne.Add('~'+($adKel -join ' ')) }
   }
   # halef standart varsa ONCE onun desenini koy (mulga ad ambarda hic yok)
   foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)","$($kayit.konu)")){
@@ -424,6 +432,7 @@ function DesenUret($kayit){
     }
     if($one.Count){ $d.InsertRange(0,$one) }
   }
+  if($kodOne.Count){ $d.InsertRange(0,$kodOne) }   # Teblig kodu / TSPB / '~' ad aramasi HER SEYIN ONUNDE
   return @($d | Select-Object -Unique)
 }
 # Haritanin YANLIS dayanak yazdigi konular icin elle dogru kaynak (01.09:
