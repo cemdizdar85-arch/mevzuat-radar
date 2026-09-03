@@ -1,17 +1,14 @@
 {
-  "tarih": "03.09.2026 16:30",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 2,
+  "tarih": "03.09.2026 21:54",
+  "durum": "ALARM",
+  "kirmizi": 2,
+  "kurtarma": 0,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
-  "maddeler": [],
-  "kurtarilan": [
-    "Gunluk Kanun Aynasi -> son basarili kosu 103.0 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Kasa Sayimi -> Vitrin kanit sayilari damgasi 01.09.2026 (65 saat eski; esik 48s) -> kurtarma: tetiklendi"
+  "maddeler": [
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 108.4 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Kasa Sayimi -> kurtarma ise yaramadi (Vitrin kanit sayilari damgasi 01.09.2026 (70 saat eski; esik 48s)). Actions loguna bak."
   ],
-  "kurtarilan_anahtar": [
-    "KOSU:mevzuat.yml",
-    "VERI:vitrin-sayilar.json"
-  ]
+  "kurtarilan": [],
+  "kurtarilan_anahtar": []
 }
