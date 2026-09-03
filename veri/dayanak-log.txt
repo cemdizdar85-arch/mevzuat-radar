@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260901111038
-Username: runnervmgx7h7\runner
-RunAs User: runnervmgx7h7\runner
+Start time: 20260903224611
+Username: runnervmejwal\runner
+RunAs User: runnervmejwal\runner
 Configuration Name: 
-Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e114b4f1-b1bb-4238-8ee4-983335f37d6f.ps1'
-Process ID: 2248
+Machine: runnervmejwal (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1c7b434a-1442-40a0-9f7d-bd756e8d3d8a.ps1'
+Process ID: 2350
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -45,50 +45,10 @@ Taranan sayfa: 64
   uyari-teyit.html           1 dayanak
 
 Tekil (kanun, madde) cifti: 86 - ambarda araniyor...
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-  ambarda BULUNAN : 80
-  BULUNAMAYAN     : 6
+  ambarda BULUNAN : 85
+  BULUNAMAYAN     : 1
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
-     193 m.1   [sorgu-hatasi]
-     193 m.13   [sorgu-hatasi]
-     193 m.17   [sorgu-hatasi]
-     193 m.47   [sorgu-hatasi]
-     193 m.65   [sorgu-hatasi]
      213 m.372   [ambarda-yok]
 
   NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
@@ -98,5 +58,5 @@ PS>TerminatingError(Invoke-WebRequest): "
 -> veri/dayanak-haritasi.json  (25 sayfa, 86 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260901111158
+End time: 20260903224708
 **********************
