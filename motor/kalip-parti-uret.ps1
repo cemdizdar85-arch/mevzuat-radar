@@ -399,6 +399,12 @@ $OZEL_DESEN=@{
   # 03.09 SMMM SPK: 'pay turleri' kok 'pay' tek basina SPKn'de rastgele madde getiriyor, KAPI-A iki kez
   # reddetti. Gercek kaynak TTK (nama/hamiline m.484, imtiyazli m.478-479) + Pay Tebligi m.4 tanimlar.
   'pay turleri'     = @('TTK (6102 s.K.) m.484','TTK (6102 s.K.) m.478','TTK (6102 s.K.) m.479','Pay Tebligi (VII-128.1) m.4 %')
+  # 03.09 SGS KAPI D yakaladi (5 kayma), ambar adlari canli olculdu:
+  'tms 18 hasilat'  = @('TFRS 15 p.9 %','TFRS 15 p.22 %','TFRS 15 p.31 %','TFRS 15 p.46 %','TFRS 15 p.47 %')   # TMS 18 yururlukten kalkti, halefi TFRS 15
+  'denetim riski'   = @('BDS 200 p.13 %','BDS 200 p.17 %','BDS 200 p.A36 %','BDS 200 p.A40 %','BDS 315 p.4 - Yapısal Risk%')
+  'iliskili taraflar denetimi' = @('BDS 550 p.2 %','BDS 550 p.9 %','BDS 550 p.10 %','BDS 550 p.11 %','BDS 550 p.12 %','BDS 550 p.13 %')
+  'cek hukuku'      = @('TTK (6102 s.K.) m.795','TTK (6102 s.K.) m.796','TTK (6102 s.K.) m.808','TTK (6102 s.K.) m.780','TTK (6102 s.K.) m.781')
+  'damga vergisi'   = @('Damga V.K. (488 s.K.) m.1 %','Damga V.K. (488 s.K.) m.3 %','Damga V.K. (488 s.K.) m.10 %','Damga V.K. (488 s.K.) m.14%','Damga V.K. (488 s.K.) m.22%')
   # 03.09 SMMM SPK kp-10: 'birligi' koku SPKn m.2 kapsam maddesini getirdi, KAPI D konu-disi dedi. TSPB = SPKn m.74-75.
   'turkiye sermaye piyasalari birligi gorevleri' = @('Sermaye Piyasası K. (6362 s.K.) m.74','Sermaye Piyasası K. (6362 s.K.) m.74 %','Sermaye Piyasası K. (6362 s.K.) m.75','Sermaye Piyasası K. (6362 s.K.) m.75 %')
   'gelir tahakkuku' = @('THP 181%','THP 281%','VUK (213 s.K.) m.22%','VUK (213 s.K.) m.283%')
