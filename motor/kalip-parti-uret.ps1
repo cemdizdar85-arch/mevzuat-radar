@@ -16,6 +16,7 @@ param(
   [string]$DersRegex='Finansal Muhasebe',
   [string]$KonuDosya='',
   [switch]$RedYenile,      # 03.09: hakem HAYIR / DERS-DISI kalan cache kayitlarini dusur, yeniden uret
+  [switch]$SadeceHtml,     # 03.09 Cem "her seyde bedeli sor": yalniz cache'ten HTML cizer; API cagrisi denenirse DURUR (bedel 0 garantisi)
   [int]$Adet=30,
   [string]$Etiket='sgs-fmuh-30',
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
@@ -28,6 +29,11 @@ $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
+if($SadeceHtml){
+  # SIGORTA: model cagrisi yapan tek kapi bu fonksiyon; -SadeceHtml'de patlar, betik durur, para gitmez.
+  function Invoke-ClaudeMesaj { throw 'SADECE-HTML: API cagrisi engellendi - cache eksik, once Cem''den bedel onayi al.' }
+  "SADECE-HTML modu: API kapali, yalniz cache'ten cizim"
+}
 $CACHE=Join-Path $kok "veri\fabrika\kalip-parti-$Etiket.json"
 $HEDEF=Join-Path $kok "sql-yerel\kalip-parti-$Etiket.html"
 $KEY=$env:SUPABASE_SERVICE_KEY
@@ -1062,6 +1068,7 @@ foreach($id in @($don.Keys)){
   $cvp=$don[$id]
   if(-not $cvp.soru){ continue }
   # 03.09 KAPI D (konu uyumu) eklendi: konu_uyum alani olmayan eski karar YENIDEN verdirilir (ucuz hakem).
+  if($SadeceHtml){ continue }   # yalniz cizim: eski karar neyse o kalir, hakem cagrilmaz
   if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
   # sema normalizasyonu geriye donuk (ogeler<-adimlar)
   if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
@@ -1297,14 +1304,8 @@ foreach($id in ($don.Keys|Sort-Object)){
   }
   if($adVar){ [void]$sb.Append("<div><button class='padim'>🎬 Bu çözümü adım adım yaşa</button><div class='panlat'><div class='psayac'></div><div class='pformul'></div><div class='pmetin' style='margin-top:6px;font-size:.93em'></div><button class='padim pileri' style='margin-top:8px;padding:6px 12px;font-size:.85em'>İleri →</button></div></div>") }
   $verList=$null; if($cvp.PSObject.Properties['verilen']){ $verList=$cvp.verilen }
-  [void]$sb.Append((TabloHtml $cvp.cozum_tablo $verList))
-  # 02.09 Cem: "yevmiye kayitlari silsek, adimda versek" + GM orta yolu:
-  # defter SILINMEZ ama KAPALI baslar (details) - tiklayan acar, adim adim
-  # cozumun SON adiminda kendiliginden acilir. Sayfa kisalir, bilgi kaybolmaz.
+  $tabloH=TabloHtml $cvp.cozum_tablo $verList
   $semaH=SemaHtml $cvp.sema
-  if($semaH -and $cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye'){
-    [void]$sb.Append("<details class='defterD' style='margin-top:10px'><summary style='cursor:pointer;font-weight:800;color:#78b4ff;font-size:.92em'>📖 Defteri gör — yevmiye kayıtları</summary>$semaH</details>")
-  } else { [void]$sb.Append($semaH) }
   # 01.09 Cem "1 YAP": DENK OYUNU - ogrenci tutari DOGRU TARAFA kendisi yazar,
   # "Denk mi?" toplamlari kiyaslar; denk + dogruysa rozet + seri (localStorage).
   # Hesaplar kod sirasiyla TEK listede verilir ki taraf bilgisi sizmasin.
@@ -1313,7 +1314,18 @@ foreach($id in ($don.Keys|Sort-Object)){
   # @() SART: PS fonksiyondan donen tek elemanli diziyi COZER, .Count null olur ve
   # oyun sessizce basilmaz (02.09: 23 kayittan 14'u boyle kayboldu).
   $oyunKayit=@(KayitListesi $cvp.sema)
-  if($oyunKayit.Count){ [void]$sb.Append((OyunHtml $oyunKayit '⚖️ Kaydı SEN yap — denk tutturabilecek misin?' 'Hesaplar ve tutarlar sende — ama tutarı hangi tarafa yazacağına <b>sen</b> karar vereceksin: borç mu, alacak mı? Bitince <b>Denk mi?</b> düğmesine bas — yevmiyenin ilk kontrolü budur.' '')) }
+  $oyunH=''; if($oyunKayit.Count){ $oyunH=OyunHtml $oyunKayit '⚖️ Kaydı SEN yap — denk tutturabilecek misin?' 'Tutarlar yukarıdaki çözüm tablosunda — ama tutarı hangi tarafa yazacağına <b>sen</b> karar vereceksin: borç mu, alacak mı? Bitince <b>Denk mi?</b> düğmesine bas; denk tutturunca ya da <b>Doğruları göster</b> deyince doğru defter hemen altında belirir.' '' }
+  # 02.09 Cem: defter KAPALI baslasin (details) idi. 03.09 Cem "3 yap": TEK KUTU, OGRETICI SIRA -
+  # cozum tablosu (hesaplama) -> "Kaydi SEN yap" (bos defter, aday kendisi yazar) -> DOGRU DEFTER
+  # gizli; "Denk mi?" basarili olunca / "Dogrulari goster" deyince / adim adim son adimda belirir.
+  # Boylece defter cozum tablosunun icinde ama oyunun cevabini onceden gostermez.
+  if($semaH -and $cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye'){
+    $defterGizli=if($oyunH){ "display:none" } else { "" }
+    $defterBaslik="<div style='font-weight:800;font-size:.9em;color:#78b4ff;margin-top:14px'>📖 Defter — doğru yevmiye kaydı</div>"
+    [void]$sb.Append("<div class='cozumKutu' style='border:1px dashed rgba(120,180,255,.45);border-radius:10px;padding:8px 12px 12px;margin-top:12px'>$tabloH$oyunH<div class='defterD' style='$defterGizli'>$defterBaslik$semaH</div></div>")
+  } else {
+    [void]$sb.Append($tabloH); [void]$sb.Append($semaH); if($oyunH){ [void]$sb.Append($oyunH) }
+  }
   if($ikVar){
     $ik=$cvp.ikiz
     $ikVerK=@{}; foreach($v in @($ik.verilen)){ $ikVerK["$(@($v)[0]),$(@($v)[1])"]=1 }
@@ -1426,7 +1438,7 @@ document.querySelectorAll('.soru').forEach(soru=>{
       say.textContent='ADIM '+(ad+1)+' / '+adimlar.length; met.textContent=s.anlatim;
       if(ad===0&&VTMAP[sid]){ frm.innerHTML=VTMAP[sid]; } else { frm.textContent=s.formul||''; }
       (s.doldur||[]).forEach(k=>{const el=hc(k[0],k[1]); if(el){el.classList.remove('gizli'); el.classList.add('parla'); setTimeout(()=>el.classList.remove('parla'),950);}});
-      if(ad===adimlar.length-1){ hcs().forEach(el=>el.classList.remove('gizli')); const df=soru.querySelector('.defterD'); if(df){ df.setAttribute('open',''); } }
+      if(ad===adimlar.length-1){ hcs().forEach(el=>el.classList.remove('gizli')); const df=soru.querySelector('.defterD'); if(df){ df.setAttribute('open',''); df.style.display='block'; } }
       ile.textContent=(ad===adimlar.length-1)?'🔄 Baştan':'İleri →'; };
     btn.addEventListener('click',()=>{ hcs().forEach(el=>el.classList.add('gizli')); btn.style.display='none'; pan.style.display='block'; ad=0; g(); });
     ile.addEventListener('click',()=>{ if(ad===adimlar.length-1){ hcs().forEach(el=>el.classList.add('gizli')); ad=0; g(); return; } ad++; g(); });
@@ -1473,12 +1485,14 @@ document.querySelectorAll('.soru').forEach(soru=>{
       topla();
       sar.querySelectorAll('.dkB table').forEach(tb=>{ let b=0,a=0; tb.querySelectorAll('tr').forEach(tr=>{ const ins=tr.querySelectorAll('.dkx'); if(ins.length===2){ b+=say(ins[0].value); a+=say(ins[1].value);} }); if(b!==a||b===0) denkHepsi=false; });
       const ms=sar.querySelector('.dkMesaj');
-      if(d===t&&denkHepsi){ const seri=SERI(+1);
+      // 03.09 Cem "3": asil kayitta denk tutturunca dogru defter ayni kutuda belirir (ikizde degil)
+      const defterAc=()=>{ if(sar.classList.contains('ikiz')) return; const df=sar.closest('.cozumKutu')?.querySelector('.defterD'); if(df){ df.style.display='block'; } };
+      if(d===t&&denkHepsi){ defterAc(); const seri=SERI(+1);
         ms.innerHTML='🏅 <span style="color:#8fc98f">DENK! Kayıt senin.</span> Seri: '+seri+' kayıt'+(seri>=3?' 🔥':''); ms.style.color='#8fc98f'; }
       else { SERI(0);
         ms.textContent=denkHepsi?('Toplamlar denk ama '+(t-d)+' hücre yanlış — tutar doğru tarafta mı? Kırmızılara bak.'):'Denk değil — hangi taraf eksik? TOPLAM satırı söylüyor. (Seri sıfırlandı)'; ms.style.color='#e07b7b'; }
     });
-    sar.querySelector('.dkGoster').addEventListener('click',()=>{ sar.querySelectorAll('.dkx').forEach(i=>{ i.value=i.dataset.d; i.classList.remove('yan','dog'); if(i.dataset.d){ i.classList.add('dog'); } }); topla(); });
+    sar.querySelector('.dkGoster').addEventListener('click',()=>{ sar.querySelectorAll('.dkx').forEach(i=>{ i.value=i.dataset.d; i.classList.remove('yan','dog'); if(i.dataset.d){ i.classList.add('dog'); } }); topla(); if(!sar.classList.contains('ikiz')){ const df=sar.closest('.cozumKutu')?.querySelector('.defterD'); if(df){ df.style.display='block'; } } });
   });
 });
 </script>
