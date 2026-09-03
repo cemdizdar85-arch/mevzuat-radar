@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260902045249
+Start time: 20260903045048
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/9248d4dd-3215-4956-af30-98cddc4db995.ps1'
-Process ID: 2271
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b1a0d440-2d0a-408d-b0ad-3987c1ca2ab6.ps1'
+Process ID: 2234
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -23,11 +23,14 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
   sayfa 4: 100 parti (toplam 400)
-  sayfa 5: 13 parti (toplam 413)
+  sayfa 5: 16 parti (toplam 416)
 
-TOPLAM 413 parti bulundu.
+TOPLAM 416 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01EcSKpGo9o861zVKfm26FEx ended               1        0 09/03/2026 04:18:59
+msgbatch_01K4KxzMTAZMPMDrQfgrGZA3 ended               1        0 09/03/2026 01:04:00
+msgbatch_01PfSRbm3ctSqdjM6Loca1LY ended               1        0 09/02/2026 23:32:40
 msgbatch_01RBZMtfZjdAHtmA8MtoPgSG ended               1        0 09/02/2026 04:25:36
 msgbatch_01NCtmyAEVFPekYApX3oNLKN ended               1        0 09/02/2026 00:58:04
 msgbatch_01DtJ2PbCs31DALgDfRZYf9i ended               1        0 09/01/2026 23:32:31
@@ -442,9 +445,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (413 kayit)
-HASADA HAZIR (ended + basarili>0): 413 parti,  sonuc
+-> veri/parti-listesi.json (416 kayit)
+HASADA HAZIR (ended + basarili>0): 416 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260902045251
+End time: 20260903045051
 **********************

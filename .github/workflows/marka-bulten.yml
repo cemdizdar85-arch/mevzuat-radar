@@ -29,7 +29,12 @@ on:
     # 30.08: 05:40 TR -> 02:10 TR. Indirme gunduz kostugunda canli arama
     # coktu (5 aramadan 4'u zaman asimi; indirme yokken 1,5 sn). Toplu
     # indirme artik yalniz gece; sabaha site serbest kaliyor.
-    - cron: '10 23 * * *'     # 02:10 TR
+    # 03.09 - Cem: "saat 4 ile 8 arasi".
+    # DIKKAT: burada yazan saat, kosunun BASLAYACAGI saat DEGIL. GitHub
+    # zamanlanmis isleri geciktiriyor - OLCULDU: cron 23:10 UTC iken gercek
+    # baslangiclar 00:59 / 01:05 / 01:47 UTC (03:59 / 04:05 / 04:47 TR) oldu.
+    # ~2 saatlik gecikme dusulerek kuruldu; hedef pencere 04:00-08:00 TR.
+    - cron: '45 22 * * *'     # nominal 01:45 TR · gercekte ~03:45-04:20 TR
   workflow_dispatch:
     inputs:
       mod:
@@ -54,7 +59,7 @@ permissions:
 jobs:
   bulten:
     runs-on: ubuntu-latest
-    timeout-minutes: 260      # robot 230'da kendisi durur, bu son emniyet        # bulten basi ~8 dk; 6 bulten rahat siger
+    timeout-minutes: 225      # robot 230'da kendisi durur, bu son emniyet        # bulten basi ~8 dk; 6 bulten rahat siger
     steps:
       - uses: actions/checkout@v4
 
@@ -70,7 +75,9 @@ jobs:
           # birakir. Zorla kesilme yarim inen PDF birakir ve o bulten bosa gider.
           # 230 dk: 02:10'da baslayan kosu ~06:00 TR'de kendi isteğiyle durur.
           # Zorla kesilme yarim inen PDF birakir; kaynak devam desteklemiyor.
-          SURE_DK: "230"
+          # 195 dk: en gec 04:20 TR'de baslasa bile ~07:35 TR'de biter,
+          # yani 08:00 penceresinin disina tasmaz. Bedeli gecede ~1 bulten.
+          SURE_DK: "195"
         run: |
           # Zamanlanmis kosunun varsayilani GECMIS: 263 bultenin listesini
           # alir, 'bitti' olanlari atlar, kalanlari yutar. Yeni cikan bulten de
