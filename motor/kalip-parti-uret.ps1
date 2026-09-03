@@ -163,6 +163,25 @@ $DERS_KANUN=@{
   'Vergi Mevzuatı ve Uygulaması'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','AATUHK (6183 s.K.)')
   'Finansal Tablolar ve Analizi'=@('TEORI','Teori Notu','TMS')
   'Muhasebecilik ve Mali Müşavirlik Meslek Hukuku'=@('SMMM K. (3568 s.K.)')
+  # SPL / SPK LISANSLAMA (03.09, Cem "SPK sinavlarinda hazirlik yaptiracagiz, 7 ders yakin sinav var")
+  # Ambar adlari canli olculdu: "Sermaye Piyasası K. (6362 s.K.) m.N", "<Ad> Tebligi (II-23.2) m.N",
+  # "SPK Tebliğ (II-15.2) - ...", "SPK Rehber - ...", "SPK Diğer Karar - ...". '%' ile baslayan onek = icerir.
+  'Dar Kapsamlı Sermaye Piyasası Mevzuatı'=@('Sermaye Piyasası K. (6362 s.K.)','%Tebligi (','SPK Tebliğ','SPK Rehber','TSPB')
+  'Geniş Kapsamlı Sermaye Piyasası Mevzuatı'=@('Sermaye Piyasası K. (6362 s.K.)','%Tebligi (','SPK Tebliğ','SPK Rehber','SPK Diğer Karar','TSPB')
+  'Sermaye Piyasası Araçları'=@('Sermaye Piyasası K. (6362 s.K.)','%Tebligi (','SPK Tebliğ','TTK (6102 s.K.)','TEORI','Teori Notu')
+  'Yatırım Kuruluşları'=@('%Tebligi (','SPK Tebliğ','Sermaye Piyasası K. (6362 s.K.)','SPK Rehber')
+  'Takas, Saklama ve Operasyon İşlemleri'=@('%Tebligi (','SPK Tebliğ','SPK Rehber','SPK Diğer Karar','Sermaye Piyasası K. (6362 s.K.)')
+  'Finansal Piyasalar'=@('TEORI','Teori Notu','Sermaye Piyasası K. (6362 s.K.)','%Tebligi (','Bankacılık K. (5411 s.K.)')
+  'Türev Araçlar, Piyasalar ve Risk Yönetimi'=@('TEORI','Teori Notu','%Tebligi (','SPK Tebliğ')
+  'Kurumlarda ve Sermaye Piyasasında Vergilendirme'=@('GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','VUK (213 s.K.)','Damga V.K. (488 s.K.)')
+  'Finansal Yönetim ve Mali Analiz'=@('TEORI','Teori Notu')
+  'Genel Ekonomi'=@('TEORI','Teori Notu')
+  'Temel Finans Matematiği ve Değerleme Yöntemleri'=@('TEORI','Teori Notu')
+  'Muhasebe ve Finansal Raporlama'=@('TMS','TFRS','THP','TEORI')
+  'Kurumsal Yönetim'=@('Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)','TEORI','Teori Notu')
+  'Kredi Derecelendirmesi'=@('%Derecelendirme%','SPK Tebliğ','TEORI','Teori Notu')
+  'Gayrimenkul'=@('%Gayrimenkul%','TMK (4721 s.K.)','%Tebligi (','SPK Tebliğ')
+  'Bilgi Sistemleri'=@('%Bilgi Sistemleri%','%Tebligi (','SPK Tebliğ')
 }
 # --- MULGA / YENIDEN ADLANDIRILMIS STANDART ESLEMESI (02.09, olcumle bulundu)
 # Cem "yut onlari" dedi; olculdu ki YUTULACAK BIR SEY YOK - ucu de ambarda mevcut,
@@ -377,6 +396,15 @@ if($KonuDosya -and (Test-Path $KonuDosya)){
   $istenen=$istenenListe.ToArray()
   $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ($istenen -contains "$($_.konu)".ToLowerInvariant()) } | Sort-Object donem -Descending)
   "konu dosyasi: $KonuDosya -> $($adaylar.Count) aday (istenen $($istenen.Count))"
+  # 03.09 SPL: cikmis arsivi yok (SPL yayimlamiyor), kopru kaydi yok -> konu dosyasindaki adlar
+  # (SPL resmi alt-konu listesi, ders-profili resmi_alt_konular) dogrudan aday olur; dayanak bos,
+  # kaynak DERS_KANUN kanun-ici aramasiyla bulunur. Kopru kaydi olmayan her sinav icin gecerli.
+  if($adaylar.Count -lt $istenen.Count){
+    $eksikler=@($istenen | Where-Object { $k=$_; -not ($adaylar | Where-Object { "$($_.konu)".ToLowerInvariant() -eq $k }) })
+    $sentez=New-Object System.Collections.Generic.List[object]
+    foreach($ek in $eksikler){ $sentez.Add([pscustomobject]@{ sinav=$Sinav; konu=$ek; bizim_ders=''; arsiv_ders=''; bizim=0; cikmis=0; durum='LISTEDEN (kopru kaydi yok)'; dayanak=''; cikmis_dayanak=''; guc=''; donem=1; dayanak_anahtar=''; cikmis_dayanak_anahtar='' }) }
+    if($sentez.Count){ $adaylar=@($adaylar)+$sentez.ToArray(); "  kopru disi sentez: $($sentez.Count) konu (SPL resmi alt-konu listesi gibi)" }
+  }
 }
 $gorulen=@{}; $KONULAR=New-Object System.Collections.Generic.List[object]; $sira=0
 foreach($a in $adaylar){
