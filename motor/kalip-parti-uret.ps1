@@ -114,6 +114,14 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     foreach($x in @($r)){
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
+    # 03.09 OLCULDU (SMMM 'kambiyo kari kaydi' -> KAYNAK BORCU; oysa THP 646 KAMBIYO KARLARI ambarda):
+    # '@' aramasi yalniz METIN icinde bakiyordu; hesap adinin KENDISI kelimeyi tasiyorsa yakalanmiyordu.
+    # Ikinci sorgu: ayni kanun onekinde kaynak_ad icinde de ara (Turkce toleransli imatch).
+    if($d.StartsWith('@') -and @($r).Count -eq 0){
+      $u2='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&kaynak_ad=imatch.'+[uri]::EscapeDataString($rx)+'&limit=3'
+      $r2=$null; try{ $r2=Invoke-RestMethod -Uri $u2 -Headers $SB -TimeoutSec 60 }catch{}
+      foreach($x in @($r2)){ if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") } }
+    }
     if($adlar.Count -ge 10){ break }
   }
   $m=($topla -join "`n---`n"); if($m.Length -gt $tavan){ $m=$m.Substring(0,$tavan) }
@@ -295,9 +303,23 @@ function DesenUret($kayit){
   if($dayanakZayif -and $kanunKok.Count -ge 1){
     $dersAdi=($DersRegex -replace '[\^\$\\]','')
     $one=New-Object System.Collections.Generic.List[string]
+    # 03.09 OLCULDU (SMMM Vergi: 'gelir vergisi matrahi' -> VUK m.4 'vergi dairesi yetkisi' geldi, hakem
+    # reddetti): dersin kanun listesi konu kelimesine gore SIRALANIR - gelir vergisi -> GVK, kurumlar -> KVK,
+    # kdv -> KDVK, damga -> Damga V.K., tahsil/odeme emri -> AATUHK, defter/degerleme/amortisman -> VUK.
+    $KELIME_KANUN=@(
+      @('gelir vergi|gvk|ucret|serbest meslek|menkul sermaye|gayrimenkul sermaye|dar mukellef|tam mukellef|beyanname','GVK'),
+      @('kurumlar|kvk|istirak|tasfiye|birlesme','KVK'),@('kdv|katma deger|indirim|tevkifat|istisna','KDVK'),
+      @('damga','Damga'),@('tahsil|odeme emri|haciz|gecikme zammi|tecil|amme','AATUHK'),
+      @('defter|belge|degerleme|amortisman|envanter|usul|tebligat|uzlasma|ceza','VUK (213'),
+      @('banka','Bankacılık'),@('sigorta|emeklilik|reasurans','Sigortacılık'),@('surdurulebilirlik|iklim|tsrs','TSRS'),
+      @('bds|denetim|denetci|kanit|onemlilik','BDS'),@('tms|tfrs|stok|hasilat|kiralama|deger dusuklugu','TMS')
+    )
+    $oncelik=@(); foreach($kk in $KELIME_KANUN){ if($konuKat -match $kk[0]){ $oncelik+=$kk[1] } }
     foreach($dk in $DERS_KANUN.Keys){
       if($dersAdi -notmatch [regex]::Escape($dk)){ continue }
-      foreach($onek2 in $DERS_KANUN[$dk]){ foreach($tk in ($kanunKok | Select-Object -First 2)){ $one.Add("@$onek2|$tk") } }
+      $liste=@($DERS_KANUN[$dk])
+      if($oncelik.Count){ $liste=@($liste | Sort-Object { $s=$_; $i=[array]::FindIndex($oncelik,[Predicate[object]]{ param($o) $s -like "$o*" -or $s -like "*$o*" }); if($i -lt 0){ 99 } else { $i } }) }
+      foreach($onek2 in $liste){ foreach($tk in ($kanunKok | Select-Object -First 2)){ $one.Add("@$onek2|$tk") } }
     }
     if($one.Count){ $d.InsertRange(0,$one) }
   }
