@@ -437,7 +437,18 @@ function ikiAySonra(iso) {
       if (tam.length / kayit.length < 0.95) throw new Error(`Tam kayit orani %${(100 * tam.length / kayit.length).toFixed(1)} - kapi %95. Bicim degismis olabilir, yazilmadi.`);
 
       if (!KURU) {
-        const satir = kayit.map(r => ({ ...r, bulten_no: b.bulten_no, yayin_tarihi: b.yayin_tarihi, itiraz_son: itiraz }));
+        /* 03.09: TEKILLESTIRME BURADA SART. Postgres ayni komut icinde ayni
+           satiri iki kez guncelleyemez (21000). Tekrarlari saymak yetmiyordu -
+           gonderilen veri de tekil olmali. Sonraki kayit oncekini ezer:
+           kaynak sirasi yayim sirasidir, ikinci kayit genelde duzeltilmis hali. */
+        const tekilHarita = new Map();
+        for (const r of kayit) {
+          tekilHarita.set(r.basvuru_no, { ...r, bulten_no: b.bulten_no, yayin_tarihi: b.yayin_tarihi, itiraz_son: itiraz });
+        }
+        const satir = [...tekilHarita.values()];
+        if (satir.length !== kayit.length) {
+          log(`   tekillestirildi: ${kayit.length} -> ${satir.length} satir`);
+        }
         for (let i = 0; i < satir.length; i += PARTI) {
           await sbYazBolerek('marka_bulten?on_conflict=basvuru_no,bulten_no', satir.slice(i, i + PARTI),
             'resolution=merge-duplicates,return=minimal');
