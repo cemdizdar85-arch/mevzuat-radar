@@ -448,6 +448,7 @@ $OZEL_DESEN=@{
   'iliskili taraflar denetimi' = @('BDS 550 p.2 %','BDS 550 p.9 %','BDS 550 p.10 %','BDS 550 p.11 %','BDS 550 p.12 %','BDS 550 p.13 %')
   'cek hukuku'      = @('TTK (6102 s.K.) m.795','TTK (6102 s.K.) m.796','TTK (6102 s.K.) m.808','TTK (6102 s.K.) m.780','TTK (6102 s.K.) m.781')
   'damga vergisi'   = @('Damga V.K. (488 s.K.) m.1 %','Damga V.K. (488 s.K.) m.3 %','Damga V.K. (488 s.K.) m.10 %','Damga V.K. (488 s.K.) m.14%','Damga V.K. (488 s.K.) m.22%')
+  'kdv matrahi'     = @('KDVK (3065 s.K.) m.20 %','KDVK (3065 s.K.) m.24 %','KDVK (3065 s.K.) m.25 %','KDVK (3065 s.K.) m.21 %','KDVK (3065 s.K.) m.26 %','KDVK (3065 s.K.) m.27 %')   # 03.09 uc turda 5510 m.81 -> KDV istisnasi kaymasi
   # 03.09 SMMM SPK kp-10: 'birligi' koku SPKn m.2 kapsam maddesini getirdi, KAPI D konu-disi dedi. TSPB = SPKn m.74-75.
   'turkiye sermaye piyasalari birligi gorevleri' = @('Sermaye Piyasası K. (6362 s.K.) m.74','Sermaye Piyasası K. (6362 s.K.) m.74 %','Sermaye Piyasası K. (6362 s.K.) m.75','Sermaye Piyasası K. (6362 s.K.) m.75 %')
   'gelir tahakkuku' = @('THP 181%','THP 281%','VUK (213 s.K.) m.22%','VUK (213 s.K.) m.283%')
