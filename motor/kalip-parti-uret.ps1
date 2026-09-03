@@ -351,6 +351,20 @@ function DesenUret($kayit){
   # hic girmiyor, THP 646 ambarda dururken KAYNAK BORCU yaziliyordu.
   $dayGecerli=@(@("$($kayit.dayanak)","$($kayit.cikmis_dayanak)") | Where-Object { $_.Trim() -and -not (KaraMi $_) })
   $dayanakZayif=($dayGecerli.Count -eq 0) -or ("$($kayit.guc)" -match 'ZAYIF|OLCULMEDI|^$')
+  # 03.09 OLCULDU (SGS Vergi 'damga vergisi' -> 5510 gec. m.55 SGK affi; 'kdv matrahi' -> 5510 m.81 prim
+  # tesviki): kopru dayanagi DERSIN KANUN LISTESI DISINDA bir kanunsa (kanun numarasiyla olculur) dayanak
+  # ZAYIF sayilir; ders kanunlari one gecer, kopru dayanagi yine listede kalir (hakem+KAPI D sinar).
+  if(-not $dayanakZayif){
+    $dersAdiK=($DersRegex -replace '[\^\$\\]','')
+    $dersNo=New-Object 'System.Collections.Generic.HashSet[string]'
+    foreach($dk in $DERS_KANUN.Keys){ if($dersAdiK -match [regex]::Escape($dk)){ foreach($px in @($DERS_KANUN[$dk])){ foreach($m in [regex]::Matches($px,'\b(\d{3,4})\b')){ [void]$dersNo.Add($m.Groups[1].Value) } } } }
+    if($dersNo.Count){
+      foreach($ham in $dayGecerli){
+        $hamNo=@([regex]::Matches($ham,'\b(\d{3,4})\s*(s\.|sayılı|s\.K)') | ForEach-Object { $_.Groups[1].Value })
+        if($hamNo.Count -and -not @($hamNo | Where-Object { $dersNo.Contains($_) }).Count){ $dayanakZayif=$true; Write-Host "  DAYANAK DERS DISI KANUN (zayif sayildi): $($kayit.konu) <- $ham" -ForegroundColor DarkYellow; break }
+      }
+    }
+  }
   if($dayanakZayif -and $kanunKok.Count -ge 1){
     $dersAdi=($DersRegex -replace '[\^\$\\]','')
     $one=New-Object System.Collections.Generic.List[string]
@@ -683,7 +697,7 @@ foreach($kk in $KONULAR){
   }
   # 03.09 -RedYenile: arama/profil duzeltmesinden sonra hakemin reddettigi sorular yeniden
   # (kaynak degismis olabilir; red kalici kalmasin). Yalniz bayrakla - normalde para harcanmaz.
-  if($RedYenile -and $don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['hakem'] -and ("$($don[$id].hakem.karar)" -ne 'EVET' -or "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI')){
+  if($RedYenile -and $don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['hakem'] -and ("$($don[$id].hakem.karar)" -ne 'EVET' -or "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI' -or "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI')){
     Write-Host "  CACHE DUSTU (-RedYenile: hakem $($don[$id].hakem.karar)/$($don[$id].hakem.ders_uyum)): $id $($kk.kayit.konu)" -ForegroundColor Yellow
     $don.Remove($id)
   }
@@ -983,7 +997,10 @@ Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
    yoksa su komsu derslerden birinin sorusu mu: {KOMSULAR}?
    RESMI KAPSAM: {TARIF}
    Kapsama uyuyorsa EVET; baska dersin sorusuysa DERS-DISI (+hangi ders).
-Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)"}
+3) KONU UYUMU (KAPI D - 03.09): bu soru "{KONU}" konusunu mu OLCUYOR? Konu adi metinde gecse bile
+   sorunun olctugu kural/hesap baska bir konuya aitse (orn. "damga vergisi" konusunda SGK af hukmu;
+   "yonetim iddialari" konusunda stok sayimi) KONU-DISI de; konunun ozunu olcuyorsa EVET.
+Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)"}
 === SORU === {SORU}
 === DOGRU SIK ({DOGRU}) === {SIK}
 === DOGRU SIKKIN ACIKLAMASI === {ACIK}
@@ -992,7 +1009,8 @@ Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET
 foreach($id in @($don.Keys)){
   $cvp=$don[$id]
   if(-not $cvp.soru){ continue }
-  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum']){ continue }
+  # 03.09 KAPI D (konu uyumu) eklendi: konu_uyum alani olmayan eski karar YENIDEN verdirilir (ucuz hakem).
+  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
   # sema normalizasyonu geriye donuk (ogeler<-adimlar)
   if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
     $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
@@ -1031,7 +1049,7 @@ foreach($id in @($don.Keys)){
     }
   }
   if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); continue }
-  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KAYNAK}',$kMetin)
+  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin)
   $yh=$null
   foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
   $hk=Coz $yh.metin
@@ -1042,7 +1060,8 @@ foreach($id in @($don.Keys)){
     Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
   } else { $rapor.Add("HAKEM CIKTISI BOZUK: $id") }
 }
-$hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.karar)" -eq 'HAYIR' })
+$hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and ("$($don[$_].hakem.karar)" -eq 'HAYIR' -or "$($don[$_].hakem.konu_uyum)" -eq 'KONU-DISI') })
+foreach($id in @($don.Keys)){ if($don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI'){ Write-Host "  KONU-DISI (KAPI D): $id [$($don[$id].konu)] -> $($don[$id].hakem.konu_gerekce)" -ForegroundColor Magenta } }
 $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
 
 # --- TUZAK CESITLILIGI KAPISI (02.09 Cem: "begenmedim") ----------------------
