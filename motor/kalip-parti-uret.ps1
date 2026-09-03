@@ -84,6 +84,23 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     # 03.09 (SGS bosluk partisi olcumu): dayanak madde NUMARASIZ kanun ("TTK (6102 s.K.)") ise
     # ad aramasi bos donuyor, konu 'kaynak borcu' oluyordu - oysa TTK m.776 (bono unsurlari)
     # ambarda. '@<kanun oneki>|<kelime>' deseni: o kanunun maddeleri icinde METIN aramasi.
+    # 03.09 '~kelime kelime' deseni: kaynak_ad icinde Turkce toleransli regex (imatch); kelimeler sirali,
+    # aralarinda herhangi bir sey olabilir ('~merkezi takas kurulus' -> "Merkezi Takas Kuruluslarinin...").
+    if($d.StartsWith('~')){
+      $rxA=''
+      foreach($kw in ($d.Substring(1) -split '\s+')){
+        if(-not $kw){ continue }
+        $kwRx=''
+        foreach($ch in $kw.ToLowerInvariant().ToCharArray()){
+          switch -CaseSensitive ("$ch"){
+            'c' { $kwRx+='[cç]' } 'g' { $kwRx+='[gğ]' } 'i' { $kwRx+='[iıİI]' } 'o' { $kwRx+='[oö]' } 's' { $kwRx+='[sş]' } 'u' { $kwRx+='[uü]' }
+            default { if("$ch" -match '[a-z0-9]'){ $kwRx+="$ch" } else { $kwRx+='.' } }
+          }
+        }
+        if($rxA){ $rxA+='.*' }; $rxA+=$kwRx
+      }
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch.'+[uri]::EscapeDataString($rxA)+'&kaynak_ad=not.ilike.'+[uri]::EscapeDataString('% p.0 -%')+'&kaynak_ad=not.ilike.'+[uri]::EscapeDataString('%[giris]%')+'&limit=6'
+    }
     if($d.StartsWith('@')){
       $parca=$d.Substring(1) -split '\|',2
       if($parca.Count -lt 2 -or -not $parca[1]){ continue }
@@ -249,6 +266,23 @@ function HalefStandart([string]$ad){
 }
 function DesenUret($kayit){
   $d=New-Object System.Collections.Generic.List[string]
+  # 03.09 SPL Duzey 1 olcumu (4 ret): konu adi TEBLIG KODU tasiyor ("... tebliğ iii-45.1") ve o Teblig
+  # ambarda VAR ("... Tebligi (III-45.1) m.1", 46 madde) ama aranmiyordu; uretici SPKn m.3'e kayiyor,
+  # KAPI D konu-disi diyordu. Kod -> '%(III-45.1)%' ad deseni EN ONE. TSPB kurallari adiyla; Teblig/
+  # Yonetmelik adli konular icin ilk uc ozgul kelimeyle Turkce toleransli ad aramasi ('~' = imatch).
+  $konuKat0=(Katla2 "$($kayit.konu)")
+  foreach($src in @("$($kayit.konu)","$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
+    foreach($m in [regex]::Matches($src,'(?i)\b([IVX]{1,4})\s*-\s*(\d{1,3}(?:\.\d+)?(?:/[A-Za-z]\.?\d*)?)')){
+      $kod=($m.Groups[1].Value.ToUpperInvariant()+'-'+$m.Groups[2].Value.ToUpperInvariant())
+      $d.Add("%($kod)%")
+    }
+  }
+  if($konuKat0 -match 'etik ilke|davranis kural'){ $d.Add('TSPB Sermaye Piyasasi Calisanlari Etik%') }
+  if($konuKat0 -match 'meslek kural'){ $d.Add('TSPB Uyelerinin%Meslek Kurallari%') }
+  if($d.Count -eq 0 -and $konuKat0 -match 'yonetmeli|teblig|genelge|rehber|ilke'){
+    $adKel=@(($konuKat0 -replace '\(.*?\)','' -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch '^(hakkinda|iliskin|esaslar|esaslari|genel|tebligi|teblig|yonetmelik|yonetmeligi|anonim|sirketi|bolumler)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+    if($adKel.Count -ge 2){ $d.Add('~'+($adKel -join ' ')) }
+  }
   # halef standart varsa ONCE onun desenini koy (mulga ad ambarda hic yok)
   foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)","$($kayit.konu)")){
     $halef=HalefStandart $ham
