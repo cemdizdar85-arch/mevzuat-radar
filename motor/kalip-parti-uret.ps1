@@ -694,7 +694,7 @@ $DIL_KURAL=switch -Regex ($Sinav){
   default { '    Kanunları tam adıyla ve "sayılı" ile an; kısaltmayı yalnız KDV/TMS/TFRS/BDS için kullan.' }
 }
 # Cikti kapisi: modelin yine de yazdigi yasak kisaltmalar duzeltilir (her sinav) + SGS'de kanun kisaltmalari uzun ada acilir.
-$DIL_ORTAK=@(@('\bTHP\b','Tekdüzen Hesap Planı'),@("\bTHP'(de|nde|ye|nin)\b",'Tekdüzen Hesap Planı''$1'),@('\bDVK\b','Damga Vergisi Kanunu'),@('\bİş\s*K\.(?!anunu)','İş Kanunu'))
+$DIL_ORTAK=@(@("\bTHP'(n?de)\b","Tekdüzen Hesap Planı'nda"),@("\bTHP'(n?a|ye)\b","Tekdüzen Hesap Planı'na"),@("\bTHP'nin\b","Tekdüzen Hesap Planı'nın"),@("\bTHP'(n?dan|den)\b","Tekdüzen Hesap Planı'ndan"),@('\bTHP\b','Tekdüzen Hesap Planı'),@('\bDVK\b','Damga Vergisi Kanunu'),@('\bİş\s*K\.(?!anunu)','İş Kanunu'))
 $DIL_SGS=@(@('\bVUK\b','Vergi Usul Kanunu'),@('\bTTK\b','Türk Ticaret Kanunu'),@('\bTBK\b','Türk Borçlar Kanunu'),@('\bGVK\b','Gelir Vergisi Kanunu'),@('\bKVK\b','Kurumlar Vergisi Kanunu'),@('\bAATUHK\b','6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun'),@('\bİİK\b','İcra ve İflas Kanunu'))
 $script:DIL_DUZELTME=0
 function DilOnar([string]$t){
