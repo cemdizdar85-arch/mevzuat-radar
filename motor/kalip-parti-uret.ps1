@@ -661,6 +661,12 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
    yaptiktan sonra banka araciligiyla odemistir. Soz konusu isleme iliskin muhasebe kaydi
    asagidakilerden hangisidir?" - ZORLUK AYRIMDA olur, kelime sayisinda DEGIL.
 10. SORU TIPI (02.09 - gercek sinavin tip dagilimindan gelen kota): {TIP_TARIF}
+11. SINAV DILI (03.09 - 1.042 cikmis kitapcik olculdu, veri: SINAV-DILI-SOZLUGU):
+{DIL}
+    Her sınavda ORTAK: "THP" kısaltması YASAK (çıkmış sorularda 0 kez geçer) - gerekiyorsa
+    "Tekdüzen Hesap Planı" yaz, çoğu zaman hiç anma; "DVK" yerine "Damga Vergisi Kanunu";
+    "İş K." yerine "İş Kanunu"; KDV, TMS, TFRS, BDS, TL kısaltmaları serbesttir (sınav öyle yazar).
+    Şirket adı "ABC A.Ş." kalıbı sınavla uyumludur. Açıklama, hap ve tuzak metinleri de bu dile uyar.
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
@@ -668,6 +674,45 @@ Cevap YALNIZ JSON:
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
+# --- SINAV DILI (03.09 Cem "1 yap, uretici­ye isle"; olcum scratchpad sinav-dili-sozlugu.ps1, 1.042 belge) -------
+# SGS: kanun kisaltmasi ~0 (VUK 3 / "Vergi Usul Kanunu" 346 / "213 sayili" 251; TTK 0/1079/953; TBK 0/1226/1198;
+#      GVK 0/281/238) -> kanun TAM ADIYLA ve/veya "sayili" ile; hesap "100 KASA" buyuk harf (11.790 kez).
+# SMMM: kisaltma da geciyor (VUK 63/116, GVK 108/112, KDV 1177) -> ilk gecis tam ad, sonra kisaltma serbest.
+# KGK: standart dili (TMS 1750, TFRS 1353, BDS 1020, BOBI FRS 455); "Sermaye Piyasasi Kurulu/Kanunu" uzun ad
+#      (SPK 18 / uzun 1489); hesap kodu az, "... hesabi" anlatimi (3.067).
+$DIL_KURAL=switch -Regex ($Sinav){
+  # NOT: ornek yazimlar TURKCE HARFLI verilir - istem ASCII olunca model taklit ediyor (02.09 dersi).
+  '^SGS' { '    SGS kitapçıklarında kanun KISALTMASI KULLANILMAZ: "VUK", "TTK", "TBK", "GVK", "KVK", "AATUHK" YAZMA;
+    "Vergi Usul Kanunu", "Türk Ticaret Kanunu", "Türk Borçlar Kanunu", "Gelir Vergisi Kanunu", "Kurumlar Vergisi
+    Kanunu", "6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun" yaz; madde anıyorsan "213 sayılı Vergi
+    Usul Kanununun 275 inci maddesi" biçiminde. Hesaplar KOD + BÜYÜK HARF AD: "100 KASA", "131 ORTAKLARDAN ALACAKLAR".' }
+  '^SMMM' { '    SMMM kitapçıkları kısaltmayı da kullanır: ilk geçişte tam ad ("Vergi Usul Kanunu (VUK)"), sonra
+    kısaltma serbest. Hesaplar KOD + BÜYÜK HARF AD: "100 KASA". "Sermaye Piyasası Kurulu" tam ad yazılır.' }
+  '^KGK' { '    KGK kitapçıkları STANDART diliyle yazar: "TMS 2", "TFRS 15", "BDS 315", "BOBİ FRS" kısaltmaları
+    normaldir; kanunlar tam adıyla ("Türk Ticaret Kanunu", "Sermaye Piyasası Kanunu" - "SPK" kısaltması nadir).
+    Hesap kodu az kullanılır; "... hesabı" ("Kasa hesabı") ve standart paragrafı diliyle anlat.' }
+  default { '    Kanunları tam adıyla ve "sayılı" ile an; kısaltmayı yalnız KDV/TMS/TFRS/BDS için kullan.' }
+}
+# Cikti kapisi: modelin yine de yazdigi yasak kisaltmalar duzeltilir (her sinav) + SGS'de kanun kisaltmalari uzun ada acilir.
+$DIL_ORTAK=@(@('\bTHP\b','Tekdüzen Hesap Planı'),@("\bTHP'(de|nde|ye|nin)\b",'Tekdüzen Hesap Planı''$1'),@('\bDVK\b','Damga Vergisi Kanunu'),@('\bİş\s*K\.(?!anunu)','İş Kanunu'))
+$DIL_SGS=@(@('\bVUK\b','Vergi Usul Kanunu'),@('\bTTK\b','Türk Ticaret Kanunu'),@('\bTBK\b','Türk Borçlar Kanunu'),@('\bGVK\b','Gelir Vergisi Kanunu'),@('\bKVK\b','Kurumlar Vergisi Kanunu'),@('\bAATUHK\b','6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun'),@('\bİİK\b','İcra ve İflas Kanunu'))
+$script:DIL_DUZELTME=0
+function DilOnar([string]$t){
+  if(-not $t){ return $t }
+  $x=$t
+  foreach($c in $DIL_ORTAK){ $x=[regex]::Replace($x,$c[0],$c[1]) }
+  if($Sinav -match '^SGS'){ foreach($c in $DIL_SGS){ $x=[regex]::Replace($x,$c[0],$c[1]) } }
+  if($x -ne $t){ $script:DIL_DUZELTME++ }
+  return $x
+}
+function DilOnarNesne($cvp){
+  if(-not $cvp){ return }
+  foreach($alan in @('soru','hap','sinav_taktigi','notlandirici')){ if($cvp.PSObject.Properties[$alan] -and $cvp.$alan -is [string]){ $cvp.$alan=DilOnar $cvp.$alan } }
+  foreach($h in 'A','B','C','D','E'){
+    if($cvp.siklar -and $cvp.siklar.PSObject.Properties[$h] -and $cvp.siklar.$h -is [string]){ $cvp.siklar.$h=DilOnar $cvp.siklar.$h }
+    if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$h] -and $cvp.aciklama.$h -is [string]){ $cvp.aciklama.$h=DilOnar $cvp.aciklama.$h }
+  }
+}
 $rapor=New-Object System.Collections.Generic.List[string]
 $kaynakBorcu=New-Object System.Collections.Generic.List[string]
 
@@ -810,7 +855,7 @@ foreach($kk in $KONULAR){
     continue
   }
   $ekNot=if($OZEL_NOT.ContainsKey($konuLc)){ "`nOZEL UYARI: $($OZEL_NOT[$konuLc])" } else { '' }
-  $ist=$soruIstem.Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $ist=$soruIstem.Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }
@@ -867,6 +912,7 @@ foreach($kk in $KONULAR){
     $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force
     $cvp | Add-Member -NotePropertyName donem -NotePropertyValue $ky.donem -Force
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
+    DilOnarNesne $cvp   # 03.09 sinav dili kapisi (THP/DVK/Is K. her sinavda; SGS'de kanun kisaltmalari uzun ada)
     $don[$id]=$cvp; CacheYaz
     Write-Host "  SORU OK [$($don.Count)/$($KONULAR.Count)] $id $($ky.konu)"
   } else { $rapor.Add("BOZUK: $($ky.konu)"); Write-Host "  BOZUK: $id" -ForegroundColor Yellow }
@@ -883,6 +929,7 @@ foreach($id in @($don.Keys)){
   foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
   $a2=Coz $y2.metin
   if($a2 -and $a2.adimlar){
+    foreach($ad1 in @($a2.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }   # sinav dili kapisi (adimlar)
     $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue $a2.adimlar -Force
     $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($a2.verilen) -Force
     CacheYaz; Write-Host "  ADIM OK $id"
