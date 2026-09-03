@@ -717,6 +717,7 @@ if(Test-Path $kalipYol){
 } else { "kalip dosyasi YOK ($kalipYol) - tavan $UZUNLUK_TAVAN ile devam" }
 foreach($kk in $KONULAR){
   $id=$kk.id
+  if($SadeceHtml){ continue }   # yalniz cizim: cache neyse o (konu degisse de dusurulmez), uretim yok
   # 02.09: cache id-bazli; konu listesi degisince (dislama kalkti/yeni konu girdi)
   # ayni id ESKI konunun sorusunu tasir ve sayfa yanlis konuyu gosterir. Konu
   # farkliysa kayit dusurulur, yeniden uretilir.
@@ -873,6 +874,7 @@ foreach($kk in $KONULAR){
 
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------
 foreach($id in @($don.Keys)){
+  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
   $cvp=$don[$id]
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   if($cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
@@ -901,6 +903,7 @@ Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[
 === ANA TABLO === {TABLO}
 '@
 foreach($id in @($don.Keys)){
+  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
   $cvp=$don[$id]
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ continue }
@@ -944,6 +947,7 @@ ISTISNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (ornek: ozkaynak = aktif - borc
 === DOGRU ACIKLAMA === {ACIK}
 '@
 foreach($id in @($don.Keys)){
+  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
   $cvp=$don[$id]
   if(-not $cvp.soru -or -not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   $cvp.sema=SemaNormalize $cvp.sema
@@ -991,6 +995,7 @@ Ikiz sorunun rakamlariyla kayit KURULAMIYORSA: {"tur":"yok","sebep":"tek cumle"}
 === IKIZ TABLO (dogru degerler) === {IKIZTABLO}
 '@
 foreach($id in @($don.Keys)){
+  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
   $cvp=$don[$id]
   if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz)){ continue }
   if(-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye')){ continue }
@@ -1131,6 +1136,7 @@ $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and
 # parti TEKDUZE demektir - rapora yazilir, Cem gormeden kasaya gitmez.
 $tuzakSayaci=@{}
 foreach($id in @($don.Keys)){
+  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
   $cvpT=$don[$id]
   if(-not $cvpT.soru -or -not $cvpT.aciklama){ continue }
   foreach($hh in 'A','B','C','D','E'){
