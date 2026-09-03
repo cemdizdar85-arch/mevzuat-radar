@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260903133540
+Start time: 20260903170509
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/0f58c2ae-cdc5-4d0c-8d72-f76525352d50.ps1'
-Process ID: 11077
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1cb1c0ed-15ee-495b-bd56-9369f1f529bf.ps1'
+Process ID: 11252
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -21,11 +21,20 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...10/172
   ...20/172
   ...30/172
+PS>TerminatingError(Invoke-WebRequest): "
+Service Unavailable
+
+Service Unavailable
+HTTP Error 503. The service is unavailable.
+
+"
   ...40/172
   ...50/172
   ...60/172
   ...70/172
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...80/172
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...90/172
   ...100/172
   ...110/172
@@ -35,23 +44,17 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 172
+  gercekten olculen (PDF geldi) : 169
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 0
+  inemeyen (istek dustu)        : 3
+     13304 (Response status code does not indicate success: 503 (Service Unavailable).)
+     33765 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     34376 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-======================================================================
-  1 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
-======================================================================
-  mevzuatNo 44987  (21203 -> 21204 bayt)
-     https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=44987&mevzuatTur=9&mevzuatTertip=5
-
-  YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir - tablolari
-  modele okutuyor). O kosana kadar GTIP aracindaki gozetim verisi
-  ESKIDIR; arac zaten hasat tarihini ekranda gosteriyor.
-  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+TEMIZ: olculen 169 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20260903141321
+End time: 20260903174233
 **********************
