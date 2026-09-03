@@ -299,7 +299,11 @@ function DesenUret($kayit){
   # dayanak yoksa YA DA zayif/olculmemisse (03.09 olcumu: 'SPK Rehber' zayif dayanagi bono sorusuna
   # SPK Kanunu getirdi, TTK m.776 hic aranmadi): dersin ana kanunlarinda konu kokuyle metin aramasi.
   # Zayif dayanakta bu desenler ONE alinir ki model once dogru kanunu gorsun.
-  $dayanakZayif=(-not "$($kayit.dayanak)".Trim() -and -not "$($kayit.cikmis_dayanak)".Trim()) -or ("$($kayit.guc)" -match 'ZAYIF|OLCULMEDI|^$')
+  # 03.09: kara listedeki dayanak (orn. TTK m.720 'TEYITLI' gorunse de) DAYANAKSIZ sayilir;
+  # olculdu: 'kambiyo kari kaydi' koprude TTK m.720/TEYITLI diye ders-kanun aramasina
+  # hic girmiyor, THP 646 ambarda dururken KAYNAK BORCU yaziliyordu.
+  $dayGecerli=@(@("$($kayit.dayanak)","$($kayit.cikmis_dayanak)") | Where-Object { $_.Trim() -and -not (KaraMi $_) })
+  $dayanakZayif=($dayGecerli.Count -eq 0) -or ("$($kayit.guc)" -match 'ZAYIF|OLCULMEDI|^$')
   if($dayanakZayif -and $kanunKok.Count -ge 1){
     $dersAdi=($DersRegex -replace '[\^\$\\]','')
     $one=New-Object System.Collections.Generic.List[string]
