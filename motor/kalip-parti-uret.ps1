@@ -79,7 +79,8 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
   $adlar=New-Object System.Collections.Generic.List[string]
   foreach($d in $desenler){
     if(-not $d){ continue }
-    $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($d)+'&limit=6'
+    # 03.09: "p.0 - Künye ve yürürlük" parcasi kaynak DEGILDIR (icindekiler); disarida birakilir
+    $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($d)+'&kaynak_ad=not.ilike.'+[uri]::EscapeDataString('% p.0 -%')+'&limit=6'
     # 03.09 (SGS bosluk partisi olcumu): dayanak madde NUMARASIZ kanun ("TTK (6102 s.K.)") ise
     # ad aramasi bos donuyor, konu 'kaynak borcu' oluyordu - oysa TTK m.776 (bono unsurlari)
     # ambarda. '@<kanun oneki>|<kelime>' deseni: o kanunun maddeleri icinde METIN aramasi.
@@ -263,6 +264,25 @@ function DesenUret($kayit){
     if(-not $onek){ continue }
     foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$onek|$tk") }
     break
+  }
+  # 03.09 DENETIM olcumu (14 sorunun 6'si hakem reddi): '@BDS|kelime' aramasi rastgele BDS
+  # paragrafi getiriyor (iliskili taraf -> BDS 501 stoklar; planlama -> BDS 200 kunye), model
+  # dogru standardi (550, 300, 230) ANIYOR ama kaynakta yok -> red. Konu kelimesi -> standart
+  # numarasi haritasi: dogru standardin paragraflari ONE alinir.
+  $DENETIM_STD=@(
+    @('iliskili taraf','BDS 550'),@('yonetim beyan','BDS 580'),@('yonetim iddia','BDS 315'),@('ic kontrol','BDS 315'),
+    @('planlama','BDS 300'),@('belgelendir','BDS 230'),@('calisma kagit','BDS 230'),@('orneklem','BDS 530'),
+    @('onemlilik','BDS 320'),@('kanit','BDS 500'),@('dis teyit|dogrulama','BDS 505'),@('acilis bakiye','BDS 510'),
+    @('analitik','BDS 520'),@('tahmin','BDS 540'),@('bilanco sonrasi|sonraki olay','BDS 560'),@('sureklilik','BDS 570'),
+    @('gorus|denetci raporu|rapor','BDS 700'),@('sartli|olumsuz|kacinma','BDS 705'),@('hile','BDS 240'),
+    @('kalite','KYS 1'),@('denetim risk|tespit edememe|risk','BDS 200'),@('topluluk','BDS 600'),@('ic denetim','BDS 610'),
+    @('uzman','BDS 620'),@('denetim sozlesme|sozlesme sart','BDS 210'),@('denetim sureci|bagimsiz denetim sureci','BDS 200')
+  )
+  $konuKat=(Katla2 "$($kayit.konu)")
+  if($DersRegex -match 'Denetim|Denetim Standartlar' ){
+    $stdOne=New-Object System.Collections.Generic.List[string]
+    foreach($cift in $DENETIM_STD){ if($konuKat -match $cift[0]){ $stdOne.Add("$($cift[1]) p.%"); if($stdOne.Count -ge 2){ break } } }
+    if($stdOne.Count){ $d.InsertRange(0,$stdOne) }
   }
   # dayanak yoksa YA DA zayif/olculmemisse (03.09 olcumu: 'SPK Rehber' zayif dayanagi bono sorusuna
   # SPK Kanunu getirdi, TTK m.776 hic aranmadi): dersin ana kanunlarinda konu kokuyle metin aramasi.
