@@ -1,6 +1,6 @@
 # SINAV TEK SAYFA — üç sınavın tek doğru sayfası
 
-> Üretim: **02.09.2026 23:47** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
+> Üretim: **03.09.2026 09:59** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
 > **KURAL:** Sınavla ilgili "var mı / kaç tane / eksik ne" sorusunun TEK cevabı bu sayfadır. Başında **⚠** olan satırın girdisi bayat (> 7 gün) ya da kırıktır: o sayı **ölçülmedi** sayılır, önce girdisi tazelenir (bölüm 5).
 > Bu sayfa hiçbir şeyi kendisi ölçmez; ölçüm robotlarının çıktılarını birleştirir ve her sayının yanına kaynağını + tarihini yazar.
 
@@ -16,7 +16,7 @@
 
 ## 1 · SINAVLAR VE DERSLER (resmî liste × kasadaki sorumuz × onaylı kota)
 
-Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ilanı / SPL) · bizim soru = veri/kasa-sayim.json (02.09.2026 05:03) · kota = üç kota dosyası (bölüm 5).
+Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ilanı / SPL) · bizim soru = veri/kasa-sayim.json (03.09.2026 05:41) · kota = üç kota dosyası (bölüm 5).
 
 ### STAJA BAŞLAMA (SGS) — 15 ders · kasada 15.827 soru · kota 14.603 · eksik 4.529
 
@@ -158,7 +158,7 @@ Kota = Cem'in onayladığı ders başına hedef (SGS 31.07 · SMMM 31.07 · KGK 
 | SMMM | 8 | 12.576 | 8.080 | 1.603 | 0 |
 | KGK | 8 | 2.166 | 5.871 | 3.705 | 0 |
 
-**SGS ders kararı** (veri/ders-karnesi.json — çıkmış konuların ambarda kaynağı var mı; %100 = her çıkmış konunun kaynağı ambarda):
+⚠ **SGS ders kararı** (veri/ders-karnesi.json — çıkmış konuların ambarda kaynağı var mı; %100 = her çıkmış konunun kaynağı ambarda):
 
 | Ders | Hazırlık | Karar |
 |---|---:|---|
@@ -192,51 +192,51 @@ Bu sayfanın her girdisi aşağıda. **TAZE** = ≤ 7 gün · **BAYAT** = daha e
 
 | Girdi | Dosya | Durum | Ölçüm damgası | Dosya tarihi | Üretici | Robot |
 |---|---|---|---|---|---|---|
-| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 02.09.2026 23:47 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
-| kasa-sayim | veri/kasa-sayim.json | TAZE | 02.09.2026 05:03 | 02.09.2026 23:47 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
-| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 02.09.2026 23:47 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 02.09.2026 23:47 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 02.09.2026 23:47 | motor/kota-kur.ps1 (elle) | yok (Cem kararı; tarih anlamsız) |
-| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 02.09.2026 20:55 | 02.09.2026 23:47 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
-| ambar-envanteri | veri/AMBAR-ENVANTERI.md | TAZE | 02.09.2026 17:57 | 02.09.2026 23:47 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 02.09.2026 14:53 | 02.09.2026 23:47 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| cikmis-karnesi | veri/cikmis-soru-karnesi.json | **BAYAT (9 gün)** | 24.08.2026 00:05 | 02.09.2026 23:47 | motor/cikmis-soru-karnesi.ps1 | yok |
-| siklik-kunyesi | veri/siklik-kunyesi.json | TAZE | 30.08.2026 08:43 | 02.09.2026 23:47 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
-| kgk-analiz | veri/kgk-analiz.json | **BAYAT (14 gün)** | 19.08.2026 (TAM ARSIV) | 02.09.2026 23:47 | motor/kgk-siklik-derle.ps1 | yok |
-| ders-karnesi | veri/ders-karnesi.json | TAZE | 2026-08-26 00:11 | 02.09.2026 23:47 | motor/ders-karnesi.ps1 | dogrula.yml |
-| karne-sgs | veri/konu-kaynak-karnesi.json | TAZE | 2026-08-27 14:09 | 02.09.2026 23:47 | motor/konu-kaynak-karnesi.ps1 | karne.yml · sgs-analiz push tetikli |
-| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | TAZE | 2026-08-26 00:51 | 02.09.2026 23:47 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | TAZE | 2026-08-26 03:00 | 02.09.2026 23:47 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 02.09.2026 23:47 | arac/dayanak-metinsiz-tarama.ps1 | yok |
-| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 02.09.2026 23:47 | arac/dayanak-kara-liste.ps1 | yok |
-| bekleyen-partiler | veri/bekleyen-partiler.json | TAZE |  | 02.09.2026 23:47 | motor/parti-hasat.ps1 | parti-liste.yml · her gün 03:26 TR |
-| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 02.09.2026 23:47 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
+| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 03.09.2026 09:59 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
+| kasa-sayim | veri/kasa-sayim.json | TAZE | 03.09.2026 05:41 | 03.09.2026 09:59 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
+| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 03.09.2026 09:59 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 03.09.2026 09:59 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 03.09.2026 09:59 | motor/kota-kur.ps1 (elle) | yok (Cem kararı; tarih anlamsız) |
+| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 03.09.2026 09:12 | 03.09.2026 09:59 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
+| ambar-envanteri | veri/AMBAR-ENVANTERI.md | TAZE | 02.09.2026 17:57 | 03.09.2026 09:59 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 02.09.2026 14:53 | 03.09.2026 09:59 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| cikmis-karnesi | veri/cikmis-soru-karnesi.json | **BAYAT (10 gün)** | 24.08.2026 00:05 | 03.09.2026 09:59 | motor/cikmis-soru-karnesi.ps1 | yok |
+| siklik-kunyesi | veri/siklik-kunyesi.json | TAZE | 30.08.2026 08:43 | 03.09.2026 09:59 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
+| kgk-analiz | veri/kgk-analiz.json | **BAYAT (15 gün)** | 19.08.2026 (TAM ARSIV) | 03.09.2026 09:59 | motor/kgk-siklik-derle.ps1 | yok |
+| ders-karnesi | veri/ders-karnesi.json | **BAYAT (8 gün)** | 2026-08-26 00:11 | 03.09.2026 09:59 | motor/ders-karnesi.ps1 | dogrula.yml |
+| karne-sgs | veri/konu-kaynak-karnesi.json | TAZE | 2026-08-27 14:09 | 03.09.2026 09:59 | motor/konu-kaynak-karnesi.ps1 | karne.yml · sgs-analiz push tetikli |
+| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | **BAYAT (8 gün)** | 2026-08-26 00:51 | 03.09.2026 09:59 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | **BAYAT (8 gün)** | 2026-08-26 03:00 | 03.09.2026 09:59 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 03.09.2026 09:59 | arac/dayanak-metinsiz-tarama.ps1 | yok |
+| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 03.09.2026 09:59 | arac/dayanak-kara-liste.ps1 | yok |
+| bekleyen-partiler | veri/bekleyen-partiler.json | TAZE |  | 03.09.2026 09:59 | motor/parti-hasat.ps1 | parti-liste.yml · her gün 03:26 TR |
+| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 03.09.2026 09:59 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
 
-**Şu an TAZE olmayan girdi: 6 / 19.**
+**Şu an TAZE olmayan girdi: 9 / 19.**
 
 ## 6 · ÇIKMIŞ SORULARA GÖRE YUTMADIĞIMIZ MEVZUAT
 
-**Dayanak ↔ ambar taraması** (veri/dayanak-metinsiz-raporu.json): köprüdeki 4.377 tekil dayanaktan 2.794 ambarda bulundu, **115 bulunamadı (%2.6)**; etkilenen köprü kaydı 142. Bulunamayan dayanak = hakem doğrulayamaz, üretici kaynak çekemez → o konuda soru üretilmez (çöp değil, kaynak eksiği).
+**Dayanak ↔ ambar taraması** (veri/dayanak-metinsiz-raporu.json): köprüdeki 4.377 tekil dayanaktan 2.826 ambarda bulundu, **83 bulunamadı (%1.9)**; etkilenen köprü kaydı 89. Bulunamayan dayanak = hakem doğrulayamaz, üretici kaynak çekemez → o konuda soru üretilmez (çöp değil, kaynak eksiği).
 
 En çok kaydı etkileyen bulunamayan dayanaklar:
 
-- TEORI - Vergileme ilkeleri ve temel vergi kavramlari (ogreti notu) -> 9 kayit
-- TEORI - Kamu borclanmasi ve butce aciklari (ogreti notu) -> 5 kayit
-- TEORI - Kamusal mallar, dissalliklar ve kamusal tercih (ogreti notu) -> 5 kayit
 - Mali Analiz Teknikleri – Dikey Yüzde (Yüzde) Yöntemi -> 4 kayit
-- TEORI - Uluslararasi iktisat: mukayeseli ustunlukler ve dis ticaret teoremleri (ogreti notu) -> 3 kayit
 - Mali Analiz Teknikleri - Dikey Yüzdeler (Yüzde Yöntemiyle Analiz) -> 3 kayit
-- Marshall-Lerner Koşulu (Esneklikler Yaklaşımı) -> 2 kayit
-- Kamu Maliyesi Teorisi - GSYH Deflatörü ile Reel Değere Geçiş -> 2 kayit
 - Maliye Politikası Teorisi - Stagflasyon Kavramı -> 2 kayit
-- Mikroekonomi Teorisi - Gelir Esnekliği -> 2 kayit
+- Mali Tablolar Analizi - faaliyet oranları (alacak devir hızı = kredili satış / ortalama alacak; tahsil süresi = 360 / hız) -> 1 kayit
+- TCMB Para Politikası Çerçevesi - Parasal Aktarım Mekanizması -> 1 kayit
+- IS-LM Modeli - Para Talebinin Faiz Esnekliği ve Politika Etkinliği -> 1 kayit
+- MSUGT Tekduzen Hesap Plani - 650 -> 1 kayit
+- J-Eğrisi Modeli (Esneklikler Yaklaşımı) -> 1 kayit
 - TÜİK Ulusal Hesaplar Sistemi - Reel GSYH Hesaplama Yöntemi -> 1 kayit
+- Mikroiktisat Teorisi - Talep Esnekliğinin Belirleyicileri (Zaman Faktörü) -> 1 kayit
 - J-Eğrisi Modeli (Esneklikler Yaklaşımı, Ödemeler Bilançosu Teorisi) -> 1 kayit
 - Maliye Politikası Teorisi - Arz Yönlü Şoklar ve Stagflasyon Analizi -> 1 kayit
-- Mikroekonomi Talep Teorisi - İkame Mallarda Çapraz Fiyat Esnekliği -> 1 kayit
-- J-Eğrisi Modeli (Esneklikler Yaklaşımı) -> 1 kayit
+- Maliye Politikası Teorisi - Talep Yönetiminin Stagflasyonda Yetersizliği -> 1 kayit
+- MSUGT Tekduzen Hesap Plani - 486 -> 1 kayit
+- İki tarih arasındaki gün farkını hesaplama kuralı (takvim ay-gün sayıları) -> 1 kayit
 
-**Konu-kaynak karnesi** (her çıkmış konu için ambarda kaynak var mı; veri/konu-kaynak-karnesi*.json):
+⚠ **Konu-kaynak karnesi** (her çıkmış konu için ambarda kaynak var mı; veri/konu-kaynak-karnesi*.json):
 
 | Sınav | ÜRET (kaynağı var) | KAYNAK YOK | MEVZUAT DIŞI | Ölçülemedi |
 |---|---:|---:|---:|---:|
@@ -304,7 +304,7 @@ KAYNAK YOK örnekleri (KGK):
 |---|---|---:|---:|---|---|---|
 | KGK | yonetim kurulu komiteleri | 15 | 15 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM | TOBB/Odalar K. (5174 s.K.) | ZAYIF |
 | KGK | kayitli sermaye sistemi | 10 | 10 | Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik | TTK (6102 s.K.) m.482 | TEYITLI |
-| KGK | sermaye piyasasi kurumlari | 10 | 10 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası |  | OLCULMEDI |
+| KGK | sermaye piyasasi kurumlari | 10 | 10 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati |  | OLCULMEDI |
 | KGK | sermaye piyasasi suclari | 10 | 10 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası |  | OLCULMEDI |
 | KGK | net isletme sermayesi | 9 | 12 | Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim | Teori Notu - isletme sermayesi yonetimi | TEYITLI |
 | KGK | tespit edememe riski | 9 | 9 | Denetim |  | OLCULMEDI |
@@ -313,7 +313,7 @@ KAYNAK YOK örnekleri (KGK):
 | SGS | sozcukte anlam | 8 | 8 | Genel Kultur-Genel Yetenek |  | OLCULMEDI |
 | KGK | sistematik olmayan risk | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM | TFRS 17 | ZAYIF |
 | KGK | azalan bakiyeler amortisman | 7 | 7 | Muhasebe | VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman | TEYITLI |
-| KGK | banka kurulus sartlari | 7 | 7 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Bankacılık / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati | Bankacılık K. (5411 s.K.) | ZAYIF |
+| KGK | banka kurulus sartlari | 7 | 7 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Bankacılık / sermaye piyasasi bankacilik sigortacilik / Bankacılık Mevzuatı | Bankacılık K. (5411 s.K.) | ZAYIF |
 | KGK | bds 600 topluluk denetimi | 7 | 7 | Türkiye Denetim Standartları / Denetim | BDS 600 | GUCLU |
 | KGK | bilesik faiz hesabi | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim | SPK Tebliğ (Seri: V, No: 34) | ZAYIF |
 | KGK | kar payi avansi | 7 | 7 | Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı | Kar Payi Tebligi (II-19.1) | ZAYIF |
@@ -321,12 +321,12 @@ KAYNAK YOK örnekleri (KGK):
 | KGK | ticari isletme unsurlari | 7 | 7 | Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati |  | OLCULMEDI |
 | SGS | cumle tamamlama-kosul | 7 | 7 | Yabanci Dil |  | OLCULMEDI |
 | SMMM | gelir tablosu duzenleme | 7 | 7 | Finansal Muhasebe | SMMM K. (3568 s.K.) m.29 | TEYITLI |
-| KGK | faaliyet raporu icerigi | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim | SPK Karari | ZAYIF |
+| KGK | faaliyet raporu icerigi | 7 | 7 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM | SPK Karari | ZAYIF |
 | KGK | bds 320 onemlilik | 6 | 6 | Denetim / Türkiye Denetim Standartları | BDS 320 | GUCLU |
 | KGK | bilanco hesaplari | 6 | 6 | Muhasebe | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 555) | ZAYIF |
 | KGK | eldeki kus teorisi | 6 | 6 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim |  | OLCULMEDI |
 | KGK | stok devir hizi | 6 | 6 | Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim | VUK (213 s.K.) m.278 - Kıymeti düşen mallar | TEYITLI |
-| KGK | menfaat sahipleri | 6 | 6 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim | Kurumsal Yonetim Tebligi (II-17.1) | ZAYIF |
+| KGK | menfaat sahipleri | 6 | 6 | Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM | Kurumsal Yonetim Tebligi (II-17.1) | ZAYIF |
 
 Bekleyen üretim partisi: 0 (veri/bekleyen-partiler.json).
 

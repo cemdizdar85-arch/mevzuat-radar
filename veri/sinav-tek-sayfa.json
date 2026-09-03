@@ -1,5 +1,5 @@
 {
-  "olcum": "02.09.2026 23:47",
+  "olcum": "03.09.2026 09:59",
   "kural": "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
   "kaynak_sagligi": [
     {
@@ -7,7 +7,7 @@
       "dosya": "veri/ders-profili.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "02.09.2026 23:47",
+      "mtime": "03.09.2026 09:59",
       "yas_gun": 0,
       "uretici": "motor/ders-profili-kur.ps1",
       "robot": "yok (resmî liste; Cem onayıyla değişir)"
@@ -16,8 +16,8 @@
       "ad": "kasa-sayim",
       "dosya": "veri/kasa-sayim.json",
       "durum": "TAZE",
-      "damga": "02.09.2026 05:03",
-      "mtime": "02.09.2026 23:47",
+      "damga": "03.09.2026 05:41",
+      "mtime": "03.09.2026 09:59",
       "yas_gun": 0,
       "uretici": "motor/kasa-sayim.ps1",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
@@ -27,8 +27,8 @@
       "dosya": "veri/uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 33,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 34,
       "uretici": "motor/kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -37,8 +37,8 @@
       "dosya": "veri/sgs-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:4x (Cem ders-ders tablosu)",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 33,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 34,
       "uretici": "motor/sgs-kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -47,8 +47,8 @@
       "dosya": "veri/kgk-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM')",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 32,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 33,
       "uretici": "motor/kota-kur.ps1 (elle)",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -56,8 +56,8 @@
       "ad": "konu-koprusu",
       "dosya": "veri/konu-koprusu-ozet.json",
       "durum": "TAZE",
-      "damga": "02.09.2026 20:55",
-      "mtime": "02.09.2026 23:47",
+      "damga": "03.09.2026 09:12",
+      "mtime": "03.09.2026 09:59",
       "yas_gun": 0,
       "uretici": "motor/konu-koprusu-kur.ps1 (V2 canlı)",
       "robot": "konu-koprusu.yml · her gün 07:40 TR"
@@ -67,8 +67,8 @@
       "dosya": "veri/AMBAR-ENVANTERI.md",
       "durum": "TAZE",
       "damga": "02.09.2026 17:57",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 0,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 1,
       "uretici": "motor/ambar-envanteri.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
@@ -77,18 +77,18 @@
       "dosya": "veri/butunluk-raporu.json",
       "durum": "TAZE",
       "damga": "02.09.2026 14:53",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 0,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 1,
       "uretici": "motor/butunluk-kapisi.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
     {
       "ad": "cikmis-karnesi",
       "dosya": "veri/cikmis-soru-karnesi.json",
-      "durum": "BAYAT (9 gün)",
+      "durum": "BAYAT (10 gün)",
       "damga": "24.08.2026 00:05",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 9,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 10,
       "uretici": "motor/cikmis-soru-karnesi.ps1",
       "robot": "yok"
     },
@@ -97,28 +97,28 @@
       "dosya": "veri/siklik-kunyesi.json",
       "durum": "TAZE",
       "damga": "30.08.2026 08:43",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 3,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 4,
       "uretici": "motor/siklik-kunyesi.ps1",
       "robot": "konu-eslesme.yml · yalnız push"
     },
     {
       "ad": "kgk-analiz",
       "dosya": "veri/kgk-analiz.json",
-      "durum": "BAYAT (14 gün)",
+      "durum": "BAYAT (15 gün)",
       "damga": "19.08.2026 (TAM ARSIV)",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 14,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 15,
       "uretici": "motor/kgk-siklik-derle.ps1",
       "robot": "yok"
     },
     {
       "ad": "ders-karnesi",
       "dosya": "veri/ders-karnesi.json",
-      "durum": "TAZE",
+      "durum": "BAYAT (8 gün)",
       "damga": "2026-08-26 00:11",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 7,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 8,
       "uretici": "motor/ders-karnesi.ps1",
       "robot": "dogrula.yml"
     },
@@ -127,28 +127,28 @@
       "dosya": "veri/konu-kaynak-karnesi.json",
       "durum": "TAZE",
       "damga": "2026-08-27 14:09",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 6,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 7,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml · sgs-analiz push tetikli"
     },
     {
       "ad": "karne-smmm",
       "dosya": "veri/konu-kaynak-karnesi-smmm.json",
-      "durum": "TAZE",
+      "durum": "BAYAT (8 gün)",
       "damga": "2026-08-26 00:51",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 7,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 8,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
     {
       "ad": "karne-kgk",
       "dosya": "veri/konu-kaynak-karnesi-kgk.json",
-      "durum": "TAZE",
+      "durum": "BAYAT (8 gün)",
       "damga": "2026-08-26 03:00",
-      "mtime": "02.09.2026 23:47",
-      "yas_gun": 7,
+      "mtime": "03.09.2026 09:59",
+      "yas_gun": 8,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -157,7 +157,7 @@
       "dosya": "veri/dayanak-metinsiz-raporu.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "02.09.2026 23:47",
+      "mtime": "03.09.2026 09:59",
       "yas_gun": 0,
       "uretici": "arac/dayanak-metinsiz-tarama.ps1",
       "robot": "yok"
@@ -167,7 +167,7 @@
       "dosya": "veri/dayanak-kara-liste.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "02.09.2026 23:47",
+      "mtime": "03.09.2026 09:59",
       "yas_gun": 0,
       "uretici": "arac/dayanak-kara-liste.ps1",
       "robot": "yok"
@@ -177,7 +177,7 @@
       "dosya": "veri/bekleyen-partiler.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "02.09.2026 23:47",
+      "mtime": "03.09.2026 09:59",
       "yas_gun": 0,
       "uretici": "motor/parti-hasat.ps1",
       "robot": "parti-liste.yml · her gün 03:26 TR"
@@ -187,7 +187,7 @@
       "dosya": "veri/sinav-ders-envanteri.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "02.09.2026 23:47",
+      "mtime": "03.09.2026 09:59",
       "yas_gun": 0,
       "uretici": "motor/sinav-ders-envanteri.ps1",
       "robot": "sinav-ders-envanteri.yml · yalnız push"
@@ -1280,27 +1280,27 @@
   "yutulmayan": {
     "metinsiz": {
       "kopru_dayanak": 4377,
-      "bulunan": 2794,
-      "bulunmayan": 115,
-      "yuzde": "2.6",
-      "etkilenen": 142
+      "bulunan": 2826,
+      "bulunmayan": 83,
+      "yuzde": "1.9",
+      "etkilenen": 89
     },
     "en_cok": [
-      "TEORI - Vergileme ilkeleri ve temel vergi kavramlari (ogreti notu) -> 9 kayit",
-      "TEORI - Kamu borclanmasi ve butce aciklari (ogreti notu) -> 5 kayit",
-      "TEORI - Kamusal mallar, dissalliklar ve kamusal tercih (ogreti notu) -> 5 kayit",
       "Mali Analiz Teknikleri – Dikey Yüzde (Yüzde) Yöntemi -> 4 kayit",
-      "TEORI - Uluslararasi iktisat: mukayeseli ustunlukler ve dis ticaret teoremleri (ogreti notu) -> 3 kayit",
       "Mali Analiz Teknikleri - Dikey Yüzdeler (Yüzde Yöntemiyle Analiz) -> 3 kayit",
-      "Marshall-Lerner Koşulu (Esneklikler Yaklaşımı) -> 2 kayit",
-      "Kamu Maliyesi Teorisi - GSYH Deflatörü ile Reel Değere Geçiş -> 2 kayit",
       "Maliye Politikası Teorisi - Stagflasyon Kavramı -> 2 kayit",
-      "Mikroekonomi Teorisi - Gelir Esnekliği -> 2 kayit",
+      "Mali Tablolar Analizi - faaliyet oranları (alacak devir hızı = kredili satış / ortalama alacak; tahsil süresi = 360 / hız) -> 1 kayit",
+      "TCMB Para Politikası Çerçevesi - Parasal Aktarım Mekanizması -> 1 kayit",
+      "IS-LM Modeli - Para Talebinin Faiz Esnekliği ve Politika Etkinliği -> 1 kayit",
+      "MSUGT Tekduzen Hesap Plani - 650 -> 1 kayit",
+      "J-Eğrisi Modeli (Esneklikler Yaklaşımı) -> 1 kayit",
       "TÜİK Ulusal Hesaplar Sistemi - Reel GSYH Hesaplama Yöntemi -> 1 kayit",
+      "Mikroiktisat Teorisi - Talep Esnekliğinin Belirleyicileri (Zaman Faktörü) -> 1 kayit",
       "J-Eğrisi Modeli (Esneklikler Yaklaşımı, Ödemeler Bilançosu Teorisi) -> 1 kayit",
       "Maliye Politikası Teorisi - Arz Yönlü Şoklar ve Stagflasyon Analizi -> 1 kayit",
-      "Mikroekonomi Talep Teorisi - İkame Mallarda Çapraz Fiyat Esnekliği -> 1 kayit",
-      "J-Eğrisi Modeli (Esneklikler Yaklaşımı) -> 1 kayit"
+      "Maliye Politikası Teorisi - Talep Yönetiminin Stagflasyonda Yetersizliği -> 1 kayit",
+      "MSUGT Tekduzen Hesap Plani - 486 -> 1 kayit",
+      "İki tarih arasındaki gün farkını hesaplama kuralı (takvim ay-gün sayıları) -> 1 kayit"
     ],
     "karne": [
       {
@@ -1526,7 +1526,7 @@
         "konu": "sermaye piyasasi kurumlari",
         "donem": 10,
         "cikmis": 10,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
+        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
         "dayanak": "",
         "guc": "OLCULMEDI"
       },
@@ -1607,7 +1607,7 @@
         "konu": "banka kurulus sartlari",
         "donem": 7,
         "cikmis": 7,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Bankacılık / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Bankacılık / sermaye piyasasi bankacilik sigortacilik / Bankacılık Mevzuatı",
         "dayanak": "Bankacılık K. (5411 s.K.)",
         "guc": "ZAYIF"
       },
@@ -1679,7 +1679,7 @@
         "konu": "faaliyet raporu icerigi",
         "donem": 7,
         "cikmis": 7,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
+        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
         "dayanak": "SPK Karari",
         "guc": "ZAYIF"
       },
@@ -1724,7 +1724,7 @@
         "konu": "menfaat sahipleri",
         "donem": 6,
         "cikmis": 6,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
+        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
         "dayanak": "Kurumsal Yonetim Tebligi (II-17.1)",
         "guc": "ZAYIF"
       }
