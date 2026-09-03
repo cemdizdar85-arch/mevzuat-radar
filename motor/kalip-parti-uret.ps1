@@ -382,6 +382,9 @@ function DesenUret($kayit){
 # 'gelir tahakkuku'na 3568 m.29, 'hesap isleyisi'ne TTK 720 yazilmisti - ikisi de
 # alakasiz ZAYIF tahmin; gercek kaynaklar THP/VUK).
 $OZEL_DESEN=@{
+  # 03.09 SMMM SPK: 'pay turleri' kok 'pay' tek basina SPKn'de rastgele madde getiriyor, KAPI-A iki kez
+  # reddetti. Gercek kaynak TTK (nama/hamiline m.484, imtiyazli m.478-479) + Pay Tebligi m.4 tanimlar.
+  'pay turleri'     = @('TTK (6102 s.K.) m.484','TTK (6102 s.K.) m.478','TTK (6102 s.K.) m.479','Pay Tebligi (VII-128.1) m.4 %')
   'gelir tahakkuku' = @('THP 181%','THP 281%','VUK (213 s.K.) m.22%','VUK (213 s.K.) m.283%')
   'hesap isleyisi'  = @('THP 102%','THP 120%','THP 320%','THP 191%','THP 391%')
   # 01.09 hakem-red onarimlari: kuralin YASADIGI paragraflar (tanim+yururluk degil)
