@@ -148,6 +148,15 @@ $DERS_KANUN=@{
   'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)')
   'Meslek Hukuku'=@('SMMM K. (3568 s.K.)'); 'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
   'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('THP')
+  # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
+  'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')
+  'Türkiye Denetim Standartları'=@('BDS','KYS')
+  'Kurumsal Yönetim İlkeleri ve Finansal Yönetim'=@('Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)','TEORI','Teori Notu')
+  'Sermaye Piyasası Mevzuatı'=@('Sermaye Piyasası K. (6362 s.K.)','Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)')
+  'Bankacılık Mevzuatı'=@('Bankacılık K. (5411 s.K.)')
+  'Sigortacılık ve Özel Emeklilik Mevzuatı'=@('Sigortacılık K. (5684 s.K.)','Sigortacilik Tekduzen','TTK (6102 s.K.)')
+  'Kurumsal Sürdürülebilirlik Raporlaması'=@('TSRS')
+  'Sürdürülebilirlik Denetimi'=@('GDS','SBDS','TSRS')
 }
 # --- MULGA / YENIDEN ADLANDIRILMIS STANDART ESLEMESI (02.09, olcumle bulundu)
 # Cem "yut onlari" dedi; olculdu ki YUTULACAK BIR SEY YOK - ucu de ambarda mevcut,
