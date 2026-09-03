@@ -21,8 +21,14 @@ $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 $ozetYol = Join-Path $kok "veri/uyari-ozet.json"
 # 01.09: dogrudan yazim yalniz-damga degisiminde de dosyayi kirletiyordu.
 # Ortak yazici icerik ayniysa dokunmaz.
+# 04.09 GERI ALINDI (yalniz 'tarih' icin): bu dosyanin damgasi ana sayfadaki
+# NOBET DEFTERININ "son kosu" saatidir ve bayat-veri nobetcisi ONU okur.
+# 'tarih' kiyastan disarida tutulunca sayilar degismeyen gunlerde damga
+# DONUYORDU: 02.09 ve 03.09 aksam kosulari iz birakmadi, ana sayfa robot
+# sagken "1 gun once" diye kirmizi yandi (Cem 04.09 01:37 ekran goruntusu).
+# Bu dosyada zaman ICERIKTIR: her kosu yazar, gunde bir kucuk commit uretir.
 . (Join-Path $kok 'arac\rapor-yaz.ps1')
-function OzetYaz($n){ RaporYaz -Hedef $ozetYol -Nesne $n -Derinlik 4 -ZamanAlanlari @('tarih') | Out-Null }
+function OzetYaz($n){ RaporYaz -Hedef $ozetYol -Nesne $n -Derinlik 4 -ZamanAlanlari @() | Out-Null }
 trap {
   OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="HATA"
     hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })

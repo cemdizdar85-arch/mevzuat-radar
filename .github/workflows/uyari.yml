@@ -54,6 +54,9 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          # 04.09: runner UTC'dir; ozet "05:39" yaziyordu, ana sayfa bunu
+          # "bu sabah 05:39" diye gosteriyordu - TR'de 08:39'du. Damga TR saati.
+          TZ: Europe/Istanbul
         run: ./motor/uyari-robotu.ps1
 
       # 27.08 TESLIM TEYIDI: alacak uyarilari "gonderdik" ile bitmez — kullanici
@@ -80,5 +83,12 @@ jobs:
           if [ -f veri/uyari-ozet.json ]; then git add veri/uyari-ozet.json || true; fi
           if [ -f veri/teslim-teyidi-ozet.json ]; then git add veri/teslim-teyidi-ozet.json || true; fi
           git diff --cached --quiet || git commit -m "Uyari robotu ozeti [veri-operasyonu]"
-          git pull --rebase --autostash || true
-          git push || true
+          # 04.09: "git push || true" — hasat calisip YAYIN sessizce dusuyordu
+          # (kaynak.yml'de 30.08'de ayni ders, retry eklenmisti). Uc deneme,
+          # arada ana teli yeniden cek; ucu de duserse kosu KIRMIZI biter.
+          for i in 1 2 3; do
+            git pull --rebase --autostash || true
+            git push && break
+            echo "push denemesi $i dustu, yeniden..."; sleep 20
+            [ "$i" = 3 ] && exit 1
+          done

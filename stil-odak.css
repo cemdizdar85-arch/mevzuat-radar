@@ -87,10 +87,37 @@
    Cem'in beğendiği üçü sola dayalı ve büyük — Wolters Kluwer 102 px,
    Ramp ~64, Fonoa ~56. Buradaki clamp o aralığa oturuyor.
    ================================================================ */
-.hero-sade .sade-ic{padding-top:56px}
+/* 04.09 HİZALAMA: 56 px, sabit üst şeridin (nav ~72-80 px) ALTINDA
+   kalıyordu — nöbet defterinin tepesi şeridin arkasına giriyor, "Nöbet
+   defteri" başlığı kesik görünüyordu (Cem'in ekran görüntüsünde kutu
+   şeride yapışıktı). Üst boşluk şeridi aşacak kadar: 112 px. */
+.hero-sade .sade-ic{padding-top:112px}
 
 .hero-2{display:grid;grid-template-columns:1fr 1fr;gap:44px;
   align-items:center;text-align:left}
+
+/* --- tanıtım satırı (04.09) ---------------------------------------
+   Slogan ne sattığını söylemiyordu; bu satır kimin için + ne yapar der.
+   Nabız/animasyon YOK (eyebrow'daki yanıp sönen nokta kurumsal değil). */
+.hero-ust{font-size:12.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--dim);margin:0 0 16px}
+
+/* --- kanıt şeridi (04.09) ------------------------------------------ */
+.kanit{display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px;
+  margin-top:40px;padding-top:24px;border-top:1px solid var(--line);text-align:left}
+.kn{display:block;text-decoration:none;color:inherit;padding:2px 0}
+.kn b{display:block;font-size:clamp(22px,2.2vw,30px);font-weight:800;
+  letter-spacing:-.6px;color:var(--ink);line-height:1.1;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.kn span{display:block;font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.4}
+.kn:hover b{color:var(--accent)}
+.kanit-not{grid-column:1/-1;font-size:11px;color:var(--dim);margin-top:12px}
+
+/* 04.09: sağ alttaki yüzen "Araçlar" düğmesi geniş ekranda gizli — üst
+   şeritte aynı katalog zaten var (Araçlar açılır menüsü, 640 px altında
+   gizlenir). Mobil kalıbı masaüstünde "uygulama artığı" görünüyordu.
+   Telefonda kalır: orada üst menü yok, tek kapı bu düğme. */
+@media(min-width:641px){#mrxFab{display:none}}
 .hero-sol h1{text-align:left;font-size:clamp(38px,5.6vw,76px);line-height:1.03;
   letter-spacing:-1.4px;margin:0 0 14px;max-width:12ch}
 .hero-sol .sade-alt{text-align:left;font-size:clamp(15px,1.4vw,18px);
@@ -135,10 +162,11 @@
 .gtip-satir .hero-ara{max-width:620px;margin:0}
 
 @media(max-width:900px){
+  .kanit{grid-template-columns:repeat(2,1fr);gap:16px 20px;margin-top:30px}
   .hero-2{grid-template-columns:1fr;gap:26px}
   .hero-sol h1{max-width:none}
   .hero-sol .sade-alt{max-width:none}
-  .hero-sade .sade-ic{padding-top:40px}
+  .hero-sade .sade-ic{padding-top:96px}
   /* Dokunma alanı: nöbet satırları telefonda parmakla açılacak.
      31.08'de iki kez (konu başlıkları, kitle anahtarı) 44 px'in altında
      öge yakalandı; artık her tıklanır öge ölçülüyor. */

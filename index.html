@@ -528,6 +528,11 @@ window.veriAl = (function(){
     ================================================================= -->
     <div class="hero-2">
       <div class="hero-sol">
+        <!-- 04.09 Cem: "kurumsal firmanın açılışı böyle olmamalı". Ölçülen
+             kusur: slogan ne sattığını söylemiyordu; ilk gelen üç saniyede
+             "bu ne?" bilmiyordu. Slogan kalır, üstüne bir tanıtım satırı:
+             kimin için + ne yapar. Unvan kuralı: "mali müşavir/SMMM" yazılmaz. -->
+        <div class="hero-ust">Sınav adayları ve büro sahipleri için mevzuat ve sınav nöbeti</div>
         <h1><span class="g">Tetikte</span> olan kaçırmaz.</h1>
         <p class="sade-alt">Sınavda tuzak var, mevzuatta süre.
           <b>İkisini de kaynağıyla önüne koyarız</b> — her sabah.</p>
@@ -558,7 +563,10 @@ window.veriAl = (function(){
           </div>
 
           <div class="nd-blok">
-            <div class="nd-baslik">Mevzuat · bu sabah <span id="ndSaat">07:03</span></div>
+            <!-- 04.09: "bu sabah" SABİTTİ; gece yarısından sonra kutu hem
+                 "bu sabah 05:39" hem "1 gün önce" diyordu. Etiket artık
+                 damganın tarihine bağlı (bu sabah / bugün / dün / tarih). -->
+            <div class="nd-baslik">Mevzuat · <span id="ndNeZaman">son koşu</span> <span id="ndSaat">07:03</span></div>
             <a class="nd-satir" href="kartlar.html">
               <span class="nd-ne">Resmî Gazete okundu</span>
               <span class="nd-kac" id="ndRg">3 değişiklik</span></a>
@@ -570,6 +578,30 @@ window.veriAl = (function(){
           <div class="nd-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
         </div>
       </div>
+    </div>
+
+    <!-- ============ KANIT ŞERİDİ (04.09.2026) ==============================
+         Cem: "kurumsal firmanın açılışı böyle olmamalı". Ölçülen eksik:
+         sayfada tek rakam GTİP notundaydı; ambardaki büyüklük vitrinde
+         yoktu. Kurumsal güven = sayı + kaynak. Dört rakam, hiçbiri
+         hafızadan değil:
+           · soru bankası ve ders sayısı : veri/sinav-tek-sayfa.json
+             sinav_ozet[].kasa / .ders (kasa-sayim.ps1, her gün 03:41 TR)
+           · çıkmış soru arşivi          : aynı dosya, cikmis.arsiv[].soru
+           · GTİP kodu                   : Karar 10781 (RG 30.12.2025) —
+             yıllık cetvel, gtip.html ile aynı sabit; robot değil, karar
+         HTML'deki değer = bugün okunan son gerçek değer (04.09.2026);
+         JSON okunursa üzerine yazılır, okunamazsa HTML kalır.
+         BİLEREK YOK: marka bülteni kaydı. marka-bulten-raporu.json koşu
+         başına sayar (islenen = o koşuda işlenen bültenler), birikimli
+         değil; bir sonraki koşuda sayı düşer ve vitrin yalan söylerdi.
+         Birikimli sayı Supabase marka_bulten_kutuk'ta; ona bağlanınca gelir. -->
+    <div class="kanit" aria-label="Sayılarla Tetikte">
+      <a class="kn" href="genc.html"><b id="knKasa">30.569</b><span>soru bankasında, her şık gerekçeli</span></a>
+      <a class="kn" href="genc.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
+      <a class="kn" href="genc.html"><b id="knDers">3 sınav · 31 ders</b><span>Staja Giriş · Yeterlilik · KGK</span></a>
+      <a class="kn" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
+      <div class="kanit-not">Sayılar robot ölçümünden gelir · son ölçüm <span id="knTarih">03.09.2026</span></div>
     </div>
 
     <div class="sade-kapilar">
@@ -658,20 +690,58 @@ window.veriAl = (function(){
 
           /* BAYAT VERİ NÖBETÇİSİ: nöbet iddiası kuran bir kutu, kendi
              verisi eskiyse bunu SÖYLEMEK zorunda. Sessiz bayat veri,
-             yanlış veriden tehlikelidir. */
+             yanlış veriden tehlikelidir.
+
+             04.09 DÜZELTME (Cem'in ekran görüntüsü, saat 01:37): ölçü
+             TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu "1 gün
+             önce" oluyor ve sabah koşusuna kadar ana sayfa KIRMIZI yanıyordu;
+             robot sağlamken ziyaretçi "site bakımsız" okuyordu. Robot günde
+             bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu
+             atlanmışsa yakalar, gece yarısını yakalamaz). Etiket de damgaya
+             bağlandı: bu sabah / bugün / dün / tarih. */
           var g = p[0] ? p[0].split('.') : null;
           if(g && g.length === 3){
-            var kosu = new Date(+g[2], +g[1]-1, +g[0]);
-            var bugun = new Date(); bugun.setHours(0,0,0,0);
-            var fark = Math.round((bugun - kosu) / 86400000);
-            if(fark >= 1){
+            var sa = (p[1] || '00:00').split(':');
+            var kosu = new Date(+g[2], +g[1]-1, +g[0], +sa[0] || 0, +sa[1] || 0);
+            var simdi = new Date();
+            var saatFark = (simdi - kosu) / 3600000;
+            var gunBas = new Date(); gunBas.setHours(0,0,0,0);
+            var kosuGun = new Date(+g[2], +g[1]-1, +g[0]);
+            var gunFark = Math.round((gunBas - kosuGun) / 86400000);
+            var et = document.getElementById('ndNeZaman');
+            if(et){
+              et.textContent = gunFark === 0 ? (kosu.getHours() < 12 ? 'bu sabah' : 'bugün')
+                             : gunFark === 1 ? 'dün'
+                             : p[0];
+            }
+            if(saatFark >= 30){
               var dip = document.getElementById('ndDip');
-              dip.textContent = 'Son robot koşusu ' + p[0] + ' — ' + fark + ' gün önce.';
+              dip.textContent = 'Son robot koşusu ' + p[0] + ' ' + (p[1] || '') + ' — ' + gunFark + ' gün önce.';
               dip.classList.add('nd-bayat');
             }
           }
         })
         .catch(function(){ /* okunamadi: HTML'deki son gercek deger kalir */ });
+
+      /* KANIT ŞERİDİ — tek dosyadan üç sayı. 0 gelen sayı yazılmaz: HTML'deki
+         son gerçek değer kalır (ölçülmemiş hücre "0" diye gösterilmez). */
+      var tr = function(n){ return Number(n).toLocaleString('tr-TR'); };
+      fetch('veri/sinav-tek-sayfa.json', {cache:'no-store'})
+        .then(function(y){ return y.ok ? y.json() : null; })
+        .then(function(d){
+          if(!d) return;
+          var oz = d.sinav_ozet || [], kasa = 0, ders = 0;
+          oz.forEach(function(s){ kasa += +s.kasa || 0; ders += +s.ders || 0; });
+          if(kasa > 0) document.getElementById('knKasa').textContent = tr(kasa);
+          if(oz.length && ders > 0)
+            document.getElementById('knDers').textContent = oz.length + ' sınav · ' + ders + ' ders';
+          var ar = (d.cikmis && d.cikmis.arsiv) || [], cik = 0;
+          ar.forEach(function(a){ cik += +a.soru || 0; });
+          if(cik > 0) document.getElementById('knCikmis').textContent = tr(cik);
+          var o = String(d.olcum || '').split(' ')[0];
+          if(o) document.getElementById('knTarih').textContent = o;
+        })
+        .catch(function(){});
     })();
     </script>
 

@@ -217,7 +217,10 @@ var css=''+
 '#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid var(--line2);'+
  'background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:14px;'+
  'font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;padding:12px 18px;border-radius:999px;'+
- 'cursor:pointer;box-shadow:0 8px 28px rgba(46,140,255,.45);letter-spacing:.2px;'+
+ /* 04.09: gölge MAVİYDİ (rgba(46,140,255)) - düğme amber, markanın paleti
+    amber; mavi ışık 30.08'de kaldırılan mavi favicon'un son kalıntısıydı.
+    Gölge artık lamba jetonundan türer; sabit renk yok. */
+ 'cursor:pointer;box-shadow:0 8px 28px color-mix(in srgb,var(--marka-lamba-1) 40%,transparent);letter-spacing:.2px;'+
  'transition:transform .28s ease,opacity .28s ease}'+
 '#mrxFab:hover{transform:translateY(-2px)}'+
 '#mrxFab.mrxGizli{transform:translateY(140%);opacity:0;pointer-events:none}'+
