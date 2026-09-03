@@ -150,6 +150,32 @@ function KaraMi([string]$dayanak){
 }
 # dayanak ham metninden ambar sorgu desenleri türet
 $KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.)'; 'GVK'='GVK (193 s.K.)'; 'KVK'='KVK GUT (1 Seri No)'; 'KDV'='KDV%'; 'SPK'='Sermaye Piyasası K. (6362 s.K.)'; 'İİK'='İİK%'; 'SGK'='5510 s. SGK Kanunu'; 'SMMM'='SMMM K. (3568 s.K.)' }
+# --- ATIF GENISLETME (03.09 olcumu, SMMM ret turu) ----------------------------
+# Model dogru maddeyi BILIYOR ve 'dayanak' alanina yaziyor (GVK m.6 dar mukellef,
+# SPKn m.26/2 yonetim kontrolu, m.35/C, m.83/4) ama kaynak paketi konu kelimesiyle
+# bulunan tanim maddelerinden (m.1-m.3, VUK m.4) olusuyordu -> hakem 'kaynakta yok'
+# diye reddediyordu. Cozum: hakemden ONCE modelin atif verdigi maddeler AMBARDAN
+# cekilip kaynak paketine eklenir. Hakem yine metne bakar; uydurma madde ambarda
+# bulunmaz, o zaman ret haklidir. Bu, hakemi gevsetmek degil, hakeme dogru
+# dosyayi vermektir.
+function AtifDesen([string]$dayanak){
+  $d=New-Object System.Collections.Generic.List[string]
+  if(-not $dayanak){ return @() }
+  $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace 'SPKn\b','SPK' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?','TBK '
+  foreach($m in [regex]::Matches($t,'(TMS|TFRS|BDS|GDS|TSRS|SBDS)\s*(\d+)')){ $d.Add("$($m.Groups[1].Value) $($m.Groups[2].Value) p.%") }
+  foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
+  # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
+  $son=''
+  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVK|SPK|SGK|SMMM)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z]))?')){
+    if($m.Groups[1].Success){ $son=$m.Groups[1].Value }
+    if(-not $son -or -not $KANUN.ContainsKey($son) -or $KANUN[$son] -match '%$'){ continue }
+    $ek=if($m.Groups[3].Success){ "/$($m.Groups[3].Value)" } else { '' }
+    # 'm.6%' m.61/m.62'yi de yakalar; ad ya tam 'm.6' ya 'm.6 ' ile devam eder -> iki desen
+    $d.Add("$($KANUN[$son]) m.$($m.Groups[2].Value)$ek"); $d.Add("$($KANUN[$son]) m.$($m.Groups[2].Value)$ek %")
+    if($d.Count -ge 10){ break }
+  }
+  return @($d | Select-Object -Unique)
+}
 # 03.09 (bosluk partisi olcumu): dayanagi HIC olmayan konu (bizde yok, kopru dayanak yazamamis)
 # icin dersin ANA KANUNU icinde metin aramasi. Ders profil adi ($DersRegex) -> kanun onek(ler)i.
 $DERS_KANUN=@{
@@ -962,6 +988,21 @@ foreach($id in @($don.Keys)){
     $amb2=AmbarCek $ds
     $kMetin=$amb2.metin
     if($amb2.adlar.Count){ $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb2.adlar) -Force }
+  }
+  # 03.09 ATIF GENISLETME: modelin dayanak alaninda andigi maddeler ambardan cekilip
+  # kaynak paketinin BASINA konur (hakem once bunlari gorur). Ambarda yoksa paket degismez.
+  if($cvp.PSObject.Properties['dayanak'] -and "$($cvp.dayanak)".Trim()){
+    $atifD=@(AtifDesen "$($cvp.dayanak)")
+    if($atifD.Count){
+      $atif=AmbarCek $atifD 3500
+      if($atif.adlar.Count){
+        $yeniAd=@($atif.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $atif.adlar -notcontains $_ })
+        $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($yeniAd) -Force
+        $cvp | Add-Member -NotePropertyName atif_genisletme -NotePropertyValue @($atif.adlar) -Force
+        $kMetin=$atif.metin + "`n---`n" + $kMetin; if($kMetin.Length -gt 8000){ $kMetin=$kMetin.Substring(0,8000) }
+        Write-Host "  ATIF GENISLETME: $id <- $(@($atif.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan
+      }
+    }
   }
   if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); continue }
   $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KAYNAK}',$kMetin)
