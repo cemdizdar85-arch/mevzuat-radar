@@ -161,17 +161,21 @@ $KANUN=@{ 'VUK'='VUK (213 s.K.)'; 'TTK'='TTK (6102 s.K.)'; 'TBK'='TBK (6098 s.K.
 function AtifDesen([string]$dayanak){
   $d=New-Object System.Collections.Generic.List[string]
   if(-not $dayanak){ return @() }
-  $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace 'SPKn\b','SPK' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?','TBK '
+  # 03.09 ikinci olcum (SMMM SPK kp-05/11/13 atif bos kaldi): model kanunu SAYIYLA ("6362 s.K. m.35/C"),
+  # kisaltmayla ("SerPK") ya da Teblig adiyla ("Kurumsal Yönetim Tebliği (II-17.1) m.3") aniyor.
+  $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace '\bSPKn\b|\bSerPK\b|\b6362\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SPK ' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?|\b213\s*s(ayılı|\.)?\s*(K\.|Kanun)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?|\b193\s*s(ayılı|\.)?\s*(K\.|Kanun)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?|\b6102\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?|\b6098\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TBK ' -replace '\b4857\s*s(ayılı|\.)?\s*(İş\s*K\.|İş Kanunu|K\.|Kanun)?|\bİş K(anunu|\.)','ISK ' -replace '\b5510\s*s(ayılı|\.)?\s*(K\.|Kanun|SGK Kanunu)?','SGK ' -replace '\b3568\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SMMM ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT '
+  $KANUN2=@{}; foreach($k in $KANUN.Keys){ $KANUN2[$k]=$KANUN[$k] }
+  $KANUN2['ISK']='İş K. (4857 s.K.)'; $KANUN2['KYT']='Kurumsal Yonetim Tebligi (II-17.1)'; $KANUN2['PAYT']='Pay Tebligi (VII-128.1)'; $KANUN2['FONT']='Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)'
   foreach($m in [regex]::Matches($t,'(TMS|TFRS|BDS|GDS|TSRS|SBDS)\s*(\d+)')){ $d.Add("$($m.Groups[1].Value) $($m.Groups[2].Value) p.%") }
   foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
   # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
   $son=''
-  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVK|SPK|SGK|SMMM)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z]))?')){
+  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVK|SPK|SGK|SMMM|ISK|KYT|PAYT|FONT)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z]))?')){
     if($m.Groups[1].Success){ $son=$m.Groups[1].Value }
-    if(-not $son -or -not $KANUN.ContainsKey($son) -or $KANUN[$son] -match '%$'){ continue }
+    if(-not $son -or -not $KANUN2.ContainsKey($son) -or $KANUN2[$son] -match '%$'){ continue }
     $ek=if($m.Groups[3].Success){ "/$($m.Groups[3].Value)" } else { '' }
     # 'm.6%' m.61/m.62'yi de yakalar; ad ya tam 'm.6' ya 'm.6 ' ile devam eder -> iki desen
-    $d.Add("$($KANUN[$son]) m.$($m.Groups[2].Value)$ek"); $d.Add("$($KANUN[$son]) m.$($m.Groups[2].Value)$ek %")
+    $d.Add("$($KANUN2[$son]) m.$($m.Groups[2].Value)$ek"); $d.Add("$($KANUN2[$son]) m.$($m.Groups[2].Value)$ek %")
     if($d.Count -ge 10){ break }
   }
   return @($d | Select-Object -Unique)
