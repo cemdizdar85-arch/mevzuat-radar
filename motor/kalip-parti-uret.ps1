@@ -778,7 +778,9 @@ if(Test-Path $kalipYol){
 foreach($kk in $KONULAR){
   $id=$kk.id
   if($SadeceHtml){ continue }   # yalniz cizim: cache neyse o (konu degisse de dusurulmez), uretim yok
-  if($PilotId -and $id -ne $PilotId){ continue }   # pilot: yalniz secili soru (cache'tekiler oldugu gibi kalir)
+  # 03.09 OLCULDU (pilot kp-04): kopru konusu degisince FAZ A pilot soruyu DUSURUP YENIDEN URETTI (2 cagri, gider
+  # tahakkuku sorusu silindi). Pilot yalniz ADIM/ikiz/yevmiye/hakem fazlari icindir: FAZ A'da SORU ASLA uretilmez.
+  if($PilotId){ continue }
   # 02.09: cache id-bazli; konu listesi degisince (dislama kalkti/yeni konu girdi)
   # ayni id ESKI konunun sorusunu tasir ve sayfa yanlis konuyu gosterir. Konu
   # farkliysa kayit dusurulur, yeniden uretilir.
