@@ -1,6 +1,6 @@
 # SPL CIKMIS SINAV ARSIVI - KARNE
 
-> Olcum: **2026-09-01T15:19:00** · MAKINE CIKTISI (motor/spl-cikmis-karne.ps1) - elle duzenlenmez.
+> Olcum: **2026-09-01T16:12:50** · MAKINE CIKTISI (motor/spl-cikmis-karne.ps1) - elle duzenlenmez.
 >
 > 19-20 Aralik 2014 ve SONRASI kagit sinavlar icin SPL soru/cevap YAYIMLAMIYOR; elektronik sinavlar hic yayimlanmadi. Bu karne yalniz SPL"nin yayimladigi donemleri kapsar.
 
@@ -62,20 +62,19 @@
 | aralik 2011 | Türev Araçlar Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2011 | Türev Araçlar Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2012 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2012 | İleri Düzey Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | İleri Düzey Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | İleri Düzey Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2012 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2012 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Kredi ve Kurumsal Yönetim Derecelendirme Uzmanlığı Cumartesi 1. Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Kredi ve Kurumsal Yönetim Derecelendirme Uzmanlığı Cumartesi 1. Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
@@ -83,24 +82,29 @@
 | aralik 2012 | Kredi ve Kurumsal Yönetim Derecelendirme Uzmanlığı Cumartesi 1. Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Sermaye Piyasasında Bağımsız Denetim Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Temel Düzey Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2012 | Temel Düzey Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Temel Düzey Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Temel Düzey Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2012 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Türev Araçlar Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Türev Araçlar Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2012 | Türev Araçlar Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2012 | Türev Araçlar Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | ? | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2013 | A CEVAP ANAHTARI - | B | cevap-anahtari | KIRMIZI | 0 | 0 |
 | aralik 2013 | Cevap Anahtarı | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2013 | Cevap Anahtarı | A | cevap-anahtari | KIRMIZI | 0 | 0 |
+| aralik 2013 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| aralik 2013 | İleri Düzey Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | İleri Düzey Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | İleri Düzey Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | İleri Düzey Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
@@ -110,35 +114,31 @@
 | aralik 2013 | Kredi ve Kurumsal Yönetim Derecelendirme Uzmanlığı Cumartesi 1. Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Temel Düzey Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Temel Düzey Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2013 | Temel Düzey Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Türev Araçlar Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| aralik 2013 | Türev Araçlar Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Türev Araçlar Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | aralik 2013 | Türev Araçlar Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2012 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2012 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2012 | İleri Düzey Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2012 | İleri Düzey Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2012 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2012 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2012 | Sermaye Piyasasında Bağımsız Denetim Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2012 | Temel Düzey Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2012 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2013 | A CEVAP ANAHTARI – | B | cevap-anahtari | KIRMIZI | 0 | 0 |
-| eylul 2013 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2012 | Türev Araçlar Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2013 | Cevap Anahtarı | A | cevap-anahtari | KIRMIZI | 0 | 0 |
 | eylul 2013 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 3.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Gayrimenkul Değerleme Uzmanlığı Pazar 4.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
-| eylul 2013 | İleri Düzey Pazar 4.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Konut Değerleme Uzmanlığı Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Kredi ve Kurumsal Yönetim Derecelendirme Uzmanlığı Cumartesi 1. Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Kredi ve Kurumsal Yönetim Derecelendirme Uzmanlığı Cumartesi 1. Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Temel Düzey Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2013 | Temel Düzey Cumartesi 1.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | eylul 2013 | Temel Düzey ve Takas Operasyon İşlemleri Cumartesi 2.Oturum | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
+| eylul 2013 | Türev Araçlar Cumartesi 1.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | haziran 2014 | ? | B | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | haziran 2014 | Cevap Anahtarı | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
 | haziran 2014 | edi Derecelendirme ve Kurumsal Derecelendirme Uzmanlığı Pazar 3.Oturum | A | soru-kitapcigi | KIRMIZI | 0 | 0 |
