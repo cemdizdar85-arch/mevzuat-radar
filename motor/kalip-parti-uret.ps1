@@ -98,7 +98,8 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
           default { if("$ch" -match '[a-z0-9]'){ $rx+="$ch" } else { $rx+='.' } }
         }
       }
-      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&metin=imatch.'+[uri]::EscapeDataString($rx)+'&limit=4'
+      # limit 3: tek kaynak (Teblig m.17'nin 24 parcasi gibi) 10'luk kaynak kotasini dolduramasin
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&metin=imatch.'+[uri]::EscapeDataString($rx)+'&limit=3'
     }
     # 02.09 KRITIK: eski hali 'catch{ continue }' idi - AG HATASI sessizce
     # "kaynak yok" gibi davraniyordu ve konu KAPI-A'dan 'alakasiz kaynak' diye
@@ -152,7 +153,10 @@ $DERS_KANUN=@{
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
   'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')
   'Türkiye Denetim Standartları'=@('BDS','KYS')
-  'Kurumsal Yönetim İlkeleri ve Finansal Yönetim'=@('Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)','TEORI','Teori Notu')
+  # 03.09 06:30 OLCULDU (50 sorunun 23'u hakem reddi, 19'unda ilk kaynak Teblig): Teblig her konuda
+  # one geciyordu, finans teorisi (eldeki kus, geri odeme, portfoy) TEORI notuna hic ulasamiyordu.
+  # Sira: once teori notlari, sonra Teblig, TTK, TBK (genel hukuk konulari da bu derse dusuyor).
+  'Kurumsal Yönetim İlkeleri ve Finansal Yönetim'=@('TEORI','Teori Notu','Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)','TBK (6098 s.K.)')
   'Sermaye Piyasası Mevzuatı'=@('Sermaye Piyasası K. (6362 s.K.)','Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)')
   'Bankacılık Mevzuatı'=@('Bankacılık K. (5411 s.K.)')
   'Sigortacılık ve Özel Emeklilik Mevzuatı'=@('Sigortacılık K. (5684 s.K.)','Sigortacilik Tekduzen','TTK (6102 s.K.)')
