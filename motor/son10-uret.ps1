@@ -102,6 +102,18 @@ KURALLAR:
        yazıyla TEKRARLAMAZ; kavramı ve nedeni anlatır.
    Örnek ton: "Ustabaşı doğrudan üretimde çalışmaz - ücreti GÜG'dür. Dikkat:
    siparişe fiili tutar değil, yükleme oranıyla hesaplanan pay girer."
+6. ÖĞRETİCİ ADIMLAR (Cem 03.09: "konuyu soruyla öğretelim, kalıp gibi olmasın"): BİZ KONU ANLATMAYAN,
+   SORUYLA ÖĞRETEN SİTEYİZ - adımlar konuyu hiç bilmeyene bu soru üstünden öğretir:
+   (a) Soruda geçen HER HESAP için (ilk kez göründüğünde) bir "X nedir?" adımı: hesabın ne olduğu,
+       ne zaman kullanıldığı, hangi tarafa yazıldığı; varsa aşağıdaki HESAP TANIMLARI bölümündeki Tekdüzen
+       Hesap Planı metninden, uydurma yok (tanım yoksa yalnız soru ve açıklamadan bildiğinle yaz). Örnek: "381 Gider Tahakkukları nedir? Faturası gelmemiş ama bu döneme ait giderin
+       borcunu tutar; ödeme sonraki dönemde olsa da gider bu dönemin. Alacak tarafı büyür."
+   (b) Her kayıt adımında "NEDEN bu taraf?" tek cümleyle: varlık artar borç, kaynak artar alacak, gider
+       borç, gelir alacak - ezber değil mantık.
+   (c) SON ADIM = "En sık hata": bu soruda öğrencinin en çok düştüğü tuzak (yanlış şıklardan biri) ve
+       neden yanlış olduğu, tek cümle.
+   (d) Aynı cümle kalıbını adımlar arasında TEKRAR ETME ("hesabı artıyor, o yüzden borç" her adımda
+       yazılmaz); her adım o hesaba özgü bir şey söyler.
 Cevap YALNIZ JSON: {"verilen":[[r,c],...],"adimlar":[...]}
 SORU METNİ: {SORUM}
 ÇÖZÜM_TABLO: {TABLO}

@@ -933,12 +933,31 @@ foreach($kk in $KONULAR){
 }
 
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------
+# 03.09 Cem "ogretmen her soruda olsun": tablosuz KAYIT sorulari da adim alir; tablo yerine yevmiye
+# satirlarindan kurulan Kalem|Tutar tablosu verilir (kayit satirlari 'doldur' hedefi olur).
+function AdimTablosu($cvp){
+  if($cvp.cozum_tablo -and $cvp.cozum_tablo.satirlar -and @($cvp.cozum_tablo.satirlar).Count){ return $cvp.cozum_tablo }
+  # (KayitListesi daha asagida tanimli - burada ayni mantik satir ici)
+  $sm=$cvp.sema; if(-not $sm -or "$($sm.tur)" -ne 'yevmiye'){ return $null }
+  $kyt=@(); if($sm.PSObject.Properties['kayitlar'] -and $sm.kayitlar){ $kyt=@($sm.kayitlar) } elseif($sm.PSObject.Properties['ogeler'] -and $sm.ogeler){ $kyt=@(,([pscustomobject]@{baslik='';ogeler=$sm.ogeler})) }
+  if(-not $kyt.Count){ return $null }
+  $sat=@(); foreach($ky in $kyt){ foreach($og in @($ky.ogeler.borc)){ $sat+=,@("$($og.hesap) (BORÇ)","$($og.tutar)") }; foreach($og in @($ky.ogeler.alacak)){ $sat+=,@("$($og.hesap) (ALACAK)","$($og.tutar)") } }
+  if(-not $sat.Count){ return $null }
+  return [pscustomobject]@{ basliklar=@('Kayıt','Tutar'); satirlar=$sat }
+}
 foreach($id in @($don.Keys)){
   if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
   $cvp=$don[$id]
-  if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
+  $tabloAdim=AdimTablosu $cvp
+  if(-not $tabloAdim){ continue }
   if($cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
-  $ist2=$adimIstem.Replace('{SORUM}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))")
+  $ist2=$adimIstem.Replace('{SORUM}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $tabloAdim -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))")
+  # 03.09 "konuyu soruyla ogretelim": sorudaki hesaplarin Tekduzen Hesap Plani tanimlari (ambar) isteme eklenir;
+  # "X nedir?" adimlari uydurma degil bu metinden yazilir. Supabase okumasi, model bedeli yok.
+  $kodlarA=New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($st in @($tabloAdim.satirlar)){ foreach($m in [regex]::Matches("$(@($st)[0])",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
+  foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
+  if($kodlarA.Count){ $thpD=AmbarCek @($kodlarA | ForEach-Object { "THP $_ %" }) 3500; if($thpD.metin){ $ist2+="`n=== HESAP TANIMLARI (Tekdüzen Hesap Planı, ambardan) ===`n"+$thpD.metin } }
   $y2=$null
   foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
   $a2=Coz $y2.metin
