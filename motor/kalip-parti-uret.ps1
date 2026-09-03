@@ -713,6 +713,11 @@ function DilOnarNesne($cvp){
     if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$h] -and $cvp.aciklama.$h -is [string]){ $cvp.aciklama.$h=DilOnar $cvp.aciklama.$h }
   }
   foreach($ad1 in @($cvp.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }
+  # ogrenciye gorunen diger alanlar: dayanak kunyesi, sema/kayit basliklari (kaynak_adlar ve hakem DOKUNULMAZ - ambar adi/denetim izi)
+  if($cvp.PSObject.Properties['dayanak'] -and $cvp.dayanak -is [string]){ $cvp.dayanak=DilOnar $cvp.dayanak }
+  foreach($sm in @('sema','ikiz_sema')){ $s1=$null; if($cvp.PSObject.Properties[$sm]){ $s1=$cvp.$sm }; if(-not $s1){ continue }
+    if($s1.PSObject.Properties['baslik'] -and $s1.baslik -is [string]){ $s1.baslik=DilOnar $s1.baslik }
+    if($s1.PSObject.Properties['kayitlar']){ foreach($ky in @($s1.kayitlar)){ if($ky -and $ky.PSObject.Properties['baslik'] -and $ky.baslik -is [string]){ $ky.baslik=DilOnar $ky.baslik } } } }
   if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ foreach($alan in @('ikiz_soru','ikiz_aciklama','ikiz_ipucu')){ if($cvp.ikiz.PSObject.Properties[$alan] -and $cvp.ikiz.$alan -is [string]){ $cvp.ikiz.$alan=DilOnar $cvp.ikiz.$alan } } }
 }
 # 03.09 Cem "1 yap": eldeki cache'e dil kapisi GERIYE DONUK uygulanir (yalniz -SadeceHtml modunda; API yok).
