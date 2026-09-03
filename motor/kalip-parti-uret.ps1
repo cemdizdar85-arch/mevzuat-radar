@@ -399,6 +399,8 @@ $OZEL_DESEN=@{
   # 03.09 SMMM SPK: 'pay turleri' kok 'pay' tek basina SPKn'de rastgele madde getiriyor, KAPI-A iki kez
   # reddetti. Gercek kaynak TTK (nama/hamiline m.484, imtiyazli m.478-479) + Pay Tebligi m.4 tanimlar.
   'pay turleri'     = @('TTK (6102 s.K.) m.484','TTK (6102 s.K.) m.478','TTK (6102 s.K.) m.479','Pay Tebligi (VII-128.1) m.4 %')
+  # 03.09 SMMM SPK kp-10: 'birligi' koku SPKn m.2 kapsam maddesini getirdi, KAPI D konu-disi dedi. TSPB = SPKn m.74-75.
+  'turkiye sermaye piyasalari birligi gorevleri' = @('Sermaye Piyasası K. (6362 s.K.) m.74','Sermaye Piyasası K. (6362 s.K.) m.74 %','Sermaye Piyasası K. (6362 s.K.) m.75','Sermaye Piyasası K. (6362 s.K.) m.75 %')
   'gelir tahakkuku' = @('THP 181%','THP 281%','VUK (213 s.K.) m.22%','VUK (213 s.K.) m.283%')
   'hesap isleyisi'  = @('THP 102%','THP 120%','THP 320%','THP 191%','THP 391%')
   # 01.09 hakem-red onarimlari: kuralin YASADIGI paragraflar (tanim+yururluk degil)
@@ -1038,12 +1040,14 @@ foreach($id in @($don.Keys)){
   if($cvp.PSObject.Properties['dayanak'] -and "$($cvp.dayanak)".Trim()){
     $atifD=@(AtifDesen "$($cvp.dayanak)")
     if($atifD.Count){
-      $atif=AmbarCek $atifD 3500
+      # 03.09 OLCULDU (SMMM SPK kp-11): m.35/C dort parca, 3.500 tavani [4/4]'u (f.7) kesti -> hakem
+      # 'fikra 7 kaynakta yok' dedi. Atif paketi 7.000, toplam 12.000 (haiku 200k pencere; maliyet ihmal).
+      $atif=AmbarCek $atifD 7000
       if($atif.adlar.Count){
         $yeniAd=@($atif.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $atif.adlar -notcontains $_ })
         $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($yeniAd) -Force
         $cvp | Add-Member -NotePropertyName atif_genisletme -NotePropertyValue @($atif.adlar) -Force
-        $kMetin=$atif.metin + "`n---`n" + $kMetin; if($kMetin.Length -gt 8000){ $kMetin=$kMetin.Substring(0,8000) }
+        $kMetin=$atif.metin + "`n---`n" + $kMetin; if($kMetin.Length -gt 12000){ $kMetin=$kMetin.Substring(0,12000) }
         Write-Host "  ATIF GENISLETME: $id <- $(@($atif.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan
       }
     }
