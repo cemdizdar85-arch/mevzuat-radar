@@ -191,7 +191,9 @@ $DERS_KANUN=@{
   # one geciyordu, finans teorisi (eldeki kus, geri odeme, portfoy) TEORI notuna hic ulasamiyordu.
   # Sira: once teori notlari, sonra Teblig, TTK, TBK (genel hukuk konulari da bu derse dusuyor).
   'Kurumsal Yönetim İlkeleri ve Finansal Yönetim'=@('TEORI','Teori Notu','Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)','TBK (6098 s.K.)')
-  'Sermaye Piyasası Mevzuatı'=@('Sermaye Piyasası K. (6362 s.K.)','Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)')
+  # 03.09 OLCULDU (SMMM SPK 'pay turleri' / 'semsiye fon turleri' KAPI-A reddi): Pay Tebligi ve
+  # Yatirim Fonlari Tebligi ambarda var ama listede yoktu; konu kelimesi ($KELIME_KANUN) one alir.
+  'Sermaye Piyasası Mevzuatı'=@('Sermaye Piyasası K. (6362 s.K.)','Pay Tebligi (VII-128.1)','Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)','Kurumsal Yonetim Tebligi (II-17.1)','TTK (6102 s.K.)')
   'Bankacılık Mevzuatı'=@('Bankacılık K. (5411 s.K.)')
   'Sigortacılık ve Özel Emeklilik Mevzuatı'=@('Sigortacılık K. (5684 s.K.)','Sigortacilik Tekduzen','TTK (6102 s.K.)')
   'Kurumsal Sürdürülebilirlik Raporlaması'=@('TSRS')
@@ -262,6 +264,21 @@ function DesenUret($kayit){
       $n2=if($m.Groups[3].Success){[int]$m.Groups[3].Value}else{$n1}
       if($n2-$n1 -gt 8){ $n2=$n1+8 }
       for($n=$n1;$n -le $n2;$n++){ $d.Add("$ka m.$n%") }
+    }
+    # 03.09 OLCULDU (SGS Is-SGK 'is sozlesmesi feshi' -> KAYNAK BORCU; oysa 'İş K. (4857 s.K.) m.11'
+    # ambarda): yukaridaki madde deseni yalniz VUK/TTK/TBK/GVK/SMMM taniyordu; Is K., 5510, SPKn,
+    # 3568 maddeli dayanaklar hic aranmiyordu. Kanun no ile onek bulunur, madde iki bicimde aranir
+    # ('m.11' tam / 'm.11 ' devam) ki m.110-111 karismasin.
+    if($ham -notmatch '\b(VUK|TTK|TBK|GVK|SMMM)\b' -and $ham -match '\bm(?:adde)?\.?\s*(\d+)'){
+      $onekM=''
+      if($ham -match '4857|İş K'){ $onekM='İş K. (4857 s.K.)' }
+      elseif($ham -match '5510'){ $onekM='5510 s. SGK Kanunu' }
+      elseif($ham -match '3568'){ $onekM='SMMM K. (3568 s.K.)' }
+      elseif($ham -match '6362|Sermaye Piyasas|SPKn|\bSPK\b'){ $onekM='Sermaye Piyasası K. (6362 s.K.)' }
+      elseif($ham -match '6183|AATUHK'){ $onekM='AATUHK (6183 s.K.)' }
+      elseif($ham -match '3065|KDVK|Katma Değer'){ $onekM='KDVK (3065 s.K.)' }
+      elseif($ham -match '\b488\b|Damga'){ $onekM='Damga V.K. (488 s.K.)' }
+      if($onekM){ foreach($m in [regex]::Matches($ham,'\bm(?:adde)?\.?\s*(\d+)')){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
   }
   if($d.Count -eq 0){
@@ -342,7 +359,9 @@ function DesenUret($kayit){
       @('damga','Damga'),@('tahsil|odeme emri|haciz|gecikme zammi|tecil|amme','AATUHK'),
       @('defter|belge|degerleme|amortisman|envanter|usul|tebligat|uzlasma|ceza','VUK (213'),
       @('banka','Bankacılık'),@('sigorta|emeklilik|reasurans','Sigortacılık'),@('surdurulebilirlik|iklim|tsrs','TSRS'),
-      @('bds|denetim|denetci|kanit|onemlilik','BDS'),@('tms|tfrs|stok|hasilat|kiralama|deger dusuklugu','TMS')
+      @('bds|denetim|denetci|kanit|onemlilik','BDS'),@('tms|tfrs|stok|hasilat|kiralama|deger dusuklugu','TMS'),
+      @('^pay |pay turleri|halka arz|izahname|imtiyazli','Pay Tebligi'),@('fon|semsiye|portfoy|katilma payi','Yatirim Fonlarina'),
+      @('is sozlesme|fesih|feshi|ucret|kidem|ihbar|calisma sure|fazla calisma|yillik izin','İş K.'),@('sigortali|prim|emeklilik|malulluk|is kazasi|meslek hastaligi','5510')
     )
     $oncelik=@(); foreach($kk in $KELIME_KANUN){ if($konuKat -match $kk[0]){ $oncelik+=$kk[1] } }
     foreach($dk in $DERS_KANUN.Keys){
