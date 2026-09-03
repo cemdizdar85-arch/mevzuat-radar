@@ -157,6 +157,12 @@ $DERS_KANUN=@{
   'Sigortacılık ve Özel Emeklilik Mevzuatı'=@('Sigortacılık K. (5684 s.K.)','Sigortacilik Tekduzen','TTK (6102 s.K.)')
   'Kurumsal Sürdürülebilirlik Raporlaması'=@('TSRS')
   'Sürdürülebilirlik Denetimi'=@('GDS','SBDS','TSRS')
+  # SMMM Yeterlilik (03.09, Cem "bitince SMMM icin de kos")
+  'Hukuk'=@('TTK (6102 s.K.)','TBK (6098 s.K.)','İş K. (4857 s.K.)','5510 s. SGK Kanunu','İYUK (2577 s.K.)')
+  'Muhasebe Denetimi'=@('BDS','KYS','Bagimsiz Denetim Yonetmeligi')
+  'Vergi Mevzuatı ve Uygulaması'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','AATUHK (6183 s.K.)')
+  'Finansal Tablolar ve Analizi'=@('TEORI','Teori Notu','TMS')
+  'Muhasebecilik ve Mali Müşavirlik Meslek Hukuku'=@('SMMM K. (3568 s.K.)')
 }
 # --- MULGA / YENIDEN ADLANDIRILMIS STANDART ESLEMESI (02.09, olcumle bulundu)
 # Cem "yut onlari" dedi; olculdu ki YUTULACAK BIR SEY YOK - ucu de ambarda mevcut,
