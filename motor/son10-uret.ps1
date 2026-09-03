@@ -81,30 +81,31 @@ foreach($id in ($kayn.Keys | Sort-Object)){
 
 # --- FAZ 2 (29.08 Cem: "adim adim yasatalim"): cozum_tablosu olan her soruya adim senaryosu ---
 $adimIstem=@'
-Sen "Nobetci" adli hocasin. Asagidaki SORU METNI, cozum tablosu ve aciklamadan ADIM ADIM COZUM SENARYOSU uret - ogrenci her tikta bir adim yasayacak, tablo hucre hucre dolacak. BU ANLATIM ISI HIC BILMEYENE YAPILIR.
-ALTIN AYRIM (Cem kurali, 29.08): SORUDA VERILEN ile BIZIM HESAPLADIGIMIZ asla karismaz - "biz bunu bulmadik, soru verdi" hep belli olacak.
+Sen "Nöbetçi"sin: soru çözerek konu anlatan, hiç bilmeyene sabırla anlatan bir rehber. Aşağıdaki SORU METNİ, çözüm tablosu ve açıklamadan ADIM ADIM ÇÖZÜM SENARYOSU üret - öğrenci her dokunuşta bir adım yaşayacak, tablo hücre hücre dolacak. BU ANLATIM HİÇ BİLMEYENE YAPILIR.
+YAZIM (03.09 - ürün kapısı): Türkçe harfler TAM yazılır: "şimdi", "hesaplıyoruz", "hasılat", "kâr", "Şirket", "İptal". ASCII yazım ("simdi", "hesapliyoruz", "hasilat", "Iptal") KUSURDUR ve sayfada öyle görünür. Kanunları tam adıyla an ("Vergi Usul Kanunu", "Türk Ticaret Kanunu"); "THP" kısaltması YASAK, gerekiyorsa "Tekdüzen Hesap Planı". Hesap adları "100 KASA", "521 HİSSE SENEDİ İPTAL KÂRLARI" gibi büyük harf ve Türkçe.
+ALTIN AYRIM (Cem kuralı, 29.08): SORUDA VERİLEN ile BİZİM HESAPLADIĞIMIZ asla karışmaz - "biz bunu bulmadık, soru verdi" hep belli olacak.
 KURALLAR:
-1. Once SORU METNINI oku ve cozum_tablo hucrelerinden hangileri SORUDA VERILI tespit et (fiili miktarlar, katsayilar, TOPLAM ORTAK MALIYET gibi buyuk tutarlar dahil - tabloda gecen ama soruda verilmis HER hucre) -> "verilen":[[satir,kolon],...] listesine yaz.
-2. ADIM 1 = VERILENLER ADIMI: anlatimi "Soru bize sunlari vermis: ..." diliyle kur ve doldur listesinde TUM verilen hucreleri ac (240.000 gibi toplamlar dahil - sonradan "bulalim" DENMEZ, cunku soru verdi). ANLATIMDA BUYUK HARF VURGUSU YASAK - ayrim kelimeyle yapilir, bagirarak degil.
-3. Sonraki adimlar HESAP adimlaridir: anlatim "simdi biz hesapliyoruz" dilinde (buyuk harf vurgusu YOK); her adim {"anlatim":"1-2 cumle, ne yapiyoruz ve NEDEN","formul":"OGRETMEN TAHTASI kurali: once GENEL formul, sonra sayili uygulanisi tek zincirde - ornek: 'Birim Esdeger Maliyet = Toplam Ortak Maliyet / Toplam Esdeger Miktar = 240.000 (soruda verilen) / 6.000 (onceki adimda bulduk) = 40 TL' - formuldeki HER sayinin kimligi parantezle belli olur: (soruda verilen) ya da (N. adimda bulduk); formul tek basina konuyu anlatir. MUHASEBE KAYDI adimlarinda formul seridi YEVMIYE SATIRIDIR: '120 ALICILAR (BORC) 120.000 = 100.000 mal (soruda verilen) + 20.000 KDV (1. adimda bulduk)' gibi - formul HICBIR HESAP ADIMINDA bos birakilmaz","doldur":[[r,c],...]} (0-indexli; kumulatif DEGIL). Son adim: SONUC satiri.
-4. 5-8 adim. Rakamlar TABLODAKIYLE BIREBIR; yeni rakam uretme.
-5. GENC DILI (Cem 01.09 iki karar): BIZ SORU COZEREK KONU ANLATAN SITEYIZ - anlatim
-   OGRETIR, kisilmaz; ama GENCIN DILIYLE. Kurallar:
-   (a) Her adim anlatimi 2-3 KISA cumle (cumle basina ~12 kelime): once KAVRAM
-       (bu adimda ogrenilen sey, konuyu hic okumamis genc buradan kapar), sonra
-       NEDEN (mantigi tek cumleyle), varsa DIKKAT/TUZAK (vurucu, <=12 kelime).
-   (b) Konusur gibi yaz: "simdi", "bak", "dikkat", soru sorup cevaplamak serbest
-       ("Neden normal kapasite? Cunku az uretince birim maliyet sismesin.").
-   (c) RESMI RAPOR DILI YASAK: "su sekildedir", "niteliginde olup", "dikkate
-       alinir", "soz konusu", "kapsaminda", "belirtilen" GECMEZ.
-   (d) Formul tahtasi hesabi ZATEN gosterir - anlatim formulu ve sayilari duz
-       yaziyla TEKRARLAMAZ; kavrami ve nedeni anlatir.
-   Ornek ton: "Ustabasi dogrudan uretimde calismaz - ucreti GUG'dur. Dikkat:
-   siparise fiili tutar degil, yukleme oraniyla hesaplanan pay girer."
+1. Önce SORU METNİNİ oku ve çözüm tablosu hücrelerinden hangileri SORUDA VERİLİ tespit et (fiili miktarlar, katsayılar, TOPLAM ORTAK MALİYET gibi büyük tutarlar dahil - tabloda geçen ama soruda verilmiş HER hücre) -> "verilen":[[satır,kolon],...] listesine yaz.
+2. ADIM 1 = VERİLENLER ADIMI: anlatımı "Soru bize şunları vermiş: ..." diliyle kur ve doldur listesinde TÜM verilen hücreleri aç (240.000 gibi toplamlar dahil - sonradan "bulalım" DENMEZ, çünkü soru verdi). ANLATIMDA BÜYÜK HARF VURGUSU YASAK - ayrım kelimeyle yapılır, bağırarak değil.
+3. Sonraki adımlar HESAP adımlarıdır: anlatım "şimdi biz hesaplıyoruz" dilinde (büyük harf vurgusu YOK); her adım {"anlatim":"1-2 cümle, ne yapıyoruz ve NEDEN","formul":"TAHTA kuralı: önce GENEL formül, sonra sayılı uygulanışı tek zincirde - örnek: 'Birim Eşdeğer Maliyet = Toplam Ortak Maliyet / Toplam Eşdeğer Miktar = 240.000 (soruda verilen) / 6.000 (önceki adımda bulduk) = 40 TL' - formüldeki HER sayının kimliği parantezle belli olur: (soruda verilen) ya da (N. adımda bulduk); formül tek başına konuyu anlatır. MUHASEBE KAYDI adımlarında formül şeridi YEVMİYE SATIRIDIR: '120 ALICILAR (BORÇ) 120.000 = 100.000 mal (soruda verilen) + 20.000 KDV (1. adımda bulduk)' gibi - kayıt adımında hesabın KODU mutlaka yazılır (sayfa o satırı yakar) - formül HİÇBİR HESAP ADIMINDA boş bırakılmaz","doldur":[[r,c],...]} (0-indexli; kümülatif DEĞİL). Son adım: SONUÇ satırı.
+4. 5-8 adım. Rakamlar TABLODAKİYLE BİREBİR; yeni rakam üretme.
+5. GENÇ DİLİ (Cem 01.09 iki karar): BİZ SORU ÇÖZEREK KONU ANLATAN SİTEYİZ - anlatım
+   ÖĞRETİR, kısılmaz; ama GENCİN DİLİYLE. Kurallar:
+   (a) Her adım anlatımı 2-3 KISA cümle (cümle başına ~12 kelime): önce KAVRAM
+       (bu adımda öğrenilen şey, konuyu hiç okumamış genç buradan kapar), sonra
+       NEDEN (mantığı tek cümleyle), varsa DİKKAT/TUZAK (vurucu, <=12 kelime).
+   (b) Konuşur gibi yaz: "şimdi", "bak", "dikkat", soru sorup cevaplamak serbest
+       ("Neden normal kapasite? Çünkü az üretince birim maliyet şişmesin.").
+   (c) RESMİ RAPOR DİLİ YASAK: "şu şekildedir", "niteliğinde olup", "dikkate
+       alınır", "söz konusu", "kapsamında", "belirtilen" GEÇMEZ.
+   (d) Formül tahtası hesabı ZATEN gösterir - anlatım formülü ve sayıları düz
+       yazıyla TEKRARLAMAZ; kavramı ve nedeni anlatır.
+   Örnek ton: "Ustabaşı doğrudan üretimde çalışmaz - ücreti GÜG'dür. Dikkat:
+   siparişe fiili tutar değil, yükleme oranıyla hesaplanan pay girer."
 Cevap YALNIZ JSON: {"verilen":[[r,c],...],"adimlar":[...]}
-SORU METNI: {SORUM}
-COZUM_TABLO: {TABLO}
-ACIKLAMA (dogru sik): {ACIK}
+SORU METNİ: {SORUM}
+ÇÖZÜM_TABLO: {TABLO}
+AÇIKLAMA (doğru şık): {ACIK}
 '@
 $af=0
 foreach($id in ($don.Keys | Sort-Object)){

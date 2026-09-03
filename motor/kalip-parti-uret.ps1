@@ -712,6 +712,15 @@ function DilOnarNesne($cvp){
     if($cvp.siklar -and $cvp.siklar.PSObject.Properties[$h] -and $cvp.siklar.$h -is [string]){ $cvp.siklar.$h=DilOnar $cvp.siklar.$h }
     if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$h] -and $cvp.aciklama.$h -is [string]){ $cvp.aciklama.$h=DilOnar $cvp.aciklama.$h }
   }
+  foreach($ad1 in @($cvp.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }
+  if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ foreach($alan in @('ikiz_soru','ikiz_aciklama','ikiz_ipucu')){ if($cvp.ikiz.PSObject.Properties[$alan] -and $cvp.ikiz.$alan -is [string]){ $cvp.ikiz.$alan=DilOnar $cvp.ikiz.$alan } } }
+}
+# 03.09 Cem "1 yap": eldeki cache'e dil kapisi GERIYE DONUK uygulanir (yalniz -SadeceHtml modunda; API yok).
+if($SadeceHtml -and $don.Count){
+  $script:DIL_DUZELTME=0
+  foreach($id in @($don.Keys)){ DilOnarNesne $don[$id] }
+  if($script:DIL_DUZELTME -gt 0){ CacheYaz }
+  "dil kapisi (geriye donuk): $($script:DIL_DUZELTME) alan duzeltildi"
 }
 $rapor=New-Object System.Collections.Generic.List[string]
 $kaynakBorcu=New-Object System.Collections.Generic.List[string]
