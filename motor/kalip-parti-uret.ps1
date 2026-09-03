@@ -80,7 +80,7 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
   foreach($d in $desenler){
     if(-not $d){ continue }
     # 03.09: "p.0 - Künye ve yürürlük" parcasi kaynak DEGILDIR (icindekiler); disarida birakilir
-    $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($d)+'&kaynak_ad=not.ilike.'+[uri]::EscapeDataString('% p.0 -%')+'&limit=6'
+    $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($d)+'&kaynak_ad=not.ilike.'+[uri]::EscapeDataString('% p.0 -%')+'&kaynak_ad=not.ilike.'+[uri]::EscapeDataString('%[giris]%')+'&limit=6'
     # 03.09 (SGS bosluk partisi olcumu): dayanak madde NUMARASIZ kanun ("TTK (6102 s.K.)") ise
     # ad aramasi bos donuyor, konu 'kaynak borcu' oluyordu - oysa TTK m.776 (bono unsurlari)
     # ambarda. '@<kanun oneki>|<kelime>' deseni: o kanunun maddeleri icinde METIN aramasi.
