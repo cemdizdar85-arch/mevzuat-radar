@@ -541,18 +541,39 @@ window.veriAl = (function(){
          slogan olarak yaşıyor; ilk ekranda ürün cümlesi konuşuyor. -->
     <div class="hero-2">
       <div class="hero-sol">
+        <!-- 04.09 ikinci tur (Cem, ekran görüntüsüyle):
+             (1) "markamız yok" -> marka başlığın ilk kelimesi.
+             (2) "sınav ve iş yeri yukarı çıksın" -> aşağıdaki 01/02 kapıları
+                 KALDIRILDI, iki çağrı düğmesi kapının kendisi oldu
+                 (birincil sınav = (B) kararı, sınav önde).
+             (3) "bağımsız denetim ve SPK sınavlarına hazırlıyoruz" -> KGK
+                 adayın aradığı adla (bağımsız denetçilik), SPK lisanslama
+                 eklendi. ⚠ SPL bankası 04.09'da SIFIR soru (sinav-tek-sayfa
+                 sinav_ozet'te yok); Cem: "site açıldığında SPK yetişmiş
+                 olacak, onun için yazalım." Açılış kontrol listesine yazıldı:
+                 gong'dan önce SPL bankası dolu olmalı, yoksa bu iki kelime
+                 çıkar. Kaynak rozeti "SPK mevzuatı" ise BUGÜN doğru:
+                 veri/spk-mevzuat-envanteri.json yutulmuş. -->
         <div class="hero-ust"><i class="hero-nokta" aria-hidden="true"></i>Mevzuat ve sınav takibi · sınav adayları ve büro sahipleri için</div>
-        <h1>Mevzuatı ve sınavı senin yerine izleyen sistem.</h1>
-        <p class="sade-alt">Her sabah Resmî Gazete, ihale ilanları ve sınav takvimi okunur. Seni bağlayan ne varsa kaynağıyla önüne gelir; sınavda yanlışını gerekçesiyle öğrenirsin.</p>
-        <div class="hero-cta-grup">
-          <a class="hero-btn" href="karne.html">Ücretsiz başla</a>
-          <a class="hero-btn hero-btn-ikincil" href="#nasil">Nasıl çalışır →</a>
+        <h1>Tetikte, mevzuatı ve sınavı senin yerine izler.</h1>
+        <p class="sade-alt">Her sabah Resmî Gazete, ihale ilanları ve sınav takvimi okunur; seni bağlayan ne varsa kaynağıyla önüne gelir. Staja Giriş, Yeterlilik, bağımsız denetçilik ve SPK lisanslama sınavlarında yanlışını gerekçesiyle öğrenirsin.</p>
+        <div class="hero-kapilar">
+          <a class="hkapi hkapi-birincil" href="genc.html">
+            <b>Sınava hazırlanıyorum →</b>
+            <small>Staja Giriş · Yeterlilik · Bağımsız denetçilik (KGK) · SPK lisanslama</small>
+          </a>
+          <a class="hkapi" href="karne.html">
+            <b>İş başındayım →</b>
+            <small>Büro · şirket · mükellef: süre, ceza, marka, alacak, ihale nöbeti</small>
+          </a>
         </div>
+        <div class="hero-bedava">Üye olmadan başlarsın; soru çözmek ve yükümlülüklerini görmek ücretsiz. <a href="#nasil">Nasıl çalışır →</a></div>
         <div class="hero-kaynak" aria-label="Okunan kaynaklar">
           <span class="hk-et">Okunan kaynaklar</span>
           <span class="hk">Resmî Gazete</span>
           <span class="hk">TÜRMOB sınav takvimi</span>
-          <span class="hk">KGK standartları</span>
+          <span class="hk">KGK denetim standartları</span>
+          <span class="hk">SPK mevzuatı</span>
           <span class="hk">EKAP ihale ilanları</span>
           <span class="hk">Marka bülteni</span>
           <span class="hk">Gümrük Tarife Cetveli</span>
@@ -607,34 +628,15 @@ window.veriAl = (function(){
     <div class="kanit" aria-label="Sayılarla Tetikte">
       <a class="kn" href="genc.html"><b id="knKasa">30.569</b><span>soru bankasında, her şık gerekçeli</span></a>
       <a class="kn" href="genc.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
-      <a class="kn" href="genc.html"><b id="knDers">3 sınav · 31 ders</b><span>Staja Giriş · Yeterlilik · KGK</span></a>
+      <a class="kn" href="genc.html"><b id="knDers">31 ders</b><span>Staja Giriş · Yeterlilik · Bağımsız denetçilik · SPK lisanslama</span></a>
       <a class="kn" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
       <div class="kanit-not">Sayılar robot ölçümünden gelir · son ölçüm <span id="knTarih">03.09.2026</span></div>
     </div>
 
-    <div class="sade-kapilar">
-      <!-- 29.07: kapi "sen kimsin" diye sorar, "ne odeyeceksin" diye degil.
-           31.08 Cem: "diger iki kolonu teke dusurelim" - Mali Musavirim +
-           Sirket sahibiyim -> IS BASINDAYIM. Ad "Sinava hazirlaniyorum"un
-           tam karsiti: hazirlanan / calisan; ikisi de kendini bulur. -->
-      <a class="sk" href="genc.html">
-        <span class="sk-ust">01</span>
-        <b>Sınava hazırlanıyorum</b>
-        <span class="sk-et">Staja Giriş · Staj Bitirme · KGK</span>
-        <span class="sk-ac">Soru bankası, her şıkkın gerekçesi, zayıf konu karnesi</span>
-        <span class="sk-git">Ücretsiz soru çözmeye başla →</span>
-      </a>
-      <!-- Hedef karne.html: GIRISSIZ calisiyor ve "sadece SENI etkileyen
-           yukumlulukler" diyor. Eski 02 kapisi radar-app.html'e gidip
-           girissiz kullaniciyi duvara carpiyordu (30.07'de Cem yakaladi). -->
-      <a class="sk" href="karne.html">
-        <span class="sk-ust">02</span>
-        <b>İş başındayım</b>
-        <span class="sk-et">Büro · şirket · mükellef</span>
-        <span class="sk-ac">Süre, ceza, marka, alacak ve ihale nöbeti; sadece seni bağlayanlar</span>
-        <span class="sk-git">Yükümlülüklerini gör →</span>
-      </a>
-    </div>
+    <!-- 29.07'den beri buradaki 01/02 KAPI KARTLARI (Sınava hazırlanıyorum /
+         İş başındayım) 04.09'da hero'ya TAŞINDI: iki çağrı düğmesi kapının
+         kendisi. Silinmedi, yükseldi; hedefler aynı (genc.html / karne.html
+         - karne GİRİŞSİZ çalışır, 30.07 dersi). -->
 
     <!-- ============ NASIL ÇALIŞIR (04.09, A kurgusunun parçası) ============
          Kurumsal kalıp ilk ekranın altında üç adım ister; "Nasıl çalışır →"
@@ -758,8 +760,10 @@ window.veriAl = (function(){
           var oz = d.sinav_ozet || [], kasa = 0, ders = 0;
           oz.forEach(function(s){ kasa += +s.kasa || 0; ders += +s.ders || 0; });
           if(kasa > 0) document.getElementById('knKasa').textContent = tr(kasa);
-          if(oz.length && ders > 0)
-            document.getElementById('knDers').textContent = oz.length + ' sınav · ' + ders + ' ders';
+          /* 04.09: sınav sayısı yazılmıyor - altındaki satır dört sınavı
+             sayıyor (SPK dahil), sinav_ozet üçü; SPL girince ders sayısı
+             kendiliğinden büyür, çelişki çıkmaz. */
+          if(ders > 0) document.getElementById('knDers').textContent = ders + ' ders';
           var ar = (d.cikmis && d.cikmis.arsiv) || [], cik = 0;
           ar.forEach(function(a){ cik += +a.soru || 0; });
           if(cik > 0) document.getElementById('knCikmis').textContent = tr(cik);

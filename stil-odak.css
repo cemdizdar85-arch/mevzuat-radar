@@ -129,14 +129,21 @@
 .hero-sol .sade-alt{text-align:left;font-size:clamp(15px,1.4vw,18.5px);line-height:1.55;
   max-width:52ch;margin:0 0 24px}
 
-/* iki çağrı: birincil koyu, ikincil çerçeveli */
-.hero-cta-grup{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.hero-btn{display:inline-block;font-size:15.5px;font-weight:700;padding:14px 24px;
-  border-radius:10px;text-decoration:none;color:var(--bg);background:var(--ink);
-  border:1px solid var(--ink);transition:transform .16s,filter .16s}
-.hero-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
-.hero-btn-ikincil{color:var(--ink);background:transparent;border-color:var(--line2)}
-.hero-btn-ikincil:hover{border-color:var(--muted);filter:none}
+/* iki KAPI düğmesi (04.09 ikinci tur: 01/02 kartlar hero'ya çıktı):
+   birincil koyu = sınav (sınav önde), ikincil çerçeveli = iş başındayım */
+.hero-kapilar{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:640px}
+.hkapi{display:flex;flex-direction:column;gap:5px;padding:16px 18px;border-radius:12px;
+  text-decoration:none;border:1px solid var(--line2);color:var(--ink);
+  background:transparent;transition:transform .16s,border-color .16s,filter .16s}
+.hkapi b{font-size:16px;font-weight:700}
+.hkapi small{font-size:12.5px;line-height:1.4;color:var(--muted)}
+.hkapi:hover{transform:translateY(-1px);border-color:var(--muted)}
+.hkapi-birincil{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.hkapi-birincil small{color:color-mix(in srgb,var(--bg) 72%,transparent)}
+.hkapi-birincil:hover{filter:brightness(1.08);border-color:var(--ink)}
+.hero-bedava{margin-top:12px;font-size:12.5px;color:var(--dim)}
+.hero-bedava a{color:var(--accent);font-weight:700;text-decoration:none}
+.hero-bedava a:hover{text-decoration:underline}
 
 /* okunan kaynaklar: metin rozet (logo değil) */
 .hero-kaynak{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:24px;
@@ -211,6 +218,7 @@
   .hero-sol h1{max-width:none}
   .hero-sol .sade-alt{max-width:none}
   .nasil-adimlar{grid-template-columns:1fr;gap:0}
+  .hero-kapilar{grid-template-columns:1fr;max-width:none}
   .nd-satir{padding:13px 16px}
   .nd-kac{font-size:17px}
   .hero-sade .sade-ic{padding-top:96px}
