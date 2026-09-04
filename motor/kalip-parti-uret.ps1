@@ -20,6 +20,8 @@ param(
   [string]$PilotId='',     # 03.09: pilot - model fazlari YALNIZ bu id'lere calisir (virgullu: kp-04,kp-31); digerleri cache'ten
   [switch]$AdimYenile,     # 04.09 Cem "30'luk SGS seti": pilot id'lerin ESKI adimlari silinir, ogretici istemle yeniden yazilir
   [switch]$SadeceAdim,     # 04.09: yalniz FAZ B (adim) calisir; ikiz/yevmiye/hakem fazlari atlanir (bedel yalniz onaylanan is)
+  [switch]$Sade,           # 04.09 Cem "dogru kismini herkesin anlayacagi dilde": FAZ S (sade Dogrusu + anahtar kavram) - sade'si OLMAYAN sorulara; ayri onayli bedel
+  [switch]$SadeYenile,     # 04.09: FAZ S eldeki sade'yi de yeniden yazar
   [int]$Adet=30,
   [string]$Etiket='sgs-fmuh-30',
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
@@ -990,6 +992,98 @@ foreach($id in @($don.Keys)){
     $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($a2.verilen) -Force
     CacheYaz; Write-Host "  ADIM OK $id"
   } else { $rapor.Add("ADIM BOZUK: $id") }
+}
+
+# --- FAZ S: SADE "DOĞRUSU" + ANAHTAR KAVRAM (Cem 04.09: "doğru kısmını herkesin anlayacağı dilde anlatsak";
+# "belirli süreli sözleşmeyi kısa açıklasak") ---------------------------------------------------------------
+# İki katman: sade cümle (hiç bilmeyene, kısaltma/madde numarası yok) + sınav dili (tek satır). Her yanlış şık için
+# sade "neden yanlış". Anahtar kavram tanımı YALNIZ kaynak metninden (ambar); metinde yoksa listeye girmez.
+# Yalnız -Sade / -SadeYenile ile koşar (bedel kuralı). Model: Haiku 4.5. Kapı: sade alanlarda kısaltma/madde no → 1 tekrar.
+$script:FAZ_ADI='S'
+$sadeIstem=@'
+Sen Tetikte'nin Nöbetçisisin. Aşağıdaki sınav sorusunun cevabını, bu konuyu HİÇ bilmeyen birine anlatır gibi sade Türkçeyle yeniden yazacaksın. Kaynak metinler ve hesap tanımları ekte; kavram tanımlarını YALNIZ bu metinlerden çıkar, metinde yoksa uydurma, listeye alma.
+
+SORU: {SORU}
+ŞIKLAR: {SIKLAR}
+DOĞRU ŞIK: {DOGRU}
+ÜRETİCİNİN AÇIKLAMASI (sınav dili): {ACIK}
+YANLIŞ ŞIK AÇIKLAMALARI: {YANLIS}
+
+KURALLAR
+1. dogru_sade: en fazla 3 kısa cümle, toplam 45 kelimeyi geçme. Olayın diliyle anlat ("dava büyük ihtimalle kaybedilecek, ne kadar ödeneceği tahmin edilebiliyor" gibi). Kısaltma yok (TMS, TFRS, VUK, TTK, THP, p., m. yazma), madde veya paragraf numarası yok, hesap kodu yazma, "sayılı" yazma. "Öğrenci ... sanır" kalıbı yasak. Neden bu cevap, tek nefeste anlaşılsın.
+2. sinav_dili: tek cümle, sınavda geçtiği biçimde: kanun UZUN adı + madde ("Vergi Usul Kanunu 275. madde", "İş Kanunu 12. madde"); standartlar sınavda kısa adıyla geçer ("TMS 37 paragraf 11" serbest).
+3. siklar_sade: her YANLIŞ şık için 1-2 cümle: aday bunu neden seçer, neden yanlış. Kural 1 burada da geçerli. Her şık farklı başlasın; aynı kalıp tekrar etmesin.
+4. kavramlar: sorunun dayandığı 1-3 anahtar kavram (örnek: "belirli süreli iş sözleşmesi", "karşılık", "genel imalat gideri"). Her biri {"ad","tanim","kaynak"}: tanım 1-2 sade cümle; kaynak = ekteki metnin köşeli parantezdeki adı. Ekteki metinde tanım YOKSA o kavramı listeye ALMA.
+5. Türkçe harfleri tam yaz (ç ğ ı İ ö ş ü); ASCII yazma.
+6. Yalnız JSON döndür, başka hiçbir şey yazma:
+{"dogru_sade":"...","sinav_dili":"...","siklar_sade":{"A":"...","B":"..."},"kavramlar":[{"ad":"...","tanim":"...","kaynak":"..."}]}
+'@
+function SadeKapi([string]$t){
+  # sade katmanda yasak: kısaltma, madde/paragraf numarası, "sayılı", 60 kelimeden uzun
+  $y=New-Object System.Collections.Generic.List[string]
+  if([regex]::IsMatch($t,'(?i)(^|[^\wçğıöşü])(m|md|p|prg|f|s)\.\s*\d')){ $y.Add('madde/paragraf kısaltması') }
+  if([regex]::IsMatch($t,'(?i)\b\d+\s*\.\s*(madde|fıkra|paragraf|bent|bend)')){ $y.Add('madde numarası') }
+  if([regex]::IsMatch($t,'\b(TMS|TFRS|BDS|GDS|VUK|TTK|TBK|GVK|KVK|THP|AATUHK|İİK|KDVK|SPKn)\b')){ $y.Add('kısaltma') }
+  if([regex]::IsMatch($t,'(?i)\bsayılı\b')){ $y.Add('"sayılı"') }
+  if(@(($t -split '\s+') | Where-Object { $_ }).Count -gt 60){ $y.Add('60 kelimeden uzun') }
+  return $y
+}
+function Katla2([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant() }
+function SadeKaynak($cvp){
+  # hakemdeki paket mantığı (kaynak_adlar → dokümanlar; dayanak atıfları; hesap tanımları) - cvp DEĞİŞTİRİLMEZ
+  $parca=New-Object System.Collections.Generic.List[string]
+  if($cvp.PSObject.Properties['dayanak'] -and "$($cvp.dayanak)".Trim()){ $atifD=@(AtifDesen "$($cvp.dayanak)"); if($atifD.Count){ $atif=AmbarCek $atifD 5000; if($atif.metin){ $parca.Add($atif.metin) } } }
+  if($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
+    foreach($ka in (@($cvp.kaynak_adlar) | Select-Object -First 4)){
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
+      try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
+    }
+  }
+  $kodlarS=New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarS.Add($m.Groups[1].Value) } }
+  if($kodlarS.Count){ $thpS=AmbarCek @($kodlarS | ForEach-Object { "THP $_ %" }) 3000; if($thpS.metin){ $parca.Add($thpS.metin) } }
+  $m0=($parca -join "`n---`n"); if($m0.Length -gt 9000){ $m0=$m0.Substring(0,9000) }
+  return $m0
+}
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or -not ($Sade -or $SadeYenile)){ break }   # FAZ S yalnız açık onayla koşar
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  $cvp=$don[$id]
+  if(-not $cvp.soru -or -not $cvp.dogru){ continue }
+  if(-not $SadeYenile -and $cvp.PSObject.Properties['sade'] -and $cvp.sade){ continue }
+  $kMetinS=SadeKaynak $cvp
+  $siklarS=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
+  $yanlisS=(@('A','B','C','D','E') | Where-Object { $_ -ne "$($cvp.dogru)" -and $cvp.aciklama.PSObject.Properties[$_] } | ForEach-Object { "$_) $(AciklamaDuz $cvp.aciklama.$_)" }) -join "`n"
+  $istS=$sadeIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$siklarS).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',(AciklamaDuz $cvp.aciklama.$($cvp.dogru))).Replace('{YANLIS}',$yanlisS)
+  if($kMetinS){ $istS+="`n=== KAYNAK METİNLERİ (ambar) ===`n"+$kMetinS } else { $istS+="`n=== KAYNAK METNİ YOK: kavramlar listesi BOŞ dönsün ===" }
+  $sadeN=$null; $tokG=0; $tokC=0
+  foreach($tur in 1..2){
+    $yS=$null
+    foreach($d in 1..3){ try{ $yS=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istS -MaxTok 1800; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+    $tokG+=[int]$yS.girdi; $tokC+=[int]$yS.cikti
+    $sadeN=Coz $yS.metin
+    if(-not $sadeN -or -not $sadeN.dogru_sade){ $sadeN=$null; break }
+    $dusen=New-Object System.Collections.Generic.List[string]
+    foreach($k1 in (SadeKapi "$($sadeN.dogru_sade)")){ $dusen.Add("dogru_sade: $k1") }
+    if($sadeN.siklar_sade){ foreach($p in $sadeN.siklar_sade.PSObject.Properties){ foreach($k1 in (SadeKapi "$($p.Value)")){ $dusen.Add("siklar_sade.$($p.Name): $k1") } } }
+    if(-not $dusen.Count){ break }
+    if($tur -eq 1){ Write-Host "  SADE KAPI ($id): $($dusen -join '; ') -> tekrar" -ForegroundColor Yellow; $istS+="`n`nKAPI DÜŞTÜ: $($dusen -join '; '). Bu alanları olayın diliyle, kısaltmasız ve madde numarasız yeniden yaz. Yalnız JSON." }
+    else { Write-Host "  SADE KAPI DUSTU ($id), olduğu gibi kaydedildi: $($dusen -join '; ')" -ForegroundColor Red; $rapor.Add("SADE KAPI: $id") }
+  }
+  Write-Host ("  SADE TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
+  if(-not $sadeN){ $rapor.Add("SADE BOZUK: $id"); continue }
+  # kavram tanımı kaynak metninden mi? (5+ harfli kelimelerin en az %35'i kaynak metinde geçmeli; yoksa düşer)
+  $kMetinK=Katla2 $kMetinS; $kavramlar=@()
+  foreach($kv in @($sadeN.kavramlar)){ if(-not $kv -or -not $kv.ad -or -not $kv.tanim){ continue }
+    $kel=@([regex]::Matches((Katla2 "$($kv.tanim)"),'[a-z]{5,}') | ForEach-Object { $_.Value } | Select-Object -Unique)
+    $var=@($kel | Where-Object { $kMetinK.Contains($_) }).Count
+    if($kel.Count -and ($var/$kel.Count) -ge 0.35){ $kavramlar+=[pscustomobject]@{ ad="$($kv.ad)"; tanim="$($kv.tanim)"; kaynak="$($kv.kaynak)" } }
+    else { Write-Host "  KAVRAM DUSTU ($id): '$($kv.ad)' kaynak metninde karşılığı yok ($var/$($kel.Count))" -ForegroundColor DarkYellow }
+  }
+  $siklarSade=[ordered]@{}; if($sadeN.siklar_sade){ foreach($p in $sadeN.siklar_sade.PSObject.Properties){ if("$($p.Value)".Trim()){ $siklarSade[$p.Name]="$($p.Value)" } } }
+  $sadeObj=[pscustomobject]@{ dogru="$($sadeN.dogru_sade)"; sinav=(DilOnar "$($sadeN.sinav_dili)"); siklar=[pscustomobject]$siklarSade; kavramlar=$kavramlar; model='claude-haiku-4-5'; token="$tokG/$tokC"; tarih=(Get-Date -Format 'yyyy-MM-dd') }
+  $cvp | Add-Member -NotePropertyName sade -NotePropertyValue $sadeObj -Force
+  CacheYaz; Write-Host "  SADE OK $id · kavram $($kavramlar.Count)"
 }
 
 # --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
