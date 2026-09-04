@@ -1,5 +1,5 @@
 ﻿{
-    "olcum":  "2026-09-04 21:40",
+    "olcum":  "2026-09-04 21:56",
     "sinav":  "SGS",
     "kitapcik":  33,
     "soru":  3590,
@@ -18,7 +18,16 @@
                                               "sayi_artan_orani":  0.69,
                                               "yon_cift_orani":  1,
                                               "cumle_uzunluk_orani_medyan":  1.25,
-                                              "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                              "anahtarli_soru":  28,
+                                              "dogru_en_uzun_orani":  0.17,
+                                              "dogru_harf_dagilimi":  {
+                                                                          "A":  5,
+                                                                          "B":  6,
+                                                                          "C":  6,
+                                                                          "D":  4,
+                                                                          "E":  7
+                                                                      },
+                                              "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                               "ornek":  {
                                                             "sayi":  [
                                                                          {
@@ -118,7 +127,16 @@
                                     "sayi_artan_orani":  0.75,
                                     "yon_cift_orani":  0,
                                     "cumle_uzunluk_orani_medyan":  1.41,
-                                    "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                    "anahtarli_soru":  63,
+                                    "dogru_en_uzun_orani":  0.13,
+                                    "dogru_harf_dagilimi":  {
+                                                                "A":  14,
+                                                                "B":  14,
+                                                                "C":  13,
+                                                                "D":  10,
+                                                                "E":  12
+                                                            },
+                                    "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                     "ornek":  {
                                                   "sayi":  [
                                                                {
@@ -204,7 +222,16 @@
                                           "sayi_artan_orani":  0.81,
                                           "yon_cift_orani":  null,
                                           "cumle_uzunluk_orani_medyan":  1.6,
-                                          "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                          "anahtarli_soru":  22,
+                                          "dogru_en_uzun_orani":  0.24,
+                                          "dogru_harf_dagilimi":  {
+                                                                      "A":  2,
+                                                                      "B":  6,
+                                                                      "C":  5,
+                                                                      "D":  5,
+                                                                      "E":  4
+                                                                  },
+                                          "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                           "ornek":  {
                                                         "sayi":  [
                                                                      {
@@ -266,7 +293,21 @@
                                                   "sayi_artan_orani":  0.67,
                                                   "yon_cift_orani":  null,
                                                   "cumle_uzunluk_orani_medyan":  1.47,
-                                                  "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                                  "anahtarli_soru":  44,
+                                                  "dogru_en_uzun_orani":  0.2,
+                                                  "dogru_harf_dagilimi":  {
+                                                                              "A":  10,
+                                                                              "B":  5,
+                                                                              "C":  11,
+                                                                              "D":  8,
+                                                                              "E":  10
+                                                                          },
+                                                  "sayi_dogru_sira_dagilimi":  {
+                                                                                   "1. büyük":  1,
+                                                                                   "3. büyük":  5,
+                                                                                   "4. büyük":  3,
+                                                                                   "5. büyük":  5
+                                                                               },
                                                   "ornek":  {
                                                                 "sayi":  [
                                                                              {
@@ -328,7 +369,16 @@
                                                "sayi_artan_orani":  0.67,
                                                "yon_cift_orani":  null,
                                                "cumle_uzunluk_orani_medyan":  1.55,
-                                               "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                               "anahtarli_soru":  28,
+                                               "dogru_en_uzun_orani":  0,
+                                               "dogru_harf_dagilimi":  {
+                                                                           "A":  6,
+                                                                           "B":  10,
+                                                                           "C":  7,
+                                                                           "D":  2,
+                                                                           "E":  3
+                                                                       },
+                                               "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                                "ornek":  {
                                                              "sayi":  [
                                                                           {
@@ -390,7 +440,14 @@
                                                   "sayi_artan_orani":  0.83,
                                                   "yon_cift_orani":  null,
                                                   "cumle_uzunluk_orani_medyan":  1.29,
-                                                  "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                                  "anahtarli_soru":  4,
+                                                  "dogru_en_uzun_orani":  "ölçülmedi (anahtarlı cümle sorusu \u003c5)",
+                                                  "dogru_harf_dagilimi":  {
+                                                                              "A":  2,
+                                                                              "B":  1,
+                                                                              "C":  1
+                                                                          },
+                                                  "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                                   "ornek":  {
                                                                 "sayi":  [
                                                                              {
@@ -452,7 +509,16 @@
                                     "sayi_artan_orani":  0.58,
                                     "yon_cift_orani":  null,
                                     "cumle_uzunluk_orani_medyan":  1.14,
-                                    "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                    "anahtarli_soru":  22,
+                                    "dogru_en_uzun_orani":  0.05,
+                                    "dogru_harf_dagilimi":  {
+                                                                "A":  2,
+                                                                "B":  6,
+                                                                "C":  4,
+                                                                "D":  4,
+                                                                "E":  6
+                                                            },
+                                    "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                     "ornek":  {
                                                   "sayi":  [
                                                                {
@@ -514,7 +580,16 @@
                                    "sayi_artan_orani":  1,
                                    "yon_cift_orani":  null,
                                    "cumle_uzunluk_orani_medyan":  1.5,
-                                   "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                   "anahtarli_soru":  20,
+                                   "dogru_en_uzun_orani":  0.06,
+                                   "dogru_harf_dagilimi":  {
+                                                               "A":  4,
+                                                               "B":  5,
+                                                               "C":  3,
+                                                               "D":  5,
+                                                               "E":  3
+                                                           },
+                                   "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                    "ornek":  {
                                                  "sayi":  [
                                                               {
@@ -577,7 +652,10 @@
                                                "sayi_artan_orani":  0.78,
                                                "yon_cift_orani":  0.6,
                                                "cumle_uzunluk_orani_medyan":  1.25,
-                                               "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                               "anahtarli_soru":  0,
+                                               "dogru_en_uzun_orani":  "ölçülmedi (anahtarlı cümle sorusu \u003c5)",
+                                               "dogru_harf_dagilimi":  "ölçülmedi",
+                                               "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                                "ornek":  {
                                                              "sayi":  [
                                                                           {
@@ -662,7 +740,16 @@
                                          "sayi_artan_orani":  null,
                                          "yon_cift_orani":  null,
                                          "cumle_uzunluk_orani_medyan":  1.45,
-                                         "dogru_en_uzun_mu":  "ölçülmedi (cevap anahtarı yok)",
+                                         "anahtarli_soru":  19,
+                                         "dogru_en_uzun_orani":  0.11,
+                                         "dogru_harf_dagilimi":  {
+                                                                     "A":  5,
+                                                                     "B":  2,
+                                                                     "C":  5,
+                                                                     "D":  5,
+                                                                     "E":  2
+                                                                 },
+                                         "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                          "ornek":  {
                                                        "cumle":  [
                                                                      {

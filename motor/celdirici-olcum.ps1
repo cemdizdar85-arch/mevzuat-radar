@@ -43,9 +43,16 @@ function SikTip([string[]]$sik){
   if($hesap -ge 3){ return 'hesap' }
   return 'cumle'
 }
+# --- CEVAP ANAHTARI (varsa) ---------------------------------------------------
+$ANAHTAR=@{}
+$anYol=Join-Path $kok ("veri\"+$Sinav.ToLowerInvariant()+"-cevap-anahtari.json")
+# DİKKAT: burada '$h' YAZILMAZ — PS harf ayırmaz, REST başlık sözlüğü $H ezilir ve her istek 401 döner (04.09'da oldu)
+if(Test-Path $anYol){ try{ $aj=Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($p in $aj.donemler.PSObject.Properties){ $anahtarHarf=@{}; foreach($q in $p.Value.a.PSObject.Properties){ $anahtarHarf[$q.Name]="$($q.Value)" }; $ANAHTAR[$p.Name]=$anahtarHarf } }catch{ $ANAHTAR=@{} } }
+Write-Host "cevap anahtarı: $($ANAHTAR.Count) dönem"
 # --- KİTAPÇIKLAR --------------------------------------------------------------
 $u1=$SB+'?select=kaynak_ad&kaynak_ad=ilike.'+[uri]::EscapeDataString("CIKMIS SINAV - $Sinav 20%")+"&limit=$KitapcikTavan&order=kaynak_ad.desc"
-$adlar=@((Invoke-RestMethod -Uri $u1 -Headers $H -TimeoutSec 120) | ForEach-Object { "$($_.kaynak_ad)" } | Where-Object { $_ -and $_ -notmatch '(?i)yabanci dil|ingilizce|cevap' })
+$adlar=@(); foreach($d in 1..3){ try{ $adlar=@((Invoke-RestMethod -Uri $u1 -Headers $H -TimeoutSec 120) | ForEach-Object { "$($_.kaynak_ad)" } | Where-Object { $_ -and $_ -notmatch '(?i)yabanci dil|ingilizce|cevap' }); break }catch{ Write-Host "  liste çekilemedi ($d/3): $($_.Exception.Message)"; Start-Sleep -Seconds (10*$d) } }
+if(-not $adlar.Count){ Write-Host 'KÖR: kitapçık listesi çekilemedi, dosyaya dokunulmadı.'; exit 0 }
 Write-Host "kitapçık: $($adlar.Count)"
 $kayit=New-Object System.Collections.Generic.List[object]
 foreach($ad in $adlar){
@@ -64,7 +71,15 @@ foreach($ad in $adlar){
     $artan=$false; if($sayilar.Count -ge 4){ $artan=$true; for($q=1;$q -lt $sayilar.Count;$q++){ if($sayilar[$q] -lt $sayilar[$q-1]){ $artan=$false; break } } }
     $ciftYon=0; if($tip -eq 'sayi+yon'){ $g=@{}; foreach($s in $sik){ $v=Sayi $s; if($null -eq $v){ continue }; $y=if($s -match '(?i)\b(olumlu|lehte|fazla)'){ '+' } else { '-' }; if(-not $g.ContainsKey($v)){ $g[$v]=@{} }; $g[$v][$y]=1 }; $ciftYon=@($g.Keys | Where-Object { $g[$_].Count -ge 2 }).Count }
     $uz=@($sik | ForEach-Object { $_.Length } | Sort-Object); $medyan=$uz[[int]($uz.Count/2)]; $oran=if($medyan -gt 0){ [math]::Round($uz[-1]/[double]$medyan,2) } else { 0 }
-    $kayit.Add([pscustomobject]@{ kitapcik=$ad; ders=$ders; tip=$tip; sayiN=$sayilar.Count; tekil=$tekil; artan=$artan; ciftYon=$ciftYon; uzOran=$oran; sik=$sik; govde=$govde.Substring([math]::Max(0,$govde.Length-160)) })
+    # 04.09 cevap anahtarı (veri/sgs-cevap-anahtari.json, 14 dönem kitapçık içinden): doğru harf → "doğru en uzun mu",
+    # "doğru kaçıncı büyük", harf dağılımı. Anahtarı olmayan dönemde alanlar boş kalır (ölçülmedi).
+    $no=0; [void][int]::TryParse($parca[$i],[ref]$no); $dnm=[regex]::Match($ad,'(\d{4})/(\d)').Value
+    $dogru=''; if($ANAHTAR -and $dnm -and $ANAHTAR.ContainsKey($dnm) -and $ANAHTAR[$dnm].ContainsKey("$no")){ $dogru=$ANAHTAR[$dnm]["$no"] }
+    $dogruIdx=@('A','B','C','D','E').IndexOf($dogru)
+    $dogruEnUzun=$null; $dogruSira=$null
+    if($dogruIdx -ge 0){ $uzl=@($sik | ForEach-Object { $_.Length }); $dogruEnUzun=($uzl[$dogruIdx] -eq ($uzl | Measure-Object -Maximum).Maximum -and $medyan -gt 0 -and $uzl[$dogruIdx] -ge 1.3*$medyan)
+      if($sayilar.Count -eq 5){ $sirali=@($sayilar | Sort-Object); $dogruSira=[array]::IndexOf($sirali,$sayilar[$dogruIdx])+1 } }
+    $kayit.Add([pscustomobject]@{ kitapcik=$ad; no=$no; ders=$ders; tip=$tip; sayiN=$sayilar.Count; tekil=$tekil; artan=$artan; ciftYon=$ciftYon; uzOran=$oran; dogru=$dogru; dogruEnUzun=$dogruEnUzun; dogruSira=$dogruSira; sik=$sik; govde=$govde.Substring([math]::Max(0,$govde.Length-160)) })
   }
   Write-Host "  $ad -> toplam $($kayit.Count)"
 }
@@ -81,7 +96,10 @@ foreach($g in ($kayit | Where-Object { $_.ders -ne 'belirsiz' } | Group-Object d
     sayi_artan_orani=$(if($sayi.Count){ [math]::Round((@($sayi | Where-Object { $_.artan }).Count/[double]$sayi.Count),2) } else { $null })
     yon_cift_orani=$(if($yon.Count){ [math]::Round((@($yon | Where-Object { $_.ciftYon -ge 2 }).Count/[double]$yon.Count),2) } else { $null })
     cumle_uzunluk_orani_medyan=$(if($cum.Count){ $u=@($cum | ForEach-Object { $_.uzOran } | Sort-Object); $u[[int]($u.Count/2)] } else { $null })
-    dogru_en_uzun_mu='ölçülmedi (cevap anahtarı yok)'
+    anahtarli_soru=@($g.Group | Where-Object { $_.dogru }).Count
+    dogru_en_uzun_orani=$(if(@($cum | Where-Object { $_.dogru }).Count -ge 5){ $c2=@($cum | Where-Object { $_.dogru }); [math]::Round((@($c2 | Where-Object { $_.dogruEnUzun }).Count/[double]$c2.Count),2) } else { 'ölçülmedi (anahtarlı cümle sorusu <5)' })
+    dogru_harf_dagilimi=$(if(@($g.Group | Where-Object { $_.dogru }).Count){ $hd=[ordered]@{}; foreach($hg in ($g.Group | Where-Object { $_.dogru } | Group-Object dogru | Sort-Object Name)){ $hd[$hg.Name]=$hg.Count }; $hd } else { 'ölçülmedi' })
+    sayi_dogru_sira_dagilimi=$(if(@($sayi | Where-Object { $_.dogruSira }).Count -ge 5){ $sd=[ordered]@{}; foreach($sg in ($sayi | Where-Object { $_.dogruSira } | Group-Object dogruSira | Sort-Object { [int]$_.Name })){ $sd["$($sg.Name). büyük"]=$sg.Count }; $sd } else { 'ölçülmedi (anahtarlı sayı sorusu <5)' })
     ornek=$ornek
   }
 }
@@ -94,7 +112,8 @@ $md=New-Object System.Text.StringBuilder
 [void]$md.AppendLine("# ÇELDİRİCİ KALIBI — $Sinav ($($cikti.olcum)) · $($adlar.Count) kitapçık · $($kayit.Count) soru")
 [void]$md.AppendLine(""); [void]$md.AppendLine("| Ders | Soru | sayı | sayı+yön | hesap | cümle | sayı: hepsi farklı | sayı: artan sıralı | yön: çift tutar | cümle: en uzun/medyan |"); [void]$md.AppendLine("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
 foreach($d in $dersler.Keys){ $x=$dersler[$d]; $t=$x.tip; [void]$md.AppendLine("| $d | $($x.soru) | $($t['sayi']) | $($t['sayi+yon']) | $($t['hesap']) | $($t['cumle']) | $($x.sayi_tekil_orani) | $($x.sayi_artan_orani) | $($x.yon_cift_orani) | $($x.cumle_uzunluk_orani_medyan) |") }
-[void]$md.AppendLine(""); [void]$md.AppendLine("Doğru şık en uzun mu: ölçülmedi (kitapçıklarda cevap anahtarı yok).")
+[void]$md.AppendLine(""); [void]$md.AppendLine("## Cevap anahtarıyla ölçülenler ($($ANAHTAR.Count) dönem anahtarlı)"); [void]$md.AppendLine(""); [void]$md.AppendLine("| Ders | Anahtarlı soru | Doğru şık en uzun (cümle) | Doğru harf dağılımı | Sayı şıklarında doğru kaçıncı büyük |"); [void]$md.AppendLine("|---|---:|---:|---|---|")
+foreach($d in $dersler.Keys){ $x=$dersler[$d]; $hd=$(if($x.dogru_harf_dagilimi -is [string]){ $x.dogru_harf_dagilimi } else { (@($x.dogru_harf_dagilimi.Keys | ForEach-Object { "$_ $($x.dogru_harf_dagilimi[$_])" }) -join ' · ') }); $sd=$(if($x.sayi_dogru_sira_dagilimi -is [string]){ $x.sayi_dogru_sira_dagilimi } else { (@($x.sayi_dogru_sira_dagilimi.Keys | ForEach-Object { "$_ $($x.sayi_dogru_sira_dagilimi[$_])" }) -join ' · ') }); [void]$md.AppendLine("| $d | $($x.anahtarli_soru) | $($x.dogru_en_uzun_orani) | $hd | $sd |") }
 foreach($d in $dersler.Keys){ [void]$md.AppendLine(""); [void]$md.AppendLine("## $d — örnekler"); foreach($t in $dersler[$d].ornek.Keys){ foreach($o in $dersler[$d].ornek[$t]){ [void]$md.AppendLine("- **[$t]** $($o.kitapcik): …$(($o.govde_sonu -replace '\s+',' '))  "); [void]$md.AppendLine("  " + (($o.siklar | ForEach-Object { $_ }) -join ' · ')) } } }
 [IO.File]::WriteAllText((Join-Path $kok ("veri\CELDIRICI-KALIBI-"+$Sinav.ToUpperInvariant()+".md")),$md.ToString(),[Text.UTF8Encoding]::new($false))
 Write-Host ("çeldirici ölçümü: {0} kitapçık · {1} soru · {2} ders" -f $adlar.Count,$kayit.Count,$dersler.Count)

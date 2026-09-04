@@ -1,4 +1,4 @@
-# ÇELDİRİCİ KALIBI — SGS (2026-09-04 21:40) · 33 kitapçık · 3590 soru
+# ÇELDİRİCİ KALIBI — SGS (2026-09-04 21:56) · 33 kitapçık · 3590 soru
 
 | Ders | Soru | sayı | sayı+yön | hesap | cümle | sayı: hepsi farklı | sayı: artan sıralı | yön: çift tutar | cümle: en uzun/medyan |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -13,7 +13,20 @@
 | Maliyet Muhasebesi | 66 | 27 | 5 |  | 34 | 1 | 0.78 | 0.6 | 1.25 |
 | Vergi Hukuku | 44 |  |  |  | 44 |  |  |  | 1.45 |
 
-Doğru şık en uzun mu: ölçülmedi (kitapçıklarda cevap anahtarı yok).
+## Cevap anahtarıyla ölçülenler (14 dönem anahtarlı)
+
+| Ders | Anahtarlı soru | Doğru şık en uzun (cümle) | Doğru harf dağılımı | Sayı şıklarında doğru kaçıncı büyük |
+|---|---:|---:|---|---|
+| Finansal Muhasebe | 28 | 0.17 | A 5 · B 6 · C 6 · D 4 · E 7 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Denetim | 63 | 0.13 | A 14 · B 14 · C 13 · D 10 · E 12 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Meslek Hukuku | 22 | 0.24 | A 2 · B 6 · C 5 · D 5 · E 4 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Is ve Sosyal Guvenlik | 44 | 0.2 | A 10 · B 5 · C 11 · D 8 · E 10 | 1. büyük 1 · 3. büyük 5 · 4. büyük 3 · 5. büyük 5 |
+| Ticaret ve Borclar | 28 | 0 | A 6 · B 10 · C 7 · D 2 · E 3 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Mali Tablolar Analizi | 4 | ölçülmedi (anahtarlı cümle sorusu <5) | A 2 · B 1 · C 1 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Ekonomi | 22 | 0.05 | A 2 · B 6 · C 4 · D 4 · E 6 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Maliye | 20 | 0.06 | A 4 · B 5 · C 3 · D 5 · E 3 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Maliyet Muhasebesi | 0 | ölçülmedi (anahtarlı cümle sorusu <5) | ölçülmedi | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Vergi Hukuku | 19 | 0.11 | A 5 · B 2 · C 5 · D 5 · E 2 | ölçülmedi (anahtarlı sayı sorusu <5) |
 
 ## Finansal Muhasebe — örnekler
 - **[sayi]** CIKMIS SINAV - SGS 2015/3 (sgs_2015_3_lisans_a): …cesi %10 ve dönem sonu yarı mamul stoklarının tamamlanma derecesi %30’dur. Bu bilgilere göre, direkt ilk madde ve malzeme açısından eşdeğer birim sayısı kaçtır?  
