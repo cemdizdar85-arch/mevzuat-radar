@@ -99,8 +99,10 @@
 /* --- tanıtım satırı (04.09) ---------------------------------------
    Slogan ne sattığını söylemiyordu; bu satır kimin için + ne yapar der.
    Nabız/animasyon YOK (eyebrow'daki yanıp sönen nokta kurumsal değil). */
-.hero-ust{font-size:12.5px;font-weight:700;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--dim);margin:0 0 16px}
+.hero-ust{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;
+  letter-spacing:.3px;color:var(--muted);margin:0 0 20px}
+.hero-nokta{display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:var(--marka-lamba-1);flex:none}
 
 /* --- kanıt şeridi (04.09) ------------------------------------------ */
 .kanit{display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px;
@@ -118,43 +120,85 @@
    gizlenir). Mobil kalıbı masaüstünde "uygulama artığı" görünüyordu.
    Telefonda kalır: orada üst menü yok, tek kapı bu düğme. */
 @media(min-width:641px){#mrxFab{display:none}}
-.hero-sol h1{text-align:left;font-size:clamp(38px,5.6vw,76px);line-height:1.03;
-  letter-spacing:-1.4px;margin:0 0 14px;max-width:12ch}
-.hero-sol .sade-alt{text-align:left;font-size:clamp(15px,1.4vw,18px);
-  max-width:42ch;margin:0 0 20px}
-.hero-cta{display:inline-block;font-size:15px;font-weight:700;color:var(--accent);
-  text-decoration:none}
-.hero-cta:hover{text-decoration:underline;text-underline-offset:3px}
+/* 04.09 "A YAP": başlık SANS ve ürün cümlesi. stil-acik.css h1'i serife
+   çeviriyor (global); ilk ekranda kurumsal SaaS kalıbı sans ister.
+   Serif, sayfanın geri kalanında (kapı başlıkları, bölümler) duruyor. */
+.hero-sol h1{text-align:left;font-family:-apple-system,"Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  font-size:clamp(36px,4.5vw,62px);line-height:1.05;font-weight:800;
+  letter-spacing:-1.8px;margin:0 0 18px;max-width:none;text-wrap:balance}
+.hero-sol .sade-alt{text-align:left;font-size:clamp(15px,1.4vw,18.5px);line-height:1.55;
+  max-width:52ch;margin:0 0 24px}
 
-/* --- nöbet defteri ------------------------------------------------ */
-.nd{border:1px solid var(--line);border-radius:14px;background:var(--panel);
+/* iki çağrı: birincil koyu, ikincil çerçeveli */
+.hero-cta-grup{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hero-btn{display:inline-block;font-size:15.5px;font-weight:700;padding:14px 24px;
+  border-radius:10px;text-decoration:none;color:var(--bg);background:var(--ink);
+  border:1px solid var(--ink);transition:transform .16s,filter .16s}
+.hero-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.hero-btn-ikincil{color:var(--ink);background:transparent;border-color:var(--line2)}
+.hero-btn-ikincil:hover{border-color:var(--muted);filter:none}
+
+/* okunan kaynaklar: metin rozet (logo değil) */
+.hero-kaynak{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:24px;
+  font-size:12.5px;color:var(--dim)}
+.hk-et{font-weight:600;color:var(--muted);margin-right:4px}
+.hk{padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);
+  color:var(--muted);white-space:nowrap}
+
+/* --- nöbet paneli (04.09 "A": tablo değil ÜRÜN EKRANI) -------------
+   Eski kutu iki bloklu bir tabloydu (SINAV / MEVZUAT başlıkları, ad-sayı
+   satırları). Kurumsal kalıpta sağ sütun ürünün kendisi gibi durur:
+   durum ışıklı başlık şeridi, simgeli satırlar, her satırda bir alt
+   açıklama, sağda büyük sayı. Kimlikler ve betik aynı. */
+.nd{border:1px solid var(--line);border-radius:16px;background:var(--panel);
   box-shadow:var(--shadow);overflow:hidden}
-.nd-ust{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
-  padding:13px 16px;border-bottom:1px solid var(--line);background:var(--bg2)}
-.nd-ust b{font-size:12px;font-weight:800;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--ink)}
-.nd-ust span{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-
-.nd-blok{padding:11px 16px 13px}
-.nd-blok + .nd-blok{border-top:1px solid var(--line)}
-.nd-baslik{font-size:10.5px;font-weight:700;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.nd-ust{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:14px 20px;border-bottom:1px solid var(--line);background:var(--bg2)}
+.nd-ust b{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;
+  color:var(--ink)}
+.nd-isik{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none;
+  background:var(--green);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 18%,transparent)}
+.nd-ust > span{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
 
 /* satır bir BAĞLANTI: her nöbet kalemi kendi aracına gider */
-.nd-satir{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-  padding:7px 0;text-decoration:none;border-bottom:1px solid var(--line2);
-  transition:padding-left .14s}
-.nd-satir:last-child{border-bottom:0}
-.nd-satir:hover{padding-left:5px}
-.nd-ne{font-size:13.5px;color:var(--muted)}
-.nd-satir:hover .nd-ne{color:var(--ink)}
-.nd-kac{font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap;
-  font-variant-numeric:tabular-nums}
+.nd-satir{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;
+  gap:14px;padding:15px 20px;text-decoration:none;border-bottom:1px solid var(--line);
+  transition:background .14s}
+.nd-satir:hover{background:var(--bg2)}
+.nd-ikon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 11%,transparent)}
+.nd-ikon svg{width:21px;height:21px}
+.nd-metin{display:flex;flex-direction:column;gap:2px;min-width:0}
+.nd-metin b{font-size:14.5px;font-weight:700;color:var(--ink)}
+.nd-metin small{font-size:12.5px;color:var(--dim);line-height:1.35}
+.nd-kac{font-size:20px;font-weight:800;color:var(--ink);white-space:nowrap;
+  letter-spacing:-.4px;font-variant-numeric:tabular-nums}
 .nd-satir:hover .nd-kac{color:var(--accent)}
 
-.nd-dip{font-size:11px;color:var(--dim);padding:0 16px 12px;line-height:1.5}
+.nd-dip{font-size:11.5px;color:var(--dim);padding:12px 20px;line-height:1.5;
+  background:var(--bg2)}
 /* bayat veri nöbetçisi: kutu kendi verisi eskiyse bunu SÖYLER */
 .nd-dip.nd-bayat{color:var(--red);font-weight:600}
+/* bayatken üstteki ışık da kırmızıya döner (betik ndDip'e sınıf verir,
+   :has ile ışık onu izler; :has bilmeyen tarayıcıda yalnız dip kırmızı) */
+.nd:has(.nd-bayat) .nd-isik{background:var(--red);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 18%,transparent)}
+
+/* --- nasıl çalışır (04.09, A) -------------------------------------- */
+.nasil{margin-top:44px;padding-top:34px;border-top:1px solid var(--line);text-align:left}
+.nasil-bas{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.nasil-et{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--dim)}
+.nasil h2{margin:0;font-family:inherit;font-size:clamp(22px,2.4vw,30px);font-weight:800;
+  letter-spacing:-.8px;color:var(--ink)}
+.nasil-adimlar{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+.na{display:flex;flex-direction:column;gap:8px;padding:18px 0 22px;border-top:1px solid var(--line)}
+.na-no{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:13px;font-weight:800;color:var(--bg);background:var(--ink)}
+.na b{font-size:17px;font-weight:700;color:var(--ink);margin-top:4px}
+.na p{margin:0;font-size:14px;line-height:1.55;color:var(--muted)}
 
 /* --- GTİP araması kendi satırında --------------------------------- */
 .gtip-satir{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);
@@ -166,6 +210,9 @@
   .hero-2{grid-template-columns:1fr;gap:26px}
   .hero-sol h1{max-width:none}
   .hero-sol .sade-alt{max-width:none}
+  .nasil-adimlar{grid-template-columns:1fr;gap:0}
+  .nd-satir{padding:13px 16px}
+  .nd-kac{font-size:17px}
   .hero-sade .sade-ic{padding-top:96px}
   /* Dokunma alanı: nöbet satırları telefonda parmakla açılacak.
      31.08'de iki kez (konu başlıkları, kitle anahtarı) 44 px'in altında

@@ -526,54 +526,62 @@ window.veriAl = (function(){
          alanlar, ikisi de 0 çünkü henüz izlenen firma yok). Sayısı
          olmayan satır YAZILMAZ; robota eklenince gelir.
     ================================================================= -->
+    <!-- ============ 04.09.2026 · "A YAP" — KURUMSAL SaaS İLK EKRANI =========
+         Cem: "siteye giren 'profesyonel bunlar' demeli, şu an demiyor."
+         Üç yön çizildi (A kurumsal SaaS · B ürün önde · C editoryal),
+         Cem A'yı seçti. Eksen: Wolters Kluwer / Ramp / Fonoa kalıbı.
+           · Slogan yerine NE YAPTIĞIMIZI söyleyen sans başlık.
+           · İki çağrı: birincil koyu düğme + "Nasıl çalışır" (#nasil).
+           · Okunan kaynaklar satırı: metin rozet (logo izin ister, metin
+             aynı güveni verir).
+           · Sağda TABLO değil ürün ekranı: simgeli satırlar, alt açıklama.
+             Kimlikler (ndRg, ndIhale, ndSgs, ndYet, ndTarih, ndSaat,
+             ndNeZaman, ndDip) KORUNDU - aşağıdaki betik aynı.
+         "Tetikte olan kaçırmaz." silinmedi: og:title ve sekme başlığında
+         slogan olarak yaşıyor; ilk ekranda ürün cümlesi konuşuyor. -->
     <div class="hero-2">
       <div class="hero-sol">
-        <!-- 04.09 Cem: "kurumsal firmanın açılışı böyle olmamalı". Ölçülen
-             kusur: slogan ne sattığını söylemiyordu; ilk gelen üç saniyede
-             "bu ne?" bilmiyordu. Slogan kalır, üstüne bir tanıtım satırı:
-             kimin için + ne yapar. Unvan kuralı: "mali müşavir/SMMM" yazılmaz. -->
-        <div class="hero-ust">Sınav adayları ve büro sahipleri için mevzuat ve sınav nöbeti</div>
-        <h1><span class="g">Tetikte</span> olan kaçırmaz.</h1>
-        <p class="sade-alt">Sınavda tuzak var, mevzuatta süre.
-          <b>İkisini de kaynağıyla önüne koyarız</b> — her sabah.</p>
-        <a class="hero-cta" href="radar.html">Bugün ne çıktı, gör →</a>
+        <div class="hero-ust"><i class="hero-nokta" aria-hidden="true"></i>Mevzuat ve sınav takibi · sınav adayları ve büro sahipleri için</div>
+        <h1>Mevzuatı ve sınavı senin yerine izleyen sistem.</h1>
+        <p class="sade-alt">Her sabah Resmî Gazete, ihale ilanları ve sınav takvimi okunur. Seni bağlayan ne varsa kaynağıyla önüne gelir; sınavda yanlışını gerekçesiyle öğrenirsin.</p>
+        <div class="hero-cta-grup">
+          <a class="hero-btn" href="karne.html">Ücretsiz başla</a>
+          <a class="hero-btn hero-btn-ikincil" href="#nasil">Nasıl çalışır →</a>
+        </div>
+        <div class="hero-kaynak" aria-label="Okunan kaynaklar">
+          <span class="hk-et">Okunan kaynaklar</span>
+          <span class="hk">Resmî Gazete</span>
+          <span class="hk">TÜRMOB sınav takvimi</span>
+          <span class="hk">KGK standartları</span>
+          <span class="hk">EKAP ihale ilanları</span>
+          <span class="hk">Marka bülteni</span>
+          <span class="hk">Gümrük Tarife Cetveli</span>
+        </div>
       </div>
 
       <div class="hero-sag">
         <div class="nd">
           <div class="nd-ust">
-            <b>Nöbet defteri</b>
+            <b><i class="nd-isik" aria-hidden="true"></i><span id="ndNeZaman">Son koşu</span> <span id="ndSaat">07:03</span> · nöbet tutuldu</b>
             <span id="ndTarih">31.08.2026</span>
           </div>
 
-          <div class="nd-blok">
-            <div class="nd-baslik">Sınav</div>
-            <a class="nd-satir" href="genc.html">
-              <span class="nd-ne">Staja Giriş'e</span>
-              <span class="nd-kac" id="ndSgs">82 gün</span></a>
-            <a class="nd-satir" href="genc.html">
-              <span class="nd-ne">Yeterlilik'e</span>
-              <span class="nd-kac" id="ndYet">89 gün</span></a>
-            <a class="nd-satir" href="genc.html">
-              <span class="nd-ne">Başvuru penceresi</span>
-              <span class="nd-kac">21 Eylül'de açılıyor</span></a>
-            <a class="nd-satir" href="canli-deneme.html">
-              <span class="nd-ne">Canlı deneme</span>
-              <span class="nd-kac">27.09 · kayıt açık</span></a>
-          </div>
-
-          <div class="nd-blok">
-            <!-- 04.09: "bu sabah" SABİTTİ; gece yarısından sonra kutu hem
-                 "bu sabah 05:39" hem "1 gün önce" diyordu. Etiket artık
-                 damganın tarihine bağlı (bu sabah / bugün / dün / tarih). -->
-            <div class="nd-baslik">Mevzuat · <span id="ndNeZaman">son koşu</span> <span id="ndSaat">07:03</span></div>
-            <a class="nd-satir" href="kartlar.html">
-              <span class="nd-ne">Resmî Gazete okundu</span>
-              <span class="nd-kac" id="ndRg">3 değişiklik</span></a>
-            <a class="nd-satir" href="ihale-radari.html">
-              <span class="nd-ne">İhale ilanları süzüldü</span>
-              <span class="nd-kac" id="ndIhale">250 ilan</span></a>
-          </div>
+          <a class="nd-satir" href="kartlar.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9 13h8M9 17h8"/></svg></span>
+            <span class="nd-metin"><b>Resmî Gazete okundu</b><small>Seni bağlayan değişiklikler, madde numarasıyla</small></span>
+            <span class="nd-kac" id="ndRg">3 değişiklik</span></a>
+          <a class="nd-satir" href="ihale-radari.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 10v10h14V10"/><path d="M12 3l9 7H3z"/></svg></span>
+            <span class="nd-metin"><b>İhale ilanları süzüldü</b><small>Sektörüne uyanlar ayrıldı, gerisi elendi</small></span>
+            <span class="nd-kac" id="ndIhale">250 ilan</span></a>
+          <a class="nd-satir" href="genc.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+            <span class="nd-metin"><b>Staja Giriş sınavına</b><small>Başvuru penceresi 21 Eylül'de açılıyor</small></span>
+            <span class="nd-kac" id="ndSgs">82 gün</span></a>
+          <a class="nd-satir" href="canli-deneme.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <span class="nd-metin"><b>Yeterlilik sınavına</b><small>Canlı deneme 27.09 · kayıt açık</small></span>
+            <span class="nd-kac" id="ndYet">89 gün</span></a>
 
           <div class="nd-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
         </div>
@@ -627,6 +635,23 @@ window.veriAl = (function(){
         <span class="sk-git">Yükümlülüklerini gör →</span>
       </a>
     </div>
+
+    <!-- ============ NASIL ÇALIŞIR (04.09, A kurgusunun parçası) ============
+         Kurumsal kalıp ilk ekranın altında üç adım ister; "Nasıl çalışır →"
+         çağrısının hedefi burası. İddialar ölçülü: RG, ihale ve marka
+         robotları her sabah koşuyor (uyari-ozet / kaynak nöbetçisi /
+         marka-bulten.yml 05:40); sınav takvimi canli-deneme.json'dan. -->
+    <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
+      <div class="nasil-bas">
+        <span class="nasil-et">Nasıl çalışır</span>
+        <h2>Üç adım, her sabah.</h2>
+      </div>
+      <div class="nasil-adimlar">
+        <div class="na"><span class="na-no">1</span><b>Okur</b><p>Resmî Gazete, ihale ilanları, marka bültenleri ve sınav takvimi her sabah robotla okunur; saat damgası kutuda durur.</p></div>
+        <div class="na"><span class="na-no">2</span><b>Süzer</b><p>Yalnız seni bağlayanlar kalır: sektörün, ilin, dersin. Gerisi elenir, gürültü gelmez.</p></div>
+        <div class="na"><span class="na-no">3</span><b>Kaynağıyla bildirir</b><p>Her uyarı madde numarasıyla, her soru şıkkının gerekçesiyle gelir. Söze değil kaynağa bakarsın.</p></div>
+      </div>
+    </section>
 
     <!-- ============ GTİP ARAMASI — KENDİ SATIRINA İNDİ ==================
          25.08'de hero'ya konmuştu ve gerekçesi doğruydu: "ürünü SAYFAYA
@@ -710,8 +735,8 @@ window.veriAl = (function(){
             var gunFark = Math.round((gunBas - kosuGun) / 86400000);
             var et = document.getElementById('ndNeZaman');
             if(et){
-              et.textContent = gunFark === 0 ? (kosu.getHours() < 12 ? 'bu sabah' : 'bugün')
-                             : gunFark === 1 ? 'dün'
+              et.textContent = gunFark === 0 ? (kosu.getHours() < 5 ? 'Bu gece' : kosu.getHours() < 12 ? 'Bu sabah' : 'Bugün')
+                             : gunFark === 1 ? 'Dün'
                              : p[0];
             }
             if(saatFark >= 30){
