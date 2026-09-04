@@ -67,6 +67,12 @@ $GOREVLER = @(
      betikler=@('gorev-kur.ps1 -yayinla') }
   @{ ad='MevzuatRadar-YerelIndirici'; saat='09:30'; sinir='PT2H'; pilKosma=$true;
      betikler=@('yerel-indirici.ps1') }
+  # 04.09 (Cem "1.3 yap"): TERIM OLCUMU — kanun dili ↔ sinav dili ciftleri cikmis kitapciklarda sayilir,
+  # veri/terim-ciftleri.json'a KARAR yazilir; uretici dil kapisi listeyi oradan okur (elle liste yok).
+  # Arsiv (veri/*-arsiv) gitignore'da, yalniz bu makinede -> CI'da kosamaz, burada kosar. Icerik
+  # degismezse dosyaya dokunmaz (RaporYaz). Depoya basma: uretici oturumu commit'ler.
+  @{ ad='MevzuatRadar-TerimOlcumu';    saat='08:10'; sinir='PT1H'; pilKosma=$true;
+     betikler=@('terim-olcum.ps1 -Sessiz') }
 )
 
 function EylemKur($g){

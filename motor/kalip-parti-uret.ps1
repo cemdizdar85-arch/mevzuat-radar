@@ -710,7 +710,9 @@ $script:DIL_DUZELTME=0
 # üretim gideri" 379; "DİMM" 5 / "direkt ilk madde" 311; "Dİ" 0 / "direkt işçilik" 316; "GÜG" 23 / 379. KGK ve SMMM aynı yönde.
 # Bire bir karşılığı olmayan çiftler (kıymet/değer, müessese/işletme, ücret/maaş, emtia/stok) BİLEREK dışarıda: "menkul kıymet" gibi
 # gerçek terimleri bozar. Tırnak içindeki KANUN ALINTISI dokunulmaz ("…genel idare giderlerinden mamule düşen hisse…").
-$DIL_TERIM=@(
+# 04.09 GM-3 (Cem "1.3 yap"): liste ARTIK ÖLÇÜMDEN okunur — veri/terim-ciftleri.json (motor/terim-olcum.ps1 yazar; yalnız
+# karar='kapi' olanlar). Dosya 30 günden eskiyse ve arşiv yerelde varsa ölçüm önce koşar (API yok). Dosya yoksa yedek liste.
+$DIL_TERIM_YEDEK=@(
   @('[Gg]enel\s+[İi]dare\s+[Gg]ider','genel yönetim gider'),
   @('[Gg]enel\s+[İi]mal(?:at)?\s+[Gg]ider','genel üretim gider'),
   @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])DİMM(?![A-Za-zÇĞİÖŞÜçğıöşü])','direkt ilk madde ve malzeme'),
@@ -718,6 +720,20 @@ $DIL_TERIM=@(
   @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])GİG(?![A-Za-zÇĞİÖŞÜçğıöşü])','genel üretim gideri'),   # SGS 65 kitapçıkta 0 (04.09 ölçüm)
   @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])Dİ(?![A-Za-zÇĞİÖŞÜçğıöşü])','direkt işçilik')
 )
+$DIL_TERIM=@()
+$terimDosya=Join-Path $kok 'veri\terim-ciftleri.json'
+try{
+  $bayat=$true
+  if(Test-Path $terimDosya){ $tj=Get-Content $terimDosya -Raw -Encoding UTF8 | ConvertFrom-Json; try{ $bayat=((Get-Date)-[datetime]::ParseExact("$($tj.olcum)",'yyyy-MM-dd HH:mm',$null)).TotalDays -gt 30 }catch{ $bayat=$true } }
+  if($bayat -and -not $SadeceHtml -and (Test-Path (Join-Path $kok 'veri\sgs-arsiv'))){
+    Write-Host "  terim ölçümü bayat/yok -> motor/terim-olcum.ps1 koşuyor (API yok)" -ForegroundColor DarkCyan
+    & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $here 'terim-olcum.ps1') -Sessiz | Out-Null
+    if(Test-Path $terimDosya){ $tj=Get-Content $terimDosya -Raw -Encoding UTF8 | ConvertFrom-Json }
+  }
+  if($tj -and $tj.ciftler){ foreach($c in @($tj.ciftler)){ if("$($c.karar)" -eq 'kapi' -and $c.desen_kanun -and $c.karsilik){ $DIL_TERIM+=,@("$($c.desen_kanun)","$($c.karsilik)") } } }
+}catch{ Write-Host "  terim dosyası okunamadı: $($_.Exception.Message)" -ForegroundColor Yellow }
+if(-not $DIL_TERIM.Count){ $DIL_TERIM=$DIL_TERIM_YEDEK; Write-Host "  terim katmanı: ölçüm dosyası yok, yedek liste ($($DIL_TERIM.Count) çift)" -ForegroundColor DarkGray }
+else { Write-Host "  terim katmanı: ölçümden $($DIL_TERIM.Count) çift" -ForegroundColor DarkGray }
 function TerimOnar([string]$t){
   # tırnak dışı parçalarda çalışır; eşleşme büyük harfle başlıyorsa karşılık Başlık Düzeninde yazılır
   $parcalar=$t -split '(["“”])'; $cikti=New-Object System.Text.StringBuilder; $icerde=$false

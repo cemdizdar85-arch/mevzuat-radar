@@ -1,10 +1,10 @@
 {
-    "olcum":  "2026-09-04T06:45:08",
+    "olcum":  "2026-09-04T11:19:29",
     "makine":  "GK",
     "kullanici":  "cemdi",
     "kok":  "C:\\Users\\cemdi\\OneDrive\\Masaüstü\\mevzuat işi\\mevzuat-radar",
     "esik_saat":  36,
-    "hukum":  "YESIL",
+    "hukum":  "KIRMIZI",
     "gorevler":  [
                      {
                          "ad":  "MevzuatRadar-YerelAyna",
@@ -13,7 +13,7 @@
                          "sebep":  "",
                          "son_kosu":  "2026-09-04T06:30:01",
                          "son_sonuc":  0,
-                         "gecikme_saat":  0.3,
+                         "gecikme_saat":  4.8,
                          "gorev_durumu":  "Ready",
                          "pilde_bekliyor":  false
                      },
@@ -21,11 +21,11 @@
                          "ad":  "MevzuatRadar-SurumTazeligi",
                          "beklenen_saat":  "06:45",
                          "durum":  "YESIL",
-                         "sebep":  "SU ANDA KOSUYOR",
+                         "sebep":  "",
                          "son_kosu":  "2026-09-04T06:45:01",
-                         "son_sonuc":  267009,
-                         "gecikme_saat":  0,
-                         "gorev_durumu":  "Running",
+                         "son_sonuc":  0,
+                         "gecikme_saat":  4.6,
+                         "gorev_durumu":  "Ready",
                          "pilde_bekliyor":  false
                      },
                      {
@@ -33,9 +33,20 @@
                          "beklenen_saat":  "09:30",
                          "durum":  "YESIL",
                          "sebep":  "",
-                         "son_kosu":  "2026-09-03T09:30:01",
+                         "son_kosu":  "2026-09-04T09:40:39",
                          "son_sonuc":  0,
-                         "gecikme_saat":  21.3,
+                         "gecikme_saat":  1.6,
+                         "gorev_durumu":  "Ready",
+                         "pilde_bekliyor":  false
+                     },
+                     {
+                         "ad":  "MevzuatRadar-TerimOlcumu",
+                         "beklenen_saat":  "08:10",
+                         "durum":  "KIRMIZI",
+                         "sebep":  "son kosu 234611,3 saat once (esik 36)",
+                         "son_kosu":  "1999-11-30T00:00:00",
+                         "son_sonuc":  267011,
+                         "gecikme_saat":  234611.3,
                          "gorev_durumu":  "Ready",
                          "pilde_bekliyor":  false
                      }
@@ -46,21 +57,28 @@
                         "kurulu":  true,
                         "beyanla_ayni":  true,
                         "farklar":  "",
-                        "yapilan":  "olculdu"
+                        "yapilan":  "degismedi"
                     },
                     {
                         "ad":  "MevzuatRadar-SurumTazeligi",
                         "kurulu":  true,
                         "beyanla_ayni":  true,
                         "farklar":  "",
-                        "yapilan":  "olculdu"
+                        "yapilan":  "degismedi"
                     },
                     {
                         "ad":  "MevzuatRadar-YerelIndirici",
                         "kurulu":  true,
                         "beyanla_ayni":  true,
                         "farklar":  "",
-                        "yapilan":  "olculdu"
+                        "yapilan":  "degismedi"
+                    },
+                    {
+                        "ad":  "MevzuatRadar-TerimOlcumu",
+                        "kurulu":  false,
+                        "beyanla_ayni":  false,
+                        "farklar":  "",
+                        "yapilan":  "kuruldu"
                     }
                 ],
     "not":  "Beyan motor/gorev-kur.ps1 icinde. Gorev dusseydi burasi KIRMIZI olur; CI nobetcisi (.github/workflows/gorev-nobeti.yml) bu dosyanin YASINA ve hukmune bakar."
