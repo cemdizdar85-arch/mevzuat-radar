@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260904115445
+Start time: 20260904132218
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/38a90ac3-95d9-4d93-ad9e-6ba46261d6cc.ps1'
-Process ID: 2279
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/978ba742-5f81-487b-8f83-e0dde42fcffc.ps1'
+Process ID: 2224
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -45,10 +45,18 @@ Taranan sayfa: 64
   uyari-teyit.html           1 dayanak
 
 Tekil (kanun, madde) cifti: 86 - ambarda araniyor...
-  ambarda BULUNAN : 85
-  BULUNAMAYAN     : 1
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  ambarda BULUNAN : 84
+  BULUNAMAYAN     : 2
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
+     193 m.1   [sorgu-hatasi]
      213 m.372   [ambarda-yok]
 
   NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
@@ -58,5 +66,5 @@ Tekil (kanun, madde) cifti: 86 - ambarda araniyor...
 -> veri/dayanak-haritasi.json  (25 sayfa, 86 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260904115514
+End time: 20260904132323
 **********************
