@@ -23,6 +23,7 @@ param(
   [switch]$Sade,           # 04.09 Cem "dogru kismini herkesin anlayacagi dilde": FAZ S (sade Dogrusu + anahtar kavram) - sade'si OLMAYAN sorulara; ayri onayli bedel
   [switch]$SadeYenile,     # 04.09: FAZ S eldeki sade'yi de yeniden yazar
   [int]$Adet=30,
+  [int]$UzunlukTavan=350,  # 04.09: ders bazlı soru uzunluğu tavanı (kr). FMuh medyan 317 → 350 (Cem 02.09). Maliyet medyan 551 → 600.
   [string]$Etiket='sgs-fmuh-30',
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
   # KAYIT-ODAKLI parti icin analiz/ileri-TMS konulari regex'le DISLANIR (dislanan
@@ -800,7 +801,7 @@ $kaynakBorcu=New-Object System.Collections.Generic.List[string]
 # Olculen SGS gercegi: Finansal Muhasebe medyan 317 kr, p90 504 kr,
 # tip dagilimi kayit %41 / hesaplama %26 / teori %18.
 # Cem karari: TAVAN 350 (medyanin hemen ustu - gercek sinavin ~%65'i bu bandin altinda).
-$UZUNLUK_TAVAN=350
+$UZUNLUK_TAVAN=$UzunlukTavan
 $KALIP_TIP=''
 $TIP_HEDEF=New-Object System.Collections.Generic.List[string]
 $TIP_TARIF=@{
