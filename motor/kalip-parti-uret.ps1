@@ -916,6 +916,7 @@ if(Test-Path $celYol){
       if($null -ne $cd.sayi_tekil_orani){ $sat.Add("Sayı şıklarında beş tutarın hepsi farklı: %$([int](100*$cd.sayi_tekil_orani)); küçükten büyüğe sıralı: %$([int](100*$cd.sayi_artan_orani)).") }
       if($null -ne $cd.yon_cift_orani){ $sat.Add("Tutar+yön sorularında en az iki tutar iki yönle: %$([int](100*$cd.yon_cift_orani)).") }
       if($null -ne $cd.cumle_uzunluk_orani_medyan){ $sat.Add("Cümle şıklarında en uzun şık / medyan: $($cd.cumle_uzunluk_orani_medyan) (şıklar birbirine yakın uzunlukta).") }
+      if($cd.PSObject.Properties['dogru_en_uzun_orani'] -and $cd.dogru_en_uzun_orani -isnot [string]){ $sat.Add("Cevap anahtarıyla ölçüldü: doğru şık en uzun şık olan soru payı yalnız %$([int](100*$cd.dogru_en_uzun_orani)); doğru harfler dengeli dağılır - en uzun şıkkı doğru yapma.") }
       foreach($t in @($cd.ornek.PSObject.Properties.Name)){ $o=@($cd.ornek.$t)[0]; if($o){ $sat.Add("Örnek [$t] ($($o.kitapcik -replace '^CIKMIS SINAV - ','')): " + ((@($o.siklar) | ForEach-Object { "$_" }) -join ' · ')) } }
       $SIK_KALIP=($sat -join ' ')
       "şık kalıbı [$cAd]: $($cd.soru) soru · $tipS"
