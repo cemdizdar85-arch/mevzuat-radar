@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260903170509
+Start time: 20260904033457
 Username: runnervmgx7h7\runner
 RunAs User: runnervmgx7h7\runner
 Configuration Name: 
 Machine: runnervmgx7h7 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1cb1c0ed-15ee-495b-bd56-9369f1f529bf.ps1'
-Process ID: 11252
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/29b8c784-2b51-4a5d-955e-709623fe13b4.ps1'
+Process ID: 11305
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -21,20 +21,11 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...10/172
   ...20/172
   ...30/172
-PS>TerminatingError(Invoke-WebRequest): "
-Service Unavailable
-
-Service Unavailable
-HTTP Error 503. The service is unavailable.
-
-"
   ...40/172
   ...50/172
   ...60/172
   ...70/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...80/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...90/172
   ...100/172
   ...110/172
@@ -44,17 +35,14 @@ PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the con
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 169
+  gercekten olculen (PDF geldi) : 172
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 3
-     13304 (Response status code does not indicate success: 503 (Service Unavailable).)
-     33765 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
-     34376 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+  inemeyen (istek dustu)        : 0
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 169 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20260903174233
+End time: 20260904041046
 **********************
