@@ -181,9 +181,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <script src="gtip-ara.js"></script>
 <script src="gtip-damping-oran.js"></script>
 <script>
-// E-POSTA (index.html ile aynı Web3Forms anahtarı)
-const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
-const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+// E-POSTA: kendi uç fonksiyonumuz form-al (radar-app/edge/form-al.ts) — 04.09 web3forms çıkarıldı
+const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
 // Gözetim verisinin hasat tarihi. 19.08.2026: eşleme tablosundaki 180 tebliğin
@@ -1173,7 +1172,6 @@ function takibeAl(){
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
   if(!document.getElementById('takipKvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
   const payload = {
-    access_key: EPOSTA_ANAHTAR,
     subject: 'GTİP takip kaydı, ' + SON_SORGU,
     from_name: 'Tetikte',
     email: mail,
@@ -1209,7 +1207,7 @@ document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Ente
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alındı. Aynı gün dönüş yapacağız.</div>
     <div style="font-size:11px;color:var(--dim);margin-top:11px">Talep gönderince iletişim için e-postanı kullanmamızı kabul edersin · <a href="kvkk.html" style="color:var(--muted)">KVKK aydınlatma</a></div>
   </div>
-  <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>
+  <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var ok=f.parentNode.querySelector(".mr-teklif-ok");function bitti(iyi){f.style.display="none";if(!ok)return;ok.style.display="block";if(!iyi){ok.style.color="var(--red)";ok.innerHTML="Talep şu an iletilemedi. Lütfen <a href=\"mailto:info@dizdardenetim.com\" style=\"color:inherit\">info@dizdardenetim.com</a> adresine yaz.";}}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){bitti(true);return false;}localStorage.setItem("mrTeklif",Date.now());fetch("https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({email:e,message:k,subject:"DANIŞMANLIK TALEBİ ("+location.pathname+")",from_name:"Tetikte Teklif"})}).then(function(r){bitti(r.ok);}).catch(function(){bitti(false);});return false;}</script>
 </div>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">

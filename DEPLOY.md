@@ -7,37 +7,24 @@ Toplam süre: ~20 dakika. İki hesap açman gerekecek (ikisi de ücretsiz): **Gi
 
 ---
 
-## ADIM 1 — E-posta formunu bağla (~5 dk, İKİ SEÇENEK)
+## ADIM 1 — E-posta formunu bağla (~10 dk, Supabase paneli)
 
-GitHub Pages "statik"tir; kendi başına e-posta gönderemez. Araya ücretsiz bir form
-servisi koyuyoruz: ziyaretçi e-posta bırakınca servis **sana** mail atar.
-İki seçenekten birini kullan — **A önerilir (üyelik yok).**
+> **04.09.2026 — Web3Forms/Formspree seçenekleri KALDIRILDI.** Cem'in kararı:
+> müşteri verisi tanımadığımız aracıdan geçmez. Formlar artık kendi uç
+> fonksiyonumuza gider: `radar-app/edge/form-al.ts` → Supabase `form_kayit`
+> tablosu (Frankfurt) + Resend ile bize mail. Sayfalardaki `EPOSTA_ENDPOINT`
+> zaten `…/functions/v1/form-al`; anahtar gerekmez.
 
-### Seçenek A — Web3Forms (ÜYELİK YOK, önerilen)
+Kurulum üç panel adımı (kod girilmez), ayrıntısı `form-al.ts` başlığında:
 
-1. https://web3forms.com adresine gir → e-posta adresini yaz → **Create Access Key**.
-2. E-postana gelen **access key**'i kopyala (hesap/şifre yok, bu kadar).
-3. `index.html`'i bir metin düzenleyiciyle (Not Defteri de olur) aç, en üstteki
-   şu iki satırı bul ve doldur:
-   ```js
-   const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
-   const EPOSTA_ANAHTAR  = "buraya-access-key";
-   ```
-4. Kaydet. Gönderimler e-postana düşer (ücretsiz plan ayda 250 gönderim).
+1. Supabase → Edge Functions → **New function** → adı `form-al` → dosyayı yapıştır →
+   Deploy → ayarda **Verify JWT: KAPALI**.
+2. Settings → Edge Functions → Secrets: `RESEND_KEY`, `RESEND_FROM` (GitHub
+   Actions'takiyle aynı değerler) ve `FORM_ALICI` (form maillerinin düşeceği adres).
+3. SQL Editor → `veri/sql-form-kasasi.sql` bas (kasaya kayıt için; basılmadan da
+   mail gider).
 
-### Seçenek B — Formspree (ücretsiz hesap ister)
-
-1. https://formspree.io → **Sign up** (ücretsiz plan: ayda 50 gönderim).
-2. **+ New form** → adını "Mevzuat Radarı Karne" koy → oluştur.
-3. Verdiği endpoint'i (`https://formspree.io/f/abcdwxyz` gibi) `index.html`'de doldur:
-   ```js
-   const EPOSTA_ENDPOINT = "https://formspree.io/f/abcdwxyz";
-   const EPOSTA_ANAHTAR  = "";
-   ```
-4. İlk gönderimde Formspree onay maili atar — bir kez onayla.
-
-> Bu adımı sonraya da bırakabilirsin: ikisi de boşsa site yine çalışır,
-> e-posta kutusu "yakında" der.
+Doğrulama: `…/functions/v1/form-al?tani=1` → dört secret `true` dönmeli.
 
 ---
 

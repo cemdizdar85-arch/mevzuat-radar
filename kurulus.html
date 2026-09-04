@@ -253,8 +253,7 @@ details.kacc>.ic{padding:2px 0 14px}
 </div>
 
 <script>
-const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
-const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
 
 // ============ SABİT YERLEŞTİRME MOTORU ============
 // Metinlerdeki {{token}} alanları veri/vergi-sabitleri.json'dan doldurulur.
@@ -367,7 +366,6 @@ function takibeAl(){
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
   if(!document.getElementById('takipKvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
   const payload = {
-    access_key: EPOSTA_ANAHTAR,
     subject: 'Kuruluş takip kaydı, ' + TURLER[SECILI].ad,
     from_name: 'Tetikte',
     email: mail,
@@ -791,7 +789,6 @@ function oneriGonder(tur){
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
   const AD = {sahis:'Şahıs işletmesi', ltd:'Limited şirket', as:'Anonim şirket'};
   const payload = {
-    access_key: EPOSTA_ANAHTAR,
     subject: 'Kuruluş sihirbazı sonucu, ' + AD[tur],
     from_name: 'Tetikte',
     email: mail,

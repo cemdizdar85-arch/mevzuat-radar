@@ -216,7 +216,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </div>
 
 <script>
-const EP="https://api.web3forms.com/submit", AK="5b227e56-94fb-4123-a39a-4286f63db14a";
+const EP="https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
 function ay(d,n){const x=new Date(d);x.setMonth(x.getMonth()+n);return x;}
 function yil(d,n){const x=new Date(d);x.setFullYear(x.getFullYear()+n);return x;}
 function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();}
@@ -281,7 +281,7 @@ function koruma(){
   const out=document.getElementById('korumaOut');
   if(!m){ out.textContent='E-postanı yaz.'; return; }
   const no=(document.getElementById('no').value||'').trim(), ad=(document.getElementById('ad').value||'').trim(), sinif=(document.getElementById('sinif').value||'').trim();
-  const payload={access_key:AK, subject:'MARKA KORUMA/TESCIL talebi (markasi yok/emin degil)',
+  const payload={subject:'MARKA KORUMA/TESCIL talebi (markasi yok/emin degil)',
     from_name:'Tetikte Marka', "E-posta":m, "Marka/Firma":ad||'', "Tescil No":no||'', "Sinif":sinif||'', "Talep":"Markam yok/emin degilim - kontrol + koruma"};
   fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{out.innerHTML='✅ Aldık. Sana ait tescilli marka var mı kontrol edip koruma seçeneklerini ileteceğiz.';})
@@ -290,7 +290,7 @@ function koruma(){
 function takip(){
   const m=document.getElementById('mail').value.trim();
   if(!m){ document.getElementById('takipOut').textContent='E-postanı yaz.'; return; }
-  const payload={access_key:AK, subject:'MARKA RADARI takip: '+(SON.ad||SON.no||'-'),
+  const payload={subject:'MARKA RADARI takip: '+(SON.ad||SON.no||'-'),
     from_name:'Tetikte Marka', "E-posta":m, "Marka":SON.ad||'', "Tescil No":SON.no||'', "Sinif":SON.sinif||'', "Basvuru":SON.basvuru||'', "Bitis":SON.bitis||'', "Pencere acilis":SON.acilis||'', "Durum":SON.durum||''};
   fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{document.getElementById('takipOut').innerHTML='✅ Takibe alındı. Yenileme yaklaşınca haber vereceğiz.';})

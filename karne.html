@@ -261,9 +261,8 @@
 </div>
 
 <script>
-/* E-posta toplama (Web3Forms) — index'tekiyle ayni anahtar */
-const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
-const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+/* E-posta toplama: form-al uç fonksiyonu (radar-app/edge/form-al.ts) — 04.09 web3forms çıkarıldı */
+const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
 
 /* ============================================================================
    ESIKLER — TÜM EŞİK DEĞERLERİ BURADA.
@@ -583,7 +582,6 @@ function epostaGonder(){
     'Eşiğe yaklaştıkları': yakListe.length ? yakListe.join(', ') : 'Yok',
     'Kayıt kaynağı': 'Yükümlülük Karnesi (karne.html)'
   };
-  if(EPOSTA_ANAHTAR) payload.access_key = EPOSTA_ANAHTAR; // Web3Forms için
   goster('Gönderiliyor…',true);
   fetch(EPOSTA_ENDPOINT, {
     method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},

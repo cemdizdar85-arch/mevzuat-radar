@@ -112,7 +112,7 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
     </div>
     <div class="hak" id="hak"></div>
     <!-- 30.07 denetim bulgusu #11: kapsam disi kalan soru metni, cevaplanabilir
-         hale getirmek icin ekibe iletiliyor (web3forms) - kullanici bunu
+         hale getirmek icin ekibe iletiliyor (form-al uç fonksiyonu) - kullanici bunu
          BILMELIYDI. Aciklama + KVKK baglantisi eklendi. -->
     <div style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.5">
       Sorular kimlikle eşleştirilmez. Cevaplayamadığımız soru, kapsama eklenmesi
@@ -129,7 +129,6 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
 
 <script>
 const LIMIT=3, LSK='mr_sorucevap_hak';
-const W3='5b227e56-94fb-4123-a39a-4286f63db14a';
 let KB={kayitlar:[]}, RGK=null;
 fetch('veri/kartlar-guncel.json?cb='+Date.now()).then(r=>r.json()).then(j=>RGK=j).catch(()=>{RGK={kartlar:[]};});
 const $=s=>document.querySelector(s);
@@ -303,7 +302,7 @@ function kapsamDisi(q){
     return;
   }
   $('#cevapAlan').innerHTML=durustKutu();
-  try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3,subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
+  try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
 }
 function localSor(q){
   // paywall: ücretsiz hak bitti mi?
@@ -335,7 +334,7 @@ function localSor(q){
     }
     // kapsamda yok — dürüst + logla
     $('#cevapAlan').innerHTML=durustKutu();
-    try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3,subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
+    try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
   }
 }
 </script>

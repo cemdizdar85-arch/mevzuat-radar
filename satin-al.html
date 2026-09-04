@@ -238,8 +238,7 @@ var BANKA = {
 };
 var KURULUM_TAMAM = BANKA.iban.indexOf('[') === -1;
 
-var EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
-var EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+var EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
 var SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co';
 var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 
@@ -440,7 +439,7 @@ btn.addEventListener('click', function(){
      hem Cem'in bildirimi hem de yedek yol - tablo kurulmamışsa sipariş kaybolmasın.
      19.08 DERSİ: supabase-js sorguları TEMBELDİR, .then'siz insert HİÇ GÖNDERİLMEZ. */
   var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({ access_key:EPOSTA_ANAHTAR, subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(secili.fiyat) + ' TL',
+      body: JSON.stringify({ subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(secili.fiyat) + ' TL',
         from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(secili.fiyat)+' TL',
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),

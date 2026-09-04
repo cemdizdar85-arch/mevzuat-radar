@@ -276,8 +276,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
      Ana betikten ÖNCE inmeli (takipKapsamCiz açılışta çalışıyor). -->
 <script src="destek-kural.js"></script>
 <script>
-const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
-const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
 
 // Program adları + resmî bağlantılar kurumların kendi sitelerinden bire bir alındı
 // (kosgeb.gov.tr, ticaret.gov.tr, eximbank.gov.tr). "amac" = genel amaç (tutar/tarih iddiası YOK).
@@ -1042,7 +1041,7 @@ function takibeAl(){
   // Yedek yol: Supabase'e yazılamazsa (tablo henüz kurulmadıysa, ağ koptuysa)
   // kayıt KAYBOLMASIN - form ucundan Cem'e düşer, elle eklenir.
   const yedek = ()=> fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({ access_key:EPOSTA_ANAHTAR, subject:'Destek takip kaydı (YEDEK YOL - tabloya yazılamadı)', from_name:'Tetikte',
+      body: JSON.stringify({ subject:'Destek takip kaydı (YEDEK YOL - tabloya yazılamadı)', from_name:'Tetikte',
         email:mail, 'Kurumlar':kurumlar.join(', '), 'AB':(ab?'evet':'hayır'), 'Profil':(profil?JSON.stringify(profil):'sihirbaz doldurulmadı') })})
     .then(r=>{ if(r.ok) bitir(); else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
     .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));

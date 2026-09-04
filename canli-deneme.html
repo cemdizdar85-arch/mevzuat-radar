@@ -342,8 +342,8 @@ document.getElementById('kayitForm').addEventListener('submit', function(e){
   var em = document.getElementById('kayitEposta').value.trim();
   if(!em) return;
   try {
-    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-      body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:em,subject:'CANLI DENEME kayit',from_name:'Tetikte Canli Deneme'})});
+    fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({email:em,subject:'CANLI DENEME kayit',from_name:'Tetikte Canli Deneme'})});
   } catch(err){}
   this.style.display = 'none';
   document.getElementById('kayitOk').style.display = 'block';
