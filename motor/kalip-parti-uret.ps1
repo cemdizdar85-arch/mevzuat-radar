@@ -801,6 +801,13 @@ function DilOnarNesne($cvp){
     if($ct.PSObject.Properties['basliklar']){ $ct.basliklar=@(@($ct.basliklar) | ForEach-Object { if($_ -is [string]){ & $BasHarf (DilOnar $_) } else { $_ } }) }
     if($ct.PSObject.Properties['satirlar']){ $ct.satirlar=@(@($ct.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { if($_ -is [string]){ & $BasHarf (DilOnar $_) } else { $_ } }) }) }
   }
+  # 04.09: ikiz tablo hücreleri de (Kaydır-Çöz "Sen çöz" oyununda görünür; "3.600 TL (Aleyhte)" kalmıştı)
+  if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz -and $cvp.ikiz.PSObject.Properties['tablo'] -and $cvp.ikiz.tablo){
+    $it=$cvp.ikiz.tablo
+    if($it.PSObject.Properties['basliklar']){ $it.basliklar=@(@($it.basliklar) | ForEach-Object { if($_ -is [string]){ & $BasHarf (DilOnar $_) } else { $_ } }) }
+    if($it.PSObject.Properties['satirlar']){ $it.satirlar=@(@($it.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { if($_ -is [string]){ & $BasHarf (DilOnar $_) } else { $_ } }) }) }
+    if($cvp.ikiz.PSObject.Properties['hedef_cumle'] -and $cvp.ikiz.hedef_cumle -is [string]){ $cvp.ikiz.hedef_cumle=DilOnar $cvp.ikiz.hedef_cumle }
+  }
   if($cvp.PSObject.Properties['sade'] -and $cvp.sade){
     $sd=$cvp.sade
     foreach($alan in @('dogru','sinav')){ if($sd.PSObject.Properties[$alan] -and $sd.$alan -is [string]){ $sd.$alan=DilOnar $sd.$alan } }
