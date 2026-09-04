@@ -66,14 +66,11 @@ jobs:
       - name: KIRMIZI NOBETCI - dususte mail
         if: failure()
         shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
           $r = ""
           try { $r = (Get-Content veri/gozetim-nobet-raporu.json -Raw) } catch {}
-          $p = @{
-            access_key = '5b227e56-94fb-4123-a39a-4286f63db14a'
-            subject    = 'TETIKTE - gozetim teblig listesinde gerekcesiz eksik'
-            from_name  = 'Tetikte Nobetci'
-            email      = 'cemdizdar85@hotmail.com'
-            message    = "Gozetim nobeti KIRMIZI bitti. Ya gerekcesi yazili olmayan bir teblig eksik, ya da kaynagi yok diye beklemedeki bir teblig metin sunmaya basladi.`n`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`nRapor:`n$r"
-          } | ConvertTo-Json
-          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
+          $govde = "Gozetim nobeti KIRMIZI bitti. Ya gerekcesi yazili olmayan bir teblig eksik, ya da kaynagi yok diye beklemedeki bir teblig metin sunmaya basladi.`n`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`nRapor:`n$r"
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - gozetim teblig listesinde gerekcesiz eksik' -Mesaj $govde

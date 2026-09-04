@@ -26,7 +26,7 @@
 #  bu "gonderim kabul edildi" demektir, "gelen kutusuna dustu" DEMEZ - onu
 #  hicbir gonderici garanti edemez.
 #
-#  ENV: RESEND_KEY + RESEND_FROM (varsa Resend; yoksa web3forms yedegi)
+#  ENV: RESEND_KEY + RESEND_FROM (zorunlu; web3forms yedegi 04.09.2026'da kaldirildi)
 #  KULLANIM: pwsh arac/gunluk-nabiz-maili.ps1  [-Kuru]
 #  CIKIS: 0 gonderildi ya da kuru kosu · 1 iki kanal da basarisiz
 # ============================================================================
@@ -109,15 +109,14 @@ if ($Kuru) {
     $kanal='resend'; $gonderildi=$true; Write-Host "MAIL (resend) gonderildi"
   } catch { $hata = "$_"; Write-Host "resend hatasi: $_" }
 }
-# Resend yoksa YA DA basarisizsa web3forms yedegi. Tek kanala guvenmeyiz.
+# 04.09.2026: web3forms yedegi KALDIRILDI (Cem: "guvensiz yere gonderme").
+# Resend gitmediyse rapor 'gonderildi=false' yazar ve betik 1 doner - kor kalma
+# kuralı geregi sessizce gecilmez; Actions kosusu kirmizi olur, GitHub kendi
+# hata mailini atar (ikinci kanal budur).
 if (-not $Kuru -and -not $gonderildi) {
-  $mb = @{ access_key="5b227e56-94fb-4123-a39a-4286f63db14a"; subject=$konu; from_name="Tetikte Nabiz"
-           "Durum"=$bas; "Nobetciler"=($satirlar -join "`n"); "Ayrinti"="https://tetikte.com/durum.html" } | ConvertTo-Json -Depth 3
-  try {
-    Invoke-RestMethod -Method Post -Uri "https://api.web3forms.com/submit" -Body ([Text.Encoding]::UTF8.GetBytes($mb)) `
-      -ContentType "application/json" -TimeoutSec 40 | Out-Null
-    $kanal='web3forms'; $gonderildi=$true; Write-Host "MAIL (web3forms) gonderildi"
-  } catch { $hata = ($hata + ' | web3forms: ' + $_); Write-Host "web3forms hatasi: $_" }
+  Write-Host "!! MAIL GITMEDI (Resend): $hata"
+  Write-Host "   Durum: $bas"
+  $satirlar | ForEach-Object { Write-Host "   $_" }
 }
 
 # GONDERIM SONUCU KAYDEDILIR - "gonder ve unut" bitti.

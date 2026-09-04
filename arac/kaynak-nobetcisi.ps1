@@ -198,13 +198,8 @@ foreach($k in $alertKaynaklar){
 ($yeni | ConvertTo-Json) | Out-File $hashDosya -Encoding utf8
 $is | ForEach-Object { Write-Host $_ }
 if($mailSatir.Count -gt 0){
-  $mail = @{
-    access_key="5b227e56-94fb-4123-a39a-4286f63db14a"
-    subject="KAYNAK NOBETCISI ($(Get-Date -Format dd.MM.yyyy)): degisiklik var"
-    from_name="Mevzuat Radari Kaynak Nobetcisi"; email="cemdizdar85@hotmail.com"
-    "Durum"=($mailSatir -join "`n")
-    "Not"="Deterministik olanlar (Ithalat Rejimi/IGV/Damping) OTOMATIK guncellendi ve commit'lendi - sadece kontrol et. 'elle bak' yazanlar nuansli - birincil metni okuyup elle guncelle: KDV/OTV -> veri/gtip-*.json; CVOA tablosu -> veri/cvoa-oranlar.json (cok-oranli anlasmalarda GENEL orani al, ekipman/film alt-oranlarini not olarak yaz); GECIKME ZAMMI orani degistiyse -> ceza-asistani.html icindeki FAIZ_AY ve FAIZ_TARIH sabitlerini guncelle. Robot asla uydurmaz."
-  } | ConvertTo-Json
-  try { Invoke-RestMethod -Method Post -Uri "https://api.web3forms.com/submit" -Body ([System.Text.Encoding]::UTF8.GetBytes($mail)) -ContentType "application/json" -TimeoutSec 30 | Out-Null; Write-Host "MAIL gonderildi" } catch { Write-Host "MAIL hata: $($_.Exception.Message)" }
+  # 04.09: web3forms cikti -> tek posta kapisi arac/alarm-maili.ps1 (Resend, env RESEND_KEY)
+  $govde = "DURUM:`n" + ($mailSatir -join "`n") + "`n`nNOT: Deterministik olanlar (Ithalat Rejimi/IGV/Damping) OTOMATIK guncellendi ve commit'lendi - sadece kontrol et. 'elle bak' yazanlar nuansli - birincil metni okuyup elle guncelle: KDV/OTV -> veri/gtip-*.json; CVOA tablosu -> veri/cvoa-oranlar.json (cok-oranli anlasmalarda GENEL orani al, ekipman/film alt-oranlarini not olarak yaz); GECIKME ZAMMI orani degistiyse -> ceza-asistani.html icindeki FAIZ_AY ve FAIZ_TARIH sabitlerini guncelle. Robot asla uydurmaz."
+  try { & (Join-Path $PSScriptRoot 'alarm-maili.ps1') -Konu "KAYNAK NOBETCISI ($(Get-Date -Format dd.MM.yyyy)): degisiklik var" -Mesaj $govde } catch { Write-Host "MAIL hata: $($_.Exception.Message)" }
 } else { Write-Host "Degisiklik yok - mail yok." }
 if($veriDegisti){ Write-Host "VERI DEGISTI - CI commit edecek." }

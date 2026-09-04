@@ -4,6 +4,9 @@
 # GEREKSINIM: repo Settings -> Secrets and variables -> Actions -> ANTHROPIC_API_KEY
 # (secret yoksa is zarifce atlanir, hata vermez).
 name: Hap Kartlar
+env:   # 04.09: alarm mailleri arac/alarm-maili.ps1 (Resend) uzerinden
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
 
 on:
   # 30.07 — ELLE TETIK YOLU. Bu dosyada push tetigi HIC yoktu; zamanlayici

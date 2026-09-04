@@ -23,6 +23,9 @@
 #
 # PARA HARCAMAZ: yalniz ticaret.gov.tr'den sayfa + zip indirir.
 name: Ithalat Rejimi Nobeti
+env:   # 04.09: alarm mailleri arac/alarm-maili.ps1 (Resend) uzerinden
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
 
 on:
   schedule:

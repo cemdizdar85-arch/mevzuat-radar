@@ -52,13 +52,7 @@ try {
 
 # 4) Cem'e teyit maili at (rakamı OTOMATİK basmıyoruz - infografik parser kırılgan)
 $mesaj = "TBB Risk Merkezi'nde YENİ aylık bülten yayımlandı: $enYeniAd.`n`nSayfa: $($enYeni.url)`nPDF: $pdfUrl`n`nYapılacak (2 dk): PDF'i aç, şu 3 manşet rakamı oku ve veri/risk-merkezi.json'u güncelle:`n- Protesto edilen senet tutarı (Milyar TL)`n- Karşılıksız işlemi yapılan çek tutarı (Milyar TL)`n- Bankalara ibraz edilen çek tutarı (Milyar TL)`n`nNot: Rakamlar bültende infografik olduğu için otomatik çekilmiyor; yanlış rakam riskine karşı elle teyit ediyoruz. Teyit sonrası site kendini günceller."
-$mb = @{
-  access_key = "5b227e56-94fb-4123-a39a-4286f63db14a"
-  subject    = "TETIKTE - Risk Merkezi yeni bulten: $enYeniAd (protesto/cek rakamlarini teyit et)"
-  from_name  = "Tetikte Risk Merkezi Nobetcisi"
-  email      = "cemdizdar85@hotmail.com"
-  message    = $mesaj
-} | ConvertTo-Json -Depth 3
-try { Invoke-RestMethod -Uri "https://api.web3forms.com/submit" -Method Post -ContentType "application/json" -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -TimeoutSec 30 | Out-Null; Write-Host "Teyit maili gönderildi." }
+# 04.09: web3forms cikti -> tek posta kapisi arac/alarm-maili.ps1 (Resend, env RESEND_KEY)
+try { & (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac/alarm-maili.ps1') -Konu "TETIKTE - Risk Merkezi yeni bulten: $enYeniAd (protesto/cek rakamlarini teyit et)" -Mesaj $mesaj }
 catch { Write-Host ("Mail gitmedi: " + $_.Exception.Message) }
 exit 0

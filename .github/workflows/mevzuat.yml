@@ -4,6 +4,9 @@
 # güncellendi/madde iptal) yeniden yutup Supabase'e yükler + son_senkron damgası.
 # Değişmeyeni atlar. Böylece EZBER değil, güncel kaynağın günlük aynası.
 name: Günlük Kanun Aynası
+env:   # 04.09: alarm mailleri arac/alarm-maili.ps1 (Resend) uzerinden
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
 
 on:
   # 29.07 — ZAMANLAYICI GERI ACILDI.
@@ -365,7 +368,9 @@ jobs:
       - name: KIRMIZI NOBETCI — kapi dustuyse Cem'e mail
         if: failure()
         shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
           $govde = "mevzuat.yml KIRMIZI bitti. Koku buyuk ihtimalle bir KAPI (gozetim tebligi degisti / dayanak degisti / altin test dustu). Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} — ayrintiya bak, veri ESKIMIS olabilir."
-          $p = @{ access_key = '5b227e56-94fb-4123-a39a-4286f63db14a'; subject = 'TETIKTE ROBOT KIRMIZI - mevzuat aynasi kapisi dustu'; from_name = 'Tetikte Nobetci'; email = 'cemdizdar85@hotmail.com'; message = $govde } | ConvertTo-Json
-          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null; Write-Host 'Nobetci maili gitti.' } catch { Write-Host "Mail gonderilemedi: $($_.Exception.Message)" }
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE ROBOT KIRMIZI - mevzuat aynasi kapisi dustu' -Mesaj $govde

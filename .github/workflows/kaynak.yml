@@ -2,6 +2,9 @@
 # Kaynak Nobetcisi: resmi kaynaklari haftalik izler; degisince Cem'e mail atar
 # ve (deterministik olanlari) yeniden hasat edip commit'ler.
 name: Kaynak Nobetcisi
+env:   # 04.09: alarm mailleri arac/alarm-maili.ps1 (Resend) uzerinden
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
 
 on:
   schedule:
@@ -190,9 +193,11 @@ jobs:
       - name: Cagri/fuar/exim/kgf/iskur/urge hasadi dustuyse Cem'e haber ver
         if: steps.cagri.outcome == 'failure' || steps.fuar.outcome == 'failure' || steps.exim.outcome == 'failure' || steps.kgf.outcome == 'failure' || steps.iskur.outcome == 'failure' || steps.urge.outcome == 'failure'
         shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
-          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Cagri Radari / fuar hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Cagri Radari hasadi (cagri: ${{ steps.cagri.outcome }} / fuar: ${{ steps.fuar.outcome }} / exim: ${{ steps.exim.outcome }} / kgf: ${{ steps.kgf.outcome }} / iskur: ${{ steps.iskur.outcome }} / urge: ${{ steps.urge.outcome }}) dustu; dusen dosya GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa/xlsx yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
-          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - Cagri Radari / fuar hasadi dustu' -Mesaj "Cagri Radari hasadi (cagri: ${{ steps.cagri.outcome }} / fuar: ${{ steps.fuar.outcome }} / exim: ${{ steps.exim.outcome }} / kgf: ${{ steps.kgf.outcome }} / iskur: ${{ steps.iskur.outcome }} / urge: ${{ steps.urge.outcome }}) dustu; dusen dosya GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa/xlsx yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       # 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal + duzeltme ilanlari.
       # YALNIZ SABAH CEKIMINDE: bulten gunde bir yayimlanir, uc tur ~30 MB indirir;
@@ -393,9 +398,11 @@ jobs:
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
-          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Kamu Ihale Bulteni hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Kamu Ihale Bulteni adimlarindan biri dustu (hasat: ${{ steps.bulten.outcome }} / ilan: ${{ steps.bultenilan.outcome }} / sonuc: ${{ steps.bultensonuc.outcome }}). Digerleri kosmaya devam etti. Muhtemel sebep: KIK ucu GitHub IP'sini engelliyor ya da bulten metin yapisi degisti. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
-          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - Kamu Ihale Bulteni hasadi dustu' -Mesaj "Kamu Ihale Bulteni adimlarindan biri dustu (hasat: ${{ steps.bulten.outcome }} / ilan: ${{ steps.bultenilan.outcome }} / sonuc: ${{ steps.bultensonuc.outcome }}). Digerleri kosmaya devam etti. Muhtemel sebep: KIK ucu GitHub IP'sini engelliyor ya da bulten metin yapisi degisti. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Yapisal denetci (imkansiz/celisik veri — patlarsa commit YOK)
         shell: pwsh

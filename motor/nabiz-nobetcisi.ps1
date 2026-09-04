@@ -222,13 +222,8 @@ if($env:RESEND_KEY){
   $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject=$konu; html=$html; text=$duz } | ConvertTo-Json -Depth 3
   try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "MAIL (resend) gonderildi" } catch { Write-Host "resend hatasi: $_" }
 } else {
-  $mb = @{
-    access_key = "5b227e56-94fb-4123-a39a-4286f63db14a"
-    subject    = $konu
-    from_name  = "Tetikte Nabiz Nobetcisi"
-    "Alarmlar" = ($kirmizi -join "`n")
-    "Not"      = "Otomatik kurtarma denendi ama cozulemedi. Actions sekmesinden ilgili robotun loguna bak."
-  } | ConvertTo-Json -Depth 3
-  try { Invoke-RestMethod -Method Post -Uri "https://api.web3forms.com/submit" -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" -TimeoutSec 30 | Out-Null; Write-Host "MAIL (web3forms) gonderildi" } catch { Write-Host "web3forms hatasi: $_" }
+  # 04.09: web3forms yedegi KALDIRILDI (Cem: "guvensiz yere gonderme"). Tek kanal Resend.
+  Write-Host "!! RESEND_KEY tanimli degil - alarm maili GITMEDI. Alarmlar:"
+  $kirmizi | ForEach-Object { Write-Host "   $_" }
 }
 exit 1

@@ -23,8 +23,8 @@
 #
 #  UC DURUM: YESIL / KIRMIZI / KOR (token yoksa "temiz" demez, KOR der).
 #
-#  ENV: GH_TOKEN (zorunlu, actions:read) · RESEND_KEY + RESEND_FROM (istege
-#  bagli; yoksa web3forms yedegi kullanilir - nabiz-nobetcisi ile ayni kanal).
+#  ENV: GH_TOKEN (zorunlu, actions:read) · RESEND_KEY + RESEND_FROM (mail icin
+#  zorunlu; web3forms yedegi 04.09.2026'da kaldirildi - Cem: "guvensiz yere gonderme").
 #  API maliyeti SIFIR (GitHub API, ucretsiz).
 #
 #  Kullanim: pwsh arac/ci-kirmizi-nobetcisi.ps1
@@ -214,18 +214,10 @@ if ($env:RESEND_KEY) {
     Write-Host "`n  Alarm maili gonderildi (Resend)."
   } catch { Write-Host "`n  Mail GONDERILEMEDI (Resend): $($_.Exception.Message)" }
 } else {
-  $mb = @{
-    access_key = "5b227e56-94fb-4123-a39a-4286f63db14a"
-    subject    = $konu
-    from_name  = "Tetikte CI Nobetcisi"
-    "Kapilar"  = ($satirlar -join "`n")
-    "Not"      = "Kalici kirmizi kapi kapi degildir - ardindaki adimlar da kosmuyor olabilir. Actions sekmesinden loga bak."
-  } | ConvertTo-Json -Depth 3
-  try {
-    Invoke-RestMethod -Method Post -Uri "https://api.web3forms.com/submit" `
-      -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" -TimeoutSec 60 | Out-Null
-    Write-Host "`n  Alarm maili gonderildi (web3forms)."
-  } catch { Write-Host "`n  Mail GONDERILEMEDI (web3forms): $($_.Exception.Message)" }
+  # 04.09.2026: web3forms yedegi KALDIRILDI (Cem: "guvensiz yere gonderme").
+  # RESEND_KEY yoksa mail gitmez; betik zaten 1 ile biter, Actions kirmizi olur.
+  Write-Host "`n  !! RESEND_KEY tanimli degil - alarm maili GITMEDI. Gidecek olan:"
+  $satirlar | ForEach-Object { Write-Host "    $_" }
 }
 
 exit 1

@@ -13,9 +13,9 @@
 #  Boylece yesil sabah = tek mail; kirmizi sabah = ilerleme gorunur.
 #  Durum dosyasi: veri/sabah-rapor.json (ayni gunun onceki kosusunu hatirlar).
 #
-#  PARA HARCAMAZ. E-posta: web3forms (deneme.html'deki ayni acik anahtar -
-#  anahtar tasarim geregi aciktir, alici sabittir).
-#  ENV: GITHUB_TOKEN (Actions otomatik verir; actions:read yeter)
+#  PARA HARCAMAZ. E-posta: Resend (tek kanal; web3forms yedegi 04.09.2026'da
+#  kaldirildi - Cem: "guvensiz yere gonderme").
+#  ENV: GITHUB_TOKEN (Actions otomatik verir; actions:read yeter) · RESEND_KEY + RESEND_FROM
 # ============================================================================
 param([switch]$Kuru)   # -Kuru: mail atmaz, satiri yazar
 $ErrorActionPreference = 'Stop'
@@ -23,7 +23,6 @@ $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $REPO = 'cemdizdar85-arch/mevzuat-radar'
-$WEB3 = '5b227e56-94fb-4123-a39a-4286f63db14a'
 $durumYol = Join-Path $kok 'veri/sabah-rapor.json'
 
 # --- gercek TR saati (runner UTC'dir; vitrin kapisindaki ikili deneme kalibi)
@@ -83,10 +82,9 @@ if($dunKirmiziIdi -and $durum -eq 'YESIL'){ $satir = $satir + ' (DUZELDI)' }
 if($Kuru){ Write-Host "KURU KOSU - mail atilmadi. gonder=$gonder"; exit 0 }
 if(-not $gonder){ Write-Host 'Ayni sabah ikinci yesil - mail atilmadi (kural: 04 her zaman, sonrasi yalniz kirmizi/duzeldi).'; exit 0 }
 
-# 19.08 ILK KOSU DERSI: web3forms CI'dan CALISMAZ - GitHub'in veri merkezi
-# IP'si Cloudflare bot korumasina takiliyor ("Just a moment..."). Tarayicidan
-# calisiyor olmasi yaniltti. Kanal nabiz-nobetcisi ile ayni: Resend birincil,
-# web3forms yalniz yedek (yerel kosuda ise yarar, CI'da buyuk ihtimal duser).
+# 19.08 ILK KOSU DERSI: web3forms CI'dan CALISMIYORDU - GitHub'in veri merkezi
+# IP'si Cloudflare bot korumasina takiliyordu ("Just a moment..."). Tarayicidan
+# calisiyor olmasi yaniltti. 04.09: web3forms tamamen cikti, tek kanal Resend.
 $mesaj = ("Saat (TR): {0}`nSite rozeti: {1}`nGece tamamlanan kosu: {2}`nAcik kirmizi: {3}`n`nAyrinti: https://github.com/$REPO/actions" -f $trSimdi.ToString('HH:mm'), $rozet, $toplamKosu, $(if($halaKirmizi.Count){$halaKirmizi -join ', '}else{'yok'}))
 $gitti = $false
 if($env:RESEND_KEY){
@@ -94,11 +92,8 @@ if($env:RESEND_KEY){
   $mb = @{ from=$env:RESEND_FROM; to=@('cemdizdar85@hotmail.com'); subject=$satir; html=$html } | ConvertTo-Json -Depth 3
   try { Invoke-RestMethod -Method Post -Uri 'https://api.resend.com/emails' -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType 'application/json' -TimeoutSec 60 | Out-Null; $gitti = $true; Write-Host 'Mail (resend) gonderildi.' } catch { Write-Host "resend hatasi: $($_.Exception.Message)" }
 }
-if(-not $gitti){
-  $govde = @{ access_key=$WEB3; subject=$satir; from_name='Tetikte Sabah Raporu'; email='cemdizdar85@hotmail.com'; message=$mesaj } | ConvertTo-Json
-  try { $y = Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -UserAgent 'Mozilla/5.0 (TetikteNobetci)' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 60; if($y.success){ $gitti = $true; Write-Host 'Mail (web3forms) gonderildi.' } } catch { Write-Host "web3forms hatasi: $($_.Exception.Message)" }
-}
-if(-not $gitti){ Write-Host 'MAIL GONDERILEMEDI - iki kanal da dustu.'; exit 1 }
+# 04.09: web3forms yedegi KALDIRILDI (Cem: "guvensiz yere gonderme"). Tek kanal Resend.
+if(-not $gitti){ Write-Host 'MAIL GONDERILEMEDI - Resend dustu (RESEND_KEY yok ya da hata).'; exit 1 }
 
 # durum dosyasi (05/06 kosusu bugunu bilsin)
 @{ tarih=$bugun; durum=$durum; saat=$trSimdi.ToString('HH:mm'); satir=$satir } | ConvertTo-Json | Out-File $durumYol -Encoding utf8

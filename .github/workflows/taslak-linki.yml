@@ -1,6 +1,6 @@
 # .github/workflows/taslak-linki.yml — TASLAK LINK POSTACISI (0 USD)
 # Ozel kovadaki denetim taslaklarina SURELI imzali link uretir ve Cem'in
-# e-postasina (Web3Forms kanali - sitedeki hata-bildirimleriyle ayni kutu)
+# e-postasina (Resend, arac/alarm-maili.ps1 — 04.09.2026'da web3forms'tan cikti)
 # gonderir. Linkler 24 saat gecerlidir; repoya YAZILMAZ (sizinti olmasin).
 # Tetik dosyasinin islenmemis son satirlari dosya adlaridir.
 name: Taslak Linki (0 USD)
@@ -21,12 +21,14 @@ jobs:
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
           # KOR KALMA KURALI: bu kanal hatasini da MAILLE bildirir - loglar kilitli.
           $ErrorActionPreference = 'Stop'
           function Postala([string]$konu, [string]$mesaj){
-            $govde = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject=$konu; from_name='Tetikte Taslak Postacisi'; message=$mesaj } | ConvertTo-Json
-            Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $govde -TimeoutSec 60 | Out-Null
+            ./arac/alarm-maili.ps1 -Konu $konu -Mesaj $mesaj -Sert
+            if($LASTEXITCODE -ne 0){ throw "alarm maili gitmedi (Resend)" }
           }
           try {
             $STOR = "https://bjrleanjpyujtajmazxn.supabase.co/storage/v1"

@@ -57,10 +57,9 @@ $UA   = 'Mozilla/5.0 (compatible; mevzuat-radar-robot/1.0)'
 
 function Mail([string]$konu,[string]$govde){
   if($MailKapali){ Write-Host "  (mail kapali) $konu"; return }
-  try {
-    $mb = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject=$konu; from_name='Tetikte Rejim Indirici'; email='cemdizdar85@hotmail.com'; message=$govde } | ConvertTo-Json -Depth 3
-    Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $mb -TimeoutSec 30 | Out-Null
-  } catch { Write-Host ("  mail gonderilemedi: {0}" -f $_.Exception.Message) }
+  # 04.09: web3forms cikti -> tek posta kapisi arac/alarm-maili.ps1 (Resend, env RESEND_KEY)
+  try { & (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac/alarm-maili.ps1') -Konu $konu -Mesaj $govde }
+  catch { Write-Host ("  mail gonderilemedi: {0}" -f $_.Exception.Message) }
 }
 
 function SayfaCek([string]$url){

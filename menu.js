@@ -89,7 +89,8 @@ try {
         e.preventDefault();
         var em = this.querySelector('input').value.trim();
         if(!em) return;
-        try { fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:em,subject:'ACILIS PERDESI erken kayit',from_name:'Tetikte Perde'})}); } catch(err){}
+        /* 04.09: web3forms cikti - kendi uc fonksiyonumuz (canli adi quick-task, kod radar-app/edge/form-al.ts) */
+        try { fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:em,subject:'ACILIS PERDESI erken kayit',from_name:'Tetikte Perde'})}); } catch(err){}
         this.style.display='none';
         document.getElementById('mrPerdeOk').style.display='block';
       });

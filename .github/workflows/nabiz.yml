@@ -2,7 +2,7 @@
 # Iki katman: (1) her kritik robotun son BASARILI kosusunun yasi,
 # (2) robotlarin yazdigi dosyalardaki tarih damgalarinin tazeligi
 # ("yesil kosu != tam veri" dersi). Kirmizi = exit 1 (GitHub sahibine
-# hata maili) + Resend/web3forms uzerinden alarm maili.
+# hata maili) + Resend uzerinden alarm maili (web3forms 04.09.2026'da cikti).
 # Rapor veri/nabiz-raporu.json'a her kosuda yazilir (kor kalma).
 name: Nabiz Nobetcisi
 

@@ -58,6 +58,9 @@ jobs:
 
       - name: Karar + gerekirse mail
         shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
           $ciktiVar = Test-Path 'motor/cikti/damping-kiyas.json'
           $eksik = -1; $fazla = -1; $sEksik = $null; $sFazla = $null; $ozet = ''
@@ -83,9 +86,8 @@ jobs:
             $ornek = ''
             if($ciktiVar -and $r.eksikOrnek){ $ornek = "`n`nEKSIK ornekler:`n" + (($r.eksikOrnek | Select-Object -First 15 | ForEach-Object { "  $($_.kod) | $($_.ulke) | $($_.urun)" }) -join "`n") }
             $govde = "Damping kiyas nobeti KIRMIZI.`n`n$ozet$ornek`n`nOnarim: motor/damping-hasat.ps1 kaynaktan yeniden kosulur (yanveri-onarici -Kaynak damping -Uygula).`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`n--- betik ciktisi ---`n$log"
-            $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject=$konu; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message=$govde } | ConvertTo-Json
-            try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body ([Text.Encoding]::UTF8.GetBytes($p)) | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
-            Write-Host "KIRMIZI - mail gonderildi."
+            ./arac/alarm-maili.ps1 -Konu $konu -Mesaj $govde
+            Write-Host "KIRMIZI - alarm adimi bitti."
             exit 1
           }
           Write-Host "YESIL - ambar Bakanlik listesiyle birebir."
@@ -99,6 +101,9 @@ jobs:
       - name: NGGS basvuru penceresi (takvim hatirlatmasi)
         if: always()
         shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
           node motor/damping-pencere.js --gun 60 | Tee-Object -FilePath pencere-cikti.txt
           if(-not (Test-Path 'motor/cikti/damping-pencere.json')){ Write-Host 'pencere raporu uretilemedi'; exit 0 }
@@ -140,5 +145,4 @@ jobs:
             "  $($_.basvurayaGun) GUN KALDI - son gun $($_.basvuruSonGunu) | $($_.urun) | $($_.ulkeler -join ', ') | teblig $($_.teblig) | onlemin suresi $($_.sureDolumu) tarihinde doluyor"
           }) -join "`n"
           $govde = "Dampinge karsi onlemde NIHAI GOZDEN GECIRME basvuru penceresi kapanmak uzere.`n`nYonetmelik m.35/2: talep, yururluk suresinin sona ermesinden EN GEC 3 AY ONCE Ticaret Bakanligi Ithalat Genel Mudurlugu'ne yazili verilir. Kacirilirsa onlem kendiliginden kalkar.`n`n$satirlar`n`nBu bir bilgilendirmedir; basvuruyu YERLI URETICI yapar (destek esigi: m.20/3).`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          $mb = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject="TETIKTE TAKVIM - NGGS basvuru penceresi ($($uyar.Count) onlem)"; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message=$govde } | ConvertTo-Json
-          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body ([Text.Encoding]::UTF8.GetBytes($mb)) | Out-Null; Write-Host "Pencere maili gonderildi ($($uyar.Count) onlem)." } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
+          ./arac/alarm-maili.ps1 -Konu "TETIKTE TAKVIM - NGGS basvuru penceresi ($($uyar.Count) onlem)" -Mesaj $govde
