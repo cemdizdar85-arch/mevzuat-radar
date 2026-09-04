@@ -700,13 +700,41 @@ $DIL_KURAL=switch -Regex ($Sinav){
 }
 # Cikti kapisi: modelin yine de yazdigi yasak kisaltmalar duzeltilir (her sinav) + SGS'de kanun kisaltmalari uzun ada acilir.
 $DIL_ORTAK=@(@("\bTHP'(n?de)\b","Tekdüzen Hesap Planı'nda"),@("\bTHP'(n?a|ye)\b","Tekdüzen Hesap Planı'na"),@("\bTHP'nin\b","Tekdüzen Hesap Planı'nın"),@("\bTHP'(n?dan|den)\b","Tekdüzen Hesap Planı'ndan"),@('\bTHP\b','Tekdüzen Hesap Planı'),@('\bDVK\b','Damga Vergisi Kanunu'),@('\bİş\s*K\.(?!anunu)','İş Kanunu'))
-$DIL_SGS=@(@('\bVUK\b','Vergi Usul Kanunu'),@('\bTTK\b','Türk Ticaret Kanunu'),@('\bTBK\b','Türk Borçlar Kanunu'),@('\bGVK\b','Gelir Vergisi Kanunu'),@('\bKVK\b','Kurumlar Vergisi Kanunu'),@('\bAATUHK\b','6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun'),@('\bİİK\b','İcra ve İflas Kanunu'))
+$DIL_SGS=@(@('\bVUK\b','Vergi Usul Kanunu'),@('\bTTK\b','Türk Ticaret Kanunu'),@('\bTBK\b','Türk Borçlar Kanunu'),@('\bGVK\b','Gelir Vergisi Kanunu'),@('\bKVK\b','Kurumlar Vergisi Kanunu'),@('\bAATUHK\b','6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun'),@('\bİİK\b','İcra ve İflas Kanunu'),
+  # 04.09 ölçüldü (kp-28): "VUK 213 sayılı Kanun'un" → "Vergi Usul Kanunu 213 sayılı Kanun'un" oluyordu → "213 sayılı Vergi Usul Kanunu'nun"
+  @("(Vergi Usul Kanunu|Türk Ticaret Kanunu|Türk Borçlar Kanunu|Gelir Vergisi Kanunu|Kurumlar Vergisi Kanunu)\s+(\d+)\s+sayılı Kanun'(un|ün|a|e|da|de|dan|den)",'$2 sayılı $1''n$3'),
+  @("(Vergi Usul Kanunu|Türk Ticaret Kanunu|Türk Borçlar Kanunu|Gelir Vergisi Kanunu|Kurumlar Vergisi Kanunu)\s+(\d+)\s+sayılı Kanun\b",'$2 sayılı $1'))
 $script:DIL_DUZELTME=0
+# 04.09 TERİM KATMANI (Cem "sınavda genel idare gideri çıkıyor mu?"; ölçüm scratchpad TERIM-CIFTLERI.md, üç sınav birden):
+# kanun dili → sınav dili. SGS 65 kitapçık: "genel idare gideri" 0 / "genel yönetim gideri" 230; "genel imal(at)" 0 / "genel
+# üretim gideri" 379; "DİMM" 5 / "direkt ilk madde" 311; "Dİ" 0 / "direkt işçilik" 316; "GÜG" 23 / 379. KGK ve SMMM aynı yönde.
+# Bire bir karşılığı olmayan çiftler (kıymet/değer, müessese/işletme, ücret/maaş, emtia/stok) BİLEREK dışarıda: "menkul kıymet" gibi
+# gerçek terimleri bozar. Tırnak içindeki KANUN ALINTISI dokunulmaz ("…genel idare giderlerinden mamule düşen hisse…").
+$DIL_TERIM=@(
+  @('[Gg]enel\s+[İi]dare\s+[Gg]ider','genel yönetim gider'),
+  @('[Gg]enel\s+[İi]mal(?:at)?\s+[Gg]ider','genel üretim gider'),
+  @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])DİMM(?![A-Za-zÇĞİÖŞÜçğıöşü])','direkt ilk madde ve malzeme'),
+  @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])GÜG(?![A-Za-zÇĞİÖŞÜçğıöşü])','genel üretim gideri'),
+  @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])Dİ(?![A-Za-zÇĞİÖŞÜçğıöşü])','direkt işçilik')
+)
+function TerimOnar([string]$t){
+  # tırnak dışı parçalarda çalışır; eşleşme büyük harfle başlıyorsa karşılık Başlık Düzeninde yazılır
+  $parcalar=$t -split '(["“”])'; $cikti=New-Object System.Text.StringBuilder; $icerde=$false
+  foreach($p in $parcalar){
+    if($p -match '^["“”]$'){ [void]$cikti.Append($p); $icerde=-not $icerde; continue }
+    if($icerde){ [void]$cikti.Append($p); continue }
+    $y=$p
+    foreach($c in $DIL_TERIM){ $kar=$c[1]; $y=[regex]::Replace($y,$c[0],{ param($m) if($m.Value.Substring(0,1) -cmatch '[A-ZÇĞİÖŞÜ]' -and $m.Value -cne $m.Value.ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))){ (($kar -split ' ') | ForEach-Object { if($_ -eq 've'){ $_ } else { $_.Substring(0,1).ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))+$_.Substring(1) } }) -join ' ' } else { $kar } }) }
+    [void]$cikti.Append($y)
+  }
+  return $cikti.ToString()
+}
 function DilOnar([string]$t){
   if(-not $t){ return $t }
   $x=$t
   foreach($c in $DIL_ORTAK){ $x=[regex]::Replace($x,$c[0],$c[1]) }
   if($Sinav -match '^SGS'){ foreach($c in $DIL_SGS){ $x=[regex]::Replace($x,$c[0],$c[1]) } }
+  $x=TerimOnar $x
   if($x -ne $t){ $script:DIL_DUZELTME++ }
   return $x
 }
@@ -724,6 +752,19 @@ function DilOnarNesne($cvp){
     if($s1.PSObject.Properties['baslik'] -and $s1.baslik -is [string]){ $s1.baslik=DilOnar $s1.baslik }
     if($s1.PSObject.Properties['kayitlar']){ foreach($ky in @($s1.kayitlar)){ if($ky -and $ky.PSObject.Properties['baslik'] -and $ky.baslik -is [string]){ $ky.baslik=DilOnar $ky.baslik } } } }
   if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ foreach($alan in @('ikiz_soru','ikiz_aciklama','ikiz_ipucu')){ if($cvp.ikiz.PSObject.Properties[$alan] -and $cvp.ikiz.$alan -is [string]){ $cvp.ikiz.$alan=DilOnar $cvp.ikiz.$alan } } }
+  # 04.09: çözüm tablosu hücreleri (kp-28'de "Genel İdare Gideri Payı", "DİMM" tabloda kalmıştı) + sade katman
+  $BasHarf={ param($s) if($s -and $s.Length -gt 1 -and $s.Substring(0,1) -cmatch '[a-zçğıöşü]'){ $s.Substring(0,1).ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))+$s.Substring(1) } else { $s } }
+  if($cvp.PSObject.Properties['cozum_tablo'] -and $cvp.cozum_tablo){
+    $ct=$cvp.cozum_tablo
+    if($ct.PSObject.Properties['basliklar']){ $ct.basliklar=@(@($ct.basliklar) | ForEach-Object { if($_ -is [string]){ & $BasHarf (DilOnar $_) } else { $_ } }) }
+    if($ct.PSObject.Properties['satirlar']){ $ct.satirlar=@(@($ct.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { if($_ -is [string]){ & $BasHarf (DilOnar $_) } else { $_ } }) }) }
+  }
+  if($cvp.PSObject.Properties['sade'] -and $cvp.sade){
+    $sd=$cvp.sade
+    foreach($alan in @('dogru','sinav')){ if($sd.PSObject.Properties[$alan] -and $sd.$alan -is [string]){ $sd.$alan=DilOnar $sd.$alan } }
+    if($sd.PSObject.Properties['siklar'] -and $sd.siklar){ foreach($p in $sd.siklar.PSObject.Properties){ if($p.Value -is [string]){ $sd.siklar.($p.Name)=DilOnar $p.Value } } }
+    foreach($kv in @($sd.kavramlar)){ if($kv){ foreach($alan in @('ad','tanim')){ if($kv.PSObject.Properties[$alan] -and $kv.$alan -is [string]){ $kv.$alan=DilOnar $kv.$alan } } } }
+  }
 }
 # 03.09 Cem "1 yap": eldeki cache'e dil kapisi GERIYE DONUK uygulanir (yalniz -SadeceHtml modunda; API yok).
 if($SadeceHtml -and $don.Count){
@@ -1028,7 +1069,6 @@ function SadeKapi([string]$t){
   if(@(($t -split '\s+') | Where-Object { $_ }).Count -gt 60){ $y.Add('60 kelimeden uzun') }
   return $y
 }
-function Katla2([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant() }
 function SadeKaynak($cvp){
   # hakemdeki paket mantığı (kaynak_adlar → dokümanlar; dayanak atıfları; hesap tanımları) - cvp DEĞİŞTİRİLMEZ
   $parca=New-Object System.Collections.Generic.List[string]
