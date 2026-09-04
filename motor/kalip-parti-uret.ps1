@@ -744,6 +744,7 @@ function DilOnarNesne($cvp){
   foreach($h in 'A','B','C','D','E'){
     if($cvp.siklar -and $cvp.siklar.PSObject.Properties[$h] -and $cvp.siklar.$h -is [string]){ $cvp.siklar.$h=DilOnar $cvp.siklar.$h }
     if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$h] -and $cvp.aciklama.$h -is [string]){ $cvp.aciklama.$h=DilOnar $cvp.aciklama.$h }
+    elseif($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$h] -and $cvp.aciklama.$h){ $ao=$cvp.aciklama.$h; foreach($p in @($ao.PSObject.Properties)){ if($p.Value -is [string]){ $ao.($p.Name)=DilOnar $p.Value } } }   # 04.09: yapılı açıklama (ne_soruluyor/kural/hesap/dogrusu) da kapıdan geçer
   }
   foreach($ad1 in @($cvp.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }
   # ogrenciye gorunen diger alanlar: dayanak kunyesi, sema/kayit basliklari (kaynak_adlar ve hakem DOKUNULMAZ - ambar adi/denetim izi)
