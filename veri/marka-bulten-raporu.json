@@ -1,92 +1,78 @@
 {
- "tarih": "2026-09-03 01:05",
+ "tarih": "2026-09-03 22:52",
  "islenen": [
   {
-   "bulten_no": 450,
-   "yayin_tarihi": "2024-08-12",
-   "kayit": 6627,
-   "ham": 6627,
-   "tekrar": 0,
-   "tam": 6627,
-   "itiraz_son": "2024-10-12"
+   "bulten_no": 441,
+   "yayin_tarihi": "2024-03-27",
+   "kayit": 8270,
+   "ham": 8271,
+   "tekrar": 1,
+   "tam": 8271,
+   "itiraz_son": "2024-05-27"
   },
   {
-   "bulten_no": 449,
-   "yayin_tarihi": "2024-07-29",
-   "kayit": 7840,
-   "ham": 7840,
+   "bulten_no": 440,
+   "yayin_tarihi": "2024-03-12",
+   "kayit": 5677,
+   "ham": 5677,
    "tekrar": 0,
-   "tam": 7840,
-   "itiraz_son": "2024-09-29"
+   "tam": 5677,
+   "itiraz_son": "2024-05-12"
   },
   {
-   "bulten_no": 448,
-   "yayin_tarihi": "2024-07-12",
-   "kayit": 6178,
-   "ham": 6178,
+   "bulten_no": 439,
+   "yayin_tarihi": "2024-02-27",
+   "kayit": 8292,
+   "ham": 8292,
    "tekrar": 0,
-   "tam": 6177,
-   "itiraz_son": "2024-09-12"
+   "tam": 8292,
+   "itiraz_son": "2024-04-27"
   },
   {
-   "bulten_no": 447,
-   "yayin_tarihi": "2024-06-27",
-   "kayit": 4416,
-   "ham": 4416,
+   "bulten_no": 438,
+   "yayin_tarihi": "2024-02-12",
+   "kayit": 8258,
+   "ham": 8258,
    "tekrar": 0,
-   "tam": 4416,
-   "itiraz_son": "2024-08-27"
+   "tam": 8258,
+   "itiraz_son": "2024-04-12"
   },
   {
-   "bulten_no": 446,
-   "yayin_tarihi": "2024-06-12",
-   "kayit": 7968,
-   "ham": 7968,
-   "tekrar": 0,
-   "tam": 7968,
-   "itiraz_son": "2024-08-12"
+   "bulten_no": 437,
+   "yayin_tarihi": "2024-01-29",
+   "kayit": 9112,
+   "ham": 9113,
+   "tekrar": 1,
+   "tam": 9111,
+   "itiraz_son": "2024-03-29"
   },
   {
-   "bulten_no": 445,
-   "yayin_tarihi": "2024-05-27",
-   "kayit": 8514,
-   "ham": 8514,
+   "bulten_no": 436,
+   "yayin_tarihi": "2024-01-12",
+   "kayit": 6175,
+   "ham": 6175,
    "tekrar": 0,
-   "tam": 8513,
-   "itiraz_son": "2024-07-27"
+   "tam": 6175,
+   "itiraz_son": "2024-03-12"
   },
   {
-   "bulten_no": 444,
-   "yayin_tarihi": "2024-05-13",
-   "kayit": 7334,
-   "ham": 7334,
+   "bulten_no": 435,
+   "yayin_tarihi": "2023-12-27",
+   "kayit": 7865,
+   "ham": 7865,
    "tekrar": 0,
-   "tam": 7333,
-   "itiraz_son": "2024-07-13"
+   "tam": 7865,
+   "itiraz_son": "2024-02-27"
   },
   {
-   "bulten_no": 443,
-   "yayin_tarihi": "2024-04-29",
-   "kayit": 3904,
-   "ham": 3904,
+   "bulten_no": 434,
+   "yayin_tarihi": "2023-12-12",
+   "kayit": 7668,
+   "ham": 7668,
    "tekrar": 0,
-   "tam": 3904,
-   "itiraz_son": "2024-06-29"
-  },
-  {
-   "bulten_no": 442,
-   "yayin_tarihi": "2024-04-15",
-   "kayit": 7354,
-   "ham": 7354,
-   "tekrar": 0,
-   "tam": 7353,
-   "itiraz_son": "2024-06-15"
+   "tam": 7667,
+   "itiraz_son": "2024-02-12"
   }
  ],
- "hata": [
-  {
-   "bulten_no": 460,
-   "mesaj": "Supabase marka_bulten?on_conflict=basvuru_no,bulten_no: HTTP 500 {\"code\":\"21000\",\"details\":null,\"hint\":\"Ensure that no rows proposed for insertion within the same command have duplicate constrained values.\",\"message\":\"ON CONFLICT DO UPDATE command cannot affect row a second time\"}"
-  }
- ]
+ "hata": []
 }
