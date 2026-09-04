@@ -1,8 +1,7 @@
 {
-  "tarih": "04.09.2026 00:11",
-  "durum": "BEKLEMEDE",
-  "not": "Parti(ler) 40 dakikada bitmedi - is KAYIP DEGIL, kimlikler bekleyen-hap-partileri.json'da. KURTAR=1 ile bedava hasat edilir.",
-  "partiler": [
-    "msgbatch_01WVN2BmEH36XS8os2QKuk7y"
-  ]
+  "tarih": "04.09.2026 00:55",
+  "durum": "HATA",
+  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
+  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}",
+  "satir": 112
 }
