@@ -121,7 +121,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        kalır — rakam ASLA gömülü yazılmaz. -->
   <div><span class="gozalici" id="aiRozet">🚨 Müşterin iflas veya konkordato ilan etti mi?</span></div>
   <h1>Sana borcu olan firma battı, senin haberin yok</h1>
-  <p class="lead">Vergi kimlik numarasını yaz, son 1 yılın tamamında (<b style="color:var(--accent2)"><span id="aiAdet3">…</span> resmî ilan</b>) ara — <b style="color:var(--green)">tek sorgu ücretsiz</b>.</p>
+  <p class="lead">Vergi kimlik numarasını yaz, <span id="aiLeadKapsam">son 1 yılın tamamında</span> (<b style="color:var(--accent2)"><span id="aiAdet3">…</span> resmî ilan</b>) ara — <b style="color:var(--green)">tek sorgu ücretsiz</b>.</p>
 
   <!-- 20.08 Cem + rakip incelemesi (Creditsafe / The Gazette / Companies House):
        self-servis alacak ürünlerinde ilk ekranda TEK eylem var, o da arama.
@@ -197,7 +197,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
-  <h2 style="margin:26px 0 4px">İflas &amp; konkordato arşivi <span style="font-size:13px;color:var(--dim);font-weight:600">· son 1 yıl · günde iki kez otomatik güncellenir</span></h2>
+  <h2 style="margin:26px 0 4px">İflas &amp; konkordato arşivi <span style="font-size:13px;color:var(--dim);font-weight:600">· <span id="aiH2Kapsam">son 1 yıl</span> · günde iki kez otomatik güncellenir</span></h2>
   <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
   <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler.
        20.08: ilk ekran tek eyleme (arama) indirildiği için arşiv başlığına taşındı. -->
@@ -232,12 +232,29 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <script>
   var AI_L=[], AI_ILLER=[], AI_TUR='hepsi', AI_ILLER_SUZGECLI=false;
   var AI_KAPSAM_ILK='', AI_KAPSAM_SON='', AI_KAPSAM_GUN=null;
-  // Kapsam eşiği: 1 yıl iddia edilen bir vitrinde 300 günün altı "eksik"tir.
+  // 04.09 ARŞİV DERİNLİĞİ (Cem: "5 binden fazla yıla ulaşmak istiyorum"): kaynak
+  // 365 gün tutuyor, 1 yıldan eskisi hiçbir açık kaynaktan alınamıyor (ölçüldü:
+  // canlı API eski id'ye null, Wayback sayfaları boş kabuk). Arşiv YALNIZ zamanla
+  // derinleşir — kaynaktan düşeni kasa tutar. Sayfa artık "son 1 yıl" DEMEZ;
+  // kasadan gelen arşiv penceresini basar ("20.08.2025'ten bu yana"). Göç:
+  // radar-app/sql/2026-09-04-alacak-arsiv-derinligi.sql. Göç basılmadıysa
+  // 'arsivDerinligi' bayrağı gelmez → eski "son 1 yıl" cümlesi kalır (o durumda
+  // kasa gerçekten 365 günle sayıyor; yanlış hüküm kurulmaz — kör kalma kuralı).
+  var AI_SUNUCU_ARSIV=false, AI_ARSIV_ILK='', AI_ARSIV_SON='', AI_ARSIV_GUN=null;
+  function aiPencere(){ return (AI_SUNUCU_ARSIV&&AI_ARSIV_ILK) ? aiKac(AI_ARSIV_ILK)+' tarihinden bu yana' : 'son 1 yıl'; }
+  function aiPencereTam(){ return (AI_SUNUCU_ARSIV&&AI_ARSIV_ILK) ? aiKac(AI_ARSIV_ILK)+' tarihinden bu yana tamamı' : 'son 1 yılın tamamı'; }
+  // Kapsam eşiği: göç varsa arşiv penceresine GÖRECELİ (arşivden 60+ gün kısa =
+  // eksik; iflas 06.04.2026'dan başladığı için şerh onda kalır, konkordato arşivle
+  // büyür). Göç yoksa eski mutlak eşik: 1 yıl iddiasında 300 günün altı eksiktir.
+  function aiKisaMi(gun){
+    if(typeof gun!=='number') return false;
+    return (AI_SUNUCU_ARSIV && AI_ARSIV_GUN!==null) ? (gun < AI_ARSIV_GUN-60) : (gun<300);
+  }
   // aiKapsam() TEK kaynak — hem makro başlığı hem liste sayacı buradan okur ki
   // iki yerde farklı cümle kurulmasın (27.08 dersi: aynı rakam iki evrenden gelmez).
   function aiKapsam(){
     if(!AI_KAPSAM_ILK||!AI_KAPSAM_SON) return {metin:'', eksik:false};
-    var eksik=(AI_KAPSAM_GUN!==null && AI_KAPSAM_GUN<300);
+    var eksik=(AI_KAPSAM_GUN!==null && aiKisaMi(AI_KAPSAM_GUN));
     return {metin:AI_KAPSAM_ILK+' – '+AI_KAPSAM_SON, eksik:eksik, gun:AI_KAPSAM_GUN};
   }
   // "Tümü" ekranında: kapsamı kısa olan TÜRLERİ adıyla söyler. Ölçülmemişse
@@ -246,7 +263,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   var AI_TUR_ADI={konkordato:'konkordato', iflas:'iflas', diger:'diğer'};
   function aiTurKapsamNotu(){
     if(!AI_TUR_ILK||!AI_TUR_GUN) return '';
-    var kisa=Object.keys(AI_TUR_GUN).filter(function(k){ return AI_TUR_GUN[k]<300 && AI_TUR_ILK[k]; });
+    var kisa=Object.keys(AI_TUR_GUN).filter(function(k){ return aiKisaMi(AI_TUR_GUN[k]) && AI_TUR_ILK[k]; });
     if(!kisa.length) return '';
     return '<div style="margin-top:6px;font-size:12.5px;color:var(--red);font-weight:700">⚠️ '
       + kisa.map(function(k){
@@ -257,7 +274,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       // 3→2→8→69→226 diye dolmaya başladı. Bu bir KATEGORİ RAMPASIDIR, iflasların
       // arttığı anlamına GELMEZ. Şerh bunu da söylemeli, yoksa kullanıcı (ve biz)
       // rampayı trend sanarız.
-      + ' — bu türün sayısı 1 yıllık değildir, diğerleriyle kıyaslanamaz ve <b>zaman içinde artış olarak da okunamaz</b> (kategori kaynakta bu tarihte açıldı).</div>';
+      + ' — bu türün kapsamı arşivin tamamı ('+aiPencere()+') kadar değildir, diğerleriyle kıyaslanamaz ve <b>zaman içinde artış olarak da okunamaz</b> (kategori kaynakta bu tarihte açıldı).</div>';
   }
   // 28.08 GÖREV 2: sayfa dibindeki "Veri kaynağı" bloğu da "son 1 yılın tamamı
   // var" diye VARSAYIYORDU — iflas için yanlış. Cümle artık kasadan kurulur;
@@ -268,10 +285,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var tam=[], kisa=[];
     Object.keys(AI_TUR_GUN).forEach(function(k){
       var ad=AI_TUR_ADI[k]||k;
-      if(AI_TUR_GUN[k]>=300) tam.push(ad); else kisa.push(ad+' ilanları '+aiKac(AI_TUR_ILK[k])+' tarihinden itibaren');
+      if(!aiKisaMi(AI_TUR_GUN[k])) tam.push(ad); else kisa.push(ad+' ilanları '+aiKac(AI_TUR_ILK[k])+' tarihinden itibaren');
     });
     var h='';
-    if(tam.length)  h+=' — '+tam.join(' ve ')+' ilanlarında <b style="color:var(--ink)">son 1 yılın tamamı</b>';
+    if(tam.length)  h+=' — '+tam.join(' ve ')+' ilanlarında <b style="color:var(--ink)">'+aiPencereTam()+'</b>';
     if(kisa.length) h+=(tam.length?'; ':' — ')+'<b style="color:var(--ink)">'+kisa.join(', ')+'</b> (kaynakta bu tarihte ayrı kategori olarak açıldı)';
     e.innerHTML=h;
   }
@@ -303,7 +320,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // çünkü o türde ilan AZ, kategori açılmadı. Ölçmediğimiz gerekçeyi yazmak
     // yanlış hükümdür; gerekçe artık yalnız tür seçimindeyken basılır.
     var neden = (!AI_DURUM) ? ' (kategori kaynakta bu tarihte açıldı)' : '';
-    return '<div style="margin-top:5px;color:var(--red);font-weight:700">⚠️ Bu seçimde arşiv son 1 yılın tamamını kapsamıyor — yalnız '
+    return '<div style="margin-top:5px;color:var(--red);font-weight:700">⚠️ Bu seçimde veri arşivin tamamını ('+aiPencere()+') kapsamıyor — yalnız '
       +k.gun+' günlük veri var. Başka seçimlerin oranlarıyla kıyaslanamaz ve <b>zaman içinde artış olarak da okunamaz</b>'+neden+'.</div>';
   }
   function aiFold(s){ return String(s==null?'':s).toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/\s+/g,' ').trim(); }
@@ -586,7 +603,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   }
   function aiDamgaBas(){
     var e=document.getElementById('aiDamga'); if(!e) return;
-    var h='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN/TCKN ile aranabilir</span>';
+    var h='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">'+aiPencereTam()+', VKN/TCKN ile aranabilir</span>';
+    // 04.09: arşiv kaynağın 365 günlük penceresinden derinse bunu AÇIKÇA söyle —
+    // rakip "9.491 kayıt" derken bizim farkımız kaynaktan düşeni tutmamız.
+    if(AI_SUNUCU_ARSIV && AI_ARSIV_GUN!==null && AI_ARSIV_GUN>365) h+=' <span style="color:var(--green);font-weight:700">· '+AI_ARSIV_GUN+' günlük arşiv (kaynak yalnız 365 gün tutar; düşen ilanlar bizde kalır)</span>';
     if(AI_SON_TARIH) h+=' <span style="color:var(--dim)">· en yeni ilan '+aiKac(AI_SON_TARIH)+'</span>';
     if(AI_BAYAT>3) h+='<div style="margin-top:6px;color:var(--red);font-weight:700">⚠️ Akış '+AI_BAYAT+' gündür yenilenmedi — aşağıdaki sayılar son çekimdendir, bugünü kapsamayabilir.</div>';
     e.innerHTML=h;
@@ -617,6 +637,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // (~4,7 AY) — çünkü 'iflas-ve-tasfiye' alt kategorisi havuzda 06.04 öncesi
     // HİÇ YOK. Artık pencere varsayılmaz, seçili süzgecin ÖLÇÜLEN aralığı basılır;
     // kapsam kısaysa kırmızı şerh çıkar. Göç: 2026-08-28-alacak-kapsam-serhi.sql
+    // 04.09: arşiv penceresi kasadan (göç basılmadıysa bayrak gelmez, eski cümle kalır)
+    AI_SUNUCU_ARSIV=(d.arsivDerinligi===true && !!d.arsivIlk);
+    if(AI_SUNUCU_ARSIV){ AI_ARSIV_ILK=d.arsivIlk||''; AI_ARSIV_SON=d.arsivSon||''; AI_ARSIV_GUN=(typeof d.arsivGun==='number')?d.arsivGun:null; }
+    var h2k=document.getElementById('aiH2Kapsam'); if(h2k) h2k.textContent=aiPencere();
+    var ldk=document.getElementById('aiLeadKapsam'); if(ldk) ldk.textContent=(AI_SUNUCU_ARSIV&&AI_ARSIV_ILK)?(AI_ARSIV_ILK+' tarihinden bu yana tamamında'):'son 1 yılın tamamında';
     AI_KAPSAM_ILK=d.secilenIlk||''; AI_KAPSAM_SON=d.secilenSon||'';
     AI_KAPSAM_GUN=(typeof d.secilenGun==='number')?d.secilenGun:null;
     if(d.turIlk) AI_TUR_ILK=d.turIlk;
@@ -803,7 +828,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         var y1='Arşivde <b style="color:var(--ink)">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+'</b> ilan var';
         if(AI_TURSAY){
           var tk=AI_TURSAY.konkordato||0, ti=AI_TURSAY.iflas||0, td=AI_TURSAY.diger||0;
-          y1+='; <b style="color:var(--ink)">son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+'</b> tanesi (<b style="color:var(--amber)">'+tk.toLocaleString('tr-TR')+'</b> konkordato · <b style="color:var(--red)">'+ti.toLocaleString('tr-TR')+'</b> iflas)';
+          // 04.09: göç varsa sayaçlar ARŞİVİN TAMAMINI sayar; "son 1 yılda" yalnız
+          // göç basılmadıysa (kasa 365 günle sayıyorken) yazılır.
+          if(AI_SUNUCU_ARSIV) y1+=' ('+aiPencere()+'): <b style="color:var(--amber)">'+tk.toLocaleString('tr-TR')+'</b> konkordato · <b style="color:var(--red)">'+ti.toLocaleString('tr-TR')+'</b> iflas'+(td?' · '+td.toLocaleString('tr-TR')+' diğer':'');
+          else y1+='; <b style="color:var(--ink)">son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+'</b> tanesi (<b style="color:var(--amber)">'+tk.toLocaleString('tr-TR')+'</b> konkordato · <b style="color:var(--red)">'+ti.toLocaleString('tr-TR')+'</b> iflas)';
         }
         // 28.08: EN ÇOK GÖRÜLEN EKRAN buydu ve "son 1 yılda … 415 iflas" derken
         // iflas verisinin yalnız 4,7 ay olduğunu söylemiyordu. Tarih sayfaya
@@ -817,7 +845,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         if(AI_SECILEN===null){
           sy.innerHTML=basMetin+' — ekranda <b style="color:var(--ink)">'+suz.length+'</b> ilan listeleniyor. <span style="color:var(--red)">Sunucu tür süzgeci açık değil:</span> <span style="color:var(--dim)">yandaki karar sayıları arşivin GENELİNDENDİR, seçili türe ait değildir.</span>';
         } else if(AI_SECILEN===0){
-          sy.innerHTML=basMetin+' — son 1 yılda bu seçime uyan ilan <b style="color:var(--ink)">yok</b>. <span style="color:var(--dim)">Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok demek değildir; yukarıdaki tarama kutusu arşivin tamamında arar.</span>';
+          sy.innerHTML=basMetin+' — '+(AI_SUNUCU_ARSIV?'arşivde ('+aiPencere()+')':'son 1 yılda')+' bu seçime uyan ilan <b style="color:var(--ink)">yok</b>. <span style="color:var(--dim)">Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok demek değildir; yukarıdaki tarama kutusu arşivin tamamında arar.</span>';
         } else {
           // 28.08: "son 1 yılda" VARSAYIMI kaldırıldı — ölçülen aralık yazılır.
           var kapS=aiKapsam();
@@ -1056,9 +1084,10 @@ function taramaExcelIndir(){
           kap.push({Alan:'Kapsam · '+(AI_TUR_ADI[k]||k),
                     Değer:AI_TUR_ILK[k]+' tarihinden itibaren ('+AI_TUR_GUN[k]+' gün)'});
         });
-        const kisa = Object.keys(AI_TUR_GUN).filter(function(k){ return AI_TUR_GUN[k]<300; });
+        if(AI_SUNUCU_ARSIV && AI_ARSIV_ILK) kap.push({Alan:'Arşiv penceresi', Değer:AI_ARSIV_ILK+' – '+AI_ARSIV_SON+' ('+AI_ARSIV_GUN+' gün)'});
+        const kisa = Object.keys(AI_TUR_GUN).filter(function(k){ return aiKisaMi(AI_TUR_GUN[k]); });
         if(kisa.length) kap.push({Alan:'⚠️ UYARI',
-          Değer:kisa.map(function(k){return AI_TUR_ADI[k]||k;}).join(', ')+' ilanları arşivde 1 yılın tamamını kapsamıyor; bu türde "ilan bulunamadı" sonucu, o tarihten öncesi için bilgi vermez.'});
+          Değer:kisa.map(function(k){return AI_TUR_ADI[k]||k;}).join(', ')+' ilanları arşivin tamamını ('+(AI_SUNUCU_ARSIV&&AI_ARSIV_ILK?AI_ARSIV_ILK+' tarihinden bu yana':'son 1 yıl')+') kapsamıyor; bu türde "ilan bulunamadı" sonucu, o tarihten öncesi için bilgi vermez.'});
       } else {
         kap.push({Alan:'⚠️ UYARI', Değer:'Tür bazlı kapsam ölçülemedi — bu dosyadaki sonuçlar tarama anındaki arşivle sınırlıdır.'});
       }
@@ -1222,7 +1251,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
     window.SON_TARAMA_ESLESEN_SORGU = eslesenSorgu;
 
     if(kayitlar.length){
-      html += '<h2 style="margin-top:22px">Arşiv eşleşmeleri <span style="font-size:12px;color:var(--dim);font-weight:600">· '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl)</span></h2>';
+      html += '<h2 style="margin-top:22px">Arşiv eşleşmeleri <span style="font-size:12px;color:var(--dim);font-weight:600">· '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' resmî ilan tarandı ('+aiPencere()+')</span></h2>';
       for(const k of kayitlar){
         const turAdi = k.tur==='konkordato'?'Konkordato':(k.tur==='iflas'?'İflas':'İlan');
         if(k.gizli){
@@ -1289,7 +1318,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
       }
     } else if(kasaCalisti){
       html += temizKarti;
-      html += '<div class="belg" style="margin-top:10px">Son 1 yıllık arşivin tamamı tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
+      html += '<div class="belg" style="margin-top:10px">Arşivin tamamı ('+aiPencere()+') tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
     }
   }catch(e){
     // ÖLÇEMEDİĞİNE KUSUR DEME: kasaya ulaşılamadıysa "temiz" DENMEZ (temizKarti

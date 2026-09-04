@@ -48,7 +48,8 @@ varken satır dönmeden de 200 gelir — satır sayısına bakılır.
 | 2 | `2026-08-20-alacak-karar-durumu.sql` | `durumlar` sayaçları | #1 | ✅ BASILI (`durumlar` geliyor) |
 | 3 | `2026-08-27-alacak-vitrin-tur-suzgeci.sql` | `p_tur`, tür sayaçları, bayatlık | #2 | ⬆️ **ESKİDİ** — #5 kapsıyor |
 | 4 | `2026-08-28-alacak-makro-suzgec.sql` | `iller` bloğu süzgece duyarlı, `illerSuzgecli` | #3 | ⬆️ **ESKİDİ** — #5 kapsıyor |
-| 5 | **`2026-08-28-alacak-kapsam-serhi.sql`** | `secilenIlk/Son/Gun`, `turIlk`, `turGun` | #4 | ✅ **GEÇERLİ SÜRÜM, BASILI** (ölçüldü 29.08) |
+| 5 | `2026-08-28-alacak-kapsam-serhi.sql` | `secilenIlk/Son/Gun`, `turIlk`, `turGun` | #4 | ✅ BASILI (ölçüldü 29.08) — #6 kapsıyor |
+| 6 | **`2026-09-04-alacak-arsiv-derinligi.sql`** | Sayaçlar 365 gün süzgecinden çıkar, ARŞİVİN TAMAMINI sayar; `arsivIlk/Son/Gun`, `tarihsiz`, `arsivDerinligi:true` | #5 | ⏳ **BASILMADI — Cem basacak.** Basılana kadar sayfa "son 1 yıl" cümlesiyle çalışır (bayrak gelmeyince eski cümle kalır, yanlış hüküm yok) |
 
 > ⚠️ #4 (22:04) ile #5 (22:25) **birikimli değil**: #4, #5'in kapsam alanlarını
 > içermez. #5'ten sonra #4 basılırsa `secilenGun` ve `turIlk` **kaybolur** ve
