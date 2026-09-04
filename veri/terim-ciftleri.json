@@ -1,13 +1,13 @@
 ﻿{
-    "olcum":  "2026-09-04 11:19",
+    "olcum":  "2026-09-04 21:26",
     "kural":  "sınav dili ≥ 5× kanun dili VE bire_bir → kapi; kanun alıntısı (tırnak içi) dokunulmaz",
     "kitapcik":  {
                      "SGS":  65,
                      "KGK":  112,
                      "SMMM":  16
                  },
-    "bizim_soru":  580,
-    "kapi_sayisi":  6,
+    "bizim_soru":  609,
+    "kapi_sayisi":  8,
     "ciftler":  [
                     {
                         "ad":  "genel idare gideri ↔ genel yönetim gideri",
@@ -39,8 +39,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  44,
-                                      "sinav_soru":  11
+                                      "sinav":  59,
+                                      "sinav_soru":  15
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (369 / 2)"
@@ -75,8 +75,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  41,
-                                      "sinav_soru":  6
+                                      "sinav":  83,
+                                      "sinav_soru":  15
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (490 / 2)"
@@ -111,8 +111,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  11,
-                                      "sinav_soru":  4
+                                      "sinav":  26,
+                                      "sinav_soru":  10
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (409 / 11)"
@@ -147,8 +147,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  8,
-                                      "sinav_soru":  3
+                                      "sinav":  17,
+                                      "sinav_soru":  7
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (385 / 8)"
@@ -183,8 +183,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  41,
-                                      "sinav_soru":  6
+                                      "sinav":  83,
+                                      "sinav_soru":  15
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (490 / 40)"
@@ -219,11 +219,83 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  41,
-                                      "sinav_soru":  6
+                                      "sinav":  83,
+                                      "sinav_soru":  15
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (490 / 0)"
+                    },
+                    {
+                        "ad":  "lehte ↔ olumlu (sapma yönü)",
+                        "kanun":  "lehte",
+                        "sinav":  "olumlu",
+                        "desen_kanun":  "(?\u003c![A-Za-zÇĞİÖŞÜçğıöşü])[lL][eE][hH][tT][eE]",
+                        "karsilik":  "olumlu",
+                        "bire_bir":  true,
+                        "sayim":  {
+                                      "SGS":  {
+                                                  "kanun":  0,
+                                                  "kanun_kitapcik":  0,
+                                                  "sinav":  213,
+                                                  "sinav_kitapcik":  58
+                                              },
+                                      "KGK":  {
+                                                  "kanun":  0,
+                                                  "kanun_kitapcik":  0,
+                                                  "sinav":  532,
+                                                  "sinav_kitapcik":  73
+                                              },
+                                      "SMMM":  {
+                                                   "kanun":  0,
+                                                   "kanun_kitapcik":  0,
+                                                   "sinav":  15,
+                                                   "sinav_kitapcik":  3
+                                               }
+                                  },
+                        "bizim":  {
+                                      "kanun":  6,
+                                      "kanun_soru":  2,
+                                      "sinav":  60,
+                                      "sinav_soru":  14
+                                  },
+                        "karar":  "kapi",
+                        "gerekce":  "sınav dili baskın (760 / 0)"
+                    },
+                    {
+                        "ad":  "aleyhte ↔ olumsuz (sapma yönü)",
+                        "kanun":  "aleyhte",
+                        "sinav":  "olumsuz",
+                        "desen_kanun":  "(?\u003c![A-Za-zÇĞİÖŞÜçğıöşü])[aA][lL][eE][yY][hH][tT][eE]",
+                        "karsilik":  "olumsuz",
+                        "bire_bir":  true,
+                        "sayim":  {
+                                      "SGS":  {
+                                                  "kanun":  2,
+                                                  "kanun_kitapcik":  2,
+                                                  "sinav":  205,
+                                                  "sinav_kitapcik":  59
+                                              },
+                                      "KGK":  {
+                                                  "kanun":  0,
+                                                  "kanun_kitapcik":  0,
+                                                  "sinav":  346,
+                                                  "sinav_kitapcik":  78
+                                              },
+                                      "SMMM":  {
+                                                   "kanun":  0,
+                                                   "kanun_kitapcik":  0,
+                                                   "sinav":  13,
+                                                   "sinav_kitapcik":  3
+                                               }
+                                  },
+                        "bizim":  {
+                                      "kanun":  17,
+                                      "kanun_soru":  4,
+                                      "sinav":  34,
+                                      "sinav_soru":  14
+                                  },
+                        "karar":  "kapi",
+                        "gerekce":  "sınav dili baskın (564 / 2)"
                     },
                     {
                         "ad":  "emtia ↔ stok",
@@ -255,8 +327,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  373,
-                                      "sinav_soru":  46
+                                      "sinav":  408,
+                                      "sinav_soru":  49
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (ek uyumu bozulur (emtianın → stokun); kanun alıntısında kalmalı)"
@@ -289,10 +361,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  72,
-                                      "kanun_soru":  19,
-                                      "sinav":  9,
-                                      "sinav_soru":  6
+                                      "kanun":  83,
+                                      "kanun_soru":  20,
+                                      "sinav":  13,
+                                      "sinav_soru":  8
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (ikisi de sınavda geçiyor)"
@@ -327,8 +399,8 @@
                         "bizim":  {
                                       "kanun":  32,
                                       "kanun_soru":  11,
-                                      "sinav":  62,
-                                      "sinav_soru":  5
+                                      "sinav":  73,
+                                      "sinav_soru":  6
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil"
@@ -363,8 +435,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  598,
-                                      "sinav_soru":  203
+                                      "sinav":  624,
+                                      "sinav_soru":  221
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (işletme genel kelime)"
@@ -469,10 +541,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  36,
-                                      "kanun_soru":  9,
-                                      "sinav":  131,
-                                      "sinav_soru":  20
+                                      "kanun":  51,
+                                      "kanun_soru":  10,
+                                      "sinav":  156,
+                                      "sinav_soru":  22
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (maddi olmayanlarda itfa doğru terim)"
@@ -505,8 +577,8 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  105,
-                                      "kanun_soru":  19,
+                                      "kanun":  106,
+                                      "kanun_soru":  20,
                                       "sinav":  4,
                                       "sinav_soru":  2
                                   },
@@ -541,10 +613,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  11,
-                                      "kanun_soru":  4,
-                                      "sinav":  16,
-                                      "sinav_soru":  7
+                                      "kanun":  21,
+                                      "kanun_soru":  9,
+                                      "sinav":  26,
+                                      "sinav_soru":  9
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil"
@@ -613,10 +685,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  2617,
-                                      "kanun_soru":  490,
-                                      "sinav":  49,
-                                      "sinav_soru":  16
+                                      "kanun":  2735,
+                                      "kanun_soru":  515,
+                                      "sinav":  52,
+                                      "sinav_soru":  18
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (kâr şapkalı sınav dili (SGS 3876/17))"
@@ -649,8 +721,8 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  95,
-                                      "kanun_soru":  16,
+                                      "kanun":  97,
+                                      "kanun_soru":  17,
                                       "sinav":  36,
                                       "sinav_soru":  18
                                   },
@@ -685,10 +757,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  80,
-                                      "kanun_soru":  17,
-                                      "sinav":  24,
-                                      "sinav_soru":  11
+                                      "kanun":  101,
+                                      "kanun_soru":  19,
+                                      "sinav":  28,
+                                      "sinav_soru":  13
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (farklı kavramlar)"
@@ -721,10 +793,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  99,
-                                      "kanun_soru":  29,
-                                      "sinav":  1015,
-                                      "sinav_soru":  207
+                                      "kanun":  112,
+                                      "kanun_soru":  32,
+                                      "sinav":  1050,
+                                      "sinav_soru":  216
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (\u0027menkul kıymet\u0027 gerçek terim)"

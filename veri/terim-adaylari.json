@@ -7,6 +7,8 @@
     { "ad": "Dİ ↔ direkt işçilik", "kanun": "Dİ", "sinav": "direkt işçilik", "bire_bir": true },
     { "ad": "GÜG ↔ genel üretim gideri", "kanun": "GÜG", "sinav": "genel üretim gider", "bire_bir": true, "karsilik": "genel üretim gideri" },
     { "ad": "GİG ↔ genel üretim gideri", "kanun": "GİG", "sinav": "genel üretim gider", "bire_bir": true, "karsilik": "genel üretim gideri" },
+    { "ad": "lehte ↔ olumlu (sapma yönü)", "kanun": "lehte", "sinav": "olumlu", "bire_bir": true, "karsilik": "olumlu", "not": "04.09 ölçüm: lehte 0, olumlu 213 (SGS 65 kitapçık)" },
+    { "ad": "aleyhte ↔ olumsuz (sapma yönü)", "kanun": "aleyhte", "sinav": "olumsuz", "bire_bir": true, "karsilik": "olumsuz", "not": "04.09 ölçüm: aleyhte 2, olumsuz 205" },
     { "ad": "emtia ↔ stok", "kanun": "emtia", "sinav": "stok", "bire_bir": false, "not": "ek uyumu bozulur (emtianın → stokun); kanun alıntısında kalmalı" },
     { "ad": "gayrimenkul ↔ maddi duran varlık", "kanun": "gayrimenkul", "sinav": "maddi duran varlık", "bire_bir": false, "not": "ikisi de sınavda geçiyor" },
     { "ad": "ihtiyat ↔ yedek", "kanun": "ihtiyat", "sinav": "yedek", "bire_bir": false },

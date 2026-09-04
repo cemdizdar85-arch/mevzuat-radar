@@ -625,11 +625,34 @@ Invoke-Expression ([regex]::Match($son10,'(?s)function TabloHtml.*?\n\}\r?\n').V
 Invoke-Expression ([regex]::Match($son10,'(?s)function SemaHtml.*?\n\}\r?\n(?=\r?\n)').Value)
 
 # --- FAZ A: SORU ------------------------------------------------------------
+# 04.09 KAPI-Ş: şık dengesi (Cem "cevap belli, sınavda böyle mi?"). Ölçüm: 7 çıkmış SGS sapma sorusunun 5'inde her tutar
+# iki yönle geçiyor. Kural: yön kelimesi taşıyan şıklarda (olumlu/olumsuz/lehte/aleyhte/eksik-fazla yükleme) tutar sayısı
+# ve yön çiftleri sayılır; en az 2 tutar iki yönle görünmeli, hiçbir tutar TEK BAŞINA iki yönle görünmemeli.
+function SikDengesi($aday){
+  if(-not $aday -or -not $aday.siklar){ return '' }
+  $sik=@('A','B','C','D','E' | ForEach-Object { "$($aday.siklar.$_)" })
+  $yonlu=@($sik | Where-Object { $_ -match '(?i)\b(olumlu|olumsuz|lehte|aleyhte|eksik yükleme|fazla yükleme|eksik|fazla)\b' })
+  if($yonlu.Count -lt 4){ return '' }   # yön sorusu değil
+  $cift=@{}
+  foreach($s in $sik){ $t=[regex]::Match($s,'\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?').Value; if(-not $t){ continue }
+    $y=if($s -match '(?i)\b(olumlu|lehte|fazla)\b'){ '+' } elseif($s -match '(?i)\b(olumsuz|aleyhte|eksik)\b'){ '-' } else { '?' }
+    if(-not $cift.ContainsKey($t)){ $cift[$t]=@{} }; $cift[$t][$y]=1 }
+  $ikiYonlu=@($cift.Keys | Where-Object { $cift[$_].Count -ge 2 })
+  if($cift.Count -ge 2 -and $ikiYonlu.Count -lt 2){ return "yön şıklarında $($cift.Count) tutar var, iki yönle görünen $($ikiYonlu.Count) (gerek: en az 2)" }
+  if($sik -match '(?i)\b(lehte|aleyhte)\b'){ return "yön kelimesi 'lehte/aleyhte' (sınav dili: olumlu/olumsuz)" }
+  return ''
+}
 $soruIstem=@'
 Sen "Nobetci" adli hoca-yazarsin. {SINAV} sinavinin {DERS} dersinden, verilen KONUda, SIFIRDAN bir sinav sorusu uret. Universite mezunu gence, gercek sinav ayarinda.
 KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 1. YALNIZ asagidaki KAYNAK METNINE dayan; kural/oran/tanim kaynaktan. Senaryo tutarlari serbest.
 2. 5 sik, TEK dogru; her yanlis sik BIR ADLI TUZAGIN sonucu.
+2a. SIK DENGESI (04.09 Cem "cevap belli, sınavda böyle mi?" → 7 çıkmış sapma sorusu ölçüldü): tutar + YÖN birlikte
+    sorulan şıklarda (sapma/fark/yükleme) her tutar İKİ YÖNLE de görünür: 2 tutar × 2 yön + 1 tek şık (üçüncü tutar ya da
+    "Sapma yok"). Örnek (SGS 2020/3): 20.000 olumlu · 30.000 olumlu · 30.000 olumsuz · 40.000 olumlu · 40.000 olumsuz.
+    Tek bir tutarın iki yönle, diğerlerinin tek yönle verilmesi YASAK (cevap tutardan belli olur). Yön kelimesi sınav
+    dilidir: "olumlu / olumsuz" (lehte/aleyhte sınavda geçmez); genel üretim gideri yüklemesinde "eksik yükleme / fazla
+    yükleme". Genel ilke her şık tipinde: doğru şık, biçimiyle (tek farklı hesap, tek farklı birim, tek çift) ele vermez.
 3. ACIKLAMA - her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK).
    TURKCE HARFLER TAM YAZILIR: "Doğrusu", "Tuzağı", "Kural", "Hesap" - ASCII yazim
    ("Dogrusu", "Tuzagi") KUSURDUR, sayfada oyle gorunur ve urunu ucuzlatir.
@@ -978,11 +1001,15 @@ foreach($kk in $KONULAR){
       continue
     }
     $uz="$($aday.soru)".Length
-    if($uz -le $UZUNLUK_TAVAN){ $cvp=$aday; break }
-    Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow
+    # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
+    $sikKusur=SikDengesi $aday
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur){ $cvp=$aday; break }
+    if($uz -gt $UZUNLUK_TAVAN){ Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
+    if($sikKusur){ Write-Host "  KAPI-Ş ($id): $sikKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ş DÜŞTÜ: önceki denemede şıklar cevabı ele veriyordu ($sikKusur). Kural 2a'yı uygula: her tutar iki yönle (olumlu/olumsuz), 2 tutar × 2 yön + 1." }
     if($deneme -eq 2){
-      $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)")
-      $cvp=$aday   # 3 denemede inmediyse en sonuncuyu al ama RAPORA yaz
+      if($uz -gt $UZUNLUK_TAVAN){ $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)") }
+      if($sikKusur){ $rapor.Add("KAPI-Ş (şık dengesi) DÜŞTÜ: $($ky.konu) | $sikKusur") }
+      $cvp=$aday   # 2 denemede düzelmediyse en sonuncuyu al ama RAPORA yaz
     }
   }
   if($cvp -and $cvp.soru -and $cvp.aciklama){
