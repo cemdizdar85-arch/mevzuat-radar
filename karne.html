@@ -262,7 +262,7 @@
 
 <script>
 /* E-posta toplama: form-al uç fonksiyonu (radar-app/edge/form-al.ts) — 04.09 web3forms çıkarıldı */
-const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
+const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task";
 
 /* ============================================================================
    ESIKLER — TÜM EŞİK DEĞERLERİ BURADA.
@@ -584,7 +584,7 @@ function epostaGonder(){
   };
   goster('Gönderiliyor…',true);
   fetch(EPOSTA_ENDPOINT, {
-    method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+    method:'POST', headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},
     body: JSON.stringify(payload)
   }).then(r=>{
     if(r.ok){ $('eposta').value=''; $('kvkk').checked=false;

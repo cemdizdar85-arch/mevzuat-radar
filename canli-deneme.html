@@ -342,7 +342,7 @@ document.getElementById('kayitForm').addEventListener('submit', function(e){
   var em = document.getElementById('kayitEposta').value.trim();
   if(!em) return;
   try {
-    fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json',Accept:'application/json'},
       body:JSON.stringify({email:em,subject:'CANLI DENEME kayit',from_name:'Tetikte Canli Deneme'})});
   } catch(err){}
   this.style.display = 'none';

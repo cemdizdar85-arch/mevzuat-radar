@@ -185,7 +185,7 @@ function ciz(){
 function takip(){
   var e=(document.getElementById('mail').value||'').trim(), o=document.getElementById('takipOut');
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){ o.style.color='var(--red)'; o.textContent='Geçerli bir e-posta gir.'; return; }
-  try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subject:'TETIKTE - Marka izleme takip talebi',from_name:'Tetikte Marka Izleme',email:e,marka:(document.getElementById('ad').value||''),sinif:(document.getElementById('sinif').value||'')})}); }catch(err){}
+  try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json'},body:JSON.stringify({subject:'TETIKTE - Marka izleme takip talebi',from_name:'Tetikte Marka Izleme',email:e,marka:(document.getElementById('ad').value||''),sinif:(document.getElementById('sinif').value||'')})}); }catch(err){}
   o.style.color='var(--green)'; o.textContent='Aldık. Marka izleme aboneliği açılınca benzer başvuru düştüğünde ilk sen haber al.';
 }
 

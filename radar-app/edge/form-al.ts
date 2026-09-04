@@ -25,6 +25,12 @@
 //    3) SQL Editor → veri/sql-form-kasasi.sql bas (form_kayit tablosu).
 //       Basılmadan da çalışır: kayıt düşmez, yalnız mail gider (kayit:false).
 //
+//  ⚠️ CANLI ADI "quick-task" (04.09.2026): panelde isim kutusu boş kalınca
+//  Supabase kendi adını verdi; kod bu dosya. "Verify JWT" AÇIK kaldı, bu yüzden
+//  sayfalar isteğe apikey + Authorization (açık anahtar) başlığı ekler.
+//  Adı form-al'a çevirmek = yeniden deploy + eski adı silme (Chrome eklentisi
+//  bağlanınca GM yapar). Uç: …/functions/v1/quick-task
+//
 //  TEŞHİS: curl -X POST .../functions/v1/form-al?tani=1  → hangi secret tanımlı
 //  (yalnız true/false, değer ASLA dönmez).
 //

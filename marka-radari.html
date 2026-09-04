@@ -216,7 +216,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </div>
 
 <script>
-const EP="https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
+const EP="https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task";
 function ay(d,n){const x=new Date(d);x.setMonth(x.getMonth()+n);return x;}
 function yil(d,n){const x=new Date(d);x.setFullYear(x.getFullYear()+n);return x;}
 function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();}
@@ -283,7 +283,7 @@ function koruma(){
   const no=(document.getElementById('no').value||'').trim(), ad=(document.getElementById('ad').value||'').trim(), sinif=(document.getElementById('sinif').value||'').trim();
   const payload={subject:'MARKA KORUMA/TESCIL talebi (markasi yok/emin degil)',
     from_name:'Tetikte Marka', "E-posta":m, "Marka/Firma":ad||'', "Tescil No":no||'', "Sinif":sinif||'', "Talep":"Markam yok/emin degilim - kontrol + koruma"};
-  fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+  fetch(EP,{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{out.innerHTML='✅ Aldık. Sana ait tescilli marka var mı kontrol edip koruma seçeneklerini ileteceğiz.';})
     .catch(()=>{out.innerHTML='İletişim: <a href="mailto:info@dizdardenetim.com">info@dizdardenetim.com</a>';});
 }
@@ -292,7 +292,7 @@ function takip(){
   if(!m){ document.getElementById('takipOut').textContent='E-postanı yaz.'; return; }
   const payload={subject:'MARKA RADARI takip: '+(SON.ad||SON.no||'-'),
     from_name:'Tetikte Marka', "E-posta":m, "Marka":SON.ad||'', "Tescil No":SON.no||'', "Sinif":SON.sinif||'', "Basvuru":SON.basvuru||'', "Bitis":SON.bitis||'', "Pencere acilis":SON.acilis||'', "Durum":SON.durum||''};
-  fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+  fetch(EP,{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{document.getElementById('takipOut').innerHTML='✅ Takibe alındı. Yenileme yaklaşınca haber vereceğiz.';})
     .catch(()=>{document.getElementById('takipOut').innerHTML='İletişim: <a href="mailto:info@dizdardenetim.com">info@dizdardenetim.com</a>';});
 }

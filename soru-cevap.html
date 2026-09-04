@@ -302,7 +302,7 @@ function kapsamDisi(q){
     return;
   }
   $('#cevapAlan').innerHTML=durustKutu();
-  try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
+  try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
 }
 function localSor(q){
   // paywall: ücretsiz hak bitti mi?
@@ -334,7 +334,7 @@ function localSor(q){
     }
     // kapsamda yok — dürüst + logla
     $('#cevapAlan').innerHTML=durustKutu();
-    try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
+    try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
   }
 }
 </script>

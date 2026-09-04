@@ -297,7 +297,7 @@ function radarAbone(f){
   if(!e) return false;
   var hp=f.querySelector("input[name=_hp]"); if(hp&&hp.value) return false;
   try{
-    fetch("https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+    fetch("https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task",{method:"POST",headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Content-Type":"application/json",Accept:"application/json"},
       body:JSON.stringify({email:e,message:"Radar abonelik talebi — paket: "+p,
       subject:"RADAR ABONELIK TALEBI ("+p+")",from_name:"Tetikte Radar Fiyat"})});
   }catch(err){}

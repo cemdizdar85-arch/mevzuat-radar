@@ -238,7 +238,7 @@ var BANKA = {
 };
 var KURULUM_TAMAM = BANKA.iban.indexOf('[') === -1;
 
-var EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
+var EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task";
 var SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co';
 var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 
@@ -438,7 +438,7 @@ btn.addEventListener('click', function(){
   /* Sipariş İKİ yere birden düşer: tablo + e-posta. Tablo asıl kayıt, e-posta
      hem Cem'in bildirimi hem de yedek yol - tablo kurulmamışsa sipariş kaybolmasın.
      19.08 DERSİ: supabase-js sorguları TEMBELDİR, .then'siz insert HİÇ GÖNDERİLMEZ. */
-  var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+  var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify({ subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(secili.fiyat) + ' TL',
         from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(secili.fiyat)+' TL',
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,

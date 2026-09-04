@@ -253,7 +253,7 @@ details.kacc>.ic{padding:2px 0 14px}
 </div>
 
 <script>
-const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/form-al";
+const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task";
 
 // ============ SABİT YERLEŞTİRME MOTORU ============
 // Metinlerdeki {{token}} alanları veri/vergi-sabitleri.json'dan doldurulur.
@@ -373,7 +373,7 @@ function takibeAl(){
     'Kayıt kaynağı': 'Şirket Kuruluşu Rehberi'
   };
   goster('Kaydediliyor…',true);
-  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(r=>{ if(r.ok){ document.getElementById('takipMail').value=''; document.getElementById('takipKvkk').checked=false;
       goster('✓ Kaydedildi! Şirket kuruluşu mevzuatı değiştiğinde ilk sana haber vereceğiz.',true); }
       else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
@@ -801,7 +801,7 @@ function oneriGonder(tur){
     'Kayıt kaynağı': 'Şirket Kuruluşu Sihirbazı'
   };
   goster('Gönderiliyor…',true);
-  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(r=>{ if(r.ok){ goster('✓ Alındı! Yol haritan ve önerin en kısa sürede e-postanda.',true); }
       else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
     .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
