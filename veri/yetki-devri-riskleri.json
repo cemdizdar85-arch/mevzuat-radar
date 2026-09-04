@@ -1,5 +1,5 @@
 {
-  "tarih": "04.09.2026 09:45",
+  "tarih": "04.09.2026 11:55",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 843,
   "riskli_madde": 1315,
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 377,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -145,35 +145,35 @@
     },
     {
       "sayfa": "destekler.html",
-      "satir": 353,
+      "satir": 352,
       "iddia": "3 ay",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Yurt Dışı Fuar Katılım Desteği\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-gen"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 359,
+      "satir": 358,
       "iddia": "%50,",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Yurt Dışı Birim, Kira ve Tanıtım Destekleri\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karar"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 360,
+      "satir": 359,
       "iddia": "%50",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Pazara Giriş Belgesi Desteği\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genel"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 361,
+      "satir": 360,
       "iddia": "%50,",
       "kanun": "5973",
       "metin": "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Marka ve TURQUALITY® Destek Programı\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-ilisk"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 363,
+      "satir": 362,
       "iddia": "%50,",
       "kanun": "5986",
       "metin": "oran:[\"Temel oran %50, pazaryeri tanıtımında pazaryeri başına 3 yıl (5986 s. Karar m.4; e-ihracat tanıtım gideri sınırı: pazaryeri satışının %20'si)\",\"Sipariş karşılama (fulfilment"
@@ -201,14 +201,14 @@
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 329,
+      "satir": 328,
       "iddia": "24 ay",
       "kanun": "344",
       "metin": "[\"Sermaye ödemesi\",\"Nakdî payların en az ¼'ü tescilden önce bankada bloke edilir, kalanı 24 ay içinde (TTK m.344)\"],"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 539,
+      "satir": 537,
       "iddia": "24 ay",
       "kanun": "344",
       "metin": "neden.as.push('Sermaye endişen AŞ kapısını kapatmasın: {{as}} TL taahhüdün kuruluşta yalnız 1/4\\'ü ({{blokaj}} TL) bankada bloke edilir, kalanı 24 ay içinde ödenir (TTK m.344). Sat"
@@ -763,43 +763,43 @@
     },
     {
       "sayfa": "destekler.html",
-      "satir": 462,
+      "satir": 461,
       "iddia": "0 gün",
       "metin": "// çağrı \"son 0 gün\" diye AÇIK görünüyordu. Artık TAM GÜN farkı hesaplanır:"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 463,
+      "satir": 462,
       "iddia": "9 gün",
       "metin": "// dün kapanan -1 (KAPANDI), bugün kapanan 0 (bugün son gün), 9 gün kalan 9."
     },
     {
       "sayfa": "destekler.html",
-      "satir": 524,
+      "satir": 523,
       "iddia": "%82",
       "metin": "// alanları \"Çağrı duyurusunda\" diyordu - liste %82 oranında boş kutuydu."
     },
     {
       "sayfa": "destekler.html",
-      "satir": 719,
+      "satir": 718,
       "iddia": "%74",
       "metin": "// 21.08 adım 2: AB canlı verinin ~%74'ü (100/135). Kapalı akordeonda saklamak"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 784,
+      "satir": 783,
       "iddia": "En az 2",
       "metin": "if(q.length En az 2 harf yaz; '+FUAR.fuarlar.length+' fuar içinde arar. '; return; }"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 872,
+      "satir": 871,
       "iddia": "120 gün",
       "metin": "document.getElementById('urgeSayi').textContent = '· '+d.kayitlar.length+' duyuru (son 120 gün)';"
     },
     {
       "sayfa": "destekler.html",
-      "satir": 883,
+      "satir": 882,
       "iddia": "120 gün",
       "metin": ": ' Son 120 günde UR-GE/heyet duyurusu yok. ';"
     },
@@ -1171,73 +1171,73 @@
     },
     {
       "sayfa": "gtip.html",
-      "satir": 261,
+      "satir": 260,
       "iddia": "%0",
       "metin": "✅ GÜMRÜK VERGİSİ ASKIYA ALINMIŞ OLABİLİR (%0), V Sayılı Liste"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 263,
+      "satir": 262,
       "iddia": "%0",
       "metin": "Bu listede yer alan ürünlerde gümrük vergisi %0'a askıya alınmıştır , ama ŞARTLIDIR (ürün tanımı birebir uymalı, çoğu nihai kullanım/dipnot şartına tabi). Kesin GV için tam kodun t"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 347,
+      "satir": 346,
       "iddia": "%6",
       "metin": "⚠ KKDF, ÇOĞU İTHALATÇININ ATLADIĞI %6"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 456,
+      "satir": 455,
       "iddia": "%20",
       "metin": "// bir çapraz-atıf açıklamasıdır, o kodu dışlamamalı — yoksa 84.02 buhar kazanı yanlış %20 olur."
     },
     {
       "sayfa": "gtip.html",
-      "satir": 467,
+      "satir": 466,
       "iddia": "%20",
       "metin": "// kod bazında değerlendirilir (8703 dersi: yeni binek oto %20; yalnız kullanılmış %1). Ayrı gösterilir."
     },
     {
       "sayfa": "gtip.html",
-      "satir": 474,
+      "satir": 473,
       "iddia": "%20",
       "metin": "Aşağıdaki hüküm bir koşula bağlıdır (ör. yalnız kullanılmış/ikinci el ). Ürün sıfır/yeni ise genel oran %20 'dir; koşulu sağlıyorsan indirimli olabilir, gümrük müşavirinle teyit et"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 486,
+      "satir": 485,
       "iddia": "%1",
       "metin": "if(o1u.length) oranEt.push('%1');"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 487,
+      "satir": 486,
       "iddia": "%10",
       "metin": "if(o10u.length) oranEt.push('%10');"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 516,
+      "satir": 515,
       "iddia": "%50.0094",
       "metin": "// (muz GV'si dosyada 50.009399999999999); ekrana \"%50.0094\" diye düşüyordu."
     },
     {
       "sayfa": "gtip.html",
-      "satir": 556,
+      "satir": 555,
       "iddia": "%0,4",
       "metin": "// 15.717 kodun 63'ü (%0,4) bu durumda: 20'si fasıl 95, 14'ü fasıl 99."
     },
     {
       "sayfa": "gtip.html",
-      "satir": 830,
+      "satir": 829,
       "iddia": "5 yıl",
       "metin": "'suresi-doldu': 'önlem vardı, 5 yıllık süresi doldu',"
     },
     {
       "sayfa": "gtip.html",
-      "satir": 856,
+      "satir": 855,
       "iddia": "%7,37",
       "metin": "// \"7.3700000000000002E-2\" görüyordu (gerçekte %7,37). Ortak çözücü"
     },
@@ -1543,25 +1543,25 @@
     },
     {
       "sayfa": "karne.html",
-      "satir": 284,
+      "satir": 283,
       "iddia": "2 yıl",
       "metin": "bagimsizDenetim: { aktif:500000000, ciro:1000000000, calisan:150, kacKriter:2, teyit:true, not:\"11066 s. Karar (17.03.2026 RG), 2026 hesap dönemi; 3 ölçütten 2'si, 2 yıl üst üste\" "
     },
     {
       "sayfa": "karne.html",
-      "satir": 285,
+      "satir": 284,
       "iddia": "1.250.000 TL",
       "metin": "avukatBulundurma: { minSermaye:1250000, teyit:true, not:\"esas sermaye 1.250.000 TL+ AŞ (TTK asgari 250K x5)\" },"
     },
     {
       "sayfa": "karne.html",
-      "satir": 322,
+      "satir": 321,
       "iddia": "%3",
       "metin": "? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar, en az ${Math.floor(p.calisan*0.03+0.5)} kişi, engelli çalıştırmak zorundasın (yarım ve üzeri kesir tama yuvarlanır).`"
     },
     {
       "sayfa": "karne.html",
-      "satir": 447,
+      "satir": 446,
       "iddia": "en az 2",
       "metin": "? `3 ölçütten en az 2’sini aşıyorsun (${asan.map(o=>o.ad).join(', ')}), bağımsız denetime tabisin.`"
     },
@@ -1645,49 +1645,49 @@
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 266,
+      "satir": 265,
       "iddia": "1 yıl",
       "metin": "bagkur:'⚠ Dikkat: eskiden verilen 1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı (7566 s. Kanun), internette hâlâ yazan eski bilgiye aldanma.' };"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 496,
+      "satir": 494,
       "iddia": "%12,5",
       "metin": "// KV orani %12,5'e iniyor (7582 s.K.), al-sat %25 kaliyor. Uzun donemli oneri"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 524,
+      "satir": 522,
       "iddia": "62.500 TL",
       "metin": "// satış planı olana AŞ kapısı kapatılmaz: 250.000 taahhüdün yalnız 1/4'ü (62.500 TL) peşin bloke edilir"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 531,
+      "satir": 529,
       "iddia": "2 yıl",
       "metin": "// LTD kurup sonradan dönmenin tuzağı: dönüşümde 2 yıllık istisna süresinin başlangıcı"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 561,
+      "satir": 559,
       "iddia": "%40",
       "metin": "neden.ltd.push('Üretici için şirketin ayrı bir kozu var: sanayi sicil belgeli imalatçının ÜRETİM kazancında kurumlar vergisi 2026\\'da %'+SABIT.kvOranlari.imalatci2026+', 2027\\'den "
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 583,
+      "satir": 581,
       "iddia": "%35",
       "metin": "neden.ltd.push(`Net konuşalım: hem ciron bilanço haddini aşıyor hem ${TLf(kar)} TL kâr hedefin${istisnaOn?' (genç girişimci istisnası düşülse bile)':''} gelir vergisinin %35-40 dil"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 603,
+      "satir": 601,
       "iddia": "%10",
       "metin": "// puana etki: belirgin fark varsa (%10+) tarafına yaz"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 829,
+      "satir": 826,
       "iddia": "7 gün",
       "metin": "document.getElementById('takvimNot').textContent = \"✓ İndirildi, dosyayı açınca takvimine kaydolur (30 ve 7 gün önce hatırlatmalı).\";"
     },
@@ -2089,7 +2089,7 @@
     },
     {
       "sayfa": "soru-cevap.html",
-      "satir": 324,
+      "satir": 323,
       "iddia": "%88",
       "metin": "// sıradaydı ve birincinin %88'i kadar puan almıştı; mutlak eşik onu"
     },
