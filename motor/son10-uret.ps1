@@ -124,8 +124,11 @@ KURALLAR:
    (d) Her sayının kimliği parantezle sayının HEMEN ARDINDA: (soruda verilen) ya da (N. adımda bulduk). Parantez içinde
        işleç kullanma. Ok işareti (→) yalnız "genel formül → sayılı hâli" geçişinde; düz yazı, açıklama, "yani" formüle girmez.
    (e) Sonuç formülün EN SONUNDA tek sayı (birimiyle): "= 260 TL/adet". Formül içinde cümle yazma; cümle anlatıma gider.
-   (f) ADIM 1 (verilenler) formülü de cümle DEĞİL, liste: "Verilen: Fiili miktar P 2.000 kg (soruda verilen); Katsayı Q 3
-       (soruda verilen); Toplam ortak maliyet 400.000 TL (soruda verilen)". Her kalem noktalı virgülle ayrılır.
+   (f) ADIM 1 formülü cümle DEĞİL, liste. HESAPLI/KAYITLI soruda "Verilen: Fiili miktar P 2.000 kg (soruda verilen);
+       Katsayı Q 3 (soruda verilen); Toplam ortak maliyet 400.000 TL (soruda verilen)". TEORİ sorusunda (rakam yok, tablo
+       kavram tablosu) "Verilen" yazılmaz; "Soruda ne var: <olay>; <istenen şey>; <ayırt edici kelime>" kalıbı kullanılır
+       (örnek: "Soruda ne var: üretim binası satışından nakit girişi; hangi faaliyet grubuna girdiği soruluyor; 'yatırım
+       faaliyeti' tanımı belirleyici"). Her kalem noktalı virgülle ayrılır.
    (g) SON ADIM ZORUNLU ve "En sık hata" adımıdır (kural 6c); formülü "Yanlış yol: <yanlış işlem> = <yanlış sonuç> (HATALI)
        → doğrusu <doğru sonuç> (N. adımda bulduk)" kalıbında; anlatımı neden yanlış olduğunu tek cümleyle söyler. Sonuç
        adımı ondan hemen ÖNCE gelir. Bu adım yoksa çıktı eksiktir.
