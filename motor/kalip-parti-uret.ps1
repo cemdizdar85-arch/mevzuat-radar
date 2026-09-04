@@ -19,6 +19,7 @@ param(
   [switch]$SadeceHtml,     # 03.09 Cem "her seyde bedeli sor": yalniz cache'ten HTML cizer; API cagrisi denenirse DURUR (bedel 0 garantisi)
   [string]$PilotId='',     # 03.09: pilot - model fazlari YALNIZ bu id'lere calisir (virgullu: kp-04,kp-31); digerleri cache'ten
   [switch]$AdimYenile,     # 04.09 Cem "30'luk SGS seti": pilot id'lerin ESKI adimlari silinir, ogretici istemle yeniden yazilir
+  [switch]$SadeceAdim,     # 04.09: yalniz FAZ B (adim) calisir; ikiz/yevmiye/hakem fazlari atlanir (bedel yalniz onaylanan is)
   [int]$Adet=30,
   [string]$Etiket='sgs-fmuh-30',
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
@@ -938,6 +939,7 @@ foreach($kk in $KONULAR){
 }
 
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------
+$script:FAZ_ADI='B'
 # 03.09 Cem "ogretmen her soruda olsun": tablosuz KAYIT sorulari da adim alir; tablo yerine yevmiye
 # satirlarindan kurulan Kalem|Tutar tablosu verilir (kayit satirlari 'doldur' hedefi olur).
 function AdimTablosu($cvp){
@@ -963,7 +965,7 @@ function AdimTablosu($cvp){
   return [pscustomobject]@{ basliklar=@('Kayıt','Tutar'); satirlar=$sat }
 }
 foreach($id in @($don.Keys)){
-  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
+  if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   $tabloAdim=AdimTablosu $cvp
@@ -991,6 +993,7 @@ foreach($id in @($don.Keys)){
 }
 
 # --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
+$script:FAZ_ADI='C'
 $ikizIstem=@'
 Asagidaki COZULMUS sorunun IKIZINI uret: AYNI yontem, FARKLI rakamlar/adlar, FARKLI hedef kalem sorulabilir. Ogrenci tabloyu KENDISI dolduracak.
 KURALLAR:
@@ -1004,7 +1007,7 @@ Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[
 === ANA TABLO === {TABLO}
 '@
 foreach($id in @($don.Keys)){
-  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
+  if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
@@ -1049,7 +1052,7 @@ ISTISNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (ornek: ozkaynak = aktif - borc
 === DOGRU ACIKLAMA === {ACIK}
 '@
 foreach($id in @($don.Keys)){
-  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
+  if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   if(-not $cvp.soru -or -not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
@@ -1098,7 +1101,7 @@ Ikiz sorunun rakamlariyla kayit KURULAMIYORSA: {"tur":"yok","sebep":"tek cumle"}
 === IKIZ TABLO (dogru degerler) === {IKIZTABLO}
 '@
 foreach($id in @($don.Keys)){
-  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
+  if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz)){ continue }
@@ -1177,7 +1180,7 @@ foreach($id in @($don.Keys)){
   $cvp=$don[$id]
   if(-not $cvp.soru){ continue }
   # 03.09 KAPI D (konu uyumu) eklendi: konu_uyum alani olmayan eski karar YENIDEN verdirilir (ucuz hakem).
-  if($SadeceHtml){ continue }   # yalniz cizim: eski karar neyse o kalir, hakem cagrilmaz
+  if($SadeceHtml -or $SadeceAdim){ continue }   # yalniz cizim / yalniz adim: eski karar neyse o kalir, hakem cagrilmaz
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
   # sema normalizasyonu geriye donuk (ogeler<-adimlar)
@@ -1241,7 +1244,7 @@ $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and
 # parti TEKDUZE demektir - rapora yazilir, Cem gormeden kasaya gitmez.
 $tuzakSayaci=@{}
 foreach($id in @($don.Keys)){
-  if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
+  if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvpT=$don[$id]
   if(-not $cvpT.soru -or -not $cvpT.aciklama){ continue }
