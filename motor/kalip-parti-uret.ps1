@@ -642,6 +642,37 @@ function SikDengesi($aday){
   if($sik -match '(?i)\b(lehte|aleyhte)\b'){ return "yön kelimesi 'lehte/aleyhte' (sınav dili: olumlu/olumsuz)" }
   return ''
 }
+# 04.09 GM-2: kapı diğer şık tiplerine genişledi (çıkmış şık kalıbı ölçümü: motor/celdirici-olcum.ps1).
+#  (1) SAYI şıkları: beş tutar birbirinden farklı olmalı (yönsüz tekrar = cevap belli) ve küçükten büyüğe sıralı.
+#  (2) CÜMLE şıkları: doğru şık en uzunsa ve medyanın 1,6 katından uzunsa "en uzun şık doğru" ele verir.
+#  (3) TEK FARKLI BİÇİM: yalnız doğru şıkta birim/parantez/ondalık varsa (diğer dördünde yoksa) ele verir.
+function SikBicimi($aday){
+  if(-not $aday -or -not $aday.siklar -or -not $aday.dogru){ return '' }
+  $harf=@('A','B','C','D','E'); $sik=@($harf | ForEach-Object { "$($aday.siklar.$_)".Trim() }); $d="$($aday.dogru)".Trim().ToUpperInvariant()
+  if($harf -notcontains $d){ return '' }
+  $dogruS="$($aday.siklar.$d)".Trim()
+  $yonlu=@($sik | Where-Object { $_ -match '(?i)\b(olumlu|olumsuz|lehte|aleyhte|eksik|fazla)\b' }).Count
+  $sayiRx='^\s*[\d.,]+\s*(₺|TL|%|adet|kg|saat|gün|yıl|TL/kg|TL/adet)?\s*$'
+  $sayiN=@($sik | Where-Object { $_ -match $sayiRx }).Count
+  if($sayiN -ge 4 -and $yonlu -lt 4){
+    $deg=@($sik | ForEach-Object { $m=[regex]::Match($_,'\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?'); if($m.Success){ try{ [double]::Parse($m.Value,[cultureinfo]::GetCultureInfo('tr-TR')) }catch{ $null } } })
+    $deg=@($deg | Where-Object { $null -ne $_ })
+    if(@($deg | Select-Object -Unique).Count -lt $deg.Count){ return "sayı şıklarında aynı tutar tekrar ediyor" }
+    $sirali=$true; for($q=1;$q -lt $deg.Count;$q++){ if($deg[$q] -lt $deg[$q-1]){ $sirali=$false; break } }
+    if(-not $sirali){ return "sayı şıkları küçükten büyüğe sıralı değil" }
+    $birimli=@($sik | Where-Object { $_ -match '(₺|TL|%|adet|kg|saat)' }).Count
+    if($birimli -eq 1 -and $dogruS -match '(₺|TL|%|adet|kg|saat)'){ return "birim yalnız doğru şıkta" }
+    return ''
+  }
+  if($sayiN -le 1 -and $yonlu -lt 4){
+    $uz=@($sik | ForEach-Object { $_.Length } | Sort-Object); $medyan=[double]$uz[[int]($uz.Count/2)]
+    # eşik 1,8: çıkmış cümle şıklarında en uzun/medyan MEDYANI ders başına 1,14–1,6 (04.09 ölçüm, 3.590 soru); 1,6 gerçek sınavı da düşürürdü
+    if($medyan -gt 0 -and $dogruS.Length -eq $uz[-1] -and $dogruS.Length -ge 1.8*$medyan){ return "doğru şık en uzun ve medyanın $([math]::Round($dogruS.Length/$medyan,1)) katı" }
+    $parantezli=@($sik | Where-Object { $_ -match '\(' }).Count
+    if($parantezli -eq 1 -and $dogruS -match '\('){ return "parantezli açıklama yalnız doğru şıkta" }
+  }
+  return ''
+}
 $soruIstem=@'
 Sen "Nobetci" adli hoca-yazarsin. {SINAV} sinavinin {DERS} dersinden, verilen KONUda, SIFIRDAN bir sinav sorusu uret. Universite mezunu gence, gercek sinav ayarinda.
 KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
@@ -652,7 +683,9 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     "Sapma yok"). Örnek (SGS 2020/3): 20.000 olumlu · 30.000 olumlu · 30.000 olumsuz · 40.000 olumlu · 40.000 olumsuz.
     Tek bir tutarın iki yönle, diğerlerinin tek yönle verilmesi YASAK (cevap tutardan belli olur). Yön kelimesi sınav
     dilidir: "olumlu / olumsuz" (lehte/aleyhte sınavda geçmez); genel üretim gideri yüklemesinde "eksik yükleme / fazla
-    yükleme". Genel ilke her şık tipinde: doğru şık, biçimiyle (tek farklı hesap, tek farklı birim, tek çift) ele vermez.
+    yükleme". Genel ilke her şık tipinde: doğru şık, biçimiyle (tek farklı hesap, tek farklı birim, tek çift, en uzun
+    cümle) ele vermez; sayı şıklarında beş tutar birbirinden farklı ve küçükten büyüğe sıralı yazılır.
+    BU DERSİN ÇIKMIŞ ŞIK KALIBI (ölçüldü): {SIK_KALIP}
 3. ACIKLAMA - her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK).
    TURKCE HARFLER TAM YAZILIR: "Doğrusu", "Tuzağı", "Kural", "Hesap" - ASCII yazim
    ("Dogrusu", "Tuzagi") KUSURDUR, sayfada oyle gorunur ve urunu ucuzlatir.
@@ -869,6 +902,26 @@ if(Test-Path $kalipYol){
     }
   }catch{ "kalip dosyasi okunamadi: $($_.Exception.Message)" }
 } else { "kalip dosyasi YOK ($kalipYol) - tavan $UZUNLUK_TAVAN ile devam" }
+# 04.09 GM-2: ÇIKMIŞ ŞIK KALIBI (motor/celdirici-olcum.ps1 → veri/celdirici-kalibi-<sinav>.json) isteme ders örnekleriyle girer
+$SIK_KALIP='ölçülmedi'
+$celYol=Join-Path $kok ("veri\celdirici-kalibi-" + ($Sinav.ToLowerInvariant()) + ".json")
+if(Test-Path $celYol){
+  try{
+    $cj=Get-Content $celYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $cAd=@($cj.dersler.PSObject.Properties.Name | Where-Object { $_ -match $DersRegex -or (Katla2 $_) -match (Katla2 $DersRegex) }) | Select-Object -First 1
+    if($cAd){
+      $cd=$cj.dersler.$cAd; $tipS=(@($cd.tip.PSObject.Properties | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ', ')
+      $sat=New-Object System.Collections.Generic.List[string]
+      $sat.Add("$cAd, $($cd.soru) çıkmış soru; şık tipi dağılımı: $tipS.")
+      if($null -ne $cd.sayi_tekil_orani){ $sat.Add("Sayı şıklarında beş tutarın hepsi farklı: %$([int](100*$cd.sayi_tekil_orani)); küçükten büyüğe sıralı: %$([int](100*$cd.sayi_artan_orani)).") }
+      if($null -ne $cd.yon_cift_orani){ $sat.Add("Tutar+yön sorularında en az iki tutar iki yönle: %$([int](100*$cd.yon_cift_orani)).") }
+      if($null -ne $cd.cumle_uzunluk_orani_medyan){ $sat.Add("Cümle şıklarında en uzun şık / medyan: $($cd.cumle_uzunluk_orani_medyan) (şıklar birbirine yakın uzunlukta).") }
+      foreach($t in @($cd.ornek.PSObject.Properties.Name)){ $o=@($cd.ornek.$t)[0]; if($o){ $sat.Add("Örnek [$t] ($($o.kitapcik -replace '^CIKMIS SINAV - ','')): " + ((@($o.siklar) | ForEach-Object { "$_" }) -join ' · ')) } }
+      $SIK_KALIP=($sat -join ' ')
+      "şık kalıbı [$cAd]: $($cd.soru) soru · $tipS"
+    }
+  }catch{ "şık kalıbı okunamadı: $($_.Exception.Message)" }
+} else { "şık kalıbı dosyası YOK ($celYol) - isteme 'ölçülmedi' gider" }
 foreach($kk in $KONULAR){
   $id=$kk.id
   if($SadeceHtml){ continue }   # yalniz cizim: cache neyse o (konu degisse de dusurulmez), uretim yok
@@ -967,7 +1020,7 @@ foreach($kk in $KONULAR){
     continue
   }
   $ekNot=if($OZEL_NOT.ContainsKey($konuLc)){ "`nOZEL UYARI: $($OZEL_NOT[$konuLc])" } else { '' }
-  $ist=$soruIstem.Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $ist=$soruIstem.Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }
@@ -1009,7 +1062,7 @@ foreach($kk in $KONULAR){
     }
     $uz="$($aday.soru)".Length
     # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
-    $sikKusur=SikDengesi $aday
+    $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
     if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur){ $cvp=$aday; break }
     if($uz -gt $UZUNLUK_TAVAN){ Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
     if($sikKusur){ Write-Host "  KAPI-Ş ($id): $sikKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ş DÜŞTÜ: önceki denemede şıklar cevabı ele veriyordu ($sikKusur). Kural 2a'yı uygula: her tutar iki yönle (olumlu/olumsuz), 2 tutar × 2 yön + 1." }
