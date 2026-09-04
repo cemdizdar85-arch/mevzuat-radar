@@ -658,8 +658,8 @@ function SikBicimi($aday){
     $deg=@($sik | ForEach-Object { $m=[regex]::Match($_,'\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?'); if($m.Success){ try{ [double]::Parse($m.Value,[cultureinfo]::GetCultureInfo('tr-TR')) }catch{ $null } } })
     $deg=@($deg | Where-Object { $null -ne $_ })
     if(@($deg | Select-Object -Unique).Count -lt $deg.Count){ return "sayı şıklarında aynı tutar tekrar ediyor" }
-    $sirali=$true; for($q=1;$q -lt $deg.Count;$q++){ if($deg[$q] -lt $deg[$q-1]){ $sirali=$false; break } }
-    if(-not $sirali){ return "sayı şıkları küçükten büyüğe sıralı değil" }
+    # sıralama KAPI DEĞİL, istem tercihi: çıkmış sınavda artan sıra payı derse göre %58-83 (04.09 ölçüm); eldeki 60 sorunun
+    # 17'si yalnız bu yüzden geri dönerdi (her dönüş bir çağrı). Kural 2a "küçükten büyüğe" der, model çoğunlukla uyar.
     $birimli=@($sik | Where-Object { $_ -match '(₺|TL|%|adet|kg|saat)' }).Count
     if($birimli -eq 1 -and $dogruS -match '(₺|TL|%|adet|kg|saat)'){ return "birim yalnız doğru şıkta" }
     return ''
