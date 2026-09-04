@@ -908,7 +908,12 @@ $celYol=Join-Path $kok ("veri\celdirici-kalibi-" + ($Sinav.ToLowerInvariant()) +
 if(Test-Path $celYol){
   try{
     $cj=Get-Content $celYol -Raw -Encoding UTF8 | ConvertFrom-Json
-    $cAd=@($cj.dersler.PSObject.Properties.Name | Where-Object { $_ -match $DersRegex -or (Katla2 $_) -match (Katla2 $DersRegex) }) | Select-Object -First 1
+    # 04.09 GM-2 ölçümü: KGK parti ders adı ("a) Türkiye Muhasebe Standartları") ile ölçülen modül adı ("Muhasebe
+    # Standartları") farklı → önce regex/çapa/harf ön eki soyulur, sonra KGK takma adları, sonra katlanmış içerme.
+    $dersDuz=$DersRegex -replace '^\^|\$$','' -replace '\\','' -replace '^[a-zçğıöşü]\)\s*',''
+    $KGK_TAKMA=@{ 'Türkiye Muhasebe Standartları'='Muhasebe Standartları'; 'Türkiye Denetim Standartları'='Denetim'; 'Sermaye Piyasası Mevzuatı'='Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı'; 'Bankacılık Mevzuatı'='Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı'; 'Sigortacılık ve Özel Emeklilik Mevzuatı'='Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı' }
+    if($Sinav -eq 'KGK' -and $KGK_TAKMA.ContainsKey($dersDuz)){ $dersDuz=$KGK_TAKMA[$dersDuz] }
+    $cAd=@($cj.dersler.PSObject.Properties.Name | Where-Object { $_ -eq $dersDuz -or $_ -match $DersRegex -or (Katla2 $_) -eq (Katla2 $dersDuz) -or (Katla2 $_).Contains((Katla2 $dersDuz)) -or (Katla2 $dersDuz).Contains((Katla2 $_)) }) | Select-Object -First 1
     if($cAd){
       $cd=$cj.dersler.$cAd; $tipS=(@($cd.tip.PSObject.Properties | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ', ')
       $sat=New-Object System.Collections.Generic.List[string]
