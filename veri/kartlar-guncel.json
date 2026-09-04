@@ -1,35 +1,60 @@
 ﻿{
-  "gun": "03-09-2026",
-  "guncelleme": "Günün hap kartları — 03.09.2026",
+  "gun": "04-09-2026",
+  "guncelleme": "Günün hap kartları — 04.09.2026",
   "kartlar": [
     {
-      "baslik": "Yatırım projelerinin finansman değerlendirmesine yeni belgeler ve kriterler eklendi",
-      "ne_oldu": "Sanayi ve Teknoloji Bakanlığı, yatırım projelerinin stratejik öncelik değerlendirmesine iki yeni belge türü kazandırdı: stratejik projeler için TSP Belgesi ve imalat sanayisine yönelik projeler için Öncelikli Finansman Belgesi. Bu belge türlerinin başvuru şartları, değerlendirme süreci ve asgari yatırım tutarları birbirinden farklılık göstermektedir.",
+      "baslik": "Ödeme hizmetleri yönetmeliğine müşteri kimlik doğrulamasında yeni yöntem eklendi",
+      "ne_oldu": "Merkez Bankası, ödeme hizmetleri yönetmeliğinin 41. maddesinde değişikliğe gitti. Buna göre, uzaktan iletişim yoluyla müşteri kimliğinin doğrulanmasında artık biyometrik yöntemler veya elektronik kimlik belgeleri de kullanılabilecek.",
       "gtip": [],
-      "url": "https://www.resmigazete.gov.tr/eskiler/2026/09/20260903-2.htm",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/09/20260904-1.htm",
       "etki": null,
       "firsat": false,
-      "degistirilen_teblig": "26/11/2023 tarihli Yatırım Projelerinin Stratejik Öncelik ve Teknik Değerlendirmesine Dair Tebliğ",
-      "degisen_maddeler": [
-        "4 üncü maddesi baştan yazıldı"
-      ],
+      "degistirilen_teblig": "1/12/2021 tarihli ve 31676 sayılı Resmî Gazete'de yayımlanan Ödeme Hizmetleri ve Elektronik Para İhracı ile Ödeme Hizmeti Sağlayıcıları Hakkında Yönetmelik",
       "yururluk": "yayımı tarihinde",
-      "ne_yapmali": "İmalat yatırımınız için finansman planlıyorsanız, Bakanlığın elektronik portalı üzerinden Öncelikli Finansman Belgesi başvurusu için mevcut teşvik belgenizi ve Ek-5'te tanımlanan destek programını kontrol edin; 1 milyar TL üzerindeki stratejik projeleriniz için ise Ek-1, Ek-2 veya Ek-3'ün kapsamını gözden geçirerek TSP Belgesi yolunu değerlendirin. Asgari tutarları karşılayıp karşılamadığınızı ve proje büyüklüğünü (Ar-Ge harcamaları dahil) başvuru tarihine göre hesaplayın."
+      "ne_yapmali": "Mevcut müşteri kimlik doğrulama süreçleri gözden geçirilmeli; biyometrik ya da elektronik kimlik belgesi entegrasyonuna ihtiyaç olup olmadığı değerlendirilmeli; gerekli görülmesi halinde güvenlik ve uyum protokolleri güncellenmelidir."
     },
     {
-      "baslik": "Yabancı uyruklu kişilerin pasaportla uzaktan kimlik tespiti ve tüzel kişi temsilciliği kuralları",
-      "ne_oldu": "Sermaye Piyasası Kurulu, aracı kurumlar, portföy yönetim şirketleri ve kripto varlık hizmet sağlayıcılarına yönelik olarak yabancı uyruklu kişilerin pasaportla uzaktan kimlik tespitine, tüzel kişi temsilcilerinin yetkisinin doğrulanmasına ve hesap işlemlerindeki kısıtlamalara ilişkin yeni düzenlemeler getirdi.",
+      "baslik": "Ödeme kuruluşlarının kimlik tespiti ve veri paylaşım kurallarında değişiklik",
+      "ne_oldu": "Merkez Bankası, ödeme ve elektronik para kuruluşlarının kimlik doğrulama yöntemlerine ilişkin tebliğde değişikliğe gitti. Kimlik kartı tanımı genişletilirken, uzaktan kimlik tespitinde kullanılan yakın alan iletişimi ve optik karakter tanıma yöntemleri detaylandırıldı. Yabancı uyruklu kişiler artık ICAO standardına uygun pasaportla uzaktan tanımlanabilecek.",
       "gtip": [],
-      "url": "https://www.resmigazete.gov.tr/eskiler/2026/09/20260903-3.htm",
-      "etki": "karisik",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/09/20260904-2.htm",
+      "etki": null,
       "firsat": false,
-      "degistirilen_teblig": "Aracı Kurumlar, Portföy Yönetim Şirketleri ve Kripto Varlık Hizmet Sağlayıcılar Tarafından Kullanılacak Uzaktan Kimlik Tespiti Yöntemlerine ve Elektronik Ortamda Sözleşme İlişkisinin Kurulmasına İlişkin Tebliğ (III-42.1)",
+      "eski_yeni": [
+        {
+          "konu": "10 uncu madde",
+          "eski": "T.C. Kimlik Kartının",
+          "yeni": "kimlik belgesinin",
+          "kaynak": null,
+          "tekrar": 1,
+          "onem": 0,
+          "sira": 0
+        },
+        {
+          "konu": "Değişen ibare",
+          "eski": "belgeler, bu belgelerin",
+          "yeni": "kimlik belgesi, kimlik belgesinin",
+          "kaynak": null,
+          "tekrar": 1,
+          "onem": 0,
+          "sira": 1
+        },
+        {
+          "konu": "Değişen ibare",
+          "eski": "belgenin",
+          "yeni": "kimlik belgesinin",
+          "kaynak": null,
+          "tekrar": 1,
+          "onem": 0,
+          "sira": 2
+        }
+      ],
+      "degistirilen_teblig": "Ödeme ve Elektronik Para Kuruluşlarının Bilgi Sistemleri ile Ödeme Hizmeti Sağlayıcılarının Ödeme Hizmetleri Alanındaki Veri Paylaşım Servislerine İlişkin Tebliğ",
       "degisen_maddeler": [
-        "MADDE 8/A eklendi",
-        "MADDE 9/A eklendi"
+        "bir madde yürürlükten kaldırıldı"
       ],
       "yururluk": "yayımı tarihinde",
-      "ne_yapmali": "Yabancı uyruklu müşteri kabul sürecinizi pasaportla kimlik tespiti kurallarına uyumlu hale getirin: pasaport okuyucu cihaz ve SWIFT haberleşme imkânı sağlayın, adres doğrulama sürecinizi güncelleyin, personel eğitimlerini tamamlayın, üç aylık dönemler itibarıyla Mali Suçları Araştırma Kurulu bildirimlerinizi hazırlayın ve tüzel kişi temsil doğrulamalarında MERSİS sorgusunu sürece dahil edin."
+      "ne_yapmali": "Mevcut kimlik doğrulama süreçlerinizi bu tebliğe uygun şekilde güncelleyin. Uzaktan tespitte yakın alan iletişimi ve alternatif yöntemlerin teknik uygulanabilirliğini kontrol edin. Veri güvenliği ve kayıt tutma prosedürlerinin kesintisiz kayıt kapsamını karşıladığından emin olun. Yabancı müşteriler için pasaport doğrulama sisteminizi buna göre düzenleyin."
     }
   ]
 }
