@@ -17,7 +17,8 @@ param(
   [string]$KonuDosya='',
   [switch]$RedYenile,      # 03.09: hakem HAYIR / DERS-DISI kalan cache kayitlarini dusur, yeniden uret
   [switch]$SadeceHtml,     # 03.09 Cem "her seyde bedeli sor": yalniz cache'ten HTML cizer; API cagrisi denenirse DURUR (bedel 0 garantisi)
-  [string]$PilotId='',     # 03.09: tek soruluk pilot - model fazlari YALNIZ bu id'ye calisir (orn. kp-04); digerleri cache'ten
+  [string]$PilotId='',     # 03.09: pilot - model fazlari YALNIZ bu id'lere calisir (virgullu: kp-04,kp-31); digerleri cache'ten
+  [switch]$AdimYenile,     # 04.09 Cem "30'luk SGS seti": pilot id'lerin ESKI adimlari silinir, ogretici istemle yeniden yazilir
   [int]$Adet=30,
   [string]$Etiket='sgs-fmuh-30',
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
@@ -942,7 +943,19 @@ foreach($kk in $KONULAR){
 function AdimTablosu($cvp){
   if($cvp.cozum_tablo -and $cvp.cozum_tablo.satirlar -and @($cvp.cozum_tablo.satirlar).Count){ return $cvp.cozum_tablo }
   # (KayitListesi daha asagida tanimli - burada ayni mantik satir ici)
-  $sm=$cvp.sema; if(-not $sm -or "$($sm.tur)" -ne 'yevmiye'){ return $null }
+  $sm=$cvp.sema
+  if(-not $sm -or "$($sm.tur)" -ne 'yevmiye'){
+    # 04.09 (30'luk set: 30 sorunun 20'si teori/hukuk, tablo da yevmiye de yok) -> KAVRAM TABLOSU: dogru sik
+    # aciklamasinin parcalari satir olur (Ne soruluyor / Kural / Bu olayda / Dogru sik); adimlar bunlari acar.
+    if(-not $cvp.soru -or -not $cvp.dogru){ return $null }
+    $ac="$($cvp.aciklama.$($cvp.dogru))"; $sat=@()
+    $ne=[regex]::Match($ac,'(?s)Ne soruluyor:\s*(.*?)(?=Kural:|Hesap:|Bu olayda:|Doğrusu:|Dogrusu:|$)'); if($ne.Success -and $ne.Groups[1].Value.Trim()){ $sat+=,@('Ne soruluyor',$ne.Groups[1].Value.Trim()) }
+    $ku=[regex]::Match($ac,'(?s)Kural:\s*(.*?)(?=Hesap:|Bu olayda:|Doğrusu:|Dogrusu:|$)'); if($ku.Success -and $ku.Groups[1].Value.Trim()){ $sat+=,@('Kural',$ku.Groups[1].Value.Trim()) }
+    $ol=[regex]::Match($ac,'(?s)(Hesap:|Bu olayda:)\s*(.*?)(?=Doğrusu:|Dogrusu:|$)'); if($ol.Success -and $ol.Groups[2].Value.Trim()){ $sat+=,@('Bu olayda',$ol.Groups[2].Value.Trim()) }
+    $sat+=,@('Doğru şık',"$($cvp.dogru)) $($cvp.siklar.$($cvp.dogru))")
+    if($sat.Count -lt 2){ return $null }
+    return [pscustomobject]@{ basliklar=@('Adım','İçerik'); satirlar=$sat; teori=$true }
+  }
   $kyt=@(); if($sm.PSObject.Properties['kayitlar'] -and $sm.kayitlar){ $kyt=@($sm.kayitlar) } elseif($sm.PSObject.Properties['ogeler'] -and $sm.ogeler){ $kyt=@(,([pscustomobject]@{baslik='';ogeler=$sm.ogeler})) }
   if(-not $kyt.Count){ return $null }
   $sat=@(); foreach($ky in $kyt){ foreach($og in @($ky.ogeler.borc)){ $sat+=,@("$($og.hesap) (BORÇ)","$($og.tutar)") }; foreach($og in @($ky.ogeler.alacak)){ $sat+=,@("$($og.hesap) (ALACAK)","$($og.tutar)") } }
@@ -951,11 +964,12 @@ function AdimTablosu($cvp){
 }
 foreach($id in @($don.Keys)){
   if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
-  if($PilotId -and $id -ne $PilotId){ continue }   # pilot: yalniz secili soru
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   $tabloAdim=AdimTablosu $cvp
   if(-not $tabloAdim){ continue }
-  if($cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
+  if(-not $AdimYenile -and $cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
+  if($AdimYenile -and $cvp.PSObject.Properties['adimlar']){ Write-Host "  ADIM YENILENIYOR (ogretici istem): $id" -ForegroundColor Yellow }
   $ist2=$adimIstem.Replace('{SORUM}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $tabloAdim -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))")
   # 03.09 "konuyu soruyla ogretelim": sorudaki hesaplarin Tekduzen Hesap Plani tanimlari (ambar) isteme eklenir;
   # "X nedir?" adimlari uydurma degil bu metinden yazilir. Supabase okumasi, model bedeli yok.
@@ -991,7 +1005,7 @@ Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[
 '@
 foreach($id in @($don.Keys)){
   if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
-  if($PilotId -and $id -ne $PilotId){ continue }   # pilot: yalniz secili soru
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ continue }
@@ -1036,7 +1050,7 @@ ISTISNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (ornek: ozkaynak = aktif - borc
 '@
 foreach($id in @($don.Keys)){
   if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
-  if($PilotId -and $id -ne $PilotId){ continue }   # pilot: yalniz secili soru
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   if(-not $cvp.soru -or -not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   $cvp.sema=SemaNormalize $cvp.sema
@@ -1085,7 +1099,7 @@ Ikiz sorunun rakamlariyla kayit KURULAMIYORSA: {"tur":"yok","sebep":"tek cumle"}
 '@
 foreach($id in @($don.Keys)){
   if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
-  if($PilotId -and $id -ne $PilotId){ continue }   # pilot: yalniz secili soru
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvp=$don[$id]
   if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz)){ continue }
   if(-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye')){ continue }
@@ -1164,7 +1178,7 @@ foreach($id in @($don.Keys)){
   if(-not $cvp.soru){ continue }
   # 03.09 KAPI D (konu uyumu) eklendi: konu_uyum alani olmayan eski karar YENIDEN verdirilir (ucuz hakem).
   if($SadeceHtml){ continue }   # yalniz cizim: eski karar neyse o kalir, hakem cagrilmaz
-  if($PilotId -and $id -ne $PilotId){ continue }   # pilot: yalniz secili soru
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
   # sema normalizasyonu geriye donuk (ogeler<-adimlar)
   if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
@@ -1228,7 +1242,7 @@ $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and
 $tuzakSayaci=@{}
 foreach($id in @($don.Keys)){
   if($SadeceHtml){ break }   # yalniz cizim: model fazi atlanir
-  if($PilotId -and $id -ne $PilotId){ continue }   # pilot: yalniz secili soru
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
   $cvpT=$don[$id]
   if(-not $cvpT.soru -or -not $cvpT.aciklama){ continue }
   foreach($hh in 'A','B','C','D','E'){
