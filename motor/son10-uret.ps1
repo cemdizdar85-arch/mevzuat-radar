@@ -114,6 +114,16 @@ KURALLAR:
        neden yanlış olduğu, tek cümle.
    (d) Aynı cümle kalıbını adımlar arasında TEKRAR ETME ("hesabı artıyor, o yüzden borç" her adımda
        yazılmaz); her adım o hesaba özgü bir şey söyler.
+7. FORMÜL YAZIMI (Cem 04.09: "formüller matematik gibi görünsün"): sayfa formülü DEFTER MATEMATİĞİ gibi çizer
+   (toplama alt alta sütun, bölme kesir çizgisi). Çizebilmesi için formül şu kalıba uyar:
+   (a) Bir formül = tek zincir: "Ad = genel formül = sayılı hâli = sonuç". Eşittir işaretinin iki yanında BOŞLUK.
+   (b) Toplama/çıkarma: "a + b + c = sonuç" (işlecin iki yanında boşluk). Bölme: "pay / payda = sonuç" (bölü işaretinin
+       iki yanında boşluk; "TL/kg" gibi birimlerde boşluk YOK). Çarpma: "a × b = sonuç".
+   (c) Aynı adımda birden çok hesap varsa noktalı virgülle ayır ve her birine kısa etiket ver:
+       "Birim Maliyet = Pay / Fiili Miktar; P: 80.000 (4. adımda bulduk) / 2.000 (soruda verilen) = 40; Q: 240.000 (4. adımda bulduk) / 2.000 (soruda verilen) = 120".
+   (d) Her sayının kimliği parantezle sayının HEMEN ARDINDA: (soruda verilen) ya da (N. adımda bulduk). Parantez içinde
+       işleç kullanma. Ok işareti (→) yalnız "genel formül → sayılı hâli" geçişinde; düz yazı, açıklama, "yani" formüle girmez.
+   (e) Sonuç formülün EN SONUNDA tek sayı (birimiyle): "= 260 TL/adet". Formül içinde cümle yazma; cümle anlatıma gider.
 Cevap YALNIZ JSON: {"verilen":[[r,c],...],"adimlar":[...]}
 SORU METNİ: {SORUM}
 ÇÖZÜM_TABLO: {TABLO}
