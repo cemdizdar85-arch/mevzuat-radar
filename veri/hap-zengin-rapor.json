@@ -1,7 +1,18 @@
 {
-  "tarih": "04.09.2026 00:55",
-  "durum": "HATA",
-  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
-  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}",
-  "satir": 112
+  "tarih": "04.09.2026 04:25",
+  "durum": "TAMAM",
+  "mod": "KURTARMA",
+  "hedef": 1,
+  "hasat": 1,
+  "yazilan": 0,
+  "red": {
+    "diakritik": 0,
+    "atif": 0,
+    "ayni": 0,
+    "uzunluk": 1
+  },
+  "partiler": [
+    "msgbatch_01WVN2BmEH36XS8os2QKuk7y"
+  ],
+  "not": "Yazilan hap'ler yayin durumunu DEGISTIRMEZ. Dusenler bir sonraki kalite taramasinda yeniden sayilir."
 }
