@@ -715,6 +715,7 @@ $DIL_TERIM=@(
   @('[Gg]enel\s+[İi]mal(?:at)?\s+[Gg]ider','genel üretim gider'),
   @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])DİMM(?![A-Za-zÇĞİÖŞÜçğıöşü])','direkt ilk madde ve malzeme'),
   @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])GÜG(?![A-Za-zÇĞİÖŞÜçğıöşü])','genel üretim gideri'),
+  @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])GİG(?![A-Za-zÇĞİÖŞÜçğıöşü])','genel üretim gideri'),   # SGS 65 kitapçıkta 0 (04.09 ölçüm)
   @('(?<![A-Za-zÇĞİÖŞÜçğıöşü])Dİ(?![A-Za-zÇĞİÖŞÜçğıöşü])','direkt işçilik')
 )
 function TerimOnar([string]$t){
