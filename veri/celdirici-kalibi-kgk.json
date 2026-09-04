@@ -1,0 +1,527 @@
+﻿{
+    "olcum":  "2026-09-04 22:11",
+    "sinav":  "KGK",
+    "kitapcik":  108,
+    "soru":  11861,
+    "belirsiz":  9405,
+    "aciklama":  "Ders bazında ÇIKMIŞ şık yapısı. sayi_tekil_orani: sayı şıklarında beş tutarın hepsi farklı olan soru payı; sayi_artan_orani: küçükten büyüğe sıralı payı; yon_cift_orani: tutar+yön sorularında en az iki tutarın iki yönle göründüğü payı; cumle_uzunluk_orani_medyan: en uzun şık / medyan şık uzunluğu. Üretici kural 2a için ders örneklerini buradan okur.",
+    "dersler":  {
+                    "Kurumsal Yönetim İlkeleri ve Finansal Yönetim":  {
+                                                                          "soru":  484,
+                                                                          "tip":  {
+                                                                                      "cumle":  416,
+                                                                                      "sayi":  66,
+                                                                                      "sayi+yon":  2
+                                                                                  },
+                                                                          "sayi_tekil_orani":  0.98,
+                                                                          "sayi_artan_orani":  0.76,
+                                                                          "yon_cift_orani":  0,
+                                                                          "cumle_uzunluk_orani_medyan":  1.47,
+                                                                          "anahtarli_soru":  85,
+                                                                          "dogru_en_uzun_orani":  0.07,
+                                                                          "dogru_harf_dagilimi":  {
+                                                                                                      "A":  22,
+                                                                                                      "B":  9,
+                                                                                                      "C":  22,
+                                                                                                      "D":  18,
+                                                                                                      "E":  14
+                                                                                                  },
+                                                                          "sayi_dogru_sira_dagilimi":  {
+                                                                                                           "1. büyük":  1,
+                                                                                                           "2. büyük":  2,
+                                                                                                           "3. büyük":  10
+                                                                                                       },
+                                                                          "ornek":  {
+                                                                                        "sayi":  [
+                                                                                                     {
+                                                                                                         "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                                         "govde_sonu":  "r hisse senedinin beklenen getirisi %16, pazar portföyünün beklenen getirisi %10 ve risksiz faiz oranı %6 ise, söz konusu hisse senedinin beta katsayısı kaçtır?",
+                                                                                                         "siklar":  [
+                                                                                                                        "1,5",
+                                                                                                                        "2",
+                                                                                                                        "2,5",
+                                                                                                                        "3",
+                                                                                                                        "3,5"
+                                                                                                                    ]
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                                         "govde_sonu":  "0, borcun maliyeti 0,10, borcun cari ağırlığı 0,30 ve vergi oranı da %35’tir. Buna göre firmanın ağırlıklı ortalama sermaye maliyeti aşağıdakilerden hangisidir?",
+                                                                                                         "siklar":  [
+                                                                                                                        "%10,95",
+                                                                                                                        "%14,95",
+                                                                                                                        "%15,95",
+                                                                                                                        "%16,95",
+                                                                                                                        "%17,95"
+                                                                                                                    ]
+                                                                                                     }
+                                                                                                 ],
+                                                                                        "sayi+yon":  [
+                                                                                                         {
+                                                                                                             "kitapcik":  "CIKMIS SINAV - KGK  (11486_SabahOturumu_A_Kitapcigi_12_11_2022)",
+                                                                                                             "govde_sonu":  "düzenlemesi halinde, içinde bulunulan şartlara göre “diğer bilgilere” ilişkin raporunda verebileceği görüşler aşağıdakilerden hangisinde tam olarak verilmiştir?",
+                                                                                                             "siklar":  [
+                                                                                                                            "Olumlu görüş",
+                                                                                                                            "Olumlu görüş, sınırlı olumlu görüş",
+                                                                                                                            "Olumlu görüş, sınırlı olumlu görüş, olumsuz görüş",
+                                                                                                                            "Olumlu görüş, sınırlı olumlu görüş, olumsuz görüş, görüş vermekten kaçınma",
+                                                                                                                            "Olumlu görüş, olumsuz görüş, görüş vermekten kaçınma DEN"
+                                                                                                                        ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "kitapcik":  "CIKMIS SINAV - KGK  (11486_Sabah_Oturumu_B_Kitapcigi_12_1_2022)",
+                                                                                                             "govde_sonu":  "düzenlemesi halinde, içinde bulunulan şartlara göre “diğer bilgilere” ilişkin raporunda verebileceği görüşler aşağıdakilerden hangisinde tam olarak verilmiştir?",
+                                                                                                             "siklar":  [
+                                                                                                                            "Olumlu görüş",
+                                                                                                                            "Olumlu görüş, sınırlı olumlu görüş",
+                                                                                                                            "Olumlu görüş, sınırlı olumlu görüş, olumsuz görüş",
+                                                                                                                            "Olumlu görüş, sınırlı olumlu görüş, olumsuz görüş, görüş vermekten kaçınma",
+                                                                                                                            "Olumlu görüş, olumsuz görüş, görüş vermekten kaçınma DEN"
+                                                                                                                        ]
+                                                                                                         }
+                                                                                                     ],
+                                                                                        "cumle":  [
+                                                                                                      {
+                                                                                                          "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                                          "govde_sonu":  "Etkin bir piyasada oluşan ya da bir varlıkla ilgili tüm bilgilerin tamamına dayalı olarak hesaplanan değer aşağıdakilerden hangisidir?",
+                                                                                                          "siklar":  [
+                                                                                                                         "Nominal değer",
+                                                                                                                         "İşleyen teşebbüs değeri",
+                                                                                                                         "Defter değeri",
+                                                                                                                         "Teorik ya da içsel değer",
+                                                                                                                         "Piyasa değeri"
+                                                                                                                     ]
+                                                                                                      },
+                                                                                                      {
+                                                                                                          "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                                          "govde_sonu":  "jesinin ekonomik ömrü boyunca sağlayacağı net nakit akışlarının bugünkü değerini, yatırım maliyetinin bugünkü değerine eşit kılan iskonto oranına ne ad verilir?",
+                                                                                                          "siklar":  [
+                                                                                                                         "İç verim oranı yöntemi",
+                                                                                                                         "Kârlılık endeksi yöntemi",
+                                                                                                                         "Net bugünkü değer yöntemi",
+                                                                                                                         "Geri ödeme süresi yöntemi",
+                                                                                                                         "İskonto edilmiş geri ödeme süresi yöntemi"
+                                                                                                                     ]
+                                                                                                      }
+                                                                                                  ]
+                                                                                    }
+                                                                      },
+                    "Denetim":  {
+                                    "soru":  473,
+                                    "tip":  {
+                                                "cumle":  431,
+                                                "sayi":  31,
+                                                "sayi+yon":  11
+                                            },
+                                    "sayi_tekil_orani":  0.87,
+                                    "sayi_artan_orani":  0.68,
+                                    "yon_cift_orani":  0,
+                                    "cumle_uzunluk_orani_medyan":  1.5,
+                                    "anahtarli_soru":  82,
+                                    "dogru_en_uzun_orani":  0.15,
+                                    "dogru_harf_dagilimi":  {
+                                                                "A":  15,
+                                                                "B":  15,
+                                                                "C":  19,
+                                                                "D":  14,
+                                                                "E":  19
+                                                            },
+                                    "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
+                                    "ornek":  {
+                                                  "sayi":  [
+                                                               {
+                                                                   "kitapcik":  "CIKMIS SINAV - KGK SABAH (10202_B_KİTAPÇIĞI-SABAH)",
+                                                                   "govde_sonu":  "Bağımsız Denetim Yönetmeliğine göre denetçiler çalışma kağıtlarını asgari olarak kaç yıl saklamak mecburiyetindedirler?",
+                                                                   "siklar":  [
+                                                                                  "1",
+                                                                                  "2",
+                                                                                  "5",
+                                                                                  "10",
+                                                                                  "15"
+                                                                              ]
+                                                               },
+                                                               {
+                                                                   "kitapcik":  "CIKMIS SINAV - KGK KİTAPÇIĞI (10202_A-KİTAPÇIĞI-SABAH)",
+                                                                   "govde_sonu":  "Bağımsız Denetim Yönetmeliğine göre denetçiler çalışma kağıtlarını asgari olarak kaç yıl saklamak mecburiyetindedirler?",
+                                                                   "siklar":  [
+                                                                                  "1",
+                                                                                  "2",
+                                                                                  "5",
+                                                                                  "10",
+                                                                                  "15"
+                                                                              ]
+                                                               }
+                                                           ],
+                                                  "sayi+yon":  [
+                                                                   {
+                                                                       "kitapcik":  "CIKMIS SINAV - KGK SABAH (10202_B_KİTAPÇIĞI-SABAH)",
+                                                                       "govde_sonu":  "edememesi durumunda denetçi raporunda, içinde bulunulan şartlara uygun olarak yer alacak görüşler aşağıdakilerden hangisinde tam ve eksiksiz olarak verilmiştir?",
+                                                                       "siklar":  [
+                                                                                      "Olumlu görüş veya sınırlı olumlu görüş",
+                                                                                      "Sınırlı olumlu görüş veya görüş vermekten kaçınma",
+                                                                                      "Olumsuz görüş",
+                                                                                      "Olumsuz görüş veya görüş vermekten kaçınma",
+                                                                                      "Olumlu görüş DEN"
+                                                                                  ]
+                                                                   },
+                                                                   {
+                                                                       "kitapcik":  "CIKMIS SINAV - KGK SABAH (10202_B_KİTAPÇIĞI-SABAH)",
+                                                                       "govde_sonu":  "rinin önemli ve yaygın olabileceği sonucuna varması durumunda denetçinin, aşağıdaki görüşlerden hangisini içeren bağımsız denetim raporu düzenlemesi gereklidir?",
+                                                                       "siklar":  [
+                                                                                      "Sınırlı olumlu görüş",
+                                                                                      "Olumsuz görüş",
+                                                                                      "Görüş vermekten kaçınma",
+                                                                                      "Olumlu görüş",
+                                                                                      "Olumlu görüş veya sınırlı olumlu görüş"
+                                                                                  ]
+                                                                   }
+                                                               ],
+                                                  "cumle":  [
+                                                                {
+                                                                    "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                    "govde_sonu":  "Olumlu görüş içeren denetçi raporunun hangi bölümünde denetim standartlarına uygun hareket edildiğine ilişkin atıf yapılmaktadır?",
+                                                                    "siklar":  [
+                                                                                   "Görüş",
+                                                                                   "Yönetimin finansal tablolara ilişkin sorumluluğu",
+                                                                                   "İmza ve adres bölümü",
+                                                                                   "Mevzuattan kaynaklanan diğer yükümlülüklere ilişkin rapor",
+                                                                                   "Bağımsız denetçinin sorumluluğu"
+                                                                               ]
+                                                                },
+                                                                {
+                                                                    "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                    "govde_sonu":  "Olumlu görüş verilmiş finansal tabloları okuyan bir yatırımcının aşağıdaki sonuçlardan hangisine varmasının uygun olacağı kabul edilir?",
+                                                                    "siklar":  [
+                                                                                   "Önemli muhasebe uygulamalarına ilişkin tartışmaların denetçiyi tatmin edecek şekilde sonuçlandığına",
+                                                                                   "Yönetim tarafından oluşturulan iç kontrol sisteminin etkin şekilde işlediği sonucuna",
+                                                                                   "İşletmenin gelecekte faaliyetlerini başarıyla sürdürebileceği sonucuna",
+                                                                                   "Yönetimin işletmenin faaliyetlerine ilişkin aldığı kararların yerindeliğine",
+                                                                                   "Dipnotlar hariç finansal tablolar üzerindeki açıklamaların yeterliliğine"
+                                                                               ]
+                                                                }
+                                                            ]
+                                              }
+                                },
+                    "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı":  {
+                                                                                                  "soru":  455,
+                                                                                                  "tip":  {
+                                                                                                              "cumle":  379,
+                                                                                                              "sayi":  76
+                                                                                                          },
+                                                                                                  "sayi_tekil_orani":  1,
+                                                                                                  "sayi_artan_orani":  0.97,
+                                                                                                  "yon_cift_orani":  null,
+                                                                                                  "cumle_uzunluk_orani_medyan":  1.55,
+                                                                                                  "anahtarli_soru":  78,
+                                                                                                  "dogru_en_uzun_orani":  0.09,
+                                                                                                  "dogru_harf_dagilimi":  {
+                                                                                                                              "A":  9,
+                                                                                                                              "B":  18,
+                                                                                                                              "C":  15,
+                                                                                                                              "D":  12,
+                                                                                                                              "E":  24
+                                                                                                                          },
+                                                                                                  "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
+                                                                                                  "ornek":  {
+                                                                                                                "sayi":  [
+                                                                                                                             {
+                                                                                                                                 "kitapcik":  "CIKMIS SINAV - KGK B (11487_Sabah-B-08_07_2023-_1_)",
+                                                                                                                                 "govde_sonu":  "Z A.Ş.’nin dönem sonu stok tutarı kaç TL’dir?",
+                                                                                                                                 "siklar":  [
+                                                                                                                                                "6.900",
+                                                                                                                                                "7.200",
+                                                                                                                                                "8.300",
+                                                                                                                                                "9.250",
+                                                                                                                                                "11.460"
+                                                                                                                                            ]
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "kitapcik":  "CIKMIS SINAV - KGK B (11487_Sabah-B-08_07_2023-_1_)",
+                                                                                                                                 "govde_sonu":  "Z A.Ş.’nin maddi duran varlık tutarı kaç TL’dir?",
+                                                                                                                                 "siklar":  [
+                                                                                                                                                "41.200",
+                                                                                                                                                "48.600",
+                                                                                                                                                "51.700",
+                                                                                                                                                "56.830",
+                                                                                                                                                "60.480"
+                                                                                                                                            ]
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                                "cumle":  [
+                                                                                                                              {
+                                                                                                                                  "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                                                                  "govde_sonu":  "362 sayılı Sermaye Piyasası Kanunu’na göre halka açık ortaklıklar tarafından kâr payı ve bedelsiz pay dağıtımı hakkında aşağıda verilenlerden hangisi yanlıştır?",
+                                                                                                                                  "siklar":  [
+                                                                                                                                                 "Halka açık ortaklıklar, kârlarını genel kurulları tarafından belirlenecek kâr dağıtım politikaları çerçevesinde ve ilgili mevzuat hükümlerine uygun olarak dağıtırlar.",
+                                                                                                                                                 "Genel kurul, pay sahibi dışındaki kişilere kârdan pay dağıtılabilmesine esas sözleşmede hüküm bulunmasa bile oyçokluğu ile karar verebilir.",
+                                                                                                                                                 "Sermaye Piyasası Kurulu, halka açık ortaklıkların kâr dağıtımı politikalarına ilişkin olarak, benzer nitelikteki ortaklıklar bazında farklı esaslar belirleyebilir.",
+                                                                                                                                                 "Kanunen ayrılması gereken yedek akçeler ve esas sözleşmede pay sahipleri için belirlenen kâr payı ayrılmadıkça başka yedek akçe ayrılmasına karar verilemez.",
+                                                                                                                                                 "Halka açık ortaklıkların sermaye artırımlarında, bedelsiz paylar artırım tarihindeki mevcut paylara dağıtılır."
+                                                                                                                                             ]
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                                                                  "govde_sonu":  ". 6362 sayılı Sermaye Piyasası Kanunu’na göre halka açık ortaklıklar tarafından bağış yapılması hakkında yukarıda verilenlerden hangisi veya hangileri doğrudur?",
+                                                                                                                                  "siklar":  [
+                                                                                                                                                 "Yalnız I, II",
+                                                                                                                                                 "Yalnız I, III",
+                                                                                                                                                 "Yalnız I",
+                                                                                                                                                 "Yalnız II, III",
+                                                                                                                                                 "I, II, III"
+                                                                                                                                             ]
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                                            }
+                                                                                              },
+                    "Muhasebe Standartları":  {
+                                                  "soru":  396,
+                                                  "tip":  {
+                                                              "cumle":  342,
+                                                              "sayi":  54
+                                                          },
+                                                  "sayi_tekil_orani":  1,
+                                                  "sayi_artan_orani":  0.57,
+                                                  "yon_cift_orani":  null,
+                                                  "cumle_uzunluk_orani_medyan":  1.54,
+                                                  "anahtarli_soru":  72,
+                                                  "dogru_en_uzun_orani":  0.16,
+                                                  "dogru_harf_dagilimi":  {
+                                                                              "A":  17,
+                                                                              "B":  12,
+                                                                              "C":  15,
+                                                                              "D":  15,
+                                                                              "E":  13
+                                                                          },
+                                                  "sayi_dogru_sira_dagilimi":  {
+                                                                                   "1. büyük":  1,
+                                                                                   "2. büyük":  4,
+                                                                                   "3. büyük":  2,
+                                                                                   "4. büyük":  3,
+                                                                                   "5. büyük":  1
+                                                                               },
+                                                  "ornek":  {
+                                                                "sayi":  [
+                                                                             {
+                                                                                 "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                 "govde_sonu":  " söz konusu kontrolün maliyeti 16.000 TL’dir. Doğrusal amortisman yöntemini kullanan işletmenin 2016 yılı sonunda ayırması gereken amortisman tutarı kaç TL’dir?",
+                                                                                 "siklar":  [
+                                                                                                "20.000",
+                                                                                                "24.000",
+                                                                                                "21.600",
+                                                                                                "26.400",
+                                                                                                "25.600"
+                                                                                            ]
+                                                                             },
+                                                                             {
+                                                                                 "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                 "govde_sonu":  "14.000 TL 11.500 TL 17.000 TL Finansal tablolara alma kriterlerini karşılayan markaya ilişkin olarak finansal tabloya aşağıdaki tutarlardan hangisi alınmalıdır?",
+                                                                                 "siklar":  [
+                                                                                                "149.500 TL",
+                                                                                                "100.000 TL",
+                                                                                                "115.500 TL",
+                                                                                                "132.500 TL",
+                                                                                                "107.000 TL 5 MUHASEBE ST"
+                                                                                            ]
+                                                                             }
+                                                                         ],
+                                                                "cumle":  [
+                                                                              {
+                                                                                  "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                  "govde_sonu":  "i haftalık eğitim maliyeti Bir duran varlık ilk kez muhasebeleştirildiğinde, varlığın defter değerine yukarıdakilerden hangisi veya hangileri dahil edilmelidir?",
+                                                                                  "siklar":  [
+                                                                                                 "I-III",
+                                                                                                 "I-II",
+                                                                                                 "II-IV",
+                                                                                                 "III-IV",
+                                                                                                 "I"
+                                                                                             ]
+                                                                              },
+                                                                              {
+                                                                                  "kitapcik":  "CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum)",
+                                                                                  "govde_sonu":  "ağıdakilerden hangisi raporlama dönemi 31.12.2015 tarihinde sona eren bir işletme için raporlama döneminden sonraki düzeltme gerektiren olaylara örnek değildir?",
+                                                                                  "siklar":  [
+                                                                                                 "Finansal tabloların gerçeğe uygun olmadığını gösteren hata ve hilelerin ortaya çıkarılması",
+                                                                                                 "Raporlama dönemi sonu itibarıyla işletmenin alacaklı olduğu bir müşterinin raporlama döneminden sonra iﬂas etmesi",
+                                                                                                 "Raporlama döneminden önce satın alınan varlıkların maliyetlerinin veya satılan varlıklardan elde edilen gelirlerin, raporlama döneminden sonra belirli hale gelmesi",
+                                                                                                 "Raporlama döneminden önceki olaylar nedeniyle, kardan pay veya ikramiye gibi raporlama dönemi sonu itibarıyla hukuki veya zımni kabule dayalı bir borcun olduğu durumlarda, ikramiye veya kardan payın raporlama döneminden sonra belirli hale gelmesi",
+                                                                                                 "Kasım 2015 tarihinde Yönetim Kurulu tarafından faaliyetlerden birinin durdurulmasına ilişkin olarak alınan kararın duyurusunun Ocak 2016 tarihinde yapılması 1 MUHASEBE ST"
+                                                                                             ]
+                                                                              }
+                                                                          ]
+                                                            }
+                                              },
+                    "Muhasebe":  {
+                                     "soru":  326,
+                                     "tip":  {
+                                                 "cumle":  285,
+                                                 "sayi":  39,
+                                                 "hesap":  2
+                                             },
+                                     "sayi_tekil_orani":  0.97,
+                                     "sayi_artan_orani":  0.64,
+                                     "yon_cift_orani":  null,
+                                     "cumle_uzunluk_orani_medyan":  1.29,
+                                     "anahtarli_soru":  79,
+                                     "dogru_en_uzun_orani":  0.23,
+                                     "dogru_harf_dagilimi":  {
+                                                                 "A":  16,
+                                                                 "B":  16,
+                                                                 "C":  16,
+                                                                 "D":  13,
+                                                                 "E":  18
+                                                             },
+                                     "sayi_dogru_sira_dagilimi":  {
+                                                                      "1. büyük":  4,
+                                                                      "2. büyük":  2,
+                                                                      "3. büyük":  3,
+                                                                      "4. büyük":  3,
+                                                                      "5. büyük":  2
+                                                                  },
+                                     "ornek":  {
+                                                   "sayi":  [
+                                                                {
+                                                                    "kitapcik":  "CIKMIS SINAV - KGK SINAV/ÖĞLEDEN/SONRA/ (6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum)",
+                                                                    "govde_sonu":  " hasılatı ve 10.000 TL vergi kanunlarının kabul etmediği gideri de dikkate alınmıştır. Buna göre şirketin 2016 hesap dönemi kurumlar vergisi matrahı kaç TL’dir?",
+                                                                    "siklar":  [
+                                                                                   "180.000 TL",
+                                                                                   "200.000 TL",
+                                                                                   "390.000 TL",
+                                                                                   "300.000 TL",
+                                                                                   "400.000 TL"
+                                                                               ]
+                                                                },
+                                                                {
+                                                                    "kitapcik":  "CIKMIS SINAV - KGK SINAV/ÖĞLEDEN/SONRA/ (6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum)",
+                                                                    "govde_sonu":  "det stoğunun toplam maliyetinin 1.200 TL olduğu belirlenmiştir. Ortalama maliyet varsayımına göre işletmenin birim ortalama maliyeti aşağıdakilerden hangisidir?",
+                                                                    "siklar":  [
+                                                                                   "2.00 TL",
+                                                                                   "2.25 TL",
+                                                                                   "2.96 TL",
+                                                                                   "2.62 TL",
+                                                                                   "2.40 TL 8 GENEL HUKU"
+                                                                               ]
+                                                                }
+                                                            ],
+                                                   "hesap":  [
+                                                                 {
+                                                                     "kitapcik":  "CIKMIS SINAV - KGK B (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-B-_Kitapçığı)",
+                                                                     "govde_sonu":  "Aşağıdakilerden hangisi aynı nitelikteki hesabın kısa dönem-uzun dönem ayrımına ilişkin yanlış bir eşleştirmedir?",
+                                                                     "siklar":  [
+                                                                                    "120 Alıcılar Hs. – 220 Alıcılar Hs.",
+                                                                                    "131 Ortaklardan Alacaklar Hs. – 231 Ortaklardan Alacaklar Hs.",
+                                                                                    "300 Banka Kredileri Hs.– 400 Banka Kredileri Hs.",
+                                                                                    "159 Verilen Sipariş Avansları Hs. – 259 Verilen Avanslar Hs.",
+                                                                                    "381 Gider Tahakkukları Hs.– 481 Gider Tahakkukları Hs. MUH"
+                                                                                ]
+                                                                 },
+                                                                 {
+                                                                     "kitapcik":  "CIKMIS SINAV - KGK A (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-A-_Kitapçığı)",
+                                                                     "govde_sonu":  "Aşağıdakilerden hangisi aynı nitelikteki hesabın kısa dönem-uzun dönem ayrımına ilişkin yanlış bir eşleştirmedir?",
+                                                                     "siklar":  [
+                                                                                    "120 Alıcılar Hs. – 220 Alıcılar Hs.",
+                                                                                    "131 Ortaklardan Alacaklar Hs. – 231 Ortaklardan Alacaklar Hs.",
+                                                                                    "300 Banka Kredileri Hs.– 400 Banka Kredileri Hs.",
+                                                                                    "159 Verilen Sipariş Avansları Hs. – 259 Verilen Avanslar Hs.",
+                                                                                    "381 Gider Tahakkukları Hs.– 481 Gider Tahakkukları Hs. MUH"
+                                                                                ]
+                                                                 }
+                                                             ],
+                                                   "cumle":  [
+                                                                 {
+                                                                     "kitapcik":  "CIKMIS SINAV - KGK SINAV/ÖĞLEDEN/SONRA/ (6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum)",
+                                                                     "govde_sonu":  "Sürekli envanter yöntemine ilişkin aşağıdakilerden hangisi yanlıştır?",
+                                                                     "siklar":  [
+                                                                                    "Her satışta ticari mal hesabı alacaklandırılır.",
+                                                                                    "Satışlarda hem satış hem de maliyet kaydı yapılır.",
+                                                                                    "Her satışta brüt satış karı görülür.",
+                                                                                    "Satıştan iadelerde maliyet iptal kaydı yapılır.",
+                                                                                    "Satışların maliyeti dönem sonunda tespit edilir. 1 MUHAS"
+                                                                                ]
+                                                                 },
+                                                                 {
+                                                                     "kitapcik":  "CIKMIS SINAV - KGK SINAV/ÖĞLEDEN/SONRA/ (6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum)",
+                                                                     "govde_sonu":  "Aşağıdakilerden hangisi pasifi düzenleyici hesap niteliğindedir?",
+                                                                     "siklar":  [
+                                                                                    "Menkul Kıymet İhraç Farkları",
+                                                                                    "Kıdem Tazminatı Karşılığı",
+                                                                                    "Maliyet Giderleri Karşılığı",
+                                                                                    "Diğer Borç ve Gider Karşılıkları",
+                                                                                    "Gider Tahakkukları"
+                                                                                ]
+                                                                 }
+                                                             ]
+                                               }
+                                 },
+                    "Genel Hukuk Mevzuatı":  {
+                                                 "soru":  322,
+                                                 "tip":  {
+                                                             "cumle":  316,
+                                                             "sayi":  6
+                                                         },
+                                                 "sayi_tekil_orani":  0.67,
+                                                 "sayi_artan_orani":  0.67,
+                                                 "yon_cift_orani":  null,
+                                                 "cumle_uzunluk_orani_medyan":  1.5,
+                                                 "anahtarli_soru":  82,
+                                                 "dogru_en_uzun_orani":  0.2,
+                                                 "dogru_harf_dagilimi":  {
+                                                                             "A":  15,
+                                                                             "B":  22,
+                                                                             "C":  14,
+                                                                             "D":  11,
+                                                                             "E":  20
+                                                                         },
+                                                 "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
+                                                 "ornek":  {
+                                                               "sayi":  [
+                                                                            {
+                                                                                "kitapcik":  "CIKMIS SINAV - KGK SINAV/ÖĞLEDEN/SONRA/ (6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum)",
+                                                                                "govde_sonu":  "caret siciline kaydettirmiş ve 01.04.2016 tarihinde faaliyete başlamıştır. Buna göre Fahri Tekin Boya Kimya Limited Şirketi tacir sıfatını ne zaman kazanmıştır?",
+                                                                                "siklar":  [
+                                                                                               "25.01.2016",
+                                                                                               "26.01.2016",
+                                                                                               "14.03.2016",
+                                                                                               "15.03.2016",
+                                                                                               "01.04.2016"
+                                                                                           ]
+                                                                            },
+                                                                            {
+                                                                                "kitapcik":  "CIKMIS SINAV - KGK /B/Kitapçığı/12/11/2022 (11486_Öğleden_Sonra_Oturumu_-_B_Kitapçığı_12_11_2022)",
+                                                                                "govde_sonu":  "oğrudan veya dolaylı pay sahipliği yoluyla sermayeyi temsil eden payları en az hangi oranda edinmesi Bankacılık Düzenleme ve Denetleme Kurulunun iznine tâbidir?",
+                                                                                "siklar":  [
+                                                                                               "% 3",
+                                                                                               "% 5",
+                                                                                               "% 7",
+                                                                                               "% 10",
+                                                                                               "% 15 BANKACIL"
+                                                                                           ]
+                                                                            }
+                                                                        ],
+                                                               "cumle":  [
+                                                                             {
+                                                                                 "kitapcik":  "CIKMIS SINAV - KGK SINAV/ÖĞLEDEN/SONRA/ (6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum)",
+                                                                                 "govde_sonu":  "Aşağıdakilerden hangisi taksiratlı iﬂas hallerinden biri değildir?",
+                                                                                 "siklar":  [
+                                                                                                "Türk Ticaret Kanununda sayılan defterlerin hiç ya da gereği gibi tutulmaması",
+                                                                                                "Muhasebe hilesi yapılarak pasiﬂerin arttırılması",
+                                                                                                "İﬂas takibi sırasında iﬂas dairesi tarafından çağırıldığı halde kabul edilebilir bir mazereti olmaksızın iﬂas idaresine gidilmemesi",
+                                                                                                "Evinin masraﬂarının haddinden fazla olması",
+                                                                                                "Borçlunun işlerini terk ederek kaçmış olması"
+                                                                                            ]
+                                                                             },
+                                                                             {
+                                                                                 "kitapcik":  "CIKMIS SINAV - KGK SINAV/ÖĞLEDEN/SONRA/ (6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum)",
+                                                                                 "govde_sonu":  "2004 sayılı İcra İﬂas Kanununa göre aşağıdakilerden hangisi uzlaşma yolu ile yeniden yapılandırma başvurusunda bulunabilir?",
+                                                                                 "siklar":  [
+                                                                                                "Kooperatif",
+                                                                                                "Banka",
+                                                                                                "Adi şirket",
+                                                                                                "Dernek",
+                                                                                                "Kollektif şirket"
+                                                                                            ]
+                                                                             }
+                                                                         ]
+                                                           }
+                                             }
+                }
+}
