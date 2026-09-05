@@ -1,4 +1,9 @@
-# TETİKTE — AÇIKLAMA STANDARDI (kilitli)
+# TETİKTE — AÇIKLAMA STANDARDI (29.07 sürümü — 05.09.2026'da GENİŞLETİLDİ)
+
+> ⭐ **05.09.2026:** Cevap/açıklama biçiminin güncel ve KİLİTLİ şartnamesi
+> **[STANDART-CEVAP-KALIBI.md](STANDART-CEVAP-KALIBI.md)**'dir (Kaydır-Çöz kalıbı v28).
+> Bu dosyanın 5. (değişmeyenler) ve 6. (rakam kapısı) bölümleri aynen geçerli;
+> 1–4. bölümler yeni şartnamenin içinde genişletilmiş hâliyle yaşar. Çelişkide yeni dosya kazanır.
 
 **Karar tarihi:** 29.07.2026 · **Karar veren:** Cem Dizdar · **Uygulayan:** GM
 
