@@ -1,5 +1,5 @@
 ﻿{
-    "olcum":  "2026-09-04 21:26",
+    "olcum":  "2026-09-05 08:21",
     "kural":  "sınav dili ≥ 5× kanun dili VE bire_bir → kapi; kanun alıntısı (tırnak içi) dokunulmaz",
     "kitapcik":  {
                      "SGS":  65,
@@ -7,7 +7,7 @@
                      "SMMM":  16
                  },
     "bizim_soru":  609,
-    "kapi_sayisi":  8,
+    "kapi_sayisi":  9,
     "ciftler":  [
                     {
                         "ad":  "genel idare gideri ↔ genel yönetim gideri",
@@ -75,8 +75,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  83,
-                                      "sinav_soru":  15
+                                      "sinav":  89,
+                                      "sinav_soru":  16
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (490 / 2)"
@@ -183,8 +183,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  83,
-                                      "sinav_soru":  15
+                                      "sinav":  89,
+                                      "sinav_soru":  16
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (490 / 40)"
@@ -219,8 +219,44 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  83,
-                                      "sinav_soru":  15
+                                      "sinav":  89,
+                                      "sinav_soru":  16
+                                  },
+                        "karar":  "kapi",
+                        "gerekce":  "sınav dili baskın (490 / 0)"
+                    },
+                    {
+                        "ad":  "GUG (ASCII) ↔ genel üretim gideri",
+                        "kanun":  "GUG",
+                        "sinav":  "genel üretim gider",
+                        "desen_kanun":  "(?\u003c![A-Za-zÇĞİÖŞÜçğıöşü])GUG(?![A-Za-zÇĞİÖŞÜçğıöşü])",
+                        "karsilik":  "genel üretim gideri",
+                        "bire_bir":  true,
+                        "sayim":  {
+                                      "SGS":  {
+                                                  "kanun":  0,
+                                                  "kanun_kitapcik":  0,
+                                                  "sinav":  379,
+                                                  "sinav_kitapcik":  61
+                                              },
+                                      "KGK":  {
+                                                  "kanun":  0,
+                                                  "kanun_kitapcik":  0,
+                                                  "sinav":  79,
+                                                  "sinav_kitapcik":  41
+                                              },
+                                      "SMMM":  {
+                                                   "kanun":  0,
+                                                   "kanun_kitapcik":  0,
+                                                   "sinav":  32,
+                                                   "sinav_kitapcik":  4
+                                               }
+                                  },
+                        "bizim":  {
+                                      "kanun":  38,
+                                      "kanun_soru":  2,
+                                      "sinav":  89,
+                                      "sinav_soru":  16
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (490 / 0)"
@@ -253,10 +289,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  6,
-                                      "kanun_soru":  2,
-                                      "sinav":  60,
-                                      "sinav_soru":  14
+                                      "kanun":  0,
+                                      "kanun_soru":  0,
+                                      "sinav":  66,
+                                      "sinav_soru":  15
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (760 / 0)"
@@ -289,10 +325,10 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  17,
-                                      "kanun_soru":  4,
-                                      "sinav":  34,
-                                      "sinav_soru":  14
+                                      "kanun":  0,
+                                      "kanun_soru":  0,
+                                      "sinav":  51,
+                                      "sinav_soru":  16
                                   },
                         "karar":  "kapi",
                         "gerekce":  "sınav dili baskın (564 / 2)"
@@ -435,8 +471,8 @@
                         "bizim":  {
                                       "kanun":  0,
                                       "kanun_soru":  0,
-                                      "sinav":  624,
-                                      "sinav_soru":  221
+                                      "sinav":  623,
+                                      "sinav_soru":  220
                                   },
                         "karar":  "dokunma",
                         "gerekce":  "bire bir karşılık değil (işletme genel kelime)"
@@ -685,7 +721,7 @@
                                                }
                                   },
                         "bizim":  {
-                                      "kanun":  2735,
+                                      "kanun":  2729,
                                       "kanun_soru":  515,
                                       "sinav":  52,
                                       "sinav_soru":  18
