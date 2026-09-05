@@ -91,7 +91,8 @@ function TurkceOnar([string]$t){
       if($w.Substring(0,1) -ceq $TI.ToUpper($w.Substring(0,1))){ return ($TI.ToUpper($y.Substring(0,1))+$y.Substring(1)) }
       return $y })
   # 05.09 (kalıp-1): üretici terim onarımı "lehte (olumlu)" → "olumlu (olumlu)dur" bırakmıştı; aynı kelimenin parantez tekrarı silinir
-  return [regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
+  $onarilan=[regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
+  return [regex]::Replace($onarilan,'(?i)\b(\p{L}+),?\s+yani\s+\1\b','$1')   # "olumlu yani olumlu" → "olumlu"
 }
 "deneme: " + (TurkceOnar 'Simdi farki hesapliyoruz: satis hasilati sermaye payini gecerse artan kisim kar sayilir. 100 KASA (BORC) 130.000 TL')
 # 04.09 Cem "@{ne_soruluyor=...} bu ne?": model açıklamayı bazen YAPILI nesne döndürüyor; string'e çevrilince PS
