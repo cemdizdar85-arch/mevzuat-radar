@@ -133,7 +133,14 @@ foreach($x in $sec){
     $fm="$($a.formul)".Trim(); $an=TurkceOnar "$($a.anlatim)"
     # 04.09 Cem'e gösterilen İş-SGK sorusunda 4 adımın başlığı boştu: başlık yoksa anlatımın ilk cümlesi başlık olur
     if(-not $fm){ $fm=(($an -split '(?<=[.!?])\s+')[0]); if($fm.Length -gt 110){ $fm=$fm.Substring(0,108)+'…' } }
-    $adimlar+=@{ anlatim=$an; formul=(TurkceOnar $fm); doldur=@(@($a.doldur) | ForEach-Object { ,@(@($_ | ForEach-Object { [int]$_ })) }) } }
+    $fmT=TurkceOnar $fm
+    # 05.09 (kalıp-2 pilotu): model sonuç adımını iki kez yazdı (adım 6 ve 7 aynı ad, aynı sonuç). Ad ve sonuç önceki adımla
+    # aynıysa yeni adım açılmaz, anlatımı öncekine eklenir.
+    $adAyni=$false
+    if($adimlar.Count){ $onc=$adimlar[$adimlar.Count-1].formul; $adK={ param($f) $p=@("$f" -split '\s=\s'); @(($p[0] -replace '\s+',' ').Trim().ToLowerInvariant(), ($p[-1] -replace '\s*\([^)]*\)','' -replace '\s+',' ').Trim().ToLowerInvariant()) }
+      $k1=& $adK $onc; $k2=& $adK $fmT; if($k1[0] -eq $k2[0] -and $k1[1] -eq $k2[1] -and $k1[0] -notmatch '^(verilen|soruda ne var|yanlış yol)'){ $adAyni=$true } }
+    if($adAyni){ $adimlar[$adimlar.Count-1].anlatim=($adimlar[$adimlar.Count-1].anlatim+' '+$an).Trim(); "    adım birleştirildi (tekrar): $fmT"; continue }
+    $adimlar+=@{ anlatim=$an; formul=$fmT; doldur=@(@($a.doldur) | ForEach-Object { ,@(@($_ | ForEach-Object { [int]$_ })) }) } }
   # 04.09 FAZ S: sade Doğrusu + sınav dili + yanlış şık sade nedeni + anahtar kavramlar (üretici cache'inden; yoksa null)
   $sade=$null
   if($v.PSObject.Properties['sade'] -and $v.sade -and $v.sade.dogru){

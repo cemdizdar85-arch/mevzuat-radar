@@ -28,7 +28,8 @@ param(
   # 01.09 Cem: "bunlar tam FMuh degil" - arsiv tum muhasebeyi tek catida tutuyor;
   # KAYIT-ODAKLI parti icin analiz/ileri-TMS konulari regex'le DISLANIR (dislanan
   # konu kendi dersinin partisine gider, cope degil).
-  [string]$KonuDisla=''
+  [string]$KonuDisla='',
+  [string]$Zorluk=''       # 05.09 Cem "zor olsun, katmanlı": 'zor' → soru istemine ZORLUK bloğu (≥4 bağlı ara hesap, katman birleşimi, çeldirici = atlanan katman), adım 6-10
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -623,6 +624,7 @@ $son10=Get-Content (Join-Path $here 'son10-uret.ps1') -Raw -Encoding UTF8
 $adimIstem=[regex]::Match($son10,"(?s)\`$adimIstem=@'(.*?)'@").Groups[1].Value
 $css=[regex]::Match($son10,"(?s)\`$css=@'(.*?)'@").Groups[1].Value
 if($adimIstem.Length -lt 500 -or $css.Length -lt 500){ throw 'son10 sablonlari cekilemedi' }
+if($Zorluk -eq 'zor'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 6-10 adım (katmanlı soru: her katman kendi adımı).') }   # 05.09 zor ayarı
 Invoke-Expression ([regex]::Match($son10,'(?s)function TabloHtml.*?\n\}\r?\n').Value)
 Invoke-Expression ([regex]::Match($son10,'(?s)function SemaHtml.*?\n\}\r?\n(?=\r?\n)').Value)
 
@@ -1038,6 +1040,25 @@ foreach($kk in $KONULAR){
     continue
   }
   $ekNot=if($OZEL_NOT.ContainsKey($konuLc)){ "`nOZEL UYARI: $($OZEL_NOT[$konuLc])" } else { '' }
+  # 05.09 Cem "soru zor değildi; sınavda en çok çıkan konu, zor ve katmanlı olsun": zorluk kelime sayısında değil KATMAN sayısında.
+  if($Zorluk -eq 'zor'){ $ekNot+=@"
+
+ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
+(a) Çözüm en az DÖRT bağlı ara hesap ister; her ara hesap bir öncekinin sonucunu kullanır (biri atlanırsa sonraki bulunamaz).
+(b) Konunun tek yöntemi değil, gerçek sınavın BİRLEŞTİRDİĞİ katmanlar birlikte gelir. Örnek (ortak maliyet): yan ürünün net
+    gerçekleşebilir değeri ortak maliyetten düşülür → kalan ortak maliyet ayrılma noktasındaki satış değerine göre dağıtılır →
+    ayrılma sonrası ek işleme maliyeti eklenir → istenen ürünün birim maliyeti ya da brüt kârı bulunur. Başka konuda aynı mantık:
+    dönem başı yarı mamul + eşdeğer birim + fire, ya da kapasite sapması + bütçe sapması + yükleme farkı birlikte.
+(c) HER YANLIŞ ŞIK bir katmanın ATLANMASINDAN ya da yanlış sırada yapılmasından TÜRETİLİR: soru verisiyle hesaplanabilir bir tutar
+    olur, uydurma rakam YOK; açıklamasında o yanlış hesap yolu rakamlarıyla yazılır ("yan ürün değeri düşülmeden 600.000 × %40 = ...").
+(d) Gövde hikâye değil yoğun veridir; uzunluk tavanı yine geçerlidir. Zorluk katman sayısında ve verinin işlenme sırasındadır.
+(e) Çözüm tablosunda her katman AYRI SATIR olur (yan ürün NGD, dağıtıma esas ortak maliyet, ürün payı, ek işleme, toplam, birim);
+    SON SATIR istenen büyüklüktür.
+(f) Kök tek anlamlıdır: istenen büyüklüğü adıyla ve hangi ürün için olduğunu açıkça söyle.
+(g) GÖVDE YÖNTEMİ ANLATMAZ (kalıp-2 pilotu: "bu tutar ortak maliyetten düşülür", "kalan ... dağıtılır" yazınca soru kendini
+    çözüyordu): "düşülür / dağıtılır / eklenir / çıkarılır" gibi işlem talimatı YAZMA; yalnız veriyi ver. Yöntemin ADI köke
+    girebilir ("satış değeri yöntemini uygulayan işletmede"), işlem sırası giremez; sırayı aday bilecek. Şirket adı "ABC A.Ş." kalıbı.
+"@ }
   $ist=$soruIstem.Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
@@ -1286,15 +1307,20 @@ foreach($id in @($don.Keys)){
     foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
     $gecerli=$true
     $ns=@($a3.tablo.satirlar).Count
+    # 05.09 (kalıp-2 pilotu, iki kez RED): model bazı hücreleri hiç listelemiyor. Listelenmeyen hücre GÜVENLİ tarafa alınır
+    # (bosluk = öğrenci doldurur); sızıntı denetimini builder zaten yapıyor (verilen ∩ metin). Ret yalnız satır/sütun dışı koordinat için.
+    $eksikH=New-Object System.Collections.Generic.List[object]
     for($r=0;$r -lt $ns;$r++){
       $kc=@(@($a3.tablo.satirlar)[$r]).Count
       for($c=1;$c -lt $kc;$c++){
         $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"
         if($hv -eq '-' -or $hv -eq ''){ continue }
-        if(-not $kume.ContainsKey("$r,$c")){ $gecerli=$false }
+        if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) }
       }
     }
-  }
+    if($eksikH.Count){ $a3.bosluk=@(@($a3.bosluk)+$eksikH.ToArray()); Write-Host "  IKIZ: $($eksikH.Count) listelenmeyen hücre boşluğa alındı ($id)" -ForegroundColor DarkGray }
+    foreach($v in @($a3.verilen)+@($a3.bosluk)){ $rr=[int]@($v)[0]; $cc=[int]@($v)[1]; if($rr -lt 0 -or $rr -ge $ns -or $cc -lt 1 -or $cc -ge @(@($a3.tablo.satirlar)[$rr]).Count){ $gecerli=$false; Write-Host "  IKIZ RED sebebi: koordinat tablo dışı [$rr,$cc] ($id)" -ForegroundColor Yellow } }
+  } else { Write-Host "  IKIZ RED sebebi: JSON çözülemedi ya da tablo yok ($id)" -ForegroundColor Yellow }
   if($gecerli){
     $cvp | Add-Member -NotePropertyName ikiz -NotePropertyValue $a3 -Force
     CacheYaz; Write-Host "  IKIZ OK $id"
