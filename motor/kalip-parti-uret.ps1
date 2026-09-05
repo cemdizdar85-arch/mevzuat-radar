@@ -572,15 +572,17 @@ if($KonuDosya -and (Test-Path $KonuDosya)){
   # PS 5.1: ConvertFrom-Json JSON dizisini TEK nesne olarak verir; boru ile "$_" yapinca
   # butun liste tek metin olur ("istenen 1" - 03.09 ilk kosu boyle 0 aday secti). foreach ile acilir.
   $istenenListe=New-Object System.Collections.Generic.List[string]
-  foreach($x in @((Get-Content $KonuDosya -Raw -Encoding UTF8 | ConvertFrom-Json))){ $istenenListe.Add("$x".ToLowerInvariant()) }
+  # 05.09: köprü konu adları ASCII ("sapmasi"), konu dosyası Türkçe ("sapması") → eşleşmiyor, konu sentezleniyor ve dönem 1'e
+  # düşüyordu (kalıp-1 sorusu "1 dönemde çıktı" rozeti aldı, gerçek 3). Karşılaştırma Türkçe harf katlanarak yapılır.
+  foreach($x in @((Get-Content $KonuDosya -Raw -Encoding UTF8 | ConvertFrom-Json))){ $istenenListe.Add((Katla2 "$x")) }
   $istenen=$istenenListe.ToArray()
-  $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ($istenen -contains "$($_.konu)".ToLowerInvariant()) } | Sort-Object donem -Descending)
+  $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ($istenen -contains (Katla2 "$($_.konu)")) } | Sort-Object donem -Descending)
   "konu dosyasi: $KonuDosya -> $($adaylar.Count) aday (istenen $($istenen.Count))"
   # 03.09 SPL: cikmis arsivi yok (SPL yayimlamiyor), kopru kaydi yok -> konu dosyasindaki adlar
   # (SPL resmi alt-konu listesi, ders-profili resmi_alt_konular) dogrudan aday olur; dayanak bos,
   # kaynak DERS_KANUN kanun-ici aramasiyla bulunur. Kopru kaydi olmayan her sinav icin gecerli.
   if($adaylar.Count -lt $istenen.Count){
-    $eksikler=@($istenen | Where-Object { $k=$_; -not ($adaylar | Where-Object { "$($_.konu)".ToLowerInvariant() -eq $k }) })
+    $eksikler=@($istenen | Where-Object { $k=$_; -not ($adaylar | Where-Object { (Katla2 "$($_.konu)") -eq $k }) })
     $sentez=New-Object System.Collections.Generic.List[object]
     foreach($ek in $eksikler){ $sentez.Add([pscustomobject]@{ sinav=$Sinav; konu=$ek; bizim_ders=''; arsiv_ders=''; bizim=0; cikmis=0; durum='LISTEDEN (kopru kaydi yok)'; dayanak=''; cikmis_dayanak=''; guc=''; donem=1; dayanak_anahtar=''; cikmis_dayanak_anahtar='' }) }
     if($sentez.Count){ $adaylar=@($adaylar)+$sentez.ToArray(); "  kopru disi sentez: $($sentez.Count) konu (SPL resmi alt-konu listesi gibi)" }
@@ -806,6 +808,8 @@ function TerimOnar([string]$t){
     if($icerde){ [void]$cikti.Append($p); continue }
     $y=$p
     foreach($c in $DIL_TERIM){ $kar=$c[1]; $y=[regex]::Replace($y,$c[0],{ param($m) if($m.Value.Substring(0,1) -cmatch '[A-ZÇĞİÖŞÜ]' -and $m.Value -cne $m.Value.ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))){ (($kar -split ' ') | ForEach-Object { if($_ -eq 've'){ $_ } else { $_.Substring(0,1).ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))+$_.Substring(1) } }) -join ' ' } else { $kar } }) }
+    # 05.09 (kalıp-1 sorusu): model "lehte (olumlu)" yazmış, onarım "olumlu (olumlu)dur" üretmişti → aynı kelimenin parantez tekrarı silinir
+    $y=[regex]::Replace($y,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
     [void]$cikti.Append($y)
   }
   return $cikti.ToString()

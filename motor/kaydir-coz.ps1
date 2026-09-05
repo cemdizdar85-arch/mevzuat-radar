@@ -78,7 +78,7 @@ foreach($k0 in $SABIT_SOZ.Keys){ if(-not $SOZ.ContainsKey($k0)){ $SOZ[$k0]=$SABI
 function TurkceOnar([string]$t){
   if(-not $t){ return $t }
   # kelime siniri Turkce harfleri de kapsar: "çıkarılan" icindeki "kar" parcasi ayri kelime sanilip "kâr" yapilmasin
-  return [regex]::Replace($t,'[A-Za-zÇĞİÖŞÜçğıöşüÂâÎîÛû]{3,}',{ param($m) $w=$m.Value
+  $onarilan=[regex]::Replace($t,'[A-Za-zÇĞİÖŞÜçğıöşüÂâÎîÛû]{3,}',{ param($m) $w=$m.Value
       # bas harfi buyuk I olan kelime (Iptal, Isletme): korpusta 'i' ile baslayan bicimi varsa İ yapilir
       if($w -cmatch '^I[a-zçğıöşü]'){ $k0=Katla $w; if($IVAR.ContainsKey($k0)){ $w='İ'+$w.Substring(1) } }
       if($w -cmatch '[çğıöşüÇĞİÖŞÜâîû]'){ return $w }; $k=$w.ToLowerInvariant()
@@ -90,6 +90,8 @@ function TurkceOnar([string]$t){
       if($w -ceq $TI.ToUpper($w)){ return $TI.ToUpper($y) }
       if($w.Substring(0,1) -ceq $TI.ToUpper($w.Substring(0,1))){ return ($TI.ToUpper($y.Substring(0,1))+$y.Substring(1)) }
       return $y })
+  # 05.09 (kalıp-1): üretici terim onarımı "lehte (olumlu)" → "olumlu (olumlu)dur" bırakmıştı; aynı kelimenin parantez tekrarı silinir
+  return [regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
 }
 "deneme: " + (TurkceOnar 'Simdi farki hesapliyoruz: satis hasilati sermaye payini gecerse artan kisim kar sayilir. 100 KASA (BORC) 130.000 TL')
 # 04.09 Cem "@{ne_soruluyor=...} bu ne?": model açıklamayı bazen YAPILI nesne döndürüyor; string'e çevrilince PS
@@ -260,7 +262,9 @@ $analiz=$null; try{ $analiz=Get-Content (Join-Path $kok 'veri\sgs-analiz.json') 
 for($i=0;$i -lt $sorular.Count;$i++){
   $s=$sorular[$i]; $konuHam="$($sec[$i].v.konu)".ToLowerInvariant()
   if($SIN.ContainsKey($konuHam)){ $e0=$SIN[$konuHam]; $script:SIN_ISABET++; $sorular[$i].cikmis=@{ donemler=@(@($e0.donemler) | ForEach-Object { "$_" }); ornekler=@(@($e0.ornekler) | ForEach-Object { @{ yil="$($_.yil)"; alinti="$($_.alinti)" } }); kopru=$s.donem }; continue }
-  $donemler=@(); if($analiz){ foreach($dn in @($analiz.donemler)){ if($dn.konuSayim){ foreach($k in $dn.konuSayim.PSObject.Properties){ if($k.Name -match ('\|'+[regex]::Escape($konuHam)+'$')){ $donemler+="$($dn.donem)"; break } } } } }
+  # 05.09: analiz konu adları ASCII ("sapmasi"), cache Türkçe ("sapması") → dönem 0 çıkıyordu; Türkçe harf katlanarak eşlenir
+  $konuKat=Katla $konuHam
+  $donemler=@(); if($analiz){ foreach($dn in @($analiz.donemler)){ if($dn.konuSayim){ foreach($k in $dn.konuSayim.PSObject.Properties){ if((Katla ($k.Name -replace '^[^|]*\|','')) -eq $konuKat){ $donemler+="$($dn.donem)"; break } } } } }
   $donemler=@($donemler | Select-Object -Unique | Sort-Object)
   $kokler=@(($konuHam -split '\s+') | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^(tms|tfrs|bds)$' } | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
   $bul=@()
@@ -519,7 +523,7 @@ function noktalar(i){ return '<div class="noktalar'+(SORULAR.length>12?' cok':''
 SORULAR.forEach((s,i)=>{
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
   k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div>'
-   +'<div class="govde"><span class="rozet">📌 '+s.donem+' dönemde çıktı</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
+   +'<div class="govde"><span class="rozet">📌 '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde çıktı</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
    +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b>'+esc(s.siklar[h])+'</button>').join('')+'</div></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="panel"><div class="tutamac"></div><div class="geri"></div><div class="ozet"></div><div class="hap">💡 '+esc(s.hap)+'</div>'
