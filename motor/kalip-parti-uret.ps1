@@ -1248,13 +1248,17 @@ foreach($id in @($don.Keys)){
 # --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
 $script:FAZ_ADI='C'
 $ikizIstem=@'
-Asagidaki COZULMUS sorunun IKIZINI uret: AYNI yontem, FARKLI rakamlar/adlar, FARKLI hedef kalem sorulabilir. Ogrenci tabloyu KENDISI dolduracak.
+Aşağıdaki ÇÖZÜLMÜŞ sorunun İKİZİNİ üret: AYNI yöntem, FARKLI rakamlar/adlar, tercihen FARKLI hedef kalem sorulur (ana soru Q'yu soruyorsa ikiz R'yi sorsun: aynı yöntem, başka istek — sınav böyle yapar). Öğrenci tabloyu KENDİSİ dolduracak.
 KURALLAR:
-1. ikiz_soru: yeni kisa soru metni (rakamlar YENI). hedef_cumle: "tabloyu doldur ve X'in ... oldugunu bul" tarzi tek cumle.
-2. tablo: ana soruyla AYNI kolon yapisi; TUM hucre degerleri YENI rakamlarla DOLU (dogru cevaplar - kontrol icin).
-3. verilen: [[satir,kolon],...] = YALNIZ ikiz_soru METNINDE ACIKCA verilen degerlerin koordinatlari.
-4. bosluk: [[satir,kolon],...] = ogrencinin dolduracagi TUM kalan hucreler (kalem kolonu haric). verilen+bosluk = kalem-disi TUM hucreler; SIZINTI YASAK (verilende olmayan hicbir deger metinde gecmez).
+1. ikiz_soru: yeni kısa soru metni (rakamlar YENİ), Türkçe harfler tam. hedef_cumle: "tabloyu doldur ve X'in ... olduğunu bul" tarzı tek cümle.
+2. tablo: ana soruyla AYNI kolon yapısı; TÜM hücre değerleri YENİ rakamlarla DOLU (doğru cevaplar - kontrol için).
+3. verilen: [[satır,kolon],...] = YALNIZ ikiz_soru METNİNDE AÇIKÇA verilen değerlerin koordinatları. Hesaplanan bir hücrenin
+   değeri metindeki bir rakamla TESADÜFEN aynıysa o hücre verilen DEĞİLDİR (05.09: B'nin eşdeğer miktarı 3.000, A'nın fiili
+   miktarı 3.000'e çakışıp dolu gelmişti). Tesadüfü önlemek için rakamları birbirinden farklı seç.
+4. bosluk: [[satır,kolon],...] = öğrencinin dolduracağı TÜM kalan hücreler (kalem kolonu hariç). verilen+bosluk = kalem-dışı TÜM hücreler; SIZINTI YASAK (verilende olmayan hiçbir değer metinde geçmez).
 5. Rakamlar aritmetik TUTARLI.
+6. ADLAR HARF DEĞİL (kural 4c, 05.09): ürün / gider yeri / kalem adları A, B, C gibi tek harf OLMAZ — şık harfleriyle karışır.
+   Ana sorudaki adlandırma biçimini koru (P/Q/R gibi çift olmayan harfler ya da "Ürün Kuzey", "Bakım-Onarım", "Yemekhane" gibi adlar).
 Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[...],"satirlar":[[...]]},"verilen":[[r,c],...],"bosluk":[[r,c],...]}
 === ANA SORU === {SORU}
 === ANA TABLO === {TABLO}

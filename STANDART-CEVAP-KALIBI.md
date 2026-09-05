@@ -40,7 +40,11 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
 6. **📈 Sınavda** — dönem listesi `veri/sgs-analiz.json` konuSayim'dan; o kitapçıklardan soru gövdesi alıntısı.
    Köprü kaydında yıl listesi yok, sayım var; gevşek eşleşme 50 dönem gösterdi → gövde + "?" ile eşleşme.
 7. **📜 Kaynağı göster** — ambardaki gerçek madde metni, kaynak adı UZUN adla ("Vergi Usul Kanunu 275. madde",
-   "Tekdüzen Hesap Planı 381"); hakemin dayandığı cümle sarı.
+   "Tekdüzen Hesap Planı 381"); hakemin dayandığı cümle sarı. **Maliyet Muhasebesi'nde GİZLİ** (05.09): kaynak VUK m.275 +
+   teori notu çıkıyor, tekniğin kaynağı değil, güven zedeler; MSUGT Sıra No 2 deseni bağlanınca açılır. Metin yoksa da gizli.
+   Teori notu metni Türkçe onarımdan geçer.
+6b. **📈 Sınavda**: "Alıntılar gerçek kitapçık metninden" cümlesi yalnız alıntı VARSA yazılır; boş vaat yok.
+6c. **🎯 Hazırlık skoru**: 5 cevaptan önce yüzde gösterilmez ("—"); ilk yanlıştan sonra "%4" caydırıcıdır.
 8. **🚩 Hata bildir** — prototipte localStorage `kc_hata`; üründe kasaya itiraz kaydı.
 
 ## 3. Nöbetçi anlatımı (adım adım)
@@ -63,6 +67,9 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
   "0,20" 28 geçiş. Builder `oranYuzde` çarpım/bölümdeki 0,xx'i çevirir; katsayılara (beta, kaldıraç) ve TL/kg
   tutarlara dokunmaz.
 - Adım yoksa (eski cache): builder adımları kural + kayıttan sentezler (model çağrısı yok).
+- **Kişisel son adım (05.09 ürün incelemesi):** öğrenci yanlış şık seçtiyse Nöbetçi'nin SON adımı o şıkkın tuzağıdır
+  ("Senin seçimin A: 40 TL/kg (HATALI) → doğrusu D: 120 TL/kg" + tuzak adı ve nedeni). Üreticinin "en sık hata" adımı
+  zaten o şıkkı anlatıyorsa eklenmez. Sebep: öğrenci A'yı seçmişken son adım 80'i anlatıyordu, kendi hatasını bulamıyordu.
 
 ## 4. "Sen çöz" oyunu
 
@@ -72,6 +79,9 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
 | Tablolu (hesaplama) | İKİZ TABLO DOLDURMA (`ikiz.tablo/verilen/bosluk`): boşluk = ikiz metninde geçmeyen rakam; kalem adındaki formül ipucu SİLİNİR (hesap adı parantezi kalır); her boş hücrede "?" ipucu düğmesi; "Kontrol et" hücre hücre (±0,5); "Doğruları göster" hücreleri 350 ms arayla sırayla yazar. |
 | Teori | Oyun yok → 🧠 Sen anlat (Feynman; ücretsiz sürüm anahtar kavram isabeti, modelli sürüm bedelli). |
 
+Verilen hücre = ikiz metninde geçen rakam **VE** üreticinin `ikiz.verilen` listesinde olan hücre (kesişim, 05.09).
+Yalnız rakam eşleşmesi sızdırıyordu: hesaplanan hücre metindeki başka bir rakamla çakışınca dolu geliyordu.
+İkiz adları harf değil (A/B/C yasak, kural 4c ikiz istemine de girdi). Kontrol et mesajı "d doğru · y yanlış · b boş".
 Seri kilidi: tamamlanınca girişler kilit, seri bir kez; "Doğruları göster" ve ipucu sonrası seri sayılmaz.
 Kırmızı kalan hücrede 🎬 "Nöbetçi'ye sor" → o hücreyi dolduran adım açılır (`doldur` eşleşmesi, yoksa satır sırası).
 

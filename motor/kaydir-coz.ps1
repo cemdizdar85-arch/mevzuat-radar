@@ -292,7 +292,8 @@ for($i=0;$i -lt $sorular.Count;$i++){
   $v=$sec[$i].v; $kl=@()
   foreach($ka in (@($v.kaynak_adlar) | Where-Object { "$_" -notmatch ' p\.0 -' } | Select-Object -First 2)){
     $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=eq.'+[uri]::EscapeDataString("$ka")+'&limit=1'
-    try{ $g=AmbarGetir $u ("KAYNAK|"+$ka); $r=@(); if($g){ $r=@($g) }; if($r.Count){ $m="$($r[0].metin)" -replace '\s+',' '; $m=$m -replace '^MSUGT.*?Tekduzen Hesap Plani\s*-\s*',''; if($m.Length -gt 1600){ $m=$m.Substring(0,1600)+'…' }; $kl+=@{ ad="$($r[0].kaynak_ad)"; metin=$m } } }catch{}
+    try{ $g=AmbarGetir $u ("KAYNAK|"+$ka); $r=@(); if($g){ $r=@($g) }; if($r.Count){ $m="$($r[0].metin)" -replace '\s+',' '; $m=$m -replace '^MSUGT.*?Tekduzen Hesap Plani\s*-\s*',''; if($m.Length -gt 1600){ $m=$m.Substring(0,1600)+'…' }; if("$($r[0].kaynak_ad)" -match '^TEORI'){ $m=TurkceOnar $m }   # 05.09: teori notları ASCII yazılmıştı ("BIRLESIK MALIYET"), ekrana öyle düşüyordu
+        $kl+=@{ ad="$($r[0].kaynak_ad)"; metin=$m } } }catch{}
   }
   $alinti=''; $ma=[regex]::Match("$($v.hakem.gerekce)","['‘’""“”]([^'‘’""“”]{20,})['‘’""“”]"); if($ma.Success){ $alinti=$ma.Groups[1].Value.Trim() }
   $sorular[$i].kaynak=@{ liste=$kl; alinti=$alinti; hakem="$($v.hakem.gerekce)" }
@@ -491,7 +492,7 @@ function skorHesapla(){
   const ders={}; let tw=0,tu=0,cz=0; Object.values(konular).forEach(k=>{ if(!ders[k.ders]) ders[k.ders]={w:0,u:0,n:0,c:0}; ders[k.ders].w+=k.w; ders[k.ders].u+=k.w*k.u; ders[k.ders].n++; if(k.cozuldu){ ders[k.ders].c++; cz++; } tw+=k.w; tu+=k.w*k.u; });
   return { toplam: tw?Math.round(tu/tw*100):0, cozulen:cz, n:SORULAR.length, oyunTam:oyTam, oyunIpuclu:oyIp, ders:Object.entries(ders).map(([ad,d])=>({ad,yuzde:d.w?Math.round(d.u/d.w*100):0,cozulen:d.c,n:d.n})) };
 }
-function skorCiz(){ const sk=skorHesapla(); const vade=KUTU.kutu.filter(x=>x.due<=simdi()).length; document.querySelectorAll('.skorCip').forEach(el=>{ el.textContent='🎯 %'+sk.toplam; }); document.querySelectorAll('.kutuCip').forEach(el=>{ el.textContent='📥 '+KUTU.kutu.length+(vade?' ·'+vade+' hazır':''); el.classList.toggle('hazir',vade>0); }); }
+function skorCiz(){ const sk=skorHesapla(); const vade=KUTU.kutu.filter(x=>x.due<=simdi()).length; const azVeri=KUTU.kayit.length<5; document.querySelectorAll('.skorCip').forEach(el=>{ el.textContent=azVeri?'🎯 —':('🎯 %'+sk.toplam); el.title=azVeri?'Hazırlık skoru 5 sorudan sonra görünür':'Hazırlık skoru'; }); /* 05.09: ilk yanlıştan sonra "%4" görmek caydırıcı; 5 cevaptan önce yüzde yok */ document.querySelectorAll('.kutuCip').forEach(el=>{ el.textContent='📥 '+KUTU.kutu.length+(vade?' ·'+vade+' hazır':''); el.classList.toggle('hazir',vade>0); }); }
 function kartSifirla(i){ const k=akis.children[i]; if(!k) return; delete durum.cevap[i]; k.querySelectorAll('.sik').forEach(x=>{ x.disabled=false; x.classList.remove('dogru','yanlis'); }); const p=k.querySelector('.panel'); p.classList.remove('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); k.querySelector('.ipucu').style.display=''; document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>{ n.classList.remove('ok','yan'); }); k.scrollIntoView({behavior:'smooth'}); }
 function kutuEkraniAc(){
   let e=document.getElementById('kutuEkran'); if(!e){ e=document.createElement('div'); e.id='kutuEkran'; e.className='kutuEkran'; document.body.appendChild(e); }
@@ -573,6 +574,9 @@ SORULAR.forEach((s,i)=>{
     const kayitVar=!!(s.kayit&&s.kayit.length); const oyunVar=!!(s.oyun&&(s.oyun.tur==='tablo'||(s.oyun.kayit&&s.oyun.kayit.length)));
     if(!kayitVar){ const el=k.querySelector('.cThesap'); if(el) el.style.display='none'; }
     if(!oyunVar){ const el=k.querySelector('.bOyun'); if(el) el.style.display='none'; }
+    // 05.09 (GM ürün incelemesi): Maliyet sorusunda "Kaynağı göster" Vergi Usul Kanunu m.275 + teori notu gösteriyor —
+    // maliyet TEKNİĞİNİN kaynağı değil, güven zedeler. MSUGT Sıra No 2 deseni bağlanana dek Maliyet'te ve metin yoksa gizli.
+    if(/maliyet/i.test(String(s.ders||''))||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)){ const el=k.querySelector('.cKaynak'); if(el) el.style.display='none'; }
     if((!dogruMu||!oyunVar)&&bDersC){ bDersC.classList.add('birincil'); } else if(bOyunC){ bOyunC.classList.add('birincil'); if(bDersC) bDersC.classList.add('ek'); }
     k.querySelector('.ipucu').style.display='none'; panel.classList.add('acik');
   }));
@@ -601,7 +605,7 @@ SORULAR.forEach((s,i)=>{
   k.querySelector('.cThesap').addEventListener('click',e=>{ tKur(); sekAc('thesap',e.currentTarget); if(k.querySelector('.sek.thesap').classList.contains('acik')) setTimeout(tOynat,250); });
   k.querySelector('.bThesapOynat').addEventListener('click',tOynat);
   // 📈 SINAVDA NASIL CIKTI: arsivden yillar + kisa alintilar (bedel 0)
-  k.querySelector('.cCikmis').addEventListener('click',e=>{ const ic=k.querySelector('.cikmisIc'); if(!ic.innerHTML){ const c=s.cikmis||{yillar:[],ornekler:[]}; ic.innerHTML='<p>Bu konu çıkmış sınavlarda <b>'+((c.donemler&&c.donemler.length)||s.donem)+' dönemde</b> soruldu'+(c.donemler&&c.donemler.length?': <b>'+esc(c.donemler.join(', '))+'</b>.':'.')+'</p>'+(c.ornekler||[]).map(o=>'<div class="cikmisK"><span class="yil">'+esc(o.yil)+'</span> …'+esc(o.alinti)+'…</div>').join('')+'<p class="ipnot">Alıntılar gerçek kitapçık metninden, kısaltılmış. Bizim soru aynı konuyu bugünün mevzuatıyla soruyor.</p>'; } sekAc('cikmis',e.currentTarget); });
+  k.querySelector('.cCikmis').addEventListener('click',e=>{ const ic=k.querySelector('.cikmisIc'); if(!ic.innerHTML){ const c=s.cikmis||{yillar:[],ornekler:[]}; ic.innerHTML='<p>Bu konu çıkmış sınavlarda <b>'+((c.donemler&&c.donemler.length)||s.donem)+' dönemde</b> soruldu'+(c.donemler&&c.donemler.length?': <b>'+esc(c.donemler.join(', '))+'</b>.':'.')+'</p>'+(c.ornekler||[]).map(o=>'<div class="cikmisK"><span class="yil">'+esc(o.yil)+'</span> …'+esc(o.alinti)+'…</div>').join('')+((c.ornekler&&c.ornekler.length)?'<p class="ipnot">Alıntılar gerçek kitapçık metninden, kısaltılmış. Bizim soru aynı konuyu bugünün mevzuatıyla soruyor.</p>':'<p class="ipnot">Bizim soru aynı konuyu bugünün mevzuatıyla soruyor.</p>'); } sekAc('cikmis',e.currentTarget); });
   k.querySelector('.cKural').addEventListener('click',e=>sekAc('kuralK',e.currentTarget));
   k.querySelector('.bDiger').addEventListener('click',e=>{ const d=k.querySelector('.diger'); if(!d.innerHTML){ d.innerHTML=Object.keys(s.tuzak).sort().map(h=>'<div><b>'+h+')</b> <b style="color:var(--kirmizi)">'+esc(s.tuzak[h].ad)+':</b> '+esc(s.tuzak[h].metin)+'</div>').join(''); } sekAc('diger',e.currentTarget); });
   k.querySelector('.bSonraki').addEventListener('click',()=>{ const n=akis.children[i+1]; if(n) n.scrollIntoView({behavior:'smooth'}); });
@@ -621,7 +625,11 @@ SORULAR.forEach((s,i)=>{
     const soruSayi=new Set([...String(o.soru||'').matchAll(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/g)].map(m=>m[0].replace(/\./g,'').replace(',','.')));
     const normV=t=>String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/^%\s*/,'').replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
     const ver=new Set(); const bos=new Set();
-    o.tablo.satirlar.forEach((st,r)=>st.forEach((c,ci)=>{ if(ci===0) return; const v=String(c).trim(); if(!v||v==='-') return; const n=normV(v); if(n&&soruSayi.has(n)&&!/^%/.test(v)) ver.add(r+','+ci); else bos.add(r+','+ci); }));
+    // 05.09 (GM ürün incelemesi): rakam eşleşmesi tek başına SIZDIRIYORDU — B'nin eşdeğer miktarı 3.000, metindeki A fiili
+    // miktarı 3.000'e çakışınca "verilen" sayılıp dolu geldi. Kural: hücre verilen = metinde geçer VE üretici de verilen
+    // listesine yazmış (kesişim). Üretici listesi boşsa eski davranış (yalnız metin eşleşmesi).
+    const uretVer=new Set((o.verilen||[]).map(p=>p[0]+','+p[1]));
+    o.tablo.satirlar.forEach((st,r)=>st.forEach((c,ci)=>{ if(ci===0) return; const v=String(c).trim(); if(!v||v==='-') return; const n=normV(v); const key=r+','+ci; if(n&&soruSayi.has(n)&&!/^%/.test(v)&&(!uretVer.size||uretVer.has(key))) ver.add(key); else bos.add(key); }));
     const ipucuSil=t=>ipucuAyir(t).ad;
     oyun.querySelector('h3').textContent='⚖️ Tabloyu sen doldur'; oyun.querySelector('.alt').textContent=o.hedef||'Boş hücreleri doldur, sonra Kontrol et.'; oyun.querySelector('.toplam').style.display='none';
     let h='<div class="tabloSarO"><table class="tt oyunT"><thead><tr>'+(o.tablo.basliklar||[]).map(b=>'<th>'+esc(b)+'</th>').join('')+'</tr></thead><tbody>';
@@ -633,13 +641,13 @@ SORULAR.forEach((s,i)=>{
     // "Doğruları göster"den sonra tamamlansa da seri artmaz (kendi çözmedi). ↺ Tekrar yeni bir deneme açar.
     let bitti=false, gosterildi=false, ipucuAcildi=false;
     const kilitle=()=>{ bitti=true; satirlar.querySelectorAll('td.bosH input').forEach(i=>i.disabled=true); const bk=satirlar.querySelector('.bKontrol'); if(bk){ bk.disabled=true; bk.textContent='✔ Tamamlandı'; } };
-    const olcT=()=>{ if(bitti) return; let d=0,n=0; satirlar.querySelectorAll('td.bosH').forEach(td=>{ n++; const g=normS(td.querySelector('input').value), b=normS(td.dataset.v); const ok=g!==''&&(g===b||(!isNaN(parseFloat(g))&&!isNaN(parseFloat(b))&&Math.abs(parseFloat(g)-parseFloat(b))<0.5)); td.classList.toggle('dog',ok); td.classList.toggle('yan',!ok); if(ok) d++; });
+    const olcT=()=>{ if(bitti) return; let d=0,n=0,bosN=0; satirlar.querySelectorAll('td.bosH').forEach(td=>{ n++; const g=normS(td.querySelector('input').value), b=normS(td.dataset.v); if(g==='') bosN++; const ok=g!==''&&(g===b||(!isNaN(parseFloat(g))&&!isNaN(parseFloat(b))&&Math.abs(parseFloat(g)-parseFloat(b))<0.5)); td.classList.toggle('dog',ok); td.classList.toggle('yan',!ok); if(ok) d++; });
       const m=oyun.querySelector('.msj');
       if(d===n){ kilitle();
         if(!gosterildi&&!ipucuAcildi){ durum.seri++; try{ localStorage.setItem('kc_seri',String(durum.seri)); }catch(e){} m.className='msj ok'; m.textContent='🏅 Tablo tam doğru! Seri: '+durum.seri+(durum.seri>=3?' 🔥':'')+' · Hazırlık Skoru +'; if(navigator.vibrate) navigator.vibrate([20,40,20]); oyunKaydet(s,'tam'); }
         else if(!gosterildi){ m.className='msj ok'; m.textContent='Tablo tamam; ipucu aldığın için seri sayılmadı, skora yarım puan işlendi. ↺ Tekrar ile ipuçsuz dene.'; oyunKaydet(s,'ipuclu'); }
         else { m.className='msj ok'; m.textContent='Tablo tamam, ama doğruları açtığın için seri ve skor sayılmadı. ↺ Tekrar ile kendin çöz.'; oyunKaydet(s,'gosterildi'); } }
-      else { durum.seri=0; try{ localStorage.setItem('kc_seri','0'); }catch(e){} m.className='msj hata'; m.textContent=d+' / '+n+' hücre doğru. Kırmızı hücrede 🎬 ile o adımı Nöbetçi anlatır; takılırsan "?" ipucu ya da "Doğruları göster".';
+      else { durum.seri=0; try{ localStorage.setItem('kc_seri','0'); }catch(e){} m.className='msj hata'; m.textContent=d+' doğru · '+(n-d-bosN)+' yanlış · '+bosN+' boş. Kırmızı hücrede 🎬 ile o adımı Nöbetçi anlatır; takılırsan "?" ipucu ya da "Doğruları göster".';
         // 05.09 Cem "2 yap" — Nöbetçi'ye sor: yanlış hücrede tek tık, o hücreyi dolduran ADIM açılır (ipucu ile tam çözüm arası kademe)
         satirlar.querySelectorAll('td.bosH.yan').forEach(td=>{ if(td.querySelector('.sorB')) return; const r=parseInt(td.dataset.r), c=parseInt(td.dataset.c); const b=document.createElement('button'); b.className='sorB'; b.title='Bu adımı Nöbetçi anlatsın'; b.textContent='🎬'; b.addEventListener('click',()=>{ let idx=s.adimlar.findIndex(a=>(a.doldur||[]).some(p=>p[0]===r&&p[1]===c)); if(idx<0){ idx=Math.min(s.adimlar.length-1,Math.max(0,r)); } gosterildi=true; oyun.classList.remove('acik'); dersKur(); adimGoster(idx,1); ders.classList.add('acik'); }); td.querySelector('.hucreSar').appendChild(b); }); } };
     satirlar.querySelector('.bKontrol').addEventListener('click',olcT);
@@ -718,6 +726,18 @@ SORULAR.forEach((s,i)=>{
     // Cem 03.09 (3): "iptal kari verilmiyor, en sonda hesaplaniyor" - soruda VERILMEYEN hucreler '?' ile gizli
     // baslar, ilgili adim gelince acilir (birikimli). Verilenler bastan acik (mavi kenar).
     function dersKur(){
+      // 05.09 (GM ürün incelemesi, Cem "1 yap"): son adım ÖĞRENCİNİN KENDİ HATASINI anlatır. Üreticinin "en sık hata" adımı
+      // genel tuzağı gösteriyordu (80); öğrenci A'yı (40) seçmişse kendi yolunu bulamıyordu. Seçilen yanlış şıkkın tuzağı
+      // (ad + neden) SON adım olarak eklenir; üreticinin yanlış yolu zaten o şıksa eklenmez. Bedel 0, cache'ten.
+      if(!s.adimBase) s.adimBase=(s.adimlar||[]).slice();
+      s.adimlar=s.adimBase.slice();
+      const secH=durum.cevap[i]; const tzS=(secH&&secH!==s.dogru&&s.tuzak)?s.tuzak[secH]:null;
+      if(tzS&&s.adimlar.length){
+        const sonF=String(s.adimlar[s.adimlar.length-1].formul||''); const hatali=(sonF.match(/=\s*([\d.,]+)[^=]*\(HATALI\)/)||[])[1];
+        const secDeg=(String(s.siklar[secH]||'').match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/)||[])[0];
+        const ayni=hatali&&secDeg&&nrm(hatali)===nrm(secDeg);
+        if(!ayni){ s.adimlar.push({ kisi:true, formul:'Senin seçimin '+secH+': '+String(s.siklar[secH])+' (HATALI) → doğrusu '+s.dogru+': '+String(s.siklar[s.dogru]), anlatim:'Sen '+secH+' şıkkını seçtin. '+(tzS.ad||'Tuzak')+': '+String(tzS.metin||''), doldur:[] }); }
+      }
       if(!s.tablo&&!(s.kayit&&s.kayit.length)){ const ilkC=t=>{ const x=String(t||'').split(/(?<=[.!?])\s+/)[0]; return x.length>200?x.slice(0,198)+'…':x; }; s.tablo={basliklar:['Adım','İçerik'],satirlar:[['Olay',ilkC(s.soru)],['Kural',s.kural||''],['Bu olayda',s.olay||''],['Doğru şık',s.dogru+') '+String(s.siklar[s.dogru]||'')]].filter(r=>r[1])}; s.verilen=[[0,1]]; }
       let h='<table class="tt'+(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım'?' teori':'')+'">'+(s.tablo?'<thead><tr>'+s.tablo.basliklar.map(b=>'<th>'+esc(b)+'</th>').join('')+'</tr></thead>':'')+'<tbody>';
       const ver=new Set((s.verilen||[]).map(p=>p[0]+','+p[1]));
@@ -795,13 +815,13 @@ SORULAR.forEach((s,i)=>{
         anlatimH=esc(dk?dk[1].trim():String(a.anlatim||'').split(/(?<=[.!?])\s+/).slice(-1)[0]);
       }
       // hedef = "Sonuç" adımı; son adım "Yanlış yol / en sık hata" ise ondan önceki sonuç adımıdır
-      let hedefIdx=s.adimlar.length-1; for(let q=s.adimlar.length-1;q>=0;q--){ const b=adimBaslik(s.adimlar[q]); if(!/^(yanlış|en sık hata|tuzak)/i.test(b)){ hedefIdx=q; break; } }
+      let hedefIdx=s.adimlar.length-1; for(let q=s.adimlar.length-1;q>=0;q--){ const b=adimBaslik(s.adimlar[q]); if(!/^(yanlış|en sık hata|tuzak|senin seçimin)/i.test(b)){ hedefIdx=q; break; } }
       const sonBas=adimBaslik(s.adimlar[hedefIdx]); const sonrakiBas=(j+1<s.adimlar.length)?adimBaslik(s.adimlar[j+1]):'';
       // Cem 04.09 "yol haritası ekranı kaplıyor": tek satır — numaralı noktalar (geçilen yeşil, buradasın kalın, hedef altın bayrak),
       // yalnız bulunduğun adımın adı yazılı; başlıklar üstüne gelince görünür. Kartın altına yaslanır.
       const yolH='<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':(q===hedefIdx?'hedef':'')))+'" title="'+esc(adimBaslik(x))+'">'+(q===hedefIdx&&q!==j?'🏁':(q+1))+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(adimBaslik(a))+'</span></div>'
         +(son?'<div class="neden">Hedefe ulaştık: <b>'+esc(sonBas)+'</b>. Şimdi aynı yolu sen yürü.</div>'
-          :(j>=hedefIdx?'<div class="neden">Hedef bulundu (<b>'+esc(sonBas)+'</b>). Bu adım, adayların en sık düştüğü yanlış yolu gösterir.</div>'
+          :(j>=hedefIdx?'<div class="neden">Hedef bulundu (<b>'+esc(sonBas)+'</b>). '+(a.kisi?'Bu adım <b>senin seçtiğin şıkkın</b> neden yanlış olduğunu gösterir.':'Bu adım, adayların en sık düştüğü yanlış yolu gösterir.')+'</div>'
           :(j+1===hedefIdx?'<div class="neden">Bu adım niye var? Burada bulduğumuz değer doğrudan hedefe götürür: sıradaki adım <b>'+esc(sonBas)+'</b>.</div>'
           :'<div class="neden">Bu adım niye var? Burada bulduğumuz değer sıradaki adımda (<b>'+esc(sonrakiBas)+'</b>) kullanılacak; hedef <b>'+esc(sonBas)+'</b>.</div>')))+'</div>';
       serit.innerHTML='<div class="adimK'+(son?' sonAdim':'')+(yon<0?' geri':'')+'"><div class="say"><span>ADIM '+(j+1)+' / '+s.adimlar.length+'</span><span class="baslik">'+esc(adimBaslik(a))+'</span></div><code class="mat0">'+fH+'</code><p>'+anlatimH+'</p>'+yolH+sonBtn+'</div>';
