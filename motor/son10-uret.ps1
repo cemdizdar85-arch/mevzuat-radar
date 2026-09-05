@@ -124,6 +124,9 @@ KURALLAR:
    (d) Her sayının kimliği parantezle sayının HEMEN ARDINDA: (soruda verilen) ya da (N. adımda bulduk). Parantez içinde
        işleç kullanma. Ok işareti (→) yalnız "genel formül → sayılı hâli" geçişinde; düz yazı, açıklama, "yani" formüle girmez.
    (e) Sonuç formülün EN SONUNDA tek sayı (birimiyle): "= 260 TL/adet". Formül içinde cümle yazma; cümle anlatıma gider.
+   (e2) ORAN YAZIMI (05.09 ölçüldü: 33 SGS kitapçığında maliyet sorularında "%20" 169 geçiş, "0,20" 28 geçiş ve onlar da
+       tutar): oran her yerde YÜZDE ile yazılır: "40.000 × %20 = 8.000". "0,20" yazma; "%20 = 0,20" gibi ikisini birden
+       hiç yazma. Ondalık yalnız birim fiyat/tutar için ("0,60 TL").
    (f) ADIM 1 formülü cümle DEĞİL, liste. HESAPLI/KAYITLI soruda "Verilen: Fiili miktar P 2.000 kg (soruda verilen);
        Katsayı Q 3 (soruda verilen); Toplam ortak maliyet 400.000 TL (soruda verilen)". TEORİ sorusunda (rakam yok, tablo
        kavram tablosu) "Verilen" yazılmaz; "Soruda ne var: <olay>; <istenen şey>; <ayırt edici kelime>" kalıbı kullanılır
