@@ -113,6 +113,14 @@ Kırmızı kalan hücrede 🎬 "Nöbetçi'ye sor" → o hücreyi dolduran adım 
 - **KAPI-D konu uyumu** + hakem `konu_uyum`; **kara listedeki dayanak** teyitli görünse de dayanaksız.
 - Uzunluk: 350 karakter tavan (sınav anatomisi 02.09); Maliyet için ilk tavan 20k token.
 - Şıkka gerekçe yazılmaz; sızıntı 4c; tavan/parametre kaynaksız kullanılmaz (çıkmış-örnek kuralı 27.08).
+- **Zor ayarı (`-Zorluk zor`, 05.09 Cem "en çok çıkan konu, zor ve katmanlı"):** ≥4 bağlı ara hesap, sınavın birleştirdiği
+  katmanlar, her çeldirici atlanan katmandan türetilir, tablo her katmanı ayrı satır, adım 6-10. **Gövde sınav gibi:** ölçüldü
+  (13 dönemin ortak maliyet soruları), sınav yöntemi ve politikayı işletme cümlesiyle SÖYLER ("…yan mamullerin net
+  gerçekleşebilir değerini ortak maliyetten çıkararak hesaplama yapmaktadır"), çözüm sırasını anlatmaz; veri tablo cümlesiyle;
+  kök "Buna göre, … kaç TL'dir?". Zorluk kaynakları sınavdan: yan ürün NGD, ek maliyet + nihai satış değeri, birim kâr, ters soru,
+  "dağıtsaydı" karşılaştırması. Biçim çapası konunun GERÇEK çıkmış sorusundan (`-OrnekDosya`), sabit Finansal örneği değil.
+- **Ölçülen, karar bekleyen:** sınav 2018'den beri "₺" yazıyor (13 dönemde 12), biz "TL"; sınav mamulleri "A, B, C mamulü" diye
+  harfle anıyor (4c harf yasağı bizim adım anlatımı içindi).
 
 ## 8. Veri sözleşmesi (fabrika cache alanları — builder bunları okur)
 

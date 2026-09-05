@@ -29,7 +29,8 @@ param(
   # KAYIT-ODAKLI parti icin analiz/ileri-TMS konulari regex'le DISLANIR (dislanan
   # konu kendi dersinin partisine gider, cope degil).
   [string]$KonuDisla='',
-  [string]$Zorluk=''       # 05.09 Cem "zor olsun, katmanlı": 'zor' → soru istemine ZORLUK bloğu (≥4 bağlı ara hesap, katman birleşimi, çeldirici = atlanan katman), adım 6-10
+  [string]$Zorluk='',      # 05.09 Cem "zor olsun, katmanlı": 'zor' → soru istemine ZORLUK bloğu (≥4 bağlı ara hesap, katman birleşimi, çeldirici = atlanan katman), adım 6-10
+  [string]$OrnekDosya=''   # 05.09: biçim çapası dosyadan (konunun GERÇEK çıkmış sorusu); yoksa sabit p90-SGS-01 örneği (Finansal) kullanılır
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -611,6 +612,9 @@ try{
     }
   }
 }catch{}
+# 05.09 (kalıp-3 pilotu, Cem "sınavda sorulma şekli neyse o"): çapa tek sabit Finansal örneğiydi; konunun gerçek çıkmış sorusu
+# dosyadan verilebilir. Ölçüm: 13 dönemin ortak maliyet soruları yöntemi ve politikayı işletme cümlesiyle SÖYLÜYOR, çözüm sırasını değil.
+if($OrnekDosya -and (Test-Path $OrnekDosya)){ $ornekSoru=[IO.File]::ReadAllText($OrnekDosya,[Text.Encoding]::UTF8).Trim(); "biçim çapası dosyadan: $OrnekDosya ($($ornekSoru.Length) kr)" }
 "bicim ornegi: $($ornekSoru.Length) kr"
 
 # --- cache ---
@@ -1055,9 +1059,16 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
 (e) Çözüm tablosunda her katman AYRI SATIR olur (yan ürün NGD, dağıtıma esas ortak maliyet, ürün payı, ek işleme, toplam, birim);
     SON SATIR istenen büyüklüktür.
 (f) Kök tek anlamlıdır: istenen büyüklüğü adıyla ve hangi ürün için olduğunu açıkça söyle.
-(g) GÖVDE YÖNTEMİ ANLATMAZ (kalıp-2 pilotu: "bu tutar ortak maliyetten düşülür", "kalan ... dağıtılır" yazınca soru kendini
-    çözüyordu): "düşülür / dağıtılır / eklenir / çıkarılır" gibi işlem talimatı YAZMA; yalnız veriyi ver. Yöntemin ADI köke
-    girebilir ("satış değeri yöntemini uygulayan işletmede"), işlem sırası giremez; sırayı aday bilecek. Şirket adı "ABC A.Ş." kalıbı.
+(g) GÖVDE SINAV GİBİ KURULUR (05.09 ölçüm: 13 dönemin ortak maliyet soruları okundu). Sınav, yöntemi ve işletme POLİTİKASINI
+    tek cümlede söyler, ÇÖZÜM SIRASINI anlatmaz. Sınav cümlesi: "İşletme, ortak maliyetlerin dağıtımında mamullerin beklenen satış
+    değerlerini dikkate almakta ve yan mamullerin net gerçekleşebilir değerini ortak maliyetten çıkararak hesaplama yapmaktadır."
+    YASAK: "bu tutar düşülür, kalan dağıtılır, sonra eklenir" gibi adım adım tarif. Veriler sınavdaki gibi TABLO cümlesiyle verilir
+    ("Dönemde üretilen mamuller ve piyasa satış değerleri aşağıdaki gibidir: A Mamulü 6.000 br 3,00 TL/br ..."). Kök sınav kalıbı:
+    "Buna göre, K mamulünün ortak maliyetten alacağı pay kaç TL'dir?" / "... ton başına maliyeti kaç TL'dir?"
+(h) ZORLUK KAYNAKLARI SINAVDAN (ölçülen): yan ürünün net gerçekleşebilir değeri (satış değeri − yan ürünü satılabilir kılma ek maliyeti)
+    ortak maliyetten düşülür · ayrılma sonrası ek maliyet + nihai satış değeri (net gerçekleşebilir değer yöntemi) · birim KÂR istenir
+    (satış fiyatı − birim maliyet) · TERS SORU (pay verilir, üretim miktarı ya da satış fiyatı istenir) · "piyasa değeri yöntemine göre
+    dağıtsaydı" karşılaştırması. En az İKİ zorluk kaynağı birlikte kullanılır.
 "@ }
   $ist=$soruIstem.Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
