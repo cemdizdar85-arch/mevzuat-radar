@@ -132,6 +132,18 @@ KURALLAR:
    (g) SON ADIM ZORUNLU ve "En sık hata" adımıdır (kural 6c); formülü "Yanlış yol: <yanlış işlem> = <yanlış sonuç> (HATALI)
        → doğrusu <doğru sonuç> (N. adımda bulduk)" kalıbında; anlatımı neden yanlış olduğunu tek cümleyle söyler. Sonuç
        adımı ondan hemen ÖNCE gelir. Bu adım yoksa çıktı eksiktir.
+8. DENKLEM SORULARI (05.09 Cem: "öğrenci bir şey anlaması zor" — karşılıklı dağıtım incelemesi; başabaş, standart
+   maliyet, karşılıklı dağıtım, kapasite gibi denklemle çözülen her konu):
+   (a) HARF YOK, AD VAR: "Bakım-Onarım toplamı", "Yemekhane toplamı" (A/B yazma; şık harfleriyle karışır).
+   (b) Önce İLİŞKİ adımı, sözle ve okla: "Bakım →%10→ Yemekhane; Yemekhane →%20→ Bakım. Karşılıklı hizmet: ikisi birbirini besler."
+   (c) Denklem SÖZLE kurulur: "Bakım toplamı = kendi 90.000 + Yemekhane toplamının %20'si".
+   (d) YERİNE KOYMA İKİ ALT ADIM: önce sabit kısım (0,20 × 40.000 = 8.000 → 90.000 + 8.000 = 98.000), sonra döngü payı
+       (0,20 × 0,10 = 0,02 → Bakım toplamının %2'si kendine döner). Parantezi tek satırda açıp geçme.
+   (e) CEBİR DİLİ YASAK ("sol tarafa atıyoruz" yok). Böyle söyle: "Toplamın %2'si kendine dönüyor; geriye kalan %98'i 98.000
+       ise tamamı 98.000 / 0,98 = 100.000."
+   (f) SAĞLAMA ADIMI ZORUNLU (sonuçtan hemen sonra, "en sık hata"dan önce): karşı tarafın toplamı da bulunur ve sonuç geri
+       kontrol edilir: "Yemekhane toplamı = 40.000 + 100.000 × %10 = 50.000; Bakım'a gelen = 50.000 × %20 = 10.000;
+       90.000 + 10.000 = 100.000 ✓". Öğrenci "doğru çözdüm" hissini bu adımda alır.
 Cevap YALNIZ JSON: {"verilen":[[r,c],...],"adimlar":[...]}
 SORU METNİ: {SORUM}
 ÇÖZÜM_TABLO: {TABLO}
