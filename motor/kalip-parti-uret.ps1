@@ -693,6 +693,8 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     dilidir: "olumlu / olumsuz" (lehte/aleyhte sınavda geçmez); genel üretim gideri yüklemesinde "eksik yükleme / fazla
     yükleme". Genel ilke her şık tipinde: doğru şık, biçimiyle (tek farklı hesap, tek farklı birim, tek çift, en uzun
     cümle) ele vermez; sayı şıklarında beş tutar birbirinden farklı ve küçükten büyüğe sıralı yazılır.
+    Sayı şıklarında BİRİM YAZILMAZ, birim kökte durur (06.09 ölçüm, çıkmış kitapçıklar: "kaç ₺'dir? A) 19.200 B) 20.200";
+    şık "19.200 TL" değil "19.200"). Yön kelimesi (olumlu/olumsuz, eksik/fazla yükleme) şıkta kalır.
     BU DERSİN ÇIKMIŞ ŞIK KALIBI (ölçüldü): {SIK_KALIP}
 3. ACIKLAMA - her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK).
    TURKCE HARFLER TAM YAZILIR: "Doğrusu", "Tuzağı", "Kural", "Hesap" - ASCII yazim
@@ -743,6 +745,9 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     Her sınavda ORTAK: "THP" kısaltması YASAK (çıkmış sorularda 0 kez geçer) - gerekiyorsa
     "Tekdüzen Hesap Planı" yaz, çoğu zaman hiç anma; "DVK" yerine "Damga Vergisi Kanunu";
     "İş K." yerine "İş Kanunu"; KDV, TMS, TFRS, BDS, TL kısaltmaları serbesttir (sınav öyle yazar).
+    Maliyet kısaltmaları YASAK (06.09, kalıp-4 pilotu): "DB YM / DS YM / GÜG / DİMM / DİG / FIFO" yazma; sınav "dönem başı yarı
+    mamul", "dönem sonu yarı mamul", "genel üretim gideri", "direkt ilk madde ve malzeme", "direkt işçilik", "ilk giren ilk çıkar
+    yöntemi" der. Soru, şık, açıklama, tablo ve adımlarda aynı kural.
     Şirket adı "ABC A.Ş." kalıbı sınavla uyumludur. Açıklama, hap ve tuzak metinleri de bu dile uyar.
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
@@ -1329,8 +1334,27 @@ foreach($id in @($don.Keys)){
         if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) }
       }
     }
+    # 06.09 (kalıp-4 pilotu): model sütunları 1'den saymış ([1,2] iki sütunlu tabloda) → tüm koordinatların sütunu tablo genişliğine
+    # eşit ya da aşkınsa ve hiçbiri 0 değilse 1 tabanlı sayılır, bir azaltılır; satırlar aynı şekilde sınanır.
+    $tumK=@(@($a3.verilen)+@($a3.bosluk)); $genis=@(@($a3.tablo.satirlar)[0]).Count
+    if($tumK.Count -and (@($tumK | Where-Object { [int]@($_)[1] -ge $genis }).Count -gt 0) -and (@($tumK | Where-Object { [int]@($_)[1] -le 0 }).Count -eq 0)){
+      $a3.verilen=@(@($a3.verilen) | ForEach-Object { ,@([int]@($_)[0],([int]@($_)[1]-1)) }); $a3.bosluk=@(@($a3.bosluk) | ForEach-Object { ,@([int]@($_)[0],([int]@($_)[1]-1)) })
+      $kume=@{}; foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }; foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
+      $eksikH=New-Object System.Collections.Generic.List[object]; for($r=0;$r -lt $ns;$r++){ $kc=@(@($a3.tablo.satirlar)[$r]).Count; for($c=1;$c -lt $kc;$c++){ $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"; if($hv -eq '-' -or $hv -eq ''){ continue }; if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) } } }
+      Write-Host "  IKIZ: koordinatlar 1 tabanlıydı, sütunlar bir azaltıldı ($id)" -ForegroundColor DarkGray }
+    # satırlar da 1 tabanlı olabilir ([13,1] 13 satırlı tabloda): satır 0 hiç yoksa ve satır sayısına eşit satır varsa bir azalt
+    $tumK=@(@($a3.verilen)+@($a3.bosluk))
+    if($tumK.Count -and (@($tumK | Where-Object { [int]@($_)[0] -ge $ns }).Count -gt 0) -and (@($tumK | Where-Object { [int]@($_)[0] -le 0 }).Count -eq 0)){
+      $a3.verilen=@(@($a3.verilen) | ForEach-Object { ,@(([int]@($_)[0]-1),[int]@($_)[1]) }); $a3.bosluk=@(@($a3.bosluk) | ForEach-Object { ,@(([int]@($_)[0]-1),[int]@($_)[1]) })
+      Write-Host "  IKIZ: satırlar 1 tabanlıydı, bir azaltıldı ($id)" -ForegroundColor DarkGray }
+    # tablo dışı kalan koordinat RED sebebi değil: atılır (verilen'den atılan hücre boşluğa düşer = güvenli taraf)
+    $ic={ param($v) $rr=[int]@($v)[0]; $cc=[int]@($v)[1]; ($rr -ge 0 -and $rr -lt $ns -and $cc -ge 1 -and $cc -lt @(@($a3.tablo.satirlar)[$rr]).Count) }
+    $dis=@($tumK | Where-Object { -not (& $ic $_) }).Count; if($dis){ Write-Host "  IKIZ: $dis tablo dışı koordinat atıldı ($id)" -ForegroundColor DarkGray }
+    $a3.verilen=@(@($a3.verilen) | Where-Object { & $ic $_ }); $a3.bosluk=@(@($a3.bosluk) | Where-Object { & $ic $_ })
+    $kume=@{}; foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }; foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
+    $eksikH=New-Object System.Collections.Generic.List[object]; for($r=0;$r -lt $ns;$r++){ $kc=@(@($a3.tablo.satirlar)[$r]).Count; for($c=1;$c -lt $kc;$c++){ $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"; if($hv -eq '-' -or $hv -eq ''){ continue }; if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) } } }
     if($eksikH.Count){ $a3.bosluk=@(@($a3.bosluk)+$eksikH.ToArray()); Write-Host "  IKIZ: $($eksikH.Count) listelenmeyen hücre boşluğa alındı ($id)" -ForegroundColor DarkGray }
-    foreach($v in @($a3.verilen)+@($a3.bosluk)){ $rr=[int]@($v)[0]; $cc=[int]@($v)[1]; if($rr -lt 0 -or $rr -ge $ns -or $cc -lt 1 -or $cc -ge @(@($a3.tablo.satirlar)[$rr]).Count){ $gecerli=$false; Write-Host "  IKIZ RED sebebi: koordinat tablo dışı [$rr,$cc] ($id)" -ForegroundColor Yellow } }
+    if(-not @($a3.bosluk).Count){ $gecerli=$false; Write-Host "  IKIZ RED sebebi: doldurulacak boşluk kalmadı ($id)" -ForegroundColor Yellow }
   } else { Write-Host "  IKIZ RED sebebi: JSON çözülemedi ya da tablo yok ($id)" -ForegroundColor Yellow }
   if($gecerli){
     $cvp | Add-Member -NotePropertyName ikiz -NotePropertyValue $a3 -Force

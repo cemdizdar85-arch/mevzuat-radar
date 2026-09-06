@@ -92,6 +92,9 @@ function TurkceOnar([string]$t){
       return $y })
   # 05.09 (kalıp-1): üretici terim onarımı "lehte (olumlu)" → "olumlu (olumlu)dur" bırakmıştı; aynı kelimenin parantez tekrarı silinir
   $onarilan=[regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
+  # 06.09 (kalıp-4): sınav dili kısaltma açımı — sınav "dönem başı yarı mamul", "ilk giren ilk çıkar" der; DB YM / GÜG / FIFO demez
+  foreach($cf in @(@('\bDB\s+YM\b','dönem başı yarı mamul'),@('\bDS\s+YM\b','dönem sonu yarı mamul'),@('\bGÜG\b','genel üretim gideri'),@('\bDİMM\b','direkt ilk madde ve malzeme'),@('\bDİG\b','direkt işçilik gideri'),@('\bFIFO yöntemi(ni|nde|yle)?\b','ilk giren ilk çıkar yöntemi$1'),@("\bFIFO'(da|nda|ya)\b","ilk giren ilk çıkar yönteminde"),@('\bFIFO\b','ilk giren ilk çıkar (FIFO)'))){ $onarilan=[regex]::Replace($onarilan,$cf[0],$cf[1]) }
+  $onarilan=[regex]::Replace($onarilan,'(?<=[.!?]\s|^)dönem başı yarı mamul','Dönem başı yarı mamul')
   return [regex]::Replace($onarilan,'(?i)\b(\p{L}+),?\s+yani\s+(?=\1)','')   # "olumlu yani olumlu" → "olumlu"
 }
 "deneme: " + (TurkceOnar 'Simdi farki hesapliyoruz: satis hasilati sermaye payini gecerse artan kisim kar sayilir. 100 KASA (BORC) 130.000 TL')
