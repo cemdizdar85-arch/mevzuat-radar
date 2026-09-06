@@ -202,6 +202,29 @@ foreach($x in $sec){
     for($ai=0;$ai -lt $adimlar.Count;$ai++){ $adimlar[$ai].doldur=Kaydir $adimlar[$ai].doldur $kay }
     if($adimlar.Count -and "$($adimlar[0].formul)" -match '^(Verilen|Soruda ne var)'){ $d0=New-Object System.Collections.Generic.List[object]; for($q=1;$q -le $VER_N;$q++){ $d0.Add(@($q,1)) }; foreach($p in @($adimlar[0].doldur)){ $d0.Add($p) }; $adimlar[0].doldur=$d0.ToArray() }
   }
+  # 06.09 Cem "1 ve 2 yap" (GM-2): HEDEFSİZ HESAP HÜCRESİ KAPISI. TMS 40'ta "Birikmiş maliyet / GUD farkı" hücreleri 11. adıma kadar "?" kaldı,
+  # çünkü model kayıt adımlarına koordinat yazmamıştı. Hiçbir adımın doldur listesinde olmayan hesap hücresi, DEĞERİNİ (1.300.000) ya da
+  # satır ADINI anan ilk hesap adımına bağlanır; hiçbiri anmıyorsa yalnız son adımda açılır ve rapora yazılır. Model çağrısı yok.
+  if($tablo -and $tablo.satirlar -and $adimlar.Count -gt 1){
+    $hedefli=New-Object 'System.Collections.Generic.HashSet[string]'
+    for($ai=0;$ai -lt $adimlar.Count;$ai++){ foreach($p in @($adimlar[$ai].doldur)){ $pp=$(if($p -and $p.PSObject.Properties['value']){ @($p.value) } else { @($p) }); if($pp.Count -ge 2){ [void]$hedefli.Add("$($pp[0]),$($pp[1])") } } }
+    foreach($p in @($verilen)){ $pp=$(if($p -and $p.PSObject.Properties['value']){ @($p.value) } else { @($p) }); if($pp.Count -ge 2){ [void]$hedefli.Add("$($pp[0]),$($pp[1])") } }
+    $rows=@($tablo.satirlar); $basla=$(if($VER_N){ $VER_N+2 } else { 0 }); $sonIdx=$adimlar.Count-1
+    for($r=$basla;$r -lt $rows.Count;$r++){ $st=@($rows[$r]); $ad="$($st[0])".Trim(); if($ad -match '^(VERİLENLER|HESAP)$'){ continue }
+      for($c=1;$c -lt $st.Count;$c++){ $key="$r,$c"; if($hedefli.Contains($key)){ continue }; $val="$($st[$c])".Trim(); if(-not $val -or $val -eq '-' -or $val -eq '?'){ continue }
+        # hücredeki her sayı (1.550.000 / 1.300.000 / 250.000 gibi çoklu da olur) ayrı aranır; hücre, SON sayısının bulunduğu adımda açılır
+        $sayilar=@([regex]::Matches($val,'\d[\d.]*\d') | ForEach-Object { $_.Value -replace '\.','' } | Where-Object { $_.Length -ge 3 })
+        $adAnah=(($ad -replace '[:()]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^\d+$' } | Select-Object -First 1)
+        $sec=-1
+        foreach($sy in $sayilar){ for($ai=1;$ai -lt $sonIdx;$ai++){ $met="$($adimlar[$ai].formul) $($adimlar[$ai].anlatim)"; if($met -match '^(Verilen|Soruda ne var)'){ continue }; $metD=($met -replace '\.(?=\d{3})','')
+          if($metD -match ('(?<![\d])'+[regex]::Escape($sy)+'(?![\d])')){ if($ai -gt $sec){ $sec=$ai }; break } } }
+        if($sec -lt 0 -and $adAnah){ for($ai=1;$ai -lt $sonIdx;$ai++){ $met="$($adimlar[$ai].formul) $($adimlar[$ai].anlatim)"; if($met -match ('(?i)'+[regex]::Escape($adAnah))){ $sec=$ai; break } } }
+        if($sec -ge 0){ $dl=New-Object System.Collections.Generic.List[object]; foreach($p in @($adimlar[$sec].doldur)){ $pp=$(if($p -and $p.PSObject.Properties['value']){ @($p.value) } else { @($p) }); if($pp.Count -ge 2){ $dl.Add(@([int]$pp[0],[int]$pp[1])) } }; $dl.Add(@($r,$c)); $adimlar[$sec].doldur=$dl.ToArray(); [void]$hedefli.Add($key)
+          Write-Host "  hedefsiz hücre bağlandı [$($x.id)]: '$ad' = $val -> adım $($sec+1)" -ForegroundColor DarkGray }
+        else { Write-Host "  HEDEFSİZ HÜCRE [$($x.id)]: '$ad' = $val hiçbir adımda anılmıyor, yalnız son adımda açılır" -ForegroundColor Yellow }
+      }
+    }
+  }
 # --- OYUN SORUSU (Cem 04.09 "kaydı sen yap kısmında soru farklı sorsak"): ikiz varsa ikiz; yoksa AYNI OLAY, YENİ TUTARLAR
   # (tüm tutarlar aynı katsayıyla ölçeklenir; oranlar, günler, yıllar dokunulmaz - doğrusal kayıtlarda geçerli)
   $oyun=$null
@@ -906,6 +929,23 @@ SORULAR.forEach((s,i)=>{
       const tz=Object.keys(s.tuzak||{}).map(h=>s.tuzak[h]).find(t=>t&&t.metin);
       ad.push({formul:'Denklik ve en sık hata', anlatim:'Borç toplamı alacak toplamına eşit, kayıt denk. '+(tz?('En sık hata, '+tz.ad+': '+ilkCum(tz.metin)+' '):'')+'Şimdi aynı kaydı sen sürükleyerek yap.', doldur:[]});
       s.adimlar=ad;
+    }
+    // 06.09 Cem "1 ve 2 yap" (GM-2) — HEDEFSİZ HESAP HÜCRESİ KAPISI, JS tarafı: kayıt/teori sorularında adımlar yukarıda BURADA kurulduğu için
+    // PS kapısı yetmiyor (TMS 40: "Birikmiş maliyet" 11. adıma kadar "?" kaldı). Hiçbir adımın doldur listesinde olmayan hesap hücresi,
+    // değerini (1.300.000) ya da satır adını anan ilk hesap adımına bağlanır; çok sayılı hücre SON sayısının adımında açılır. Model çağrısı yok.
+    if(s.tablo&&s.tablo.satirlar&&s.adimlar&&s.adimlar.length>1){
+      const hedefli=new Set(); s.adimlar.forEach(a=>(a.doldur||[]).forEach(p=>hedefli.add(p[0]+','+p[1]))); (s.verilen||[]).forEach(p=>hedefli.add(p[0]+','+p[1]));
+      const sonIdx=s.adimlar.length-1; const metin=q=>String(s.adimlar[q].formul||'')+' '+String(s.adimlar[q].anlatim||'');
+      const kacir=t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      s.tablo.satirlar.forEach((st,r)=>{ const ad0=String(st[0]||'').trim(); if(/^(VERİLENLER|HESAP)$/.test(ad0)) return;
+        for(let c=1;c<st.length;c++){ const key=r+','+c; if(hedefli.has(key)) continue; const val=String(st[c]||'').trim(); if(!val||val==='-'||val==='?') continue;
+          const sayilar=(val.match(/\d[\d.]*\d/g)||[]).map(x=>x.replace(/\./g,'')).filter(x=>x.length>=3); let sec=-1;
+          // önce FORMÜL satırında aranır (kayıt satırı "258 ... (ALACAK) 1.300.000"), bulunmazsa anlatımda; olay özeti bütün sayıları andığı için anlatım tek başına erken açardı
+          const sayiAra=(sy,yalnizFormul)=>{ for(let q=1;q<sonIdx;q++){ const m=yalnizFormul?String(s.adimlar[q].formul||''):metin(q); if(/^(Verilen|Soruda ne var)/.test(m)) continue; const mD=m.replace(/\.(?=\d{3})/g,''); if(new RegExp('(?<!\\d)'+sy+'(?!\\d)').test(mD)) return q; } return -1; };
+          sayilar.forEach(sy=>{ let q=sayiAra(sy,true); if(q<0) q=sayiAra(sy,false); if(q>sec) sec=q; });
+          if(sec<0){ const anah=ad0.replace(/[:()]/g,' ').split(/\s+/).find(w=>w.length>=4&&!/^\d+$/.test(w)); if(anah){ const re=new RegExp(kacir(anah),'i'); for(let q=1;q<sonIdx;q++){ if(re.test(metin(q))){ sec=q; break; } } } }
+          if(sec>=0){ s.adimlar[sec].doldur=[...(s.adimlar[sec].doldur||[]),[r,c]]; hedefli.add(key); }
+        } });
     }
     const bOnce=ders.querySelector('.bOnce'), bSonra=ders.querySelector('.bSonra');
     let adimNo=0; const gosterilen=new Set(); const acilan=new Set();
