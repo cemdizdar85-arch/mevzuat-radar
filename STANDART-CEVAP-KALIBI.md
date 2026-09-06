@@ -1,7 +1,9 @@
 # TETİKTE — CEVAP KALIBI ŞARTNAMESİ (kilitli)
 
 **Karar tarihi:** 05.09.2026 · **Karar veren:** Cem Dizdar ("1 yap" = kilitle) · **Uygulayan:** GM
-**Kalıp adı:** Kaydır-Çöz · **Sürüm:** v28 (03.09–05.09 arası 28 turda Cem'le birlikte kuruldu)
+**Kalıp adı:** Kaydır-Çöz · **Sürüm:** v28 (03.09–05.09 arası 28 turda Cem'le birlikte kuruldu) · **06.09 eklemeleri** kâğıt, verilenler,
+tahmin, konu girişi, tek hata, teori kalıbı, şık eleme, süre, akran yüzdesi (kütük Ö1–Ö28, R1)
+**❄️ DONDURMA 06.09–13.09:** kural değişikliği yalnız `KALIP-KARAR-KUTUGU.md`'ye yazılır, haftalık işlenir; üretim bu kalıpla.
 
 Bu belge **son karardır.** Soru üreten, açıklama yazan ve ekran çizen her betik buna uyar.
 Değişmesi gerekirse bu dosya değişir ve sebebi buraya tarihle yazılır.

@@ -1,5 +1,10 @@
 # KALIP KARAR KÜTÜĞÜ — Kaydır-Çöz cevap kalıbı
 
+> ❄️ **DONDURMA 06.09–13.09.2026 (Cem "2 yap"):** kalıp bu hâliyle kilitli. Yeni kural/özellik önerisi yalnız bu kütüğe yazılır
+> (Ö/R satırı), **haftada bir** (pazartesi) toplu işlenir. Bu arada üretim (117 kalıpsız ağır konu) DONMUŞ kalıpla yapılır;
+> üretilen soru dondurma sonrası kural değişikliğinde yeniden basılmaz, kütükte "bekleyen kural" olarak işaretlenir.
+> Dondurma dışı tek istisna: hakem/kapı düşüren gerçek HATA (yanlış hüküm, kırık ekran).
+
 > 06.09.2026 Cem: "kayboldum". Bu dosya her öneri ve kararın TEK yeri. Durum: ✅ yapıldı · ⏳ bekliyor (kimde) · ❌ ret · 🔁 değişti.
 > Şartname: [STANDART-CEVAP-KALIBI.md](STANDART-CEVAP-KALIBI.md). Yeni öneri önce buraya yazılır, sonra yapılır.
 
@@ -47,7 +52,9 @@
 | Ö26 | Teori kalıbı ayrıldı: "Ne soruluyor" = soru kökü (cevap sızmaz) · kural KARTI (formül tahtası yok) · "kuralı sen söyle" (sayı tahmini yok) — Cem'in 4 gözlemi | 06.09 | ✅ | 0 |
 | Ö27 | Konu girişine somut örnek (hesapsız; Haiku aritmetiği güvenilmez, kapı: "=" / eksi / artı yasak). Maliyet'te örnek hâlâ sorunun rakamlarını tekrarlıyor → Sonnet'e geçiş kararı | 06.09 | ✅ / ⚠ Cem | ≈0,005 → 0,02 |
 | Ö28 | Şık eleme ✕ (Becker/Gleim sınav arayüzü) + soru süresi ⏱ (tutor/timed farkı için ilk adım) | 06.09 rakip | ✅ | 0 |
-| R1-R7 | Rakip karşılaştırmasından sıradakiler: akran yüzdesi · kartıma ekle · vurgulama · "anlamadım" (Net Cevap) · timed mode · konu bazlı performans · illüstrasyon → `RAKIP-KALIP-KARSILASTIRMA.md` | 06.09 | ⏳ Cem | dosyada |
+| R1 | **Akran yüzdesi** ("bu şıkkı seçenlerin %N'i"): `cevap_kayit` tablosu + `sik_yuzdesi` fonksiyonu + ekranda şık altı yüzde, 5 cevaptan az ise gizli, yanlış şıkta %40+ kırmızı | 06.09 | ✅ kod · ⏳ **Cem SQL basacak** (`2026-09-06-cevap-kayit.sql`) | 0 |
+| R2-R7 | Kartıma ekle · vurgulama · "anlamadım" (Net Cevap) · timed mode · konu bazlı performans · illüstrasyon → `RAKIP-KALIP-KARSILASTIRMA.md` | 06.09 | ⏳ dondurma sonrası | dosyada |
+| K8 | **Dondurma 06.09–13.09**: kural değişikliği haftalık; üretim donmuş kalıpla | 06.09 | ✅ Cem "2 yap" | 0 |
 
 ## Kalıcı kurallar (şartnamede)
 Kilit 05.09 · zor ayarı · verilenler bloğu · kâğıt · tahmin kapısı · konu girişi · tek hata adımı · sınav dili (kısaltma yok, şıkta birim yok) · şık sıralama · ders p75 tavanı.

@@ -530,6 +530,9 @@ $html=@'
 /* 06.09 rakip dersi (UWorld/Becker: şık eleme): şıkkın sağındaki ✕ şıkkı çizer, seçmez; sınavda kâğıtta yapılanın karşılığı */
 .sik{position:relative;padding-right:40px}.sikCiz{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:.85em;padding:4px 6px;border-radius:8px;opacity:.55}.sik:hover .sikCiz{opacity:1}.sik.cizili{opacity:.45}.sik.cizili .sikMetin{text-decoration:line-through}.sik.cizili .sikCiz{color:var(--kirmizi);opacity:1}
 .sureCip{font-size:.8em;color:var(--dim);margin-left:8px}
+/* 06.09 R1 akran yüzdesi: şıkkın sağ altında küçük yüzde; yanlış şıkta %40+ ise "çoğunluk tuzağı" vurgusu */
+.sikYuzde{position:absolute;right:34px;bottom:4px;font-size:.72em;color:var(--dim)}.sik.akranCok .sikYuzde{color:var(--kirmizi);font-weight:700}.sik.dogru .sikYuzde{color:var(--yesil)}
+.akranNot{font-size:.84em;color:var(--dim);margin-top:6px}
 /* 06.09 VERİLENLER → HESAP → SONUÇ blokları */
 .tt tr.blok th{text-align:left;font-size:.72em;letter-spacing:.08em;color:var(--dim);background:var(--bg);padding:7px 8px;cursor:pointer;user-select:none}.tt tr.blok .blokSay{color:var(--altin)}.tt tr.blok .blokAcKapa{float:right;color:var(--mavi)}
 .tt tr.vblok.katli{display:none}.tabloSar.acikBlok tr.vblok.katli{display:table-row}
@@ -670,6 +673,7 @@ SORULAR.forEach((s,i)=>{
     k.querySelector('.ipucu').style.display='none'; panel.classList.add('acik');
     k.classList.add('cevaplandi'); const kg=k.querySelector('.kagit'); if(kg) kg.classList.remove('acik');   // 06.09: kâğıt kapanır, cevap paneli yerini alır; "✏️ Kâğıdım" ile geri açılır
     // 06.09: kâğıt eşlemesi cevaptan hemen sonra kâğıdın altına + kasaya kayıt (Cem "1 ve 3 yap")
+    try{ cevapKasayaYaz(h,dogruMu,durum.sn[i],elenen); akranYuzdesi(); }catch(e){}   // 06.09 R1: cevap kaydı + akran yüzdesi
     try{ const es=kagitEsle(); if(es){ const kn=k.querySelector('.kagitNot'); kn.innerHTML='Tablodan '+es.tabloda.length+'/'+es.tabloN+' değeri bulmuşsun'+(es.eksikTablo.length?'; eksik: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?'; tabloda olmayan: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':'')+'. Nöbetçi anlatımında ✏️ işaretli hücreler senin bulduklarındır.'; } kagitKasayaYaz(h,dogruMu); }catch(e){}
   }));
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
@@ -717,6 +721,20 @@ SORULAR.forEach((s,i)=>{
   // Tablo basılmamışsa istek sessizce düşer (404); prototipte kullanıcı kimliği yok, oturum damgası tarayıcıda üretilir.
   const KAG_SB_URL='https://bjrleanjpyujtajmazxn.supabase.co', KAG_SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   let oturumDamga=''; try{ oturumDamga=localStorage.getItem('kc_oturum')||''; if(!oturumDamga){ oturumDamga=Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('kc_oturum',oturumDamga); } }catch(e){}
+  // 06.09 R1 (Cem "1 yap"): CEVAP KAYDI + AKRAN YÜZDESİ — her cevap cevap_kayit'e (anon insert), sonra sik_yuzdesi ile
+  // "bu şıkkı seçenlerin %N'i" (UWorld). SQL: radar-app/sql/2026-09-06-cevap-kayit.sql; basılmadan 404 sessiz, yüzde çıkmaz.
+  function cevapKasayaYaz(secH,dogruMu,sn,elenen){
+    try{ const govde={ soru_id:s.id, ders:s.ders, konu:s.konu, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, sn:(sn===undefined?null:sn), elenen:elenen||[], tahmin_dogru:0, tahmin_n:0, oturum:oturumDamga, kaynak:'kaydir-coz' };
+      fetch(KAG_SB_URL+'/rest/v1/cevap_kayit',{ method:'POST', headers:{ 'Content-Type':'application/json', apikey:KAG_SB_KEY, Authorization:'Bearer '+KAG_SB_KEY, Prefer:'return=minimal' }, body:JSON.stringify(govde) }).catch(()=>{}); }catch(e){}
+  }
+  function akranYuzdesi(){
+    try{ fetch(KAG_SB_URL+'/rest/v1/rpc/sik_yuzdesi',{ method:'POST', headers:{ 'Content-Type':'application/json', apikey:KAG_SB_KEY, Authorization:'Bearer '+KAG_SB_KEY }, body:JSON.stringify({ p_soru_id:s.id }) })
+      .then(r=>r.ok?r.json():null).then(rows=>{ if(!rows||!rows.length) return; const top=rows.reduce((a,r)=>a+Number(r.n||0),0); if(top<5) return;   // 5 cevaptan az: yüzde yanıltır, gösterme
+        const say={}; rows.forEach(r=>{ say[String(r.secim)]=Number(r.n||0); });
+        k.querySelectorAll('.sik').forEach(b=>{ const h=b.dataset.h; const y=Math.round(100*(say[h]||0)/top); let c=b.querySelector('.sikYuzde'); if(!c){ c=document.createElement('span'); c.className='sikYuzde'; b.appendChild(c); } c.textContent='%'+y; c.title=(say[h]||0)+' / '+top+' aday bu şıkkı seçti'; b.classList.toggle('akranCok',y>=40&&h!==s.dogru); });
+        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
+      .catch(()=>{}); }catch(e){}
+  }
   function kagitKasayaYaz(secH,dogruMu){
     try{ const metin=String(kYaz.value||''); if(!metin.trim()&&!cizimVar) return; const es=kagitEsle()||{tabloda:[],eksikTablo:[],tabloDisi:[],tabloN:0};
       const govde={ soru_id:s.id, konu:s.konu, ders:s.ders, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, metin:metin.slice(0,4000), satir_sayisi:metin.split(/\n/).filter(x=>x.trim()).length, cizim_var:!!cizimVar, tabloda:es.tabloda, eksik:es.eksikTablo, tablo_disi:es.tabloDisi, tablo_n:es.tabloN, oturum:oturumDamga, kaynak:'kaydir-coz' };
