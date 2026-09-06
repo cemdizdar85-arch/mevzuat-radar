@@ -249,7 +249,11 @@ foreach($x in $sec){
   # 06.09 (Cem "geç"): konu girişi kartı (FAZ G) - Nöbetçi'nin 0. adımı
   $konuGiris=$null; if($v.PSObject.Properties['konu_giris'] -and $v.konu_giris -and $v.konu_giris.nedir){ $konuGiris=@{ nedir=(TurkceOnar "$($v.konu_giris.nedir)"); sinavda=(TurkceOnar "$($v.konu_giris.sinavda)"); yontemler=(TurkceOnar "$($v.konu_giris.yontemler)"); ornek=$(if($v.konu_giris.PSObject.Properties['ornek']){ TurkceOnar "$($v.konu_giris.ornek)" } else { '' }) } }
   if($adimlar.Count -and "$($adimlar[0].formul)" -match '^(Verilen|Soruda ne var|Soru bize)'){ $adimlar[0].verilenAdim=$true }
-  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
+  # 06.09 (Cem "bu beşi geç" #4 öğrenci katmanı + #1 karne): üretici ölçümleri sayfaya taşınır — sim (öğretti mi), hesap kodu, aritmetik, pencere
+  $simB=$null; foreach($sa in 'simulasyon_sonnet','simulasyon'){ if(-not $simB -and $v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu']){ $simB=@{ dogru=[bool]$v.$sa.dogru_mu; tur=$(if($v.$sa.PSObject.Properties['tur']){ "$($v.$sa.tur)" } else { 'hesap' }); model="$($v.$sa.model)" } } }
+  $olcum=@{ sim=$simB; hesapKod=$(if($v.PSObject.Properties['hesap_kod']){ @($v.hesap_kod).Count } else { $null }); aritmetik=$(if($v.PSObject.Properties['aritmetik']){ @($v.aritmetik).Count } else { $null }); sonDonem=$(if($v.PSObject.Properties['son_donem']){ [int]$v.son_donem } else { $null }); pencere=$(if($v.PSObject.Properties['pencere']){ [int]$v.pencere } else { $null }); capa=$(if($v.PSObject.Properties['capa_kaynak']){ "$($v.capa_kaynak)" } else { '' }); hakem=$(if($v.hakem -and $v.hakem.karar){ "$($v.hakem.karar)" } else { '' }) }
+  $tipB=$(if($kayit.Count){ 'kayit' } elseif($v.cozum_tablo -and $v.cozum_tablo.satirlar){ 'hesap' } else { 'teori' })
+  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
   "  $($x.et) $($x.id) · $($v.konu) · $($x.donem) donem · kayit satiri $($kayit.Count)"
 }
 Sure 'sözlük + soru kurulumu'
@@ -410,7 +414,10 @@ $html=@'
 .panelBas.gor{opacity:1;pointer-events:auto}
 .diger{font-size:.88em;color:var(--dim)}.diger div{margin:6px 0}
 /* yanlis kutusu + hazirlik skoru */
-.ustSag{display:flex;align-items:center;gap:6px}.ustCip{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:14px;padding:2px 8px;font-size:.85em;cursor:pointer}.ustCip.hazir{border-color:var(--yesil);color:var(--yesil)}
+.ustSag{display:flex;align-items:center;gap:6px}
+.seviye{font-size:.72em;border:1px solid var(--cizgi);border-radius:12px;padding:1px 8px;margin-left:6px;white-space:nowrap;color:var(--yazi);background:var(--kart)}
+.seviye.sv-alarm{border-color:var(--kirmizi)}.seviye.sv-nobet{border-color:var(--altin)}.seviye.sv-isinma{border-color:var(--yesil)}
+.ilerleme{height:3px;background:color-mix(in srgb,var(--cizgi) 60%,transparent);margin:0 0 6px}.ilerleme i{display:block;height:100%;background:var(--mavi);transition:width .3s}.ustCip{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:14px;padding:2px 8px;font-size:.85em;cursor:pointer}.ustCip.hazir{border-color:var(--yesil);color:var(--yesil)}
 .kutuEkran{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:40;align-items:flex-end;justify-content:center}.kutuEkran.acik{display:flex}
 .kutuIc{background:var(--kart);width:min(100%,640px);max-height:88vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:14px 18px 22px;border:1px solid var(--cizgi)}
 @media(min-width:900px){.kutuEkran{align-items:center}.kutuIc{border-radius:18px}}
@@ -576,6 +583,14 @@ $html=@'
 <div id="akis"></div>
 <script>
 const SORULAR=__JSON__;
+// 06.09 seviye: ölçümden türer (bkz. kart kurulumu). k = sınıf anahtarı, ad = ekran adı (Nöbet dili: Isınma / Nöbet / Alarm), neden = ipucu.
+function seviyeHesapla(s){
+  const o=s.olcum||{}; const tip=s.tip||'teori'; const ders=String(s.ders||'');
+  if(o.sim&&o.sim.dogru===false) return {k:'alarm',ad:'🔴 Alarm',neden:'Nöbetçi öğrencisi bu anlatımla ikizi çözemedi; dikkat ister'};
+  if(tip==='hesap'&&/Maliyet|Mali Tablolar/.test(ders)) return {k:'alarm',ad:'🔴 Alarm',neden:'Ölçüm: Maliyet ve Mali Tablolar hesap soruları sınavın en zorları'};
+  if(tip==='teori') return {k:'isinma',ad:'🟢 Isınma',neden:'Teori sorusu: kuralı bil, olayı eşle'};
+  return {k:'nobet',ad:'🟡 Nöbet',neden:(tip==='kayit'?'Kayıt sorusu: hesap ve taraf seçimi':'Hesap sorusu: verilenleri sırayla işle')};
+}
 const akis=document.getElementById('akis');
 const durum={cevap:{},dogru:0,seri:0};
 try{ durum.seri=parseInt(localStorage.getItem('kc_seri')||'0')||0; }catch(e){}
@@ -630,7 +645,10 @@ const fmt=n=>n.toLocaleString('tr-TR');
 function noktalar(i){ return '<div class="noktalar'+(SORULAR.length>12?' cok':'')+'">'+SORULAR.map((s,j)=>'<i data-j="'+j+'" class="'+(j===i?'simdi':'')+'"></i>').join('')+'<i data-j="son"></i></div>'; }
 SORULAR.forEach((s,i)=>{
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
-  k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div>'
+  // 06.09 (Cem "bu beşi geç" #4): SEVİYE etiketi ölçümden türer, elle yazılmaz — teori 🟢 Isınma · kayıt/hesap 🟡 Nöbet · Maliyet-MTA hesabı ya da
+  // öğrenci simülasyonunun çözemediği soru 🔴 Alarm (sınav anatomisi 02.09: zorluk derse göre, Maliyet en zor). Akran yüzdesi 5+ cevapta gelince o kazanır.
+  const sv=seviyeHesapla(s);
+  k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
    +'<div class="govde"><span class="rozet">📌 '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde çıktı</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
    +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'

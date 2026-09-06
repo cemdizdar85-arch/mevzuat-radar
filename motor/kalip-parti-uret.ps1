@@ -30,6 +30,7 @@ param(
   # konu kendi dersinin partisine gider, cope degil).
   [string]$KonuDisla='',
   [string]$Zorluk='',      # 05.09 Cem "zor olsun, katmanlı": 'zor' → soru istemine ZORLUK bloğu (≥4 bağlı ara hesap, katman birleşimi, çeldirici = atlanan katman), adım 6-10
+  [int]$DonemPencere=0,    # 06.09 K10 (Cem "yeni sınav kalıplarını almak lazım"): >0 ise konu adayları SON N dönemin etiketlerine göre sıralanır/süzülür ve biçim çapası o pencerenin GERÇEK kitapçığından konuya göre otomatik seçilir (Ö18)
   [string]$OrnekDosya='',  # 05.09: biçim çapası dosyadan (konunun GERÇEK çıkmış sorusu); yoksa sabit p90-SGS-01 örneği (Finansal) kullanılır
   [switch]$Verilenler,     # 06.09 Cem "1 yap": FAZ V - sorudaki her sayı ad+değer+anlam satırı (Haiku); builder VERİLENLER bloğunu çizer
   [switch]$VerilenYenile,  # 06.09: eldeki verilenler listesini de yeniden yazar
@@ -610,6 +611,57 @@ foreach($a in $adaylar){
 }
 "konu secildi: $($KONULAR.Count) (kopruden, donem-sirali tekil)"
 
+# --- K10 DÖNEM PENCERESİ (06.09 Cem: "soru kalıplarında o kadar geriye gitmeye gerek yok, yeni sınav kalıplarını almak lazım") ---
+# Köprüdeki 'donem' 2015'ten beri TOPLAM dönem sayısıdır; on yıl önce çıkıp düşen konuyu üste taşır. Pencere açıkken her konu için
+# SON N dönemin etiket dosyasından (veri/<sinav>-analiz.json, donemler[].konuSayim) "kaç dönemde geçti" sayılır. Etiketler ince ve
+# tutarsız ("safha maliyet esdeger birim" / "safha maliyeti esdeger birim") → eşleşme kök-önekiyle (5 harf) + küçük eş anlam haritası.
+# Ölçüm 06.09: birebir etiket eşleşmesiyle 'evre maliyet sistemi' son 7 dönemde 0 görünüyordu, oysa her dönem soruluyor.
+$CAPA=@{}; $SON_DONEM_SAYI=@{}
+function KokOnek([string]$s){ $t=(Katla2 $s) -replace '[^a-z0-9 ]',' '; $es=@{ 'evre'='safha'; 'gug'='genel'; 'ilk'='ilk'; 'dimm'='ilk'; 'esdeger'='esdeger' }
+  @(($t -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|ile|veya|icin|bir|olan|sistemi|yontemi|sistem|yontem|hesaplama|hesabi|kaydi|kayit|analizi|analiz|orani|oran|tablosu|tablo|muhasebesi|muhasebe)$' } | ForEach-Object { $w=$_; if($es.ContainsKey($w)){ $w=$es[$w] }; if($w.Length -gt 5){ $w.Substring(0,5) } else { $w } } | Select-Object -Unique) }
+if($DonemPencere -gt 0){
+  $anYol=Join-Path $kok ("veri\" + $Sinav.ToLowerInvariant() + "-analiz.json")
+  if(-not (Test-Path $anYol)){ "PENCERE: $anYol yok - pencere uygulanamadi (olculmedi)" }
+  else {
+    $anJ=Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $dList=New-Object System.Collections.Generic.List[object]; $anJ.donemler | ForEach-Object { $dList.Add($_) }
+    $sonD=@($dList | Sort-Object { [int]("$($_.donem)" -replace '/','') } -Descending | Select-Object -First $DonemPencere)
+    $etiketDonem=@{}   # etiket kökleri -> dönem kümesi
+    foreach($dn in $sonD){ foreach($p in @($dn.konuSayim.PSObject.Properties)){ $lab=($p.Name -replace '^[^|]*\|',''); $k=(KokOnek $lab) -join ' '; if(-not $etiketDonem.ContainsKey($k)){ $etiketDonem[$k]=@{} }; $etiketDonem[$k]["$($dn.donem)"]=1 } }
+    "PENCERE: son $DonemPencere donem = $(($sonD | ForEach-Object { $_.donem }) -join ', ') · $($etiketDonem.Count) etiket"
+    $yeniK=New-Object System.Collections.Generic.List[object]
+    foreach($kk in $KONULAR){
+      $kokler=@(KokOnek "$($kk.kayit.konu)"); $dset=@{}
+      foreach($et in $etiketDonem.Keys){ $etK=$et -split ' '; $ortak=@($kokler | Where-Object { $etK -contains $_ }).Count; $gerek=[Math]::Min(2,$kokler.Count); if($kokler.Count -ge 1 -and $ortak -ge $gerek){ foreach($d in $etiketDonem[$et].Keys){ $dset[$d]=1 } } }
+      $SON_DONEM_SAYI[$kk.id]=$dset.Count
+      $kk.kayit | Add-Member -NotePropertyName son_donem -NotePropertyValue $dset.Count -Force
+      $yeniK.Add($kk)
+    }
+    # konu dosyası verilmişse liste Cem'in listesidir, süzülmez; verilmemişse pencerede 0 olan konu düşer, sıralama pencere sayısına göre
+    if(-not $KonuDosya){ $sirali=@($yeniK | Where-Object { $SON_DONEM_SAYI[$_.id] -ge 1 } | Sort-Object { -$SON_DONEM_SAYI[$_.id] }, { -[int]$_.kayit.donem }); $KONULAR=New-Object System.Collections.Generic.List[object]; $s2=0; foreach($kk in $sirali){ $s2++; $kk.id=('kp-{0:d2}' -f $s2); $KONULAR.Add($kk) } }
+    foreach($kk in $KONULAR){ "  pencere: $($kk.id) $($kk.kayit.konu) -> son $DonemPencere donemde $($SON_DONEM_SAYI[$kk.id]) (toplam $($kk.kayit.donem))" }
+    # --- Ö18 OTOMATİK ÇAPA: pencerenin gerçek kitapçıklarından konuya en yakın SORU bloğu (SGS: tam kitapçık = 'ingilizce' varyantı; Maliyet 57–64 ölçüldü)
+    if($Sinav -eq 'SGS' -and -not $OrnekDosya){
+      $DERS_ARALIK=@{ 'Maliyet'=@(57,64) }
+      $aralik=$null; foreach($dk in $DERS_ARALIK.Keys){ if($DersRegex -match $dk){ $aralik=$DERS_ARALIK[$dk] } }
+      $bloklar=New-Object System.Collections.Generic.List[object]
+      foreach($dn in $sonD){
+        $uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.'+[uri]::EscapeDataString("CIKMIS SINAV - SGS $($dn.donem) (%ingilizce)")+'&limit=1'
+        try{ $rB=$null; (ConvertFrom-Json (Invoke-WebRequest -Uri $uB -Headers $SB -UseBasicParsing -TimeoutSec 120).Content) | ForEach-Object { if(-not $rB){ $rB=$_ } } }catch{ $rB=$null }
+        if(-not $rB){ continue }
+        foreach($p in [regex]::Split("$($rB.metin)",'(?=SORU \d+:)')){ if($p -match '^SORU (\d+):'){ $no=[int]$Matches[1]; $govde=$p; $kes=$govde.IndexOf('TÜRMOB'); if($kes -gt 0){ $govde=$govde.Substring(0,$kes) }; $govde=$govde -replace '\s+',' '; $govde=$govde -replace '\s+\d+\s+İzleyen sayfaya geçiniz\.?\s*[A-E]?\s*$',''; $bloklar.Add([pscustomobject]@{ donem="$($dn.donem)"; no=$no; metin=$govde.Trim() }) } }
+      }
+      "  çapa havuzu: $($bloklar.Count) çıkmış soru bloğu ($($sonD.Count) kitapçık)"
+      foreach($kk in $KONULAR){
+        $kokler=@(KokOnek "$($kk.kayit.konu)"); $enIyi=$null; $enPuan=0
+        foreach($bl in $bloklar){ if($aralik -and ($bl.no -lt $aralik[0] -or $bl.no -gt $aralik[1])){ continue }; $gk=(Katla2 $bl.metin); $puan=@($kokler | Where-Object { $gk -match ('\b'+[regex]::Escape($_)) }).Count; if($puan -gt $enPuan -or ($puan -eq $enPuan -and $enIyi -and $bl.metin.Length -gt 200 -and $enIyi.metin.Length -le 200)){ $enPuan=$puan; $enIyi=$bl } }
+        if($enIyi -and $enPuan -ge [Math]::Min(2,$kokler.Count)){ $CAPA[$kk.id]=($enIyi.metin -replace '^SORU \d+:\s*',''); $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SGS $($enIyi.donem) Soru $($enIyi.no)" -Force; "  çapa: $($kk.id) <- SGS $($enIyi.donem) Soru $($enIyi.no) ($($CAPA[$kk.id].Length) kr, kök isabeti $enPuan/$($kokler.Count))" }
+        else { "  çapa: $($kk.id) pencerede eşleşen çıkmış soru YOK (kök isabeti $enPuan) - sabit çapa kullanılır" }
+      }
+    }
+  }
+}
+
 # --- bicim capasi: onayli p90-SGS-01 ornegi ---------------------------------
 $ornekSoru=''
 try{
@@ -678,6 +730,38 @@ function SikSirala($cvp){
   if(-not $yeniDogru){ return $false }
   $cvp.siklar=[pscustomobject]$yeniS; if($yeniA.Count){ $cvp.aciklama=[pscustomobject]$yeniA }; $cvp.dogru=$yeniDogru
   return $true
+}
+# 06.09 KAPI-H (Cem "bu beşi geç" #2): HESAP KODU–AD KAPISI. Şık/kayıt metninde geçen her "3 haneli kod + ad" çifti, ambardaki
+# Tekdüzen Hesap Planı adıyla (kaynak_ad "THP 120 - Alıcılar") karşılaştırılır; resmî adın köklerinin yarısından fazlası kodun
+# ardındaki 90 karakterde yoksa kusur. Sözlük bir kez çekilir (269 belge, bedel 0). Sonuç cache'e `hesap_kod` olarak yazılır (karne hücresi).
+$script:THP_SOZLUK=$null
+function ThpSozluk{
+  if($script:THP_SOZLUK){ return $script:THP_SOZLUK }
+  $d=@{}
+  try{ $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad&kaynak_ad=ilike.'+[uri]::EscapeDataString('THP %')+'&limit=1000'
+    (ConvertFrom-Json (Invoke-WebRequest -Uri $u -Headers $SB -UseBasicParsing -TimeoutSec 120).Content) | ForEach-Object { $m=[regex]::Match("$($_.kaynak_ad)",'^THP\s+(\d{3})\s*-\s*(.+)$'); if($m.Success){ $d[$m.Groups[1].Value]=$m.Groups[2].Value.Trim() } }
+  }catch{ Write-Host "  THP sözlüğü çekilemedi (KAPI-H ölçülmedi): $($_.Exception.Message)" -ForegroundColor DarkYellow }
+  $script:THP_SOZLUK=$d; return $d
+}
+function HesapKodKapisi($aday){
+  $d=ThpSozluk; if(-not $d -or -not $d.Count -or -not $aday -or -not $aday.siklar){ return @() }
+  $metinler=New-Object System.Collections.Generic.List[string]
+  foreach($h in 'A','B','C','D','E'){ $metinler.Add("$($aday.siklar.$h)") }
+  if($aday.sema){ $kyt=@(); if($aday.sema.PSObject.Properties['kayitlar']){ $kyt=@($aday.sema.kayitlar) } elseif($aday.sema.PSObject.Properties['ogeler']){ $kyt=@($aday.sema) }
+    foreach($ky in $kyt){ if($ky -and $ky.ogeler){ foreach($og in @($ky.ogeler.borc)+@($ky.ogeler.alacak)){ if($og){ $metinler.Add("$($og.hesap)") } } } } }
+  $kusur=New-Object System.Collections.Generic.List[string]; $gorulen=@{}
+  foreach($t in $metinler){
+    # standart/madde numaraları hesap kodu değildir ("BDS 260", "TMS 240", "m. 523") — 06.09 karne ölçümünde 3 sahte alarm
+    foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})([1-7]\d{2})(?![\d.,])\s+([^\d]{3,90})')){
+      $kod=$m.Groups[1].Value; if(-not $d.ContainsKey($kod)){ continue }
+      $yazHam=$m.Groups[2].Value.Trim(); $yaz=Katla2 $yazHam; $res=Katla2 $d[$kod]
+      $resK=@(($res -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|veya|ile|hesabi|hs)$' }); if(-not $resK.Count){ continue }
+      $eksik=@($resK | Where-Object { $w=$_; $on=$(if($w.Length -gt 5){ $w.Substring(0,5) } else { $w }); $yaz -notmatch ('\b'+[regex]::Escape($on)) })
+      $anah="$kod|$yaz"; if($gorulen[$anah]){ continue }; $gorulen[$anah]=1
+      if($eksik.Count -gt [Math]::Floor($resK.Count/2)){ $kusur.Add("$kod yazılan '$($yazHam.Substring(0,[Math]::Min(40,$yazHam.Length)))' ≠ resmî '$($d[$kod])'") }
+    }
+  }
+  return @($kusur | Select-Object -Unique)
 }
 function SikBicimi($aday){
   if(-not $aday -or -not $aday.siklar -or -not $aday.dogru){ return '' }
@@ -1110,7 +1194,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     (satış fiyatı − birim maliyet) · TERS SORU (pay verilir, üretim miktarı ya da satış fiyatı istenir) · "piyasa değeri yöntemine göre
     dağıtsaydı" karşılaştırması. En az İKİ zorluk kaynağı birlikte kullanılır.
 "@ }
-  $ist=$soruIstem.Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$ornekSoru).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $ist=$soruIstem.Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }
@@ -1156,12 +1240,15 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     $uz="$($aday.soru)".Length
     # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
     $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    $hkKusur=@(HesapKodKapisi $aday)   # 06.09 KAPI-H: hesap kodu–resmî ad eşleşmesi
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
     if($uz -gt $UZUNLUK_TAVAN){ Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
     if($sikKusur){ Write-Host "  KAPI-Ş ($id): $sikKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ş DÜŞTÜ: önceki denemede şıklar cevabı ele veriyordu ($sikKusur). Kural 2a'yı uygula: her tutar iki yönle (olumlu/olumsuz), 2 tutar × 2 yön + 1." }
+    if($hkKusur.Count){ Write-Host "  KAPI-H (hesap adı) ($id): $($hkKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-H DÜŞTÜ: hesap adları Tekdüzen Hesap Planı'ndaki resmî adla BİREBİR yazılır: $($hkKusur -join '; ')." }
     if($deneme -eq 2){
       if($uz -gt $UZUNLUK_TAVAN){ $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)") }
       if($sikKusur){ $rapor.Add("KAPI-Ş (şık dengesi) DÜŞTÜ: $($ky.konu) | $sikKusur") }
+      if($hkKusur.Count){ $rapor.Add("KAPI-H (hesap adı) DÜŞTÜ: $($ky.konu) | $($hkKusur -join '; ')") }
       $cvp=$aday   # 2 denemede düzelmediyse en sonuncuyu al ama RAPORA yaz
     }
   }
@@ -1171,6 +1258,9 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
       $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
     }
     $cvp | Add-Member -NotePropertyName konu -NotePropertyValue "$($ky.konu)" -Force
+    $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @(HesapKodKapisi $cvp) -Force   # KAPI-H sonucu (boş = eşleşti) → karne
+    if($ky.PSObject.Properties['son_donem']){ $cvp | Add-Member -NotePropertyName son_donem -NotePropertyValue ([int]$ky.son_donem) -Force; $cvp | Add-Member -NotePropertyName pencere -NotePropertyValue $DonemPencere -Force }
+    if($ky.PSObject.Properties['capa_kaynak']){ $cvp | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($ky.capa_kaynak)" -Force }
     $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force
     $cvp | Add-Member -NotePropertyName donem -NotePropertyValue $ky.donem -Force
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
@@ -1178,6 +1268,52 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     $don[$id]=$cvp; CacheYaz
     Write-Host "  SORU OK [$($don.Count)/$($KONULAR.Count)] $id $($ky.konu)"
   } else { $rapor.Add("BOZUK: $($ky.konu)"); Write-Host "  BOZUK: $id" -ForegroundColor Yellow }
+}
+
+# --- ARİTMETİK ZİNCİR DEĞERLENDİRİCİ (06.09 Cem "bu beşi geç" #2: uyarı KAPI oldu) ------------------------------------
+# Eskiden yalnız sayfa altına "aritmetik uyarı" yazılırdı (MTA parti-2: 9 uyarı, hiçbiri durdurmadı). Şimdi FAZ B'de adım alınınca
+# formüller hesaplanır; tutmayan zincir varsa adım bir kez daha yazdırılır, sonuç cache'e `aritmetik` olarak girer (karne hücresi).
+function SayiCoz([string]$s){ $t=$s -replace '\.','' -replace ',','.'; $v=0.0; if([double]::TryParse($t,[Globalization.NumberStyles]::Any,[Globalization.CultureInfo]::InvariantCulture,[ref]$v)){ return $v }; return $null }
+# 06.09 karne ölçümü 5 sahte alarm verdi: "%60" → "60/100" soldan sağa bölünüyordu, "a + b x c" öncelik tanımıyordu, tarih farkı zincir sayılıyordu,
+# yüzde puanı sonucu (0,15 = 15) tutmuyordu. Şimdi: yüzde ondalığa çevrilir, çarpma/bölme önce, tarih atlanır, sonuç ×100 / ÷100 da kabul.
+$YUZDE_ONDALIK=[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCoz $m.Groups[1].Value; if($null -eq $v){ return $m.Value }; return ' '+(([string]($v/100)) -replace '\.',',')+' ' }
+function ZincirHesapla([string]$sol){
+  $toks=@([regex]::Matches($sol,'([\d\.,]+)|([x*/+\-])') | ForEach-Object { $_.Value }); if(-not $toks.Count){ return $null }
+  $terimler=New-Object System.Collections.Generic.List[double]; $cur=$null; $bekleyen='+'; $op=$null
+  foreach($tk in $toks){
+    if($tk -match '^[x*/+\-]$'){ $op=$tk; continue }
+    $v=SayiCoz $tk; if($null -eq $v){ return $null }
+    if($null -eq $cur){ $cur=$v; continue }
+    if($null -eq $op){ return $null }
+    switch($op){ 'x'{ $cur=$cur*$v } '*'{ $cur=$cur*$v } '/'{ if($v -eq 0){ return $null }; $cur=$cur/$v } '+'{ $terimler.Add($(if($bekleyen -eq '-'){ -$cur } else { $cur })); $bekleyen='+'; $cur=$v } '-'{ $terimler.Add($(if($bekleyen -eq '-'){ -$cur } else { $cur })); $bekleyen='-'; $cur=$v } default{ return $null } }
+    $op=$null
+  }
+  if($null -ne $cur){ $terimler.Add($(if($bekleyen -eq '-'){ -$cur } else { $cur })) }
+  $t=0.0; foreach($x in $terimler){ $t+=$x }; return $t
+}
+function AritmetikKusur($adimlar){
+  $out=New-Object System.Collections.Generic.List[string]
+  foreach($a in @($adimlar)){
+    if(-not $a){ continue }
+    foreach($sat in ("$($a.formul)" -split "`n")){
+      if($sat -match '\d{1,2}\.\d{1,2}\.\d{4}'){ continue }   # tarih farkı ("01.10.2025 - 01.07.2022 = 39 ay") hesap zinciri değil
+      $tmz=$sat -replace '×','x' -replace 'X','x' -replace '\([^)]*\)',' '
+      $tmz=[regex]::Replace($tmz,'%\s*([\d\.,]+)',$YUZDE_ONDALIK); $tmz=[regex]::Replace($tmz,'([\d\.,]+)\s*%',$YUZDE_ONDALIK)
+      $tmz=$tmz -replace '(?i)\b(TL|₺|USD|EUR|kg|ton|adet|ay|yil|yıl|gun|gün|saat|birim|kisi|kişi)\b',' '
+      foreach($m in [regex]::Matches($tmz,'((?:[\d\.,]+\s*[x*/+\-]\s*)+[\d\.,]+)\s*=\s*([\d\.,]+)')){
+        $sol=$m.Groups[1].Value; $c1=SayiCoz $m.Groups[2].Value
+        if($null -eq $c1){ continue }
+        $terimler=@([regex]::Matches($sol,'[\d\.,]+') | ForEach-Object { $_.Value })
+        $hepsiKod=($terimler.Count -ge 2) -and (-not @($terimler | Where-Object { $_ -notmatch '^[1-7]\d{2}$' }).Count) -and ("$($m.Groups[2].Value)" -match '^[1-7]\d{2}$')
+        if($hepsiKod){ continue }
+        $hes=ZincirHesapla $sol; if($null -eq $hes){ continue }
+        $tol=[Math]::Max(0.51,[Math]::Abs($c1)*0.001)
+        $uyum=([Math]::Abs($hes-$c1) -le $tol) -or ([Math]::Abs($hes*100-$c1) -le $tol) -or ([Math]::Abs($hes/100-$c1) -le $tol)   # yüzde puanı / oran yazımı
+        if(-not $uyum){ $out.Add("'$($m.Value.Trim())' hesap=$([math]::Round($hes,2))") }
+      }
+    }
+  }
+  return @($out)
 }
 
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------
@@ -1223,7 +1359,8 @@ foreach($id in @($don.Keys)){
   if($kodlarA.Count){ $thpD=AmbarCek @($kodlarA | ForEach-Object { "THP $_ %" }) 3500; if($thpD.metin){ $ist2+="`n=== HESAP TANIMLARI (Tekdüzen Hesap Planı, ambardan) ===`n"+$thpD.metin } }
   $y2=$null; $a2=$null
   # 06.09 ADIM DİL KAPISI (Cem "geç"): anlatım en çok 2 cümle; 3+ cümleli adım sayısı 2'yi geçerse bir kez geri döner
-  foreach($turA in 1..2){
+  $aritK=@()
+  foreach($turA in 1..3){
     foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
     # 03.09 bedel olcumu (Cem "her seyde bedeli sor"): cagri basina token kaydi
     Write-Host ("  ADIM TOKEN {0}: girdi {1} (onbellek okuma {2}, yazma {3}) · cikti {4} · model claude-sonnet-5" -f $id,$y2.girdi,$y2.onbellekOkuma,$y2.onbellekYazma,$y2.cikti) -ForegroundColor DarkGray
@@ -1231,13 +1368,21 @@ foreach($id in @($don.Keys)){
     if(-not $a2 -or -not $a2.adimlar){ break }
     $uzunAd=@(@($a2.adimlar) | Where-Object { $_ -and (@(("$($_.anlatim)" -split '(?<=[.!?])\s+') | Where-Object { $_.Trim().Length -gt 2 }).Count -gt 2) }).Count
     $dolgu=@(@($a2.adimlar) | Where-Object { $_ -and "$($_.anlatim)" -match '(?i)(birazdan|az sonra|unutmayalım|hadi |işte |şimdi bakalım|hesaplamadık)' }).Count
-    if(($uzunAd -le 2 -and $dolgu -eq 0) -or $turA -eq 2){ if($uzunAd -gt 2 -or $dolgu){ Write-Host "  ADIM DİL: $uzunAd adım 3+ cümle · dolgu $dolgu (2. turda da) - olduğu gibi" -ForegroundColor DarkYellow; $rapor.Add("ADIM DIL: $id (uzun $uzunAd, dolgu $dolgu)") }; break }
-    Write-Host "  ADIM DİL KAPI ($id): $uzunAd adım 3+ cümle · dolgu $dolgu -> tekrar" -ForegroundColor Yellow
-    $ist2+="`n`nKAPI DÜŞTÜ: $uzunAd adımın anlatımı 3 cümleden uzun ve $dolgu adımda dolgu cümlesi var. Her anlatım EN ÇOK 2 cümle; dolgu cümlelerini sil. Yalnız JSON."
+    $aritK=@(AritmetikKusur $a2.adimlar)   # 06.09 ARİTMETİK KAPISI: formül zincirleri hesaplanır
+    $dilOk=($uzunAd -le 2 -and $dolgu -eq 0); $aritOk=(-not $aritK.Count)
+    if(($dilOk -and $aritOk) -or $turA -eq 3){
+      if(-not $dilOk){ Write-Host "  ADIM DİL: $uzunAd adım 3+ cümle · dolgu $dolgu (son turda da) - olduğu gibi" -ForegroundColor DarkYellow; $rapor.Add("ADIM DIL: $id (uzun $uzunAd, dolgu $dolgu)") }
+      if(-not $aritOk){ Write-Host "  ARİTMETİK: $($aritK.Count) zincir tutmuyor (son turda da) - olduğu gibi, karneye KIRMIZI" -ForegroundColor Red; $rapor.Add("ARITMETIK KAPI DÜŞTÜ: $id | $($aritK -join ' · ')") }
+      break }
+    $notlar=@(); if(-not $dilOk){ $notlar+="$uzunAd adımın anlatımı 3 cümleden uzun ve $dolgu adımda dolgu cümlesi var; her anlatım EN ÇOK 2 cümle, dolgu cümlelerini sil" }
+    if(-not $aritOk){ $notlar+="şu formül satırları ARİTMETİK olarak tutmuyor (sol taraf hesaplanınca sağdaki sonuç çıkmıyor): $($aritK -join '; '). Her formülde sol tarafı gerçekten hesapla, sonucu ona göre yaz; ara sonuç ile tablo hücresi aynı olsun" }
+    Write-Host "  ADIM KAPI ($id, tur $turA): $(if(-not $dilOk){"dil($uzunAd/$dolgu) "})$(if(-not $aritOk){"aritmetik($($aritK.Count))"}) -> tekrar" -ForegroundColor Yellow
+    $ist2+="`n`nKAPI DÜŞTÜ: $($notlar -join ' · '). Yalnız JSON."
   }
   if($a2 -and $a2.adimlar){
     foreach($ad1 in @($a2.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }   # sinav dili kapisi (adimlar)
     $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue $a2.adimlar -Force
+    $cvp | Add-Member -NotePropertyName aritmetik -NotePropertyValue @($aritK) -Force   # boş = bütün zincirler tuttu (karne hücresi)
     $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($a2.verilen) -Force
     CacheYaz; Write-Host "  ADIM OK $id"
   } else { $rapor.Add("ADIM BOZUK: $id") }
@@ -1446,7 +1591,65 @@ foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $Simulasyon){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.PSObject.Properties['adimlar'] -or -not $cvp.adimlar){ continue }
-  if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz -and $cvp.ikiz.ikiz_soru -and $cvp.ikiz.tablo -and $cvp.ikiz.tablo.satirlar)){ Write-Host "  SIM ATLANDI ($id): ikiz yok" -ForegroundColor DarkGray; continue }
+  $simAlanT=$(if($SimModel -match 'sonnet'){ 'simulasyon_sonnet' } else { 'simulasyon' })
+  if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz -and $cvp.ikiz.ikiz_soru -and $cvp.ikiz.tablo -and $cvp.ikiz.tablo.satirlar)){
+    # 06.09 Ö24 (Cem "bu beşi geç" #3): TEORİ SİMÜLASYONU. Tablosuz/kayıtsız (teori) soruda ikiz yok; "aynı kuralın başka olayı" 5 şıklı
+    # TEORİ İKİZİ üretilir (Sonnet, cache `teori_ikiz`), sonra öğrenci-modeli YALNIZ adımları okuyup ikizin şıkkını seçer. ≈0,03 USD/soru.
+    $teoriMi=(-not ($cvp.cozum_tablo -and $cvp.cozum_tablo.satirlar)) -and (-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye'))
+    if(-not $teoriMi){ Write-Host "  SIM ATLANDI ($id): ikiz yok" -ForegroundColor DarkGray; continue }
+    if(-not $SimYenile -and $cvp.PSObject.Properties[$simAlanT] -and $cvp.$simAlanT -and "$($cvp.$simAlanT.tur)" -eq 'teori'){ continue }
+    if(-not ($cvp.PSObject.Properties['teori_ikiz'] -and $cvp.teori_ikiz -and $cvp.teori_ikiz.soru)){
+      $istTI=@"
+Aşağıdaki TEORİ sorusunun İKİZİNİ üret: AYNI kural/hüküm, FARKLI olay (başka işletme, başka durum, başka kişi), 5 şık (A-E), tek doğru.
+Kurallar: kaynaktaki hükmü değiştirme; olay sınav dilinde ve kısa; şıklar cümle, doğru şık en uzun OLMASIN; Türkçe harfler tam; kısaltma yok.
+Yalnız JSON: {"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A-E","gerekce":"tek cümle"}
+=== ANA SORU ===
+$($cvp.soru)
+A) $($cvp.siklar.A)
+B) $($cvp.siklar.B)
+C) $($cvp.siklar.C)
+D) $($cvp.siklar.D)
+E) $($cvp.siklar.E)
+DOĞRU: $($cvp.dogru)
+=== DAYANAK (kaynak özeti) ===
+$("$($cvp.kaynak_metin_ozet)".Substring(0,[Math]::Min(2500,"$($cvp.kaynak_metin_ozet)".Length)))
+"@
+      $yT=$null; foreach($d in 1..3){ try{ $yT=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istTI -MaxTok 4000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+      Write-Host ("  TEORİ İKİZ TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yT.girdi,$yT.cikti) -ForegroundColor DarkGray
+      $tI=Coz $yT.metin
+      if(-not ($tI -and $tI.soru -and $tI.siklar -and $tI.dogru)){ $rapor.Add("TEORI IKIZ BOZUK: $id"); Write-Host "  TEORİ İKİZ BOZUK ($id)" -ForegroundColor Red; continue }
+      $cvp | Add-Member -NotePropertyName teori_ikiz -NotePropertyValue ([pscustomobject]@{ soru=(DilOnar "$($tI.soru)"); siklar=$tI.siklar; dogru="$($tI.dogru)".Trim().ToUpperInvariant(); gerekce="$($tI.gerekce)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+      CacheYaz
+    }
+    $ti=$cvp.teori_ikiz
+    $adimMetinT=(@($cvp.adimlar) | ForEach-Object -Begin { $q=0 } -Process { $q++; "$q) $($_.formul)`n   $($_.anlatim)" }) -join "`n"
+    $istOT=@"
+Sen bu konuyu HİÇ bilmeyen bir staja giriş sınavı adayısın. Ezber bilgin yok, kaynak yok. Sana yalnız aşağıdaki ÇÖZÜM ANLATIMI verildi (bir örnek sorunun adım adım açıklaması). Bu anlatımdaki KURALI öğrenip YENİ SORUDA doğru şıkkı seç.
+Kurallar: yalnız anlatımın öğrettiği kadarıyla karar ver; anlatım yetmiyorsa cevap "yetmedi" olsun ve neyin eksik olduğunu yaz.
+Yalnız JSON: {"cevap":"A-E ya da yetmedi","neden":"tek cümle","eksik":"anlatımda eksik ya da karışık olan şey; yoksa boş"}
+=== ÇÖZÜM ANLATIMI (örnek soru ve Nöbetçi adımları) ===
+ÖRNEK SORU: $($cvp.soru)
+ADIMLAR:
+$adimMetinT
+=== YENİ SORU (bunu çöz) ===
+$($ti.soru)
+A) $($ti.siklar.A)
+B) $($ti.siklar.B)
+C) $($ti.siklar.C)
+D) $($ti.siklar.D)
+E) $($ti.siklar.E)
+"@
+    $yOT=$null; foreach($d in 1..3){ try{ $yOT=Invoke-ClaudeMesaj -Model $SimModel -Icerik $istOT -MaxTok 800; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+    Write-Host ("  SIM TOKEN {0}: girdi {1} · cikti {2} · model {3} (teori)" -f $id,$yOT.girdi,$yOT.cikti,$SimModel) -ForegroundColor DarkGray
+    $oT=Coz $yOT.metin
+    if(-not $oT -or -not $oT.PSObject.Properties['cevap']){ $mC=[regex]::Match("$($yOT.metin)",'"cevap"\s*:\s*"([^"]*)"'); if($mC.Success){ $oT=[pscustomobject]@{ cevap=$mC.Groups[1].Value; neden=''; eksik='' } } }
+    if(-not $oT){ $rapor.Add("SIM BOZUK: $id"); continue }
+    $cevT="$($oT.cevap)".Trim().ToUpperInvariant(); $dogruT=($cevT -eq "$($ti.dogru)")
+    $cvp | Add-Member -NotePropertyName $simAlanT -NotePropertyValue ([pscustomobject]@{ tur='teori'; cevap=$cevT; hedef="$($ti.dogru)"; dogru_mu=$dogruT; eksik="$($oT.eksik)"; adimlar="$($oT.neden)"; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+    CacheYaz; Write-Host ("  SIM {0} ({1}, teori): cevap {2} · hedef {3}{4}" -f $(if($dogruT){'DOĞRU'}else{'YANLIŞ'}),$id,$cevT,$ti.dogru,$(if("$($oT.eksik)".Trim()){ " · eksik: $($oT.eksik)" } else { '' })) -ForegroundColor $(if($dogruT){'Green'}else{'Red'})
+    if(-not $dogruT){ $rapor.Add("SIM YANLIŞ (teori): $id | cevap $cevT hedef $($ti.dogru) | $($oT.eksik)") }
+    continue
+  }
   # hedef: ikiz tablosunun son satırındaki son sayılı hücre
   $sonSat=@(@($cvp.ikiz.tablo.satirlar)[-1]); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
   if(-not $hedefS){ Write-Host "  SIM ATLANDI ($id): ikiz sonuç hücresi yok" -ForegroundColor DarkGray; continue }
@@ -1462,7 +1665,9 @@ foreach($id in @($don.Keys)){
   if(-not $oN){ $rapor.Add("SIM BOZUK: $id"); Write-Host "  SIM BOZUK ($id): $("$($yO.metin)".Substring(0,[Math]::Min(160,"$($yO.metin)".Length)))" -ForegroundColor Red; continue }
   $trO=[cultureinfo]::GetCultureInfo('tr-TR'); $sayi={ param($t) $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ [double]::Parse($m.Value,$trO) }catch{ $null } } else { $null } }
   $cv=& $sayi $oN.cevap; $hd=& $sayi $hedefS
-  $dogruMu=$false; if($null -ne $cv -and $null -ne $hd){ $dogruMu=([math]::Abs($cv-$hd) -le [math]::Max(0.5,[math]::Abs($hd)*0.01)) }
+  # 06.09 Ö35: hedef yön kelimesiyle geliyorsa ("%37,5 azalış", "12.000 olumsuz") işaret karşılaştırmaya girmez — MTA kp-02'de "-37,5" doğruyken yanlış sayılmıştı
+  $yonluHedef=("$hedefS" -match '(?i)azalış|azalis|olumsuz|olumlu|artış|artis|düşüş|dusus|lehte|aleyhte|\(-\)')
+  $dogruMu=$false; if($null -ne $cv -and $null -ne $hd){ $cvK=$(if($yonluHedef){ [math]::Abs($cv) } else { $cv }); $hdK=$(if($yonluHedef){ [math]::Abs($hd) } else { $hd }); $dogruMu=([math]::Abs($cvK-$hdK) -le [math]::Max(0.5,[math]::Abs($hdK)*0.01)) }
   $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }
   $cvp | Add-Member -NotePropertyName $simAlan -NotePropertyValue $simObj -Force
   CacheYaz; Write-Host ("  SIM {0} ({1}): cevap {2} · hedef {3}{4}" -f $(if($dogruMu){'DOĞRU'}else{'YANLIŞ'}),$id,$oN.cevap,$hedefS,$(if("$($oN.eksik)".Trim()){ " · eksik: $($oN.eksik)" } else { '' })) -ForegroundColor $(if($dogruMu){'Green'}else{'Red'})
@@ -1770,51 +1975,16 @@ foreach($id in @($don.Keys)){
 $tekduze=@($tuzakSayaci.Keys | Where-Object { $tuzakSayaci[$_] -ge 3 } | Sort-Object { -$tuzakSayaci[$_] })
 foreach($ad in $tekduze){ $rapor.Add("TUZAK TEKDUZE: '$ad' $($tuzakSayaci[$ad]) kez kullanildi (en fazla 2 olmali)") }
 
-# --- ARITMETIK KAPISI --------------------------------------------------------
-function SayiCoz([string]$s){ $t=$s -replace '\.','' -replace ',','.'; $v=0.0; if([double]::TryParse($t,[Globalization.NumberStyles]::Any,[Globalization.CultureInfo]::InvariantCulture,[ref]$v)){ return $v }; return $null }
-# 01.09 v2: TAM-ZINCIR degerlendirme - "a + b + c = d" gibi cok terimlileri
-# ilk surum son iki terimden okuyup 8 SAHTE alarm uretmisti. Artik '=' solundaki
-# butun sayi-op dizisi soldan saga hesaplanir (kimlik parantezleri atilir).
+# --- ARITMETIK KAPISI (sayfa altı özeti; asıl kapı FAZ B'de, 06.09) ---------------------------------------------------
+# 01.09 v2: TAM-ZINCIR degerlendirme ("a + b + c = d"); 06.09: değerlendirici AritmetikKusur fonksiyonuna taşındı, FAZ B'de kapı.
+# Burada yalnız eldeki bütün soruların (eski cache dahil) özeti çıkarılır ve cache'te `aritmetik` alanı yoksa yazılır (karne için).
 $aritUyari=New-Object System.Collections.Generic.List[string]
 foreach($id in @($don.Keys)){
-  foreach($a in @($don[$id].adimlar)){
-    foreach($sat in ("$($a.formul)" -split "`n")){
-      # birim sozcukleri sayi zincirini kirmasin ('108.000 TL x 6/12' vakasi)
-      $tmz=$sat -replace '×','x' -replace 'X','x' -replace '\([^)]*\)',' ' -replace '%\s*([\d\.,]+)','$1/100 ' -replace '(?i)\b(TL|USD|EUR|kg|ton|adet|ay|yil|gun|saat|birim|kisi)\b',' '
-      foreach($m in [regex]::Matches($tmz,'((?:[\d\.,]+\s*[x*/+\-]\s*)+[\d\.,]+)\s*=\s*([\d\.,]+)')){
-        $sol=$m.Groups[1].Value; $c1=SayiCoz $m.Groups[2].Value
-        # DIL-IFADESI filtresi (01.09, Cem yakaladi): "X'in %5'i = Y" carpim isareti
-        # icermez; %-normalizasyonu sonrasi tek basina 'N/100 = Y' kalir - bu bir
-        # hesap zinciri DEGIL, degerlendirilemez. Ayni sekilde salt-yuzde toplami
-        # ('50/100 + 30/100 ... = 100') yuzde-puani toplamidir, atlanir.
-        if($sol -match '^\s*[\d\.,]+\s*/\s*100\s*$'){ continue }
-        if($sol -match '^(\s*[\d\.,]+\s*/\s*100\s*\+?\s*)+$'){ continue }
-        if($null -eq $c1){ continue }
-        # HESAP KODU filtresi (02.09, kp-17 vakasi): "770 + 180 = 102" bir toplama
-        # DEGIL, yevmiye satirinin THP hesap kodlaridir (770 Genel Yonetim Gideri,
-        # 180 Gelecek Aylara Ait Giderler, 102 Bankalar). Tum terimler VE sonuc
-        # 3 haneli THP kodu araligindaysa (100-799, ondaliksiz) zincir atlanir.
-        $terimler=@([regex]::Matches($sol,'[\d\.,]+') | ForEach-Object { $_.Value })
-        $hepsiKod=($terimler.Count -ge 2) -and (-not @($terimler | Where-Object { $_ -notmatch '^[1-7]\d{2}$' }).Count) -and ("$($m.Groups[2].Value)" -match '^[1-7]\d{2}$')
-        if($hepsiKod){ continue }
-        $parcalar=[regex]::Matches($sol,'([\d\.,]+)|([x*/+\-])')
-        $hes=$null; $op=$null; $gecerli=$true
-        foreach($pp in $parcalar){
-          $tk=$pp.Value
-          if($tk -match '^[x*/+\-]$'){ $op=$tk }
-          else{
-            $v=SayiCoz $tk; if($null -eq $v){ $gecerli=$false; break }
-            if($null -eq $hes){ $hes=$v }
-            else{
-              switch($op){ '/'{ if($v -ne 0){$hes=$hes/$v}else{$gecerli=$false} } 'x'{$hes=$hes*$v} '*'{$hes=$hes*$v} '+'{$hes=$hes+$v} '-'{$hes=$hes-$v} default{$gecerli=$false} }
-            }
-          }
-        }
-        if($gecerli -and $null -ne $hes -and [Math]::Abs($hes-$c1) -gt [Math]::Max(0.51,[Math]::Abs($c1)*0.001)){ $aritUyari.Add("$id : '$($m.Value)' hesap=$([math]::Round($hes,2))") }
-      }
-    }
-  }
+  $kus=@(AritmetikKusur $don[$id].adimlar)
+  foreach($k in $kus){ $aritUyari.Add("$id : $k") }
+  if(-not $don[$id].PSObject.Properties['aritmetik'] -and $don[$id].PSObject.Properties['adimlar'] -and $don[$id].adimlar){ $don[$id] | Add-Member -NotePropertyName aritmetik -NotePropertyValue @($kus) -Force; $script:aritYaz=$true }
 }
+if($script:aritYaz -and -not $SadeceHtml){ CacheYaz }
 
 # --- SAYFA (tiklanabilir TAM deneyim: sik->tuzak->oynatici->ikiz->ipucu) -----
 $ekCss=@'

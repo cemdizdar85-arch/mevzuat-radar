@@ -51,7 +51,7 @@ function Getir($yol){
 
 # --- bakilmamis bildirimler
 try {
-  $bildirimler = Getir "soru_bildirim?select=id,soru_id,not_metni,oturum,uye,durum,karantina&durum=eq.yeni&order=id&limit=2000"
+  $bildirimler = Getir "soru_bildirim?select=id,soru_id,not_metni,oturum,uye,durum,karantina&durum=eq.yeni&oturum=neq.karne-cem&order=id&limit=2000"
 } catch {
   # 02.08 KOR KALMA: bu dal rapor YAZMADAN exit 1 yapiyordu; Actions logu kilitli
   # oldugu icin nobetcinin NEDEN dustugu gorulemiyordu (bugun 1 kirmizi kosu tam
