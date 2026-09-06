@@ -1165,7 +1165,10 @@ foreach($kk in $KONULAR){
     Write-Host "  CACHE DUSTU (uzun: $("$($don[$id].soru)".Length) kr > $UZUNLUK_TAVAN): $id $($kk.kayit.konu)" -ForegroundColor Yellow
     $don.Remove($id)
   }
-  if($don.Contains($id) -and $don[$id].soru){ continue }
+  if($don.Contains($id) -and $don[$id].soru){
+    # 06.09: eldeki soruya çapa metni sonradan eklenir (model çağrısı yok) — giriş kartı "Sınavda böyle çıktı"
+    if($CAPA.ContainsKey($id) -and -not ($don[$id].PSObject.Properties['capa_metin'] -and "$($don[$id].capa_metin)".Trim())){ $don[$id] | Add-Member -NotePropertyName capa_metin -NotePropertyValue "$($CAPA[$id])" -Force; if($kk.kayit.PSObject.Properties['capa_kaynak']){ $don[$id] | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($kk.kayit.capa_kaynak)" -Force }; CacheYaz; Write-Host "  çapa metni eklendi: $id" -ForegroundColor DarkGray }
+    continue }
   $ky=$kk.kayit
   $konuLc="$($ky.konu)".ToLowerInvariant()
   # 06.09 fmuh-k10b dersi: köprü konusu "duran varlik (sabit kiymet) satisi kaydi" iken elle ölçülmüş desen "duran varlik satisi" (THP 253/257/679/689,
@@ -1315,6 +1318,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count){ $cvp | Add-Member -NotePropertyName pencere_kavram -NotePropertyValue @(PencereKavram "$($cvp.soru)") -Force }   # KAPI-K sonucu (boş = sınav dili) → karne
     if($ky.PSObject.Properties['son_donem']){ $cvp | Add-Member -NotePropertyName son_donem -NotePropertyValue ([int]$ky.son_donem) -Force; $cvp | Add-Member -NotePropertyName pencere -NotePropertyValue $DonemPencere -Force }
     if($ky.PSObject.Properties['capa_kaynak']){ $cvp | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($ky.capa_kaynak)" -Force }
+    if($CAPA.ContainsKey($id)){ $cvp | Add-Member -NotePropertyName capa_metin -NotePropertyValue "$($CAPA[$id])" -Force }   # 06.09 Cem "3 yap": giriş kartında "Sınavda böyle çıktı" (cevapsız gerçek soru)
     $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force
     $cvp | Add-Member -NotePropertyName donem -NotePropertyValue $ky.donem -Force
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
@@ -1616,6 +1620,9 @@ foreach($id in @($don.Keys)){
     $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ $gN=$null; break }
     $tumG="$($gN.nedir) $($gN.sinavda) $($gN.yontemler) $($gN.ornek)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' }); if(@(($tumG -split '\s+') | Where-Object { $_ }).Count -gt 130){ $dusenG+='130 kelimeden uzun' }; if(-not "$($gN.ornek)".Trim()){ $dusenG+='örnek yok' }
     if("$($gN.ornek)" -match '=|×|\beksi\b|\bartı\b|\bçarpı\b|\bbölü\b|\d{1,3}(\.\d{3})+\s*TL.*\d{1,3}(\.\d{3})+\s*TL'){ $dusenG+='örnekte hesap var (yasak)' }   # Haiku aritmetiği güvenilmez
+    # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
+    $soruTutar=@([regex]::Matches("$($cvp.soru)",'\d{1,3}(?:\.\d{3})+|\b\d{3,}\b') | ForEach-Object { $_.Value } | Select-Object -Unique); $tekrar=@($soruTutar | Where-Object { $t=$_; "$($gN.ornek)" -match ('(?<![\d.])'+[regex]::Escape($t)+'(?![\d.])') })
+    if($tekrar.Count){ $dusenG+="örnek sorunun rakamını tekrarlıyor ($($tekrar -join ', '))" }
     if(-not $dusenG.Count){ break }
     if($tur -eq 1){ Write-Host "  GİRİŞ KAPI ($id): $($dusenG -join '; ') -> tekrar" -ForegroundColor Yellow; $istG+="`n`nKAPI DÜŞTÜ: $($dusenG -join '; '). Kısaltmasız, madde numarasız, 80 kelime altında yeniden yaz. Yalnız JSON." }
     else { $rapor.Add("GIRIS KAPI: $id") }
