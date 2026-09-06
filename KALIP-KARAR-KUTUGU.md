@@ -18,7 +18,7 @@
 | K4 | Hesap kâğıdı kalıcı mı? | ⏳ Cem | 06.09 yapıldı, eşleme + kasa hazır |
 | K5 | `kagit_kayit` SQL'ini basmak | ⏳ Cem | `radar-app/sql/2026-09-06-kagit-kayit.sql`; basılana dek 404 sessiz |
 | K6 | Maliyet tekniği kaynağı (MSUGT Sıra No 2) | ⏳ Cem | ≈0,5 USD; hakem teoriyi VUK 275'e yaslıyor |
-| K7 | 117 kalıpsız ağır konu üretimi | ⏳ Cem | Finansal 11 + Maliyet 3 ilk parti ≈2 USD; K1'e bağlı |
+| K7 | 117 kalıpsız ağır konu üretimi | ✅ **06.09 Cem "geç, ilk partiyi başlat"** | Parti-1: `sgs-fmuh-parti1` 11 konu + `sgs-maliyet-parti1` 3 konu, donmuş kalıp, tüm fazlar + Sonnet sim, ≈3,5 USD. Kasaya yazılmaz. Çapa: sabit örnek (Ö18 açık) |
 
 ## Öneriler ve uygulama
 
