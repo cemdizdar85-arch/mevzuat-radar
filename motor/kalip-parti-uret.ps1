@@ -34,7 +34,8 @@ param(
   [switch]$Verilenler,     # 06.09 Cem "1 yap": FAZ V - sorudaki her sayı ad+değer+anlam satırı (Haiku); builder VERİLENLER bloğunu çizer
   [switch]$VerilenYenile,  # 06.09: eldeki verilenler listesini de yeniden yazar
   [switch]$KonuGiris,      # 06.09 Cem "geç": FAZ G - konu girişi kartı (nedir / sınavda nasıl sorulur / yöntemler), Haiku ≈0,005 USD
-  [switch]$Simulasyon      # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
+  [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
+  [string]$SimModel='claude-haiku-4-5-20251001'   # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -509,7 +510,9 @@ $OZEL_DESEN=@{
 }
 # Hakem yakalamalarindan dogan konu-ozel uretim uyarilari (isteme eklenir)
 $OZEL_NOT=@{
-  'kar dagitimi kaydi' = "DIKKAT (hakem yakaladi): TTK m.519/2-c'ye gore II. tertip kanuni yedek, 'pay sahiplerine %5 kar payi odendikten sonra KARA KATILACAK KISILERE DAGITILMASI KARARLASTIRILAN TOPLAM TUTARIN %10'u'dur - 'dagitim sonrasi kalan tutarin %10'u' DEGILDIR. Hesabi bu dogru kuralla kur."
+  # 06.09 kalıp-5 pilotu (hakem yakaladı): model dava masrafını alacağa EKLEYİP karşılık ayırdı; 2022/1 çıkmış sorunun tuzağı tam buydu (110.000 şıkları).
+  'supheli alacak karsiligi' = "DIKKAT (hakem yakaladi): Vergi Usul Kanunu 323'e gore karsilik, dava/icra asamasindaki alacagin (KDV dahil tutar kabul edilir) TEMINATTAN GERI KALAN kismi icin ayrilir; donem ici tahsilat dusulur. DAVA/ICRA MASRAFI ALACAGA EKLENMEZ - ayri gider olarak (659/770) kaydedilir. Cikmis sinav bu masrafi tuzak olarak verir (108.000 dogru, 110.000 tuzak); soruda masraf veriliyorsa DOGRU sik masrafsiz tutar, masrafli tutar CELDIRICI olur."
+  'kar dagitimi kaydi' ="DIKKAT (hakem yakaladi): TTK m.519/2-c'ye gore II. tertip kanuni yedek, 'pay sahiplerine %5 kar payi odendikten sonra KARA KATILACAK KISILERE DAGITILMASI KARARLASTIRILAN TOPLAM TUTARIN %10'u'dur - 'dagitim sonrasi kalan tutarin %10'u' DEGILDIR. Hesabi bu dogru kuralla kur."
   # 01.09 ders-uyum hakemi yakalamalari: konu mesru, SORU acisi kaymisti - KAYIT acisiyla kur
   'muhasebe bilgi sistemi' = "DERS UYARISI (hakem yakaladi): belgenin vergi-hukuku gecerliligini SORMA; belge->yevmiye->defter KAYIT AKISINI ve muhasebe surecindeki rolunu sor (FMuh boyutu)."
   'amortisman ayirma'      = "DERS UYARISI (hakem yakaladi): amortisman HESAPLAMA teknigi/oran secimi Vergi Hukuku'na kacar; burada AYIRMA KAYDINI sor - 7xx/730 gider, 257 Birikmis Amortismanlar isleyisi, dogrudan/endirekt kayit yontemi. Hesap sade tutulur (duz amortisman, tam yil)."
@@ -1344,8 +1347,10 @@ foreach($id in @($don.Keys)){
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
   $cvp=$don[$id]; if(-not $cvp.soru){ continue }
   if(-not $VerilenYenile -and $cvp.PSObject.Properties['verilenler'] -and @($cvp.verilenler).Count){ continue }
-  $soruSayi=@([regex]::Matches("$($cvp.soru)",'%?\d{1,3}(?:\.\d{3})*(?:,\d+)?') | ForEach-Object { $_.Value -replace '[^\d,%]','' } | Select-Object -Unique)
-  if(-not $soruSayi.Count){ continue }   # teori sorusu: verilen yok
+  # standart/madde numaraları verilen değildir ("BDS 500", "TMS 37", "m.323", "paragraf A27", "213 sayılı") — 06.09 kalıp-6 dersi
+  $soruTemiz=[regex]::Replace("$($cvp.soru)",'(?i)\b(BDS|GDS|TMS|TFRS|TSRS|BOBİ FRS|KGK|SPK)\s*\d+[A-Za-z]?|\b(m|md|p|paragraf|madde|fıkra|bent)\.?\s*[A-Za-z]?\d+(/\d+)?|\d+\s+sayılı','')
+  $soruSayi=@([regex]::Matches($soruTemiz,'%?\d{1,3}(?:\.\d{3})*(?:,\d+)?') | ForEach-Object { $_.Value -replace '[^\d,%]','' } | Select-Object -Unique)
+  if(-not $soruSayi.Count){ Write-Host "  VERILEN ATLANDI ($id): soruda sayısal veri yok (teori)" -ForegroundColor DarkGray; continue }
   $istV=$verilenIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',$(if($cvp.cozum_tablo){ ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress } else { '(tablo yok)' }))
   $listeV=$null; $tokG=0; $tokC=0
   foreach($tur in 1..2){
@@ -1431,8 +1436,10 @@ foreach($id in @($don.Keys)){
   if(-not $hedefS){ Write-Host "  SIM ATLANDI ($id): ikiz sonuç hücresi yok" -ForegroundColor DarkGray; continue }
   $adimMetin=(@($cvp.adimlar) | ForEach-Object -Begin { $q=0 } -Process { $q++; "$q) $($_.formul)`n   $($_.anlatim)" }) -join "`n"
   $istO=$simIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{ADIMLAR}',$adimMetin).Replace('{IKIZ}',"$($cvp.ikiz.ikiz_soru)")
-  $yO=$null; foreach($d in 1..3){ try{ $yO=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istO -MaxTok 1200; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
-  Write-Host ("  SIM TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$yO.girdi,$yO.cikti) -ForegroundColor DarkGray
+  $simAlan=$(if($SimModel -match 'sonnet'){ 'simulasyon_sonnet' } else { 'simulasyon' })
+  if($cvp.PSObject.Properties[$simAlan] -and $cvp.$simAlan -and $cvp.$simAlan.hedef){ continue }   # aynı modelle bir kez
+  $yO=$null; foreach($d in 1..3){ try{ $yO=Invoke-ClaudeMesaj -Model $SimModel -Icerik $istO -MaxTok 1500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  Write-Host ("  SIM TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yO.girdi,$yO.cikti,$SimModel) -ForegroundColor DarkGray
   $oN=Coz $yO.metin
   # Haiku bazen JSON'u bozuyor (adımlar alanında tırnak/satır); cevap ve eksik alanları regex ile kurtarılır
   if(-not $oN -or -not $oN.PSObject.Properties['cevap']){ $mC=[regex]::Match("$($yO.metin)",'"cevap"\s*:\s*"([^"]*)"'); $mE=[regex]::Match("$($yO.metin)",'"eksik"\s*:\s*"([^"]*)"'); if($mC.Success){ $oN=[pscustomobject]@{ cevap=$mC.Groups[1].Value; adimlar=''; eksik=$(if($mE.Success){ $mE.Groups[1].Value } else { '' }) }; Write-Host "  SIM JSON bozuktu, regex ile kurtarıldı ($id)" -ForegroundColor DarkYellow } }
@@ -1440,8 +1447,8 @@ foreach($id in @($don.Keys)){
   $trO=[cultureinfo]::GetCultureInfo('tr-TR'); $sayi={ param($t) $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ [double]::Parse($m.Value,$trO) }catch{ $null } } else { $null } }
   $cv=& $sayi $oN.cevap; $hd=& $sayi $hedefS
   $dogruMu=$false; if($null -ne $cv -and $null -ne $hd){ $dogruMu=([math]::Abs($cv-$hd) -le [math]::Max(0.5,[math]::Abs($hd)*0.01)) }
-  $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model='claude-haiku-4-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }
-  $cvp | Add-Member -NotePropertyName simulasyon -NotePropertyValue $simObj -Force
+  $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }
+  $cvp | Add-Member -NotePropertyName $simAlan -NotePropertyValue $simObj -Force
   CacheYaz; Write-Host ("  SIM {0} ({1}): cevap {2} · hedef {3}{4}" -f $(if($dogruMu){'DOĞRU'}else{'YANLIŞ'}),$id,$oN.cevap,$hedefS,$(if("$($oN.eksik)".Trim()){ " · eksik: $($oN.eksik)" } else { '' })) -ForegroundColor $(if($dogruMu){'Green'}else{'Red'})
   if(-not $dogruMu){ $rapor.Add("SIM YANLIŞ: $id | cevap $($oN.cevap) hedef $hedefS | $($oN.eksik)") }
 }
