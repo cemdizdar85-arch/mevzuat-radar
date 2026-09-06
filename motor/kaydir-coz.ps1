@@ -228,11 +228,14 @@ foreach($x in $sec){
 # --- OYUN SORUSU (Cem 04.09 "kaydı sen yap kısmında soru farklı sorsak"): ikiz varsa ikiz; yoksa AYNI OLAY, YENİ TUTARLAR
   # (tüm tutarlar aynı katsayıyla ölçeklenir; oranlar, günler, yıllar dokunulmaz - doğrusal kayıtlarda geçerli)
   $oyun=$null
-  if($v.ikiz -and $v.ikiz.ikiz_soru -and $v.ikiz_sema -and "$($v.ikiz_sema.tur)" -eq 'yevmiye'){
+  # 06.09 Cem (VUK 328 kâr sorusu ekranı: "iki kolon var, bir sürü kayıt atmam lazım"): oyun tipi SORU TİPİNİ izler. Sınav kâr TUTARI soruyorsa
+  # "Sen yap" = ikiz tabloyu doldur; yevmiye şeması olsa da kayıt oyunu öne geçmez. Kayıt oyunu yalnız kayıt sorusunda (ya da tablo ikizi yoksa).
+  $hesaplamaMi=($v.cozum_tablo -and $v.cozum_tablo.satirlar -and $v.ikiz -and $v.ikiz.PSObject.Properties['tablo'] -and $v.ikiz.tablo -and $v.ikiz.tablo.satirlar)
+  if(-not $hesaplamaMi -and $v.ikiz -and $v.ikiz.ikiz_soru -and $v.ikiz_sema -and "$($v.ikiz_sema.tur)" -eq 'yevmiye'){
     $ik=@(); if($v.ikiz_sema.kayitlar){ $ik=@($v.ikiz_sema.kayitlar) } elseif($v.ikiz_sema.ogeler){ $ik=@(,([pscustomobject]@{baslik='';ogeler=$v.ikiz_sema.ogeler})) }
     if($ik.Count -eq 1 -and $ik[0].ogeler.borc -and $ik[0].ogeler.alacak){ $ok=@(); foreach($og in @($ik[0].ogeler.borc)){ $ok+=@{ hesap=(TurkceOnar "$($og.hesap)"); tutar="$($og.tutar)"; taraf='B' } }; foreach($og in @($ik[0].ogeler.alacak)){ $ok+=@{ hesap=(TurkceOnar "$($og.hesap)"); tutar="$($og.tutar)"; taraf='A' } }; $oyun=@{ tur='ikiz'; soru=(TurkceOnar "$($v.ikiz.ikiz_soru)"); kayit=$ok; not='İkiz soru: aynı yöntem, yeni rakamlar.' } }
   }
-  if(-not $oyun -and $kayit.Count){
+  if(-not $oyun -and -not $hesaplamaMi -and $kayit.Count){
     $kat=[decimal]2; $tr=[cultureinfo]::GetCultureInfo('tr-TR')
     $olcek={ param($t) [regex]::Replace("$t",'\d{1,3}(?:\.\d{3})+(?:,\d+)?',{ param($m) try{ $n=[decimal]::Parse($m.Value,$tr); ($n*$kat).ToString('N0',$tr) }catch{ $m.Value } }) }
     $ok=@(); foreach($r in $kayit){ $ok+=@{ hesap=$r.hesap; tutar=(& $olcek $r.tutar); taraf=$r.taraf } }
