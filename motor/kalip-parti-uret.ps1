@@ -667,7 +667,8 @@ function SikDengesi($aday){
 function SikSirala($cvp){
   if(-not $cvp -or -not $cvp.siklar -or -not $cvp.dogru){ return $false }
   $harf=@('A','B','C','D','E'); $trS=[cultureinfo]::GetCultureInfo('tr-TR'); $deg=@{}
-  foreach($h in $harf){ $s="$($cvp.siklar.$h)".Trim(); $m=[regex]::Match($s,'^-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|^-?\d+(?:,\d+)?'); if(-not $m.Success){ return $false }; try{ $deg[$h]=[double]::Parse($m.Value,$trS) }catch{ return $false } }
+  # yalnız SAF SAYI şıkları ("80.000", "40 TL/kg", "%20"); kayıt şıkları ("654 KARŞILIK GİDERLERİ hesabı ...") hesap koduyla sıralanmaz (06.09 kalıp-5 dersi)
+  foreach($h in $harf){ $s="$($cvp.siklar.$h)".Trim(); $m=[regex]::Match($s,'^%?\s*(-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?)\s*(₺|TL|%|adet|kg|saat|gün|yıl|ton|birim|TL/kg|TL/adet|TL/saat|TL/ton)?\s*$'); if(-not $m.Success){ return $false }; try{ $deg[$h]=[double]::Parse($m.Groups[1].Value,$trS) }catch{ return $false } }
   if(@($harf | Where-Object { "$($cvp.siklar.$_)" -match '(?i)\b(olumlu|olumsuz|eksik|fazla)\b' }).Count -ge 4){ return $false }
   $sira=@($harf | Sort-Object { $deg[$_] }); if(($sira -join '') -eq ($harf -join '')){ return $false }
   $yeniS=[ordered]@{}; $yeniA=[ordered]@{}; $yeniDogru=''

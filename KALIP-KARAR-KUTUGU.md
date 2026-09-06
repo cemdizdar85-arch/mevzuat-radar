@@ -41,6 +41,9 @@
 | Ö20 | Kâğıt çizim sekmesi el yazısı tanıma | 06.09 | ❌ şimdilik | — |
 | Ö21 | Elle dersler (Türkçe/Mat/YD/Atatürk) için kalıp | 05.09 | ⏳ Cem günü | — |
 | Ö22 | Kalıbı bir hafta dondur, kural değişikliği haftalık | 06.09 | ⏳ Cem | 0 |
+| Ö23 | Simülasyon öğrenci-modeli: Haiku 0/2, Sonnet 2/2 (Maliyet pilotları) → ölçünün modeli Sonnet (≈0,05/soru) | 06.09 | ⏳ Cem | ≈0,05/soru |
+| Ö24 | Teori sorularında simülasyon yok (ikiz yok) → teori ikizi: "aynı kuralın başka olayı" 5 şıklı mini soru | 06.09 | ⏳ GM | ≈0,03/soru |
+| Ö25 | Denetim'de Kaynağı göster gizli çıktı (BDS metni listeye girmedi) → kaynak paketi ölçülmeli | 06.09 | ⏳ GM | 0 |
 
 ## Kalıcı kurallar (şartnamede)
 Kilit 05.09 · zor ayarı · verilenler bloğu · kâğıt · tahmin kapısı · konu girişi · tek hata adımı · sınav dili (kısaltma yok, şıkta birim yok) · şık sıralama · ders p75 tavanı.
