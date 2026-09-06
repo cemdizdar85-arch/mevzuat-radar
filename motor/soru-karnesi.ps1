@@ -79,7 +79,7 @@ function HesapKodKusur($c){
   if($c.sema){ $kyt=@(); if($c.sema.PSObject.Properties['kayitlar']){ $kyt=@($c.sema.kayitlar) } elseif($c.sema.PSObject.Properties['ogeler']){ $kyt=@($c.sema) }
     foreach($ky in $kyt){ if($ky -and $ky.ogeler){ foreach($og in @($ky.ogeler.borc)+@($ky.ogeler.alacak)){ if($og){ $metinler.Add("$($og.hesap)") } } } } }
   $kusur=New-Object System.Collections.Generic.List[string]; $gor=@{}
-  foreach($t in $metinler){ foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})([1-7]\d{2})(?![\d.,])\s+([^\d]{3,90})')){ $kod=$m.Groups[1].Value; if(-not $d.ContainsKey($kod)){ continue }
+  foreach($t in $metinler){ foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})([1-7]\d{2})(?![\d.,])(?!\s*(?:TL|₺|lira|adet|kg|ton|gün|yıl|ay|saat|birim|kişi|%|puan|metre|litre))\s+([^\d]{3,90})')){ $kod=$m.Groups[1].Value; if(-not $d.ContainsKey($kod)){ continue }
       $yazHam=$m.Groups[2].Value.Trim(); $yaz=Katla $yazHam; $res=Katla $d[$kod]; $resK=@(($res -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|veya|ile|hesabi|hs)$' }); if(-not $resK.Count){ continue }
       $eksik=@($resK | Where-Object { $w=$_; $on=$(if($w.Length -gt 5){ $w.Substring(0,5) } else { $w }); $yaz -notmatch ('\b'+[regex]::Escape($on)) })
       $an="$kod|$yaz"; if($gor[$an]){ continue }; $gor[$an]=1

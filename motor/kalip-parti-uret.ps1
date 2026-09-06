@@ -153,7 +153,7 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     foreach($x in @($r)){
       # 06.09 KAPI-K kaynak süzgeci: pencere sözlüğü varsa, adı pencere dışı kök taşıyan TEORİ NOTU kaynak paketine girmez
       # ("Teori Notu - kusurlu ve bozuk mamul maliyetleri" → 'kusur' son 7 dönem Maliyet sorularında yok). Kanun/standart/THP kaynağı süzülmez.
-      if($script:PENCERE_KOK -and $script:PENCERE_KOK.Count -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
+      if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
         $adKisim=("$($x.kaynak_ad)" -replace '^(TEORI|Teori Notu)\s*-\s*',''); $disi=@(PencereKavram $adKisim -YalnizDar)
         if($disi.Count){ Write-Host "  PENCERE DIŞI KAYNAK atlandı: $($x.kaynak_ad) (kök: $($disi -join ', '))" -ForegroundColor DarkGray; continue }
       }
@@ -622,13 +622,13 @@ foreach($a in $adaylar){
 # SON N dönemin etiket dosyasından (veri/<sinav>-analiz.json, donemler[].konuSayim) "kaç dönemde geçti" sayılır. Etiketler ince ve
 # tutarsız ("safha maliyet esdeger birim" / "safha maliyeti esdeger birim") → eşleşme kök-önekiyle (5 harf) + küçük eş anlam haritası.
 # Ölçüm 06.09: birebir etiket eşleşmesiyle 'evre maliyet sistemi' son 7 dönemde 0 görünüyordu, oysa her dönem soruluyor.
-$CAPA=@{}; $SON_DONEM_SAYI=@{}
+$CAPA=@{}; $SON_DONEM_SAYI=@{}; $CAPA_TIP=@{}   # 06.09 fmuh-k10 dersi: çapa teori sorusuyken model hesap sorusu yazdı → çapanın tipi soru tipini belirler
 # 06.09 KAPI-K (Cem "anormal düzeltme maliyeti anlamlı gelmedi"): pencerenin gerçek kitapçıklarından KÖK SÖZLÜĞÜ (5 harf önek, ≥5 harfli kelimeler).
 # Ölçüm: 2023/3'ün 8 Maliyet sorusu bu sözlüğe göre 0-2 eksik kök veriyor (imalat, tonluk gibi); K10 ile basılan soru "anorm" + "alisl" verdi ve
 # kaynak paketine "Teori Notu - kusurlu ve bozuk mamul" girmişti. Sözlük iki yerde kullanılır: (1) AmbarCek teori notu süzgeci, (2) FAZ A gövde kapısı.
 $script:PENCERE_KOK=$null
 function PencereKavram([string]$metin,[switch]$YalnizDar){
-  if(-not $script:PENCERE_KOK -or -not $script:PENCERE_KOK.Count){ return @() }
+  if(-not $script:PENCERE_KOK -or -not $script:PENCERE_KOK.Keys.Count){ return @() }
   $sayim=@{}; $kelime=@{}
   foreach($w in ((Katla2 $metin) -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -lt 6){ continue }; $on=$w.Substring(0,5); if(-not $sayim.ContainsKey($on)){ $sayim[$on]=0; $kelime[$on]=$w }; $sayim[$on]++ }
   $eksik=@{}
@@ -671,7 +671,7 @@ if($DonemPencere -gt 0){
         $uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.'+[uri]::EscapeDataString("CIKMIS SINAV - SGS $($dn.donem) (%ingilizce)")+'&limit=1'
         try{ $rB=$null; (ConvertFrom-Json (Invoke-WebRequest -Uri $uB -Headers $SB -UseBasicParsing -TimeoutSec 120).Content) | ForEach-Object { if(-not $rB){ $rB=$_ } } }catch{ $rB=$null }
         if(-not $rB){ continue }
-        foreach($p in [regex]::Split("$($rB.metin)",'(?=SORU \d+:)')){ if($p -match '^SORU (\d+):'){ $no=[int]$Matches[1]; $govde=$p; $kes=$govde.IndexOf('TÜRMOB'); if($kes -gt 0){ $govde=$govde.Substring(0,$kes) }; $govde=$govde -replace '\s+',' '; $govde=$govde -replace '\s+\d+\s+İzleyen sayfaya geçiniz\.?\s*[A-E]?\s*$',''; $bloklar.Add([pscustomobject]@{ donem="$($dn.donem)"; no=$no; metin=$govde.Trim() }) } }
+        foreach($p in [regex]::Split("$($rB.metin)",'(?=SORU \d+:)')){ if($p -match '^SORU (\d+):'){ $no=[int]$Matches[1]; $govde=$p; $kes=$govde.IndexOf('TÜRMOB'); if($kes -gt 0){ $govde=$govde.Substring(0,$kes) }; $govde=$govde -replace '\s+',' '; $govde=$govde -replace '\s+\d+\s+(İzleyen|Diğer) sayfaya geçiniz\.?.*$','' -replace '\s+STAJA GİRİŞ SINAVI.*$','' -replace '\s+\d+\s+(İzleyen|Diğer) sayfaya geçiniz\.?\s*[A-E]?\s*$',''; $bloklar.Add([pscustomobject]@{ donem="$($dn.donem)"; no=$no; metin=$govde.Trim() }) } }
       }
       "  çapa havuzu: $($bloklar.Count) çıkmış soru bloğu ($($sonD.Count) kitapçık)"
       # KAPI-K kök sözlüğü: ders aralığı biliniyorsa (Maliyet 57–64) yalnız o aralık (dar ama dersin gerçek dili), yoksa bütün kitapçık
@@ -680,7 +680,7 @@ if($DonemPencere -gt 0){
       # Kural: GENİŞ'te olmayan her kök kusur; DAR'da olmayan kök yalnız gövdede ≥2 kez geçiyorsa kusur. Kaynak süzgeci DAR ile.
       $script:PENCERE_KOK=@{}; $script:PENCERE_KOK_DAR=$(if($aralik){ @{} } else { $null })
       foreach($bl in $bloklar){ $darMi=($aralik -and $bl.no -ge $aralik[0] -and $bl.no -le $aralik[1]); foreach($w in ((Katla2 $bl.metin) -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -ge 5){ $on=$w.Substring(0,5); $script:PENCERE_KOK[$on]=1; if($darMi){ $script:PENCERE_KOK_DAR[$on]=1 } } } }
-      "  kök sözlüğü: geniş $($script:PENCERE_KOK.Count) · dar $(if($script:PENCERE_KOK_DAR){ "$($script:PENCERE_KOK_DAR.Count) (soru $($aralik[0])-$($aralik[1]))" } else { 'yok' })"
+      "  kök sözlüğü: geniş $($script:PENCERE_KOK.Keys.Count) · dar $(if($script:PENCERE_KOK_DAR){ "$($script:PENCERE_KOK_DAR.Keys.Count) (soru $($aralik[0])-$($aralik[1]))" } else { 'yok' })"
       foreach($kk in $KONULAR){
         $kokler=@(KokOnek "$($kk.kayit.konu)"); $enIyi=$null; $enPuan=0
         # 06.09 ilk koşu ölçümü: "satılan mamul maliyeti" için kök isabeti 3/3 ile 2026/2 Soru 60 (standart maliyet sapması) seçildi — kökler tek tek
@@ -691,7 +691,11 @@ if($DonemPencere -gt 0){
           if($konuKat.Length -ge 6 -and $gk -match [regex]::Escape($konuKat)){ $puan+=3 }
           foreach($ik in $ikili){ if($gk -match [regex]::Escape($ik)){ $puan+=2 } }
           if($puan -gt $enPuan -or ($puan -eq $enPuan -and $enIyi -and $bl.metin.Length -gt $enIyi.metin.Length)){ $enPuan=$puan; $enIyi=$bl } }
-        if($enIyi -and $enPuan -ge [Math]::Min(2,$kokler.Count)){ $CAPA[$kk.id]=($enIyi.metin -replace '^SORU \d+:\s*',''); $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SGS $($enIyi.donem) Soru $($enIyi.no)" -Force; "  çapa: $($kk.id) <- SGS $($enIyi.donem) Soru $($enIyi.no) ($($CAPA[$kk.id].Length) kr, kök isabeti $enPuan/$($kokler.Count))" }
+        if($enIyi -and $enPuan -ge [Math]::Min(2,$kokler.Count)){ $CAPA[$kk.id]=($enIyi.metin -replace '^SORU \d+:\s*','')
+          # çapanın tipi: gövdede "kaç" ya da ≥3 tutar → hesaplama; yevmiye satırı (3 haneli kod + HS/hesabı) → kayıt; yoksa teori. Soru bu tiple istenir.
+          $cg=$CAPA[$kk.id]; $sayiN=@([regex]::Matches($cg,'\d{1,3}(?:\.\d{3})+|\b\d{2,}\b')).Count
+          $CAPA_TIP[$kk.id]=$(if($cg -match '(?i)\bkaç\b' -or $sayiN -ge 3){ 'hesaplama' } elseif($cg -match '(?i)\b[1-7]\d{2}\s+[A-ZÇĞİÖŞÜ][^\n]{2,40}(HS\.?|hesabı)'){ 'kayit' } else { 'teori' })
+          $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SGS $($enIyi.donem) Soru $($enIyi.no)" -Force; "  çapa: $($kk.id) <- SGS $($enIyi.donem) Soru $($enIyi.no) ($($CAPA[$kk.id].Length) kr, kök isabeti $enPuan/$($kokler.Count), tip $($CAPA_TIP[$kk.id]))" }
         else { "  çapa: $($kk.id) pencerede eşleşen çıkmış soru YOK (kök isabeti $enPuan) - sabit çapa kullanılır" }
       }
     }
@@ -788,7 +792,8 @@ function HesapKodKapisi($aday){
   $kusur=New-Object System.Collections.Generic.List[string]; $gorulen=@{}
   foreach($t in $metinler){
     # standart/madde numaraları hesap kodu değildir ("BDS 260", "TMS 240", "m. 523") — 06.09 karne ölçümünde 3 sahte alarm
-    foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})([1-7]\d{2})(?![\d.,])\s+([^\d]{3,90})')){
+    # "400 TL olumlu sapma" bir tutardır, hesap kodu değil (06.09 fmuh-k10 sahte alarmı): birim/para sözcüğü izleyen sayı atlanır
+    foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})([1-7]\d{2})(?![\d.,])(?!\s*(?:TL|₺|lira|adet|kg|ton|gün|yıl|ay|saat|birim|kişi|%|puan|metre|litre))\s+([^\d]{3,90})')){
       $kod=$m.Groups[1].Value; if(-not $d.ContainsKey($kod)){ continue }
       $yazHam=$m.Groups[2].Value.Trim(); $yaz=Katla2 $yazHam; $res=Katla2 $d[$kod]
       $resK=@(($res -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|veya|ile|hesabi|hs)$' }); if(-not $resK.Count){ continue }
@@ -1233,6 +1238,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
   $ist=$soruIstem.Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
+    if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
     if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }
   ))+$ekNot
   # UZUNLUK KAPISI (02.09): asan soru KABUL EDILMEZ - 2 kez kisaltma istenir.
@@ -1298,7 +1304,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     }
     $cvp | Add-Member -NotePropertyName konu -NotePropertyValue "$($ky.konu)" -Force
     $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @(HesapKodKapisi $cvp) -Force   # KAPI-H sonucu (boş = eşleşti) → karne
-    if($script:PENCERE_KOK -and $script:PENCERE_KOK.Count){ $cvp | Add-Member -NotePropertyName pencere_kavram -NotePropertyValue @(PencereKavram "$($cvp.soru)") -Force }   # KAPI-K sonucu (boş = sınav dili) → karne
+    if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count){ $cvp | Add-Member -NotePropertyName pencere_kavram -NotePropertyValue @(PencereKavram "$($cvp.soru)") -Force }   # KAPI-K sonucu (boş = sınav dili) → karne
     if($ky.PSObject.Properties['son_donem']){ $cvp | Add-Member -NotePropertyName son_donem -NotePropertyValue ([int]$ky.son_donem) -Force; $cvp | Add-Member -NotePropertyName pencere -NotePropertyValue $DonemPencere -Force }
     if($ky.PSObject.Properties['capa_kaynak']){ $cvp | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($ky.capa_kaynak)" -Force }
     $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force
