@@ -44,6 +44,10 @@
 | Ö23 | Simülasyon öğrenci-modeli: Haiku 0/2, Sonnet 2/2 (Maliyet pilotları) → ölçünün modeli Sonnet (≈0,05/soru) | 06.09 | ⏳ Cem | ≈0,05/soru |
 | Ö24 | Teori sorularında simülasyon yok (ikiz yok) → teori ikizi: "aynı kuralın başka olayı" 5 şıklı mini soru | 06.09 | ⏳ GM | ≈0,03/soru |
 | Ö25 | Denetim'de Kaynağı göster gizli çıktı (BDS metni listeye girmedi) → kaynak paketi ölçülmeli | 06.09 | ⏳ GM | 0 |
+| Ö26 | Teori kalıbı ayrıldı: "Ne soruluyor" = soru kökü (cevap sızmaz) · kural KARTI (formül tahtası yok) · "kuralı sen söyle" (sayı tahmini yok) — Cem'in 4 gözlemi | 06.09 | ✅ | 0 |
+| Ö27 | Konu girişine somut örnek (hesapsız; Haiku aritmetiği güvenilmez, kapı: "=" / eksi / artı yasak). Maliyet'te örnek hâlâ sorunun rakamlarını tekrarlıyor → Sonnet'e geçiş kararı | 06.09 | ✅ / ⚠ Cem | ≈0,005 → 0,02 |
+| Ö28 | Şık eleme ✕ (Becker/Gleim sınav arayüzü) + soru süresi ⏱ (tutor/timed farkı için ilk adım) | 06.09 rakip | ✅ | 0 |
+| R1-R7 | Rakip karşılaştırmasından sıradakiler: akran yüzdesi · kartıma ekle · vurgulama · "anlamadım" (Net Cevap) · timed mode · konu bazlı performans · illüstrasyon → `RAKIP-KALIP-KARSILASTIRMA.md` | 06.09 | ⏳ Cem | dosyada |
 
 ## Kalıcı kurallar (şartnamede)
 Kilit 05.09 · zor ayarı · verilenler bloğu · kâğıt · tahmin kapısı · konu girişi · tek hata adımı · sınav dili (kısaltma yok, şıkta birim yok) · şık sıralama · ders p75 tavanı.

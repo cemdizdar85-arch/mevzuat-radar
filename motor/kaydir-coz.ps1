@@ -174,7 +174,9 @@ foreach($x in $sec){
   $tablo=$null; if($v.cozum_tablo -and $v.cozum_tablo.satirlar){ $tablo=@{ basliklar=@($v.cozum_tablo.basliklar | ForEach-Object { TurkceOnar "$_" }); satirlar=@(@($v.cozum_tablo.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { TurkceOnar "$_" }) }) } }
   elseif(-not $kayit.Count -and $adimlar.Count){
     # teori sorusu: ureticinin KAVRAM TABLOSU (Ne soruluyor / Kural / Bu olayda / Dogru sik) — adimlarin doldur hedefi
-    $satT=@(); $neT=[regex]::Match($acD,'(?s)Ne soruluyor:\s*(.*?)(?=Kural:|Hesap:|Bu olayda:|Doğrusu:|Dogrusu:|$)'); if($neT.Success -and $neT.Groups[1].Value.Trim()){ $satT+=,@('Ne soruluyor',(TurkceOnar $neT.Groups[1].Value.Trim())) }
+    # 06.09 Cem (kalıp-6): üreticinin "Ne soruluyor" cümlesi ayırt edici olguyu yazıp cevabı ele veriyordu ("az gösterilmesi riski…")
+    # → satır artık sorunun KENDİ KÖKÜ (soru işaretiyle biten son cümle); kök cevabı ele veremez.
+    $satT=@(); $kokM=[regex]::Match("$($v.soru)",'([^.?!]{8,}\?)\s*$'); $neSor=$(if($kokM.Success){ $kokM.Groups[1].Value.Trim() } else { $neT=[regex]::Match($acD,'(?s)Ne soruluyor:\s*(.*?)(?=Kural:|Hesap:|Bu olayda:|Doğrusu:|Dogrusu:|$)'); if($neT.Success){ $neT.Groups[1].Value.Trim() } else { '' } }); if($neSor){ $satT+=,@('Ne soruluyor',(TurkceOnar $neSor)) }
     if($kural){ $satT+=,@('Kural',$kural) }; if($olay){ $satT+=,@('Bu olayda',$olay) }; $satT+=,@('Doğru şık',"$d) $($siklar[$d])")
     if($satT.Count -ge 2){ $tablo=@{ basliklar=@('Adım','İçerik'); satirlar=$satT } }
   }
@@ -222,7 +224,7 @@ foreach($x in $sec){
     $oyun=@{ tur='tablo'; soru=(TurkceOnar "$($v.ikiz.ikiz_soru)"); hedef=(TurkceOnar "$($v.ikiz.hedef_cumle)"); tablo=$itb; verilen=(& $cift $v.ikiz.verilen); bosluk=(& $cift $v.ikiz.bosluk); not='İkiz soru: aynı yöntem, yeni rakamlar. Boş hücreleri sen doldur.' }
   }
   # 06.09 (Cem "geç"): konu girişi kartı (FAZ G) - Nöbetçi'nin 0. adımı
-  $konuGiris=$null; if($v.PSObject.Properties['konu_giris'] -and $v.konu_giris -and $v.konu_giris.nedir){ $konuGiris=@{ nedir=(TurkceOnar "$($v.konu_giris.nedir)"); sinavda=(TurkceOnar "$($v.konu_giris.sinavda)"); yontemler=(TurkceOnar "$($v.konu_giris.yontemler)") } }
+  $konuGiris=$null; if($v.PSObject.Properties['konu_giris'] -and $v.konu_giris -and $v.konu_giris.nedir){ $konuGiris=@{ nedir=(TurkceOnar "$($v.konu_giris.nedir)"); sinavda=(TurkceOnar "$($v.konu_giris.sinavda)"); yontemler=(TurkceOnar "$($v.konu_giris.yontemler)"); ornek=$(if($v.konu_giris.PSObject.Properties['ornek']){ TurkceOnar "$($v.konu_giris.ornek)" } else { '' }) } }
   if($adimlar.Count -and "$($adimlar[0].formul)" -match '^(Verilen|Soruda ne var|Soru bize)'){ $adimlar[0].verilenAdim=$true }
   $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
   "  $($x.et) $($x.id) · $($v.konu) · $($x.donem) donem · kayit satiri $($kayit.Count)"
@@ -522,7 +524,12 @@ $html=@'
 /* 06.09 tahmin kapısı + konu girişi */
 .tahminSor{background:var(--kart);border:1px dashed var(--altin);border-radius:12px;padding:14px 16px;margin:10px 0}.tahminSor p{margin:6px 0 10px;line-height:1.5}.tahminGir{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tahminI{font:inherit;font-size:1.1em;padding:9px 12px;border:1px solid var(--cizgi);border-radius:10px;background:var(--bg);color:var(--yazi);width:160px}.tahminNot{font-size:.78em;color:var(--dim);margin-top:8px}
 .tahminSonuc{border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:.95em}.tahminSonuc.ok{background:color-mix(in srgb,var(--yesil) 14%,transparent);color:var(--yesil)}.tahminSonuc.hata{background:color-mix(in srgb,var(--kirmizi) 14%,transparent);color:var(--kirmizi)}.tahminSonuc b{color:var(--yazi)}
-.girisK{padding:4px 0}.girisK .et{margin-top:10px}.girisK p{margin:4px 0 0;line-height:1.55;font-size:1.02em}
+.girisK{padding:4px 0}.girisK .et{margin-top:10px}.girisK p{margin:4px 0 0;line-height:1.55;font-size:1.02em}.girisK .girisOrnek{border-left:3px solid var(--altin);padding-left:10px;color:var(--yazi)}
+.kuralKart{background:var(--kart);border:1px solid var(--cizgi);border-left:4px solid var(--altin);border-radius:12px;padding:12px 16px;margin:6px 0 10px}.kuralKart p{margin:4px 0 0;font-size:1.12em;line-height:1.55;font-weight:600}
+.tahminT{width:100%;font:inherit;font-size:1em;padding:9px 12px;border:1px solid var(--cizgi);border-radius:10px;background:var(--bg);color:var(--yazi);resize:vertical}
+/* 06.09 rakip dersi (UWorld/Becker: şık eleme): şıkkın sağındaki ✕ şıkkı çizer, seçmez; sınavda kâğıtta yapılanın karşılığı */
+.sik{position:relative;padding-right:40px}.sikCiz{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:.85em;padding:4px 6px;border-radius:8px;opacity:.55}.sik:hover .sikCiz{opacity:1}.sik.cizili{opacity:.45}.sik.cizili .sikMetin{text-decoration:line-through}.sik.cizili .sikCiz{color:var(--kirmizi);opacity:1}
+.sureCip{font-size:.8em;color:var(--dim);margin-left:8px}
 /* 06.09 VERİLENLER → HESAP → SONUÇ blokları */
 .tt tr.blok th{text-align:left;font-size:.72em;letter-spacing:.08em;color:var(--dim);background:var(--bg);padding:7px 8px;cursor:pointer;user-select:none}.tt tr.blok .blokSay{color:var(--altin)}.tt tr.blok .blokAcKapa{float:right;color:var(--mavi)}
 .tt tr.vblok.katli{display:none}.tabloSar.acikBlok tr.vblok.katli{display:table-row}
@@ -593,7 +600,7 @@ SORULAR.forEach((s,i)=>{
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
   k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div>'
    +'<div class="govde"><span class="rozet">📌 '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde çıktı</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
-   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b>'+esc(s.siklar[h])+'</button>').join('')+'</div></div>'
+   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitTus"><button data-t="+">+</button><button data-t="−">−</button><button data-t="×">×</button><button data-t="/">/</button><button data-t="=">=</button><button data-t="%">%</button><button data-t="(">(</button><button data-t=")">)</button><button data-t=".">.</button><button data-t=",">,</button><button data-t="&#10;" class="kagitSatirTus">↵ satır</button></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" inputmode="decimal" placeholder="150.000 − 8.000 = …&#10;142.000 × 120.000 / 200.000 = …"></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'
    +'<button class="kagitAc" title="Hesap kâğıdı">✏️ Kâğıt</button>'
@@ -609,8 +616,14 @@ SORULAR.forEach((s,i)=>{
    +'<div class="oyun"><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Tutarı <b>sola</b> sürükle = BORÇ, <b>sağa</b> sürükle = ALACAK. Hepsini yerleştirince denklik kendiliğinden ölçülür.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
   akis.appendChild(k);
   const panel=k.querySelector('.panel'); const geri=k.querySelector('.geri');
+  // 06.09 rakip dersi: şık eleme (✕) — seçmeden çizer; sınavda kâğıtta yapılan eleme burada da yapılır, cevap anında kayda geçer
+  k.querySelectorAll('.sikCiz').forEach(x=>x.addEventListener('click',e=>{ e.stopPropagation(); if(durum.cevap[i]!==undefined) return; x.closest('.sik').classList.toggle('cizili'); }));
+  // 06.09 rakip dersi: soru süresi — kart görünür olunca başlar, cevapta durur; cevap satırında gösterilir, kasaya gider
+  if(!durum.t0) durum.t0={}; if(!durum.sn) durum.sn={};
   k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>{
     if(durum.cevap[i]!==undefined) return; const h=b.dataset.h; durum.cevap[i]=h;
+    if(durum.t0[i]){ durum.sn[i]=Math.round((Date.now()-durum.t0[i])/1000); }
+    const elenen=[...k.querySelectorAll('.sik.cizili')].map(x=>x.dataset.h);
     k.querySelectorAll('.sik').forEach(x=>{ x.disabled=true; if(x.dataset.h===s.dogru) x.classList.add('dogru'); });
     const dogruMu=(h===s.dogru); const t=s.tuzak[h]||{};
     // TELEFONDA TEK EKRAN (Cem 03.09): panelde uc satir - tuzak (tek cumle) / dogru hesap tek satir / hap; gerisi ciplerde
@@ -620,8 +633,9 @@ SORULAR.forEach((s,i)=>{
     const hs0=s.hesaplar||{}; const dogruAd=dogruK0.filter(x=>hs0[x]).map(x=>x+' '+hs0[x].ad).join(', ');
     // 04.09 FAZ S (Cem "herkesin anlayacağı dil"): sade katman varsa tuzak ve Doğrusu sade cümleyle; sınav dili tıklayınca açılır
     const sd=s.sade||null; const sdSik=sd&&sd.siklar?sd.siklar[h]:'';
-    if(dogruMu){ durum.dogru++; geri.className='geri ok'; geri.innerHTML='✅ <b>Doğru.</b> '+esc(sd&&sd.dogru?sd.dogru:ilkCumle(s.kural)); }
-    else { b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML='❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin)); }
+    const sureH=(durum.sn[i]!==undefined)?'<span class="sureCip">⏱ '+(durum.sn[i]>=60?Math.floor(durum.sn[i]/60)+' dk '+(durum.sn[i]%60)+' sn':durum.sn[i]+' sn')+(elenen.length?' · elediğin: '+elenen.join(', '):'')+'</span>':'';
+    if(dogruMu){ durum.dogru++; geri.className='geri ok'; geri.innerHTML='✅ <b>Doğru.</b> '+esc(sd&&sd.dogru?sd.dogru:ilkCumle(s.kural))+sureH; }
+    else { b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML='❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin))+sureH; }
     // dogruda tekrar satiri yok (sik zaten yesil); yanlista tek satir "Dogrusu"
     const nedenKisa=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; const oz=k.querySelector('.ozet'); if(dogruMu){ oz.style.display='none'; } else { oz.innerHTML='✅ <b>Doğrusu '+s.dogru+':</b> '+esc(sd&&sd.dogru?sd.dogru:(nedenKisa?nedenKisa.trim():(dogruAd?dogruAd:String(s.siklar[s.dogru])))); }
     if(sd&&sd.sinav){ const sdEl=dogruMu?geri:oz; sdEl.innerHTML+=' <button class="sinavDil">sınav dili</button><div class="sinavDilM" hidden>📝 '+esc(sd.sinav)+'</div>'; sdEl.querySelector('.sinavDil').addEventListener('click',e=>{ const m=sdEl.querySelector('.sinavDilM'); m.hidden=!m.hidden; e.target.textContent=m.hidden?'sınav dili':'gizle'; }); }
@@ -899,8 +913,24 @@ SORULAR.forEach((s,i)=>{
     function adimGoster(j,yon){
       let a=s.adimlar[j]; if(!a) return; adimNo=j; ders.dataset.adim=j;
       const son=(j===s.adimlar.length-1);
-      // 06.09 TAHMİN KAPISI: hesap adımından önce öğrenciye sor
-      if(tahminGerek(a,j,son)){ const hd=hedefDegeri(a); if(hd&&/\d/.test(hd.deger)){
+      const verilenAdimMi=!!a.verilenAdim||/^(Verilen|Soruda ne var|Soru bize)/i.test(String(a.formul||''));   // 06.09: en başta tanımlı (TDZ hatası yaşandı)
+      // 06.09 TAHMİN KAPISI: hesap adımından önce öğrenciye sor. Teori sorusunda (kavram tablosu) sayı yok → "kuralı sen söyle" (serbest metin,
+      // notlanmaz, üretme etkisi için); sayı sorusunda hedef hücre gerçekten sayıysa "kaç çıkar?"
+      const teoriMi=!!(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım');
+      if(tahminGerek(a,j,son)&&teoriMi&&!/^(Doğru şık|Sonuç)/i.test(adimBaslik(a))){
+        const nT=s.adimlar.length, sonrakiAd=adimBaslik(a);
+        serit.innerHTML='<div class="adimK tahminK"><div class="say"><span>ADIM '+(j+1)+' / '+nT+'</span><span class="baslik">'+esc(sonrakiAd)+'</span></div>'
+          +'<div class="tahminSor"><div class="et">Önce sen söyle</div><p>Bu adımda <b>'+esc(sonrakiAd)+'</b> gelecek. Sence kural ne diyor? Tek cümle yaz, sonra Nöbetçi\'ninkiyle karşılaştır.</p>'
+          +'<div class="tahminGir"><textarea class="tahminT" rows="2" placeholder="örn. kanıt, test edilen iddiaya yönelik olmalı"></textarea></div><div class="tahminGir"><button class="btn mavi bTahmin">Karşılaştır</button><button class="btn bTahminAtla">Bilmiyorum, göster</button></div><div class="tahminNot">Yazdığın notlanmaz; kendi cümlenle Nöbetçi\'ninki yan yana gelir.</div></div>'
+          +'<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':''))+'" title="'+esc(adimBaslik(x))+'">'+(q+1)+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(sonrakiAd)+'</span></div></div></div>';
+        const ta=serit.querySelector('.tahminT'); setTimeout(()=>ta.focus(),120);
+        serit.querySelector('.bTahmin').addEventListener('click',()=>{ tahmin[j]={teori:true,metin:ta.value.trim()}; adimGoster(j,1); });
+        serit.querySelector('.bTahminAtla').addEventListener('click',()=>{ tahmin[j]={atla:true}; adimGoster(j,1); });
+        serit.querySelectorAll('.yc').forEach((el,q)=>el.addEventListener('click',()=>adimGit(q-adimNo)));
+        adimBar.querySelectorAll('i').forEach(n=>{ const q=parseInt(n.dataset.j); n.classList.toggle('simdi',q===j); n.classList.toggle('gecti',q<j); });
+        bOnce.disabled=(j===0); bSonra.disabled=false; bSonra.textContent='İleri ▶';
+        return; }
+      if(tahminGerek(a,j,son)&&!teoriMi){ const hd=hedefDegeri(a); const sayiMi=hd&&/\d/.test(hd.deger)&&String(hd.deger).trim().length<=24&&normK(hd.deger).replace(/\D/g,'').length>=2; if(sayiMi){
         const nT=s.adimlar.length; const sonrakiAd=adimBaslik(a);
         serit.innerHTML='<div class="adimK tahminK"><div class="say"><span>ADIM '+(j+1)+' / '+nT+'</span><span class="baslik">'+esc(sonrakiAd)+'</span></div>'
           +'<div class="tahminSor"><div class="et">Önce sen dene</div><p>Bu adımda <b>'+esc(hd.ad)+'</b> bulunacak. Sence kaç çıkar? Elindeki verilenlerle hesapla, kâğıdı kullan.</p>'
@@ -962,18 +992,21 @@ SORULAR.forEach((s,i)=>{
         const adMi=!/\d/.test(seg[0])&&!/[+\/×→]|->/.test(seg[0]); const ad=adMi?seg[0]:''; const orta=adMi?seg.slice(1,-1):seg.slice(0,-1); const son=seg[seg.length-1]; const sonT=terim(son);
         return '<div class="mat">'+(ad?'<div class="matAd">'+esc(ad)+'</div>':'')+'<div class="matSatir">'+(orta.length?orta.map(ifade).join('<span class="esit">=</span>')+'<span class="esit">=</span>':'')+'<span class="matSonuc">'+renkli(sonT.deg)+(sonT.not?' <i class="notI">'+esc(sonT.not)+'</i>':'')+'</span></div></div>'; });
       fH=bloklar.join('');
+      // 06.09 Cem (kalıp-6, "anlamadım"): TEORİ adımında formül tahtası yok — kural KART olarak düz cümleyle çizilir; etiketler
+      // ("(soruda verilen kural)", "(3. adımda bulduk)") ve ok işaretleri sökülür.
+      const teoriAdimMi=!!(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım')&&!verilenAdimMi&&!a.giris;
+      if(teoriAdimMi){ let kt=String(a.formul||'').replace(/\s*\((soruda verilen[^)]*|\d+\.\s*adımda bulduk|bizim bildiğimiz kural|bizim bilgimiz)\)/gi,'').replace(/\s*(->|→)\s*/g,' → ').replace(/\s{2,}/g,' ').trim(); const kp=kt.split(/\s=\s/); const ktAd=kp.length>1?kp[0]:''; const ktGovde=kp.length>1?kp.slice(1).join(' = '):kt; fH='<div class="kuralKart">'+(ktAd?'<div class="et">'+esc(ktAd)+'</div>':'')+'<p>'+esc(ktGovde)+'</p></div>'; }
       // 05.09 Cem "soru %20 vermiş, onu da belli etmeli": formülde 'soruda verilen' etiketli ama TABLODA OLMAYAN değerler
       // (oranlar, katsayılar) ayrı satırda gösterilir — aday bunların soru metninden geldiğini görür.
       const dısVer=[]; [...String(a.formul||'').matchAll(/([%\d.,]+(?:\s*(?:TL|kg|saat|adet))?)\s*\(soruda verilen\)/gi)].forEach(m=>{ const v=m[1].trim(); const n=norm(v.replace('%','')); if(v&&!hucreDeger[n]&&!dısVer.includes(v)) dısVer.push(v); });
-      if(j>0&&dısVer.length){ fH+='<div class="verilenSatir">Soruda verilen: '+dısVer.map(v=>'<span class="kSayi">'+esc(v)+'</span>').join(' · ')+'</div>'; }
+      if(j>0&&dısVer.length&&!teoriAdimMi){ fH+='<div class="verilenSatir">Soruda verilen: '+dısVer.map(v=>'<span class="kSayi">'+esc(v)+'</span>').join(' · ')+'</div>'; }
       // 05.09 Cem "soru bize şunları vermiş yerine direkt soruyu yazsak": ADIM 1 = SORUNUN KENDİ METNİ, verilen rakamlar
       // mavi işaretli (kâğıtta altını çizmenin karşılığı); anlatımda yalnız "Dikkat" cümlesi kalır, tekrar anlatım kalkar.
       let anlatimH=esc(a.anlatim);
       // 06.09 tahmin geri bildirimi: öğrencinin tahmini anlatımın başına
-      if(tahmin[j]&&!tahmin[j].atla){ anlatimH='<div class="tahminSonuc '+(tahmin[j].dogru?'ok':'hata')+'">'+(tahmin[j].dogru?('✔ Tahminin doğru: <b>'+esc(tahmin[j].cevap)+'</b>. Şimdi neden böyle olduğuna bak.'):('✖ Sen <b>'+esc(tahmin[j].cevap)+'</b> dedin, doğrusu <b>'+esc(tahmin[j].hedef)+'</b>. Nerede saptığını aşağıda gör.'))+'</div>'+anlatimH; }
+      if(tahmin[j]&&!tahmin[j].atla){ anlatimH=(tahmin[j].teori?('<div class="tahminSonuc '+(tahmin[j].metin?'ok':'hata')+'">'+(tahmin[j].metin?('✍️ Senin cümlen: <b>'+esc(tahmin[j].metin)+'</b>. Nöbetçi\'ninkiyle karşılaştır:'):'Bir cümle yazmadın; Nöbetçi\'ninkini oku, sonra kendi cümlenle tekrar et.')+'</div>'):('<div class="tahminSonuc '+(tahmin[j].dogru?'ok':'hata')+'">'+(tahmin[j].dogru?('✔ Tahminin doğru: <b>'+esc(tahmin[j].cevap)+'</b>. Şimdi neden böyle olduğuna bak.'):('✖ Sen <b>'+esc(tahmin[j].cevap)+'</b> dedin, doğrusu <b>'+esc(tahmin[j].hedef)+'</b>. Nerede saptığını aşağıda gör.'))+'</div>'))+anlatimH; }
       // 06.09 KONU GİRİŞİ kartı (0. adım)
-      if(a.giris&&s.konuGiris){ fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p><div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p>'+(s.konuGiris.yontemler?'<div class="et">Yöntemler, hangisi ne zaman?</div><p>'+esc(s.konuGiris.yontemler)+'</p>':'')+'</div>'; anlatimH=''; }
-      const verilenAdimMi=!!a.verilenAdim||/^(Verilen|Soruda ne var|Soru bize)/i.test(String(a.formul||''));
+      if(a.giris&&s.konuGiris){ fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+(s.konuGiris.ornek?'<div class="et">Somut örnek</div><p class="girisOrnek">'+esc(s.konuGiris.ornek)+'</p>':'')+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p>'+(s.konuGiris.yontemler?'<div class="et">Yöntemler, hangisi ne zaman?</div><p>'+esc(s.konuGiris.yontemler)+'</p>':'')+'</div>'; anlatimH=''; }
       if(verilenAdimMi&&!a.giris){
         const soruH=esc(s.soru).replace(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?:\s*(?:TL|₺|kg|adet|saat|gün|yıl|%))?(?![\d.,])/g,m=>'<span class="kSayi">'+m+'</span>');
         fH='<div class="soruIsaret"><div class="et">Soru, verilenler işaretli</div>'+soruH+'</div>';
@@ -1054,7 +1087,9 @@ const son=document.createElement('section'); son.className='kart son';
 son.innerHTML='<div class="ust"><span>Nöbet bitti</span>'+noktalar(-1)+'<span>&nbsp;</span></div><div class="govde son" style="display:flex;flex-direction:column;justify-content:center"><div id="sonSkor"></div></div>';
 akis.appendChild(son);
 document.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); skorCiz();
+if(!durum.t0) durum.t0={}; durum.t0[0]=Date.now();   // ilk kart: süre sayfa açılınca başlar
 akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clientHeight); document.querySelectorAll('.noktalar i').forEach(n=>n.classList.toggle('simdi',n.dataset.j==String(i)||(i>=SORULAR.length&&n.dataset.j==='son')));
+  if(i<SORULAR.length&&durum.cevap[i]===undefined&&!durum.t0[i]) durum.t0[i]=Date.now();   // 06.09: karta gelince süre başlar
   if(i>=SORULAR.length){ const c=Object.keys(durum.cevap).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+durum.dogru+' / '+SORULAR.length+'</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(SORULAR.length-durum.dogru)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+durum.dogru+'/'+SORULAR.length+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
 document.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){ akis.scrollBy({top:akis.clientHeight,behavior:'smooth'}); } if(e.key==='ArrowUp'||e.key==='PageUp'){ akis.scrollBy({top:-akis.clientHeight,behavior:'smooth'}); } });
 </script></body></html>

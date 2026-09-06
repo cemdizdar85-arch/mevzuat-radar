@@ -33,7 +33,8 @@ param(
   [string]$OrnekDosya='',  # 05.09: biçim çapası dosyadan (konunun GERÇEK çıkmış sorusu); yoksa sabit p90-SGS-01 örneği (Finansal) kullanılır
   [switch]$Verilenler,     # 06.09 Cem "1 yap": FAZ V - sorudaki her sayı ad+değer+anlam satırı (Haiku); builder VERİLENLER bloğunu çizer
   [switch]$VerilenYenile,  # 06.09: eldeki verilenler listesini de yeniden yazar
-  [switch]$KonuGiris,      # 06.09 Cem "geç": FAZ G - konu girişi kartı (nedir / sınavda nasıl sorulur / yöntemler), Haiku ≈0,005 USD
+  [switch]$KonuGiris,      # 06.09 Cem "geç": FAZ G - konu girişi kartı (nedir / sınavda nasıl sorulur / yöntemler / örnek), Haiku ≈0,005 USD
+  [switch]$GirisYenile,    # 06.09: eldeki girişi de yeniden yazar
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
   [string]$SimModel='claude-haiku-4-5-20251001'   # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
 )
@@ -723,6 +724,9 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 3. ACIKLAMA - her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK).
    TURKCE HARFLER TAM YAZILIR: "Doğrusu", "Tuzağı", "Kural", "Hesap" - ASCII yazim
    ("Dogrusu", "Tuzagi") KUSURDUR, sayfada oyle gorunur ve urunu ucuzlatir.
+   3a-0. "Ne soruluyor" cümlesi CEVABI İMA ETMEZ (06.09 kalıp-6 dersi: "ticari borçların az gösterilmesi riski…" yazınca doğru şık
+       belli oldu). "Hangisi yanlıştır/doğrudur/değildir" sorusunda "beş ifadeden hangisinin BDS 500'e aykırı olduğu soruluyor"
+       gibi GENEL yazılır; ayırt edici olgu (yön, tutar, hesap) "Kural" ve "Doğrusu" parçalarında kalır.
    3a. DOGRU SIK: "Ne soruluyor: <tek cumle> Kural: <dayanaktan cikan kural>
        Hesap: <sayi zinciri, hesapliysa> Doğrusu: <tek cumle sonuc>"
    3b. YANLIS SIKLAR: "Ne soruluyor" CUMLESINI TEKRARLAMA - ogrenci onu dogru sikta
@@ -1384,7 +1388,13 @@ Sen Tetikte'nin Nöbetçisisin. Aşağıdaki sınav sorusunun KONUSUNA, bu konuy
 1. nedir: konu nedir, ne işe yarar — 2 kısa cümle. Kısaltma yok, madde numarası yok.
 2. sinavda: bu konu sınavda tipik olarak nasıl sorulur (ne verilir, ne istenir) — 1 cümle. Çıkmış dönem sayısı ektedir, uydurma sayı yazma.
 3. yontemler: konuda birden çok yöntem/kural varsa adları ve hangisinin ne zaman kullanıldığı; tek yöntemse en kritik kural — en çok 2 cümle.
-Toplam 80 kelimeyi geçme. Yalnız kaynak metinleri ve soruya dayan. Türkçe harfler tam. Yalnız JSON: {"nedir":"...","sinavda":"...","yontemler":"..."}
+4. ornek: konuyu ilk kez duyan birinin "ha, bu demek" diyeceği TEK somut örnek, 1-2 cümle, sınavda çıkan olay tipiyle
+   ("Satıcılara borcun eksik gösterildiğinden şüpheleniyorsan kayıtlı borç listesine bakmak işe yaramaz; ödenmemiş faturalara ve
+   tedarikçi ekstrelerine bakarsın, çünkü eksik olan zaten deftere girmemiştir."). Soyut tanım değil, olay. HESAP YAPMA: rakamla
+   işlem, "=", "eksi", "artı", sonuç tutarı YAZMA (06.09: hesaplı örnekte 30.000 yazıldı, doğrusu 80.000 idi); olayı ve ne
+   yapılacağını SIRAYLA anlat ("önce yan ürünün net değeri düşülür, kalan ana ürünlere satış değeri oranında paylaştırılır").
+   Sorudaki olayın kendisini tekrar etme; daha basit, başka bir olay seç.
+Toplam 110 kelimeyi geçme. Yalnız kaynak metinleri ve soruya dayan. Türkçe harfler tam. Yalnız JSON: {"nedir":"...","sinavda":"...","yontemler":"...","ornek":"..."}
 KONU: {KONU} · çıkmış arşivde {DONEM} dönemde soruldu
 SORU: {SORU}
 === KAYNAK METİNLERİ === {KAYNAK}
@@ -1393,7 +1403,7 @@ foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $KonuGiris){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
   $cvp=$don[$id]; if(-not $cvp.soru){ continue }
-  if($cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir){ continue }
+  if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['ornek'] -and "$($cvp.konu_giris.ornek)".Trim()){ continue }   # 06.09: örneksiz eski giriş yenilenir; -GirisYenile hepsini
   $kMetinG=SadeKaynak $cvp; if($kMetinG.Length -gt 6000){ $kMetinG=$kMetinG.Substring(0,6000) }
   $istG=$girisIstem.Replace('{KONU}',"$($cvp.konu)").Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
   $gN=$null; $tokG=0; $tokC=0
@@ -1401,14 +1411,15 @@ foreach($id in @($don.Keys)){
     $yG=$null; foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istG -MaxTok 900; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
     $tokG+=[int]$yG.girdi; $tokC+=[int]$yG.cikti
     $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ $gN=$null; break }
-    $tumG="$($gN.nedir) $($gN.sinavda) $($gN.yontemler)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' }); if(@(($tumG -split '\s+') | Where-Object { $_ }).Count -gt 95){ $dusenG+='95 kelimeden uzun' }
+    $tumG="$($gN.nedir) $($gN.sinavda) $($gN.yontemler) $($gN.ornek)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' }); if(@(($tumG -split '\s+') | Where-Object { $_ }).Count -gt 130){ $dusenG+='130 kelimeden uzun' }; if(-not "$($gN.ornek)".Trim()){ $dusenG+='örnek yok' }
+    if("$($gN.ornek)" -match '=|×|\beksi\b|\bartı\b|\bçarpı\b|\bbölü\b|\d{1,3}(\.\d{3})+\s*TL.*\d{1,3}(\.\d{3})+\s*TL'){ $dusenG+='örnekte hesap var (yasak)' }   # Haiku aritmetiği güvenilmez
     if(-not $dusenG.Count){ break }
     if($tur -eq 1){ Write-Host "  GİRİŞ KAPI ($id): $($dusenG -join '; ') -> tekrar" -ForegroundColor Yellow; $istG+="`n`nKAPI DÜŞTÜ: $($dusenG -join '; '). Kısaltmasız, madde numarasız, 80 kelime altında yeniden yaz. Yalnız JSON." }
     else { $rapor.Add("GIRIS KAPI: $id") }
   }
   Write-Host ("  GİRİŞ TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
   if(-not $gN){ $rapor.Add("GIRIS BOZUK: $id"); continue }
-  $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); model='claude-haiku-4-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); ornek=(DilOnar "$($gN.ornek)"); model='claude-haiku-4-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz; Write-Host "  GİRİŞ OK $id"
 }
 
