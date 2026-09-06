@@ -18,7 +18,10 @@
 | K4 | Hesap kâğıdı kalıcı mı? | ⏳ Cem | 06.09 yapıldı, eşleme + kasa hazır |
 | K5 | `kagit_kayit` SQL'ini basmak | ⏳ Cem | `radar-app/sql/2026-09-06-kagit-kayit.sql`; basılana dek 404 sessiz |
 | K6 | Maliyet tekniği kaynağı (MSUGT Sıra No 2) | ⏳ Cem | ≈0,5 USD; hakem teoriyi VUK 275'e yaslıyor |
-| K7 | 117 kalıpsız ağır konu üretimi | ✅ **06.09 Cem "geç, ilk partiyi başlat"** | Parti-1: `sgs-fmuh-parti1` 11 konu + `sgs-maliyet-parti1` 3 konu, donmuş kalıp, tüm fazlar + Sonnet sim, ≈3,5 USD. Kasaya yazılmaz. Çapa: sabit örnek (Ö18 açık) |
+| K7 | 117 kalıpsız ağır konu üretimi | ✅ **Parti-1 bitti 06.09 13:20** | 14 konu → 13 soru (EOQ kaynak borcu) · hakem EVET 9 / HAYIR 4 (muhasebe bilgi sistemi, ihraç primi, işletmenin sürekliliği, standart maliyet farkları — dördü de KAYNAK PAKETİ eksiği) · Sonnet sim 6/9 doğru; EVET olup sim ✗: gelecek yıllara ait giderler, kâr dağıtımı → adım onarımı gerek · dil kapısı 2 kez çalıştı, uzun adım 1/98 · bozuk 1 (2. turda kurtarıldı) · sayfa `KAYDIR-COZ-PARTI1.html` 8 soru · bedel ≈3,7 USD · yedek `C:\TETIKTE-YEDEK\parti1-20260906` |
+| Ö29 | Sim ✗ olan EVET sorular kasaya girmez; adımı `-AdimYenile` ile yeniden yazılıp sim tekrarlanır (kp-08, kp-10 parti-1) | 06.09 | ⏳ Cem | ≈0,2 USD |
+| Ö30 | Hakem HAYIR'ların 4/4'ü kaynak paketi (VUK 227 kontrol toplamı yok, TTK 482 ihraç primi yok, BDS 570 çelişki, VUK 275 sapma değil) → kaynak deseni işi (K6 ile birlikte) | 06.09 | ⏳ Cem | ölçülmedi |
+| Ö31 | Zor ayarında ilk tavan 20k (her soru 8k'da kesiliyordu, soru başına 3 dk boş çağrı) | 06.09 | ✅ | 0 |
 
 ## Öneriler ve uygulama
 
