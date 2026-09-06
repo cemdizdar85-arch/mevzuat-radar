@@ -1168,6 +1168,14 @@ foreach($kk in $KONULAR){
   if($don.Contains($id) -and $don[$id].soru){ continue }
   $ky=$kk.kayit
   $konuLc="$($ky.konu)".ToLowerInvariant()
+  # 06.09 fmuh-k10b dersi: köprü konusu "duran varlik (sabit kiymet) satisi kaydi" iken elle ölçülmüş desen "duran varlik satisi" (THP 253/257/679/689,
+  # VUK 328) BİREBİR eşleşmediği için genel desen THP 197/199/248 çekti → hakem HAYIR. Birebir yoksa: desen anahtarının bütün kökleri konuda geçiyorsa o desen.
+  if(-not $OZEL_DESEN.ContainsKey($konuLc)){
+    $konuKok=@((Katla2 $konuLc) -split '\s+' | Where-Object { $_.Length -ge 4 } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } })
+    $enA=$null; $enN=0
+    foreach($ak in $OZEL_DESEN.Keys){ $akK=@((Katla2 $ak) -split '\s+' | Where-Object { $_.Length -ge 4 } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); if(-not $akK.Count){ continue }; $ortak=@($akK | Where-Object { $konuKok -contains $_ }).Count; if($ortak -eq $akK.Count -and $akK.Count -gt $enN){ $enN=$akK.Count; $enA=$ak } }
+    if($enA -and $enN -ge 2){ Write-Host "  OZEL_DESEN kök eşleşmesi: '$konuLc' -> '$enA'" -ForegroundColor DarkGray; $konuLc=$enA }
+  }
   $desenler=if($OZEL_DESEN.ContainsKey($konuLc)){ $OZEL_DESEN[$konuLc] } else { DesenUret $ky }
   $script:AMBAR_AG_HATASI=$null
   $amb=AmbarCek $desenler

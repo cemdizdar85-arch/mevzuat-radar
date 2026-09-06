@@ -137,6 +137,10 @@ KURALLAR:
    (g) SON ADIM ZORUNLU ve "En sık hata" adımıdır (kural 6c); formülü "Yanlış yol: <yanlış işlem> = <yanlış sonuç> (HATALI)
        → doğrusu <doğru sonuç> (N. adımda bulduk)" kalıbında; anlatımı neden yanlış olduğunu tek cümleyle söyler. Sonuç
        adımı ondan hemen ÖNCE gelir. Bu adım yoksa çıktı eksiktir.
+   (h) TERS DURUM ADIMI (06.09 ölçüm: duran varlık satışı zararı anlatıldı, öğrenci KÂR durumundaki ikizi çözemedi — "679 mü 689 mu"
+       öğretilmemişti): kural iki yüzlü ise (kâr/zarar, olumlu/olumsuz, borç/alacak, eksik/fazla, artış/azalış) sonuç adımından
+       hemen SONRA tek bir adım "Ters durumda: <koşul> olsaydı <hangi hesap/işaret>" der; formülü "Ters durum: <koşul> → <hesap/işaret>",
+       anlatımı tek cümle. Öğrenci aynı yöntemle ters yönlü soruyu çözebilmelidir.
 8. DENKLEM SORULARI (05.09 Cem: "öğrenci bir şey anlaması zor" — karşılıklı dağıtım incelemesi; başabaş, standart
    maliyet, karşılıklı dağıtım, kapasite gibi denklemle çözülen her konu):
    (a) HARF YOK, AD VAR: "Bakım-Onarım toplamı", "Yemekhane toplamı" (A/B yazma; şık harfleriyle karışır).
