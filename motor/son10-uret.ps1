@@ -91,9 +91,11 @@ KURALLAR:
 4. 5-8 adım. Rakamlar TABLODAKİYLE BİREBİR; yeni rakam üretme.
 5. GENÇ DİLİ (Cem 01.09 iki karar): BİZ SORU ÇÖZEREK KONU ANLATAN SİTEYİZ - anlatım
    ÖĞRETİR, kısılmaz; ama GENCİN DİLİYLE. Kurallar:
-   (a) Her adım anlatımı 2-3 KISA cümle (cümle başına ~12 kelime): önce KAVRAM
-       (bu adımda öğrenilen şey, konuyu hiç okumamış genç buradan kapar), sonra
-       NEDEN (mantığı tek cümleyle), varsa DİKKAT/TUZAK (vurucu, <=12 kelime).
+   (a) Her adım anlatımı EN ÇOK 2 KISA cümle (cümle başına ~12 kelime; 06.09 Cem: uzun adımlar telefonda okunmuyor): önce
+       KAVRAM (bu adımda öğrenilen şey, konuyu hiç okumamış genç buradan kapar), sonra NEDEN (mantığı tek cümleyle). DİKKAT/
+       TUZAK varsa ikinci cümlenin içine sığdır. DOLGU YASAK: "birazdan kullanacağız", "az sonra", "unutmayalım", "işte",
+       "hadi", "şimdi bakalım", "bunları biz hesaplamadık" gibi cümleler yazılmaz; anlatım bilgi taşımıyorsa silinir. Üçüncü
+       cümle KAPIDIR: 3+ cümleli adım geri döner.
    (b) Konuşur gibi yaz: "şimdi", "bak", "dikkat", soru sorup cevaplamak serbest
        ("Neden normal kapasite? Çünkü az üretince birim maliyet şişmesin.").
    (c) RESMİ RAPOR DİLİ YASAK: "şu şekildedir", "niteliğinde olup", "dikkate

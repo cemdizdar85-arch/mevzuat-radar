@@ -48,6 +48,15 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
 6c. **🎯 Hazırlık skoru**: 5 cevaptan önce yüzde gösterilmez ("—"); ilk yanlıştan sonra "%4" caydırıcıdır.
 8. **🚩 Hata bildir** — prototipte localStorage `kc_hata`; üründe kasaya itiraz kaydı.
 
+## 2b. Ekranın tam akışı (06.09 güncel)
+
+soru + **✏️ hesap kâğıdı** (cevaptan önce) → şık seç → tuzak satırı + sade Doğrusu + kâğıt eşleme özeti → **🎬 Nöbetçi**:
+0. **Konu girişi** (nedir · sınavda nasıl sorulur · yöntemler, hangisi ne zaman) → 1. **Verilenleri tanı** (her sayı ad + anlam,
+tablo VERİLENLER bloğu) → hesap adımları, her birinden önce **"Önce sen dene"** (tahmin kapısı: öğrenci sonucu yazar, sonra tahta
+açılır; ileri = göster) → sonuç → **tek hata adımı** (öğrencinin seçtiği şıkkın tuzağı; genel yanlış yol onun yerine geçer) →
+⚖️ Sen çöz (ikiz) → Sen anlat → kavramlar/kural/sınavda/kaynak → yanlış kutusu + skor. Birebir ders ilkesi: hoca sorar, öğrenci
+dener, hoca düzeltir; öğrenci hiçbir adımda yalnız okumaz.
+
 ## 3. Nöbetçi anlatımı (adım adım)
 
 - **ADIM 1 = sorunun kendi metni**, verilen rakamlar mavi işaretli; anlatımda yalnız "Dikkat/anahtar" cümlesi.
@@ -74,6 +83,13 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
   ek harcama, yan ürünün değerinden düşülür"). Formül bir verilene dokununca o satır mavi yanar, metne dönmek gerekmez. Adım 1'den
   sonra blok katlanır (kullanılan satır açık kalır, başlık tıklanınca hepsi açılır) — telefonda tablo uzamasın. Veri: `verilenler`
   alanı (FAZ A Sonnet yazar, eski cache için FAZ V Haiku ≈0,005 USD/soru, kapı: her değer soru metninde geçer, ≥%80 kapsama).
+- **Anlatım sınırı (06.09):** adım anlatımı en çok 2 cümle; dolgu ("birazdan kullanacağız", "unutmayalım") yasak; üretici kapısı
+  3+ cümleli adım sayısı 2'yi geçerse bir kez geri döner (`ADIM DİL KAPI`).
+- **Konu girişi (06.09, FAZ G):** 0. adım kartı, Haiku, ≤80 kelime, kısaltmasız; alan `konu_giris{nedir,sinavda,yontemler}`.
+- **Tahmin kapısı (06.09):** hesap adımından önce "Bu adımda X bulunacak, sence kaç çıkar?"; ±%0,5 tolerans; doğru/yanlış geri
+  bildirimi anlatımın başına; "Bilmiyorum, göster" ve ileri tuşu atlar. Verilen, giriş, sonuç ve hata adımlarında sorulmaz.
+- **Öğrenci simülasyonu (06.09, FAZ Ö):** Haiku hiç bilmeyen aday rolünde yalnız adımları okuyup ikizi çözer; sonuç ±%1 ile
+  ikiz tablosunun sonuç hücresine kıyaslanır; `simulasyon{cevap,hedef,dogru_mu,eksik}`. "Öğretiyor muyuz" sorusunun sayısı budur.
 - **Kişisel son adım (05.09 ürün incelemesi):** öğrenci yanlış şık seçtiyse Nöbetçi'nin SON adımı o şıkkın tuzağıdır
   ("Senin seçimin A: 40 TL/kg (HATALI) → doğrusu D: 120 TL/kg" + tuzak adı ve nedeni). Üreticinin "en sık hata" adımı
   zaten o şıkkı anlatıyorsa eklenmez. Sebep: öğrenci A'yı seçmişken son adım 80'i anlatıyordu, kendi hatasını bulamıyordu.
@@ -118,7 +134,11 @@ Kırmızı kalan hücrede 🎬 "Nöbetçi'ye sor" → o hücreyi dolduran adım 
 - **KAPI-Ş şık dengesi:** sapma sorularında 2 tutar × 2 yön + 1; yön kelimesi olumlu/olumsuz.
 - **KAPI-E tek anlam:** kök tek anlamlı, tablo SAYISAL, harf değil AD (denklem soruları 4c).
 - **KAPI-D konu uyumu** + hakem `konu_uyum`; **kara listedeki dayanak** teyitli görünse de dayanaksız.
-- Uzunluk: 350 karakter tavan (sınav anatomisi 02.09); Maliyet için ilk tavan 20k token.
+- Uzunluk: **tavan dersin çıkmış p75'i** (06.09; `-UzunlukTavan` verilmezse kalıp dosyasından: Finansal 414, hukuk dersleri
+  daha kısa); 02.09'daki tek 350 kalktı çünkü hukuk soruları 1,5-2× uzun çıkıyordu. Maliyet için ilk tavan 20k token.
+- **Şık kapıları (06.09):** sayı şıkları üretim sonrası kodla küçükten büyüğe sıralanır (harf, doğru ve açıklama birlikte taşınır;
+  yön şıkları hariç); cümle şıklarında doğru en uzun ve medyanın 1,3 katıysa geri döner (çıkmışta doğru en uzun rastgele düzeyde);
+  sayı şıklarında birim yazılmaz.
 - Şıkka gerekçe yazılmaz; sızıntı 4c; tavan/parametre kaynaksız kullanılmaz (çıkmış-örnek kuralı 27.08).
 - **Zor ayarı (`-Zorluk zor`, 05.09 Cem "en çok çıkan konu, zor ve katmanlı"):** ≥4 bağlı ara hesap, sınavın birleştirdiği
   katmanlar, her çeldirici atlanan katmandan türetilir, tablo her katmanı ayrı satır, adım 6-10. **Gövde sınav gibi:** ölçüldü

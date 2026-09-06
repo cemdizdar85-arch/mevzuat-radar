@@ -32,7 +32,9 @@ param(
   [string]$Zorluk='',      # 05.09 Cem "zor olsun, katmanlı": 'zor' → soru istemine ZORLUK bloğu (≥4 bağlı ara hesap, katman birleşimi, çeldirici = atlanan katman), adım 6-10
   [string]$OrnekDosya='',  # 05.09: biçim çapası dosyadan (konunun GERÇEK çıkmış sorusu); yoksa sabit p90-SGS-01 örneği (Finansal) kullanılır
   [switch]$Verilenler,     # 06.09 Cem "1 yap": FAZ V - sorudaki her sayı ad+değer+anlam satırı (Haiku); builder VERİLENLER bloğunu çizer
-  [switch]$VerilenYenile   # 06.09: eldeki verilenler listesini de yeniden yazar
+  [switch]$VerilenYenile,  # 06.09: eldeki verilenler listesini de yeniden yazar
+  [switch]$KonuGiris,      # 06.09 Cem "geç": FAZ G - konu girişi kartı (nedir / sınavda nasıl sorulur / yöntemler), Haiku ≈0,005 USD
+  [switch]$Simulasyon      # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -656,6 +658,21 @@ function SikDengesi($aday){
 #  (1) SAYI şıkları: beş tutar birbirinden farklı olmalı (yönsüz tekrar = cevap belli) ve küçükten büyüğe sıralı.
 #  (2) CÜMLE şıkları: doğru şık en uzunsa ve medyanın 1,6 katından uzunsa "en uzun şık doğru" ele verir.
 #  (3) TEK FARKLI BİÇİM: yalnız doğru şıkta birim/parantez/ondalık varsa (diğer dördünde yoksa) ele verir.
+# 06.09 (Cem "geç"): SAYI ŞIKLARI ÜRETİM SONRASI SIRALANIR — çıkmışta küçükten büyüğe %57-100, bizde %0-17 (05.09 ölçümü). Model
+# çağrısı yok: şıklar artan sıraya dizilir, harfler yeniden dağıtılır, dogru ve aciklama anahtarları birlikte taşınır. Yön şıkları
+# (olumlu/olumsuz) 2a dengesine bağlı, dokunulmaz. sade/ikiz sonra üretilir (harfe bağlı alan bu aşamada yok).
+function SikSirala($cvp){
+  if(-not $cvp -or -not $cvp.siklar -or -not $cvp.dogru){ return $false }
+  $harf=@('A','B','C','D','E'); $trS=[cultureinfo]::GetCultureInfo('tr-TR'); $deg=@{}
+  foreach($h in $harf){ $s="$($cvp.siklar.$h)".Trim(); $m=[regex]::Match($s,'^-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|^-?\d+(?:,\d+)?'); if(-not $m.Success){ return $false }; try{ $deg[$h]=[double]::Parse($m.Value,$trS) }catch{ return $false } }
+  if(@($harf | Where-Object { "$($cvp.siklar.$_)" -match '(?i)\b(olumlu|olumsuz|eksik|fazla)\b' }).Count -ge 4){ return $false }
+  $sira=@($harf | Sort-Object { $deg[$_] }); if(($sira -join '') -eq ($harf -join '')){ return $false }
+  $yeniS=[ordered]@{}; $yeniA=[ordered]@{}; $yeniDogru=''
+  for($i=0;$i -lt 5;$i++){ $eski=$sira[$i]; $yeni=$harf[$i]; $yeniS[$yeni]="$($cvp.siklar.$eski)"; if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$eski]){ $yeniA[$yeni]=$cvp.aciklama.$eski }; if("$($cvp.dogru)" -eq $eski){ $yeniDogru=$yeni } }
+  if(-not $yeniDogru){ return $false }
+  $cvp.siklar=[pscustomobject]$yeniS; if($yeniA.Count){ $cvp.aciklama=[pscustomobject]$yeniA }; $cvp.dogru=$yeniDogru
+  return $true
+}
 function SikBicimi($aday){
   if(-not $aday -or -not $aday.siklar -or -not $aday.dogru){ return '' }
   $harf=@('A','B','C','D','E'); $sik=@($harf | ForEach-Object { "$($aday.siklar.$_)".Trim() }); $d="$($aday.dogru)".Trim().ToUpperInvariant()
@@ -677,7 +694,8 @@ function SikBicimi($aday){
   if($sayiN -le 1 -and $yonlu -lt 4){
     $uz=@($sik | ForEach-Object { $_.Length } | Sort-Object); $medyan=[double]$uz[[int]($uz.Count/2)]
     # eşik 1,8: çıkmış cümle şıklarında en uzun/medyan MEDYANI ders başına 1,14–1,6 (04.09 ölçüm, 3.590 soru); 1,6 gerçek sınavı da düşürürdü
-    if($medyan -gt 0 -and $dogruS.Length -eq $uz[-1] -and $dogruS.Length -ge 1.8*$medyan){ return "doğru şık en uzun ve medyanın $([math]::Round($dogruS.Length/$medyan,1)) katı" }
+    # 06.09 (Cem "geç", 05.09 ölçümü): çıkmışta doğru şık en uzun %5-24 (rastgele), bizde %33-71 → eşik 1,8'den 1,3'e
+    if($medyan -gt 0 -and $dogruS.Length -eq $uz[-1] -and $dogruS.Length -ge 1.3*$medyan){ return "doğru şık en uzun ve medyanın $([math]::Round($dogruS.Length/$medyan,1)) katı (çıkmışta doğru en uzun rastgele düzeyde)" }
     $parantezli=@($sik | Where-Object { $_ -match '\(' }).Count
     if($parantezli -eq 1 -and $dogruS -match '\('){ return "parantezli açıklama yalnız doğru şıkta" }
   }
@@ -728,7 +746,8 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
    şıkka çıkan kök YASAK (ör. "esas üretim yerlerine dağıtılacak toplam" hem 100.000 hem 90.000 okunur).
 4d. VERİLENLER (06.09 Cem: "soruda çok veri var, tabloda ikisi; hiç bilmeyene böyle olmuyor"): JSON'a "verilenler" listesi ekle:
    soru metnindeki HER sayı ayrı satır {"ad","deger","anlam"} — ad sınav dilinde kısa ad, deger metindeki yazımıyla birimiyle,
-   anlam tek cümle: bu sayı nedir, hesapta nerede kullanılır (hiç bilmeyene). Ekran tabloyu VERİLENLER → HESAP → SONUÇ düzeninde çizer.
+   anlam tek cümle: bu sayı nedir, hesapta nerede kullanılır (hiç bilmeyene). Ekran tabloyu VERİLENLER → HESAP → SONUÇ düzeninde çizer;
+   bu yüzden cozum_tablo'da soruda VERİLEN sayı için ayrı satır AÇMA (verilen satırı hesap bloğunda tekrarlanmaz), tablo yalnız hesaplanan satırları taşır.
 5. SEMA: tur alani YALNIZ su dort degerden biri olabilir: "yevmiye" | "eleme" | "karar" | "akis" (baska ad/varyant YASAK). Bu ders KAYIT dersiyse ve soru bir islemin muhasebesine dokunuyorsa tur=yevmiye ZORUNLUDUR ({"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"181 GELIR TAHAKKUKLARI","tutar":"..."}],"alacak":[...]}}) - T-cetveli budur. SORUNUN KENDI VERISIYLE, jenerik yasak.
 6. hap (tek cumle kalici kural), sinav_taktigi (1 cumle), notlandirici (en cok puan kaybettiren nokta).
 7. Rakamlar her katmanda BIREBIR tutarli.
@@ -910,6 +929,8 @@ if(Test-Path $kalipYol){
       $tipler=@($dk.tip_dagilim.PSObject.Properties | Sort-Object { -[int]$_.Value } | ForEach-Object { "$($_.Name) %$([math]::Round(100*[int]$_.Value/[int]$dk.soru_sayisi))" })
       $KALIP_TIP=($tipler -join ', ')
       "gercek kalip [$dAd]: n=$($dk.soru_sayisi) medyan=$($dk.medyan) p90=$($dk.p90) | tip: $KALIP_TIP"
+      # 06.09 (Cem "geç", 05.09 ölçümü: hukuk soruları 1,5-2× uzundu): -UzunlukTavan açıkça verilmediyse tavan DERSİN çıkmış p75'idir
+      if(-not $PSBoundParameters.ContainsKey('UzunlukTavan') -and $dk.PSObject.Properties['p75'] -and [int]$dk.p75 -gt 0){ $UZUNLUK_TAVAN=[int]$dk.p75; "tavan ders p75'ten: $UZUNLUK_TAVAN kr (tek 350 yerine)" }
       # TIP KOTASI (02.09 Cem "3 yap"): parti, gercek sinavin tip dagilimini taklit
       # eder. 'diger' kotasi dagitilmaz - dolgu tipi degil, olcum artigidir.
       $TIP_HEDEF=New-Object System.Collections.Generic.List[string]
@@ -1123,7 +1144,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     $uz="$($aday.soru)".Length
     # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
     $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur){ $cvp=$aday; break }
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
     if($uz -gt $UZUNLUK_TAVAN){ Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
     if($sikKusur){ Write-Host "  KAPI-Ş ($id): $sikKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ş DÜŞTÜ: önceki denemede şıklar cevabı ele veriyordu ($sikKusur). Kural 2a'yı uygula: her tutar iki yönle (olumlu/olumsuz), 2 tutar × 2 yön + 1." }
     if($deneme -eq 2){
@@ -1188,11 +1209,20 @@ foreach($id in @($don.Keys)){
   foreach($st in @($tabloAdim.satirlar)){ foreach($m in [regex]::Matches("$(@($st)[0])",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
   foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
   if($kodlarA.Count){ $thpD=AmbarCek @($kodlarA | ForEach-Object { "THP $_ %" }) 3500; if($thpD.metin){ $ist2+="`n=== HESAP TANIMLARI (Tekdüzen Hesap Planı, ambardan) ===`n"+$thpD.metin } }
-  $y2=$null
-  foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
-  # 03.09 bedel olcumu (Cem "her seyde bedeli sor"): cagri basina token kaydi
-  Write-Host ("  ADIM TOKEN {0}: girdi {1} (onbellek okuma {2}, yazma {3}) · cikti {4} · model claude-sonnet-5" -f $id,$y2.girdi,$y2.onbellekOkuma,$y2.onbellekYazma,$y2.cikti) -ForegroundColor DarkGray
-  $a2=Coz $y2.metin
+  $y2=$null; $a2=$null
+  # 06.09 ADIM DİL KAPISI (Cem "geç"): anlatım en çok 2 cümle; 3+ cümleli adım sayısı 2'yi geçerse bir kez geri döner
+  foreach($turA in 1..2){
+    foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+    # 03.09 bedel olcumu (Cem "her seyde bedeli sor"): cagri basina token kaydi
+    Write-Host ("  ADIM TOKEN {0}: girdi {1} (onbellek okuma {2}, yazma {3}) · cikti {4} · model claude-sonnet-5" -f $id,$y2.girdi,$y2.onbellekOkuma,$y2.onbellekYazma,$y2.cikti) -ForegroundColor DarkGray
+    $a2=Coz $y2.metin
+    if(-not $a2 -or -not $a2.adimlar){ break }
+    $uzunAd=@(@($a2.adimlar) | Where-Object { $_ -and (@(("$($_.anlatim)" -split '(?<=[.!?])\s+') | Where-Object { $_.Trim().Length -gt 2 }).Count -gt 2) }).Count
+    $dolgu=@(@($a2.adimlar) | Where-Object { $_ -and "$($_.anlatim)" -match '(?i)(birazdan|az sonra|unutmayalım|hadi |işte |şimdi bakalım|hesaplamadık)' }).Count
+    if(($uzunAd -le 2 -and $dolgu -eq 0) -or $turA -eq 2){ if($uzunAd -gt 2 -or $dolgu){ Write-Host "  ADIM DİL: $uzunAd adım 3+ cümle · dolgu $dolgu (2. turda da) - olduğu gibi" -ForegroundColor DarkYellow; $rapor.Add("ADIM DIL: $id (uzun $uzunAd, dolgu $dolgu)") }; break }
+    Write-Host "  ADIM DİL KAPI ($id): $uzunAd adım 3+ cümle · dolgu $dolgu -> tekrar" -ForegroundColor Yellow
+    $ist2+="`n`nKAPI DÜŞTÜ: $uzunAd adımın anlatımı 3 cümleden uzun ve $dolgu adımda dolgu cümlesi var. Her anlatım EN ÇOK 2 cümle; dolgu cümlelerini sil. Yalnız JSON."
+  }
   if($a2 -and $a2.adimlar){
     foreach($ad1 in @($a2.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }   # sinav dili kapisi (adimlar)
     $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue $a2.adimlar -Force
@@ -1337,6 +1367,83 @@ foreach($id in @($don.Keys)){
   if(-not $listeV -or -not @($listeV).Count){ $rapor.Add("VERILEN BOZUK: $id"); continue }
   $cvp | Add-Member -NotePropertyName verilenler -NotePropertyValue @($listeV) -Force
   CacheYaz; Write-Host "  VERILEN OK $id · $(@($listeV).Count) satır"
+}
+
+# --- FAZ G: KONU GİRİŞİ (06.09 Cem "geç"; 26.08 konu notu katmanı kararının ilk parçası) ----------------------------------
+# Soruya girmeden 3 parça: konu nedir · sınavda nasıl sorulur · yöntemler ve ne zaman hangisi. Nöbetçi'nin 0. adımı olarak çizilir.
+# Haiku, ≈0,005 USD/soru. Kapı: ≤90 kelime, kısaltma/madde no yok (SadeKapi). Yalnız -KonuGiris ile.
+$script:FAZ_ADI='G'
+$girisIstem=@'
+Sen Tetikte'nin Nöbetçisisin. Aşağıdaki sınav sorusunun KONUSUNA, bu konuyu HİÇ bilmeyen birine soruya girmeden önce okuyacağı 3 parçalı giriş yaz.
+1. nedir: konu nedir, ne işe yarar — 2 kısa cümle. Kısaltma yok, madde numarası yok.
+2. sinavda: bu konu sınavda tipik olarak nasıl sorulur (ne verilir, ne istenir) — 1 cümle. Çıkmış dönem sayısı ektedir, uydurma sayı yazma.
+3. yontemler: konuda birden çok yöntem/kural varsa adları ve hangisinin ne zaman kullanıldığı; tek yöntemse en kritik kural — en çok 2 cümle.
+Toplam 80 kelimeyi geçme. Yalnız kaynak metinleri ve soruya dayan. Türkçe harfler tam. Yalnız JSON: {"nedir":"...","sinavda":"...","yontemler":"..."}
+KONU: {KONU} · çıkmış arşivde {DONEM} dönemde soruldu
+SORU: {SORU}
+=== KAYNAK METİNLERİ === {KAYNAK}
+'@
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or -not $KonuGiris){ break }
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  $cvp=$don[$id]; if(-not $cvp.soru){ continue }
+  if($cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir){ continue }
+  $kMetinG=SadeKaynak $cvp; if($kMetinG.Length -gt 6000){ $kMetinG=$kMetinG.Substring(0,6000) }
+  $istG=$girisIstem.Replace('{KONU}',"$($cvp.konu)").Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
+  $gN=$null; $tokG=0; $tokC=0
+  foreach($tur in 1..2){
+    $yG=$null; foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istG -MaxTok 900; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+    $tokG+=[int]$yG.girdi; $tokC+=[int]$yG.cikti
+    $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ $gN=$null; break }
+    $tumG="$($gN.nedir) $($gN.sinavda) $($gN.yontemler)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' }); if(@(($tumG -split '\s+') | Where-Object { $_ }).Count -gt 95){ $dusenG+='95 kelimeden uzun' }
+    if(-not $dusenG.Count){ break }
+    if($tur -eq 1){ Write-Host "  GİRİŞ KAPI ($id): $($dusenG -join '; ') -> tekrar" -ForegroundColor Yellow; $istG+="`n`nKAPI DÜŞTÜ: $($dusenG -join '; '). Kısaltmasız, madde numarasız, 80 kelime altında yeniden yaz. Yalnız JSON." }
+    else { $rapor.Add("GIRIS KAPI: $id") }
+  }
+  Write-Host ("  GİRİŞ TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
+  if(-not $gN){ $rapor.Add("GIRIS BOZUK: $id"); continue }
+  $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); model='claude-haiku-4-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  CacheYaz; Write-Host "  GİRİŞ OK $id"
+}
+
+# --- FAZ Ö: ÖĞRENCİ SİMÜLASYONU (06.09 Cem "geç"; 05.09'dan beri önerilen "öğretiyor muyuz" ölçüsü) -------------------------
+# Haiku, hiç bilmeyen stajyer rolünde YALNIZ Nöbetçi adımlarını okur ve ikiz soruyu çözer. Cevap ikiz tablosunun sonuç hücresiyle
+# karşılaştırılır (±%1). Sonuç cache'e `simulasyon` olarak yazılır; parti raporunda SIM doğru/yanlış sayılır. ≈0,01 USD/soru.
+$script:FAZ_ADI='O'
+$simIstem=@'
+Sen bu konuyu HİÇ bilmeyen bir staja giriş sınavı adayısın. Ezber bilgin yok, kaynak yok. Sana yalnız aşağıdaki ÇÖZÜM ANLATIMI verildi (bir örnek sorunun adım adım çözümü). Bu anlatımı okuyup, aynı yöntemle YENİ SORUYU çöz.
+Kurallar: yalnız anlatımın öğrettiği kadarıyla çöz; anlatım yetmiyorsa cevap "yetmedi" olsun ve neyin eksik/anlaşılmaz olduğunu yaz. Hesabını kısa adımlarla yaz. Sonunda TEK sayı ver (birimsiz, Türkçe biçim: 85.200).
+Yalnız JSON: {"cevap":"<sayı ya da yetmedi>","adimlar":"kısa hesap","eksik":"anlatımda eksik ya da karışık olan şey; yoksa boş"}
+=== ÇÖZÜM ANLATIMI (örnek soru ve Nöbetçi adımları) ===
+ÖRNEK SORU: {SORU}
+ADIMLAR:
+{ADIMLAR}
+=== YENİ SORU (bunu çöz) ===
+{IKIZ}
+'@
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or -not $Simulasyon){ break }
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.PSObject.Properties['adimlar'] -or -not $cvp.adimlar){ continue }
+  if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz -and $cvp.ikiz.ikiz_soru -and $cvp.ikiz.tablo -and $cvp.ikiz.tablo.satirlar)){ Write-Host "  SIM ATLANDI ($id): ikiz yok" -ForegroundColor DarkGray; continue }
+  # hedef: ikiz tablosunun son satırındaki son sayılı hücre
+  $sonSat=@(@($cvp.ikiz.tablo.satirlar)[-1]); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
+  if(-not $hedefS){ Write-Host "  SIM ATLANDI ($id): ikiz sonuç hücresi yok" -ForegroundColor DarkGray; continue }
+  $adimMetin=(@($cvp.adimlar) | ForEach-Object -Begin { $q=0 } -Process { $q++; "$q) $($_.formul)`n   $($_.anlatim)" }) -join "`n"
+  $istO=$simIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{ADIMLAR}',$adimMetin).Replace('{IKIZ}',"$($cvp.ikiz.ikiz_soru)")
+  $yO=$null; foreach($d in 1..3){ try{ $yO=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istO -MaxTok 1200; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  Write-Host ("  SIM TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$yO.girdi,$yO.cikti) -ForegroundColor DarkGray
+  $oN=Coz $yO.metin
+  # Haiku bazen JSON'u bozuyor (adımlar alanında tırnak/satır); cevap ve eksik alanları regex ile kurtarılır
+  if(-not $oN -or -not $oN.PSObject.Properties['cevap']){ $mC=[regex]::Match("$($yO.metin)",'"cevap"\s*:\s*"([^"]*)"'); $mE=[regex]::Match("$($yO.metin)",'"eksik"\s*:\s*"([^"]*)"'); if($mC.Success){ $oN=[pscustomobject]@{ cevap=$mC.Groups[1].Value; adimlar=''; eksik=$(if($mE.Success){ $mE.Groups[1].Value } else { '' }) }; Write-Host "  SIM JSON bozuktu, regex ile kurtarıldı ($id)" -ForegroundColor DarkYellow } }
+  if(-not $oN){ $rapor.Add("SIM BOZUK: $id"); Write-Host "  SIM BOZUK ($id): $("$($yO.metin)".Substring(0,[Math]::Min(160,"$($yO.metin)".Length)))" -ForegroundColor Red; continue }
+  $trO=[cultureinfo]::GetCultureInfo('tr-TR'); $sayi={ param($t) $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ [double]::Parse($m.Value,$trO) }catch{ $null } } else { $null } }
+  $cv=& $sayi $oN.cevap; $hd=& $sayi $hedefS
+  $dogruMu=$false; if($null -ne $cv -and $null -ne $hd){ $dogruMu=([math]::Abs($cv-$hd) -le [math]::Max(0.5,[math]::Abs($hd)*0.01)) }
+  $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model='claude-haiku-4-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }
+  $cvp | Add-Member -NotePropertyName simulasyon -NotePropertyValue $simObj -Force
+  CacheYaz; Write-Host ("  SIM {0} ({1}): cevap {2} · hedef {3}{4}" -f $(if($dogruMu){'DOĞRU'}else{'YANLIŞ'}),$id,$oN.cevap,$hedefS,$(if("$($oN.eksik)".Trim()){ " · eksik: $($oN.eksik)" } else { '' })) -ForegroundColor $(if($dogruMu){'Green'}else{'Red'})
+  if(-not $dogruMu){ $rapor.Add("SIM YANLIŞ: $id | cevap $($oN.cevap) hedef $hedefS | $($oN.eksik)") }
 }
 
 # --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
