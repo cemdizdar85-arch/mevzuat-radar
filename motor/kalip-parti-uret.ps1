@@ -151,6 +151,12 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     }
     if($agHatasi){ $script:AMBAR_AG_HATASI=$agHatasi; continue }
     foreach($x in @($r)){
+      # 06.09 KAPI-K kaynak süzgeci: pencere sözlüğü varsa, adı pencere dışı kök taşıyan TEORİ NOTU kaynak paketine girmez
+      # ("Teori Notu - kusurlu ve bozuk mamul maliyetleri" → 'kusur' son 7 dönem Maliyet sorularında yok). Kanun/standart/THP kaynağı süzülmez.
+      if($script:PENCERE_KOK -and $script:PENCERE_KOK.Count -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
+        $adKisim=("$($x.kaynak_ad)" -replace '^(TEORI|Teori Notu)\s*-\s*',''); $disi=@(PencereKavram $adKisim -YalnizDar)
+        if($disi.Count){ Write-Host "  PENCERE DIŞI KAYNAK atlandı: $($x.kaynak_ad) (kök: $($disi -join ', '))" -ForegroundColor DarkGray; continue }
+      }
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
     # 03.09 OLCULDU (SMMM 'kambiyo kari kaydi' -> KAYNAK BORCU; oysa THP 646 KAMBIYO KARLARI ambarda):
@@ -617,6 +623,22 @@ foreach($a in $adaylar){
 # tutarsız ("safha maliyet esdeger birim" / "safha maliyeti esdeger birim") → eşleşme kök-önekiyle (5 harf) + küçük eş anlam haritası.
 # Ölçüm 06.09: birebir etiket eşleşmesiyle 'evre maliyet sistemi' son 7 dönemde 0 görünüyordu, oysa her dönem soruluyor.
 $CAPA=@{}; $SON_DONEM_SAYI=@{}
+# 06.09 KAPI-K (Cem "anormal düzeltme maliyeti anlamlı gelmedi"): pencerenin gerçek kitapçıklarından KÖK SÖZLÜĞÜ (5 harf önek, ≥5 harfli kelimeler).
+# Ölçüm: 2023/3'ün 8 Maliyet sorusu bu sözlüğe göre 0-2 eksik kök veriyor (imalat, tonluk gibi); K10 ile basılan soru "anorm" + "alisl" verdi ve
+# kaynak paketine "Teori Notu - kusurlu ve bozuk mamul" girmişti. Sözlük iki yerde kullanılır: (1) AmbarCek teori notu süzgeci, (2) FAZ A gövde kapısı.
+$script:PENCERE_KOK=$null
+function PencereKavram([string]$metin,[switch]$YalnizDar){
+  if(-not $script:PENCERE_KOK -or -not $script:PENCERE_KOK.Count){ return @() }
+  $sayim=@{}; $kelime=@{}
+  foreach($w in ((Katla2 $metin) -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -lt 6){ continue }; $on=$w.Substring(0,5); if(-not $sayim.ContainsKey($on)){ $sayim[$on]=0; $kelime[$on]=$w }; $sayim[$on]++ }
+  $eksik=@{}
+  foreach($on in $sayim.Keys){
+    if($YalnizDar){ $sz=$(if($script:PENCERE_KOK_DAR){ $script:PENCERE_KOK_DAR } else { $script:PENCERE_KOK }); if(-not $sz.ContainsKey($on)){ $eksik[$kelime[$on]]=1 }; continue }
+    if(-not $script:PENCERE_KOK.ContainsKey($on)){ $eksik[$kelime[$on]]=1; continue }                                   # geniş sözlükte yok → kusur
+    if($script:PENCERE_KOK_DAR -and -not $script:PENCERE_KOK_DAR.ContainsKey($on) -and $sayim[$on] -ge 2){ $eksik[$kelime[$on]]=1 }   # dar sözlükte yok ve ≥2 kez → kusur
+  }
+  return @($eksik.Keys | Sort-Object)
+}
 function KokOnek([string]$s){ $t=(Katla2 $s) -replace '[^a-z0-9 ]',' '; $es=@{ 'evre'='safha'; 'gug'='genel'; 'ilk'='ilk'; 'dimm'='ilk'; 'esdeger'='esdeger' }
   @(($t -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|ile|veya|icin|bir|olan|sistemi|yontemi|sistem|yontem|hesaplama|hesabi|kaydi|kayit|analizi|analiz|orani|oran|tablosu|tablo|muhasebesi|muhasebe)$' } | ForEach-Object { $w=$_; if($es.ContainsKey($w)){ $w=$es[$w] }; if($w.Length -gt 5){ $w.Substring(0,5) } else { $w } } | Select-Object -Unique) }
 if($DonemPencere -gt 0){
@@ -652,6 +674,13 @@ if($DonemPencere -gt 0){
         foreach($p in [regex]::Split("$($rB.metin)",'(?=SORU \d+:)')){ if($p -match '^SORU (\d+):'){ $no=[int]$Matches[1]; $govde=$p; $kes=$govde.IndexOf('TÜRMOB'); if($kes -gt 0){ $govde=$govde.Substring(0,$kes) }; $govde=$govde -replace '\s+',' '; $govde=$govde -replace '\s+\d+\s+İzleyen sayfaya geçiniz\.?\s*[A-E]?\s*$',''; $bloklar.Add([pscustomobject]@{ donem="$($dn.donem)"; no=$no; metin=$govde.Trim() }) } }
       }
       "  çapa havuzu: $($bloklar.Count) çıkmış soru bloğu ($($sonD.Count) kitapçık)"
+      # KAPI-K kök sözlüğü: ders aralığı biliniyorsa (Maliyet 57–64) yalnız o aralık (dar ama dersin gerçek dili), yoksa bütün kitapçık
+      # İki sözlük (06.09 ölçümü): GENİŞ = 7 kitapçığın tamamı (2023/3 gerçek Maliyet soruları 0-2 eksik verir, "anormal"ı yakalar ama "kusurlu"yu
+      # Hukuk'ta geçtiği için kaçırır) · DAR = yalnız ders aralığı (292 kök; "kusurlu"yu yakalar ama gerçek sorular 0-10 eksik verir, gürültülü).
+      # Kural: GENİŞ'te olmayan her kök kusur; DAR'da olmayan kök yalnız gövdede ≥2 kez geçiyorsa kusur. Kaynak süzgeci DAR ile.
+      $script:PENCERE_KOK=@{}; $script:PENCERE_KOK_DAR=$(if($aralik){ @{} } else { $null })
+      foreach($bl in $bloklar){ $darMi=($aralik -and $bl.no -ge $aralik[0] -and $bl.no -le $aralik[1]); foreach($w in ((Katla2 $bl.metin) -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -ge 5){ $on=$w.Substring(0,5); $script:PENCERE_KOK[$on]=1; if($darMi){ $script:PENCERE_KOK_DAR[$on]=1 } } } }
+      "  kök sözlüğü: geniş $($script:PENCERE_KOK.Count) · dar $(if($script:PENCERE_KOK_DAR){ "$($script:PENCERE_KOK_DAR.Count) (soru $($aralik[0])-$($aralik[1]))" } else { 'yok' })"
       foreach($kk in $KONULAR){
         $kokler=@(KokOnek "$($kk.kayit.konu)"); $enIyi=$null; $enPuan=0
         # 06.09 ilk koşu ölçümü: "satılan mamul maliyeti" için kök isabeti 3/3 ile 2026/2 Soru 60 (standart maliyet sapması) seçildi — kökler tek tek
@@ -1248,7 +1277,9 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
     $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
     $hkKusur=@(HesapKodKapisi $aday)   # 06.09 KAPI-H: hesap kodu–resmî ad eşleşmesi
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    $kvKusur=@(PencereKavram "$($aday.soru)")   # 06.09 KAPI-K: gövdede son N dönem sınavında hiç geçmeyen kök (anormal, kusurlu…)
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    if($kvKusur.Count){ Write-Host "  KAPI-K (pencere dışı kavram) ($id): $($kvKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-K DÜŞTÜ: şu kelimeler son $DonemPencere dönemin sınav sorularında HİÇ geçmiyor: $($kvKusur -join ', '). Sınavın sormadığı kavramla soru kurma; gövdeyi yalnız sınavda geçen kavramlarla (verilen örnek sorunun diliyle) yeniden yaz." }
     if($uz -gt $UZUNLUK_TAVAN){ Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
     if($sikKusur){ Write-Host "  KAPI-Ş ($id): $sikKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ş DÜŞTÜ: önceki denemede şıklar cevabı ele veriyordu ($sikKusur). Kural 2a'yı uygula: her tutar iki yönle (olumlu/olumsuz), 2 tutar × 2 yön + 1." }
     if($hkKusur.Count){ Write-Host "  KAPI-H (hesap adı) ($id): $($hkKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-H DÜŞTÜ: hesap adları Tekdüzen Hesap Planı'ndaki resmî adla BİREBİR yazılır: $($hkKusur -join '; ')." }
@@ -1256,6 +1287,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
       if($uz -gt $UZUNLUK_TAVAN){ $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)") }
       if($sikKusur){ $rapor.Add("KAPI-Ş (şık dengesi) DÜŞTÜ: $($ky.konu) | $sikKusur") }
       if($hkKusur.Count){ $rapor.Add("KAPI-H (hesap adı) DÜŞTÜ: $($ky.konu) | $($hkKusur -join '; ')") }
+      if($kvKusur.Count){ $rapor.Add("KAPI-K (pencere dışı kavram) DÜŞTÜ: $($ky.konu) | $($kvKusur -join ', ')") }
       $cvp=$aday   # 2 denemede düzelmediyse en sonuncuyu al ama RAPORA yaz
     }
   }
@@ -1266,6 +1298,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     }
     $cvp | Add-Member -NotePropertyName konu -NotePropertyValue "$($ky.konu)" -Force
     $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @(HesapKodKapisi $cvp) -Force   # KAPI-H sonucu (boş = eşleşti) → karne
+    if($script:PENCERE_KOK -and $script:PENCERE_KOK.Count){ $cvp | Add-Member -NotePropertyName pencere_kavram -NotePropertyValue @(PencereKavram "$($cvp.soru)") -Force }   # KAPI-K sonucu (boş = sınav dili) → karne
     if($ky.PSObject.Properties['son_donem']){ $cvp | Add-Member -NotePropertyName son_donem -NotePropertyValue ([int]$ky.son_donem) -Force; $cvp | Add-Member -NotePropertyName pencere -NotePropertyValue $DonemPencere -Force }
     if($ky.PSObject.Properties['capa_kaynak']){ $cvp | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($ky.capa_kaynak)" -Force }
     $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force

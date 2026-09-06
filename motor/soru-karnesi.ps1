@@ -68,8 +68,9 @@ function AritmetikKusur($adimlar){
 $script:THP=$null
 function ThpSozluk{
   if($script:THP){ return $script:THP }; $d=@{}
-  if(-not $AmbarYok){ try{ $u=$SB_URL+'?select=kaynak_ad&kaynak_ad=ilike.'+[uri]::EscapeDataString('THP %')+'&limit=1000'
-      (ConvertFrom-Json (Invoke-WebRequest -Uri $u -Headers $BASLIK -UseBasicParsing -TimeoutSec 120).Content) | ForEach-Object { $m=[regex]::Match("$($_.kaynak_ad)",'^THP\s+(\d{3})\s*-\s*(.+)$'); if($m.Success){ $d[$m.Groups[1].Value]=$m.Groups[2].Value.Trim() } } }catch{ Write-Host "THP sözlüğü çekilemedi: $($_.Exception.Message)" -ForegroundColor DarkYellow } }
+  # 06.09: bir koşuda ambar geçici düştü, 28 hücre "ölçülmedi" oldu → 3 deneme, artan bekleme (57014 zaman aşımı GEÇİCİDİR)
+  if(-not $AmbarYok){ foreach($dn in 1..3){ try{ $u=$SB_URL+'?select=kaynak_ad&kaynak_ad=ilike.'+[uri]::EscapeDataString('THP %')+'&limit=1000'
+      (ConvertFrom-Json (Invoke-WebRequest -Uri $u -Headers $BASLIK -UseBasicParsing -TimeoutSec 120).Content) | ForEach-Object { $m=[regex]::Match("$($_.kaynak_ad)",'^THP\s+(\d{3})\s*-\s*(.+)$'); if($m.Success){ $d[$m.Groups[1].Value]=$m.Groups[2].Value.Trim() } }; break }catch{ Write-Host "THP sözlüğü çekilemedi (deneme $dn): $($_.Exception.Message)" -ForegroundColor DarkYellow; if($dn -lt 3){ Start-Sleep -Seconds (5*$dn) } } } }
   $script:THP=$d; return $d
 }
 function HesapKodKusur($c){
@@ -161,7 +162,7 @@ foreach($et in ($Etiketler -split ',' | ForEach-Object { $_.Trim() } | Where-Obj
     # 6 şık dengesi
     $sk=SikKusur $c; $h.sik=Hucre $(if($sk.Count){'KIRMIZI'}else{'YESIL'}) $(if($sk.Count){ $sk -join ' · ' } else { 'şıklar dengeli' })
     # 7 pencere (K10)
-    if($c.PSObject.Properties['son_donem']){ $sd=[int]$c.son_donem; $h.pencere=Hucre $(if($sd -ge 1){'YESIL'}else{'KIRMIZI'}) "son $($c.pencere) dönemde $sd kez$(if($c.PSObject.Properties['capa_kaynak'] -and $c.capa_kaynak){ ' · çapa '+$c.capa_kaynak })" }
+    if($c.PSObject.Properties['son_donem']){ $sd=[int]$c.son_donem; $kvm=$(if($c.PSObject.Properties['pencere_kavram']){ @($c.pencere_kavram | Where-Object { $_ }) } else { @() }); $h.pencere=Hucre $(if($sd -ge 1 -and -not $kvm.Count){'YESIL'}else{'KIRMIZI'}) "son $($c.pencere) dönemde $sd kez$(if($c.PSObject.Properties['capa_kaynak'] -and $c.capa_kaynak){ ' · çapa '+$c.capa_kaynak })$(if($kvm.Count){ ' · PENCERE DIŞI KAVRAM: '+($kvm -join ', ') })" }
     else { $sd=PencereSay ($et -replace '-.*$','') "$($c.konu)"; if($null -eq $sd){ $h.pencere=Hucre 'OLCULMEDI' "pencere ölçülmedi (toplam $($c.donem) dönem, 2015'ten)" } else { $h.pencere=Hucre $(if($sd -ge 1){'YESIL'}else{'KIRMIZI'}) "son $PENCERE dönemde $sd kez (karne ölçtü; toplam $($c.donem))" } }
     # 8 kaynak
     $kb=KaynakBilgi $c; $h.kaynak=Hucre $kb.durum $kb.not
