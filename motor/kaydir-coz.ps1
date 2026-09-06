@@ -382,6 +382,9 @@ $html=@'
 .cip2.ek{display:none}.cipler.acikEk .cip2.ek{display:inline-block}.cipler.acikEk .bDaha{color:var(--dim)}
 .cipler .bDaha{border-style:dashed;color:var(--dim)}
 .sek{display:none;margin-top:8px}.sek.acik{display:block;animation:gir .2s ease}
+.panel{overscroll-behavior:contain}
+.panelBas{position:sticky;bottom:4px;display:block;margin:10px 0 0 auto;padding:7px 13px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:.84em;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 4px 14px color-mix(in srgb,var(--bg) 70%,transparent)}
+.panelBas.gor{opacity:1;pointer-events:auto}
 .diger{font-size:.88em;color:var(--dim)}.diger div{margin:6px 0}
 /* yanlis kutusu + hazirlik skoru */
 .ustSag{display:flex;align-items:center;gap:6px}.ustCip{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:14px;padding:2px 8px;font-size:.85em;cursor:pointer}.ustCip.hazir{border-color:var(--yesil);color:var(--yesil)}
@@ -622,6 +625,12 @@ SORULAR.forEach((s,i)=>{
    +'<div class="oyun"><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Havuzdaki tutarları hesapların <b>BORÇ</b> ya da <b>ALACAK</b> kutusuna sürükle; fazladan tutar var, hepsini kullanma. Bitince <b>Kontrol et</b>.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
   akis.appendChild(k);
   const panel=k.querySelector('.panel'); const geri=k.querySelector('.geri');
+  // 06.09 Cem: "649 yarım görünüyor, geriye dönemiyorum" — scrollIntoView bütün kartı (#akis) kaydırıyordu, cevap ekran dışına çıkıyordu.
+  // Kaydırma yalnız PANELİN içinde yapılır; kart yerinden oynamaz. Sticky "cevaba dön" düğmesi panel 160px kayınca görünür.
+  const panelKaydir=(el,orta)=>{ if(!el) return; const pr=panel.getBoundingClientRect(); const er=el.getBoundingClientRect(); let hedefTop=panel.scrollTop+(er.top-pr.top)-10; if(orta) hedefTop-= (pr.height-er.height)/2; panel.scrollTo({top:Math.max(0,hedefTop),behavior:'smooth'}); };
+  const panelBas=document.createElement('button'); panelBas.type='button'; panelBas.className='panelBas'; panelBas.textContent='▲ Cevaba dön'; panel.appendChild(panelBas);
+  panelBas.addEventListener('click',()=>panel.scrollTo({top:0,behavior:'smooth'}));
+  panel.addEventListener('scroll',()=>panelBas.classList.toggle('gor',panel.scrollTop>160),{passive:true});
   // 06.09 rakip dersi: şık eleme (✕) — seçmeden çizer; sınavda kâğıtta yapılan eleme burada da yapılır, cevap anında kayda geçer
   k.querySelectorAll('.sikCiz').forEach(x=>x.addEventListener('click',e=>{ e.stopPropagation(); if(durum.cevap[i]!==undefined) return; x.closest('.sik').classList.toggle('cizili'); }));
   // 06.09 rakip dersi: soru süresi — kart görünür olunca başlar, cevapta durur; cevap satırında gösterilir, kasaya gider
@@ -680,7 +689,7 @@ SORULAR.forEach((s,i)=>{
     try{ const es=kagitEsle(); if(es){ const kn=k.querySelector('.kagitNot'); kn.innerHTML='Tablodan '+es.tabloda.length+'/'+es.tabloN+' değeri bulmuşsun'+(es.eksikTablo.length?'; eksik: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?'; tabloda olmayan: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':'')+'. Nöbetçi anlatımında ✏️ işaretli hücreler senin bulduklarındır.'; } kagitKasayaYaz(h,dogruMu); }catch(e){}
   }));
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
-  const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); hedef.scrollIntoView({block:'nearest',behavior:'smooth'}); } };
+  const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); setTimeout(()=>panelKaydir(hedef),30); } };
   k.querySelector('.bDaha').addEventListener('click',e=>{ const c=k.querySelector('.cipler'); c.classList.toggle('acikEk'); e.currentTarget.textContent=c.classList.contains('acikEk')?'⋯ Daha az':'⋯ Daha fazla'; });
   // ===== ✏️ HESAP KÂĞIDI (06.09 Cem "1.2.3 yap, telefona uysun") — hesaplamaz (TESMER: hesap makinesi yasak), yazı + parmak çizimi, soru başına saklanır
   const kagit=k.querySelector('.kagit'), kYaz=kagit.querySelector('.kagitYaz'), kCiz=kagit.querySelector('.kagitCiz'), kNot=kagit.querySelector('.kagitNot'), kAc=k.querySelector('.kagitAc');
@@ -747,7 +756,7 @@ SORULAR.forEach((s,i)=>{
   window.addEventListener('resize',()=>{ if(kagit.dataset.sek==='ciz'&&(kagit.classList.contains('acik')||(matchMedia('(min-width:900px)').matches&&!k.classList.contains('cevaplandi')))) kanvasBoyut(); });
   k.querySelector('.cOgret').addEventListener('click',e=>sekAc('ogret',e.currentTarget));
   // 📜 KAYNAGI GOSTER: ambardaki gercek metin, hakemin dogruladigi cumle sari
-  k.querySelector('.cKaynak').addEventListener('click',e=>{ const ic=k.querySelector('.kaynakIc'); if(!ic.innerHTML){ const ky=s.kaynak||{liste:[]}; if(!ky.liste.length){ ic.innerHTML='<p class="ipnot">Bu soru için ambardan metin çekilemedi.</p>'; } else { ic.innerHTML=ky.liste.map(x=>{ let m=esc(x.metin); if(ky.alinti){ const a=esc(ky.alinti); const i=m.toLowerCase().indexOf(a.toLowerCase()); if(i>=0) m=m.slice(0,i)+'<mark>'+m.slice(i,i+a.length)+'</mark>'+m.slice(i+a.length); } return '<div class="kaynakAd">'+esc(String(x.ad).replace(/^THP\s+/,'Tekdüzen Hesap Planı ').replace(/^VUK \(213 s\.K\.\)/,'Vergi Usul Kanunu').replace(/^TTK \(6102 s\.K\.\)/,'Türk Ticaret Kanunu').replace(/^TBK \(6098 s\.K\.\)/,'Türk Borçlar Kanunu'))+'</div><div class="kaynakMetin">'+m+'</div>'; }).join('')+(ky.alinti?'<p class="ipnot">Sarı işaretli cümle, bağımsız hakemin doğru şık için kaynaktan doğruladığı hükümdür.</p>':'<p class="ipnot">Hakem notu: '+esc(ky.hakem||'')+'</p>'); } } sekAc('kaynakS',e.currentTarget); const mk=k.querySelector('.kaynakIc mark'); if(mk&&k.querySelector('.sek.kaynakS').classList.contains('acik')) setTimeout(()=>mk.scrollIntoView({block:'center',behavior:'smooth'}),250); });
+  k.querySelector('.cKaynak').addEventListener('click',e=>{ const ic=k.querySelector('.kaynakIc'); if(!ic.innerHTML){ const ky=s.kaynak||{liste:[]}; if(!ky.liste.length){ ic.innerHTML='<p class="ipnot">Bu soru için ambardan metin çekilemedi.</p>'; } else { ic.innerHTML=ky.liste.map(x=>{ let m=esc(x.metin); if(ky.alinti){ const a=esc(ky.alinti); const i=m.toLowerCase().indexOf(a.toLowerCase()); if(i>=0) m=m.slice(0,i)+'<mark>'+m.slice(i,i+a.length)+'</mark>'+m.slice(i+a.length); } return '<div class="kaynakAd">'+esc(String(x.ad).replace(/^THP\s+/,'Tekdüzen Hesap Planı ').replace(/^VUK \(213 s\.K\.\)/,'Vergi Usul Kanunu').replace(/^TTK \(6102 s\.K\.\)/,'Türk Ticaret Kanunu').replace(/^TBK \(6098 s\.K\.\)/,'Türk Borçlar Kanunu'))+'</div><div class="kaynakMetin">'+m+'</div>'; }).join('')+(ky.alinti?'<p class="ipnot">Sarı işaretli cümle, bağımsız hakemin doğru şık için kaynaktan doğruladığı hükümdür.</p>':'<p class="ipnot">Hakem notu: '+esc(ky.hakem||'')+'</p>'); } } sekAc('kaynakS',e.currentTarget); const mk=k.querySelector('.kaynakIc mark'); if(mk&&k.querySelector('.sek.kaynakS').classList.contains('acik')) setTimeout(()=>panelKaydir(mk,true),250); });
   // 🚩 HATA BILDIR (prototip: yerelde saklanir; uygulamada kasaya 'itiraz' kaydi olur)
   k.querySelector('.cHata').addEventListener('click',()=>{ const n=prompt('Bu soruda ne yanlış? (kısa yaz)'); if(n&&n.trim()){ try{ const l=JSON.parse(localStorage.getItem('kc_hata')||'[]'); l.push({id:s.id,konu:s.konu,not:n.trim(),t:new Date().toISOString()}); localStorage.setItem('kc_hata',JSON.stringify(l)); }catch(e){} alert('Teşekkürler, bildirimin kaydedildi: '+s.id); } });
   // 🧠 SEN ANLAT (Feynman; ucretsiz surum = anahtar kavram kontrolu, model yok)
@@ -1070,10 +1079,11 @@ SORULAR.forEach((s,i)=>{
       const bb=serit.querySelector('.bDersBitti'); if(bb){ bb.addEventListener('click',()=>{ ders.classList.remove('acik'); const cA=k.querySelector('.cAnlat'); if(cA){ if(cA.offsetParent===null){ const bd=k.querySelector('.bDaha'); if(bd) bd.click(); } cA.click(); const ta=k.querySelector('.anlatK'); if(ta) setTimeout(()=>ta.focus(),200); } }); }
       // tablo: bu adimin hucreleri acilir ve yanar; onceki adimlarda acilanlar acik kalir
       tabloSar.querySelectorAll('td.vurgu,td.kaynakH').forEach(td=>{ td.classList.remove('vurgu'); td.classList.remove('kaynakH'); }); tabloSar.querySelectorAll('tr.kayit.vurguS').forEach(tr=>tr.classList.remove('vurguS'));
-      for(let q=0;q<=j;q++){ (s.adimlar[q].doldur||[]).forEach(p=>acilan.add(p[0]+','+p[1])); }
+      // 06.09 Cem "5'ten 3'e dönünce 5'in cevabı kalıyor": açık hücre kümesi her adımda 0..j'den YENİDEN kurulur; geri gidince sonraki adımların hücresi tekrar kapanır
+      acilan.clear(); for(let q=0;q<=j;q++){ (s.adimlar[q].doldur||[]).forEach(p=>acilan.add(p[0]+','+p[1])); }
       kaynakH.forEach(k=>acilan.add(k));   // formülde kullanılan hücre görünür olmalı
       if(son&&s.tablo){ s.tablo.satirlar.forEach((st,r)=>st.forEach((c,ci)=>{ if(ci>0) acilan.add(r+','+ci); })); }
-      tabloSar.querySelectorAll('td[data-r]').forEach(td=>{ const key=td.dataset.r+','+td.dataset.c; if(acilan.has(key)&&td.classList.contains('gizliH')){ td.classList.remove('gizliH'); td.classList.add('acildi'); } });
+      tabloSar.querySelectorAll('td[data-r]').forEach(td=>{ const key=td.dataset.r+','+td.dataset.c; if(acilan.has(key)){ if(td.classList.contains('gizliH')){ td.classList.remove('gizliH'); td.classList.add('acildi'); } } else if(td.classList.contains('acildi')){ td.classList.add('gizliH'); td.classList.remove('acildi'); } });
       (a.doldur||[]).forEach(p=>{ const td=tabloSar.querySelector('td[data-r="'+p[0]+'"][data-c="'+p[1]+'"]'); if(td) td.classList.add('vurgu'); });
       // 05.09 Cem "%80 çıktığını o rakamı tabloya doldurduğumuzu göstersek": sonuç formülden tablodaki hücreye UÇAR
       // 05.09 Cem "bir anda çözümler geliyor, sırayla çözüyor gibi yapsa": adımda birden çok hesap varsa formül kutuları
@@ -1100,8 +1110,11 @@ SORULAR.forEach((s,i)=>{
       let lej=tabloSar.querySelector('.lejant'); if(!lej){ lej=document.createElement('div'); lej.className='lejant'; tabloSar.appendChild(lej); }
       lej.innerHTML=kaynakH.size?'<i class="m"></i>nereden geldi <i class="a"></i>bu adımda bulundu':(hedef.size?'<i class="a"></i>bu adımda bulundu':''); lej.style.display=lej.innerHTML?'block':'none';
       // kayit satirlari: adimda anilan hesap kodu (uc hane; "100.000" icindeki 100 sayilmaz)
-      const kodlar=new Set([...(String(a.formul)+' '+String(a.anlatim)).matchAll(/(?<![\d.,])(\d{3})(?![\d.,]|\s*(?:TL|%|adet|gün|yıl|ay))/g)].map(m=>m[1]));
-      tabloSar.querySelectorAll('tr.kayit[data-kod]').forEach(tr=>{ const k2=tr.dataset.kod; const an=k2&&kodlar.has(k2); if(an||son){ gosterilen.add(k2); } tr.classList.toggle('goster',gosterilen.has(k2)); tr.classList.toggle('vurguS',!!an); });
+      const kodOf=x=>new Set([...(String(x.formul)+' '+String(x.anlatim)).matchAll(/(?<![\d.,])(\d{3})(?![\d.,]|\s*(?:TL|%|adet|gün|yıl|ay))/g)].map(m=>m[1]));
+      const kodlar=kodOf(a);
+      // gösterilen kayıt satırları da 0..j'den yeniden kurulur (geri gidince sonraki adımın satırı gizlenir)
+      gosterilen.clear(); for(let q=0;q<=j;q++){ kodOf(s.adimlar[q]).forEach(c=>gosterilen.add(c)); }
+      tabloSar.querySelectorAll('tr.kayit[data-kod]').forEach(tr=>{ const k2=tr.dataset.kod; const an=k2&&kodlar.has(k2); if(son){ gosterilen.add(k2); } tr.classList.toggle('goster',gosterilen.has(k2)); tr.classList.toggle('vurguS',!!an); });
       const ara=tabloSar.querySelector('tr.ara'); if(ara){ ara.classList.toggle('goster',gosterilen.size>0); }
       adimBar.querySelectorAll('i').forEach(n=>{ const q=parseInt(n.dataset.j); n.classList.toggle('simdi',q===j); n.classList.toggle('gecti',q<j); });
       bOnce.disabled=(j===0); bSonra.disabled=son; bSonra.textContent=son?'Bitti ✓':'İleri ▶';
