@@ -249,16 +249,25 @@ foreach($x in $sec){
     $itb=@{ basliklar=@(@($v.ikiz.tablo.basliklar) | ForEach-Object { TurkceOnar "$_" }); satirlar=@(@($v.ikiz.tablo.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { TurkceOnar "$_" }) }) }
     $oyun=@{ tur='tablo'; soru=(TurkceOnar "$($v.ikiz.ikiz_soru)"); hedef=(TurkceOnar "$($v.ikiz.hedef_cumle)"); tablo=$itb; verilen=(& $cift $v.ikiz.verilen); bosluk=(& $cift $v.ikiz.bosluk); not='İkiz soru: aynı yöntem, yeni rakamlar. Boş hücreleri sen doldur.' }
   }
+  # 06.09 Cem (eksiler #2): hesaplama sorusunda yevmiye şeması BONUS oyun olur — tablo oyunu bitince "Bonus: kaydını da yap" (zorunlu değil, ikinci seviye)
+  $oyunBonus=$null
+  if($hesaplamaMi -and $kayit.Count){
+    $katB=[decimal]2; $trB=[cultureinfo]::GetCultureInfo('tr-TR')
+    $olcekB={ param($t) [regex]::Replace("$t",'\d{1,3}(?:\.\d{3})+(?:,\d+)?',{ param($m) try{ $n=[decimal]::Parse($m.Value,$trB); ($n*$katB).ToString('N0',$trB) }catch{ $m.Value } }) }
+    $okB=@(); foreach($r in $kayit){ $okB+=@{ hesap=$r.hesap; tutar=(& $olcekB $r.tutar); taraf=$r.taraf } }
+    $oyunBonus=@{ tur='olcek'; soru=(& $olcekB "$($v.soru)"); kayit=$okB; not='Bonus: aynı olay, tutarlar değişti; kâr tutarını buldun, şimdi kaydını da yap.' }
+  }
   # 06.09 (Cem "geç"): konu girişi kartı (FAZ G) - Nöbetçi'nin 0. adımı
   $konuGiris=$null; if($v.PSObject.Properties['konu_giris'] -and $v.konu_giris -and $v.konu_giris.nedir){ $konuGiris=@{ nedir=(TurkceOnar "$($v.konu_giris.nedir)"); sinavda=(TurkceOnar "$($v.konu_giris.sinavda)"); yontemler=(TurkceOnar "$($v.konu_giris.yontemler)"); ornek=$(if($v.konu_giris.PSObject.Properties['ornek']){ TurkceOnar "$($v.konu_giris.ornek)" } else { '' }) } }
   if($adimlar.Count -and "$($adimlar[0].formul)" -match '^(Verilen|Soruda ne var|Soru bize)'){ $adimlar[0].verilenAdim=$true }
   # 06.09 (Cem "bu beşi geç" #4 öğrenci katmanı + #1 karne): üretici ölçümleri sayfaya taşınır — sim (öğretti mi), hesap kodu, aritmetik, pencere
   $simB=$null; foreach($sa in 'simulasyon_sonnet','simulasyon'){ if(-not $simB -and $v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu']){ $simB=@{ dogru=[bool]$v.$sa.dogru_mu; tur=$(if($v.$sa.PSObject.Properties['tur']){ "$($v.$sa.tur)" } else { 'hesap' }); model="$($v.$sa.model)" } } }
   $olcum=@{ sim=$simB; hesapKod=$(if($v.PSObject.Properties['hesap_kod']){ @($v.hesap_kod).Count } else { $null }); aritmetik=$(if($v.PSObject.Properties['aritmetik']){ @($v.aritmetik).Count } else { $null }); sonDonem=$(if($v.PSObject.Properties['son_donem']){ [int]$v.son_donem } else { $null }); pencere=$(if($v.PSObject.Properties['pencere']){ [int]$v.pencere } else { $null }); capa=$(if($v.PSObject.Properties['capa_kaynak']){ "$($v.capa_kaynak)" } else { '' }); hakem=$(if($v.hakem -and $v.hakem.karar){ "$($v.hakem.karar)" } else { '' }) }
-  $tipB=$(if($kayit.Count){ 'kayit' } elseif($v.cozum_tablo -and $v.cozum_tablo.satirlar){ 'hesap' } else { 'teori' })
+  # 06.09 ölçüm: VUK 328 kâr sorusu yevmiye şeması taşıdığı için 'kayit' sayılıyordu → çözüm tablosu varsa HESAP, yalnız kayıt varsa KAYIT
+  $tipB=$(if($v.cozum_tablo -and $v.cozum_tablo.satirlar){ 'hesap' } elseif($kayit.Count){ 'kayit' } else { 'teori' })
   # 06.09 Cem "3 yap": çapa (pencerenin gerçek çıkmış sorusu) giriş kartında "Sınavda böyle çıktı" olarak, cevapsız
   $capaB=$null; if($v.PSObject.Properties['capa_metin'] -and "$($v.capa_metin)".Trim()){ $capaB=@{ kaynak=$(if($v.PSObject.Properties['capa_kaynak']){ "$($v.capa_kaynak)" } else { 'çıkmış soru' }); metin=(TurkceOnar "$($v.capa_metin)") } }
-  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$capaB; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
+  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$capaB; oyunBonus=$oyunBonus; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
   "  $($x.et) $($x.id) · $($v.konu) · $($x.donem) donem · kayit satiri $($kayit.Count)"
 }
 Sure 'sözlük + soru kurulumu'
@@ -769,7 +778,8 @@ SORULAR.forEach((s,i)=>{
     const kagitS=new Set([...metin.matchAll(rk)].map(m=>normK(m[0])).filter(x=>/\d/.test(x)&&x.replace(/\D/g,'').length>=2));
     const soruS=new Set([...String(s.soru||'').matchAll(rk)].map(m=>normK(m[0])));
     const tabloS=new Set(); if(s.tablo){ s.tablo.satirlar.forEach(st=>st.forEach((c,ci)=>{ if(ci>0){ const n=normK(c); if(/\d/.test(n)&&!soruS.has(n)) tabloS.add(n); } })); }
-    (s.kayit||[]).forEach(r=>{ const n=normK(r.tutar); if(/\d/.test(n)&&!soruS.has(n)) tabloS.add(n); });
+    // 06.09 Cem (VUK 328 kâr sorusu, eksiler #7): hesaplama sorusunda yevmiye tutarları (KDV 64.000 gibi) kâğıt beklentisine girmez; yalnız kayıt sorusunda
+    if(s.tip==='kayit'){ (s.kayit||[]).forEach(r=>{ const n=normK(r.tutar); if(/\d/.test(n)&&!soruS.has(n)) tabloS.add(n); }); }
     const fmtK=n=>{ const v=parseFloat(String(n).replace(',','.')); return isNaN(v)?String(n):v.toLocaleString('tr-TR'); };   // "142000" → "142.000"
     const tabloda=[...tabloS].filter(n=>kagitS.has(n)).map(fmtK), eksikTablo=[...tabloS].filter(n=>!kagitS.has(n)).map(fmtK), tabloDisi=[...kagitS].filter(n=>!tabloS.has(n)&&!soruS.has(n)&&n.replace(/\D/g,'').length>=3).map(fmtK);
     // yüzdeler ("%66,67") ve tek-iki haneli katsayılar tabloDisi'ne girmez (oran/katsayı hesap sonucu değil)
@@ -861,6 +871,8 @@ SORULAR.forEach((s,i)=>{
     const olcT=()=>{ if(bitti) return; let d=0,n=0,bosN=0; satirlar.querySelectorAll('td.bosH').forEach(td=>{ n++; const g=normS(td.querySelector('input').value), b=normS(td.dataset.v); if(g==='') bosN++; const ok=g!==''&&(g===b||(!isNaN(parseFloat(g))&&!isNaN(parseFloat(b))&&Math.abs(parseFloat(g)-parseFloat(b))<0.5)); td.classList.toggle('dog',ok); td.classList.toggle('yan',!ok); if(ok) d++; });
       const m=oyun.querySelector('.msj');
       if(d===n){ kilitle();
+        // 06.09 Cem (eksiler #2): tablo tamamlanınca BONUS kayıt oyunu teklif edilir (kâr bulundu → "kaydını da yap"); zorunlu değil, ikinci seviye
+        if(s.oyunBonus&&s.oyunBonus.kayit&&s.oyunBonus.kayit.length&&!oyun.querySelector('.bBonus')){ const bb=document.createElement('button'); bb.className='btn bBonus'; bb.textContent='🎯 Bonus: kaydını da yap'; bb.title='Aynı olayın yevmiye kaydını yeni tutarlarla sürükleyerek yap'; bb.addEventListener('click',()=>{ s.oyun=s.oyunBonus; const h3=oyun.querySelector('h3'); if(h3) h3.textContent='🎯 Bonus: kaydını yap'; const sm=oyun.querySelector('.soruMini'); if(sm) sm.innerHTML='<b>Bonus, yeni tutarlarla:</b> '+esc(s.oyun.soru)+'<div class="notK">'+esc(s.oyun.not||'')+'</div>'; oyun.querySelector('.msj').textContent=''; oyunKur(); }); const br=satirlar.querySelector('.btnrow'); if(br) br.appendChild(bb); else oyun.appendChild(bb); }
         if(!gosterildi&&!ipucuAcildi){ durum.seri++; try{ localStorage.setItem('kc_seri',String(durum.seri)); }catch(e){} m.className='msj ok'; m.textContent='🏅 Tablo tam doğru! Seri: '+durum.seri+(durum.seri>=3?' 🔥':'')+' · Hazırlık Skoru +'; if(navigator.vibrate) navigator.vibrate([20,40,20]); oyunKaydet(s,'tam'); }
         else if(!gosterildi){ m.className='msj ok'; m.textContent='Tablo tamam; ipucu aldığın için seri sayılmadı, skora yarım puan işlendi. ↺ Tekrar ile ipuçsuz dene.'; oyunKaydet(s,'ipuclu'); }
         else { m.className='msj ok'; m.textContent='Tablo tamam, ama doğruları açtığın için seri ve skor sayılmadı. ↺ Tekrar ile kendin çöz.'; oyunKaydet(s,'gosterildi'); } }
@@ -1116,7 +1128,7 @@ SORULAR.forEach((s,i)=>{
       // 06.09 KONU GİRİŞİ kartı (0. adım)
       // 06.09 Cem "3 yap": giriş kartı ÜÇ bölüm — nedir · "Sınavda böyle çıktı" (çapa = pencerenin gerçek çıkmış sorusu, CEVAPSIZ; Cem "somut örneği gerçek
       // örnekle versek") · nasıl sorulur. Uydurma "somut örnek" yalnız çapa yoksa; "Yöntemler" satırı kural kartına taşındı (giriş kartı formül vermez).
-      if(a.giris&&s.konuGiris){ const cp=s.capa&&s.capa.metin?s.capa:null; fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+(cp?'<div class="et">Sınavda böyle çıktı · '+esc(cp.kaynak)+'</div><p class="girisOrnek">'+esc(cp.metin)+'</p>':(s.konuGiris.ornek?'<div class="et">Somut örnek</div><p class="girisOrnek">'+esc(s.konuGiris.ornek)+'</p>':''))+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; }
+      if(a.giris&&s.konuGiris){ const cp=s.capa&&s.capa.metin?s.capa:null; fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+(cp?'<div class="et">Aynı konudan çıkmış soru · '+esc(cp.kaynak)+'</div><p class="girisOrnek">'+esc(cp.metin)+'</p>':(s.konuGiris.ornek?'<div class="et">Somut örnek</div><p class="girisOrnek">'+esc(s.konuGiris.ornek)+'</p>':''))+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; }
       if(verilenAdimMi&&!a.giris){
         const soruH=esc(s.soru).replace(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?:\s*(?:TL|₺|kg|adet|saat|gün|yıl|%))?(?![\d.,])/g,m=>'<span class="kSayi">'+m+'</span>');
         fH='<div class="soruIsaret"><div class="et">Soru, verilenler işaretli</div>'+soruH+'</div>';

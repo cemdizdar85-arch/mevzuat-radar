@@ -1623,6 +1623,8 @@ foreach($id in @($don.Keys)){
     # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
     $soruTutar=@([regex]::Matches("$($cvp.soru)",'\d{1,3}(?:\.\d{3})+|\b\d{3,}\b') | ForEach-Object { $_.Value } | Select-Object -Unique); $tekrar=@($soruTutar | Where-Object { $t=$_; "$($gN.ornek)" -match ('(?<![\d.])'+[regex]::Escape($t)+'(?![\d.])') })
     if($tekrar.Count){ $dusenG+="örnek sorunun rakamını tekrarlıyor ($($tekrar -join ', '))" }
+    # 06.09 Cem (eksiler #4): "Sınavda nasıl sorulur" ne VERİLİR ne İSTENİR der; işlem adı/formül (çıkarılarak, toplanarak, düşülerek, eksi, formül…) cevabın yolunu ele verir → yasak
+    if("$($gN.sinavda)" -match '(?i)(çıkarıl|çıkararak|toplanarak|toplanır|düşül|bölerek|bölünerek|çarparak|çarpılarak|formül|\beksi\b|\bartı\b|=|hesaplanarak)'){ $dusenG+="'nasıl sorulur' satırında işlem adı var (yasak: yalnız ne verilir, ne istenir)" }
     if(-not $dusenG.Count){ break }
     if($tur -eq 1){ Write-Host "  GİRİŞ KAPI ($id): $($dusenG -join '; ') -> tekrar" -ForegroundColor Yellow; $istG+="`n`nKAPI DÜŞTÜ: $($dusenG -join '; '). Kısaltmasız, madde numarasız, 80 kelime altında yeniden yaz. Yalnız JSON." }
     else { $rapor.Add("GIRIS KAPI: $id") }
