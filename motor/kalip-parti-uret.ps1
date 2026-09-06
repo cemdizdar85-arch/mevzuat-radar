@@ -154,8 +154,10 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
       # 06.09 KAPI-K kaynak süzgeci: pencere sözlüğü varsa, adı pencere dışı kök taşıyan TEORİ NOTU kaynak paketine girmez
       # ("Teori Notu - kusurlu ve bozuk mamul maliyetleri" → 'kusur' son 7 dönem Maliyet sorularında yok). Kanun/standart/THP kaynağı süzülmez.
       if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
-        $adKisim=("$($x.kaynak_ad)" -replace '^(TEORI|Teori Notu)\s*-\s*',''); $disi=@(PencereKavram $adKisim -YalnizDar)
-        if($disi.Count){ Write-Host "  PENCERE DIŞI KAYNAK atlandı: $($x.kaynak_ad) (kök: $($disi -join ', '))" -ForegroundColor DarkGray; continue }
+        # 06.09 maliyet-k10d dersi: "Ortak (müşterek) maliyetlerin dağıtımı" notu tek parantez kelimesi yüzünden atılıyordu → dar sözlükte ≥2 kök eksikse
+        # ya da geniş sözlükte ≥1 kök eksikse atlanır ("kusurlu ve bozuk mamul": dar 2 eksik → atlanır · "müşterek": dar 1 eksik, geniş var → kalır)
+        $adKisim=("$($x.kaynak_ad)" -replace '^(TEORI|Teori Notu)\s*-\s*',''); $disiDar=@(PencereKavram $adKisim -YalnizDar); $disiGenis=@(PencereKavram (($adKisim -split '\s+' | Where-Object { $_.Length -ge 6 }) -join ' ') | Where-Object { $w=$_; -not $script:PENCERE_KOK.ContainsKey($w.Substring(0,5)) })
+        if($disiDar.Count -ge 2 -or $disiGenis.Count -ge 1){ Write-Host "  PENCERE DIŞI KAYNAK atlandı: $($x.kaynak_ad) (dar: $($disiDar -join ', ') · geniş: $($disiGenis -join ', '))" -ForegroundColor DarkGray; continue }
       }
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
@@ -1723,8 +1725,13 @@ E) $($ti.siklar.E)
   $satirlarI=@($cvp.ikiz.tablo.satirlar); $hedefSat=$null
   $kokM=[regex]::Match("$($cvp.ikiz.ikiz_soru)",'([^.?!]{6,}?)\s*(kaç|ne kadardır|hangisidir|nedir)[^.?!]*\?\s*$')
   if($kokM.Success){
-    $istenenK=@(((Katla2 $kokM.Groups[1].Value) -replace '[^a-z ]+',' ') -split '\s+' | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^(gore|olan|tarih|satis|sonu|basi|donem|yili|toplam|tutar)$' } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } } | Select-Object -Unique)
-    $enP=0; foreach($st in $satirlarI){ $etK=@(((Katla2 "$(@($st)[0])") -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt $enP){ $enP=$p; $hedefSat=$st } }
+    # 06.09 maliyet-k10d dersi: cümlenin tamamı ("ortak maliyetin ... dağıtımı sonucunda R ürününün kg başına maliyeti") 'Ortak Maliyet Payı' satırını seçti,
+    # oysa istenen SON öbek ("kg başına maliyeti" → Birim Maliyet). İstenen = "kaç"tan önceki son 5 kelime.
+    $sonObek=(@(($kokM.Groups[1].Value -split '\s+') | Where-Object { $_ }) | Select-Object -Last 5) -join ' '
+    $istenenK=@(((Katla2 $sonObek) -replace '[^a-z ]+',' ') -split '\s+' | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^(gore|olan|tarih|sonu|basi|donem|yili|urun|urunu|urununun)$' } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } } | Select-Object -Unique)
+    if($istenenK -contains 'basin'){ $istenenK=@($istenenK)+@('birim') }   # "kg başına" = birim
+    # eşitlikte SONRAKİ satır kazanır (sonuç satırları tabloda alttadır)
+    $enP=0; foreach($st in $satirlarI){ $etK=@(((Katla2 "$(@($st)[0])") -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } }
     if($hedefSat -and $enP -ge 1){ Write-Host "  SIM HEDEF ($id): '$(@($hedefSat)[0])' satırı (soru kökü eşleşmesi $enP)" -ForegroundColor DarkGray } else { $hedefSat=$null }
   }
   $sonSat=@($(if($hedefSat){ $hedefSat } else { $satirlarI[-1] })); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
