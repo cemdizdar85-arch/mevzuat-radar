@@ -1709,8 +1709,16 @@ E) $($ti.siklar.E)
     if(-not $dogruT){ $rapor.Add("SIM YANLIŞ (teori): $id | cevap $cevT hedef $($ti.dogru) | $($oT.eksik)") }
     continue
   }
-  # hedef: ikiz tablosunun son satırındaki son sayılı hücre
-  $sonSat=@(@($cvp.ikiz.tablo.satirlar)[-1]); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
+  # hedef: ikizin SORDUĞU satır (06.09 fmuh-k10c dersi: ikiz "net defter değeri" sordu, öğrenci 337.500 dedi, karşılaştırıcı son satırdaki
+  # kâr/zararı (-137.500) hedef alıp YANLIŞ saydı). Soru kökündeki istenen ifade ile satır etiketleri kök-önekiyle eşlenir; eşleşme yoksa son satır.
+  $satirlarI=@($cvp.ikiz.tablo.satirlar); $hedefSat=$null
+  $kokM=[regex]::Match("$($cvp.ikiz.ikiz_soru)",'([^.?!]{6,}?)\s*(kaç|ne kadardır|hangisidir|nedir)[^.?!]*\?\s*$')
+  if($kokM.Success){
+    $istenenK=@(((Katla2 $kokM.Groups[1].Value) -replace '[^a-z ]+',' ') -split '\s+' | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^(gore|olan|tarih|satis|sonu|basi|donem|yili|toplam|tutar)$' } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } } | Select-Object -Unique)
+    $enP=0; foreach($st in $satirlarI){ $etK=@(((Katla2 "$(@($st)[0])") -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt $enP){ $enP=$p; $hedefSat=$st } }
+    if($hedefSat -and $enP -ge 1){ Write-Host "  SIM HEDEF ($id): '$(@($hedefSat)[0])' satırı (soru kökü eşleşmesi $enP)" -ForegroundColor DarkGray } else { $hedefSat=$null }
+  }
+  $sonSat=@($(if($hedefSat){ $hedefSat } else { $satirlarI[-1] })); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
   if(-not $hedefS){ Write-Host "  SIM ATLANDI ($id): ikiz sonuç hücresi yok" -ForegroundColor DarkGray; continue }
   $adimMetin=(@($cvp.adimlar) | ForEach-Object -Begin { $q=0 } -Process { $q++; "$q) $($_.formul)`n   $($_.anlatim)" }) -join "`n"
   $istO=$simIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{ADIMLAR}',$adimMetin).Replace('{IKIZ}',"$($cvp.ikiz.ikiz_soru)")
