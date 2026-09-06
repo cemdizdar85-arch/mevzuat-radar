@@ -469,7 +469,27 @@ $html=@'
   .ders .serit{grid-column:2;grid-row:2;padding:0 22px 0 0;min-height:0}.adimK{inset:0 22px 0 0}.ders .altc{grid-column:1/3}
   .ders .altc .adimBar{flex:1;max-width:520px;margin:0 auto}
   .oyun{padding:22px 28px}.satir{grid-template-columns:1fr 1fr;gap:12px}.kutu{min-height:64px}
+  /* hesap kâğıdı masaüstü: cevaptan önce sağ kolon (panelin yeri), cevaptan sonra çiple açılan üst katman */
+  /* özgüllük .kart .kagit: temel .kagit kuralı bu bloktan SONRA yazılı, aynı özgüllükte sonraki kazanırdı (06.09 tarayıcıda görüldü) */
+  .kart .kagit{position:static;grid-column:2;grid-row:2;transform:none;visibility:visible;height:auto;min-height:0;max-height:calc(100vh - 92px);border:1px dashed var(--cizgi);border-radius:16px;padding:14px 18px 16px;transition:none}
+  .kart .kagitGovde{min-height:240px}
+  .kart:not(.cevaplandi) .kagitKapat,.kart .kagitAc{display:none}
+  .kart.cevaplandi .kagit{display:none}.kart.cevaplandi .kagit.acik{display:flex;position:absolute;top:60px;right:32px;bottom:20px;width:min(46%,640px);z-index:7;background:var(--kart);border-style:solid}
 }
+/* 06.09 HESAP KÂĞIDI (Cem "yan tarafa kâğıt kalem", "1.2.3 yap, telefona uysun"): TESMER SGS kılavuzu hesap makinesini ve
+   müsvedde kâğıdını sınava sokmayı yasaklıyor → kâğıt HESAPLAMAZ, kitapçık kenarı gibidir. Telefon: alt sayfa, parmakla çizim + yazı
+   sekmeleri, varsayılan kapalı (✏️ düğmesi). Masaüstü: cevaptan önce sağ kolonda açık, cevaptan sonra "✏️ Kâğıdım" çipiyle üstte açılır.
+   Soru başına yerelde saklanır (kc_kagit); kutudan dönen aday eski kâğıdını görür. */
+.kagit{position:absolute;left:0;right:0;bottom:0;height:74%;background:var(--kart);border-top:1px solid var(--cizgi);border-radius:18px 18px 0 0;transform:translateY(105%);visibility:hidden;transition:transform .28s ease,visibility 0s linear .28s;display:flex;flex-direction:column;padding:10px 12px 12px;z-index:6}
+.kagit.acik{transform:none;visibility:visible;transition:transform .28s ease,visibility 0s}
+.kagitUst{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:.8em;color:var(--dim);margin-bottom:6px}.kagitUst b{color:var(--yazi);font-size:1.05em}
+.kagitSek{margin-left:auto;display:flex;gap:4px}.kagitSek button{font:inherit;font-size:.82em;background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:14px;padding:4px 10px;cursor:pointer}.kagitSek button.acik{border-color:var(--mavi);color:var(--mavi)}
+.kagitGovde{flex:1;min-height:0;position:relative}
+.kagitYaz{width:100%;height:100%;resize:none;background:var(--bg);color:var(--yazi);border:1px dashed var(--cizgi);border-radius:10px;padding:8px 12px;font:inherit;font-size:1.02em;line-height:27px;background-image:repeating-linear-gradient(transparent 0 26px,var(--cizgi) 26px 27px);background-attachment:local;outline:none}
+.kagitCiz{width:100%;height:100%;display:block;background:var(--bg);border:1px dashed var(--cizgi);border-radius:10px;touch-action:none;cursor:crosshair}
+.kagit[data-sek="ciz"] .kagitYaz,.kagit[data-sek="yaz"] .kagitCiz{display:none}
+.kagitAc{position:absolute;right:14px;bottom:44px;z-index:5;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:20px;padding:8px 12px;font:inherit;font-size:.86em;cursor:pointer}.kagitAc.var{border-color:var(--altin);color:var(--altin)}
+.kagitNot{font-size:.78em;color:var(--altin);margin-top:4px;min-height:1em}
 .son{justify-content:center;text-align:center}.son .buyuk{font-size:2.6em;font-weight:900;margin:8px 0}.son .seri{font-size:1.1em;color:var(--altin);font-weight:800}
 .paylas{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:14px;margin:14px auto;max-width:320px;text-align:left;font-size:.9em}
 </style></head><body>
@@ -534,8 +554,10 @@ SORULAR.forEach((s,i)=>{
    +'<div class="govde"><span class="rozet">📌 '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde çıktı</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
    +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b>'+esc(s.siklar[h])+'</button>').join('')+'</div></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
+   +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" placeholder="150.000 − 8.000 = …&#10;142.000 × 120.000 / 200.000 = …"></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'
+   +'<button class="kagitAc" title="Hesap kâğıdı">✏️ Kâğıt</button>'
    +'<div class="panel"><div class="tutamac"></div><div class="geri"></div><div class="ozet"></div><div class="hap">💡 '+esc(s.hap)+'</div>'
-   +'<div class="cipler"><button class="cip2 bDers">🎬 Nöbetçi anlatsın</button><button class="cip2 bOyun">'+(s.oyun&&s.oyun.tur==='tablo'?'⚖️ Sen çöz':'⚖️ Sen yap')+'</button><button class="cip2 bDaha" title="Daha fazla">⋯ Daha fazla</button><button class="cip2 ana bSonraki">Sonraki ▲</button>'
+   +'<div class="cipler"><button class="cip2 bDers">🎬 Nöbetçi anlatsın</button><button class="cip2 bOyun">'+(s.oyun&&s.oyun.tur==='tablo'?'⚖️ Sen çöz':'⚖️ Sen yap')+'</button><button class="cip2 cKagit" title="Hesap kâğıdın">✏️ Kâğıdım</button><button class="cip2 bDaha" title="Daha fazla">⋯ Daha fazla</button><button class="cip2 ana bSonraki">Sonraki ▲</button>'
    +'<button class="cip2 ek cKaynak">📜 Kaynağı göster</button><button class="cip2 ek cOgret">📘 Hesaplar</button><button class="cip2 ek cKural">Kural</button><button class="cip2 ek cAnlat">🧠 Sen anlat</button><button class="cip2 ek cThesap">📒 T-hesabı</button><button class="cip2 ek cCikmis">📈 Sınavda</button><button class="cip2 ek bDiger">Diğer şıklar</button><button class="cip2 ek cHata">🚩 Hata bildir</button></div>'
    +'<div class="sek kaynakS"><div class="et">📜 Kaynak metni</div><div class="kaynakIc"></div></div>'
    +'<div class="sek ogret"></div><div class="sek kuralK"><div class="et">Kural</div><p>'+esc(s.kural)+'</p>'+(s.olay?'<div class="et">Bu olayda</div><p>'+esc(s.olay)+'</p>':'')+'</div><div class="sek diger"></div>'
@@ -591,10 +613,33 @@ SORULAR.forEach((s,i)=>{
     if(/maliyet/i.test(String(s.ders||''))||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)){ const el=k.querySelector('.cKaynak'); if(el) el.style.display='none'; }
     if((!dogruMu||!oyunVar)&&bDersC){ bDersC.classList.add('birincil'); } else if(bOyunC){ bOyunC.classList.add('birincil'); if(bDersC) bDersC.classList.add('ek'); }
     k.querySelector('.ipucu').style.display='none'; panel.classList.add('acik');
+    k.classList.add('cevaplandi'); const kg=k.querySelector('.kagit'); if(kg) kg.classList.remove('acik');   // 06.09: kâğıt kapanır, cevap paneli yerini alır; "✏️ Kâğıdım" ile geri açılır
   }));
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
   const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); hedef.scrollIntoView({block:'nearest',behavior:'smooth'}); } };
   k.querySelector('.bDaha').addEventListener('click',e=>{ const c=k.querySelector('.cipler'); c.classList.toggle('acikEk'); e.currentTarget.textContent=c.classList.contains('acikEk')?'⋯ Daha az':'⋯ Daha fazla'; });
+  // ===== ✏️ HESAP KÂĞIDI (06.09 Cem "1.2.3 yap, telefona uysun") — hesaplamaz (TESMER: hesap makinesi yasak), yazı + parmak çizimi, soru başına saklanır
+  const kagit=k.querySelector('.kagit'), kYaz=kagit.querySelector('.kagitYaz'), kCiz=kagit.querySelector('.kagitCiz'), kNot=kagit.querySelector('.kagitNot'), kAc=k.querySelector('.kagitAc');
+  const KAG_KEY='kc_kagit'; const kagitOku=()=>{ try{ return JSON.parse(localStorage.getItem(KAG_KEY)||'{}'); }catch(e){ return {}; } };
+  let kagitDurum=kagitOku()[s.id]||null, cizimVar=false, kaydetZ=null, cizKur=false;
+  const ctx=kCiz.getContext('2d');
+  const kagitKaydet=()=>{ clearTimeout(kaydetZ); kaydetZ=setTimeout(()=>{ try{ const h=kagitOku(); const c=cizimVar?kCiz.toDataURL('image/png'):((kagitDurum&&kagitDurum.c)||''); if(kYaz.value.trim()||c){ h[s.id]={m:kYaz.value,c:(c.length<250000?c:''),t:Date.now()}; } else { delete h[s.id]; } localStorage.setItem(KAG_KEY,JSON.stringify(h)); kagitDurum=h[s.id]||null; kAc.classList.toggle('var',!!kagitDurum); }catch(e){} },400); };
+  if(kagitDurum){ kYaz.value=kagitDurum.m||''; kAc.classList.add('var'); if(Date.now()-kagitDurum.t>3600000){ const gun=Math.floor((Date.now()-kagitDurum.t)/GUN); kNot.textContent='Geçen seferki kâğıdın ('+(gun>0?gun+' gün önce':'bugün')+'). Nerede takıldığına bak, sonra temizleyip yeniden dene.'; } }
+  function kanvasBoyut(){ const r=kCiz.getBoundingClientRect(); if(!r.width||!r.height) return; const dpr=window.devicePixelRatio||1; const eski=cizKur&&cizimVar?kCiz.toDataURL():null; kCiz.width=Math.round(r.width*dpr); kCiz.height=Math.round(r.height*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=2.2; ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--yazi').trim()||'currentColor'; const src=eski||((!cizKur&&kagitDurum&&kagitDurum.c)||null); if(src){ const im=new Image(); im.onload=()=>{ ctx.drawImage(im,0,0,r.width,r.height); }; im.src=src; cizimVar=true; } cizKur=true; }
+  let ciziyor=false, sonN=null;
+  kCiz.addEventListener('pointerdown',e=>{ ciziyor=true; kCiz.setPointerCapture(e.pointerId); const r=kCiz.getBoundingClientRect(); sonN=[e.clientX-r.left,e.clientY-r.top]; e.preventDefault(); });
+  kCiz.addEventListener('pointermove',e=>{ if(!ciziyor) return; const r=kCiz.getBoundingClientRect(); const p=[e.clientX-r.left,e.clientY-r.top]; ctx.beginPath(); ctx.moveTo(sonN[0],sonN[1]); ctx.lineTo(p[0],p[1]); ctx.stroke(); sonN=p; cizimVar=true; });
+  const cizBitti=()=>{ if(!ciziyor) return; ciziyor=false; kagitKaydet(); }; kCiz.addEventListener('pointerup',cizBitti); kCiz.addEventListener('pointercancel',cizBitti);
+  kYaz.addEventListener('input',kagitKaydet);
+  const sekSec=ad=>{ kagit.dataset.sek=ad; kagit.querySelector('.kagitSekYaz').classList.toggle('acik',ad==='yaz'); kagit.querySelector('.kagitSekCiz').classList.toggle('acik',ad==='ciz'); if(ad==='ciz'){ requestAnimationFrame(kanvasBoyut); } };
+  kagit.querySelector('.kagitSekYaz').addEventListener('click',()=>{ sekSec('yaz'); setTimeout(()=>kYaz.focus(),120); }); kagit.querySelector('.kagitSekCiz').addEventListener('click',()=>sekSec('ciz'));
+  kagit.querySelector('.kagitTemizle').addEventListener('click',()=>{ if(kagit.dataset.sek==='ciz'){ ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,kCiz.width,kCiz.height); ctx.restore(); cizimVar=false; if(kagitDurum) kagitDurum.c=''; } else { kYaz.value=''; } kNot.textContent=''; kagitKaydet(); });
+  const kagitAc=()=>{ kagit.classList.add('acik'); if(kagit.dataset.sek==='ciz') requestAnimationFrame(kanvasBoyut); };
+  const kagitKapat=()=>kagit.classList.remove('acik');
+  kagit.querySelector('.kagitKapat').addEventListener('click',kagitKapat); kAc.addEventListener('click',kagitAc);
+  const cKg=k.querySelector('.cKagit'); if(cKg) cKg.addEventListener('click',()=>{ if(kagit.classList.contains('acik')) kagitKapat(); else kagitAc(); });
+  if(matchMedia('(pointer:coarse)').matches) sekSec('ciz');   // dokunmatik: parmakla çizim varsayılan; masaüstü: yazı
+  window.addEventListener('resize',()=>{ if(kagit.dataset.sek==='ciz'&&(kagit.classList.contains('acik')||(matchMedia('(min-width:900px)').matches&&!k.classList.contains('cevaplandi')))) kanvasBoyut(); });
   k.querySelector('.cOgret').addEventListener('click',e=>sekAc('ogret',e.currentTarget));
   // 📜 KAYNAGI GOSTER: ambardaki gercek metin, hakemin dogruladigi cumle sari
   k.querySelector('.cKaynak').addEventListener('click',e=>{ const ic=k.querySelector('.kaynakIc'); if(!ic.innerHTML){ const ky=s.kaynak||{liste:[]}; if(!ky.liste.length){ ic.innerHTML='<p class="ipnot">Bu soru için ambardan metin çekilemedi.</p>'; } else { ic.innerHTML=ky.liste.map(x=>{ let m=esc(x.metin); if(ky.alinti){ const a=esc(ky.alinti); const i=m.toLowerCase().indexOf(a.toLowerCase()); if(i>=0) m=m.slice(0,i)+'<mark>'+m.slice(i,i+a.length)+'</mark>'+m.slice(i+a.length); } return '<div class="kaynakAd">'+esc(String(x.ad).replace(/^THP\s+/,'Tekdüzen Hesap Planı ').replace(/^VUK \(213 s\.K\.\)/,'Vergi Usul Kanunu').replace(/^TTK \(6102 s\.K\.\)/,'Türk Ticaret Kanunu').replace(/^TBK \(6098 s\.K\.\)/,'Türk Borçlar Kanunu'))+'</div><div class="kaynakMetin">'+m+'</div>'; }).join('')+(ky.alinti?'<p class="ipnot">Sarı işaretli cümle, bağımsız hakemin doğru şık için kaynaktan doğruladığı hükümdür.</p>':'<p class="ipnot">Hakem notu: '+esc(ky.hakem||'')+'</p>'); } } sekAc('kaynakS',e.currentTarget); const mk=k.querySelector('.kaynakIc mark'); if(mk&&k.querySelector('.sek.kaynakS').classList.contains('acik')) setTimeout(()=>mk.scrollIntoView({block:'center',behavior:'smooth'}),250); });

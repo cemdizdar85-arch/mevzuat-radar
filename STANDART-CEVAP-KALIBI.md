@@ -25,6 +25,7 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
 | "⋯ Daha fazla" | 📘 Hesapları tanı · Kural · 🧠 Sen anlat · 📒 T-hesabı · 📈 Sınavda · Diğer şıklar · 📜 Kaynağı göster · 🚩 Hata bildir |
 | Yol haritası | TEK SATIR numaralı yuvarlaklar (geçilen yeşil, buradasın dolu, hedef 🏁), tıklanır, kartın altına yaslı |
 | Üst çipler | 🎯 Hazırlık % · 📥 Yanlış kutusu |
+| ✏️ Hesap kâğıdı (06.09) | Cevaptan önce öğrencinin kendi hesabını yazdığı yer. **HESAPLAMAZ**: TESMER SGS kılavuzu hesap makinesini ve müsvedde kâğıdını yasaklar, kâğıt kitapçık kenarı gibidir. Masaüstü: sağ kolonda açık (cevap paneli sonra yerini alır), cevaptan sonra "✏️ Kâğıdım" çipi üst katman. Telefon: ✏️ düğmesiyle alt sayfa, varsayılan parmakla Çiz, Yaz sekmesi de var. Soru başına saklanır (`kc_kagit`, çizim PNG ≤250 KB); kutudan dönen aday "geçen seferki kâğıdın" notunu görür. Açık: kâğıttaki rakamların Nöbetçi tablosuyla eşlenmesi, kasaya yazım. |
 | Adlandırma | "Öğretmen/hoca" **YASAK** → **Nöbetçi**. "Sürükle" kelimesi arayüzde geçmez. |
 
 ## 2. Cevap panelinin parçaları (bu sırayla)
