@@ -1129,7 +1129,8 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     # onlarda tavan bastan 20k. SGS 8k'da kaliyor (26/30 gecti).
     # 06.09 ölçüldü (parti-1): -Zorluk zor ile HER soru 8k'da kesilip 20k ile yeniden çağrıldı (soru başına 1 boş çağrı, ~3 dk).
     # Zor ayarında ilk tavan doğrudan 20k; sade SGS'de 8k kalır.
-    $ilkTavan=if($Sinav -eq 'SGS' -and $Zorluk -ne 'zor'){ 8000 } else { 20000 }
+    # 06.09 Parti-2 ölçümü: normal ayarda da 8 sorunun 4'ü 8k'da kesildi (Denetim 3/4, MTA 1/4) → her kesik = bir boş çağrı. Tek tavan 20k.
+    $ilkTavan=20000
     foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok $ilkTavan; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
     # 02.09 gece OLCULDU (bozuk-*.txt kapisi sayesinde): 4 konu "durma=max_tokens, 0 kr"
     # ile bozuktu - model 8.000 jetonun TAMAMINI dusunmeye harcayip metin yazamadan
