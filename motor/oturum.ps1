@@ -115,6 +115,25 @@ if($Ac){
     Yaz "  robot-cikti merge driver'i kuruldu" 'DarkGray'
   }
 
+  # --- 0.5/3 · DEPO DURUMU TEMİZ Mİ? (06.09.2026) -----------------------------
+  # Eski bir oturumdan yarım kalmış REBASE varken (".git/rebase-merge", HEAD dalsız) betik yine merge etti: birleşme
+  # detached HEAD'e gitti, push'lar ana tele ulaştı ama yerel `main` 29 commit geride kaldı, robot dosyası iki kez çakıştı.
+  # Kural: yarım kalmış rebase / merge / cherry-pick ya da dalsız HEAD varsa HİZALAMA YAPILMAZ, önce toparlanır.
+  $gitDir = (git -C $KOK rev-parse --git-dir 2>$null); if($gitDir -and -not [IO.Path]::IsPathRooted($gitDir)){ $gitDir = Join-Path $KOK $gitDir }
+  $yarim = @()
+  foreach($iz in 'rebase-merge','rebase-apply'){ if(Test-Path (Join-Path $gitDir $iz)){ $yarim += "yarım REBASE ($iz)" } }
+  foreach($iz in 'MERGE_HEAD','CHERRY_PICK_HEAD','REVERT_HEAD','BISECT_LOG'){ if(Test-Path (Join-Path $gitDir $iz)){ $yarim += "yarım $($iz -replace '_HEAD|_LOG','')" } }
+  $dal = (git -C $KOK symbolic-ref -q --short HEAD 2>$null)
+  if(-not $dal){ $yarim += "HEAD dalsız (detached) - $(git -C $KOK rev-parse --short HEAD)" }
+  elseif($dal -ne 'main'){ Yaz "  ⚠ dal '$dal' (main değil) - kural: dalda uzun çalışılmaz" 'Yellow' }
+  if($yarim.Count){
+    Yaz "`n  ⛔ DEPO YARIM İŞ HÂLİNDE - hizalama yapılmadı:" 'Red'
+    $yarim | ForEach-Object { Yaz "     • $_" 'Red' }
+    Yaz "     Toparlama: git status → (rebase ise) git rebase --quit → git checkout main → gerekirse git branch -f main HEAD" 'Red'
+    Yaz "     Kaybolacak commit varsa önce: git branch yedek-<tarih> <sha>" 'Red'
+    exit 3
+  }
+
   Yaz "`n=== 1/3 · ANA TELLE HİZALAMA ===" 'Cyan'
   git -C $KOK fetch origin main -q 2>&1 | Out-Null
   $geri  = [int](git -C $KOK rev-list --count HEAD..origin/main)

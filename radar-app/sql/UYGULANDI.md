@@ -92,6 +92,7 @@ illerSuzgecli · iller · ilanlar`. Arşiv 5.917 ilan; konkordato 5.435 / iflas 
 | `veri/sql-destek-takip.sql` | `destek_takip` tablosu | ✅ BASILI — tablo var, anon'a 0 satır (RLS tutuyor) |
 | `2026-08-07-canli-deneme.sql` | `canli_sonuc` tablosu | ✅ BASILI — tablo var, anon'a 0 satır |
 | `veri/sql-soru-bildirim.sql` | `soru_bildirim` tablosu | ✅ BASILI — tablo var, anon'a 0 satır |
+| `2026-09-06-kagit-kayit.sql` | `kagit_kayit` tablosu (Kaydır-Çöz ✏️ hesap kâğıdı satırları, anon yalnız ekler) | ⏳ **BASILMADI — Cem Supabase SQL Editor'de bir kez çalıştıracak.** Basılmadan Kaydır-Çöz sayfası POST'un 404'ünü sessizce yutar, kâğıt tarayıcıda çalışır. Ölçüm: anon POST → 201 (basılı) / 404 `PGRST205` (basılmamış). |
 | `veri/sql-marka-uyari.sql` | `marka_uyari` tablosu | ✅ BASILI — tablo var, anon'a 0 satır |
 | `veri/sql-marka-rakip.sql` | `marka_rakip` tablosu | ✅ BASILI — 29.08 ölçüldü: tablo var, anon'a 0 satır (RLS tutuyor) |
 | `veri/sql-marka-durum.sql` | `marka_durum` tablosu | ✅ BASILI — 29.08 ölçüldü: tablo var, anon'a 0 satır |

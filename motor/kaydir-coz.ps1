@@ -490,6 +490,8 @@ $html=@'
 .kagit[data-sek="ciz"] .kagitYaz,.kagit[data-sek="yaz"] .kagitCiz{display:none}
 .kagitAc{position:absolute;right:14px;bottom:44px;z-index:5;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:20px;padding:8px 12px;font:inherit;font-size:.86em;cursor:pointer}.kagitAc.var{border-color:var(--altin);color:var(--altin)}
 .kagitNot{font-size:.78em;color:var(--altin);margin-top:4px;min-height:1em}
+.tt td.kagitVar::after{content:'✏️';font-size:.72em;margin-left:5px;opacity:.9}
+.kagitOzet{font-size:.8em;color:var(--dim);margin:6px 2px 0;line-height:1.5}.kagitOzet b{color:var(--yazi)}.kagitYanlis{color:var(--kirmizi);font-weight:700}
 .son{justify-content:center;text-align:center}.son .buyuk{font-size:2.6em;font-weight:900;margin:8px 0}.son .seri{font-size:1.1em;color:var(--altin);font-weight:800}
 .paylas{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:14px;margin:14px auto;max-width:320px;text-align:left;font-size:.9em}
 </style></head><body>
@@ -614,6 +616,8 @@ SORULAR.forEach((s,i)=>{
     if((!dogruMu||!oyunVar)&&bDersC){ bDersC.classList.add('birincil'); } else if(bOyunC){ bOyunC.classList.add('birincil'); if(bDersC) bDersC.classList.add('ek'); }
     k.querySelector('.ipucu').style.display='none'; panel.classList.add('acik');
     k.classList.add('cevaplandi'); const kg=k.querySelector('.kagit'); if(kg) kg.classList.remove('acik');   // 06.09: kâğıt kapanır, cevap paneli yerini alır; "✏️ Kâğıdım" ile geri açılır
+    // 06.09: kâğıt eşlemesi cevaptan hemen sonra kâğıdın altına + kasaya kayıt (Cem "1 ve 3 yap")
+    try{ const es=kagitEsle(); if(es){ const kn=k.querySelector('.kagitNot'); kn.innerHTML='Tablodan '+es.tabloda.length+'/'+es.tabloN+' değeri bulmuşsun'+(es.eksikTablo.length?'; eksik: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?'; tabloda olmayan: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':'')+'. Nöbetçi anlatımında ✏️ işaretli hücreler senin bulduklarındır.'; } kagitKasayaYaz(h,dogruMu); }catch(e){}
   }));
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
   const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); hedef.scrollIntoView({block:'nearest',behavior:'smooth'}); } };
@@ -639,6 +643,31 @@ SORULAR.forEach((s,i)=>{
   kagit.querySelector('.kagitKapat').addEventListener('click',kagitKapat); kAc.addEventListener('click',kagitAc);
   const cKg=k.querySelector('.cKagit'); if(cKg) cKg.addEventListener('click',()=>{ if(kagit.classList.contains('acik')) kagitKapat(); else kagitAc(); });
   if(matchMedia('(pointer:coarse)').matches) sekSec('ciz');   // dokunmatik: parmakla çizim varsayılan; masaüstü: yazı
+  // 06.09 (Cem "1 yap"): kâğıt ↔ çözüm tablosu eşlemesi. Kâğıttaki rakamlar (yazı sekmesi) tablo değerleriyle karşılaştırılır.
+  // Soruda VERİLEN rakamlar "bulmadığın" sayılmaz (onlar hesap değil). Dönüş: {tabloda, eksikTablo, tabloDisi, tabloN}
+  const normK=t=>{ const s0=String(t||'').replace(/\s*(TL|₺|kg|adet|saat|ton|br|birim)\s*$/i,'').trim(); return (s0.startsWith('-')?'-':'')+s0.replace(/[^\d,]/g,''); };
+  function kagitEsle(){
+    const metin=String(kYaz.value||''); if(!metin.trim()) return null;
+    const rk=/\d{1,3}(?:\.\d{3})*(?:,\d+)?/g;
+    const kagitS=new Set([...metin.matchAll(rk)].map(m=>normK(m[0])).filter(x=>/\d/.test(x)&&x.replace(/\D/g,'').length>=2));
+    const soruS=new Set([...String(s.soru||'').matchAll(rk)].map(m=>normK(m[0])));
+    const tabloS=new Set(); if(s.tablo){ s.tablo.satirlar.forEach(st=>st.forEach((c,ci)=>{ if(ci>0){ const n=normK(c); if(/\d/.test(n)&&!soruS.has(n)) tabloS.add(n); } })); }
+    (s.kayit||[]).forEach(r=>{ const n=normK(r.tutar); if(/\d/.test(n)&&!soruS.has(n)) tabloS.add(n); });
+    const fmtK=n=>{ const v=parseFloat(String(n).replace(',','.')); return isNaN(v)?String(n):v.toLocaleString('tr-TR'); };   // "142000" → "142.000"
+    const tabloda=[...tabloS].filter(n=>kagitS.has(n)).map(fmtK), eksikTablo=[...tabloS].filter(n=>!kagitS.has(n)).map(fmtK), tabloDisi=[...kagitS].filter(n=>!tabloS.has(n)&&!soruS.has(n)&&n.replace(/\D/g,'').length>=3).map(fmtK);
+    // yüzdeler ("%66,67") ve tek-iki haneli katsayılar tabloDisi'ne girmez (oran/katsayı hesap sonucu değil)
+    return { tabloda, eksikTablo, tabloDisi, tabloN:tabloS.size, tablodaHam:[...tabloS].filter(n=>kagitS.has(n)) };
+  }
+  // 06.09 (Cem "3 yap"): kâğıt satırları KASAYA yazılır (kagit_kayit, anon insert; SQL: radar-app/sql/2026-09-06-kagit-kayit.sql).
+  // Tablo basılmamışsa istek sessizce düşer (404); prototipte kullanıcı kimliği yok, oturum damgası tarayıcıda üretilir.
+  const KAG_SB_URL='https://bjrleanjpyujtajmazxn.supabase.co', KAG_SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+  let oturumDamga=''; try{ oturumDamga=localStorage.getItem('kc_oturum')||''; if(!oturumDamga){ oturumDamga=Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('kc_oturum',oturumDamga); } }catch(e){}
+  function kagitKasayaYaz(secH,dogruMu){
+    try{ const metin=String(kYaz.value||''); if(!metin.trim()&&!cizimVar) return; const es=kagitEsle()||{tabloda:[],eksikTablo:[],tabloDisi:[],tabloN:0};
+      const govde={ soru_id:s.id, konu:s.konu, ders:s.ders, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, metin:metin.slice(0,4000), satir_sayisi:metin.split(/\n/).filter(x=>x.trim()).length, cizim_var:!!cizimVar, tabloda:es.tabloda, eksik:es.eksikTablo, tablo_disi:es.tabloDisi, tablo_n:es.tabloN, oturum:oturumDamga, kaynak:'kaydir-coz' };
+      fetch(KAG_SB_URL+'/rest/v1/kagit_kayit',{ method:'POST', headers:{ 'Content-Type':'application/json', apikey:KAG_SB_KEY, Authorization:'Bearer '+KAG_SB_KEY, Prefer:'return=minimal' }, body:JSON.stringify(govde) }).then(r=>{ if(!r.ok) console.warn('kagit_kayit',r.status); }).catch(()=>{});
+    }catch(e){}
+  }
   window.addEventListener('resize',()=>{ if(kagit.dataset.sek==='ciz'&&(kagit.classList.contains('acik')||(matchMedia('(min-width:900px)').matches&&!k.classList.contains('cevaplandi')))) kanvasBoyut(); });
   k.querySelector('.cOgret').addEventListener('click',e=>sekAc('ogret',e.currentTarget));
   // 📜 KAYNAGI GOSTER: ambardaki gercek metin, hakemin dogruladigi cumle sari
@@ -802,6 +831,10 @@ SORULAR.forEach((s,i)=>{
       h+='<tr class="ara kayit"><th>Kayıt</th><th>Borç</th><th>Alacak</th></tr>';
       s.kayit.forEach(r=>{ const kod=(String(r.hesap).match(/^\d{3}/)||[''])[0]; h+='<tr class="kayit" data-kod="'+kod+'"><td class="'+(r.taraf==='A'?'al':'')+'">'+esc(r.hesap)+'</td><td class="tutar">'+(r.taraf==='B'?esc(r.tutar):'')+'</td><td class="tutar">'+(r.taraf==='A'?esc(r.tutar):'')+'</td></tr>'; });
       h+='</tbody></table>'; tabloSar.innerHTML=h;
+      // 06.09 (Cem "1 yap"): KÂĞIT ↔ TABLO EŞLEMESİ — öğrencinin kâğıdındaki rakamlar tabloda ✏️ ile işaretlenir; tabloda
+      // olmayan rakamları ayrı listelenir. Hangi katmanı atladığı kendi kâğıdından okunur ("8.000 ve 142.000 var, 85.200 yok").
+      try{ const es=kagitEsle(); if(es){ es.tablodaHam.forEach(n=>{ tabloSar.querySelectorAll('td[data-r]').forEach(td=>{ if(normK(td.textContent)===n) td.classList.add('kagitVar'); }); });
+        const oz=document.createElement('div'); oz.className='kagitOzet'; oz.innerHTML='✏️ Kâğıdında tablodan <b>'+es.tabloda.length+' / '+es.tabloN+'</b> değer var'+(es.eksikTablo.length?' · bulmadığın: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?' · tabloda olmayan rakamların: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':''); tabloSar.appendChild(oz); } }catch(e){}
       adimBar.innerHTML=s.adimlar.map((a,j)=>'<i data-j="'+j+'" title="Adım '+(j+1)+'"></i>').join('');
       adimBar.querySelectorAll('i').forEach(n=>n.addEventListener('click',()=>adimGit(parseInt(n.dataset.j)-adimNo)));
       gosterilen.clear(); acilan.clear(); adimNo=0; adimGoster(0,0);
