@@ -1629,7 +1629,12 @@ $("$($cvp.kaynak_metin_ozet)".Substring(0,[Math]::Min(2500,"$($cvp.kaynak_metin_
       CacheYaz
     }
     $ti=$cvp.teori_ikiz
-    $adimMetinT=(@($cvp.adimlar) | ForEach-Object -Begin { $q=0 } -Process { $q++; "$q) $($_.formul)`n   $($_.anlatim)" }) -join "`n"
+    # 06.09 Cem "2 yap" — SIZDIRMAZ ölçüm: ilk koşu 8/8 doğruydu ama öğrenci örnek sorunun "Doğru şık" adımını ve doğru şık metnini görüyordu.
+    # Şimdi: "Doğru şık" başlıklı adım atılır, doğru şıkkın metni anlatımlardan silinir, örnek sorunun şıkları verilmez. Yalnız KURAL öğretir.
+    $dogruMetin="$($cvp.siklar.$($cvp.dogru))".Trim()
+    $adimSiz=@($cvp.adimlar | Where-Object { $_ -and "$($_.formul)" -notmatch '^(Doğru şık|Dogru sik|Doğru cevap|Cevap)' })
+    $adimMetinT=($adimSiz | ForEach-Object -Begin { $q=0 } -Process { $q++; $f="$($_.formul)"; $an="$($_.anlatim)"; if($dogruMetin.Length -ge 12){ $f=$f.Replace($dogruMetin,'[…]'); $an=$an.Replace($dogruMetin,'[…]') }; $an=$an -replace ('(?i)doğru (şık|cevap)\s*:?\s*'+[regex]::Escape("$($cvp.dogru)")+'\)?'),'doğru şık: […]'; "$q) $f`n   $an" }) -join "`n"
+    if(@($cvp.adimlar).Count -ne $adimSiz.Count){ Write-Host "  SIM SIZDIRMAZ ($id): $(@($cvp.adimlar).Count - $adimSiz.Count) 'Doğru şık' adımı gizlendi" -ForegroundColor DarkGray }
     $istOT=@"
 Sen bu konuyu HİÇ bilmeyen bir staja giriş sınavı adayısın. Ezber bilgin yok, kaynak yok. Sana yalnız aşağıdaki ÇÖZÜM ANLATIMI verildi (bir örnek sorunun adım adım açıklaması). Bu anlatımdaki KURALI öğrenip YENİ SORUDA doğru şıkkı seç.
 Kurallar: yalnız anlatımın öğrettiği kadarıyla karar ver; anlatım yetmiyorsa cevap "yetmedi" olsun ve neyin eksik olduğunu yaz.
