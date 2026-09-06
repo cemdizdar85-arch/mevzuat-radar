@@ -36,7 +36,8 @@ param(
   [switch]$KonuGiris,      # 06.09 Cem "geç": FAZ G - konu girişi kartı (nedir / sınavda nasıl sorulur / yöntemler / örnek), Haiku ≈0,005 USD
   [switch]$GirisYenile,    # 06.09: eldeki girişi de yeniden yazar
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
-  [string]$SimModel='claude-haiku-4-5-20251001'   # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
+  [string]$SimModel='claude-haiku-4-5-20251001',  # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
+  [switch]$SimYenile       # 06.09 Ö29: adım yenilenince simülasyon da yeniden koşar
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -1451,7 +1452,7 @@ foreach($id in @($don.Keys)){
   $adimMetin=(@($cvp.adimlar) | ForEach-Object -Begin { $q=0 } -Process { $q++; "$q) $($_.formul)`n   $($_.anlatim)" }) -join "`n"
   $istO=$simIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{ADIMLAR}',$adimMetin).Replace('{IKIZ}',"$($cvp.ikiz.ikiz_soru)")
   $simAlan=$(if($SimModel -match 'sonnet'){ 'simulasyon_sonnet' } else { 'simulasyon' })
-  if($cvp.PSObject.Properties[$simAlan] -and $cvp.$simAlan -and $cvp.$simAlan.hedef){ continue }   # aynı modelle bir kez
+  if(-not $SimYenile -and $cvp.PSObject.Properties[$simAlan] -and $cvp.$simAlan -and $cvp.$simAlan.hedef){ continue }   # aynı modelle bir kez (-SimYenile ile tekrar)
   $yO=$null; foreach($d in 1..3){ try{ $yO=Invoke-ClaudeMesaj -Model $SimModel -Icerik $istO -MaxTok 1500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
   Write-Host ("  SIM TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yO.girdi,$yO.cikti,$SimModel) -ForegroundColor DarkGray
   $oN=Coz $yO.metin
