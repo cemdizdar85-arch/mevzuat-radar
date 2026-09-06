@@ -178,7 +178,28 @@ foreach($x in $sec){
     if($kural){ $satT+=,@('Kural',$kural) }; if($olay){ $satT+=,@('Bu olayda',$olay) }; $satT+=,@('Doğru şık',"$d) $($siklar[$d])")
     if($satT.Count -ge 2){ $tablo=@{ basliklar=@('Adım','İçerik'); satirlar=$satT } }
   }
-  $verilen=@(); foreach($vv in @($v.verilen)){ $arr=@($vv.value); if($arr.Count -ge 2){ $verilen+=,@([int]$arr[0],[int]$arr[1]) } }
+  # 06.09 ölçüldü: verilen çiftleri cache'te hem [r,c] hem {value:[r,c]} biçiminde; eski kod yalnız .value okuyordu, dizi biçimi 0 verilen sayılıyordu
+  $verilen=@(); foreach($vv in @($v.verilen)){ $arr=$(if($vv -and $vv.PSObject.Properties['value']){ @($vv.value) } else { @($vv) }); if($arr.Count -ge 2){ $verilen+=,@([int]$arr[0],[int]$arr[1]) } }
+  # 06.09 VERİLENLER BLOĞU (Cem "1 yap"): tablo VERİLENLER → HESAP → SONUÇ diye kurulur. Sorudaki her sayı kendi satırında
+  # (ad + değer; anlam Adım 1'de listelenir). Hesap satırları ve adım koordinatları $kay kadar aşağı kayar; Adım 1 verilen satırlarını açar.
+  $verilenler=@(); $VER_N=0
+  if($v.PSObject.Properties['verilenler'] -and @($v.verilenler).Count -and $tablo -and $tablo.satirlar){
+    $verilenler=@(@($v.verilenler) | ForEach-Object { @{ ad=(TurkceOnar "$($_.ad)"); deger="$($_.deger)"; anlam=(TurkceOnar "$($_.anlam)") } })
+    $VER_N=$verilenler.Count; $kay=$VER_N+2; $cols=[Math]::Max(2,@($tablo.basliklar).Count)
+    $dolgu=@(); if($cols -gt 2){ $dolgu=@(1..($cols-2) | ForEach-Object { '-' }) }
+    $yeniSat=@(); $yeniSat+=,(@('VERİLENLER')+@(1..($cols-1) | ForEach-Object { '-' }))
+    foreach($vv in $verilenler){ $yeniSat+=,(@($vv.ad,$vv.deger)+$dolgu) }
+    $yeniSat+=,(@('HESAP')+@(1..($cols-1) | ForEach-Object { '-' }))
+    foreach($st in @($tablo.satirlar)){ $yeniSat+=,@($st) }
+    $tablo=@{ basliklar=$tablo.basliklar; satirlar=$yeniSat }
+    # PS 5.1 tuzağı (06.09 ölçüldü): tek çiftli liste düz 2 sayıya iniyor, boru içinde `[int]$_[0]+$kay` Object[] hatası veriyor
+    # → çiftler List[object] ile kurulur, tek çift düz gelmişse sarılır, dönüş `,` ile korunur.
+    function Kaydir($liste,[int]$k){ $out=New-Object System.Collections.Generic.List[object]; $arr=@($liste); if($arr.Count -eq 2 -and -not ($arr[0] -is [array])){ $arr=@(,$arr) }
+      foreach($p in $arr){ $pp=$(if($p -and $p.PSObject.Properties['value']){ @($p.value) } else { @($p) }); if($pp.Count -lt 2){ continue }; $r0=[int]$pp[0]; $c0=[int]$pp[1]; $out.Add(@(($r0+$k),$c0)) }; return ,$out.ToArray() }
+    $verilen=Kaydir $verilen $kay; $vl=New-Object System.Collections.Generic.List[object]; foreach($p in @($verilen)){ $vl.Add($p) }; for($q=1;$q -le $VER_N;$q++){ $vl.Add(@($q,1)) }; $verilen=$vl.ToArray()
+    for($ai=0;$ai -lt $adimlar.Count;$ai++){ $adimlar[$ai].doldur=Kaydir $adimlar[$ai].doldur $kay }
+    if($adimlar.Count -and "$($adimlar[0].formul)" -match '^(Verilen|Soruda ne var)'){ $d0=New-Object System.Collections.Generic.List[object]; for($q=1;$q -le $VER_N;$q++){ $d0.Add(@($q,1)) }; foreach($p in @($adimlar[0].doldur)){ $d0.Add($p) }; $adimlar[0].doldur=$d0.ToArray() }
+  }
 # --- OYUN SORUSU (Cem 04.09 "kaydı sen yap kısmında soru farklı sorsak"): ikiz varsa ikiz; yoksa AYNI OLAY, YENİ TUTARLAR
   # (tüm tutarlar aynı katsayıyla ölçeklenir; oranlar, günler, yıllar dokunulmaz - doğrusal kayıtlarda geçerli)
   $oyun=$null
@@ -195,11 +216,12 @@ foreach($x in $sec){
   # Cem 04.09 "Sen çöz kaldırılmış; bir soru verip aynısını çözdürüyorduk": tablolu (hesaplama) sorularda ikiz = TABLO DOLDURMA
   # (üretici ikiz.tablo + verilen + bosluk üretir). Aday boş hücreleri yazar, hücre hücre ölçülür.
   if(-not $oyun -and $v.ikiz -and $v.ikiz.PSObject.Properties['tablo'] -and $v.ikiz.tablo -and $v.ikiz.tablo.satirlar){
-    $cift={ param($l) $o=@(); foreach($p in @($l)){ $arr=@($p); if($arr.Count -ge 2){ $o+=,@([int]$arr[0],[int]$arr[1]) } }; ,$o }
+    # 06.09: cache'te çift iki biçimde: [r,c] ya da {value:[r,c],Count:2} (PS boru sargısı ConvertTo-Json'da böyle yazılır) - ikisi de okunur
+    $cift={ param($l) $o=New-Object System.Collections.Generic.List[object]; foreach($p in @($l)){ $arr=$(if($p -and $p.PSObject.Properties['value']){ @($p.value) } else { @($p) }); if($arr.Count -ge 2){ $o.Add(@([int]$arr[0],[int]$arr[1])) } }; ,$o.ToArray() }
     $itb=@{ basliklar=@(@($v.ikiz.tablo.basliklar) | ForEach-Object { TurkceOnar "$_" }); satirlar=@(@($v.ikiz.tablo.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { TurkceOnar "$_" }) }) }
     $oyun=@{ tur='tablo'; soru=(TurkceOnar "$($v.ikiz.ikiz_soru)"); hedef=(TurkceOnar "$($v.ikiz.hedef_cumle)"); tablo=$itb; verilen=(& $cift $v.ikiz.verilen); bosluk=(& $cift $v.ikiz.bosluk); not='İkiz soru: aynı yöntem, yeni rakamlar. Boş hücreleri sen doldur.' }
   }
-  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
+  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
   "  $($x.et) $($x.id) · $($v.konu) · $($x.donem) donem · kayit satiri $($kayit.Count)"
 }
 Sure 'sözlük + soru kurulumu'
@@ -494,6 +516,10 @@ $html=@'
 .kagitAc{position:absolute;right:14px;bottom:44px;z-index:5;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:20px;padding:8px 12px;font:inherit;font-size:.86em;cursor:pointer}.kagitAc.var{border-color:var(--altin);color:var(--altin)}
 .kagitNot{font-size:.78em;color:var(--altin);margin-top:4px;min-height:1em}
 .tt td.kagitVar::after{content:'✏️';font-size:.72em;margin-left:5px;opacity:.9}
+/* 06.09 VERİLENLER → HESAP → SONUÇ blokları */
+.tt tr.blok th{text-align:left;font-size:.72em;letter-spacing:.08em;color:var(--dim);background:var(--bg);padding:7px 8px;cursor:pointer;user-select:none}.tt tr.blok .blokSay{color:var(--altin)}.tt tr.blok .blokAcKapa{float:right;color:var(--mavi)}
+.tt tr.vblok.katli{display:none}.tabloSar.acikBlok tr.vblok.katli{display:table-row}
+.verilenListe{margin:10px 0 0;padding:0;list-style:none;font-size:.9em}.verilenListe li{padding:6px 0;border-top:1px solid var(--cizgi);line-height:1.45}.verilenListe b{color:var(--mavi)}.verilenListe i{color:var(--dim);font-style:normal}
 /* 06.09 GM-2: telefonda rakam klavyesi (inputmode=decimal) işleç vermez → işleç tuş şeridi; yalnız dokunmatikte ve Yaz sekmesinde */
 .kagitTus{display:none;gap:4px;flex-wrap:wrap;margin:0 0 6px}.kagitTus button{font:inherit;font-size:1.05em;min-width:36px;height:34px;background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:9px;cursor:pointer}.kagitTus .kagitSatirTus{font-size:.82em;padding:0 10px}
 @media (pointer:coarse){ .kagit[data-sek="yaz"] .kagitTus{display:flex} }
@@ -835,7 +861,11 @@ SORULAR.forEach((s,i)=>{
       if(!s.tablo&&!(s.kayit&&s.kayit.length)){ const ilkC=t=>{ const x=String(t||'').split(/(?<=[.!?])\s+/)[0]; return x.length>200?x.slice(0,198)+'…':x; }; s.tablo={basliklar:['Adım','İçerik'],satirlar:[['Olay',ilkC(s.soru)],['Kural',s.kural||''],['Bu olayda',s.olay||''],['Doğru şık',s.dogru+') '+String(s.siklar[s.dogru]||'')]].filter(r=>r[1])}; s.verilen=[[0,1]]; }
       let h='<table class="tt'+(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım'?' teori':'')+'">'+(s.tablo?'<thead><tr>'+s.tablo.basliklar.map(b=>'<th>'+esc(b)+'</th>').join('')+'</tr></thead>':'')+'<tbody>';
       const ver=new Set((s.verilen||[]).map(p=>p[0]+','+p[1]));
-      if(s.tablo){ s.tablo.satirlar.forEach((st,r)=>{ h+='<tr class="'+(r===s.tablo.satirlar.length-1?'sonuc':'')+'">'+st.map((c,ci)=>ci===0?'<td>'+esc(ipucuAyir(c).ad)+'</td>':'<td class="'+(ver.has(r+','+ci)?'ver':'gizliH')+'" data-r="'+r+'" data-c="'+ci+'">'+esc(c)+'</td>').join('')+'</tr>'; }); }
+      // 06.09: blok başlığı satırı (VERİLENLER / HESAP: değer hücreleri '-') colspan başlık olur; VERİLENLER altındaki satırlar 'vblok'
+      let blokAd='';
+      if(s.tablo){ s.tablo.satirlar.forEach((st,r)=>{ const basMi=st.length>1&&st.slice(1).every(c=>String(c).trim()==='-'||String(c).trim()==='')&&/^[A-ZÇĞİÖŞÜ\s]+$/.test(String(st[0]).trim());
+        if(basMi){ blokAd=String(st[0]).trim(); const n=blokAd==='VERİLENLER'?(s.verilenler||[]).length:0; h+='<tr class="blok" data-blok="'+esc(blokAd)+'"><th colspan="'+st.length+'">'+esc(blokAd)+(n?' <span class="blokSay">('+n+')</span>':'')+(blokAd==='VERİLENLER'?' <span class="blokAcKapa">▾</span>':'')+'</th></tr>'; return; }
+        h+='<tr class="'+(r===s.tablo.satirlar.length-1?'sonuc':'')+(blokAd==='VERİLENLER'?' vblok':'')+'">'+st.map((c,ci)=>ci===0?'<td>'+esc(ipucuAyir(c).ad)+'</td>':'<td class="'+(ver.has(r+','+ci)?'ver':'gizliH')+'" data-r="'+r+'" data-c="'+ci+'">'+esc(c)+'</td>').join('')+'</tr>'; }); }
       h+='<tr class="ara kayit"><th>Kayıt</th><th>Borç</th><th>Alacak</th></tr>';
       s.kayit.forEach(r=>{ const kod=(String(r.hesap).match(/^\d{3}/)||[''])[0]; h+='<tr class="kayit" data-kod="'+kod+'"><td class="'+(r.taraf==='A'?'al':'')+'">'+esc(r.hesap)+'</td><td class="tutar">'+(r.taraf==='B'?esc(r.tutar):'')+'</td><td class="tutar">'+(r.taraf==='A'?esc(r.tutar):'')+'</td></tr>'; });
       h+='</tbody></table>'; tabloSar.innerHTML=h;
@@ -845,6 +875,7 @@ SORULAR.forEach((s,i)=>{
         const oz=document.createElement('div'); oz.className='kagitOzet'; oz.innerHTML='✏️ Kâğıdında tablodan <b>'+es.tabloda.length+' / '+es.tabloN+'</b> değer var'+(es.eksikTablo.length?' · bulmadığın: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?' · tabloda olmayan rakamların: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':''); tabloSar.appendChild(oz); } }catch(e){}
       adimBar.innerHTML=s.adimlar.map((a,j)=>'<i data-j="'+j+'" title="Adım '+(j+1)+'"></i>').join('');
       adimBar.querySelectorAll('i').forEach(n=>n.addEventListener('click',()=>adimGit(parseInt(n.dataset.j)-adimNo)));
+      const blokBas=tabloSar.querySelector('tr.blok[data-blok="VERİLENLER"]'); if(blokBas){ blokBas.addEventListener('click',()=>{ tabloSar.classList.toggle('acikBlok'); blokBas.querySelector('.blokAcKapa').textContent=tabloSar.classList.contains('acikBlok')?'▾':'▸'; }); }
       gosterilen.clear(); acilan.clear(); adimNo=0; adimGoster(0,0);
     }
     const adimBaslik=a=>{ const f=String(a.formul||''); let b=f.split('=')[0].trim(); b=b.replace(/\(soruda verilen\)/gi,'').trim(); if(b.length>34) b=b.slice(0,32)+'…'; return b; };
@@ -909,6 +940,8 @@ SORULAR.forEach((s,i)=>{
       if(j===0&&/^(Verilen|Soruda ne var|Soru bize)/i.test(String(a.formul||'')+' '+String(a.anlatim||''))){
         const soruH=esc(s.soru).replace(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?:\s*(?:TL|₺|kg|adet|saat|gün|yıl|%))?(?![\d.,])/g,m=>'<span class="kSayi">'+m+'</span>');
         fH='<div class="soruIsaret"><div class="et">Soru, verilenler işaretli</div>'+soruH+'</div>';
+        // 06.09: VERİLENLERİ TANI — her verilen ad · değer · tek cümle anlam (hiç bilmeyene ders burada başlar)
+        if(s.verilenler&&s.verilenler.length){ fH+='<ul class="verilenListe">'+s.verilenler.map(v=>'<li><b>'+esc(v.deger)+'</b> · '+esc(v.ad)+(v.anlam?'<i> — '+esc(v.anlam)+'</i>':'')+'</li>').join('')+'</ul>'; }
         const dk=String(a.anlatim||'').match(/((?:Dikkat|Not|Önemli)[^.!?]*[.!?])/i)||String(a.anlatim||'').match(/([^.!?]*(?:anahtar|belirleyici|yöntem)[^.!?]*[.!?])/i);
         anlatimH=esc(dk?dk[1].trim():String(a.anlatim||'').split(/(?<=[.!?])\s+/).slice(-1)[0]);
       }
@@ -918,7 +951,8 @@ SORULAR.forEach((s,i)=>{
       // Cem 04.09 "yol haritası ekranı kaplıyor": tek satır — numaralı noktalar (geçilen yeşil, buradasın kalın, hedef altın bayrak),
       // yalnız bulunduğun adımın adı yazılı; başlıklar üstüne gelince görünür. Kartın altına yaslanır.
       const yolH='<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':(q===hedefIdx?'hedef':'')))+'" title="'+esc(adimBaslik(x))+'">'+(q===hedefIdx&&q!==j?'🏁':(q+1))+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(adimBaslik(a))+'</span></div>'
-        +(son?'<div class="neden">Hedefe ulaştık: <b>'+esc(sonBas)+'</b>. Şimdi aynı yolu sen yürü.</div>'
+        +((j===0&&s.verilenler&&s.verilenler.length)?'<div class="neden">Önce elimizdekileri tanıyoruz: <b>'+s.verilenler.length+' verilen</b>. Hesap bloğundaki her satır bunlardan kurulacak; hedef <b>'+esc(sonBas)+'</b>.</div>'
+          :son?'<div class="neden">Hedefe ulaştık: <b>'+esc(sonBas)+'</b>. Şimdi aynı yolu sen yürü.</div>'
           :(j>=hedefIdx?'<div class="neden">Hedef bulundu (<b>'+esc(sonBas)+'</b>). '+(a.kisi?'Bu adım <b>senin seçtiğin şıkkın</b> neden yanlış olduğunu gösterir.':'Bu adım, adayların en sık düştüğü yanlış yolu gösterir.')+'</div>'
           :(j+1===hedefIdx?'<div class="neden">Bu adım niye var? Burada bulduğumuz değer doğrudan hedefe götürür: sıradaki adım <b>'+esc(sonBas)+'</b>.</div>'
           :'<div class="neden">Bu adım niye var? Burada bulduğumuz değer sıradaki adımda (<b>'+esc(sonrakiBas)+'</b>) kullanılacak; hedef <b>'+esc(sonBas)+'</b>.</div>')))+'</div>';
@@ -954,6 +988,8 @@ SORULAR.forEach((s,i)=>{
         mats.forEach((m,q)=>{ if(q>=hedefler.length&&m.classList.contains('gizliMat')){ setTimeout(()=>{ if(adimNo===adimBu){ m.classList.remove('gizliMat'); m.classList.add('geldi'); } }, q*900); } });
       }
       kaynakH.forEach(k=>{ const [r,c]=k.split(','); const td=tabloSar.querySelector('td[data-r="'+r+'"][data-c="'+c+'"]'); if(td) td.classList.add('kaynakH'); });
+      // 06.09: VERİLENLER bloğu Adım 1'den sonra katlanır; bu adımın formülünde kullanılan verilen satırı açık kalır (mavi), başlık tıklanınca hepsi açılır
+      tabloSar.querySelectorAll('tr.vblok').forEach(tr=>{ const td=tr.querySelector('td[data-r]'); const key=td?td.dataset.r+','+td.dataset.c:''; tr.classList.toggle('katli', j>0 && !kaynakH.has(key) && !hedef.has(key)); });
       let lej=tabloSar.querySelector('.lejant'); if(!lej){ lej=document.createElement('div'); lej.className='lejant'; tabloSar.appendChild(lej); }
       lej.innerHTML=kaynakH.size?'<i class="m"></i>nereden geldi <i class="a"></i>bu adımda bulundu':(hedef.size?'<i class="a"></i>bu adımda bulundu':''); lej.style.display=lej.innerHTML?'block':'none';
       // kayit satirlari: adimda anilan hesap kodu (uc hane; "100.000" icindeki 100 sayilmaz)

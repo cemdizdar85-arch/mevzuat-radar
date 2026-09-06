@@ -68,6 +68,12 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
   "0,20" 28 geçiş. Builder `oranYuzde` çarpım/bölümdeki 0,xx'i çevirir; katsayılara (beta, kaldıraç) ve TL/kg
   tutarlara dokunmaz.
 - Adım yoksa (eski cache): builder adımları kural + kayıttan sentezler (model çağrısı yok).
+- **VERİLENLER bloğu (06.09 Cem "soruda çok veri var, tabloda ikisi; hiç bilmeyene böyle olmuyor"):** tablo kâğıttaki çözüm gibi
+  yukarıdan aşağı okunur: **VERİLENLER** (sorudaki her sayı kendi satırında, adıyla) → **HESAP** (ara değerler) → **SONUÇ**.
+  Adım 1 = verilenleri tanı: her satır için tek cümle anlam ("satılabilir hâle getirme maliyeti: yan ürünü satabilmek için yapılan
+  ek harcama, yan ürünün değerinden düşülür"). Formül bir verilene dokununca o satır mavi yanar, metne dönmek gerekmez. Adım 1'den
+  sonra blok katlanır (kullanılan satır açık kalır, başlık tıklanınca hepsi açılır) — telefonda tablo uzamasın. Veri: `verilenler`
+  alanı (FAZ A Sonnet yazar, eski cache için FAZ V Haiku ≈0,005 USD/soru, kapı: her değer soru metninde geçer, ≥%80 kapsama).
 - **Kişisel son adım (05.09 ürün incelemesi):** öğrenci yanlış şık seçtiyse Nöbetçi'nin SON adımı o şıkkın tuzağıdır
   ("Senin seçimin A: 40 TL/kg (HATALI) → doğrusu D: 120 TL/kg" + tuzak adı ve nedeni). Üreticinin "en sık hata" adımı
   zaten o şıkkı anlatıyorsa eklenmez. Sebep: öğrenci A'yı seçmişken son adım 80'i anlatıyordu, kendi hatasını bulamıyordu.
@@ -125,7 +131,7 @@ Kırmızı kalan hücrede 🎬 "Nöbetçi'ye sor" → o hücreyi dolduran adım 
 
 ## 8. Veri sözleşmesi (fabrika cache alanları — builder bunları okur)
 
-`soru · siklar{A..E} · dogru · aciklama{<şık>: string | {ne_soruluyor,kural,tuzak,hesap,dogrusu}} · hap ·
+`soru · siklar{A..E} · dogru · aciklama{<şık>: string | {ne_soruluyor,kural,tuzak,hesap,dogrusu}} · hap · verilenler[{ad,deger,anlam}] (06.09) ·
 sinav_taktigi · notlandirici · adimlar[{formul, anlatim, doldur[[satır,sütun]…]}] · cozum_tablo{basliklar,satirlar} ·
 verilen[[satır,sütun]…] · sema / ikiz_sema {tur:'yevmiye', kayitlar[{baslik, ogeler{borc[],alacak[]}}]} ·
 ikiz{ikiz_soru, hedef_cumle, tablo, verilen, bosluk} · sade{dogru, sinav, siklar, kavramlar[{ad,tanim,kaynak}]} ·

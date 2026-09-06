@@ -30,7 +30,9 @@ param(
   # konu kendi dersinin partisine gider, cope degil).
   [string]$KonuDisla='',
   [string]$Zorluk='',      # 05.09 Cem "zor olsun, katmanlı": 'zor' → soru istemine ZORLUK bloğu (≥4 bağlı ara hesap, katman birleşimi, çeldirici = atlanan katman), adım 6-10
-  [string]$OrnekDosya=''   # 05.09: biçim çapası dosyadan (konunun GERÇEK çıkmış sorusu); yoksa sabit p90-SGS-01 örneği (Finansal) kullanılır
+  [string]$OrnekDosya='',  # 05.09: biçim çapası dosyadan (konunun GERÇEK çıkmış sorusu); yoksa sabit p90-SGS-01 örneği (Finansal) kullanılır
+  [switch]$Verilenler,     # 06.09 Cem "1 yap": FAZ V - sorudaki her sayı ad+değer+anlam satırı (Haiku); builder VERİLENLER bloğunu çizer
+  [switch]$VerilenYenile   # 06.09: eldeki verilenler listesini de yeniden yazar
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -724,6 +726,9 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
    hücresine denklem metni yazılmaz, denklem açıklamaya gider. (iii) Soru kökü TEK ANLAMLI olur: istenen büyüklük
    açıkça adlandırılır ("dağıtıma esas toplam (düzeltilmiş) maliyeti kaç TL'dir?"); iki farklı okunuşla iki farklı
    şıkka çıkan kök YASAK (ör. "esas üretim yerlerine dağıtılacak toplam" hem 100.000 hem 90.000 okunur).
+4d. VERİLENLER (06.09 Cem: "soruda çok veri var, tabloda ikisi; hiç bilmeyene böyle olmuyor"): JSON'a "verilenler" listesi ekle:
+   soru metnindeki HER sayı ayrı satır {"ad","deger","anlam"} — ad sınav dilinde kısa ad, deger metindeki yazımıyla birimiyle,
+   anlam tek cümle: bu sayı nedir, hesapta nerede kullanılır (hiç bilmeyene). Ekran tabloyu VERİLENLER → HESAP → SONUÇ düzeninde çizer.
 5. SEMA: tur alani YALNIZ su dort degerden biri olabilir: "yevmiye" | "eleme" | "karar" | "akis" (baska ad/varyant YASAK). Bu ders KAYIT dersiyse ve soru bir islemin muhasebesine dokunuyorsa tur=yevmiye ZORUNLUDUR ({"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"181 GELIR TAHAKKUKLARI","tutar":"..."}],"alacak":[...]}}) - T-cetveli budur. SORUNUN KENDI VERISIYLE, jenerik yasak.
 6. hap (tek cumle kalici kural), sinav_taktigi (1 cumle), notlandirici (en cok puan kaybettiren nokta).
 7. Rakamlar her katmanda BIREBIR tutarli.
@@ -752,7 +757,7 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
-{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"dayanak":"kisa kunye"}
+{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kisa kunye"}
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
@@ -1287,6 +1292,53 @@ foreach($id in @($don.Keys)){
   CacheYaz; Write-Host "  SADE OK $id · kavram $($kavramlar.Count)"
 }
 
+# --- FAZ V: VERİLENLERİ TANI (06.09 Cem "soruda çok veri var, tabloda ikisi taşınmış; hiç bilmeyene böyle olmuyor" → "1 yap") ---
+# Sorudaki HER sayı bir satır: ad + değer + tek cümlelik anlam. Builder tabloyu VERİLENLER → HESAP → SONUÇ diye çizer; Adım 1
+# verilenleri tanıtır. Haiku, soru başına ≈0,005 USD. Kapı: listelenen her değer soru metninde geçmeli (uydurma sayı düşer);
+# sorudaki sayıların en az %80'i listede olmalı, yoksa 1 tekrar. Yalnız -Verilenler / -VerilenYenile ile koşar (bedel kuralı).
+# Yeni üretimlerde Sonnet FAZ A'da doğrudan yazar (soruIstem 4d); bu faz eldeki cache'ler içindir.
+$script:FAZ_ADI='V'
+$verilenIstem=@'
+Sen Tetikte'nin Nöbetçisisin. Aşağıdaki sınav sorusunda VERİLEN her sayıyı, bu konuyu HİÇ bilmeyen birine tanıtacaksın.
+KURALLAR
+1. Soru metninde geçen HER sayı (tutarlar, miktarlar, oranlar, katsayılar, gün/ay) ayrı bir satır olur; soru metnindeki sırayla. Soruda olmayan sayı yazma.
+2. ad: sınav dilinde kısa ad ("Ürün Q'nun fiili miktarı", "Yan mamulün satılabilir hâle getirme maliyeti"); kısaltma yok (DB YM, GÜG, FIFO yazma).
+3. deger: soru metnindeki yazımıyla, birimiyle ("2.000 kg", "%30", "14.800 TL").
+4. anlam: tek cümle, hiç bilmeyene bu sayının NE olduğu ve hesapta NEREDE kullanılacağı ("yan ürünü satabilmek için yapılan ek harcama; yan ürünün satış değerinden düşülür"). En çok 25 kelime. "Öğrenci … sanır" kalıbı yok.
+5. Türkçe harfler tam (ç ğ ı İ ö ş ü). Yalnız JSON döndür: {"verilenler":[{"ad":"...","deger":"...","anlam":"..."}]}
+SORU: {SORU}
+ÇÖZÜM TABLOSU (bu sayıların hangi hesapta kullanıldığını görmek için): {TABLO}
+'@
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or -not ($Verilenler -or $VerilenYenile)){ break }
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  $cvp=$don[$id]; if(-not $cvp.soru){ continue }
+  if(-not $VerilenYenile -and $cvp.PSObject.Properties['verilenler'] -and @($cvp.verilenler).Count){ continue }
+  $soruSayi=@([regex]::Matches("$($cvp.soru)",'%?\d{1,3}(?:\.\d{3})*(?:,\d+)?') | ForEach-Object { $_.Value -replace '[^\d,%]','' } | Select-Object -Unique)
+  if(-not $soruSayi.Count){ continue }   # teori sorusu: verilen yok
+  $istV=$verilenIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',$(if($cvp.cozum_tablo){ ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress } else { '(tablo yok)' }))
+  $listeV=$null; $tokG=0; $tokC=0
+  foreach($tur in 1..2){
+    $yV=$null; foreach($d in 1..3){ try{ $yV=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istV -MaxTok 1500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+    $tokG+=[int]$yV.girdi; $tokC+=[int]$yV.cikti
+    $vN=Coz $yV.metin; if(-not $vN -or -not $vN.verilenler){ $listeV=$null; break }
+    $secilen=@()
+    foreach($x in @($vN.verilenler)){ if(-not $x -or -not $x.deger){ continue }; $dn="$($x.deger)" -replace '[^\d,%]',''
+      if($dn -and ($soruSayi -contains $dn)){ $secilen+=[pscustomobject]@{ ad=(DilOnar "$($x.ad)"); deger="$($x.deger)"; anlam=(DilOnar "$($x.anlam)") } }
+      else { Write-Host "  VERILEN DUSTU ($id): '$($x.deger)' soru metninde yok" -ForegroundColor DarkYellow } }
+    $listeV=$secilen
+    $kapsananN=@($soruSayi | Where-Object { $s0=$_; @($secilen | Where-Object { ("$($_.deger)" -replace '[^\d,%]','') -eq $s0 }).Count -gt 0 }).Count
+    $kapsam=$kapsananN / [double]$soruSayi.Count
+    if($kapsam -ge 0.8){ break }
+    if($tur -eq 1){ Write-Host ("  VERILEN KAPI ({0}): sorudaki sayıların %{1} listelendi -> tekrar" -f $id,[int]($kapsam*100)) -ForegroundColor Yellow; $istV+="`n`nKAPI DÜŞTÜ: soru metnindeki sayıların bir kısmı listede yok. HER sayıyı ayrı satır yap. Yalnız JSON." }
+    else { $rapor.Add("VERILEN KAPI: $id (%$([int]($kapsam*100)))") }
+  }
+  Write-Host ("  VERILEN TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
+  if(-not $listeV -or -not @($listeV).Count){ $rapor.Add("VERILEN BOZUK: $id"); continue }
+  $cvp | Add-Member -NotePropertyName verilenler -NotePropertyValue @($listeV) -Force
+  CacheYaz; Write-Host "  VERILEN OK $id · $(@($listeV).Count) satır"
+}
+
 # --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
 $script:FAZ_ADI='C'
 $ikizIstem=@'
@@ -1809,8 +1861,9 @@ foreach($id in ($don.Keys|Sort-Object)){
         if($gnl -notmatch '\d{2}' -and -not $genel.Contains($gnl)){ [void]$genel.Add($gnl) }
       }
     }
-    $ilkBos=$null; foreach($v in @($ik.bosluk)){ $ilkBos=$v; break }
-    $ilkDeger=''; if($ilkBos){ $ilkDeger="$(@(@($ik.tablo.satirlar)[@($ilkBos)[0]])[@($ilkBos)[1]])" }
+    # 06.09: cache'te çift iki biçimde yaşıyor - [r,c] dizisi ya da {value:[r,c],Count:2} (boru sargısı); ikisi de okunur
+    $ilkBos=$null; foreach($v in @($ik.bosluk)){ $ilkBos=$(if($v -and $v.PSObject.Properties['value']){ @($v.value) } else { @($v) }); break }
+    $ilkDeger=''; if($ilkBos -and @($ilkBos).Count -ge 2){ try{ $ilkDeger="$(@(@($ik.tablo.satirlar)[[int]@($ilkBos)[0]])[[int]@($ilkBos)[1]])" }catch{ $ilkDeger='' } }
     $ikmap[$id]=@(
       @{ b='💡 İPUCU 1/3 — Formül zinciri'; m='Cevabı söylemiyorum — yolu gösteriyorum:'; f=(($genel | ForEach-Object -Begin{$q=0} -Process{ $q++; "$q) $_" }) -join "`n") },
       @{ b='💡 İPUCU 2/3 — Soru sana ne verdi?'; m='Mavi kenarlı hücreler sorunun verdikleri. Önce onları formül zincirine yerleştir.' },
