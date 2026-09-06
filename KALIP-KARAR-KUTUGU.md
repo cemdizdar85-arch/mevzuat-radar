@@ -21,6 +21,7 @@
 | K7 | 117 kalıpsız ağır konu üretimi | ✅ **Parti-1 bitti 06.09 13:20** | 14 konu → 13 soru (EOQ kaynak borcu) · hakem EVET 9 / HAYIR 4 (muhasebe bilgi sistemi, ihraç primi, işletmenin sürekliliği, standart maliyet farkları — dördü de KAYNAK PAKETİ eksiği) · Sonnet sim 6/9 doğru; EVET olup sim ✗: gelecek yıllara ait giderler, kâr dağıtımı → adım onarımı gerek · dil kapısı 2 kez çalıştı, uzun adım 1/98 · bozuk 1 (2. turda kurtarıldı) · sayfa `KAYDIR-COZ-PARTI1.html` 8 soru · bedel ≈3,7 USD · yedek `C:\TETIKTE-YEDEK\parti1-20260906` |
 | Ö29 | Sim ✗ olan EVET sorular kasaya girmez; adımı `-AdimYenile` ile yeniden yazılıp sim tekrarlanır (kp-08, kp-10 parti-1) | 06.09 | ⏳ Cem | ≈0,2 USD |
 | Ö30 | Hakem HAYIR'ların 4/4'ü kaynak paketi (VUK 227 kontrol toplamı yok, TTK 482 ihraç primi yok, BDS 570 çelişki, VUK 275 sapma değil) → kaynak deseni işi (K6 ile birlikte) | 06.09 | ⏳ Cem | ölçülmedi |
+| Ö32 | Kayıt oyunu: tutarlar havuzda karışık + çeldirici, serbest sürükleme, Kontrol et, kutu altı neden (Cem "hepsini yapsın, yanlış yapsın") | 06.09 | ✅ (dondurma istisnası: gerçek eksik) | 0 |
 | Ö31 | Zor ayarında ilk tavan 20k (her soru 8k'da kesiliyordu, soru başına 3 dk boş çağrı) | 06.09 | ✅ | 0 |
 
 ## Öneriler ve uygulama
