@@ -654,7 +654,14 @@ if($DonemPencere -gt 0){
       "  çapa havuzu: $($bloklar.Count) çıkmış soru bloğu ($($sonD.Count) kitapçık)"
       foreach($kk in $KONULAR){
         $kokler=@(KokOnek "$($kk.kayit.konu)"); $enIyi=$null; $enPuan=0
-        foreach($bl in $bloklar){ if($aralik -and ($bl.no -lt $aralik[0] -or $bl.no -gt $aralik[1])){ continue }; $gk=(Katla2 $bl.metin); $puan=@($kokler | Where-Object { $gk -match ('\b'+[regex]::Escape($_)) }).Count; if($puan -gt $enPuan -or ($puan -eq $enPuan -and $enIyi -and $bl.metin.Length -gt 200 -and $enIyi.metin.Length -le 200)){ $enPuan=$puan; $enIyi=$bl } }
+        # 06.09 ilk koşu ölçümü: "satılan mamul maliyeti" için kök isabeti 3/3 ile 2026/2 Soru 60 (standart maliyet sapması) seçildi — kökler tek tek
+        # her Maliyet sorusunda geçiyor. Puan artık: kök isabeti + tam öbek (konu adı ardışık) ×3 + ikili öbek ×2; eşitlikte uzun gövde.
+        $konuKat=(Katla2 "$($kk.kayit.konu)") -replace '\s+',' '; $ikili=@(); $kw=@($konuKat -split ' ' | Where-Object { $_.Length -ge 3 }); for($q=0;$q -lt $kw.Count-1;$q++){ $ikili+=("$($kw[$q]) $($kw[$q+1])") }
+        foreach($bl in $bloklar){ if($aralik -and ($bl.no -lt $aralik[0] -or $bl.no -gt $aralik[1])){ continue }; $gk=(Katla2 $bl.metin) -replace '\s+',' '
+          $puan=@($kokler | Where-Object { $gk -match ('\b'+[regex]::Escape($_)) }).Count
+          if($konuKat.Length -ge 6 -and $gk -match [regex]::Escape($konuKat)){ $puan+=3 }
+          foreach($ik in $ikili){ if($gk -match [regex]::Escape($ik)){ $puan+=2 } }
+          if($puan -gt $enPuan -or ($puan -eq $enPuan -and $enIyi -and $bl.metin.Length -gt $enIyi.metin.Length)){ $enPuan=$puan; $enIyi=$bl } }
         if($enIyi -and $enPuan -ge [Math]::Min(2,$kokler.Count)){ $CAPA[$kk.id]=($enIyi.metin -replace '^SORU \d+:\s*',''); $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SGS $($enIyi.donem) Soru $($enIyi.no)" -Force; "  çapa: $($kk.id) <- SGS $($enIyi.donem) Soru $($enIyi.no) ($($CAPA[$kk.id].Length) kr, kök isabeti $enPuan/$($kokler.Count))" }
         else { "  çapa: $($kk.id) pencerede eşleşen çıkmış soru YOK (kök isabeti $enPuan) - sabit çapa kullanılır" }
       }
