@@ -423,6 +423,9 @@ $html=@'
 .kutu{border:2px dashed var(--cizgi);border-radius:12px;min-height:56px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:.8em;position:relative}.kutu.borc{border-color:rgba(120,180,255,.5)}.kutu.alacak{border-color:rgba(224,164,88,.5)}
 .kutu.dolu{border-style:solid}.kutu.dog{border-color:var(--yesil);background:rgba(143,201,143,.12)}.kutu.yan{border-color:var(--kirmizi);background:rgba(224,123,123,.12)}
 .cip{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--altin);color:#0f1013;font-weight:800;padding:10px 16px;border-radius:30px;touch-action:none;cursor:grab;user-select:none;box-shadow:0 6px 16px rgba(0,0,0,.4);z-index:3;white-space:nowrap}.cip.tasiniyor{transition:none;cursor:grabbing}.cip.yerlesti{position:static;transform:none;box-shadow:none;padding:8px 14px}
+/* 06.09 Cem "hepsini yapsın, yanlış yapsın": tutar havuzu + serbest sürükleme + çeldirici */
+.cipHavuz{display:flex;flex-wrap:wrap;gap:8px;min-height:54px;padding:8px 10px;border:1px dashed var(--cizgi);border-radius:12px;margin:6px 0 10px;align-items:center}.cip.havuzda{position:static;transform:none;box-shadow:none;padding:9px 14px}.cip.ucuyor{position:fixed;z-index:60;pointer-events:none;transform:none;box-shadow:0 10px 24px rgba(0,0,0,.5);opacity:.95}
+.kutu.hedefAday{background:color-mix(in srgb,var(--mavi) 18%,transparent);border-style:solid}.cip.artan{opacity:.4}.kutu .kutuEt[hidden]{display:none}
 .oyun .toplam{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;font-weight:800;font-size:.9em}.oyun .toplam div{text-align:center;padding:6px;border-top:2px solid var(--mavi)}
 .oyun .msj{margin-top:10px;font-weight:800;min-height:24px}
 .satir .neden{grid-column:1/3;font-size:.86em;color:var(--yazi);border-left:4px solid var(--kirmizi);background:rgba(224,123,123,.08);padding:6px 10px;border-radius:0 8px 8px 0;margin-top:2px;line-height:1.45}.satir .neden b{color:var(--kirmizi)}
@@ -616,7 +619,7 @@ SORULAR.forEach((s,i)=>{
    +'<div class="sek thesap"><div class="et">📒 T-hesabı canlansın</div><p class="ipnot">Kayıt defterde böyle görünür: sol taraf borç, sağ taraf alacak.</p><div class="tKutular"></div><div class="btnrow"><button class="btn bThesapOynat">↺ Tekrar oynat</button></div></div>'
    +'<div class="sek cikmis"><div class="et">📈 Bu konu sınavda nasıl çıktı</div><div class="cikmisIc"></div></div></div>'
    +'<div class="ders"><div class="basl"><span>🎬 Nöbetçi anlatıyor · '+esc(s.konu)+'</span><button class="btn bDersKapat" style="padding:5px 10px">✕</button></div><div class="tabloSar"></div><div class="serit"></div><div class="altc"><button class="btn bOnce">◀ Geri</button><div class="adimBar"></div><button class="btn bSonra">İleri ▶</button></div></div>'
-   +'<div class="oyun"><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Tutarı <b>sola</b> sürükle = BORÇ, <b>sağa</b> sürükle = ALACAK. Hepsini yerleştirince denklik kendiliğinden ölçülür.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
+   +'<div class="oyun"><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Havuzdaki tutarları hesapların <b>BORÇ</b> ya da <b>ALACAK</b> kutusuna sürükle; fazladan tutar var, hepsini kullanma. Bitince <b>Kontrol et</b>.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
   akis.appendChild(k);
   const panel=k.querySelector('.panel'); const geri=k.querySelector('.geri');
   // 06.09 rakip dersi: şık eleme (✕) — seçmeden çizer; sınavda kâğıtta yapılan eleme burada da yapılır, cevap anında kayda geçer
@@ -819,36 +822,51 @@ SORULAR.forEach((s,i)=>{
   }
   function oyunKur(){
     if(s.oyun&&s.oyun.tur==='tablo'){ oyun.querySelector('.msj').textContent=''; tabloOyunKur(); return; }
+    // 06.09 Cem: "rakamlar sadece olduğu yere atıyor; öğrenci öğrenmek istiyorsa hepsini yapsın, yanlış yapsın" → TUTARLAR HAVUZDA
+    // KARIŞIK, üstüne sorudaki diğer rakamlar ÇELDİRİCİ olarak eklenir. Öğrenci hangi tutarı hangi hesaba, hangi tarafa koyacağına
+    // kendi karar verir; "Kontrol et" ile ölçülür, yanlış kutunun altında nedeni yazar. Serbest sürükleme: bırakılan noktadaki kutu hedeftir.
     satirlar.innerHTML=''; oyun.querySelector('.msj').textContent=''; oyun.querySelector('.tb').textContent='—'; oyun.querySelector('.ta').textContent='—';
     const kayitO=(s.oyun&&s.oyun.kayit&&s.oyun.kayit.length)?s.oyun.kayit:s.kayit;
-    const sirali=[...kayitO].sort((a,b)=>a.hesap.localeCompare(b.hesap,'tr'));
-    sirali.forEach((r,ri)=>{
-      const sat=document.createElement('div'); sat.className='satir'; sat.dataset.taraf=r.taraf;
-      sat.innerHTML='<div class="hesapAd">'+esc(r.hesap)+'</div><div class="kutu borc">BORÇ</div><div class="kutu alacak">ALACAK</div><div class="cip" data-t="'+esc(r.tutar)+'">'+esc(r.tutar)+'</div>';
-      satirlar.appendChild(sat);
-      const cip=sat.querySelector('.cip'); let x0=0,y0=0,dx=0,dy=0,aktif=false;
-      cip.addEventListener('pointerdown',e=>{ if(cip.classList.contains('yerlesti')) return; aktif=true; cip.setPointerCapture(e.pointerId); x0=e.clientX; y0=e.clientY; cip.classList.add('tasiniyor'); });
-      cip.addEventListener('pointermove',e=>{ if(!aktif) return; dx=e.clientX-x0; dy=e.clientY-y0; cip.style.transform='translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+(dx/14)+'deg)'; sat.querySelector('.kutu.borc').style.background=dx<-50?'rgba(120,180,255,.15)':''; sat.querySelector('.kutu.alacak').style.background=dx>50?'rgba(224,164,88,.15)':''; });
-      const birak=()=>{ if(!aktif) return; aktif=false; cip.classList.remove('tasiniyor'); sat.querySelectorAll('.kutu').forEach(q=>q.style.background='');
-        if(Math.abs(dx)<50){ cip.style.transform=''; dx=0; return; }
-        const secilen=dx<0?'B':'A'; const kutu=sat.querySelector(dx<0?'.kutu.borc':'.kutu.alacak'); cip.style.transform=''; cip.classList.add('yerlesti'); kutu.textContent=''; kutu.appendChild(cip); kutu.classList.add('dolu'); sat.dataset.secilen=secilen; dx=0;
-        if(navigator.vibrate) navigator.vibrate(12); olc(); };
+    const hesaplar=[...new Set(kayitO.map(r=>r.hesap))].sort((a,b)=>a.localeCompare(b,'tr'));
+    const gercek=kayitO.map(r=>String(r.tutar));
+    const metin=String(s.oyun&&s.oyun.soru?s.oyun.soru:s.soru); const gercekN=new Set(gercek.map(t=>nrm(t)));
+    const celdirici=[...new Set([...metin.matchAll(/\d{1,3}(?:\.\d{3})+(?:,\d+)?/g)].map(m=>m[0]))].filter(t=>!gercekN.has(nrm(t))&&nrm(t).replace(/\D/g,'').length>=4).slice(0,2);
+    const cipler=[...gercek.map(t=>({t,d:0})),...celdirici.map(t=>({t,d:1}))]; for(let i=cipler.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [cipler[i],cipler[j]]=[cipler[j],cipler[i]]; }
+    let h='<div class="cipHavuz">'+cipler.map(c=>'<div class="cip havuzda" data-t="'+esc(c.t)+'" data-decoy="'+c.d+'">'+esc(c.t)+'</div>').join('')+'</div>';
+    hesaplar.forEach(hs=>{ h+='<div class="satir" data-hesap="'+esc(hs)+'"><div class="hesapAd">'+esc(hs)+'</div><div class="kutu borc"><span class="kutuEt">BORÇ</span></div><div class="kutu alacak"><span class="kutuEt">ALACAK</span></div></div>'; });
+    satirlar.innerHTML=h;
+    const havuz=satirlar.querySelector('.cipHavuz'); let bittiK=false, kontrolN=0;
+    const toplamGuncelle=()=>{ let b=0,a=0; satirlar.querySelectorAll('.kutu.borc .cip').forEach(c=>b+=say(c.dataset.t)); satirlar.querySelectorAll('.kutu.alacak .cip').forEach(c=>a+=say(c.dataset.t)); oyun.querySelector('.tb').textContent=b?fmt(b):'—'; oyun.querySelector('.ta').textContent=a?fmt(a):'—'; };
+    const hedefBul=(x,y)=>{ const el=document.elementFromPoint(x,y); const kt=el?el.closest('.kutu'):null; return (kt&&satirlar.contains(kt))?kt:null; };
+    const havuzaKoy=cip=>{ const ek=cip.closest('.kutu'); havuz.appendChild(cip); cip.classList.add('havuzda'); cip.classList.remove('yerlesti'); if(ek){ ek.classList.remove('dolu','dog','yan'); const et=ek.querySelector('.kutuEt'); if(et) et.hidden=false; const nd=ek.closest('.satir').querySelector('.neden'); if(nd) nd.remove(); } toplamGuncelle(); };
+    const yerlestir=(cip,kutu)=>{ const eski=kutu.querySelector('.cip'); if(eski&&eski!==cip) havuzaKoy(eski); const ek=cip.closest('.kutu'); if(ek&&ek!==kutu){ ek.classList.remove('dolu','dog','yan'); const et0=ek.querySelector('.kutuEt'); if(et0) et0.hidden=false; } kutu.appendChild(cip); cip.classList.remove('havuzda'); cip.classList.add('yerlesti'); kutu.classList.add('dolu'); kutu.classList.remove('dog','yan'); const et=kutu.querySelector('.kutuEt'); if(et) et.hidden=true; const nd=kutu.closest('.satir').querySelector('.neden'); if(nd) nd.remove(); if(navigator.vibrate) navigator.vibrate(10); toplamGuncelle(); };
+    let surukle=null;
+    satirlar.querySelectorAll('.cip').forEach(cip=>{
+      cip.addEventListener('pointerdown',e=>{ if(bittiK) return; e.preventDefault(); const r=cip.getBoundingClientRect(); surukle={cip,dx:e.clientX-r.left,dy:e.clientY-r.top}; cip.classList.add('ucuyor'); cip.style.left=r.left+'px'; cip.style.top=r.top+'px'; cip.style.width=r.width+'px'; cip.setPointerCapture(e.pointerId); });
+      cip.addEventListener('pointermove',e=>{ if(!surukle||surukle.cip!==cip) return; cip.style.left=(e.clientX-surukle.dx)+'px'; cip.style.top=(e.clientY-surukle.dy)+'px'; const alt=hedefBul(e.clientX,e.clientY); satirlar.querySelectorAll('.kutu').forEach(q=>q.classList.toggle('hedefAday',q===alt)); });
+      const birak=e=>{ if(!surukle||surukle.cip!==cip) return; const alt=hedefBul(e.clientX,e.clientY); cip.classList.remove('ucuyor'); cip.style.left=''; cip.style.top=''; cip.style.width=''; satirlar.querySelectorAll('.kutu').forEach(q=>q.classList.remove('hedefAday')); surukle=null; if(alt){ yerlestir(cip,alt); } else { havuzaKoy(cip); } };
       cip.addEventListener('pointerup',birak); cip.addEventListener('pointercancel',birak);
     });
+    oyun.querySelector('.alt').innerHTML='Havuzdaki tutarları hesapların <b>BORÇ</b> ya da <b>ALACAK</b> kutusuna sürükle. Havuzda <b>fazladan</b> tutar var (soruda geçen ama kayda girmeyen); hepsini kullanma. Bitince <b>Kontrol et</b>.';
+    let bk=oyun.querySelector('.bKontrolK'); if(!bk){ bk=document.createElement('button'); bk.className='btn mavi bKontrolK'; bk.textContent='✔ Kontrol et'; oyun.querySelector('.btnrow').insertBefore(bk,oyun.querySelector('.bTekrar')); }
+    bk.disabled=false; bk.textContent='✔ Kontrol et';
+    bk.onclick=()=>{ if(bittiK) return; kontrolN++;
+      const bekl={}; kayitO.forEach(r=>{ const key=r.hesap+'|'+r.taraf; bekl[key]=(bekl[key]||0)+say(r.tutar); });
+      const kod=h0=>(String(h0).match(/^\d{3}/)||[''])[0];
+      const sinifKural=k3=>{ const c=k3.charAt(0), c2=k3.slice(0,2); if(c==='1'||c==='2') return 'varlık hesabı: artınca BORÇ, azalınca alacak'; if(c==='3'||c==='4') return 'yabancı kaynak (borç) hesabı: artınca ALACAK, ödenince borç'; if(c==='5') return 'özkaynak hesabı: artınca ALACAK'; if(c==='6'){ return (['60','64','67'].includes(c2))?'gelir hesabı: gelir doğunca ALACAK':'gider/indirim hesabı: gider doğunca BORÇ'; } if(c==='7') return 'maliyet-gider hesabı: gider doğunca BORÇ'; return ''; };
+      let dogru=0,n=0,b=0,a=0;
+      satirlar.querySelectorAll('.satir').forEach(sat=>{ const nd=sat.querySelector('.neden'); if(nd) nd.remove(); const hs=sat.dataset.hesap; const k3=kod(hs); const sebep=[];
+        ['B','A'].forEach(t=>{ const kutu=sat.querySelector(t==='B'?'.kutu.borc':'.kutu.alacak'); const beklenen=bekl[hs+'|'+t]||0; const cip=kutu.querySelector('.cip'); const varT=cip?say(cip.dataset.t):0; if(t==='B') b+=varT; else a+=varT;
+          if(!beklenen&&!cip){ kutu.classList.remove('dog','yan'); return; } n++; const ok=Math.abs(beklenen-varT)<0.5; if(ok) dogru++; kutu.classList.toggle('dog',ok); kutu.classList.toggle('yan',!ok);
+          if(!ok){ if(cip&&cip.dataset.decoy==='1') sebep.push('<b>'+esc(cip.dataset.t)+'</b> soruda geçiyor ama bu kayda girmez (çeldirici).'); else if(cip&&!beklenen) sebep.push('Bu hesabın <b>'+(t==='B'?'borç':'alacak')+'</b> tarafına kayıt yok; '+esc(k3+' '+sinifKural(k3))+'.'); else if(!cip&&beklenen) sebep.push('<b>'+(t==='B'?'Borç':'Alacak')+'</b> tarafı boş kaldı; buraya <b>'+fmt(beklenen)+'</b> gelmeli ('+esc(sinifKural(k3))+').'); else sebep.push('<b>'+(t==='B'?'Borç':'Alacak')+'</b> tarafına '+fmt(beklenen)+' gelmeli, sen '+fmt(varT)+' koydun.'); } });
+        if(sebep.length){ const d=(s.hesaplar||{})[k3]; const isl=d&&(d.tanim.match(/İşleyişi?\s*:?\s*([^]*)/i)||[])[1]; const el=document.createElement('div'); el.className='neden'; el.innerHTML=sebep.join(' ')+(isl?' <i>'+esc(isl.split(/(?<=[.!?])\s+/)[0].replace(/\.+$/,''))+'.</i>':''); sat.appendChild(el); } });
+      toplamGuncelle(); const m=oyun.querySelector('.msj'); const denk=(b===a&&b>0);
+      if(dogru===n){ bittiK=true; bk.disabled=true; bk.textContent='✔ Tamamlandı'; satirlar.querySelectorAll('.cip.havuzda').forEach(c=>c.classList.add('artan'));
+        if(kontrolN===1){ durum.seri++; try{ localStorage.setItem('kc_seri',String(durum.seri)); }catch(e){} m.className='msj ok'; m.textContent='🏅 Kayıt tam doğru, ilk denemede! Seri: '+durum.seri+(durum.seri>=3?' 🔥':'')+' · Hazırlık Skoru +'; if(navigator.vibrate) navigator.vibrate([20,40,20]); oyunKaydet(s,'tam'); }
+        else { m.className='msj ok'; m.textContent='Kayıt doğru; '+kontrolN+'. denemede tamamlandı, skora yarım puan işlendi.'; oyunKaydet(s,'ipuclu'); } }
+      else { durum.seri=0; try{ localStorage.setItem('kc_seri','0'); }catch(e){} m.className='msj hata'; m.textContent=dogru+' / '+n+' kutu doğru'+(denk?' (toplamlar denk ama yerler yanlış)':' (borç ve alacak toplamı denk değil)')+'. Kırmızı kutunun altında neden yazıyor; tutarı sürükleyip düzelt, tekrar kontrol et.'; } };
   }
-  function olc(){
-    const satir=[...satirlar.querySelectorAll('.satir')]; if(satir.some(x=>!x.dataset.secilen)) return;
-    let b=0,a=0,dogru=0; satir.forEach(x=>{ const t=say(x.querySelector('.cip').dataset.t); if(x.dataset.secilen==='B') b+=t; else a+=t; const ok=x.dataset.secilen===x.dataset.taraf; if(ok) dogru++; x.querySelector('.kutu.dolu').classList.add(ok?'dog':'yan'); });
-    oyun.querySelector('.tb').textContent=fmt(b); oyun.querySelector('.ta').textContent=fmt(a);
-    const m=oyun.querySelector('.msj'); const denk=(b===a&&b>0);
-    // Cem 04.09 "yanlış yaptı, niye yaptı anlatmıyoruz": her yanlış kutunun altında hesap sınıfı kuralı + varsa THP işleyişi
-    const kod=h=>(String(h).match(/^\d{3}/)||[''])[0];
-    const sinifKural=k3=>{ const c=k3.charAt(0), c2=k3.slice(0,2); if(c==='1'||c==='2') return 'varlık hesabı: artınca BORÇ, azalınca alacak'; if(c==='3'||c==='4') return 'yabancı kaynak (borç) hesabı: artınca ALACAK, ödenince borç'; if(c==='5') return 'özkaynak hesabı: artınca ALACAK'; if(c==='6'){ return (['60','64','67'].includes(c2))?'gelir hesabı: gelir doğunca ALACAK':'gider/indirim hesabı: gider doğunca BORÇ'; } if(c==='7') return 'maliyet-gider hesabı: gider doğunca BORÇ'; return ''; };
-    satir.forEach(x=>{ const esk=x.querySelector('.neden'); if(esk) esk.remove(); if(x.dataset.secilen!==x.dataset.taraf){ const k3=kod(x.querySelector('.hesapAd').textContent); const d=(s.hesaplar||{})[k3]; const isl=d&&(d.tanim.match(/İşleyişi?\s*:?\s*([^]*)/i)||[])[1]; const n=document.createElement('div'); n.className='neden'; n.innerHTML='<b>Neden '+(x.dataset.taraf==='B'?'borç':'alacak')+'?</b> '+esc(k3+' '+sinifKural(k3))+'.'+(isl?' '+esc(isl.split(/(?<=[.!?])\s+/)[0].replace(/\.+$/,''))+'.':''); x.appendChild(n); } });
-    if(denk&&dogru===satir.length){ durum.seri++; try{ localStorage.setItem('kc_seri',String(durum.seri)); }catch(e){} m.className='msj ok'; m.textContent='🏅 Denk ve doğru! Seri: '+durum.seri+(durum.seri>=3?' 🔥':'')+' · Hazırlık Skoru +'; if(navigator.vibrate) navigator.vibrate([20,40,20]); oyunKaydet(s,'tam'); }
-    else if(denk){ durum.seri=0; m.className='msj hata'; m.textContent='Toplamlar denk ama taraf yanlış. Kırmızı kutuların altında neden yazıyor; ↺ Tekrar ile düzelt.'; }
-    else { durum.seri=0; m.className='msj hata'; m.textContent='Denk değil: bir taraf eksik. Kırmızı kutuların altına bak, ↺ Tekrar ile düzelt.'; }
-  }
+  function olc(){ /* 06.09: kayıt oyunu artık Kontrol et ile ölçülür (bKontrolK) */ }
   k.querySelector('.bOyun').addEventListener('click',()=>{ oyunKur(); oyun.classList.add('acik'); });
   oyun.querySelector('.bOyunKapat').addEventListener('click',()=>oyun.classList.remove('acik'));
   oyun.querySelector('.bTekrar').addEventListener('click',oyunKur);
