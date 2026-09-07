@@ -31,9 +31,14 @@ $kok  = Split-Path -Parent $here
 $UA = 'Mozilla/5.0 (MevzuatRadar-KurulKarariNobetcisi)'
 $raporYol  = Join-Path $kok 'veri/kurul-karari-raporu.json'
 $defterYol = Join-Path $kok 'motor/hafiza/kurul-karari-gorulen.json'
-function RaporYaz($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 6), (New-Object Text.UTF8Encoding($false))) }
+# 07.09: dogrudan WriteAllText her kosuda yalniz 'tarih' degisen bir dosya
+# birakiyordu (03.09 -> 07.09, baska hicbir alan degismeden) ve sinav kolunun
+# oturumu bu yuzden "commit'siz dosya" ile kapandi. Ortak yazici (arac/rapor-yaz.ps1)
+# icerik ayniysa dosyaya dokunmaz; 'tarih' bu betigin zaman alani, kiyastan haric.
+. (Join-Path $kok 'arac\rapor-yaz.ps1')
+function Raporla($n){ RaporYaz -Hedef $raporYol -Nesne $n -Derinlik 6 -ZamanAlanlari @('tarih') | Out-Null }
 trap {
-  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
+  Raporla ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
 
@@ -133,7 +138,7 @@ if($Yaz){
 $kararlar = $yeni.ToArray()
 $mod = 'OLCUM'
 if($Yaz){ $mod = 'YAZ' }
-RaporYaz ([ordered]@{
+Raporla ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='TAMAM'
   mod=$mod
   taranan_gun=$taranan; sayfasiz_gun=$sayfaYok; defter_kayit=$defter.Count; yeni=$yeni.Count
