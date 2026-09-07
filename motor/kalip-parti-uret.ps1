@@ -618,7 +618,10 @@ foreach($a in $adaylar){
   if($gorulen[$kAd]){ continue }
   $gorulen[$kAd]=1; $sira++
   $KONULAR.Add(@{ id=('kp-{0:d2}' -f $sira); kayit=$a })
-  if($KONULAR.Count -ge $Adet){ break }
+  # 07.09 parti-30 dersi: pencere açıkken kesme YOK — önce bütün adaylar son N dönem sayısına göre sıralanır, ilk Adet ondan sonra alınır
+  # (eski hâl: ilk Adet konu toplam döneme göre alınıp pencere yalnız onların içinde sıralıyordu → "sermaye artırımı 2 kez" 1. sıraya çıktı)
+  if($KONULAR.Count -ge $Adet -and $DonemPencere -le 0){ break }
+  if($KONULAR.Count -ge 400){ break }
 }
 "konu secildi: $($KONULAR.Count) (kopruden, donem-sirali tekil)"
 
@@ -665,7 +668,7 @@ if($DonemPencere -gt 0){
       $yeniK.Add($kk)
     }
     # konu dosyası verilmişse liste Cem'in listesidir, süzülmez; verilmemişse pencerede 0 olan konu düşer, sıralama pencere sayısına göre
-    if(-not $KonuDosya){ $sirali=@($yeniK | Where-Object { $SON_DONEM_SAYI[$_.id] -ge 1 } | Sort-Object { -$SON_DONEM_SAYI[$_.id] }, { -[int]$_.kayit.donem }); $KONULAR=New-Object System.Collections.Generic.List[object]; $s2=0; foreach($kk in $sirali){ $s2++; $kk.id=('kp-{0:d2}' -f $s2); $KONULAR.Add($kk) } }
+    if(-not $KonuDosya){ $sirali=@($yeniK | Where-Object { $SON_DONEM_SAYI[$_.id] -ge 1 } | Sort-Object { -$SON_DONEM_SAYI[$_.id] }, { -[int]$_.kayit.donem } | Select-Object -First $Adet); $KONULAR=New-Object System.Collections.Generic.List[object]; $s2=0; foreach($kk in $sirali){ $s2++; $kk.id=('kp-{0:d2}' -f $s2); $KONULAR.Add($kk) } }   # 07.09: sıralama bütün adaylarda, kesme burada (ilk Adet)
     foreach($kk in $KONULAR){ "  pencere: $($kk.id) $($kk.kayit.konu) -> son $DonemPencere donemde $($SON_DONEM_SAYI[$kk.id]) (toplam $($kk.kayit.donem))" }
     # --- Ö18 OTOMATİK ÇAPA: pencerenin gerçek kitapçıklarından konuya en yakın SORU bloğu (SGS: tam kitapçık = 'ingilizce' varyantı; Maliyet 57–64 ölçüldü)
     if($Sinav -eq 'SGS' -and -not $OrnekDosya){
