@@ -233,7 +233,8 @@ function AtifDesen([string]$dayanak){
 # icin dersin ANA KANUNU icinde metin aramasi. Ders profil adi ($DersRegex) -> kanun onek(ler)i.
 $DERS_KANUN=@{
   'Ticaret Hukuku'=@('TTK (6102 s.K.)'); 'Borclar Hukuku'=@('TBK (6098 s.K.)')
-  'Is ve Sosyal Guvenlik Hukuku'=@('İş K. (4857 s.K.)','5510 s. SGK Kanunu')
+  # 07.09 parti30 OLCULDU: 6356 listede yoktu -> 'sendika uyeligi' sorusunda kaynak Is K. m.5/7'ye dustu, hakem reddetti. Adlar ambardan birebir.
+  'Is ve Sosyal Guvenlik Hukuku'=@('İş K. (4857 s.K.)','5510 s. SGK Kanunu','Sendikalar ve TİS K. (6356 s.K.)','İSG K. (6331 s.K.)','4447 s. İşsizlik Sig. K.')
   # 07.09 parti30 OLCULDU: 'KVK (5520 s.K.)' listede YOKTU -> kurumlar vergisi dayanagi "ders disi kanun" sayildi,
   # kaynak capadan 5510 SGK + IYUK'a dustu, hakem 2 soruyu reddetti (vergi 4 -> 1). Kanun listede, teblig yaninda.
   'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK (5520 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)',
