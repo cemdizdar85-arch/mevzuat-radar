@@ -658,6 +658,7 @@ $html=@'
 .yanlisYol{color:var(--kirmizi);font-size:.9em;margin:2px 0 4px;font-variant-numeric:tabular-nums}
 .tt td.haricH{text-decoration:line-through;color:var(--dim)}.mat.haric .matAd{color:var(--kirmizi)}.haricListe{display:flex;flex-direction:column;gap:4px}.haricKalem{text-decoration:line-through;color:var(--dim)}
 .kart .kagit.acik.ustte{z-index:30}   /* 07.09: Nöbetçi (z 21) üstünde hesap kâğıdı */
+.terimT{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin:4px 0}.terimT td{padding:5px 6px;border-bottom:1px solid var(--cizgi);vertical-align:top;line-height:1.35}.terimT .tOp{width:1.4em;color:var(--dim);text-align:right;font-weight:700}.terimT .tIf{color:var(--dim);font-style:italic}.terimT .tIf:nth-child(3){color:var(--yazi);font-style:normal}.terimT .tDeg{text-align:right;white-space:nowrap;font-weight:700}.terimT .tToplam td{border-bottom:0;padding-top:8px}   /* 07.09 terim tablosu (çarpımların toplamı) */
 .tahminSoru{margin:6px 0 10px;font-size:.92em}.tahminSoru summary{cursor:pointer;color:var(--mavi)}.tahminSoru p{margin:6px 0 0;color:var(--dim);line-height:1.5}
 .tt td.eksiH,.tt .eksiH{color:var(--kirmizi);font-weight:600}.tt tr.lejantSatir td{font-size:.78em;color:var(--dim);padding-top:4px;border:0}
 /* 07.09 Cem "yazılar hemen geliyor, okurcasına gelse": giriş kartı blok blok belirir (harf harf değil; yarım saniye arayla) */
@@ -1253,6 +1254,12 @@ SORULAR.forEach((s,i)=>{
         const seg=f.split(/\s=\s/).map(x=>x.trim()).filter(Boolean); if(seg.length<2){ return '<div class="mat"><div class="matSatir">'+ifade(f)+'</div></div>'; }
         // ad: ilk parça sayı/işleç içermiyorsa formülün adıdır; içeriyorsa ("Q: 240.000 / 2.000 = 120") ifadedir
         const adMi=!/\d/.test(seg[0])&&!/[+\/×→]|->/.test(seg[0]); const ad=adMi?seg[0]:''; const orta=adMi?seg.slice(1,-1):seg.slice(0,-1); const son=seg[seg.length-1]; const sonT=terim(son);
+        // 07.09 Cem (FIFO: "neyle çarpıyor anlaşılmıyor"): çarpımların toplamı (≥3 terim, terimde ×) üst üste dizilince okunmuyordu →
+        // TERİM TABLOSU: her terim bir satır (genel ifade · sayılı ifade · = ara sonuç), altta Toplam. Eski çıktılar için; yeni üretimde kural (m) adımı böler.
+        const sarSoy=x=>{ let s0=String(x).trim(); if(s0[0]==='('){ let d=0; for(let i=0;i<s0.length;i++){ if(s0[i]==='(') d++; else if(s0[i]===')'){ d--; if(d===0){ if(i===s0.length-1) return s0.slice(1,-1).trim(); break; } } } } return s0; };
+        const cok=(()=>{ if(orta.length<2) return null; const parca=orta.map(o=>ustBol(String(o).trim(),'+-')); const n=parca[0].length; if(n<5||!parca.every(p=>p.length===n)) return null; if(!parca.some(p=>p.some((x,i)=>i%2===0&&/[×x*\/]/.test(x)))) return null; return parca; })();
+        if(cok){ const n=cok[0].length, sonCol=cok.length-1; let rows=''; for(let i=0;i<n;i+=2){ rows+='<tr><td class="tOp">'+(i===0?'':esc(cok[0][i-1]))+'</td>'+cok.map((p,ci)=>{ const ic=sarSoy(p[i]); if(ci===sonCol){ const t=terim(ic); return '<td class="tDeg">'+renkli(t.deg)+'</td>'; } return '<td class="tIf">'+ifade1(ic)+'</td>'; }).join('')+'</tr>'; }
+          return '<div class="mat">'+(ad?'<div class="matAd">'+esc(ad)+'</div>':'')+'<table class="terimT"><tbody>'+rows+'<tr class="tToplam"><td class="tOp">=</td><td colspan="'+sonCol+'">Toplam</td><td class="tDeg"><span class="matSonuc">'+renkli(sonT.deg)+'</span></td></tr></tbody></table></div>'; }
         return '<div class="mat">'+(ad?'<div class="matAd">'+esc(ad)+'</div>':'')+'<div class="matSatir">'+(orta.length?orta.map(ifade).join('<span class="esit">=</span>')+'<span class="esit">=</span>':'')+'<span class="matSonuc">'+renkli(sonT.deg)+(sonT.not?' <i class="notI">'+esc(sonT.not)+'</i>':'')+'</span></div></div>'; });
       fH=bloklar.join('');
       // "Dahil değil" kalemleri soldaki VERİLENLER tablosunda bu adımda üstü çizili; adım değişince kalkar

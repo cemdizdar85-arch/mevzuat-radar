@@ -147,6 +147,13 @@ KURALLAR:
        "→ YANLIŞ, çünkü <kural>". Beş satır, beş kaynak cümlesi; sınavda bu soru dört doğruyu eleyerek çözülür, anlatım dördünü de vermelidir.
    (l) ADLANDIRMA (07.09 K3): soru gövdesi mamul/gider yerini harfle anıyorsa (A, B, C) adımlarda "A mamulü", "B gider yeri" biçiminde
        tam adla yaz; şık harfleriyle karışmasın. Para birimi "TL" (₺ yazma). Hesap kodları Tekdüzen (MSUGT) adlarıyla.
+   (m) BİR ADIM = BİR İŞLEM (07.09 Cem, FIFO eşdeğer birim ekranı: "formüller anlaşılmıyor, neyle çarpıyor ne yapıyor"): bir adımın
+       formülünde birden fazla ÇARPIM/BÖLÜM toplanmaz. "(200 × %0) + 700 + (300 × %100) = 1.000" gibi karışık formül YASAK; her terim
+       KENDİ adımı olur, adı ve nedeniyle: "Dönem başı stokun bu dönem alan ilk madde payı = 200 (soruda verilen) × (1 − %100) = 0",
+       "Başlanıp bitirilen = 900 − 200 = 700", "Dönem sonu stokun ilk madde payı = 300 × %100 = 300", sonra AYRI toplama adımı
+       "İlk madde eşdeğer birimi = 0 + 700 + 300 = 1.000" (tablo hücresini bu adım doldurur, öncekilerin doldur alanı boş kalır).
+       Tamamlanmayan oran "(1 − %100 = %0)" biçiminde yazılır, çıplak "%0" yazılmaz. Aynı türden yalın toplam (20.000 + 40.000 + 60.000) tek
+       adımda kalabilir. Anlatım her terimde "bu sayı nedir, niye çarpıyoruz" der.
    (k) DAHİL DEĞİL SATIRI (07.09 Cem, TMS 36 ekranı: "elden çıkarmayı nasıl hesapladığını, diğerlerini almayacağını yaz"): soru hesaba
        GİRMEYEN çeldirici kalem veriyorsa (işten çıkarma tazminatı, yeniden yapılandırma maliyeti, KDV, faiz, kur farkı gibi), o kalemin ait
        olduğu "nedir"/hesap adımının formülü İKİ PARÇADIR: "Elden çıkarma maliyeti = yasal + damga + taşıma = 30.000 (soruda verilen);
