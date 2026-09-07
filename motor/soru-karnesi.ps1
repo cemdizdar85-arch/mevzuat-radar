@@ -118,6 +118,21 @@ function KaynakBilgi($c){
   }catch{ return @{ durum='OLCULMEDI'; not="ambar sorgusu düştü: $($_.Exception.Message)" } }
 }
 function Hucre([string]$durum,[string]$not){ return [ordered]@{ durum=$durum; not=$not } }
+# 07.09 A kovası 4 — zorluk cetveli, motor/zorluk-kiyas-v2.ps1 ile AYNI 8 sinyal (kopya; iki yerde yaşar, biri değişirse öteki de)
+$reHesapZ=[regex]'(?i)ka[cç]t[iı]r|hesapla|tutar[iı] ne|oran[iı] ka[cç]|ka[cç] TL'; $reRakamZ=[regex]'\d[\d.,]{2,}'
+$reBilgiZ=[regex]'(?i)a[sş]a[gğ][iı]dakilerden hangisi.{0,40}(tan[iı]m|de[gğ]ildir|yer almaz|say[iı]lmaz|aras[iı]nda|kapsam)|hangisidir\?|ka[cç] g[uü]n|ka[cç] y[iı]l|s[uü]resi ka[cç]'
+$reUygulamaZ=[regex]'(?i)ka[cç] TL|ka[cç]t[iı]r|hesapla|yevmiye|kayd[iı] (nas[iı]l|hangisidir)|tutar[iı]|oran[iı] ka[cç]'
+$reOnculZ=[regex]'(?m)(^|\s)II\.\s.*?(^|\s)III\.\s|hangileri|ka[cç] tanesi'; $reSasirtZ=[regex]'(?i)yanl[iı][sş]t[iı]r|de[gğ]ildir|s[oö]ylenemez|yer almaz|say[iı]lmaz|olamaz|bulunamaz|yap[iı]lamaz|m[uü]mk[uü]n de[gğ]il'
+function ZorlukCetvel($c){
+  $soru="$($c.soru)"; $sikJ=$(if($c.siklar){ ConvertTo-Json -InputObject $c.siklar -Compress } else { '' })
+  $tabloVar=[bool]($c.PSObject.Properties['cozum_tablo'] -and $c.cozum_tablo -and $c.cozum_tablo.satirlar); $yevVar=[bool]($c.PSObject.Properties['yevmiye'] -and $c.yevmiye)
+  $p=0; $metin="$soru $sikJ"; if($tabloVar){ $p+=2 }; if($yevVar){ $p+=2 }; $rak=$reRakamZ.Matches($metin).Count; if($rak -ge 6){ $p+=2 } elseif($rak -ge 2){ $p+=1 }; if($reHesapZ.IsMatch($soru)){ $p+=1 }; if($soru.Length -gt 420){ $p+=1 }
+  $z=$(if($p -ge 4){ 3 } elseif($p -ge 2){ 2 } else { 1 })
+  $tip=$(if($reUygulamaZ.IsMatch($soru)){ 'uygulama' } elseif($reBilgiZ.IsMatch($soru)){ 'bilgi' } else { 'analiz' })
+  return [pscustomobject]@{ z=$z; tip=$tip; oncul=$reOnculZ.IsMatch($soru); sasirt=$reSasirtZ.IsMatch($soru) }
+}
+# çıkmış sınav dağılımı (26.08 ölçümü, 16.355 tekil çıkmış soru): kolay %42 · zor %52 · çok zor %7; öncüllü %5,4; şaşırtmalı kök %4,3
+$SINAV_Z=@{ z1=42; z2=52; z3=7; oncul=5.4; sasirt=4.3 }
 # K10 pencere (06.09): üretici alanı yoksa karne kendisi ölçer — veri/<sinav>-analiz.json son N dönem etiketleri, kök-önekiyle eşleşme
 # (üreticideki KokOnek ile aynı kural; "evre"→"safha", "gug"→"genel"). Sonuç: kaç dönemde geçti; analiz dosyası yoksa $null (ölçülmedi).
 $PENCERE=7
@@ -166,6 +181,14 @@ foreach($et in ($Etiketler -split ',' | ForEach-Object { $_.Trim() } | Where-Obj
     else { $sd=PencereSay ($et -replace '-.*$','') "$($c.konu)"; if($null -eq $sd){ $h.pencere=Hucre 'OLCULMEDI' "pencere ölçülmedi (toplam $($c.donem) dönem, 2015'ten)" } else { $h.pencere=Hucre $(if($sd -ge 1){'YESIL'}else{'KIRMIZI'}) "son $PENCERE dönemde $sd kez (karne ölçtü; toplam $($c.donem))" } }
     # 8 kaynak
     $kb=KaynakBilgi $c; $h.kaynak=Hucre $kb.durum $kb.not
+    # 9 kör çözüm (07.09 A kovası 1): bağımsız model anlatımsız çözdü mü
+    if($c.PSObject.Properties['kor_cozum'] -and $c.kor_cozum -and $c.kor_cozum.PSObject.Properties['dogru_mu']){ $kc=$c.kor_cozum; $h.kor=Hucre $(if([bool]$kc.dogru_mu){'YESIL'}else{'KIRMIZI'}) "kör $($kc.cevap) / anahtar $($kc.dogru) · $($kc.model)$(if("$($kc.kusur)".Trim()){ ' · kusur notu: '+"$($kc.kusur)".Substring(0,[Math]::Min(120,"$($kc.kusur)".Length)) })$(if(-not [bool]$kc.dogru_mu){ ' · '+"$($kc.hesap)".Substring(0,[Math]::Min(140,"$($kc.hesap)".Length)) })" }
+    else { $h.kor=Hucre 'OLCULMEDI' 'kör çözüm koşmadı (yayın şartı eksik)' }
+    # 10 ikinci hakem (07.09 A kovası 2): sınav gibi mi · koku · çeldirici gerçek mi
+    if($c.PSObject.Properties['hakem2'] -and $c.hakem2 -and $c.hakem2.PSObject.Properties['karar']){ $h2=$c.hakem2; $h.hakem2=Hucre $(if("$($h2.karar)" -eq 'EVET'){'YESIL'}else{'KIRMIZI'}) "sınav gibi $($h2.sinav_gibi) · çeldirici $($h2.celdirici_gercek) · koku [$(@($h2.koku) -join '; ')] · zorluk $($h2.zorluk)$(if("$($h2.karar)" -ne 'EVET'){ ' · '+"$($h2.sinav_gerekce) $($h2.celdirici_gerekce)".Substring(0,[Math]::Min(160,"$($h2.sinav_gerekce) $($h2.celdirici_gerekce)".Length)) })" }
+    else { $h.hakem2=Hucre 'OLCULMEDI' 'ikinci hakem koşmadı (yayın şartı eksik)' }
+    # 11 zorluk cetveli (07.09 A kovası 4): zorluk-kiyas-v2 ile AYNI 8 sinyal; bilgi amaçlı hücre (yeşil), parti dağılımı özette sınavla kıyaslanır
+    $zk=ZorlukCetvel $c; $h.zorluk=Hucre 'YESIL' "Z$($zk.z) · $($zk.tip)$(if($zk.oncul){ ' · öncüllü' })$(if($zk.sasirt){ ' · şaşırtmalı kök' })$(if($c.PSObject.Properties['hakem2'] -and $c.hakem2 -and $c.hakem2.zorluk){ ' · hakem2: '+$c.hakem2.zorluk })"
     $durumlar=@($h.Values | ForEach-Object { $_.durum })
     $durum=$(if($durumlar -contains 'KIRMIZI'){ 'KIRMIZI' } elseif($durumlar -contains 'OLCULMEDI'){ 'SARI' } else { 'YESIL' })
     # örneklem: id'den sabit tohum (her koşuda aynı yeşiller seçilir)
@@ -176,9 +199,16 @@ foreach($et in ($Etiketler -split ',' | ForEach-Object { $_.Trim() } | Where-Obj
   }
 }
 $ozet=[ordered]@{ soru=$sorular.Count; kirmizi=@($sorular | Where-Object { $_.durum -eq 'KIRMIZI' }).Count; sari=@($sorular | Where-Object { $_.durum -eq 'SARI' }).Count; yesil=@($sorular | Where-Object { $_.durum -eq 'YESIL' }).Count; kuyruk=@($sorular | Where-Object { $_.kuyruk }).Count; ornek=@($sorular | Where-Object { $_.ornek }).Count }
-$hucreOzet=[ordered]@{}; foreach($ad in 'hakem','sim','aritmetik','hesapKod','turkce','sik','pencere','kaynak'){ $hucreOzet[$ad]=[ordered]@{ yesil=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'YESIL' }).Count; kirmizi=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'KIRMIZI' }).Count; olculmedi=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'OLCULMEDI' }).Count } }
+# 07.09 A kovası 4: parti zorluk dağılımı sınavla kıyaslanır; sapma 20 puanı aşarsa özet SARI notu
+$zOz=[ordered]@{}; $nZ=$sorular.Count
+if($nZ){ $z1=@($sorular | Where-Object { $_.hucre.zorluk.not -like 'Z1*' }).Count; $z2=@($sorular | Where-Object { $_.hucre.zorluk.not -like 'Z2*' }).Count; $z3=@($sorular | Where-Object { $_.hucre.zorluk.not -like 'Z3*' }).Count; $on=@($sorular | Where-Object { $_.hucre.zorluk.not -match 'öncüllü' }).Count; $sa=@($sorular | Where-Object { $_.hucre.zorluk.not -match 'şaşırtmalı' }).Count
+  $zOz=[ordered]@{ z1=[math]::Round(100*$z1/$nZ); z2=[math]::Round(100*$z2/$nZ); z3=[math]::Round(100*$z3/$nZ); oncul=[math]::Round(100*$on/$nZ,1); sasirt=[math]::Round(100*$sa/$nZ,1); sinav=$SINAV_Z; sapma=$(
+    $sp=@(); if([math]::Abs([math]::Round(100*$z1/$nZ)-$SINAV_Z.z1) -gt 20){ $sp+='kolay' }; if([math]::Abs([math]::Round(100*$z2/$nZ)-$SINAV_Z.z2) -gt 20){ $sp+='zor' }; if([math]::Abs([math]::Round(100*$z3/$nZ)-$SINAV_Z.z3) -gt 20){ $sp+='çok zor' }; if([math]::Round(100*$sa/$nZ,1) -gt 3*$SINAV_Z.sasirt){ $sp+='şaşırtmalı kök (sınavın 3 katından fazla)' }
+    if($sp.Count){ "SARI: sınavdan sapıyor -> $($sp -join ', ')" } else { 'sınavla uyumlu (±20 puan)' }) }
+  "ZORLUK (parti): kolay %$($zOz.z1) · zor %$($zOz.z2) · çok zor %$($zOz.z3) · öncüllü %$($zOz.oncul) · şaşırtmalı %$($zOz.sasirt)  |  sınav: %42 / %52 / %7 · %5,4 · %4,3  → $($zOz.sapma)" }
+$hucreOzet=[ordered]@{}; foreach($ad in 'hakem','sim','aritmetik','hesapKod','turkce','sik','pencere','kaynak','kor','hakem2','zorluk'){ $hucreOzet[$ad]=[ordered]@{ yesil=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'YESIL' }).Count; kirmizi=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'KIRMIZI' }).Count; olculmedi=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'OLCULMEDI' }).Count } }
 # PS harf tuzağı: rapor nesnesi $Cikti parametresiyle çakışmasın diye $raporNesne (ilk koşuda sayfa yolu OrderedDictionary oldu)
-$raporNesne=[ordered]@{ olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiketler=$Etiketler; orneklem_yuzde=$OrneklemYuzde; ozet=$ozet; hucre_ozet=$hucreOzet; sorular=@($sorular | ForEach-Object { $s=$_; [ordered]@{ id=$s.id; ders=$s.ders; konu=$s.konu; durum=$s.durum; kuyruk=$s.kuyruk; ornek=$s.ornek; hucre=$s.hucre } }) }
+$raporNesne=[ordered]@{ olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiketler=$Etiketler; orneklem_yuzde=$OrneklemYuzde; ozet=$ozet; hucre_ozet=$hucreOzet; zorluk_dagilim=$zOz; sorular=@($sorular | ForEach-Object { $s=$_; [ordered]@{ id=$s.id; ders=$s.ders; konu=$s.konu; durum=$s.durum; kuyruk=$s.kuyruk; ornek=$s.ornek; hucre=$s.hucre } }) }
 [void](RaporYaz -Hedef (Join-Path $kok 'veri\fabrika\soru-karnesi.json') -Nesne $raporNesne)
 "KARNE: $($ozet.soru) soru · kırmızı $($ozet.kirmizi) · sarı $($ozet.sari) · yeşil $($ozet.yesil) · Cem'e kuyruk $($ozet.kuyruk) (örneklem $($ozet.ornek))"
 

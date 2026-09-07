@@ -36,6 +36,9 @@ foreach($d in $dersler){
     if("$($v.hakem.karar)" -ne 'EVET'){ continue }
     $simOk=$true; foreach($sa in 'simulasyon_sonnet','simulasyon'){ if($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu){ $simOk=$false } }
     if(-not $simOk){ continue }
+    # 07.09 A kovası (SORU-BASMA-KURALLARI 8.1): yayın şartı = hakem ∧ sim ∧ KÖR ÇÖZÜM ✓ ∧ İKİNCİ HAKEM EVET; ikisi de yoksa ya da düşükse seçilmez
+    if(-not ($v.PSObject.Properties['kor_cozum'] -and $v.kor_cozum -and $v.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$v.kor_cozum.dogru_mu)){ continue }
+    if(-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2 -and "$($v.hakem2.karar)" -eq 'EVET')){ continue }
     $secim+=[pscustomobject]@{ etiket=$d.etiket; id=$p.Name; ders=$d.regex; konu="$($v.konu)"; donem=[int]$v.donem }
   }
 }

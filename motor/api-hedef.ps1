@@ -321,7 +321,9 @@ function Invoke-ClaudeMesaj {
     try {
       $hedef = Get-ApiHedef
       if($hedef.ad -ne 'openrouter'){
-        return (Repair-ClaudeMetin (Invoke-AnthropicAnlik $Model $Icerik $MaxTok $hedef))
+        $ySon = Repair-ClaudeMetin (Invoke-AnthropicAnlik $Model $Icerik $MaxTok $hedef)
+        Add-BedelKaydi $Model $ySon
+        return $ySon
       }
     } catch {
       if((Test-LimitHatasi $_) -and $orVar){
@@ -334,8 +336,40 @@ function Invoke-ClaudeMesaj {
   }
 
   if($orVar){
-    return (Repair-ClaudeMetin (Invoke-OpenRouterAnlik $Model $Icerik $MaxTok))
+    $ySon = Repair-ClaudeMetin (Invoke-OpenRouterAnlik $Model $Icerik $MaxTok)
+    Add-BedelKaydi $Model $ySon
+    return $ySon
   }
 
   throw 'Hicbir anlik Claude hatti kullanilamiyor (ANTHROPIC_API_KEY tukendi/yok ve OPENROUTER_KEY yok).'
+}
+
+# 07.09 BEDEL MUHASEBESİ (Cem "her şeyde bedeli sor" + A kovası 9: yalnız üç faz jeton yazıyordu). Her çağrı model bazında toplanır;
+# çağıran betik Get-BedelOzet ile satırları ve USD tahminini alır. Fiyat tablosu VARSAYIMdır (1M jeton başına USD, girdi/çıktı);
+# MEVZUAT_FIYAT_JSON ortam değişkeni ({"claude-sonnet-5":[3,15],...}) ile ezilir. Önbellek okuma girdi fiyatının %10'u sayılır.
+$global:MEVZUAT_BEDEL = @{}
+function Add-BedelKaydi([string]$model,$y){
+  try{
+    if(-not $global:MEVZUAT_BEDEL.ContainsKey($model)){ $global:MEVZUAT_BEDEL[$model] = @{ cagri=0; girdi=0; cikti=0; onOku=0; onYaz=0 } }
+    $b = $global:MEVZUAT_BEDEL[$model]; $b.cagri++
+    $b.girdi += [int]"$($y.girdi)"; $b.cikti += [int]"$($y.cikti)"
+    if($y.PSObject.Properties['onbellekOkuma']){ $b.onOku += [int]"$($y.onbellekOkuma)" }
+    if($y.PSObject.Properties['onbellekYazma']){ $b.onYaz += [int]"$($y.onbellekYazma)" }
+  }catch{}
+}
+function Get-BedelFiyat{
+  $f = @{ 'claude-sonnet-5'=@(3,15); 'claude-opus-5'=@(15,75); 'claude-haiku-4-5-20251001'=@(1,5); 'claude-haiku-4-5'=@(1,5) }
+  $ez = Read-ApiEnv 'MEVZUAT_FIYAT_JSON'
+  if($ez){ try{ $j = ConvertFrom-Json -InputObject $ez; foreach($p in $j.PSObject.Properties){ $f[$p.Name] = @([double]$p.Value[0],[double]$p.Value[1]) } }catch{} }
+  return $f
+}
+function Get-BedelOzet{
+  $f = Get-BedelFiyat; $satir = @(); $toplam = 0.0; $bilinmeyen = @()
+  foreach($m in ($global:MEVZUAT_BEDEL.Keys | Sort-Object)){
+    $b = $global:MEVZUAT_BEDEL[$m]; $fy = $null; foreach($k in $f.Keys){ if($m -like "$k*"){ $fy = $f[$k] } }
+    $usd = $null
+    if($fy){ $usd = ($b.girdi/1e6)*$fy[0] + ($b.onOku/1e6)*$fy[0]*0.1 + ($b.onYaz/1e6)*$fy[0]*1.25 + ($b.cikti/1e6)*$fy[1]; $toplam += $usd } else { $bilinmeyen += $m }
+    $satir += [pscustomobject]@{ model=$m; cagri=$b.cagri; girdi=$b.girdi; cikti=$b.cikti; onbellekOkuma=$b.onOku; onbellekYazma=$b.onYaz; usd=$(if($null -ne $usd){ [math]::Round($usd,3) } else { $null }) }
+  }
+  return [pscustomobject]@{ satirlar=$satir; toplamUsd=[math]::Round($toplam,2); fiyatVarsayim=(-not [bool](Read-ApiEnv 'MEVZUAT_FIYAT_JSON')); bilinmeyenModel=$bilinmeyen }
 }

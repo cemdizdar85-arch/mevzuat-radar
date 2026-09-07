@@ -36,6 +36,11 @@ param(
   [switch]$VerilenYenile,  # 06.09: eldeki verilenler listesini de yeniden yazar
   [switch]$KonuGiris,      # 06.09 Cem "geç": FAZ G - konu girişi kartı (nedir / sınavda nasıl sorulur / yöntemler / örnek), Haiku ≈0,005 USD
   [switch]$GirisYenile,    # 06.09: eldeki girişi de yeniden yazar
+  # 07.09 gece A kovası (Cem "A kovasındaki 10 maddeyi kapa"): kör çözüm + ikinci hakem + konu listesi kalıcılığı
+  [string]$KorModel='claude-opus-5',   # FAZ K: anlatımı görmeden ASIL soruyu çözen bağımsız model (üreticiden FARKLI model; hesap sorusunda zorunlu)
+  [switch]$KorYenile,      # eldeki kör çözüm kararını yeniden verdirir
+  [switch]$Hakem2Yenile,   # eldeki ikinci hakem kararını yeniden verdirir
+  [switch]$KonuYenile,     # konu listesi dosyasını (veri/fabrika/konu-secim-<etiket>.json) yok sayıp konuları yeniden seçer
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
   [string]$SimModel='claude-haiku-4-5-20251001',  # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
   [switch]$SimYenile       # 06.09 Ö29: adım yenilenince simülasyon da yeniden koşar
@@ -667,16 +672,50 @@ if($DonemPencere -gt 0){
     foreach($dn in $sonD){ foreach($p in @($dn.konuSayim.PSObject.Properties)){ $lab=($p.Name -replace '^[^|]*\|',''); $k=(KokOnek $lab) -join ' '; if(-not $etiketDonem.ContainsKey($k)){ $etiketDonem[$k]=@{} }; $etiketDonem[$k]["$($dn.donem)"]=1 } }
     "PENCERE: son $DonemPencere donem = $(($sonD | ForEach-Object { $_.donem }) -join ', ') · $($etiketDonem.Count) etiket"
     $yeniK=New-Object System.Collections.Generic.List[object]
+    # 07.09 Ö63 (A kovası 7): GENEL kökler tek başına eşleşme kurmaz ("gelir" her gelir etiketine, "vergi" her vergi etiketine uyup pencere
+    # sayısını şişiriyordu: gelir tablosu toplam 2 dönemken pencerede 7). Konunun ÖZGÜL kökleri alınır; hepsi genelse genel köklerle ≥2 aranır.
+    $GENEL_KOK=@('gelir','gider','vergi','kurum','serma','maliy','kayit','kayd','hesap','oran','tablo','anali','sirke','kanun','madde','genel','uygul','islem','sorum','sure','hukuk','denet','stand','finan','ticar','borc','alaca','deger','yonte','ilke','kavra','bilan','sonuc','donem','yil')
+    function OzgulKok([string]$konu){ $k=@(KokOnek $konu); $s=@($k | Where-Object { $GENEL_KOK -notcontains $_ }); if($s.Count -ge 1){ return $s }; return $k }
     foreach($kk in $KONULAR){
-      $kokler=@(KokOnek "$($kk.kayit.konu)"); $dset=@{}
+      $kokler=@(OzgulKok "$($kk.kayit.konu)"); $dset=@{}
       foreach($et in $etiketDonem.Keys){ $etK=$et -split ' '; $ortak=@($kokler | Where-Object { $etK -contains $_ }).Count; $gerek=[Math]::Min(2,$kokler.Count); if($kokler.Count -ge 1 -and $ortak -ge $gerek){ foreach($d in $etiketDonem[$et].Keys){ $dset[$d]=1 } } }
       $SON_DONEM_SAYI[$kk.id]=$dset.Count
       $kk.kayit | Add-Member -NotePropertyName son_donem -NotePropertyValue $dset.Count -Force
       $yeniK.Add($kk)
     }
+    # 07.09 A kovası 8: KONU LİSTESİ KALICI — seçim bir kez yapılır ve veri/fabrika/konu-secim-<etiket>.json'a yazılır; sonraki koşular
+    # (yenileme, pilot, ek faz) aynı listeyi okur. Analiz/köprü robotu değişse önbellek (kp-NN) kaymaz. -KonuYenile yeniden seçer.
+    $secimYol=Join-Path $kok ("veri\fabrika\konu-secim-" + $Etiket + ".json")
+    $secimYuklendi=$false
+    # Eskiden basılmış parti (önbellekte soru var) ama listesi yok: liste ÖNBELLEKTEN türetilir, yeniden seçilmez (07.09 testi: seçim kaydı,
+    # kp-06 "faaliyet kârı" iken listeye "alacak senedi kaydı" yazıldı). Önbellek = gerçek; liste ona uydurulur.
+    $cacheYolK=Join-Path $kok ("veri\fabrika\kalip-parti-" + $Etiket + ".json")
+    if(-not $KonuDosya -and -not $KonuYenile -and -not (Test-Path $secimYol) -and (Test-Path $cacheYolK)){
+      try{ $cj=ConvertFrom-Json -InputObject (Get-Content $cacheYolK -Raw -Encoding UTF8); $liste=@()
+        foreach($p in ($cj.PSObject.Properties | Sort-Object Name)){ $v=$p.Value; if($v -and $v.PSObject.Properties['konu'] -and "$($v.konu)"){ $liste+=[pscustomobject]@{ id=$p.Name; konu="$($v.konu)"; donem=$(if($v.PSObject.Properties['donem']){ [int]$v.donem } else { 0 }); son_donem=$(if($v.PSObject.Properties['son_donem']){ [int]$v.son_donem } else { 0 }); secim='önbellekten türetildi ' + (Get-Date -Format 'yyyy-MM-dd HH:mm') } } }
+        if($liste.Count){ [IO.File]::WriteAllText($secimYol,(ConvertTo-Json -InputObject @($liste) -Depth 3),[Text.UTF8Encoding]::new($false)); "  KONU LİSTESİ önbellekten türetildi ($($liste.Count) konu): $secimYol" } }catch{ "  KONU LİSTESİ önbellekten türetilemedi: $($_.Exception.Message)" }
+    }
+    if(-not $KonuDosya -and -not $KonuYenile -and (Test-Path $secimYol)){
+      try{ $sec=@(ConvertFrom-Json -InputObject (Get-Content $secimYol -Raw -Encoding UTF8)); if($sec.Count -eq 1 -and $sec[0].PSObject.Properties['SyncRoot']){ $sec=@($sec[0].SyncRoot) }
+        $havuz=@{}; foreach($kk in $yeniK){ $havuz[(Katla2 "$($kk.kayit.konu)")]=$kk }
+        $yeniL=New-Object System.Collections.Generic.List[object]; $eksik=@()
+        foreach($s in $sec){ $ka=Katla2 "$($s.konu)"; if($havuz.ContainsKey($ka)){ $kk=$havuz[$ka]; $kk.id="$($s.id)"; $yeniL.Add($kk) } else { $eksik+="$($s.konu)" } }
+        if($yeniL.Count -and -not $eksik.Count){ $KONULAR=$yeniL; $secimYuklendi=$true; "  KONU LİSTESİ dosyadan: $secimYol ($($yeniL.Count) konu; yeniden seçim yok)" }
+        else { "  KONU LİSTESİ dosyası eşleşmedi ($($eksik -join ', ')) -> yeniden seçiliyor" } }catch{ "  KONU LİSTESİ dosyası okunamadı -> yeniden seçiliyor" }
+    }
     # konu dosyası verilmişse liste Cem'in listesidir, süzülmez; verilmemişse pencerede 0 olan konu düşer, sıralama pencere sayısına göre
-    if(-not $KonuDosya){ $sirali=@($yeniK | Where-Object { $SON_DONEM_SAYI[$_.id] -ge 1 } | Sort-Object { -$SON_DONEM_SAYI[$_.id] }, { -[int]$_.kayit.donem } | Select-Object -First $Adet); $KONULAR=New-Object System.Collections.Generic.List[object]; $s2=0; foreach($kk in $sirali){ $s2++; $kk.id=('kp-{0:d2}' -f $s2); $KONULAR.Add($kk) } }   # 07.09: sıralama bütün adaylarda, kesme burada (ilk Adet)
-    foreach($kk in $KONULAR){ "  pencere: $($kk.id) $($kk.kayit.konu) -> son $DonemPencere donemde $($SON_DONEM_SAYI[$kk.id]) (toplam $($kk.kayit.donem))" }
+    if(-not $KonuDosya -and -not $secimYuklendi){
+      $sirali=@($yeniK | Where-Object { $SON_DONEM_SAYI[$_.id] -ge 1 } | Sort-Object { -$SON_DONEM_SAYI[$_.id] }, { -[int]$_.kayit.donem })
+      # 07.09 A kovası 7: KONU TEKİLLEŞTİRME — yakın adlar tek konu (MTA'da "cari oran analizi / cari oran hesaplama / cari oran" üçü seçilmişti,
+      # İş-SGK'da iki "sendika üyeliği"). Özgül kökleri seçilmiş bir konuyla ≥min(2,kök) ortak olan aday atlanır (loga yazılır).
+      $KONULAR=New-Object System.Collections.Generic.List[object]; $secKok=@(); $s2=0
+      foreach($kk in $sirali){ if($KONULAR.Count -ge $Adet){ break }; $kz=@(OzgulKok "$($kk.kayit.konu)"); $benzer=$null
+        foreach($sk in $secKok){ $ortak=@($kz | Where-Object { $sk.kok -contains $_ }).Count; if($kz.Count -ge 1 -and $ortak -ge [Math]::Min(2,$kz.Count)){ $benzer=$sk.konu; break } }
+        if($benzer){ "  konu tekil: '$($kk.kayit.konu)' atlandı ('$benzer' ile aynı konu)"; continue }
+        $s2++; $kk.id=('kp-{0:d2}' -f $s2); $KONULAR.Add($kk); $secKok+=@{ konu="$($kk.kayit.konu)"; kok=$kz } }
+      try{ [IO.File]::WriteAllText($secimYol,(ConvertTo-Json -InputObject @($KONULAR | ForEach-Object { [pscustomobject]@{ id=$_.id; konu="$($_.kayit.konu)"; donem=[int]$_.kayit.donem; son_donem=$SON_DONEM_SAYI[$_.id]; secim=(Get-Date -Format 'yyyy-MM-dd HH:mm') } }) -Depth 3),[Text.UTF8Encoding]::new($false)); "  KONU LİSTESİ yazıldı: $secimYol" }catch{ "  KONU LİSTESİ yazılamadı: $($_.Exception.Message)" }
+    }
+    foreach($kk in $KONULAR){ "  pencere: $($kk.id) $($kk.kayit.konu) -> son $DonemPencere donemde $($kk.kayit.son_donem) (toplam $($kk.kayit.donem))" }   # Ö63(1): eski id anahtarı yerine kaydın kendi sayısı
     # --- Ö18 OTOMATİK ÇAPA: pencerenin gerçek kitapçıklarından konuya en yakın SORU bloğu (SGS: tam kitapçık = 'ingilizce' varyantı; Maliyet 57–64 ölçüldü)
     if($Sinav -eq 'SGS' -and -not $OrnekDosya){
       $DERS_ARALIK=@{ 'Maliyet'=@(57,64) }
@@ -748,6 +787,29 @@ if($Zorluk -eq 'zor'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 6-10 ad
 Invoke-Expression ([regex]::Match($son10,'(?s)function TabloHtml.*?\n\}\r?\n').Value)
 Invoke-Expression ([regex]::Match($son10,'(?s)function SemaHtml.*?\n\}\r?\n(?=\r?\n)').Value)
 
+# --- KAPI-O KOKU ve KAPI-B BENZERLİK yardımcıları (07.09 A kovası 3 ve 5) ------------------------------------------------
+# Koku izleri DİLDEDİR (19.08 kuralı): yer tutucu unvan (ABC/XYZ A.Ş.), bütün tutarların onbinlik yuvarlak olması (≥4 tutar), klişe, uzun tire, üç nokta.
+# Sınav soruları da yuvarlak tutar kullanır; kapı yalnız "hepsi onbinlik" durumunu kusur sayar (bugünkü FMuh 25.000/15.000 geçer, 100.000+8.000+3.000 tipi düşer).
+function KokuKusur($a){
+  $k=@(); $govde="$($a.soru)"; $tum=$govde+' '+(@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' '
+  $acik=''; if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $acik+=' '+(AciklamaDuz $a.aciklama.$hh) } }
+  if($tum -match '(?i)\b(ABC|XYZ|DEF|KLM|XY|AB)\b\s*(A\.?\s?Ş\.?|Ltd|Ticaret|İşletme|Şirket|San\.|A\.S\.)'){ $k+='yer tutucu unvan (ABC/XYZ)' }
+  elseif($govde -match '(?i)\bABC\b|\bXYZ\b'){ $k+='yer tutucu ad (ABC/XYZ)' }
+  $tutar=@([regex]::Matches($govde,'(?<![\d.,])\d{1,3}(?:\.\d{3})+(?![\d.,])') | ForEach-Object { [long]($_.Value -replace '\.','') })
+  if($tutar.Count -ge 4 -and -not @($tutar | Where-Object { $_ % 10000 -ne 0 }).Count){ $k+="tutarların hepsi onbinlik yuvarlak ($($tutar.Count) tutar)" }
+  foreach($kl in @('önem arz et','bu bağlamda','göz önünde bulundur','unutulmamalıdır ki','dikkat edilmesi gereken','söz konusu olduğunda','bu doğrultuda')){ if(($govde+' '+$acik) -match ('(?i)'+[regex]::Escape($kl))){ $k+="klişe '$kl'" } }
+  if(($govde+' '+$acik) -match '—'){ $k+='uzun tire (—)' }
+  if(($govde+' '+$acik) -match '…'){ $k+='üç nokta (…)' }
+  return $k
+}
+function KelimeKume([string]$t){ $s=New-Object 'System.Collections.Generic.HashSet[string]'; foreach($w in ((Katla2 $t) -replace '[^a-z0-9 ]',' ' -split '\s+')){ if($w.Length -ge 4){ [void]$s.Add($w) } }; return $s }
+function Jaccard($a,$b){ if(-not $a.Count -or -not $b.Count){ return 0 }; $o=0; foreach($w in $a){ if($b.Contains($w)){ $o++ } }; return [math]::Round($o / ($a.Count + $b.Count - $o),2) }
+function BenzerlikKusur($a,[string]$benId){
+  $k=@(); $ka=KelimeKume "$($a.soru)"
+  if($CAPA.ContainsKey($benId)){ $j=Jaccard $ka (KelimeKume $CAPA[$benId]); if($j -ge 0.55){ $k+="çapaya (çıkmış soru) fazla benziyor (Jaccard $j)" } }
+  foreach($oid in @($don.Keys)){ if($oid -eq $benId){ continue }; $o=$don[$oid]; if(-not $o -or -not $o.soru){ continue }; $j=Jaccard $ka (KelimeKume "$($o.soru)"); if($j -ge 0.60){ $k+="partideki $oid ile aynı soru sayılır (Jaccard $j)" ; break } }
+  return $k
+}
 # --- FAZ A: SORU ------------------------------------------------------------
 # 04.09 KAPI-Ş: şık dengesi (Cem "cevap belli, sınavda böyle mi?"). Ölçüm: 7 çıkmış SGS sapma sorusunun 5'inde her tutar
 # iki yönle geçiyor. Kural: yön kelimesi taşıyan şıklarda (olumlu/olumsuz/lehte/aleyhte/eksik-fazla yükleme) tutar sayısı
@@ -1364,8 +1426,14 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     $cyKusur=@(CeldiriciYolKapisi $aday)   # 07.09 KAPI-Ç: her yanlış şık = gerçek bir yanlış yolun sonucu
     # 07.09 KAPI-Y (Cem "2025 değil 2026 versin"): soruda yıl geçiyorsa en yenisi bugünün yılı olmalı ("2004 sayılı" gibi kanun numaraları sayılmaz)
     $yilKusur=''; $yilBu=(Get-Date).Year; $yillar=@([regex]::Matches("$($aday.soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yillar.Count -and (($yillar | Measure-Object -Maximum).Maximum -lt $yilBu)){ $yilKusur="sorudaki en yeni yıl $(($yillar | Measure-Object -Maximum).Maximum), bugün $yilBu" }
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    # 07.09 A kovası 3 — KAPI-O KOKU (Cem 19.08 "öğrenci yapay zeka yazmış demesin"; kural yalnız kasa taramasındaydı, üreticide kapı yoktu, 21 soruda "ABC A.Ş." çıktı)
+    $koKusur=@(KokuKusur $aday)
+    # 07.09 A kovası 5 — KAPI-B BENZERLİK: çapaya (çıkmış soru) ve partideki diğer sorulara kelime kümesi benzerliği (telif + tekrar)
+    $bzKusur=@(BenzerlikKusur $aday $id)
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
     if($yilKusur){ Write-Host "  KAPI-Y (yıl) ($id): $yilKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Y DÜŞTÜ: $yilKusur. Bütün yılları kaydır: sorulan dönem $yilBu olsun, eski tarihler aynı aralıkla kaysın (süreler değişmesin); şık tutarları buna göre yeniden hesaplansın." }
+    if($koKusur.Count){ Write-Host "  KAPI-O (koku) ($id): $($koKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-O DÜŞTÜ (yapay zeka izi): $($koKusur -join '; '). Gerçek sınav sorusu gibi yaz: 'ABC/XYZ' gibi yer tutucu unvan yerine 'işletme' ya da gerçekçi bir ad; tutarların hepsi onbinlik yuvarlak olmasın (12.500, 47.350 gibi gerçekçi tutarlar karışsın; hesap yine düzgün çıksın); klişe kalıp ve uzun tire (—) yok." }
+    if($bzKusur.Count){ Write-Host "  KAPI-B (benzerlik) ($id): $($bzKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-B DÜŞTÜ (benzerlik): $($bzKusur -join '; '). Örnek çıkmış soru yalnız BİÇİM çapasıdır; olayı, sayıları ve şık dizilimini kopyalama; aynı konuda özgün bir senaryo kur." }
     if($cyKusur.Count){ Write-Host "  KAPI-Ç (çeldirici yolu) ($id): $($cyKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ç DÜŞTÜ: $($cyKusur -join '; '). Her yanlış şık için celdirici_yol yaz: sayılı yanlış yol formülü, sonu '= <şık tutarı>' ve şık tutarı formülün GERÇEK sonucu olmalı; tutmuyorsa şık tutarını formülün sonucuna göre düzelt." }
     if($tipKusur){ Write-Host "  KAPI-T (soru tipi) ($id): $tipKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-T DÜŞTÜ: örnek çıkmış soru HESAPLAMA sorusudur, sen teori sorusu yazdın. Soru sayısal veri verip 'kaç TL' diye sormalı ve en az 2 satırlı cozum_tablo taşımalı; 'hangisi yanlıştır/doğrudur' biçimi YASAK." }
     if($kvKusur.Count){ Write-Host "  KAPI-K (pencere dışı kavram) ($id): $($kvKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-K DÜŞTÜ: şu kelimeler son $DonemPencere dönemin sınav sorularında HİÇ geçmiyor: $($kvKusur -join ', '). Sınavın sormadığı kavramla soru kurma; gövdeyi yalnız sınavda geçen kavramlarla (verilen örnek sorunun diliyle) yeniden yaz." }
@@ -1446,6 +1514,34 @@ function AritmetikKusur($adimlar){
     }
   }
   return @($out)
+}
+
+# --- ŞIK HARFİ DENGESİ (07.09 A kovası 6 — "hep C" olmaz) ---------------------------------------------------------------
+# Sayı şıkları SikSirala ile küçükten büyüğe dizilir (harf oradan çıkar, dokunulmaz). Cümle şıklı (teori/kayıt) sorularda bir harf partide
+# %40'ı aşarsa (n≥5) o harfteki bir soru henüz ADIMLARI YAZILMAMIŞKEN en az kullanılan harfe taşınır: siklar · aciklama · teshis · celdirici_yol
+# birlikte taşınır ("Hepsi / Hiçbiri / Yukarıdakilerin" içeren soruya dokunulmaz). Adımları yazılmış soru taşınmaz (adım.sik harfe bağlı).
+function SikTasi($c,[string]$kaynakH,[string]$hedefH){
+  foreach($alan in 'siklar','aciklama','teshis','celdirici_yol'){ if(-not $c.PSObject.Properties[$alan] -or -not $c.$alan){ continue }; $o=$c.$alan
+    $vK=$(if($o.PSObject.Properties[$kaynakH]){ $o.$kaynakH } else { $null }); $vH=$(if($o.PSObject.Properties[$hedefH]){ $o.$hedefH } else { $null })
+    if($null -ne $vK){ $o | Add-Member -NotePropertyName $hedefH -NotePropertyValue $vK -Force } elseif($o.PSObject.Properties[$hedefH]){ $o.PSObject.Properties.Remove($hedefH) }
+    if($null -ne $vH){ $o | Add-Member -NotePropertyName $kaynakH -NotePropertyValue $vH -Force } elseif($o.PSObject.Properties[$kaynakH]){ $o.PSObject.Properties.Remove($kaynakH) } }
+  $c.dogru=$hedefH
+}
+function SayiSikli($c){ $n=0; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '^\s*%?\s*-?\d[\d.,]*\s*(TL|₺|%|adet|kg|gün|yıl|ay|saat|birim)?\s*$'){ $n++ } }; return ($n -ge 4) }
+if(-not $SadeceHtml -and -not $SadeceAdim){
+  $cumleli=@($don.Keys | Where-Object { $c=$don[$_]; $c -and $c.soru -and $c.siklar -and -not (SayiSikli $c) })
+  if($cumleli.Count -ge 5){
+    for($tur=0;$tur -lt 10;$tur++){
+      $say=@{}; foreach($hh in 'A','B','C','D','E'){ $say[$hh]=0 }; foreach($oid in $cumleli){ $dg="$($don[$oid].dogru)".Trim().ToUpperInvariant(); if($say.ContainsKey($dg)){ $say[$dg]++ } }
+      $enCok=($say.GetEnumerator() | Sort-Object { -$_.Value } | Select-Object -First 1); $enAz=($say.GetEnumerator() | Sort-Object { $_.Value } | Select-Object -First 1)
+      if($enCok.Value -le [math]::Ceiling(0.40*$cumleli.Count)){ break }
+      $aday=$null; foreach($oid in $cumleli){ $c=$don[$oid]; if("$($c.dogru)" -ne $enCok.Key){ continue }; if($c.PSObject.Properties['adimlar'] -and $c.adimlar){ continue }
+        $hepsi=$false; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '(?i)hepsi|hiçbiri|yukarıdaki|yalnız (I|II|III)\b'){ $hepsi=$true } }; if($hepsi){ continue }; $aday=$oid; break }
+      if(-not $aday){ break }
+      SikTasi $don[$aday] $enCok.Key $enAz.Key; Write-Host "  ŞIK DENGESİ: $aday doğru $($enCok.Key) -> $($enAz.Key) taşındı (parti dağılımı $(($say.GetEnumerator() | Sort-Object Key | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ' '))" -ForegroundColor DarkGray; $script:sikDengeYaz=$true
+    }
+    if($script:sikDengeYaz){ CacheYaz }
+  }
 }
 
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------
@@ -2208,6 +2304,75 @@ $hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -an
 foreach($id in @($don.Keys)){ if($don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI'){ Write-Host "  KONU-DISI (KAPI D): $id [$($don[$id].konu)] -> $($don[$id].hakem.konu_gerekce)" -ForegroundColor Magenta } }
 $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
 
+# --- FAZ K: KÖR ÇÖZÜM (07.09 A kovası 1 — Cem "hatasız olacak"; Maliyet kp-05'te yüzdeler ters kurulmuştu, hakem+sim+aritmetik üçü de geçirdi) -----
+# Bağımsız ve FARKLI bir model, anlatımı/ikizi/açıklamayı görmeden yalnız soru + şıkları çözer. Cevap doğru şıkla tutmuyorsa soru yayına çıkmaz
+# (koşucu seçimi kor_cozum.dogru_mu ister). Bir kez koşar, karar önbellekte; -KorYenile yeniden verdirir. Teori sorusunda da koşar (şık seçer).
+$script:FAZ_ADI='K'
+$korIstem=@'
+Sen SMMM sınavına giren çok titiz bir adaysın. Aşağıdaki soruyu YALNIZ soru metnine ve şıklara dayanarak çöz; başka hiçbir bilgi verilmedi, tahmin etme.
+Hesap sorusunda her ara işlemi yaz ve sonucu şıklarla karşılaştır. Şıkların hiçbiri sonucunla tutmuyorsa cevaba "HİÇBİRİ" yaz ve bulduğun sonucu belirt.
+Teori sorusunda her şıkkı tek tek doğru/yanlış diye değerlendir, kökün ne istediğine (doğru mu, yanlış olan mı) dikkat et.
+Yalnız JSON: {"cevap":"A|B|C|D|E|HİÇBİRİ","sonuc":"bulduğun sayı ya da ifade","hesap":"kısa hesap zinciri ya da şık şık gerekçe (en çok 60 kelime)","guven":"yüksek|orta|düşük","kusur":"soruda çelişki/eksik veri/iki doğru şık görürsen yaz, yoksa boş"}
+SORU: {SORU}
+ŞIKLAR:
+{SIKLAR}
+'@
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or $SadeceAdim){ break }
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
+  if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ continue }
+  $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
+  $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM)
+  $yK=$null; foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  Write-Host ("  KÖR TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yK.girdi,$yK.cikti,$KorModel) -ForegroundColor DarkGray
+  $aK=Coz $yK.metin
+  if(-not $aK -or -not $aK.PSObject.Properties['cevap']){ $rapor.Add("KÖR ÇÖZÜM BOZUK: $id"); Write-Host "  KÖR ÇÖZÜM BOZUK ($id)" -ForegroundColor Red; continue }
+  $cev=("$($aK.cevap)".Trim().ToUpperInvariant() -replace '[^A-EHİ]','')
+  if($cev -match '^H'){ $cev='HİÇBİRİ' } elseif($cev.Length -gt 1){ $cev=$cev.Substring(0,1) }
+  $dm=($cev -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
+  $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  CacheYaz
+  if($dm){ Write-Host "  KÖR ÇÖZÜM ✓ ($id): $cev" -ForegroundColor Green } else { Write-Host "  KÖR ÇÖZÜM ✗ ($id): kör $cev · anahtar $($cvp.dogru) · $("$($aK.hesap)".Substring(0,[Math]::Min(160,"$($aK.hesap)".Length)))" -ForegroundColor Red; $rapor.Add("KÖR ÇÖZÜM YANLIŞ: $id | kör $cev, anahtar $($cvp.dogru) | $($aK.hesap)") }
+  if("$($aK.kusur)".Trim()){ $rapor.Add("KÖR ÇÖZÜM KUSUR NOTU: $id | $($aK.kusur)") }
+}
+
+# --- FAZ H2: İKİNCİ HAKEM (07.09 A kovası 2 — "sınav sorusu gibi mi, yapay zeka kokusu var mı, çeldirici gerçek adayın tuzağı mı") ----------
+# Birinci hakem kaynak-uyum bakar; bu hakem sınav kalıbı + dil + çeldirici gerçekçiliği + zorluk seviyesi verir. Karar EVET değilse koşucu seçmez.
+$script:FAZ_ADI='H2'
+$hakem2Istem=@'
+Sen TESMER/TÜRMOB sınav komisyonunda yıllarca soru yazmış bir hakemsin. Aşağıdaki soruyu üç ölçüte göre değerlendir; yalnız JSON ver.
+1. sinav_gibi: Bu soru gerçek {SINAV} {DERS} sınav sorusu gibi mi? Kök kalıbı, uzunluk, şık biçimi (sonuç + kısa etiket, gerekçesiz), dil, veri sunumu sınavla uyumlu mu? EVET/HAYIR + gerekçe.
+2. koku: Yapay zeka izi var mı? Yer tutucu unvan (ABC A.Ş.), bütün tutarların yuvarlak olması, klişe cümle ("önem arz etmektedir", "bu bağlamda"), aynı kalıbın tekrarı, uzun tire, doğru şıkkın diğerlerinden belirgin uzun/nüanslı olması, iki şıkkın birbirinin tam tersi olması. Bulduklarını LİSTELE, yoksa boş liste.
+3. celdirici_gercek: Yanlış şıklar gerçek bir adayın düşeceği tuzaklar mı (atlanan katman, ters işaret, yanlış oran, kavram karışıklığı), yoksa rastgele sayı/cümle mi? EVET/HAYIR + gerekçe. İki doğru şık ya da doğru şıkta hata görürsen burada yaz.
+4. zorluk: kolay (tek kural tek işlem) | zor (iki zorluk kaynağı) | cok_zor (ters soru + çeldirici verilen + iki kuralın kesişimi).
+karar: sinav_gibi EVET ve celdirici_gercek EVET ve koku boşsa EVET, değilse HAYIR.
+Yalnız JSON: {"sinav_gibi":"EVET|HAYIR","sinav_gerekce":"...","koku":["..."],"celdirici_gercek":"EVET|HAYIR","celdirici_gerekce":"...","zorluk":"kolay|zor|cok_zor","karar":"EVET|HAYIR"}
+SORU: {SORU}
+ŞIKLAR:
+{SIKLAR}
+DOĞRU: {DOGRU}
+DOĞRU ŞIKKIN AÇIKLAMASI: {ACIK}
+'@
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or $SadeceAdim){ break }
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
+  if(-not $Hakem2Yenile -and $cvp.PSObject.Properties['hakem2'] -and $cvp.hakem2 -and $cvp.hakem2.PSObject.Properties['karar']){ continue }
+  $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
+  $acikM=$(if($cvp.aciklama){ AciklamaDuz $cvp.aciklama.$($cvp.dogru) } else { '' })
+  $istH=$hakem2Istem.Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
+  $yH=$null; foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  Write-Host ("  HAKEM2 TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray
+  $aH=Coz $yH.metin
+  if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $rapor.Add("HAKEM2 BOZUK: $id"); continue }
+  $koku=@($aH.koku | Where-Object { "$_".Trim() })
+  $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $koku.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
+  $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($koku); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  CacheYaz
+  if($karar -eq 'EVET'){ Write-Host "  HAKEM2 EVET ($id) · zorluk $($aH.zorluk)" -ForegroundColor Green } else { Write-Host "  HAKEM2 HAYIR ($id): sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')] · $("$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Substring(0,[Math]::Min(200,"$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Length)))" -ForegroundColor Red; $rapor.Add("HAKEM2 HAYIR: $id | sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')]") }
+}
+
 # --- TUZAK CESITLILIGI KAPISI (02.09 Cem: "begenmedim") ----------------------
 # Olculdu: 120 tuzagin 11'i tek bir adla ('Ters Kayit') tekrarlaniyordu ve 12 soruda
 # celdiriciler yalnizca hesap degistiriyordu. Ayni tuzak adi 2'den cok tekrarlaniyorsa
@@ -2240,6 +2405,19 @@ foreach($id in @($don.Keys)){
   if(-not $don[$id].PSObject.Properties['aritmetik'] -and $don[$id].PSObject.Properties['adimlar'] -and $don[$id].adimlar){ $don[$id] | Add-Member -NotePropertyName aritmetik -NotePropertyValue @($kus) -Force; $script:aritYaz=$true }
 }
 if($script:aritYaz -and -not $SadeceHtml){ CacheYaz }
+
+# --- BEDEL (07.09 A kovası 9): bu koşunun bütün çağrıları model bazında + USD tahmini; veri/fabrika/bedel-<etiket>.jsonl'a eklenir ---------
+try{
+  if(Get-Command Get-BedelOzet -ErrorAction SilentlyContinue){
+    $bz=Get-BedelOzet
+    foreach($s in $bz.satirlar){ Write-Host ("  BEDEL {0}: {1} çağrı · girdi {2} · çıktı {3} · önbellek okuma {4} · ≈{5} USD" -f $s.model,$s.cagri,$s.girdi,$s.cikti,$s.onbellekOkuma,$(if($null -ne $s.usd){ $s.usd } else { '?' })) -ForegroundColor DarkCyan }
+    Write-Host ("BEDEL TOPLAM (bu koşu, {0}): ≈{1} USD{2}" -f $Etiket,$bz.toplamUsd,$(if($bz.fiyatVarsayim){ ' (fiyat tablosu VARSAYIM: Sonnet 3/15, Opus 15/75, Haiku 1/5 USD/M; MEVZUAT_FIYAT_JSON ile ez)' } else { '' })) -ForegroundColor Cyan
+    if($bz.bilinmeyenModel.Count){ Write-Host "  BEDEL: fiyatı bilinmeyen model: $($bz.bilinmeyenModel -join ', ')" -ForegroundColor Yellow }
+    $bedelYol=Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl'
+    [IO.File]::AppendAllText($bedelYol,((ConvertTo-Json -InputObject ([ordered]@{ zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiket=$Etiket; ders=$DersRegex; toplamUsd=$bz.toplamUsd; varsayim=$bz.fiyatVarsayim; satirlar=$bz.satirlar }) -Compress -Depth 4)+"`n"),[Text.UTF8Encoding]::new($false))
+    if($bz.toplamUsd -gt 0 -and -not @($bz.satirlar | Where-Object { $_.onbellekOkuma -gt 0 }).Count){ Write-Host "  BEDEL NOTU: istem önbelleği hiç okunmadı (0) — kaynak paketi cache_control ile işaretlenirse girdi bedeli düşer (açık iş)" -ForegroundColor DarkYellow }
+  }
+}catch{ Write-Host "  BEDEL özeti yazılamadı: $($_.Exception.Message)" -ForegroundColor Yellow }
 
 # --- SAYFA (tiklanabilir TAM deneyim: sik->tuzak->oynatici->ikiz->ipucu) -----
 $ekCss=@'
@@ -2435,7 +2613,9 @@ foreach($id in ($don.Keys|Sort-Object)){
     [void]$vb.Append("<div style='font-weight:800;font-size:.8em;margin-bottom:4px'>📋 SORUNUN VERDİKLERİ</div><table class='vtab'><tr><th>Kalem</th><th>Alan</th><th>Değer</th></tr>")
     $ok=$true
     foreach($vv in @($cvp.verilen)){
+      if(@($vv).Count -lt 2){ continue }   # 07.09: boş/tek elemanlı verilen kaydı "Index operation ... null" ile raporu düşürüyordu
       $r=@($vv)[0]; $c=@($vv)[1]
+      if($null -eq $r -or $null -eq $c){ continue }
       $sat=@(@($cvp.cozum_tablo.satirlar)[$r])
       if($null -eq $sat -or $c -ge @($sat).Count){ $ok=$false; break }
       [void]$vb.Append("<tr><td>$(K $sat[0])</td><td>$(K @($cvp.cozum_tablo.basliklar)[$c])</td><td>$(K $sat[$c])</td></tr>")
