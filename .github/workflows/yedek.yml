@@ -31,9 +31,14 @@ jobs:
           $ErrorActionPreference = "Stop"
           $KEY = $env:SUPABASE_SERVICE_KEY
           if(-not $KEY){ Write-Host "SERVICE KEY yok - yedek atlandi."; exit 0 }
-          $H = @{ apikey=$KEY; Authorization="Bearer $KEY" }
+          # 08.09: Supabase, gizli anahtari TARAYICI benzeri User-Agent ile reddediyor
+          # ("Forbidden use of secret API key in browser"); pwsh'in varsayilan UA'si
+          # "Mozilla/5.0 ..." oldugu icin 8. kosuda her tablo sessizce 'atlandi' ve
+          # 1.332 baytlik BOS yedek cikti. UA acikca verilir; sifir satirli dokum kapi.
+          $H = @{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='MevzuatRadar-HaftalikYedek' }
           $SB = "https://bjrleanjpyujtajmazxn.supabase.co"
           New-Item -ItemType Directory -Force _yedek | Out-Null
+          $toplamSatir = 0
           foreach($tablo in @('dokumanlar','firmalar','mukellefler','belgeler','leads','rate_log')){
             try {
               $tum = New-Object System.Collections.Generic.List[object]
@@ -44,9 +49,13 @@ jobs:
                 $tum.AddRange(@($r)); if(@($r).Count -lt 1000){ break }; $ofset += 1000
               }
               $tum.ToArray() | ConvertTo-Json -Depth 8 | Out-File "_yedek/$tablo.json" -Encoding utf8
+              $toplamSatir += $tum.Count
               Write-Host ("{0}: {1} satir yedeklendi" -f $tablo, $tum.Count)
             } catch { Write-Host ("{0}: atlandi ({1})" -f $tablo, $_.Exception.Message) }
           }
+          Write-Host ("TOPLAM: {0} satir" -f $toplamSatir)
+          # KAPI: bos yedek "yedek var" sanilmasin (08.09 dersi)
+          if ($toplamSatir -lt 1000) { throw ("YEDEK BOS/EKSIK: toplam {0} satir - kasaya erisim kirik olabilir" -f $toplamSatir) }
       # 08.09.2026 (Cem: "butun veriler kimsenin ulasamadigi yerde olacak"):
       # Ustteki "artifact ozeldir" HUKMU YANLISTI. GitHub belgesi: artifact'i
       # "read access" olan herkes indirir; PUBLIC repoda bu HERKESTIR. 7 kosu
