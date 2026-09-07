@@ -646,6 +646,7 @@ $html=@'
 .teshisK{border-left:3px solid var(--altin);padding:6px 12px;margin:10px 0;background:color-mix(in srgb,var(--altin) 8%,transparent);border-radius:8px}.teshisK p{margin:4px 0;line-height:1.5}.teshisK .et{margin-bottom:4px}
 .konuK{display:none;font-size:.95em;line-height:1.5;margin:0 0 8px;padding:8px 12px;border-radius:10px;background:color-mix(in srgb,var(--mavi) 10%,transparent)}.konuK .ornekK{color:var(--dim)}
 .tt td.kararH{font-weight:700;white-space:nowrap}.tt td.kararH.yan:not(.gizliH){color:var(--kirmizi)}.tt td.kararH.dog:not(.gizliH){color:var(--yesil)}
+.tahminSoru{margin:6px 0 10px;font-size:.92em}.tahminSoru summary{cursor:pointer;color:var(--mavi)}.tahminSoru p{margin:6px 0 0;color:var(--dim);line-height:1.5}
 .tt td.eksiH,.tt .eksiH{color:var(--kirmizi);font-weight:600}.tt tr.lejantSatir td{font-size:.78em;color:var(--dim);padding-top:4px;border:0}
 /* 07.09 Cem "yazılar hemen geliyor, okurcasına gelse": giriş kartı blok blok belirir (harf harf değil; yarım saniye arayla) */
 .girisK>*{opacity:0;animation:girisBlok .45s ease forwards}.girisK>:nth-child(1){animation-delay:.05s}.girisK>:nth-child(2){animation-delay:.35s}.girisK>:nth-child(3){animation-delay:.65s}.girisK>:nth-child(4){animation-delay:.95s}.girisK>:nth-child(5){animation-delay:1.25s}.girisK>:nth-child(6){animation-delay:1.55s}.girisK>:nth-child(7){animation-delay:1.85s}.girisK>:nth-child(8){animation-delay:2.15s}
@@ -1163,10 +1164,13 @@ SORULAR.forEach((s,i)=>{
       if(tahminGerek(a,j,son)&&!teoriMi){ const hd=hedefDegeri(a); const sayiMi=hd&&/\d/.test(hd.deger)&&String(hd.deger).trim().length<=24&&normK(hd.deger).replace(/\D/g,'').length>=2; if(sayiMi){
         const nT=s.adimlar.length; const sonrakiAd=adimBaslik(a);
         serit.innerHTML='<div class="adimK tahminK"><div class="say"><span>ADIM '+(j+1)+' / '+nT+'</span><span class="baslik">'+esc(sonrakiAd)+'</span></div>'
-          +'<div class="tahminSor"><div class="et">Önce sen dene</div><p>Bu adımda <b>'+esc(hd.ad)+'</b> bulunacak. Sence kaç çıkar? Elindeki verilenlerle hesapla, kâğıdı kullan.</p>'
+          +'<div class="tahminSor"><div class="et">Önce sen dene</div><p>Bu adımda <b>'+esc(hd.ad)+'</b> bulunacak. Sence kaç çıkar? Soruda verilenler solda açık; kâğıdı kullan.</p>'
+          +'<details class="tahminSoru"><summary>Soruyu göster</summary><p>'+esc(s.soru)+'</p></details>'   // 07.09 Cem: "satış maliyetini nasıl bulacağım, soruyu göremiyorum" — soru metni tahmin kartında katlı durur
           +'<div class="tahminGir"><input class="tahminI" inputmode="decimal" placeholder="örn. 142.000"><button class="btn mavi bTahmin">Kontrol et</button><button class="btn bTahminAtla">Bilmiyorum, göster</button></div><div class="tahminNot">Yanlış tahmin puan düşürmez; tahta hemen açılır ve nerede saptığını gösterir.</div></div>'
           +'<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':''))+'" title="'+esc(adimBaslik(x))+'">'+(q+1)+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(sonrakiAd)+'</span></div></div></div>';
         const inp=serit.querySelector('.tahminI'); setTimeout(()=>inp.focus(),120);
+        // 07.09 Cem: tahmin ekranında VERİLENLER bloğu TAMAMEN açık — formül henüz açılmadığı için hiçbir satır "kullanılmış" sayılmıyor, öğrenci 520.000 / 20.000'i göremiyordu; verilenler sızıntı değil, sorunun kendisi
+        tabloSar.querySelectorAll('tr.vblok').forEach(tr=>tr.classList.remove('katli'));
         // 07.09: hedef yüzdeyse (%33,33) aday "33,33" de "0,3333" de yazabilir; ikisi de doğru sayılır
         const kontrol=()=>{ const yuz=/^%/.test(String(hd.deger).trim()); const g=nrm(inp.value).replace(/^%/,''), b=nrm(hd.deger).replace(/^%/,''); if(g===''){ inp.focus(); return; } const gv=parseFloat(g), bv=parseFloat(b); const yakin=(x,y)=>!isNaN(x)&&!isNaN(y)&&Math.abs(x-y)<=Math.max(0.5,Math.abs(y)*0.005); const ok=(g===b)||yakin(gv,bv)||(yuz&&yakin(gv*100,bv)); tahmin[j]={cevap:inp.value.trim(),dogru:ok,hedef:hd.deger}; adimGoster(j,1); };
         serit.querySelector('.bTahmin').addEventListener('click',kontrol); inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); e.stopPropagation(); kontrol(); } });
