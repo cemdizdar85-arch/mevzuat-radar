@@ -204,6 +204,20 @@ foreach($x in $sec){
   }
   # 06.09 ölçüldü: verilen çiftleri cache'te hem [r,c] hem {value:[r,c]} biçiminde; eski kod yalnız .value okuyordu, dizi biçimi 0 verilen sayılıyordu
   $verilen=@(); foreach($vv in @($v.verilen)){ $arr=$(if($vv -and $vv.PSObject.Properties['value']){ @($vv.value) } else { @($vv) }); if($arr.Count -ge 2){ $verilen+=,@([int]$arr[0],[int]$arr[1]) } }
+  # 07.09 Ö55(3) (Cem TMS 36 ekranı: "Doğru şık" 1. adımda açıktı): TEORİ tablosunu builder kurar, üretici onu hiç görmez; üreticinin
+  # doldur/verilen koordinatları ([2,1] = Doğru şık) anlamsızdır. Teori tablosunda hedefler DETERMİNİSTİK: 'Ne soruluyor' verilen ·
+  # 'Kural' → ilk "Kural" adımı · 'Bu olayda' + 'Doğru şık' → SONUÇ adımı (Yanlış yol / Ters durum / Senin seçimin'den önceki son adım).
+  if($tablo -and "$(@($tablo.basliklar)[0])" -eq 'Adım' -and $adimlar.Count -gt 1){
+    $tRows=@($tablo.satirlar); $rowOf={ param($ad) $k=-1; for($q=0;$q -lt $tRows.Count;$q++){ if("$(@($tRows[$q])[0])" -eq $ad){ $k=$q } }; $k }
+    for($ai=0;$ai -lt $adimlar.Count;$ai++){ $adimlar[$ai].doldur=@() }
+    $verilen=@(); $rN=& $rowOf 'Ne soruluyor'; if($rN -ge 0){ $verilen=@(,@($rN,1)) }
+    $kuralI=-1; for($ai=1;$ai -lt $adimlar.Count;$ai++){ if("$($adimlar[$ai].formul)" -match '^\s*Kural'){ $kuralI=$ai; break } }; if($kuralI -lt 0){ $kuralI=[Math]::Min(1,$adimlar.Count-1) }
+    $sonucI=-1; for($ai=$adimlar.Count-1;$ai -ge 0;$ai--){ if("$($adimlar[$ai].formul)" -notmatch '^\s*(Yanlış yol|Ters durum|Senin seçimin|En sık hata|Tuzak)'){ $sonucI=$ai; break } }; if($sonucI -lt 0){ $sonucI=$adimlar.Count-1 }
+    $rK=& $rowOf 'Kural'; $rO=& $rowOf 'Bu olayda'; $rD=& $rowOf 'Doğru şık'
+    if($rK -ge 0){ $adimlar[$kuralI].doldur=@(,@($rK,1)) }
+    $dS=@(); if($rO -ge 0){ $dS+=,@($rO,1) }; if($rD -ge 0){ $dS+=,@($rD,1) }; if($dS.Count){ $adimlar[$sonucI].doldur=@($dS) }
+    "    teori tablosu [$($x.id)]: Kural -> adım $($kuralI+1) · Doğru şık -> adım $($sonucI+1) (sonuç)"
+  }
   # 06.09 VERİLENLER BLOĞU (Cem "1 yap"): tablo VERİLENLER → HESAP → SONUÇ diye kurulur. Sorudaki her sayı kendi satırında
   # (ad + değer; anlam Adım 1'de listelenir). Hesap satırları ve adım koordinatları $kay kadar aşağı kayar; Adım 1 verilen satırlarını açar.
   $verilenler=@(); $VER_N=0
@@ -360,9 +374,13 @@ $script:SIN_ISABET=0
 # Cem 04.09 "7 dönem yazıyor, bir dönem vermiş": dönem listesi KONU ETİKETİNDEN (veri/sgs-analiz.json konuSayim,
 # köprünün 7'sinin kaynağı); alıntılar o dönemlerin kitapçıklarından aranır.
 $analiz=$null; try{ $analiz=Get-Content (Join-Path $kok 'veri\sgs-analiz.json') -Raw -Encoding UTF8 | ConvertFrom-Json }catch{}
+# 07.09 Ö55(1): künye "Son 7 dönemde 4 kez" derken liste 2020/1, 2019/3… (pencere dışı) yazıyordu — sayı pencereden, liste toplam sayımdan.
+# Pencerenin dönem listesi sayfaya gider; builder listeyi "son: … · daha eski: …" diye ayırır.
+$tumDon=@(); if($analiz){ $tumDon=@(@($analiz.donemler) | ForEach-Object { "$($_.donem)" } | Sort-Object { [int]($_ -replace '/','') } -Descending) }
 for($i=0;$i -lt $sorular.Count;$i++){
   $s=$sorular[$i]; $konuHam="$($sec[$i].v.konu)".ToLowerInvariant()
-  if($SIN.ContainsKey($konuHam)){ $e0=$SIN[$konuHam]; $script:SIN_ISABET++; $sorular[$i].cikmis=@{ donemler=@(@($e0.donemler) | ForEach-Object { "$_" }); ornekler=@(@($e0.ornekler) | ForEach-Object { @{ yil="$($_.yil)"; alinti="$($_.alinti)" } }); kopru=$s.donem }; continue }
+  $penN=0; try{ if($s.olcum -and $s.olcum.pencere){ $penN=[int]$s.olcum.pencere } }catch{}; $penDon=@(); if($penN -gt 0){ $penDon=@($tumDon | Select-Object -First $penN) }
+  if($SIN.ContainsKey($konuHam)){ $e0=$SIN[$konuHam]; $script:SIN_ISABET++; $sorular[$i].cikmis=@{ donemler=@(@($e0.donemler) | ForEach-Object { "$_" }); pencereDonemler=$penDon; ornekler=@(@($e0.ornekler) | ForEach-Object { @{ yil="$($_.yil)"; alinti="$($_.alinti)" } }); kopru=$s.donem }; continue }
   # 05.09: analiz konu adları ASCII ("sapmasi"), cache Türkçe ("sapması") → dönem 0 çıkıyordu; Türkçe harf katlanarak eşlenir
   $konuKat=Katla $konuHam
   $donemler=@(); if($analiz){ foreach($dn in @($analiz.donemler)){ if($dn.konuSayim){ foreach($k in $dn.konuSayim.PSObject.Properties){ if((Katla ($k.Name -replace '^[^|]*\|','')) -eq $konuKat){ $donemler+="$($dn.donem)"; break } } } } }
@@ -385,7 +403,7 @@ for($i=0;$i -lt $sorular.Count;$i++){
       if($al){ $yil=[regex]::Match($f.Name,'(\d{4})_(\d)').Value -replace '_','/'; $al=($al -replace '\s+',' ').Trim(); if($al.Length -gt 320){ $al='…'+$al.Substring($al.Length-318) }; $bul+=@{ yil=$yil; alinti=$al } } }
   }
   $ornekler=@($bul | Sort-Object { $_.yil } -Descending | Select-Object -First 3)
-  $sorular[$i].cikmis=@{ donemler=$donemler; ornekler=$ornekler; kopru=$s.donem }
+  $sorular[$i].cikmis=@{ donemler=$donemler; pencereDonemler=$penDon; ornekler=$ornekler; kopru=$s.donem }
   $SIN[$konuHam]=@{ donemler=$donemler; ornekler=$ornekler }; $script:SIN_KIRLI=$true
   "  sinavda: $konuHam -> etiketli $($donemler.Count) dönem ($($donemler -join ', ')) · köprü $($s.donem) · alıntı $($bul.Count)"
 }
@@ -1162,8 +1180,10 @@ SORULAR.forEach((s,i)=>{
         const kn=s.cikmis||{}; const dl=(kn.donemler||[]).map(String).slice().sort().reverse(); const sd=(s.olcum&&s.olcum.sonDonem!=null)?s.olcum.sonDonem:null; const pen=s.olcum&&s.olcum.pencere;
         const tipAd=({hesap:'hesaplama',kayit:'kayıt',teori:'teori'})[s.tip]||'';
         // dönem listesi yalnız sayıyla tutarlıysa yazılır (pencere sayısı kök eşleşmesiyle, liste birebir etiketle ölçülüyor; "7 kez · 2025/3" yanıltır)
-        const listeTutarli=dl.length&&(sd==null||dl.length>=sd);
-        const kunye='<div class="et">Sınav künyesi</div><p>'+((sd!=null&&pen)?('Son '+pen+' dönemde <b>'+sd+'</b> kez soruldu'):(dl.length?('<b>'+dl.length+'</b> dönemde soruldu'):'Çıkmış künyesi ölçülmedi'))+(listeTutarli?' · '+esc(dl.slice(0,6).join(', ')):'')+(tipAd?' · biçim: '+tipAd:'')+'</p>';
+        // 07.09 Ö55(1): liste pencereyle ayrılır — "Son 7 dönemde 4 kez · son: 2026/2 · daha eski: 2020/1, 2019/3…"; pencere içi liste sayıdan
+        // kısa olabilir (sayı kök eşleşmesi, liste birebir etiket), o yüzden yalnız EN YENİ pencere içi dönem yazılır, çelişki kalmaz
+        const penD=new Set((kn.pencereDonemler||[]).map(String)); const ici=dl.filter(x=>penD.has(x)); const disi=dl.filter(x=>!penD.has(x));
+        const kunye='<div class="et">Sınav künyesi</div><p>'+((sd!=null&&pen)?('Son '+pen+' dönemde <b>'+sd+'</b> kez soruldu'+(ici.length?' · son: '+esc(ici[0]):'')+(disi.length?' · daha eski: '+esc(disi.slice(0,5).join(', ')):'')):(dl.length?('<b>'+dl.length+'</b> dönemde soruldu · '+esc(dl.slice(0,6).join(', '))):'Çıkmış künyesi ölçülmedi'))+(tipAd?' · biçim: '+tipAd:'')+'</p>';
         const kv=((s.sade&&s.sade.kavramlar)||[]).filter(x=>x&&x.ad).slice(0,3);
         // uydurma "somut örnek" artık gösterilmez (Cem 07.09); kavram yoksa bölüm boş kalır, üretici FAZ S ile doldurur
         const kvH=kv.length?'<div class="et">Anahtar kavramlar</div><ul class="kavramL">'+kv.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+(x.kaynak?' <i>('+esc(x.kaynak)+')</i>':'')+'</li>').join('')+'</ul>':'';
@@ -1182,7 +1202,9 @@ SORULAR.forEach((s,i)=>{
       // Cem 04.09 "yol haritası ekranı kaplıyor": tek satır — numaralı noktalar (geçilen yeşil, buradasın kalın, hedef altın bayrak),
       // yalnız bulunduğun adımın adı yazılı; başlıklar üstüne gelince görünür. Kartın altına yaslanır.
       const yolH='<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':(q===hedefIdx?'hedef':'')))+'" title="'+esc(adimBaslik(x))+'">'+(q===hedefIdx&&q!==j?'🏁':(q+1))+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(adimBaslik(a))+'</span></div>'
-        +(a.giris?'<div class="neden">Önce konunun haritası: nedir, sınav ne sorar, hangi yöntem ne zaman. Sonra sorunun verilenleri, sonra hesap; hedef <b>'+esc(sonBas)+'</b>.</div>'
+        +(a.giris?('<div class="neden">'+((s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım')
+            ?'Önce konunun haritası: nedir, sınav nasıl sorar. Sonra kural, sonra şıklar kuralla tek tek sınanır; en sonda senin seçimin.'   // 07.09 Ö55(2): teori cümlesi (hesap kalıbı "verilenler, hesap, ters durum" teori soruda anlamsızdı)
+            :'Önce konunun haritası: nedir, sınav ne sorar, hangi yöntem ne zaman. Sonra sorunun verilenleri, sonra hesap; hedef <b>'+esc(sonBas)+'</b>.')+'</div>')
           :(verilenAdimMi&&s.verilenler&&s.verilenler.length)?'<div class="neden">Önce elimizdekileri tanıyoruz: <b>'+s.verilenler.length+' verilen</b>. Hesap bloğundaki her satır bunlardan kurulacak; hedef <b>'+esc(sonBas)+'</b>.</div>'
           :son?'<div class="neden">Hedefe ulaştık: <b>'+esc(sonBas)+'</b>. Şimdi aynı yolu sen yürü.</div>'
           :(j>=hedefIdx?'<div class="neden">Hedef bulundu (<b>'+esc(sonBas)+'</b>). '+(a.kisi?'Bu adım <b>senin seçtiğin şıkkın</b> neden yanlış olduğunu gösterir.':'Bu adım, adayların en sık düştüğü yanlış yolu gösterir.')+'</div>'
