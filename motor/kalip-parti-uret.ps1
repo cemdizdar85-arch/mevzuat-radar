@@ -159,6 +159,8 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
         $adKisim=("$($x.kaynak_ad)" -replace '^(TEORI|Teori Notu)\s*-\s*',''); $disiDar=@(PencereKavram $adKisim -YalnizDar); $disiGenis=@(PencereKavram (($adKisim -split '\s+' | Where-Object { $_.Length -ge 6 }) -join ' ') | Where-Object { $w=$_; -not $script:PENCERE_KOK.ContainsKey($w.Substring(0,5)) })
         if($disiDar.Count -ge 2 -or $disiGenis.Count -ge 1){ Write-Host "  PENCERE DIŞI KAYNAK atlandı: $($x.kaynak_ad) (dar: $($disiDar -join ', ') · geniş: $($disiGenis -join ', '))" -ForegroundColor DarkGray; continue }
       }
+      # 07.09 Ö47 asgari GÜNCELLİK KAPISI (Vergi): eski 5422 dönemi Kurumlar Vergisi tebliğleri (Seri No ≠ 1) ve metninde "5422 sayılı" geçen kaynak paketi dışı
+      if($DersRegex -match 'Vergi'){ $kaEski=("$($x.kaynak_ad)" -match '(?i)Kurumlar Vergisi.*Seri No:?\s*(\d+)' -and [int]$matches[1] -ne 1) -or ("$($x.metin)" -match '5422 sayılı'); if($kaEski){ Write-Host "  GÜNCELLİK: eski dönem kaynağı atlandı: $($x.kaynak_ad)" -ForegroundColor DarkGray; continue } }
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
     # 03.09 OLCULDU (SMMM 'kambiyo kari kaydi' -> KAYNAK BORCU; oysa THP 646 KAMBIYO KARLARI ambarda):
@@ -234,7 +236,7 @@ $DERS_KANUN=@{
   'Is ve Sosyal Guvenlik Hukuku'=@('İş K. (4857 s.K.)','5510 s. SGK Kanunu')
   'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)')
   'Meslek Hukuku'=@('SMMM K. (3568 s.K.)'); 'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
-  'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('THP')
+  'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
   'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')
   'Türkiye Denetim Standartları'=@('BDS','KYS')
@@ -945,6 +947,10 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     TMS 37'nin konusudur"). ayirt = öğrencinin bir daha yanılmamak için kendine soracağı TEK soru ("Varlığı satmasam da bu para
     çıkar mıydı?"). paragraf = kısa kaynak künyesi ("p.28", "m.328"). Jargon yok, tuzak adı yazma. Bu alanlar açıklama metnini
     DEĞİŞTİRMEZ, ona ek gelir; hesaplı soruda da yazılır (yanilgi = atlanan katman).
+14. HESAP PLANI ve ADLANDIRMA (07.09 Cem "hepsine evet": K2, K3, Ö37): para birimi "TL" yazılır (₺ yazma). Hesap planı TEKDÜZEN'dir (MSUGT):
+    TMS/TFRS konularında da Tekdüzen kodları ve resmî adları kullanılır (250 ARAZİ VE ARSALAR; "250 Yatırım Amaçlı Gayrimenkuller" gibi TFRS-eki
+    adları YASAK, o KGK sınavına aittir). Soru gövdesinde mamul/gider yeri harfle anılabilir (A, B, C — sınav böyle yazar); açıklama,
+    adım ve ikizde "A mamulü" gibi tam adla anılır, şık harfleriyle karışmaz.
 13. ÇELDİRİCİ DOĞRULAMA — KAPI-Ç (07.09 Cem: "sınavda en çok çıkan, kandırmacılı çok seçenekli, zor"): HESAPLAMA sorusunda JSON'a "celdirici_yol"
     ekle: her YANLIŞ şık için o şıkkın tutarına götüren YANLIŞ YOL formülü, SAYILARLA, sonu "= <şık tutarı>", ardından parantezde hatanın adı
     ("C":"950.000 - 845.000 = 105.000 (tazminatı elden çıkarma maliyetine kattın)"). Formül gerçekten o tutarı VERMELİ: makine hesaplar,

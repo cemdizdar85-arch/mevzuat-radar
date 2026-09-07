@@ -145,6 +145,8 @@ KURALLAR:
        öğretti, öğrenci-modeli "diğer dört şıkkın kuralı anlatımda yok, yetmedi" dedi): soru kökü "hangisi yanlıştır / değildir /
        söylenemez" ise ŞIK ŞIK SINAMA adımı zorunludur: her şık için tek satır "A) <kural, kaynak maddesiyle> → doğru ifade" ya da
        "→ YANLIŞ, çünkü <kural>". Beş satır, beş kaynak cümlesi; sınavda bu soru dört doğruyu eleyerek çözülür, anlatım dördünü de vermelidir.
+   (l) ADLANDIRMA (07.09 K3): soru gövdesi mamul/gider yerini harfle anıyorsa (A, B, C) adımlarda "A mamulü", "B gider yeri" biçiminde
+       tam adla yaz; şık harfleriyle karışmasın. Para birimi "TL" (₺ yazma). Hesap kodları Tekdüzen (MSUGT) adlarıyla.
    (k) DAHİL DEĞİL SATIRI (07.09 Cem, TMS 36 ekranı: "elden çıkarmayı nasıl hesapladığını, diğerlerini almayacağını yaz"): soru hesaba
        GİRMEYEN çeldirici kalem veriyorsa (işten çıkarma tazminatı, yeniden yapılandırma maliyeti, KDV, faiz, kur farkı gibi), o kalemin ait
        olduğu "nedir"/hesap adımının formülü İKİ PARÇADIR: "Elden çıkarma maliyeti = yasal + damga + taşıma = 30.000 (soruda verilen);

@@ -830,7 +830,9 @@ SORULAR.forEach((s,i)=>{
     if(!oyunVar){ const el=k.querySelector('.bOyun'); if(el) el.style.display='none'; }
     // 05.09 (GM ürün incelemesi): Maliyet sorusunda "Kaynağı göster" Vergi Usul Kanunu m.275 + teori notu gösteriyor —
     // maliyet TEKNİĞİNİN kaynağı değil, güven zedeler. MSUGT Sıra No 2 deseni bağlanana dek Maliyet'te ve metin yoksa gizli.
-    if(/maliyet/i.test(String(s.ders||''))||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)){ const el=k.querySelector('.cKaynak'); if(el) el.style.display='none'; }
+    // 07.09 K6: Maliyet'te kaynak listesi MSUGT Sıra No 2 taşıyorsa "Kaynağı göster" AÇIK (teknik kaynağı bağlandı); yalnız VUK/teori notu ise eskisi gibi gizli
+    const msugtVar=!!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.some(x=>/UYGULAMA GENEL TEBL|MSUGT/i.test(String((x&&x.ad)||x))));
+    if((/maliyet/i.test(String(s.ders||''))&&!msugtVar)||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)){ const el=k.querySelector('.cKaynak'); if(el) el.style.display='none'; }
     if((!dogruMu||!oyunVar)&&bDersC){ bDersC.classList.add('birincil'); } else if(bOyunC){ bOyunC.classList.add('birincil'); if(bDersC) bDersC.classList.add('ek'); }
     k.querySelector('.ipucu').style.display='none'; panel.classList.add('acik');
     k.classList.add('cevaplandi'); const kg=k.querySelector('.kagit'); if(kg) kg.classList.remove('acik');   // 06.09: kâğıt kapanır, cevap paneli yerini alır; "✏️ Kâğıdım" ile geri açılır
