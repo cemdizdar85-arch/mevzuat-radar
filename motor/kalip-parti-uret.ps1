@@ -888,6 +888,62 @@ function ParametreKapisi($a){ $out=@(); $soru="$($a.soru)"
   foreach($cumle in ($soru -split '(?<=[.!?;])\s+')){ foreach($pa in $parametreler){ if($cumle -match ('(?i)'+[regex]::Escape($pa))){ if($cumle -notmatch '%\s*\d|\d\s*%|\d{1,3}(\.\d{3})+|\d+(,\d+)?\s*TL'){ $out+="'$pa' geçiyor ama cümlede sayısı yok (yıla bağlı had soruda verilir)" } } } }
   return @($out | Select-Object -Unique)
 }
+# 08.09 Cem: "yanlışlıkla eski kanuna bakıyordur, o kanun değişmiştir, onun kontrolünü yapsın" — KAPI-M MÜLGA MEVZUAT / ESKİ KURUM.
+# Ambar günlük aynadır: yürürlükteki metinle çelişen kural hakemde düşer. Açık kalan delik: mülga kanunun/standardın metni ambarda HİÇ YOK
+# (6762, 818, 5422, 506 ölçüldü: envanterde yok) → atıf genişletme boş kalıyor, hakem başka kaynakla EVET diyebiliyordu. Bu kapı soruda,
+# şıklarda, açıklamada, dayanakta ve hapta mülga kanun numarası / mülga standart / kapanmış kurum adı arar; bulursa SERT düşer.
+$MULGA_LISTE=@(
+  @('\b6762\b','eski TTK 6762 (mülga) → 6102 sayılı Türk Ticaret Kanunu'),
+  @('\b818\s*s(ayılı|\.)','eski Borçlar Kanunu 818 (mülga) → 6098 sayılı Türk Borçlar Kanunu'),
+  @('\b5422\b','eski KVK 5422 (mülga) → 5520 sayılı Kurumlar Vergisi Kanunu'),
+  @('\b506\s*s(ayılı|\.)','SSK 506 (mülga) → 5510 sayılı Kanun'),
+  @('\b1479\s*s(ayılı|\.)','Bağ-Kur 1479 (mülga) → 5510 sayılı Kanun'),
+  @('\b2925\s*s(ayılı|\.)|\b5434\s*s(ayılı|\.)','eski sosyal güvenlik kanunu (mülga/yürürlük dışı) → 5510'),
+  @('\b2499\s*s(ayılı|\.)','eski SPKn 2499 (mülga) → 6362 sayılı Sermaye Piyasası Kanunu'),
+  @('\b1050\s*s(ayılı|\.)','Muhasebe-i Umumiye K. 1050 (mülga) → 5018 sayılı Kamu Malî Yönetimi ve Kontrol Kanunu'),
+  @('\b4077\s*s(ayılı|\.)','eski Tüketici K. 4077 (mülga) → 6502'),
+  @('\b1086\s*s(ayılı|\.)','HUMK 1086 (mülga) → 6100 sayılı HMK'),
+  @('\b743\s*s(ayılı|\.)','eski Medeni Kanun 743 (mülga) → 4721'),
+  @('\b765\s*s(ayılı|\.)','eski TCK 765 (mülga) → 5237'),
+  @('\b(2821|2822)\s*s(ayılı|\.)','eski Sendikalar/Toplu İş Sözleşmesi K. (mülga) → 6356'),
+  @('\b4389\s*s(ayılı|\.)','eski Bankalar K. 4389 (mülga) → 5411'),
+  @('\b3417\s*s(ayılı|\.)','tasarrufu teşvik 3417 (mülga)'),
+  @('\bTMS\s*(11|17|18|39)\b(?!\d)','mülga standart (TMS 11→TFRS 15, TMS 17→TFRS 16, TMS 18→TFRS 15, TMS 39→TFRS 9)'),
+  @('\bTFRS\s*4\b(?!\d)','mülga standart TFRS 4 → TFRS 17'),
+  @('\bKKS\s*1\b','mülga KKS 1 → KYS 1'),
+  @('Sosyal\s+Sigortalar\s+Kurumu|\bSSK\b|Ba[ğg]-?\s?Kur\b|Emekli\s+Sand[ıi][ğg][ıi]','kapanmış kurum (SSK/Bağ-Kur/Emekli Sandığı) → Sosyal Güvenlik Kurumu (2006)'),
+  @('Türkiye\s+Muhasebe\s+Standartlar[ıi]\s+Kurulu|\bTMSK\b','kapanmış kurum TMSK → Kamu Gözetimi Kurumu (KGK)'),
+  @('Sanayi\s+ve\s+Ticaret\s+Bakanl[ıi][ğg][ıi]|Gümrük\s+ve\s+Ticaret\s+Bakanl[ıi][ğg][ıi]','kapanmış bakanlık → Ticaret Bakanlığı'),
+  @('Devlet\s+Planlama\s+Te[şs]kilat[ıi]|\bDPT\b','kapanmış kurum DPT → Strateji ve Bütçe Başkanlığı'),
+  @('\bYTL\b|Yeni\s+Türk\s+Liras[ıi]','YTL (2009''da kaldırıldı) → TL'),
+  @('Yeni\s+Türk\s+Ticaret\s+Kanunu|\bYeni\s+TTK\b|\beski\s+TTK\b|eski\s+Borçlar\s+Kanunu|\bmülga\b|yürürlükten\s+kald[ıi]r[ıi]lan','eski/yeni kanun karşılaştırması sınav dili değil; yalnız yürürlükteki kanun anılır')
+)
+function MulgaKapisi($a){ $out=@(); if(-not $a){ return $out }
+  $tum="$($a.soru) "+((@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' ')
+  if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $tum+=' '+(AciklamaDuz $a.aciklama.$hh) } }
+  foreach($alan in @('dayanak','hap')){ if($a.PSObject.Properties[$alan] -and $a.$alan -is [string]){ $tum+=' '+$a.$alan } }
+  foreach($c in $MULGA_LISTE){ if([regex]::IsMatch($tum,$c[0],'IgnoreCase, CultureInvariant')){ $out+=$c[1] } }
+  # 1475 sayılı İş K.: yalnız m.14 (kıdem tazminatı) yürürlükte; kıdem bağlamı yoksa mülga sayılır
+  if([regex]::IsMatch($tum,'\b1475\s*s(ayılı|\.)','IgnoreCase, CultureInvariant') -and -not [regex]::IsMatch($tum,'k[ıi]dem|m(adde)?\.?\s*14\b','IgnoreCase, CultureInvariant')){ $out+='1475 sayılı İş K. yalnız m.14 (kıdem) yürürlükte; kıdem dışı hüküm 4857''ye göre yazılır' }
+  return @($out | Select-Object -Unique)
+}
+# "Maliye Bakanlığı" (Hazine ve Maliye Bakanlığı 2018) kanun metinlerinde hâlâ öyle geçer → sert değil, rapor notu
+function MulgaNotu($a){ $t="$($a.soru) "+((@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' '); if($t -match 'Maliye\s+Bakanl[ıi][ğg][ıi]' -and $t -notmatch 'Hazine\s+ve\s+Maliye'){ return @('"Maliye Bakanlığı" → güncel ad "Hazine ve Maliye Bakanlığı" (kanun alıntısıysa meşru)') }; return @() }
+# 08.09 Cem: "eski süresi dolan verinin olmaması" — KAPI-S SÜRESİ DOLAN VERİ: geçmiş son tarih ("31.12.2025 tarihine kadar"), eski yıla
+# bağlanmış had/oran ("2024 yılı yeniden değerleme oranı") sert düşer; geçici madde dayanağı hakeme GÜNCELLİK sorusu olarak gider.
+function SureKapisi($a){ $out=@(); if(-not $a){ return $out }
+  $tum="$($a.soru) "+((@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' ')
+  if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $tum+=' '+(AciklamaDuz $a.aciklama.$hh) } }
+  $bugun=Get-Date
+  foreach($m in [regex]::Matches($tum,'\b(\d{1,2})[./](\d{1,2})[./](20\d\d)\s*(tarihine|gününe)\s*kadar')){
+    try{ $d=[datetime]::new([int]$m.Groups[3].Value,[int]$m.Groups[2].Value,[int]$m.Groups[1].Value); if($d -lt $bugun.Date){ $out+="süresi dolmuş son tarih: $($m.Value)" } }catch{}
+  }
+  foreach($m in [regex]::Matches($tum,'\b(20[0-2]\d)\s*(y[ıi]l[ıi]n?[ıa]?(?:\s+için)?|takvim\s+y[ıi]l[ıi])\s+[^.;]{0,50}?(geçerli|asgari\s+ücret|yeniden\s+değerleme|tarife|hadd?i|s[ıi]n[ıi]r[ıi]|tavan[ıi]|oran[ıi])','IgnoreCase, CultureInvariant')){
+    if([int]$m.Groups[1].Value -lt $bugun.Year){ $out+="eski yıla bağlı had/oran: '$($m.Value)' (bugün $($bugun.Year))" }
+  }
+  return @($out | Select-Object -Unique)
+}
+function GeciciMaddeNotu($a){ $t="$($a.soru) $($a.dayanak)"; $g=@([regex]::Matches($t,'ge[çc]ici\s*(madde|m\.)\s*\d+','IgnoreCase, CultureInvariant') | ForEach-Object { $_.Value } | Select-Object -Unique); return @($g) }
 # --- FAZ A: SORU ------------------------------------------------------------
 # 04.09 KAPI-Ş: şık dengesi (Cem "cevap belli, sınavda böyle mi?"). Ölçüm: 7 çıkmış SGS sapma sorusunun 5'inde her tutar
 # iki yönle geçiyor. Kural: yön kelimesi taşıyan şıklarda (olumlu/olumsuz/lehte/aleyhte/eksik-fazla yükleme) tutar sayısı
@@ -1396,6 +1452,10 @@ Yalnız JSON: {"cozum_tablo":{...}|null,"teshis":{"A":{...},"B":{...},"C":{...},
     $hesapOn=EskiSayiSikli $cvp
     if(-not $hesapOn){ $gerekceli=@('A','B','C','D','E' | Where-Object { $t="$($cvp.siklar.$_)"; $t -match '(?i)\b(çünkü|nedeniyle|dolayısıyla|bu yüzden|zira)\b' -or $t.Length -gt 160 }); if($gerekceli.Count){ Dus $id $e "şıkta gerekçe / uzun cümle şık ($($gerekceli -join ','))"; continue } }
     $ko=@(KokuKusur $cvp); if($ko.Count){ Dus $id $e ("koku: "+($ko -join '; ')); continue }
+    # 08.09 KAPI-M / KAPI-S kurtarmada da eler (B9): mülga kanun/standart/kurum ya da süresi dolmuş veri taşıyan eski soru arşive
+    $mu=@(MulgaKapisi $cvp); if($mu.Count){ Dus $id $e ("KAPI-M mülga mevzuat: "+($mu -join '; ')); continue }
+    $su=@(SureKapisi $cvp); if($su.Count){ Dus $id $e ("KAPI-S süresi dolan veri: "+($su -join '; ')); continue }
+    if("$($e.kanun_no)".Trim() -match '^(6762|818|5422|506|1479|2499|1050|4077|1086|743|765|2821|2822|4389)$'){ Dus $id $e "KAPI-M: eski künye mülga kanuna bağlı ($($e.kanun_no) sayılı)"; continue }
     # kaynak paketi: damga → kanun/madde → köprü deseni
     # madde_damga bir ÖZET (hash), künye değil → kanun_no + madde_no, yoksa eski 'kaynak' metni (08.09 ölçümü: damga 'fa94e38b…' çıktı)
     $day=$(if("$($e.kanun_no)".Trim() -match '^\d{3,5}$'){ "$($e.kanun_no) sayılı Kanun$(if("$($e.madde_no)".Trim()){ " m.$($e.madde_no)" })" } else { "$($e.kaynak)" })   # kanun_no 'THP'/'TMS' gibi ise (sayı değil) eski 'kaynak' künyesi ("THP 521", "TMS 2 p.10") kullanılır
@@ -1634,6 +1694,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # 08.09: kapılardan ÖNCE yazım onarımı (YazimOnar sözlüğü: dogrusu→doğrusu, hesabi→hesabı…) — kapı yalnız sözlüğün düzeltemediğini düşürür,
     # böylece bilinen ASCII kalıntısı için para harcanıp yeniden yazdırılmaz (pilot6: "yillik, asagidakilerden, hesabi" 3 kapı turu yaktı)
     YazimOnarNesne $aday
+    DilOnarNesne $aday   # 08.09 Cem "soru kalıpları / genel yönetim gideri": sınav dili terim çiftleri (genel idare→genel yönetim, DİMM açılımı…) kapılardan ÖNCE uygulanır
     $uz="$($aday.soru)".Length
     # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
     $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
@@ -1652,7 +1713,10 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # 08.09 Cem: "Türkçe kelime yazmalı · borç alacak düzgün atmalı" → KAPI-D2 Türkçe harf (sert) + KAPI-YD yevmiye dengesi (sert) + yön notu (rapor)
     $trKusur=@(TurkceKapisi $aday); $ydKusur=@(YevmiyeDengeKapisi $aday); $yonNot=@(YevmiyeYonNotu $aday)
     $paKusur=@(ParametreKapisi $aday)   # 08.09 KAPI-P: yıla bağlı had/oran soruda sayı olarak verilmeli
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; break }
+    $muKusur=@(MulgaKapisi $aday); $suKusur=@(SureKapisi $aday)   # 08.09 KAPI-M mülga mevzuat/kurum · KAPI-S süresi dolan veri (Cem "eski kanun, süresi dolan veri")
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
+    if($muKusur.Count){ Write-Host "  KAPI-M (mülga mevzuat) ($id): $($muKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-M DÜŞTÜ (mülga mevzuat/kurum): $($muKusur -join '; '). Soru yalnız YÜRÜRLÜKTEKİ kanun, standart ve kurum adıyla yazılır; eski kanun numarası, mülga standart, kapanmış kurum adı ve eski/yeni karşılaştırması geçmez. Kaynak paketindeki güncel metne dayan." }
+    if($suKusur.Count){ Write-Host "  KAPI-S (süresi dolan veri) ($id): $($suKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-S DÜŞTÜ (süresi dolan veri): $($suKusur -join '; '). Geçmiş bir son tarihe ya da eski yılın had/oranına dayanan veri kullanılmaz; tarihler $((Get-Date).Year) ve sonrası olur, had/oran soruda sayı olarak verilir." }
     if($trKusur.Count){ Write-Host "  KAPI-D2 (Türkçe harf) ($id): $($trKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-D2 DÜŞTÜ: şu kelimeler Türkçe harfsiz yazılmış: $($trKusur -join ', '). Bütün metinde ş, ç, ğ, ı, ö, ü, İ tam yazılır (için, değil, işletme, yıl, kâr)." }
     if($ydKusur.Count){ Write-Host "  KAPI-YD (yevmiye dengesi) ($id): $($ydKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-YD DÜŞTÜ: yevmiye kaydında borç toplamı alacak toplamına eşit değil ($($ydKusur -join '; ')). Her kayıtta borç = alacak; tutarları yeniden hesapla, gerekirse şıkları düzelt." }
     if($paKusur.Count){ Write-Host "  KAPI-P (yasal parametre) ($id): $($paKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-P DÜŞTÜ: $($paKusur -join '; '). Yıla bağlı her had/oran/tavan soruda SAYI olarak verilir ('KDV oranı %20', 'kıdem tazminatı tavanı 50.000 TL olduğu varsayılmıştır'); hafızadan yıl parametresi kullanılmaz." }
@@ -1681,7 +1745,9 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
       if($trKusur.Count){ $rapor.Add("KAPI-D2 (Türkçe harf) DÜŞTÜ: $($ky.konu) | $($trKusur -join ', ')") }
       if($ydKusur.Count){ $rapor.Add("KAPI-YD (yevmiye dengesi) DÜŞTÜ: $($ky.konu) | $($ydKusur -join '; ')") }
       if($paKusur.Count){ $rapor.Add("KAPI-P (yasal parametre) DÜŞTÜ: $($ky.konu) | $($paKusur -join '; ')") }
-      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count -or $paKusur.Count)
+      if($muKusur.Count){ $rapor.Add("KAPI-M (mülga mevzuat) DÜŞTÜ: $($ky.konu) | $($muKusur -join '; ')") }
+      if($suKusur.Count){ $rapor.Add("KAPI-S (süresi dolan veri) DÜŞTÜ: $($ky.konu) | $($suKusur -join '; ')") }
+      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count -or $paKusur.Count -or $muKusur.Count -or $suKusur.Count)
       if($sertDustu){ Write-Host "  SORU DÜŞTÜ ($id): sert kapı ikinci denemede de tutmadı - kaydedilmedi" -ForegroundColor Red; $rapor.Add("SORU DÜŞTÜ (sert kapı ×2): $($ky.konu)"); $cvp=$null }
       else { $cvp=$aday }   # yalnız yumuşak kusur: en sonuncuyu al, rapora yazıldı
     }
@@ -2492,7 +2558,13 @@ Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
    sikka cikiliyorsa (orn. "esas uretim yerlerine dagitilacak toplam (duzeltilmis) maliyet" hem duzeltilmis toplam
    100.000 hem esas uretime giden 90.000 okunur ve ikisi de sikta var) CIFT-ANLAM de ve hangi sikkin da savunulabilir
    oldugunu yaz; kok tek anlamliysa EVET. Yalniz gercek cift okunus sayilir, zorlama yorum degil.
-Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)"}
+5) GUNCELLIK (KAPI-M/S - 08.09): dogru sikkin dayandigi hukum YURURLUKTE mi? Kaynak metninde "mulga", "yururlukten kaldirilmistir",
+   suresi gecmis bir gecici madde, eski yila ait had/oran varsa ya da soru/dayanak mulga kanun-standart-kurum aniyorsa (6762, 818,
+   5422, 506, 2499, TMS 17/18/39, TFRS 4, SSK, TMSK) ESKI de ve KARARI HAYIR ver. Hukum yururlukteyse GUNCEL. {GECICI}
+6) ATIF (kural 6.5): soru ve dayanakta anilan kanun + madde numarasi ({DAYANAK}) KAYNAK METNINDEKI madde basligiyla uyusuyor mu?
+   Kaynakta o madde var ve hukum orada ise EVET; madde numarasi kaynaktaki hukumle uyusmuyorsa (baska maddenin hukmu bu numaraya
+   yazilmis) ATIF-YANLIS de ve KARARI HAYIR ver; kaynak paketinde o madde hic yoksa TEYITSIZ (hukum baska parcadan destekleniyorsa karar EVET kalabilir).
+Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
 === SORU === {SORU}
 === DOGRU SIK ({DOGRU}) === {SIK}
 === DOGRU SIKKIN ACIKLAMASI === {ACIK}
@@ -2541,11 +2613,16 @@ foreach($id in @($don.Keys)){
         $cvp | Add-Member -NotePropertyName atif_genisletme -NotePropertyValue @($atif.adlar) -Force
         $kMetin=$atif.metin + "`n---`n" + $kMetin; if($kMetin.Length -gt 12000){ $kMetin=$kMetin.Substring(0,12000) }
         Write-Host "  ATIF GENISLETME: $id <- $(@($atif.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan
+      } else {
+        # 08.09 Cem "kanun maddelerinin doğru olduğu": dayanaktaki madde ambarda yoksa numara doğrulanamaz → iz + hakeme TEYITSIZ uyarısı
+        $cvp | Add-Member -NotePropertyName atif_ambarda_yok -NotePropertyValue $true -Force
+        Write-Host "  ATIF AMBARDA YOK: $id | $($cvp.dayanak)" -ForegroundColor DarkYellow; $rapor.Add("ATIF AMBARDA YOK: $id | $($cvp.dayanak)")
       }
     }
   }
   if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); continue }
-  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin)
+  $gecici=@(GeciciMaddeNotu $cvp); $geciciNot=$(if($gecici.Count){ "DIKKAT: soru/dayanak gecici madde aniyor ($($gecici -join ', ')); gecici hukmun suresi kaynak metninde dolmussa ESKI." } else { '' })
+  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
   $yh=$null
   foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
   $hk=Coz $yh.metin
@@ -2555,6 +2632,9 @@ foreach($id in @($don.Keys)){
     $renk=if("$($hk.karar)" -eq 'EVET'){'Green'}else{'Red'}
     Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
     if("$($hk.tek_anlam)" -eq 'CIFT-ANLAM'){ Write-Host "  CIFT-ANLAM (KAPI E): $id [$($cvp.konu)] -> $($hk.tek_anlam_gerekce)" -ForegroundColor Magenta; $rapor.Add("CIFT-ANLAM (KAPI E): $($cvp.konu) | $($hk.tek_anlam_gerekce)") }
+    # 08.09 güncellik + atıf (hakem 5 ve 6): ESKI / ATIF-YANLIS karar HAYIR'la gelir (istem); TEYITSIZ yayına çıkar ama karneye iz düşer
+    if($hk.PSObject.Properties['guncellik'] -and "$($hk.guncellik)" -eq 'ESKI'){ Write-Host "  GÜNCELLİK ESKİ (KAPI-M/S hakem): $id [$($cvp.konu)] -> $($hk.guncellik_gerekce)" -ForegroundColor Magenta; $rapor.Add("GUNCELLIK ESKI (hakem): $($cvp.konu) | $($hk.guncellik_gerekce)") }
+    if($hk.PSObject.Properties['atif'] -and "$($hk.atif)" -ne 'EVET'){ Write-Host "  ATIF $($hk.atif) (hakem): $id [$($cvp.konu)] -> $($hk.atif_gerekce)" -ForegroundColor $(if("$($hk.atif)" -eq 'ATIF-YANLIS'){'Magenta'}else{'DarkYellow'}); $rapor.Add("ATIF $($hk.atif) (hakem): $($cvp.konu) | $($hk.atif_gerekce)") }
   } else { $rapor.Add("HAKEM CIKTISI BOZUK: $id") }
 }
 $hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and ("$($don[$_].hakem.karar)" -eq 'HAYIR' -or "$($don[$_].hakem.konu_uyum)" -eq 'KONU-DISI') })
