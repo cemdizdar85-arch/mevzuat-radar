@@ -786,6 +786,34 @@ function ThpSozluk{
   }catch{ Write-Host "  THP sözlüğü çekilemedi (KAPI-H ölçülmedi): $($_.Exception.Message)" -ForegroundColor DarkYellow }
   $script:THP_SOZLUK=$d; return $d
 }
+# 07.09 KAPI-Ç (Cem "kandırmacılı çok seçenekli"): hesap sorusunda her yanlış şık, üreticinin yazdığı YANLIŞ YOL formülünün sonucu olmalı.
+# Kendi hesaplayıcısı var (AritmetikKusur/SayiCoz bu noktada henüz tanımlı değil): Türkçe sayı → nokta ondalık, %x → (x/100), yalnız rakam
+# ve işleçten oluşan ifade Invoke-Expression ile hesaplanır, şık tutarıyla ±%0,5 kıyaslanır. Sayı olmayan (cümle/yön) şıklara uygulanmaz.
+function SayiCozC([string]$s){ $t=("$s" -replace '[^\d\.,\-]',''); if(-not $t -or $t -notmatch '\d'){ return $null }; $t=$t -replace '\.','' -replace ',','.'; $v=0.0; if([double]::TryParse($t,[Globalization.NumberStyles]::Any,[Globalization.CultureInfo]::InvariantCulture,[ref]$v)){ return $v }; return $null }
+function CeldiriciYolKapisi($aday){
+  $out=@()
+  if(-not ($aday.PSObject.Properties['cozum_tablo'] -and $aday.cozum_tablo -and @($aday.cozum_tablo.satirlar).Count -ge 2)){ return @() }
+  $yol=$(if($aday.PSObject.Properties['celdirici_yol'] -and $aday.celdirici_yol){ $aday.celdirici_yol } else { $null })
+  $inv=[Globalization.CultureInfo]::InvariantCulture
+  foreach($h in 'A','B','C','D','E'){
+    if($h -eq "$($aday.dogru)"){ continue }
+    $sikT="$($aday.siklar.$h)"; if($sikT -match '[A-Za-zÇĞİÖŞÜçğıöşü]{4,}'){ continue }   # cümle/yön şıkkı: sayı kapısı yok
+    $sikN=SayiCozC $sikT; if($null -eq $sikN){ continue }
+    $f=$(if($yol -and $yol.PSObject.Properties[$h]){ "$($yol.$h)" } else { '' })
+    if(-not $f.Trim()){ $out+="$h) yanlış yol formülü yok"; continue }
+    $par=@($f -split '\s=\s'); if($par.Count -lt 2){ $out+="$h) yanlış yol formülünde '=' yok"; continue }
+    $sol=$par[$par.Count-2]
+    $solT=$sol -replace '\([^)]*[A-Za-zÇĞİÖŞÜçğıöşü][^)]*\)',' ' -replace '×','*' -replace '\bx\b','*' -replace '(?i)\b(TL|₺|kg|ton|adet|birim|ay|yıl|yil|gün|gun|saat)\b',' '   # yalnız harf içeren parantez (not) atılır, aritmetik parantez kalır
+    $solT=[regex]::Replace($solT,'%\s*(\d{1,3}(?:\.\d{3})*(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Groups[1].Value; if($null -eq $v){ $m.Value } else { '('+($v/100).ToString($inv)+')' } })
+    $solT=[regex]::Replace($solT,'(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Value; if($null -eq $v){ $m.Value } else { $v.ToString($inv) } })
+    $solT=($solT -replace '\s+',' ').Trim()
+    if($solT -notmatch '^[\d\.\s\+\-\*/\(\)]+$'){ $out+="$h) yanlış yol çözülemedi: $f"; continue }
+    $hes=$null; try{ $hes=[double](Invoke-Expression $solT) }catch{ $out+="$h) yanlış yol hesaplanamadı: $f"; continue }
+    $tol=[Math]::Max(0.51,[Math]::Abs($sikN)*0.005)
+    if([Math]::Abs($hes-$sikN) -gt $tol -and [Math]::Abs($hes*100-$sikN) -gt $tol -and [Math]::Abs($hes/100-$sikN) -gt $tol){ $out+="$h) yanlış yol $([math]::Round($hes,2)) çıkıyor, şık $sikT" }
+  }
+  return $out
+}
 function HesapKodKapisi($aday){
   $d=ThpSozluk; if(-not $d -or -not $d.Count -or -not $aday -or -not $aday.siklar){ return @() }
   $metinler=New-Object System.Collections.Generic.List[string]
@@ -917,10 +945,16 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     TMS 37'nin konusudur"). ayirt = öğrencinin bir daha yanılmamak için kendine soracağı TEK soru ("Varlığı satmasam da bu para
     çıkar mıydı?"). paragraf = kısa kaynak künyesi ("p.28", "m.328"). Jargon yok, tuzak adı yazma. Bu alanlar açıklama metnini
     DEĞİŞTİRMEZ, ona ek gelir; hesaplı soruda da yazılır (yanilgi = atlanan katman).
+13. ÇELDİRİCİ DOĞRULAMA — KAPI-Ç (07.09 Cem: "sınavda en çok çıkan, kandırmacılı çok seçenekli, zor"): HESAPLAMA sorusunda JSON'a "celdirici_yol"
+    ekle: her YANLIŞ şık için o şıkkın tutarına götüren YANLIŞ YOL formülü, SAYILARLA, sonu "= <şık tutarı>", ardından parantezde hatanın adı
+    ("C":"950.000 - 845.000 = 105.000 (tazminatı elden çıkarma maliyetine kattın)"). Formül gerçekten o tutarı VERMELİ: makine hesaplar,
+    tutmayan soru geri döner. Her yanlış şık gerçekten yapılabilecek bir hatanın sonucu olur (atlanan katman, yanlış ölçü, ters işaret,
+    yüzde puanı/oran karışıklığı, çeldirici verilenin hesaba katılması); rastgele sayı YASAK. TEORİ sorusunda karşılığı: en az iki şık AYNI
+    paragraf/maddeden, tek kelime ya da ölçüt farkıyla ayrılır (yakın-şık); bütün yanlış şıklar kaynakta karşılığı olan gerçek ifadelerdir.
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
-{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"teshis":{"A":{"yanilgi":"...","gercek":"...","ayirt":"...","paragraf":"..."},"B":{...},"C":{...},"D":{...},"E":{...}},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kisa kunye"}
+{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"teshis":{"A":{"yanilgi":"...","gercek":"...","ayirt":"...","paragraf":"..."},"B":{...},"C":{...},"D":{...},"E":{...}},"celdirici_yol":{"<yanlış şık>":"<sayılı yanlış yol> = <şık tutarı> (<hatanın adı>)",...},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kisa kunye"}
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
@@ -1308,7 +1342,9 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     # 07.09 KAPI-T (fmuh-zor2 dersi, Ö53): çapa HESAPLAMA iken model tablosuz teori sorusu ("hangisi yanlıştır") yazdı; "tip çapadan"
     # yalnız istemdi, kapısı yoktu. Çapa hesaplama ise soru ≥2 satırlı çözüm tablosu taşımalı, yoksa yeniden (2 deneme).
     $tipKusur=''; if($CAPA_TIP.ContainsKey($id) -and $CAPA_TIP[$id] -eq 'hesaplama' -and -not ($aday.PSObject.Properties['cozum_tablo'] -and $aday.cozum_tablo -and @($aday.cozum_tablo.satirlar).Count -ge 2)){ $tipKusur='çapa hesaplama, soru tablosuz (teori biçimi)' }
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    $cyKusur=@(CeldiriciYolKapisi $aday)   # 07.09 KAPI-Ç: her yanlış şık = gerçek bir yanlış yolun sonucu
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    if($cyKusur.Count){ Write-Host "  KAPI-Ç (çeldirici yolu) ($id): $($cyKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ç DÜŞTÜ: $($cyKusur -join '; '). Her yanlış şık için celdirici_yol yaz: sayılı yanlış yol formülü, sonu '= <şık tutarı>' ve şık tutarı formülün GERÇEK sonucu olmalı; tutmuyorsa şık tutarını formülün sonucuna göre düzelt." }
     if($tipKusur){ Write-Host "  KAPI-T (soru tipi) ($id): $tipKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-T DÜŞTÜ: örnek çıkmış soru HESAPLAMA sorusudur, sen teori sorusu yazdın. Soru sayısal veri verip 'kaç TL' diye sormalı ve en az 2 satırlı cozum_tablo taşımalı; 'hangisi yanlıştır/doğrudur' biçimi YASAK." }
     if($kvKusur.Count){ Write-Host "  KAPI-K (pencere dışı kavram) ($id): $($kvKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-K DÜŞTÜ: şu kelimeler son $DonemPencere dönemin sınav sorularında HİÇ geçmiyor: $($kvKusur -join ', '). Sınavın sormadığı kavramla soru kurma; gövdeyi yalnız sınavda geçen kavramlarla (verilen örnek sorunun diliyle) yeniden yaz." }
     if($uz -gt $UZUNLUK_TAVAN){ Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
@@ -1320,6 +1356,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
       if($hkKusur.Count){ $rapor.Add("KAPI-H (hesap adı) DÜŞTÜ: $($ky.konu) | $($hkKusur -join '; ')") }
       if($kvKusur.Count){ $rapor.Add("KAPI-K (pencere dışı kavram) DÜŞTÜ: $($ky.konu) | $($kvKusur -join ', ')") }
       if($tipKusur){ $rapor.Add("KAPI-T (soru tipi) DÜŞTÜ: $($ky.konu) | $tipKusur") }
+      if($cyKusur.Count){ $rapor.Add("KAPI-Ç (çeldirici yolu) DÜŞTÜ: $($ky.konu) | $($cyKusur -join '; ')") }
       $cvp=$aday   # 2 denemede düzelmediyse en sonuncuyu al ama RAPORA yaz
     }
   }
