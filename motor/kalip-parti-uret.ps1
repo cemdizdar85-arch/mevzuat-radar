@@ -352,7 +352,8 @@ function DesenUret($kayit){
       elseif($ham -match '3568'){ $onekM='SMMM K. (3568 s.K.)' }
       elseif($ham -match '6362|Sermaye Piyasas|SPKn|\bSPK\b'){ $onekM='Sermaye Piyasası K. (6362 s.K.)' }
       elseif($ham -match '6183|AATUHK'){ $onekM='AATUHK (6183 s.K.)' }
-      elseif($ham -match '3065|KDVK|Katma Değer'){ $onekM='KDVK (3065 s.K.)' }
+      elseif($ham -match '3065|KDVK|Katma Değer|KDV Kanunu|\bKDV\b'){ $onekM='KDVK (3065 s.K.)' }   # 07.09 Ö48: köprü "KDV Kanunu m.10" yazıyor, ambar "KDVK (3065 s.K.) m.10" (170 kayıt) → kaynak borcu sahteydi
+      elseif($ham -match '6356|STİSK|STISK|Sendikalar ve Toplu'){ $onekM='Sendikalar ve TİS K. (6356 s.K.)' }   # 07.09 Ö48: 6356 ambarda VAR (102 madde), köprü uzun adla/STİSK ile yazıyordu
       elseif($ham -match '\b488\b|Damga'){ $onekM='Damga V.K. (488 s.K.)' }
       if($onekM){ foreach($m in [regex]::Matches($ham,'\bm(?:adde)?\.?\s*(\d+)')){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
