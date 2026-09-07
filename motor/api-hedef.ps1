@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  API HEDEF KATMANI - UC HAT (Anthropic / AWS / OpenRouter)   (16.08.2026)
 #
 #  NEDEN: Anthropic Build tier 1.000 USD tavani doldu, self-servis acilmadi;
@@ -213,7 +213,12 @@ function ConvertTo-AnthropicIcerik($icerik){
 
 function Invoke-AnthropicAnlik([string]$model,[array]$icerik,[int]$maxTok,$hedef){
   $temiz = ConvertTo-AnthropicIcerik $icerik
-  $govde = @{ model=$model; max_tokens=$maxTok; messages=@(@{ role='user'; content=@($temiz) }) } | ConvertTo-Json -Depth 20
+  $g = @{ model=$model; max_tokens=$maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
+  # 07.09 ölçüldü (maliyet-zor2): Sonnet 5'te thinking verilmezse UYARLANABİLİR DÜŞÜNME açık ve düşünme jetonları max_tokens'tan
+  # yenir → 20.000 çıktı jetonu harcanıp 2.588 karakter metin döndü, JSON kesildi. Sonnet 5 / Opus 5'te düşünme derinliği
+  # effort=medium ile sınırlanır (GA, output_config içinde); MEVZUAT_EFFORT ortam değişkeniyle değiştirilebilir (low|medium|high).
+  if($model -match 'sonnet-5|opus-5'){ $ef = Read-ApiEnv 'MEVZUAT_EFFORT'; if(-not $ef){ $ef = 'medium' }; $g.output_config = @{ effort = $ef } }
+  $govde = $g | ConvertTo-Json -Depth 20
   $r = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages') -Headers $hedef.basliklar -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType 'application/json' -TimeoutSec 240
   # content[0] her zaman metin DEGILDIR (dusunme blogu one gelebilir) -> tum metin bloklarini birlestir
   $metin = (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ''

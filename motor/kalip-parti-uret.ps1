@@ -1287,8 +1287,8 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     # (kp-21 ile ikinci yuz: 1.962 kr yazip JSON'un ortasinda kesilmek - metin var ama
     # cozulmuyor. Iki hal de ayni ilac: kesik + cozulemeyen cevap => 20k ile bir kez daha.)
     if("$($y.dur)" -eq 'max_tokens' -and (-not "$($y.metin)".Trim() -or -not (Coz $y.metin))){
-      Write-Host "  KESIK ($id): 8k tavanda kesildi ($("$($y.metin)".Length) kr), 20k ile yeniden" -ForegroundColor DarkYellow
-      foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 20000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+      Write-Host "  KESIK ($id): 8k tavanda kesildi ($("$($y.metin)".Length) kr), 32k ile yeniden" -ForegroundColor DarkYellow   # 07.09: 20k'da zor Maliyet iki kez kesildi (düşünme jetonları) → 32k + effort=medium (api-hedef)
+      foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 32000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
     }
     $aday=Coz $y.metin
     if(-not ($aday -and $aday.soru -and $aday.aciklama)){
@@ -1646,7 +1646,8 @@ Sen Tetikte'nin Nöbetçisisin. Aşağıdaki sınav sorusunun KONUSU için, konu
 KATMAN 1 — PANEL (şık seçilir seçilmez görünür, 20 saniyede okunur; kısaltma yok, madde numarası yok):
 1. nedir: konu İKİ cümlede — ne işe yarar, sınav neyi ölçer.
 2. panel_ornek: gencin günlük hayatından TEK örnek, 2-3 cümle, RAKAMLI olabilir (ikinci el telefon, kiralık ev, araba taksiti gibi);
-   rakamlar sorunun rakamları DEĞİL, küçük ve yuvarlak; hesap yazıyorsan doğru yap. "ha, bu demek" dedirtsin.
+   rakamlar sorunun rakamları DEĞİL ve sorunun rakamlarının ÖLÇEKLİ KOPYASI DA DEĞİL (800.000 → 800 yazmak yasaktır, cevabı sızdırır);
+   tamamen farklı, küçük ve yuvarlak rakamlar; hesap yazıyorsan doğru yap. "ha, bu demek" dedirtsin.
 KATMAN 2 — NÖBETÇİ 0. ADIM (ders; panelle aynı cümle yok):
 3. harita: konunun cevapladığı üç soru, her biri tek cümle ("Ne zaman test edilir: … / Nasıl ölçülür: … / Nasıl kaydedilir: …" gibi; konuya
    göre üç soru değişir). En çok 3 cümle.
@@ -1683,11 +1684,20 @@ foreach($id in @($don.Keys)){
     # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
     $soruTutar=@([regex]::Matches("$($cvp.soru)",'\d{1,3}(?:\.\d{3})+|\b\d{3,}\b') | ForEach-Object { $_.Value } | Select-Object -Unique); $tekrar=@($soruTutar | Where-Object { $t=$_; "$($gN.ornek)" -match ('(?<![\d.])'+[regex]::Escape($t)+'(?![\d.])') })
     if($tekrar.Count){ $dusenG+="örnek sorunun rakamını tekrarlıyor ($($tekrar -join ', '))" }
+    # 07.09 fmuh-zor3 dersi: örnek sorunun rakamlarını BİNDE BİRE ölçekleyip aynen kullandı (800.000→800 lira … "100 lira eksik" = cevap 100.000).
+    # Ölçekli kopya da sızıntıdır: sorudaki tutarların baş hane grubu (800.000→800) örnekte ≥3 kez sayı olarak geçiyorsa kapı düşer.
+    $cekirdek=@($soruTutar | ForEach-Object { ($_ -replace '\.\d{3}','') } | Where-Object { $_ -match '^\d{2,3}$' } | Select-Object -Unique); $olcekli=@($cekirdek | Where-Object { $c=$_; "$($gN.ornek)" -match ('(?<![\d.,])'+[regex]::Escape($c)+'(?![\d.,])') })
+    if($olcekli.Count -ge 3){ $dusenG+="örnek sorunun rakamlarını ölçekleyerek kopyalıyor ($($olcekli -join ', ')) — cevabı sızdırır; tamamen farklı rakamlar seç" }
+    # 07.09 denetim-zor2 dersi: panel örneği ASCII yazımla geldi ("arkadasin", "kagidi", "supheleniyorsan") → Türkçe harf kapısı (sık kelimelerin ASCII biçimi ≥2)
+    $asciiK=@([regex]::Matches(("$($gN.nedir) $($gN.panel_ornek) $($gN.harita) $($gN.desen)").ToLowerInvariant(),'\b(degil|icin|cunku|sirket|deger|kagit|kagid|arkadas|ogrenci|dusuk|buyuk|kucuk|yuksek|calis|olcul|satis|sinav|dedig|suphe|tasi|kullanim|isletme|musteri|olcum|uretim|butun|bugun)\w*') | ForEach-Object { $_.Value } | Select-Object -Unique)
+    if($asciiK.Count -ge 2){ $dusenG+="Türkçe harfler eksik ($($asciiK -join ', ')) — ş, ç, ğ, ı, ö, ü tam yazılır" }
     # 06.09 Cem (eksiler #4): "Sınavda nasıl sorulur" ne VERİLİR ne İSTENİR der; işlem adı/formül (çıkarılarak, toplanarak, düşülerek, eksi, formül…) cevabın yolunu ele verir → yasak
     if("$($gN.sinavda)" -match '(?i)(çıkarıl|çıkararak|toplanarak|toplanır|düşül|bölerek|bölünerek|çarparak|çarpılarak|formül|\beksi\b|\bartı\b|=|hesaplanarak)'){ $dusenG+="'nasıl sorulur' satırında işlem adı var (yasak: yalnız ne verilir, ne istenir)" }
     if(-not $dusenG.Count){ break }
     if($tur -eq 1){ Write-Host "  GİRİŞ KAPI ($id): $($dusenG -join '; ') -> tekrar" -ForegroundColor Yellow; $istG+="`n`nKAPI DÜŞTÜ: $($dusenG -join '; '). Panelde kısaltmasız ve madde numarasız, toplam 220 kelime altında, iki katmanda aynı cümle olmadan yeniden yaz. Yalnız JSON." }
-    else { $rapor.Add("GIRIS KAPI: $id") }
+    else { $rapor.Add("GIRIS KAPI: $id | $($dusenG -join '; ')"); Write-Host "  GİRİŞ KAPI ($id, tur 2): $($dusenG -join '; ')" -ForegroundColor Yellow
+      # 07.09: sızıntı (sorunun rakamı / ölçekli kopyası) 2. turda da varsa giriş KAYDEDİLMEZ — cevabı sızdıran örnek ekrana çıkmaz
+      if(@($dusenG | Where-Object { $_ -match 'rakam' }).Count){ Write-Host "  GİRİŞ REDDEDİLDİ ($id): örnek cevabı sızdırıyor" -ForegroundColor Red; $gN=$null } }
   }
   Write-Host ("  GİRİŞ TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
   if(-not $gN){ $rapor.Add("GIRIS BOZUK: $id"); continue }
