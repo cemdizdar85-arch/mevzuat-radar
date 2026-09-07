@@ -1138,6 +1138,7 @@ SORULAR.forEach((s,i)=>{
     const adimBaslik=a=>{ const f=String(a.formul||''); let b=f.split('=')[0].trim(); b=b.replace(/\(soruda verilen\)/gi,'').trim(); if(b.length>34) b=b.slice(0,32)+'…'; return b; };
     function adimGoster(j,yon){
       let a=s.adimlar[j]; if(!a) return; adimNo=j; ders.dataset.adim=j;
+      tabloSar.querySelectorAll('td.haricH').forEach(td=>td.classList.remove('haricH'));   // 07.09: "Dahil değil" çizgisi yalnız kendi adımında (tahmin ekranında da temizlenir)
       const son=(j===s.adimlar.length-1);
       const verilenAdimMi=!!a.verilenAdim||/^(Verilen|Soruda ne var|Soru bize)/i.test(String(a.formul||''));   // 06.09: en başta tanımlı (TDZ hatası yaşandı)
       // 06.09 TAHMİN KAPISI: hesap adımından önce öğrenciye sor. Teori sorusunda (kavram tablosu) sayı yok → "kuralı sen söyle" (serbest metin,
