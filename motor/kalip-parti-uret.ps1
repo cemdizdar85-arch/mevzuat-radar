@@ -1704,11 +1704,12 @@ KATMAN 1 — PANEL (şık seçilir seçilmez görünür, 20 saniyede okunur; kı
 KATMAN 2 — NÖBETÇİ 0. ADIM (ders; panelle aynı cümle yok):
 3. harita: konunun cevapladığı üç soru, her biri tek cümle ("Ne zaman test edilir: … / Nasıl ölçülür: … / Nasıl kaydedilir: …" gibi; konuya
    göre üç soru değişir). En çok 3 cümle.
-4. terimler: konunun DÖRT anahtar terimi: [{"ad":"...","tanim":"en çok 12 kelime","kim":"kim belirler: işletme yönetimi tahmin eder / piyasa fiyatlar / standart tanımlar / kanun sabitler","kaynak":"sınavda nereden gelir: soruda verilir | sen hesaplarsın | kuraldan bilinir"}]
+4. terimler: konunun DÖRT anahtar terimi: [{"ad":"...","tanim":"en çok 12 kelime","kim":"kim belirler (bu dersin seçenekleri aşağıda)","kaynak":"sınavda nereden gelir: soruda verilir | sen hesaplarsın | kuraldan bilinir"}]
    (07.09 Cem: "kullanım değerini kim belirliyor? soruda bize verilmiş, biz değerledik tarzı" — öğrenci hangi sayıyı soruda arayacağını, hangisini hesaplayacağını bilmeli).
-   "kim" ile "kaynak" FARKLI bilgidir: kim = kararı/ölçümü kim yapar (işletme yönetimi tahmin eder · denetçi belirler · piyasa fiyatlar · standart tanımlar · kanun sabitler);
-   kaynak = sınavda o değer nereden gelir (soruda verilir · sen hesaplarsın · kuraldan bilinir). İkisine aynı ifadeyi yazma. Denetim konularında belirleyen
-   DENETÇİ ya da STANDARTTIR, işletme yönetimi değil (07.09: "testin yönü · işletme yönetimi tahmin eder" yanlıştı). Tanım KAVRAMI söyler, yerini değil:
+   "kim" ile "kaynak" FARKLI bilgidir: kim = o değeri/kuralı GERÇEK HAYATTA kim koyar; kaynak = SINAVDA o değer nereden gelir (soruda verilir · sen hesaplarsın · kuraldan bilinir).
+   "kim" alanına "hesaplanır / bulunur / sen hesaplarsın / muhasebe kayıtları hesaplar" YAZMA — bunlar kaynak alanının işidir, kim alanı bir KİŞİ ya da KURUM söyler.
+   BU DERSTE "kim" için yalnız şu seçenekler geçerlidir: {KIMSECENEK}
+   İkisine aynı ifadeyi yazma. Tanım KAVRAMI söyler, yerini değil:
    tutar terimlerinde "neyden ne düşülür, ne kalır" biçimi ("Defter değeri: maliyet bedelinden ayrılan birikmiş amortisman düşüldükten sonra
    kalan net tutar"); "tablodaki tutar", "yukarıdaki değer" gibi yer tarifi YASAK (07.09 Cem: "amortisman düşüldükten sonra tablodaki tutar" kusurlu).
 5. desen: sınav bu konuyu nasıl sorar — tuzak noktaları kaynak paragrafı/maddesiyle (burada "p.28" gibi künye serbest), en çok 3 cümle,
@@ -1720,6 +1721,15 @@ KONU: {KONU} · çıkmış arşivde {DONEM} dönemde soruldu
 SORU: {SORU}
 === KAYNAK METİNLERİ === {KAYNAK}
 '@
+# 07.09 Cem (FMuh gelir tablosu girişi: "hisse senedi satış kârı · denetçi belirler · sen hesaplarsın — ne bu, yanlış"): istem "denetçi belirler"i
+# BÜTÜN derslere örnek veriyordu, model muhasebe sorusunda onu seçti. "kim" seçenekleri DERSE göre verilir + ders dışı belirleyen kapıda düşer.
+$dersAdiG=($DersRegex -replace '[\^\$\\]','')
+$kimDenetim=($dersAdiG -match 'Denetim')
+$kimHukuk=($dersAdiG -match 'Vergi|Ticaret|Borclar|Borçlar|Is ve Sosyal|İş ve Sosyal|Meslek')
+$kimSecenek=$(if($kimDenetim){ 'denetçi mesleki yargıyla belirler · standart (BDS) sabitler · işletme yönetimi yalnız finansal tabloyu ve beyanı hazırlar (belirleyici değildir)' }
+  elseif($kimHukuk){ 'kanun sabitler · mahkeme ya da idare karar verir · taraflar sözleşmeyle belirler · meslek kuruluşu düzenler · mükellef / işveren beyan eder. Denetçi bu derste belirleyici DEĞİLDİR, yazma.' }
+  else { 'işletme yönetimi tahmin eder ya da belirler (faydalı ömür, tamamlanma yüzdesi, normal kapasite) · piyasa fiyatlar (satış bedeli, alış bedeli gibi gerçekleşen tutarlar) · Tekdüzen hesap planı ya da standart tanımlar · kanun sabitler. DENETÇİ bu derste belirleyici DEĞİLDİR, yazma.' })
+$girisIstem=$girisIstem.Replace('{KIMSECENEK}',$kimSecenek)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $KonuGiris){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
@@ -1745,6 +1755,9 @@ foreach($id in @($don.Keys)){
     # 07.09: kim == kaynak ("soruda verilir · soruda verilir") ya da denetim dersinde "işletme yönetimi" belirleyen → kapı
     $ayniKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and $_.PSObject.Properties['kim'] -and $_.PSObject.Properties['kaynak'] -and ((Katla2 "$($_.kim)") -eq (Katla2 "$($_.kaynak)")) } | ForEach-Object { "$($_.ad)" }); if($ayniKim.Count){ $dusenG+="'kim' ile 'kaynak' aynı yazılmış ($($ayniKim -join ', ')); kim = belirleyen, kaynak = sınavda nereden" }
     if($DersRegex -match 'Denetim'){ $yonetimK=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and "$($_.kim)" -match '(?i)işletme yönetimi|isletme yonetimi|yönetim tahmin' } | ForEach-Object { "$($_.ad)" }); if($yonetimK.Count){ $dusenG+="denetim teriminde belirleyen işletme yönetimi olamaz ($($yonetimK -join ', ')); denetçi ya da standart yaz" } }
+    # 07.09 Cem "denetçi belirler ne bu": denetim dışı derste belirleyen denetçi olamaz; "kim" alanına kaynak cümlesi (hesaplanır/bulunur/sen hesaplarsın) yazılamaz
+    if(-not $kimDenetim){ $denetciK=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and "$($_.kim)" -match '(?i)denetçi|denetci' } | ForEach-Object { "$($_.ad)" }); if($denetciK.Count){ $dusenG+="bu derste belirleyen denetçi olamaz ($($denetciK -join ', ')); seçenekler: $kimSecenek" } }
+    $kaynakGibiKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and "$($_.kim)" -match '(?i)hesapla|bulunur|sen |kayıtları|kayitlari|sistemi hesap|sonucu oluşur|sonucundan bilinir' } | ForEach-Object { "$($_.ad)" }); if($kaynakGibiKim.Count){ $dusenG+="'kim' alanı kaynak gibi yazılmış ($($kaynakGibiKim -join ', ')); kim = kişi ya da kurum" }
     # panel ile 0. adım aynı cümleyi taşımasın (tekrar kapısı): nedir/panel_ornek cümleleri harita/desen içinde geçmez
     $panelC=@(("$($gN.nedir) $($gN.panel_ornek)" -split '(?<=[.!?])\s+') | ForEach-Object { $_.Trim() } | Where-Object { $_.Length -ge 25 }); $dersM="$($gN.harita) $($gN.desen)"; $tekrarC=@($panelC | Where-Object { $dersM.Contains($_) }); if($tekrarC.Count){ $dusenG+="panel cümlesi 0. adımda tekrar ediyor ($($tekrarC.Count))" }
     # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
