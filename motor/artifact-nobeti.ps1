@@ -24,6 +24,7 @@ $raporYol = [IO.Path]::Combine($kok, 'veri', 'artifact-nobeti.json')
 
 $repo  = "$($env:GITHUB_REPOSITORY)".Trim(); if (-not $repo) { $repo = 'cemdizdar85-arch/mevzuat-radar' }
 $token = "$($env:GITHUB_TOKEN)".Trim()
+if ("$($env:ARTIFACT_NOBETI_DENEME)" -eq '1' -and -not $token) { $token = 'deneme' }   # deneme kipinde API'ye gidilmez
 $IZINLI = @('^alacak-okuma-pilot-', '^alacak-damga-yedek-')   # ilan.gov.tr kaynakli, kisisel veri degil
 
 $eski = @{}
@@ -32,14 +33,20 @@ if (Test-Path $raporYol) {
 }
 
 function Bitir($durum, $neden, $liste, $hukumler) {
-  $cikti = [ordered]@{
+  # 08.09 2. kosu "Argument types do not match" ile burada coktu: List/[ordered] karisimi
+  # ConvertTo-Json'a sorun cikardi. Her sey duz dizi + PSCustomObject'e cevrilir.
+  $dizi = @(); foreach ($x in $liste) { $dizi += [pscustomobject]$x }
+  $acikList = @($dizi | Where-Object { $_.hukum -eq 'ACIK' })
+  $hk = [ordered]@{}
+  foreach ($k in @($hukumler.Keys)) { $v = $hukumler[$k]; $hk["$k"] = [pscustomobject]@{ ad = "$($v.ad)"; hukum = "$($v.hukum)"; dosyalar = @($v.dosyalar | ForEach-Object { "$_" }) } }
+  $cikti = [pscustomobject]@{
     olcum   = (Get-Date).ToString('dd.MM.yyyy HH:mm')
     durum   = $durum          # YESIL / KIRMIZI / KOR
     neden   = $neden
     aciklama = 'Depodaki artifactler: github-pages kamu, izinli adlar kamu ilan verisi, gerisi yalniz .enc icermeli. ACIK = sifresiz dosya tasiyan artifact; public repoda herkes indirir.'
-    sayim   = [ordered]@{ toplam = @($liste).Count; acik = @($liste | Where-Object { $_.hukum -eq 'ACIK' }).Count; sifreli = @($liste | Where-Object { $_.hukum -eq 'sifreli' }).Count; kamu = @($liste | Where-Object { $_.hukum -in 'site','kamu-ilan' }).Count }
-    acik    = @($liste | Where-Object { $_.hukum -eq 'ACIK' } | ForEach-Object { [ordered]@{ id = $_.id; ad = $_.ad; mb = $_.mb; dosyalar = $_.dosyalar; sil = "gh api -X DELETE repos/$repo/actions/artifacts/$($_.id)" } })
-    hukumler = $hukumler
+    sayim   = [pscustomobject]@{ toplam = $dizi.Count; acik = $acikList.Count; sifreli = @($dizi | Where-Object { $_.hukum -eq 'sifreli' }).Count; kamu = @($dizi | Where-Object { $_.hukum -eq 'site' -or $_.hukum -eq 'kamu-ilan' }).Count }
+    acik    = @($acikList | ForEach-Object { [pscustomobject]@{ id = "$($_.id)"; ad = "$($_.ad)"; mb = $_.mb; dosyalar = @($_.dosyalar); sil = "gh api -X DELETE repos/$repo/actions/artifacts/$($_.id)" } })
+    hukumler = [pscustomobject]$hk
   }
   RaporYaz -Hedef $raporYol -Nesne $cikti | Out-Null
   Write-Host ("SONUC: {0} - {1}" -f $durum, $neden)
@@ -62,7 +69,15 @@ trap {
 
 # --- 1) LISTE (sayfali) -----------------------------------------------------------
 $hepsi = New-Object System.Collections.Generic.List[object]
+# DENEME KIPI (yerel, PS 5.1): API'ye gitmeden 3 sahte artifact ile Bitir yolu sinanir.
+if ("$($env:ARTIFACT_NOBETI_DENEME)" -eq '1') {
+  $token = 'deneme'
+  $hepsi.Add([pscustomobject]@{ id = 1; name = 'github-pages'; size_in_bytes = 1MB; created_at = 'x'; expired = $false; archive_download_url = '' })
+  $hepsi.Add([pscustomobject]@{ id = 2; name = 'alacak-okuma-pilot-3'; size_in_bytes = 1KB; created_at = 'x'; expired = $false; archive_download_url = '' })
+  $hepsi.Add([pscustomobject]@{ id = 3; name = 'supabase-yedek-99'; size_in_bytes = 5MB; created_at = 'x'; expired = $false; archive_download_url = 'deneme' })
+}
 try {
+  if ("$($env:ARTIFACT_NOBETI_DENEME)" -eq '1') { throw 'deneme' }
   $sayfa = 1
   while ($true) {
     $r = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/actions/artifacts?per_page=100&page=$sayfa" -Headers $H -TimeoutSec 60
@@ -70,7 +85,7 @@ try {
     if (@($r.artifacts).Count -lt 100) { break }
     $sayfa++
   }
-} catch { Bitir 'KOR' ("artifact listesi alinamadi: {0}" -f $_.Exception.Message) @() $eski }
+} catch { if ("$($env:ARTIFACT_NOBETI_DENEME)" -ne '1') { Bitir 'KOR' ("artifact listesi alinamadi: {0}" -f $_.Exception.Message) @() $eski } }
 Write-Host ("artifact (suresi dolmamis): {0}" -f $hepsi.Count)
 
 # --- 2) HUKUM ------------------------------------------------------------------------
@@ -87,12 +102,15 @@ foreach ($a in $hepsi) {
     # INDIR ve icine bak: yalniz dosya ADLARI okunur, icerik acilmaz
     $zip = [IO.Path]::Combine($tmp, "$id.zip")
     try {
-      Invoke-WebRequest -Uri $a.archive_download_url -Headers $H -OutFile $zip -TimeoutSec 600
-      Add-Type -AssemblyName System.IO.Compression.FileSystem
-      $z = [IO.Compression.ZipFile]::OpenRead($zip)
-      $dosyalar = @($z.Entries | Where-Object { -not $_.FullName.EndsWith('/') } | ForEach-Object { $_.FullName })
-      $z.Dispose()
-      [IO.File]::Delete($zip)
+      if ("$($a.archive_download_url)" -eq 'deneme') { $dosyalar = @('firmalar.json', 'leads.json') }
+      else {
+        Invoke-WebRequest -Uri $a.archive_download_url -Headers $H -OutFile $zip -TimeoutSec 600
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $z = [IO.Compression.ZipFile]::OpenRead($zip)
+        $dosyalar = @($z.Entries | Where-Object { -not $_.FullName.EndsWith('/') } | ForEach-Object { $_.FullName })
+        $z.Dispose()
+        [IO.File]::Delete($zip)
+      }
       $acik = @($dosyalar | Where-Object { $_ -notmatch '\.enc$' })
       $hukum = if ($dosyalar.Count -eq 0) { 'bos' } elseif ($acik.Count -eq 0) { 'sifreli' } else { 'ACIK' }
       $dosyalar = @($dosyalar | Select-Object -First 12)
