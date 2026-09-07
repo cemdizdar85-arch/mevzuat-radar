@@ -1415,6 +1415,25 @@ function AdimTablosu($cvp){
   if(-not $sat.Count){ return $null }
   return [pscustomobject]@{ basliklar=@('Kayıt','Tutar'); satirlar=$sat }
 }
+# 07.09 Ö56 (denetim-zor2 ölçümü: teori kuralı 7(j) genel hesap isteminin içinde kaldı, model eski kalıbı yazdı) → TEORİ DERSİ İÇİN AYRI İSTEM.
+# "Bir olay, beş karar": tek somut olay, her şık bir karar sorusu, tanım yok; çıktı yapısı KAPI ile denetlenir (A–E şık adımı + karar alanı).
+$adimIstemTeori=@'
+Sen "Nöbetçi"sin: soru çözerek konu anlatan, hiç bilmeyene sabırla anlatan bir rehber. Aşağıdaki TEORİ sorusu için "BİR OLAY, BEŞ KARAR" dersi yaz.
+YAZIM: Türkçe harfler tam ("şimdi", "kâr", "İptal"); kanun ve standart tam adıyla ("Türk Ticaret Kanunu", "TMS 36", "BDS 500"); "THP" kısaltması yasak. Resmî rapor dili yasak ("söz konusu", "dikkate alınır", "niteliğinde olup", "kapsamında"). Konuşur gibi, "sen" diliyle. Her anlatım EN ÇOK 3 kısa cümle. Adımda TANIM YOK (tanımlar kavramlar bölümünündür); "X nedir?" adımı yazma; soruyu yeniden anlatma.
+YAPI — TAM 8 ADIM, bu sırayla:
+1. formul "Olay: <tek somut hikâye>" — sorunun olayı DEĞİL, aynı kuralın başka bir işletmedeki gerçek olayı; rakamlı (tutar, tarih, adet), gencin gözünde canlanan; bütün ders bu tek olayda geçer. anlatim olayı kurar.
+2. formul "Ne yapacağız: <kuralın iskeleti, bu olayın rakamlarıyla>" — kural bir kez söylenir; anlatim "beş ifadeyi bu olayda tek tek deneyeceğiz" ile biter.
+3–7. HER ŞIK BİR ADIM, A→E sırasıyla. formul "Şık A: <olayda bu ifadenin karşılığı olan somut KARAR SORUSU, öğrenciye 'sen' diliyle>" (örnek: "Şık C: müdür 'işçi tazminatını satış masrafına ekleyelim' diyor, ekler misin?"). anlatim: olayda ne olur + kural + kaynağın hangi paragrafı/bendi (şık paragrafın bir bendine dayanıyorsa bendi an: "p.22(b)"). Alanlar ZORUNLU: "sik":"A", "karar":"doğru" ya da "yanlış" (İFADENİN kendisi doğru mu, yanlış mı), "paragraf":"p.28" ya da "p.22(b)" ya da "m.328" gibi kısa künye.
+8. formul "Kapanış: A ✓ B ✓ C ✓ D ✗ E ✓" (gerçek dağılıma göre) — anlatim: tek cümle özet + öğrencinin bir daha yanılmamak için kendine soracağı TEK ayırt etme sorusu.
+"hangisi doğrudur" sorusunda aynı yapı (✓/✗ dağılımı değişir). Öğrencinin seçtiği şıkkın yanılgı teşhisini sayfa ekler, sen yazma. "doldur" alanlarını boş dizi bırak. Kaynak metinlerine sadık kal; kaynakta olmayan kural uydurma.
+Cevap YALNIZ JSON: {"adimlar":[{"formul":"...","anlatim":"...","sik":"A","karar":"doğru","paragraf":"p.21","doldur":[]}, ...],"verilen":[]}
+=== SORU === {SORU}
+=== ŞIKLAR === {SIKLAR}
+=== DOĞRU ŞIK === {DOGRU}
+=== DOĞRU ŞIKKIN AÇIKLAMASI === {ACIK}
+=== TEŞHİS (her şık: ne sanıyorsun / aslında / nereden anlarsın) === {TESHIS}
+=== KAYNAK METİNLERİ (ambardan) === {KAYNAK}
+'@
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
@@ -1423,6 +1442,13 @@ foreach($id in @($don.Keys)){
   if(-not $tabloAdim){ continue }
   if(-not $AdimYenile -and $cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
   if($AdimYenile -and $cvp.PSObject.Properties['adimlar']){ Write-Host "  ADIM YENILENIYOR (ogretici istem): $id" -ForegroundColor Yellow }
+  $teoriDers=[bool]($tabloAdim.PSObject.Properties['teori'] -and $tabloAdim.teori)
+  if($teoriDers){
+    $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"; $teshisM=$(if($cvp.PSObject.Properties['teshis'] -and $cvp.teshis){ ConvertTo-Json -InputObject $cvp.teshis -Depth 4 -Compress } else { '(yok)' })
+    $kayM=$(if($cvp.PSObject.Properties['kaynak_metin_ozet']){ "$($cvp.kaynak_metin_ozet)" } else { '' })
+    $ist2=$adimIstemTeori.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{TESHIS}',$teshisM).Replace('{KAYNAK}',$kayM)
+    Write-Host "  ADIM İSTEMİ: teori dersi (bir olay, beş karar) $id" -ForegroundColor DarkGray
+  } else {
   $ist2=$adimIstem.Replace('{SORUM}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $tabloAdim -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))")
   # 03.09 "konuyu soruyla ogretelim": sorudaki hesaplarin Tekduzen Hesap Plani tanimlari (ambar) isteme eklenir;
   # "X nedir?" adimlari uydurma degil bu metinden yazilir. Supabase okumasi, model bedeli yok.
@@ -1430,6 +1456,7 @@ foreach($id in @($don.Keys)){
   foreach($st in @($tabloAdim.satirlar)){ foreach($m in [regex]::Matches("$(@($st)[0])",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
   foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
   if($kodlarA.Count){ $thpD=AmbarCek @($kodlarA | ForEach-Object { "THP $_ %" }) 3500; if($thpD.metin){ $ist2+="`n=== HESAP TANIMLARI (Tekdüzen Hesap Planı, ambardan) ===`n"+$thpD.metin } }
+  }
   $y2=$null; $a2=$null
   # 06.09 ADIM DİL KAPISI (Cem "geç"): anlatım en çok 2 cümle; 3+ cümleli adım sayısı 2'yi geçerse bir kez geri döner
   $aritK=@()
@@ -1443,14 +1470,22 @@ foreach($id in @($don.Keys)){
     $uzunAd=@(@($a2.adimlar) | Where-Object { $_ -and (@(("$($_.anlatim)" -split '(?<=[.!?])\s+') | Where-Object { $_.Trim().Length -gt 2 }).Count -gt $cumleTavan) }).Count
     $dolgu=@(@($a2.adimlar) | Where-Object { $_ -and "$($_.anlatim)" -match '(?i)(birazdan|az sonra|unutmayalım|hadi |işte |şimdi bakalım|hesaplamadık)' }).Count
     $aritK=@(AritmetikKusur $a2.adimlar)   # 06.09 ARİTMETİK KAPISI: formül zincirleri hesaplanır
-    $dilOk=($uzunAd -le 2 -and $dolgu -eq 0); $aritOk=(-not $aritK.Count)
-    if(($dilOk -and $aritOk) -or $turA -eq 3){
+    # 07.09 Ö56 YAPI KAPISI (teori dersi): A–E beş şık adımı, her birinde karar doğru/yanlış, tanım adımı yok
+    $yapiK=@(); if($teoriDers){ $sikler=@(@($a2.adimlar) | Where-Object { $_ -and $_.PSObject.Properties['sik'] -and "$($_.sik)" } | ForEach-Object { "$($_.sik)".Trim().ToUpperInvariant() })
+      foreach($hh in 'A','B','C','D','E'){ if($sikler -notcontains $hh){ $yapiK+="Şık $hh adımı yok" } }
+      $kararsiz=@(@($a2.adimlar) | Where-Object { $_ -and $_.PSObject.Properties['sik'] -and "$($_.sik)" -and ("$($_.karar)" -notmatch '^(?i)(doğru|dogru|yanlış|yanlis)$') }).Count; if($kararsiz){ $yapiK+="$kararsiz şık adımında karar alanı doğru/yanlış değil" }
+      $tanimli=@(@($a2.adimlar) | Where-Object { $_ -and "$($_.formul)" -match '(?i)\bnedir\b' }).Count; if($tanimli){ $yapiK+="$tanimli tanım adımı var (yasak)" }
+      if(-not (@($a2.adimlar) | Where-Object { $_ -and "$($_.formul)" -match '^\s*Olay\s*:' })){ $yapiK+='1. adım "Olay:" değil' } }
+    $dilOk=($uzunAd -le 2 -and $dolgu -eq 0); $aritOk=(-not $aritK.Count); $yapiOk=(-not $yapiK.Count)
+    if(($dilOk -and $aritOk -and $yapiOk) -or $turA -eq 3){
       if(-not $dilOk){ Write-Host "  ADIM DİL: $uzunAd adım 3+ cümle · dolgu $dolgu (son turda da) - olduğu gibi" -ForegroundColor DarkYellow; $rapor.Add("ADIM DIL: $id (uzun $uzunAd, dolgu $dolgu)") }
       if(-not $aritOk){ Write-Host "  ARİTMETİK: $($aritK.Count) zincir tutmuyor (son turda da) - olduğu gibi, karneye KIRMIZI" -ForegroundColor Red; $rapor.Add("ARITMETIK KAPI DÜŞTÜ: $id | $($aritK -join ' · ')") }
+      if(-not $yapiOk){ Write-Host "  YAPI KAPISI (teori dersi) son turda da düştü: $($yapiK -join '; ')" -ForegroundColor Red; $rapor.Add("YAPI KAPI DÜŞTÜ (teori dersi): $id | $($yapiK -join '; ')") }
       break }
-    $notlar=@(); if(-not $dilOk){ $notlar+="$uzunAd adımın anlatımı 3 cümleden uzun ve $dolgu adımda dolgu cümlesi var; her anlatım EN ÇOK 2 cümle, dolgu cümlelerini sil" }
+    $notlar=@(); if(-not $dilOk){ $notlar+="$uzunAd adımın anlatımı $($cumleTavan+1)+ cümle ve $dolgu adımda dolgu cümlesi var; her anlatım EN ÇOK $cumleTavan cümle, dolgu cümlelerini sil" }
     if(-not $aritOk){ $notlar+="şu formül satırları ARİTMETİK olarak tutmuyor (sol taraf hesaplanınca sağdaki sonuç çıkmıyor): $($aritK -join '; '). Her formülde sol tarafı gerçekten hesapla, sonucu ona göre yaz; ara sonuç ile tablo hücresi aynı olsun" }
-    Write-Host "  ADIM KAPI ($id, tur $turA): $(if(-not $dilOk){"dil($uzunAd/$dolgu) "})$(if(-not $aritOk){"aritmetik($($aritK.Count))"}) -> tekrar" -ForegroundColor Yellow
+    if(-not $yapiOk){ $notlar+="YAPI: $($yapiK -join '; '). Tam 8 adım: Olay · Ne yapacağız · Şık A · Şık B · Şık C · Şık D · Şık E (her birinde sik/karar/paragraf alanları) · Kapanış; tanım adımı yazma" }
+    Write-Host "  ADIM KAPI ($id, tur $turA): $(if(-not $dilOk){"dil($uzunAd/$dolgu) "})$(if(-not $aritOk){"aritmetik($($aritK.Count)) "})$(if(-not $yapiOk){"yapı($($yapiK.Count))"}) -> tekrar" -ForegroundColor Yellow
     $ist2+="`n`nKAPI DÜŞTÜ: $($notlar -join ' · '). Yalnız JSON."
   }
   if($a2 -and $a2.adimlar){
@@ -1635,9 +1670,9 @@ foreach($id in @($don.Keys)){
   $gN=$null; $tokG=0; $tokC=0
   foreach($tur in 1..2){
     # 07.09 Ö54/Ö27: iki katmanlı giriş + rakamlı gencin örneği → Sonnet (Haiku aritmetiği güvenilmezdi, "hesap yasak" kapısı kalktı) ≈0,02 USD
-    $yG=$null; foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istG -MaxTok 1600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+    $yG=$null; foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istG -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }   # 07.09 denetim-zor2: 1600'de kesildi, giriş kaydedilmedi → 3000
     $tokG+=[int]$yG.girdi; $tokC+=[int]$yG.cikti
-    $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ $gN=$null; break }
+    $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ if($tur -eq 1){ Write-Host "  GİRİŞ BOZUK ($id, tur 1): JSON çözülemedi (durma=$($yG.dur), $("$($yG.metin)".Length) kr) -> daha kısa, tekrar" -ForegroundColor Yellow; $istG+="`n`nÖNCEKİ CEVAP KESİLDİ/BOZUKTU: bütün alanları daha KISA yaz (toplam 180 kelime), yalnız JSON."; $gN=$null; continue }; $gN=$null; break }
     if(-not ($gN.PSObject.Properties['ornek'] -and "$($gN.ornek)".Trim()) -and $gN.PSObject.Properties['panel_ornek']){ $gN | Add-Member -NotePropertyName ornek -NotePropertyValue "$($gN.panel_ornek)" -Force }
     if(-not ($gN.PSObject.Properties['panel_ornek'] -and "$($gN.panel_ornek)".Trim())){ $gN | Add-Member -NotePropertyName panel_ornek -NotePropertyValue "$($gN.ornek)" -Force }
     $tumG="$($gN.nedir) $($gN.panel_ornek) $($gN.sinavda)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' })
