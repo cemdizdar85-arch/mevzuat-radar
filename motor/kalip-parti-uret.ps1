@@ -41,6 +41,8 @@ param(
   [switch]$KorYenile,      # eldeki kör çözüm kararını yeniden verdirir
   [switch]$Hakem2Yenile,   # eldeki ikinci hakem kararını yeniden verdirir
   [switch]$KonuYenile,     # konu listesi dosyasını (veri/fabrika/konu-secim-<etiket>.json) yok sayıp konuları yeniden seçer
+  [switch]$Toplu,          # 08.09 Cem "daha ucuza": her fazın İLK denemesi Message Batches ile (yarı fiyat, paralel); kapıdan dönen tekrarlar anlık
+  [int]$TopluBeklemeDk=180,
   [string]$EskiKaynak='',  # 08.09 B yolu (KURTARMA): eski soru dosyası (json dizi: id, soru, siklar, dogru, aciklama, konu, ders, kanun_no, madde_no, madde_damga, kaynak). FAZ A koşmaz; FAZ U eski soruyu kalıp alanlarına uyarlar, kalan fazlar aynen.
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
   [string]$SimModel='claude-haiku-4-5-20251001',  # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
@@ -778,6 +780,22 @@ $don=[ordered]@{}
 if(Test-Path $CACHE){ foreach($p in (Get-Content $CACHE -Raw -Encoding UTF8|ConvertFrom-Json).PSObject.Properties){ $don[$p.Name]=$p.Value } }
 "cache: $($don.Count) hazir"
 function CacheYaz{ $dN=[ordered]@{}; foreach($x in ($don.Keys|Sort-Object)){ $dN[$x]=$don[$x] }; [IO.File]::WriteAllText($CACHE,(ConvertTo-Json -InputObject $dN -Depth 10),[Text.UTF8Encoding]::new($false)) }
+# --- TOPLU İSTEK ÖN GEÇİŞİ (08.09, Cem "daha ucuza nasıl?"): her faz -Toplu ile iki geçiş koşar. 1. geçiş (ON_GECIS) yalnız istemleri toplar,
+# tek partide gönderir (yarı fiyat, paralel), cevaplar TOPLU_HAZIR'a düşer. 2. geçiş normal döngüdür: ilk denemede TopluAl hazır cevabı verir,
+# API çağrısı yapılmaz; kapıdan dönen tekrarlar ve tek kalan istekler anlık gider. İstem her iki geçişte AYNI koddan üretilir (sapma yok).
+$script:TOPLU_HAZIR=@{}; $script:ON_GECIS=$false; $script:TOPLU_ISLER=New-Object System.Collections.Generic.List[object]
+function TopluTopla([string]$id,[string]$model,$icerik,[int]$maxTok){ $script:TOPLU_ISLER.Add(@{ id=$id; model=$model; icerik=$icerik; maxTok=$maxTok }) }
+function TopluGonder([string]$faz){
+  $isler=@($script:TOPLU_ISLER.ToArray()); $script:TOPLU_ISLER=New-Object System.Collections.Generic.List[object]
+  if(-not $script:TOPLU_HAZIR.ContainsKey($faz)){ $script:TOPLU_HAZIR[$faz]=@{} }
+  if($isler.Count -lt 2){ if($isler.Count){ Write-Host "  TOPLU $faz : tek istek, anlık gidecek" -ForegroundColor DarkGray }; return }
+  try{ $sonuc=Invoke-ClaudeToplu -Isler $isler -Etiket "$Etiket/$faz" -BeklemeDk $TopluBeklemeDk
+    foreach($k in @($sonuc.Keys)){ if($k -notlike '__*'){ $script:TOPLU_HAZIR[$faz][$k]=$sonuc[$k] } }
+    if($sonuc.ContainsKey('__hata') -and $sonuc['__hata'].Count){ foreach($hk in $sonuc['__hata'].Keys){ Write-Host "  TOPLU $faz hata ($hk): $($sonuc['__hata'][$hk]) → anlık denenecek" -ForegroundColor DarkYellow } }
+    Write-Host "  TOPLU $faz : $($script:TOPLU_HAZIR[$faz].Count)/$($isler.Count) cevap hazır" -ForegroundColor Cyan
+  }catch{ Write-Host "  TOPLU $faz gönderilemedi ($($_.Exception.Message)) → bu faz anlık koşar" -ForegroundColor Yellow }
+}
+function TopluAl([string]$faz,[string]$id){ if($script:TOPLU_HAZIR.ContainsKey($faz) -and $script:TOPLU_HAZIR[$faz].ContainsKey($id)){ $y=$script:TOPLU_HAZIR[$faz][$id]; $script:TOPLU_HAZIR[$faz].Remove($id); return $y }; return $null }
 
 # --- son10'dan canli: genc-dili adim istemi + css + Tablo/Sema cizdiriciler --
 $son10=Get-Content (Join-Path $here 'son10-uret.ps1') -Raw -Encoding UTF8
@@ -1369,6 +1387,7 @@ Yalnız JSON: {"cozum_tablo":{...}|null,"teshis":{"A":{...},"B":{...},"C":{...},
   [IO.File]::WriteAllText($dusenYol,(ConvertTo-Json -InputObject @($dusenL.ToArray()) -Depth 4),[Text.UTF8Encoding]::new($false))
   "FAZ U bitti: uyarlanan $(@($don.Keys | Where-Object { $_ -like 'e-*' }).Count) · düşen $($dusenL.Count) -> $dusenYol"
 }
+foreach($gecisA in @(1,2)){ if($gecisA -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisA -eq 1); $rapor0=$rapor.Count; $kb0=$kaynakBorcu.Count
 foreach($kk in $KONULAR){
   $id=$kk.id
   if($SadeceHtml){ continue }   # yalniz cizim: cache neyse o (konu degisse de dusurulmez), uretim yok
@@ -1514,6 +1533,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
   # 02.09 HIZ: MaxTok 20.000'di ama gercek cevap ~1.900 karakter (olculdu) - yuksek
   # tavan modeli uzun dusundurup cagriyi yavaslatiyordu. 8.000 fazlasiyla yeter.
   # Uzunluk kapisi da 3 denemeden 2'ye indi: 30 soruluk parti 4,5 saatten ~25 dk'ya iner.
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $ist 20000; continue }   # 1. geçiş: yalnız istemi topla (kaynak/çapa aynı koddan kuruldu)
   $cvp=$null
   foreach($deneme in 1..2){
     $istBu=$ist
@@ -1526,7 +1546,8 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     # Zor ayarında ilk tavan doğrudan 20k; sade SGS'de 8k kalır.
     # 06.09 Parti-2 ölçümü: normal ayarda da 8 sorunun 4'ü 8k'da kesildi (Denetim 3/4, MTA 1/4) → her kesik = bir boş çağrı. Tek tavan 20k.
     $ilkTavan=20000
-    foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok $ilkTavan; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+    $y=$(if($deneme -eq 1){ TopluAl 'A' $id } else { $null })   # 08.09 toplu: 1. denemenin cevabı partiden gelir; yoksa ya da tekrarda anlık
+    if(-not $y){ foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok $ilkTavan; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
     # 02.09 gece OLCULDU (bozuk-*.txt kapisi sayesinde): 4 konu "durma=max_tokens, 0 kr"
     # ile bozuktu - model 8.000 jetonun TAMAMINI dusunmeye harcayip metin yazamadan
     # kesiliyor (OpenRouter hattinda akil yurutme jetonu max_tokens'a dahil). Hiz icin
@@ -1616,6 +1637,9 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     Write-Host "  SORU OK [$($don.Count)/$($KONULAR.Count)] $id $($ky.konu)"
   } else { $rapor.Add("BOZUK: $($ky.konu)"); Write-Host "  BOZUK: $id" -ForegroundColor Yellow }
 }
+# 1. geçişin yan etkileri (kaynak borcu / rapor satırları) ikinci geçişte yeniden yazılacağı için geri alınır, sonra parti gönderilir
+if($script:ON_GECIS){ while($rapor.Count -gt $rapor0){ $rapor.RemoveAt($rapor.Count-1) }; while($kaynakBorcu.Count -gt $kb0){ $kaynakBorcu.RemoveAt($kaynakBorcu.Count-1) }; TopluGonder 'A' } }
+$script:ON_GECIS=$false
 
 # --- ARİTMETİK ZİNCİR DEĞERLENDİRİCİ (06.09 Cem "bu beşi geç" #2: uyarı KAPI oldu) ------------------------------------
 # Eskiden yalnız sayfa altına "aritmetik uyarı" yazılırdı (MTA parti-2: 9 uyarı, hiçbiri durdurmadı). Şimdi FAZ B'de adım alınınca
@@ -1740,6 +1764,7 @@ Cevap YALNIZ JSON: {"adimlar":[{"formul":"...","anlatim":"...","sik":"A","karar"
 === TEŞHİS (her şık: ne sanıyorsun / aslında / nereden anlarsın) === {TESHIS}
 === KAYNAK METİNLERİ (ambardan) === {KAYNAK}
 '@
+foreach($gecisB in @(1,2)){ if($gecisB -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisB -eq 1)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
@@ -1763,11 +1788,13 @@ foreach($id in @($don.Keys)){
   foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
   if($kodlarA.Count){ $thpD=AmbarCek @($kodlarA | ForEach-Object { "THP $_ %" }) 3500; if($thpD.metin){ $ist2+="`n=== HESAP TANIMLARI (Tekdüzen Hesap Planı, ambardan) ===`n"+$thpD.metin } }
   }
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $ist2 12000; continue }
   $y2=$null; $a2=$null
   # 06.09 ADIM DİL KAPISI (Cem "geç"): anlatım en çok 2 cümle; 3+ cümleli adım sayısı 2'yi geçerse bir kez geri döner
   $aritK=@()
   foreach($turA in 1..3){
-    foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+    $y2=$(if($turA -eq 1){ TopluAl 'B' $id } else { $null })
+    if(-not $y2){ foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
     # 03.09 bedel olcumu (Cem "her seyde bedeli sor"): cagri basina token kaydi
     Write-Host ("  ADIM TOKEN {0}: girdi {1} (onbellek okuma {2}, yazma {3}) · cikti {4} · model claude-sonnet-5" -f $id,$y2.girdi,$y2.onbellekOkuma,$y2.onbellekYazma,$y2.cikti) -ForegroundColor DarkGray
     $a2=Coz $y2.metin
@@ -1812,6 +1839,8 @@ foreach($id in @($don.Keys)){
     CacheYaz; Write-Host "  ADIM OK $id"
   } else { $rapor.Add("ADIM BOZUK: $id") }
 }
+if($script:ON_GECIS){ TopluGonder 'B' } }
+$script:ON_GECIS=$false
 
 # --- FAZ S: SADE "DOĞRUSU" + ANAHTAR KAVRAM (Cem 04.09: "doğru kısmını herkesin anlayacağı dilde anlatsak";
 # "belirli süreli sözleşmeyi kısa açıklasak") ---------------------------------------------------------------
@@ -1993,6 +2022,7 @@ $kimSecenek=$(if($kimDenetim){ 'denetçi mesleki yargıyla belirler · standart 
   elseif($kimHukuk){ 'kanun sabitler · mahkeme ya da idare karar verir · taraflar sözleşmeyle belirler · meslek kuruluşu düzenler · mükellef / işveren beyan eder. Denetçi bu derste belirleyici DEĞİLDİR, yazma.' }
   else { 'işletme yönetimi tahmin eder ya da belirler (faydalı ömür, tamamlanma yüzdesi, normal kapasite) · piyasa fiyatlar (satış bedeli, alış bedeli gibi gerçekleşen tutarlar) · Tekdüzen hesap planı ya da standart tanımlar · kanun sabitler. DENETÇİ bu derste belirleyici DEĞİLDİR, yazma.' })
 $girisIstem=$girisIstem.Replace('{KIMSECENEK}',$kimSecenek)
+foreach($gecisG in @(1,2)){ if($gecisG -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisG -eq 1)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $KonuGiris){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
@@ -2000,10 +2030,12 @@ foreach($id in @($don.Keys)){
   if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['harita'] -and "$($cvp.konu_giris.harita)".Trim()){ continue }   # 07.09 Ö54: haritasız (eski iki katmansız) giriş yenilenir; -GirisYenile hepsini
   $kMetinG=SadeKaynak $cvp; if($kMetinG.Length -gt 6000){ $kMetinG=$kMetinG.Substring(0,6000) }
   $istG=$girisIstem.Replace('{KONU}',"$($cvp.konu)").Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istG 3000; continue }
   $gN=$null; $tokG=0; $tokC=0
   foreach($tur in 1..2){
     # 07.09 Ö54/Ö27: iki katmanlı giriş + rakamlı gencin örneği → Sonnet (Haiku aritmetiği güvenilmezdi, "hesap yasak" kapısı kalktı) ≈0,02 USD
-    $yG=$null; foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istG -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }   # 07.09 denetim-zor2: 1600'de kesildi, giriş kaydedilmedi → 3000
+    $yG=$(if($tur -eq 1){ TopluAl 'G' $id } else { $null })
+    if(-not $yG){ foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istG -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }   # 07.09 denetim-zor2: 1600'de kesildi, giriş kaydedilmedi → 3000
     $tokG+=[int]$yG.girdi; $tokC+=[int]$yG.cikti
     $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ if($tur -eq 1){ Write-Host "  GİRİŞ BOZUK ($id, tur 1): JSON çözülemedi (durma=$($yG.dur), $("$($yG.metin)".Length) kr) -> daha kısa, tekrar" -ForegroundColor Yellow; $istG+="`n`nÖNCEKİ CEVAP KESİLDİ/BOZUKTU: bütün alanları daha KISA yaz (toplam 180 kelime), yalnız JSON."; $gN=$null; continue }; $gN=$null; break }
     if(-not ($gN.PSObject.Properties['ornek'] -and "$($gN.ornek)".Trim()) -and $gN.PSObject.Properties['panel_ornek']){ $gN | Add-Member -NotePropertyName ornek -NotePropertyValue "$($gN.panel_ornek)" -Force }
@@ -2050,6 +2082,8 @@ foreach($id in @($don.Keys)){
   $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); ornek=(DilOnar "$($gN.ornek)"); panel_ornek=(DilOnar "$($gN.panel_ornek)"); harita=(DilOnar "$($gN.harita)"); terimler=$terimL; desen=(DilOnar "$($gN.desen)"); model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz; Write-Host "  GİRİŞ OK $id"
 }
+if($script:ON_GECIS){ TopluGonder 'G' } }
+$script:ON_GECIS=$false
 
 # --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
 $script:FAZ_ADI='C'
@@ -2070,6 +2104,7 @@ Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[
 === ANA SORU === {SORU}
 === ANA TABLO === {TABLO}
 '@
+foreach($gecisC in @(1,2)){ if($gecisC -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisC -eq 1)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
@@ -2077,8 +2112,9 @@ foreach($id in @($don.Keys)){
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ continue }
   $ist3=$ikizIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress))
-  $y3=$null
-  foreach($d in 1..3){ try{ $y3=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist3 -MaxTok 9000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $ist3 9000; continue }
+  $y3=TopluAl 'C' $id
+  if(-not $y3){ foreach($d in 1..3){ try{ $y3=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist3 -MaxTok 9000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
   $a3=Coz $y3.metin
   # 07.09 KAPI-Y (ikiz): model eski yıl yazdıysa BÜTÜN yıllar aynı farkla kaydırılır (süreler korunur; metin + hedef cümle + kalem adları + başlıklar). Yeniden çağrı yok, sıfır bedel.
   # Yıl eki uyumu: 2023'te, 2026'da (kaydırma sonrası ek bozulmasın). DİKKAT: bu satıra satır içi yorum yazma, satırın kalanını yutar (07.09'da yuttu).
@@ -2129,6 +2165,8 @@ foreach($id in @($don.Keys)){
     CacheYaz; Write-Host "  IKIZ OK $id"
   } else { $rapor.Add("IKIZ REDDEDILDI (kapsama denetimi): $id"); Write-Host "  IKIZ RED: $id" -ForegroundColor Yellow }
 }
+if($script:ON_GECIS){ TopluGonder 'C' } }
+$script:ON_GECIS=$false
 
 # 07.09 Ö52: FAZ Ö (simülasyon) İKİZ'den önce koşuyordu → hesap sorusunda 'ikiz yok' diye atlanıyordu (maliyet-zor1). FAZ C öne alındı.
 # --- FAZ Ö: ÖĞRENCİ SİMÜLASYONU (06.09 Cem "geç"; 05.09'dan beri önerilen "öğretiyor muyuz" ölçüsü) -------------------------
@@ -2468,6 +2506,7 @@ SORU: {SORU}
 ŞIKLAR:
 {SIKLAR}
 '@
+foreach($gecisK in @(1,2)){ if($gecisK -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisK -eq 1)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or $SadeceAdim){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
@@ -2475,7 +2514,9 @@ foreach($id in @($don.Keys)){
   if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ continue }
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
   $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM)
-  $yK=$null; foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  if($script:ON_GECIS){ TopluTopla $id $KorModel $istK 2500; continue }
+  $yK=TopluAl 'K' $id
+  if(-not $yK){ foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
   Write-Host ("  KÖR TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yK.girdi,$yK.cikti,$KorModel) -ForegroundColor DarkGray
   $aK=Coz $yK.metin
   if(-not $aK -or -not $aK.PSObject.Properties['cevap']){ $rapor.Add("KÖR ÇÖZÜM BOZUK: $id"); Write-Host "  KÖR ÇÖZÜM BOZUK ($id)" -ForegroundColor Red; continue }
@@ -2487,6 +2528,8 @@ foreach($id in @($don.Keys)){
   if($dm){ Write-Host "  KÖR ÇÖZÜM ✓ ($id): $cev" -ForegroundColor Green } else { Write-Host "  KÖR ÇÖZÜM ✗ ($id): kör $cev · anahtar $($cvp.dogru) · $("$($aK.hesap)".Substring(0,[Math]::Min(160,"$($aK.hesap)".Length)))" -ForegroundColor Red; $rapor.Add("KÖR ÇÖZÜM YANLIŞ: $id | kör $cev, anahtar $($cvp.dogru) | $($aK.hesap)") }
   if("$($aK.kusur)".Trim()){ $rapor.Add("KÖR ÇÖZÜM KUSUR NOTU: $id | $($aK.kusur)") }
 }
+if($script:ON_GECIS){ TopluGonder 'K' } }
+$script:ON_GECIS=$false
 
 # --- FAZ H2: İKİNCİ HAKEM (07.09 A kovası 2 — "sınav sorusu gibi mi, yapay zeka kokusu var mı, çeldirici gerçek adayın tuzağı mı") ----------
 # Birinci hakem kaynak-uyum bakar; bu hakem sınav kalıbı + dil + çeldirici gerçekçiliği + zorluk seviyesi verir. Karar EVET değilse koşucu seçmez.
@@ -2505,6 +2548,7 @@ SORU: {SORU}
 DOĞRU: {DOGRU}
 DOĞRU ŞIKKIN AÇIKLAMASI: {ACIK}
 '@
+foreach($gecisH in @(1,2)){ if($gecisH -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisH -eq 1)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or $SadeceAdim){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
@@ -2513,19 +2557,26 @@ foreach($id in @($don.Keys)){
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
   $acikM=$(if($cvp.aciklama){ AciklamaDuz $cvp.aciklama.$($cvp.dogru) } else { '' })
   $istH=$hakem2Istem.Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
-  $yH=$null; foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istH 1500; continue }
+  $yH=TopluAl 'H2' $id
+  if(-not $yH){ foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
   Write-Host ("  HAKEM2 TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray
   $aH=Coz $yH.metin
   if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $rapor.Add("HAKEM2 BOZUK: $id"); continue }
   $koku=@($aH.koku | Where-Object { "$_".Trim() })
   # 08.09 ölçümü: hakem2 gerçekçi işletme adını ("Çelik Makine Sanayi A.Ş.") yer tutucu sayıp düşürdü → yalnız DETERMİNİSTİK koku sınıfları kararı etkiler
   # (ABC/XYZ harf dizisi, hepsi yuvarlak tutar, klişe, aynı kalıp tekrarı, uzun tire); kalan koku notları bilgi olarak saklanır (koku_not).
-  $kokuSert=@($koku | Where-Object { $_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|yuvarlak|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' })
+  # "yuvarlak" iddiası yalnız bizim deterministik kuralımız da tutuyorsa (≥4 tutar, hepsi ONBİNLİK) sert sayılır — sınav soruları binlik yuvarlak tutar kullanır,
+  # hakem2 08.09 testinde 40.000/58.000/66.000 gibi sınav-benzeri tutarları "yuvarlak" diye düşürüyordu. "Birbirinin tam tersi şık" (4c sızıntı) sert.
+  $detKoku=@(KokuKusur $cvp); $detYuvarlak=[bool]($detKoku -match 'yuvarlak')
+  $kokuSert=@($koku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda|birbirinin (tam )?tersi' -or ($detYuvarlak -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' })
   $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $kokuSert.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
   $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($kokuSert); koku_not=@($koku | Where-Object { $kokuSert -notcontains $_ }); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz
   if($karar -eq 'EVET'){ Write-Host "  HAKEM2 EVET ($id) · zorluk $($aH.zorluk)" -ForegroundColor Green } else { Write-Host "  HAKEM2 HAYIR ($id): sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')] · $("$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Substring(0,[Math]::Min(200,"$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Length)))" -ForegroundColor Red; $rapor.Add("HAKEM2 HAYIR: $id | sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')]") }
 }
+if($script:ON_GECIS){ TopluGonder 'H2' } }
+$script:ON_GECIS=$false
 
 # --- TUZAK CESITLILIGI KAPISI (02.09 Cem: "begenmedim") ----------------------
 # Olculdu: 120 tuzagin 11'i tek bir adla ('Ters Kayit') tekrarlaniyordu ve 12 soruda
