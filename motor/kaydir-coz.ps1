@@ -383,31 +383,37 @@ for($i=0;$i -lt $sorular.Count;$i++){
 }
 Sure 'sen anlat'
 # --- 2. SINAVDA NASIL CIKTI: cikmis arsiv metinlerinde konu koklerini tasiyan cumleler (yil + kisa alinti)
-$arsivDir=Join-Path $kok 'veri\sgs-arsiv'
-$arsivDosya=@(Get-ChildItem $arsivDir -Recurse -File | Where-Object { $_.Name -match '\.duz\.txt$' })
+# 07.09 Cem "bu bir seferlik değil, tüm sınavlarda geçerli": dönem listesi, pencere ve alıntı arşivi SORUNUN SINAVINA göre seçilir
+# (etiket öneki: sgs- / smmm- / kgk-); eskiden yalnız sgs-analiz.json ve sgs-arsiv okunuyordu, yeterlilik ve KGK sorularında künye boş kalırdı.
+$SINAVLAR=@('sgs','smmm','kgk'); $ARSIV_SINAV=@{}; $ANALIZ_SINAV=@{}; $TUMDON_SINAV=@{}   # PS harf ayırmaz: $ANALIZ ile döngüdeki $analiz çakıştı (07.09), o yüzden uzun ad
+# dönem etiketi SGS/yeterlilikte "2026/2", KGK'da "29 Haziran 2019" — ikisini de zamana çeviren anahtar (yeniden eskiye sıralama için)
+function DonemAnahtar([string]$d){ if($d -match '^(\d{4})/(\d)$'){ return [int]$matches[1]*10+[int]$matches[2] }; try{ return [int]([datetime]::Parse($d,[Globalization.CultureInfo]::GetCultureInfo('tr-TR'))).ToString('yyyyMMdd') }catch{ return 0 } }
+foreach($sv in $SINAVLAR){ $d=Join-Path $kok "veri\$sv-arsiv"; $ARSIV_SINAV[$sv]=@(if(Test-Path $d){ Get-ChildItem $d -Recurse -File | Where-Object { $_.Name -match '\.duz\.txt$' } } else { @() })
+  $an=$null; try{ $an=Get-Content (Join-Path $kok "veri\$sv-analiz.json") -Raw -Encoding UTF8 | ConvertFrom-Json }catch{}; $ANALIZ_SINAV[$sv]=$an
+  $TUMDON_SINAV[$sv]=@(if($an){ @($an.donemler) | ForEach-Object { "$($_.donem)" } | Sort-Object { DonemAnahtar $_ } -Descending } else { @() }) }
+function SinavKodu([string]$id){ $on=(("$id" -split '/')[0] -split '-')[0].ToLowerInvariant(); if($SINAVLAR -contains $on){ $on } else { 'sgs' } }
+$arsivDosya=@($SINAVLAR | ForEach-Object { $ARSIV_SINAV[$_] })
 # 04.09 ÖLÇÜLDÜ: bu bölüm 158 sn — her soruda 65 kitapçık yeniden okunup gevşek regex (.{0,120}) tüm arşivde koşuyordu.
 # Metinler BİR KEZ belleğe alınır; dönem etiketi olmayan soruda gevşek arama yalnız ilk 12 kitapçıkta.
 $arsivMetin=@{}; function ArsivMetin($f){ if(-not $arsivMetin.ContainsKey($f.FullName)){ $arsivMetin[$f.FullName]=[IO.File]::ReadAllText($f.FullName) }; return $arsivMetin[$f.FullName] }   # tembel: yalnız gerekince okunur
 # 04.09 (Cem "1 yap"): SINAVDA ÖNBELLEĞİ — konu → dönemler + alıntılar diske yazılır (sinavda-onbellek.json). Damga =
 # kitapçık sayısı + en yeni kitapçık tarihi + analiz güncelleme; damga değişirse önbellek sıfırlanır (yeni kitapçık gelince).
 $SIN_YOL=Join-Path $ONB_DIR 'sinavda-onbellek.json'; $SIN=@{}; $script:SIN_KIRLI=$false
-$sinDamga="$($arsivDosya.Count)|$(($arsivDosya | Measure-Object LastWriteTime -Maximum).Maximum.ToString('yyyyMMddHHmm'))|$(try{ (Get-Item (Join-Path $kok 'veri\sgs-analiz.json')).LastWriteTime.ToString('yyyyMMddHHmm') }catch{ '' })"
+$sinDamga="$($arsivDosya.Count)|$(if($arsivDosya.Count){ ($arsivDosya | Measure-Object LastWriteTime -Maximum).Maximum.ToString('yyyyMMddHHmm') } else { '' })|$(($SINAVLAR | ForEach-Object { try{ (Get-Item (Join-Path $kok "veri\$_-analiz.json")).LastWriteTime.ToString('yyyyMMddHHmm') }catch{ '' } }) -join ',')"
 if(Test-Path $SIN_YOL){ try{ $sj=Get-Content $SIN_YOL -Raw -Encoding UTF8 | ConvertFrom-Json; if("$($sj.damga)" -eq $sinDamga){ foreach($p in $sj.konular.PSObject.Properties){ $SIN[$p.Name]=$p.Value } } }catch{ $SIN=@{} } }
 $script:SIN_ISABET=0
 # Cem 04.09 "7 dönem yazıyor, bir dönem vermiş": dönem listesi KONU ETİKETİNDEN (veri/sgs-analiz.json konuSayim,
 # köprünün 7'sinin kaynağı); alıntılar o dönemlerin kitapçıklarından aranır.
-$analiz=$null; try{ $analiz=Get-Content (Join-Path $kok 'veri\sgs-analiz.json') -Raw -Encoding UTF8 | ConvertFrom-Json }catch{}
 # 07.09 Ö55(1): künye "Son 7 dönemde 4 kez" derken liste 2020/1, 2019/3… (pencere dışı) yazıyordu — sayı pencereden, liste toplam sayımdan.
-# Pencerenin dönem listesi sayfaya gider; builder listeyi "son: … · daha eski: …" diye ayırır.
-$tumDon=@(); if($analiz){ $tumDon=@(@($analiz.donemler) | ForEach-Object { "$($_.donem)" } | Sort-Object { [int]($_ -replace '/','') } -Descending) }
+# Pencerenin dönem listesi sayfaya gider; builder iki ölçümü ayrı yazar. Analiz/arşiv sorunun sınavına göre (SinavKodu).
 for($i=0;$i -lt $sorular.Count;$i++){
-  $s=$sorular[$i]; $konuHam="$($sec[$i].v.konu)".ToLowerInvariant()
+  $s=$sorular[$i]; $konuHam="$($sec[$i].v.konu)".ToLowerInvariant(); $sinavK=SinavKodu "$($s.id)"; $analiz=$ANALIZ_SINAV[$sinavK]; $tumDon=$TUMDON_SINAV[$sinavK]; $arsivDosya=$ARSIV_SINAV[$sinavK]; $sinKey="$sinavK|$konuHam"
   $penN=0; try{ if($s.olcum -and $s.olcum.pencere){ $penN=[int]$s.olcum.pencere } }catch{}; $penDon=@(); if($penN -gt 0){ $penDon=@($tumDon | Select-Object -First $penN) }
-  if($SIN.ContainsKey($konuHam)){ $e0=$SIN[$konuHam]; $script:SIN_ISABET++; $sorular[$i].cikmis=@{ donemler=@(@($e0.donemler) | ForEach-Object { "$_" }); pencereDonemler=$penDon; ornekler=@(@($e0.ornekler) | ForEach-Object { @{ yil="$($_.yil)"; alinti="$($_.alinti)" } }); kopru=$s.donem }; continue }
+  if($SIN.ContainsKey($sinKey)){ $e0=$SIN[$sinKey]; $script:SIN_ISABET++; $sorular[$i].cikmis=@{ donemler=@(@($e0.donemler) | ForEach-Object { "$_" }); pencereDonemler=$penDon; ornekler=@(@($e0.ornekler) | ForEach-Object { @{ yil="$($_.yil)"; alinti="$($_.alinti)" } }); kopru=$s.donem }; continue }
   # 05.09: analiz konu adları ASCII ("sapmasi"), cache Türkçe ("sapması") → dönem 0 çıkıyordu; Türkçe harf katlanarak eşlenir
   $konuKat=Katla $konuHam
   $donemler=@(); if($analiz){ foreach($dn in @($analiz.donemler)){ if($dn.konuSayim){ foreach($k in $dn.konuSayim.PSObject.Properties){ if((Katla ($k.Name -replace '^[^|]*\|','')) -eq $konuKat){ $donemler+="$($dn.donem)"; break } } } } }
-  $donemler=@($donemler | Select-Object -Unique | Sort-Object)
+  $donemler=@($donemler | Select-Object -Unique | Sort-Object { DonemAnahtar $_ } -Descending)   # yeniden eskiye; JS yeniden sıralamaz (KGK tarih etiketleri)
   $kokler=@(($konuHam -split '\s+') | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^(tms|tfrs|bds)$' } | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
   $bul=@()
   if($kokler.Count){
@@ -427,8 +433,8 @@ for($i=0;$i -lt $sorular.Count;$i++){
   }
   $ornekler=@($bul | Sort-Object { $_.yil } -Descending | Select-Object -First 3)
   $sorular[$i].cikmis=@{ donemler=$donemler; pencereDonemler=$penDon; ornekler=$ornekler; kopru=$s.donem }
-  $SIN[$konuHam]=@{ donemler=$donemler; ornekler=$ornekler }; $script:SIN_KIRLI=$true
-  "  sinavda: $konuHam -> etiketli $($donemler.Count) dönem ($($donemler -join ', ')) · köprü $($s.donem) · alıntı $($bul.Count)"
+  $SIN[$sinKey]=@{ donemler=$donemler; ornekler=$ornekler }; $script:SIN_KIRLI=$true
+  "  sinavda [$sinavK]: $konuHam -> etiketli $($donemler.Count) dönem ($($donemler -join ', ')) · köprü $($s.donem) · alıntı $($bul.Count)"
 }
 if($script:SIN_KIRLI){ [IO.File]::WriteAllText($SIN_YOL,(ConvertTo-Json -InputObject @{ damga=$sinDamga; konular=$SIN } -Depth 5 -Compress),[Text.UTF8Encoding]::new($false)) }
 "sinavda önbellek: $($script:SIN_ISABET) konu önbellekten · $($sorular.Count-$script:SIN_ISABET) tarandı · damga $sinDamga"
@@ -1255,7 +1261,7 @@ SORULAR.forEach((s,i)=>{
       // 07.09 Cem "birebir aynısını vermeye gerek yok": çıkmış soru metni ekranda YOK (çapa üreticide kalır). Yerine ölçülü SINAV KÜNYESİ (son N dönemde kaç kez,
       // hangi dönemler, biçim) + ANAHTAR KAVRAMLAR (FAZ S, ambar tanımı, kaynaklı). Uydurma "somut örnek" yalnız kavram yoksa.
       if(a.giris&&s.konuGiris){
-        const kn=s.cikmis||{}; const dl=(kn.donemler||[]).map(String).slice().sort().reverse(); const sd=(s.olcum&&s.olcum.sonDonem!=null)?s.olcum.sonDonem:null; const pen=s.olcum&&s.olcum.pencere;
+        const kn=s.cikmis||{}; const dl=(kn.donemler||[]).map(String);   // sıra PS'den gelir (yeniden eskiye; KGK'da tarih etiketi) const sd=(s.olcum&&s.olcum.sonDonem!=null)?s.olcum.sonDonem:null; const pen=s.olcum&&s.olcum.pencere;
         const tipAd=({hesap:'hesaplama',kayit:'kayıt',teori:'teori'})[s.tip]||'';
         // dönem listesi yalnız sayıyla tutarlıysa yazılır (pencere sayısı kök eşleşmesiyle, liste birebir etiketle ölçülüyor; "7 kez · 2025/3" yanıltır)
         // 07.09 Ö55(1): liste pencereyle ayrılır — "Son 7 dönemde 4 kez · son: 2026/2 · daha eski: 2020/1, 2019/3…"; pencere içi liste sayıdan
