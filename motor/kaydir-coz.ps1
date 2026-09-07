@@ -646,6 +646,11 @@ $html=@'
 .teshisK{border-left:3px solid var(--altin);padding:6px 12px;margin:10px 0;background:color-mix(in srgb,var(--altin) 8%,transparent);border-radius:8px}.teshisK p{margin:4px 0;line-height:1.5}.teshisK .et{margin-bottom:4px}
 .konuK{display:none;font-size:.95em;line-height:1.5;margin:0 0 8px;padding:8px 12px;border-radius:10px;background:color-mix(in srgb,var(--mavi) 10%,transparent)}.konuK .ornekK{color:var(--dim)}
 .tt td.kararH{font-weight:700;white-space:nowrap}.tt td.kararH.yan:not(.gizliH){color:var(--kirmizi)}.tt td.kararH.dog:not(.gizliH){color:var(--yesil)}
+.tt td.eksiH,.tt .eksiH{color:var(--kirmizi);font-weight:600}.tt tr.lejantSatir td{font-size:.78em;color:var(--dim);padding-top:4px;border:0}
+/* 07.09 Cem "yazılar hemen geliyor, okurcasına gelse": giriş kartı blok blok belirir (harf harf değil; yarım saniye arayla) */
+.girisK>*{opacity:0;animation:girisBlok .45s ease forwards}.girisK>:nth-child(1){animation-delay:.05s}.girisK>:nth-child(2){animation-delay:.35s}.girisK>:nth-child(3){animation-delay:.65s}.girisK>:nth-child(4){animation-delay:.95s}.girisK>:nth-child(5){animation-delay:1.25s}.girisK>:nth-child(6){animation-delay:1.55s}.girisK>:nth-child(7){animation-delay:1.85s}.girisK>:nth-child(8){animation-delay:2.15s}
+@keyframes girisBlok{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.girisK>*{animation:none;opacity:1}}
 .tt.karne{table-layout:fixed;width:100%}.tt.karne th:first-child,.tt.karne td:first-child{width:58%;white-space:normal!important;font-weight:400;font-size:.92em;line-height:1.35}.tt.karne td.kararH{white-space:normal}
 /* 06.09 rakip dersi (UWorld/Becker: şık eleme): şıkkın sağındaki ✕ şıkkı çizer, seçmez; sınavda kâğıtta yapılanın karşılığı */
 .sik{position:relative;padding-right:40px}.sikCiz{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:.85em;padding:4px 6px;border-radius:8px;opacity:.55}.sik:hover .sikCiz{opacity:1}.sik.cizili{opacity:.45}.sik.cizili .sikMetin{text-decoration:line-through}.sik.cizili .sikCiz{color:var(--kirmizi);opacity:1}
@@ -1094,12 +1099,18 @@ SORULAR.forEach((s,i)=>{
       if(!s.tablo&&!(s.kayit&&s.kayit.length)){ const ilkC=t=>{ const x=String(t||'').split(/(?<=[.!?])\s+/)[0]; return x.length>200?x.slice(0,198)+'…':x; }; s.tablo={basliklar:['Adım','İçerik'],satirlar:[['Olay',ilkC(s.soru)],['Kural',s.kural||''],['Bu olayda',s.olay||''],['Doğru şık',s.dogru+') '+String(s.siklar[s.dogru]||'')]].filter(r=>r[1])}; s.verilen=[[0,1]]; }
       let h='<table class="tt'+((s.teori||(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım'))?' teori':'')+((s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Şık')?' karne':'')+'">'+(s.tablo?'<thead><tr>'+s.tablo.basliklar.map(b=>'<th>'+esc(b)+'</th>').join('')+'</tr></thead>':'')+'<tbody>';
       const ver=new Set((s.verilen||[]).map(p=>p[0]+','+p[1]));
+      // 07.09 Cem: "birikmiş amortismanı maliyetten çıkaracağız, belli etmek lazım; parantez içine alınır" — DÜŞÜLEN verilen, adımların
+      // formüllerinden okunur: bir sayı formüllerde yalnız "-" işlecinden SONRA geçiyorsa düşülendir → hücrede "(200.000 TL)" ve eksi rengi. Uydurma yok.
+      const eksiSet=new Set(), artiSet=new Set(); const nrmS=t=>String(t||'').replace(/\s*(TL|₺)\s*$/i,'').replace(/[^\d,]/g,'');
+      (s.adimlar||[]).filter(a=>!a.kisi&&!/^\s*(Yanlış yol|Senin seçimin|Ters durum|Takıldığın yer)/i.test(String(a.formul||''))&&!/\(HATALI\)/.test(String(a.formul||''))).forEach(a=>{ String(a.formul||'').split(/\s*;\s*/).forEach(f=>{ f.split(/\s=\s/).forEach(seg=>{ const toks=seg.split(/\s+(?=[-+×x*\/])|(?<=[-+×x*\/])\s+/); let op='+'; toks.forEach(t=>{ const tt=t.trim(); if(/^[-+×x*\/]$/.test(tt)){ op=tt; return; } const m=tt.match(/^-?\d{1,3}(?:\.\d{3})*(?:,\d+)?/); if(m){ const n=nrmS(m[0]); if(n.length>=3){ (op==='-'?eksiSet:artiSet).add(n); } } op='+'; }); }); }); });
+      const dusulen=n=>eksiSet.has(n)&&!artiSet.has(n);
       // 06.09: blok başlığı satırı (VERİLENLER / HESAP: değer hücreleri '-') colspan başlık olur; VERİLENLER altındaki satırlar 'vblok'
       let blokAd='';
       if(s.tablo){ s.tablo.satirlar.forEach((st,r)=>{ const basMi=st.length>1&&st.slice(1).every(c=>String(c).trim()==='-'||String(c).trim()==='')&&/^[A-ZÇĞİÖŞÜ\s]+$/.test(String(st[0]).trim());
         if(basMi){ blokAd=String(st[0]).trim(); const n=blokAd==='VERİLENLER'?(s.verilenler||[]).length:0; h+='<tr class="blok" data-blok="'+esc(blokAd)+'"><th colspan="'+st.length+'">'+esc(blokAd)+(n?' <span class="blokSay">('+n+')</span>':'')+(blokAd==='VERİLENLER'?' <span class="blokAcKapa">▾</span>':'')+'</th></tr>'; return; }
         const kararSinif=c=>(/^YANLIŞ ifade/.test(String(c))?' kararH yan':(/^doğru ifade/.test(String(c))?' kararH dog':''));   // 07.09 Ö56 şık karnesi hücresi
-        h+='<tr class="'+(r===s.tablo.satirlar.length-1?'sonuc':'')+(blokAd==='VERİLENLER'?' vblok':'')+'">'+st.map((c,ci)=>ci===0?'<td>'+esc(ipucuAyir(c).ad)+'</td>':'<td class="'+(ver.has(r+','+ci)?'ver':'gizliH')+kararSinif(c)+'" data-r="'+r+'" data-c="'+ci+'">'+esc(c)+'</td>').join('')+'</tr>'; }); }
+        h+='<tr class="'+(r===s.tablo.satirlar.length-1?'sonuc':'')+(blokAd==='VERİLENLER'?' vblok':'')+'">'+st.map((c,ci)=>{ if(ci===0) return '<td>'+esc(ipucuAyir(c).ad)+'</td>'; const eksi=blokAd==='VERİLENLER'&&ver.has(r+','+ci)&&dusulen(nrmS(c)); return '<td class="'+(ver.has(r+','+ci)?'ver':'gizliH')+kararSinif(c)+(eksi?' eksiH':'')+'" data-r="'+r+'" data-c="'+ci+'"'+(eksi?' title="Düşülecek kalem"':'')+'>'+(eksi?'('+esc(c)+')':esc(c))+'</td>'; }).join('')+'</tr>'; }); }
+      if(eksiSet.size&&[...ver].some(k=>{ const [r,c]=k.split(',').map(Number); const row=s.tablo&&s.tablo.satirlar[r]; return row&&dusulen(nrmS(row[c])); })){ h+='<tr class="lejantSatir"><td colspan="'+((s.tablo&&s.tablo.basliklar)?s.tablo.basliklar.length:2)+'"><span class="eksiH">( )</span> parantezli kalem düşülür</td></tr>'; }
       // 07.09: şema birden çok kayıt taşıyorsa (kıst amortisman + satış) hepsi kendi başlığıyla çizilir; tek kayıtta eski görünüm
       const kayitGrup=(s.kayitlar&&s.kayitlar.length>1)?s.kayitlar:[{baslik:'',kayit:(s.kayit||[])}];
       kayitGrup.forEach((g,gi)=>{ h+='<tr class="ara kayit" data-grp="'+gi+'"><th>Kayıt'+(g.baslik?' · '+esc(g.baslik):'')+'</th><th>Borç</th><th>Alacak</th></tr>';
@@ -1246,7 +1257,10 @@ SORULAR.forEach((s,i)=>{
         // 07.09 Ö55(1): liste pencereyle ayrılır — "Son 7 dönemde 4 kez · son: 2026/2 · daha eski: 2020/1, 2019/3…"; pencere içi liste sayıdan
         // kısa olabilir (sayı kök eşleşmesi, liste birebir etiket), o yüzden yalnız EN YENİ pencere içi dönem yazılır, çelişki kalmaz
         const penD=new Set((kn.pencereDonemler||[]).map(String)); const ici=dl.filter(x=>penD.has(x)); const disi=dl.filter(x=>!penD.has(x));
-        const kunye='<div class="et">Sınav künyesi</div><p>'+((sd!=null&&pen)?('Son '+pen+' dönemde <b>'+sd+'</b> kez soruldu'+(ici.length?' · son: '+esc(ici[0]):'')+(disi.length?' · daha eski: '+esc(disi.slice(0,5).join(', ')):'')):(dl.length?('<b>'+dl.length+'</b> dönemde soruldu · '+esc(dl.slice(0,6).join(', '))):'Çıkmış künyesi ölçülmedi'))+(tipAd?' · biçim: '+tipAd:'')+'</p>';
+        // 07.09 Cem: "4 kere sormuş diyor ama sayınca 6" — iki sayı iki ölçümdür: liste = etiketi birebir tutan bütün dönemler, pencere sayısı = son N dönemde yakın başlıklar. İkisi açıkça ayrı yazılır
+        const listeH=dl.length?('<b>'+dl.length+'</b> dönemde soruldu ('+esc(dl.slice(0,6).join(', '))+(dl.length>6?', …':'')+')'):'';
+        const penH=(sd!=null&&pen)?('son '+pen+' dönemde yakın başlıklarla <b>'+sd+'</b> kez'):'';
+        const kunye='<div class="et">Sınav künyesi</div><p>'+(listeH||penH?[listeH,penH].filter(Boolean).join(' · '):'Çıkmış künyesi ölçülmedi')+(tipAd?' · biçim: '+tipAd:'')+'</p>';
         const kv=((s.sade&&s.sade.kavramlar)||[]).filter(x=>x&&x.ad).slice(0,3);
         // uydurma "somut örnek" artık gösterilmez (Cem 07.09); kavram yoksa bölüm boş kalır, üretici FAZ S ile doldurur
         const kvH=kv.length?'<div class="et">Anahtar kavramlar</div><ul class="kavramL">'+kv.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+(x.kaynak?' <i>('+esc(x.kaynak)+')</i>':'')+'</li>').join('')+'</ul>':'';
