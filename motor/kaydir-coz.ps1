@@ -1236,7 +1236,9 @@ SORULAR.forEach((s,i)=>{
       const ifade=seg=>String(seg).split(/\s*(?:->|→)\s*/).filter(Boolean).map(ifade1).join('<span class="esit">→</span>');
       // 07.09 Cem: "Dahil değil: tazminat 25.000, yeniden yapılandırma 15.000" parçası ayrı blok — kalemler üstü çizili, tabloda da o adımda çizilir
       const haricSet=new Set();
-      const bloklar=String(a.formul||'').split(/\s*;\s*/).filter(x=>x.trim()).map(f=>{
+      // 07.09: ";" yalnız PARANTEZ DIŞINDA formül ayırır — "Max(870.000 (3. adımda bulduk); 820.000 (soruda verilen))" ikiye bölünüyordu
+      const noktaliBol=s0=>{ const out=[]; let d=0,cur=''; for(const ch of String(s0||'')){ if(ch==='(') d++; else if(ch===')') d=Math.max(0,d-1); if(ch===';'&&d===0){ out.push(cur); cur=''; continue; } cur+=ch; } out.push(cur); return out.map(x=>x.trim()); };
+      const bloklar=noktaliBol(String(a.formul||'').replace(/\bGUD\b/g,'gerçeğe uygun değer')).filter(x=>x.trim()).map(f=>{
         const dm=f.match(/^\s*Dahil değil\s*:\s*(.+)$/i); if(dm){ const kalemler=dm[1].split(/\s*,\s*/).filter(Boolean); kalemler.forEach(kl=>{ [...kl.matchAll(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?![\d.,]\d)/g)].forEach(m=>haricSet.add(norm(m[0]))); }); return '<div class="mat haric"><div class="matAd">Dahil değil (hesaba girmez)</div><div class="matSatir haricListe">'+kalemler.map(kl=>'<span class="haricKalem">'+esc(kl.replace(/\s*\(soruda verilen\)/gi,''))+'</span>').join('')+'</div></div>'; }
         const seg=f.split(/\s=\s/).map(x=>x.trim()).filter(Boolean); if(seg.length<2){ return '<div class="mat"><div class="matSatir">'+ifade(f)+'</div></div>'; }
         // ad: ilk parça sayı/işleç içermiyorsa formülün adıdır; içeriyorsa ("Q: 240.000 / 2.000 = 120") ifadedir
