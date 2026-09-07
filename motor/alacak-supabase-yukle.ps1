@@ -71,8 +71,14 @@ for ($i = 0; $i -lt $kayitlar.Count; $i += $PARTI) {
       muhlet_bitis     = "$($_.muhlet_bitis)"
       komiser    = "$($_.komiser)";    itiraz_gun = "$($_.itiraz_gun)"
       karar_durumu = "$($_.karar_durumu)"
-      borclular  = @($_.borclular);    vknler     = @($_.vknler)
-      tcknler    = @($_.tcknler)
+      # 07.09 KUSUR: @($null) PowerShell'de TEK ELEMANLI dizidir -> JSON'a "[null]"
+      # gidiyordu; alacak_yaz bunu "dolu dizi" sayip kasadaki GERCEK borclular[]
+      # dizisini eziyordu, alacak_ara da null ogede "cannot delete from scalar"
+      # ile 400 veriyordu (07.09 olcumu: 5.643 satir, yedekte de 2.320 satir).
+      # Dizi yoksa JSON null gider -> coalesce eskisini korur.
+      borclular  = $(if ($_.borclular) { @($_.borclular | Where-Object { $null -ne $_ }) } else { $null })
+      vknler     = $(if ($_.vknler)    { @($_.vknler    | Where-Object { $null -ne $_ }) } else { $null })
+      tcknler    = $(if ($_.tcknler)   { @($_.tcknler   | Where-Object { $null -ne $_ }) } else { $null })
     }
   })
   try {
