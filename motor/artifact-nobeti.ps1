@@ -25,7 +25,9 @@ $raporYol = [IO.Path]::Combine($kok, 'veri', 'artifact-nobeti.json')
 $repo  = "$($env:GITHUB_REPOSITORY)".Trim(); if (-not $repo) { $repo = 'cemdizdar85-arch/mevzuat-radar' }
 $token = "$($env:GITHUB_TOKEN)".Trim()
 if ("$($env:ARTIFACT_NOBETI_DENEME)" -eq '1' -and -not $token) { $token = 'deneme' }   # deneme kipinde API'ye gidilmez
-$IZINLI = @('^alacak-okuma-pilot-', '^alacak-damga-yedek-')   # ilan.gov.tr kaynakli, kisisel veri degil
+# ilan.gov.tr kaynakli, kisisel veri degil. 3. kosuda olculdu: adlar sonek TASIMIYOR
+# ("alacak-okuma-pilot", "alacak-damga-yedek"), eski desen '-' bekleyip hepsini ACIK saymisti.
+$IZINLI = @('^alacak-okuma-pilot(-|$)', '^alacak-damga-yedek(-|$)')
 
 $eski = @{}
 if (Test-Path $raporYol) {
