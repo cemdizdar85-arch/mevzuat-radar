@@ -424,6 +424,7 @@ $html=@'
 .cipler .bDaha{border-style:dashed;color:var(--dim)}
 .sek{display:none;margin-top:8px}.sek.acik{display:block;animation:gir .2s ease}
 .panel{overscroll-behavior:contain}
+.kavramL{margin:4px 0 8px;padding-left:18px}.kavramL li{margin:3px 0}.kavramL i{color:var(--dim);font-style:normal;font-size:.85em}
 .panelBas{position:sticky;bottom:4px;display:block;margin:10px 0 0 auto;padding:7px 13px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:.84em;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 4px 14px color-mix(in srgb,var(--bg) 70%,transparent)}
 .panelBas.gor{opacity:1;pointer-events:auto}
 .diger{font-size:.88em;color:var(--dim)}.diger div{margin:6px 0}
@@ -1128,7 +1129,18 @@ SORULAR.forEach((s,i)=>{
       // 06.09 KONU GİRİŞİ kartı (0. adım)
       // 06.09 Cem "3 yap": giriş kartı ÜÇ bölüm — nedir · "Sınavda böyle çıktı" (çapa = pencerenin gerçek çıkmış sorusu, CEVAPSIZ; Cem "somut örneği gerçek
       // örnekle versek") · nasıl sorulur. Uydurma "somut örnek" yalnız çapa yoksa; "Yöntemler" satırı kural kartına taşındı (giriş kartı formül vermez).
-      if(a.giris&&s.konuGiris){ const cp=s.capa&&s.capa.metin?s.capa:null; fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+(cp?'<div class="et">Aynı konudan çıkmış soru · '+esc(cp.kaynak)+'</div><p class="girisOrnek">'+esc(cp.metin)+'</p>':(s.konuGiris.ornek?'<div class="et">Somut örnek</div><p class="girisOrnek">'+esc(s.konuGiris.ornek)+'</p>':''))+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; }
+      // 07.09 Cem "birebir aynısını vermeye gerek yok": çıkmış soru metni ekranda YOK (çapa üreticide kalır). Yerine ölçülü SINAV KÜNYESİ (son N dönemde kaç kez,
+      // hangi dönemler, biçim) + ANAHTAR KAVRAMLAR (FAZ S, ambar tanımı, kaynaklı). Uydurma "somut örnek" yalnız kavram yoksa.
+      if(a.giris&&s.konuGiris){
+        const kn=s.cikmis||{}; const dl=(kn.donemler||[]).map(String).slice().sort().reverse(); const sd=(s.olcum&&s.olcum.sonDonem!=null)?s.olcum.sonDonem:null; const pen=s.olcum&&s.olcum.pencere;
+        const tipAd=({hesap:'hesaplama',kayit:'kayıt',teori:'teori'})[s.tip]||'';
+        // dönem listesi yalnız sayıyla tutarlıysa yazılır (pencere sayısı kök eşleşmesiyle, liste birebir etiketle ölçülüyor; "7 kez · 2025/3" yanıltır)
+        const listeTutarli=dl.length&&(sd==null||dl.length>=sd);
+        const kunye='<div class="et">Sınav künyesi</div><p>'+((sd!=null&&pen)?('Son '+pen+' dönemde <b>'+sd+'</b> kez soruldu'):(dl.length?('<b>'+dl.length+'</b> dönemde soruldu'):'Çıkmış künyesi ölçülmedi'))+(listeTutarli?' · '+esc(dl.slice(0,6).join(', ')):'')+(tipAd?' · biçim: '+tipAd:'')+'</p>';
+        const kv=((s.sade&&s.sade.kavramlar)||[]).filter(x=>x&&x.ad).slice(0,3);
+        // uydurma "somut örnek" artık gösterilmez (Cem 07.09); kavram yoksa bölüm boş kalır, üretici FAZ S ile doldurur
+        const kvH=kv.length?'<div class="et">Anahtar kavramlar</div><ul class="kavramL">'+kv.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+(x.kaynak?' <i>('+esc(x.kaynak)+')</i>':'')+'</li>').join('')+'</ul>':'';
+        fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+kunye+kvH+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; }
       if(verilenAdimMi&&!a.giris){
         const soruH=esc(s.soru).replace(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?:\s*(?:TL|₺|kg|adet|saat|gün|yıl|%))?(?![\d.,])/g,m=>'<span class="kSayi">'+m+'</span>');
         fH='<div class="soruIsaret"><div class="et">Soru, verilenler işaretli</div>'+soruH+'</div>';
