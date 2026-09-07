@@ -3,6 +3,8 @@
 **Karar tarihi:** 05.09.2026 · **Karar veren:** Cem Dizdar ("1 yap" = kilitle) · **Uygulayan:** GM
 **Kalıp adı:** Kaydır-Çöz · **Sürüm:** v28 (03.09–05.09 arası 28 turda Cem'le birlikte kuruldu) · **06.09 eklemeleri** kâğıt, verilenler,
 tahmin, konu girişi, tek hata, teori kalıbı, şık eleme, süre, akran yüzdesi (kütük Ö1–Ö28, R1)
+**⭐ v29 — 07.09.2026 SINAV KALIBI (Cem: "bu konuştuklarımız sınav kalıbı olacak, bundan sonra basacaklarını buna göre basacaksın"):** bölüm 12.
+Bundan sonraki HER basım (SGS + yeterlilik + KGK, bütün dersler) bölüm 12'ye uyar; tek soruluk istisna yoktur.
 **❄️ DONDURMA 06.09–13.09:** kural değişikliği yalnız `KALIP-KARAR-KUTUGU.md`'ye yazılır, haftalık işlenir; üretim bu kalıpla.
 
 Bu belge **son karardır.** Soru üreten, açıklama yazan ve ekran çizen her betik buna uyar.
@@ -184,6 +186,41 @@ tam soru (soru+adım+sade+ikiz+hakem) ≈0,15 USD. Her parti önce bedeliyle sor
 **ASLA değişmez:** `soru`, `siklar`, `dogru`, `kaynak`. Açıklamayı zenginleştirmek için soruya dokunmak yeni sorudur.
 **Rakam kapısı:** açıklamadaki her sayı kaynakta (madde metni + soru + şıklar) geçer ya da kaynak sayılarından
 aritmetikle türer; geçmiyorsa yenileme çöpe, eski kalır.
+
+## 12. ⭐ v29 — SINAV KALIBI (07.09.2026, Cem'le birlikte, kütük K1–K6 · Ö50–Ö69)
+
+Cem'in sözü: **"Bir seferlik değil, tüm sınavlarda geçerli. Bundan sonra basacaklarını buna göre basacaksın."**
+Her madde koda girmiştir (üretici `motor/kalip-parti-uret.ps1`, adım istemi `motor/son10-uret.ps1`, builder `motor/kaydir-coz.ps1`);
+buradaki liste o kodun sözleşmesidir. Kod bu listeden saparsa kod düzeltilir, liste değil.
+
+**A. Soru (üretici, FAZ A)**
+1. **Zor = hesap konusu.** Çapa (pencerenin çıkmış sorusu) hesaplama ise soru ≥2 satırlı çözüm tablosu taşır; teori biçimi yazılırsa yeniden (KAPI-T). Konu seçimi son 7 dönemin gerçek sıklığıyla (K10 pencere), bugün basılan konular dışlanır.
+2. **Çeldirici doğrulama (KAPI-Ç).** Her yanlış şık, sayılı bir YANLIŞ YOL formülünün gerçek sonucudur ("… = şık tutarı (hatanın adı)"); makine hesaplar, tutmayan soru geri döner. Teoride yakın-şık: en az iki şık aynı paragraftan tek kelime farkıyla.
+3. **Teşhis her şıkta:** yanılgı · gerçek · nereden anlarsın · paragraf/madde. Şıkka gerekçe yazılmaz (27.08 kuralı sürer), teşhis panelde yaşar.
+4. **Adlandırma:** para birimi TL (₺ yok); hesap planı TEKDÜZEN, TMS konularında da (TFRS-eki adları KGK sınavına aittir); gövdede mamul/gider yeri harfle olabilir, açıklama-adım-ikizde "A mamulü" tam adla.
+5. **Yıl (KAPI-Y):** soruda yıl geçiyorsa en yenisi BUGÜNÜN yılıdır (`(Get-Date).Year`); geçmiş dönem sorulmaz; kanun numarası ("2004 sayılı") yıl sayılmaz. İkizde yıllar aynı farkla kaydırılır, süreler ve Türkçe ekler korunur. Yıla bağlı oran/had/tavan soruda VERİLİR, hafızadan yazılmaz.
+6. **Pencere dışı kavram (KAPI-K):** gövdede son 7 dönemin sınavında hiç geçmeyen kök varsa yeniden.
+7. **Kaynak = dersin kanunu.** Her dersin kanun/standart listesi ambar adlarıyla tam tutulur (Vergi: VUK, GVK, **KVK 5520**, KDVK, ÖTV, MTV, Harçlar, Emlak, Veraset, Gider V., Damga, AATUHK, İİK · İş-SGK: 4857, 5510, **6356**, 6331, 4447 · Meslek: 3568 + Haksız Rekabet ve Reklam Yasağı Yön. + TÜRMOB Etik Yön. + Disiplin Yön. + Staj Yön. · Maliyet: MSUGT Sıra No 2 + THP · Denetim: BDS · FMuh: THP + VUK). Listede olmayan kanuna dayanan köprü dayanağı "zayıf" sayılır; eksik liste = hakem reddi (07.09'da Vergi 4→1 bu yüzden).
+8. **Kaynak metni resmî metnin aynısıdır** (TMS 36, KGK 2026 Kırmızı Kitap ile birebir ölçüldü); şık hangi bende dayanıyorsa adım o bendi anar ("p.22(b)"). Ambardaki çift paragraf numarası (Ek/UR) yutucu işi (Ö57).
+
+**B. Nöbetçi anlatımı (FAZ B adımlar)**
+9. **Hesap sorusu:** 1. adım VERİLENLER (soru metni işaretli + her verilen ad·değer·anlam) · "Dahil değil" satırı (soruda geçen ama hesaba girmeyen kalemler, nedeniyle) · **düşülen verilen parantez içinde** kırmızı, lejantla · her adım "Ad = genel = sayılı = sonuç" · **hedef = çözüm tablosunun sonuç satırını dolduran adım** · sağlama adımı · "Yanlış yol … (HATALI) → doğrusu" · son adımda **teşhis bloğu** (senin seçimin: ne sanıyorsun / aslında / nereden anlarsın).
+10. **Teori sorusu — ayrı istem, "bir olay, beş karar":** 1. adım "Olay:", her şık bir adım + **doğru/yanlış karar düğmesi**, seçilen şıkkın adımı = yanılgı teşhisi, sol tabloda **şık karnesi** (A p.21 ✓ … D p.44 ✗); tanım adımı ("… nedir") yasak; iki yönlü kural iki yönüyle anlatılır. Yapı kapısı (YAPI) düşerse yeniden.
+11. **0. adım = DERS (konu girişi, Sonnet):** Harita (konunun cevapladığı üç soru) · **Dört terim** — tanım KAVRAMI söyler ("neyden ne düşülür, ne kalır"; "tablodaki tutar" yasak), **kim belirler DERSE GÖRE** (muhasebe: işletme yönetimi / piyasa / Tekdüzen-standart / kanun — denetçi YAZILMAZ · denetim: denetçi mesleki yargı / standart · hukuk: kanun / mahkeme-idare / taraflar / meslek kuruluşu / mükellef-işveren), **sınavda kaynağı** (soruda verilir / sen hesaplarsın / kuraldan bilinir; kim ≠ kaynak) · **Sınav künyesi**: "N dönemde soruldu (tam liste, KESİLMEZ) · son 7 dönemde yakın başlıklarla M kez · biçim", sorunun kendi sınavına göre (sgs/smmm/kgk) · Sınav deseni (tuzak noktaları, "Bu soru … noktasından geliyor"). Bloklar 0,3 sn arayla belirir. Kapılar: 240 kelime · Türkçe harf · yer tarifi · kim/kaynak boş ya da aynı · ders dışı belirleyen · ölçekli sızıntı · panel cümlesi tekrarı.
+
+**C. Cevap paneli (şık seçilir seçilmez)**
+12. Konu iki cümle + **gencin örneği** (sorunun rakamları ve ölçekli kopyası YASAK) · ✗ **Senin seçimin: ne sanıyorsun** · **Aslında** (paragraf) · **Nereden anlarsın** · ✅ **Doğrusu** · **Beş şık beş cümle** (yanlış şıkta "← yanlış yol" satırı) · tek ana düğme 🎬 Nöbetçi anlatsın / ⚖️ Sen çöz / ✏️ Kâğıdım.
+
+**D. Ekran akışı (builder)**
+13. **Tahmin ekranı "Önce sen dene"** her hesap adımında: hedef tutar sütunundan okunur (kalem sütunu değil), verilenler bloğu TAMAMEN açık, "Soruyu göster" katlanır, **✏️ Kâğıdı aç** Nöbetçi'nin üstünde; yanlış tahmin puan düşürmez.
+14. **Sen çöz ikizi** (Tabloyu sen doldur): verilen hücreler dolu, kalan boş, "?" ipucu, Kontrol et / Doğruları göster / **✏️ Kâğıdı aç**; ikiz yılı bugün; ikiz ile soru anlaşmazsa önce ikiz şüphelidir.
+15. Künye, analiz ve arşiv sorunun sınavına göre (SGS/yeterlilik/KGK). Yeni HTML `stil-acik.css` bağlar, sabit renk yazılmaz.
+
+**E. Kalite hattı ve teslim**
+16. Sıra: soru → adımlar → verilenler → giriş → **ikiz → simülasyon** (Sonnet, ikiz önce) → hakem. Seçim = hakem EVET ∧ sim ✓. Karne (`motor/soru-karnesi.ps1`) her partide basılır; Cem yalnız kırmızı/sarı + %10 örneklem okur.
+17. **Bilinen açık (Cem kararı bekler):** hakem kaynağa, sim ikize, aritmetik kapısı satıra bakar; MODELİ hiçbiri sınamaz (07.09 Maliyet kp-05 yüzdeleri ters kurdu, üçü de geçirdi) → **kör çözüm kapısı** (asıl soruyu anlatımsız sıfırdan çözen çağrı, ≈0,03/soru) önerildi (Ö65).
+18. **Bedel:** her koşu token yazar, USD'ye çevrilir; para harcayan her adım ÖNCE Cem'e bedeliyle sorulur. Model: Sonnet 5, `effort=medium`, 32k tavan.
+19. Kalıcılık: hiçbir düzeltme tek soruya yapılmaz; kod/istem/kapı düzeltilir, kütüğe Ö satırı yazılır, aynı çağrıda commit + push.
 
 ## 11. Kilit DIŞINDA kalan açık işler (Cem kararı)
 

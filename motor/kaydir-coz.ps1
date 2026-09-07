@@ -1402,3 +1402,13 @@ $out=Join-Path $kok "sql-yerel\$Cikti"
 $y="C:\TETIKTE-YEDEK\kaydir-coz-$(Get-Date -Format yyyyMMdd)"; New-Item -ItemType Directory -Force $y | Out-Null; Copy-Item $out $y -Force
 AmbarKaydet
 "yazildi: $out ($([math]::Round((Get-Item $out).Length/1024)) KB) · soru $($sorular.Count)"
+# 07.09 ÖZ-SINAV (Cem "bundan sonra engelleyebilecek miyiz?"): her HESAP sorusunda en az bir adım tahmin ekranı açabilmeli (tutar sütunu
+# sayısal, ≤24 kr). Açamıyorsa sebebiyle burada yazılır; sessiz atlama yok (4. katman: kapı neden düştüğünü söyler).
+$tahminYok=@()
+foreach($sq in $sorular){ if(-not $sq.tablo -or $sq.teori){ continue }
+  $sat=@($sq.tablo.satirlar); $var=$false; $sebep=@()
+  foreach($ad in @($sq.adimlar)){ $dl=@($ad.doldur); if(-not $dl.Count){ continue }; $p=$null; foreach($c in $dl){ if(@($c).Count -ge 2 -and [int]@($c)[1] -gt 0){ $p=@($c); break } }; if(-not $p){ $sebep+='yalnız kalem sütunu'; continue }
+    if([int]$p[0] -ge $sat.Count){ $sebep+="satır $($p[0]) tabloda yok"; continue }; $hc="$(@($sat[[int]$p[0]])[[int]$p[1]])"; $rak=($hc -replace '\D','')
+    if($hc -match '\d' -and $hc.Trim().Length -le 24 -and $rak.Length -ge 2){ $var=$true; break } else { $sebep+="hücre '$hc' sayı değil ya da uzun" } }
+  if(-not $var){ $tahminYok+="$($sq.id) ($((@($sebep | Select-Object -Unique)) -join '; '))" } }
+if($tahminYok.Count){ Write-Host "ÖZ-SINAV TAHMİN YOK ($($tahminYok.Count) hesap sorusunda 'Önce sen dene' açılamaz): $($tahminYok -join ' · ')" -ForegroundColor Yellow } else { Write-Host "ÖZ-SINAV: her hesap sorusunda tahmin ekranı açılabilir" -ForegroundColor DarkGreen }
