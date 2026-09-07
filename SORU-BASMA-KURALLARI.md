@@ -147,4 +147,6 @@ Basım ancak bu tablo tamamen ✅ iken başlar. Yeni şart çıkarsa buraya ekle
 |---|---|---|
 | 07.09.2026 | v1 taslak (12 ortak + A + B + C) | GM |
 | 07.09.2026 | v2: sınav kalıbı, yapay zeka izi, formül, yıl, hesap kodu, kanun bölümleri ayrıntılı eklendi (Cem: "kalıplarımıza ayrıntılı bak") | GM |
-|  | Okey bekleniyor | Cem |
+| 08.09.2026 | 4.5 KAPI-M, 4.6 KAPI-S, 6.10 hakem güncellik/atıf, 6.11 terim çiftleri kapı öncesi (Cem: "eski kanun, madde doğruluğu, süresi dolan veri, soru kalıpları") | GM |
+| 08.09.2026 | **Tur 1 kapsamı: kaynaklı 9 ders (1.593 soru); Yabancı Dil, Matematik, Türkçe, İnkılap, Ekonomi, Maliye açılışta basılmaz, ayrı hat sonra** ("hiç basma, SGS açılışı 9 dersle çıksın") | Cem |
+| 08.09.2026 | Kurallar Tur 1 ile fiilen yürürlükte ("basalım diyeceğim artık, eksiğimiz yok") | Cem |
