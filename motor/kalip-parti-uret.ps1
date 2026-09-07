@@ -841,6 +841,14 @@ function YazimOnarNesne($c){ if(-not $c){ return }
     if($c.PSObject.Properties['teshis'] -and $c.teshis -and $c.teshis.PSObject.Properties[$hh] -and $c.teshis.$hh){ $t=$c.teshis.$hh; foreach($p in @($t.PSObject.Properties)){ if($p.Value -is [string]){ $t.($p.Name)=YazimOnar $p.Value } } } }
   if($c.PSObject.Properties['cozum_tablo'] -and $c.cozum_tablo -and $c.cozum_tablo.satirlar){ foreach($st in @($c.cozum_tablo.satirlar)){ if($st -and $st.Count -and $st[0] -is [string]){ $st[0]=YazimOnar $st[0] } } }
 }
+# 08.09 ADIM TÜRKÇE KAPISI (pilot6 karnesi: KAPI-D2 yalnız soru/şık/açıklamaya bakıyordu, adımlarda ASCII kaldı → karne 5/6 kırmızı):
+# adımların formül+anlatım ve verilenler metni önce sözlükle onarılır, kalan ASCII Türkçe kelimeler kusur olarak döner (tur tekrarlatır).
+function AdimTurkceKusur($adimlar,$verilen){
+  $tum=''; foreach($ad in @($adimlar)){ if($ad){ foreach($alan in @('anlatim','formul')){ if($ad.PSObject.Properties[$alan] -and $ad.$alan -is [string]){ $ad.$alan=YazimOnar $ad.$alan; $tum+=' '+$ad.$alan } } } }
+  foreach($v in @($verilen)){ if($v){ if($v -is [string]){ $tum+=' '+(YazimOnar $v) } else { foreach($p in @($v.PSObject.Properties)){ if($p.Value -is [string]){ $v.($p.Name)=YazimOnar $p.Value; $tum+=' '+$v.($p.Name) } } } } }
+  $tumK=$tum.ToLowerInvariant()
+  return @([regex]::Matches($tumK,($ASCII_TR_A -replace '^\(\?i\)','')) | ForEach-Object { $_.Value } | Select-Object -Unique)
+}
 function TurkceKapisi($a){ $tum="$($a.soru) "+(@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' '; if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $tum+=' '+(AciklamaDuz $a.aciklama.$hh) } }
   # tr-TR kültüründe (?i) 'I' ile 'i'yi eşlemez ("Isletme" kaçıyordu, 08.09 öz-sınav) → metin ToLowerInvariant ile küçültülür, desen küçük harf
   $tumK=$tum.ToLowerInvariant()
@@ -1263,6 +1271,7 @@ function DilOnar([string]$t){
   foreach($c in $DIL_ORTAK){ $x=[regex]::Replace($x,$c[0],$c[1]) }
   if($Sinav -match '^SGS'){ foreach($c in $DIL_SGS){ $x=[regex]::Replace($x,$c[0],$c[1]) } }
   $x=TerimOnar $x
+  $x=YazimOnar $x   # 08.09 pilot6 karnesi: adımlar/ikiz/giriş DilOnar'dan geçiyor ama yazım sözlüğünden geçmiyordu → 6 sorunun 5'inde adımlarda "yillik, degil, yanlis" kaldı
   if($x -ne $t){ $script:DIL_DUZELTME++ }
   return $x
 }
@@ -1957,9 +1966,12 @@ foreach($id in @($don.Keys)){
         $d=0; $arti=0; $carp=$false; for($i=0;$i -lt $say.Length;$i++){ $ch=$say[$i]; if($ch -eq '('){ $d++ } elseif($ch -eq ')'){ $d-- } elseif($d -eq 0 -and $ch -eq '+' -and $i -gt 0 -and $say[$i-1] -eq ' '){ $arti++ } elseif($ch -match '[×x*/÷]'){ $carp=$true } }
         if($arti -ge 2 -and $carp){ $cokK+="'$($segs[0].Trim())' tek adımda $($arti+1) terimi çarpımla topluyor" } } }
     $cokOk=(-not $cokK.Count)
+    $trA=@(AdimTurkceKusur $a2.adimlar $a2.verilen)   # 08.09 ADIM TÜRKÇE KAPISI: sözlükle onarır, kalan ASCII kelime tur tekrarlatır
     $dilOk=($uzunAd -le 2 -and $dolgu -eq 0); $aritOk=(-not $aritK.Count); $yapiOk=(-not $yapiK.Count)
     if(-not $cokOk -and $turA -lt 3){ $dilOk=$false }   # tek işlem kusuru turu tekrarlatır (son turda olduğu gibi kalır, rapora yazılır)
     if(-not $cokOk -and $turA -eq 3){ Write-Host "  TEK İŞLEM KAPISI son turda da düştü: $($cokK -join '; ')" -ForegroundColor Red; $rapor.Add("TEK ISLEM KAPI DÜŞTÜ: $id | $($cokK -join '; ')") }
+    if($trA.Count -and $turA -lt 3){ $dilOk=$false }
+    if($trA.Count -and $turA -eq 3){ Write-Host "  ADIM TÜRKÇE son turda da düştü: $($trA -join ', ')" -ForegroundColor Red; $rapor.Add("ADIM TURKCE DÜŞTÜ: $id | $($trA -join ', ')") }
     if(($dilOk -and $aritOk -and $yapiOk) -or $turA -eq 3){
       if(-not $dilOk){ Write-Host "  ADIM DİL: $uzunAd adım 3+ cümle · dolgu $dolgu (son turda da) - olduğu gibi" -ForegroundColor DarkYellow; $rapor.Add("ADIM DIL: $id (uzun $uzunAd, dolgu $dolgu)") }
       if(-not $aritOk){ Write-Host "  ARİTMETİK: $($aritK.Count) zincir tutmuyor (son turda da) - olduğu gibi, karneye KIRMIZI" -ForegroundColor Red; $rapor.Add("ARITMETIK KAPI DÜŞTÜ: $id | $($aritK -join ' · ')") }
@@ -1967,6 +1979,7 @@ foreach($id in @($don.Keys)){
       break }
     $notlar=@(); if($uzunAd -gt 2 -or $dolgu -gt 0){ $notlar+="$uzunAd adımın anlatımı $($cumleTavan+1)+ cümle ve $dolgu adımda dolgu cümlesi var; her anlatım EN ÇOK $cumleTavan cümle, dolgu cümlelerini sil" }
     if(-not $cokOk){ $notlar+="TEK İŞLEM KURALI (m): $($cokK -join '; '). Her çarpım terimi KENDİ adımı olsun (adı + nedeni + '= sonuç'), sonra ayrı bir toplama adımı tablo hücresini doldursun; tamamlanmayan oranı '(1 − %100 = %0)' biçiminde yaz" }
+    if($trA.Count){ $notlar+="TÜRKÇE HARF: şu kelimeler Türkçe harfsiz yazılmış: $($trA -join ', '). Adım anlatımı, formül adları ve verilenlerde ş, ç, ğ, ı, ö, ü, İ tam yazılır (yıllık, değil, yanlış, hesabı, işletme)" }
     if(-not $aritOk){ $notlar+="şu formül satırları ARİTMETİK olarak tutmuyor (sol taraf hesaplanınca sağdaki sonuç çıkmıyor): $($aritK -join '; '). Her formülde sol tarafı gerçekten hesapla, sonucu ona göre yaz; ara sonuç ile tablo hücresi aynı olsun" }
     if(-not $yapiOk){ $notlar+="YAPI: $($yapiK -join '; '). Tam 8 adım: Olay · Ne yapacağız · Şık A · Şık B · Şık C · Şık D · Şık E (her birinde sik/karar/paragraf alanları) · Kapanış; tanım adımı yazma" }
     Write-Host "  ADIM KAPI ($id, tur $turA): $(if(-not $dilOk){"dil($uzunAd/$dolgu) "})$(if(-not $aritOk){"aritmetik($($aritK.Count)) "})$(if(-not $yapiOk){"yapı($($yapiK.Count))"}) -> tekrar" -ForegroundColor Yellow
