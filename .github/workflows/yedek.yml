@@ -51,11 +51,19 @@ jobs:
               $tum.ToArray() | ConvertTo-Json -Depth 8 | Out-File "_yedek/$tablo.json" -Encoding utf8
               $toplamSatir += $tum.Count
               Write-Host ("{0}: {1} satir yedeklendi" -f $tablo, $tum.Count)
-            } catch { Write-Host ("{0}: atlandi ({1})" -f $tablo, $_.Exception.Message) }
+            } catch {
+              # ::warning:: -> GitHub check-run annotation; public API'den gunluk acilmadan okunur (08.09)
+              $m = "$($_.Exception.Message)" -replace '[\r\n]',' '; if ($m.Length -gt 300) { $m = $m.Substring(0,300) }
+              Write-Host ("::warning title=yedek {0}::atlandi: {1}" -f $tablo, $m)
+            }
           }
           Write-Host ("TOPLAM: {0} satir" -f $toplamSatir)
+          Write-Host ("::notice title=yedek toplam::{0} satir" -f $toplamSatir)
           # KAPI: bos yedek "yedek var" sanilmasin (08.09 dersi)
-          if ($toplamSatir -lt 1000) { throw ("YEDEK BOS/EKSIK: toplam {0} satir - kasaya erisim kirik olabilir" -f $toplamSatir) }
+          if ($toplamSatir -lt 1000) {
+            Write-Host ("::error title=yedek bos::toplam {0} satir - kasaya erisim kirik olabilir" -f $toplamSatir)
+            throw ("YEDEK BOS/EKSIK: toplam {0} satir" -f $toplamSatir)
+          }
       # 08.09.2026 (Cem: "butun veriler kimsenin ulasamadigi yerde olacak"):
       # Ustteki "artifact ozeldir" HUKMU YANLISTI. GitHub belgesi: artifact'i
       # "read access" olan herkes indirir; PUBLIC repoda bu HERKESTIR. 7 kosu
