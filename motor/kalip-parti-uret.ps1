@@ -1652,7 +1652,10 @@ KATMAN 2 — NÖBETÇİ 0. ADIM (ders; panelle aynı cümle yok):
 3. harita: konunun cevapladığı üç soru, her biri tek cümle ("Ne zaman test edilir: … / Nasıl ölçülür: … / Nasıl kaydedilir: …" gibi; konuya
    göre üç soru değişir). En çok 3 cümle.
 4. terimler: konunun DÖRT anahtar terimi: [{"ad":"...","tanim":"en çok 12 kelime","kim":"kim belirler: işletme yönetimi tahmin eder / piyasa fiyatlar / standart tanımlar / kanun sabitler","kaynak":"sınavda nereden gelir: soruda verilir | sen hesaplarsın | kuraldan bilinir"}]
-   (07.09 Cem: "kullanım değerini kim belirliyor? soruda bize verilmiş, biz değerledik tarzı" — öğrenci hangi sayıyı soruda arayacağını, hangisini hesaplayacağını bilmeli). Tanım KAVRAMI söyler, yerini değil:
+   (07.09 Cem: "kullanım değerini kim belirliyor? soruda bize verilmiş, biz değerledik tarzı" — öğrenci hangi sayıyı soruda arayacağını, hangisini hesaplayacağını bilmeli).
+   "kim" ile "kaynak" FARKLI bilgidir: kim = kararı/ölçümü kim yapar (işletme yönetimi tahmin eder · denetçi belirler · piyasa fiyatlar · standart tanımlar · kanun sabitler);
+   kaynak = sınavda o değer nereden gelir (soruda verilir · sen hesaplarsın · kuraldan bilinir). İkisine aynı ifadeyi yazma. Denetim konularında belirleyen
+   DENETÇİ ya da STANDARTTIR, işletme yönetimi değil (07.09: "testin yönü · işletme yönetimi tahmin eder" yanlıştı). Tanım KAVRAMI söyler, yerini değil:
    tutar terimlerinde "neyden ne düşülür, ne kalır" biçimi ("Defter değeri: maliyet bedelinden ayrılan birikmiş amortisman düşüldükten sonra
    kalan net tutar"); "tablodaki tutar", "yukarıdaki değer" gibi yer tarifi YASAK (07.09 Cem: "amortisman düşüldükten sonra tablodaki tutar" kusurlu).
 5. desen: sınav bu konuyu nasıl sorar — tuzak noktaları kaynak paragrafı/maddesiyle (burada "p.28" gibi künye serbest), en çok 3 cümle,
@@ -1686,6 +1689,9 @@ foreach($id in @($don.Keys)){
     $yerTarif=@(@($gN.terimler) | Where-Object { $_ -and "$($_.tanim)" -match '(?i)\b(tablodaki|tabloda|yukarıdaki|aşağıdaki|soldaki|sağdaki)\b' } | ForEach-Object { "$($_.ad)" }); if($yerTarif.Count){ $dusenG+="terim tanımı yer tarif ediyor ($($yerTarif -join ', ')) — kavramı yaz: neyden ne düşülür, ne kalır" }
     # 07.09 Cem "kullanım değerini kim belirliyor?": her terimde kim + kaynak alanı dolu olmalı (denetim-zor2 girişi boş bıraktı)
     $eksikKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and (-not ($_.PSObject.Properties['kim'] -and "$($_.kim)".Trim()) -or -not ($_.PSObject.Properties['kaynak'] -and "$($_.kaynak)".Trim())) } | ForEach-Object { "$($_.ad)" }); if($eksikKim.Count){ $dusenG+="terimlerde 'kim belirler' / 'sınavda kaynağı' boş ($($eksikKim -join ', '))" }
+    # 07.09: kim == kaynak ("soruda verilir · soruda verilir") ya da denetim dersinde "işletme yönetimi" belirleyen → kapı
+    $ayniKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and $_.PSObject.Properties['kim'] -and $_.PSObject.Properties['kaynak'] -and ((Katla2 "$($_.kim)") -eq (Katla2 "$($_.kaynak)")) } | ForEach-Object { "$($_.ad)" }); if($ayniKim.Count){ $dusenG+="'kim' ile 'kaynak' aynı yazılmış ($($ayniKim -join ', ')); kim = belirleyen, kaynak = sınavda nereden" }
+    if($DersRegex -match 'Denetim'){ $yonetimK=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and "$($_.kim)" -match '(?i)işletme yönetimi|isletme yonetimi|yönetim tahmin' } | ForEach-Object { "$($_.ad)" }); if($yonetimK.Count){ $dusenG+="denetim teriminde belirleyen işletme yönetimi olamaz ($($yonetimK -join ', ')); denetçi ya da standart yaz" } }
     # panel ile 0. adım aynı cümleyi taşımasın (tekrar kapısı): nedir/panel_ornek cümleleri harita/desen içinde geçmez
     $panelC=@(("$($gN.nedir) $($gN.panel_ornek)" -split '(?<=[.!?])\s+') | ForEach-Object { $_.Trim() } | Where-Object { $_.Length -ge 25 }); $dersM="$($gN.harita) $($gN.desen)"; $tekrarC=@($panelC | Where-Object { $dersM.Contains($_) }); if($tekrarC.Count){ $dusenG+="panel cümlesi 0. adımda tekrar ediyor ($($tekrarC.Count))" }
     # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
