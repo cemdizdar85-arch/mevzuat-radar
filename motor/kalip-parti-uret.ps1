@@ -846,11 +846,32 @@ function YevmiyeYonNotu($a){ $out=@(); $sm=$(if($a.PSObject.Properties['sema']){
   return $out }
 function KelimeKume([string]$t){ $s=New-Object 'System.Collections.Generic.HashSet[string]'; foreach($w in ((Katla2 $t) -replace '[^a-z0-9 ]',' ' -split '\s+')){ if($w.Length -ge 4){ [void]$s.Add($w) } }; return $s }
 function Jaccard($a,$b){ if(-not $a.Count -or -not $b.Count){ return 0 }; $o=0; foreach($w in $a){ if($b.Contains($w)){ $o++ } }; return [math]::Round($o / ($a.Count + $b.Count - $o),2) }
+# 08.09 Cem "atladık demeyelim": benzerlik yalnız aynı etikete bakıyordu; kolay/zor/çok zor ve tur 2 AYRI etiketlerde → aynı konunun öteki
+# seviyedeki/turdaki sorusu kopya çıkabilirdi. Aynı planın (etiket öneki: "sgs-t1-") bütün önbellekleri de karşılaştırma havuzuna girer.
+$script:BENZER_HAVUZ=$null
+function BenzerHavuz{
+  if($null -ne $script:BENZER_HAVUZ){ return $script:BENZER_HAVUZ }
+  $h=New-Object System.Collections.Generic.List[object]
+  $onek=$(if($Etiket -match '^(.+?-t\d+)-'){ $Matches[1] } elseif($Etiket -match '^([a-z]+-[a-z0-9]+)-'){ $Matches[1] } else { '' })
+  if($onek){ foreach($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter "kalip-parti-$onek-*.json" -ErrorAction SilentlyContinue)){ if($f.BaseName -eq "kalip-parti-$Etiket"){ continue }
+      try{ $j=ConvertFrom-Json -InputObject (Get-Content $f.FullName -Raw -Encoding UTF8); foreach($p in $j.PSObject.Properties){ if($p.Value -and $p.Value.soru){ $h.Add([pscustomobject]@{ etiket=($f.BaseName -replace '^kalip-parti-',''); id=$p.Name; konu="$($p.Value.konu)"; kume=(KelimeKume "$($p.Value.soru)") }) } } }catch{} } }
+  $script:BENZER_HAVUZ=$h; if($h.Count){ Write-Host "  benzerlik havuzu: $($h.Count) soru (aynı plan, öteki etiketler)" -ForegroundColor DarkGray }
+  return $h
+}
 function BenzerlikKusur($a,[string]$benId){
   $k=@(); $ka=KelimeKume "$($a.soru)"
   if($CAPA.ContainsKey($benId)){ $j=Jaccard $ka (KelimeKume $CAPA[$benId]); if($j -ge 0.55){ $k+="çapaya (çıkmış soru) fazla benziyor (Jaccard $j)" } }
   foreach($oid in @($don.Keys)){ if($oid -eq $benId){ continue }; $o=$don[$oid]; if(-not $o -or -not $o.soru){ continue }; $j=Jaccard $ka (KelimeKume "$($o.soru)"); if($j -ge 0.60){ $k+="partideki $oid ile aynı soru sayılır (Jaccard $j)" ; break } }
+  foreach($h in (BenzerHavuz)){ $j=Jaccard $ka $h.kume; if($j -ge 0.60){ $k+="$($h.etiket)/$($h.id) [$($h.konu)] ile aynı soru sayılır (Jaccard $j) — başka seviye/tur, özgün senaryo gerek"; break } }
   return $k
+}
+# 08.09 Cem "atladık demeyelim" — KAPI-P YASAL PARAMETRE: yıla bağlı had/oran (asgari ücret, kıdem tavanı, KDV/SGK/damga oranı, gecikme zammı,
+# yeniden değerleme oranı, istisna haddi) soruda geçiyorsa SAYISI da soruda verilmeli; verilmezse cevap o yılın gerçeğine bağlı kalır ve hiçbir kapı
+# doğrulayamaz (SORU-BASMA-KURALLARI 3.1 / 4.1). Parametre adı geçen cümlede sayı (% ya da TL) yoksa düşer.
+function ParametreKapisi($a){ $out=@(); $soru="$($a.soru)"
+  $parametreler=@('asgari ücret','kıdem tazminatı tavanı','kıdem tavanı','KDV oranı','katma değer vergisi oranı','SGK prim oranı','sigorta prim oranı','işsizlik sigortası prim','damga vergisi oranı','gecikme zammı oranı','gecikme faizi oranı','yeniden değerleme oranı','istisna haddi','istisna tutarı','beyanname verme sınırı','defter tutma haddi','amortisman sınırı','fatura düzenleme sınırı','kurumlar vergisi oranı','gelir vergisi tarifesi','stopaj oranı','tevkifat oranı','asgari geçim','vergi dilimi')
+  foreach($cumle in ($soru -split '(?<=[.!?;])\s+')){ foreach($pa in $parametreler){ if($cumle -match ('(?i)'+[regex]::Escape($pa))){ if($cumle -notmatch '%\s*\d|\d\s*%|\d{1,3}(\.\d{3})+|\d+(,\d+)?\s*TL'){ $out+="'$pa' geçiyor ama cümlede sayısı yok (yıla bağlı had soruda verilir)" } } } }
+  return @($out | Select-Object -Unique)
 }
 # --- FAZ A: SORU ------------------------------------------------------------
 # 04.09 KAPI-Ş: şık dengesi (Cem "cevap belli, sınavda böyle mi?"). Ölçüm: 7 çıkmış SGS sapma sorusunun 5'inde her tutar
@@ -1075,6 +1096,9 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     tutmayan soru geri döner. Her yanlış şık gerçekten yapılabilecek bir hatanın sonucu olur (atlanan katman, yanlış ölçü, ters işaret,
     yüzde puanı/oran karışıklığı, çeldirici verilenin hesaba katılması); rastgele sayı YASAK. TEORİ sorusunda karşılığı: en az iki şık AYNI
     paragraf/maddeden, tek kelime ya da ölçüt farkıyla ayrılır (yakın-şık); bütün yanlış şıklar kaynakta karşılığı olan gerçek ifadelerdir.
+16. YASAL PARAMETRE — KAPI-P (08.09): yıla bağlı had/oran/tavan (asgari ücret, kıdem tazminatı tavanı, KDV/SGK/damga/stopaj oranı, gecikme
+    zammı, yeniden değerleme oranı, istisna haddi, defter tutma/fatura sınırı, vergi tarifesi) soruda geçiyorsa SAYISI soruda VERİLİR
+    ("KDV oranı %20", "kıdem tazminatı tavanının 50.000 TL olduğu varsayılmıştır"). Hafızadan yıl parametresi kullanılmaz; sınav da böyle yapar.
 15. YIL — KAPI-Y (07.09 Cem: "şu an {YIL} yılındayız, sorular {YIL} yılını versin"): olay yılları BUGÜNE göre kurulur. Sorulan dönem
     {YIL} yılıdır ("{YIL} yılı amortisman gideri", "{YIL} dönemi"); edinme/başlangıç tarihleri daha eski olabilir ama sorudaki EN YENİ yıl
     {YIL} olmalıdır. Geçmiş yılın dönemini sorma. Tutarı yıldan yıla değişen kalemlerde (oran, tavan, had) sayıyı soruda VER, hafızadan yazma.
@@ -1608,9 +1632,11 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     $bzKusur=@(BenzerlikKusur $aday $id)
     # 08.09 Cem: "Türkçe kelime yazmalı · borç alacak düzgün atmalı" → KAPI-D2 Türkçe harf (sert) + KAPI-YD yevmiye dengesi (sert) + yön notu (rapor)
     $trKusur=@(TurkceKapisi $aday); $ydKusur=@(YevmiyeDengeKapisi $aday); $yonNot=@(YevmiyeYonNotu $aday)
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; break }
+    $paKusur=@(ParametreKapisi $aday)   # 08.09 KAPI-P: yıla bağlı had/oran soruda sayı olarak verilmeli
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; break }
     if($trKusur.Count){ Write-Host "  KAPI-D2 (Türkçe harf) ($id): $($trKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-D2 DÜŞTÜ: şu kelimeler Türkçe harfsiz yazılmış: $($trKusur -join ', '). Bütün metinde ş, ç, ğ, ı, ö, ü, İ tam yazılır (için, değil, işletme, yıl, kâr)." }
     if($ydKusur.Count){ Write-Host "  KAPI-YD (yevmiye dengesi) ($id): $($ydKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-YD DÜŞTÜ: yevmiye kaydında borç toplamı alacak toplamına eşit değil ($($ydKusur -join '; ')). Her kayıtta borç = alacak; tutarları yeniden hesapla, gerekirse şıkları düzelt." }
+    if($paKusur.Count){ Write-Host "  KAPI-P (yasal parametre) ($id): $($paKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-P DÜŞTÜ: $($paKusur -join '; '). Yıla bağlı her had/oran/tavan soruda SAYI olarak verilir ('KDV oranı %20', 'kıdem tazminatı tavanı 50.000 TL olduğu varsayılmıştır'); hafızadan yıl parametresi kullanılmaz." }
     if($yilKusur){ Write-Host "  KAPI-Y (yıl) ($id): $yilKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Y DÜŞTÜ: $yilKusur. Bütün yılları kaydır: sorulan dönem $yilBu olsun, eski tarihler aynı aralıkla kaysın (süreler değişmesin); şık tutarları buna göre yeniden hesaplansın." }
     if($koKusur.Count){ Write-Host "  KAPI-O (koku) ($id): $($koKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-O DÜŞTÜ (yapay zeka izi): $($koKusur -join '; '). Gerçek sınav sorusu gibi yaz: 'ABC/XYZ' gibi yer tutucu unvan yerine 'işletme' ya da gerçekçi bir ad; tutarların hepsi onbinlik yuvarlak olmasın (12.500, 47.350 gibi gerçekçi tutarlar karışsın; hesap yine düzgün çıksın); klişe kalıp ve uzun tire (—) yok." }
     if($bzKusur.Count){ Write-Host "  KAPI-B (benzerlik) ($id): $($bzKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-B DÜŞTÜ (benzerlik): $($bzKusur -join '; '). Örnek çıkmış soru yalnız BİÇİM çapasıdır; olayı, sayıları ve şık dizilimini kopyalama; aynı konuda özgün bir senaryo kur." }
@@ -1635,7 +1661,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
       # soru üretilmez; yalnız YUMUŞAK kapılar (uzunluk, pencere dışı kavram) raporla kaydedilir.
       if($trKusur.Count){ $rapor.Add("KAPI-D2 (Türkçe harf) DÜŞTÜ: $($ky.konu) | $($trKusur -join ', ')") }
       if($ydKusur.Count){ $rapor.Add("KAPI-YD (yevmiye dengesi) DÜŞTÜ: $($ky.konu) | $($ydKusur -join '; ')") }
-      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count)
+      if($paKusur.Count){ $rapor.Add("KAPI-P (yasal parametre) DÜŞTÜ: $($ky.konu) | $($paKusur -join '; ')") }
+      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count -or $paKusur.Count)
       if($sertDustu){ Write-Host "  SORU DÜŞTÜ ($id): sert kapı ikinci denemede de tutmadı - kaydedilmedi" -ForegroundColor Red; $rapor.Add("SORU DÜŞTÜ (sert kapı ×2): $($ky.konu)"); $cvp=$null }
       else { $cvp=$aday }   # yalnız yumuşak kusur: en sonuncuyu al, rapora yazıldı
     }

@@ -12,7 +12,15 @@ $h=ConvertFrom-Json -InputObject (Get-Content $huniYol -Raw -Encoding UTF8)
 $SIN=@{ 'Finansal Muhasebe'=@{s=26;r='Finansal Muhasebe';t=350;k='fmuh'}; 'Denetim'=@{s=16;r='Denetim';t=350;k='denetim'}; 'Yabanci Dil'=@{s=10;r='Yabanci Dil';t=350;k='yd'}; 'Matematik'=@{s=8;r='Matematik';t=350;k='mat'}; 'Maliyet Muhasebesi'=@{s=8;r='Maliyet Muhasebesi';t=600;k='maliyet'}; 'Mali Tablolar Analizi'=@{s=8;r='Mali Tablolar Analizi';t=350;k='mta'}; 'Turkce'=@{s=7;r='Turkce';t=350;k='turkce'}; 'Ekonomi'=@{s=6;r='Ekonomi';t=350;k='ekonomi'}; 'Maliye'=@{s=6;r='Maliye';t=350;k='maliye'}; 'Meslek Hukuku'=@{s=6;r='Meslek Hukuku';t=350;k='meslek'}; 'Is ve Sosyal Guvenlik Hukuku'=@{s=6;r='Is ve Sosyal Guvenlik Hukuku';t=350;k='issgk'}; 'Vergi Hukuku'=@{s=6;r='Vergi Hukuku';t=350;k='vergi'}; 'Ticaret Hukuku'=@{s=6;r='Ticaret Hukuku';t=350;k='ticaret'}; 'Borclar Hukuku'=@{s=6;r='Borclar Hukuku';t=350;k='borclar'}; 'Ataturk Ilke ve Inkilap Tarihi'=@{s=5;r='Ataturk Ilke ve Inkilap Tarihi';t=350;k='inkilap'} }
 # dersin anatomi zorluğu (02.09 ölçümü, 0-100): tek soruluk konuda seviye buna göre
 $ANAT=@{ 'Maliyet Muhasebesi'=60;'Finansal Muhasebe'=30;'Mali Tablolar Analizi'=29;'Meslek Hukuku'=23;'Is ve Sosyal Guvenlik Hukuku'=22;'Ticaret Hukuku'=21;'Denetim'=18;'Vergi Hukuku'=17;'Maliye'=16;'Ekonomi'=15;'Turkce'=12;'Matematik'=10;'Ataturk Ilke ve Inkilap Tarihi'=9;'Yabanci Dil'=12;'Borclar Hukuku'=21 }
-$konular=@(); foreach($p in $h.etiketDonemSay.PSObject.Properties){ $ders=("$($h.etiketDers.$($p.Name))" -replace '\*$',''); if(-not $SIN.ContainsKey($ders)){ continue }; if($DersSuz -and $ders -notmatch $DersSuz){ continue }; $konular+=[pscustomobject]@{ konu=$p.Name; kez=[int]$p.Value; ders=$ders } }
+# 08.09 Cem "atladık demeyelim": analiz BÖLÜMÜ dersle uyuşmayan konu plana girmez (kök eşleşmesi "cümle bilgisi"ni FMuh'a, "Atatürk ilkeleri"ni
+# FMuh'a yazmıştı → üretim para harcayıp hakemde DERS-DIŞI düşerdi). Bölüm → izinli dersler:
+$BOLUM_DERS=@{ 'Muhasebe'=@('Finansal Muhasebe','Maliyet Muhasebesi','Mali Tablolar Analizi','Denetim'); 'Hukuk'=@('Vergi Hukuku','Ticaret Hukuku','Borclar Hukuku','Is ve Sosyal Guvenlik Hukuku','Meslek Hukuku'); 'Ekonomi'=@('Ekonomi'); 'Maliye'=@('Maliye'); 'Matematik-Istatistik'=@('Matematik'); 'Genel Kultur-Genel Yetenek'=@('Turkce','Ataturk Ilke ve Inkilap Tarihi'); 'Yabanci Dil'=@('Yabanci Dil') }
+$konular=@(); $dusen=@()
+foreach($p in $h.etiketDonemSay.PSObject.Properties){ $ders=("$($h.etiketDers.$($p.Name))" -replace '\*$',''); if(-not $SIN.ContainsKey($ders)){ continue }; if($DersSuz -and $ders -notmatch $DersSuz){ continue }
+  $bol=$(if($h.PSObject.Properties['etiketBolum'] -and $h.etiketBolum.PSObject.Properties[$p.Name]){ "$($h.etiketBolum.$($p.Name))" } else { '' })
+  if($bol -and $BOLUM_DERS.ContainsKey($bol) -and ($BOLUM_DERS[$bol] -notcontains $ders)){ $dusen+="$($p.Name) [$bol→$ders]"; continue }
+  $konular+=[pscustomobject]@{ konu=$p.Name; kez=[int]$p.Value; ders=$ders } }
+if($dusen.Count){ "bölüm-ders uyumsuz, plana alınmadı ($($dusen.Count)): $(($dusen | Select-Object -First 12) -join ' · ')$(if($dusen.Count -gt 12){ ' …' })" }
 $konuDir=Join-Path $kok 'veri\sinav\konu'; New-Item -ItemType Directory -Force $konuDir | Out-Null
 $plan=@(); $toplam=0
 foreach($g in ($konular | Group-Object ders | Sort-Object { -$SIN[$_.Name].s })){

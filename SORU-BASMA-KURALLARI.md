@@ -131,6 +131,12 @@ Basım ancak bu tablo tamamen ✅ iken başlar. Yeni şart çıkarsa buraya ekle
 **B kovası (basarken paralel; 08.09 03:00 durumu):** 11 kurtarma fazı ✅ (tek soruda ölçüldü) · 12 genel gece koşucusu ✅ · 18 kapı-temiz tazeleme ✅ (15.922) · 19 KAPI-Ç iç eşitlik + zincir eşitlik ✅ · 13 yeterlilik/KGK pilotu ⏳ (≈2 USD, KGK sözlüğü önce) · 14 SPK hattı ⏳ (pilot ≈1 USD) · 15 Ekonomi/Maliye teori notu ⏳ · 16 genel kültür pilotu ⏳ (≈1,5 USD) · 17 ambar↔resmî PDF aracı ⏳ · 20 paralel hat ölçümü ⏳ (≈0,1 USD).
 **Kural 7/A6 kodlandı (08.09):** sert kapılar ikinci denemede de düşerse soru KAYDEDİLMEZ; yalnız yumuşak kapılar (uzunluk, pencere dışı kavram) raporla kalır.
 
+**08.09 05:30 — Cem "engellememiz gereken bir yer var mı, atladık demeyelim" taraması, üç açık kapatıldı:**
+- **KAPI-P yasal parametre (sert):** asgari ücret, kıdem tavanı, KDV/SGK/damga/stopaj oranı, gecikme zammı, yeniden değerleme, istisna haddi, defter/fatura sınırı, vergi tarifesi soruda geçiyorsa SAYISI soruda verilir ("…olduğu varsayılmıştır"); verilmezse düşer. Cevap yılın gerçeğine değil soruya bağlanır. İstem kuralı 16.
+- **Benzerlik havuzu seviyeler/turlar arası:** aynı planın (sgs-t1-*) bütün etiketleri karşılaştırmaya girer; kolay/zor/çok zor ve tur 2 aynı konuda kopya senaryo üretemez.
+- **Plan bölüm süzgeci:** analiz bölümü dersle uyuşmayan konu (Genel Kültür → FMuh gibi) plana alınmaz; para harcanıp hakemde düşmez.
+- Bilerek kabul edilenler: olumsuz kök / öncüllü soru KOTASI (karne dağılımı ölçer, kapı yok — tur 1 sonrası bakılır) · KAPI-K kök şişmesi yumuşak · Ekonomi/Maliye kaynaksız · yayın sonrası şüpheli nöbeti (cevap verisi gelince) · fiyat tablosu varsayım.
+
 ## D · KARAR KAYDI
 
 | Tarih | Karar | Kim |
