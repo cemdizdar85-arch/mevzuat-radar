@@ -565,6 +565,13 @@ $YAZIM_DUZELT=@(
   @('\bYanlisi\b','Yanlışı'), @('\byanlisi\b','yanlışı')
   @('\bYanlislik\b','Yanlışlık'), @('\bDikkat\s+:\s*','Dikkat: ')
 )
+# 08.09 (pilot6 ölçümü: model "yillik, asagidakilerden, hesabi, dogrusu, bagli, degerleme" yazdı, KAPI-D2 üç tur yaktı): sözlük, KAPI-D2 kelime
+# listesinin Türkçe karşılıklarıyla genişletildi. Her kelime için küçük ve Baş harfli iki çift; ASCII biçim Türkçe'den türetilir (İ→I, ş→s…).
+$YAZIM_TR=@('için','değil','değildir','günü','şirket','şirketi','işletme','işletmenin','işletmesi','dönem','dönemin','dönemi','üretim','bütün','doğru','doğrusu','yanlış','yanlıştır','ücret','ücreti','ölçüm','hesabı','hesabına','karşılık','karşılığı','müşteri','satış','satışlar','satışları','alış','ödeme','ödemesi','yükümlülük','özkaynak','özkaynaklar','dönen','büyük','küçük','yıl','yılında','yılının','yüzde','değer','değeri','değerleme','sayı','işçi','işçilik','süreç','süre','geçerli','geçmiş','dağıtım','dağıtımı','oluşan','oluşur','bağlı','bağımsız','yönetim','yönetimi','denetçi','düşük','yüksek','artış','azalış','gerçekleşen','gerçek','ağırlıklı','müşavir','müdür','kayıt','kaydı','kayıtları','birikmiş','ödenmiş','ödenecek','verilmiş','alınmış','bağış','taşıt','taşıtlar','demirbaş','demirbaşlar','özel','doğrudan','günlük','aylık','yıllık','tüketim','ürün','ürünler','üretilen','çıkardığı','çıkarmış','başladığı','zararı','tutarı','tutarında','aşağıdakilerden','yapılan','yapılmış','edilmiş','içinde','üzerinden','önce','itibarıyla')
+function AsciiBicim([string]$w){ ($w -creplace 'İ','I' -creplace 'ı','i' -creplace 'ğ','g' -creplace 'Ğ','G' -creplace 'ü','u' -creplace 'Ü','U' -creplace 'ş','s' -creplace 'Ş','S' -creplace 'ö','o' -creplace 'Ö','O' -creplace 'ç','c' -creplace 'Ç','C') }
+# DİKKAT: PS'te $w ile $W AYNI değişkendir (08.09'da 'İşletme' yerine 'Işletme' üretti) → baş harfli biçim ayrı ada ($bas) yazılır; 'i' → 'İ' ordinal kontrolle.
+foreach($w in $YAZIM_TR){ $a=AsciiBicim $w; if($a -eq $w){ continue }; $YAZIM_DUZELT+=,@(('\b'+[regex]::Escape($a)+'\b'),$w)
+  $bas=$(if($w.StartsWith('i',[StringComparison]::Ordinal)){ 'İ'+$w.Substring(1) } else { $w.Substring(0,1).ToUpperInvariant()+$w.Substring(1) }); $basA=AsciiBicim $bas; $YAZIM_DUZELT+=,@(('\b'+[regex]::Escape($basA)+'\b'),$bas) }
 function YazimOnar([string]$metin){
   if(-not $metin){ return $metin }
   $t=$metin
@@ -826,6 +833,14 @@ function KokuKusur($a){
 # 08.09 Cem "Türkçe kelime yazmalı, borç alacak düzgün atmalı" → iki DETERMİNİSTİK kapı daha (FAZ A, sert):
 # KAPI-D2 TÜRKÇE HARF: soru/şık/açıklamada ASCII kalmış sık kelime (icin, degil, isletme, yil, kar…) → yeniden. Karnedeki TurkceKusur sözlüğüyle aynı.
 $ASCII_TR_A='(?i)\b(icin|degil|degildir|gunu|sirket|sirketi|isletme|isletmenin|isletmesi|donem|donemin|donemi|uretim|butun|dogru|dogrusu|yanlis|yanlistir|ucret|ucreti|olcum|hesabi|hesabina|karsilik|karsiligi|musteri|satis|satislar|satislari|alis|odeme|odemesi|yukumluluk|ozkaynak|ozkaynaklar|donen|buyuk|kucuk|yil|yilinda|yilinin|yuzde|deger|degeri|degerleme|sayi|isci|iscilik|surec|sure|gecerli|gecmis|dagitim|dagitimi|olusan|olusur|bagli|bagimsiz|yonetim|yonetimi|denetci|dusuk|yuksek|artis|azalis|gerceklesen|gercek|agirlikli|musavir|mudur|kayit|kaydi|kayitlari|birikmis|odenmis|odenecek|verilmis|alinmis|bagis|tasit|tasitlar|demirbas|demirbaslar|ozel|dogrudan|gunluk|aylik|yillik|tuketim|urun|urunler|uretilen|cikardigi|cikarmis|basladigi|zarari|tutari|tutarinda|asagidakilerden|yapilan|yapilmis|edilmis|icinde|uzerinden|once|itibariyla)\b'   # kâr/kar, fatura, iade, olan, sonra, tarihinde gibi zaten Türkçe olan kelimeler LİSTEDE YOK (sahte alarm)
+function YazimOnarNesne($c){ if(-not $c){ return }
+  foreach($alan in @('soru','hap','sinav_taktigi','notlandirici','dayanak')){ if($c.PSObject.Properties[$alan] -and $c.$alan -is [string]){ $c.$alan=YazimOnar $c.$alan } }
+  foreach($hh in 'A','B','C','D','E'){
+    if($c.siklar -and $c.siklar.PSObject.Properties[$hh] -and $c.siklar.$hh -is [string]){ $c.siklar.$hh=YazimOnar $c.siklar.$hh }
+    if($c.aciklama -and $c.aciklama.PSObject.Properties[$hh]){ $v=$c.aciklama.$hh; if($v -is [string]){ $c.aciklama.$hh=YazimOnar $v } elseif($v){ foreach($p in @($v.PSObject.Properties)){ if($p.Value -is [string]){ $v.($p.Name)=YazimOnar $p.Value } } } }
+    if($c.PSObject.Properties['teshis'] -and $c.teshis -and $c.teshis.PSObject.Properties[$hh] -and $c.teshis.$hh){ $t=$c.teshis.$hh; foreach($p in @($t.PSObject.Properties)){ if($p.Value -is [string]){ $t.($p.Name)=YazimOnar $p.Value } } } }
+  if($c.PSObject.Properties['cozum_tablo'] -and $c.cozum_tablo -and $c.cozum_tablo.satirlar){ foreach($st in @($c.cozum_tablo.satirlar)){ if($st -and $st.Count -and $st[0] -is [string]){ $st[0]=YazimOnar $st[0] } } }
+}
 function TurkceKapisi($a){ $tum="$($a.soru) "+(@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' '; if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $tum+=' '+(AciklamaDuz $a.aciklama.$hh) } }
   # tr-TR kültüründe (?i) 'I' ile 'i'yi eşlemez ("Isletme" kaçıyordu, 08.09 öz-sınav) → metin ToLowerInvariant ile küçültülür, desen küçük harf
   $tumK=$tum.ToLowerInvariant()
@@ -1244,9 +1259,10 @@ $UZUNLUK_TAVAN=$UzunlukTavan
 $KALIP_TIP=''
 $TIP_HEDEF=New-Object System.Collections.Generic.List[string]
 $TIP_TARIF=@{
-  'kayit'     = "KAYIT sorusu: bir islemin muhasebe kaydini sorar - 'Soz konusu isleme iliskin muhasebe kaydi asagidakilerden hangisidir?' Siklar YEVMIYE MADDESI olur (borc/alacak hesaplari + tutarlar)."
-  'hesaplama' = "HESAPLAMA sorusu: verilen rakamlardan bir tutar/oran bulunur - 'ne kadardir / kac TL'dir'. Siklar RAKAM olur."
-  'teori'     = "TEORI sorusu: kural/tanim/ilke sorar - 'asagidakilerden hangisi ... degildir/yanlistir'. Siklar CUMLE olur, rakam gerekmez; cozum tablosu da gerekmez (sema yeter)."
+  # 08.09: bu tarifler ASCII yazılıydı, model istemin yazımını kopyalıyordu ("asagidakilerden", "hesabi") → Türkçe harfle yazıldı (02.09 kök dersi)
+  'kayit'     = "KAYIT sorusu: bir işlemin muhasebe kaydını sorar - 'Söz konusu işleme ilişkin muhasebe kaydı aşağıdakilerden hangisidir?' Şıklar YEVMİYE MADDESİ olur (borç/alacak hesapları + tutarlar)."
+  'hesaplama' = "HESAPLAMA sorusu: verilen rakamlardan bir tutar/oran bulunur - 'ne kadardır / kaç TL'dir'. Şıklar RAKAM olur."
+  'teori'     = "TEORİ sorusu: kural/tanım/ilke sorar - 'aşağıdakilerden hangisi ... değildir/yanlıştır'. Şıklar CÜMLE olur, rakam gerekmez; çözüm tablosu da gerekmez (şema yeter)."
 }
 $kalipYol=Join-Path $kok ("veri\cikmis-ders-kalibi-" + ($Sinav.ToLowerInvariant()) + ".json")
 if(Test-Path $kalipYol){
@@ -1615,6 +1631,9 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
       Write-Host "  BOZUK SEBEP ($id d$deneme): $sebep, durma=$($y.dur), $("$($y.metin)".Length) kr -> $(Split-Path $bozukYol -Leaf)" -ForegroundColor DarkYellow
       continue
     }
+    # 08.09: kapılardan ÖNCE yazım onarımı (YazimOnar sözlüğü: dogrusu→doğrusu, hesabi→hesabı…) — kapı yalnız sözlüğün düzeltemediğini düşürür,
+    # böylece bilinen ASCII kalıntısı için para harcanıp yeniden yazdırılmaz (pilot6: "yillik, asagidakilerden, hesabi" 3 kapı turu yaktı)
+    YazimOnarNesne $aday
     $uz="$($aday.soru)".Length
     # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
     $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
