@@ -910,10 +910,17 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     mamul", "dönem sonu yarı mamul", "genel üretim gideri", "direkt ilk madde ve malzeme", "direkt işçilik", "ilk giren ilk çıkar
     yöntemi" der. Soru, şık, açıklama, tablo ve adımlarda aynı kural.
     Şirket adı "ABC A.Ş." kalıbı sınavla uyumludur. Açıklama, hap ve tuzak metinleri de bu dile uyar.
+12. TEŞHİS (07.09 Ö54, "Yanlışını böyle öğrenirsin"): JSON'a "teshis" nesnesi ekle, HER ŞIK için {"yanilgi","gercek","ayirt","paragraf"}:
+    yanilgi = bu şıkkı seçen öğrencinin KAFASINDAKİ yanlış inanç, "sen" diliyle tek cümle ("Elden çıkarırken şirketin katlandığı her
+    masrafı elden çıkarma maliyeti sanıyorsun"); DOĞRU şık için yanilgi = bu şıkkı ELEYEN öğrencinin yanılgısı.
+    gercek = kuralın kendisi + kaynak, en çok iki cümle ("TMS 36 p.28 yalnız satışa doğrudan bağlı ek masrafı sayar; tazminat
+    TMS 37'nin konusudur"). ayirt = öğrencinin bir daha yanılmamak için kendine soracağı TEK soru ("Varlığı satmasam da bu para
+    çıkar mıydı?"). paragraf = kısa kaynak künyesi ("p.28", "m.328"). Jargon yok, tuzak adı yazma. Bu alanlar açıklama metnini
+    DEĞİŞTİRMEZ, ona ek gelir; hesaplı soruda da yazılır (yanilgi = atlanan katman).
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
-{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kisa kunye"}
+{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"teshis":{"A":{"yanilgi":"...","gercek":"...","ayirt":"...","paragraf":"..."},"B":{...},"C":{...},"D":{...},"E":{...}},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kisa kunye"}
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
@@ -1432,7 +1439,8 @@ foreach($id in @($don.Keys)){
     Write-Host ("  ADIM TOKEN {0}: girdi {1} (onbellek okuma {2}, yazma {3}) · cikti {4} · model claude-sonnet-5" -f $id,$y2.girdi,$y2.onbellekOkuma,$y2.onbellekYazma,$y2.cikti) -ForegroundColor DarkGray
     $a2=Coz $y2.metin
     if(-not $a2 -or -not $a2.adimlar){ break }
-    $uzunAd=@(@($a2.adimlar) | Where-Object { $_ -and (@(("$($_.anlatim)" -split '(?<=[.!?])\s+') | Where-Object { $_.Trim().Length -gt 2 }).Count -gt 2) }).Count
+    $cumleTavan=$(if($tabloAdim.PSObject.Properties['teori'] -and $tabloAdim.teori){ 3 } else { 2 })   # 07.09 Ö56: teori dersinde adım ≤3 cümle + karar sorusu
+    $uzunAd=@(@($a2.adimlar) | Where-Object { $_ -and (@(("$($_.anlatim)" -split '(?<=[.!?])\s+') | Where-Object { $_.Trim().Length -gt 2 }).Count -gt $cumleTavan) }).Count
     $dolgu=@(@($a2.adimlar) | Where-Object { $_ -and "$($_.anlatim)" -match '(?i)(birazdan|az sonra|unutmayalım|hadi |işte |şimdi bakalım|hesaplamadık)' }).Count
     $aritK=@(AritmetikKusur $a2.adimlar)   # 06.09 ARİTMETİK KAPISI: formül zincirleri hesaplanır
     $dilOk=($uzunAd -le 2 -and $dolgu -eq 0); $aritOk=(-not $aritK.Count)
@@ -1599,17 +1607,20 @@ foreach($id in @($don.Keys)){
 # Haiku, ≈0,005 USD/soru. Kapı: ≤90 kelime, kısaltma/madde no yok (SadeKapi). Yalnız -KonuGiris ile.
 $script:FAZ_ADI='G'
 $girisIstem=@'
-Sen Tetikte'nin Nöbetçisisin. Aşağıdaki sınav sorusunun KONUSUNA, bu konuyu HİÇ bilmeyen birine soruya girmeden önce okuyacağı 3 parçalı giriş yaz.
-1. nedir: konu nedir, ne işe yarar — 2 kısa cümle. Kısaltma yok, madde numarası yok.
-2. sinavda: bu konu sınavda tipik olarak nasıl sorulur (ne verilir, ne istenir) — 1 cümle. Çıkmış dönem sayısı ektedir, uydurma sayı yazma.
-3. yontemler: konuda birden çok yöntem/kural varsa adları ve hangisinin ne zaman kullanıldığı; tek yöntemse en kritik kural — en çok 2 cümle.
-4. ornek: konuyu ilk kez duyan birinin "ha, bu demek" diyeceği TEK somut örnek, 1-2 cümle, sınavda çıkan olay tipiyle
-   ("Satıcılara borcun eksik gösterildiğinden şüpheleniyorsan kayıtlı borç listesine bakmak işe yaramaz; ödenmemiş faturalara ve
-   tedarikçi ekstrelerine bakarsın, çünkü eksik olan zaten deftere girmemiştir."). Soyut tanım değil, olay. HESAP YAPMA: rakamla
-   işlem, "=", "eksi", "artı", sonuç tutarı YAZMA (06.09: hesaplı örnekte 30.000 yazıldı, doğrusu 80.000 idi); olayı ve ne
-   yapılacağını SIRAYLA anlat ("önce yan ürünün net değeri düşülür, kalan ana ürünlere satış değeri oranında paylaştırılır").
-   Sorudaki olayın kendisini tekrar etme; daha basit, başka bir olay seç.
-Toplam 110 kelimeyi geçme. Yalnız kaynak metinleri ve soruya dayan. Türkçe harfler tam. Yalnız JSON: {"nedir":"...","sinavda":"...","yontemler":"...","ornek":"..."}
+Sen Tetikte'nin Nöbetçisisin. Aşağıdaki sınav sorusunun KONUSU için, konuyu HİÇ bilmeyen bir gence İKİ KATMANLI giriş yaz (07.09 Ö54: panel = teşhis, Nöbetçi 0. adım = ders; iki katmanda AYNI CÜMLE OLMAZ).
+KATMAN 1 — PANEL (şık seçilir seçilmez görünür, 20 saniyede okunur; kısaltma yok, madde numarası yok):
+1. nedir: konu İKİ cümlede — ne işe yarar, sınav neyi ölçer.
+2. panel_ornek: gencin günlük hayatından TEK örnek, 2-3 cümle, RAKAMLI olabilir (ikinci el telefon, kiralık ev, araba taksiti gibi);
+   rakamlar sorunun rakamları DEĞİL, küçük ve yuvarlak; hesap yazıyorsan doğru yap. "ha, bu demek" dedirtsin.
+KATMAN 2 — NÖBETÇİ 0. ADIM (ders; panelle aynı cümle yok):
+3. harita: konunun cevapladığı üç soru, her biri tek cümle ("Ne zaman test edilir: … / Nasıl ölçülür: … / Nasıl kaydedilir: …" gibi; konuya
+   göre üç soru değişir). En çok 3 cümle.
+4. terimler: konunun DÖRT anahtar terimi, her tanım en çok 8 kelime: [{"ad":"...","tanim":"..."}].
+5. desen: sınav bu konuyu nasıl sorar — tuzak noktaları kaynak paragrafı/maddesiyle (burada "p.28" gibi künye serbest), en çok 3 cümle,
+   son cümle "Bu soru … noktasından geliyor." Çıkmış dönem sayısı ektedir, uydurma sayı yazma.
+6. sinavda: 1 cümle, ne verilir ne istenir; işlem adı/formül yazma. 7. yontemler: en çok 2 cümle (tek yöntemse en kritik kural).
+Toplam 220 kelimeyi geçme. Yalnız kaynak metinleri ve soruya dayan. Türkçe harfler tam.
+Yalnız JSON: {"nedir":"...","panel_ornek":"...","harita":"...","terimler":[{"ad":"...","tanim":"..."}],"desen":"...","sinavda":"...","yontemler":"...","ornek":"..."}  ("ornek" = panel_ornek ile aynı metin, eski alan)
 KONU: {KONU} · çıkmış arşivde {DONEM} dönemde soruldu
 SORU: {SORU}
 === KAYNAK METİNLERİ === {KAYNAK}
@@ -1618,28 +1629,35 @@ foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $KonuGiris){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
   $cvp=$don[$id]; if(-not $cvp.soru){ continue }
-  if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['ornek'] -and "$($cvp.konu_giris.ornek)".Trim()){ continue }   # 06.09: örneksiz eski giriş yenilenir; -GirisYenile hepsini
+  if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['harita'] -and "$($cvp.konu_giris.harita)".Trim()){ continue }   # 07.09 Ö54: haritasız (eski iki katmansız) giriş yenilenir; -GirisYenile hepsini
   $kMetinG=SadeKaynak $cvp; if($kMetinG.Length -gt 6000){ $kMetinG=$kMetinG.Substring(0,6000) }
   $istG=$girisIstem.Replace('{KONU}',"$($cvp.konu)").Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
   $gN=$null; $tokG=0; $tokC=0
   foreach($tur in 1..2){
-    $yG=$null; foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istG -MaxTok 900; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+    # 07.09 Ö54/Ö27: iki katmanlı giriş + rakamlı gencin örneği → Sonnet (Haiku aritmetiği güvenilmezdi, "hesap yasak" kapısı kalktı) ≈0,02 USD
+    $yG=$null; foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istG -MaxTok 1600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
     $tokG+=[int]$yG.girdi; $tokC+=[int]$yG.cikti
     $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ $gN=$null; break }
-    $tumG="$($gN.nedir) $($gN.sinavda) $($gN.yontemler) $($gN.ornek)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' }); if(@(($tumG -split '\s+') | Where-Object { $_ }).Count -gt 130){ $dusenG+='130 kelimeden uzun' }; if(-not "$($gN.ornek)".Trim()){ $dusenG+='örnek yok' }
-    if("$($gN.ornek)" -match '=|×|\beksi\b|\bartı\b|\bçarpı\b|\bbölü\b|\d{1,3}(\.\d{3})+\s*TL.*\d{1,3}(\.\d{3})+\s*TL'){ $dusenG+='örnekte hesap var (yasak)' }   # Haiku aritmetiği güvenilmez
+    if(-not ($gN.PSObject.Properties['ornek'] -and "$($gN.ornek)".Trim()) -and $gN.PSObject.Properties['panel_ornek']){ $gN | Add-Member -NotePropertyName ornek -NotePropertyValue "$($gN.panel_ornek)" -Force }
+    if(-not ($gN.PSObject.Properties['panel_ornek'] -and "$($gN.panel_ornek)".Trim())){ $gN | Add-Member -NotePropertyName panel_ornek -NotePropertyValue "$($gN.ornek)" -Force }
+    $tumG="$($gN.nedir) $($gN.panel_ornek) $($gN.sinavda)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' })
+    $tumG2="$($gN.nedir) $($gN.panel_ornek) $($gN.harita) $($gN.desen) $($gN.sinavda) $($gN.yontemler)"; if(@(($tumG2 -split '\s+') | Where-Object { $_ }).Count -gt 240){ $dusenG+='240 kelimeden uzun' }; if(-not "$($gN.ornek)".Trim()){ $dusenG+='örnek yok' }
+    if(-not "$($gN.harita)".Trim()){ $dusenG+='harita yok' }; if(@($gN.terimler).Count -lt 3){ $dusenG+='terimler eksik (4 gerek)' }; if(-not "$($gN.desen)".Trim()){ $dusenG+='desen yok' }
+    # panel ile 0. adım aynı cümleyi taşımasın (tekrar kapısı): nedir/panel_ornek cümleleri harita/desen içinde geçmez
+    $panelC=@(("$($gN.nedir) $($gN.panel_ornek)" -split '(?<=[.!?])\s+') | ForEach-Object { $_.Trim() } | Where-Object { $_.Length -ge 25 }); $dersM="$($gN.harita) $($gN.desen)"; $tekrarC=@($panelC | Where-Object { $dersM.Contains($_) }); if($tekrarC.Count){ $dusenG+="panel cümlesi 0. adımda tekrar ediyor ($($tekrarC.Count))" }
     # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
     $soruTutar=@([regex]::Matches("$($cvp.soru)",'\d{1,3}(?:\.\d{3})+|\b\d{3,}\b') | ForEach-Object { $_.Value } | Select-Object -Unique); $tekrar=@($soruTutar | Where-Object { $t=$_; "$($gN.ornek)" -match ('(?<![\d.])'+[regex]::Escape($t)+'(?![\d.])') })
     if($tekrar.Count){ $dusenG+="örnek sorunun rakamını tekrarlıyor ($($tekrar -join ', '))" }
     # 06.09 Cem (eksiler #4): "Sınavda nasıl sorulur" ne VERİLİR ne İSTENİR der; işlem adı/formül (çıkarılarak, toplanarak, düşülerek, eksi, formül…) cevabın yolunu ele verir → yasak
     if("$($gN.sinavda)" -match '(?i)(çıkarıl|çıkararak|toplanarak|toplanır|düşül|bölerek|bölünerek|çarparak|çarpılarak|formül|\beksi\b|\bartı\b|=|hesaplanarak)'){ $dusenG+="'nasıl sorulur' satırında işlem adı var (yasak: yalnız ne verilir, ne istenir)" }
     if(-not $dusenG.Count){ break }
-    if($tur -eq 1){ Write-Host "  GİRİŞ KAPI ($id): $($dusenG -join '; ') -> tekrar" -ForegroundColor Yellow; $istG+="`n`nKAPI DÜŞTÜ: $($dusenG -join '; '). Kısaltmasız, madde numarasız, 80 kelime altında yeniden yaz. Yalnız JSON." }
+    if($tur -eq 1){ Write-Host "  GİRİŞ KAPI ($id): $($dusenG -join '; ') -> tekrar" -ForegroundColor Yellow; $istG+="`n`nKAPI DÜŞTÜ: $($dusenG -join '; '). Panelde kısaltmasız ve madde numarasız, toplam 220 kelime altında, iki katmanda aynı cümle olmadan yeniden yaz. Yalnız JSON." }
     else { $rapor.Add("GIRIS KAPI: $id") }
   }
-  Write-Host ("  GİRİŞ TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
+  Write-Host ("  GİRİŞ TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
   if(-not $gN){ $rapor.Add("GIRIS BOZUK: $id"); continue }
-  $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); ornek=(DilOnar "$($gN.ornek)"); model='claude-haiku-4-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  $terimL=@(); foreach($tr in @($gN.terimler)){ if($tr -and $tr.ad){ $terimL+=[pscustomobject]@{ ad=(DilOnar "$($tr.ad)"); tanim=(DilOnar "$($tr.tanim)") } } }
+  $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); ornek=(DilOnar "$($gN.ornek)"); panel_ornek=(DilOnar "$($gN.panel_ornek)"); harita=(DilOnar "$($gN.harita)"); terimler=$terimL; desen=(DilOnar "$($gN.desen)"); model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz; Write-Host "  GİRİŞ OK $id"
 }
 

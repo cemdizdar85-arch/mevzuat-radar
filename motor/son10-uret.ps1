@@ -145,6 +145,20 @@ KURALLAR:
        öğretti, öğrenci-modeli "diğer dört şıkkın kuralı anlatımda yok, yetmedi" dedi): soru kökü "hangisi yanlıştır / değildir /
        söylenemez" ise ŞIK ŞIK SINAMA adımı zorunludur: her şık için tek satır "A) <kural, kaynak maddesiyle> → doğru ifade" ya da
        "→ YANLIŞ, çünkü <kural>". Beş satır, beş kaynak cümlesi; sınavda bu soru dört doğruyu eleyerek çözülür, anlatım dördünü de vermelidir.
+   (j) TEORİ DERSİ = "BİR OLAY, BEŞ KARAR" (07.09 Cem, TMS 36 ekranları: "tanım tanım anlatıyor, konu bilmeyene anlatamıyoruz,
+       uzun ve hep aynı kalıp"): verilen tablo KAVRAM TABLOSUDUR (başlıklar "Adım","İçerik") ise hesap kalıbı (kural 2, 3, 6a, 6c, 7f,
+       7g, 7h, 7i) UYGULANMAZ; adımlar şu SABİT yapıda yazılır, tam 8 adım:
+       ADIM 1 formul "Olay: <tek somut hikâye>" — sorunun olayı DEĞİL, aynı kuralın başka bir işletmedeki gerçek olayı, RAKAMLARIYLA
+         (defter değeri, satış fiyatı, tutar); bütün ders bu tek olayda yaşanır. anlatim en çok 3 cümle, olayı kurar.
+       ADIM 2 formul "Ne yapacağız: <kuralın iskeleti bu olayın rakamlarıyla>" — kural bir kez; anlatim "beş ifadeyi bu olayda tek tek
+         deneyeceğiz" ile biter.
+       ADIM 3–7: HER ŞIK BİR ADIM, şık sırasıyla A, B, C, D, E. formul "Şık A: <olayda bu ifadenin karşılığı olan somut KARAR SORUSU>"
+         (örnek: "Şık C: müdür 'işçi tazminatını satış masrafına ekleyelim' diyor, ekler misin?"); anlatim en çok 3 cümle: olayda ne
+         olur + kural + kaynak paragrafı. Ek alanlar ZORUNLU: "sik":"A", "karar":"doğru" ya da "yanlış" (İFADENİN kendisi doğru mu),
+         "paragraf":"p.28" (kısa kaynak künyesi). doldur boş bırak (sayfa şık karnesini kendisi doldurur).
+       ADIM 8 formul "Kapanış: A ✓ B ✓ C ✓ D ✗ E ✓" — anlatim: tek cümle özet + öğrencinin kendine soracağı tek AYIRT ETME sorusu.
+       YASAKLAR: adımda TANIM yok (tanımlar kavramlar bölümünündür); soruyu yeniden anlatma yok; her adım en çok 3 cümle ve tek karar;
+       "hangisi doğrudur" sorusunda aynı yapı (✓/✗ dağılımı değişir). Öğrencinin seçtiği şıkkın yanılgı teşhisini sayfa ekler, sen yazma.
 8. DENKLEM SORULARI (05.09 Cem: "öğrenci bir şey anlaması zor" — karşılıklı dağıtım incelemesi; başabaş, standart
    maliyet, karşılıklı dağıtım, kapasite gibi denklemle çözülen her konu):
    (a) HARF YOK, AD VAR: "Bakım-Onarım toplamı", "Yemekhane toplamı" (A/B yazma; şık harfleriyle karışır).
