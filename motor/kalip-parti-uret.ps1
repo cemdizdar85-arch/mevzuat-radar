@@ -803,6 +803,8 @@ $adimIstem=[regex]::Match($son10,"(?s)\`$adimIstem=@'(.*?)'@").Groups[1].Value
 $css=[regex]::Match($son10,"(?s)\`$css=@'(.*?)'@").Groups[1].Value
 if($adimIstem.Length -lt 500 -or $css.Length -lt 500){ throw 'son10 sablonlari cekilemedi' }
 if($Zorluk -eq 'zor'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 6-10 adım (katmanlı soru: her katman kendi adımı).') }   # 05.09 zor ayarı
+if($Zorluk -eq 'cokzor'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 7-12 adım (çok katmanlı soru: her katman ve her tuzak kendi adımı; "Dahil değil" satırı zorunlu).') }
+if($Zorluk -eq 'kolay'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 4-6 adım (tek kural, tek işlem; verilenler + kural + hesap + sağlama + yanlış yol).') }
 Invoke-Expression ([regex]::Match($son10,'(?s)function TabloHtml.*?\n\}\r?\n').Value)
 Invoke-Expression ([regex]::Match($son10,'(?s)function SemaHtml.*?\n\}\r?\n(?=\r?\n)').Value)
 
@@ -1522,6 +1524,26 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     ortak maliyetten düşülür · ayrılma sonrası ek maliyet + nihai satış değeri (net gerçekleşebilir değer yöntemi) · birim KÂR istenir
     (satış fiyatı − birim maliyet) · TERS SORU (pay verilir, üretim miktarı ya da satış fiyatı istenir) · "piyasa değeri yöntemine göre
     dağıtsaydı" karşılaştırması. En az İKİ zorluk kaynağı birlikte kullanılır.
+"@ }
+  # 08.09 (SORU-BASMA-KURALLARI 1.7 / 1.10, Cem "kolay zor çok zor"): üç seviye. Aynı konu üç ayrı geçişte üç seviyede basılır; her seviye kendi etiketinde.
+  if($Zorluk -eq 'kolay'){ $ekNot+=@"
+
+ZORLUK: KOLAY (sınavın açılış sorusu ayarı — çıkmış soruların %42'si bu bandda):
+(a) TEK kural, TEK işlem: öğrenci kuralı biliyorsa tek adımda (en çok iki ara hesapla) cevaba ulaşır.
+(b) Veri az ve doğrudan: soru en çok 3 sayı verir; çeldirici veri (hesaba girmeyen kalem) en çok bir tane.
+(c) Yanlış şıklar yine gerçek yanlış yoldur (işaret hatası, yanlış hesap, kuralı tersten uygulama); rastgele sayı yok.
+(d) Gövde kısa (dersin medyanının altı), kök doğrudan: "… kaç TL'dir?" / "… hangisidir?". Teori sorusunda tek madde/paragraf, tek kavram.
+"@ }
+  if($Zorluk -eq 'cokzor'){ $ekNot+=@"
+
+ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
+(a) ZOR ayarının her şartı geçerlidir (≥4 bağlı ara hesap, katman birleşimi, çeldirici = atlanan katman, gövde sınav gibi).
+(b) ÜSTÜNE üçünden en az ikisi: TERS SORU (sonuç verilir, girdi istenir) · ÇELDİRİCİ VERİLEN (soruda geçen ama hesaba girmeyen, adayın
+    katmaya meyilli olduğu kalem; "Dahil değil" satırı bunu açıklar) · İKİ KURALIN KESİŞİMİ (iki madde/standart aynı olayda birlikte;
+    biri unutulursa şıklardan biri çıkar).
+(c) Yanlış şıklar bu iki-üç tuzağın tek tek düşülmesinden türer; iki tuzağa birden düşenin şıkkı da vardır.
+(d) Kök yine tek anlamlı; uzunluk tavanı geçerli (zorluk katman ve tuzak sayısında, kelime sayısında değil). Teori sorusunda: iki paragrafın
+    kesişimi, istisnanın istisnası, ya da "hangisi HER ZAMAN doğrudur" gibi mutlak kök — ama sızıntı kuralı 4c korunur.
 "@ }
   $ist=$soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
