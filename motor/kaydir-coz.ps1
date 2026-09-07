@@ -653,6 +653,7 @@ $html=@'
 .konuK{display:none;font-size:.95em;line-height:1.5;margin:0 0 8px;padding:8px 12px;border-radius:10px;background:color-mix(in srgb,var(--mavi) 10%,transparent)}.konuK .ornekK{color:var(--dim)}
 .tt td.kararH{font-weight:700;white-space:nowrap}.tt td.kararH.yan:not(.gizliH){color:var(--kirmizi)}.tt td.kararH.dog:not(.gizliH){color:var(--yesil)}
 .terimKim{color:var(--dim);font-size:.9em}
+.tt td.haricH{text-decoration:line-through;color:var(--dim)}.mat.haric .matAd{color:var(--kirmizi)}.haricListe{display:flex;flex-direction:column;gap:4px}.haricKalem{text-decoration:line-through;color:var(--dim)}
 .kart .kagit.acik.ustte{z-index:30}   /* 07.09: Nöbetçi (z 21) üstünde hesap kâğıdı */
 .tahminSoru{margin:6px 0 10px;font-size:.92em}.tahminSoru summary{cursor:pointer;color:var(--mavi)}.tahminSoru p{margin:6px 0 0;color:var(--dim);line-height:1.5}
 .tt td.eksiH,.tt .eksiH{color:var(--kirmizi);font-weight:600}.tt tr.lejantSatir td{font-size:.78em;color:var(--dim);padding-top:4px;border:0}
@@ -1233,12 +1234,18 @@ SORULAR.forEach((s,i)=>{
         const car=ustBol(s0,'×*x'); if(car.length>=3){ return etiket+car.filter((x,i)=>i%2===0).map(c=>{ const t=terim(c); return renkli(t.deg)+(t.not?' <i class="notI">'+esc(t.not)+'</i>':''); }).join(' <span class="op">×</span> '); }
         const t=terim(s0); return etiket+renkli(t.deg)+(t.not?' <i class="notI">'+esc(t.not)+'</i>':''); };
       const ifade=seg=>String(seg).split(/\s*(?:->|→)\s*/).filter(Boolean).map(ifade1).join('<span class="esit">→</span>');
+      // 07.09 Cem: "Dahil değil: tazminat 25.000, yeniden yapılandırma 15.000" parçası ayrı blok — kalemler üstü çizili, tabloda da o adımda çizilir
+      const haricSet=new Set();
       const bloklar=String(a.formul||'').split(/\s*;\s*/).filter(x=>x.trim()).map(f=>{
+        const dm=f.match(/^\s*Dahil değil\s*:\s*(.+)$/i); if(dm){ const kalemler=dm[1].split(/\s*,\s*/).filter(Boolean); kalemler.forEach(kl=>{ [...kl.matchAll(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?![\d.,]\d)/g)].forEach(m=>haricSet.add(norm(m[0]))); }); return '<div class="mat haric"><div class="matAd">Dahil değil (hesaba girmez)</div><div class="matSatir haricListe">'+kalemler.map(kl=>'<span class="haricKalem">'+esc(kl.replace(/\s*\(soruda verilen\)/gi,''))+'</span>').join('')+'</div></div>'; }
         const seg=f.split(/\s=\s/).map(x=>x.trim()).filter(Boolean); if(seg.length<2){ return '<div class="mat"><div class="matSatir">'+ifade(f)+'</div></div>'; }
         // ad: ilk parça sayı/işleç içermiyorsa formülün adıdır; içeriyorsa ("Q: 240.000 / 2.000 = 120") ifadedir
         const adMi=!/\d/.test(seg[0])&&!/[+\/×→]|->/.test(seg[0]); const ad=adMi?seg[0]:''; const orta=adMi?seg.slice(1,-1):seg.slice(0,-1); const son=seg[seg.length-1]; const sonT=terim(son);
         return '<div class="mat">'+(ad?'<div class="matAd">'+esc(ad)+'</div>':'')+'<div class="matSatir">'+(orta.length?orta.map(ifade).join('<span class="esit">=</span>')+'<span class="esit">=</span>':'')+'<span class="matSonuc">'+renkli(sonT.deg)+(sonT.not?' <i class="notI">'+esc(sonT.not)+'</i>':'')+'</span></div></div>'; });
       fH=bloklar.join('');
+      // "Dahil değil" kalemleri soldaki VERİLENLER tablosunda bu adımda üstü çizili; adım değişince kalkar
+      tabloSar.querySelectorAll('td.haricH').forEach(td=>td.classList.remove('haricH'));
+      haricSet.forEach(n=>{ (hucreDeger[n]||[]).forEach(k2=>{ const [r,c]=k2.split(',').map(Number); const td=tabloSar.querySelector('td[data-r="'+r+'"][data-c="'+c+'"]'); if(td&&!td.classList.contains('gizliH')) td.classList.add('haricH'); }); });
       // 06.09 Cem (kalıp-6, "anlamadım"): TEORİ adımında formül tahtası yok — kural KART olarak düz cümleyle çizilir; etiketler
       // ("(soruda verilen kural)", "(3. adımda bulduk)") ve ok işaretleri sökülür.
       const teoriAdimMi=!!((s.teori||(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım')))&&!verilenAdimMi&&!a.giris;

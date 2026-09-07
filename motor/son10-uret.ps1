@@ -145,6 +145,12 @@ KURALLAR:
        öğretti, öğrenci-modeli "diğer dört şıkkın kuralı anlatımda yok, yetmedi" dedi): soru kökü "hangisi yanlıştır / değildir /
        söylenemez" ise ŞIK ŞIK SINAMA adımı zorunludur: her şık için tek satır "A) <kural, kaynak maddesiyle> → doğru ifade" ya da
        "→ YANLIŞ, çünkü <kural>". Beş satır, beş kaynak cümlesi; sınavda bu soru dört doğruyu eleyerek çözülür, anlatım dördünü de vermelidir.
+   (k) DAHİL DEĞİL SATIRI (07.09 Cem, TMS 36 ekranı: "elden çıkarmayı nasıl hesapladığını, diğerlerini almayacağını yaz"): soru hesaba
+       GİRMEYEN çeldirici kalem veriyorsa (işten çıkarma tazminatı, yeniden yapılandırma maliyeti, KDV, faiz, kur farkı gibi), o kalemin ait
+       olduğu "nedir"/hesap adımının formülü İKİ PARÇADIR: "Elden çıkarma maliyeti = yasal + damga + taşıma = 30.000 (soruda verilen);
+       Dahil değil: işten çıkarma tazminatı 25.000 (soruda verilen), yeniden yapılandırma maliyeti 15.000 (soruda verilen)". Sayfa "Dahil değil"
+       kalemlerini üstü çizili gösterir. "Nedir?" adımının formülü HİÇ boş kalmaz: en az kapsam formülü yazılır. Anlatım nedenini tek cümleyle
+       söyler ("satmasan da doğar, o yüzden girmez").
    (j) TEORİ DERSİ = "BİR OLAY, BEŞ KARAR" (07.09 Cem, TMS 36 ekranları: "tanım tanım anlatıyor, konu bilmeyene anlatamıyoruz,
        uzun ve hep aynı kalıp"): verilen tablo KAVRAM TABLOSUDUR (başlıklar "Adım","İçerik") ise hesap kalıbı (kural 2, 3, 6a, 6c, 7f,
        7g, 7h, 7i) UYGULANMAZ; adımlar şu SABİT yapıda yazılır, tam 8 adım:
