@@ -126,6 +126,9 @@ C5. Aynı ders adı iki sınavda varsa (Finansal Muhasebe SGS + Yeterlilik) say�
 
 Basım ancak bu tablo tamamen ✅ iken başlar. Yeni şart çıkarsa buraya eklenir, basım durur.
 
+**B kovası (basarken paralel; 08.09 03:00 durumu):** 11 kurtarma fazı ✅ (tek soruda ölçüldü) · 12 genel gece koşucusu ✅ · 18 kapı-temiz tazeleme ✅ (15.922) · 19 KAPI-Ç iç eşitlik + zincir eşitlik ✅ · 13 yeterlilik/KGK pilotu ⏳ (≈2 USD, KGK sözlüğü önce) · 14 SPK hattı ⏳ (pilot ≈1 USD) · 15 Ekonomi/Maliye teori notu ⏳ · 16 genel kültür pilotu ⏳ (≈1,5 USD) · 17 ambar↔resmî PDF aracı ⏳ · 20 paralel hat ölçümü ⏳ (≈0,1 USD).
+**Kural 7/A6 kodlandı (08.09):** sert kapılar ikinci denemede de düşerse soru KAYDEDİLMEZ; yalnız yumuşak kapılar (uzunluk, pencere dışı kavram) raporla kalır.
+
 ## D · KARAR KAYDI
 
 | Tarih | Karar | Kim |
