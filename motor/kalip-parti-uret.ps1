@@ -1638,6 +1638,82 @@ foreach($id in @($don.Keys)){
   CacheYaz; Write-Host "  GİRİŞ OK $id"
 }
 
+# --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
+$script:FAZ_ADI='C'
+$ikizIstem=@'
+Aşağıdaki ÇÖZÜLMÜŞ sorunun İKİZİNİ üret: AYNI yöntem, FARKLI rakamlar/adlar, tercihen FARKLI hedef kalem sorulur (ana soru Q'yu soruyorsa ikiz R'yi sorsun: aynı yöntem, başka istek — sınav böyle yapar). Öğrenci tabloyu KENDİSİ dolduracak.
+KURALLAR:
+1. ikiz_soru: yeni kısa soru metni (rakamlar YENİ), Türkçe harfler tam. hedef_cumle: "tabloyu doldur ve X'in ... olduğunu bul" tarzı tek cümle.
+2. tablo: ana soruyla AYNI kolon yapısı; TÜM hücre değerleri YENİ rakamlarla DOLU (doğru cevaplar - kontrol için).
+3. verilen: [[satır,kolon],...] = YALNIZ ikiz_soru METNİNDE AÇIKÇA verilen değerlerin koordinatları. Hesaplanan bir hücrenin
+   değeri metindeki bir rakamla TESADÜFEN aynıysa o hücre verilen DEĞİLDİR (05.09: B'nin eşdeğer miktarı 3.000, A'nın fiili
+   miktarı 3.000'e çakışıp dolu gelmişti). Tesadüfü önlemek için rakamları birbirinden farklı seç.
+4. bosluk: [[satır,kolon],...] = öğrencinin dolduracağı TÜM kalan hücreler (kalem kolonu hariç). verilen+bosluk = kalem-dışı TÜM hücreler; SIZINTI YASAK (verilende olmayan hiçbir değer metinde geçmez).
+5. Rakamlar aritmetik TUTARLI.
+6. ADLAR HARF DEĞİL (kural 4c, 05.09): ürün / gider yeri / kalem adları A, B, C gibi tek harf OLMAZ — şık harfleriyle karışır.
+   Ana sorudaki adlandırma biçimini koru (P/Q/R gibi çift olmayan harfler ya da "Ürün Kuzey", "Bakım-Onarım", "Yemekhane" gibi adlar).
+Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[...],"satirlar":[[...]]},"verilen":[[r,c],...],"bosluk":[[r,c],...]}
+=== ANA SORU === {SORU}
+=== ANA TABLO === {TABLO}
+'@
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
+  $cvp=$don[$id]
+  if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
+  if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ continue }
+  $ist3=$ikizIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress))
+  $y3=$null
+  foreach($d in 1..3){ try{ $y3=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist3 -MaxTok 9000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+  $a3=Coz $y3.metin
+  $gecerli=$false
+  if($a3 -and $a3.tablo -and $a3.tablo.satirlar){
+    # KOD DENETIMI (fark.html dersi): verilen ∪ bosluk = kalem-disi tum hucreler
+    $kume=@{}
+    foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }
+    foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
+    $gecerli=$true
+    $ns=@($a3.tablo.satirlar).Count
+    # 05.09 (kalıp-2 pilotu, iki kez RED): model bazı hücreleri hiç listelemiyor. Listelenmeyen hücre GÜVENLİ tarafa alınır
+    # (bosluk = öğrenci doldurur); sızıntı denetimini builder zaten yapıyor (verilen ∩ metin). Ret yalnız satır/sütun dışı koordinat için.
+    $eksikH=New-Object System.Collections.Generic.List[object]
+    for($r=0;$r -lt $ns;$r++){
+      $kc=@(@($a3.tablo.satirlar)[$r]).Count
+      for($c=1;$c -lt $kc;$c++){
+        $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"
+        if($hv -eq '-' -or $hv -eq ''){ continue }
+        if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) }
+      }
+    }
+    # 06.09 (kalıp-4 pilotu): model sütunları 1'den saymış ([1,2] iki sütunlu tabloda) → tüm koordinatların sütunu tablo genişliğine
+    # eşit ya da aşkınsa ve hiçbiri 0 değilse 1 tabanlı sayılır, bir azaltılır; satırlar aynı şekilde sınanır.
+    $tumK=@(@($a3.verilen)+@($a3.bosluk)); $genis=@(@($a3.tablo.satirlar)[0]).Count
+    if($tumK.Count -and (@($tumK | Where-Object { [int]@($_)[1] -ge $genis }).Count -gt 0) -and (@($tumK | Where-Object { [int]@($_)[1] -le 0 }).Count -eq 0)){
+      $a3.verilen=@(@($a3.verilen) | ForEach-Object { ,@([int]@($_)[0],([int]@($_)[1]-1)) }); $a3.bosluk=@(@($a3.bosluk) | ForEach-Object { ,@([int]@($_)[0],([int]@($_)[1]-1)) })
+      $kume=@{}; foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }; foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
+      $eksikH=New-Object System.Collections.Generic.List[object]; for($r=0;$r -lt $ns;$r++){ $kc=@(@($a3.tablo.satirlar)[$r]).Count; for($c=1;$c -lt $kc;$c++){ $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"; if($hv -eq '-' -or $hv -eq ''){ continue }; if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) } } }
+      Write-Host "  IKIZ: koordinatlar 1 tabanlıydı, sütunlar bir azaltıldı ($id)" -ForegroundColor DarkGray }
+    # satırlar da 1 tabanlı olabilir ([13,1] 13 satırlı tabloda): satır 0 hiç yoksa ve satır sayısına eşit satır varsa bir azalt
+    $tumK=@(@($a3.verilen)+@($a3.bosluk))
+    if($tumK.Count -and (@($tumK | Where-Object { [int]@($_)[0] -ge $ns }).Count -gt 0) -and (@($tumK | Where-Object { [int]@($_)[0] -le 0 }).Count -eq 0)){
+      $a3.verilen=@(@($a3.verilen) | ForEach-Object { ,@(([int]@($_)[0]-1),[int]@($_)[1]) }); $a3.bosluk=@(@($a3.bosluk) | ForEach-Object { ,@(([int]@($_)[0]-1),[int]@($_)[1]) })
+      Write-Host "  IKIZ: satırlar 1 tabanlıydı, bir azaltıldı ($id)" -ForegroundColor DarkGray }
+    # tablo dışı kalan koordinat RED sebebi değil: atılır (verilen'den atılan hücre boşluğa düşer = güvenli taraf)
+    $ic={ param($v) $rr=[int]@($v)[0]; $cc=[int]@($v)[1]; ($rr -ge 0 -and $rr -lt $ns -and $cc -ge 1 -and $cc -lt @(@($a3.tablo.satirlar)[$rr]).Count) }
+    $dis=@($tumK | Where-Object { -not (& $ic $_) }).Count; if($dis){ Write-Host "  IKIZ: $dis tablo dışı koordinat atıldı ($id)" -ForegroundColor DarkGray }
+    $a3.verilen=@(@($a3.verilen) | Where-Object { & $ic $_ }); $a3.bosluk=@(@($a3.bosluk) | Where-Object { & $ic $_ })
+    $kume=@{}; foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }; foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
+    $eksikH=New-Object System.Collections.Generic.List[object]; for($r=0;$r -lt $ns;$r++){ $kc=@(@($a3.tablo.satirlar)[$r]).Count; for($c=1;$c -lt $kc;$c++){ $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"; if($hv -eq '-' -or $hv -eq ''){ continue }; if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) } } }
+    if($eksikH.Count){ $a3.bosluk=@(@($a3.bosluk)+$eksikH.ToArray()); Write-Host "  IKIZ: $($eksikH.Count) listelenmeyen hücre boşluğa alındı ($id)" -ForegroundColor DarkGray }
+    if(-not @($a3.bosluk).Count){ $gecerli=$false; Write-Host "  IKIZ RED sebebi: doldurulacak boşluk kalmadı ($id)" -ForegroundColor Yellow }
+  } else { Write-Host "  IKIZ RED sebebi: JSON çözülemedi ya da tablo yok ($id)" -ForegroundColor Yellow }
+  if($gecerli){
+    $cvp | Add-Member -NotePropertyName ikiz -NotePropertyValue $a3 -Force
+    CacheYaz; Write-Host "  IKIZ OK $id"
+  } else { $rapor.Add("IKIZ REDDEDILDI (kapsama denetimi): $id"); Write-Host "  IKIZ RED: $id" -ForegroundColor Yellow }
+}
+
+# 07.09 Ö52: FAZ Ö (simülasyon) İKİZ'den önce koşuyordu → hesap sorusunda 'ikiz yok' diye atlanıyordu (maliyet-zor1). FAZ C öne alındı.
 # --- FAZ Ö: ÖĞRENCİ SİMÜLASYONU (06.09 Cem "geç"; 05.09'dan beri önerilen "öğretiyor muyuz" ölçüsü) -------------------------
 # Haiku, hiç bilmeyen stajyer rolünde YALNIZ Nöbetçi adımlarını okur ve ikiz soruyu çözer. Cevap ikiz tablosunun sonuç hücresiyle
 # karşılaştırılır (±%1). Sonuç cache'e `simulasyon` olarak yazılır; parti raporunda SIM doğru/yanlış sayılır. ≈0,01 USD/soru.
@@ -1756,81 +1832,6 @@ E) $($ti.siklar.E)
   $cvp | Add-Member -NotePropertyName $simAlan -NotePropertyValue $simObj -Force
   CacheYaz; Write-Host ("  SIM {0} ({1}): cevap {2} · hedef {3}{4}" -f $(if($dogruMu){'DOĞRU'}else{'YANLIŞ'}),$id,$oN.cevap,$hedefS,$(if("$($oN.eksik)".Trim()){ " · eksik: $($oN.eksik)" } else { '' })) -ForegroundColor $(if($dogruMu){'Green'}else{'Red'})
   if(-not $dogruMu){ $rapor.Add("SIM YANLIŞ: $id | cevap $($oN.cevap) hedef $hedefS | $($oN.eksik)") }
-}
-
-# --- FAZ C: IKIZ (konu basina 1 = her soru; kod denetimli) -------------------
-$script:FAZ_ADI='C'
-$ikizIstem=@'
-Aşağıdaki ÇÖZÜLMÜŞ sorunun İKİZİNİ üret: AYNI yöntem, FARKLI rakamlar/adlar, tercihen FARKLI hedef kalem sorulur (ana soru Q'yu soruyorsa ikiz R'yi sorsun: aynı yöntem, başka istek — sınav böyle yapar). Öğrenci tabloyu KENDİSİ dolduracak.
-KURALLAR:
-1. ikiz_soru: yeni kısa soru metni (rakamlar YENİ), Türkçe harfler tam. hedef_cumle: "tabloyu doldur ve X'in ... olduğunu bul" tarzı tek cümle.
-2. tablo: ana soruyla AYNI kolon yapısı; TÜM hücre değerleri YENİ rakamlarla DOLU (doğru cevaplar - kontrol için).
-3. verilen: [[satır,kolon],...] = YALNIZ ikiz_soru METNİNDE AÇIKÇA verilen değerlerin koordinatları. Hesaplanan bir hücrenin
-   değeri metindeki bir rakamla TESADÜFEN aynıysa o hücre verilen DEĞİLDİR (05.09: B'nin eşdeğer miktarı 3.000, A'nın fiili
-   miktarı 3.000'e çakışıp dolu gelmişti). Tesadüfü önlemek için rakamları birbirinden farklı seç.
-4. bosluk: [[satır,kolon],...] = öğrencinin dolduracağı TÜM kalan hücreler (kalem kolonu hariç). verilen+bosluk = kalem-dışı TÜM hücreler; SIZINTI YASAK (verilende olmayan hiçbir değer metinde geçmez).
-5. Rakamlar aritmetik TUTARLI.
-6. ADLAR HARF DEĞİL (kural 4c, 05.09): ürün / gider yeri / kalem adları A, B, C gibi tek harf OLMAZ — şık harfleriyle karışır.
-   Ana sorudaki adlandırma biçimini koru (P/Q/R gibi çift olmayan harfler ya da "Ürün Kuzey", "Bakım-Onarım", "Yemekhane" gibi adlar).
-Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[...],"satirlar":[[...]]},"verilen":[[r,c],...],"bosluk":[[r,c],...]}
-=== ANA SORU === {SORU}
-=== ANA TABLO === {TABLO}
-'@
-foreach($id in @($don.Keys)){
-  if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
-  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
-  $cvp=$don[$id]
-  if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
-  if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ continue }
-  $ist3=$ikizIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress))
-  $y3=$null
-  foreach($d in 1..3){ try{ $y3=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist3 -MaxTok 9000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
-  $a3=Coz $y3.metin
-  $gecerli=$false
-  if($a3 -and $a3.tablo -and $a3.tablo.satirlar){
-    # KOD DENETIMI (fark.html dersi): verilen ∪ bosluk = kalem-disi tum hucreler
-    $kume=@{}
-    foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }
-    foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
-    $gecerli=$true
-    $ns=@($a3.tablo.satirlar).Count
-    # 05.09 (kalıp-2 pilotu, iki kez RED): model bazı hücreleri hiç listelemiyor. Listelenmeyen hücre GÜVENLİ tarafa alınır
-    # (bosluk = öğrenci doldurur); sızıntı denetimini builder zaten yapıyor (verilen ∩ metin). Ret yalnız satır/sütun dışı koordinat için.
-    $eksikH=New-Object System.Collections.Generic.List[object]
-    for($r=0;$r -lt $ns;$r++){
-      $kc=@(@($a3.tablo.satirlar)[$r]).Count
-      for($c=1;$c -lt $kc;$c++){
-        $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"
-        if($hv -eq '-' -or $hv -eq ''){ continue }
-        if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) }
-      }
-    }
-    # 06.09 (kalıp-4 pilotu): model sütunları 1'den saymış ([1,2] iki sütunlu tabloda) → tüm koordinatların sütunu tablo genişliğine
-    # eşit ya da aşkınsa ve hiçbiri 0 değilse 1 tabanlı sayılır, bir azaltılır; satırlar aynı şekilde sınanır.
-    $tumK=@(@($a3.verilen)+@($a3.bosluk)); $genis=@(@($a3.tablo.satirlar)[0]).Count
-    if($tumK.Count -and (@($tumK | Where-Object { [int]@($_)[1] -ge $genis }).Count -gt 0) -and (@($tumK | Where-Object { [int]@($_)[1] -le 0 }).Count -eq 0)){
-      $a3.verilen=@(@($a3.verilen) | ForEach-Object { ,@([int]@($_)[0],([int]@($_)[1]-1)) }); $a3.bosluk=@(@($a3.bosluk) | ForEach-Object { ,@([int]@($_)[0],([int]@($_)[1]-1)) })
-      $kume=@{}; foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }; foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
-      $eksikH=New-Object System.Collections.Generic.List[object]; for($r=0;$r -lt $ns;$r++){ $kc=@(@($a3.tablo.satirlar)[$r]).Count; for($c=1;$c -lt $kc;$c++){ $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"; if($hv -eq '-' -or $hv -eq ''){ continue }; if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) } } }
-      Write-Host "  IKIZ: koordinatlar 1 tabanlıydı, sütunlar bir azaltıldı ($id)" -ForegroundColor DarkGray }
-    # satırlar da 1 tabanlı olabilir ([13,1] 13 satırlı tabloda): satır 0 hiç yoksa ve satır sayısına eşit satır varsa bir azalt
-    $tumK=@(@($a3.verilen)+@($a3.bosluk))
-    if($tumK.Count -and (@($tumK | Where-Object { [int]@($_)[0] -ge $ns }).Count -gt 0) -and (@($tumK | Where-Object { [int]@($_)[0] -le 0 }).Count -eq 0)){
-      $a3.verilen=@(@($a3.verilen) | ForEach-Object { ,@(([int]@($_)[0]-1),[int]@($_)[1]) }); $a3.bosluk=@(@($a3.bosluk) | ForEach-Object { ,@(([int]@($_)[0]-1),[int]@($_)[1]) })
-      Write-Host "  IKIZ: satırlar 1 tabanlıydı, bir azaltıldı ($id)" -ForegroundColor DarkGray }
-    # tablo dışı kalan koordinat RED sebebi değil: atılır (verilen'den atılan hücre boşluğa düşer = güvenli taraf)
-    $ic={ param($v) $rr=[int]@($v)[0]; $cc=[int]@($v)[1]; ($rr -ge 0 -and $rr -lt $ns -and $cc -ge 1 -and $cc -lt @(@($a3.tablo.satirlar)[$rr]).Count) }
-    $dis=@($tumK | Where-Object { -not (& $ic $_) }).Count; if($dis){ Write-Host "  IKIZ: $dis tablo dışı koordinat atıldı ($id)" -ForegroundColor DarkGray }
-    $a3.verilen=@(@($a3.verilen) | Where-Object { & $ic $_ }); $a3.bosluk=@(@($a3.bosluk) | Where-Object { & $ic $_ })
-    $kume=@{}; foreach($v in @($a3.verilen)){ $kume["$(@($v)[0]),$(@($v)[1])"]='v' }; foreach($v in @($a3.bosluk)){ $kume["$(@($v)[0]),$(@($v)[1])"]='b' }
-    $eksikH=New-Object System.Collections.Generic.List[object]; for($r=0;$r -lt $ns;$r++){ $kc=@(@($a3.tablo.satirlar)[$r]).Count; for($c=1;$c -lt $kc;$c++){ $hv="$(@(@($a3.tablo.satirlar)[$r])[$c])"; if($hv -eq '-' -or $hv -eq ''){ continue }; if(-not $kume.ContainsKey("$r,$c")){ $eksikH.Add(@($r,$c)) } } }
-    if($eksikH.Count){ $a3.bosluk=@(@($a3.bosluk)+$eksikH.ToArray()); Write-Host "  IKIZ: $($eksikH.Count) listelenmeyen hücre boşluğa alındı ($id)" -ForegroundColor DarkGray }
-    if(-not @($a3.bosluk).Count){ $gecerli=$false; Write-Host "  IKIZ RED sebebi: doldurulacak boşluk kalmadı ($id)" -ForegroundColor Yellow }
-  } else { Write-Host "  IKIZ RED sebebi: JSON çözülemedi ya da tablo yok ($id)" -ForegroundColor Yellow }
-  if($gecerli){
-    $cvp | Add-Member -NotePropertyName ikiz -NotePropertyValue $a3 -Force
-    CacheYaz; Write-Host "  IKIZ OK $id"
-  } else { $rapor.Add("IKIZ REDDEDILDI (kapsama denetimi): $id"); Write-Host "  IKIZ RED: $id" -ForegroundColor Yellow }
 }
 
 # --- FAZ S: YEVMIYE TAMAMLAMA (01.09 Cem: "muhasebe kaydini gostermiyorsun,
