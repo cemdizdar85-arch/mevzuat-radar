@@ -132,6 +132,11 @@ function ZorlukCetvel($c){
   $tabloVar=[bool]($c.PSObject.Properties['cozum_tablo'] -and $c.cozum_tablo -and $c.cozum_tablo.satirlar); $yevVar=[bool]($c.PSObject.Properties['yevmiye'] -and $c.yevmiye)
   $p=0; $metin="$soru $sikJ"; if($tabloVar){ $p+=2 }; if($yevVar){ $p+=2 }; $rak=$reRakamZ.Matches($metin).Count; if($rak -ge 6){ $p+=2 } elseif($rak -ge 2){ $p+=1 }; if($reHesapZ.IsMatch($soru)){ $p+=1 }; if($soru.Length -gt 420){ $p+=1 }
   $z=$(if($p -ge 4){ 3 } elseif($p -ge 2){ 2 } else { 1 })
+  # 08.09 pilot6 ölçümü: bizim her hesap sorusunda çözüm tablosu VAR (çıkmış sorularda yok) → puan hep ≥4, 6 sorunun 6'sı Z3 çıktı; kolay/zor/çok zor
+  # ayrımı ölçülemiyordu. Tablolu soruda seviye tablonun KATMAN sayısından okunur (SORU-BASMA-KURALLARI 1.7/1.10: zorluk = bağlı ara hesap sayısı):
+  # ≤2 satır Z1 (tek kural tek işlem) · 3–4 satır Z2 · ≥5 satır Z3; çeldirici verilen ("Dahil değil" satırı) +1 katman sayılır.
+  if($tabloVar){ $satir=@($c.cozum_tablo.satirlar).Count; $dahilDegil=@(@($c.cozum_tablo.satirlar) | Where-Object { "$(@($_)[0])" -match '(?i)dahil değil|dahil degil|hesaba girmez' }).Count; $katman=$satir+$dahilDegil
+    $z=$(if($katman -ge 5){ 3 } elseif($katman -ge 3){ 2 } else { 1 }) }
   $tip=$(if($reUygulamaZ.IsMatch($soru)){ 'uygulama' } elseif($reBilgiZ.IsMatch($soru)){ 'bilgi' } else { 'analiz' })
   return [pscustomobject]@{ z=$z; tip=$tip; oncul=$reOnculZ.IsMatch($soru); sasirt=$reSasirtZ.IsMatch($soru) }
 }
