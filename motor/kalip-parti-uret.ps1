@@ -234,7 +234,10 @@ function AtifDesen([string]$dayanak){
 $DERS_KANUN=@{
   'Ticaret Hukuku'=@('TTK (6102 s.K.)'); 'Borclar Hukuku'=@('TBK (6098 s.K.)')
   'Is ve Sosyal Guvenlik Hukuku'=@('İş K. (4857 s.K.)','5510 s. SGK Kanunu')
-  'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)')
+  # 07.09 parti30 OLCULDU: 'KVK (5520 s.K.)' listede YOKTU -> kurumlar vergisi dayanagi "ders disi kanun" sayildi,
+  # kaynak capadan 5510 SGK + IYUK'a dustu, hakem 2 soruyu reddetti (vergi 4 -> 1). Kanun listede, teblig yaninda.
+  'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK (5520 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)',
+                   'ÖTV K. (4760 s.K.)','MTV K. (197 s.K.)','Harçlar K. (492 s.K.)','Emlak V.K. (1319 s.K.)','Veraset ve İntikal V.K. (7338 s.K.)','Gider Vergileri K. (6802 s.K.)')   # adlar AMBAR-ENVANTERI'nden birebir (07.09)
   'Meslek Hukuku'=@('SMMM K. (3568 s.K.)'); 'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
   'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
