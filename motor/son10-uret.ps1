@@ -155,7 +155,8 @@ KURALLAR:
        ADIM 3–7: HER ŞIK BİR ADIM, şık sırasıyla A, B, C, D, E. formul "Şık A: <olayda bu ifadenin karşılığı olan somut KARAR SORUSU>"
          (örnek: "Şık C: müdür 'işçi tazminatını satış masrafına ekleyelim' diyor, ekler misin?"); anlatim en çok 3 cümle: olayda ne
          olur + kural + kaynak paragrafı. Ek alanlar ZORUNLU: "sik":"A", "karar":"doğru" ya da "yanlış" (İFADENİN kendisi doğru mu),
-         "paragraf":"p.28" (kısa kaynak künyesi). doldur boş bırak (sayfa şık karnesini kendisi doldurur).
+         "paragraf":"p.28" (kısa kaynak künyesi; şık paragrafın bir BENDİNE dayanıyorsa bendi de yaz: "p.22(b)" — 07.09 TMS 36 ölçümü:
+         B şıkkı p.22'nin ilk cümlesi değil (b) istisnasıydı, anlatım yanlış bendi anlatmıştı). doldur boş bırak (sayfa şık karnesini kendisi doldurur).
        ADIM 8 formul "Kapanış: A ✓ B ✓ C ✓ D ✗ E ✓" — anlatim: tek cümle özet + öğrencinin kendine soracağı tek AYIRT ETME sorusu.
        YASAKLAR: adımda TANIM yok (tanımlar kavramlar bölümünündür); soruyu yeniden anlatma yok; her adım en çok 3 cümle ve tek karar;
        "hangisi doğrudur" sorusunda aynı yapı (✓/✗ dağılımı değişir). Öğrencinin seçtiği şıkkın yanılgı teşhisini sayfa ekler, sen yazma.
