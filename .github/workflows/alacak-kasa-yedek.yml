@@ -1,0 +1,69 @@
+# .github/workflows/alacak-kasa-yedek.yml — ALACAK KASASI BULUT YEDEGI (SIFRELI)
+#
+# 07.09.2026, Cem: "bilgisayar acik olmasa bile yapilacak kivama gelmeli".
+# Yerel haftalik gorev (TETIKTE-AlacakKasaYedek) Cem'in dizustune bagli; bu akis
+# ayni betigi GitHub'da kosturur, makine kapaliyken de yedek alinir.
+#
+# NEDEN SIFRELI: depo PUBLIC; artifact'i okuma yetkisi olan HERKES indirebilir
+# (GitHub belgesi: "Read access to the repository is required" - public repoda
+# bu herkestir). Kasa TCKN/VKN tasir. Dosya RSA-4096 ACIK anahtarla (motor/anahtar/
+# alacak-yedek.pub, depoda durmasi guvenli) sifrelenir; COZEN ozel anahtar YALNIZ
+# Cem'in makinesinde: C:\TETIKTE-YEDEK\anahtar\alacak-yedek.key (OneDrive DISI).
+# Ozel anahtar kaybolursa yedekler OKUNAMAZ -> ikinci kopya sart (USB / parola kasasi).
+#
+# COZME: powershell -NoProfile -File motor/alacak-kasa-yedek-coz.ps1 -Klasor <indirilen artifact klasoru>
+#
+# Saklama: artifact 90 gun (haftalik koşu -> ~12 kopya). Yerel gorev ayrica devam eder.
+name: Alacak Kasa Yedegi (bulut, sifreli)
+
+on:
+  schedule:
+    - cron: "19 6 * * 0"      # Pazar 09:19 TR (yerel gorev 09:00'da; ikisi bagimsiz)
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/alacak-kasa-yedek.yml"   # akis dosyasi degisince bir kez kosar (ilk teyit)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alacak-kasa-yedek
+  cancel-in-progress: false
+
+jobs:
+  yedek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Kasayi dok (ayni betik, hedef klasor runner icinde)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          YEDEK_KOK: ${{ github.workspace }}/_yedek
+        run: |
+          if (-not "$env:SUPABASE_SERVICE_KEY") { Write-Host 'SERVICE KEY yok - yedek atlandi.'; exit 0 }
+          ./motor/alacak-kasa-yedek.ps1
+
+      - name: Sifrele (AES-256 dosya + RSA-4096 anahtar zarfi)
+        run: |
+          set -e
+          cd _yedek
+          f=$(ls alacak-kasa-*.json 2>/dev/null | head -1)
+          if [ -z "$f" ]; then echo "yedek dosyasi yok - sifrelenecek bir sey yok"; exit 1; fi
+          openssl rand -base64 32 > k
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in "$f" -out "$f.enc" -pass file:k
+          openssl pkeyutl -encrypt -pubin -inkey ../motor/anahtar/alacak-yedek.pub -in k -out "$f.k.enc"
+          # acik metin ve gecici anahtar runner'da bile birakilmaz
+          rm -f "$f" k yedek-log.txt
+          ls -la
+          echo "sifreli: $f.enc ($(stat -c %s "$f.enc") bayt) + zarf $f.k.enc"
+
+      - name: Artifact olarak sakla (90 gun, sifreli)
+        uses: actions/upload-artifact@v4
+        with:
+          name: alacak-kasa-yedek-${{ github.run_number }}
+          path: _yedek/*.enc
+          retention-days: 90
+          if-no-files-found: error
