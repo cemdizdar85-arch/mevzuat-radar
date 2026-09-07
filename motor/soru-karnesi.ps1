@@ -52,15 +52,18 @@ function AritmetikKusur($adimlar){
       if($sat -match '\d{1,2}\.\d{1,2}\.\d{4}'){ continue }   # tarih farkı hesap zinciri değil
       $tmz=$sat -replace '×','x' -replace 'X','x' -replace '\([^)]*\)',' '
       $tmz=[regex]::Replace($tmz,'%\s*([\d\.,]+)',$YUZDE_ONDALIK); $tmz=[regex]::Replace($tmz,'([\d\.,]+)\s*%',$YUZDE_ONDALIK)
-      $tmz=$tmz -replace '(?i)\b(TL|₺|USD|EUR|kg|ton|adet|ay|yil|yıl|gun|gün|saat|birim|kisi|kişi)\b',' '
-      foreach($m in [regex]::Matches($tmz,'((?:[\d\.,]+\s*[x*/+\-]\s*)+[\d\.,]+)\s*=\s*([\d\.,]+)')){
-        $sol=$m.Groups[1].Value; $c1=SayiCoz $m.Groups[2].Value; if($null -eq $c1){ continue }
-        $terimler=@([regex]::Matches($sol,'[\d\.,]+') | ForEach-Object { $_.Value })
-        if(($terimler.Count -ge 2) -and (-not @($terimler | Where-Object { $_ -notmatch '^[1-7]\d{2}$' }).Count) -and ("$($m.Groups[2].Value)" -match '^[1-7]\d{2}$')){ continue }
+      $tmz=$tmz -replace '(?i)\b(TL|₺|USD|EUR|kg|ton|adet|ay|yil|yıl|gun|gün|saat|birim|kisi|kişi)\b',' ' -replace '−','-' -replace '–','-'
+      # 08.09 zincir eşitlik: her aritmetik parça zincirin SON değeriyle kıyaslanır (üreticiyle aynı; 07.09 kp-05 sahte kırmızısı)
+      $segs=@($tmz -split '\s=\s' | ForEach-Object { $_.Trim() } | Where-Object { $_ }); if($segs.Count -lt 2){ continue }
+      $sonDeger=SayiCoz ($segs[$segs.Count-1] -replace '[^\d\.,\-]',''); if($null -eq $sonDeger -or $segs[$segs.Count-1] -notmatch '^[\d\.,\-\s]+$'){ continue }
+      foreach($sol in ($segs[0..($segs.Count-2)])){
+        if($sol -notmatch '^[\d\.,\s]+(?:[x*/+\-]\s*[\d\.,]+\s*)+$'){ continue }
+        $c1=$sonDeger; $terimler=@([regex]::Matches($sol,'[\d\.,]+') | ForEach-Object { $_.Value })
+        if(($terimler.Count -ge 2) -and (-not @($terimler | Where-Object { $_ -notmatch '^[1-7]\d{2}$' }).Count) -and ("$($segs[$segs.Count-1])" -match '^[1-7]\d{2}$')){ continue }
         $hes=ZincirHesapla $sol; if($null -eq $hes){ continue }
         $tol=[Math]::Max(0.51,[Math]::Abs($c1)*0.001)
         $uyum=([Math]::Abs($hes-$c1) -le $tol) -or ([Math]::Abs($hes*100-$c1) -le $tol) -or ([Math]::Abs($hes/100-$c1) -le $tol)
-        if(-not $uyum){ $out.Add("'$($m.Value.Trim())' hesap=$([math]::Round($hes,2))") }
+        if(-not $uyum){ $out.Add("'$sol = $($segs[$segs.Count-1])' hesap=$([math]::Round($hes,2))") }
       } } }
   return @($out)
 }
