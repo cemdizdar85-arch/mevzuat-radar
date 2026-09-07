@@ -1,0 +1,74 @@
+# .github/workflows/artifact-nobeti.yml — ARTIFACT NOBETCISI
+#
+# NEDEN VAR (08.09.2026, Cem "1 yap"): public repoda artifact'i HERKES indirir.
+# 25.07-05.09 arasi 7 haftalik yedek (248 MB) kisisel veriyi SIFRESIZ artifact'e
+# koymustu, kimse fark etmedi. Bu nobetci her gun tum artifact'leri sayar; .enc
+# disinda dosya tasiyan artifact varsa KIRMIZI yanar, Cem'e mail atar, silme
+# komutlarini rapora yazar. Rapor: veri/artifact-nobeti.json (kor kalma kurali:
+# kirmizi olsa da yayinlanir).
+name: Artifact Nobetcisi
+
+on:
+  schedule:
+    - cron: "40 6 * * *"     # 09:40 TR — haftalik/alacak yedekleri (Cts 03:19, Paz 09:19) bittikten sonra
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/artifact-nobeti.yml'
+      - 'motor/artifact-nobeti.ps1'
+
+permissions:
+  actions: read       # artifact listesi + indirme
+  contents: write     # raporu depoya isler
+
+concurrency:
+  group: artifact-nobeti
+  cancel-in-progress: false
+
+env:
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Artifact'leri say ve icine bak
+        id: nobet
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: ./motor/artifact-nobeti.ps1
+
+      - name: Kirmiziysa Cem'e mail
+        if: failure() && steps.nobet.outcome == 'failure'
+        shell: pwsh
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - ACIK ARTIFACT var (public repoda herkes indirir)' -Mesaj "Artifact nobetcisi sifresiz dosya tasiyan artifact buldu. Hangi artifact, hangi dosya ve silme komutu: veri/artifact-nobeti.json. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        shell: bash
+        run: |
+          set -uo pipefail
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/artifact-nobeti.json
+          if git diff --cached --quiet; then
+            echo "Rapor degismedi - islenecek bir sey yok."
+            exit 0
+          fi
+          git commit -m "Artifact nobeti raporu [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin HEAD:main; then
+              echo "Rapor islendi (deneme $i)."
+              exit 0
+            fi
+            echo "Deneme $i dustu (robot itmesi olabilir), tekrar denenecek."
+            sleep $((i * 7))
+          done
+          echo "::error::Artifact nobeti raporu 5 denemede islenemedi - nobetcinin ciktisi gorunmuyor (kor kalma)."
+          exit 1
