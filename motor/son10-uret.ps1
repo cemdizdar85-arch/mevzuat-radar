@@ -141,6 +141,10 @@ KURALLAR:
        öğretilmemişti): kural iki yüzlü ise (kâr/zarar, olumlu/olumsuz, borç/alacak, eksik/fazla, artış/azalış) sonuç adımından
        hemen SONRA tek bir adım "Ters durumda: <koşul> olsaydı <hangi hesap/işaret>" der; formülü "Ters durum: <koşul> → <hesap/işaret>",
        anlatımı tek cümle. Öğrenci aynı yöntemle ters yönlü soruyu çözebilmelidir.
+   (i) ELEME SORUSU (07.09 ölçüm, KDV vergiyi doğuran olay: "hangisi yanlıştır" sorusunda anlatım yalnız doğru şıkkın kuralını
+       öğretti, öğrenci-modeli "diğer dört şıkkın kuralı anlatımda yok, yetmedi" dedi): soru kökü "hangisi yanlıştır / değildir /
+       söylenemez" ise ŞIK ŞIK SINAMA adımı zorunludur: her şık için tek satır "A) <kural, kaynak maddesiyle> → doğru ifade" ya da
+       "→ YANLIŞ, çünkü <kural>". Beş satır, beş kaynak cümlesi; sınavda bu soru dört doğruyu eleyerek çözülür, anlatım dördünü de vermelidir.
 8. DENKLEM SORULARI (05.09 Cem: "öğrenci bir şey anlaması zor" — karşılıklı dağıtım incelemesi; başabaş, standart
    maliyet, karşılıklı dağıtım, kapasite gibi denklemle çözülen her konu):
    (a) HARF YOK, AD VAR: "Bakım-Onarım toplamı", "Yemekhane toplamı" (A/B yazma; şık harfleriyle karışır).
