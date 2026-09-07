@@ -1083,8 +1083,11 @@ SORULAR.forEach((s,i)=>{
         const ayni=hatali&&secDeg&&nrm(hatali)===nrm(secDeg);
         // 06.09 (Cem "geç"): TEK HATA ADIMI — kişisel adım üreticinin genel "Yanlış yol" adımının YERİNE geçer (iki hata adımı arka arkaya gelmez)
         // 07.09 Ö56: teori dersinde teşhis zaten seçilen şıkkın adımında verildi → son adım kısa: takıldığın yer + ayırt etme sorusu
-        const thK=(s.teori&&s.teshis&&s.teshis[secH]&&(s.adimlar||[]).some(x=>x.sik===secH))?s.teshis[secH]:null;
-        if(!ayni){ const kisi=thK?{ kisi:true, formul:'Takıldığın yer: '+secH+') '+String(s.siklar[secH]), anlatim:'Bir daha aynı yerde takılmamak için kendine soracağın soru: '+String(thK.ayirt||thK.gercek||''), doldur:[] }:{ kisi:true, formul:'Senin seçimin '+secH+': '+String(s.siklar[secH])+' (HATALI) → doğrusu '+s.dogru+': '+String(s.siklar[s.dogru]), anlatim:'Sen '+secH+' şıkkını seçtin. '+(tzS.ad||'Tuzak')+': '+String(tzS.metin||''), doldur:[] };
+        const thAny=(s.teshis&&s.teshis[secH])?s.teshis[secH]:null; const sikAdimVar=(s.adimlar||[]).some(x=>x.sik===secH); const thK=(s.teori&&thAny&&sikAdimVar)?thAny:null;
+        // 07.09 Cem "çözümlü sorulara da uygula": hesap/kayıt sorusunda son adım = üç katmanlı yanılgı teşhisi (ne sanıyorsun → aslında → nereden anlarsın); tuzak metni yalnız teşhis yoksa
+        if(!ayni){ const kisi=thK?{ kisi:true, formul:'Takıldığın yer: '+secH+') '+String(s.siklar[secH]), anlatim:'Bir daha aynı yerde takılmamak için kendine soracağın soru: '+String(thK.ayirt||thK.gercek||''), doldur:[] }
+          :thAny?{ kisi:true, th:thAny, formul:'Senin seçimin '+secH+': '+String(s.siklar[secH])+' (HATALI) → doğrusu '+s.dogru+': '+String(s.siklar[s.dogru]), anlatim:'', doldur:[] }
+          :{ kisi:true, formul:'Senin seçimin '+secH+': '+String(s.siklar[secH])+' (HATALI) → doğrusu '+s.dogru+': '+String(s.siklar[s.dogru]), anlatim:'Sen '+secH+' şıkkını seçtin. '+(tzS.ad||'Tuzak')+': '+String(tzS.metin||''), doldur:[] };
           if(/^Yanlış yol/i.test(sonF)){ s.adimlar[s.adimlar.length-1]=kisi; } else { s.adimlar.push(kisi); } }
       }
       Object.keys(tahmin).forEach(k=>delete tahmin[k]);
@@ -1224,6 +1227,8 @@ SORULAR.forEach((s,i)=>{
       let anlatimH=esc(a.anlatim);
       // 06.09 tahmin geri bildirimi: öğrencinin tahmini anlatımın başına
       if(tahmin[j]&&!tahmin[j].atla){ anlatimH=(tahmin[j].karar!==undefined?('<div class="tahminSonuc '+(tahmin[j].dogru?'ok':'hata')+'">'+(tahmin[j].dogru?('✔ Doğru karar: bu ifade gerçekten <b>'+esc(tahmin[j].gercekKarar)+'</b>. Şimdi neden böyle olduğuna bak.'):('✖ Sen "<b>'+esc(tahmin[j].karar)+'</b>" dedin; bu ifade aslında <b>'+esc(tahmin[j].gercekKarar)+'</b>. Nerede saptığını aşağıda gör.'))+'</div>'):tahmin[j].teori?('<div class="tahminSonuc '+(tahmin[j].metin?'ok':'hata')+'">'+(tahmin[j].metin?('✍️ Senin cümlen: <b>'+esc(tahmin[j].metin)+'</b>. Nöbetçi\'ninkiyle karşılaştır:'):'Bir cümle yazmadın; Nöbetçi\'ninkini oku, sonra kendi cümlenle tekrar et.')+'</div>'):('<div class="tahminSonuc '+(tahmin[j].dogru?'ok':'hata')+'">'+(tahmin[j].dogru?('✔ Tahminin doğru: <b>'+esc(tahmin[j].cevap)+'</b>. Şimdi neden böyle olduğuna bak.'):('✖ Sen <b>'+esc(tahmin[j].cevap)+'</b> dedin, doğrusu <b>'+esc(tahmin[j].hedef)+'</b>. Nerede saptığını aşağıda gör.'))+'</div>'))+anlatimH; }
+      // 07.09 Cem "çözümlü sorulara da": hesap sorusunun kişisel son adımı teşhis bloğuyla çizilir
+      if(a.kisi&&a.th){ const th=a.th; const secH3=durum.cevap[i]; anlatimH='<div class="teshisK"><div class="et">Senin seçimin '+esc(secH3)+' — burada yanıldın</div>'+(th.yanilgi?'<p><b>Ne sanıyorsun:</b> '+esc(th.yanilgi)+'</p>':'')+(th.gercek?'<p><b>Aslında:</b> '+esc(th.gercek)+(th.paragraf?' <i>('+esc(th.paragraf)+')</i>':'')+'</p>':'')+(th.ayirt?'<p><b>Nereden anlarsın:</b> '+esc(th.ayirt)+'</p>':'')+'</div>'; }
       // 07.09 Ö56: şık adımı — karar rozeti (doğru ifade ✓ / YANLIŞ ifade ✗ + paragraf); öğrencinin SEÇTİĞİ şıksa yanılgı teşhisi
       // (Ö54: ne sanıyorsun → aslında → nereden anlarsın) + eleme sorusunda soru tipi uyarısı
       if(a.sik){ const dogruIf=!/^y/i.test(String(a.karar||'')); anlatimH='<div class="kararRozet '+(dogruIf?'dog':'yan')+'">'+esc(a.sik)+') '+(dogruIf?'doğru ifade ✓':'YANLIŞ ifade ✗')+(a.paragraf?' · '+esc(a.paragraf):'')+'</div>'+anlatimH;
