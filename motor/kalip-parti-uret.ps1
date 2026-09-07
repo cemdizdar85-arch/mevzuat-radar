@@ -1149,7 +1149,8 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     Maliyet kısaltmaları YASAK (06.09, kalıp-4 pilotu): "DB YM / DS YM / GÜG / DİMM / DİG / FIFO" yazma; sınav "dönem başı yarı
     mamul", "dönem sonu yarı mamul", "genel üretim gideri", "direkt ilk madde ve malzeme", "direkt işçilik", "ilk giren ilk çıkar
     yöntemi" der. Soru, şık, açıklama, tablo ve adımlarda aynı kural.
-    Şirket adı "ABC A.Ş." kalıbı sınavla uyumludur. Açıklama, hap ve tuzak metinleri de bu dile uyar.
+    Şirket adı: "İşletme" de ya da gerçekçi bir unvan kullan ("Ege Tekstil A.Ş.", "Kaya Gıda Ltd. Şti."); "ABC / XYZ A.Ş." gibi yer
+    tutucu unvan YASAK (08.09 pilot ölçümü: istem bunu önerdiği için her soru KAPI-O'dan bir tur yaktı). Açıklama, hap ve tuzak metinleri de bu dile uyar.
 12. TEŞHİS (07.09 Ö54, "Yanlışını böyle öğrenirsin"): JSON'a "teshis" nesnesi ekle, HER ŞIK için {"yanilgi","gercek","ayirt","paragraf"}:
     yanilgi = bu şıkkı seçen öğrencinin KAFASINDAKİ yanlış inanç, "sen" diliyle tek cümle ("Elden çıkarırken şirketin katlandığı her
     masrafı elden çıkarma maliyeti sanıyorsun"); DOĞRU şık için yanilgi = bu şıkkı ELEYEN öğrencinin yanılgısı.
