@@ -4,9 +4,17 @@
 # Her ders için: tam hat (soru/uyarlama + adımlar + verilenler + giriş + ikiz + sim Sonnet + hakem + kör çözüm + hakem2), sonra seçim
 # (hakem EVET ∧ sim ✓ ∧ kör ✓ ∧ hakem2 EVET — SORU-BASMA-KURALLARI 8.1), Kaydır-Çöz sayfası ve karne. Loglar veri/fabrika/kosucu-log/<plan>/.
 # Kullanım: powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-sgs-08-09.json
-param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok=(Split-Path $PSScriptRoot -Parent),[switch]$SayfaYok)
+param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok=(Split-Path $PSScriptRoot -Parent),[switch]$SayfaYok,
+  [double]$AylikTavan=2000,      # 08.09 Cem: konsolda aylık tavan 2.000 USD (GM göremez, Cem okudu)
+  [double]$EmniyetPayi=300)      # tavana bu kadar kala koşucu durur: parti ortada ölmez, ödenen iş yazılmadan kaybolmaz (ağustos dersi)
 $ErrorActionPreference='Continue'
 $uret=Join-Path $PSScriptRoot 'kalip-parti-uret.ps1'
+# --- BEDEL EMNİYETİ: bu ayın harcaması bedel defterinden (veri/fabrika/bedel-kayit.jsonl, 08.09'dan itibaren tam; öncesi eksik → tutucu) ---
+function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; if(-not (Test-Path $y)){ return 0.0 }; $t=0.0; $ay=(Get-Date -Format 'yyyy-MM')
+  foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }; try{ $o=ConvertFrom-Json -InputObject $sat; if("$($o.zaman)" -like "$ay*"){ $t+=[double]$o.toplamUsd } }catch{} }; return $t }
+$harcanan=AyHarcama
+"BEDEL EMNİYETİ: bu ay defterde ≈$([math]::Round($harcanan,2)) USD (defter 08.09'da başladı, öncesi yok) · tavan $AylikTavan · durma eşiği $($AylikTavan-$EmniyetPayi)"
+if($harcanan -ge ($AylikTavan-$EmniyetPayi)){ throw "BEDEL EMNİYETİ: aylık harcama eşiğe ulaştı ($harcanan ≥ $($AylikTavan-$EmniyetPayi)); koşu başlatılmadı. Cem konsolu kontrol etsin." }
 $planYol=$(if(Test-Path $Plan){ $Plan } else { Join-Path $Kok $Plan }); if(-not (Test-Path $planYol)){ throw "plan yok: $planYol" }
 $planAd=[IO.Path]::GetFileNameWithoutExtension($planYol)
 $satirlar=@(ConvertFrom-Json -InputObject (Get-Content $planYol -Raw -Encoding UTF8)); if($satirlar.Count -eq 1 -and $satirlar[0].PSObject.Properties['SyncRoot']){ $satirlar=@($satirlar[0].SyncRoot) }
@@ -18,7 +26,9 @@ foreach($s in $satirlar){
   $arg=@('-Sinav',$sinav,'-DersRegex',"$($s.ders)",'-Adet',"$([int]$s.adet)",'-Etiket',"$($s.etiket)",'-UzunlukTavan',"$(if($s.PSObject.Properties['tavan'] -and $s.tavan){ [int]$s.tavan } else { 350 })",'-Verilenler','-KonuGiris','-Simulasyon','-SimModel','claude-sonnet-5')
   if($s.PSObject.Properties['eskiKaynak'] -and "$($s.eskiKaynak)"){ $arg+=@('-EskiKaynak',"$($s.eskiKaynak)",'-DonemPencere','0') }
   else { $arg+=@('-DonemPencere','7'); if($s.PSObject.Properties['zorluk'] -and "$($s.zorluk)" -eq 'zor'){ $arg+=@('-Zorluk','zor') }; if($s.PSObject.Properties['disla'] -and "$($s.disla)"){ $arg+=@('-KonuDisla',"$($s.disla)") }; if($s.PSObject.Properties['konuDosya'] -and "$($s.konuDosya)"){ $arg+=@('-KonuDosya',"$($s.konuDosya)") } }
-  "[$(Get-Date -Format HH:mm)] BASLIYOR $($s.etiket) · $($s.ders) · adet $($s.adet)$(if($s.PSObject.Properties['eskiKaynak'] -and $s.eskiKaynak){ ' · KURTARMA' })"
+  # her ders öncesi emniyet: önceki dersler tavana yaklaştırdıysa dur (ödenen iş yazılmış olur, kalan ders sabaha kalır)
+  $harcanan=AyHarcama; if($harcanan -ge ($AylikTavan-$EmniyetPayi)){ "[$(Get-Date -Format HH:mm)] BEDEL EMNİYETİ: ≈$([math]::Round($harcanan)) USD, eşik $($AylikTavan-$EmniyetPayi) → kalan dersler DURDU ($($s.etiket) ve sonrası)"; break }
+  "[$(Get-Date -Format HH:mm)] BASLIYOR $($s.etiket) · $($s.ders) · adet $($s.adet)$(if($s.PSObject.Properties['eskiKaynak'] -and $s.eskiKaynak){ ' · KURTARMA' }) · ay ≈$([math]::Round($harcanan)) USD"
   & powershell -NoProfile -File $uret @arg *> $log
   $oz=Select-String -Path $log -Pattern 'KONU LİSTESİ|konu tekil|SORU DÜŞTÜ|KURTARMA DÜŞTÜ|UYARLAMA OK|HAKEM (EVET|HAYIR)|HAKEM2 (EVET|HAYIR)|KÖR ÇÖZÜM|SIM (DO|YAN|yetmedi)|KAYNAK BORCU|BEDEL TOPLAM|yazildi' | ForEach-Object { $_.Line }
   "[$(Get-Date -Format HH:mm)] BITTI $($s.etiket)"; $oz
