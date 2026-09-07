@@ -1280,7 +1280,10 @@ SORULAR.forEach((s,i)=>{
         anlatimH=esc(dk?dk[1].trim():String(a.anlatim||'').split(/(?<=[.!?])\s+/).slice(-1)[0]);
       }
       // hedef = "Sonuç" adımı; son adım "Yanlış yol / en sık hata" ise ondan önceki sonuç adımıdır
-      let hedefIdx=s.adimlar.length-1; for(let q=s.adimlar.length-1;q>=0;q--){ const b=adimBaslik(s.adimlar[q]); if(!/^(yanlış|en sık hata|tuzak|senin seçimin)/i.test(b)){ hedefIdx=q; break; } }
+      let hedefIdx=s.adimlar.length-1; for(let q=s.adimlar.length-1;q>=0;q--){ const b=adimBaslik(s.adimlar[q]); if(!/^(yanlış|en sık hata|tuzak|senin seçimin|takıldığın yer|ters durum|kapanış)/i.test(b)){ hedefIdx=q; break; } }
+      // 07.09 Cem ekranı: hedef "654 KARŞILIK GİDERLERİ (BORÇ)" yazıyordu — sonuçtan sonra gelen yevmiye adımı hedef sanılmıştı. Hedef = çözüm
+      // tablosunun SONUÇ satırını (son satır) dolduran adım; yoksa yukarıdaki geri düşüş
+      if(s.tablo&&s.tablo.satirlar&&s.tablo.satirlar.length&&!(s.teori)){ const sonR=s.tablo.satirlar.length-1; for(let q=s.adimlar.length-1;q>=0;q--){ if((s.adimlar[q].doldur||[]).some(p=>p[0]===sonR)){ hedefIdx=q; break; } } }
       const sonBas=adimBaslik(s.adimlar[hedefIdx]); const sonrakiBas=(j+1<s.adimlar.length)?adimBaslik(s.adimlar[j+1]):'';
       // Cem 04.09 "yol haritası ekranı kaplıyor": tek satır — numaralı noktalar (geçilen yeşil, buradasın kalın, hedef altın bayrak),
       // yalnız bulunduğun adımın adı yazılı; başlıklar üstüne gelince görünür. Kartın altına yaslanır.
