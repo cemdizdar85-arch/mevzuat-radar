@@ -1651,7 +1651,8 @@ KATMAN 1 — PANEL (şık seçilir seçilmez görünür, 20 saniyede okunur; kı
 KATMAN 2 — NÖBETÇİ 0. ADIM (ders; panelle aynı cümle yok):
 3. harita: konunun cevapladığı üç soru, her biri tek cümle ("Ne zaman test edilir: … / Nasıl ölçülür: … / Nasıl kaydedilir: …" gibi; konuya
    göre üç soru değişir). En çok 3 cümle.
-4. terimler: konunun DÖRT anahtar terimi, her tanım en çok 12 kelime: [{"ad":"...","tanim":"..."}]. Tanım KAVRAMI söyler, yerini değil:
+4. terimler: konunun DÖRT anahtar terimi: [{"ad":"...","tanim":"en çok 12 kelime","kim":"kim belirler: işletme yönetimi tahmin eder / piyasa fiyatlar / standart tanımlar / kanun sabitler","kaynak":"sınavda nereden gelir: soruda verilir | sen hesaplarsın | kuraldan bilinir"}]
+   (07.09 Cem: "kullanım değerini kim belirliyor? soruda bize verilmiş, biz değerledik tarzı" — öğrenci hangi sayıyı soruda arayacağını, hangisini hesaplayacağını bilmeli). Tanım KAVRAMI söyler, yerini değil:
    tutar terimlerinde "neyden ne düşülür, ne kalır" biçimi ("Defter değeri: maliyet bedelinden ayrılan birikmiş amortisman düşüldükten sonra
    kalan net tutar"); "tablodaki tutar", "yukarıdaki değer" gibi yer tarifi YASAK (07.09 Cem: "amortisman düşüldükten sonra tablodaki tutar" kusurlu).
 5. desen: sınav bu konuyu nasıl sorar — tuzak noktaları kaynak paragrafı/maddesiyle (burada "p.28" gibi künye serbest), en çok 3 cümle,
@@ -1705,7 +1706,7 @@ foreach($id in @($don.Keys)){
   }
   Write-Host ("  GİRİŞ TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
   if(-not $gN){ $rapor.Add("GIRIS BOZUK: $id"); continue }
-  $terimL=@(); foreach($tr in @($gN.terimler)){ if($tr -and $tr.ad){ $terimL+=[pscustomobject]@{ ad=(DilOnar "$($tr.ad)"); tanim=(DilOnar "$($tr.tanim)") } } }
+  $terimL=@(); foreach($tr in @($gN.terimler)){ if($tr -and $tr.ad){ $terimL+=[pscustomobject]@{ ad=(DilOnar "$($tr.ad)"); tanim=(DilOnar "$($tr.tanim)"); kim=$(if($tr.PSObject.Properties['kim']){ DilOnar "$($tr.kim)" } else { '' }); kaynak=$(if($tr.PSObject.Properties['kaynak']){ DilOnar "$($tr.kaynak)" } else { '' }) } } }
   $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); ornek=(DilOnar "$($gN.ornek)"); panel_ornek=(DilOnar "$($gN.panel_ornek)"); harita=(DilOnar "$($gN.harita)"); terimler=$terimL; desen=(DilOnar "$($gN.desen)"); model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz; Write-Host "  GİRİŞ OK $id"
 }

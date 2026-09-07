@@ -315,7 +315,7 @@ foreach($x in $sec){
   $konuGiris=$null; if($v.PSObject.Properties['konu_giris'] -and $v.konu_giris -and $v.konu_giris.nedir){ $konuGiris=@{ nedir=(TurkceOnar "$($v.konu_giris.nedir)"); sinavda=(TurkceOnar "$($v.konu_giris.sinavda)"); yontemler=(TurkceOnar "$($v.konu_giris.yontemler)"); ornek=$(if($v.konu_giris.PSObject.Properties['ornek']){ TurkceOnar "$($v.konu_giris.ornek)" } else { '' }) }
     # 07.09 Ö54 iki katman: panel (nedir + panel_ornek) · Nöbetçi 0. adım (harita + terimler + desen)
     foreach($fx in 'panel_ornek','harita','desen'){ if($v.konu_giris.PSObject.Properties[$fx] -and "$($v.konu_giris.$fx)".Trim()){ $konuGiris[$fx]=(TurkceOnar "$($v.konu_giris.$fx)") } }
-    if($v.konu_giris.PSObject.Properties['terimler'] -and $v.konu_giris.terimler){ $konuGiris['terimler']=@(@($v.konu_giris.terimler) | Where-Object { $_ -and $_.ad } | ForEach-Object { @{ ad=(TurkceOnar "$($_.ad)"); tanim=(TurkceOnar "$($_.tanim)") } }) } }
+    if($v.konu_giris.PSObject.Properties['terimler'] -and $v.konu_giris.terimler){ $konuGiris['terimler']=@(@($v.konu_giris.terimler) | Where-Object { $_ -and $_.ad } | ForEach-Object { $tr=$_; @{ ad=(TurkceOnar "$($tr.ad)"); tanim=(TurkceOnar "$($tr.tanim)"); kim=$(if($tr.PSObject.Properties['kim']){ TurkceOnar "$($tr.kim)" } else { '' }); kaynak=$(if($tr.PSObject.Properties['kaynak']){ TurkceOnar "$($tr.kaynak)" } else { '' }) } }) } }
   # 07.09 Ö54 TEŞHİS: her şık için ne sanıyorsun / aslında / nereden anlarsın / paragraf (üretici FAZ A, kural 12)
   $teshis=$null; if($v.PSObject.Properties['teshis'] -and $v.teshis){ $teshis=@{}; foreach($pt in $v.teshis.PSObject.Properties){ $o=$pt.Value; if(-not $o){ continue }; $teshis[$pt.Name]=@{ yanilgi=(TurkceOnar "$($o.yanilgi)"); gercek=(TurkceOnar "$($o.gercek)"); ayirt=(TurkceOnar "$($o.ayirt)"); paragraf="$($o.paragraf)" } } }
   if($adimlar.Count -and "$($adimlar[0].formul)" -match '^(Verilen|Soruda ne var|Soru bize)'){ $adimlar[0].verilenAdim=$true }
@@ -652,6 +652,7 @@ $html=@'
 .teshisK{border-left:3px solid var(--altin);padding:6px 12px;margin:10px 0;background:color-mix(in srgb,var(--altin) 8%,transparent);border-radius:8px}.teshisK p{margin:4px 0;line-height:1.5}.teshisK .et{margin-bottom:4px}
 .konuK{display:none;font-size:.95em;line-height:1.5;margin:0 0 8px;padding:8px 12px;border-radius:10px;background:color-mix(in srgb,var(--mavi) 10%,transparent)}.konuK .ornekK{color:var(--dim)}
 .tt td.kararH{font-weight:700;white-space:nowrap}.tt td.kararH.yan:not(.gizliH){color:var(--kirmizi)}.tt td.kararH.dog:not(.gizliH){color:var(--yesil)}
+.terimKim{color:var(--dim);font-size:.9em}
 .tahminSoru{margin:6px 0 10px;font-size:.92em}.tahminSoru summary{cursor:pointer;color:var(--mavi)}.tahminSoru p{margin:6px 0 0;color:var(--dim);line-height:1.5}
 .tt td.eksiH,.tt .eksiH{color:var(--kirmizi);font-weight:600}.tt tr.lejantSatir td{font-size:.78em;color:var(--dim);padding-top:4px;border:0}
 /* 07.09 Cem "yazılar hemen geliyor, okurcasına gelse": giriş kartı blok blok belirir (harf harf değil; yarım saniye arayla) */
@@ -1275,7 +1276,7 @@ SORULAR.forEach((s,i)=>{
         // uydurma "somut örnek" artık gösterilmez (Cem 07.09); kavram yoksa bölüm boş kalır, üretici FAZ S ile doldurur
         const kvH=kv.length?'<div class="et">Anahtar kavramlar</div><ul class="kavramL">'+kv.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+(x.kaynak?' <i>('+esc(x.kaynak)+')</i>':'')+'</li>').join('')+'</ul>':'';
         // 07.09 Ö54(b): 0. adım = DERS (harita · dört terim · sınav deseni); panel zaten "nedir + örnek"i verdi, burada tekrar yok
-        if(s.konuGiris.harita){ const tl=(s.konuGiris.terimler||[]).filter(x=>x&&x.ad); fH='<div class="girisK"><div class="et">Harita</div><p>'+esc(s.konuGiris.harita)+'</p>'+kunye+(tl.length?'<div class="et">Dört terim</div><ul class="kavramL">'+tl.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+'</li>').join('')+'</ul>':kvH)+(s.konuGiris.desen?'<div class="et">Sınav bunu nasıl sorar</div><p>'+esc(s.konuGiris.desen)+'</p>':'')+'</div>'; anlatimH=''; }
+        if(s.konuGiris.harita){ const tl=(s.konuGiris.terimler||[]).filter(x=>x&&x.ad); fH='<div class="girisK"><div class="et">Harita</div><p>'+esc(s.konuGiris.harita)+'</p>'+kunye+(tl.length?'<div class="et">Dört terim</div><ul class="kavramL">'+tl.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+((x.kim||x.kaynak)?' <span class="terimKim">· '+[x.kim,x.kaynak].filter(Boolean).map(esc).join(' · ')+'</span>':'')+'</li>').join('')+'</ul>':kvH)+(s.konuGiris.desen?'<div class="et">Sınav bunu nasıl sorar</div><p>'+esc(s.konuGiris.desen)+'</p>':'')+'</div>'; anlatimH=''; }
         else { fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+kunye+kvH+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; } }
       if(verilenAdimMi&&!a.giris){
         const soruH=esc(s.soru).replace(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?:\s*(?:TL|₺|kg|adet|saat|gün|yıl|%))?(?![\d.,])/g,m=>'<span class="kSayi">'+m+'</span>');
