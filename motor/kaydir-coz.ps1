@@ -1262,7 +1262,7 @@ SORULAR.forEach((s,i)=>{
         // kısa olabilir (sayı kök eşleşmesi, liste birebir etiket), o yüzden yalnız EN YENİ pencere içi dönem yazılır, çelişki kalmaz
         const penD=new Set((kn.pencereDonemler||[]).map(String)); const ici=dl.filter(x=>penD.has(x)); const disi=dl.filter(x=>!penD.has(x));
         // 07.09 Cem: "4 kere sormuş diyor ama sayınca 6" — iki sayı iki ölçümdür: liste = etiketi birebir tutan bütün dönemler, pencere sayısı = son N dönemde yakın başlıklar. İkisi açıkça ayrı yazılır
-        const listeH=dl.length?('<b>'+dl.length+'</b> dönemde soruldu ('+esc(dl.slice(0,6).join(', '))+(dl.length>6?', …':'')+')'):'';
+        const listeH=dl.length?('<b>'+dl.length+'</b> dönemde soruldu ('+esc(dl.join(', '))+')'):'';   // 07.09 Cem: "7 dönem diyor ama 6 gösterip nokta nokta" — liste kesilmez, sayı kadar dönem yazılır
         const penH=(sd!=null&&pen)?('son '+pen+' dönemde yakın başlıklarla <b>'+sd+'</b> kez'):'';
         const kunye='<div class="et">Sınav künyesi</div><p>'+(listeH||penH?[listeH,penH].filter(Boolean).join(' · '):'Çıkmış künyesi ölçülmedi')+(tipAd?' · biçim: '+tipAd:'')+'</p>';
         const kv=((s.sade&&s.sade.kavramlar)||[]).filter(x=>x&&x.ad).slice(0,3);
