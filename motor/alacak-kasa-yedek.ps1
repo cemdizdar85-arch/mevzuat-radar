@@ -34,6 +34,15 @@ if (-not (Test-Path $yedekKok)) { New-Item -ItemType Directory -Force -Path $yed
 $damga = (Get-Date).ToString('yyyyMMdd-HHmm')
 $hedef = Join-Path $yedekKok ("alacak-kasa-{0}.json" -f $damga)
 $log   = Join-Path $yedekKok 'yedek-log.txt'
+# 07.09: Gorev Zamanlayici 06.09 11:01'de kostu, "Last Result = 1" ile dustu ve
+# geride NE dosya NE log satiri kaldi - sebep olculemedi (operasyonel olay
+# gunlugu de kapali). Her cokme artik loga yazilir; sonraki "neden dustu" sorusu
+# tek satirla cevaplanir. 'break' hatayi yeniden firlatir, cikis kodu 1 kalir.
+trap {
+  try { Add-Content $log ("{0}  !! HATA: {1}" -f (Get-Date).ToString('dd.MM.yyyy HH:mm'), $_.Exception.Message) } catch {}
+  break
+}
+Add-Content $log ("{0}  basladi (kullanici={1}, pil={2})" -f (Get-Date).ToString('dd.MM.yyyy HH:mm'), $env:USERNAME, $(try { $b=Get-CimInstance Win32_Battery -ErrorAction Stop; if($b.BatteryStatus -eq 2){'AC'}else{'PIL'} } catch { '?' }))
 
 $H = @{
   'apikey'        = $anahtar
