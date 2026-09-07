@@ -36,6 +36,31 @@ $kayitlar = @($veri.ilanlar)
 if (-not $kayitlar.Count) { Write-Host 'kaynakta ilan yok - cikiliyor'; exit 0 }
 Write-Host ("KAYNAK: {0} ({1} ilan)" -f (Split-Path $hedef -Leaf), $kayitlar.Count)
 
+# --- YEDEK KAPISI (07.09.2026, Cem "2 yap") -----------------------------------------
+#  O gece bir onarim yuklemesi 5.643 satirin borclu dizisini ezdi; kurtaran sey 3 gun
+#  onceki haftalik yedekti. Kural artik betigin icinde: kasaya yazmadan once son yedek
+#  24 saatten eskiyse (ya da hic yoksa) alacak-kasa-yedek.ps1 kosar; yedek alinamazsa
+#  YAZILMAZ. Yalniz YERELDE calisir: Actions'ta yedek dosyasi tutulamaz (depo public,
+#  TCKN tasir), orada gunluk 60 satirlik hasat yazilir ve kapi bilerek atlanir.
+#  $env:YEDEKSIZ=1 kapiyi bilincli olarak gecer (ornegin yedek betigi kirikken).
+if (-not "$($env:GITHUB_ACTIONS)" -and "$($env:YEDEKSIZ)" -ne '1') {
+  $yedekKok = if ("$($env:YEDEK_KOK)".Trim()) { $env:YEDEK_KOK } else { 'C:\TETIKTE-YEDEK\alacak-kasa' }
+  $sonYedek = Get-ChildItem $yedekKok -Filter 'alacak-kasa-*.json' -ErrorAction SilentlyContinue |
+              Where-Object { $_.Name -notmatch 'HATALI' } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+  $yasSaat = if ($sonYedek) { ((Get-Date) - $sonYedek.LastWriteTime).TotalHours } else { $null }
+  if ($null -eq $yasSaat -or $yasSaat -gt 24) {
+    Write-Host ("YEDEK KAPISI: son yedek {0} -> once yedek aliniyor" -f $(if ($null -eq $yasSaat) { 'YOK' } else { ('{0:N1} saat once' -f $yasSaat) }))
+    & powershell -NoProfile -File (Join-Path $here 'alacak-kasa-yedek.ps1')
+    if ($LASTEXITCODE -ne 0) { throw 'YEDEK ALINAMADI - kasaya YAZILMADI (yedeksiz kismi yukleme yasak; bilerek gecmek icin $env:YEDEKSIZ=1).' }
+  } else {
+    Write-Host ("YEDEK KAPISI: son yedek {0:N1} saat once ({1}) - gecildi" -f $yasSaat, $sonYedek.Name)
+  }
+} elseif ("$($env:GITHUB_ACTIONS)") {
+  Write-Host 'YEDEK KAPISI: Actions - atlandi (yedek yalniz yerelde tutulur)'
+} else {
+  Write-Host 'YEDEK KAPISI: YEDEKSIZ=1 ile bilerek gecildi'
+}
+
 $basliklar = @{
   'apikey'        = $anahtar
   'Authorization' = "Bearer $anahtar"
