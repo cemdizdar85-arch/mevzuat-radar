@@ -653,6 +653,7 @@ $html=@'
 .konuK{display:none;font-size:.95em;line-height:1.5;margin:0 0 8px;padding:8px 12px;border-radius:10px;background:color-mix(in srgb,var(--mavi) 10%,transparent)}.konuK .ornekK{color:var(--dim)}
 .tt td.kararH{font-weight:700;white-space:nowrap}.tt td.kararH.yan:not(.gizliH){color:var(--kirmizi)}.tt td.kararH.dog:not(.gizliH){color:var(--yesil)}
 .terimKim{color:var(--dim);font-size:.9em}
+.kart .kagit.acik.ustte{z-index:30}   /* 07.09: Nöbetçi (z 21) üstünde hesap kâğıdı */
 .tahminSoru{margin:6px 0 10px;font-size:.92em}.tahminSoru summary{cursor:pointer;color:var(--mavi)}.tahminSoru p{margin:6px 0 0;color:var(--dim);line-height:1.5}
 .tt td.eksiH,.tt .eksiH{color:var(--kirmizi);font-weight:600}.tt tr.lejantSatir td{font-size:.78em;color:var(--dim);padding-top:4px;border:0}
 /* 07.09 Cem "yazılar hemen geliyor, okurcasına gelse": giriş kartı blok blok belirir (harf harf değil; yarım saniye arayla) */
@@ -855,7 +856,7 @@ SORULAR.forEach((s,i)=>{
   kagit.querySelector('.kagitSekYaz').addEventListener('click',()=>{ sekSec('yaz'); setTimeout(()=>kYaz.focus(),120); }); kagit.querySelector('.kagitSekCiz').addEventListener('click',()=>sekSec('ciz'));
   kagit.querySelector('.kagitTemizle').addEventListener('click',()=>{ if(kagit.dataset.sek==='ciz'){ ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,kCiz.width,kCiz.height); ctx.restore(); cizimVar=false; if(kagitDurum) kagitDurum.c=''; } else { kYaz.value=''; } kNot.textContent=''; kagitKaydet(); });
   const kagitAc=()=>{ kagit.classList.add('acik'); if(kagit.dataset.sek==='ciz') requestAnimationFrame(kanvasBoyut); };
-  const kagitKapat=()=>kagit.classList.remove('acik');
+  const kagitKapat=()=>{ kagit.classList.remove('acik'); kagit.classList.remove('ustte'); };
   kagit.querySelector('.kagitKapat').addEventListener('click',kagitKapat); kAc.addEventListener('click',kagitAc);
   const cKg=k.querySelector('.cKagit'); if(cKg) cKg.addEventListener('click',()=>{ if(kagit.classList.contains('acik')) kagitKapat(); else kagitAc(); });
   if(matchMedia('(pointer:coarse)').matches) sekSec('ciz');   // dokunmatik: parmakla çizim varsayılan; masaüstü: yazı
@@ -1173,7 +1174,7 @@ SORULAR.forEach((s,i)=>{
         serit.innerHTML='<div class="adimK tahminK"><div class="say"><span>ADIM '+(j+1)+' / '+nT+'</span><span class="baslik">'+esc(sonrakiAd)+'</span></div>'
           +'<div class="tahminSor"><div class="et">Önce sen dene</div><p>Bu adımda <b>'+esc(hd.ad)+'</b> bulunacak. Sence kaç çıkar? Soruda verilenler solda açık; kâğıdı kullan.</p>'
           +'<details class="tahminSoru"><summary>Soruyu göster</summary><p>'+esc(s.soru)+'</p></details>'   // 07.09 Cem: "satış maliyetini nasıl bulacağım, soruyu göremiyorum" — soru metni tahmin kartında katlı durur
-          +'<div class="tahminGir"><input class="tahminI" inputmode="decimal" placeholder="örn. 142.000"><button class="btn mavi bTahmin">Kontrol et</button><button class="btn bTahminAtla">Bilmiyorum, göster</button></div><div class="tahminNot">Yanlış tahmin puan düşürmez; tahta hemen açılır ve nerede saptığını gösterir.</div></div>'
+          +'<div class="tahminGir"><input class="tahminI" inputmode="decimal" placeholder="örn. 142.000"><button class="btn mavi bTahmin">Kontrol et</button><button class="btn bTahminAtla">Bilmiyorum, göster</button><button class="btn bKagitAc" title="Hesap kâğıdını Nöbetçi\'nin üstüne aç">✏️ Kâğıdı aç</button></div><div class="tahminNot">Yanlış tahmin puan düşürmez; tahta hemen açılır ve nerede saptığını gösterir.</div></div>'
           +'<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':''))+'" title="'+esc(adimBaslik(x))+'">'+(q+1)+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(sonrakiAd)+'</span></div></div></div>';
         const inp=serit.querySelector('.tahminI'); setTimeout(()=>inp.focus(),120);
         // 07.09 Cem: tahmin ekranında VERİLENLER bloğu TAMAMEN açık — formül henüz açılmadığı için hiçbir satır "kullanılmış" sayılmıyor, öğrenci 520.000 / 20.000'i göremiyordu; verilenler sızıntı değil, sorunun kendisi
@@ -1181,6 +1182,8 @@ SORULAR.forEach((s,i)=>{
         // 07.09: hedef yüzdeyse (%33,33) aday "33,33" de "0,3333" de yazabilir; ikisi de doğru sayılır
         const kontrol=()=>{ const yuz=/^%/.test(String(hd.deger).trim()); const g=nrm(inp.value).replace(/^%/,''), b=nrm(hd.deger).replace(/^%/,''); if(g===''){ inp.focus(); return; } const gv=parseFloat(g), bv=parseFloat(b); const yakin=(x,y)=>!isNaN(x)&&!isNaN(y)&&Math.abs(x-y)<=Math.max(0.5,Math.abs(y)*0.005); const ok=(g===b)||yakin(gv,bv)||(yuz&&yakin(gv*100,bv)); tahmin[j]={cevap:inp.value.trim(),dogru:ok,hedef:hd.deger}; adimGoster(j,1); };
         serit.querySelector('.bTahmin').addEventListener('click',kontrol); inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); e.stopPropagation(); kontrol(); } });
+        // 07.09 Cem: "kâğıdı kullan diyor ama kâğıt yok" — Nöbetçi penceresi kartı kapladığı için ✏️ Kâğıt arkada kalıyordu; buradan Nöbetçi'nin ÜSTÜNE açılır
+        const bKg=serit.querySelector('.bKagitAc'); if(bKg){ bKg.addEventListener('click',()=>{ const kg=k.querySelector('.kagit'); if(kg){ kg.classList.add('ustte','acik'); if(kg.dataset.sek==='ciz'){ requestAnimationFrame(()=>{ try{ kanvasBoyut(); }catch(e){} }); } } }); }
         serit.querySelector('.bTahminAtla').addEventListener('click',()=>{ tahmin[j]={atla:true,hedef:hd.deger}; adimGoster(j,1); });
         serit.querySelectorAll('.yc').forEach((el,q)=>el.addEventListener('click',()=>adimGit(q-adimNo)));
         adimBar.querySelectorAll('i').forEach(n=>{ const q=parseInt(n.dataset.j); n.classList.toggle('simdi',q===j); n.classList.toggle('gecti',q<j); });

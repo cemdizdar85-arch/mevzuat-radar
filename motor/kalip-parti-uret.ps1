@@ -1684,11 +1684,16 @@ foreach($id in @($don.Keys)){
     if(-not "$($gN.harita)".Trim()){ $dusenG+='harita yok' }; if(@($gN.terimler).Count -lt 3){ $dusenG+='terimler eksik (4 gerek)' }; if(-not "$($gN.desen)".Trim()){ $dusenG+='desen yok' }
     # 07.09 Cem: terim tanımı yer tarif etmez ("tablodaki tutar"); kavramı söyler ("… düşüldükten sonra kalan net tutar")
     $yerTarif=@(@($gN.terimler) | Where-Object { $_ -and "$($_.tanim)" -match '(?i)\b(tablodaki|tabloda|yukarıdaki|aşağıdaki|soldaki|sağdaki)\b' } | ForEach-Object { "$($_.ad)" }); if($yerTarif.Count){ $dusenG+="terim tanımı yer tarif ediyor ($($yerTarif -join ', ')) — kavramı yaz: neyden ne düşülür, ne kalır" }
+    # 07.09 Cem "kullanım değerini kim belirliyor?": her terimde kim + kaynak alanı dolu olmalı (denetim-zor2 girişi boş bıraktı)
+    $eksikKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and (-not ($_.PSObject.Properties['kim'] -and "$($_.kim)".Trim()) -or -not ($_.PSObject.Properties['kaynak'] -and "$($_.kaynak)".Trim())) } | ForEach-Object { "$($_.ad)" }); if($eksikKim.Count){ $dusenG+="terimlerde 'kim belirler' / 'sınavda kaynağı' boş ($($eksikKim -join ', '))" }
     # panel ile 0. adım aynı cümleyi taşımasın (tekrar kapısı): nedir/panel_ornek cümleleri harita/desen içinde geçmez
     $panelC=@(("$($gN.nedir) $($gN.panel_ornek)" -split '(?<=[.!?])\s+') | ForEach-Object { $_.Trim() } | Where-Object { $_.Length -ge 25 }); $dersM="$($gN.harita) $($gN.desen)"; $tekrarC=@($panelC | Where-Object { $dersM.Contains($_) }); if($tekrarC.Count){ $dusenG+="panel cümlesi 0. adımda tekrar ediyor ($($tekrarC.Count))" }
     # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
     $soruTutar=@([regex]::Matches("$($cvp.soru)",'\d{1,3}(?:\.\d{3})+|\b\d{3,}\b') | ForEach-Object { $_.Value } | Select-Object -Unique); $tekrar=@($soruTutar | Where-Object { $t=$_; "$($gN.ornek)" -match ('(?<![\d.])'+[regex]::Escape($t)+'(?![\d.])') })
-    if($tekrar.Count){ $dusenG+="örnek sorunun rakamını tekrarlıyor ($($tekrar -join ', '))" }
+    # 07.09 maliyet-zor2: "100" (100 TL/ton) tek başına sızıntı sayıldı, giriş reddedildi. Üç haneli yalın sayı (100, 200, 500) yaygındır:
+    # sızıntı = binlik ayraçlı/4+ haneli tutar tekrarı YA DA en az iki farklı üç haneli sayının birlikte tekrarı
+    $tekrarBuyuk=@($tekrar | Where-Object { $_ -match '\.' -or $_.Length -ge 4 }); $tekrarKucuk=@($tekrar | Where-Object { $_ -notmatch '\.' -and $_.Length -le 3 })
+    if($tekrarBuyuk.Count -or $tekrarKucuk.Count -ge 2){ $dusenG+="örnek sorunun rakamını tekrarlıyor ($($tekrar -join ', '))" }
     # 07.09 fmuh-zor3 dersi: örnek sorunun rakamlarını BİNDE BİRE ölçekleyip aynen kullandı (800.000→800 lira … "100 lira eksik" = cevap 100.000).
     # Ölçekli kopya da sızıntıdır: sorudaki tutarların baş hane grubu (800.000→800) örnekte ≥3 kez sayı olarak geçiyorsa kapı düşer.
     $cekirdek=@($soruTutar | ForEach-Object { ($_ -replace '\.\d{3}','') } | Where-Object { $_ -match '^\d{2,3}$' } | Select-Object -Unique); $olcekli=@($cekirdek | Where-Object { $c=$_; "$($gN.ornek)" -match ('(?<![\d.,])'+[regex]::Escape($c)+'(?![\d.,])') })
