@@ -1,14 +1,752 @@
 {
-  "olcum": "07.09.2026 22:58",
-  "durum": "KOR",
-  "neden": "betik coktu (satir 35): Argument types do not match",
+  "olcum": "07.09.2026 23:01",
+  "durum": "KIRMIZI",
+  "neden": "31 artifact SIFRESIZ dosya tasiyor (public repoda herkes indirebilir): supabase-yedek-7, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-damga-yedek, alacak-okuma-pilot, alacak-okuma-pilot, alacak-damga-yedek, alacak-okuma-pilot, supabase-yedek-6, alacak-damga-yedek, alacak-damga-yedek, alacak-okuma-pilot, alacak-damga-yedek, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, alacak-okuma-pilot, supabase-yedek-5, supabase-yedek-4, supabase-yedek-3, supabase-yedek-2, supabase-yedek-1. Silme komutlari raporda (veri/artifact-nobeti.json).",
   "aciklama": "Depodaki artifactler: github-pages kamu, izinli adlar kamu ilan verisi, gerisi yalniz .enc icermeli. ACIK = sifresiz dosya tasiyan artifact; public repoda herkes indirir.",
   "sayim": {
-    "toplam": 0,
-    "acik": 0,
-    "sifreli": 0,
-    "kamu": 0
+    "toplam": 64,
+    "acik": 31,
+    "sifreli": 3,
+    "kamu": 30
   },
-  "acik": [],
-  "hukumler": {}
+  "acik": [
+    {
+      "id": "9962993462",
+      "ad": "supabase-yedek-7",
+      "mb": 60.8,
+      "dosyalar": [
+        "dokumanlar.json",
+        "firmalar.json",
+        "belgeler.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9962993462"
+    },
+    {
+      "id": "9731752043",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.2,
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json",
+        "alacak-okuma-onbellek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9731752043"
+    },
+    {
+      "id": "9729988206",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.1,
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9729988206"
+    },
+    {
+      "id": "9728846616",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9728846616"
+    },
+    {
+      "id": "9727115750",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.1,
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9727115750"
+    },
+    {
+      "id": "9726093441",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.1,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9726093441"
+    },
+    {
+      "id": "9724874085",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.1,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9724874085"
+    },
+    {
+      "id": "9723776298",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.1,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9723776298"
+    },
+    {
+      "id": "9722650875",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.3,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9722650875"
+    },
+    {
+      "id": "9719202759",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.3,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9719202759"
+    },
+    {
+      "id": "9715534627",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.3,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9715534627"
+    },
+    {
+      "id": "9713085354",
+      "ad": "alacak-damga-yedek",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9713085354"
+    },
+    {
+      "id": "9712636061",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9712636061"
+    },
+    {
+      "id": "9712194652",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9712194652"
+    },
+    {
+      "id": "9711699473",
+      "ad": "alacak-damga-yedek",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9711699473"
+    },
+    {
+      "id": "9711469609",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9711469609"
+    },
+    {
+      "id": "9711074947",
+      "ad": "supabase-yedek-6",
+      "mb": 36.3,
+      "dosyalar": [
+        "belgeler.json",
+        "dokumanlar.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9711074947"
+    },
+    {
+      "id": "9710995956",
+      "ad": "alacak-damga-yedek",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9710995956"
+    },
+    {
+      "id": "9710548211",
+      "ad": "alacak-damga-yedek",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9710548211"
+    },
+    {
+      "id": "9710334171",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9710334171"
+    },
+    {
+      "id": "9709867646",
+      "ad": "alacak-damga-yedek",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9709867646"
+    },
+    {
+      "id": "9709613918",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9709613918"
+    },
+    {
+      "id": "9709282155",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9709282155"
+    },
+    {
+      "id": "9703474250",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9703474250"
+    },
+    {
+      "id": "9702713995",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9702713995"
+    },
+    {
+      "id": "9702036794",
+      "ad": "alacak-okuma-pilot",
+      "mb": 0.0,
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9702036794"
+    },
+    {
+      "id": "9468104014",
+      "ad": "supabase-yedek-5",
+      "mb": 37.0,
+      "dosyalar": [
+        "belgeler.json",
+        "dokumanlar.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9468104014"
+    },
+    {
+      "id": "9240571673",
+      "ad": "supabase-yedek-4",
+      "mb": 36.3,
+      "dosyalar": [
+        "dokumanlar.json",
+        "firmalar.json",
+        "belgeler.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9240571673"
+    },
+    {
+      "id": "9016610697",
+      "ad": "supabase-yedek-3",
+      "mb": 28.4,
+      "dosyalar": [
+        "dokumanlar.json",
+        "belgeler.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/9016610697"
+    },
+    {
+      "id": "8816073692",
+      "ad": "supabase-yedek-2",
+      "mb": 16.8,
+      "dosyalar": [
+        "belgeler.json",
+        "firmalar.json",
+        "dokumanlar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/8816073692"
+    },
+    {
+      "id": "8618097039",
+      "ad": "supabase-yedek-1",
+      "mb": 32.2,
+      "dosyalar": [
+        "belgeler.json",
+        "dokumanlar.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ],
+      "sil": "gh api -X DELETE repos/cemdizdar85-arch/mevzuat-radar/actions/artifacts/8618097039"
+    }
+  ],
+  "hukumler": {
+    "10034957386": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034935564": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034917768": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034895312": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034854488": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034841869": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034820329": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034656649": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034528056": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034467073": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034430578": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034383862": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034339800": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034067070": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10034027211": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033965726": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033935247": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033796969": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033763843": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033653768": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033620616": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033366890": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033330868": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033162376": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033093486": {
+      "ad": "supabase-yedek-10",
+      "hukum": "sifreli",
+      "dosyalar": [
+        "supabase-yedek.tgz.enc",
+        "supabase-yedek.tgz.k.enc"
+      ]
+    },
+    "10033069869": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10033005977": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10032878442": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10032834094": {
+      "ad": "supabase-yedek-8",
+      "hukum": "sifreli",
+      "dosyalar": [
+        "supabase-yedek.tgz.enc",
+        "supabase-yedek.tgz.k.enc"
+      ]
+    },
+    "10032831818": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10032814729": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10032609404": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "10032600198": {
+      "ad": "alacak-kasa-yedek-1",
+      "hukum": "sifreli",
+      "dosyalar": [
+        "alacak-kasa-20260907-2052.json.enc",
+        "alacak-kasa-20260907-2052.json.k.enc"
+      ]
+    },
+    "9962993462": {
+      "ad": "supabase-yedek-7",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "dokumanlar.json",
+        "firmalar.json",
+        "belgeler.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ]
+    },
+    "9731752043": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json",
+        "alacak-okuma-onbellek.json"
+      ]
+    },
+    "9729988206": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json"
+      ]
+    },
+    "9728846616": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json"
+      ]
+    },
+    "9727115750": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json",
+        "alacak-hakem-yedek.json"
+      ]
+    },
+    "9726093441": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9724874085": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9723776298": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9722650875": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9719202759": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9715534627": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9713085354": {
+      "ad": "alacak-damga-yedek",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ]
+    },
+    "9712636061": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9712194652": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9711699473": {
+      "ad": "alacak-damga-yedek",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ]
+    },
+    "9711469609": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9711074947": {
+      "ad": "supabase-yedek-6",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "belgeler.json",
+        "dokumanlar.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ]
+    },
+    "9710995956": {
+      "ad": "alacak-damga-yedek",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ]
+    },
+    "9710548211": {
+      "ad": "alacak-damga-yedek",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ]
+    },
+    "9710334171": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9709867646": {
+      "ad": "alacak-damga-yedek",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-damga-yedek.json"
+      ]
+    },
+    "9709613918": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9709282155": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9703474250": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9702713995": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9702036794": {
+      "ad": "alacak-okuma-pilot",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "alacak-okuma-pilot.json"
+      ]
+    },
+    "9468104014": {
+      "ad": "supabase-yedek-5",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "belgeler.json",
+        "dokumanlar.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ]
+    },
+    "9240571673": {
+      "ad": "supabase-yedek-4",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "dokumanlar.json",
+        "firmalar.json",
+        "belgeler.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ]
+    },
+    "9016610697": {
+      "ad": "supabase-yedek-3",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "dokumanlar.json",
+        "belgeler.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ]
+    },
+    "8816073692": {
+      "ad": "supabase-yedek-2",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "belgeler.json",
+        "firmalar.json",
+        "dokumanlar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ]
+    },
+    "8618097039": {
+      "ad": "supabase-yedek-1",
+      "hukum": "ACIK",
+      "dosyalar": [
+        "belgeler.json",
+        "dokumanlar.json",
+        "firmalar.json",
+        "mukellefler.json",
+        "rate_log.json"
+      ]
+    }
+  }
 }
