@@ -56,6 +56,10 @@ jobs:
           set -uo pipefail
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/artifact-nobeti.json ]; then
+            echo "::warning title=artifact nobeti rapor::rapor dosyasi yok - nobetci Bitir'e ulasamadi"
+            exit 0
+          fi
           git add veri/artifact-nobeti.json
           if git diff --cached --quiet; then
             echo "Rapor degismedi - islenecek bir sey yok."
@@ -63,10 +67,12 @@ jobs:
           fi
           git commit -m "Artifact nobeti raporu [veri-operasyonu]"
           for i in 1 2 3 4 5; do
-            if git pull --rebase --autostash origin main && git push origin HEAD:main; then
+            # git hatasi annotation'a yazilir (gunluk yetkisiz okunamiyor)
+            if cikti=$(git pull --rebase --autostash origin main 2>&1) && cikti2=$(git push origin HEAD:main 2>&1); then
               echo "Rapor islendi (deneme $i)."
               exit 0
             fi
+            echo "::warning title=artifact nobeti yayin $i::${cikti:0:300} ${cikti2:0:200}"
             echo "Deneme $i dustu (robot itmesi olabilir), tekrar denenecek."
             sleep $((i * 7))
           done

@@ -51,6 +51,14 @@ function Bitir($durum, $neden, $liste, $hukumler) {
 
 if (-not $token) { Bitir 'KOR' 'GITHUB_TOKEN yok - artifact listesi okunamadi' @() $eski }
 $H = @{ Authorization = "Bearer $token"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'MevzuatRadar-ArtifactNobeti'; 'X-GitHub-Api-Version' = '2022-11-28' }
+# Beklenmeyen cokme de annotation'a yazilir (Actions gunlugu yetkisiz okunamiyor; ilk kosu
+# 08.09'da sebepsiz dustu). 'exit' try icinden gecer, yakalanmaz.
+trap {
+  $satir = $_.InvocationInfo.ScriptLineNumber
+  Write-Host ("::error title=artifact nobeti COKTU::satir {0}: {1}" -f $satir, ("$($_.Exception.Message)" -replace '[\r\n]',' '))
+  try { Bitir 'KOR' ("betik coktu (satir {0}): {1}" -f $satir, $_.Exception.Message) @() $eski } catch {}
+  exit 2
+}
 
 # --- 1) LISTE (sayfali) -----------------------------------------------------------
 $hepsi = New-Object System.Collections.Generic.List[object]
