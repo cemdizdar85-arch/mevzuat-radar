@@ -29,11 +29,17 @@ if($SecimDosya){
   foreach($l in $liste){
     if(-not $cacheOn.ContainsKey($l.etiket)){ $cf=Join-Path $kok "veri\fabrika\kalip-parti-$($l.etiket).json"; $cacheOn[$l.etiket]=if(Test-Path $cf){ Get-Content $cf -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null } }
     $c=$cacheOn[$l.etiket]; if(-not $c -or -not $c.PSObject.Properties[$l.id]){ "  YOK: $($l.etiket)/$($l.id)"; continue }
-    $v=$c.($l.id); $ky=$null
-    if($v.sema -and "$($v.sema.tur)" -eq 'yevmiye'){ $kyt=@(); if($v.sema.kayitlar){ $kyt=@($v.sema.kayitlar) } elseif($v.sema.ogeler){ $kyt=@(,([pscustomobject]@{baslik='';ogeler=$v.sema.ogeler})) }; if($kyt.Count -ge 1 -and $kyt[0].ogeler.borc -and $kyt[0].ogeler.alacak){ $ky=$kyt[0] } }
+    $v=$c.($l.id); $ky=$null; $kyAll=@()
+    if($v.sema -and "$($v.sema.tur)" -eq 'yevmiye'){ $kyt=@(); if($v.sema.kayitlar){ $kyt=@($v.sema.kayitlar) } elseif($v.sema.ogeler){ $kyt=@(,([pscustomobject]@{baslik='';ogeler=$v.sema.ogeler})) }
+      $kyAll=@($kyt | Where-Object { $_.ogeler -and $_.ogeler.borc -and $_.ogeler.alacak })
+      # 07.09 Cem "yarım kayıt": VUK 328 sorusunda şema İKİ kayıt taşıyordu (kıst amortisman + satış), ekrana yalnız ilki çıkıyordu.
+      # Oyun/T-hesabı kaydı = çözüm tablosunun SONUCUNU içeren kayıt (45.000 → satış kaydı), yoksa ilki; kayıtların tümü sayfaya 'kayitlar' olarak gider.
+      if($kyAll.Count){ $ky=$kyAll[0]
+        if($kyAll.Count -gt 1 -and $v.cozum_tablo -and $v.cozum_tablo.satirlar){ $sonSat=@(@($v.cozum_tablo.satirlar)[-1]); $sonDeg=("$($sonSat[-1])" -replace '[^\d,]','')
+          if($sonDeg){ foreach($kk in $kyAll){ $tutlar=@(@($kk.ogeler.borc)+@($kk.ogeler.alacak) | ForEach-Object { "$($_.tutar)" -replace '[^\d,]','' }); if($tutlar -contains $sonDeg){ $ky=$kk; break } } } } } }
     $DERS_TR=@{'Borclar Hukuku'='Borçlar Hukuku';'Is ve Sosyal Guvenlik Hukuku'='İş ve Sosyal Güvenlik Hukuku';'Vergi Hukuku'='Vergi Hukuku';'Ticaret Hukuku'='Ticaret Hukuku'}
     $dersAd="$($l.ders)"; if($DERS_TR.ContainsKey($dersAd)){ $dersAd=$DERS_TR[$dersAd] }
-    $sec+=[pscustomobject]@{ et=$l.etiket; id=$l.id; v=$v; ky=$ky; donem=[int]$v.donem; ders=$dersAd }
+    $sec+=[pscustomobject]@{ et=$l.etiket; id=$l.id; v=$v; ky=$ky; kyAll=$kyAll; donem=[int]$v.donem; ders=$dersAd }
   }
   "secim dosyasi: $($liste.Count) istendi -> $($sec.Count) bulundu"
 }
@@ -43,6 +49,20 @@ Sure 'soru seçimi'
 # katlanmis kelime -> en sik gorulen Turkce yazim. ASCII bicimi de gercek kelime olarak korpusta yasiyorsa
 # (kasa, ve, bu...) DOKUNULMAZ; Turkce bicim en az 3 kat sikse degistirilir.
 function Katla([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'Â','a' -creplace 'â','a' -creplace 'Î','i' -creplace 'î','i' -creplace 'Û','u' -creplace 'û','u').ToLowerInvariant() }
+# 07.09 Cem: "oran her yerde YÜZDE" kuralı (şartname 3) tablo HÜCRESİNE uygulanmıyordu — Maliyet ortak maliyet sorusunda
+# "Dağıtım Oranı 0,3333 / 0,6667 / 1" çıktı. Kalem adı 'oran' içeren ve BÜTÜN değerleri (0,1] aralığında olan satır yüzdeye çevrilir
+# ("Cari oran 1,5" gibi 1'i aşan satırlara dokunulmaz). Formül tarafı JS oranYuzde'de (4 haneli ondalık + "0,3333 (%33,33)" katlama).
+function YuzdeYaz([string]$hane){ $hane=$hane.PadRight(2,'0'); $tam=[int]$hane.Substring(0,2); $kes=$hane.Substring(2).TrimEnd('0'); if($kes){ "%$tam,$kes" } else { "%$tam" } }
+function OranYuzdeSatir($sat){
+  $sat=@($sat); if($sat.Count -lt 2 -or (Katla "$($sat[0])") -notmatch 'oran'){ return ,$sat }
+  $degerler=@($sat[1..($sat.Count-1)] | ForEach-Object { "$_".Trim() } | Where-Object { $_ -and $_ -ne '-' -and $_ -ne '?' })
+  if(-not $degerler.Count){ return ,$sat }
+  $hepsiBirAlti=$true; $kesirVar=$false
+  foreach($dg in $degerler){ if($dg -match '^0,\d{1,4}$'){ $kesirVar=$true } elseif($dg -match '^1(,0+)?$'){ } else { $hepsiBirAlti=$false } }
+  if(-not ($hepsiBirAlti -and $kesirVar)){ return ,$sat }
+  $yeni=@("$($sat[0])"); foreach($c in $sat[1..($sat.Count-1)]){ $t="$c".Trim(); if($t -match '^0,(\d{1,4})$'){ $yeni+=(YuzdeYaz $matches[1]) } elseif($t -match '^1(,0+)?$'){ $yeni+='%100' } else { $yeni+="$c" } }
+  return ,$yeni
+}
 $SAY=@{}   # katlanmis -> @{ 'yazim'=adet }
 # 04.09 ÖLÇÜLDÜ: sözlük kurulumu 100 sn (36 cache, yüz binlerce kelime × Katla). Sözlük diske yazılır; cache'lerden
 # yeni bir dosya yoksa oradan yüklenir (SOZ + ENF en sık biçim + IVAR i/İ ile başlayan biçim var mı).
@@ -130,6 +150,8 @@ foreach($x in $sec){
   if(-not $kural){ $kural=$acD }
   $tz=@{}; foreach($h in 'A','B','C','D','E'){ if($h -ne $d -and $v.aciklama.$h){ $tz[$h]=TuzakAyir (TuzakMetin $v.aciklama.$h) } }
   $kayit=@(); if($x.ky){ foreach($og in @($x.ky.ogeler.borc)){ $kayit+=@{ hesap=(TurkceOnar "$($og.hesap)"); tutar="$($og.tutar)"; taraf='B' } }; foreach($og in @($x.ky.ogeler.alacak)){ $kayit+=@{ hesap=(TurkceOnar "$($og.hesap)"); tutar="$($og.tutar)"; taraf='A' } } }
+  # 07.09: şemadaki BÜTÜN kayıtlar (başlıklarıyla) tablonun altına; tek kayıtsa boş kalır, JS $kayit'i kullanır
+  $kayitlar=@(); if($x.PSObject.Properties['kyAll'] -and @($x.kyAll).Count -gt 1){ foreach($kk in @($x.kyAll)){ $satirK=@(); foreach($og in @($kk.ogeler.borc)){ $satirK+=@{ hesap=(TurkceOnar "$($og.hesap)"); tutar="$($og.tutar)"; taraf='B' } }; foreach($og in @($kk.ogeler.alacak)){ $satirK+=@{ hesap=(TurkceOnar "$($og.hesap)"); tutar="$($og.tutar)"; taraf='A' } }; $kayitlar+=@{ baslik=(TurkceOnar ("$($kk.baslik)" -replace '^\d+\)\s*','')); kayit=$satirK } } }
   $siklar=@{}; foreach($h in 'A','B','C','D','E'){ if($v.siklar.$h){ $siklar[$h]="$($v.siklar.$h)" } }
   # ogretmen anlatimli adimlar (genc dili) + cozum tablosu + soruda verilen hucreler
   $adimlar=@(); foreach($a in @($v.adimlar)){ if(-not $a){ continue }
@@ -171,7 +193,7 @@ foreach($x in $sec){
   }
   foreach($h in @($tz.Keys)){ $tz[$h]=@{ ad=(TurkceOnar $tz[$h].ad); metin=(TurkceOnar $tz[$h].metin) } }
   # 05.09 Cem: tablo hücreleri ASCII kalıyordu ("Degisken", "Bos kapasite") → Türkçe onarım hücrelere de
-  $tablo=$null; if($v.cozum_tablo -and $v.cozum_tablo.satirlar){ $tablo=@{ basliklar=@($v.cozum_tablo.basliklar | ForEach-Object { TurkceOnar "$_" }); satirlar=@(@($v.cozum_tablo.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { TurkceOnar "$_" }) }) } }
+  $tablo=$null; if($v.cozum_tablo -and $v.cozum_tablo.satirlar){ $tablo=@{ basliklar=@($v.cozum_tablo.basliklar | ForEach-Object { TurkceOnar "$_" }); satirlar=@(@($v.cozum_tablo.satirlar) | ForEach-Object { ,(OranYuzdeSatir @(@($_) | ForEach-Object { TurkceOnar "$_" })) }) } }
   elseif(-not $kayit.Count -and $adimlar.Count){
     # teori sorusu: ureticinin KAVRAM TABLOSU (Ne soruluyor / Kural / Bu olayda / Dogru sik) — adimlarin doldur hedefi
     # 06.09 Cem (kalıp-6): üreticinin "Ne soruluyor" cümlesi ayırt edici olguyu yazıp cevabı ele veriyordu ("az gösterilmesi riski…")
@@ -246,7 +268,7 @@ foreach($x in $sec){
   if(-not $oyun -and $v.ikiz -and $v.ikiz.PSObject.Properties['tablo'] -and $v.ikiz.tablo -and $v.ikiz.tablo.satirlar){
     # 06.09: cache'te çift iki biçimde: [r,c] ya da {value:[r,c],Count:2} (PS boru sargısı ConvertTo-Json'da böyle yazılır) - ikisi de okunur
     $cift={ param($l) $o=New-Object System.Collections.Generic.List[object]; foreach($p in @($l)){ $arr=$(if($p -and $p.PSObject.Properties['value']){ @($p.value) } else { @($p) }); if($arr.Count -ge 2){ $o.Add(@([int]$arr[0],[int]$arr[1])) } }; ,$o.ToArray() }
-    $itb=@{ basliklar=@(@($v.ikiz.tablo.basliklar) | ForEach-Object { TurkceOnar "$_" }); satirlar=@(@($v.ikiz.tablo.satirlar) | ForEach-Object { ,@(@($_) | ForEach-Object { TurkceOnar "$_" }) }) }
+    $itb=@{ basliklar=@(@($v.ikiz.tablo.basliklar) | ForEach-Object { TurkceOnar "$_" }); satirlar=@(@($v.ikiz.tablo.satirlar) | ForEach-Object { ,(OranYuzdeSatir @(@($_) | ForEach-Object { TurkceOnar "$_" })) }) }
     $oyun=@{ tur='tablo'; soru=(TurkceOnar "$($v.ikiz.ikiz_soru)"); hedef=(TurkceOnar "$($v.ikiz.hedef_cumle)"); tablo=$itb; verilen=(& $cift $v.ikiz.verilen); bosluk=(& $cift $v.ikiz.bosluk); not='İkiz soru: aynı yöntem, yeni rakamlar. Boş hücreleri sen doldur.' }
   }
   # 06.09 Cem (eksiler #2): hesaplama sorusunda yevmiye şeması BONUS oyun olur — tablo oyunu bitince "Bonus: kaydını da yap" (zorunlu değil, ikinci seviye)
@@ -267,7 +289,7 @@ foreach($x in $sec){
   $tipB=$(if($v.cozum_tablo -and $v.cozum_tablo.satirlar){ 'hesap' } elseif($kayit.Count){ 'kayit' } else { 'teori' })
   # 06.09 Cem "3 yap": çapa (pencerenin gerçek çıkmış sorusu) giriş kartında "Sınavda böyle çıktı" olarak, cevapsız
   $capaB=$null; if($v.PSObject.Properties['capa_metin'] -and "$($v.capa_metin)".Trim()){ $capaB=@{ kaynak=$(if($v.PSObject.Properties['capa_kaynak']){ "$($v.capa_kaynak)" } else { 'çıkmış soru' }); metin=(TurkceOnar "$($v.capa_metin)") } }
-  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$(if($capaB){ @{ kaynak=$capaB.kaynak } } else { $null }); oyunBonus=$oyunBonus; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
+  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$(if($capaB){ @{ kaynak=$capaB.kaynak } } else { $null }); oyunBonus=$oyunBonus; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitlar=$kayitlar; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen }
   "  $($x.et) $($x.id) · $($v.konu) · $($x.donem) donem · kayit satiri $($kayit.Count)"
 }
 Sure 'sözlük + soru kurulumu'
@@ -869,7 +891,7 @@ SORULAR.forEach((s,i)=>{
     // "Doğruları göster"den sonra tamamlansa da seri artmaz (kendi çözmedi). ↺ Tekrar yeni bir deneme açar.
     let bitti=false, gosterildi=false, ipucuAcildi=false;
     const kilitle=()=>{ bitti=true; satirlar.querySelectorAll('td.bosH input').forEach(i=>i.disabled=true); const bk=satirlar.querySelector('.bKontrol'); if(bk){ bk.disabled=true; bk.textContent='✔ Tamamlandı'; } };
-    const olcT=()=>{ if(bitti) return; let d=0,n=0,bosN=0; satirlar.querySelectorAll('td.bosH').forEach(td=>{ n++; const g=normS(td.querySelector('input').value), b=normS(td.dataset.v); if(g==='') bosN++; const ok=g!==''&&(g===b||(!isNaN(parseFloat(g))&&!isNaN(parseFloat(b))&&Math.abs(parseFloat(g)-parseFloat(b))<0.5)); td.classList.toggle('dog',ok); td.classList.toggle('yan',!ok); if(ok) d++; });
+    const olcT=()=>{ if(bitti) return; let d=0,n=0,bosN=0; satirlar.querySelectorAll('td.bosH').forEach(td=>{ n++; const g=normS(td.querySelector('input').value), b=normS(td.dataset.v); if(g==='') bosN++; const yuz=/^%/.test(String(td.dataset.v).trim()); const gv=parseFloat(g), bv=parseFloat(b); const ok=g!==''&&(g===b||(!isNaN(gv)&&!isNaN(bv)&&(Math.abs(gv-bv)<0.5||(yuz&&Math.abs(gv*100-bv)<0.5)))); td.classList.toggle('dog',ok); td.classList.toggle('yan',!ok); if(ok) d++; });
       const m=oyun.querySelector('.msj');
       if(d===n){ kilitle();
         // 06.09 Cem (eksiler #2): tablo tamamlanınca BONUS kayıt oyunu teklif edilir (kâr bulundu → "kaydını da yap"); zorunlu değil, ikinci seviye
@@ -1018,8 +1040,10 @@ SORULAR.forEach((s,i)=>{
       if(s.tablo){ s.tablo.satirlar.forEach((st,r)=>{ const basMi=st.length>1&&st.slice(1).every(c=>String(c).trim()==='-'||String(c).trim()==='')&&/^[A-ZÇĞİÖŞÜ\s]+$/.test(String(st[0]).trim());
         if(basMi){ blokAd=String(st[0]).trim(); const n=blokAd==='VERİLENLER'?(s.verilenler||[]).length:0; h+='<tr class="blok" data-blok="'+esc(blokAd)+'"><th colspan="'+st.length+'">'+esc(blokAd)+(n?' <span class="blokSay">('+n+')</span>':'')+(blokAd==='VERİLENLER'?' <span class="blokAcKapa">▾</span>':'')+'</th></tr>'; return; }
         h+='<tr class="'+(r===s.tablo.satirlar.length-1?'sonuc':'')+(blokAd==='VERİLENLER'?' vblok':'')+'">'+st.map((c,ci)=>ci===0?'<td>'+esc(ipucuAyir(c).ad)+'</td>':'<td class="'+(ver.has(r+','+ci)?'ver':'gizliH')+'" data-r="'+r+'" data-c="'+ci+'">'+esc(c)+'</td>').join('')+'</tr>'; }); }
-      h+='<tr class="ara kayit"><th>Kayıt</th><th>Borç</th><th>Alacak</th></tr>';
-      s.kayit.forEach(r=>{ const kod=(String(r.hesap).match(/^\d{3}/)||[''])[0]; h+='<tr class="kayit" data-kod="'+kod+'"><td class="'+(r.taraf==='A'?'al':'')+'">'+esc(r.hesap)+'</td><td class="tutar">'+(r.taraf==='B'?esc(r.tutar):'')+'</td><td class="tutar">'+(r.taraf==='A'?esc(r.tutar):'')+'</td></tr>'; });
+      // 07.09: şema birden çok kayıt taşıyorsa (kıst amortisman + satış) hepsi kendi başlığıyla çizilir; tek kayıtta eski görünüm
+      const kayitGrup=(s.kayitlar&&s.kayitlar.length>1)?s.kayitlar:[{baslik:'',kayit:(s.kayit||[])}];
+      kayitGrup.forEach((g,gi)=>{ h+='<tr class="ara kayit" data-grp="'+gi+'"><th>Kayıt'+(g.baslik?' · '+esc(g.baslik):'')+'</th><th>Borç</th><th>Alacak</th></tr>';
+        (g.kayit||[]).forEach(r=>{ const kod=(String(r.hesap).match(/^\d{3}/)||[''])[0]; h+='<tr class="kayit" data-grp="'+gi+'" data-kod="'+kod+'"><td class="'+(r.taraf==='A'?'al':'')+'">'+esc(r.hesap)+'</td><td class="tutar">'+(r.taraf==='B'?esc(r.tutar):'')+'</td><td class="tutar">'+(r.taraf==='A'?esc(r.tutar):'')+'</td></tr>'; }); });
       h+='</tbody></table>'; tabloSar.innerHTML=h;
       // 06.09 (Cem "1 yap"): KÂĞIT ↔ TABLO EŞLEMESİ — öğrencinin kâğıdındaki rakamlar tabloda ✏️ ile işaretlenir; tabloda
       // olmayan rakamları ayrı listelenir. Hangi katmanı atladığı kendi kâğıdından okunur ("8.000 ve 142.000 var, 85.200 yok").
@@ -1058,7 +1082,8 @@ SORULAR.forEach((s,i)=>{
           +'<div class="tahminGir"><input class="tahminI" inputmode="decimal" placeholder="örn. 142.000"><button class="btn mavi bTahmin">Kontrol et</button><button class="btn bTahminAtla">Bilmiyorum, göster</button></div><div class="tahminNot">Yanlış tahmin puan düşürmez; tahta hemen açılır ve nerede saptığını gösterir.</div></div>'
           +'<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':''))+'" title="'+esc(adimBaslik(x))+'">'+(q+1)+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(sonrakiAd)+'</span></div></div></div>';
         const inp=serit.querySelector('.tahminI'); setTimeout(()=>inp.focus(),120);
-        const kontrol=()=>{ const g=nrm(inp.value), b=nrm(hd.deger); if(g===''){ inp.focus(); return; } const gv=parseFloat(g), bv=parseFloat(b); const ok=(g===b)||(!isNaN(gv)&&!isNaN(bv)&&Math.abs(gv-bv)<=Math.max(0.5,Math.abs(bv)*0.005)); tahmin[j]={cevap:inp.value.trim(),dogru:ok,hedef:hd.deger}; adimGoster(j,1); };
+        // 07.09: hedef yüzdeyse (%33,33) aday "33,33" de "0,3333" de yazabilir; ikisi de doğru sayılır
+        const kontrol=()=>{ const yuz=/^%/.test(String(hd.deger).trim()); const g=nrm(inp.value).replace(/^%/,''), b=nrm(hd.deger).replace(/^%/,''); if(g===''){ inp.focus(); return; } const gv=parseFloat(g), bv=parseFloat(b); const yakin=(x,y)=>!isNaN(x)&&!isNaN(y)&&Math.abs(x-y)<=Math.max(0.5,Math.abs(y)*0.005); const ok=(g===b)||yakin(gv,bv)||(yuz&&yakin(gv*100,bv)); tahmin[j]={cevap:inp.value.trim(),dogru:ok,hedef:hd.deger}; adimGoster(j,1); };
         serit.querySelector('.bTahmin').addEventListener('click',kontrol); inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); e.stopPropagation(); kontrol(); } });
         serit.querySelector('.bTahminAtla').addEventListener('click',()=>{ tahmin[j]={atla:true,hedef:hd.deger}; adimGoster(j,1); });
         serit.querySelectorAll('.yc').forEach((el,q)=>el.addEventListener('click',()=>adimGit(q-adimNo)));
@@ -1074,7 +1099,9 @@ SORULAR.forEach((s,i)=>{
       const hucreDeger={}; if(s.tablo){ s.tablo.satirlar.forEach((st,r)=>st.forEach((c,ci)=>{ if(ci>0){ const n=norm(c); if(n&&/\d/.test(n)) (hucreDeger[n]=hucreDeger[n]||[]).push(r+','+ci); } })); }
       // 05.09 Cem "%20 ile 0,20'yi birlikte yazma, sınavda hangisi varsa o": ölçüldü, sınav %20 yazar (169'a 28) →
       // formülde çarpım/bölüm oranı olan "0,20" → "%20" (0,5 → %50, 0,125 → %12,5); "0,60 TL" gibi tutarlar dokunulmaz.
-      const oranYuzde=t=>String(t||'').replace(/(?<=[×x*\/]\s*)0,(\d{1,3})(?!\d)(?!\s*(?:TL|₺|kg|adet|saat))/g,(m,d)=>{ if(d.length===1) return '%'+d+'0'; if(d.length===2) return '%'+String(parseInt(d,10)); return '%'+String(parseInt(d.slice(0,2),10))+','+d.slice(2); }).replace(/(?<![\d,])0,(\d{1,3})(?!\d)\s*\(soruda verilen\)\s*(?=[×x*])/g,(m,d)=>{ if(d.length===1) return '%'+d+'0 (soruda verilen) '; if(d.length===2) return '%'+String(parseInt(d,10))+' (soruda verilen) '; return '%'+String(parseInt(d.slice(0,2),10))+','+d.slice(2)+' (soruda verilen) '; });
+      // 07.09: 4 haneli ondalık da (0,3333 → %33,33) ve "0,3333 (%33,33)" sonuç yazımı tek yüzdeye katlanır; tablo hücresi PS'de OranYuzdeSatir ile aynı biçime gelir
+      const yz=d=>{ d=String(d).padEnd(2,'0'); const kes=d.slice(2).replace(/0+$/,''); return '%'+String(parseInt(d.slice(0,2),10))+(kes?','+kes:''); };
+      const oranYuzde=t=>String(t||'').replace(/0,(\d{1,4})\s*\((%[\d,]+)\)/g,'$2').replace(/(?<=[×x*\/]\s*)0,(\d{1,4})(?!\d)(?!\s*(?:TL|₺|kg|adet|saat))/g,(m,d)=>yz(d)).replace(/(?<![\d,])0,(\d{1,4})(?!\d)\s*\(soruda verilen\)\s*(?=[×x*])/g,(m,d)=>yz(d)+' (soruda verilen) ');
       a={...a, formul:oranYuzde(a.formul)};
       const fTemiz=String(a.formul||'').replace(/\b\d+\.\s*adımda/gi,' adımda');
       const kaynakH=new Set(); const hedefDeger=new Set([...hedef].map(k=>{ const [r,c]=k.split(',').map(Number); return s.tablo&&s.tablo.satirlar[r]?norm(s.tablo.satirlar[r][c]):''; }).filter(Boolean));
@@ -1204,7 +1231,7 @@ SORULAR.forEach((s,i)=>{
       // gösterilen kayıt satırları da 0..j'den yeniden kurulur (geri gidince sonraki adımın satırı gizlenir)
       gosterilen.clear(); for(let q=0;q<=j;q++){ kodOf(s.adimlar[q]).forEach(c=>gosterilen.add(c)); }
       tabloSar.querySelectorAll('tr.kayit[data-kod]').forEach(tr=>{ const k2=tr.dataset.kod; const an=k2&&kodlar.has(k2); if(son){ gosterilen.add(k2); } tr.classList.toggle('goster',gosterilen.has(k2)); tr.classList.toggle('vurguS',!!an); });
-      const ara=tabloSar.querySelector('tr.ara'); if(ara){ ara.classList.toggle('goster',gosterilen.size>0); }
+      tabloSar.querySelectorAll('tr.ara').forEach(ara=>{ const gi=ara.dataset.grp; ara.classList.toggle('goster',[...tabloSar.querySelectorAll('tr.kayit[data-kod][data-grp="'+gi+'"]')].some(tr=>tr.classList.contains('goster'))); });
       adimBar.querySelectorAll('i').forEach(n=>{ const q=parseInt(n.dataset.j); n.classList.toggle('simdi',q===j); n.classList.toggle('gecti',q<j); });
       bOnce.disabled=(j===0); bSonra.disabled=son; bSonra.textContent=son?'Bitti ✓':'İleri ▶';
       const vurgu=tabloSar.querySelector('td.vurgu, tr.vurguS'); if(vurgu) vurgu.scrollIntoView({block:'nearest',behavior:'smooth'});
