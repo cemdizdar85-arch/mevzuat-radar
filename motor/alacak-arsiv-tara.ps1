@@ -81,7 +81,8 @@ foreach ($yon in 'desc','asc') {
       # slug suzgeci ARTIK YEDEK KEMER (kategori dogrudan istendi); elenen olursa say
       if ("$($a.slugifyTitle)" -notmatch '^iflas-hukuku') { $slugDisi++; continue }
       $tarih = ''
-      if ($a.publishStartDate) { try { $tarih = ([datetime]$a.publishStartDate).ToString('dd.MM.yyyy') } catch { $tarih = "$($a.publishStartDate)".Substring(0,10) } }
+      # 07.09.2026: [datetime] makine saat dilimine cevirir; UTC runner'da ilan bir gun geriye kayiyordu. Sabit UTC+3.
+      if ($a.publishStartDate) { try { $tarih = [DateTimeOffset]::Parse("$($a.publishStartDate)", [Globalization.CultureInfo]::InvariantCulture).ToOffset([TimeSpan]::FromHours(3)).ToString('dd.MM.yyyy') } catch { $tarih = "$($a.publishStartDate)".Substring(0,10) } }
       $no = "$($a.adNo)"
       if (-not $bulunan.ContainsKey($no)) {
         $bulunan[$no] = [ordered]@{
@@ -98,7 +99,7 @@ foreach ($yon in 'desc','asc') {
     }
     $atla += 20
     if ($atla % 1000 -eq 0) {
-      $sonT = if ($sayfa.Count) { try { ([datetime]$sayfa[-1].publishStartDate).ToString('dd.MM.yyyy') } catch { '?' } } else { '?' }
+      $sonT = if ($sayfa.Count) { try { [DateTimeOffset]::Parse("$($sayfa[-1].publishStartDate)", [Globalization.CultureInfo]::InvariantCulture).ToOffset([TimeSpan]::FromHours(3)).ToString('dd.MM.yyyy') } catch { '?' } } else { '?' }
       Write-Host ("  {0} skip={1,5} · birikim={2,5} · o sayfadaki tarih={3} · gecen={4:mm\:ss}" -f $yon, $atla, $bulunan.Count, $sonT, ((Get-Date) - $basla))
     }
     Start-Sleep -Milliseconds 200

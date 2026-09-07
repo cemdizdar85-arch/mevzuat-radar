@@ -67,7 +67,10 @@ if($donen -gt 0){
 $ilanlar = @()
 foreach($a in $hamAds){
   $tarih = ""
-  if($a.publishStartDate){ try { $tarih = ([datetime]$a.publishStartDate).ToString("dd.MM.yyyy") } catch { $tarih = "$($a.publishStartDate)".Substring(0,10) } }
+  # 07.09.2026: [datetime] donusumu makinenin saat dilimine cevirir. Actions runner UTC oldugu icin
+  # "2026-09-06T21:00:00Z" (= 07.09 00:00 TR) 06.09 diye damgalaniyordu; ilan.gov.tr detay sayfasi
+  # ayni ilana "07.09.2026 tarihinde yayinlanmistir" diyor. Tarih artik SABIT UTC+3 ile hesaplanir.
+  if($a.publishStartDate){ try { $tarih = [DateTimeOffset]::Parse("$($a.publishStartDate)", [Globalization.CultureInfo]::InvariantCulture).ToOffset([TimeSpan]::FromHours(3)).ToString("dd.MM.yyyy") } catch { $tarih = "$($a.publishStartDate)".Substring(0,10) } }
   $ilanlar += [ordered]@{
     ilanNo = $a.adNo
     baslik = $a.title
