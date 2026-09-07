@@ -239,7 +239,10 @@ $DERS_KANUN=@{
   # kaynak capadan 5510 SGK + IYUK'a dustu, hakem 2 soruyu reddetti (vergi 4 -> 1). Kanun listede, teblig yaninda.
   'Vergi Hukuku'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK (5520 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)',
                    'ÖTV K. (4760 s.K.)','MTV K. (197 s.K.)','Harçlar K. (492 s.K.)','Emlak V.K. (1319 s.K.)','Veraset ve İntikal V.K. (7338 s.K.)','Gider Vergileri K. (6802 s.K.)')   # adlar AMBAR-ENVANTERI'nden birebir (07.09)
-  'Meslek Hukuku'=@('SMMM K. (3568 s.K.)'); 'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
+  # 07.09 parti30 OLCULDU: Meslek listesinde yalniz 3568 vardi -> 'haksiz rekabet reklam yasagi' TTK m.55'e, 'meslek etik
+  # ilkeleri' TSPB genelgesine dustu (hakem HAYIR). Meslek yonetmelikleri ambarda VAR, adlar AMBAR-ENVANTERI'nden birebir.
+  'Meslek Hukuku'=@('SMMM K. (3568 s.K.)','Haksız Rekabet ve Reklam Yasağı Yön.','TÜRMOB Etik İlkeler Yön.','TÜRMOB Etik İlkeler Yön. EK','SMMM ve YMM K. Disiplin Yonetmeligi','SMMM Staj Yonetmeligi')
+  'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
   'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
   'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')
