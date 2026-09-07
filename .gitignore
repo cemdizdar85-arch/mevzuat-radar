@@ -146,3 +146,6 @@ veri/oturum-birakilanlar.txt
 # yeniden gidilmesin diye. Kaynaktan turetilir, istenince yeniden uretilir -
 # depoya GIRMEZ (gecmisi 1 GB'dan 80 MB'a indirdik, ayni hatayi tekrarlamayiz).
 veri/_cagri-onbellek/
+
+# 07.09: kasadan cekilen gecici onarim dosyalari (ham metin, TCKN tasir) - depoya GIRMEZ
+veri/_onarim-*.json

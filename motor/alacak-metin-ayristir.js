@@ -38,6 +38,11 @@ const bayrak = (ad) => ARG.includes('--' + ad);
 const deger = (ad) => { const i = ARG.indexOf('--' + ad); return i >= 0 ? ARG[i + 1] : null; };
 
 const UA = { 'User-Agent': 'Mozilla/5.0 (MevzuatRadar-Alacak)', 'Accept': 'application/json' };
+// 07.09: bir 10 hanenin VERGİ numarası sayılması için çevresinde aranan etiketler.
+// Tek yerde tanımlı: hem çıkarım hem kör-nokta sayacı bunu kullanır.
+const VERGI_BAGLAMI = /vergi|V\.?D\.?|VD|mükellef|V\.?K\.?N\.?O?|\bVN\b|V\.N/i;
+// KÖR NOKTA deseni: metinde etiketli bir vergi numarası YAZIYOR ama kayıtta yok.
+const ETIKETLI_VKN = /(?:V\.?K\.?N\.?O?|\bVN|V\.N|vergi\s*(?:kimlik\s*)?(?:no|numaras[ıi]))\s*(?:NO)?\s*[:.\-]?\s*\(?\s*(?:\d{10}(?!\d)|\d{3}[ .]\d{3}[ .]\d{4}(?!\d)|\d{11}(?!\d))/i;
 
 function detayCek(id) {
   return new Promise((cb) => {
@@ -288,22 +293,36 @@ function ayristir(metin, baslik) {
 
   // BORÇLULAR: kimlik numarası çapa, unvan/ad çevresinden. Numara yoksa yazma.
   const gorulen = new Set();
-  for (const mm of metin.matchAll(/\b\d{10}\b/g)) {
-    const no = mm[0];
+  // 07.09 ÖLÇÜLDÜ (kalan 37 kör nokta): (a) "0690351080VKN" gibi kelimeye bitişik
+  // sayıda \b sınır yoktu — rakam-olmayan komşuluk (lookaround) kullanılır;
+  // (b) "VKN 510 041 7353" boşluklu/noktalı yazım hiç yakalanmıyordu — 3-3-4
+  // kalıbı birleştirilerek aday yapılır (muhasebe yazımı, 19.08 Excel dersiyle aynı).
+  const adaylar = [];
+  for (const mm of metin.matchAll(/(?<!\d)\d{10}(?!\d)/g)) adaylar.push({ no: mm[0], index: mm.index, uz: 10 });
+  for (const mm of metin.matchAll(/(?<!\d)\d{3}[ .]\d{3}[ .]\d{4}(?!\d)/g)) adaylar.push({ no: mm[0].replace(/[ .]/g, ''), index: mm.index, uz: mm[0].length });
+  adaylar.sort((a, b) => a.index - b.index);
+  for (const mm of adaylar) {
+    const no = mm.no;
     if (!vknGecerli(no) || gorulen.has(no)) continue;
     // yalnız vergi bağlamındaki 10 hane (sicil/mersis/dosya numarası değil)
+    // 07.09 (Cem: VKN 7330428877 aranamıyor): mahkemeler "VKN:", "VN:", "V.N",
+    // "VKNO:" kısaltmalarıyla da yazıyor; eski desen yalnız "vergi/VD" tanıyordu.
+    // Kasada ölçüldü: metninde VKN geçip numarası boş 143 · V.N 33 · VN: 9 ilan.
     const cevre = metin.slice(Math.max(0, mm.index - 60), mm.index + 60);
-    if (!/vergi|V\.?D\.?|VD|mükellef/i.test(cevre)) continue;
+    if (!VERGI_BAGLAMI.test(cevre)) continue;
     gorulen.add(no);
     r.vknler.push(no);
-    const unvan = numaraCevresiUnvan(metin, mm.index, no.length);
+    const unvan = numaraCevresiUnvan(metin, mm.index, mm.uz);
     r.borclular.push(unvan ? { ad: unvan, vkn: no } : { vkn: no });
   }
-  for (const mm of metin.matchAll(/\b\d{11}\b/g)) {
+  // 07.09: şahıs mükellefte mahkeme 11 haneli numarayı da "VKN:" etiketiyle
+  // yazıyor ("Selçuk KARADENİZ (VKN NO: 68854101250)") — bu bir TCKN'dir;
+  // VKN/V.N etiketi de kimlik bağlamı sayılır. Bitişik yazım için lookaround.
+  for (const mm of metin.matchAll(/(?<!\d)\d{11}(?!\d)/g)) {
     const no = mm[0];
     if (!tcknGecerli(no) || gorulen.has(no)) continue;
     const cevre = metin.slice(Math.max(0, mm.index - 60), mm.index + 90);
-    if (!/kimlik|T\.?C\.?|TC\b/i.test(cevre)) continue;
+    if (!/kimlik|T\.?C\.?|TC\b|V\.?K\.?N|V\.N/i.test(cevre)) continue;
     gorulen.add(no);
     r.tcknler.push(no);
     const ad = kisiAdiCevresi(metin, mm.index, no.length);
@@ -365,25 +384,33 @@ async function kos() {
   const obj = jsonOku(hedef);
   const ilanlar = obj.ilanlar || [];
   const zorla = bayrak('zorla');
+  // 07.09 --yeniden: metni ZATEN olan kayıtları kaynağa gitmeden yeniden ayrıştır
+  // (desen düzeltmesi sonrası kasadaki eski ilanları onarmak için; 0 istek).
+  const yeniden = bayrak('yeniden');
   const tavan = parseInt(deger('adet') || '0', 10) || Infinity;
   let say = 0, yok = 0, sayac = { metin: 0, borclu: 0, vkn: 0, esas: 0, muhlet: 0, komiser: 0 };
 
   for (const x of ilanlar) {
     if (x.tur !== 'iflas' && x.tur !== 'konkordato') continue;
     if (say >= tavan) break;
-    if (x.metin && !zorla) continue;
-    // 20.08 OLCULDU: 25 ilanin metni kaynakta YOK — API 200 doner ama
-    // result.id null gelir (ilan ilan.gov.tr'den kaldirilmis). Damgalanir,
-    // yoksa her kosuda bosuna 25 istek gider. --zorla yine dener.
-    if (x.metin_yok && !zorla) continue;
-    const id = (String(x.url || '').match(/\/ilan\/(\d+)\//) || [])[1];
-    if (!id) continue;
-    let j = {};
-    try { j = JSON.parse(await detayCek(id)); } catch (e) { continue; }
-    const metin = metinTemizle(j && j.result && j.result.content);
-    if (!metin || metin.length < 40) {
-      if (j && j.result && j.result.id === null) { x.metin_yok = 'kaynakta-yok'; yok++; }
-      continue;
+    let metin = '';
+    if (x.metin && yeniden) {
+      metin = x.metin;
+    } else {
+      if (x.metin && !zorla) continue;
+      // 20.08 OLCULDU: 25 ilanin metni kaynakta YOK — API 200 doner ama
+      // result.id null gelir (ilan ilan.gov.tr'den kaldirilmis). Damgalanir,
+      // yoksa her kosuda bosuna 25 istek gider. --zorla yine dener.
+      if (x.metin_yok && !zorla) continue;
+      const id = (String(x.url || '').match(/\/ilan\/(\d+)\//) || [])[1];
+      if (!id) continue;
+      let j = {};
+      try { j = JSON.parse(await detayCek(id)); } catch (e) { continue; }
+      metin = metinTemizle(j && j.result && j.result.content);
+      if (!metin || metin.length < 40) {
+        if (j && j.result && j.result.id === null) { x.metin_yok = 'kaynakta-yok'; yok++; }
+        continue;
+      }
     }
     say++;
     const r = ayristir(metin, x.baslik);
@@ -406,8 +433,21 @@ async function kos() {
     if (r.muhlet_bitis) x.muhlet_bitis = r.muhlet_bitis;
     if (r.komiser) { x.komiser = r.komiser; sayac.komiser++; }
     if (r.itiraz_gun) x.itiraz_gun = r.itiraz_gun;
-    await new Promise(r2 => setTimeout(r2, 120));
+    if (!yeniden) await new Promise(r2 => setTimeout(r2, 120));
   }
+  // 07.09 KÖR NOKTA SAYACI (Cem: "bu boşluğu bir daha senin bulman gerekmesin"):
+  // metninde ETİKETLİ vergi numarası yazan ama kayıtta vkn/vknler boş kalan ilan.
+  // Sıfır olmalı; değilse desen eksik demektir. Rapor yalnız değişince yazılır
+  // (zaman damgası yok, robotlar boş commit üretmesin).
+  const korNokta = ilanlar.filter(x => x.metin && ETIKETLI_VKN.test(x.metin) && !x.vkn && !(x.vknler || []).length && !(x.tcknler || []).length);
+  console.log('KÖR NOKTA (etiketli VKN yazıyor, kayıt boş): ' + korNokta.length + ' / metinli ' + ilanlar.filter(x => x.metin).length);
+  try {
+    const raporYol = path.join(KOK, 'veri', 'alacak-vkn-kor-nokta.json');
+    const rapor = { aciklama: 'Metninde VKN/VN/V.N/VKNO etiketiyle vergi numarası yazan ama kayıtta vkn boş kalan ilanlar. 0 olmalı; değilse alacak-metin-ayristir.js VERGI_BAGLAMI deseni eksik.', kaynak: 'motor/alacak-metin-ayristir.js', metinli: ilanlar.filter(x => x.metin).length, korNokta: korNokta.length, ornek: korNokta.slice(0, 20).map(x => ({ ilanNo: x.ilanNo, baslik: x.baslik, parca: (x.metin.match(ETIKETLI_VKN) || [''])[0] })) };
+    const yeni = JSON.stringify(rapor, null, 1);
+    const eski = fs.existsSync(raporYol) ? fs.readFileSync(raporYol, 'utf8').replace(/^﻿/, '') : '';
+    if (eski !== yeni) fs.writeFileSync(raporYol, yeni, 'utf8');
+  } catch (e) { console.log('kör nokta raporu yazılamadı: ' + e.message); }
   // 20.08: karar_durumu BASLIKTAN da cikarilabilir — metni olmayan (kaynakta
   // silinmis) ilanlar da filtreye girsin diye tum kayitlar damgalanir.
   let dmg = 0;
