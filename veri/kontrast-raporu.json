@@ -1,25 +1,20 @@
 {
-  "durum": "KOR",
+  "durum": "YESIL",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
   "sayfa": 64,
-  "temiz_sayfa": 63,
-  "denetlenen_metin": 12628,
+  "temiz_sayfa": 64,
+  "denetlenen_metin": 12906,
   "toplam_kirik": 0,
-  "denetlenen_sinir": 5114,
+  "denetlenen_sinir": 5178,
   "toplam_gorunmez_sinir": 0,
-  "olculemeyen": 1,
+  "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
     "buyuk": 3,
     "sinir": 1.12
   },
   "gorunmez_sinir_sayfalar": [],
-  "olculemeyenler": [
-    {
-      "sayfa": "alacak-radari.html",
-      "sebep": "bilinmiyor"
-    }
-  ],
+  "olculemeyenler": [],
   "kirik_sayfalar": []
 }
