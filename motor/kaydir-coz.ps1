@@ -1087,7 +1087,9 @@ SORULAR.forEach((s,i)=>{
     // öğrenci yazar, sonra tahta açılır. Birebir ders: hoca sorar, öğrenci dener, hoca düzeltir. tahmin[j]={cevap,dogru,atla}
     const tahmin={};
     const tahminGerek=(a,j,son)=>{ if(j===0||son||a.kisi||a.giris||a.verilenAdim) return false; const f=String(a.formul||''); if(/^(Verilen|Soruda ne var|Yanlış yol|Senin seçimin)/i.test(f)) return false; if(!(a.doldur&&a.doldur.length)) return false; return !(j in tahmin); };
-    const hedefDegeri=a=>{ const p=(a.doldur||[])[0]; if(!p||!s.tablo||!s.tablo.satirlar[p[0]]) return null; const c=String(s.tablo.satirlar[p[0]][p[1]]||''); const ad=ipucuAyir(String(s.tablo.satirlar[p[0]][0]||'')).ad; return {deger:c, ad:ad}; };
+    // 07.09 Cem (FMuh faaliyet kârı): "aday çöz kısmı çıkmadı" — adım hem kalem adını [r,0] hem tutarı [r,1] dolduruyordu, ilk koordinat kalem
+    // sütunuydu, hedef değeri "Faaliyet Kârı (300.000-120.000)" metni oldu, 24 karakteri aşıp sayı sayılmadı → tahmin ekranı atlandı. Tutar sütunu alınır.
+    const hedefDegeri=a=>{ const d=(a.doldur||[]); const p=d.find(x=>x&&x[1]>0)||d[0]; if(!p||!s.tablo||!s.tablo.satirlar[p[0]]) return null; const c=String(s.tablo.satirlar[p[0]][p[1]]||''); const ad=ipucuAyir(String(s.tablo.satirlar[p[0]][0]||'')).ad; return {deger:c, ad:ad}; };
     // Cem 03.09 (3): "iptal kari verilmiyor, en sonda hesaplaniyor" - soruda VERILMEYEN hucreler '?' ile gizli
     // baslar, ilgili adim gelince acilir (birikimli). Verilenler bastan acik (mavi kenar).
     function dersKur(){
