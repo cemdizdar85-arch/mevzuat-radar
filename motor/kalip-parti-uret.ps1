@@ -1282,8 +1282,39 @@ Yalnız JSON: {"cozum_tablo":{...}|null,"teshis":{"A":{...},"B":{...},"C":{...},
     if($don.Contains($id) -and $don[$id].PSObject.Properties['uyarlama']){ continue }
     if(-not $e.soru -or -not $e.siklar -or -not $e.dogru){ Dus $id $e 'soru/şık/doğru eksik'; continue }
     $cvp=[pscustomobject]@{ soru="$($e.soru)"; siklar=$e.siklar; dogru="$($e.dogru)"; aciklama=$e.aciklama; konu="$($e.konu)"; ders="$($e.ders)"; hap=$(if($e.PSObject.Properties['hap']){ "$($e.hap)" } else { '' }); eski_id="$($e.id)"; kaynak_eski="$($e.kaynak)"; kanun_no="$($e.kanun_no)"; madde_no="$($e.madde_no)"; madde_damga="$($e.madde_damga)"; donem=0; kurtarma=$true; sema=$null }
-    # B4 koku: yer tutucu unvan eski soruda da yasak (soruya dokunulamadığı için düşer)
-    $ko=@(KokuKusur $cvp | Where-Object { $_ -match 'yer tutucu' }); if($ko.Count){ Dus $id $e ($ko -join '; '); continue }
+    # --- B8 MEKANİK DÜZELTME İSTİSNASI (Cem 08.09 "üçüne de evet, kur"): anlam değişmez, yazım/ad/sıra düzelir; künyede iz kalır -----------------
+    $mek=@()
+    # (a) YIL KAYDIRMA — yalnız muhasebe dersleri (hukukta yıla bağlı had gerçeği bozulur; orada eski yıl ELENİR)
+    $muhasebeMi=("$($e.ders)" -match '(?i)Finansal Muhasebe|Maliyet|Mali Tablolar|Denetim')
+    $yRx='\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))'; $yillarE=@([regex]::Matches("$($cvp.soru)",$yRx) | ForEach-Object { [int]$_.Groups[1].Value })
+    if($yillarE.Count){ $enYeniE=($yillarE | Measure-Object -Maximum).Maximum; $farkE=(Get-Date).Year-$enYeniE
+      if($farkE -gt 0){
+        if(-not $muhasebeMi){ Dus $id $e "yıl eski ($enYeniE), hukuk dersinde kaydırılmaz (yıla bağlı had riski)"; continue }
+        $ekT=@{0='de';1='de';2='de';3='te';4='te';5='te';6='da';7='de';8='de';9='da'}
+        $kaydirM={ param($t) $t2=[regex]::Replace("$t",$yRx,{ param($m) "$([int]$m.Groups[1].Value + $farkE)" }); [regex]::Replace($t2,"\b(20[0-3](\d))'([dt])([ea])(n?)\b",{ param($m) $son=[int]$m.Groups[2].Value; $ek=$ekT[$son]; "$($m.Groups[1].Value)'$ek$($m.Groups[5].Value)" }) }
+        $cvp.soru=& $kaydirM $cvp.soru
+        $yeniS=[ordered]@{}; foreach($hh in 'A','B','C','D','E'){ $yeniS[$hh]=(& $kaydirM "$($cvp.siklar.$hh)") }; $cvp.siklar=[pscustomobject]$yeniS
+        if($cvp.aciklama){ $yeniA=[ordered]@{}; foreach($hh in 'A','B','C','D','E'){ $v=$cvp.aciklama.$hh; if($v -is [string]){ $yeniA[$hh]=(& $kaydirM $v) } else { $yeniA[$hh]=$v } }; $cvp.aciklama=[pscustomobject]$yeniA }
+        $mek+="yıl +$farkE ($enYeniE→$((Get-Date).Year))" } }
+    # (b) YER TUTUCU UNVAN → "İşletme" (ABC A.Ş.'nin → İşletme'nin)
+    $ytRx='(?i)\b(ABC|XYZ|DEF|KLM|XY|AB)\b\s*(A\.?\s?Ş\.?|Ltd\.?\s*Şti\.?|Ltd\.?|Ticaret\s+A\.?Ş\.?|Ticaret|İşletmesi|Şirketi|San\.?\s*(ve\s*Tic\.?)?\s*A\.?Ş\.?|A\.S\.)'
+    if("$($cvp.soru)" -match $ytRx){ $cvp.soru=[regex]::Replace($cvp.soru,$ytRx,'İşletme'); $cvp.soru=$cvp.soru -replace '(?i)\bİşletme\s+(işletmesi|şirketi)\b','İşletme'; $mek+='yer tutucu → İşletme' }
+    # (c) UZUN TİRE / ÜÇ NOKTA → virgül / nokta
+    $tireVar=$false; $tireDuzelt={ param($t) $t -replace '\s*—\s*',', ' -replace '\s*–\s*',', ' -replace '…','.' }
+    if("$($cvp.soru)" -match '—|–|…'){ $cvp.soru=& $tireDuzelt $cvp.soru; $tireVar=$true }
+    $yeniS2=[ordered]@{}; foreach($hh in 'A','B','C','D','E'){ $v="$($cvp.siklar.$hh)"; if($v -match '—|–|…'){ $tireVar=$true; $v=& $tireDuzelt $v }; $yeniS2[$hh]=$v }; $cvp.siklar=[pscustomobject]$yeniS2
+    if($cvp.aciklama){ $yeniA2=[ordered]@{}; foreach($hh in 'A','B','C','D','E'){ $v=$cvp.aciklama.$hh; if($v -is [string] -and $v -match '—|–|…'){ $tireVar=$true; $v=& $tireDuzelt $v }; $yeniA2[$hh]=$v }; $cvp.aciklama=[pscustomobject]$yeniA2 }
+    if($tireVar){ $mek+='uzun tire / üç nokta' }   # 08.09 ölçümü: tire yalnız soruda düzeltilince açıklamadaki tire koku kapısından düşürüyordu
+    # (d) TÜRKÇE HARF + KANUN KISALTMASI → DilOnarNesne (YazimOnar sözlüğü + "213 sayılı Vergi Usul Kanunu"); soru sonunda yine koşar, burada iz için
+    $onceS="$($cvp.soru)"; DilOnarNesne $cvp; if("$($cvp.soru)" -ne $onceS){ $mek+='Türkçe harf / kısaltma açılımı' }
+    # (e) SAYI ŞIKLARI KÜÇÜKTEN BÜYÜĞE (harf, doğru ve açıklama birlikte taşınır)
+    if(SikSirala $cvp){ $mek+="şık sıralama (doğru → $($cvp.dogru))" }
+    if($mek.Count){ $cvp | Add-Member -NotePropertyName mekanik -NotePropertyValue @($mek) -Force; Write-Host "  MEKANİK $id : $($mek -join ' · ')" -ForegroundColor DarkCyan }
+    # --- SERT KURALLAR (B4, Cem 08.09 "elenmeleri doğru"): doğru şık en uzun / tekrar tutar / yön dengesi (KAPI-Ş) · şıkta gerekçe · koku (yuvarlak, klişe, kalan yer tutucu)
+    $sikK=SikDengesi $cvp; if(-not $sikK){ $sikK=SikBicimi $cvp }; if($sikK){ Dus $id $e "KAPI-Ş: $sikK"; continue }
+    $hesapOn=EskiSayiSikli $cvp
+    if(-not $hesapOn){ $gerekceli=@('A','B','C','D','E' | Where-Object { $t="$($cvp.siklar.$_)"; $t -match '(?i)\b(çünkü|nedeniyle|dolayısıyla|bu yüzden|zira)\b' -or $t.Length -gt 160 }); if($gerekceli.Count){ Dus $id $e "şıkta gerekçe / uzun cümle şık ($($gerekceli -join ','))"; continue } }
+    $ko=@(KokuKusur $cvp); if($ko.Count){ Dus $id $e ("koku: "+($ko -join '; ')); continue }
     # kaynak paketi: damga → kanun/madde → köprü deseni
     # madde_damga bir ÖZET (hash), künye değil → kanun_no + madde_no, yoksa eski 'kaynak' metni (08.09 ölçümü: damga 'fa94e38b…' çıktı)
     $day=$(if("$($e.kanun_no)".Trim() -match '^\d{3,5}$'){ "$($e.kanun_no) sayılı Kanun$(if("$($e.madde_no)".Trim()){ " m.$($e.madde_no)" })" } else { "$($e.kaynak)" })   # kanun_no 'THP'/'TMS' gibi ise (sayı değil) eski 'kaynak' künyesi ("THP 521", "TMS 2 p.10") kullanılır
@@ -2436,7 +2467,7 @@ $script:FAZ_ADI='H2'
 $hakem2Istem=@'
 Sen TESMER/TÜRMOB sınav komisyonunda yıllarca soru yazmış bir hakemsin. Aşağıdaki soruyu üç ölçüte göre değerlendir; yalnız JSON ver.
 1. sinav_gibi: Bu soru gerçek {SINAV} {DERS} sınav sorusu gibi mi? Kök kalıbı, uzunluk, şık biçimi (sonuç + kısa etiket, gerekçesiz), dil, veri sunumu sınavla uyumlu mu? EVET/HAYIR + gerekçe.
-2. koku: Yapay zeka izi var mı? Yer tutucu unvan (ABC A.Ş.), bütün tutarların yuvarlak olması, klişe cümle ("önem arz etmektedir", "bu bağlamda"), aynı kalıbın tekrarı, uzun tire, doğru şıkkın diğerlerinden belirgin uzun/nüanslı olması, iki şıkkın birbirinin tam tersi olması. Bulduklarını LİSTELE, yoksa boş liste.
+2. koku: Yapay zeka izi var mı? Yer tutucu unvan yalnız ABC/XYZ gibi ANLAMSIZ harf dizisidir ("Çelik Makine Sanayi A.Ş." gibi gerçekçi ad koku DEĞİLDİR, yazma), bütün tutarların yuvarlak olması, klişe cümle ("önem arz etmektedir", "bu bağlamda"), aynı kalıbın tekrarı, uzun tire, doğru şıkkın diğerlerinden belirgin uzun/nüanslı olması, iki şıkkın birbirinin tam tersi olması. Bulduklarını LİSTELE, yoksa boş liste. Muhasebe tekniği hatası (ör. 590 hesabının yönü) koku değil, 3. maddede (celdirici_gercek HAYIR + gerekçe) yazılır.
 3. celdirici_gercek: Yanlış şıklar gerçek bir adayın düşeceği tuzaklar mı (atlanan katman, ters işaret, yanlış oran, kavram karışıklığı), yoksa rastgele sayı/cümle mi? EVET/HAYIR + gerekçe. İki doğru şık ya da doğru şıkta hata görürsen burada yaz.
 4. zorluk: kolay (tek kural tek işlem) | zor (iki zorluk kaynağı) | cok_zor (ters soru + çeldirici verilen + iki kuralın kesişimi).
 karar: sinav_gibi EVET ve celdirici_gercek EVET ve koku boşsa EVET, değilse HAYIR.
@@ -2460,8 +2491,11 @@ foreach($id in @($don.Keys)){
   $aH=Coz $yH.metin
   if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $rapor.Add("HAKEM2 BOZUK: $id"); continue }
   $koku=@($aH.koku | Where-Object { "$_".Trim() })
-  $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $koku.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
-  $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($koku); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  # 08.09 ölçümü: hakem2 gerçekçi işletme adını ("Çelik Makine Sanayi A.Ş.") yer tutucu sayıp düşürdü → yalnız DETERMİNİSTİK koku sınıfları kararı etkiler
+  # (ABC/XYZ harf dizisi, hepsi yuvarlak tutar, klişe, aynı kalıp tekrarı, uzun tire); kalan koku notları bilgi olarak saklanır (koku_not).
+  $kokuSert=@($koku | Where-Object { $_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|yuvarlak|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' })
+  $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $kokuSert.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
+  $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($kokuSert); koku_not=@($koku | Where-Object { $kokuSert -notcontains $_ }); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz
   if($karar -eq 'EVET'){ Write-Host "  HAKEM2 EVET ($id) · zorluk $($aH.zorluk)" -ForegroundColor Green } else { Write-Host "  HAKEM2 HAYIR ($id): sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')] · $("$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Substring(0,[Math]::Min(200,"$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Length)))" -ForegroundColor Red; $rapor.Add("HAKEM2 HAYIR: $id | sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')]") }
 }

@@ -100,6 +100,8 @@ B4. **Kapılar esnetilmez:** çeldirici tutmayan hesap sorusu KAPI-Ç'de düşer
 B5. **Düşen soru silinmez**, arşivde "neden düştü" satırıyla durur.
 B6. **Bedel kuralı:** kurtarılan soru başına gerçek bedel yeni basımı geçerse o ders için kurtarma durur, kalan yeni basılır. Eşik 50'lik pilotla ölçülür, sonra tartışılmaz.
 B7. Künyede iz: "eski kasa, v29'a çevrildi (tarih)" / "v29 (tarih)".
+B8. **MEKANİK DÜZELTME İSTİSNASI (Cem 08.09 "üçüne de evet"; 29.07 "soru değişmez" kuralının tek istisnası):** anlamı değiştirmeyen düzeltmeler kurtarmada uygulanır ve `mekanik` alanında iz bırakır: (a) **yıl kaydırma** yalnız muhasebe derslerinde (FMuh, Maliyet, MTA, Denetim; bütün yıllar aynı farkla, süreler ve Türkçe ekler korunur) — hukuk derslerinde eski yıl **elenir** (yıla bağlı had riski); (b) yer tutucu unvan (ABC/XYZ A.Ş.) → "İşletme"; (c) uzun tire ve üç nokta → virgül/nokta (soru, şık, açıklama); (d) Türkçe harf onarımı ve kanun kısaltması açılımı (DilOnar); (e) sayı şıklarının küçükten büyüğe sıralanması (harf, doğru ve açıklama birlikte). Ölçüm (08.09, 5.909 aday): temiz %41 · mekanikle geçer %33 · sert kuralla elenir %26.
+B9. **Sert kurallar kurtarmada da eler (Cem 08.09):** doğru şık en uzun (sızıntı), şıkta gerekçe / >160 karakter cümle şık, sayı şıklarında tekrar tutar, yön dengesi, koku (hepsi yuvarlak tutar, klişe, ABC/XYZ). Şık yeniden yazılmaz; düşen soru nedeniyle arşive. İlk 3 soruluk ölçüm: 1 dil kusuru (hakem2), 1 uzun tire (düzeltildi), 1 **muhasebe tekniği hatası** (590 hesabının yönü; kör çözüm ✗ + hakem2 HAYIR) — eski kasanın gerçek hata oranını pilot ölçer.
 
 ## C · SINAVA ve DERSE ÖZEL
 
