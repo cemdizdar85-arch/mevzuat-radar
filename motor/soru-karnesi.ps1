@@ -93,7 +93,8 @@ function HesapKodKusur($c){
 $ASCII_TR='(?i)\b(icin|degil|gunu|sirket|isletme|isletmenin|donem|donemin|uretim|butun|dogru|yanlis|ucret|ucreti|olcum|hesabi|hesabina|karsilik|karsiligi|musteri|satis|satislar|alis|odeme|yukumluluk|ozkaynak|donen|buyuk|kucuk|yil|yuzde|deger|degeri|sayi|isci|iscilik|surec|sure|gecerli|gecmis|dagitim|dagitimi|olusan|olusur|bagli|bagimsiz|yonetim|denetci|dusuk|yuksek|artis|azalis|gerceklesen|gercek|agirlikli|musavir|mudur|kayit|kaydi|birikmis|odenmis|odenecek|verilmis|alinmis|bagis|tasit|tasitlar|demirbas|demirbaslar|ozel|dogrudan|gunluk|gunler|aylik|yillik|uyesi|uyeler|tuketim|urun|urunler|yari mamul|uretilen)\b'   # 06.09 ölçüm: "ilk madde", "hammadde", "yasal", "malzemesi" doğru Türkçe, listeden çıktı
 function TurkceKusur($c){
   $metin=("$($c.soru) "+(@('A','B','C','D','E') | ForEach-Object { "$($c.siklar.$_)" }) -join ' ')+' '+((@($c.adimlar) | ForEach-Object { "$($_.formul) $($_.anlatim)" }) -join ' ')
-  $ms=@([regex]::Matches($metin,$ASCII_TR) | ForEach-Object { $_.Value.ToLowerInvariant() } | Select-Object -Unique); return @($ms)
+  $metinK=$metin.ToLowerInvariant()   # 08.09: tr-TR kültüründe (?i) 'I'≠'i' → "Isletme" kaçıyordu; invariant küçültme
+  $ms=@([regex]::Matches($metinK,($ASCII_TR -replace '^\(\?i\)','')) | ForEach-Object { $_.Value } | Select-Object -Unique); return @($ms)
 }
 # şık dengesi: yön çiftleri (üreticideki SikDengesi kuralı) + cümle şıklarında doğru en uzun ve medyanın 1,3 katı + saf sayı şıkları artan sıra
 function SikKusur($c){

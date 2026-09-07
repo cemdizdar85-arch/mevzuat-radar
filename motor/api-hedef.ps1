@@ -344,6 +344,79 @@ function Invoke-ClaudeMesaj {
   throw 'Hicbir anlik Claude hatti kullanilamiyor (ANTHROPIC_API_KEY tukendi/yok ve OPENROUTER_KEY yok).'
 }
 
+# 08.09 TOPLU İSTEK (Message Batches; Cem "daha ucuza nasıl?" → %50 indirim + paralel işleme). Aynı yapıdaki N isteği tek partide gönderir,
+# biter bitmez sonuçları custom_id ile eşler ve Invoke-ClaudeMesaj ile AYNI şekilde ({metin,girdi,cikti,dur,...}) döndürür; bedel defterine
+# "toplu" damgasıyla yazar (Get-BedelOzet yarı fiyat uygular). Ödenen işin kimliği gönderilir gönderilmez veri/bekleyen-partiler.json'a yazılır
+# (29.07 dersi: zaman aşımında sonuç ÇEKİLMEZ, kimlik kalır, sonra Get-ClaudeTopluSonuc ile bedava hasat). Yalnız Anthropic doğrudan hat (OpenRouter'da toplu yok).
+#   $isler = @(@{ id='kp-01'; model='claude-sonnet-5'; icerik=$istem; maxTok=20000 }, ...)
+#   $sonuc = Invoke-ClaudeToplu -Isler $isler -Etiket 'sgs-fmuh-p31/A1' -BeklemeDk 180   → hashtable id → cevap (yoksa anahtar yok; hata: $sonuc['__hata'][id])
+function Get-TopluBasliklar {
+  $hedef = Get-ApiHedef
+  if($hedef.ad -eq 'openrouter'){ throw 'Toplu istek yalnız Anthropic doğrudan hatta çalışır (OpenRouter hedefi seçili).' }
+  return $hedef
+}
+function Add-BekleyenParti([string]$bid,[string]$etiket){
+  try{ $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; $bek = @()
+    if(Test-Path $y){ foreach($x in @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)))){ if($x){ $bek += $x } } }
+    $bek += [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
+    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }catch{}
+}
+function Set-BekleyenPartiDurum([string]$bid,[string]$durum){
+  try{ $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return }
+    $bek = @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y))); foreach($x in $bek){ if($x -and "$($x.id)" -eq $bid){ $x | Add-Member -NotePropertyName durum -NotePropertyValue $durum -Force } }
+    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }catch{}
+}
+function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket){
+  # bitmiş partinin sonuçlarını çeker; her satır custom_id → cevap
+  $st = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$bid") -Headers $hedef.basliklar -TimeoutSec 60
+  if($st.processing_status -ne 'ended'){ return $null }
+  $adres = $(if($st.results_url){ "$($st.results_url)" } else { $hedef.taban + "/v1/messages/batches/$bid/results" })
+  $cev = Invoke-WebRequest -UseBasicParsing -Uri $adres -Headers $hedef.basliklar -TimeoutSec 600
+  $ham = $(if($cev.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($cev.Content) } else { "$($cev.Content)" })
+  $out = @{}; $out['__hata'] = @{}
+  foreach($sat in ($ham -split "`n")){ if(-not $sat.Trim()){ continue }
+    try{ $r = ConvertFrom-Json -InputObject $sat }catch{ continue }
+    $cid = "$($r.custom_id)"; if(-not $cid){ continue }
+    if("$($r.result.type)" -ne 'succeeded'){ $out['__hata'][$cid] = "$($r.result.type): $($r.result.error.message)"; continue }
+    $m = $r.result.message
+    $metin = (@($m.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ''
+    $oYaz = 0; $oOku = 0; $ham2 = 0; try { $oYaz = [int]"$($m.usage.cache_creation_input_tokens)" } catch {}; try { $oOku = [int]"$($m.usage.cache_read_input_tokens)" } catch {}; try { $ham2 = [int]"$($m.usage.input_tokens)" } catch {}
+    $y = @{ metin=$metin.Trim(); girdi=$ham2; cikti=[int]"$($m.usage.output_tokens)"; onbellekYazma=$oYaz; onbellekOkuma=$oOku; girdiToplam=($ham2+$oYaz+$oOku); kaynak='anthropic-toplu'; dur="$($m.stop_reason)"; toplu=$true }
+    $y = Repair-ClaudeMetin $y
+    Add-BedelKaydi ("$($m.model)" + '|toplu') $y
+    $out[$cid] = $y
+  }
+  Set-BekleyenPartiDurum $bid 'hasat edildi'
+  return $out
+}
+function Invoke-ClaudeToplu {
+  param([Parameter(Mandatory=$true)][array]$Isler,[string]$Etiket='',[int]$BeklemeDk=180,[int]$YoklamaSn=30)
+  if(-not @($Isler).Count){ return @{} }
+  $hedef = Get-TopluBasliklar
+  $req = @()
+  foreach($i in @($Isler)){
+    $temiz = ConvertTo-AnthropicIcerik (ConvertTo-IcerikBloklari $i.icerik)
+    $g = @{ model="$($i.model)"; max_tokens=[int]$i.maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
+    if("$($i.model)" -match 'sonnet-5|opus-5'){ $ef = Read-ApiEnv 'MEVZUAT_EFFORT'; if(-not $ef){ $ef = 'medium' }; $g.output_config = @{ effort = $ef } }
+    $req += @{ custom_id="$($i.id)"; params=$g }
+  }
+  $govde = @{ requests=$req } | ConvertTo-Json -Depth 20
+  $b = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages/batches') -Headers $hedef.basliklar -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 240
+  $bid = "$($b.id)"
+  Add-BekleyenParti $bid $Etiket
+  Write-Host ("  TOPLU PARTİ gönderildi: {0} istek · id {1} · {2} KB · etiket {3}" -f @($Isler).Count,$bid,[math]::Round($govde.Length/1024),$Etiket) -ForegroundColor Cyan
+  $t0 = Get-Date
+  while($true){
+    Start-Sleep -Seconds $YoklamaSn
+    $st = $null; try{ $st = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$bid") -Headers $hedef.basliklar -TimeoutSec 60 }catch{ Write-Host "  toplu durum sorgusu düştü, tekrar: $($_.Exception.Message)" -ForegroundColor DarkYellow; continue }
+    $c = $st.request_counts
+    if($st.processing_status -eq 'ended'){ Write-Host ("  TOPLU PARTİ bitti ({0} dk): başarılı {1} · hata {2} · süresi dolan {3}" -f [int]((Get-Date)-$t0).TotalMinutes,$c.succeeded,$c.errored,$c.expired) -ForegroundColor Cyan; break }
+    if(((Get-Date)-$t0).TotalMinutes -ge $BeklemeDk){ Write-Host "  TOPLU PARTİ ZAMAN AŞIMI ($BeklemeDk dk): sonuç ÇEKİLMEDİ, kimlik bekleyen-partiler.json'da ($bid); sonra Get-ClaudeTopluSonuc ile bedava hasat" -ForegroundColor Red; Set-BekleyenPartiDurum $bid 'zaman asimi - hasat bekliyor'; return @{ '__zaman_asimi'=$bid; '__hata'=@{} } }
+    if(((Get-Date)-$t0).TotalSeconds % 300 -lt $YoklamaSn){ Write-Host ("  toplu: {0} · işlenen {1}/{2} · {3} dk" -f $st.processing_status,$c.succeeded,@($Isler).Count,[int]((Get-Date)-$t0).TotalMinutes) -ForegroundColor DarkGray }
+  }
+  return (Get-ClaudeTopluSonuc $bid $hedef $Etiket)
+}
+
 # 07.09 BEDEL MUHASEBESİ (Cem "her şeyde bedeli sor" + A kovası 9: yalnız üç faz jeton yazıyordu). Her çağrı model bazında toplanır;
 # çağıran betik Get-BedelOzet ile satırları ve USD tahminini alır. Fiyat tablosu VARSAYIMdır (1M jeton başına USD, girdi/çıktı);
 # MEVZUAT_FIYAT_JSON ortam değişkeni ({"claude-sonnet-5":[3,15],...}) ile ezilir. Önbellek okuma girdi fiyatının %10'u sayılır.
@@ -366,9 +439,10 @@ function Get-BedelFiyat{
 function Get-BedelOzet{
   $f = Get-BedelFiyat; $satir = @(); $toplam = 0.0; $bilinmeyen = @()
   foreach($m in ($global:MEVZUAT_BEDEL.Keys | Sort-Object)){
-    $b = $global:MEVZUAT_BEDEL[$m]; $fy = $null; foreach($k in $f.Keys){ if($m -like "$k*"){ $fy = $f[$k] } }
+    $b = $global:MEVZUAT_BEDEL[$m]; $fy = $null; $mAd = ($m -replace '\|toplu$',''); foreach($k in $f.Keys){ if($mAd -like "$k*"){ $fy = $f[$k] } }
     $usd = $null
-    if($fy){ $usd = ($b.girdi/1e6)*$fy[0] + ($b.onOku/1e6)*$fy[0]*0.1 + ($b.onYaz/1e6)*$fy[0]*1.25 + ($b.cikti/1e6)*$fy[1]; $toplam += $usd } else { $bilinmeyen += $m }
+    $carpan = $(if($m -like '*|toplu'){ 0.5 } else { 1.0 })   # 08.09: toplu istek yarı fiyat (varsayım; konsoldan doğrulanır)
+    if($fy){ $usd = $carpan * (($b.girdi/1e6)*$fy[0] + ($b.onOku/1e6)*$fy[0]*0.1 + ($b.onYaz/1e6)*$fy[0]*1.25 + ($b.cikti/1e6)*$fy[1]); $toplam += $usd } else { $bilinmeyen += $m }
     $satir += [pscustomobject]@{ model=$m; cagri=$b.cagri; girdi=$b.girdi; cikti=$b.cikti; onbellekOkuma=$b.onOku; onbellekYazma=$b.onYaz; usd=$(if($null -ne $usd){ [math]::Round($usd,3) } else { $null }) }
   }
   return [pscustomobject]@{ satirlar=$satir; toplamUsd=[math]::Round($toplam,2); fiyatVarsayim=(-not [bool](Read-ApiEnv 'MEVZUAT_FIYAT_JSON')); bilinmeyenModel=$bilinmeyen }

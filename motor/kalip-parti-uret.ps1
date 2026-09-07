@@ -803,6 +803,27 @@ function KokuKusur($a){
   if(($govde+' '+$acik) -match '…'){ $k+='üç nokta (…)' }
   return $k
 }
+# 08.09 Cem "Türkçe kelime yazmalı, borç alacak düzgün atmalı" → iki DETERMİNİSTİK kapı daha (FAZ A, sert):
+# KAPI-D2 TÜRKÇE HARF: soru/şık/açıklamada ASCII kalmış sık kelime (icin, degil, isletme, yil, kar…) → yeniden. Karnedeki TurkceKusur sözlüğüyle aynı.
+$ASCII_TR_A='(?i)\b(icin|degil|degildir|gunu|sirket|sirketi|isletme|isletmenin|isletmesi|donem|donemin|donemi|uretim|butun|dogru|dogrusu|yanlis|yanlistir|ucret|ucreti|olcum|hesabi|hesabina|karsilik|karsiligi|musteri|satis|satislar|satislari|alis|odeme|odemesi|yukumluluk|ozkaynak|ozkaynaklar|donen|buyuk|kucuk|yil|yilinda|yilinin|yuzde|deger|degeri|degerleme|sayi|isci|iscilik|surec|sure|gecerli|gecmis|dagitim|dagitimi|olusan|olusur|bagli|bagimsiz|yonetim|yonetimi|denetci|dusuk|yuksek|artis|azalis|gerceklesen|gercek|agirlikli|musavir|mudur|kayit|kaydi|kayitlari|birikmis|odenmis|odenecek|verilmis|alinmis|bagis|tasit|tasitlar|demirbas|demirbaslar|ozel|dogrudan|gunluk|aylik|yillik|tuketim|urun|urunler|uretilen|cikardigi|cikarmis|basladigi|zarari|tutari|tutarinda|asagidakilerden|yapilan|yapilmis|edilmis|icinde|uzerinden|once|itibariyla)\b'   # kâr/kar, fatura, iade, olan, sonra, tarihinde gibi zaten Türkçe olan kelimeler LİSTEDE YOK (sahte alarm)
+function TurkceKapisi($a){ $tum="$($a.soru) "+(@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' '; if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $tum+=' '+(AciklamaDuz $a.aciklama.$hh) } }
+  # tr-TR kültüründe (?i) 'I' ile 'i'yi eşlemez ("Isletme" kaçıyordu, 08.09 öz-sınav) → metin ToLowerInvariant ile küçültülür, desen küçük harf
+  $tumK=$tum.ToLowerInvariant()
+  return @([regex]::Matches($tumK,($ASCII_TR_A -replace '^\(\?i\)','')) | ForEach-Object { $_.Value } | Select-Object -Unique) }
+# KAPI-YD YEVMİYE DENGESİ: sema.tur='yevmiye' ise her kayıtta borç toplamı = alacak toplamı; tutar yoksa/çözülmüyorsa kusur. Ayrıca 6xx gelir hesabı
+# BORÇ tarafında ya da 7xx gider hesabı ALACAK tarafında ise "yön şüpheli" (kapatma/iade kayıtlarında meşru olabilir → kusur değil, rapor + hakem2'ye not).
+function YevmiyeDengeKapisi($a){ $out=@(); $sm=$(if($a.PSObject.Properties['sema']){ $a.sema } else { $null }); if(-not $sm -or "$($sm.tur)" -ne 'yevmiye'){ return @() }
+  $kyt=@(); if($sm.PSObject.Properties['kayitlar'] -and $sm.kayitlar){ $kyt=@($sm.kayitlar) } elseif($sm.PSObject.Properties['ogeler'] -and $sm.ogeler){ $kyt=@(,([pscustomobject]@{ baslik=''; ogeler=$sm.ogeler })) }
+  $n=0; foreach($ky in $kyt){ $n++; if(-not $ky.ogeler){ continue }; $b=0.0; $al=0.0; $bozuk=$false
+    foreach($og in @($ky.ogeler.borc)){ $v=SayiCozC "$($og.tutar)"; if($null -eq $v){ $bozuk=$true } else { $b+=$v } }
+    foreach($og in @($ky.ogeler.alacak)){ $v=SayiCozC "$($og.tutar)"; if($null -eq $v){ $bozuk=$true } else { $al+=$v } }
+    if($bozuk){ $out+="kayıt ${n}:tutar çözülemedi"; continue }
+    if([Math]::Abs($b-$al) -gt 0.51){ $out+="kayıt ${n}:borç $([math]::Round($b,2)) ≠ alacak $([math]::Round($al,2))" } }
+  return $out }
+function YevmiyeYonNotu($a){ $out=@(); $sm=$(if($a.PSObject.Properties['sema']){ $a.sema } else { $null }); if(-not $sm -or "$($sm.tur)" -ne 'yevmiye'){ return @() }
+  $kyt=@(); if($sm.PSObject.Properties['kayitlar'] -and $sm.kayitlar){ $kyt=@($sm.kayitlar) } elseif($sm.PSObject.Properties['ogeler'] -and $sm.ogeler){ $kyt=@(,([pscustomobject]@{ ogeler=$sm.ogeler })) }
+  foreach($ky in $kyt){ if(-not $ky.ogeler){ continue }; foreach($og in @($ky.ogeler.borc)){ if("$($og.hesap)" -match '^\s*6\d{2}\b'){ $out+="6xx borçta: $($og.hesap)" } }; foreach($og in @($ky.ogeler.alacak)){ if("$($og.hesap)" -match '^\s*7\d{2}\b'){ $out+="7xx alacakta: $($og.hesap)" } } }
+  return $out }
 function KelimeKume([string]$t){ $s=New-Object 'System.Collections.Generic.HashSet[string]'; foreach($w in ((Katla2 $t) -replace '[^a-z0-9 ]',' ' -split '\s+')){ if($w.Length -ge 4){ [void]$s.Add($w) } }; return $s }
 function Jaccard($a,$b){ if(-not $a.Count -or -not $b.Count){ return 0 }; $o=0; foreach($w in $a){ if($b.Contains($w)){ $o++ } }; return [math]::Round($o / ($a.Count + $b.Count - $o),2) }
 function BenzerlikKusur($a,[string]$benId){
@@ -1542,7 +1563,11 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     $koKusur=@(KokuKusur $aday)
     # 07.09 A kovası 5 — KAPI-B BENZERLİK: çapaya (çıkmış soru) ve partideki diğer sorulara kelime kümesi benzerliği (telif + tekrar)
     $bzKusur=@(BenzerlikKusur $aday $id)
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    # 08.09 Cem: "Türkçe kelime yazmalı · borç alacak düzgün atmalı" → KAPI-D2 Türkçe harf (sert) + KAPI-YD yevmiye dengesi (sert) + yön notu (rapor)
+    $trKusur=@(TurkceKapisi $aday); $ydKusur=@(YevmiyeDengeKapisi $aday); $yonNot=@(YevmiyeYonNotu $aday)
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; break }
+    if($trKusur.Count){ Write-Host "  KAPI-D2 (Türkçe harf) ($id): $($trKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-D2 DÜŞTÜ: şu kelimeler Türkçe harfsiz yazılmış: $($trKusur -join ', '). Bütün metinde ş, ç, ğ, ı, ö, ü, İ tam yazılır (için, değil, işletme, yıl, kâr)." }
+    if($ydKusur.Count){ Write-Host "  KAPI-YD (yevmiye dengesi) ($id): $($ydKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-YD DÜŞTÜ: yevmiye kaydında borç toplamı alacak toplamına eşit değil ($($ydKusur -join '; ')). Her kayıtta borç = alacak; tutarları yeniden hesapla, gerekirse şıkları düzelt." }
     if($yilKusur){ Write-Host "  KAPI-Y (yıl) ($id): $yilKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Y DÜŞTÜ: $yilKusur. Bütün yılları kaydır: sorulan dönem $yilBu olsun, eski tarihler aynı aralıkla kaysın (süreler değişmesin); şık tutarları buna göre yeniden hesaplansın." }
     if($koKusur.Count){ Write-Host "  KAPI-O (koku) ($id): $($koKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-O DÜŞTÜ (yapay zeka izi): $($koKusur -join '; '). Gerçek sınav sorusu gibi yaz: 'ABC/XYZ' gibi yer tutucu unvan yerine 'işletme' ya da gerçekçi bir ad; tutarların hepsi onbinlik yuvarlak olmasın (12.500, 47.350 gibi gerçekçi tutarlar karışsın; hesap yine düzgün çıksın); klişe kalıp ve uzun tire (—) yok." }
     if($bzKusur.Count){ Write-Host "  KAPI-B (benzerlik) ($id): $($bzKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-B DÜŞTÜ (benzerlik): $($bzKusur -join '; '). Örnek çıkmış soru yalnız BİÇİM çapasıdır; olayı, sayıları ve şık dizilimini kopyalama; aynı konuda özgün bir senaryo kur." }
@@ -1565,7 +1590,9 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
       # 08.09 SORU-BASMA-KURALLARI 7 / A6 ("ikinci denemede de düşen soru rapora yazılır, KAYDEDİLMEZ"): eskiden en sonuncu alınıyordu
       # (kusurlu soru karneye düşsün diye). Şimdi SERT kapılar (şık, hesap adı, tip, çeldirici, yıl, koku, benzerlik) ikinci denemede de düşerse
       # soru üretilmez; yalnız YUMUŞAK kapılar (uzunluk, pencere dışı kavram) raporla kaydedilir.
-      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count)
+      if($trKusur.Count){ $rapor.Add("KAPI-D2 (Türkçe harf) DÜŞTÜ: $($ky.konu) | $($trKusur -join ', ')") }
+      if($ydKusur.Count){ $rapor.Add("KAPI-YD (yevmiye dengesi) DÜŞTÜ: $($ky.konu) | $($ydKusur -join '; ')") }
+      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count)
       if($sertDustu){ Write-Host "  SORU DÜŞTÜ ($id): sert kapı ikinci denemede de tutmadı - kaydedilmedi" -ForegroundColor Red; $rapor.Add("SORU DÜŞTÜ (sert kapı ×2): $($ky.konu)"); $cvp=$null }
       else { $cvp=$aday }   # yalnız yumuşak kusur: en sonuncuyu al, rapora yazıldı
     }
