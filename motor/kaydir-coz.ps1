@@ -958,8 +958,10 @@ SORULAR.forEach((s,i)=>{
     oyun.querySelector('h3').textContent='⚖️ Tabloyu sen doldur'; oyun.querySelector('.alt').textContent=o.hedef||'Boş hücreleri doldur, sonra Kontrol et.'; oyun.querySelector('.toplam').style.display='none';
     let h='<div class="tabloSarO"><table class="tt oyunT"><thead><tr>'+(o.tablo.basliklar||[]).map(b=>'<th>'+esc(b)+'</th>').join('')+'</tr></thead><tbody>';
     o.tablo.satirlar.forEach((st,r)=>{ const ay=ipucuAyir(st[0]); h+='<tr>'+st.map((c,ci)=>{ const key=r+','+ci; if(ci===0) return '<td>'+esc(ay.ad)+'</td>'; if(bos.has(key)&&String(c).trim()&&String(c).trim()!=='-') return '<td class="bosH" data-r="'+r+'" data-c="'+ci+'" data-v="'+esc(c)+'"><span class="hucreSar"><input inputmode="decimal" placeholder="?" aria-label="hücre">'+(ay.ipucu?'<button class="ipucuB" data-ip="'+esc(ay.ipucu)+'" title="İpucu iste (seri sayılmaz)">?</button>':'')+'</span></td>'; return '<td class="'+(ver.has(key)?'ver':'')+'">'+esc(c)+'</td>'; }).join('')+'</tr>'; });
-    h+='</tbody></table></div><div class="btnrow"><button class="btn mavi bKontrol">✔ Kontrol et</button><button class="btn bGoster">Doğruları göster</button></div>';
+    // 07.09 Cem (ikiz ekranı): "çöz ekranına kâğıt koyabilir, aday hesaplaması için" → hesap kâğıdı oyunun (z 20) üstünde açılır (kagit.ustte z 30)
+    h+='</tbody></table></div><div class="btnrow"><button class="btn mavi bKontrol">✔ Kontrol et</button><button class="btn bGoster">Doğruları göster</button><button class="btn bKagitAcO" title="Hesap kâğıdını bu ekranın üstüne aç">✏️ Kâğıdı aç</button></div>';
     satirlar.innerHTML=h;
+    const bKgO=satirlar.querySelector('.bKagitAcO'); if(bKgO){ bKgO.addEventListener('click',()=>{ const kg=k.querySelector('.kagit'); if(kg){ kg.classList.add('ustte','acik'); if(kg.dataset.sek==='ciz'){ requestAnimationFrame(()=>{ try{ kanvasBoyut(); }catch(e){} }); } } }); }
     const normS=t=>String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
     // Cem 04.09 "tekrar tekrar kontrol edince seri yükseliyor": tablo tamamlanınca kilitlenir, seri BİR kez artar;
     // "Doğruları göster"den sonra tamamlansa da seri artmaz (kendi çözmedi). ↺ Tekrar yeni bir deneme açar.

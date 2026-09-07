@@ -967,6 +967,9 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     tutmayan soru geri döner. Her yanlış şık gerçekten yapılabilecek bir hatanın sonucu olur (atlanan katman, yanlış ölçü, ters işaret,
     yüzde puanı/oran karışıklığı, çeldirici verilenin hesaba katılması); rastgele sayı YASAK. TEORİ sorusunda karşılığı: en az iki şık AYNI
     paragraf/maddeden, tek kelime ya da ölçüt farkıyla ayrılır (yakın-şık); bütün yanlış şıklar kaynakta karşılığı olan gerçek ifadelerdir.
+15. YIL — KAPI-Y (07.09 Cem: "şu an {YIL} yılındayız, sorular {YIL} yılını versin"): olay yılları BUGÜNE göre kurulur. Sorulan dönem
+    {YIL} yılıdır ("{YIL} yılı amortisman gideri", "{YIL} dönemi"); edinme/başlangıç tarihleri daha eski olabilir ama sorudaki EN YENİ yıl
+    {YIL} olmalıdır. Geçmiş yılın dönemini sorma. Tutarı yıldan yıla değişen kalemlerde (oran, tavan, had) sayıyı soruda VER, hafızadan yazma.
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
@@ -1306,7 +1309,7 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     (satış fiyatı − birim maliyet) · TERS SORU (pay verilir, üretim miktarı ya da satış fiyatı istenir) · "piyasa değeri yöntemine göre
     dağıtsaydı" karşılaştırması. En az İKİ zorluk kaynağı birlikte kullanılır.
 "@ }
-  $ist=$soruIstem.Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $ist=$soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
@@ -1359,7 +1362,10 @@ ZORLUK: ZOR VE KATMANLI (sınavın en zor sorusu ayarı):
     # yalnız istemdi, kapısı yoktu. Çapa hesaplama ise soru ≥2 satırlı çözüm tablosu taşımalı, yoksa yeniden (2 deneme).
     $tipKusur=''; if($CAPA_TIP.ContainsKey($id) -and $CAPA_TIP[$id] -eq 'hesaplama' -and -not ($aday.PSObject.Properties['cozum_tablo'] -and $aday.cozum_tablo -and @($aday.cozum_tablo.satirlar).Count -ge 2)){ $tipKusur='çapa hesaplama, soru tablosuz (teori biçimi)' }
     $cyKusur=@(CeldiriciYolKapisi $aday)   # 07.09 KAPI-Ç: her yanlış şık = gerçek bir yanlış yolun sonucu
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    # 07.09 KAPI-Y (Cem "2025 değil 2026 versin"): soruda yıl geçiyorsa en yenisi bugünün yılı olmalı ("2004 sayılı" gibi kanun numaraları sayılmaz)
+    $yilKusur=''; $yilBu=(Get-Date).Year; $yillar=@([regex]::Matches("$($aday.soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yillar.Count -and (($yillar | Measure-Object -Maximum).Maximum -lt $yilBu)){ $yilKusur="sorudaki en yeni yıl $(($yillar | Measure-Object -Maximum).Maximum), bugün $yilBu" }
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; break }
+    if($yilKusur){ Write-Host "  KAPI-Y (yıl) ($id): $yilKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Y DÜŞTÜ: $yilKusur. Bütün yılları kaydır: sorulan dönem $yilBu olsun, eski tarihler aynı aralıkla kaysın (süreler değişmesin); şık tutarları buna göre yeniden hesaplansın." }
     if($cyKusur.Count){ Write-Host "  KAPI-Ç (çeldirici yolu) ($id): $($cyKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ç DÜŞTÜ: $($cyKusur -join '; '). Her yanlış şık için celdirici_yol yaz: sayılı yanlış yol formülü, sonu '= <şık tutarı>' ve şık tutarı formülün GERÇEK sonucu olmalı; tutmuyorsa şık tutarını formülün sonucuna göre düzelt." }
     if($tipKusur){ Write-Host "  KAPI-T (soru tipi) ($id): $tipKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-T DÜŞTÜ: örnek çıkmış soru HESAPLAMA sorusudur, sen teori sorusu yazdın. Soru sayısal veri verip 'kaç TL' diye sormalı ve en az 2 satırlı cozum_tablo taşımalı; 'hangisi yanlıştır/doğrudur' biçimi YASAK." }
     if($kvKusur.Count){ Write-Host "  KAPI-K (pencere dışı kavram) ($id): $($kvKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-K DÜŞTÜ: şu kelimeler son $DonemPencere dönemin sınav sorularında HİÇ geçmiyor: $($kvKusur -join ', '). Sınavın sormadığı kavramla soru kurma; gövdeyi yalnız sınavda geçen kavramlarla (verilen örnek sorunun diliyle) yeniden yaz." }
@@ -1802,6 +1808,7 @@ KURALLAR:
 5. Rakamlar aritmetik TUTARLI.
 6. ADLAR HARF DEĞİL (kural 4c, 05.09): ürün / gider yeri / kalem adları A, B, C gibi tek harf OLMAZ — şık harfleriyle karışır.
    Ana sorudaki adlandırma biçimini koru (P/Q/R gibi çift olmayan harfler ya da "Ürün Kuzey", "Bakım-Onarım", "Yemekhane" gibi adlar).
+7. YIL (07.09 Cem): ikizde yıl geçiyorsa sorulan dönem {YIL} yılıdır (bugün {YIL}); eski tarihler aynı aralıkla, süreler değişmez.
 Cevap YALNIZ JSON: {"ikiz_soru":"...","hedef_cumle":"...","tablo":{"basliklar":[...],"satirlar":[[...]]},"verilen":[[r,c],...],"bosluk":[[r,c],...]}
 === ANA SORU === {SORU}
 === ANA TABLO === {TABLO}
@@ -1812,10 +1819,12 @@ foreach($id in @($don.Keys)){
   $cvp=$don[$id]
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ continue }
-  $ist3=$ikizIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress))
+  $ist3=$ikizIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SORU}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $cvp.cozum_tablo -Depth 5 -Compress))
   $y3=$null
   foreach($d in 1..3){ try{ $y3=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist3 -MaxTok 9000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
   $a3=Coz $y3.metin
+  # 07.09 KAPI-Y (ikiz): model eski yıl yazdıysa BÜTÜN yıllar aynı farkla kaydırılır (süreler korunur; metin + hedef cümle + kalem adları + başlıklar). Yeniden çağrı yok, sıfır bedel.
+  if($a3 -and $a3.ikiz_soru){ $yilBu=(Get-Date).Year; $yI=@([regex]::Matches("$($a3.ikiz_soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yI.Count){ $enYeni=($yI | Measure-Object -Maximum).Maximum; $fark=$yilBu-$enYeni; if($fark -gt 0){ $kaydir={ param($t) $t2=[regex]::Replace("$t",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))',{ param($m) "$([int]$m.Groups[1].Value + $fark)" }); [regex]::Replace($t2,"\b(20[0-3](\d))'([dt])([ea])(n?)\b",{ param($m) $son=[int]$m.Groups[2].Value; $ek=@{0='de';1='de';2='de';3='te';4='te';5='te';6='da';7='de';8='de';9='da'}[$son]; "$($m.Groups[1].Value)'$ek$($m.Groups[5].Value)" }) };   # yıl eki uyumu: 2023'te, 2026'da (kaydırma sonrası ek bozulmasın) $a3.ikiz_soru=& $kaydir $a3.ikiz_soru; if($a3.PSObject.Properties['hedef_cumle']){ $a3.hedef_cumle=& $kaydir $a3.hedef_cumle }; if($a3.tablo){ if($a3.tablo.basliklar){ $a3.tablo.basliklar=@($a3.tablo.basliklar | ForEach-Object { & $kaydir $_ }) }; if($a3.tablo.satirlar){ foreach($st in $a3.tablo.satirlar){ if($st -and $st.Count){ $st[0]=& $kaydir $st[0] } } } }; Write-Host "  KAPI-Y (ikiz) ${id}: yıllar +$fark kaydırıldı (en yeni $enYeni -> $yilBu)" -ForegroundColor DarkGray } } }
   $gecerli=$false
   if($a3 -and $a3.tablo -and $a3.tablo.satirlar){
     # KOD DENETIMI (fark.html dersi): verilen ∪ bosluk = kalem-disi tum hucreler
