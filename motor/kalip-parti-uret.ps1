@@ -1651,7 +1651,9 @@ KATMAN 1 — PANEL (şık seçilir seçilmez görünür, 20 saniyede okunur; kı
 KATMAN 2 — NÖBETÇİ 0. ADIM (ders; panelle aynı cümle yok):
 3. harita: konunun cevapladığı üç soru, her biri tek cümle ("Ne zaman test edilir: … / Nasıl ölçülür: … / Nasıl kaydedilir: …" gibi; konuya
    göre üç soru değişir). En çok 3 cümle.
-4. terimler: konunun DÖRT anahtar terimi, her tanım en çok 8 kelime: [{"ad":"...","tanim":"..."}].
+4. terimler: konunun DÖRT anahtar terimi, her tanım en çok 12 kelime: [{"ad":"...","tanim":"..."}]. Tanım KAVRAMI söyler, yerini değil:
+   tutar terimlerinde "neyden ne düşülür, ne kalır" biçimi ("Defter değeri: maliyet bedelinden ayrılan birikmiş amortisman düşüldükten sonra
+   kalan net tutar"); "tablodaki tutar", "yukarıdaki değer" gibi yer tarifi YASAK (07.09 Cem: "amortisman düşüldükten sonra tablodaki tutar" kusurlu).
 5. desen: sınav bu konuyu nasıl sorar — tuzak noktaları kaynak paragrafı/maddesiyle (burada "p.28" gibi künye serbest), en çok 3 cümle,
    son cümle "Bu soru … noktasından geliyor." Çıkmış dönem sayısı ektedir, uydurma sayı yazma.
 6. sinavda: 1 cümle, ne verilir ne istenir; işlem adı/formül yazma. 7. yontemler: en çok 2 cümle (tek yöntemse en kritik kural).
@@ -1679,6 +1681,8 @@ foreach($id in @($don.Keys)){
     $tumG="$($gN.nedir) $($gN.panel_ornek) $($gN.sinavda)"; $dusenG=@(SadeKapi $tumG | Where-Object { $_ -ne '60 kelimeden uzun' })
     $tumG2="$($gN.nedir) $($gN.panel_ornek) $($gN.harita) $($gN.desen) $($gN.sinavda) $($gN.yontemler)"; if(@(($tumG2 -split '\s+') | Where-Object { $_ }).Count -gt 240){ $dusenG+='240 kelimeden uzun' }; if(-not "$($gN.ornek)".Trim()){ $dusenG+='örnek yok' }
     if(-not "$($gN.harita)".Trim()){ $dusenG+='harita yok' }; if(@($gN.terimler).Count -lt 3){ $dusenG+='terimler eksik (4 gerek)' }; if(-not "$($gN.desen)".Trim()){ $dusenG+='desen yok' }
+    # 07.09 Cem: terim tanımı yer tarif etmez ("tablodaki tutar"); kavramı söyler ("… düşüldükten sonra kalan net tutar")
+    $yerTarif=@(@($gN.terimler) | Where-Object { $_ -and "$($_.tanim)" -match '(?i)\b(tablodaki|tabloda|yukarıdaki|aşağıdaki|soldaki|sağdaki)\b' } | ForEach-Object { "$($_.ad)" }); if($yerTarif.Count){ $dusenG+="terim tanımı yer tarif ediyor ($($yerTarif -join ', ')) — kavramı yaz: neyden ne düşülür, ne kalır" }
     # panel ile 0. adım aynı cümleyi taşımasın (tekrar kapısı): nedir/panel_ornek cümleleri harita/desen içinde geçmez
     $panelC=@(("$($gN.nedir) $($gN.panel_ornek)" -split '(?<=[.!?])\s+') | ForEach-Object { $_.Trim() } | Where-Object { $_.Length -ge 25 }); $dersM="$($gN.harita) $($gN.desen)"; $tekrarC=@($panelC | Where-Object { $dersM.Contains($_) }); if($tekrarC.Count){ $dusenG+="panel cümlesi 0. adımda tekrar ediyor ($($tekrarC.Count))" }
     # 06.09 Cem ekran görüntüsü: örnek sorunun kendi rakamlarını (500.000, 225.000, 45.000) tekrarlayıp cevabı 1. adımda veriyordu → sorudaki her 3+ haneli tutar örnekte YASAK
