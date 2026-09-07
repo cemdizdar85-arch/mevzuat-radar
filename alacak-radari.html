@@ -79,7 +79,9 @@ textarea::placeholder{color:var(--dim)}
 .sure{background:linear-gradient(135deg,rgba(255,176,32,.14),rgba(255,107,94,.08));border:1px solid rgba(255,176,32,.32);border-radius:12px;padding:12px 14px;margin-top:12px;font-size:13.5px}
 .sure b{color:var(--amber)}
 .belg{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.55}
-h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+/* 07.09 kompakt düzen (Cem taslağı onayladı): bölüm başlıkları küçük büyük-harf etiket
+   yerine okunur başlık; renk yalnız durum taşır (kırmızı=süre/iflas, kehribar=ana düğme). */
+h2{font-size:19px;color:var(--ink);letter-spacing:-.3px;margin:30px 0 6px;font-weight:800;line-height:1.25}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;margin-top:26px}
 .cta h3{margin:0 0 6px;font-size:19px;letter-spacing:-.4px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
 .dip{font-size:11.5px;color:var(--dim);margin-top:30px;padding-top:14px;border-top:1px solid var(--line)}
@@ -88,11 +90,64 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
 .adim{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
 .no{flex:0 0 24px;height:24px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:13px;display:grid;place-items:center;margin-top:1px}
 /* 14.08 canlı liste tür filtresi (İhale Radarı deseni) */
-.tbtn{background:var(--panel2);border:1px solid var(--line2);color:var(--muted);border-radius:9px;font:700 13px inherit;padding:11px 16px;cursor:pointer;min-height:42px}
-.tbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
-.tbtn b{color:var(--dim);font-weight:700}
-.tbtn.on b{color:inherit}
-.tbtn:hover{color:var(--ink)}
+/* 07.09: tür düğmeleri bölmeli tek grup; seçili olan mürekkep zeminli (kehribar ana düğmeye saklandı) */
+.tbtn{background:var(--panel);border:1px solid var(--line2);color:var(--muted);font:inherit;font-weight:600;font-size:13px;padding:8px 13px;cursor:pointer;min-height:38px;font-variant-numeric:tabular-nums}
+.tbtn:first-child{border-radius:9px 0 0 9px}.tbtn:last-child{border-radius:0 9px 9px 0}.tbtn+.tbtn{margin-left:-1px}
+.tbtn.on{background:var(--ink);color:var(--bg);border-color:var(--ink);position:relative;z-index:1}
+.tbtn b{color:inherit;font-weight:700;opacity:.7}
+.tbtn:hover{color:var(--ink)}.tbtn.on:hover{color:var(--bg)}
+.ai-sec{font:inherit;font-size:13px;padding:8px 10px;border:1px solid var(--line2);border-radius:9px;background:var(--panel);color:var(--ink);max-width:100%;min-height:38px}
+.ai-ara{display:grid;grid-template-columns:1fr auto;gap:10px}
+.ai-ara .btn{margin:0;padding:12px 20px;box-shadow:none;white-space:nowrap}
+.ai-adimlar{display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ai-adimlar div{padding:11px 14px 11px 0;font-size:13px;color:var(--muted);line-height:1.5}
+.ai-adimlar div+div{padding-left:14px;border-left:1px solid var(--line)}
+.ai-adimlar b{display:block;color:var(--ink);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.ai-fiyat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.ai-plan{border:1px solid var(--line);border-radius:12px;padding:15px 17px;background:var(--panel)}
+.ai-plan.ana{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.ai-plan .ad{font-weight:700;font-size:15px;color:var(--ink)}
+.ai-plan .tutar{font-size:26px;font-weight:800;margin:2px 0;letter-spacing:-.5px;color:var(--ink);font-variant-numeric:tabular-nums}
+.ai-plan .tutar small{font-size:13px;font-weight:500;color:var(--dim);letter-spacing:0}
+.ai-plan p{margin:4px 0 12px;color:var(--muted);font-size:13px;line-height:1.5}
+.ai-plan .btn{margin:0;padding:9px 16px;font-size:13.5px;box-shadow:none;text-decoration:none}
+.ai-plan .btn.ikincil{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+.ai-arac{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ai-tablo{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+.ai-kaydir{overflow-x:auto}
+.ai-tablo table{width:100%;border-collapse:collapse;font-size:13px;min-width:700px}
+.ai-tablo th{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.ai-tablo td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+.ai-tablo tbody tr:last-child td{border-bottom:none}
+.ai-satir{cursor:pointer}.ai-satir:hover td{background:var(--panel2)}
+.ai-tablo .tarih{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted)}
+.ai-tur{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.ai-tur.konkordato{color:var(--accent2);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.ai-tur.iflas{color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent)}
+.ai-tur.diger{color:var(--dim);background:var(--panel2)}
+.ai-tablo .karar{color:var(--muted);font-size:12.5px;white-space:nowrap}
+.ai-tablo .borclu{font-weight:600;color:var(--ink)}
+.ai-tablo .baslik{color:var(--muted);font-size:12.5px}
+.ai-tablo .il{white-space:nowrap;color:var(--muted)}
+.ai-tablo .sure{white-space:nowrap;font-variant-numeric:tabular-nums;font-size:12.5px}
+.ai-tablo .sure b{color:var(--red)}.ai-tablo .sure span{color:var(--dim)}
+.ai-detay td{background:var(--panel2);padding:11px 14px 13px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.ai-detay[hidden]{display:none}
+.ai-daha{display:block;width:100%;text-align:center;padding:10px;font:inherit;font-size:13px;font-weight:600;border:none;border-top:1px solid var(--line);background:var(--panel2);color:var(--accent2);cursor:pointer}
+.ai-makro{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:12px}
+.ai-kart{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--panel)}
+.ai-kart h3{margin:0 0 8px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:600}
+.ai-il{display:grid;grid-template-columns:82px 1fr auto;gap:10px;align-items:center;font-size:12.5px;margin:5px 0}
+.ai-il b{font-weight:600;color:var(--ink)}
+.ai-il .cubuk{height:6px;border-radius:3px;background:var(--panel2);overflow:hidden}
+.ai-il .cubuk i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.ai-il span{color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ai-buyuk{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+.ai-sss details{border-top:1px solid var(--line);padding:9px 0}
+.ai-sss details:last-of-type{border-bottom:1px solid var(--line)}
+.ai-sss summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--ink)}
+.ai-sss p{margin:8px 0 4px;color:var(--muted);font-size:13px;line-height:1.6}
+@media (max-width:640px){.ai-ara,.ai-adimlar,.ai-fiyat,.ai-makro{grid-template-columns:1fr}.ai-adimlar div+div{padding-left:0;border-left:none;border-top:1px solid var(--line)}}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
 body{position:relative}
@@ -128,16 +183,18 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        Veri kaynağı + hukuki çerçeve metni sayfa dibindeki katlanır bloğa indi;
        Excel yükleme tek sorgunun ALTINA ikincil kapı oldu (Gazette deseni:
        tek kutu üstte, ayrıntılar altta). Tür düğmeleri arşiv başlığına taşındı. -->
-  <div class="kutu" style="margin-top:16px">
-    <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
+  <!-- 07.09 kompakt düzen (Cem onayı): pencere çubuğu kalktı, giriş+düğme tek satır,
+       Excel yükleme ipucu satırındaki bağlantıyla açılan küçük katlanır blok. -->
+  <div class="kutu" style="margin-top:14px;padding:16px 18px">
     <label for="giris"><b style="color:var(--ink)">Bir VKN, TCKN ya da firma adı</b> yaz — <b style="color:var(--accent2)">arşivin tamamında (<span id="aiAdet1">…</span> ilan)</b> aranır</label>
-    <input type="text" id="giris" class="gir" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);color:var(--ink);font:inherit;font-size:15px" placeholder="ör. 280365097 ya da PERGEL METAL (demo verisinde eşleşir)" onkeydown="if(event.key==='Enter')kontrol()">
-    <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
-    <div class="ipucu">En kesin sonuç VKN iledir; firma adında en az iki kelime kullan (tek kelimelik ad, karışıklığı önlemek için taranmaz). Deneme için örnek VKN <b style="color:var(--muted)">280365097</b>.</div>
-    <div class="ayrac">çok borçlun mu var?</div>
-    <details id="topluKutu" style="border:1px solid var(--line);border-radius:12px;padding:0 14px;background:var(--panel2)">
-      <summary style="cursor:pointer;padding:12px 0;font-weight:700;font-size:13.5px;color:var(--ink)">📄 Excel / CSV listeni yükle — hepsini tek seferde tara</summary>
-      <div style="padding-bottom:14px">
+    <div class="ai-ara">
+      <input type="text" id="giris" class="gir" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font:inherit;font-size:15px" placeholder="ör. 280365097 ya da PERGEL METAL" onkeydown="if(event.key==='Enter')kontrol()">
+      <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
+    </div>
+    <div class="ipucu">En kesin sonuç VKN iledir; firma adında en az iki kelime kullan (tek kelimelik ad taranmaz). Çok borçlun mu var? <a href="#topluKutu" onclick="document.getElementById('topluKutu').open=true" style="color:var(--accent2);font-weight:700">Excel / CSV listeni yükle</a>, hepsi tek seferde taranır.</div>
+    <details id="topluKutu" style="margin-top:10px">
+      <summary style="cursor:pointer;font-weight:600;font-size:13px;color:var(--muted)">📄 Excel / CSV / PDF yükle — liste otomatik taranır</summary>
+      <div style="padding-top:10px">
         <label class="yukle" id="yukleKutu">
           <div class="ikon">📄</div>
           <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
@@ -152,83 +209,63 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <!-- 20.08: "bu ne işe yarar" sorusunun üç kutuluk cevabı (Red Flag Alert'in
        Acquire/Onboard/Monitor deseninin sade hâli). Süre İİK m.299'dan. -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:14px 0 2px">
-    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
-      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">1 · ARA</div>
-      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">İlan var mı, aynı saniyede gör</div>
-    </div>
-    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
-      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">2 · LİSTENİ BIRAK</div>
-      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">Sistem her gün senin yerine tarar</div>
-    </div>
-    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
-      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">3 · UYARI GELSİN</div>
-      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">İlan çıktığı gün, 15 günlük süresiyle</div>
-    </div>
+  <!-- 07.09: üç kart yerine tek çizgili satır (aynı üç adım, üçte bir yükseklik). -->
+  <div class="ai-adimlar">
+    <div><b>Ara</b>İlan var mı, aynı saniyede gör</div>
+    <div><b>Listeni bırak</b>Sistem her gün senin yerine tarar</div>
+    <div><b>Uyarı gelsin</b>İlan çıktığı gün, 15 günlük süresiyle</div>
   </div>
 
   <div id="sonuc"></div>
 
   <!-- 19.08 Cem: "üyelik hiç görünmüyor, yukarı koy" — abonelik kartı sayfa dibinden
        (5. ekran) tarama aracının hemen altına taşındı. -->
-  <div class="cta">
-    <h3>Bir müşterinin batması, alacağının tamamı demek</h3>
-    <p>Konkordatoda alacak kaydı süresi, ilan tarihinden itibaren 15 gündür (İİK m.299); süresinde kaydını yaptırmayan alacaklı, borçlunun bilançosunda kayıtlı değilse müzakereye alınmaz ve oy kullanamaz. Borçlu listeni bir kez tanımla; eşleşen ilan yayımlandığı gün, yasal süre ve yapılacak işlemle birlikte e-postana ulaşsın.</p>
-    <!-- 30.07: hedef index#app'ti (Yukumluluk Karnesi formu!) - yanlis kapi.
-         Artik panele NIYETLE gider: uyelikten sonra ilk soru VKN olur. -->
-    <!-- 19.08 Cem: "yan yana koy, hangisini isterse" — tek radar / tam paket kıyaslamalı seçim -->
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
-      <a href="radar-fiyat.html" style="flex:1;min-width:225px;text-decoration:none;background:var(--grad);color:#03101f;border-radius:12px;padding:13px 18px;text-align:center;box-shadow:0 6px 24px rgba(245,165,36,.35)">
-        <!-- 27.08 Cem: "bizim adımız tetikte, burada Alacak Radarı yazıyor,
-             normal mi?" — ürün adı doğru (Tetikte = marka, Alacak Radarı =
-             o markanın nöbeti) ama düğme EYLEM söylemiyordu, menü bağlantısı
-             gibi duruyordu. Ad korundu, başına yapılacak iş yazıldı. -->
-        <span style="display:block;font-weight:800;font-size:15.5px">Alacak nöbetini başlat</span>
-        <span style="display:block;font-size:12.5px;font-weight:700;opacity:.8;margin-top:2px">599 TL/ay · Tetikte Alacak Radarı</span>
-      </a>
-      <a href="radar-fiyat.html" style="flex:1;min-width:225px;text-decoration:none;background:linear-gradient(135deg,rgba(61,220,151,.16),rgba(255,194,75,.08));border:1px solid rgba(61,220,151,.45);color:var(--ink);border-radius:12px;padding:12px 18px;text-align:center">
-        <span style="display:block;font-weight:800;font-size:15.5px">Tüm nöbetleri başlat</span>
-        <span style="display:block;font-size:12.5px;font-weight:700;color:var(--green);margin-top:2px">999 TL/ay · alacak + marka + ihale + süre</span>
-      </a>
+  <!-- 07.09 kompakt düzen: kehribar dolgulu büyük kutu yerine iki sade plan kartı.
+       Hedefler aynı (radar-fiyat / radar-app?niyet=alacak); 599/999 fiyat-motoru ile aynı. -->
+  <div style="margin-top:26px">
+    <h2 style="margin:0 0 2px">Bir müşterinin batması, alacağının tamamı demek</h2>
+    <p style="margin:0;font-size:13px;color:var(--muted);line-height:1.55">Konkordatoda alacak kaydı süresi ilan tarihinden 15 gündür (İİK m.299); süresinde kaydını yaptırmayan alacaklı, borçlunun bilançosunda kayıtlı değilse müzakereye alınmaz ve oy kullanamaz.</p>
+    <div class="ai-fiyat">
+      <div class="ai-plan ana">
+        <div class="ad">Alacak nöbeti</div>
+        <div class="tutar">599 <small>TL/ay</small></div>
+        <p>Borçlu listeni bir kez tanımla; eşleşen ilan yayımlandığı gün yasal süre ve yapılacak işlemle e-postana ulaşsın.</p>
+        <a class="btn" href="radar-fiyat.html">Alacak nöbetini başlat</a>
+      </div>
+      <div class="ai-plan">
+        <div class="ad">Tüm nöbetler</div>
+        <div class="tutar">999 <small>TL/ay</small></div>
+        <p>Alacak + marka + ihale + süre. Dört radar tek abonelikte.</p>
+        <a class="btn ikincil" href="radar-fiyat.html">Tüm nöbetleri başlat</a>
+      </div>
     </div>
-    <div style="margin-top:10px"><a href="radar-app.html?niyet=alacak" style="font-size:13.5px;font-weight:700;color:var(--muted);text-decoration:none">ya da ücretsiz üye ol →</a></div>
-    <div style="margin-top:12px;font-size:12.5px;color:var(--dim);line-height:1.6"><b style="color:var(--muted)">Nasıl ücretlendirilir:</b> Aracı kendin kullanmak ücretsizdir (ayda 5 sorgu; <b style="color:var(--muted)">ücretsiz üyelikle sınırsız</b>). Abonelik yalnız sürekli izleme içindir: borçlu listeni sen taramadan da sistem her gün tarar, eşleşme çıktığı gün e-postana bildirir. <a href="radar-fiyat.html" style="color:var(--accent2);font-weight:700">Fiyatların tamamı →</a></div>
+    <div style="margin-top:10px;font-size:12.5px;color:var(--dim);line-height:1.6">Aracı kendin kullanmak ücretsizdir: ayda 5 sorgu, <b style="color:var(--muted)">ücretsiz üyelikle sınırsız</b>. Abonelik yalnız sürekli izleme içindir: sen taramadan da sistem her gün tarar, eşleşme çıktığı gün e-postana bildirir. <a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700">Ücretsiz üye ol →</a> · <a href="radar-fiyat.html" style="color:var(--accent2);font-weight:700">Fiyatların tamamı →</a></div>
   </div>
 
   <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
-  <h2 style="margin:26px 0 4px">İflas &amp; konkordato arşivi <span style="font-size:13px;color:var(--dim);font-weight:600">· <span id="aiH2Kapsam">son 1 yıl</span> · günde iki kez otomatik güncellenir</span></h2>
-  <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
-  <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler.
-       20.08: ilk ekran tek eyleme (arama) indirildiği için arşiv başlığına taşındı. -->
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px">
-    <button type="button" onclick="aiFiltre('konkordato',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,176,32,.16),rgba(255,176,32,.06));border:1px solid rgba(255,176,32,.4);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">📄 Konkordato ilanları <span style="color:var(--amber)">→</span></button>
-    <button type="button" onclick="aiFiltre('iflas',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,107,94,.16),rgba(255,107,94,.06));border:1px solid rgba(255,107,94,.42);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">⚖️ İflas ilanları <span style="color:var(--red)">→</span></button>
-  </div>
-  <!-- 14.08 Cem: İhale Radarı deseni. Canlı akışta 287 ilan vardı ama 10'u görünüp
-       arama/filtre/sayaç yoktu; kullanıcı kendi borçlusunu bulamıyordu. VKN aracı
-       yalnız tohumla eşleşiyor; asıl canlı veriyi ancak ad/il aramasıyla ölçeriz. -->
-  <div class="kutu" id="aiFiltreKutu" style="padding:14px 16px;margin:0 0 12px;scroll-margin-top:12px">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <!-- 19.08 Cem: "ikisi üst üste binmiş, ilkini sil" — serbest arama girişi kaldırıldı;
-           arama/tarama tek yerden: üstteki alacak taraması kutusu. Tür düğmeleri kaldı. -->
-      <div style="display:flex;gap:6px" id="aiTurler">
+  <!-- 07.09 kompakt düzen (Cem taslağı onayladı): büyük iki tür düğmesi kalktı
+       (aynı işi aşağıdaki bölmeli grup yapıyor); 16 karar çipi tek açılır listeye
+       indi; liste kart yerine tablo; makro + TBB yan yana ve listeden SONRA. -->
+  <h2 style="margin:30px 0 2px">İflas &amp; konkordato arşivi</h2>
+  <div class="ipucu" id="aiDamga" style="margin:0 0 12px">tarih damgası yükleniyor…</div>
+  <!-- 14.08 Cem: İhale Radarı deseni — tür düğmeleri + sayaç. 19.08: serbest arama
+       kaldırıldı (arama tek yerden, üstteki kutu). 20.08 Cem "karar durumu filtresi
+       YAP": seçenekler ve sayılar KASADAN basılır (rakam disiplini); sayacı 0 olan
+       durum listede hiç görünmez. -->
+  <div id="aiFiltreKutu" style="scroll-margin-top:12px">
+    <div class="ai-arac">
+      <div style="display:flex" id="aiTurler">
         <button type="button" class="tbtn on" data-t="hepsi" onclick="aiFiltre('hepsi')">Tümü</button>
         <button type="button" class="tbtn" data-t="konkordato" onclick="aiFiltre('konkordato')">Konkordato</button>
         <button type="button" class="tbtn" data-t="iflas" onclick="aiFiltre('iflas')">İflas</button>
       </div>
-      <!-- 20.08 Cem "karar durumu filtresi YAP" (rakip incelemesi: konkordato-
-           ilanlari.com karar durumuna göre süzüyor, bizde yalnız tür vardı).
-           Alacaklı için asıl ayrım budur: geçici mühlette itiraz 7 gün, kesin
-           mühlette alacak kaydı, alacak çağrısında 15 gün, RET'te iş bitmiş
-           olabilir. Düğmeler ve sayılar KASADAN basılır (rakam disiplini);
-           sayacı 0 olan durum hiç gösterilmez. -->
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px" id="aiDurumlar"></div>
+      <select class="ai-sec" id="aiDurumlar" aria-label="Karar durumu" onchange="aiDurumSec(this.value||null)"><option value="">Tüm kararlar</option></select>
     </div>
-    <div id="aiSayac" style="margin-top:9px;font-size:13.5px;color:var(--muted)"></div>
+    <div id="aiSayac" style="margin:9px 0 10px;font-size:13px;color:var(--muted);line-height:1.55"></div>
   </div>
+  <div id="aiListe"></div>
   <div id="aiMakro" style="margin:0 0 14px"></div>
-  <div id="aiListe" style="padding-bottom:96px"></div>
   <script>
   var AI_L=[], AI_ILLER=[], AI_TUR='hepsi', AI_ILLER_SUZGECLI=false;
   var AI_KAPSAM_ILK='', AI_KAPSAM_SON='', AI_KAPSAM_GUN=null;
@@ -572,14 +609,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     muhlet        :['Mühlet (türü belirsiz)','var(--dim)'],
     diger         :['Diğer','var(--dim)']
   };
+  // 07.09: 16 çip yerine tek açılır liste (Cem taslağı onayladı). Seçenekler yine
+  // kasadan; sayacı 0 olan durum listeye girmez.
   function aiDurumCubugu(sayilar){
     var g=document.getElementById('aiDurumlar'); if(!g||!sayilar) return;
-    var h='<button type="button" class="tbtn'+(AI_DURUM?'':' on')+'" onclick="aiDurumSec(null)">Tüm kararlar</button>';
+    var h='<option value=""'+(AI_DURUM?'':' selected')+'>Tüm kararlar</option>';
     Object.keys(AI_DURUM_ADI).forEach(function(k){
-      var n=sayilar[k]||0; if(!n) return;   // ölçülmemiş durum düğme olmaz
-      var ad=AI_DURUM_ADI[k];
-      h+='<button type="button" class="tbtn'+(AI_DURUM===k?' on':'')+'" onclick="aiDurumSec(\''+k+'\')">'
-        +'<span style="color:'+ad[1]+'">'+ad[0]+'</span> <b>'+n.toLocaleString('tr-TR')+'</b></button>';
+      var n=sayilar[k]||0; if(!n) return;   // ölçülmemiş durum seçenek olmaz
+      h+='<option value="'+k+'"'+(AI_DURUM===k?' selected':'')+'>'+AI_DURUM_ADI[k][0]+' · '+n.toLocaleString('tr-TR')+'</option>';
     });
     g.innerHTML=h;
   }
@@ -608,6 +645,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     // rakip "9.491 kayıt" derken bizim farkımız kaynaktan düşeni tutmamız.
     if(AI_SUNUCU_ARSIV && AI_ARSIV_GUN!==null && AI_ARSIV_GUN>365) h+=' <span style="color:var(--green);font-weight:700">· '+AI_ARSIV_GUN+' günlük arşiv (kaynak yalnız 365 gün tutar; düşen ilanlar bizde kalır)</span>';
     if(AI_SON_TARIH) h+=' <span style="color:var(--dim)">· en yeni ilan '+aiKac(AI_SON_TARIH)+'</span>';
+    h+=' <span style="color:var(--dim)">· günde iki kez otomatik güncellenir</span>';
     if(AI_BAYAT>3) h+='<div style="margin-top:6px;color:var(--red);font-weight:700">⚠️ Akış '+AI_BAYAT+' gündür yenilenmedi — aşağıdaki sayılar son çekimdendir, bugünü kapsamayabilir.</div>';
     e.innerHTML=h;
   }
@@ -691,7 +729,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       aiHata(e, ilk); bitir();
     });
   }
-  function aiDurumSec(k){ AI_DURUM=k; AI_GOSTER=8; aiGetir(false,true); }
+  function aiDurumSec(k){ AI_DURUM=k; AI_GOSTER=AI_ILK_SATIR; aiGetir(false,true); }
   aiGetir(true,false);
   // 15.08 Cem "kendi verimizden yoğunluk sinyali": TCMB EVDS göçü oturana kadar,
   // elimizdeki resmî ilan havuzundan MAKRO eğilim. Sektör YOK (ilan metninde,
@@ -709,9 +747,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var top=(AI_ILLER||[]).slice(0,6).map(function(o){ return {il:o.il, d:{t:o.t,k:o.k,i:o.i}}; });
     // Süzgeç sonucu boşsa ESKİ ÇUBUKLAR BIRAKILMAZ — bayat dağılım yeni süzgecin
     // sonucuymuş gibi okunur; bu da uydurma rakamdır.
+    // 07.09 kompakt düzen: makro + TBB yan yana iki kart (.ai-makro). TBB kartı
+    // her çizimde yerinde kalır; içeriği bir kez çekilip AI_RESMI_HTML'de saklanır.
+    var resmiKart='<div class="ai-kart" id="aiResmi">'+(AI_RESMI_HTML!==null?AI_RESMI_HTML:'<h3>🏦 Resmî · TBB Risk Merkezi</h3><div style="font-size:12.5px;color:var(--dim)">yükleniyor…</div>')+'</div>';
     if(!top.length){
-      box.innerHTML='<div class="kutu" style="margin:0"><div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL</div>'
-        +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Bu seçim için coğrafi dağılım ölçülemedi.</div></div>';
+      box.innerHTML='<div class="ai-makro"><div class="ai-kart"><h3>📊 Makro sinyal · coğrafi yoğunluk</h3>'
+        +'<div style="font-size:12.5px;color:var(--muted)">Bu seçim için coğrafi dağılım ölçülemedi.</div></div>'+resmiKart+'</div>';
       return;
     }
     // Seçimin adı ve o seçimin KENDİ toplamı — başlıktaki rakam ile aşağıdaki
@@ -742,17 +783,16 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var satir=top.map(function(o){
       var yuzde=Math.round(o.d.t/maxT*100);
       var sag=kirilimVar
-        ? o.d.t+' ilan · <span style="color:var(--amber)">'+o.d.k+' konk.</span> / <span style="color:var(--red)">'+o.d.i+' iflas</span>'
-        : o.d.t+' ilan';
-      return '<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b style="color:var(--ink)">'+aiKac(o.il)+'</b><span style="color:var(--dim)">'+sag+'</span></div><div style="height:6px;background:var(--panel);border-radius:4px;margin-top:3px;overflow:hidden"><div style="height:100%;width:'+yuzde+'%;background:var(--grad)"></div></div></div>';
+        ? o.d.t.toLocaleString('tr-TR')+' · '+o.d.k+' konk. / '+o.d.i+' iflas'
+        : o.d.t.toLocaleString('tr-TR')+' ilan';
+      return '<div class="ai-il"><b>'+aiKac(o.il)+'</b><div class="cubuk"><i style="width:'+yuzde+'%"></i></div><span>'+sag+'</span></div>';
     }).join('');
-    box.innerHTML='<div class="kutu" style="margin:0">'
-      +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL</div>'
-      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">'+basMetin+'</div>'
+    box.innerHTML='<div class="ai-makro"><div class="ai-kart">'
+      +'<h3>📊 Makro sinyal · coğrafi yoğunluk</h3>'
+      +'<div style="font-size:12.5px;color:var(--muted);margin:0 0 8px">'+basMetin+'</div>'
       +satir
-      +'<div id="aiResmi"></div>'
-      +'<div style="font-size:11px;color:var(--dim);margin-top:10px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir.</div>'
-      +'</div>';
+      +'<div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir.</div>'
+      +'</div>'+resmiKart+'</div>';
     // RESMÎ KATMAN: TBB Risk Merkezi aylık bülteninden (protesto senet + karşılıksız
     // çek). Rakamlar bültende infografik; robot yeni bülteni yakalayıp teyit sinyali
     // atar, elle teyit sonrası risk-merkezi.json güncellenir -> yalnız teyitli rakam.
@@ -762,26 +802,26 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     fetch('veri/risk-merkezi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
       var el=document.getElementById('aiResmi'); if(!el||!d||!d.veriler) return;
       var v=d.veriler, tl=function(n){return Number(n).toLocaleString('tr-TR');};
-      AI_RESMI_HTML='<div style="margin-top:12px;padding:10px 12px;background:linear-gradient(135deg,rgba(61,220,151,.08),transparent),var(--panel2);border:1px solid rgba(61,220,151,.22);border-radius:10px">'
-        +'<div style="font-size:12px;font-weight:800;color:var(--green)">🏦 RESMÎ: TBB RİSK MERKEZİ · '+aiKac(d.donem)+'</div>'
-        +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.7">'
-        +'Protesto edilen senet: <b style="color:var(--ink)">'+tl(v.protestoSenetTutarMilyarTL)+' Milyar TL</b><br>'
-        +'Karşılıksız işlemi yapılan çek: <b style="color:var(--ink)">'+tl(v.karsilaksizCekTutarMilyarTL)+' Milyar TL</b> <span style="color:var(--dim)">(bankalara ibraz: '+tl(v.bankalaraIbrazCekTutarMilyarTL)+' Milyar TL)</span>'
-        +'</div>'
-        +'<div style="font-size:11px;color:var(--dim);margin-top:7px">Kaynak: <a href="'+aiKac(d.kaynakUrl)+'" target="_blank" rel="noopener">TBB Risk Merkezi Aylık Bülteni</a> ('+aiKac(d.bultenAyi)+'). '+aiKac(d.guncelleme)+'</div>'
-        +'</div>';
+      // 07.09: yeşil dolgulu kutu yerine sade kart; rakamlar büyük, gerisi dipnot.
+      AI_RESMI_HTML='<h3>🏦 Resmî · TBB Risk Merkezi · '+aiKac(d.donem)+'</h3>'
+        +'<div style="font-size:12.5px;color:var(--muted)">Protesto edilen senet</div><div class="ai-buyuk">'+tl(v.protestoSenetTutarMilyarTL)+' Milyar TL</div>'
+        +'<div style="font-size:12.5px;color:var(--muted);margin-top:8px">Karşılıksız işlemi yapılan çek</div><div class="ai-buyuk">'+tl(v.karsilaksizCekTutarMilyarTL)+' Milyar TL</div>'
+        +'<div style="font-size:11.5px;color:var(--dim)">bankalara ibraz: '+tl(v.bankalaraIbrazCekTutarMilyarTL)+' Milyar TL</div>'
+        +'<div style="font-size:11px;color:var(--dim);margin-top:8px;line-height:1.5">Kaynak: <a href="'+aiKac(d.kaynakUrl)+'" target="_blank" rel="noopener">TBB Risk Merkezi Aylık Bülteni</a> ('+aiKac(d.bultenAyi)+'). '+aiKac(d.guncelleme)+'</div>';
       el.innerHTML=AI_RESMI_HTML;
     }).catch(function(){});
   }
   // 19.08 Cem: "sayfalarca aşağı akan veri" — akış artık 8 kartla başlar,
   // gerisi "Devamını göster" ile 20'şer açılır. Tür değişince sayaç sıfırlanır.
-  var AI_GOSTER=8;
+  // 07.09: tablo satırı kartın dörtte biri yer tuttuğu için 12 satırla başlar.
+  var AI_ILK_SATIR=12, AI_GOSTER=AI_ILK_SATIR;
   function aiDaha(){ AI_GOSTER+=20; aiCiz(); }
+  function aiAc(tr){ var d=tr.nextElementSibling; if(d && d.classList.contains('ai-detay')) d.hidden=!d.hidden; }
   // 27.08: tür değişince KARAR DURUMU SIFIRLANIR. Yoksa "konkordato · kesin
   // mühlet" seçiliyken İflas'a basan kullanıcı, iflasta karşılığı olmayan bir
   // durumun içinde kalıp boş liste görüyordu (Cem'in bildirdiği kusur).
   function aiFiltre(t, kaydir){
-    AI_TUR=t; AI_DURUM=null; AI_GOSTER=8;
+    AI_TUR=t; AI_DURUM=null; AI_GOSTER=AI_ILK_SATIR;
     var g=document.getElementById('aiTurler');
     if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); }
     aiGetir(false, kaydir);
@@ -802,7 +842,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   function aiCiz(){
     var kutu=document.getElementById('aiListe'); if(!kutu) return;
     var q=aiFold((document.getElementById('aiAra')||{}).value||'');
-    var TUR={konkordato:['KONKORDATO','var(--amber)'],iflas:['İFLAS','var(--red)'],diger:['İLAN','var(--dim)']};
+    var TUR={konkordato:['Konkordato','var(--amber)'],iflas:['İflas','var(--red)'],diger:['İlan','var(--dim)']};
     var suz=AI_L.filter(function(x){
       if(AI_TUR!=='hepsi' && x.tur!==AI_TUR) return false;
       if(!q) return true;
@@ -856,42 +896,46 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       }
     }
     if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu seçime uyan ilan listelenmedi. Türü ya da karar durumunu değiştir. Bu, aradığın firmanın "ilanı yok" anlamına gelmez — borçlu araması yukarıdaki tarama kutusundan arşivin tamamında yapılır; kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
-    kutu.innerHTML = suz.slice(0,AI_GOSTER).map(function(x){
+    // 07.09 KOMPAKT DÜZEN (Cem taslağı onayladı): kart yerine tablo satırı —
+    // tarih · tür · karar · borçlu+başlık · il · süre. Satıra tıklayınca detay
+    // açılır; süre kutusu, hap bilgisi (aiSure, İİK teyitli), kurum ve ilan
+    // bağlantısı ORADA. Mantık aynı: aiSure/aiSonTarih'e dokunulmadı.
+    var satirlar = suz.slice(0,AI_GOSTER).map(function(x){
       var t=TUR[x.tur]||TUR.diger;
-      // 20.08: karar durumu kartta da gorunur — listede "hangi asamada" bilgisi
-      // turden (konkordato/iflas) daha ayirt edici.
       var dr=AI_DURUM_ADI[x.karar];
-      var drRozet = dr ? '<span style="font-size:10.5px;font-weight:800;letter-spacing:.4px;color:'+dr[1]+';border:1px solid currentColor;border-radius:20px;padding:2px 7px;margin-left:6px;opacity:.85">'+dr[0].toLocaleUpperCase('tr')+'</span>' : '';
-      var sure='', kural=aiSure(x);
+      var sureKisa='<span>—</span>', detay='', kural=aiSure(x);
       if(kural){
-        if(kural.not){
-          sure='<div style="margin-top:7px;font-size:12px;color:var(--dim)">⚖️ '+kural.not+'</div>';
-        } else if(kural.gun||kural.ay){
+        if(kural.gun||kural.ay){
           var g=aiSonTarih(x.tarih, kural);
           if(g){
-            var renk = g.kalan<=3?'var(--red)':(g.kalan<=7?'var(--amber)':'var(--green)');
             var mesaj;
-            if(g.kalan>0) mesaj=kural.tip+': <b style="color:'+renk+'">'+g.kalan+' gün</b> kaldı';
-            else if(g.kalan===0) mesaj=kural.tip+': <b style="color:var(--red)">son gün BUGÜN</b>';
-            else mesaj=kural.tip+': <b style="color:var(--dim)">süre geçmiş görünüyor</b>';
-            sure='<div style="margin-top:7px;font-size:12.5px;background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.28);border-radius:8px;padding:7px 10px">⏳ '+mesaj+' <span style="color:var(--dim)">('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</span></div>';
+            if(g.kalan>0){ mesaj=kural.tip+': <b style="color:var(--red)">'+g.kalan+' gün</b> kaldı'; sureKisa='<b>'+g.kalan+' gün</b> <span>· '+kural.madde+' · son '+g.sonGun+'</span>'; }
+            else if(g.kalan===0){ mesaj=kural.tip+': <b style="color:var(--red)">son gün BUGÜN</b>'; sureKisa='<b>son gün bugün</b> <span>· '+kural.madde+'</span>'; }
+            else { mesaj=kural.tip+': <b style="color:var(--dim)">süre geçmiş görünüyor</b>'; sureKisa='<span>süre geçti · '+kural.madde+'</span>'; }
+            detay+='<div>⏳ '+mesaj+' <span style="color:var(--dim)">('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</span></div>';
           }
         }
+        if(kural.not) detay+='<div>⚖️ '+kural.not+'</div>';
         // HAP BİLGİ: karşı taraf bunu yaptı, sen ne yaparsın (İİK teyitli)
-        if(kural.hap){
-          sure+='<div style="margin-top:6px;font-size:12px;color:var(--muted);line-height:1.55"><b style="color:var(--accent2)">💊</b> '+kural.hap+'</div>';
-        }
+        if(kural.hap) detay+='<div style="margin-top:4px"><b style="color:var(--accent2)">💊</b> '+kural.hap+'</div>';
       }
-      return '<div class="kutu" style="padding:13px 16px;margin-bottom:9px">'+
-        '<span style="display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.06);color:'+t[1]+'">'+t[0]+'</span>'+drRozet+
-        ' <span style="font-size:11.5px;color:var(--dim)">'+aiKac(x.il||'')+' · '+aiKac(x.tarih||'')+'</span>'+
-        '<div style="font-size:13.5px;color:var(--ink);margin-top:5px;line-height:1.5">'+aiKac(x.baslik)+'</div>'+
-        ((x.borclu||x.vkn)?'<div style="margin-top:5px;font-size:13px;background:rgba(255,107,94,.08);border:1px solid rgba(255,107,94,.2);border-radius:7px;padding:5px 9px">🏢 <b style="color:var(--accent2)">Borçlu:</b> '+(x.borclu?'<b style="color:var(--ink)">'+aiKac(x.borclu)+'</b>':'<span style="color:var(--dim)">ilan metninde</span>')+(x.vkn?' <span style="color:var(--muted)">· VKN '+aiKac(x.vkn)+'</span>':'')+'</div>':'')+
-        sure+
-        '<div style="font-size:12px;color:var(--muted);margin-top:6px">'+aiKac(x.kurum||'')+' · <a href="'+aiKac(x.url)+'" target="_blank" rel="noopener">ilan metni →</a></div></div>';
-    }).join('') + (suz.length>AI_GOSTER
-      ? '<div style="text-align:center;margin:12px 0"><button type="button" onclick="aiDaha()" style="background:var(--panel);border:1px solid var(--line2);color:var(--ink);font:inherit;font-weight:700;font-size:13.5px;padding:11px 22px;border-radius:11px;cursor:pointer">Devamını göster · kalan '+(suz.length-AI_GOSTER)+' ilan ↓</button></div>'
-      : '');
+      detay+='<div style="margin-top:6px">'+aiKac(x.kurum||'')+' · <a href="'+aiKac(x.url)+'" target="_blank" rel="noopener">ilan metni →</a></div>';
+      var borclu = x.borclu ? aiKac(x.borclu) : '<span style="color:var(--dim);font-weight:500">Borçlu ilan metninde</span>';
+      if(x.vkn) borclu+=' <span style="color:var(--muted);font-weight:500">· VKN '+aiKac(x.vkn)+'</span>';
+      return '<tr class="ai-satir" onclick="aiAc(this)" title="Ayrıntı için tıkla">'
+        +'<td class="tarih">'+aiKac(x.tarih||'')+'</td>'
+        +'<td><span class="ai-tur '+aiKac(x.tur||'diger')+'">'+t[0]+'</span></td>'
+        +'<td class="karar">'+(dr?dr[0]:'—')+'</td>'
+        +'<td><div class="borclu">'+borclu+'</div><div class="baslik">'+aiKac(x.baslik)+'</div></td>'
+        +'<td class="il">'+aiKac(x.il||'')+'</td>'
+        +'<td class="sure">'+sureKisa+'</td></tr>'
+        +'<tr class="ai-detay" hidden><td colspan="6">'+detay+'</td></tr>';
+    }).join('');
+    kutu.innerHTML = '<div class="ai-tablo"><div class="ai-kaydir"><table>'
+      +'<thead><tr><th>Tarih</th><th>Tür</th><th>Karar</th><th>Borçlu · ilan</th><th>İl</th><th>Süre</th></tr></thead>'
+      +'<tbody>'+satirlar+'</tbody></table></div>'
+      +(suz.length>AI_GOSTER ? '<button type="button" class="ai-daha" onclick="aiDaha()">Devamını göster · kalan '+(suz.length-AI_GOSTER)+' ilan ↓</button>' : '')
+      +'</div>';
   }
   </script>
 
