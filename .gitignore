@@ -119,6 +119,28 @@ veri/OTURUM-KILIDI.json
 # ============================================================================
 _kaynak/
 
+# ============================================================================
+# 07.09 - DEPO KOKU KARALAMA DEFTERI DEGILDIR. 31.08 oturumundan 9 deneme/log
+# metni (_butunluk-*, _indirici-deneme*, _spk-*), bir t1.bin (aslinda HTML) ve
+# 3 mevzuat.gov.tr PDF'i (g-*.pdf) kokte takipsiz duruyordu; bir "git add -A"
+# hepsini PUBLIC ana tele yazacakti. Dosyalar tasindi (karalama ->
+# ../_temizlik/oturum-kalintilari-20260831, PDF -> _kaynak/mevzuat-gov) ve
+# ayni sinif bir daha giremesin diye kural kondu:
+#   /_*.txt  : kokte alt cizgiyle baslayan metin = oturum karalamasi
+#   /*.bin   : kokte ikili dosya = indirme denemesi
+#   /*.pdf   : ham PDF koke degil _kaynak/'a konur (CLAUDE.md "NEREYE YAZILIR")
+#              (20250501-5.pdf zaten takipte, kural onu etkilemez)
+# ============================================================================
+/_*.txt
+/*.bin
+/*.pdf
+
+# 07.09 - oturum.ps1 -Kapat -Birak kutugu: bu makinede kimin neyi neden
+# biraktigini tutar. OTURUM-KILIDI.json gibi YERELDIR; depoya girerse her
+# kapanis dali kirletir ("1 dosya commit'siz") ve bir sonraki oturumu
+# yaniltir. Kutuk yerelde okunur.
+veri/oturum-birakilanlar.txt
+
 # Destek Radari cagri metni onbellegi (30.08). Robot cagri sayfalarinin HAM
 # metnini buraya yazar; yutma desenleri iyilestirilirken kurum sitelerine
 # yeniden gidilmesin diye. Kaynaktan turetilir, istenince yeniden uretilir -

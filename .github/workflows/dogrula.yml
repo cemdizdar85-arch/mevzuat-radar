@@ -221,8 +221,11 @@ jobs:
           # buyugu %56,50 (Cin, 8415.83 klima, teblig 2022/1) - arac cezali
           # menseyi "en avantajli" diye oneriyordu. Bu kapi yeni bir bicim
           # girerse KIRMIZI yanar; sessiz sifira geri donulmesin.
+          # 07.09: kapi kutugunu (4. katman) yaziyordu ama rapor alani bos oldugu
+          # icin yayinlanmiyordu; sebep runner'da kayboluyordu. Artik yayinlanir.
           - { ad: "Damping oran kapisi (okunamayan onlem orani kalmasin)",
-              kabuk: bash, komut: "node arac/damping-oran-kapisi.js" }
+              kabuk: bash, komut: "node arac/damping-oran-kapisi.js",
+              rapor: "veri/damping-oran-log.txt" }
 
     steps:
       - name: Depoyu al

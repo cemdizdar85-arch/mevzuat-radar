@@ -425,7 +425,10 @@ jobs:
           # onlari hala uretiyor; ertesi sabah 12 beslemenin hasadi da bu yuzden
           # yayinlanamadi. Listeyi artik git'in kendisi cikariyor:
           # --exclude-standard yok sayilanlari eler, kalanlari eklemek serbest.
-          git ls-files -z --modified --others --exclude-standard -- 'veri/*.json' | xargs -0 -r git add --
+          # 07.09: yutma kapisinin kutugu (veri/yutma-kapisi-log.txt) 30.08'den beri
+          # her kosuda YAZILIYOR ama yalniz *.json eklendigi icin HIC yayinlanmiyordu -
+          # "kapi neden dustu" sorusunun cevabi runner'da olup bitiyordu. Artik eklenir.
+          git ls-files -z --modified --others --exclude-standard -- 'veri/*.json' 'veri/yutma-kapisi-log.txt' | xargs -0 -r git add --
           git diff --cached --quiet || git commit -m "Kaynak nobetcisi: kaynak/veri guncellendi ($(date +%d.%m.%Y))"
           # 30.08 DERSI - HASAT CALISIYOR, YAYIN DUSUYORDU: bu adim tek denemeydi
           # (pull || true; push). Ana tele bu sirada baska bir robot yazarsa push
