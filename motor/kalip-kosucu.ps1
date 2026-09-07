@@ -4,11 +4,14 @@
 # Her ders için: tam hat (soru/uyarlama + adımlar + verilenler + giriş + ikiz + sim Sonnet + hakem + kör çözüm + hakem2), sonra seçim
 # (hakem EVET ∧ sim ✓ ∧ kör ✓ ∧ hakem2 EVET — SORU-BASMA-KURALLARI 8.1), Kaydır-Çöz sayfası ve karne. Loglar veri/fabrika/kosucu-log/<plan>/.
 # Kullanım: powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-sgs-08-09.json
-param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok=(Split-Path $PSScriptRoot -Parent),[switch]$SayfaYok,
+param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok='',[switch]$SayfaYok,
   [double]$AylikTavan=2000,      # 08.09 Cem: konsolda aylık tavan 2.000 USD (GM göremez, Cem okudu)
   [double]$EmniyetPayi=300)      # tavana bu kadar kala koşucu durur: parti ortada ölmez, ödenen iş yazılmadan kaybolmaz (ağustos dersi)
 $ErrorActionPreference='Continue'
-$uret=Join-Path $PSScriptRoot 'kalip-parti-uret.ps1'
+# 08.09: Start-Process ile -File çağrısında param varsayılanındaki $PSScriptRoot BOŞ geldi (Split-Path hatası) → kök gövdede hesaplanır
+$buDizin=$(if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
+if(-not $Kok){ $Kok=Split-Path $buDizin -Parent }
+$uret=Join-Path $buDizin 'kalip-parti-uret.ps1'
 # --- BEDEL EMNİYETİ: bu ayın harcaması bedel defterinden (veri/fabrika/bedel-kayit.jsonl, 08.09'dan itibaren tam; öncesi eksik → tutucu) ---
 function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; if(-not (Test-Path $y)){ return 0.0 }; $t=0.0; $ay=(Get-Date -Format 'yyyy-MM')
   foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }; try{ $o=ConvertFrom-Json -InputObject $sat; if("$($o.zaman)" -like "$ay*"){ $t+=[double]$o.toplamUsd } }catch{} }; return $t }
@@ -54,11 +57,11 @@ $secYol=Join-Path $Kok "veri\sinav\kaydir-secim\$planAd-secim.json"
 [IO.File]::WriteAllText($secYol,(ConvertTo-Json -InputObject @($secim) -Depth 3),[Text.UTF8Encoding]::new($false))
 "SECIM: $($secim.Count) soru (yayın şartı: hakem ∧ sim ∧ kör ∧ hakem2) -> $secYol"
 if(-not $SayfaYok -and $secim.Count){
-  & powershell -NoProfile -File (Join-Path $PSScriptRoot 'kaydir-coz.ps1') -SecimDosya "$planAd-secim.json" -Cikti "KAYDIR-COZ-$planAd.html" *> (Join-Path $logDir 'builder.log')
+  & powershell -NoProfile -File (Join-Path $buDizin 'kaydir-coz.ps1') -SecimDosya "$planAd-secim.json" -Cikti "KAYDIR-COZ-$planAd.html" *> (Join-Path $logDir 'builder.log')
   Get-Content (Join-Path $logDir 'builder.log') | Select-String -Pattern 'yazildi|ÖZ-SINAV|Exception|Cannot' | ForEach-Object { $_.Line }
 }
 $etk=($satirlar | ForEach-Object { $_.etiket }) -join ','
-& powershell -NoProfile -File (Join-Path $PSScriptRoot 'soru-karnesi.ps1') -Etiketler $etk -Cikti "KARNE-$planAd.html" *> (Join-Path $logDir 'karne.log')
+& powershell -NoProfile -File (Join-Path $buDizin 'soru-karnesi.ps1') -Etiketler $etk -Cikti "KARNE-$planAd.html" *> (Join-Path $logDir 'karne.log')
 Get-Content (Join-Path $logDir 'karne.log') | Select-String -Pattern 'ZORLUK|KARNE:' | ForEach-Object { $_.Line }
 "BEDEL (ders ders, ≈USD): $(($ozetTum | ForEach-Object { "$($_.etiket)=$($_.bedel)" }) -join ' · ')"
 "[$(Get-Date -Format HH:mm)] TAMAM · sure $([int]((Get-Date)-$t0).TotalMinutes) dk"
