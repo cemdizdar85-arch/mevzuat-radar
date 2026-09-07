@@ -1265,7 +1265,7 @@ SORULAR.forEach((s,i)=>{
       // 07.09 Cem "birebir aynısını vermeye gerek yok": çıkmış soru metni ekranda YOK (çapa üreticide kalır). Yerine ölçülü SINAV KÜNYESİ (son N dönemde kaç kez,
       // hangi dönemler, biçim) + ANAHTAR KAVRAMLAR (FAZ S, ambar tanımı, kaynaklı). Uydurma "somut örnek" yalnız kavram yoksa.
       if(a.giris&&s.konuGiris){
-        const kn=s.cikmis||{}; const dl=(kn.donemler||[]).map(String);   // sıra PS'den gelir (yeniden eskiye; KGK'da tarih etiketi) const sd=(s.olcum&&s.olcum.sonDonem!=null)?s.olcum.sonDonem:null; const pen=s.olcum&&s.olcum.pencere;
+        const kn=s.cikmis||{}; const dl=(kn.donemler||[]).map(String); const sd=(s.olcum&&s.olcum.sonDonem!=null)?s.olcum.sonDonem:null; const pen=s.olcum&&s.olcum.pencere;   // sıra PS'den gelir (yeniden eskiye; KGK'da tarih etiketi) const sd=(s.olcum&&s.olcum.sonDonem!=null)?s.olcum.sonDonem:null; const pen=s.olcum&&s.olcum.pencere;
         const tipAd=({hesap:'hesaplama',kayit:'kayıt',teori:'teori'})[s.tip]||'';
         // dönem listesi yalnız sayıyla tutarlıysa yazılır (pencere sayısı kök eşleşmesiyle, liste birebir etiketle ölçülüyor; "7 kez · 2025/3" yanıltır)
         // 07.09 Ö55(1): liste pencereyle ayrılır — "Son 7 dönemde 4 kez · son: 2026/2 · daha eski: 2020/1, 2019/3…"; pencere içi liste sayıdan
