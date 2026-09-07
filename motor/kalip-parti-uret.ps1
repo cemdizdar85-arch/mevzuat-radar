@@ -1171,6 +1171,11 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 16. YASAL PARAMETRE — KAPI-P (08.09): yıla bağlı had/oran/tavan (asgari ücret, kıdem tazminatı tavanı, KDV/SGK/damga/stopaj oranı, gecikme
     zammı, yeniden değerleme oranı, istisna haddi, defter tutma/fatura sınırı, vergi tarifesi) soruda geçiyorsa SAYISI soruda VERİLİR
     ("KDV oranı %20", "kıdem tazminatı tavanının 50.000 TL olduğu varsayılmıştır"). Hafızadan yıl parametresi kullanılmaz; sınav da böyle yapar.
+17. DAYANAK DOĞRULUĞU (08.09 pilot: "kredi faiz tahakkuku" sorusuna VUK m.283 yazıldı, o madde AKTİF geçici hesap kıymetlerini tanımlar, hakem düşürdü):
+    "dayanak" alanına yazdığın madde/paragraf, DOĞRU ŞIKKIN KURALINI KOYAN parçadır; konuyla "ilgili görünen" ya da yalnız hesap adını
+    anan madde değil. Kaynak paketinde o kuralı OKUDUĞUN parçanın künyesini yaz; kaynak paketinde kuralı koyan parça yoksa dayanağa
+    yalnız hesap planı künyesini yaz ("THP 780 / 381") ve kanun maddesi UYDURMA. Yürürlükten kalkmış kanun/standart/kurum anılmaz (KAPI-M);
+    süresi geçmiş tarih ya da eski yılın had/oranı kullanılmaz (KAPI-S). Bent düzeyi: "213 sayılı VUK m.323/1", "TMS 36 p.22(b)".
 15. YIL — KAPI-Y (07.09 Cem: "şu an {YIL} yılındayız, sorular {YIL} yılını versin"): olay yılları BUGÜNE göre kurulur. Sorulan dönem
     {YIL} yılıdır ("{YIL} yılı amortisman gideri", "{YIL} dönemi"); edinme/başlangıç tarihleri daha eski olabilir ama sorudaki EN YENİ yıl
     {YIL} olmalıdır. Geçmiş yılın dönemini sorma. Tutarı yıldan yıla değişen kalemlerde (oran, tavan, had) sayıyı soruda VER, hafızadan yazma.
