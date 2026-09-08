@@ -49,13 +49,22 @@ $kaynaklar += @{ ad='ATSO harc-ilan-kayit'; url=$O.odalar.antalya.kaynakUrl; tur
   bekle=@( (TrPara $O.odalar.antalya.sicil.sozlesmeVeDefterBirlesik), (TrPara $O.odalar.antalya.sicil.imzaBeyaniKisiBasi), (TrPara $O.odalar.antalya.kayit.sabit) ) }
 $kaynaklar += @{ ad='ATO kayit ucreti tarifesi'; url=$O.odalar.ankara.kaynakUrl; tur='html';
   bekle=@( (TrPara $O.odalar.ankara.kayit.tutar) ) }
-$kaynaklar += @{ ad='IZTO 2026 hizmet ucretleri'; url=$O.odalar.izmir.kaynakUrl; tur='html';
+# IZTO sayfasi icerigi JS ile ciziyor: ham HTML'de rakam yok (runner'da da olculdu, 08.09).
+# Robot kollayamaz; 'elle' = rapora not duser, KIRMIZI saymaz. Yilbasinda tarayicidan bakilir.
+$kaynaklar += @{ ad='IZTO 2026 hizmet ucretleri'; url=$O.odalar.izmir.kaynakUrl; tur='elle';
   bekle=@( '4.950', '5.100', '660' ) }
 
 $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) TetikteNobet/1.0'
 $sonuc = @(); $kirmizi = 0; $kor = 0
 foreach ($k in $kaynaklar) {
   $satir = [ordered]@{ ad=$k.ad; url=$k.url; tur=$k.tur; durum='?'; not='' }
+  if ($k.tur -eq 'elle') {
+    $satir.durum = 'ELLE'; $satir.beklenen = $k.bekle
+    $satir.not = 'sayfa JS ile ciziliyor, robot okuyamaz; yilbasinda tarayicidan kontrol: ' + ($k.bekle -join ', ')
+    Write-Host ("  {0,-8} {1}  {2}" -f $satir.durum, $k.ad, $satir.not)
+    $sonuc += [pscustomobject]$satir
+    continue
+  }
   try {
     $r = Invoke-WebRequest -Uri $k.url -UserAgent $ua -TimeoutSec 60 -UseBasicParsing
     if ($k.tur -eq 'pdf') {

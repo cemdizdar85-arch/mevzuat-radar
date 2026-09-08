@@ -1,6 +1,6 @@
 ﻿{
-    "olcum":  "08.09.2026 07:57",
-    "durum":  "KIRMIZI",
+    "olcum":  "08.09.2026 07:58",
+    "durum":  "YESIL",
     "sabitDosyasi":  "veri/kurulus-maliyet.json",
     "sabitGuncelleme":  "08.09.2026",
     "kaynaklar":  [
@@ -82,19 +82,14 @@
                       {
                           "ad":  "IZTO 2026 hizmet ucretleri",
                           "url":  "https://www.izto.org.tr/tr/tg/2026-yili-hizmet-ucretleri-tarifesi",
-                          "tur":  "html",
-                          "durum":  "KIRMIZI",
-                          "not":  "sayfada bulunamayan rakam: 4.950, 5.100, 660 - tarife degismis olabilir",
+                          "tur":  "elle",
+                          "durum":  "ELLE",
+                          "not":  "sayfa JS ile ciziliyor, robot okuyamaz; yilbasinda tarayicidan kontrol: 4.950, 5.100, 660",
                           "beklenen":  [
                                            "4.950",
                                            "5.100",
                                            "660"
-                                       ],
-                          "eksik":  [
-                                        "4.950",
-                                        "5.100",
-                                        "660"
-                                    ]
+                                       ]
                       }
                   ],
     "not":  "KIRMIZI = kaynaktaki deger ya da PDF degisti; tarife okunur, kurulus-maliyet.json elle guncellenir, PDF icin -Taban ile temel tazelenir. KOR = kaynak inmedi, hukum verilmez."
