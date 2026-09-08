@@ -223,7 +223,24 @@ function AtifDesen([string]$dayanak){
   $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace '\bSPKn\b|\bSerPK\b|\b6362\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SPK ' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?|\b213\s*s(ayılı|\.)?\s*(K\.|Kanun)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?|\b193\s*s(ayılı|\.)?\s*(K\.|Kanun)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?|\b6102\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?|\b6098\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TBK ' -replace '\b4857\s*s(ayılı|\.)?\s*(İş\s*K\.|İş Kanunu|K\.|Kanun)?|\bİş K(anunu|\.)','ISK ' -replace '\b5510\s*s(ayılı|\.)?\s*(K\.|Kanun|SGK Kanunu)?','SGK ' -replace '\b3568\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SMMM ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT '
   $KANUN2=@{}; foreach($k in $KANUN.Keys){ $KANUN2[$k]=$KANUN[$k] }
   $KANUN2['ISK']='İş K. (4857 s.K.)'; $KANUN2['KYT']='Kurumsal Yonetim Tebligi (II-17.1)'; $KANUN2['PAYT']='Pay Tebligi (VII-128.1)'; $KANUN2['FONT']='Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)'
-  foreach($m in [regex]::Matches($t,'(TMS|TFRS|BDS|GDS|TSRS|SBDS)\s*(\d+)')){ $d.Add("$($m.Groups[1].Value) $($m.Groups[2].Value) p.%") }
+  # 08.09 Tur 1 Denetim ÖLÇÜLDÜ (dayanak-dusus-olcum: 161 sorunun 31'i "kaynakta yok"): model "BDS 200 p.12" yazıyor, desen "BDS 200 p.%"
+  # standardın p.1'den başlayan İLK parçalarını çekiyor, 7.000 tavanı p.12'ye gelmeden doluyordu → hakem "paket yalnız p.0–6" diye reddediyordu.
+  # Artık anılan PARAGRAF numaraları önce ("p.12", "p.A96", "paragraf 5", "p.15, A21"), genel p.% en sona yedek. Ek/UR paragrafları bazı
+  # standartlarda "p.A96", bazılarında (bds220) çift "p.96" olarak yutulmuş → A'lı atıfta iki biçim de aranır.
+  $stdM=[regex]::Matches($t,'(TMS|TFRS|BDS|GDS|TSRS|SBDS|KYS)\s*(\d+)')
+  for($si=0;$si -lt $stdM.Count;$si++){
+    $sm=$stdM[$si]; $stdAd="$($sm.Groups[1].Value) $($sm.Groups[2].Value)"
+    $segBas=$sm.Index+$sm.Length; $segBit=$(if($si+1 -lt $stdM.Count){ $stdM[$si+1].Index } else { $t.Length })
+    $seg=$t.Substring($segBas,$segBit-$segBas)
+    $parNo=New-Object System.Collections.Generic.List[string]
+    foreach($pm in [regex]::Matches($seg,'(?:\bp\.|\bparagraf\s*|\bpar\.\s*|\bprg\.\s*)\s*(A?\d+)(?![\d.]\d)')){ if($parNo -notcontains $pm.Groups[1].Value){ $parNo.Add($pm.Groups[1].Value) } }
+    if($parNo.Count){ foreach($pm in [regex]::Matches($seg,'(?<=\b(?:p\.|paragraf\s*)A?\d+(?:\([a-z]\))?(?:,\s*(?:p\.)?A?\d+(?:\([a-z]\))?)*,\s*(?:p\.)?)(A?\d+)(?![\d.]\d)')){ if($parNo -notcontains $pm.Groups[1].Value){ $parNo.Add($pm.Groups[1].Value) } } }
+    foreach($pn in $parNo){
+      $d.Add("$stdAd p.$pn"); $d.Add("$stdAd p.$pn %")
+      if($pn -match '^A(\d+)$'){ $d.Add("$stdAd p.$($matches[1])"); $d.Add("$stdAd p.$($matches[1]) %") }
+    }
+    $d.Add("$stdAd p.%")
+  }
   foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
   # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
   $son=''
@@ -257,7 +274,8 @@ $DERS_KANUN=@{
   # 08.09 Cem "SGS'de dışladığımız 6 dersi kuralım": mevzuat metni olmayan dersler → kaynak TEORİ NOTU (motor/teori-notu-uret.ps1; ambar 'TEORI - <konu>')
   'Turkce'=@('TEORI','Teori Notu'); 'Matematik'=@('TEORI','Teori Notu'); 'Yabanci Dil'=@('TEORI','Teori Notu'); 'Ataturk Ilke'=@('TEORI','Teori Notu')
   'Ekonomi'=@('TEORI','Teori Notu'); 'Maliye'=@('TEORI','Teori Notu','Kamu Malî Yönetimi K. (5018 s.K.)')
-  'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
+  # 08.09 Tur 1 Denetim ölçümü: hakem reddinin bir kısmı BDS metninde olmayan ders kitabı kavramı (denetim hedefleri/yönetim beyanları, risk modeli çarpımı, denetim türleri) → TEORI notları yedek kaynak
+  'Denetim'=@('BDS','TEORI','Teori Notu'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
   'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')
   'Türkiye Denetim Standartları'=@('BDS','KYS')
