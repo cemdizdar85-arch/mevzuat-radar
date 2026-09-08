@@ -150,4 +150,6 @@ veri/_cagri-onbellek/
 # 07.09: kasadan cekilen gecici onarim dosyalari (ham metin, TCKN tasir) - depoya GIRMEZ
 veri/_onarim-*.json
 # 08.09 Kaydir-Coz yayin sayfalari: uretilir ama siteye cikmasi (menu/uye kapisi) Cem karari; o gun bu satir kalkar
-kaydir/
+# 08.09 23:50 Cem "onaylı bitmiş olanlardan siteye soru at, ben oradan kontrol ederim": kaydir/sgs siteye çıkar (noindex, menüde yok)
+kaydir/*
+!kaydir/sgs/
