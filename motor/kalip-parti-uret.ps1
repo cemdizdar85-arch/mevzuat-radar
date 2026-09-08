@@ -1048,7 +1048,12 @@ function CeldiriciYolKapisi($aday){
     $sol=$par[$par.Count-2]
     # 08.09 B kovası 19: iç eşitlik "(20.000/400=50)" → "(20.000/400)" (iç sonuç dış hesapta yeniden hesaplanır, sahte "çözülemedi" bitti);
     # Unicode eksi (−) ve rakam arası "x" (300x0,50) da aritmetiğe çevrilir. Ölçüm: 07.09 Maliyet kp-01/kp-02 üç sahte tur bu yüzdendi.
-    $solT=$sol -replace '\([^)]*[A-Za-zÇĞİÖŞÜçğıöşü][^)]*\)',' ' -replace '−','-' -replace '–','-' -replace '×','*' -replace '\bx\b','*' -replace '(?i)\b(TL|₺|kg|ton|adet|birim|ay|yıl|yil|gün|gun|saat)\b',' '   # yalnız harf içeren parantez (not) atılır, aritmetik parantez kalır
+    # 08.09 Tur 1 FMuh ölçümü (29 KAPI-Ç tekrar/etiket): "(40.000 x %10)" parantezi, içindeki 'x' HARF sayıldığı için "not" diye siliniyordu → "40000 +" kaldı,
+    # "hesaplanamadı". Sıra düzeltildi: önce çarpım işareti ve birimler temizlenir, SONRA yalnız harf içeren (not) parantezler atılır.
+    $solT=$sol -replace '−','-' -replace '–','-' -replace '×','*'
+    $solT=[regex]::Replace($solT,'(?<=[\d\)%\.])\s*[xX]\s*(?=[\d\(%])','*')
+    $solT=$solT -replace '(?i)\b(TL|₺|kg|ton|adet|birim|ay|yıl|yil|gün|gun|saat)\b',' '
+    $solT=$solT -replace '\([^)]*[A-Za-zÇĞİÖŞÜçğıöşü][^)]*\)',' '   # yalnız harf içeren parantez (not) atılır, aritmetik parantez kalır
     $solT=[regex]::Replace($solT,'\(([^()=]*?)\s*=\s*[\d\.,]+\s*%?\s*\)','($1)')
     $solT=[regex]::Replace($solT,'(?<=[\d\)])\s*[xX]\s*(?=[\d\(%])','*')
     # max/min içindeki argüman virgülü ("max(240.000,300.000)") ondalık virgülle karışmasın: binlik noktalı sayı izliyorsa ayraçtır → ' | ' (sonra geri ',')
