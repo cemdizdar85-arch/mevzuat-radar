@@ -1,12 +1,12 @@
 {
-  "durum": "YESIL",
+  "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 64,
+  "sayfa": 65,
   "temiz_sayfa": 64,
-  "denetlenen_metin": 12874,
-  "toplam_kirik": 0,
-  "denetlenen_sinir": 5222,
+  "denetlenen_metin": 12941,
+  "toplam_kirik": 3,
+  "denetlenen_sinir": 5242,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
@@ -16,5 +16,39 @@
   },
   "gorunmez_sinir_sayfalar": [],
   "olculemeyenler": [],
-  "kirik_sayfalar": []
+  "kirik_sayfalar": [
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "adet": 3,
+      "ornekler": [
+        {
+          "oge": "button.on",
+          "yazi": "💰 Kaça mal olur?",
+          "oran": 1.54,
+          "esik": 4.5,
+          "renk": "rgb(251, 250, 248)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<button class=\"on\" data-b=\"maliyet\">💰 Kaça mal olur?<small>2026 tarifeleriyle, kalem kalem</small></button>"
+        },
+        {
+          "oge": "small",
+          "yazi": "2026 tarifeleriyle, kalem kalem",
+          "oran": 1.54,
+          "esik": 4.5,
+          "renk": "rgb(251, 250, 248)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<small>2026 tarifeleriyle, kalem kalem</small>"
+        },
+        {
+          "oge": "button.sbtn",
+          "yazi": "Limited (LTD)",
+          "oran": 1.54,
+          "esik": 4.5,
+          "renk": "rgb(251, 250, 248)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<button class=\"sbtn on\" data-v=\"ltd\">Limited (LTD)</button>"
+        }
+      ]
+    }
+  ]
 }
