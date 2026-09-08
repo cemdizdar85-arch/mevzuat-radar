@@ -38,6 +38,20 @@
       "kaynak": "Gebze Ticaret Odası 'Tescil Harçları' 2026 sayfası, 08.09.2026 (Esas sözleşme + defter tasdik 4.700 · huzurda imza 500)",
       "kaynakUrl": "https://www.gebzeto.org.tr/tescil-ve-uyelik/tescil-harclari/"
     },
+    "bursa": {
+      "ad": "Bursa (BTSO)",
+      "sicil": { "kurulusHizmetBirlesik": 7550, "kurulusTasdik": null, "defterTasdik": null, "imzaBeyaniKisiBasi": 1200, "ilanGideri": null, "not": "BTSO '2026 Yılı İşlem Ücretleri' (LTD ve AŞ tabloları aynı): 'Kuruluş (Yeni Kayıt)' 7.550 TL tek kalem; 'İmza Beyannamesi' 1.200 TL; sicil tasdiknamesi 1.095,80 TL. Defter tasdiki ayrı yazmıyor: kuruluş bedeline dahil mi, müdürlüğe sor." },
+      "kayit": { "tip": null, "not": "BTSO 2026 kayıt ücreti tarifesi sitede bulunamadı; ölçülmedi, odaya sor." },
+      "kaynak": "BTSO '2026 Yılı İşlem Ücretleri' PDF (Ticaret Sicili Tescil İşlemleri), 08.09.2026",
+      "kaynakUrl": "https://www.btso.org.tr/documents/services/Ticaret%20Sicili%20Tescil%20%C4%B0%C5%9Flemleri/Anonim%20%C5%9Eirket/Y%C3%B6netim%20Kurulu%20Se%C3%A7imi/2026%20Y%C4%B1l%C4%B1%20%C4%B0%C5%9Flem%20%C3%9Ccretleri.pdf"
+    },
+    "gaziantep": {
+      "ad": "Gaziantep (GTO)",
+      "sicil": { "tahminiToplam": [16000, 22000], "not": "GTO 2026 'Tescil İşlemleri Fiyat Listesi (tahmini)': LTD kuruluş (yeni kayıt) 16.000–22.000 TL + sermayenin on binde 4'ü Rekabet Kurumu payı. Oda kalem kalem vermiyor, TÜM sicil + oda kalemlerini tek aralıkta veriyor; 'tahmini, artış/azalış olabilir' notu var." },
+      "kayit": { "tip": "dahil", "not": "Odanın tahmini aralığına dahil." },
+      "kaynak": "Gaziantep TO 'Limited Şirket Tescil İşlemleri Fiyat Listesi 2026 (tahmini)', 08.09.2026",
+      "kaynakUrl": "https://www.gto.org.tr/tr/ticaret-sicil/tescil-islemleri-fiyat-listesi-2026-yili-tahmini/limited-sirket-tescil-islemleri-fiyat-listesi-4.html"
+    },
     "corlu": {
       "ad": "Çorlu (ÇTSO, Tekirdağ-Çorlu)",
       "sicil": { "kurulusTasdik": null, "defterTasdik": 2500, "imzaBeyaniKisiBasi": 1000, "ilanGideri": null },

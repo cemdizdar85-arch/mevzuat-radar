@@ -47,6 +47,9 @@ $kaynaklar += @{ ad='Gebze TO tescil harclari'; url=$O.odalar.gebze.kaynakUrl; t
   bekle=@( (TrPara $O.odalar.gebze.sicil.sozlesmeVeDefterBirlesik), (TrPara $O.odalar.gebze.sicil.imzaBeyaniKisiBasi), (TrPara $O.odalar.gebze.kayit.basamaklar[0][1]) ) }
 $kaynaklar += @{ ad='ATSO harc-ilan-kayit'; url=$O.odalar.antalya.kaynakUrl; tur='html';
   bekle=@( (TrPara $O.odalar.antalya.sicil.sozlesmeVeDefterBirlesik), (TrPara $O.odalar.antalya.sicil.imzaBeyaniKisiBasi), (TrPara $O.odalar.antalya.kayit.sabit) ) }
+$kaynaklar += @{ ad='BTSO 2026 islem ucretleri (PDF)'; url=$O.odalar.bursa.kaynakUrl; tur='pdf' }
+$kaynaklar += @{ ad='Gaziantep TO LTD fiyat listesi'; url=$O.odalar.gaziantep.kaynakUrl; tur='html';
+  bekle=@( "$($O.odalar.gaziantep.sicil.tahminiToplam[0])", "$($O.odalar.gaziantep.sicil.tahminiToplam[1])" ) }
 $kaynaklar += @{ ad='ATO kayit ucreti tarifesi'; url=$O.odalar.ankara.kaynakUrl; tur='html';
   bekle=@( (TrPara $O.odalar.ankara.kayit.tutar) ) }
 # IZTO sayfasi icerigi JS ile ciziyor: ham HTML'de rakam yok (runner'da da olculdu, 08.09).

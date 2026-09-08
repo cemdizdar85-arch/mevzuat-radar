@@ -335,7 +335,14 @@ function maliyetHesapla(){
   const kay = oda ? oda.kaynak : 'İTO 2026 tarifesi; kendi ilinin sicil müdürlüğüne sor';
   const olc = (ad,alt)=>{ html+=satir(ad,'<span class="olculmedi">ölçülmedi</span>','',alt||(odaAd+' tarifesinde bu kalem ayrı yazmıyor; sicil müdürlüğüne sor')); };
   html+=satir('Ticaret sicili kuruluş harcı', '0 TL', 'Harçlar K. m.123/3', 'AŞ/LTD kuruluşu harçtan ve damga vergisinden müstesna (492 s.K. m.123/3; 488 s.K. 2 sayılı tablo IV/16)');
-  if(sc.kurulusTasdik!=null && sc.defterTasdik!=null){
+  // Bazı odalar (Gaziantep) kalem kalem değil, sicil+oda toplamını tek aralık olarak veriyor.
+  const tahminiAralik = (sc.tahminiToplam && sc.tahminiToplam.length===2) ? sc.tahminiToplam : null;
+  if(tahminiAralik){
+    const orta=(tahminiAralik[0]+tahminiAralik[1])/2;
+    ekle(`Sicil + oda kalemleri, odanın kendi tahmini aralığı (${TL(tahminiAralik[0])}–${TL(tahminiAralik[1])} TL; ortası alındı)`, orta, kay, odaAd+'. '+(sc.not||''));
+  }
+  if(tahminiAralik){ /* kalem kalem satır yok */ }
+  else if(sc.kurulusTasdik!=null && sc.defterTasdik!=null){
     ekle('Kuruluş tasdik ücreti (sicil müdürlüğü)', sc.kurulusTasdik, kay, odaAd);
     ekle('Kuruluş defter tasdiki (yevmiye, kebir, envanter, pay, karar, GK defterleri)', sc.defterTasdik, kay, odaAd);
   } else if(sc.sozlesmeVeDefterBirlesik!=null){
@@ -347,15 +354,18 @@ function maliyetHesapla(){
     if(sc.defterTasdik!=null) ekle('Kuruluş defter tasdiki', sc.defterTasdik, kay, odaAd); else olc('Kuruluş defter tasdiki');
     olc('Kuruluş tasdik ücreti');
   }
-  if(sc.imzaBeyaniKisiBasi!=null) ekle(`Huzurda imza beyannamesi × ${kisi} kişi`, sc.imzaBeyaniKisiBasi*kisi, kay, odaAd+'; sicil müdürlüğünde verilir, noter gerekmez'); else olc(`Huzurda imza beyannamesi × ${kisi} kişi`);
+  if(tahminiAralik){ /* imza da aralığa dahil */ }
+  else if(sc.imzaBeyaniKisiBasi!=null) ekle(`Huzurda imza beyannamesi × ${kisi} kişi`, sc.imzaBeyaniKisiBasi*kisi, kay, odaAd+'; sicil müdürlüğünde verilir, noter gerekmez'); else olc(`Huzurda imza beyannamesi × ${kisi} kişi`);
   const ilan = tekno ? I.teknogirisimDestekliKurulus : kelime*I.sirketKurulusKelime;
   ekle(`TTSG kuruluş ilanı ${tekno?'(teknogirişim destekli)':`(${kelime} kelime × ${TLk(I.sirketKurulusKelime)} TL)`}`, ilan, 'TTSG ilan tarifesi 01.01.2026 (ülke geneli)', tekno?'':'⚠ kelime sayısı tahmindir, MERSİS metninle değişir; ücret bir kez alınır, ilan üç kez yayımlanır');
-  if(sc.ilanGideri!=null) ekle('İlan giderleri / gazete ilan hizmet bedeli', sc.ilanGideri, kay, odaAd); else olc('İlan giderleri ücreti');
+  if(tahminiAralik){ /* aralığa dahil */ }
+  else if(sc.ilanGideri!=null) ekle('İlan giderleri / gazete ilan hizmet bedeli', sc.ilanGideri, kay, odaAd); else olc('İlan giderleri ücreti');
   const rk = sermaye*M.rekabetKurumuPayi.oran;
   ekle(`Rekabet Kurumu payı (sermayenin on binde 4'ü)`, rk, '4054 s.K. m.39/1-c (ülke geneli)');
   // ODA KAYIT ÜCRETİ — il'e bağlı; ölçülen odada TOPLAMA girer
   let kayitHtml=null;
-  if(oda && oda.kayit && oda.kayit.tip){
+  if(oda && oda.kayit && oda.kayit.tip==='dahil'){ /* odanın tahmini aralığına dahil, ayrı satır yok */ }
+  else if(oda && oda.kayit && oda.kayit.tip){
     const K=oda.kayit; let tutar=null, alt=K.not||'';
     if(K.tip==='sabit'){ tutar=K.tutar + (K.ek||0); if(K.ek) alt=`${TL(K.tutar)} + ${TL(K.ek)} ${K.ekAd||''}. `+alt; }
     else if(K.tip==='derece'){ const b=K.basamaklar.find(x=>x[0]===null || sermaye<=x[0]); tutar=b?b[1]:null; }
