@@ -211,8 +211,27 @@ function ConvertTo-AnthropicIcerik($icerik){
   return ,$out
 }
 
+# 08.09 İSTEM ÖNBELLEĞİ (Cem "önbelleği aç"; pilot6: "önbellek okuma 0"). Tek metin bloğu iki parçaya bölünür: ÖNEK (kural bloğu, her soruda
+# aynı) cache_control=ephemeral ile gider (okuma girdi fiyatının %10'u, yazma %125), KALAN (soru/kaynak) normal. Bölme yeri: çağıran metne
+# $global:MEVZUAT_ONBELLEK_SINIR işaretini koyar; işaret yoksa ilk "\n=== " bölüm başlığı. Önek eşiğin altındaysa (Sonnet/Opus ≈1.024 jeton
+# ≈3.500 kr, Haiku ≈2.048 jeton ≈7.000 kr) bölünmez (Anthropic kısa öneği zaten önbelleğe almaz). MEVZUAT_ONBELLEK=0 kapatır.
+$global:MEVZUAT_ONBELLEK_SINIR = '<<<DEGISKEN>>>'
+function Split-OnbellekBloklari([array]$icerik,[string]$model){
+  $bloklar = @(ConvertTo-IcerikBloklari $icerik | ForEach-Object { $_ })   # ",$out" dönüşü @() ile iç içe dizi oluyor (ölçüldü: [0] Object[]) → boru düzleştirir
+  $kapali = ("$(Read-ApiEnv 'MEVZUAT_ONBELLEK')" -eq '0')
+  if($bloklar.Count -ne 1 -or -not ($bloklar[0] -is [hashtable]) -or -not $bloklar[0].ContainsKey('text')){ return ,$bloklar }
+  $t = [string]$bloklar[0].text; $sinir = $global:MEVZUAT_ONBELLEK_SINIR
+  $on = ''; $kal = $t
+  $i = $t.IndexOf($sinir)
+  if($i -ge 0){ $on = $t.Substring(0,$i); $kal = $t.Substring($i + $sinir.Length) }
+  else { $j = $t.IndexOf("`n=== "); if($j -gt 0){ $on = $t.Substring(0,$j); $kal = $t.Substring($j) } }
+  $esik = $(if($model -match 'haiku'){ 7000 } else { 3500 })
+  if($kapali -or -not $on -or $on.Length -lt $esik){ return ,@(@{ type='text'; text=($on + $kal) }) }
+  return ,@(@{ type='text'; text=$on; cache_control=@{ type='ephemeral' } }, @{ type='text'; text=$kal })
+}
+
 function Invoke-AnthropicAnlik([string]$model,[array]$icerik,[int]$maxTok,$hedef){
-  $temiz = ConvertTo-AnthropicIcerik $icerik
+  $temiz = ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $icerik $model)
   $g = @{ model=$model; max_tokens=$maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
   # 07.09 ölçüldü (maliyet-zor2): Sonnet 5'te thinking verilmezse UYARLANABİLİR DÜŞÜNME açık ve düşünme jetonları max_tokens'tan
   # yenir → 20.000 çıktı jetonu harcanıp 2.588 karakter metin döndü, JSON kesildi. Sonnet 5 / Opus 5'te düşünme derinliği
@@ -395,7 +414,7 @@ function Invoke-ClaudeToplu {
   $hedef = Get-TopluBasliklar
   $req = @()
   foreach($i in @($Isler)){
-    $temiz = ConvertTo-AnthropicIcerik (ConvertTo-IcerikBloklari $i.icerik)
+    $temiz = ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $i.icerik "$($i.model)")   # 08.09 önbellek: toplu istekte de önek işaretli
     $g = @{ model="$($i.model)"; max_tokens=[int]$i.maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
     if("$($i.model)" -match 'sonnet-5|opus-5'){ $ef = Read-ApiEnv 'MEVZUAT_EFFORT'; if(-not $ef){ $ef = 'medium' }; $g.output_config = @{ effort = $ef } }
     $req += @{ custom_id="$($i.id)"; params=$g }
@@ -426,8 +445,9 @@ function Add-BedelKaydi([string]$model,$y){
     if(-not $global:MEVZUAT_BEDEL.ContainsKey($model)){ $global:MEVZUAT_BEDEL[$model] = @{ cagri=0; girdi=0; cikti=0; onOku=0; onYaz=0 } }
     $b = $global:MEVZUAT_BEDEL[$model]; $b.cagri++
     $b.girdi += [int]"$($y.girdi)"; $b.cikti += [int]"$($y.cikti)"
-    if($y.PSObject.Properties['onbellekOkuma']){ $b.onOku += [int]"$($y.onbellekOkuma)" }
-    if($y.PSObject.Properties['onbellekYazma']){ $b.onYaz += [int]"$($y.onbellekYazma)" }
+    # 08.09 ölçüldü: $y hashtable → PSObject.Properties anahtarları görmez, önbellek jetonları hiç sayılmıyordu ("hiç okunmadı" notu sahteydi)
+    $oOkuV = $(if($y -is [hashtable]){ $y['onbellekOkuma'] } else { $y.onbellekOkuma }); if($null -ne $oOkuV){ $b.onOku += [int]"$oOkuV" }
+    $oYazV = $(if($y -is [hashtable]){ $y['onbellekYazma'] } else { $y.onbellekYazma }); if($null -ne $oYazV){ $b.onYaz += [int]"$oYazV" }
   }catch{}
 }
 function Get-BedelFiyat{

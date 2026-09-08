@@ -1148,6 +1148,7 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
    olan 100.000 TL'lik temmuz ayi kira tutarini %20 gelir vergisi kesintisi (stopaj)
    yaptiktan sonra banka araciligiyla odemistir. Soz konusu isleme iliskin muhasebe kaydi
    asagidakilerden hangisidir?" - ZORLUK AYRIMDA olur, kelime sayisinda DEGIL.
+<<<DEGISKEN>>>
 10. SORU TIPI (02.09 - gercek sinavin tip dagilimindan gelen kota): {TIP_TARIF}
 11. SINAV DILI (03.09 - 1.042 cikmis kitapcik olculdu, veri: SINAV-DILI-SOZLUGU):
 {DIL}
@@ -1930,7 +1931,8 @@ foreach($id in @($don.Keys)){
     $ist2=$adimIstemTeori.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{TESHIS}',$teshisM).Replace('{KAYNAK}',$kayM)
     Write-Host "  ADIM İSTEMİ: teori dersi (bir olay, beş karar) $id" -ForegroundColor DarkGray
   } else {
-  $ist2=$adimIstem.Replace('{SORUM}',"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $tabloAdim -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))")
+  # 08.09 önbellek: adım kural bloğu (≈13.000 kr, her soruda aynı) önek, soru metninden itibaren değişken (api-hedef Split-OnbellekBloklari)
+  $ist2=$adimIstem.Replace('{SORUM}',$global:MEVZUAT_ONBELLEK_SINIR+"$($cvp.soru)").Replace('{TABLO}',(ConvertTo-Json -InputObject $tabloAdim -Depth 5 -Compress)).Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))")
   # 03.09 "konuyu soruyla ogretelim": sorudaki hesaplarin Tekduzen Hesap Plani tanimlari (ambar) isteme eklenir;
   # "X nedir?" adimlari uydurma degil bu metinden yazilir. Supabase okumasi, model bedeli yok.
   $kodlarA=New-Object 'System.Collections.Generic.HashSet[string]'
