@@ -151,3 +151,30 @@ jobs:
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
           RESEND_YANIT: ${{ secrets.RESEND_YANIT }}
         run: node motor/marka-uyari.js
+
+      # 08.09: RAKIP NOBETI + YAYIM YAKALAMA, BULTENDEN. Eskiden ikisi de
+      # TMview'e gidiyordu (marka-portfoy-hasat.ps1 -Rakip, marka-portfoy-durum);
+      # TMview 30.08'den beri kapali, ikisi de sessizce oluydu. Ambar her gece
+      # doldugu icin yem burada. Ilk kosu TEMEL (uyari yok), sonra yalniz yeni.
+      # if: always() -> ustteki mail adimi dusse bile bu bacak calisir.
+      - name: Bulten nobeti (rakip + yayim)
+        if: always()
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          RESEND_YANIT: ${{ secrets.RESEND_YANIT }}
+        run: node motor/marka-bulten-nobet.js
+
+      - name: Nobet raporunu yayinla
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/marka-bulten-nobet-raporu.json || true
+          git diff --cached --quiet || git commit -m "Bulten nobeti raporu [veri-operasyonu]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash || true
+            if git push; then echo "rapor islendi (deneme $i)"; break; fi
+            echo "push tutmadi (deneme $i)"; sleep 7
+          done
