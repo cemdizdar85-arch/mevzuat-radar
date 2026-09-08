@@ -58,7 +58,9 @@ $rapor | ForEach-Object { "  $_" }
 if($Yaz){
   $py=Join-Path $kok "veri\sinav\plan-$Ad.json"
   # PS 5.1: tek satırlık plan ConvertTo-Json ile nesneye çöker → dizi sarmalı korunur
-  $json=$(if($yeni.Count -eq 1){ '['+(ConvertTo-Json $yeni[0] -Depth 5)+']' } else { ConvertTo-Json @($yeni) -Depth 5 })
+  # PS 5.1: List[object] doğrudan ConvertTo-Json'a verilince "Bağımsız değişken türleri eşleşmiyor" (00:38 yaşandı, boş plan yazıldı) → ToArray + -InputObject
+  $dizi=@($yeni.ToArray())
+  $json=$(if($dizi.Count -eq 1){ '['+(ConvertTo-Json -InputObject $dizi[0] -Depth 5)+']' } else { ConvertTo-Json -InputObject $dizi -Depth 5 })
   [IO.File]::WriteAllText($py,$json,[Text.UTF8Encoding]::new($false))
   "  yazıldı: $py ($($yeni.Count) satır, $topDusen soru) + $($yeni.Count) konu dosyası"
   "  başlatma: powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-$Ad.json   (MEVZUAT_TOPLU=0 anlık modda)"
