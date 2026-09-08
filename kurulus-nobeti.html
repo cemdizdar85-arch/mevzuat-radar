@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor, unvanın geçer mi, ortaklar sözleşmen | Tetikte</title>
-<meta name="description" content="Şirket kurmadan önce dört soru: kaça mal olur (2026 tarifeleriyle, kaynaklı), ilk 12 ayda hangi tarihte ne yapacaksın (takvimine ekle), seçtiğin unvan tescile takılır mı, ortaklar sözleşmen hazır mı. Şahıs, limited, anonim.">
+<title>Şirket kurmak 2026'da kaça mal olur? İzmir, İstanbul, Ankara, Antalya, Bursa il il, kaynaklı | Kuruluş Nöbeti | Tetikte</title>
+<meta name="description" content="İzmir'de limited kurmak 2026'da kaça mal olur? İl il sicil ve oda tarifeleriyle, her satırda kaynağıyla hesapla. Sonra ilk 12 ayın tarihli takvimini telefonuna ekle, unvanının tescile takılıp takılmayacağını gör, ortaklar sözleşmesi taslağını al.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/kurulus-nobeti.html">
-<meta property="og:title" content="Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor">
+<meta property="og:title" content="Şirket kurmak 2026'da kaça mal olur? İl il, kaynaklı — Kuruluş Nöbeti">
 <meta property="og:description" content="2026 tarifeleriyle kuruluş maliyeti, ilk 12 ay takvimi (ICS), unvan kontrolü ve ortaklar sözleşmesi taslağı. Şahıs, limited, anonim.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor">
+<meta name="twitter:title" content="Şirket kurmak 2026'da kaça mal olur? İl il, kaynaklı — Kuruluş Nöbeti">
 <meta name="twitter:description" content="2026 tarifeleriyle kuruluş maliyeti, ilk 12 ay takvimi, unvan kontrolü ve ortaklar sözleşmesi taslağı.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <meta name="theme-color" content="#1b1a18">
@@ -132,7 +132,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
         </div>
       </div>
       <label class="et">Nerede kuracaksın? <small>(sicil müdürlüğü hizmet ücretleri ve oda kayıt ücreti il il değişir; ölçtüğümüz odalar listede)</small></label>
-      <select id="mOda"><option value="diger">Başka il / henüz bilmiyorum (İstanbul tarifesi referans)</option></select>
+      <select id="mOda"><option value="buyuk">Başka büyükşehir, listede yok (İzmir tarifesi referans: yasal tavanda, bundan pahalı olmaz)</option><option value="diger">Küçük il / henüz bilmiyorum (ölçülen odaların en düşük–en yüksek aralığı)</option></select>
       <div class="iki" id="mSirketAlan">
         <div><label class="et">Sermaye (TL) <small id="mSermayeNot"></small></label><input type="number" id="mSermaye" inputmode="numeric" min="0" step="1000"></div>
         <div><label class="et">Huzurda imza beyanı verecek kişi sayısı <small>(müdür / yönetim kurulu üyesi)</small></label><input type="number" id="mKisi" value="1" min="1" max="20"></div>
@@ -273,7 +273,26 @@ const secili = id => { const b=document.querySelector('#'+id+' .sbtn.on'); retur
 // Yedek (FBM) aynı 08.09.2026 değerleridir; dosya gelmezse sayfa kör kalmaz ama
 // damga "yedek" der.
 let M=null, SABIT=null, ODA=null;   // ODA: veri/oda-tarifeleri.json — il'e bağlı iki kalem (sicil hizmet ücretleri + oda kayıt ücreti)
-fetch('veri/oda-tarifeleri.json').then(r=>r.json()).then(j=>{ ODA=j; const s=document.getElementById('mOda'); const diger=s.querySelector('option[value="diger"]'); Object.keys(j.odalar).forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=j.odalar[k].ad; s.insertBefore(o, diger); }); s.value='diger'; }).catch(()=>{});
+fetch('veri/oda-tarifeleri.json').then(r=>r.json()).then(j=>{ ODA=j; const s=document.getElementById('mOda'); const ilk=s.querySelector('option[value="buyuk"]'); Object.keys(j.odalar).forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=j.odalar[k].ad; s.insertBefore(o, ilk); }); s.value='diger'; }).catch(()=>{});
+// Bir odanın sicil + kayıt kalemleri toplamı (ölçülmüş olanlar); "küçük il / bilmiyorum" aralığı için.
+function odaToplam(o, sermaye, kisi){
+  const sc=o.sicil||{}; let t=0, eksik=[];
+  if(sc.tahminiToplam) t += (sc.tahminiToplam[0]+sc.tahminiToplam[1])/2;
+  else {
+    if(sc.kurulusTasdik!=null && sc.defterTasdik!=null) t+=sc.kurulusTasdik+sc.defterTasdik;
+    else if(sc.sozlesmeVeDefterBirlesik!=null) t+=sc.sozlesmeVeDefterBirlesik;
+    else if(sc.kurulusHizmetBirlesik!=null) t+=sc.kurulusHizmetBirlesik;
+    else eksik.push('tasdik');
+    if(sc.imzaBeyaniKisiBasi!=null) t+=sc.imzaBeyaniKisiBasi*kisi; else eksik.push('imza');
+    if(sc.ilanGideri!=null) t+=sc.ilanGideri;
+  }
+  const K=o.kayit||{};
+  if(K.tip==='sabit') t+=K.tutar+(K.ek||0);
+  else if(K.tip==='derece'){ const b=K.basamaklar.find(x=>x[0]===null || sermaye<=x[0]); if(b) t+=b[1]; }
+  else if(K.tip==='formul') t+=K.sabit+Math.min(K.ustLimit, Math.max(K.enAz, sermaye*K.sermayeBinde/1000));
+  else if(K.tip!=='dahil') eksik.push('kayıt');
+  return {t, eksik};
+}
 const FBM = {yil:2026, sicilHarclari:{sahisKurulus:5466.10, sahisSicilTasdiknamesi:895.80},
   sicilHizmetUcretleri:{kurulusTasdik:2160, kurulusDefterTasdiki:2760, huzurdaImzaBeyannamesiKisiBasi:1720, ilanGiderleri:250},
   ttsgIlan:{sirketKurulusKelime:2.48, gercekKisiTicareteBaslamaMaktu:708, teknogirisimDestekliKurulus:0.01, varsayilanKelime:1200},
@@ -342,18 +361,35 @@ function maliyetHesapla(){
   // oda kayıt ücreti il'e bağlı. Ölçülen oda seçildiyse onun tarifesi; "diğer" ise İstanbul
   // tarifesi REFERANS diye işaretlenir, kayıt ücreti "ölçülmedi" kalır.
   const odaKod = document.getElementById('mOda').value;
-  const oda = (ODA && ODA.odalar[odaKod]) ? ODA.odalar[odaKod] : null;
   ttOlay('kurulus-maliyet/'+t+'/'+odaKod);
-  const odaAd = oda ? oda.ad : 'İstanbul tarifesi (referans)';
-  const sc = oda ? oda.sicil : { kurulusTasdik:Z.kurulusTasdik, defterTasdik:Z.kurulusDefterTasdiki, imzaBeyaniKisiBasi:Z.huzurdaImzaBeyannamesiKisiBasi, ilanGideri:Z.ilanGiderleri };
-  const kay = oda ? oda.kaynak : 'İTO 2026 tarifesi; kendi ilinin sicil müdürlüğüne sor';
+  // 08.09 Cem: "bulamadıklarımızı büyük ilse İzmir'i dikkate alarak" —
+  //  buyuk = İzmir tarifesi referans (kuruluş imzalama ücreti Tebliğ m.16 tavanında, defter seti ölçülenlerin en yükseği:
+  //          "bundan pahalı olmaz" üst sınırı);
+  //  diger = ölçülen odaların en düşük–en yüksek aralığı, toplama ortası (küçük il / bilinmiyor).
+  const aralikModu = (odaKod==='diger' && ODA);
+  let oda = (ODA && ODA.odalar[odaKod]) ? ODA.odalar[odaKod] : null;
+  if(odaKod==='buyuk' && ODA && ODA.odalar.izmir) oda = Object.assign({}, ODA.odalar.izmir, { ad:'Başka büyükşehir · İzmir tarifesi referans (yasal tavan, üst sınır)' });
+  const odaAd = aralikModu ? 'Ölçülen 8 odanın aralığı' : (oda ? oda.ad : 'İstanbul tarifesi (referans)');
+  const sc = aralikModu ? {} : (oda ? oda.sicil : { kurulusTasdik:Z.kurulusTasdik, defterTasdik:Z.kurulusDefterTasdiki, imzaBeyaniKisiBasi:Z.huzurdaImzaBeyannamesiKisiBasi, ilanGideri:Z.ilanGiderleri });
+  const kay = aralikModu ? 'veri/oda-tarifeleri.json, 8 oda, 08.09.2026' : (oda ? oda.kaynak : 'İTO 2026 tarifesi; kendi ilinin sicil müdürlüğüne sor');
+  let aralikHtml=null;
+  if(aralikModu){
+    const liste = Object.keys(ODA.odalar).map(k=>({ad:ODA.odalar[k].ad, ...odaToplam(ODA.odalar[k], sermaye, kisi)})).filter(x=>x.eksik.length===0 || x.t>0);
+    const tam = liste.filter(x=>x.eksik.length===0);
+    const kaynakListe = (tam.length>=3 ? tam : liste).sort((a,b)=>a.t-b.t);
+    const enAz=kaynakListe[0], enCok=kaynakListe[kaynakListe.length-1];
+    const orta=(enAz.t+enCok.t)/2;
+    sc.tahminiToplam=[enAz.t, enCok.t];
+    sc.not=`En düşük ${enAz.ad.split(' (')[0]} (${TL(enAz.t)} TL), en yüksek ${enCok.ad.split(' (')[0]} (${TL(enCok.t)} TL); yalnız tüm kalemleri ölçülmüş odalar sayıldı. Küçük ilde alt uca, büyükşehirde üst uca yakın çıkar. Toplama aralığın ortası alındı; kendi sicil müdürlüğüne sor.`;
+    oda = { ad: odaAd, sicil: sc, kayit:{tip:'dahil'}, kaynak: kay };
+  }
   const olc = (ad,alt)=>{ html+=satir(ad,'<span class="olculmedi">ölçülmedi</span>','',alt||(odaAd+' tarifesinde bu kalem ayrı yazmıyor; sicil müdürlüğüne sor')); };
   html+=satir('Ticaret sicili kuruluş harcı', '0 TL', 'Harçlar K. m.123/3', 'AŞ/LTD kuruluşu harçtan ve damga vergisinden müstesna (492 s.K. m.123/3; 488 s.K. 2 sayılı tablo IV/16)');
   // Bazı odalar (Gaziantep) kalem kalem değil, sicil+oda toplamını tek aralık olarak veriyor.
   const tahminiAralik = (sc.tahminiToplam && sc.tahminiToplam.length===2) ? sc.tahminiToplam : null;
   if(tahminiAralik){
     const orta=(tahminiAralik[0]+tahminiAralik[1])/2;
-    ekle(`Sicil + oda kalemleri, odanın kendi tahmini aralığı (${TL(tahminiAralik[0])}–${TL(tahminiAralik[1])} TL; ortası alındı)`, orta, kay, odaAd+'. '+(sc.not||''));
+    ekle(`Sicil hizmet ücretleri + oda kayıt ücreti${aralikModu?', ölçülen odalarda':', odanın kendi tahmini aralığı'} (${TL(tahminiAralik[0])}–${TL(tahminiAralik[1])} TL; ortası alındı)`, orta, kay, odaAd+'. '+(sc.not||''));
   }
   if(tahminiAralik){ /* kalem kalem satır yok */ }
   else if(sc.kurulusTasdik!=null && sc.defterTasdik!=null){
