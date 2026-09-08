@@ -27,15 +27,17 @@ if(-not $tumKasa){
 }
 $kayitlar = New-Object System.Collections.Generic.List[object]
 $SAYFA = 400   # 500 hatasi: tablo/yevmiye kolonlariyla 1000'lik sayfa agir geliyor
+$sonId = ''   # 08.09: offset -> imlec (id=gt.); bos sayfa = bitti (offset'te "sonraki sayfayi dene" mantigi imlecte anlamsiz)
 for($of=0; $of -lt 40000; $of+=$SAYFA){
   $j = $null
   for($d=1; $d -le 3; $d++){
     try{
-      $r = Invoke-WebRequest -UseBasicParsing -Uri "$ADRES/soru_havuzu?select=id,ders,soru,aciklama,tablo,yevmiye&order=id&limit=$SAYFA&offset=$of" -Headers $B -TimeoutSec 180
+      $r = Invoke-WebRequest -UseBasicParsing -Uri "$ADRES/soru_havuzu?select=id,ders,soru,aciklama,tablo,yevmiye$(if($sonId){"&id=gt.$sonId"})&order=id&limit=$SAYFA" -Headers $B -TimeoutSec 180
       $j = ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json); break
-    } catch { if($d -eq 3){ Write-Host ("  UYARI: offset {0} cekilemedi ({1}) - atlandi" -f $of, $_.Exception.Message); $j=@() } else { Start-Sleep -Seconds (2*$d) } }
+    } catch { if($d -eq 3){ Write-Host ("  UYARI: sayfa (son id {0}) cekilemedi ({1}) - durduruldu" -f $sonId, $_.Exception.Message); $j=@() } else { Start-Sleep -Seconds (2*$d) } }
   }
-  if(@($j).Count -eq 0){ if($of -gt 30000){ break } else { continue } }
+  if(@($j).Count -eq 0){ break }
+  $sonId = "$(@($j)[-1].id)"
   foreach($s in $j){ if($null -eq $hedefSet -or $hedefSet.ContainsKey("$($s.id)")){ $kayitlar.Add($s) } }
   if(@($j).Count -lt $SAYFA){ break }
 }

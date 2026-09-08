@@ -71,10 +71,11 @@ $TASINACAK = @('karantina','karantina-red','kasa-mukerrer','katman1-temiz')
 
 # --- kasada zaten olan kimlikler (ayni soru iki kez girmesin)
 $mevcut = @{}
-$bas = 0
+$bas = 0; $sonId = ''
 while($true){
-  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&order=id&offset=$bas&limit=1000" -Headers $H -TimeoutSec 180
+  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 180
   $d = @($s); if($d.Count -eq 0){ break }
+  $sonId = "$($d[$d.Count-1].id)"   # 08.09: offset -> imlec
   foreach($x in $d){ $mevcut["$($x.id)"] = 1 }
   if($d.Count -lt 1000){ break }
   $bas += 1000
@@ -142,10 +143,11 @@ for($i=0; $i -lt $aday.Count; $i += $PARTI){
 # Depodaki ders: 'yesil kosu tam veri demek DEGIL' (45x cift kayit + 3.162
 # kaydin sessiz kaybi boyle cikmisti). Silmeden once SAYARAK bak.
 $dogru = @{}
-$bas = 0
+$bas = 0; $sonId = ''
 while($true){
-  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&order=id&offset=$bas&limit=1000" -Headers $H -TimeoutSec 180
+  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 180
   $d = @($s); if($d.Count -eq 0){ break }
+  $sonId = "$($d[$d.Count-1].id)"   # 08.09: offset -> imlec
   foreach($x in $d){ if($yuklenen.ContainsKey("$($x.id)")){ $dogru["$($x.id)"] = 1 } }
   if($d.Count -lt 1000){ break }
   $bas += 1000

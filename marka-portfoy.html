@@ -128,7 +128,7 @@ function durumHesap(m){
     var acilis=ay(gercekBitis,-6), ek=ay(gercekBitis,6);
     r.satirlar.push('Koruma bitişi (+10 yıl): <b>'+fmt(gercekBitis)+'</b>');
     if(bugun<acilis){ var k=gun(acilis,bugun); r.satirlar.push('✅ Güvende — yenileme penceresi <b>'+fmt(acilis)+'</b> açılır ('+k+' gün sonra).'); if(r.renk==='n')r.renk='g'; r.enYakin=Math.min(r.enYakin,k); }
-    else if(bugun<gercekBitis){ var k2=gun(gercekBitis,bugun); r.satirlar.push('⚠️ <b style="color:var(--amber)">Yenileme penceresi AÇIK</b> — normal ücretle son gün <b>'+fmt(gercekBitis)+'</b>, '+k2+' gün. Kaçırma!'); r.renk='a'; r.enYakin=Math.min(r.enYakin,k2); }
+    else if(bugun<gercekBitis){ var k2=gun(gercekBitis,bugun); r.satirlar.push('⚠️ <b style="color:var(--amber)">Yenileme penceresi AÇIK</b> — normal ücretle son gün <b>'+fmt(gercekBitis)+'</b>, '+k2+' gün. Kaçırma! Yenileme: talep formu + ücret ödendi bilgisi, bir taleple tek marka (SMK Uyg. Yön. m.18).'); r.renk='a'; r.enYakin=Math.min(r.enYakin,k2); }
     else if(bugun<ek){ var k3=gun(ek,bugun); r.satirlar.push('🔴 <b style="color:var(--red)">EK SÜREDE</b> (ek ücretli) — son <b>'+fmt(ek)+'</b>, '+k3+' gün. Bugün vekiline koş, yoksa marka düşer.'); r.renk='r'; r.enYakin=Math.min(r.enYakin,k3); }
     else { r.satirlar.push('ℹ️ Süre dolmuş; yenilediysen sonraki döneme geç, yenilemediysen düşmüş olabilir (m.28) — sicili teyit et.'); r.renk='a'; }
   }

@@ -106,13 +106,14 @@ $reAk = [regex]'(?:Akılda kalsın|AKILDA KALSIN|Akilda kalsin)\s*:\s*(.+)$'
 
 # --- 1) HEDEF LISTESI: canli kasadan yeniden olc ---------------------------
 $hedef = New-Object System.Collections.Generic.List[object]   # {id; soru; dogruMetin; dogruGerekce; eskiHap}
-$offset = 0; $sayfa = 1000; $taranan = 0
+$offset = 0; $sayfa = 1000; $taranan = 0; $sonId = ''   # 08.09: offset -> imlec (id=gt.)
 while($true){
-  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,soru,siklar,dogru,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,soru,siklar,dogru,aciklama,hap$(if($sonId){"&id=gt.$sonId"})&order=id&limit=$sayfa"
   $hw = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $SBH -TimeoutSec 120
   $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
   $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
   if(-not $parti.Count){ break }
+  $sonId = "$($parti[-1].id)"
   foreach($s in $parti){
     $taranan++
     $hapM = "$($s.hap)"

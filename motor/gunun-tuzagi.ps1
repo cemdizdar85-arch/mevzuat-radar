@@ -64,11 +64,12 @@ Write-Host ("Gecmiste paylasilan: {0}" -f $gecmisKume.Count)
 
 # --- aday havuzu: yayinda + alanlari tam ---
 # order= SART (PostgREST sayfalamasinda order yoksa satirlar tekrarlanir/atlanir - 27.07 dersi)
-$adaylar = @()
+$adaylar = @(); $sonId = ''   # 08.09: offset -> imlec (id=gt.)
 for($ofs = 0; $ofs -lt 4000; $ofs += 1000){
-  $parca = Getir ("{0}/rest/v1/soru_havuzu?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,kaynak&yayin=eq.true&order=id&limit=1000&offset={1}" -f $SB, $ofs)
+  $parca = Getir ("{0}/rest/v1/soru_havuzu?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,kaynak&yayin=eq.true{1}&order=id&limit=1000" -f $SB, $(if($sonId){"&id=gt.$sonId"}else{""}))
   if($parca.Count -eq 0){ break }
   $adaylar += $parca
+  $sonId = "$($parca[-1].id)"
   if($parca.Count -lt 1000){ break }
 }
 Write-Host ("Yayindaki soru (taranan): {0}" -f $adaylar.Count)

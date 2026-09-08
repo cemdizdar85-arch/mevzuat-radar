@@ -44,14 +44,16 @@ $RESMI = @(
 
 Write-Host "AMBAR DENETIMI basliyor..."
 $kayitlar = New-Object System.Collections.Generic.List[object]
-$bas = 0
+# 08.09: offset -> imlec (id=gt.). offset sayfalamasi 25.000+ kayitta 57014
+# zaman asimina dusuyordu (madde-damga 254/256); imlec her sayfada ayni hizda.
+$sonId = ''
 while($true){
-  $sayfa = Invoke-RestMethod -Uri "$SB_URL/rest/v1/dokumanlar?select=id,tur,kaynak_ad,baslik,metin,kaynak_url,belge_tarihi&order=id&offset=$bas&limit=1000" -Headers $H -TimeoutSec 180
+  $sayfa = Invoke-RestMethod -Uri "$SB_URL/rest/v1/dokumanlar?select=id,tur,kaynak_ad,baslik,metin,kaynak_url,belge_tarihi$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 180
   $d = @($sayfa)
   if($d.Count -eq 0){ break }
   foreach($x in $d){ $kayitlar.Add($x) }
+  $sonId = "$($d[$d.Count-1].id)"
   if($d.Count -lt 1000){ break }
-  $bas += 1000
   Write-Host ("  ...{0}" -f $kayitlar.Count)
 }
 Write-Host ("Okundu: {0} kayit" -f $kayitlar.Count)

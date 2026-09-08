@@ -80,10 +80,11 @@ Write-Host 'KASA taraniyor (SGS)...'
 $dersProfil=@{}
 $kasaT=@{bilgi=0;uygulama=0;analiz=0}; $kasaOncul=0; $kasaSasirt=0; $kasaToplamN=0
 $kasaOrnekHavuz=New-Object System.Collections.Generic.List[object]
-$bas=0
+$bas=0; $sonId=''   # 08.09: offset -> imlec (id=gt.)
 while($true){
-  $r=@(Invoke-RestMethod -Uri "$U/soru_havuzu?select=id,sinav,ders,soru,siklar,tablo,yevmiye&sinav=eq.SGS&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300 | % { $_ })
+  $r=@(Invoke-RestMethod -Uri "$U/soru_havuzu?select=id,sinav,ders,soru,siklar,tablo,yevmiye&sinav=eq.SGS$(if($sonId){"&id=gt.$sonId"})&order=id&limit=500" -Headers $H -TimeoutSec 300 | % { $_ })
   if($r.Count -eq 0){ break }
+  $sonId="$($r[-1].id)"
   foreach($s in $r){
     $z=Zorluk "$($s.soru)" (($s.siklar | ConvertTo-Json -Compress -Depth 3)) ($null -ne $s.tablo) ($null -ne $s.yevmiye -and @($s.yevmiye).Count -gt 0)
     $d="$($s.ders)"

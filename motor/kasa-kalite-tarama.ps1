@@ -58,9 +58,9 @@ $hapYok     = New-Object System.Collections.Generic.List[string]
 $sablonlu   = New-Object System.Collections.Generic.List[string]
 $sablonDagilim = @{}
 $yayinKisa = 0; $yayinSablon = 0
-$offset = 0; $sayfa = 1000
+$offset = 0; $sayfa = 1000; $sonId = ''   # 08.09: offset -> imlec (id=gt.), 15.000+ kayitta offset 500 veriyordu
 while($true){
-  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,hap,aciklama,yayin&order=id&limit=$sayfa&offset=$offset"
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,hap,aciklama,yayin$(if($sonId){"&id=gt.$sonId"})&order=id&limit=$sayfa"
   # 30.07 IKI PS TUZAGI UST USTE:
   # (1) @(Invoke-RestMethod) diziyi tek nesne sarar (ilk kosu 1 "soru" taradi).
   # (2) IRM, aciklama gibi karisik JSON alanlarinda kendi cozumunde patliyor
@@ -70,6 +70,7 @@ while($true){
   $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
   $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
   if(-not $parti.Count){ break }
+  $sonId = "$($parti[-1].id)"
   foreach($s in $parti){
     $hepsi++
     # DIKKAT: degisken adi $h OLAMAZ - PowerShell buyuk/kucuk duyarsizdir,

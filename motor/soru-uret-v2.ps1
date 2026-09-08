@@ -166,10 +166,11 @@ if($plan.Count -eq 0){ Write-Host "Plan bos - uretilecek satir yok, cikiliyor.";
 # --- kasadan KONU -> MADDE haritasi (4.101 bagli soru zaten var, bedava kaynak)
 Write-Host "Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)..."
 $kasa = New-Object System.Collections.Generic.List[object]
-$bas = 0
+$bas = 0; $sonId = ''   # 08.09: offset -> imlec (id=gt.)
 while($true){
-  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,kanun_no,madde_no&order=id&offset=$bas&limit=1000" -Headers $H -TimeoutSec 180
+  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,kanun_no,madde_no$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 180
   $d = @($s); if($d.Count -eq 0){ break }
+  $sonId = "$($d[$d.Count-1].id)"
   foreach($x in $d){ $kasa.Add($x) }
   if($d.Count -lt 1000){ break }
   $bas += 1000

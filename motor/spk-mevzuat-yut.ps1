@@ -49,10 +49,11 @@ $envanter = Get-Content $envYol -Raw -Encoding UTF8 | ConvertFrom-Json
 # --- ambardaki mevcut kaynak adlari (mukerrer freni + idempotentlik) --------
 Write-Host 'Ambar okunuyor (mevcut kaynak adlari)...'
 $mevcut = New-Object System.Collections.Generic.HashSet[string]
-$bas = 0
+$bas = 0; $sonId = ''   # 08.09: offset (ordersiz, kararsiz) -> imlec (id=gt.)&order=id
 while($true){
-  try { $r = Invoke-RestMethod -Uri "$SB/rest/v1/dokumanlar?select=kaynak_ad&offset=$bas&limit=1000" -Headers $H -TimeoutSec 120 } catch { break }
+  try { $r = Invoke-RestMethod -Uri "$SB/rest/v1/dokumanlar?select=id,kaynak_ad$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 120 } catch { break }
   $a = @($r); if($a.Count -eq 0){ break }
+  $sonId = "$($a[$a.Count-1].id)"
   foreach($x in $a){ [void]$mevcut.Add(("$($x.kaynak_ad)" -replace ' (m\.|gec\. m\.|ek m\.|muk\. m\.|bolum |\[)\S.*$','')) }
   $bas += 1000; if($a.Count -lt 1000){ break }
 }

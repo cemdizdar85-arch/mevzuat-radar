@@ -137,12 +137,13 @@ $KEY = $env:SUPABASE_SERVICE_KEY
 if($KEY){
   $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
   $H = @{ apikey=$KEY; Authorization="Bearer $KEY" }
-  $ofs = 0; $n = 0
+  $ofs = 0; $n = 0; $sonId = ''   # 08.09: offset+order=ders -> imlec (id=gt.)&order=id; sayim sira bagimsiz
   while($true){
-    $u = "$SB_URL/rest/v1/soru_havuzu?select=ders&sinav=eq.SGS&order=ders&offset=$ofs&limit=1000"
+    $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders&sinav=eq.SGS$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000"
     $ham = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $H -TimeoutSec 120
     $govde = if($ham.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($ham.Content) } else { "$($ham.Content)" }
     $dilim = @($govde | ConvertFrom-Json)
+    if($dilim.Count -gt 0){ $sonId = "$($dilim[-1].id)" }
     foreach($r in $dilim){ $ak = SayimAnahtar $r.ders; $VAR[$ak] = 1 + [int]$VAR[$ak] }
     $n += $dilim.Count
     if($dilim.Count -lt 1000){ break }

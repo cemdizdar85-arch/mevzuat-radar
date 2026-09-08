@@ -38,14 +38,16 @@ if(-not $tumKasa){
   $hedefSet = @{}; foreach($x in $liste){ $hedefSet["$($x.id)"] = $true }
 }
 $kayitlar = New-Object System.Collections.Generic.List[object]
+$sonId = ''   # 08.09: offset -> imlec (id=gt.); bos sayfa = bitti
 for($of=0; $of -lt 40000; $of+=500){
   $j = $null
   for($d=1; $d -le 3; $d++){
-    try{ $r = Invoke-WebRequest -UseBasicParsing -Uri "$ADRES/soru_havuzu?select=id,ders,soru,siklar,dogru&order=id&limit=500&offset=$of" -Headers $B -TimeoutSec 180
+    try{ $r = Invoke-WebRequest -UseBasicParsing -Uri "$ADRES/soru_havuzu?select=id,ders,soru,siklar,dogru$(if($sonId){"&id=gt.$sonId"})&order=id&limit=500" -Headers $B -TimeoutSec 180
          $j = ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json); break }
     catch { if($d -eq 3){ $j=@() } else { Start-Sleep -Seconds (2*$d) } }
   }
-  if(@($j).Count -eq 0){ if($of -gt 30000){ break } else { continue } }
+  if(@($j).Count -eq 0){ break }
+  $sonId = "$(@($j)[-1].id)"
   foreach($s in $j){ if($null -eq $hedefSet -or $hedefSet.ContainsKey("$($s.id)")){ $kayitlar.Add($s) } }
   if(@($j).Count -lt 500){ break }
 }

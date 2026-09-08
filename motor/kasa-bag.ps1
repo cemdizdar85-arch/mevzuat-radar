@@ -78,10 +78,11 @@ $bagliOnce = BagliSay
 Write-Host ("KASADA HALIHAZIRDA BAGLI: {0} soru" -f $bagliOnce)
 Write-Host "KASA BAGI - kasa okunuyor..."
 $kayit = New-Object System.Collections.Generic.List[object]
-$bas = 0
+$bas = 0; $sonId = ''   # 08.09: offset -> imlec (id=gt.)
 while($true){
-  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,kaynak,ders,sinav&order=id&offset=$bas&limit=1000" -Headers $H -TimeoutSec 180
+  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,kaynak,ders,sinav$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 180
   $d = @($s); if($d.Count -eq 0){ break }
+  $sonId = "$($d[$d.Count-1].id)"
   foreach($x in $d){ $kayit.Add($x) }
   if($d.Count -lt 1000){ break }
   $bas += 1000

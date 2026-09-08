@@ -39,10 +39,11 @@ function Zorluk([string]$soru,[string]$sikJson,[bool]$tabloVar,[bool]$yevmiyeVar
 # ============ A1) KASA PROFILI (sinav + ders + konu kiriliminda) ============
 Write-Host 'KASA taraniyor...'
 $kasaSinav=@{}; $kasaKonu=@{}
-$bas=0
+$bas=0; $sonId=''   # 08.09: offset -> imlec (id=gt.)
 while($true){
-  $r=@(Invoke-RestMethod -Uri "$U/soru_havuzu?select=id,sinav,ders,konu,soru,siklar,tablo,yevmiye&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300 | % { $_ })
+  $r=@(Invoke-RestMethod -Uri "$U/soru_havuzu?select=id,sinav,ders,konu,soru,siklar,tablo,yevmiye$(if($sonId){"&id=gt.$sonId"})&order=id&limit=500" -Headers $H -TimeoutSec 300 | % { $_ })
   if($r.Count -eq 0){ break }
+  $sonId="$($r[-1].id)"
   foreach($s in $r){
     $z=Zorluk "$($s.soru)" (($s.siklar | ConvertTo-Json -Compress -Depth 3)) ($null -ne $s.tablo) ($null -ne $s.yevmiye -and @($s.yevmiye).Count -gt 0)
     $sk="$($s.sinav)"

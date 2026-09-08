@@ -57,13 +57,14 @@ $reKes = [regex]'\s*(?:Ne soruluyor|NE SORULUYOR|Kural|KURAL|Bu olayda|BU OLAYDA
 $taranan = 0; $kisa = 0
 $aday = New-Object System.Collections.Generic.List[object]   # {id; yeni}
 $cikamayan = 0; $ornekYazildi = 0
-$offset = 0; $sayfa = 1000
+$offset = 0; $sayfa = 1000; $sonId = ''   # 08.09: offset -> imlec (id=gt.), 15.000+ kayitta offset 500 veriyordu
 while($true){
-  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,hap,aciklama,yayin&order=id&limit=$sayfa&offset=$offset"
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,hap,aciklama,yayin$(if($sonId){"&id=gt.$sonId"})&order=id&limit=$sayfa"
   $hw = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $BASLIK -TimeoutSec 120
   $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
   $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
   if(-not $parti.Count){ break }
+  $sonId = "$($parti[-1].id)"
   foreach($s in $parti){
     $taranan++
     $hapM = "$($s.hap)"

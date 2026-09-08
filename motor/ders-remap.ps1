@@ -54,11 +54,12 @@ $HUK_ESLEME = @(
 $INKILAP_DESEN = 'inkilap|ataturk|kurtulus|antlasma|lozan|sevr|mudanya|tbmm|cumhuriyet|milli mucadele|misak|erzurum|sivas|amasya|sakarya|dumlupinar|saltanat|hilafet|halifelik|tevhid|medeni kanun|harf devrimi|sapka|tekke|cephe'
 
 # 1) kasayi sayfali cek (limit/offset — Range basligi PS7 HttpClient'ta sorunlu)
-$hepsi = @(); $sayfa = 0
+$hepsi = @(); $sayfa = 0; $sonId = ''   # 08.09: offset -> imlec (id=gt.), 15.000+ kayitta offset 500 veriyordu
 while($true){
-  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu&order=id&limit=1000&offset=$($sayfa*1000)"
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000"
   $r = Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 60
   $hepsi += @($r)
+  if(@($r).Count -gt 0){ $sonId = "$(@($r)[-1].id)" }
   if(@($r).Count -lt 1000){ break }
   $sayfa++; if($sayfa -gt 60){ break }
 }

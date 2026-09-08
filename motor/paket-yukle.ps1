@@ -61,12 +61,13 @@ function KokNormal($t){
 $kasaKok = @{}
 $kasaAdet = 0
 try {
-  $bas = 0
+  $bas = 0; $sonId = ''   # 08.09: offset -> imlec (id=gt.)
   while($true){
-    $sayfa = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,soru&order=id&offset=$bas&limit=1000" `
+    $sayfa = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,soru$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" `
       -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 120
     $dilimK = @($sayfa)
     if($dilimK.Count -eq 0){ break }
+    $sonId = "$($dilimK[-1].id)"
     foreach($k in $dilimK){ $kasaAdet++; $kk = KokNormal $k.soru; if($kk.Length -ge 25 -and -not $kasaKok.ContainsKey($kk)){ $kasaKok[$kk] = "$($k.id)" } }
     if($dilimK.Count -lt 1000){ break }
     $bas += 1000

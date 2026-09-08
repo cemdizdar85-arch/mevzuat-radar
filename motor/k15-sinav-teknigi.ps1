@@ -36,10 +36,12 @@ if(-not $tumKasa){
 
 # kasayi sayfalayarak cek (yalniz gerekli kolonlar)
 $kayitlar = New-Object System.Collections.Generic.List[object]
+$sonId = ''   # 08.09: offset -> imlec (id=gt.), 15.000+ kayitta offset 500 veriyordu
 for($of=0; $of -lt 40000; $of+=1000){
-  $r = Invoke-WebRequest -UseBasicParsing -Uri "$ADRES/soru_havuzu?select=id,sinav,ders,soru,siklar,dogru&order=id&limit=1000&offset=$of" -Headers $B -TimeoutSec 120
+  $r = Invoke-WebRequest -UseBasicParsing -Uri "$ADRES/soru_havuzu?select=id,sinav,ders,soru,siklar,dogru$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $B -TimeoutSec 120
   $j = ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json)
   if(@($j).Count -eq 0){ break }
+  $sonId = "$(@($j)[-1].id)"
   foreach($s in $j){ if($null -eq $hedefSet -or $hedefSet.ContainsKey("$($s.id)")){ $kayitlar.Add($s) } }
   if(@($j).Count -lt 1000){ break }
 }

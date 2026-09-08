@@ -64,10 +64,11 @@ if($hepsi.Count -eq 0){ exit 0 }
 if("$($env:ZORLA_TOPYEKUN)" -ne '1'){
   $canliAd = @{}
   foreach($t in @('teori-notu','teblig','kanun-madde')){
-    $ofs=0
+    $ofs=0; $sonId=''   # 08.09: offset -> imlec (id=gt.) + order=id (ordersiz sayfalama kararsizdi)
     while($true){
-      $sayfa = @(Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&tur=eq.$t&limit=1000&offset=$ofs" -Headers $H -TimeoutSec 120)
+      $sayfa = @(Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/dokumanlar?select=id,kaynak_ad&tur=eq.$t$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 120)
       if(@($sayfa).Count -eq 0){ break }
+      $sonId = "$(@($sayfa)[-1].id)"
       foreach($x in $sayfa){ $canliAd["$($x.kaynak_ad)"]=$true }
       if(@($sayfa).Count -lt 1000){ break }
       $ofs += 1000

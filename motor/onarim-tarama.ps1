@@ -132,13 +132,14 @@ $reYasakli = [regex]'(?i)bu\s+[sş][ıi]k\s+yanl[ıi][sş]t[ıi]r\s+[çc][üu]nk
 # T11 "Dogrusu:" eksigi (G1): yanlis sik aciklamalarinin KACINDA Dogrusu yok
 $reDogrusu = [regex]'(?i)do[ğg]rusu\s*:'
 
-$offset = 0; $sayfa = 1000
+$offset = 0; $sayfa = 1000; $sonId = ''   # 08.09: offset -> imlec (id=gt.); bu agir secimle offset 15.000'de HTTP 500 veriyordu (olculdu)
 while($true){
-  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,hap,tablo,yevmiye&order=id&limit=$sayfa&offset=$offset"
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,hap,tablo,yevmiye$(if($sonId){"&id=gt.$sonId"})&order=id&limit=$sayfa"
   $hw = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $BASLIK -TimeoutSec 180
   $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
   $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
   if(-not $parti.Count){ break }
+  $sonId = "$($parti[-1].id)"
   foreach($s in $parti){
     $hepsi++
     $id = "$($s.id)"

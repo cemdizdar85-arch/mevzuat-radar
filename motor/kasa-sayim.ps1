@@ -47,10 +47,11 @@ Write-Host ("  TOPLAM: {0} soru" -f $toplam)
 
 # --- 2) kirilim icin tum kayitlari sayfali cek (yalniz siniflandirma alanlari)
 $kayit = New-Object System.Collections.Generic.List[object]
-$bas = 0
+$bas = 0; $sonId = ''   # 08.09: offset -> imlec (id=gt.), 15.000+ kayitta offset 500 veriyordu
 while($true){
-  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu,kaynak&order=id&offset=$bas&limit=1000" -Headers $H -TimeoutSec 180
+  $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu,kaynak$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000" -Headers $H -TimeoutSec 180
   $d = @($s); if($d.Count -eq 0){ break }
+  $sonId = "$($d[$d.Count-1].id)"
   foreach($x in $d){ $kayit.Add($x) }
   if($d.Count -lt 1000){ break }
   $bas += 1000
@@ -135,13 +136,14 @@ Write-Host ("  --- tekil konu sayisi: {0}" -f $konu.Count)
 Write-Host ""
 Write-Host "  --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)"
 $izli = New-Object System.Collections.Generic.List[string]
-$bas2 = 0
+$bas2 = 0; $sonId2 = ''   # 08.09: offset -> imlec
 while($true){
-  $u3 = "$SB_URL/rest/v1/soru_havuzu?select=id,soru,dogru,aciklama&order=id&offset=$bas2&limit=500"
+  $u3 = "$SB_URL/rest/v1/soru_havuzu?select=id,soru,dogru,aciklama$(if($sonId2){"&id=gt.$sonId2"})&order=id&limit=500"
   try { $h3 = Invoke-WebRequest -UseBasicParsing -Uri $u3 -Headers $H -TimeoutSec 180 } catch { break }
   $g3 = if($h3.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($h3.Content) } else { "$($h3.Content)" }
   $d3 = @(); foreach($x in (ConvertFrom-Json $g3)){ $d3 += $x }
   if($d3.Count -eq 0){ break }
+  $sonId2 = "$($d3[-1].id)"
   foreach($q in $d3){
     $kokuSay.bakilan++
     $ac = "$($q.aciklama.($q.dogru))"
@@ -207,13 +209,14 @@ try {
   # O haliyle biraksaydim 3.107 soru kuyruga hic girmeyecek, hakem onlari hic
   # gormeyecek, ben de "hepsi yargilandi" sanacaktim.
   $hafif = New-Object System.Collections.Generic.List[object]
-  $ofs = 0
+  $ofs = 0; $sonId3 = ''   # 08.09: offset -> imlec
   while($true){
-    $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&order=id&offset=$ofs&limit=1000"
+    $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false$(if($sonId3){"&id=gt.$sonId3"})&order=id&limit=1000"
     $ham = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $H -TimeoutSec 120
     $govde = if($ham.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($ham.Content) } else { "$($ham.Content)" }
     $dilim = @(); foreach($x in (ConvertFrom-Json $govde)){ $dilim += $x }
     if($dilim.Count -eq 0){ break }
+    $sonId3 = "$($dilim[-1].id)"
     foreach($x in $dilim){ $hafif.Add($x) }
     Write-Host ("     ...cekilen {0}" -f $hafif.Count)
     if($dilim.Count -lt 1000){ break }
