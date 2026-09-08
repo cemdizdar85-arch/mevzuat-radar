@@ -9,13 +9,26 @@
 #           powershell -NoProfile -File motor/teori-notu-uret.ps1 -Ders 'Ekonomi|Maliye' -Adet 5   (pilot)
 #           powershell -NoProfile -File motor/teori-notu-uret.ps1                    (hepsi)
 param([string]$Plan='veri/sinav/plan-sgs-t1-genel.json',[string]$Ders='',[int]$Adet=0,[switch]$Kontrol,[switch]$YuklemeYok,
-  [string]$YazarModel='claude-opus-5',[string]$DenetciModel='claude-sonnet-5')
+  [string]$YazarModel='claude-opus-5',[string]$DenetciModel='claude-sonnet-5',
+  [string]$YalnizYukle='')   # 08.09 Cem "bunu sen de yapabilirsin, niye para veriyoruz": notları GM oturumda yazar, bu mod yalnız verilen json'daki belgeleri ambara yükler (0 USD)
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path; $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
 $KEY=$env:SUPABASE_SERVICE_KEY; if(-not $KEY){ $KEY=[Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $KEY){ throw 'SUPABASE_SERVICE_KEY yok' }
 $SB_URL='https://bjrleanjpyujtajmazxn.supabase.co'; $H=@{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' }
+if($YalnizYukle){
+  $yol=$(if(Test-Path $YalnizYukle){ $YalnizYukle } else { Join-Path $kok $YalnizYukle }); $pk=ConvertFrom-Json -InputObject (Get-Content $yol -Raw -Encoding UTF8)
+  $ok=0; $hata=0
+  foreach($b in @($pk.belgeler)){ if(-not $b -or -not $b.kaynak_ad -or -not $b.metin){ continue }
+    if("$($b.metin)".Length -lt 600){ Write-Host "  KISA, atlandı: $($b.kaynak_ad) ($("$($b.metin)".Length) kr)" -ForegroundColor Yellow; $hata++; continue }
+    if("$($b.metin)" -notmatch '[çğıöşüÇĞİÖŞÜ]'){ Write-Host "  TÜRKÇE HARF YOK, atlandı: $($b.kaynak_ad)" -ForegroundColor Yellow; $hata++; continue }
+    try{ $q=[uri]::EscapeDataString("$($b.kaynak_ad)"); Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?kaynak_ad=eq.$q" -Headers $H -TimeoutSec 90 | Out-Null
+      $gov=[ordered]@{ tur='teori-notu'; kaynak_ad="$($b.kaynak_ad)"; baslik="$($b.baslik)"; metin="$($b.metin)"; kaynak_url=''; belge_tarihi=$null }
+      Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer='return=minimal' }) -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $gov -Depth 4 -Compress))) -TimeoutSec 90 | Out-Null; $ok++ }
+    catch{ Write-Host "  HATA $($b.kaynak_ad): $($_.Exception.Message)" -ForegroundColor Red; $hata++ } }
+  "yüklendi $ok · atlanan/hata $hata · dosya $yol"; exit 0
+}
 function Katla([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant() }
 function Liste($yol){ $j=ConvertFrom-Json -InputObject (Get-Content $yol -Raw -Encoding UTF8); $a=@($j); if($a.Count -eq 1 -and $j.PSObject.Properties['SyncRoot']){ $a=@($j.SyncRoot) }; return @($a | ForEach-Object { "$_" }) }
 # --- mevcut notlar (ambar) ---
