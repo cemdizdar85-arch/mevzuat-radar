@@ -1948,6 +1948,118 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
   }
 }
 
+# --- KAPI B: DAYANAK HAKEMI (01.09 Cem guvencesi) ----------------------------
+# Bagimsiz ucuz gozle her soru sinanir: "dogru sikkin kurali kaynaktan cikiyor mu?"
+# HAYIR -> sayfada kirmizi HAKEM REDDI damgasi; kasa yolunda karantina demektir.
+$hakemIstem=@'
+Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
+1) DAYANAK: sorunun DOGRU sikkinin dayandigi kural/bilgi, verilen KAYNAK METNINDEN gercekten cikiyor mu?
+   Kaynakta ACIKCA destegi varsa EVET; kural kaynakta yoksa ya da celisiyorsa HAYIR.
+   (Parasal senaryo tutarlari kaynakta olmak zorunda degil; KURAL/oran/tanim kaynaktan olmali.)
+2) DERS UYUMU (KAPI C - 01.09): soru "{DERS}" dersinin RESMI KAPSAMINA uyuyor mu,
+   yoksa su komsu derslerden birinin sorusu mu: {KOMSULAR}?
+   RESMI KAPSAM: {TARIF}
+   Kapsama uyuyorsa EVET; baska dersin sorusuysa DERS-DISI (+hangi ders).
+3) KONU UYUMU (KAPI D - 03.09): bu soru "{KONU}" konusunu mu OLCUYOR? Konu adi metinde gecse bile
+   sorunun olctugu kural/hesap baska bir konuya aitse (orn. "damga vergisi" konusunda SGK af hukmu;
+   "yonetim iddialari" konusunda stok sayimi) KONU-DISI de; konunun ozunu olcuyorsa EVET.
+4) TEK ANLAM (KAPI E - 05.09): soru koku TEK bir buyuklugu mu istiyor? Koku iki farkli sekilde okuyunca iki farkli
+   sikka cikiliyorsa (orn. "esas uretim yerlerine dagitilacak toplam (duzeltilmis) maliyet" hem duzeltilmis toplam
+   100.000 hem esas uretime giden 90.000 okunur ve ikisi de sikta var) CIFT-ANLAM de ve hangi sikkin da savunulabilir
+   oldugunu yaz; kok tek anlamliysa EVET. Yalniz gercek cift okunus sayilir, zorlama yorum degil.
+5) GUNCELLIK (KAPI-M/S - 08.09): dogru sikkin dayandigi hukum YURURLUKTE mi? Kaynak metninde "mulga", "yururlukten kaldirilmistir",
+   suresi gecmis bir gecici madde, eski yila ait had/oran varsa ya da soru/dayanak mulga kanun-standart-kurum aniyorsa (6762, 818,
+   5422, 506, 2499, TMS 17/18/39, TFRS 4, SSK, TMSK) ESKI de ve KARARI HAYIR ver. Hukum yururlukteyse GUNCEL. {GECICI}
+6) ATIF (kural 6.5): soru ve dayanakta anilan kanun + madde numarasi ({DAYANAK}) KAYNAK METNINDEKI madde basligiyla uyusuyor mu?
+   Kaynakta o madde var ve hukum orada ise EVET; madde numarasi kaynaktaki hukumle uyusmuyorsa (baska maddenin hukmu bu numaraya
+   yazilmis) ATIF-YANLIS de ve KARARI HAYIR ver; kaynak paketinde o madde hic yoksa TEYITSIZ (hukum baska parcadan destekleniyorsa karar EVET kalabilir).
+Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
+=== SORU === {SORU}
+=== DOGRU SIK ({DOGRU}) === {SIK}
+=== DOGRU SIKKIN ACIKLAMASI === {ACIK}
+=== KAYNAK METNI === {KAYNAK}
+'@
+foreach($id in @($don.Keys)){
+  $cvp=$don[$id]
+  if(-not $cvp.soru){ continue }
+  # 03.09 KAPI D (konu uyumu) eklendi: konu_uyum alani olmayan eski karar YENIDEN verdirilir (ucuz hakem).
+  if($SadeceHtml -or $SadeceAdim){ continue }   # yalniz cizim / yalniz adim: eski karar neyse o kalir, hakem cagrilmaz
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
+  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
+  # sema normalizasyonu geriye donuk (ogeler<-adimlar)
+  if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
+    $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
+  }
+  $kMetin=''
+  if($cvp.PSObject.Properties['kaynak_metin_ozet'] -and $cvp.kaynak_metin_ozet){ $kMetin=$cvp.kaynak_metin_ozet }
+  elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
+    $parca=New-Object System.Collections.Generic.List[string]
+    foreach($ka in (@($cvp.kaynak_adlar) | Select-Object -First 4)){
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
+      try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
+    }
+    $kMetin=($parca -join "`n---`n"); if($kMetin.Length -gt 4500){ $kMetin=$kMetin.Substring(0,4500) }
+  }
+  else{
+    # hakem-red onarimi: kaynak alanlari silinmisse OZEL_DESEN/DesenUret ile TAZE cek
+    $konuLc2="$($cvp.konu)".ToLowerInvariant()
+    $ds=if($OZEL_DESEN.ContainsKey($konuLc2)){ $OZEL_DESEN[$konuLc2] } else { DesenUret ([pscustomobject]@{konu=$cvp.konu;dayanak=$cvp.dayanak;cikmis_dayanak=''}) }
+    $amb2=AmbarCek $ds
+    $kMetin=$amb2.metin
+    if($amb2.adlar.Count){ $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb2.adlar) -Force }
+  }
+  # 03.09 ATIF GENISLETME: modelin dayanak alaninda andigi maddeler ambardan cekilip
+  # kaynak paketinin BASINA konur (hakem once bunlari gorur). Ambarda yoksa paket degismez.
+  if($cvp.PSObject.Properties['dayanak'] -and "$($cvp.dayanak)".Trim()){
+    $atifD=@(AtifDesen "$($cvp.dayanak)")
+    if($atifD.Count){
+      # 03.09 OLCULDU (SMMM SPK kp-11): m.35/C dort parca, 3.500 tavani [4/4]'u (f.7) kesti -> hakem
+      # 'fikra 7 kaynakta yok' dedi. Atif paketi 7.000, toplam 12.000 (haiku 200k pencere; maliyet ihmal).
+      $atif=AmbarCek $atifD 7000
+      if($atif.adlar.Count){
+        $yeniAd=@($atif.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $atif.adlar -notcontains $_ })
+        $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($yeniAd) -Force
+        $cvp | Add-Member -NotePropertyName atif_genisletme -NotePropertyValue @($atif.adlar) -Force
+        $kMetin=$atif.metin + "`n---`n" + $kMetin; if($kMetin.Length -gt 12000){ $kMetin=$kMetin.Substring(0,12000) }
+        Write-Host "  ATIF GENISLETME: $id <- $(@($atif.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan
+      } else {
+        # 08.09 Cem "kanun maddelerinin doğru olduğu": dayanaktaki madde ambarda yoksa numara doğrulanamaz → iz + hakeme TEYITSIZ uyarısı
+        $cvp | Add-Member -NotePropertyName atif_ambarda_yok -NotePropertyValue $true -Force
+        Write-Host "  ATIF AMBARDA YOK: $id | $($cvp.dayanak)" -ForegroundColor DarkYellow; $rapor.Add("ATIF AMBARDA YOK: $id | $($cvp.dayanak)")
+      }
+    }
+  }
+  if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); continue }
+  $gecici=@(GeciciMaddeNotu $cvp); $geciciNot=$(if($gecici.Count){ "DIKKAT: soru/dayanak gecici madde aniyor ($($gecici -join ', ')); gecici hukmun suresi kaynak metninde dolmussa ESKI." } else { '' })
+  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
+  $yh=$null
+  # 08.09 Tur 1 kazası 2: hakem JSON'una güncellik+atıf alanları eklenince 600 jeton yetmedi, 65 sorunun 31'inde cevap KESİLDİ → "HAKEM CIKTISI BOZUK"
+  # yalnız rapora yazılıyordu, konsola değil; hakemsiz soru yayın şartını geçemedi (29 yayın kaybı). Tavan 1.600 + bozukluk konsola + kesilme notu.
+  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 1600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  $hk=Coz $yh.metin
+  if(-not ($hk -and $hk.karar)){ Write-Host "  HAKEM ÇIKTISI BOZUK ($id): durma=$($yh.dur) · $("$($yh.metin)".Length) kr" -ForegroundColor Red }
+  if($hk -and $hk.karar){
+    $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force
+    CacheYaz
+    $renk=if("$($hk.karar)" -eq 'EVET'){'Green'}else{'Red'}
+    Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
+    if("$($hk.tek_anlam)" -eq 'CIFT-ANLAM'){ Write-Host "  CIFT-ANLAM (KAPI E): $id [$($cvp.konu)] -> $($hk.tek_anlam_gerekce)" -ForegroundColor Magenta; $rapor.Add("CIFT-ANLAM (KAPI E): $($cvp.konu) | $($hk.tek_anlam_gerekce)") }
+    # 08.09 güncellik + atıf (hakem 5 ve 6): ESKI / ATIF-YANLIS karar HAYIR'la gelir (istem); TEYITSIZ yayına çıkar ama karneye iz düşer
+    if($hk.PSObject.Properties['guncellik'] -and "$($hk.guncellik)" -eq 'ESKI'){ Write-Host "  GÜNCELLİK ESKİ (KAPI-M/S hakem): $id [$($cvp.konu)] -> $($hk.guncellik_gerekce)" -ForegroundColor Magenta; $rapor.Add("GUNCELLIK ESKI (hakem): $($cvp.konu) | $($hk.guncellik_gerekce)") }
+    if($hk.PSObject.Properties['atif'] -and "$($hk.atif)" -ne 'EVET'){ Write-Host "  ATIF $($hk.atif) (hakem): $id [$($cvp.konu)] -> $($hk.atif_gerekce)" -ForegroundColor $(if("$($hk.atif)" -eq 'ATIF-YANLIS'){'Magenta'}else{'DarkYellow'}); $rapor.Add("ATIF $($hk.atif) (hakem): $($cvp.konu) | $($hk.atif_gerekce)") }
+  } else { $rapor.Add("HAKEM CIKTISI BOZUK: $id") }
+}
+$hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and ("$($don[$_].hakem.karar)" -eq 'HAYIR' -or "$($don[$_].hakem.konu_uyum)" -eq 'KONU-DISI') })
+foreach($id in @($don.Keys)){ if($don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI'){ Write-Host "  KONU-DISI (KAPI D): $id [$($don[$id].konu)] -> $($don[$id].hakem.konu_gerekce)" -ForegroundColor Magenta } }
+$dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
+
+# 08.09 21:40 Cem "hakemi öne al yaz": KAPI B (dayanak hakemi, Haiku ≈0,03 USD/soru) artık FAZ A'nın hemen ardında. Tur 1 ölçümü: hakem HAYIR
+# soruların üçte biri; her biri adım+giriş+ikiz+sim+kör+hakem2'den geçip ≈0,20 USD yiyordu. Hakemden geçmeyen soru pahalı fazlara GİRMEZ.
+# Yayın kuralı değişmedi (koşucu 8.1: hakem EVET ∧ sim ∧ kör ∧ hakem2); yalnız sıra değişti. Bloğun kendisi 2644–2747'den taşındı, içi aynı.
+$HAKEM_GECMEDI=New-Object 'System.Collections.Generic.HashSet[string]'
+foreach($hid in @($don.Keys)){ $hc=$don[$hid]; if(-not $hc.soru){ continue }; if(-not ($hc.PSObject.Properties['hakem'] -and $hc.hakem -and "$($hc.hakem.karar)" -eq 'EVET')){ [void]$HAKEM_GECMEDI.Add($hid) } }
+function HakemGecti([string]$id){ return -not $HAKEM_GECMEDI.Contains($id) }
+if($HAKEM_GECMEDI.Count){ Write-Host "  HAKEM ÖNDE: $($HAKEM_GECMEDI.Count) soru hakemden geçmedi → adım/giriş/ikiz/sim/kör/hakem2 fazlarına girmeyecek ($((@($HAKEM_GECMEDI) | Select-Object -First 10) -join ', '))" -ForegroundColor Yellow; $rapor.Add("HAKEM ONDE: $($HAKEM_GECMEDI.Count) soru pahali fazlara girmedi") }
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------
 $script:FAZ_ADI='B'
 # 03.09 Cem "ogretmen her soruda olsun": tablosuz KAYIT sorulari da adim alir; tablo yerine yevmiye
@@ -1997,6 +2109,7 @@ foreach($gecisB in @(1,2)){ if($gecisB -eq 1 -and -not $Toplu){ continue }; $scr
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]
   $tabloAdim=AdimTablosu $cvp
   if(-not $tabloAdim){ continue }
@@ -2131,6 +2244,7 @@ function SadeKaynak($cvp){
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not ($Sade -or $SadeYenile)){ break }   # FAZ S yalnız açık onayla koşar
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]
   if(-not $cvp.soru -or -not $cvp.dogru){ continue }
   if(-not $SadeYenile -and $cvp.PSObject.Properties['sade'] -and $cvp.sade){ continue }
@@ -2189,6 +2303,7 @@ SORU: {SORU}
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not ($Verilenler -or $VerilenYenile)){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru){ continue }
   if(-not $VerilenYenile -and $cvp.PSObject.Properties['verilenler'] -and @($cvp.verilenler).Count){ continue }
   # standart/madde numaraları verilen değildir ("BDS 500", "TMS 37", "m.323", "paragraf A27", "213 sayılı") — 06.09 kalıp-6 dersi
@@ -2262,6 +2377,7 @@ foreach($gecisG in @(1,2)){ if($gecisG -eq 1 -and -not $Toplu){ continue }; $scr
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $KonuGiris){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru){ continue }
   if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['harita'] -and "$($cvp.konu_giris.harita)".Trim()){ continue }   # 07.09 Ö54: haritasız (eski iki katmansız) giriş yenilenir; -GirisYenile hepsini
   $kMetinG=SadeKaynak $cvp; if($kMetinG.Length -gt 6000){ $kMetinG=$kMetinG.Substring(0,6000) }
@@ -2344,6 +2460,7 @@ foreach($gecisC in @(1,2)){ if($gecisC -eq 1 -and -not $Toplu){ continue }; $scr
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]
   if(-not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   if($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz){ continue }
@@ -2423,6 +2540,7 @@ ADIMLAR:
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $Simulasyon){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.PSObject.Properties['adimlar'] -or -not $cvp.adimlar){ continue }
   $simAlanT=$(if($SimModel -match 'sonnet'){ 'simulasyon_sonnet' } else { 'simulasyon' })
   if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz -and $cvp.ikiz.ikiz_soru -and $cvp.ikiz.tablo -and $cvp.ikiz.tablo.satirlar)){
@@ -2540,6 +2658,7 @@ ISTISNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (ornek: ozkaynak = aktif - borc
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]
   if(-not $cvp.soru -or -not $cvp.cozum_tablo -or -not $cvp.cozum_tablo.satirlar){ continue }
   $cvp | Add-Member -NotePropertyName sema -NotePropertyValue (SemaNormalize $(if($cvp.PSObject.Properties['sema']){ $cvp.sema } else { $null })) -Force   # 08.09: kurtarma kaydında 'sema' özelliği olmayabilir, doğrudan atama düşüyordu
@@ -2589,6 +2708,7 @@ Ikiz sorunun rakamlariyla kayit KURULAMIYORSA: {"tur":"yok","sebep":"tek cumle"}
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]
   if(-not ($cvp.PSObject.Properties['ikiz'] -and $cvp.ikiz)){ continue }
   if(-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye')){ continue }
@@ -2641,111 +2761,6 @@ foreach($id in @($don.Keys)){
   }
 }
 
-# --- KAPI B: DAYANAK HAKEMI (01.09 Cem guvencesi) ----------------------------
-# Bagimsiz ucuz gozle her soru sinanir: "dogru sikkin kurali kaynaktan cikiyor mu?"
-# HAYIR -> sayfada kirmizi HAKEM REDDI damgasi; kasa yolunda karantina demektir.
-$hakemIstem=@'
-Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
-1) DAYANAK: sorunun DOGRU sikkinin dayandigi kural/bilgi, verilen KAYNAK METNINDEN gercekten cikiyor mu?
-   Kaynakta ACIKCA destegi varsa EVET; kural kaynakta yoksa ya da celisiyorsa HAYIR.
-   (Parasal senaryo tutarlari kaynakta olmak zorunda degil; KURAL/oran/tanim kaynaktan olmali.)
-2) DERS UYUMU (KAPI C - 01.09): soru "{DERS}" dersinin RESMI KAPSAMINA uyuyor mu,
-   yoksa su komsu derslerden birinin sorusu mu: {KOMSULAR}?
-   RESMI KAPSAM: {TARIF}
-   Kapsama uyuyorsa EVET; baska dersin sorusuysa DERS-DISI (+hangi ders).
-3) KONU UYUMU (KAPI D - 03.09): bu soru "{KONU}" konusunu mu OLCUYOR? Konu adi metinde gecse bile
-   sorunun olctugu kural/hesap baska bir konuya aitse (orn. "damga vergisi" konusunda SGK af hukmu;
-   "yonetim iddialari" konusunda stok sayimi) KONU-DISI de; konunun ozunu olcuyorsa EVET.
-4) TEK ANLAM (KAPI E - 05.09): soru koku TEK bir buyuklugu mu istiyor? Koku iki farkli sekilde okuyunca iki farkli
-   sikka cikiliyorsa (orn. "esas uretim yerlerine dagitilacak toplam (duzeltilmis) maliyet" hem duzeltilmis toplam
-   100.000 hem esas uretime giden 90.000 okunur ve ikisi de sikta var) CIFT-ANLAM de ve hangi sikkin da savunulabilir
-   oldugunu yaz; kok tek anlamliysa EVET. Yalniz gercek cift okunus sayilir, zorlama yorum degil.
-5) GUNCELLIK (KAPI-M/S - 08.09): dogru sikkin dayandigi hukum YURURLUKTE mi? Kaynak metninde "mulga", "yururlukten kaldirilmistir",
-   suresi gecmis bir gecici madde, eski yila ait had/oran varsa ya da soru/dayanak mulga kanun-standart-kurum aniyorsa (6762, 818,
-   5422, 506, 2499, TMS 17/18/39, TFRS 4, SSK, TMSK) ESKI de ve KARARI HAYIR ver. Hukum yururlukteyse GUNCEL. {GECICI}
-6) ATIF (kural 6.5): soru ve dayanakta anilan kanun + madde numarasi ({DAYANAK}) KAYNAK METNINDEKI madde basligiyla uyusuyor mu?
-   Kaynakta o madde var ve hukum orada ise EVET; madde numarasi kaynaktaki hukumle uyusmuyorsa (baska maddenin hukmu bu numaraya
-   yazilmis) ATIF-YANLIS de ve KARARI HAYIR ver; kaynak paketinde o madde hic yoksa TEYITSIZ (hukum baska parcadan destekleniyorsa karar EVET kalabilir).
-Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
-=== SORU === {SORU}
-=== DOGRU SIK ({DOGRU}) === {SIK}
-=== DOGRU SIKKIN ACIKLAMASI === {ACIK}
-=== KAYNAK METNI === {KAYNAK}
-'@
-foreach($id in @($don.Keys)){
-  $cvp=$don[$id]
-  if(-not $cvp.soru){ continue }
-  # 03.09 KAPI D (konu uyumu) eklendi: konu_uyum alani olmayan eski karar YENIDEN verdirilir (ucuz hakem).
-  if($SadeceHtml -or $SadeceAdim){ continue }   # yalniz cizim / yalniz adim: eski karar neyse o kalir, hakem cagrilmaz
-  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
-  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
-  # sema normalizasyonu geriye donuk (ogeler<-adimlar)
-  if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
-    $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
-  }
-  $kMetin=''
-  if($cvp.PSObject.Properties['kaynak_metin_ozet'] -and $cvp.kaynak_metin_ozet){ $kMetin=$cvp.kaynak_metin_ozet }
-  elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
-    $parca=New-Object System.Collections.Generic.List[string]
-    foreach($ka in (@($cvp.kaynak_adlar) | Select-Object -First 4)){
-      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
-      try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
-    }
-    $kMetin=($parca -join "`n---`n"); if($kMetin.Length -gt 4500){ $kMetin=$kMetin.Substring(0,4500) }
-  }
-  else{
-    # hakem-red onarimi: kaynak alanlari silinmisse OZEL_DESEN/DesenUret ile TAZE cek
-    $konuLc2="$($cvp.konu)".ToLowerInvariant()
-    $ds=if($OZEL_DESEN.ContainsKey($konuLc2)){ $OZEL_DESEN[$konuLc2] } else { DesenUret ([pscustomobject]@{konu=$cvp.konu;dayanak=$cvp.dayanak;cikmis_dayanak=''}) }
-    $amb2=AmbarCek $ds
-    $kMetin=$amb2.metin
-    if($amb2.adlar.Count){ $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb2.adlar) -Force }
-  }
-  # 03.09 ATIF GENISLETME: modelin dayanak alaninda andigi maddeler ambardan cekilip
-  # kaynak paketinin BASINA konur (hakem once bunlari gorur). Ambarda yoksa paket degismez.
-  if($cvp.PSObject.Properties['dayanak'] -and "$($cvp.dayanak)".Trim()){
-    $atifD=@(AtifDesen "$($cvp.dayanak)")
-    if($atifD.Count){
-      # 03.09 OLCULDU (SMMM SPK kp-11): m.35/C dort parca, 3.500 tavani [4/4]'u (f.7) kesti -> hakem
-      # 'fikra 7 kaynakta yok' dedi. Atif paketi 7.000, toplam 12.000 (haiku 200k pencere; maliyet ihmal).
-      $atif=AmbarCek $atifD 7000
-      if($atif.adlar.Count){
-        $yeniAd=@($atif.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $atif.adlar -notcontains $_ })
-        $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($yeniAd) -Force
-        $cvp | Add-Member -NotePropertyName atif_genisletme -NotePropertyValue @($atif.adlar) -Force
-        $kMetin=$atif.metin + "`n---`n" + $kMetin; if($kMetin.Length -gt 12000){ $kMetin=$kMetin.Substring(0,12000) }
-        Write-Host "  ATIF GENISLETME: $id <- $(@($atif.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan
-      } else {
-        # 08.09 Cem "kanun maddelerinin doğru olduğu": dayanaktaki madde ambarda yoksa numara doğrulanamaz → iz + hakeme TEYITSIZ uyarısı
-        $cvp | Add-Member -NotePropertyName atif_ambarda_yok -NotePropertyValue $true -Force
-        Write-Host "  ATIF AMBARDA YOK: $id | $($cvp.dayanak)" -ForegroundColor DarkYellow; $rapor.Add("ATIF AMBARDA YOK: $id | $($cvp.dayanak)")
-      }
-    }
-  }
-  if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); continue }
-  $gecici=@(GeciciMaddeNotu $cvp); $geciciNot=$(if($gecici.Count){ "DIKKAT: soru/dayanak gecici madde aniyor ($($gecici -join ', ')); gecici hukmun suresi kaynak metninde dolmussa ESKI." } else { '' })
-  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
-  $yh=$null
-  # 08.09 Tur 1 kazası 2: hakem JSON'una güncellik+atıf alanları eklenince 600 jeton yetmedi, 65 sorunun 31'inde cevap KESİLDİ → "HAKEM CIKTISI BOZUK"
-  # yalnız rapora yazılıyordu, konsola değil; hakemsiz soru yayın şartını geçemedi (29 yayın kaybı). Tavan 1.600 + bozukluk konsola + kesilme notu.
-  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 1600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
-  $hk=Coz $yh.metin
-  if(-not ($hk -and $hk.karar)){ Write-Host "  HAKEM ÇIKTISI BOZUK ($id): durma=$($yh.dur) · $("$($yh.metin)".Length) kr" -ForegroundColor Red }
-  if($hk -and $hk.karar){
-    $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force
-    CacheYaz
-    $renk=if("$($hk.karar)" -eq 'EVET'){'Green'}else{'Red'}
-    Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
-    if("$($hk.tek_anlam)" -eq 'CIFT-ANLAM'){ Write-Host "  CIFT-ANLAM (KAPI E): $id [$($cvp.konu)] -> $($hk.tek_anlam_gerekce)" -ForegroundColor Magenta; $rapor.Add("CIFT-ANLAM (KAPI E): $($cvp.konu) | $($hk.tek_anlam_gerekce)") }
-    # 08.09 güncellik + atıf (hakem 5 ve 6): ESKI / ATIF-YANLIS karar HAYIR'la gelir (istem); TEYITSIZ yayına çıkar ama karneye iz düşer
-    if($hk.PSObject.Properties['guncellik'] -and "$($hk.guncellik)" -eq 'ESKI'){ Write-Host "  GÜNCELLİK ESKİ (KAPI-M/S hakem): $id [$($cvp.konu)] -> $($hk.guncellik_gerekce)" -ForegroundColor Magenta; $rapor.Add("GUNCELLIK ESKI (hakem): $($cvp.konu) | $($hk.guncellik_gerekce)") }
-    if($hk.PSObject.Properties['atif'] -and "$($hk.atif)" -ne 'EVET'){ Write-Host "  ATIF $($hk.atif) (hakem): $id [$($cvp.konu)] -> $($hk.atif_gerekce)" -ForegroundColor $(if("$($hk.atif)" -eq 'ATIF-YANLIS'){'Magenta'}else{'DarkYellow'}); $rapor.Add("ATIF $($hk.atif) (hakem): $($cvp.konu) | $($hk.atif_gerekce)") }
-  } else { $rapor.Add("HAKEM CIKTISI BOZUK: $id") }
-}
-$hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and ("$($don[$_].hakem.karar)" -eq 'HAYIR' -or "$($don[$_].hakem.konu_uyum)" -eq 'KONU-DISI') })
-foreach($id in @($don.Keys)){ if($don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI'){ Write-Host "  KONU-DISI (KAPI D): $id [$($don[$id].konu)] -> $($don[$id].hakem.konu_gerekce)" -ForegroundColor Magenta } }
-$dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
-
 # --- FAZ K: KÖR ÇÖZÜM (07.09 A kovası 1 — Cem "hatasız olacak"; Maliyet kp-05'te yüzdeler ters kurulmuştu, hakem+sim+aritmetik üçü de geçirdi) -----
 # Bağımsız ve FARKLI bir model, anlatımı/ikizi/açıklamayı görmeden yalnız soru + şıkları çözer. Cevap doğru şıkla tutmuyorsa soru yayına çıkmaz
 # (koşucu seçimi kor_cozum.dogru_mu ister). Bir kez koşar, karar önbellekte; -KorYenile yeniden verdirir. Teori sorusunda da koşar (şık seçer).
@@ -2763,6 +2778,7 @@ foreach($gecisK in @(1,2)){ if($gecisK -eq 1 -and -not $Toplu){ continue }; $scr
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or $SadeceAdim){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
   if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ continue }
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
@@ -2805,6 +2821,7 @@ foreach($gecisH in @(1,2)){ if($gecisH -eq 1 -and -not $Toplu){ continue }; $scr
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or $SadeceAdim){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
   if(-not $Hakem2Yenile -and $cvp.PSObject.Properties['hakem2'] -and $cvp.hakem2 -and $cvp.hakem2.PSObject.Properties['karar']){
     # 08.09: eldeki karar API'siz yeniden türetilir (sert koku listesi değişti: "birbirinin tam tersi" artık sert değil) — 0 USD
@@ -2847,6 +2864,7 @@ $tuzakSayaci=@{}
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvpT=$don[$id]
   if(-not $cvpT.soru -or -not $cvpT.aciklama){ continue }
   foreach($hh in 'A','B','C','D','E'){
