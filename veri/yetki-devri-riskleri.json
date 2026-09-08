@@ -1,11 +1,11 @@
 {
-  "tarih": "08.09.2026 05:08",
+  "tarih": "08.09.2026 05:11",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 843,
   "riskli_madde": 1315,
   "sayfa": 65,
   "atifli_iddia": 279,
-  "dayanaksiz_iddia": 352,
+  "dayanaksiz_iddia": 351,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1627,12 +1627,6 @@
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 6,
-      "iddia": "12 ay",
-      "metin": "Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor, unvanın geçer mi, ortaklar sözleşmen | Tetikte"
-    },
-    {
-      "sayfa": "kurulus-nobeti.html",
       "satir": 30,
       "iddia": "12 ay",
       "metin": "yoktu: maliyet · ilk 12 ay takvimi · unvan kontrolü · ortaklar sözleşmesi."
@@ -1681,55 +1675,55 @@
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 330,
+      "satir": 349,
       "iddia": "12 ay",
       "metin": "Sermaye şartı yok. Şahısta kuruluş günü ödediğin tek şey yukarıdakiler; asıl maliyet aylık Bağ-Kur primi ve muhasebe ücretidir, onları \"İlk 12 ay\" sekmesinde tarihiyle görürsün."
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 409,
+      "satir": 445,
       "iddia": "12 ay",
       "metin": "Kuruluş günü cebinden çıkan: ~${TL(toplam)} TL kaynaklı kalem + oda kaydı + varsa e-imza. ${t==='as'?`Bankaya ${TL(sermaye*(S.asBlokajOran||25)/100)} TL blokaj koyarsın, o para tes"
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 494,
+      "satir": 530,
       "iddia": "12 AY",
       "metin": "📅 ${AD[t].toLocaleUpperCase('tr-TR')} · ${gg(T)} TESCİLİNDEN SONRAKİ 12 AY · ${E.length} tarih"
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 515,
+      "satir": 551,
       "iddia": "3 gün",
       "metin": "\"BEGIN:VALARM\",\"TRIGGER:-P3D\",\"ACTION:DISPLAY\",\"DESCRIPTION:\"+icsKac(e.ad)+\" — 3 gün kaldı\",\"END:VALARM\",\"END:VEVENT\");"
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 536,
+      "satir": 572,
       "iddia": "3 gün",
       "metin": "// tarihten 3 gün önce hatırlatma yollar. Tablo basılmamışsa (404) quick-task maili"
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 548,
+      "satir": 584,
       "iddia": "3 gün",
       "metin": "if(k) goster('✓ Nöbete alındın: takvimin tamamı en geç yarın sabah e-postanda; her tarihten 3 gün önce hatırlatırız. Durdurmak için maile \"iptal\" yaz.',true);"
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 635,
+      "satir": 671,
       "iddia": "30 gün",
       "metin": "? 'Ortaklar, iki ardışık toplantıda karar alınamayan bir konuda önce 30 gün içinde arabulucuya başvurur. Arabuluculuk sonuçsuz kalırsa ortaklardan her biri diğerine, kendi payların"
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 637,
+      "satir": 673,
       "iddia": "60 gün",
       "metin": ": 'Ortaklar, iki ardışık toplantıda karar alınamayan ve şirketin olağan faaliyetini durduran bir konuda, 60 gün içinde anlaşamazlarsa şirketin tasfiyesine karar vermeyi ve bu yönde"
     },
     {
       "sayfa": "kurulus-nobeti.html",
-      "satir": 648,
+      "satir": 684,
       "iddia": "30 gün",
       "metin": "if(onalim) metin += M_('Önalım hakkı', ` Payını üçüncü kişiye devretmek isteyen Ortak, devir şartlarını (alıcı, bedel, ödeme) diğer Ortaklara yazılı bildirir. Diğer Ortaklar 30 gün"
     },
