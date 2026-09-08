@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260907050024
+Start time: 20260908045838
 Username: runnervmejwal\runner
 RunAs User: runnervmejwal\runner
 Configuration Name: 
 Machine: runnervmejwal (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/bb387d11-8659-4805-819d-dab16ee1bd54.ps1'
-Process ID: 2243
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/fd0da73d-508d-466b-ba7d-d4c50a1815a7.ps1'
+Process ID: 2099
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -23,11 +23,51 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
   sayfa 4: 100 parti (toplam 400)
-  sayfa 5: 26 parti (toplam 426)
+  sayfa 5: 66 parti (toplam 466)
 
-TOPLAM 426 parti bulundu.
+TOPLAM 466 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01M3Jpi4CAMBXi4ryktmBRZn ended              16        0 09/08/2026 04:43:47
+msgbatch_01G6jDxdCgyoeyeSXGL2PBTm ended              19        0 09/08/2026 04:37:29
+msgbatch_01HZFChtVQSMpTKwwivArKa4 ended               1        0 09/08/2026 04:29:51
+msgbatch_019dCBvyJXnGDEx8GFpQyt6j ended              20        0 09/08/2026 04:10:22
+msgbatch_01FxqQCcpkWx5kRcugTYWAon ended              83        0 09/08/2026 04:06:41
+msgbatch_018XVevoDHVPoajuCSYYe8FX ended              65        0 09/08/2026 04:02:32
+msgbatch_01BxNc3WUzDAum71pUb5bC7Q ended              65        0 09/08/2026 04:00:57
+msgbatch_011pA1jMsyDiM6rvPNjkumBv ended               4        0 09/08/2026 03:39:40
+msgbatch_01AanNpot5Ad8PpVtEnGQiXi ended              65        0 09/08/2026 03:21:30
+msgbatch_01WvMTrdqAXg67hzNw7bf7TM ended              64        0 09/08/2026 03:13:14
+msgbatch_012oXvngvhsjwLq7zfNwJXy9 ended             172        0 09/08/2026 01:53:38
+msgbatch_01D5AQzoneeKeUkhB1wHcwDe ended             172        0 09/08/2026 01:53:28
+msgbatch_01WnvMs3nmiJnQTWuQCS3LAH ended             172        0 09/08/2026 01:53:06
+msgbatch_015Xn6yhjkKnd9v28sQWuVDd ended              83        0 09/08/2026 01:46:28
+msgbatch_01PWnoSo31YvZTzHPwGysUo6 ended               1        0 09/08/2026 01:06:18
+msgbatch_01UXuGzQ4uFBjvFPjdxPrVBe ended             172        0 09/08/2026 00:30:41
+msgbatch_01TAwRyG744V9Ps8PnfsBYEZ ended             172        0 09/08/2026 00:30:28
+msgbatch_01B4H2Ee96UEDWxFAGRThj5V ended             172        0 09/08/2026 00:30:05
+msgbatch_012c2Q6beiku4ouB1o9xnWea ended              83        0 09/08/2026 00:23:13
+msgbatch_01F6f3zST1CLC6uijMv8ZYJr ended               1        0 09/07/2026 23:44:39
+msgbatch_0176RnNNc3rMo9cdR9vsKtPv ended               2        0 09/07/2026 23:39:56
+msgbatch_01QFfnSSDgSMRxgmSauMRzR1 ended               2        0 09/07/2026 23:37:23
+msgbatch_01BLeuiwpcG3tTTvMoXjZCCq ended               2        0 09/07/2026 23:34:26
+msgbatch_01MNTPjvkPimefob23MV6yFP ended               2        0 09/07/2026 23:30:39
+msgbatch_01A4LDxrYgiT99oDQhn8cbPx ended               2        0 09/07/2026 23:28:26
+msgbatch_01CZDDkb5Hk6i3j2gLThz4qr ended               2        0 09/07/2026 23:20:44
+msgbatch_01EPDjyS7qJwzfigewKNHmsR ended               2        0 09/07/2026 23:17:56
+msgbatch_01WYh8GQsm2eUAve4Xq2fjU3 ended               2        0 09/07/2026 23:08:49
+msgbatch_01KJGs3LWt8Pt5L2S1TCvC9d ended               2        0 09/07/2026 23:05:09
+msgbatch_01SRsZHkpTAxrDY53ydfXrzB ended               2        0 09/07/2026 23:02:16
+msgbatch_01JLaFqRJUL4BEfj39NCSbGJ ended               2        0 09/07/2026 22:58:29
+msgbatch_016nXQQgqEauntGGFsSr1Ye2 ended               2        0 09/07/2026 22:50:20
+msgbatch_0153737hZRSXUqbbcRCerLG3 ended               2        0 09/07/2026 22:48:03
+msgbatch_015gBUehASeDYSJQNVbQ3SsS ended               2        0 09/07/2026 22:45:30
+msgbatch_018ZcN24psPFjNPHgpUxZaFF ended               2        0 09/07/2026 22:43:02
+msgbatch_01178jGXQ8j6fkMd1id91mXj ended               2        0 09/07/2026 22:37:13
+msgbatch_013pCy2R9VcS8YGz1Yr9gCN2 ended               2        0 09/07/2026 22:35:03
+msgbatch_01TDVA9w6wt5NTb6ZT9qjeMM ended               2        0 09/07/2026 22:28:57
+msgbatch_0168WSVApx1XtzuLR1y22JGZ ended               4        0 09/07/2026 22:12:31
+msgbatch_012ywBfD15U9n4ezNwNHq4Zb ended               4        0 09/07/2026 22:10:29
 msgbatch_01VwryQdseKsmUJ1tpf24ngq ended               1        0 09/07/2026 04:32:24
 msgbatch_01Jn2u92HKmu2exMSw211vdj ended               1        0 09/07/2026 00:50:16
 msgbatch_01CqoFZLDqgnmrX1pPj2pttA ended               1        0 09/06/2026 23:05:41
@@ -455,9 +495,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (426 kayit)
-HASADA HAZIR (ended + basarili>0): 426 parti,  sonuc
+-> veri/parti-listesi.json (466 kayit)
+HASADA HAZIR (ended + basarili>0): 466 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260907050026
+End time: 20260908045840
 **********************
