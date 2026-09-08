@@ -275,7 +275,50 @@ function satirHtml(k, kalan) {
     }
   }
 
-  log(`\nBITTI: rakip ${rapor.rakip_unvan} unvan (${rapor.rakip_temel} temel, ${rapor.rakip_yeni} yeni) · yayim ${rapor.yayim_marka} marka (${rapor.yayim_uyari} kendi, ${rapor.ayni_ad_uyari} ayni ad) · ${rapor.mail} mail · ${rapor.hata} hata${KURU ? ' · KURU' : ''}`);
+  /* ---------------- C) İTİRAZ SÜRESİ DOLDU (08.09, Cem "3'ü de yap") ----------------
+     'yayim' uyarısı yazılmış başvurunun itiraz_son'u geçtiyse AYNI SATIR
+     tip='itiraz-bitti' yapılır (unique(user_id,marka,basvuru_no) ikinci satıra
+     izin vermez; güncelleme = tek uyarı, tek mail). goruldu=false → panelde
+     yeniden görünür. Bülten itiraz yapılıp yapılmadığını GÖSTERMEZ; mail
+     bunu iddia etmez, TÜRKPATENT dosya takibine yollar. Tescil şartı SMK m.22/1
+     (ambardan): itiraz yok/reddedilmiş + tescil ücreti süresinde ödenmiş →
+     tescil; ücret ödenmezse başvuru işlemden kaldırılır. */
+  rapor.itiraz_bitti = 0;
+  let yayimlar = [];
+  try { yayimlar = await get('marka_uyari?select=id,user_id,marka,basvuru_no&tip=eq.yayim'); }
+  catch (e) { rapor.hata++; log('marka_uyari (yayim) okunamadi: ' + e.message); }
+  const byNo = new Map(pencere.map(x => [rakam(x.basvuru_no), x]));
+  const bittiGrup = new Map();
+  for (const u of yayimlar) {
+    const x = byNo.get(rakam(u.basvuru_no));
+    if (!x || !x.itiraz_son) continue;                       // pencere dışı: 75 gün + 2 ay > pencere olamaz, ama kör kalma
+    if (x.itiraz_son >= isoGun(bugun)) continue;             // süre henüz açık
+    if (!KURU) {
+      try { await patch(`marka_uyari?id=eq.${u.id}`, { tip: 'itiraz-bitti', durum: 'İtiraz süresi doldu ' + trT(x.itiraz_son) + ' · itiraz gelmediyse tescil aşaması (SMK m.22/1)', goruldu: false }); }
+      catch (e) { rapor.hata++; log(`  ${u.marka}: itiraz-bitti yazilamadi ${e.message}`); continue; }
+    }
+    rapor.itiraz_bitti++;
+    if (!bittiGrup.has(u.user_id)) bittiGrup.set(u.user_id, []);
+    bittiGrup.get(u.user_id).push({ marka: u.marka, k: x });
+    rapor.ornek.push({ tip: 'itiraz-bitti', marka: u.marka, no: x.basvuru_no });
+  }
+  for (const [uid, liste] of bittiGrup) {
+    log(`  itiraz suresi doldu: ${liste.map(l => l.marka).join(', ')}`);
+    const kime = postaUygun(uid);
+    if (!kime || KURU) continue;
+    try {
+      await mail(kime, `İtiraz süresi doldu: “${liste[0].marka}”${liste.length > 1 ? ' ve ' + (liste.length - 1) + ' marka daha' : ''} — tescil aşaması`,
+        `<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:640px;margin:0 auto;color:#101418">
+         <p style="font-size:16px;margin:0 0 10px">Merhaba,</p>
+         <p style="font-size:15px;line-height:1.6;margin:0 0 12px">Bültende yayımlanan başvurunuzun <b>iki aylık itiraz süresi doldu</b>. Bundan sonrası SMK m.22/1: itiraz yapılmamışsa ya da yapılan itirazlar reddedilmişse ve <b>tescil ücreti süresi içinde ödenirse</b> marka tescil edilip sicile kaydedilir; ücret ödenmezse başvuru <b>işlemden kaldırılır</b>.</p>
+         <table style="width:100%;border-collapse:collapse;border:1px solid #e6e8eb;border-radius:10px">${liste.map(l => satirHtml(l.k, gunFark(new Date(l.k.itiraz_son), bugun))).join('')}</table>
+         <p style="font-size:14px;line-height:1.6;margin:14px 0 0"><b>Bülten, itiraz gelip gelmediğini göstermez.</b> Dosyanın durumunu TÜRKPATENT'te (portal / vekiliniz) teyit edin; itiraz yoksa Kurumun tescil ücreti bildirimi gelir, o süreyi kaçırmayın.</p>
+         <p style="font-size:14px;margin:14px 0 0">Panel: <a href="${SITE}/radar-app.html">${SITE}/radar-app.html</a></p>${altBilgi()}</div>`);
+      rapor.mail++;
+    } catch (e) { rapor.hata++; console.error(`   !! mail ${kime}: ${e.message}`); }
+  }
+
+  log(`\nBITTI: rakip ${rapor.rakip_unvan} unvan (${rapor.rakip_temel} temel, ${rapor.rakip_yeni} yeni) · yayim ${rapor.yayim_marka} marka (${rapor.yayim_uyari} kendi, ${rapor.ayni_ad_uyari} ayni ad) · itiraz bitti ${rapor.itiraz_bitti} · ${rapor.mail} mail · ${rapor.hata} hata${KURU ? ' · KURU' : ''}`);
   // Rapor: sonuç değişmediyse dosyaya dokunma (yalnız tarih değişen dosya boş commit üretir)
   try {
     const yeni = Object.assign({ mod: KURU ? 'KURU' : 'CANLI', kaynak: 'marka_bulten (Resmi Marka Bulteni ambari)' }, rapor);
