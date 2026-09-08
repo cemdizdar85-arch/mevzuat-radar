@@ -73,6 +73,18 @@ function cekirdek(unvan) {
 }
 // "8010422-MEF SERAMİK … LİMİTED ŞİRKETİ (TR) adres" -> "MEF SERAMİK … LİMİTED ŞİRKETİ"
 function sahipAd(s) { return String(s || '').split(' (')[0].replace(/^\s*\d+\s*-\s*/, '').trim(); }
+/* SÖZCÜK BAŞI EŞLEŞME (08.09 SQL v3 ile aynı kural): boşluksuz alt dize
+   "hezarCELIKkapi" içinde "arcelik"i, "deGEr" içinde "ege"yi buluyordu.
+   Boşluklu normalizasyon + " sözcük" başlangıcı: "hezar celik" ✗, "arcelik
+   anonim" ✓, "ege vitrifiye" ✗, "ege seramik san" ✓. */
+function normSozcuk(s) {
+  return String(s || '').replace(/[İIı]/g, 'i').toLowerCase().normalize('NFD')
+    .replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+function adEslesir(sahipAdi, cekirdekMetni) {
+  const s = normSozcuk(cekirdekMetni); if (!s) return false;
+  return (' ' + normSozcuk(sahipAdi) + ' ').includes(' ' + s);
+}
 const rakam = s => String(s || '').replace(/\D/g, '');
 const trT = s => { const p = String(s || '').slice(0, 10).split('-'); return p.length === 3 ? (p[2] + '.' + p[1] + '.' + p[0]) : String(s || ''); };
 const gunFark = (a, b) => Math.round((a - b) / 86400000);
@@ -88,6 +100,11 @@ function ozSinav() {
   for (const [u, b] of v) { const c = norm(cekirdek(u)); if (c !== b) throw new Error(`oz-sinav: cekirdek(${u}) = ${c}, beklenen ${b}`); }
   if (norm('ÇĞİÖŞÜçğıöşü') !== 'cgiosucgiosu') throw new Error('oz-sinav: norm Turkce harf');
   if (sahipAd('8010422-MEF SERAMİK İNŞAAT (TR) AKDENİZ MAH.') !== 'MEF SERAMİK İNŞAAT') throw new Error('oz-sinav: sahipAd');
+  if (adEslesir('HEZAR ÇELİK KAPI MOBİLYA SANAYİ', 'ARÇELİK')) throw new Error('oz-sinav: hezar celik ARCELIK sayildi');
+  if (!adEslesir('ARÇELİK ANONİM ŞİRKETİ', 'ARÇELİK')) throw new Error('oz-sinav: arcelik eslesmedi');
+  if (adEslesir('EGE VİTRİFİYE SAĞLIK GEREÇLERİ', 'EGE SERAMİK')) throw new Error('oz-sinav: ege vitrifiye EGE SERAMIK sayildi');
+  if (!adEslesir('EGE SERAMİK SAN. VE TİC. A.Ş.', 'EGE SERAMİK')) throw new Error('oz-sinav: ege seramik eslesmedi');
+  if (adEslesir('DEĞER GIDA', 'EGE')) throw new Error('oz-sinav: deger EGE sayildi');
 }
 
 async function get(p) {
@@ -185,7 +202,9 @@ function satirHtml(k, kalan) {
     if (n.length < 3) { log(`  ${r.unvan}: cekirdek cok kisa (${cek}), atlandi`); continue; }
     const temel = !r.guncelleme;
     const bas = isoGun(new Date(temel ? bugun.getTime() - RAKIP_TEMEL_GUN * 86400000 : new Date(r.guncelleme).getTime() - 3 * 86400000));
-    const rows = pencere.filter(x => x.yayin_tarihi >= bas && norm(sahipAd(x.sahip)).includes(n));
+    const tarihIci = pencere.filter(x => x.yayin_tarihi >= bas);
+    const rows = tarihIci.filter(x => adEslesir(sahipAd(x.sahip), cek));
+    log(`  ${r.unvan}: pencere ${bas}'den itibaren ${tarihIci.length} kayit`);
     const eski = new Set((r.son_nolar || []).map(rakam));
     const yeni = rows.filter(x => !eski.has(rakam(x.basvuru_no)));
     const birlesik = Array.from(new Set([...(r.son_nolar || []), ...rows.map(x => x.basvuru_no)]));
@@ -220,14 +239,14 @@ function satirHtml(k, kalan) {
   const yayimBas = isoGun(new Date(bugun.getTime() - YAYIM_GUN * 86400000));
   log(`Yayim yakalama: ${markali.length} firma`);
   for (const f of markali) {
-    const firmaN = norm(cekirdek(f.firma_adi || ''));
+    const firmaCek = cekirdek(f.firma_adi || ''), firmaN = norm(firmaCek);
     const uyarilar = [];
     for (const ad of f.markalar) {
       const n = norm(ad); if (n.length < 2) continue;
       rapor.yayim_marka++;
       const rows = pencere.filter(x => x.yayin_tarihi >= yayimBas && x.ad_norm === n);
       for (const x of rows) {
-        const kendi = firmaN.length >= 3 && norm(sahipAd(x.sahip)).includes(firmaN);
+        const kendi = firmaN.length >= 3 && adEslesir(sahipAd(x.sahip), firmaCek);
         uyarilar.push({ satir: { user_id: f.user_id, marka: ad, basvuru_no: x.basvuru_no, benzer_ad: x.ad, basvuru_tarih: x.yayin_tarihi, durum: (kendi ? 'Başvurun yayımlandı' : 'Aynı adla başkası başvurdu') + ' · itiraz son ' + trT(x.itiraz_son), tip: kendi ? 'yayim' : 'ayni-ad', ofis: 'TR' }, k: x, kendi });
       }
     }
