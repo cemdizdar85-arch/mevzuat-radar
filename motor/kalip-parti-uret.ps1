@@ -1039,17 +1039,27 @@ function CeldiriciYolKapisi($aday){
     $sikN=SayiCozC $sikT; if($null -eq $sikN){ continue }
     $f=$(if($yol -and $yol.PSObject.Properties[$h]){ "$($yol.$h)" } else { '' })
     if(-not $f.Trim()){ $out+="$h) yanlış yol formülü yok"; continue }
-    $par=@($f -split '\s=\s'); if($par.Count -lt 2){ $out+="$h) yanlış yol formülünde '=' yok"; continue }
+    # 08.09 Tur 1 FMuh ölçümü (p4: 68 KAPI-Ç tekrarı, 25 düşüş; 32 "'=' yok" + 70 "çözülemedi"): (1) model "=" etrafına boşluk koymuyor
+    # ("300.000×%20=60.000") → '\s=\s' bölmüyordu; (2) çok adımlı yol ";" ile yazılıyor ("… = 310.000; max(240.000,310.000)=310.000; 320.000-310.000 = 10.000")
+    # → son adımdan önceki her şey formüle karışıyordu. Şimdi: son ";" parçası alınır, "=" boşluksuz da bölünür, max/min desteklenir.
+    $fSon=$f; $parcalar=@($f -split ';'); if($parcalar.Count -gt 1){ $fSon=$parcalar[$parcalar.Count-1] }
+    $fSon=$fSon -replace '\s*\([^()]*[A-Za-zÇĞİÖŞÜçğıöşü][^()]*\)\s*$',''   # sondaki "(hatanın adı)" notu
+    $par=@($fSon -split '\s*=\s*' | Where-Object { "$_".Trim() }); if($par.Count -lt 2){ $out+="$h) yanlış yol formülünde '=' yok"; continue }
     $sol=$par[$par.Count-2]
     # 08.09 B kovası 19: iç eşitlik "(20.000/400=50)" → "(20.000/400)" (iç sonuç dış hesapta yeniden hesaplanır, sahte "çözülemedi" bitti);
     # Unicode eksi (−) ve rakam arası "x" (300x0,50) da aritmetiğe çevrilir. Ölçüm: 07.09 Maliyet kp-01/kp-02 üç sahte tur bu yüzdendi.
     $solT=$sol -replace '\([^)]*[A-Za-zÇĞİÖŞÜçğıöşü][^)]*\)',' ' -replace '−','-' -replace '–','-' -replace '×','*' -replace '\bx\b','*' -replace '(?i)\b(TL|₺|kg|ton|adet|birim|ay|yıl|yil|gün|gun|saat)\b',' '   # yalnız harf içeren parantez (not) atılır, aritmetik parantez kalır
     $solT=[regex]::Replace($solT,'\(([^()=]*?)\s*=\s*[\d\.,]+\s*%?\s*\)','($1)')
     $solT=[regex]::Replace($solT,'(?<=[\d\)])\s*[xX]\s*(?=[\d\(%])','*')
+    # max/min içindeki argüman virgülü ("max(240.000,300.000)") ondalık virgülle karışmasın: binlik noktalı sayı izliyorsa ayraçtır → ' | ' (sonra geri ',')
+    $solT=[regex]::Replace($solT,'(?i)\b(max|min)\s*\(([^()]*)\)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $m.Groups[1].Value+'('+([regex]::Replace($m.Groups[2].Value,',(?=\s*\d{1,3}(?:\.\d{3})+(?![\d,]))',' | '))+')' })
     $solT=[regex]::Replace($solT,'%\s*(\d{1,3}(?:\.\d{3})*(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Groups[1].Value; if($null -eq $v){ $m.Value } else { '('+($v/100).ToString($inv)+')' } })
     $solT=[regex]::Replace($solT,'(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Value; if($null -eq $v){ $m.Value } else { $v.ToString($inv) } })
     $solT=($solT -replace '\s+',' ').Trim()
-    if($solT -notmatch '^[\d\.\s\+\-\*/\(\)]+$'){ $out+="$h) yanlış yol çözülemedi: $f"; continue }
+    $solT=[regex]::Replace($solT,'(?i)\bmax\s*\(','[Math]::Max('); $solT=[regex]::Replace($solT,'(?i)\bmin\s*\(','[Math]::Min(')   # 08.09: "max(240.000,310.000)" desteklenir
+    $solT=$solT -replace '\s*\|\s*',','
+    $kontrol=$solT -replace '\[Math\]::(Max|Min)\(','(' -replace ',',' '
+    if($kontrol -notmatch '^[\d\.\s\+\-\*/\(\)]+$'){ $out+="$h) yanlış yol çözülemedi: $f"; continue }
     $hes=$null; try{ $hes=[double](Invoke-Expression $solT) }catch{ $out+="$h) yanlış yol hesaplanamadı: $f"; continue }
     $tol=[Math]::Max(0.51,[Math]::Abs($sikN)*0.005)
     if([Math]::Abs($hes-$sikN) -gt $tol -and [Math]::Abs($hes*100-$sikN) -gt $tol -and [Math]::Abs($hes/100-$sikN) -gt $tol){ $out+="$h) yanlış yol $([math]::Round($hes,2)) çıkıyor, şık $sikT" }
