@@ -2753,7 +2753,13 @@ foreach($id in @($don.Keys)){
   if($SadeceHtml -or $SadeceAdim){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
-  if(-not $Hakem2Yenile -and $cvp.PSObject.Properties['hakem2'] -and $cvp.hakem2 -and $cvp.hakem2.PSObject.Properties['karar']){ continue }
+  if(-not $Hakem2Yenile -and $cvp.PSObject.Properties['hakem2'] -and $cvp.hakem2 -and $cvp.hakem2.PSObject.Properties['karar']){
+    # 08.09: eldeki karar API'siz yeniden türetilir (sert koku listesi değişti: "birbirinin tam tersi" artık sert değil) — 0 USD
+    $h2=$cvp.hakem2; $tumKoku=@(@($h2.koku)+@($(if($h2.PSObject.Properties['koku_not']){ $h2.koku_not } else { @() })) | Where-Object { "$_" })
+    $sertY=@($tumKoku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -or ((@($h2.koku) -contains $_) -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' -and $_ -notmatch '(?i)birbirinin (tam )?tersi' })
+    $kararY=$(if("$($h2.sinav_gibi)" -eq 'EVET' -and "$($h2.celdirici_gercek)" -eq 'EVET' -and -not $sertY.Count){ 'EVET' } else { 'HAYIR' })
+    if($kararY -ne "$($h2.karar)"){ $h2.karar=$kararY; $h2.koku=@($sertY); $h2 | Add-Member -NotePropertyName koku_not -NotePropertyValue @($tumKoku | Where-Object { $sertY -notcontains $_ }) -Force; CacheYaz; Write-Host "  HAKEM2 KARAR YENİDEN TÜRETİLDİ ($id): $kararY" -ForegroundColor Cyan }
+    continue }
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
   $acikM=$(if($cvp.aciklama){ AciklamaDuz $cvp.aciklama.$($cvp.dogru) } else { '' })
   $istH=$hakem2Istem.Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
