@@ -241,6 +241,18 @@ const EPOSTA_ANAHTAR = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
 const TL = n => Math.round(n).toLocaleString('tr-TR');
 const TLk = n => (Math.round(n*100)/100).toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const kapi = a => (typeof ttSorguKapisi==='function') ? ttSorguKapisi(a) : true;
+/* 08.09 (GM #2, Cem "2 yap"): hangi il seçiliyor? GoatCounter olayı — kişisel veri yok,
+   sıfır maliyet; panelde "olay/kurulus-maliyet/<tür>/<oda>" yolu altında sayılır. Sonraki
+   oda ölçüm turu bu sayıya göre önceliklenir. Sayaç yoksa sessizce vazgeçer (gtip.html deseni). */
+let TT_OLAY_KUYRUK=[];
+function ttOlay(ad){
+  try{
+    const k=new URLSearchParams(location.search).get('k');
+    const yol='olay/'+ad+(k?'?k='+encodeURIComponent(k):'');
+    if(window.goatcounter && window.goatcounter.count){ window.goatcounter.count({path:yol,title:'olay: '+ad,event:true}); }
+    else if(TT_OLAY_KUYRUK.length<12){ TT_OLAY_KUYRUK.push(yol); if(TT_OLAY_KUYRUK.length===1) setTimeout(()=>{ if(window.goatcounter && window.goatcounter.count){ TT_OLAY_KUYRUK.forEach(y=>window.goatcounter.count({path:y,title:'olay (geç)',event:true})); } TT_OLAY_KUYRUK=[]; },1500); }
+  }catch(e){}
+}
 
 /* ---------- sekmeler ---------- */
 document.querySelector('.sekme').addEventListener('click',e=>{
@@ -298,6 +310,7 @@ function maliyetHesapla(){
   let html='', toplam=0, kalemler=[];
   const ekle=(ad,tl,kaynak,alt)=>{ toplam+=tl; kalemler.push([ad,tl]); html+=satir(ad, TLk(tl)+' TL', kaynak, alt); };
   if(t==='sahis'){
+    ttOlay('kurulus-maliyet/sahis/'+document.getElementById('mOda').value);
     const sicil = secili('mSicil')==='evet';
     const H=M.sicilHarclari, Z=M.sicilHizmetUcretleri, I=M.ttsgIlan;
     if(sicil){
@@ -330,6 +343,7 @@ function maliyetHesapla(){
   // tarifesi REFERANS diye işaretlenir, kayıt ücreti "ölçülmedi" kalır.
   const odaKod = document.getElementById('mOda').value;
   const oda = (ODA && ODA.odalar[odaKod]) ? ODA.odalar[odaKod] : null;
+  ttOlay('kurulus-maliyet/'+t+'/'+odaKod);
   const odaAd = oda ? oda.ad : 'İstanbul tarifesi (referans)';
   const sc = oda ? oda.sicil : { kurulusTasdik:Z.kurulusTasdik, defterTasdik:Z.kurulusDefterTasdiki, imzaBeyaniKisiBasi:Z.huzurdaImzaBeyannamesiKisiBasi, ilanGideri:Z.ilanGiderleri };
   const kay = oda ? oda.kaynak : 'İTO 2026 tarifesi; kendi ilinin sicil müdürlüğüne sor';
@@ -415,6 +429,7 @@ function takvimUret(){
   const T = new Date(document.getElementById('tTarih').value+'T00:00:00');
   if(isNaN(T)){ out.innerHTML='<p class="kotu">Geçerli bir tescil tarihi gir.</p>'; return; }
   const calisan=document.getElementById('tCalisan').checked, kira=document.getElementById('tKira').checked;
+  ttOlay('kurulus-takvim/'+t);
   const ufuk = ayEkle(T,12);
   const E=[]; // {d, ad, ne, dy, tekrar, otede}
   const ek=(d,ad,ne,dy,tekrar)=>E.push({d,ad,ne,dy,tekrar:!!tekrar, otede: d>ufuk});
@@ -513,6 +528,7 @@ function takvimGonder(tur){
   const ozet = SON_OLAYLAR.filter(e=>!e.tekrar).map(e=>gg(e.d)+' — '+e.ad).join('\n');
   const payload={subject:'Kuruluş Nöbeti takvimi, '+AD[tur], from_name:'Tetikte', email:mail,
     'Tür':AD[tur], 'Tescil tarihi':document.getElementById('tTarih').value, 'Çalışan':document.getElementById('tCalisan').checked?'evet':'hayır',
+    'İl / oda (maliyet sekmesinde seçilen)': (function(){ const s=document.getElementById('mOda'); return s ? s.options[s.selectedIndex].textContent : ''; })(),
     'Takvim (tekrarsız)':ozet, 'Kayıt kaynağı':'Kuruluş Nöbeti'};
   goster('Gönderiliyor…',true);
   // 08.09 (GM #1): kayıt KASAYA da düşer (kurulus_nobet; anon yalnız ekler). Robot
@@ -543,6 +559,7 @@ const ULKE = ['almanya','amerika','fransa','ingiltere','italya','rusya','çin','
 function unvanKontrol(){
   const t=secili('uTur'); const u=(document.getElementById('uMetin').value||'').trim(); const out=document.getElementById('uSonuc');
   if(!u){ out.innerHTML='<p class="kotu">Önce unvanı yaz.</p>'; return; }
+  ttOlay('kurulus-unvan/'+t);
   const k = u.toLocaleLowerCase('tr-TR');
   const K=[]; const kt=(tip,b,s)=>K.push([tip,b,s]);
   // 1) tür ibaresi
@@ -602,6 +619,7 @@ function sozlesmeUret(){
   const t=secili('sTur');
   const ortaklar=[...document.querySelectorAll('#sOrtaklar .ortak')].map(o=>({ad:(o.querySelector('.oAd').value||'').trim()||'[ORTAK ADI]', pay:parseFloat(o.querySelector('.oPay').value)||0}));
   if(ortaklar.length<2){ out.innerHTML='<p class="kotu">Ortaklar sözleşmesi için en az iki ortak gerekir.</p>'; return; }
+  ttOlay('kurulus-sozlesme/'+t+'/'+ortaklar.length+'-ortak');
   const toplamPay = ortaklar.reduce((a,b)=>a+b.pay,0);
   const uyariPay = Math.abs(toplamPay-100)>0.01 ? `<div class="kotu"><b>Pay toplamı %${toplamPay}.</b> %100 olmalı; taslak yine üretildi, oranları düzelt.</div>` : '';
   const vest=+document.getElementById('sVesting').value, cliff=+document.getElementById('sCliff').value, rek=+document.getElementById('sRekabet').value;
