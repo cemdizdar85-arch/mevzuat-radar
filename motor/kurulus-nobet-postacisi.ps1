@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KURULUS NOBET POSTACISI - kurulus_nobet kasasindaki kayitlara mail atar
 #
 #  NEDEN VAR (08.09.2026, Cem "GM onerilerini yapalim" #1): kurulus-nobeti.html
@@ -42,13 +42,24 @@ function Getir($yol){
   return @($ham | ConvertFrom-Json)
 }
 function Yama($id, $govde){
+  # 08.09 kusur: kuru kosu mail atmadan "hosgeldin" damgasi basiyordu; gercek kosu
+  # hos geldini atlayip dogrudan hatirlatmaya gecti (Cem'in kutusunda olculdu).
+  if ($Kuru) { Write-Host "  KURU: kayit $id damgalanmadi"; return }
   $json = $govde | ConvertTo-Json -Compress
   $w = Invoke-WebRequest -Uri "$API/kurulus_nobet?id=eq.$id" -Method Patch -Headers ($SB + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) -Body ([Text.Encoding]::UTF8.GetBytes($json)) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck
   if ([int]$w.StatusCode -ge 400) { throw ("PATCH $id -> $($w.StatusCode)") }
 }
+function HtmlGovde([string]$metin){
+  # Duz metin -> okunur HTML: satir sonlari <br>, tarih satirlari kalin, baglantilar tiklanir.
+  $k = [System.Net.WebUtility]::HtmlEncode($metin)
+  $k = [regex]::Replace($k, '(?m)^(\d{2} \w{3} \d{4})  (.+)$', '<b style="color:#1b1a18">$1</b> · <b>$2</b>')
+  $k = [regex]::Replace($k, '(https://\S+)', '<a href="$1" style="color:#a04a08">$1</a>')
+  $k = $k -replace "`r?`n", '<br>'
+  return '<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:15px;line-height:1.6;color:#1b1a18;max-width:640px">' + $k + '</div>'
+}
 function Gonder($alici, $konu, $metin){
   if ($Kuru) { Write-Host "  KURU: $alici <- $konu"; return $true }
-  $cikti = & (Join-Path $kok 'arac\alarm-maili.ps1') -Konu $konu -Mesaj $metin -Alici $alici -YanitAdresi $yanit 2>&1
+  $cikti = & (Join-Path $kok 'arac\alarm-maili.ps1') -Konu $konu -Mesaj $metin -Html (HtmlGovde $metin) -Alici $alici -YanitAdresi $yanit 2>&1
   $ok = ($cikti -join "`n") -match 'gonderildi'
   if (-not $ok) { Write-Host ("  MAIL GITMEDI: " + (($cikti -join ' ') -replace $alici, '<alici>')) }
   return $ok
@@ -83,18 +94,18 @@ foreach ($k in $kayitlar) {
       $metin = @"
 Merhaba,
 
-$($AD[$k.tur]) icin $(Gun $tescil) tescil tarihine gore ilk 12 ayin takvimi asagida. Bu tarihlerin her birinden $OnGun gun once sana bir hatirlatma yazacagiz. Takvim yon vericidir; beyan gunleri hafta sonuna denk gelince izleyen is gunune kayar, kesin tarihleri muhasebecinle teyit et.
+$($AD[$k.tur]) için $(Gun $tescil) tescil tarihine göre ilk 12 ayın takvimi aşağıda. Bu tarihlerin her birinden $OnGun gün önce sana bir hatırlatma yazacağız. Takvim yön vericidir; beyan günleri hafta sonuna denk gelince izleyen iş gününe kayar, kesin tarihleri muhasebecinle teyit et.
 
 $($satirlar -join "`n`n")
 
-(Aylik tekrar eden beyanlarin yalniz ilk ucu yazildi; hatirlatmalar her ay gelir.)
+(Aylık tekrar eden beyanların yalnız ilk üçü yazıldı; hatırlatmalar her ay gelir.)
 
-Takvimi telefonuna eklemek ve tarihlerin kaynagini gormek icin: https://tetikte.com/kurulus-nobeti.html#takvim
+Takvimi telefonuna eklemek ve tarihlerin kaynağını görmek için: https://tetikte.com/kurulus-nobeti.html#takvim
 
-Nobeti durdurmak istersen bu maile "iptal" yazip yanitla, kaydini sileriz.
-Tetikte - Kurulus Nobeti
+Nöbeti durdurmak istersen bu maile "iptal" yazıp yanıtla, kaydını sileriz.
+Tetikte · Kuruluş Nöbeti
 "@
-      if (Gonder $k.eposta ("Kurulus Nobeti: " + $AD[$k.tur] + " ilk 12 ay takvimin") $metin) {
+      if (Gonder $k.eposta ("Kuruluş Nöbeti: " + $AD[$k.tur] + " ilk 12 ay takvimin") $metin) {
         Yama $k.id @{ hosgeldin = (Get-Date).ToUniversalTime().ToString('o'); gonderim_sayisi = ([int]$k.gonderim_sayisi + 1) }
         $hos++; $gonderilen++
       } else { $hata++ }
@@ -108,17 +119,17 @@ Tetikte - Kurulus Nobeti
     $metin = @"
 Merhaba,
 
-$($AD[$k.tur]) takviminde onumuzdeki $OnGun gun icinde su tarih(ler) var:
+$($AD[$k.tur]) takviminde önümüzdeki $OnGun gün içinde şu tarih(ler) var:
 
 $($satirlar -join "`n`n")
 
-Hafta sonuna denk gelen beyan gunu izleyen is gunune kayar; muhasebecinle teyit et.
-Takvimin tamami: https://tetikte.com/kurulus-nobeti.html#takvim
+Hafta sonuna denk gelen beyan günü izleyen iş gününe kayar; muhasebecinle teyit et.
+Takvimin tamamı: https://tetikte.com/kurulus-nobeti.html#takvim
 
-Nobeti durdurmak istersen bu maile "iptal" yazip yanitla.
-Tetikte - Kurulus Nobeti
+Nöbeti durdurmak istersen bu maile "iptal" yazıp yanıtla.
+Tetikte · Kuruluş Nöbeti
 "@
-    $konu = "Kurulus Nobeti: " + (Gun $yakin[0].d) + " - " + $yakin[0].ad
+    $konu = "Kuruluş Nöbeti: " + (Gun $yakin[0].d) + " · " + $yakin[0].ad
     if (Gonder $k.eposta $konu $metin) {
       $enSon = ($yakin | Sort-Object d | Select-Object -Last 1).d
       Yama $k.id @{ son_hatirlatma = $enSon.ToString('yyyy-MM-dd'); gonderim_sayisi = ([int]$k.gonderim_sayisi + 1) }
