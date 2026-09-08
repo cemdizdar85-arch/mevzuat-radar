@@ -1,5 +1,12 @@
-=== kosu 07.09.2026 06:07:14 | pwsh 7.6.5 ===
+=== kosu 08.09.2026 00:57:15 | pwsh 7.6.5 ===
 mod: backfill | dilim: 25
 Oz-sinav gecti (dilim bolme + Norm + tarih).
-Bekleyen dilim yok. (Plan kurulmadiysa: -Plan ile kur.)
-CIKIS KODU: 0
+PLAN YOK (dilim tablosu bos) - plan kendiliginden kuruluyor.
+DILIM PLANI kuruluyor (ozyinelemeli bolme)...
+!! ISTISNA
+   tur   : System.Management.Automation.RuntimeException
+   mesaj : TMview yanit vermedi: An error occurred while sending the request.
+   yer   : At /home/runner/work/mevzuat-radar/mevzuat-radar/motor/marka-ayna-hasat.ps1:145 char:21
++ … ($d -eq 3){ throw ("TMview yanit vermedi: " + $_.Exception.Message) } …
++               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CIKIS KODU: 1
