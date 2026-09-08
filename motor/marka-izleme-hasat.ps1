@@ -162,6 +162,10 @@ if($Yaz){
   $basStr = '['+($satirlar -join ',')+']'
   $bas = [ordered]@{
     guncelleme = ("Kaynak: TMview (EUIPO/TMDN), TURKPATENT (TR). Son cekim: " + $simdi.ToString("dd.MM.yyyy") + " " + (Get-Date -Format "HH:mm") + ".")
+    # 08.09: makine-okunur cekim damgasi (ISO). Kaynak engelinde bu betik yazmaz,
+    # dosya eski kalir; sayfa bu alandan "kac gundur tazelenmedi" hesaplar ve
+    # bayat listeyi guncel gibi gostermez. (28.08-08.09: 11 gun sessiz bayatlik.)
+    cekim = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
     not = ("Son gunlerde TURKPATENT'e dusen marka basvurulari (TMview, ~gun gecikmeli). Robot her gun tazeler, pencere birikir. Yayimlanmamis kayitta sahip gizlidir; sahip gorununce yayim yakalanir ve SMK m.18 2 aylik itiraz suresi baslar.")
     pencereGun = $RetensiyonGun
     kolon = $KOLON
