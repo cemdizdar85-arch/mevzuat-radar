@@ -791,7 +791,7 @@ function CacheYaz{ $dN=[ordered]@{}; foreach($x in ($don.Keys|Sort-Object)){ $dN
 # tek partide gönderir (yarı fiyat, paralel), cevaplar TOPLU_HAZIR'a düşer. 2. geçiş normal döngüdür: ilk denemede TopluAl hazır cevabı verir,
 # API çağrısı yapılmaz; kapıdan dönen tekrarlar ve tek kalan istekler anlık gider. İstem her iki geçişte AYNI koddan üretilir (sapma yok).
 $script:TOPLU_HAZIR=@{}; $script:ON_GECIS=$false; $script:TOPLU_ISLER=New-Object System.Collections.Generic.List[object]
-function TopluTopla([string]$id,[string]$model,$icerik,[int]$maxTok){ $script:TOPLU_ISLER.Add(@{ id=$id; model=$model; icerik=$icerik; maxTok=$maxTok }) }
+function TopluTopla([string]$id,[string]$model,$icerik,[int]$maxTok,[string]$effort=''){ $script:TOPLU_ISLER.Add(@{ id=$id; model=$model; icerik=$icerik; maxTok=$maxTok; effort=$effort }) }   # 08.09 effort: faz bazlı düşünme derinliği
 function TopluGonder([string]$faz){
   $isler=@($script:TOPLU_ISLER.ToArray()); $script:TOPLU_ISLER=New-Object System.Collections.Generic.List[object]
   if(-not $script:TOPLU_HAZIR.ContainsKey($faz)){ $script:TOPLU_HAZIR[$faz]=@{} }
@@ -807,6 +807,11 @@ function TopluAl([string]$faz,[string]$id){ if($script:TOPLU_HAZIR.ContainsKey($
 # --- son10'dan canli: genc-dili adim istemi + css + Tablo/Sema cizdiriciler --
 $son10=Get-Content (Join-Path $here 'son10-uret.ps1') -Raw -Encoding UTF8
 $adimIstem=[regex]::Match($son10,"(?s)\`$adimIstem=@'(.*?)'@").Groups[1].Value
+# 08.09 FAZ BAZLI DÜŞÜNME DERİNLİĞİ (pilot6 ölçümü: çıktının %76–86'sı düşünme; çıktı fiyatı girdinin 5 katı). Anlatım/yargı fazları low,
+# hesap tasarımı yapan fazlar (soru A, ikiz C, kör K) medium kalır. Ortam değişkeni MEVZUAT_EFFORT_ADIM / _GIRIS / _HAKEM2 ile ezilir.
+$ADIM_EFFORT=$(if($env:MEVZUAT_EFFORT_ADIM){ $env:MEVZUAT_EFFORT_ADIM } else { 'low' })
+$GIRIS_EFFORT=$(if($env:MEVZUAT_EFFORT_GIRIS){ $env:MEVZUAT_EFFORT_GIRIS } else { 'low' })
+$HAKEM2_EFFORT=$(if($env:MEVZUAT_EFFORT_HAKEM2){ $env:MEVZUAT_EFFORT_HAKEM2 } else { 'medium' })   # Cem 08.09 "kontrol kalitesi en üst seviyede": yargı fazları kısılmaz
 $css=[regex]::Match($son10,"(?s)\`$css=@'(.*?)'@").Groups[1].Value
 if($adimIstem.Length -lt 500 -or $css.Length -lt 500){ throw 'son10 sablonlari cekilemedi' }
 if($Zorluk -eq 'zor'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 6-10 adım (katmanlı soru: her katman kendi adımı).') }   # 05.09 zor ayarı
@@ -1940,13 +1945,15 @@ foreach($id in @($don.Keys)){
   foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
   if($kodlarA.Count){ $thpD=AmbarCek @($kodlarA | ForEach-Object { "THP $_ %" }) 3500; if($thpD.metin){ $ist2+="`n=== HESAP TANIMLARI (Tekdüzen Hesap Planı, ambardan) ===`n"+$thpD.metin } }
   }
-  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $ist2 12000; continue }
+  # 08.09 ölçüm: adım çıktısının %76–86'sı düşünme jetonuydu (5.648 çıktı / 772 metin) → adım fazı effort=low; aritmetik/tek işlem/Türkçe kapıları
+  # ve karne aynen çalışır, kusur artarsa tur tekrarı zaten var. $ADIM_EFFORT ile değiştirilebilir.
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $ist2 12000 $ADIM_EFFORT; continue }
   $y2=$null; $a2=$null
   # 06.09 ADIM DİL KAPISI (Cem "geç"): anlatım en çok 2 cümle; 3+ cümleli adım sayısı 2'yi geçerse bir kez geri döner
   $aritK=@()
   foreach($turA in 1..3){
     $y2=$(if($turA -eq 1){ TopluAl 'B' $id } else { $null })
-    if(-not $y2){ foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
+    if(-not $y2){ foreach($d in 1..3){ try{ $y2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ist2 -MaxTok 12000 -Effort $ADIM_EFFORT; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
     # 03.09 bedel olcumu (Cem "her seyde bedeli sor"): cagri basina token kaydi
     Write-Host ("  ADIM TOKEN {0}: girdi {1} (onbellek okuma {2}, yazma {3}) · cikti {4} · model claude-sonnet-5" -f $id,$y2.girdi,$y2.onbellekOkuma,$y2.onbellekYazma,$y2.cikti) -ForegroundColor DarkGray
     $a2=Coz $y2.metin
@@ -2186,12 +2193,12 @@ foreach($id in @($don.Keys)){
   if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['harita'] -and "$($cvp.konu_giris.harita)".Trim()){ continue }   # 07.09 Ö54: haritasız (eski iki katmansız) giriş yenilenir; -GirisYenile hepsini
   $kMetinG=SadeKaynak $cvp; if($kMetinG.Length -gt 6000){ $kMetinG=$kMetinG.Substring(0,6000) }
   $istG=$girisIstem.Replace('{KONU}',"$($cvp.konu)").Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
-  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istG 3000; continue }
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istG 3000 $GIRIS_EFFORT; continue }   # 08.09: giriş anlatım fazı, düşünme low (pilot: 4.177 çıktı / 2.243 kr metin, max_tokens'ta kesildi)
   $gN=$null; $tokG=0; $tokC=0
   foreach($tur in 1..2){
     # 07.09 Ö54/Ö27: iki katmanlı giriş + rakamlı gencin örneği → Sonnet (Haiku aritmetiği güvenilmezdi, "hesap yasak" kapısı kalktı) ≈0,02 USD
     $yG=$(if($tur -eq 1){ TopluAl 'G' $id } else { $null })
-    if(-not $yG){ foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istG -MaxTok 3000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }   # 07.09 denetim-zor2: 1600'de kesildi, giriş kaydedilmedi → 3000
+    if(-not $yG){ foreach($d in 1..3){ try{ $yG=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istG -MaxTok 3000 -Effort $GIRIS_EFFORT; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }   # 07.09 denetim-zor2: 1600'de kesildi, giriş kaydedilmedi → 3000
     $tokG+=[int]$yG.girdi; $tokC+=[int]$yG.cikti
     $gN=Coz $yG.metin; if(-not $gN -or -not $gN.nedir){ if($tur -eq 1){ Write-Host "  GİRİŞ BOZUK ($id, tur 1): JSON çözülemedi (durma=$($yG.dur), $("$($yG.metin)".Length) kr) -> daha kısa, tekrar" -ForegroundColor Yellow; $istG+="`n`nÖNCEKİ CEVAP KESİLDİ/BOZUKTU: bütün alanları daha KISA yaz (toplam 180 kelime), yalnız JSON."; $gN=$null; continue }; $gN=$null; break }
     if(-not ($gN.PSObject.Properties['ornek'] -and "$($gN.ornek)".Trim()) -and $gN.PSObject.Properties['panel_ornek']){ $gN | Add-Member -NotePropertyName ornek -NotePropertyValue "$($gN.panel_ornek)" -Force }
@@ -2727,9 +2734,9 @@ foreach($id in @($don.Keys)){
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
   $acikM=$(if($cvp.aciklama){ AciklamaDuz $cvp.aciklama.$($cvp.dogru) } else { '' })
   $istH=$hakem2Istem.Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
-  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istH 1500; continue }
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istH 1500 $HAKEM2_EFFORT; continue }   # 08.09: yargı fazı, düşünme low
   $yH=TopluAl 'H2' $id
-  if(-not $yH){ foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
+  if(-not $yH){ foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500 -Effort $HAKEM2_EFFORT; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
   Write-Host ("  HAKEM2 TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray
   $aH=Coz $yH.metin
   if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $rapor.Add("HAKEM2 BOZUK: $id"); continue }

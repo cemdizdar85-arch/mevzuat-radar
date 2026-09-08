@@ -230,13 +230,17 @@ function Split-OnbellekBloklari([array]$icerik,[string]$model){
   return ,@(@{ type='text'; text=$on; cache_control=@{ type='ephemeral' } }, @{ type='text'; text=$kal })
 }
 
-function Invoke-AnthropicAnlik([string]$model,[array]$icerik,[int]$maxTok,$hedef){
+# 08.09 ölçüldü (pilot6): adım fazında çıktı jetonlarının %76–86'sı DÜŞÜNME (5.648 jeton çıktı, 772 jeton metin); giriş fazında da öyle.
+# Çıktı fiyatı girdinin 5 katı → düşünme, bedelin en büyük kalemi. Derinlik artık ÇAĞRI BAZINDA verilir: -Effort low|medium|high;
+# verilmezse MEVZUAT_EFFORT, o da yoksa medium. Hesap tasarımı yapan fazlar (soru, ikiz, kör) medium kalır; anlatım/yargı fazları low.
+function Get-EffortDegeri([string]$istenen){ if($istenen){ return $istenen }; $ef = Read-ApiEnv 'MEVZUAT_EFFORT'; if(-not $ef){ $ef = 'medium' }; return $ef }
+function Invoke-AnthropicAnlik([string]$model,[array]$icerik,[int]$maxTok,$hedef,[string]$effort=''){
   $temiz = ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $icerik $model)
   $g = @{ model=$model; max_tokens=$maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
   # 07.09 ölçüldü (maliyet-zor2): Sonnet 5'te thinking verilmezse UYARLANABİLİR DÜŞÜNME açık ve düşünme jetonları max_tokens'tan
   # yenir → 20.000 çıktı jetonu harcanıp 2.588 karakter metin döndü, JSON kesildi. Sonnet 5 / Opus 5'te düşünme derinliği
-  # effort=medium ile sınırlanır (GA, output_config içinde); MEVZUAT_EFFORT ortam değişkeniyle değiştirilebilir (low|medium|high).
-  if($model -match 'sonnet-5|opus-5'){ $ef = Read-ApiEnv 'MEVZUAT_EFFORT'; if(-not $ef){ $ef = 'medium' }; $g.output_config = @{ effort = $ef } }
+  # effort ile sınırlanır (GA, output_config içinde).
+  if($model -match 'sonnet-5|opus-5'){ $g.output_config = @{ effort = (Get-EffortDegeri $effort) } }
   $govde = $g | ConvertTo-Json -Depth 20
   $r = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages') -Headers $hedef.basliklar -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType 'application/json' -TimeoutSec 240
   # content[0] her zaman metin DEGILDIR (dusunme blogu one gelebilir) -> tum metin bloklarini birlestir
@@ -330,7 +334,8 @@ function Invoke-ClaudeMesaj {
     [Parameter(Mandatory=$true)][string]$Model,
     [Parameter(Mandatory=$true)][array]$Icerik,
     [int]$MaxTok = 4000,
-    [switch]$YalnizOpenRouter
+    [switch]$YalnizOpenRouter,
+    [string]$Effort = ''      # 08.09: low|medium|high (Sonnet 5 / Opus 5 düşünme derinliği); boş = MEVZUAT_EFFORT ya da medium
   )
   $orVar  = [bool](Read-ApiEnv 'OPENROUTER_KEY')
   $antVar = Test-AnthropicVar
@@ -340,7 +345,7 @@ function Invoke-ClaudeMesaj {
     try {
       $hedef = Get-ApiHedef
       if($hedef.ad -ne 'openrouter'){
-        $ySon = Repair-ClaudeMetin (Invoke-AnthropicAnlik $Model $Icerik $MaxTok $hedef)
+        $ySon = Repair-ClaudeMetin (Invoke-AnthropicAnlik $Model $Icerik $MaxTok $hedef $Effort)
         Add-BedelKaydi $Model $ySon
         return $ySon
       }
@@ -416,7 +421,7 @@ function Invoke-ClaudeToplu {
   foreach($i in @($Isler)){
     $temiz = ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $i.icerik "$($i.model)")   # 08.09 önbellek: toplu istekte de önek işaretli
     $g = @{ model="$($i.model)"; max_tokens=[int]$i.maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
-    if("$($i.model)" -match 'sonnet-5|opus-5'){ $ef = Read-ApiEnv 'MEVZUAT_EFFORT'; if(-not $ef){ $ef = 'medium' }; $g.output_config = @{ effort = $ef } }
+    if("$($i.model)" -match 'sonnet-5|opus-5'){ $g.output_config = @{ effort = (Get-EffortDegeri "$(if($i -is [hashtable]){ $i['effort'] } else { $i.effort })") } }   # 08.09: iş kaydında 'effort' alanı
     $req += @{ custom_id="$($i.id)"; params=$g }
   }
   $govde = @{ requests=$req } | ConvertTo-Json -Depth 20
