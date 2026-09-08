@@ -1,11 +1,11 @@
 {
-  "tarih": "07.09.2026 19:33",
+  "tarih": "08.09.2026 00:47",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 843,
   "riskli_madde": 1315,
   "sayfa": 64,
-  "atifli_iddia": 266,
-  "dayanaksiz_iddia": 327,
+  "atifli_iddia": 263,
+  "dayanaksiz_iddia": 329,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -1573,13 +1573,19 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 261,
+      "satir": 56,
+      "iddia": "%3",
+      "metin": "Ne yapmalısın: Depo ve envanterinde bulunan ihtiyaç fazlası, standart dışı, hizmet dışı kalmış veya hurda durumundaki malzemeleri teknik komisyona bildirmek; satış veya mübadele ka"
+    },
+    {
+      "sayfa": "kartlar.html",
+      "satir": 259,
       "iddia": "1.200.000 TL",
       "metin": "Ne oldu: Doğal Afet Sigortaları Kurumu'nun çalışma yönetmeliğinde beş ayrı değişikliğe gidilmiştir. Fon yatırımına ilişkin çeşitlendirme ilkeleri yeniden düzenlenmiş, satın alma eş"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 275,
+      "satir": 273,
       "iddia": "1.200.000 TL",
       "metin": "Ne yapmalısın: Kurum, fon yatırım portföyünü yeni çeşitlendirme ve Hazine enstrümanı ağırlığı kurallarıyla uyumlu hâle getirmelidir. Satın alma emirlerinde 1.200.000 TL eşiği yeni "
     },
@@ -1741,37 +1747,43 @@
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 113,
+      "satir": 118,
       "iddia": "10 yil",
       "metin": "// yenileme (basvuru tarihinden 10 yil) - tescilli ve tarih varsa"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 120,
+      "satir": 125,
       "iddia": "10 yıl",
       "metin": "r.satirlar.push('Koruma bitişi (+10 yıl): '+fmt(gercekBitis)+' ');"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 150,
+      "satir": 155,
       "iddia": "30 gün",
       "metin": "ozet.innerHTML=' '+a.length+' marka '+pencere+' işlem gerektiren '+acil+' 30 gün içinde ';"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 251,
+      "satir": 250,
+      "iddia": "en az 3",
+      "metin": "if(bNorm(c).length Aranacak ad çok kısa (en az 3 harf). Kutuya firmanın ayırt edici adını yaz. '; kapa(); return; }"
+    },
+    {
+      "sayfa": "marka-portfoy.html",
+      "satir": 329,
       "iddia": "5 yıl",
       "metin": "if(besDolmus) h+=' '+besDolmus+' markanın 5 yılı çoktan dolmuş. Bu tek başına sorun değil — kullanıyorsan sıkıntı yok. Kullanmadıkların varsa fatura/ambalaj/reklam deliliniz olmadı"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 299,
+      "satir": 377,
       "iddia": "10 yıl",
       "metin": "hâlâ \"başvuru + 10 yıl\" tahminidir ve metin de öyle konuşur."
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 357,
+      "satir": 435,
       "iddia": "en az 3",
       "metin": "if(unvan.length Unvanı yaz (en az 3 karakter). '); return; }"
     },
