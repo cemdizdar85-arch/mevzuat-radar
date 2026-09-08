@@ -29,7 +29,8 @@ foreach($s in $satirlar){
   $arg=@('-Sinav',$sinav,'-DersRegex',"$($s.ders)",'-Adet',"$([int]$s.adet)",'-Etiket',"$($s.etiket)",'-UzunlukTavan',"$(if($s.PSObject.Properties['tavan'] -and $s.tavan){ [int]$s.tavan } else { 350 })",'-Verilenler','-KonuGiris','-Simulasyon','-SimModel','claude-sonnet-5')
   if($s.PSObject.Properties['eskiKaynak'] -and "$($s.eskiKaynak)"){ $arg+=@('-EskiKaynak',"$($s.eskiKaynak)",'-DonemPencere','0') }
   else { $arg+=@('-DonemPencere','7'); if($s.PSObject.Properties['zorluk'] -and (@('zor','kolay','cokzor') -contains "$($s.zorluk)")){ $arg+=@('-Zorluk',"$($s.zorluk)") }; if($s.PSObject.Properties['disla'] -and "$($s.disla)"){ $arg+=@('-KonuDisla',"$($s.disla)") }; if($s.PSObject.Properties['konuDosya'] -and "$($s.konuDosya)"){ $arg+=@('-KonuDosya',"$($s.konuDosya)") } }
-  if($s.PSObject.Properties['toplu'] -and [bool]$s.toplu){ $arg+=@('-Toplu') }   # 08.09: fazların ilk denemesi Message Batches ile (yarı fiyat)
+  # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
+  if($s.PSObject.Properties['toplu'] -and [bool]$s.toplu -and "$env:MEVZUAT_TOPLU" -ne '0'){ $arg+=@('-Toplu') }   # 08.09: fazların ilk denemesi Message Batches ile (yarı fiyat)
   # her ders öncesi emniyet: önceki dersler tavana yaklaştırdıysa dur (ödenen iş yazılmış olur, kalan ders sabaha kalır)
   $harcanan=AyHarcama; if($harcanan -ge ($AylikTavan-$EmniyetPayi)){ "[$(Get-Date -Format HH:mm)] BEDEL EMNİYETİ: ≈$([math]::Round($harcanan)) USD, eşik $($AylikTavan-$EmniyetPayi) → kalan dersler DURDU ($($s.etiket) ve sonrası)"; break }
   "[$(Get-Date -Format HH:mm)] BASLIYOR $($s.etiket) · $($s.ders) · adet $($s.adet)$(if($s.PSObject.Properties['eskiKaynak'] -and $s.eskiKaynak){ ' · KURTARMA' }) · ay ≈$([math]::Round($harcanan)) USD"
