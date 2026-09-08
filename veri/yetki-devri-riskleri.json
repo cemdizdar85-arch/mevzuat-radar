@@ -1,11 +1,11 @@
 {
-  "tarih": "08.09.2026 00:47",
+  "tarih": "08.09.2026 00:59",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 843,
   "riskli_madde": 1315,
   "sayfa": 64,
   "atifli_iddia": 263,
-  "dayanaksiz_iddia": 329,
+  "dayanaksiz_iddia": 331,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1740,6 +1740,18 @@
       "metin": "body{position:relative}body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%"
     },
     {
+      "sayfa": "marka-izleme.html",
+      "satir": 232,
+      "iddia": "11 gun",
+      "metin": "// eski kalir ve sayfa 11 gun boyunca 28.08 verisini \"guncel\" gibi gosterdi."
+    },
+    {
+      "sayfa": "marka-izleme.html",
+      "satir": 233,
+      "iddia": "3 gun",
+      "metin": "// Cekim tarihi (ISO `cekim`, yoksa metindeki gg.aa.yyyy) 3 gunden eskiyse"
+    },
+    {
       "sayfa": "marka-portfoy.html",
       "satir": 35,
       "iddia": "% 100",
@@ -1771,19 +1783,19 @@
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 329,
+      "satir": 331,
       "iddia": "5 yıl",
       "metin": "if(besDolmus) h+=' '+besDolmus+' markanın 5 yılı çoktan dolmuş. Bu tek başına sorun değil — kullanıyorsan sıkıntı yok. Kullanmadıkların varsa fatura/ambalaj/reklam deliliniz olmadı"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 377,
+      "satir": 379,
       "iddia": "10 yıl",
       "metin": "hâlâ \"başvuru + 10 yıl\" tahminidir ve metin de öyle konuşur."
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 435,
+      "satir": 437,
       "iddia": "en az 3",
       "metin": "if(unvan.length Unvanı yaz (en az 3 karakter). '); return; }"
     },
