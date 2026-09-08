@@ -14,7 +14,9 @@
 #    run: ./arac/alarm-maili.ps1 -Konu 'TETIKTE ROBOT KIRMIZI - x dustu' -Mesaj "..."
 #
 #  ENV: RESEND_KEY (zorunlu) · RESEND_FROM (yoksa 'Tetikte <bildirim@tetikte.com>')
-#       ALARM_ALICI (yoksa cemdizdar85@hotmail.com — alarm kutusu, müşteri verisi değil)
+#       ALARM_ALICI (yoksa cem@dizdardenetim.com — 08.09.2026 Cem: TEK KUTU; müşteri
+#       mailleri de oraya gidiyor, alarm hotmail'de ayrı kalmasın. Hiçbir workflow
+#       ALARM_ALICI geçirmiyor (ölçüldü: 0), yani bu varsayılan = fiili alıcı)
 #
 #  DÖNÜŞ: mail gittiyse 0. Gitmediyse de 0 — alarm adımı ana işi düşürmez;
 #  ama sebebi BAĞIRARAK yazar (kör kalma kuralı). -Sert verilirse 1 döner.
@@ -31,7 +33,7 @@ param(
 
 $anahtar = ("$env:RESEND_KEY" -replace '[^\x21-\x7E]', '')
 $gonderen = if ($env:RESEND_FROM) { "$env:RESEND_FROM".Trim() } else { 'Tetikte <bildirim@tetikte.com>' }
-if (-not $Alici) { $Alici = if ($env:ALARM_ALICI) { "$env:ALARM_ALICI".Trim() } else { 'cemdizdar85@hotmail.com' } }
+if (-not $Alici) { $Alici = if ($env:ALARM_ALICI) { "$env:ALARM_ALICI".Trim() } else { 'cem@dizdardenetim.com' } }
 
 function Basarisiz([string]$neden) {
   Write-Host "!! ALARM MAILI GITMEDI: $neden"

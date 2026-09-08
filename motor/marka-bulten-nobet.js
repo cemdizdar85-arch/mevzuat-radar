@@ -156,7 +156,12 @@ async function uyariYaz(satirlar) {
   return post('marka_uyari?on_conflict=user_id,marka,basvuru_no', satirlar, 'resolution=ignore-duplicates,return=representation');
 }
 function altBilgi() {
-  return `<p style="font-size:12.5px;color:#5d6b7c;line-height:1.6;margin:16px 0 0">Kaynak: Resmî Marka Bülteni (TÜRKPATENT) — bülten yalnız <b>yeni başvuruların ilanıdır</b>; tescil, ret ya da düşme bilgisini vermez. Yayımlanan başvuruya itiraz süresi yayımdan <b>iki aydır (SMK m.18)</b> ve uzatılamaz. İtirazı marka vekiliniz yapar; bu bir bildirimdir, hukuki mütalaa değildir.</p>
+  /* Dayanaklar ambardan birebir (08.09): SMK m.18 (itiraz 2 ay) · SMK Uygulama
+     Yönetmeliği m.28/1-3 (yayımdan iki ay, gerekçeli imzalı yayıma itiraz formu;
+     gerekçe ve ücret süre içinde tamamlanmazsa itiraz yapılmamış sayılır) ·
+     m.12/1 (tescil ücreti bilgisi Kurumun verdiği iki aylık sürede, eksikte bir
+     aylık ek süre, sunulmazsa işlemden kaldırılır). */
+  return `<p style="font-size:12.5px;color:#5d6b7c;line-height:1.6;margin:16px 0 0">Kaynak: Resmî Marka Bülteni (TÜRKPATENT) — bülten yalnız <b>yeni başvuruların ilanıdır</b>; tescil, ret ya da düşme bilgisini vermez. Yayımlanan başvuruya itiraz süresi yayımdan <b>iki aydır (SMK m.18)</b> ve uzatılamaz; itiraz, gerekçelerin madde ve fıkra karşılıklarıyla yazıldığı <b>imzalı yayıma itiraz formu</b>yla yapılır, gerekçe ve ücret süre içinde tamamlanmazsa itiraz yapılmamış sayılır (SMK Uygulama Yönetmeliği m.28/1-3). İtirazı marka vekiliniz yapar; bu bir bildirimdir, hukuki mütalaa değildir.</p>
   <p style="font-size:14px;margin:18px 0 0">Kolay gelsin,<br><b>Tetikte — Marka Nöbeti</b></p>
   <p style="font-size:11px;color:#8a93a0;margin:14px 0 0">Bu bildirimi panelinizdeki nöbet ayarları için alıyorsunuz. Kapatmak için bu maile "iptal" yanıtı verin.</p>`;
 }
@@ -312,7 +317,7 @@ function satirHtml(k, kalan) {
          <p style="font-size:16px;margin:0 0 10px">Merhaba,</p>
          <p style="font-size:15px;line-height:1.6;margin:0 0 12px">Bültende yayımlanan başvurunuzun <b>iki aylık itiraz süresi doldu</b>. Bundan sonrası SMK m.22/1: itiraz yapılmamışsa ya da yapılan itirazlar reddedilmişse ve <b>tescil ücreti süresi içinde ödenirse</b> marka tescil edilip sicile kaydedilir; ücret ödenmezse başvuru <b>işlemden kaldırılır</b>.</p>
          <table style="width:100%;border-collapse:collapse;border:1px solid #e6e8eb;border-radius:10px">${liste.map(l => satirHtml(l.k, gunFark(new Date(l.k.itiraz_son), bugun))).join('')}</table>
-         <p style="font-size:14px;line-height:1.6;margin:14px 0 0"><b>Bülten, itiraz gelip gelmediğini göstermez.</b> Dosyanın durumunu TÜRKPATENT'te (portal / vekiliniz) teyit edin; itiraz yoksa Kurumun tescil ücreti bildirimi gelir, o süreyi kaçırmayın.</p>
+         <p style="font-size:14px;line-height:1.6;margin:14px 0 0"><b>Bülten, itiraz gelip gelmediğini göstermez.</b> Dosyanın durumunu TÜRKPATENT'te (portal / vekiliniz) teyit edin. İtiraz yoksa Kurum tescil ücreti bildirimi yapar: ödemeye ilişkin bilgi <b>Kurumun verdiği iki aylık süre</b> içinde sunulur, eksik ödemede <b>bir aylık ek süre</b> verilir; süresinde sunulmazsa başvuru <b>işlemden kaldırılır</b> (SMK Uygulama Yönetmeliği m.12/1). Bu süreyi kaçırmayın.</p>
          <p style="font-size:14px;margin:14px 0 0">Panel: <a href="${SITE}/radar-app.html">${SITE}/radar-app.html</a></p>${altBilgi()}</div>`);
       rapor.mail++;
     } catch (e) { rapor.hata++; console.error(`   !! mail ${kime}: ${e.message}`); }

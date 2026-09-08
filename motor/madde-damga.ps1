@@ -55,16 +55,26 @@ function Damga([string]$t){
 Write-Host "MADDE DAMGASI - ambar taraniyor (para harcamaz)..."
 
 # --- ambardan kanun maddelerini sayfali cek
+# 08.09.2026 ONARIM (kosu 254 + 256 ayni yerde dustu): offset+order=kaynak_ad
+# sayfalamasi 25.000. kayitta "57014 statement timeout" veriyordu - her sayfa
+# icin tablo bastan siralanip atlaniyor (metin sutunu buyuk), ambar buyudukce
+# gecikme sayfa numarasiyla artiyor. ANAHTARLI sayfalama: id=gt.<son id>&order=id
+# birincil anahtar indeksinden yurur, her sayfa ayni hizda. Sira kaynak_ad
+# degil id oldugu icin sonuc kumesi ayni, yalniz gelis sirasi farkli (asagida
+# damga (kanun_no, madde_no) ciftine gore kuruldugundan siranin onemi yok).
+# id UUID'dir (sayi degil): ilk sayfa suzgecsiz, sonrakiler id=gt.<son uuid>;
+# PostgREST uuid karsilastirmasini bayt sirasiyla yapar, order=id ile tutarli.
 $kayit = New-Object System.Collections.Generic.List[object]
-$bas = 0
+$sonId = ''
 while($true){
-  $u = "$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&order=kaynak_ad&offset=$bas&limit=500"
+  $suzgec = if($sonId){ "&id=gt.$sonId" } else { '' }
+  $u = "$SB_URL/rest/v1/dokumanlar?select=id,kaynak_ad,metin$suzgec&order=id&limit=500"
   $s = Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 180
   $d = @($s); if($d.Count -eq 0){ break }
   foreach($x in $d){ $kayit.Add($x) }
+  $sonId = "$($d[$d.Count-1].id)"
   if($d.Count -lt 500){ break }
-  $bas += 500
-  if($bas % 5000 -eq 0){ Write-Host ("  ...{0}" -f $kayit.Count) }
+  if($kayit.Count % 5000 -eq 0){ Write-Host ("  ...{0}" -f $kayit.Count) }
 }
 Write-Host ("  ambar kaydi: {0}" -f $kayit.Count)
 
