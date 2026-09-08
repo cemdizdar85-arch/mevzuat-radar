@@ -13,8 +13,14 @@ $buDizin=$(if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvoc
 if(-not $Kok){ $Kok=Split-Path $buDizin -Parent }
 $uret=Join-Path $buDizin 'kalip-parti-uret.ps1'
 # --- BEDEL EMNİYETİ: bu ayın harcaması bedel defterinden (veri/fabrika/bedel-kayit.jsonl, 08.09'dan itibaren tam; öncesi eksik → tutucu) ---
-function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; if(-not (Test-Path $y)){ return 0.0 }; $t=0.0; $ay=(Get-Date -Format 'yyyy-MM')
-  foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }; try{ $o=ConvertFrom-Json -InputObject $sat; if("$($o.zaman)" -like "$ay*"){ $t+=[double]$o.toplamUsd } }catch{} }; return $t }
+function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; $ay=(Get-Date -Format 'yyyy-MM')
+  # 08.09 16:11 Cem konsol ekranı: bu ay 351,09 USD — defter yalnız 08.09'dan beri ve yalnız BİTEN etiketleri sayıyordu (47,7), gerçek rakamı 300 USD
+  # düşük görüyordu. Çapa: veri/fabrika/bedel-konsol.json {"zaman":"2026-09-08 16:11","harcama":351.09} (konsol Usage okuması, elle güncellenir);
+  # emniyet = konsol okuması + o andan SONRA deftere yazılan etiketler. Okuma yoksa eski davranış.
+  $t=0.0; $esik=''; $kj=Join-Path $Kok 'veri\fabrika\bedel-konsol.json'
+  if(Test-Path $kj){ try{ $ko=ConvertFrom-Json -InputObject (Get-Content $kj -Raw -Encoding UTF8); if("$($ko.zaman)" -like "$ay*"){ $t=[double]$ko.harcama; $esik="$($ko.zaman)" } }catch{} }
+  if(-not (Test-Path $y)){ return $t }
+  foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }; try{ $o=ConvertFrom-Json -InputObject $sat; $z="$($o.zaman)"; if($z -like "$ay*" -and (-not $esik -or $z -gt $esik)){ $t+=[double]$o.toplamUsd } }catch{} }; return $t }
 $harcanan=AyHarcama
 "BEDEL EMNİYETİ: bu ay defterde ≈$([math]::Round($harcanan,2)) USD (defter 08.09'da başladı, öncesi yok) · tavan $AylikTavan · durma eşiği $($AylikTavan-$EmniyetPayi)"
 if($harcanan -ge ($AylikTavan-$EmniyetPayi)){ throw "BEDEL EMNİYETİ: aylık harcama eşiğe ulaştı ($harcanan ≥ $($AylikTavan-$EmniyetPayi)); koşu başlatılmadı. Cem konsolu kontrol etsin." }
