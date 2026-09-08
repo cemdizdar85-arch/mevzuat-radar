@@ -47,7 +47,8 @@ foreach($s in @($plan)){
     $yeniEt=$et -replace "^$([regex]::Escape($Kaynak))-","$Ad-"
     $kd=Join-Path $kok "veri\sinav\konu\$yeniEt.json"
     if($Yaz){ [IO.File]::WriteAllText($kd,(ConvertTo-Json @($dusen) -Compress),[Text.UTF8Encoding]::new($false)) }
-    $yeni.Add([ordered]@{ ders=$s.ders; dersAd=$s.dersAd; etiket=$yeniEt; adet=$dusen.Count; tavan=$s.tavan; zorluk=$s.zorluk; sinav=$s.sinav; konuDosya=$kd; toplu=$false; disla=$s.disla; tur=2; kaynakEtiket=$et })
+    # 09.09 00:40 Cem "şu an başlat toplu modda": Tur 2 satırları toplu (koşucu MEVZUAT_TOPLU=0 ile anlığa çevirebilir; üretici 45 dk'da anlığa düşer)
+    $yeni.Add([ordered]@{ ders=$s.ders; dersAd=$s.dersAd; etiket=$yeniEt; adet=$dusen.Count; tavan=$s.tavan; zorluk=$s.zorluk; sinav=$s.sinav; konuDosya=$kd; toplu=$true; disla=$s.disla; tur=2; kaynakEtiket=$et })
   }
 }
 "TUR 2 PLANI ($Kaynak → $Ad) · $(Get-Date -Format 'dd.MM HH:mm')"
