@@ -59,11 +59,17 @@ $kok=Split-Path -Parent $here
 # Bilinçli yeniden basım için MEVZUAT_CLAIM=0. -SadeceHtml çizimi sahiplik istemez.
 if(-not $SadeceHtml -and "$env:MEVZUAT_CLAIM" -ne '0'){
   $claimYol=Join-Path $kok "veri\fabrika\kosucu-log\claim-$Etiket.json"
+  $cl=$null; $sahip=$null
   if(Test-Path $claimYol){
-    $cl=$null; $sahip=$null; try{ $cl=ConvertFrom-Json -InputObject (Get-Content $claimYol -Raw); $sahip=Get-Process -Id ([int]$cl.pid) -ErrorAction SilentlyContinue }catch{}
+    # 09.09 00:07 ÖLÇÜLDÜ (maliyet-kolay ATLANDI): ölü üreticinin pid'i (43984) başka bir sürece yeniden verilmişti, Get-Process "canlı" dedi →
+    # etiket sahipsiz kaldı. Sahiplik yalnız o pid'in KOMUT SATIRI bu üreticiyi ve bu etiketi taşıyorsa canlı sayılır.
+    try{ $cl=ConvertFrom-Json -InputObject (Get-Content $claimYol -Raw); $sp=Get-CimInstance Win32_Process -Filter "ProcessId=$([int]$cl.pid)" -ErrorAction SilentlyContinue; if($sp -and "$($sp.CommandLine)" -match 'kalip-parti-uret' -and "$($sp.CommandLine)" -match [regex]::Escape("-Etiket $Etiket")){ $sahip=$sp } }catch{}
     if($sahip -and [int]$cl.pid -ne $PID){ "ATLANDI: $Etiket başka hatta basılıyor (pid $($cl.pid) · $($cl.mod) · $($cl.zaman))"; exit 0 }
-    if(-not $sahip -and (Test-Path (Join-Path $kok "sql-yerel\kalip-parti-$Etiket.html"))){ "ATLANDI: $Etiket zaten basılmış (bitiş damgası var; yeniden basım için MEVZUAT_CLAIM=0)"; exit 0 }
   }
+  # 08.09 23:27 KAZA 5 dersi: damga kontrolü yalnız sahiplik dosyası VARSA yapılıyordu; sahiplik mekanizmasından (19:55) önce bitmiş etiketlerin
+  # sahiplik dosyası yok → koşucular yeniden başlatılınca denetim-cokzor ve fmuh-kolay YENİDEN basılmaya başladı (FAZ V Haiku çağrıları, 1 yeni soru).
+  # Damga kontrolü artık sahiplikten bağımsız: bitmiş etiket her koşulda atlanır.
+  if(-not $sahip -and (Test-Path (Join-Path $kok "sql-yerel\kalip-parti-$Etiket.html"))){ "ATLANDI: $Etiket zaten basılmış (bitiş damgası var; yeniden basım için MEVZUAT_CLAIM=0)"; exit 0 }
   [IO.File]::WriteAllText($claimYol,(ConvertTo-Json -InputObject @{ pid=$PID; mod=$(if($Toplu){ 'toplu' } else { 'anlik' }); zaman=(Get-Date -Format 'dd.MM HH:mm') } -Compress),[Text.UTF8Encoding]::new($false))
   "ETİKET SAHİPLİĞİ: $Etiket → pid $PID ($(if($Toplu){ 'toplu' } else { 'anlik' }))"
 }
