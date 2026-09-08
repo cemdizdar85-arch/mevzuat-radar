@@ -53,6 +53,20 @@ $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
+# 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
+# aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
+# bitiş damgası (sql-yerel/kalip-parti-<etiket>.html) varsa ATLAR. Koşan koşucular eski kod olsa da üretici her etikette yeniden okunur.
+# Bilinçli yeniden basım için MEVZUAT_CLAIM=0. -SadeceHtml çizimi sahiplik istemez.
+if(-not $SadeceHtml -and "$env:MEVZUAT_CLAIM" -ne '0'){
+  $claimYol=Join-Path $kok "veri\fabrika\kosucu-log\claim-$Etiket.json"
+  if(Test-Path $claimYol){
+    $cl=$null; $sahip=$null; try{ $cl=ConvertFrom-Json -InputObject (Get-Content $claimYol -Raw); $sahip=Get-Process -Id ([int]$cl.pid) -ErrorAction SilentlyContinue }catch{}
+    if($sahip -and [int]$cl.pid -ne $PID){ "ATLANDI: $Etiket başka hatta basılıyor (pid $($cl.pid) · $($cl.mod) · $($cl.zaman))"; exit 0 }
+    if(-not $sahip -and (Test-Path (Join-Path $kok "sql-yerel\kalip-parti-$Etiket.html"))){ "ATLANDI: $Etiket zaten basılmış (bitiş damgası var; yeniden basım için MEVZUAT_CLAIM=0)"; exit 0 }
+  }
+  [IO.File]::WriteAllText($claimYol,(ConvertTo-Json -InputObject @{ pid=$PID; mod=$(if($Toplu){ 'toplu' } else { 'anlik' }); zaman=(Get-Date -Format 'dd.MM HH:mm') } -Compress),[Text.UTF8Encoding]::new($false))
+  "ETİKET SAHİPLİĞİ: $Etiket → pid $PID ($(if($Toplu){ 'toplu' } else { 'anlik' }))"
+}
 if($SadeceHtml){
   # SIGORTA: model cagrisi yapan tek kapi bu fonksiyon; -SadeceHtml'de patlar, betik durur, para gitmez.
   function Invoke-ClaudeMesaj { throw 'SADECE-HTML: API cagrisi engellendi - cache eksik, once Cem''den bedel onayi al.' }
