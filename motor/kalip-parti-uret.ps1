@@ -250,7 +250,10 @@ $DERS_KANUN=@{
   # 07.09 parti30 OLCULDU: Meslek listesinde yalniz 3568 vardi -> 'haksiz rekabet reklam yasagi' TTK m.55'e, 'meslek etik
   # ilkeleri' TSPB genelgesine dustu (hakem HAYIR). Meslek yonetmelikleri ambarda VAR, adlar AMBAR-ENVANTERI'nden birebir.
   'Meslek Hukuku'=@('SMMM K. (3568 s.K.)','Haksız Rekabet ve Reklam Yasağı Yön.','TÜRMOB Etik İlkeler Yön.','TÜRMOB Etik İlkeler Yön. EK','SMMM ve YMM K. Disiplin Yonetmeligi','SMMM Staj Yonetmeligi')
-  'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
+  # 08.09 Tur 1 FMuh kolay ölçümü: 56 hakem reddinin 52'si "kaynak paketi kuralı içermiyor" — köprü FMuh konularına alakasız VUK maddeleri
+  # (ücret bordrosu → VUK inceleme yasakları, sermaye artırımı → VUK m.5) çekiyordu. Muhasebe tekniği TEORİ notları (teori-notlari-20260908-sgs-fmuh-*.json)
+  # kaynak listesinin başına: hakem kuralı notta görür, VUK yalnız değerleme/amortisman/envanter konularında öne geçer ($KELIME_KANUN).
+  'Finansal Muhasebe'=@('TEORI','Teori Notu','THP','VUK (213 s.K.)')
   # 08.09 Cem "SGS'de dışladığımız 6 dersi kuralım": mevzuat metni olmayan dersler → kaynak TEORİ NOTU (motor/teori-notu-uret.ps1; ambar 'TEORI - <konu>')
   'Turkce'=@('TEORI','Teori Notu'); 'Matematik'=@('TEORI','Teori Notu'); 'Yabanci Dil'=@('TEORI','Teori Notu'); 'Ataturk Ilke'=@('TEORI','Teori Notu')
   'Ekonomi'=@('TEORI','Teori Notu'); 'Maliye'=@('TEORI','Teori Notu','Kamu Malî Yönetimi K. (5018 s.K.)')
