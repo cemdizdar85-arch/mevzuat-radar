@@ -210,6 +210,9 @@ details.kacc>.ic{padding:2px 0 14px}
   <h2>Kuruluştan sonra seni ne bekliyor?</h2>
   <div class="kart" style="border-left-color:var(--amber)">
     <p style="margin:0 0 10px;font-size:14px;color:var(--muted)">Şirketi kurmak işin kolay kısmı; asıl mesele kuruluştan sonra hangi yükümlülüklerin ne zaman devreye gireceğini bilmek. Ciro büyüdükçe, çalışan aldıkça yeni zorunluluklar açılır:</p>
+    <div class="satir"><b>Kaça mal olur? (2026 tarifesi, kaynaklı)</b><span><a href="kurulus-nobeti.html#maliyet">Kuruluş Nöbeti → maliyet</a></span></div>
+    <div class="satir"><b>İlk 12 ayın tarihli takvimi (telefonuna ekle)</b><span><a href="kurulus-nobeti.html#takvim">Kuruluş Nöbeti → takvim</a></span></div>
+    <div class="satir"><b>Unvanın tescile takılır mı? · Ortaklar sözleşmesi</b><span><a href="kurulus-nobeti.html#unvan">unvan kontrolü</a> · <a href="kurulus-nobeti.html#sozlesme">sözleşme taslağı</a></span></div>
     <div class="satir"><b>e-Fatura / e-Defter</b><span><a href="sayfalar/e-fatura-zorunlulugu.html">ciro eşiğini gör →</a></span></div>
     <div class="satir"><b>Bağımsız denetim</b><span><a href="sayfalar/bagimsiz-denetim-esigi.html">üçlü eşiği gör →</a></span></div>
     <div class="satir"><b>AŞ'de sözleşmeli avukat</b><span><a href="sayfalar/avukat-bulundurma.html">sermaye eşiğini gör →</a></span></div>
@@ -559,7 +562,13 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     neden.ltd.push('Üretici için şirketin ayrı bir kozu var: sanayi sicil belgeli imalatçının ÜRETİM kazancında kurumlar vergisi 2026\'da %'+SABIT.kvOranlari.imalatci2026+', 2027\'den itibaren %'+((''+SABIT.kvOranlari.imalatci2027).replace('.',','))+' (7582 s. Kanun), al-sat kazancı %'+SABIT.kvOran+'\'te kalırken. Şahıs imalatçı bu orandan yararlanamaz; gelir vergisi tarifesi %40\'a kadar tırmanır. Uzun vadeli plan kuruyorsan bu fark tek başına şirket sebebidir.');
     neden.as.push('İmalatçı KV indirimi (2027\'den itibaren %'+((''+SABIT.kvOranlari.imalatci2027).replace('.',','))+') LTD ile AŞ\'de aynen işler, tür seçimini diğer ölçütler belirler.');
   }
-  else { p.sahis+=2; neden.sahis.push('Düşük riskli hizmet işinde tüzel kişiliğin maliyetine ilk günden girmek zorunda değilsin.'); }
+  else {
+    // 08.09: puan her imalat dışı işte aynı kalır (riskYuksek al-satta zaten -2 düşer),
+    // ama "düşük riskli hizmet işi" GEREKÇESİ yalnız hizmet/esnaf işinde yazılır;
+    // alım satım seçene bu cümle basılıyordu (metin hatası, puana dokunulmadı).
+    p.sahis+=2;
+    if(CEVAP.istur!=='ticaret') neden.sahis.push('Düşük riskli hizmet işinde tüzel kişiliğin maliyetine ilk günden girmek zorunda değilsin.');
+  }
 
   if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var (GVK mük. m.20): 3 yıl boyunca, {{yil}} için yıllık {{genc}} TL\'ye kadar kazancın vergisiz, şahıs mükellefiyetinde işler, şirket ortağı yararlanamaz. {{bagkur}}'); }
 
@@ -809,11 +818,20 @@ function oneriGonder(tur){
 
 // 31.12.2026 asgari sermaye son tarihini ICS olarak indir — telefon/Outlook/Google takvimine tek dokunus
 function takvimeEkle(){
+  // 08.09: tutarlar ve son tarih sabit yazılıydı; artık vergi-sabitleri.json'dan
+  // (yüklenmediyse sayfadaki FB yedeği) gelir, sayfayla takvim ayrı düşmez.
+  const ltdT = SABIT ? TLn(SABIT.asgariSermaye.ltd) : FB.ltd;
+  const asT  = SABIT ? TLn(SABIT.asgariSermaye.as)  : FB.as;
+  const uyum = (SABIT && SABIT.sermayeUyumSonTarih) ? SABIT.sermayeUyumSonTarih : FB.uyum; // gg.aa.yyyy
+  const [ug,ua,uy] = uyum.split('.');
+  const bas = uy+ua+ug;
+  const ert = new Date(Date.UTC(+uy, +ua-1, +ug+1));
+  const bit = ert.getUTCFullYear() + String(ert.getUTCMonth()+1).padStart(2,'0') + String(ert.getUTCDate()).padStart(2,'0');
   const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Tetikte//Kurulus//TR","BEGIN:VEVENT",
-    "UID:sermaye-uyum-20261231@mevzuat-radar",
-    "DTSTART;VALUE=DATE:20261231",
-    "DTEND;VALUE=DATE:20270101",
-    "SUMMARY:SON GÜN: Asgari sermaye uyumu (LTD 50.000 / AŞ 250.000 TL)",
+    "UID:sermaye-uyum-"+bas+"@mevzuat-radar",
+    "DTSTART;VALUE=DATE:"+bas,
+    "DTEND;VALUE=DATE:"+bit,
+    "SUMMARY:SON GÜN: Asgari sermaye uyumu (LTD "+ltdT+" / AŞ "+asT+" TL)",
     "DESCRIPTION:Sermayesi asgari tutarın altındaki şirketler bugüne kadar artırım yapmazsa infisah etmiş sayılır (TTK m.332/m.580\\, 7511 s. Kanun). Muhasebecinle görüş. Kaynak: Ticaret Bakanlığı, https://icticaret.ticaret.gov.tr",
     "BEGIN:VALARM","TRIGGER:-P30D","ACTION:DISPLAY","DESCRIPTION:Asgari sermaye uyumuna 30 gün kaldı","END:VALARM",
     "BEGIN:VALARM","TRIGGER:-P7D","ACTION:DISPLAY","DESCRIPTION:Asgari sermaye uyumuna 7 gün kaldı","END:VALARM",

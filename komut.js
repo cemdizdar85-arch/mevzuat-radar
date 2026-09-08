@@ -43,6 +43,7 @@
     ['Şirket kuruluşu', [
       ['Şirket kuruluşu rehberi', 'kurulus.html', 'sahis limited anonim kurulus tur'],
       ['Kuruluş evrak çantası', 'kurulus-evrak.html', 'evrak belge kurulus dilekce'],
+      ['Kuruluş Nöbeti', 'kurulus-nobeti.html', 'kurulus maliyet kaca mal olur harc ilan takvim unvan ortaklar sozlesmesi vesting'],
       ['Yükümlülük karnesi', 'karne.html', 'karne yukumluluk firma profil']
     ]],
     ['Teşvik ve destek', [

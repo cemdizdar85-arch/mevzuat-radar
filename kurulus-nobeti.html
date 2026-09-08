@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor, unvanın geçer mi, ortaklar sözleşmen | Tetikte</title>
+<meta name="description" content="Şirket kurmadan önce dört soru: kaça mal olur (2026 tarifeleriyle, kaynaklı), ilk 12 ayda hangi tarihte ne yapacaksın (takvimine ekle), seçtiğin unvan tescile takılır mı, ortaklar sözleşmen hazır mı. Şahıs, limited, anonim.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Tetikte">
+<meta property="og:url" content="https://tetikte.com/kurulus-nobeti.html">
+<meta property="og:title" content="Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor">
+<meta property="og:description" content="2026 tarifeleriyle kuruluş maliyeti, ilk 12 ay takvimi (ICS), unvan kontrolü ve ortaklar sözleşmesi taslağı. Şahıs, limited, anonim.">
+<meta property="og:image" content="https://tetikte.com/og-kapak.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor">
+<meta name="twitter:description" content="2026 tarifeleriyle kuruluş maliyeti, ilk 12 ay takvimi, unvan kontrolü ve ortaklar sözleşmesi taslağı.">
+<meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
+<meta name="theme-color" content="#1b1a18">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<style>
+/* 08.09.2026 — Kuruluş Nöbeti. Neden var: rakipler (Stripe Atlas, Firstbase,
+   Mükellef) kuruluşu "kapı" yapıp parayı KURULUŞ SONRASI uyumdan kazanıyor ve
+   hepsi "kaça mal olur" diyor. Bizde tür sihirbazı + evrak vardı, bu dört şey
+   yoktu: maliyet · ilk 12 ay takvimi · unvan kontrolü · ortaklar sözleşmesi.
+   Renk kuralı: sabit renk YOK, yalnız tema jetonu + color-mix (renk kapısı). */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:var(--accent2)}
+.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 16%,transparent),0 0 18px color-mix(in srgb,var(--accent) 55%,transparent);font-size:0;color:transparent;display:inline-block;flex:none}
+h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+h2{font-size:19px;letter-spacing:-.4px;margin:0 0 6px}
+.lead{color:var(--muted);font-size:15px;margin:0 0 18px}
+.sekme{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
+.sekme button{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13.5px;padding:10px 14px;border-radius:11px;border:1px solid var(--line2);background:var(--panel);color:var(--muted);transition:.15s;flex:1;min-width:150px}
+.sekme button:hover{color:var(--ink);border-color:var(--accent)}
+.sekme button.on{background:var(--grad);color:var(--taban);border-color:transparent}
+.sekme button small{display:block;font-weight:600;font-size:11px;opacity:.8}
+section.bolum{display:none}section.bolum.acik{display:block;animation:gel .25s ease}
+@keyframes gel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.kart{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:18px 20px;margin-bottom:12px;box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ink) 5%,transparent)}
+.kart h3{margin:2px 0 10px;font-size:16px;letter-spacing:-.3px}
+.sec{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+.sbtn{appearance:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:13px;padding:9px 14px;border-radius:11px;background:var(--yuzey);color:var(--muted);border:1px solid var(--line2);transition:.15s}
+.sbtn:hover{color:var(--ink);border-color:var(--accent)}
+.sbtn.on{background:var(--grad);color:var(--taban);border-color:transparent;font-weight:700}
+label.et{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:10px 0 4px}
+label.et small{font-weight:500;color:var(--dim)}
+input[type=text],input[type=number],input[type=date],input[type=email],select,textarea{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey);color:var(--ink);font-size:15px;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.iki{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.iki{grid-template-columns:1fr}}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:var(--taban);box-shadow:0 6px 24px color-mix(in srgb,var(--accent) 35%,transparent);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ikincil{background:var(--yuzey);color:var(--ink);border:1px solid var(--line2);box-shadow:none}
+.satir{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.satir:last-child{border:0}
+.satir b{color:var(--ink);flex:1 1 60%}.satir span{color:var(--muted);text-align:right;flex:0 0 auto}
+.satir small{display:block;font-weight:400;font-size:11.5px;color:var(--dim)}
+.satir.top-satir b,.satir.top-satir span{color:var(--amber);font-weight:800;font-size:15px}
+.satir .olculmedi{color:var(--dim);font-style:italic}
+.uyari{font-size:12.5px;color:var(--muted);margin-top:14px;background:color-mix(in srgb,var(--amber-dolgu) 7%,transparent);border:1px solid color-mix(in srgb,var(--amber-dolgu) 45%,transparent);border-left:4px solid var(--amber);border-radius:11px;padding:12px 15px}
+.uyari b{color:var(--amber)}
+.iyi{font-size:12.5px;color:var(--muted);margin-top:12px;background:color-mix(in srgb,var(--green) 6%,transparent);border:1px solid color-mix(in srgb,var(--green) 35%,transparent);border-left:4px solid var(--green);border-radius:11px;padding:12px 15px}
+.iyi b{color:var(--green)}
+.kotu{font-size:12.5px;color:var(--muted);margin-top:12px;background:color-mix(in srgb,var(--red) 7%,transparent);border:1px solid color-mix(in srgb,var(--red) 35%,transparent);border-left:4px solid var(--red);border-radius:11px;padding:12px 15px}
+.kotu b{color:var(--red)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.damga{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:color-mix(in srgb,var(--green) 9%,transparent);border:1px solid color-mix(in srgb,var(--green) 30%,transparent);border-radius:999px;padding:4px 11px;margin-top:8px}
+.olay{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.olay:last-child{border:0}
+.olay .gun{flex:0 0 92px;font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--accent2);line-height:1.3}
+.olay .gun small{display:block;font-weight:500;color:var(--dim);font-size:11px}
+.olay b{color:var(--ink);display:block;font-size:14px}
+.olay p{margin:3px 0 0;font-size:13px;color:var(--muted)}
+.olay .dy{font-size:11px;color:var(--dim);font-family:var(--mono)}
+.olay.tekrar .gun{color:var(--green)}
+.olay.otede{opacity:.75}
+.kontrol{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px;align-items:flex-start}
+.kontrol:last-child{border:0}
+.kontrol .isaret{flex:0 0 22px;font-weight:800}
+.kontrol.ok .isaret{color:var(--green)}.kontrol.dur .isaret{color:var(--red)}.kontrol.bak .isaret{color:var(--amber)}
+.kontrol b{color:var(--ink)}.kontrol span{color:var(--muted)}
+.ortak{display:grid;grid-template-columns:2fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px}
+.ortak .sil{appearance:none;border:1px solid var(--line2);background:var(--yuzey);color:var(--muted);border-radius:9px;padding:10px 12px;cursor:pointer;font-family:inherit}
+.metin{white-space:pre-wrap;font-family:Georgia,"Times New Roman",serif;font-size:14px;line-height:1.7;background:var(--kagit);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-top:12px}
+.metin h4{font-family:inherit;font-size:14px;margin:18px 0 4px;letter-spacing:.3px}
+.ara{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.ara input{flex:1;min-width:200px}
+@media print{.sekme,.top,.btn,.ara,.uyari,.iyi,.kotu,.dip,section.bolum:not(.acik),[data-yazdirma-gizle]{display:none !important}.metin{border:0;padding:0}section.bolum.acik{display:block}}
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
+  <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="kurulus.html">Şirket Kuruluşu</a> · <a href="kurulus-evrak.html">Evrak Çantası</a> · Kuruluş Nöbeti</div>
+  <h1>Kuruluş Nöbeti</h1>
+  <p class="lead">Türünü seçtin, evrakını topladın. Şimdi kurmadan önce dört soru: <b style="color:var(--ink)">kaça mal olur</b>, <b style="color:var(--ink)">ilk 12 ayda hangi gün ne yapacaksın</b>, <b style="color:var(--ink)">seçtiğin unvan tescile takılır mı</b>, <b style="color:var(--ink)">ortağınla ne konuşmadın</b>. Hangi türü kuracağından emin değilsen önce <a href="kurulus.html">11 soruluk sihirbaza</a> gir.
+  <span class="damga">📑 Rakamlar: 2026 tarifeleri, her satırda kaynağı yazar · ölçülemeyen kalem "ölçülmedi" der, uydurulmaz</span></p>
+
+  <div class="sekme" role="tablist">
+    <button class="on" data-b="maliyet">💰 Kaça mal olur?<small>2026 tarifeleriyle, kalem kalem</small></button>
+    <button data-b="takvim">📅 İlk 12 ay<small>tarihli takvim, telefonuna ekle</small></button>
+    <button data-b="unvan">🏷️ Unvan kontrolü<small>tescile takılır mı</small></button>
+    <button data-b="sozlesme">🤝 Ortaklar sözleşmesi<small>taslak, avukatına götür</small></button>
+  </div>
+
+  <!-- ================= 1. MALİYET ================= -->
+  <section class="bolum acik" id="b-maliyet">
+    <div class="kart" style="border-left-color:var(--accent2)">
+      <h3>Kuruluş günü cebinden ne çıkar?</h3>
+      <p style="margin:0 0 8px;font-size:13.5px;color:var(--muted)">Rakipler fiyat söylüyor, biz de söylüyoruz ama <b style="color:var(--ink)">kaynağıyla</b>. Resmî tarife kalemleri kuruşuna kadar; tarifesi olmayan kalemler (oda kaydı, e-imza) "ölçülmedi" olarak ayrı durur, sana uydurma bir toplam vermeyiz.</p>
+      <label class="et">Şirket türü</label>
+      <div class="sec" id="mTur">
+        <button class="sbtn on" data-v="ltd">Limited (LTD)</button>
+        <button class="sbtn" data-v="as">Anonim (AŞ)</button>
+        <button class="sbtn" data-v="sahis">Şahıs işletmesi</button>
+      </div>
+      <div id="mSahisSicil" style="display:none">
+        <label class="et">Ticaret siciline kayıt olacak mısın? <small>(esnaf ve serbest meslek erbabı çoğunlukla sicile kaydolmaz; tacir niteliği doğuyorsa kayıt gerekir)</small></label>
+        <div class="sec" id="mSicil">
+          <button class="sbtn" data-v="hayir">Hayır, yalnız vergi dairesi</button>
+          <button class="sbtn on" data-v="evet">Evet, sicil + oda kaydı</button>
+        </div>
+      </div>
+      <div class="iki" id="mSirketAlan">
+        <div><label class="et">Sermaye (TL) <small id="mSermayeNot"></small></label><input type="number" id="mSermaye" inputmode="numeric" min="0" step="1000"></div>
+        <div><label class="et">Huzurda imza beyanı verecek kişi sayısı <small>(müdür / yönetim kurulu üyesi)</small></label><input type="number" id="mKisi" value="1" min="1" max="20"></div>
+        <div><label class="et">Kuruluş ilanı kelime sayısı <small>(⚠ tahmin; MERSİS'te hazırlanan sözleşmenin kelimesini say, ilan o metinle çıkar)</small></label><input type="number" id="mKelime" min="50" step="10"></div>
+        <div><label class="et">Ek seçenekler</label>
+          <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin:6px 0"><input type="checkbox" id="mTekno" style="width:16px;height:16px;accent-color:var(--accent)">Teknogirişim destekli kuruluş (ilan 0,01 TL)</label>
+          <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin:6px 0"><input type="checkbox" id="mSmmm" checked style="width:16px;height:16px;accent-color:var(--accent)">Mali müşavir kuruluş hizmeti (tarife üst bandı)</label>
+        </div>
+      </div>
+      <div id="mSahisAlan" style="display:none">
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin:6px 0"><input type="checkbox" id="mSmmmSahis" checked style="width:16px;height:16px;accent-color:var(--accent)">Mali müşavir kuruluş hizmeti (tarife üst bandı)</label>
+      </div>
+      <button class="btn" style="margin-top:8px" onclick="maliyetHesapla()">Kaça mal olur, göster</button>
+      <div id="mSonuc"></div>
+    </div>
+    <div class="uyari"><b>Dürüst not:</b> Sicil müdürlüğü hizmet ücretleri (kuruluş tasdik, defter tasdiki, huzurda imza) burada <b>İstanbul Ticaret Odası 2026 tarifesinden</b> okundu; başka ildeysen kendi sicil müdürlüğünün tarifesi bir miktar farklı olabilir, randevudan önce sor. Sermaye ödemesi ve AŞ blokajı <b>masraf değildir</b>, kendi şirketinin kasasına giren paradır; ayrı gösterilir.</div>
+  </section>
+
+  <!-- ================= 2. TAKVİM ================= -->
+  <section class="bolum" id="b-takvim">
+    <div class="kart" style="border-left-color:var(--green)">
+      <h3>Tescilden sonraki 12 ayda hangi gün ne yapacaksın?</h3>
+      <p style="margin:0 0 8px;font-size:13.5px;color:var(--muted)">Kuruluş kolay kısım; asıl ceza ilk yılda kaçırılan tarihlerden gelir. Türünü ve tescil (ya da vergi dairesine işe başlama) tarihini gir; sana özel takvim çıksın, <b style="color:var(--ink)">tek dokunuşla telefonuna eklensin</b>.</p>
+      <div class="iki">
+        <div><label class="et">Şirket türü</label>
+          <div class="sec" id="tTur">
+            <button class="sbtn on" data-v="ltd">Limited (LTD)</button>
+            <button class="sbtn" data-v="as">Anonim (AŞ)</button>
+            <button class="sbtn" data-v="sahis">Şahıs işletmesi</button>
+          </div></div>
+        <div><label class="et">Tescil / işe başlama tarihi</label><input type="date" id="tTarih"></div>
+      </div>
+      <div class="sec">
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="tCalisan" style="width:16px;height:16px;accent-color:var(--accent)">Çalışanım olacak</label>
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="tKira" style="width:16px;height:16px;accent-color:var(--accent)">İşyerim kiralık (gerçek kişiden)</label>
+      </div>
+      <button class="btn" onclick="takvimUret()">Takvimimi çıkar</button>
+      <div id="tSonuc"></div>
+    </div>
+  </section>
+
+  <!-- ================= 3. UNVAN ================= -->
+  <section class="bolum" id="b-unvan">
+    <div class="kart" style="border-left-color:var(--amber)">
+      <h3>Seçtiğin unvan tescile takılır mı?</h3>
+      <p style="margin:0 0 8px;font-size:13.5px;color:var(--muted)">Sicil müdürlüğünde en çok geri çevrilen adım budur. Unvanını yaz; TTK ve Ticaret Unvanları Hakkında Tebliğ'in kurallarına göre tek tek kontrol edelim. Benzerlik için son sözü TOBB'un unvan sorgusu söyler, oraya da bağlantı veriyoruz.</p>
+      <label class="et">Şirket türü</label>
+      <div class="sec" id="uTur">
+        <button class="sbtn on" data-v="ltd">Limited</button>
+        <button class="sbtn" data-v="as">Anonim</button>
+        <button class="sbtn" data-v="sahis">Gerçek kişi (şahıs)</button>
+      </div>
+      <label class="et">Düşündüğün unvan <small>(örn. "Egeli Yazılım ve Danışmanlık Limited Şirketi")</small></label>
+      <input type="text" id="uMetin" placeholder="unvanı tam yaz" autocomplete="off">
+      <div id="uSahis" style="display:none"><label class="et">Ad ve soyadın <small>(gerçek kişi unvanı ad-soyaddan oluşur, kısaltılamaz)</small></label><input type="text" id="uAdSoyad" placeholder="Ad Soyad"></div>
+      <button class="btn" style="margin-top:12px" onclick="unvanKontrol()">Kontrol et</button>
+      <div id="uSonuc"></div>
+    </div>
+  </section>
+
+  <!-- ================= 4. ORTAKLAR SÖZLEŞMESİ ================= -->
+  <section class="bolum" id="b-sozlesme">
+    <div class="kart" style="border-left-color:var(--accent2)">
+      <h3>Ortağınla bugün konuşmazsan, yarın mahkemede konuşursun</h3>
+      <p style="margin:0 0 8px;font-size:13.5px;color:var(--muted)">MERSİS şirket sözleşmesini üretir ama <b style="color:var(--ink)">ortakların birbirine sözünü</b> üretmez: kim ne kadar çalışacak, biri 6 ayda çıkarsa payı ne olur, biri satmak isterse diğeri ne yapar, kilitlenince kim karar verir. Cevapla, taslağını üretelim; <b style="color:var(--ink)">imzadan önce avukatına götür</b>, bu bir şablondur.</p>
+      <div class="iki">
+        <div><label class="et">Şirket unvanı (ya da çalışma adı)</label><input type="text" id="sUnvan" placeholder="… Limited Şirketi"></div>
+        <div><label class="et">Şirket türü</label>
+          <div class="sec" id="sTur"><button class="sbtn on" data-v="ltd">Limited</button><button class="sbtn" data-v="as">Anonim</button></div></div>
+      </div>
+      <label class="et">Ortaklar ve pay oranları <small>(toplam %100)</small></label>
+      <div id="sOrtaklar"></div>
+      <button class="btn ikincil" style="font-size:13px;padding:9px 14px" onclick="ortakEkle()">+ Ortak ekle</button>
+      <div class="iki" style="margin-top:12px">
+        <div><label class="et">Hak ediş (vesting) süresi <small>(pay, çalışmaya bağlı kademeli hak edilir)</small></label>
+          <select id="sVesting"><option value="0">Yok, paylar baştan tam hak edilmiş</option><option value="3">3 yıl</option><option value="4" selected>4 yıl</option><option value="5">5 yıl</option></select></div>
+        <div><label class="et">Uçurum (cliff) süresi <small>(bu süreden önce ayrılan hiç hak etmez)</small></label>
+          <select id="sCliff"><option value="0">Yok</option><option value="6">6 ay</option><option value="12" selected>12 ay</option></select></div>
+        <div><label class="et">Rekabet yasağı süresi (ayrılıştan sonra)</label>
+          <select id="sRekabet"><option value="0">Yok</option><option value="1">1 yıl</option><option value="2" selected>2 yıl</option></select></div>
+        <div><label class="et">Önemli kararlarda nisap</label>
+          <select id="sNisap"><option value="oybirligi">Oybirliği</option><option value="75" selected>Sermayenin %75'i</option><option value="67">Sermayenin 2/3'ü</option></select></div>
+        <div><label class="et">Kilitlenme (deadlock) çözümü</label>
+          <select id="sKilit"><option value="arabulucu" selected>Önce arabulucu, sonra alım-satım teklifi (Texas shoot-out)</option><option value="hakem">Bağımsız hakem (uzman) kararı</option><option value="tasfiye">Çözülmezse tasfiye</option></select></div>
+        <div><label class="et">Ortak çıkışında pay değeri</label>
+          <select id="sDeger"><option value="bagimsiz" selected>Bağımsız değerleme uzmanı</option><option value="defter">Son bilanço öz kaynak değeri</option><option value="formul">Son 12 ay FAVÖK × katsayı (katsayı ek protokolde)</option></select></div>
+      </div>
+      <div class="sec" style="margin-top:10px">
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="sOnalim" checked style="width:16px;height:16px;accent-color:var(--accent)">Önalım hakkı (satacak ortak önce diğerine teklif eder)</label>
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="sTag" checked style="width:16px;height:16px;accent-color:var(--accent)">Birlikte satma hakkı (tag-along)</label>
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="sDrag" style="width:16px;height:16px;accent-color:var(--accent)">Sürükleme hakkı (drag-along, çoğunluk satarsa azınlık da satar)</label>
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="sFikri" checked style="width:16px;height:16px;accent-color:var(--accent)">Fikrî mülkiyet şirkete devredilir</label>
+      </div>
+      <button class="btn" style="margin-top:12px" onclick="sozlesmeUret()">Taslağı üret</button>
+      <div id="sSonuc"></div>
+    </div>
+    <div class="uyari"><b>Bu bir taslaktır:</b> ortaklar sözleşmesi Borçlar Kanunu'na tabi bir sözleşmedir, şirket sözleşmesinden ayrı durur ve üçüncü kişileri bağlamaz; esas sözleşmeye taşınması gereken hükümler (bağlam, devir onayı, nisaplar) ayrıca MERSİS metnine işlenmelidir. <b>İmzadan önce bir avukata gösterin.</b> Tetikte hukuki danışmanlık vermez.</div>
+  </section>
+
+  <div class="dip">Tetikte · Kuruluş Nöbeti · Dayanaklar: 492 s. Harçlar K. m.123 ve (1) sayılı tarife · TTSG ilan tarifesi 2026 · İTO 2026 sicil tarifesi · 4054 s.K. m.39 · TÜRMOB 2026 tarifesi (RG 17.12.2025/33110) · TTK m.30, m.41-46, m.64, m.344, m.409, m.585, m.617 · Ticaret Unvanları Hakkında Tebliğ (RG 14.02.2014/28913) · VUK m.168, m.221 · 456 Sıra No.lu VUK GT · 7201 s.K. m.7/a · 5174 s.K. m.24 · 5510 s.K. · KVK m.14 · GVK m.92 · bir Dizdar Denetim A.Ş. yazılımı</div>
+</div>
+
+<script>
+const EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task";
+const EPOSTA_ANAHTAR = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
+const TL = n => Math.round(n).toLocaleString('tr-TR');
+const TLk = n => (Math.round(n*100)/100).toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const kapi = a => (typeof ttSorguKapisi==='function') ? ttSorguKapisi(a) : true;
+
+/* ---------- sekmeler ---------- */
+document.querySelector('.sekme').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-b]'); if(!b) return;
+  document.querySelectorAll('.sekme button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('section.bolum').forEach(s=>s.classList.toggle('acik',s.id==='b-'+b.dataset.b));
+  try{ history.replaceState(null,'','#'+b.dataset.b); }catch(e){}
+});
+(function(){ const h=(location.hash||'').replace('#',''); const b=document.querySelector('.sekme button[data-b="'+h+'"]'); if(b) b.click(); })();
+function secGrup(id, cb){
+  const g=document.getElementById(id);
+  g.addEventListener('click',e=>{ const b=e.target.closest('.sbtn'); if(!b) return; g.querySelectorAll('.sbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); if(cb) cb(b.dataset.v); });
+}
+const secili = id => { const b=document.querySelector('#'+id+' .sbtn.on'); return b ? b.dataset.v : null; };
+
+/* ---------- sabitler: iki dosya, ikisi de yedekli ---------- */
+// veri/kurulus-maliyet.json — kuruluş kalemlerinin TEK kaynağı (kaynak alanlarıyla).
+// Yedek (FBM) aynı 08.09.2026 değerleridir; dosya gelmezse sayfa kör kalmaz ama
+// damga "yedek" der.
+let M=null, SABIT=null;
+const FBM = {yil:2026, sicilHarclari:{sahisKurulus:5466.10, sahisSicilTasdiknamesi:895.80},
+  sicilHizmetUcretleri:{kurulusTasdik:2160, kurulusDefterTasdiki:2760, huzurdaImzaBeyannamesiKisiBasi:1720, ilanGiderleri:250},
+  ttsgIlan:{sirketKurulusKelime:2.48, gercekKisiTicareteBaslamaMaktu:708, teknogirisimDestekliKurulus:0.01, varsayilanKelime:500},
+  rekabetKurumuPayi:{oran:0.0004}, smmmTarifesi:{sirketKurulusUstBant:14597}};
+const FBS = {asgariSermaye:{ltd:50000, as:250000}, asBlokajOran:25};
+let mYedek = true;
+Promise.all([
+  fetch('veri/kurulus-maliyet.json').then(r=>r.json()).then(j=>{M=j; mYedek=false;}).catch(()=>{M=FBM;}),
+  fetch('veri/vergi-sabitleri.json').then(r=>r.json()).then(j=>{SABIT=j;}).catch(()=>{SABIT=FBS;})
+]).then(()=>{ sermayeVarsayilan(); document.getElementById('mKelime').value = M.ttsgIlan.varsayilanKelime; });
+function sermayeVarsayilan(){
+  const t=secili('mTur'); const S=SABIT||FBS;
+  const inp=document.getElementById('mSermaye');
+  if(t==='ltd'){ inp.value=S.asgariSermaye.ltd; document.getElementById('mSermayeNot').textContent='(asgari '+TL(S.asgariSermaye.ltd)+' TL, TTK m.580)'; }
+  else if(t==='as'){ inp.value=S.asgariSermaye.as; document.getElementById('mSermayeNot').textContent='(asgari '+TL(S.asgariSermaye.as)+' TL, TTK m.332; ¼\'ü tescilden önce bloke)'; }
+}
+secGrup('mTur', v=>{
+  const sahis = v==='sahis';
+  document.getElementById('mSirketAlan').style.display = sahis?'none':'grid';
+  document.getElementById('mSahisAlan').style.display = sahis?'block':'none';
+  document.getElementById('mSahisSicil').style.display = sahis?'block':'none';
+  if(!sahis) sermayeVarsayilan();
+  document.getElementById('mSonuc').innerHTML='';
+});
+secGrup('mSicil');
+
+/* ---------- 1. MALİYET ---------- */
+function maliyetHesapla(){
+  if(!kapi('kurulus-nobeti')) return;
+  const out=document.getElementById('mSonuc');
+  if(!M){ out.innerHTML='<p class="kotu">Sabit dosyası henüz yüklenmedi, bir saniye sonra tekrar dene.</p>'; return; }
+  const t=secili('mTur'); const S=SABIT||FBS;
+  const satir=(ad,tutar,kaynak,alt)=>`<div class="satir"><b>${ad}${alt?`<small>${alt}</small>`:''}</b><span title="${kaynak||''}">${tutar}</span></div>`;
+  let html='', toplam=0, kalemler=[];
+  const ekle=(ad,tl,kaynak,alt)=>{ toplam+=tl; kalemler.push([ad,tl]); html+=satir(ad, TLk(tl)+' TL', kaynak, alt); };
+  if(t==='sahis'){
+    const sicil = secili('mSicil')==='evet';
+    const H=M.sicilHarclari, Z=M.sicilHizmetUcretleri, I=M.ttsgIlan;
+    if(sicil){
+      ekle('Ticaret sicili kuruluş harcı (gerçek kişi)', H.sahisKurulus, 'Harçlar K. (1) sayılı tarife, 2026', '492 s. Harçlar K., ticaret sicili harçları');
+      ekle('Ticaret sicil tasdiknamesi harcı', H.sahisSicilTasdiknamesi, 'İTO 2026 tarifesi (belge harçları)');
+      ekle('TTSG ticarete başlama ilanı (maktu)', I.gercekKisiTicareteBaslamaMaktu, 'TTSG ilan tarifesi 01.01.2026');
+      ekle('İlan giderleri ücreti', Z.ilanGiderleri, 'İTO 2026 tarifesi');
+    } else {
+      html+=satir('Vergi dairesi işe başlama', '0 TL', '', 'İnteraktif Vergi Dairesi üzerinden, harç yok');
+    }
+    if(document.getElementById('mSmmmSahis').checked) ekle('Mali müşavir kuruluş hizmeti (2026 tarife üst bandı)', M.smmmTarifesi.sirketKurulusUstBant, 'TÜRMOB 2026 tarifesi, RG 17.12.2025/33110', 'bölge grubuna göre daha düşük bant olabilir; müşavirinle anlaş');
+    html+=`<div class="satir top-satir"><b>Kaynaklı kalemler toplamı</b><span>~${TLk(toplam)} TL</span></div>`;
+    html+=satir('Oda / esnaf sicili kayıt ücreti', '<span class="olculmedi">ölçülmedi</span>', '', sicil ? 'her oda kendi belirler (5174 s.K. m.24), odana sor' : 'sicile kaydolmayan için oda kaydı yok; esnaf sicili gerekiyorsa esnaf odasına sor');
+    html+=satir('e-imza / mali mühür (e-belge gerekiyorsa)', '<span class="olculmedi">satıcı fiyatı</span>', '', 'resmî tarife yok');
+    out.innerHTML = `<div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey)">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">💰 ŞAHIS İŞLETMESİ · ${M.yil} KURULUŞ MALİYETİ${sicil?' (sicil kayıtlı tacir)':' (sicilsiz)'}</div>${html}
+      <div class="iyi" style="margin-top:10px"><b>Sermaye şartı yok.</b> Şahısta kuruluş günü ödediğin tek şey yukarıdakiler; asıl maliyet aylık Bağ-Kur primi ve muhasebe ücretidir, onları "İlk 12 ay" sekmesinde tarihiyle görürsün.</div>
+      ${damgaNotu()}</div>`;
+    return;
+  }
+  // LTD / AŞ
+  const sermaye = parseInt((document.getElementById('mSermaye').value||'0').replace(/[^\d]/g,''),10)||0;
+  const kisi = Math.max(1, parseInt(document.getElementById('mKisi').value,10)||1);
+  const kelime = Math.max(0, parseInt(document.getElementById('mKelime').value,10)||0);
+  const tekno = document.getElementById('mTekno').checked;
+  const asgari = (t==='as') ? S.asgariSermaye.as : S.asgariSermaye.ltd;
+  const Z=M.sicilHizmetUcretleri, I=M.ttsgIlan;
+  html+=satir('Ticaret sicili kuruluş harcı', '0 TL', 'Harçlar K. m.123/3', 'AŞ/LTD kuruluşu harçtan ve damga vergisinden müstesna (492 s.K. m.123/3; 488 s.K. 2 sayılı tablo IV/16)');
+  ekle('Kuruluş tasdik ücreti (sicil müdürlüğü)', Z.kurulusTasdik, 'İTO 2026 tarifesi');
+  ekle('Kuruluş defter tasdiki (yevmiye, kebir, envanter, pay, karar, GK defterleri)', Z.kurulusDefterTasdiki, 'İTO 2026 tarifesi');
+  ekle(`Huzurda imza beyannamesi × ${kisi} kişi`, Z.huzurdaImzaBeyannamesiKisiBasi*kisi, 'İTO 2026 tarifesi', 'sicil müdürlüğünde verilir, noter gerekmez');
+  const ilan = tekno ? I.teknogirisimDestekliKurulus : kelime*I.sirketKurulusKelime;
+  ekle(`TTSG kuruluş ilanı ${tekno?'(teknogirişim destekli)':`(${kelime} kelime × ${TLk(I.sirketKurulusKelime)} TL)`}`, ilan, 'TTSG ilan tarifesi 01.01.2026', tekno?'':'⚠ kelime sayısı tahmindir, MERSİS metninle değişir; ücret bir kez alınır, ilan üç kez yayımlanır');
+  ekle('İlan giderleri ücreti', Z.ilanGiderleri, 'İTO 2026 tarifesi');
+  const rk = sermaye*M.rekabetKurumuPayi.oran;
+  ekle(`Rekabet Kurumu payı (sermayenin on binde 4'ü)`, rk, '4054 s.K. m.39/1-c');
+  if(document.getElementById('mSmmm').checked) ekle('Mali müşavir kuruluş hizmeti (2026 tarife üst bandı)', M.smmmTarifesi.sirketKurulusUstBant, 'TÜRMOB 2026 tarifesi, RG 17.12.2025/33110', 'bölge grubuna göre daha düşük bant olabilir; müşavirinle anlaş');
+  html+=`<div class="satir top-satir"><b>Kaynaklı kalemler toplamı</b><span>~${TLk(toplam)} TL</span></div>`;
+  html+=satir('Ticaret odası ilk kayıt ücreti', '<span class="olculmedi">ölçülmedi</span>', '', 'her oda kendi tarifesiyle, sermayeye göre (5174 s.K. m.24); odana sor');
+  html+=satir('e-imza, mali mühür, KEP (isteğe bağlı)', '<span class="olculmedi">satıcı fiyatı</span>', '', 'resmî tarife yok; e-tebligat adresi (UETS) Bakanlıkça oluşturulur, ücret ödemezsin');
+  html+=satir('Noter vekâleti (yalnız vekille işlem yapılacaksa)', '<span class="olculmedi">noter tarifesi</span>', '', 'ortaklar sicile bizzat gidiyorsa doğmaz');
+  let sermayeHtml='';
+  if(t==='as'){
+    const blokaj = sermaye*(S.asBlokajOran||25)/100;
+    sermayeHtml = `<div class="satir"><b>Tescilden önce bankada bloke edilecek sermaye<small>TTK m.344: nakdî payların en az ¼'ü; tescil sonrası çözülür, şirketin parasıdır</small></b><span>${TL(blokaj)} TL</span></div>
+    <div class="satir"><b>24 ay içinde ödenecek kalan sermaye</b><span>${TL(sermaye-blokaj)} TL</span></div>`;
+  } else {
+    sermayeHtml = `<div class="satir"><b>Sermaye taahhüdü<small>TTK m.585: kuruluşta ödeme şartı yok, tescilden itibaren 24 ay içinde ödenir; şirketin parasıdır, masraf değildir</small></b><span>${TL(sermaye)} TL</span></div>`;
+  }
+  const asgariUyari = sermaye<asgari ? `<div class="kotu"><b>Sermaye asgarinin altında:</b> ${t==='as'?'AŞ':'LTD'} için asgari ${TL(asgari)} TL (7887 s. CB Kararı). Bu tutarla tescil yapılmaz.</div>` : '';
+  out.innerHTML = `<div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:var(--yuzey)">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">💰 ${t==='as'?'ANONİM':'LİMİTED'} ŞİRKET · ${M.yil} KURULUŞ MALİYETİ · ${TL(sermaye)} TL sermayeyle</div>${html}
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin:14px 0 4px">🏦 MASRAF DEĞİL, KASANA GİREN PARA</div>${sermayeHtml}${asgariUyari}
+    <div class="iyi" style="margin-top:10px"><b>Kuruluş günü cebinden çıkan:</b> ~${TL(toplam)} TL kaynaklı kalem + oda kaydı + varsa e-imza. ${t==='as'?`Bankaya ${TL(sermaye*(S.asBlokajOran||25)/100)} TL blokaj koyarsın, o para tescil sonrası şirket hesabında kalır.`:'Sermayeyi kuruluş günü ödemek zorunda değilsin.'} Aylık sabit giderler (muhasebe, Bağ-Kur, kira stopajı) "İlk 12 ay" sekmesinde.</div>
+    ${damgaNotu()}</div>`;
+}
+function damgaNotu(){
+  return `<div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynaklar: her satırın üstüne gelince görünür. Sabit dosyası: veri/kurulus-maliyet.json (${M.guncelleme||'yedek değerler'}${mYedek?' · ⚠ dosya yüklenemedi, sayfa içi yedek kullanıldı':''}). Tarifeler değişince robot nöbetçisi haber verir, dosya güncellenir, bu sayfa kendini yeniden yazar.</div>`;
+}
+
+/* ---------- 2. TAKVİM ---------- */
+(function(){ const d=new Date(); document.getElementById('tTarih').value = d.toISOString().slice(0,10); })();
+secGrup('tTur');
+const AY = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+const gg = d => String(d.getDate()).padStart(2,'0')+' '+AY[d.getMonth()]+' '+d.getFullYear();
+const ics8 = d => d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
+const gunEkle=(d,n)=>{ const x=new Date(d); x.setDate(x.getDate()+n); return x; };
+const ayEkle=(d,n)=>{ const x=new Date(d); x.setMonth(x.getMonth()+n); return x; };
+const aySonu=(y,m)=> new Date(y,m+1,0);   // m: 0-11
+let SON_OLAYLAR=[];
+function takvimUret(){
+  if(!kapi('kurulus-nobeti')) return;
+  const t=secili('tTur'); const out=document.getElementById('tSonuc');
+  const T = new Date(document.getElementById('tTarih').value+'T00:00:00');
+  if(isNaN(T)){ out.innerHTML='<p class="kotu">Geçerli bir tescil tarihi gir.</p>'; return; }
+  const calisan=document.getElementById('tCalisan').checked, kira=document.getElementById('tKira').checked;
+  const ufuk = ayEkle(T,12);
+  const E=[]; // {d, ad, ne, dy, tekrar, otede}
+  const ek=(d,ad,ne,dy,tekrar)=>E.push({d,ad,ne,dy,tekrar:!!tekrar, otede: d>ufuk});
+  const sirket = (t!=='sahis');
+  // --- kuruluş haftası ---
+  if(sirket){
+    ek(T,'Tescil günü: tüzel kişilik doğdu','Sicil tasdiknamesini al; vergi dairesi kaydı sicil bildirimiyle açılır, yoklama için işyeri adresinde tabela/kira sözleşmesi hazır olsun. e-Tebligat adresin (UETS) Ticaret Bakanlığı\'nca oluşturulup şirkete tebliğ edilir; PTT\'ye ayrıca başvurmazsın.','TTK m.354/m.588 · VUK m.153 · 7201 s.K. m.7/a');
+    if(t==='as') ek(gunEkle(T,1),'Blokajı çöz, pay senedi bastır','Tescil sonrası banka blokajı çözülür. Pay senetlerini (ya da ilmühaberi) hemen bastır: satışta 2 yıllık gelir vergisi istisnasının saati senet tarihinden başlar.','TTK m.344, m.486 · GVK mük. m.80');
+    ek(gunEkle(T,15),'SON GÜN: GİB e-Tebligat talep bildirimi','Kurumlar vergisi mükellefi işe başlama tarihini izleyen 15 gün içinde İnteraktif Vergi Dairesi\'nden Elektronik Tebligat Talep Bildirimi verir. Kaçıran özel usulsüzlük cezasıyla karşılaşır.','456 Sıra No.lu VUK GT');
+    ek(gunEkle(T,7),'Banka hesabı + ortak Bağ-Kur (4/b)','Sicil tasdiknamesi + vergi levhası + imza yetkilisiyle şirket hesabı aç. LTD ortağı ve AŞ yönetim kurulu üyesi ortak 4/b sigortalısı olur; tescil SGK\'ya sicilden bildirilir, primini kontrol et.','5510 s.K. m.4/1-b, m.8');
+  } else {
+    ek(T,'İşe başlama günü','İnteraktif Vergi Dairesi\'nden işe başlama bildirimi; yoklama için işyeri adresinde kira sözleşmesi/tapu hazır olsun. Genç girişimci istisnası kullanacaksan başvuruyu mükellefiyet açılırken planla.','VUK m.153, m.168 · GVK mük. m.20');
+    ek(gunEkle(T,10),'SON GÜN: işe başlama bildirimi','İşe başlama bildirimi işe başlama tarihinden itibaren 10 gün içinde verilir (müşavir İVD\'den yapar).','VUK m.168/1');
+    ek(gunEkle(T,7),'Bağ-Kur (4/b) tescilin açıldı mı, kontrol et','Vergi mükellefiyeti açılınca 4/b sigortalılığın kendiliğinden başlar; ilk prim, ait olduğu ayı izleyen ayın sonuna kadar.','5510 s.K. m.4/1-b, m.88');
+  }
+  if(calisan) ek(T,'İlk çalışan işe başlamadan ÖNCE: SGK işyeri tescili + işe giriş bildirgesi','İşe giriş bildirgesi sigortalı çalışmaya başlamadan önce verilir (inşaat, balıkçılık, tarım istisnalı). İşyeri bildirgesi en geç sigortalı çalıştırmaya başladığın tarihte.','5510 s.K. m.8, m.11');
+  // --- aylık tekrarlar (ilk 12 ay) ---
+  for(let i=1;i<=12;i++){
+    const ay = ayEkle(new Date(T.getFullYear(),T.getMonth(),1), i);   // beyan ayı = dönem + 1
+    const y=ay.getFullYear(), m=ay.getMonth();
+    const donem = AY[(m+11)%12];
+    ek(new Date(y,m,28), `KDV beyannamesi (${donem} dönemi)`, 'Aylık KDV beyanı ve ödemesi izleyen ayın 28\'ine kadar. Hiç satış olmasa da beyanname verilir (boş beyan).', 'KDVK m.41, m.46 · VUK Sirküleri (28. gün)', true);
+    if(calisan || kira || sirket) ek(new Date(y,m,26), `Muhtasar ve Prim Hizmet Beyannamesi (${donem})`, (calisan?'Ücret stopajı + SGK primleri tek beyannamede. ':'')+(kira?'Gerçek kişiden kiralanan işyeri kirasından %20 stopaj bu beyannameyle. ':'')+(!calisan&&!kira?'Stopaj doğuran ödeme yoksa boş verilebilir; çalışanı olmayan işverenler 3 aylık dönemi seçebilir. ':'')+'İzleyen ayın 26\'sına kadar.', 'GVK m.98 · 5510 m.86 · VUK Sirküleri (26. gün)', true);
+    if(!sirket) ek(aySonu(y,m), `Bağ-Kur primi (${donem})`, 'Ait olduğu ayı izleyen ayın sonuna kadar ödenir; gecikme aylık gecikme zammı doğurur, 5 yıllık sağlık şartına da dokunur.', '5510 s.K. m.88', true);
+  }
+  // --- geçici vergi: dönem sonları Mar/Haz/Eyl, beyan izleyen 2. ayın 17'si ---
+  [[2,4],[5,7],[8,10]].forEach(([donemAy,beyanAy])=>{
+    for(let y=T.getFullYear(); y<=ufuk.getFullYear(); y++){
+      const donemSon = aySonu(y,donemAy); const beyan = new Date(y,beyanAy,17);
+      if(donemSon>=T && beyan<=ayEkle(ufuk,2)) ek(beyan, `Geçici vergi beyannamesi (${y} ${(donemAy+1)/3}. dönem, ${AY[donemAy-2]}–${AY[donemAy]})`, 'Üç aylık dönem kazancı üzerinden; 4. dönem beyanı kaldırıldı, yıl sonu yıllık beyannameyle kapanır. Beyan ve ödeme dönemi izleyen 2. ayın 17\'si.', sirket?'KVK m.32/2 · GVK mük. m.120':'GVK mük. m.120', true);
+    }
+  });
+  // --- yıllık kilometre taşları (izleyen yıl) ---
+  const Y1 = T.getFullYear()+1;
+  if(sirket){
+    if(t==='as') ek(new Date(Y1,0,31),'Yönetim kurulu karar defteri kapanış onayı','İzleyen faaliyet döneminin 1. ayı sonuna kadar notere kapanış onayı. (LTD müdürler kurulu karar defteri tutuyorsa onun için de geçerli.)','TTK m.64/3');
+    else ek(new Date(Y1,0,31),'Müdürler kurulu karar defteri kapanış onayı (tutuyorsan)','Ayrı karar defteri tutan LTD için izleyen dönemin 1. ayı sonu; kararları genel kurul müzakere defterine yazıyorsan bu adım doğmaz.','TTK m.64/3');
+    ek(new Date(Y1,2,31),'Olağan genel kurul (ilk yıl)','Hesap döneminin bitiminden itibaren 3 ay içinde toplanır: finansal tabloların onayı, kâr kararı, ibra. Tek ortaklı şirkette de karar yazılıp deftere işlenir.', t==='as'?'TTK m.409':'TTK m.617');
+    ek(new Date(Y1,3,30),'Kurumlar vergisi beyannamesi ve ödemesi','İlk hesap dönemi (tescilden 31 Aralık\'a kadar) için Nisan sonuna kadar beyan ve ödeme. Genç girişimci istisnası şirkette işlemez.','KVK m.14, m.21');
+    ek(new Date(Y1,5,30),'Yevmiye defteri kapanış onayı','İzleyen dönemin 6. ayı sonuna kadar notere. e-Defter tutuyorsan noter onayı yerine berat yüklemesi geçerli.','TTK m.64/3 · VUK m.221');
+    ek(new Date(Y1,5,30),'Oda yıllık aidatı 1. taksit','Ticaret odası yıllık aidatı Haziran ve Ekim\'de iki eşit taksit.','5174 s.K. m.24');
+    ek(new Date(T.getFullYear(),9,31),'Oda yıllık aidatı 2. taksit','Kayıt yılında Ekim taksiti odanın uygulamasına göre doğabilir; odana sor.','5174 s.K. m.24');
+    ek(new Date(T.getFullYear(),11,31),'Gelecek yıl defterlerinin açılış tasdiki','Fiziki defter tutuyorsan bir sonraki yıl defterleri Aralık sonuna kadar notere; e-Defter\'e geçtiysen gerekmez. Aynı günlerde e-Fatura/e-Defter ciro eşiğini ölç.','VUK m.221 · TTK m.64/3');
+    ek(ayEkle(T,24),'SON GÜN: sermaye taahhüdünün tamamı ödenmiş olmalı', t==='as'?'Kalan ¾ nakdî sermaye tescilden itibaren 24 ay içinde ödenir.':'Nakdî sermaye tescilden itibaren 24 ay içinde ödenir; ödenmeyen sermaye ortağın şahsi borcudur, vergi/SGK borcunda sorumluluk kapısını açar.','TTK '+(t==='as'?'m.344':'m.585'));
+  } else {
+    ek(new Date(Y1,2,31),'Yıllık gelir vergisi beyannamesi','Mart ayı sonuna kadar beyan; vergi Mart ve Temmuz\'da iki taksit. Genç girişimci istisnası bu beyannamede düşülür.','GVK m.92, m.117');
+    ek(new Date(T.getFullYear(),11,31),'Defter-Beyan / gelecek yıl defterleri','Defter-Beyan Sistemi\'nde işletme hesabı esasındaysan noter tasdiki yok; bilanço esasına geçiyorsan Aralık sonuna kadar defter tasdiki. Yıl sonunda VUK m.177 ciro haddini ölç: aşıyorsan gelecek yıl bilanço esası.','VUK m.177, m.221');
+  }
+  // --- kural notları (tarihsiz) ---
+  const kurallar = sirket ? [
+    ['Değişiklik oldu mu, 15 gün','Adres, müdür/YK, sermaye, unvan değişikliği: tescili gerektiren olgu doğduğunda 15 gün içinde sicile başvur.','TTK m.30'],
+    ['Ciro büyüdükçe kapılar açılır','e-Fatura/e-Defter, bağımsız denetim, AŞ\'de sözleşmeli avukat: eşikler yıl sonunda ölçülür. <a href="sayfalar/e-fatura-zorunlulugu.html">e-fatura eşiği</a> · <a href="sayfalar/bagimsiz-denetim-esigi.html">denetim eşiği</a> · <a href="sayfalar/avukat-bulundurma.html">avukat eşiği</a>','509 VUK GT · 6102 m.397 · Av.K. m.35']
+  ] : [
+    ['Ciro haddini yıl sonunda ölç','VUK m.177 satış haddini aşarsan ikinci yıl bilanço esasına geçersin; o noktada LTD\'yi yeniden düşün. <a href="kurulus.html">Sihirbaz</a> bu hesabı yapar.','VUK m.177, m.179']
+  ];
+  E.sort((a,b)=>a.d-b.d);
+  SON_OLAYLAR = E;
+  const AD={ltd:'Limited şirket',as:'Anonim şirket',sahis:'Şahıs işletmesi'};
+  const liste = E.map(e=>`<div class="olay${e.tekrar?' tekrar':''}${e.otede?' otede':''}"><div class="gun">${gg(e.d)}${e.otede?'<small>12 ayın ötesinde</small>':''}${e.tekrar?'<small>tekrarlı</small>':''}</div><div><b>${e.ad}</b><p>${e.ne}</p><span class="dy">${e.dy}</span></div></div>`).join('');
+  const kural = kurallar.map(k=>`<div class="olay"><div class="gun" style="color:var(--amber)">kural</div><div><b>${k[0]}</b><p>${k[1]}</p><span class="dy">${k[2]}</span></div></div>`).join('');
+  out.innerHTML = `<div style="margin-top:14px">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:6px">📅 ${AD[t].toLocaleUpperCase('tr-TR')} · ${gg(T)} TESCİLİNDEN SONRAKİ 12 AY · ${E.length} tarih</div>
+    <div class="ara" data-yazdirma-gizle><button class="btn" style="font-size:14px;padding:11px 18px" onclick="takvimIndir()">📲 Hepsini telefon takvimime ekle (.ics)</button><button class="btn ikincil" style="font-size:14px;padding:11px 18px" onclick="window.print()">🖨 Yazdır</button></div>
+    <div class="kart" style="margin-top:12px;border-left-color:var(--green)">${liste}</div>
+    <div class="kart" style="border-left-color:var(--amber)"><h3 style="margin-top:0">Tarihi olmayan üç kural</h3>${kural}</div>
+    <div class="kart" style="border-left-color:var(--accent2)" data-yazdirma-gizle><h3 style="margin-top:0">Bu takvimi nöbete alalım</h3>
+      <p style="margin:0 0 8px;font-size:13px;color:var(--muted)">E-postanı bırak; takvimi sana yollayalım ve bu tarihleri etkileyen mevzuat değişince (beyan günleri, sermaye şartı, eşikler) sade Türkçeyle haber verelim. Ücretsiz.</p>
+      <div class="ara"><input id="tMail" type="email" placeholder="ornek@firma.com" autocomplete="email"><button class="btn" style="font-size:14px;padding:11px 18px" onclick="takvimGonder('${t}')">Takvimi yolla, nöbete al</button></div>
+      <label style="display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:12px;margin-top:8px"><input id="tKvkk" type="checkbox" style="width:16px;height:16px;margin-top:2px;accent-color:var(--accent)"><span>E-postamın bilgilendirme amacıyla işlenmesine izin veriyorum. <a href="kvkk.html" target="_blank">Aydınlatma metni</a></span></label>
+      <p id="tMailSonuc" style="margin:8px 0 0;font-size:13px;font-weight:600;display:none"></p></div>
+    <div style="font-size:11px;color:var(--dim)">Takvim yön vericidir: beyan günleri hafta sonuna denk gelince izleyen iş gününe kayar, GİB her yıl vergi takvimini ayrıca yayımlar; hesap dönemi takvim yılı varsayıldı. Kesin tarihleri muhasebecinle teyit et.</div>
+  </div>`;
+  out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function icsKac(s){ return String(s).replace(/<[^>]+>/g,'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+function takvimIndir(){
+  if(!SON_OLAYLAR.length) return;
+  const L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Tetikte//KurulusNobeti//TR","CALSCALE:GREGORIAN"];
+  SON_OLAYLAR.forEach((e,i)=>{
+    const bit=gunEkle(e.d,1);
+    L.push("BEGIN:VEVENT","UID:kurulus-nobeti-"+ics8(e.d)+"-"+i+"@tetikte.com","DTSTART;VALUE=DATE:"+ics8(e.d),"DTEND;VALUE=DATE:"+ics8(bit),
+      "SUMMARY:"+icsKac(e.ad),"DESCRIPTION:"+icsKac(e.ne+' Dayanak: '+e.dy+' (Tetikte Kuruluş Nöbeti)'),
+      "BEGIN:VALARM","TRIGGER:-P3D","ACTION:DISPLAY","DESCRIPTION:"+icsKac(e.ad)+" — 3 gün kaldı","END:VALARM","END:VEVENT");
+  });
+  L.push("END:VCALENDAR");
+  const blob=new Blob([L.join("\r\n")],{type:"text/calendar;charset=utf-8"});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download="kurulus-nobeti-ilk-12-ay.ics"; document.body.appendChild(a); a.click(); a.remove();
+}
+function takvimGonder(tur){
+  const s=document.getElementById('tMailSonuc');
+  const goster=(m,ok)=>{ s.style.display='block'; s.textContent=m; s.style.color=ok?'var(--green)':'var(--red)'; };
+  const mail=(document.getElementById('tMail').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
+  if(!document.getElementById('tKvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
+  const AD={ltd:'Limited şirket',as:'Anonim şirket',sahis:'Şahıs işletmesi'};
+  const ozet = SON_OLAYLAR.filter(e=>!e.tekrar).map(e=>gg(e.d)+' — '+e.ad).join('\n');
+  const payload={subject:'Kuruluş Nöbeti takvimi, '+AD[tur], from_name:'Tetikte', email:mail,
+    'Tür':AD[tur], 'Tescil tarihi':document.getElementById('tTarih').value, 'Çalışan':document.getElementById('tCalisan').checked?'evet':'hayır',
+    'Takvim (tekrarsız)':ozet, 'Kayıt kaynağı':'Kuruluş Nöbeti'};
+  goster('Gönderiliyor…',true);
+  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{"apikey":EPOSTA_ANAHTAR,"Authorization":"Bearer "+EPOSTA_ANAHTAR,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>{ if(r.ok){ goster('✓ Alındı! Takvimin e-postanda; tarihleri etkileyen değişiklikte ilk sana yazacağız.',true); } else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
+    .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
+}
+
+/* ---------- 3. UNVAN ---------- */
+secGrup('uTur', v=>{ document.getElementById('uSahis').style.display = v==='sahis'?'block':'none'; });
+const KONU_KELIME = ['ticaret','sanayi','yazılım','bilişim','bilgisayar','teknoloji','inşaat','gıda','danışmanlık','turizm','tekstil','lojistik','nakliyat','taşımacılık','otomotiv','medikal','sağlık','eğitim','tarım','hayvancılık','enerji','reklam','mühendislik','mimarlık','hizmetleri','hizmet','pazarlama','ithalat','ihracat','mobilya','ambalaj','plastik','metal','makine','elektrik','elektronik','kimya','kozmetik','madencilik','petrol','yayıncılık','organizasyon','emlak','gayrimenkul','sigorta','finans','yatırım','holding','restoran','kafe','matbaa','tasarım','üretim','imalat','dağıtım','perakende','toptan','temizlik','güvenlik','sanat','spor','oyun','medya','film','müzik','ajans','kuyumculuk','boya','cam','seramik','kağıt','deri','ayakkabı','konfeksiyon','giyim','ilaç','veterinerlik','yapı','dekorasyon','iklimlendirme','soğutma','hırdavat','tesisat','peyzaj','yemek','catering','fırın','pastane','unlu','şarap','içecek','su'];
+const YASAK_KAMU = ['bakanlık','bakanlığı','belediye','belediyesi','kaymakamlık','valilik','müsteşarlık','genel müdürlüğü','üniversite','tsk','emniyet','jandarma','t.c.','tc ','devlet'];
+const ULKE = ['almanya','amerika','fransa','ingiltere','italya','rusya','çin','japonya','kore','hollanda','ispanya','azerbaycan','ırak','iran','suriye','yunanistan','bulgaristan','mısır','katar','dubai','emirlikleri','kanada','avustralya','brezilya','hindistan','ukrayna','polonya','isviçre','avusturya','belçika','isveç','norveç','danimarka','finlandiya','portekiz','kazakistan','özbekistan','gürcistan'];
+function unvanKontrol(){
+  const t=secili('uTur'); const u=(document.getElementById('uMetin').value||'').trim(); const out=document.getElementById('uSonuc');
+  if(!u){ out.innerHTML='<p class="kotu">Önce unvanı yaz.</p>'; return; }
+  const k = u.toLocaleLowerCase('tr-TR');
+  const K=[]; const kt=(tip,b,s)=>K.push([tip,b,s]);
+  // 1) tür ibaresi
+  if(t==='ltd'){ /limited\s+şirket(i)?\b/.test(k) ? kt('ok','Tür ibaresi var: "Limited Şirketi".','TTK m.43/1') : kt('dur','"Limited Şirketi" ibaresi yok.','Unvanda şirket türü açıkça yazılır (TTK m.43/1). "Ltd. Şti." kısaltması günlük kullanımda olur, sicilde tam yazılır.'); }
+  if(t==='as'){ /anonim\s+şirket(i)?\b/.test(k) ? kt('ok','Tür ibaresi var: "Anonim Şirketi".','TTK m.43/1') : kt('dur','"Anonim Şirketi" ibaresi yok.','Unvanda şirket türü açıkça yazılır (TTK m.43/1). "A.Ş." kısaltması günlük kullanımda olur, sicilde tam yazılır.'); }
+  if(t==='sahis'){
+    const ad=(document.getElementById('uAdSoyad').value||'').trim().toLocaleLowerCase('tr-TR');
+    if(!ad) kt('bak','Ad-soyadını yazmadın; gerçek kişi unvanı ad ve soyaddan oluşur.','TTK m.41');
+    else if(k.includes(ad)) kt('ok','Ad ve soyadın unvanda tam geçiyor.','TTK m.41: kısaltılmadan yazılır');
+    else kt('dur','Ad-soyadın unvanda tam geçmiyor ya da kısaltılmış.','TTK m.41: gerçek kişi unvanı kısaltılmadan yazılan ad ve soyaddan oluşur; ek yapılabilir ama ad-soyad eksik olamaz.');
+    if(/\b(limited|anonim|şirket)/.test(k)) kt('dur','Gerçek kişi unvanında "şirket" izlenimi veren ibare olamaz.','TTK m.46/2: unvana ortaklık bulunduğu izlenimini uyandıracak ek yapılamaz');
+  }
+  // 2) işletme konusu
+  if(t!=='sahis'){
+    const bulunan = KONU_KELIME.filter(w=>k.includes(w));
+    if(bulunan.length) kt('ok','İşletme konusu ibaresi görünüyor: '+bulunan.slice(0,3).join(', ')+'.','Tebliğ m.4/3: AŞ ve LTD unvanında işletme konularından en az biri yer alır, kısaltılamaz');
+    else kt('bak','İşletme konusunu gösteren bir ibare göremedim.','Tebliğ m.4/3: unvanda faaliyet konularından en az biri (ticaret, yazılım, inşaat, danışmanlık…) Türkçe ve kısaltılmadan yer almalı. Listemiz sınırlıdır, senin konu kelimen listede olmayabilir; müdürlük son sözü söyler.');
+    if(/\bholding\b/.test(k)) kt('bak','"Holding" ibaresi var: yalnız holding şirketler kullanır; başka şirket unvanında yer alamaz.','Tebliğ m.4/4');
+  }
+  // 3) izne bağlı kelimeler
+  const izin = ['türk','türkiye','cumhuriyet','milli'].filter(w=>new RegExp('\\b'+w+'\\b').test(k));
+  if(izin.length) kt('dur','İzne bağlı kelime: '+izin.join(', ')+'.','TTK m.46/3 + Tebliğ m.4/5: "Türk", "Türkiye", "Cumhuriyet", "Milli" yalın hâlde ve yalnız Cumhurbaşkanı kararıyla kullanılabilir (ad-soyadın parçasıysa istisna).');
+  else kt('ok','İzne bağlı kelime yok (Türk, Türkiye, Cumhuriyet, Milli).','TTK m.46/3');
+  // 4) kamu kurumu
+  const kamu = YASAK_KAMU.filter(w=>k.includes(w));
+  if(kamu.length) kt('dur','Kamu kurumu çağrışımı: '+kamu.join(', ')+'.','Tebliğ m.4/7: kamu kurum ve kuruluşlarının adları ve kısaltmaları unvanda kullanılamaz.');
+  // 5) ülke adı
+  const ulke = ULKE.filter(w=>new RegExp('\\b'+w).test(k));
+  if(ulke.length) kt('bak','Ülke adı geçiyor: '+ulke.join(', ')+'.','Tebliğ m.4/6: ülke adı için o ülkenin yetkili makamından izin gerekir; resmî yer adları (il, ilçe) serbesttir.');
+  // 6) yanıltıcılık / ahlak
+  if(/\b(banka|bank|sigorta|finansal kiralama|faktoring|borsa|yatırım fonu|portföy)\b/.test(k)) kt('bak','Düzenlemeye tabi sektör ibaresi var (banka, sigorta, faktoring…).','Bu ibareler kendi kanunlarındaki izin ve sermaye şartına bağlıdır; izinsiz kullanılamaz (5411 s.K. m.7, 5684 s.K. vb.).');
+  // 7) yabancı kelime / karakter
+  if(/[qwx]/.test(k)) kt('bak','Türkçe alfabede olmayan harf (q, w, x) var.','Tebliğ m.4/1: işletme konusu ve tür ibaresi Türkçe olmak kaydıyla diğer kelimeler serbesttir; yabancı kelimede sicil müdürlüğü anlam/yanıltıcılık kontrolü yapabilir.');
+  // 8) ayırt edicilik
+  const ilkUc = u.split(/\s+/).slice(0,3).join(' ');
+  kt('bak','Benzerlik kontrolü elle: TOBB unvan sorgusunda "'+ilkUc+'" ile başlayanlara bak.','Tebliğ m.5: Türkiye\'de daha önce tescilli bir unvanın eki ve konu ibaresi aynıysa ayırt edici ek olmadan tescil edilmez; yalnız tür ibaresi farklı olan unvan da tescil edilmez. <a href="https://www.ticaretsicil.gov.tr/view/hizlierisim/unvansorgulama.php" target="_blank" rel="noopener">TOBB unvan sorgulama →</a>');
+  const dur=K.filter(x=>x[0]==='dur').length, bak=K.filter(x=>x[0]==='bak').length;
+  const ozet = dur ? `<div class="kotu"><b>${dur} engel var.</b> Bunlar düzelmeden sicil müdürlüğü tescili yapmaz.</div>` : `<div class="iyi"><b>Engel görünmüyor.</b> ${bak} nokta müdürlükte teyit ister; son sözü sicil söyler.</div>`;
+  const I={ok:'✓',dur:'✕',bak:'!'};
+  out.innerHTML = `<div style="margin-top:14px">${ozet}<div class="kart" style="border-left-color:${dur?'var(--red)':'var(--green)'};margin-top:12px">${K.map(x=>`<div class="kontrol ${x[0]}"><div class="isaret">${I[x[0]]}</div><div><b>${x[1]}</b><br><span>${x[2]}</span></div></div>`).join('')}</div></div>`;
+}
+
+/* ---------- 4. ORTAKLAR SÖZLEŞMESİ ---------- */
+secGrup('sTur');
+let ORTAK_N=0;
+function ortakEkle(ad,pay){
+  ORTAK_N++;
+  const d=document.createElement('div'); d.className='ortak'; d.id='ortak'+ORTAK_N;
+  d.innerHTML=`<div><label class="et" style="margin-top:0">Ortak ${ORTAK_N} ad soyad</label><input type="text" class="oAd" placeholder="Ad Soyad" value="${ad||''}"></div><div><label class="et" style="margin-top:0">Pay %</label><input type="number" class="oPay" min="0" max="100" value="${pay||''}"></div><button class="sil" title="Ortağı sil" onclick="this.parentNode.remove()">✕</button>`;
+  document.getElementById('sOrtaklar').appendChild(d);
+}
+ortakEkle('',50); ortakEkle('',50);
+function sozlesmeUret(){
+  if(!kapi('kurulus-nobeti')) return;
+  const out=document.getElementById('sSonuc');
+  const unvan=(document.getElementById('sUnvan').value||'').trim()||'[ŞİRKET UNVANI]';
+  const t=secili('sTur');
+  const ortaklar=[...document.querySelectorAll('#sOrtaklar .ortak')].map(o=>({ad:(o.querySelector('.oAd').value||'').trim()||'[ORTAK ADI]', pay:parseFloat(o.querySelector('.oPay').value)||0}));
+  if(ortaklar.length<2){ out.innerHTML='<p class="kotu">Ortaklar sözleşmesi için en az iki ortak gerekir.</p>'; return; }
+  const toplamPay = ortaklar.reduce((a,b)=>a+b.pay,0);
+  const uyariPay = Math.abs(toplamPay-100)>0.01 ? `<div class="kotu"><b>Pay toplamı %${toplamPay}.</b> %100 olmalı; taslak yine üretildi, oranları düzelt.</div>` : '';
+  const vest=+document.getElementById('sVesting').value, cliff=+document.getElementById('sCliff').value, rek=+document.getElementById('sRekabet').value;
+  const nisap=document.getElementById('sNisap').value, kilit=document.getElementById('sKilit').value, deger=document.getElementById('sDeger').value;
+  const onalim=document.getElementById('sOnalim').checked, tag=document.getElementById('sTag').checked, drag=document.getElementById('sDrag').checked, fikri=document.getElementById('sFikri').checked;
+  const AS = t==='as';
+  const payAdi = AS ? 'pay senedi' : 'esas sermaye payı';
+  const devirMad = AS ? 'TTK m.490 vd.' : 'TTK m.595';
+  const organ = AS ? 'yönetim kurulu' : 'müdürler';
+  const nisapMetni = nisap==='oybirligi' ? 'tüm ortakların olumlu oyu' : (nisap==='75' ? 'sermayenin en az %75\'ini temsil eden ortakların olumlu oyu' : 'sermayenin en az üçte ikisini temsil eden ortakların olumlu oyu');
+  const degerMetni = deger==='bagimsiz' ? 'ortakların birlikte seçeceği, anlaşamazlarsa ticaret odasınca önerilecek bağımsız bir değerleme uzmanının belirleyeceği piyasa değeri' : (deger==='defter' ? 'ayrılış tarihinden önceki son onaylı bilançodaki öz kaynak tutarının paya düşen kısmı' : 'ayrılış tarihinden önceki son 12 aylık FAVÖK tutarının Ek-1\'de belirlenen katsayıyla çarpımının paya düşen kısmı');
+  const kilitMetni = kilit==='arabulucu'
+    ? 'Ortaklar, iki ardışık toplantıda karar alınamayan bir konuda önce 30 gün içinde arabulucuya başvurur. Arabuluculuk sonuçsuz kalırsa ortaklardan her biri diğerine, kendi paylarının tamamı için tek bir birim fiyat içeren yazılı bir alım-satım teklifi ("alırım ya da satarım" teklifi) yapabilir; teklifi alan ortak 30 gün içinde ya teklif edenin paylarını o fiyattan satın alır ya da kendi paylarını aynı fiyattan teklif edene satar. Süre içinde seçim yapmayan ortak satmayı kabul etmiş sayılır.'
+    : (kilit==='hakem' ? 'Ortaklar, iki ardışık toplantıda karar alınamayan bir konuda, birlikte belirleyecekleri sektör deneyimli bağımsız bir uzmanın yazılı görüşünü alır ve bu görüşle bağlı olmayı şimdiden kabul eder. Uzman üzerinde anlaşılamazsa uzman, İzmir Ticaret Odası\'nın önereceği üç aday arasından kura ile belirlenir.'
+    : 'Ortaklar, iki ardışık toplantıda karar alınamayan ve şirketin olağan faaliyetini durduran bir konuda, 60 gün içinde anlaşamazlarsa şirketin tasfiyesine karar vermeyi ve bu yönde oy kullanmayı kabul eder.');
+  const bugun = new Date(); const trTarih = bugun.toLocaleDateString('tr-TR');
+  let m=0; const M_=(b,s)=>`<h4>Madde ${++m} — ${b}</h4>${s}`;
+  let metin = `<div style="text-align:center;font-weight:800;font-size:16px;letter-spacing:.5px">ORTAKLAR SÖZLEŞMESİ</div><div style="text-align:center;color:var(--dim);font-size:12px;margin-bottom:10px">${unvan} · taslak · ${trTarih}</div>`;
+  metin += `<p>Aşağıda adı ve pay oranı yazılı ortaklar (birlikte "Ortaklar"), ${unvan} ("Şirket") bünyesindeki ortaklık ilişkilerini, şirket sözleşmesinden ayrı ve onu tamamlayıcı olarak, aşağıdaki hükümlerle düzenlemiştir. Bu sözleşme Ortaklar arasında bağlayıcıdır; üçüncü kişilere karşı ileri sürülebilmesi için gerekli hükümler ayrıca şirket sözleşmesine işlenir.</p>`;
+  metin += M_('Ortaklar ve pay dağılımı', `<p>${ortaklar.map(o=>`${o.ad}: %${o.pay}`).join(' · ')}. Sermaye artırımlarında, Ortaklar aksine yazılı anlaşmadıkça, rüçhan haklarını pay oranlarıyla kullanır (${AS?'TTK m.461':'TTK m.591'}).</p>`);
+  metin += M_('Çalışma taahhüdü ve görev dağılımı', `<p>Her Ortak, Ek-2\'de yazılı görev ve haftalık asgari çalışma süresini üstlenir. Ortaklardan biri, Şirketin işine benzer bir işte Ortakların yazılı onayı olmadan çalışamaz, ortak olamaz, danışmanlık veremez (${AS?'TTK m.396 kıyasen':'TTK m.626'}).</p>`);
+  if(vest>0){
+    metin += M_('Payların hak edilmesi (vesting)', `<p>Ortakların payları, bu sözleşmenin imza tarihinden itibaren ${vest} yıl boyunca, ${cliff>0?`ilk ${cliff} ay sonunda %${Math.round(100*cliff/(vest*12))}\'lik kısım toptan ve devamında her ay eşit dilimlerle`:'her ay eşit dilimlerle'} hak edilir ("Hak Edilmiş Pay"). Ortak, hak ediş süresi dolmadan Şirketteki fiilî çalışmasını sona erdirirse${cliff>0?` (${cliff}. aydan önce ayrılırsa hiçbir pay hak edilmiş sayılmaz)`:''}, hak edilmemiş paylarını diğer Ortaklara pay oranlarıyla, nominal (itibarî) değer üzerinden devretmeyi şimdiden kabul ve taahhüt eder. Ortak bu devri 30 gün içinde yapmazsa diğer Ortaklar, bu sözleşmeyi devir vaadi ve yetki belgesi olarak kullanarak devri gerçekleştirebilir.</p><p><i>Not (dayanak):</i> ${AS?'AŞ kendi paylarını sermayenin %10\'unu aşacak biçimde edinemez (TTK m.379); bu yüzden hak edilmemiş paylar Şirkete değil, diğer Ortaklara devredilir. Nama yazılı payların devrine esas sözleşmeyle sınır (bağlam) konabilir (TTK m.492-493).':'Esas sermaye payının devri genel kurul onayına bağlıdır (TTK m.595); Ortaklar, bu maddeye dayanan devirlere genel kurulda olumlu oy vermeyi taahhüt eder. Şirket sözleşmesine devri yasaklayan/onaya bağlayan hüküm (TTK m.595/4) de konabilir.'}</p>`);
+  }
+  metin += M_('Ayrılan Ortağın hak edilmiş paylarının değeri', `<p>Hak Edilmiş Paylar için ayrılış hâlinde diğer Ortakların satın alma opsiyonu vardır; bedel, ${degerMetni}dır. "İyi ayrılış" (ölüm, sürekli iş göremezlik, Ortakların onayıyla ayrılış) ile "kötü ayrılış" (haklı nedenle görevden alınma, rekabet yasağı ihlali, gizlilik ihlali) ayrımı yapılır: kötü ayrılışta bedel, yukarıdaki değerin %[…]'i ile sınırlıdır (oran Ortaklarca doldurulur).</p>`);
+  if(onalim) metin += M_('Önalım hakkı', `<p>Payını üçüncü kişiye devretmek isteyen Ortak, devir şartlarını (alıcı, bedel, ödeme) diğer Ortaklara yazılı bildirir. Diğer Ortaklar 30 gün içinde aynı şartlarla ve pay oranlarıyla satın alma hakkını kullanabilir; kullanmazlarsa devir, bildirilen şartlardan daha lehte olmamak kaydıyla 90 gün içinde üçüncü kişiye yapılabilir (${devirMad}).</p>`);
+  if(tag) metin += M_('Birlikte satma hakkı (tag-along)', `<p>Sermayenin %50\'sinden fazlasını temsil eden payların üçüncü kişiye devrinde, diğer Ortaklar kendi paylarının tamamını aynı şartlarla aynı alıcıya satma hakkına sahiptir; alıcı bunu kabul etmedikçe devir yapılamaz.</p>`);
+  if(drag) metin += M_('Sürükleme hakkı (drag-along)', `<p>Sermayenin en az %[75]\'ini temsil eden Ortaklar, Şirket paylarının tamamının üçüncü kişiye satışında anlaşırsa, kalan Ortaklar da paylarını aynı şartlarla satmakla yükümlüdür. Satış bedelinin, bağımsız değerlemeyle bulunan piyasa değerinin altında olmaması şarttır.</p>`);
+  metin += M_('Önemli kararlar', `<p>Aşağıdaki kararlar ${nisapMetni} ile alınır; ${organ} bu konularda Ortaklar kararı olmadan işlem yapamaz: (a) sermaye artırımı/azaltımı ve yeni ortak alınması; (b) şirket sözleşmesi değişikliği; (c) birleşme, bölünme, tür değiştirme, tasfiye; (d) yıllık bütçenin %[20]\'sini aşan borçlanma, kefalet, teminat; (e) [tutar] TL\'yi aşan tek işlem, gayrimenkul alım-satımı; (f) kâr dağıtım politikası; (g) Ortaklarla veya yakınlarıyla yapılan her işlem; (h) ${organ} ücretleri; (i) fikrî mülkiyetin devri veya lisansı.</p><p><i>Not:</i> Ağırlaştırılmış nisapların üçüncü kişilere karşı geçerli olması için şirket sözleşmesine de yazılması gerekir (${AS?'TTK m.421':'TTK m.621'}).</p>`);
+  metin += M_('Kilitlenme (deadlock)', `<p>${kilitMetni}</p>`);
+  metin += M_('Kâr dağıtımı', `<p>Ortaklar, yasal yedek akçe ayrıldıktan sonra dağıtılabilir kârın en az %[…]\'inin, Şirketin nakit durumu elverdikçe her yıl dağıtılmasını hedefler; kalan kısım büyüme için Şirkette bırakılır. Kâr payı, pay oranlarıyla dağıtılır (${AS?'TTK m.507-508':'TTK m.608'}).</p>`);
+  metin += M_('Rekabet yasağı ve müşteri koruması', rek>0 ? `<p>Ortak, Şirketten ayrıldıktan sonra ${rek} yıl boyunca, Şirketin faaliyet alanında ve Türkiye sınırları içinde Şirketle rekabet eden bir işi kendi adına yapamaz, böyle bir işletmeye ortak olamaz, çalışamaz; Şirketin müşterilerini ve çalışanlarını ayartamaz. Yasağın ihlali hâlinde cezai şart olarak [tutar] TL ödenir; Şirketin ayrıca zararını isteme hakkı saklıdır. <i>Not:</i> Yasağın süre, yer ve konu bakımından makul sınırlı olması gerekir (TBK m.444-447 kıyasen); aşırı yasağı hâkim daraltabilir.</p>` : `<p>Ortaklar ayrılış sonrası rekabet yasağı öngörmemiştir; görev süresince sadakat ve rekabet etmeme borcu (${AS?'TTK m.396':'TTK m.626'}) saklıdır.</p>`);
+  if(fikri) metin += M_('Fikrî mülkiyet', `<p>Ortakların Şirketin işiyle ilgili olarak bu sözleşmeden önce veya sonra ürettiği yazılım, tasarım, marka, alan adı, içerik ve know-how dâhil tüm fikrî ve sınai haklar Şirkete aittir; Ortaklar bunları devretmeyi ve devir için gereken belgeleri imzalamayı taahhüt eder. Şirket adına tescil edilmemiş marka ve alan adları 30 gün içinde Şirkete devredilir.</p>`);
+  metin += M_('Gizlilik', `<p>Ortaklar, Şirkete ait ticari sır ve gizli bilgileri sözleşme süresince ve sona ermesinden itibaren 5 yıl boyunca üçüncü kişilere açıklamaz ve kendi yararına kullanmaz.</p>`);
+  metin += M_('Ölüm ve sürekli iş göremezlik', `<p>Bir Ortağın ölümü hâlinde mirasçılar Şirkete ortak olarak katılmaz; diğer Ortaklar, Hak Edilmiş Payları Madde ${vest>0?4:3}\'teki değer üzerinden 6 ay içinde satın alma hakkına sahiptir. Ortaklar bu bedelin finansmanı için karşılıklı hayat sigortası yaptırmayı değerlendirir. ${AS?'':'LTD\'de mirasla geçişin genel kurul onayına bağlanması için şirket sözleşmesine hüküm konması gerekir (TTK m.596).'}</p>`);
+  metin += M_('Süre, değişiklik ve uyuşmazlık', `<p>Bu sözleşme, Ortakların Şirkette pay sahibi olduğu sürece geçerlidir; yalnız yazılı olarak ve tüm Ortakların imzasıyla değiştirilebilir. Uyuşmazlıklarda önce arabuluculuğa gidilir; çözülmezse İzmir mahkemeleri ve icra daireleri yetkilidir. Türk hukuku uygulanır.</p>`);
+  metin += `<p style="margin-top:18px">Ekler: Ek-1 Değerleme katsayısı · Ek-2 Görev dağılımı ve çalışma süreleri · Ek-3 Şirket sözleşmesine işlenecek hükümler listesi.</p><p>${ortaklar.map(o=>`<br><br>__________________<br>${o.ad}`).join('')}</p>`;
+  out.innerHTML = `<div style="margin-top:14px">${uyariPay}
+    <div class="ara" data-yazdirma-gizle><button class="btn" style="font-size:14px;padding:11px 18px" onclick="sozlesmeKopyala()">📋 Metni kopyala</button><button class="btn ikincil" style="font-size:14px;padding:11px 18px" onclick="window.print()">🖨 Yazdır / PDF</button></div>
+    <div class="metin" id="sMetin">${metin}</div>
+    <div class="uyari"><b>Köşeli parantezli yerler senin dolduracağın kararlardır.</b> Taslak, ${AS?'anonim':'limited'} şirket hükümlerine göre yazıldı; esas sözleşmeye taşınması gereken maddeler (nisap, devir sınırı, bağlam) MERSİS metnine ayrıca işlenmezse üçüncü kişilere karşı ileri sürülemez. İmzadan önce avukatına göster.</div></div>`;
+  out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function sozlesmeKopyala(){
+  const el=document.getElementById('sMetin'); if(!el) return;
+  const txt=el.innerText;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(()=>alert('Metin panoya kopyalandı.')).catch(()=>{ const r=document.createRange(); r.selectNodeContents(el); const s=window.getSelection(); s.removeAllRanges(); s.addRange(r); });
+}
+</script>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<script src="ayrinti.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>

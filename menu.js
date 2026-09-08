@@ -118,6 +118,7 @@ var GRUPLAR=[
   ["tesvik-sihirbazi.html","🧲","Yatırım Teşvik Sihirbazı","9903: bölgen, desteklerin, 2026 fırsatları"],
   ["arge-kapi-hesabi.html","🔬","Ar-Ge Kapısı Hesabı","Merkez / Teknokent / TÜBİTAK — yıllık TL farkı"],
   ["kurulus-evrak.html","🗂️","Kuruluş Evrak Çantası","Hangi belge, kim doldurur, nereye?"],
+  ["kurulus-nobeti.html","🛎️","Kuruluş Nöbeti","Kaça mal olur, ilk 12 ay takvimi, unvan, ortaklar sözleşmesi"],
   ["karne.html","📋","Yükümlülük Karnesi","Firmana özel yükümlülük fotoğrafı, PDF'li"],
   ["sayfalar/index.html","✅","Eşik Rehberi","Hangi zorunluluklar seni kapsıyor?"],
   ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],

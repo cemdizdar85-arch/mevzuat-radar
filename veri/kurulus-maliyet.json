@@ -1,0 +1,53 @@
+{
+  "yil": 2026,
+  "guncelleme": "08.09.2026",
+  "notlar": "Kuruluş maliyeti hesabının TEK kaynağı. Her kalemde 'kaynak' yazar; kaynağı bulunamayan kalem null bırakılır ve sayfa 'ölçülmedi' der, rakam uydurulmaz. Yeni tarife çıkınca yalnız bu dosya güncellenir; motor/kurulus-maliyet-nobeti.ps1 kaynak dosyalarının değişimini kollar ve değişince Cem'e mail atar.",
+  "harcIstisnasi": {
+    "sermayeSirketiKurulus": true,
+    "kaynak": "492 s. Harçlar Kanunu m.123/3: anonim, eshamlı komandit ve limited şirketlerin kuruluş, sermaye artırımı, birleşme, devir, bölünme ve nev'i değişiklikleri nedeniyle yapılacak işlemler harçtan müstesnadır. İTO 2026 tarifesi de kuruluş satırına 'Kuruluş işlemleri harçtan istisnadır' yazar. Damga vergisi de istisna: 488 s.K. (2) sayılı tablo IV/16."
+  },
+  "sicilHarclari": {
+    "sahisKurulus": 5466.10,
+    "sahisSicilTasdiknamesi": 895.80,
+    "sermayeSirketiKurulus": 0,
+    "kaynak": "492 s. Harçlar Kanunu (1) sayılı tarife, ticaret sicili harçları, 2026 yeniden değerlenmiş tutarlar (alomaliye 01.01.2026 tablosu + İTO 2026 tarifesi PDF). Gerçek kişi ticari işletme kuruluş harcı 5.466,10 TL; ticaret sicil tasdiknamesi harcı 895,80 TL."
+  },
+  "sicilHizmetUcretleri": {
+    "kurulusTasdik": 2160.00,
+    "kurulusDefterTasdiki": 2760.00,
+    "huzurdaImzaBeyannamesiKisiBasi": 1720.00,
+    "ilanGiderleri": 250.00,
+    "kaynak": "İTO 'Ticaret Sicili Harçları, Hizmet Bedelleri, TTSG İlan Ücretleri' 2026 tarifesi (ito.org.tr, harc.pdf): Kuruluş Tasdik Ücreti 2.160 TL; Anonim ve Limited Şirket ile Kooperatif Kuruluş Defter Tasdiki 2.760 TL; Huzurda İmza Beyannamesi Ücreti 1.720 TL; İlan Giderleri Ücreti 250 TL. Diğer illerin sicil müdürlüğü tarifesi farklı olabilir, sayfa bunu söyler."
+  },
+  "ttsgIlan": {
+    "sirketKurulusKelime": 2.48,
+    "sirketIlanKelime": 5.53,
+    "gercekKisiTicareteBaslamaMaktu": 708.00,
+    "teknogirisimDestekliKurulus": 0.01,
+    "varsayilanKelime": 500,
+    "kaynak": "Türkiye Ticaret Sicili Gazetesi ilan ücret tarifesi, 01.01.2026'dan itibaren (TTSG Komitesi 12.12.2025 kararı, Ticaret Bakanlığı 22.12.2025 onayı; TTSG 22.12.2025/11484 s.1848). Şirket kuruluş ilanı kelimesi 2,48 TL; şirket (diğer) ilanları kelimesi 5,53 TL; gerçek kişi ticarete başlama maktu 708 TL; teknogirişim destekli şirket kuruluşu 0,01 TL. 'varsayilanKelime' bir TAHMİNDİR, sayfada 'tahmin, kendi kelime sayını gir' diye işaretlenir; ölçülmüş ortalama değildir."
+  },
+  "rekabetKurumuPayi": {
+    "oran": 0.0004,
+    "kaynak": "4054 s. Rekabetin Korunması Hakkında Kanun m.39/1-c: yeni kurulacak anonim ve limited şirketlerin sermayelerinin on binde dördü."
+  },
+  "smmmTarifesi": {
+    "sirketKurulusUstBant": 14597,
+    "degisiklikUstBant": 15684,
+    "kaynak": "2026 Yılı Serbest Muhasebecilik, SMMM ve YMM Asgari Ücret Tarifesi (RG 17.12.2025/33110; TÜRMOB). Şirket kuruluş işlemleri için tarife üst bandı 14.597 TL, değişiklik işlemleri 15.684 TL (KDV dâhil; bölge grubuna göre daha düşük bantlar var, tutar müşavirle anlaşmaya bağlıdır). Kaynak: AA 17.12.2025 haberi + TÜRMOB tarife PDF."
+  },
+  "olculmeyenKalemler": {
+    "odaKayitUcreti": null,
+    "eImza": null,
+    "kep": null,
+    "maliMuhur": null,
+    "noterVekalet": null,
+    "not": "Oda ilk kayıt ücreti her odanın kendi tarifesiyle belirlenir (5174 s.K. m.24), il il değişir: ölçülmedi. e-imza, KEP ve mali mühür satıcı fiyatıdır; resmî tarife yoktur, sayfaya rakam girilmez. Noter vekâlet ücreti yalnız vekâletle işlem yapılacaksa doğar."
+  },
+  "kaynakDosyalari": [
+    { "ad": "İTO 2026 sicil harç/hizmet/ilan tarifesi", "url": "https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf" },
+    { "ad": "TTSG ilan ücret tarifesi 2026 (ALTSO aynası; TOBB'un kendi sayfası 08.09.2026'da eski 0,30 TL tablosunu gösteriyordu)", "url": "https://www.altso.org.tr/hizmetlerimiz/sicil-islemleri/tahmini-harc-oda-islem-ve-ilan-ucretleri/turkiye-ticaret-sicili-gazetesi-ilan-ucret-tarifesi/" },
+    { "ad": "2026 ticaret sicili harçları (alomaliye)", "url": "https://www.alomaliye.com/2026/01/01/2026-yili-ticaret-sicili-harclari/" },
+    { "ad": "TÜRMOB 2026 asgari ücret tarifesi", "url": "https://www.turmob.org.tr/arsiv/mbs/resmigazete/33110-2026-SMMMUCRET-TARIFESI.pdf" }
+  ]
+}
