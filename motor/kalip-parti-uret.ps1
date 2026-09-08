@@ -349,6 +349,18 @@ function HalefStandart([string]$ad){
   }
   return ''
 }
+# 08.09 Tur 1 Vergi kolay ÖLÇÜLDÜ (KVK konuları KAYNAK BORCU): ders adı "Vergi Hukuku" DERS_KANUN'da hem 'Vergi Hukuku' hem de SMMM
+# yeterlilik anahtarı 'Hukuk' ile eşleşiyordu ('-match' alt dize); 'Hukuk' listesi (TTK, TBK, İş K., 5510, İYUK) 10 desen üretip AmbarCek'in
+# 10 kaynak kotasını dolduruyor, KVK/GVK/KDVK'ya sıra gelmiyordu (03.09'daki "damga vergisi → 5510 SGK affı" da buydu). Ticaret/Borçlar/Meslek
+# Hukuku da 'Hukuk'a takılıyordu. Kural: DersRegex'in bir parçasına BİREBİR eşit anahtar varsa yalnız o; yoksa eşleşen EN UZUN anahtar.
+function DersKanunAnahtari([string]$dersAdi){
+  $parcalar=@(($dersAdi -replace '[\^\$\\]','') -split '\|' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+  $tam=@($DERS_KANUN.Keys | Where-Object { $k=$_; @($parcalar | Where-Object { $_ -eq $k }).Count })
+  if($tam.Count){ return @($tam) }
+  $es=@($DERS_KANUN.Keys | Where-Object { $k=$_; @($parcalar | Where-Object { $_ -match [regex]::Escape($k) }).Count } | Sort-Object { -$_.Length })
+  if($es.Count){ return @($es[0]) }
+  return @()
+}
 function DesenUret($kayit){
   $d=New-Object System.Collections.Generic.List[string]
   # 03.09 SPL Duzey 1 olcumu (4 ret): konu adi TEBLIG KODU tasiyor ("... tebliğ iii-45.1") ve o Teblig
@@ -485,7 +497,7 @@ function DesenUret($kayit){
   if(-not $dayanakZayif){
     $dersAdiK=($DersRegex -replace '[\^\$\\]','')
     $dersNo=New-Object 'System.Collections.Generic.HashSet[string]'
-    foreach($dk in $DERS_KANUN.Keys){ if($dersAdiK -match [regex]::Escape($dk)){ foreach($px in @($DERS_KANUN[$dk])){ foreach($m in [regex]::Matches($px,'\b(\d{3,4})\b')){ [void]$dersNo.Add($m.Groups[1].Value) } } } }
+    foreach($dk in (DersKanunAnahtari $dersAdiK)){ foreach($px in @($DERS_KANUN[$dk])){ foreach($m in [regex]::Matches($px,'\b(\d{3,4})\b')){ [void]$dersNo.Add($m.Groups[1].Value) } } }
     if($dersNo.Count){
       foreach($ham in $dayGecerli){
         $hamNo=@([regex]::Matches($ham,'\b(\d{3,4})\s*(s\.|sayılı|s\.K)') | ForEach-Object { $_.Groups[1].Value })
@@ -510,8 +522,7 @@ function DesenUret($kayit){
       @('is sozlesme|fesih|feshi|ucret|kidem|ihbar|calisma sure|fazla calisma|yillik izin','İş K.'),@('sigortali|prim|emeklilik|malulluk|is kazasi|meslek hastaligi','5510')
     )
     $oncelik=@(); foreach($kk in $KELIME_KANUN){ if($konuKat -match $kk[0]){ $oncelik+=$kk[1] } }
-    foreach($dk in $DERS_KANUN.Keys){
-      if($dersAdi -notmatch [regex]::Escape($dk)){ continue }
+    foreach($dk in (DersKanunAnahtari $dersAdi)){
       $liste=@($DERS_KANUN[$dk])
       if($oncelik.Count){ $liste=@($liste | Sort-Object { $s=$_; $i=[array]::FindIndex($oncelik,[Predicate[object]]{ param($o) $s -like "$o*" -or $s -like "*$o*" }); if($i -lt 0){ 99 } else { $i } }) }
       foreach($onek2 in $liste){ foreach($tk in ($kanunKok | Select-Object -First 2)){ $one.Add("@$onek2|$tk") } }
@@ -1658,6 +1669,18 @@ foreach($kk in $KONULAR){
     $rapor.Add("OLCULEMEDI (ag hatasi, kaynak borcu DEGIL): $($ky.konu)")
     Write-Host "  AG HATASI (kaynak cekilemedi, tekrar denenecek): $($ky.konu)" -ForegroundColor Magenta
     continue
+  }
+  # 08.09 Tur 1 Vergi kolay ÖLÇÜLDÜ: "kurumlar vergisi mukellefleri / asgari kurumlar vergisi / kurumlar vergisi istisnasi" KAYNAK BORCU çıktı;
+  # oysa KVK m.2 / m.32 / m.5 ambarda (680 KVK kaydı). Köprü dayanağı eski Seri No 86 tebliğiydi: güncellik kapısı onu eledi, dayanak "zayıf"
+  # sayılmadığı için (kanun numarası yok) dersin ana kanunlarında '@' araması hiç yapılmadı → boş. İKİNCİ DENEME: dayanaksız/zayıf sayılarak
+  # ders kanunları + teori notlarında konu köküyle yeniden aranır; yine boşsa gerçek borçtur.
+  if(-not $amb.metin -or $amb.metin.Length -lt 300){
+    $kyZ=[pscustomobject]@{ konu="$($ky.konu)"; dayanak=''; cikmis_dayanak=''; guc='ZAYIF' }
+    $desen2=@(DesenUret $kyZ | Where-Object { $desenler -notcontains $_ })
+    if($desen2.Count){
+      $script:AMBAR_AG_HATASI=$null; $amb2z=AmbarCek $desen2
+      if($amb2z.metin -and $amb2z.metin.Length -ge 300){ Write-Host "  KAYNAK İKİNCİ DENEME (ders kanunu/teori, dayanaksız arama): $($ky.konu) <- $(@($amb2z.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan; $rapor.Add("KAYNAK IKINCI DENEME: $($ky.konu) <- $(@($amb2z.adlar | Select-Object -First 3) -join ' ; ')"); $amb=$amb2z; $desenler=@($desenler)+$desen2 }
+    }
   }
   if(-not $amb.metin -or $amb.metin.Length -lt 300){
     $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | dayanak: $($ky.dayanak) / $($ky.cikmis_dayanak)")
