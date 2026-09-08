@@ -24,8 +24,9 @@
     "sirketIlanKelime": 5.53,
     "gercekKisiTicareteBaslamaMaktu": 708.00,
     "teknogirisimDestekliKurulus": 0.01,
-    "varsayilanKelime": 500,
-    "kaynak": "Türkiye Ticaret Sicili Gazetesi ilan ücret tarifesi, 01.01.2026'dan itibaren (TTSG Komitesi 12.12.2025 kararı, Ticaret Bakanlığı 22.12.2025 onayı; TTSG 22.12.2025/11484 s.1848). Şirket kuruluş ilanı kelimesi 2,48 TL; şirket (diğer) ilanları kelimesi 5,53 TL; gerçek kişi ticarete başlama maktu 708 TL; teknogirişim destekli şirket kuruluşu 0,01 TL. 'varsayilanKelime' bir TAHMİNDİR, sayfada 'tahmin, kendi kelime sayını gir' diye işaretlenir; ölçülmüş ortalama değildir."
+    "varsayilanKelime": 1200,
+    "kelimeOlcumu": { "tarih": "08.09.2026", "ornekler": { "SATSO LTD sablonu (.doc)": 712, "TURMOB AS sablonu (.doc)": 1049, "ETO doldurulmus LTD ornegi (.pdf)": 1280, "Kilis TSO LTD sablonu (.doc)": 1442 }, "not": "Kuruluş ilanında şirket sözleşmesinin tamamı yayımlanır. Dört şablon Word ile sayıldı: 712–1.442 kelime, ortanca ~1.160; doldurulmuş tek örnek 1.280. Varsayılan 1.200 alındı; amaç-konu maddesi uzun şirketlerde artar. Eski varsayım 500 kelimeydi, 2,4 kat düşük ölçüldü." },
+    "kaynak": "Türkiye Ticaret Sicili Gazetesi ilan ücret tarifesi, 01.01.2026'dan itibaren (TTSG Komitesi 12.12.2025 kararı, Ticaret Bakanlığı 22.12.2025 onayı; TTSG 22.12.2025/11484 s.1848). Şirket kuruluş ilanı kelimesi 2,48 TL; şirket (diğer) ilanları kelimesi 5,53 TL; gerçek kişi ticarete başlama maktu 708 TL; teknogirişim destekli şirket kuruluşu 0,01 TL. 'varsayilanKelime' dört şablon ölçümünden türetilmiş varsayımdır (kelimeOlcumu), sayfada 'tahmin, kendi kelime sayını gir' diye işaretlenir."
   },
   "rekabetKurumuPayi": {
     "oran": 0.0004,

@@ -1,0 +1,64 @@
+# .github/workflows/kurulus-nobet-postacisi.yml — KURULUS NOBET POSTACISI
+#
+# NEDEN VAR (08.09.2026): kurulus-nobeti.html'de "nobete al" diyen kullaniciya
+# takvimin tamami bir kez, sonra her tarihten 3 gun once hatirlatma gider.
+# Kaynak tablo: kurulus_nobet (radar-app/sql/2026-09-08-kurulus-nobet.sql).
+# Basilmadan robot KOR der (exit 2) ve mail atmaz. Her sabah 07:10 TR.
+name: Kurulus Nobet Postacisi
+
+on:
+  schedule:
+    - cron: "10 4 * * *"      # 07:10 TR
+  workflow_dispatch:
+    inputs:
+      kuru:
+        description: "true = kuru kosu (mail atmaz, sayar)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kurulus-nobet-postacisi
+  cancel-in-progress: false
+
+env:
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+  SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+
+jobs:
+  posta:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Postaci
+        id: posta
+        shell: pwsh
+        run: |
+          if ("${{ github.event.inputs.kuru }}" -eq "true") { ./motor/kurulus-nobet-postacisi.ps1 -Kuru } else { ./motor/kurulus-nobet-postacisi.ps1 }
+
+      - name: Dustuyse Cem'e mail
+        if: failure() && steps.posta.outcome == 'failure'
+        shell: pwsh
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - Kurulus nobet postacisi dustu' -Mesaj "Postaci KIRMIZI/KOR. Sebep: veri/kurulus-nobet-postaci-raporu.json (tablo basilmamis olabilir: radar-app/sql/2026-09-08-kurulus-nobet.sql). Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Raporu yayinla (dusse de)
+        if: always()
+        shell: bash
+        run: |
+          set -uo pipefail
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          [ -f veri/kurulus-nobet-postaci-raporu.json ] || { echo "::warning title=postaci rapor::rapor yok"; exit 0; }
+          git add veri/kurulus-nobet-postaci-raporu.json
+          git diff --cached --quiet && { echo "Rapor degismedi."; exit 0; }
+          git commit -m "Kurulus nobet postaci raporu [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if cikti=$(git pull --rebase --autostash origin main 2>&1) && cikti2=$(git push origin HEAD:main 2>&1); then echo "Rapor islendi (deneme $i)."; exit 0; fi
+            echo "::warning title=postaci yayin $i::${cikti:0:300} ${cikti2:0:200}"; sleep $((i * 7))
+          done
+          echo "::error::Postaci raporu 5 denemede islenemedi (kor kalma)."; exit 1
