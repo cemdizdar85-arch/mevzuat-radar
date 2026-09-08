@@ -148,7 +148,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
       <button class="btn" style="margin-top:8px" onclick="maliyetHesapla()">Kaça mal olur, göster</button>
       <div id="mSonuc"></div>
     </div>
-    <div class="uyari"><b>Dürüst not:</b> Harç, ilan kelime ücreti, Rekabet Kurumu payı ve müşavir tarifesi ülke geneli; <b>sicil müdürlüğü hizmet ücretleri ile oda kayıt ücreti il il değişir</b> (08.09.2026 ölçümü: huzurda imza beyannamesi Gebze 500 · Çorlu 1.000 · Antalya 1.300 · İstanbul 1.720 TL). Listedeki odaları kendi tarifelerinden okuduk; ilin listede yoksa İstanbul rakamı yalnız referanstır, randevudan önce kendi müdürlüğüne sor. Sermaye ödemesi ve AŞ blokajı <b>masraf değildir</b>, kendi şirketinin kasasına giren paradır; ayrı gösterilir.</div>
+    <div class="uyari"><b>Dürüst not:</b> Harç, ilan kelime ücreti, Rekabet Kurumu payı ve müşavir tarifesi ülke geneli; <b>sicil müdürlüğü hizmet ücretleri ile oda kayıt ücreti il il değişir</b> (08.09.2026 ölçümü: huzurda imza beyannamesi Gebze 500 · Çorlu 1.000 · Antalya 1.300 · İstanbul 1.720 TL). Listedeki odaları kendi tarifelerinden okuduk; ilin listede yoksa büyükşehir için İzmir (yasal tavan) referans, küçük il için ölçülen odaların aralığı gösterilir. <b>Oda kayıt ücreti gelire göre değildir</b>: yeni kurulan şirket için ülke genelinde yasal bant brüt asgari ücretin %10–%15'i (2026: 3.303–4.955 TL; 5174 s.K. m.24, Yönetmelik m.12). Gelire göre olan kalem sonraki yıllardaki <b>munzam aidat</b>tır (ticari kazancın binde 5'i), kuruluşta ödenmez. Sermaye ödemesi ve AŞ blokajı <b>masraf değildir</b>, kendi şirketinin kasasına giren paradır; ayrı gösterilir.</div>
   </section>
 
   <!-- ================= 2. TAKVİM ================= -->
@@ -290,8 +290,15 @@ function odaToplam(o, sermaye, kisi){
   if(K.tip==='sabit') t+=K.tutar+(K.ek||0);
   else if(K.tip==='derece'){ const b=K.basamaklar.find(x=>x[0]===null || sermaye<=x[0]); if(b) t+=b[1]; }
   else if(K.tip==='formul') t+=K.sabit+Math.min(K.ustLimit, Math.max(K.enAz, sermaye*K.sermayeBinde/1000));
+  else if(K.tip==='bant'){ const b=kayitBant(); t+= b ? (b.alt+b.ust)/2 : 0; if(!b) eksik.push('kayıt'); }
   else if(K.tip!=='dahil') eksik.push('kayıt');
   return {t, eksik};
+}
+// Yeni kurulan sermaye şirketi kayıt ücretinin YASAL bandı: brüt asgari ücretin %10–%15'i
+// (5174 m.24 + Yönetmelik m.12). Tarifesi ölçülemeyen oda için tek il yerine bu bant kullanılır.
+function kayitBant(){
+  const S=SABIT; if(!S || !S.asgariUcret2026 || !ODA || !ODA.kayitBanti) return null;
+  const b=S.asgariUcret2026.brutAylik; return { alt:b*ODA.kayitBanti.altOran, ust:b*ODA.kayitBanti.ustOran };
 }
 const FBM = {yil:2026, sicilHarclari:{sahisKurulus:5466.10, sahisSicilTasdiknamesi:895.80},
   sicilHizmetUcretleri:{kurulusTasdik:2160, kurulusDefterTasdiki:2760, huzurdaImzaBeyannamesiKisiBasi:1720, ilanGiderleri:250},
@@ -420,6 +427,7 @@ function maliyetHesapla(){
     if(K.tip==='sabit'){ tutar=K.tutar + (K.ek||0); if(K.ek) alt=`${TL(K.tutar)} + ${TL(K.ek)} ${K.ekAd||''}. `+alt; }
     else if(K.tip==='derece'){ const b=K.basamaklar.find(x=>x[0]===null || sermaye<=x[0]); tutar=b?b[1]:null; }
     else if(K.tip==='formul'){ const s=Math.min(K.ustLimit, Math.max(K.enAz, sermaye*K.sermayeBinde/1000)); tutar=K.sabit+s; alt=`${TL(K.sabit)} + ${TL(s)} (sermayenin binde ${K.sermayeBinde}'i, en az ${TL(K.enAz)}, üst ${TL(K.ustLimit)}). `+alt; }
+    else if(K.tip==='bant'){ const b=kayitBant(); if(b){ tutar=(b.alt+b.ust)/2; alt=`Yasal bant ${TL(b.alt)}–${TL(b.ust)} TL (brüt asgari ücretin %10–%15'i; 5174 s.K. m.24 + Yönetmelik m.12), ortası alındı. `+alt; } }
     if(tutar!=null) ekle('Ticaret odası ilk kayıt ücreti', tutar, kay, odaAd+'. '+alt);
     else kayitHtml=satir('Ticaret odası ilk kayıt ücreti','<span class="olculmedi">ölçülmedi</span>','',alt);
   } else {
