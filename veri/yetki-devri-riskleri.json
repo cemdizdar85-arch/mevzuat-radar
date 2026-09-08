@@ -1,11 +1,11 @@
 {
-  "tarih": "08.09.2026 01:07",
+  "tarih": "08.09.2026 01:09",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 843,
   "riskli_madde": 1315,
   "sayfa": 65,
-  "atifli_iddia": 279,
-  "dayanaksiz_iddia": 346,
+  "atifli_iddia": 278,
+  "dayanaksiz_iddia": 349,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1849,43 +1849,49 @@
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 118,
+      "satir": 54,
+      "iddia": "3 gun",
+      "metin": "hasatta yazilir). 3 gunden eskiyse burada acikca soylenir; kullanici"
+    },
+    {
+      "sayfa": "marka-portfoy.html",
+      "satir": 122,
       "iddia": "10 yil",
       "metin": "// yenileme (basvuru tarihinden 10 yil) - tescilli ve tarih varsa"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 125,
+      "satir": 129,
       "iddia": "10 yıl",
       "metin": "r.satirlar.push('Koruma bitişi (+10 yıl): '+fmt(gercekBitis)+' ');"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 155,
+      "satir": 159,
       "iddia": "30 gün",
       "metin": "ozet.innerHTML=' '+a.length+' marka '+pencere+' işlem gerektiren '+acil+' 30 gün içinde ';"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 250,
+      "satir": 254,
       "iddia": "en az 3",
       "metin": "if(bNorm(c).length Aranacak ad çok kısa (en az 3 harf). Kutuya firmanın ayırt edici adını yaz. '; kapa(); return; }"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 331,
+      "satir": 351,
       "iddia": "5 yıl",
       "metin": "if(besDolmus) h+=' '+besDolmus+' markanın 5 yılı çoktan dolmuş. Bu tek başına sorun değil — kullanıyorsan sıkıntı yok. Kullanmadıkların varsa fatura/ambalaj/reklam deliliniz olmadı"
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 379,
+      "satir": 399,
       "iddia": "10 yıl",
       "metin": "hâlâ \"başvuru + 10 yıl\" tahminidir ve metin de öyle konuşur."
     },
     {
       "sayfa": "marka-portfoy.html",
-      "satir": 437,
+      "satir": 457,
       "iddia": "en az 3",
       "metin": "if(unvan.length Unvanı yaz (en az 3 karakter). '); return; }"
     },
@@ -1897,37 +1903,49 @@
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 170,
+      "satir": 94,
+      "iddia": "10 yıl",
+      "metin": "⏰ Markan sessizce düşebilir · süre başvurudan itibaren 10 yıl"
+    },
+    {
+      "sayfa": "marka-radari.html",
+      "satir": 115,
+      "iddia": "3 gun",
+      "metin": "// TMview hasadinda yazilir; 3 gunden eskiyse burada soylenir."
+    },
+    {
+      "sayfa": "marka-radari.html",
+      "satir": 189,
       "iddia": "10 yıl",
       "metin": "Süre nasıl işler: Tescilli markanın koruması başvuru tarihinden 10 yıl sürer. Yenilemezsen marka düşer ; düştükten sonra başkası aynısını alabilir. Yenileme penceresi son 6 ay ; ka"
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 177,
+      "satir": 196,
       "iddia": "10 yıl",
       "metin": "1) Madrid Protokolü (en pratik): Türkiye 1/1/1999'dan beri taraf. TÜRKPATENT aracılığıyla tek başvuruyla Madrid'e taraf ~130 ülkede tescil ettirebilirsin. ŞART: önce Türkiye'de (me"
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 180,
+      "satir": 199,
       "iddia": "6 ay",
       "metin": "4) Rüçhan hakkı (Paris Sözleşmesi): Türkiye'deki başvuru tarihinden itibaren 6 ay içinde yurt dışına başvurursan, Türkiye'deki başvuru tarihin esas alınır. Bu süreyi kaçırma."
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 264,
+      "satir": 283,
       "iddia": "10 yıl",
       "metin": "Koruma bitişi (+10 yıl) ${fmt(gercekBitis)}"
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 265,
+      "satir": 284,
       "iddia": "6 ay",
       "metin": "Yenileme penceresi (son 6 ay) ${fmt(gercekAcilis)} → ${fmt(gercekBitis)}"
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 270,
+      "satir": 289,
       "iddia": "6 ay",
       "metin": "E-postanı bırak; yenileme penceresi açılmadan 6 ay önce ve son günlerde seni uyaralım. Birden fazla markan varsa hepsini takibe alırız (ücretsiz)."
     },
