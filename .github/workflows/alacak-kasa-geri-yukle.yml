@@ -1,0 +1,107 @@
+# .github/workflows/alacak-kasa-geri-yukle.yml — ALACAK KASASI BULUT GERI YUKLEME
+#
+# 08.09.2026 (Cem "1 yap"): felaket gunu insan eli degmeden geri yukleme.
+# En son (ya da adi verilen) alacak-kasa-yedek artifact'ini indirir, ALACAK_YEDEK_KEY
+# secret'iyla (RSA-4096 ozel anahtar) zarfi acar, AES ile dosyayi cozer ve
+# motor/alacak-kasa-geri-yukle.ps1'e verir.
+#
+#   kip=deneme (varsayilan): cozer, cevirir, kasayla kiyaslar, YAZMAZ, sonucu mail atar.
+#                            Push'ta da bu kipte kosar (zincir teyidi).
+#   kip=gercek + onay=GERI-YUKLE : alacak_yaz ile kasaya yazar (upsert+coalesce:
+#                            silinen satirlari geri getirir, dolu alani ezmez).
+#
+# Cozulmus dosya runner'da kalir, artifact'e KONMAZ (TCKN tasir).
+name: Alacak Kasa Geri Yukleme (bulut)
+
+on:
+  workflow_dispatch:
+    inputs:
+      kip:
+        description: "deneme (yazmaz) | gercek (kasaya yazar)"
+        default: "deneme"
+        required: true
+      onay:
+        description: "gercek icin GERI-YUKLE yaz"
+        default: ""
+        required: false
+      artifact_adi:
+        description: "bos = en son alacak-kasa-yedek-N"
+        default: ""
+        required: false
+  push:
+    paths:
+      - ".github/workflows/alacak-kasa-geri-yukle.yml"
+      - "motor/alacak-kasa-geri-yukle.ps1"
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: alacak-kasa-geri-yukle
+  cancel-in-progress: false
+
+env:
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+
+jobs:
+  geri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Yedek artifact'ini bul ve indir
+        id: indir
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ARTIFACT_ADI: ${{ github.event.inputs.artifact_adi }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $H = @{ Authorization = "Bearer $env:GITHUB_TOKEN"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'MevzuatRadar-GeriYukle' }
+          $r = Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/actions/artifacts?per_page=100" -Headers $H
+          $adaylar = @($r.artifacts | Where-Object { -not $_.expired -and $_.name -like 'alacak-kasa-yedek-*' })
+          if ("$env:ARTIFACT_ADI".Trim()) { $adaylar = @($adaylar | Where-Object { $_.name -eq "$env:ARTIFACT_ADI".Trim() }) }
+          if (-not $adaylar.Count) { Write-Host '::error title=geri yukleme::uygun alacak-kasa-yedek artifact yok'; exit 1 }
+          $a = $adaylar | Sort-Object created_at -Descending | Select-Object -First 1
+          Write-Host ("secilen: {0} ({1:N1} MB, {2})" -f $a.name, ($a.size_in_bytes/1MB), $a.created_at)
+          Write-Host ("::notice title=geri yukleme::artifact {0} ({1})" -f $a.name, $a.created_at)
+          Invoke-WebRequest -Uri $a.archive_download_url -Headers $H -OutFile yedek.zip
+          Expand-Archive yedek.zip -DestinationPath _yedek -Force
+          Get-ChildItem _yedek | ForEach-Object { Write-Host ("  {0} {1} bayt" -f $_.Name, $_.Length) }
+
+      - name: Coz (RSA zarf -> AES dosya)
+        env:
+          ALACAK_YEDEK_KEY: ${{ secrets.ALACAK_YEDEK_KEY }}
+        run: |
+          set -e
+          if [ -z "$ALACAK_YEDEK_KEY" ]; then echo "::error title=geri yukleme::ALACAK_YEDEK_KEY secret yok"; exit 1; fi
+          umask 077
+          printf '%s\n' "$ALACAK_YEDEK_KEY" > /tmp/ozel.key
+          cd _yedek
+          zarf=$(ls *.k.enc | head -1); enc=$(ls *.json.enc | head -1)
+          openssl pkeyutl -decrypt -inkey /tmp/ozel.key -in "$zarf" -out /tmp/aes.key
+          openssl enc -d -aes-256-cbc -pbkdf2 -in "$enc" -out cozulmus.json -pass file:/tmp/aes.key
+          rm -f /tmp/ozel.key /tmp/aes.key
+          echo "cozuldu: $(stat -c %s cozulmus.json) bayt"
+
+      - name: Kasaya geri yukle (deneme yazmaz)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $kip = "${{ github.event.inputs.kip }}"; if (-not $kip) { $kip = 'deneme' }
+          ./motor/alacak-kasa-geri-yukle.ps1 -Dosya _yedek/cozulmus.json -Kip $kip -Onay "${{ github.event.inputs.onay }}"
+
+      - name: Cozulmus dosyayi sil
+        if: always()
+        run: rm -rf _yedek yedek.zip
+
+      - name: Sonucu Cem'e mail (deneme dahil - RESEND_FROM teyidi)
+        if: always()
+        shell: pwsh
+        run: |
+          $kip = "${{ github.event.inputs.kip }}"; if (-not $kip) { $kip = 'deneme (push)' }
+          $durum = "${{ job.status }}"
+          ./arac/alarm-maili.ps1 -Konu ("TETIKTE - bulut geri yukleme: {0} / {1}" -f $kip, $durum) -Mesaj "Alacak kasasi bulut geri yukleme akisi kostu. Kip: $kip. Sonuc: $durum. Ayrintilar (artifact adi, satir sayilari) kosu sayfasindaki annotation'larda: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} - Bu mail ayni zamanda RESEND_FROM adresinin dogru oldugunun kanitidir."
