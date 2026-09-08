@@ -1,11 +1,11 @@
 {
-  "tarih": "08.09.2026 00:59",
+  "tarih": "08.09.2026 01:07",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 843,
   "riskli_madde": 1315,
-  "sayfa": 64,
-  "atifli_iddia": 263,
-  "dayanaksiz_iddia": 331,
+  "sayfa": 65,
+  "atifli_iddia": 279,
+  "dayanaksiz_iddia": 346,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -187,7 +187,7 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 888,
+      "satir": 889,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -201,14 +201,14 @@
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 328,
+      "satir": 331,
       "iddia": "24 ay",
       "kanun": "344",
       "metin": "[\"Sermaye ödemesi\",\"Nakdî payların en az ¼'ü tescilden önce bankada bloke edilir, kalanı 24 ay içinde (TTK m.344)\"],"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 537,
+      "satir": 540,
       "iddia": "24 ay",
       "kanun": "344",
       "metin": "neden.as.push('Sermaye endişen AŞ kapısını kapatmasın: {{as}} TL taahhüdün kuruluşta yalnız 1/4\\'ü ({{blokaj}} TL) bankada bloke edilir, kalanı 24 ay içinde ödenir (TTK m.344). Sat"
@@ -1465,49 +1465,49 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 697,
+      "satir": 698,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 723,
+      "satir": 724,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 726,
+      "satir": 727,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
       "sayfa": "index.html",
-      "satir": 899,
+      "satir": 900,
       "iddia": "30 gün",
       "metin": "İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek"
     },
     {
       "sayfa": "index.html",
-      "satir": 1269,
+      "satir": 1270,
       "iddia": "%16",
       "metin": "// olmadan \"(II/C/6.3.) -> (II/C/7.3)\" bolum referansindan \"%16 artis\""
     },
     {
       "sayfa": "index.html",
-      "satir": 1317,
+      "satir": 1318,
       "iddia": "18 gun",
       "metin": "// Vitrinde 18 gunluk kart \"gercek tarama\" diye duruyordu; ziyaretci"
     },
     {
       "sayfa": "index.html",
-      "satir": 1318,
+      "satir": 1319,
       "iddia": "3 gun",
       "metin": "// tarihi okumadan taze sanir. Veri 3 gunden eskiyse acikca yaziyoruz."
     },
     {
       "sayfa": "index.html",
-      "satir": 1326,
+      "satir": 1327,
       "iddia": "19 gun",
       "metin": "// 30.07: \"Son tarama 11.07 - 19 gun once\" diye yaziyorduk; o tarih son"
     },
@@ -1626,6 +1626,96 @@
       "metin": "{g:\"CİRO / e-DÖNÜŞÜM\", b:\"e-İrsaliye ciro eşiği\", u:\"10.000.000 TL genel · İDİS kapsamı 1.000.000 TL · ÖTV I/III, şeker, demir-çelik, maden, hal kayıt: ciro şartsız\","
     },
     {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 6,
+      "iddia": "12 ay",
+      "metin": "Kuruluş Nöbeti — kaça mal olur, ilk 12 ay seni ne bekliyor, unvanın geçer mi, ortaklar sözleşmen | Tetikte"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 30,
+      "iddia": "12 ay",
+      "metin": "yoktu: maliyet · ilk 12 ay takvimi · unvan kontrolü · ortaklar sözleşmesi."
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 111,
+      "iddia": "12 ay",
+      "metin": "📅 İlk 12 ay tarihli takvim, telefonuna ekle"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 204,
+      "iddia": "%100",
+      "metin": "Ortaklar ve pay oranları (toplam %100)"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 209,
+      "iddia": "3 yıl",
+      "metin": "Yok, paylar baştan tam hak edilmiş 3 yıl 4 yıl 5 yıl"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 213,
+      "iddia": "1 yıl",
+      "metin": "Yok 1 yıl 2 yıl"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 215,
+      "iddia": "%75",
+      "metin": "Oybirliği Sermayenin %75'i Sermayenin 2/3'ü"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 219,
+      "iddia": "12 ay",
+      "metin": "Bağımsız değerleme uzmanı Son bilanço öz kaynak değeri Son 12 ay FAVÖK × katsayı (katsayı ek protokolde)"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 314,
+      "iddia": "12 ay",
+      "metin": "Sermaye şartı yok. Şahısta kuruluş günü ödediğin tek şey yukarıdakiler; asıl maliyet aylık Bağ-Kur primi ve muhasebe ücretidir, onları \"İlk 12 ay\" sekmesinde tarihiyle görürsün."
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 351,
+      "iddia": "12 ay",
+      "metin": "Kuruluş günü cebinden çıkan: ~${TL(toplam)} TL kaynaklı kalem + oda kaydı + varsa e-imza. ${t==='as'?`Bankaya ${TL(sermaye*(S.asBlokajOran||25)/100)} TL blokaj koyarsın, o para tes"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 435,
+      "iddia": "12 AY",
+      "metin": "📅 ${AD[t].toLocaleUpperCase('tr-TR')} · ${gg(T)} TESCİLİNDEN SONRAKİ 12 AY · ${E.length} tarih"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 456,
+      "iddia": "3 gün",
+      "metin": "\"BEGIN:VALARM\",\"TRIGGER:-P3D\",\"ACTION:DISPLAY\",\"DESCRIPTION:\"+icsKac(e.ad)+\" — 3 gün kaldı\",\"END:VALARM\",\"END:VEVENT\");"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 558,
+      "iddia": "30 gün",
+      "metin": "? 'Ortaklar, iki ardışık toplantıda karar alınamayan bir konuda önce 30 gün içinde arabulucuya başvurur. Arabuluculuk sonuçsuz kalırsa ortaklardan her biri diğerine, kendi payların"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 560,
+      "iddia": "60 gün",
+      "metin": ": 'Ortaklar, iki ardışık toplantıda karar alınamayan ve şirketin olağan faaliyetini durduran bir konuda, 60 gün içinde anlaşamazlarsa şirketin tasfiyesine karar vermeyi ve bu yönde"
+    },
+    {
+      "sayfa": "kurulus-nobeti.html",
+      "satir": 571,
+      "iddia": "30 gün",
+      "metin": "if(onalim) metin += M_('Önalım hakkı', ` Payını üçüncü kişiye devretmek isteyen Ortak, devir şartlarını (alıcı, bedel, ödeme) diğer Ortaklara yazılı bildirir. Diğer Ortaklar 30 gün"
+    },
+    {
       "sayfa": "kurulus.html",
       "satir": 67,
       "iddia": "% 100",
@@ -1633,49 +1723,49 @@
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 265,
+      "satir": 268,
       "iddia": "1 yıl",
       "metin": "bagkur:'⚠ Dikkat: eskiden verilen 1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı (7566 s. Kanun), internette hâlâ yazan eski bilgiye aldanma.' };"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 494,
+      "satir": 497,
       "iddia": "%12,5",
       "metin": "// KV orani %12,5'e iniyor (7582 s.K.), al-sat %25 kaliyor. Uzun donemli oneri"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 522,
+      "satir": 525,
       "iddia": "62.500 TL",
       "metin": "// satış planı olana AŞ kapısı kapatılmaz: 250.000 taahhüdün yalnız 1/4'ü (62.500 TL) peşin bloke edilir"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 529,
+      "satir": 532,
       "iddia": "2 yıl",
       "metin": "// LTD kurup sonradan dönmenin tuzağı: dönüşümde 2 yıllık istisna süresinin başlangıcı"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 559,
+      "satir": 562,
       "iddia": "%40",
       "metin": "neden.ltd.push('Üretici için şirketin ayrı bir kozu var: sanayi sicil belgeli imalatçının ÜRETİM kazancında kurumlar vergisi 2026\\'da %'+SABIT.kvOranlari.imalatci2026+', 2027\\'den "
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 581,
+      "satir": 590,
       "iddia": "%35",
       "metin": "neden.ltd.push(`Net konuşalım: hem ciron bilanço haddini aşıyor hem ${TLf(kar)} TL kâr hedefin${istisnaOn?' (genç girişimci istisnası düşülse bile)':''} gelir vergisinin %35-40 dil"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 601,
+      "satir": 610,
       "iddia": "%10",
       "metin": "// puana etki: belirgin fark varsa (%10+) tarafına yaz"
     },
     {
       "sayfa": "kurulus.html",
-      "satir": 826,
+      "satir": 844,
       "iddia": "7 gün",
       "metin": "document.getElementById('takvimNot').textContent = \"✓ İndirildi, dosyayı açınca takvimine kaydolur (30 ve 7 gün önce hatırlatmalı).\";"
     },
