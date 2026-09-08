@@ -31,6 +31,7 @@ for($i=1;$i -le $Parca;$i++){
   $sarmal=Join-Path $sarmalDir "$Ad-p$i.ps1"
   # 08.09 Cem 20:57 kararı: toplu kuyruk bugün çalışmadı → varsayılan ANLIK ('0'); toplu istenirse başlatan kabukta MEVZUAT_TOPLU=1 verilir.
   $topluSatir="`$env:MEVZUAT_TOPLU='$(if("$env:MEVZUAT_TOPLU"){ $env:MEVZUAT_TOPLU } else { '0' })'"
+  if("$env:MEVZUAT_TOPLU_BEKLE_DK" -match '^\d+$'){ $topluSatir+="; `$env:MEVZUAT_TOPLU_BEKLE_DK='$env:MEVZUAT_TOPLU_BEKLE_DK'" }   # toplu kuyruk takılırsa fazın anlığa düşme süresi
   [IO.File]::WriteAllText($sarmal,"$topluSatir`r`n& '$kosucu' -Plan '$plan' -SayfaYok *>> '$log'`r`n",[Text.UTF8Encoding]::new($true))
   # 08.09 23:00 KAZA 5 dersi: Claude kabuğu KILL_ON_CLOSE'lu iş nesnesindedir, Start-Process çocukları kabukla ölür; WMI çocukları WmiPrvSE ile ölür.
   # GÖREV ZAMANLAYICI (ScheduledTasks modülü, pil kısıtı kapalı, tam yol powershell) → süreç svchost'un çocuğu, oturumdan bağımsız.
