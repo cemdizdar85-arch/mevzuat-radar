@@ -1,6 +1,7 @@
 {
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
+                     {"ad":"SMK Uygulama Yönetmeliği (RG 24.04.2017/30047)","pdfId":"G7:23528","slug":"smk-yonetmelik","not":"08.09.2026 Cem: marka maillerinde gun verebilmek icin (tescil ucreti suresi, yayim usulu, itiraz usulu) SMK 6769 m.22/4 ve m.18 uygulama hukumleri. Ambarda YOKTU (olculdu: 3 ad kalibi + RG 30047 fts = 0). Hazir metin veri/mevzuat-hazir/smk-yonetmelik.txt (TR IP, mevzuat.gov.tr GeneratePdf 23528, 29 sayfa). Listenin basina konuldu: sira gelmeme dersi (bd-yonetmelik 02.08)."},
                      {
                          "ad":  "Yerli Mali Tebligi (SGM-2024/10)",
                          "pdfId":  "9.5.42656",

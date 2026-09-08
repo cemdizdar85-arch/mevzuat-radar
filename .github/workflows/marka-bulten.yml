@@ -166,6 +166,18 @@ jobs:
           RESEND_YANIT: ${{ secrets.RESEND_YANIT }}
         run: node motor/marka-bulten-nobet.js
 
+      # 08.09 (Cem "13.10'da kutuya bak" yerine kendi kendine): nobet ya da
+      # uyari adimi duserse Cem'e alarm gider - "kutuya bakmayi unutmak" diye
+      # bir sey kalmaz. Basari sessizdir (o zaten musteri maili olarak gorunur).
+      - name: Dustuyse Cem'e alarm
+        if: failure()
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - Marka nobeti dustu' -Mesaj "Bulten nobeti/uyari adimi KIRMIZI. Rapor: veri/marka-bulten-nobet-raporu.json. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
       - name: Nobet raporunu yayinla
         if: always()
         run: |
