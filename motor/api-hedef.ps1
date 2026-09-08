@@ -342,18 +342,34 @@ function Invoke-ClaudeMesaj {
   $Icerik = ConvertTo-IcerikBloklari $Icerik   # duz metin de kabul
 
   if(-not $YalnizOpenRouter -and -not $script:AnthropicTukendi -and $antVar){
-    try {
-      $hedef = Get-ApiHedef
-      if($hedef.ad -ne 'openrouter'){
-        $ySon = Repair-ClaudeMetin (Invoke-AnthropicAnlik $Model $Icerik $MaxTok $hedef $Effort)
-        Add-BedelKaydi $Model $ySon
-        return $ySon
-      }
-    } catch {
-      if((Test-LimitHatasi $_) -and $orVar){
-        $script:AnthropicTukendi = $true
-        Write-Host '  [!] Anthropic limiti/kotasi doldu -> OpenRouter yedek hattina gecildi.' -ForegroundColor Yellow
-      } else {
+    # 08.09 Tur 1 kazası 3 (09:48): "Uzak ad çözülemedi: api.anthropic.com" (DNS/ağ kesintisi) — çağıranların 3×10-30 sn tekrarı yetmedi,
+    # üç üretici süreci aynı anda öldü, koşucu sonraki derse geçti (192'lik üç FMuh etiketi yarım kaldı). GEÇİCİ hatalar (DNS, zaman aşımı,
+    # bağlantı, 429, 5xx/529 overloaded) burada merkezi olarak 8 kez, 15 sn → 5 dk artan beklemeyle denenir (≈17 dk tolerans). Limit/kimlik
+    # hataları (Test-LimitHatasi) ve 400 gibi kalıcı hatalar hemen fırlatılır.
+    $bekle = @(15,30,60,120,240,300,300,300)
+    for($dn = 0; $dn -le $bekle.Count; $dn++){
+      try {
+        $hedef = Get-ApiHedef
+        if($hedef.ad -ne 'openrouter'){
+          $ySon = Repair-ClaudeMetin (Invoke-AnthropicAnlik $Model $Icerik $MaxTok $hedef $Effort)
+          Add-BedelKaydi $Model $ySon
+          return $ySon
+        }
+        break
+      } catch {
+        $e = $_
+        if((Test-LimitHatasi $e) -and $orVar){
+          $script:AnthropicTukendi = $true
+          Write-Host '  [!] Anthropic limiti/kotasi doldu -> OpenRouter yedek hattina gecildi.' -ForegroundColor Yellow
+          break
+        }
+        $st = 0; try { $st = [int]$e.Exception.Response.StatusCode } catch {}
+        $msg = "$($e.Exception.Message)"
+        $gecici = ($st -eq 429 -or $st -eq 408 -or $st -ge 500 -or ($st -eq 0 -and $msg -match '(?i)Uzak ad|remote name|could not be resolved|zaman aşımı|timed out|timeout|bağlantı|connection|underlying connection|SSL|TLS|overloaded|temporarily'))
+        if($gecici -and $dn -lt $bekle.Count){
+          Write-Host ("  [ağ/geçici hata {0}/{1}] {2} -> {3} sn sonra tekrar" -f ($dn+1),$bekle.Count,$msg.Substring(0,[Math]::Min(90,$msg.Length)),$bekle[$dn]) -ForegroundColor DarkYellow
+          Start-Sleep -Seconds $bekle[$dn]; continue
+        }
         throw
       }
     }
