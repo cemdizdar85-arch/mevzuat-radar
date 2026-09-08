@@ -251,6 +251,9 @@ $DERS_KANUN=@{
   # ilkeleri' TSPB genelgesine dustu (hakem HAYIR). Meslek yonetmelikleri ambarda VAR, adlar AMBAR-ENVANTERI'nden birebir.
   'Meslek Hukuku'=@('SMMM K. (3568 s.K.)','Haksız Rekabet ve Reklam Yasağı Yön.','TÜRMOB Etik İlkeler Yön.','TÜRMOB Etik İlkeler Yön. EK','SMMM ve YMM K. Disiplin Yonetmeligi','SMMM Staj Yonetmeligi')
   'Finansal Muhasebe'=@('THP','VUK (213 s.K.)')
+  # 08.09 Cem "SGS'de dışladığımız 6 dersi kuralım": mevzuat metni olmayan dersler → kaynak TEORİ NOTU (motor/teori-notu-uret.ps1; ambar 'TEORI - <konu>')
+  'Turkce'=@('TEORI','Teori Notu'); 'Matematik'=@('TEORI','Teori Notu'); 'Yabanci Dil'=@('TEORI','Teori Notu'); 'Ataturk Ilke'=@('TEORI','Teori Notu')
+  'Ekonomi'=@('TEORI','Teori Notu'); 'Maliye'=@('TEORI','Teori Notu','Kamu Malî Yönetimi K. (5018 s.K.)')
   'Denetim'=@('BDS'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
   'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')

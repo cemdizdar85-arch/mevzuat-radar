@@ -141,6 +141,15 @@ Basım ancak bu tablo tamamen ✅ iken başlar. Yeni şart çıkarsa buraya ekle
 - **Plan bölüm süzgeci:** analiz bölümü dersle uyuşmayan konu (Genel Kültür → FMuh gibi) plana alınmaz; para harcanıp hakemde düşmez.
 - Bilerek kabul edilenler: olumsuz kök / öncüllü soru KOTASI (karne dağılımı ölçer, kapı yok — tur 1 sonrası bakılır) · KAPI-K kök şişmesi yumuşak · Ekonomi/Maliye kaynaksız · yayın sonrası şüpheli nöbeti (cevap verisi gelince) · fiyat tablosu varsayım.
 
+## F · KAYNAKSIZ DERSLER HATTI — Türkçe, Matematik, Yabancı Dil, İnkılap, Ekonomi, Maliye (08.09, Cem "dışladığımız 6 dersi kuralım")
+
+F1. **Kaynak = teori notu.** Bu derslerde mevzuat metni yok; kural 6.1 ("kaynak okunmadan soru yoktur") **teori notuyla** sağlanır: ambarda `TEORI - <konu>` (tür `teori-notu`). Emsal: 03.09 SGS Ekonomi/Maliye paketi (Cem "2 yap"). Ambarda 304 not var, 6 dersin 197 konusunun ≈77'si karşılanıyor; kalan ≈120 için `motor/teori-notu-uret.ps1`.
+F2. **Not üretimi iki modelle:** yazar Opus 5 (olgu doğruluğu: tarih, formül), denetçi Sonnet 5 cümle cümle doğrular; KUŞKULU not ya denetçinin düzeltmesiyle ya hiç yüklenmez, inceleme listesine (`veri/fabrika/teori-notu-inceleme-<tarih>.md`) düşer. Notta yıla bağlı sayı yazılmaz; Türkçe harfler tam (ASCII kaynak → ASCII soru, 02.09 dersi). Not repoda `veri/mevzuat/teori-notlari-<tarih>-sgs-genel.json`'da temsil edilir (mevzuat-yukle SERT KAPI şartı).
+F3. **Hakem teori notuyla yargılar:** "notla çelişen ya da notun kapsamadığı iddia → HAYIR". Kör çözüm (Opus) ve ikinci hakem aynen; Matematik'te aritmetik kapısı + kör çözüm asıl doğrulayıcıdır.
+F4. **Çıkmış soru çapası** bu derslerde de zorunlu (1.1); köprüde çapa yoksa konu üretime girmez.
+F5. **Yabancı Dil ayrı geçiş:** soru ve şıklar İngilizce, açıklama/adım Türkçe; Türkçe harf kapıları (D2, K, yazım onarımı) soru/şık alanlarında kapatılır (`-Dil en`, ⏳). Pilot sonrası.
+F6. **Sıra:** not üretimi (≈120 × 0,14 ≈ 17 USD) → 5 ders × 2 konu × kolay/zor pilot (≈20 soru, ≈8 USD) → karne + Cem örneklemi → tam basım (`plan-sgs-t1-genel`, 591 soru, ≈220 USD anlık). Açılış (15.09) SGS 9 dersle çıkar; bu hat sonra eklenir (K16).
+
 ## D · KARAR KAYDI
 
 | Tarih | Karar | Kim |
