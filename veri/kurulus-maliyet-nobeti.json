@@ -1,101 +1,101 @@
-﻿{
-    "olcum":  "08.09.2026 07:57",
-    "durum":  "KIRMIZI",
-    "sabitDosyasi":  "veri/kurulus-maliyet.json",
-    "sabitGuncelleme":  "08.09.2026",
-    "kaynaklar":  [
-                      {
-                          "ad":  "ITO 2026 sicil tarifesi (PDF)",
-                          "url":  "https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf",
-                          "tur":  "pdf",
-                          "durum":  "YESIL",
-                          "not":  "PDF ayni",
-                          "sha256":  "4a6d39bb7ab9b2495a6b108fcc06ad20622770be6066f4660e7f7662a778dd83",
-                          "boyut":  156277
-                      },
-                      {
-                          "ad":  "TURMOB 2026 ucret tarifesi (PDF)",
-                          "url":  "https://www.turmob.org.tr/arsiv/mbs/resmigazete/33110-2026-SMMMUCRET-TARIFESI.pdf",
-                          "tur":  "pdf",
-                          "durum":  "YESIL",
-                          "not":  "PDF ayni",
-                          "sha256":  "f28a872f94a20ac526b869a77d2eb7c7f28b389ff332ecfaf5bbc7da99e95a54",
-                          "boyut":  3832486
-                      },
-                      {
-                          "ad":  "TTSG ilan tarifesi 2026 (ALTSO aynasi)",
-                          "url":  "https://www.altso.org.tr/hizmetlerimiz/sicil-islemleri/tahmini-harc-oda-islem-ve-ilan-ucretleri/turkiye-ticaret-sicili-gazetesi-ilan-ucret-tarifesi/",
-                          "tur":  "html",
-                          "durum":  "YESIL",
-                          "not":  "beklenen rakamlar sayfada",
-                          "beklenen":  [
-                                           "2,48",
-                                           "5,53",
-                                           "708,00"
-                                       ]
-                      },
-                      {
-                          "ad":  "2026 ticaret sicili harclari (alomaliye)",
-                          "url":  "https://www.alomaliye.com/2026/01/01/2026-yili-ticaret-sicili-harclari/",
-                          "tur":  "html",
-                          "durum":  "YESIL",
-                          "not":  "beklenen rakamlar sayfada",
-                          "beklenen":  [
-                                           "5.466,10",
-                                           "895,80"
-                                       ]
-                      },
-                      {
-                          "ad":  "Gebze TO tescil harclari",
-                          "url":  "https://www.gebzeto.org.tr/tescil-ve-uyelik/tescil-harclari/",
-                          "tur":  "html",
-                          "durum":  "YESIL",
-                          "not":  "beklenen rakamlar sayfada",
-                          "beklenen":  [
-                                           "4.700,00",
-                                           "500,00",
-                                           "3.600,00"
-                                       ]
-                      },
-                      {
-                          "ad":  "ATSO harc-ilan-kayit",
-                          "url":  "https://bilgi.atso.org.tr/books/harc-ilan-ve-kayit-ucretleri/export/html",
-                          "tur":  "html",
-                          "durum":  "YESIL",
-                          "not":  "beklenen rakamlar sayfada",
-                          "beklenen":  [
-                                           "3.650,00",
-                                           "1.300,00",
-                                           "4.875,00"
-                                       ]
-                      },
-                      {
-                          "ad":  "ATO kayit ucreti tarifesi",
-                          "url":  "https://www.atonet.org.tr/hizmetlerimiz/2026-yili-kayit-%C3%BCcreti-tarifesi-",
-                          "tur":  "html",
-                          "durum":  "YESIL",
-                          "not":  "beklenen rakamlar sayfada",
-                          "beklenen":  [
-                                           "3.900,00"
-                                       ]
-                      },
-                      {
-                          "ad":  "IZTO 2026 hizmet ucretleri",
-                          "url":  "https://www.izto.org.tr/tr/tg/2026-yili-hizmet-ucretleri-tarifesi",
-                          "tur":  "html",
-                          "durum":  "KIRMIZI",
-                          "not":  "sayfada bulunamayan rakam: 4.950, 5.100, 660 - tarife degismis olabilir",
-                          "beklenen":  [
-                                           "4.950",
-                                           "5.100",
-                                           "660"
-                                       ],
-                          "eksik":  [
-                                        "4.950",
-                                        "5.100",
-                                        "660"
-                                    ]
-                      }
-                  ],
-    "not":  "KIRMIZI = kaynaktaki deger ya da PDF degisti; tarife okunur, kurulus-maliyet.json elle guncellenir, PDF icin -Taban ile temel tazelenir. KOR = kaynak inmedi, hukum verilmez."
+{
+  "olcum": "08.09.2026 04:57",
+  "durum": "KIRMIZI",
+  "sabitDosyasi": "veri/kurulus-maliyet.json",
+  "sabitGuncelleme": "08.09.2026",
+  "kaynaklar": [
+    {
+      "ad": "ITO 2026 sicil tarifesi (PDF)",
+      "url": "https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf",
+      "tur": "pdf",
+      "durum": "YESIL",
+      "not": "PDF ayni",
+      "sha256": "4a6d39bb7ab9b2495a6b108fcc06ad20622770be6066f4660e7f7662a778dd83",
+      "boyut": 156277
+    },
+    {
+      "ad": "TURMOB 2026 ucret tarifesi (PDF)",
+      "url": "https://www.turmob.org.tr/arsiv/mbs/resmigazete/33110-2026-SMMMUCRET-TARIFESI.pdf",
+      "tur": "pdf",
+      "durum": "YESIL",
+      "not": "PDF ayni",
+      "sha256": "f28a872f94a20ac526b869a77d2eb7c7f28b389ff332ecfaf5bbc7da99e95a54",
+      "boyut": 3832486
+    },
+    {
+      "ad": "TTSG ilan tarifesi 2026 (ALTSO aynasi)",
+      "url": "https://www.altso.org.tr/hizmetlerimiz/sicil-islemleri/tahmini-harc-oda-islem-ve-ilan-ucretleri/turkiye-ticaret-sicili-gazetesi-ilan-ucret-tarifesi/",
+      "tur": "html",
+      "durum": "YESIL",
+      "not": "beklenen rakamlar sayfada",
+      "beklenen": [
+        "2,48",
+        "5,53",
+        "708,00"
+      ]
+    },
+    {
+      "ad": "2026 ticaret sicili harclari (alomaliye)",
+      "url": "https://www.alomaliye.com/2026/01/01/2026-yili-ticaret-sicili-harclari/",
+      "tur": "html",
+      "durum": "YESIL",
+      "not": "beklenen rakamlar sayfada",
+      "beklenen": [
+        "5.466,10",
+        "895,80"
+      ]
+    },
+    {
+      "ad": "Gebze TO tescil harclari",
+      "url": "https://www.gebzeto.org.tr/tescil-ve-uyelik/tescil-harclari/",
+      "tur": "html",
+      "durum": "YESIL",
+      "not": "beklenen rakamlar sayfada",
+      "beklenen": [
+        "4.700,00",
+        "500,00",
+        "3.600,00"
+      ]
+    },
+    {
+      "ad": "ATSO harc-ilan-kayit",
+      "url": "https://bilgi.atso.org.tr/books/harc-ilan-ve-kayit-ucretleri/export/html",
+      "tur": "html",
+      "durum": "YESIL",
+      "not": "beklenen rakamlar sayfada",
+      "beklenen": [
+        "3.650,00",
+        "1.300,00",
+        "4.875,00"
+      ]
+    },
+    {
+      "ad": "ATO kayit ucreti tarifesi",
+      "url": "https://www.atonet.org.tr/hizmetlerimiz/2026-yili-kayit-%C3%BCcreti-tarifesi-",
+      "tur": "html",
+      "durum": "YESIL",
+      "not": "beklenen rakamlar sayfada",
+      "beklenen": [
+        "3.900,00"
+      ]
+    },
+    {
+      "ad": "IZTO 2026 hizmet ucretleri",
+      "url": "https://www.izto.org.tr/tr/tg/2026-yili-hizmet-ucretleri-tarifesi",
+      "tur": "html",
+      "durum": "KIRMIZI",
+      "not": "sayfada bulunamayan rakam: 4.950, 5.100, 660 - tarife degismis olabilir",
+      "beklenen": [
+        "4.950",
+        "5.100",
+        "660"
+      ],
+      "eksik": [
+        "4.950",
+        "5.100",
+        "660"
+      ]
+    }
+  ],
+  "not": "KIRMIZI = kaynaktaki deger ya da PDF degisti; tarife okunur, kurulus-maliyet.json elle guncellenir, PDF icin -Taban ile temel tazelenir. KOR = kaynak inmedi, hukum verilmez."
 }
