@@ -399,7 +399,9 @@ function Set-BekleyenPartiDurum([string]$bid,[string]$durum){
 function Get-BekleyenPartiler([string]$etiket=''){
   # 08.09: aynı etiket/faz için daha önce GÖNDERİLMİŞ partiler (yeniden başlatmada bedava hasat; en yenisi önce)
   try{ $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return @() }
-    $bek = @(); foreach($x in @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)))){ if($x -and (-not $etiket -or "$($x.etiket)" -eq $etiket)){ $bek += $x } }
+    # PS 5.1 tuzağı (08.09 ölçüldü): @(ConvertFrom-Json <dizi>) diziyi TEK öğe sayar → etiket süzgeci hiç tutmuyordu, hasat hiç çalışmadı (parti iki kez ödendi)
+    $lst = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)); if($lst -isnot [array]){ $lst = @($lst) }
+    $bek = @(); foreach($x in $lst){ if($x -and (-not $etiket -or "$($x.etiket)" -eq $etiket)){ $bek += $x } }
     return @($bek | Sort-Object { "$($_.zaman)" } -Descending) }catch{ return @() }
 }
 function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket,[bool]$bedelYaz=$true){
