@@ -1,5 +1,5 @@
 {
-  "guncelleme": "01.09.2026 08:54",
+  "guncelleme": "08.09.2026 08:19",
   "yontem": "Kasadaki her konu icin kaynak etiketlerinden kanun+madde ciftleri toplandi; birden fazla maddeye yayilan konularin maddeleri birbirinin kardesi sayildi.",
   "esik": "konuda >=4 soru ve >=2 farkli madde",
   "kume_sayisi": 224,
@@ -16,13 +16,13 @@
           "soru": 263
         },
         {
-          "kod": "TMS 1",
-          "madde": "54",
+          "kod": "3568",
+          "madde": "29",
           "soru": 2
         },
         {
-          "kod": "3568",
-          "madde": "29",
+          "kod": "TMS 1",
+          "madde": "54",
           "soru": 2
         },
         {
@@ -72,18 +72,18 @@
           "soru": 7
         },
         {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 2
-        },
-        {
           "kod": "VUK",
           "madde": "283",
           "soru": 2
         },
         {
-          "kod": "VUK",
-          "madde": "313",
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 2
+        },
+        {
+          "kod": "TMS 10",
+          "madde": "1",
           "soru": 1
         },
         {
@@ -251,14 +251,37 @@
           "soru": 26
         },
         {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
-        },
-        {
           "kod": "VUK",
           "madde": "174",
           "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kredi faiz reeskontu",
+      "ders": "Finansal Muhasebe",
+      "soru": 79,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "283",
+          "soru": 30
+        },
+        {
+          "kod": "VUK",
+          "madde": "281",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 2
         }
       ]
     },
@@ -277,29 +300,6 @@
           "kod": "TMS 10",
           "madde": "1",
           "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kredi faiz reeskontu",
-      "ders": "Finansal Muhasebe",
-      "soru": 79,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "283",
-          "soru": 30
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 2
-        },
-        {
-          "kod": "VUK",
-          "madde": "281",
-          "soru": 2
         }
       ]
     },
@@ -375,12 +375,12 @@
         },
         {
           "kod": "VUK",
-          "madde": "274",
+          "madde": "262",
           "soru": 1
         },
         {
           "kod": "VUK",
-          "madde": "262",
+          "madde": "274",
           "soru": 1
         }
       ]
@@ -415,13 +415,13 @@
           "soru": 5
         },
         {
-          "kod": "VUK",
-          "madde": "175",
+          "kod": "TTK",
+          "madde": "509",
           "soru": 2
         },
         {
-          "kod": "TTK",
-          "madde": "509",
+          "kod": "VUK",
+          "madde": "175",
           "soru": 2
         },
         {
@@ -547,12 +547,12 @@
       "maddeler": [
         {
           "kod": "VUK",
-          "madde": "274",
+          "madde": "275",
           "soru": 1
         },
         {
           "kod": "VUK",
-          "madde": "275",
+          "madde": "274",
           "soru": 1
         }
       ]
@@ -728,13 +728,13 @@
           "soru": 8
         },
         {
-          "kod": "TTK",
-          "madde": "720",
+          "kod": "VUK",
+          "madde": "327",
           "soru": 2
         },
         {
-          "kod": "VUK",
-          "madde": "327",
+          "kod": "TTK",
+          "madde": "720",
           "soru": 2
         },
         {
@@ -767,12 +767,12 @@
         },
         {
           "kod": "VUK",
-          "madde": "283",
+          "madde": "275",
           "soru": 1
         },
         {
           "kod": "VUK",
-          "madde": "275",
+          "madde": "283",
           "soru": 1
         }
       ]
@@ -847,6 +847,24 @@
       ]
     },
     {
+      "konu": "gider tahakkuku",
+      "ders": "Finansal Muhasebe",
+      "soru": 29,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "283",
+          "soru": 28
+        },
+        {
+          "kod": "VUK",
+          "madde": "287",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "karşılaştırmalı tablolar analizi",
       "ders": "Finansal Tablolar ve Analizi",
       "soru": 29,
@@ -870,24 +888,6 @@
         {
           "kod": "TTK",
           "madde": "64",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "gider tahakkuku",
-      "ders": "Finansal Muhasebe",
-      "soru": 29,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "283",
-          "soru": 28
-        },
-        {
-          "kod": "VUK",
-          "madde": "287",
           "soru": 1
         }
       ]
@@ -935,11 +935,6 @@
       "madde_sayisi": 3,
       "maddeler": [
         {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 1
-        },
-        {
           "kod": "TTK",
           "madde": "720",
           "soru": 1
@@ -947,6 +942,11 @@
         {
           "kod": "3568",
           "madde": "29",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
           "soru": 1
         }
       ]
@@ -1031,24 +1031,6 @@
       ]
     },
     {
-      "konu": "birim maliyet hesaplaması",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 24,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 23
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 1
-        }
-      ]
-    },
-    {
       "konu": "siparis maliyeti hesaplama",
       "ders": "Maliyet Muhasebesi",
       "soru": 24,
@@ -1063,6 +1045,24 @@
           "kod": "VUK",
           "madde": "262",
           "soru": 4
+        }
+      ]
+    },
+    {
+      "konu": "birim maliyet hesaplaması",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 24,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 23
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 1
         }
       ]
     },
@@ -1084,7 +1084,7 @@
         },
         {
           "kod": "TMS 7",
-          "madde": "16",
+          "madde": "33",
           "soru": 1
         },
         {
@@ -1100,6 +1100,24 @@
         {
           "kod": "TMS 7",
           "madde": "10",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "ihtiyati haciz halleri",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "soru": 23,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "AATUHK",
+          "madde": "13",
+          "soru": 22
+        },
+        {
+          "kod": "AATUHK",
+          "madde": "15",
           "soru": 1
         }
       ]
@@ -1123,19 +1141,34 @@
       ]
     },
     {
-      "konu": "ihtiyati haciz halleri",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "soru": 23,
-      "madde_sayisi": 2,
+      "konu": "sermaye taahhudu iptali",
+      "ders": "Finansal Muhasebe",
+      "soru": 22,
+      "madde_sayisi": 5,
       "maddeler": [
         {
-          "kod": "AATUHK",
-          "madde": "13",
-          "soru": 22
+          "kod": "TTK",
+          "madde": "482",
+          "soru": 11
         },
         {
-          "kod": "AATUHK",
-          "madde": "15",
+          "kod": "VUK",
+          "madde": "315",
+          "soru": 3
+        },
+        {
+          "kod": "TTK",
+          "madde": "344",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "473",
+          "soru": 1
+        },
+        {
+          "kod": "3568",
+          "madde": "29",
           "soru": 1
         }
       ]
@@ -1154,39 +1187,6 @@
         {
           "kod": "VUK",
           "madde": "298",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "sermaye taahhudu iptali",
-      "ders": "Finansal Muhasebe",
-      "soru": 22,
-      "madde_sayisi": 5,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "482",
-          "soru": 11
-        },
-        {
-          "kod": "VUK",
-          "madde": "315",
-          "soru": 3
-        },
-        {
-          "kod": "3568",
-          "madde": "29",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "473",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "344",
           "soru": 1
         }
       ]
@@ -1233,25 +1233,20 @@
       ]
     },
     {
-      "konu": "önemlilik kiyaslama noktasi",
-      "ders": "Denetim",
+      "konu": "genel üretim gideri yükleme katsayısı",
+      "ders": "Maliyet Muhasebesi",
       "soru": 18,
-      "madde_sayisi": 3,
+      "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TMS 1",
-          "madde": "7",
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 13
+        },
+        {
+          "kod": "TTK",
+          "madde": "516",
           "soru": 5
-        },
-        {
-          "kod": "BDS 320",
-          "madde": "9",
-          "soru": 2
-        },
-        {
-          "kod": "BDS 320",
-          "madde": "4",
-          "soru": 1
         }
       ]
     },
@@ -1274,6 +1269,29 @@
         {
           "kod": "TTK",
           "madde": "347",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "önemlilik kiyaslama noktasi",
+      "ders": "Denetim",
+      "soru": 18,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "TMS 1",
+          "madde": "7",
+          "soru": 5
+        },
+        {
+          "kod": "BDS 320",
+          "madde": "9",
+          "soru": 2
+        },
+        {
+          "kod": "BDS 320",
+          "madde": "4",
           "soru": 1
         }
       ]
@@ -1306,129 +1324,12 @@
         },
         {
           "kod": "TBK",
-          "madde": "72",
+          "madde": "65",
           "soru": 1
         },
         {
           "kod": "TBK",
-          "madde": "61",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "genel üretim gideri yükleme katsayısı",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 18,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 13
-        },
-        {
-          "kod": "TTK",
-          "madde": "516",
-          "soru": 5
-        }
-      ]
-    },
-    {
-      "konu": "cek uzerindeki kayitlar",
-      "ders": "Ticaret Hukuku",
-      "soru": 17,
-      "madde_sayisi": 13,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "782",
-          "soru": 3
-        },
-        {
-          "kod": "TTK",
-          "madde": "786",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "783",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "821",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "818",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "822",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "tms 7 nakit akis tablosu",
-      "ders": "Finansal Muhasebe",
-      "soru": 17,
-      "madde_sayisi": 7,
-      "maddeler": [
-        {
-          "kod": "TMS 7",
-          "madde": "1",
-          "soru": 7
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "18",
-          "soru": 2
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "20",
-          "soru": 2
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "43",
-          "soru": 2
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "16",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "28",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "KDV vergiyi doğuran olay",
-      "ders": "Vergi Hukuku",
-      "soru": 17,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "KDVK",
-          "madde": "10",
-          "soru": 2
-        },
-        {
-          "kod": "VUK",
-          "madde": "19",
-          "soru": 1
-        },
-        {
-          "kod": "KDVK",
-          "madde": "2",
+          "madde": "72",
           "soru": 1
         }
       ]
@@ -1446,12 +1347,129 @@
         },
         {
           "kod": "VUK",
-          "madde": "282",
+          "madde": "285",
           "soru": 1
         },
         {
           "kod": "VUK",
-          "madde": "285",
+          "madde": "282",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "KDV vergiyi doğuran olay",
+      "ders": "Vergi Hukuku",
+      "soru": 17,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "KDVK",
+          "madde": "10",
+          "soru": 2
+        },
+        {
+          "kod": "KDVK",
+          "madde": "2",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "19",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "tms 7 nakit akis tablosu",
+      "ders": "Finansal Muhasebe",
+      "soru": 17,
+      "madde_sayisi": 7,
+      "maddeler": [
+        {
+          "kod": "TMS 7",
+          "madde": "1",
+          "soru": 7
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "20",
+          "soru": 2
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "43",
+          "soru": 2
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "18",
+          "soru": 2
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "8",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "28",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "cek uzerindeki kayitlar",
+      "ders": "Ticaret Hukuku",
+      "soru": 17,
+      "madde_sayisi": 13,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "782",
+          "soru": 3
+        },
+        {
+          "kod": "TTK",
+          "madde": "783",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "786",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "781",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "780",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "701",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "genel uretim gideri yukleme",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 16,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "516",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
           "soru": 1
         }
       ]
@@ -1475,19 +1493,19 @@
       ]
     },
     {
-      "konu": "genel uretim gideri yukleme",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 16,
+      "konu": "sebepsiz zenginlesme zamanasimi",
+      "ders": "Borclar Hukuku",
+      "soru": 15,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TTK",
-          "madde": "516",
-          "soru": 1
+          "kod": "TBK",
+          "madde": "82",
+          "soru": 14
         },
         {
-          "kod": "VUK",
-          "madde": "275",
+          "kod": "TBK",
+          "madde": "154",
           "soru": 1
         }
       ]
@@ -1523,54 +1541,18 @@
         },
         {
           "kod": "TMS 21",
-          "madde": "16",
+          "madde": "23",
           "soru": 1
         },
         {
           "kod": "TMS 21",
-          "madde": "23",
+          "madde": "16",
           "soru": 1
         },
         {
           "kod": "TMS 21",
           "madde": "9",
           "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "sebepsiz zenginlesme zamanasimi",
-      "ders": "Borclar Hukuku",
-      "soru": 15,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "82",
-          "soru": 14
-        },
-        {
-          "kod": "TBK",
-          "madde": "154",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "vuk maliyet bedeline dahil edilecek unsurlar",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "soru": 14,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 12
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 2
         }
       ]
     },
@@ -1593,6 +1575,98 @@
       ]
     },
     {
+      "konu": "vuk maliyet bedeline dahil edilecek unsurlar",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "soru": 14,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 12
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "raporlama döneminden sonraki olaylar",
+      "ders": "Finansal Muhasebe",
+      "soru": 13,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TMS 10",
+          "madde": "1",
+          "soru": 12
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "toplulastirma riski",
+      "ders": "Finansal Muhasebe",
+      "soru": 13,
+      "madde_sayisi": 5,
+      "maddeler": [
+        {
+          "kod": "TMS 1",
+          "madde": "29",
+          "soru": 5
+        },
+        {
+          "kod": "TMS 1",
+          "madde": "32",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 530",
+          "madde": "14",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 1",
+          "madde": "30",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "yapilmakta olan yatirimlar",
+      "ders": "Finansal Muhasebe",
+      "soru": 13,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "313",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "270",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "vuk maliyet bedeli tespiti",
       "ders": "Vergi Hukuku",
       "soru": 13,
@@ -1611,38 +1685,53 @@
       ]
     },
     {
-      "konu": "yapilmakta olan yatirimlar",
-      "ders": "Finansal Muhasebe",
+      "konu": "zamanasimi suresi",
+      "ders": "Borclar Hukuku",
       "soru": 13,
-      "madde_sayisi": 3,
+      "madde_sayisi": 7,
       "maddeler": [
         {
-          "kod": "VUK",
-          "madde": "262",
+          "kod": "TBK",
+          "madde": "154",
+          "soru": 4
+        },
+        {
+          "kod": "TBK",
+          "madde": "72",
+          "soru": 3
+        },
+        {
+          "kod": "TBK",
+          "madde": "153",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "814",
           "soru": 1
         },
         {
-          "kod": "VUK",
-          "madde": "313",
+          "kod": "TBK",
+          "madde": "146",
           "soru": 1
         },
         {
-          "kod": "VUK",
-          "madde": "270",
+          "kod": "TBK",
+          "madde": "231",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "raporlama döneminden sonraki olaylar",
+      "konu": "duran varlık maliyet bedeli hesaplama",
       "ders": "Finansal Muhasebe",
       "soru": 13,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TMS 10",
-          "madde": "1",
-          "soru": 12
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 11
         },
         {
           "kod": "TTK",
@@ -1688,6 +1777,24 @@
       ]
     },
     {
+      "konu": "oda organlari",
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "soru": 13,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "3568",
+          "madde": "27",
+          "soru": 6
+        },
+        {
+          "kod": "3568",
+          "madde": "26",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "otv ihracat istisnasi",
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "soru": 13,
@@ -1701,6 +1808,24 @@
         {
           "kod": "4760",
           "madde": "1",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kdv matrahına dahil unsurlar",
+      "ders": "Vergi Hukuku",
+      "soru": 13,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "KDVK",
+          "madde": "24",
+          "soru": 1
+        },
+        {
+          "kod": "KDVK",
+          "madde": "20",
           "soru": 1
         }
       ]
@@ -1729,310 +1854,19 @@
       ]
     },
     {
-      "konu": "duran varlık maliyet bedeli hesaplama",
-      "ders": "Finansal Muhasebe",
-      "soru": 13,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 11
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "zamanasimi suresi",
-      "ders": "Borclar Hukuku",
-      "soru": 13,
-      "madde_sayisi": 7,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "154",
-          "soru": 4
-        },
-        {
-          "kod": "TBK",
-          "madde": "72",
-          "soru": 3
-        },
-        {
-          "kod": "TBK",
-          "madde": "153",
-          "soru": 2
-        },
-        {
-          "kod": "TBK",
-          "madde": "147",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "814",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "146",
-          "soru": 1
-        }
-      ]
-    },
-    {
       "konu": "direkt işçilik süre sapması",
       "ders": "Maliyet Muhasebesi",
       "soru": 13,
       "madde_sayisi": 2,
       "maddeler": [
         {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 1
+        },
+        {
           "kod": "TMS 2",
           "madde": "21",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "toplulastirma riski",
-      "ders": "Finansal Muhasebe",
-      "soru": 13,
-      "madde_sayisi": 5,
-      "maddeler": [
-        {
-          "kod": "TMS 1",
-          "madde": "29",
-          "soru": 5
-        },
-        {
-          "kod": "BDS 530",
-          "madde": "14",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 1",
-          "madde": "32",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 1",
-          "madde": "30",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "oda organlari",
-      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
-      "soru": 13,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "3568",
-          "madde": "27",
-          "soru": 6
-        },
-        {
-          "kod": "3568",
-          "madde": "26",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kdv matrahına dahil unsurlar",
-      "ders": "Vergi Hukuku",
-      "soru": 13,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "KDVK",
-          "madde": "20",
-          "soru": 1
-        },
-        {
-          "kod": "KDVK",
-          "madde": "24",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "brüt satış karı hesaplaması",
-      "ders": "Finansal Muhasebe",
-      "soru": 12,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "3568",
-          "madde": "29",
-          "soru": 11
-        },
-        {
-          "kod": "VUK",
-          "madde": "283",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "haksiz fiil sartlari",
-      "ders": "Borclar Hukuku",
-      "soru": 12,
-      "madde_sayisi": 6,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "49",
-          "soru": 4
-        },
-        {
-          "kod": "TBK",
-          "madde": "63",
-          "soru": 3
-        },
-        {
-          "kod": "TBK",
-          "madde": "52",
-          "soru": 2
-        },
-        {
-          "kod": "TBK",
-          "madde": "58",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "64",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "65",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "ticari temsilcilik yetkisi",
-      "ders": "Ticaret Hukuku",
-      "soru": 12,
-      "madde_sayisi": 10,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "367",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "548",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "920",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "373",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "369",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "917",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kasa sayim noksani",
-      "ders": "Finansal Muhasebe",
-      "soru": 12,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "280",
-          "soru": 8
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "personel gideri tahakkuku",
-      "ders": "Finansal Muhasebe",
-      "soru": 12,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "283",
-          "soru": 8
-        },
-        {
-          "kod": "GVK",
-          "madde": "40",
-          "soru": 3
-        }
-      ]
-    },
-    {
-      "konu": "maddi duran varlik maliyet bedeline dahil edilecek unsurlar",
-      "ders": "Finansal Muhasebe",
-      "soru": 12,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 11
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "sermaye taahhudu iptali",
-      "ders": "Ticaret Hukuku",
-      "soru": 12,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "482",
-          "soru": 11
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
           "soru": 1
         }
       ]
@@ -2061,6 +1895,116 @@
       ]
     },
     {
+      "konu": "maddi duran varlik maliyet bedeline dahil edilecek unsurlar",
+      "ders": "Finansal Muhasebe",
+      "soru": 12,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 11
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "personel gideri tahakkuku",
+      "ders": "Finansal Muhasebe",
+      "soru": 12,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "283",
+          "soru": 8
+        },
+        {
+          "kod": "GVK",
+          "madde": "40",
+          "soru": 3
+        }
+      ]
+    },
+    {
+      "konu": "ticari temsilcilik yetkisi",
+      "ders": "Ticaret Hukuku",
+      "soru": 12,
+      "madde_sayisi": 10,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "367",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "548",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "372",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "917",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "369",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "373",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "sermaye taahhudu iptali",
+      "ders": "Ticaret Hukuku",
+      "soru": 12,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "482",
+          "soru": 11
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kasa sayim noksani",
+      "ders": "Finansal Muhasebe",
+      "soru": 12,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "280",
+          "soru": 8
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "police protestosu",
       "ders": "Ticaret Hukuku",
       "soru": 12,
@@ -2079,20 +2023,58 @@
       ]
     },
     {
-      "konu": "yarı mamul maliyeti hesaplaması",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 11,
+      "konu": "haksiz fiil sartlari",
+      "ders": "Borclar Hukuku",
+      "soru": 12,
+      "madde_sayisi": 6,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "49",
+          "soru": 4
+        },
+        {
+          "kod": "TBK",
+          "madde": "63",
+          "soru": 3
+        },
+        {
+          "kod": "TBK",
+          "madde": "52",
+          "soru": 2
+        },
+        {
+          "kod": "TBK",
+          "madde": "64",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "65",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "58",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "brüt satış karı hesaplaması",
+      "ders": "Finansal Muhasebe",
+      "soru": 12,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 7
+          "kod": "3568",
+          "madde": "29",
+          "soru": 11
         },
         {
           "kod": "VUK",
-          "madde": "275",
-          "soru": 4
+          "madde": "283",
+          "soru": 1
         }
       ]
     },
@@ -2111,6 +2093,24 @@
           "kod": "VUK",
           "madde": "262",
           "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "yarı mamul maliyeti hesaplaması",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 11,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 7
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 4
         }
       ]
     },
@@ -2138,6 +2138,24 @@
       ]
     },
     {
+      "konu": "protesto ve poliçe suretinin saklanması",
+      "ders": "Ticaret Hukuku",
+      "soru": 10,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 7
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 2
+        }
+      ]
+    },
+    {
       "konu": "donemler arasi ilk madde alim hesabi",
       "ders": "Finansal Muhasebe",
       "soru": 10,
@@ -2152,6 +2170,24 @@
           "kod": "VUK",
           "madde": "275",
           "soru": 3
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "maliyet bedeline genel idare giderlerinin ihtiyari dahil edilmesi",
+      "ders": "Vergi Hukuku",
+      "soru": 10,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 9
         },
         {
           "kod": "TTK",
@@ -2202,24 +2238,6 @@
       ]
     },
     {
-      "konu": "maliyet bedeline genel idare giderlerinin ihtiyari dahil edilmesi",
-      "ders": "Vergi Hukuku",
-      "soru": 10,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 9
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
-        }
-      ]
-    },
-    {
       "konu": "ilişkili taraf açıklamaları",
       "ders": "Finansal Muhasebe",
       "soru": 10,
@@ -2238,24 +2256,6 @@
       ]
     },
     {
-      "konu": "protesto ve poliçe suretinin saklanması",
-      "ders": "Ticaret Hukuku",
-      "soru": 10,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 7
-        },
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 2
-        }
-      ]
-    },
-    {
       "konu": "dikey yüzdelerden dönen varlık oranı",
       "ders": "Mali Tablolar Analizi",
       "soru": 9,
@@ -2269,75 +2269,6 @@
         {
           "kod": "TTK",
           "madde": "516",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "maddi olmayan duran varlık muhasebeleştirilmesi",
-      "ders": "Finansal Muhasebe",
-      "soru": 9,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TMS 38",
-          "madde": "1",
-          "soru": 6
-        },
-        {
-          "kod": "KDVK",
-          "madde": "35",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "nakit akis tablosu",
-      "ders": "Finansal Muhasebe",
-      "soru": 9,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TMS 7",
-          "madde": "20",
-          "soru": 3
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "16",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "18",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "34",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "menkul kiymet deger dusuklugu karsiligi",
-      "ders": "Finansal Muhasebe",
-      "soru": 9,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "278",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "323",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "279",
           "soru": 1
         }
       ]
@@ -2366,6 +2297,113 @@
       ]
     },
     {
+      "konu": "menkul kiymet deger dusuklugu karsiligi",
+      "ders": "Finansal Muhasebe",
+      "soru": 9,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "279",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "323",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "278",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "borclarin ifasi",
+      "ders": "Borclar Hukuku",
+      "soru": 9,
+      "madde_sayisi": 6,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "89",
+          "soru": 4
+        },
+        {
+          "kod": "TBK",
+          "madde": "83",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "85",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "68",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "99",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "117",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "hayvan bulunduran sorumlulugu",
+      "ders": "Borclar Hukuku",
+      "soru": 9,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "67",
+          "soru": 8
+        },
+        {
+          "kod": "TBK",
+          "madde": "68",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "nakit akis tablosu",
+      "ders": "Finansal Muhasebe",
+      "soru": 9,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TMS 7",
+          "madde": "20",
+          "soru": 3
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "16",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "34",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "18",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "finansman gideri tahakkuku",
       "ders": "Finansal Muhasebe",
       "soru": 9,
@@ -2379,6 +2417,60 @@
         {
           "kod": "GVK",
           "madde": "40",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "maddi olmayan duran varlık muhasebeleştirilmesi",
+      "ders": "Finansal Muhasebe",
+      "soru": 9,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TMS 38",
+          "madde": "1",
+          "soru": 6
+        },
+        {
+          "kod": "KDVK",
+          "madde": "35",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "mal iadesi kdv",
+      "ders": "Finansal Muhasebe",
+      "soru": 9,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "KDVK",
+          "madde": "35",
+          "soru": 3
+        },
+        {
+          "kod": "VUK",
+          "madde": "229",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "hisse senedi ihraç primi",
+      "ders": "Finansal Muhasebe",
+      "soru": 9,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "482",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
           "soru": 1
         }
       ]
@@ -2417,94 +2509,20 @@
       ]
     },
     {
-      "konu": "borclarin ifasi",
-      "ders": "Borclar Hukuku",
-      "soru": 9,
-      "madde_sayisi": 6,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "89",
-          "soru": 4
-        },
-        {
-          "kod": "TBK",
-          "madde": "83",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "85",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "68",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "117",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "99",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "hayvan bulunduran sorumlulugu",
-      "ders": "Borclar Hukuku",
-      "soru": 9,
+      "konu": "guç yükleme katsayısı",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 8,
       "madde_sayisi": 2,
       "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "67",
-          "soru": 8
-        },
-        {
-          "kod": "TBK",
-          "madde": "68",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "mal iadesi kdv",
-      "ders": "Finansal Muhasebe",
-      "soru": 9,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "KDVK",
-          "madde": "35",
-          "soru": 3
-        },
         {
           "kod": "VUK",
-          "madde": "229",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "hisse senedi ihraç primi",
-      "ders": "Finansal Muhasebe",
-      "soru": 9,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
+          "madde": "275",
+          "soru": 5
         },
         {
           "kod": "TTK",
-          "madde": "482",
-          "soru": 1
+          "madde": "516",
+          "soru": 3
         }
       ]
     },
@@ -2523,6 +2541,98 @@
           "kod": "TTK",
           "madde": "519",
           "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "yatay analiz",
+      "ders": "Finansal Tablolar ve Analizi",
+      "soru": 8,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 6
+        },
+        {
+          "kod": "TTK",
+          "madde": "64",
+          "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "tehlike sorumlulugu",
+      "ders": "Borclar Hukuku",
+      "soru": 8,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "71",
+          "soru": 6
+        },
+        {
+          "kod": "TBK",
+          "madde": "69",
+          "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "duran varlik satisi",
+      "ders": "Finansal Muhasebe",
+      "soru": 8,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "328",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "bds 300 denetim planlamasi",
+      "ders": "Denetim",
+      "soru": 8,
+      "madde_sayisi": 6,
+      "maddeler": [
+        {
+          "kod": "BDS 300",
+          "madde": "7",
+          "soru": 2
+        },
+        {
+          "kod": "BDS 300",
+          "madde": "1",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 300",
+          "madde": "13",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 300",
+          "madde": "8",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 300",
+          "madde": "5",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 300",
+          "madde": "10",
+          "soru": 1
         }
       ]
     },
@@ -2550,24 +2660,6 @@
       ]
     },
     {
-      "konu": "yatay analiz",
-      "ders": "Finansal Tablolar ve Analizi",
-      "soru": 8,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 6
-        },
-        {
-          "kod": "TTK",
-          "madde": "64",
-          "soru": 2
-        }
-      ]
-    },
-    {
       "konu": "amme alacagi teminat paraya cevirme",
       "ders": "Vergi Hukuku",
       "soru": 8,
@@ -2585,178 +2677,12 @@
         },
         {
           "kod": "AATUHK",
-          "madde": "11",
+          "madde": "12",
           "soru": 1
         },
         {
           "kod": "AATUHK",
-          "madde": "12",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "bds 300 denetim planlamasi",
-      "ders": "Denetim",
-      "soru": 8,
-      "madde_sayisi": 6,
-      "maddeler": [
-        {
-          "kod": "BDS 300",
-          "madde": "7",
-          "soru": 2
-        },
-        {
-          "kod": "BDS 300",
-          "madde": "1",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 300",
-          "madde": "5",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 300",
-          "madde": "10",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 300",
-          "madde": "8",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 300",
-          "madde": "13",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "guç yükleme katsayısı",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 8,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 5
-        },
-        {
-          "kod": "TTK",
-          "madde": "516",
-          "soru": 3
-        }
-      ]
-    },
-    {
-      "konu": "duran varlik satisi",
-      "ders": "Finansal Muhasebe",
-      "soru": 8,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 4
-        },
-        {
-          "kod": "VUK",
-          "madde": "328",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "tehlike sorumlulugu",
-      "ders": "Borclar Hukuku",
-      "soru": 8,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "71",
-          "soru": 6
-        },
-        {
-          "kod": "TBK",
-          "madde": "69",
-          "soru": 2
-        }
-      ]
-    },
-    {
-      "konu": "muhasebe bilgi sistemi girdi",
-      "ders": "Finansal Muhasebe",
-      "soru": 7,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "227",
-          "soru": 4
-        },
-        {
-          "kod": "VUK",
-          "madde": "219",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "232",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "sozlesme iptal sebepleri",
-      "ders": "Borclar Hukuku",
-      "soru": 7,
-      "madde_sayisi": 5,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "39",
-          "soru": 2
-        },
-        {
-          "kod": "TBK",
-          "madde": "28",
-          "soru": 2
-        },
-        {
-          "kod": "TBK",
-          "madde": "32",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "37",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "31",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "direkt ilk madde sapmasi",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 7,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 6
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
+          "madde": "11",
           "soru": 1
         }
       ]
@@ -2785,93 +2711,19 @@
       ]
     },
     {
-      "konu": "police protestosu ve noterin yukumlulukleri",
-      "ders": "Ticaret Hukuku",
-      "soru": 7,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 4
-        },
-        {
-          "kod": "TTK",
-          "madde": "482",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "231",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "yardımcı gider yerlerinin dağıtımı",
-      "ders": "Maliyet Muhasebesi",
+      "konu": "disiplin cezaları",
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "soru": 7,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 6
+          "kod": "3568",
+          "madde": "50",
+          "soru": 5
         },
         {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "haksiz rekabet reklam yasagi",
-      "ders": "Meslek Hukuku",
-      "soru": 7,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "55",
-          "soru": 3
-        },
-        {
-          "kod": "TTK",
-          "madde": "56",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "59",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "58",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "denetim kanıtının yeterliliği ve uygunluğu",
-      "ders": "Denetim",
-      "soru": 7,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "BDS 500",
-          "madde": "5",
-          "soru": 2
-        },
-        {
-          "kod": "BDS 500",
-          "madde": "6",
-          "soru": 2
-        },
-        {
-          "kod": "BDS 500",
-          "madde": "8",
+          "kod": "3568",
+          "madde": "48",
           "soru": 1
         }
       ]
@@ -2895,34 +2747,6 @@
       ]
     },
     {
-      "konu": "genel işlem şartları",
-      "ders": "Borclar Hukuku",
-      "soru": 7,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "20",
-          "soru": 4
-        },
-        {
-          "kod": "TBK",
-          "madde": "22",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "24",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "21",
-          "soru": 1
-        }
-      ]
-    },
-    {
       "konu": "bds 230 denetim belgelendirme",
       "ders": "Denetim",
       "soru": 7,
@@ -2935,35 +2759,17 @@
         },
         {
           "kod": "BDS 230",
-          "madde": "1",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 230",
           "madde": "12",
           "soru": 1
         },
         {
           "kod": "BDS 230",
-          "madde": "14",
+          "madde": "1",
           "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "şüpheli alacaklar karşılığı kaydı",
-      "ders": "Finansal Muhasebe",
-      "soru": 7,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 2
         },
         {
-          "kod": "VUK",
-          "madde": "323",
+          "kod": "BDS 230",
+          "madde": "14",
           "soru": 1
         }
       ]
@@ -2983,24 +2789,6 @@
           "kod": "2464",
           "madde": "86",
           "soru": 3
-        }
-      ]
-    },
-    {
-      "konu": "disiplin cezaları",
-      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
-      "soru": 7,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "3568",
-          "madde": "50",
-          "soru": 5
-        },
-        {
-          "kod": "3568",
-          "madde": "48",
-          "soru": 1
         }
       ]
     },
@@ -3028,6 +2816,379 @@
       ]
     },
     {
+      "konu": "muhasebe bilgi sistemi girdi",
+      "ders": "Finansal Muhasebe",
+      "soru": 7,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "227",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "219",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "232",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "yardımcı gider yerlerinin dağıtımı",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 7,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 6
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "police protestosu ve noterin yukumlulukleri",
+      "ders": "Ticaret Hukuku",
+      "soru": 7,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "231",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "482",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "sozlesme iptal sebepleri",
+      "ders": "Borclar Hukuku",
+      "soru": 7,
+      "madde_sayisi": 5,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "28",
+          "soru": 2
+        },
+        {
+          "kod": "TBK",
+          "madde": "39",
+          "soru": 2
+        },
+        {
+          "kod": "TBK",
+          "madde": "32",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "31",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "37",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "haksiz rekabet reklam yasagi",
+      "ders": "Meslek Hukuku",
+      "soru": 7,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "55",
+          "soru": 3
+        },
+        {
+          "kod": "TTK",
+          "madde": "56",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "58",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "59",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "denetim kanıtının yeterliliği ve uygunluğu",
+      "ders": "Denetim",
+      "soru": 7,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "BDS 500",
+          "madde": "6",
+          "soru": 2
+        },
+        {
+          "kod": "BDS 500",
+          "madde": "5",
+          "soru": 2
+        },
+        {
+          "kod": "BDS 500",
+          "madde": "8",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "direkt ilk madde sapmasi",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 7,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 6
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "genel işlem şartları",
+      "ders": "Borclar Hukuku",
+      "soru": 7,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "20",
+          "soru": 4
+        },
+        {
+          "kod": "TBK",
+          "madde": "24",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "22",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "21",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "şüpheli alacaklar karşılığı kaydı",
+      "ders": "Finansal Muhasebe",
+      "soru": 7,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 2
+        },
+        {
+          "kod": "VUK",
+          "madde": "323",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "vuk maliyet bedeline dahil edilmesi zorunlu unsurlar",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "birim üretim maliyeti hesabı",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 5
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kasa sayim farki kaydi",
+      "ders": "Finansal Muhasebe",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "280",
+          "soru": 4
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "gelir tablosu analiz sinirlamalari",
+      "ders": "Mali Tablolar Analizi",
+      "soru": 6,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "298",
+          "soru": 2
+        },
+        {
+          "kod": "3568",
+          "madde": "29",
+          "soru": 2
+        },
+        {
+          "kod": "TMS 1",
+          "madde": "38",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 1",
+          "madde": "87",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "ticari temsilci yetkisi",
+      "ders": "Ticaret Hukuku",
+      "soru": 6,
+      "madde_sayisi": 5,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "548",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "368",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "549",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "551",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "371",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "amortisman yontemi degisikligi",
+      "ders": "Finansal Muhasebe",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 5
+        },
+        {
+          "kod": "TTK",
+          "madde": "88",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kiymetli evrak cek",
+      "ders": "Ticaret Hukuku",
+      "soru": 6,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "785",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "790",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "795",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "818",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "yarı mamul stok ve fire maliyeti",
       "ders": "Maliyet Muhasebesi",
       "soru": 6,
@@ -3035,13 +3196,100 @@
       "maddeler": [
         {
           "kod": "VUK",
-          "madde": "262",
+          "madde": "275",
           "soru": 3
         },
         {
           "kod": "VUK",
-          "madde": "275",
+          "madde": "262",
           "soru": 3
+        }
+      ]
+    },
+    {
+      "konu": "tms 36 deger dusuklugu kapsami",
+      "ders": "Finansal Muhasebe",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TMS 36",
+          "madde": "100",
+          "soru": 5
+        },
+        {
+          "kod": "VUK",
+          "madde": "278",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kiymetli evrak bono cirosu",
+      "ders": "Ticaret Hukuku",
+      "soru": 6,
+      "madde_sayisi": 5,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "682",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "684",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "681",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "688",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "683",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "ticari mal devir hızı",
+      "ders": "Finansal Tablolar ve Analizi",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "64",
+          "soru": 3
+        },
+        {
+          "kod": "4857",
+          "madde": "15",
+          "soru": 3
+        }
+      ]
+    },
+    {
+      "konu": "ozkaynak hesaplama",
+      "ders": "Finansal Muhasebe",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 5
+        },
+        {
+          "kod": "VUK",
+          "madde": "192",
+          "soru": 1
         }
       ]
     },
@@ -3059,6 +3307,93 @@
         {
           "kod": "GVK",
           "madde": "68",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "peşin ödenen gider kaydı",
+      "ders": "Finansal Muhasebe",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "3568",
+          "madde": "29",
+          "soru": 2
+        },
+        {
+          "kod": "VUK",
+          "madde": "283",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "borc iliskisi sona erme",
+      "ders": "Borclar Hukuku",
+      "soru": 6,
+      "madde_sayisi": 5,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "139",
+          "soru": 2
+        },
+        {
+          "kod": "TBK",
+          "madde": "143",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "133",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "161",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "132",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "muhasebe bilgi sistemi sureci",
+      "ders": "Finansal Muhasebe",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "227",
+          "soru": 5
+        },
+        {
+          "kod": "VUK",
+          "madde": "219",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "genel üretim giderleri dağıtımı makine saati yöntemi",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 6,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 5
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
           "soru": 1
         }
       ]
@@ -3097,341 +3432,6 @@
       ]
     },
     {
-      "konu": "ticari temsilci yetkisi",
-      "ders": "Ticaret Hukuku",
-      "soru": 6,
-      "madde_sayisi": 5,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "548",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "549",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "371",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "551",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "368",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "ticari mal devir hızı",
-      "ders": "Finansal Tablolar ve Analizi",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "4857",
-          "madde": "15",
-          "soru": 3
-        },
-        {
-          "kod": "TTK",
-          "madde": "64",
-          "soru": 3
-        }
-      ]
-    },
-    {
-      "konu": "kasa sayim farki kaydi",
-      "ders": "Finansal Muhasebe",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "280",
-          "soru": 4
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 2
-        }
-      ]
-    },
-    {
-      "konu": "kiymetli evrak bono cirosu",
-      "ders": "Ticaret Hukuku",
-      "soru": 6,
-      "madde_sayisi": 5,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "682",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "688",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "681",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "683",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "684",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "vuk maliyet bedeline dahil edilmesi zorunlu unsurlar",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 4
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 2
-        }
-      ]
-    },
-    {
-      "konu": "genel üretim giderleri dağıtımı makine saati yöntemi",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 5
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "gelir tablosu analiz sinirlamalari",
-      "ders": "Mali Tablolar Analizi",
-      "soru": 6,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "298",
-          "soru": 2
-        },
-        {
-          "kod": "3568",
-          "madde": "29",
-          "soru": 2
-        },
-        {
-          "kod": "TMS 1",
-          "madde": "38",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 1",
-          "madde": "87",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "tms 36 deger dusuklugu kapsami",
-      "ders": "Finansal Muhasebe",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TMS 36",
-          "madde": "100",
-          "soru": 5
-        },
-        {
-          "kod": "VUK",
-          "madde": "278",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kiymetli evrak cek",
-      "ders": "Ticaret Hukuku",
-      "soru": 6,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "795",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "818",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "785",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "790",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "birim üretim maliyeti hesabı",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 5
-        },
-        {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "amortisman yontemi degisikligi",
-      "ders": "Finansal Muhasebe",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 5
-        },
-        {
-          "kod": "TTK",
-          "madde": "88",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "ozkaynak hesaplama",
-      "ders": "Finansal Muhasebe",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 5
-        },
-        {
-          "kod": "VUK",
-          "madde": "192",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "muhasebe bilgi sistemi sureci",
-      "ders": "Finansal Muhasebe",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "227",
-          "soru": 5
-        },
-        {
-          "kod": "VUK",
-          "madde": "219",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "borc iliskisi sona erme",
-      "ders": "Borclar Hukuku",
-      "soru": 6,
-      "madde_sayisi": 5,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "139",
-          "soru": 2
-        },
-        {
-          "kod": "TBK",
-          "madde": "143",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "161",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "132",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "133",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "peşin ödenen gider kaydı",
-      "ders": "Finansal Muhasebe",
-      "soru": 6,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "3568",
-          "madde": "29",
-          "soru": 2
-        },
-        {
-          "kod": "VUK",
-          "madde": "283",
-          "soru": 1
-        }
-      ]
-    },
-    {
       "konu": "maliyet bedeline giren unsurlar (vuk 262)",
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "soru": 6,
@@ -3450,170 +3450,37 @@
       ]
     },
     {
-      "konu": "maliyet bedeline giren unsurlar",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 4
-        },
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "vuk maliyet bedeline dahil zorunlu unsurlar",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 4
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "sermaye payi iptal ve satis",
+      "konu": "nakit akış tablosu yatırım faaliyetleri",
       "ders": "Finansal Muhasebe",
       "soru": 5,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TTK",
-          "madde": "482",
-          "soru": 3
-        },
-        {
-          "kod": "TTK",
-          "madde": "483",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "amortisman yöntemi değişikliği",
-      "ders": "Vergi Hukuku",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 3
-        },
-        {
-          "kod": "VUK",
-          "madde": "320",
-          "soru": 2
-        }
-      ]
-    },
-    {
-      "konu": "calisma kagitlari",
-      "ders": "Denetim",
-      "soru": 5,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "283",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "64",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "174",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "ticari temsilci ve ticari vekil arasındaki farklar",
-      "ders": "Ticaret Hukuku",
-      "soru": 5,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "373",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "547",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "551",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "367",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kurumlar vergisi mukellefiyeti",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "soru": 5,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "KVK",
+          "kod": "TMS 7",
           "madde": "1",
-          "soru": 2
+          "soru": 3
         },
         {
-          "kod": "KVK",
-          "madde": "19",
-          "soru": 1
-        },
-        {
-          "kod": "KVK",
-          "madde": "2",
-          "soru": 1
-        },
-        {
-          "kod": "KVK",
-          "madde": "3",
+          "kod": "TMS 7",
+          "madde": "16",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "amortisman yöntemleri",
-      "ders": "Finansal Muhasebe",
+      "konu": "genel uretim gideri sapmasi",
+      "ders": "Maliyet Muhasebesi",
       "soru": 5,
       "madde_sayisi": 2,
       "maddeler": [
         {
           "kod": "VUK",
-          "madde": "315",
-          "soru": 4
+          "madde": "275",
+          "soru": 1
         },
         {
-          "kod": "VUK",
-          "madde": "317",
+          "kod": "TTK",
+          "madde": "516",
           "soru": 1
         }
       ]
@@ -3655,56 +3522,25 @@
       ]
     },
     {
-      "konu": "satış iskontosu muhasebe kaydı",
+      "konu": "karsilik gideri kaydi (ikramiye)",
       "ders": "Finansal Muhasebe",
       "soru": 5,
-      "madde_sayisi": 2,
+      "madde_sayisi": 3,
       "maddeler": [
         {
           "kod": "TTK",
           "madde": "720",
-          "soru": 3
+          "soru": 2
         },
-        {
-          "kod": "TTK",
-          "madde": "482",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "bds 501 fiziki stok sayimi",
-      "ders": "Denetim",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "BDS 501",
-          "madde": "5",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 501",
-          "madde": "6",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "gider hesaplari 690 devri",
-      "ders": "Finansal Muhasebe",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
         {
           "kod": "VUK",
-          "madde": "283",
-          "soru": 2
+          "madde": "288",
+          "soru": 1
         },
         {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 2
+          "kod": "KVK",
+          "madde": "11",
+          "soru": 1
         }
       ]
     },
@@ -3727,6 +3563,211 @@
       ]
     },
     {
+      "konu": "satış iskontosu muhasebe kaydı",
+      "ders": "Finansal Muhasebe",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 3
+        },
+        {
+          "kod": "TTK",
+          "madde": "482",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "bds 530 orneklem yontemi",
+      "ders": "Denetim",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "BDS 530",
+          "madde": "14",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 530",
+          "madde": "5",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kambiyo senetleri devir turu",
+      "ders": "Ticaret Hukuku",
+      "soru": 5,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "683",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "648",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "687",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "702",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "calisma kagitlari",
+      "ders": "Denetim",
+      "soru": 5,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "174",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "64",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "283",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "haksiz fiil tazminat indirimi",
+      "ders": "Borclar Hukuku",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "52",
+          "soru": 4
+        },
+        {
+          "kod": "TBK",
+          "madde": "51",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "protesto ve noterin belge saklama yukumlulugu",
+      "ders": "Ticaret Hukuku",
+      "soru": 5,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 2
+        },
+        {
+          "kod": "TMS 7",
+          "madde": "1",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 38",
+          "madde": "1",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "yatirim hizmetleri yerindelik testi",
+      "ders": "Hukuk",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "231",
+          "soru": 4
+        },
+        {
+          "kod": "5018",
+          "madde": "3",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "stok sayim fazlasi",
+      "ders": "Finansal Muhasebe",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "278",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "186",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "protesto ve noterin sakladigi belgeler",
+      "ders": "Ticaret Hukuku",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 3
+        },
+        {
+          "kod": "3568",
+          "madde": "29",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "amortisman yöntemleri",
+      "ders": "Finansal Muhasebe",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "315",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "317",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "satış iadesinin muhasebe kaydı",
       "ders": "Finansal Muhasebe",
       "soru": 5,
@@ -3740,6 +3781,42 @@
         {
           "kod": "KDVK",
           "madde": "35",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "maliyet bedeline giren unsurlar",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "sermaye payi iptal ve satis",
+      "ders": "Finansal Muhasebe",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "482",
+          "soru": 3
+        },
+        {
+          "kod": "TTK",
+          "madde": "483",
           "soru": 1
         }
       ]
@@ -3763,10 +3840,28 @@
       ]
     },
     {
-      "konu": "protesto ve noterin belge saklama yukumlulugu",
-      "ders": "Ticaret Hukuku",
+      "konu": "vuk maliyet bedeline dahil zorunlu unsurlar",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
       "soru": 5,
-      "madde_sayisi": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 4
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "gider hesaplari 690 devri",
+      "ders": "Finansal Muhasebe",
+      "soru": 5,
+      "madde_sayisi": 2,
       "maddeler": [
         {
           "kod": "TTK",
@@ -3775,63 +3870,30 @@
         },
         {
           "kod": "VUK",
-          "madde": "275",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 38",
-          "madde": "1",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "1",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kiymetli evrak ciro",
-      "ders": "Ticaret Hukuku",
-      "soru": 5,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "684",
+          "madde": "283",
           "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "682",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "683",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "681",
-          "soru": 1
         }
       ]
     },
     {
-      "konu": "stok sayim fazlasi",
+      "konu": "tms 1 finansal tablo sunumu",
       "ders": "Finansal Muhasebe",
       "soru": 5,
-      "madde_sayisi": 2,
+      "madde_sayisi": 3,
       "maddeler": [
         {
-          "kod": "VUK",
-          "madde": "278",
-          "soru": 4
+          "kod": "TMS 1",
+          "madde": "1",
+          "soru": 3
         },
         {
-          "kod": "VUK",
-          "madde": "186",
+          "kod": "TMS 1",
+          "madde": "32",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 1",
+          "madde": "87",
           "soru": 1
         }
       ]
@@ -3860,55 +3922,157 @@
       ]
     },
     {
-      "konu": "protesto ve noterin sakladigi belgeler",
+      "konu": "ticari temsilci ve ticari vekil arasındaki farklar",
       "ders": "Ticaret Hukuku",
       "soru": 5,
-      "madde_sayisi": 2,
+      "madde_sayisi": 4,
       "maddeler": [
         {
           "kod": "TTK",
-          "madde": "720",
-          "soru": 3
+          "madde": "373",
+          "soru": 2
         },
         {
-          "kod": "3568",
-          "madde": "29",
+          "kod": "TTK",
+          "madde": "367",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "547",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "551",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "tms 1 finansal tablo sunumu",
-      "ders": "Finansal Muhasebe",
+      "konu": "kiymetli evrak ciro",
+      "ders": "Ticaret Hukuku",
       "soru": 5,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "684",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "682",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "681",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "683",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "amortisman yöntemi değişikliği",
+      "ders": "Vergi Hukuku",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 3
+        },
+        {
+          "kod": "VUK",
+          "madde": "320",
+          "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "kurumlar vergisi mukellefiyeti",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "soru": 5,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "KVK",
+          "madde": "1",
+          "soru": 2
+        },
+        {
+          "kod": "KVK",
+          "madde": "3",
+          "soru": 1
+        },
+        {
+          "kod": "KVK",
+          "madde": "2",
+          "soru": 1
+        },
+        {
+          "kod": "KVK",
+          "madde": "19",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "bds 501 fiziki stok sayimi",
+      "ders": "Denetim",
+      "soru": 5,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "BDS 501",
+          "madde": "6",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 501",
+          "madde": "5",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "stok değerlemesi ve net gerçekleşebilir değer",
+      "ders": "Finansal Muhasebe",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TMS 2",
+          "madde": "1",
+          "soru": 2
+        },
+        {
+          "kod": "VUK",
+          "madde": "278",
+          "soru": 2
+        }
+      ]
+    },
+    {
+      "konu": "ozel maliyet gideri",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 4,
       "madde_sayisi": 3,
       "maddeler": [
         {
-          "kod": "TMS 1",
-          "madde": "1",
-          "soru": 3
+          "kod": "VUK",
+          "madde": "327",
+          "soru": 2
         },
         {
-          "kod": "TMS 1",
-          "madde": "32",
-          "soru": 1
-        },
-        {
-          "kod": "TMS 1",
-          "madde": "87",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "genel uretim gideri sapmasi",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "516",
+          "kod": "VUK",
+          "madde": "272",
           "soru": 1
         },
         {
@@ -3919,155 +4083,175 @@
       ]
     },
     {
-      "konu": "bds 530 orneklem yontemi",
-      "ders": "Denetim",
-      "soru": 5,
-      "madde_sayisi": 2,
+      "konu": "genel işlem şartları",
+      "ders": "Ticaret Hukuku",
+      "soru": 4,
+      "madde_sayisi": 3,
       "maddeler": [
         {
-          "kod": "BDS 530",
-          "madde": "14",
+          "kod": "TBK",
+          "madde": "20",
+          "soru": 2
+        },
+        {
+          "kod": "TBK",
+          "madde": "21",
           "soru": 1
         },
         {
-          "kod": "BDS 530",
+          "kod": "TBK",
+          "madde": "23",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "gelir tahakkuku kaydi",
+      "ders": "Finansal Muhasebe",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "283",
+          "soru": 2
+        },
+        {
+          "kod": "3568",
+          "madde": "29",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "bds 500 uzman calismasi belgelendirme",
+      "ders": "Denetim",
+      "soru": 4,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "BDS 500",
+          "madde": "9",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 500",
+          "madde": "6",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 500",
+          "madde": "8",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 500",
           "madde": "5",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "yatirim hizmetleri yerindelik testi",
-      "ders": "Hukuk",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "231",
-          "soru": 4
-        },
-        {
-          "kod": "5018",
-          "madde": "3",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kambiyo senetleri devir turu",
-      "ders": "Ticaret Hukuku",
-      "soru": 5,
+      "konu": "serbest meslek kazanci",
+      "ders": "Meslek Hukuku",
+      "soru": 4,
       "madde_sayisi": 4,
       "maddeler": [
         {
-          "kod": "TTK",
-          "madde": "683",
+          "kod": "GVK",
+          "madde": "65",
+          "soru": 1
+        },
+        {
+          "kod": "GVK",
+          "madde": "66",
+          "soru": 1
+        },
+        {
+          "kod": "GVK",
+          "madde": "68",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "236",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "denetim sözleşmesi kabulu ve kapsam sınırlaması",
+      "ders": "Muhasebe Denetimi",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "4857",
+          "madde": "11",
           "soru": 2
         },
         {
-          "kod": "TTK",
-          "madde": "687",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "648",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "702",
+          "kod": "BDS 705",
+          "madde": "6",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "haksiz fiil tazminat indirimi",
-      "ders": "Borclar Hukuku",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "52",
-          "soru": 4
-        },
-        {
-          "kod": "TBK",
-          "madde": "51",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "nakit akış tablosu yatırım faaliyetleri",
-      "ders": "Finansal Muhasebe",
-      "soru": 5,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TMS 7",
-          "madde": "1",
-          "soru": 3
-        },
-        {
-          "kod": "TMS 7",
-          "madde": "16",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "karsilik gideri kaydi (ikramiye)",
-      "ders": "Finansal Muhasebe",
-      "soru": 5,
+      "konu": "anonim sirket temsili",
+      "ders": "Ticaret Hukuku",
+      "soru": 4,
       "madde_sayisi": 3,
       "maddeler": [
         {
           "kod": "TTK",
-          "madde": "720",
+          "madde": "371",
           "soru": 2
         },
         {
-          "kod": "VUK",
-          "madde": "288",
+          "kod": "TTK",
+          "madde": "373",
           "soru": 1
         },
-        {
-          "kod": "KVK",
-          "madde": "11",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "likidite oranlari",
-      "ders": "Mali Tablolar Analizi",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
         {
           "kod": "TTK",
-          "madde": "516",
-          "soru": 3
-        },
-        {
-          "kod": "TMS 1",
-          "madde": "66",
+          "madde": "367",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "devir hizi ve kaldirac hesabi",
-      "ders": "Mali Tablolar Analizi",
+      "konu": "genel işlem şartlarının yorumlanması",
+      "ders": "Ticaret Hukuku",
+      "soru": 4,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "23",
+          "soru": 2
+        },
+        {
+          "kod": "TBK",
+          "madde": "24",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "22",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "maliyet bedeline dahil edilecek unsurlar (vuk m.262)",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
           "kod": "VUK",
-          "madde": "278",
+          "madde": "275",
           "soru": 3
         },
         {
@@ -4096,234 +4280,78 @@
       ]
     },
     {
-      "konu": "analitik prosedürler",
+      "konu": "bds 700 gorus bolumu unsurlari",
       "ders": "Denetim",
       "soru": 4,
       "madde_sayisi": 3,
       "maddeler": [
         {
-          "kod": "BDS 520",
-          "madde": "5",
+          "kod": "BDS 700",
+          "madde": "24",
           "soru": 1
         },
         {
-          "kod": "TTK",
-          "madde": "375",
+          "kod": "BDS 700",
+          "madde": "26",
           "soru": 1
         },
         {
-          "kod": "BDS 520",
-          "madde": "4",
+          "kod": "BDS 700",
+          "madde": "28",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "haksiz fiil ispat yuku",
-      "ders": "Borclar Hukuku",
-      "soru": 4,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "67",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "65",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "66",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "50",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "vuk maliyet bedeline dahil edilecek unsurlar",
-      "ders": "Vergi Hukuku",
+      "konu": "protesto belgesinin saklanmasi",
+      "ders": "Ticaret Hukuku",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "VUK",
-          "madde": "275",
+          "kod": "TTK",
+          "madde": "720",
           "soru": 3
         },
         {
           "kod": "TTK",
-          "madde": "720",
+          "madde": "482",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "serbest meslek kazanci",
-      "ders": "Meslek Hukuku",
-      "soru": 4,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "GVK",
-          "madde": "66",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "236",
-          "soru": 1
-        },
-        {
-          "kod": "GVK",
-          "madde": "65",
-          "soru": 1
-        },
-        {
-          "kod": "GVK",
-          "madde": "68",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "anonim sirket temsili",
-      "ders": "Ticaret Hukuku",
-      "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "371",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "367",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "373",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "hesap isleyisi",
+      "konu": "maddi olmayan duran varlik muhasebesi",
       "ders": "Finansal Muhasebe",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TTK",
-          "madde": "720",
+          "kod": "TMS 38",
+          "madde": "1",
           "soru": 2
         },
         {
           "kod": "VUK",
-          "madde": "313",
+          "madde": "269",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "denetim sözleşmesi kabulu ve kapsam sınırlaması",
-      "ders": "Muhasebe Denetimi",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "4857",
-          "madde": "11",
-          "soru": 2
-        },
-        {
-          "kod": "BDS 705",
-          "madde": "6",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "maliyet bedeline dahil edilecek unsurlar (vuk m.262)",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 3
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "merkezi takas kurulusu",
-      "ders": "Sermaye Piyasası Mevzuatı",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "6362",
-          "madde": "77",
-          "soru": 2
-        },
-        {
-          "kod": "5018",
-          "madde": "12",
-          "soru": 2
-        }
-      ]
-    },
-    {
-      "konu": "sermaye artirimi kaydi",
+      "konu": "menkul kiymetler deger dusuklugu karsiligi",
       "ders": "Finansal Muhasebe",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TTK",
-          "madde": "720",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "456",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "haksız rekabet yasagi",
-      "ders": "Ticaret Hukuku",
-      "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "TTK",
-          "madde": "55",
-          "soru": 2
-        },
-        {
-          "kod": "TTK",
-          "madde": "52",
+          "kod": "VUK",
+          "madde": "279",
           "soru": 1
         },
         {
-          "kod": "TTK",
-          "madde": "56",
+          "kod": "VUK",
+          "madde": "278",
           "soru": 1
         }
       ]
@@ -4347,47 +4375,152 @@
       ]
     },
     {
-      "konu": "bds 500 uzman calismasi belgelendirme",
-      "ders": "Denetim",
+      "konu": "haksız rekabet yasagi",
+      "ders": "Ticaret Hukuku",
       "soru": 4,
-      "madde_sayisi": 4,
+      "madde_sayisi": 3,
       "maddeler": [
         {
-          "kod": "BDS 500",
-          "madde": "9",
+          "kod": "TTK",
+          "madde": "55",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "56",
           "soru": 1
         },
         {
-          "kod": "BDS 500",
-          "madde": "5",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 500",
-          "madde": "8",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 500",
-          "madde": "6",
+          "kod": "TTK",
+          "madde": "52",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "sermaye artirimi hisse ihrac primi",
-      "ders": "Finansal Muhasebe",
+      "konu": "secimlik borc",
+      "ders": "Borclar Hukuku",
+      "soru": 4,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "27",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "24",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "405",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "87",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kismi bolunme turleri",
+      "ders": "Sermaye Piyasası Mevzuatı",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "KVK",
-          "madde": "5",
+          "kod": "4857",
+          "madde": "13",
+          "soru": 3
+        },
+        {
+          "kod": "6362",
+          "madde": "48",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "kdv belgesiz mal",
+      "ders": "Vergi Hukuku",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "353",
           "soru": 2
         },
         {
           "kod": "KDVK",
+          "madde": "9",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "maliyet bedeli hesaplama",
+      "ders": "Finansal Muhasebe",
+      "soru": 4,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 2
+        },
+        {
+          "kod": "VUK",
+          "madde": "270",
+          "soru": 1
+        },
+        {
+          "kod": "TMS 2",
           "madde": "1",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "muhasebe bilgi sistemi",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "227",
+          "soru": 3
+        },
+        {
+          "kod": "VUK",
+          "madde": "233",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "normal kapasite sabit gug payi",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 4,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "TMS 2",
+          "madde": "1",
+          "soru": 2
+        },
+        {
+          "kod": "TTK",
+          "madde": "516",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "275",
           "soru": 1
         }
       ]
@@ -4416,365 +4549,73 @@
       ]
     },
     {
-      "konu": "kismi bolunme turleri",
+      "konu": "merkezi takas kurulusu",
       "ders": "Sermaye Piyasası Mevzuatı",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "4857",
-          "madde": "13",
-          "soru": 3
+          "kod": "5018",
+          "madde": "12",
+          "soru": 2
         },
         {
           "kod": "6362",
-          "madde": "48",
-          "soru": 1
+          "madde": "77",
+          "soru": 2
         }
       ]
     },
     {
-      "konu": "secimlik borc",
-      "ders": "Borclar Hukuku",
-      "soru": 4,
-      "madde_sayisi": 4,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "87",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "24",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "405",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "27",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "bds 700 gorus bolumu unsurlari",
+      "konu": "ic kontrol sistemi ozellikleri",
       "ders": "Denetim",
       "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "BDS 700",
-          "madde": "24",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 700",
-          "madde": "28",
-          "soru": 1
-        },
-        {
-          "kod": "BDS 700",
-          "madde": "26",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "ucret sozlesmesi esaslari",
-      "ders": "Borclar Hukuku",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "401",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "404",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "maliyet bedeli hesaplama",
-      "ders": "Finansal Muhasebe",
-      "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 2
-        },
-        {
-          "kod": "TMS 2",
-          "madde": "1",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "270",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "kdv belgesiz mal",
-      "ders": "Vergi Hukuku",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "353",
-          "soru": 2
-        },
-        {
-          "kod": "KDVK",
-          "madde": "9",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "menkul kiymetler deger dusuklugu karsiligi",
-      "ders": "Finansal Muhasebe",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "279",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "278",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "gelir tahakkuku kaydi",
-      "ders": "Finansal Muhasebe",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "283",
-          "soru": 2
-        },
-        {
-          "kod": "3568",
-          "madde": "29",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "maddi olmayan duran varlik muhasebesi",
-      "ders": "Finansal Muhasebe",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "TMS 38",
-          "madde": "1",
-          "soru": 2
-        },
-        {
-          "kod": "VUK",
-          "madde": "269",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "muhasebe bilgi sistemi",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "227",
-          "soru": 3
-        },
-        {
-          "kod": "VUK",
-          "madde": "233",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "yarı mamul maliyet bedeli hesaplama",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 4,
-      "madde_sayisi": 2,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 3
-        },
-        {
-          "kod": "VUK",
-          "madde": "262",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "limited sirket sona erme",
-      "ders": "Ticaret Hukuku",
-      "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
           "kod": "TTK",
-          "madde": "636",
+          "madde": "375",
           "soru": 3
         },
         {
-          "kod": "TTK",
-          "madde": "637",
+          "kod": "VUK",
+          "madde": "231",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "protesto belgesinin saklanmasi",
-      "ders": "Ticaret Hukuku",
+      "konu": "sermaye artirimi kaydi",
+      "ders": "Finansal Muhasebe",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
           "kod": "TTK",
           "madde": "720",
-          "soru": 3
-        },
-        {
-          "kod": "TTK",
-          "madde": "482",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "genel işlem şartları",
-      "ders": "Ticaret Hukuku",
-      "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "TBK",
-          "madde": "20",
           "soru": 2
         },
         {
-          "kod": "TBK",
-          "madde": "23",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "21",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "normal kapasite sabit gug payi",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "TMS 2",
-          "madde": "1",
-          "soru": 2
-        },
-        {
-          "kod": "VUK",
-          "madde": "275",
-          "soru": 1
-        },
-        {
           "kod": "TTK",
-          "madde": "516",
+          "madde": "456",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "stok değerlemesi ve net gerçekleşebilir değer",
+      "konu": "sermaye artirimi hisse ihrac primi",
       "ders": "Finansal Muhasebe",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TMS 2",
+          "kod": "KVK",
+          "madde": "5",
+          "soru": 2
+        },
+        {
+          "kod": "KDVK",
           "madde": "1",
-          "soru": 2
-        },
-        {
-          "kod": "VUK",
-          "madde": "278",
-          "soru": 2
-        }
-      ]
-    },
-    {
-      "konu": "alicilar denetim programi",
-      "ders": "Denetim",
-      "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "171",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "323",
-          "soru": 1
-        },
-        {
-          "kod": "TTK",
-          "madde": "64",
-          "soru": 1
-        }
-      ]
-    },
-    {
-      "konu": "ozel maliyet gideri",
-      "ders": "Maliyet Muhasebesi",
-      "soru": 4,
-      "madde_sayisi": 3,
-      "maddeler": [
-        {
-          "kod": "VUK",
-          "madde": "327",
-          "soru": 2
-        },
-        {
-          "kod": "VUK",
-          "madde": "272",
-          "soru": 1
-        },
-        {
-          "kod": "VUK",
-          "madde": "275",
           "soru": 1
         }
       ]
@@ -4803,6 +4644,106 @@
       ]
     },
     {
+      "konu": "alicilar denetim programi",
+      "ders": "Denetim",
+      "soru": 4,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "323",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "64",
+          "soru": 1
+        },
+        {
+          "kod": "VUK",
+          "madde": "171",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "vuk maliyet bedeline dahil edilecek unsurlar",
+      "ders": "Vergi Hukuku",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 3
+        },
+        {
+          "kod": "TTK",
+          "madde": "720",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "analitik prosedürler",
+      "ders": "Denetim",
+      "soru": 4,
+      "madde_sayisi": 3,
+      "maddeler": [
+        {
+          "kod": "BDS 520",
+          "madde": "5",
+          "soru": 1
+        },
+        {
+          "kod": "TTK",
+          "madde": "375",
+          "soru": 1
+        },
+        {
+          "kod": "BDS 520",
+          "madde": "4",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "ucret sozlesmesi esaslari",
+      "ders": "Borclar Hukuku",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "404",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "401",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "likidite oranlari",
+      "ders": "Mali Tablolar Analizi",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "TTK",
+          "madde": "516",
+          "soru": 3
+        },
+        {
+          "kod": "TMS 1",
+          "madde": "66",
+          "soru": 1
+        }
+      ]
+    },
+    {
       "konu": "arastirma ve gelistirme giderlerinin muhasebeleştirilmesi",
       "ders": "Finansal Muhasebe",
       "soru": 4,
@@ -4810,53 +4751,112 @@
       "maddeler": [
         {
           "kod": "TMS 38",
-          "madde": "54",
+          "madde": "1",
           "soru": 1
         },
         {
           "kod": "TMS 38",
-          "madde": "1",
+          "madde": "54",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "ic kontrol sistemi ozellikleri",
-      "ders": "Denetim",
+      "konu": "yarı mamul maliyet bedeli hesaplama",
+      "ders": "Maliyet Muhasebesi",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "275",
+          "soru": 3
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "haksiz fiil ispat yuku",
+      "ders": "Borclar Hukuku",
+      "soru": 4,
+      "madde_sayisi": 4,
+      "maddeler": [
+        {
+          "kod": "TBK",
+          "madde": "67",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "50",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "65",
+          "soru": 1
+        },
+        {
+          "kod": "TBK",
+          "madde": "66",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "devir hizi ve kaldirac hesabi",
+      "ders": "Mali Tablolar Analizi",
+      "soru": 4,
+      "madde_sayisi": 2,
+      "maddeler": [
+        {
+          "kod": "VUK",
+          "madde": "278",
+          "soru": 3
+        },
+        {
+          "kod": "VUK",
+          "madde": "262",
+          "soru": 1
+        }
+      ]
+    },
+    {
+      "konu": "limited sirket sona erme",
+      "ders": "Ticaret Hukuku",
       "soru": 4,
       "madde_sayisi": 2,
       "maddeler": [
         {
           "kod": "TTK",
-          "madde": "375",
+          "madde": "636",
           "soru": 3
         },
         {
-          "kod": "VUK",
-          "madde": "231",
+          "kod": "TTK",
+          "madde": "637",
           "soru": 1
         }
       ]
     },
     {
-      "konu": "genel işlem şartlarının yorumlanması",
-      "ders": "Ticaret Hukuku",
+      "konu": "hesap isleyisi",
+      "ders": "Finansal Muhasebe",
       "soru": 4,
-      "madde_sayisi": 3,
+      "madde_sayisi": 2,
       "maddeler": [
         {
-          "kod": "TBK",
-          "madde": "23",
+          "kod": "TTK",
+          "madde": "720",
           "soru": 2
         },
         {
-          "kod": "TBK",
-          "madde": "24",
-          "soru": 1
-        },
-        {
-          "kod": "TBK",
-          "madde": "22",
+          "kod": "VUK",
+          "madde": "313",
           "soru": 1
         }
       ]
