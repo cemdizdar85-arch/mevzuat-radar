@@ -295,6 +295,9 @@ $DERS_KANUN=@{
   'Turkce'=@('TEORI','Teori Notu'); 'Matematik'=@('TEORI','Teori Notu'); 'Yabanci Dil'=@('TEORI','Teori Notu'); 'Ataturk Ilke'=@('TEORI','Teori Notu')
   'Ekonomi'=@('TEORI','Teori Notu'); 'Maliye'=@('TEORI','Teori Notu','Kamu Malî Yönetimi K. (5018 s.K.)')
   # 08.09 Tur 1 Denetim ölçümü: hakem reddinin bir kısmı BDS metninde olmayan ders kitabı kavramı (denetim hedefleri/yönetim beyanları, risk modeli çarpımı, denetim türleri) → TEORI notları yedek kaynak
+  # 09.09 00:48 MTA kolay ÖLÇÜLDÜ: 32 konu → 19 soru → 9 yayın; kaynak borcu 9 (cari oran/asit-test, çalışma sermayesi, F/K). SGS ders adı 'Mali Tablolar Analizi'
+  # listede YOKTU (yalnız SMMM 'Finansal Tablolar ve Analizi' vardı) → ders kanunu/teori araması hiç çalışmadı. Ambarda 21 oran + 8 dikey + 5 likidite notu var.
+  'Mali Tablolar Analizi'=@('TEORI','Teori Notu','TMS','THP')
   'Denetim'=@('BDS','TEORI','Teori Notu'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
   'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')
