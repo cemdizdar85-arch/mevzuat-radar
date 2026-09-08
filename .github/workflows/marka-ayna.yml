@@ -24,10 +24,24 @@ name: Marka Aynasi
 #  kosuda ilk dilimleri isler (motor/marka-ayna-hasat.ps1). TMview hala
 #  engelliyorsa plan sirasinda KAYNAK ENGELI firlatir, kosu KIRMIZI biter ve
 #  log sebebi soyler - bu da olcumdur ("engel kalkti mi?" sorusunun cevabi).
+#
+#  08.09 03:57 TR OLCUM SONUCU (kosu 14, elle tetik): plan kurulmaya
+#  baslandi, ilk TMview istegi "An error occurred while sending the request"
+#  (3 deneme, baglanti duzeyinde). Ayni saatte Cem'in makinesinden de curl
+#  000 / "baglanti kapatildi". Yani TMview hem GitHub'i hem bizi AG
+#  DUZEYINDE kesiyor; 30.08'deki JS engel sayfasindan da geri.
+#  KARAR (Cem "1.2.3 ucunu de yap", 1. madde): TMview gecmis sicil kaynagi
+#  olarak DEFTERDEN DUSTU. Gece cron'u KAPATILDI - her gece kirmizi yanip
+#  "engel var" demek olcum degil gurultu olurdu. Elle tetik (Run workflow)
+#  duruyor: engel kalkti mi diye bakmak isteyen bir kez kosturur; plan
+#  kendiliginden kurulur. Gecmis sicil icin alternatif kaynak (EUIPO acik
+#  veri kaydi) Cem'in kararinda; olculmeden vaat edilmez.
+#  Bu gece 04:20 koşusu da bu yüzden OLMAYACAK - kirmizi bekleme.
 # ============================================================================
 on:
-  schedule:
-    - cron: '20 1 * * *'    # her gece 04:20 TR - trafigin en dusuk oldugu saat
+  # schedule KAPALI (08.09 karari, yukarida). Geri acmak = bu iki satiri ac:
+  #   schedule:
+  #     - cron: '20 1 * * *'    # her gece 04:20 TR
   workflow_dispatch:
     inputs:
       mod:
