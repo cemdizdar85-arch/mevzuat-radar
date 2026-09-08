@@ -57,6 +57,11 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
     </div>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" id="t_btn">Sicilde ara</button><button class="btn ghost" id="t_ornek">Örnek: ARÇELİK</button></div>
     <div id="t_durum" class="mini" style="margin-top:10px"></div>
+    <!-- 08.09: BÜLTEN AMBARI - anında cevap. Sicil taraması saatler sürerken
+         kendi ambarımızdaki (Resmî Marka Bülteni) yayımlanmış başvurular
+         saniyede gelir. Yalnız YENİ BAŞVURULARI kapsar; düşmüş/yenilenmiş
+         sorusuna cevap vermez (o üstteki sicil taramasının işi). -->
+    <div id="b_sonuc"></div>
     <div id="t_sonuc"></div>
   </div>
 
@@ -201,6 +206,79 @@ try{ const nj=await (await fetch('veri/nice-siniflar.json')).json(); (nj.sinifla
 
 function durumYaz(m){ $('#t_durum').innerHTML=m; }
 
+/* ======================================================================
+   BÜLTEN AMBARI ARAMASI (08.09.2026 - Cem "1.2.3 üçünü de yap", 3. madde)
+   Sicil taraması robot kuyruğunda saatler sürüyor. Resmî Marka Bülteni
+   ambarımız (veri/sql-marka-bulten.sql, robot her gece 2017'ye doğru
+   iniyor) ise anon RPC ile SANİYEDE cevap verir: bu unvanla YAYIMLANMIŞ
+   başvurular + itiraz süresi. Kapsam sınırı ambardan okunur (marka_bulten_durum),
+   ezberden tarih yazılmaz.
+   ÇEKİRDEK: bültende sahip "8010422-EGE SERAMİK SAN. VE TİC. A.Ş. (TR) adres"
+   biçiminde; tam unvan ("… ANONİM ŞİRKETİ") kısaltmalarla tutmaz. Unvanın
+   ayırt edici baş kısmı alınır (hukuki biçim/sektör sözcüklerine kadar),
+   kullanıcı kutudan düzeltebilir.
+   KÖR KALMA: RPC zaman aşımı (57014) ya da fonksiyon yok (PGRST202) →
+   "başvuru yok" DENMEZ, "ambar cevap vermedi" denir.
+   ====================================================================== */
+const B_DUR=new Set(['sanayi','san','ticaret','tic','anonim','as','limited','ltd','sirketi','sti','ve','ithalat','ihracat','pazarlama','dis','ic','insaat','turizm','gida','tekstil','holding','sirket','kollektif','komandit','kooperatif','vakfi','dernegi','hizmetleri','hizmet','urunleri','mamulleri','sanayii','ticareti','muhendislik','danismanlik','yatirim','yatirimlari','enerji','lojistik','nakliyat','otomotiv','bilisim','teknoloji','teknolojileri','yazilim','ilac','kimya','makina','makine','metal','plastik','ambalaj','mobilya','elektrik','elektronik','medikal','saglik','egitim','organizasyon','reklam','matbaacilik','yayincilik','yapi','emlak','gayrimenkul','tarim','hayvancilik','madencilik','petrol','mensucat','konfeksiyon','deri','ayakkabi','kozmetik','temizlik','sigorta','finans','faktoring','leasing','bankasi','tas','ihr','ith','paz','tur','ins','tek','nak','oto','bil','mak','san.','tic.']);
+// 'İ'.toLowerCase() JS'te de "i" + U+0307 (birleşen nokta) verir - PS'teki
+// Norm() dersinin aynısı (30.08). Önce İ/I/ı elle i'ye çevrilir, sonra NFD ile
+// bütün birleşen işaretler (ç→c, ğ→g, ş→s, ö→o, ü→u, â→a) atılır.
+function bNorm(s){ return String(s||'').replace(/[İIı]/g,'i').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]/g,''); }
+function cekirdek(unvan){
+  // "A.Ş." tek sözcük kalmalı (a+ş → "as" durak sözcüğü); noktalama sözcük İÇİNDEN silinir
+  const kel=String(unvan||'').split(/\s+/).map(k=>k.replace(/[()"'.,;:]/g,'')).filter(Boolean);
+  const al=[];
+  for(const k of kel){ const n=bNorm(k); if(!n) continue; if(B_DUR.has(n)) break; al.push(k); }
+  if(!al.length && kel.length) al.push(kel[0]);
+  return al.join(' ');
+}
+let B_SON_UNVAN='', B_DURUM=null;
+async function ambarDurum(){
+  if(B_DURUM) return B_DURUM;
+  try{ const {data}=await sb.rpc('marka_bulten_durum'); B_DURUM=(Array.isArray(data)?data[0]:data)||null; }catch(e){ B_DURUM=null; }
+  return B_DURUM;
+}
+const trT=s=>{ if(!s) return ''; const p=String(s).slice(0,10).split('-'); return p.length===3?(p[2]+'.'+p[1]+'.'+p[0]):s; };
+async function bultenAra(unvan, cek){
+  const kutu=$('#b_sonuc'); if(!kutu) return;
+  const c=(cek!=null?cek:cekirdek(unvan)).trim();
+  B_SON_UNVAN=unvan;
+  const bas='<div class="kutu" style="margin-top:12px;border-color:color-mix(in srgb,var(--green) 30%,transparent)"><div style="font-weight:800;font-size:15px">📰 Bültende yayımlanmış başvurular <span class="rz" style="margin-left:6px">ANINDA</span></div>'+
+    '<div class="mini" style="margin:4px 0 8px">Resmî Marka Bülteni ambarımızdan, sicil taramasını beklemeden. Aranan sahip adı: <input class="gir" id="b_cek" style="width:auto;min-width:180px;display:inline-block;padding:4px 8px;font-size:12.5px" value="'+kac(c)+'"> <button class="btn ghost" id="b_btn" style="padding:5px 10px;font-size:12px">Yeniden ara</button></div>';
+  const kapa=()=>{ const b=$('#b_btn'); if(b) b.onclick=()=>bultenAra(B_SON_UNVAN, $('#b_cek').value); };
+  if(bNorm(c).length<3){ kutu.innerHTML=bas+'<div class="mini">Aranacak ad çok kısa (en az 3 harf). Kutuya firmanın ayırt edici adını yaz.</div></div>'; kapa(); return; }
+  kutu.innerHTML=bas+'<div class="mini">Ambara soruluyor…</div></div>'; kapa();
+  const [d,r]=await Promise.all([ambarDurum(), sb.rpc('marka_bulten_sahip',{p_unvan:c,p_tavan:500})]);
+  const kapsam=d&&d.ilk_yayin?('Ambar kapsamı: <b style="color:var(--ink)">'+trT(d.ilk_yayin)+' – '+trT(d.son_yayin)+'</b> arasındaki '+Number(d.bulten||0).toLocaleString('tr-TR')+' bülten, '+Number(d.kayit||0).toLocaleString('tr-TR')+' başvuru; robot her gece daha eski bültenleri ekliyor.'):'Ambar kapsamı okunamadı.';
+  if(r.error){
+    const m=String(r.error.message||''), kod=String(r.error.code||'');
+    let neden='Ambar cevap vermedi ('+kac(kod||m.slice(0,60))+').';
+    if(kod==='57014'||/timeout/i.test(m)) neden='Ambar bu arama için <b>zaman aşımına düştü</b> (sahip indeksi henüz basılmamış olabilir).';
+    if(kod==='PGRST202'||/not find the function/i.test(m)) neden='Ambar fonksiyonu bulunamadı.';
+    kutu.innerHTML=bas+'<div class="uyari" style="margin-top:6px">'+neden+' Bu <b>"başvuru yok" demek DEĞİL</b> — ölçülemedi. Üstteki sicil taraması ayrıca sürüyor.</div><div class="mini" style="margin-top:6px">'+kapsam+'</div></div>'; kapa(); return;
+  }
+  const L=Array.isArray(r.data)?r.data:[];
+  if(!L.length){
+    kutu.innerHTML=bas+'<div class="mini">Bu sahip adıyla ambardaki bültenlerde <b style="color:var(--ink)">yayımlanmış başvuru bulunamadı</b>. Kapsam dışı (daha eski) başvurular ve henüz yayımlanmamış olanlar burada görünmez; sicil taraması onları da getirir.</div><div class="mini" style="margin-top:6px">'+kapsam+'</div></div>'; kapa(); return;
+  }
+  const bugun=new Date(); bugun.setHours(0,0,0,0);
+  let acik=0;
+  const kart=L.map(x=>{
+    const son=pd(String(x.itiraz_son||'').slice(0,10)); const kalan=son?gun(son,bugun):null; const acikMi=kalan!=null&&kalan>=0; if(acikMi) acik++;
+    const it=acikMi?'<span class="rz" style="color:var(--amber);border-color:color-mix(in srgb,var(--amber) 45%,transparent)">İTİRAZ SÜRESİ AÇIK · '+kalan+' gün</span>':'<span class="rz">itiraz süresi doldu '+trT(x.itiraz_son)+'</span>';
+    return '<div class="kart '+(acikMi?'a':'n')+'"><div style="font-size:14.5px;font-weight:800">'+kac(x.ad)+' '+it+'</div>'+
+      '<div class="mini" style="margin-top:2px">'+kac(x.basvuru_no)+' · başvuru '+trT(x.basvuru_tarihi)+' · yayım '+trT(x.yayin_tarihi)+(x.sinif&&x.sinif.length?' · sınıf '+kac(x.sinif.join(', ')):'')+(x.sahip?' · sahip '+kac(x.sahip):'')+'</div></div>';
+  }).join('');
+  const kesik=L.length>=500?'<div class="mini" style="color:var(--amber);margin-top:6px">Liste 500 kayıtta kesildi; adı daraltıp yeniden ara.</div>':'';
+  kutu.innerHTML=bas+'<div class="ozetK" style="margin:6px 0 10px"><div><div class="b">'+L.length+'</div><div class="l">yayımlanmış başvuru</div></div><div><div class="b" style="color:'+(acik?'var(--amber)':'var(--ink)')+'">'+acik+'</div><div class="l">itiraz süresi açık (m.18, 2 ay)</div></div></div>'+
+    '<div style="max-height:420px;overflow:auto">'+kart+'</div>'+kesik+'<div class="mini" style="margin-top:8px">'+kapsam+' Yalnız yeni başvurular; "düşmüş mü / yenilenmiş mi" sorusunu sicil taraması cevaplar.</div></div>';
+  kapa();
+}
+// Kuyruğa talep AÇMADAN yalnız ambar aramasını denemek için (ölçüm/teyit):
+// konsolda __bultenAra('EGE SERAMİK SANAYİ VE TİCARET A.Ş.')
+window.__bultenAra=bultenAra;
+
 function sonucCiz(s, jeton){
   if(!s || !s.markalar || !s.markalar.length){
     $('#t_sonuc').innerHTML='<div class="uyari" style="margin-top:12px">Bu unvan adına <b>TÜRKPATENT sicilinde marka bulunamadı</b>. Unvanı sicildeki yazımıyla (ör. "… SANAYİ VE TİCARET ANONİM ŞİRKETİ") dene; kayıt gerçekten yoksa marka <b>korumasız</b> demektir — aynı ismi başkası tescil ettirebilir (SMK m.6).</div>';
@@ -336,7 +414,7 @@ async function yokla(jeton){
   const {data,error}=await sb.rpc('marka_talep_sonuc',{p_jeton:jeton});
   if(error){ durumYaz('<span style="color:var(--red)">Sonuç okunamadı: '+kac(error.message)+'</span>'); clearInterval(ZAMANLAYICI); return; }
   if(!data || data.durum==='yok'){ durumYaz('Bu bağlantıya ait tarama bulunamadı.'); clearInterval(ZAMANLAYICI); return; }
-  if(data.durum==='hazir'){ clearInterval(ZAMANLAYICI); durumYaz('✅ <b style="color:var(--ink)">'+kac(data.unvan)+'</b> için sicil taraması hazır.'); sonucCiz(data.sonuc, jeton); return; }
+  if(data.durum==='hazir'){ clearInterval(ZAMANLAYICI); durumYaz('✅ <b style="color:var(--ink)">'+kac(data.unvan)+'</b> için sicil taraması hazır.'); sonucCiz(data.sonuc, jeton); if(data.unvan && !B_SON_UNVAN) bultenAra(data.unvan); return; }
   if(data.durum==='hata'){ clearInterval(ZAMANLAYICI); durumYaz('<span style="color:var(--red)">Tarama yapılamadı: '+kac(data.hata||'bilinmeyen hata')+'</span>'); return; }
   const dk=Math.floor(DENEME*20/60);
   // Ölçüm (21.08): kuyruğu işleyen robot cron'u yoğunlukta 30-50 dk gecikiyor;
@@ -357,6 +435,7 @@ $('#t_btn').onclick=async()=>{
   if(unvan.length<3){ durumYaz('<span style="color:var(--red)">Unvanı yaz (en az 3 karakter).</span>'); return; }
   if(mail && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ durumYaz('<span style="color:var(--red)">E-posta geçerli görünmüyor.</span>'); return; }
   $('#t_btn').disabled=true; $('#t_sonuc').innerHTML=''; durumYaz('Sıraya alınıyor…');
+  bultenAra(unvan);   // ambar cevabı saniyede gelir, kuyruğu beklemez
   const {data,error}=await talepAc(unvan, mail||null);
   $('#t_btn').disabled=false;
   if(error){ durumYaz('<span style="color:var(--red)">Sıraya alınamadı: '+kac(error.message)+'</span>'); return; }

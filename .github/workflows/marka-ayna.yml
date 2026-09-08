@@ -15,8 +15,15 @@ name: Marka Aynasi
 #  yormadan, gunler icinde tamamlamak.
 #
 #  ILK KURULUM (Cem'in eli gerekiyor, bir kez):
-#    veri/sql-marka-ayna.sql -> Supabase SQL Editor
-#    sonra: Actions > Marka Aynasi > Run workflow > mod: plan
+#    veri/sql-marka-ayna.sql -> Supabase SQL Editor   (30.08'de basildi)
+#
+#  08.09 OLCUM: "sonra Run workflow > mod: plan" adimi HIC yapilmamisti.
+#  Robot 30.08'den beri her gece yesil bitip "Bekleyen dilim yok" diyordu;
+#  marka_ayna_durum() = 0 kayit / 0 dilim. Artik plan adimi elle DEGIL:
+#  gece kosusu dilim tablosunu bos bulunca plani kendisi kurar ve ayni
+#  kosuda ilk dilimleri isler (motor/marka-ayna-hasat.ps1). TMview hala
+#  engelliyorsa plan sirasinda KAYNAK ENGELI firlatir, kosu KIRMIZI biter ve
+#  log sebebi soyler - bu da olcumdur ("engel kalkti mi?" sorusunun cevabi).
 # ============================================================================
 on:
   schedule:

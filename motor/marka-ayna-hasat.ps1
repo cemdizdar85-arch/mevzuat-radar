@@ -303,7 +303,10 @@ if($Kuru -and $Bas -and $Son){
   return
 }
 
-if($Plan){
+# Plan kurma tek yerde: -Plan ile elle, ya da (08.09) gece kosusu plani bos
+# bulunca KENDILIGINDEN. Kaynak engeli plan sirasinda gelirse DilimSay firlatir,
+# kosu kirmizi biter ve log sebebi soyler - sessiz "bekleyen dilim yok" degil.
+function PlanKurVeYaz(){
   Write-Host 'DILIM PLANI kuruluyor (ozyinelemeli bolme)...'
   PlanKur ([datetime]::ParseExact('1900-01-01','yyyy-MM-dd',$null)) ([datetime]::Today) 0
   $t = ($script:PlanListe | Measure-Object -Property adet -Sum).Sum
@@ -318,6 +321,10 @@ if($Plan){
   }
   $rapor = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='plan'; dilim=$script:PlanListe.Count; toplam_kayit=$t }
   [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $rapor -Depth 4), (New-Object Text.UTF8Encoding($false)))
+}
+
+if($Plan){
+  PlanKurVeYaz
   return
 }
 
@@ -336,8 +343,21 @@ if($Gunluk){
 # --- varsayilan: bekleyen dilimleri isle ------------------------------------
 $bekleyen = SbOku ('marka_ayna_dilim?durum=eq.bekliyor&order=dilim.asc&limit=' + $DilimBasi)
 if(@($bekleyen).Count -eq 0){
-  Write-Host 'Bekleyen dilim yok. (Plan kurulmadiysa: -Plan ile kur.)'
-  return
+  # 08.09 OLCUM: 30.08'den beri her gece "Bekleyen dilim yok" deyip cikiyordu -
+  # plan HIC kurulmamisti (marka_ayna_durum: 0 kayit, 0 dilim). Robot yesil
+  # bitiyor, ayna "geliyor" saniliyordu; gercekte hicbir sey inmiyordu.
+  # Artik: dilim tablosu BOMBOS ise plan burada kurulur ve ayni kosuda ilk
+  # dilimler islenir. Tablo dolu ama bekleyen yoksa backfill gercekten bitmistir.
+  $herhangi = SbOku 'marka_ayna_dilim?select=dilim&limit=1'
+  if(@($herhangi).Count -eq 0){
+    Write-Host 'PLAN YOK (dilim tablosu bos) - plan kendiliginden kuruluyor.'
+    PlanKurVeYaz
+    $bekleyen = SbOku ('marka_ayna_dilim?durum=eq.bekliyor&order=dilim.asc&limit=' + $DilimBasi)
+  }
+  if(@($bekleyen).Count -eq 0){
+    Write-Host 'Bekleyen dilim yok: backfill tamamlanmis (dilim tablosu dolu, bekliyor satiri yok).'
+    return
+  }
 }
 Write-Host ("{0} dilim islenecek." -f @($bekleyen).Count)
 $topCekilen = 0; $topYazilan = 0; $hatali = 0
