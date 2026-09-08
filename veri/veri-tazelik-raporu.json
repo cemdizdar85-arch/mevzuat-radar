@@ -1,236 +1,229 @@
 {
-  "tarih": "07.09.2026 12:35",
+  "tarih": "08.09.2026 11:21",
   "olcu": "son git commit zamani",
-  "taze": 17,
-  "bayat": 4,
+  "taze": 18,
+  "bayat": 3,
   "bilincli_elle": 4,
   "tanimsiz": 29,
   "dosya_yok": 1,
   "bilincli_elleler": [
     {
       "dosya": "veri/hatirlatici-sablonlar.json",
-      "yas_gun": 56.0,
+      "yas_gun": 56.9,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: urun metni, veri degil - otomatiklesmesi ANLAMSIZ"
     },
     {
       "dosya": "veri/risk-merkezi.json",
-      "yas_gun": 19.2,
+      "yas_gun": 20.2,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: BILINCLI ELLE - hasatci mail atiyor, dosyaya basmiyor"
     },
     {
       "dosya": "veri/canli-deneme.json",
-      "yas_gun": 32.7,
+      "yas_gun": 33.6,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: sinav gunune bagli, elle tetiklenmesi BILINCLI"
     },
     {
       "dosya": "veri/alacak-ilan.json",
-      "yas_gun": 56.2,
+      "yas_gun": 57.2,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: VKN'li TOHUM dosya; canli besleme alacak-arsiv.json'da"
     }
   ],
   "bayatlar": [
     {
       "dosya": "veri/ihale-bulten-ilan.json",
-      "yas_saat": 240.9,
-      "yas_gun": 10.0,
+      "yas_saat": 263.7,
+      "yas_gun": 11.0,
       "azami_saat": 48.0,
       "not": "Ihale Radari bulteni. Olculen: 3141 / 7.339 KB."
     },
     {
       "dosya": "veri/marka-yeni-basvurular.json",
-      "yas_saat": 240.9,
-      "yas_gun": 10.0,
+      "yas_saat": 263.7,
+      "yas_gun": 11.0,
       "azami_saat": 192.0,
       "not": "Marka Izleme. Haftalik bulten oldugu icin dalgalanma paYI genis. Olculen: 31.037 / 3.276 KB."
     },
     {
       "dosya": "veri/cagri-radar.json",
-      "yas_saat": 189.3,
-      "yas_gun": 7.9,
+      "yas_saat": 212.0,
+      "yas_gun": 8.8,
       "azami_saat": 48.0,
       "not": "Destek cagrilari - 120 gunluk kayan pencere oldugu icin dogal dalgalanma var, tavan genis. Olculen: 134 / 63 KB."
-    },
-    {
-      "dosya": "veri/kartlar-guncel.json",
-      "yas_saat": 36.7,
-      "yas_gun": 1.5,
-      "azami_saat": 36.0,
-      "not": "Ana sayfa gunun kartlari. RG'de o gun duzenleme YOKSA kart sayisi mesru olarak 0'a yakin olabilir - bu yuzden dusus tavani cok genis, asil koruma asgari_kayit=1 (dosya en azindan kunye tasimali) ve bayatlik nobeti."
     }
   ],
   "tanimsizlar": [
     {
       "dosya": "veri/ihale-idare-ozet.json",
-      "yas_saat": 192.8,
-      "yas_gun": 8.0,
+      "yas_saat": 215.6,
+      "yas_gun": 9.0,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/yanveri-damga.json",
-      "yas_saat": 3.1,
+      "yas_saat": 2.4,
       "yas_gun": 0.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/siklik-kunyesi.json",
-      "yas_saat": 195.8,
-      "yas_gun": 8.2,
+      "yas_saat": 218.6,
+      "yas_gun": 9.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/ihale-firma-ozet.json",
-      "yas_saat": 192.8,
-      "yas_gun": 8.0,
+      "yas_saat": 215.6,
+      "yas_gun": 9.0,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-balik.json",
-      "yas_saat": 1368.5,
-      "yas_gun": 57.0,
+      "yas_saat": 1391.3,
+      "yas_gun": 58.0,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/eximbank-oran.json",
-      "yas_saat": 240.9,
-      "yas_gun": 10.0,
+      "yas_saat": 263.7,
+      "yas_gun": 11.0,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-damping.json",
-      "yas_saat": 190.8,
-      "yas_gun": 8.0,
+      "yas_saat": 213.6,
+      "yas_gun": 8.9,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/sik-istatistigi.json",
-      "yas_saat": 4.1,
-      "yas_gun": 0.2,
+      "yas_saat": 3.1,
+      "yas_gun": 0.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/nice-siniflar.json",
-      "yas_saat": 404.5,
-      "yas_gun": 16.9,
+      "yas_saat": 427.2,
+      "yas_gun": 17.8,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/sgs-analiz.json",
-      "yas_saat": 475.6,
-      "yas_gun": 19.8,
+      "yas_saat": 498.4,
+      "yas_gun": 20.8,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/iskur-tesvik.json",
-      "yas_saat": 240.9,
-      "yas_gun": 10.0,
+      "yas_saat": 263.7,
+      "yas_gun": 11.0,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-igv-ulke.json",
-      "yas_saat": 462.0,
-      "yas_gun": 19.2,
+      "yas_saat": 484.8,
+      "yas_gun": 20.2,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/kgf-paket.json",
-      "yas_saat": 240.9,
-      "yas_gun": 10.0,
+      "yas_saat": 263.7,
+      "yas_gun": 11.0,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-emy-tarim.json",
-      "yas_saat": 1372.0,
-      "yas_gun": 57.2,
+      "yas_saat": 1394.8,
+      "yas_gun": 58.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/radar-kiymet.json",
-      "yas_saat": 447.8,
-      "yas_gun": 18.7,
+      "yas_saat": 470.6,
+      "yas_gun": 19.6,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/birlik-urge.json",
-      "yas_saat": 240.9,
-      "yas_gun": 10.0,
+      "yas_saat": 263.7,
+      "yas_gun": 11.0,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/ihale-ted.json",
-      "yas_saat": 19.5,
-      "yas_gun": 0.8,
+      "yas_saat": 16.5,
+      "yas_gun": 0.7,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/konu-eslesme.json",
-      "yas_saat": 195.8,
-      "yas_gun": 8.2,
+      "yas_saat": 218.6,
+      "yas_gun": 9.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gunun-tuzagi.json",
-      "yas_saat": 2.1,
+      "yas_saat": 1.5,
       "yas_gun": 0.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-vergi-tarim.json",
-      "yas_saat": 190.9,
-      "yas_gun": 8.0,
+      "yas_saat": 213.7,
+      "yas_gun": 8.9,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/smmm-analiz.json",
-      "yas_saat": 475.6,
-      "yas_gun": 19.8,
+      "yas_saat": 498.4,
+      "yas_gun": 20.8,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/sinav-takvimi.json",
-      "yas_saat": 929.2,
-      "yas_gun": 38.7,
+      "yas_saat": 951.9,
+      "yas_gun": 39.7,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/teblig-damga.json",
-      "yas_saat": 4.8,
-      "yas_gun": 0.2,
+      "yas_saat": 3.3,
+      "yas_gun": 0.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/vitrin-sayilar.json",
-      "yas_saat": 150.9,
-      "yas_gun": 6.3,
+      "yas_saat": 6.1,
+      "yas_gun": 0.3,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/kart-durum.json",
-      "yas_saat": 12.7,
+      "yas_saat": 11.0,
       "yas_gun": 0.5,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-ulke-gruplari.json",
-      "yas_saat": 1372.6,
-      "yas_gun": 57.2,
+      "yas_saat": 1395.4,
+      "yas_gun": 58.1,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-askiya.json",
-      "yas_saat": 500.1,
-      "yas_gun": 20.8,
+      "yas_saat": 522.8,
+      "yas_gun": 21.8,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/rg-gun-durum.json",
-      "yas_saat": 497.7,
-      "yas_gun": 20.7,
+      "yas_saat": 520.5,
+      "yas_gun": 21.7,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     },
     {
       "dosya": "veri/gtip-nihai.json",
-      "yas_saat": 500.1,
-      "yas_gun": 20.8,
+      "yas_saat": 522.8,
+      "yas_gun": 21.8,
       "sebep": "sozlesmede azami_yas_saat tanimli degil"
     }
   ],
