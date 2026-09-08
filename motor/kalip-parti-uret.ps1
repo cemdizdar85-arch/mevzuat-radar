@@ -1739,6 +1739,9 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
     $hkKusur=@(HesapKodKapisi $aday)   # 06.09 KAPI-H: hesap kodu–resmî ad eşleşmesi
     $kvKusur=@(PencereKavram "$($aday.soru)")   # 06.09 KAPI-K: gövdede son N dönem sınavında hiç geçmeyen kök (anormal, kusurlu…)
+    # 08.09 Tur 1 denetim-cokzor ölçümü: 43 KAPI-K tekrarının çoğu TEK sıradan kelime ("teyide, edindiği, kesiksiz, çözülmüş") — pencere sözlüğü
+    # 119 soruluk, her Türkçe kelimeyi içermiyor. Tek kelime = rapor notu (tekrar yok); ≥2 kelime yine tekrar (Cem'in "anormal düzeltme" vakası 2 kelimeydi).
+    if($kvKusur.Count -eq 1){ $rapor.Add("KAPI-K NOTU (tek kelime, tekrar yok): $id | $($kvKusur[0])"); $kvKusur=@() }
     # 07.09 KAPI-T (fmuh-zor2 dersi, Ö53): çapa HESAPLAMA iken model tablosuz teori sorusu ("hangisi yanlıştır") yazdı; "tip çapadan"
     # yalnız istemdi, kapısı yoktu. Çapa hesaplama ise soru ≥2 satırlı çözüm tablosu taşımalı, yoksa yeniden (2 deneme).
     $tipKusur=''; if($CAPA_TIP.ContainsKey($id) -and $CAPA_TIP[$id] -eq 'hesaplama' -and -not ($aday.PSObject.Properties['cozum_tablo'] -and $aday.cozum_tablo -and @($aday.cozum_tablo.satirlar).Count -ge 2)){ $tipKusur='çapa hesaplama, soru tablosuz (teori biçimi)' }
@@ -2670,8 +2673,11 @@ foreach($id in @($don.Keys)){
   $gecici=@(GeciciMaddeNotu $cvp); $geciciNot=$(if($gecici.Count){ "DIKKAT: soru/dayanak gecici madde aniyor ($($gecici -join ', ')); gecici hukmun suresi kaynak metninde dolmussa ESKI." } else { '' })
   $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
   $yh=$null
-  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  # 08.09 Tur 1 kazası 2: hakem JSON'una güncellik+atıf alanları eklenince 600 jeton yetmedi, 65 sorunun 31'inde cevap KESİLDİ → "HAKEM CIKTISI BOZUK"
+  # yalnız rapora yazılıyordu, konsola değil; hakemsiz soru yayın şartını geçemedi (29 yayın kaybı). Tavan 1.600 + bozukluk konsola + kesilme notu.
+  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 1600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
   $hk=Coz $yh.metin
+  if(-not ($hk -and $hk.karar)){ Write-Host "  HAKEM ÇIKTISI BOZUK ($id): durma=$($yh.dur) · $("$($yh.metin)".Length) kr" -ForegroundColor Red }
   if($hk -and $hk.karar){
     $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force
     CacheYaz
@@ -2763,7 +2769,9 @@ foreach($id in @($don.Keys)){
   # "yuvarlak" iddiası yalnız bizim deterministik kuralımız da tutuyorsa (≥4 tutar, hepsi ONBİNLİK) sert sayılır — sınav soruları binlik yuvarlak tutar kullanır,
   # hakem2 08.09 testinde 40.000/58.000/66.000 gibi sınav-benzeri tutarları "yuvarlak" diye düşürüyordu. "Birbirinin tam tersi şık" (4c sızıntı) sert.
   $detKoku=@(KokuKusur $cvp); $detYuvarlak=[bool]($detKoku -match 'yuvarlak')
-  $kokuSert=@($koku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda|birbirinin (tam )?tersi' -or ($detYuvarlak -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' })
+  # 08.09 Tur 1 denetim-cokzor: "birbirinin tam tersi şık" sert sayılıyordu ama KAPI-Ş TAM BUNU İSTİYOR (her tutar iki yönle; SGS 2020/3 ölçümü) →
+  # 9 hakem2 reddinin çoğu buydu; sert listesinden çıkarıldı (koku_not'ta kalır).
+  $kokuSert=@($koku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -or ($detYuvarlak -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' -and $_ -notmatch '(?i)birbirinin (tam )?tersi' })
   $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $kokuSert.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
   $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($kokuSert); koku_not=@($koku | Where-Object { $kokuSert -notcontains $_ }); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz
