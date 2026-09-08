@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marka Radarı — markanla ilgili her şey tek yerde (portföy · yenileme · itiraz) | Tetikte</title>
-<meta name="description" content="Firma unvanını yaz, sicildeki bütün markaların gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
+<meta name="description" content="Firma unvanını yaz: bültende yayımlanmış başvuruların anında, sicildeki tam liste robot taramasıyla gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -12,13 +12,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/marka-radari.html">
 <meta property="og:title" content="Marka Radarı — markanla ilgili her şey tek yerde (portföy · yenileme · itiraz)">
-<meta property="og:description" content="Firma unvanını yaz, sicildeki bütün markaların gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
+<meta property="og:description" content="Firma unvanını yaz: bültende yayımlanmış başvuruların anında, sicildeki tam liste robot taramasıyla gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Marka Radarı — markanla ilgili her şey tek yerde (portföy · yenileme · itiraz)">
-<meta name="twitter:description" content="Firma unvanını yaz, sicildeki bütün markaların gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
+<meta name="twitter:description" content="Firma unvanını yaz: bültende yayımlanmış başvuruların anında, sicildeki tam liste robot taramasıyla gelsin. Koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23); benzer başvuru çıkarsa itiraz süren yayımdan 2 ay (m.18). Portföy, yenileme, benzer başvuru, itiraz ve lisans/devir araçları tek sayfada.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <meta name="theme-color" content="#1b1a18">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -93,7 +93,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        LINK AMELIYATI YOK - site zaten buraya bakiyordu. -->
   <div><span class="gozalici">⏰ Markan sessizce düşebilir · süre başvurudan itibaren 10 yıl</span></div>
   <h1>Markanla ilgili her şey burada</h1>
-  <p class="lead">Firma unvanını yaz, <b style="color:var(--ink)">sicildeki bütün markaların</b> tarihleriyle gelsin. Marka adı bilmene gerek yok — koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23).</p>
+  <!-- 08.09 VAAT DUZELTMESI (Cem "GM onerilerini yap"): "sicildeki butun
+       markalarin gelsin" vaadi TMview'e bagliydi; TMview 30.08'den beri
+       robotumuza cevap vermiyor (08.09 gercek talep: hata). Onde artik
+       bulten ambari (anlik, bizim), sicil taramasi ikinci sirada ve
+       "kaynak cevap verdiginde" kaydiyla. -->
+  <p class="lead">Firma unvanını yaz, <b style="color:var(--ink)">bültende yayımlanmış başvuruların anında</b> gelsin; sicildeki tam liste (düşmüş, yenilenmiş) robot taramasıyla. Marka adı bilmene gerek yok — koruma başvurudan 10 yıl, yenileme penceresi son 6 ay (SMK m.23).</p>
 
   <!-- Asil is en ustte. Tarama mantigi marka-portfoy.html'de TEK yerde durur;
        burasi yalnizca unvani tasir (?unvan=...), orada ayni dugmeye basilir.
@@ -101,9 +106,23 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="form" style="margin-bottom:16px">
     <label for="mm_unvan">FİRMA UNVANIN</label>
     <input class="gir" id="mm_unvan" placeholder="ör. EGE SERAMİK SANAYİ VE TİCARET ANONİM ŞİRKETİ" autocomplete="organization">
-    <button class="btn" id="mm_btn">Sicildeki markalarımı getir →</button>
-    <div class="mini" style="margin-top:9px;color:var(--dim)">Ücretsiz, üyelik istemez. Unvanı sicildeki yazımıyla yaz; yazım varyantlarını (A.Ş. / ANONİM ŞİRKETİ) robot kendisi birleştirir.</div>
+    <button class="btn" id="mm_btn">Markalarımı getir →</button>
+    <div class="mini" style="margin-top:9px;color:var(--dim)">Ücretsiz, üyelik istemez. Bülten ambarı (2022'den bu yana yayımlanan başvurular) anında cevap verir; sicil taraması robot kuyruğunda saatler sürer ve kaynağın cevap vermesine bağlıdır. Yazım varyantlarını (A.Ş. / ANONİM ŞİRKETİ) robot kendisi birleştirir.</div>
+    <div id="mm_nabiz"></div>
   </div>
+  <script>
+  // 08.09 sicil kaynagi nabzi - veri/marka-kaynak-nabiz.json yalniz basarili
+  // TMview hasadinda yazilir; 3 gunden eskiyse burada soylenir.
+  (function(){
+    fetch('veri/marka-kaynak-nabiz.json?'+Date.now()).then(function(r){return r.json();}).then(function(n){
+      var ct=n&&n.cekim?new Date(n.cekim):null; if(!ct||isNaN(ct)) return;
+      var g=Math.floor((Date.now()-ct.getTime())/86400000); if(g<3) return;
+      var p=String(n.cekim).slice(0,10).split('-'); var t=p.length===3?(p[2]+'.'+p[1]+'.'+p[0]):n.cekim;
+      var k=document.getElementById('mm_nabiz'); if(!k) return;
+      k.innerHTML='<div class="mini" style="margin-top:8px;padding:8px 10px;border-radius:9px;border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);color:var(--amber)">⚠️ Sicil kaynağı (TMview) <b>'+g+' gündür</b> robotumuza cevap vermiyor (son başarılı çekim '+t+'). Sicil taraması büyük olasılıkla "kaynak yanıt vermedi" dönecek; <b>bülten ambarı bundan bağımsız, anında çalışıyor.</b></div>';
+    }).catch(function(){});
+  })();
+  </script>
 
   <!-- Bes aracin listesi marka-serit.js'te TEK dizide durur; yeni marka araci
        eklenince yalniz orasi degisir, bu sayfa kendiliginden ogrenir. -->
@@ -155,7 +174,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="kutu" style="border-color:rgba(255,194,75,.3)">
     <h3>Markan yok ya da emin değil misin?</h3>
     <div style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:11px">Firma adın, ürün/hizmet adın veya logon <b>TÜRKPATENT'te tescilli değilse</b>, başkası aynısını tescil ettirip <b>seni kendi markanda durdurabilir</b>. Türkiye'de kural: <b>ilk başvuran hak sahibi</b> (SMK m.6). Emin değilsen sana ait tescilli marka var mı kontrol edelim; korumasızsan tescil için yönlendirelim.</div>
-    <div style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:11px">🔎 <b style="color:var(--ink)">Hangi markaların olduğunu bilmiyor musun?</b> <a href="marka-portfoy.html" style="font-weight:700">Firma unvanını yaz</a>, sicildeki bütün markalarını tarihleriyle getirelim — hangisi güvende, hangisinin yenileme penceresi açıldı, hangisi düşmüş.</div>
+    <div style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:11px">🔎 <b style="color:var(--ink)">Hangi markaların olduğunu bilmiyor musun?</b> <a href="marka-portfoy.html" style="font-weight:700">Firma unvanını yaz</a>: bültende yayımlanmış başvuruların anında, sicildeki tam liste (hangisi güvende, hangisinin yenileme penceresi açıldı, hangisi düşmüş) robot taramasıyla gelsin.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="kmail" type="email" placeholder="ornek@firma.com" style="flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:var(--yuzey);color:var(--ink);font-family:inherit;font-size:14px"><button class="btn k" onclick="koruma()">Kontrol et / koru</button></div>
     <div id="korumaOut" style="font-size:12.5px;color:var(--muted);margin-top:9px"></div>
   </div>

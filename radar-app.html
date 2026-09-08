@@ -265,7 +265,7 @@ async function app(){
     if(TARANMAMIS.length){
       portfoyBanner += `<div class="kutu" style="margin:0 0 18px">
         <div style="font-weight:800;color:var(--accent2);font-size:15px;margin-bottom:6px">®️ ${TARANMAMIS.length} firmanın markaları henüz taranmadı</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:9px">TÜRKPATENT kayıtlarına bakalım: adına kaç marka var, hangisinin <b style="color:var(--ink)">yenileme penceresi açıldı</b>, hangisi düşmüş. Marka adı girmene gerek yok, unvan yetiyor.</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:9px">Bültende yayımlanmış başvurularına anında bakalım; sicildeki tam liste — adına kaç marka var, hangisinin <b style="color:var(--ink)">yenileme penceresi açıldı</b>, hangisi düşmüş — robot taramasıyla, kaynak cevap verdiğinde. Marka adı girmene gerek yok, unvan yetiyor.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">${TARANMAMIS.map(f=>`<button class="btn ghost sm mtara" data-unvan="${esc(f.firma_adi)}">${esc(f.firma_adi)} → sicilde ara</button>`).join('')}</div>
         <div id="mtaraOut" class="mini" style="margin-top:9px"></div>
       </div>`;

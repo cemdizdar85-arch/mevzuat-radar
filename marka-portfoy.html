@@ -49,7 +49,11 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
        robot yapar (motor/marka-portfoy-hasat.ps1), sayfa jetonla sonucu okur. -->
   <div class="kutu" style="border-color:rgba(245,165,36,.35)">
     <div style="font-weight:800;font-size:16px;margin-bottom:4px">🔎 Firmanın markalarını sicilden getir</div>
-    <p class="mini" style="margin:0 0 10px">Unvanı yaz, TÜRKPATENT kayıtlarındaki <b style="color:var(--ink)">bütün markaları</b> tarihleriyle birlikte getirelim: hangisi güvende, hangisinin yenileme penceresi açıldı, hangisi düşmüş. <b style="color:var(--ink)">Vergi numarasıyla arama yok</b> — sicil unvan üzerinden tutuluyor, o yüzden firma adını isteriz.</p>
+    <p class="mini" style="margin:0 0 10px">Unvanı yaz: <b style="color:var(--ink)">bültende yayımlanmış başvuruların anında</b> gelir (Resmî Marka Bülteni ambarımız, 2022'den bu yana). TÜRKPATENT sicilindeki <b style="color:var(--ink)">bütün markaları</b> — hangisi güvende, hangisinin yenileme penceresi açıldı, hangisi düşmüş — ise robot tarar. <b style="color:var(--ink)">Vergi numarasıyla arama yok</b> — sicil unvan üzerinden tutuluyor, o yüzden firma adını isteriz.</p>
+    <!-- 08.09: sicil kaynagi nabzi (veri/marka-kaynak-nabiz.json, yalniz basarili
+         hasatta yazilir). 3 gunden eskiyse burada acikca soylenir; kullanici
+         saatlerce "kaynak yanit vermedi"yi beklemesin. -->
+    <div id="t_nabiz"></div>
     <p class="mini" style="margin:0 0 12px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.3);border-radius:10px;padding:10px 12px"><b style="color:var(--ink)">Bu arama anında bitmez, sebebi şu:</b> TÜRKPATENT sicili tarayıcıdan sorgulamaya kapalı. Bu yüzden aramayı <b style="color:var(--ink)">bizim robotumuz senin adına</b> yapıyor. Talebin kuyruğa giriyor ve robot sıradaki koşusunda alıyor — <b style="color:var(--ink)">çoğu zaman birkaç saat</b> sürüyor. <b style="color:var(--ink)">E-postanı yazman en iyisi:</b> sonucu sana yollarız, sayfayı beklemen gerekmez.</p>
     <div class="grid">
       <div><label>Firma / kişi unvanı *</label><input class="gir" id="t_unvan" placeholder="ör. ARÇELİK ANONİM ŞİRKETİ"></div>
@@ -280,6 +284,22 @@ async function bultenAra(unvan, cek){
 // Kuyruğa talep AÇMADAN yalnız ambar aramasını denemek için (ölçüm/teyit):
 // konsolda __bultenAra('EGE SERAMİK SANAYİ VE TİCARET A.Ş.')
 window.__bultenAra=bultenAra;
+
+// SİCİL KAYNAĞI NABZI (08.09): TMview 30.08'den beri robotumuza cevap vermiyor;
+// 08.09 ölçümü: gerçek talep 'hata' döndü ("sahip-adı ucu yanıt vermedi").
+// Kullanıcı bunu tarama başlatmadan görsün. Dosya yoksa/okunamazsa SUSULMAZ,
+// "ölçülemedi" denmez de - yalnız uyarı çıkmaz (kaynak sağlıklı sayılmaz, bilinmez).
+(async()=>{
+  try{
+    const n=await (await fetch('veri/marka-kaynak-nabiz.json?'+Date.now())).json();
+    const ct=n&&n.cekim?new Date(n.cekim):null; if(!ct||isNaN(ct)) return;
+    const gunEski=Math.floor((Date.now()-ct.getTime())/86400000);
+    const k=$('#t_nabiz'); if(!k) return;
+    if(gunEski>=3){
+      k.innerHTML='<div class="uyari" style="margin:0 0 12px">⚠️ <b>Sicil kaynağı (TMview) '+gunEski+' gündür robotumuza cevap vermiyor</b> (son başarılı çekim '+trT(n.cekim)+'). Taramayı başlatabilirsin, ama büyük olasılıkla "kaynak yanıt vermedi" dönecek. <b>Bülten ambarı bundan bağımsız</b>: unvanı yazıp düğmeye basınca yayımlanmış başvuruların anında gelir.</div>';
+    }
+  }catch(e){}
+})();
 
 function sonucCiz(s, jeton){
   if(!s || !s.markalar || !s.markalar.length){

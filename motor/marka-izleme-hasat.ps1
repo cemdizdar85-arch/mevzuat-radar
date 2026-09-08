@@ -179,4 +179,16 @@ if($Yaz){
   $moji = @($geri.basvurular | Where-Object { "$($_[0])" -match ([char]0x00C3) }).Count
   Write-Host ("-> {0}" -f $yol)
   Write-Host ("   yazildi: {0} basvuru - {1:N0} KB - geri okuma {2} - mojibake {3}" -f $geri.sayi, ($boy/1KB), @($geri.basvurular).Count, $moji)
+  # 08.09 NABIZ: kucuk dosya, yalniz BASARILI hasatta yazilir. Kaynak (TMview)
+  # engellediginde buraya gelinmez, dosya eski kalir; marka-portfoy.html ve
+  # marka-radari.html "sicil kaynagi N gundur cevap vermiyor" uyarisini bundan
+  # hesaplar. 28.08-08.09 arasi 11 gun kimse fark etmemisti.
+  $nabizYol = Join-Path $kok "veri\marka-kaynak-nabiz.json"
+  $nabiz = [ordered]@{
+    kaynak = 'TMview (EUIPO/TMDN) - TURKPATENT TR'
+    cekim  = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+    kayit  = $sirali.Count
+    not    = 'Son BASARILI TMview cekimi. motor/marka-izleme-hasat.ps1 yalniz basarili hasatta yazar; kaynak engelliyken dosya eski kalir. Sayfalar bundan "kaynak N gundur cevap vermiyor" hesaplar.'
+  }
+  [IO.File]::WriteAllText($nabizYol, (ConvertTo-Json -InputObject $nabiz -Depth 3), (New-Object Text.UTF8Encoding($false)))
 } else { Write-Host "(olcum modu - yazmak icin -Yaz)" }
