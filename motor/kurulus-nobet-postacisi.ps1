@@ -59,7 +59,10 @@ function HtmlGovde([string]$metin){
 }
 function Gonder($alici, $konu, $metin){
   if ($Kuru) { Write-Host "  KURU: $alici <- $konu"; return $true }
-  $cikti = & (Join-Path $kok 'arac\alarm-maili.ps1') -Konu $konu -Mesaj $metin -Html (HtmlGovde $metin) -Alici $alici -YanitAdresi $yanit 2>&1
+  # 08.09 olculdu: alarm-maili "gonderildi" satirini Write-Host ile basar; o akis 2>&1 ile
+  # TOPLANMAZ (pwsh bilgi akisi). Mail gitti ama betik "gitmedi" sayip damga basmadi,
+  # kosu KIRMIZI oldu. *>&1 butun akislari toplar.
+  $cikti = & (Join-Path $kok 'arac\alarm-maili.ps1') -Konu $konu -Mesaj $metin -Html (HtmlGovde $metin) -Alici $alici -YanitAdresi $yanit *>&1
   $ok = ($cikti -join "`n") -match 'gonderildi'
   if (-not $ok) { Write-Host ("  MAIL GITMEDI: " + (($cikti -join ' ') -replace $alici, '<alici>')) }
   return $ok
