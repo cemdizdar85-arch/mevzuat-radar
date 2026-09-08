@@ -39,6 +39,18 @@ $kaynaklar = @(
   @{ ad='2026 ticaret sicili harclari (alomaliye)'; url='https://www.alomaliye.com/2026/01/01/2026-yili-ticaret-sicili-harclari/'; tur='html';
      bekle=@( (TrPara $M.sicilHarclari.sahisKurulus), (TrPara $M.sicilHarclari.sahisSicilTasdiknamesi) ) }
 )
+# 08.09 (Cem: il il farkli): oda tarifeleri de kollanir - veri/oda-tarifeleri.json'daki
+# rakamlar odanin kendi sayfasinda hala duruyor mu? (IZTO sayfasi Cem'in makinesinden
+# TLS ile acilmiyor; runner'da denenir, inmezse KOR degil o kaynak icin not dusulur.)
+$O = Get-Content (Join-Path $depoKok 'veri\oda-tarifeleri.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$kaynaklar += @{ ad='Gebze TO tescil harclari'; url=$O.odalar.gebze.kaynakUrl; tur='html';
+  bekle=@( (TrPara $O.odalar.gebze.sicil.sozlesmeVeDefterBirlesik), (TrPara $O.odalar.gebze.sicil.imzaBeyaniKisiBasi), (TrPara $O.odalar.gebze.kayit.basamaklar[0][1]) ) }
+$kaynaklar += @{ ad='ATSO harc-ilan-kayit'; url=$O.odalar.antalya.kaynakUrl; tur='html';
+  bekle=@( (TrPara $O.odalar.antalya.sicil.sozlesmeVeDefterBirlesik), (TrPara $O.odalar.antalya.sicil.imzaBeyaniKisiBasi), (TrPara $O.odalar.antalya.kayit.sabit) ) }
+$kaynaklar += @{ ad='ATO kayit ucreti tarifesi'; url=$O.odalar.ankara.kaynakUrl; tur='html';
+  bekle=@( (TrPara $O.odalar.ankara.kayit.tutar) ) }
+$kaynaklar += @{ ad='IZTO 2026 hizmet ucretleri'; url=$O.odalar.izmir.kaynakUrl; tur='html';
+  bekle=@( '4.950', '5.100', '660' ) }
 
 $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) TetikteNobet/1.0'
 $sonuc = @(); $kirmizi = 0; $kor = 0
@@ -59,7 +71,8 @@ foreach ($k in $kaynaklar) {
       elseif ($onceki.sha256 -eq $sha) { $satir.durum = 'YESIL'; $satir.not = 'PDF ayni' }
       else { $satir.durum = 'KIRMIZI'; $satir.not = "PDF degisti (onceki $($onceki.sha256.Substring(0,12))...) - tarifeyi oku, veri/kurulus-maliyet.json'u guncelle, sonra -Taban ile kos"; $kirmizi++ }
     } else {
-      $metin = [string]$r.Content
+      # 08.09: ATSO 'export/html' octet-stream doner -> Content byte[] gelir; [string] "System.Byte[]" olur, hepsi KIRMIZI. UTF-8 coz.
+      $metin = if ($r.Content -is [byte[]]) { [Text.Encoding]::UTF8.GetString($r.Content) } else { [string]$r.Content }
       $eksik = @($k.bekle | Where-Object { $metin -notlike ('*' + $_ + '*') })
       $satir.beklenen = $k.bekle
       if ($eksik.Count -eq 0) { $satir.durum = 'YESIL'; $satir.not = 'beklenen rakamlar sayfada' }

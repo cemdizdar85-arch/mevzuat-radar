@@ -1,0 +1,51 @@
+{
+  "yil": 2026,
+  "guncelleme": "08.09.2026",
+  "notlar": "Kuruluş maliyetinin İL'e bağlı iki kalemi: (1) ticaret sicili müdürlüğünün HİZMET ücretleri (kuruluş/sözleşme tasdiki, defter tasdiki, huzurda imza beyannamesi, ilan gideri) — her müdürlük kendi belirler, 08.09.2026'da İstanbul/Gebze/Çorlu/Antalya karşılaştırıldı, farklı; (2) ODA KAYIT ÜCRETİ — her oda kendi tarifesi (5174 s.K. m.24). Harçlar, TTSG kelime ücreti, Rekabet Kurumu payı ve SMMM tarifesi ise ülke geneli, veri/kurulus-maliyet.json'da. Ölçülemeyen alan null: sayfa 'ölçülmedi, odana sor' der, rakam uydurmaz. Kayıt ücreti biçimleri: 'sabit' (tek tutar), 'derece' (sermaye aralığına göre basamak), 'formul' (metinle).",
+  "odalar": {
+    "istanbul": {
+      "ad": "İstanbul (İTO)",
+      "sicil": { "kurulusTasdik": 2160, "defterTasdik": 2760, "imzaBeyaniKisiBasi": 1720, "ilanGideri": 250 },
+      "kayit": { "tip": null, "not": "İTO 2026 aidat tarifesinde 'Y — yeni kurulan sermaye şirketleri' derecesi yıllık aidatı 3.305 TL; kayıt ücreti tutarı sayfada ayrıca yazmıyor, kayıt yılı için ayrıca aidat alınmıyor. Ölçülmedi, odaya sor." },
+      "kaynak": "İTO 2026 sicil harç/hizmet/ilan tarifesi (harc.pdf) + İTO aidat işlemleri sayfası, 08.09.2026",
+      "kaynakUrl": "https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf"
+    },
+    "izmir": {
+      "ad": "İzmir (İZTO)",
+      "sicil": { "kurulusTasdik": 4950, "defterTasdik": 5100, "imzaBeyaniKisiBasi": null, "ilanGideri": 660, "not": "İZTO 2026 Ticaret Sicili Müdürlüğü hizmet ücretleri: 'Şirket Kuruluşu' 4.950 TL (Şirket Kuruluş Sözleşmesinin Ticaret Sicili Müdürlüklerinde İmzalanması Hakkında Tebliğ m.16: brüt asgari ücretin %15'ini geçemez) · 'Toplu Defter Seti Tasdik Hizmet Ücreti' 5.100 TL (tek defter 860 TL) · 'Gazete İlan Hizmet Ücreti' 660 TL. Şirket müdürü imza beyanı tarifede ayrı yazmıyor ('Gerçek ve Ticari İşletme İmza Beyannamesi' 2.000 TL gerçek kişi içindir): ölçülmedi." },
+      "kayit": { "tip": "sabit", "tutar": 4950, "not": "Yeni kurulan sermaye şirketleri için kayıt ücreti 4.950 TL (2026 Kayıt Ücreti ve Yıllık Aidat Tarife Cetveli; kayıt ücreti dereceleri brüt asgari ücretin %15'i)." },
+      "kaynak": "İZTO 'Üyelik Ücretleri' + '2026 Yılı Hizmet Ücretleri Tarifesi' sayfaları, tarayıcıdan okundu 08.09.2026",
+      "kaynakUrl": "https://www.izto.org.tr/tr/tg/2026-yili-hizmet-ucretleri-tarifesi"
+    },
+    "ankara": {
+      "ad": "Ankara (ATO)",
+      "sicil": { "kurulusHizmetBirlesik": 3250, "kurulusTasdik": null, "defterTasdik": null, "imzaBeyaniKisiBasi": null, "ilanGideri": null },
+      "kayit": { "tip": "sabit", "tutar": 3900, "ek": 250, "ekAd": "beyanname ücreti", "not": "Sermaye şirketlerinde tüm derecelerde kayıt ücreti 3.900 TL + her yeni kayıtta 250 TL beyanname ücreti (ATO 2026 kayıt ücreti tarifesi)." },
+      "kaynak": "ATO 'Ticaret Sicili İşlemleri' (LTD/AŞ yeni kuruluş hizmet bedeli 3.250 TL) + ATO 2026 Yılı Kayıt Ücreti Tarifesi, 08.09.2026. Defter tasdiki ve imza beyanı ayrıca yazmıyor: ölçülmedi.",
+      "kaynakUrl": "https://www.atonet.org.tr/hizmetlerimiz/2026-yili-kayit-%C3%BCcreti-tarifesi-"
+    },
+    "antalya": {
+      "ad": "Antalya (ATSO)",
+      "sicil": { "sozlesmeVeDefterBirlesik": 3650, "kurulusTasdik": null, "defterTasdik": null, "imzaBeyaniKisiBasi": 1300, "ilanGideri": 550 },
+      "kayit": { "tip": "formul", "sabit": 4875, "sermayeBinde": 1, "enAz": 6000, "ustLimit": 16515, "not": "ATSO bilgi bankası kuruluş satırı aynen: 'Kayıt ücreti 4.875,00-TL + Sermayenin binde 1'i en az 6.000,00-TL (üst limit 16.515,00-TL)'. Sayfa bu iki tutarı toplar; okuma farklıysa odaya sor." },
+      "kaynak": "ATSO Bilgi Bankası 'Ticaret Sicili Harçları, İlan ve Kayıt Ücretleri' 2026, 08.09.2026 (Sözleşme Onayı ve Defter Tasdiki AŞ-LTD-Koop 3.650 · Şirketler için imza beyannamesi 1.300 · Gazete ilan ücreti hizmet bedeli 550)",
+      "kaynakUrl": "https://bilgi.atso.org.tr/books/harc-ilan-ve-kayit-ucretleri/export/html"
+    },
+    "gebze": {
+      "ad": "Gebze (GTO, Kocaeli-Gebze)",
+      "sicil": { "sozlesmeVeDefterBirlesik": 4700, "kurulusTasdik": null, "defterTasdik": null, "imzaBeyaniKisiBasi": 500, "ilanGideri": null },
+      "kayit": { "tip": "derece", "basamaklar": [ [60000, 3600], [120000, 3720], [180000, 3960], [240000, 4500], [null, 5760] ], "not": "Sermaye aralığına göre: 0–60.000 → 3.600 · 60.001–120.000 → 3.720 · 120.001–180.000 → 3.960 · 180.001–240.000 → 4.500 · 240.001+ → 5.760 TL." },
+      "kaynak": "Gebze Ticaret Odası 'Tescil Harçları' 2026 sayfası, 08.09.2026 (Esas sözleşme + defter tasdik 4.700 · huzurda imza 500)",
+      "kaynakUrl": "https://www.gebzeto.org.tr/tescil-ve-uyelik/tescil-harclari/"
+    },
+    "corlu": {
+      "ad": "Çorlu (ÇTSO, Tekirdağ-Çorlu)",
+      "sicil": { "kurulusTasdik": null, "defterTasdik": 2500, "imzaBeyaniKisiBasi": 1000, "ilanGideri": null },
+      "kayit": { "tip": null, "not": "Kayıt ücreti tarifede yok, ölçülmedi." },
+      "kaynak": "Çorlu TSO '2026 Yılı Ticaret Sicili Harçları – TTSG İlan Ücretleri – Hizmet Bedelleri' PDF, 08.09.2026 (Defterler ve tasdiki AŞ-LTD-Koop 2.500 · Huzurda imza beyannamesi 1.000; kuruluş tasdik ayrıca yazmıyor)",
+      "kaynakUrl": "https://www.corlutso.org.tr/uploads/docs/sicilharc2026.pdf"
+    }
+  },
+  "tavanKurali": "Şirket Kuruluş Sözleşmesinin Ticaret Sicili Müdürlüklerinde İmzalanması Hakkında Tebliğ m.16: kuruluş sözleşmesinin müdürlükte imzalanması hizmet ücreti brüt asgari ücretin %15'ini geçemez (2026: 33.030 × %15 = 4.954,50 TL; İZTO 4.950 TL bu tavana yaslanmış). Kayıt ücreti için 5174 s.K. m.24 + Yönetmelik m.12: yeni kurulan sermaye şirketi derecesi brüt asgari ücretin %10–%15'i arası.",
+  "olcumNotu": "08.09.2026 karşılaştırması — huzurda imza beyannamesi: Gebze 500 · Çorlu 1.000 · Antalya 1.300 · İstanbul 1.720 TL. Sözleşme+defter: Antalya 3.650 · Gebze 4.700 · İstanbul 4.920 (2.160+2.760) TL. Yani 'tek il tarifesi' herkese uymaz; il sorulur."
+}
