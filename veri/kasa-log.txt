@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260907192600
+Start time: 20260908051107
 Username: runnervmejwal\runner
 RunAs User: runnervmejwal\runner
 Configuration Name: 
 Machine: runnervmejwal (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/06f6176a-e1a3-4872-9824-96f0d77a345b.ps1'
-Process ID: 2070
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ace34624-71d4-4e19-b5c3-4090fd08f8bb.ps1'
+Process ID: 2328
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -108,22 +108,29 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        73x  Finansal Tablolar ve Analizi|dikey yuzde analizi
        71x  Turkce|cumle ogeleri
        63x  Hukuk|belirli süreli iş sözleşmesinin belirsiz süreli hale dönüşümü
-       62x  Finansal Tablolar ve Analizi|asit-test oranı
        62x  Maliyet Muhasebesi|satilan mamul maliyeti
+       62x  Finansal Tablolar ve Analizi|asit-test oranı
        60x  Finansal Muhasebe|supheli alacak karsiligi
        59x  Maliyet Muhasebesi|birim maliyet hesabi
 
   --- tekil konu sayisi: 16395
 
   --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
-     bakilan          30569
-     placeholder      43
-     hepsiYuvarlak    267
-     klise            37
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+     bakilan          7000
+     placeholder      10
+     hepsiYuvarlak    56
+     klise            10
      tekduzeTuzak     0
-     toplamIzli       340
+     toplamIzli       74
      IZLI ORAN      : %1.1
--> veri/koku-izli.json  (340 kimlik, uslup turu icin)
+-> veri/koku-izli.json  (74 kimlik, uslup turu icin)
 -> veri/kasa-ornek.json  (4 ornek soru, tam metin)
      KASADA yayin=false (denetim bekleyen) : 30569
      ...cekilen 1000
@@ -172,12 +179,12 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      standart+THP orani: %56.6
 
 -> veri/kasa-sayim.json
--> arac sayimi: 38 kart tarandi, 28 calisan arac
-  degismedi, dokunulmadi: vitrin-sayilar.json
--> veri/vitrin-sayilar.json  (soru 30569, hakem 16284, arac 28)
+-> arac sayimi: 39 kart tarandi, 29 calisan arac
+  yazildi: vitrin-sayilar.json
+-> veri/vitrin-sayilar.json  (soru 30569, hakem 16284, arac 29)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260907192746
+End time: 20260908051251
 **********************
