@@ -379,18 +379,30 @@ function Get-TopluBasliklar {
   if($hedef.ad -eq 'openrouter'){ throw 'Toplu istek yalnız Anthropic doğrudan hatta çalışır (OpenRouter hedefi seçili).' }
   return $hedef
 }
+# 08.09 Tur 1 kazası: 4 koşucu aynı anda yazınca dosya TEK BOŞ KAYDA indi, 4 ödenmiş partinin kimliği kayboldu → makine çapında adlandırılmış
+# kilit (Mutex) ile oku-değiştir-yaz; kimlik ayrıca üretici loguna da yazılıyor (yedek).
+function Invoke-BekleyenKilitli([scriptblock]$is){
+  $mx = New-Object System.Threading.Mutex($false,'Global\tetikte-bekleyen-partiler'); $al = $false
+  try{ $al = $mx.WaitOne(15000); & $is }catch{}finally{ if($al){ $mx.ReleaseMutex() }; $mx.Dispose() }
+}
 function Add-BekleyenParti([string]$bid,[string]$etiket){
-  try{ $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; $bek = @()
-    if(Test-Path $y){ foreach($x in @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)))){ if($x){ $bek += $x } } }
+  Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; $bek = @()
+    if(Test-Path $y){ foreach($x in @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)))){ if($x -and "$($x.id)"){ $bek += $x } } }
     $bek += [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
-    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }catch{}
+    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
 }
 function Set-BekleyenPartiDurum([string]$bid,[string]$durum){
-  try{ $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return }
-    $bek = @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y))); foreach($x in $bek){ if($x -and "$($x.id)" -eq $bid){ $x | Add-Member -NotePropertyName durum -NotePropertyValue $durum -Force } }
-    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }catch{}
+  Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return }
+    $bek = @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y))) | Where-Object { $_ -and "$($_.id)" }; foreach($x in $bek){ if("$($x.id)" -eq $bid){ $x | Add-Member -NotePropertyName durum -NotePropertyValue $durum -Force } }
+    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
 }
-function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket){
+function Get-BekleyenPartiler([string]$etiket=''){
+  # 08.09: aynı etiket/faz için daha önce GÖNDERİLMİŞ partiler (yeniden başlatmada bedava hasat; en yenisi önce)
+  try{ $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return @() }
+    $bek = @(); foreach($x in @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)))){ if($x -and (-not $etiket -or "$($x.etiket)" -eq $etiket)){ $bek += $x } }
+    return @($bek | Sort-Object { "$($_.zaman)" } -Descending) }catch{ return @() }
+}
+function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket,[bool]$bedelYaz=$true){
   # bitmiş partinin sonuçlarını çeker; her satır custom_id → cevap
   $st = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$bid") -Headers $hedef.basliklar -TimeoutSec 60
   if($st.processing_status -ne 'ended'){ return $null }
@@ -406,8 +418,11 @@ function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket){
     $metin = (@($m.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ''
     $oYaz = 0; $oOku = 0; $ham2 = 0; try { $oYaz = [int]"$($m.usage.cache_creation_input_tokens)" } catch {}; try { $oOku = [int]"$($m.usage.cache_read_input_tokens)" } catch {}; try { $ham2 = [int]"$($m.usage.input_tokens)" } catch {}
     $y = @{ metin=$metin.Trim(); girdi=$ham2; cikti=[int]"$($m.usage.output_tokens)"; onbellekYazma=$oYaz; onbellekOkuma=$oOku; girdiToplam=($ham2+$oYaz+$oOku); kaynak='anthropic-toplu'; dur="$($m.stop_reason)"; toplu=$true }
-    $y = Repair-ClaudeMetin $y
-    Add-BedelKaydi ("$($m.model)" + '|toplu') $y
+    # 08.09 TUR 1 KAZASI: sonuç dosyası yukarıda BAYT olarak alınıp UTF-8 çözüldü; buna bir de Repair-ClaudeMetin (Latin-1 → UTF-8 hilesi) uygulanınca
+    # her Türkçe harf U+FFFD (�) oldu: "çerçevesinde" → "�er�evesinde" → KAPI-K parça kelime saydı (200+ sahte tekrar), 14 soru bozuk kaydedildi.
+    # Anlık hat (Invoke-RestMethod Latin-1 sanır) onarım ister, toplu hat İSTEMEZ. Yalnız gerçekten mojibake varsa ("Ã", "Å") onar.
+    if("$($y.metin)" -match 'Ã|Å|Ä±|Ä'){ $y = Repair-ClaudeMetin $y }
+    if($bedelYaz){ Add-BedelKaydi ("$($m.model)" + '|toplu') $y }   # yeniden hasatta bedel defterine ikinci kez yazılmaz (zaten ödendi)
     $out[$cid] = $y
   }
   Set-BekleyenPartiDurum $bid 'hasat edildi'

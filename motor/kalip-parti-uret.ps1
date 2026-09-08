@@ -660,7 +660,10 @@ $script:PENCERE_KOK=$null
 function PencereKavram([string]$metin,[switch]$YalnizDar){
   if(-not $script:PENCERE_KOK -or -not $script:PENCERE_KOK.Keys.Count){ return @() }
   $sayim=@{}; $kelime=@{}
-  foreach($w in ((Katla2 $metin) -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -lt 6){ continue }; $on=$w.Substring(0,5); if(-not $sayim.ContainsKey($on)){ $sayim[$on]=0; $kelime[$on]=$w }; $sayim[$on]++ }
+  # 08.09 Tur 1 ölçümü (4 parçada 200+ sahte tekrar): Katla2 Türkçe harfi tam katlamıyor, '[^a-z ]' Türkçe harfte kelimeyi BÖLÜYORDU →
+  # "çerçevesinde" → "evesinde", "gösterilip" → "sterilip", "müzakerelerin" → "zakerelerin" pencere dışı sayıldı. Önce tam ASCII katlama.
+  $duz=("$metin" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant()
+  foreach($w in ($duz -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -lt 6){ continue }; $on=$w.Substring(0,5); if(-not $sayim.ContainsKey($on)){ $sayim[$on]=0; $kelime[$on]=$w }; $sayim[$on]++ }
   $eksik=@{}
   foreach($on in $sayim.Keys){
     if($YalnizDar){ $sz=$(if($script:PENCERE_KOK_DAR){ $script:PENCERE_KOK_DAR } else { $script:PENCERE_KOK }); if(-not $sz.ContainsKey($on)){ $eksik[$kelime[$on]]=1 }; continue }
@@ -795,6 +798,20 @@ function TopluTopla([string]$id,[string]$model,$icerik,[int]$maxTok,[string]$eff
 function TopluGonder([string]$faz){
   $isler=@($script:TOPLU_ISLER.ToArray()); $script:TOPLU_ISLER=New-Object System.Collections.Generic.List[object]
   if(-not $script:TOPLU_HAZIR.ContainsKey($faz)){ $script:TOPLU_HAZIR[$faz]=@{} }
+  # 08.09 Tur 1 dersi: koşucu yeniden başlatılınca bellekteki parti cevapları kayboluyor, ödenen parti yeniden ödeniyordu. Aynı etiket/faz için
+  # daha önce gönderilmiş parti(ler) bekleyen-partiler.json'dan bulunur, bitmişse cevapları BEDAVA hasat edilir; yalnız cevabı olmayan işler gönderilir.
+  try{
+    $eskiler=@(Get-BekleyenPartiler "$Etiket/$faz"); $hasat=0
+    if($eskiler.Count){ $hedefT=Get-TopluBasliklar
+      foreach($ep in $eskiler){ if(-not $isler.Count){ break }
+        $es=$null; try{ $es=Get-ClaudeTopluSonuc "$($ep.id)" $hedefT "$Etiket/$faz" $false }catch{ $es=$null }
+        if(-not $es){ continue }
+        $kalan=New-Object System.Collections.Generic.List[object]
+        foreach($is in $isler){ $iid="$($is.id)"; if($es.ContainsKey($iid) -and $es[$iid]){ $script:TOPLU_HAZIR[$faz][$iid]=$es[$iid]; $hasat++ } else { $kalan.Add($is) } }
+        $isler=@($kalan.ToArray()) }
+      if($hasat){ Write-Host "  TOPLU $faz : önceki partiden $hasat cevap BEDAVA hasat edildi (yeniden başlatma), gönderilecek $($isler.Count)" -ForegroundColor Cyan } }
+  }catch{ Write-Host "  TOPLU $faz : eski parti hasadı atlandı ($($_.Exception.Message))" -ForegroundColor DarkYellow }
+  if(-not $isler.Count){ return }
   if($isler.Count -lt 2){ if($isler.Count){ Write-Host "  TOPLU $faz : tek istek, anlık gidecek" -ForegroundColor DarkGray }; return }
   try{ $sonuc=Invoke-ClaudeToplu -Isler $isler -Etiket "$Etiket/$faz" -BeklemeDk $TopluBeklemeDk
     foreach($k in @($sonuc.Keys)){ if($k -notlike '__*'){ $script:TOPLU_HAZIR[$faz][$k]=$sonuc[$k] } }
