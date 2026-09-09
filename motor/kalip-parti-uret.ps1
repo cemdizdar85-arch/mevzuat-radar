@@ -643,6 +643,23 @@ $OZEL_DESEN=@{
   'net calisma sermayesi devir hizi'       = @('~teori faaliyet devir','~teori likidite oranlari')
   'kisa vadeli yabanci kaynak dikey yuzde' = @('~teori dikey yuzde','~teori finansal yapi')
   'calisma sermayesi analizi'              = @('~teori likidite oranlari','~teori net isletme sermayesi')
+  # 09.09 22:55 arac/konu-kaynak-on-olcum.ps1 ile ÖLÇÜLDÜ (Cem: "kaynak yüzünden düşen konuyu önceden ölçelim"):
+  # MTA zor'un 27 konusundan 6'sı "kaynak YOK" çıktı; notlar ambarda VARDI ama konu adı not adıyla eşleşmiyordu.
+  # 09.09 23:10 ders ders kaynak ölçümü (Cem: "kaynağı olmayana şu an koşmayacak, sen tamamlanınca koşacak"):
+  # Maliyet'in 43 tekil konusundan 5'i kaynaksız çıktı — notlar ambarda VAR, konu adı eşleşmiyordu.
+  'ortak urun maliyet dagitimi'            = @('~teori ortak maliyet dagitiminda','~teori birlesik ortak maliyetin','~teori yan urun maliyetinde')
+  'birlesik urun katsayi yontemi'          = @('~teori ortak maliyet dagitiminda','~teori birlesik ortak maliyetin')
+  'katsayili maliyet dagitimi'             = @('~teori ortak maliyet dagitiminda','~teori birlesik ortak maliyetin')
+  'yatirim siparis avansi'                 = @('~teori siparis avansi','THP 159%','THP 259%','THP 340%')
+  '7-a secenegi genel uretim gideri'       = @('~teori secene uretim maliyeti','~teori maliyetlerin siniflandirilmasi','THP 730%','THP 731%','THP 680%')
+  'ozsermaye karlilik orani'               = @('~teori karlilik oranlari','~teori piyasa oranlari','THP 590%','THP 570%')
+  'aktif karlilik orani'                   = @('~teori karlilik oranlari','~teori aktif devir','THP 590%')
+  'yatay analiz yorumlama'                 = @('~teori karsilastirmali yatay','~teori yuzde degisim')
+  'yuzde degisim analizi'                  = @('~teori karsilastirmali yatay','~teori yuzde degisim')
+  'bilanco kaldirac orani'                 = @('~teori finansal yapi','~teori kaldirac orani')
+  'cari oran bilanco analizi'              = @('~teori likidite oranlari','~teori cari oran')
+  'mali tablolar analiz teknikleri'        = @('~teori mali tablolar analizinde','~teori karsilastirmali yatay','~teori dikey yuzde')
+  'gelir tablosu analiz sinirlamalari'     = @('~teori gelir tablosu analizinin','~teori karsilastirmali yatay')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
