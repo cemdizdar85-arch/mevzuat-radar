@@ -410,7 +410,12 @@ function DesenUret($kayit){
     $halef=HalefStandart $ham
     if($halef){ $d.Add("$halef p.%"); break }
   }
-  foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
+  # 09.09 genel kültür pilotu ÖLÇÜLDÜ: "fiil zamani (past tense)" (Yabancı Dil) sorusunun kaynak paketine köprü dayanağı yüzünden
+  # VUK m.30 / m.73 girdi, hakem "kaynak vergi teorisi" diyerek reddetti. Dersin kaynak listesi YALNIZ teori notuysa (genel kültür 6 ders)
+  # köprünün kanun dayanağı YOK SAYILIR: bu derslerin mevzuat kaynağı yoktur, kaynak yalnız TEORİ NOTUdur.
+  $teoriDers=$false
+  foreach($dk0 in (DersKanunAnahtari ($DersRegex -replace '[\^\$\\]',''))){ $lst=@($DERS_KANUN[$dk0]); if($lst.Count -and -not @($lst | Where-Object { $_ -notmatch '^(TEORI|Teori Notu)$' }).Count){ $teoriDers=$true } }
+  foreach($ham in @($(if($teoriDers){ @() } else { @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)") }))){
     if(-not $ham){ continue }
     # 02.09: kara listedeki dayanak DESEN URETIMINE GIRMEZ - olculdu ki konularin
     # cogunlugu o maddeyle ilgisiz (TTK m.720 %80, SMMM K. m.29 %70 yanlis).
@@ -507,7 +512,7 @@ function DesenUret($kayit){
   # olculdu: 'kambiyo kari kaydi' koprude TTK m.720/TEYITLI diye ders-kanun aramasina
   # hic girmiyor, THP 646 ambarda dururken KAYNAK BORCU yaziliyordu.
   $dayGecerli=@(@("$($kayit.dayanak)","$($kayit.cikmis_dayanak)") | Where-Object { $_.Trim() -and -not (KaraMi $_) })
-  $dayanakZayif=($dayGecerli.Count -eq 0) -or ("$($kayit.guc)" -match 'ZAYIF|OLCULMEDI|^$')
+  $dayanakZayif=$teoriDers -or ($dayGecerli.Count -eq 0) -or ("$($kayit.guc)" -match 'ZAYIF|OLCULMEDI|^$')   # teori dersinde köprü dayanağı yok sayılır (09.09)
   # 03.09 OLCULDU (SGS Vergi 'damga vergisi' -> 5510 gec. m.55 SGK affi; 'kdv matrahi' -> 5510 m.81 prim
   # tesviki): kopru dayanagi DERSIN KANUN LISTESI DISINDA bir kanunsa (kanun numarasiyla olculur) dayanak
   # ZAYIF sayilir; ders kanunlari one gecer, kopru dayanagi yine listede kalir (hakem+KAPI D sinar).
@@ -522,7 +527,10 @@ function DesenUret($kayit){
       }
     }
   }
-  if($dayanakZayif -and $kanunKok.Count -ge 1){
+  # 09.09 ikinci ölçüm: teori dersinde '@TEORI|kok' METİN araması rastgele not çekiyordu (Matematik "fonksiyon" → Black-Scholes notu,
+  # Yabancı Dil "fiil" → maliyet notu) ve 10 kaynak kotasını doldurup doğru ADLI notu ("TEORI - fiil zamani (past tense)") dışarıda bırakıyordu.
+  # Saf teori derslerinde yalnız AD eşleşmesi (aşağıdaki TEORI%kok%kok% desenleri) kullanılır.
+  if($dayanakZayif -and $kanunKok.Count -ge 1 -and -not $teoriDers){
     $dersAdi=($DersRegex -replace '[\^\$\\]','')
     $one=New-Object System.Collections.Generic.List[string]
     # 03.09 OLCULDU (SMMM Vergi: 'gelir vergisi matrahi' -> VUK m.4 'vergi dairesi yetkisi' geldi, hakem
@@ -2881,7 +2889,9 @@ $script:ON_GECIS=$false
 $script:FAZ_ADI='H2'
 $hakem2Istem=@'
 Sen TESMER/TÜRMOB sınav komisyonunda yıllarca soru yazmış bir hakemsin. Aşağıdaki soruyu üç ölçüte göre değerlendir; yalnız JSON ver.
+0. SINAVIN YAPISI (bu bilgi kesindir, itiraz etme): {YAPI}
 1. sinav_gibi: Bu soru gerçek {SINAV} {DERS} sınav sorusu gibi mi? Kök kalıbı, uzunluk, şık biçimi (sonuç + kısa etiket, gerekçesiz), dil, veri sunumu sınavla uyumlu mu? EVET/HAYIR + gerekçe.
+   DİKKAT: "Bu sınavda bu ders sorulmaz" DEME — dersin sınavda olduğu 0. maddede yazılıdır; yalnız SORUNUN KENDİSİNİ (kalıp, dil, biçim) o dersin çıkmış sorularıyla kıyasla.
 2. koku: Yapay zeka izi var mı? Yer tutucu unvan yalnız ABC/XYZ gibi ANLAMSIZ harf dizisidir ("Çelik Makine Sanayi A.Ş." gibi gerçekçi ad koku DEĞİLDİR, yazma), bütün tutarların yuvarlak olması, klişe cümle ("önem arz etmektedir", "bu bağlamda"), aynı kalıbın tekrarı, uzun tire, doğru şıkkın diğerlerinden belirgin uzun/nüanslı olması, iki şıkkın birbirinin tam tersi olması. Bulduklarını LİSTELE, yoksa boş liste. Muhasebe tekniği hatası (ör. 590 hesabının yönü) koku değil, 3. maddede (celdirici_gercek HAYIR + gerekçe) yazılır.
 3. celdirici_gercek: Yanlış şıklar gerçek bir adayın düşeceği tuzaklar mı (atlanan katman, ters işaret, yanlış oran, kavram karışıklığı), yoksa rastgele sayı/cümle mi? EVET/HAYIR + gerekçe. İki doğru şık ya da doğru şıkta hata görürsen burada yaz.
 4. zorluk: kolay (tek kural tek işlem) | zor (iki zorluk kaynağı) | cok_zor (ters soru + çeldirici verilen + iki kuralın kesişimi).
@@ -2908,7 +2918,13 @@ foreach($id in @($don.Keys)){
     continue }
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
   $acikM=$(if($cvp.aciklama){ AciklamaDuz $cvp.aciklama.$($cvp.dogru) } else { '' })
-  $istH=$hakem2Istem.Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
+  # 09.09 genel kültür pilotu ÖLÇÜLDÜ: hakem2 "SGS'de muhasebe/vergi sorulur, bu Türkçe/matematik sorusu SGS'ye ait değil" diyerek
+  # turkce-kolay 2/2, mat-kolay 1/2, inkilap/ekonomi kolay 1'er soruyu düşürdü. Sınav yapısı (2026 yönergesi 6.2) isteme yazıldı.
+  $YAPI_TARIF=$(switch -Regex ($Sinav){
+    '^SGS' { 'SGS (Staja Başlama) 130 sorudur ve GENEL KÜLTÜR + YABANCI DİL bölümleri VARDIR: Türkçe 7, Matematik 8, Atatürk İlkeleri ve İnkılap Tarihi 5, Yabancı Dil (İngilizce) 10 = 30 soru; Alan bilgisi 100 soru (Finansal Muhasebe 26, Denetim 16, Maliyet 8, Mali Tablolar Analizi 8, Ekonomi 6, Maliye 6, Meslek/İş-SGK/Vergi/Ticaret/Borçlar Hukuku 6''şar). Matematik soruları soyut fonksiyon/limit/türev/seri sorularını da içerir (2026/2 kitapçığı soru 8-15); Yabancı Dil soruları İNGİLİZCE yazılır (soru 21-30); Türkçe soruları paragraf, yazım, dil bilgisi ölçer (soru 1-7).' }
+    '^SMMM' { 'SMMM Yeterlilik sınavı 8 dersten oluşur; genel kültür bölümü YOKTUR.' }
+    default { 'Sınav yapısı için ek bilgi yok; yalnız sorunun kalıbını değerlendir.' } })
+  $istH=$hakem2Istem.Replace('{YAPI}',$YAPI_TARIF).Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
   if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istH 1500 $HAKEM2_EFFORT; continue }   # 08.09: yargı fazı, düşünme low
   $yH=TopluAl 'H2' $id
   if(-not $yH){ foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500 -Effort $HAKEM2_EFFORT; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
