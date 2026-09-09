@@ -389,7 +389,7 @@ function kur(){
   var kap=document.createElement('div'); kap.id='mrxKaplama';
   var h='<div class="mrxIc"><div class="mrxUst">'+
     '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
-    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'radar-app.html">Giriş / Üye Ol</a>'+
+    '<a href="'+KOK+'index.html">Ana Sayfa</a><a href="'+KOK+'is.html">İş başındayım</a><a class="mrxUye" href="'+KOK+'radar-app.html">Giriş / Üye Ol</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
     '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, ihale, fiş…" autocomplete="off">';
   GRUPLAR.forEach(function(g){
