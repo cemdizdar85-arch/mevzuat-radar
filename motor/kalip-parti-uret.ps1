@@ -623,6 +623,7 @@ $OZEL_DESEN=@{
   'direkt iscilik farklari'         = @('~teori direkt iscilik sure','~teori direkt iscilik ucret','THP 722%','THP 723%')
   'normal maliyet-kapasite kullanim'= @('~teori normal maliyet','~teori tam maliyet normal','THP 680%','THP 730%')
   'ozel maliyetler bakim onarim'    = @('~teori bakim onarim','THP 730%','THP 770%','THP 760%','THP 264%')
+  'tam maliyet yontemi'             = @('~teori tam maliyet normal','~teori degisken maliyet sistemi','~teori normal maliyet','THP 730%')   # "tam" 3 harf, "yontemi" genel kök → tek kök "maliyet" 6 alakasız not çekti (09.09 ölçüldü)
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
