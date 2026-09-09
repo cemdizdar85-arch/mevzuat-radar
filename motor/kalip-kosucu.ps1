@@ -36,7 +36,16 @@ foreach($s in $satirlar){
   if($s.PSObject.Properties['eskiKaynak'] -and "$($s.eskiKaynak)"){ $arg+=@('-EskiKaynak',"$($s.eskiKaynak)",'-DonemPencere','0') }
   else { $arg+=@('-DonemPencere','7'); if($s.PSObject.Properties['zorluk'] -and (@('zor','kolay','cokzor') -contains "$($s.zorluk)")){ $arg+=@('-Zorluk',"$($s.zorluk)") }; if($s.PSObject.Properties['disla'] -and "$($s.disla)"){ $arg+=@('-KonuDisla',"$($s.disla)") }; if($s.PSObject.Properties['konuDosya'] -and "$($s.konuDosya)"){ $arg+=@('-KonuDosya',"$($s.konuDosya)") } }
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
-  if($s.PSObject.Properties['toplu'] -and [bool]$s.toplu -and "$env:MEVZUAT_TOPLU" -ne '0'){ $arg+=@('-Toplu') }   # 08.09: fazların ilk denemesi Message Batches ile (yarı fiyat)
+  # 09.09 Cem "ara ara deneyelim orayı, rakamı düşürmemiz lazım": MEVZUAT_TOPLU='auto' → motor/toplu-sonda.ps1'in yazdığı sağlık dosyasına bakılır;
+  # son 40 dk içinde "acik" ölçülmüşse bu etiket TOPLU (yarı fiyat), değilse anlık. Üretici ayrıca faz bazında MEVZUAT_TOPLU_BEKLE_DK sonra anlığa düşer.
+  $topluAc=$false
+  if($s.PSObject.Properties['toplu'] -and [bool]$s.toplu){
+    if("$env:MEVZUAT_TOPLU" -eq 'auto'){
+      $sagYol=Join-Path $Kok 'veri\fabrika\toplu-kuyruk-sagligi.json'
+      if(Test-Path $sagYol){ try{ $sg=ConvertFrom-Json -InputObject (Get-Content $sagYol -Raw); $yas=((Get-Date)-[datetime]$sg.zaman).TotalMinutes; if("$($sg.durum)" -eq 'acik' -and $yas -le 40){ $topluAc=$true }; "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK: $($sg.durum) ($([int]$yas) dk önce, $($sg.sure_sn) sn) → $(if($topluAc){'TOPLU'}else{'ANLIK'}) · $($s.etiket)" }catch{ "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK okunamadı → anlık" } } else { "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK dosyası yok → anlık" }
+    } elseif("$env:MEVZUAT_TOPLU" -ne '0'){ $topluAc=$true }
+  }
+  if($topluAc){ $arg+=@('-Toplu') }   # 08.09: fazların ilk denemesi Message Batches ile (yarı fiyat)
   # 08.09 17:10 hız ölçümü: anlık modda 192 konuluk etiket tek hatta ≈16 saat → etiket ikiye bölünür: eski etiket yalnız önbellekteki id'lerle (pilot),
   # kalan konular "<etiket>-b" adlı yeni etikette ayrı hatta koşar. Plan alanı `pilot` = virgüllü id listesi → üreticiye -PilotId
   if($s.PSObject.Properties['pilot'] -and "$($s.pilot)"){ $arg+=@('-PilotId',"$($s.pilot)") }
