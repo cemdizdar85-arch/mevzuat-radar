@@ -181,7 +181,9 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     foreach($x in @($r)){
       # 06.09 KAPI-K kaynak süzgeci: pencere sözlüğü varsa, adı pencere dışı kök taşıyan TEORİ NOTU kaynak paketine girmez
       # ("Teori Notu - kusurlu ve bozuk mamul maliyetleri" → 'kusur' son 7 dönem Maliyet sorularında yok). Kanun/standart/THP kaynağı süzülmez.
-      if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count -and -not $script:GK_DERS -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
+      # 09.09: konu ADIYLA bulunan not ('~teori kok kok' deseni) pencere süzgecine girmez — adı konunun köklerini taşıyor, konu dışı sayılamaz;
+      # uzun adlı yeni notlar ("Ücret bordrosu kaydı (770/760/720 giderler, 335 Personele Borçlar, ...)") geniş sözlükte tek kök eksiğiyle atılıyordu.
+      if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count -and -not $script:GK_DERS -and -not $d.StartsWith('~teori') -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
         # 06.09 maliyet-k10d dersi: "Ortak (müşterek) maliyetlerin dağıtımı" notu tek parantez kelimesi yüzünden atılıyordu → dar sözlükte ≥2 kök eksikse
         # ya da geniş sözlükte ≥1 kök eksikse atlanır ("kusurlu ve bozuk mamul": dar 2 eksik → atlanır · "müşterek": dar 1 eksik, geniş var → kalır)
         $adKisim=("$($x.kaynak_ad)" -replace '^(TEORI|Teori Notu)\s*-\s*',''); $disiDar=@(PencereKavram $adKisim -YalnizDar); $disiGenis=@(PencereKavram (($adKisim -split '\s+' | Where-Object { $_.Length -ge 6 }) -join ' ') | Where-Object { $w=$_; -not $script:PENCERE_KOK.ContainsKey($w.Substring(0,5)) })
@@ -470,9 +472,16 @@ function DesenUret($kayit){
   # 03.09 OLCULDU (SMMM denetim partisi, 8 hakem reddi): TEK kok cok gevsek - 'sistem' ->
   # doviz kuru riski notu, 'sozlesme' -> sigorta zeyilname notu. Cem "1.2.3 yap" -> 3:
   # teori deseni EN AZ IKI kok ister (iki sirada da); tek kok yalniz konu tek kelimeyse.
+  # 09.09 15:40 ÖLÇÜLDÜ (Cem "notları yaz"): Tur 1'de kaynak yüzünden düşen 68 FMuh konusunun 56'sının notu dün YAZILMIŞTI ve ambardaydı;
+  # Tur 2'de yine aynı sebeple düştüler. Üç kusur: (1) 'TEORI%sermaye%artiri%' ilike deseni ASCII kök ile Türkçe adlı notu ("Sermaye artırımı",
+  # "Ücret bordrosu", "Amortisman yöntemleri") BULAMIYOR — ölçüldü: ucret%bordro 0 sonuç, Ücret%bordro 1 sonuç. (2) Ad desenleri listenin ortasına
+  # ekleniyor, '@' metin desenleri InsertRange(0) ile önüne geçiyor → doğru not paketin sonuna düşüp 9.000 kr tavanında KESİLİYOR (iç kontrol notu
+  # 14.004. karakterde başlıyordu). (3) '@TEORI|kok' metin araması FMuh'ta rastgele not çekiyor (borç senedi yenileme → Senyoraj, Haliç Konferansı).
+  # Çözüm: ad deseni Türkçe toleranslı imatch ('~teori kok kok' → "teori.*[sş]ermaye.*art[iı]r[iı]"), ayrı listede toplanır ve EN ÖNE konur.
+  $teoriOne=New-Object System.Collections.Generic.List[string]
   if($teoriKok.Count -ge 2){
-    for($i=0;$i -lt $teoriKok.Count;$i++){ for($j=0;$j -lt $teoriKok.Count;$j++){ if($i -eq $j){ continue }; $d.Add("TEORI%$($teoriKok[$i])%$($teoriKok[$j])%"); $d.Add("Teori Notu%$($teoriKok[$i])%$($teoriKok[$j])%") } }
-  } elseif($teoriKok.Count -eq 1){ $d.Add("TEORI%$($teoriKok[0])%"); $d.Add("Teori Notu%$($teoriKok[0])%") }
+    for($i=0;$i -lt $teoriKok.Count;$i++){ for($j=0;$j -lt $teoriKok.Count;$j++){ if($i -eq $j){ continue }; $teoriOne.Add("~teori $($teoriKok[$i]) $($teoriKok[$j])") } }
+  } elseif($teoriKok.Count -eq 1){ $teoriOne.Add("~teori $($teoriKok[0])") }
   # 03.09: kanun var, MADDE YOK ("TTK (6102 s.K.)", "5510 sayılı Kanun") -> o kanunun maddeleri
   # icinde konu kelimesiyle METIN aramasi (AmbarCek '@' deseni). Ilk iki kok ayri ayri denenir.
   foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
@@ -550,10 +559,12 @@ function DesenUret($kayit){
     foreach($dk in (DersKanunAnahtari $dersAdi)){
       $liste=@($DERS_KANUN[$dk])
       if($oncelik.Count){ $liste=@($liste | Sort-Object { $s=$_; $i=[array]::FindIndex($oncelik,[Predicate[object]]{ param($o) $s -like "$o*" -or $s -like "*$o*" }); if($i -lt 0){ 99 } else { $i } }) }
-      foreach($onek2 in $liste){ foreach($tk in ($kanunKok | Select-Object -First 2)){ $one.Add("@$onek2|$tk") } }
+      # 09.09: TEORI/Teori Notu öneklerinde METİN araması yok — not adları konuyu taşır, metin araması gürültü çekiyordu (yukarıdaki ölçüm).
+      foreach($onek2 in ($liste | Where-Object { $_ -notmatch '^(TEORI|Teori Notu)$' })){ foreach($tk in ($kanunKok | Select-Object -First 2)){ $one.Add("@$onek2|$tk") } }
     }
     if($one.Count){ $d.InsertRange(0,$one) }
   }
+  if($teoriOne.Count){ $d.InsertRange(0,$teoriOne) }   # 09.09: konu ADIYLA bulunan teori notu '@' metin desenlerinin ve THP'nin ÖNÜNDE (9.000 kr tavanında kesilmesin)
   if($kodOne.Count){ $d.InsertRange(0,$kodOne) }   # Teblig kodu / TSPB / '~' ad aramasi HER SEYIN ONUNDE
   return @($d | Select-Object -Unique)
 }
@@ -578,14 +589,22 @@ $OZEL_DESEN=@{
   # 01.09 hakem-red onarimlari: kuralin YASADIGI paragraflar (tanim+yururluk degil)
   'tms 36 deger dusuklugu'   = @('TMS 36 p.2%','TMS 36 p.4%','TMS 36 p.6%','TMS 36 p.8%','TMS 36 p.9%','TMS 36 p.59%','TMS 36 p.60%')
   'nakit akis tablosu'       = @('TMS 7 p.10%','TMS 7 p.13%','TMS 7 p.14%','TMS 7 p.16%','TMS 7 p.18%','TMS 7 p.19%','TMS 7 p.20%')
-  'tms 7 nakit akis tablosu' = @('TMS 7 p.7%','TMS 7 p.8%','TMS 7 p.45%','TMS 7 p.46%','TMS 7 p.10%')
-  'tms 12 ertelenmis vergi'  = @('TMS 12 p.5%','TMS 12 p.15%','TMS 12 p.16%','TMS 12 p.20%','TMS 12 p.24%','TMS 12 p.47%')
+  'tms 7 nakit akis tablosu' = @('~teori tms 7 nakit','TMS 7 p.7%','TMS 7 p.8%','TMS 7 p.45%','TMS 7 p.46%','TMS 7 p.10%')
+  'tms 12 ertelenmis vergi'  = @('~teori tms 12 ertelen','TMS 12 p.5%','TMS 12 p.15%','TMS 12 p.16%','TMS 12 p.20%','TMS 12 p.24%','TMS 12 p.47%')
   # 01.09 kayit-odakli yeni konular (FMuh suzgeci sonrasi)
   'kar dagitimi kaydi'       = @('TTK (6102 s.K.) m.519%','TTK (6102 s.K.) m.523%','THP 570%','THP 590%','THP 591%')
   'kar dagitimi'             = @('TTK (6102 s.K.) m.519%','TTK (6102 s.K.) m.523%','THP 570%','THP 590%','THP 591%')
   'fifo yontemi'             = @('TMS 2 p.25%','TMS 2 p.27%','VUK (213 s.K.) m.274%','THP 153%')
   'finansman bonosu ihraci'  = @('THP 305%','THP 308%','THP 300%')
-  'hazine bonosu tahsili'    = @('THP 112%','THP 111%','THP 102%')
+  # 09.09: OZEL_DESEN DesenUret'in YERİNE geçer → buradaki konuların dün yazılan TEORİ notları hiç çekilmiyordu; '~teori' ad deseni eklendi
+  'hazine bonosu tahsili'    = @('~teori hazine bonosu','THP 112%','THP 111%','THP 102%')
+  # 09.09 Tur 1/2 kaynak yüzünden düşen, notu olan ama adı konu kökleriyle eşleşmeyen konular (ölçüldü, Cem "önce ölç, kaynağı yut, sonra bas")
+  'iasb calismalari'         = @('~teori ifrs vakfi iasb','~teori iasb')
+  'uluslararasi etik kurulu' = @('~teori ifac iesba','~teori ifac')
+  'cari oran duran varlik'   = @('~teori bilanco esitli','~teori cari oran','~teori duran varlik','THP 253%','THP 300%')
+  'brut satis kari degisimi' = @('~teori brut satis kari','THP 600%','THP 621%','THP 610%','THP 611%')
+  'hasilat kavrami'          = @('~teori gelir hasilat kazanc','THP 600%','THP 679%','THP 649%','THP 391%')
+  'ust yonetimle iletisim'   = @('~teori istirak bagli ortaklik','THP 242%','THP 245%','THP 240%')   # konu adı yanlış; Tur 1 sorusu 245 Bağlı Ortaklıklar yönetim çoğunluğu ölçütünü sormuştu
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
