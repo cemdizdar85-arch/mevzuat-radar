@@ -1,131 +1,126 @@
 ﻿# KONU KAPSAMA TABLOSU (10.09.2026, Cem: "ders, o dersin konusu, sınavda çıkmış soru sayısı ve
-# yanına bizim şu an oluşturduğumuz soru — kaç soru yazmışız") — 0 USD, hiçbir model çağrısı yok.
+# yanına bizim şu an oluşturduğumuz soru") — 0 USD, hiçbir model çağrısı yok, ağ çağrısı yok.
 #
-# Ne yapar: her ders ve konu için üç sayıyı yan yana koyar.
-#   1) ÇIKTIĞI DÖNEM  : son 7 dönemlik pencerede konunun kaç sınavda çıktığı (huni ölçümü)
-#   2) HAVUZDAKİ SORU : soru_havuzu'nda o konuya yazılmış toplam soru
-#   3) YAYINDA        : bunların kaçı yayin=true
+# Sütunlar:
+#   1) SINAVDA CIKAN SORU : konunun pencerede kaç SORU olarak çıktığı (veri/sgs-analiz.json → donemler[].konuSayim)
+#   2) CIKTIGI DONEM      : kaç ayrı sınavda çıktığı
+#   3) YAZDIGIMIZ SORU    : havuzda o konuya yazılmış soru (huni etiketKasaSay, kök eşleşmeli)
+#   4) KAPI-TEMIZ         : bunların kaç tanesi kapılardan temiz çıkmış (huni etiketTemizSay)
+#   5) KAT                : yazdığımız soru / sınavda çıkan soru — aşırı basımı gösterir
 #
-# NAMUS NOTU: "çıkmış soru sayısı" diye bir alan ambarda YOK. Ölçülen şey konunun kaç DÖNEM
-# çıktığıdır (eski-sgs-huni-*.json → etiketDonemSay). Sütun adı bu yüzden "çıktığı dönem".
-# Uydurma yapılmaz; olmayan sayı tabloda boş kalır.
+# 10.09 DÜZELTME (Cem: "sınavda kaç kere çıktığını istemiştim"): ilk sürüm yalnız DÖNEM sayısını
+# yazıyordu. Gerçek soru sayısı sgs-analiz.json'da duruyordu; huni onu okuyup ATIYOR, yalnız
+# dönem sayısını saklıyordu. Bu betik ham sayımı doğrudan analiz dosyasından toplar.
+#
+# 10.09 BULGU (Cem: "niye böyle saçma sapan şeyler var, biz her konuda basacağımız soruyu
+# hesaplamıştık"): pencerede 1 soru çıkmış 'preposition kullanimi' konusuna 237, 'ilgi zamiri
+# whose' konusuna 124 soru basılmış. KAT sütunu bu israfı görünür kılmak için eklendi.
 #
 # Kullanım:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File arac/konu-kapsama-tablosu.ps1
-#   powershell -NoProfile -ExecutionPolicy Bypass -File arac/konu-kapsama-tablosu.ps1 -Ders "Mali Tablolar"
+#   powershell -NoProfile -ExecutionPolicy Bypass -File arac/konu-kapsama-tablosu.ps1 -DonemPencere 10
 #
-# Çıktı: veri/fabrika/konu-kapsama.csv (Excel'de açılır) + ekrana ders özeti.
-#
-# TUZAK KAYDI (bu betikte yaşandı, tekrar etmesin):
-#   - Supabase gizli anahtarı TARAYICI User-Agent'ını reddeder ("Forbidden use of secret API key
-#     in browser"). Invoke-WebRequest'e -UserAgent 'tetikte-olcum/1.0' verilir.
-#   - PS 5.1'de @(ConvertFrom-Json ...) 800 satırlık diziyi 1 sayar. Doğrusu:
-#     @((ConvertFrom-Json -InputObject $m) | ForEach-Object { $_ })
-#   - order'sız sayfalama kararsızdır; her sorguda &order=id verilir.
+# Çıktı: veri/fabrika/konu-kapsama.csv + ekrana ders özeti ve en aşırı basılan konular.
 
-param([string]$Ders='', [string]$Sinav='SGS', [switch]$Sessiz, [switch]$YalnizPencere)
+param([int]$DonemPencere=7, [string]$Ders='', [switch]$Sessiz)
 $ErrorActionPreference='Stop'
 $kok = Split-Path $PSScriptRoot -Parent
 
-if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - olculemez, cikildi." -ForegroundColor Red; exit 1 }
-$SB = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
-$U  = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu'
-$UA = 'tetikte-olcum/1.0'
-
-# --- 1) huni: konu -> ders + kac donem cikti ---
-$huniYol = (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter 'eski-sgs-huni-*.json' | Sort-Object LastWriteTime -Descending | Select-Object -First 1)
-if(-not $huniYol){ Write-Host "huni dosyasi bulunamadi (veri/fabrika/eski-sgs-huni-*.json) - cikildi." -ForegroundColor Red; exit 1 }
-$h = ConvertFrom-Json -InputObject (Get-Content $huniYol.FullName -Raw -Encoding UTF8)
-$donem = @{}; $konuDers = @{}
-foreach($p in $h.etiketDonemSay.PSObject.Properties){
-  $ad = "$($p.Name)"
-  $donem[$ad] = [int]$p.Value
-  $konuDers[$ad] = ("$($h.etiketDers.$ad)" -replace '\*$','')
+# --- huni ile AYNI katlama ve kök çıkarma (motor/eski-sgs-huni.ps1'den birebir) ---
+function Katla2([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant() }
+function KokOnek([string]$s){
+  $t=(Katla2 $s) -replace '[^a-z0-9 ]',' '
+  $es=@{ 'evre'='safha'; 'gug'='genel'; 'ilk'='ilk'; 'dimm'='ilk'; 'esdeger'='esdeger' }
+  @(($t -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|ile|veya|icin|bir|olan|sistemi|yontemi|sistem|yontem|hesaplama|hesabi|kaydi|kayit|analizi|analiz|orani|oran|tablosu|tablo|muhasebesi|muhasebe)$' } | ForEach-Object { $w=$_; if($es.ContainsKey($w)){ $w=$es[$w] }; if($w.Length -gt 5){ $w.Substring(0,5) } else { $w } } | Select-Object -Unique)
 }
-$pencereAd = (@($h.pencere) -join ' ')
-if(-not $Sessiz){ Write-Host ("huni: {0} | pencere: {1} | pencere konusu: {2}" -f $huniYol.Name, $pencereAd, $donem.Count) }
 
-# --- 2) havuz: ders+konu bazinda toplam ve yayindaki soru ---
-$toplam = @{}; $yayinda = @{}
-$off = 0; $sayfa = 0
-while($true){
-  $adres = "$U`?select=ders,konu,yayin&sinav=eq." + [uri]::EscapeDataString($Sinav) + "&order=id&limit=1000&offset=$off"
-  $ham = Invoke-WebRequest -Uri $adres -Headers $SB -UseBasicParsing -UserAgent $UA -TimeoutSec 180
-  $metin = [Text.Encoding]::UTF8.GetString($ham.RawContentStream.ToArray())
-  $r = @((ConvertFrom-Json -InputObject $metin) | ForEach-Object { $_ })
-  $sayfa++
-  if($r.Count -eq 0){ break }
-  foreach($x in $r){
-    $d = "$($x.ders)"; $k = "$($x.konu)"
-    if(-not $d -or -not $k){ continue }
-    $anahtar = "$d`t$k"
-    if(-not $toplam.ContainsKey($anahtar)){ $toplam[$anahtar]=0; $yayinda[$anahtar]=0 }
-    $toplam[$anahtar]++
-    if([bool]$x.yayin){ $yayinda[$anahtar]++ }
+# --- 1) sinav analizi: donem donem konu -> SORU SAYISI ---
+$anYol = Join-Path $kok 'veri\sgs-analiz.json'
+if(-not (Test-Path $anYol)){ Write-Host "veri/sgs-analiz.json yok - olculemez." -ForegroundColor Red; exit 1 }
+$an = ConvertFrom-Json -InputObject (Get-Content $anYol -Raw -Encoding UTF8)
+$dList = New-Object System.Collections.Generic.List[object]
+$an.donemler | ForEach-Object { $dList.Add($_) }
+$sonD = @($dList | Sort-Object { [int]("$($_.donem)" -replace '/','') } -Descending | Select-Object -First $DonemPencere)
+
+$etiket = @{}   # kok anahtari -> @{ ad; bolum; donemler=@{}; soru=int }
+foreach($dn in $sonD){
+  foreach($p in @($dn.konuSayim.PSObject.Properties)){
+    $bol = ($p.Name -split '\|')[0]
+    $lab = ($p.Name -replace '^[^|]*\|','')
+    $kk  = (KokOnek $lab) -join ' '
+    if(-not $kk){ continue }
+    if(-not $etiket.ContainsKey($kk)){ $etiket[$kk]=@{ ad=$lab; bolum=$bol; donemler=@{}; soru=0 } }
+    $etiket[$kk].donemler["$($dn.donem)"] = 1
+    $etiket[$kk].soru += [int]$p.Value
   }
-  $off += 1000
-  if($r.Count -lt 1000){ break }
 }
-if(-not $Sessiz){ Write-Host ("havuz: {0} sayfa · {1} ders-konu ciftinde soru var" -f $sayfa, $toplam.Count) }
+$pencereAd = (@($sonD | ForEach-Object { $_.donem }) -join ' ')
+if(-not $Sessiz){ Write-Host ("analiz: sgs-analiz.json | pencere ({0} donem): {1} | konu: {2}" -f $DonemPencere, $pencereAd, $etiket.Count) }
 
-# --- 3) birlestir: hem huniden gelen konular hem havuzda soru yazilmis konular ---
+# --- 2) huni: ayni konuya bizim kac soru yazdigimiz ---
+$huniYol = (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter 'eski-sgs-huni-*.json' | Sort-Object LastWriteTime -Descending | Select-Object -First 1)
+if(-not $huniYol){ Write-Host "huni dosyasi yok." -ForegroundColor Red; exit 1 }
+$h = ConvertFrom-Json -InputObject (Get-Content $huniYol.FullName -Raw -Encoding UTF8)
+if(-not $Sessiz){ Write-Host ("huni: {0}" -f $huniYol.Name) }
+
+# --- 3) birlestir ---
 $satirlar = New-Object System.Collections.Generic.List[object]
-$gorulen = @{}
-
-foreach($anahtar in $toplam.Keys){
-  $parca = $anahtar -split "`t",2
-  $d = $parca[0]; $k = $parca[1]
-  if($Ders -and $d -notmatch $Ders){ continue }
-  # -YalnizPencere: havuzda 9.698 farklı konu adı var ama sınavda son 7 dönemde çıkan konu 779.
-  # Cem'in tablosu için anlamlı olan pencere konularıdır; gerisi serbest metin varyantı.
-  if($YalnizPencere -and -not $donem.ContainsKey($k)){ continue }
-  $gorulen[$k] = $true
+foreach($kk in $etiket.Keys){
+  $ad = $etiket[$kk].ad
+  $ka = Katla2 $ad
+  $ders = "$($h.etiketDers.$ka)" -replace '\*$',''
+  if(-not $ders){ $ders = "[$($etiket[$kk].bolum)]" }
+  if($Ders -and $ders -notmatch $Ders){ continue }
+  $bizim  = $(if($h.etiketKasaSay.PSObject.Properties[$ka]){ [int]$h.etiketKasaSay.$ka } else { 0 })
+  $temiz  = $(if($h.etiketTemizSay.PSObject.Properties[$ka]){ [int]$h.etiketTemizSay.$ka } else { 0 })
+  $cikan  = [int]$etiket[$kk].soru
   $satirlar.Add([pscustomobject]@{
-    ders          = $d
-    konu          = $k
-    ciktigi_donem = $(if($donem.ContainsKey($k)){ $donem[$k] } else { '' })
-    havuzda_soru  = $toplam[$anahtar]
-    yayinda_soru  = $yayinda[$anahtar]
+    ders            = $ders
+    konu            = $ad
+    sinavda_cikan   = $cikan
+    ciktigi_donem   = $etiket[$kk].donemler.Count
+    yazdigimiz_soru = $bizim
+    kapi_temiz      = $temiz
+    kat             = $(if($cikan -gt 0){ [math]::Round($bizim / $cikan, 1) } else { '' })
   })
 }
+$sirali = @($satirlar | Sort-Object ders, @{Expression='sinavda_cikan'; Descending=$true}, konu)
 
-# huniden gelip havuzda hic sorusu olmayan konular (asil bosluk bunlar)
-foreach($k in $donem.Keys){
-  if($gorulen.ContainsKey($k)){ continue }
-  $d = $konuDers[$k]
-  if(-not $d){ continue }
-  if($Ders -and $d -notmatch $Ders){ continue }
-  $satirlar.Add([pscustomobject]@{
-    ders          = $d
-    konu          = $k
-    ciktigi_donem = $donem[$k]
-    havuzda_soru  = 0
-    yayinda_soru  = 0
-  })
-}
-
-$sirali = @($satirlar | Sort-Object ders, @{ Expression='ciktigi_donem'; Descending=$true }, konu)
-
-# --- 4) CSV ---
 $csv = Join-Path $kok 'veri\fabrika\konu-kapsama.csv'
 $sirali | Export-Csv -Path $csv -NoTypeInformation -Encoding UTF8
 Write-Host ("CSV yazildi: {0} ({1} satir)" -f $csv, $sirali.Count) -ForegroundColor Green
 
-# --- 5) ders ozeti ---
+# --- 4) ders ozeti ---
 Write-Host ""
-Write-Host ("{0,-32} {1,5} {2,8} {3,8} {4,8} {5,8}" -f 'DERS','konu','donem','havuz','yayin','sorusuz')
-Write-Host ("-" * 78)
-foreach($g in ($sirali | Group-Object ders | Sort-Object { -($_.Group | Measure-Object -Property havuzda_soru -Sum).Sum })){
-  $kn = $g.Count
-  $dn = ($g.Group | Where-Object { "$($_.ciktigi_donem)" -ne '' } | Measure-Object -Property ciktigi_donem -Sum).Sum
-  $hv = ($g.Group | Measure-Object -Property havuzda_soru -Sum).Sum
-  $yy = ($g.Group | Measure-Object -Property yayinda_soru -Sum).Sum
-  $sz = @($g.Group | Where-Object { $_.havuzda_soru -eq 0 }).Count
-  Write-Host ("{0,-32} {1,5} {2,8} {3,8} {4,8} {5,8}" -f $g.Name, $kn, $dn, $hv, $yy, $sz)
+Write-Host ("{0,-32} {1,5} {2,8} {3,8} {4,8} {5,6}" -f 'DERS','konu','cikan','yazdik','temiz','kat')
+Write-Host ("-" * 74)
+foreach($g in ($sirali | Group-Object ders | Sort-Object { -($_.Group | Measure-Object -Property yazdigimiz_soru -Sum).Sum })){
+  $ck = ($g.Group | Measure-Object -Property sinavda_cikan   -Sum).Sum
+  $yz = ($g.Group | Measure-Object -Property yazdigimiz_soru -Sum).Sum
+  $tm = ($g.Group | Measure-Object -Property kapi_temiz      -Sum).Sum
+  $kt = $(if($ck -gt 0){ [math]::Round($yz/$ck,1) } else { 0 })
+  Write-Host ("{0,-32} {1,5} {2,8} {3,8} {4,8} {5,6}" -f $g.Name, $g.Count, $ck, $yz, $tm, $kt)
 }
-Write-Host ("-" * 78)
-$tKn = $sirali.Count
-$tHv = ($sirali | Measure-Object -Property havuzda_soru -Sum).Sum
-$tYy = ($sirali | Measure-Object -Property yayinda_soru -Sum).Sum
-$tSz = @($sirali | Where-Object { $_.havuzda_soru -eq 0 }).Count
-Write-Host ("{0,-32} {1,5} {2,8} {3,8} {4,8} {5,8}" -f 'TOPLAM', $tKn, '', $tHv, $tYy, $tSz)
+Write-Host ("-" * 74)
+$tCk = ($sirali | Measure-Object -Property sinavda_cikan   -Sum).Sum
+$tYz = ($sirali | Measure-Object -Property yazdigimiz_soru -Sum).Sum
+$tTm = ($sirali | Measure-Object -Property kapi_temiz      -Sum).Sum
+Write-Host ("{0,-32} {1,5} {2,8} {3,8} {4,8} {5,6}" -f 'TOPLAM', $sirali.Count, $tCk, $tYz, $tTm, $([math]::Round($tYz/[Math]::Max($tCk,1),1)))
+
+# --- NAMUS SATIRI: kok eslesmesi bir soruyu birden cok konuya sayar ---
+Write-Host ""
+Write-Host "UYARI - 'yazdik' sutunu KOK eslesmelidir: bir soru birden cok konuya sayilabilir." -ForegroundColor Yellow
+Write-Host ("  Bu yuzden konu toplami ({0}) havuzdaki gercek SGS soru sayisindan buyuk cikar." -f $tYz) -ForegroundColor Yellow
+$havuzYol = Join-Path $kok 'veri\fabrika\eski-sgs-dump-20260907.json'
+if(Test-Path $havuzYol){
+  $hv = @(ConvertFrom-Json -InputObject (Get-Content $havuzYol -Raw -Encoding UTF8))
+  if($hv.Count -eq 1 -and $hv[0].PSObject.Properties['SyncRoot']){ $hv=@($hv[0].SyncRoot) }
+  Write-Host ("  Cift saymayan gercek sayi: havuzda {0} SGS sorusu, sinavda {1} soru cikmis -> {2} kat." -f $hv.Count, $tCk, [math]::Round($hv.Count/[Math]::Max($tCk,1),1)) -ForegroundColor Yellow
+}
+
+# --- 5) en asiri basilan konular ---
+Write-Host ""
+Write-Host "EN ASIRI BASILAN 15 KONU (yazdigimiz / sinavda cikan):"
+foreach($x in (@($sirali | Where-Object { $_.sinavda_cikan -gt 0 }) | Sort-Object { -[double]$_.kat } | Select-Object -First 15)){
+  Write-Host ("  {0,-28} {1,-34} cikan {2,2} -> yazdik {3,4} ({4} kat)" -f $x.ders, $x.konu, $x.sinavda_cikan, $x.yazdigimiz_soru, $x.kat)
+}

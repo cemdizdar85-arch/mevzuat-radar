@@ -679,6 +679,17 @@ $OZEL_DESEN=@{
   'dikey yuzde-aktif analizi'              = @('~teori dikey yuzde','~teori dikey yuzdelerden oran')
   'mali tablo standart oranlar'            = @('~teori likidite oranlari','~teori finansal yapi','~teori karlilik oranlari')
   'stokta kalma suresi'                    = @('~teori faaliyet devir','~teori stok devir')
+  # 10.09 ÖLÇÜLDÜ (bütün derslere yayılan kaynak denetimi): Meslek Hukuku'nun disiplin konuları
+  # ambardaki TEK "Disiplin Yönetmeliği" adlı belgeye, yani SPK Türkiye Sermaye Piyasaları Birliği
+  # Disiplin Yönetmeliği'ne bağlanıyordu. Doğru kaynak 'SMMM ve YMM K. Disiplin Yonetmeligi' ile
+  # SMMM K. (3568 s.K.) m.48-49'dur; ikisi de ambarda VARDI, çekim yanlış belgeye gidiyordu.
+  'disiplin yonetmeligi itiraz'            = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%','SMMM K. (3568 s.K.) m.49%')
+  'disiplin cezalari'                      = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
+  'disiplin cezasi kinama'                 = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
+  'disiplin cezalari eslestirme'           = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
+  'disiplin kovusturmasi'                  = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.49%')
+  'meslek hukuku disiplin cezasi'          = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
+  'turmob meslek odasi gelirleri'          = @('TÜRMOB Birlik Yön.%','SMMM K. (3568 s.K.) m.28%','SMMM K. (3568 s.K.) m.29%')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
