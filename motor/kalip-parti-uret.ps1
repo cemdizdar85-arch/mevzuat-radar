@@ -797,8 +797,15 @@ if($DonemPencere -gt 0){
     foreach($kk in $KONULAR){ "  pencere: $($kk.id) $($kk.kayit.konu) -> son $DonemPencere donemde $($kk.kayit.son_donem) (toplam $($kk.kayit.donem))" }   # Ö63(1): eski id anahtarı yerine kaydın kendi sayısı
     # --- Ö18 OTOMATİK ÇAPA: pencerenin gerçek kitapçıklarından konuya en yakın SORU bloğu (SGS: tam kitapçık = 'ingilizce' varyantı; Maliyet 57–64 ölçüldü)
     if($Sinav -eq 'SGS' -and -not $OrnekDosya){
-      $DERS_ARALIK=@{ 'Maliyet'=@(57,64) }
-      $aralik=$null; foreach($dk in $DERS_ARALIK.Keys){ if($DersRegex -match $dk){ $aralik=$DERS_ARALIK[$dk] } }
+      # 09.09 ÖLÇÜLDÜ (2026/2 kitapçığı soru soru okundu; yönerge 6.2 sayımlarıyla birebir: 7+8+5+10 | 26+8+8+16 | 6+6+6+6+6+6+6 = 130):
+      # Türkçe 1–7 · Matematik 8–15 · İnkılap 16–20 · Yabancı Dil 21–30 · FMuh 31–56 · Maliyet 57–64 · MTA 65–72 · Denetim 73–88 · Ekonomi 89–94 ·
+      # Maliye 95–100 · Meslek 101–106 · İş-SGK 107–112 · Vergi 113–118 · Ticaret 119–124 · Borçlar 125–130. Sıralı liste: 'Maliyet' 'Maliye'den önce sınanır.
+      $DERS_ARALIK=@(
+        @('Turkce|Türkçe',@(1,7)),@('Matematik',@(8,15)),@('Ataturk|Atatürk|Inkilap|İnkılap',@(16,20)),@('Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce',@(21,30)),
+        @('Finansal Muhasebe',@(31,56)),@('Maliyet',@(57,64)),@('Mali Tablolar',@(65,72)),@('Denetim',@(73,88)),@('Ekonomi',@(89,94)),@('Maliye',@(95,100)),
+        @('Meslek',@(101,106)),@('Is ve Sosyal|İş ve Sosyal|Sosyal Guvenlik|Sosyal Güvenlik',@(107,112)),@('Vergi',@(113,118)),@('Ticaret',@(119,124)),@('Borclar|Borçlar',@(125,130))
+      )
+      $aralik=$null; foreach($cift in $DERS_ARALIK){ if($DersRegex -match $cift[0]){ $aralik=$cift[1]; break } }
       $bloklar=New-Object System.Collections.Generic.List[object]
       foreach($dn in $sonD){
         $uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.'+[uri]::EscapeDataString("CIKMIS SINAV - SGS $($dn.donem) (%ingilizce)")+'&limit=1'
@@ -829,6 +836,19 @@ if($DonemPencere -gt 0){
           $cg=$CAPA[$kk.id]; $sayiN=@([regex]::Matches($cg,'\d{1,3}(?:\.\d{3})+|\b\d{2,}\b')).Count
           $CAPA_TIP[$kk.id]=$(if($cg -match '(?i)\bkaç\b' -or $sayiN -ge 3){ 'hesaplama' } elseif($cg -match '(?i)\b[1-7]\d{2}\s+[A-ZÇĞİÖŞÜ][^\n]{2,40}(HS\.?|hesabı)'){ 'kayit' } else { 'teori' })
           $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SGS $($enIyi.donem) Soru $($enIyi.no)" -Force; "  çapa: $($kk.id) <- SGS $($enIyi.donem) Soru $($enIyi.no) ($($CAPA[$kk.id].Length) kr, kök isabeti $enPuan/$($kokler.Count), tip $($CAPA_TIP[$kk.id]))" }
+        elseif($aralik){
+          # 09.09 genel kültür ölçümü (Matematik 15/39, Yabancı Dil 10/37 çapa): konu adı gövdede geçmiyor (formül / İngilizce metin) → kelime
+          # eşleşmesi çalışmaz. Ders aralığı biliniyorsa DERSİN kendi çıkmış sorularından biri konu sırasına göre dönüşümlü çapa olur: biçim, uzunluk
+          # ve dil dersin gerçek sınav diliyle gelir (matematikte formül soruları, İngilizcede boşluk doldurma). Konu-isabet yoktur, etikette görülür.
+          $havuz=@($bloklar | Where-Object { $_.no -ge $aralik[0] -and $_.no -le $aralik[1] } | Sort-Object { $_.donem },{ $_.no })
+          if($havuz.Count){
+            $sira=[int](($kk.id -replace '\D','')); $sec=$havuz[$sira % $havuz.Count]
+            $CAPA[$kk.id]=($sec.metin -replace '^SORU \d+:\s*',''); $cg=$CAPA[$kk.id]; $sayiN=@([regex]::Matches($cg,'\d{1,3}(?:\.\d{3})+|\b\d{2,}\b')).Count
+            $CAPA_TIP[$kk.id]=$(if($DersRegex -match 'Matematik' -or $cg -match '(?i)\bkaç' -or $sayiN -ge 3){ 'hesaplama' } else { 'teori' })
+            $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SGS $($sec.donem) Soru $($sec.no)" -Force
+            "  çapa (ders aralığından, konu isabeti yok): $($kk.id) <- SGS $($sec.donem) Soru $($sec.no) ($($cg.Length) kr, tip $($CAPA_TIP[$kk.id]))"
+          } else { "  çapa: $($kk.id) ders aralığında blok yok - sabit çapa kullanılır" }
+        }
         else { "  çapa: $($kk.id) pencerede eşleşen çıkmış soru YOK (kök isabeti $enPuan) - sabit çapa kullanılır" }
       }
     }
