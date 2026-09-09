@@ -240,8 +240,12 @@ function AtifDesen([string]$dayanak){
   if(-not $dayanak){ return @() }
   # 03.09 ikinci olcum (SMMM SPK kp-05/11/13 atif bos kaldi): model kanunu SAYIYLA ("6362 s.K. m.35/C"),
   # kisaltmayla ("SerPK") ya da Teblig adiyla ("Kurumsal Yönetim Tebliği (II-17.1) m.3") aniyor.
-  $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace '\bSPKn\b|\bSerPK\b|\b6362\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SPK ' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?|\b213\s*s(ayılı|\.)?\s*(K\.|Kanun)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?|\b193\s*s(ayılı|\.)?\s*(K\.|Kanun)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?|\b6102\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?|\b6098\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TBK ' -replace '\b4857\s*s(ayılı|\.)?\s*(İş\s*K\.|İş Kanunu|K\.|Kanun)?|\bİş K(anunu|\.)','ISK ' -replace '\b5510\s*s(ayılı|\.)?\s*(K\.|Kanun|SGK Kanunu)?','SGK ' -replace '\b3568\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SMMM ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT '
+  $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace '\bSPKn\b|\bSerPK\b|\b6362\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SPK ' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?|\b213\s*s(ayılı|\.)?\s*(K\.|Kanun)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?|\b193\s*s(ayılı|\.)?\s*(K\.|Kanun)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?|\b6102\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?|\b6098\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TBK ' -replace '\b4857\s*s(ayılı|\.)?\s*(İş\s*K\.|İş Kanunu|K\.|Kanun)?|\bİş K(anunu|\.)','ISK ' -replace '\b5510\s*s(ayılı|\.)?\s*(K\.|Kanun|SGK Kanunu)?','SGK ' -replace '\b3568\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SMMM ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT ' -replace '(SMMM ve YMM K(anunu)?\.?\s*)?Disiplin Y[oö]netmeli[gğ]i','DISY ' -replace 'Haks[ıi]z Rekabet ve Reklam Yasa[gğ][ıi] Y[oö]netmeli[gğ]i','HRRY ' -replace '(TÜRMOB\s*)?(Mesleki Faaliyetlerde\s*)?Etik [İi]lkeler( Hakk[ıi]nda)? Y[oö]netmeli[gğ]i(\s*EK)?','ETIKY ' -replace '(SMMM\s*)?Staj Y[oö]netmeli[gğ]i','STAJY '
+  # 09.09 Meslek Hukuku ÖLÇÜLDÜ (kolay 12 · zor 7 · çok zor 8 yayın / 29 konu; hakem "kaynakta yok" %25–37): model "Disiplin Yönetmeliği m.6/c",
+  # "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.14, m.32" anıyor, ambarda maddeler var ("SMMM ve YMM K. Disiplin Yonetmeligi m.6"), ama atıf
+  # genişletme yalnız kanun kısaltmalarını tanıyordu → yönetmelik maddeleri pakete girmiyordu. Dört yönetmelik kısaltma tablosuna eklendi.
   $KANUN2=@{}; foreach($k in $KANUN.Keys){ $KANUN2[$k]=$KANUN[$k] }
+  $KANUN2['DISY']='SMMM ve YMM K. Disiplin Yonetmeligi'; $KANUN2['HRRY']='Haksız Rekabet ve Reklam Yasağı Yön.'; $KANUN2['ETIKY']='TÜRMOB Etik İlkeler Yön.'; $KANUN2['STAJY']='SMMM Staj Yonetmeligi'
   $KANUN2['ISK']='İş K. (4857 s.K.)'; $KANUN2['KYT']='Kurumsal Yonetim Tebligi (II-17.1)'; $KANUN2['PAYT']='Pay Tebligi (VII-128.1)'; $KANUN2['FONT']='Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)'
   # 08.09 Tur 1 Denetim ÖLÇÜLDÜ (dayanak-dusus-olcum: 161 sorunun 31'i "kaynakta yok"): model "BDS 200 p.12" yazıyor, desen "BDS 200 p.%"
   # standardın p.1'den başlayan İLK parçalarını çekiyor, 7.000 tavanı p.12'ye gelmeden doluyordu → hakem "paket yalnız p.0–6" diye reddediyordu.
@@ -264,7 +268,7 @@ function AtifDesen([string]$dayanak){
   foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
   # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
   $son=''
-  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVK|SPK|SGK|SMMM|ISK|KYT|PAYT|FONT)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z]))?')){
+  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVK|SPK|SGK|SMMM|ISK|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z]))?')){
     if($m.Groups[1].Success){ $son=$m.Groups[1].Value }
     if(-not $son -or -not $KANUN2.ContainsKey($son) -or $KANUN2[$son] -match '%$'){ continue }
     $ek=if($m.Groups[3].Success){ "/$($m.Groups[3].Value)" } else { '' }
@@ -391,8 +395,12 @@ function DesenUret($kayit){
       $kodOne.Add("%($kod)%")
     }
   }
-  if($konuKat0 -match 'etik ilke|davranis kural'){ $kodOne.Add('TSPB Sermaye Piyasasi Calisanlari Etik%') }
-  if($konuKat0 -match 'meslek kural'){ $kodOne.Add('TSPB Uyelerinin%Meslek Kurallari%') }
+  # 09.09 Meslek Hukuku ÖLÇÜLDÜ: bu iki TSPB deseni SPK dersi için yazılmıştı ama HER derste çalışıyordu → SGS Meslek "etik ilkeler tehditleri"
+  # sorularına TSPB Sermaye Piyasası Çalışanları Etik Kuralları ve SPK Tebliği (VII-128.7) çekildi, hakem HAYIR. Yalnız sermaye piyasası derslerinde.
+  if($DersRegex -match 'Sermaye|SPK|Dar Kapsam|Geni[sş] Kapsam'){
+    if($konuKat0 -match 'etik ilke|davranis kural'){ $kodOne.Add('TSPB Sermaye Piyasasi Calisanlari Etik%') }
+    if($konuKat0 -match 'meslek kural'){ $kodOne.Add('TSPB Uyelerinin%Meslek Kurallari%') }
+  }
   if($kodOne.Count -eq 0 -and $konuKat0 -match 'yonetmeli|teblig|genelge|rehber|ilke'){
     $adKel=@(($konuKat0 -replace '\(.*?\)','' -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch $TEBLIG_BOS } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
     if($adKel.Count -ge 2){ $kodOne.Add('~'+($adKel -join ' ')) }
