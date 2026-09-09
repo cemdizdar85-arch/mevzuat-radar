@@ -2062,6 +2062,8 @@ if($HazirSoru -and -not $SadeceHtml){
     $kk=$null; foreach($x in $KONULAR){ if((Katla2 "$($x.kayit.konu)") -eq $eKonu){ $kk=$x; break } }
     if(-not $kk){ HzDus "$($e.konu)" 'konu bu etiketin konu listesinde yok (konu dosyası / pencere süzgeci)'; continue }
     $id=$kk.id
+    # -RedYenile: hakem HAYIR / DERS-DISI kalan hazır soru düşürülür ve dosyadan yeniden alınır (FAZ A'daki düşürme bu modda koşmaz — 09.09 pilot kp-09 ölçümü)
+    if($RedYenile -and $don.Contains($id) -and $don[$id].PSObject.Properties['hakem'] -and $don[$id].hakem -and ("$($don[$id].hakem.karar)" -ne 'EVET' -or "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI')){ Write-Host "  HAZIR SORU YENİLENİYOR (hakem reddi düşürüldü): $id" -ForegroundColor Yellow; $don.Remove($id) }
     if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['gm_kapi']){ continue }
     $cvp=[pscustomobject]@{ soru="$($e.soru)"; siklar=$e.siklar; dogru="$($e.dogru)"; aciklama=$e.aciklama; konu="$($kk.kayit.konu)"; yazar='GM'; donem=$kk.kayit.donem; sema=$(if($e.PSObject.Properties['sema']){ $e.sema } else { $null }) }
     foreach($alan in 'teshis','celdirici_yol','verilenler','dayanak','cozum_tablo','hap','sinav_taktigi','notlandirici'){ if($e.PSObject.Properties[$alan] -and $null -ne $e.$alan){ $cvp | Add-Member -NotePropertyName $alan -NotePropertyValue $e.$alan -Force } }
