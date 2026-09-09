@@ -1,16 +1,16 @@
 **********************
 PowerShell transcript start
-Start time: 20260909073722
-Username: runnervmlun5p\runner
-RunAs User: runnervmlun5p\runner
+Start time: 20260909171210
+Username: runnervmejwal\runner
+RunAs User: runnervmejwal\runner
 Configuration Name: 
-Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/94f5d53d-b405-4df0-b091-d9ad681096c6.ps1'
-Process ID: 11271
+Machine: runnervmejwal (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1970ad2c-65b8-4bc7-bce8-39c4d1be4ee3.ps1'
+Process ID: 11281
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
-OS: Ubuntu 24.04.5 LTS
+OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
 PSRemotingProtocolVersion: 2.4
@@ -34,15 +34,26 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...140/172
   ...150/172
   ...160/172
+PS>TerminatingError(Invoke-WebRequest): "Connection refused"
   ...170/172
-  gercekten olculen (PDF geldi) : 172
+  gercekten olculen (PDF geldi) : 171
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 0
+  inemeyen (istek dustu)        : 1
+     44986 (Connection refused (www.mevzuat.gov.tr:443))
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
+======================================================================
+  1 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
+======================================================================
+  mevzuatNo 44987  (21203 -> 21204 bayt)
+     https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=44987&mevzuatTur=9&mevzuatTertip=5
+
+  YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir - tablolari
+  modele okutuyor). O kosana kadar GTIP aracindaki gozetim verisi
+  ESKIDIR; arac zaten hasat tarihini ekranda gosteriyor.
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260909075921
+End time: 20260909174311
 **********************
