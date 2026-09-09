@@ -144,7 +144,9 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
         $kwRx=''
         foreach($ch in $kw.ToLowerInvariant().ToCharArray()){
           switch -CaseSensitive ("$ch"){
-            'c' { $kwRx+='[cç]' } 'g' { $kwRx+='[gğ]' } 'i' { $kwRx+='[iıİI]' } 'o' { $kwRx+='[oö]' } 's' { $kwRx+='[sş]' } 'u' { $kwRx+='[uü]' }
+            # 09.09 MTA ölçümü: 'a' şapkalı eşi yoktu → "Kârlılık oranları" notu '~teori karlilik oranlari' desenine
+            # HİÇ dönmüyordu (sessiz kaynak kaybı). Düzeltmeli harfler (â, î, û) sınıflara eklendi.
+            'a' { $kwRx+='[aâ]' } 'c' { $kwRx+='[cç]' } 'g' { $kwRx+='[gğ]' } 'i' { $kwRx+='[iıİIî]' } 'o' { $kwRx+='[oö]' } 's' { $kwRx+='[sş]' } 'u' { $kwRx+='[uüû]' }
             default { if("$ch" -match '[a-z0-9]'){ $kwRx+="$ch" } else { $kwRx+='.' } }
           }
         }
@@ -633,6 +635,14 @@ $OZEL_DESEN=@{
   'uretim satis maliyeti hesaplama' = @('~teori ardisik donem satilan','~teori secene uretim maliyeti','THP 151%','THP 152%','THP 620%')
   'satilan mamul maliyeti'          = @('~teori ardisik donem satilan','~teori stok degerleme','THP 152%','THP 620%')
   'direkt iscilik gideri hesaplama' = @('~teori direkt iscilik giderinin','~teori direkt iscilik ucret','THP 720%','THP 730%')
+  # 09.09 GM t2b MTA: 23 konunun 14'ünde ambar notu yoktu (ölçüldü), beş kapsayıcı not yazıldı (teori-notlari-20260909-sgs-mta-oranlar.json).
+  # Ad eşleşmesi zayıf kalan konular desenle bağlanır; ötekiler kök eşleşmesiyle notu kendiliğinden buluyor.
+  'cari oran-asit test yorumlama'          = @('~teori likidite oranlari','THP 100%','THP 150%','THP 300%')
+  'sektor oranlari analizi'                = @('~teori likidite oranlari','~teori finansal yapi','~teori karlilik oranlari')
+  'kisa vadeli kredi taksidi'              = @('~teori likidite oranlari','~teori finansal yapi','THP 300%','THP 400%')
+  'net calisma sermayesi devir hizi'       = @('~teori faaliyet devir','~teori likidite oranlari')
+  'kisa vadeli yabanci kaynak dikey yuzde' = @('~teori dikey yuzde','~teori finansal yapi')
+  'calisma sermayesi analizi'              = @('~teori likidite oranlari','~teori net isletme sermayesi')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
