@@ -626,7 +626,10 @@ $OZEL_DESEN=@{
   'tam maliyet yontemi'             = @('~teori tam maliyet normal','~teori degisken maliyet sistemi','~teori normal maliyet','THP 730%')   # "tam" 3 harf, "yontemi" genel kök → tek kök "maliyet" 6 alakasız not çekti (09.09 ölçüldü)
   # 09.09 GM maliyet-zor ÖLÇÜLDÜ (3 hakem reddi, hepsi kaynak): notlar VARDI ama adı konu kökleriyle eşleşmiyordu ("Teori Notu - maliyet gider harcama kavramlari",
   # "TEORI - Ardisik donem satilan mamul maliyeti"); direkt işçilik gideri (boşa geçen süre, fazla çalışma primi) notu YOKTU → yazıldı (teori-notlari-20260909-sgs-maliyet-kayit-3.json)
-  'maliyet esasi kavrami'           = @('~teori maliyet gider harcama','THP 150%','THP 151%','THP 152%','THP 620%')
+  'maliyet esasi kavrami'           = @('~teori maliyet gider harcama','~teori maliyetlerin siniflandirilmasi','THP 710%','THP 720%','THP 730%','THP 150%')
+  # 09.09 GM maliyet-cokzor ölçümü: THP 264 kaynak paketine girmiyordu (hakem ATIF TEYITSIZ); özel maliyet konusu adla çekilir
+  'ozel maliyet itfasi'             = @('~teori bakim onarim','THP 264%','THP 730%','THP 770%')
+  'genel uretim giderleri'          = @('~teori maliyetlerin siniflandirilmasi','~teori uretim giderlerinin dagitimi','THP 730%','THP 710%','THP 720%')
   'uretim satis maliyeti hesaplama' = @('~teori ardisik donem satilan','~teori secene uretim maliyeti','THP 151%','THP 152%','THP 620%')
   'satilan mamul maliyeti'          = @('~teori ardisik donem satilan','~teori stok degerleme','THP 152%','THP 620%')
   'direkt iscilik gideri hesaplama' = @('~teori direkt iscilik giderinin','~teori direkt iscilik ucret','THP 720%','THP 730%')
