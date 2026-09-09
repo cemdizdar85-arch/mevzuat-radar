@@ -540,6 +540,9 @@ window.veriAl = (function(){
              ndNeZaman, ndDip) KORUNDU - aşağıdaki betik aynı.
          "Tetikte olan kaçırmaz." silinmedi: og:title ve sekme başlığında
          slogan olarak yaşıyor; ilk ekranda ürün cümlesi konuşuyor. -->
+    <!-- 09.09 telefon: hero + soru şeridi tek sarmalda; telefonda sıra
+         hero metni → SORU KARTI → nöbet kutusu (ölçüldü: kart 1419 px aşağıdaydı). -->
+    <div class="hero-blok">
     <div class="hero-2">
       <div class="hero-sol">
         <!-- 04.09 ikinci tur (Cem, ekran görüntüsüyle):
@@ -704,10 +707,22 @@ window.veriAl = (function(){
       .v-siklar.metin .v-sik{font-weight:500;text-align:left;font-size:13px;line-height:1.35}
       .v-siklar.metin .v-sik i{align-self:flex-start;margin-top:1px}
       /* 09.09: kart hero'nun ALTINDA tam genişlik şerit; kendi içinde iki kolon (masaüstü) */
-      .v-serit{max-width:1180px;margin:34px auto 0;text-align:left}
+      /* padding:0 — stil-sade.css `section{padding:clamp(46px…)}` şeridi 13 px taşırıyordu (telefonda ölçüldü) */
+      .v-serit{max-width:1180px;margin:34px auto 0;text-align:left;padding:0;min-width:0}
       .v-serit-bas{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
       .v-serit-et{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);font-weight:700}
       .v-serit-git{font-size:13.5px;font-weight:700;color:var(--accent);text-decoration:none}
+      /* 09.09 telefon (Cem "telefona sen bak"): ölçüldü 375 px → soru kartı 1419 px aşağıdaydı.
+         hero-2 display:contents ile çözülür, üç blok tek akışta sıralanır: metin → SORU → nöbet.
+         Masaüstünde .hero-blok display:block, hero-2 kendi ızgarasında; hiçbir şey değişmez. */
+      @media(max-width:899px){
+        .hero-blok{display:flex;flex-direction:column;gap:26px}
+        .hero-blok .hero-2{display:contents}
+        .hero-blok .hero-sol{order:1}
+        .hero-blok .v-serit{order:2;margin-top:0}
+        .hero-blok .hero-sag{order:3}
+        .v-sik{min-height:44px}
+      }
       @media(min-width:900px){
         .v-kart{display:grid;grid-template-columns:1.05fr .95fr;align-items:start}
         .v-kart-ust{grid-column:1/3;grid-row:1;padding:12px 20px}
@@ -758,6 +773,7 @@ window.veriAl = (function(){
     </script>
 
     </section>
+    </div>
 
     <!-- ============ KANIT ŞERİDİ (04.09.2026) ==============================
          Cem: "kurumsal firmanın açılışı böyle olmamalı". Ölçülen eksik:
