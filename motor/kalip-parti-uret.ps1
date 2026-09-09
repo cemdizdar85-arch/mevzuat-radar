@@ -305,7 +305,9 @@ $DERS_KANUN=@{
   # 09.09 00:48 MTA kolay ÖLÇÜLDÜ: 32 konu → 19 soru → 9 yayın; kaynak borcu 9 (cari oran/asit-test, çalışma sermayesi, F/K). SGS ders adı 'Mali Tablolar Analizi'
   # listede YOKTU (yalnız SMMM 'Finansal Tablolar ve Analizi' vardı) → ders kanunu/teori araması hiç çalışmadı. Ambarda 21 oran + 8 dikey + 5 likidite notu var.
   'Mali Tablolar Analizi'=@('TEORI','Teori Notu','TMS','THP')
-  'Denetim'=@('BDS','TEORI','Teori Notu'); 'Maliyet Muhasebesi'=@('MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
+  # 09.09 GM yazımı ÖLÇÜLDÜ: Tur 1 maliyet-kolay 28 konunun 12'si kaynak borcu; ambarda 20+ maliyet TEORİ notu (sapmalar, kademeli/matematiksel dağıtım, eşdeğer birim,
+  # normal/değişken maliyet, FTM) var ama listede TEORI yoktu → hiç çekilmiyordu. Not adı konu köküyle eşleşerek çekilir ('~teori', metin araması yok); MSUGT 2 ve THP kalır.
+  'Denetim'=@('BDS','TEORI','Teori Notu'); 'Maliyet Muhasebesi'=@('TEORI','Teori Notu','MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)','THP')   # 07.09 K6 (Cem evet): maliyet TEKNİĞİNİN kaynağı MSUGT Sıra No 2 (ambarda bölüm 10–14), hakem artık VUK 275'e yaslanmaz
   # KGK (03.09, Cem "KGK icin agir bosluk partisine basla") - ambar adlari canli olculdu
   'Türkiye Muhasebe Standartları'=@('TMS','TFRS','THP','VUK (213 s.K.)')
   'Türkiye Denetim Standartları'=@('BDS','KYS')
