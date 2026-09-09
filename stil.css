@@ -47,7 +47,7 @@
   /* yazi tonlari: ana metin -> ikincil -> en soluk */
   --ink:#eef2f7;
   --muted:#93a1b3;
-  --dim:#5d6b7c;
+  --dim:#8f9dae;        /* 09.09 KOYU TEMA kontrast: eski #5d6b7c sayfa 3,66 / kart 3,40 / seçili amber 2,45 (esik 4,5). Koyu tema artık yalnız sınav ekranlarında düğmeyle (tema.js); kontrast kapısı koyu geçişte 14 kırık buldu, hepsi bu jetondu. Yeni değer: sayfa 7,21 / kart 6,69 / amber 4,83. Açık temada stil-acik.css kendi --dim ini tanımlar, etkilenmez. */
 
   /* marka: kehribar nobet lambasi. 29.07'de maviden cevrildi,
      sebep tercih degil tutarlilik - logo, profil resmi ve

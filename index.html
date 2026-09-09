@@ -616,9 +616,20 @@ window.veriAl = (function(){
           .v-panel-alt{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--dim)}
           .v-panel-alt a{font-weight:700;color:var(--accent);text-decoration:none;font-size:13.5px}
           @media(max-width:560px){.v-siklar{grid-template-columns:repeat(3,1fr)}}
+          .v-sekmeler{display:flex;gap:4px;margin:0 0 8px;border-bottom:1px solid var(--line)}
+          .v-sekme{background:none;border:0;border-bottom:3px solid transparent;font:inherit;font-size:13px;font-weight:700;color:var(--muted);padding:8px 12px;cursor:pointer;white-space:nowrap}
+          .v-sekme[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+          .v-sekme:hover{color:var(--ink)}
+          .v-siklar.metin{grid-template-columns:1fr;gap:5px}
+          .v-siklar.metin .v-sik{font-weight:500;text-align:left;font-size:13px;line-height:1.35}
+          .v-siklar.metin .v-sik i{align-self:flex-start;margin-top:1px}
           .v-nd-sar{max-width:1180px;margin:22px auto 0;text-align:left}
           .v-nd-sar .nd{max-width:none}
         </style>
+        <!-- 09.09 (Cem "2 yap"): kart veriyle döner. veri/vitrin-kart-ozet.json (motor/vitrin-kart.js, her sabah
+             vitrin-kart.yml) okunursa günün sorusu + sınav sekmeleri; okunamazsa aşağıdaki HTML (son gerçek soru) kalır.
+             Sekme yalnız vitrin dosyası olan sınav için gelir; smmm/kgk basılınca kendiliğinden açılır. -->
+        <div class="v-sekmeler" id="vSekmeler" role="tablist" aria-label="Sınav seç" hidden></div>
         <div class="v-kart" id="vKart">
           <div class="v-kart-ust"><span><b>Maliyet Muhasebesi</b> · ortak ürün maliyet dağıtımı</span><span>SGS 2025/2 kalıbı · 7 dönemde çıktı</span></div>
           <p class="v-soru">Aynı üretim sürecinden K ve L ortak ürünleri elde ediliyor. Ayrışma noktasına kadar birleşik gider 160.000 TL. K'den 700 adet (katsayı 1), L'den 300 adet (katsayı 3) üretildi. Katsayılı bölme yöntemiyle L ürününün birleşik gider payı kaç TL'dir?</p>
@@ -653,6 +664,47 @@ window.veriAl = (function(){
             ul.querySelectorAll('.v-sik').forEach(function(x){ x.classList.remove('yanlis','dogru'); });
             if(k==='C'){ b.classList.add('dogru'); roz.className='v-roz d'; roz.textContent='Doğru'; tm.textContent='Eşdeğer birim 900, birim maliyeti 100; pay 90.000 TL. Tablodaki adımlar birebir bu yol.'; }
             else { b.classList.add('yanlis'); roz.className='v-roz y'; roz.textContent=T[k].ad; tm.textContent=T[k].m; } });
+        })();
+        </script>
+        <script>
+        /* GÜNÜN SORUSU + SINAV SEKMELERİ (09.09, Cem "2 yap"): veri/vitrin-kart-ozet.json'dan çizer;
+           okunamazsa yukarıdaki statik kart (son gerçek soru) kalır. Sekme yalnız verisi olan sınav için. */
+        (function(){
+          var kart=document.getElementById('vKart'), sek=document.getElementById('vSekmeler'); if(!kart||!sek) return;
+          var esc=function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+          var VERI=null, SECILI=null;
+          function ciz(kod){
+            var v=VERI.sinavlar[kod]; if(!v) return; SECILI=kod;
+            var yanlisIlk=Object.keys(v.tuzak||{})[0]||Object.keys(v.siklar).filter(function(k){ return k!==v.dogru; })[0];
+            var siklar=Object.keys(v.siklar).map(function(k){ return '<li><button class="v-sik" type="button" data-k="'+k+'"><i>'+k+'</i>'+esc(v.siklar[k])+'</button></li>'; }).join('');
+            var tablo=(v.satirlar&&v.satirlar.length)?'<table class="v-cozum" aria-label="Çözüm">'+v.satirlar.map(function(r,i){ return '<tr'+(i===v.satirlar.length-1?' class="sonuc"':'')+'><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>'; }).join('')+'</table>':'';
+            var dogruMetin=v.rakamSik&&v.siklar[v.dogru]?', '+esc(v.siklar[v.dogru])+(/TL|%/.test(v.siklar[v.dogru])?'':' TL'):'';
+            kart.innerHTML='<div class="v-kart-ust"><span><b>'+esc(v.ders)+'</b> · '+esc(v.konu)+'</span><span>'+esc(v.kunye)+(v.donem?' · '+v.donem+' dönemde çıktı':'')+'</span></div>'
+              +'<p class="v-soru">'+esc(v.soru)+'</p><ul class="v-siklar'+(v.rakamSik?'':' metin')+'" id="vSiklar">'+siklar+'</ul>'
+              +'<div class="v-panel"><div class="v-tuzak"><span class="v-roz y" id="vRoz"></span><p id="vTuzak"></p></div>'
+              +'<div class="v-dogrusu"><b>Doğrusu '+esc(v.dogru)+dogruMetin+'.</b> '+esc(v.hap)+'</div>'+tablo
+              +'<div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. Bugünün sorusu; her sabah değişir.</span><a href="'+esc(v.baglanti)+'">Nöbetçi anlatsın →</a></div></div>';
+            sec(yanlisIlk);
+            sek.querySelectorAll('.v-sekme').forEach(function(b){ b.setAttribute('aria-selected',b.getAttribute('data-s')===kod?'true':'false'); });
+            try{ localStorage.setItem('v_sekme',kod); }catch(e){}
+          }
+          function sec(k){
+            var v=VERI.sinavlar[SECILI], roz=document.getElementById('vRoz'), tm=document.getElementById('vTuzak'); if(!v||!roz) return;
+            kart.querySelectorAll('.v-sik').forEach(function(x){ x.classList.remove('yanlis','dogru'); if(x.getAttribute('data-k')===k) x.classList.add(k===v.dogru?'dogru':'yanlis'); });
+            if(k===v.dogru){ roz.className='v-roz d'; roz.textContent='Doğru'; tm.textContent=v.hap; }
+            else { var t=v.tuzak&&v.tuzak[k]; roz.className='v-roz y'; roz.textContent=t?t.ad:'Yanlış'; tm.textContent=t?t.metin:('Doğrusu '+v.dogru+'.'); }
+          }
+          kart.addEventListener('click',function(e){ var b=e.target.closest('.v-sik'); if(b&&VERI) sec(b.getAttribute('data-k')); });
+          fetch('veri/vitrin-kart-ozet.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(d){
+            if(!d||!d.sinavlar) return; var kodlar=Object.keys(d.sinavlar); if(!kodlar.length) return; VERI=d;
+            if(kodlar.length>1){
+              sek.innerHTML=kodlar.map(function(k){ return '<button class="v-sekme" role="tab" type="button" data-s="'+k+'" aria-selected="false">'+esc(d.sinavlar[k].ad)+'</button>'; }).join('');
+              sek.hidden=false;
+              sek.addEventListener('click',function(e){ var b=e.target.closest('.v-sekme'); if(b) ciz(b.getAttribute('data-s')); });
+            }
+            var h=null; try{ h=localStorage.getItem('v_sekme'); }catch(e){}
+            ciz(d.sinavlar[h]?h:kodlar[0]);
+          }).catch(function(){});
         })();
         </script>
       </div>

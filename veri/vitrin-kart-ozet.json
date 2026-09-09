@@ -1,0 +1,69 @@
+{
+  "olcum": "2026-09-09T12:52:57.646Z",
+  "gun": "2026-09-09",
+  "sinavlar": {
+    "sgs": {
+      "ad": "SMMM Staja Giriş (SGS)",
+      "sira": 1,
+      "toplam": 10,
+      "id": "sgs-t1-maliyet-zor/kp-44",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "eşdeğer birim maliyeti",
+      "kunye": "SGS 2024/3 Soru 62 kalıbı",
+      "donem": 7,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Tek safhada üretim yapan işletme, mamul maliyetini ağırlıklı ortalama yöntemiyle hesaplamaktadır. Direkt ilk madde ve malzeme sürecin başında tam verilir; dönüştürme maliyeti (işçilik ve genel üretim gideri) süreç boyunca eşit hızda gerçekleşir. Dönem başı yarı mamul 1.000 birim olup ilk madde açısından %100, dönüştürme açısından %60 tamamlanmıştır; maliyeti 9.000 TL ilk madde, 3.600 TL dönüştürmedir. Dönem içinde 9.000 birim üretime başlanmış, 8.000 birim tamamlanıp devredilmiş, kalan 2.000 birim dönem sonu yarı mamul ilk madde açısından %100, dönüştürme açısından %50 tamamlanmıştır. Dönem içi ilk madde gideri 81.000 TL, dönüştürme maliyeti 77.400 TL'dir. Tamamlanan 8.000 birimin toplam maliyeti kaç TL'dir?",
+      "siklar": {
+        "A": "133.600",
+        "B": "136.800",
+        "C": "144.000",
+        "D": "144.800",
+        "E": "171.000"
+      },
+      "dogru": "C",
+      "tuzak": {
+        "D": {
+          "ad": "Tamamlanma Derecesi Ters Kullanma Tuzağı",
+          "metin": "Dönem sonu yarı mamulün ilk madde ve dönüştürme tamamlanma yüzdelerini birbirine karıştırıp ters uygularsın. Doğrusu: ilk madde açısından %100, dönüştürme açısından %50 tamamlanma derecesi doğru unsura uygulanmalıdır."
+        },
+        "E": {
+          "ad": "Dönem Sonu Yarı Mamulü Yok Sayma Tuzağı",
+          "metin": "Dönem sonunda hâlâ tamamlanmamış 2.000 birimi eşdeğer birim hesabına hiç katmayıp tüm maliyeti yalnız tamamlanan birimlere yüklersin. Doğrusu: dönem sonu yarı mamul, tamamlanma derecesiyle ağırlıklandırılarak eşdeğer bi…"
+        },
+        "A": {
+          "ad": "Dönem Başı Maliyeti İhmali Tuzağı",
+          "metin": "Dönem başı yarı mamulün maliyetini toplam maliyete katmadan yalnız dönem içi giderleri eşdeğer birime bölersin. Doğrusu: birim maliyet, dönem başı ve dönem içi maliyetlerin toplamının eşdeğer birime bölünmesiyle bulunur."
+        },
+        "B": {
+          "ad": "Tek Eşdeğer Birim Tuzağı",
+          "metin": "Direkt ilk madde ve malzeme ile dönüştürme maliyetinin süreçte aynı hızda tamamlandığını varsayıp ikisi için de aynı (ilk madde) eşdeğer birimi kullanırsın. Doğrusu: her maliyet unsurunun kendi tamamlanma derecesine gör…"
+        }
+      },
+      "hap": "Ağırlıklı ortalama yöntemde eşdeğer birim, tamamlanan birim artı dönem sonu yarı mamul x tamamlanma yüzdesi ile bulunur ve direkt ilk madde ile dönüştürme maliyeti için ayrı ayrı hesaplanır.",
+      "satirlar": [
+        [
+          "Dönüştürme toplam maliyeti",
+          "3.600 + 77.400"
+        ],
+        [
+          "Direkt ilk madde ve malzeme birim maliyeti",
+          "90.000 / 10.000"
+        ],
+        [
+          "Dönüştürme birim maliyeti",
+          "81.000 / 9.000"
+        ],
+        [
+          "Toplam eşdeğer birim maliyeti",
+          "9 + 9"
+        ],
+        [
+          "Tamamlanan 8.000 birimin toplam maliyeti",
+          "8.000 x 18"
+        ]
+      ],
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=1"
+    }
+  }
+}

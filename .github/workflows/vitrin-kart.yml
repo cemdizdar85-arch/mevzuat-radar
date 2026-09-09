@@ -1,0 +1,38 @@
+# GÜNÜN VİTRİN SORUSU (09.09.2026, Cem "2 yap"): ana sayfadaki gösterimlik kart her sabah döner.
+# motor/vitrin-kart.js kaydir/vitrin/<sinav>.html'den (depoda) günün sorusunu seçer → veri/vitrin-kart-ozet.json.
+# Yerel önbellek gerekmez; Kaydır-Çöz basımı yerelde, günlük seçim burada. Dosya değişmezse commit yok.
+name: Vitrin kart (günün sorusu)
+on:
+  schedule:
+    - cron: '20 2 * * *'     # 05:20 TR (yaz), nöbet robotlarından önce; ana sayfa 09:02'de taze
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: veri-operasyonu
+  cancel-in-progress: false
+jobs:
+  kart:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Günün sorusunu seç
+        run: node motor/vitrin-kart.js
+      - name: Depoya işle
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@tetikte.com"
+          git add veri/vitrin-kart-ozet.json || true
+          git diff --cached --quiet && { echo "değişiklik yok"; exit 0; }
+          git commit -m "Vitrin kart: günün sorusu [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git push; then echo "işlendi (deneme $i)"; break; fi
+            git pull --rebase --autostash || true
+            sleep $((i*15))
+          done

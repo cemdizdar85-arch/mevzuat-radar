@@ -495,12 +495,27 @@ function raporYaz(icerik){
   const surum=await (await fetch('http://127.0.0.1:'+dvPort+'/json/version')).json();
   const cdp=await Cdp.ac(surum.webSocketDebuggerUrl);
 
-  console.log('KONTRAST KAPISI: '+sayfalar.length+' sayfa, esik '+ESIK_NRM+' (buyuk metin '+ESIK_BYK+').');
+  /* 09.09 KOYU GECIS (Cem "1 yap"): tema dugmeli sinav sayfalari (tema.js / Kaydir-Coz,
+     anahtar kc_tema) KOYU temada da olculur. Acik gecis once kosar ve 'light' yazar,
+     koyu gecis 'dark' yazar - ayni Chrome profili oldugu icin sira ve anahtar onemli.
+     Etiket: "deneme.html [koyu]". kaydir/vitrin/sgs.html kok disinda ama ana sayfanin
+     bagladigi urun; iki temada da olculur. Kapi boylece iki temayi da korur. */
+  const KOYU_SAYFALAR=['deneme.html','canli-deneme.html','tuzak.html','kaydir/vitrin/sgs.html']
+    .filter(s=>fs.existsSync(path.join(KOK,s)));
+  const ekAcik = secili.length ? [] : ['kaydir/vitrin/sgs.html'].filter(s=>fs.existsSync(path.join(KOK,s)));
+  const gecisler=[
+    ...sayfalar.concat(ekAcik).map(s=>({sayfa:s, koyu:false})),
+    ...KOYU_SAYFALAR.filter(s=>!secili.length || secili.includes(s)).map(s=>({sayfa:s, koyu:true}))
+  ];
+
+  console.log('KONTRAST KAPISI: '+gecisler.length+' gecis ('+sayfalar.length+' sayfa acik + '
+              +gecisler.filter(g=>g.koyu).length+' koyu), esik '+ESIK_NRM+' (buyuk metin '+ESIK_BYK+').');
 
   const sonuc=[]; let toplamKirik=0, olculemeyen=0, toplamSinir=0;
   const olcumIfade='('+OLCUM_KAYNAK.toString()+')('+ESIK_NRM+','+ESIK_BYK+','+ESIK_SINIR+')';
 
-  for(const sayfa of sayfalar){
+  for(const g of gecisler){
+    const sayfa = g.koyu ? g.sayfa+' [koyu]' : g.sayfa;
     let hedef=null, oturum=null;
     try{
       const t=await cdp.cagir('Target.createTarget', { url:'about:blank' });
@@ -508,8 +523,10 @@ function raporYaz(icerik){
       const a=await cdp.cagir('Target.attachToTarget', { targetId:hedef, flatten:true });
       oturum=a.sessionId;
       await cdp.cagir('Page.enable', {}, oturum);
+      await cdp.cagir('Page.addScriptToEvaluateOnNewDocument',
+        { source:"try{localStorage.setItem('kc_tema','"+(g.koyu?'dark':'light')+"')}catch(e){}" }, oturum);
       await cdp.cagir('Page.navigate',
-        { url:'http://127.0.0.1:'+PORT+'/'+sayfa+'?kapi='+Date.now() }, oturum);
+        { url:'http://127.0.0.1:'+PORT+'/'+g.sayfa+'?kapi='+Date.now() }, oturum);
       await bekle(BEKLE_MS);
       const r=await cdp.cagir('Runtime.evaluate',
         { expression:olcumIfade, returnByValue:true, awaitPromise:true }, oturum);
@@ -541,7 +558,8 @@ function raporYaz(icerik){
     durum: (toplamKirik||toplamSinir) ? 'KIRMIZI' : (olculemeyen ? 'KOR' : 'YESIL'),
     ci: ci,
     chrome: chrome,
-    sayfa: sayfalar.length,
+    sayfa: gecisler.length,
+    koyu_gecis: gecisler.filter(g=>g.koyu).length,
     temiz_sayfa: temiz,
     denetlenen_metin: sonuc.reduce((t,s)=>t+(s.bakilan||0),0),
     toplam_kirik: toplamKirik,
@@ -563,7 +581,7 @@ function raporYaz(icerik){
   });
   console.log('  Denetlenen metin ogesi: '+sonuc.reduce((t,s)=>t+(s.bakilan||0),0)
               +'   sinir tasiyan oge: '+sonuc.reduce((t,s)=>t+(s.sinirBakilan||0),0));
-  console.log('  Temiz sayfa: '+temiz+'/'+sayfalar.length+'   Kirik: '+toplamKirik
+  console.log('  Temiz sayfa: '+temiz+'/'+gecisler.length+'   Kirik: '+toplamKirik
               +'   Gorunmez sinir: '+toplamSinir
               +(olculemeyen?('   OLCULEMEDI: '+olculemeyen):''));
 
