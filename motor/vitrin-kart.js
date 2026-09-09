@@ -24,7 +24,7 @@ for (const [kod, ad] of SINAVLAR) {
   const dosya = path.join(kok, 'kaydir', 'vitrin', kod + '.html');
   if (!fs.existsSync(dosya)) continue;
   const h = fs.readFileSync(dosya, 'utf8');
-  const m = h.match(/const SORULAR=(\[\{[\s\S]*?\}\]);\n/);
+  const m = h.match(/const SORULAR=(\[\{[\s\S]*?\}\]);\r?\n/);
   if (!m) { console.warn(kod + ': SORULAR bulunamadı'); continue; }
   let liste; try { liste = JSON.parse(m[1]); } catch (e) { console.warn(kod + ': JSON okunamadı'); continue; }
   if (!liste.length) continue;
@@ -41,7 +41,7 @@ for (const [kod, ad] of SINAVLAR) {
   sinavlar[kod] = {
     ad, sira: i, toplam: liste.length, id: s.id, ders: s.ders, konu: s.konu,
     kunye: (s.capa && s.capa.kaynak) ? s.capa.kaynak + ' kalıbı' : (s.ders + ' · yeni soru'),
-    donem: (s.cikmis && s.cikmis.pencereDonemler) ? s.cikmis.pencereDonemler.length : 0,
+    donem: (s.cikmis && Array.isArray(s.cikmis.donemler)) ? s.cikmis.donemler.length : 0,   // GERÇEK çıkma sayısı (rozetle aynı); pencereDonemler pencere genişliğidir
     teori: !!s.teori, rakamSik,
     soru: String(s.soru || ''), siklar, dogru: String(s.dogru || ''), tuzak,
     hap: kisalt(s.hap || s.kural || '', 240), satirlar,

@@ -1,66 +1,66 @@
 {
-  "olcum": "2026-09-09T12:52:57.646Z",
+  "olcum": "2026-09-09T13:09:30.828Z",
   "gun": "2026-09-09",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
       "sira": 1,
       "toplam": 10,
-      "id": "sgs-t1-maliyet-zor/kp-44",
-      "ders": "Maliyet Muhasebesi",
-      "konu": "eşdeğer birim maliyeti",
-      "kunye": "SGS 2024/3 Soru 62 kalıbı",
-      "donem": 7,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "Tek safhada üretim yapan işletme, mamul maliyetini ağırlıklı ortalama yöntemiyle hesaplamaktadır. Direkt ilk madde ve malzeme sürecin başında tam verilir; dönüştürme maliyeti (işçilik ve genel üretim gideri) süreç boyunca eşit hızda gerçekleşir. Dönem başı yarı mamul 1.000 birim olup ilk madde açısından %100, dönüştürme açısından %60 tamamlanmıştır; maliyeti 9.000 TL ilk madde, 3.600 TL dönüştürmedir. Dönem içinde 9.000 birim üretime başlanmış, 8.000 birim tamamlanıp devredilmiş, kalan 2.000 birim dönem sonu yarı mamul ilk madde açısından %100, dönüştürme açısından %50 tamamlanmıştır. Dönem içi ilk madde gideri 81.000 TL, dönüştürme maliyeti 77.400 TL'dir. Tamamlanan 8.000 birimin toplam maliyeti kaç TL'dir?",
+      "id": "sgs-t1-meslek-kolay/kp-01",
+      "ders": "Meslek Hukuku",
+      "konu": "disiplin cezalari",
+      "kunye": "SGS 2025/2 Soru 101 kalıbı",
+      "donem": 11,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre bu meslek mensubuna hangi disiplin cezası verilir?",
       "siklar": {
-        "A": "133.600",
-        "B": "136.800",
-        "C": "144.000",
-        "D": "144.800",
-        "E": "171.000"
+        "A": "Uyarma",
+        "B": "Kınama",
+        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
+        "D": "Yeminli sıfatını kaldırma",
+        "E": "Meslekten çıkarma"
       },
-      "dogru": "C",
+      "dogru": "E",
       "tuzak": {
-        "D": {
-          "ad": "Tamamlanma Derecesi Ters Kullanma Tuzağı",
-          "metin": "Dönem sonu yarı mamulün ilk madde ve dönüştürme tamamlanma yüzdelerini birbirine karıştırıp ters uygularsın. Doğrusu: ilk madde açısından %100, dönüştürme açısından %50 tamamlanma derecesi doğru unsura uygulanmalıdır."
-        },
-        "E": {
-          "ad": "Dönem Sonu Yarı Mamulü Yok Sayma Tuzağı",
-          "metin": "Dönem sonunda hâlâ tamamlanmamış 2.000 birimi eşdeğer birim hesabına hiç katmayıp tüm maliyeti yalnız tamamlanan birimlere yüklersin. Doğrusu: dönem sonu yarı mamul, tamamlanma derecesiyle ağırlıklandırılarak eşdeğer bi…"
+        "C": {
+          "ad": "Bağımsızlık İhlali Tuzağı",
+          "metin": "Görevi bağımsızlık, tarafsızlık ve dürüstlükle yapmama halinin cezasıyla bu özel fiili karıştırıyorsun. Doğrusu: Geçici alıkoyma cezası bağımsızlık/tarafsızlık ihlali ile tasdik yetkisinin gerçeğe aykırı ilk kullanımına…"
         },
         "A": {
-          "ad": "Dönem Başı Maliyeti İhmali Tuzağı",
-          "metin": "Dönem başı yarı mamulün maliyetini toplam maliyete katmadan yalnız dönem içi giderleri eşdeğer birime bölersin. Doğrusu: birim maliyet, dönem başı ve dönem içi maliyetlerin toplamının eşdeğer birime bölünmesiyle bulunur."
+          "ad": "İlk Aşama Tuzağı",
+          "metin": "Her disiplin ihlalinin ilk defasında uyarma cezası ile başladığını sanıyorsun. Doğrusu: Kanun, mükellefle birlikte kasten vergi ziyaına sebebiyet verilip bu husus mahkeme kararıyla kesinleştiğinde ilk aşama uygulamadan …"
+        },
+        "D": {
+          "ad": "Yeminli Sıfatı Tuzağı",
+          "metin": "Bu cezanın her ağır fiilde uygulanan genel bir yaptırım olduğunu sanıyorsun. Doğrusu: Yeminli sıfatının kaldırılması yalnız yeminli mali müşavirlerin tasdik yetkisini gerçeğe aykırı kullanmasının tekerrürüne özgü özel b…"
         },
         "B": {
-          "ad": "Tek Eşdeğer Birim Tuzağı",
-          "metin": "Direkt ilk madde ve malzeme ile dönüştürme maliyetinin süreçte aynı hızda tamamlandığını varsayıp ikisi için de aynı (ilk madde) eşdeğer birimi kullanırsın. Doğrusu: her maliyet unsurunun kendi tamamlanma derecesine gör…"
+          "ad": "Tekerrür Tuzağı",
+          "metin": "Kınama cezasının basit kusurlu davranışın tekrarında uygulandığını, olayı da böyle bir tekrar sanıyorsun. Doğrusu: Buradaki fiil mükellefle birlikte kasten vergi ziyaına sebep olmaktır, bu fiile kanun doğrudan en ağır c…"
         }
       },
-      "hap": "Ağırlıklı ortalama yöntemde eşdeğer birim, tamamlanan birim artı dönem sonu yarı mamul x tamamlanma yüzdesi ile bulunur ve direkt ilk madde ile dönüştürme maliyeti için ayrı ayrı hesaplanır.",
+      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararıyla kesinleşen meslek mensubuna kademesiz doğrudan meslekten çıkarma cezası verilir.",
       "satirlar": [
         [
-          "Dönüştürme toplam maliyeti",
-          "3.600 + 77.400"
+          "A) Uyarma",
+          "p.48/1"
         ],
         [
-          "Direkt ilk madde ve malzeme birim maliyeti",
-          "90.000 / 10.000"
+          "B) Kınama",
+          "p.48/1"
         ],
         [
-          "Dönüştürme birim maliyeti",
-          "81.000 / 9.000"
+          "C) Geçici olarak mesleki faaliyetten alıkoyma",
+          "p.48/2"
         ],
         [
-          "Toplam eşdeğer birim maliyeti",
-          "9 + 9"
+          "D) Yeminli sıfatını kaldırma",
+          "p.48/1"
         ],
         [
-          "Tamamlanan 8.000 birimin toplam maliyeti",
-          "8.000 x 18"
+          "E) Meslekten çıkarma",
+          "p.48/2"
         ]
       ],
       "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=1"
