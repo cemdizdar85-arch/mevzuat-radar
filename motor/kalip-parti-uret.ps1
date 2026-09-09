@@ -468,7 +468,9 @@ function DesenUret($kayit){
   # 03.09 olcumu (cek hukuku -> TFRS 10 + Noterlik K.): 'hukuku', 'kanunu' gibi GENEL kokler her seyi
   # esliyor; stop listesi genisletildi. Kanun ici (@) arama icin 3-4 harfli ozgul kokler de alinir (cek, bono).
   $GENEL_KOK='^(hesabi|hesaplama|yontemi|yontem|teorisi|kavrami|kavram|ilkesi|ilkeler|degeri|suresi|araclari|sartlari|haklari|problemi|sistemi|tanimi|unsurlari|hukuku|hukuk|kanunu|kanun|mevzuat|standart|standardi|genel|temel|ozel|turleri|halleri|kurali|kurallari|islemi|islemleri|kaydi|kayitlari|analizi|hesaplari)$'
-  $teoriKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch $GENEL_KOK } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
+  # 09.09 GM pilotu ÖLÇÜLDÜ: "cari oran-asit test yorumlama" tire ile tek kelime sayıldı ("oran-asit" → regex 'oran.a[sş]'), not adı "Cari oran ve asit-test"
+  # eşleşmedi, hakem TMS 1 p.64 ile "kaynak formülü içermiyor" dedi. Kökler tire ve bölü işaretinden de ayrılır.
+  $teoriKok=@(("$($kayit.konu)" -split '[\s\-/]+') | Where-Object { $_.Length -ge 5 -and $_ -notmatch $GENEL_KOK } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
   $kanunKok=@(("$($kayit.konu)" -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch $GENEL_KOK -and $_ -notmatch '^(ve|ile|icin|bir|bu|olan|dair)$' } | Select-Object -First 3 | ForEach-Object { if($_.Length -ge 7){ $_.Substring(0,$_.Length-2) } else { $_ } })
   # 03.09 OLCULDU (SMMM denetim partisi, 8 hakem reddi): TEK kok cok gevsek - 'sistem' ->
   # doviz kuru riski notu, 'sozlesme' -> sigorta zeyilname notu. Cem "1.2.3 yap" -> 3:
@@ -2208,7 +2210,8 @@ foreach($id in @($don.Keys)){
       }
     }
   }
-  if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); continue }
+  # 09.09 GM pilotu: kp-10 hakemsiz kaldı, sebebi yalnız rapora yazılmıştı (konsolda iz yok) → konsola da yazılır
+  if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); Write-Host "  HAKEM ATLANDI (kaynak paketi BOŞ, soru yayına giremez): $id [$($cvp.konu)]" -ForegroundColor Red; continue }
   $gecici=@(GeciciMaddeNotu $cvp); $geciciNot=$(if($gecici.Count){ "DIKKAT: soru/dayanak gecici madde aniyor ($($gecici -join ', ')); gecici hukmun suresi kaynak metninde dolmussa ESKI." } else { '' })
   $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
   $yh=$null
@@ -2908,7 +2911,10 @@ E) $($ti.siklar.E)
     $istenenK=@(((Katla2 $sonObek) -replace '[^a-z ]+',' ') -split '\s+' | Where-Object { $_.Length -ge 4 -and $_ -notmatch '^(gore|olan|tarih|sonu|basi|donem|yili|urun|urunu|urununun)$' } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } } | Select-Object -Unique)
     if($istenenK -contains 'basin'){ $istenenK=@($istenenK)+@('birim') }   # "kg başına" = birim
     # eşitlikte SONRAKİ satır kazanır (sonuç satırları tabloda alttadır)
-    $enP=0; foreach($st in $satirlarI){ $etK=@(((Katla2 "$(@($st)[0])") -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } }
+    # 09.09 GM pilotu kp-06 ÖLÇÜLDÜ: ikiz "stok devir hızı" sordu, öğrenci 8 dedi (doğru); satır etiketi "Stokta kalma süresi (360 / stok devir hızı)"
+    # parantezdeki formül yüzünden 3 kök eşleyip hedef seçildi, sim YANLIŞ sayıldı. Eşleme önce PARANTEZSİZ etiketle yapılır; hiç eşleşme yoksa tam etiketle.
+    $enP=0; foreach($st in $satirlarI){ $etAd=("$(@($st)[0])" -replace '\([^)]*\)',' '); $etK=@(((Katla2 $etAd) -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } }
+    if($enP -eq 0){ foreach($st in $satirlarI){ $etK=@(((Katla2 "$(@($st)[0])") -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } } }
     if($hedefSat -and $enP -ge 1){ Write-Host "  SIM HEDEF ($id): '$(@($hedefSat)[0])' satırı (soru kökü eşleşmesi $enP)" -ForegroundColor DarkGray } else { $hedefSat=$null }
   }
   $sonSat=@($(if($hedefSat){ $hedefSat } else { $satirlarI[-1] })); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
