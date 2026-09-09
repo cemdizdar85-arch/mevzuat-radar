@@ -617,7 +617,7 @@ $OZEL_DESEN=@{
   'ust yonetimle iletisim'   = @('~teori istirak bagli ortaklik','THP 242%','THP 245%','THP 240%')   # konu adı yanlış; Tur 1 sorusu 245 Bağlı Ortaklıklar yönetim çoğunluğu ölçütünü sormuştu
   # 09.09 GM maliyet-kolay ÖLÇÜLDÜ (5 hakem reddi, hepsi kaynak): 'standart' GENEL_KOK'ta olduğu için "standart maliyet sistemi" tek kök "maliyet"le 6 alakasız
   # not çekti; "normal maliyet" ve "bakım onarım" dayanağındaki TMS 2 / TMS 16 atıfı paketi standart paragraflarıyla doldurdu. Doğru notlar ADLA öne alınır.
-  'standart maliyet sistemi'        = @('~teori standart maliyet miktar','~teori standart maliyet fark','~teori direkt iscilik ucret','THP 711%','THP 712%','THP 713%','THP 722%','THP 723%')
+  'standart maliyet sistemi'        = @('~teori standart maliyet kartinin','~teori standart maliyet miktar','~teori standart maliyet fark','THP 711%','THP 712%','THP 713%','THP 722%','THP 723%')   # 09.09 cokzor: standart KARTIN KURULMASI notu yoktu, yazıldı (kayit-5)
   'standart maliyet direkt iscilik' = @('~teori direkt iscilik ucret','~teori standart maliyet miktar','THP 722%','THP 723%')
   'direkt iscilik sure farki'       = @('~teori direkt iscilik sure','~teori direkt iscilik ucret','THP 723%','THP 722%')
   'direkt iscilik farklari'         = @('~teori direkt iscilik sure','~teori direkt iscilik ucret','THP 722%','THP 723%')
