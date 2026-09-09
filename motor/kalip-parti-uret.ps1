@@ -181,7 +181,7 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     foreach($x in @($r)){
       # 06.09 KAPI-K kaynak süzgeci: pencere sözlüğü varsa, adı pencere dışı kök taşıyan TEORİ NOTU kaynak paketine girmez
       # ("Teori Notu - kusurlu ve bozuk mamul maliyetleri" → 'kusur' son 7 dönem Maliyet sorularında yok). Kanun/standart/THP kaynağı süzülmez.
-      if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
+      if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count -and -not $script:GK_DERS -and "$($x.kaynak_ad)" -match '^(TEORI|Teori Notu)'){
         # 06.09 maliyet-k10d dersi: "Ortak (müşterek) maliyetlerin dağıtımı" notu tek parantez kelimesi yüzünden atılıyordu → dar sözlükte ≥2 kök eksikse
         # ya da geniş sözlükte ≥1 kök eksikse atlanır ("kusurlu ve bozuk mamul": dar 2 eksik → atlanır · "müşterek": dar 1 eksik, geniş var → kalır)
         $adKisim=("$($x.kaynak_ad)" -replace '^(TEORI|Teori Notu)\s*-\s*',''); $disiDar=@(PencereKavram $adKisim -YalnizDar); $disiGenis=@(PencereKavram (($adKisim -split '\s+' | Where-Object { $_.Length -ge 6 }) -join ' ') | Where-Object { $w=$_; -not $script:PENCERE_KOK.ContainsKey($w.Substring(0,5)) })
@@ -971,6 +971,11 @@ function AdimTurkceKusur($adimlar,$verilen){
 # Yabancı Dil ise soru kökü + şıklar İngilizce yazılır; açıklama/adım/tuzak adları Türkçe kalır. Türkçe harf kapısı (KAPI-D2) ve yazım
 # onarımı yalnız Türkçe alanlara (açıklama) bakar; KAPI-K pencere sözlüğü (10 soru × 7 kitapçık = 70 İngilizce blok) İngilizce için anlamsız → kapalı.
 $script:YD_MOD=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce')
+# 09.09 pilot3 ÖLÇÜLDÜ: "TEORI - Yabanci Dil: kip fiilleri (modal verbs)" notu KAPI-K kaynak süzgecine takıldı ("fiilleri, yabanci" pencere
+# sözlüğünde yok) → YD etiketleri 0 soru / kaynak borcu verdi. Pencere sözlüğü çıkmış soru GÖVDESİNDEN kurulur; genel kültür derslerinde
+# (Türkçe/Matematik/YD/İnkılap/Ekonomi/Maliye) not adları bizim yazdığımız başlıklardır ve sınav gövdesiyle örtüşmez — bu derslerde
+# kaynak adı süzgeci KAPALI (soru gövdesi kapısı KAPI-K ayrıca çalışır, YD'de o da kapalı).
+$script:GK_DERS=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce|Turkce|Türkçe|Matematik|Ataturk|Atatürk|Inkilap|İnkılap|Ekonomi|Maliye')
 $YD_DIL_KURAL=@'
 
     YABANCI DİL (İNGİLİZCE) MODU: Bu ders SGS kitapçığının 21–30. soruları gibi İNGİLİZCE yazılır. Soru kökü ve 5 şık İngilizce;
