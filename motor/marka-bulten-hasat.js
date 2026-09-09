@@ -303,22 +303,54 @@ function metneCevir(pdf, txt) {
 /* ===================== SUPABASE ========================================== */
 /* Zaman asiminda PARTIYI BOLEREK yazar. Upsert oldugu icin tekrar yazmak
    guvenli - ayni satir uzerine yazilir, kopya uretmez. 25'in altina inmez;
-   orada da dusuyorsa sorun parti boyutu degildir, gorunur hata verilir. */
+   orada da dusuyorsa sorun parti boyutu DEGILDIR -> beklenip TEKRAR denenir.
+
+   09.09.2026 OLCUM (kosu 19, bulten 387): bolme 200 -> 100 -> 50 -> 25 ta
+   indi ve 25 SATIR BILE zaman asimina dustu; kod orada pes edip 11.301
+   kayitlik bulteni yakti (6.200 satiri yazilmis, kutuge 'hata' dusmustu).
+   Yani daha kucuk parti CARE DEGIL - nitekim ayni kosuda 22 kez bolundu,
+   20'si toparladi. Sebep parti boyutu degil, ANLIK bir gecikme:
+   08.09'da sahip_norm uzerine IKINCI bir GIN trigram indeksi eklendi
+   (ix_mb_sahipnorm, unvan aramasi icin). GIN'in bekleyen listesi dolunca
+   flush isini o sirada yazan istek ustlenir; o tek istek saniyelerce
+   surer ve timeout'a carpar. Olculdu - yazma zorlanmasi indeksten ONCE
+   3 gecede 0, indeksten SONRAKI ilk gecede 22.
+   GECICI bir engele "kalici hata" muamelesi yapmak, gecenin en pahali
+   isini (628 MB indirilmis, ayrilmis bulten) cope atmaktir. Artik en
+   kucuk parcada beklenip tekrar denenir; ucu de tutmazsa gorunur hata. */
+const YAZMA_TEKRAR_BEKLEME = [5000, 15000, 30000];
 async function sbYazBolerek(yol, satirlar, prefer, derinlik) {
   derinlik = derinlik || 0;
+  const gecici = m => /57014|statement timeout|HTTP 5\d\d/.test(m);
   try {
     await sbYaz(yol, satirlar, prefer);
     return satirlar.length;
   } catch (e) {
-    const zamanAsimi = /57014|statement timeout|HTTP 5\d\d/.test(e.message);
-    if (!zamanAsimi || satirlar.length <= 25 || derinlik >= 4) throw e;
-    const orta = Math.ceil(satirlar.length / 2);
-    log(`   yazma zorlandi (${satirlar.length} satir) -> ikiye bolunuyor`);
-    await new Promise(z => setTimeout(z, 1500));
-    let y = 0;
-    y += await sbYazBolerek(yol, satirlar.slice(0, orta), prefer, derinlik + 1);
-    y += await sbYazBolerek(yol, satirlar.slice(orta), prefer, derinlik + 1);
-    return y;
+    if (!gecici(e.message)) throw e;
+    if (satirlar.length > 25 && derinlik < 4) {
+      const orta = Math.ceil(satirlar.length / 2);
+      log(`   yazma zorlandi (${satirlar.length} satir) -> ikiye bolunuyor`);
+      await new Promise(z => setTimeout(z, 1500));
+      let y = 0;
+      y += await sbYazBolerek(yol, satirlar.slice(0, orta), prefer, derinlik + 1);
+      y += await sbYazBolerek(yol, satirlar.slice(orta), prefer, derinlik + 1);
+      return y;
+    }
+    // EN KUCUK PARCA: bolmek bitti, BEKLE VE TEKRAR DENE (upsert - guvenli)
+    let son = e;
+    for (const bekle of YAZMA_TEKRAR_BEKLEME) {
+      log(`   en kucuk parca (${satirlar.length} satir) da dustu -> ${bekle / 1000} sn bekleyip yeniden`);
+      await new Promise(z => setTimeout(z, bekle));
+      try {
+        await sbYaz(yol, satirlar, prefer);
+        log(`   tekrar denemede yazildi (${satirlar.length} satir)`);
+        return satirlar.length;
+      } catch (e2) {
+        if (!gecici(e2.message)) throw e2;
+        son = e2;
+      }
+    }
+    throw son;
   }
 }
 
