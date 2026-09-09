@@ -105,7 +105,9 @@ foreach($konu in $konular){
     }
   }
   # 3. yol: dersin KANUN listesi içinde MADDE METNİ araması (hukuk dersleri kaynağı adda değil metinde taşır)
-  if(-not $bulunan.Count -and $dersKanunlari.Count -and $kokler.Count){
+  # 09.09: koşul "-not $bulunan.Count" idi — ad araması TEK belge bulunca kanun metnine hiç bakmıyordu ve konu
+  # ZAYIF görünüyordu. Güçlendirme notları eklendikten sonra zayıf sayısının ARTMASI bu yüzdendi. Artık 2'ye tamamlanır.
+  if($bulunan.Count -lt 2 -and $dersKanunlari.Count -and $kokler.Count){
     $kaynakTuru='kanun metni'
     # 09.09: metin aramasında İKİ kök birlikte aranır (kok1.*kok2); tek kelime alakasız madde getiriyordu
     $ikiKok=$(if($kokler.Count -ge 2){ ($kokler[0]+' '+$kokler[1]) } else { $kokler[0] })

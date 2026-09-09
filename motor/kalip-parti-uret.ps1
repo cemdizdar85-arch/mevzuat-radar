@@ -660,6 +660,25 @@ $OZEL_DESEN=@{
   'cari oran bilanco analizi'              = @('~teori likidite oranlari','~teori cari oran')
   'mali tablolar analiz teknikleri'        = @('~teori mali tablolar analizinde','~teori karsilastirmali yatay','~teori dikey yuzde')
   'gelir tablosu analiz sinirlamalari'     = @('~teori gelir tablosu analizinin','~teori karsilastirmali yatay')
+  # 10.09 ÖLÇÜLDÜ (MTA kolay kp-05 + MTA zor kp-02): deseni olmayan konuda kök eşleşmesi ALAKASIZ belge getiriyordu
+  # ve hakem "kaynak metni bu konuyu hiç içermiyor" diyerek soruyu düşürüyordu. Örnekler: 'brut kar orani' ->
+  # faaliyet tabanlı maliyetleme + uluslararası iktisat; 'cari oran hesaplama' -> kamu harcamaları sınıflandırma
+  # (cari-yatırım); 'kâr marji analizi' -> Keynesyen çarpan; 'nakit orani' -> TMS 1 Nakit Akış Tablosu.
+  # Kaynak VARDI, çekim yanlıştı: "belge sayısı > 0" tek başına "doğru kaynak" demek değildir.
+  'brut kar orani'                         = @('~teori karlilik oranlari','~teori faaliyet kar marjini')
+  'kâr marji analizi'                      = @('~teori karlilik oranlari','~teori faaliyet kar marjini')
+  'cari oran hesaplama'                    = @('~teori likidite oranlari','~teori cari oran ve asit')
+  'nakit orani'                            = @('~teori likidite oranlari','~teori cari oran ve asit')
+  'likidite orani hesaplama'               = @('~teori likidite oranlari','~teori stok bagimlilik')
+  'likidite oranlari analizi'              = @('~teori likidite oranlari','~teori cari oran ve asit')
+  'net calisma sermayesi'                  = @('~teori likidite oranlari','~teori calisma sermayesi analizi')
+  'net isletme sermayesi analizi'          = @('~teori surekli sermaye','~teori calisma sermayesi analizi')
+  'yabanci kaynak orani analizi'           = @('~teori finansal yapi','~teori oz sermaye carpani')
+  'fiyat kazanc orani'                     = @('~teori fiyat kazanc','~teori karlilik oranlari')
+  'aktif devir hizi'                       = @('~teori faaliyet devir','~teori aktif devir')
+  'dikey yuzde-aktif analizi'              = @('~teori dikey yuzde','~teori dikey yuzdelerden oran')
+  'mali tablo standart oranlar'            = @('~teori likidite oranlari','~teori finansal yapi','~teori karlilik oranlari')
+  'stokta kalma suresi'                    = @('~teori faaliyet devir','~teori stok devir')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
