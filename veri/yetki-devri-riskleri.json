@@ -1,22 +1,14 @@
 {
-  "tarih": "09.09.2026 11:37",
+  "tarih": "09.09.2026 12:26",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 853,
   "riskli_madde": 1316,
-  "sayfa": 66,
-  "atifli_iddia": 282,
-  "dayanaksiz_iddia": 368,
+  "sayfa": 65,
+  "atifli_iddia": 283,
+  "dayanaksiz_iddia": 352,
   "kirmizi_aday": 29,
-  "yeni_aday": 1,
-  "yeni": [
-    {
-      "sayfa": "is.html",
-      "satir": 891,
-      "iddia": "15 gün",
-      "kanun": "299",
-      "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
-    }
-  ],
+  "yeni_aday": 0,
+  "yeni": [],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -194,8 +186,8 @@
       "metin": "else if(g==='reklam'){ stopaj=\"%15\"; sRate=15; sMetin=\"İnternet reklam hizmeti, 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)"
     },
     {
-      "sayfa": "is.html",
-      "satir": 891,
+      "sayfa": "index.html",
+      "satir": 967,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -1473,163 +1465,67 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 662,
+      "satir": 634,
+      "iddia": "90.000 TL",
+      "metin": "Doğrusu C, 90.000 TL. Katsayılı bölmede anahtar miktar değil, miktar ile katsayının çarpımı olan eşdeğer birimdir."
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 639,
+      "iddia": "90.000 TL",
+      "metin": "L ürünü payı (900 × 100) 90.000 TL"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 654,
+      "iddia": "90.000 TL",
+      "metin": "if(k==='C'){ b.classList.add('dogru'); roz.className='v-roz d'; roz.textContent='Doğru'; tm.textContent='Eşdeğer birim 900, birim maliyeti 100; pay 90.000 TL. Tablodaki adımlar bir"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 776,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 688,
+      "satir": 802,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 691,
+      "satir": 805,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
-      "sayfa": "is.html",
-      "satir": 110,
-      "iddia": "% 2",
-      "metin": "radial-gradient(1100px 620px at 78% 2%, rgba(64,140,255,.42), rgba(64,140,255,.10) 34%, transparent 60%),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 111,
-      "iddia": "% 8",
-      "metin": "radial-gradient(760px 520px at 88% 8%, rgba(255,194,75,.28), transparent 52%),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 112,
-      "iddia": "% 118",
-      "metin": "radial-gradient(1200px 700px at 10% 118%, rgba(120,90,255,.16), transparent 55%),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 117,
-      "iddia": "% 50",
-      "metin": "background:radial-gradient(50% 50% at 50% 0%, rgba(64,150,255,.30), transparent 62%);"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 123,
-      "iddia": "% 60",
-      "metin": "mask-image:radial-gradient(ellipse 75% 60% at 50% 38%,#000 25%,transparent 72%)}"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 128,
-      "iddia": "% 22",
-      "metin": "radial-gradient(1.6px 1.6px at 18% 22%,#fff,transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 129,
-      "iddia": "% 12",
-      "metin": "radial-gradient(1.3px 1.3px at 62% 12%,rgba(255,255,255,.85),transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 130,
-      "iddia": "% 40",
-      "metin": "radial-gradient(2px 2px at 82% 40%,rgba(190,220,255,.95),transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 131,
-      "iddia": "% 64",
-      "metin": "radial-gradient(1.3px 1.3px at 40% 64%,rgba(255,255,255,.7),transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 132,
-      "iddia": "% 72",
-      "metin": "radial-gradient(1.5px 1.5px at 90% 72%,rgba(255,255,255,.75),transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 133,
-      "iddia": "% 34",
-      "metin": "radial-gradient(1.2px 1.2px at 30% 34%,rgba(255,255,255,.6),transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 134,
-      "iddia": "% 60",
-      "metin": "radial-gradient(1.7px 1.7px at 72% 60%,rgba(200,225,255,.8),transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 135,
-      "iddia": "% 82",
-      "metin": "radial-gradient(1.1px 1.1px at 52% 82%,rgba(255,255,255,.5),transparent),"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 136,
-      "iddia": "% 52",
-      "metin": "radial-gradient(1.4px 1.4px at 8% 52%,rgba(255,255,255,.6),transparent);"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 137,
-      "iddia": "% 85",
-      "metin": "mask-image:radial-gradient(ellipse 95% 85% at 55% 28%,#000,transparent 82%)}"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 329,
-      "iddia": "%3",
-      "metin": "select{appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2393a1b3' stroke"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 700,
-      "iddia": "3 gün",
-      "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 726,
-      "iddia": "1 gün",
-      "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 729,
-      "iddia": "30 saat",
-      "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
-    },
-    {
-      "sayfa": "is.html",
-      "satir": 902,
+      "sayfa": "index.html",
+      "satir": 978,
       "iddia": "30 gün",
       "metin": "İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek"
     },
     {
-      "sayfa": "is.html",
-      "satir": 1272,
+      "sayfa": "index.html",
+      "satir": 1348,
       "iddia": "%16",
       "metin": "// olmadan \"(II/C/6.3.) -> (II/C/7.3)\" bolum referansindan \"%16 artis\""
     },
     {
-      "sayfa": "is.html",
-      "satir": 1320,
+      "sayfa": "index.html",
+      "satir": 1396,
       "iddia": "18 gun",
       "metin": "// Vitrinde 18 gunluk kart \"gercek tarama\" diye duruyordu; ziyaretci"
     },
     {
-      "sayfa": "is.html",
-      "satir": 1321,
+      "sayfa": "index.html",
+      "satir": 1397,
       "iddia": "3 gun",
       "metin": "// tarihi okumadan taze sanir. Veri 3 gunden eskiyse acikca yaziyoruz."
     },
     {
-      "sayfa": "is.html",
-      "satir": 1329,
+      "sayfa": "index.html",
+      "satir": 1405,
       "iddia": "19 gun",
       "metin": "// 30.07: \"Son tarama 11.07 - 19 gun once\" diye yaziyorduk; o tarih son"
     },
