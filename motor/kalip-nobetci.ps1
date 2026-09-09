@@ -19,10 +19,10 @@ if($Kur){
   $psYol=Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
   $eylem=New-ScheduledTaskAction -Execute $psYol -Argument "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$sarmal`""
   $tetik=New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 5)
-  $tetik2=New-ScheduledTaskTrigger -AtLogOn
+  # -AtLogOn tetikleyicisi yönetici hakkı istiyor ("Erişim engellendi", 11:07); tek tetik: 1 dk sonra başla, 5 dk'da bir yinele (süresiz).
   $ayar=New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 10) -MultipleInstances IgnoreNew -StartWhenAvailable
-  Register-ScheduledTask -TaskName 'tetikte-hat-nobetci' -Action $eylem -Trigger @($tetik,$tetik2) -Settings $ayar -Description 'Tetikte kalıp koşucu nöbetçisi: ölen hatları 5 dk içinde yeniden başlatır (motor/kalip-nobetci.ps1)' | Out-Null
-  Yaz "nöbetçi görevi kuruldu (5 dk + oturum açılışı); sarmal $sarmal"
+  Register-ScheduledTask -TaskName 'tetikte-hat-nobetci' -Action $eylem -Trigger $tetik -Settings $ayar -Description 'Tetikte kalıp koşucu nöbetçisi: ölen hatları 5 dk içinde yeniden başlatır (motor/kalip-nobetci.ps1)' | Out-Null
+  Yaz "nöbetçi görevi kuruldu (5 dk'da bir); sarmal $sarmal"
   return
 }
 # --- tek koşu: ölü hatları bul ve başlat ---
