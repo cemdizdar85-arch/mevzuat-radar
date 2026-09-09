@@ -1012,7 +1012,10 @@ $script:BENZER_HAVUZ=$null
 function BenzerHavuz{
   if($null -ne $script:BENZER_HAVUZ){ return $script:BENZER_HAVUZ }
   $h=New-Object System.Collections.Generic.List[object]
-  $onek=$(if($Etiket -match '^(.+?-t\d+)-'){ $Matches[1] } elseif($Etiket -match '^([a-z]+-[a-z0-9]+)-'){ $Matches[1] } else { '' })
+  # 09.09 Cem "boşa aynı soruyu basmayalım" ÖLÇÜLDÜ: havuz yalnız AYNI PLAN önekini yüklüyordu ('sgs-t1' ya da 'sgs-t2'), yani Tur 2
+  # soruları Tur 1'in yayınlanmış sorularıyla hiç karşılaştırılmıyordu (aynı konunun kolay hâli Tur 1'de, zor hâli Tur 2'de basılıyor).
+  # Artık havuz SINAV düzeyinde: 'sgs-*' bütün etiketler (Tur 1 + Tur 2 + genel kültür + pilotlar). Bedeli yok, yalnız yerel karşılaştırma.
+  $onek=$(if($Etiket -match '^([a-z]+)-'){ $Matches[1] } else { '' })
   if($onek){ foreach($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter "kalip-parti-$onek-*.json" -ErrorAction SilentlyContinue)){ if($f.BaseName -eq "kalip-parti-$Etiket"){ continue }
       try{ $j=ConvertFrom-Json -InputObject (Get-Content $f.FullName -Raw -Encoding UTF8); foreach($p in $j.PSObject.Properties){ if($p.Value -and $p.Value.soru){ $h.Add([pscustomobject]@{ etiket=($f.BaseName -replace '^kalip-parti-',''); id=$p.Name; konu="$($p.Value.konu)"; kume=(KelimeKume "$($p.Value.soru)") }) } } }catch{} } }
   $script:BENZER_HAVUZ=$h; if($h.Count){ Write-Host "  benzerlik havuzu: $($h.Count) soru (aynı plan, öteki etiketler)" -ForegroundColor DarkGray }
