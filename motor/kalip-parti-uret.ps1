@@ -1020,7 +1020,10 @@ function BenzerHavuz{
 }
 function BenzerlikKusur($a,[string]$benId){
   $k=@(); $ka=KelimeKume "$($a.soru)"
-  if($CAPA.ContainsKey($benId)){ $j=Jaccard $ka (KelimeKume $CAPA[$benId]); if($j -ge 0.55){ $k+="çapaya (çıkmış soru) fazla benziyor (Jaccard $j)" } }
+  # 09.09 pilot3: matematik soruları kalıp gereği benzer kelime taşır ("f: R → R fonksiyonu … f(3) kaçtır"); çapa 159 karakterlik kısa bir
+  # soru olduğunda Jaccard 0.56 çıkıyor ve gerçek kopya olmadığı hâlde kapı düşürüyordu. Genel kültür derslerinde çapa eşiği 0,72.
+  $capaEsik=$(if($script:GK_DERS){ 0.72 } else { 0.55 })
+  if($CAPA.ContainsKey($benId)){ $j=Jaccard $ka (KelimeKume $CAPA[$benId]); if($j -ge $capaEsik){ $k+="çapaya (çıkmış soru) fazla benziyor (Jaccard $j)" } }
   foreach($oid in @($don.Keys)){ if($oid -eq $benId){ continue }; $o=$don[$oid]; if(-not $o -or -not $o.soru){ continue }; $j=Jaccard $ka (KelimeKume "$($o.soru)"); if($j -ge 0.60){ $k+="partideki $oid ile aynı soru sayılır (Jaccard $j)" ; break } }
   foreach($h in (BenzerHavuz)){ $j=Jaccard $ka $h.kume; if($j -ge 0.60){ $k+="$($h.etiket)/$($h.id) [$($h.konu)] ile aynı soru sayılır (Jaccard $j) — başka seviye/tur, özgün senaryo gerek"; break } }
   return $k
@@ -1888,6 +1891,12 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # yalnız istemdi, kapısı yoktu. Çapa hesaplama ise soru ≥2 satırlı çözüm tablosu taşımalı, yoksa yeniden (2 deneme).
     $tipKusur=''; if($CAPA_TIP.ContainsKey($id) -and $CAPA_TIP[$id] -eq 'hesaplama' -and -not ($aday.PSObject.Properties['cozum_tablo'] -and $aday.cozum_tablo -and @($aday.cozum_tablo.satirlar).Count -ge 2)){ $tipKusur='çapa hesaplama, soru tablosuz (teori biçimi)' }
     $cyKusur=@(CeldiriciYolKapisi $aday)   # 07.09 KAPI-Ç: her yanlış şık = gerçek bir yanlış yolun sonucu
+    # 09.09 pilot3 (mat-kolay 0 soru): KAPI-Ç formülü makinede hesaplar; matematik dersinde yanlış yol fonksiyon/limit/türev gösterimi taşır
+    # ("g(3)=2·3+1"), aritmetik ayrıştırıcı çözemez ve "çözülemedi" sert kapı olur. Genel kültürde ÇÖZÜLEMEDİ = not, YANLIŞ SONUÇ = kapı.
+    if($script:GK_DERS -and $cyKusur.Count){
+      $cyNot=@($cyKusur | Where-Object { $_ -match 'çözülemedi|hesaplanamadı' }); $cyKusur=@($cyKusur | Where-Object { $_ -notmatch 'çözülemedi|hesaplanamadı' })
+      if($cyNot.Count){ Write-Host "  KAPI-Ç NOTU (genel kültür, tekrar yok) ($id): $($cyNot -join ' · ')" -ForegroundColor DarkGray; $rapor.Add("KAPI-C NOTU: $id | $($cyNot -join '; ')") }
+    }
     # 07.09 KAPI-Y (Cem "2025 değil 2026 versin"): soruda yıl geçiyorsa en yenisi bugünün yılı olmalı ("2004 sayılı" gibi kanun numaraları sayılmaz)
     $yilKusur=''; $yilBu=(Get-Date).Year; $yillar=@([regex]::Matches("$($aday.soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yillar.Count -and (($yillar | Measure-Object -Maximum).Maximum -lt $yilBu)){ $yilKusur="sorudaki en yeni yıl $(($yillar | Measure-Object -Maximum).Maximum), bugün $yilBu" }
     # 07.09 A kovası 3 — KAPI-O KOKU (Cem 19.08 "öğrenci yapay zeka yazmış demesin"; kural yalnız kasa taramasındaydı, üreticide kapı yoktu, 21 soruda "ABC A.Ş." çıktı)
