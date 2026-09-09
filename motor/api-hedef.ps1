@@ -457,21 +457,44 @@ function Invoke-ClaudeToplu {
     if("$($i.model)" -match 'sonnet-5|opus-5'){ $g.output_config = @{ effort = (Get-EffortDegeri "$(if($i -is [hashtable]){ $i['effort'] } else { $i.effort })") } }   # 08.09: iş kaydında 'effort' alanı
     $req += @{ custom_id="$($i.id)"; params=$g }
   }
-  $govde = @{ requests=$req } | ConvertTo-Json -Depth 20
-  $b = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages/batches') -Headers $hedef.basliklar -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 240
-  $bid = "$($b.id)"
-  Add-BekleyenParti $bid $Etiket
-  Write-Host ("  TOPLU PARTİ gönderildi: {0} istek · id {1} · {2} KB · etiket {3}" -f @($Isler).Count,$bid,[math]::Round($govde.Length/1024),$Etiket) -ForegroundColor Cyan
-  $t0 = Get-Date
+  # 09.09 09:35 ÖLÇÜLDÜ (Cem "hızlı olsun diye 3 partiye atabiliriz"): 8/30/36/83 istekli partiler 3–15 dk'da işlendi, 62 ve 96 istekli partiler
+  # 20 dk'da sıfırdı (08–09.09 gece de 24+ istekliler takıldı). Kuyruk küçük partileri öne alıyor → istekler en çok MEVZUAT_TOPLU_PARCA (varsayılan 30)
+  # isteklik PARÇALARA bölünür, hepsi birden gönderilir, birlikte yoklanır; biten parça hemen hasat edilir; zaman aşımında biten parçalar döner,
+  # bitmeyenler bekleyen-partiler.json'da kalır (yeniden başlatmada BEDAVA hasat), eksik id'ler anlık koşar.
+  $parcaBoy = $(if("$env:MEVZUAT_TOPLU_PARCA" -match '^\d+$' -and [int]$env:MEVZUAT_TOPLU_PARCA -ge 1){ [int]$env:MEVZUAT_TOPLU_PARCA } else { 30 })
+  $parcalar = @(); for($pi=0; $pi -lt $req.Count; $pi+=$parcaBoy){ $parcalar += ,@($req[$pi..([Math]::Min($pi+$parcaBoy,$req.Count)-1)]) }
+  $bidler = New-Object System.Collections.Generic.List[string]
+  foreach($pr in $parcalar){
+    $govde = @{ requests=@($pr) } | ConvertTo-Json -Depth 20
+    $b = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages/batches') -Headers $hedef.basliklar -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 240
+    $bid = "$($b.id)"; $bidler.Add($bid); Add-BekleyenParti $bid $Etiket
+    Write-Host ("  TOPLU PARTİ gönderildi: {0} istek · id {1} · {2} KB · etiket {3} · parça {4}/{5}" -f @($pr).Count,$bid,[math]::Round($govde.Length/1024),$Etiket,$bidler.Count,$parcalar.Count) -ForegroundColor Cyan
+  }
+  $t0 = Get-Date; $out = @{}; $biten = New-Object 'System.Collections.Generic.HashSet[string]'
   while($true){
     Start-Sleep -Seconds $YoklamaSn
-    $st = $null; try{ $st = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$bid") -Headers $hedef.basliklar -TimeoutSec 60 }catch{ Write-Host "  toplu durum sorgusu düştü, tekrar: $($_.Exception.Message)" -ForegroundColor DarkYellow; continue }
-    $c = $st.request_counts
-    if($st.processing_status -eq 'ended'){ Write-Host ("  TOPLU PARTİ bitti ({0} dk): başarılı {1} · hata {2} · süresi dolan {3}" -f [int]((Get-Date)-$t0).TotalMinutes,$c.succeeded,$c.errored,$c.expired) -ForegroundColor Cyan; break }
-    if(((Get-Date)-$t0).TotalMinutes -ge $BeklemeDk){ Write-Host "  TOPLU PARTİ ZAMAN AŞIMI ($BeklemeDk dk): sonuç ÇEKİLMEDİ, kimlik bekleyen-partiler.json'da ($bid); sonra Get-ClaudeTopluSonuc ile bedava hasat" -ForegroundColor Red; Set-BekleyenPartiDurum $bid 'zaman asimi - hasat bekliyor'; return @{ '__zaman_asimi'=$bid; '__hata'=@{} } }
-    if(((Get-Date)-$t0).TotalSeconds % 300 -lt $YoklamaSn){ Write-Host ("  toplu: {0} · işlenen {1}/{2} · {3} dk" -f $st.processing_status,$c.succeeded,@($Isler).Count,[int]((Get-Date)-$t0).TotalMinutes) -ForegroundColor DarkGray }
+    $toplamOk = 0
+    foreach($bid in $bidler){
+      if($biten.Contains($bid)){ continue }
+      $st = $null; try{ $st = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$bid") -Headers $hedef.basliklar -TimeoutSec 60 }catch{ Write-Host "  toplu durum sorgusu düştü, tekrar: $($_.Exception.Message)" -ForegroundColor DarkYellow; continue }
+      $c = $st.request_counts; $toplamOk += [int]$c.succeeded
+      if($st.processing_status -eq 'ended'){
+        Write-Host ("  TOPLU PARTİ bitti ({0} dk): başarılı {1} · hata {2} · süresi dolan {3} · {4}" -f [int]((Get-Date)-$t0).TotalMinutes,$c.succeeded,$c.errored,$c.expired,$bid) -ForegroundColor Cyan
+        [void]$biten.Add($bid)
+        $h1 = Get-ClaudeTopluSonuc $bid $hedef $Etiket; foreach($k1 in @($h1.Keys)){ $out[$k1] = $h1[$k1] }
+      }
+    }
+    if($biten.Count -ge $bidler.Count){ break }
+    if(((Get-Date)-$t0).TotalMinutes -ge $BeklemeDk){
+      $kalan = @($bidler | Where-Object { -not $biten.Contains($_) })
+      Write-Host "  TOPLU PARTİ ZAMAN AŞIMI ($BeklemeDk dk): $($kalan.Count)/$($bidler.Count) parça bitmedi, sonuçları ÇEKİLMEDİ (bekleyen-partiler.json'da; yeniden başlatmada bedava hasat); biten $($biten.Count) parçanın $($out.Count) cevabı kullanılıyor, kalan işler anlık" -ForegroundColor Red
+      foreach($bid in $kalan){ Set-BekleyenPartiDurum $bid 'zaman asimi - hasat bekliyor' }
+      $out['__zaman_asimi'] = ($kalan -join ','); $out['__hata'] = @{}
+      return $out
+    }
+    if(((Get-Date)-$t0).TotalSeconds % 300 -lt $YoklamaSn){ Write-Host ("  toplu: {0}/{1} parça bitti · işlenen {2}/{3} · {4} dk" -f $biten.Count,$bidler.Count,($toplamOk + $out.Count),@($Isler).Count,[int]((Get-Date)-$t0).TotalMinutes) -ForegroundColor DarkGray }
   }
-  return (Get-ClaudeTopluSonuc $bid $hedef $Etiket)
+  return $out
 }
 
 # 07.09 BEDEL MUHASEBESİ (Cem "her şeyde bedeli sor" + A kovası 9: yalnız üç faz jeton yazıyordu). Her çağrı model bazında toplanır;
