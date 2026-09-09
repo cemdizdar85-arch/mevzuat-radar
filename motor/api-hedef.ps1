@@ -225,7 +225,13 @@ function Split-OnbellekBloklari([array]$icerik,[string]$model){
   $i = $t.IndexOf($sinir)
   if($i -ge 0){ $on = $t.Substring(0,$i); $kal = $t.Substring($i + $sinir.Length) }
   else { $j = $t.IndexOf("`n=== "); if($j -gt 0){ $on = $t.Substring(0,$j); $kal = $t.Substring($j) } }
-  $esik = $(if($model -match 'haiku'){ 7000 } else { 3500 })
+  # 09.09 ÖLÇÜLDÜ: önbelleğe alınabilir EN KISA önek modele bağlı ve JETON cinsinden — Opus 5: 512, Sonnet 5: 1.024, Haiku 4.5: 4.096 jeton.
+  # Kısa önek SESSİZCE önbelleğe girmez (hata yok, yalnız cache_creation_input_tokens 0). Oran count_tokens ile ÖLÇÜLDÜ (tahmin değil):
+  # istemlerimizde 1 jeton ≈ 1,72 karakter (FAZ A öneki 6.566 kr = 3.807 jeton · FAZ B öneki 13.376 kr = 7.691 jeton).
+  # Eşikler: Sonnet 1.024 j ≈ 1.761 kr → 2.000 · Haiku 4.096 j ≈ 7.045 kr → 7.300 · Opus 512 j ≈ 880 kr → 1.000.
+  # Sonnet eşiği 3.500'den 2.000'e indi: giriş (2.909 kr ≈ 1.691 j), teori adım (2.021 kr) ve uyarlama (1.940 kr) istemleri
+  # 1.024 jeton sınırının ÜSTÜNDE olduğu hâlde eski eşik yüzünden hiç önbelleğe girmiyordu.
+  $esik = $(if($model -match 'haiku'){ 7300 } elseif($model -match 'opus'){ 1000 } else { 2000 })
   if($kapali -or -not $on -or $on.Length -lt $esik){ return ,@(@{ type='text'; text=($on + $kal) }) }
   return ,@(@{ type='text'; text=$on; cache_control=@{ type='ephemeral' } }, @{ type='text'; text=$kal })
 }
