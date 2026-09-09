@@ -1,16 +1,16 @@
 **********************
 PowerShell transcript start
-Start time: 20260908171616
-Username: runnervmejwal\runner
-RunAs User: runnervmejwal\runner
+Start time: 20260909044232
+Username: runnervmlun5p\runner
+RunAs User: runnervmlun5p\runner
 Configuration Name: 
-Machine: runnervmejwal (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ba3ed174-5b0f-404c-85eb-e8aa8a21367d.ps1'
-Process ID: 10995
+Machine: runnervmlun5p (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/f69bbcc9-fa96-4e0d-9049-10d336c3d58e.ps1'
+Process ID: 11135
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
-OS: Ubuntu 24.04.4 LTS
+OS: Ubuntu 24.04.5 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
 PSRemotingProtocolVersion: 2.4
@@ -18,152 +18,31 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...10/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...20/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...30/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...40/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...50/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...60/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...70/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...80/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...90/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...100/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...110/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...120/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...130/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...140/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...150/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...160/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...170/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
-  gercekten olculen (PDF geldi) : 56
+  gercekten olculen (PDF geldi) : 172
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 116
-     8602 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
-     8624 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
-     8814 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
-     8823 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
-     8824 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+  inemeyen (istek dustu)        : 0
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 56 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20260908192604
+End time: 20260909051032
 **********************
