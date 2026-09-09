@@ -2158,6 +2158,118 @@ $HAKEM_GECMEDI=New-Object 'System.Collections.Generic.HashSet[string]'
 foreach($hid in @($don.Keys)){ $hc=$don[$hid]; if(-not $hc.soru){ continue }; if(-not ($hc.PSObject.Properties['hakem'] -and $hc.hakem -and "$($hc.hakem.karar)" -eq 'EVET')){ [void]$HAKEM_GECMEDI.Add($hid) } }
 function HakemGecti([string]$id){ return -not $HAKEM_GECMEDI.Contains($id) }
 if($HAKEM_GECMEDI.Count){ Write-Host "  HAKEM ÖNDE: $($HAKEM_GECMEDI.Count) soru hakemden geçmedi → adım/giriş/ikiz/sim/kör/hakem2 fazlarına girmeyecek ($((@($HAKEM_GECMEDI) | Select-Object -First 10) -join ', '))" -ForegroundColor Yellow; $rapor.Add("HAKEM ONDE: $($HAKEM_GECMEDI.Count) soru pahali fazlara girmedi") }
+# --- FAZ K: KÖR ÇÖZÜM (07.09 A kovası 1 — Cem "hatasız olacak"; Maliyet kp-05'te yüzdeler ters kurulmuştu, hakem+sim+aritmetik üçü de geçirdi) -----
+# Bağımsız ve FARKLI bir model, anlatımı/ikizi/açıklamayı görmeden yalnız soru + şıkları çözer. Cevap doğru şıkla tutmuyorsa soru yayına çıkmaz
+# (koşucu seçimi kor_cozum.dogru_mu ister). Bir kez koşar, karar önbellekte; -KorYenile yeniden verdirir. Teori sorusunda da koşar (şık seçer).
+$script:FAZ_ADI='K'
+$korIstem=@'
+Sen SMMM sınavına giren çok titiz bir adaysın. Aşağıdaki soruyu YALNIZ soru metnine ve şıklara dayanarak çöz; başka hiçbir bilgi verilmedi, tahmin etme.
+Hesap sorusunda her ara işlemi yaz ve sonucu şıklarla karşılaştır. Şıkların hiçbiri sonucunla tutmuyorsa cevaba "HİÇBİRİ" yaz ve bulduğun sonucu belirt.
+Teori sorusunda her şıkkı tek tek doğru/yanlış diye değerlendir, kökün ne istediğine (doğru mu, yanlış olan mı) dikkat et.
+Yalnız JSON: {"cevap":"A|B|C|D|E|HİÇBİRİ","sonuc":"bulduğun sayı ya da ifade","hesap":"kısa hesap zinciri ya da şık şık gerekçe (en çok 60 kelime)","guven":"yüksek|orta|düşük","kusur":"soruda çelişki/eksik veri/iki doğru şık görürsen yaz, yoksa boş"}
+SORU: {SORU}
+ŞIKLAR:
+{SIKLAR}
+'@
+foreach($gecisK in @(1,2)){ if($gecisK -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisK -eq 1)
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or $SadeceAdim){ break }
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
+  $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
+  if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ continue }
+  $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
+  $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM)
+  if($script:ON_GECIS){ TopluTopla $id $KorModel $istK 2500; continue }
+  $yK=TopluAl 'K' $id
+  if(-not $yK){ foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
+  Write-Host ("  KÖR TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yK.girdi,$yK.cikti,$KorModel) -ForegroundColor DarkGray
+  $aK=Coz $yK.metin
+  if(-not $aK -or -not $aK.PSObject.Properties['cevap']){ $rapor.Add("KÖR ÇÖZÜM BOZUK: $id"); Write-Host "  KÖR ÇÖZÜM BOZUK ($id)" -ForegroundColor Red; continue }
+  $cev=("$($aK.cevap)".Trim().ToUpperInvariant() -replace '[^A-EHİ]','')
+  if($cev -match '^H'){ $cev='HİÇBİRİ' } elseif($cev.Length -gt 1){ $cev=$cev.Substring(0,1) }
+  $dm=($cev -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
+  $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  CacheYaz
+  if($dm){ Write-Host "  KÖR ÇÖZÜM ✓ ($id): $cev" -ForegroundColor Green } else { Write-Host "  KÖR ÇÖZÜM ✗ ($id): kör $cev · anahtar $($cvp.dogru) · $("$($aK.hesap)".Substring(0,[Math]::Min(160,"$($aK.hesap)".Length)))" -ForegroundColor Red; $rapor.Add("KÖR ÇÖZÜM YANLIŞ: $id | kör $cev, anahtar $($cvp.dogru) | $($aK.hesap)") }
+  if("$($aK.kusur)".Trim()){ $rapor.Add("KÖR ÇÖZÜM KUSUR NOTU: $id | $($aK.kusur)") }
+}
+if($script:ON_GECIS){ TopluGonder 'K' } }
+$script:ON_GECIS=$false
+# --- FAZ H2: İKİNCİ HAKEM (07.09 A kovası 2 — "sınav sorusu gibi mi, yapay zeka kokusu var mı, çeldirici gerçek adayın tuzağı mı") ----------
+# Birinci hakem kaynak-uyum bakar; bu hakem sınav kalıbı + dil + çeldirici gerçekçiliği + zorluk seviyesi verir. Karar EVET değilse koşucu seçmez.
+$script:FAZ_ADI='H2'
+$hakem2Istem=@'
+Sen TESMER/TÜRMOB sınav komisyonunda yıllarca soru yazmış bir hakemsin. Aşağıdaki soruyu üç ölçüte göre değerlendir; yalnız JSON ver.
+0. SINAVIN YAPISI (bu bilgi kesindir, itiraz etme): {YAPI}
+1. sinav_gibi: Bu soru gerçek {SINAV} {DERS} sınav sorusu gibi mi? Kök kalıbı, uzunluk, şık biçimi (sonuç + kısa etiket, gerekçesiz), dil, veri sunumu sınavla uyumlu mu? EVET/HAYIR + gerekçe.
+   DİKKAT: "Bu sınavda bu ders sorulmaz" DEME — dersin sınavda olduğu 0. maddede yazılıdır; yalnız SORUNUN KENDİSİNİ (kalıp, dil, biçim) o dersin çıkmış sorularıyla kıyasla.
+2. koku: Yapay zeka izi var mı? Yer tutucu unvan yalnız ABC/XYZ gibi ANLAMSIZ harf dizisidir ("Çelik Makine Sanayi A.Ş." gibi gerçekçi ad koku DEĞİLDİR, yazma), bütün tutarların yuvarlak olması, klişe cümle ("önem arz etmektedir", "bu bağlamda"), aynı kalıbın tekrarı, uzun tire, doğru şıkkın diğerlerinden belirgin uzun/nüanslı olması, iki şıkkın birbirinin tam tersi olması. Bulduklarını LİSTELE, yoksa boş liste. Muhasebe tekniği hatası (ör. 590 hesabının yönü) koku değil, 3. maddede (celdirici_gercek HAYIR + gerekçe) yazılır.
+3. celdirici_gercek: Yanlış şıklar gerçek bir adayın düşeceği tuzaklar mı (atlanan katman, ters işaret, yanlış oran, kavram karışıklığı), yoksa rastgele sayı/cümle mi? EVET/HAYIR + gerekçe. İki doğru şık ya da doğru şıkta hata görürsen burada yaz.
+4. zorluk: kolay (tek kural tek işlem) | zor (iki zorluk kaynağı) | cok_zor (ters soru + çeldirici verilen + iki kuralın kesişimi).
+karar: sinav_gibi EVET ve celdirici_gercek EVET ve koku boşsa EVET, değilse HAYIR.
+Yalnız JSON: {"sinav_gibi":"EVET|HAYIR","sinav_gerekce":"...","koku":["..."],"celdirici_gercek":"EVET|HAYIR","celdirici_gerekce":"...","zorluk":"kolay|zor|cok_zor","karar":"EVET|HAYIR"}
+SORU: {SORU}
+ŞIKLAR:
+{SIKLAR}
+DOĞRU: {DOGRU}
+DOĞRU ŞIKKIN AÇIKLAMASI: {ACIK}
+'@
+foreach($gecisH in @(1,2)){ if($gecisH -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisH -eq 1)
+foreach($id in @($don.Keys)){
+  if($SadeceHtml -or $SadeceAdim){ break }
+  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
+  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
+  $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
+  if(-not $Hakem2Yenile -and $cvp.PSObject.Properties['hakem2'] -and $cvp.hakem2 -and $cvp.hakem2.PSObject.Properties['karar']){
+    # 08.09: eldeki karar API'siz yeniden türetilir (sert koku listesi değişti: "birbirinin tam tersi" artık sert değil) — 0 USD
+    $h2=$cvp.hakem2; $tumKoku=@(@($h2.koku)+@($(if($h2.PSObject.Properties['koku_not']){ $h2.koku_not } else { @() })) | Where-Object { "$_" })
+    $sertY=@($tumKoku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -or ((@($h2.koku) -contains $_) -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' -and $_ -notmatch '(?i)birbirinin (tam )?tersi' })
+    $kararY=$(if("$($h2.sinav_gibi)" -eq 'EVET' -and "$($h2.celdirici_gercek)" -eq 'EVET' -and -not $sertY.Count){ 'EVET' } else { 'HAYIR' })
+    if($kararY -ne "$($h2.karar)"){ $h2.karar=$kararY; $h2.koku=@($sertY); $h2 | Add-Member -NotePropertyName koku_not -NotePropertyValue @($tumKoku | Where-Object { $sertY -notcontains $_ }) -Force; CacheYaz; Write-Host "  HAKEM2 KARAR YENİDEN TÜRETİLDİ ($id): $kararY" -ForegroundColor Cyan }
+    continue }
+  $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
+  $acikM=$(if($cvp.aciklama){ AciklamaDuz $cvp.aciklama.$($cvp.dogru) } else { '' })
+  # 09.09 genel kültür pilotu ÖLÇÜLDÜ: hakem2 "SGS'de muhasebe/vergi sorulur, bu Türkçe/matematik sorusu SGS'ye ait değil" diyerek
+  # turkce-kolay 2/2, mat-kolay 1/2, inkilap/ekonomi kolay 1'er soruyu düşürdü. Sınav yapısı (2026 yönergesi 6.2) isteme yazıldı.
+  $YAPI_TARIF=$(switch -Regex ($Sinav){
+    '^SGS' { 'SGS (Staja Başlama) 130 sorudur ve GENEL KÜLTÜR + YABANCI DİL bölümleri VARDIR: Türkçe 7, Matematik 8, Atatürk İlkeleri ve İnkılap Tarihi 5, Yabancı Dil (İngilizce) 10 = 30 soru; Alan bilgisi 100 soru (Finansal Muhasebe 26, Denetim 16, Maliyet 8, Mali Tablolar Analizi 8, Ekonomi 6, Maliye 6, Meslek/İş-SGK/Vergi/Ticaret/Borçlar Hukuku 6''şar). Matematik soruları soyut fonksiyon/limit/türev/seri sorularını da içerir (2026/2 kitapçığı soru 8-15); Yabancı Dil soruları İNGİLİZCE yazılır (soru 21-30); Türkçe soruları paragraf, yazım, dil bilgisi ölçer (soru 1-7).' }
+    '^SMMM' { 'SMMM Yeterlilik sınavı 8 dersten oluşur; genel kültür bölümü YOKTUR.' }
+    default { 'Sınav yapısı için ek bilgi yok; yalnız sorunun kalıbını değerlendir.' } })
+  $istH=$hakem2Istem.Replace('{YAPI}',$YAPI_TARIF).Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
+  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istH 1500 $HAKEM2_EFFORT; continue }   # 08.09: yargı fazı, düşünme low
+  $yH=TopluAl 'H2' $id
+  if(-not $yH){ foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500 -Effort $HAKEM2_EFFORT; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
+  Write-Host ("  HAKEM2 TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray
+  $aH=Coz $yH.metin
+  if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $rapor.Add("HAKEM2 BOZUK: $id"); continue }
+  $koku=@($aH.koku | Where-Object { "$_".Trim() })
+  # 08.09 ölçümü: hakem2 gerçekçi işletme adını ("Çelik Makine Sanayi A.Ş.") yer tutucu sayıp düşürdü → yalnız DETERMİNİSTİK koku sınıfları kararı etkiler
+  # (ABC/XYZ harf dizisi, hepsi yuvarlak tutar, klişe, aynı kalıp tekrarı, uzun tire); kalan koku notları bilgi olarak saklanır (koku_not).
+  # "yuvarlak" iddiası yalnız bizim deterministik kuralımız da tutuyorsa (≥4 tutar, hepsi ONBİNLİK) sert sayılır — sınav soruları binlik yuvarlak tutar kullanır,
+  # hakem2 08.09 testinde 40.000/58.000/66.000 gibi sınav-benzeri tutarları "yuvarlak" diye düşürüyordu. "Birbirinin tam tersi şık" (4c sızıntı) sert.
+  $detKoku=@(KokuKusur $cvp); $detYuvarlak=[bool]($detKoku -match 'yuvarlak')
+  # 08.09 Tur 1 denetim-cokzor: "birbirinin tam tersi şık" sert sayılıyordu ama KAPI-Ş TAM BUNU İSTİYOR (her tutar iki yönle; SGS 2020/3 ölçümü) →
+  # 9 hakem2 reddinin çoğu buydu; sert listesinden çıkarıldı (koku_not'ta kalır).
+  $kokuSert=@($koku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -or ($detYuvarlak -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' -and $_ -notmatch '(?i)birbirinin (tam )?tersi' })
+  $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $kokuSert.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
+  $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($kokuSert); koku_not=@($koku | Where-Object { $kokuSert -notcontains $_ }); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  CacheYaz
+  if($karar -eq 'EVET'){ Write-Host "  HAKEM2 EVET ($id) · zorluk $($aH.zorluk)" -ForegroundColor Green } else { Write-Host "  HAKEM2 HAYIR ($id): sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')] · $("$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Substring(0,[Math]::Min(200,"$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Length)))" -ForegroundColor Red; $rapor.Add("HAKEM2 HAYIR: $id | sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')]") }
+}
+if($script:ON_GECIS){ TopluGonder 'H2' } }
+$script:ON_GECIS=$false
+
+# 09.09 Cem "sırayı değiştir": KÖR ÇÖZÜM + HAKEM2 anlatımın ÖNÜNE alındı. Ölçüm: Sonnet çıktı jetonu toplam harcamanın %57'si ve neredeyse
+# tamamı soru + ADIM anlatımı; hakemden geçen soruların ≈dörtte biri kör/hakem2'de düşüyor, düşmeden ÖNCE adım+giriş+ikiz+sim bedeli
+# ödeniyordu. Bu iki kapı yalnız soru ve şıklara bakar, anlatıma ihtiyaç duymaz → önce onlar koşar, geçemeyen soru anlatım fazına girmez.
+# Simülasyon (FAZ Ö) adımları okuduğu için yerinde kalır. Yayın kuralı DEĞİŞMEDİ (hakem ∧ sim ∧ kör ∧ hakem2).
+if(-not ($SadeceHtml -or $SadeceAdim)){ foreach($hid in @($don.Keys)){ $hc=$don[$hid]; if(-not $hc.soru){ continue }   # yalnız çizim/adım modunda FAZ K ve H2 hiç koşmaz; kararları yok diye anlatım kapatılmaz
+  $korOk=($hc.PSObject.Properties['kor_cozum'] -and $hc.kor_cozum -and $hc.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$hc.kor_cozum.dogru_mu)
+  $h2Ok=($hc.PSObject.Properties['hakem2'] -and $hc.hakem2 -and "$($hc.hakem2.karar)" -eq 'EVET')
+  if(-not ($korOk -and $h2Ok)){ [void]$HAKEM_GECMEDI.Add($hid) } } }
+if($HAKEM_GECMEDI.Count){ Write-Host "  KAPI ÖNDE: $($HAKEM_GECMEDI.Count) soru hakem/kör/hakem2'den geçmedi → anlatım fazlarına (adım, giriş, ikiz, sim) girmeyecek" -ForegroundColor Yellow; $rapor.Add("KAPI ONDE: $($HAKEM_GECMEDI.Count) soru anlatim fazlarina girmedi") }
+
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------
 $script:FAZ_ADI='B'
 # 03.09 Cem "ogretmen her soruda olsun": tablosuz KAYIT sorulari da adim alir; tablo yerine yevmiye
@@ -2859,108 +2971,7 @@ foreach($id in @($don.Keys)){
   }
 }
 
-# --- FAZ K: KÖR ÇÖZÜM (07.09 A kovası 1 — Cem "hatasız olacak"; Maliyet kp-05'te yüzdeler ters kurulmuştu, hakem+sim+aritmetik üçü de geçirdi) -----
-# Bağımsız ve FARKLI bir model, anlatımı/ikizi/açıklamayı görmeden yalnız soru + şıkları çözer. Cevap doğru şıkla tutmuyorsa soru yayına çıkmaz
-# (koşucu seçimi kor_cozum.dogru_mu ister). Bir kez koşar, karar önbellekte; -KorYenile yeniden verdirir. Teori sorusunda da koşar (şık seçer).
-$script:FAZ_ADI='K'
-$korIstem=@'
-Sen SMMM sınavına giren çok titiz bir adaysın. Aşağıdaki soruyu YALNIZ soru metnine ve şıklara dayanarak çöz; başka hiçbir bilgi verilmedi, tahmin etme.
-Hesap sorusunda her ara işlemi yaz ve sonucu şıklarla karşılaştır. Şıkların hiçbiri sonucunla tutmuyorsa cevaba "HİÇBİRİ" yaz ve bulduğun sonucu belirt.
-Teori sorusunda her şıkkı tek tek doğru/yanlış diye değerlendir, kökün ne istediğine (doğru mu, yanlış olan mı) dikkat et.
-Yalnız JSON: {"cevap":"A|B|C|D|E|HİÇBİRİ","sonuc":"bulduğun sayı ya da ifade","hesap":"kısa hesap zinciri ya da şık şık gerekçe (en çok 60 kelime)","guven":"yüksek|orta|düşük","kusur":"soruda çelişki/eksik veri/iki doğru şık görürsen yaz, yoksa boş"}
-SORU: {SORU}
-ŞIKLAR:
-{SIKLAR}
-'@
-foreach($gecisK in @(1,2)){ if($gecisK -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisK -eq 1)
-foreach($id in @($don.Keys)){
-  if($SadeceHtml -or $SadeceAdim){ break }
-  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
-  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
-  $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
-  if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ continue }
-  $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
-  $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM)
-  if($script:ON_GECIS){ TopluTopla $id $KorModel $istK 2500; continue }
-  $yK=TopluAl 'K' $id
-  if(-not $yK){ foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
-  Write-Host ("  KÖR TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yK.girdi,$yK.cikti,$KorModel) -ForegroundColor DarkGray
-  $aK=Coz $yK.metin
-  if(-not $aK -or -not $aK.PSObject.Properties['cevap']){ $rapor.Add("KÖR ÇÖZÜM BOZUK: $id"); Write-Host "  KÖR ÇÖZÜM BOZUK ($id)" -ForegroundColor Red; continue }
-  $cev=("$($aK.cevap)".Trim().ToUpperInvariant() -replace '[^A-EHİ]','')
-  if($cev -match '^H'){ $cev='HİÇBİRİ' } elseif($cev.Length -gt 1){ $cev=$cev.Substring(0,1) }
-  $dm=($cev -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
-  $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
-  CacheYaz
-  if($dm){ Write-Host "  KÖR ÇÖZÜM ✓ ($id): $cev" -ForegroundColor Green } else { Write-Host "  KÖR ÇÖZÜM ✗ ($id): kör $cev · anahtar $($cvp.dogru) · $("$($aK.hesap)".Substring(0,[Math]::Min(160,"$($aK.hesap)".Length)))" -ForegroundColor Red; $rapor.Add("KÖR ÇÖZÜM YANLIŞ: $id | kör $cev, anahtar $($cvp.dogru) | $($aK.hesap)") }
-  if("$($aK.kusur)".Trim()){ $rapor.Add("KÖR ÇÖZÜM KUSUR NOTU: $id | $($aK.kusur)") }
-}
-if($script:ON_GECIS){ TopluGonder 'K' } }
-$script:ON_GECIS=$false
 
-# --- FAZ H2: İKİNCİ HAKEM (07.09 A kovası 2 — "sınav sorusu gibi mi, yapay zeka kokusu var mı, çeldirici gerçek adayın tuzağı mı") ----------
-# Birinci hakem kaynak-uyum bakar; bu hakem sınav kalıbı + dil + çeldirici gerçekçiliği + zorluk seviyesi verir. Karar EVET değilse koşucu seçmez.
-$script:FAZ_ADI='H2'
-$hakem2Istem=@'
-Sen TESMER/TÜRMOB sınav komisyonunda yıllarca soru yazmış bir hakemsin. Aşağıdaki soruyu üç ölçüte göre değerlendir; yalnız JSON ver.
-0. SINAVIN YAPISI (bu bilgi kesindir, itiraz etme): {YAPI}
-1. sinav_gibi: Bu soru gerçek {SINAV} {DERS} sınav sorusu gibi mi? Kök kalıbı, uzunluk, şık biçimi (sonuç + kısa etiket, gerekçesiz), dil, veri sunumu sınavla uyumlu mu? EVET/HAYIR + gerekçe.
-   DİKKAT: "Bu sınavda bu ders sorulmaz" DEME — dersin sınavda olduğu 0. maddede yazılıdır; yalnız SORUNUN KENDİSİNİ (kalıp, dil, biçim) o dersin çıkmış sorularıyla kıyasla.
-2. koku: Yapay zeka izi var mı? Yer tutucu unvan yalnız ABC/XYZ gibi ANLAMSIZ harf dizisidir ("Çelik Makine Sanayi A.Ş." gibi gerçekçi ad koku DEĞİLDİR, yazma), bütün tutarların yuvarlak olması, klişe cümle ("önem arz etmektedir", "bu bağlamda"), aynı kalıbın tekrarı, uzun tire, doğru şıkkın diğerlerinden belirgin uzun/nüanslı olması, iki şıkkın birbirinin tam tersi olması. Bulduklarını LİSTELE, yoksa boş liste. Muhasebe tekniği hatası (ör. 590 hesabının yönü) koku değil, 3. maddede (celdirici_gercek HAYIR + gerekçe) yazılır.
-3. celdirici_gercek: Yanlış şıklar gerçek bir adayın düşeceği tuzaklar mı (atlanan katman, ters işaret, yanlış oran, kavram karışıklığı), yoksa rastgele sayı/cümle mi? EVET/HAYIR + gerekçe. İki doğru şık ya da doğru şıkta hata görürsen burada yaz.
-4. zorluk: kolay (tek kural tek işlem) | zor (iki zorluk kaynağı) | cok_zor (ters soru + çeldirici verilen + iki kuralın kesişimi).
-karar: sinav_gibi EVET ve celdirici_gercek EVET ve koku boşsa EVET, değilse HAYIR.
-Yalnız JSON: {"sinav_gibi":"EVET|HAYIR","sinav_gerekce":"...","koku":["..."],"celdirici_gercek":"EVET|HAYIR","celdirici_gerekce":"...","zorluk":"kolay|zor|cok_zor","karar":"EVET|HAYIR"}
-SORU: {SORU}
-ŞIKLAR:
-{SIKLAR}
-DOĞRU: {DOGRU}
-DOĞRU ŞIKKIN AÇIKLAMASI: {ACIK}
-'@
-foreach($gecisH in @(1,2)){ if($gecisH -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisH -eq 1)
-foreach($id in @($don.Keys)){
-  if($SadeceHtml -or $SadeceAdim){ break }
-  if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
-  if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
-  $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
-  if(-not $Hakem2Yenile -and $cvp.PSObject.Properties['hakem2'] -and $cvp.hakem2 -and $cvp.hakem2.PSObject.Properties['karar']){
-    # 08.09: eldeki karar API'siz yeniden türetilir (sert koku listesi değişti: "birbirinin tam tersi" artık sert değil) — 0 USD
-    $h2=$cvp.hakem2; $tumKoku=@(@($h2.koku)+@($(if($h2.PSObject.Properties['koku_not']){ $h2.koku_not } else { @() })) | Where-Object { "$_" })
-    $sertY=@($tumKoku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -or ((@($h2.koku) -contains $_) -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' -and $_ -notmatch '(?i)birbirinin (tam )?tersi' })
-    $kararY=$(if("$($h2.sinav_gibi)" -eq 'EVET' -and "$($h2.celdirici_gercek)" -eq 'EVET' -and -not $sertY.Count){ 'EVET' } else { 'HAYIR' })
-    if($kararY -ne "$($h2.karar)"){ $h2.karar=$kararY; $h2.koku=@($sertY); $h2 | Add-Member -NotePropertyName koku_not -NotePropertyValue @($tumKoku | Where-Object { $sertY -notcontains $_ }) -Force; CacheYaz; Write-Host "  HAKEM2 KARAR YENİDEN TÜRETİLDİ ($id): $kararY" -ForegroundColor Cyan }
-    continue }
-  $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
-  $acikM=$(if($cvp.aciklama){ AciklamaDuz $cvp.aciklama.$($cvp.dogru) } else { '' })
-  # 09.09 genel kültür pilotu ÖLÇÜLDÜ: hakem2 "SGS'de muhasebe/vergi sorulur, bu Türkçe/matematik sorusu SGS'ye ait değil" diyerek
-  # turkce-kolay 2/2, mat-kolay 1/2, inkilap/ekonomi kolay 1'er soruyu düşürdü. Sınav yapısı (2026 yönergesi 6.2) isteme yazıldı.
-  $YAPI_TARIF=$(switch -Regex ($Sinav){
-    '^SGS' { 'SGS (Staja Başlama) 130 sorudur ve GENEL KÜLTÜR + YABANCI DİL bölümleri VARDIR: Türkçe 7, Matematik 8, Atatürk İlkeleri ve İnkılap Tarihi 5, Yabancı Dil (İngilizce) 10 = 30 soru; Alan bilgisi 100 soru (Finansal Muhasebe 26, Denetim 16, Maliyet 8, Mali Tablolar Analizi 8, Ekonomi 6, Maliye 6, Meslek/İş-SGK/Vergi/Ticaret/Borçlar Hukuku 6''şar). Matematik soruları soyut fonksiyon/limit/türev/seri sorularını da içerir (2026/2 kitapçığı soru 8-15); Yabancı Dil soruları İNGİLİZCE yazılır (soru 21-30); Türkçe soruları paragraf, yazım, dil bilgisi ölçer (soru 1-7).' }
-    '^SMMM' { 'SMMM Yeterlilik sınavı 8 dersten oluşur; genel kültür bölümü YOKTUR.' }
-    default { 'Sınav yapısı için ek bilgi yok; yalnız sorunun kalıbını değerlendir.' } })
-  $istH=$hakem2Istem.Replace('{YAPI}',$YAPI_TARIF).Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
-  if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istH 1500 $HAKEM2_EFFORT; continue }   # 08.09: yargı fazı, düşünme low
-  $yH=TopluAl 'H2' $id
-  if(-not $yH){ foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500 -Effort $HAKEM2_EFFORT; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
-  Write-Host ("  HAKEM2 TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray
-  $aH=Coz $yH.metin
-  if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $rapor.Add("HAKEM2 BOZUK: $id"); continue }
-  $koku=@($aH.koku | Where-Object { "$_".Trim() })
-  # 08.09 ölçümü: hakem2 gerçekçi işletme adını ("Çelik Makine Sanayi A.Ş.") yer tutucu sayıp düşürdü → yalnız DETERMİNİSTİK koku sınıfları kararı etkiler
-  # (ABC/XYZ harf dizisi, hepsi yuvarlak tutar, klişe, aynı kalıp tekrarı, uzun tire); kalan koku notları bilgi olarak saklanır (koku_not).
-  # "yuvarlak" iddiası yalnız bizim deterministik kuralımız da tutuyorsa (≥4 tutar, hepsi ONBİNLİK) sert sayılır — sınav soruları binlik yuvarlak tutar kullanır,
-  # hakem2 08.09 testinde 40.000/58.000/66.000 gibi sınav-benzeri tutarları "yuvarlak" diye düşürüyordu. "Birbirinin tam tersi şık" (4c sızıntı) sert.
-  $detKoku=@(KokuKusur $cvp); $detYuvarlak=[bool]($detKoku -match 'yuvarlak')
-  # 08.09 Tur 1 denetim-cokzor: "birbirinin tam tersi şık" sert sayılıyordu ama KAPI-Ş TAM BUNU İSTİYOR (her tutar iki yönle; SGS 2020/3 ölçümü) →
-  # 9 hakem2 reddinin çoğu buydu; sert listesinden çıkarıldı (koku_not'ta kalır).
-  $kokuSert=@($koku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -or ($detYuvarlak -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' -and $_ -notmatch '(?i)birbirinin (tam )?tersi' })
-  $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $kokuSert.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
-  $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($kokuSert); koku_not=@($koku | Where-Object { $kokuSert -notcontains $_ }); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
-  CacheYaz
-  if($karar -eq 'EVET'){ Write-Host "  HAKEM2 EVET ($id) · zorluk $($aH.zorluk)" -ForegroundColor Green } else { Write-Host "  HAKEM2 HAYIR ($id): sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')] · $("$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Substring(0,[Math]::Min(200,"$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Length)))" -ForegroundColor Red; $rapor.Add("HAKEM2 HAYIR: $id | sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')]") }
-}
-if($script:ON_GECIS){ TopluGonder 'H2' } }
-$script:ON_GECIS=$false
 
 # --- TUZAK CESITLILIGI KAPISI (02.09 Cem: "begenmedim") ----------------------
 # Olculdu: 120 tuzagin 11'i tek bir adla ('Ters Kayit') tekrarlaniyordu ve 12 soruda
