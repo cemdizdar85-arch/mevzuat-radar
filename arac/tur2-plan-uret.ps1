@@ -4,8 +4,12 @@
 #   -Yaz yoksa yalnız rapor basar (plan ve konu dosyası yazılmaz).
 # Ölçüm mantığı: bitmiş etiket = fabrika/kalip-parti-<etiket>.html var. Bitmemiş etiket rapora "bekliyor" düşer, plana girmez.
 # Konu eşleşmesi konu dosyasındaki dize ile seçim kaydındaki `konu` alanı üzerinden (ikisi de ASCII köklü).
-param([string]$Kaynak='sgs-t1',[string]$Ad='sgs-t2',[switch]$Yaz,[switch]$KaynakEksikDahil)   # -KaynakEksikDahil: teori notu yazıldıktan sonra o konuları plana geri al
-$topKaynak=0
+param([string]$Kaynak='sgs-t1',[string]$Ad='sgs-t2',[switch]$Yaz,[switch]$KaynakEksikDahil,   # -KaynakEksikDahil: teori notu yazıldıktan sonra o konuları plana geri al
+  [string]$Haric='')   # 09.09: -Haric sgs-t2 → o planın konu dosyalarındaki konular plana GİRMEZ (zaten başka turda basılıyor; aynı soru iki kez basılmaz — Cem kuralı 2)
+$topKaynak=0; $topHaric=0
+$haricKonu=New-Object System.Collections.Generic.HashSet[string]
+if($Haric){ foreach($hf in @(Get-ChildItem (Join-Path (Split-Path $PSScriptRoot -Parent) 'veri\sinav\konu') -Filter "$Haric-*.json" -ErrorAction SilentlyContinue)){
+  foreach($x in @((ConvertFrom-Json -InputObject (Get-Content $hf.FullName -Raw -Encoding UTF8)) | ForEach-Object { $_ })){ if("$x".Trim()){ [void]$haricKonu.Add("$x".Trim().ToLowerInvariant()) } } } }
 $kok=Split-Path $PSScriptRoot -Parent
 $planYol=Join-Path $kok "veri\sinav\plan-$Kaynak.json"
 if(-not (Test-Path $planYol)){ throw "plan yok: $planYol" }
@@ -63,8 +67,10 @@ foreach($s in @($plan)){
   # kaynak yüzünden düşenler plana ALINMAZ (yukarıdaki ölçüm: yeniden basılınca %88'i aynı sebeple yine düşüyor)
   $kaynakBu=@($dusenHam | Where-Object { $kaynakDusen.ContainsKey("$_".Trim().ToLowerInvariant()) })
   $dusen=@($dusenHam | Where-Object { $KaynakEksikDahil -or -not $kaynakDusen.ContainsKey("$_".Trim().ToLowerInvariant()) })
-  $topPlan+=$konular.Count; $topSecim+=$sec.Count; $topDusen+=$dusen.Count; $topKaynak+=$(if($KaynakEksikDahil){ 0 } else { $kaynakBu.Count })
-  $rapor.Add(("{0,-34} konu {1,3} · yayın {2,3} · düşen {3,3} · kaynak eksik {4,3} (plana {5,3})" -f $et,$konular.Count,$sec.Count,$dusenHam.Count,$kaynakBu.Count,$dusen.Count))
+  $haricBu=@($dusen | Where-Object { $haricKonu.Contains("$_".Trim().ToLowerInvariant()) })
+  $dusen=@($dusen | Where-Object { -not $haricKonu.Contains("$_".Trim().ToLowerInvariant()) })
+  $topPlan+=$konular.Count; $topSecim+=$sec.Count; $topDusen+=$dusen.Count; $topKaynak+=$(if($KaynakEksikDahil){ 0 } else { $kaynakBu.Count }); $topHaric+=$haricBu.Count
+  $rapor.Add(("{0,-34} konu {1,3} · yayın {2,3} · düşen {3,3} · kaynak eksik {4,3} · başka turda {5,3} (plana {6,3})" -f $et,$konular.Count,$sec.Count,$dusenHam.Count,$kaynakBu.Count,$haricBu.Count,$dusen.Count))
   if($dusen.Count){
     $yeniEt=$et -replace "^$([regex]::Escape($Kaynak))-","$Ad-"
     $kd=Join-Path $kok "veri\sinav\konu\$yeniEt.json"
@@ -76,7 +82,7 @@ foreach($s in @($plan)){
 "TUR 2 PLANI ($Kaynak → $Ad) · $(Get-Date -Format 'dd.MM HH:mm')"
 $rapor | ForEach-Object { "  $_" }
 "  ---"
-"  ölçülen konu $topPlan · yayına giren $topSecim · plana giren düşen $topDusen · KAYNAK EKSİK (plana alınmadı) $topKaynak · bekleyen etiket $bekleyen · yeni plan satırı $($yeni.Count)"
+"  ölçülen konu $topPlan · yayına giren $topSecim · plana giren düşen $topDusen · KAYNAK EKSİK (plana alınmadı) $topKaynak · BAŞKA TURDA ($Haric, plana alınmadı) $topHaric · bekleyen etiket $bekleyen · yeni plan satırı $($yeni.Count)"
 # kaynak eksik listesi = teori notu yazma iş emri (0 USD). Ders ders gruplanır.
 if($kaynakDusen.Keys.Count){
   $liste=@($kaynakDusen.Keys | Sort-Object | ForEach-Object { $kaynakDusen[$_] })
