@@ -942,9 +942,11 @@ function KokuKusur($a){
 # KAPI-D2 TÜRKÇE HARF: soru/şık/açıklamada ASCII kalmış sık kelime (icin, degil, isletme, yil, kar…) → yeniden. Karnedeki TurkceKusur sözlüğüyle aynı.
 $ASCII_TR_A='(?i)\b(icin|degil|degildir|gunu|sirket|sirketi|isletme|isletmenin|isletmesi|donem|donemin|donemi|uretim|butun|dogru|dogrusu|yanlis|yanlistir|ucret|ucreti|olcum|hesabi|hesabina|karsilik|karsiligi|musteri|satis|satislar|satislari|alis|odeme|odemesi|yukumluluk|ozkaynak|ozkaynaklar|donen|buyuk|kucuk|yil|yilinda|yilinin|yuzde|deger|degeri|degerleme|sayi|isci|iscilik|surec|sure|gecerli|gecmis|dagitim|dagitimi|olusan|olusur|bagli|bagimsiz|yonetim|yonetimi|denetci|dusuk|yuksek|artis|azalis|gerceklesen|gercek|agirlikli|musavir|mudur|kayit|kaydi|kayitlari|birikmis|odenmis|odenecek|verilmis|alinmis|bagis|tasit|tasitlar|demirbas|demirbaslar|ozel|dogrudan|gunluk|aylik|yillik|tuketim|urun|urunler|uretilen|cikardigi|cikarmis|basladigi|zarari|tutari|tutarinda|asagidakilerden|yapilan|yapilmis|edilmis|icinde|uzerinden|once|itibariyla)\b'   # kâr/kar, fatura, iade, olan, sonra, tarihinde gibi zaten Türkçe olan kelimeler LİSTEDE YOK (sahte alarm)
 function YazimOnarNesne($c){ if(-not $c){ return }
-  foreach($alan in @('soru','hap','sinav_taktigi','notlandirici','dayanak')){ if($c.PSObject.Properties[$alan] -and $c.$alan -is [string]){ $c.$alan=YazimOnar $c.$alan } }
+  # YD modunda soru kökü ve şıklar İngilizce → yazım sözlüğü onlara dokunmaz (yalnız Türkçe alanlar)
+  $alanlar=$(if($script:YD_MOD){ @('hap','sinav_taktigi','notlandirici','dayanak') } else { @('soru','hap','sinav_taktigi','notlandirici','dayanak') })
+  foreach($alan in $alanlar){ if($c.PSObject.Properties[$alan] -and $c.$alan -is [string]){ $c.$alan=YazimOnar $c.$alan } }
   foreach($hh in 'A','B','C','D','E'){
-    if($c.siklar -and $c.siklar.PSObject.Properties[$hh] -and $c.siklar.$hh -is [string]){ $c.siklar.$hh=YazimOnar $c.siklar.$hh }
+    if(-not $script:YD_MOD -and $c.siklar -and $c.siklar.PSObject.Properties[$hh] -and $c.siklar.$hh -is [string]){ $c.siklar.$hh=YazimOnar $c.siklar.$hh }
     if($c.aciklama -and $c.aciklama.PSObject.Properties[$hh]){ $v=$c.aciklama.$hh; if($v -is [string]){ $c.aciklama.$hh=YazimOnar $v } elseif($v){ foreach($p in @($v.PSObject.Properties)){ if($p.Value -is [string]){ $v.($p.Name)=YazimOnar $p.Value } } } }
     if($c.PSObject.Properties['teshis'] -and $c.teshis -and $c.teshis.PSObject.Properties[$hh] -and $c.teshis.$hh){ $t=$c.teshis.$hh; foreach($p in @($t.PSObject.Properties)){ if($p.Value -is [string]){ $t.($p.Name)=YazimOnar $p.Value } } } }
   if($c.PSObject.Properties['cozum_tablo'] -and $c.cozum_tablo -and $c.cozum_tablo.satirlar){ foreach($st in @($c.cozum_tablo.satirlar)){ if($st -and $st.Count -and $st[0] -is [string]){ $st[0]=YazimOnar $st[0] } } }
@@ -957,7 +959,21 @@ function AdimTurkceKusur($adimlar,$verilen){
   $tumK=$tum.ToLowerInvariant()
   return @([regex]::Matches($tumK,($ASCII_TR_A -replace '^\(\?i\)','')) | ForEach-Object { $_.Value } | Select-Object -Unique)
 }
-function TurkceKapisi($a){ $tum="$($a.soru) "+(@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' '; if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $tum+=' '+(AciklamaDuz $a.aciklama.$hh) } }
+# 09.09 YABANCI DİL (İNGİLİZCE) MODU — Cem "genel kültür 6 ders hattı": SGS Yabancı Dil soruları (kitapçık 21–30) İNGİLİZCE'dir. Ders adı
+# Yabancı Dil ise soru kökü + şıklar İngilizce yazılır; açıklama/adım/tuzak adları Türkçe kalır. Türkçe harf kapısı (KAPI-D2) ve yazım
+# onarımı yalnız Türkçe alanlara (açıklama) bakar; KAPI-K pencere sözlüğü (10 soru × 7 kitapçık = 70 İngilizce blok) İngilizce için anlamsız → kapalı.
+$script:YD_MOD=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce')
+$YD_DIL_KURAL=@'
+
+    YABANCI DİL (İNGİLİZCE) MODU: Bu ders SGS kitapçığının 21–30. soruları gibi İNGİLİZCE yazılır. Soru kökü ve 5 şık İngilizce;
+    biçimler (çıkmış kitapçıklardan): boşluk doldurma "----" ile dilbilgisi (zaman, edat, bağlaç, ilgi zamiri, edilgen yapı), kelime/anlam,
+    cümle tamamlama ("Although ..., ----."), okuma parçasına dayalı soru. Şıklar kısa (1–8 kelime), tek doğru; yanlış şıklar gerçek
+    dilbilgisi tuzakları (yanlış zaman, yanlış edat, özne-yüklem uyumsuzluğu, anlamca ters bağlaç). Açıklama, tuzak adları ve
+    "Ne soruluyor / Kural / Doğrusu" TÜRKÇE yazılır; kural KAYNAK METNİNDEKİ (teori notu) dilbilgisi kuralından çıkar, dayanak
+    alanına notun adını yaz. Türkçe harf kuralı yalnız Türkçe kısımlar içindir; İngilizce metinde Türkçe harf aranmaz.
+'@
+if($script:YD_MOD){ "YABANCI DİL MODU: soru+şık İngilizce, açıklama Türkçe; KAPI-D2/yazım onarımı yalnız açıklamada, KAPI-K kapalı" }
+function TurkceKapisi($a){ $tum=$(if($script:YD_MOD){ '' } else { "$($a.soru) "+(@('A','B','C','D','E') | ForEach-Object { "$($a.siklar.$_)" }) -join ' ' }); if($a.aciklama){ foreach($hh in 'A','B','C','D','E'){ $tum+=' '+(AciklamaDuz $a.aciklama.$hh) } }
   # tr-TR kültüründe (?i) 'I' ile 'i'yi eşlemez ("Isletme" kaçıyordu, 08.09 öz-sınav) → metin ToLowerInvariant ile küçültülür, desen küçük harf
   $tumK=$tum.ToLowerInvariant()
   return @([regex]::Matches($tumK,($ASCII_TR_A -replace '^\(\?i\)','')) | ForEach-Object { $_.Value } | Select-Object -Unique) }
@@ -1797,7 +1813,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
 (d) Kök yine tek anlamlı; uzunluk tavanı geçerli (zorluk katman ve tuzak sayısında, kelime sayısında değil). Teori sorusunda: iki paragrafın
     kesişimi, istisnanın istisnası, ya da "hangisi HER ZAMAN doğrudur" gibi mutlak kök — ama sızıntı kuralı 4c korunur.
 "@ }
-  $ist=$soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$DIL_KURAL).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $ist=$soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
@@ -1851,7 +1867,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # 04.09 KAPI-Ş (şık dengesi): tutar+yön şıklarında her tutar iki yönle geçmeli; tek çift = cevap belli.
     $sikKusur=SikDengesi $aday; if(-not $sikKusur){ $sikKusur=SikBicimi $aday }   # KAPI-Ş: yön dengesi + sayı/cümle/biçim
     $hkKusur=@(HesapKodKapisi $aday)   # 06.09 KAPI-H: hesap kodu–resmî ad eşleşmesi
-    $kvKusur=@(PencereKavram "$($aday.soru)")   # 06.09 KAPI-K: gövdede son N dönem sınavında hiç geçmeyen kök (anormal, kusurlu…)
+    $kvKusur=$(if($script:YD_MOD){ @() } else { @(PencereKavram "$($aday.soru)") })   # 06.09 KAPI-K: gövdede son N dönem sınavında hiç geçmeyen kök (anormal, kusurlu…); YD modunda kapalı (İngilizce sözlük 70 blok)
     # 08.09 Tur 1 denetim-cokzor ölçümü: 43 KAPI-K tekrarının çoğu TEK sıradan kelime ("teyide, edindiği, kesiksiz, çözülmüş") — pencere sözlüğü
     # 119 soruluk, her Türkçe kelimeyi içermiyor. Tek kelime = rapor notu (tekrar yok); ≥2 kelime yine tekrar (Cem'in "anormal düzeltme" vakası 2 kelimeydi).
     if($kvKusur.Count -eq 1){ $rapor.Add("KAPI-K NOTU (tek kelime, tekrar yok): $id | $($kvKusur[0])"); $kvKusur=@() }
