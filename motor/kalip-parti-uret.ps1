@@ -484,6 +484,11 @@ function DesenUret($kayit){
   # 14.004. karakterde başlıyordu). (3) '@TEORI|kok' metin araması FMuh'ta rastgele not çekiyor (borç senedi yenileme → Senyoraj, Haliç Konferansı).
   # Çözüm: ad deseni Türkçe toleranslı imatch ('~teori kok kok' → "teori.*[sş]ermaye.*art[iı]r[iı]"), ayrı listede toplanır ve EN ÖNE konur.
   $teoriOne=New-Object System.Collections.Generic.List[string]
+  # 09.09 GM maliyet ÖLÇÜLDÜ (kp-14 "standart maliyet direkt iscilik"): ikili desenler "maliyet+direkt" ile 6 alakasız not çekip 10 kaynak kotasını
+  # doldurdu, "direkt+iscilik" deseni hiç sıra alamadı → doğru not paketin dışında kaldı, hakem HAYIR. ÜÇ kök birlikte (her sırayla) EN ÖNCE aranır.
+  if($teoriKok.Count -ge 3){
+    foreach($p3 in @(@(0,1,2),@(0,2,1),@(1,0,2),@(1,2,0),@(2,0,1),@(2,1,0))){ $teoriOne.Add("~teori $($teoriKok[$p3[0]]) $($teoriKok[$p3[1]]) $($teoriKok[$p3[2]])") }
+  }
   if($teoriKok.Count -ge 2){
     for($i=0;$i -lt $teoriKok.Count;$i++){ for($j=0;$j -lt $teoriKok.Count;$j++){ if($i -eq $j){ continue }; $teoriOne.Add("~teori $($teoriKok[$i]) $($teoriKok[$j])") } }
   } elseif($teoriKok.Count -eq 1){ $teoriOne.Add("~teori $($teoriKok[0])") }
@@ -610,6 +615,14 @@ $OZEL_DESEN=@{
   'brut satis kari degisimi' = @('~teori brut satis kari','THP 600%','THP 621%','THP 610%','THP 611%')
   'hasilat kavrami'          = @('~teori gelir hasilat kazanc','THP 600%','THP 679%','THP 649%','THP 391%')
   'ust yonetimle iletisim'   = @('~teori istirak bagli ortaklik','THP 242%','THP 245%','THP 240%')   # konu adı yanlış; Tur 1 sorusu 245 Bağlı Ortaklıklar yönetim çoğunluğu ölçütünü sormuştu
+  # 09.09 GM maliyet-kolay ÖLÇÜLDÜ (5 hakem reddi, hepsi kaynak): 'standart' GENEL_KOK'ta olduğu için "standart maliyet sistemi" tek kök "maliyet"le 6 alakasız
+  # not çekti; "normal maliyet" ve "bakım onarım" dayanağındaki TMS 2 / TMS 16 atıfı paketi standart paragraflarıyla doldurdu. Doğru notlar ADLA öne alınır.
+  'standart maliyet sistemi'        = @('~teori standart maliyet miktar','~teori standart maliyet fark','~teori direkt iscilik ucret','THP 711%','THP 712%','THP 713%','THP 722%','THP 723%')
+  'standart maliyet direkt iscilik' = @('~teori direkt iscilik ucret','~teori standart maliyet miktar','THP 722%','THP 723%')
+  'direkt iscilik sure farki'       = @('~teori direkt iscilik sure','~teori direkt iscilik ucret','THP 723%','THP 722%')
+  'direkt iscilik farklari'         = @('~teori direkt iscilik sure','~teori direkt iscilik ucret','THP 722%','THP 723%')
+  'normal maliyet-kapasite kullanim'= @('~teori normal maliyet','~teori tam maliyet normal','THP 680%','THP 730%')
+  'ozel maliyetler bakim onarim'    = @('~teori bakim onarim','THP 730%','THP 770%','THP 760%','THP 264%')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
@@ -2917,11 +2930,17 @@ E) $($ti.siklar.E)
     # eşitlikte SONRAKİ satır kazanır (sonuç satırları tabloda alttadır)
     # 09.09 GM pilotu kp-06 ÖLÇÜLDÜ: ikiz "stok devir hızı" sordu, öğrenci 8 dedi (doğru); satır etiketi "Stokta kalma süresi (360 / stok devir hızı)"
     # parantezdeki formül yüzünden 3 kök eşleyip hedef seçildi, sim YANLIŞ sayıldı. Eşleme önce PARANTEZSİZ etiketle yapılır; hiç eşleşme yoksa tam etiketle.
-    $enP=0; foreach($st in $satirlarI){ $etAd=("$(@($st)[0])" -replace '\([^)]*\)',' '); $etK=@(((Katla2 $etAd) -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } }
-    if($enP -eq 0){ foreach($st in $satirlarI){ $etK=@(((Katla2 "$(@($st)[0])") -replace '[^a-z ]+',' ') -split '\s+' | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $etK -contains $_ }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } } }
+    # 09.09 GM maliyet ÖLÇÜLDÜ (4 sahte YANLIŞ): (a) "Kontrol:/Sağlama:" satırı tabloda SON satır olunca kök eşleşmesi yokken varsayılan hedef oldu (kp-11:
+    # öğrenci 795.000 doğru, hedef 5.000 kontrol satırı); (b) "stoku" ile "stok" 5 harflik kökte eşleşmedi (kp-20). Kontrol/sağlama satırları hedef adayı
+    # DEĞİLDİR; kök eşleşmesi önek toleranslı (biri ötekinin başıysa eş). Ayrıca aşağıda: öğrenci cevabı başka bir sonuç satırına eşitse DOĞRU sayılır.
+    $adaySat=@($satirlarI | Where-Object { "$(@($_)[0])" -notmatch '^\s*(Kontrol|Sağlama|Saglama)\b' }); if(-not $adaySat.Count){ $adaySat=@($satirlarI) }
+    $kokEs={ param($a,$b) if($a -eq $b){ return $true }; if("$a".Length -ge 4 -and "$b".Length -ge 4){ return ("$a".StartsWith("$b") -or "$b".StartsWith("$a")) }; return $false }
+    $enP=0; foreach($st in $adaySat){ $etAd=("$(@($st)[0])" -replace '\([^)]*\)',' '); $etK=@(((Katla2 $etAd) -replace '[^a-z ]+',' ') -split '\s+' | Where-Object { $_ } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $ik=$_; @($etK | Where-Object { & $kokEs $ik $_ }).Count -gt 0 }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } }
+    if($enP -eq 0){ foreach($st in $adaySat){ $etK=@(((Katla2 "$(@($st)[0])") -replace '[^a-z ]+',' ') -split '\s+' | Where-Object { $_ } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $p=@($istenenK | Where-Object { $ik=$_; @($etK | Where-Object { & $kokEs $ik $_ }).Count -gt 0 }).Count; if($p -gt 0 -and $p -ge $enP){ $enP=$p; $hedefSat=$st } } }
     if($hedefSat -and $enP -ge 1){ Write-Host "  SIM HEDEF ($id): '$(@($hedefSat)[0])' satırı (soru kökü eşleşmesi $enP)" -ForegroundColor DarkGray } else { $hedefSat=$null }
   }
-  $sonSat=@($(if($hedefSat){ $hedefSat } else { $satirlarI[-1] })); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
+  $adaySat=@($satirlarI | Where-Object { "$(@($_)[0])" -notmatch '^\s*(Kontrol|Sağlama|Saglama)\b' }); if(-not $adaySat.Count){ $adaySat=@($satirlarI) }
+  $sonSat=@($(if($hedefSat){ $hedefSat } else { $adaySat[-1] })); $hedefS=''; for($c=$sonSat.Count-1;$c -ge 1;$c--){ if("$($sonSat[$c])" -match '\d'){ $hedefS="$($sonSat[$c])"; break } }
   if(-not $hedefS){ Write-Host "  SIM ATLANDI ($id): ikiz sonuç hücresi yok" -ForegroundColor DarkGray; continue }
   $adimMetin=(@($cvp.adimlar) | ForEach-Object -Begin { $q=0 } -Process { $q++; "$q) $($_.formul)`n   $($_.anlatim)" }) -join "`n"
   $istO=$simIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{ADIMLAR}',$adimMetin).Replace('{IKIZ}',"$($cvp.ikiz.ikiz_soru)")
@@ -2938,6 +2957,9 @@ E) $($ti.siklar.E)
   # 06.09 Ö35: hedef yön kelimesiyle geliyorsa ("%37,5 azalış", "12.000 olumsuz") işaret karşılaştırmaya girmez — MTA kp-02'de "-37,5" doğruyken yanlış sayılmıştı
   $yonluHedef=("$hedefS" -match '(?i)azalış|azalis|olumsuz|olumlu|artış|artis|düşüş|dusus|lehte|aleyhte|\(-\)')
   $dogruMu=$false; if($null -ne $cv -and $null -ne $hd){ $cvK=$(if($yonluHedef){ [math]::Abs($cv) } else { $cv }); $hdK=$(if($yonluHedef){ [math]::Abs($hd) } else { $hd }); $dogruMu=([math]::Abs($cvK-$hdK) -le [math]::Max(0.5,[math]::Abs($hdK)*0.01)) }
+  # 09.09: hedef satır seçimi yanılabilir (ikiz başka kalemi sormuş olabilir). Öğrencinin cevabı tablonun kontrol dışı BAŞKA bir sonuç hücresine eşitse
+  # doğru sayılır (kp-09: öğrenci 150.000 = "Premium kalite toplam payı" satırı; hedef yanlışlıkla birim eşdeğer maliyet 50 seçilmişti).
+  if(-not $dogruMu -and $null -ne $cv){ foreach($st in $adaySat){ $hv=$null; $hc=-1; for($c2=@($st).Count-1;$c2 -ge 1;$c2--){ if("$(@($st)[$c2])" -match '\d'){ $hv=& $sayi "$(@($st)[$c2])"; $hc=$c2; break } }; if($null -ne $hv -and [math]::Abs([math]::Abs($cv)-[math]::Abs($hv)) -le [math]::Max(0.5,[math]::Abs($hv)*0.01)){ $dogruMu=$true; $hedefS="$(@($st)[$hc])"; Write-Host "  SIM HEDEF DÜZELTİLDİ ($id): öğrenci cevabı '$(@($st)[0])' satırıyla eşleşti" -ForegroundColor DarkYellow; $rapor.Add("SIM HEDEF DUZELTILDI: $id | $(@($st)[0])"); break } } }
   $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }
   $cvp | Add-Member -NotePropertyName $simAlan -NotePropertyValue $simObj -Force
   CacheYaz; Write-Host ("  SIM {0} ({1}): cevap {2} · hedef {3}{4}" -f $(if($dogruMu){'DOĞRU'}else{'YANLIŞ'}),$id,$oN.cevap,$hedefS,$(if("$($oN.eksik)".Trim()){ " · eksik: $($oN.eksik)" } else { '' })) -ForegroundColor $(if($dogruMu){'Green'}else{'Red'})
