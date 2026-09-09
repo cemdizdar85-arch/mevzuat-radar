@@ -43,6 +43,7 @@ param(
   [switch]$KonuYenile,     # konu listesi dosyasını (veri/fabrika/konu-secim-<etiket>.json) yok sayıp konuları yeniden seçer
   [switch]$Toplu,          # 08.09 Cem "daha ucuza": her fazın İLK denemesi Message Batches ile (yarı fiyat, paralel); kapıdan dönen tekrarlar anlık
   [int]$TopluBeklemeDk=$(if("$env:MEVZUAT_TOPLU_BEKLE_DK" -match '^\d+$'){ [int]$env:MEVZUAT_TOPLU_BEKLE_DK } else { 180 }),   # 09.09 Tur 2: kuyruk takılırsa faz 45 dk'da anlığa düşsün (ortam değişkeni; koşucu parametre geçirmiyor)
+  [string]$HazirSoru='',   # 09.09 Cem "bunu sen yapabiliyorsun niye para verelim" → B: GM'in oturumda yazdığı soru+adım dosyası (json dizi). FAZ A ve FAZ B model çağrısı YOK; FAZ A'nın kod kapıları + hakem/kör/hakem2/giriş/ikiz/sim aynen koşar.
   [string]$EskiKaynak='',  # 08.09 B yolu (KURTARMA): eski soru dosyası (json dizi: id, soru, siklar, dogru, aciklama, konu, ders, kanun_no, madde_no, madde_damga, kaynak). FAZ A koşmaz; FAZ U eski soruyu kalıp alanlarına uyarlar, kalan fazlar aynen.
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
   [string]$SimModel='claude-haiku-4-5-20251001',  # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
@@ -1690,6 +1691,7 @@ foreach($kk in $KONULAR){
   # 03.09 OLCULDU (pilot kp-04): kopru konusu degisince FAZ A pilot soruyu DUSURUP YENIDEN URETTI (2 cagri, gider
   # tahakkuku sorusu silindi). Pilot yalniz ADIM/ikiz/yevmiye/hakem fazlari icindir: FAZ A'da SORU ASLA uretilmez.
   if($PilotId){ continue }
+  if($HazirSoru){ continue }   # 09.09 FAZ GM: hazır soru modunda FAZ A HİÇ soru üretmez (bedel 0); soru kaynağı dosyadır, FAZ GM bloğu aşağıda
   # 02.09: cache id-bazli; konu listesi degisince (dislama kalkti/yeni konu girdi)
   # ayni id ESKI konunun sorusunu tasir ve sayfa yanlis konuyu gosterir. Konu
   # farkliysa kayit dusurulur, yeniden uretilir.
@@ -2038,6 +2040,63 @@ function AritmetikKusur($adimlar){
     }
   }
   return @($out)
+}
+
+# --- FAZ GM: HAZIR SORU GİRİŞİ (09.09 Cem "bunu sen yapabiliyorsun niye para verelim" → B seçeneği: GM yazar, dört kapı çalışır) -------------
+# GM'in oturumda yazdığı soru + adımlar (FAZ A ve FAZ B alanları hazır) dosyadan alınır; model çağrısı yok. FAZ A'nın BÜTÜN kod kapıları burada
+# da koşar (uzunluk, KAPI-Ş, H, Ç, O, B, D2, YD, P, M, S, Y, K) + adım kapıları (aritmetik, Türkçe). Düşen soru KAYDEDİLMEZ, nedeniyle
+# veri/fabrika/hazir-dusen-<etiket>.json'a yazılır. Geçen soru cache'e girer; hakem, kör, hakem2, giriş, ikiz, sim, yevmiye fazları yeni soruyla
+# AYNI koşar; yayın şartı (koşucu 8.1) değişmez. İz: yazar='GM', gm_kapi. Konu eşlemesi konu ADIYLA (id'ler köprü sırasına göre değişir).
+# Blok AritmetikKusur'dan SONRA durur (fonksiyon tanımı 2014'te); FAZ A döngüsü $HazirSoru varken zaten atlıyor.
+if($HazirSoru -and -not $SadeceHtml){
+  if(-not (Test-Path $HazirSoru)){ throw "HazirSoru dosyası yok: $HazirSoru" }
+  $hzL=@(ConvertFrom-Json -InputObject (Get-Content $HazirSoru -Raw -Encoding UTF8)); if($hzL.Count -eq 1 -and $hzL[0].PSObject.Properties['SyncRoot']){ $hzL=@($hzL[0].SyncRoot) }
+  "FAZ GM: $($hzL.Count) hazır soru (GM yazımı) kod kapılarına giriyor (FAZ A/B model çağrısı yok)"
+  $hzDusenYol=Join-Path $kok "veri\fabrika\hazir-dusen-$Etiket.json"; $hzDusen=New-Object System.Collections.Generic.List[object]
+  function HzDus([string]$konu,[string]$sebep){ $hzDusen.Add([pscustomobject]@{ konu=$konu; sebep=$sebep; tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm') }); Write-Host "  HAZIR SORU DÜŞTÜ [$konu]: $sebep" -ForegroundColor Red; $rapor.Add("HAZIR SORU DÜŞTÜ: [$konu] $sebep") }
+  foreach($e in $hzL){
+    if(-not $e -or -not $e.soru){ continue }
+    $eKonu=(Katla2 "$($e.konu)")
+    $kk=$null; foreach($x in $KONULAR){ if((Katla2 "$($x.kayit.konu)") -eq $eKonu){ $kk=$x; break } }
+    if(-not $kk){ HzDus "$($e.konu)" 'konu bu etiketin konu listesinde yok (konu dosyası / pencere süzgeci)'; continue }
+    $id=$kk.id
+    if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['gm_kapi']){ continue }
+    $cvp=[pscustomobject]@{ soru="$($e.soru)"; siklar=$e.siklar; dogru="$($e.dogru)"; aciklama=$e.aciklama; konu="$($kk.kayit.konu)"; yazar='GM'; donem=$kk.kayit.donem; sema=$(if($e.PSObject.Properties['sema']){ $e.sema } else { $null }) }
+    foreach($alan in 'teshis','celdirici_yol','verilenler','dayanak','cozum_tablo','hap','sinav_taktigi','notlandirici'){ if($e.PSObject.Properties[$alan] -and $null -ne $e.$alan){ $cvp | Add-Member -NotePropertyName $alan -NotePropertyValue $e.$alan -Force } }
+    if(-not $cvp.siklar -or -not $cvp.dogru -or -not $cvp.aciklama){ HzDus "$($e.konu)" 'şık / doğru / açıklama eksik'; continue }
+    YazimOnarNesne $cvp; DilOnarNesne $cvp
+    $kus=New-Object System.Collections.Generic.List[string]
+    $uzH="$($cvp.soru)".Length; if($uzH -gt $UZUNLUK_TAVAN){ $kus.Add("uzunluk $uzH kr > $UZUNLUK_TAVAN") }
+    $sK=SikDengesi $cvp; if(-not $sK){ $sK=SikBicimi $cvp }; if($sK){ $kus.Add("KAPI-Ş: $sK") }
+    foreach($x in @(HesapKodKapisi $cvp)){ $kus.Add("KAPI-H: $x") }
+    foreach($x in @(CeldiriciYolKapisi $cvp)){ $kus.Add("KAPI-Ç: $x") }
+    foreach($x in @(KokuKusur $cvp)){ $kus.Add("KAPI-O: $x") }
+    foreach($x in @(BenzerlikKusur $cvp $id)){ $kus.Add("KAPI-B: $x") }
+    foreach($x in @(TurkceKapisi $cvp)){ $kus.Add("KAPI-D2: $x") }
+    foreach($x in @(YevmiyeDengeKapisi $cvp)){ $kus.Add("KAPI-YD: $x") }
+    foreach($x in @(ParametreKapisi $cvp)){ $kus.Add("KAPI-P: $x") }
+    foreach($x in @(MulgaKapisi $cvp)){ $kus.Add("KAPI-M: $x") }
+    foreach($x in @(SureKapisi $cvp)){ $kus.Add("KAPI-S: $x") }
+    $yilH=@([regex]::Matches("$($cvp.soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yilH.Count -and (($yilH | Measure-Object -Maximum).Maximum -lt (Get-Date).Year)){ $kus.Add("KAPI-Y: sorudaki en yeni yıl $(($yilH | Measure-Object -Maximum).Maximum)") }
+    if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count){ $kvH=@(PencereKavram "$($cvp.soru)"); if($kvH.Count -ge 2){ $kus.Add("KAPI-K: $($kvH -join ', ')") } elseif($kvH.Count -eq 1){ $rapor.Add("KAPI-K NOTU (tek kelime, tekrar yok): $id | $($kvH[0])") } }
+    $adimVar=[bool]($e.PSObject.Properties['adimlar'] -and $e.adimlar)
+    if($adimVar){ foreach($x in @(AritmetikKusur $e.adimlar)){ $kus.Add("ADIM ARİTMETİK: $x") }; foreach($x in @(AdimTurkceKusur $e.adimlar $e.verilen)){ $kus.Add("ADIM TÜRKÇE: $x") } }
+    if($kus.Count){ HzDus "$($e.konu)" ($kus -join ' · '); continue }
+    if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }
+    if($adimVar){
+      foreach($ad1 in @($e.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }
+      $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue @($e.adimlar) -Force
+      $cvp | Add-Member -NotePropertyName aritmetik -NotePropertyValue @() -Force
+      $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($(if($e.PSObject.Properties['verilen'] -and $null -ne $e.verilen){ $e.verilen } else { @() })) -Force
+    }
+    $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @() -Force
+    if($CAPA.ContainsKey($id)){ $cvp | Add-Member -NotePropertyName capa_metin -NotePropertyValue "$($CAPA[$id])" -Force }
+    $cvp | Add-Member -NotePropertyName gm_kapi -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); kapilar='uzunluk,Ş,H,Ç,O,B,D2,YD,P,M,S,Y,K,adım-aritmetik,adım-Türkçe'; adim=$adimVar }) -Force
+    $don[$id]=$cvp; CacheYaz
+    Write-Host "  HAZIR SORU OK $id [$($cvp.konu)] $(if($adimVar){'soru+adım'}else{'soru'})" -ForegroundColor Green
+  }
+  [IO.File]::WriteAllText($hzDusenYol,(ConvertTo-Json -InputObject @($hzDusen.ToArray()) -Depth 4),[Text.UTF8Encoding]::new($false))
+  "FAZ GM bitti: alınan $(@($don.Keys | Where-Object { $don[$_].PSObject.Properties['gm_kapi'] }).Count) · düşen $($hzDusen.Count) -> $hzDusenYol"
 }
 
 # --- ŞIK HARFİ DENGESİ (07.09 A kovası 6 — "hep C" olmaz) ---------------------------------------------------------------
