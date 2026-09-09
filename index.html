@@ -7,8 +7,8 @@
      Google'in ilk gordugu sey bu ve markayi yanlis tanitiyordu. Yeni baslik
      uc arama niyetini birden karsiliyor (mevzuat takibi / GTIP / SMMM sinavi)
      ve ~60 karakterde kaliyor (Google bu civarda kesiyor). -->
-<title>Tetikte — Staja Giriş, Yeterlilik, KGK ve SPK sınavı: yanlışını böyle öğrenirsin</title>
-<meta name="description" content="Staja Giriş, Yeterlilik, bağımsız denetçilik ve SPK lisanslama sınavları için soru bankası: her şıkkın gerekçesi, her gerekçe kaynağıyla. Üyeliksiz başla.">
+<title>Tetikte — SMMM Staja Giriş, Yeterlilik, KGK ve SPK sınavı: yanlışını böyle öğrenirsin</title>
+<meta name="description" content="SMMM Staja Giriş (SGS), Yeterlilik, KGK bağımsız denetçi ve SPK lisanslama sınavları için soru bankası: her şıkkın gerekçesi kaynağıyla. Büro ve şirketler için mevzuat nöbeti aynı sayfada.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -453,7 +453,6 @@ window.veriAl = (function(){
         <a href="kartlar.html">Günün Kartları<span>30 saniyelik hap bilgi</span></a>
       </div>
     </div>
-    <a class="nl" href="is.html">İş başındayım</a>
     <a class="nl" href="#fiyat">Abonelik</a>
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px">Giriş / Üye Ol</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
@@ -463,182 +462,297 @@ window.veriAl = (function(){
 </nav>
 
 <main id="icerik">
-<!-- ============ ANA SAYFA = SINAV (09.09.2026, Cem "A olsun" + "bas") ==============
-     Cem 09.09: "siteye bir türlü kanım ısınmıyor… biz bu işin Apple'ı, Volvo'su olacağız".
-     Ölçüldü: eski ana sayfa 32.442 px, 123 bağlantı, 29 araç, üç yazı tipi ailesi, rakamlar
-     iki kez. Teşhis: ürün değil çarşı. Karar A: ana sayfa yalnız SINAV ürünü; büro/şirket
-     araçlarının tamamı is.html'e taşındı (silinmedi, taşındı; menü + altbilgi + iş bandı).
-     Kahraman kart = ürünün KENDİSİ: kaydir/vitrin/sgs.html gömülü (Kaydır-Çöz, Nöbetçi),
-     vitrin soruları motor/vitrin-soru-sec.js ölçütüyle seçilir (hesaplı · hakem · sim ·
-     çıkmış dönem · tablo uzunluğu), basımı motor/vitrin-bas.ps1. Sekmeler yalnız verisi olan
-     sınav için görünür: kaydir/vitrin/<sinav>.html varsa açılır (boş sekme ana sayfaya çıkmaz).
-     Sayılar: nöbet kutusu ve kanıt şeridi ESKİ kimlikleriyle (ndRg/ndSgs/ndYet/knKasa…) aynı
-     betikten dolar; HTML'deki değer son gerçek değerdir, JSON okunursa üzerine yazılır.
-     Renk: yalnız tema jetonu (renk-sabiti-denetcisi). Yazı tipi: tek aile (body). -->
-<style>
-  .v-kap{max-width:1120px;margin:0 auto;padding:0 clamp(18px,4vw,28px)}
-  .v-et{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
-  /* kahraman — tek yazı tipi ailesi (09.09 karar): stil-acik.css h1/h2'yi serife çevirir, burada gövde ailesi kalır */
-  .v-hero{padding:118px 0 26px}
-  .v-hero .v-et{color:var(--accent)}
-  .v-hero h1{font-family:inherit;font-size:clamp(38px,5.2vw,64px);line-height:1.04;font-weight:820;letter-spacing:-.035em;margin:12px 0 14px;max-width:16em;text-wrap:balance}
-  .v-hero h1 u{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:5px;text-underline-offset:8px}
-  .v-hero p{font-size:clamp(16px,1.5vw,18px);color:var(--muted);max-width:36em;margin:0 0 18px;line-height:1.55}
-  .v-hero p b{color:var(--ink);font-weight:600}
-  .v-cta{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-  .v-btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--taban);text-decoration:none;font-weight:700;font-size:16px;padding:14px 22px;border-radius:10px}
-  .v-btn:hover{background:var(--accent);color:var(--taban)}
-  .v-not{font-size:13.5px;color:var(--dim)}
-  /* vitrin kartı = ürünün kendisi */
-  .v-vitrin{padding:0 0 56px}
-  .v-kart{background:var(--kagit);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px color-mix(in srgb,var(--ink) 8%,transparent);overflow:hidden}
-  .v-sekmeler{display:flex;border-bottom:1px solid var(--line);background:var(--yuzey);overflow-x:auto}
-  .v-sekme{flex:1 0 auto;background:none;border:0;border-bottom:3px solid transparent;font:inherit;font-size:13.5px;font-weight:600;color:var(--muted);padding:12px 16px;cursor:pointer;white-space:nowrap}
-  .v-sekme[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);background:var(--kagit)}
-  .v-sekme:hover{color:var(--ink)}
-  .v-sekme[hidden]{display:none}
-  .v-nobetci{display:block;width:100%;height:720px;border:0;background:var(--kagit)}
-  .v-kart-dip{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 20px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
-  .v-kart-dip a{color:var(--accent);font-weight:700;text-decoration:none;font-size:14px}
-  /* nöbet şeridi */
-  .v-nobet{background:var(--yuzey);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:44px 0}
-  .v-nobet-bas{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
-  .v-nobet-bas h2{font-family:inherit;font-size:clamp(22px,2.4vw,28px);font-weight:760;margin:0;letter-spacing:-.02em}
-  .v-nobet-bas h2 i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);margin-right:10px;vertical-align:middle}
-  .v-nobet-bas span{font-size:13.5px;color:var(--dim)}
-  .v-nobet-sat{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-  .v-ns{background:var(--kagit);padding:20px 22px;text-decoration:none;color:inherit;display:grid;gap:4px;align-content:start}
-  .v-ns b{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
-  .v-ns strong{font-size:15px;font-weight:650}
-  .v-ns small{font-size:13px;color:var(--muted)}
-  .v-nobet-dip{font-size:13px;color:var(--dim);margin-top:14px}
-  .v-nobet-dip.nd-bayat{color:var(--red);font-weight:600}
-  /* üç adım */
-  .v-adim{padding:56px 0 40px}
-  .v-adim h2{font-family:inherit;font-size:clamp(24px,2.6vw,30px);font-weight:760;margin:8px 0 28px;letter-spacing:-.02em}
-  .v-adimlar{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
-  .v-ad .v-no{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--taban);display:grid;place-items:center;font-weight:700;font-size:14px;margin-bottom:14px}
-  .v-ad b{display:block;font-size:18px;margin-bottom:8px}
-  .v-ad p{margin:0;color:var(--muted);font-size:15px;max-width:30em;line-height:1.55}
-  /* kanıt + güven */
-  .v-kanit{border-top:1px solid var(--line);padding:40px 0 0}
-  .v-kanit-sat{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-  .v-kn{text-decoration:none;color:inherit}
-  .v-kn b{display:block;font-size:40px;font-weight:820;letter-spacing:-.04em;line-height:1}
-  .v-kn span{display:block;color:var(--muted);font-size:14.5px;margin-top:8px}
-  .v-kanit-not{font-size:12.5px;color:var(--dim);margin-top:18px}
-  .v-guven{padding:48px 0 56px}
-  .v-guven h2{font-family:inherit;font-size:clamp(24px,2.6vw,30px);font-weight:760;margin:8px 0 26px;letter-spacing:-.02em}
-  .v-guven-sat{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
-  .v-gv b{display:block;font-size:17px;margin-bottom:8px}
-  .v-gv p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
-  /* iş bandı + fiyat */
-  .v-is{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
-  .v-is .v-kap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-  .v-is p{margin:0;color:var(--muted);font-size:15px;max-width:44em}
-  .v-is p b{color:var(--ink);font-weight:650}
-  .v-is a{white-space:nowrap;font-weight:700;color:var(--accent);text-decoration:none;font-size:15px}
-  .v-fiyat{padding:40px 0 48px}
-  .v-fiyat p{margin:0;font-size:17px;max-width:40em;line-height:1.55}
-  .v-fiyat a{color:var(--accent);font-weight:700;text-decoration:none}
-  @media(max-width:900px){.v-nobet-sat,.v-adimlar,.v-kanit-sat,.v-guven-sat{grid-template-columns:1fr 1fr}.v-nobetci{height:660px}}
-  @media(max-width:600px){.v-hero{padding-top:96px}.v-nobet-sat,.v-adimlar,.v-kanit-sat,.v-guven-sat{grid-template-columns:1fr}.v-nobetci{height:640px}}
-</style>
 
-<section class="v-hero" aria-label="Kahraman">
-  <div class="v-kap">
-    <div class="v-et">SMMM Staja Giriş (SGS) · SMMM Yeterlilik · KGK Bağımsız Denetçi · SPK Lisanslama</div>
-    <h1>Yanlışını <u>böyle</u> öğrenirsin.</h1>
-    <p>Her soru gerçek sınav kalıbında. Her şıkkın gerekçesi var, her gerekçe <b>kaynağına bağlı</b>. Aşağıda şıkkı seç; tuzağın adını, doğrusunu ve Nöbetçi'nin adım adım anlatımını gör.</p>
-    <div class="v-cta">
-      <a class="v-btn" href="genc.html">Soru çözmeye başla →</a>
-      <span class="v-not">Üye olmadan başlarsın. Kayıt yok, kart yok.</span>
-    </div>
-  </div>
-</section>
+<!-- ============ HERO ============================================
+     29.07 SON KARAR (Cem): "3 sik var - sinav, mali musavir, sirket.
+     Giriste bunlar HAP GIBI dursa, tikladiktan sonra ayrintiya girsek."
+     Dogru olan bu ve ben tersini yapmistim: sadelestirecek yerde ust uste
+     yigmisim - slogan, calisan arac, 8 arac karesi, RG kartlari, uyelik
+     kutusu, fiyatlar. Hepsi ayni ekranda bagiriyordu.
+     GIRIS TEK BIR SORU SORAR: sen kimsin? Uc kapi, baska hicbir sey.
+     Ayrinti kapinin ARDINDA. Araclar, kartlar, fiyatlar hepsi asagida
+     ve kendi sayfalarinda duruyor - silinmedi, sirasi degisti.
+============================================================== -->
+<header class="hero hero-sade">
+  <div class="sade-ic">
+    <!-- 30.07 Cem: "isinin nobetcisi / Turkiye mevzuati rozetini sevmedim".
+         Yerine CANLI nobet damgasi konmustu: kart-durum.json'dan son RG
+         turu tarihi ("soze degil tarihe bak").
+         31.08 KALDIRILDI - sebep OLCUM, tercih degil: damga kart-durum.json'
+         dan 30.08, hemen yanindaki nobet defteri uyari-ozet.json'dan
+         31.08 okuyordu. Ayni ekranda birbirini yalanlayan iki tarih.
+         Nobet defteri damganin isini zaten daha iyi yapiyor (tarih + saat
+         + sayilar + kaynak baglantilari), ustelik sola hizali; damga
+         ortaliydi ve tek basina duruyordu. Iki tarihten zayif olani cikti.
+         Geri istenirse: bu blok geri konur, AMA iki kaynak once
+         birlestirilmeli - yoksa celiski geri gelir. -->
 
-<section class="v-vitrin" aria-label="Nöbetçi vitrini">
-  <div class="v-kap">
-    <div class="v-kart">
-      <!-- 09.09 sekme adları ADAYIN DİLİNDE (Cem: "gençler nasıl biliyor öyle girsinler"; TESMER menüsü ölçüldü: "Staja Giriş Sınavı" / "SMMM Sınavı"). data-s = üretici etiketi ve klasörü: sgs · smmm · kgk · spk -->
-      <div class="v-sekmeler" role="tablist" aria-label="Sınav seç">
-        <button class="v-sekme" role="tab" aria-selected="true" data-s="sgs" type="button">SMMM Staja Giriş (SGS)</button>
-        <button class="v-sekme" role="tab" aria-selected="false" data-s="smmm" type="button" hidden>SMMM Yeterlilik</button>
-        <button class="v-sekme" role="tab" aria-selected="false" data-s="kgk" type="button" hidden>KGK Bağımsız Denetçi</button>
-        <button class="v-sekme" role="tab" aria-selected="false" data-s="spk" type="button" hidden>SPK Lisanslama</button>
+    <!-- ============ HERO: BAŞLIK + NÖBET DEFTERİ (31.08.2026) ===========
+         Cem, sırasıyla üç kurguyu geri çevirdi ve her seferinde haklıydı:
+           · iki panel        -> uzlaşma, dağınık
+           · ekran görüntüsü  -> motorun FOTOĞRAFI, motor değil
+           · soru kutusu      -> ziyaretçiyi kapıda SINAVA sokuyor
+           · açıklama paneli  -> SORUSU OLMAYAN CEVAP (görmeyen için gürültü)
+
+         Dördünde de ortak hatam: yeni bir şey icat etmeye çalıştım.
+         Oysa cevap depoda hazır duruyordu: veri/uyari-ozet.json'u robot
+         HER SABAH yazıyor (uyari-robotu.ps1 · .github/workflows/uyari.yml)
+         ve bugüne kadar hiçbir sayfada okunmuyordu — üretilip çöpe giden
+         veri. Nöbet defteri onu ilk kez vitrine çıkarıyor.
+
+         NEDEN BU KUTU İŞE YARAR
+         · Tek bakışta okunur — okumak değil SAYMAK yeter.
+         · Ziyaretçiden hiçbir şey istemez; ona bir şey gösterir.
+         · Dört kapıya birden kanıt verir: sınav · RG · ihale (· marka).
+           "Hem sınav hem şirket" isteği uzlaşmayla değil mekanizmayla
+           çözülüyor.
+         · Rakip kopyalayamaz: saat damgası koymak için her sabah
+           gerçekten okumak gerekir.
+
+         SINAV BLOĞU EN ÜSTTE (Cem 31.08: "yukarıya sınavla ilgili de bir
+         şey eklersek süper olur") ve (B) kararıyla uyumlu: sınav önde.
+
+         RAKAMLARIN KAYNAĞI - hiçbiri hafızadan değil:
+         · 21.11.2026 (SGS) ve 28.11.2026 (Yeterlilik): genc.html +
+           veri/canli-deneme.json, TÜRMOB resmî takvimi. Geri sayım
+           tarayıcıda HESAPLANIR, elle yazılmaz.
+         · Başvuru penceresi 21 Eylül - 9 Ekim: canli-deneme.json
+           "Başvuru Denemesi" notundan.
+         · Sıradaki canlı deneme 27.09.2026 SGS: canli-deneme.json.
+         · RG kartı ve ihale ilanı sayısı: veri/uyari-ozet.json (canlı).
+           Okunamazsa HTML'deki son gerçek değer kalır.
+
+         BİLEREK YOK: konkordato/iflas ve marka satırı. uyari-ozet.json'da
+         GÜNLÜK TOPLAM yok (izlenen_borclu/alacak_eslesme kişiye özel
+         alanlar, ikisi de 0 çünkü henüz izlenen firma yok). Sayısı
+         olmayan satır YAZILMAZ; robota eklenince gelir.
+    ================================================================= -->
+    <!-- ============ 04.09.2026 · "A YAP" — KURUMSAL SaaS İLK EKRANI =========
+         Cem: "siteye giren 'profesyonel bunlar' demeli, şu an demiyor."
+         Üç yön çizildi (A kurumsal SaaS · B ürün önde · C editoryal),
+         Cem A'yı seçti. Eksen: Wolters Kluwer / Ramp / Fonoa kalıbı.
+           · Slogan yerine NE YAPTIĞIMIZI söyleyen sans başlık.
+           · İki çağrı: birincil koyu düğme + "Nasıl çalışır" (#nasil).
+           · Okunan kaynaklar satırı: metin rozet (logo izin ister, metin
+             aynı güveni verir).
+           · Sağda TABLO değil ürün ekranı: simgeli satırlar, alt açıklama.
+             Kimlikler (ndRg, ndIhale, ndSgs, ndYet, ndTarih, ndSaat,
+             ndNeZaman, ndDip) KORUNDU - aşağıdaki betik aynı.
+         "Tetikte olan kaçırmaz." silinmedi: og:title ve sekme başlığında
+         slogan olarak yaşıyor; ilk ekranda ürün cümlesi konuşuyor. -->
+    <div class="hero-2">
+      <div class="hero-sol">
+        <!-- 04.09 ikinci tur (Cem, ekran görüntüsüyle):
+             (1) "markamız yok" -> marka başlığın ilk kelimesi.
+             (2) "sınav ve iş yeri yukarı çıksın" -> aşağıdaki 01/02 kapıları
+                 KALDIRILDI, iki çağrı düğmesi kapının kendisi oldu
+                 (birincil sınav = (B) kararı, sınav önde).
+             (3) "bağımsız denetim ve SPK sınavlarına hazırlıyoruz" -> KGK
+                 adayın aradığı adla (bağımsız denetçilik), SPK lisanslama
+                 eklendi. ⚠ SPL bankası 04.09'da SIFIR soru (sinav-tek-sayfa
+                 sinav_ozet'te yok); Cem: "site açıldığında SPK yetişmiş
+                 olacak, onun için yazalım." Açılış kontrol listesine yazıldı:
+                 gong'dan önce SPL bankası dolu olmalı, yoksa bu iki kelime
+                 çıkar. Kaynak rozeti "SPK mevzuatı" ise BUGÜN doğru:
+                 veri/spk-mevzuat-envanteri.json yutulmuş. -->
+        <div class="hero-ust"><i class="hero-nokta" aria-hidden="true"></i>SMMM Staja Giriş (SGS) · SMMM Yeterlilik · KGK Bağımsız Denetçi · SPK Lisanslama</div>
+        <h1>Tetikte'de yanlışını böyle öğrenirsin.</h1>
+        <p class="sade-alt">Her soru gerçek sınav kalıbında; her şıkkın gerekçesi var, her gerekçe kaynağına bağlı. Yanlış şıkkı seç, tuzağın adını ve doğrusunu yan yana gör. İş başındaysan büro, şirket ve mükellef nöbeti aşağıda.</p>
+        <div class="hero-kapilar">
+          <a class="hkapi hkapi-birincil" href="genc.html">
+            <b>Soru çözmeye başla →</b>
+            <small>SMMM Staja Giriş (SGS) · SMMM Yeterlilik · KGK Bağımsız Denetçi · SPK Lisanslama</small>
+          </a>
+          <a class="hkapi" href="karne.html">
+            <b>İş başındayım →</b>
+            <small>Büro · şirket · mükellef: süre, ceza, marka, alacak, ihale nöbeti</small>
+          </a>
+        </div>
+        <div class="hero-bedava">Üye olmadan başlarsın; soru çözmek ve yükümlülüklerini görmek ücretsiz. <a href="#nasil">Nasıl çalışır →</a></div>
+        <div class="hero-kaynak" aria-label="Okunan kaynaklar">
+          <span class="hk-et">Okunan kaynaklar</span>
+          <span class="hk">Resmî Gazete</span>
+          <span class="hk">TÜRMOB sınav takvimi</span>
+          <span class="hk">KGK denetim standartları</span>
+          <span class="hk">SPK mevzuatı</span>
+          <span class="hk">EKAP ihale ilanları</span>
+          <span class="hk">Marka bülteni</span>
+          <span class="hk">Gümrük Tarife Cetveli</span>
+        </div>
       </div>
-      <iframe class="v-nobetci" id="vNobetci" src="kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik" title="Nöbetçi: soru, şıklar ve adım adım çözüm" loading="eager"></iframe>
-      <div class="v-kart-dip">
-        <span>Bu kart ürünün kendisi. Sorular sınavın en çok çıkan ve en uzun çözümlü soruları arasından ölçütle seçilir; yukarı kaydır, sıradaki gelsin.</span>
-        <a href="kaydir/sgs/index.html">Ders ders devam et →</a>
+
+      <div class="hero-sag">
+        <!-- ============ GÖSTERİMLİK SORU KARTI (09.09.2026) ==============================
+             Cem: "yanda gösterimlik olabilir" — ürünün TEK ANI (29.08 kilidi: yanlış şık → tuzak adı +
+             doğrusu + çözüm tablosu), kaydırmadan, tek ekranda. Soru vitrin seçicisinin 1. sırası
+             (motor/vitrin-soru-sec.js: hakem EVET · sim ✓ · 7 dönem · hesaplı; Maliyet, SGS 2025/2 S62 kalıbı,
+             veri kaydir/vitrin/sgs.html'den birebir). Tıklanınca gerçek ürüne (Nöbetçi) gider; kasaya yazmaz.
+             Yalnız tema jetonu; başlıklar gövde ailesi. -->
+        <style>
+          .v-kart{background:var(--kagit);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-align:left;
+            box-shadow:0 24px 60px color-mix(in srgb,var(--ink) 8%,transparent)}
+          .v-kart-ust{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--line);font-size:12px;color:var(--dim)}
+          .v-kart-ust b{color:var(--ink);font-weight:600}
+          .v-soru{padding:14px 16px 6px;margin:0;font-size:14.5px;line-height:1.5;font-weight:500;color:var(--ink)}
+          .v-siklar{list-style:none;margin:0;padding:8px 12px 12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+          .v-sik{display:flex;align-items:center;gap:7px;padding:8px 8px;border-radius:9px;border:1px solid var(--line);background:none;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;width:100%;font-variant-numeric:tabular-nums}
+          .v-sik:hover{background:var(--yuzey)}
+          .v-sik:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+          .v-sik i{font-style:normal;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line2);display:grid;place-items:center;font-size:11.5px;font-weight:700;color:var(--muted);flex:none}
+          .v-sik.yanlis{background:color-mix(in srgb,var(--red) 9%,transparent);border-color:color-mix(in srgb,var(--red) 40%,transparent)}
+          .v-sik.yanlis i{background:var(--red);border-color:var(--red);color:var(--kagit)}
+          .v-sik.dogru{background:color-mix(in srgb,var(--green) 10%,transparent);border-color:color-mix(in srgb,var(--green) 40%,transparent)}
+          .v-sik.dogru i{background:var(--green);border-color:var(--green);color:var(--kagit)}
+          .v-panel{border-top:1px solid var(--line);background:var(--yuzey);padding:12px 16px 14px;display:grid;gap:9px}
+          .v-tuzak{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+          .v-roz{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:4px 7px;border-radius:6px;white-space:nowrap;margin-top:1px;color:var(--kagit)}
+          .v-roz.y{background:var(--red)}.v-roz.d{background:var(--green)}
+          .v-tuzak p{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink)}
+          .v-dogrusu{font-size:13.5px;line-height:1.45;color:var(--ink)}
+          .v-cozum{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--kagit);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-variant-numeric:tabular-nums}
+          .v-cozum td{padding:5px 10px;border-top:1px solid var(--line);color:var(--ink)}
+          .v-cozum td:last-child{text-align:right;white-space:nowrap}
+          .v-cozum tr.sonuc td{font-weight:700;color:var(--accent)}
+          .v-panel-alt{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--dim)}
+          .v-panel-alt a{font-weight:700;color:var(--accent);text-decoration:none;font-size:13.5px}
+          @media(max-width:560px){.v-siklar{grid-template-columns:repeat(3,1fr)}}
+          .v-nd-sar{max-width:1180px;margin:22px auto 0;text-align:left}
+          .v-nd-sar .nd{max-width:none}
+        </style>
+        <div class="v-kart" id="vKart">
+          <div class="v-kart-ust"><span><b>Maliyet Muhasebesi</b> · ortak ürün maliyet dağıtımı</span><span>SGS 2025/2 kalıbı · 7 dönemde çıktı</span></div>
+          <p class="v-soru">Aynı üretim sürecinden K ve L ortak ürünleri elde ediliyor. Ayrışma noktasına kadar birleşik gider 160.000 TL. K'den 700 adet (katsayı 1), L'den 300 adet (katsayı 3) üretildi. Katsayılı bölme yöntemiyle L ürününün birleşik gider payı kaç TL'dir?</p>
+          <ul class="v-siklar" id="vSiklar">
+            <li><button class="v-sik" type="button" data-k="A"><i>A</i>48.000</button></li>
+            <li><button class="v-sik" type="button" data-k="B"><i>B</i>70.000</button></li>
+            <li><button class="v-sik" type="button" data-k="C"><i>C</i>90.000</button></li>
+            <li><button class="v-sik yanlis" type="button" data-k="D"><i>D</i>120.000</button></li>
+            <li><button class="v-sik" type="button" data-k="E"><i>E</i>144.000</button></li>
+          </ul>
+          <div class="v-panel">
+            <div class="v-tuzak"><span class="v-roz y" id="vRoz">Miktar İhmali Tuzağı</span><p id="vTuzak">Katsayı toplamına (1+3=4) göre oranladın, ürün miktarlarını hiç dikkate almadın.</p></div>
+            <div class="v-dogrusu"><b>Doğrusu C, 90.000 TL.</b> Katsayılı bölmede anahtar miktar değil, miktar ile katsayının çarpımı olan eşdeğer birimdir.</div>
+            <table class="v-cozum" aria-label="Çözüm">
+              <tr><td>K eşdeğer birimi (700 × 1)</td><td>700</td></tr>
+              <tr><td>L eşdeğer birimi (300 × 3)</td><td>900</td></tr>
+              <tr><td>Eşdeğer birim maliyeti (160.000 / 1.600)</td><td>100</td></tr>
+              <tr class="sonuc"><td>L ürünü payı (900 × 100)</td><td>90.000 TL</td></tr>
+            </table>
+            <div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. 7 adımda Nöbetçi anlatır.</span><a href="kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik">Nöbetçi anlatsın →</a></div>
+          </div>
+        </div>
+        <script>
+        (function(){
+          var T={A:{ad:"Fiziksel Ölçü Tuzağı",m:"Katsayıyı hiç hesaba katmadan yalnız miktar oranıyla dağıttın; bu katsayılı değil fiziksel ölçü yöntemidir."},
+                 B:{ad:"Yer Değiştirme Tuzağı",m:"L'nin payı yerine K'nin payını (700 eşdeğer birim × 100) yazdın."},
+                 D:{ad:"Miktar İhmali Tuzağı",m:"Katsayı toplamına (1+3=4) göre oranladın, ürün miktarlarını hiç dikkate almadın."},
+                 E:{ad:"Toplam Eşdeğer Birim Hatası",m:"Toplam eşdeğer birimi katsayısız miktar toplamı (700+300) üzerinden hesapladın; doğrusu 1.600."}};
+          var roz=document.getElementById('vRoz'),tm=document.getElementById('vTuzak'),ul=document.getElementById('vSiklar');
+          if(!ul) return;
+          ul.addEventListener('click',function(e){ var b=e.target.closest('.v-sik'); if(!b) return; var k=b.getAttribute('data-k');
+            ul.querySelectorAll('.v-sik').forEach(function(x){ x.classList.remove('yanlis','dogru'); });
+            if(k==='C'){ b.classList.add('dogru'); roz.className='v-roz d'; roz.textContent='Doğru'; tm.textContent='Eşdeğer birim 900, birim maliyeti 100; pay 90.000 TL. Tablodaki adımlar birebir bu yol.'; }
+            else { b.classList.add('yanlis'); roz.className='v-roz y'; roz.textContent=T[k].ad; tm.textContent=T[k].m; } });
+        })();
+        </script>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="v-nobet" aria-label="Bu sabahki nöbet">
-  <div class="v-kap">
-    <div class="v-nobet-bas">
-      <h2><i></i><span id="ndNeZaman">Bu sabah</span> <span id="ndSaat">09:02</span>, nöbet tutuldu.</h2>
-      <span id="ndTarih">09.09.2026</span>
+    <!-- 09.09 nöbet kutusu hero'nun sağından TAM SATIRA indi: sağ kolon artık gösterimlik soru kartı
+         (Cem: "yanda gösterimlik olabilir"). Kimlikler (ndRg/ndSgs/ndYet…) aynı, betik dokunulmadı. -->
+    <div class="v-nd-sar">
+        <div class="nd">
+          <div class="nd-ust">
+            <b><i class="nd-isik" aria-hidden="true"></i><span id="ndNeZaman">Son koşu</span> <span id="ndSaat">07:03</span> · nöbet tutuldu</b>
+            <span id="ndTarih">31.08.2026</span>
+          </div>
+
+          <a class="nd-satir" href="kartlar.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9 13h8M9 17h8"/></svg></span>
+            <span class="nd-metin"><b>Resmî Gazete okundu</b><small>Seni bağlayan değişiklikler, madde numarasıyla</small></span>
+            <span class="nd-kac" id="ndRg">3 değişiklik</span></a>
+          <a class="nd-satir" href="ihale-radari.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 10v10h14V10"/><path d="M12 3l9 7H3z"/></svg></span>
+            <span class="nd-metin"><b>İhale ilanları süzüldü</b><small>Sektörüne uyanlar ayrıldı, gerisi elendi</small></span>
+            <span class="nd-kac" id="ndIhale">250 ilan</span></a>
+          <a class="nd-satir" href="genc.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+            <span class="nd-metin"><b>Staja Giriş sınavına</b><small>Başvuru penceresi 21 Eylül'de açılıyor</small></span>
+            <span class="nd-kac" id="ndSgs">82 gün</span></a>
+          <a class="nd-satir" href="canli-deneme.html">
+            <span class="nd-ikon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <span class="nd-metin"><b>Yeterlilik sınavına</b><small>Canlı deneme 27.09 · kayıt açık</small></span>
+            <span class="nd-kac" id="ndYet">89 gün</span></a>
+
+          <div class="nd-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+        </div>
     </div>
-    <div class="v-nobet-sat">
-      <a class="v-ns" href="kartlar.html"><b id="ndRg">1 değişiklik</b><strong>Resmî Gazete okundu</strong><small>Dayanağı değişen soru yayında kalmaz</small></a>
-      <a class="v-ns" href="genc.html"><b id="ndSgs">73 gün</b><strong>Staja Giriş (SGS) sınavına</strong><small>Başvuru penceresi 21 Eylül'de açılıyor</small></a>
-      <a class="v-ns" href="canli-deneme.html"><b id="ndYet">80 gün</b><strong>SMMM Yeterlilik sınavına</strong><small>Canlı deneme 27.09 · kayıt açık</small></a>
+
+    <!-- ============ KANIT ŞERİDİ (04.09.2026) ==============================
+         Cem: "kurumsal firmanın açılışı böyle olmamalı". Ölçülen eksik:
+         sayfada tek rakam GTİP notundaydı; ambardaki büyüklük vitrinde
+         yoktu. Kurumsal güven = sayı + kaynak. Dört rakam, hiçbiri
+         hafızadan değil:
+           · soru bankası ve ders sayısı : veri/sinav-tek-sayfa.json
+             sinav_ozet[].kasa / .ders (kasa-sayim.ps1, her gün 03:41 TR)
+           · çıkmış soru arşivi          : aynı dosya, cikmis.arsiv[].soru
+           · GTİP kodu                   : Karar 10781 (RG 30.12.2025) —
+             yıllık cetvel, gtip.html ile aynı sabit; robot değil, karar
+         HTML'deki değer = bugün okunan son gerçek değer (04.09.2026);
+         JSON okunursa üzerine yazılır, okunamazsa HTML kalır.
+         BİLEREK YOK: marka bülteni kaydı. marka-bulten-raporu.json koşu
+         başına sayar (islenen = o koşuda işlenen bültenler), birikimli
+         değil; bir sonraki koşuda sayı düşer ve vitrin yalan söylerdi.
+         Birikimli sayı Supabase marka_bulten_kutuk'ta; ona bağlanınca gelir. -->
+    <div class="kanit" aria-label="Sayılarla Tetikte">
+      <a class="kn" href="genc.html"><b id="knKasa">30.569</b><span>soru bankasında, her şık gerekçeli</span></a>
+      <a class="kn" href="genc.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
+      <a class="kn" href="genc.html"><b id="knDers">31 ders</b><span>Staja Giriş · Yeterlilik · Bağımsız denetçilik · SPK lisanslama</span></a>
+      <a class="kn" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
+      <div class="kanit-not">Sayılar robot ölçümünden gelir · son ölçüm <span id="knTarih">03.09.2026</span></div>
     </div>
-    <div class="v-nobet-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir. TÜRMOB takviminin PDF'i her gün yoklanır.</div>
-    <span id="ndIhale" hidden></span>
-  </div>
-</section>
 
-<section class="v-adim" id="nasil" aria-label="Nasıl çalışır">
-  <div class="v-kap">
-    <div class="v-et">Nasıl çalışır</div>
-    <h2>Üç adım, her sabah.</h2>
-    <div class="v-adimlar">
-      <div class="v-ad"><span class="v-no">1</span><b>Okur</b><p>Resmî Gazete ve TÜRMOB sınav takvimi her sabah robotla okunur. Saat damgası yukarıdaki kutuda durur.</p></div>
-      <div class="v-ad"><span class="v-no">2</span><b>Süzer</b><p>Yalnız senin dersini ve sınavını bağlayanlar kalır. Dayanağı değişen soru yayından düşer.</p></div>
-      <div class="v-ad"><span class="v-no">3</span><b>Kaynağıyla bildirir</b><p>Her şıkkın gerekçesi kaynağıyla gelir: kanun maddesi, standart, hesap planı. Söze değil kaynağa bakarsın.</p></div>
+    <!-- 29.07'den beri buradaki 01/02 KAPI KARTLARI (Sınava hazırlanıyorum /
+         İş başındayım) 04.09'da hero'ya TAŞINDI: iki çağrı düğmesi kapının
+         kendisi. Silinmedi, yükseldi; hedefler aynı (genc.html / karne.html
+         - karne GİRİŞSİZ çalışır, 30.07 dersi). -->
+
+    <!-- ============ NASIL ÇALIŞIR (04.09, A kurgusunun parçası) ============
+         Kurumsal kalıp ilk ekranın altında üç adım ister; "Nasıl çalışır →"
+         çağrısının hedefi burası. İddialar ölçülü: RG, ihale ve marka
+         robotları her sabah koşuyor (uyari-ozet / kaynak nöbetçisi /
+         marka-bulten.yml 05:40); sınav takvimi canli-deneme.json'dan. -->
+    <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
+      <div class="nasil-bas">
+        <span class="nasil-et">Nasıl çalışır</span>
+        <h2>Üç adım, her sabah.</h2>
+      </div>
+      <div class="nasil-adimlar">
+        <div class="na"><span class="na-no">1</span><b>Okur</b><p>Resmî Gazete, ihale ilanları, marka bültenleri ve sınav takvimi her sabah robotla okunur; saat damgası kutuda durur.</p></div>
+        <div class="na"><span class="na-no">2</span><b>Süzer</b><p>Yalnız seni bağlayanlar kalır: sektörün, ilin, dersin. Gerisi elenir, gürültü gelmez.</p></div>
+        <div class="na"><span class="na-no">3</span><b>Kaynağıyla bildirir</b><p>Her uyarı madde numarasıyla, her soru şıkkının gerekçesiyle gelir. Söze değil kaynağa bakarsın.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ GTİP ARAMASI — KENDİ SATIRINA İNDİ ==================
+         25.08'de hero'ya konmuştu ve gerekçesi doğruydu: "ürünü SAYFAYA
+         getiriyor". Sorun kutunun kendisi değil, ilk ekranda ÜÇÜNCÜ istek
+         olmasıydı (ara / kendini tanıt / oku). Artık kapıların altında
+         kendi satırında; sayfadaki tek "yaz ve gör" kutusu.
+         SİLİNMEDİ - taşındı; 15.717 kayıtlık arama yerinde. -->
+    <div class="gtip-satir">
+      <div class="hero-ara">
+        <label for="heroAra">İthal edeceğin ürünü yaz, vergisini gör</label>
+        <div class="hero-ara-satir">
+          <input id="heroAra" type="search" autocomplete="off" spellcheck="false"
+                 placeholder="ör. zeytinyağı, çelik boru, akıllı telefon, 8517…"
+                 aria-describedby="heroAraNot" oninput="heroAraCalis()">
+          <span class="hero-ara-sayac" id="heroAraSayac" aria-live="polite"></span>
+        </div>
+        <div id="heroAraSonuc" role="region" aria-live="polite"></div>
+        <div class="hero-ara-not" id="heroAraNot">15.717 gümrük tarife kaydında arar · Resmî Gümrük Tarife Cetveli</div>
+      </div>
     </div>
-  </div>
-</section>
-
-<section class="v-kanit" aria-label="Sayılarla Tetikte">
-  <div class="v-kap">
-    <div class="v-kanit-sat">
-      <a class="v-kn" href="genc.html"><b id="knKasa">30.569</b><span>soru bankasında, her şık gerekçeli</span></a>
-      <a class="v-kn" href="genc.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
-      <a class="v-kn" href="genc.html"><b id="knDers">31 ders</b><span>SMMM Staja Giriş · SMMM Yeterlilik · KGK Bağımsız Denetçi · SPK Lisanslama</span></a>
-    </div>
-    <div class="v-kanit-not">Sayılar robot ölçümünden gelir · son ölçüm <span id="knTarih">09.09.2026</span></div>
-  </div>
-</section>
-
-<section class="v-guven" id="guven-sinav" aria-label="Neden güvenebilirsin">
-  <div class="v-kap">
-    <div class="v-et">Neden güvenebilirsin</div>
-    <h2>Her şey resmî kaynaktan, madde madde.</h2>
-    <div class="v-guven-sat">
-      <div class="v-gv"><b>Birincil kaynak, ikincisi yok</b><p>Her oran, süre ve tutar doğrudan Resmî Gazete, GİB ve TÜRMOB metinlerinden okunur. Kulaktan dolma bu sitede yer bulmaz.</p></div>
-      <div class="v-gv"><b>Çift okuma, sonra hakem</b><p>Her soru iki bağımsız okumadan geçer; anlaşamazlarsa üçüncü kontrol devreye girer. Doğrulayamadığımız rakamı yayınlamayız.</p></div>
-      <div class="v-gv"><b>Hatayı saklamayız, geri çekeriz</b><p>Her soruda "hata bildir" düğmesi var. Haklı çıkarsan düzeltme şeffaf yayınlanır; söze değil tarihe bakarsın.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="v-is" id="is" aria-label="İş başındaysan">
-  <div class="v-kap">
-    <p><b>İş başındaysan</b> büro, şirket ve mükellef için araçlar ayrı sayfada: süre, ceza, GTİP, marka, alacak, ihale ve Resmî Gazete nöbeti.</p>
-    <a href="is.html">İş sayfasına geç →</a>
-  </div>
-</section>
-
-<section class="v-fiyat" id="fiyat" aria-label="Fiyat">
-  <div class="v-kap">
-    <p><b>Bakış bedava, nöbet abonelikle.</b> Soru çözmek ücretsiz ve üyeliksiz. Ödeme yalnız senin yerine nöbet tutan uyarı aboneliğinde; fiyatlar tek sayfada, KDV dahil. <a href="fiyat.html">Fiyatları gör →</a></p>
-  </div>
-</section>
 
     <script>
     /* NÖBET DEFTERİ — canlı doldurma.
@@ -738,26 +852,976 @@ window.veriAl = (function(){
         .catch(function(){});
     })();
     </script>
+
+    <!-- ============ ÜRÜN PENCERESİ (30.07 Cem: "Amerika firması gibi") =====
+         ABD SaaS sayfalarının kalbi "ekran içinde ürün"dür (Linear/Stripe
+         deseni: ortalanmış başlık, altında büyük ürün penceresi). Bizimki
+         GERÇEK üründen: deneme.html'in soru kabini + dün kurulan yan panel,
+         ücretsiz bankadaki GERÇEK bir soruyla. Görüntü değil saf CSS -
+         her çözünürlükte net, eskimez, bakım istemez. Tıklayınca ürüne gider. -->
+    <!-- ============ ÜRÜN KUTULARI (30.07 Cem, 2. tur: "buyuk pencereyi
+         kaldirip hepsini kutu kutu yapsak") - HAKLIYDI: buyuk pencere tek
+         urunu sisiriyor ve ekrani yiyordu. Simdi 6 esit kutu (3x2): sinav
+         VURGULU cerceveyle basta, yaninda RG hap / Nereden Alsam / GTIP /
+         Marka / Alacak. Icerik GERCEK: soru ucretsiz bankadan, RG karti
+         bugun onarilan karttan, evye satiri RG'den teyitli, SMK m.23 ve
+         IIK m.299 birincilden. Ornek marka "ör." etiketli. -->
+    <!-- 30.07 Cem: "yukarida sinav kapisi zaten var, kutuyu tekrar koymayalim"
+         - HAKLI: 01 kapisi sinavin; ayni sey iki kez slot israfi. Deneme
+         kutusu cikti, yerine Net Cevap girdi (sinav-DISI yildiz; "her
+         cevapta kaynak" iddiasinin vitrini). Baslik da eski anlamina dondu. -->
+    <!-- 30.07 Cem (vitrin 3. tur): "Kutulari artiralim; KDV iadesi, ihale,
+         marka, alacak one - bunlar bizi bilgi havuzundan cikarip MUSTERIYE
+         PARA KAZANDIRAN kisma sokuyor; sirket kurulusu da cok musteri ceker."
+         Duzen fayda ekseninde ikiye bolundu: KAZANDIRANLAR (cebe para koyan)
+         + KORUYANLAR (kaybi onleyen nobet) + altta Net Cevap kopru seridi.
+         Sinav kapida (01), muhasebe/firma ayrimi kapilarda - kutular fayda
+         diliyle konusur. Icerik dayanaklari gercek: KDVK m.32 (iade + izleyen
+         2. takvim yili sonu suresi), IIK m.299, SMK m.23, RG karti gunun
+         onarilmis kartindan, evye satiri RG'den teyitli. -->
+
+    <!-- ============ RAF DÜZENİ 30.08.2026 (Cem "1.2.3 yap") ================
+         Konular listesi asagi indikten sonra bu raf ILK EKRANDAN hemen sonra
+         geliyor. 10 kutu ust uste yine "duvar" etkisi yapiyordu - bu kez ikna
+         duvari. Raf 6 kutuya indi ve 3'lu izgaraya gecti (2 temiz sira,
+         kutular buyudu); cikan 4 kutu SILINMEDI, ucuncu rafa tasindi.
+         Ucuncu rafin adi "Pencereler" cunku dorduzu de SURE PENCERESI isi:
+         destek cagrisi / af penceresi / icra satis ilani / yakinda acilacak
+         motor. "Koruyanlar" basligi altina konsalardi kategori yalani olurdu
+         (30.07'de Fis Fabrikasi'nda ayni hata yakalanmisti).
+    ================================================================= -->
+    <div class="mini-baslik" style="margin-top:34px">Kazandıranlar: müşterinin cebine para koyan araçlar</div>
+    <div class="mini-pencereler">
+      <a class="mp" href="kdv-iade-rehberi.html">
+        <span class="mp-bar"><b>KDV İadesi</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">DEVLETTEN PARANI GERİ AL</span>
+          <span class="mp-b">Yüklendiğin KDV'nin iadesi hakkın</span>
+          <span class="mp-m">KDVK m.32: tam istisna işlemlerde yüklenilen KDV iade alınır. Süre <b style="color:var(--ink)">izleyen 2. takvim yılı sonu</b>; kaçıran yanar</span>
+          <span class="mp-git">İade yol haritasını gör →</span>
+        </span>
+      </a>
+      <a class="mp" href="ihale-radari.html">
+        <span class="mp-bar"><b>İhale Radarı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">YENİ İŞ FIRSATI</span>
+          <span class="mp-b">Sektörüne uyan ihaleyi kaçırma</span>
+          <span class="mp-m">Yurt içi resmî ilanlar + Avrupa (TED) ihaleleri iline ve sektörüne göre süzülür, uyanları tek listede görürsün (günlük e-posta özeti yol haritasında)</span>
+          <span class="mp-git">Sektörünü seç →</span>
+        </span>
+      </a>
+      <a class="mp" href="senaryo-raporu.html">
+        <span class="mp-bar"><b>Nereden Alsam?</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">AYNI ÜRÜN · ÜLKE ÜLKE TOPLAM YÜK</span>
+          <span class="mp-cubuk"><b>🇨🇳 Çin</b><i style="width:88%"></i></span>
+          <span class="mp-cubuk"><b>🇮🇳 Hindistan</b><i style="width:64%"></i></span>
+          <span class="mp-cubuk"><b>🇪🇸 İspanya</b><i style="width:37%;background:var(--green)"></i></span>
+          <span class="mp-git">Ucuz görünen pahalı çıkmasın. Karşılaştır →</span>
+        </span>
+      </a>
+      <a class="mp" href="kurulus.html">
+        <span class="mp-bar"><b>Şirket Kuruluşu</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">DOĞRU BAŞLANGIÇ</span>
+          <span class="mp-b">Şahıs mı, Limited mi, Anonim mi?</span>
+          <span class="mp-m">Tür seçimi vergiyi ve sorumluluğu belirler. Adım adım karşılaştırma, yanında kuruluş evrak çantası</span>
+          <span class="mp-git">Yolunu çiz →</span>
+        </span>
+      </a>
+      <!-- 30.07 Cem: "kazandiranlar daha fazla olacakti" - Destek Radari bu
+           rafa o gun girdi (4 -> 7 kutu). 30.08'de PENCERELER rafina tasindi:
+           cagri pencereleri acilip kapaniyor, sinifi orasi. -->
+      <!-- 13.08 Cem: "ana sayfaya koysak mı, kazandırdıklarımız arasına?" - EVET:
+           iki yeni fırsat motoru (Teşvik Sihirbazı + Ar-Ge Kapısı Hesabı) doğrudan
+           cebe para koyan sınıfta; Destek Radarı'nın yanına teşvik ailesi olarak. 8 -> 10 kutu.
+           30.08: ikisi de ALTI KUTULUK rafta kaldi - cebe TL koyan iki motor. -->
+      <a class="mp" href="tesvik-sihirbazi.html">
+        <span class="mp-bar"><b>Yatırım Teşvik Sihirbazı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">6. BÖLGE FIRSATI · SON TARİH 31.12.2026</span>
+          <span class="mp-b">Yatırımına hangi bölge, hangi destek?</span>
+          <span class="mp-m">Yeni 9903 sistemi: il + ilçe + sektör + tutar → SGK süren, vergi indirimin; <b style="color:var(--ink)">deprem ilçeleri ve Cazibe OSB'lerinde 31.12.2026'ya kadar 6. bölge destekleri</b></span>
+          <span class="mp-git">İlini ve sektörünü gir →</span>
+        </span>
+      </a>
+      <a class="mp" href="arge-kapi-hesabi.html">
+        <span class="mp-bar"><b>Ar-Ge Kapısı Hesabı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">AYNI EKİP · ÜÇ KAPI · YILLIK TL FARKI</span>
+          <span class="mp-cubuk"><b>Ar-Ge Merkezi</b><i style="width:88%;background:var(--green)"></i></span>
+          <span class="mp-cubuk"><b>Teknokent</b><i style="width:52%"></i></span>
+          <span class="mp-cubuk"><b>TÜBİTAK</b><i style="width:24%"></i></span>
+          <span class="mp-git">Yanlış kapı yılda milyonlar bırakır. Ekibini gir →</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="mini-baslik" style="margin-top:20px">Koruyanlar: kaybı önleyen nöbet</div>
+    <div class="mini-pencereler">
+      <a class="mp" href="alacak-radari.html">
+        <span class="mp-bar"><b>Alacak Radarı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">MÜŞTERİN KONKORDATO İLAN ETTİ Mİ?</span>
+          <span class="mp-b">İlanı kaçıran, alacağını riske atar</span>
+          <span class="mp-m">İİK m.299: alacaklılar ilandan itibaren <b style="color:var(--ink)">15 gün</b> içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)</span>
+          <span class="mp-git">Borçlu VKN'ni izlet →</span>
+        </span>
+      </a>
+      <a class="mp" href="kartlar.html">
+        <span class="mp-bar"><b>Resmî Gazete → hap kart</b></span>
+        <span class="mp-ic">
+          <!-- 30.07 soz defteri: "BUGUNUN KARTI" elle gomuluydu - robot yeni
+               kart uretince eskiyecekti. Artik kartlar-guncel.json'dan CANLI
+               dolar; okunamazsa HTML'deki son gercek kart kalir. -->
+          <span class="mp-tag">RESMÎ GAZETE · <span id="vkGun">GÜNÜN KARTI</span></span>
+          <span class="mp-b" id="vkBaslik">İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek</span>
+          <span class="mp-m" id="vkMeta">⚠ ithalatçı aleyhine · 23 GTİP kodunu ilgilendiriyor</span>
+          <span class="mp-git">Robot her sabah RG'yi okur, hap kart yazar →</span>
+        </span>
+      </a>
+      <a class="mp" href="gtip.html">
+        <span class="mp-bar"><b>GTİP · Kaç Vergi?</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">ÜRÜN ADINDAN KOD VE VERGİLER: beyandan önce bil</span>
+          <span class="mp-ara">evye</span>
+          <span class="mp-b" style="font-family:ui-monospace,Consolas,monospace;font-size:13px">7324.10.00.00.00</span>
+          <span class="mp-m">Paslanmaz çelikten evyeler ve lavabolar</span>
+          <span class="mp-git">Ürün adını yaz, kodu ve vergileri gör →</span>
+        </span>
+      </a>
+      <!-- 30.07: hedef marka-radari.html'di ama o sayfada baglanma CTA'si yok
+           (cikmaz sokak). Kutu dogrudan niyetli panele gidiyordu.
+           29.08 DEGISTI (Cem karari "once deger, sonra duvar"): kutunun VAADI
+           ile gittigi yer uyusmuyordu - "unvani yaz, markalarin gelsin" deyip
+           UYELIK DUVARINA gonderiyorduk, oysa o tarama marka-portfoy.html'de
+           GIRISSIZ calisiyor. Artik Marka Merkezi'ne gider; kisi kendi marka
+           listesini bedava gorur, SONUC ekraninda "her gun izleyelim mi?" ile
+           uyelige davet edilir (marka-portfoy.html icindeki "Nöbete al"). -->
+      <a class="mp" href="marka-radari.html">
+        <span class="mp-bar"><b>Marka Radarı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">FİRMA UNVANIN YETER · ÜYELİK İSTEMEZ</span>
+          <span class="mp-b">Adına kaç marka var, hangisi düşüyor?</span>
+          <span class="mp-m">Unvanı yaz, bültende yayımlanmış başvuruların anında gelsin; sicildeki tam liste robot taramasıyla (SMK m.23: koruma 10 yıl, yenileme son 6 ay). Marka adı bilmene gerek yok.</span>
+          <span class="mp-git">Markalarımı getir →</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="mini-baslik" style="margin-top:20px">Pencereler: süresi dolunca kapanan fırsatlar</div>
+    <div class="mini-pencereler">
+      <!-- 30.07 Cem: "kazandiranlar daha fazla olacakti" ile Kazandiranlar
+           rafina girmisti; 30.08'de buraya tasindi - cagri penceresi acilip
+           kapanan bir istir, kalici bir kazanc araci degil. -->
+      <a class="mp" href="destekler.html">
+        <span class="mp-bar"><b>Destek Radarı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">DEVLET DESTEĞİNİ KAÇIRMA</span>
+          <span class="mp-b">KOSGEB ve destekler, profiline göre</span>
+          <span class="mp-m">Çağrılar profiline göre süzülür ki başvuru pencereleri sessizce kapanmasın</span>
+          <span class="mp-git">Profiline uyan desteği gör →</span>
+        </span>
+      </a>
+      <a class="mp" href="kartlar.html">
+        <span class="mp-bar"><b>Af / Yapılandırma Nöbeti</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">AF PENCERESİ AÇILDIĞI GÜN HABER</span>
+          <span class="mp-b">Yapılandırma kanunu çıktı mı, süre ne zaman doluyor?</span>
+          <span class="mp-m">RG nöbetçisi yapılandırma, matrah artırımı ve af tebliğlerini yakalar. Son başvuru gününü kaçıran, indirim hakkını yakar</span>
+          <span class="mp-git">Pencere açılınca ilk sen duy →</span>
+        </span>
+      </a>
+      <a class="mp" href="radar-app.html?niyet=firsat">
+        <span class="mp-bar"><b>İcradan Fırsat</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag">İCRADAN UCUZA VARLIK</span>
+          <span class="mp-b">Makine, stok, taşınmaz: icradan satışta</span>
+          <span class="mp-m">Resmî ilan akışındaki icra ve açık artırma satışları iline göre süzülür ve günlük listelenir (otomatik uyarı yol haritasında)</span>
+          <span class="mp-git">İlini izlet →</span>
+        </span>
+      </a>
+      <!-- 30.07 Cem (2. duzeltme): Fis Fabrikasi MUSAVIR urunu (defter
+           modulu) - musteri-kazandiran rafinda kategori karistiriyordu;
+           kapi 02 anlatimina tasindi. 8. kutu: Pazar Istihbarati, ACIK
+           "YAKINDA" rozetiyle (motor #65'te; rozetli teaser + lead kapisi -
+           "motorsuz vitrine girmez" kuralinin durust istisnasi).
+           30.08: "yakinda acilacak" da bir penceredir - rafi burasi. -->
+      <a class="mp" href="radar-app.html?niyet=gtip" style="opacity:.92">
+        <span class="mp-bar"><b>Pazar İstihbaratı</b><span style="margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.8px;color:var(--accent2);border:1px solid rgba(255,194,75,.35);border-radius:999px;padding:2px 8px">YAKINDA</span></span>
+        <span class="mp-ic">
+          <span class="mp-tag">KODUNDA PAZAR BÜYÜYOR MU?</span>
+          <span class="mp-b">İthalat hacmi ve birim fiyat trendi, senin GTİP'inde</span>
+          <span class="mp-m">TÜİK dış ticaret verisiyle pazarlık ve fiyatlama gücü: pazar büyüyor mu, ortalama birim fiyat ne</span>
+          <span class="mp-git">Açılınca ilk sen kullan: GTİP'ini tanıt →</span>
+        </span>
+      </a>
+      <!-- kopru seridi: 30.08'de UC rafa da sigmayan soru buradan sorulur;
+           raf sayisi ikiden uce cikinca seridin yeri de en alta indi. -->
+      <a class="mp mp-genis" href="soru-cevap.html">
+        <span class="mp-ic">
+          <span class="mp-tag">KARARSIZSAN SOR · KANUN MADDESİYLE CEVAP</span>
+          <span class="mp-ara">yurt dışından yazılım aldım, stopaj?</span>
+          <span class="mp-m">Cevap <b style="color:var(--ink)">kanun maddesine bağlı</b> gelir; bilmiyorsak uydurmayız, dürüstçe söyleriz.</span>
+          <span class="mp-git">Sorunu sor →</span>
+        </span>
+      </a>
+    </div>
+
+    <!-- ============ KANIT BANDI ==============================================
+         30.07 Cem (3. tur): kapilarin altinda ekranin dibine denk gelip
+         "sayfa bitti" gibi durdu, kucultunce de gorunmedi. Cem'in onerisi:
+         (30.08: raf sayisi ikiden uce cikinca band Pencereler rafinin altina
+         indi - yeri hep "son rafin alti", uc rafin ara toplami gibi.)
+         Koruyanlar rafinin ALTINA - iki rafin ara toplami gibi, altinda RG
+         nobeti devam ettigi icin final hissi de yok. Belirgin (cizgili) hal
+         geri geldi. Sayilar veri/vitrin-sayilar.json'dan CANLI gelir
+         (kasa-sayim robotu yazar); okunamazsa HTML'deki son gercek kalir. -->
+    <div class="strip" style="margin-top:30px">
+      <div class="strip-in">
+        <div class="stat reveal"><div class="n" id="vSoru">30.569</div><div class="t">Özgün soru yazıldı</div></div>
+        <div class="stat reveal"><div class="n" id="vHakem">16.284</div><div class="t">Bağımsız hakem denetimi</div></div>
+        <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
+        <div class="stat reveal"><div class="n" id="vArac">26 araç</div><div class="t">Ayda 5 sorgu kayıtsız · üyelikle ücretsiz sınırsız</div></div>
+      </div>
+      <div id="vNot" style="text-align:center;font-size:11px;color:var(--dim);padding:0 18px 16px">Sayılar üretim robotundan gelir, her gün kendiliğinden güncellenir.</div>
+    </div>
+
+    <!-- ================= NÖBET AKIŞI ==================================
+         Cem'in secimi (A). Uc kapinin altinda tek satir, yavasca kayar.
+         SIRALAMA DIKKAT CEKME GUCUNE GORE - rastgele degil:
+           1 Alacak  : "musterin konkordatoda mi"  -> para KAYBETME korkusu
+           2 Nereden : "hangi ulkeden ucuz"        -> dogrudan para kazanci
+           3 Marka   : "yenileme gecti mi"         -> hak kaybi
+           4 RG kart : "bugun ne cikti"            -> merak + gunluk aliskanlik
+           5 Ihale   : firsat (korkudan zayiftir)
+           6 Kurulus : dar kitle
+         Kural: KAYIP KORKUSU kazanc vaadinden gucludur.
+         Uzerine gelince akis DURUR ki okunabilsin. Liste iki kez yazilir -
+         kesintisiz dongu icin sart. ==================================== -->
+    <div class="akis" aria-label="Nöbet akışı">
+      <div class="akis-sey">
+        <a class="ak" href="alacak-radari.html"><i></i>Müşterin konkordato ilan etti mi?</a>
+        <a class="ak" href="senaryo-raporu.html"><i></i>Aynı ürün hangi ülkeden daha ucuz?</a>
+        <a class="ak" href="marka-radari.html"><i></i>Markanın yenileme tarihi geçti mi?</a>
+        <a class="ak" href="kartlar.html"><i></i>Bugün Resmî Gazete'de ne çıktı?</a>
+        <a class="ak" href="ihale-radari.html"><i></i>Sektörüne uyan yurt dışı ihale var mı?</a>
+        <a class="ak" href="kurulus.html"><i></i>Şahıs mı, Limited mi, Anonim mi?</a>
+        <a class="ak" href="alacak-radari.html" aria-hidden="true"><i></i>Müşterin konkordato ilan etti mi?</a>
+        <a class="ak" href="senaryo-raporu.html" aria-hidden="true"><i></i>Aynı ürün hangi ülkeden daha ucuz?</a>
+        <a class="ak" href="marka-radari.html" aria-hidden="true"><i></i>Markanın yenileme tarihi geçti mi?</a>
+        <a class="ak" href="kartlar.html" aria-hidden="true"><i></i>Bugün Resmî Gazete'de ne çıktı?</a>
+        <a class="ak" href="ihale-radari.html" aria-hidden="true"><i></i>Sektörüne uyan yurt dışı ihale var mı?</a>
+        <a class="ak" href="kurulus.html" aria-hidden="true"><i></i>Şahıs mı, Limited mi, Anonim mi?</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero-sade{min-height:auto;display:block;text-align:center;padding:0 !important}
+  /* 30.07 Cem sorusu: "ilk ekranda nobetin tamami gorunsun mu?" Karar:
+     GORUNSUN - kasitli goz kirpma (scroll cue). Ilk ekran kendi icinde
+     "bitti" hissi verirse ziyaretci kaydirmiyor. Dikey bosluklar bir tik
+     sikilastirildi ki bolum basligi + kutu tepeleri yaygin ekranlarda
+     ekran altindan gorunsun. */
+  .sade-ic{position:relative;max-width:1180px;margin:0 auto;padding:80px 20px 22px;width:100%}
+  .hero-sade h1{margin:0 0 10px;font-size:clamp(30px,4.2vw,52px)}
+  .sade-alt{color:var(--muted);font-size:clamp(14.5px,1.5vw,16.5px);max-width:660px;margin:0 auto 22px}
+  .sade-soru{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);
+    font-weight:700;margin-bottom:16px}
+  .sade-kapilar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1000px;margin:0 auto}
+  .sk{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;
+    background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px 20px 18px;
+    transition:border-color .18s,transform .18s,background .18s}
+  .sk:hover{border-color:var(--accent);transform:translateY(-4px);background:var(--panel2)}
+  .sk-ust{font:800 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:1px;margin-bottom:12px}
+  .sk b{font-size:19px;letter-spacing:-.4px;margin-bottom:8px}
+  .sk-ac{font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:16px;flex:1}
+  .sk-et{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:7px}
+
+  .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
+
+  /* (30.07 2. tur: buyuk .urun-pencere kaldirildi - Cem "hepsi kutu kutu
+     olsun" dedi; sinav artik .mp.one vurgulu kutusu. Olu CSS temizlendi.) */
+
+  /* MINI PENCERELER: buyuk pencerenin altinda isin genisligi - 4 kucuk urun.
+     Ayni pencere dili (nokta bari), daha kucuk olcek. */
+  .mini-baslik{margin:22px 0 12px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;
+    color:var(--dim);font-weight:800}
+  .mini-pencereler{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1180px;margin:0 auto}
+  /* kopru seridi: tam genislik, yatay akis (Net Cevap - iki rafin altinda) */
+  .mp-genis{grid-column:1/-1}
+  .mp-genis .mp-ic{flex-direction:row;align-items:center;gap:14px;flex-wrap:wrap}
+  .mp-genis .mp-tag{flex:none}
+  .mp-genis .mp-ara{flex:1;min-width:220px}
+  .mp-genis .mp-m{flex:2;min-width:220px}
+  .mp-genis .mp-git{margin-top:0;flex:none}
+  @media(max-width:860px){ .mp-genis .mp-ic{flex-direction:column;align-items:stretch} .mp-genis .mp-git{margin-top:4px} }
+  .mp{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;
+    background:rgba(10,15,23,.9);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    transition:transform .18s,border-color .18s,box-shadow .18s}
+  .mp:hover{transform:translateY(-3px);border-color:rgba(245,165,36,.4);box-shadow:0 16px 40px -20px rgba(0,0,0,.8)}
+  /* 31.07 Cem "ABD/Ingiltere gibi": STRIPE GECISI - katalog kartlarinda sahte
+     pencere noktalari YOK, etiket gri-kucuk-emojisiz, kehribar yalniz CTA'da.
+     (Pencere motifi arac DEMO kutularinda anlamli - orada duruyor.) */
+  .mp-bar{display:flex;align-items:center;gap:5px;padding:9px 13px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .mp-bar i{display:none}
+  .mp-bar b{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.4px;text-transform:uppercase}
+  .mp-ic{display:flex;flex-direction:column;gap:7px;padding:12px 13px 13px;flex:1}
+  .mp-tag{font-size:9px;font-weight:700;letter-spacing:.9px;color:var(--dim)}
+  .mp-b{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.4;letter-spacing:-.1px}
+  .mp-m{font-size:11px;color:var(--muted);line-height:1.45}
+  .mp-git{margin-top:auto;padding-top:8px;font-size:11px;font-weight:700;color:var(--accent)}
+  .mp-ara{font-size:12px;color:var(--ink);border:1px solid var(--line2);border-radius:8px;
+    padding:7px 10px;background:var(--taban);font-family:ui-monospace,Consolas,monospace}
+  .mp-cubuk{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+  .mp-cubuk b{flex:none;width:86px;font-weight:600;color:var(--ink);text-align:left}
+  .mp-cubuk i{height:7px;border-radius:4px;background:var(--red);opacity:.75;display:inline-block}
+  /* 30.08 NOT (olcumle duzeltildi): buradaki .mini-pencereler 4'lu izgarasi
+     CANLIDA GECERLI DEGIL - stil-sade.css:85 ayni kurali
+     'repeat(2,1fr) !important' ile eziyor ve raflar iki sutunlu LISTE olarak
+     ciziliyor. Bu blok yalnizca stil-sade devre disi kaldiginda konusur.
+     Sonuc: 6 kutuluk raf canlida 3 temiz sira; ayrica bir izgara kurali
+     eklenmedi (eklenseydi olu kod olurdu). */
+
+  /* 30.08: konu basligi artik SUZGEC dugmesi - katalogu o konunun araclariyla
+     sinirlar. Dugme <b>'nin ICINDE duruyor ki .konu b tipografisi (stil-sade
+     + stil-acik) aynen gecerli kalsin; renk/font 'inherit' ile miras alinir. */
+  /* Dokunma alani: ilk olcumde kisa adlar (Ihale, Marka) 39x27 px cikti -
+     parmakla isabet ettirmek zor (asgari 44). Dolgu buyutuldu, ayni miktar
+     negatif kenar bosluguyla geri alindi: KUTU buyur, gorsel yer degismez.
+     Alt cizgi border yerine text-decoration - dolgu buyudugunde cizgi
+     metinden kopup asagi kaymasin diye. */
+  .konu-suz{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left;
+    display:inline-block;padding:9px 6px;margin:-9px -6px;
+    text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;
+    transition:color .16s}
+  .konu-suz:hover,.konu-suz:focus-visible{color:var(--accent);text-decoration-style:solid}
+  .konu-suz[aria-pressed="true"]{color:var(--accent);text-decoration-style:solid}
+  #konuSuzgec{display:none;align-items:center;justify-content:center;gap:10px;
+    margin:0 auto 12px;font-size:13px;color:var(--muted);text-align:center;flex-wrap:wrap}
+  #konuSuzgecTemiz{font:inherit;color:var(--accent);background:none;border:1px solid var(--line);
+    border-radius:999px;padding:3px 12px;cursor:pointer;transition:border-color .16s}
+  #konuSuzgecTemiz:hover,#konuSuzgecTemiz:focus-visible{border-color:var(--accent)}
+  @media(max-width:1000px){ .mini-pencereler{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:560px){ .mini-pencereler{grid-template-columns:1fr} .mini-baslik{text-align:center} }
+
+  /* NOBET AKISI: tek satir, yavas kayar. Kenarlarda yumusak silinme (mask)
+     olmazsa yazi kutuya carpip kesiliyormus gibi durur - o ucuz gorunur. */
+  .akis{margin-top:26px;overflow:hidden;position:relative;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .akis-sey{display:flex;gap:10px;width:max-content;animation:akisKay 46s linear infinite}
+  .akis:hover .akis-sey{animation-play-state:paused}
+  .ak{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;text-decoration:none;
+    font-size:13px;color:var(--muted);background:rgba(18,21,28,.7);border:1px solid var(--line);
+    border-radius:10px;padding:9px 15px;transition:color .18s,border-color .18s}
+  .ak:hover{color:var(--ink);border-color:var(--accent)}
+  .ak i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;
+    box-shadow:0 0 8px rgba(245,165,36,.7);animation:akNabiz 2.4s ease-in-out infinite}
+  @keyframes akisKay{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  @keyframes akNabiz{ 0%,100%{opacity:1} 50%{opacity:.35} }
+  /* Hareketi rahatsiz edici bulan kullaniciyi zorlamayiz - tarayici ayarina uyar */
+  @media(prefers-reduced-motion:reduce){ .akis-sey{animation:none} .ak i{animation:none} }
+  .sade-not{margin-top:18px;font-size:13px;color:var(--muted)}
+  .sade-not a{color:var(--accent);font-weight:700;text-decoration:none;margin-left:6px}
+  @media(max-width:860px){
+    .sade-kapilar{grid-template-columns:1fr;max-width:520px}
+    .hero-sade{min-height:auto}
+    .sade-ic{padding:90px 18px 34px}
+    .sk{padding:16px}
+  }
+</style>
+<!-- ============ BUGUN RG'DE (gercek kanit) ============================
+     Hero sadelesirken gercek RG kartlari da cikmisti. O kartlar bizim tek
+     GERCEK kanitimiz - uydurma degil, robotun buldugu. Kapilarin hemen
+     altina, kendi bolumune alindi. -->
+<section id="bugun-rg" style="padding:34px 20px 6px;border-top:1px solid var(--line)">
+  <div style="max-width:1180px;margin:0 auto">
+    <div style="font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px">Resmî Gazete nöbeti</div>
+    <div id="rgKartlar" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px"></div>
+    <div id="rgKaynak" style="font-size:11.5px;color:var(--dim);margin-top:10px"></div>
+  </div>
+</section>
+<style>
+/* 30.07 Cem: "alt kisim carpik gorunuyor". Kartlar eski hero sahnesinin
+   .kart k1/k2 stiliyle basiliyordu - o stil DONDURME + kaydirma + yuzme
+   animasyonu ve 340px sabit genislik tasir; izgarada carpik durur. Durum
+   notu da izgara hucresine dusup kart boyu geriliyordu (dev bos kutu).
+   Cozum: bu bolume ait duz, hizali kart stili (rgk) + tam-satir durum
+   cubugu. Dondurme yalniz hero sahnesinde guzeldi, vitrinde degil. */
+#rgKartlar .rg-durum{grid-column:1/-1;display:flex;align-items:center;gap:10px;
+  border:1px solid var(--line2);border-radius:12px;padding:10px 14px;
+  font-size:12.5px;color:var(--muted);background:var(--panel)}
+.rgk{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--dim);
+  border-radius:14px;padding:16px 18px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.rgk:hover{transform:translateY(-2px);border-color:rgba(245,165,36,.35);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.rgk .tag{font-size:10.5px;font-weight:800;letter-spacing:1px}
+.rgk.red{border-left-color:var(--red)}.rgk.red .tag{color:var(--red)}
+.rgk.green{border-left-color:var(--green)}.rgk.green .tag{color:var(--green)}
+.rgk h4{margin:5px 0 4px;font-size:15px;letter-spacing:-.2px}
+.rgk p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.rgk .meta{margin-top:9px;font-size:10.5px;color:var(--dim)}
+/* ESKI -> YENI SERIDI: kartin "ne degisti"yi tek bakista soyleyen satiri.
+   17.08'e kadar bu veri uretiliyor ama besleme dosyasina yazilmiyordu. */
+.rgk .ey{margin-top:9px;border-top:1px dashed var(--line);padding-top:8px;display:grid;gap:5px}
+.rgk .ey-satir{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.45}
+.rgk .ey-k{display:block;font-size:10px;color:var(--dim);letter-spacing:.3px}
+.rgk .ey-satir s{color:var(--dim);text-decoration-color:rgba(255,255,255,.28)}
+.rgk .ey-satir b{color:var(--ink)}
+.rgk .ey-satir b.up{color:var(--red)}
+.rgk .ey-satir b.down{color:var(--green)}
+.rgk .ey-onceki{font-size:11px;color:var(--dim);line-height:1.5}
+.rgk .ey-onceki a{color:var(--accent2);text-decoration:none;border-bottom:1px dotted rgba(255,194,75,.4)}
+@media(max-width:820px){ #rgKartlar{grid-template-columns:1fr !important} }
+</style>
 <script>
-/* VİTRİN SEKMELERİ (09.09): sekme yalnız kaydir/vitrin/<sinav>.html VARSA görünür (HEAD 200).
-   Boş sekme ana sayfaya çıkmaz; Yeterlilik/KGK/SPK basıldığı gün kendiliğinden açılır.
-   Seçilen sekme tarayıcıda hatırlanır (v_sekme). */
+/* VITRIN RG KUTUSU CANLI: gunun ilk kartini kartlar-guncel.json'dan doldur */
 (function(){
-  var ifr=document.getElementById('vNobetci'); if(!ifr) return;
-  var sek=[].slice.call(document.querySelectorAll('.v-sekme'));
-  function ac(s){ sek.forEach(function(b){ var a=b.dataset.s===s; b.setAttribute('aria-selected',a?'true':'false'); });
-    ifr.src='kaydir/vitrin/'+s+'.html?vitrin=1&tema=acik'; try{ localStorage.setItem('v_sekme',s); }catch(e){} }
-  sek.forEach(function(b){ b.addEventListener('click',function(){ ac(b.dataset.s); }); });
-  var hatir=null; try{ hatir=localStorage.getItem('v_sekme'); }catch(e){}
-  sek.filter(function(b){ return b.hidden; }).forEach(function(b){
-    fetch('kaydir/vitrin/'+b.dataset.s+'.html',{method:'HEAD',cache:'no-store'}).then(function(r){
-      if(!r.ok) return; b.hidden=false; if(hatir===b.dataset.s) ac(hatir);
-    }).catch(function(){});
+  veriAl("veri/kartlar-guncel.json")
+    .then(function(d){
+      var k = (d && d.kartlar && d.kartlar.length) ? d.kartlar[0] : null;
+      if(!k) return;
+      var b = document.getElementById('vkBaslik'), m = document.getElementById('vkMeta'), g = document.getElementById('vkGun');
+      if(b) b.textContent = k.baslik || b.textContent;
+      if(m){
+        var p = [];
+        if(k.etki && String(k.etki).toLowerCase().indexOf('aleyh') > -1) p.push('⚠ ' + k.etki);
+        else if(k.etki) p.push(k.etki);
+        if(k.gtip && k.gtip.length) p.push(k.gtip.length + ' GTİP kodunu ilgilendiriyor');
+        if(p.length) m.textContent = p.join(' · ');
+      }
+      /* 02.08: kart tarihi bugunse "BUGÜN", dunse "DÜN" yazilir - ziyaretci
+         ham tarihe bakip "bayat mi?" diye dusunmesin. Daha eskiyse tarih. */
+      if(g && d.gun){
+        var pr = String(d.gun).split('-');
+        var kg = (pr.length === 3) ? new Date(+pr[2], +pr[1]-1, +pr[0]) : null;
+        var bg = new Date(); bg.setHours(0,0,0,0);
+        var fark = kg ? Math.round((bg - kg) / 86400000) : -1;
+        var etiket = (fark === 0) ? 'BUGÜNÜN KARTI' : (fark === 1) ? 'DÜNÜN KARTI'
+                   : "GÜNÜN KARTI · " + '<span data-tarih="'+d.gun+'">'+String(d.gun).replace(/-/g,".")+'</span>';
+        g.innerHTML = etiket;
+      }
+    })
+    .catch(function(){});
+})();
+
+/* KANIT BANDI CANLI BESLEME: vitrin-sayilar.json'u kasa-sayim robotu yazar.
+   Okunamazsa HTML'deki son bilinen gercek degerler kalir - bos/sifir ASLA basilmaz. */
+(function(){
+  var f = new Intl.NumberFormat('tr-TR');
+  veriAl("veri/vitrin-sayilar.json")
+    .then(function(d){
+      if(d.soru_uretilen > 0) document.getElementById('vSoru').textContent = f.format(d.soru_uretilen);
+      if(d.hakem_denetimi > 0) document.getElementById('vHakem').textContent = f.format(d.hakem_denetimi);
+      if(d.gtip_kayit > 0) document.getElementById('vGtip').textContent = f.format(d.gtip_kayit) + '+';
+      if(d.arac > 0) document.getElementById('vArac').textContent = d.arac + ' araç';
+      if(d.tarih) document.getElementById('vNot').textContent =
+        'Sayılar üretim robotundan gelir, her gün kendiliğinden güncellenir. Son sayım: ' + d.tarih;
+    })
+    .catch(function(){});
+})();
+</script>
+
+<script>
+/* GERCEK RG KARTI — vitrinde uydurma is gostermeyiz.
+   veri/kartlar-guncel.json'i hap kart robotu her gun yaziyor.
+   Kural: kartin tarihini BIZ uydurmayiz, dosyada ne yaziyorsa o yazilir.
+   Dosya yoksa/bozuksa temsili kart KONMAZ - durum notu yazilir. */
+(function(){
+  var kutu = document.getElementById('rgKartlar'), knk = document.getElementById('rgKaynak');
+  if(!kutu) return;
+  function kacir(mesaj){ knk.textContent = mesaj; }
+  veriAl("veri/kartlar-guncel.json")
+    .then(function(d){
+      var k = (d && d.kartlar) ? d.kartlar : [];
+      if(!k.length){ kacir('Bugün seni ilgilendiren bir değişiklik çıkmadı.'); return; }
+      var renk = ['red','green'];
+      // 17.08 - Cem: "eski hali kanun buymus yeni hali bu oldu gibi guzel bir
+      // aciklama yapmamiz lazim." Kart motoru eski/yeni ciftlerini kaynaktan
+      // cikariyor; burasi onu gosterir.
+      // YUZDE KURALI: oran BURADA hesaplanir, modele SORULMAZ. Iki taraf da
+      // sayiya cevrilemiyorsa yuzde YAZILMAZ - metin degisikligi (ibare
+      // degisimi) oldugu gibi gosterilir. Uydurma sayi yok.
+      // BIRIM SARTI: cipilak sayi yeterli DEGIL. Arsiv olcumunde bu kural
+      // olmadan "(II/C/6.3.) -> (II/C/7.3)" bolum referansindan "%16 artis"
+      // hesaplanmisti - tam da uydurma sayi. Artik sayi ancak TANINAN BIR
+      // BIRIMLE birlikte geliyorsa nicelik sayilir; parantezli/referansli
+      // ifadeler elenir ve o satirda yuzde YAZILMAZ (metin yine gosterilir).
+      var BIRIM = /(-?\d{1,3}(?:\.\d{3})*(?:,\d+)?|-?\d+(?:,\d+)?)\s*(%|ABD|USD|Dolar|Avro|Euro|EUR|TL|kg|Kg|KG|ton|adet)\b/;
+      function sayi(s){
+        var t = String(s||'');
+        if(t.indexOf('(') >= 0 || t.indexOf(')') >= 0) return null;   // (II/C/6.3) gibi atiflar
+        var m = t.match(BIRIM);
+        if(!m) return null;
+        var v = parseFloat(m[1].replace(/\./g,'').replace(',', '.')); // 1.250,75 -> 1250.75
+        return isFinite(v) ? v : null;
+      }
+      // Iki taraf ayni birimde mi? "5 ABD Dolari/Kg" -> "5 TL" karsilastirmasi
+      // anlamsizdir; birim degisiyorsa yuzde yazilmaz.
+      function birim(s){
+        var m = String(s||'').match(BIRIM);
+        return m ? m[2].toLowerCase() : null;
+      }
+      function seritHtml(x){
+        var ey = (x.eski_yeni||[]).filter(function(r){ return r && r.eski && r.yeni; });
+        // Eski deger metinde yoksa UYDURMUYORUZ - onceki resmi belgenin
+        // LINKINI veriyoruz. "Eski: belirtilmemis" yazmak kural ihlali.
+        var onc = x.onceki_belge;
+        var oncHtml = onc ? ('<div class="ey-onceki">Bu tebliğin bir önceki hâli: '
+              + '<a href="'+ onc.url +'" target="_blank" rel="noopener">'+ onc.tarih +' tarihli Resmî Gazete</a>'
+              + ' <span class="ey-k">(Tebliğ <span data-kopyala="'+ onc.teblig_no +'">'+ onc.teblig_no +'</span>)</span></div>') : '';
+        if(!ey.length) return oncHtml ? '<div class="ey">'+oncHtml+'</div>' : '';
+        return '<div class="ey">' + oncHtml + ey.slice(0,3).map(function(r){
+          var a = sayi(r.eski), b = sayi(r.yeni), yuzde = '';
+          if(a !== null && b !== null && a !== 0 && birim(r.eski) === birim(r.yeni)){
+            var o = Math.round((b - a) / Math.abs(a) * 100);
+            if(o !== 0) yuzde = ' <b class="'+(o>0?'up':'down')+'">'+(o>0?'▲':'▼')+'%'+Math.abs(o)+'</b>';
+          }
+          return '<div class="ey-satir"><span class="ey-k">'+ (r.konu||'') +'</span>'
+               + '<s>'+ r.eski +'</s> → <b>'+ r.yeni +'</b>'+ yuzde +'</div>';
+        }).join('') + '</div>';
+      }
+      kutu.innerHTML = k.slice(0,2).map(function(x,i){
+        var gtip = (x.gtip && x.gtip.length) ? (x.gtip.length + ' GTİP kodunu ilgilendiriyor') : 'Resmî Gazete';
+        return '<div class="rgk '+renk[i]+'">'
+             + '<div class="tag">■ RESMÎ GAZETE</div>'
+             + '<h4>'+ (x.baslik||'') +'</h4>'
+             + '<p>'+ String(x.ne_oldu||'').slice(0,150) +'…</p>'
+             + seritHtml(x)
+             + '<div class="meta">'+ gtip +'</div></div>';
+      }).join('');
+      // 29.07: TARIHI SOYLEMEK YETMIYOR, ESKIYSE ESKI DEMEK LAZIM.
+      // Vitrinde 18 gunluk kart "gercek tarama" diye duruyordu; ziyaretci
+      // tarihi okumadan taze sanir. Veri 3 gunden eskiyse acikca yaziyoruz.
+      var g = String(d.gun||'').replace(/-/g,'.');
+      var p = String(d.gun||'').split('-');           // GG-AA-YYYY
+      var yas = null;
+      if(p.length === 3){
+        var t = new Date(+p[2], +p[1]-1, +p[0]);
+        yas = Math.floor((new Date() - t) / 86400000);
+      }
+      // 30.07: "Son tarama 11.07 - 19 gun once" diye yaziyorduk; o tarih son
+      // KARTIN tarihi, taramanin degil (robot her gun kosuyor, sakin RG gunu
+      // kart cikmaz). Ustteki rozet 30.07 derken burasi 11.07 deyince robot
+      // uyuyor gibi gorunuyordu. Ayrim netlesti: tarama tarihi kart-durum
+      // dosyasindan, kart tarihi ayri etikette.
+      var etiket = 'Son hap kart · <b style="color:var(--muted)">'+ '<span data-tarih="'+d.gun+'">'+String(d.gun).replace(/-/g,".")+'</span>' +'</b>';
+      if(yas !== null && yas > 3){
+        etiket += ' <span style="color:var(--amber)">· ' + yas + ' gün önce</span>';
+        veriAl("veri/kart-durum.json")
+          .then(function(s){
+            var tur = (s && s.sonTarama) ? s.sonTarama : null;
+            kutu.insertAdjacentHTML('afterbegin',
+              '<div class="rg-durum">● Robot her gün tarıyor'
+              + (tur ? ' · son tur <b style="color:var(--ink)">' + '<span data-tarih="'+tur+'">'+String(tur).replace(/-/g,".")+'</span>' + '</b>' : '')
+              + '. Son karttan beri seni ilgilendiren yeni değişiklik çıkmadı.</div>');
+          }).catch(function(){});
+      }
+      knk.innerHTML = etiket + ' · <a href="kartlar.html" style="color:var(--accent)">tümü →</a>';
+    })
+    .catch(function(){ kacir('Kart verisi şu an okunamadı.'); });
+})();
+</script>
+
+<!-- 31.07 Cem karari: "Uc adimda..." blogu KALDIRILDI - her SaaS'ta ayni sablon
+     kalibi (yapayzeka-kokusu), hero CTA'si zaten ayni ise goturuyor; anlatmak
+     yerine araca sok ilkesi. Uc-adim anlatisi karne sayfasinin (radar.html) isi. -->
+
+<!-- ============ KONULAR ==================================================
+     24.08.2026 kuruldu (GOV.UK deseni: konu adi + icindekiler satiri).
+     30.08.2026 CEM: "konulari asagi alalim, Kazandiran/Koruyan yukari
+     ciksin - zaten digerini tiklamiyorlar." HAKLI: uc adet GEZINME
+     yuzeyi (3 kapi + 44 baglantili konu listesi + arac katalogu) ikna
+     yuzeyinden ONCE geliyordu; ziyaretci deger goremeden 44 baglanti
+     arasinda secim yapmaya zorlaniyordu. Liste silinmedi, DOGRU YERE
+     tasindi: artik arac katalogunun kapisi. Once ikna (Kazandiran +
+     Koruyan), sonra kanit, sonra gezinme (konu -> katalog).
+================================================================= -->
+<section id="konular" style="padding-bottom:0">
+  <div class="sec-in">
+    <!-- ============ KONULAR (24.08.2026) ==============================
+         Cem: "cok farkli konularin oldugu yerde ziyaretci konuyu nasil
+         gorsun, buyuk kurumsallar nasil yapiyor?"
+         Olculdu: Thomson Reuters ana sayfada 5 alan, Wolters Kluwer 5
+         bolum, GOV.UK 16 konu, Logo 6 menu basligi gosteriyor. Hicbiri
+         urun listelemiyor, KONU KAPISI gosteriyor.
+         GOV.UK'in ayrintisi kritik: konu adinin altinda "Includes ..."
+         satiri icindekileri sayar; ziyaretci tiklamadan kendi konusunu
+         tanir. Burada ayni sey yapiliyor, uzerine bir adim daha:
+         icindekiler sadece yazi degil, dogrudan araca giden baglanti.
+         Konu adlari uydurulmadi - 40 aracin tamami katalogdan okundu.
+    ================================================================= -->
+    <div class="mini-baslik" style="margin-top:34px">Konular: hangi işteysen oradan gir</div>
+    <div class="konu-liste">
+
+      <div class="konu"><b><button type="button" class="konu-suz">Gümrük ve ithalat</button></b><span>
+        <a href="gtip.html">GTİP vergileri</a> ·
+        <a href="risk-taramasi.html">beyanname risk taraması</a> ·
+        <a href="senaryo-raporu.html">menşe karşılaştırma</a> ·
+        <a href="toplu-gtip.html">toplu GTİP</a> ·
+        <a href="fiyatfarki.html">credit / debit note</a> ·
+        <a href="hizmet.html">yurt dışı hizmet faturası</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">Vergi ve ceza</button></b><span>
+        <a href="ceza-asistani.html">ceza kapıları</a> ·
+        <a href="kdv-iade-rehberi.html">KDV iadesi</a> ·
+        <a href="asgari-kv.html">asgari kurumlar vergisi</a> ·
+        <a href="sayfalar/index.html">eşik rehberi</a> ·
+        <a href="soru-cevap.html">Net Cevap</a> ·
+        <a href="bilgi.html">bilgi havuzu</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">Şirket kuruluşu</button></b><span>
+        <a href="kurulus.html">şahıs mı, limited mi, anonim mi</a> ·
+        <a href="kurulus-evrak.html">kuruluş evrak çantası</a> ·
+        <a href="kurulus-nobeti.html">kuruluş nöbeti: maliyet, ilk 12 ay, unvan, ortaklar sözleşmesi</a> ·
+        <a href="karne.html">yükümlülük karnesi</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">Teşvik ve destek</button></b><span>
+        <a href="tesvik-sihirbazi.html">yatırım teşvik sihirbazı</a> ·
+        <a href="arge-kapi-hesabi.html">Ar-Ge kapısı hesabı</a> ·
+        <a href="destekler.html">KOSGEB ve çağrı takibi</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">İhale</button></b><span>
+        <a href="ihale-radari.html">yurt içi ve AB ihaleleri</a> ·
+        <a href="firma-analizi.html">rakip firma analizi</a> ·
+        <a href="idare-analizi.html">idare analizi</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">Marka</button></b><span>
+        <a href="marka-radari.html">yenileme takibi</a> ·
+        <a href="marka-itiraz.html">itiraz ve benzerlik</a> ·
+        <a href="marka-izleme.html">benzer başvuru izleme</a> ·
+        <a href="marka-portfoy.html">portföy</a> ·
+        <a href="marka-varlik.html">markanla ne yapabilirsin</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">Alacak ve risk</button></b><span>
+        <a href="alacak-radari.html">müşterin konkordato / iflas ilan etti mi</a> ·
+        <a href="radar-app.html?niyet=firsat">icradan fırsat</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">Mevzuat nöbeti</button></b><span>
+        <a href="radar.html">bugün Resmî Gazete'de</a> ·
+        <a href="kartlar.html">günün hap kartları</a> ·
+        <a href="hatirlatici.html">süre hatırlatıcı</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">Büro ve evrak</button></b><span>
+        <a href="fis-fabrikasi.html">Fiş Fabrikası</a> ·
+        <a href="evrak-radari.html">evrak radarı</a> ·
+        <a href="belge-kasasi.html">belge kasası</a></span></div>
+
+      <div class="konu"><b><button type="button" class="konu-suz">SMMM sınavları</button></b><span>
+        <a href="genc.html">sınav takvimi ve soru bankası</a> ·
+        <a href="deneme.html">deneme sınavı</a> ·
+        <a href="canli-deneme.html">canlı deneme</a> ·
+        <a href="donem-plani.html">dönem planı</a> ·
+        <a href="songun.html">son gün 5 saat</a></span></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARAÇLAR VİTRİNİ ============ -->
+<section id="araclar" style="padding-top:0">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Araç kataloğu: vitrinde görmediklerin</h2>
+      <p>Yukarıdaki kutularda öne çıkanların dışında kalan araçlar burada. Arama <b style="color:var(--ink)">tüm katalogda</b> çalışır: yaz, saniyede bul.</p>
+    </div>
+    <input id="aracAra" type="search" placeholder="Ara: ceza, KDV, marka, ihale, fiş, GTİP…" autocomplete="off">
+    <!-- 30.08: yukaridaki Konular listesinden bir konuya tiklaninca burada
+         hangi suzgecin acik oldugu ve KAC arac kaldigi yazar. Sayi DOM'dan
+         sayilir, iddia degil: konu listesinde 2 baglanti olup katalogda 1
+         karsiligi olan konuda durustce "katalogda 1 arac" der. -->
+    <div id="konuSuzgec" role="status">
+      <span id="konuSuzgecMetin"></span>
+      <button type="button" id="konuSuzgecTemiz">tüm katalog ✕</button>
+    </div>
+
+    <div class="kat-grup" id="kg1">
+      <h3>Gümrük &amp; İthalat</h3>
+      <div class="araclar-grid">
+        <a class="arac vitrinde" href="gtip.html"><div><b>GTİP · Kaç Vergi Öderim?</b><span>İthal ürünün kodunu gir; gümrük vergisi, KDV ve diğer kesintileri saniyede gör.</span></div></a>
+        <a class="arac" href="risk-taramasi.html"><div><b>Beyanname Risk Taraması</b><span>Beyannameyi vermeden önce ceza çıkabilecek noktaları tara.</span></div></a>
+        <a class="arac vitrinde" href="senaryo-raporu.html"><div><b>Nereden Alsam?</b><span>Aynı ürünü farklı ülkelerden almanın toplam vergi yükünü karşılaştır.</span></div></a>
+        <a class="arac" href="hizmet.html"><div><b>Yurt Dışı Hizmet Faturası</b><span>Google, yazılım, danışmanlık… yurt dışı faturada KDV ve stopajı hesapla.</span></div></a>
+        <a class="arac" href="fiyatfarki.html"><div><b>Credit / Debit Note</b><span>İthalattan sonra gelen fiyat farkında vergi ne olur, adım adım gör.</span></div></a>
+        <a class="arac" href="toplu-gtip.html"><div><b>Toplu GTİP Kontrolü</b><span>Beyanname listeni Excel'den yapıştır; kalem kalem gümrük vergisi, İGV, damping ve KDV.</span></div></a>
+      </div>
+    </div>
+
+    <div class="kat-grup" id="kg2">
+      <h3>Vergi, Ceza &amp; Rehberler</h3>
+      <div class="araclar-grid">
+        <a class="arac vitrinde" href="soru-cevap.html"><div><b>Net Cevap</b><span>Mevzuat sorunu yaz; kanun maddesine dayalı net cevabını al.</span></div></a>
+        <a class="arac" href="ceza-asistani.html"><div><b>Ceza Asistanı</b><span>Ceza geldi mi? İndirim mi, uzlaşma mı, dava mı? Hangi kapı sana uygunsa gör.</span></div></a>
+        <a class="arac" href="asgari-kv.html"><div><b>Asgari Kurumlar Vergisi</b><span>%10 tabana takılıyor musun? 2025 sonrası yeni kurala göre hesapla.</span></div></a>
+        <a class="arac vitrinde" href="kdv-iade-rehberi.html"><div><b>KDV İade Rehberi</b><span>KDV iadesini adım adım al; hangi belgeler, hangi sırayla.</span></div></a>
+        <a class="arac vitrinde" href="kurulus.html"><div><b>Şirket Kuruluşu Rehberi</b><span>Şahıs mı, limited mi, anonim mi? Adım adım kuruluş yolu.</span></div></a>
+        <a class="arac vitrinde" href="tesvik-sihirbazi.html"><div><b>Yatırım Teşvik Sihirbazı</b><span>Yeni 9903 sistemine göre il + sektör + tutarınla hangi destek; 31.12.2026'lık 6. bölge fırsatları.</span></div></a>
+        <a class="arac vitrinde" href="arge-kapi-hesabi.html"><div><b>Ar-Ge Kapısı Hesabı</b><span>Merkez mi, Teknokent mi, TÜBİTAK mı? Ekibinle üç kapının yıllık TL farkını yan yana gör.</span></div></a>
+        <a class="arac" href="kurulus-evrak.html"><div><b>Kuruluş Evrak Çantası</b><span>Kuruluşta hangi belge, kim doldurur, nereye verilir? Tek liste.</span></div></a>
+        <a class="arac vitrinde" href="kurulus-nobeti.html"><div><b>Kuruluş Nöbeti</b><span>Kaça mal olur (2026 tarifesi, kaynaklı), ilk 12 ayın tarihli takvimi, unvan kontrolü, ortaklar sözleşmesi taslağı.</span></div></a>
+        <!-- 30.07 Cem: karne sayfa dibinde koca blok olarak duruyordu -
+             "katalogdaki maddeler gibi olsun" dedi; karne.html'e tasindi. -->
+        <a class="arac" href="karne.html"><div><b>Yükümlülük Karnesi</b><span>Firmanın 4-5 bilgisini gir; sadece seni etkileyen yükümlülükleri gör, PDF al.</span></div></a>
+        <a class="arac" href="sayfalar/index.html"><div><b>Eşik Rehberi</b><span>Çalışan sayısı ve ciroya göre hangi zorunluluklar başlıyor, listele.</span></div></a>
+        <a class="arac" href="bilgi.html"><div><b>Bilgi Havuzu</b><span>Merak ettiğin konunun sade Türkçe özeti ve kaynak maddesi.</span></div></a>
+        <a class="arac vitrinde" href="genc.html"><div><b>Genç Müşavir</b><span>2026 SGS + Yeterlilik sınav takvimi, geri sayımlı ve resmî kaynaktan.</span></div></a>
+        <a class="arac" href="deneme.html"><div><b>Deneme Sınavı</b><span>Özgün sorular; her şıkkın gerekçesi + kaynak kuralı. Ezber değil.</span></div></a>
+        <a class="arac" href="canli-deneme.html"><div><b>Canlı Deneme</b><span>Türkiye geneli, aynı anda, herkese aynı set. Gerçek yüzdelik sıralamanı gör.</span></div></a>
+        <a class="arac" href="donem-plani.html"><div><b>Dönem Planı</b><span>Sınava kalan haftaları haritanın ağırlıklarıyla faz faz doldur.</span></div></a>
+        <a class="arac" href="songun.html"><div><b>Son Gün 5 Saat</b><span>Dönem Planı'nın finali + sınav sabahı rehberi. Dakikalar haritadan.</span></div></a>
+      </div>
+    </div>
+
+    <div class="kat-grup" id="kg3">
+      <h3>Takip Radarları</h3>
+      <div class="araclar-grid">
+        <a class="arac" href="radar.html"><div><b>Bugün Resmî Gazete'de</b><span>Bugün çıkan mevzuattan işletmeleri ilgilendirenler, sadeleştirilmiş.</span></div></a>
+        <a class="arac vitrinde" href="kartlar.html"><div><b>Günün Hap Kartları</b><span>Her değişiklik 30 saniyelik kart: ne oldu, ne yapmalısın, kaç para.</span></div></a>
+        <a class="arac vitrinde" href="destekler.html"><div><b>Destek Radarı</b><span>KOSGEB ve devlet desteklerinden profiline uyanları gör.</span></div></a>
+        <a class="arac vitrinde" href="ihale-radari.html"><div><b>İhale Radarı</b><span>Sektörüne uyan yurt içi ve Avrupa ihalelerini kaçırma.</span></div></a>
+        <a class="arac" href="firma-analizi.html"><div><b>Rakip Firma Analizi</b><span>Bir firma kamu ihalelerinde kaç iş aldı, hangi bedelle, ne kırımla, rakibini tanı.</span></div></a>
+        <a class="arac" href="idare-analizi.html"><div><b>İdare Analizi</b><span>Bir kurum geçmişte ne açtı, kaça kapandı, hangi firmalarla çalıştı, ortalama kaç teklif alıyor.</span></div></a>
+        <a class="arac vitrinde" href="alacak-radari.html"><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilanına düşmüş mü, günü gününe gör; 15 günlük süreyi kaçırma.</span></div></a>
+        <a class="arac vitrinde" href="marka-radari.html"><div><b>Marka Radarı <span style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">· BAŞLANGIÇ</span></b><span>Marka ailesinin evi: unvanından sicil taraması, yenileme hesabı ve aşağıdaki beş aracın hepsi buradan.</span></div></a>
+        <a class="arac" href="marka-itiraz.html"><div><b>Marka İtiraz &amp; Benzerlik</b><span>Yeni başvuru markana benziyor mu? İtiraz süren dolmadan gör.</span></div></a>
+        <a class="arac vitrinde" href="marka-portfoy.html"><div><b>Marka Portföyü</b><span>Firma unvanını yaz; bültende yayımlanmış başvuruların anında, sicildeki tam liste (yenileme tarihleri, düşmüşler, sınıf haritası) robot taramasıyla tek ekranda.</span></div></a>
+        <a class="arac" href="marka-izleme.html"><div><b>Marka İzleme Radarı</b><span>Markana benzeyen yeni başvuru düştü mü; itiraz süresi (yayımdan 2 ay) dolmadan gör.</span></div></a>
+        <a class="arac" href="marka-varlik.html"><div><b>Markanla ne yapabilirsin</b><span>Lisans, devir, rehin, haciz; muvafakatname ile ret engelini aşma; Madrid ile yurt dışı.</span></div></a>
+      </div>
+    </div>
+
+    <div class="kat-grup" id="kg4">
+      <h3>Muhasebe Bürosu (SMMM)</h3>
+      <div class="araclar-grid">
+        <a class="arac" href="fis-fabrikasi.html"><div><b>Fiş Fabrikası</b><span>Banka ekstresini yükle; muhasebe programına hazır fiş Excel'i al.</span></div></a>
+        <a class="arac" href="evrak-radari.html"><div><b>Evrak Radarı</b><span>Mükelleften evrak kovalamayı bitir; eksikler kendiliğinden takip edilsin.</span></div></a>
+        <a class="arac" href="belge-kasasi.html"><div><b>Belge Kasası</b><span>Firmanın tüm belgeleri tek yerde, geçerlilik süreleri takipte.</span></div></a>
+        <a class="arac" href="hatirlatici.html"><div><b>Süre Hatırlatıcı</b><span>DİİB, KDV, SGK… kritik tarihleri gir, zamanı gelince hatırlatsın.</span></div></a>
+      </div>
+    </div>
+
+    <div id="aracYok" style="display:none;text-align:center;color:var(--dim);padding:30px 0;font-size:14px">Aradığın kelimeyle eşleşen araç yok. Başka bir kelime dene.</div>
+  </div>
+</section>
+<script>
+/* ============ KATALOG SÜZGECİ ==========================================
+   30.08 Cem "3 yap": Konular listesi kataloğun hemen üstüne indi ve ikisi
+   aynı araçları iki ayrı dille sayıyordu (tekrar). Artık konu başlığı bir
+   DÜĞME: tıklanınca aşağıdaki katalog o konunun araçlarına süzülür. Yani
+   liste "39 ayrı bağlantı" olmaktan çıkıp kataloğun filtresi oluyor - tek
+   gezinme yüzeyi kalır, üç değil.
+   EŞLEŞME YÖNTEMİ: kelime tahmini DEĞİL, konunun KENDİ href'leri. Ölçüldü
+   (30.08): 10 konu · 39 bağlantı · 38 katalog satırı; konu bağlantılarından
+   yalnız biri (radar-app.html?niyet=firsat) katalogda yok. O yüzden rozette
+   "katalogda N araç" yazar - listedeki bağlantı sayısı değil, gerçekten
+   süzülen satır sayısı. Ham bağlantılar yukarıda tıklanabilir kalır.
+====================================================================== */
+(function(){
+  const q=document.getElementById('aracAra');
+  const rozet=document.getElementById('konuSuzgec');
+  const rozetMetin=document.getElementById('konuSuzgecMetin');
+  const trU=s=>s.replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
+  let konuSet=null;   // aktif konu süzgeci (href kümesi) ya da null
+
+  function ciz(){
+    const t=trU(q.value.trim());
+    let toplam=0;
+    document.querySelectorAll('.kat-grup').forEach(g=>{
+      let sayi=0;
+      g.querySelectorAll('.arac').forEach(a=>{
+        // konu süzgeci açıksa yalnız o konunun araçları; değilse eski kural:
+        // arama bossa vitrindekiler gizli (yukarida zaten var); arama
+        // yazilinca TAM katalogda esleme yapilir - butunluk bozulmaz.
+        const ok = konuSet
+          ? konuSet.has(a.getAttribute('href'))
+          : (t ? trU(a.textContent).includes(t) : !a.classList.contains('vitrinde'));
+        a.style.display=ok?'flex':'none'; if(ok)sayi++;
+      });
+      g.style.display=sayi?'block':'none'; toplam+=sayi;
+    });
+    document.getElementById('aracYok').style.display=toplam?'none':'block';
+    return toplam;
+  }
+
+  function konuBirak(){
+    konuSet=null;
+    rozet.style.display='none';
+    document.querySelectorAll('.konu-suz[aria-pressed="true"]')
+      .forEach(b=>b.setAttribute('aria-pressed','false'));
+  }
+
+  // yazmaya baslayinca konu suzgeci birakilir - iki suzgec ayni anda
+  // acik kalirsa kullanici neden bos liste gordugunu anlayamaz.
+  q.addEventListener('input',()=>{ konuBirak(); ciz(); });
+
+  document.getElementById('konuSuzgecTemiz').addEventListener('click',()=>{
+    konuBirak(); q.value=''; ciz();
+  });
+
+  document.querySelectorAll('.konu-suz').forEach(btn=>{
+    btn.setAttribute('aria-pressed','false');
+    btn.addEventListener('click',()=>{
+      const acikti = btn.getAttribute('aria-pressed')==='true';
+      konuBirak();
+      if(acikti){ ciz(); return; }              // ayni baslige ikinci tik = kapat
+      const konu=btn.closest('.konu');
+      konuSet=new Set(Array.prototype.map.call(
+        konu.querySelectorAll('span a'), a=>a.getAttribute('href')));
+      btn.setAttribute('aria-pressed','true');
+      q.value='';
+      const n=ciz();
+      rozetMetin.textContent=btn.textContent.trim()+' · katalogda '+n+' araç';
+      rozet.style.display='flex';
+      document.getElementById('araclar').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+})();
+
+/* ============ VİTRİN ÖLÇÜMÜ ============================================
+   30.08 Cem "2 yap": "kutular tıklanmıyor" bir HİS'ti, rakam değildi. Bu
+   blok her raf kutusuna, her konu süzgecine ve her katalog satırına
+   GoatCounter olayı bağlar (GoatCounter zaten sayfanın dibinde yüklü).
+   Açılıştan sonraki ilk hafta hangi rafın hangi kutusunun tıklandığı
+   SAYIYLA görülür; bir sonraki düzen değişikliği hisle değil ölçümle
+   yapılır. Kişisel veri gönderilmez - yalnız raf adı + kutu adı.
+   DÜRÜST ŞERH: olay tıklamada gönderilir, sayfa hemen değiştiği için çok
+   hızlı tıklamalarda bir kısmı kaybolabilir; sayılar EĞİLİM okumak içindir,
+   mutlak tıklama sayısı olarak sunulmaz.
+====================================================================== */
+(function(){
+  function say(yol,baslik){
+    try{
+      if(window.goatcounter && typeof window.goatcounter.count==='function'){
+        window.goatcounter.count({path:yol,title:baslik,event:true});
+      }
+    }catch(e){}
+  }
+  const slug=s=>(s||'').toLocaleLowerCase('tr-TR')
+    .replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u')
+    .replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,48);
+  const duz=s=>(s||'').replace(/\s+/g,' ').trim().slice(0,60);
+
+  // 1) UC RAFIN KUTULARI - raf adi basligindan okunur, elle yazilmaz ki
+  //    raf tasindiginda olcum etiketi kendiliginden dogru kalsin.
+  document.querySelectorAll('.mini-pencereler .mp').forEach(a=>{
+    const rafBaslik=a.closest('.mini-pencereler').previousElementSibling;
+    const raf=duz((rafBaslik?rafBaslik.textContent:'').split(':')[0]) || 'raf';
+    const bar=a.querySelector('.mp-bar b'), etiket=a.querySelector('.mp-tag');
+    const ad=duz((bar||etiket||a).textContent);
+    a.dataset.olcum='vitrin/'+slug(raf)+'/'+slug(ad);
+    a.addEventListener('click',()=>say(a.dataset.olcum,'Vitrin: '+raf+' · '+ad));
+  });
+
+  // 2) KONU SUZGECI - konu listesi gercekten kullaniliyor mu?
+  document.querySelectorAll('.konu-suz').forEach(b=>{
+    const ad=duz(b.textContent);
+    b.dataset.olcum='konu-suzgec/'+slug(ad);
+    b.addEventListener('click',()=>say(b.dataset.olcum,'Konu süzgeci: '+ad));
+  });
+
+  // 3) KATALOG SATIRLARI - katalog vitrine gore ne kadar tutuyor?
+  document.querySelectorAll('#araclar .arac').forEach(a=>{
+    const ad=duz((a.querySelector('b')||a).textContent);
+    a.dataset.olcum='katalog/'+slug(ad);
+    a.addEventListener('click',()=>say(a.dataset.olcum,'Katalog: '+ad));
   });
 })();
 </script>
-</main>
 
+<!-- ============ FİYATLANDIRMA ============ -->
+<!-- 31.07 Cem: bolum arasi fazla acikti - ust dolgu kisildi -->
+<section id="fiyat" style="padding-top:clamp(24px,4vw,48px)">
+  <div class="sec-in">
+    <!-- 30.07 Cem: "fiyatlandirma iyi durmuyor" - hakliydi ama sebep bolum
+         degil, fiyat TAKLIDIYDI: baslik fiyat vaat edip fiyat gostermiyordu
+         (bos 0 TL + fiyat yerine gecen link + YAKINDA). Bolum "ucretsiz vs
+         abonelik" karsilastirmasina cevrildi; fiyatin evi fiyat.html. -->
+    <div class="sec-head reveal">
+      <h2>Bakış bedava. Nöbet abonelikle.</h2>
+      <p>Araçlara bakmak ücretsiz ve üyeliksiz. Ödeme yalnızca <b style="color:var(--ink)">senin yerine nöbet tutan</b> uyarı aboneliğinde. Fiyatlar tek sayfada, KDV dahil ve açık.</p>
+    </div>
+    <div class="fiyat-grid">
+      <div class="fkart reveal">
+        <h3>Bakış: herkese açık</h3>
+        <div style="font-size:13px;color:var(--green);font-weight:700;margin:4px 0 8px">0 TL · hep öyle kalır</div>
+        <ul>
+          <li>Tüm hesaplama araçları (GTİP, KDV, ihale, ceza, marka…)</li>
+          <li>Günün hap kartları + Bugün Resmî Gazete'de</li>
+          <li>Yükümlülük Karnesi + rehberler</li>
+          <li>Kayıt gerekmez, sınırsız</li>
+        </ul>
+        <a class="btn ghost" href="karne.html">Hemen kullan</a>
+      </div>
+      <div class="fkart one reveal">
+        <span class="rozet">YAKINDA</span>
+        <h3 style="display:flex;align-items:center;gap:8px">Tetikte<span style="width:9px;height:9px;border-radius:50%;background:var(--green);display:inline-block;animation:tetiktNabiz 1.6s ease-out infinite"></span></h3>
+        <div style="font-size:12.5px;color:var(--muted);margin:-4px 0 10px;font-weight:600">işinin nöbetçisi · radar aboneliği</div>
+        <style>@keyframes tetiktNabiz{0%,100%{opacity:1}50%{opacity:.45}}</style>
+        <div style="font-size:13px;color:var(--ink);margin:6px 0 10px;font-weight:600">Ücretsizde herkes aynı bilgiyi görür. Tetikte'de sistem <span style="color:var(--green)">senin firmanı</span> izler.</div>
+        <ul>
+          <li>Firma profilini bir kez gir: GTİP, il, markalar, belge tarihleri</li>
+          <li>Sana özel uyarı: RG senin kodunu vurunca · markana benzer başvuru · müşterin konkordatoda · süre yaklaşınca</li>
+          <li>Aylık <b>Firma Mevzuat Karnesi</b> PDF raporu</li>
+          <li>SMMM'ler için çoklu-firma paneli · e-posta uyarıları (WhatsApp/SMS yol haritasında)</li>
+        </ul>
+        <div style="font-size:12.5px;color:var(--amber);background:rgba(255,194,75,.07);border:1px solid rgba(255,194,75,.25);border-radius:10px;padding:9px 12px;margin-bottom:12px"><b>İlk 100 üye "Kurucu Üye":</b> fiyat ömür boyu yarı, isimleri (isterlerse) sitede. Liste şimdiden açık.</div>
+        <a class="btn" href="radar-app.html?niyet=tam">Nöbeti bize bırak, kurucu listesine gir</a>
+        <a class="btn ghost" href="fiyat.html" style="margin-top:10px">Fiyatları ve paketleri gör →</a>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:22px;font-size:12.5px;color:var(--dim)">Görüntüleme her zaman ücretsiz kalır. Büro, şirket ve sınav paketleri <a href="fiyat.html" style="color:var(--accent2)">fiyat sayfasında</a>; KDV dahil, açık.</p>
+  </div>
+</section>
+
+<!-- ============ NEDEN GÜVENİLİR ============ -->
+<section id="guven" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Neden bize güvenebilirsin?</h2>
+      <p>Mevzuatta yanlış bilgi; ödenen fazla vergi, kesilen ceza demektir. Bu yüzden tek kuralımız var: her şey resmî kaynaktan, madde madde.</p>
+    </div>
+    <div class="guven-grid">
+      <div class="gk reveal">
+        <h3>Birincil kaynak, ikincisi yok</h3>
+        <p>Her oran, süre ve tutar doğrudan Resmî Gazete, GİB, Kamu İhale Kurumu ve TÜRKPATENT metinlerinden okunur. Blog, kulaktan dolma, "internette böyle yazıyor" bu sitede yer bulmaz.</p>
+      </div>
+      <div class="gk reveal">
+        <h3>Kanunları madde madde okuduk</h3>
+        <p>İhale, Vergi Usul, İcra-İflas, Sınai Mülkiyet ve Gümrük kanunlarını madde madde taradık; hangi maddeye değindiğimiz kayıt altında. "Bir yeri atladık mı?" sorusu bizde tahmine bırakılmaz.</p>
+      </div>
+      <div class="gk reveal">
+        <h3>Çift okuma, sonra hakem</h3>
+        <p>Otomatik ürettiğimiz her kart iki bağımsız okumadan geçer; iki okuma anlaşamazsa üçüncü bir kontrol devreye girer. Güvenle doğrulayamadığımız hiçbir rakamı yayınlamayız.</p>
+      </div>
+      <div class="gk reveal">
+        <h3>Yapamadığımızı da söyleriz</h3>
+        <p>Emin olmadığımız yerde "kaynakta belirtilmemiş" der, seni doğru kapıya yönlendiririz. Abartılı vaat yok; ne biliyorsak onu, olduğu gibi.</p>
+      </div>
+      <!-- 30.07 Cem: "bu bolume ekleme yap" - iki yeni guven kaniti, ikisi de
+           olculebilir gercek: hesap araclari tarayicida calisir (KVKK metniyle
+           birebir), hakem elegi + hata-bildir dugmesi + tazelik damgasi canli. -->
+      <div class="gk reveal">
+        <h3>Verin cihazından çıkmaz</h3>
+        <p>Hesap araçlarına girdiğin ekstre, ciro, VKN tarayıcında işlenir, sunucuya gönderilmez. Üyelik verisi ise yalnız sana aittir: veritabanı satır düzeyinde kilitlidir, başka üye senin kaydını göremez.</p>
+      </div>
+      <div class="gk reveal">
+        <h3>Hatayı saklamayız, geri çekeriz</h3>
+        <p>Bağımsız hakem denetiminde şüpheye düşen içerik yayından çekilir. Her soruda "hata bildir" düğmesi vardır; haklı çıkarsan düzeltme şeffaf yayınlanır. Listelerde tazelik damgası görürsün; söze değil tarihe bakarsın.</p>
+      </div>
+    </div>
+    <div class="kaynak-bar reveal">
+      <span>Beslendiğimiz resmî kaynaklar:</span>
+      <b>Resmî Gazete</b><b>GİB</b><b>Kamu İhale Kurumu</b><b>TÜRKPATENT</b><b>TCMB</b><b>Basın İlan Kurumu</b>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:26px;font-size:14px;color:var(--muted)">
+      Tetikte, kurumsal bir anonim şirket olan <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:700;text-decoration:none">Dizdar Denetim A.Ş.</a>'nin bir yazılımıdır: vergi, iç denetim, ERP mimarisi ve finansal yazılımda uzman.</p>
+  </div>
+</section>
+
+</main>
 <footer>
   <div class="foot-in">
     <span>© 2026 Tetikte · bir <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--muted);font-weight:600">Dizdar Denetim A.Ş.</a> yazılımı · <a href="mailto:info@dizdardenetim.com" style="color:var(--muted)">info@dizdardenetim.com</a></span>
@@ -818,6 +1882,60 @@ document.addEventListener('click',function(){ document.querySelectorAll('.navgro
 <link rel="stylesheet" href="stil-sade.css">
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
+<script src="gtip-ara.js" defer></script>
+<script>
+/* HERO ARAMASI — mevcut GtipAra modulunu kullanir, yeni motor yazilmadi.
+   Tembel yukleme: tarife cetveli KULLANICI 3. harfi yazinca iner. Sayfa
+   acilisinda tek bayt inmez. Indikten sonra arama tamamen tarayicida,
+   sifir ag istegiyle calisir. */
+var HERO_ZAMAN = null, HERO_YUKLENIYOR = false;
+function heroAraCalis(){ clearTimeout(HERO_ZAMAN); HERO_ZAMAN = setTimeout(heroAraYap, 200); }
+function heroAraYap(){
+  var g = document.getElementById('heroAra'),
+      out = document.getElementById('heroAraSonuc'),
+      say = document.getElementById('heroAraSayac');
+  if(!g || !out || typeof GtipAra === 'undefined') return;
+  var ham = g.value.trim();
+  if(GtipAra.trFold(ham).length < 3){ out.innerHTML = ''; say.textContent = ''; return; }
+
+  if(!GtipAra.hazir()){
+    if(!HERO_YUKLENIYOR){
+      HERO_YUKLENIYOR = true;
+      say.textContent = 'cetvel iniyor…';
+      out.innerHTML = '<div class="hero-ara-durum">Gümrük Tarife Cetveli ilk aramada bir kez iniyor. Sonrasında arama anlık.</div>';
+      GtipAra.yukle().then(function(){ HERO_YUKLENIYOR = false; heroAraYap(); });
+    }
+    return;
+  }
+
+  var t0 = performance.now();
+  var kodlar = GtipAra.ara(ham);
+  /* kod yazildiysa onekle eslesenler de gelsin */
+  if(!kodlar.length && /^\d{4,}$/.test(ham.replace(/\./g,''))) kodlar = GtipAra.onekli(ham, 6);
+  var sure = Math.max(1, Math.round(performance.now() - t0));
+
+  if(!kodlar.length){
+    say.textContent = '';
+    out.innerHTML = '<div class="hero-ara-durum">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır &mdash; ' +
+                    '“cep telefonu” yerine “telefon”, “buzdolabı” yerine “soğutucu” dene, ya da malzemesiyle ara.</div>';
+    return;
+  }
+  say.textContent = kodlar.length.toLocaleString('tr-TR') + ' kayıt · ' + sure + ' ms';
+  out.innerHTML = kodlar.slice(0,5).map(function(kod){
+    var t = GtipAra.tanim(kod) || '';
+    var i = t.lastIndexOf('›');
+    var kendi = i >= 0 ? t.slice(i+1).trim() : t;
+    var zincir = i >= 0 ? t.slice(0,i).trim() : '';
+    return '<a class="hero-ara-satirsonuc" href="gtip.html?kod=' + encodeURIComponent(kod) + '">' +
+           '<b>' + GtipAra.htmlEsc(kod) + '</b>' +
+           '<span class="hs-ad">' + GtipAra.htmlEsc(kendi) + '</span>' +
+           (zincir ? '<span class="hs-zincir">' + GtipAra.htmlEsc(zincir.slice(-90)) + '</span>' : '') +
+           '</a>';
+  }).join('') + (kodlar.length > 5
+      ? '<div class="hero-ara-durum">+' + (kodlar.length-5).toLocaleString('tr-TR') +
+        ' eşleşme daha. Kelime ekleyerek daralt.</div>' : '');
+}
+</script>
 <script src="ayrinti.js" defer></script>
 <link rel="stylesheet" href="stil-acik.css">
 <link rel="stylesheet" href="stil-odak.css">
