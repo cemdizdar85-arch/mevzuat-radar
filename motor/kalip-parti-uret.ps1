@@ -624,6 +624,12 @@ $OZEL_DESEN=@{
   'normal maliyet-kapasite kullanim'= @('~teori normal maliyet','~teori tam maliyet normal','THP 680%','THP 730%')
   'ozel maliyetler bakim onarim'    = @('~teori bakim onarim','THP 730%','THP 770%','THP 760%','THP 264%')
   'tam maliyet yontemi'             = @('~teori tam maliyet normal','~teori degisken maliyet sistemi','~teori normal maliyet','THP 730%')   # "tam" 3 harf, "yontemi" genel kök → tek kök "maliyet" 6 alakasız not çekti (09.09 ölçüldü)
+  # 09.09 GM maliyet-zor ÖLÇÜLDÜ (3 hakem reddi, hepsi kaynak): notlar VARDI ama adı konu kökleriyle eşleşmiyordu ("Teori Notu - maliyet gider harcama kavramlari",
+  # "TEORI - Ardisik donem satilan mamul maliyeti"); direkt işçilik gideri (boşa geçen süre, fazla çalışma primi) notu YOKTU → yazıldı (teori-notlari-20260909-sgs-maliyet-kayit-3.json)
+  'maliyet esasi kavrami'           = @('~teori maliyet gider harcama','THP 150%','THP 151%','THP 152%','THP 620%')
+  'uretim satis maliyeti hesaplama' = @('~teori ardisik donem satilan','~teori secene uretim maliyeti','THP 151%','THP 152%','THP 620%')
+  'satilan mamul maliyeti'          = @('~teori ardisik donem satilan','~teori stok degerleme','THP 152%','THP 620%')
+  'direkt iscilik gideri hesaplama' = @('~teori direkt iscilik giderinin','~teori direkt iscilik ucret','THP 720%','THP 730%')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
@@ -2080,6 +2086,8 @@ if($HazirSoru -and -not $SadeceHtml){
     $id=$kk.id
     # -RedYenile: hakem HAYIR / DERS-DISI kalan hazır soru düşürülür ve dosyadan yeniden alınır (FAZ A'daki düşürme bu modda koşmaz — 09.09 pilot kp-09 ölçümü)
     if($RedYenile -and $don.Contains($id) -and $don[$id].PSObject.Properties['hakem'] -and $don[$id].hakem -and ("$($don[$id].hakem.karar)" -ne 'EVET' -or "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI')){ Write-Host "  HAZIR SORU YENİLENİYOR (hakem reddi düşürüldü): $id" -ForegroundColor Yellow; $don.Remove($id) }
+    # 09.09 maliyet-zor ölçümü: hakem2 HAYIR (kp-14 "soru kökü çelişkili") ve kör çözüm YANLIŞ kayıtları da -RedYenile ile düşer; GM soruyu düzeltip dosyadan yeniden verir
+    if($RedYenile -and $don.Contains($id) -and (($don[$id].PSObject.Properties['hakem2'] -and $don[$id].hakem2 -and "$($don[$id].hakem2.karar)" -ne 'EVET') -or ($don[$id].PSObject.Properties['kor_cozum'] -and $don[$id].kor_cozum -and -not [bool]$don[$id].kor_cozum.dogru_mu))){ Write-Host "  HAZIR SORU YENİLENİYOR (hakem2/kör reddi düşürüldü): $id" -ForegroundColor Yellow; $don.Remove($id) }
     if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['gm_kapi']){ continue }
     $cvp=[pscustomobject]@{ soru="$($e.soru)"; siklar=$e.siklar; dogru="$($e.dogru)"; aciklama=$e.aciklama; konu="$($kk.kayit.konu)"; yazar='GM'; donem=$kk.kayit.donem; sema=$(if($e.PSObject.Properties['sema']){ $e.sema } else { $null }) }
     foreach($alan in 'teshis','celdirici_yol','verilenler','dayanak','cozum_tablo','hap','sinav_taktigi','notlandirici'){ if($e.PSObject.Properties[$alan] -and $null -ne $e.$alan){ $cvp | Add-Member -NotePropertyName $alan -NotePropertyValue $e.$alan -Force } }
