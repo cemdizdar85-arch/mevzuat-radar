@@ -117,6 +117,14 @@ foreach($konu in $konular){
       $ikiKok2=($kokler[0]+' '+$kokler[2])
       foreach($kn in $dersKanunlari){ if($bulunan.Count -ge 2){ break }; foreach($x in (MetinAra $kn $ikiKok2)){ $bulunan.Add($x) } }
     }
+    # 09.09 son basamak: iki kök tutmadıysa TEK kök ile dene — ama yalnız DERSİN KENDİ kanunu içinde ve kök ≥5 harf.
+    # Ölçüldü: 'takas', 'ibra', 'tabela', 'sendikal' tek kökle bulunuyor, iki kök zorunluluğu bunları kaçırıyordu (7 sahte YOK).
+    if(-not $bulunan.Count){
+      foreach($kw in (@($kokler) | Where-Object { $_.Length -ge 5 } | Select-Object -First 2)){
+        foreach($kn in $dersKanunlari){ if($bulunan.Count -ge 2){ break }; foreach($x in (MetinAra $kn $kw)){ $bulunan.Add($x) } }
+        if($bulunan.Count -ge 2){ break }
+      }
+    }
   }
   $n=@($bulunan | Select-Object -Unique).Count
   $durum=$(if($n -ge 2){ 'VAR' } elseif($n -eq 1){ 'ZAYIF' } else { 'YOK' })
