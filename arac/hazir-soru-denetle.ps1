@@ -16,7 +16,7 @@ function Hesapla([string]$ifade){ $t=$ifade -replace '\.','' -replace ',','.' -r
 $sz=@{}; if($Sozluk -and (Test-Path $Sozluk)){ foreach($w in ((Get-Content $Sozluk -Raw -Encoding UTF8) -split '\s+')){ $w=Duz $w; if($w.Length -ge 5){ $sz[$w.Substring(0,5)]=1 } } }
 $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
 "dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count)"
-$i=0
+$i=0; $temizSay=0
 foreach($q in $liste){
   $i++; $k=New-Object System.Collections.Generic.List[string]
   $harf=@('A','B','C','D','E')
@@ -74,6 +74,27 @@ foreach($q in $liste){
   $tum="$($q.soru) "+(@($harf | ForEach-Object { "$($q.siklar.$_)" }) -join ' ')+' '+(@($q.adimlar | ForEach-Object { "$($_.formul) $($_.anlatim)" }) -join ' ')
   $asc=@([regex]::Matches($tum.ToLowerInvariant(),'\b(icin|degil|isletme|donem|uretim|dogru|yanlis|ucret|hesabi|satis|yuzde|deger|iscilik|dagitim|kayit|kaydi|urun|uretilen|tutari|yapilan|icinde|once)\b') | ForEach-Object { $_.Value } | Select-Object -Unique); if($asc.Count){ $k.Add("ASCII Turkce: $($asc -join ',')") }
   $etiket=$(if($k.Count){ 'KUSUR' } else { 'ok' })
+  if($etiket -eq 'ok'){ $temizSay++ }
   "{0,2}. {1,-36} {2}" -f $i,$q.konu,$etiket
   foreach($x in $k){ "      - $x" }
 }
+# CEVAP DAGILIMI (10.09 eklendi) — DOSYA duzeyinde kapi, tek soruya bakarak gorulmez.
+# NEDEN: Meslek Hukuku'nda zor 22/22 ve cok zor 21/21 sorunun dogru cevabi A cikti; "hep A" yazan
+# ogrenci bankadan 100 alirdi. Her soru tek tek kusursuzdu, kusur DAGILIMDAYDI. Sayisal sikli
+# sorular (MTA gibi) haric tutulur: orada siklar artan sirali oldugu icin cevabin yeri sayinin
+# buyuklugune baglidir, yazarin tercihine degil.
+$metinli=@($liste | Where-Object { $q2=$_; @('A','B','C','D','E' | Where-Object { "$($q2.siklar.$_)".Trim() -notmatch '^%?\s*-?\d{1,3}(?:\.\d{3})*(?:,\d+)?\s*(TL|%|adet|kg|saat|birim)?\s*$' }).Count -gt 0 })
+if($metinli.Count -ge 5){
+  $dag=@{}; foreach($h in @('A','B','C','D','E')){ $dag[$h]=0 }
+  foreach($q2 in $metinli){ $d="$($q2.dogru)"; if($dag.ContainsKey($d)){ $dag[$d]++ } }
+  $ozet=(@('A','B','C','D','E') | ForEach-Object { "$_`:$($dag[$_])" }) -join '  '
+  $enCok=($dag.Values | Measure-Object -Maximum).Maximum
+  $oran=[math]::Round($enCok/$metinli.Count,2)
+  $bos=@(@('A','B','C','D','E') | Where-Object { $dag[$_] -eq 0 })
+  ""
+  "CEVAP DAGILIMI (metin sikli $($metinli.Count) soru): $ozet | en cok harf %$([math]::Round($oran*100))"
+  if($oran -gt 0.40){ "  - KUSUR: tek harf sorularin %$([math]::Round($oran*100))'ini aliyor (tavan %40) - dogru cevaplari A-E arasinda dagit" }
+  elseif($bos.Count -and $metinli.Count -ge 10){ "  - UYARI: hic kullanilmayan harf var ($($bos -join ', '))" }
+  else{ "  - ok" }
+}
+"ozet: $temizSay/$($liste.Count) soru kusursuz"
