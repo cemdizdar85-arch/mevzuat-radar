@@ -1,0 +1,65 @@
+# SGS ACILIS KOSUCUSU (sgs-a6) - ANLIK MOD (10.09.2026 Cem: kuyruk 3 saat tikandi, "daha hizli").
+#
+# Kullanim (fabrika sohbeti):
+#   powershell -NoProfile -ExecutionPolicy Bypass -File arac/sgs-a6-kos.ps1 -Grup "Finansal Muhasebe,Muhasebe" -ButceTavan 150
+#   -Grup   : plan-sgs-a6.json'daki dersAd degerleri (virgulle). Her sohbet KENDI grubunu kosar, baskasinin grubuna GIRMEZ.
+#   -ButceTavan : bu grubun USD tavani; bedel-kayit.jsonl'den sgs-a6-* toplami okunur, asilirsa durur.
+#   -Toplu  : verilirse toplu mod (varsayilan ANLIK).
+# Her etiket icin uretici yeniden okunur; parti dosyasi varsa uretici kendi cache'inden devam eder.
+param([Parameter(Mandatory)][string]$Grup, [double]$ButceTavan = 150.0, [switch]$Toplu, [int]$Bekle = 0)
+$ErrorActionPreference = 'Continue'
+$kok = Split-Path $PSScriptRoot -Parent
+Set-Location $kok
+$uretici = Join-Path $kok 'motor\kalip-parti-uret.ps1'
+$tok = $null; $err = $null
+[void][System.Management.Automation.Language.Parser]::ParseFile($uretici, [ref]$tok, [ref]$err)
+if ($err.Count) { "URETICI PARSE HATA: $($err[0].Message)"; exit 1 }
+
+function A6Bedel {
+  $toplam = 0.0
+  foreach ($r in (Get-Content (Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl') -Encoding UTF8 -ErrorAction SilentlyContinue | ForEach-Object { try { $_ | ConvertFrom-Json }catch {} })) {
+    if ("$($r.etiket)" -like 'sgs-a6-*') { $toplam += [double]$r.toplamUsd }
+  }
+  [math]::Round($toplam, 2)
+}
+$gruplar = @($Grup -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+$tum = @((ConvertFrom-Json -InputObject (Get-Content (Join-Path $kok 'veri\sinav\plan-sgs-a6.json') -Raw -Encoding UTF8)) | ForEach-Object { $_ })
+$plan = @($tum | Where-Object { $gruplar -contains "$($_.dersAd)" } | Sort-Object tur, zorluk)
+"GRUP [$($gruplar -join ', ')] · etiket $($plan.Count) · soru $(($plan | Measure-Object adet -Sum).Sum) · mod $(if($Toplu){'TOPLU'}else{'ANLIK'}) · tavan $ButceTavan USD (sgs-a6 toplam)"
+"sgs-a6 su ana kadar harcanan (butun gruplar): $(A6Bedel) USD"
+
+if ($Toplu) { $env:MEVZUAT_TOPLU = '1'; $env:MEVZUAT_TOPLU_BEKLE_DK = '1440'; $env:MEVZUAT_TOPLU_PARCA = '30' } else { $env:MEVZUAT_TOPLU = '0' }
+$env:MEVZUAT_CLAIM = '0'
+New-Item -ItemType Directory -Force (Join-Path $kok 'veri\fabrika\kosucu-log') | Out-Null
+
+$toplamKayit = 0; $toplamYayin = 0
+foreach ($p in $plan) {
+  $harcanan = A6Bedel
+  if ($harcanan -ge $ButceTavan) { "!! sgs-a6 BUTCE TAVANI ($ButceTavan USD) ASILDI: $harcanan USD - DURDU"; break }
+  $kd = Join-Path $kok ($p.konuDosya -replace '/', '\')
+  if (-not (Test-Path -LiteralPath $kd)) { "  $($p.etiket): konu dosyasi yok, atlandi"; continue }
+  $liste = @((ConvertFrom-Json -InputObject (Get-Content -LiteralPath $kd -Raw -Encoding UTF8)) | ForEach-Object { $_ })
+  if ($liste.Count -eq 0) { "  $($p.etiket): konu yok, atlandi"; continue }
+  $log = Join-Path $kok ("veri\fabrika\kosucu-log\a6-{0}.log" -f $p.etiket)
+  $arg = @('-Sinav', 'SGS', '-DersRegex', $p.ders, '-Adet', "$($liste.Count)", '-Etiket', $p.etiket,
+    '-UzunlukTavan', "$($p.tavan)", '-Verilenler', '-KonuGiris', '-Simulasyon', '-SimModel', 'claude-sonnet-5',
+    '-DonemPencere', '7', '-Zorluk', $p.zorluk, '-KonuDosya', $p.konuDosya)
+  if ($Toplu) { $arg += '-Toplu' }
+  "  [$(Get-Date -Format 'HH:mm')] $($p.etiket) · $($liste.Count) konu · harcanan $harcanan USD"
+  & powershell -NoProfile -ExecutionPolicy Bypass -File motor/kalip-parti-uret.ps1 @arg *> $log
+  $pf = Join-Path $kok ("veri\fabrika\kalip-parti-{0}.json" -f $p.etiket)
+  $yay = 0; $n = 0
+  if (Test-Path -LiteralPath $pf) {
+    $j = ConvertFrom-Json -InputObject (Get-Content -LiteralPath $pf -Raw -Encoding UTF8)
+    foreach ($pr in $j.PSObject.Properties) {
+      if ($pr.Name -notmatch '^kp-\d+$') { continue }
+      $v = $pr.Value; if (-not $v.soru) { continue }
+      $n++
+      if ("$($v.hakem.karar)" -eq 'EVET' -and ($v.kor_cozum -and [bool]$v.kor_cozum.dogru_mu) -and "$($v.hakem2.karar)" -eq 'EVET' -and -not ($v.simulasyon_sonnet -and -not [bool]$v.simulasyon_sonnet.dogru_mu)) { $yay++ }
+    }
+  }
+  $toplamKayit += $n; $toplamYayin += $yay
+  "     -> kayit $n · yayinlanabilir $yay"
+  if ($Bekle -gt 0) { Start-Sleep -Seconds $Bekle }
+}
+"########## GRUP [$($gruplar -join ', ')] BITTI · kayit $toplamKayit · yayinlanabilir $toplamYayin · sgs-a6 toplam bedel $(A6Bedel) USD ##########"
