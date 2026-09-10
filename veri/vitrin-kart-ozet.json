@@ -1,69 +1,57 @@
 {
-  "olcum": "2026-09-09T13:09:30.828Z",
-  "gun": "2026-09-09",
+  "olcum": "2026-09-10T07:22:56.492Z",
+  "gun": "2026-09-10",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 1,
+      "sira": 2,
       "toplam": 10,
-      "id": "sgs-t1-meslek-kolay/kp-01",
-      "ders": "Meslek Hukuku",
-      "konu": "disiplin cezalari",
-      "kunye": "SGS 2025/2 Soru 101 kalıbı",
-      "donem": 11,
-      "teori": true,
+      "id": "sgs-t1-denetim-cokzor/kp-01",
+      "ders": "Denetim",
+      "konu": "denetim kanıtı yeterliliği",
+      "kunye": "SGS 2025/1 Soru 82 kalıbı",
+      "donem": 9,
+      "teori": false,
       "rakamSik": false,
-      "soru": "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre bu meslek mensubuna hangi disiplin cezası verilir?",
+      "soru": "İşletmenin kayıtlı ticari borç tutarı 940.000 TL'dir. Tedarikçi teyitlerinden 900.000 TL doğrulanmış, teyide yanıt vermeyenler için ödenmemiş faturalardan 75.000 TL ek borç tespit edilmiştir. Dönem içinde iptal edilen sipariş tutarı 5.000 TL'dir. Tespit edilen sapmanın tutarı ve yönü nedir?",
       "siklar": {
-        "A": "Uyarma",
-        "B": "Kınama",
-        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
-        "D": "Yeminli sıfatını kaldırma",
-        "E": "Meslekten çıkarma"
+        "A": "35.000 az gösterme",
+        "B": "35.000 fazla gösterme",
+        "C": "40.000 az gösterme",
+        "D": "40.000 fazla gösterme",
+        "E": "Sapma yok"
       },
-      "dogru": "E",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Bağımsızlık İhlali Tuzağı",
-          "metin": "Görevi bağımsızlık, tarafsızlık ve dürüstlükle yapmama halinin cezasıyla bu özel fiili karıştırıyorsun. Doğrusu: Geçici alıkoyma cezası bağımsızlık/tarafsızlık ihlali ile tasdik yetkisinin gerçeğe aykırı ilk kullanımına…"
+          "ad": "Çeldirici Veri Yükleme Tuzağı",
+          "metin": "Soruda geçen iptal edilen sipariş tutarını hesaba dahil ederek 900.000+75.000+5.000-940.000 işlemiyle 40.000 TL bulursun; oysa iptal edilen sipariş kayıtlı borçla ilgisiz bir veridir. Doğrusu: İptal edilen sipariş topla…"
         },
-        "A": {
-          "ad": "İlk Aşama Tuzağı",
-          "metin": "Her disiplin ihlalinin ilk defasında uyarma cezası ile başladığını sanıyorsun. Doğrusu: Kanun, mükellefle birlikte kasten vergi ziyaına sebebiyet verilip bu husus mahkeme kararıyla kesinleştiğinde ilk aşama uygulamadan …"
+        "E": {
+          "ad": "Kanıt Karıştırma Tuzağı",
+          "metin": "Teyit ve ödenmemiş fatura farklı kaynaklardan geldiği için birbirini teyit edip sapmayı sıfırladığını düşünürsün; oysa BDS 500 A28 uyarınca farklı kaynaklardan gelen kanıtlar aynı beyanı destekler, birbirini iptal etmez…"
         },
         "D": {
-          "ad": "Yeminli Sıfatı Tuzağı",
-          "metin": "Bu cezanın her ağır fiilde uygulanan genel bir yaptırım olduğunu sanıyorsun. Doğrusu: Yeminli sıfatının kaldırılması yalnız yeminli mali müşavirlerin tasdik yetkisini gerçeğe aykırı kullanmasının tekerrürüne özgü özel b…"
+          "ad": "Çift Tuzak (Tutar+Yön) Tuzağı",
+          "metin": "Hem çeldirici sipariş tutarını hesaba katıp hem de yönü ters çevirerek 40.000 TL fazla gösterme dersin; bu iki ayrı hatanın üst üste binmesidir. Doğrusu: Doğru hesapta çeldirici veri dışlanır ve yön az göstermedir, sonu…"
         },
         "B": {
-          "ad": "Tekerrür Tuzağı",
-          "metin": "Kınama cezasının basit kusurlu davranışın tekrarında uygulandığını, olayı da böyle bir tekrar sanıyorsun. Doğrusu: Buradaki fiil mükellefle birlikte kasten vergi ziyaına sebep olmaktır, bu fiile kanun doğrudan en ağır c…"
+          "ad": "Yön Tersleme Tuzağı",
+          "metin": "Kayıtlı tutarın gerçek tutardan düşük çıktığını görünce bunu 'fazla gösterme' sanırsın, oysa kayıtlı tutarın düşük kalması az gösterme demektir. Doğrusu: Aynı 35.000 TL fark az gösterme yönündedir, fazla gösterme değild…"
         }
       },
-      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararıyla kesinleşen meslek mensubuna kademesiz doğrudan meslekten çıkarma cezası verilir.",
+      "hap": "İhtiyaca uygunluk test yönüne göre değişir; az gösterme şüphesinde kayıtlı olmayan kalemler (ödenmemiş fatura, teyit dışı borç) test edilir, kayıtlı tutar tek başına yeterli değildir.",
       "satirlar": [
         [
-          "A) Uyarma",
-          "p.48/1"
+          "Gerçek borç toplamı (900.000 + 75.000)",
+          "975.000"
         ],
         [
-          "B) Kınama",
-          "p.48/1"
-        ],
-        [
-          "C) Geçici olarak mesleki faaliyetten alıkoyma",
-          "p.48/2"
-        ],
-        [
-          "D) Yeminli sıfatını kaldırma",
-          "p.48/1"
-        ],
-        [
-          "E) Meslekten çıkarma",
-          "p.48/2"
+          "Kayıtlı borç - Gerçek toplam farkı (975.000 - 940.000)",
+          "35.000 (az gösterme)"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=1"
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=2"
     }
   }
 }
