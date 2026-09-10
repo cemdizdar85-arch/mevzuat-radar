@@ -55,9 +55,11 @@ public sealed class SoruUretici(
         // sonucu BOZMAZ, yalnizca daraltir - arama tam-metin kanalindan koşar.
         // Cokmek yerine daralmak dogru davranis: gomme anahtari operasyonel bir
         // eksiklik, mimari bir hata degil.
-        var sorguVektoru = gomme.Acik
+        // NULL = "vektor kanali yok" demektir. SIFIR VEKTOR gondermek ise
+        // kanali kapatmaz, GURULTU uretir (bkz. sql/005_vektorsuz_arama.sql).
+        float[]? sorguVektoru = gomme.Acik
             ? await gomme.SorguGomAsync(sorgu, ct)
-            : new float[_ayar.EmbeddingBoyut];
+            : null;
 
         // ONCE KONU KARTI, SONRA ARAMA.
         // Dayanak bir arama sonucu degil bir KAYITTIR: karti olan konu kesin

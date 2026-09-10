@@ -44,6 +44,27 @@ public sealed class Ambar : IAsyncDisposable
                 $"GOC EKSIK: '{beklenen}' basili degil. Once sql/001_init.sql calistirilmali.");
     }
 
+    /// <summary>
+    /// Bir .sql dosyasini oldugu gibi calistirir - gocleri basmanin motor ici yolu.
+    ///
+    /// NEDEN VAR: 001-004 goclerini Cem elle Supabase SQL editorune yapistirdi.
+    /// Uc kez yanlis pencereye yapistirildi, her seferinde bir tur kaybedildi.
+    /// Baglanti dizesi zaten motorda; goc basmak da motorun isi olmali.
+    ///
+    /// TEK ISLEM: dosya bastan sona tek transaction'da kosar. Ortada patlarsa
+    /// yarim goc kalmaz - ya hepsi ya hicbiri.
+    /// </summary>
+    public async Task SqlDosyasiCalistirAsync(string yol, CancellationToken ct)
+    {
+        var betik = await File.ReadAllTextAsync(yol, ct);
+        await using var k = await _kaynak.OpenConnectionAsync(ct);
+        await using var islem = await k.BeginTransactionAsync(ct);
+        await using var komut = new NpgsqlCommand(betik, k, islem);
+        komut.CommandTimeout = 300;
+        await komut.ExecuteNonQueryAsync(ct);
+        await islem.CommitAsync(ct);
+    }
+
     public async Task<string> CanliSurumAsync(CancellationToken ct)
     {
         await using var k = await _kaynak.OpenConnectionAsync(ct);
@@ -165,8 +186,17 @@ public sealed class Ambar : IAsyncDisposable
     }
 
     // ---------------------------------------------------------------- arama
+    /// <param name="sorguVektoru">
+    /// NULL verilebilir. O zaman rag.ara (v3) vektor kanalini HIC KURMAZ.
+    ///
+    /// NEDEN ONEMLI: onceki surumde "vektor kapali" hali SIFIR VEKTOR gondermekti.
+    /// Sifir vektor kanali kapatmiyor - pgvector butun satirlari esit uzaklikta
+    /// gorup RASTGELE bir siralama donduruyor, o gurultu RRF'e girip tam metin
+    /// kanalinin dogru sonucunu asagi itiyordu. Yani "vektorun katkisi" olcumu
+    /// tam metnin hakkini yiyordu (olculdu 10.09).
+    /// </param>
     public async Task<IReadOnlyList<AramaSonucu>> AraAsync(
-        string sorgu, float[] sorguVektoru, string model,
+        string sorgu, float[]? sorguVektoru, string model,
         int adet, int adayHavuzu, string? kaynakTur, CancellationToken ct)
     {
         var liste = new List<AramaSonucu>();
@@ -174,7 +204,9 @@ public sealed class Ambar : IAsyncDisposable
         await using var komut = new NpgsqlCommand(
             "select * from rag.ara($1, $2, $3, $4, $5, $6)", k);
         komut.Parameters.AddWithValue(sorgu);
-        komut.Parameters.AddWithValue(new Vector(sorguVektoru));
+        komut.Parameters.Add(sorguVektoru is null
+            ? new NpgsqlParameter { Value = DBNull.Value, DataTypeName = "vector" }
+            : new NpgsqlParameter { Value = new Vector(sorguVektoru) });
         komut.Parameters.AddWithValue(model);
         komut.Parameters.AddWithValue(adet);
         komut.Parameters.AddWithValue(adayHavuzu);

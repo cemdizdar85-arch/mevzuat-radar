@@ -31,6 +31,17 @@
 13. **Kayıt/profil sihirbazı + abonelik/ödeme** (Sprint 3-4; backend ister — ticari açılışın şartı)
 14. **AB/CBAM, yargı kararları, veri raporları** (Faz 4)
 
+## 🔴 MÜHENDİSLİK İŞ EMRİ — sessiz hatalar (Cem kuralı 10.09: "hatalar sessizce yutulmamalı, loglanmalıdır")
+
+- **27.08.2026 · Gemini 404 sessiz hatası.** O gece robot, artık var olmayan bir
+  Gemini model adına ~780 istek attı; hepsi `404 NotFound` döndü. Robot **yeşil
+  bitti**, hiçbir uyarı çıkmadı, o gece **sıfır iş üretildi** ve bu 14 gün fark
+  edilmedi. Kaynak: Gemini API Usage grafiği (28 günlük pencere).
+  **Yapılacak:** (a) ölü model adını bul ve güncelle, (b) **kalıcı kapı**: bir
+  robot koşusunda 4xx/5xx oranı %10'u aşarsa koşu KIRMIZI biter ve alarm maili
+  gider — "istek attım" ≠ "iş yaptım". Ölçmeden kapatılmış sayılmaz.
+  `.github/workflows/` içindeki Gemini çağıran akışların tamamı taranacak.
+
 ## 📋 CEM'DE BEKLEYEN
 15. İsim + alan adı (dizdardenetim.com kararıyla birlikte)
 16. Eşik kontrol listesi teyidi (kontrol-listesi.html)

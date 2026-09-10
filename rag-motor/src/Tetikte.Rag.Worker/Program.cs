@@ -103,6 +103,71 @@ if (args.Length > 0)
                     s.ParcaId, s.Sorular.Count, s.Hata ?? "-");
             return;
         }
+        case "aramakarne":
+        {
+            // KART-KAPALI OLCUM: konu kartlarini DEVRE DISI birakip aramanin
+            // KENDI gucunu olcer.
+            //
+            // NEDEN GEREKLI: kart acikken vektor kanalinin katkisi GORUNMEZ -
+            // kart zaten dogru maddeyi veriyor, arama hic devreye girmiyor.
+            // "Hibrit arama ise yariyor mu" sorusu ancak kart kapaliyken
+            // cevaplanabilir. Beklenen madde konu kartindan OKUNUR ama arama
+            // ona BAKMAZ; kart burada CETVELDIR, kilavuz degil.
+            //
+            //   dotnet run -- aramakarne <ders> <konu>=<beklenen madde> ...
+            //   ornek: aramakarne 'Vergi Mevzuatı ve Uygulaması' 'supheli alacak karsiligi=m.323'
+            if (args.Length < 3) { gunluk2.LogError("kullanim: aramakarne <ders> <konu>=<beklenen> ..."); return; }
+            var ders2 = args[1];
+            var ambar3 = sp.GetRequiredService<Ambar>();
+            var gomme2 = sp.GetRequiredService<IGommeIstemcisi>();
+            var ayar2 = sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<RagOptions>>().Value;
+
+            var isabet = 0; var toplam = 0;
+            foreach (var cift in args.Skip(2))
+            {
+                var p = cift.Split('=', 2);
+                if (p.Length != 2) continue;
+                var konu2 = p[0]; var beklenen = p[1];
+                toplam++;
+
+                var sorgu2 = $"{ders2} {konu2}";
+                // Gomme kapaliysa NULL gonderilir - SIFIR VEKTOR DEGIL.
+                // Sifir vektor kanali kapatmaz, rastgele siralama uretip tam
+                // metin kanalini asagi iter; boyle bir kiyas tam metnin hakkini
+                // yer (bkz. sql/005_vektorsuz_arama.sql).
+                float[]? vek = gomme2.Acik
+                    ? await gomme2.SorguGomAsync(sorgu2, CancellationToken.None)
+                    : null;
+
+                var bulunan = await ambar3.AraAsync(sorgu2, vek, gomme2.Model,
+                    ayar2.AramaAdet, ayar2.AramaAdayHavuzu, null, CancellationToken.None);
+
+                var ilk = bulunan.FirstOrDefault();
+                var tuttu = ilk is not null && (ilk.MaddeNo ?? "").Contains(beklenen, StringComparison.OrdinalIgnoreCase);
+                if (tuttu) isabet++;
+
+                gunluk2.LogInformation("{Durum} {Konu}: bekle {Bekle} -> {Bulunan}  (v-sira {V}, m-sira {M}, ilk5: {Ilk5})",
+                    tuttu ? "ISABET" : "ISKA ", konu2, beklenen, ilk?.MaddeNo ?? "(bos)",
+                    ilk?.VektorSira?.ToString() ?? "-", ilk?.MetinSira?.ToString() ?? "-",
+                    string.Join(" | ", bulunan.Take(5).Select(b => b.MaddeNo ?? "?")));
+            }
+            gunluk2.LogInformation("ARAMA KARNESI: {Isabet}/{Toplam}  (gomme {Durum})",
+                isabet, toplam, gomme2.Acik ? "ACIK - hibrit" : "KAPALI - yalniz tam metin");
+            return;
+        }
+        case "goc":
+        {
+            // GOC BASMA: sql/*.sql dosyasini motorun kendi baglantisindan kosar.
+            // Elle SQL editorune yapistirma donemi bitti - uc kez yanlis
+            // pencereye yapistirildi, uc tur kaybedildi.
+            if (args.Length < 2) { gunluk2.LogError("kullanim: goc <sql-dosyasi>"); return; }
+            var ambar4 = sp.GetRequiredService<Ambar>();
+            gunluk2.LogInformation("GOC BASILIYOR: {Yol}", Path.GetFullPath(args[1]));
+            await ambar4.SqlDosyasiCalistirAsync(args[1], CancellationToken.None);
+            gunluk2.LogInformation("GOC TAMAM · CANLI SURUM: {Surum}",
+                await ambar4.CanliSurumAsync(CancellationToken.None));
+            return;
+        }
         case "rapor":
         {
             // Uretilen sorulari OKUNUR metne cevirir. JSON insan icin degil;
