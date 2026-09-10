@@ -19,6 +19,10 @@ public interface IGommeIstemcisi
 
     string Model { get; }
     int Boyut { get; }
+
+    /// <summary>Gomme ucu kullanilabilir mi? false ise cagiran taraf vektor
+    /// kanalini ATLAR - istisna firlatmaz.</summary>
+    bool Acik { get; }
 }
 
 /// <summary>
@@ -48,6 +52,7 @@ public sealed class GeminiGommeIstemcisi : IGommeIstemcisi
 
     public string Model => _ayar.EmbeddingModel;
     public int Boyut => _ayar.EmbeddingBoyut;
+    public bool Acik => RagOptions.GommeAcik;
 
     public GeminiGommeIstemcisi(
         HttpClient http,

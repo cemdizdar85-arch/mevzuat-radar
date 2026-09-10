@@ -65,9 +65,19 @@ function KisaBaslik([string]$s,[int]$n=70){ $t = Temiz $s; if($t.Length -gt $n){
 # madde parcalayici — 30.08 genis tire sinifiyla (U+2010..U+2015 + U+2212 + '-')
 $rxMadde = [regex]'(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:‐-―−-]?|[‐-―−-])'
 
-# Dev parca esigi. BolumleriCikar'in `boy` varsayilaniyla (3500) AYNI kalmali:
+# Dev parca esigi. BolumleriCikar'in `boy` varsayilaniyla AYNI kalmali:
 # esik buyuk olursa esigi gecmeyen ama yine de sisik satirlar kalir.
-$DEV_ESIK = 3500
+#
+# 10.09 AKSAM - 3500'DEN 1800'E INDIRILDI (olculdu). Ilk tazelemeden sonra
+# altin test 43 -> 44 cikti ama kapali kalmadi. Sebep: SPK dilimleri 3.500
+# karakterdi, AMBARIN GERI KALANI 1.800 (mevzuat-yut.ps1 $PARCA_BOY=1800,
+# standart-yut.ps1 $dilimBoyu=1800, kgk-standart-yut.ps1 1800). Iki kat buyuk
+# parca, ayni sorguda daha cok kelime tutar ve madde_ara'nin `kapsanan`
+# bonusunu daha sik alir - yani kucultulmus bir miknatis olarak calismaya
+# devam eder. Olcum: 'ticaret siciline tescil basvurusu' ve 'kacakcilik sucu'
+# vakalarinda top-6'nin basi hala SPK parcalariydi.
+# KURAL: ambardaki parca boyu TEK OLMALI. Ayricalikli buyuk parca yoktur.
+$DEV_ESIK = 1800
 
 function MaddeleriCikar([string]$flat,[string]$kokAd,[string]$url){
   $m = $rxMadde.Matches($flat); $out = New-Object System.Collections.Generic.List[object]
@@ -122,7 +132,7 @@ function MaddeleriCikar([string]$flat,[string]$kokAd,[string]$url){
   }
   return $out
 }
-function BolumleriCikar([string]$flat,[string]$kokAd,[string]$url,[int]$boy=3500){
+function BolumleriCikar([string]$flat,[string]$kokAd,[string]$url,[int]$boy=1800){
   $out = New-Object System.Collections.Generic.List[object]
   if($flat.Length -le $boy){
     $out.Add([ordered]@{ tur='kanun-madde'; kaynak_ad=$kokAd; baslik=''; metin=$flat; kaynak_url=$url; belge_tarihi=$bugun }) | Out-Null
@@ -140,16 +150,40 @@ function BolumleriCikar([string]$flat,[string]$kokAd,[string]$url,[int]$boy=3500
 }
 
 # --- plan ------------------------------------------------------------------
-$plan=@(); $atlanan=@()
-foreach($d in $envanter.dosyalar){
+# 10.09 AD CAKISMASI ONARIMI (olculdu). Baslik 70 karaktere kirpildigi icin
+# FARKLI belgeler AYNI kok adi uretebiliyor. Olcum: 389 envanter kaydinda 3 ad
+# cakisiyor (6 belge) - ama bunlar buyuk tebligler oldugu icin dilim adlari
+# birebir cakisiyor ve 565 SATIR ayni ada dusuyor.
+#
+# BEDELI: ambar 5.160 satir tasirken repo JSON'u 4.595'te kaliyordu (JSON
+# kaynak_ad ile anahtarli). motor/mevzuat-yukle.ps1 ambari o JSON'dan SIL-YAZ
+# yaptigi icin bir sonraki tam yukleme 565 satiri UCURACAKTI.
+#
+# COZUM: cakisan kok adlara kaynak dosya adi eklenir - "(Mevzuat-266)". Parantez
+# secildi cunku kaynak-kok.ps1 sondaki KOSELI eki kirpiyor; parantez kok adin
+# parcasi olarak kalir ve iki belge birbirinden ayrilir.
+function KokAdHesapla($d){
   $sinif = ($d.dosya -split '-')[0]
-  $bas2 = KisaBaslik $d.baslik 70
-  $kokAd = switch($sinif){
+  $bas2  = KisaBaslik $d.baslik 70
+  $ad = switch($sinif){
     'IlkeKarari' { "SPK Karari - $bas2" }
     'Rehber'     { "SPK Rehber - $bas2" }
     default      { if($d.sayi){ "SPK $($d.tur) ($($d.sayi)) - $bas2" } else { "SPK $($d.tur) - $bas2" } }
   }
-  $kokAd = Temiz $kokAd
+  return (Temiz $ad)
+}
+$adSayaci = @{}
+foreach($d in $envanter.dosyalar){ $a = KokAdHesapla $d; $adSayaci[$a] = 1 + $(if($adSayaci.ContainsKey($a)){ $adSayaci[$a] }else{ 0 }) }
+$cakisan = @($adSayaci.GetEnumerator() | Where-Object { $_.Value -gt 1 })
+if($cakisan.Count -gt 0){ Write-Host ("  ! AD CAKISMASI: {0} kok ad birden fazla belgede - dosya adi eklenerek ayristirilacak" -f $cakisan.Count) -ForegroundColor Yellow }
+
+$plan=@(); $atlanan=@()
+foreach($d in $envanter.dosyalar){
+  $sinif = ($d.dosya -split '-')[0]
+  $kokAd = KokAdHesapla $d
+  if($adSayaci[$kokAd] -gt 1){
+    $kokAd = Temiz ("{0} ({1})" -f $kokAd, [IO.Path]::GetFileNameWithoutExtension($d.dosya))
+  }
   # idempotentlik: bu SPK kaynagi zaten yutulmussa atla
   if((-not $zorla) -and $mevcut.Contains($kokAd)){ $atlanan += [pscustomobject]@{ dosya=$d.dosya; sebep='zaten yutulmus'; ad=$kokAd }; continue }
   # MUKERRER FRENI: yalniz Mevzuat sinifi icin - ayni teblig mevzuat.gov.tr'den gelmis mi?

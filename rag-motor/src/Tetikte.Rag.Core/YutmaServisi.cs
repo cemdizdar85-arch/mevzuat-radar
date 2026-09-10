@@ -50,6 +50,16 @@ public sealed class YutmaServisi(
     {
         var toplam = 0;
 
+        // Gomme ucu kapaliysa parcalar VEKTORSUZ kalir - kayip degil, eksik.
+        // Anahtar gelince 'bakim kosusu' isi (metinsiz gomme yuku) hepsini
+        // tamamlar; parcalar yeniden yutulmaz.
+        if (!gomme.Acik)
+        {
+            log.LogWarning("GOMME KAPALI (GEMINI_API_KEY yok) - parcalar vektorsuz yazildi. " +
+                           "Arama simdilik yalniz tam-metin kanalindan kosar.");
+            return 0;
+        }
+
         while (!ct.IsCancellationRequested)
         {
             var bekleyen = await ambar.VektorsuzParcalarAsync(gomme.Model, _ayar.GommeYiginBoyu, ct);

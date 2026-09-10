@@ -60,4 +60,15 @@ public sealed class RagOptions
     public static string GeminiApiKey =>
         Environment.GetEnvironmentVariable("GEMINI_API_KEY")
         ?? throw new InvalidOperationException("GEMINI_API_KEY ortam degiskeni yok.");
+
+    /// <summary>
+    /// Gomme anahtari var mi? Yoksa motor COKMEZ: arama yalniz tam-metin
+    /// kanalindan kosar (rag.ara'nin RRF'i full outer join oldugu icin bos
+    /// vektor kanali sonucu bozmaz, sadece daraltir).
+    /// Bilincli karar: gomme anahtari operasyonel bir eksiklik, mimari bir
+    /// hata degil. Anahtar gelince vektor kanali kendiliginden acilir -
+    /// tek yapilacak sey 'bakim kosusu' isi eklemektir.
+    /// </summary>
+    public static bool GommeAcik =>
+        !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GEMINI_API_KEY"));
 }

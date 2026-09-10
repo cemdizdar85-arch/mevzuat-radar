@@ -48,7 +48,15 @@ public sealed class SoruUretici(
     public async Task<UretimSonucu> UretAsync(SoruIstegi istek, CancellationToken ct)
     {
         var sorgu = $"{istek.Ders} {istek.Konu}";
-        var sorguVektoru = await gomme.SorguGomAsync(sorgu, ct);
+
+        // ZARIF DUSUS: gomme ucu kapaliysa sifir vektorle devam edilir.
+        // rag.ara'daki RRF bir FULL OUTER JOIN oldugu icin bos vektor kanali
+        // sonucu BOZMAZ, yalnizca daraltir - arama tam-metin kanalindan koşar.
+        // Cokmek yerine daralmak dogru davranis: gomme anahtari operasyonel bir
+        // eksiklik, mimari bir hata degil.
+        var sorguVektoru = gomme.Acik
+            ? await gomme.SorguGomAsync(sorgu, ct)
+            : new float[_ayar.EmbeddingBoyut];
 
         var adaylar = await ambar.AraAsync(
             sorgu, sorguVektoru, gomme.Model,
