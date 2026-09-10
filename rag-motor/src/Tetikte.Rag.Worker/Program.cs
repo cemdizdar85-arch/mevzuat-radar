@@ -84,6 +84,68 @@ if (args.Length > 0)
             gunluk2.LogInformation("BITTI: {Parca} yeni parça · {Vektor} vektör", parca, vektor);
             return;
         }
+        case "yutdizin":
+        {
+            // TOPLU YUTMA — veri/mevzuat/*.json hatti.
+            //   dotnet run -- yutdizin <klasor> [suzgec]
+            //
+            // IDEMPOTENT: parcalar icerik ozetiyle mukerrer frenli, kaynak kodu
+            // upsert. Yarida kalirsa AYNI komut kaldigi yerden devam eder -
+            // yeniden yazilan parca yok, ikinci kez odenen gomme yok.
+            //
+            // GOMME BURADA YAPILMAZ. Once butun dosyalar yutulur, sonra TEK
+            // 'gomme' kosusu butun eksikleri kapatir: 42.000 parcayi 16'lik
+            // yiginlarda gommek, dosya basina 3'luk yiginlarda gommekten
+            // kat kat verimli.
+            if (args.Length < 2) { gunluk2.LogError("kullanim: yutdizin <klasor> [ad-suzgeci]"); return; }
+            var klasor = args[1];
+            var suzgec = args.Length > 2 ? args[2] : "*.json";
+            var yutma4 = sp.GetRequiredService<YutmaServisi>();
+
+            var dosyalar = Directory.GetFiles(klasor, suzgec).OrderBy(x => x).ToList();
+            gunluk2.LogInformation("TOPLU YUTMA: {Adet} dosya · {Klasor}", dosyalar.Count, klasor);
+
+            int okDosya = 0, toplamParca = 0, atlanan = 0;
+            foreach (var yol in dosyalar)
+            {
+                var kod = Path.GetFileNameWithoutExtension(yol).ToUpperInvariant();
+                try
+                {
+                    using var akis = File.OpenRead(yol);
+                    using var belge = await System.Text.Json.JsonDocument.ParseAsync(akis, cancellationToken: CancellationToken.None);
+                    if (!belge.RootElement.TryGetProperty("belgeler", out var dizi)
+                        || dizi.ValueKind != System.Text.Json.JsonValueKind.Array)
+                    { atlanan++; continue; }
+
+                    var metinler = new List<string>();
+                    string ad = kod, tur = "kanun", url = "";
+                    foreach (var b in dizi.EnumerateArray())
+                    {
+                        if (b.TryGetProperty("metin", out var m) && m.GetString() is { Length: > 0 } s)
+                            metinler.Add(s);
+                        if (ad == kod && b.TryGetProperty("kaynak_ad", out var ka) && ka.GetString() is { Length: > 0 } kas)
+                            ad = kas.Split(" m.")[0].Trim();          // "GVK (193 s.K.) m.1 - ..." -> "GVK (193 s.K.)"
+                        if (b.TryGetProperty("tur", out var t) && t.GetString() is { Length: > 0 } ts) tur = ts;
+                        if (url.Length == 0 && b.TryGetProperty("kaynak_url", out var u) && u.GetString() is { Length: > 0 } us) url = us;
+                    }
+                    if (metinler.Count == 0) { atlanan++; continue; }
+
+                    var (parca, _) = await yutma4.BelgelerYutAsync(
+                        kod, ad, tur, url.Length > 0 ? url : null, metinler, CancellationToken.None);
+                    toplamParca += parca; okDosya++;
+                }
+                catch (Exception ex)
+                {
+                    // BIR DOSYA TUM TURU DUSURMEZ. Bozuk JSON atlanir, adi kutuge yazilir.
+                    atlanan++;
+                    gunluk2.LogError("ATLANDI {Kod}: {Hata}", kod, ex.Message);
+                }
+            }
+            gunluk2.LogInformation(
+                "TOPLU YUTMA BITTI: {Ok}/{Toplam} dosya · {Parca} yeni parca · {Atlanan} atlandi. " +
+                "Simdi: dotnet run -- gomme", okDosya, dosyalar.Count, toplamParca, atlanan);
+            return;
+        }
         case "gomme":
         {
             var yutma3 = sp.GetRequiredService<YutmaServisi>();

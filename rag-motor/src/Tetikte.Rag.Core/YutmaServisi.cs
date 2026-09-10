@@ -58,6 +58,49 @@ public sealed class YutmaServisi(
     }
 
     /// <summary>
+    /// ONCEDEN MADDEYE AYRILMIS belgeleri yutar (veri/mevzuat/*.json hatti).
+    ///
+    /// NEDEN AYRI BIR YOL: depoda 867 JSON dosyasi var ve icindeki 42.507 belge
+    /// ZATEN madde madde ayrilmis, kunyesi (tur, kaynak_ad, url, tarih) cikmis
+    /// durumda. Ham metni bastan ayristirmak o emegi COPE ATAR ve iki ambarin
+    /// (eski public semasi / yeni rag semasi) madde sinirlarinin AYRISMASINA
+    /// yol acar - ayni maddeye iki farkli kimlik cikar.
+    ///
+    /// Her belgenin metni yine parcalayicidan gecer: belge tek madde bile olsa
+    /// hedef boyu asiyorsa dilimlenir ("m.94 [3/12]"). Yani madde SINIRI
+    /// JSON'dan, boy DISIPLINI parcalayicidan gelir.
+    /// </summary>
+    public async Task<(int Parca, int Vektor)> BelgelerYutAsync(
+        string kod, string ad, string tur, string? url,
+        IReadOnlyList<string> belgeMetinleri, CancellationToken ct)
+    {
+        var kaynakId = await ambar.KaynakYazAsync(kod, ad, tur, url, ct);
+
+        var hepsi = new List<YeniParca>();
+        foreach (var metin in belgeMetinleri)
+        {
+            if (string.IsNullOrWhiteSpace(metin)) continue;
+            foreach (var p in _parcalayici.Parcala(metin))
+                hepsi.Add(p with { Sira = hepsi.Count });
+        }
+
+        if (hepsi.Count == 0)
+        {
+            log.LogWarning("PARCA CIKMADI: {Kod} ({Belge} belge)", kod, belgeMetinleri.Count);
+            return (0, 0);
+        }
+
+        var yeni = await ambar.ParcaYazAsync(kaynakId, hepsi, ct);
+        log.LogInformation("{Kod}: {Belge} belge -> {Toplam} parca, {Yeni} yeni",
+            kod, belgeMetinleri.Count, hepsi.Count, yeni.Count);
+
+        // Gomme BURADA YAPILMAZ. Toplu yutmada her dosyadan sonra gomme
+        // calistirmak yigin verimini oldurur (16'lik yigin yerine 3'luk yigin).
+        // Yutma bitince TEK SEFERDE 'gomme' bakim kosusu calisir.
+        return (yeni.Count, 0);
+    }
+
+    /// <summary>
     /// Vektoru olmayan parcalari yiginlar halinde gomer.
     /// Yigin boyu ayardan gelir: tek tek gommek hem yavas hem pahali,
     /// cok buyuk yigin ise tek hatada cok isi cope atar.

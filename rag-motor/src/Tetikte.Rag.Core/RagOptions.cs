@@ -46,17 +46,25 @@ public sealed class RagOptions
     /// donusunu azaltir. Kota dolunca da 32'lik yiginin tekrari 32 istek yer.
     /// 16: aglama ile kota israfi arasinda olculmus orta yol.
     /// </summary>
-    public int GommeYiginBoyu { get; set; } = 16;
+    public int GommeYiginBoyu { get; set; } = 64;
 
     /// <summary>
     /// Gomme yiginlari arasi bekleme (ms).
-    /// OLCULDU (10.09): Gemini UCRETSIZ kotasi DAKIKALIK istek sinirlidir.
+    ///
+    /// OLCULDU (10.09 sabah): Gemini UCRETSIZ kotasi DAKIKALIK istek sinirlidir.
     /// Yiginlari arka arkaya atmak 429 uretiyor - hatayi ONLEMEK yerine
-    /// URETIYOR. Polly 429'da retry-after'a uyup toparliyor ama her seferinde
-    /// bir dakika kaybediliyor. Fren, o kaybi bastan onler.
-    /// Ucretli kotaya gecilirse 0'a cekilebilir.
+    /// URETIYOR. Fren, kaybi bastan onler.
+    ///
+    /// 10.09 aksam - UCRETLI KADEMEYE GECILDI, fren yeniden ayarlandi:
+    /// 9.000 ms + 16'lik yigin = dakikada ~107 parca. 42.000 parcalik toplu
+    /// yutma icin 6,5 SAAT eder. Asil maliyet para degil ZAMANDI.
+    /// 2.500 ms + 64'luk yigin = dakikada ~1.536 parca -> ~30 dakika.
+    ///
+    /// TAVAN NEDEN KALDIRILMADI: batchEmbedContents yigin icindeki HER PARCAYI
+    /// ayri istek sayiyor (olculdu). Tier 1 dakikalik sinirin altinda kalmak
+    /// icin fren DURUYOR, yalnizca kadameye gore ayarlandi.
     /// </summary>
-    public int GommeFrenMs { get; set; } = 9000;
+    public int GommeFrenMs { get; set; } = 2500;
 
     // --- Uretim tavani ------------------------------------------------------
     /// <summary>
