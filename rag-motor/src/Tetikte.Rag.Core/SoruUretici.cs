@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Anthropic;
 using Anthropic.Models.Messages;
 using Microsoft.Extensions.Logging;
@@ -198,12 +199,25 @@ public sealed class SoruUretici(
     }
 
     /// <summary>
-    /// KAPI. Model ne derse desin, bu uc sart saglanmadan soru ambara girmez.
+    /// SIRALAMA / EZBER SORUSU KAPISI (Cem kusur bildirimi, 10.09.2026).
+    ///
+    /// Kural 10 istemde yaziyor ama ISTEM YUMUSAK BIR KAPIDIR: model onu
+    /// %100 uygulamaz. Olculdu - kural 9 (tarihce) eklendikten sonra ayni
+    /// turda "rayic bedel KACINCI olcu olarak yer almaktadir?" sorusu cikti.
+    /// Kural yazmak isin yarisi; mekanik kapi diger yarisi.
+    /// </summary>
+    private static readonly Regex SiralamaDeseni = new(
+        @"ka[çc]([ıi])nc([ıi])|ka[çc]\s+numaral([ıi])|hangi\s+ben[dt]|bendinde\s+d[üu]zenlen|s([ıi])ra\s+numaras([ıi])|ka[çc]([ıi])nc([ıi])\s+f([ıi])kra",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+    /// <summary>
+    /// KAPI. Model ne derse desin, bu sartlar saglanmadan soru ambara girmez.
     /// Bicimsel ama ucuz; asil hukuki denetim ayri bir hakem adimidir.
     /// </summary>
     private static bool Gecerli(UretilenSoru s, AramaSonucu dayanak)
     {
         if (string.IsNullOrWhiteSpace(s.Soru)) return false;
+        if (SiralamaDeseni.IsMatch(s.Soru)) return false;   // kural 10
         if (!"ABCDE".Contains(s.Dogru, StringComparison.Ordinal) || s.Dogru.Length != 1) return false;
 
         var siklar = new[] { s.Siklar.A, s.Siklar.B, s.Siklar.C, s.Siklar.D, s.Siklar.E };
@@ -248,6 +262,12 @@ public sealed class SoruUretici(
            "en son hangi degisiklik yapildi" gibi sorular YASAKTIR. Sinav
            adayinin bilmesi gereken sey hukmun KENDISIDIR, ne zaman
            degistirildigi degil.
+        10. SIRALAMA / EZBER SORULMAZ. Bir hukmun kanun metninde KACINCI sirada,
+           kacinci bentte, kacinci fikrada durdugu SORULMAZ: "rayic bedel
+           kacinci olcudur", "hangi bentte duzenlenmistir", "kac numarali
+           fikradadir" YASAKTIR. Bunlar dizgi bilgisidir, hukuk bilgisi degil;
+           gercek sinavda sorulmaz. Bunun yerine hukmun UYGULANISINI, SARTLARINI,
+           ISTISNALARINI ya da SURELERINI sor.
         """;
 
     private static readonly Dictionary<string, JsonElement> Sema = new()

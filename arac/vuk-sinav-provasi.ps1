@@ -168,6 +168,12 @@ DEGISMEZ KURALLAR:
    "en son hangi degisiklik yapildi" gibi sorular YASAKTIR. Sinav
    adayinin bilmesi gereken sey hukmun KENDISIDIR, ne zaman
    degistirildigi degil.
+10. SIRALAMA / EZBER SORULMAZ. Bir hukmun kanun metninde KACINCI sirada,
+   kacinci bentte, kacinci fikrada durdugu SORULMAZ: "rayic bedel kacinci
+   olcudur", "hangi bentte duzenlenmistir", "kac numarali fikradadir"
+   YASAKTIR. Bunlar dizgi bilgisidir, hukuk bilgisi degil; gercek sinavda
+   sorulmaz. Bunun yerine hukmun UYGULANISINI, SARTLARINI, ISTISNALARINI
+   ya da SURELERINI sor.
 "@
 
 $sikSema = @{ type='object'; additionalProperties=$false; required=@('A','B','C','D','E')
@@ -213,8 +219,15 @@ $(if($kirp){ "NOT: metin uzun oldugu icin ilk 6.000 karakteri gosterildi. GORMED
 }
 
 # --- 3) KAPILAR: SoruUretici.Gecerli() ile BIREBIR AYNI --------------------
+# KURAL 10'UN MEKANIK KAPISI (Cem kusur bildirimi 10.09).
+# Istem yumusak bir kapidir: kural 9 eklendikten SONRA ayni turda
+# "rayic bedel KACINCI olcu olarak yer almaktadir?" cikti. Kural yazmak isin
+# yarisi; kapi diger yarisi. SoruUretici.cs'teki SiralamaDeseni ile SENKRON.
+$RX_SIRALAMA = [regex]::new('ka[çc]([ıi])nc([ıi])|ka[çc]\s+numaral([ıi])|hangi\s+ben[dt]|bendinde\s+d[üu]zenlen|s([ıi])ra\s+numaras([ıi])','IgnoreCase')
+
 function Gecerli($s){
   if([string]::IsNullOrWhiteSpace("$($s.soru)")){ return 'bos soru' }
+  if($RX_SIRALAMA.IsMatch("$($s.soru)")){ return 'siralama/ezber sorusu (kural 10)' }
   $d="$($s.dogru)"
   if($d.Length -ne 1 -or 'ABCDE'.IndexOf($d) -lt 0){ return "gecersiz dogru sik: '$d'" }
   $siklar=@("$($s.siklar.A)","$($s.siklar.B)","$($s.siklar.C)","$($s.siklar.D)","$($s.siklar.E)")
