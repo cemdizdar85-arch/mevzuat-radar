@@ -6,7 +6,12 @@
 #   -ButceTavan : bu grubun USD tavani; bedel-kayit.jsonl'den sgs-a6-* toplami okunur, asilirsa durur.
 #   -Toplu  : verilirse toplu mod (varsayilan ANLIK).
 # Her etiket icin uretici yeniden okunur; parti dosyasi varsa uretici kendi cache'inden devam eder.
-param([Parameter(Mandatory)][string]$Grup, [double]$ButceTavan = 150.0, [switch]$Toplu, [int]$Bekle = 0)
+# 10.09 Cem: "ilk once hep ucuz olan yerden dene, toplu olmazsa pahali yere" -> varsayilan TOPLU, faz 20 dk'da
+# donmezse uretici kendi anliga duser (motor satir 45, MEVZUAT_TOPLU_BEKLE_DK). -Anlik verilirse dogrudan anlik.
+# -TurMin/-TurMax: dalga secimi. 1. dalga tur 1-6 (05:02'de basladi); 2. dalga tur 7+ (tur tavaninin kestigi
+# en onemli konular: ortak maliyet dagitimi, dikey yuzde, denetim kaniti...). Cem 10.09: "en onemliler Maliyet, FMuh".
+param([Parameter(Mandatory)][string]$Grup, [double]$ButceTavan = 150.0, [switch]$Anlik, [int]$TopluBekleDk = 20, [int]$Bekle = 0, [int]$TurMin = 1, [int]$TurMax = 6)
+$Toplu = -not $Anlik
 $ErrorActionPreference = 'Continue'
 $kok = Split-Path $PSScriptRoot -Parent
 Set-Location $kok
@@ -24,11 +29,12 @@ function A6Bedel {
 }
 $gruplar = @($Grup -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 $tum = @((ConvertFrom-Json -InputObject (Get-Content (Join-Path $kok 'veri\sinav\plan-sgs-a6.json') -Raw -Encoding UTF8)) | ForEach-Object { $_ })
-$plan = @($tum | Where-Object { $gruplar -contains "$($_.dersAd)" } | Sort-Object tur, zorluk)
-"GRUP [$($gruplar -join ', ')] · etiket $($plan.Count) · soru $(($plan | Measure-Object adet -Sum).Sum) · mod $(if($Toplu){'TOPLU'}else{'ANLIK'}) · tavan $ButceTavan USD (sgs-a6 toplam)"
+$sevSira = @{ 'kolay' = 0; 'zor' = 1; 'cokzor' = 2 }   # alfabetik degil, kolaydan zora
+$plan = @($tum | Where-Object { $gruplar -contains "$($_.dersAd)" -and [int]$_.tur -ge $TurMin -and [int]$_.tur -le $TurMax } | Sort-Object tur, { $sevSira["$($_.zorluk)"] })
+"GRUP [$($gruplar -join ', ')] · tur $TurMin-$TurMax · etiket $($plan.Count) · soru $(($plan | Measure-Object adet -Sum).Sum) · mod $(if($Toplu){'TOPLU'}else{'ANLIK'}) · tavan $ButceTavan USD (sgs-a6 toplam)"
 "sgs-a6 su ana kadar harcanan (butun gruplar): $(A6Bedel) USD"
 
-if ($Toplu) { $env:MEVZUAT_TOPLU = '1'; $env:MEVZUAT_TOPLU_BEKLE_DK = '1440'; $env:MEVZUAT_TOPLU_PARCA = '30' } else { $env:MEVZUAT_TOPLU = '0' }
+if ($Toplu) { $env:MEVZUAT_TOPLU = '1'; $env:MEVZUAT_TOPLU_BEKLE_DK = "$TopluBekleDk"; $env:MEVZUAT_TOPLU_PARCA = '30' } else { $env:MEVZUAT_TOPLU = '0' }
 $env:MEVZUAT_CLAIM = '0'
 New-Item -ItemType Directory -Force (Join-Path $kok 'veri\fabrika\kosucu-log') | Out-Null
 
