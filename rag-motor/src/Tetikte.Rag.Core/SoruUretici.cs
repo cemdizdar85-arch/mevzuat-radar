@@ -58,6 +58,18 @@ public sealed class SoruUretici(
     {
         var zorluklar = istek.Zorluklar.Count > 0 ? istek.Zorluklar : KonuIstegi.UcSeviye;
 
+        // ZORLUK ADI KAPISI — uretime BASLAMADAN once.
+        // 10.09'da koda "orta" diye bir seviye adi uyduruldu; hata ancak model
+        // cagrildiktan ve para odendikten SONRA, ambara yazarken cikti
+        // (23514 soru_zorluk_check). Yani bedeli odenmis bir soru cope gitti.
+        // Ad denetimi artik ONCE yapilir: yanlis ad tek jeton harcatmaz.
+        var gecersiz = zorluklar.Except(KonuIstegi.UcSeviye, StringComparer.Ordinal).ToList();
+        if (gecersiz.Count > 0)
+            throw new ArgumentException(
+                $"GECERSIZ ZORLUK ADI: {string.Join(", ", gecersiz)}. " +
+                $"Depo standardi yalniz sunlardir: {string.Join(", ", KonuIstegi.UcSeviye)} " +
+                "(sql/001_init.sql · soru_zorluk_check).", nameof(istek));
+
         var dayanak = await DayanakBulAsync(istek.Ders, istek.Konu, ct);
         if (dayanak is null)
             return [new UretimSonucu([], 0, _ayar.UretimModel, 0, 0, "dayanak yok")];
@@ -350,9 +362,11 @@ public sealed class SoruUretici(
     ///
     /// Uc seviye "daha uzun soru = daha zor" demek DEGILDIR. Fark, adaydan
     /// istenen ZIHINSEL ISLEMDE:
-    ///   kolay -> hukmu TANIMA        (tek unsur, dogrudan)
-    ///   orta  -> hukmu AYIRT ETME    (sart/istisna, iki unsurun bilesimi)
-    ///   zor   -> hukmu UYGULAMA      (olay kurgusu, sonuca goturme)
+    ///   kolay  -> hukmu TANIMA        (tek unsur, dogrudan)
+    ///   zor    -> hukmu AYIRT ETME    (sart/istisna, iki unsurun bilesimi)
+    ///   cokzor -> hukmu UYGULAMA      (olay kurgusu, sonuca goturme)
+    ///
+    /// Adlar depo standardi: kolay/zor/cokzor (bkz. KonuIstegi.UcSeviye).
     /// </summary>
     private static string ZorlukYonergesi(string zorluk) => zorluk.ToLowerInvariant() switch
     {
@@ -365,8 +379,8 @@ public sealed class SoruUretici(
             duraksamadan bulacagi netlikte olmali.
             """,
 
-        "orta" => """
-            ZORLUK YONERGESI - ORTA:
+        "zor" => """
+            ZORLUK YONERGESI - ZOR:
             Hukmu AYIRT ETME seviyesi. Iki unsuru birlikte sor ya da kural ile
             ISTISNASINI karsi karsiya getir: "sart saglanmazsa ne olur",
             "hangi hal bu kapsamin DISINDADIR", "kural su, peki su durumda".
@@ -376,7 +390,7 @@ public sealed class SoruUretici(
             """,
 
         _ => """
-            ZORLUK YONERGESI - ZOR:
+            ZORLUK YONERGESI - COK ZOR:
             Hukmu UYGULAMA seviyesi. Somut bir OLAY kurgusu ver (mukellef,
             islem, tarih/tutar metinde varsa) ve adaydan hukmu o olaya
             uygulayip SONUCA gitmesini iste. Birden cok sartin birlikte

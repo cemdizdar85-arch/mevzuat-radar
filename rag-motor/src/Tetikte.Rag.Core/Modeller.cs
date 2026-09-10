@@ -48,8 +48,17 @@ public sealed record KonuIstegi(
     IReadOnlyList<string> Zorluklar,
     int AdetHer)
 {
-    /// <summary>Sinav havuzunun uc seviyesi. Sira KOLAYDAN ZORA - kutukte de boyle okunur.</summary>
-    public static readonly string[] UcSeviye = ["kolay", "orta", "zor"];
+    /// <summary>
+    /// Sinav havuzunun uc seviyesi. Sira KOLAYDAN ZORA.
+    ///
+    /// ADLAR DEPO STANDARDIDIR, uydurulmaz: veri/sinav/konu/ altinda
+    /// kolay(62) · zor(61) · cokzor(51) dosya var ve sql/001_init.sql'deki
+    /// CHECK kisiti da tam olarak bu ucunu kabul ediyor:
+    ///   check (zorluk in ('kolay','zor','cokzor'))
+    /// 10.09'da buraya "orta" yazildi; canli kosuda veritabani REDDETTI
+    /// (23514 soru_zorluk_check). Kisit dogru davrandi - ad uyduran koddu.
+    /// </summary>
+    public static readonly string[] UcSeviye = ["kolay", "zor", "cokzor"];
 }
 
 // --- Modelin dondurecegi JSON. Sema, structured output ile ZORLANIR --------
