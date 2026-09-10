@@ -1,15 +1,21 @@
 {
-  "tarih": "09.09.2026 21:52",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 1,
+  "tarih": "10.09.2026 08:48",
+  "durum": "ALARM",
+  "kirmizi": 1,
+  "kurtarma": 3,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
-  "maddeler": [],
+  "maddeler": [
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 263.3 saat once (esik 30s)). Actions loguna bak."
+  ],
   "kurtarilan": [
-    "Gunluk Kanun Aynasi -> son basarili kosu 252.4 saat once (esik 30s) -> kurtarma: tetiklendi"
+    "Kaynak Nobetcisi (ihale+kaynaklar) -> son basarili kosu 35.9 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Kasa Sayimi -> Vitrin kanit sayilari damgasi 08.09.2026 (57 saat eski; esik 48s) -> kurtarma: tetiklendi",
+    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 08.09.2026 17:56 (39 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
   ],
   "kurtarilan_anahtar": [
-    "KOSU:mevzuat.yml"
+    "KOSU:kaynak.yml",
+    "VERI:vitrin-sayilar.json",
+    "VERI:ihale-yurtici.json"
   ]
 }
