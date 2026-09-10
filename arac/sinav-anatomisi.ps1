@@ -69,7 +69,15 @@ $DERSLER=[ordered]@{
   'Meslek Hukuku'       = @('3568','smmm','ymm','turmob','meslek mensub','oda','ruhsat','staj','disiplin','serbest muhasebeci')
   'Is ve Sosyal Guvenlik'= @('4857','is kanunu','is sozlesme','sendika','6356','5510','sosyal sigorta','kidem','ihbar','prim','isci')
   'Vergi Hukuku'        = @('213 sayili','vuk','3065','katma deger vergisi kanun','5520','kurumlar vergisi kanun','193','gelir vergisi kanun','damga vergisi','tarhiyat','vergi ziyai','uzlasma','beyanname ver')
-  'Ticaret ve Borclar'  = @('6102','turk ticaret kanun','6098','turk borclar kanun','sirket tur','anonim sirket','limited sirket','ciro','kambiyo senet','sebepsiz zenginlesme','temsil','vekalet','haksiz fiil')
+  # 🔴 10.09.2026 — 'Ticaret ve Borclar' TEK DERS OLARAK OLCULUYORDU, YANLIS.
+  # TESMER Yonergesi m.6.2 (resmi liste: veri/ders-profili.json) bunlari AYRI
+  # iki ders sayar ve HER BIRINDEN 6 SORU cikar. Birlesik olcum yuzunden
+  # "Ticaret ve Borclar medyan 136 krk / p90 458" rakami IKI DERSIN KARISIMI
+  # oldu; ders bazli uzunluk tavani her iki ders icin de yanlis kalibre oldu.
+  # Ayrim kanun bazinda net: 6102 TTK -> Ticaret, 6098 TBK -> Borclar.
+  # Ders adlari veri/ders-sozlugu.json'daki RESMI adlarla birebir yazilir.
+  'Ticaret Hukuku'      = @('6102','turk ticaret kanun','ticaret sicil','tacir','ticari isletme','sirket tur','anonim sirket','limited sirket','yonetim kurulu','genel kurul','pay sahib','birlesme','bolunme','ciro','kambiyo senet','police','bono','cek','marka','haksiz rekabet')
+  'Borclar Hukuku'      = @('6098','turk borclar kanun','sebepsiz zenginlesme','haksiz fiil','temsil','vekalet','kefalet','satim sozlesme','kira sozlesme','ifa yeri','borcun ifas','zamanasim','tazminat','muteselsil','alacagin devri','borcun nakli','irade sakat','hata hile ikrah')
 }
 function DersBul([string]$g){
   $k=Katla $g; $enIyi=''; $enPuan=0

@@ -246,6 +246,102 @@ if (args.Length > 0)
             Console.WriteLine(await ambar5.OlcAsync(args[1], CancellationToken.None));
             return;
         }
+        case "kartoner":
+        {
+            // ASAMA 1 — KONU KARTI ONERISI (Cem, 10.09: "Asama 1'i tum 1.410 konuda kos")
+            //
+            // Her konu icin hibrit aramayla EN IYI 3 madde adayini cikarir.
+            // KART YAZMAZ - yalnizca ONERIR. Sebep: VUK'ta olculdu, hibrit arama
+            // 3/5 (yaklasik %60 isabet). %60'lik bir oneriyi dogrudan karta
+            // cevirmek, %40 yanlis dayanagi KAYIT haline getirir - aramadan
+            // daha kotu olur, cunku kart "kesin cevap" muamelesi gorur.
+            //
+            // Bu yuzden akis uc asamali: motor ONERIR -> hakem DOGRULAR ->
+            // Cem orneklemi MUHURLER (dogrulandi = true).
+            //
+            //   dotnet run -- kartoner veri/kart-adaylari.json [cikti.json]
+            if (args.Length < 2) { gunluk2.LogError("kullanim: kartoner <aday-listesi.json> [cikti.json]"); return; }
+            var ambar6 = sp.GetRequiredService<Ambar>();
+            var gomme6 = sp.GetRequiredService<IGommeIstemcisi>();
+            var ayar6  = sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<RagOptions>>().Value;
+
+            using var adayBelge = System.Text.Json.JsonDocument.Parse(await File.ReadAllTextAsync(args[1]));
+            var adaylar6 = adayBelge.RootElement.GetProperty("konular").EnumerateArray().ToList();
+            gunluk2.LogInformation("KART ONERISI: {Adet} konu · gomme {Durum}", adaylar6.Count, gomme6.Acik ? "ACIK" : "KAPALI");
+
+            var oneriler = new List<object>();
+            int guclu = 0, zayif = 0, yok = 0, sira = 0;
+            foreach (var a in adaylar6)
+            {
+                sira++;
+                var konu6 = a.TryGetProperty("konu", out var kk) ? kk.GetString() ?? "" : "";
+                var ders6 = a.TryGetProperty("ders", out var dd) && dd.ValueKind == System.Text.Json.JsonValueKind.String
+                            ? dd.GetString() ?? "" : "";
+                if (konu6.Length < 3) continue;
+
+                try
+                {
+                    var sorgu6 = string.IsNullOrWhiteSpace(ders6) ? konu6 : $"{ders6} {konu6}";
+                    float[]? vek6 = gomme6.Acik ? await gomme6.SorguGomAsync(sorgu6, CancellationToken.None) : null;
+                    var bulunan = await ambar6.AraAsync(sorgu6, vek6, gomme6.Model, 3,
+                        ayar6.AramaAdayHavuzu, kaynakTur: null, CancellationToken.None);
+
+                    // GUC OLCUTU: en iyi adayin RRF'i. Iki kanal da bulduysa
+                    // (v-sira VE m-sira dolu) sinyal guclu; yalniz biri bulduysa zayif.
+                    var ilk6 = bulunan.FirstOrDefault();
+                    var ikiKanal = ilk6 is not null && ilk6.VektorSira.HasValue && ilk6.MetinSira.HasValue;
+                    var guc = ilk6 is null ? "YOK" : (ikiKanal ? "GUCLU" : "ZAYIF");
+                    if (guc == "GUCLU") guclu++; else if (guc == "ZAYIF") zayif++; else yok++;
+
+                    oneriler.Add(new
+                    {
+                        ders = ders6,
+                        konu = konu6,
+                        guc,
+                        adaylar = bulunan.Select(b => new
+                        {
+                            kaynak_kod = b.KaynakKod,
+                            kaynak_ad  = b.KaynakAd,
+                            madde_no   = b.MaddeNo,
+                            rrf        = Math.Round(b.Rrf, 5),
+                            v_sira     = b.VektorSira,
+                            m_sira     = b.MetinSira,
+                            ornek      = b.Metin.Length > 220 ? b.Metin[..220] : b.Metin
+                        }).ToList()
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // BIR KONU TUM TURU DUSURMEZ.
+                    yok++;
+                    oneriler.Add(new { ders = ders6, konu = konu6, guc = "HATA", hata = ex.Message, adaylar = new List<object>() });
+                }
+
+                if (sira % 100 == 0)
+                    gunluk2.LogInformation("  {Sira}/{Toplam} · guclu {G} · zayif {Z} · yok {Y}",
+                        sira, adaylar6.Count, guclu, zayif, yok);
+            }
+
+            var ciktiYol = args.Length > 2 ? args[2] : "veri/kart-onerileri.json";
+            var secenek = new System.Text.Json.JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+            await File.WriteAllTextAsync(ciktiYol, System.Text.Json.JsonSerializer.Serialize(new
+            {
+                olcum = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+                uyari = "BU LISTE KART DEGIL, ONERIDIR. Hibrit arama VUK'ta 3/5 olculdu (~%60). Hakem dogrulamadan karta cevrilmez.",
+                gomme_acik = gomme6.Acik,
+                toplam = oneriler.Count,
+                guclu, zayif, yok,
+                oneriler
+            }, secenek));
+
+            gunluk2.LogInformation("KART ONERISI BITTI: {T} konu · GUCLU {G} · ZAYIF {Z} · YOK {Y} -> {Yol}",
+                oneriler.Count, guclu, zayif, yok, Path.GetFullPath(ciktiYol));
+            return;
+        }
         case "rapor":
         {
             // Uretilen sorulari OKUNUR metne cevirir. JSON insan icin degil;

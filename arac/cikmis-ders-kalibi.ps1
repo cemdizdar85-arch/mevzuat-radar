@@ -48,7 +48,12 @@ $DERSLER=[ordered]@{
   'Meslek Hukuku'       = @('3568','smmm','ymm','turmob','meslek mensub','oda','ruhsat','staj','disiplin','serbest muhasebeci')
   'Is ve Sosyal Guvenlik'= @('4857','is kanunu','is sozlesme','sendika','6356','5510','sosyal sigorta','kidem','ihbar','prim','isci')
   'Vergi Hukuku'        = @('213 sayili','vuk','3065','katma deger vergisi kanun','5520','kurumlar vergisi kanun','193','gelir vergisi kanun','damga vergisi','tarhiyat','vergi ziyai','uzlasma','beyanname ver')
-  'Ticaret ve Borclar'  = @('6102','turk ticaret kanun','6098','turk borclar kanun','sirket tur','anonim sirket','limited sirket','ciro','kambiyo senet','sebepsiz zenginlesme','temsil','vekalet','haksiz fiil')
+  # 🔴 10.09.2026 — bkz. arac/sinav-anatomisi.ps1 ayni duzeltme.
+  # TESMER Yonergesi m.6.2: Ticaret Hukuku ve Borclar Hukuku AYRI iki ders
+  # (6+6 soru). Birlesik olcum ders kalibini ikisi icin de bozuyordu.
+  # IKI DOSYA SENKRON TUTULUR - biri degisirse digeri de degisir.
+  'Ticaret Hukuku'      = @('6102','turk ticaret kanun','ticaret sicil','tacir','ticari isletme','sirket tur','anonim sirket','limited sirket','yonetim kurulu','genel kurul','pay sahib','birlesme','bolunme','ciro','kambiyo senet','police','bono','cek','marka','haksiz rekabet')
+  'Borclar Hukuku'      = @('6098','turk borclar kanun','sebepsiz zenginlesme','haksiz fiil','temsil','vekalet','kefalet','satim sozlesme','kira sozlesme','ifa yeri','borcun ifas','zamanasim','tazminat','muteselsil','alacagin devri','borcun nakli','irade sakat','hata hile ikrah')
 }
 function DersBul([string]$govde){
   $k=Katla $govde

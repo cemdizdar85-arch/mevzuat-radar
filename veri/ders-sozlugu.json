@@ -1,0 +1,584 @@
+﻿{
+    "olcum":  "2026-09-10 21:29",
+    "kaynak":  "veri/ders-profili.json (TESMER Yonergesi m.6.2 / KGK ilani / SPL)",
+    "kural":  "Ders adi karsilastiran HER olcum bu sozlukten gecer. Ham metin karsilastirmasi YAPILMAZ.",
+    "ders_sayisi":  54,
+    "dersler":  [
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Turkce",
+                        "ham_ad":  "Turkce",
+                        "anahtar":  "turkce",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Matematik",
+                        "ham_ad":  "Matematik",
+                        "anahtar":  "matematik",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+                        "ham_ad":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+                        "anahtar":  "ataturk ilkeleri ve inkilap tarihi",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Ataturk Ilkeleri",
+                                                "nereden":  "sinav-anatomisi-sgs.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Yabanci Dil",
+                        "ham_ad":  "Yabanci Dil",
+                        "anahtar":  "yabanci dil",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Finansal Muhasebe",
+                        "ham_ad":  "Finansal Muhasebe",
+                        "anahtar":  "finansal muhasebe",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Maliyet Muhasebesi",
+                        "ham_ad":  "Maliyet Muhasebesi",
+                        "anahtar":  "maliyet muhasebesi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Mali Tablolar Analizi",
+                        "ham_ad":  "Mali Tablolar Analizi",
+                        "anahtar":  "mali tablolar analizi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Denetim",
+                        "ham_ad":  "Denetim",
+                        "anahtar":  "denetim",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Ekonomi",
+                        "ham_ad":  "Ekonomi",
+                        "anahtar":  "ekonomi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Maliye",
+                        "ham_ad":  "Maliye",
+                        "anahtar":  "maliye",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Meslek Hukuku",
+                        "ham_ad":  "Meslek Hukuku",
+                        "anahtar":  "meslek hukuku",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Is ve Sosyal Guvenlik Hukuku",
+                        "ham_ad":  "Is ve Sosyal Guvenlik Hukuku",
+                        "anahtar":  "is ve sosyal guvenlik hukuku",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Is ve Sosyal Guvenlik",
+                                                "nereden":  "sinav-anatomisi-sgs.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Vergi Hukuku",
+                        "ham_ad":  "Vergi Hukuku",
+                        "anahtar":  "vergi hukuku",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Ticaret Hukuku",
+                        "ham_ad":  "Ticaret Hukuku",
+                        "anahtar":  "ticaret hukuku",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  "AYRISMA: sinav-anatomisi-sgs.json bu dersi \"Ticaret ve Borclar\" adiyla BORCLAR HUKUKU ile BIRLESTIRMIS. TESMER Yonergesi m.6.2 ikisini AYRI sayar (6+6 soru). Bu dersin anatomi rakamlari (medyan uzunluk, zorluk, negatif oran) IKI DERSIN KARISIMIDIR - ders bazli tavan kalibrasyonu bu iki ders icin GUVENILMEZ."
+                    },
+                    {
+                        "sinav":  "STAJA BAŞLAMA (SGS)",
+                        "resmi_ad":  "Borclar Hukuku",
+                        "ham_ad":  "Borclar Hukuku",
+                        "anahtar":  "borclar hukuku",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  "AYRISMA: sinav-anatomisi-sgs.json bu dersi \"Ticaret ve Borclar\" adiyla BORCLAR HUKUKU ile BIRLESTIRMIS. TESMER Yonergesi m.6.2 ikisini AYRI sayar (6+6 soru). Bu dersin anatomi rakamlari (medyan uzunluk, zorluk, negatif oran) IKI DERSIN KARISIMIDIR - ders bazli tavan kalibrasyonu bu iki ders icin GUVENILMEZ."
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Finansal Muhasebe",
+                        "ham_ad":  "Finansal Muhasebe",
+                        "anahtar":  "finansal muhasebe",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Finansal Tablolar ve Analizi",
+                        "ham_ad":  "Finansal Tablolar ve Analizi",
+                        "anahtar":  "finansal tablolar ve analizi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Maliyet Muhasebesi",
+                        "ham_ad":  "Maliyet Muhasebesi",
+                        "anahtar":  "maliyet muhasebesi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Muhasebe Denetimi",
+                        "ham_ad":  "Muhasebe Denetimi",
+                        "anahtar":  "muhasebe denetimi",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Muhasebe Denetimi",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Vergi Mevzuatı ve Uygulaması",
+                        "ham_ad":  "Vergi Mevzuatı ve Uygulaması",
+                        "anahtar":  "vergi mevzuati ve uygulamasi",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Vergi Mevzuatı ve Uygulaması",
+                                                "nereden":  "rag.konu_madde"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                        "ham_ad":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                        "anahtar":  "hukuk (ticaret h., borclar h., is h., ssk ve bag-kur mevzuati, idari yargilama h.)",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Hukuk",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                        "ham_ad":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                        "anahtar":  "muhasebecilik ve mali musavirlik meslek hukuku",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                        "resmi_ad":  "Sermaye Piyasası Mevzuatı",
+                        "ham_ad":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                        "anahtar":  "sermaye piyasasi mevzuati",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Sermaye Piyasasi Mevzuati",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Türkiye Muhasebe Standartları",
+                        "ham_ad":  "a) Türkiye Muhasebe Standartları",
+                        "anahtar":  "turkiye muhasebe standartlari",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Turkiye Muhasebe Standartlari",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Türkiye Denetim Standartları",
+                        "ham_ad":  "b) Türkiye Denetim Standartları",
+                        "anahtar":  "turkiye denetim standartlari",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Turkiye Denetim Standartlari",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                        "ham_ad":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                        "anahtar":  "kurumsal yonetim ilkeleri ve finansal yonetim",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Kurumsal Yonetim",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Sermaye Piyasası Mevzuatı",
+                        "ham_ad":  "ç) Sermaye Piyasası Mevzuatı",
+                        "anahtar":  "sermaye piyasasi mevzuati",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Bankacılık Mevzuatı",
+                        "ham_ad":  "d) Bankacılık Mevzuatı",
+                        "anahtar":  "bankacilik mevzuati",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Bankacilik",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                        "ham_ad":  "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
+                        "anahtar":  "sigortacilik ve ozel emeklilik mevzuati",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Sigortacilik",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Kurumsal Sürdürülebilirlik Raporlaması",
+                        "ham_ad":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
+                        "anahtar":  "kurumsal surdurulebilirlik raporlamasi",
+                        "takma_adlar":  [
+                                            {
+                                                "ad":  "Surdurulebilirlik",
+                                                "nereden":  "kart-adaylari.json"
+                                            }
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                        "resmi_ad":  "Sürdürülebilirlik Denetimi",
+                        "ham_ad":  "g) Sürdürülebilirlik Denetimi",
+                        "anahtar":  "surdurulebilirlik denetimi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Dar Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları",
+                        "ham_ad":  "Dar Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları  [1001]",
+                        "anahtar":  "dar kapsamli sermaye piyasasi mevzuati ve meslek kurallari",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Sermaye Piyasası Araçları 1",
+                        "ham_ad":  "Sermaye Piyasası Araçları 1  [1003]",
+                        "anahtar":  "sermaye piyasasi araclari 1",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Yatırım Kuruluşları",
+                        "ham_ad":  "Yatırım Kuruluşları  [1005]",
+                        "anahtar":  "yatirim kuruluslari",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Takas, Saklama ve Operasyon İşlemleri",
+                        "ham_ad":  "Takas, Saklama ve Operasyon İşlemleri  [1012]",
+                        "anahtar":  "takas, saklama ve operasyon islemleri",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Geniş Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları",
+                        "ham_ad":  "Geniş Kapsamlı Sermaye Piyasası Mevzuatı ve Meslek Kuralları  [1002]",
+                        "anahtar":  "genis kapsamli sermaye piyasasi mevzuati ve meslek kurallari",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Sermaye Piyasası Araçları 2",
+                        "ham_ad":  "Sermaye Piyasası Araçları 2  [1004]",
+                        "anahtar":  "sermaye piyasasi araclari 2",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Finansal Piyasalar",
+                        "ham_ad":  "Finansal Piyasalar  [1006]",
+                        "anahtar":  "finansal piyasalar",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Finansal Yönetim ve Mali Analiz",
+                        "ham_ad":  "Finansal Yönetim ve Mali Analiz  [1007]",
+                        "anahtar":  "finansal yonetim ve mali analiz",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Ticaret Hukuku",
+                        "ham_ad":  "Ticaret Hukuku  [1010]",
+                        "anahtar":  "ticaret hukuku",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Muhasebe ve Finansal Raporlama",
+                        "ham_ad":  "Muhasebe ve Finansal Raporlama  [1016]",
+                        "anahtar":  "muhasebe ve finansal raporlama",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Genel Ekonomi",
+                        "ham_ad":  "Genel Ekonomi  [1008]",
+                        "anahtar":  "genel ekonomi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Temel Finans Matematiği ve Değerleme Yöntemleri",
+                        "ham_ad":  "Temel Finans Matematiği ve Değerleme Yöntemleri  [1009]",
+                        "anahtar":  "temel finans matematigi ve degerleme yontemleri",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Kurumlarda ve Sermaye Piyasasında Vergilendirme",
+                        "ham_ad":  "Kurumlarda ve Sermaye Piyasasında Vergilendirme  [1013]",
+                        "anahtar":  "kurumlarda ve sermaye piyasasinda vergilendirme",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Türev Araçlar, Piyasalar ve Risk Yönetimi",
+                        "ham_ad":  "Türev Araçlar, Piyasalar ve Risk Yönetimi  [1011]",
+                        "anahtar":  "turev araclar, piyasalar ve risk yonetimi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Kurumsal Yönetim",
+                        "ham_ad":  "Kurumsal Yönetim  [1018]",
+                        "anahtar":  "kurumsal yonetim",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Kredi Derecelendirmesi",
+                        "ham_ad":  "Kredi Derecelendirmesi  [1017]",
+                        "anahtar":  "kredi derecelendirmesi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Gayrimenkul Değerleme Esasları",
+                        "ham_ad":  "Gayrimenkul Değerleme Esasları  [1014]",
+                        "anahtar":  "gayrimenkul degerleme esaslari",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "İnşaat ve Gayrimenkul Muhasebesi",
+                        "ham_ad":  "İnşaat ve Gayrimenkul Muhasebesi  [1015]",
+                        "anahtar":  "insaat ve gayrimenkul muhasebesi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Gayrimenkul Mevzuatı",
+                        "ham_ad":  "Gayrimenkul Mevzuatı  [1019]",
+                        "anahtar":  "gayrimenkul mevzuati",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Bilgi Sistemleri Yönetimi ve Denetimi",
+                        "ham_ad":  "Bilgi Sistemleri Yönetimi ve Denetimi  [1020]",
+                        "anahtar":  "bilgi sistemleri yonetimi ve denetimi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Bilgi Sistemleri Geliştirilmesi ve Uygulanması",
+                        "ham_ad":  "Bilgi Sistemleri Geliştirilmesi ve Uygulanması  [1021]",
+                        "anahtar":  "bilgi sistemleri gelistirilmesi ve uygulanmasi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Bilgi Sistemleri İşletimi",
+                        "ham_ad":  "Bilgi Sistemleri İşletimi  [1022]",
+                        "anahtar":  "bilgi sistemleri isletimi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    },
+                    {
+                        "sinav":  "SPK LİSANSLAMA (SPL)",
+                        "resmi_ad":  "Bilgi Sistemleri Güvenliği",
+                        "ham_ad":  "Bilgi Sistemleri Güvenliği  [1023]",
+                        "anahtar":  "bilgi sistemleri guvenligi",
+                        "takma_adlar":  [
+
+                                        ],
+                        "uyari":  null
+                    }
+                ]
+}
