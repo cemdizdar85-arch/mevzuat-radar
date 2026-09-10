@@ -1,16 +1,16 @@
 **********************
 PowerShell transcript start
-Start time: 20260910064948
-Username: runnervmlun5p\runner
-RunAs User: runnervmlun5p\runner
+Start time: 20260910073301
+Username: runnervmejwal\runner
+RunAs User: runnervmejwal\runner
 Configuration Name: 
-Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/2e1cddf6-f560-4895-99f1-0adcfd5869ba.ps1'
-Process ID: 11258
+Machine: runnervmejwal (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8f299d9c-ad2a-4c74-ae03-4a6eef7dd6f4.ps1'
+Process ID: 11112
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
-OS: Ubuntu 24.04.5 LTS
+OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
 PSRemotingProtocolVersion: 2.4
@@ -41,8 +41,17 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
+======================================================================
+  1 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
+======================================================================
+  mevzuatNo 44987  (21203 -> 21204 bayt)
+     https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=44987&mevzuatTur=9&mevzuatTertip=5
+
+  YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir - tablolari
+  modele okutuyor). O kosana kadar GTIP aracindaki gozetim verisi
+  ESKIDIR; arac zaten hasat tarihini ekranda gosteriyor.
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260910072340
+End time: 20260910080410
 **********************
