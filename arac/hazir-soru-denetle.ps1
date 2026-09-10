@@ -46,6 +46,25 @@ foreach($q in $liste){
     if($a.doldur){ foreach($d in @($a.doldur)){ if($q.cozum_tablo -and $q.cozum_tablo.satirlar){ if($d[0] -ge @($q.cozum_tablo.satirlar).Count){ $k.Add("adim $n doldur satir $($d[0]) tablo disi") } } } } }
   # tablo son satırı = cevap (hesaplı soruda)
   if($sayisal -and $q.cozum_tablo -and $q.cozum_tablo.satirlar){ $sonSat=@($q.cozum_tablo.satirlar)[-1]; $sv=Sayi "$($sonSat[-1])"; $dv=Sayi "$($q.siklar.($q.dogru))"; if($null -ne $sv -and $null -ne $dv -and [math]::Abs($sv-$dv) -gt [math]::Max(0.5,[math]::Abs($dv)*0.005)){ $k.Add("tablo son satir $sv != dogru sik $dv") } }
+  # KAPI-Ş şık dengesi (10.09 eklendi). NEDEN: Meslek zor+çok zor koşusunda 19 soru YALNIZ bu kapıdan
+  # düştü (zor 7/22, çok zor 12/21) ve bu betik hepsine 'ok' demişti. Üreticinin kuralı (uret satır 1419-1425):
+  # sayısal şık <=1 ve yönlü şık <4 ise -> doğru şık EN UZUN ve medyanın >=1,3 katıysa düşer; ayrıca
+  # parantezli açıklama ya da birim yalnız doğru şıkta olamaz. Eşik 1,3: çıkmışta doğru şık en uzun %5-24.
+  $sikM=@($harf | ForEach-Object { "$($q.siklar.$_)".Trim() })
+  $dogruS="$($q.siklar.($q.dogru))".Trim()
+  $sayiN=@($sikM | Where-Object { $_ -match '^%?\s*-?\d{1,3}(?:\.\d{3})*(?:,\d+)?\s*(TL|%|adet|kg|saat|birim)?\s*$' }).Count
+  $yonlu=@($sikM | Where-Object { $_ -match '(?i)\b(olumlu|olumsuz|lehte|aleyhte|eksik y[uü]kleme|fazla y[uü]kleme)\b' }).Count
+  if($sayiN -le 1 -and $yonlu -lt 4 -and $dogruS){
+    $uz=@($sikM | ForEach-Object { $_.Length } | Sort-Object)
+    $medyan=[double]$uz[[int]($uz.Count/2)]
+    if($medyan -gt 0 -and $dogruS.Length -eq $uz[-1] -and $dogruS.Length -ge 1.3*$medyan){
+      $k.Add("KAPI-S dogru sik EN UZUN ve medyanin $([math]::Round($dogruS.Length/$medyan,2)) kati (esik 1,3) - uzunluk $($dogruS.Length), medyan $medyan; celdiricilerden en az biri dogrudan uzun olsun")
+    }
+    $par=@($sikM | Where-Object { $_ -match '\(' }).Count
+    if($par -eq 1 -and $dogruS -match '\('){ $k.Add("KAPI-S parantezli aciklama yalniz dogru sikta") }
+  }
+  $brm=@($sikM | Where-Object { $_ -match '(₺|TL|%|adet|kg|saat)' }).Count
+  if($sayiN -ge 2 -and $brm -eq 1 -and $dogruS -match '(₺|TL|%|adet|kg|saat)'){ $k.Add("KAPI-S birim yalniz dogru sikta") }
   # KAPI-K (DAR): >=6 harf, 5 harf önek; sözlükte yok → listele; >=2 tekrar → kusur adayı
   if($sz.Keys.Count){ $say=@{}; $kel=@{}; foreach($w in ((Duz "$($q.soru)") -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -lt 6){ continue }; $on=$w.Substring(0,5); if(-not $say.ContainsKey($on)){ $say[$on]=0; $kel[$on]=$w }; $say[$on]++ }
     $eksik=@(); $tekrar=@(); foreach($on in $say.Keys){ if(-not $sz.ContainsKey($on)){ if($say[$on] -ge 2){ $tekrar+=$kel[$on] } else { $eksik+=$kel[$on] } } }

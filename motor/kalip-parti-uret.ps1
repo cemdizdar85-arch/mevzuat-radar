@@ -608,6 +608,83 @@ $OZEL_DESEN=@{
   'kar dagitimi'             = @('TTK (6102 s.K.) m.519%','TTK (6102 s.K.) m.523%','THP 570%','THP 590%','THP 591%')
   'fifo yontemi'             = @('TMS 2 p.25%','TMS 2 p.27%','VUK (213 s.K.) m.274%','THP 153%')
   'finansman bonosu ihraci'  = @('THP 305%','THP 308%','THP 300%')
+  # 10.09 ÖLÇÜLDÜ (İş-SGK t2b ön ölçümü): ders kanun listesi (satır 291) VAR diyordu ama kök eşleşmesi
+  # ALAKASIZ maddeye düşüyordu — 'fazla calisma hukumleri' -> VUK ek m.13 (memur fazla mesaisi),
+  # 'toplu is sozlesmesi' -> Avukatlık K. m.191 (tip sözleşme), 'sosyal sigortali sayilma' -> İş K. m.30
+  # (engelli çalıştırma), 'sendika uyeligi' -> İş K. m.18 (iş güvencesi), 'fiili hizmet suresi zammi'
+  # -> 5510 m.29 (yaşlılık aylığı hesabı). Ambarda 4857'nin 138, 6356'nın 94 maddesi TAM duruyor;
+  # kusur desende. Madde adları ambardan birebir okundu.
+  'fazla calisma hukumleri'         = @('İş K. (4857 s.K.) m.41%','İş K. (4857 s.K.) m.42','İş K. (4857 s.K.) m.43','İş K. (4857 s.K.) m.63')
+  'fazla calisma'                   = @('İş K. (4857 s.K.) m.41%','İş K. (4857 s.K.) m.42','İş K. (4857 s.K.) m.43','İş K. (4857 s.K.) m.63')
+  'is kanunu calisma sureleri'      = @('İş K. (4857 s.K.) m.63','İş K. (4857 s.K.) m.64','İş K. (4857 s.K.) m.66','İş K. (4857 s.K.) m.68')
+  'toplu is sozlesmesi'             = @('Sendikalar ve TİS K. (6356 s.K.) m.33','Sendikalar ve TİS K. (6356 s.K.) m.34','Sendikalar ve TİS K. (6356 s.K.) m.35','Sendikalar ve TİS K. (6356 s.K.) m.36','Sendikalar ve TİS K. (6356 s.K.) m.39')
+  'tesmil karari'                   = @('Sendikalar ve TİS K. (6356 s.K.) m.40','Sendikalar ve TİS K. (6356 s.K.) m.39')
+  'sendika uyeligi'                 = @('Sendikalar ve TİS K. (6356 s.K.) m.17','Sendikalar ve TİS K. (6356 s.K.) m.18','Sendikalar ve TİS K. (6356 s.K.) m.19%')
+  'sendika uyeligi kazanilmasi'     = @('Sendikalar ve TİS K. (6356 s.K.) m.17','Sendikalar ve TİS K. (6356 s.K.) m.18')
+  'sendikal guvenceler'             = @('Sendikalar ve TİS K. (6356 s.K.) m.23','Sendikalar ve TİS K. (6356 s.K.) m.24','Sendikalar ve TİS K. (6356 s.K.) m.25%')
+  'sendika kanunu tanimlari'        = @('Sendikalar ve TİS K. (6356 s.K.) m.2 [%','Sendikalar ve TİS K. (6356 s.K.) m.3')
+  'sendika yetkisi dusmesi'         = @('Sendikalar ve TİS K. (6356 s.K.) m.42','Sendikalar ve TİS K. (6356 s.K.) m.43%','Sendikalar ve TİS K. (6356 s.K.) m.45')
+  'grev lokavt yasagi'              = @('Sendikalar ve TİS K. (6356 s.K.) m.62','Sendikalar ve TİS K. (6356 s.K.) m.63','Sendikalar ve TİS K. (6356 s.K.) m.58')
+  # 10.09 TUZAK: 'm.4%' ilike oneki m.40..m.49'u DA yakaliyor — ilk olcumde 'sosyal sigortali sayilma'
+  # 5510 m.40'a (fiili hizmet zammi), 'sigortali sayilmayanlar' m.62'ye dustu. Parcali maddede ad
+  # "m.4 [1/4]" oldugu icin dogru onek 'm.4 [%'; tek parcali maddede joker HIC kullanilmaz.
+  'sosyal sigortali sayilma'        = @('5510 s. SGK Kanunu m.4 [%','5510 s. SGK Kanunu m.7 [%','5510 s. SGK Kanunu m.7')
+  'sigortali sayilmayanlar'         = @('5510 s. SGK Kanunu m.6 [%','5510 s. SGK Kanunu m.4 [%')
+  'is kazasi sayilan haller'        = @('5510 s. SGK Kanunu m.13%','5510 s. SGK Kanunu m.14%')
+  'is kazasi isveren sorumlulugu'   = @('5510 s. SGK Kanunu m.21%','5510 s. SGK Kanunu m.13%')
+  'is kazasi surekli is goremezlik' = @('5510 s. SGK Kanunu m.19%','5510 s. SGK Kanunu m.20%')
+  'gecici is goremezlik sigorta kollari' = @('5510 s. SGK Kanunu m.18%','5510 s. SGK Kanunu m.15%','5510 s. SGK Kanunu m.16%')
+  'fiili hizmet suresi zammi'       = @('5510 s. SGK Kanunu m.40%')
+  'hizmet borclanmasi'              = @('5510 s. SGK Kanunu m.41%')
+  'yaslilik ayligi prim gunu'       = @('5510 s. SGK Kanunu m.28 [%','5510 s. SGK Kanunu m.29%')
+  # 10.09 ÖLÇÜLDÜ: 'kolaylastirilmis emeklilik' adiyla ambarda belge YOK, konu kaynaksiz sanildi.
+  # 5510 m.28 [2/4] ve [3/4] metni okundu: engellilik derecesine gore yas sarti aranmaksizin yaslilik
+  # ayligi (%50-59 -> 16 yil/4320 gun, %40-49 -> 18 yil/4680 gun), 55 yasinda erken yaslanma, agir
+  # engelli cocugu olan kadin sigortalinin prim gun eklemesi, maden yeralti 20 yil -> yas 50.
+  # Konunun kaynagi VAR, eksik olan desendi.
+  'kolaylastirilmis emeklilik'      = @('5510 s. SGK Kanunu m.28 [%')
+  'olum ayligi kesilmesi'           = @('5510 s. SGK Kanunu m.34%','5510 s. SGK Kanunu m.35%')
+  'uzun vadeli sigorta kollari'     = @('5510 s. SGK Kanunu m.25%','5510 s. SGK Kanunu m.28%','5510 s. SGK Kanunu m.32%')
+  'belirli sureli is sozlesmesi'    = @('İş K. (4857 s.K.) m.11','İş K. (4857 s.K.) m.12','İş K. (4857 s.K.) m.8')
+  'kismi sureli is sozlesmesi'      = @('İş K. (4857 s.K.) m.13%','İş K. (4857 s.K.) m.14%')
+  'is sozlesmesi turleri'           = @('İş K. (4857 s.K.) m.9','İş K. (4857 s.K.) m.10','İş K. (4857 s.K.) m.11','İş K. (4857 s.K.) m.13%','İş K. (4857 s.K.) m.14%')
+  'sozlesme sekli'                  = @('İş K. (4857 s.K.) m.8','İş K. (4857 s.K.) m.9')
+  'alt isverenlik'                  = @('İş K. (4857 s.K.) m.2 [%')
+  'isyeri devri-is kanunu'          = @('İş K. (4857 s.K.) m.6')
+  'is guvencesi kapsami'            = @('İş K. (4857 s.K.) m.18%','İş K. (4857 s.K.) m.19','İş K. (4857 s.K.) m.21%')
+  'is kanunu fesih'                 = @('İş K. (4857 s.K.) m.17','İş K. (4857 s.K.) m.24%','İş K. (4857 s.K.) m.25%')
+  'İs kanunu kapsami'               = @('İş K. (4857 s.K.) m.1','İş K. (4857 s.K.) m.4 [%')
+  'ucret hukumleri'                 = @('İş K. (4857 s.K.) m.32%','İş K. (4857 s.K.) m.34','İş K. (4857 s.K.) m.35')
+  'ucretin ise hasredilmesi'        = @('İş K. (4857 s.K.) m.36%','İş K. (4857 s.K.) m.35')
+  'ucretin odenmemesi hakli fesih'  = @('İş K. (4857 s.K.) m.24%','İş K. (4857 s.K.) m.34')
+  'haciz siniri'                    = @('İş K. (4857 s.K.) m.35')
+  # 10.09 T3 TOPYEKUN KAYNAK DENETIMI: 42 etiketin 14 benzersiz konu listesi tek tek olculdu.
+  # Alt satirdaki 15 konu "VAR" diyordu ama gelen belge ALAKASIZDI; hedef madde adlari ambardan
+  # birebir dogrulandi (hepsi mevcut), kusur yalnizca desendeydi. Joker tuzagina dikkat:
+  # 'm.64%' TTK'da m.640-649'u da yakalar -> parcali maddede 'm.64 [%', tek parcalida joker YOK.
+  # --- Borclar Hukuku: TBK m.47 (manevi tazminat) geliyordu, sebepsiz zenginlesme m.77-82'dir
+  'sebepsiz zenginlesme'            = @('TBK (6098 s.K.) m.77','TBK (6098 s.K.) m.78','TBK (6098 s.K.) m.79','TBK (6098 s.K.) m.80')
+  'sebepsiz zenginlesme zamanasimi' = @('TBK (6098 s.K.) m.82','TBK (6098 s.K.) m.77')
+  # --- Denetim: GDS 3410 (sera gazi guvence denetimi) ve GDS 3402 (hizmet kurulusu) geliyordu
+  'ic kontrol sistemi'              = @('BDS 315%')
+  'bds 530 ornekleme yontemi'       = @('BDS 530%')
+  'calisma kagitlari'               = @('BDS 230%')
+  'analitik prosedurler'            = @('BDS 520%','BDS 315%')
+  # --- Finansal Muhasebe: VUK m.45 (emlak vergisi bedelleri) geliyordu, aktiflesen gider m.262/269/272
+  'aktiflesen gider'                = @('VUK (213 s.K.) m.272','VUK (213 s.K.) m.262%','VUK (213 s.K.) m.269')
+  # --- Meslek Hukuku: Avukatlik K. m.168 ve TSPB Sermaye Piyasasi Etik Ilkeleri geliyordu
+  'ucret tarifesi'                  = @('SMMM K. (3568 s.K.) m.46','TÜRMOB Etik İlkeler Yön. EK%')
+  'etik ilkeler tehditleri'         = @('TÜRMOB Etik İlkeler Yön. EK%','TÜRMOB Etik İlkeler Yön. m.4','TÜRMOB Etik İlkeler Yön. m.5')
+  # --- Ticaret Hukuku: TTK m.235 (kollektif sirket), m.147 (birlesme), Kooperatifler K. m.25,
+  #     SPK Borsa Istanbul karari geliyordu; dogru maddeler asagida
+  'ticari temsilcilik yetkisi'      = @('TBK (6098 s.K.) m.547','TBK (6098 s.K.) m.548','TBK (6098 s.K.) m.551')
+  'ticari defter tutma yukumlulugu' = @('TTK (6102 s.K.) m.64 [%','TTK (6102 s.K.) m.65')
+  'anonim sirket temsili'           = @('TTK (6102 s.K.) m.365','TTK (6102 s.K.) m.370','TTK (6102 s.K.) m.371 [%')
+  'cek uzerindeki kayitlar'         = @('TTK (6102 s.K.) m.780 [%','TTK (6102 s.K.) m.781','TTK (6102 s.K.) m.782')
+  # --- Vergi Hukuku: Belediye Gelirleri K. ek m.1 ve 5422 donemi KVGT Seri 86 geliyordu
+  'kdv vergiyi doguran olay'        = @('KDVK (3065 s.K.) m.10 -%')
+  'kurumlar vergisi mukellefleri'   = @('KVK (5520 s.K.) m.1','KVK (5520 s.K.) m.2 [%','KVK (5520 s.K.) m.3')
+  'kurumlar vergisi istisnasi'      = @('KVK (5520 s.K.) m.5 [%')
   # 09.09: OZEL_DESEN DesenUret'in YERİNE geçer → buradaki konuların dün yazılan TEORİ notları hiç çekilmiyordu; '~teori' ad deseni eklendi
   'hazine bonosu tahsili'    = @('~teori hazine bonosu','THP 112%','THP 111%','THP 102%')
   # 09.09 Tur 1/2 kaynak yüzünden düşen, notu olan ama adı konu kökleriyle eşleşmeyen konular (ölçüldü, Cem "önce ölç, kaynağı yut, sonra bas")
@@ -915,7 +992,11 @@ if($DonemPencere -gt 0){
       $DERS_ARALIK=@(
         @('Turkce|Türkçe',@(1,7)),@('Matematik',@(8,15)),@('Ataturk|Atatürk|Inkilap|İnkılap',@(16,20)),@('Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce',@(21,30)),
         @('Finansal Muhasebe',@(31,56)),@('Maliyet',@(57,64)),@('Mali Tablolar',@(65,72)),@('Denetim',@(73,88)),@('Ekonomi',@(89,94)),@('Maliye',@(95,100)),
-        @('Meslek',@(101,106)),@('Is ve Sosyal|İş ve Sosyal|Sosyal Guvenlik|Sosyal Güvenlik',@(107,112)),@('Vergi',@(113,118)),@('Ticaret',@(119,124)),@('Borclar|Borçlar',@(125,130))
+        # 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): Borçlar planının ders adı 'Borclar Hukuku|Ticaret ve Borclar' olduğu için sıralı liste ÖNCE 'Ticaret'e
+        # takılıyor ve KAPI-K'nın DAR sözlüğü 119-124'ten (Ticaret Hukuku) kuruluyordu; Borçlar'ın kendi aralığı 125-130 hiç kullanılmıyordu.
+        # Sonuç: 'vekalet', 'zenginlesme', 'aldatmasi' gibi dersin ÖZ kelimeleri "sınav dili dışı" sayıldı, 6 soru düştü (koşu logu gm-borclar-*-1).
+        # 'Borclar|Borçlar' Ticaret'ten ÖNE alındı. Ticaret partileri DersRegex='Ticaret Hukuku' kullanıyor, o desen 'Borclar'a takılmaz (ölçüldü).
+        @('Meslek',@(101,106)),@('Is ve Sosyal|İş ve Sosyal|Sosyal Guvenlik|Sosyal Güvenlik',@(107,112)),@('Vergi',@(113,118)),@('Borclar|Borçlar',@(125,130)),@('Ticaret',@(119,124))
       )
       $aralik=$null; foreach($cift in $DERS_ARALIK){ if($DersRegex -match $cift[0]){ $aralik=$cift[1]; break } }
       $bloklar=New-Object System.Collections.Generic.List[object]
