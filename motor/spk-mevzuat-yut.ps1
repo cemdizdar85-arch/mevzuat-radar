@@ -80,6 +80,9 @@ $rxMadde = [regex]'(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ 
 $DEV_ESIK = 1800
 
 function MaddeleriCikar([string]$flat,[string]$kokAd,[string]$url){
+  # Ad sayaci HER BELGEDE sifirlanir. Belge disina tasarsa iki ayri belgenin
+  # m.4'u de "(2)" eki alir ve gereksiz yere ayrisirlar.
+  $script:adSayaci = @{}
   $m = $rxMadde.Matches($flat); $out = New-Object System.Collections.Generic.List[object]
   # 30.08 KAPSAMA ONARIMI (olculdu, prova kosusunda cikti): madde parcalayici
   # ILK MADDEDEN ONCEKI metni dusuruyordu - RG kunyesi, "Amac", "Dayanak",
@@ -100,6 +103,26 @@ function MaddeleriCikar([string]$flat,[string]$kokAd,[string]$url){
     if($gov.Length -lt 60){ if($out.Count){ $out[$out.Count-1].metin = "$($out[$out.Count-1].metin) $gov" }; continue }
     $no=$m[$i].Groups['no'].Value; $tr=$m[$i].Groups['tur'].Value
     $md = if($tr -match 'kerrer'){"muk. m.$no"} elseif($tr -match 'Ek Ge'){"ek gec. m.$no"} elseif($tr -match 'Ge'){"gec. m.$no"} elseif($tr -match 'Ek'){"ek m.$no"} else {"m.$no"}
+
+    # 10.09 AKSAM — BELGE ICI AD CAKISMASI (olculdu).
+    # Ayni belgede AYNI madde numarasi birden fazla kez yakalanabiliyor: mevzuat
+    # metinleri "MADDE 4 –" satirini degisiklik listelerinde ve eklerde TEKRAR
+    # tasiyor. Iki govde de ayni adi ("... m.4") aliyor, dilimlenince ayni
+    # "[1/n]" adlarini uretiyor ve REPO JSON'da birbirini eziyorlardi.
+    # OLCUM: bir kosuda 4.149 parca uretildi, repo JSON'a yalnizca 3.691'i
+    # dustu -> 458 satir kayboluyordu. Ambar sisiyor, repo JSON eksik kaliyor
+    # ve tam yukleme o farki SILECEKTI.
+    # COZUM: ayni ad ikinci kez ciktiginda sira eki alir - "m.4 (2)".
+    # Parantez secildi: kaynak-kok.ps1 sondaki KOSELI eki kirpar, parantez
+    # kok adin parcasi olarak kalir ve iki govde birbirinden ayrilir.
+    if(-not $script:adSayaci){ $script:adSayaci = @{} }
+    $tamAd = "$kokAd $md"
+    if($script:adSayaci.ContainsKey($tamAd)){
+      $script:adSayaci[$tamAd]++
+      $md = "$md ($($script:adSayaci[$tamAd]))"
+    } else {
+      $script:adSayaci[$tamAd] = 1
+    }
 
     # 10.09.2026 MIKNATIS ONARIMI (canli olcum).
     #

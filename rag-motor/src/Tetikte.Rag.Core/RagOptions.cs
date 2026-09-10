@@ -41,6 +41,16 @@ public sealed class RagOptions
 
     public int GommeYiginBoyu { get; set; } = 32;
 
+    /// <summary>
+    /// Gomme yiginlari arasi bekleme (ms).
+    /// OLCULDU (10.09): Gemini UCRETSIZ kotasi DAKIKALIK istek sinirlidir.
+    /// Yiginlari arka arkaya atmak 429 uretiyor - hatayi ONLEMEK yerine
+    /// URETIYOR. Polly 429'da retry-after'a uyup toparliyor ama her seferinde
+    /// bir dakika kaybediliyor. Fren, o kaybi bastan onler.
+    /// Ucretli kotaya gecilirse 0'a cekilebilir.
+    /// </summary>
+    public int GommeFrenMs { get; set; } = 9000;
+
     // --- Arama --------------------------------------------------------------
     public int AramaAdet { get; set; } = 6;
     public int AramaAdayHavuzu { get; set; } = 60;

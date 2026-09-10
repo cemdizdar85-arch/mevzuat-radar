@@ -80,6 +80,12 @@ public sealed class YutmaServisi(
             await ambar.VektorYazAsync(satirlar, gomme.Model, gomme.Boyut, ct);
             toplam += satirlar.Count;
             log.LogInformation("Gomme: {Bu} parca yazildi (toplam {Toplam})", satirlar.Count, toplam);
+
+            // FREN: ucretsiz kota DAKIKALIK sinirli. Yiginlari arka arkaya
+            // atmak 429 uretir; Polly toparlar ama her seferinde bir dakika
+            // kaybedilir. Beklemek, beklememekten HIZLIDIR.
+            if (_ayar.GommeFrenMs > 0)
+                await Task.Delay(_ayar.GommeFrenMs, ct);
         }
 
         return toplam;

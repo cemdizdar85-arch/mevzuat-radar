@@ -53,4 +53,60 @@ await using (var kapsam = uygulama.Services.CreateAsyncScope())
     gunluk.LogInformation("CANLI SEMA SURUMU: {Surum}", await ambar.CanliSurumAsync(CancellationToken.None));
 }
 
+// ============================================================================
+//  KOMUT SATIRI MODU — kuyruğa girmeden tek iş çalıştırmak için.
+//
+//  NEDEN VAR: rag şeması PostgREST'ten erişilemiyor (ölçüldü: PGRST106), yani
+//  kuyruğa iş eklemenin dışarıdan kolay bir yolu yok. Bu mod, yutma ve üretimi
+//  doğrudan çalıştırır - aynı servisler, aynı kapılar, sadece kuyruk yok.
+//
+//    dotnet run -- yut  <kod> <ad> <tur> <metin-dosyasi>
+//    dotnet run -- soru <ders> <konu1> [konu2] ...
+//    dotnet run -- gomme            (vektörü eksik parçaları tamamlar)
+//
+//  Argümansız çalışırsa normal Worker olarak kuyruğu dinler.
+// ============================================================================
+if (args.Length > 0)
+{
+    await using var kapsam2 = uygulama.Services.CreateAsyncScope();
+    var sp = kapsam2.ServiceProvider;
+    var gunluk2 = sp.GetRequiredService<ILoggerFactory>().CreateLogger("Komut");
+
+    switch (args[0].ToLowerInvariant())
+    {
+        case "yut":
+        {
+            if (args.Length < 5) { gunluk2.LogError("kullanim: yut <kod> <ad> <tur> <metin-dosyasi>"); return; }
+            var metin = await File.ReadAllTextAsync(args[4]);
+            gunluk2.LogInformation("YUTULUYOR: {Kod} ({Uzunluk:N0} karakter)", args[1], metin.Length);
+            var yutma2 = sp.GetRequiredService<YutmaServisi>();
+            var (parca, vektor) = await yutma2.BelgeYutAsync(args[1], args[2], args[3], null, metin, CancellationToken.None);
+            gunluk2.LogInformation("BITTI: {Parca} yeni parça · {Vektor} vektör", parca, vektor);
+            return;
+        }
+        case "gomme":
+        {
+            var yutma3 = sp.GetRequiredService<YutmaServisi>();
+            var n = await yutma3.EksikVektorleriUretAsync(CancellationToken.None);
+            gunluk2.LogInformation("BAKIM: {N} vektör tamamlandı", n);
+            return;
+        }
+        case "soru":
+        {
+            if (args.Length < 3) { gunluk2.LogError("kullanim: soru <ders> <konu1> [konu2] ..."); return; }
+            var ders = args[1];
+            var istekler = args.Skip(2).Select(k => new SoruIstegi(ders, k, "zor", 3)).ToList();
+            var uretici2 = sp.GetRequiredService<SoruUretici>();
+            var sonuclar = await uretici2.TopluUretAsync(istekler, CancellationToken.None);
+            foreach (var s in sonuclar)
+                gunluk2.LogInformation("  parça {Parca} · {Adet} soru · {Hata}",
+                    s.ParcaId, s.Sorular.Count, s.Hata ?? "-");
+            return;
+        }
+        default:
+            gunluk2.LogError("bilinmeyen komut: {Komut}", args[0]);
+            return;
+    }
+}
+
 await uygulama.RunAsync();
