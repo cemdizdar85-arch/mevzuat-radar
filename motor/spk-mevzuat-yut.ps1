@@ -230,13 +230,42 @@ if($uygula -and $KEY -and $toplamParca -gt 0){
   $repoDir = Join-Path $kok 'veri\mevzuat'
   if(-not (Test-Path $repoDir)){ New-Item -ItemType Directory -Path $repoDir -Force | Out-Null }
   $sinifDosya = @{ 'IlkeKarari'='spk-portal-karar'; 'Mevzuat'='spk-portal-mevzuat'; 'Rehber'='spk-portal-rehber' }
+  # 10.09.2026 — SIL-YAZ TUZAGI KAPATILDI (yasandi, ayni gun).
+  #
+  # Bu blok repo JSON'unu YALNIZ BU KOSUDA uretilen belgelerle yaziyordu.
+  # Tam yutmadan sonra 3 belge 500 hatasiyla dusmustu; eksigi tamamlamak icin
+  # betik ikinci kez kosuldu ve spk-portal-mevzuat.json 3.239 parcadan
+  # 93 PARCAYA DUSTU. Ambar dogruydu ama repo JSON'u eksikti - ve
+  # motor/mevzuat-yukle.ps1 ambari bu dosyalardan SIL-YAZ yaptigi icin bir
+  # sonraki tam yukleme 3.146 parcayi ucuracakti. 27.08'deki "robot kiyimi"
+  # deseninin birebir aynisi.
+  #
+  # COZUM: dosya EZILMEZ, BIRLESTIRILIR. Anahtar kaynak_ad'dir; ayni ad
+  # yeniden uretilmisse YENI kayit kazanir (tazeleme), uretilmemis eski
+  # kayitlar YERINDE KALIR.
+  #
+  # NOT: bu birlestirme, kaynagi ambardan TAMAMEN silip yeniden yutma
+  # senaryosunda eski adlari da tasir. Oyle bir tazelemede repo JSON'u
+  # arac/spk-repo-json-onar.ps1 ile AMBARDAN yeniden kurulur - dogru kaynak
+  # her zaman ambardir.
   foreach($s in $sinifDosya.Keys){
     $bu = @($tumBelgeler | Where-Object { $_.sinif -eq $s })
     if($bu.Count -eq 0){ continue }
-    $govde = @{ belgeler = @($bu | ForEach-Object { $_.kayit }) }
     $yol = Join-Path $repoDir ($sinifDosya[$s] + '.json')
+
+    $birlesik = [ordered]@{}
+    if(Test-Path $yol){
+      try {
+        $eski = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
+        foreach($e in @($eski.belgeler)){ if($e -and $e.kaynak_ad){ $birlesik["$($e.kaynak_ad)"] = $e } }
+      } catch { Write-Host ("  UYARI: {0} okunamadi, sifirdan yaziliyor: {1}" -f $yol, $_.Exception.Message) -ForegroundColor Yellow }
+    }
+    $eskiSayi = $birlesik.Count
+    foreach($b in $bu){ $birlesik["$($b.kayit.kaynak_ad)"] = $b.kayit }
+
+    $govde = @{ belgeler = @($birlesik.Values) }
     [IO.File]::WriteAllText($yol, (ConvertTo-Json -InputObject $govde -Depth 6), [Text.UTF8Encoding]::new($false))
-    Write-Host ("  repo JSON yazildi: veri/mevzuat/{0}.json ({1} parca)" -f $sinifDosya[$s], $bu.Count)
+    Write-Host ("  repo JSON: veri/mevzuat/{0}.json  {1} -> {2} parca (bu kosu {3})" -f $sinifDosya[$s], $eskiSayi, $birlesik.Count, $bu.Count)
   }
   Write-Host '  -> bu dosyalar COMMIT EDILMELI; yoksa tam-yukleme robotu ambari yine siler.'
 }
