@@ -55,13 +55,35 @@ foreach($f in (Get-ChildItem (Join-Path $secimDir 'yayin-sgs-*.json'))){
   foreach($x in @($arr)){ $hep.Add($x) }
 }
 
+# --- HAKEM2 KAPISI ------------------------------------------------------------
+# 11.09.2026: sade turu sirasinda 2 soru IKINCI HAKEMDEN HAYIR aldi
+# (sgs-issgk-p30/kp-03, sgs-ticaret-p30/kp-03). Bunlar secim dosyalarina
+# girdiginde hakem2 HENUZ KOSMAMISTI; tamamlama turunda kostu ve reddetti
+# (ornek gerekce: "ABC A.S. yer tutucu unvan"). Secim dosyasinda olmalari
+# onayli olduklari anlamina gelmez - kapiyi SONRADAN gectiler ve dustuler.
+# Cem'in kurali: kaliteden odun yok. Cozme yuzeyine cikmazlar.
+$onbGate=@{}
+function Hakem2Karari([string]$etiket,[string]$id){
+  if(-not $onbGate.ContainsKey($etiket)){
+    $cf=Join-Path $depoKok "veri\fabrika\kalip-parti-$etiket.json"
+    $onbGate[$etiket] = if(Test-Path $cf){ Get-Content $cf -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
+  }
+  $v=$onbGate[$etiket]; if(-not $v){ return 'DOSYA-YOK' }
+  $v=$v.$id; if(-not $v){ return 'KAYIT-YOK' }
+  if($v.PSObject.Properties['hakem2'] -and $v.hakem2){ return "$($v.hakem2.karar)" }
+  return 'YOK'
+}
+
 $cozulmeyen=@{}
+$dusen=New-Object System.Collections.Generic.List[string]
 $cikti=New-Object System.Collections.Generic.List[object]
 $gorulen=@{}
 foreach($r in $hep){
   $anahtarSoru = "$($r.etiket)|$($r.id)"
   if($gorulen.ContainsKey($anahtarSoru)){ continue }   # ayni soru iki secim dosyasindaysa bir kez
   $gorulen[$anahtarSoru]=$true
+  $k2 = Hakem2Karari $r.etiket $r.id
+  if($k2 -eq 'HAYIR'){ $dusen.Add("$anahtarSoru (hakem2 HAYIR)"); continue }
   $ham="$($r.ders)"
   $resmi=($ham -split '\|')[0].Trim()                   # bilesik adin sol yarisi
   $ekran=$sozluk[(Katla $resmi)]
@@ -70,6 +92,10 @@ foreach($r in $hep){
 }
 
 Write-Host ("BIRLESTI: {0} kayit -> {1} benzersiz soru" -f $hep.Count, $cikti.Count) -ForegroundColor Cyan
+if($dusen.Count){
+  Write-Host ("HAKEM2 KAPISI DUSURDU: {0} soru (cozme yuzeyine cikmaz)" -f $dusen.Count) -ForegroundColor Yellow
+  $dusen | ForEach-Object { Write-Host "  $_" }
+}
 $cikti | Group-Object ders | Sort-Object Count -Descending | ForEach-Object { Write-Host ("  {0,4}  {1}" -f $_.Count,$_.Name) }
 Write-Host ("DERS SAYISI: {0}" -f (@($cikti | Group-Object ders)).Count)
 if($cozulmeyen.Count){ Write-Host ("⚠ SOZLUKTE COZULEMEYEN DERS ADI: {0}" -f (($cozulmeyen.Keys) -join ' · ')) -ForegroundColor Yellow }
@@ -91,7 +117,12 @@ if($Kuru){ Write-Host "`nKURU KOSU - dosyaya dokunulmadi." -ForegroundColor Yell
 
 # --- birlesik secim dosyasi + basim -------------------------------------------
 $masterAd='sgs-650-secim.json'
-[IO.File]::WriteAllText((Join-Path $secimDir $masterAd),(ConvertTo-Json -InputObject @($cikti) -Depth 3),[Text.UTF8Encoding]::new($false))
+# ⚠ PS 5.1: Join-Path / ConvertTo-Json ciktisi bazen PSObject sarmali doner ve
+# WriteAllText "Bagimsiz degisken turleri eslesmiyor" der. Ikisi de [string]'e
+# ACIKCA cevrilir (11.09'da bu satir bir kez dustu).
+$masterYol = [string](Join-Path $secimDir $masterAd)
+$masterJson = [string](ConvertTo-Json -InputObject @($cikti.ToArray()) -Depth 3)
+[IO.File]::WriteAllText($masterYol,$masterJson,[Text.UTF8Encoding]::new($false))
 Write-Host ("`nyazildi: veri/sinav/kaydir-secim/{0}" -f $masterAd)
 
 # Eski uzun-adli sayfalar arsive (SILINMEZ - 30.08 kurali)
