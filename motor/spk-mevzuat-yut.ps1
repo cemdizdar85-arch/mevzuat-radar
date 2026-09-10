@@ -65,6 +65,10 @@ function KisaBaslik([string]$s,[int]$n=70){ $t = Temiz $s; if($t.Length -gt $n){
 # madde parcalayici — 30.08 genis tire sinifiyla (U+2010..U+2015 + U+2212 + '-')
 $rxMadde = [regex]'(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:‐-―−-]?|[‐-―−-])'
 
+# Dev parca esigi. BolumleriCikar'in `boy` varsayilaniyla (3500) AYNI kalmali:
+# esik buyuk olursa esigi gecmeyen ama yine de sisik satirlar kalir.
+$DEV_ESIK = 3500
+
 function MaddeleriCikar([string]$flat,[string]$kokAd,[string]$url){
   $m = $rxMadde.Matches($flat); $out = New-Object System.Collections.Generic.List[object]
   # 30.08 KAPSAMA ONARIMI (olculdu, prova kosusunda cikti): madde parcalayici
@@ -86,6 +90,34 @@ function MaddeleriCikar([string]$flat,[string]$kokAd,[string]$url){
     if($gov.Length -lt 60){ if($out.Count){ $out[$out.Count-1].metin = "$($out[$out.Count-1].metin) $gov" }; continue }
     $no=$m[$i].Groups['no'].Value; $tr=$m[$i].Groups['tur'].Value
     $md = if($tr -match 'kerrer'){"muk. m.$no"} elseif($tr -match 'Ek Ge'){"ek gec. m.$no"} elseif($tr -match 'Ge'){"gec. m.$no"} elseif($tr -match 'Ek'){"ek m.$no"} else {"m.$no"}
+
+    # 10.09.2026 MIKNATIS ONARIMI (canli olcum).
+    #
+    # BULGU: madde govdesi HIC boy sinirina tabi degildi. Son maddenin sonu
+    # $flat.Length'e kadar gidiyor; regex belgenin geri kalaninda MADDE
+    # yakalayamazsa o TEK SATIR butun tebligi yutuyor. Canlida olculdu:
+    #   SPK Teblig (Seri: X, No: 22) ... m.4   -> 146.979 karakter TEK SATIR
+    #   SPK Teblig (Seri: V, No: 34) ... m.35  ->  81.226 karakter TEK SATIR
+    #
+    # BEDELI: 147 bin karakterlik metin Turkcedeki her kelimeyi icerir.
+    # madde_ara v8'in `kapsanan` bonusu (1 + 0.35*(n-1)) bunu tepeye tasir.
+    # 'Finansal Muhasebe demirbas cikisi' sorgusunda o satir DORT jetonun
+    # DORDUNU birden tutuyor ve birinci geliyor - oysa bir bagimsiz denetim
+    # tebligi. Fabrikanin atladigi 278 konunun 110'u tek bu satira dusuyordu.
+    #
+    # NEDEN GEC FARK EDILDI: "adinda m.4 var -> demek ki parcalanmis" diye
+    # varsayildi. Madde ADI tasimak, madde BOYUNDA olmak demek degil.
+    #
+    # ADLANDIRMA: dilimler "m.4 [1/42]" olur. Bu bicim depoda ZATEN var
+    # ("Avukatlik K. (1136 s.K.) m.44 [3/4]"); kaynak-kok.ps1 sondaki koseli
+    # eki kirpip sonra ' m.4' konum ekini de kirptigi icin kok ad DEGISMEZ.
+    if($gov.Length -gt $DEV_ESIK){
+      $dilimler = BolumleriCikar $gov "$kokAd $md" $url
+      Write-Host ("  ! DEV MADDE: {0} {1} = {2:N0} krk -> {3} dilime bolundu" -f $kokAd,$md,$gov.Length,@($dilimler).Count) -ForegroundColor Yellow
+      foreach($d in $dilimler){ $out.Add($d) | Out-Null }
+      continue
+    }
+
     $out.Add([ordered]@{ tur='kanun-madde'; kaynak_ad="$kokAd $md"; baslik=''; metin=$gov; kaynak_url=$url; belge_tarihi=$bugun }) | Out-Null
   }
   return $out

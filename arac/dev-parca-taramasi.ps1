@@ -105,9 +105,20 @@ foreach($x in $satir){
   # bozmaz (ayri bir is: soru fabrikasi onlari okuyor, o baska olcum).
   if("$($x.tur)" -like 'cikmis*'){ $sayac.cikmis_haric++; continue }
   if($ad -match $rxGiris){ $sayac.giris++; [void]$girisler.Add($x); continue }
+
+  # 10.09 IKINCI ONARIM — BU ARACIN KENDI KUSURU:
+  # "adinda m.4 var -> parcalanmis" VARSAYILIYORDU. YANLIS. Canli olcum:
+  #     SPK Teblig (Seri: X, No: 22) ... m.4  = 146.979 karakter TEK SATIR
+  # Madde ADI tasimak, madde BOYUNDA olmak demek degil: parcalayici son
+  # maddeyi belge sonuna kadar uzatiyor ve o satir butun tebligi yutuyor.
+  # Bu varsayim yuzunden arac gercek miknatisi IKI KEZ kacirdi ve dev parca
+  # teorisi yanlislikla curutuldu. Artik DILIM ADLI ('[n/m]') olanlar disinda
+  # HERKES sanik: yalniz gercekten dilimlenmis oldugu ADINDAN belli olan
+  # satirlar olcum disi kalir.
   if($ad -match $rxDilim){ $sayac.dilim++; continue }
-  if($ad -match $rxMadde -or $ad -match $rxKonum){ $sayac.madde++; continue }
-  $sayac.ciplak++; [void]$sanik.Add($x)
+
+  if($ad -match $rxMadde -or $ad -match $rxKonum){ $sayac.madde++ } else { $sayac.ciplak++ }
+  [void]$sanik.Add($x)
 }
 # [giris] parcalari EN ONE alinir: miknatisin iki ornegi de oradan cikti.
 $sanik.InsertRange(0, $girisler)

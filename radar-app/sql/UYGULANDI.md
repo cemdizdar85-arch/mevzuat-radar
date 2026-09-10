@@ -117,7 +117,34 @@ v6 (19.08) → v7 (23.08) → v8 (25.08)`
 
 | Dosya | Durum |
 |---|---|
-| `2026-08-25-madde-ara-v8.sql` | ⚠️ **ŞÜPHELİ** — fonksiyon var ama v8'in çözmek için yazıldığı 57014 timeout'u **hâlâ oluyor** |
+| `2026-08-25-madde-ara-v8.sql` | ✅ **BASILI — 10.09.2026'da ölçüldü** (aşağıya bak). 57014 timeout'u hâlâ oluyor ama sebebi sürüm değil. |
+
+**10.09.2026 — "canlıda hangi sürüm koşuyor?" ÖLÇÜLDÜ, artık tahmin değil.**
+`pg_get_functiondef('public.madde_ara(text,integer)')` parmak izi:
+
+| İşaret | Sonuç |
+|---|---|
+| imza sayısı | **1** (`public.madde_ara(text,integer)`) — aşırı yükleme yok |
+| tanım uzunluğu | 2.316 karakter · md5 `f763bddd0e82adcf57dc419be43948f2` |
+| `secili` / `qdar` (v8 dar havuzu) | **var** |
+| `df <= 1500` eşiği | **var** |
+| `standart-madde` tür dalı (v8 ölü dal onarımı) | **var** |
+| `arama_fold` kolonu | **var** |
+| `limit 300` aday havuzu | **var** |
+| trigram / `similarity` | yok |
+
+Yani **canlıdaki fonksiyon deponun v8'idir**; depo dışından bir değişiklik
+girmemiş. (`union` işareti `true` çıkıyor ama bu v8'in kendi `secili2`
+bloğundaki `union all`'dır — yanlış alarm.)
+
+⚠️ **Bu satır bir günlük yanlış teşhisi kapatıyor:** 10.09'da "canlı fonksiyon
+depodaki hiçbir sürümle uyuşmuyor" hükmü kuruldu. Yanlıştı. Sebebi ölçüm
+hatasıydı — aynı tebliğin `[giris]` satırı ölçülüp `m.4` satırı sanıldı.
+Gerçek arıza fonksiyonda değil **veride**: `SPK Tebliğ (Seri: X, No: 22) m.4`
+tek satırda **146.979 karakter** duruyor ve v8'in `kapsanan` bonusu onu her
+sorguda tepeye taşıyor. Onarım `motor/spk-mevzuat-yut.ps1` içinde
+(dev madde artık dilimleniyor); **etkili olması için o kaynakların yeniden
+yutulması gerekir.**
 
 **29.08 ölçümü (canlı):**
 
