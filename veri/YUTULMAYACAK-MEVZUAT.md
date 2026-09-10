@@ -19,9 +19,15 @@
   KARA: TMS 18
   KARA: TMS 17
   KARA: TMS 11
+  KARA: TMS 39
+  KARA: TFRS 4
+  KARA: KKS 1
+  KARA: BDS 110
   KARA: 6111
   KARA: 6326
   KARA: 3713
+  KARA: 956
+  KARA: 13033
 -->
 
 
@@ -47,6 +53,30 @@ metinden bugün geçerli olmayan soru üretmeye başlar.
 | **TMS 18** Hasılat | 40 | mülga | **TFRS 15** ✅ (94 atıf) |
 | **TMS 17** Kiralamalar | 35 | mülga | **TFRS 16** ✅ (68 atıf) |
 | **TMS 11** İnşaat Sözleşmeleri | 32 | mülga | **TFRS 15** ✅ |
+| **TMS 39** Finansal Araçlar | 16 | mülga | **TFRS 9** ✅ (120 atıf) |
+| **TFRS 4** Sigorta Sözleşmeleri | 22 | mülga | **TFRS 17** ✅ (52 atıf) |
+
+*(TMS 39 ve TFRS 4, 10.09'da `arac/sinav-atif-taramasi.ps1` ile bulundu — elle
+yaptığım ilk tarama standartlarda ≥4 atıf eşiği kullandığı için ikisini de
+kaçırmıştı. Araç eşiği 3'e indirince çıktılar.)*
+
+### KKS 1 — mülga değil, ADI DEĞİŞTİ
+
+| Standart | Sınav atfı | Durum | Ambardaki karşılığı |
+|---|---:|---|---|
+| **KKS 1** Kalite Kontrol Standardı | 16 | ad değişti | **KYS 1** ✅ (`KYS1`) |
+
+Kalite Kontrol Standardı (KKS), yeni çerçevede **Kalite Yönetimi Standardı
+(KYS)** oldu. Eksik değil; denetim aracı eski adı arıyor, ambar yeni adı
+taşıyor. **Bu bir yutma işi değil, bir ad köprüsü işidir.**
+
+### Yanlış yakalamalar (mevzuat kimliği değil)
+
+| Yakalanan | Atıf | Ne |
+|---|---:|---|
+| `BDS 110` | 3 | BDS numaraları 200'den başlar — böyle bir standart yok |
+| `956` | 8 | sayı deseni; kanun numarası değil |
+| `13033` | 3 | kanun numarası değil |
 
 Eski kitapçıklarda geçiyorlar çünkü o dönem yürürlükteydiler. Bugün bu
 standartlardan soru üretmek **yanlış öğretmek** olur.

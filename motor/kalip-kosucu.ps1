@@ -83,6 +83,35 @@ foreach($s in $satirlar){
   "[$(Get-Date -Format HH:mm)] BASLIYOR $($s.etiket) · $($s.ders) · adet $($s.adet)$(if($s.PSObject.Properties['eskiKaynak'] -and $s.eskiKaynak){ ' · KURTARMA' }) · ay ≈$([math]::Round($harcanan)) USD"
   & powershell -NoProfile -File $uret @arg *> $log
   $oz=Select-String -Path $log -Pattern 'KONU LİSTESİ|konu tekil|SORU DÜŞTÜ|KURTARMA DÜŞTÜ|UYARLAMA OK|HAKEM (EVET|HAYIR)|HAKEM2 (EVET|HAYIR)|KÖR ÇÖZÜM|SIM (DO|YAN|yetmedi)|KAYNAK BORCU|BEDEL TOPLAM|yazildi' | ForEach-Object { $_.Line }
+  # --- 🔴 SADE KAPISI (10.09.2026) ------------------------------------------
+  # 198 parti FAZ S calismadan uretti ve KIMSE GORMEDI. Kesilme sessizdi cunku
+  # parti "BITTI" diye kapaniyordu; eksik alan hicbir yerde raporlanmiyordu.
+  # Kural yazmak isin yarisi, mekanik kapi diger yarisi.
+  # Bu kapi PARTIYI DUSURMEZ - uretilen soru odendi, atmak ikinci kayip olur.
+  # KIRMIZI damga basar ve kutuge yazar; tamamlama turu bu listeden beslenir.
+  $partiYol = Join-Path $Kok ("veri\fabrika\kalip-parti-$($s.etiket).json")
+  if(Test-Path $partiYol){
+    try{
+      $pj = ConvertFrom-Json -InputObject (Get-Content $partiYol -Raw -Encoding UTF8)
+      $n=0; $sadeli=0
+      foreach($pp in $pj.PSObject.Properties){
+        $vv=$pp.Value; if(-not $vv -or -not $vv.soru){ continue }
+        $n++
+        if($vv.PSObject.Properties['sade'] -and $vv.sade -and @($vv.sade.PSObject.Properties).Count -gt 0){ $sadeli++ }
+      }
+      if($n -gt 0){
+        $oran = [math]::Round(100*$sadeli/$n)
+        if($oran -lt 90){
+          "[$(Get-Date -Format HH:mm)] 🔴 SADE KAPISI KIRMIZI · $($s.etiket) · sade $sadeli/$n (%$oran) — Kaydir-Coz panelinin 2. ve 5. parcasi BOS iner"
+          $kutuk = Join-Path $Kok 'veri\fabrika\sade-eksik-partiler.txt'
+          Add-Content -Path $kutuk -Value ("{0}`t{1}`t{2}/{3}`t%{4}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm'), $s.etiket, $sadeli, $n, $oran) -Encoding UTF8
+        } else {
+          "[$(Get-Date -Format HH:mm)] SADE KAPISI YESIL · $($s.etiket) · sade $sadeli/$n (%$oran)"
+        }
+      }
+    }catch{ "[$(Get-Date -Format HH:mm)] ⚠ SADE KAPISI OLCULEMEDI · $($s.etiket): $($_.Exception.Message)" }
+  }
+
   "[$(Get-Date -Format HH:mm)] BITTI $($s.etiket)"; $oz
   $ozetTum+=[pscustomobject]@{ etiket="$($s.etiket)"; ders="$($s.ders)"; bedel=(($oz | Where-Object { $_ -match 'BEDEL TOPLAM' } | Select-Object -Last 1) -replace '.*≈','' -replace ' USD.*','') }
 }
