@@ -278,3 +278,27 @@ motor Npgsql ile DOGRUDAN Postgres'e baglanmak zorundadir. Bunun icin veritabani
 sifresi gerekir ve Supabase o sifreyi **kurulumdan sonra gostermiyor** - yalniz
 sifirlanabiliyor. Bu depoda dogrudan Postgres kullanan BASKA bir sey yok
 (hepsi PostgREST); olculdu.
+---
+
+## `2026-09-10-kalip-surum-kapisi.sql` — ⏳ CEM'İN ONAYINDA, BASILMADI
+
+**Ne yapar:** `soru_havuzu`'na `kalip_surum` sütunu (`v1` / `v2`) ekler ve
+**`yayin = true` yalnız `v2` satırlara verilebilir** kısıtını kurar.
+
+**Neden şimdi:** Ölçüldü (10.09) — havuzun tamamı v1 (30.569), sitede tek soru
+yok (`yayin=true` = 0), son üç günün 6.223 sorusu fabrika dosyalarında ve havuza
+**hiç aktarılmamış**. Karışma henüz olmadı. Sürüm damgası aktarımdan ÖNCE
+konuluyor; sonra konsaydı 30.569 satırı geriye dönük tahminle etiketlemek
+gerekirdi.
+
+**Neden CHECK, neden uygulama katmanı değil:** uygulama kuralı unutulur. Aynı
+gün ölçüldü — RAG telif süzgeci "çağırana bırakılmıştı" ve çağıran NULL
+geçiyordu, yani kural hiç çalışmıyordu. Yayın kararı veritabanının kendisinde
+durur.
+
+**v1 SİLİNMEZ:** 7.699 satırda insan onayı var. Etiket zaten karantinadır.
+Görünüm: `public.soru_havuzu_arsiv_v1`.
+
+🔴 **BASILDIKTAN SONRA YAPILACAK:** fabrika→havuz aktarıcısı `kalip_surum='v2'`
+yazmalı. Yazmazsa varsayılan `v1` olur ve yeni sorular da yayına çıkamaz —
+kapı doğru çalışır ama iş durur.
