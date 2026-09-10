@@ -242,6 +242,12 @@ public sealed class SoruUretici(
         7. Yapay zeka kokusu YASAK: "Bu baglamda", "onemlidir ki", "sonuc olarak"
            gibi dolgu kaliplar kullanma. Gercek bir sinav sorusu gibi yaz.
         8. Konu dayanak metinde YOKSA soru uretme - bos liste dondur.
+        9. MEVZUAT TARIHCESI SORULMAZ. Madde metnindeki degisiklik dipnotlari
+           - "(Ek: 30/12/1980-2365/46 md.)", "(Degisik: ...)", "(Muk: ...)" -
+           kaynak kunyesidir, HUKUM DEGILDIR. "Bu bent hangi kanunla eklendi",
+           "en son hangi degisiklik yapildi" gibi sorular YASAKTIR. Sinav
+           adayinin bilmesi gereken sey hukmun KENDISIDIR, ne zaman
+           degistirildigi degil.
         """;
 
     private static readonly Dictionary<string, JsonElement> Sema = new()
