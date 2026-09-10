@@ -250,3 +250,29 @@ bugün **yük taşıyor** — kaldırılırsa hem anon arama hem Net Cevap ölü
 Doğru sıra: (1) `madde_ara`'yı `security definer` yap, (2) canlıda aramanın
 çalıştığını ölç, (3) `dokuman_public_read` politikasını daralt, (4) tekrar ölç.
 Karar Cem'de.
+
+---
+
+## rag semasi (RAG motoru) — AYRI GOC KUTUGU
+
+Bu sema kendi kutugunu tasir: `select * from rag.schema_migrations;`
+"Hangi SQL basili?" sorusu orada TAHMINSIZ cevaplanir; asagisi ozet.
+
+| Goc | Basildi | Ne kurdu |
+|---|---|---|
+| `001_init` | 10.09.2026 | kaynak · parca · parca_vektor · is_kuyrugu · soru · `rag.ara()` hibrit arama (RRF k=60) · HNSW indeksi · `rag.katla()` |
+| `002_konu_madde` | 10.09.2026 | `rag.konu_madde` (konu->madde kalici eslesme) · `rag.konu_dayanak()` · `rag.kartsiz_konular` gorunumu · ilk 6 dogrulanmis kart |
+
+**10.09.2026 dogrulama (canli):**
+`002_konu_madde / rag.ara v1 (RRF k=60) / konu_madde + konu_dayanak / vector(768) cosine HNSW(m=16,ef_c=64)`
+· goc 2 · konu karti 6 · tablo 7 · **RLS acik 7/7**
+
+RLS'i Supabase'in kendi uyarisi uzerine actik. Motor `postgres` kullanicisiyla
+(tablo sahibi) baglandigi icin RLS'i baypas eder - engellemez, guvenligi artirir.
+
+⚠️ **rag semasi PostgREST'ten ERISILEMEZ** (olculdu: `PGRST106 - Only public,
+graphql_public are exposed`). Yani Supabase API anahtariyla bu semaya yazilamaz;
+motor Npgsql ile DOGRUDAN Postgres'e baglanmak zorundadir. Bunun icin veritabani
+sifresi gerekir ve Supabase o sifreyi **kurulumdan sonra gostermiyor** - yalniz
+sifirlanabiliyor. Bu depoda dogrudan Postgres kullanan BASKA bir sey yok
+(hepsi PostgREST); olculdu.
