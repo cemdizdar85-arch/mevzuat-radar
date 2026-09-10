@@ -85,6 +85,34 @@ $KEY=$env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ throw 'SUPABASE_SERVICE_KEY yok.' }
 $SB=@{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' }
 
+# --- KAPI-BAKIYE (10.09 ÖLÇÜLDÜ: GM Vergi t4) ------------------------------------------------------------------------
+# vergi-kolay ve vergi-zor partileri hakem/kör/ikiz fazlarını TAMAMLADIKTAN sonra giriş fazında HTTP 400 ile öldü.
+# Gövde: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access
+# the Anthropic API..."}}. Yani bakiye koşunun ORTASINDA bitti: harcanan para duruyor, parti yarım kalıyor ve yeniden
+# koşulduğunda hakem parası İKİNCİ KEZ ödeniyor. 400 dönen çağrı ücretsiz olduğu için bunu koşunun BAŞINDA ölçmek
+# bedelsizdir: 1 jetonluk bir yoklama atılır. Yalnız "credit balance" mesajı koşuyu DURDURUR — başka her hata
+# (ağ, model adı, geçici 429/5xx) uyarıdır, çünkü yanlış teşhisle koşuyu durdurmak da bir kayıptır.
+if(-not $SadeceHtml -and "$env:MEVZUAT_BAKIYE_KAPISI" -ne '0'){
+  $bkHedef=Get-ApiHedef
+  # yoklama gövdesi Messages API biçimindedir; OpenRouter hattı /chat/completions kullanır, orada yoklama YAPILMAZ
+  # (yanlış biçimden dönen hata bakiye hatası sanılmaz, ama boşuna gürültü de üretmesin).
+  if(@('anthropic','aws') -notcontains "$($bkHedef.ad)"){ "KAPI-BAKIYE: atlandı (hat '$($bkHedef.ad)', Messages API değil)" }
+  else{
+  $bkGovde=@{ model='claude-haiku-4-5-20251001'; max_tokens=1; messages=@(@{ role='user'; content=@(@{ type='text'; text='.' }) }) }
+  try{
+    [void](Invoke-RestMethod -Method Post -Uri ($bkHedef.taban + '/v1/messages') -Headers $bkHedef.basliklar -Body ([Text.Encoding]::UTF8.GetBytes(($bkGovde | ConvertTo-Json -Depth 8))) -ContentType 'application/json' -TimeoutSec 60)
+    "KAPI-BAKIYE: açık (1 jetonluk yoklama geçti)"
+  }catch{
+    $bkGovdeHata=''
+    try{ $bkResp=$_.Exception.Response; if($bkResp){ $bkSr=New-Object IO.StreamReader($bkResp.GetResponseStream()); $bkGovdeHata=$bkSr.ReadToEnd() } }catch{}
+    if("$bkGovdeHata" -match '(?i)credit balance'){
+      throw "KAPI-BAKIYE DÜŞTÜ: Anthropic bakiyesi yetersiz, parti HİÇ BAŞLAMADAN durduruldu (yarım koşu = iki kez ödenen hakem parası). Sunucu: $bkGovdeHata"
+    }
+    Write-Host "KAPI-BAKIYE: yoklama yanıt vermedi, koşu sürüyor (bakiye hatası DEĞİL) - $($_.Exception.Message)" -ForegroundColor DarkYellow
+  }
+  }
+}
+
 function Coz([string]$txt){
   $tt="$txt".Trim() -replace '^```json\s*','' -replace '^```\s*','' -replace '\s*```$',''
   $c=$null; try{ $c=$tt|ConvertFrom-Json }catch{ $son=$tt.LastIndexOf('}'); if($son -gt 0){ try{ $c=$tt.Substring(0,$son+1)|ConvertFrom-Json }catch{} } }
@@ -791,6 +819,31 @@ $OZEL_DESEN=@{
   # kp-29: 690'a devir KAYIT teknigi sorarken kopru TMS 1'e (sunulus) baglamisti.
   'gider tahakkuku'             = @('VUK (213 s.K.) m.287%','THP 381%','THP 770%')
   'gelir tablosu hesaplari'     = @('THP 690%','THP 600%','THP 611%','THP 621%')
+  # 10.09 ÖLÇÜLDÜ (GM Vergi Hukuku + Maliye t4): 108 hazır sorunun 34'ü hakemden döndü ve 34'ünün de gerekçesi
+  # AYNIYDI — "kaynak metni soru konusunu içermiyor". Soru kusurlu değildi, hakemin gördüğü paket yanlıştı:
+  # deseni olmayan konuda DesenUret kök eşleşmesine düşüyor, kök alakasız maddeyi getiriyordu. Hakem sözleriyle:
+  # '5018 butce turleri' -> "Kaynak metni soru konusunu (5018 m.3'teki genel yönetim kapsamı) hiç içermemektedir";
+  # 'is-lm acik ekonomi' -> "kaynak metni Atatürk dönemi ekonomi politikası, bütçe sınıflandırması...".
+  # Aşağıdaki 14 desen ambarda TEK TEK ölçüldü (arac/desen sınaması; her biri hedef belgeyi döndürüyor).
+  # JOKER TUZAĞI burada iki kez ısırdı: '6183 m.10%' m.100-109'u, '6183 m.11%' m.110-118'i, '5018 m.3%' m.30-39'u
+  # da yakalıyor. Tek parçalı maddede ad "m.10 - Teminat ve değerlenmesi" olduğu için doğru önek 'm.10 -%';
+  # parçalı maddede "m.3 [1/3]" olduğu için 'm.3 [%'. Joker asla çıplak numaranın hemen ardına konmaz.
+  'amme alacagi tecil'                = @('AATUHK (6183 s.K.) m.48 -%','AATUHK (6183 s.K.) m.49%','AATUHK (6183 s.K.) m.51%')
+  'amme alacagi teminat paraya cevirme'= @('AATUHK (6183 s.K.) m.56%','AATUHK (6183 s.K.) m.10 -%','AATUHK (6183 s.K.) m.11 -%','AATUHK (6183 s.K.) m.12 -%','AATUHK (6183 s.K.) m.9 -%')
+  'amme alacagi tasarruf iptali'      = @('AATUHK (6183 s.K.) m.24 -%','AATUHK (6183 s.K.) m.26 -%','AATUHK (6183 s.K.) m.27%','AATUHK (6183 s.K.) m.28 -%','AATUHK (6183 s.K.) m.29 -%')
+  # konu adı "indirim" diyor ama üç zorluğun da dayanağı 6183 m.48/A (uyumlu mükellefin borcunun tecili) — GVK mük.121 DEĞİL
+  'vergiye uyumlu mukellef indirimi'  = @('AATUHK (6183 s.K.) m.48/A%')
+  'otv engelli istisnasi'             = @('ÖTV K. (4760 s.K.) m.7 [%')
+  'ozel iletisim vergisi'             = @('Gider Vergileri K. (6802 s.K.) m.39 [%')
+  'emlak vergisi-bina vergisi'        = @('Emlak V.K. (1319 s.K.) m.7 -%','Emlak V.K. (1319 s.K.) m.8 -%','Emlak V.K. (1319 s.K.) m.9 -%','Emlak V.K. (1319 s.K.) m.1 -%','Emlak V.K. (1319 s.K.) m.3 -%')
+  'kdv matrahina dahil unsurlar'      = @('KDVK (3065 s.K.) m.24 -%','KDVK (3065 s.K.) m.20 -%','KDVK (3065 s.K.) m.25 -%','KDVK (3065 s.K.) m.27 -%')
+  'kdv istisnalari'                   = @('KDVK (3065 s.K.) m.11 -%','KDVK (3065 s.K.) m.12 [%','KDVK (3065 s.K.) m.18 -%','KDVK (3065 s.K.) m.16')
+  # Maliye: dördü de teori konusu; notlar ambarda VARDI, adları konu kökleriyle eşleşmiyordu (09.09 dersinin tekrarı)
+  'gelir vergisi dilim tarifesi'      = @('~teori vergi siniflandirmasi','GVK (193 s.K.) m.103%')
+  'gelir vergisi subjektivite'        = @('~teori vergi siniflandirmasi','~teori vergileme ilkeleri')
+  'is-lm acik ekonomi'                = @('~teori is-lm acik ekonomi','~teori is-lm likidite tuzagi para','~teori denge geliri')
+  '5018 butce turleri'                = @('~teori 5018 butce turleri','Kamu Malî Yönetimi K. (5018 s.K.) m.3 [%','~teori merkezi yonetim butcesi kapsami')
+  'kamu harcamalari artis kuramlari'  = @('~teori kamu harcamalarinin artis','~teori wagner kanunu')
 }
 # Hakem yakalamalarindan dogan konu-ozel uretim uyarilari (isteme eklenir)
 $OZEL_NOT=@{
@@ -1079,16 +1132,26 @@ function TopluGonder([string]$faz){
   if(-not $script:TOPLU_HAZIR.ContainsKey($faz)){ $script:TOPLU_HAZIR[$faz]=@{} }
   # 08.09 Tur 1 dersi: koşucu yeniden başlatılınca bellekteki parti cevapları kayboluyor, ödenen parti yeniden ödeniyordu. Aynı etiket/faz için
   # daha önce gönderilmiş parti(ler) bekleyen-partiler.json'dan bulunur, bitmişse cevapları BEDAVA hasat edilir; yalnız cevabı olmayan işler gönderilir.
+  # 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): hasat yalnız id ile eşleşiyordu → düzeltilmiş soru ESKİ kararını geri alıyordu (çok zor kp-05/kp-11;
+  # HAKEM2 jetonu iki koşuda birebir aynı çıktı, gerekçe silinmiş ifadeleri alıntılamayı sürdürdü). Artık partiye gönderilirken yazılan
+  # İÇERİK PARMAK İZİ ile karşılaştırılır: tutmuyorsa cevap ALINMAZ, iş yeniden gönderilir. Parmak izi taşımayan ESKİ kayıtlardan da
+  # hasat yapılmaz (içerik doğrulanamıyor) — bu, bir kereye mahsus yeniden gönderim bedelidir, karşılığı bayat kararın imkânsızlaşmasıdır.
   try{
-    $eskiler=@(Get-BekleyenPartiler "$Etiket/$faz"); $hasat=0
+    $eskiler=@(Get-BekleyenPartiler "$Etiket/$faz"); $hasat=0; $hasatId=New-Object System.Collections.Generic.List[string]; $atlanan=New-Object System.Collections.Generic.List[string]
     if($eskiler.Count){ $hedefT=Get-TopluBasliklar
       foreach($ep in $eskiler){ if(-not $isler.Count){ break }
         $es=$null; try{ $es=Get-ClaudeTopluSonuc "$($ep.id)" $hedefT "$Etiket/$faz" $false }catch{ $es=$null }
         if(-not $es){ continue }
+        $pm=$(if($ep.PSObject.Properties['parmak']){ $ep.parmak } else { $null })
         $kalan=New-Object System.Collections.Generic.List[object]
-        foreach($is in $isler){ $iid="$($is.id)"; if($es.ContainsKey($iid) -and $es[$iid]){ $script:TOPLU_HAZIR[$faz][$iid]=$es[$iid]; $hasat++ } else { $kalan.Add($is) } }
+        foreach($is in $isler){ $iid="$($is.id)"
+          $uyum=$false
+          if($pm -and $pm.PSObject.Properties[$iid]){ $uyum = ("$($pm.$iid)" -eq (Get-IcerikParmak $is.icerik)) }
+          if($es.ContainsKey($iid) -and $es[$iid] -and $uyum){ $script:TOPLU_HAZIR[$faz][$iid]=$es[$iid]; $hasat++; $hasatId.Add($iid) }
+          else { if($es.ContainsKey($iid) -and $es[$iid] -and -not $uyum){ $atlanan.Add($iid) }; $kalan.Add($is) } }
         $isler=@($kalan.ToArray()) }
-      if($hasat){ Write-Host "  TOPLU $faz : önceki partiden $hasat cevap BEDAVA hasat edildi (yeniden başlatma), gönderilecek $($isler.Count)" -ForegroundColor Cyan } }
+      if($hasat){ Write-Host "  TOPLU $faz : önceki partiden $hasat cevap BEDAVA hasat edildi ($($hasatId -join ', ')), gönderilecek $($isler.Count)" -ForegroundColor Cyan }
+      if($atlanan.Count){ Write-Host "  TOPLU $faz : $($atlanan.Count) bayat cevap ATLANDI, içerik değişmiş ya da parmak izi yok ($(@($atlanan | Select-Object -Unique) -join ', ')) - yeniden gönderilecek" -ForegroundColor Yellow } }
   }catch{ Write-Host "  TOPLU $faz : eski parti hasadı atlandı ($($_.Exception.Message))" -ForegroundColor DarkYellow }
   if(-not $isler.Count){ return }
   if($isler.Count -lt 2){ if($isler.Count){ Write-Host "  TOPLU $faz : tek istek, anlık gidecek" -ForegroundColor DarkGray }; return }
@@ -2251,7 +2314,12 @@ if($HazirSoru -and -not $SadeceHtml){
     foreach($x in @(MulgaKapisi $cvp)){ $kus.Add("KAPI-M: $x") }
     foreach($x in @(SureKapisi $cvp)){ $kus.Add("KAPI-S: $x") }
     $yilH=@([regex]::Matches("$($cvp.soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yilH.Count -and (($yilH | Measure-Object -Maximum).Maximum -lt (Get-Date).Year)){ $kus.Add("KAPI-Y: sorudaki en yeni yıl $(($yilH | Measure-Object -Maximum).Maximum)") }
-    if($script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count){ $kvH=@(PencereKavram "$($cvp.soru)"); if($kvH.Count -ge 2){ $kus.Add("KAPI-K: $($kvH -join ', ')") } elseif($kvH.Count -eq 1){ $rapor.Add("KAPI-K NOTU (tek kelime, tekrar yok): $id | $($kvH[0])") } }
+    # 10.09 ÖLÇÜLDÜ (sgs-a6e-yabancidil-p1): FAZ A'da YD modunda KAPI-K kapalı (satır 2138) ama FAZ GM'de
+    # koşul YOKTU → 25 GM sorusunun 8'i İngilizce kelimeler ("auditor, expressing, opinion") pencere
+    # sözlüğünde yok diye düştü. Pencere sözlüğü Türkçe kitapçıktan kurulur, İngilizce soruda anlamsızdır.
+    # Aynı sınıf kusur 10.09'da bir kez daha görüldü (FAZ GM -RedYenile'de konu_uyum/tek_anlam eksikti):
+    # FAZ GM yolu, FAZ A'daki her kapı koşuluyla BİREBİR eşitlenmelidir.
+    if(-not $script:YD_MOD -and $script:PENCERE_KOK -and $script:PENCERE_KOK.Keys.Count){ $kvH=@(PencereKavram "$($cvp.soru)"); if($kvH.Count -ge 2){ $kus.Add("KAPI-K: $($kvH -join ', ')") } elseif($kvH.Count -eq 1){ $rapor.Add("KAPI-K NOTU (tek kelime, tekrar yok): $id | $($kvH[0])") } }
     $adimVar=[bool]($e.PSObject.Properties['adimlar'] -and $e.adimlar)
     if($adimVar){ foreach($x in @(AritmetikKusur $e.adimlar)){ $kus.Add("ADIM ARİTMETİK: $x") }; foreach($x in @(AdimTurkceKusur $e.adimlar $e.verilen)){ $kus.Add("ADIM TÜRKÇE: $x") } }
     if($kus.Count){ HzDus "$($e.konu)" ($kus -join ' · '); continue }
@@ -2275,23 +2343,47 @@ if($HazirSoru -and -not $SadeceHtml){
 # --- ŞIK HARFİ DENGESİ (07.09 A kovası 6 — "hep C" olmaz) ---------------------------------------------------------------
 # Sayı şıkları SikSirala ile küçükten büyüğe dizilir (harf oradan çıkar, dokunulmaz). Cümle şıklı (teori/kayıt) sorularda bir harf partide
 # %40'ı aşarsa (n≥5) o harfteki bir soru henüz ADIMLARI YAZILMAMIŞKEN en az kullanılan harfe taşınır: siklar · aciklama · teshis · celdirici_yol
-# birlikte taşınır ("Hepsi / Hiçbiri / Yukarıdakilerin" içeren soruya dokunulmaz). Adımları yazılmış soru taşınmaz (adım.sik harfe bağlı).
+# birlikte taşınır ("Hepsi / Hiçbiri / Yukarıdakilerin" içeren soruya dokunulmaz). 10.09: adımı OLAN soru değil, adımı ŞIK HARFİNE
+# BAĞLI olan soru taşınmaz (AdimHarfeBagliMi) — eski hâli hazır soru yolunda dengelemeyi tümüyle kapatıyordu.
 function SikTasi($c,[string]$kaynakH,[string]$hedefH){
   foreach($alan in 'siklar','aciklama','teshis','celdirici_yol'){ if(-not $c.PSObject.Properties[$alan] -or -not $c.$alan){ continue }; $o=$c.$alan
     $vK=$(if($o.PSObject.Properties[$kaynakH]){ $o.$kaynakH } else { $null }); $vH=$(if($o.PSObject.Properties[$hedefH]){ $o.$hedefH } else { $null })
     if($null -ne $vK){ $o | Add-Member -NotePropertyName $hedefH -NotePropertyValue $vK -Force } elseif($o.PSObject.Properties[$hedefH]){ $o.PSObject.Properties.Remove($hedefH) }
     if($null -ne $vH){ $o | Add-Member -NotePropertyName $kaynakH -NotePropertyValue $vH -Force } elseif($o.PSObject.Properties[$kaynakH]){ $o.PSObject.Properties.Remove($kaynakH) } }
   $c.dogru=$hedefH
+  # 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): dengeleme YARGILAMADAN SONRA da çalışabiliyor (hazır soru yolunda parti iki turda basılıyor).
+  # kor_cozum HARFE BAĞLI üç alan taşır: 'cevap' (modelin seçtiği harf), 'dogru' (o anki doğru harf) ve 'hesap' (şık şık A) B) C)
+  # anlatımı). Harf taşınıp bu kayıt bırakılırsa kayıt YALAN SÖYLER: 'dogru' sorunun doğrusuyla çelişir, 'hesap' başka şıkkı anlatır.
+  # simulasyon da öğrencinin seçtiği harfi tutar. Bu yüzden taşınan soruda harfe bağlı kararlar DÜŞÜRÜLÜR; aynı koşunun ilerleyen
+  # fazları onları yeni harfe göre yeniden hesaplar. hakem/hakem2 kararı içeriğe (dayanak/ders/konu) bağlı olduğu için korunur.
+  foreach($alan in 'kor_cozum','simulasyon','simulasyon_sonnet'){ if($c.PSObject.Properties[$alan]){ $c.PSObject.Properties.Remove($alan) } }
 }
 function SayiSikli($c){ $n=0; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '^\s*%?\s*-?\d[\d.,]*\s*(TL|₺|%|adet|kg|gün|yıl|ay|saat|birim)?\s*$'){ $n++ } }; return ($n -ge 4) }
+# 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): aşağıdaki "adımı yazılmış soru taşınmaz" istisnası, HAZIR SORU yolunda dengelemeyi tümüyle
+# kapatıyordu — hazır soruların hepsinde adım var. Sonuç: Borçlar kolay %92 A, zor %95 B, çok zor %91 B (42 sorunun 42'si);
+# "hep B" yazan öğrenci zor bankadan 18/19 alırdı. Her soru tek tek kusursuzdu, kusur DAĞILIMDAYDI ve hiçbir kapı görmüyordu.
+# İstisnanın gerçek gerekçesi adımın ŞIK HARFİNE bağlı olmasıdır; artık varlık değil HARF REFERANSI aranır: adımda 'sik' alanı
+# ya da adım/hap/taktik metninde "B şıkkı", "şık C" gibi bir gönderme varsa soru yine taşınmaz (taşınırsa metin yalan söyler).
+function AdimHarfeBagliMi($c){
+  if(-not ($c.PSObject.Properties['adimlar'] -and $c.adimlar)){ return $false }
+  foreach($a in @($c.adimlar)){ if($a -and $a.PSObject.Properties['sik'] -and "$($a.sik)".Trim()){ return $true } }
+  $t=(@($c.adimlar | ForEach-Object { "$($_.formul) $($_.anlatim)" }) -join ' ')+' '+"$($c.hap) $($c.sinav_taktigi) $($c.notlandirici)"
+  return ($t -match '(?i)(\b[A-E]\s*[şs]ık|\b[şs]ık+[ıi]?\s*\(?[A-E]\)?\b|\([A-E]\)\s*[şs]ık)')
+}
 if(-not $SadeceHtml -and -not $SadeceAdim){
   $cumleli=@($don.Keys | Where-Object { $c=$don[$_]; $c -and $c.soru -and $c.siklar -and -not (SayiSikli $c) })
   if($cumleli.Count -ge 5){
-    for($tur=0;$tur -lt 10;$tur++){
+    # 10.09: tur tavanı 10'du ve her tur YALNIZ BİR soru taşır. Borçlar zor partisinde gereken taşıma tam 10 çıktı (18 -> 8),
+    # yani tavan bir soru daha kaysa hedef SESSİZCE tutturulamayacaktı (döngü biter, uyarı yok). Döngü zaten hedefe varınca
+    # kırılıyor, fazla tur bedelsiz: tavan parti büyüklüğüne yer bırakacak biçimde 40'a çıkarıldı.
+    for($tur=0;$tur -lt 40;$tur++){
       $say=@{}; foreach($hh in 'A','B','C','D','E'){ $say[$hh]=0 }; foreach($oid in $cumleli){ $dg="$($don[$oid].dogru)".Trim().ToUpperInvariant(); if($say.ContainsKey($dg)){ $say[$dg]++ } }
       $enCok=($say.GetEnumerator() | Sort-Object { -$_.Value } | Select-Object -First 1); $enAz=($say.GetEnumerator() | Sort-Object { $_.Value } | Select-Object -First 1)
-      if($enCok.Value -le [math]::Ceiling(0.40*$cumleli.Count)){ break }
-      $aday=$null; foreach($oid in $cumleli){ $c=$don[$oid]; if("$($c.dogru)" -ne $enCok.Key){ continue }; if($c.PSObject.Properties['adimlar'] -and $c.adimlar){ continue }
+      # 10.09: eşik Ceiling idi ve %40'ın ÜSTÜNDE duruyordu (12 soruda 5 = %42, 11 soruda 5 = %45, 8 soruda 4 = %50) —
+      # oysa ön denetimin cevap dağılımı kapısı ">%40" diyor. İki kapı birbirini tutmuyordu: üretici "dengeledim" deyip
+      # çıkıyor, denetçi aynı partiye KUSUR veriyordu. Floor ile eşik %40'ın ALTINDA kalır ve iki kapı hizalanır.
+      if($enCok.Value -le [math]::Floor(0.40*$cumleli.Count)){ break }
+      $aday=$null; foreach($oid in $cumleli){ $c=$don[$oid]; if("$($c.dogru)" -ne $enCok.Key){ continue }; if(AdimHarfeBagliMi $c){ continue }
         $hepsi=$false; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '(?i)hepsi|hiçbiri|yukarıdaki|yalnız (I|II|III)\b'){ $hepsi=$true } }; if($hepsi){ continue }; $aday=$oid; break }
       if(-not $aday){ break }
       SikTasi $don[$aday] $enCok.Key $enAz.Key; Write-Host "  ŞIK DENGESİ: $aday doğru $($enCok.Key) -> $($enAz.Key) taşındı (parti dağılımı $(($say.GetEnumerator() | Sort-Object Key | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ' '))" -ForegroundColor DarkGray; $script:sikDengeYaz=$true
@@ -2355,7 +2447,18 @@ foreach($id in @($don.Keys)){
   else{
     # hakem-red onarimi: kaynak alanlari silinmisse OZEL_DESEN/DesenUret ile TAZE cek
     $konuLc2="$($cvp.konu)".ToLowerInvariant()
-    $ds=if($OZEL_DESEN.ContainsKey($konuLc2)){ $OZEL_DESEN[$konuLc2] } else { DesenUret ([pscustomobject]@{konu=$cvp.konu;dayanak=$cvp.dayanak;cikmis_dayanak=''}) }
+    # 10.09 ÖLÇÜLDÜ (GM Vergi/Maliye t4): HAZIR SORU yolunda kayıt buraya kaynak_adlar'sız geliyor, yani paketi
+    # HER ZAMAN bu satır kuruyor. Kurulan sahte kayıtta `guc` alanı YOKTU; DesenUret'in 536. satırı ("$($kayit.guc)"
+    # -match 'ZAYIF|OLCULMEDI|^$') boş metni ZAYIF sayıp $dayanakZayif'i her seferinde true yapıyor, köprü dayanağı
+    # yok sayılıp kör kök eşleşmesine düşülüyordu. Konu kaydı $KONULAR'da zaten duruyor: guc ve cikmis_dayanak
+    # oradan verilir, böylece hazır soru yolu FAZ A ile aynı paketi görür.
+    $kyD=$null; foreach($xk in $KONULAR){ if((Katla2 "$($xk.kayit.konu)") -eq (Katla2 "$($cvp.konu)")){ $kyD=$xk.kayit; break } }
+    $ds=if($OZEL_DESEN.ContainsKey($konuLc2)){ $OZEL_DESEN[$konuLc2] } else { DesenUret ([pscustomobject]@{
+          konu=$cvp.konu
+          dayanak=$cvp.dayanak
+          cikmis_dayanak=$(if($kyD -and $kyD.PSObject.Properties['cikmis_dayanak']){ "$($kyD.cikmis_dayanak)" } else { '' })
+          guc=$(if($kyD -and $kyD.PSObject.Properties['guc']){ "$($kyD.guc)" } else { '' })
+        }) }
     $amb2=AmbarCek $ds
     $kMetin=$amb2.metin
     if($amb2.adlar.Count){ $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb2.adlar) -Force }
