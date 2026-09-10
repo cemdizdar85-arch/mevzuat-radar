@@ -1,55 +1,7 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "KOR",
+  "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 70,
-  "koyu_gecis": 4,
-  "temiz_sayfa": 69,
-  "denetlenen_metin": 9231,
-  "toplam_kirik": 3,
-  "denetlenen_sinir": 2741,
-  "toplam_gorunmez_sinir": 0,
-  "olculemeyen": 0,
-  "esik": {
-    "normal": 4.5,
-    "buyuk": 3,
-    "sinir": 1.12
-  },
-  "gorunmez_sinir_sayfalar": [],
-  "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "kurulus-nobeti.html",
-      "adet": 3,
-      "ornekler": [
-        {
-          "oge": "button.on",
-          "yazi": "💰 Kaça mal olur?",
-          "oran": 1.54,
-          "esik": 4.5,
-          "renk": "rgb(251, 250, 248)",
-          "zemin": "rgb(255,194,75)",
-          "iz": "<button class=\"on\" data-b=\"maliyet\">💰 Kaça mal olur?<small>2026 tarifeleriyle, kalem kalem</small></button>"
-        },
-        {
-          "oge": "small",
-          "yazi": "2026 tarifeleriyle, kalem kalem",
-          "oran": 1.54,
-          "esik": 4.5,
-          "renk": "rgb(251, 250, 248)",
-          "zemin": "rgb(255,194,75)",
-          "iz": "<small>2026 tarifeleriyle, kalem kalem</small>"
-        },
-        {
-          "oge": "button.sbtn",
-          "yazi": "Limited (LTD)",
-          "oran": 1.54,
-          "esik": 4.5,
-          "renk": "rgb(251, 250, 248)",
-          "zemin": "rgb(255,194,75)",
-          "iz": "<button class=\"sbtn on\" data-v=\"ltd\">Limited (LTD)</button>"
-        }
-      ]
-    }
-  ]
+  "chrome_stderr": "[2105:2132:0910/003719.478274:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2105:2132:0910/003720.970097:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2105:2132:0910/003724.446084:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2105:2132:0910/003725.527604:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
 }
