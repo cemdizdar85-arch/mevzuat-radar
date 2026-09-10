@@ -1,0 +1,306 @@
+﻿{
+    "olcum":  "10.09.2026 11:39",
+    "aciklama":  "madde_ara\"nin getirdigi dayanak, o konuda soru yazmaya UYGUN mu? Iki katman AYRI okunur, birlestirilmez.",
+    "model":  "claude-sonnet-5",
+    "fatura":  {
+                   "giris":  67048,
+                   "cikis":  3189,
+                   "usd":  0.166,
+                   "not":  "claude-sonnet-5 liste fiyati (giris 2 / cikis 10 USD-M), batch degil"
+               },
+    "miknatis_belge":  [
+                           "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                           "SPK Tebliğ (III-35/A.2) - Kitle Fonlaması Tebliği (III-35/A.2) m.35",
+                           "SPK Tebliğ (Seri: V, No: 77) - Aracı Kuruluşların Kamuyu Aydınlatma Esaslarına İlişkin Tebliğ (Seri: m.13",
+                           "SPK Tebliğ (VII-128.7) - Sermaye Piyasasında Faaliyette Bulunanlar İçin Lisanslama ve Sicil Tut m.29",
+                           "SPK Tebliğ (Seri: V, No: 34) - Aracı Kurumların Sermayelerine ve Sermaye Yeterliliğine İlişkin Esasla m.35"
+                       ],
+    "katman_A_miknatis":  {
+                              "konu":  15,
+                              "UYGUN":  0,
+                              "KISMEN":  5,
+                              "ALAKASIZ":  10,
+                              "diger":  0,
+                              "uygun_yuzde":  0
+                          },
+    "katman_B_diger":  {
+                           "konu":  15,
+                           "UYGUN":  5,
+                           "KISMEN":  4,
+                           "ALAKASIZ":  4,
+                           "diger":  2,
+                           "uygun_yuzde":  33.3
+                       },
+    "satirlar":  [
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "kurul tedbirleri",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin bağımsız denetim standartları ve ek dizinini içeriyor; \u0027kurul tedbirleri\u0027 konusuna doğrudan hüküm yok, görülmeyen kısımda olabilir."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Muhasebe Denetimi",
+                         "konu":  "onemlilik kavrami",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin sadece madde 4 yürütme hükmü ve EK dizini listesi; önemlilik kavramına dair doğrudan hüküm yok, konu görülmeyen kısımda olabilir."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "istirak alacagi tahsili",
+                         "ad":  "SPK Tebliğ (Seri: V, No: 34) - Aracı Kurumların Sermayelerine ve Sermaye Yeterliliğine İlişkin Esasla m.35",
+                         "uzunluk":  81226,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin risk karşılığı tablosunda \u0027İştiraklerden Alacaklar\u0027 kalemini listeliyor ama tahsiline ilişkin muhasebe hükmü içermiyor; konu görülmeyen kısımda olabilir."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Hukuk",
+                         "konu":  "borclu temerrudu",
+                         "ad":  "SPK Tebliğ (Seri: V, No: 34) - Aracı Kurumların Sermayelerine ve Sermaye Yeterliliğine İlişkin Esasla m.35",
+                         "uzunluk":  81226,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin, aracı kurumların sermaye yeterliliği ve risk karşılığı hesaplama tablosunu içeriyor; borçlu temerrüdüyle ilgili herhangi bir hüküm bulunmuyor."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Hukuk",
+                         "konu":  "yasal sureler",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin bağımsız denetim standartları eklerinin dizinini içeriyor; yasal sürelere ilişkin somut bir düzenleme yok."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                         "konu":  "sozlesme unsurlari",
+                         "ad":  "SPK Tebliğ (VII-128.7) - Sermaye Piyasasında Faaliyette Bulunanlar İçin Lisanslama ve Sicil Tut m.29",
+                         "uzunluk":  27362,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin, lisans gerektiren unvan ve görevleri düzenliyor; sözleşme unsurları (meslek hukuku bağlamında) ile ilgisi yok."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "alacaklar kontrol testleri",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin EK dizini listesi; \u0027Kontrol testlerinde örnek hacmini etkileyen faktörler\u0027 geçiyor ama alacaklar kontrol testine dair somut hüküm gösterilmiyor."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Borclar Hukuku",
+                         "konu":  "genel islem kosullari",
+                         "ad":  "SPK Tebliğ (VII-128.7) - Sermaye Piyasasında Faaliyette Bulunanlar İçin Lisanslama ve Sicil Tut m.29",
+                         "uzunluk":  27362,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin SPK lisanslama gereklerini düzenliyor; genel işlem koşulları (borçlar hukuku) ile ilgili hiçbir hüküm içermiyor."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "envanter defteri",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin, bağımsız denetim standartları ve raporlarına ilişkin ek listesidir; envanter defteri konusuna değinmemektedir."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "isletmenin surekliligi",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin madde 4 ve ek dizini listesi; işletmenin sürekliliği konusuna doğrudan değinmiyor, görülmeyen kısımda geçebilir."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "nakit akis faaliyet siniflamasi",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin bağımsız denetim standartları ve ek dizinini içeriyor; nakit akış faaliyet sınıflaması ile ilgili herhangi bir hüküm bulunmuyor."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "nakit kaynaklari",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin bağımsız denetim standartları tebliğinin yürütme maddesi ve ek dizini; nakit kaynakları konusuyla ilgili hüküm içermiyor."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "senet degistirme",
+                         "ad":  "SPK Tebliğ (Seri: V, No: 34) - Aracı Kurumların Sermayelerine ve Sermaye Yeterliliğine İlişkin Esasla m.35",
+                         "uzunluk":  81226,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin aracı kurumların sermaye yeterliliği ve risk karşılığı hesaplama tablosuyla ilgili, senet değiştirme konusunu düzenlemiyor."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "surekli dosya icerigi",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin, bağımsız denetim standartları tebliğinin yürütme maddesi ve ek dizinini içeriyor; \u0027sürekli dosya içeriği\u0027 konusuna dair hüküm yok."
+                     },
+                     {
+                         "katman":  "A-miknatis",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "tutarlilik kavrami (politika degisikligi)",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.4",
+                         "uzunluk":  146979,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin, Ek listesi ve yürütme maddesini içeriyor; tutarlılık kavramı veya muhasebe politikası değişikliği ile ilgili hüküm yok."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "halka acik ortaklik borsa basvurusu",
+                         "ad":  "Sermaye Piyasası K. (6362 s.K.) m.14 [1/2]",
+                         "uzunluk":  1710,
+                         "karar":  "",
+                         "gerekce":  ""
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "reeskont islemi",
+                         "ad":  "BDDK THP grup 2 hesap listesi [1/5]",
+                         "uzunluk":  5342,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin sadece hesap kodu/adı listesi (faiz reeskontları hesapları); reeskont işleminin tanımı, hesaplama yöntemi veya muhasebeleştirme hükmü yok."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "muhasebe monografisi",
+                         "ad":  "TEORI - Monografi cozum adimlari (acilistan kapanisa)",
+                         "uzunluk":  2767,
+                         "karar":  "UYGUN",
+                         "gerekce":  "Metin, monografi çözüm sürecini açılış kaydından kapanış kaydına kadar tüm adımlarıyla (KDV mahsubu, yansıtma, 690-691-692) somut hesap işleyişiyle açıklıyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Hukuk",
+                         "konu":  "denetim engelleme cezasi",
+                         "ad":  "TCK (5237 s.K.) m.243",
+                         "uzunluk":  1140,
+                         "karar":  "",
+                         "gerekce":  ""
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Hukuk",
+                         "konu":  "kripto varlik zimmet sucu",
+                         "ad":  "Sermaye Piyasası K. (6362 s.K.) m.110/A [1/2]",
+                         "uzunluk":  1577,
+                         "karar":  "UYGUN",
+                         "gerekce":  "Madde 110/A kripto varlık hizmet sağlayıcı zimmet suçunu, unsurlarını, cezalarını (8-14 yıl, ağırlaştırılmış hal 14-20 yıl) doğrudan düzenlemektedir."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Hukuk",
+                         "konu":  "yurutmenin durdurulmasi karari sonuclari",
+                         "ad":  "İYUK (2577 s.K.) m.51",
+                         "uzunluk":  754,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin kanun yararına temyize ilişkin m.51\u0027i içeriyor; yürütmenin durdurulması kararının sonuçları farklı maddede (m.52) düzenlenir, burada yok."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                         "konu":  "kripto varlik zimmet sucu",
+                         "ad":  "Sermaye Piyasası K. (6362 s.K.) m.115",
+                         "uzunluk":  1158,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Madde 115 genel soruşturma usulünü düzenliyor; kripto varlık zimmet suçunun kendisi veya özel unsurları metinde açıkça tanımlanmıyor, sadece başlıkta geçiyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                         "konu":  "ticari faaliyette bulunma yasagi",
+                         "ad":  "SMMM K. (3568 s.K.) m.45 [1/2]",
+                         "uzunluk":  1659,
+                         "karar":  "UYGUN",
+                         "gerekce":  "Madde açıkça SMMM ve YMM\u0027lerin ticari faaliyette bulunamayacağını, hizmet akdiyle çalışamayacağını ve meslek onuruyla bağdaşmayan işlerle uğraşamayacağını düzenliyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Muhasebe Denetimi",
+                         "konu":  "kgk yaptirimlari",
+                         "ad":  "TASLAK (SORU DAYANAGI YAPILAMAZ) - SGDS 5000 Surdurulebilirlik Guvence Denetimlerine Iliskin Genel Hukumler bolum 669",
+                         "uzunluk":  901,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin SGDS 5000 kapsamında sınırlı/makul güvence denetimini açıklıyor, KGK yaptırımlarına ilişkin herhangi bir hüküm içermiyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Vergi Mevzuatı ve Uygulaması",
+                         "konu":  "kitle fonlamasi",
+                         "ad":  "SPK Tebliğ (III-35/A.2) - Kitle Fonlaması Tebliği (III-35/A.2) m.11",
+                         "uzunluk":  8439,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin platformların yükümlülüklerini düzenliyor; Vergi Mevzuatı dersi için vergisel hüküm (istisna, muafiyet vb.) içermiyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "donemsellik kavrami",
+                         "ad":  "MSUGT 1 kavram - Dönemsellik Kavramı",
+                         "uzunluk":  630,
+                         "karar":  "UYGUN",
+                         "gerekce":  "Metin dönemsellik kavramını tanımlıyor: faaliyet dönemlere bölünmesi, tahakkuk esası ve gelir-gider karşılaştırması ilkesini doğrudan düzenliyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "oz kaynaklari artiran islemler",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.8",
+                         "uzunluk":  1842,
+                         "karar":  "ALAKASIZ",
+                         "gerekce":  "Metin bağımsız denetim standartlarını ve denetçinin işletme yapısını anlamasını düzenliyor; öz kaynakları artıran işlemlerle ilgili hüküm içermiyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "risk degerlendirme prosedurleri",
+                         "ad":  "SPK Tebliğ (Seri: X, No: 22) - Sermaye Piyasasında Bağımsız Denetim Standartları Hakkında Tebliğ (Ser m.5",
+                         "uzunluk":  3149,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin denetçi beyanlarını ve risk değerlendirmesine dayalı prosedür oluşturma zorunluluğunu genel olarak belirtiyor ama risk değerlendirme prosedürlerini ayrıntılı düzenlemiyor."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "surdurulebilirlik standartlari kurulu (issb)",
+                         "ad":  "TEORI - Sürdürülebilirlik raporlama standartları: ISSB (IFRS S1, S2), Türkiye\u0027de TSRS ve KGK\u0027nın yetkisi",
+                         "uzunluk":  2170,
+                         "karar":  "UYGUN",
+                         "gerekce":  "Metin ISSB\u0027nin kuruluşu, IFRS S1/S2, TSRS ve KGK yetkisini somut hükümlerle açıklıyor; doğrudan soru yazılabilir."
+                     },
+                     {
+                         "katman":  "B-diger",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "yevmiye defteri",
+                         "ad":  "BDS 240 p.33 - Karşı Uygulanacak Denetim Prosedürleri",
+                         "uzunluk":  2159,
+                         "karar":  "KISMEN",
+                         "gerekce":  "Metin denetim prosedürlerini anlatıyor; yevmiye defterinin muhasebedeki tanımı, işlevi veya kayıt yöntemine dair hüküm içermiyor."
+                     }
+                 ]
+}
