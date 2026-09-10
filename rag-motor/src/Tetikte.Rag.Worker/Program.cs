@@ -168,6 +168,16 @@ if (args.Length > 0)
                 await ambar4.CanliSurumAsync(CancellationToken.None));
             return;
         }
+        case "olc":
+        {
+            // OLCUM AGZI (salt okunur). "Kac parca, kac vektor, indeks var mi"
+            // sorulari tahminle degil bununla cevaplanir.
+            //   dotnet run -- olc "select count(*) from rag.parca"
+            if (args.Length < 2) { gunluk2.LogError("kullanim: olc \"<select ...>\""); return; }
+            var ambar5 = sp.GetRequiredService<Ambar>();
+            Console.WriteLine(await ambar5.OlcAsync(args[1], CancellationToken.None));
+            return;
+        }
         case "rapor":
         {
             // Uretilen sorulari OKUNUR metne cevirir. JSON insan icin degil;

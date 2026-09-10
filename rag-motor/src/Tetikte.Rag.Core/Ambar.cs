@@ -65,6 +65,43 @@ public sealed class Ambar : IAsyncDisposable
         await islem.CommitAsync(ct);
     }
 
+    /// <summary>
+    /// SALT OKUNUR olcum agzi: bir select kosar, satirlari sekmeyle ayrilmis
+    /// metin olarak dondurur.
+    ///
+    /// NEDEN VAR: "kac parca, kac vektor, indeks var mi" gibi sorular bu depoda
+    /// SIK soruluyor ve cevabi TAHMINLE verilmiyor (ev kurali: olcmedigine
+    /// var/yok deme). Her olcum icin tarayici acip Supabase editorune gitmek
+    /// bir turu yakiyordu.
+    ///
+    /// KAPI: yalniz 'select' veya 'with' ile baslayan betik kabul edilir.
+    /// Veri degistirmek bu agzin isi degil - onun yolu 'goc'tur.
+    /// </summary>
+    public async Task<string> OlcAsync(string secme, CancellationToken ct)
+    {
+        var kirpik = secme.TrimStart();
+        if (!kirpik.StartsWith("select", StringComparison.OrdinalIgnoreCase)
+         && !kirpik.StartsWith("with", StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException(
+                "OLCUM AGZI SALT OKUNURDUR: yalniz 'select' ya da 'with' calisir. " +
+                "Veri degistirmek icin: dotnet run -- goc <dosya.sql>");
+
+        var sb = new StringBuilder();
+        await using var k = await _kaynak.OpenConnectionAsync(ct);
+        await using var komut = new NpgsqlCommand(secme, k) { CommandTimeout = 120 };
+        await using var oku = await komut.ExecuteReaderAsync(ct);
+
+        for (var i = 0; i < oku.FieldCount; i++)
+            sb.Append(oku.GetName(i)).Append(i == oku.FieldCount - 1 ? '\n' : '\t');
+
+        while (await oku.ReadAsync(ct))
+            for (var i = 0; i < oku.FieldCount; i++)
+                sb.Append(oku.IsDBNull(i) ? "-" : oku.GetValue(i)?.ToString())
+                  .Append(i == oku.FieldCount - 1 ? '\n' : '\t');
+
+        return sb.ToString();
+    }
+
     public async Task<string> CanliSurumAsync(CancellationToken ct)
     {
         await using var k = await _kaynak.OpenConnectionAsync(ct);
