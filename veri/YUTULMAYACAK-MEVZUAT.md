@@ -7,6 +7,24 @@
 > **KURAL:** Eksik kaynak denetimi yapan her araç bu listeyi okur. Buradaki bir
 > kalem "ambarda yok" diye raporlanırsa **doğru** raporlanmıştır — yutulmaz.
 
+<!--
+  MAKİNE OKUMASI — aşağıdaki `KARA:` satırları araçlar tarafından okunur.
+  ⚠️ Serbest metinden regex ile kimlik çıkarmak DENENDİ ve YANLIŞ ÇALIŞTI
+  (10.09): desen, "Halefi" sütunundaki TFRS 15 / TFRS 16'yı da yakaladı ve
+  onları kara listeye aldı — yani YUTULMASI GEREKEN iki standart "bilerek
+  yutulmadı" diye işaretlendi. Gerçeğin tam tersi.
+  Bu yüzden liste artık TAHMİN EDİLMEZ, AÇIKÇA YAZILIR. Yeni kalem eklerken
+  hem aşağıdaki tabloya hem buraya bir `KARA:` satırı ekle.
+
+  KARA: TMS 18
+  KARA: TMS 17
+  KARA: TMS 11
+  KARA: 6111
+  KARA: 6326
+  KARA: 3713
+-->
+
+
 ---
 
 ## Neden bu liste gerekli

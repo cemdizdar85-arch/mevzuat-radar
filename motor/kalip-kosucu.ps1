@@ -29,10 +29,39 @@ $planAd=[IO.Path]::GetFileNameWithoutExtension($planYol)
 $satirlar=@(ConvertFrom-Json -InputObject (Get-Content $planYol -Raw -Encoding UTF8)); if($satirlar.Count -eq 1 -and $satirlar[0].PSObject.Properties['SyncRoot']){ $satirlar=@($satirlar[0].SyncRoot) }
 $logDir=Join-Path $Kok "veri\fabrika\kosucu-log\$planAd"; New-Item -ItemType Directory -Force $logDir | Out-Null
 $t0=Get-Date; $ozetTum=@()
+# --- DİNAMİK UZUNLUK TAVANI (10.09.2026) -------------------------------------
+# Eskiden varsayılan SABİT 350'ydi. Ölçüldü: gerçek sınavda ders başına p90
+# 243 (Atatürk) ile 868 (Maliyet) arasında değişiyor; tek rakam 14 dersin
+# HİÇBİRİNE oturmuyor. Ayrıca sınav uzuyor (SGS medyanı 2024/2'de 153 →
+# 2026/2'de 215, +%40), yani sabit yazılan tavan her dönem daha da yanlışlaşır.
+# Tavan artık ölçümden OKUNUR; plan satırında `tavan` varsa o kazanır.
+$anatomiYol = Join-Path $Kok 'veri\sinav-anatomisi-sgs.json'
+$DERS_TAVAN = @{}
+if(Test-Path $anatomiYol){
+  try{
+    $an = ConvertFrom-Json -InputObject (Get-Content $anatomiYol -Raw -Encoding UTF8)
+    foreach($p in $an.C_ders_kalibi.PSObject.Properties){ $DERS_TAVAN[$p.Name] = [int]$p.Value.uzunluk.p90 }
+  }catch{ }
+}
+function DersTavani($satir){
+  if($satir.PSObject.Properties['tavan'] -and $satir.tavan){ return [int]$satir.tavan }
+  $d = "$($satir.ders)"
+  foreach($k in $DERS_TAVAN.Keys){ if($d -match [regex]::Escape($k) -or $k -match [regex]::Escape($d)){ return $DERS_TAVAN[$k] } }
+  return 350   # ölçüm bulunamazsa eski varsayılan; sessizce yanlış tavan yerine BİLİNEN tavan
+}
+
 foreach($s in $satirlar){
   $sinav=$(if($s.PSObject.Properties['sinav'] -and $s.sinav){ "$($s.sinav)" } else { 'SGS' })
   $log=Join-Path $logDir ("$($s.etiket).log")
-  $arg=@('-Sinav',$sinav,'-DersRegex',"$($s.ders)",'-Adet',"$([int]$s.adet)",'-Etiket',"$($s.etiket)",'-UzunlukTavan',"$(if($s.PSObject.Properties['tavan'] -and $s.tavan){ [int]$s.tavan } else { 350 })",'-Verilenler','-KonuGiris','-Simulasyon','-SimModel','claude-sonnet-5')
+  # 🔴 10.09.2026 — FAZ S (-Sade) BU LİSTEDE YOKTU. Ölçüldü: 213 partinin
+  # yalnız 15'inde `sade` alanı var, hepsi 04-06.09 arası ELLE koşulan küçük
+  # partiler. 07.09'da toplu hatta geçildi, bu argüman listesi yazıldı ve
+  # -Sade listeye ALINMADI; 198 parti FAZ S hiç çalışmadan üretti.
+  # Sonuç: 1.835 sorunun 1.811'inde `sade` + `kavramlar` YOK, yani Kaydır-Çöz
+  # panelinin 2. ve 5. parçası boş. Tam panel taşıyan soru: 12/1835.
+  # Üretici bozulmadı — çağrılmayan bir faz vardı. (bkz. aciklama-standardi:
+  # cevap kalıbı 05.09'da KİLİTLENDİ, üretim 07.09'da o kilidi takip etmeyi bıraktı.)
+  $arg=@('-Sinav',$sinav,'-DersRegex',"$($s.ders)",'-Adet',"$([int]$s.adet)",'-Etiket',"$($s.etiket)",'-UzunlukTavan',"$(DersTavani $s)",'-Verilenler','-KonuGiris','-Simulasyon','-SimModel','claude-sonnet-5','-Sade')
   if($s.PSObject.Properties['eskiKaynak'] -and "$($s.eskiKaynak)"){ $arg+=@('-EskiKaynak',"$($s.eskiKaynak)",'-DonemPencere','0') }
   else { $arg+=@('-DonemPencere','7'); if($s.PSObject.Properties['zorluk'] -and (@('zor','kolay','cokzor') -contains "$($s.zorluk)")){ $arg+=@('-Zorluk',"$($s.zorluk)") }; if($s.PSObject.Properties['disla'] -and "$($s.disla)"){ $arg+=@('-KonuDisla',"$($s.disla)") }; if($s.PSObject.Properties['konuDosya'] -and "$($s.konuDosya)"){ $arg+=@('-KonuDosya',"$($s.konuDosya)") } }
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar

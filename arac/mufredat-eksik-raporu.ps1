@@ -64,6 +64,37 @@ foreach($k in $ambar){
   foreach($m in [regex]::Matches($k.katli, '\b(bds|tms|tfrs|kks)\s*(\d+[a-z]?)\b')){ $ambarKod[($m.Groups[1].Value + ' ' + $m.Groups[2].Value)] = $k }
 }
 
+# --- 1b) KARA LISTE (10.09.2026) --------------------------------------------
+# veri/YUTULMAYACAK-MEVZUAT.md: cikmis sinavda gecen ama BUGUN soru
+# uretilemeyecek mevzuat. Bu liste okunmazsa denetim TMS 18'i (40 atif) "EKSIK"
+# diye raporlar, biri de iyi niyetle yutar ve motor MULGA standarttan soru
+# uretmeye baslar. Ayni tuzak 6111 sayili Kanun'da da yasandi: ilk raporda
+# "tek gercek aday" denmisti, baglami okununca sureye bagli gecici hukum
+# oldugu cikti.
+# Liste dosyadan OKUNUR, koda GOMULMEZ - yeni kalem eklemek kod degistirmeyi
+# gerektirmesin.
+$karaYol = Join-Path $depoKok 'veri\YUTULMAYACAK-MEVZUAT.md'
+$KARA = New-Object System.Collections.Generic.HashSet[string]
+if(Test-Path $karaYol){
+  $karaMetin = Get-Content $karaYol -Raw -Encoding UTF8
+  # ⚠️ SERBEST METINDEN REGEX ILE KIMLIK CIKARMA - DENENDI, YANLIS CALISTI.
+  # 10.09: desen "Halefi (ambarda)" sutunundaki TFRS 15 / TFRS 16'yi da yakaladi
+  # ve onlari kara listeye aldi. Yani YUTULMASI GEREKEN iki standart "bilerek
+  # yutulmadi" diye isaretlendi - gercegin tam tersi. Bir denetim aracinin
+  # kendi kaynagini yanlis okumasi, olcmemekten daha tehlikelidir.
+  # Cozum: kimlik TAHMIN EDILMEZ, dosyada ACIKCA yazar (KARA: <kimlik>).
+  foreach($m in [regex]::Matches($karaMetin, '(?m)^\s*KARA:\s*(.+?)\s*$')){
+    [void]$KARA.Add((Katla $m.Groups[1].Value))
+  }
+  Write-Host ("  kara liste kalemi: {0}  ({1})" -f $KARA.Count, (($KARA | Sort-Object) -join ', ')) -ForegroundColor DarkYellow
+} else {
+  Write-Host "  ! veri/YUTULMAYACAK-MEVZUAT.md YOK - mulga mevzuat 'EKSIK' gorunecek" -ForegroundColor Yellow
+}
+function KaradaMi([string]$kat){
+  foreach($k in $KARA){ if($kat -match "(^|[^a-z0-9])$([regex]::Escape($k))([^a-z0-9]|$)"){ return $true } }
+  return $false
+}
+
 # --- 2) MUFREDAT DAYANAKLARI ------------------------------------------------
 $profil = Get-Content (Join-Path $depoKok 'veri\ders-profili.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $KISALTMA = @{
@@ -116,7 +147,9 @@ foreach($s in $profil.sinavlar.PSObject.Properties){
         ders    = $ders.Name
         dayanak = $metin
         atif    = $atif
-        durum   = if($bulundu){ 'VAR' } elseif($kimlikVar){ 'EKSIK' } else { 'OLCULEMEDI' }
+        # KARA LISTE 'EKSIK'in ONUNDE: mulga/suresi dolmus mevzuat eksik DEGILDIR,
+        # bilerek yutulmamistir. Yoksa her denetim onu yeniden "yutulacak" sanir.
+        durum   = if($bulundu){ 'VAR' } elseif(KaradaMi $kat){ 'KARA-LISTE' } elseif($kimlikVar){ 'EKSIK' } else { 'OLCULEMEDI' }
         ambar_kod = if($bulundu){ $bulundu.kod } else { $null }
         eslesme_yolu = $yol
       })
@@ -128,11 +161,13 @@ foreach($s in $profil.sinavlar.PSObject.Properties){
 $var = @($satirlar | Where-Object { $_.durum -eq 'VAR' })
 $eksik = @($satirlar | Where-Object { $_.durum -eq 'EKSIK' })
 $olcu = @($satirlar | Where-Object { $_.durum -eq 'OLCULEMEDI' })
+$kara = @($satirlar | Where-Object { $_.durum -eq 'KARA-LISTE' })
 
 Write-Host ""
 Write-Host ("MUFREDAT DAYANAK KAYDI : {0}  ({1} ders)" -f $satirlar.Count, ($satirlar | Group-Object ders).Count)
 Write-Host ("  VAR        {0,5}" -f $var.Count) -ForegroundColor Green
 Write-Host ("  EKSIK      {0,5}   <- YUTULACAK" -f $eksik.Count) -ForegroundColor Red
+Write-Host ("  KARA-LISTE {0,5}   <- bilerek yutulmadi (mulga/suresi dolmus)" -f $kara.Count) -ForegroundColor DarkYellow
 Write-Host ("  OLCULEMEDI {0,5}   <- elle bakilmali ('YOK' DEGIL)" -f $olcu.Count) -ForegroundColor Yellow
 
 if($eksik.Count){
@@ -148,7 +183,7 @@ $rapor = [ordered]@{
   kural  = 'Eslesme AD ile degil KIMLIK ile yapilir: kanun no > standart kodu > kisaltma. Kimlik cikmazsa OLCULEMEDI denir, YOK denmez.'
   ambar_kaynak_sayisi = $ambar.Count
   toplam = $satirlar.Count
-  var = $var.Count; eksik = $eksik.Count; olculemedi = $olcu.Count
+  var = $var.Count; eksik = $eksik.Count; kara_liste = $kara.Count; olculemedi = $olcu.Count
   eksik_liste = @($eksik | Sort-Object atif -Descending)
   olculemedi_liste = @($olcu | Sort-Object atif -Descending)
 }
