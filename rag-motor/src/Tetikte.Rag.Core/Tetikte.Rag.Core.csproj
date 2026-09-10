@@ -10,12 +10,13 @@
 
   <ItemGroup>
     <!-- Surumler KAYAN (9.* gibi): boylece `dotnet restore` en son uyumlu
-         yamayi ceker ve elle surum kovalamak gerekmez. Kirilma olursa
-         `dotnet list package --outdated` soyler. -->
+         yamayi ceker ve elle surum kovalamak gerekmez. Eskiyeni gormek icin:
+         dotnet list package (outdated bayragiyla). -->
     <PackageReference Include="Anthropic" Version="12.*" />
     <PackageReference Include="Npgsql" Version="9.*" />
+    <!-- Npgsql eklentisi (UseVector) AYRI paket degil, Pgvector'un icinde gelir;
+         'Pgvector.Npgsql' diye bir paket YOK (NU1101 ile olculdu). -->
     <PackageReference Include="Pgvector" Version="0.3.*" />
-    <PackageReference Include="Pgvector.Npgsql" Version="0.3.*" />
     <PackageReference Include="Polly" Version="8.*" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.*" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.*" />

@@ -4,6 +4,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using Npgsql;
 using Pgvector;
+using Pgvector.Npgsql;   // UseVector() burada - ayri paket degil, Pgvector icinde
 
 namespace Tetikte.Rag.Core;
 
