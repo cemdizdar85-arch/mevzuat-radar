@@ -1,0 +1,392 @@
+﻿{
+    "olcum":  "2026-09-10 21:56",
+    "kaynak":  "veri/ders-profili.json dayanak_ailesi (cikmis sorulardan OLCULMUS atif) x rag.kaynak",
+    "kural":  "Eslesme AD ile degil KIMLIK ile yapilir: kanun no \u003e standart kodu \u003e kisaltma. Kimlik cikmazsa OLCULEMEDI denir, YOK denmez.",
+    "ambar_kaynak_sayisi":  1521,
+    "toplam":  206,
+    "var":  164,
+    "eksik":  9,
+    "olculemedi":  33,
+    "eksik_liste":  [
+                        {
+                            "sinav":  "STAJA BAŞLAMA (SGS)",
+                            "ders":  "Maliyet Muhasebesi",
+                            "dayanak":  "THP 622",
+                            "atif":  7,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJA BAŞLAMA (SGS)",
+                            "ders":  "Maliyet Muhasebesi",
+                            "dayanak":  "THP 741",
+                            "atif":  6,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJA BAŞLAMA (SGS)",
+                            "ders":  "Maliyet Muhasebesi",
+                            "dayanak":  "THP 150",
+                            "atif":  4,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                            "ders":  "Maliyet Muhasebesi",
+                            "dayanak":  "THP 741",
+                            "atif":  3,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                            "ders":  "Maliyet Muhasebesi",
+                            "dayanak":  "THP 622",
+                            "atif":  3,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                            "ders":  "Maliyet Muhasebesi",
+                            "dayanak":  "THP 734",
+                            "atif":  2,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                            "ders":  "Maliyet Muhasebesi",
+                            "dayanak":  "THP 732",
+                            "atif":  2,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJA BAŞLAMA (SGS)",
+                            "ders":  "Matematik",
+                            "dayanak":  "YUZDELERIN TOPLAMININ 100 OLMASI KURALI (ORAN-ORANTI MANTIGI)",
+                            "atif":  1,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        },
+                        {
+                            "sinav":  "STAJA BAŞLAMA (SGS)",
+                            "ders":  "Mali Tablolar Analizi",
+                            "dayanak":  "THP 108",
+                            "atif":  1,
+                            "durum":  "EKSIK",
+                            "ambar_kod":  null,
+                            "eslesme_yolu":  null
+                        }
+                    ],
+    "olculemedi_liste":  [
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
+                                 "dayanak":  "TSRS 2",
+                                 "atif":  78,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
+                                 "dayanak":  "TSRS 1",
+                                 "atif":  64,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "a) Türkiye Muhasebe Standartları",
+                                 "dayanak":  "BOBI FRS",
+                                 "atif":  43,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                                 "dayanak":  "TEORI",
+                                 "atif":  27,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Finansal Muhasebe",
+                                 "dayanak":  "MSUGT TEKDUZEN HESAP PLANI",
+                                 "atif":  27,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
+                                 "dayanak":  "TEORI",
+                                 "atif":  12,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "a) Türkiye Muhasebe Standartları",
+                                 "dayanak":  "KUMI FRS",
+                                 "atif":  9,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                                 "ders":  "Finansal Muhasebe",
+                                 "dayanak":  "MSUGT TEKDUZEN HESAP PLANI",
+                                 "atif":  8,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                                 "ders":  "Finansal Muhasebe",
+                                 "dayanak":  "TEORI",
+                                 "atif":  7,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "b) Türkiye Denetim Standartları",
+                                 "dayanak":  "KYS 1",
+                                 "atif":  7,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Maliye",
+                                 "dayanak":  "TEORI",
+                                 "atif":  5,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Maliye",
+                                 "dayanak":  "TEORI - VERGILEME ILKELERI VE TEMEL VERGI KAVRAMLARI (OGRETI NOTU)",
+                                 "atif":  4,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Ekonomi",
+                                 "dayanak":  "TEORI",
+                                 "atif":  3,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Ekonomi",
+                                 "dayanak":  "TEORI - PIYASA YAPILARI: TAM REKABET, MONOPOL, TEKELCI REKABET, OLIGOPOL (OGRETI NOTU)",
+                                 "atif":  3,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJ BİTİRME / YETERLİLİK (SMMM)",
+                                 "ders":  "Finansal Tablolar ve Analizi",
+                                 "dayanak":  "TEORI",
+                                 "atif":  2,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "BAĞIMSIZ DENETÇİLİK (KGK)",
+                                 "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
+                                 "dayanak":  "TSRS UYGULAMA KAPSAMI ESIK DEGERLERI KURUL KARARI BOLUM 1",
+                                 "atif":  2,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "TDK BUYUK HARFLERIN KULLANIMI KURALI",
+                                 "atif":  2,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Matematik",
+                                 "dayanak":  "TESMER SGS MATEMATIK-ISTATISTIK DERS NOTU",
+                                 "atif":  2,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "PARAGRAFTA ANLAM BUTUNLUGU",
+                                 "atif":  2,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "DUSUNCEYI GELISTIRME YOLLARI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "ANLATIM BICIMLERININ BIR ARADA KULLANILMASI VE METINDE IPUCU TARAMA KURALI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "CUMLELER ARASI ANLAM ILISKISI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "TDK ANLATIM BOZUKLUKLARI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "TDK COK ANLAMLILIK KURALI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Turkce",
+                                 "dayanak":  "SAYI DIZILERINDE ARDISIK FARKLAR KURALI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Yabanci Dil",
+                                 "dayanak":  "COMPARATIVE ADJECTIVE (-ER / MORE) KULLANIM KURALI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Meslek Hukuku",
+                                 "dayanak":  "TURMOB ETIK ILKELER YON.",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Yabanci Dil",
+                                 "dayanak":  "PREPOSITIONS OF TIME (IN/ON/AT) KULLANIM KURALI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Yabanci Dil",
+                                 "dayanak":  "AFFECT/EFFECT FIIL-ISIM AYRIMI KURALI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Ticaret Hukuku",
+                                 "dayanak":  "HAKSIZ REKABET VE REKLAM YASAGI YON.",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Matematik",
+                                 "dayanak":  "FONKSIYON KAVRAMI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Matematik",
+                                 "dayanak":  "TEORI",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             },
+                             {
+                                 "sinav":  "STAJA BAŞLAMA (SGS)",
+                                 "ders":  "Matematik",
+                                 "dayanak":  "MATEMATIK",
+                                 "atif":  1,
+                                 "durum":  "OLCULEMEDI",
+                                 "ambar_kod":  null,
+                                 "eslesme_yolu":  null
+                             }
+                         ]
+}
