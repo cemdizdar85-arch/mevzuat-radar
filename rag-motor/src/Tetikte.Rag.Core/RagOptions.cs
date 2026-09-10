@@ -39,7 +39,14 @@ public sealed class RagOptions
     /// </summary>
     public int EsZamanliIstek { get; set; } = 4;
 
-    public int GommeYiginBoyu { get; set; } = 32;
+    /// <summary>
+    /// Tek gomme cagrisindaki parca sayisi.
+    /// OLCULDU (10.09): batchEmbedContents yigin icindeki HER PARCAYI ayri
+    /// istek sayiyor. Yani yigin buyutmek kotayi korumaz - yalniz ag gidis
+    /// donusunu azaltir. Kota dolunca da 32'lik yiginin tekrari 32 istek yer.
+    /// 16: aglama ile kota israfi arasinda olculmus orta yol.
+    /// </summary>
+    public int GommeYiginBoyu { get; set; } = 16;
 
     /// <summary>
     /// Gomme yiginlari arasi bekleme (ms).

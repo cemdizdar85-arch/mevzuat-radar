@@ -33,13 +33,45 @@ public static class Dayaniklilik
         HttpStatusCode.GatewayTimeout         // 504
     ];
 
+    /// <summary>
+    /// GUNLUK KOTA TUKENMESI TEKRARLANMAZ (10.09.2026 olculdu, pahaliya).
+    ///
+    /// 429 iki AYRI seyi anlatir ve ikisine ayni tepki verilmez:
+    ///   · DAKIKALIK hiz siniri  -> beklersen gecer, TEKRAR DENENIR
+    ///   · GUNLUK kota tukenmesi -> beklemek gecmez, TEKRAR DENEMEK KOTAYI YER
+    ///
+    /// Olculen bedel: `gomme` kosusu 32'lik yiginlarla calisiyordu. Gunluk kota
+    /// dolunca Polly her yigini BES KEZ tekrar denedi - her deneme 32 istek
+    /// sayildigi icin tek bir yigin 160 istek harciyordu. Gunun 1.000'lik
+    /// kotasi tekrar denemelerle tukendi ve HICBIR vektor uretilemedi.
+    /// Ayni ders Anthropic tarafinda "credit balance" icin zaten yaziliydi;
+    /// Gemini tarafinda eksik kalmis.
+    ///
+    /// Ayirt edici isaret govdededir: "Quota exceeded for metric: ...
+    /// free_tier_requests, limit: 1000". Bu KALICI bir durumdur - gun donene
+    /// kadar degismez.
+    /// </summary>
+    private static bool GunlukKotaTukendi(HttpResponseMessage? y)
+    {
+        if (y is null || y.StatusCode != HttpStatusCode.TooManyRequests) return false;
+        try
+        {
+            var govde = y.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return govde.Contains("Quota exceeded", StringComparison.OrdinalIgnoreCase)
+                || govde.Contains("free_tier", StringComparison.OrdinalIgnoreCase)
+                || govde.Contains("billing details", StringComparison.OrdinalIgnoreCase);
+        }
+        catch { return false; }
+    }
+
     /// <summary>HTTP hatti icin (gomme ucu). HttpResponseMessage donduren cagrilarda kullanilir.</summary>
     public static ResiliencePipeline<HttpResponseMessage> HttpHatti(ILogger logger, int enFazlaDeneme = 5)
         => new ResiliencePipelineBuilder<HttpResponseMessage>()
             .AddRetry(new RetryStrategyOptions<HttpResponseMessage>
             {
                 ShouldHandle = new PredicateBuilder<HttpResponseMessage>()
-                    .HandleResult(r => TekrarlanabilirDurumlar.Contains(r.StatusCode))
+                    // Gunluk kota tukendiyse TEKRAR DENENMEZ - denemek kotayi yer.
+                    .HandleResult(r => TekrarlanabilirDurumlar.Contains(r.StatusCode) && !GunlukKotaTukendi(r))
                     .Handle<HttpRequestException>()
                     .Handle<TaskCanceledException>(),
                 MaxRetryAttempts = enFazlaDeneme,
