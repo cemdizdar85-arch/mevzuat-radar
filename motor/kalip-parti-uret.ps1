@@ -2226,7 +2226,11 @@ if($HazirSoru -and -not $SadeceHtml){
     if(-not $kk){ HzDus "$($e.konu)" 'konu bu etiketin konu listesinde yok (konu dosyası / pencere süzgeci)'; continue }
     $id=$kk.id
     # -RedYenile: hakem HAYIR / DERS-DISI kalan hazır soru düşürülür ve dosyadan yeniden alınır (FAZ A'daki düşürme bu modda koşmaz — 09.09 pilot kp-09 ölçümü)
-    if($RedYenile -and $don.Contains($id) -and $don[$id].PSObject.Properties['hakem'] -and $don[$id].hakem -and ("$($don[$id].hakem.karar)" -ne 'EVET' -or "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI')){ Write-Host "  HAZIR SORU YENİLENİYOR (hakem reddi düşürüldü): $id" -ForegroundColor Yellow; $don.Remove($id) }
+    # 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): bu koşul FAZ A'daki eşdeğerinden (yukarıda, 'RedYenile -and $don.Contains') İKİ damga eksikti — konu_uyum
+    # ve tek_anlam. Sonuç: hakem KONU-DISI ya da CIFT-ANLAM damgası vurduğunda hazır soru düzeltilse bile FAZ GM onu önbellekten düşürmüyor,
+    # düzeltilmiş metin hiç basılamıyordu (çok zor kp-07 'kusursuz sorumluluk'). Hazır soru yolu Tur 2'nin ana yolu olduğu için delik her derste
+    # tekrarlanırdı. İki damga FAZ A ile birebir eşitlendi.
+    if($RedYenile -and $don.Contains($id) -and $don[$id].PSObject.Properties['hakem'] -and $don[$id].hakem -and ("$($don[$id].hakem.karar)" -ne 'EVET' -or "$($don[$id].hakem.ders_uyum)" -eq 'DERS-DISI' -or "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI' -or "$($don[$id].hakem.tek_anlam)" -eq 'CIFT-ANLAM')){ Write-Host "  HAZIR SORU YENİLENİYOR (hakem reddi düşürüldü): $id" -ForegroundColor Yellow; $don.Remove($id) }
     # 09.09 maliyet-zor ölçümü: hakem2 HAYIR (kp-14 "soru kökü çelişkili") ve kör çözüm YANLIŞ kayıtları da -RedYenile ile düşer; GM soruyu düzeltip dosyadan yeniden verir
     if($RedYenile -and $don.Contains($id) -and (($don[$id].PSObject.Properties['hakem2'] -and $don[$id].hakem2 -and "$($don[$id].hakem2.karar)" -ne 'EVET') -or ($don[$id].PSObject.Properties['kor_cozum'] -and $don[$id].kor_cozum -and -not [bool]$don[$id].kor_cozum.dogru_mu))){ Write-Host "  HAZIR SORU YENİLENİYOR (hakem2/kör reddi düşürüldü): $id" -ForegroundColor Yellow; $don.Remove($id) }
     if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['gm_kapi']){ continue }
