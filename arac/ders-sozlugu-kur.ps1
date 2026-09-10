@@ -99,6 +99,33 @@ foreach($ad in @('Ticaret Hukuku','Borclar Hukuku')){
   }
 }
 
+# --- EKRAN ADI: urunde gorunecek TURKCE yazim -------------------------------
+# 11.09.2026, Cem'in 2. kurali (Turkce karakter ve dogal dil hassasiyeti).
+# NEDEN AYRI KATMAN: `resmi_ad` kaynagin yazimini birebir tasir ve o kaynak
+# (SINAV-KONU-DAYANAK-HARITASI-31082026.xlsx / 2-DERSLER sayfasi) SGS ders
+# adlarini ASCII yazmis - olculdu: sharedStrings icinde "Turkce",
+# "Borclar Hukuku", "Is ve Sosyal Guvenlik Hukuku" gecer; ayni dosyanin KGK ve
+# SPL sayfalari ise Turkce ("Turkiye Muhasebe Standartlari" degil
+# "Türkiye Muhasebe Standartları"). Yani katlama bizim betigimizde degil,
+# tabloda yapilmis. `resmi_ad`i duzeltmek kaynagi tahrif etmek olurdu; eslesme
+# zaten `anahtar` (katlanmis) uzerinden yapiliyor. Bu yuzden yalnizca EKRANA
+# basilan ad ayri tutulur.
+# KAYNAK: TESMER Yonergesi m.6.2'deki ders adlarinin standart Turkce yazimi.
+# ⚠ Cem onayina acik: asagidaki 6 satir disindaki adlarda Turkce harf yoktur.
+$EKRAN = @{
+  'Turkce'                             = 'Türkçe'
+  'Ataturk Ilkeleri ve Inkilap Tarihi' = 'Atatürk İlkeleri ve İnkılap Tarihi'
+  'Yabanci Dil'                        = 'Yabancı Dil'
+  'Is ve Sosyal Guvenlik Hukuku'       = 'İş ve Sosyal Güvenlik Hukuku'
+  'Borclar Hukuku'                     = 'Borçlar Hukuku'
+}
+$ekranSayaci = 0
+foreach($k in $sozluk){
+  $ad = if($EKRAN.ContainsKey("$($k.resmi_ad)")){ $ekranSayaci++; $EKRAN["$($k.resmi_ad)"] } else { "$($k.resmi_ad)" }
+  $k | Add-Member -NotePropertyName ekran_ad -NotePropertyValue $ad -Force
+}
+Write-Host ("EKRAN ADI TURKCELESTI: {0} ders (kalan {1} ders adinda Turkce harf yok)" -f $ekranSayaci, ($sozluk.Count-$ekranSayaci))
+
 Write-Host ("RESMI DERS KAYDI : {0}" -f $sozluk.Count)
 $sozluk | Group-Object sinav | ForEach-Object { Write-Host ("  {0,-34} {1,3} ders" -f $_.Name,$_.Count) }
 Write-Host ("`nTAKMA AD BAGLANDI: {0}/{1}" -f $baglanan, $TAKMA.Count)
@@ -114,6 +141,7 @@ $rapor = [ordered]@{
   olcum   = (Get-Date -Format 'yyyy-MM-dd HH:mm')
   kaynak  = 'veri/ders-profili.json (TESMER Yonergesi m.6.2 / KGK ilani / SPL)'
   kural   = 'Ders adi karsilastiran HER olcum bu sozlukten gecer. Ham metin karsilastirmasi YAPILMAZ.'
+  ekran_kurali = 'ESLESME `anahtar` ile, EKRANA BASIM `ekran_ad` ile yapilir. `resmi_ad` kaynagin yazimidir, urunde gosterilmez (kaynak SGS derslerini ASCII yazmis).'
   ders_sayisi = $sozluk.Count
   dersler = $sozluk
 }
