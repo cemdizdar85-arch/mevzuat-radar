@@ -103,6 +103,16 @@ if (args.Length > 0)
                     s.ParcaId, s.Sorular.Count, s.Hata ?? "-");
             return;
         }
+        case "rapor":
+        {
+            // Uretilen sorulari OKUNUR metne cevirir. JSON insan icin degil;
+            // kaliteyi goz denetleyecekse okunur bicim sart.
+            var ambar2 = sp.GetRequiredService<Ambar>();
+            var yol = args.Length > 1 ? args[1] : "sorular.txt";
+            var n = await ambar2.SoruRaporuAsync(yol, CancellationToken.None);
+            gunluk2.LogInformation("RAPOR: {N} soru -> {Yol}", n, Path.GetFullPath(yol));
+            return;
+        }
         default:
             gunluk2.LogError("bilinmeyen komut: {Komut}", args[0]);
             return;

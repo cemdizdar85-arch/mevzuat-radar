@@ -37,7 +37,23 @@ public sealed class YutmaServisi(
         var yeni = await ambar.ParcaYazAsync(kaynakId, parcalar, ct);
         log.LogInformation("{Kod}: {Toplam} parca cikti, {Yeni} yeni yazildi", kod, parcalar.Count, yeni.Count);
 
-        var vektor = await EksikVektorleriUretAsync(ct);
+        // GOMME, YUTMAYI DUSURMEZ (10.09 olculdu).
+        // Parcalar ZATEN yazildi ve islem tamamlandi; gomme ayri bir asamadir.
+        // Gunluk kota dolarsa (Gemini ucretsiz kotasi: 1.000 istek/gun) eskiden
+        // butun kosu istisnayla oluyordu - oysa asil is bitmisti. Vektorsuz
+        // parca KAYIP DEGIL, EKSIKTIR: arama tam-metin kanalindan koşmaya devam
+        // eder ve kota yenilenince 'gomme' bakim kosusu bosluklari tamamlar.
+        var vektor = 0;
+        try
+        {
+            vektor = await EksikVektorleriUretAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            log.LogWarning(ex,
+                "GOMME TAMAMLANAMADI - {Yeni} parca YAZILDI ama vektorsuz kaldi. " +
+                "Kota yenilenince: dotnet run -- gomme", yeni.Count);
+        }
         return (yeni.Count, vektor);
     }
 

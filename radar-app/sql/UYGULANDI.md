@@ -262,6 +262,8 @@ Bu sema kendi kutugunu tasir: `select * from rag.schema_migrations;`
 |---|---|---|
 | `001_init` | 10.09.2026 | kaynak · parca · parca_vektor · is_kuyrugu · soru · `rag.ara()` hibrit arama (RRF k=60) · HNSW indeksi · `rag.katla()` |
 | `002_konu_madde` | 10.09.2026 | `rag.konu_madde` (konu->madde kalici eslesme) · `rag.konu_dayanak()` · `rag.kartsiz_konular` gorunumu · ilk 6 dogrulanmis kart |
+| `003_ara_v2` | 10.09.2026 | **rag.ara v2** — tam metin kanali `plainto_tsquery`(VE) yerine `to_tsquery`(VEYA + onek). v1 her sorguda BOS donuyordu: 11 kelimelik sorgunun hepsini ayni parcada ariyordu. |
+| `004_kart_hizala` | 10.09.2026 | **konu_dayanak v2** — eslesme `kaynak_kod` + `madde_no` uzerinden. v1 eski ambarin kaynak ADIYLA yaziliydi (`%VUK (213 s.K.) m.261%`), yeni semada ad `Vergi Usul Kanunu (213 s.K.)` oldugu icin HIC tutmuyordu; kartlar sessizce devre disiydi. |
 
 **10.09.2026 dogrulama (canli):**
 `002_konu_madde / rag.ara v1 (RRF k=60) / konu_madde + konu_dayanak / vector(768) cosine HNSW(m=16,ef_c=64)`

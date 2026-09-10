@@ -59,9 +59,22 @@ public sealed class SoruUretici(
             ? await gomme.SorguGomAsync(sorgu, ct)
             : new float[_ayar.EmbeddingBoyut];
 
-        var adaylar = await ambar.AraAsync(
-            sorgu, sorguVektoru, gomme.Model,
-            _ayar.AramaAdet, _ayar.AramaAdayHavuzu, kaynakTur: null, ct);
+        // ONCE KONU KARTI, SONRA ARAMA.
+        // Dayanak bir arama sonucu degil bir KAYITTIR: karti olan konu kesin
+        // cevap alir, olmayan konu aramaya duser. 10.09'da olculdu - arama ayni
+        // sorguya iki kosuda iki farkli madde dondurebiliyor; soru fabrikasi
+        // bunun uzerine kurulmaz.
+        var adaylar = await ambar.KonuKartindanAsync(istek.Ders, istek.Konu, _ayar.AramaAdet, ct);
+        var kaynakYolu = "konu karti";
+
+        if (adaylar.Count == 0)
+        {
+            adaylar = await ambar.AraAsync(
+                sorgu, sorguVektoru, gomme.Model,
+                _ayar.AramaAdet, _ayar.AramaAdayHavuzu, kaynakTur: null, ct);
+            kaynakYolu = gomme.Acik ? "hibrit arama" : "tam metin aramasi (vektor kanali kapali)";
+        }
+        log.LogInformation("{Konu}: dayanak yolu = {Yol}, {Adet} aday", istek.Konu, kaynakYolu, adaylar.Count);
 
         if (adaylar.Count == 0)
         {
