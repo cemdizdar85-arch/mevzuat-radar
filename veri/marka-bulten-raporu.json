@@ -1,73 +1,91 @@
 {
- "tarih": "2026-09-09 00:38",
+ "tarih": "2026-09-10 00:36",
  "islenen": [
   {
-   "bulten_no": 386,
-   "yayin_tarihi": "2021-12-13",
-   "kayit": 9509,
-   "ham": 9509,
+   "bulten_no": 387,
+   "yayin_tarihi": "2021-12-27",
+   "kayit": 11301,
+   "ham": 11301,
    "tekrar": 0,
-   "tam": 9507,
-   "itiraz_son": "2022-02-13"
+   "tam": 11296,
+   "itiraz_son": "2022-02-27"
   },
   {
-   "bulten_no": 385,
-   "yayin_tarihi": "2021-11-29",
-   "kayit": 8428,
-   "ham": 8428,
+   "bulten_no": 379,
+   "yayin_tarihi": "2021-08-27",
+   "kayit": 7159,
+   "ham": 7159,
    "tekrar": 0,
-   "tam": 8427,
-   "itiraz_son": "2022-01-29"
+   "tam": 7159,
+   "itiraz_son": "2021-10-27"
   },
   {
-   "bulten_no": 384,
-   "yayin_tarihi": "2021-11-12",
-   "kayit": 6893,
-   "ham": 6893,
+   "bulten_no": 378,
+   "yayin_tarihi": "2021-08-12",
+   "kayit": 6382,
+   "ham": 6382,
    "tekrar": 0,
-   "tam": 6893,
-   "itiraz_son": "2022-01-12"
+   "tam": 6382,
+   "itiraz_son": "2021-10-12"
   },
   {
-   "bulten_no": 383,
-   "yayin_tarihi": "2021-10-27",
-   "kayit": 8373,
-   "ham": 8373,
+   "bulten_no": 377,
+   "yayin_tarihi": "2021-07-27",
+   "kayit": 5080,
+   "ham": 5080,
    "tekrar": 0,
-   "tam": 8372,
-   "itiraz_son": "2021-12-27"
+   "tam": 5079,
+   "itiraz_son": "2021-09-27"
   },
   {
-   "bulten_no": 382,
-   "yayin_tarihi": "2021-10-12",
-   "kayit": 8288,
-   "ham": 8288,
+   "bulten_no": 376,
+   "yayin_tarihi": "2021-07-12",
+   "kayit": 7682,
+   "ham": 7682,
    "tekrar": 0,
-   "tam": 8287,
-   "itiraz_son": "2021-12-12"
+   "tam": 7682,
+   "itiraz_son": "2021-09-12"
   },
   {
-   "bulten_no": 381,
-   "yayin_tarihi": "2021-09-27",
-   "kayit": 7143,
-   "ham": 7143,
+   "bulten_no": 374,
+   "yayin_tarihi": "2021-06-14",
+   "kayit": 8602,
+   "ham": 8602,
    "tekrar": 0,
-   "tam": 7143,
-   "itiraz_son": "2021-11-27"
+   "tam": 8602,
+   "itiraz_son": "2021-08-14"
   },
   {
-   "bulten_no": 380,
-   "yayin_tarihi": "2021-09-13",
-   "kayit": 6550,
-   "ham": 6550,
+   "bulten_no": 373,
+   "yayin_tarihi": "2021-05-27",
+   "kayit": 6012,
+   "ham": 6012,
    "tekrar": 0,
-   "tam": 6550,
-   "itiraz_son": "2021-11-13"
+   "tam": 6012,
+   "itiraz_son": "2021-07-27"
+  },
+  {
+   "bulten_no": 372,
+   "yayin_tarihi": "2021-05-17",
+   "kayit": 10447,
+   "ham": 10447,
+   "tekrar": 0,
+   "tam": 10447,
+   "itiraz_son": "2021-07-17"
+  },
+  {
+   "bulten_no": 371,
+   "yayin_tarihi": "2021-04-27",
+   "kayit": 6424,
+   "ham": 6424,
+   "tekrar": 0,
+   "tam": 6424,
+   "itiraz_son": "2021-06-27"
   }
  ],
  "hata": [
   {
-   "bulten_no": 387,
+   "bulten_no": 375,
    "mesaj": "Supabase marka_bulten?on_conflict=basvuru_no,bulten_no: HTTP 500 {\"code\":\"57014\",\"details\":null,\"hint\":null,\"message\":\"canceling statement due to statement timeout\"}"
   }
  ]
