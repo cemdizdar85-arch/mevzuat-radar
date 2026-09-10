@@ -1,7 +1,18 @@
 {
-  "tarih": "10.09.2026 04:36",
-  "durum": "HATA",
-  "hata": "Response status code does not indicate success: 400 (Bad Request).",
-  "sunucu": "\n{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"Your credit balance is too low to access the Anthropic API. Please go to Plans \\u0026 Billing to upgrade or purchase credits.\"\n  },\n  \"request_id\": \"req_011Ceu8xFmhf1VW3soQYk4B5\"\n}",
-  "satir": 165
+  "tarih": "10.09.2026 23:26",
+  "durum": "TAMAM",
+  "mod": "URETIM",
+  "hedef": 1,
+  "hasat": 1,
+  "yazilan": 0,
+  "red": {
+    "uzunluk": 1,
+    "ayni": 0,
+    "atif": 0,
+    "diakritik": 0
+  },
+  "partiler": [
+    "msgbatch_011w7yiqGLfACLowBD9gUeNw"
+  ],
+  "not": "Yazilan hap'ler yayin durumunu DEGISTIRMEZ. Dusenler bir sonraki kalite taramasinda yeniden sayilir."
 }
