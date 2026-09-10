@@ -43,12 +43,97 @@ public sealed class SoruUretici(
     private readonly SemaphoreSlim _bogaz = new(ayar.Value.EsZamanliIstek, ayar.Value.EsZamanliIstek);
 
     /// <summary>
+    /// KONU URETIMI — bir konu, UC ZORLUK, TEK ARAMA.
+    ///
+    /// Akis: dayanagi BIR KEZ bul -> madde tavanindan kalan butceyi hesapla ->
+    ///       butceyi zorluklara bol -> zorluklari es zamanli urettir.
+    ///
+    /// Neden boyle: uc zorlugu uc bagimsiz istek olarak acmak dayanagi uc kez
+    /// arattirir (uc gomme cagrisi, ayni sonuc) ve madde tavanini YARISA sokar -
+    /// uc istek de ayni anda "bu parcada kac soru var" diye bakip ucu de "0"
+    /// gorur. Parca 586'da 9 soru olmasinin sebebi tam olarak buydu.
+    /// </summary>
+    public async Task<IReadOnlyList<UretimSonucu>> KonuUretAsync(
+        KonuIstegi istek, CancellationToken ct)
+    {
+        var zorluklar = istek.Zorluklar.Count > 0 ? istek.Zorluklar : KonuIstegi.UcSeviye;
+
+        var dayanak = await DayanakBulAsync(istek.Ders, istek.Konu, ct);
+        if (dayanak is null)
+            return [new UretimSonucu([], 0, _ayar.UretimModel, 0, 0, "dayanak yok")];
+
+        // MADDE TAVANI TEK YERDE. Kalan butce burada olculur, asagida bolunur;
+        // boylece es zamanli zorluk cagrilari tavani birlikte asamaz.
+        var mevcut = await ambar.ParcaSoruSayisiAsync(dayanak.ParcaId, ct);
+        var butce = _ayar.MaddeTavani - mevcut;
+        if (butce <= 0)
+        {
+            log.LogInformation("TAVAN: parca {Id} zaten {Sayi} soru tasiyor, atlandi.",
+                dayanak.ParcaId, mevcut);
+            return [new UretimSonucu([], dayanak.ParcaId, _ayar.UretimModel, 0, 0, "madde tavani dolu")];
+        }
+
+        // BUTCE DAGITIMI: her zorluga esit pay, artan varsa KOLAYDAN baslayarak
+        // birer birer dagitilir. Kolay sorular havuzun tabanidir; kisitli
+        // butcede once taban dolar.
+        var pay = new int[zorluklar.Count];
+        var kalan = Math.Min(butce, zorluklar.Count * istek.AdetHer);
+        for (var i = 0; kalan > 0; i = (i + 1) % zorluklar.Count, kalan--)
+            pay[i]++;
+
+        log.LogInformation("{Konu}: parca {Id} · tavan butcesi {Butce} · dagitim {Dagitim}",
+            istek.Konu, dayanak.ParcaId, butce,
+            string.Join(" ", zorluklar.Select((z, i) => $"{z}={pay[i]}")));
+
+        var isler = zorluklar.Select(async (zorluk, i) =>
+        {
+            if (pay[i] == 0)
+                return new UretimSonucu([], dayanak.ParcaId, _ayar.UretimModel, 0, 0, "butce kalmadi");
+            try
+            {
+                return await ZorlukUretAsync(
+                    new SoruIstegi(istek.Ders, istek.Konu, zorluk, pay[i]), dayanak, ct);
+            }
+            catch (Exception ex)
+            {
+                // Bir zorluk dusunce digerleri devam eder.
+                log.LogError(ex, "Zorluk dustu: {Konu}/{Zorluk}", istek.Konu, zorluk);
+                return new UretimSonucu([], dayanak.ParcaId, _ayar.UretimModel, 0, 0, ex.Message);
+            }
+        });
+
+        return await Task.WhenAll(isler);
+    }
+
+    /// <summary>
     /// Bir konu icin: dayanagi bul, o dayanaktan N soru urettir, ambara yaz.
     /// Dayanak bulunamazsa URETMEZ - kaynaksiz soru yazilmaz.
+    /// TEK ZORLUK yolu; uc seviye icin <see cref="KonuUretAsync"/> kullanilir.
     /// </summary>
     public async Task<UretimSonucu> UretAsync(SoruIstegi istek, CancellationToken ct)
     {
-        var sorgu = $"{istek.Ders} {istek.Konu}";
+        var dayanak0 = await DayanakBulAsync(istek.Ders, istek.Konu, ct);
+        if (dayanak0 is null)
+            return new UretimSonucu([], 0, _ayar.UretimModel, 0, 0, "dayanak yok");
+
+        var mevcut0 = await ambar.ParcaSoruSayisiAsync(dayanak0.ParcaId, ct);
+        if (mevcut0 >= _ayar.MaddeTavani)
+        {
+            log.LogInformation("TAVAN: parca {Id} zaten {Sayi} soru tasiyor, atlandi.", dayanak0.ParcaId, mevcut0);
+            return new UretimSonucu([], dayanak0.ParcaId, _ayar.UretimModel, 0, 0, "madde tavani dolu");
+        }
+
+        var istek0 = istek with { Adet = Math.Min(istek.Adet, _ayar.MaddeTavani - mevcut0) };
+        return await ZorlukUretAsync(istek0, dayanak0, ct);
+    }
+
+    /// <summary>
+    /// DAYANAK ARAMA — konu karti once, arama sonra. Tek yerde durur ki
+    /// zorluklar arasinda TEKRARLANMASIN.
+    /// </summary>
+    private async Task<AramaSonucu?> DayanakBulAsync(string ders, string konu, CancellationToken ct)
+    {
+        var sorgu = $"{ders} {konu}";
 
         // ZARIF DUSUS: gomme ucu kapaliysa sifir vektorle devam edilir.
         // rag.ara'daki RRF bir FULL OUTER JOIN oldugu icin bos vektor kanali
@@ -66,7 +151,7 @@ public sealed class SoruUretici(
         // cevap alir, olmayan konu aramaya duser. 10.09'da olculdu - arama ayni
         // sorguya iki kosuda iki farkli madde dondurebiliyor; soru fabrikasi
         // bunun uzerine kurulmaz.
-        var adaylar = await ambar.KonuKartindanAsync(istek.Ders, istek.Konu, _ayar.AramaAdet, ct);
+        var adaylar = await ambar.KonuKartindanAsync(ders, konu, _ayar.AramaAdet, ct);
         var kaynakYolu = "konu karti";
 
         if (adaylar.Count == 0)
@@ -76,24 +161,24 @@ public sealed class SoruUretici(
                 _ayar.AramaAdet, _ayar.AramaAdayHavuzu, kaynakTur: null, ct);
             kaynakYolu = gomme.Acik ? "hibrit arama" : "tam metin aramasi (vektor kanali kapali)";
         }
-        log.LogInformation("{Konu}: dayanak yolu = {Yol}, {Adet} aday", istek.Konu, kaynakYolu, adaylar.Count);
+        log.LogInformation("{Konu}: dayanak yolu = {Yol}, {Adet} aday", konu, kaynakYolu, adaylar.Count);
 
         if (adaylar.Count == 0)
         {
-            log.LogWarning("KAYNAKSIZ: '{Konu}' icin dayanak bulunamadi - soru URETILMEDI.", istek.Konu);
-            return new UretimSonucu([], 0, _ayar.UretimModel, 0, 0, "dayanak yok");
+            log.LogWarning("KAYNAKSIZ: '{Konu}' icin dayanak bulunamadi - soru URETILMEDI.", konu);
+            return null;
         }
 
-        var dayanak = adaylar[0];
+        return adaylar[0];
+    }
 
-        // MADDE TAVANI: ayni parcadan sinirsiz soru cikarsa havuz tekrara duser.
-        var mevcut = await ambar.ParcaSoruSayisiAsync(dayanak.ParcaId, ct);
-        if (mevcut >= 8)
-        {
-            log.LogInformation("TAVAN: parca {Id} zaten {Sayi} soru tasiyor, atlandi.", dayanak.ParcaId, mevcut);
-            return new UretimSonucu([], dayanak.ParcaId, _ayar.UretimModel, 0, 0, "madde tavani dolu");
-        }
-
+    /// <summary>
+    /// TEK ZORLUK URETIMI — dayanak ZATEN bulunmus, tavan ZATEN olculmus olarak
+    /// gelir. Modeli cagirir, kapidan geceni ambara yazar.
+    /// </summary>
+    private async Task<UretimSonucu> ZorlukUretAsync(
+        SoruIstegi istek, AramaSonucu dayanak, CancellationToken ct)
+    {
         await _bogaz.WaitAsync(ct);
         try
         {
@@ -113,9 +198,35 @@ public sealed class SoruUretici(
     }
 
     /// <summary>
-    /// COKLU URETIM — Task.WhenAll. Bogaz zaten UretAsync icinde oldugu icin
-    /// burada listeyi oldugu gibi acabiliriz: es zamanlilik tavani tek yerden
-    /// yonetilir.
+    /// COKLU URETIM — konu listesi, her konu UC ZORLUK. Task.WhenAll ile
+    /// hepsi acilir; es zamanlilik tavani bogazdan gelir, tek yerden yonetilir.
+    /// </summary>
+    public async Task<IReadOnlyList<UretimSonucu>> TopluKonuUretAsync(
+        IReadOnlyList<KonuIstegi> istekler, CancellationToken ct)
+    {
+        var isler = istekler.Select(async i =>
+        {
+            try
+            {
+                return await KonuUretAsync(i, ct);
+            }
+            catch (Exception ex)
+            {
+                // BIR KONU TUM PARTIYI DUSURMEZ.
+                log.LogError(ex, "Uretim dustu: {Ders}/{Konu}", i.Ders, i.Konu);
+                return (IReadOnlyList<UretimSonucu>)
+                    [new UretimSonucu([], 0, _ayar.UretimModel, 0, 0, ex.Message)];
+            }
+        });
+
+        var sonuclar = (await Task.WhenAll(isler)).SelectMany(x => x).ToList();
+        Ozetle(sonuclar, istekler.Count);
+        return sonuclar;
+    }
+
+    /// <summary>
+    /// COKLU URETIM — TEK ZORLUK yolu. Bogaz zaten asagida oldugu icin
+    /// burada listeyi oldugu gibi acabiliriz.
     /// </summary>
     public async Task<IReadOnlyList<UretimSonucu>> TopluUretAsync(
         IReadOnlyList<SoruIstegi> istekler, CancellationToken ct)
@@ -136,15 +247,24 @@ public sealed class SoruUretici(
         });
 
         var sonuclar = await Task.WhenAll(isler);
+        Ozetle(sonuclar, istekler.Count);
+        return sonuclar;
+    }
 
+    /// <summary>Parti sonu kutugu. Fatura HER ZAMAN basilir - olculmeyen harcama yonetilemez.</summary>
+    private void Ozetle(IReadOnlyList<UretimSonucu> sonuclar, int istekSayisi)
+    {
         var uretilen = sonuclar.Sum(s => s.Sorular.Count);
         var giris = sonuclar.Sum(s => s.GirisJeton);
         var cikis = sonuclar.Sum(s => s.CikisJeton);
-        log.LogInformation(
-            "PARTI BITTI: {Soru} soru / {Istek} istek · giris {Giris:N0} cikis {Cikis:N0} jeton · tahmini {Usd:N4} USD",
-            uretilen, istekler.Count, giris, cikis, Fatura(giris, cikis));
+        var zorlukDagilimi = string.Join(" · ", sonuclar
+            .Where(s => s.Sorular.Count > 0)
+            .GroupBy(s => s.Zorluk ?? "?")
+            .Select(g => $"{g.Key}={g.Sum(x => x.Sorular.Count)}"));
 
-        return sonuclar;
+        log.LogInformation(
+            "PARTI BITTI: {Soru} soru / {Istek} konu · [{Dagilim}] · giris {Giris:N0} cikis {Cikis:N0} jeton · tahmini {Usd:N4} USD",
+            uretilen, istekSayisi, zorlukDagilimi, giris, cikis, Fatura(giris, cikis));
     }
 
     /// <summary>claude-sonnet-5 liste fiyati: giris 2 USD/M, cikis 10 USD/M. Model degisirse BURASI da degisir.</summary>
@@ -180,6 +300,8 @@ public sealed class SoruUretici(
                         ZORLUK : {istek.Zorluk}
                         ADET   : {istek.Adet}
 
+                        {ZorlukYonergesi(istek.Zorluk)}
+
                         === DAYANAK METIN ({dayanak.KaynakAd} {dayanak.MaddeNo}) ===
                         {dayanak.Metin}
                         === METIN BITTI ===
@@ -200,18 +322,69 @@ public sealed class SoruUretici(
         var paket = JsonSerializer.Deserialize<SoruPaketi>(metin)
                     ?? new SoruPaketi();
 
-        var saglam = paket.Sorular.Where(s => Gecerli(s, dayanak)).ToList();
+        // ADET KAPISI: model istenenden fazla soru dondurebilir. Fazlasi
+        // KESILIR - yoksa madde tavani icin ayrilan butce asilir ve tavan
+        // yine yariya girer (parca 586'da 9/8 boyle olmustu).
+        var saglam = paket.Sorular.Where(s => Gecerli(s, dayanak)).Take(istek.Adet).ToList();
         if (saglam.Count < paket.Sorular.Count)
-            log.LogWarning("{Dusen} soru KAPIDA elendi ({Konu})",
-                paket.Sorular.Count - saglam.Count, istek.Konu);
+            log.LogWarning("{Dusen} soru KAPIDA elendi ya da adet asimindan kesildi ({Konu}/{Zorluk})",
+                paket.Sorular.Count - saglam.Count, istek.Konu, istek.Zorluk);
 
         return new UretimSonucu(
             saglam,
             dayanak.ParcaId,
             _ayar.UretimModel,
             (int)yanit.Usage.InputTokens,
-            (int)yanit.Usage.OutputTokens);
+            (int)yanit.Usage.OutputTokens,
+            Hata: null,
+            Zorluk: istek.Zorluk);
     }
+
+    /// <summary>
+    /// ZORLUK YONERGESI — DEGISKEN kisma girer, onbellek sinirindan SONRA.
+    ///
+    /// NEDEN SABIT BLOKTA DEGIL: kural blogu her istekte AYNEN gidip onbellekten
+    /// okunuyor. Zorluk istekten isteke degistigi icin oraya konursa onbellek
+    /// HER cagride gecersizlesir ve isabet sifira duser. Degisken olan degisken
+    /// tarafta durur.
+    ///
+    /// Uc seviye "daha uzun soru = daha zor" demek DEGILDIR. Fark, adaydan
+    /// istenen ZIHINSEL ISLEMDE:
+    ///   kolay -> hukmu TANIMA        (tek unsur, dogrudan)
+    ///   orta  -> hukmu AYIRT ETME    (sart/istisna, iki unsurun bilesimi)
+    ///   zor   -> hukmu UYGULAMA      (olay kurgusu, sonuca goturme)
+    /// </summary>
+    private static string ZorlukYonergesi(string zorluk) => zorluk.ToLowerInvariant() switch
+    {
+        "kolay" => """
+            ZORLUK YONERGESI - KOLAY:
+            Hukmu TANIMA seviyesi. Dayanak metindeki TEK bir unsuru dogrudan sor:
+            bir tanim, bir sart, bir sure, bir yetkili merci. Soru koku kisa ve
+            tek katmanli olsun. Olay kurgusu KURMA. Celdiriciler yine
+            savunulabilir olsun ama dogru cevap, metni okumus bir adayin
+            duraksamadan bulacagi netlikte olmali.
+            """,
+
+        "orta" => """
+            ZORLUK YONERGESI - ORTA:
+            Hukmu AYIRT ETME seviyesi. Iki unsuru birlikte sor ya da kural ile
+            ISTISNASINI karsi karsiya getir: "sart saglanmazsa ne olur",
+            "hangi hal bu kapsamin DISINDADIR", "kural su, peki su durumda".
+            Aday metni okumus olmakla yetinemesin, iki hukmu birbirinden
+            ayirabilsin. Kisa bir durum cumlesi kurabilirsin ama uzun senaryo
+            YAZMA.
+            """,
+
+        _ => """
+            ZORLUK YONERGESI - ZOR:
+            Hukmu UYGULAMA seviyesi. Somut bir OLAY kurgusu ver (mukellef,
+            islem, tarih/tutar metinde varsa) ve adaydan hukmu o olaya
+            uygulayip SONUCA gitmesini iste. Birden cok sartin birlikte
+            saglanmasi, ya da bir sartin eksikligi sonucu nasil degistirdigi
+            sorulabilir. Kurguda kullandigin her unsur dayanak metinden gelmeli -
+            metinde olmayan rakam ya da sure UYDURMA.
+            """
+    };
 
     /// <summary>
     /// SIRALAMA / EZBER SORUSU KAPISI (Cem kusur bildirimi, 10.09.2026).

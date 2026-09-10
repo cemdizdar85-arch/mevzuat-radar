@@ -28,8 +28,29 @@ public sealed record AramaSonucu(
     int? VektorSira,
     int? MetinSira);
 
-/// <summary>Uretim istegi: hangi ders/konu/zorlukta kac soru.</summary>
+/// <summary>Uretim istegi: hangi ders/konu/zorlukta kac soru. TEK zorluk.</summary>
 public sealed record SoruIstegi(string Ders, string Konu, string Zorluk, int Adet);
+
+/// <summary>
+/// KONU ISTEGI — bir konu, BIRDEN COK zorluk.
+///
+/// NEDEN AYRI BIR TIP: uc zorlugu uc ayri <see cref="SoruIstegi"/> olarak acmak
+/// iki arizaya yol acar (olculdu 10.09):
+///   1) Dayanak UC KEZ aranir - uc gomme cagrisi, uc arama, ayni sonuc icin.
+///   2) Madde tavani YARISA girer: uc istek de "bu parcada kac soru var" diye
+///      ayni anda bakar, ucu de "0" gorur, ucu de yazar ve tavan asilir.
+///      (Parca 586'da 9 soru vardi, tavan 8'di - sebebi buydu.)
+/// Bu tip, dayanagi BIR KEZ bulup butceyi zorluklara BOLMEYI mumkun kilar.
+/// </summary>
+public sealed record KonuIstegi(
+    string Ders,
+    string Konu,
+    IReadOnlyList<string> Zorluklar,
+    int AdetHer)
+{
+    /// <summary>Sinav havuzunun uc seviyesi. Sira KOLAYDAN ZORA - kutukte de boyle okunur.</summary>
+    public static readonly string[] UcSeviye = ["kolay", "orta", "zor"];
+}
 
 // --- Modelin dondurecegi JSON. Sema, structured output ile ZORLANIR --------
 public sealed class UretilenSoru
@@ -62,4 +83,5 @@ public sealed record UretimSonucu(
     string Model,
     int GirisJeton,
     int CikisJeton,
-    string? Hata = null);
+    string? Hata = null,
+    string? Zorluk = null);

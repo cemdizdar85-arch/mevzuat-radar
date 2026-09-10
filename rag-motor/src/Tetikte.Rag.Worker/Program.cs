@@ -93,14 +93,20 @@ if (args.Length > 0)
         }
         case "soru":
         {
+            // HER KONU UC ZORLUKTA uretilir: kolay + orta + zor.
+            // Eskiden burada zorluk "zor" olarak SABITTI; ambardaki 35 sorunun
+            // 35'i de 'zor' cikmisti, yani zorluk sutunu hic bilgi tasimiyordu.
             if (args.Length < 3) { gunluk2.LogError("kullanim: soru <ders> <konu1> [konu2] ..."); return; }
             var ders = args[1];
-            var istekler = args.Skip(2).Select(k => new SoruIstegi(ders, k, "zor", 3)).ToList();
+            var ayar3 = sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<RagOptions>>().Value;
+            var istekler = args.Skip(2)
+                .Select(k => new KonuIstegi(ders, k, KonuIstegi.UcSeviye, ayar3.ZorlukBasinaAdet))
+                .ToList();
             var uretici2 = sp.GetRequiredService<SoruUretici>();
-            var sonuclar = await uretici2.TopluUretAsync(istekler, CancellationToken.None);
+            var sonuclar = await uretici2.TopluKonuUretAsync(istekler, CancellationToken.None);
             foreach (var s in sonuclar)
-                gunluk2.LogInformation("  parça {Parca} · {Adet} soru · {Hata}",
-                    s.ParcaId, s.Sorular.Count, s.Hata ?? "-");
+                gunluk2.LogInformation("  parça {Parca} · {Zorluk} · {Adet} soru · {Hata}",
+                    s.ParcaId, s.Zorluk ?? "-", s.Sorular.Count, s.Hata ?? "-");
             return;
         }
         case "aramakarne":

@@ -58,6 +58,17 @@ public sealed class RagOptions
     /// </summary>
     public int GommeFrenMs { get; set; } = 9000;
 
+    // --- Uretim tavani ------------------------------------------------------
+    /// <summary>
+    /// Bir parcadan cikabilecek EN COK soru. Ayni maddeden sinirsiz soru
+    /// cikarsa havuz tekrara duser.
+    /// 8 = uc seviyeye (kolay/orta/zor) ikiser-ucer soru dagitmaya yeter.
+    /// </summary>
+    public int MaddeTavani { get; set; } = 8;
+
+    /// <summary>Uc seviyenin HER BIRINDEN istenen soru sayisi (varsayilan parti boyu).</summary>
+    public int ZorlukBasinaAdet { get; set; } = 2;
+
     // --- Arama --------------------------------------------------------------
     public int AramaAdet { get; set; } = 6;
     public int AramaAdayHavuzu { get; set; } = 60;

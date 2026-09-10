@@ -67,7 +67,9 @@ public sealed class GommeIscisi(
 
 /// <summary>
 /// Kuyruktan 'soru' isi alir. Yuk bicimi:
-///   { "ders":"Vergi", "istekler":[ {"konu":"amortisman","zorluk":"zor","adet":3}, ... ] }
+///   { "ders":"Vergi", "istekler":[ {"konu":"amortisman","adet":2}, ... ] }
+/// 'zorluk' verilmezse konu KOLAY+ORTA+ZOR olmak uzere uc seviyede uretilir;
+/// tek seviye isteniyorsa "zorluk":"zor" ya da "zorluklar":["kolay","zor"] yazilir.
 /// Butun istekler Task.WhenAll ile AYNI ANDA acilir; es zamanlilik tavani
 /// SoruUretici icindeki bogazdan gelir.
 /// </summary>
@@ -95,11 +97,20 @@ public sealed class SoruIscisi(
                 var y = JsonSerializer.Deserialize<SoruYuku>(yuk)
                         ?? throw new InvalidOperationException("soru yuku cozulemedi");
 
+                // ZORLUK GERI UYUMU: yuk tek bir "zorluk" veriyorsa o zorluk
+                // kullanilir; vermiyorsa UC SEVIYE birden uretilir. Boylece
+                // eski kuyruk yukleri calismaya devam eder ama VARSAYILAN
+                // artik tek seviye degil, uc seviyedir.
                 var istekler = y.Istekler
-                    .Select(i => new SoruIstegi(y.Ders, i.Konu, i.Zorluk, i.Adet))
+                    .Select(i => new KonuIstegi(
+                        y.Ders,
+                        i.Konu,
+                        (IReadOnlyList<string>?)i.Zorluklar
+                            ?? (i.Zorluk is null ? KonuIstegi.UcSeviye : [i.Zorluk]),
+                        i.Adet ?? 2))
                     .ToList();
 
-                var sonuclar = await uretici.TopluUretAsync(istekler, ct);
+                var sonuclar = await uretici.TopluKonuUretAsync(istekler, ct);
 
                 var dusen = sonuclar.Count(s => s.Hata is not null);
                 if (dusen == sonuclar.Count && sonuclar.Count > 0)
@@ -123,6 +134,7 @@ public sealed class SoruIscisi(
         }
     }
 
-    private sealed record KonuIstegi(string Konu, string Zorluk, int Adet);
-    private sealed record SoruYuku(string Ders, List<KonuIstegi> Istekler);
+    /// <summary>Kuyruk yukundeki konu satiri. Zorluk alanlari ISTEGE BAGLI - yoksa uc seviye uretilir.</summary>
+    private sealed record KonuYuku(string Konu, string? Zorluk, List<string>? Zorluklar, int? Adet);
+    private sealed record SoruYuku(string Ders, List<KonuYuku> Istekler);
 }
