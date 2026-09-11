@@ -2459,6 +2459,39 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
   }
 }
 
+# --- KAPI-DR: HAKEM KOSACAKSA DERS ADI GERCEK OLMALI (11.09.2026) -----------
+# 11.09'da az kalsin havuz bozuluyordu: pilot kosularda gun boyu -DersRegex '.'
+# kullandim (kolay ve zararsizdi, cunku hakem yeniden kosmuyordu). KAPI-HG
+# `hesap_uyum` alanini zorunlu kilinca hakem YENIDEN kosar oldu ve hakeme
+# "bu soru '.' dersine mi ait?" diye soruldu. Hakem dogal olarak DERS-DISI dedi;
+# ayni gun ekledigim secim kapisi da DERS-DISI'yi dusuruyor. Yani tek bir
+# dikkatsiz bayrak, once hakem kaydini bozup sonra sorulari yayindan silecekti.
+# OLCULDU: sgs-t1-mta-kolay kp-01 ve kp-02 boyle HAYIR/DERS-DISI oldu; sorularda
+# hicbir kusur yoktu, gerekce "kaynak metni VUK m.275" idi.
+# Bundan sonra: hakem kosacaksa ders adi GERCEK olmali. Regex joker ('.', '.*')
+# ya da 3 harften kisa ad ile hakem kosmaz - kosu DURUR ve sebebini soyler.
+if(-not ($SadeceHtml -or $SadeceAdim)){
+  $drSade = "$DersRegex".Trim()
+  if($drSade -in @('.','.*','.+','') -or $drSade.Length -lt 3){
+    # Hakem gercekten kosacak mi? Yalniz hakem karari EKSIK/ESKI olan soru varsa.
+    $hakemKosacak = $false
+    foreach($idDR in @($don.Keys)){
+      if($PilotId -and (($PilotId -split ',') -notcontains $idDR)){ continue }
+      $vDR=$don[$idDR]; if(-not $vDR.soru){ continue }
+      if(-not ($vDR.PSObject.Properties['hakem'] -and $vDR.hakem -and
+               $vDR.hakem.PSObject.Properties['hesap_uyum'] -and
+               $vDR.hakem.PSObject.Properties['ders_uyum'] -and
+               $vDR.hakem.PSObject.Properties['konu_uyum'])){ $hakemKosacak=$true; break }
+    }
+    if($hakemKosacak){
+      throw ("KAPI-DR: hakem kosacak ama -DersRegex '$DersRegex' gercek bir ders adi degil. " +
+             "Hakeme 'bu soru $DersRegex dersine mi ait' diye sorulur ve DERS-DISI damgalanir; " +
+             "secim kapisi da o sorulari yayindan duurur. Gercek ders adiyla kos " +
+             "(ornek: -DersRegex 'Mali Tablolar Analizi').")
+    }
+  }
+}
+
 # --- KAPI B: DAYANAK HAKEMI (01.09 Cem guvencesi) ----------------------------
 # Bagimsiz ucuz gozle her soru sinanir: "dogru sikkin kurali kaynaktan cikiyor mu?"
 # HAYIR -> sayfada kirmizi HAKEM REDDI damgasi; kasa yolunda karantina demektir.
