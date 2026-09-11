@@ -1391,6 +1391,103 @@ function KonuEtiketKapisi($c,[string]$konu){
   return @("konu '$konu' kelimelerinin HİÇBİRİ soru kökünde geçmiyor ($($kel -join ', '))")
 }
 
+# --- ROL BASLIGI: SORU-URETIM-ROLU.md'nin FAZ A'ya bagli hali (11.09.2026) ---
+# Cem: "Belgeyi FAZ A'ya baglayalim; {ONAYLI_HESAPLAR}, {ONAYLI_STANDARTLAR},
+# {CEKIRDEK_HESAPLAR} ve {KATEGORI} alanlarini sistem otonom doldursun."
+#
+# ⛔ KATEGORIYI MODEL SECMEZ - dersten turetilir. Gerekce olculdu: 636 sorunun
+#    71'inde konu etiketi yanlisti ve hakem 71'inde de "EVET" demisti; kendi
+#    etiketini koyan model yanlis etiketi de kendi onaylar.
+#
+# ⚠ UC DURUMLU BEYAZ LISTE - kurulusun en kritik yeri:
+#    kalip VAR + MUHURLU   -> SERT beyaz liste ("yalniz bu hesaplar")
+#    kalip VAR + muhursuz  -> YOL GOSTERICI ("beklenen hesaplar sunlar")
+#    kalip YOK             -> beyaz liste YAZILMAZ; yerine "yalniz kaynak
+#                             paketinde gordugun hesaplari kullan" konur.
+#    Ucuncusu sart: hesap-kalibi.json'da bugun 5 satir var. Korlemesine
+#    baglansaydi kalibi olmayan her konuda BOS KUME olusur ve model hicbir
+#    hesap kullanamayacagi icin uretim tumuyle dururdu.
+$KATEGORI_DERS = @{
+  'MUHASEBE VE DENETIM'  = @('finansal muhasebe','maliyet muhasebesi','mali tablolar analizi','denetim','turkiye muhasebe standartlari','turkiye denetim standartlari','muhasebe ve finansal raporlama')
+  'HUKUK VE MEVZUAT'     = @('ticaret hukuku','borclar hukuku','ticaret ve borclar','vergi hukuku','meslek hukuku','is ve sosyal guvenlik hukuku','is ve sosyal guvenlik','maliye','kurumsal yonetim','sermaye piyasasi mevzuati')
+  'SOZEL VE YABANCI DIL' = @('turkce','yabanci dil','ataturk ilkeleri ve inkilap tarihi','ataturk ilkeleri')
+  'MATEMATIK VE SAYISAL' = @('matematik')
+  'KAVRAMSAL VE TEORIK'  = @('ekonomi')
+}
+# 11.09 olcumu: dogru sikkinda hesap anan 64 sorunun 16'si (%25) bu hesaplari
+# kullaniyor (102 Bankalar 4 soruda, 121 Alacak Senetleri 4, 770 Genel Yonetim 4).
+# kp-80'in onayli kumesinde 102 YOKTU; muafiyet olmasa DOGRU soru reddedilirdi.
+$CEKIRDEK_HESAPLAR = @('100','101','102','103','120','121','128','153','191','320','321','329','360','361','391','600','610','611','620','621','632','770','780')
+
+function KategoriBul([string]$ders){
+  $d=Katla2 "$ders"
+  foreach($k in $KATEGORI_DERS.Keys){ foreach($x in $KATEGORI_DERS[$k]){ if($d -eq $x){ return $k } } }
+  foreach($k in $KATEGORI_DERS.Keys){ foreach($x in $KATEGORI_DERS[$k]){ if($d -like "*$x*"){ return $k } } }
+  return ''
+}
+
+function RolBasligi([string]$ders,[string]$konu){
+  $kat=KategoriBul $ders
+  if(-not $kat){ return '' }                      # kategori cozulemezse rol baslikti EKLENMEZ
+  $s=New-Object System.Text.StringBuilder
+  [void]$s.AppendLine("=== ROL ===")
+  [void]$s.AppendLine("[KATEGORI] $kat   (bu etiket DERSTEN turetildi; DEGISTIREMEZSIN)")
+  switch($kat){
+    'MUHASEBE VE DENETIM' {
+      [void]$s.AppendLine("Kati bir Tekduzen Hesap Plani / TMS-TFRS / Vergi uzmanisin.")
+      $k=HesapKalibi $ders $konu
+      $onayli=@(); if($k){ $onayli=@(@($k.dogru_hesaplar) | ForEach-Object { "$_" }) }
+      if($onayli.Count -and $k -and [bool]$k.dogrulandi){
+        [void]$s.AppendLine("ONAYLI HESAPLAR (YALNIZ bunlar + cekirdek): " + ($onayli -join ', '))
+        [void]$s.AppendLine("Bu kume disinda hesap KULLANAMAZSIN. Yetmiyorsa uydurma:")
+        [void]$s.AppendLine("  HATA: Onayli hesap kumesi yetersiz. Eksik: <hangi islem icin hangi hesap>")
+      } elseif($onayli.Count){
+        [void]$s.AppendLine("BEKLENEN HESAPLAR (yol gosterici, muhursuz): " + ($onayli -join ', '))
+        [void]$s.AppendLine("Baska hesap kullanacaksan KAYNAK METNINDE tanimini gormus olmalisin.")
+      } else {
+        [void]$s.AppendLine("Bu konunun onayli hesap kumesi HENUZ YOK. Kural: YALNIZ kaynak paketinde")
+        [void]$s.AppendLine("tanimini GORDUGUN hesaplari kullan; ezberinden hesap ekleme.")
+      }
+      [void]$s.AppendLine("CEKIRDEK HESAPLAR (her kayitta serbest): " + ($CEKIRDEK_HESAPLAR -join ', '))
+      $env2=StandartEnvanteri
+      if($env2.Count){
+        $std=@(); foreach($on in @('BDS','TMS','TFRS','TSRS')){ if($env2.ContainsKey($on) -and $env2[$on].Count){ $std += ($on + ' ' + (($env2[$on]) -join ',')) } }
+        if($std.Count){ [void]$s.AppendLine("ONAYLI STANDARTLAR (yalniz bu numaralar anilabilir): " + ($std -join ' | ')) }
+      }
+      [void]$s.AppendLine("KAYNAK ADLARI: TMS, TFRS, BOBI FRS, KUMI FRS, MSUGT Sira No:1 Tekduzen Hesap Plani, VUK, TTK. 'UFRS' ve 'TDHP Izahnamesi' AMBARDA YOKTUR.")
+    }
+    'HUKUK VE MEVZUAT' {
+      [void]$s.AppendLine("Kati bir Mevzuat ve Atif Denetcisisin.")
+      [void]$s.AppendLine("HESAP KODU ARAMA - bu derste hesap kodu yoklugu kusur DEGILDIR.")
+      [void]$s.AppendLine("Madde numarasi HAFIZADAN yazilmaz; kaynak paketinde okudugun kunye yazilir.")
+      [void]$s.AppendLine("Kurum adi yururlukteki olmali (KGK, SPK, TURMOB, TESMER, SGK); SSK ve TMSK MULGADIR.")
+      [void]$s.AppendLine("Sure ve had/oran kaynaktan alinir; yila bagli tutar soruda SAYI olarak verilir.")
+      [void]$s.AppendLine("Yetmiyorsa: HATA: Onayli madde kumesi yetersiz. Eksik: <hangi hukum>")
+    }
+    'SOZEL VE YABANCI DIL' {
+      [void]$s.AppendLine("Uzman bir Dilbilimci ve Olcme-Degerlendirme Uzmanisin.")
+      [void]$s.AppendLine("HESAP KODU ve KANUN MADDESI ARAMA - yoklugu kusur DEGILDIR.")
+      [void]$s.AppendLine("Imla ve noktalama TDK kurallarina (yabanci dilde o dilin standardina) uyar.")
+      [void]$s.AppendLine("Dil capasi Oxford/Cambridge DEGIL, BU SINAVIN cikmis sorularidir.")
+    }
+    'MATEMATIK VE SAYISAL' {
+      [void]$s.AppendLine("Kati bir Mantik ve Islem Denetcisisin.")
+      [void]$s.AppendLine("HESAP KODU ve KANUN MADDESI ARAMA - yoklugu kusur DEGILDIR.")
+      [void]$s.AppendLine("Kurguyu arka planda ADIM ADIM cozerek saglamasini yap; sonuc sikla birebir tutmali.")
+      [void]$s.AppendLine("Veri eksigi ('x tam sayi mi belirtilmemis') kapatilir; kok TEK buyukluk ister.")
+    }
+    'KAVRAMSAL VE TEORIK' {
+      [void]$s.AppendLine("Uzman bir Iktisat Teorisi ve Model Denetcisisin.")
+      [void]$s.AppendLine("HESAP KODU ve KANUN MADDESI ARAMA - yoklugu kusur DEGILDIR.")
+      [void]$s.AppendLine("Muafiyet 'kaynaksiz yaz' DEMEK DEGILDIR: tanim ve model kaynak paketinden alinir.")
+      [void]$s.AppendLine("Dogru sik TEK bir teorik tanima dayanir; 'bazi yaklasimlara gore' olmaz.")
+      [void]$s.AppendLine("Sayisal kurgu varsa islem ispati sart.")
+    }
+  }
+  [void]$s.AppendLine("ORTAK: her yanlis sik HEM kesin yanlis HEM ogrencinin gercekten yapabilecegi bir hatanin sonucu olmali.")
+  [void]$s.AppendLine("=== ROL BITTI ===")
+  return $s.ToString()
+}
 # --- KAPI-SS: STANDART SETI (11.09.2026) -------------------------------------
 # Cem: "beyaz liste tek alan degil, alan kumesi"
 # OLCULDU: Kategori 1 (Muhasebe ve Denetim) sorularinin %40'i hesap kodu DEGIL
@@ -2258,7 +2355,11 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
 (d) Kök yine tek anlamlı; uzunluk tavanı geçerli (zorluk katman ve tuzak sayısında, kelime sayısında değil). Teori sorusunda: iki paragrafın
     kesişimi, istisnanın istisnası, ya da "hangisi HER ZAMAN doğrudur" gibi mutlak kök — ama sızıntı kuralı 4c korunur.
 "@ }
-  $ist=$soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  # 11.09 Cem "belgeyi FAZ A'ya baglayalim": rol basligi istemin BASINA konur.
+  # Kategori dersten turetilir, hesap/standart kumeleri makineden gelir.
+  # Kategori cozulemezse baslik EKLENMEZ (bos string) - eski davranis korunur.
+  $rolB = RolBasligi $DersRegex "$($ky.konu)"
+  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
