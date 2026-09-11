@@ -115,6 +115,13 @@ function DusmeSebebi([string]$etiket,[string]$id){
   #    taslagidir ve gurultu tasidigi olculdu; muhursuz listeye karsi sert kapi
   #    DOGRU sorulari yayindan silerdi. Kapiyi acan sey Cem'in muhrudur.
   if("$($v.hakem.karar)" -eq 'HAYIR'){ return 'hakem HAYIR' }
+  # --- KAPI-KH: kodsuz hesap adi (11.09) -------------------------------------
+  # Sik hesabi ADIYLA aniyor ama KODUNU yazmiyorsa hicbir hesap kapisi onu
+  # dogrulayamaz - denetimsiz yayina cikar. Olculdu: 635 soruda 3 vaka, yanlis
+  # pozitif yok. Kural 9.3 geregi sorular ELLE duzeltilmedi; kapi kuruldu ve
+  # sorular havuzdan kendiliginden dusuyor. Yeniden uretim Cem'in karari.
+  $khB=@(Get-KodsuzHesapAdi "$($v.siklar.$($v.dogru))")
+  if($khB.Count){ return ("KAPI-KH kodsuz hesap adi: " + ($khB -join ', ')) }
   $hsK = HesapKalibiAl "$($v.ders)" "$($v.konu)"
   if($hsK -and [bool]$hsK.dogrulandi){
     $onayli=@(@($hsK.dogru_hesaplar) | ForEach-Object { "$_" })

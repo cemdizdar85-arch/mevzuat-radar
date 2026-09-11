@@ -146,7 +146,16 @@ $sonuc | Where-Object { $_.durum -eq 'YOK' } | Select-Object -First 15 |
   ForEach-Object { Write-Host ("  [{0}] {1}  (kokler: {2})" -f $_.ders,$_.konu,$_.kokler) }
 
 . (Join-Path $here 'rapor-yaz.ps1')
-RaporYaz -Hedef (Join-Path $depoKok 'veri\konu-kaynak-bagi.json') -Nesne ([ordered]@{
+# ⚠ KISMI KOSU TAM RAPORU EZMEZ (11.09): -Ders ya da -Adet ile kosuldugunda
+#   dosya TEK DERSE inerdi. 11.09'da fark edildi: tam rapor 1.409 satirdan 37'ye
+#   dusmustu. Fark edilmeseydi yarin "1.409 konu olculdu" diye 37 satirlik
+#   dosyaya bakilacakti. Kismi kosu artik AYRI dosyaya yazar.
+$hedefAd = if($Ders -or $Adet -gt 0){
+  $ek = if($Ders){ (($Ders -replace '[^A-Za-z0-9]+','-').Trim('-')) } else { "ilk$Adet" }
+  "veri\_konu-kaynak-bagi-KISMI-$ek.json"
+} else { 'veri\konu-kaynak-bagi.json' }
+if($hedefAd -ne 'veri\konu-kaynak-bagi.json'){ Write-Host ("KISMI KOSU -> {0} (tam rapor EZILMEDI)" -f $hedefAd) -ForegroundColor Yellow }
+RaporYaz -Hedef (Join-Path $depoKok $hedefAd) -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
   yontem='Konu adinin >=4 harfli kelimelerinin KOKLERI (ilk 6 harf) ambar METNINDE fts(simple) ile aranir. AD ile DEGIL METIN ile olculur.'
   neden='11.09: ad uzerinden olcup "288 konunun kaynagi yok" demistim; metinle olculunce gercek sayi 11 cikti. Kanun derslerinde kaynak adi kunyedir, konu adi tasimaz.'
@@ -154,4 +163,4 @@ RaporYaz -Hedef (Join-Path $depoKok 'veri\konu-kaynak-bagi.json') -Nesne ([order
   toplam=$sonuc.Count; guclu=$guclu; zayif=$zayif; yok=$yok
   satirlar=$sonuc
 })
-Write-Host "`n-> veri/konu-kaynak-bagi.json"
+Write-Host ("`n-> {0}" -f $hedefAd)
