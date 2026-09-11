@@ -70,6 +70,24 @@ foreach($f in (Get-ChildItem (Join-Path $secimDir 'yayin-sgs-*.json'))){
 # yazmis (ornek kp-72: "soru ... Vergi Usul Kanunu fatura nizami kurallarini
 # olcmektedir"). Kok neden motor/kalip-kosucu.ps1'de (secim kapisi) duzeltildi;
 # burasi ikinci savunma hatti - secim dosyasi nereden gelirse gelsin elenir.
+# Hesap kalibi bir kez okunur; anahtar katlanmis "ders|konu".
+$script:HK=$null
+function HesapKalibiAl([string]$ders,[string]$konu){
+  if($null -eq $script:HK){
+    $script:HK=@{}
+    $hy=Join-Path $depoKok 'veri\hesap-kalibi.json'
+    if(Test-Path $hy){
+      try{
+        $hj=Get-Content $hy -Raw -Encoding UTF8 | ConvertFrom-Json
+        foreach($s in @($hj.satirlar)){ $script:HK[(Katla "$($s.ders)|$($s.konu)")]=$s }
+      }catch{}
+    }
+  }
+  $a=Katla "$ders|$konu"
+  if($script:HK.ContainsKey($a)){ return $script:HK[$a] }
+  return $null
+}
+
 $onbGate=@{}
 function Kayit([string]$etiket,[string]$id){
   if(-not $onbGate.ContainsKey($etiket)){
@@ -87,7 +105,25 @@ function DusmeSebebi([string]$etiket,[string]$id){
   # donunce fark edildi: basim betigi hakem2'ye bakiyordu ama BIRINCI hakemin
   # kararina bakmiyordu. Secim dosyasi onu eledigi icin sorun cikmamisti;
   # yine de ikinci savunma hatti bunu KENDI sormalidir.
+  # --- KAPI-HS: HESAP SETI (11.09, Cem "basmadan otomatik engelleyecek") ------
+  # Dogru sikkin kullandigi HER hesap, konunun ONAYLI hesap kumesinde olmali.
+  # Beyaz liste; kara liste degil. Olculdu: kp-80'de 529 tuzak listesinde yoktu
+  # ve kara liste YAKALAMAZDI; beyaz liste yakaliyor (529, onayli kume
+  # {242,245,521,501} icinde degil).
+  # ⛔ YALNIZ MUHURLU KALIPTA DUSURUR (dogrulandi=true). Kalip su an model
+  #    taslagidir ve gurultu tasidigi olculdu; muhursuz listeye karsi sert kapi
+  #    DOGRU sorulari yayindan silerdi. Kapiyi acan sey Cem'in muhrudur.
   if("$($v.hakem.karar)" -eq 'HAYIR'){ return 'hakem HAYIR' }
+  $hsK = HesapKalibiAl "$($v.ders)" "$($v.konu)"
+  if($hsK -and [bool]$hsK.dogrulandi){
+    $onayli=@(@($hsK.dogru_hesaplar) | ForEach-Object { "$_" })
+    if($onayli.Count){
+      $mS="$($v.siklar.$($v.dogru))"
+      $kul=@([regex]::Matches($mS,'(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+      $dis=@($kul | Where-Object { $onayli -notcontains $_ })
+      if($dis.Count){ return ("KAPI-HS onayli hesap kumesi disi: " + ($dis -join ',')) }
+    }
+  }
   if("$($v.hakem.hesap_uyum)" -eq 'HESAP-YANLIS'){ return 'hakem HESAP-YANLIS' }
   if(-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2)){ return 'hakem2 YOK' }
   if("$($v.hakem2.karar)" -eq 'HAYIR'){ return 'hakem2 HAYIR' }

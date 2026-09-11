@@ -1390,6 +1390,68 @@ function KonuEtiketKapisi($c,[string]$konu){
   return @("konu '$konu' kelimelerinin HİÇBİRİ soru kökünde geçmiyor ($($kel -join ', '))")
 }
 
+# --- KAPI-HS: HESAP SETI (11.09.2026) ----------------------------------------
+# Cem: "hesap setinin kurumsal dilde sorular basmadan otomatik engelleyecek
+# sekilde yapabiliyor muyuz"
+#
+# KURAL (beyaz liste, kara liste DEGIL):
+#   Dogru sikkin kullandigi HER hesap kodu, konunun ONAYLI HESAP KUMESINDE
+#   (veri/hesap-kalibi.json -> dogru_hesaplar) olmak ZORUNDADIR.
+#   Kumede olmayan bir hesap kullanilmissa soru REDDEDILIR.
+#
+# NEDEN KARA LISTE DEGIL - OLCULDU: once "tuzak hesaplari yasakla" diye kurmayi
+# dusundum ve kp-80'de sinadim: o konunun kalibinda tuzaklar 243/246/520 idi,
+# sorunun kullandigi 529 tuzak listesinde YOKTU - kapi YAKALAMAZDI. Beyaz liste
+# ayni vakada yakaliyor: 529, onayli kume {242,245,521,501} icinde degil.
+# Kara liste kimsenin aklina gelmeyen hesabi kacirir; beyaz liste kacirmaz.
+#
+# ⛔ SERTLIK MUHURE BAGLI - bu kasitli:
+#   dogrulandi=true  -> SERT. Soru reddedilir, yeniden yazdirilir.
+#   dogrulandi=false -> YUMUSAK. Yalniz hakeme uyari gider.
+#   Cunku kalip su an MODEL taslagidir ve gurultu tasidigi OLCULDU (kp-80
+#   konusunda dogru_hesaplar'a 242/245 girmis, 102 Bankalar hic girmemis).
+#   Muhurlenmemis bir listeye karsi sert kapi, DOGRU sorulari reddederdi.
+#   Yani kapiyi acan sey Cem'in muhrudur.
+$script:HESAP_KALIBI=$null
+function HesapKalibi([string]$ders,[string]$konu){
+  if($null -eq $script:HESAP_KALIBI){
+    $script:HESAP_KALIBI=@{}
+    $hk=Join-Path $kok 'veri\hesap-kalibi.json'
+    if(Test-Path $hk){
+      try{
+        $hj=Get-Content $hk -Raw -Encoding UTF8 | ConvertFrom-Json
+        foreach($s in @($hj.satirlar)){ $script:HESAP_KALIBI[(Katla2 "$($s.ders)|$($s.konu)")]=$s }
+      }catch{}
+    }
+  }
+  $a=Katla2 "$ders|$konu"
+  if($script:HESAP_KALIBI.ContainsKey($a)){ return $script:HESAP_KALIBI[$a] }
+  return $null
+}
+# Dogru sikkin kullandigi hesap kodlari (kod + ardindan ad geliyorsa hesap kodudur)
+function SikHesaplari($c){
+  if(-not $c -or -not $c.dogru){ return @() }
+  $m="$($c.siklar.$($c.dogru))"
+  return @([regex]::Matches($m,'(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])') |
+           ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+}
+function HesapSetiKapisi($c,[string]$ders,[string]$konu){
+  $k=HesapKalibi $ders $konu
+  if(-not $k){ return @() }
+  $onayli=@(@($k.dogru_hesaplar) | ForEach-Object { "$_" })
+  if(-not $onayli.Count){ return @() }          # kalip bos - hukum verilmez
+  $kullanilan=@(SikHesaplari $c)
+  if(-not $kullanilan.Count){ return @() }      # soru hesap anmiyor
+  $disarda=@($kullanilan | Where-Object { $onayli -notcontains $_ })
+  if(-not $disarda.Count){ return @() }
+  $tuzakMi=@()
+  foreach($d in $disarda){
+    $t=@($k.tuzaklar) | Where-Object { "$($_.kod)" -eq $d } | Select-Object -First 1
+    if($t){ $tuzakMi += "$d TUZAK: $($t.neden)" } else { $tuzakMi += "$d onayli kumede yok" }
+  }
+  return @("dogru sik onayli hesap kumesi disinda hesap kullaniyor -> " + ($tuzakMi -join ' | ') +
+           " (onayli: " + ($onayli -join ',') + ")")
+}
 # --- KAPI-KS: KAYNAK SIRALAMA (11.09.2026) -----------------------------------
 # Kaynak paketi "ilk 4" ile degil "konuyla EN ALAKALI 4" ile kurulur.
 # OLCULDU (635 basili soru, bedel 0, model cagrilmadi):
@@ -2226,6 +2288,20 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   #   O yüzden kapı SORUYA DEĞİL, HAKEME bağlanır: şüpheli soruda hakemin
   #   konu_uyum denetimi özellikle uyarılır. Ölçüm hakemin bu sınıfı tamamen
   #   kaçırdığını gösterdi (71 yanlış etiketin 71'inde de "EVET" demişti).
+  # --- KAPI-HS: hesap seti (11.09) -------------------------------------------
+  # Muhurlu kalipta SERT (soru yeniden yazdirilir), muhursuzde hakeme uyari.
+  $hsKusur=@(HesapSetiKapisi $aday $DersRegex "$($ky.konu)")
+  if($hsKusur.Count){
+    $hsK=HesapKalibi $DersRegex "$($ky.konu)"
+    if($hsK -and [bool]$hsK.dogrulandi -and $deneme -eq 1){
+      Write-Host "  KAPI-HS (hesap seti, MUHURLU) ($id): $($hsKusur[0]) - yeniden" -ForegroundColor Magenta
+      $ist=$ist+"`nKAPI-HS DUSTU: $($hsKusur[0]). Soruyu, konunun ONAYLI hesap kumesindeki hesaplarla yeniden yaz."
+      continue
+    }
+    Write-Host "  KAPI-HS ISARETI ($id): $($hsKusur[0])" -ForegroundColor DarkYellow
+    $aday | Add-Member -NotePropertyName hesap_seti_isareti -NotePropertyValue "$($hsKusur[0])" -Force
+    $rapor.Add("KAPI-HS: $id | $($hsKusur[0])")
+  }
   $keKusur=@(KonuEtiketKapisi $aday "$($ky.konu)")
   if($keKusur.Count){
     Write-Host "  KAPI-KE İŞARETİ ($id): $($keKusur[0]) → hakeme uyarı" -ForegroundColor DarkYellow
