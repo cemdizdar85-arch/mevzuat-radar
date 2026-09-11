@@ -30,7 +30,8 @@
 param(
   [switch]$Yaz,
   [double]$TavanTL = 200,
-  [int]$Adet = 0            # >0 ise yalniz ilk N konu
+  [int]$Adet = 0,           # >0 ise yalniz ilk N konu
+  [string]$Konu = ''         # tek konuyu adiyla kos (sinama icin)
 )
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -62,6 +63,14 @@ $ciftler = @($thp | ForEach-Object { ("$($_.kaynak_ad)" -replace '^\s*THP\s+',''
              Where-Object { $_ -match '^[1-7]\d{2}\s*-\s*\S' } | Sort-Object -Unique)
 if($ciftler.Count -lt 150){ throw "THP menusu eksik: $($ciftler.Count)" }
 $MENU=($ciftler -join "`n")
+# THP kayitlari METINLERIYLE saklanir - konu eslesmesinde kaynak olarak kullanilir
+function Katla2Y([string]$s){
+  ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' `
+       -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' `
+       -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant()
+}
+$KONU_DOLGU=@('ile','icin','veya','bir','olan','gibi','hesap','kaydi','islem','yonte','tutar','genel','ozel','kavra','tanim','hesabi','analizi')
+$THP_KAYIT=@($thp | ForEach-Object { [pscustomobject]@{ ad="$($_.kaynak_ad)"; k=(Katla2Y "$($_.kaynak_ad)"); metin="$($_.metin)" } })
 $GECERLI=@{}; foreach($c in $ciftler){ $GECERLI[($c -split ' - ')[0]]=($c -split ' - ',2)[1] }
 Write-Host ("THP MENUSU: {0} hesap" -f $ciftler.Count) -ForegroundColor Cyan
 
@@ -78,7 +87,8 @@ if(Test-Path $HEDEF){
   Write-Host ("ELDE VAR: {0} konu (atlanacak, yeniden para yakilmaz)" -f $eski.Count) -ForegroundColor Green
 }
 $kalan=@($havuz | Where-Object { -not $eski.ContainsKey("$($_.ders)|$($_.konu)") })
-if($Adet -gt 0){ $kalan=@($kalan | Select-Object -First $Adet) }
+if($Konu){ $kalan=@($havuz | Where-Object { "$($_.konu)" -like "*$Konu*" } | Select-Object -First 1) }
+elseif($Adet -gt 0){ $kalan=@($kalan | Select-Object -First $Adet) }
 
 $tahminUSD=$kalan.Count*0.0085
 Write-Host ("HAVUZ {0} · KALAN {1} · tahmini {2:N2} USD (~{3:N0} TL)" -f $havuz.Count,$kalan.Count,$tahminUSD,($tahminUSD*42)) -ForegroundColor Cyan
@@ -120,7 +130,32 @@ foreach($k in $eski.Keys){ $sonuc.Add($eski[$k]) }
 $tokG=0;$tokC=0;$n=0;$uydurmaKayit=0;$bosKayit=0;$script:kaynaksiz=0
 foreach($kn in $kalan){
   $n++
+  # --- KAYNAK 1: KONUYLA ESLESEN THP HESAP TANIMLARI (11.09) ----------------
+  # OLCULDU: 433 muhasebe konusunun 306'si (%71) adinda bir THP hesabiyla
+  # dogrudan eslesiyor ve eslesmeler isabetli ("amortisman ayirma" -> 268
+  # Birikmis Amortismanlar / 796 Amortismanlar / 257).
+  # RAG adaylari ayni konulara "SPK Altyapi GYO Tebligi", "KUMI FRS" gibi
+  # alakasiz belgeler getiriyordu - bu is icin ASIL kaynak hesap tanimlarinin
+  # kendisidir. Adaylar ikincil kaynak olarak KALIR ama ONCE bu gelir.
   $parca=New-Object System.Collections.Generic.List[string]
+  $knKel=@([regex]::Matches((Katla2Y "$($kn.konu)"),'[a-z0-9]{4,}') | ForEach-Object { $_.Value } |
+           Where-Object { $KONU_DOLGU -notcontains $_ } | Select-Object -Unique)
+  if($knKel.Count){
+    # ⚠ "ILK 6" DEGIL "EN COK ESLESEN 6" - ayni dersi bugun iki kez ogrendim.
+    #   Ilk surumde siralamadan ilk 6 alinmisti: "sermaye taahhudu-hisse iptali"
+    #   konusunda "sermaye" 8 hesapla eslesti, 521 HISSE SENEDI IPTAL KARLARI
+    #   listeden KESILDI ve model yine 529 dedi. (Ayni kusur KAPI-KS'de kaynak
+    #   paketi icin duzeltilmisti; burada tekrar uretmisim.)
+    # ⚠ KOK ESLESMESI: Turkce sondan eklemeli, "iptali" ile "iptal" ayni koktur.
+    #   Tam eslesme arayinca 521 ikinci kelimeden de puan alamiyordu.
+    $esler=@($THP_KAYIT | ForEach-Object {
+        $a=$_.k
+        $p2=@($knKel | Where-Object { $kk=$(if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ }); $a -match [regex]::Escape($kk) }).Count
+        [pscustomobject]@{ ad=$_.ad; metin=$_.metin; p=$p2 }
+      } | Where-Object { $_.p -ge 1 } | Sort-Object p -Descending | Select-Object -First 6)
+    foreach($e in $esler){ $parca.Add("[$($e.ad)] $($e.metin)") }
+    if($esler.Count){ Write-Host ("      THP tanimi: {0}" -f (@($esler | ForEach-Object { ($_.ad -replace '^THP\s+','') -replace ' -.*','' }) -join ',')) -ForegroundColor DarkCyan }
+  }
   # ⚠ 11.09 KENDI HATAM, 142 TL'YE MAL OLDU: aday kaydinda alan adi `kaynak_ad`,
   #   ben `.ad` okumustum. Bos donunce hicbir kaynak cekilmedi ve 433 konunun
   #   TAMAMI kaynaksiz kosuldu; 358'i (dogru olarak) bos dondu, "dolan" 75'i ise
