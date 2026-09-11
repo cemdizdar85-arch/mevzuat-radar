@@ -1,18 +1,19 @@
 ﻿{
-    "olcum":  "2026-09-11 18:36",
+    "olcum":  "2026-09-11 21:09",
     "kural":  "IKI OLCUT: soru metni VE dogru sik metni birlikte esigi asmali. Tek olcut kurt masali okuyor (11.09: 14 bildirdi, 3 gercekti). Esigi asan ciftte BIRI yayin disi birakilir; SORU SILINMEZ.",
     "esik":  0.6,
     "sik_esik":  0.6,
-    "taranan":  3723,
-    "kiyaslanan_cift":  6739,
-    "ortalama_benzerlik_yuzde":  26.5,
-    "ikiz_cift":  19,
-    "yayin_disi":  18,
-    "ikisi_de_yayinda":  3,
+    "taranan":  3819,
+    "kiyaslanan_cift":  7233,
+    "ortalama_benzerlik_yuzde":  26.8,
+    "ikiz_cift":  20,
+    "yayin_disi":  19,
+    "ikisi_de_yayinda":  0,
     "yayin_disi_idler":  [
                              "sgs-a6e-meslek-kolay|kp-07",
                              "sgs-denetim-zor1|kp-01",
                              "sgs-fmuh-30|kp-24",
+                             "sgs-p-fmuh-kolay-r4|kp-10",
                              "sgs-t1-denetim-kolay|kp-41",
                              "sgs-t1-fmuh-cokzor|kp-25",
                              "sgs-t1-fmuh-kolay|kp-70",
@@ -73,7 +74,7 @@
                         "kalan":  "sgs-t1-denetim-cokzor|kp-55",
                         "dusen":  "sgs-t2-denetim-zor|kp-34",
                         "kalanYayinda":  true,
-                        "dusenYayinda":  true
+                        "dusenYayinda":  false
                     },
                     {
                         "konu":  "kavramsal cerceve ifa degeri",
@@ -81,6 +82,15 @@
                         "sikSkor":  1,
                         "kalan":  "sgs-t1-fmuh-zor-b|kp-161",
                         "dusen":  "sgs-t1-fmuh-kolay-b|kp-161",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "maddi duran varlik denetimi",
+                        "skor":  0.642,
+                        "sikSkor":  0.812,
+                        "kalan":  "sgs-p-fmuh-kolay-r2|kp-18",
+                        "dusen":  "sgs-p-fmuh-kolay-r4|kp-10",
                         "kalanYayinda":  false,
                         "dusenYayinda":  false
                     },
@@ -100,7 +110,7 @@
                         "kalan":  "sgs-t1-fmuh-cokzor-b|kp-122",
                         "dusen":  "sgs-t1-fmuh-kolay-b|kp-122",
                         "kalanYayinda":  true,
-                        "dusenYayinda":  true
+                        "dusenYayinda":  false
                     },
                     {
                         "konu":  "ttk ihtar bildirim sekli",
@@ -109,7 +119,7 @@
                         "kalan":  "sgs-t1-ticaret-kolay|kp-28",
                         "dusen":  "sgs-t1-ticaret-zor|kp-28",
                         "kalanYayinda":  true,
-                        "dusenYayinda":  true
+                        "dusenYayinda":  false
                     },
                     {
                         "konu":  "sermaye artirimi hisse satisi",
