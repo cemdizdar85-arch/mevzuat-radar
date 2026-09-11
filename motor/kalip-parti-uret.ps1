@@ -39,6 +39,8 @@ param(
   # 07.09 gece A kovası (Cem "A kovasındaki 10 maddeyi kapa"): kör çözüm + ikinci hakem + konu listesi kalıcılığı
   [string]$KorModel='claude-opus-5',   # FAZ K: anlatımı görmeden ASIL soruyu çözen bağımsız model (üreticiden FARKLI model; hesap sorusunda zorunlu)
   [switch]$KorYenile,      # eldeki kör çözüm kararını yeniden verdirir
+  [switch]$KorKaynak,      # 11.09 Cem "bu yapalım": FAZ K'ye KAYNAK METNİ verilir (anlatım DEĞİL). Körlük korunur, ezber körlüğü kalkar.
+  [int]$KorKaynakTavan=4500,  # kör pakete giren kaynak metninin karakter tavanı (Opus girdi 15 USD/M — tavan bedeli tutar)
   [switch]$Hakem2Yenile,   # eldeki ikinci hakem kararını yeniden verdirir
   [switch]$KonuYenile,     # konu listesi dosyasını (veri/fabrika/konu-secim-<etiket>.json) yok sayıp konuları yeniden seçer
   [switch]$Toplu,          # 08.09 Cem "daha ucuza": her fazın İLK denemesi Message Batches ile (yarı fiyat, paralel); kapıdan dönen tekrarlar anlık
@@ -1349,6 +1351,45 @@ function SureKapisi($a){ $out=@(); if(-not $a){ return $out }
   return @($out | Select-Object -Unique)
 }
 function GeciciMaddeNotu($a){ $t="$($a.soru) $($a.dayanak)"; $g=@([regex]::Matches($t,'ge[çc]ici\s*(madde|m\.)\s*\d+','IgnoreCase, CultureInvariant') | ForEach-Object { $_.Value } | Select-Object -Unique); return @($g) }
+# --- KAPI-KE: KONU–ETİKET ÖRTÜŞMESİ (11.09.2026) -----------------------------
+# Cem: "etiketle soru farklı gelmesi hatasını sürekli yaşıyoruz. oluşmadan
+# hataları temizlemek için ne yapmalıyız"
+#
+# NEDEN OLUŞUYORDU: `konu` FAZ A'ya bir GİRDİ olarak veriliyor ama yazıldıktan
+# sonra hiçbir şey "soru gerçekten o konuyu mu ölçtü" diye geri bakmıyordu.
+# Model konudan sessizce sapabiliyordu ve sapma ancak aylar sonra, ücretli bir
+# turda görünüyordu.
+#
+# ÖLÇÜLDÜ (11.09): 636 basılı soruda ayrı bir ikinci görüş turu (₺36) 71 yanlış
+# etiket buldu (%11,2) ve 71'inde de ÜRETİM HAKEMİ "EVET" demişti — yani
+# hakemin konu_uyum alanı bu sınıfı görmüyor. Aynı gün sözcük düzeyi ölçüm
+# (arac/konu-etiket-uyumu.ps1) 182 soruyu işaretledi ve bunların 91'i anlam
+# turunda doğrulandı. Yani bu kapı üretim anında koşsaydı hataların büyük kısmı
+# HİÇ OLUŞMAYACAKTI ve ücretli tura gerek kalmayacaktı.
+#
+# NASIL: etiketin ayırt edici kelimeleri (≥3 harf, dolgu listesi dışı) soru
+# KÖKÜNDE aranır. Hiçbiri geçmiyorsa kusur → tek tur yeniden yazdırılır.
+# ⚠ SERT DEĞİL, ELEYİCİ DE DEĞİL: etiket kelimeleri soruda geçmeden de doğru
+#   olabilir ("duran varlık satışı" etiketi ↔ "makine satışı" sorusu — ölçüldü,
+#   11.09'da elle okunan 4 vakadan biri buydu). O yüzden kapı yalnız HİÇ
+#   örtüşme yoksa düşürür ve yalnız BİR tur tekrar ister; ikinci turda yine
+#   düşerse soru kabul edilir ve rapora not yazılır. Amaç sapmayı azaltmak,
+#   doğru soruyu öldürmek değil.
+$KE_DOLGU = @('ile','icin','veya','bir','olan','gibi','hesabi','hesap','kaydi','kayit',
+              'islemi','islemleri','yontemi','yontemleri','tutari','orani','oran','genel','ozel',
+              'esaslari','hukumleri','turleri','sekli','sartlari','unsurlari','kavrami','tanimi',
+              'hesaplama','hesaplanmasi','belirlenmesi','degerlendirmesi','uygulamasi','analizi')
+function KonuEtiketKapisi($c,[string]$konu){
+  if(-not $c -or -not $c.soru -or -not "$konu".Trim()){ return @() }
+  $kel = @([regex]::Matches((Katla2 "$konu"),'[a-z0-9]{3,}') | ForEach-Object { $_.Value } |
+           Where-Object { $KE_DOLGU -notcontains $_ } | Select-Object -Unique)
+  if(-not $kel.Count){ return @() }
+  $kok = Katla2 "$($c.soru)"
+  $var = @($kel | Where-Object { $kok.Contains($_) }).Count
+  if($var -gt 0){ return @() }
+  return @("konu '$konu' kelimelerinin HİÇBİRİ soru kökünde geçmiyor ($($kel -join ', '))")
+}
+
 # --- FAZ A: SORU ------------------------------------------------------------
 # 04.09 KAPI-Ş: şık dengesi (Cem "cevap belli, sınavda böyle mi?"). Ölçüm: 7 çıkmış SGS sapma sorusunun 5'inde her tutar
 # iki yönle geçiyor. Kural: yön kelimesi taşıyan şıklarda (olumlu/olumsuz/lehte/aleyhte/eksik-fazla yükleme) tutar sayısı
@@ -2145,6 +2186,26 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # 08.09 Tur 1 denetim-cokzor ölçümü: 43 KAPI-K tekrarının çoğu TEK sıradan kelime ("teyide, edindiği, kesiksiz, çözülmüş") — pencere sözlüğü
     # 119 soruluk, her Türkçe kelimeyi içermiyor. Tek kelime = rapor notu (tekrar yok); ≥2 kelime yine tekrar (Cem'in "anormal düzeltme" vakası 2 kelimeydi).
     if($kvKusur.Count -eq 1){ $rapor.Add("KAPI-K NOTU (tek kelime, tekrar yok): $id | $($kvKusur[0])"); $kvKusur=@() }
+  # 11.09 KAPI-KE: soru verilen konuyu mu ölçüyor? Yalnız 1. denemede tekrar
+  # ister; 2. denemede de düşerse soru kabul edilir, rapora not düşer. Sapmayı
+  # azaltmak için, doğru soruyu öldürmek için değil (bkz. fonksiyon başlığı).
+  # ⚠ Bu döngüde konu kaydı $ky'dir ($kayit DesenUret'in parametresidir; yanlış
+  #   yazılsaydı boş metin gider, kapı hiç düşmez ve "kapı var" yanılgısı olurdu.)
+  # ⚠ YENİDEN YAZDIRMIYOR — BİLEREK. İlk tasarım "düşerse tekrar yaz" idi;
+  #   geriye dönük sınandı (635 basılı soru, bedel 0): kapı 97 soru düşürürdü,
+  #   bunların yalnız 34'ü anlam turunda gerçekten yanlıştı → %35 isabet.
+  #   63 doğru soru boşuna yeniden yazdırılırdı ve daha kötüsü, modele "etiketin
+  #   kelimeleri soru kökünde geçsin" dedirtmek soruyu YAPAYLAŞTIRIR: gerçek
+  #   sınav sorusu konusunun adını söylemez ("makine satışı" der, "duran varlık
+  #   satışı" demez — 11.09'da elle okunan vaka).
+  #   O yüzden kapı SORUYA DEĞİL, HAKEME bağlanır: şüpheli soruda hakemin
+  #   konu_uyum denetimi özellikle uyarılır. Ölçüm hakemin bu sınıfı tamamen
+  #   kaçırdığını gösterdi (71 yanlış etiketin 71'inde de "EVET" demişti).
+  $keKusur=@(KonuEtiketKapisi $aday "$($ky.konu)")
+  if($keKusur.Count){
+    Write-Host "  KAPI-KE İŞARETİ ($id): $($keKusur[0]) → hakeme uyarı" -ForegroundColor DarkYellow
+    $aday | Add-Member -NotePropertyName konu_sapma_isareti -NotePropertyValue "$($keKusur[0])" -Force
+  }
     # 07.09 KAPI-T (fmuh-zor2 dersi, Ö53): çapa HESAPLAMA iken model tablosuz teori sorusu ("hangisi yanlıştır") yazdı; "tip çapadan"
     # yalnız istemdi, kapısı yoktu. Çapa hesaplama ise soru ≥2 satırlı çözüm tablosu taşımalı, yoksa yeniden (2 deneme).
     $tipKusur=''; if($CAPA_TIP.ContainsKey($id) -and $CAPA_TIP[$id] -eq 'hesaplama' -and -not ($aday.PSObject.Properties['cozum_tablo'] -and $aday.cozum_tablo -and @($aday.cozum_tablo.satirlar).Count -ge 2)){ $tipKusur='çapa hesaplama, soru tablosuz (teori biçimi)' }
@@ -2410,7 +2471,7 @@ Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
    yoksa su komsu derslerden birinin sorusu mu: {KOMSULAR}?
    RESMI KAPSAM: {TARIF}
    Kapsama uyuyorsa EVET; baska dersin sorusuysa DERS-DISI (+hangi ders).
-3) KONU UYUMU (KAPI D - 03.09): bu soru "{KONU}" konusunu mu OLCUYOR? Konu adi metinde gecse bile
+3) KONU UYUMU (KAPI D - 03.09): bu soru "{KONU}" konusunu mu OLCUYOR? {KE_ISARET}Konu adi metinde gecse bile
    sorunun olctugu kural/hesap baska bir konuya aitse (orn. "damga vergisi" konusunda SGK af hukmu;
    "yonetim iddialari" konusunda stok sayimi) KONU-DISI de; konunun ozunu olcuyorsa EVET.
 4) TEK ANLAM (KAPI E - 05.09): soru koku TEK bir buyuklugu mu istiyor? Koku iki farkli sekilde okuyunca iki farkli
@@ -2557,7 +2618,11 @@ foreach($id in @($don.Keys)){
   # 09.09 GM pilotu: kp-10 hakemsiz kaldı, sebebi yalnız rapora yazılmıştı (konsolda iz yok) → konsola da yazılır
   if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); Write-Host "  HAKEM ATLANDI (kaynak paketi BOŞ, soru yayına giremez): $id [$($cvp.konu)]" -ForegroundColor Red; continue }
   $gecici=@(GeciciMaddeNotu $cvp); $geciciNot=$(if($gecici.Count){ "DIKKAT: soru/dayanak gecici madde aniyor ($($gecici -join ', ')); gecici hukmun suresi kaynak metninde dolmussa ESKI." } else { '' })
-  $ih=$hakemIstem.Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
+  # 11.09 KAPI-KE isareti hakeme tasinir: sozcuk olcumu "etiket kelimeleri soru
+# kokunde HIC gecmiyor" dediyse hakem konu uyumunu ozellikle denetler. Olculdu:
+# bu isaretin tek basina isabeti %35, yani hukum degil DIKKAT CAGRISIDIR.
+$keIsaret = $(if($cvp.PSObject.Properties['konu_sapma_isareti'] -and "$($cvp.konu_sapma_isareti)".Trim()){ "DIKKAT: sozcuk olcumu bu soruda konu sapmasi isaretledi ($($cvp.konu_sapma_isareti)); konu uyumunu ozellikle dikkatli denetle. " } else { '' })
+$ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
   $yh=$null
   # 08.09 Tur 1 kazası 2: hakem JSON'una güncellik+atıf alanları eklenince 600 jeton yetmedi, 65 sorunun 31'inde cevap KESİLDİ → "HAKEM CIKTISI BOZUK"
   # yalnız rapora yazılıyordu, konsola değil; hakemsiz soru yayın şartını geçemedi (29 yayın kaybı). Tavan 1.600 + bozukluk konsola + kesilme notu.
@@ -2599,10 +2664,28 @@ $korIstem=@'
 Sen SMMM sınavına giren çok titiz bir adaysın. Aşağıdaki soruyu YALNIZ soru metnine ve şıklara dayanarak çöz; başka hiçbir bilgi verilmedi, tahmin etme.
 Hesap sorusunda her ara işlemi yaz ve sonucu şıklarla karşılaştır. Şıkların hiçbiri sonucunla tutmuyorsa cevaba "HİÇBİRİ" yaz ve bulduğun sonucu belirt.
 Teori sorusunda her şıkkı tek tek doğru/yanlış diye değerlendir, kökün ne istediğine (doğru mu, yanlış olan mı) dikkat et.
-Yalnız JSON: {"cevap":"A|B|C|D|E|HİÇBİRİ","sonuc":"bulduğun sayı ya da ifade","hesap":"kısa hesap zinciri ya da şık şık gerekçe (en çok 60 kelime)","guven":"yüksek|orta|düşük","kusur":"soruda çelişki/eksik veri/iki doğru şık görürsen yaz, yoksa boş"}
+Yalnız JSON: {"cevap":"A|B|C|D|E|HİÇBİRİ","sonuc":"bulduğun sayı ya da ifade","hesap":"kısa hesap zinciri ya da şık şık gerekçe (en çok 60 kelime)","guven":"yüksek|orta|düşük","kusur":"soruda çelişki/eksik veri/iki doğru şık görürsen yaz, yoksa boş","kaynak_celisti":"ezberinle KAYNAK METNİ çelişiyorsa tek cümle yaz, yoksa boş"}
 SORU: {SORU}
 ŞIKLAR:
 {SIKLAR}
+{KAYNAK}
+'@
+# 11.09 Cem: "yeni kör göz ekleme; var olanı gerçekten kör-ama-kaynaklı yap."
+# NEDEN: kp-80'de kör çözüm (Opus) de yanlış şıkkı seçti. Sebep göz sayısı değil —
+# kör çözüme KAYNAK VERİLMİYOR, ezberinden çözüyor. Üreticiden farklı MODEL ama
+# farklı BİLGİ KAYNAĞI değil; ikisi de aynı külliyattan öğrenmiş. Bir modelin
+# ezberi yanlışsa ötekininki de büyük ihtimalle yanlış.
+# KÖRLÜK NE DEMEK: açıklama, adımlar, hap, teşhis, sade, ikiz VERİLMEZ — yani
+# "cevap nedir" bilgisi verilmez. Kaynak metni (kanun maddesi, hesap tanımı)
+# gerçek bir sınav adayının çalıştığı şeydir; onu vermek körlüğü bozmaz.
+$korKaynakEk=@'
+
+=== KAYNAK METİNLERİ (çözüm DEĞİL; sınavda çalışmış olman beklenen mevzuat) ===
+{METIN}
+=== KAYNAK BİTTİ ===
+Cevabı bu kaynaklardan DOĞRULA. Ezberin kaynakla çelişiyorsa KAYNAĞA uy ve
+"kaynak_celisti" alanına neyin çeliştiğini yaz. Kaynak soruyu çözmeye yetmiyorsa
+kendi bilginle çöz ama bunu "guven" alanına yansıt.
 '@
 foreach($gecisK in @(1,2)){ if($gecisK -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisK -eq 1)
 foreach($id in @($don.Keys)){
@@ -2612,7 +2695,25 @@ foreach($id in @($don.Keys)){
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
   if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ continue }
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
-  $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM)
+  # --- KÖR PAKETİ: kaynak VAR, anlatım YOK -----------------------------------
+  # Pakete giren: hesap grubu tanımları (KAPI-HG'nin çektiği) + kaynak_metin_ozet.
+  # Pakete GİRMEYEN: aciklama · adimlar · hap · teshis · sade · ikiz · dayanak
+  #   gerekçesi. Bunlar "cevap nedir"i söyler; körlük onlarla bozulur.
+  # Hesap tanımları ÖNE konur: ölçülen kusur sınıfı orada (92 sorunun 66'sında
+  # anılan hesabın tanımı pakette yoktu).
+  $korEk=''
+  if($KorKaynak){
+    $kp=New-Object System.Collections.Generic.List[string]
+    foreach($ha in @($cvp.hesap_genisletme)){
+      if(-not $ha){ continue }
+      foreach($x in (AmbarCek @("$ha") 900).metin){ if($x){ $kp.Add("$x") } }
+    }
+    if("$($cvp.kaynak_metin_ozet)".Trim()){ $kp.Add("$($cvp.kaynak_metin_ozet)") }
+    $km=($kp -join "`n---`n")
+    if($km.Length -gt $KorKaynakTavan){ $km=$km.Substring(0,$KorKaynakTavan) }
+    if($km){ $korEk=$korKaynakEk.Replace('{METIN}',$km) }
+  }
+  $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{KAYNAK}',$korEk)
   if($script:ON_GECIS){ TopluTopla $id $KorModel $istK 2500; continue }
   $yK=TopluAl 'K' $id
   if(-not $yK){ foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
@@ -2622,10 +2723,13 @@ foreach($id in @($don.Keys)){
   $cev=("$($aK.cevap)".Trim().ToUpperInvariant() -replace '[^A-EHİ]','')
   if($cev -match '^H'){ $cev='HİÇBİRİ' } elseif($cev.Length -gt 1){ $cev=$cev.Substring(0,1) }
   $dm=($cev -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
-  $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; kaynak_celisti="$($aK.kaynak_celisti)"; kaynakli=[bool]$KorKaynak; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz
   if($dm){ Write-Host "  KÖR ÇÖZÜM ✓ ($id): $cev" -ForegroundColor Green } else { Write-Host "  KÖR ÇÖZÜM ✗ ($id): kör $cev · anahtar $($cvp.dogru) · $("$($aK.hesap)".Substring(0,[Math]::Min(160,"$($aK.hesap)".Length)))" -ForegroundColor Red; $rapor.Add("KÖR ÇÖZÜM YANLIŞ: $id | kör $cev, anahtar $($cvp.dogru) | $($aK.hesap)") }
   if("$($aK.kusur)".Trim()){ $rapor.Add("KÖR ÇÖZÜM KUSUR NOTU: $id | $($aK.kusur)") }
+  # 11.09: kaynakla ezber çeliştiyse bu EN DEĞERLİ sinyaldir - kp-80 tipi hatanın
+  # doğrudan parmak izi. Sessiz geçmez.
+  if("$($aK.kaynak_celisti)".Trim()){ Write-Host "  KÖR: KAYNAK ÇELİŞTİ ($id): $($aK.kaynak_celisti)" -ForegroundColor Magenta; $rapor.Add("KÖR KAYNAK ÇELİŞKİSİ: $id | $($aK.kaynak_celisti)") }
 }
 if($script:ON_GECIS){ TopluGonder 'K' } }
 $script:ON_GECIS=$false
