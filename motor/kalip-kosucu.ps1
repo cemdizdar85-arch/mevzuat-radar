@@ -5,6 +5,8 @@
 # (hakem EVET ∧ sim ✓ ∧ kör ✓ ∧ hakem2 EVET — SORU-BASMA-KURALLARI 8.1), Kaydır-Çöz sayfası ve karne. Loglar veri/fabrika/kosucu-log/<plan>/.
 # Kullanım: powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-sgs-08-09.json
 param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok='',[switch]$SayfaYok,
+  # 11.09 Cem "paralel kostur": ayni anda kac parti. 1 = eski sirali davranis.
+  [ValidateRange(1,8)][int]$Paralel=4,
   [double]$AylikTavan=2000,      # 08.09 Cem: konsolda aylık tavan 2.000 USD (GM göremez, Cem okudu)
   [double]$EmniyetPayi=300)      # tavana bu kadar kala koşucu durur: parti ortada ölmez, ödenen iş yazılmadan kaybolmaz (ağustos dersi)
 $ErrorActionPreference='Continue'
@@ -50,7 +52,51 @@ function DersTavani($satir){
   return 350   # ölçüm bulunamazsa eski varsayılan; sessizce yanlış tavan yerine BİLİNEN tavan
 }
 
-foreach($s in $satirlar){
+# --- PARALEL HAVUZ (11.09.2026, Cem "paralel kostur") ------------------------
+# 43 partilik plan sirali kosarsa gece bulur (olculdu: parti basina 6-9 dk).
+# Her parti KENDI cache dosyasina yazar; ortak dosyalar kilitli
+# (bekleyen-partiler.json ve bedel-kayit.jsonl Mutex'li).
+# ⚠ BEDEL EMNIYETI KORUNUR: AyHarcama her BASLATMADAN once bakilir. Tek farki,
+#   esige degdiginde en fazla $Paralel parti ucusta olur; EmniyetPayi bunun
+#   icin var. Paralellik BEDELI DEGISTIRMEZ, yalniz duvar saatini kisaltir.
+# ⚠ 4'te tutuldu: partiler zaten kendi icinde toplu (Message Batches) gidiyor;
+#   daha yuksek eszamanlilik 429 uretir ve tekrar denemeler isi YAVASLATIR.
+function ProvaTir([string]$x){ if($x -match '\s'){ return ('"'+$x+'"') }; return $x }
+function PartiKuyrukBitir($a){
+  $s=$a.s; $log=$a.log
+  try{ $a.ps.WaitForExit() }catch{}
+  $oz=Select-String -Path $log -Pattern 'KONU LİSTESİ|konu tekil|SORU DÜŞTÜ|KURTARMA DÜŞTÜ|UYARLAMA OK|HAKEM (EVET|HAYIR)|HAKEM2 (EVET|HAYIR)|KÖR ÇÖZÜM|SIM (DO|YAN|yetmedi)|KAYNAK BORCU|BEDEL TOPLAM|yazildi' -ErrorAction SilentlyContinue | ForEach-Object { $_.Line }
+  $partiYol = Join-Path $Kok ("veri\fabrika\kalip-parti-$($s.etiket).json")
+  if(Test-Path $partiYol){
+    try{
+      $pj = ConvertFrom-Json -InputObject (Get-Content $partiYol -Raw -Encoding UTF8)
+      $n=0; $sadeli=0
+      foreach($pp in $pj.PSObject.Properties){
+        $vv=$pp.Value; if(-not $vv -or -not $vv.soru){ continue }
+        $n++
+        if($vv.PSObject.Properties['sade'] -and $vv.sade -and @($vv.sade.PSObject.Properties).Count -gt 0){ $sadeli++ }
+      }
+      if($n -gt 0){
+        $oran = [math]::Round(100*$sadeli/$n)
+        if($oran -lt 90){
+          "[$(Get-Date -Format HH:mm)] 🔴 SADE KAPISI KIRMIZI · $($s.etiket) · sade $sadeli/$n (%$oran) — Kaydir-Coz panelinin 2. ve 5. parcasi BOS iner"
+          Add-Content -Path (Join-Path $Kok 'veri\fabrika\sade-eksik-partiler.txt') -Value ("{0}`t{1}`t{2}/{3}`t%{4}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm'), $s.etiket, $sadeli, $n, $oran) -Encoding UTF8
+        } else { "[$(Get-Date -Format HH:mm)] SADE KAPISI YESIL · $($s.etiket) · sade $sadeli/$n (%$oran)" }
+      }
+    }catch{ "[$(Get-Date -Format HH:mm)] ⚠ SADE KAPISI OLCULEMEDI · $($s.etiket): $($_.Exception.Message)" }
+  }
+  "[$(Get-Date -Format HH:mm)] BITTI $($s.etiket)"; $oz
+  return [pscustomobject]@{ etiket="$($s.etiket)"; ders="$($s.ders)"; bedel=(($oz | Where-Object { $_ -match 'BEDEL TOPLAM' } | Select-Object -Last 1) -replace '.*≈','' -replace ' USD.*','') }
+}
+
+$kuyruk=New-Object System.Collections.Generic.Queue[object]
+foreach($s in $satirlar){ $kuyruk.Enqueue($s) }
+$ucan=New-Object System.Collections.Generic.List[object]
+$durduruldu=$false
+
+while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
+ while($ucan.Count -lt $Paralel -and $kuyruk.Count -gt 0 -and -not $durduruldu){
+  $s=$kuyruk.Dequeue()
   $sinav=$(if($s.PSObject.Properties['sinav'] -and $s.sinav){ "$($s.sinav)" } else { 'SGS' })
   $log=Join-Path $logDir ("$($s.etiket).log")
   # 🔴 10.09.2026 — FAZ S (-Sade) BU LİSTEDE YOKTU. Ölçüldü: 213 partinin
@@ -79,41 +125,27 @@ foreach($s in $satirlar){
   # kalan konular "<etiket>-b" adlı yeni etikette ayrı hatta koşar. Plan alanı `pilot` = virgüllü id listesi → üreticiye -PilotId
   if($s.PSObject.Properties['pilot'] -and "$($s.pilot)"){ $arg+=@('-PilotId',"$($s.pilot)") }
   # her ders öncesi emniyet: önceki dersler tavana yaklaştırdıysa dur (ödenen iş yazılmış olur, kalan ders sabaha kalır)
-  $harcanan=AyHarcama; if($harcanan -ge ($AylikTavan-$EmniyetPayi)){ "[$(Get-Date -Format HH:mm)] BEDEL EMNİYETİ: ≈$([math]::Round($harcanan)) USD, eşik $($AylikTavan-$EmniyetPayi) → kalan dersler DURDU ($($s.etiket) ve sonrası)"; break }
-  "[$(Get-Date -Format HH:mm)] BASLIYOR $($s.etiket) · $($s.ders) · adet $($s.adet)$(if($s.PSObject.Properties['eskiKaynak'] -and $s.eskiKaynak){ ' · KURTARMA' }) · ay ≈$([math]::Round($harcanan)) USD"
-  & powershell -NoProfile -File $uret @arg *> $log
-  $oz=Select-String -Path $log -Pattern 'KONU LİSTESİ|konu tekil|SORU DÜŞTÜ|KURTARMA DÜŞTÜ|UYARLAMA OK|HAKEM (EVET|HAYIR)|HAKEM2 (EVET|HAYIR)|KÖR ÇÖZÜM|SIM (DO|YAN|yetmedi)|KAYNAK BORCU|BEDEL TOPLAM|yazildi' | ForEach-Object { $_.Line }
-  # --- 🔴 SADE KAPISI (10.09.2026) ------------------------------------------
-  # 198 parti FAZ S calismadan uretti ve KIMSE GORMEDI. Kesilme sessizdi cunku
-  # parti "BITTI" diye kapaniyordu; eksik alan hicbir yerde raporlanmiyordu.
-  # Kural yazmak isin yarisi, mekanik kapi diger yarisi.
-  # Bu kapi PARTIYI DUSURMEZ - uretilen soru odendi, atmak ikinci kayip olur.
-  # KIRMIZI damga basar ve kutuge yazar; tamamlama turu bu listeden beslenir.
-  $partiYol = Join-Path $Kok ("veri\fabrika\kalip-parti-$($s.etiket).json")
-  if(Test-Path $partiYol){
-    try{
-      $pj = ConvertFrom-Json -InputObject (Get-Content $partiYol -Raw -Encoding UTF8)
-      $n=0; $sadeli=0
-      foreach($pp in $pj.PSObject.Properties){
-        $vv=$pp.Value; if(-not $vv -or -not $vv.soru){ continue }
-        $n++
-        if($vv.PSObject.Properties['sade'] -and $vv.sade -and @($vv.sade.PSObject.Properties).Count -gt 0){ $sadeli++ }
-      }
-      if($n -gt 0){
-        $oran = [math]::Round(100*$sadeli/$n)
-        if($oran -lt 90){
-          "[$(Get-Date -Format HH:mm)] 🔴 SADE KAPISI KIRMIZI · $($s.etiket) · sade $sadeli/$n (%$oran) — Kaydir-Coz panelinin 2. ve 5. parcasi BOS iner"
-          $kutuk = Join-Path $Kok 'veri\fabrika\sade-eksik-partiler.txt'
-          Add-Content -Path $kutuk -Value ("{0}`t{1}`t{2}/{3}`t%{4}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm'), $s.etiket, $sadeli, $n, $oran) -Encoding UTF8
-        } else {
-          "[$(Get-Date -Format HH:mm)] SADE KAPISI YESIL · $($s.etiket) · sade $sadeli/$n (%$oran)"
-        }
-      }
-    }catch{ "[$(Get-Date -Format HH:mm)] ⚠ SADE KAPISI OLCULEMEDI · $($s.etiket): $($_.Exception.Message)" }
+  $harcanan=AyHarcama
+  if($harcanan -ge ($AylikTavan-$EmniyetPayi)){
+    "[$(Get-Date -Format HH:mm)] BEDEL EMNİYETİ: ≈$([math]::Round($harcanan)) USD, eşik $($AylikTavan-$EmniyetPayi) → kalan dersler DURDU ($($s.etiket) ve sonrası)"
+    $durduruldu=$true; break
   }
-
-  "[$(Get-Date -Format HH:mm)] BITTI $($s.etiket)"; $oz
-  $ozetTum+=[pscustomobject]@{ etiket="$($s.etiket)"; ders="$($s.ders)"; bedel=(($oz | Where-Object { $_ -match 'BEDEL TOPLAM' } | Select-Object -Last 1) -replace '.*≈','' -replace ' USD.*','') }
+  "[$(Get-Date -Format HH:mm)] BASLIYOR $($s.etiket) · $($s.ders) · adet $($s.adet)$(if($s.PSObject.Properties['eskiKaynak'] -and $s.eskiKaynak){ ' · KURTARMA' }) · ay ≈$([math]::Round($harcanan)) USD · ucan $($ucan.Count+1)"
+  # ⛔ Start-Process -ArgumentList diziyi BOSLUKLA birlestirir; depo yolu
+  #    "...\mevzuat işi\..." bosluk tasiyor. Bosluklu her arguman TIRNAKLANIR.
+  #    (11.09'da sade-tamamla'da bu yuzden 86 parti 0 sn'de dusmustu.)
+  $argP=@('-NoProfile','-File',(ProvaTir $uret)) + @($arg | ForEach-Object { ProvaTir "$_" })
+  $ps=Start-Process -FilePath 'powershell' -ArgumentList $argP -PassThru -WindowStyle Hidden `
+                    -RedirectStandardOutput $log -RedirectStandardError ("$log.err")
+  $ucan.Add([pscustomobject]@{ s=$s; ps=$ps; log=$log })
+ }
+ if(-not $ucan.Count){ break }
+ [void]$ucan[0].ps.WaitForExit(5000)
+ foreach($a in $ucan.ToArray()){
+   if(-not $a.ps.HasExited){ continue }
+   $ozetTum+=(PartiKuyrukBitir $a)
+   [void]$ucan.Remove($a)
+ }
 }
 # seçim (8.1 yayın şartı)
 $secim=@()
