@@ -228,6 +228,32 @@ if($Kapat){
     Yaz "  -> kütüğe yazıldı: veri/oturum-birakilanlar.txt" 'DarkGray'
   }
 
+  # --- TUZAK NÖBETÇİSİ (11.09.2026) --------------------------------------
+  # Cem'in kuralı: "kural yazmak işin yarısı, MEKANİK KAPI diğer yarısı."
+  # 11.09'da en çok zamanı aynı hataları tekrarlamak yedi (değişken çakışması
+  # ALTI kez, @(...|ConvertFrom-Json) üç kez). Hepsi arac/olcum-kapilari.ps1'de
+  # YAZILIYDI; yorum kimseyi durdurmadı. Bu kapı durdurur.
+  #
+  # ⚠ Yalnız BU OTURUMDA DEĞİŞEN .ps1 dosyalarına bakar. Depoda 210 eski bulgu
+  #   var; hepsini kapatmak kapıyı ilk gün kapatırdı. Yeni kusur girmez, eski
+  #   birikim ayrı iş emri. Tam liste: arac/tuzak-nobetcisi.ps1 (parametresiz).
+  # ⚠ Yalnız 🔴 ZARARLI bulgu durdurur; ⚠ RİSKLİ olanlar uyarı kalır.
+  $nob = Join-Path $KOK 'arac\tuzak-nobetcisi.ps1'
+  if(Test-Path $nob){
+    $nobCikti = & powershell -NoProfile -File $nob -Degisen 2>&1
+    if($LASTEXITCODE -ne 0){
+      if($Birak -eq ""){
+        Yaz "`n  ⛔ TUZAK NÖBETÇİSİ DURDURDU — değişen betikte bilinen tuzak var:" 'Red'
+        $nobCikti | ForEach-Object { Yaz "     $_" 'Red' }
+        Yaz "`n  Ya düzelt ya da bilerek bıraktığını söyle:" 'Red'
+        Yaz "     ... -Kapat -Kol $Kol -Birak `"neden bırakıldığı`"" 'Yellow'
+        exit 3
+      }
+      Yaz "`n  ⚠ Tuzak nöbetçisi bulgu verdi, BİLEREK geçildi: $Birak" 'Yellow'
+      $nobCikti | ForEach-Object { Yaz "     $_" 'DarkGray' }
+    } else { Yaz "  ✓ tuzak nöbetçisi temiz (değişen betikler)" 'Green' }
+  }
+
   git -C $KOK fetch origin main -q 2>&1 | Out-Null
   $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
   if($ileri -gt 0){
