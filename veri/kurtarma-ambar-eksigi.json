@@ -1,16 +1,18 @@
 ﻿{
-    "olcum":  "2026-09-11 22:47",
-    "kural":  "Hakem \"kaynak metni su maddeyi ICERMEMEKTEDIR\" dedi. Her madde AMBARA SORULDU. ambarda_yok = yutma is emri; pakette_yok = madde AMBARDA VAR ama kaynak paketine girmemis (PAKET KUSURU, yutma COZMEZ).",
+    "olcum":  "2026-09-12 02:33",
+    "olculen":  "Hakemin gerekcesinde gecen kanun maddeleri AMBARA SORULDU. Bu dosya yalnizca \"madde ambarda var mi\" sorusunu cevaplar.",
+    "olculmeyen":  "SEBEP. Hakem maddeyi cogu zaman EKSIK oldugu icin degil, NE DEDIGINI soylemek icin aniyor (\"VUK m.283 YALNIZCA ... tanimlamaz\"). Yani madde pakette VAR ama iddiayi desteklemiyor olabilir - DAYANAK UYUSMAZLIGI. Bir regex bunu ayiramaz; sebep icin gerekce OKUNMALI.",
+    "uyari":  "⛔ Bu dosya iki kez YANLIS ETIKET uretti (once \"ambar eksigi\", sonra \"paket kusuru\"). Ucuncusunu uretmemek icin artik SEBEP ATANMIYOR.",
     "kaynak":  "arac/madde-teshis.ps1 -Tazele (veri/kurtarma-turu.json uzerinden, tur YENIDEN KOSULMADI)",
     "benzersiz_madde":  41,
     "toplam_vaka":  61,
     "ambarda_yok_sayi":  0,
-    "pakette_yok_sayi":  41,
+    "ambarda_var_sayi":  41,
     "olculemedi_sayi":  0,
     "maddeler_ambarda_yok":  [
 
                              ],
-    "maddeler_pakette_yok":  [
+    "maddeler_ambarda_var":  [
                                  "2577 m.28",
                                  "5510 m.3",
                                  "6183 m.35",

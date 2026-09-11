@@ -14,11 +14,22 @@
   240 maddeyle yutulmus cikti (sirasiz limit=1 tuzagi). Kural tek:
   ⛔ OLCMEDIGINE VAR/YOK DEME.
 
-  IKI KUME, IKI AYRI IS EMRI:
-    ambarda_yok -> gercekten yutulacak mevzuat
-    pakette_yok -> madde AMBARDA VAR ama kaynak paketine GIRMEMIS.
-                   Bu bir PAKET kusurudur; yutma COZMEZ. KAYNAK-EKSIK
-                   ailesinin (777 ret, tum retlerin %54'u) gercek koku burasi.
+  ⛔ IKINCI DUZELTME (11.09 03:00) — "pakette_yok" ETIKETI DE YANLISTI.
+  Gerekceleri OKUYUNCA gorunuyor ki hakem maddenin EKSIK oldugunu soylemiyor,
+  maddenin NE DEDIGINI soyluyor:
+    "VUK m.283 YALNIZCA alacaklarin mukayyet degeriyle faizle degerlenmesini
+     soyler, ... gider tahakkuk hesaplama yontemini TANIMLAMAZ"
+    "VUK m.227'de YALNIZCA belgelerin tevsiki duzenlenmistir; kayit surecinin
+     siralamasi bu maddede YER ALMAMAKTADIR"
+  Yani madde pakette VAR; sorunun IDDIASINI desteklemiyor. Bu bir DAYANAK
+  UYUSMAZLIGI - ne yutma isi ne de paket eksigi.
+
+  Bir regex bu ikisini AYIRAMAZ. O yuzden betik artik SEBEP ATAMIYOR; yalnizca
+  OLCTUGU seyi soyluyor: madde ambarda var mi, yok mu. Sebep tayini gerekceyi
+  OKUMAYI ister (insan ya da model), regex'i degil.
+
+  ⛔ BU DOSYA IKI KEZ YANLIS ETIKET URETTI. Ders: "su kusurdur" demek, olcum
+     degil YORUMDUR. Olcum "madde ambarda var" der; gerisini okuyan soyler.
 
   KULLANIM
     . arac/madde-teshis.ps1                 # kutuphane: AmbardaVarMi
@@ -114,28 +125,31 @@ foreach($v in (Dizi $vakalar)){ $benzersiz["$($v.kanun) m.$($v.madde)"]=$v }
 Write-Host ("vaka {0} · benzersiz madde {1} — ambara soruluyor..." -f (Dizi $vakalar).Count,$benzersiz.Count) -ForegroundColor Cyan
 
 $ambardaYok=New-Object System.Collections.Generic.List[string]
-$paketteYok=New-Object System.Collections.Generic.List[string]
+$ambardaVar=New-Object System.Collections.Generic.List[string]
 $olculemedi=New-Object System.Collections.Generic.List[string]
 foreach($ad in @($benzersiz.Keys|Sort-Object)){
   $v=$benzersiz[$ad]
   $sonuc=AmbardaVarMi "$($v.kanun)" "$($v.madde)"
-  if($sonuc -eq $null){ $olculemedi.Add($ad) } elseif($sonuc){ $paketteYok.Add($ad) } else { $ambardaYok.Add($ad) }
+  if($sonuc -eq $null){ $olculemedi.Add($ad) } elseif($sonuc){ $ambardaVar.Add($ad) } else { $ambardaYok.Add($ad) }
 }
 
 . (Join-Path $here 'rapor-yaz.ps1')
 RaporYaz -Hedef (Join-Path $depoKok 'veri\kurtarma-ambar-eksigi.json') -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
-  kural='Hakem "kaynak metni su maddeyi ICERMEMEKTEDIR" dedi. Her madde AMBARA SORULDU. ambarda_yok = yutma is emri; pakette_yok = madde AMBARDA VAR ama kaynak paketine girmemis (PAKET KUSURU, yutma COZMEZ).'
+  olculen='Hakemin gerekcesinde gecen kanun maddeleri AMBARA SORULDU. Bu dosya yalnizca "madde ambarda var mi" sorusunu cevaplar.'
+  olculmeyen='SEBEP. Hakem maddeyi cogu zaman EKSIK oldugu icin degil, NE DEDIGINI soylemek icin aniyor ("VUK m.283 YALNIZCA ... tanimlamaz"). Yani madde pakette VAR ama iddiayi desteklemiyor olabilir - DAYANAK UYUSMAZLIGI. Bir regex bunu ayiramaz; sebep icin gerekce OKUNMALI.'
+  uyari='⛔ Bu dosya iki kez YANLIS ETIKET uretti (once "ambar eksigi", sonra "paket kusuru"). Ucuncusunu uretmemek icin artik SEBEP ATANMIYOR.'
   kaynak='arac/madde-teshis.ps1 -Tazele (veri/kurtarma-turu.json uzerinden, tur YENIDEN KOSULMADI)'
   benzersiz_madde=$benzersiz.Count; toplam_vaka=(Dizi $vakalar).Count
-  ambarda_yok_sayi=$ambardaYok.Count; pakette_yok_sayi=$paketteYok.Count; olculemedi_sayi=$olculemedi.Count
+  ambarda_yok_sayi=$ambardaYok.Count; ambarda_var_sayi=$ambardaVar.Count; olculemedi_sayi=$olculemedi.Count
   maddeler_ambarda_yok=$ambardaYok.ToArray()
-  maddeler_pakette_yok=$paketteYok.ToArray()
+  maddeler_ambarda_var=$ambardaVar.ToArray()
   maddeler_olculemedi=$olculemedi.ToArray()
   kayitlar=@((Dizi $vakalar)|ForEach-Object{ [pscustomobject]$_ })
 })
-Write-Host ("`nMADDE TESHISI: {0} benzersiz ({1} vaka)" -f $benzersiz.Count,(Dizi $vakalar).Count) -ForegroundColor Cyan
-Write-Host ("  AMBARDA YOK (yutma is emri) : {0}" -f $ambardaYok.Count) -ForegroundColor $(if($ambardaYok.Count){'Yellow'}else{'Green'})
-Write-Host ("  PAKETTE YOK (paket kusuru)  : {0}" -f $paketteYok.Count) -ForegroundColor $(if($paketteYok.Count){'Red'}else{'Green'})
-if($olculemedi.Count){ Write-Host ("  OLCULEMEDI                  : {0}" -f $olculemedi.Count) -ForegroundColor DarkGray }
+Write-Host ("`nMADDE OLCUMU: {0} benzersiz ({1} vaka)" -f $benzersiz.Count,(Dizi $vakalar).Count) -ForegroundColor Cyan
+Write-Host ("  AMBARDA YOK -> yutma is emri : {0}" -f $ambardaYok.Count) -ForegroundColor $(if($ambardaYok.Count){'Yellow'}else{'Green'})
+Write-Host ("  AMBARDA VAR -> sebep OKUNARAK bulunur : {0}" -f $ambardaVar.Count) -ForegroundColor Cyan
+if($olculemedi.Count){ Write-Host ("  OLCULEMEDI                   : {0}" -f $olculemedi.Count) -ForegroundColor DarkGray }
+Write-Host "  ⛔ SEBEP ATANMADI - bu dosya 'su kusurdur' DEMEZ, yalniz olcer." -ForegroundColor DarkGray
 Write-Host "-> veri/kurtarma-ambar-eksigi.json" -ForegroundColor Green
