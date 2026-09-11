@@ -119,3 +119,48 @@
 
 ## Kalıcı kurallar (şartnamede)
 Kilit 05.09 · zor ayarı · verilenler bloğu · kâğıt · tahmin kapısı · konu girişi · tek hata adımı · sınav dili (kısaltma yok, şıkta birim yok) · şık sıralama · ders p75 tavanı.
+
+---
+
+## Ö-11.09 · CEM ÖRNEKLEMİNDE GERÇEK HATA — kaynak paketi eksikliği
+
+> Madde 8.2 işletildi: **örneklemde bir gerçek hata = o dersin partisi bütünüyle geri.**
+
+**Cem'in bulduğu (11.09.2026, mühür örneklemi #4 · `sgs-t1-fmuh-kolay/kp-80`):**
+İskat edilen 200.000 TL nominal hisse senetleri yeni ortağa 235.000 TL'ye satılıyor.
+Soru aradaki 35.000 TL'yi **529 Diğer Sermaye Yedekleri**'ne atıyor. Cem: *"biz burda 529
+yapmışız, 521 olması gerekir."*
+
+**Doğrulama (ambardan, hafızadan değil):**
+- `THP 521 - HİSSE SENEDİ İPTAL KARLARI`: *"İptal edilen hisse senetlerinin bedellerine
+  mahsuben yapılan ödemelerin, bunların yerine çıkarılan hisse senetlerinden elde edilen
+  hasılat noksanı kapatıldıktan sonra artan kısmın izlendiği hesaptır."* → olayın tam tarifi.
+- `THP 529 - DİĞER SERMAYE YEDEKLERİ`: *"Bu hesap grubu içerisinde **sayılanların dışında
+  kalan**..."* → artık hesap; 521 sayıldığı için buraya düşemez.
+
+**Cem haklı. Dahası: beş şıkkın hiçbiri doğru değil** (A/B 501'i yanlış yön-tutarda, C bankayı
+ters çalıştırıyor, D sermayeyi şişiriyor, E hesabı yanlış). Doğru cevap 521 ve şıklarda yok.
+
+**KÖK NEDEN — üç kapı da geçti, çünkü üçü de aynı kör paketle bakıyordu.**
+Soruya giden kaynak paketi: TTK m.482 ✔ · THP 333 Bağlı Ortaklıklara Borçlar ✘ ·
+THP 407 Çıkarılmış Diğer Menkul Kıymetler ✘ · THP 433 ✘ · **VUK m.5 Vergi mahremiyeti** ✘ ·
+VUK m.10 ✘. **521 de, 529 da, 500/501/102 de pakette YOK.** Model hesabı ezberinden yazdı.
+Hakem `EVET` derken gerekçe olarak *"Tekdüzen Hesap Planı 529 ... hesap tanımı"* yazdı —
+**görmediği bir kaynağı dayanak gösterdi.** Kör çözüm (Opus) da E dedi; ama o da kaynağa
+değil ezbere baktı, yani "bağımsız" değil "aynı körlükte ikinci göz"dü.
+
+**SINIFIN BÜYÜKLÜĞÜ ÖLÇÜLDÜ (636 basılan soru, bedel 0):**
+Hesap kodunu ADIYLA anan 92 soru var. Bunların **66'sında (%72)** andığı hesabın tanımı
+kaynak paketinde YOK. Ders bazlı: Finansal Muhasebe 83 soruda 60 eksik (%72),
+Maliyet 7'de 4 (%57). En çok anılıp getirilmeyen: THP 642 (12 soru) · 100 (12) · 770 (9) ·
+600 (8) · 102 (7) · 391 (6).
+⚠ Bu 66 sorunun hepsi YANLIŞ demek değildir — 100 Kasa / 600 Yurtiçi Satışlar gibi
+hesaplarda ezber tutuyor. Risk havuzu bu; kaçının gerçekten yanlış olduğu ÖLÇÜLMEDİ.
+
+**ÖNERİLEN KAPI (Cem kararında):** soru yazıldıktan sonra, andığı her hesap kodunun
+**GRUBU** ambardan çekilip hakeme verilsin (`52x` → 520+521+522+529). Mekanizma zaten var:
+FAZ S'in `SadeKaynak` fonksiyonu şıklardan kod ayıklayıp `THP %kod%` çekiyor; FAZ A ve
+hakem bunu yapmıyor. Grup çekilseydi hakem 521'in tanımını görecekti.
+
+**DURUM:** ⏳ Cem kararı bekliyor — (a) Finansal Muhasebe partisinin geri çekilme kapsamı,
+(b) kapının kurulması + kp-80'de sınanması.
