@@ -62,7 +62,11 @@ foreach($p in ($isler | Sort-Object adet -Descending)){
   $sira++
   $log = Join-Path $logDir ("$($p.etiket).log")
   Write-Host ("[{0}] {1}/{2}  {3}  ({4} soru)" -f (Get-Date -Format HH:mm), $sira, $isler.Count, $p.etiket, $p.adet)
-  $arg = @('-Sinav','SGS','-DersRegex','.','-Etiket',"$($p.etiket)",'-Adet',"$([int]$p.adet)",'-Sade','-PilotId',"$($p.idler)")
+  # -CizmeAtla (11.09): tamamlama turunda parti kendi denetim HTML'ini CIZMEZ.
+  # Olculdu: cizim 77 soruluk partide 54 sn; 27 partide ≈24 dk. Tur sonunda
+  # 9 yayin sayfasi zaten tek seferde yeniden basiliyor (arac/sgs-650-bas.ps1).
+  # Yan etki bilincli: bitis damgasi basilmaz - zaten MEVZUAT_CLAIM=0 ile asiyoruz.
+  $arg = @('-Sinav','SGS','-DersRegex','.','-Etiket',"$($p.etiket)",'-Adet',"$([int]$p.adet)",'-Sade','-CizmeAtla','-PilotId',"$($p.idler)")
   try{
     & powershell -NoProfile -ExecutionPolicy Bypass -File $uret @arg *> $log
     $bedel = (Select-String -Path $log -Pattern 'BEDEL TOPLAM' | Select-Object -Last 1).Line

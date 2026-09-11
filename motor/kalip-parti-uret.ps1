@@ -47,7 +47,8 @@ param(
   [string]$EskiKaynak='',  # 08.09 B yolu (KURTARMA): eski soru dosyası (json dizi: id, soru, siklar, dogru, aciklama, konu, ders, kanun_no, madde_no, madde_damga, kaynak). FAZ A koşmaz; FAZ U eski soruyu kalıp alanlarına uyarlar, kalan fazlar aynen.
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
   [string]$SimModel='claude-haiku-4-5-20251001',  # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
-  [switch]$SimYenile       # 06.09 Ö29: adım yenilenince simülasyon da yeniden koşar
+  [switch]$SimYenile,      # 06.09 Ö29: adım yenilenince simülasyon da yeniden koşar
+  [switch]$CizmeAtla       # 11.09 Cem: toplu tamamlama turunda denetim HTML'ini ÇİZME (ölçüldü: 77 soruda 54 sn; 27 partide ≈24 dk). Bitiş damgası BASILMAZ - yeni üretimde kullanma.
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -831,8 +832,13 @@ $OZEL_DESEN=@{
   'amme alacagi tecil'                = @('AATUHK (6183 s.K.) m.48 -%','AATUHK (6183 s.K.) m.49%','AATUHK (6183 s.K.) m.51%')
   'amme alacagi teminat paraya cevirme'= @('AATUHK (6183 s.K.) m.56%','AATUHK (6183 s.K.) m.10 -%','AATUHK (6183 s.K.) m.11 -%','AATUHK (6183 s.K.) m.12 -%','AATUHK (6183 s.K.) m.9 -%')
   'amme alacagi tasarruf iptali'      = @('AATUHK (6183 s.K.) m.24 -%','AATUHK (6183 s.K.) m.26 -%','AATUHK (6183 s.K.) m.27%','AATUHK (6183 s.K.) m.28 -%','AATUHK (6183 s.K.) m.29 -%')
-  # konu adı "indirim" diyor ama üç zorluğun da dayanağı 6183 m.48/A (uyumlu mükellefin borcunun tecili) — GVK mük.121 DEĞİL
-  'vergiye uyumlu mukellef indirimi'  = @('AATUHK (6183 s.K.) m.48/A%')
+  # 10.09 İKİ KAYNAK: konu adı "indirim" diyor (GVK mük.121'deki %5 uyumlu mükellef indirimi; ambardaki adı
+  # "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 301) muk. m.121"), yazılan sorular ise 6183 m.48/A'yı (uyumlu
+  # mükellefin borcunun TECİLİ) ölçüyor. Hakem bu farkı yakaladı: "soru resmi konu olan 'vergiye uyumlu
+  # mükellef indirimi' değil, 'vergiye uyumlu mükelleflerin borçlarının tecili' konusunu ölçmektedir" (zor kp-10).
+  # İkisi de pakete konur: soru hangi açıdan yazılırsa yazılsın hakem doğru metni görür. Konu adıyla soru
+  # arasındaki uyum ayrı bir iştir — desen onu çözmez, KAPI D doğru davranıyor.
+  'vergiye uyumlu mukellef indirimi'  = @('GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 301) muk. m.121%','AATUHK (6183 s.K.) m.48/A%')
   'otv engelli istisnasi'             = @('ÖTV K. (4760 s.K.) m.7 [%')
   'ozel iletisim vergisi'             = @('Gider Vergileri K. (6802 s.K.) m.39 [%')
   'emlak vergisi-bina vergisi'        = @('Emlak V.K. (1319 s.K.) m.7 -%','Emlak V.K. (1319 s.K.) m.8 -%','Emlak V.K. (1319 s.K.) m.9 -%','Emlak V.K. (1319 s.K.) m.1 -%','Emlak V.K. (1319 s.K.) m.3 -%')
@@ -2821,13 +2827,29 @@ foreach($id in @($don.Keys)){
   $yanlisS=(@('A','B','C','D','E') | Where-Object { $_ -ne "$($cvp.dogru)" -and $cvp.aciklama.PSObject.Properties[$_] } | ForEach-Object { "$_) $(AciklamaDuz $cvp.aciklama.$_)" }) -join "`n"
   $istS=$sadeIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$siklarS).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',(AciklamaDuz $cvp.aciklama.$($cvp.dogru))).Replace('{YANLIS}',$yanlisS)
   if($kMetinS){ $istS+="`n=== KAYNAK METİNLERİ (ambar) ===`n"+$kMetinS } else { $istS+="`n=== KAYNAK METNİ YOK: kavramlar listesi BOŞ dönsün ===" }
-  $sadeN=$null; $tokG=0; $tokC=0
+  $sadeN=$null; $tokG=0; $tokC=0; $sadeSebep=''
   foreach($tur in 1..2){
     $yS=$null
     foreach($d in 1..3){ try{ $yS=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istS -MaxTok 1800; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
     $tokG+=[int]$yS.girdi; $tokC+=[int]$yS.cikti
     $sadeN=Coz $yS.metin
-    if(-not $sadeN -or -not $sadeN.dogru_sade){ $sadeN=$null; break }
+    # 11.09 Cem "sessiz kapiyi konustur": burasi SESSIZ dusuyordu. `Coz` null
+    # dondugunde ya da `dogru_sade` bos geldiginde hicbir satir basilmadan
+    # `break` ediliyordu; gerekce yalnizca sonda $rapor'a girip 629 KB'lik
+    # HTML'in "Uretim notlari" satirina gomuluyordu - toplu turda kimsenin
+    # bakmadigi yer. 10.09 turunda kp-14 bu yoldan dustu, cagrinin parasi
+    # (2.840 girdi + 810 cikti token) odenmisti ve log tek kelime etmedi.
+    # Artik: (1) sebep loga basilir, (2) ham cevabin basi gosterilir,
+    # (3) 1. turda BREAK degil TEKRAR edilir - odenmis cagriya ikinci sans.
+    if(-not $sadeN -or -not $sadeN.dogru_sade){
+      $sadeSebep = if(-not $sadeN){ 'JSON cozulemedi' } else { 'dogru_sade alani bos' }
+      $ham = "$($yS.metin)"; if($ham.Length -gt 160){ $ham=$ham.Substring(0,160) }
+      $ham = $ham -replace '\s+',' '
+      Write-Host ("  SADE COZULEMEDI ({0}) tur {1}/2: {2} · ham: {3}" -f $id,$tur,$sadeSebep,$ham) -ForegroundColor Red
+      $sadeN=$null
+      if($tur -eq 1){ $istS+="`n`nONCEKI CEVAP KULLANILAMADI ($sadeSebep). YALNIZ gecerli JSON don, once/sonra hicbir metin yazma. `dogru_sade` alani BOS BIRAKILAMAZ."; continue }
+      break
+    }
     $dusen=New-Object System.Collections.Generic.List[string]
     foreach($k1 in (SadeKapi "$($sadeN.dogru_sade)")){ $dusen.Add("dogru_sade: $k1") }
     if($sadeN.siklar_sade){ foreach($p in $sadeN.siklar_sade.PSObject.Properties){ foreach($k1 in (SadeKapi "$($p.Value)")){ $dusen.Add("siklar_sade.$($p.Name): $k1") } } }
@@ -2836,7 +2858,13 @@ foreach($id in @($don.Keys)){
     else { Write-Host "  SADE KAPI DUSTU ($id), olduğu gibi kaydedildi: $($dusen -join '; ')" -ForegroundColor Red; $rapor.Add("SADE KAPI: $id") }
   }
   Write-Host ("  SADE TOKEN {0}: girdi {1} · cikti {2} · model claude-haiku-4-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
-  if(-not $sadeN){ $rapor.Add("SADE BOZUK: $id"); continue }
+  # 11.09: bu satir da SESSIZDI - yalnizca $rapor'a yaziyordu (HTML'e gomulu).
+  # Simdi ekrana da basar; digerleri (SIM BOZUK, TEORI IKIZ BOZUK) zaten boyle.
+  if(-not $sadeN){
+    $rapor.Add("SADE BOZUK: $id ($sadeSebep)")
+    Write-Host ("  SADE BOZUK ({0}): {1} - 2 tur denendi, sade YAZILMADI" -f $id,$sadeSebep) -ForegroundColor Red
+    continue
+  }
   # kavram tanımı kaynak metninden mi? (5+ harfli kelimelerin en az %35'i kaynak metinde geçmeli; yoksa düşer)
   $kMetinK=Katla2 $kMetinS; $kavramlar=@()
   foreach($kv in @($sadeN.kavramlar)){ if(-not $kv -or -not $kv.ad -or -not $kv.tanim){ continue }
@@ -3465,6 +3493,34 @@ function OyunHtml($kayitlar,[string]$dugmeYazi,[string]$anlatim,[string]$ekSinif
   }
   [void]$dk.Append("<button class='dgm2 dkKontrol'>⚖️ Denk mi?</button><button class='dgm2 dkGoster' style='background:#5a5648;color:#e8e6e3'>Doğruları göster</button><div class='dkMesaj' style='margin-top:8px;font-weight:800'></div></div></div>")
   return $dk.ToString()
+}
+# --- ÇİZİM KAPISI (11.09.2026, Cem "CizmeAtla anahtarını ekleyeyim") ---------
+# Toplu tamamlama turlarında (ör. FAZ S'i 27 partiye sonradan koşmak) her parti
+# kendi denetim HTML'ini yeniden çiziyordu; oysa tur sonunda 9 yayın sayfası
+# zaten tek seferde yeniden basılıyor. ÖLÇÜLDÜ (iddia değil): 77 soruluk
+# sgs-t1-denetim-kolay partisinin yalnız çizimi -SadeceHtml ile 54 sn sürüyor
+# → 27 partide ≈24 dakika. (Turun asıl süresi burada değil, ardışık model
+# çağrılarında geçiyor: aynı partide 50 Haiku çağrısı ≈8 dk.)
+#
+# ⚠ BİTİŞ DAMGASI: satır 73'teki "ATLANDI: zaten basılmış" kapısı bu HTML
+# dosyasının VARLIĞINA bakar. -CizmeAtla ile koşan parti damga BASMAZ; bir
+# sonraki normal koşu partiyi yeniden işler. Tamamlama turunda istenen davranış
+# budur, ama yeni üretimde -CizmeAtla KULLANILMAZ.
+#
+# $rapor bu noktaya kadar biriken üretim notlarını taşır ve normalde YALNIZ
+# HTML'in "Üretim notları" satırına yazılır. Çizim atlanırsa o notlar yok olurdu
+# - bugün sessiz kapıyı konuşturduktan sonra bu kabul edilemez, o yüzden
+# atlarken notlar ekrana basılır.
+if($CizmeAtla){
+  Write-Host ("CIZIM ATLANDI (-CizmeAtla): kalip-parti-$Etiket.html yazilmadi, bitis damgasi BASILMADI") -ForegroundColor Cyan
+  if($rapor.Count){
+    Write-Host ("URETIM NOTLARI ({0}):" -f $rapor.Count) -ForegroundColor Yellow
+    $rapor | ForEach-Object { Write-Host "  - $_" }
+  } else { Write-Host "URETIM NOTLARI: yok" }
+  # ⚠ `$ikmap` bu noktadan SONRA (satir ~3545) kurulur - buraya YAZILMAZ, yoksa
+  #   "ikiz: 0" diye yanlis rakam basardi. Sondaki ozet satirindan tek farki bu.
+  "yazildi: (cizim atlandi) | soru: $($don.Count) | kaynak-borcu: $($kaynakBorcu.Count) | aritmetik uyari: $($aritUyari.Count)"
+  exit 0
 }
 $sb=[Text.StringBuilder]::new()
 [void]$sb.Append("<!doctype html><html lang=""tr""><head><meta charset=""utf-8""><meta name=""viewport"" content=""width=device-width, initial-scale=1""><title>KALIP PARTİSİ — $Sinav $DersRegex ($($don.Count) soru)</title><style>$css$ekCss</style></head><body>")
