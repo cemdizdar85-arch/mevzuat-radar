@@ -1390,6 +1390,31 @@ function KonuEtiketKapisi($c,[string]$konu){
   return @("konu '$konu' kelimelerinin HİÇBİRİ soru kökünde geçmiyor ($($kel -join ', '))")
 }
 
+# --- KAPI-KS: KAYNAK SIRALAMA (11.09.2026) -----------------------------------
+# Kaynak paketi "ilk 4" ile degil "konuyla EN ALAKALI 4" ile kurulur.
+# OLCULDU (635 basili soru, bedel 0, model cagrilmadi):
+#   ilk kaynak konuyla HIC ortusmuyor             : 447 soru (%70,4)
+#   konuyla ortusen kaynak ilk 4'un DISINDA kalmis: 191 soru (%30,1)
+#   "ilk 4" kesimiyle hic cekilmeyen kaynak       : 2.569
+# Ornek (sgs-t1-denetim-cokzor/kp-12, konu "genel kabul gormus denetim
+# standartlari"): ilk kaynak TTK m.398 idi; aranan "Teori Notu - genel kabul
+# gormus denetim standartlari (GKGDS)" 5. siradaydi ve HIC CEKILMEDI.
+# kp-80'de 521 Hisse Senedi Iptal Karlari'nin pakete hic girmemesi de bu
+# ailedendir; hesap kodunu adiyla anan 92 sorunun 66'sinda (%71,7) tanimin
+# pakette olmamasi buradan besleniyor olabilir.
+# Siralama DETERMINISTIK: konu adinin >=4 harfli ayirt edici kelimelerinden
+# kac tanesi kaynak ADINDA geciyor. Esitlikte eski sira korunur (kararli).
+function KaynakSirala($adlar,[string]$konu,[int]$kac=4){
+  $hepsi=@($adlar); if($hepsi.Count -le $kac){ return $hepsi }
+  $kel=@([regex]::Matches((Katla2 "$konu"),'[a-z0-9]{4,}') | ForEach-Object { $_.Value } | Select-Object -Unique)
+  if(-not $kel.Count){ return @($hepsi | Select-Object -First $kac) }
+  $i=0
+  return @($hepsi | ForEach-Object {
+      $i++; $adK=Katla2 "$_"
+      [pscustomobject]@{ ad=$_; puan=@($kel | Where-Object { $adK.Contains($_) }).Count; sira=$i }
+    } | Sort-Object @{e='puan';d=$true},@{e='sira';d=$false} |
+      Select-Object -First $kac | ForEach-Object { $_.ad })
+}
 # --- FAZ A: SORU ------------------------------------------------------------
 # 04.09 KAPI-Ş: şık dengesi (Cem "cevap belli, sınavda böyle mi?"). Ölçüm: 7 çıkmış SGS sapma sorusunun 5'inde her tutar
 # iki yönle geçiyor. Kural: yön kelimesi taşıyan şıklarda (olumlu/olumsuz/lehte/aleyhte/eksik-fazla yükleme) tutar sayısı
@@ -2549,7 +2574,7 @@ foreach($id in @($don.Keys)){
   if($cvp.PSObject.Properties['kaynak_metin_ozet'] -and $cvp.kaynak_metin_ozet){ $kMetin=$cvp.kaynak_metin_ozet }
   elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
     $parca=New-Object System.Collections.Generic.List[string]
-    foreach($ka in (@($cvp.kaynak_adlar) | Select-Object -First 4)){
+    foreach($ka in (KaynakSirala $cvp.kaynak_adlar "$($cvp.konu)" 4)){
       $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
       try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
     }
@@ -3010,7 +3035,7 @@ function SadeKaynak($cvp){
   $parca=New-Object System.Collections.Generic.List[string]
   if($cvp.PSObject.Properties['dayanak'] -and "$($cvp.dayanak)".Trim()){ $atifD=@(AtifDesen "$($cvp.dayanak)"); if($atifD.Count){ $atif=AmbarCek $atifD 5000; if($atif.metin){ $parca.Add($atif.metin) } } }
   if($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
-    foreach($ka in (@($cvp.kaynak_adlar) | Select-Object -First 4)){
+    foreach($ka in (KaynakSirala $cvp.kaynak_adlar "$($cvp.konu)" 4)){
       $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
       try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
     }
