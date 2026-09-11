@@ -117,12 +117,20 @@ function Slug([string]$d,[string]$k){
 
 $sonuc=New-Object System.Collections.Generic.List[object]
 foreach($k in $eski.Keys){ $sonuc.Add($eski[$k]) }
-$tokG=0;$tokC=0;$n=0;$uydurmaKayit=0;$bosKayit=0
+$tokG=0;$tokC=0;$n=0;$uydurmaKayit=0;$bosKayit=0;$script:kaynaksiz=0
 foreach($kn in $kalan){
   $n++
   $parca=New-Object System.Collections.Generic.List[string]
+  # ⚠ 11.09 KENDI HATAM, 142 TL'YE MAL OLDU: aday kaydinda alan adi `kaynak_ad`,
+  #   ben `.ad` okumustum. Bos donunce hicbir kaynak cekilmedi ve 433 konunun
+  #   TAMAMI kaynaksiz kosuldu; 358'i (dogru olarak) bos dondu, "dolan" 75'i ise
+  #   EZBERDEN doldu - tam da onlemeye calistigimiz sey. Alan adi dogrulanmadan
+  #   toplu kosu baslatilmaz.
   foreach($a in (@($kn.adaylar) | Select-Object -First 2)){
-    $ad = if($a -is [string]){ $a } else { "$($a.ad)" }
+    $ad = if($a -is [string]){ $a }
+          elseif($a.PSObject.Properties['kaynak_ad']){ "$($a.kaynak_ad)" }
+          elseif($a.PSObject.Properties['ad']){ "$($a.ad)" }
+          else { '' }
     if(-not $ad){ continue }
     foreach($x in (AmbarAl $ad 1)){ $parca.Add("[$($x.kaynak_ad)] " + "$($x.metin)".Substring(0,[Math]::Min(2200,"$($x.metin)".Length))) }
   }
@@ -130,6 +138,16 @@ foreach($kn in $kalan){
   $istek=$ISTEM+"`n`n=== THP LISTESI (yalniz buradan sec) ===`n$MENU"+
          "`n`n=== DERS ===`n$($kn.ders)`n=== KONU ===`n$($kn.konu)"+
          "`n=== KAYNAK METINLERI ===`n"+$(if($kaynak){$kaynak}else{'(kaynak cekilemedi)'})
+  # --- KAYNAKSIZ KOSU KAPISI (11.09) --------------------------------------
+  # Bu betik bir kez 142 TL'yi kaynaksiz yakti (alan adi hatasi, yukarida).
+  # Artik ilk 10 konuda HIC kaynak cekilemezse kosu DURUR - sessizce devam edip
+  # ezberden doldurmaz.
+  if(-not $kaynak.Trim()){ $script:kaynaksiz++ }
+  if($n -ge 10 -and $script:kaynaksiz -ge $n){
+    throw ("KAYNAKSIZ KOSU: ilk {0} konunun hicbirinde ambardan kaynak cekilemedi. " +
+           "Aday alan adi ya da ambar sorgusu bozuk olabilir. Kosu DURDURULDU - " +
+           "kaynaksiz doldurma ezberden doldurmaktir." -f $n)
+  }
   $y=$null
   foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istek -MaxTok 900; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
   $tokG+=[int]$y.girdi; $tokC+=[int]$y.cikti

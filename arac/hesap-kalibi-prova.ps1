@@ -140,7 +140,7 @@ foreach($kn in $sec){
   $aday = @($kn.adaylar) | Select-Object -First 2
   $parca=New-Object System.Collections.Generic.List[string]
   foreach($a in $aday){
-    $ad = if($a -is [string]){ $a } else { "$($a.ad)" }
+    $ad = if($a -is [string]){ $a } elseif($a.PSObject.Properties['kaynak_ad']){ "$($a.kaynak_ad)" } elseif($a.PSObject.Properties['ad']){ "$($a.ad)" } else { '' }   # 11.09: alan adi kaynak_ad
     if(-not $ad){ continue }
     foreach($x in (AmbarAl $ad 1)){ $parca.Add("[$($x.kaynak_ad)] " + "$($x.metin)".Substring(0,[Math]::Min(2200,"$($x.metin)".Length))) }
   }
