@@ -55,7 +55,13 @@ $GENEL = @('kaydi','kayitlar','kayit','hesabi','hesap','uzerindeki','ile','ilgil
            'durumu','yontemi','sorunu','beyani','bolumu','olcusu','degeri','orani')
 
 # --- DERS ESLEMESI: parti adi -> sinav anatomisindeki ders adi ---------------
-$DERS = [ordered]@{
+# DEGISKEN ADI DIKKAT: bu tablonun adi '$DERS' OLAMAZ. PowerShell harf ayirmaz;
+# asagidaki dongude '$ders = DersBul $parti' satiri ayni degiskene yazar ve
+# TABLOYU BIR METINLE EZER. Olculdu (10.09): ilk cagri calisti, sonraki 3.695
+# cagri null dondu; ders bulunamadigi icin uzunluk tavani (kapi 7) HIC
+# uygulanmadi ve "0 soru tavani asti" diye YANLIS rapor uretildi.
+# Bu tuzak depoda yazili: ps-degisken-cakismasi.
+$DERS_ESLEME = [ordered]@{
   'fmuh'='Finansal Muhasebe'; 'maliyet'='Maliyet Muhasebesi'; 'mta'='Mali Tablolar Analizi';
   'denetim'='Denetim'; 'ticaret'='Ticaret ve Borclar'; 'borclar'='Ticaret ve Borclar';
   'vergi'='Vergi Hukuku'; 'maliye'='Maliye'; 'ekonomi'='Ekonomi'; 'meslek'='Meslek Hukuku';
@@ -63,7 +69,7 @@ $DERS = [ordered]@{
 }
 function DersBul([string]$parti){
   $p = Katla $parti
-  foreach($k in $DERS.Keys){ if($p -match "(^|-)$k(-|$)"){ return $DERS[$k] } }
+  foreach($k in $DERS_ESLEME.Keys){ if($p -match "(^|-)$k(-|$)"){ return $DERS_ESLEME[$k] } }
   return $null
 }
 
@@ -91,7 +97,7 @@ $kovalar = @{ gecti=New-Object System.Collections.ArrayList; onarilabilir=New-Ob
 
 foreach($x in $f){
   $parti = $x.BaseName -replace '^kalip-parti-',''
-  $ders  = DersBul $parti
+  $dersAdi  = DersBul $parti
   $olcutDisi = ($parti -match '(^|-)(yd|mat)(-|$)')   # konu ortusmesi bu derslerde gecersiz
   try{ $j = Get-Content $x.FullName -Raw -Encoding UTF8 | ConvertFrom-Json } catch { continue }
 
@@ -147,12 +153,12 @@ foreach($x in $f){
     }
 
     # KAPI 7 — dinamik uzunluk tavani (ders p90)
-    if($ders -and $TAVAN.ContainsKey($ders) -and $s.Length -gt $TAVAN[$ders]){
+    if($dersAdi -and $TAVAN.ContainsKey($dersAdi) -and $s.Length -gt $TAVAN[$dersAdi]){
       $sayac.k7_uzunluk++; [void]$kusur.Add('uzunluk')
     }
 
     # --- KOVALAMA: konu suphesi ONCELIKLI (yanlis etiket en zararlisi) -------
-    $kayit = [pscustomobject]@{ parti=$parti; id=$p.Name; ders=$ders; konu="$($v.konu)"; uzunluk=$s.Length; kusur=($kusur -join ',') }
+    $kayit = [pscustomobject]@{ parti=$parti; id=$p.Name; ders=$dersAdi; konu="$($v.konu)"; uzunluk=$s.Length; kusur=($kusur -join ',') }
     if($konuSuphe){ $sayac.beklesin++; [void]$kovalar.beklesin.Add($kayit) }
     elseif($kusur.Count -gt 0){ $sayac.onarilabilir++; [void]$kovalar.onarilabilir.Add($kayit) }
     else { $sayac.gecti++; [void]$kovalar.gecti.Add($kayit) }

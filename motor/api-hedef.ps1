@@ -407,11 +407,23 @@ function Invoke-BekleyenKilitli([scriptblock]$is){
   $mx = New-Object System.Threading.Mutex($false,'Global\tetikte-bekleyen-partiler'); $al = $false
   try{ $al = $mx.WaitOne(15000); & $is }catch{}finally{ if($al){ $mx.ReleaseMutex() }; $mx.Dispose() }
 }
-function Add-BekleyenParti([string]$bid,[string]$etiket){
+# 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): bedava hasat YALNIZ (etiket, faz, kp-id) ile anahtarlanıyordu, isteğin İÇERİĞİ hesaba katılmıyordu.
+# Sonuç: bir soru düzeltilip -RedYenile ile yeniden yargılatıldığında, o faz için bitmiş bir parti duruyorsa ESKİ karar geri geliyor ve
+# log taze çağrı yapılmış gibi jeton satırı basıyor. Kanıt: çok zor kp-05'in HAKEM2 jetonu iki koşuda birebir aynı (2115/1122) çıktı,
+# oysa şıklar tamamen değişmişti; 2. hakemin gerekçesi silinmiş ifadeleri alıntılamayı sürdürdü. Yani "düzelt ve yeniden yargılat"
+# döngüsü sessizce çalışmıyordu. Çözüm: gönderilen her işin İÇERİK PARMAK İZİ parti kaydına yazılır, hasatta karşılaştırılır.
+function Get-IcerikParmak($icerik){
+  $s = $(if($icerik -is [array]){ (@($icerik) | ForEach-Object { if($_ -is [hashtable] -and $_.ContainsKey('text')){ "$($_['text'])" } elseif($_ -and $_.PSObject.Properties['text']){ "$($_.text)" } else { "$_" } }) -join "`n" } else { "$icerik" })
+  $sha = [Security.Cryptography.SHA1]::Create()
+  try{ return (([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16)) }finally{ $sha.Dispose() }
+}
+function Add-BekleyenParti([string]$bid,[string]$etiket,$parmak=$null){
   Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; $bek = @()
     if(Test-Path $y){ foreach($x in @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)))){ if($x -and "$($x.id)"){ $bek += $x } } }
-    $bek += [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
-    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
+    $kayit = [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
+    if($parmak){ $kayit | Add-Member -NotePropertyName parmak -NotePropertyValue ([pscustomobject]$parmak) -Force }
+    $bek += $kayit
+    [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 4),(New-Object Text.UTF8Encoding($false))) }
 }
 function Set-BekleyenPartiDurum([string]$bid,[string]$durum){
   Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return }
@@ -457,11 +469,13 @@ function Invoke-ClaudeToplu {
   if(-not @($Isler).Count){ return @{} }
   $hedef = Get-TopluBasliklar
   $req = @()
+  $parmakHep = @{}   # 10.09: iş -> içerik parmak izi; parti kaydına yazılır, hasatta doğrulanır (bayat cevap dönmesin)
   foreach($i in @($Isler)){
     $temiz = ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $i.icerik "$($i.model)")   # 08.09 önbellek: toplu istekte de önek işaretli
     $g = @{ model="$($i.model)"; max_tokens=[int]$i.maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
     if("$($i.model)" -match 'sonnet-5|opus-5'){ $g.output_config = @{ effort = (Get-EffortDegeri "$(if($i -is [hashtable]){ $i['effort'] } else { $i.effort })") } }   # 08.09: iş kaydında 'effort' alanı
     $req += @{ custom_id="$($i.id)"; params=$g }
+    $parmakHep["$($i.id)"] = (Get-IcerikParmak $i.icerik)
   }
   # 09.09 09:35 ÖLÇÜLDÜ (Cem "hızlı olsun diye 3 partiye atabiliriz"): 8/30/36/83 istekli partiler 3–15 dk'da işlendi, 62 ve 96 istekli partiler
   # 20 dk'da sıfırdı (08–09.09 gece de 24+ istekliler takıldı). Kuyruk küçük partileri öne alıyor → istekler en çok MEVZUAT_TOPLU_PARCA (varsayılan 30)
@@ -473,7 +487,9 @@ function Invoke-ClaudeToplu {
   foreach($pr in $parcalar){
     $govde = @{ requests=@($pr) } | ConvertTo-Json -Depth 20
     $b = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages/batches') -Headers $hedef.basliklar -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 240
-    $bid = "$($b.id)"; $bidler.Add($bid); Add-BekleyenParti $bid $Etiket
+    $bid = "$($b.id)"; $bidler.Add($bid)
+    $pm = @{}; foreach($r in @($pr)){ $cid = "$($r.custom_id)"; if($parmakHep.ContainsKey($cid)){ $pm[$cid] = $parmakHep[$cid] } }
+    Add-BekleyenParti $bid $Etiket $pm
     Write-Host ("  TOPLU PARTİ gönderildi: {0} istek · id {1} · {2} KB · etiket {3} · parça {4}/{5}" -f @($pr).Count,$bid,[math]::Round($govde.Length/1024),$Etiket,$bidler.Count,$parcalar.Count) -ForegroundColor Cyan
   }
   $t0 = Get-Date; $out = @{}; $biten = New-Object 'System.Collections.Generic.HashSet[string]'

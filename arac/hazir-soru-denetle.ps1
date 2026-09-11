@@ -6,19 +6,33 @@
 #   Maliyet zor koşusunda ölçüldü: bu betikten geçen 25 sorunun 25'i yayınlanabilir çıktı.
 # SÖZLÜK: -Sozluk ile ders penceresi kök sözlüğü verilir (Maliyet için kitapçık S57-64 kelimeleri).
 #   'DAR tekrarli' = gerçek kusur (üretici düşürür) · 'DAR disi tek' = yalnız uyarı (geniş sözlükte olabilir).
-# KULLANIM: powershell -NoProfile -File arac/hazir-soru-denetle.ps1 -Dosya veri/fabrika/hazir-<etiket>.json [-Sozluk <kelime dosyasi>]
+# KAPI-K GERÇEK SÖZLÜK (10.09.2026, GM Borçlar t2b): -Ders verilirse sözlük DIŞARIDAN beklenmez, arac/kapi-k-sozluk.ps1
+#   ile ambardan kurulur ve üreticinin PencereKavram kuralı birebir uygulanır. NEDEN: 10.09 Borçlar koşusunda düşen 6
+#   sorunun 6'sı da bu kapıdan düştü ve bu betik hepsine 'ok' demişti — çünkü sözlüğü üreten bir araç yoktu.
+#   Doğrulama: -Ders yoluyla kurulan sözlük, o koşunun düşürdüğü 6 sorunun 6'sını da AYNI kelimelerle yakalıyor.
+# KULLANIM: powershell -NoProfile -File arac/hazir-soru-denetle.ps1 -Dosya veri/fabrika/hazir-<etiket>.json
+#             [-Ders 'Borclar Hukuku|Ticaret ve Borclar'] [-Pencere 7] [-Sozluk <kelime dosyasi>]
+#   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
-param([Parameter(Mandatory)][string]$Dosya,[string]$Sozluk='')
+param([Parameter(Mandatory)][string]$Dosya,[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
 function Hesapla([string]$ifade){ $t=$ifade -replace '\.','' -replace ',','.' -replace 'x','*'; if($t -notmatch '^[\d\.\s\*/+\-]+$'){ return $null }; try{ return [double](Invoke-Expression $t) }catch{ return $null } }
 $sz=@{}; if($Sozluk -and (Test-Path $Sozluk)){ foreach($w in ((Get-Content $Sozluk -Raw -Encoding UTF8) -split '\s+')){ $w=Duz $w; if($w.Length -ge 5){ $sz[$w.Substring(0,5)]=1 } } }
+$kapiK=$null
+if($Ders){
+  $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
+  if(Test-Path $kutup){ . $kutup; $kapiK=KapiKSozlukKur -DersRegex $Ders -Pencere $Pencere }
+  if(-not $kapiK){ "UYARI: KAPI-K sozlugu kurulamadi (ambar/anahtar/analiz dosyasi) - bu kapi OLCULMEDI" }
+}
 $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
 "dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count)"
+if($kapiK){ "KAPI-K sozlugu: genis $($kapiK.genis.Keys.Count) · dar $($kapiK.dar.Keys.Count) (soru $($kapiK.aralik -join '-')) · $($kapiK.blok) blok · son $Pencere donem: $($kapiK.donemler -join ', ')" }
 $i=0; $temizSay=0
 foreach($q in $liste){
   $i++; $k=New-Object System.Collections.Generic.List[string]
+  $not=New-Object System.Collections.Generic.List[string]   # kapıyı DÜŞÜRMEYEN uyarılar (KAPI-K tek kelime gibi)
   $harf=@('A','B','C','D','E')
   foreach($h in $harf){ if(-not $q.siklar.PSObject.Properties[$h]){ $k.Add("sik $h yok") } }
   if($harf -notcontains "$($q.dogru)"){ $k.Add("dogru harfi bozuk") }
@@ -65,8 +79,17 @@ foreach($q in $liste){
   }
   $brm=@($sikM | Where-Object { $_ -match '(₺|TL|%|adet|kg|saat)' }).Count
   if($sayiN -ge 2 -and $brm -eq 1 -and $dogruS -match '(₺|TL|%|adet|kg|saat)'){ $k.Add("KAPI-S birim yalniz dogru sikta") }
-  # KAPI-K (DAR): >=6 harf, 5 harf önek; sözlükte yok → listele; >=2 tekrar → kusur adayı
-  if($sz.Keys.Count){ $say=@{}; $kel=@{}; foreach($w in ((Duz "$($q.soru)") -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -lt 6){ continue }; $on=$w.Substring(0,5); if(-not $say.ContainsKey($on)){ $say[$on]=0; $kel[$on]=$w }; $say[$on]++ }
+  # KAPI-K GERÇEK SÖZLÜK: -Ders verildiyse üreticinin kuralı birebir uygulanır (geniş sözlükte yok → kusur;
+  # dar sözlükte yok VE gövdede >=2 kez → kusur). Üretici, dönen kelime sayısı >=2 ise soruyu DÜŞÜRÜR, 1 ise
+  # yalnız rapora not düşer — bu ayrım burada da korunur, tek kelime KUSUR sayılmaz.
+  if($kapiK){
+    $eks=KapiKOlc -Metin "$($q.soru)" -Sozluk $kapiK
+    $dk=@($eks.Keys | Sort-Object | ForEach-Object { "$_ ($($eks[$_]))" })
+    if($eks.Keys.Count -ge 2){ $k.Add("KAPI-K DUSER ($($eks.Keys.Count) kelime pencere disi): $($dk -join ', ')") }
+    elseif($eks.Keys.Count -eq 1){ $not.Add("KAPI-K notu (tek kelime, kapi dusurmez): $($dk -join ', ')") }
+  }
+  # -Ders yoksa eski (yaklaşık) yol: dışarıdan verilen tek sözlük dosyası
+  elseif($sz.Keys.Count){ $say=@{}; $kel=@{}; foreach($w in ((Duz "$($q.soru)") -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -lt 6){ continue }; $on=$w.Substring(0,5); if(-not $say.ContainsKey($on)){ $say[$on]=0; $kel[$on]=$w }; $say[$on]++ }
     $eksik=@(); $tekrar=@(); foreach($on in $say.Keys){ if(-not $sz.ContainsKey($on)){ if($say[$on] -ge 2){ $tekrar+=$kel[$on] } else { $eksik+=$kel[$on] } } }
     if($tekrar.Count){ $k.Add("KAPI-K DAR tekrarli (kusur): $($tekrar -join ', ')") }
     if($eksik.Count){ $k.Add("KAPI-K DAR disi tek (genis sozlukte olmali): $($eksik -join ', ')") } }
@@ -77,6 +100,7 @@ foreach($q in $liste){
   if($etiket -eq 'ok'){ $temizSay++ }
   "{0,2}. {1,-36} {2}" -f $i,$q.konu,$etiket
   foreach($x in $k){ "      - $x" }
+  foreach($x in $not){ "      . $x" }
 }
 # CEVAP DAGILIMI (10.09 eklendi) — DOSYA duzeyinde kapi, tek soruya bakarak gorulmez.
 # NEDEN: Meslek Hukuku'nda zor 22/22 ve cok zor 21/21 sorunun dogru cevabi A cikti; "hep A" yazan
