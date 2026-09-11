@@ -1,0 +1,33 @@
+﻿{
+    "olcum":  "2026-09-11 10:25",
+    "model":  "claude-haiku-4-5",
+    "menu_hesap":  269,
+    "konu":  1,
+    "jeton":  {
+                  "cikti":  367,
+                  "girdi":  6681
+              },
+    "bedel_usd":  0.0085,
+    "birim_usd":  0.0085,
+    "tahmin_433_usd":  3.69,
+    "tahmin_433_tl":  155,
+    "satirlar":  [
+                     {
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "sermaye taahhudu-hisse iptali",
+                         "dogru":  "500,501,521",
+                         "tuzak_adet":  3,
+                         "tuzaklar":  [
+                                          "520",
+                                          "502",
+                                          "131"
+                                      ],
+                         "zorluk":  "zor",
+                         "kural_kaynak":  "",
+                         "uydurma_kod":  "",
+                         "alinti_ok":  true,
+                         "alinti_not":  "",
+                         "jeton":  "6681/367"
+                     }
+                 ]
+}
