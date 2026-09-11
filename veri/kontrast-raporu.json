@@ -3,5 +3,5 @@
   "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "chrome_stderr": ""
+  "chrome_stderr": "[2052:2076:0911/064353.207753:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2052:2076:0911/064355.380071:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2052:2076:0911/064356.787491:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2052:2076:0911/064357.434361:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n\nDevTools listening on ws://127.0.0.1:46291/devtools/browser/4bab1b7f-b47c-4d5c-95f9-cbc6dca926b5"
 }
