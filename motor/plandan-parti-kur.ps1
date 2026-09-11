@@ -1,0 +1,150 @@
+﻿#requires -Version 5.1
+<#
+================================================================================
+  PLANDAN PARTI KUR — konu planini URETIM EMRINE cevirir  (11.09.2026)
+  Cem: "konu plana gore soru basacagiz"
+
+  NIYE VAR: 11.09'a kadar zincirin ortasinda ELLE bir adim vardi —
+      konu-plani-sgs.json  ->  (ELLE)  ->  veri/sinav/konu/<etiket>.json
+                           ->  kalip-kosucu.ps1
+  "Plana gore bastik" iddiasi o elle adima dayaniyordu; sapma olursa kimse
+  gormezdi. Bu betik o adimi kaldirir: plan dosyasindan DOGRUDAN konu
+  dosyalarini ve kosucu planini uretir. Artik "plana gore bastik" OLCULEBILIR
+  bir iddia: hangi konudan kac soru istendi, kac basildi, farki ne.
+
+  NE YAPAR:
+    1) veri/konu-plani-<sinav>.json okur
+    2) HAT ve ONCELIK suzgecini uygular (-Hat SIMDI · -EnAzCikmis 3)
+    3) Konulari DERS ve ZORLUK'a gore partilere boler
+    4) veri/sinav/konu/<etiket>.json + veri/sinav/plan-<ad>.json yazar
+
+  ZORLUK NEDEN DAGITILIR: sinav anatomisi olcumunde SGS'in zorluk dagilimi
+  sabit degil; tek zorlukta basmak sinav gibi olmaz. Konular cikmis sikliga
+  gore siralanir ve kolay/zor/cokzor partilerine SIRAYLA dagitilir - boylece
+  cok cikan konu her zorlukta temsil edilir.
+
+  ⛔ HICBIR SORU BASMAZ. Yalniz dosya yazar. Uretim ayri komut:
+     powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan <uretilen plan>
+
+  BEDEL 0.
+================================================================================
+#>
+param(
+  [ValidateSet('SGS','SMMM','KGK')][string]$Sinav = 'SGS',
+  [ValidateSet('SIMDI','BEKLESIN','HEPSI')][string]$Hat = 'SIMDI',
+  [int]$EnAzCikmis = 3,          # cikmis arsivde en az kac kez gorulmus konu
+  [int]$PartiTavan = 30,         # tek partide en fazla kac soru
+  [string]$Ad = '',              # plan adi (bos: otomatik)
+  [switch]$AyristirilamayanDahil # kaba kovada kalmis konular da girsin mi
+)
+$ErrorActionPreference='Stop'
+$here=Split-Path -Parent $MyInvocation.MyCommand.Path
+$depoKok=Split-Path -Parent $here
+if(-not $Ad){ $Ad = ("{0}-c{1}-{2}" -f $Sinav.ToLowerInvariant(),$EnAzCikmis,(Get-Date -Format 'ddMM')) }
+
+$planYol=Join-Path $depoKok ('veri\konu-plani-'+$Sinav.ToLowerInvariant()+'.json')
+if(-not (Test-Path $planYol)){ throw "konu plani yok: $planYol  (once motor/konu-plani.ps1 -Sinav $Sinav)" }
+$pj=Get-Content $planYol -Raw -Encoding UTF8|ConvertFrom-Json
+$sat=@($pj.satirlar)
+Write-Host ("konu plani: {0:N0} satir (olcum {1})" -f $sat.Count,$pj.olcum) -ForegroundColor Cyan
+
+# --- SUZGEC ------------------------------------------------------------------
+$sec=@($sat | Where-Object {
+  [int]$_.acik -gt 0 -and
+  [int]$_.cikmis -ge $EnAzCikmis -and
+  ($Hat -eq 'HEPSI' -or "$($_.hat)" -eq $Hat) -and
+  ($AyristirilamayanDahil -or "$($_.ders)" -notmatch 'ayristirilamadi')
+})
+$topSoru=0; foreach($sc in $sec){ $topSoru+=[int]$sc.acik }
+Write-Host ("suzgec: hat={0} · cikmis>={1} · ayristirilamayan {2}" -f $Hat,$EnAzCikmis,$(if($AyristirilamayanDahil){'DAHIL'}else{'HARIC'}))
+Write-Host ("  -> {0:N0} konu · {1:N0} soru" -f $sec.Count,$topSoru) -ForegroundColor Green
+if(-not $sec.Count){ throw 'Suzgecten konu gecmedi - esikleri gevset.' }
+
+# --- DERS BAZLI PARTILEME ----------------------------------------------------
+# Etiket kisaltmalari: kosucu ve ders-cozumleyiciler bu kisa adlari taniyor.
+$KISALT=@{
+  'Finansal Muhasebe'='fmuh'; 'Denetim'='denetim'; 'Maliyet Muhasebesi'='maliyet'
+  'Mali Tablolar Analizi'='mta'; 'Ticaret Hukuku'='ticaret'; 'Borclar Hukuku'='borclar'
+  'Vergi Hukuku'='vergi'; 'Meslek Hukuku'='meslek'; 'Is ve Sosyal Guvenlik Hukuku'='issgk'
+  'Ekonomi'='ekonomi'; 'Maliye'='maliye'; 'Matematik'='mat'; 'Turkce'='turkce'
+  'Yabanci Dil'='yd'; 'Ataturk Ilke ve Inkilap Tarihi'='inkilap'
+  'Ataturk Ilkeleri ve Inkilap Tarihi'='inkilap'
+}
+$ZORLUK=@('kolay','zor','cokzor')
+$konuDir=Join-Path $depoKok 'veri\sinav\konu'
+New-Item -ItemType Directory -Force $konuDir | Out-Null
+
+$planSatir=New-Object System.Collections.Generic.List[object]
+$yazilanKonu=0; $tanimsizDers=@{}
+foreach($g in (@($sec | Group-Object ders | Sort-Object { $s=0; foreach($pg in $_.Group){ $s+=[int]$pg.acik }; -$s }))){
+  $kis=$KISALT["$($g.Name)"]
+  if(-not $kis){ $tanimsizDers["$($g.Name)"]=$g.Count; continue }   # etiketi bilinmeyen ders ATLANIR, sessizce degil
+  # Cikmis sikliga gore sirala; zorluk kovalarina SIRAYLA dagit (cok cikan konu her zorlukta olsun)
+  # ⚠ Degisken adlari BILEREK uzun: Sort-Object/Group-Object scriptblock'lari
+  #   CAGIRANIN kapsaminda kosar ve kisa adlari ($z, $k, $s) disaridan ezer.
+  #   11.09'da "$kova[$z]" boyle bozulup ArgumentException atti.
+  $siraliKonu=@($g.Group | Sort-Object @{e={[int]$_.cikmis};Descending=$true})
+  $zorlukKova=@{}
+  foreach($zorAd in $ZORLUK){ $zorlukKova[$zorAd]=New-Object System.Collections.Generic.List[object] }
+  $dagitimSira=0
+  foreach($konuK in $siraliKonu){
+    $hedefZor=$ZORLUK[$dagitimSira % $ZORLUK.Count]
+    $zorlukKova[$hedefZor].Add($konuK); $dagitimSira++
+  }
+  foreach($zorAd in $ZORLUK){
+    # ⛔ PS 5.1 TUZAGI (11.09'da BURADA yakalandi, tr-TR 5.1.26100):
+    #    @($list)  -- $list bir List[object] ise -- "Bagimsiz degisken turleri
+    #    eslesmiyor" (ArgumentException) atar. Sebep @() sarmalayicisinin
+    #    List[object]'i object[]'e kopyalamasi. .ToArray() SORUNSUZ calisir.
+    #    Bu depoda List[object] cok kullaniliyor; @() ile SARMAYIN.
+    $liste=$zorlukKova[$zorAd].ToArray(); if(-not $liste.Count){ continue }
+    # Partiye bolme: her partide en fazla $PartiTavan SORU (konu degil)
+    $par=New-Object System.Collections.Generic.List[object]; $sayac=0; $no=0
+    function PartiYaz($konular,$no,$zorAd,$kis,$dersAd){
+      if(-not @($konular).Count){ return $null }
+      $et = if($no -le 1){ "sgs-p-$kis-$zorAd" } else { "sgs-p-$kis-$zorAd-$no" }
+      $kd = Join-Path $konuDir "$et.json"
+      $adlar=@($konular | ForEach-Object { "$($_.konu)" })
+      [IO.File]::WriteAllText($kd,($adlar|ConvertTo-Json -Depth 3),(New-Object Text.UTF8Encoding $false))
+      $adet=0; foreach($x in $konular){ $adet+=[int]$x.acik }
+      return [pscustomobject][ordered]@{
+        ders=$dersAd; dersAd=$dersAd; etiket=$et; adet=$adet; tavan=$adet
+        zorluk=$zorAd; sinav='SGS'; konuDosya=$kd; toplu=$true; disla=''; tur=3
+      }
+    }
+    foreach($k in $liste){
+      $par.Add($k); $sayac+=[int]$k.acik
+      if($sayac -ge $PartiTavan){
+        $no++; $r=PartiYaz $par.ToArray() $no $zorAd $kis "$($g.Name)"
+        if($r){ $planSatir.Add($r); $yazilanKonu+=$par.Count }
+        $par=New-Object System.Collections.Generic.List[object]; $sayac=0
+      }
+    }
+    if($par.Count){
+      $no++; $r=PartiYaz $par.ToArray() $no $zorAd $kis "$($g.Name)"
+      if($r){ $planSatir.Add($r); $yazilanKonu+=$par.Count }
+    }
+  }
+}
+
+$planDosya=Join-Path $depoKok "veri\sinav\plan-$Ad.json"
+[IO.File]::WriteAllText($planDosya,($planSatir.ToArray()|ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding $false))
+
+$topPlanSoru=0; foreach($ps2 in $planSatir.ToArray()){ $topPlanSoru+=[int]$ps2.adet }
+Write-Host ""
+Write-Host ("PARTI PLANI: {0} parti · {1:N0} konu · {2:N0} soru" -f $planSatir.Count,$yazilanKonu,$topPlanSoru) -ForegroundColor Green
+foreach($g in (@($planSatir.ToArray()|Group-Object dersAd|Sort-Object { $s=0; foreach($pg in $_.Group){ $s+=[int]$pg.adet }; -$s }))){
+  $s=0; foreach($pg in $g.Group){ $s+=[int]$pg.adet }
+  Write-Host ("  {0,-32} {1,2} parti · {2,4} soru" -f $g.Name,$g.Count,$s)
+}
+if($tanimsizDers.Count){
+  Write-Host ""
+  Write-Host "  ETIKET KISALTMASI OLMAYAN DERS (plana ALINMADI):" -ForegroundColor Yellow
+  foreach($k in ($tanimsizDers.GetEnumerator()|Sort-Object Value -Descending)){ Write-Host ("    {0,-40} {1,4} konu" -f $k.Key,$k.Value) }
+}
+Write-Host ""
+Write-Host "-> $planDosya" -ForegroundColor Green
+Write-Host "-> veri/sinav/konu/sgs-p-*.json ($($planSatir.Count) dosya)"
+Write-Host ""
+Write-Host "URETIM (ayri komut, BU BETIK SORU BASMAZ):" -ForegroundColor Cyan
+Write-Host "  powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-$Ad.json"
