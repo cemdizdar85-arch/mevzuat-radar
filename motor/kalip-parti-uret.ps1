@@ -2423,7 +2423,15 @@ Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
 6) ATIF (kural 6.5): soru ve dayanakta anilan kanun + madde numarasi ({DAYANAK}) KAYNAK METNINDEKI madde basligiyla uyusuyor mu?
    Kaynakta o madde var ve hukum orada ise EVET; madde numarasi kaynaktaki hukumle uyusmuyorsa (baska maddenin hukmu bu numaraya
    yazilmis) ATIF-YANLIS de ve KARARI HAYIR ver; kaynak paketinde o madde hic yoksa TEYITSIZ (hukum baska parcadan destekleniyorsa karar EVET kalabilir).
-Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
+7) HESAP KODU (KAPI-HG - 11.09): soru bir THP hesabi aniyorsa, KAYNAK METNI icinde "ILGILI HESAP
+   GRUBUNUN TUM HESAPLARI" basligi altinda o grubun butun hesap tanimlari verilmistir. Dogru sikkin
+   kullandigi hesap, o gruptaki tanimlara gore DOGRU hesap mi? Gruptaki BASKA bir hesabin tanimi olayi
+   daha birebir karsiliyorsa (orn. iptal edilen hisse senetlerinin nominal ustu satisi 529 "diger"e
+   degil, 521 "hisse senedi iptal karlari"na aittir; 529'un kendi tanimi "sayilanlarin DISINDA kalan"
+   der) HESAP-YANLIS de, dogru hesap kodunu yaz ve KARARI HAYIR ver. Hesap dogruysa EVET.
+   ⚠ Hesabi EZBERDEN dogrulama: hukmun KAYNAK METNINDEKI tanimdan cikmasi sart. Tanim pakette yoksa
+   "TEYITSIZ" de, uydurma.
+Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","hesap_uyum":"EVET|HESAP-YANLIS|TEYITSIZ|YOK","hesap_gerekce":"tek cumle (HESAP-YANLIS ise dogru hesap kodu+adi)","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
 === SORU === {SORU}
 === DOGRU SIK ({DOGRU}) === {SIK}
 === DOGRU SIKKIN ACIKLAMASI === {ACIK}
@@ -2433,9 +2441,12 @@ foreach($id in @($don.Keys)){
   $cvp=$don[$id]
   if(-not $cvp.soru){ continue }
   # 03.09 KAPI D (konu uyumu) eklendi: konu_uyum alani olmayan eski karar YENIDEN verdirilir (ucuz hakem).
+  # 11.09 KAPI-HG ayni yolla devreye giriyor: `hesap_uyum` alani olmayan karar eskidir, yeniden verdirilir.
+  # ⚠ BEDEL: bu kosul, dokunulan her partide hakemi YENIDEN kosturur. Toplu turda
+  #    -PilotId ile sinirla; yoksa 636 sorunun hakemi bastan koşar.
   if($SadeceHtml -or $SadeceAdim){ continue }   # yalniz cizim / yalniz adim: eski karar neyse o kalir, hakem cagrilmaz
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
-  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
+  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['hesap_uyum'] -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
   # sema normalizasyonu geriye donuk (ogeler<-adimlar)
   if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
     $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
@@ -2490,6 +2501,59 @@ foreach($id in @($don.Keys)){
       }
     }
   }
+  # --- KAPI-HG · HESAP GRUBU GENISLETME (11.09.2026) --------------------------
+  # DOGUSU: Cem muhur ornegi #4'te (sgs-t1-fmuh-kolay/kp-80) gercek hata buldu.
+  # Iskat edilen hisse senetlerinin nominal ustu satisindan dogan 35.000 TL soruda
+  # 529 Diger Sermaye Yedekleri'ne atilmisti; dogrusu 521 Hisse Senedi Iptal
+  # Karlari. Ambardaki MSUGT metni 521'i olayin adiyla tarif ediyor, 529 ise kendi
+  # tanimiyla "sayilanlarin DISINDA kalan" artik hesap.
+  #
+  # KOK NEDEN OLCULDU: o soruya giden kaynak paketi TTK m.482 + THP 333 + THP 407
+  # + THP 433 + VUK m.5 VERGI MAHREMIYETI idi. Ne 521 ne 529 ne 500/501/102
+  # PAKETTE YOKTU. Model hesabi ezberinden yazdi; hakem de "THP 529 hesap tanimi"
+  # diyerek GORMEDIGI kaynagi dayanak gosterdi. Kor cozum de ayni korlukte ikinci
+  # gozdu. Uc kapi da gecti cunku ucu de ayni eksik paketi okuyordu.
+  #
+  # SINIF OLCULDU (636 basilan soru): hesap kodunu ADIYLA anan 92 sorunun
+  # 66'sinda (%71,7) o hesabin tanimi kaynak paketinde yoktu.
+  #
+  # NE YAPAR: soru yazildiktan SONRA, sorunun/sikklarin andigi her hesap kodunun
+  # TUM GRUBU ambardan cekilip paketin basina konur (521 anilmasa bile 52x grubu
+  # gelir). Boylece hakem dogru hesabi GORUR ve yanlisini soyleyebilir.
+  # Kod ancak ardindan BUYUK HARFLE baslayan ad geliyorsa hesap kodu sayilir
+  # ("501 Odenmemis Sermaye"); "BDS 240", "TMS 17", "m.482" bu kaliba uymaz.
+  #
+  # ⚠ $SB burada Supabase BASLIKLARIDIR (satir 87). Satir ~3525'te ayni ad
+  #   StringBuilder'a veriliyor ($sb) ve PS harf ayirmadigi icin onu EZER. Bu blok
+  #   3525'ten ONCE oldugu icin dogru calisiyor; hesap/atif cekimini oradan SONRAYA
+  #   tasiyan biri sessizce kirar.
+  if($cvp.siklar){
+    $hgMetin = "$($cvp.soru) " + ((@('A','B','C','D','E') | ForEach-Object { "$($cvp.siklar.$_)" }) -join ' ')
+    $hgKodlar = @([regex]::Matches($hgMetin,'(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜ])') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+    $hgGruplar = @($hgKodlar | ForEach-Object { $_.Substring(0,2) } | Select-Object -Unique)
+    if($hgGruplar.Count){
+      $hgParca = New-Object System.Collections.Generic.List[string]
+      $hgAdlar = New-Object System.Collections.Generic.List[string]
+      foreach($hgG in ($hgGruplar | Select-Object -First 6)){
+        $hgU='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString("THP $hgG%")+'&limit=12'
+        try{
+          $hgR=Invoke-RestMethod -Uri $hgU -Headers $SB -TimeoutSec 60
+          foreach($hgX in @($hgR)){ $hgParca.Add("[$($hgX.kaynak_ad)] $($hgX.metin)"); $hgAdlar.Add("$($hgX.kaynak_ad)") }
+        }catch{}
+      }
+      if($hgParca.Count){
+        $hgPaket=($hgParca -join "`n---`n")
+        if($hgPaket.Length -gt 9000){ $hgPaket=$hgPaket.Substring(0,9000) }
+        $kMetin = "=== ILGILI HESAP GRUBUNUN TUM HESAPLARI ===`n" + $hgPaket + "`n---`n" + $kMetin
+        if($kMetin.Length -gt 20000){ $kMetin=$kMetin.Substring(0,20000) }
+        $cvp | Add-Member -NotePropertyName hesap_genisletme -NotePropertyValue @($hgAdlar) -Force
+        Write-Host ("  HESAP GRUBU: {0} <- {1} grubu, {2} hesap tanimi eklendi" -f $id,($hgGruplar -join '/'),$hgAdlar.Count) -ForegroundColor DarkCyan
+      } else {
+        Write-Host ("  HESAP GRUBU BOS: {0} <- {1} grubu ambardan gelmedi" -f $id,($hgGruplar -join '/')) -ForegroundColor DarkYellow
+        $rapor.Add("HESAP GRUBU AMBARDA YOK: $id ($($hgGruplar -join '/'))")
+      }
+    }
+  }
   # 09.09 GM pilotu: kp-10 hakemsiz kaldı, sebebi yalnız rapora yazılmıştı (konsolda iz yok) → konsola da yazılır
   if(-not $kMetin){ $rapor.Add("HAKEM ATLANDI (kaynak cekilemedi): $id"); Write-Host "  HAKEM ATLANDI (kaynak paketi BOŞ, soru yayına giremez): $id [$($cvp.konu)]" -ForegroundColor Red; continue }
   $gecici=@(GeciciMaddeNotu $cvp); $geciciNot=$(if($gecici.Count){ "DIKKAT: soru/dayanak gecici madde aniyor ($($gecici -join ', ')); gecici hukmun suresi kaynak metninde dolmussa ESKI." } else { '' })
@@ -2497,7 +2561,9 @@ foreach($id in @($don.Keys)){
   $yh=$null
   # 08.09 Tur 1 kazası 2: hakem JSON'una güncellik+atıf alanları eklenince 600 jeton yetmedi, 65 sorunun 31'inde cevap KESİLDİ → "HAKEM CIKTISI BOZUK"
   # yalnız rapora yazılıyordu, konsola değil; hakemsiz soru yayın şartını geçemedi (29 yayın kaybı). Tavan 1.600 + bozukluk konsola + kesilme notu.
-  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 1600; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  # 11.09: KAPI-HG iki alan daha ekledi (hesap_uyum, hesap_gerekce) -> 1.600 -> 2.000.
+  # 08.09'da tam bu sebeple 65 sorunun 31'inde cevap KESILMISTI; tavan alanla birlikte buyur.
+  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 2000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
   $hk=Coz $yh.metin
   if(-not ($hk -and $hk.karar)){ Write-Host "  HAKEM ÇIKTISI BOZUK ($id): durma=$($yh.dur) · $("$($yh.metin)".Length) kr" -ForegroundColor Red }
   if($hk -and $hk.karar){
@@ -2505,6 +2571,9 @@ foreach($id in @($don.Keys)){
     CacheYaz
     $renk=if("$($hk.karar)" -eq 'EVET'){'Green'}else{'Red'}
     Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
+    # 11.09 KAPI-HG: sessiz gecmesin - hesap hukmu ayri satir (Cem'in kp-80 bulgusu)
+    if("$($hk.hesap_uyum)" -eq 'HESAP-YANLIS'){ Write-Host "  HESAP YANLIS (KAPI-HG): $id [$($cvp.konu)] -> $($hk.hesap_gerekce)" -ForegroundColor Magenta; $rapor.Add("HESAP YANLIS (KAPI-HG): $id | $($hk.hesap_gerekce)") }
+    elseif("$($hk.hesap_uyum)" -eq 'TEYITSIZ'){ Write-Host "  HESAP TEYITSIZ (KAPI-HG): $id [$($cvp.konu)] -> hesap tanimi pakette yok" -ForegroundColor DarkYellow; $rapor.Add("HESAP TEYITSIZ (KAPI-HG): $id") }
     if("$($hk.tek_anlam)" -eq 'CIFT-ANLAM'){ Write-Host "  CIFT-ANLAM (KAPI E): $id [$($cvp.konu)] -> $($hk.tek_anlam_gerekce)" -ForegroundColor Magenta; $rapor.Add("CIFT-ANLAM (KAPI E): $($cvp.konu) | $($hk.tek_anlam_gerekce)") }
     # 08.09 güncellik + atıf (hakem 5 ve 6): ESKI / ATIF-YANLIS karar HAYIR'la gelir (istem); TEYITSIZ yayına çıkar ama karneye iz düşer
     if($hk.PSObject.Properties['guncellik'] -and "$($hk.guncellik)" -eq 'ESKI'){ Write-Host "  GÜNCELLİK ESKİ (KAPI-M/S hakem): $id [$($cvp.konu)] -> $($hk.guncellik_gerekce)" -ForegroundColor Magenta; $rapor.Add("GUNCELLIK ESKI (hakem): $($cvp.konu) | $($hk.guncellik_gerekce)") }
