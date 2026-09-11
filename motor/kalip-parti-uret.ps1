@@ -283,13 +283,43 @@ function AtifDesen([string]$dayanak){
   if(-not $dayanak){ return @() }
   # 03.09 ikinci olcum (SMMM SPK kp-05/11/13 atif bos kaldi): model kanunu SAYIYLA ("6362 s.K. m.35/C"),
   # kisaltmayla ("SerPK") ya da Teblig adiyla ("Kurumsal Yönetim Tebliği (II-17.1) m.3") aniyor.
-  $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace '\bSPKn\b|\bSerPK\b|\b6362\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SPK ' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?|\b213\s*s(ayılı|\.)?\s*(K\.|Kanun)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?|\b193\s*s(ayılı|\.)?\s*(K\.|Kanun)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?|\b6102\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?|\b6098\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TBK ' -replace '\b4857\s*s(ayılı|\.)?\s*(İş\s*K\.|İş Kanunu|K\.|Kanun)?|\bİş K(anunu|\.)','ISK ' -replace '\b5510\s*s(ayılı|\.)?\s*(K\.|Kanun|SGK Kanunu)?','SGK ' -replace '\b3568\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SMMM ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT ' -replace '(SMMM ve YMM K(anunu)?\.?\s*)?Disiplin Y[oö]netmeli[gğ]i','DISY ' -replace 'Haks[ıi]z Rekabet ve Reklam Yasa[gğ][ıi] Y[oö]netmeli[gğ]i','HRRY ' -replace '(TÜRMOB\s*)?(Mesleki Faaliyetlerde\s*)?Etik [İi]lkeler( Hakk[ıi]nda)? Y[oö]netmeli[gğ]i?(\s*EK)?','ETIKY ' -replace '(SMMM\s*)?Staj Y[oö]netmeli[gğ]i','STAJY '
+  # ⛔ 11.09 OLCULDU: bu fonksiyon 777 KAYNAK-EKSIK retinin buyuk kisminin
+  #    KOK NEDENI. Dayanak DOGRU yaziliyor, madde AMBARDA VAR, ama kisaltma
+  #    tablosunda olmayan kanun icin desen BOS donuyor -> atif genisletme hic
+  #    atesle.miyor -> dogru madde pakete HIC girmiyor -> hakem "kaynakta yok"
+  #    diyor. Olculen ornekler (ucu de ambarda VAR, ucu de desen uretmiyordu):
+  #      "6356 sayili Sendikalar ve TIS Kanunu m.17"      -> BOS
+  #      "2577 sayili IYUK m.28/6 (6183 s.K. m.48 atfi)"  -> BOS
+  #      "213 sayili VUK'un 275 inci maddesi"             -> BOS (sira sayili)
+  #    ⚠ Ayni kusur DERS_KANUN listesinde 07.09'da bulunup duzeltilmis, ama bu
+  #      tablo guncellenmemisti - kanun bir kapidan gecip digerinde takiliyordu.
+  # SIRA SAYILI MADDE: "275 inci maddesi" -> "m.275"
+  $dayanak = $dayanak -replace '(\d{1,4})\s*(?:inci|ıncı|uncu|üncü|nci|ncı)\s*madde(si|sinde|sine)?','m.$1 '
+  $t=$dayanak -replace 'Sermaye Piyasas[ıi] K(anunu|\.)?\s*(\(6362[^)]*\))?','SPK ' -replace '\bSPKn\b|\bSerPK\b|\b6362\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SPK ' -replace 'Kurumlar Vergisi K(anunu|\.)?','KVK ' -replace 'Vergi Usul K(anunu|\.)?|\b213\s*s(ayılı|\.)?\s*(K\.|Kanun)?','VUK ' -replace 'Gelir Vergisi K(anunu|\.)?|\b193\s*s(ayılı|\.)?\s*(K\.|Kanun)?','GVK ' -replace 'Türk Ticaret K(anunu|\.)?|\b6102\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TTK ' -replace 'Türk Borçlar K(anunu|\.)?|\b6098\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TBK ' -replace '\b4857\s*s(ayılı|\.)?\s*(İş\s*K\.|İş Kanunu|K\.|Kanun)?|\bİş K(anunu|\.)','ISK ' -replace '\b5510\s*s(ayılı|\.)?\s*(K\.|Kanun|SGK Kanunu)?','SGK ' -replace '\b3568\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SMMM '
+  # ⬇ 11.09: eksik kanunlar. KVK ONCE gelir - ciplak "KVK" eski tabloda
+  #    TEBLIG'e ('KVK GUT') gidiyordu; kanun maddesi isteyen soru teblig aliyordu.
+  $t=$t -replace '\bKVK\s*\(5520[^)]*\)|Kurumlar Vergisi K(anunu|\.)?|\b5520\s*s(ayılı|\.)?\s*(K\.|Kanun)?','KVKK '
+  $t=$t -replace 'Sendikalar ve Toplu [İi]ş Sözleşmesi K(anunu|\.)?|\b6356\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SENK ' `
+        -replace '[İi]dari Yarg[ıi]lama Usul[uü] K(anunu|\.)?|\b[İi]YUK\b|\b2577\s*s(ayılı|\.)?\s*(K\.|Kanun)?','IYUK ' `
+        -replace 'Amme Alacaklar[ıi]n[ıi]n Tahsil Usul[uü] Hakk[ıi]nda K(anunu|\.)?|\bAATUHK\b|\b6183\s*s(ayılı|\.)?\s*(K\.|Kanun)?','AATU ' `
+        -replace 'Katma De[gğ]er Vergisi K(anunu|\.)?|\bKDVK\b|\b3065\s*s(ayılı|\.)?\s*(K\.|Kanun)?','KDVK ' `
+        -replace 'Damga Vergisi K(anunu|\.)?|\b488\s*s(ayılı|\.)?\s*(K\.|Kanun)?','DAMGA ' `
+        -replace '[İi]ş Sa[gğ]l[ıi][gğ][ıi] ve G[uü]venli[gğ]i K(anunu|\.)?|\b6331\s*s(ayılı|\.)?\s*(K\.|Kanun)?','ISGK ' `
+        -replace '[İi]cra ve [İi]flas K(anunu|\.)?|\b2004\s*s(ayılı|\.)?\s*(K\.|Kanun)?','IIK ' `
+        -replace '[İi]şsizlik Sigortas[ıi] K(anunu|\.)?|\b4447\s*s(ayılı|\.)?\s*(K\.|Kanun)?','ISSIZ ' `
+        -replace 'Bankac[ıi]l[ıi]k K(anunu|\.)?|\b5411\s*s(ayılı|\.)?\s*(K\.|Kanun)?','BANK ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT ' -replace '(SMMM ve YMM K(anunu)?\.?\s*)?Disiplin Y[oö]netmeli[gğ]i','DISY ' -replace 'Haks[ıi]z Rekabet ve Reklam Yasa[gğ][ıi] Y[oö]netmeli[gğ]i','HRRY ' -replace '(TÜRMOB\s*)?(Mesleki Faaliyetlerde\s*)?Etik [İi]lkeler( Hakk[ıi]nda)? Y[oö]netmeli[gğ]i?(\s*EK)?','ETIKY ' -replace '(SMMM\s*)?Staj Y[oö]netmeli[gğ]i','STAJY '
   # 09.09 Meslek Hukuku ÖLÇÜLDÜ (kolay 12 · zor 7 · çok zor 8 yayın / 29 konu; hakem "kaynakta yok" %25–37): model "Disiplin Yönetmeliği m.6/c",
   # "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.14, m.32" anıyor, ambarda maddeler var ("SMMM ve YMM K. Disiplin Yonetmeligi m.6"), ama atıf
   # genişletme yalnız kanun kısaltmalarını tanıyordu → yönetmelik maddeleri pakete girmiyordu. Dört yönetmelik kısaltma tablosuna eklendi.
   $KANUN2=@{}; foreach($k in $KANUN.Keys){ $KANUN2[$k]=$KANUN[$k] }
   $KANUN2['DISY']='SMMM ve YMM K. Disiplin Yonetmeligi'; $KANUN2['HRRY']='Haksız Rekabet ve Reklam Yasağı Yön.'; $KANUN2['ETIKY']='TÜRMOB Etik İlkeler Yön.'; $KANUN2['STAJY']='SMMM Staj Yonetmeligi'
-  $KANUN2['ISK']='İş K. (4857 s.K.)'; $KANUN2['KYT']='Kurumsal Yonetim Tebligi (II-17.1)'; $KANUN2['PAYT']='Pay Tebligi (VII-128.1)'; $KANUN2['FONT']='Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)'
+  $KANUN2['ISK']='İş K. (4857 s.K.)';
+  $KANUN2['SENK']='Sendikalar ve TİS K. (6356 s.K.)'; $KANUN2['IYUK']='İYUK (2577 s.K.)'
+  $KANUN2['AATU']='AATUHK (6183 s.K.)'; $KANUN2['KDVK']='KDVK (3065 s.K.)'
+  $KANUN2['DAMGA']='Damga V.K. (488 s.K.)'; $KANUN2['KVKK']='KVK (5520 s.K.)'
+  $KANUN2['ISGK']='İSG K. (6331 s.K.)'; $KANUN2['IIK']='İİK (2004 s.K.)'
+  $KANUN2['ISSIZ']='4447 s. İşsizlik Sig. K.'; $KANUN2['BANK']='Bankacılık K. (5411 s.K.)'
+  $KANUN2['KYT']='Kurumsal Yonetim Tebligi (II-17.1)'; $KANUN2['PAYT']='Pay Tebligi (VII-128.1)'; $KANUN2['FONT']='Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)'
   # 08.09 Tur 1 Denetim ÖLÇÜLDÜ (dayanak-dusus-olcum: 161 sorunun 31'i "kaynakta yok"): model "BDS 200 p.12" yazıyor, desen "BDS 200 p.%"
   # standardın p.1'den başlayan İLK parçalarını çekiyor, 7.000 tavanı p.12'ye gelmeden doluyordu → hakem "paket yalnız p.0–6" diye reddediyordu.
   # Artık anılan PARAGRAF numaraları önce ("p.12", "p.A96", "paragraf 5", "p.15, A21"), genel p.% en sona yedek. Ek/UR paragrafları bazı
@@ -311,7 +341,7 @@ function AtifDesen([string]$dayanak){
   foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
   # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
   $son=''
-  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVK|SPK|SGK|SMMM|ISK|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z]))?')){
+  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVKK|KVK|SPK|SGK|SMMM|ISK|SENK|IYUK|AATU|KDVK|DAMGA|ISGK|IIK|ISSIZ|BANK|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z0-9]))?')){
     if($m.Groups[1].Success){ $son=$m.Groups[1].Value }
     if(-not $son -or -not $KANUN2.ContainsKey($son) -or $KANUN2[$son] -match '%$'){ continue }
     $ek=if($m.Groups[3].Success){ "/$($m.Groups[3].Value)" } else { '' }
