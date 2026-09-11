@@ -1,7 +1,7 @@
 ﻿# RET KUTUGU — dusen sorularin nedeni ve onarim emri
 
-> Uretim: **11.09.2026 16:11** (makine; elle duzenlenmez — arac/ret-kutugu.ps1). Bedel 0.
-> Taranan 3.701 soru · dusen **1.288** (%34,8)
+> Uretim: **11.09.2026 17:50** (makine; elle duzenlenmez — arac/ret-kutugu.ps1). Bedel 0.
+> Taranan 3.701 soru · dusen **1.323** (%35,7)
 
 ## KURAL
 
@@ -12,29 +12,29 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 
 | Kapi | Soru | Pay |
 |---|---:|---:|
-| KAPI-HAKEM | 763 | %59,2 |
-| KAPI-HAKEM2 | 199 | %15,5 |
-| KAPI-SIM | 155 | %12,0 |
-| hakem KOSMADI | 108 | %8,4 |
-| KAPI-KOR | 63 | %4,9 |
+| KAPI-HAKEM | 798 | %60,3 |
+| KAPI-HAKEM2 | 199 | %15,0 |
+| KAPI-SIM | 155 | %11,7 |
+| hakem KOSMADI | 108 | %8,2 |
+| KAPI-KOR | 63 | %4,8 |
 
 ## 2 · KOK NEDEN SINIFI — asil okunacak tablo
 
 | Sinif | Soru | Pay | Onarim yolu |
 |---|---:|---:|---|
-| KAYNAK-EKSIK | 699 | %54,3 | Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri. |
-| SIM-YANLIS | 155 | %12,0 | Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter. |
-| (siniflanmamis) | 128 | %9,9 | **Desen yok — yeni kusur ailesi olabilir, asagidaki orneklere bak ve SINIF listesine desen ekle.** |
-| HAKEM-KOSMADI | 108 | %8,4 | Soru hic denetlenmemis. Parti -PilotId ile yeniden kosulur; kapilardan gecerse hasada girer. |
-| KOR-CELISKI | 63 | %4,9 | Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret. |
-| YZ-KOKUSU | 57 | %4,4 | Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir. |
+| KAYNAK-EKSIK | 726 | %54,9 | Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri. |
+| SIM-YANLIS | 155 | %11,7 | Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter. |
+| (siniflanmamis) | 134 | %10,1 | **Desen yok — yeni kusur ailesi olabilir, asagidaki orneklere bak ve SINIF listesine desen ekle.** |
+| HAKEM-KOSMADI | 108 | %8,2 | Soru hic denetlenmemis. Parti -PilotId ile yeniden kosulur; kapilardan gecerse hasada girer. |
+| KOR-CELISKI | 63 | %4,8 | Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret. |
+| YZ-KOKUSU | 57 | %4,3 | Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir. |
 | YAPAY-DIL | 34 | %2,6 | Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur. |
-| KAYNAK-KESIK | 30 | %2,3 | Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir. |
+| KAYNAK-KESIK | 32 | %2,4 | Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir. |
 | COK-ANLAMLI | 6 | %0,5 | Istem cumlesi tek anlama indirilir; cogu zaman tek kelime duzeltmesi yeter. |
 | CELDIRICI-SAHTE | 5 | %0,4 | Celdirici sayilar uydurulmus. KAPI-C yolu; soru yeniden uretilir. |
 | SINAV-DUZEYI | 3 | %0,2 | Soru SGS duzeyinin USTUNDE (paragraf numarasi sorgusu vb). Konu kartina zorluk tavani yazilir; soru sadelestirilir. |
 
-### Siniflanmamis 128 gerekceden ornekler
+### Siniflanmamis 134 gerekceden ornekler
 
 - kgk-bosluk-trkiyedenetimstandartlar/kp-06 [KAPI-HAKEM] Soru VUK m.323'e dayansa da, şüpheli alacak karşılığı muhasebe/vergi muhasebesi konusu olup bağımsız denetim standartları kapsamında değildir.
 - kgk-bosluk-trkiyemuhasebestandartlar/kp-17 [KAPI-HAKEM] Kaynak metinde THP 128 hesabının işleyişi açıklanmakta ancak doğru sikta gösterilen muhasebe kaydının (128 borç / 120 alacak) temel mantığı kaynakta eksiktir; kaynakta 'ilgili hesapların ala…
@@ -51,7 +51,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 
 ## 3 · ONARIM EMRI — sinif sinif ilk 10 soru
 
-### KAYNAK-EKSIK (699 soru)
+### KAYNAK-EKSIK (726 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -141,7 +141,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | sgs-t1-denetim-zor/kp-62 | bds 330 yetersiz denetim kaniti | Gerçek SGS sınavında şıklar kısa etiket biçiminde olur, gerekçe içermez; burada her şıkta 'bu prosedür ... riskine karşı ihtiyaca uygundur/değildir' ş… |
 | sgs-t1-denetim-zor/kp-81 | bds 530 orneklem buyuklugu | Kök ve şık uzunluğu sınav formatına yakın olsa da, B ve E şıkları aynı BDS 530 par.11 hükmünü ('yerini alan başka bir kalem üzerinde prosedür uygulanı… |
 
-### KAYNAK-KESIK (30 soru)
+### KAYNAK-KESIK (32 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|

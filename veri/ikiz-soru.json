@@ -1,0 +1,1129 @@
+﻿{
+    "olcum":  "2026-09-11 18:30",
+    "kural":  "Ayni konudan uretilen sorular kiyaslanir. Esigi asan ciftte BIRI yayin disi birakilir (yayinda olan ya da daha uzun olan kalir). SORU SILINMEZ.",
+    "esik":  0.6,
+    "taranan":  3713,
+    "kiyaslanan_cift":  6712,
+    "ortalama_benzerlik_yuzde":  26.5,
+    "ikiz_cift":  127,
+    "yayin_disi":  98,
+    "ikisi_de_yayinda":  14,
+    "yayin_disi_idler":  [
+                             "kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim|kp-23",
+                             "sgs-a6e-meslek-kolay|kp-05",
+                             "sgs-a6e-meslek-kolay|kp-06",
+                             "sgs-a6e-meslek-kolay|kp-07",
+                             "sgs-a6e-meslek-kolay|kp-08",
+                             "sgs-a6e-meslek-kolay|kp-15",
+                             "sgs-a6e-meslek-zor|kp-16",
+                             "sgs-denetim-k10d|kp-01",
+                             "sgs-denetim-zor1|kp-01",
+                             "sgs-denetim-zor3|kp-01",
+                             "sgs-fmuh-30|kp-24",
+                             "sgs-fmuh-30|kp-29",
+                             "sgs-gk-pilot3-inkilap-zor|kp-01",
+                             "sgs-issgk-k10e|kp-01",
+                             "sgs-t1-borclar-kolay|kp-28",
+                             "sgs-t1-borclar-zor|kp-01",
+                             "sgs-t1-borclar-zor|kp-02",
+                             "sgs-t1-denetim-kolay|kp-41",
+                             "sgs-t1-denetim-kolay|kp-77",
+                             "sgs-t1-denetim-zor|kp-38",
+                             "sgs-t1-denetim-zor|kp-74",
+                             "sgs-t1-fmuh-cokzor|kp-25",
+                             "sgs-t1-fmuh-cokzor|kp-39",
+                             "sgs-t1-fmuh-kolay|kp-09",
+                             "sgs-t1-fmuh-kolay|kp-60",
+                             "sgs-t1-fmuh-kolay|kp-61",
+                             "sgs-t1-fmuh-kolay|kp-70",
+                             "sgs-t1-fmuh-kolay|kp-81",
+                             "sgs-t1-fmuh-kolay-b|kp-104",
+                             "sgs-t1-fmuh-kolay-b|kp-161",
+                             "sgs-t1-fmuh-kolay-b|kp-187",
+                             "sgs-t1-fmuh-kolay-b|kp-98",
+                             "sgs-t1-fmuh-zor|kp-81",
+                             "sgs-t1-fmuh-zor-b|kp-158",
+                             "sgs-t1-genel-ekonomi-cokzor|kp-06",
+                             "sgs-t1-genel-ekonomi-cokzor|kp-19",
+                             "sgs-t1-genel-ekonomi-kolay|kp-10",
+                             "sgs-t1-genel-ekonomi-zor|kp-10",
+                             "sgs-t1-genel-inkilap-cokzor|kp-01",
+                             "sgs-t1-genel-inkilap-zor|kp-05",
+                             "sgs-t1-genel-inkilap-zor|kp-28",
+                             "sgs-t1-genel-maliye-cokzor|kp-19",
+                             "sgs-t1-genel-maliye-kolay|kp-22",
+                             "sgs-t1-genel-maliye-zor|kp-12",
+                             "sgs-t1-genel-mat-kolay|kp-03",
+                             "sgs-t1-genel-mat-kolay|kp-20",
+                             "sgs-t1-genel-mat-kolay|kp-33",
+                             "sgs-t1-genel-mat-kolay|kp-38",
+                             "sgs-t1-genel-turkce-cokzor|kp-19",
+                             "sgs-t1-genel-turkce-kolay|kp-29",
+                             "sgs-t1-genel-turkce-kolay|kp-30",
+                             "sgs-t1-genel-turkce-kolay|kp-31",
+                             "sgs-t1-genel-turkce-zor|kp-04",
+                             "sgs-t1-genel-turkce-zor|kp-23",
+                             "sgs-t1-genel-turkce-zor|kp-27",
+                             "sgs-t1-genel-turkce-zor|kp-30",
+                             "sgs-t1-issgk-kolay|kp-01",
+                             "sgs-t1-issgk-kolay|kp-02",
+                             "sgs-t1-issgk-kolay|kp-08",
+                             "sgs-t1-issgk-kolay|kp-20",
+                             "sgs-t1-issgk-kolay|kp-34",
+                             "sgs-t1-issgk-zor|kp-07",
+                             "sgs-t1-issgk-zor|kp-20",
+                             "sgs-t1-maliyet-cokzor|kp-07",
+                             "sgs-t1-ticaret-cokzor|kp-10",
+                             "sgs-t1-ticaret-kolay|kp-27",
+                             "sgs-t1-ticaret-zor|kp-48",
+                             "sgs-t2b-mta-zor|kp-12",
+                             "sgs-t2-denetim-cokzor|kp-01",
+                             "sgs-t2-denetim-cokzor|kp-19",
+                             "sgs-t2-denetim-kolay|kp-01",
+                             "sgs-t2-denetim-kolay|kp-09",
+                             "sgs-t2-denetim-kolay|kp-10",
+                             "sgs-t2-denetim-kolay|kp-20",
+                             "sgs-t2-denetim-kolay|kp-22",
+                             "sgs-t2-denetim-kolay|kp-41",
+                             "sgs-t2-denetim-zor|kp-01",
+                             "sgs-t2-denetim-zor|kp-13",
+                             "sgs-t2-fmuh-cokzor|kp-19",
+                             "sgs-t2-fmuh-kolay|kp-04",
+                             "sgs-t2-fmuh-kolay|kp-06",
+                             "sgs-t2-fmuh-kolay|kp-104",
+                             "sgs-t2-fmuh-kolay|kp-32",
+                             "sgs-t2-fmuh-zor|kp-112",
+                             "sgs-t2-fmuh-zor|kp-17",
+                             "sgs-t2-fmuh-zor|kp-32",
+                             "sgs-t2-fmuh-zor|kp-35",
+                             "sgs-t2-fmuh-zor|kp-57",
+                             "sgs-t2-fmuh-zor|kp-81",
+                             "sgs-t2-ticaret-cokzor|kp-09",
+                             "sgs-t2-ticaret-kolay|kp-02",
+                             "sgs-t2-ticaret-zor|kp-01",
+                             "sgs-t2-vergi-kolay|kp-16",
+                             "sgs-t4-maliye-kolay|kp-17",
+                             "sgs-t4-vergi-kolay|kp-06",
+                             "sgs-t5-denetim-kolay|kp-09",
+                             "sgs-ticaret-k10d|kp-01",
+                             "sgs-vergi-p30|kp-04"
+                         ],
+    "ciftler":  [
+                    {
+                        "konu":  "kredi faiz tahakkuku",
+                        "skor":  0.734,
+                        "kalan":  "sgs-t2-fmuh-zor|kp-18",
+                        "dusen":  "sgs-t2-fmuh-cokzor|kp-19",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetci raporu gorus bolumu",
+                        "skor":  0.737,
+                        "kalan":  "sgs-t2-denetim-kolay|kp-37",
+                        "dusen":  "sgs-t1-denetim-kolay|kp-77",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "tms 27 bagli ortaklik olcumu",
+                        "skor":  0.692,
+                        "kalan":  "sgs-t2-fmuh-kolay|kp-55",
+                        "dusen":  "sgs-t1-fmuh-kolay-b|kp-104",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.763,
+                        "kalan":  "sgs-denetim-zor1|kp-01",
+                        "dusen":  "sgs-denetim-k10d|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.667,
+                        "kalan":  "sgs-denetim-k10d|kp-01",
+                        "dusen":  "sgs-denetim-zor3|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.838,
+                        "kalan":  "sgs-t1-denetim-zor|kp-01",
+                        "dusen":  "sgs-denetim-k10d|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.669,
+                        "kalan":  "sgs-t2-denetim-zor|kp-01",
+                        "dusen":  "sgs-denetim-k10d|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.614,
+                        "kalan":  "sgs-denetim-zor1|kp-01",
+                        "dusen":  "sgs-denetim-zor3|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.875,
+                        "kalan":  "sgs-t1-denetim-zor|kp-01",
+                        "dusen":  "sgs-denetim-zor1|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.869,
+                        "kalan":  "sgs-denetim-zor1|kp-01",
+                        "dusen":  "sgs-t2-denetim-zor|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim kaniti yeterliligi",
+                        "skor":  0.781,
+                        "kalan":  "sgs-t1-denetim-zor|kp-01",
+                        "dusen":  "sgs-t2-denetim-zor|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kisa cizgi kullanimi",
+                        "skor":  0.766,
+                        "kalan":  "sgs-t1-genel-turkce-kolay|kp-19",
+                        "dusen":  "sgs-t1-genel-turkce-cokzor|kp-19",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "genel islem sartlari",
+                        "skor":  0.675,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-48",
+                        "dusen":  "sgs-t1-ticaret-zor|kp-48",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "anonim sirket yonetim kurulu yetkisi",
+                        "skor":  0.676,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-15",
+                        "dusen":  "sgs-t2-ticaret-cokzor|kp-09",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "anonim sirket yonetim kurulu yetkisi",
+                        "skor":  0.65,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-15",
+                        "dusen":  "sgs-ticaret-p30|kp-01",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "kdv vergiye tabi islemler",
+                        "skor":  0.69,
+                        "kalan":  "sgs-t1-vergi-kolay|kp-25",
+                        "dusen":  "sgs-t4-vergi-kolay|kp-06",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "toplu is sozlesmesi",
+                        "skor":  1,
+                        "kalan":  "sgs-issgk-k10g|kp-01",
+                        "dusen":  "sgs-t1-issgk-kolay|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ardisik sayi problemi",
+                        "skor":  0.614,
+                        "kalan":  "sgs-t1-genel-mat-zor|kp-33",
+                        "dusen":  "sgs-t1-genel-mat-kolay|kp-33",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ticari temsilcilik yetkisi",
+                        "skor":  0.645,
+                        "kalan":  "sgs-t1-ticaret-zor|kp-27",
+                        "dusen":  "sgs-t1-ticaret-kolay|kp-27",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ticari temsilcilik yetkisi",
+                        "skor":  0.618,
+                        "kalan":  "sgs-t2-ticaret-kolay|kp-09",
+                        "dusen":  "sgs-t1-ticaret-kolay|kp-27",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ozkaynak hesaplama",
+                        "skor":  0.754,
+                        "kalan":  "sgs-t2-fmuh-kolay|kp-05",
+                        "dusen":  "sgs-t1-fmuh-kolay|kp-09",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "anlatim akisi bozuklugu",
+                        "skor":  0.793,
+                        "kalan":  "sgs-t1-genel-turkce-kolay|kp-27",
+                        "dusen":  "sgs-t1-genel-turkce-zor|kp-27",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "etik ilkeler kisisel cikar tehdidi",
+                        "skor":  0.778,
+                        "kalan":  "sgs-a6e-meslek-kolay|kp-17",
+                        "dusen":  "sgs-a6e-meslek-zor|kp-16",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "is kazasi sayilan haller",
+                        "skor":  0.648,
+                        "kalan":  "sgs-t1-issgk-cokzor|kp-34",
+                        "dusen":  "sgs-t1-issgk-kolay|kp-34",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "meslek standartlari ihlali",
+                        "skor":  0.653,
+                        "kalan":  "sgs-a6e-meslek-zor|kp-09",
+                        "dusen":  "sgs-a6e-meslek-kolay|kp-05",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "orneklem buyuklugu faktorleri",
+                        "skor":  0.625,
+                        "kalan":  "sgs-t1-denetim-kolay|kp-38",
+                        "dusen":  "sgs-t1-denetim-zor|kp-38",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "belirtisiz ad tamlamasi",
+                        "skor":  0.764,
+                        "kalan":  "sgs-t1-genel-turkce-zor|kp-31",
+                        "dusen":  "sgs-t1-genel-turkce-kolay|kp-31",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "calisma kagitlari",
+                        "skor":  0.607,
+                        "kalan":  "sgs-t1-denetim-kolay|kp-06",
+                        "dusen":  "sgs-t2-denetim-cokzor|kp-01",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "bds 230 calisma kagitlari",
+                        "skor":  0.69,
+                        "kalan":  "sgs-t1-denetim-kolay|kp-17",
+                        "dusen":  "sgs-t2-denetim-kolay|kp-10",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "haksiz rekabet reklam yasagi",
+                        "skor":  0.658,
+                        "kalan":  "sgs-t1-ticaret-zor|kp-02",
+                        "dusen":  "sgs-t1-ticaret-kolay|kp-02",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "haksiz rekabet davalari",
+                        "skor":  0.786,
+                        "kalan":  "sgs-ticaret-p30|kp-02",
+                        "dusen":  "sgs-t2-ticaret-kolay|kp-02",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ozkaynak tutari hesaplama",
+                        "skor":  0.735,
+                        "kalan":  "sgs-t2-fmuh-kolay|kp-36",
+                        "dusen":  "sgs-t1-fmuh-kolay-b|kp-98",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "gelir vergisi yurt disi kazanc istisnasi",
+                        "skor":  0.611,
+                        "kalan":  "sgs-t1-vergi-zor|kp-26",
+                        "dusen":  "sgs-t2-vergi-kolay|kp-16",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "gelir vergisi yurt disi kazanc istisnasi",
+                        "skor":  0.615,
+                        "kalan":  "sgs-t1-vergi-zor|kp-26",
+                        "dusen":  "sgs-vergi-p30|kp-04",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "modern portfoy teorisi",
+                        "skor":  0.672,
+                        "kalan":  "kgk-kurfin-30|kp-25",
+                        "dusen":  "kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim|kp-23",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "i dunya savasi",
+                        "skor":  0.617,
+                        "kalan":  "sgs-gk-pilot-inkilap-zor|kp-01",
+                        "dusen":  "sgs-t1-genel-inkilap-cokzor|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kalip soz kullanimi",
+                        "skor":  0.674,
+                        "kalan":  "sgs-t1-genel-turkce-cokzor|kp-30",
+                        "dusen":  "sgs-t1-genel-turkce-kolay|kp-30",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kalip soz kullanimi",
+                        "skor":  0.674,
+                        "kalan":  "sgs-t1-genel-turkce-cokzor|kp-30",
+                        "dusen":  "sgs-t1-genel-turkce-zor|kp-30",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kalip soz kullanimi",
+                        "skor":  1,
+                        "kalan":  "sgs-t1-genel-turkce-kolay|kp-30",
+                        "dusen":  "sgs-t1-genel-turkce-zor|kp-30",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ymm tasdik yasaklari",
+                        "skor":  0.644,
+                        "kalan":  "sgs-a6e-meslek-zor|kp-11",
+                        "dusen":  "sgs-a6e-meslek-kolay|kp-08",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "bds 701 kilit denetim konulari",
+                        "skor":  0.693,
+                        "kalan":  "sgs-t1-denetim-zor|kp-74",
+                        "dusen":  "sgs-t2-denetim-kolay|kp-41",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "bds 701 kilit denetim konulari",
+                        "skor":  1,
+                        "kalan":  "sgs-t2-denetim-zor|kp-42",
+                        "dusen":  "sgs-t1-denetim-zor|kp-74",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "bds 701 kilit denetim konulari",
+                        "skor":  0.693,
+                        "kalan":  "sgs-t2-denetim-zor|kp-42",
+                        "dusen":  "sgs-t2-denetim-kolay|kp-41",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "denetim calisma kagitlari",
+                        "skor":  0.712,
+                        "kalan":  "sgs-t1-denetim-kolay|kp-02",
+                        "dusen":  "sgs-t2-denetim-kolay|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "azalan bakiyeler amortisman yontemi",
+                        "skor":  0.6,
+                        "kalan":  "sgs-t2-fmuh-zor|kp-92",
+                        "dusen":  "sgs-t1-fmuh-zor-b|kp-158",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sabit fonksiyon",
+                        "skor":  0.625,
+                        "kalan":  "sgs-t1-genel-mat-cokzor|kp-20",
+                        "dusen":  "sgs-t1-genel-mat-kolay|kp-20",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "bds 240 hasilat hile denetimi",
+                        "skor":  0.623,
+                        "kalan":  "sgs-t1-denetim-kolay|kp-64",
+                        "dusen":  "sgs-t1-denetim-zor|kp-64",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "tekelci rekabet piyasasi",
+                        "skor":  0.646,
+                        "kalan":  "sgs-t1-genel-ekonomi-cokzor|kp-10",
+                        "dusen":  "sgs-t1-genel-ekonomi-kolay|kp-10",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "tekelci rekabet piyasasi",
+                        "skor":  0.619,
+                        "kalan":  "sgs-t1-genel-ekonomi-cokzor|kp-10",
+                        "dusen":  "sgs-t1-genel-ekonomi-zor|kp-10",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "tekelci rekabet piyasasi",
+                        "skor":  0.733,
+                        "kalan":  "sgs-t1-genel-ekonomi-kolay|kp-10",
+                        "dusen":  "sgs-t1-genel-ekonomi-zor|kp-10",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "gkgds calisma alani standartlari",
+                        "skor":  0.669,
+                        "kalan":  "sgs-t1-denetim-cokzor|kp-37",
+                        "dusen":  "sgs-t2-denetim-zor|kp-13",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "gkgds calisma alani standartlari",
+                        "skor":  0.637,
+                        "kalan":  "sgs-t2-denetim-zor|kp-13",
+                        "dusen":  "sgs-t2-denetim-kolay|kp-20",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "gkgds calisma alani standartlari",
+                        "skor":  0.612,
+                        "kalan":  "sgs-t2-denetim-kolay|kp-20",
+                        "dusen":  "sgs-t5-denetim-kolay|kp-09",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kontrol cevresi unsurlari",
+                        "skor":  0.816,
+                        "kalan":  "sgs-t1-fmuh-zor|kp-49",
+                        "dusen":  "sgs-t2-fmuh-zor|kp-17",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "genel islem kosullari",
+                        "skor":  0.8,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-01",
+                        "dusen":  "sgs-t2-ticaret-zor|kp-01",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "genel islem kosullari",
+                        "skor":  0.8,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-01",
+                        "dusen":  "sgs-ticaret-k10d|kp-01",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "genel islem kosullari",
+                        "skor":  1,
+                        "kalan":  "sgs-t2-ticaret-zor|kp-01",
+                        "dusen":  "sgs-ticaret-k10d|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "genel uretim gideri yukleme",
+                        "skor":  0.614,
+                        "kalan":  "sgs-t1-maliyet-zor|kp-07",
+                        "dusen":  "sgs-t1-maliyet-cokzor|kp-07",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "bds 315 yapisal risk faktoru",
+                        "skor":  0.652,
+                        "kalan":  "sgs-t1-denetim-cokzor|kp-55",
+                        "dusen":  "sgs-t1-denetim-kolay|kp-55",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "bds 315 yapisal risk faktoru",
+                        "skor":  0.648,
+                        "kalan":  "sgs-t1-denetim-cokzor|kp-55",
+                        "dusen":  "sgs-t2-denetim-zor|kp-34",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "vergi tarhi on islemleri",
+                        "skor":  0.761,
+                        "kalan":  "sgs-t1-vergi-cokzor|kp-08",
+                        "dusen":  "sgs-t1-vergi-zor|kp-08",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "onemli yanlislik riski",
+                        "skor":  0.614,
+                        "kalan":  "sgs-t1-denetim-kolay|kp-13",
+                        "dusen":  "sgs-t2-denetim-kolay|kp-09",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "duzeltme isareti",
+                        "skor":  0.786,
+                        "kalan":  "sgs-t1-genel-turkce-zor|kp-29",
+                        "dusen":  "sgs-t1-genel-turkce-kolay|kp-29",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ic kontrol amaclari",
+                        "skor":  0.713,
+                        "kalan":  "sgs-t1-denetim-cokzor|kp-49",
+                        "dusen":  "sgs-t2-denetim-cokzor|kp-19",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "faaliyet nakit akisi",
+                        "skor":  0.859,
+                        "kalan":  "sgs-t1-fmuh-zor-b|kp-181",
+                        "dusen":  "sgs-t2-fmuh-zor|kp-81",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "i dunya savasi osmanli ekonomisi",
+                        "skor":  0.649,
+                        "kalan":  "sgs-t1-genel-inkilap-kolay|kp-28",
+                        "dusen":  "sgs-t1-genel-inkilap-zor|kp-28",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "tms 28 istirakler",
+                        "skor":  0.646,
+                        "kalan":  "sgs-t1-fmuh-cokzor|kp-12",
+                        "dusen":  "sgs-t1-fmuh-kolay|kp-12",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "meslek mensubu etik sosyal sorumluluk",
+                        "skor":  0.728,
+                        "kalan":  "sgs-a6e-meslek-cokzor|kp-08",
+                        "dusen":  "sgs-a6e-meslek-kolay|kp-06",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kavramsal cerceve ifa degeri",
+                        "skor":  0.613,
+                        "kalan":  "sgs-t1-fmuh-zor-b|kp-161",
+                        "dusen":  "sgs-t1-fmuh-kolay-b|kp-161",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "tobin vergisi",
+                        "skor":  0.725,
+                        "kalan":  "sgs-t1-genel-ekonomi-zor|kp-19",
+                        "dusen":  "sgs-t1-genel-ekonomi-cokzor|kp-19",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "merkezi yonetim butcesi kapsami",
+                        "skor":  0.676,
+                        "kalan":  "sgs-t1-genel-maliye-kolay|kp-12",
+                        "dusen":  "sgs-t1-genel-maliye-zor|kp-12",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kismi sureli is sozlesmesi",
+                        "skor":  0.645,
+                        "kalan":  "sgs-t2-issgk-cokzor|kp-04",
+                        "dusen":  "sgs-t1-issgk-kolay|kp-08",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sendika uyeligi",
+                        "skor":  0.643,
+                        "kalan":  "sgs-t1-issgk-cokzor|kp-02",
+                        "dusen":  "sgs-t1-issgk-kolay|kp-02",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "tms 36 deger dusuklugu testi",
+                        "skor":  0.737,
+                        "kalan":  "sgs-t1-fmuh-kolay-b|kp-99",
+                        "dusen":  "sgs-t2-fmuh-zor|kp-57",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "haksiz fiil tazminat indirimi",
+                        "skor":  0.607,
+                        "kalan":  "sgs-t1-borclar-zor|kp-28",
+                        "dusen":  "sgs-t1-borclar-kolay|kp-28",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "adam calistiranin sorumlulugu",
+                        "skor":  0.659,
+                        "kalan":  "sgs-t1-borclar-kolay|kp-12",
+                        "dusen":  "sgs-t1-borclar-kolay|kp-23",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "tfrs 16 kullanim hakki",
+                        "skor":  0.654,
+                        "kalan":  "sgs-t1-fmuh-cokzor-b|kp-122",
+                        "dusen":  "sgs-t1-fmuh-kolay-b|kp-122",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "hizmet borclanmasi",
+                        "skor":  0.607,
+                        "kalan":  "sgs-t1-issgk-kolay|kp-07",
+                        "dusen":  "sgs-t1-issgk-zor|kp-07",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "gelir tablosu hesaplari",
+                        "skor":  0.661,
+                        "kalan":  "sgs-t1-fmuh-kolay|kp-30",
+                        "dusen":  "sgs-fmuh-30|kp-29",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "farksizlik egrileri",
+                        "skor":  0.689,
+                        "kalan":  "sgs-t1-genel-ekonomi-zor|kp-06",
+                        "dusen":  "sgs-t1-genel-ekonomi-cokzor|kp-06",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ttk ihtar bildirim sekli",
+                        "skor":  0.741,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-28",
+                        "dusen":  "sgs-t1-ticaret-zor|kp-28",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "erzurum kongresi",
+                        "skor":  0.676,
+                        "kalan":  "sgs-t1-genel-inkilap-cokzor|kp-05",
+                        "dusen":  "sgs-t1-genel-inkilap-zor|kp-05",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sebepsiz zenginlesme",
+                        "skor":  0.626,
+                        "kalan":  "sgs-t1-borclar-kolay|kp-01",
+                        "dusen":  "sgs-t1-borclar-zor|kp-01",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "is lm acik ekonomi",
+                        "skor":  0.605,
+                        "kalan":  "sgs-t1-genel-maliye-zor|kp-19",
+                        "dusen":  "sgs-t1-genel-maliye-cokzor|kp-19",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "yabanci kaynak orani analizi",
+                        "skor":  0.629,
+                        "kalan":  "sgs-t2b-mta-kolay|kp-11",
+                        "dusen":  "sgs-t2b-mta-zor|kp-12",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "fonksiyon katsayi bulma",
+                        "skor":  1,
+                        "kalan":  "sgs-gk-pilot-mat-kolay|kp-02",
+                        "dusen":  "sgs-t1-genel-mat-kolay|kp-38",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ozne bulma",
+                        "skor":  1,
+                        "kalan":  "sgs-t1-genel-turkce-kolay|kp-23",
+                        "dusen":  "sgs-t1-genel-turkce-zor|kp-23",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sermaye artirimi hisse satisi",
+                        "skor":  0.684,
+                        "kalan":  "sgs-t2-fmuh-kolay|kp-39",
+                        "dusen":  "sgs-t1-fmuh-kolay|kp-70",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "finansman bonosu ihraci",
+                        "skor":  0.65,
+                        "kalan":  "kgk-bosluk-trkiyemuhasebestandartlar|kp-32",
+                        "dusen":  "sgs-fmuh-30|kp-24",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "finansman bonosu ihraci",
+                        "skor":  0.703,
+                        "kalan":  "sgs-t2-fmuh-zor|kp-12",
+                        "dusen":  "sgs-t1-fmuh-cokzor|kp-25",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "muhasebe bilgi sistemi sureci",
+                        "skor":  0.62,
+                        "kalan":  "sgs-t2-fmuh-cokzor|kp-20",
+                        "dusen":  "sgs-t1-fmuh-cokzor|kp-39",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sigortali sayilmayanlar",
+                        "skor":  0.646,
+                        "kalan":  "sgs-t1-issgk-cokzor|kp-20",
+                        "dusen":  "sgs-t1-issgk-kolay|kp-20",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sigortali sayilmayanlar",
+                        "skor":  0.659,
+                        "kalan":  "sgs-t1-issgk-cokzor|kp-20",
+                        "dusen":  "sgs-t1-issgk-zor|kp-20",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sozcukte anlam",
+                        "skor":  1,
+                        "kalan":  "sgs-t1-genel-turkce-kolay|kp-04",
+                        "dusen":  "sgs-t1-genel-turkce-zor|kp-04",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "reklam yoluyla haksiz rekabet",
+                        "skor":  0.736,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-10",
+                        "dusen":  "sgs-t1-ticaret-cokzor|kp-10",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "reklam yoluyla haksiz rekabet",
+                        "skor":  0.62,
+                        "kalan":  "sgs-t1-ticaret-kolay|kp-10",
+                        "dusen":  "sgs-t1-ticaret-zor|kp-10",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "etik ilkeler tesvikler",
+                        "skor":  0.723,
+                        "kalan":  "sgs-a6e-meslek-zor|kp-22",
+                        "dusen":  "sgs-a6e-meslek-kolay|kp-15",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "onemlilik varsayimlari",
+                        "skor":  0.688,
+                        "kalan":  "sgs-t1-denetim-zor|kp-41",
+                        "dusen":  "sgs-t1-denetim-kolay|kp-41",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "onemlilik varsayimlari",
+                        "skor":  0.63,
+                        "kalan":  "sgs-t1-denetim-kolay|kp-41",
+                        "dusen":  "sgs-t2-denetim-kolay|kp-22",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ifac bunyesindeki kuruluslar",
+                        "skor":  0.627,
+                        "kalan":  "sgs-t1-fmuh-zor-b|kp-187",
+                        "dusen":  "sgs-t1-fmuh-kolay-b|kp-187",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ifac bunyesindeki kuruluslar",
+                        "skor":  0.603,
+                        "kalan":  "sgs-t2-fmuh-zor|kp-112",
+                        "dusen":  "sgs-t1-fmuh-kolay-b|kp-187",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ifac bunyesindeki kuruluslar",
+                        "skor":  0.671,
+                        "kalan":  "sgs-t1-fmuh-zor-b|kp-187",
+                        "dusen":  "sgs-t2-fmuh-kolay|kp-104",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ifac bunyesindeki kuruluslar",
+                        "skor":  0.723,
+                        "kalan":  "sgs-t1-fmuh-zor-b|kp-187",
+                        "dusen":  "sgs-t2-fmuh-zor|kp-112",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ifac bunyesindeki kuruluslar",
+                        "skor":  0.824,
+                        "kalan":  "sgs-t2-fmuh-kolay|kp-104",
+                        "dusen":  "sgs-t2-fmuh-zor|kp-112",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "meslek hukuku disiplin cezasi",
+                        "skor":  1,
+                        "kalan":  "sgs-a6e-meslek-cokzor|kp-13",
+                        "dusen":  "sgs-a6e-meslek-kolay|kp-07",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "haksiz fiil zamanasimi",
+                        "skor":  0.676,
+                        "kalan":  "sgs-t1-borclar-kolay|kp-02",
+                        "dusen":  "sgs-t1-borclar-zor|kp-02",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "is sozlesmesi turleri",
+                        "skor":  0.607,
+                        "kalan":  "sgs-a6-issgk-cokzor-r1|kp-04",
+                        "dusen":  "sgs-issgk-k10e|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "is sozlesmesi turleri",
+                        "skor":  0.83,
+                        "kalan":  "sgs-t1-issgk-kolay|kp-04",
+                        "dusen":  "sgs-issgk-k10e|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "seri toplami",
+                        "skor":  0.696,
+                        "kalan":  "sgs-t1-genel-mat-cokzor|kp-03",
+                        "dusen":  "sgs-t1-genel-mat-kolay|kp-03",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "smmm olma sartlari",
+                        "skor":  0.702,
+                        "kalan":  "sgs-t1-meslek-kolay|kp-17",
+                        "dusen":  "sgs-t1-meslek-zor|kp-17",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "iasb calismalari",
+                        "skor":  0.64,
+                        "kalan":  "sgs-t1-fmuh-zor|kp-60",
+                        "dusen":  "sgs-t1-fmuh-kolay|kp-60",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "iasb calismalari",
+                        "skor":  0.704,
+                        "kalan":  "sgs-t1-fmuh-kolay|kp-60",
+                        "dusen":  "sgs-t2-fmuh-kolay|kp-32",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "iasb calismalari",
+                        "skor":  0.619,
+                        "kalan":  "sgs-t1-fmuh-zor|kp-60",
+                        "dusen":  "sgs-t2-fmuh-kolay|kp-32",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "iasb calismalari",
+                        "skor":  0.643,
+                        "kalan":  "sgs-t2-fmuh-cokzor|kp-38",
+                        "dusen":  "sgs-t2-fmuh-zor|kp-32",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "ataturk un eserleri",
+                        "skor":  0.6,
+                        "kalan":  "sgs-t1-genel-inkilap-cokzor|kp-20",
+                        "dusen":  "sgs-gk-pilot3-inkilap-zor|kp-01",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "kavramsal cerceve niteliksel ozellikler",
+                        "skor":  0.669,
+                        "kalan":  "sgs-t2-fmuh-cokzor|kp-35",
+                        "dusen":  "sgs-t1-fmuh-kolay|kp-61",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "donemsellik kavrami",
+                        "skor":  0.657,
+                        "kalan":  "sgs-t1-fmuh-kolay|kp-10",
+                        "dusen":  "sgs-t2-fmuh-kolay|kp-04",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "donemsellik kavrami",
+                        "skor":  0.664,
+                        "kalan":  "sgs-t3-fmuh-zor|kp-03",
+                        "dusen":  "sgs-t2-fmuh-kolay|kp-04",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "dis teyitler",
+                        "skor":  0.611,
+                        "kalan":  "sgs-t1-denetim-zor|kp-28",
+                        "dusen":  "sgs-t1-denetim-kolay|kp-28",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    },
+                    {
+                        "konu":  "tutarlilik kavrami",
+                        "skor":  0.706,
+                        "kalan":  "sgs-t2-fmuh-zor|kp-05",
+                        "dusen":  "sgs-t2-fmuh-kolay|kp-06",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sermaye yedekleri hesaplama",
+                        "skor":  0.664,
+                        "kalan":  "sgs-t1-fmuh-kolay|kp-81",
+                        "dusen":  "sgs-t1-fmuh-zor|kp-81",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sermaye yedekleri hesaplama",
+                        "skor":  0.682,
+                        "kalan":  "sgs-t2-fmuh-zor|kp-39",
+                        "dusen":  "sgs-t1-fmuh-kolay|kp-81",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "sermaye yedekleri hesaplama",
+                        "skor":  0.638,
+                        "kalan":  "sgs-t2-fmuh-zor|kp-39",
+                        "dusen":  "sgs-t1-fmuh-zor|kp-81",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "senet iskonto ettirme",
+                        "skor":  0.633,
+                        "kalan":  "sgs-t1-fmuh-zor|kp-69",
+                        "dusen":  "sgs-t2-fmuh-zor|kp-35",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "dolayli vergiler ozellikleri",
+                        "skor":  0.758,
+                        "kalan":  "sgs-t1-genel-maliye-zor|kp-22",
+                        "dusen":  "sgs-t1-genel-maliye-kolay|kp-22",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "dolayli vergiler ozellikleri",
+                        "skor":  0.6,
+                        "kalan":  "sgs-t1-genel-maliye-zor|kp-22",
+                        "dusen":  "sgs-t4-maliye-kolay|kp-17",
+                        "kalanYayinda":  false,
+                        "dusenYayinda":  false
+                    },
+                    {
+                        "konu":  "limited sirket ozellikleri",
+                        "skor":  0.779,
+                        "kalan":  "sgs-t1-ticaret-zor|kp-11",
+                        "dusen":  "sgs-t1-ticaret-kolay|kp-11",
+                        "kalanYayinda":  true,
+                        "dusenYayinda":  true
+                    }
+                ]
+}

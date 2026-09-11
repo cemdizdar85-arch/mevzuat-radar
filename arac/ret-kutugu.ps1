@@ -158,9 +158,16 @@ foreach($x in $dosyalar){
   }
 }
 
+# ⛔ KISMI KOSU TAM RAPORU EZMEZ (11.09, bu oturumda IKINCI kez yasandi):
+#    -Etiket ya da -YalnizYeni ile kosulan tur, evrenin YALNIZ BIR PARCASINI
+#    tarar. Ayni dosyaya yazarsa "1.288 ret" raporunun yerine "44 ret" gecer
+#    ve kimse fark etmez. Kismi kosular AYRI dosyaya yazar.
+$ekAd = ''
+if($YalnizYeni){ $ekAd = '-yeni' }
+elseif($Etiket){ $ekAd = "-$Etiket" }
 # --- CIKTI --------------------------------------------------------------------
 . (Join-Path $here 'rapor-yaz.ps1')
-RaporYaz -Hedef (Join-Path $depoKok 'veri\ret-kutugu.json') -Nesne ([ordered]@{
+RaporYaz -Hedef (Join-Path $depoKok ("veri\ret-kutugu$ekAd.json")) -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
   kural='URETIM TURU BITTIGINDE BU BETIK KOSAR. Ret nedenleri okunmadan yeni tur baslatilmaz.'
   taranan_soru=$toplam; ret=$ret.Count
@@ -224,7 +231,7 @@ foreach($s in ($sinifSay.GetEnumerator()|Sort-Object Value -Descending)){
   }
   Y ""
 }
-[IO.File]::WriteAllText((Join-Path $depoKok 'veri\RET-KUTUGU.md'),$m.ToString(),(New-Object Text.UTF8Encoding $true))
+[IO.File]::WriteAllText((Join-Path $depoKok ("veri\RET-KUTUGU$($ekAd.ToUpperInvariant()).md")),$m.ToString(),(New-Object Text.UTF8Encoding $true))
 
 Write-Host ("taranan {0:N0} soru · dusen {1:N0}" -f $toplam,$ret.Count) -ForegroundColor Cyan
 Write-Host "`nKAPI:" -ForegroundColor Cyan
@@ -234,4 +241,4 @@ foreach($s in ($sinifSay.GetEnumerator()|Sort-Object Value -Descending)){
   $renk=if($s.Key -eq '(siniflanmamis)'){'Yellow'}else{'Gray'}
   Write-Host ("  {0,-18} {1,5}" -f $s.Key,$s.Value) -ForegroundColor $renk
 }
-Write-Host "`n-> veri/RET-KUTUGU.md · veri/ret-kutugu.json" -ForegroundColor Green
+Write-Host ("`n-> veri/RET-KUTUGU$($ekAd.ToUpperInvariant()).md · veri/ret-kutugu$ekAd.json") -ForegroundColor Green

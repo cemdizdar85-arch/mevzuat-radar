@@ -1,24 +1,24 @@
 ﻿{
-    "olcum":  "2026-09-11 16:11",
+    "olcum":  "2026-09-11 17:50",
     "kural":  "URETIM TURU BITTIGINDE BU BETIK KOSAR. Ret nedenleri okunmadan yeni tur baslatilmaz.",
     "taranan_soru":  3701,
-    "ret":  1288,
+    "ret":  1323,
     "kapi_dagilimi":  {
-                          "KAPI-HAKEM":  763,
+                          "KAPI-HAKEM":  798,
                           "KAPI-HAKEM2":  199,
                           "KAPI-SIM":  155,
                           "hakem KOSMADI":  108,
                           "KAPI-KOR":  63
                       },
     "sinif_dagilimi":  {
-                           "KAYNAK-EKSIK":  699,
+                           "KAYNAK-EKSIK":  726,
                            "SIM-YANLIS":  155,
-                           "(siniflanmamis)":  128,
+                           "(siniflanmamis)":  134,
                            "HAKEM-KOSMADI":  108,
                            "KOR-CELISKI":  63,
                            "YZ-KOKUSU":  57,
                            "YAPAY-DIL":  34,
-                           "KAYNAK-KESIK":  30,
+                           "KAYNAK-KESIK":  32,
                            "COK-ANLAMLI":  6,
                            "CELDIRICI-SAHTE":  5,
                            "SINAV-DUZEYI":  3
@@ -1691,6 +1691,15 @@
                      },
                      {
                          "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-03",
+                         "konu":  "borcun ifa yeri",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Doğru sıkta \u0027alacaklının yerleşim yerinde\u0027 yazılmışken, TBK m.89/3 açıkça \u0027borçlunun yerleşim yerinde\u0027 ifa edileceğini hüküm kıldığından, sorunun mantığı bozuktur: yanlış cevabı işaretlenmiş ancak soru \u0027hangisi yanlıştır\u0027 diye sorduğu için doğru sıkta (D) da yanlış bir ifade vardır. Sorunun (D) şıkkında yazılan ifade de kanuna aykırıdır; para ve parça borçları dışındaki borçlar doğumları sırasında BORÇLUNUN (alacaklının değil) yerleşim yerinde ifa edilir. TBK m.89 kaynakta tam metni ile yer almakta ve madde başlığı \u0027Borcun ifa yeri\u0027 olarak uyuşmaktadır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
                          "id":  "kp-06",
                          "konu":  "ucret sozlesmesi esaslari",
                          "kapi":  "KAPI-HAKEM",
@@ -1715,6 +1724,15 @@
                          "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şıklarda anlamsız ABC/XYZ unvanı veya klişe cümle yok, ancak D ve E şıklarının doğru şıkla karşılaştırıldığında belirgin şekilde kısa/mutlak ifadeli olması hafif yapaylık izi taşıyor",
                          "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-21",
+                         "konu":  "haksiz fiil ceza hukuku iliskisi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Önermeler TBK m.72\u0027den desteklenirse de, IV. önerme kaynağın anlamıyla çelişmektedir. Doğru cevap I ve II\u0027dir; IV yanlıştır çünkü kaynakta \u0027zarar gören bakımından bir borç doğmuşsa\u0027 koşuluyla hak doğmaktadır. TBK (6098 s.K.) m.72 kaynakta tam yer almakta ve atıf doğru uyumludur.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t1-borclar-zor",
@@ -4760,6 +4778,15 @@
                      },
                      {
                          "etiket":  "sgs-t1-genel-ekonomi-kolay",
+                         "id":  "kp-04",
+                         "konu":  "tuketim duzlestirmesi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru iktisat teorisine (tüketim düzleştirmesi) aittir ancak kaynak metni THP hesap tanımlarından oluşmakta, tüketim düzleştirmesi teorisine ilişkin hiçbir hukum/madde/tanım içermemektedir. Seçenek C (150 TL, 150 TL) matematiksel olarak doğru; bütçe kısıtı (Y1+Y2)/2 = (120+180)/2 = 150. Kaynak metni sadece THP hesap tanımlarını içermekte, tüketim düzleştirmesi kuralı/teorisinin mevzuat maddesine atıf yoktur (teorik öğretinin mevzuat maddesi bulunmamaktadır; kaynakta açıkça \u0027[TEORI - tuketim duzlestirmesi]\u0027 başlığı altında \u0027mevzuat maddesi yok\u0027 açıklaması yer almaktadır).",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-ekonomi-kolay",
                          "id":  "kp-25",
                          "konu":  "fiyat farklilastirmasi",
                          "kapi":  "KAPI-HAKEM2",
@@ -4793,6 +4820,33 @@
                          "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027her zaman\u0027 gibi mutlaklık ifadesi ile önermenin çürütülmesi klişeleşmiş bir AI kalıbıdır ama tek başına belirleyici değil",
                          "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-ekonomi-kolay",
+                         "id":  "kp-35",
+                         "konu":  "klasik iktisat yaklasimi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru yapısında mantıksal hata vardır; D şıkkı klasik yaklaşımın yanlış bir savını değil, Keynesyen eleştiriyi (ve dolayısıyla klasik yaklaşımın gerçek savının tersini) ifade etmektedir. Klasik yaklaşımın gerçek temel savı: tasarruflar otomatik olarak yatırıma dönüşür ve ekonomi tam istihdam dengesindedir. D şıkkı (\u0027tasarruflar otomatik dönüşmez, tam istihdamın altında denge mümkün\u0027) bu savın tam tersi olup Keynesyen eleştiridir; soru \u0027klasik yaklaşımın yanlış savı\u0027 diye sorarken, D şıkkı klasik yaklaşımın doğru savının tersini (yani Keynesyen savı) sunmaktadır. Seçeneklerde klasik yaklaşımın gerçekten yanlış/tutarsız olan bir savı yoktur. Kaynak metinde \u0027TEORI - Klasik iktisat yaklaşımının temel savları (öğreti notu)\u0027 başlığı altında Say Yasası, paranın yansızlığı, tam esneklik ve Keynesyen eleştiri detaylı şekilde açıklanmıştır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-ekonomi-zor",
+                         "id":  "kp-03",
+                         "konu":  "talep fiyat esnekligi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni talep fiyat esnekliği teorisini içermesine rağmen, soru THP (Tekduzen Hesap Planı) hesap kodları ve muhasebe alanında olan kaynak paketi ile ekonomi teorisi alanlarını karıştırarak sunulmuştur; kaynak metindeki THP hesapları soru ile ilgisizdir. A şıkkı doğrudur: %ΔQ=-25%, %ΔP=+20%, |e|=|-25/20|=1,25\u003e1 esnek; TR₁=20.000, TR₂=18.000 olup fiyat artışı hasılatı azaltır. Kaynak metinde \u0027Teori Notu - talep fiyat esnekligi\u0027 başlığı altında düz teori metni verilmiş olup, atıf yapılacak mevzuat maddesi (kanun, yönetmelik, SPK Tebliği vb.) bulunmamaktadır; saf mikroekonomi teorisidir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-ekonomi-zor",
+                         "id":  "kp-24",
+                         "konu":  "gsyih hesaplama",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru ve açıklamada kullanılan kural (ikinci el satışlarda yalnız aracılık komisyonu, transfer ödemeleri hariç) kaynakta açıkça yazılı olmakla birlikte, sorunun temel sorunu: soru metninde \u0027880 milyon TL nihai harcama toplamı\u0027 verilirken, bu tutarın NOMINAL mi REEL mi olduğu belirsizdir; açıklamada nominal GSYIH olarak kabul edilmiş ve komisyon 10 eklenerek işlem yapılmışsa da, sorunun kökü çift anlama açıktır. Matematik doğru: 880+10=890 nominal GSYIH; 890×100/125=712 reel GSYIH; sık B\u0027de mevcuttur. Kaynakta \u0027TEORI - GSYIH kapsamı ve hesaplama yöntemleri\u0027 başlığında kural yazılı olup madde numarası yoktur; mevzuat atfı bulunmadığından, teorik dayanak TESMER öğreti notasındadır ve desteklenmiştir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t1-genel-ekonomi-zor",
@@ -5354,6 +5408,15 @@
                      },
                      {
                          "etiket":  "sgs-t1-genel-mat-kolay",
+                         "id":  "kp-17",
+                         "konu":  "analitik geometri",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Dogru sik (C) olarak isaretlenen 7, soru metni P(0, 10) icin dogru hesaplanmistir; ancak KAYNAK METNI icinde verilmis \u0027ORNEKTE\u0027 (5, 0) noktasi kullanilmistir ve cevap 2 cikacagi belirtilmistir; bu, sinavda farkli sonuc beklendigini ve sorunun asil kapsaminin DERS DISI ya da KONU-DISI oldugunu gosterir. P(0, 10) icin formul |3(0) + 4(10) − 5| / √(9 + 16) = 35/5 = 7 dogrulukla uygulanmistir; 7 degeri siklarda vardir. Kaynak metni \u0027TESMER SGS Matematik-Istatistik Ders Notu - Analitik Geometri\u0027 olarak belirtilmistir; teori notasyon olup kanun/madde numarasi icermez; teori formul kaynakta acikca NOKTANIN DOGRUYA UZAKLIGI basliginda bulunmaktadir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-mat-kolay",
                          "id":  "kp-22",
                          "konu":  "polinom sadelestirme",
                          "kapi":  "KAPI-SIM",
@@ -5372,12 +5435,30 @@
                      },
                      {
                          "etiket":  "sgs-t1-genel-mat-kolay",
+                         "id":  "kp-24",
+                         "konu":  "orantili paylastirma",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni THP 780, 781, 782 (Finansman Giderleri muhasebe hesapları) içermekte, soru ise matematiksel ters orantılı paylaştırma kuralını soruyor; kaynak metni muhasebe hesap tanımları olup matematik kuralını desteklemiyor. Çözüm: 1/2:1/3:1/4 = 6:4:3, toplam 13k=780, k=60; paylar 360, 240, 180; fark 360−180=180 TL doğru. Kaynak metni (TESMER SGS Matematik-İstatistik Ders Notu - Ters Orantılı Paylaştırma Kuralı) doğru matematik kuralını içermekte ancak sağlanan kaynak paketi yalnız muhasebe hesaplarından (THP 780, 781, 782) oluşmakta; matematik ders notu bu pakette bulunmamaktadır (TEYITSIZ).",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-mat-kolay",
                          "id":  "kp-25",
                          "konu":  "turev alma",
                          "kapi":  "KAPI-SIM",
                          "sinif":  "SIM-YANLIS",
                          "gerekce":  "",
                          "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-mat-kolay",
+                         "id":  "kp-30",
+                         "konu":  "fonksiyon denklemi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "Soru kaynakta açıkça tanımlanan f(x+1)=f(x)+k tipi fonksiyon denkleminin çözüm kuralını ölçüyor ancak doğru cevap 23 değil 23 olması gerekir (soru hatalı veya seçeneklerde yanlış değer yazılmış); kaynakta \u0027Üçüncü: f(x+1)=f(x)+4 ve f(1)=5 ise f(4)=5+3·4=17\u0027 örneği verilen mantıkla f(2)=3\u0027ten f(6)\u0027ya gitmek 4 adım olup f(6)=3+4·5=23 bulunur ama bu soru dizaynında \u0027adım sayma tuzağı\u0027 olarak tanımlanmış ve tuzak doğru hesapla çakışmaktadır. f(2)=3, f(x+1)=f(x)+5 ilişkisinde f(3)=8, f(4)=13, f(5)=18, f(6)=23; seçenek C=23 matematiksel olarak doğrudur. Kaynakta \u0027TEORI (matematik; mevzuat maddesi yok)\u0027 ve \u0027TİPLER VE ÇÖZÜM (4) f(x+1)=f(x)+k türü\u0027 başlığı altında sorunun dayandığı kural açıkça tanımlanmıştır.",
+                         "onarim":  ""
                      },
                      {
                          "etiket":  "sgs-t1-genel-mat-kolay",
@@ -5867,6 +5948,15 @@
                      },
                      {
                          "etiket":  "sgs-t1-genel-yd-zor",
+                         "id":  "kp-11",
+                         "konu":  "zarf secimi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru \"Yabancı Dil\" dersinin resmi kapsamına uygun olup dayanak kaynakta desteklenmektedir, ancak sorunun kendisi ders sınavı sorusu değil, teorik dilbilgisi (zarf seçimi) konusudur ve kaynakta \u0027nearly\u0027 ile \u0027complete\u0027 arasındaki eşdizim kalıbı açıklanmamıştır. C şıkkı \u0027nearly\u0027 dilbilgisel olarak doğru; \u0027is nearly complete\u0027 standart eşdizimdir. Soru teorik dilbilgisi konusu olup mevzuat maddesi veya spesifik kaynak atıfı gerektirmez; eşdizim kalıbı (\u0027nearly + complete\u0027) kaynakta tanımlanmamıştır, yalnızca fiil seçimi ve edat seçimi teorileri verilmiştir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-yd-zor",
                          "id":  "kp-13",
                          "konu":  "prepositions",
                          "kapi":  "KAPI-KOR",
@@ -6029,6 +6119,33 @@
                      },
                      {
                          "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-05",
+                         "konu":  "ucret hukumleri",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-KESIK",
+                         "gerekce":  "Seçenek B, kaynakta \u0027derhal sebepleriyle beraber bildirilmesi\u0027 hükmü varken, \u0027ilk ücret ödemesi sırasında\u0027 ilavesi ekleyerek hükmü yanlış temsil etmektedir; hukuk yanlış uygulanmıştır. Sorunun açıklaması doğru: kanun \u0027derhal\u0027 bildirimi gerektirirken, B şıkkı bildirimi ertelemektedir. Kaynakta 4857 s.K. m.38 başlığıyla ve kesinti bildirimi \u0027derhal sebepleriyle beraber\u0027 hükmü yer almaktadır.",
+                         "onarim":  "Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-06",
+                         "konu":  "İs kanunu kapsami",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metinde m.4/2-a\u0027da \u0027gemilerden karaya ve karadan gemilere yapılan yükleme ve boşaltma işleri Bu Kanun hükümlerine tabidir\u0027 yazılı olup, doğru sık bu hükme tamamen uygun ancak sorunun diğer dört şıkkı kontrol edilemediği için soru bütünsel değerlendirilememiştir. Seçenek C, İş Kanunu m.4/2-a\u0027da açıkça yer alan ve gemilerdeki yükleme-boşaltma işlerinin Kanun kapsamına dahil olduğunu belirten hükme doğrudan dayanmaktadır. Kaynak metinde 4857 sayılı İş Kanunu m.4 tam olarak yer almakta, madde başlığı ve m.4/2-a hükmü ilgili doğru seçeneğin dayanağı doğru şekilde belirtilmektedir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-10",
+                         "konu":  "uzun vadeli sigorta kollari",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-KESIK",
+                         "gerekce":  "Kaynak metni muhasebe hesap planı (THP 360, 361, 368, 369) ve 5510 m.37 hükmü içermekle birlikte, soru 5510 m.37/3 cenaze ödeneği hakkının şartını sorarken, kaynak metnindeki m.37 maddesinin ilgili kısmı NOKSAN ve EKSIK aktarılmıştır; metinde \u0027Uzun vadeli sigorta kolları bakımından sigortalılık süresi\u0027 cümlesi yarıda kesileprise kesilerek, 360 günü tek başına yeterli kılan koşul açıklanmamış; maddenin tam metni olmadığı için doğru sikkin dayandığı hüküm tam olarak temellendirilememektedir. B sikki \u0027360 gün malullük, yaşlılık ve ölüm sigortası primi bildirilmiş olup ölen sigortalı\u0027 şartını söylemekte ve bu 5510 m.37/3\u0027ün cenaze ödeneği hakkının ön koşuludur; kaynak metinde bu koşul yazılı ancak maddenin devamı kesileprise kesilmiştir. Kaynak metinde m.37 başlığı yazılı ve cenaze ödeneği bölümü mevcuttur ancak maddenin ilgili fıkrası \u0027Uzun vadeli sigorta kolları bakımından sigortalılık süresi\u0027 cümlesiyle yarıda kesilmiştir; m.37/3\u0027ün tam metni temin edilememiştir.",
+                         "onarim":  "Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
                          "id":  "kp-19",
                          "konu":  "olum ayligi kesilmesi",
                          "kapi":  "KAPI-SIM",
@@ -6062,6 +6179,15 @@
                          "sinif":  "SIM-YANLIS",
                          "gerekce":  "",
                          "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-23",
+                         "konu":  "ucretin ise hasredilmesi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "Doğru sık (E), TBK m.408/1\u0027in açık hükmüne aykırı olarak işçinin bilerek kaçındığı yararların indirilmeyeceğini iddia etmektedir; oysa kaynakta bu yararların ücretinden indirilir denilmektedir. E şığı madde hükmüne gerçekten aykırıdır; kaynakta \u0027kazanmaktan bilerek kaçındığı yararlar ücretinden indirilir\u0027 yazılı olup, E şığı bunun tersini söylemektedir. Kaynakta TBK m.408 başlığı \u0027İşverenin edim engellemesi halinde ücret ödeme yükümlülüğü\u0027 konusu altında verilmiş olup atıf doğrudur.",
+                         "onarim":  ""
                      },
                      {
                          "etiket":  "sgs-t1-issgk-kolay",
@@ -7756,6 +7882,24 @@
                          "onarim":  "Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret."
                      },
                      {
+                         "etiket":  "sgs-t2b-maliyet-cokzor",
+                         "id":  "kp-19",
+                         "konu":  "degisken maliyet sistemi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni değişken maliyet sistemi teorisini içermesine rağmen, başabaş noktası hesabında kullanılan temel kural (birim katkı payı formülü ve başabaş noktası formülü) kaynakta açıkça tanımlanmamıştır; teori notu formül içerir ancak hesap kodları ve resmi maliyet muhasebesi mevzuatı ile bağlantısı yoktur. Hesaplama doğru: Birim katkı payı = 120 − 54 − 6 = 60 TL; Başabaş noktası = (360.000 + 120.000) / 60 = 8.000 birim. Kaynak metin teori notunda başabaş noktası formülünü içermekle birlikte (BASABAS NOKTASI (MIKTAR) = Toplam Sabit Maliyet / Birim Katki Payi), VUK, THP veya diğer resmi maliyet muhasebesi mevzuatı referansı bulunmamaktadır; formül tanım niteliğinde olup atıf eksiktir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2b-maliyet-cokzor",
+                         "id":  "kp-21",
+                         "konu":  "7-a secenegi genel uretim gideri",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni 730 ve 731 hesaplarının tanımlarını içermesine rağmen, normal maliyet yönteminde kapasite kullanım oranına göre 730\u0027dan 731\u0027e aktarılacak tutarın hesaplanması kuralı ve boş kapasiteye düşen kısımın 680 hesabına aktarılması kuralı kaynak metinde açıkça yer almamaktadır. Hesap matematiksel olarak doğru: 620.000 TL × 0,85 = 527.000 TL, ancak bu kural kaynak metinde desteklenmiyor. Kaynak metni THP 730 ve 731 tanımlarını içerse de, normal maliyet yönteminde kapasite kullanım oranının uygulanması ve boş kapasiteye düşen kısımın 680 hesabına aktarılması kuralı kaynak metninde değil, teori notlarında geçmekte olup KAYNAK METINDEN açıkça desteklenmemektedir; madde atıfı veya ilgili mevzuat kaynağı belirtilmediği için teyitsiz.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
                          "etiket":  "sgs-t2b-maliyet-kolay",
                          "id":  "kp-04",
                          "konu":  "standart maliyet sistemi",
@@ -7763,6 +7907,51 @@
                          "sinif":  "SIM-YANLIS",
                          "gerekce":  "",
                          "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
+                     },
+                     {
+                         "etiket":  "sgs-t2b-maliyet-kolay",
+                         "id":  "kp-07",
+                         "konu":  "safha maliyet sistemi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru safha maliyet sistemi konusunu ölçüyor ancak doğru sık, sipariş maliyet sisteminin (farklı bir sistem) özelliğini tanımlamaktadır; bu çelişki soru tasarımında hata oluşturmaktadır. D şıkkı sipariş sistemi için geçerli olup safha sisteminde geçerli değildir; safha sisteminde maliyet nesnesi safha, sipariş sisteminde sipariş/müşteri siparişidir. Kaynak metni \u0027safha maliyet sisteminde eşdeğer ürün birimleri\u0027 ve \u0027sipariş maliyetinde ayrı maliyet kartı\u0027 tanımını net olarak içermektedir; atıf uygun ve kaynakta desteklenmiştir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2b-maliyet-kolay",
+                         "id":  "kp-12",
+                         "konu":  "hareketli ortalama maliyet",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "Kaynak metni stok değerleme yöntemlerinin teorisini içerse de, hareketli ortalama maliyet hesaplamasının net adımlarını (her alıştan sonra ortalama yeniden hesapla: yeni birim maliyet = (eldeki stok tutarı + yeni alış tutarı) / (eldeki miktar + yeni alınan miktar)) somut olarak uygulamada sorunun cevabını doğrulamaya yeterli detaylı kaynak sunmamaktadır; teori notu örneğinde farklı sayısal veriler kullanıldığından doğrudan atıf yapılamamaktadır. Soru açık hesaplamada doğru cevap 61 TL\u0027dir: (11.000 + 37.800) / 800 = 48.800 / 800 = 61 TL. Kaynak metni \u0027Stok değerleme yöntemleri\u0027 başlığı altında teorik açıklamalar ve örnek sunsa da, sorunun sayısal çözüm adımlarını doğrudan destekleyen maddeler (VUK m.274, TMS 2, THP 150 açıklamaları) pakette tam tanımlanmamıştır; teori notu teorik kural barındırır ancak kaynağın resmi metinlerinde sorunun kesin cevabının adım adım çıktığını ispat etmek için yeterli detay eksiktir.",
+                         "onarim":  ""
+                     },
+                     {
+                         "etiket":  "sgs-t2b-maliyet-zor",
+                         "id":  "kp-09",
+                         "konu":  "maliyet esasi kavrami",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Dogru sik D, maliyet-gider ayriminda yanlis ifadeyi sorarken, D\u0027nin kendisi yanlis bir ifade degil; dogrusu bu ifadedir ve sorunun mantigi tersine donmustur. Sorunun sordusu \u0027yanlis ifade hangisidir\u0027 iken, D ifadesi \u0027Uretimde kullanilan 60.000 TL\u0027lik hammaddenin tamami bu donemin gideridir\u0027 aslinda YANLISTIR (cunku mamullerin yalniz yuzde 50\u0027si satilmistir, diger yuzde 50 satilmadigi icin maliyet hala aktifde 152\u0027de kalir). Ancak D isaretli sik olarak verilmisdir. Eger D dogru sik olarak verilmisse, bu sorunun \u0027dogru ifadeyi bul\u0027 degil \u0027yanlis ifadeyi bul\u0027 oldugunun aksine A, B, C, E\u0027den biri yanlis ifade olmalidir; ancak verilen kaynak metninde A, B, C, E sikklari verilmemistir, dolayisiyla dogru yanlis ifadeyi dogrulamak imkansizdir. Kaynak metni \u0027Harcama, maliyet kullanim ani, gider fayda tukenme ani, zarar faydasiz kayip\u0027 kuralini acikca sunmakta ve THP 620 ile THP 150 tanimlarini icermektedir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2b-maliyet-zor",
+                         "id":  "kp-15",
+                         "konu":  "hareketli ortalama maliyet",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni stok değerleme yöntemlerinin teorisini içerse de, sorunun çözümü için gerekli olan THP 150 (İlk Madde ve Malzeme) ve THP 710 (Direkt İlk Madde ve Malzeme Giderleri) hesaplarının tam tanımları kaynakta eksiktir; teori notu hareketli ortalama kuralını destekler fakat muhasebe uygulamasının hesap kodlaması teyit edilememiştir. D şıkkı 28.750 TL sonucu hareketli ortalama yönteminin kurallarına göre matematiksel olarak doğrudur: (20.000+33.000)/(400+600)=53 TL; 700 kg çıkış 37.100 TL; kalan 300 kg 15.900 TL; (15.900+53.100)/(300+900)=57,50 TL; son 500 kg × 57,50 = 28.750 TL. Kaynak metinde \u0027TEORI - Stok değerleme yöntemleri\u0027 başlığında TMS 2, VUK m.274, THP 150 ve THP 710 referans gösterilmiş fakat söz konusu maddelerin tam metinleri ve TMS 2\u0027nin özel hükümleri kaynak pakette yer almamaktadır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2b-maliyet-zor",
+                         "id":  "kp-25",
+                         "konu":  "siparis maliyet-gug yukleme",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni sipariş maliyet sistemi kuralını ve GUG yükleme oranı hesaplamasını içermesine rağmen, soru soruluyor mu testine başarısız; soruda verilen dönem sonu fiili GUG ve fiili işçilik saati bilgileri siparişin maliyetini değiştirmez (teori notunda açık: \u0027sistemin amacı sipariş tamamlandığında ANINDA maliyet verebilmek\u0027 ve \u0027geriye dönük duzeltilmez\u0027), bu nedenle hesaplanan 18.120 TL doğru olmakla birlikte, soru yapısı öğrencininin yükleme farkını siparişin maliyetine yanlışlıkla dahil etme tuzağına düşmesini tetiklemektedir. Hesaplama doğru: direkt işçilik 120 × 36 = 4.320; yüklenen GUG 120 × 45 = 5.400; toplam 8.400 + 4.320 + 5.400 = 18.120 TL. Kaynak metni THP 1xx (ticari alacak) ve THP 159 (sipariş avansları) tanımlarını içerir; sipariş maliyet sistemi kuralı \u0027TEORI\u0027 başlığı altında mevzuat maddesiz olarak yer almakta, resmi dayanak (VUK 213 S.K., THP 730/731) verilmemektedir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t2b-mta-cokzor",
@@ -8078,6 +8267,15 @@
                          "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni (BDS 315, BDS 200, TTK m.375) iç kontrolün klasik tanımına ve yönetim amaçlarına ilişkin açık bir hüküm içermemektedir; soru teorik bir tanım (AICPA kökenli makul güvence kavramı) üzerine kurulmuş olup, verilen kaynak metininde bu tanım ve amaçlar açıkça yer almamaktadır. Soru \u0027Teori Notu - İç kontrolün yönetim açısından amaçları (AICPA kökenli klasik tanım) ve makul güvence kavramı\u0027 atıfı yapmakta ancak verilen kaynak metininde bu teorik tanım doğrudan yer almamakta; kural başka bir teori kaynağından (AICPA klasik tanımları) destekleniyorsa karar EVET kalabilir.",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-kolay",
+                         "id":  "kp-27",
+                         "konu":  "ic kontrol sistemi ozellikleri",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "Doğru sık (E), TTK m.375\u0027e dayanarak iç kontrol sistemini kurma sorumluluğunun yönetim kuruluna ait olduğunu söylese de, sorunun doğru yanıtı değildir çünkü ifade yanlış DEĞİLDİR; sorunun mantığı beş ifadeden HANGİSİNİN YANLIŞ olduğu sorulması olup, (E) gerçekte doğru bir kuraldır ve seçenekler incelenmeden soru çözülmüştür. TTK m.375(1)(c) uyarınca muhasebe, finans denetimi ve finansal planlama için gerekli düzeni kurma işi yönetim kurulunun devredilemez görevidir; bu nedenle ifade doğrudur ve diğer dört ifade arasından yanlış olan seçilmelidir. TTK m.375 başlığı \"Yönetim kurulunun devredilemez ve vazgeçilemez görev ve yetkileri\" olup, kaynakta tam ve doğru olarak sunulmuştur; madde numarası uyuşmaktadır.",
+                         "onarim":  ""
                      },
                      {
                          "etiket":  "sgs-t2-denetim-kolay",
@@ -8927,6 +9125,15 @@
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-kolay",
+                         "id":  "kp-10",
+                         "konu":  "hazine bonosu tahsili",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metinde 645 Menkul Kıymet Satış Karları hesabı tanımı ve menkul kıymetler işleyişi kurulu vardır, ancak 112 Kamu Kesimi Tahvil/Senet/Bonoları hesabının alacaklandırılma kuralı ve kar kaydedilme yöntemi kaynakta açıkça desteklenmemektedir. Hazine bonosu alış bedeli 400.000 TL, nominal değeri 450.000 TL; kar = 450.000 - 400.000 = 50.000 TL ve bu tutar 645 hesabına kaydedilir. Kaynak metinde 112 ve 645 hesapları vardır ancak 112 Kamu Kesimi Tahvili\u0027nin alacaklandırılması ve kar kaydedilmesi kuralı sadece 111/112 ortak işleyişi bölümünde yer alır; 112\u0027ye özel detay açıklanmamıştır, ancak 111 ile paralel uygulama desteklendiği anlaşılmaktadır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-kolay",
                          "id":  "kp-103",
                          "konu":  "hisse senedi deger dusuklugu",
                          "kapi":  "KAPI-HAKEM",
@@ -9089,6 +9296,15 @@
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-kolay",
+                         "id":  "kp-37",
+                         "konu":  "satistan iade stok girisi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metinde satıştan iade malının stok giriş tutarının MALİYET üzerinden hesaplanması kuralı açıkça yer almamaktadır; 610 Satıştan İadeler hesabı yalnızca FATURA TUTARINI kapsar ve işleyişi de fatura tutarı ile sınırlıdır. Matematiksel olarak doğru: iade malı maliyeti 50.000 × %25 = 12.500 TL (stok giriş tutarı); ancak bu kural kaynaktan desteklenmiyor. 610 Satıştan İadeler (-) hesabı, MSUGT Sıra No:1 Tekdüzen Hesap Planı\u0027nda belirtilmiştir; ancak stok giriş kaydının MALİYET esası ve kullanılacak hesap metinde açıkça tanımlanmamıştır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-kolay",
                          "id":  "kp-38",
                          "konu":  "senet iskonto ettirme",
                          "kapi":  "KAPI-HAKEM",
@@ -9248,6 +9464,15 @@
                          "sinif":  "(siniflanmamis)",
                          "gerekce":  "KOKU: \u0027pazarlıklı satın alma kazancı\u0027 parantez içi tanım tekrarı hafif didaktik ama kabul edilebilir düzeyde",
                          "onarim":  ""
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-kolay",
+                         "id":  "kp-68",
+                         "konu":  "tahvil satin alma",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metinde THP 111 hesabının işleyişi \u0027alış bedeli üzerinden\u0027 kaydedileceği yazılı olup, iskonto formülü uygulanarak bugünkü değer hesaplanmasının muhasebe kaydında geçerli olduğuna dair açık hukum bulunmamaktadır. Sıfır kuponlu tahvil için Fiyat=Nominal/(1+r)^n formülü teori notunda açık olarak tanımlanmış; 100.000/(1,25)^1=80.000 TL doğru hesaplamadır. Teori notunda iskonto formülü tanımlanmış ancak kaynak metindeki THP 111 tanımında \u0027bugünkü değer\u0027 ya da \u0027iskonto\u0027 ile kaydın nasıl yapılacağı açıkça belirtilmemiş, yalnızca \u0027alış bedeli\u0027 söylenmişdir; muhasebe standardında bu uygulama (maliyet modeli vs adil değer) hangi normla desteklendiği kaynakta açık değildir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-kolay",
@@ -9485,6 +9710,15 @@
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-15",
+                         "konu":  "ozkaynak hesaplari",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni yasal yedek ayrım oranı, üst sınır ve kar dağıtım kurallarını içermemektedir; soru Finansal Muhasebe kapsamında doğru olsa da dayanak kurallar kaynakta desteklenmemektedir. C) 770.000 TL hesaplama ve mantığı doğrudur: 30.000 TL yasal yedek ayrımı, kalan 770.000 TL Geçmiş Yıllar Karları hesabına aktarılır. Kaynak metni THP hesapların tanımlarını içerse de, yasal yedek ayrım oranı (%5), üst sınır (sermayenin %20) ve kar dağıtım kurallarının hangi kanun maddesine dayandığı kaynakta belirtilmemiştir; kurallar dışarıdan (Ticaret Kanunu) bilgi gerektirmektedir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
                          "id":  "kp-16",
                          "konu":  "menkul kiymet deger dusuklugu",
                          "kapi":  "KAPI-HAKEM",
@@ -9521,11 +9755,29 @@
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-23",
+                         "konu":  "senet iskonto kaydi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni VUK m.281\u0027in alacaklar değerlemesi hükmünü içermekle birlikte, senedin vadesi 90 gün kaldığından (3 ay) \u0027iç iskonto\u0027 yöntemi için gerekli formül ve hesaplama yöntemi kaynakta açıkça tanımlanmamıştır; VUK m.281 sadece \u0027değerleme gününün kıymetine irca olunabilir\u0027 ifadesini içerir, \u0027iç iskonto formülü\u0027 (nominal×gün/3600+gün veya benzer) kaynakta yer almaz. Belirtilen cevap 5.000 TL sonuç olarak verilen formülle tutarlıdır; ancak o formüle ait kuralsal dayanak kaynakta yoktur. Kaynakta \u0027VUK (213 s.K.) m.281 - Alacaklar\u0027 başlığı altında madde ve hüküm yer almakta; soru VUK m.281\u0027e atıf yapmakta ve kaynakta bu madde bulunmaktadır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
                          "id":  "kp-24",
                          "konu":  "kavramsal cerceve niteliksel ozellikler",
                          "kapi":  "KAPI-HAKEM",
                          "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni kusurlu/bozuk mamul maliyetleri ve denetim standartlarını içerirken, sorunun dayandığı \u0027net nakit değer\u0027 (net gerçekleşebilir değer) tanımı ve iskonto uygulaması kaynak metinde hiç yer almamaktadır. Kaynak metni \u0027muhasebe teorisinde değerleme ölçüleri\u0027 başlığında kesilerek net nakit değer tanımı ve hesaplama yöntemi tam olarak yer almamaktadır; bu nedenle atıf kontrol edilememektedir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-25",
+                         "konu":  "bilanco sonrasi olaylar",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru \u0027Mizan Türleri\u0027 konusunu ölçüyor ancak verilen kaynak metni \u0027Dikey Yüzde Analizi\u0027 teorisini içermektedir; doğru sikkin dayanağı olan mizan eşitliği sınırları kuralı kaynak metinde yer almakta, ancak soru ve seçenekler kaynak paketinin dışındaki başka bir derse/modulüne aittir. C seçeneği (mizanda eşitlik her hatanın yokluğu anlamına gelmez) mizan teorisinin temel kuralını doğru şekilde ifade eder ve kaynak metinde desteklenmiştir. Kaynak metinde \u0027Mizan Türleri ve Kesin Mizan (muhasebe süreci)\u0027 başlığı altında mevzuat maddesi yoktur, kural kaynak notundaki mizan tanım ve sınırlamalarına dayanır.",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
@@ -9554,6 +9806,15 @@
                          "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni işletmenin sürekliliği kavramını hiç içermemektedir; sağlanan metin maliyet muhasebesi (kusurlu/bozuk mamul), mali analiz (dikey yüzde analizi) ve denetim tekniği (fiziki inceleme) konularını ele almaktadır. Sağlanan kaynak metni Muhasebe Sistemi Uygulama Genel Tebliği\u0027nin \u0027Temel Kavramlar: İşletmenin Sürekliliği Kavramı\u0027 maddesini içermediğinden, doğru sıkkın dayanağı bu kaynak paketten teyit edilememektedir.",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-32",
+                         "konu":  "iasb calismalari",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "Soru IFAC bünyesindeki standart kurullarını incelerken, doğru şık olarak işaretlenen E şıkkı (IASB\u0027nin IFAC bünyesinde çalıştığını iddia eden) kaynağa aykırıdır; kaynak açıkça IASB\u0027nin IFRS Vakfı\u0027nın organı olduğunu ve IFAC bünyesinde OLMADI­ĞİNİ belirtir. E şıkkı faktik olarak yanlış bir ifadedir; IASB IFAC\u0027ın değil IFRS Vakfı\u0027nın organıdır, dolayısıyla \u0027yanlış olan şık\u0027 sorusunun doğru cevabı E\u0027dir. Kaynak, IFAC bünyesinde olan kurullar (IAASB, IESBA, IPSASB, IAESB) ve OLMAYAN IASB\u0027yi açıkça tanımlayarak atıf yapılacak kural ve madde başlıklarını sağlar.",
+                         "onarim":  ""
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-zor",
@@ -9643,6 +9904,15 @@
                          "kapi":  "KAPI-HAKEM",
                          "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni depozito/teminat hesapları (326) ve olağandışı gelir (679) konusunu kapsamaz; soru bu hesapların işleyişini ölçüyor ancak kaynak metinde bu kural/kaydın açık dayanağı yoktur. Kaynak metni 326 Alınan Depozito ve Teminatlar ve 679 Diğer Olağandışı Gelir ve Karlar hesaplarını madde başlığı ve hukum ile desteklemez; bu hesapların depozito iade yükümlülüğü sona erince kapatılma kuralı kaynakta yer almaz.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-46",
+                         "konu":  "onemlilik dagitimi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru garanti gideri (satış sonrası hizmet) için karşılık kaydını sorarken, kaynak metinde 479 hesabının işleyişi \u0027uzun vadeli diğer borç ve gider karşılıkları\u0027 için \u0027ilgili gider gruplarına borç kaydedilir\u0027 demektedir; ancak garanti giderleri hangi gider grubuna ait olduğu (pazarlama/satış mı yoksa başka gider türü mü) açıkça tanımlanmadığı ve 760 hesabının tanımı \u0027teslimine kadar yapılan giderler\u0027 olduğu için, doğru gider hesabı belirlenmemiştir. Garanti giderleri THP\u0027de ayrı bir gider hesabında tanımlanmamakta; 760 (Pazarlama Satış ve Dağıtım Giderleri) \u0027teslimine kadar\u0027 giderlerdir ve garanti (satış sonrası) giderleri kapsam dışıdır; doğru kayıt satış sonrası hizmet giderleri için uygun bir gider hesabına (örneğin 762 veya diğer işletme giderleri) borç, 479\u0027a alacak olmalıdır. 479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı tanımı kaynakta \u0027uzun vadeli diğer borç ve gider karşılıkları\u0027 olarak açıkça yer almaktadır.",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
@@ -9914,6 +10184,15 @@
                          "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni denetim sürecinin safhaları, sigortalanabilir risk koşulları ve denetim risk modeli hakkındadır; maddi duran varlık harcaması, aktifleştirme kriteri ve 253 hesabının işleyişini hiç kapsamaz. Kaynak metni soru ve kural hakkında hiç bilgi içermediğinden; doğru kural Tekdüzen Hesap Planı 253 hesabı tanımı ve Finansal Muhasebe ders kitabından desteklenebilir (kaynakta yoktur).",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-97",
+                         "konu":  "kasa kambiyo kur farki",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "Kaynak metinde 646 Kambiyo Kârları hesabı tanımı vardır, ancak sorunun dayandığı kur değerlemesi ve kredinin kapatılması kuralı kaynak metinde EKSIKTIR; teori bölümünde genel ilke yazılı olmasına rağmen, VUK m.280 atfı çelişkilidir. Çözüm doğrudur: 20.000 USD × 32,00 = 640.000 TL (işlem) → 20.000 × 34,00 = 680.000 TL (31.12.2025 değerleme) → 20.000 × 33,50 = 670.000 TL (kapatma) → 680.000 - 670.000 = 10.000 TL kambiyo kârı. VUK m.280 metni kaynakta yer alır, ancak kur değerlemesi kuralının detaylı uygulanması (kapatma günü kur farkının 646\u0027ya yazılması) teori bölümünde yazılı olup, madde 280\u0027de bu spesifik uygulama açık değildir; teori metni kaynak kabulü içinde destek sağlar ancak atıf tam netlik taşımaz.",
+                         "onarim":  ""
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-zor",
@@ -10385,6 +10664,15 @@
                      },
                      {
                          "etiket":  "sgs-t4-fmuh-cokzor",
+                         "id":  "kp-22",
+                         "konu":  "stopaj kesintisi-kira gideri",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metinde kira stopajı mekanizması açıkça yer almamakta; yalnız kâr dağıtımı (570/590) ve m.94 genel stopaj hükmü bulunmaktadır. C) 96.000 TL matematiksel olarak doğrudur; iki ayda toplam banka çıkışı net 76.800 + stopaj ödemesi 19.200 = 96.000 TL\u0027dir. Kaynak metinde GVK m.94\u0027ün genel stopaj hükmü ve kira stopajına ilişkin bent (m.94/5.a) yer almasına rağmen, kiralanan taşınmazda borç yazılan gider hesabı ve 360 hesabı işleyişine ilişkin detaylı muhasebe uygulaması (hangi gider hesabına borç, 360\u0027a alacak, 102\u0027ye alacak kaydı) açık olarak tanımlanmamıştır; TEORI bölümü kâr dağıtımı örneğini içermekte, kira stopajı örneği eksiktir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t4-fmuh-cokzor",
                          "id":  "kp-23",
                          "konu":  "surdurulebilirlik standartlari issb",
                          "kapi":  "KAPI-HAKEM",
@@ -10426,6 +10714,15 @@
                          "kapi":  "KAPI-HAKEM",
                          "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni Maliyet Muhasebesi ders konularını (7/A seçeneği, standart maliyet farklıkları) ve reeskont/karşılık hesaplarını içerir; geçmiş yıllar kârları, olağanüstü yedekler ve zarar mahsubu kuralları hakkında hiçbir bilgi yoktur. Doğru sıkkın açıklaması THP 570 Geçmiş Yıllar Kârları, 542 Olağanüstü Yedekler, 580 Geçmiş Yıllar Zararları ve 591 Dönem Net Zararı hesaplarının işleyişine atıfta bulunsa da; sağlanan kaynak metni bu hesaplar ve mahsup kuralı hakkında herhangi bir bilgi içermemektedir; dolayısıyla dayanak kaynakta yoktur.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t4-fmuh-cokzor",
+                         "id":  "kp-32",
+                         "konu":  "donem net kâri hesaplama",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni soru için gerekli dönemsellik kuralını (THP 180/380 hesapları ve tahakkuk esası) içermemektedir; kaynak yalnızca maliyet muhasebesi ve denetim hedefleri teorisini kapsamaktadır. Hesap matematiksel olarak doğru: 1.240.000 + 96.000 − 54.000 = 1.282.000 TL. Doğru sikkin dayandığı kural (THP 180 Gelecek Aylara Ait Giderler ve 380 Gelecek Aylara Ait Gelirler işleyişi) kaynak metinde yer almamaktadır; kural başka bir kaynaktan desteklenmelidir.",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
@@ -11111,6 +11408,24 @@
                          "sinif":  "(siniflanmamis)",
                          "gerekce":  "KOKU: D ve E de aynı şekilde ilgili kısıtlamanın \u0027tam tersi\u0027 iddiasını taşıyor, dört yanlış şıkkın hepsi aynı kalıpla \u0027kısıtlama değildir/engellenir\u0027 şeklinde kurulmuş, tekrarlı yapı",
                          "onarim":  ""
+                     },
+                     {
+                         "etiket":  "sgs-t5-denetim-kolay",
+                         "id":  "kp-26",
+                         "konu":  "denetim kanit toplama prosedurleri",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni BDS 500\u0027ün A25, A26, A27 paragraflarını ve genel kapsamını içermekle birlikte, denetim prosedürlerinin tanımını (tetkik, gözlem, dış doğrulama, yeniden hesaplama, yeniden uygulama, analitik prosedürler, sorgulama) açıkça yapan bir madde veya paragraf metninde yer almamaktadır; tanım sadece açıklamada (Teori Notu) verilmiştir. Teori Notu\u0027ndaki tanıma göre yeniden uygulama (derinlemesine araştırma), işletmenin kontrol prosedürünü denetçinin bağımsız olarak baştan sona uygulamasıdır ve iskonto kontrolünü kendisi tekrar uygulamak bu tanıma tam uyar. Denetim prosedürlerinin tanımı (yeniden uygulama = işletmenin kontrol prosedürünün denetçi tarafından bağımsızca tekrarı) verilen BDS 500 paragraflarında (A25, A26, A27, 1, 2, 3) açıkça yazılı değil; tanım sadece Teori Notu\u0027nda yer almaktadır; standart paragraflarında bu klasik sekiz tekniğin tanımlandığı bir madde numarası kaynakta tespit edilememiştir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "sgs-t5-denetim-kolay",
+                         "id":  "kp-28",
+                         "konu":  "coso kontrol ortami",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni BDS 315 p.21 \u0027Kontrol çevresi\u0027 başlığında denetim komitesinin bağımsızlığından ve etik kuralların yazılı duyurulmasından hiç bahsetmez; bu unsurlar kaynak pakette yoktur. Sorunun doğru cevabı kontrol çevresidir ve B seçeneği bunu işaret etmektedir. Sorunun doğru cevabı (denetim komitesinin bağımsız oluşturulması ve etik kuralların yazılı duyurulması = kontrol çevresi unsurları) teorik olarak doğru olsa da, KAYNAK METNİNDE bu spesifik unsurlar açıkça yer almamaktadır; p.21 Kontrol çevresi başlığında \u0027dürüstlük ve etik değerler\u0027, \u0027yönetimin gözetimi\u0027 genel olarak bahsedilse de, \u0027denetim komitesinin bağımsızlığı\u0027 ve \u0027etik kuralların yazılı duyurulması\u0027 bu metinde tanımlanmamıştır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t5-denetim-zor",

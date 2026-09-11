@@ -33,7 +33,8 @@ param(
   [ValidateSet('SGS','SMMM','KGK')][string]$Sinav = 'SGS',
   [ValidateSet('SIMDI','BEKLESIN','HEPSI')][string]$Hat = 'SIMDI',
   [int]$EnAzCikmis = 3,          # cikmis arsivde en az kac kez gorulmus konu
-  [int]$PartiTavan = 30,         # tek partide en fazla kac soru
+  [int]$PartiTavan = 30,         # tek partide en fazla kac KONU (=soru, uretici konu basina 1 soru yazar)
+  [int]$TurTavan   = 4,          # bir konudan en fazla kac TUR (r1..rN) kosulsun
   [string]$Ad = '',              # plan adi (bos: otomatik)
   [switch]$AyristirilamayanDahil # kaba kovada kalmis konular da girsin mi
 )
@@ -98,31 +99,35 @@ foreach($g in (@($sec | Group-Object ders | Sort-Object { $s=0; foreach($pg in $
     #    List[object]'i object[]'e kopyalamasi. .ToArray() SORUNSUZ calisir.
     #    Bu depoda List[object] cok kullaniliyor; @() ile SARMAYIN.
     $liste=$zorlukKova[$zorAd].ToArray(); if(-not $liste.Count){ continue }
-    # Partiye bolme: her partide en fazla $PartiTavan SORU (konu degil)
-    $par=New-Object System.Collections.Generic.List[object]; $sayac=0; $no=0
-    function PartiYaz($konular,$no,$zorAd,$kis,$dersAd){
-      if(-not @($konular).Count){ return $null }
-      $et = if($no -le 1){ "sgs-p-$kis-$zorAd" } else { "sgs-p-$kis-$zorAd-$no" }
-      $kd = Join-Path $konuDir "$et.json"
-      $adlar=@($konular | ForEach-Object { "$($_.konu)" })
-      [IO.File]::WriteAllText($kd,($adlar|ConvertTo-Json -Depth 3),(New-Object Text.UTF8Encoding $false))
-      $adet=0; foreach($x in $konular){ $adet+=[int]$x.acik }
-      return [pscustomobject][ordered]@{
-        ders=$dersAd; dersAd=$dersAd; etiket=$et; adet=$adet; tavan=$adet
-        zorluk=$zorAd; sinav='SGS'; konuDosya=$kd; toplu=$true; disla=''; tur=3
+    # ⛔ 11.09 OLCULDU: URETICI KONU BASINA TAM 1 SORU yazar. Uc partide
+    #    olculdu, oran 1,00 (fmuh-cokzor 111 soru/111 konu · borclar-zor 18/18 ·
+    #    denetim-zor 29/29). Ilk surumde partileri SORU sayisina gore
+    #    boyutlandirmistim; 43 parti 893 degil 169 soru uretecekti.
+    #    Bir konudan N soru istiyorsak o konu N AYRI TURDA kosar (r1, r2, ...) -
+    #    depoda zaten bu desen var (sgs-a6-denetim-cokzor-r1).
+    #    Parti boyu artik KONU sayisiyla olculur.
+    $enCokTur=0; foreach($k in $liste){ if([int]$k.acik -gt $enCokTur){ $enCokTur=[int]$k.acik } }
+    if($enCokTur -gt $TurTavan){ $enCokTur=$TurTavan }
+    for($tur=1; $tur -le $enCokTur; $tur++){
+      # bu turda kosacak konular: `acik` degeri tur numarasina yetenler
+      $turKonu=@($liste | Where-Object { [int]$_.acik -ge $tur })
+      if(-not $turKonu.Count){ continue }
+      $parca=0
+      for($bas=0; $bas -lt $turKonu.Count; $bas+=$PartiTavan){
+        $parca++
+        $son=[Math]::Min($bas+$PartiTavan-1,$turKonu.Count-1)
+        $konular=@($turKonu[$bas..$son])
+        $et = "sgs-p-$kis-$zorAd-r$tur" + $(if($parca -gt 1){ "-$parca" } else { '' })
+        $kd = Join-Path $konuDir "$et.json"
+        $adlar=@($konular | ForEach-Object { "$($_.konu)" })
+        [IO.File]::WriteAllText($kd,($adlar|ConvertTo-Json -Depth 3),(New-Object Text.UTF8Encoding $false))
+        $planSatir.Add([pscustomobject][ordered]@{
+          ders="$($g.Name)"; dersAd="$($g.Name)"; etiket=$et
+          adet=$konular.Count           # = konu sayisi = uretilecek soru sayisi
+          zorluk=$zorAd; sinav='SGS'; konuDosya=$kd; toplu=$true; disla=''; tur=$tur
+        })
+        $yazilanKonu+=$konular.Count
       }
-    }
-    foreach($k in $liste){
-      $par.Add($k); $sayac+=[int]$k.acik
-      if($sayac -ge $PartiTavan){
-        $no++; $r=PartiYaz $par.ToArray() $no $zorAd $kis "$($g.Name)"
-        if($r){ $planSatir.Add($r); $yazilanKonu+=$par.Count }
-        $par=New-Object System.Collections.Generic.List[object]; $sayac=0
-      }
-    }
-    if($par.Count){
-      $no++; $r=PartiYaz $par.ToArray() $no $zorAd $kis "$($g.Name)"
-      if($r){ $planSatir.Add($r); $yazilanKonu+=$par.Count }
     }
   }
 }
