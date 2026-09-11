@@ -1,0 +1,549 @@
+﻿{
+    "olcum":  "2026-09-11 22:47",
+    "kural":  "Hakem \"kaynak metni su maddeyi ICERMEMEKTEDIR\" dedi. Her madde AMBARA SORULDU. ambarda_yok = yutma is emri; pakette_yok = madde AMBARDA VAR ama kaynak paketine girmemis (PAKET KUSURU, yutma COZMEZ).",
+    "kaynak":  "arac/madde-teshis.ps1 -Tazele (veri/kurtarma-turu.json uzerinden, tur YENIDEN KOSULMADI)",
+    "benzersiz_madde":  41,
+    "toplam_vaka":  61,
+    "ambarda_yok_sayi":  0,
+    "pakette_yok_sayi":  41,
+    "olculemedi_sayi":  0,
+    "maddeler_ambarda_yok":  [
+
+                             ],
+    "maddeler_pakette_yok":  [
+                                 "2577 m.28",
+                                 "5510 m.3",
+                                 "6183 m.35",
+                                 "GVK m.74",
+                                 "GVK m.89",
+                                 "KVK m.32",
+                                 "TBK m.417",
+                                 "TBK m.52",
+                                 "TBK m.547",
+                                 "TBK m.548",
+                                 "TBK m.79",
+                                 "TBK m.89",
+                                 "TTK m.222",
+                                 "TTK m.35",
+                                 "TTK m.375",
+                                 "TTK m.376",
+                                 "TTK m.397",
+                                 "TTK m.482",
+                                 "TTK m.516",
+                                 "TTK m.59",
+                                 "TTK m.637",
+                                 "VUK m.150",
+                                 "VUK m.152",
+                                 "VUK m.160",
+                                 "VUK m.177",
+                                 "VUK m.227",
+                                 "VUK m.231",
+                                 "VUK m.257",
+                                 "VUK m.261",
+                                 "VUK m.269",
+                                 "VUK m.271",
+                                 "VUK m.274",
+                                 "VUK m.275",
+                                 "VUK m.278",
+                                 "VUK m.279",
+                                 "VUK m.283",
+                                 "VUK m.298",
+                                 "VUK m.30",
+                                 "VUK m.315",
+                                 "VUK m.4",
+                                 "VUK m.92"
+                             ],
+    "maddeler_olculemedi":  [
+
+                            ],
+    "kayitlar":  [
+                     {
+                         "etiket":  "pilot6-fmuh-cokzor",
+                         "id":  "kp-01",
+                         "konu":  "kredi faiz tahakkuku",
+                         "kanun":  "VUK",
+                         "madde":  "283",
+                         "gerekce":  "Kaynak metni kredi faiz tahakkuku kuralını içermez; VUK m.283 yalnızca alacakların mukayyet değeriyle faizle değerlenmesini söyler, vade sonunda ödenen kredilerde gider tahakkuk hesaplama yöntemini tanımlamaz."
+                     },
+                     {
+                         "etiket":  "sgs-fmuh-30",
+                         "id":  "kp-01",
+                         "konu":  "muhasebe bilgi sistemi",
+                         "kanun":  "VUK",
+                         "madde":  "227",
+                         "gerekce":  "Kaynak metni VUK m.227\u0027de yalnızca belgelerin tevsiki zorunluluğu düzenlenmiştir; muhasebe bilgi sistemindeki kayıt sürecinin (belge-yevmiye-defter-mizan-tablolar) sıralaması bu maddede yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-gk-pilot2-yd-zor",
+                         "id":  "kp-02",
+                         "konu":  "fiil zamani (past tense)",
+                         "kanun":  "VUK",
+                         "madde":  "30",
+                         "gerekce":  "Soru \u0027Yabancı Dil (İngilizce)\u0027 dersinin resmi kapsamına uygun olup konu (Past Tense/Past Perfect) ve dilbilgisi kuralları doğru olmasına rağmen, kaynak metinde vergi hukuku (VUK m.30) teorisi yer almakta ve bu iki alan muhteviyat açısından birbiriyle tutarsızdır; soru İngilizce dilbilgisini, kaynak metni ise vergi mevzuatını içermektedir."
+                     },
+                     {
+                         "etiket":  "sgs-maliyet-15",
+                         "id":  "kp-09",
+                         "konu":  "standart maliyet farklari",
+                         "kanun":  "VUK",
+                         "madde":  "275",
+                         "gerekce":  "Kaynak metni standart maliyet farkı hesaplama formülü, tanımı veya uygulamasına hiç yer vermemektedir; VUK m.275 sadece genel maliyet unsurlarını tanımlar."
+                     },
+                     {
+                         "etiket":  "sgs-maliyet-parti1",
+                         "id":  "kp-02",
+                         "konu":  "standart maliyet farklari",
+                         "kanun":  "VUK",
+                         "madde":  "275",
+                         "gerekce":  "Kaynak metni (VUK m.275) genel üretim gideri sapma analizi, iki sapma yöntemi, kapasite sapması hesaplama kuralları ve formüllerini hiç içermemektedir; yalnızca mamul maliyetinin unsurlarını tanımlamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-01",
+                         "konu":  "sebepsiz zenginlesme",
+                         "kanun":  "TBK",
+                         "madde":  "79",
+                         "gerekce":  "İşaretli (D) şık kaynakta açıkça yanlıştır; TBK m.79 iyiniyetli zenginleşeni elinden çıkmış kısımdan ispat şartıyla muaf tutarken, şık \u0027her hâlükârda tamamını\u0027 iade etmesi gerektiğini söyleyerek kurala aykırı bir iddia sunmaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-03",
+                         "konu":  "borcun ifa yeri",
+                         "kanun":  "TBK",
+                         "madde":  "89",
+                         "gerekce":  "Doğru sık D\u0027de alacaklının yerleşim yeri yazılmışken, TBK m.89/3\u0027te kural borçlunun yerleşim yeridir; taraf tersine çevirilerek yanlış ifade edilmiştir ve soru yanlış cevabı doğru göstermektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-28",
+                         "konu":  "haksiz fiil tazminat indirimi",
+                         "kanun":  "TBK",
+                         "madde":  "52",
+                         "gerekce":  "Doğru sık (C), TBK m.52\u0027de açıkça yer alan kuralın tam tersini ifade etmektedir; madde yoksulluk indirimini yalnız hafif kusurlu tazminat yükümlüsüne tanımış, ağır kusurlular için böyle bir hak öngörmemiştir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor",
+                         "id":  "kp-21",
+                         "konu":  "menkul kiymet satisi",
+                         "kanun":  "VUK",
+                         "madde":  "279",
+                         "gerekce":  "Kaynak metni VUK m.279\u0027de satış kârı hesabının alış bedeli ile satış bedeli farkı olduğunu açıkça belirtmemiş; dönem sonu değerlemesinin satış kârını etkilemediği kuralı kaynakta yer almamıştır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor",
+                         "id":  "kp-49",
+                         "konu":  "kontrol cevresi unsurlari",
+                         "kanun":  "TTK",
+                         "madde":  "375",
+                         "gerekce":  "Kaynak metni TTK m.375 maddesi içeriyor ancak sorulan COSO İç Kontrol Çerçevesi\u0027nin \u0027Kontrol Çevresi\u0027 vs \u0027Kontrol Faaliyetleri\u0027 bileşenlerinin tanımları kaynak pakette hiç yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor",
+                         "id":  "kp-59",
+                         "konu":  "isletme birlesmesi serefiye",
+                         "kanun":  "VUK",
+                         "madde":  "269",
+                         "gerekce":  "Kaynak metni işletme birleşmesi, şerefiye veya devralma muhasebesi konularını hiç kapsamıyor; VUK m.269 gayrimenkul değerlemesi, m.5 vergi mahremiyeti, m.45 zirai kazanç ölçüleri hakkındadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor",
+                         "id":  "kp-60",
+                         "konu":  "iasb calismalari",
+                         "kanun":  "VUK",
+                         "madde":  "92",
+                         "gerekce":  "Soru IASB ile Mütevelli Heyeti arasındaki görev paylaşımını sormasına rağmen, kaynak metni muhasebe standartları (THP 152), vergi hukuku (VUK m.92, m.160/A) içeriyor; IFRS Vakfı yapısı ve IASB-Mütevelli Heyeti görev ayrımına ilişkin kurumsal metin kaynakta hiç yoktur."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor",
+                         "id":  "kp-73",
+                         "konu":  "satis dongusu maddi dogruluk testi",
+                         "kanun":  "VUK",
+                         "madde":  "231",
+                         "gerekce":  "Kaynak metinde VUK m.231/5 bulunmakta ancak, doğru sikta referans verilen \u0027120 ALICILAR\u0027 hesabı kaynak pakette THP tanımları arasında hiç yer almamaktadır; tanımlı olan 120 grubu başlığında sadece 121-129 arası hesaplar mevcuttur."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor",
+                         "id":  "kp-81",
+                         "konu":  "sermaye yedekleri hesaplama",
+                         "kanun":  "VUK",
+                         "madde":  "298",
+                         "gerekce":  "Kaynak metni VUK m.298 ve m.279 içeriyor ancak hiçbiri Tekdüzen Hesap Planı sermaye yedekleri gruplarının (520, 521, 524, 529) tanımını ve maliyet artışları fonunun muhasebe kaydını düzenlemez; soru için gerekli normatif dayanak pakette eksiktir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor",
+                         "id":  "kp-87",
+                         "konu":  "nakit akis brut raporlama",
+                         "kanun":  "VUK",
+                         "madde":  "298",
+                         "gerekce":  "Kaynak metni VUK m.298 ile ilgilidir; nakit akış tablosu brüt raporlama esasını düzenleyen hüküm kaynakta yoktur."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-cokzor-b",
+                         "id":  "kp-141",
+                         "konu":  "duran varlik takasi",
+                         "kanun":  "VUK",
+                         "madde":  "271",
+                         "gerekce":  "Kaynak metni VUK m.271-272 gayrimenkul ve elektrik üretim-dağıtım varlıklarına özgüdür; motorlu kara nakil vasıtaları (kamyon) için takas ve maliyet bedeli hükümleri kaynakta yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-60",
+                         "konu":  "iasb calismalari",
+                         "kanun":  "VUK",
+                         "madde":  "92",
+                         "gerekce":  "Soru IASB\u0027nin yapısı ve görevleriyle ilgili olup, kaynak metni THP 152 Mamuller, VUK m.92 ve VUK m.160/A içermekte; IASB, IFRS Vakfı Anayasası, Mütevelli Heyet veya üye atama süreciyle ilgili herhangi bir bilgi bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-60",
+                         "konu":  "iasb calismalari",
+                         "kanun":  "VUK",
+                         "madde":  "160",
+                         "gerekce":  "Soru IASB\u0027nin yapısı ve görevleriyle ilgili olup, kaynak metni THP 152 Mamuller, VUK m.92 ve VUK m.160/A içermekte; IASB, IFRS Vakfı Anayasası, Mütevelli Heyet veya üye atama süreciyle ilgili herhangi bir bilgi bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-80",
+                         "konu":  "sermaye taahhudu-hisse iptali",
+                         "kanun":  "TTK",
+                         "madde":  "482",
+                         "gerekce":  "Kaynak metinde TTK m.482 \u0027iskat usulü\u0027 başlığı altında sadece iptal işlemi hükümlenmiş, iptal edilen payın YENİDEN SATILMASI durumunda hangi hesaplar kullanılacağına dair kural kaynakta açıkça bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-87",
+                         "konu":  "nakit akis brut raporlama",
+                         "kanun":  "VUK",
+                         "madde":  "298",
+                         "gerekce":  "Kaynak metni VUK m.298 (düzeltme işleminde tarihler) olup, soru nakit akış tablosunun brüt/net raporlama esasını ilgilendirmektedir; kaynak metinde nakit akış tablosu raporlama ilkeleri yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay-b",
+                         "id":  "kp-145",
+                         "konu":  "brut satis kari degisimi",
+                         "kanun":  "VUK",
+                         "madde":  "275",
+                         "gerekce":  "Kaynak metni VUK m.275\u0027te \u0027imal edilen emtia\u0027 (üretim maliyeti) tanımlanmış olup, soru brüt satış kârı (Net Satışlar - Satışların Maliyeti) kavramını ölçüyor; kaynak metinde brüt satış kârı formülü, Tekdüzen Hesap Planı gelir tablosu şeması veya finansal tablo düzenlemesi ile ilgili hüküm bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay-b",
+                         "id":  "kp-160",
+                         "konu":  "banka kredisi geri odemesi",
+                         "kanun":  "VUK",
+                         "madde":  "283",
+                         "gerekce":  "Kaynak metni VUK m.283 AKTIF geçici hesaplar (peşin ödenen giderler/tahsil edilmemiş hasılat) hakkında olup, sorunun dayandığı PASIF geçici hesaplar (Gider Tahakkukları/381) kuralını içermemektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-37",
+                         "konu":  "kredi faiz tahakkuku",
+                         "kanun":  "VUK",
+                         "madde":  "283",
+                         "gerekce":  "Kaynak metni kredi faiz tahakkukunu düzenleyen THP 381 GİDER TAHAKKUKLARI ve THP 780 FİNANSMAN GİDERLERİ hesaplarının tanımlarını içermemektedir; sadece vergi/sosyal güvenlik yükümlülükleri (360-369) ve VUK m.283 alacak değerlemesi ile ilgili hüküm yer almaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-59",
+                         "konu":  "isletme birlesmesi serefiye",
+                         "kanun":  "VUK",
+                         "madde":  "269",
+                         "gerekce":  "Kaynak metni işletme birleşmesi/devralması ve şerefiye konusunu hiç içermemektedir; kaynakta VUK m.269 (gayrimenkuller değerlemesi), m.5 (vergi mahremiyeti) ve m.45 (zirai kazanç) yer almakta, şerefiye hesabı ve THP 261 hesabı hakkında hiçbir bilgi bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-68",
+                         "konu":  "senet ile mal alisi",
+                         "kanun":  "VUK",
+                         "madde":  "274",
+                         "gerekce":  "Kaynak metinde VUK m.274 yalnızca \u0027maliyet bedeli\u0027 tanımını içerir ancak ticari iskonto, nakliye gideri ve KDV hesaplama kurallarını açıkça desteklemez; soru bu temel muhasebe işlemini ölçmesine rağmen kaynakta tam hukuki dayanak eksiktir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor-b",
+                         "id":  "kp-157",
+                         "konu":  "birinci tertip yedek akce",
+                         "kanun":  "VUK",
+                         "madde":  "4",
+                         "gerekce":  "Kaynak metni birinci tertip yedek akçe kuralını (VUK m.4, THP 136, 157, 220) içermemektedir; soru muhasebe kaydı değil vergi hukuku ve sermaye yönetimi hesaplaması gerektirmektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-cokzor",
+                         "id":  "kp-36",
+                         "konu":  "is kazasi isveren sorumlulugu",
+                         "kanun":  "TBK",
+                         "madde":  "417",
+                         "gerekce":  "Soru TBK m.417/3\u0027ü anlatıyor ancak kaynak metinde m.417/3 hükmü eksiktir; m.417\u0027nin 2. ve 3. paragrafları kaynakta tam olarak yer almadığı için atıf teyit edilememiştir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-maliyet-cokzor",
+                         "id":  "kp-31",
+                         "konu":  "gug yukleme orani",
+                         "kanun":  "TTK",
+                         "madde":  "516",
+                         "gerekce":  "Kaynak metni TTK m.516 (yönetim kurulu faaliyet raporu) ve faaliyet tabanlı maliyetleme teorisini içermekte; genel üretim gideri yükleme oranı hesaplaması için gerekli kaynak (VUK 213 S.K., THP 622/741 vb.) pakette yoktur."
+                     },
+                     {
+                         "etiket":  "sgs-t1-maliyet-cokzor",
+                         "id":  "kp-39",
+                         "konu":  "agirlikli ortalama maliyet",
+                         "kanun":  "VUK",
+                         "madde":  "275",
+                         "gerekce":  "Soru agirlikli ortalama maliyet yontemini olcuyor; ancak kaynak metni THP 700-701 hesaplari ve VUK m.275 imal edilen emtia maliyetinden olusur, agirlikli ortalama yontemi ve stok degerleme kurallari hakkinda ACIK kural icermez."
+                     },
+                     {
+                         "etiket":  "sgs-t1-maliyet-kolay",
+                         "id":  "kp-31",
+                         "konu":  "gug yukleme orani",
+                         "kanun":  "TTK",
+                         "madde":  "516",
+                         "gerekce":  "Kaynak metni TTK m.516 (faaliyet raporları) ve faaliyet tabanlı maliyetleme teorik notudur; genel üretim gideri yükleme oranı, eksik/fazla yükleme sapması ve standart maliyet farklı hesaplaması Maliyet Muhasebesi dersinin Tekdüzen Hesap Planı (THP 730/731) kaynağında yer almalı, ancak soruda sunulan kaynak paketi bu hukum ve tanımları içermemektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-maliyet-zor",
+                         "id":  "kp-20",
+                         "konu":  "hareketli ortalama maliyet",
+                         "kanun":  "VUK",
+                         "madde":  "274",
+                         "gerekce":  "Kaynak metni stok değerleme yöntemlerine (hareketli ortalama) ilişkin herhangi bir kural içermemektedir; yalnızca THP hesap tanımları ve VUK m.274 emtia değerlemesine yer almaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-mta-kolay",
+                         "id":  "kp-16",
+                         "konu":  "yabanci kaynak orani analizi",
+                         "kanun":  "TTK",
+                         "madde":  "376",
+                         "gerekce":  "Kaynak metni TTK m.376 (borca batıklık ve iflas koşulları) içermekte olup, finansal kaldıraç oranı formülü ve hesaplaması için hiçbir yasal dayanak sunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-cokzor",
+                         "id":  "kp-07",
+                         "konu":  "odeme emrine itiraz",
+                         "kanun":  "2577",
+                         "madde":  "28",
+                         "gerekce":  "Soru 2577 sayılı İdari Yargılama Usulü Kanunu m.28/6 atfıyla 6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun m.48\u0027deki tecil faizini soruyor ancak, kaynak metinde m.48\u0027in \u0027ödeme emrine karşı açılan dava reddedilmesi sonrası\u0027 faiz hesaplama kuralı açıkça yazılı değildir; m.48 sadece tecil talebinin reddedilmesi halini genel olarak içerir, mahkeme kararı tebliğinden başlayan ve banka hesap bildirimine kadar olan süreden faiz hesaplama hükmü kaynak metinde bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-kolay",
+                         "id":  "kp-23",
+                         "konu":  "limited sirket ortak sorumlulugu",
+                         "kanun":  "6183",
+                         "madde":  "35",
+                         "gerekce":  "Kaynak metni portföy saklama hizmetine ilişkin Tebligi (III-56.1) içermekte, soru 6183 sayılı Kanun m.35\u0027e dayanmakta ancak kaynak metinde limited şirket ortağının kamu alacağından sorumluluğuna ilişkin hiçbir hüküm bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-kolay",
+                         "id":  "kp-30",
+                         "konu":  "ticari defterlerle ispat",
+                         "kanun":  "TTK",
+                         "madde":  "222",
+                         "gerekce":  "Kaynak metni, soru ve doğru sık için gerekli olan TTK m.222 (ticari defterlerle ispat) hükmünü içermemektedir; kaynakta m.222 başlığı yönetim yetkisine ilişkindir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-zor",
+                         "id":  "kp-08",
+                         "konu":  "haksiz rekabet davalari",
+                         "kanun":  "TTK",
+                         "madde":  "59",
+                         "gerekce":  "Soru, haksız rekabet davasında ilan kararına ilişkin TTK m.59\u0027un yorumlanmasını sormaktadır; sorulan ifade (A) TTK m.59/1\u0027e açıkça aykırıdır çünkü kanun ilan kararının \u0027hükmün kesinleşmesinden sonra\u0027 verilmesini zorunlu kılarken, seçenek \u0027kesinleşmeksizin derhal uygulanabilir\u0027 demektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-zor",
+                         "id":  "kp-08",
+                         "konu":  "haksiz rekabet davalari",
+                         "kanun":  "TTK",
+                         "madde":  "59",
+                         "gerekce":  "Soru, haksız rekabet davasında ilan kararına ilişkin TTK m.59\u0027un yorumlanmasını sormaktadır; sorulan ifade (A) TTK m.59/1\u0027e açıkça aykırıdır çünkü kanun ilan kararının \u0027hükmün kesinleşmesinden sonra\u0027 verilmesini zorunlu kılarken, seçenek \u0027kesinleşmeksizin derhal uygulanabilir\u0027 demektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-vergi-kolay",
+                         "id":  "kp-27",
+                         "konu":  "emlak vergisi-bina vergisi",
+                         "kanun":  "GVK",
+                         "madde":  "74",
+                         "gerekce":  "Kaynak metni GVK geçici m.8\u0027i içermekle birlikte, sorunun dayandığı GVK m.74/1-5 maddesinin tam metni kaynakta yoktur; yalnızca geçici m.8\u0027de atıf yapılmıştır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-vergi-zor",
+                         "id":  "kp-26",
+                         "konu":  "gelir vergisi-yurt disi kazanc istisnasi",
+                         "kanun":  "GVK",
+                         "madde":  "89",
+                         "gerekce":  "Kaynak metni GVK m.89/5\u0027i içermektedir; madde, yüz yatak kapasitesinden az olmayan sağlık tesislerinin inşası harcamalarının TAMAMININindirilmesini öngörür, ancak sorunun C seçeneği \u0027yarısı\u0027 indirim yapılabileceğini iddia ederek hukmu yanlış aktarmıştır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-zor",
+                         "id":  "kp-24",
+                         "konu":  "ic kontrol sistemi ozellikleri",
+                         "kanun":  "TTK",
+                         "madde":  "375",
+                         "gerekce":  "Doğru sıkkın dayandığı kural (TTK m.375/1-c) kaynak metinde yer almamaktadır; kaynak metni yalnızca BDS 315 içeriklerini (yapısal risk, kontrol riski, kontrol çevresi) kapsamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-cokzor",
+                         "id":  "kp-41",
+                         "konu":  "satis dongusu maddi dogruluk testi",
+                         "kanun":  "VUK",
+                         "madde":  "231",
+                         "gerekce":  "Kaynak metni VUK m.231/5 fatura düzenleme süresini (teslimden itibaren azami 7 gün) düzenler ancak hasılatın muhasebeleştirilme tarihini değil; dönemsellik ilkesi kaynakta yer almadığı için dayanak eksiktir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-kolay",
+                         "id":  "kp-60",
+                         "konu":  "uluslararasi etik kurulu",
+                         "kanun":  "VUK",
+                         "madde":  "152",
+                         "gerekce":  "Kaynak metni VUK m.152/A (vergi bilgi değişimi) ve Halİç Konferansı (tarih) ve yüzde problemi (matematik) içermektedir; soru iç kontrolün AICPA klasik tanımı ve COSO Çerçevesi hakkındadır ve kaynak pakette bu konuya dair hiçbir hüküm yoktur."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-kolay",
+                         "id":  "kp-73",
+                         "konu":  "brut satis kari degisimi",
+                         "kanun":  "VUK",
+                         "madde":  "275",
+                         "gerekce":  "Kaynak metni VUK m.275 \u0027İmal edilen emtia\u0027 konusunu düzenlemekte; ticari mal alış-satışında satılan malın maliyeti hesaplaması (dönem başı + alışlar - dönem sonu) ve brüt satış kârı hesaplaması kuralı kaynak metinde yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-38",
+                         "konu":  "senet ile mal alisi",
+                         "kanun":  "VUK",
+                         "madde":  "274",
+                         "gerekce":  "Kaynak metni VUK m.274 ve m.274/A, emtianın maliyet bedeliyle değerlemesini düzenler; senetle mal alışında KDV hesaplaması ve senet tutarı hesaplanmasına ilişkin muhasebe kaydı kuralı kaynakta açıkça yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-85",
+                         "konu":  "amortisman yontemleri",
+                         "kanun":  "VUK",
+                         "madde":  "315",
+                         "gerekce":  "Kaynak metni yalnız normal amortisman oranlarını ve VUK m.315\u0027i içerir; azalan bakiyeler yöntemi, yöntem değişikliği kuralı ve kalan ömre eşit bölme ilkesi kaynakta açıkça desteklenmemiştir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-issgk-cokzor",
+                         "id":  "kp-10",
+                         "konu":  "yaslilik ayligi prim gunu",
+                         "kanun":  "5510",
+                         "madde":  "3",
+                         "gerekce":  "Kaynak metni muhasebe hesap tanımları (THP 360-361-368-369) içermekte olup, sorunun dayanağı olan 5510 sayılı Kanun m.3\u0027ün 16. bendi (tam yılın 360 gün sayılması) ve kısa/uzun vadeli sigorta kollarının tanımları kaynak pakette eksik/tam olmayan şekilde yer almaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-ticaret-cokzor",
+                         "id":  "kp-16",
+                         "konu":  "ticari temsilcilik yetkisi",
+                         "kanun":  "TBK",
+                         "madde":  "548",
+                         "gerekce":  "Kaynak metni TBK m.548\u0027i içermediğinden, doğru sıkkın dayandığı temel hüküm kaynaktan desteklenemiyor."
+                     },
+                     {
+                         "etiket":  "sgs-t2-ticaret-cokzor",
+                         "id":  "kp-20",
+                         "konu":  "etik kurulu gorev yetkileri",
+                         "kanun":  "TTK",
+                         "madde":  "397",
+                         "gerekce":  "Kaynak metinde TTK m.397/5 açıkça \u0027Kanunun denetçinin sorumluluğuna ilişkin hükümleri, bu fıkra uyarınca denetim yapacak denetçilere DE KIYASen UYGULANIR\u0027 demektedir; işaretli D seçeneği \u0027uygulanmaz\u0027 diyerek metnin tersini iddia etmektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-ticaret-kolay",
+                         "id":  "kp-17",
+                         "konu":  "limited sirket ortak sorumlulugu",
+                         "kanun":  "6183",
+                         "madde":  "35",
+                         "gerekce":  "Sorunun dayanak hükmü (6183 sayılı Kanunun mükerrer m.35) kaynak metinde hiç yer almamaktadır; kaynak metin portföy saklama hizmetleri (III-56.1 Tebligi) hakkındadır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-ticaret-zor",
+                         "id":  "kp-13",
+                         "konu":  "tacir yardimcilari temsil yetkisi",
+                         "kanun":  "TBK",
+                         "madde":  "547",
+                         "gerekce":  "Doğru sıkkın dayandığı kural kaynak metinde eksiktir; TBK m.547-554\u0027te temsil yetkisinin sınırlandırılmasına ilişkin tescil ve ilan şartı açıkça yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-ticaret-zor",
+                         "id":  "kp-20",
+                         "konu":  "limited sirket sona erme",
+                         "kanun":  "TTK",
+                         "madde":  "637",
+                         "gerekce":  "Seçenek C yanlış değil, doğru ifadedir; tescil ve ilan yükümlülüğü müdür(ler)e ait olduğu TTK m.637/1\u0027de açıkça yazılıdır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-ticaret-zor",
+                         "id":  "kp-26",
+                         "konu":  "limited sirket ortak sorumlulugu",
+                         "kanun":  "TTK",
+                         "madde":  "35",
+                         "gerekce":  "Doğru sıkta atıf yapılan 6183 s.K. m.35 hükmü, kaynak metinde gösterilen metin ile uyuşmamaktadır; kaynak pakette m.35, TTK m.35 (sicil defter saklama) olarak yer almakta, kamu alacağı sorumluluğu hakkında hüküm içermemektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-vergi-cokzor",
+                         "id":  "kp-08",
+                         "konu":  "ozel iletisim vergisi",
+                         "kanun":  "VUK",
+                         "madde":  "257",
+                         "gerekce":  "Soru 6802 m.39\u0027da hüküm bulunmayan usul işlemlerinde hangi kanunun uygulanacağını soruyor; kaynak metni m.39\u0027un son fıkrasında \u0027Bu maddede hüküm bulunmayan hallerde, 3065 sayılı Katma Değer Vergisi Kanunu hükümleri uygulanır\u0027 hükmü taşıyor ancak doğru sikk Vergi Usul Kanunu olarak verilmiş ve açıklamada VUK m.257 atıf yapılmıştır."
+                     },
+                     {
+                         "etiket":  "sgs-t2-vergi-cokzor",
+                         "id":  "kp-12",
+                         "konu":  "vuk karsilik",
+                         "kanun":  "VUK",
+                         "madde":  "278",
+                         "gerekce":  "Soru Vergi Hukuku dersinin resmi kapsamına uygun olmakla birlikte, sorunun dayandığı VUK m.278 hükmü kaynakta bulunmaktadır; ancak TMS 2 ile VUK m.278 arasındaki muhasebe-vergi uzlaştırması (mali kâr-ticari kâr sapması) ve takdir komisyonu şartı konusunda kaynak metinde TMS 2 paragrafları stok değer düşüklüğü tespitini ayrıntılı şekilde açıklamakta, VUK m.278 ise sadece \u0027emsal bedeli ile değerleme\u0027 ilkesini belirtmekte, ikisi arasındaki karşılıklı ilişki ve \u0027takdir komisyonu kararı yoksa gider kabul edilmez\u0027 kuralı kaynak metinde açıkça desteklenmemektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-vergi-cokzor",
+                         "id":  "kp-12",
+                         "konu":  "vuk karsilik",
+                         "kanun":  "VUK",
+                         "madde":  "278",
+                         "gerekce":  "Soru Vergi Hukuku dersinin resmi kapsamına uygun olmakla birlikte, sorunun dayandığı VUK m.278 hükmü kaynakta bulunmaktadır; ancak TMS 2 ile VUK m.278 arasındaki muhasebe-vergi uzlaştırması (mali kâr-ticari kâr sapması) ve takdir komisyonu şartı konusunda kaynak metinde TMS 2 paragrafları stok değer düşüklüğü tespitini ayrıntılı şekilde açıklamakta, VUK m.278 ise sadece \u0027emsal bedeli ile değerleme\u0027 ilkesini belirtmekte, ikisi arasındaki karşılıklı ilişki ve \u0027takdir komisyonu kararı yoksa gider kabul edilmez\u0027 kuralı kaynak metinde açıkça desteklenmemektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-vergi-cokzor",
+                         "id":  "kp-12",
+                         "konu":  "vuk karsilik",
+                         "kanun":  "VUK",
+                         "madde":  "278",
+                         "gerekce":  "Soru Vergi Hukuku dersinin resmi kapsamına uygun olmakla birlikte, sorunun dayandığı VUK m.278 hükmü kaynakta bulunmaktadır; ancak TMS 2 ile VUK m.278 arasındaki muhasebe-vergi uzlaştırması (mali kâr-ticari kâr sapması) ve takdir komisyonu şartı konusunda kaynak metinde TMS 2 paragrafları stok değer düşüklüğü tespitini ayrıntılı şekilde açıklamakta, VUK m.278 ise sadece \u0027emsal bedeli ile değerleme\u0027 ilkesini belirtmekte, ikisi arasındaki karşılıklı ilişki ve \u0027takdir komisyonu kararı yoksa gider kabul edilmez\u0027 kuralı kaynak metinde açıkça desteklenmemektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-vergi-cokzor",
+                         "id":  "kp-17",
+                         "konu":  "gelir vergisi ticari kazanc",
+                         "kanun":  "VUK",
+                         "madde":  "177",
+                         "gerekce":  "Kaynak metindeki VUK m.177/1\u0027de 2026 yılı için alım haddi 2.500.000 TL ve satım haddi 3.500.000 TL olarak gösterilirken, soruda 5.900.000 TL ve 8.500.000 TL kullanılmıştır; bu hadlar kaynakta desteklenmiş değildir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-vergi-kolay",
+                         "id":  "kp-04",
+                         "konu":  "kdv istisnalari",
+                         "kanun":  "GVK",
+                         "madde":  "89",
+                         "gerekce":  "Kaynak metni, GVK m.89 6. bendin tam metnini içermemektedir; sadece başlangıcı verilmiştir ve doğru sikkin dayandığı hukum metinde eksiktir."
+                     },
+                     {
+                         "etiket":  "sgs-t2-vergi-kolay",
+                         "id":  "kp-06",
+                         "konu":  "asgari kurumlar vergisi",
+                         "kanun":  "KVK",
+                         "madde":  "32",
+                         "gerekce":  "Doğru şık E, sorunun kökünde aranan \u0027yanlış ifade\u0027 değil, KVK m.32/C(2)(a) ile tam uyumlu DOĞRU bir ifadedir; soru tasarımında mantıksal hata vardır."
+                     },
+                     {
+                         "etiket":  "sgs-t4-fmuh-zor",
+                         "id":  "kp-36",
+                         "konu":  "mevduat faizi-onceki donem",
+                         "kanun":  "VUK",
+                         "madde":  "150",
+                         "gerekce":  "Kaynak metni VUK m.150, m.204 ve m.274/A içermekte olup, sorunun dayandığı muhasebe kural ve hesapları (181 Gelir Tahakkukları, 642 Faiz Gelirleri, dönemsellik ilkesi) hakkında hiçbir açıklama bulunmamaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-vergi-k10e",
+                         "id":  "kp-01",
+                         "konu":  "vuk degerleme olculeri",
+                         "kanun":  "VUK",
+                         "madde":  "261",
+                         "gerekce":  "Soru net nakit değer (bugünkü değer) kavramını ölçüyor ancak kaynak metinde VUK m.261 değerleme ölçülerine \u0027net nakit değer\u0027 açıkça eklenmemiştir; muhasebe teorisi notu bunu tanımlarken VUK\u0027ta yasal dayanak eksiktir."
+                     }
+                 ]
+}

@@ -24,8 +24,19 @@ function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; $ay=(Get
   if(-not (Test-Path $y)){ return $t }
   foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }; try{ $o=ConvertFrom-Json -InputObject $sat; $z="$($o.zaman)"; if($z -like "$ay*" -and (-not $esik -or $z -gt $esik)){ $t+=[double]$o.toplamUsd } }catch{} }; return $t }
 $harcanan=AyHarcama
-"BEDEL EMNİYETİ: bu ay defterde ≈$([math]::Round($harcanan,2)) USD (defter 08.09'da başladı, öncesi yok) · tavan $AylikTavan · durma eşiği $($AylikTavan-$EmniyetPayi)"
-if($harcanan -ge ($AylikTavan-$EmniyetPayi)){ throw "BEDEL EMNİYETİ: aylık harcama eşiğe ulaştı ($harcanan ≥ $($AylikTavan-$EmniyetPayi)); koşu başlatılmadı. Cem konsolu kontrol etsin." }
+# ⚠ 11.09.2026 CEM KARARI: "BU İKİ RAKAMI İPTAL ET" — aylık tavan artık KAPI DEĞİL,
+#   yalnız RAPOR. Gerekçe (Cem): "bakiye kadar harcayacak ve bizim istediğimiz soru
+#   kadar basacağından sıkıntı olmaz." Gerekçe ÖLÇÜLDÜ ve doğrulandı:
+#     · motor/kalip-parti-uret.ps1 → KAPI-BAKIYE her parti ÖNCESİ Anthropic
+#       bakiyesini yokluyor; yetmezse parti HİÇ BAŞLAMADAN durur (yarım koşu yok).
+#       O kapı yerel dosyaya bağlı değil, BULUTTA DA çalışır.
+#     · harcama ayrıca plana bağlı: koşucu plandaki parti sayısından fazlasını basmaz.
+#   Ayrıca iki rakam ÇELİŞİYORDU (ölçüldü 11.09 22:50): koşucu 933,54 USD,
+#   ham defter 630,15 USD, fark 303,39 — çünkü koşucu konsol çapasını ekliyor,
+#   defter eklemiyordu. İki ayrı "gerçek" tutan bir fren, fren değildir.
+# GERİ ALMAK İÇİN: aşağıdaki satırın başındaki yorumu kaldır.
+# if($harcanan -ge ($AylikTavan-$EmniyetPayi)){ throw "BEDEL EMNİYETİ: aylık harcama eşiğe ulaştı ($harcanan ≥ $($AylikTavan-$EmniyetPayi)); koşu başlatılmadı." }
+"BEDEL KAYDI (kapı DEĞİL, rapor): bu ay ≈$([math]::Round($harcanan,2)) USD · fren = KAPI-BAKIYE (parti başına bakiye yoklaması)"
 $planYol=$(if(Test-Path $Plan){ $Plan } else { Join-Path $Kok $Plan }); if(-not (Test-Path $planYol)){ throw "plan yok: $planYol" }
 $planAd=[IO.Path]::GetFileNameWithoutExtension($planYol)
 $satirlar=@(ConvertFrom-Json -InputObject (Get-Content $planYol -Raw -Encoding UTF8)); if($satirlar.Count -eq 1 -and $satirlar[0].PSObject.Properties['SyncRoot']){ $satirlar=@($satirlar[0].SyncRoot) }
@@ -124,12 +135,15 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   # 08.09 17:10 hız ölçümü: anlık modda 192 konuluk etiket tek hatta ≈16 saat → etiket ikiye bölünür: eski etiket yalnız önbellekteki id'lerle (pilot),
   # kalan konular "<etiket>-b" adlı yeni etikette ayrı hatta koşar. Plan alanı `pilot` = virgüllü id listesi → üreticiye -PilotId
   if($s.PSObject.Properties['pilot'] -and "$($s.pilot)"){ $arg+=@('-PilotId',"$($s.pilot)") }
-  # her ders öncesi emniyet: önceki dersler tavana yaklaştırdıysa dur (ödenen iş yazılmış olur, kalan ders sabaha kalır)
+  # ⚠ 11.09 Cem "BU İKİ RAKAMI İPTAL ET" — ders arası aylık tavan kapısı da KALDIRILDI.
+  #   Fren KAPI-BAKIYE'dir: kalip-parti-uret.ps1 her parti öncesi Anthropic bakiyesini
+  #   yoklar, yetmezse parti HİÇ BAŞLAMAZ. Yerel dosyaya bağlı değil → bulutta da çalışır.
+  #   GERİ ALMAK İÇİN: aşağıdaki dört satırın yorumunu kaldır.
   $harcanan=AyHarcama
-  if($harcanan -ge ($AylikTavan-$EmniyetPayi)){
-    "[$(Get-Date -Format HH:mm)] BEDEL EMNİYETİ: ≈$([math]::Round($harcanan)) USD, eşik $($AylikTavan-$EmniyetPayi) → kalan dersler DURDU ($($s.etiket) ve sonrası)"
-    $durduruldu=$true; break
-  }
+  # if($harcanan -ge ($AylikTavan-$EmniyetPayi)){
+  #   "[$(Get-Date -Format HH:mm)] BEDEL EMNİYETİ: ≈$([math]::Round($harcanan)) USD → kalan dersler DURDU"
+  #   $durduruldu=$true; break
+  # }
   "[$(Get-Date -Format HH:mm)] BASLIYOR $($s.etiket) · $($s.ders) · adet $($s.adet)$(if($s.PSObject.Properties['eskiKaynak'] -and $s.eskiKaynak){ ' · KURTARMA' }) · ay ≈$([math]::Round($harcanan)) USD · ucan $($ucan.Count+1)"
   # ⛔ Start-Process -ArgumentList diziyi BOSLUKLA birlestirir; depo yolu
   #    "...\mevzuat işi\..." bosluk tasiyor. Bosluklu her arguman TIRNAKLANIR.

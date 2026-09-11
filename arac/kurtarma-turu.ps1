@@ -168,15 +168,51 @@ RaporYaz -Hedef (Join-Path $depoKok 'veri\kurtarma-turu.json') -Nesne ([ordered]
   yedek=$yolYedek
   kayitlar=@((Dizi $kayit)|ForEach-Object{ [pscustomobject]$_ })
 })
-# Ambar eksigi: benzersiz kanun|madde
+# ---------------------------------------------------------------------------
+# ⛔ 11.09 23:15 KUSUR BULUNDU VE KAPATILDI.
+#
+# Bu blok once hakemin gerekcesinden madde cikarip DOGRUDAN "AMBAR EKSIGI -
+# yutma is emri" diyordu. AMBARA HIC SORMADAN. Cem "2 yap, 41 eksik maddeyi
+# yut" dedi; yutmadan once adi olctum ve SONUC: 41'in 41'i AMBARDA VARDI.
+# Metinleriyle dogrulandi (VUK m.231 "Fatura nizami", TTK m.376 sermaye kaybi,
+# TBK m.417). Yani bu dosya bir yutma is emri degil, YANLIS TESHISTI - ve
+# uzerine is yapilsaydi bosa emek + muhtemel mukerrer yutma olurdu.
+# Ayni hata bugun ikinci kez: sabah da "492 Harclar ambarda yok" demistim,
+# kanun 240 maddeyle yutulmus cikti. Kural: OLCMEDIGINE VAR/YOK DEME.
+#
+# Artik her madde AMBARA SORULUYOR ve iki kumeye ayriliyor:
+#   ambarda_yok  -> gercek yutma is emri
+#   pakette_yok  -> ambarda VAR ama kaynak paketine GIRMEMIS = PAKET KUSURU
+# Ikincisi cok daha degerli bir bulgu: KAYNAK-EKSIK ailesinin gercek koku.
+# ---------------------------------------------------------------------------
+# AmbardaVarMi TEK YERDE durur: arac/madde-teshis.ps1. Burada KOPYASI TUTULMAZ -
+# iki kopya olsaydi biri duzelip digeri eski kalirdi (bugun ayni sey AtifDesen
+# ile yasandi: DERS_KANUN 07.09'da duzeldi, ATIF tablosu guncellenmedi ve
+# 777 ret o yuzden birikti).
+. (Join-Path $here 'madde-teshis.ps1')
+
 $benzersiz=@{}
 foreach($a in (Dizi $ambarEksik)){ $benzersiz["$($a.kanun) m.$($a.madde)"]=$a }
+$ambardaYok=New-Object System.Collections.Generic.List[string]
+$paketteYok=New-Object System.Collections.Generic.List[string]
+$olculemedi=New-Object System.Collections.Generic.List[string]
+foreach($k in @($benzersiz.Keys|Sort-Object)){
+  $a=$benzersiz[$k]
+  $v=AmbardaVarMi "$($a.kanun)" "$($a.madde)"
+  if($v -eq $null){ $olculemedi.Add($k) } elseif($v){ $paketteYok.Add($k) } else { $ambardaYok.Add($k) }
+}
 RaporYaz -Hedef (Join-Path $depoKok 'veri\kurtarma-ambar-eksigi.json') -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
-  kural='Kurtarma turunda hakem "kaynak metni su maddeyi ICERMEMEKTEDIR" dedi. Bunlar PAKET sorunu degil AMBAR EKSIGI - yutma is emri.'
+  kural='Hakem "kaynak metni su maddeyi ICERMEMEKTEDIR" dedi. Her madde AMBARA SORULDU. ambarda_yok = yutma is emri; pakette_yok = madde AMBARDA VAR ama kaynak paketine girmemis (PAKET KUSURU, yutma COZMEZ).'
   benzersiz_madde=$benzersiz.Count; toplam_vaka=(Dizi $ambarEksik).Count
-  maddeler=@($benzersiz.Keys|Sort-Object)
+  ambarda_yok_sayi=$ambardaYok.Count; pakette_yok_sayi=$paketteYok.Count; olculemedi_sayi=$olculemedi.Count
+  maddeler_ambarda_yok=$ambardaYok.ToArray()
+  maddeler_pakette_yok=$paketteYok.ToArray()
+  maddeler_olculemedi=$olculemedi.ToArray()
   kayitlar=@((Dizi $ambarEksik)|ForEach-Object{ [pscustomobject]$_ })
 })
-Write-Host ("`nAMBAR EKSIGI: {0} benzersiz madde ({1} vaka) -> veri/kurtarma-ambar-eksigi.json" -f $benzersiz.Count,(Dizi $ambarEksik).Count) -ForegroundColor Yellow
+Write-Host ("`nMADDE TESHISI: {0} benzersiz ({1} vaka)" -f $benzersiz.Count,(Dizi $ambarEksik).Count) -ForegroundColor Cyan
+Write-Host ("  AMBARDA YOK (yutma is emri) : {0}" -f $ambardaYok.Count) -ForegroundColor $(if($ambardaYok.Count){'Yellow'}else{'Green'})
+Write-Host ("  PAKETTE YOK (paket kusuru)  : {0}" -f $paketteYok.Count) -ForegroundColor $(if($paketteYok.Count){'Red'}else{'Green'})
+if($olculemedi.Count){ Write-Host ("  OLCULEMEDI                  : {0}" -f $olculemedi.Count) -ForegroundColor DarkGray }
 Write-Host "-> veri/kurtarma-turu.json" -ForegroundColor Green

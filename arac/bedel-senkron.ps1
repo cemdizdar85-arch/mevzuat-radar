@@ -81,6 +81,23 @@ function Anahtar($zaman,$etiket,$tutar){
   return ($z + '|' + "$etiket" + '|' + ([double]$tutar).ToString('F4',[cultureinfo]::InvariantCulture))
 }
 
+# ---------------------------------------------------------------------------
+# ⚠ 11.09 22:55 — CEM KARARI: "BU İKİ RAKAMI İPTAL ET".
+#
+# Bu betik once konsol capasini (veri/fabrika/bedel-konsol.json) da tasiyacak
+# sekilde genisletilmisti, cunku kosucu ile defter iki AYRI rakam goruyordu:
+#     kosucunun gordugu 933,54 USD  ·  ham defter 630,15 USD  ·  fark 303,39
+# Cem aylik tavani kapi olmaktan cikardi (gerekce: "bakiye kadar harcayacak ve
+# istedigimiz soru kadar basacak"). Olculdu ve gerekce DOGRULANDI:
+# motor/kalip-parti-uret.ps1'deki KAPI-BAKIYE her parti oncesi Anthropic
+# bakiyesini yokluyor, yetmezse parti HIC BASLAMIYOR - ve o kapi bulutta da
+# calisir, yerel dosyaya bagli degil.
+#
+# Bu yuzden capa mantigi EKLENMEDI: defter artik bir KAPI degil, yalniz
+# harcama KAYDI. Tek is, iki tarafin ayni kaydi gormesi.
+# Geri almak gerekirse: capa = bedel-konsol.json, kosucudaki AyHarcama()
+# ile ayni mantik (capa + capadan sonraki satirlar).
+# ---------------------------------------------------------------------------
 $yerel=Dizi (YerelSatirlar)
 $yerelAy=@($yerel|Where-Object{ "$($_.zaman)" -like "$Ay*" })
 $ambar=Dizi (AmbarSatirlar $Ay)
