@@ -99,6 +99,14 @@ function KapilardanGecti($v){
   return $true
 }
 
+# CEVAP BICIMI KILITLI (Cem 11.09: "nobetci coz / sen coz sayfa gibi uretilecek cevaplar").
+# Sartname: STANDART-CEVAP-KALIBI.md · builder: motor/kaydir-coz.ps1 (bedel 0, API yok).
+# Sayfanin doldurdugu alanlar asagida sayilir: raftaki soru bu alanlari tasimiyorsa
+# hasat bedeli YANLIS hesaplanir (sade'den fazlasi gerekir).
+$SAYFA_ALANI=@('sade','adimlar','konu_giris','ikiz','teori_ikiz','sema','cozum_tablo','hap','sinav_taktigi','teshis')
+$sayfaDolu=[ordered]@{}; foreach($a in $SAYFA_ALANI){ $sayfaDolu[$a]=0 }
+$sayfaHazir=0
+
 $hasat=@{}; $hasatSade=@{}; $cozulemeyen=@{}
 $huni=[ordered]@{ toplam=0; hakemYok=0; hakemHayir=0; korYok=0; korYanlis=0; hakem2Yok=0; hakem2Hayir=0; simYanlis=0; gecen=0 }
 foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip-parti-*.json')){
@@ -115,6 +123,9 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
     if(-not (KapilardanGecti $v)){ continue }
     $huni.gecen++
     if($havuzAnahtar.ContainsKey("$et|$($p.Name)")){ continue }   # zaten yayinda
+    foreach($a in $SAYFA_ALANI){ if($v.PSObject.Properties[$a] -and $v.$a){ $sayfaDolu[$a]++ } }
+    $ikizVar=($v.PSObject.Properties['ikiz'] -and $v.ikiz) -or ($v.PSObject.Properties['teori_ikiz'] -and $v.teori_ikiz)
+    if(($v.sade -and $v.sade.dogru) -and $v.adimlar -and $v.konu_giris -and $ikizVar){ $sayfaHazir++ }
     if($ders){
       $hasat[$ders]=1+[int]$hasat[$ders]
       if($v.sade -and $v.sade.dogru){ $hasatSade[$ders]=1+[int]$hasatSade[$ders] }
@@ -204,7 +215,27 @@ Y ("| **TOPLAM** | **{0}** | **{1:N0}** | **{2:N0}** | **{3:N0}** | | **{4:N0}**
 Y ""
 Y ("**DAR BOGAZ: {0}** — {1} soruyla ancak {2:N1} deneme cikar. Deneme sayisini bu ders belirler." -f $darBogaz.ders,$darBogaz.toplam,$darBogaz.deneme)
 Y ""
-Y "## 3 · BEDEL (olculdu, tahmin degil)"
+$rafT=0; foreach($k in $hasat.Keys){ $rafT+=$hasat[$k] }
+$rafHam=$rafT; foreach($e in $cozulemeyen.GetEnumerator()){ $rafHam+=$e.Value }
+Y "## 3 · CEVAP BICIMI — ''Nobetci anlatsin / Sen coz'' sayfasi"
+Y ""
+Y "**KILITLI KARAR (Cem, 11.09):** cevaplar Kaydir-Coz sayfasi olarak uretilir."
+Y "Sartname `STANDART-CEVAP-KALIBI.md` · builder `motor/kaydir-coz.ps1` (onbellekten basar, API yok, **bedel 0**)."
+Y ""
+Y "Sayfanin doldurdugu alanlar raftaki sorularda ne kadar hazir:"
+Y ""
+Y "| Alan | Dolu | Oran | Ne ise yarar |"
+Y "|---|---:|---:|---|"
+$ALAN_ISI=@{ sade='panel (2 sik + kavramlar)'; adimlar='adim adim cozum'; konu_giris='Nobetci anlatsin girisi'
+  ikiz='Sen coz ikizi (hesap)'; teori_ikiz='Sen coz ikizi (teori)'; sema='yevmiye / T-hesabi'
+  cozum_tablo='cozum tablosu'; hap='hap bilgi'; sinav_taktigi='sinav taktigi'; teshis='teshis (ne sanmistin)' }
+foreach($a in $SAYFA_ALANI){
+  Y ("| {0} | {1:N0} | %{2:N1} | {3} |" -f $a,$sayfaDolu[$a],(100*$sayfaDolu[$a]/[double]$rafHam),$ALAN_ISI[$a])
+}
+Y ""
+Y ("**SONUC:** eksik olan tek alan **sade** (%{0:N1}). Sayfanin geri kalanini besleyen alanlar uretimde zaten dolduruluyor — hap/taktik/teshis %100, konu girisi %{1:N1}, adimlar %{2:N1}, ikiz (hesap+teori) %{3:N1}. Bu yuzden hasat bedeli = **yalniz sade paneli**." -f (100*$sayfaDolu['sade']/[double]$rafHam),(100*$sayfaDolu['konu_giris']/[double]$rafHam),(100*$sayfaDolu['adimlar']/[double]$rafHam),(100*($sayfaDolu['ikiz']+$sayfaDolu['teori_ikiz'])/[double]$rafHam))
+Y ""
+Y "## 4 · BEDEL (olculdu, tahmin degil)"
 Y ""
 Y "| Kalem | Bedel |"
 Y "|---|---:|"
@@ -219,12 +250,12 @@ Y ""
 $tik=[char]96
 Y ("> Bedel defterinde {0}varsayim=true{0}: jeton sayilari GERCEK, USD fiyatlari model liste fiyatindan hesaplaniyor. Kur varsayimi 1 USD = {1} TL." -f $tik,$Kur)
 Y ""
-Y "## 4 · SIRA"
+Y "## 5 · SIRA"
 Y ""
 Y ("1. **Hasat** — {0:N0} raf sorusunu sade panelinden gecir, havuza al. ({1:N0} TL)" -f $topHasat,($topHasat*$sadeTl))
 Y ("2. **Acik kapatma** — {0:N0} soru sifirdan uret; oncelik dar bogaz dersleri. ({1:N0} TL)" -f $topAcik,($topAcik*$birimTl))
 Y ("3. Toplam: **{0:N0} TL** ile {1} tam deneme sinavi." -f (($topHasat*$sadeTl)+($topAcik*$birimTl)),$HedefDeneme)
-$bolum=4
+$bolum=5
 if($havuzYabanci.Count){
   $bolum++
   Y ""
@@ -254,3 +285,5 @@ $hedefDosya=Join-Path $depoKok 'veri\URETIM-PLANI-SGS.md'
 Write-Host ("-> {0}" -f $hedefDosya) -ForegroundColor Green
 Write-Host ("fabrika {0:N0} · gecen {1:N0} · yayinda {2:N0} · rafta {3:N0} · acik {4:N0}" -f $huni.toplam,$huni.gecen,$topV2,$topHasat,$topAcik) -ForegroundColor Cyan
 Write-Host ("dar bogaz: {0} ({1:N1} deneme)" -f $darBogaz.ders,$darBogaz.deneme) -ForegroundColor Yellow
+
+

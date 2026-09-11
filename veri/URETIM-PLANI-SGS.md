@@ -1,6 +1,6 @@
 ﻿# URETIM PLANI — STAJA BASLAMA (SGS)
 
-> Uretim: **11.09.2026 15:10** (makine; elle duzenlenmez — motor/uretim-plani.ps1). Hedef: **10 tam deneme sinavi**.
+> Uretim: **11.09.2026 15:39** (makine; elle duzenlenmez — motor/uretim-plani.ps1). Hedef: **10 tam deneme sinavi**.
 > Kaynaklar: ders agirligi = veri/ders-profili.json · yayindaki havuz = veri/sinav/kaydir-secim/sgs-650-secim.json · fabrika = veri/fabrika/kalip-parti-*.json · bedel = veri/fabrika/bedel-kayit.jsonl
 
 ## 0 · TEK CUMLE
@@ -48,7 +48,29 @@ Fabrikada **3.701** soru uretildi, **1.756**'i tum kapilardan gecti, ama yayinda
 
 **DAR BOGAZ: Meslek Hukuku** — 27 soruyla ancak 4,5 deneme cikar. Deneme sayisini bu ders belirler.
 
-## 3 · BEDEL (olculdu, tahmin degil)
+## 3 · CEVAP BICIMI — ''Nobetci anlatsin / Sen coz'' sayfasi
+
+**KILITLI KARAR (Cem, 11.09):** cevaplar Kaydir-Coz sayfasi olarak uretilir.
+Sartname STANDART-CEVAP-KALIBI.md · builder motor/kaydir-coz.ps1 (onbellekten basar, API yok, **bedel 0**).
+
+Sayfanin doldurdugu alanlar raftaki sorularda ne kadar hazir:
+
+| Alan | Dolu | Oran | Ne ise yarar |
+|---|---:|---:|---|
+| sade | 17 | %1,5 | panel (2 sik + kavramlar) |
+| adimlar | 1.098 | %97,5 | adim adim cozum |
+| konu_giris | 1.117 | %99,2 | Nobetci anlatsin girisi |
+| ikiz | 372 | %33,0 | Sen coz ikizi (hesap) |
+| teori_ikiz | 697 | %61,9 | Sen coz ikizi (teori) |
+| sema | 851 | %75,6 | yevmiye / T-hesabi |
+| cozum_tablo | 384 | %34,1 | cozum tablosu |
+| hap | 1.126 | %100,0 | hap bilgi |
+| sinav_taktigi | 1.126 | %100,0 | sinav taktigi |
+| teshis | 1.126 | %100,0 | teshis (ne sanmistin) |
+
+**SONUC:** eksik olan tek alan **sade** (%1,5). Sayfanin geri kalanini besleyen alanlar uretimde zaten dolduruluyor — hap/taktik/teshis %100, konu girisi %99,2, adimlar %97,5, ikiz (hesap+teori) %94,9. Bu yuzden hasat bedeli = **yalniz sade paneli**.
+
+## 4 · BEDEL (olculdu, tahmin degil)
 
 | Kalem | Bedel |
 |---|---:|
@@ -62,13 +84,13 @@ Hasat, ayni sayida soruyu sifirdan uretmeye gore **14.205 TL** ucuz (36x).
 
 > Bedel defterinde `varsayim=true`: jeton sayilari GERCEK, USD fiyatlari model liste fiyatindan hesaplaniyor. Kur varsayimi 1 USD = 41 TL.
 
-## 4 · SIRA
+## 5 · SIRA
 
 1. **Hasat** — 1.114 raf sorusunu sade panelinden gecir, havuza al. (411 TL)
 2. **Acik kapatma** — 73 soru sifirdan uret; oncelik dar bogaz dersleri. (958 TL)
 3. Toplam: **1.369 TL** ile 10 tam deneme sinavi.
 
-## 5 · DERSI COZULEMEYEN ETIKETLER (hasat disinda kaldi)
+## 6 · DERSI COZULEMEYEN ETIKETLER (hasat disinda kaldi)
 
 | Etiket | Soru |
 |---|---:|
