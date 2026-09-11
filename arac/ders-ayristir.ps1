@@ -20,7 +20,7 @@
   kalir ve rapora yazilir. Yanlis derse atamak, atamamaktan kotudur -
   o ders adina soru basariz ve sinavda o dersten cikmaz.
 
-  CIKTI: veri/ders-ayristirma.json  (konu -> ders, gerekce, guven)
+  CIKTI: veri/ders-ayristirma-sgs.json  (konu -> ders, gerekce, guven)
   BEDEL 0 — yalniz yerel dosya okur.
 ================================================================================
 #>
@@ -28,6 +28,18 @@ param([switch]$Uygula)    # olmadan: yalniz olcer ve rapor eder
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
+
+# --- OLCUM KAPILARI (11.09, Cem "olcum araclarina oz-sinav ekle") -------------
+# Bu betik OLCUM yapar; olcum aracinin kendisi bozuksa cikan rakam yanlis KARAR
+# urettirir (11.09'da dort kez oldu). Oz-sinav kirmizi donerse HIC olcmez.
+. (Join-Path $here 'olcum-kapilari.ps1')
+$ok_kusur=Test-OlcumKapilari -Sessiz
+if((Dizi $ok_kusur).Count){
+  Write-Host '⛔ OLCUM KAPILARI KIRMIZI - bu olcume guvenilmez:' -ForegroundColor Red
+  foreach($h in (Dizi $ok_kusur)){ Write-Host "   - $h" -ForegroundColor Red }
+  throw 'olcum kapilari oz-sinavi dustu'
+}
+
 
 function Katla([string]$s){
   $x="$s".Trim().ToLowerInvariant()
@@ -165,4 +177,4 @@ RaporYaz -Hedef (Join-Path $depoKok 'veri\ders-ayristirma-sgs.json') -Nesne ([or
   ayristirilan=$cozulen; toplam=$kaba.Count
   kayitlar=@($cikti | ForEach-Object { [pscustomobject]$_ })
 })
-Write-Host "`n-> veri/ders-ayristirma.json" -ForegroundColor Green
+Write-Host "`n-> veri/ders-ayristirma-sgs.json" -ForegroundColor Green

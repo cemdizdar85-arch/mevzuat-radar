@@ -141,6 +141,40 @@ function DusmeSebebi([string]$etiket,[string]$id){
   return ''
 }
 
+# --- KAPI-IK: IKIZ SORU (11.09.2026, Cem "ikiz kapisini yayin secimine bagla")
+# arac/ikiz-soru.ps1 ayni konudan uretilmis sorulari kiyaslar; SORU METNI VE
+# DOGRU SIK METNI birlikte esigi asan ciftte biri yayin disi kalir.
+# ⚠ IKI OLCUT SART: tek olcutle (yalniz soru metni) 14 "canli ikiz" bildirilmis,
+#   elle bakinca 3'u gercek cikmisti. Digerleri ayni konudan FARKLI soru -
+#   4 turlu uretimden zaten istedigimiz sey.
+# ⚠ Liste BAYATSA kullanilmaz: ikiz raporu, en yeni parti dosyasindan eskiyse
+#   uyari basilir ve kapi ATLANIR (yanlis soruyu yayindan dusurmektense
+#   kapiyi kapatmak evladir; rapor tazelenip yeniden kosulur).
+$ikizDisi=@{}
+$ikizYol=Join-Path $depoKok 'veri\ikiz-soru.json'
+if(Test-Path $ikizYol){
+  # ⚠ BAYATLIK OLCUTU DAR TUTULUR. Ilk surum "fabrikadaki EN YENI parti"ye
+  #   bakiyordu; uretim kosarken her yeni parti raporu bayatlatiyor ve kapi
+  #   surekli atlaniyordu (11.09 18:38'de yasandi: rapor 2 dakika eskiydi).
+  #   Dogru olcut: YALNIZ HAVUZU BESLEYEN partiler. Baska bir hat yeni soru
+  #   uretiyorsa bu havuzun ikiz durumu degismez.
+  $besleyen=@{}
+  foreach($r0 in $hep){ $besleyen["$($r0.etiket)"]=$true }
+  $enYeniParti=[datetime]'2000-01-01'
+  foreach($et0 in $besleyen.Keys){
+    $pf=Join-Path $depoKok "veri\fabrika\kalip-parti-$et0.json"
+    if(Test-Path $pf){ $lw=(Get-Item $pf).LastWriteTime; if($lw -gt $enYeniParti){ $enYeniParti=$lw } }
+  }
+  $ikizZaman=(Get-Item $ikizYol).LastWriteTime
+  if($enYeniParti -gt $ikizZaman){
+    Write-Host ("⚠ KAPI-IK ATLANDI: ikiz raporu bayat ({0:dd.MM HH:mm}), havuzu besleyen partide daha yeni degisiklik var ({1:dd.MM HH:mm}). Once: powershell -NoProfile -File arac/ikiz-soru.ps1" -f $ikizZaman,$enYeniParti) -ForegroundColor Yellow
+  } else {
+    $ij=Get-Content $ikizYol -Raw -Encoding UTF8|ConvertFrom-Json
+    foreach($idd in @($ij.yayin_disi_idler)){ if("$idd"){ $ikizDisi["$idd"]=$true } }
+    Write-Host ("KAPI-IK: {0} soru ikiz oldugu icin yayin disi (esik soru %{1:N0} · dogru sik %{2:N0})" -f $ikizDisi.Count,(100*$ij.esik),(100*$ij.sik_esik)) -ForegroundColor Cyan
+  }
+} else { Write-Host '⚠ KAPI-IK: veri/ikiz-soru.json yok, ikiz suzgeci UYGULANMADI' -ForegroundColor Yellow }
+
 $cozulmeyen=@{}
 $dusen=New-Object System.Collections.Generic.List[string]
 $cikti=New-Object System.Collections.Generic.List[object]
@@ -149,6 +183,7 @@ foreach($r in $hep){
   $anahtarSoru = "$($r.etiket)|$($r.id)"
   if($gorulen.ContainsKey($anahtarSoru)){ continue }   # ayni soru iki secim dosyasindaysa bir kez
   $gorulen[$anahtarSoru]=$true
+  if($ikizDisi.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-IK ikiz)"); continue }
   $sebep = DusmeSebebi $r.etiket $r.id
   if($sebep){ $dusen.Add("$anahtarSoru ($sebep)"); continue }
   $ham="$($r.ders)"

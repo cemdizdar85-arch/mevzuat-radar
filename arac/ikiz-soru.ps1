@@ -30,7 +30,8 @@
 ================================================================================
 #>
 param(
-  [double]$Esik = 0.60,          # bu oranin ustu IKIZ sayilir
+  [double]$Esik = 0.60,          # soru metni benzerlik esigi
+  [double]$SikEsik = 0.60,       # DOGRU SIK metni benzerlik esigi (ikinci olcut)
   [switch]$Ayrinti              # eslesen ciftlerin metnini de bas
 )
 $ErrorActionPreference='Stop'
@@ -85,6 +86,11 @@ $sAyni=Benzerlik (Ucluler (Katla $ayni1)) (Ucluler (Katla $ayni2))
 $sFark=Benzerlik (Ucluler (Katla $fark1)) (Ucluler (Katla $fark2))
 if($sAyni -lt 0.90){ $sinavHata.Add(("neredeyse AYNI iki soru %{0:N0} cikti (>=%90 olmali)" -f (100*$sAyni))) }
 if($sFark -ge 0.60){ $sinavHata.Add(("FARKLI iki matematik sorusu %{0:N0} cikti (<%60 olmali)" -f (100*$sFark))) }
+# 3) Ayni konudan FARKLI soru: metin yakin ama DOGRU SIK farkli -> IKIZ DEGIL
+$sk1='Genel kurulun devredilemez yetkileri ortaklarin oy hakki'
+$sk2='Her ortak en az bir oy hakkina sahiptir'
+$sSik=Benzerlik (Ucluler (Katla $sk1)) (Ucluler (Katla $sk2))
+if($sSik -ge $SikEsik){ $sinavHata.Add(("farkli dogru siklar %{0:N0} cikti (<%{1:N0} olmali)" -f (100*$sSik),(100*$SikEsik))) }
 if((Dizi $sinavHata).Count){
   Write-Host '⛔ IKIZ KAPISI OZ-SINAVI KIRMIZI:' -ForegroundColor Red
   foreach($h in (Dizi $sinavHata)){ Write-Host "   - $h" -ForegroundColor Red }
@@ -111,6 +117,13 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
       et=$et; id=$p.Name; anahtar="$et|$($p.Name)"
       yayinda=$havuz.ContainsKey("$et|$($p.Name)")
       uc=(Ucluler (Katla "$($v.soru)")); ham="$($v.soru)"; boy="$($v.soru)".Length
+      # ⛔ IKI OLCUT SART. Tek olcut (soru metni) KURT MASALI okuyor: 11.09'da
+      #    14 "canli ikiz" bildirdi, elle bakinca 3'u gercekti. Digerleri AYNI
+      #    KONUDAN FARKLI SORU - 4 turlu uretimden zaten istedigimiz sey
+      #    ("limited sirket ozellikleri" %78 benzer ama dogru siklari %32,
+      #    biri D biri E; iki ayri soru). Gercek ikiz = soru metni YAKIN **VE**
+      #    DOGRU SIK METNI de yakin.
+      ucDogru=(Ucluler (Katla "$($v.siklar.$($v.dogru))")); dogruHam="$($v.siklar.$($v.dogru))"
     })
   }
 }
@@ -126,14 +139,16 @@ foreach($k in $konuSoru.Keys){
     for($j=$i+1;$j -lt $l.Count;$j++){
       $s=Benzerlik $l[$i].uc $l[$j].uc
       $cift++; $benzerToplam+=$s
-      if($s -ge $Esik){
+      if($s -lt $Esik){ continue }
+      $sd=Benzerlik $l[$i].ucDogru $l[$j].ucDogru
+      if($sd -ge $SikEsik){
         # Hangisi KALIR: yayinda olan; ikisi de/hicbiri degilse UZUN olan
         $a=$l[$i]; $b=$l[$j]
         $kalan=$a; $duşen=$b
         if($b.yayinda -and -not $a.yayinda){ $kalan=$b; $duşen=$a }
         elseif($a.yayinda -eq $b.yayinda -and $b.boy -gt $a.boy){ $kalan=$b; $duşen=$a }
         $ikizler.Add([pscustomobject]@{
-          konu=$k; skor=[math]::Round($s,3)
+          konu=$k; skor=[math]::Round($s,3); sikSkor=[math]::Round($sd,3)
           kalan=$kalan.anahtar; dusen=$duşen.anahtar
           kalanYayinda=$kalan.yayinda; dusenYayinda=$duşen.yayinda
           metin1=$a.ham; metin2=$b.ham
@@ -145,17 +160,21 @@ foreach($k in $konuSoru.Keys){
 $ik=Dizi $ikizler
 $ort=if($cift){ 100*$benzerToplam/[double]$cift } else { 0 }
 Write-Host ("kiyaslanan cift: {0:N0} · ortalama benzerlik %{1:N1}" -f $cift,$ort)
-Write-Host ("IKIZ (>=%{0:N0}): {1:N0} cift  (%{2:N2})" -f (100*$Esik),$ik.Count,$(if($cift){100*$ik.Count/[double]$cift}else{0})) -ForegroundColor $(if($ik.Count){'Yellow'}else{'Green'})
+Write-Host ("IKIZ (soru>=%{0:N0} VE dogru sik>=%{3:N0}): {1:N0} cift  (%{2:N2})" -f (100*$Esik),$ik.Count,$(if($cift){100*$ik.Count/[double]$cift}else{0}),(100*$SikEsik)) -ForegroundColor $(if($ik.Count){'Yellow'}else{'Green'})
 
 # Yayina girmemesi gereken id'ler (ikisi de yayindaysa KIRMIZI - elle bakilmali)
 $yayinDisi=@{}; $ikisiDeYayinda=New-Object System.Collections.Generic.List[object]
 foreach($z in $ik){
-  if($z.kalanYayinda -and $z.dusenYayinda){ $ikisiDeYayinda.Add($z); continue }
+  # 11.09: once "ikisi de yayindaysa DOKUNMA, elle bak" diyordu. Iki olcutlu
+  # kapi kurulduktan sonra 14 aday 3'e indi ve UCU DE elle dogrulandi (gercek
+  # ikiz). Artik onlar da yayin disi listesine girer - ama AYRICA raporlanir,
+  # cunku canli havuzdan soru dusurmek gorulmeden gecmemeli.
   $yayinDisi[$z.dusen]=$z.skor
+  if($z.kalanYayinda -and $z.dusenYayinda){ $ikisiDeYayinda.Add($z) }
 }
 Write-Host ("yayin disi birakilacak id: {0:N0}" -f $yayinDisi.Count)
 if((Dizi $ikisiDeYayinda).Count){
-  Write-Host ("🔴 IKISI DE YAYINDA olan ikiz: {0} - ELLE bakilmali" -f (Dizi $ikisiDeYayinda).Count) -ForegroundColor Red
+  Write-Host ("🔴 IKISI DE YAYINDA olan ikiz: {0} - biri havuzdan CIKARILACAK" -f (Dizi $ikisiDeYayinda).Count) -ForegroundColor Red
   foreach($z in (Dizi $ikisiDeYayinda)){ Write-Host ("   %{0:N0} [{1}] {2} = {3}" -f (100*$z.skor),$z.konu,$z.kalan,$z.dusen) -ForegroundColor Red }
 }
 
@@ -171,12 +190,12 @@ if($Ayrinti -and $ik.Count){
 . (Join-Path $here 'rapor-yaz.ps1')
 RaporYaz -Hedef (Join-Path $depoKok 'veri\ikiz-soru.json') -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
-  kural='Ayni konudan uretilen sorular kiyaslanir. Esigi asan ciftte BIRI yayin disi birakilir (yayinda olan ya da daha uzun olan kalir). SORU SILINMEZ.'
-  esik=$Esik; taranan=$toplam; kiyaslanan_cift=$cift
+  kural='IKI OLCUT: soru metni VE dogru sik metni birlikte esigi asmali. Tek olcut kurt masali okuyor (11.09: 14 bildirdi, 3 gercekti). Esigi asan ciftte BIRI yayin disi birakilir; SORU SILINMEZ.'
+  esik=$Esik; sik_esik=$SikEsik; taranan=$toplam; kiyaslanan_cift=$cift
   ortalama_benzerlik_yuzde=[math]::Round($ort,1)
   ikiz_cift=$ik.Count; yayin_disi=$yayinDisi.Count
   ikisi_de_yayinda=(Dizi $ikisiDeYayinda).Count
   yayin_disi_idler=@($yayinDisi.Keys | Sort-Object)
-  ciftler=@($ik | Select-Object konu,skor,kalan,dusen,kalanYayinda,dusenYayinda)
+  ciftler=@($ik | Select-Object konu,skor,sikSkor,kalan,dusen,kalanYayinda,dusenYayinda)
 })
 Write-Host "`n-> veri/ikiz-soru.json" -ForegroundColor Green

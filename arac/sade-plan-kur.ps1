@@ -26,6 +26,18 @@ $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
 
+# --- OLCUM KAPILARI (11.09, Cem "olcum araclarina oz-sinav ekle") -------------
+# Bu betik OLCUM yapar; olcum aracinin kendisi bozuksa cikan rakam yanlis KARAR
+# urettirir (11.09'da dort kez oldu). Oz-sinav kirmizi donerse HIC olcmez.
+. (Join-Path $here 'olcum-kapilari.ps1')
+$ok_kusur=Test-OlcumKapilari -Sessiz
+if((Dizi $ok_kusur).Count){
+  Write-Host '⛔ OLCUM KAPILARI KIRMIZI - bu olcume guvenilmez:' -ForegroundColor Red
+  foreach($h in (Dizi $ok_kusur)){ Write-Host "   - $h" -ForegroundColor Red }
+  throw 'olcum kapilari oz-sinavi dustu'
+}
+
+
 # Ders adlari ders-profili.json'daki RESMI yazimla dondurulur (hakem dersi buradan tanir).
 $prof=Get-Content (Join-Path $depoKok 'veri\ders-profili.json') -Raw -Encoding UTF8|ConvertFrom-Json
 $resmi=@{}
