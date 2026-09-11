@@ -1352,6 +1352,30 @@ function SureKapisi($a){ $out=@(); if(-not $a){ return $out }
   return @($out | Select-Object -Unique)
 }
 function GeciciMaddeNotu($a){ $t="$($a.soru) $($a.dayanak)"; $g=@([regex]::Matches($t,'ge[çc]ici\s*(madde|m\.)\s*\d+','IgnoreCase, CultureInvariant') | ForEach-Object { $_.Value } | Select-Object -Unique); return @($g) }
+# --- KAPI-KV: KOK-SIK VAADI UYUMU (11.09.2026) -------------------------------
+# DOGUSU: kapi turunda sgs-t1-fmuh-kolay/kp-16 dustu. Hakemin gerekcesi ZAYIFTI
+# ("THP 770 taniminda 257'den bahsedilmiyor" - THP tanimlari birbirine ATIF
+# YAPMAZ, kaynaktan imkansiz bir sey istemek), ama soruda BASKA ve GERCEK bir
+# zayiflik vardi: kok "muhasebe KAYDI asagidakilerden hangisidir" diyor, siklar
+# kaydin TEK TARAFINI veriyor. Cem'in bulduğu kp-80 de ayni aileden.
+#
+# OLCULDU (635 basili soru): kok TAM KAYIT vaat eden 35 soru var; bunlarin
+# 14'unde (%40) dogru sikta 2'den az hesap kodu geciyor. Yani kok tam kayit
+# vaat ediyor, sik yarim veriyor.
+#
+# KURAL: kok tam kayit vaat ediyorsa ("muhasebe kaydi", "yevmiye kaydi",
+# "yapilmasi gereken kayit") dogru sikta EN AZ IKI hesap kodu bulunmali.
+# Tek taraf yeterliyse kok onu sormali ("hangi hesap borclandirilir").
+# ⚠ Kapi sikki degil KOK-SIK UYUMUNU denetler; iki cozumu de kabul eder:
+#   ya sik tam kayda cevrilir, ya kok tek tarafi soracak sekilde yazilir.
+function KokSikVaadiKapisi($c){
+  if(-not $c -or -not $c.soru -or -not $c.dogru){ return @() }
+  $kok="$($c.soru)"
+  if($kok -notmatch '(?i)(muhasebe kayd[ıi]|yevmiye kayd[ıi]|kay[ıi]t\s+a[sş]a[gğ][ıi]dakilerden|kayd[ıi]\s+a[sş]a[gğ][ıi]dakilerden|yap[ıi]lmas[ıi] gereken kay)'){ return @() }
+  $kod=@(Get-HesapKodu "$($c.siklar.$($c.dogru))")
+  if($kod.Count -ge 2){ return @() }
+  return @("kok TAM KAYIT vaat ediyor ama dogru sikta $($kod.Count) hesap kodu var; ya sik tam kayda cevrilsin ya kok tek tarafi sorsun")
+}
 # --- KAPI-KE: KONU–ETİKET ÖRTÜŞMESİ (11.09.2026) -----------------------------
 # Cem: "etiketle soru farklı gelmesi hatasını sürekli yaşıyoruz. oluşmadan
 # hataları temizlemek için ne yapmalıyız"
@@ -2454,6 +2478,14 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     $aday | Add-Member -NotePropertyName hesap_seti_isareti -NotePropertyValue "$($hsKusur[0])" -Force
     $rapor.Add("KAPI-HS: $id | $($hsKusur[0])")
   }
+  # 11.09 KAPI-KV: kok tam kayit vaat ediyorsa sik da tam kayit vermeli
+  $kvKusur2=@(KokSikVaadiKapisi $aday)
+  if($kvKusur2.Count -and $deneme -eq 1){
+    Write-Host "  KAPI-KV (kok-sik vaadi) ($id): $($kvKusur2[0]) - yeniden" -ForegroundColor DarkYellow
+    $ist=$ist+"`nKAPI-KV DUSTU: $($kvKusur2[0]). Ya siklari TAM KAYIT olarak yaz (borclu ve alacakli taraf birlikte), ya da soru kokunu tek tarafi soracak sekilde degistir."
+    continue
+  }
+  if($kvKusur2.Count){ Write-Host "  KAPI-KV NOTU ($id): $($kvKusur2[0])" -ForegroundColor DarkGray; $rapor.Add("KAPI-KV: $id | $($kvKusur2[0])") }
   $keKusur=@(KonuEtiketKapisi $aday "$($ky.konu)")
   if($keKusur.Count){
     Write-Host "  KAPI-KE İŞARETİ ($id): $($keKusur[0]) → hakeme uyarı" -ForegroundColor DarkYellow
