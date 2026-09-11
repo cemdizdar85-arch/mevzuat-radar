@@ -123,6 +123,21 @@ foreach($s in $satirlar){
   foreach($p in $c.PSObject.Properties){
     $v=$p.Value; if(-not $v.soru){ continue }
     if("$($v.hakem.karar)" -ne 'EVET'){ continue }
+    # 11.09.2026 — Cem: "hakem olmadan soru basmiyorduk niye bastik".
+    # Hakem DORT hukum verir (karar · ders_uyum · konu_uyum · tek_anlam) ama bu
+    # kapi yalnizca `karar`i okuyordu. Hakemin KENDI agziyla KONU-DISI dedigi,
+    # hatta gerekcesini yazdigi sorular yayina gitti.
+    # OLCULDU (11.09, 648 basilan soru): 12 soruda konu_uyum=KONU-DISI.
+    #   ornek sgs-t1-fmuh-kolay/kp-72, etiket 'satis dongusu kontrol testi':
+    #   hakem: "Soru satis dongusu kontrol testi konusunu degil, Vergi Usul
+    #   Kanunu fatura nizami kurallarini olcmektedir ve bu konu Vergi Hukuku
+    #   dersinin icerigidir." -> yine de basildi, muhur orneklemine bile dustu.
+    # Uretici bu damgayi zaten RED sayiyordu (satir ~2514 $hakemRed) ve
+    # kaydir-coz.ps1'in OTOMATIK aday yolu da eliyordu (satir 14); eksik olan
+    # yalniz SECIM yoluydu. Uc yol artik ayni sarti uyguluyor.
+    if("$($v.hakem.ders_uyum)" -eq 'DERS-DISI'){ continue }
+    if("$($v.hakem.konu_uyum)" -eq 'KONU-DISI'){ continue }
+    if("$($v.hakem.tek_anlam)" -eq 'CIFT-ANLAM'){ continue }
     $simOk=$true; foreach($sa in 'simulasyon_sonnet','simulasyon'){ if($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu){ $simOk=$false } }
     if(-not $simOk){ continue }
     if(-not ($v.PSObject.Properties['kor_cozum'] -and $v.kor_cozum -and $v.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$v.kor_cozum.dogru_mu)){ continue }
@@ -132,7 +147,7 @@ foreach($s in $satirlar){
 }
 $secYol=Join-Path $Kok "veri\sinav\kaydir-secim\$planAd-secim.json"
 [IO.File]::WriteAllText($secYol,(ConvertTo-Json -InputObject @($secim) -Depth 3),[Text.UTF8Encoding]::new($false))
-"SECIM: $($secim.Count) soru (yayın şartı: hakem ∧ sim ∧ kör ∧ hakem2) -> $secYol"
+"SECIM: $($secim.Count) soru (yayın şartı: hakem[karar+ders+konu+tek anlam] ∧ sim ∧ kör ∧ hakem2) -> $secYol"
 if(-not $SayfaYok -and $secim.Count){
   & powershell -NoProfile -File (Join-Path $buDizin 'kaydir-coz.ps1') -SecimDosya "$planAd-secim.json" -Cikti "KAYDIR-COZ-$planAd.html" *> (Join-Path $logDir 'builder.log')
   Get-Content (Join-Path $logDir 'builder.log') | Select-String -Pattern 'yazildi|ÖZ-SINAV|Exception|Cannot' | ForEach-Object { $_.Line }

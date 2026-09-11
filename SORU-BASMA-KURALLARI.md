@@ -78,6 +78,14 @@ Kapılar 2 deneme; ikincide de düşen soru rapora yazılır, kaydedilmez. **Kap
 ## 8 · YAYIN ŞARTI ve SONRASI
 
 8.1 **Vitrine çıkma şartı:** hakem EVET ∧ simülasyon ✓ ∧ kör çözüm ✓ ∧ karne yeşil/sarı ∧ Cem örnekleminde hata yok. Dördü birden yoksa yayın yok; üretilen her soru `yayin=false` doğar.
+
+> ⭐ **8.1-a — "hakem EVET" DÖRT damganın hepsidir** (11.09.2026, Cem: *"bizim kararımızda zaten hakem olmadan soru basmıyorduk niye bastık"*).
+> Hakem tek değil **dört** hüküm döndürür: `karar` · `ders_uyum` · `konu_uyum` · `tek_anlam`.
+> Yayın şartı: `karar=EVET` **ve** `ders_uyum≠DERS-DISI` **ve** `konu_uyum≠KONU-DISI` **ve** `tek_anlam≠CIFT-ANLAM`.
+>
+> **Neden yazıldı — ölçüldü, tahmin değil:** 11.09'da basılan 648 sorunun **12'sinde** hakem KONU-DIŞI/DERS-DIŞI damgası vardı ve **gerekçesini de yazmıştı**, ama `motor/kalip-kosucu.ps1` seçim kapısı yalnız `hakem.karar`'ı okuyordu. Örnek `sgs-t1-fmuh-kolay/kp-72`: hakem *"Soru satış döngüsü kontrol testi konusunu değil, Vergi Usul Kanunu fatura nizamı kurallarını ölçmektedir"* demiş; soru yine de basıldı ve Cem'e giden 10 soruluk mühür örneklemine bile düştü.
+> Üretici bu damgayı zaten RED sayıyordu, `kaydir-coz.ps1`'in otomatik aday yolu da eliyordu; **eksik olan yalnız seçim yoluydu.** Makinenin bildiğini kapı sormamıştı.
+> Ders: **bir hakem birden çok hüküm veriyorsa, kapı hepsini sorar.** Tek alan okunması "hakemden geçti" sanılır.
 8.2 **Karne her partide**; Cem yalnız kırmızı/sarı + %5 örneklem okur. Örneklemde **bir gerçek hata = o dersin partisi bütünüyle geri**, sebep kütüğe, kapı eklenir.
 8.3 **Yayın sonrası nöbet:** adayların çoğu aynı yanlış şıkka gidiyorsa soru "şüpheli"; "Hata bildir" aynı gün karantina (yayından çekilir, silinmez).
 8.4 **Vitrin ≠ kasa:** eski kasa "arşiv" etiketiyle durur, öğrenciye gösterilmez.

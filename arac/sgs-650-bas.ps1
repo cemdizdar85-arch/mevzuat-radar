@@ -62,16 +62,33 @@ foreach($f in (Get-ChildItem (Join-Path $secimDir 'yayin-sgs-*.json'))){
 # (ornek gerekce: "ABC A.S. yer tutucu unvan"). Secim dosyasinda olmalari
 # onayli olduklari anlamina gelmez - kapiyi SONRADAN gectiler ve dustuler.
 # Cem'in kurali: kaliteden odun yok. Cozme yuzeyine cikmazlar.
+#
+# 11.09 EK KAPI — Cem "hakem olmadan soru basmiyorduk niye bastik":
+# Hakem DORT hukum verir. Ilk basimda yalnizca hakem2'ye baktim; hakemin
+# `konu_uyum` / `ders_uyum` / `tek_anlam` damgalarini SORMADIM. Olculdu:
+# basilan 648 sorunun 12'sinde konu_uyum=KONU-DISI ve hakem gerekcesini de
+# yazmis (ornek kp-72: "soru ... Vergi Usul Kanunu fatura nizami kurallarini
+# olcmektedir"). Kok neden motor/kalip-kosucu.ps1'de (secim kapisi) duzeltildi;
+# burasi ikinci savunma hatti - secim dosyasi nereden gelirse gelsin elenir.
 $onbGate=@{}
-function Hakem2Karari([string]$etiket,[string]$id){
+function Kayit([string]$etiket,[string]$id){
   if(-not $onbGate.ContainsKey($etiket)){
     $cf=Join-Path $depoKok "veri\fabrika\kalip-parti-$etiket.json"
     $onbGate[$etiket] = if(Test-Path $cf){ Get-Content $cf -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
   }
-  $v=$onbGate[$etiket]; if(-not $v){ return 'DOSYA-YOK' }
-  $v=$v.$id; if(-not $v){ return 'KAYIT-YOK' }
-  if($v.PSObject.Properties['hakem2'] -and $v.hakem2){ return "$($v.hakem2.karar)" }
-  return 'YOK'
+  $v=$onbGate[$etiket]; if(-not $v){ return $null }
+  return $v.$id
+}
+# Soruyu dusuren SEBEBI dondurur; gecerse bos string.
+function DusmeSebebi([string]$etiket,[string]$id){
+  $v = Kayit $etiket $id
+  if(-not $v){ return 'kayit yok' }
+  if(-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2)){ return 'hakem2 YOK' }
+  if("$($v.hakem2.karar)" -eq 'HAYIR'){ return 'hakem2 HAYIR' }
+  if("$($v.hakem.ders_uyum)"  -eq 'DERS-DISI'){  return 'hakem DERS-DISI' }
+  if("$($v.hakem.konu_uyum)"  -eq 'KONU-DISI'){  return 'hakem KONU-DISI' }
+  if("$($v.hakem.tek_anlam)"  -eq 'CIFT-ANLAM'){ return 'hakem CIFT-ANLAM' }
+  return ''
 }
 
 $cozulmeyen=@{}
@@ -82,8 +99,8 @@ foreach($r in $hep){
   $anahtarSoru = "$($r.etiket)|$($r.id)"
   if($gorulen.ContainsKey($anahtarSoru)){ continue }   # ayni soru iki secim dosyasindaysa bir kez
   $gorulen[$anahtarSoru]=$true
-  $k2 = Hakem2Karari $r.etiket $r.id
-  if($k2 -eq 'HAYIR'){ $dusen.Add("$anahtarSoru (hakem2 HAYIR)"); continue }
+  $sebep = DusmeSebebi $r.etiket $r.id
+  if($sebep){ $dusen.Add("$anahtarSoru ($sebep)"); continue }
   $ham="$($r.ders)"
   $resmi=($ham -split '\|')[0].Trim()                   # bilesik adin sol yarisi
   $ekran=$sozluk[(Katla $resmi)]
@@ -93,7 +110,7 @@ foreach($r in $hep){
 
 Write-Host ("BIRLESTI: {0} kayit -> {1} benzersiz soru" -f $hep.Count, $cikti.Count) -ForegroundColor Cyan
 if($dusen.Count){
-  Write-Host ("HAKEM2 KAPISI DUSURDU: {0} soru (cozme yuzeyine cikmaz)" -f $dusen.Count) -ForegroundColor Yellow
+  Write-Host ("HAKEM KAPISI DUSURDU: {0} soru (cozme yuzeyine cikmaz)" -f $dusen.Count) -ForegroundColor Yellow
   $dusen | ForEach-Object { Write-Host "  $_" }
 }
 $cikti | Group-Object ders | Sort-Object Count -Descending | ForEach-Object { Write-Host ("  {0,4}  {1}" -f $_.Count,$_.Name) }
