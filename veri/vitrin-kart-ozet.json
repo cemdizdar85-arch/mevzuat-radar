@@ -1,57 +1,57 @@
 {
-  "olcum": "2026-09-10T07:22:56.492Z",
-  "gun": "2026-09-10",
+  "olcum": "2026-09-11T07:21:14.822Z",
+  "gun": "2026-09-11",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 2,
+      "sira": 3,
       "toplam": 10,
-      "id": "sgs-t1-denetim-cokzor/kp-01",
-      "ders": "Denetim",
-      "konu": "denetim kanıtı yeterliliği",
-      "kunye": "SGS 2025/1 Soru 82 kalıbı",
-      "donem": 9,
+      "id": "sgs-t1-mta-kolay/kp-02",
+      "ders": "Mali Tablolar Analizi",
+      "konu": "yatay analiz",
+      "kunye": "SGS 2025/2 Soru 71 kalıbı",
+      "donem": 8,
       "teori": false,
-      "rakamSik": false,
-      "soru": "İşletmenin kayıtlı ticari borç tutarı 940.000 TL'dir. Tedarikçi teyitlerinden 900.000 TL doğrulanmış, teyide yanıt vermeyenler için ödenmemiş faturalardan 75.000 TL ek borç tespit edilmiştir. Dönem içinde iptal edilen sipariş tutarı 5.000 TL'dir. Tespit edilen sapmanın tutarı ve yönü nedir?",
+      "rakamSik": true,
+      "soru": "Bir perakende işletmesinin ticari alacakları 2025 yılında 200.000 TL, 2026 yılında 250.000 TL olarak gerçekleşmiştir. Yatay analiz tekniğine göre ticari alacaklardaki yüzde değişim kaçtır?",
       "siklar": {
-        "A": "35.000 az gösterme",
-        "B": "35.000 fazla gösterme",
-        "C": "40.000 az gösterme",
-        "D": "40.000 fazla gösterme",
-        "E": "Sapma yok"
+        "A": "20",
+        "B": "25",
+        "C": "50",
+        "D": "100",
+        "E": "125"
       },
-      "dogru": "A",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Çeldirici Veri Yükleme Tuzağı",
-          "metin": "Soruda geçen iptal edilen sipariş tutarını hesaba dahil ederek 900.000+75.000+5.000-940.000 işlemiyle 40.000 TL bulursun; oysa iptal edilen sipariş kayıtlı borçla ilgisiz bir veridir. Doğrusu: İptal edilen sipariş topla…"
+          "ad": "Ölçek Hatası",
+          "metin": "50.000 TL'lik tutar farkını doğrudan yüzde değere çevirip 50 yazdın. Doğrusu: tutar farkı yüzdeye çevrilirken mutlaka baz döneme bölünüp 100 ile çarpılır, farkın kendisi yüzde değil."
         },
         "E": {
-          "ad": "Kanıt Karıştırma Tuzağı",
-          "metin": "Teyit ve ödenmemiş fatura farklı kaynaklardan geldiği için birbirini teyit edip sapmayı sıfırladığını düşünürsün; oysa BDS 500 A28 uyarınca farklı kaynaklardan gelen kanıtlar aynı beyanı destekler, birbirini iptal etmez…"
+          "ad": "Endeks-Değişim Karışıklığı",
+          "metin": "yeni dönemin baz döneme oranı olan endeksi (250.000/200.000x100=125) yüzde değişimin kendisi sandın. Doğrusu: 125 endeks değeridir, yüzde DEĞİŞİM bundan 100 çıkarılarak bulunur ve %25'e eşittir."
         },
         "D": {
-          "ad": "Çift Tuzak (Tutar+Yön) Tuzağı",
-          "metin": "Hem çeldirici sipariş tutarını hesaba katıp hem de yönü ters çevirerek 40.000 TL fazla gösterme dersin; bu iki ayrı hatanın üst üste binmesidir. Doğrusu: Doğru hesapta çeldirici veri dışlanır ve yön az göstermedir, sonu…"
+          "ad": "Trend Analizi Karışıklığı",
+          "metin": "trend (eğilim) analizinde baz yılın kendisi 100 kabul edilir kuralını buraya taşıyıp cari yılın baz döneme oranı yerine sabit 100 yazdın. Doğrusu: bu kural yatay analizin yüzde değişim formülüyle karıştırılmamalıdır, ya…"
         },
-        "B": {
-          "ad": "Yön Tersleme Tuzağı",
-          "metin": "Kayıtlı tutarın gerçek tutardan düşük çıktığını görünce bunu 'fazla gösterme' sanırsın, oysa kayıtlı tutarın düşük kalması az gösterme demektir. Doğrusu: Aynı 35.000 TL fark az gösterme yönündedir, fazla gösterme değild…"
+        "A": {
+          "ad": "Taban Yılı Tuzağı",
+          "metin": "Cari yılı (2026) payda alıp (250.000-200.000)/250.000x100 işlemini yaptın. Doğrusu: yatay analizde baz alınan payda her zaman ESKİ (baz) dönemdir, cari dönem değil."
         }
       },
-      "hap": "İhtiyaca uygunluk test yönüne göre değişir; az gösterme şüphesinde kayıtlı olmayan kalemler (ödenmemiş fatura, teyit dışı borç) test edilir, kayıtlı tutar tek başına yeterli değildir.",
+      "hap": "Yatay analizde yüzde değişimin paydası her zaman BAZ (eski) dönem tutarıdır; bu değer sıfır ya da negatifse yüzde değişim hesaplanamaz.",
       "satirlar": [
         [
-          "Gerçek borç toplamı (900.000 + 75.000)",
-          "975.000"
+          "Tutar Farkı (250.000-200.000)",
+          "50.000"
         ],
         [
-          "Kayıtlı borç - Gerçek toplam farkı (975.000 - 940.000)",
-          "35.000 (az gösterme)"
+          "Yüzde Değişim (50.000/200.000x100)",
+          "25"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=2"
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=3"
     }
   }
 }
