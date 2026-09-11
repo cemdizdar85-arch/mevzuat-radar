@@ -239,7 +239,12 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     }
     if($adlar.Count -ge 10){ break }
   }
-  $m=($topla -join "`n---`n"); if($m.Length -gt $tavan){ $m=$m.Substring(0,$tavan) }
+  # 11.09 KAPI-KP: eskiden burada kor `Substring($tavan)` vardi ve son kaynagi
+  # BASLIGINDAN sonra kesiyordu. Artik sigmayan blok KOMPLE duser (PaketKirp).
+  # Konu bilinmedigi icin siralama yok, yalniz sinirda kesme; siralamayi
+  # kaynak_metin_ozet kurulurken konu ile yapiyoruz.
+  $m=($topla -join "`n---`n")
+  if($m.Length -gt $tavan){ $atD=$null; $m=PaketKirp $m '' $tavan ([ref]$atD) }
   return @{ metin=$m; adlar=@($adlar); agHatasi=$script:AMBAR_AG_HATASI }
 }
 # --- DAYANAK KARA LISTESI (02.09 Cem: "cop dayanaklari bosalt") --------------
@@ -1642,6 +1647,64 @@ function KaynakSirala($adlar,[string]$konu,[int]$kac=4){
     } | Sort-Object @{e='puan';d=$true},@{e='sira';d=$false} |
       Select-Object -First $kac | ForEach-Object { $_.ad })
 }
+# --- KAPI-KP: KAYNAK PAKETI SINIRDA KESILIR, ORTADAN DEGIL (11.09.2026) -----
+# Cem: "1 yanlis cikti, nedeni ne, bir daha karsilasmamak icin nasil kaldiririz".
+# OLCULDU (sgs-kapituru-11eylul/kp-01, "muhasebe bilgi sistemi", hakem HAYIR):
+# paket 4.500 karakterde KOR bir Substring ile kesilmisti. Icerigi:
+#     konum     0  Teori Notu - ... kontrol siniflamasi        2.113 krk  (konu disi)
+#     konum 2.113  Teori Notu - ... nakit donusum dongusu      2.181 krk  (konu disi)
+#     konum 4.294  TEORI - ... mizan turleri  <-- CEVABIN KAYNAGI, 206 krk sonra KESILDI
+# Yani konuyla ilgisiz iki kaynak butcenin %95'ini yedi, cevabi tasiyan kaynak
+# BASLIGINDAN hemen sonra koptu. "kesin mizan" ifadesi pakette yalniz BASLIKTA
+# gecti. Hakem dogru davrandi: "kaynak metni kesintiye ugramis" deyip TEYITSIZ
+# verdi. SORU YANLIS DEGILDI - PAKET SAKATTI.
+#
+# Iki kusur birden vardi, ikisi de burada kapaniyor:
+#   1) SIRASIZ : paket AmbarCek'in dondurdugu ham sirayla kuruluyordu; konuyla
+#      ilgi puani hic bakilmiyordu. (KaynakSirala vardi ama yalniz hakem dalinda.)
+#   2) ORTADAN KESIK : sigmayan kaynak BASI birakilip govdesi atiliyordu.
+#      Basligi gorunen ama govdesi olmayan kaynak, modele "bu kaynak var" diye
+#      YALAN soyler - en zararli hali budur.
+#
+# Yeni kural: paket bloklara ayrilir, konuya gore siralanir, butce blok blok
+# doldurulur; SIGMAYAN BLOK KOMPLE DUSER. Yarim blok asla kalmaz.
+function PaketKirp([string]$paket,[string]$konu,[int]$tavan,[ref]$dusen){
+  if(-not "$paket".Trim() -or $paket.Length -le $tavan){ return $paket }
+  $bloklar=@($paket -split "`n---`n" | Where-Object { "$_".Trim() })
+  if($bloklar.Count -le 1){
+    # Tek blok tavani asiyorsa kesmek zorundayiz ama CUMLE sinirinda kesiyoruz,
+    # kelimenin ortasinda degil; ve kesildigini modele acikca soyluyoruz.
+    $k=$paket.Substring(0,$tavan); $nk=$k.LastIndexOfAny([char[]]@('.',';','!','?'))
+    if($nk -gt [int]($tavan*0.5)){ $k=$k.Substring(0,$nk+1) }
+    return ($k + "`n[UYARI: bu kaynak uzunlugu asdigi icin cumle sinirinda kesildi.]")
+  }
+  $kel=@([regex]::Matches((Katla2 "$konu"),'[a-z0-9]{4,}') | ForEach-Object { $_.Value } | Select-Object -Unique)
+  $i=0
+  $puanli=@($bloklar | ForEach-Object {
+    $i++; $b="$_"
+    $ad=''; $m=[regex]::Match($b,'^\s*\[([^\]]{1,200})\]'); if($m.Success){ $ad=$m.Groups[1].Value }
+    $adK=Katla2 $ad
+    $p=0; foreach($k in $kel){ if($adK.Contains($k)){ $p++ } }
+    [pscustomobject]@{ blok=$b; ad=$ad; puan=$p; sira=$i }
+  } | Sort-Object @{e='puan';d=$true},@{e='sira';d=$false})
+  $al=New-Object System.Collections.Generic.List[object]
+  $at=New-Object System.Collections.Generic.List[string]
+  $boy=0
+  foreach($b in $puanli){
+    $ek=$b.blok.Length + 5
+    if($boy+$ek -le $tavan){ $al.Add($b); $boy+=$ek }
+    else { $at.Add($(if($b.ad){ $b.ad } else { "(adsiz blok #$($b.sira))" })) }
+  }
+  # Hicbiri sigmadiysa (tek blok bile tavandan buyuk): en ilgili blogu cumle
+  # sinirinda kirpip ver - bos paket dondurmek hakemi kesin HAYIR'a surukler.
+  if(-not $al.Count){
+    $enIyi=$puanli[0].blok
+    return (PaketKirp $enIyi $konu $tavan $dusen)
+  }
+  if($dusen){ $dusen.Value=@($at) }
+  # Cikisti ORIJINAL sirasina geri koy: model kaynaklari okurken sira atlamasin.
+  return ((@($al | Sort-Object sira | ForEach-Object { $_.blok })) -join "`n---`n")
+}
 # --- FAZ A: SORU ------------------------------------------------------------
 # 04.09 KAPI-Ş: şık dengesi (Cem "cevap belli, sınavda böyle mi?"). Ölçüm: 7 çıkmış SGS sapma sorusunun 5'inde her tutar
 # iki yönle geçiyor. Kural: yön kelimesi taşıyan şıklarda (olumlu/olumsuz/lehte/aleyhte/eksik-fazla yükleme) tutar sayısı
@@ -2201,7 +2264,8 @@ Yalnız JSON: {"cozum_tablo":{...}|null,"teshis":{"A":{...},"B":{...},"C":{...},
     $hk=@(HesapKodKapisi $cvp); if($hk.Count){ Dus $id $e "kod-ad çifti tutmuyor: $($hk -join '; ')"; continue }
     $cy=@(CeldiriciYolKapisi $cvp); if($cy.Count){ Dus $id $e "çeldirici yolu hesaplanmıyor: $($cy -join '; ')"; continue }
     $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @() -Force
-    $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force
+    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" 4500 ([ref]$kpAt)) -Force
+    if($kpAt -and @($kpAt).Count){ Write-Host "  KAPI-KP: $id paket 4500 krk -> konu disi $(@($kpAt).Count) kaynak komple dusuruldu: $(@($kpAt | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan }
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
     $cvp | Add-Member -NotePropertyName uyarlama -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); model='claude-sonnet-5'; girdi=[int]$yU.girdi; cikti=[int]$yU.cikti; hesap=$hesapMi }) -Force
     DilOnarNesne $cvp
@@ -2571,7 +2635,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($ky.PSObject.Properties['son_donem']){ $cvp | Add-Member -NotePropertyName son_donem -NotePropertyValue ([int]$ky.son_donem) -Force; $cvp | Add-Member -NotePropertyName pencere -NotePropertyValue $DonemPencere -Force }
     if($ky.PSObject.Properties['capa_kaynak']){ $cvp | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($ky.capa_kaynak)" -Force }
     if($CAPA.ContainsKey($id)){ $cvp | Add-Member -NotePropertyName capa_metin -NotePropertyValue "$($CAPA[$id])" -Force }   # 06.09 Cem "3 yap": giriş kartında "Sınavda böyle çıktı" (cevapsız gerçek soru)
-    $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue ($amb.metin.Substring(0,[Math]::Min(4500,$amb.metin.Length))) -Force
+    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" 4500 ([ref]$kpAt)) -Force
+    if($kpAt -and @($kpAt).Count){ Write-Host "  KAPI-KP: $id paket 4500 krk -> konu disi $(@($kpAt).Count) kaynak komple dusuruldu: $(@($kpAt | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan }
     $cvp | Add-Member -NotePropertyName donem -NotePropertyValue $ky.donem -Force
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
     DilOnarNesne $cvp   # 03.09 sinav dili kapisi (THP/DVK/Is K. her sinavda; SGS'de kanun kisaltmalari uzun ada)
@@ -2855,7 +2920,9 @@ foreach($id in @($don.Keys)){
       $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
       try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
     }
-    $kMetin=($parca -join "`n---`n"); if($kMetin.Length -gt 4500){ $kMetin=$kMetin.Substring(0,4500) }
+    $kMetin=($parca -join "`n---`n")
+    if($kMetin.Length -gt 4500){ $kpAt2=$null; $kMetin=PaketKirp $kMetin "$($cvp.konu)" 4500 ([ref]$kpAt2)
+      if($kpAt2 -and @($kpAt2).Count){ Write-Host "  KAPI-KP (hakem): $id konu disi $(@($kpAt2).Count) kaynak dusuruldu" -ForegroundColor DarkCyan } }
   }
   else{
     # hakem-red onarimi: kaynak alanlari silinmisse OZEL_DESEN/DesenUret ile TAZE cek

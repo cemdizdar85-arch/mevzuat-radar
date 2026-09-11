@@ -22,6 +22,11 @@
   5,75 USD gitti. O yüzden bu betik varsayılanda hiçbir şey harcamaz.
 
   ÖLÇÜLEN BEDEL: 0,009 USD/soru (Haiku 4.5, 10.09 provası: 6 soru / 0,054 USD).
+  ⚠ 11.09 GÜNCEL: KAPI-HG `hesap_uyum`u zorunlu kıldıktan sonra hakem de yeniden
+    koşuyor. Ölçülen (11.09 provası, pilot6-fmuh-cokzor/kp-02): hakem + sade
+    birlikte 2 çağrı / 0,019 USD per soru — yani 0,009 DEĞİL, ~0,019 USD.
+    1.109 soruluk hasat ≈ 21 USD ≈ 864 TL. Hakem tazelemesi bedava değil ama
+    kp-80 sınıfı hatayı (yanlış THP hesabı) yakalayan `hesap_uyum` onunla geliyor.
 
   KULLANIM
     powershell -NoProfile -ExecutionPolicy Bypass -File arac/sade-tamamla.ps1
@@ -45,7 +50,21 @@ if(-not (Test-Path $logDir)){ New-Item -ItemType Directory -Force $logDir | Out-
 $planYol = if([IO.Path]::IsPathRooted($PlanDosyasi)){ $PlanDosyasi } else { Join-Path $depoKok $PlanDosyasi }
 $isler = @((Get-Content $planYol -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })
 $toplam = ($isler | Measure-Object -Property adet -Sum).Sum
-Write-Host ("PLAN: {0} parti · {1} soru · tahmini {2:N2} USD" -f $isler.Count, $toplam, ($toplam*0.009)) -ForegroundColor Cyan
+# Birim bedel: hakem tazelemesi gerekiyorsa 2 cagri (hakem+sade) = 0,019 USD/soru,
+# hakem kaydi tamsa yalniz sade = 0,009. Ikisi de 11.09 provasindan OLCULU.
+# Plan dosyasi hangisinin gecerli oldugunu bilmiyor; kaydi acip sayariz ki
+# ekrandaki rakam gercegin ALTINDA kalmasin (11.09'da 409 TL dedim, 855 cikti).
+$tazeN=0
+foreach($p0 in $isler){
+  $f0=Join-Path $depoKok "veri\fabrika\kalip-parti-$($p0.etiket).json"; if(-not (Test-Path $f0)){ continue }
+  try{ $c0=Get-Content $f0 -Raw -Encoding UTF8|ConvertFrom-Json }catch{ continue }
+  foreach($i0 in ("$($p0.idler)" -split ',')){
+    $v0=$c0.$i0; if(-not $v0 -or -not $v0.hakem){ continue }
+    if(-not $v0.hakem.PSObject.Properties['hesap_uyum']){ $tazeN++ }
+  }
+}
+$usdTah = ($tazeN*0.019) + (($toplam-$tazeN)*0.009)
+Write-Host ("PLAN: {0} parti · {1} soru ({2}'inde hakem tazelenecek) · {3:N2} USD ≈ {4:N0} TL" -f $isler.Count,$toplam,$tazeN,$usdTah,($usdTah*41)) -ForegroundColor Cyan
 if($toplam -gt $Tavan){ throw "TAVAN ASILDI: $toplam soru > $Tavan. Bilerek asilacaksa -Tavan yukselt." }
 if(-not $Yaz){
   Write-Host "`nKURU KOSU - hicbir API cagrisi yapilmadi. Gercekten kosmak icin: -Yaz" -ForegroundColor Yellow
@@ -66,7 +85,14 @@ foreach($p in ($isler | Sort-Object adet -Descending)){
   # Olculdu: cizim 77 soruluk partide 54 sn; 27 partide ≈24 dk. Tur sonunda
   # 9 yayin sayfasi zaten tek seferde yeniden basiliyor (arac/sgs-650-bas.ps1).
   # Yan etki bilincli: bitis damgasi basilmaz - zaten MEVZUAT_CLAIM=0 ile asiyoruz.
-  $arg = @('-Sinav','SGS','-DersRegex','.','-Etiket',"$($p.etiket)",'-Adet',"$([int]$p.adet)",'-Sade','-CizmeAtla','-PilotId',"$($p.idler)")
+  # ⛔ 11.09: burada '-DersRegex ''.''' vardi ve TUR BASTAN SONA DUSTU.
+  #    Sebep: ayni gun KAPI-HG `hesap_uyum`i zorunlu kildi -> hakem YENIDEN kosar oldu;
+  #    KAPI-DR de "hakem kosacaksa ders adi gercek olmali" diye dogru sekilde durdurdu.
+  #    Hakeme "bu soru '.' dersine mi ait" diye sorulsaydi DERS-DISI damgalanip
+  #    sorular yayindan dusecekti. Ders artik plan dosyasindan (etiketten cozulmus) gelir.
+  $ders="$($p.ders)".Trim()
+  if(-not $ders){ throw "PLAN EKSIK: $($p.etiket) icin ders yok. Plan uretici ders alanini doldurmali (KAPI-DR)." }
+  $arg = @('-Sinav','SGS','-DersRegex',$ders,'-Etiket',"$($p.etiket)",'-Adet',"$([int]$p.adet)",'-Sade','-CizmeAtla','-PilotId',"$($p.idler)")
   try{
     & powershell -NoProfile -ExecutionPolicy Bypass -File $uret @arg *> $log
     $bedel = (Select-String -Path $log -Pattern 'BEDEL TOPLAM' | Select-Object -Last 1).Line
