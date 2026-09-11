@@ -36,6 +36,13 @@
 param(
   [switch]$Yaz,                       # olmadan: kuru koşu, bedel 0
   [int]$Tavan = 700,                  # toplam soru tavanı
+  # 11.09 Cem "paralel koştur": aynı anda kaç parti koşsun. 1 = eski sıralı
+  # davranış. Ölçüldü: sıralı turda parti başına ~6 dk, 89 parti ≈ 9 saat.
+  # ⚠ Paralellik BEDELİ DEĞİŞTİRMEZ, yalnız duvar saatini kısaltır.
+  # ⚠ Tavanı yükseltmek riskli: her parti ayrı PowerShell süreci + API çağrısı;
+  #   çok yüksekte 429 (hız sınırı) başlar ve tekrar denemeler işi YAVAŞLATIR.
+  #   4 seçildi çünkü partiler zaten kendi içinde toplu (paralel) gidiyor.
+  [ValidateRange(1,8)][int]$Paralel = 4,
   [string]$PlanDosyasi = 'veri\_sade-plan.json'   # ⚠ adi "$Plan" OLMAZ: asagidaki
 )                                                 # is listesi $isler'e okunur; PS harf
                                                   # ayirmadigi icin [string] tur kisiti
@@ -77,10 +84,31 @@ if(-not $Yaz){
 $env:MEVZUAT_CLAIM = '0'
 
 $sira=0; $basarili=0; $dusen=0
-foreach($p in ($isler | Sort-Object adet -Descending)){
-  $sira++
-  $log = Join-Path $logDir ("$($p.etiket).log")
-  Write-Host ("[{0}] {1}/{2}  {3}  ({4} soru)" -f (Get-Date -Format HH:mm), $sira, $isler.Count, $p.etiket, $p.adet)
+# --- PARALEL HAVUZ (11.09, Cem "paralel kostur") -----------------------------
+# PS 5.1'de ForEach-Object -Parallel YOK. Her parti AYRI SUREC olarak baslatilir
+# ve havuzda en fazla $Paralel surec tutulur. Guvenli olmasinin sebebi: her
+# parti KENDI cache dosyasina yazar (kalip-parti-<etiket>.json), ortak dosyalar
+# ise kilitli - bekleyen-partiler.json Mutex'liydi, bedel-kayit.jsonl'a da
+# 11.09'da Mutex eklendi (paralel yazim satiri bozabilirdi).
+$kuyruk=New-Object System.Collections.Generic.Queue[object]
+foreach($p in ($isler | Sort-Object adet -Descending)){ $kuyruk.Enqueue($p) }
+$aktif=New-Object System.Collections.Generic.List[object]
+
+function NabizYaz($p){
+  try{
+    $c = Get-Content (Join-Path $depoKok "veri\fabrika\kalip-parti-$($p.etiket).json") -Raw -Encoding UTF8 | ConvertFrom-Json
+    $n=0;$s=0
+    foreach($pp in $c.PSObject.Properties){ $v=$pp.Value; if(-not $v.soru){continue}; $n++; if($v.sade -and $v.sade.dogru){$s++} }
+    Write-Host ("      NABIZ {0}: sade {1}/{2}" -f $p.etiket,$s,$n)
+  }catch{}
+}
+
+while($kuyruk.Count -gt 0 -or $aktif.Count -gt 0){
+  # bos yer varsa yeni parti baslat
+  while($aktif.Count -lt $Paralel -and $kuyruk.Count -gt 0){
+    $p=$kuyruk.Dequeue(); $sira++
+    $log = Join-Path $logDir ("$($p.etiket).log")
+    Write-Host ("[{0}] {1}/{2} BASLADI  {3}  ({4} soru) · aktif {5}" -f (Get-Date -Format HH:mm), $sira, $isler.Count, $p.etiket, $p.adet, ($aktif.Count+1)) -ForegroundColor Cyan
   # -CizmeAtla (11.09): tamamlama turunda parti kendi denetim HTML'ini CIZMEZ.
   # Olculdu: cizim 77 soruluk partide 54 sn; 27 partide ≈24 dk. Tur sonunda
   # 9 yayin sayfasi zaten tek seferde yeniden basiliyor (arac/sgs-650-bas.ps1).
@@ -95,25 +123,45 @@ foreach($p in ($isler | Sort-Object adet -Descending)){
   # 11.09 Cem "toplu istege gec": hakem (H) ve sade (S) fazlari artik Message
   # Batches ile gidiyor -> yari fiyat + paralel. Sirali kosuda 1.098 soru x 2
   # cagri = 2.196 istek, olculen hiz 25 sn/soru ≈ 7,6 saat ve tam fiyat.
-  $arg = @('-Sinav','SGS','-DersRegex',$ders,'-Etiket',"$($p.etiket)",'-Adet',"$([int]$p.adet)",'-Sade','-CizmeAtla','-Toplu','-PilotId',"$($p.idler)")
-  try{
-    & powershell -NoProfile -ExecutionPolicy Bypass -File $uret @arg *> $log
-    $bedel = (Select-String -Path $log -Pattern 'BEDEL TOPLAM' | Select-Object -Last 1).Line
-    if($bedel){ Write-Host ("      {0}" -f $bedel.Trim()) }
-    $basarili++
-  }catch{
-    $dusen++
-    Write-Host ("      ! DUSTU: {0}" -f $_.Exception.Message) -ForegroundColor Yellow
+    # ⛔ 11.09 KAZA: burada tirnak YOKTU ve 86 partinin 86'si 0 saniyede dustu
+    #    (bedel 0, kayip yok). Sebep: Start-Process -ArgumentList diziyi BOSLUKLA
+    #    birlestirip TEK komut satiri yapar; depo yolu "...\mevzuat işi\..." bosluk
+    #    tasidigi icin komut satiri ikiye bolunuyor ve powershell dosyayi bulamiyor.
+    #    Bosluk tasiyabilen her arguman TIRNAK icine alinir.
+    function Tir([string]$s){ if($s -match '\s'){ return ('"' + $s + '"') }; return $s }
+    $arg = @('-NoProfile','-ExecutionPolicy','Bypass','-File',(Tir $uret),
+             '-Sinav','SGS','-DersRegex',(Tir $ders),'-Etiket',(Tir "$($p.etiket)"),'-Adet',"$([int]$p.adet)",
+             '-Sade','-CizmeAtla','-Toplu','-PilotId',(Tir "$($p.idler)"))
+    # Cikti dosyaya yonlendirilir; Start-Process ile surec BEKLENMEDEN baslar.
+    $ps=Start-Process -FilePath 'powershell' -ArgumentList $arg -PassThru -WindowStyle Hidden `
+                      -RedirectStandardOutput $log -RedirectStandardError ("$log.err")
+    $aktif.Add([pscustomobject]@{ p=$p; ps=$ps; log=$log; bas=(Get-Date) })
   }
-
-  # Her partiden sonra NABIZ: kac soruda sade doldu (iddia degil sayim)
-  try{
-    $c = Get-Content (Join-Path $depoKok "veri\fabrika\kalip-parti-$($p.etiket).json") -Raw -Encoding UTF8 | ConvertFrom-Json
-    $n=0;$s=0
-    foreach($pp in $c.PSObject.Properties){ $v=$pp.Value; if(-not $v.soru){continue}; $n++; if($v.sade -and $v.sade.dogru){$s++} }
-    Write-Host ("      NABIZ: sade {0}/{1}" -f $s,$n)
-  }catch{}
+  if(-not $aktif.Count){ break }
+  # Ilk aktif surecin bitmesini EN FAZLA 5 sn bekle; bitmezse donguye don ve
+  # digerlerini kontrol et. Process nesnesi WaitHandle vermez, bu yuzden
+  # WaitAny kullanilamaz; WaitForExit(ms) tek surec icin dogru ve mesgul
+  # dongu uretmez (5 sn bloklar).
+  [void]$aktif[0].ps.WaitForExit(5000)
+  foreach($a in @($aktif.ToArray())){
+    if(-not $a.ps.HasExited){ continue }
+    $sure=[int]((Get-Date)-$a.bas).TotalSeconds
+    # ⚠ Start-Process -PassThru dondurdugu Process'te ExitCode, tam WaitForExit()
+    #   cagrilmadan BOS gelebilir (11.09: basarili parti "dustu" sayildi).
+    #   Surec zaten bitti, bu cagri aninda doner.
+    try{ $a.ps.WaitForExit() }catch{}
+    $cikis=$null; try{ $cikis=$a.ps.ExitCode }catch{}
+    $bedel = (Select-String -Path $a.log -Pattern 'BEDEL TOPLAM' -ErrorAction SilentlyContinue | Select-Object -Last 1).Line
+    # Basari olcutu: cikis 0 YA DA logda bedel satiri var (parti sonuna kadar kostu).
+    $ok = ($cikis -eq 0) -or [bool]$bedel
+    if($ok){ $basarili++ } else { $dusen++ }
+    $renk=if($ok){'Gray'}else{'Yellow'}
+    Write-Host ("[{0}] BITTI   {1} · {2} sn · cikis {3}" -f (Get-Date -Format HH:mm),$a.p.etiket,$sure,$(if($null -ne $cikis){$cikis}else{'?'})) -ForegroundColor $renk
+    if($bedel){ Write-Host ("      {0}" -f $bedel.Trim()) }
+    NabizYaz $a.p
+    [void]$aktif.Remove($a)
+  }
 }
 Write-Host ""
-Write-Host ("TAMAMLAMA TURU BITTI: {0} parti basarili · {1} dustu" -f $basarili,$dusen) -ForegroundColor Green
+Write-Host ("TAMAMLAMA TURU BITTI: {0} parti basarili · {1} dustu (paralel {2})" -f $basarili,$dusen,$Paralel) -ForegroundColor Green
 Write-Host "Siradaki: motor/kaydir-coz.ps1 -SecimDosya <yayin-sgs-*.json>"
