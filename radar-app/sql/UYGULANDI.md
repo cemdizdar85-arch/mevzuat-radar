@@ -302,3 +302,52 @@ Görünüm: `public.soru_havuzu_arsiv_v1`.
 🔴 **BASILDIKTAN SONRA YAPILACAK:** fabrika→havuz aktarıcısı `kalip_surum='v2'`
 yazmalı. Yazmazsa varsayılan `v1` olur ve yeni sorular da yayına çıkamaz —
 kapı doğru çalışır ama iş durur.
+
+---
+
+## 011_kalip_parti.sql — BASILDI 11.09.2026 22:35 (GM, Cem "1) açtım")
+
+`rag-motor/sql/011_kalip_parti.sql` · Supabase SQL editörü · **Success. No rows returned**
+
+**Ne geldi:** `public.kalip_parti` (parti önbelleği, jsonb) · `public.bedel_kaydi`
++ `public.bedel_aylik` görünümü (harcama defteri) · `public.konu_koprusu`
+(21.333 kayıtlık konu-sıklık köprüsü). Üçü de **RLS açık, politika YOK** →
+yalnız `service_role`.
+
+**Niye:** üretim hattının üç durumu (`veri/fabrika/kalip-parti-*.json`,
+`bedel-kayit.jsonl`, `konu-koprusu.json`) `.gitignore`'daydı ve yalnız Cem'in
+dizüstünde duruyordu. GitHub Actions'ta üretim koşarsa iş bitince önbellek
+kayboluyordu. Bu üç tablo o bağı kesiyor; yerel de bulut da aynı yerden okur/yazar.
+
+**Basarken iki hata yapıldı, ikisi de ölçümle yakalandı — kayda geçiyor:**
+
+1. `ay text generated always as (to_char(zaman,'YYYY-MM')) stored` →
+   **42P17 "generation expression is not immutable"**. `to_char(timestamptz,text)`
+   STABLE'dır (sonucu oturumun TimeZone ayarına bağlı), üretilmiş kolonda
+   kullanılamaz. Çözüm: normal kolon + `before insert or update` tetikleyici,
+   saat dilimi açıkça `at time zone 'UTC'`. **Hiçbir şey basılmamıştı** (tek
+   işlem, geri alındı).
+2. Tablolar önce `rag` şemasında kuruldu → PostgREST **404 PGRST205**
+   ("Could not find the table 'public.kalip_parti'"). Supabase API'si yalnız
+   "exposed schemas" listesindekileri yayınlar. Depodaki betiklerin hepsi şema
+   öneksiz çağırıyor; `rag`'i yayınlamak her çağrıya `Accept-Profile: rag`
+   başlığı eklemek demekti. Tablolar `public`'e alındı, `rag` sürümleri
+   `drop ... cascade` ile temizlendi. **Güvenlik aynı kaldı** (aşağıda ölçüldü).
+
+**Basıldıktan sonra ÖLÇÜLDÜ (iddia değil):**
+
+| Ölçüm | Sonuç |
+|---|---|
+| service_role ile 4 uç | `kalip_parti` 200 · `bedel_kaydi` 200 · `konu_koprusu` 200 · `bedel_aylik` 200 |
+| yazma + tetikleyici | satır yazıldı, `ay='2026-09'` (tetikleyici doldurdu), sınav satırı silindi |
+| satır sayısı | üçü de 0 (boş, senkron bekliyor) |
+| **anon ile okuma** | üçünde de gövde `[]` — RLS kapatıyor (kontrol: `soru_havuzu` da `[]`) |
+
+**Editöre yazılan metin SHA-256 ile dosyayla karşılaştırıldı** (`9bec468f…`,
+10.747 karakter) — elle aktarma hatası olmadığı ölçüldü.
+
+🔴 **SIRADAKİ:** `arac/bedel-senkron.ps1 -Yukle -Yaz` ·
+`arac/kopru-senkron.ps1 -Yukle -Yaz` · `arac/parti-senkron.ps1 -Yukle -Yaz`.
+Fren provası Cem kararıyla DÜŞTÜ ("tutar için uğraşma, bakiye kadar harcar") —
+gerekçe ölçüldü: `motor/kalip-parti-uret.ps1` içindeki **KAPI-BAKIYE** her parti
+öncesi Anthropic bakiyesini yokluyor ve bulutta da çalışıyor.
