@@ -57,6 +57,7 @@ $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
+. (Join-Path $kok 'arac\kimlik-ayikla.ps1')   # 11.09: kimlik ayiklama TEK kaynaktan
 # 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
 # aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
 # bitiş damgası (sql-yerel/kalip-parti-<etiket>.html) varsa ATLAR. Koşan koşucular eski kod olsa da üretici her etikette yeniden okunur.
@@ -1424,10 +1425,10 @@ function StandartSetiKapisi($c){
   if(-not $env.Count){ return @() }               # envanter yoksa hukum verilmez
   $m="$($c.soru) " + ((@('A','B','C','D','E') | ForEach-Object { "$($c.siklar.$_)" }) -join ' ')
   $yok=New-Object System.Collections.Generic.List[string]
-  foreach($mm in [regex]::Matches($m,'(?i)\b(BDS|TMS|TFRS|TSRS|KKS)\s*(\d{1,4})')){
-    $on=$mm.Groups[1].Value.ToUpperInvariant(); $no=$mm.Groups[2].Value
+  foreach($sn in (Get-StandartNo $m)){
+    $on=($sn -split ' ')[0]; $no=($sn -split ' ')[1]
     if(-not $env.ContainsKey($on)){ continue }    # o onek hic yutulmamis - hukum yok
-    if(-not ($env[$on] -contains $no)){ if($yok -notcontains "$on $no"){ $yok.Add("$on $no") } }
+    if(-not ($env[$on] -contains $no)){ if($yok -notcontains $sn){ $yok.Add($sn) } }
   }
   if(-not $yok.Count){ return @() }
   return @("soruda anilan standart ambarda YOK: " + ($yok -join ', '))
@@ -2676,7 +2677,13 @@ Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
    der) HESAP-YANLIS de, dogru hesap kodunu yaz ve KARARI HAYIR ver. Hesap dogruysa EVET.
    ⚠ Hesabi EZBERDEN dogrulama: hukmun KAYNAK METNINDEKI tanimdan cikmasi sart. Tanim pakette yoksa
    "TEYITSIZ" de, uydurma.
-Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","hesap_uyum":"EVET|HESAP-YANLIS|TEYITSIZ|YOK","hesap_gerekce":"tek cumle (HESAP-YANLIS ise dogru hesap kodu+adi)","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
+8) DOGRU SIK VAR MI (KAPI-DS - 11.09, Cem onerisi): bes sikkin ICINDE dogru cevap gercekten var mi?
+   Kendi cozumunu yap; buldugun sonuc siklardan HICBIRIYLE tutmuyorsa "dogru_sik_var":"HICBIRI" de,
+   dogru sonucu "dogru_sik_gerekce" alanina yaz ve KARARI HAYIR ver. Bu, isaretli sikkin yanlis
+   olmasindan FARKLIDIR: burada sorunun DOGRU cevabi siklarda hic yoktur, soru butunuyle bozuktur.
+   ⚠ Olculdu (11.09, kp-80): 529 isaretliydi, dogrusu 521'di ve 521 SIKLARDA YOKTU; hicbir kapi
+   "dogrusu hicbiri" diyemedigi icin soru yayina gitti.
+Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","dogru_sik_var":"EVET|HICBIRI","dogru_sik_gerekce":"tek cumle (HICBIRI ise dogru sonuc ne)","hesap_uyum":"EVET|HESAP-YANLIS|TEYITSIZ|YOK","hesap_gerekce":"tek cumle (HESAP-YANLIS ise dogru hesap kodu+adi)","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
 === SORU === {SORU}
 === DOGRU SIK ({DOGRU}) === {SIK}
 === DOGRU SIKKIN ACIKLAMASI === {ACIK}
@@ -2774,7 +2781,7 @@ foreach($id in @($don.Keys)){
   #   tasiyan biri sessizce kirar.
   if($cvp.siklar){
     $hgMetin = "$($cvp.soru) " + ((@('A','B','C','D','E') | ForEach-Object { "$($cvp.siklar.$_)" }) -join ' ')
-    $hgKodlar = @([regex]::Matches($hgMetin,'(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜ])') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+    $hgKodlar = @(Get-HesapKodu $hgMetin)
     $hgGruplar = @($hgKodlar | ForEach-Object { $_.Substring(0,2) } | Select-Object -Unique)
     if($hgGruplar.Count){
       $hgParca = New-Object System.Collections.Generic.List[string]
@@ -2821,6 +2828,32 @@ $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Re
     $renk=if("$($hk.karar)" -eq 'EVET'){'Green'}else{'Red'}
     Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
     # 11.09 KAPI-HG: sessiz gecmesin - hesap hukmu ayri satir (Cem'in kp-80 bulgusu)
+    # 11.09 KAPI-DS: "dogrusu hicbiri" hukmu sessiz gecmez ve karari HAYIR'a ceker
+    # --- KAPI-KT: KAYNAK TEYIT (11.09, Cem onerisi) -------------------------
+    # Hakemin GEREKCEDE andigi kaynak, kendisine verilen PAKETTE gercekten var mi?
+    # OLCULDU (kp-80): hakem "Tekduzen Hesap Plani 529 ... hesap tanimi" diyerek
+    # dayanak gosterdi; o tanim PAKETTE YOKTU. Yani hakem gormedigi bir kaynagi
+    # dayanak yazdi - halusinasyon, ve kapi sormuyordu.
+    # Deterministik: gerekcelerde anilan kimlikleri (hesap kodu · standart no)
+    # cikar, paketin icinde ara. Pakette olmayan varsa isaretle.
+    $ktMetin = "$($hk.gerekce) $($hk.hesap_gerekce) $($hk.konu_gerekce) $($hk.ders_gerekce)"
+    $ktYok=New-Object System.Collections.Generic.List[string]
+    foreach($kd in (Get-HesapKodu $ktMetin)){ if($kMetin -notmatch "(?<![\d.,])$kd(?![\d.,])"){ if($ktYok -notcontains "THP $kd"){ $ktYok.Add("THP $kd") } } }
+    foreach($sn in (Get-StandartNo $ktMetin)){
+      $on=($sn -split ' ')[0]; $no=($sn -split ' ')[1]
+      if($kMetin -notmatch "(?i)$on\s*$no"){ if($ktYok -notcontains $sn){ $ktYok.Add($sn) } }
+    }
+    if($ktYok.Count){
+      Write-Host ("  KAPI-KT ({0}): hakem PAKETTE OLMAYAN kaynagi dayanak gosterdi -> {1}" -f $id,($ktYok -join ', ')) -ForegroundColor Magenta
+      $rapor.Add("KAPI-KT: $id | hakem gerekcesinde pakette olmayan kaynak: $($ktYok -join ', ')")
+      $cvp | Add-Member -NotePropertyName hakem_kaynak_teyitsiz -NotePropertyValue ($ktYok -join ',') -Force
+      CacheYaz
+    }
+    if("$($hk.dogru_sik_var)" -eq 'HICBIRI'){
+      Write-Host "  DOGRU SIK YOK (KAPI-DS): $id [$($cvp.konu)] -> $($hk.dogru_sik_gerekce)" -ForegroundColor Magenta
+      $rapor.Add("KAPI-DS DOGRU SIK YOK: $id | $($hk.dogru_sik_gerekce)")
+      if("$($hk.karar)" -ne 'HAYIR'){ $hk.karar='HAYIR'; $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force; CacheYaz }
+    }
     if("$($hk.hesap_uyum)" -eq 'HESAP-YANLIS'){ Write-Host "  HESAP YANLIS (KAPI-HG): $id [$($cvp.konu)] -> $($hk.hesap_gerekce)" -ForegroundColor Magenta; $rapor.Add("HESAP YANLIS (KAPI-HG): $id | $($hk.hesap_gerekce)") }
     elseif("$($hk.hesap_uyum)" -eq 'TEYITSIZ'){ Write-Host "  HESAP TEYITSIZ (KAPI-HG): $id [$($cvp.konu)] -> hesap tanimi pakette yok" -ForegroundColor DarkYellow; $rapor.Add("HESAP TEYITSIZ (KAPI-HG): $id") }
     if("$($hk.tek_anlam)" -eq 'CIFT-ANLAM'){ Write-Host "  CIFT-ANLAM (KAPI E): $id [$($cvp.konu)] -> $($hk.tek_anlam_gerekce)" -ForegroundColor Magenta; $rapor.Add("CIFT-ANLAM (KAPI E): $($cvp.konu) | $($hk.tek_anlam_gerekce)") }
@@ -3059,7 +3092,7 @@ foreach($id in @($don.Keys)){
   # "X nedir?" adimlari uydurma degil bu metinden yazilir. Supabase okumasi, model bedeli yok.
   $kodlarA=New-Object 'System.Collections.Generic.HashSet[string]'
   foreach($st in @($tabloAdim.satirlar)){ foreach($m in [regex]::Matches("$(@($st)[0])",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
-  foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
+  foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches((@(Get-HesapKodu "$($cvp.siklar.$h)") -join ' '),'([1-7]\d{2})')){ [void]$kodlarA.Add($m.Groups[1].Value) } }
   if($kodlarA.Count){ $thpD=AmbarCek @($kodlarA | ForEach-Object { "THP $_ %" }) 3500; if($thpD.metin){ $ist2+="`n=== HESAP TANIMLARI (Tekdüzen Hesap Planı, ambardan) ===`n"+$thpD.metin } }
   }
   # 08.09 ölçüm: adım çıktısının %76–86'sı düşünme jetonuydu (5.648 çıktı / 772 metin) → adım fazı effort=low; aritmetik/tek işlem/Türkçe kapıları
@@ -3167,7 +3200,7 @@ function SadeKaynak($cvp){
     }
   }
   $kodlarS=New-Object 'System.Collections.Generic.HashSet[string]'
-  foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches("$($cvp.siklar.$h)",'(?<![\d.,])([1-7]\d{2})(?![\d.,])')){ [void]$kodlarS.Add($m.Groups[1].Value) } }
+  foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches((@(Get-HesapKodu "$($cvp.siklar.$h)") -join ' '),'([1-7]\d{2})')){ [void]$kodlarS.Add($m.Groups[1].Value) } }
   if($kodlarS.Count){ $thpS=AmbarCek @($kodlarS | ForEach-Object { "THP $_ %" }) 3000; if($thpS.metin){ $parca.Add($thpS.metin) } }
   $m0=($parca -join "`n---`n"); if($m0.Length -gt 9000){ $m0=$m0.Substring(0,9000) }
   return $m0

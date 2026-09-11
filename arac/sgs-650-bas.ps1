@@ -30,6 +30,7 @@ param([switch]$Kuru)   # -Kuru: yalnizca ne basilacagini yazar, dosyaya dokunmaz
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
+. (Join-Path $here 'kimlik-ayikla.ps1')   # 11.09: kimlik ayiklama TEK kaynaktan
 $secimDir=Join-Path $depoKok 'veri\sinav\kaydir-secim'
 
 function Katla([string]$s){
@@ -119,7 +120,7 @@ function DusmeSebebi([string]$etiket,[string]$id){
     $onayli=@(@($hsK.dogru_hesaplar) | ForEach-Object { "$_" })
     if($onayli.Count){
       $mS="$($v.siklar.$($v.dogru))"
-      $kul=@([regex]::Matches($mS,'(?<!(?:BDS|TMS|TFRS|TSRS|KKS|BOBİ FRS|KÜMİ FRS|BOBI FRS|KUMI FRS)\s)(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+      $kul=@(Get-HesapKodu $mS)   # 11.09: TEK kaynak (arac/kimlik-ayikla.ps1)
       $dis=@($kul | Where-Object { $onayli -notcontains $_ })
       if($dis.Count){ return ("KAPI-HS onayli hesap kumesi disi: " + ($dis -join ',')) }
     }
