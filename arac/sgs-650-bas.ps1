@@ -83,6 +83,12 @@ function Kayit([string]$etiket,[string]$id){
 function DusmeSebebi([string]$etiket,[string]$id){
   $v = Kayit $etiket $id
   if(-not $v){ return 'kayit yok' }
+  # 11.09: en temel kontrol EKSIKTI - hakem.karar. kp-80 KAPI-HG ile HAYIR'a
+  # donunce fark edildi: basim betigi hakem2'ye bakiyordu ama BIRINCI hakemin
+  # kararina bakmiyordu. Secim dosyasi onu eledigi icin sorun cikmamisti;
+  # yine de ikinci savunma hatti bunu KENDI sormalidir.
+  if("$($v.hakem.karar)" -eq 'HAYIR'){ return 'hakem HAYIR' }
+  if("$($v.hakem.hesap_uyum)" -eq 'HESAP-YANLIS'){ return 'hakem HESAP-YANLIS' }
   if(-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2)){ return 'hakem2 YOK' }
   if("$($v.hakem2.karar)" -eq 'HAYIR'){ return 'hakem2 HAYIR' }
   if("$($v.hakem.ders_uyum)"  -eq 'DERS-DISI'){  return 'hakem DERS-DISI' }
