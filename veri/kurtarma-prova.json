@@ -1,0 +1,190 @@
+﻿{
+    "olcum":  "2026-09-11 19:50",
+    "yontem":  "KAYNAK-EKSIK sinifindaki sorularda hakem karari VE eski kaynak paketi silindi; paket KAPI-KP ile yeniden kuruldu, hakem yeniden soruldu. SORU YENIDEN YAZILMADI.",
+    "soru":  20,
+    "kurtulan":  8,
+    "hala_dusen":  12,
+    "kurtarma_orani":  40,
+    "kayitlar":  [
+                     {
+                         "etiket":  "pilot6-fmuh-cokzor",
+                         "id":  "kp-01",
+                         "ders":  "FMuh",
+                         "konu":  "kredi faiz tahakkuku",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni kredi faiz tahakkuku kuralını içermemekte; soru Finansal Muhasebe\u0027nin resmi kapsamında olmakla birlikte, kaynakta tahakkuk ilkesi ve faiz hesaplama yöntemi açıkça yer almamaktadır."
+                     },
+                     {
+                         "etiket":  "pilot6-fmuh-kolay",
+                         "id":  "kp-01",
+                         "ders":  "FMuh",
+                         "konu":  "kredi faiz tahakkuku",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Soru kredi faiz tahakkukunu doğru şekilde ölçüyor, hesaplama (90.000 × %20 × 4/12 = 6.000 TL) ve muhasebeleştirme (780 borç) kural ve kapsamına uygun, kaynak metinde 780 hesabı tanımı faiz giderlerini açıkça içeriyor, VUK m.283 tahakkuk esasını destekliyor."
+                     },
+                     {
+                         "etiket":  "sgs-a6-issgk-cokzor-r1",
+                         "id":  "kp-04",
+                         "ders":  "IsSGK",
+                         "konu":  "is sozlesmesi turleri",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Doğru sık (E), İş Kanunu m.10, m.13 ve m.14\u0027ün birlikte uygulanmasının yanlışlığını açıkça ortaya koymaktadır; çağrı üzerine çalışmada işçi çağrı yapılmasa bile ücrete hak kazanır (m.14 fıkra 3), süreksiz iş ve çağrı üzerine çalışma bağımsız kurumlar olup m.10\u0027da listelenen m.14 süreksiz işlerde uygulanmaz."
+                     },
+                     {
+                         "etiket":  "sgs-a6-maliye-cokzor-r1",
+                         "id":  "kp-05",
+                         "ders":  "Maliye",
+                         "konu":  "wagner yasasi",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni 5018 sayılı Kamu Malî Yönetimi Kanunu\u0027nun geçici madde ve kurum cetvellerinden oluşur; Wagner Yasası (kamu harcamalarının sanayileşme ile genişlemesi teorisi) hakkında herhangi bir bilgi veya hüküm içermez."
+                     },
+                     {
+                         "etiket":  "sgs-a6-maliye-zor-r1",
+                         "id":  "kp-05",
+                         "ders":  "Maliye",
+                         "konu":  "vergi kapitalizasyonu",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni Kamu Malî Yönetimi Kanunu\u0027nun geçici madde 5 ve madde 3\u0027ü içermekte olup, vergi kapitalizasyonu kavramına ilişkin hiçbir kural, tanım veya hukum içermemektedir."
+                     },
+                     {
+                         "etiket":  "sgs-denetim-parti2",
+                         "id":  "kp-02",
+                         "ders":  "Denetim",
+                         "konu":  "kasa denetimi",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Doğru sıkkın dayandığı kural kaynak metinde yer almamakta; banka mutabakatı formülü kaynakta açıkça verilmemiştir."
+                     },
+                     {
+                         "etiket":  "sgs-denetim-parti2",
+                         "id":  "kp-06",
+                         "ders":  "Denetim",
+                         "konu":  "yapisal risk faktorleri",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Soru, BDS 700 p.A54\u0027te açıkça yer alan ve BDS 315 atfıyla önemli yanlışlık riski yüksek alanların BDS 701 çerçevesinde ek bilgi sunulurken dikkate alınabileceği kuralını doğru şekilde ölçmektedir."
+                     },
+                     {
+                         "etiket":  "sgs-issgk-p30",
+                         "id":  "kp-02",
+                         "ders":  "IsSGK",
+                         "konu":  "sendika uyeligi kazanilmasi",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni sendika üyeliğinin kazanılmasına ilişkin 6356 sayılı Kanun m.17\u0027yi içermemektedir; sunulan İş Kanunu m.5 ve m.7 hükümleri konu ile ilgisizdir."
+                     },
+                     {
+                         "etiket":  "sgs-maliyet-15",
+                         "id":  "kp-05",
+                         "ders":  "Maliyet",
+                         "konu":  "satilan mamul maliyeti",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Soru, satılan mamul maliyetinin üç kademeli hesap zinciriyle bulunmasını ölçüyor; kural kaynak metindeki teoride açıkça tanımlanmış, hesaplama doğru ve sonuç (355.000 TL) siklarda bulunuyor."
+                     },
+                     {
+                         "etiket":  "sgs-maliyet-15",
+                         "id":  "kp-09",
+                         "ders":  "Maliyet",
+                         "konu":  "standart maliyet farklari",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni yalnızca THP hesap tanımları (500-509, 400-409, 480-481) ve VUK m.275 İmal Edilen Emtia maliyet unsurlarını içerir; standart maliyet farkı (fiyat sapması) hesaplama kuralı, formülü ve uygulaması hakkında hiçbir bilgi yoktur."
+                     },
+                     {
+                         "etiket":  "sgs-mta-parti2",
+                         "id":  "kp-04",
+                         "ders":  "MTA",
+                         "konu":  "aktif devir hizi",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Soru, Mali Tablolar Analizi dersinin resmi kapsamındaki aktif devir hızı, duran varlık devir hızı, stok devir hızı ve asit-test oranı konularını kapsayan zincirli hesaplama problemini ölçmekte; kaynak metinde tüm formüller açıkça tanımlanmış ve hesaplama adımları tutarlıdır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-cokzor",
+                         "id":  "kp-03",
+                         "ders":  "Borclar",
+                         "konu":  "borcun ifa yeri",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "IV. önerme yanlış olup doğru sikka dahil edilmiştir; kanun \u0027alacaklının önceki yerleşim yerinde\u0027 ifa edilebileceğini, \u0027yeni yerinde\u0027 değil öngörmektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-kolay",
+                         "id":  "kp-10",
+                         "ders":  "Borclar",
+                         "konu":  "sebepsiz zenginlesme giderler",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni m.79\u0027un \u0027II. Giderleri isteme hakkı\u0027 başlığı altında giderlerin istenmesine ilişkin kuralları içermemektedir; başlık verilmiş ancak hüküm metni eksiktir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+                         "id":  "kp-03",
+                         "ders":  "Ekonomi",
+                         "konu":  "talep fiyat esnekligi",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Soru talep fiyat esnekliği konusunu ölçüyor, MR=P(1−1/|e|) ilişkisi kaynak metinde açıkça tanımlanmış, hesap ve mantık doğru, doğru şık (C) tam dayanağa uyuyor."
+                     },
+                     {
+                         "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+                         "id":  "kp-04",
+                         "ders":  "Ekonomi",
+                         "konu":  "tuketim duzlestirmesi",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Soru tüketim düzleştirmesi kuralını (r=0 için C1+C2=Y1+Y2 bütçe kısıtı ve C1=C2 düzleştirmesi) doğru uygulayarak ikinci dönem gelirini hesaplamakta, kaynak metindeki teori tanımından tam olarak çıkmaktadır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-meslek-cokzor",
+                         "id":  "kp-03",
+                         "ders":  "Meslek",
+                         "konu":  "buro edinme zorunlulugu",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metinde m.2/B fıkrasında \u0027Yeminli mali müşavirler muhasebe ile ilgili defter tutamazlar, muhasebe bürosu açamazlar ve muhasebe bürolarına ortak olamazlar\u0027 hükmü yer almakta; ancak m.45/2 fıkrasında \u0027Birden çok meslek mensubu çalışmalarını serbest muhasebeci mali müşavirlik veya yeminli mali müşavirlik ortaklık bürosu veya şirket şeklinde birleştirebilirler\u0027 hükmü yer almakta olup, bu iki hüküm çelişmektedir ve doğru sık yapısal olarak hatalıdır."
+                     },
+                     {
+                         "etiket":  "sgs-t1-meslek-cokzor",
+                         "id":  "kp-09",
+                         "ders":  "Meslek",
+                         "konu":  "ozen sorumlulugu",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Doğru sık (E), Yönetmelik m.6/c\u0027ye açıkça aykırıdır; ruhsat iptaline rağmen faaliyete devam etmek haksız rekabet teşkil eder ve özen yükümlülüğü ile ilişkilidir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-mta-cokzor",
+                         "id":  "kp-03",
+                         "ders":  "MTA",
+                         "konu":  "aktif devir hizi",
+                         "eski":  "HAYIR",
+                         "yeni":  "EVET",
+                         "yeniGerekce":  "Soru Mali Tablolar Analizi dersinin resmi kapsamında yer alan aktif devir hızı konusunu, cari oran ve net işletme sermayesi oranlarıyla zincirleme çözerek net satışları bulmayı ölçmektedir; tüm kurallar kaynak metindeki teori notundan açıkça desteklenmektedir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-cokzor",
+                         "id":  "kp-07",
+                         "ders":  "Ticaret",
+                         "konu":  "odeme emrine itiraz",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni 2577 sayılı İYUK m.28 ve 6183 sayılı Amme Alacaklarının Tahsil Usulü Kanunu m.48 hükümlerini içermemektedir; sağlanan metinler SGK Kanunu ve İYUK m.59 (yol giderleri) ile ilgilidir."
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-cokzor",
+                         "id":  "kp-17",
+                         "ders":  "Ticaret",
+                         "konu":  "kambiyo senedi cirosu",
+                         "eski":  "HAYIR",
+                         "yeni":  "HAYIR",
+                         "yeniGerekce":  "Kaynak metni kambiyo senedi cirosu, reeskont hesaplaması ve ciro nedeniyle kasaya giren tutarın hesaplanması kurallarını içermemektedir."
+                     }
+                 ]
+}
