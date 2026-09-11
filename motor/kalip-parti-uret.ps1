@@ -50,6 +50,7 @@ param(
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
   [string]$SimModel='claude-haiku-4-5-20251001',  # 06.09 kalibrasyon: 'claude-sonnet-5' verilirse sonuç `simulasyon_sonnet` alanına yazılır (Haiku sonucu korunur)
   [switch]$SimYenile,      # 06.09 Ö29: adım yenilenince simülasyon da yeniden koşar
+  [string]$SoruModel='claude-sonnet-5',   # 11.09: FAZ A modeli. Olculdu: maliyetin %55'i FAZ A ciktisi ve Sonnet cikti 15 USD/M, Haiku 5 USD/M (3 kat). Kalite karsilastirmasi icin degistirilebilir.
   [switch]$CizmeAtla       # 11.09 Cem: toplu tamamlama turunda denetim HTML'ini ÇİZME (ölçüldü: 77 soruda 54 sn; 27 partide ≈24 dk). Bitiş damgası BASILMAZ - yeni üretimde kullanma.
 )
 $ErrorActionPreference='Stop'
@@ -2407,7 +2408,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # 06.09 Parti-2 ölçümü: normal ayarda da 8 sorunun 4'ü 8k'da kesildi (Denetim 3/4, MTA 1/4) → her kesik = bir boş çağrı. Tek tavan 20k.
     $ilkTavan=20000
     $y=$(if($deneme -eq 1){ TopluAl 'A' $id } else { $null })   # 08.09 toplu: 1. denemenin cevabı partiden gelir; yoksa ya da tekrarda anlık
-    if(-not $y){ foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok $ilkTavan; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
+    if(-not $y){ foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model $SoruModel -Icerik $istBu -MaxTok $ilkTavan; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
     # 02.09 gece OLCULDU (bozuk-*.txt kapisi sayesinde): 4 konu "durma=max_tokens, 0 kr"
     # ile bozuktu - model 8.000 jetonun TAMAMINI dusunmeye harcayip metin yazamadan
     # kesiliyor (OpenRouter hattinda akil yurutme jetonu max_tokens'a dahil). Hiz icin
@@ -2417,7 +2418,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # cozulmuyor. Iki hal de ayni ilac: kesik + cozulemeyen cevap => 20k ile bir kez daha.)
     if("$($y.dur)" -eq 'max_tokens' -and (-not "$($y.metin)".Trim() -or -not (Coz $y.metin))){
       Write-Host "  KESIK ($id): 8k tavanda kesildi ($("$($y.metin)".Length) kr), 32k ile yeniden" -ForegroundColor DarkYellow   # 07.09: 20k'da zor Maliyet iki kez kesildi (düşünme jetonları) → 32k + effort=medium (api-hedef)
-      foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istBu -MaxTok 32000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+      foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model $SoruModel -Icerik $istBu -MaxTok 32000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
     }
     $aday=Coz $y.metin
     if(-not ($aday -and $aday.soru -and $aday.aciklama)){
