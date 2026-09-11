@@ -2478,6 +2478,16 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     $aday | Add-Member -NotePropertyName hesap_seti_isareti -NotePropertyValue "$($hsKusur[0])" -Force
     $rapor.Add("KAPI-HS: $id | $($hsKusur[0])")
   }
+  # 11.09 KAPI-KH: sik hesabi ADIYLA aniyor ama KODUNU yazmiyorsa KAPI-H
+  # dogrulayamaz, KAPI-HS beyaz listeye sokamaz. Deyimler ("nam ve hesabina")
+  # elenir. Olculdu: 48 sikta hesap adi var, 5'inde kod yok (3'u gercek).
+  $khKusur=@(Get-KodsuzHesapAdi "$($aday.siklar.$($aday.dogru))")
+  if($khKusur.Count -and $deneme -eq 1){
+    Write-Host "  KAPI-KH (kodsuz hesap adi) ($id): $($khKusur -join ', ') - yeniden" -ForegroundColor DarkYellow
+    $ist=$ist+"`nKAPI-KH DUSTU: sikta '$($khKusur -join ", ")' hesabi ADIYLA anilmis ama KODU yazilmamis. Her hesap adinin onune THP kodunu yaz (ornek: '521 Hisse Senedi Iptal Karlari')."
+    continue
+  }
+  if($khKusur.Count){ Write-Host "  KAPI-KH NOTU ($id): kodsuz hesap adi -> $($khKusur -join ', ')" -ForegroundColor DarkGray; $rapor.Add("KAPI-KH: $id | kodsuz hesap adi: $($khKusur -join ', ')") }
   # 11.09 KAPI-KV: kok tam kayit vaat ediyorsa sik da tam kayit vermeli
   $kvKusur2=@(KokSikVaadiKapisi $aday)
   if($kvKusur2.Count -and $deneme -eq 1){

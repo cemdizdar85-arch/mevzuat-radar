@@ -57,6 +57,37 @@ function Katla2([string]$s){
 # (kisa kelimede tamami) kok sayilir. Tam eslesme aramak 11 sahte kusur uretti.
 function Kok([string]$k){ if($k.Length -le 6){ return $k }; return $k.Substring(0,6) }
 
+# ⚠ TURKCE KATLAMA ASIMETRISI - 11.09'da bu arac iki sahte "YOK" uretti.
+# Konu adini katliyorduk ("cevrimi" -> "cevrim") ama ambar metni KATLANMAMIS
+# ("çevrim"). fts(simple) gercek karakteri arar: cevrim != çevrim.
+# TMS 21 ambarda VARDI ("TMS 21 Ek A - Tanimlanan terimler"), arama bulamadi.
+# Cozum: her kok icin Turkce varyantlari da uretilip OR ile aranir. Tek harflik
+# donusum yeter (cevrim -> çevrim); tum kombinasyonlar gereksiz ve pahali.
+function KokVaryant([string]$k){
+  $c=New-Object System.Collections.Generic.List[string]
+  $c.Add($k)
+  $harita=@{ 'c'='ç'; 's'='ş'; 'g'='ğ'; 'u'='ü'; 'o'='ö'; 'i'='ı' }
+  foreach($h in $harita.Keys){
+    $i=0
+    while($true){
+      $i=$k.IndexOf($h,$i)
+      if($i -lt 0){ break }
+      $v=$k.Substring(0,$i)+$harita[$h]+$k.Substring($i+1)
+      if($c -notcontains $v){ $c.Add($v) }
+      $i++
+    }
+  }
+  return @($c)
+}
+# ⚠ KAYNAKSIZ DERSLER HATTI ISTISNASI (SORU-BASMA-KURALLARI Bolum F, 08.09):
+# Turkce · Matematik · Yabanci Dil · Inkilap · Ekonomi · Maliye derslerinde
+# MEVZUAT METNI YOKTUR; kural 6.1 bu derslerde TEORI NOTUYLA saglanir
+# ("TEORI - <konu>", tur teori-notu). Bu derslerde mevzuat aramak ve "kaynagi
+# yok" demek YANLISTIR - hat bilerek boyle kuruldu.
+# 11.09 olcumu bunu gosterdi: Yabanci Dil'de "correlative conjunction" konusu
+# YOK ciktı; Ingilizce dilbilgisi terimi Turkce ambarda zaten olmaz.
+# Bu dersler ayri isaretlenir (TEORI-HATTI), YOK sayilmaz.
+$KAYNAKSIZ_DERSLER=@('turkce','matematik','yabanci dil','ataturk ilkeleri ve inkilap tarihi','ataturk ilkeleri','ekonomi','maliye')
 $DOLGU=@('ile','icin','veya','bir','olan','gibi','hesap','kaydi','islem','yonte','tutar','genel','ozel','kavra','tanim')
 
 $oneriler=@((Get-Content (Join-Path $depoKok 'veri\kart-onerileri.json') -Raw -Encoding UTF8 | ConvertFrom-Json).oneriler)
@@ -79,7 +110,8 @@ foreach($o in $oneriler){
   # fts(simple) TAM JETON eslestirir: "calism" ile "calisma" tutmaz. Kok
   # aramasi ON EK arayisi ister -> her koke ":*" eklenir (RAG motorunda
   # olculmus desen; ilk denemede 30 konunun 23'u bu yuzden ZAYIF cikmisti).
-  $sorgu = ($kel | ForEach-Object { "${_}:*" }) -join ' & '
+  # Her kok, Turkce varyantlariyla birlikte OR'lanir; gruplar AND ile baglanir.
+  $sorgu = (@($kel | ForEach-Object { $grp = @(@(KokVaryant $_) | ForEach-Object { "${_}:*" }); '(' + ($grp -join ' | ') + ')' }) -join ' & ')
   $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad&metin=fts(simple).'+[uri]::EscapeDataString($sorgu)+'&limit=3'
   $r=$null
   try{ $r=Invoke-RestMethod -Uri $u -Headers $SBH -TimeoutSec 60 }
@@ -90,11 +122,13 @@ foreach($o in $oneriler){
   # "kaynaksiz" DEGIL, "dagilmis" olabilir.
   if($durum -eq 'YOK' -and $kel.Count -gt 1){
     # ⚠ PS: "$_:*" gecersiz - ':' degisken adinin parcasi sanilir. ${_} sinir cizer.
-    $u2='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad&metin=fts(simple).'+[uri]::EscapeDataString((@($kel | ForEach-Object { "${_}:*" }) -join ' | '))+'&limit=3'
+    $u2='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad&metin=fts(simple).'+[uri]::EscapeDataString((@($kel | ForEach-Object { (KokVaryant $_) } ) | ForEach-Object { "${_}:*" }) -join ' | ')+'&limit=3'
     $r2=$null; try{ $r2=Invoke-RestMethod -Uri $u2 -Headers $SBH -TimeoutSec 60 }catch{}
     if(@($r2).Count -ge 1){ $durum='ZAYIF'; $bulunan=@($r2) }
   }
-  switch($durum){ 'GUCLU'{$guclu++} 'ZAYIF'{$zayif++} 'YOK'{$yok++} }
+  # Kaynaksiz dersler hattindaki YOK'lar TEORI-HATTI sayilir, kusur degildir.
+  if($durum -eq 'YOK' -and ($KAYNAKSIZ_DERSLER -contains (Katla2 "$($o.ders)"))){ $durum='TEORI-HATTI' }
+  switch($durum){ 'GUCLU'{$guclu++} 'ZAYIF'{$zayif++} 'YOK'{$yok++} 'TEORI-HATTI'{$zayif++} }
   $sonuc.Add([pscustomobject]@{
     ders="$($o.ders)"; konu="$($o.konu)"; durum=$durum
     kokler=($kel -join ','); kaynak=$(if($bulunan.Count){ "$($bulunan[0].kaynak_ad)" } else { '' })

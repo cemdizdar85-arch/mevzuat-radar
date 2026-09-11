@@ -54,3 +54,28 @@ function Get-MaddeKunyesi([string]$metin){
   foreach($m in [regex]::Matches("$metin",'(?i)\b(m\.|madde)\s*(\d{1,4})')){ $v='m.'+$m.Groups[2].Value; if($c -notcontains $v){ $c.Add($v) } }
   return @($c)
 }
+
+# --- KODSUZ HESAP ADI (KAPI-KH, 11.09.2026) ----------------------------------
+# Sik bir hesabi ADIYLA aniyor ama KODUNU yazmiyorsa, KAPI-H o sikki
+# dogrulayamaz (kod-ad cifti kuramaz) ve KAPI-HS beyaz listeye sokamaz.
+# OLCULDU (635 basili soru): 48 sikta hesap adi geciyor, 5'inde kod YOK.
+# Ucu gercek: "Ertelenmis Vergi Borcu hesabi", "Finansman Giderleri hesabi"
+# (THP 780), "Hisse Senedi Iptal Karlari hesabi" (THP 521 - kp-80'in aradigi
+# hesabin ta kendisi, baska bir soruda KODSUZ geciyor).
+# Ikisi DEYIM, dusmemeli: "Hesabin dogrulugu...", "kendi nam ve hesabina".
+# ⚠ Sapkali harf (Karlari) ilk denemede kacmisti; karakter sinifina Â Î Û eklendi.
+$script:KIMLIK_DEYIM = @(
+  'nam ve hesab', 'kendi hesab', 'hesab[ıi]n do[ğg]rulu', 'hesab[ıi]na mahsub',
+  'hesab[ıi]n[ıi] kapat', 'cari hesab'
+)
+$script:KIMLIK_HESAPADI_DESENI =
+  '((?:[A-ZÇĞİÖŞÜÂÎÛ][A-Za-zÇĞİÖŞÜçğıöşüÂÎÛâîû]+)(?:\s+(?:[A-ZÇĞİÖŞÜÂÎÛ][A-Za-zÇĞİÖŞÜçğıöşüÂÎÛâîû]+|ve))*)\s+hesab[ıi]'
+
+function Get-KodsuzHesapAdi([string]$metin){
+  if(-not "$metin".Trim()){ return @() }
+  foreach($d in $script:KIMLIK_DEYIM){ if("$metin" -match $d){ return @() } }   # deyim -> hukum yok
+  $adlar=@([regex]::Matches("$metin",$script:KIMLIK_HESAPADI_DESENI) | ForEach-Object { $_.Groups[1].Value.Trim() } | Select-Object -Unique)
+  if(-not $adlar.Count){ return @() }
+  if((Get-HesapKodu $metin).Count -gt 0){ return @() }   # kod varsa sorun yok
+  return $adlar
+}
