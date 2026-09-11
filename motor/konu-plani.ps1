@@ -32,6 +32,9 @@
 ================================================================================
 #>
 param(
+  # 11.09 (Cem "yeterlilik sinavi icin de hazir olsun"): betik artik SINAV
+  # PARAMETRELI. SGS'e gomulu degil; SMMM (yeterlilik) ve KGK ile de kosar.
+  [ValidateSet('SGS','SMMM','KGK')][string]$Sinav = 'SGS',
   [int]$TabanHedef = 2,      # cikmis arsivde gorulen her konudan en az kac soru
   [double]$Kat     = 1.5,    # cikmis sayisinin kac kati hedeflenir
   [int]$KonuTavan  = 12,     # tek konudan en fazla kac soru (para dagilsin)
@@ -44,7 +47,8 @@ param(
 # bir hat gerektirir - 08.09'da da ayni sebeple Tur 1 disinda birakilmislardi.
 # ⚠ Ekonomi ve Maliye BEKLEYEN DEGIL: ikisi de Alan Bilgisi bolumunde.
 $BEKLEYEN_DESEN = '(?i)matematik|istatistik|yabanci ?dil|ingilizce|turkce|inkilap|ataturk|genel kultur|genel yetenek'
-function HatBul([string]$ders){ if("$ders" -match $BEKLEYEN_DESEN){ return 'BEKLESIN' }; return 'SIMDI' }
+# Sozel/bekleyen hat ayrimi YALNIZ SGS'te anlamli: yeterlilik ve KGK'de genel kultur dersi yok.
+function HatBul([string]$ders){ if($Sinav -eq 'SGS' -and "$ders" -match $BEKLEYEN_DESEN){ return 'BEKLESIN' }; return 'SIMDI' }
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
@@ -57,14 +61,27 @@ function Katla([string]$s){
 
 # --- 1) DERS AGIRLIKLARI ------------------------------------------------------
 $prof=Get-Content (Join-Path $depoKok 'veri\ders-profili.json') -Raw -Encoding UTF8|ConvertFrom-Json
+# Sinav adi ders-profili.json'da UZUN yazili; kisa koddan bulunur.
+$SINAV_ADI=@{ 'SGS'='STAJA BAŞLAMA (SGS)'; 'SMMM'='STAJ BİTİRME / YETERLİLİK (SMMM)'; 'KGK'='BAĞIMSIZ DENETÇİLİK (KGK)' }
+$sinavAdi=$SINAV_ADI[$Sinav]
+$sinavDugum=$null
+foreach($sp in $prof.sinavlar.PSObject.Properties){ if($sp.Name -eq $sinavAdi){ $sinavDugum=$sp.Value; break } }
+if(-not $sinavDugum){ throw ("ders-profili.json icinde '$sinavAdi' yok. Mevcutlar: " + (($prof.sinavlar.PSObject.Properties.Name) -join ' | ')) }
+# ⚠ YETERLILIK ve KGK'de `soru_sayisi` BOS: o sinavlar 130 soruluk coktan
+#   secmeli degil. Agirlik yoksa 0 kalir, raporda '—' yazilir; PLAN yine kurulur.
+#   "Agirlik yok" demek "ders onemsiz" demek DEGILDIR - olculmemis demektir.
 $agirlik=@{}
-foreach($p in $prof.sinavlar.'STAJA BAŞLAMA (SGS)'.PSObject.Properties){ $agirlik[(Katla $p.Name)]=[int]$p.Value.soru_sayisi }
+foreach($p in $sinavDugum.PSObject.Properties){
+  $sy=0; try{ $sy=[int]"$($p.Value.soru_sayisi)" }catch{}
+  $agirlik[(Katla $p.Name)]=$sy
+}
+$agirlikVar=(@($agirlik.Values | Where-Object { $_ -gt 0 }).Count -gt 0)
 
 # --- 2) CIKMIS ARSIV: KONU x SIKLIK -------------------------------------------
 # ⚠ PS 5.1: once degiskene, sonra @() (ConvertFrom-Json boru hattina enumerate etmez)
 # Ders ayristirmasi (arac/ders-ayristir.ps1 uretir; yoksa kaba ad kullanilir)
 $script:AYR=@{}
-$ayrYol=Join-Path $depoKok 'veri\ders-ayristirma.json'
+$ayrYol=Join-Path $depoKok (Join-Path 'veri' ('ders-ayristirma-'+$Sinav.ToLowerInvariant()+'.json'))
 if(Test-Path $ayrYol){
   $ayrHam=Get-Content $ayrYol -Raw -Encoding UTF8|ConvertFrom-Json
   foreach($a in @($ayrHam.kayitlar)){ if("$($a.ders)" -and "$($a.ders)" -ne '(ayristirilamadi)'){ $script:AYR[(Katla "$($a.konu)")]="$($a.ders)" } }
@@ -74,7 +91,7 @@ if(Test-Path $ayrYol){
 $kopruHam=Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8|ConvertFrom-Json
 $konu=@{}   # katlanmis konu adi -> kayit
 foreach($r in @($kopruHam)){
-  if("$($r.sinav)" -ne 'SGS'){ continue }
+  if("$($r.sinav)" -ne $Sinav){ continue }
   $c=[int]$r.cikmis
   if($c -lt $EnAzCikmis){ continue }            # sinavda hic cikmamis konu plana girmez
   $ka=Katla "$($r.konu)"
@@ -104,8 +121,14 @@ foreach($r in @($kopruHam)){
 }
 
 # --- 3) BIZDEKI SAGLAM SORULAR: KONU x ADET -----------------------------------
-$secimHam=Get-Content (Join-Path $depoKok 'veri\sinav\kaydir-secim\sgs-650-secim.json') -Raw -Encoding UTF8|ConvertFrom-Json
-$havuz=@{}; foreach($r in @($secimHam)){ $havuz["$($r.etiket)|$($r.id)"]=$true }
+# Yayin havuzu dosyasi SGS'e ozeldir; baska sinavda henuz YOK -> havuz bos ve
+# tum saglam sorular 'rafta' sayilir. Sahte "yayinda" iddiasi kurulmaz.
+$havuz=@{}
+$secimDosyasi=Join-Path $depoKok 'veri\sinav\kaydir-secim\sgs-650-secim.json'
+if($Sinav -eq 'SGS' -and (Test-Path $secimDosyasi)){
+  $secimHam=Get-Content $secimDosyasi -Raw -Encoding UTF8|ConvertFrom-Json
+  foreach($r in @($secimHam)){ $havuz["$($r.etiket)|$($r.id)"]=$true }
+} else { Write-Host "yayin havuzu dosyasi yok ($Sinav) - tum saglam sorular RAFTA sayiliyor" -ForegroundColor DarkYellow }
 
 function KapilardanGecti($v){
   if(-not ($v -and $v.soru)){ return $false }
@@ -145,14 +168,14 @@ foreach($ka in $konu.Keys){
 }
 
 # --- 5) RAPOR -----------------------------------------------------------------
-$dersler=@($satir | Where-Object { $_.hat -eq 'SIMDI' } | Group-Object ders | Sort-Object { $agirlik[(Katla $_.Name)] } -Descending)
+$dersler=@($satir | Where-Object { $_.hat -eq 'SIMDI' } | Group-Object ders | Sort-Object { if($agirlikVar){ $agirlik[(Katla $_.Name)] } else { $s=0; foreach($z in $_.Group){ $s+=$z.acik }; $s } } -Descending)
 $m=New-Object System.Text.StringBuilder
 function Y([string]$s){ [void]$m.AppendLine($s) }
 $topKonu=$satir.Count
 $topBizde=0; $topAcik=0; $topAcikKonu=0
 foreach($s in $satir){ $topBizde+=$s.bizde; $topAcik+=$s.acik; if($s.acik -gt 0){ $topAcikKonu++ } }
 
-Y "# KONU PLANI — STAJA BASLAMA (SGS)"
+Y ("# KONU PLANI — {0}" -f $sinavAdi)
 Y ""
 Y ("> Uretim: **{0}** (makine; elle duzenlenmez — motor/konu-plani.ps1). Bedel 0." -f (Get-Date -Format 'dd.MM.yyyy HH:mm'))
 Y "> Kaynak: cikmis siklik = veri/fabrika/konu-koprusu.json · bizim soru = veri/fabrika/kalip-parti-*.json · ders agirligi = veri/ders-profili.json"
@@ -260,10 +283,10 @@ if($eslesmeyen.Count){
   foreach($e in ($eslesmeyen.GetEnumerator()|Sort-Object Value -Descending|Select-Object -First 25)){ Y ("| {0} | {1} |" -f $e.Key,$e.Value) }
   Y ""
 }
-[IO.File]::WriteAllText((Join-Path $depoKok 'veri\KONU-PLANI-SGS.md'),$m.ToString(),(New-Object Text.UTF8Encoding $true))
+[IO.File]::WriteAllText((Join-Path $depoKok (Join-Path 'veri' ('KONU-PLANI-'+$Sinav+'.md'))),$m.ToString(),(New-Object Text.UTF8Encoding $true))
 
 . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
-RaporYaz -Hedef (Join-Path $depoKok 'veri\konu-plani-sgs.json') -Nesne ([ordered]@{
+RaporYaz -Hedef (Join-Path $depoKok (Join-Path 'veri' ('konu-plani-'+$Sinav.ToLowerInvariant()+'.json'))) -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
   kural="Hedef = max($TabanHedef, cikmis x $Kat), tavan $KonuTavan. Cikmis arsivde gorulmemis konu plana girmez."
   cikmis_konu=$topKonu; bizde_soru=$topBizde; acik_soru=$topAcik; acik_konu=$topAcikKonu
@@ -274,4 +297,4 @@ Write-Host ("cikmis arsivde gorulen konu : {0:N0}" -f $topKonu) -ForegroundColor
 Write-Host ("bunlarda bizdeki saglam soru: {0:N0}" -f $topBizde)
 Write-Host ("ACIK                        : {0:N0} soru · {1:N0} konu" -f $topAcik,$topAcikKonu) -ForegroundColor Yellow
 if($eslesmeyen.Count){ $eT=0; foreach($e in $eslesmeyen.GetEnumerator()){ $eT+=$e.Value }; Write-Host ("koprude karsiligi olmayan    : {0:N0} soru / {1:N0} konu" -f $eT,$eslesmeyen.Count) -ForegroundColor DarkYellow }
-Write-Host "`n-> veri/KONU-PLANI-SGS.md · veri/konu-plani-sgs.json" -ForegroundColor Green
+Write-Host ("`n-> veri/KONU-PLANI-$Sinav.md · veri/konu-plani-$($Sinav.ToLowerInvariant()).json") -ForegroundColor Green

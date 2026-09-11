@@ -48,9 +48,20 @@ $KURAL=@(
   # --- ONCE AYRIKSI DURUMLAR (geri sinamada yakalananlar) ---
   @{ ders='Finansal Muhasebe'; desen='\b(finansman|hazine) bonosu|nakit akis tablo|isletmenin surekli' }
   @{ ders='Mali Tablolar Analizi'; desen='net isletme sermaye|isletme sermayesi' }
-  @{ ders='Ticaret Hukuku'; desen='ticari temsilci|\bcek\b.*(unsur|zorunlu|ibraz|karsiliksiz)|kiymetli evrak' }
+  # ⛔ 2. TUR (11.09): TICARET %68 idi. Sebep SIRAYDI - Finansal Muhasebe kurali
+  #    Ticaret'ten ONCE deneniyordu ve 'sermaye', 'sirket kurulus', 'kambiyo',
+  #    'senet' desenleri sirketler hukuku sorularini muhasebeye cekiyordu
+  #    ("anonim sirket sermaye", "limited sirket kurulusu", "kambiyo senedi
+  #    beyaz ciro"). SIRKETLER HUKUKU + KIYMETLI EVRAK artik EN USTTE.
+  @{ ders='Ticaret Hukuku'; desen='(anonim|limited|kollektif|komandit|sermayesi paylara)\s*sirket|sirket (kurulus|birlesme|bolunme|tur degis|tasfiye)|kambiyo sened|kiymetli evrak|\bciro\b|(zorunlu|sekil) unsur|karsiliksiz cek|\bcek\b.*(unsur|ibraz|zorunlu)|ticari temsil|\btemsil yetki|bedelsiz pay|ayni sermaye|sermaye (azalt|artirim).*(sirket|pay)|pay sahib|imtiyazli pay' }
   @{ ders='Borclar Hukuku'; desen='haksiz fiil|sebepsiz zenginles|hizmet borclan' }
-  @{ ders='Maliye'; desen='kamu harcama|kamu gelir|kamu borc|butce' }
+  # ⛔ 2. TUR: MALIYE %42 idi. Sebep: Vergi Hukuku kuralindaki genis 'vergi'
+  #    deseni MALIYE TEORISINI yutuyordu ("verginin yansimasi", "vergi takozu",
+  #    "vergi gayreti" hepsi Vergi Hukuku sanildi). Ayrim su: MALIYE = kamu
+  #    maliyesi TEORISI (yansima, kapitalizasyon, takoz, gayret, oranlilik,
+  #    siniflandirma, tarife tipi); VERGI HUKUKU = USUL ve KANUN (VUK, beyanname,
+  #    tarh, tahakkuk, tebligat). Teori desenleri Vergi'den ONCE denenir.
+  @{ ders='Maliye'; desen='kamu harcama|kamu gelir|kamu borc|\bbutce\b|parafiskal|stagflasyon|verginin (yansima|karar|gelir|ikame)|vergi (yansima|kapitalizasyon|takoz|gayret|harcamasi|siniflandirma|oranlilik|entegrasyon|rekabet|erozyon|adalet|kacakcilik teori)|artan oranli|azalan oranli|duz oranli|spesifik.?advalorem|advalorem|(dolayli|dolaysiz) vergi|servet vergisi|dilim tarife|vergi tarife|mali sistem|maliye politika' }
   # --- MUHASEBE kovasinin dort dersi ---
   @{ ders='Denetim'; desen='denetim|denetci|\bbds\b|bagimsiz denet|ic kontrol|\bkanit\b|guvence|calisma kagi|yonetim iddia|onemlilik|orneklem|\bhile\b|gorus turleri|kilit denetim|dikkat cekilen husus|vurgu paragraf|serbestlik|tarafsizlik' }
   @{ ders='Maliyet Muhasebesi'; desen='maliyet|siparis|\bsafha\b|genel uretim gider|birlesik urun|\byan urun\b|bosa gecen|esdeger urun|direkt ilk madde|direkt iscilik|faaliyet tabanli|katki pay|basabas|butce fark' }
@@ -147,7 +158,7 @@ if($cozulemeyen.Count){
 }
 
 . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
-RaporYaz -Hedef (Join-Path $depoKok 'veri\ders-ayristirma.json') -Nesne ([ordered]@{
+RaporYaz -Hedef (Join-Path $depoKok 'veri\ders-ayristirma-sgs.json') -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
   kural='Anahtar kelime kurallari; gerekce konu adinda. Kural tutmayan konu (ayristirilamadi) kalir - TAHMIN EDILMEZ.'
   geri_sinama=[ordered]@{ karar=$karar; dogru=$dogru; yanlis=$yanlis; isabet_yuzde=[math]::Round($oran,1); esik=85 }
