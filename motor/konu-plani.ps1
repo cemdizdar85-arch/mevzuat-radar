@@ -37,6 +37,14 @@ param(
   [int]$KonuTavan  = 12,     # tek konudan en fazla kac soru (para dagilsin)
   [int]$EnAzCikmis = 1       # bu sayidan az cikan konu plana girmez
 )
+# --- HAT AYRIMI (11.09, Cem: "matematik, ingilizce ve baska ne varsa sozel
+#     beklesin; digerlerini bir bitirelim sonra bunlara donelim") -------------
+# BEKLEYEN hat = Genel Kultur-Genel Yetenek + Yabanci Dil. Bunlar mevzuata
+# dayanmaz; kaynak paketi mantigi (ambardan madde cekme) burada islemez, ayri
+# bir hat gerektirir - 08.09'da da ayni sebeple Tur 1 disinda birakilmislardi.
+# ⚠ Ekonomi ve Maliye BEKLEYEN DEGIL: ikisi de Alan Bilgisi bolumunde.
+$BEKLEYEN_DESEN = '(?i)matematik|istatistik|yabanci ?dil|ingilizce|turkce|inkilap|ataturk|genel kultur|genel yetenek'
+function HatBul([string]$ders){ if("$ders" -match $BEKLEYEN_DESEN){ return 'BEKLESIN' }; return 'SIMDI' }
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
@@ -111,15 +119,17 @@ $satir=New-Object System.Collections.Generic.List[object]
 foreach($ka in $konu.Keys){
   $k=$konu[$ka]
   $hedef=[Math]::Min($KonuTavan,[Math]::Max($TabanHedef,[int][Math]::Ceiling($k.cikmis*$Kat)))
+  $dAd=$(if($k.ders){ $k.ders } else { '(ders yok)' })
   $satir.Add([pscustomobject]@{
-    ders=$(if($k.ders){ $k.ders } else { '(ders yok)' }); konu=$k.ad
+    hat=(HatBul $dAd)
+    ders=$dAd; konu=$k.ad
     cikmis=$k.cikmis; donem=$k.donem; yayinda=$k.yayinda; rafta=$k.rafta; bizde=$k.bizde
     hedef=$hedef; acik=[Math]::Max(0,$hedef-$k.bizde)
   })
 }
 
 # --- 5) RAPOR -----------------------------------------------------------------
-$dersler=@($satir | Group-Object ders | Sort-Object { $agirlik[(Katla $_.Name)] } -Descending)
+$dersler=@($satir | Where-Object { $_.hat -eq 'SIMDI' } | Group-Object ders | Sort-Object { $agirlik[(Katla $_.Name)] } -Descending)
 $m=New-Object System.Text.StringBuilder
 function Y([string]$s){ [void]$m.AppendLine($s) }
 $topKonu=$satir.Count
@@ -136,7 +146,24 @@ Y "## 0 · TEK CUMLE"
 Y ""
 Y ("Cikmis SGS arsivinde gorulen **{0:N0} konu** var. Bunlarin **{1:N0}**'inde elimizde soru YETERSIZ; toplam **{2:N0} soru** basilacak. Su an bu konularda **{3:N0}** saglam sorumuz var." -f $topKonu,$topAcikKonu,$topAcik,$topBizde)
 Y ""
-Y "## 0b · BEDEL ve ONCELIK"
+$simdi=@($satir|Where-Object{ $_.hat -eq 'SIMDI' -and $_.acik -gt 0 })
+$bekle=@($satir|Where-Object{ $_.hat -eq 'BEKLESIN' -and $_.acik -gt 0 })
+$sA=0; foreach($z in $simdi){ $sA+=$z.acik }
+$bA=0; foreach($z in $bekle){ $bA+=$z.acik }
+Y "## 0a · IKI HAT — Cem karari (11.09)"
+Y ""
+Y "> *""matematik, ingilizce ve baska ne varsa sozel beklesin; digerlerini bir bitirelim sonra bunlara donelim""*"
+Y ""
+Y "| Hat | Ders | Konu | Soru | Bedel (toplu) |"
+Y "|---|---|---:|---:|---:|"
+Y ("| **SIMDI** | Alan Bilgisi (muhasebe · denetim · hukuk · ekonomi · maliye) | **{0:N0}** | **{1:N0}** | **{2:N0} TL** |" -f $simdi.Count,$sA,($sA*6.56))
+Y ("| BEKLESIN | Matematik · Yabanci Dil · Turkce · Inkilap · Genel Kultur | {0:N0} | {1:N0} | {2:N0} TL |" -f $bekle.Count,$bA,($bA*6.56))
+Y ""
+Y "Bekleyen hat mevzuata dayanmaz; kaynak paketi mantigi (ambardan madde cekme)"
+Y "orada islemez, ayri bir hat gerektirir. 08.09'da da ayni sebeple Tur 1 disinda kalmislardi."
+Y "**Asagidaki butun tablolar SIMDI hattini gosterir**; bekleyen hat bolum 4'te ayri durur."
+Y ""
+Y "## 0b · BEDEL ve ONCELIK — SIMDI hatti"
 Y ""
 Y "Uretim bedeli **0,320 USD/saglam soru = 13,12 TL** (veri/fabrika/bedel-kayit.jsonl, 122 parti)."
 Y "Toplu istekle (Message Batches) bunun **yarisi** hedeflenir."
@@ -144,7 +171,7 @@ Y ""
 Y "| Oncelik | Kural | Konu | Soru | Bedel (sirali) | Bedel (toplu) |"
 Y "|---|---|---:|---:|---:|---:|"
 foreach($esik in @(10,5,3,2,1)){
-  $alt=@($satir | Where-Object { $_.acik -gt 0 -and $_.cikmis -ge $esik })
+  $alt=@($satir | Where-Object { $_.hat -eq 'SIMDI' -and $_.acik -gt 0 -and $_.cikmis -ge $esik })
   $s2=0; foreach($z in $alt){ $s2+=$z.acik }
   $ad=switch($esik){ 10{'1 · cok kritik'} 5{'2 · kritik'} 3{'3 · onemli'} 2{'4 · orta'} 1{'5 · tamami'} }
   Y ("| {0} | cikmis >= {1} | {2:N0} | {3:N0} | {4:N0} TL | {5:N0} TL |" -f $ad,$esik,$alt.Count,$s2,($s2*13.12),($s2*6.56))
@@ -183,9 +210,30 @@ foreach($g in $dersler){
   if($acikSatir.Count -gt 40){ Y ("| _… {0} konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |" -f ($acikSatir.Count-40)) }
   Y ""
 }
+if($bekle.Count){
+  Y "## 4 · BEKLEYEN HAT — simdilik basilmayacak"
+  Y ""
+  Y ("Cem karari (11.09): bu dersler **sonraya**. {0:N0} konu · {1:N0} soru · {2:N0} TL." -f $bekle.Count,$bA,($bA*6.56))
+  Y ""
+  Y "| Ders | Acik konu | Acik soru |"
+  Y "|---|---:|---:|"
+  foreach($g in (@($bekle|Group-Object ders|Sort-Object { $s=0; foreach($z in $_.Group){ $s+=$z.acik }; -$s }))){
+    $s=0; foreach($z in $g.Group){ $s+=$z.acik }
+    Y ("| {0} | {1:N0} | {2:N0} |" -f $g.Name,$g.Count,$s)
+  }
+  Y ""
+  Y "En cok cikan bekleyen konular (hat acildiginda ilk bunlar basilir):"
+  Y ""
+  Y "| Ders | Konu | Cikmis | Bizde | BASILACAK |"
+  Y "|---|---|---:|---:|---:|"
+  foreach($z in (@($bekle|Sort-Object @{e='cikmis';d=$true}|Select-Object -First 15))){
+    Y ("| {0} | {1} | {2} | {3} | {4} |" -f $z.ders,$z.konu,$z.cikmis,$z.bizde,$z.acik)
+  }
+  Y ""
+}
 if($eslesmeyen.Count){
   $eTop=0; foreach($e in $eslesmeyen.GetEnumerator()){ $eTop+=$e.Value }
-  Y "## 3 · KOPRUDE KARSILIGI OLMAYAN KONULARIMIZ"
+  Y "## 5 · KOPRUDE KARSILIGI OLMAYAN KONULARIMIZ"
   Y ""
   Y ("Ürettigimiz sorularin **{0:N0}**'i, cikmis arsivde karsiligi olmayan **{1:N0}** konuya ait." -f $eTop,$eslesmeyen.Count)
   Y "Bu konular ya cikmis arsivde hic sorulmadi ya da konu ADI koprudekinden farkli yazildi."

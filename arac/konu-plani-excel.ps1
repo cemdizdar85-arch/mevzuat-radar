@@ -89,7 +89,7 @@ try{
   )
   $r=2
   foreach($t in $tier){
-    $alt=@($sat|Where-Object{ [int]$_.cikmis -ge [int]$t.esik })
+    $alt=@($sat|Where-Object{ "$($_.hat)" -eq 'SIMDI' -and [int]$_.cikmis -ge [int]$t.esik })
     $s=0; foreach($z in $alt){ $s+=[int]$z.acik }
     # Tek satirlik dizi yazimi sessizce BOS birakiyordu (11.09: 2-ONCELIK bos cikti).
     # Hucre hucre yazilir; sayilar [double]'a ACIK cevrilir (COM baglama tuzagi).
@@ -112,7 +112,8 @@ try{
   # ---- 3) DERS OZETI -------------------------------------------------------
   $sh3=YeniSayfa '3-DERS' 3
   Baslik $sh3 @('Ders','Açık konu','Açık soru','Bedel toplu (TL)')
-  $grp=@($sat|Group-Object ders|Sort-Object { $s=0; foreach($z in $_.Group){ $s+=[int]$z.acik }; -$s })
+  $sh3.Cells.Item(1,6).Value2='(yalnız ŞİMDİ hattı — bekleyen dersler 4-KONU sayfasında HAT sütunundan süzülür)'
+  $grp=@($sat|Where-Object{ "$($_.hat)" -eq 'SIMDI' }|Group-Object ders|Sort-Object { $s=0; foreach($z in $_.Group){ $s+=[int]$z.acik }; -$s })
   $r=2
   foreach($g in $grp){
     $s=0; foreach($z in $g.Group){ $s+=[int]$z.acik }
@@ -128,24 +129,24 @@ try{
 
   # ---- 4) KONU KONU (tam liste) -------------------------------------------
   $sh4=YeniSayfa '4-KONU' 4
-  Baslik $sh4 @('Ders','Konu','Çıkmış','Dönem','Yayında','Rafta','Bizde','Hedef','BASILACAK','Öncelik')
+  Baslik $sh4 @('HAT','Ders','Konu','Çıkmış','Dönem','Yayında','Rafta','Bizde','Hedef','BASILACAK','Öncelik')
   $n=$sat.Count
-  $blok=New-Object 'object[,]' $n,10
+  $blok=New-Object 'object[,]' $n,11
   $sirali=@($sat|Sort-Object @{e={[int]$_.cikmis};Descending=$true},@{e={[int]$_.acik};Descending=$true})
   for($i=0;$i -lt $n;$i++){
     $z=$sirali[$i]; $c=[int]$z.cikmis
-    $blok[$i,0]="$($z.ders)"; $blok[$i,1]="$($z.konu)"; $blok[$i,2]=$c; $blok[$i,3]=[int]$z.donem
-    $blok[$i,4]=[int]$z.yayinda; $blok[$i,5]=[int]$z.rafta; $blok[$i,6]=[int]$z.bizde
-    $blok[$i,7]=[int]$z.hedef; $blok[$i,8]=[int]$z.acik
-    $blok[$i,9]=$(if($c -ge 10){'1 · çok kritik'}elseif($c -ge 5){'2 · kritik'}elseif($c -ge 3){'3 · önemli'}elseif($c -ge 2){'4 · orta'}else{'5 · uzun kuyruk'})
+    $blok[$i,0]="$($z.hat)"; $blok[$i,1]="$($z.ders)"; $blok[$i,2]="$($z.konu)"; $blok[$i,3]=$c; $blok[$i,4]=[int]$z.donem
+    $blok[$i,5]=[int]$z.yayinda; $blok[$i,6]=[int]$z.rafta; $blok[$i,7]=[int]$z.bizde
+    $blok[$i,8]=[int]$z.hedef; $blok[$i,9]=[int]$z.acik
+    $blok[$i,10]=$(if($c -ge 10){'1 · çok kritik'}elseif($c -ge 5){'2 · kritik'}elseif($c -ge 3){'3 · önemli'}elseif($c -ge 2){'4 · orta'}else{'5 · uzun kuyruk'})
   }
-  BlokYaz $sh4 $blok 2 1 $n 10
-  $sh4.Columns.Item(1).ColumnWidth=34; $sh4.Columns.Item(2).ColumnWidth=52
-  for($c=3;$c -le 9;$c++){ $sh4.Columns.Item($c).ColumnWidth=11 }
-  $sh4.Columns.Item(10).ColumnWidth=16
-  $sh4.Range($sh4.Cells.Item(1,1),$sh4.Cells.Item($n+1,10)).AutoFilter() | Out-Null
+  BlokYaz $sh4 $blok 2 1 $n 11
+  $sh4.Columns.Item(1).ColumnWidth=11; $sh4.Columns.Item(2).ColumnWidth=34; $sh4.Columns.Item(3).ColumnWidth=52
+  for($c=4;$c -le 10;$c++){ $sh4.Columns.Item($c).ColumnWidth=11 }
+  $sh4.Columns.Item(11).ColumnWidth=16
+  $sh4.Range($sh4.Cells.Item(1,1),$sh4.Cells.Item($n+1,11)).AutoFilter() | Out-Null
   # BASILACAK sutununa renk olcegi: cok basilacak konu goze carpsin
-  $rngI=$sh4.Range("I2:I$($n+1)")
+  $rngI=$sh4.Range("J2:J$($n+1)")
   $fc=$rngI.FormatConditions.AddColorScale(2)
   $fc.ColorScaleCriteria.Item(1).FormatColor.Color=16777215
   $fc.ColorScaleCriteria.Item(2).FormatColor.Color=255
