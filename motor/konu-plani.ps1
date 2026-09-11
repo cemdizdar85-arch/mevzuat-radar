@@ -62,6 +62,15 @@ foreach($p in $prof.sinavlar.'STAJA BAŞLAMA (SGS)'.PSObject.Properties){ $agirl
 
 # --- 2) CIKMIS ARSIV: KONU x SIKLIK -------------------------------------------
 # ⚠ PS 5.1: once degiskene, sonra @() (ConvertFrom-Json boru hattina enumerate etmez)
+# Ders ayristirmasi (arac/ders-ayristir.ps1 uretir; yoksa kaba ad kullanilir)
+$script:AYR=@{}
+$ayrYol=Join-Path $depoKok 'veri\ders-ayristirma.json'
+if(Test-Path $ayrYol){
+  $ayrHam=Get-Content $ayrYol -Raw -Encoding UTF8|ConvertFrom-Json
+  foreach($a in @($ayrHam.kayitlar)){ if("$($a.ders)" -and "$($a.ders)" -ne '(ayristirilamadi)'){ $script:AYR[(Katla "$($a.konu)")]="$($a.ders)" } }
+  Write-Host ("ders ayristirmasi: {0:N0} konu (geri sinama %{1})" -f $script:AYR.Count,$ayrHam.geri_sinama.isabet_yuzde) -ForegroundColor DarkCyan
+}
+
 $kopruHam=Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8|ConvertFrom-Json
 $konu=@{}   # katlanmis konu adi -> kayit
 foreach($r in @($kopruHam)){
@@ -76,8 +85,15 @@ foreach($r in @($kopruHam)){
   # iyidir: plan okunabilir kalir ve ayristirma isi GORUNUR olur.
   $d="$($r.bizim_ders)".Trim()
   if(-not $d){
-    $ad="$($r.arsiv_ders)".Trim() -replace '\s*/\s*.*$',''   # "X / Y" ikili adin ilki
-    if($ad){ $d="$ad (ayristirilmamis)" }
+    # 11.09: arac/ders-ayristir.ps1 kaba kovadaki konulari anahtar kelimeyle
+    # dagitiyor. Geri sinama %88,8 (esik %85, 787 bilinen konu uzerinde).
+    # Kural tutmayan konu '(ayristirilamadi)' kalir - TAHMIN EDILMEZ.
+    $ak=Katla "$($r.konu)"
+    if($script:AYR.ContainsKey($ak)){ $d=$script:AYR[$ak] }
+    else{
+      $ad="$($r.arsiv_ders)".Trim() -replace '\s*/\s*.*$',''
+      if($ad){ $d="$ad (ayristirilamadi)" }
+    }
   }
   if($konu.ContainsKey($ka)){
     if($c -gt [int]$konu[$ka].cikmis){ $konu[$ka].cikmis=$c; $konu[$ka].donem=[int]$r.donem }
