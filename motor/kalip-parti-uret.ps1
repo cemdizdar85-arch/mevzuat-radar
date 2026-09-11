@@ -2898,6 +2898,11 @@ Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","dogru_sik_var":"
 === DOGRU SIKKIN ACIKLAMASI === {ACIK}
 === KAYNAK METNI === {KAYNAK}
 '@
+# --- 11.09 TOPLU: FAZ H de iki gecisli kosar (Cem "toplu istege gec") ---------
+# A · K · H2 · B · G · C fazlari 08.09'dan beri toplu gidiyordu; HAKEM ve SADE
+# disarida kalmisti. Hasat turu tam bu iki fazi kosuyor: 1.098 soru x 2 cagri
+# = 2.196 SIRALI istek, ~7,6 saat ve tam fiyat. Toplu istek yari fiyat + paralel.
+foreach($gecisH0 in @(1,2)){ if($gecisH0 -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisH0 -eq 1); $raporH0=$rapor.Count
 foreach($id in @($don.Keys)){
   $cvp=$don[$id]
   if(-not $cvp.soru){ continue }
@@ -3025,12 +3030,15 @@ foreach($id in @($don.Keys)){
 # bu isaretin tek basina isabeti %35, yani hukum degil DIKKAT CAGRISIDIR.
 $keIsaret = $(if($cvp.PSObject.Properties['konu_sapma_isareti'] -and "$($cvp.konu_sapma_isareti)".Trim()){ "DIKKAT: sozcuk olcumu bu soruda konu sapmasi isaretledi ($($cvp.konu_sapma_isareti)); konu uyumunu ozellikle dikkatli denetle. " } else { '' })
 $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
-  $yh=$null
+  # 1. gecis: yalniz istemi topla (istem YUKARIDA ayni koddan kuruldu, sapma yok)
+  if($script:ON_GECIS){ TopluTopla $id 'claude-haiku-4-5-20251001' $ih 2000; continue }
+  $yh=TopluAl 'H' $id            # 2. gecis: partiden gelen cevap varsa bedava
+  if($yh){ Write-Host "  HAKEM (toplu): $id" -ForegroundColor DarkGray }
   # 08.09 Tur 1 kazası 2: hakem JSON'una güncellik+atıf alanları eklenince 600 jeton yetmedi, 65 sorunun 31'inde cevap KESİLDİ → "HAKEM CIKTISI BOZUK"
   # yalnız rapora yazılıyordu, konsola değil; hakemsiz soru yayın şartını geçemedi (29 yayın kaybı). Tavan 1.600 + bozukluk konsola + kesilme notu.
   # 11.09: KAPI-HG iki alan daha ekledi (hesap_uyum, hesap_gerekce) -> 1.600 -> 2.000.
   # 08.09'da tam bu sebeple 65 sorunun 31'inde cevap KESILMISTI; tavan alanla birlikte buyur.
-  foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 2000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+  if(-not $yh){ foreach($d in 1..3){ try{ $yh=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $ih -MaxTok 2000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
   $hk=Coz $yh.metin
   if(-not ($hk -and $hk.karar)){ Write-Host "  HAKEM ÇIKTISI BOZUK ($id): durma=$($yh.dur) · $("$($yh.metin)".Length) kr" -ForegroundColor Red }
   if($hk -and $hk.karar){
@@ -3110,6 +3118,15 @@ $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Re
     if($hk.PSObject.Properties['atif'] -and "$($hk.atif)" -ne 'EVET'){ Write-Host "  ATIF $($hk.atif) (hakem): $id [$($cvp.konu)] -> $($hk.atif_gerekce)" -ForegroundColor $(if("$($hk.atif)" -eq 'ATIF-YANLIS'){'Magenta'}else{'DarkYellow'}); $rapor.Add("ATIF $($hk.atif) (hakem): $($cvp.konu) | $($hk.atif_gerekce)") }
   } else { $rapor.Add("HAKEM CIKTISI BOZUK: $id") }
 }
+# 1. gecisin rapor satirlarini geri al (FAZ A ile ayni desen): on gecis hicbir
+# karar vermez, yalniz istem toplar; oradan rapora yazilan sey yanilticidir.
+if($script:ON_GECIS){
+  # On gecis paket kurarken rapora yaziyor ("ATIF AMBARDA YOK"); 2. gecis ayni
+  # satirlari tekrar yazar -> rapor cift gorunur. FAZ A ile ayni sekilde geri alinir.
+  while($rapor.Count -gt $raporH0){ $rapor.RemoveAt($rapor.Count-1) }
+  TopluGonder 'H'
+} }
+$script:ON_GECIS=$false
 $hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and ("$($don[$_].hakem.karar)" -eq 'HAYIR' -or "$($don[$_].hakem.konu_uyum)" -eq 'KONU-DISI') })
 foreach($id in @($don.Keys)){ if($don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI'){ Write-Host "  KONU-DISI (KAPI D): $id [$($don[$id].konu)] -> $($don[$id].hakem.konu_gerekce)" -ForegroundColor Magenta } }
 $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
@@ -3453,6 +3470,11 @@ function SadeKaynak($cvp){
   $m0=($parca -join "`n---`n"); if($m0.Length -gt 9000){ $m0=$m0.Substring(0,9000) }
   return $m0
 }
+# --- 11.09 TOPLU: FAZ S de iki gecisli (Cem "toplu istege gec") --------------
+# Yalniz 1. TUR toplu gider. 2. tur ancak SADE KAPISI dustugunde kosar ve
+# istemi degistirir ("onceki cevap kullanilamadi..."); onu toplamak yanlis
+# olurdu - degisen istem partiye girmez, anlik gider.
+foreach($gecisS in @(1,2)){ if($gecisS -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisS -eq 1)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not ($Sade -or $SadeYenile)){ break }   # FAZ S yalnız açık onayla koşar
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
@@ -3465,10 +3487,11 @@ foreach($id in @($don.Keys)){
   $yanlisS=(@('A','B','C','D','E') | Where-Object { $_ -ne "$($cvp.dogru)" -and $cvp.aciklama.PSObject.Properties[$_] } | ForEach-Object { "$_) $(AciklamaDuz $cvp.aciklama.$_)" }) -join "`n"
   $istS=$sadeIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$siklarS).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',(AciklamaDuz $cvp.aciklama.$($cvp.dogru))).Replace('{YANLIS}',$yanlisS)
   if($kMetinS){ $istS+="`n=== KAYNAK METİNLERİ (ambar) ===`n"+$kMetinS } else { $istS+="`n=== KAYNAK METNİ YOK: kavramlar listesi BOŞ dönsün ===" }
+  if($script:ON_GECIS){ TopluTopla $id 'claude-haiku-4-5-20251001' $istS 1800; continue }
   $sadeN=$null; $tokG=0; $tokC=0; $sadeSebep=''
   foreach($tur in 1..2){
-    $yS=$null
-    foreach($d in 1..3){ try{ $yS=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istS -MaxTok 1800; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
+    $yS=$(if($tur -eq 1){ TopluAl 'S' $id } else { $null })   # yalniz 1. tur partiden gelir
+    if(-not $yS){ foreach($d in 1..3){ try{ $yS=Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istS -MaxTok 1800; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
     $tokG+=[int]$yS.girdi; $tokC+=[int]$yS.cikti
     $sadeN=Coz $yS.metin
     # 11.09 Cem "sessiz kapiyi konustur": burasi SESSIZ dusuyordu. `Coz` null
@@ -3516,6 +3539,8 @@ foreach($id in @($don.Keys)){
   $cvp | Add-Member -NotePropertyName sade -NotePropertyValue $sadeObj -Force
   CacheYaz; Write-Host "  SADE OK $id · kavram $($kavramlar.Count)"
 }
+if($script:ON_GECIS){ TopluGonder 'S' } }
+$script:ON_GECIS=$false
 
 # --- FAZ V: VERİLENLERİ TANI (06.09 Cem "soruda çok veri var, tabloda ikisi taşınmış; hiç bilmeyene böyle olmuyor" → "1 yap") ---
 # Sorudaki HER sayı bir satır: ad + değer + tek cümlelik anlam. Builder tabloyu VERİLENLER → HESAP → SONUÇ diye çizer; Adım 1

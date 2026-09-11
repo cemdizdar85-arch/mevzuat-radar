@@ -92,7 +92,10 @@ foreach($p in ($isler | Sort-Object adet -Descending)){
   #    sorular yayindan dusecekti. Ders artik plan dosyasindan (etiketten cozulmus) gelir.
   $ders="$($p.ders)".Trim()
   if(-not $ders){ throw "PLAN EKSIK: $($p.etiket) icin ders yok. Plan uretici ders alanini doldurmali (KAPI-DR)." }
-  $arg = @('-Sinav','SGS','-DersRegex',$ders,'-Etiket',"$($p.etiket)",'-Adet',"$([int]$p.adet)",'-Sade','-CizmeAtla','-PilotId',"$($p.idler)")
+  # 11.09 Cem "toplu istege gec": hakem (H) ve sade (S) fazlari artik Message
+  # Batches ile gidiyor -> yari fiyat + paralel. Sirali kosuda 1.098 soru x 2
+  # cagri = 2.196 istek, olculen hiz 25 sn/soru ≈ 7,6 saat ve tam fiyat.
+  $arg = @('-Sinav','SGS','-DersRegex',$ders,'-Etiket',"$($p.etiket)",'-Adet',"$([int]$p.adet)",'-Sade','-CizmeAtla','-Toplu','-PilotId',"$($p.idler)")
   try{
     & powershell -NoProfile -ExecutionPolicy Bypass -File $uret @arg *> $log
     $bedel = (Select-String -Path $log -Pattern 'BEDEL TOPLAM' | Select-Object -Last 1).Line

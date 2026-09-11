@@ -1,164 +1,542 @@
-﻿[
+[
     {
-        "etiket":  "sgs-issgk-p30",
-        "ders":  "",
+        "etiket":  "pilot6-fmuh-kolay",
+        "ders":  "Finansal Muhasebe",
+        "adet":  1,
+        "idler":  "kp-02"
+    },
+    {
+        "etiket":  "pilot6-fmuh-zor",
+        "ders":  "Finansal Muhasebe",
+        "adet":  1,
+        "idler":  "kp-02"
+    },
+    {
+        "etiket":  "sgs-a6-denetim-cokzor-r1",
+        "ders":  "Denetim",
+        "adet":  1,
+        "idler":  "kp-03"
+    },
+    {
+        "etiket":  "sgs-a6e-yabancidil-p1b",
+        "ders":  "Yabanci Dil",
+        "adet":  4,
+        "idler":  "kp-01,kp-02,kp-03,kp-05"
+    },
+    {
+        "etiket":  "sgs-a6-issgk-cokzor-r1",
+        "ders":  "Is ve Sosyal Guvenlik Hukuku",
         "adet":  2,
-        "idler":  "kp-01,kp-03"
+        "idler":  "kp-04,kp-06"
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "ders":  "",
-        "adet":  19,
-        "idler":  "kp-01,kp-02,kp-04,kp-06,kp-07,kp-08,kp-09,kp-13,kp-14,kp-15,kp-16,kp-17,kp-20,kp-22,kp-23,kp-24,kp-25,kp-26,kp-28"
+        "etiket":  "sgs-a6-maliye-cokzor-r1",
+        "ders":  "Maliye",
+        "adet":  6,
+        "idler":  "kp-01,kp-02,kp-03,kp-07,kp-08,kp-09"
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "ders":  "",
-        "adet":  18,
-        "idler":  "kp-01,kp-02,kp-03,kp-06,kp-08,kp-11,kp-12,kp-13,kp-15,kp-18,kp-20,kp-21,kp-22,kp-23,kp-25,kp-27,kp-29,kp-30"
+        "etiket":  "sgs-a6-maliye-zor-r1",
+        "ders":  "Maliye",
+        "adet":  4,
+        "idler":  "kp-01,kp-02,kp-03,kp-08"
     },
     {
-        "etiket":  "sgs-t1-denetim-cokzor",
-        "ders":  "",
-        "adet":  56,
-        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-07,kp-10,kp-12,kp-13,kp-16,kp-18,kp-20,kp-23,kp-24,kp-25,kp-26,kp-27,kp-28,kp-29,kp-30,kp-33,kp-34,kp-38,kp-39,kp-40,kp-42,kp-43,kp-44,kp-45,kp-47,kp-48,kp-50,kp-51,kp-52,kp-55,kp-56,kp-59,kp-60,kp-61,kp-62,kp-63,kp-64,kp-66,kp-67,kp-68,kp-69,kp-70,kp-74,kp-75,kp-77,kp-80,kp-81,kp-82,kp-83,kp-84,kp-86"
+        "etiket":  "sgs-fmuh-p30",
+        "ders":  "Finansal Muhasebe",
+        "adet":  1,
+        "idler":  "kp-04"
     },
     {
-        "etiket":  "sgs-t1-denetim-kolay",
-        "ders":  "",
-        "adet":  45,
-        "idler":  "kp-01,kp-03,kp-06,kp-07,kp-14,kp-15,kp-16,kp-20,kp-23,kp-24,kp-25,kp-28,kp-29,kp-31,kp-32,kp-33,kp-34,kp-38,kp-39,kp-40,kp-42,kp-44,kp-45,kp-48,kp-51,kp-52,kp-55,kp-56,kp-57,kp-59,kp-61,kp-62,kp-64,kp-67,kp-69,kp-71,kp-72,kp-73,kp-79,kp-80,kp-81,kp-82,kp-84,kp-86,kp-87"
+        "etiket":  "sgs-gk-pilot2-maliye-kolay",
+        "ders":  "Maliye",
+        "adet":  1,
+        "idler":  "kp-01"
     },
     {
-        "etiket":  "sgs-t1-denetim-zor",
-        "ders":  "",
-        "adet":  45,
-        "idler":  "kp-02,kp-03,kp-07,kp-09,kp-10,kp-12,kp-13,kp-18,kp-20,kp-22,kp-23,kp-25,kp-26,kp-27,kp-28,kp-29,kp-32,kp-33,kp-34,kp-35,kp-39,kp-41,kp-42,kp-44,kp-45,kp-48,kp-52,kp-56,kp-57,kp-58,kp-59,kp-60,kp-63,kp-64,kp-67,kp-68,kp-69,kp-70,kp-71,kp-73,kp-75,kp-78,kp-82,kp-83,kp-85"
+        "etiket":  "sgs-gk-pilot2-maliye-zor",
+        "ders":  "Maliye",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot2-yd-zor",
+        "ders":  "Yabanci Dil",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot3-inkilap-kolay",
+        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot3-inkilap-zor",
+        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot3-mat-zor",
+        "ders":  "Matematik",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot3-turkce-kolay",
+        "ders":  "Turkce",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot3-turkce-zor",
+        "ders":  "Turkce",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot3-yd-kolay",
+        "ders":  "Yabanci Dil",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot3-yd-zor",
+        "ders":  "Yabanci Dil",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot4-mat-kolay",
+        "ders":  "Matematik",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot4-mat-zor",
+        "ders":  "Matematik",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot-ekonomi-kolay",
+        "ders":  "Ekonomi",
+        "adet":  1,
+        "idler":  "kp-02"
+    },
+    {
+        "etiket":  "sgs-gk-pilot-ekonomi-zor",
+        "ders":  "Ekonomi",
+        "adet":  2,
+        "idler":  "kp-01,kp-02"
+    },
+    {
+        "etiket":  "sgs-gk-pilot-inkilap-kolay",
+        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+        "adet":  1,
+        "idler":  "kp-02"
+    },
+    {
+        "etiket":  "sgs-gk-pilot-inkilap-zor",
+        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+        "adet":  2,
+        "idler":  "kp-01,kp-02"
+    },
+    {
+        "etiket":  "sgs-gk-pilot-mat-zor",
+        "ders":  "Matematik",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-gk-pilot-turkce-zor",
+        "ders":  "Turkce",
+        "adet":  1,
+        "idler":  "kp-01"
+    },
+    {
+        "etiket":  "sgs-t1-borclar-zor",
+        "ders":  "Borclar Hukuku",
+        "adet":  11,
+        "idler":  "kp-03,kp-04,kp-05,kp-12,kp-14,kp-16,kp-17,kp-21,kp-23,kp-24,kp-26"
     },
     {
         "etiket":  "sgs-t1-fmuh-cokzor",
-        "ders":  "",
-        "adet":  33,
-        "idler":  "kp-02,kp-03,kp-05,kp-07,kp-08,kp-09,kp-12,kp-16,kp-17,kp-19,kp-20,kp-22,kp-24,kp-25,kp-27,kp-30,kp-33,kp-34,kp-36,kp-38,kp-40,kp-42,kp-44,kp-50,kp-51,kp-52,kp-57,kp-64,kp-67,kp-68,kp-78,kp-83,kp-91"
+        "ders":  "Finansal Muhasebe",
+        "adet":  1,
+        "idler":  "kp-65"
     },
     {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "ders":  "",
-        "adet":  31,
-        "idler":  "kp-101,kp-103,kp-104,kp-105,kp-114,kp-115,kp-116,kp-118,kp-122,kp-123,kp-126,kp-128,kp-134,kp-137,kp-145,kp-151,kp-152,kp-153,kp-156,kp-158,kp-169,kp-173,kp-177,kp-180,kp-183,kp-184,kp-187,kp-189,kp-94,kp-95,kp-98"
+        "ders":  "Finansal Muhasebe",
+        "adet":  1,
+        "idler":  "kp-139"
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "ders":  "",
-        "adet":  43,
-        "idler":  "kp-01,kp-03,kp-04,kp-05,kp-06,kp-11,kp-12,kp-13,kp-16,kp-17,kp-18,kp-19,kp-21,kp-22,kp-23,kp-24,kp-26,kp-30,kp-33,kp-34,kp-35,kp-37,kp-38,kp-40,kp-42,kp-44,kp-47,kp-50,kp-51,kp-52,kp-57,kp-63,kp-64,kp-65,kp-67,kp-72,kp-73,kp-75,kp-78,kp-80,kp-83,kp-85,kp-90"
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "ders":  "Ekonomi",
+        "adet":  19,
+        "idler":  "kp-01,kp-03,kp-04,kp-06,kp-09,kp-10,kp-14,kp-15,kp-19,kp-20,kp-22,kp-23,kp-24,kp-25,kp-27,kp-29,kp-31,kp-33,kp-35"
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "ders":  "",
-        "adet":  41,
-        "idler":  "kp-101,kp-102,kp-103,kp-105,kp-106,kp-109,kp-114,kp-115,kp-116,kp-117,kp-118,kp-119,kp-122,kp-124,kp-126,kp-129,kp-130,kp-132,kp-134,kp-137,kp-140,kp-142,kp-144,kp-147,kp-148,kp-149,kp-152,kp-154,kp-158,kp-163,kp-165,kp-173,kp-177,kp-179,kp-180,kp-182,kp-183,kp-184,kp-92,kp-93,kp-99"
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "ders":  "Ekonomi",
+        "adet":  22,
+        "idler":  "kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-12,kp-13,kp-14,kp-15,kp-16,kp-17,kp-19,kp-22,kp-24,kp-26,kp-27,kp-29,kp-31,kp-33,kp-34,kp-35"
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "ders":  "",
-        "adet":  41,
-        "idler":  "kp-01,kp-03,kp-04,kp-05,kp-06,kp-08,kp-11,kp-12,kp-16,kp-17,kp-18,kp-19,kp-22,kp-23,kp-24,kp-26,kp-30,kp-33,kp-34,kp-35,kp-38,kp-39,kp-40,kp-42,kp-44,kp-48,kp-51,kp-57,kp-58,kp-63,kp-64,kp-65,kp-67,kp-72,kp-75,kp-78,kp-79,kp-80,kp-83,kp-85,kp-88"
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "ders":  "Ekonomi",
+        "adet":  23,
+        "idler":  "kp-01,kp-02,kp-03,kp-05,kp-06,kp-07,kp-08,kp-10,kp-13,kp-14,kp-15,kp-16,kp-17,kp-18,kp-19,kp-22,kp-23,kp-24,kp-25,kp-28,kp-29,kp-31,kp-33"
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "ders":  "",
-        "adet":  37,
-        "idler":  "kp-102,kp-103,kp-104,kp-106,kp-111,kp-116,kp-118,kp-126,kp-127,kp-129,kp-130,kp-131,kp-132,kp-134,kp-137,kp-140,kp-143,kp-149,kp-152,kp-153,kp-155,kp-156,kp-159,kp-163,kp-168,kp-169,kp-172,kp-177,kp-178,kp-179,kp-180,kp-183,kp-184,kp-189,kp-89,kp-93,kp-95"
+        "etiket":  "sgs-t1-genel-inkilap-cokzor",
+        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+        "adet":  13,
+        "idler":  "kp-03,kp-07,kp-12,kp-15,kp-16,kp-17,kp-18,kp-20,kp-22,kp-26,kp-27,kp-28,kp-29"
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "ders":  "",
-        "adet":  17,
-        "idler":  "kp-01,kp-02,kp-04,kp-07,kp-09,kp-10,kp-11,kp-12,kp-13,kp-16,kp-20,kp-24,kp-28,kp-29,kp-30,kp-33,kp-34"
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "ders":  "",
+        "etiket":  "sgs-t1-genel-inkilap-kolay",
+        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
         "adet":  20,
-        "idler":  "kp-02,kp-03,kp-04,kp-05,kp-07,kp-14,kp-18,kp-21,kp-22,kp-23,kp-25,kp-26,kp-28,kp-30,kp-35,kp-37,kp-38,kp-44,kp-46,kp-47"
+        "idler":  "kp-01,kp-02,kp-03,kp-05,kp-07,kp-12,kp-13,kp-14,kp-15,kp-16,kp-18,kp-20,kp-21,kp-22,kp-24,kp-25,kp-27,kp-28,kp-29,kp-30"
+    },
+    {
+        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+        "adet":  17,
+        "idler":  "kp-01,kp-03,kp-05,kp-07,kp-13,kp-15,kp-16,kp-20,kp-21,kp-22,kp-25,kp-26,kp-27,kp-28,kp-29,kp-30,kp-31"
+    },
+    {
+        "etiket":  "sgs-t1-genel-maliye-cokzor",
+        "ders":  "Maliye",
+        "adet":  10,
+        "idler":  "kp-03,kp-04,kp-06,kp-08,kp-10,kp-12,kp-15,kp-16,kp-18,kp-22"
+    },
+    {
+        "etiket":  "sgs-t1-genel-maliye-kolay",
+        "ders":  "Maliye",
+        "adet":  11,
+        "idler":  "kp-02,kp-04,kp-05,kp-06,kp-07,kp-10,kp-11,kp-12,kp-13,kp-20,kp-21"
+    },
+    {
+        "etiket":  "sgs-t1-genel-maliye-zor",
+        "ders":  "Maliye",
+        "adet":  13,
+        "idler":  "kp-01,kp-02,kp-03,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-14,kp-22"
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "ders":  "Matematik",
+        "adet":  20,
+        "idler":  "kp-01,kp-05,kp-07,kp-08,kp-11,kp-12,kp-13,kp-15,kp-19,kp-22,kp-23,kp-25,kp-26,kp-27,kp-28,kp-29,kp-30,kp-32,kp-36,kp-38"
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "ders":  "Matematik",
+        "adet":  24,
+        "idler":  "kp-01,kp-04,kp-05,kp-06,kp-07,kp-08,kp-11,kp-12,kp-13,kp-15,kp-17,kp-18,kp-19,kp-20,kp-21,kp-24,kp-26,kp-29,kp-30,kp-31,kp-32,kp-33,kp-35,kp-38"
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-zor",
+        "ders":  "Matematik",
+        "adet":  20,
+        "idler":  "kp-05,kp-06,kp-08,kp-11,kp-12,kp-13,kp-15,kp-16,kp-17,kp-19,kp-22,kp-24,kp-25,kp-26,kp-29,kp-30,kp-31,kp-33,kp-34,kp-35"
+    },
+    {
+        "etiket":  "sgs-t1-genel-turkce-cokzor",
+        "ders":  "Turkce",
+        "adet":  16,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-07,kp-08,kp-09,kp-11,kp-20,kp-22,kp-25,kp-26,kp-27,kp-28,kp-29,kp-30"
+    },
+    {
+        "etiket":  "sgs-t1-genel-turkce-kolay",
+        "ders":  "Turkce",
+        "adet":  14,
+        "idler":  "kp-01,kp-03,kp-04,kp-06,kp-07,kp-11,kp-13,kp-14,kp-17,kp-18,kp-22,kp-28,kp-29,kp-30"
+    },
+    {
+        "etiket":  "sgs-t1-genel-turkce-zor",
+        "ders":  "Turkce",
+        "adet":  19,
+        "idler":  "kp-02,kp-03,kp-04,kp-07,kp-08,kp-09,kp-13,kp-14,kp-15,kp-17,kp-20,kp-22,kp-24,kp-25,kp-26,kp-28,kp-29,kp-30,kp-31"
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "ders":  "Yabanci Dil",
+        "adet":  28,
+        "idler":  "kp-01,kp-02,kp-04,kp-06,kp-07,kp-08,kp-09,kp-10,kp-12,kp-13,kp-14,kp-15,kp-17,kp-19,kp-21,kp-22,kp-23,kp-24,kp-25,kp-26,kp-27,kp-29,kp-30,kp-32,kp-33,kp-34,kp-35,kp-36"
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "ders":  "Yabanci Dil",
+        "adet":  26,
+        "idler":  "kp-01,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-15,kp-16,kp-17,kp-19,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25,kp-27,kp-30,kp-33,kp-34,kp-35"
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "ders":  "Yabanci Dil",
+        "adet":  26,
+        "idler":  "kp-01,kp-03,kp-04,kp-05,kp-06,kp-08,kp-09,kp-10,kp-11,kp-12,kp-15,kp-16,kp-17,kp-18,kp-19,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25,kp-26,kp-27,kp-28,kp-29,kp-36"
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "ders":  "Is ve Sosyal Guvenlik Hukuku",
+        "adet":  24,
+        "idler":  "kp-01,kp-02,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-14,kp-16,kp-23,kp-24,kp-26,kp-27,kp-28,kp-29,kp-30,kp-33,kp-34,kp-35,kp-36"
+    },
+    {
+        "etiket":  "sgs-t1-issgk-zor",
+        "ders":  "Is ve Sosyal Guvenlik Hukuku",
+        "adet":  14,
+        "idler":  "kp-04,kp-05,kp-08,kp-10,kp-11,kp-15,kp-16,kp-19,kp-23,kp-26,kp-31,kp-32,kp-33,kp-35"
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "ders":  "Maliyet Muhasebesi",
+        "adet":  20,
+        "idler":  "kp-01,kp-04,kp-05,kp-07,kp-10,kp-11,kp-12,kp-13,kp-17,kp-21,kp-25,kp-26,kp-27,kp-28,kp-29,kp-30,kp-35,kp-43,kp-46,kp-47"
     },
     {
         "etiket":  "sgs-t1-maliyet-zor",
-        "ders":  "",
-        "adet":  23,
-        "idler":  "kp-02,kp-04,kp-06,kp-07,kp-08,kp-09,kp-11,kp-13,kp-14,kp-15,kp-17,kp-18,kp-24,kp-28,kp-30,kp-31,kp-34,kp-36,kp-38,kp-41,kp-42,kp-44,kp-46"
+        "ders":  "Maliyet Muhasebesi",
+        "adet":  1,
+        "idler":  "kp-29"
     },
     {
-        "etiket":  "sgs-t1-meslek-cokzor",
-        "ders":  "",
-        "adet":  8,
-        "idler":  "kp-04,kp-05,kp-07,kp-08,kp-11,kp-14,kp-17,kp-20"
-    },
-    {
-        "etiket":  "sgs-t1-meslek-kolay",
-        "ders":  "",
-        "adet":  12,
-        "idler":  "kp-01,kp-05,kp-07,kp-08,kp-09,kp-10,kp-11,kp-16,kp-17,kp-19,kp-23,kp-27"
-    },
-    {
-        "etiket":  "sgs-t1-meslek-zor",
-        "ders":  "",
-        "adet":  7,
-        "idler":  "kp-01,kp-03,kp-06,kp-09,kp-12,kp-17,kp-24"
-    },
-    {
-        "etiket":  "sgs-t1-mta-kolay",
-        "ders":  "",
-        "adet":  9,
-        "idler":  "kp-01,kp-02,kp-04,kp-09,kp-14,kp-21,kp-23,kp-27,kp-32"
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "ders":  "",
-        "adet":  24,
-        "idler":  "kp-01,kp-03,kp-05,kp-08,kp-11,kp-13,kp-14,kp-16,kp-19,kp-20,kp-21,kp-29,kp-31,kp-32,kp-33,kp-35,kp-36,kp-37,kp-39,kp-40,kp-41,kp-42,kp-43,kp-48"
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "ders":  "",
-        "adet":  30,
-        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-07,kp-09,kp-10,kp-11,kp-12,kp-13,kp-14,kp-15,kp-16,kp-20,kp-21,kp-24,kp-25,kp-28,kp-29,kp-36,kp-38,kp-39,kp-40,kp-41,kp-42,kp-43,kp-46,kp-48,kp-49"
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "ders":  "",
-        "adet":  21,
-        "idler":  "kp-02,kp-05,kp-09,kp-10,kp-11,kp-12,kp-16,kp-19,kp-25,kp-28,kp-29,kp-32,kp-35,kp-38,kp-39,kp-41,kp-42,kp-43,kp-46,kp-47,kp-49"
+        "etiket":  "sgs-t1-mta-zor",
+        "ders":  "Mali Tablolar Analizi",
+        "adet":  5,
+        "idler":  "kp-01,kp-02,kp-13,kp-15,kp-23"
     },
     {
         "etiket":  "sgs-t1-vergi-cokzor",
-        "ders":  "",
-        "adet":  8,
-        "idler":  "kp-02,kp-03,kp-08,kp-12,kp-19,kp-20,kp-25,kp-27"
+        "ders":  "Vergi Hukuku",
+        "adet":  1,
+        "idler":  "kp-26"
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
-        "ders":  "",
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "ders":  "Borclar Hukuku",
         "adet":  10,
-        "idler":  "kp-03,kp-08,kp-10,kp-12,kp-13,kp-15,kp-17,kp-20,kp-24,kp-28"
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-07,kp-08,kp-09,kp-10,kp-11"
     },
     {
-        "etiket":  "sgs-t1-vergi-zor",
-        "ders":  "",
-        "adet":  13,
-        "idler":  "kp-03,kp-06,kp-08,kp-09,kp-12,kp-13,kp-14,kp-15,kp-17,kp-19,kp-20,kp-23,kp-24"
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "ders":  "Borclar Hukuku",
+        "adet":  11,
+        "idler":  "kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12"
     },
     {
-        "etiket":  "sgs-t2-denetim-zor",
-        "ders":  "",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "ders":  "Borclar Hukuku",
+        "adet":  16,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-09,kp-10,kp-12,kp-13,kp-14,kp-15,kp-16,kp-17,kp-18,kp-19"
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "ders":  "Maliyet Muhasebesi",
         "adet":  28,
-        "idler":  "kp-02,kp-04,kp-05,kp-07,kp-09,kp-10,kp-11,kp-12,kp-15,kp-17,kp-18,kp-19,kp-21,kp-22,kp-23,kp-25,kp-26,kp-28,kp-29,kp-30,kp-31,kp-34,kp-35,kp-38,kp-39,kp-40,kp-41,kp-42"
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-14,kp-15,kp-16,kp-17,kp-18,kp-19,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25,kp-26,kp-27,kp-28"
     },
     {
-        "etiket":  "sgs-ticaret-p30",
-        "ders":  "",
-        "adet":  3,
-        "idler":  "kp-01,kp-02,kp-03"
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "ders":  "Maliyet Muhasebesi",
+        "adet":  27,
+        "idler":  "kp-01,kp-02,kp-03,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-14,kp-15,kp-16,kp-17,kp-18,kp-19,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25,kp-26,kp-27,kp-28"
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "ders":  "Maliyet Muhasebesi",
+        "adet":  25,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-14,kp-15,kp-16,kp-17,kp-18,kp-19,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25"
+    },
+    {
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "ders":  "Mali Tablolar Analizi",
+        "adet":  12,
+        "idler":  "kp-02,kp-03,kp-06,kp-07,kp-17,kp-18,kp-19,kp-20,kp-21,kp-22,kp-23,kp-26"
+    },
+    {
+        "etiket":  "sgs-t2b-mta-kolay",
+        "ders":  "Mali Tablolar Analizi",
+        "adet":  18,
+        "idler":  "kp-01,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-16,kp-18,kp-19,kp-20,kp-22,kp-23"
+    },
+    {
+        "etiket":  "sgs-t2b-mta-zor",
+        "ders":  "Mali Tablolar Analizi",
+        "adet":  18,
+        "idler":  "kp-01,kp-04,kp-06,kp-07,kp-09,kp-12,kp-14,kp-15,kp-16,kp-17,kp-18,kp-19,kp-20,kp-22,kp-23,kp-24,kp-25,kp-26"
+    },
+    {
+        "etiket":  "sgs-t2-denetim-cokzor",
+        "ders":  "Denetim",
+        "adet":  17,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-08,kp-09,kp-11,kp-13,kp-16,kp-18,kp-21,kp-22,kp-26,kp-29,kp-30"
+    },
+    {
+        "etiket":  "sgs-t2-denetim-kolay",
+        "ders":  "Denetim",
+        "adet":  25,
+        "idler":  "kp-02,kp-04,kp-06,kp-08,kp-09,kp-11,kp-16,kp-18,kp-19,kp-21,kp-22,kp-24,kp-26,kp-27,kp-28,kp-29,kp-30,kp-31,kp-33,kp-34,kp-35,kp-39,kp-40,kp-41,kp-42"
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "ders":  "Finansal Muhasebe",
+        "adet":  26,
+        "idler":  "kp-01,kp-02,kp-04,kp-05,kp-10,kp-101,kp-104,kp-12,kp-14,kp-15,kp-27,kp-34,kp-37,kp-42,kp-43,kp-47,kp-48,kp-54,kp-55,kp-67,kp-68,kp-69,kp-70,kp-87,kp-88,kp-97"
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "ders":  "Finansal Muhasebe",
+        "adet":  7,
+        "idler":  "kp-74,kp-76,kp-79,kp-81,kp-84,kp-92,kp-93"
+    },
+    {
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "ders":  "Is ve Sosyal Guvenlik Hukuku",
+        "adet":  5,
+        "idler":  "kp-05,kp-09,kp-11,kp-14,kp-15"
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-cokzor",
+        "ders":  "Ticaret Hukuku",
+        "adet":  14,
+        "idler":  "kp-02,kp-03,kp-04,kp-06,kp-07,kp-09,kp-13,kp-14,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25"
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-kolay",
+        "ders":  "Ticaret Hukuku",
+        "adet":  14,
+        "idler":  "kp-01,kp-04,kp-05,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-15,kp-16,kp-18,kp-19"
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-zor",
+        "ders":  "Ticaret Hukuku",
+        "adet":  18,
+        "idler":  "kp-01,kp-02,kp-04,kp-06,kp-07,kp-08,kp-11,kp-12,kp-14,kp-15,kp-16,kp-18,kp-21,kp-22,kp-23,kp-25,kp-27,kp-28"
+    },
+    {
+        "etiket":  "sgs-t2-vergi-cokzor",
+        "ders":  "Vergi Hukuku",
+        "adet":  4,
+        "idler":  "kp-01,kp-02,kp-04,kp-11"
+    },
+    {
+        "etiket":  "sgs-t2-vergi-kolay",
+        "ders":  "Vergi Hukuku",
+        "adet":  4,
+        "idler":  "kp-04,kp-09,kp-16,kp-17"
+    },
+    {
+        "etiket":  "sgs-t3-fmuh-kolay",
+        "ders":  "Finansal Muhasebe",
+        "adet":  9,
+        "idler":  "kp-01,kp-02,kp-04,kp-05,kp-06,kp-07,kp-10,kp-13,kp-14"
+    },
+    {
+        "etiket":  "sgs-t3-turkce-zor",
+        "ders":  "Turkce",
+        "adet":  5,
+        "idler":  "kp-01,kp-02,kp-03,kp-05,kp-06"
+    },
+    {
+        "etiket":  "sgs-t3-yd-kolay",
+        "ders":  "Yabanci Dil",
+        "adet":  11,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11"
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-cokzor",
+        "ders":  "Finansal Muhasebe",
+        "adet":  22,
+        "idler":  "kp-02,kp-03,kp-05,kp-06,kp-08,kp-09,kp-10,kp-16,kp-18,kp-19,kp-20,kp-21,kp-22,kp-26,kp-27,kp-30,kp-32,kp-33,kp-34,kp-37,kp-38,kp-40"
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-kolay",
+        "ders":  "Finansal Muhasebe",
+        "adet":  26,
+        "idler":  "kp-01,kp-02,kp-03,kp-05,kp-06,kp-09,kp-10,kp-11,kp-12,kp-13,kp-16,kp-17,kp-18,kp-20,kp-21,kp-23,kp-26,kp-27,kp-28,kp-31,kp-33,kp-34,kp-37,kp-38,kp-39,kp-40"
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-zor",
+        "ders":  "Finansal Muhasebe",
+        "adet":  21,
+        "idler":  "kp-02,kp-03,kp-08,kp-09,kp-10,kp-11,kp-12,kp-13,kp-16,kp-17,kp-19,kp-20,kp-21,kp-26,kp-30,kp-33,kp-34,kp-37,kp-38,kp-39,kp-40"
+    },
+    {
+        "etiket":  "sgs-t4-maliye-cokzor",
+        "ders":  "Maliye",
+        "adet":  11,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-09,kp-12,kp-13,kp-17"
+    },
+    {
+        "etiket":  "sgs-t4-maliye-kolay",
+        "ders":  "Maliye",
+        "adet":  14,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-14,kp-17"
+    },
+    {
+        "etiket":  "sgs-t4-maliye-zor",
+        "ders":  "Maliye",
+        "adet":  14,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-12,kp-13,kp-14,kp-17"
+    },
+    {
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "ders":  "Vergi Hukuku",
+        "adet":  8,
+        "idler":  "kp-01,kp-03,kp-05,kp-06,kp-08,kp-09,kp-16,kp-19"
+    },
+    {
+        "etiket":  "sgs-t4-vergi-kolay",
+        "ders":  "Vergi Hukuku",
+        "adet":  15,
+        "idler":  "kp-02,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-13,kp-14,kp-15,kp-16,kp-17,kp-18"
+    },
+    {
+        "etiket":  "sgs-t4-vergi-zor",
+        "ders":  "Vergi Hukuku",
+        "adet":  17,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-08,kp-09,kp-11,kp-12,kp-13,kp-14,kp-15,kp-16,kp-17,kp-18,kp-19"
+    },
+    {
+        "etiket":  "sgs-t5-denetim-cokzor",
+        "ders":  "Denetim",
+        "adet":  21,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-07,kp-08,kp-09,kp-10,kp-12,kp-13,kp-14,kp-17,kp-18,kp-20,kp-22,kp-23,kp-25,kp-26,kp-28,kp-29"
+    },
+    {
+        "etiket":  "sgs-t5-denetim-kolay",
+        "ders":  "Denetim",
+        "adet":  25,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-12,kp-14,kp-15,kp-17,kp-19,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25,kp-26,kp-27,kp-28,kp-29"
+    },
+    {
+        "etiket":  "sgs-t5-denetim-zor",
+        "ders":  "Denetim",
+        "adet":  27,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-10,kp-11,kp-12,kp-13,kp-14,kp-15,kp-17,kp-18,kp-19,kp-20,kp-21,kp-22,kp-23,kp-24,kp-25,kp-26,kp-27,kp-28,kp-29"
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-cokzor",
+        "ders":  "Ticaret Hukuku",
+        "adet":  9,
+        "idler":  "kp-01,kp-04,kp-05,kp-08,kp-09,kp-10,kp-12,kp-13,kp-14"
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-kolay",
+        "ders":  "Ticaret Hukuku",
+        "adet":  10,
+        "idler":  "kp-02,kp-03,kp-04,kp-05,kp-06,kp-08,kp-09,kp-12,kp-14,kp-15"
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-zor",
+        "ders":  "Ticaret Hukuku",
+        "adet":  14,
+        "idler":  "kp-01,kp-02,kp-03,kp-04,kp-05,kp-06,kp-07,kp-08,kp-09,kp-10,kp-11,kp-12,kp-14,kp-15"
     }
 ]
