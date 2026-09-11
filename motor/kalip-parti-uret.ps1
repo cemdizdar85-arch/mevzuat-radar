@@ -307,7 +307,15 @@ function AtifDesen([string]$dayanak){
         -replace '[İi]ş Sa[gğ]l[ıi][gğ][ıi] ve G[uü]venli[gğ]i K(anunu|\.)?|\b6331\s*s(ayılı|\.)?\s*(K\.|Kanun)?','ISGK ' `
         -replace '[İi]cra ve [İi]flas K(anunu|\.)?|\b2004\s*s(ayılı|\.)?\s*(K\.|Kanun)?','IIK ' `
         -replace '[İi]şsizlik Sigortas[ıi] K(anunu|\.)?|\b4447\s*s(ayılı|\.)?\s*(K\.|Kanun)?','ISSIZ ' `
-        -replace 'Bankac[ıi]l[ıi]k K(anunu|\.)?|\b5411\s*s(ayılı|\.)?\s*(K\.|Kanun)?','BANK ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT ' -replace '(SMMM ve YMM K(anunu)?\.?\s*)?Disiplin Y[oö]netmeli[gğ]i','DISY ' -replace 'Haks[ıi]z Rekabet ve Reklam Yasa[gğ][ıi] Y[oö]netmeli[gğ]i','HRRY ' -replace '(TÜRMOB\s*)?(Mesleki Faaliyetlerde\s*)?Etik [İi]lkeler( Hakk[ıi]nda)? Y[oö]netmeli[gğ]i?(\s*EK)?','ETIKY ' -replace '(SMMM\s*)?Staj Y[oö]netmeli[gğ]i','STAJY '
+        -replace 'Bankac[ıi]l[ıi]k K(anunu|\.)?|\b5411\s*s(ayılı|\.)?\s*(K\.|Kanun)?','BANK ' `
+        -replace 'Emlak Vergisi K(anunu|\.)?|\b1319\s*s(ayılı|\.)?\s*(K\.|Kanun)?','EMLAK ' `
+        -replace 'Motorlu Ta[sş][ıi]tlar Vergisi K(anunu|\.)?|\bMTV\b|\b197\s*s(ayılı|\.)?\s*(K\.|Kanun)?','MTVK ' `
+        -replace 'T[uü]rk Medeni K(anunu|\.)?|\bTMK\b|\b4721\s*s(ayılı|\.)?\s*(K\.|Kanun)?','TMKK ' `
+        -replace '[ÖO]zel T[uü]ketim Vergisi K(anunu|\.)?|\b[ÖO]TV K\b|\b4760\s*s(ayılı|\.)?\s*(K\.|Kanun)?','OTVK ' `
+        -replace 'Kamu Mal[iî] Y[oö]netimi[^,;.]{0,20}K(anunu|\.)?|\b5018\s*s(ayılı|\.)?\s*(K\.|Kanun)?','KMYK ' `
+        -replace 'Sigortac[ıi]l[ıi]k K(anunu|\.)?|\b5684\s*s(ayılı|\.)?\s*(K\.|Kanun)?','SIGK ' `
+        -replace 'Gider Vergileri K(anunu|\.)?|\b6802\s*s(ayılı|\.)?\s*(K\.|Kanun)?','GIDERV ' `
+        -replace 'Veraset ve [İi]ntikal Vergisi K(anunu|\.)?|\b7338\s*s(ayılı|\.)?\s*(K\.|Kanun)?','VIVK ' -replace 'Kurumsal Y[oö]netim Tebli[gğ]i?\s*(\(II-17\.1\))?','KYT ' -replace '\bPay Tebli[gğ]i?\s*(\(VII-128\.1\))?','PAYT ' -replace 'Yat[ıi]r[ıi]m Fonlar[ıi]na [İi]li[sş]kin Esaslar Tebli[gğ]i?\s*(\(III-52\.1\))?','FONT ' -replace '(SMMM ve YMM K(anunu)?\.?\s*)?Disiplin Y[oö]netmeli[gğ]i','DISY ' -replace 'Haks[ıi]z Rekabet ve Reklam Yasa[gğ][ıi] Y[oö]netmeli[gğ]i','HRRY ' -replace '(TÜRMOB\s*)?(Mesleki Faaliyetlerde\s*)?Etik [İi]lkeler( Hakk[ıi]nda)? Y[oö]netmeli[gğ]i?(\s*EK)?','ETIKY ' -replace '(SMMM\s*)?Staj Y[oö]netmeli[gğ]i','STAJY '
   # 09.09 Meslek Hukuku ÖLÇÜLDÜ (kolay 12 · zor 7 · çok zor 8 yayın / 29 konu; hakem "kaynakta yok" %25–37): model "Disiplin Yönetmeliği m.6/c",
   # "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.14, m.32" anıyor, ambarda maddeler var ("SMMM ve YMM K. Disiplin Yonetmeligi m.6"), ama atıf
   # genişletme yalnız kanun kısaltmalarını tanıyordu → yönetmelik maddeleri pakete girmiyordu. Dört yönetmelik kısaltma tablosuna eklendi.
@@ -319,6 +327,13 @@ function AtifDesen([string]$dayanak){
   $KANUN2['DAMGA']='Damga V.K. (488 s.K.)'; $KANUN2['KVKK']='KVK (5520 s.K.)'
   $KANUN2['ISGK']='İSG K. (6331 s.K.)'; $KANUN2['IIK']='İİK (2004 s.K.)'
   $KANUN2['ISSIZ']='4447 s. İşsizlik Sig. K.'; $KANUN2['BANK']='Bankacılık K. (5411 s.K.)'
+  # ⬇ 11.09 ikinci tur: DERS_KANUN'da olup ATIF tablosunda OLMAYAN 8 kanun.
+  #    Hepsi ambarda VAR (adlar birebir dogrulandi). 492 Harclar K. ambarda YOK -
+  #    o gercek yutma is emri, buraya yazilmadi.
+  $KANUN2['EMLAK']='Emlak V.K. (1319 s.K.)'; $KANUN2['MTVK']='MTV K. (197 s.K.)'
+  $KANUN2['TMKK']='TMK (4721 s.K.)'; $KANUN2['OTVK']='ÖTV K. (4760 s.K.)'
+  $KANUN2['KMYK']='Kamu Malî Yönetimi K. (5018 s.K.)'; $KANUN2['SIGK']='Sigortacılık K. (5684 s.K.)'
+  $KANUN2['GIDERV']='Gider Vergileri K. (6802 s.K.)'; $KANUN2['VIVK']='Veraset ve İntikal V.K. (7338 s.K.)'
   $KANUN2['KYT']='Kurumsal Yonetim Tebligi (II-17.1)'; $KANUN2['PAYT']='Pay Tebligi (VII-128.1)'; $KANUN2['FONT']='Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1)'
   # 08.09 Tur 1 Denetim ÖLÇÜLDÜ (dayanak-dusus-olcum: 161 sorunun 31'i "kaynakta yok"): model "BDS 200 p.12" yazıyor, desen "BDS 200 p.%"
   # standardın p.1'den başlayan İLK parçalarını çekiyor, 7.000 tavanı p.12'ye gelmeden doluyordu → hakem "paket yalnız p.0–6" diye reddediyordu.
@@ -341,7 +356,7 @@ function AtifDesen([string]$dayanak){
   foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
   # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
   $son=''
-  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVKK|KVK|SPK|SGK|SMMM|ISK|SENK|IYUK|AATU|KDVK|DAMGA|ISGK|IIK|ISSIZ|BANK|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z0-9]))?')){
+  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVKK|KVK|SPK|SGK|SMMM|ISK|SENK|IYUK|AATU|KDVK|DAMGA|ISGK|IIK|ISSIZ|BANK|EMLAK|MTVK|TMKK|OTVK|KMYK|SIGK|GIDERV|VIVK|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z0-9]))?')){
     if($m.Groups[1].Success){ $son=$m.Groups[1].Value }
     if(-not $son -or -not $KANUN2.ContainsKey($son) -or $KANUN2[$son] -match '%$'){ continue }
     $ek=if($m.Groups[3].Success){ "/$($m.Groups[3].Value)" } else { '' }
