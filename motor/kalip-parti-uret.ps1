@@ -2826,7 +2826,7 @@ Sen bagimsiz bir DENETCI-HAKEMSIN. IKI ayri karar vereceksin:
    olmasindan FARKLIDIR: burada sorunun DOGRU cevabi siklarda hic yoktur, soru butunuyle bozuktur.
    ⚠ Olculdu (11.09, kp-80): 529 isaretliydi, dogrusu 521'di ve 521 SIKLARDA YOKTU; hicbir kapi
    "dogrusu hicbiri" diyemedigi icin soru yayina gitti.
-Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","dogru_sik_var":"EVET|HICBIRI","dogru_sik_gerekce":"tek cumle (HICBIRI ise dogru sonuc ne)","hesap_uyum":"EVET|HESAP-YANLIS|TEYITSIZ|YOK","hesap_gerekce":"tek cumle (HESAP-YANLIS ise dogru hesap kodu+adi)","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
+Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","dogru_sik_var":"EVET|HICBIRI (BASKA DEGER YAZMA; emin degilsen HICBIRI degil EVET de ve gerekceye yaz)","dogru_sik_gerekce":"tek cumle (HICBIRI ise dogru sonuc ne)","hesap_uyum":"EVET|HESAP-YANLIS|TEYITSIZ|YOK","hesap_gerekce":"tek cumle (HESAP-YANLIS ise dogru hesap kodu+adi)","ders_uyum":"EVET|DERS-DISI","ders_gerekce":"tek cumle (DERS-DISI ise hangi ders)","konu_uyum":"EVET|KONU-DISI","konu_gerekce":"tek cumle (KONU-DISI ise soru aslinda hangi konuyu olcuyor)","tek_anlam":"EVET|CIFT-ANLAM","tek_anlam_gerekce":"tek cumle (CIFT-ANLAM ise hangi sik da savunulabilir)","guncellik":"GUNCEL|ESKI","guncellik_gerekce":"tek cumle","atif":"EVET|ATIF-YANLIS|TEYITSIZ","atif_gerekce":"tek cumle (kaynaktaki madde basligini an)"}
 === SORU === {SORU}
 === DOGRU SIK ({DOGRU}) === {SIK}
 === DOGRU SIKKIN ACIKLAMASI === {ACIK}
@@ -2970,6 +2970,28 @@ $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Re
     CacheYaz
     $renk=if("$($hk.karar)" -eq 'EVET'){'Green'}else{'Red'}
     Write-Host "  HAKEM $($hk.karar): $id" -ForegroundColor $renk
+    # --- ENUM NOBETCISI (11.09, kapi turunda dogdu) --------------------------
+    # Hakemin HER enum alani kodda '-eq <sabit>' ile sorgulaniyor. Model enum
+    # DISINDA bir deger dondururse hicbir kosul tutmaz ve deger SESSIZCE yutulur.
+    # Olculdu: kp-01'de dogru_sik_var='TEYITSIZ' geldi (enum EVET|HICBIRI idi).
+    # Tek alani yamamak yerine HEPSI denetleniyor - ayni kusur 5 alanda mumkun.
+    $ENUM_ALANLARI=@{
+      karar        = @('EVET','HAYIR')
+      ders_uyum    = @('EVET','DERS-DISI')
+      konu_uyum    = @('EVET','KONU-DISI')
+      tek_anlam    = @('EVET','CIFT-ANLAM')
+      hesap_uyum   = @('EVET','HESAP-YANLIS','TEYITSIZ','YOK')
+      dogru_sik_var= @('EVET','HICBIRI')
+    }
+    foreach($ea in $ENUM_ALANLARI.Keys){
+      if(-not ($hk.PSObject.Properties[$ea])){ continue }
+      $dv="$($hk.$ea)".Trim().ToUpperInvariant()
+      if(-not $dv){ continue }
+      if($ENUM_ALANLARI[$ea] -notcontains $dv){
+        Write-Host "  ENUM DISI DEGER ($id): hakem.$ea = '$dv' (beklenen: $($ENUM_ALANLARI[$ea] -join '|'))" -ForegroundColor DarkYellow
+        $rapor.Add("ENUM DISI: $id | hakem.$ea='$dv'")
+      }
+    }
     # 11.09 KAPI-HG: sessiz gecmesin - hesap hukmu ayri satir (Cem'in kp-80 bulgusu)
     # 11.09 KAPI-DS: "dogrusu hicbiri" hukmu sessiz gecmez ve karari HAYIR'a ceker
     # --- KAPI-KT: KAYNAK TEYIT (11.09, Cem onerisi) -------------------------
@@ -2992,7 +3014,22 @@ $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Re
       $cvp | Add-Member -NotePropertyName hakem_kaynak_teyitsiz -NotePropertyValue ($ktYok -join ',') -Force
       CacheYaz
     }
-    if("$($hk.dogru_sik_var)" -eq 'HICBIRI'){
+    # 🔴 11.09 SESSIZ KAPI (kapi turunda bulundu): hakem enum DISINDA deger
+    # dondurebiliyor. kp-01'de dogru_sik_var='TEYITSIZ' geldi; kodum yalniz
+    # 'HICBIRI' uzerine islem yapiyordu ve TEYITSIZ sessizce yutuluyordu.
+    # Bugun konusturdugumuz sessiz kapilarin aynisi - modelin serbest metin
+    # donebildigi HER alan bu riski tasir.
+    # Kural: EVET disindaki HER deger KONUSUR. HICBIRI sert (karar HAYIR),
+    # otekiler isaret (hakem emin degil demektir, hukum degil).
+    $dsv="$($hk.dogru_sik_var)".Trim().ToUpperInvariant()
+    if($dsv -and $dsv -ne 'EVET' -and $dsv -ne 'HICBIRI'){
+      Write-Host "  KAPI-DS BEKLENMEDIK DEGER ($id): dogru_sik_var='$dsv' -> hakem emin degil" -ForegroundColor DarkYellow
+      $rapor.Add("KAPI-DS BELIRSIZ: $id | dogru_sik_var='$dsv' | $($hk.dogru_sik_gerekce)")
+      $cvp | Add-Member -NotePropertyName dogru_sik_belirsiz -NotePropertyValue $dsv -Force
+      CacheYaz
+    }
+    if($dsv -eq 'HICBIRI'){
+
       Write-Host "  DOGRU SIK YOK (KAPI-DS): $id [$($cvp.konu)] -> $($hk.dogru_sik_gerekce)" -ForegroundColor Magenta
       $rapor.Add("KAPI-DS DOGRU SIK YOK: $id | $($hk.dogru_sik_gerekce)")
       if("$($hk.karar)" -ne 'HAYIR'){ $hk.karar='HAYIR'; $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force; CacheYaz }
