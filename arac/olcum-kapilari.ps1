@@ -12,8 +12,10 @@
                                    konu adlari birlesik string oldu
     4) Turkce katlama asimetrisi-> sorgu katlanmis, ambar Turkce harfli;
                                    "is sozlesmesi feshi" YOK sanildi (3 sonuc var)
+    5) siralamasiz limit=1  -> ilk donen baska belge cikti, "492 ambarda yok"
+                               dedim; kanun 240 maddeyle yutulmustu
   Her biri saatler yedi ve bazilari YANLIS KARARA goturuyordu ("288 konu
-  kaynaksiz", "%74 kapsama", "86 parti dustu"). Bu dosya o dort tuzagi
+  kaynaksiz", "%74 kapsama", "86 parti dustu"). Bu dosya o bes tuzagi
   FONKSIYON HALINE getirir; olcum betikleri bunlari cagirir, kendi
   yazmaz.
 
@@ -93,6 +95,30 @@ function AmbarSorgu([string]$konu,[int]$kelimeSayisi=2){
   return ($parca -join '.*')
 }
 
+# --- 5) AMBARDA VAR MI? (tuzak 5) --------------------------------------------
+# ⛔ SIRALAMASIZ TEK SATIRLIK CEKIM VAR/YOK TESTI DEGILDIR.
+#    11.09: "492 Harclar Kanunu ambarda YOK, yutma is emri" dedim. YANLISTI -
+#    kanun 14.08'de 240 maddeyle yutulmus. Sebep: ilike '%492 s.K.%' desenini
+#    limit=1 ile SIRALAMASIZ attim; ilk donen kayit bir SPK karariydi
+#    (metninde "14/492 S.K." geciyor). Tek satira bakip "yok" dedim.
+#    Ayni aile: sabah 'limit=1000 tek sayfa' 33 sahte "ambarda yok" uretmisti.
+# KURAL: var/yok sorusu SIRALI + COKLU satirla sorulur ve ORNEK GOSTERILIR.
+#        "yok" hukmu ancak BOS kume donunce kurulur, ilk satir tutmadi diye degil.
+function AmbarSorguUrl([string]$desen,[int]$limit=5,[string]$alan='kaynak_ad',[string]$tur='ilike'){
+  if($limit -lt 3){ throw "AmbarSorguUrl: limit en az 3 olmali (tek satir var/yok testi DEGILDIR) - verilen $limit" }
+  return ('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad&' +
+          $alan + '=' + $tur + '.' + [uri]::EscapeDataString($desen) +
+          '&order=kaynak_ad.asc&limit=' + $limit)
+}
+# Donen: @{ var=<bool>; sayi=<int>; ornekler=@(...) }  — $Basliklar zorunlu
+function AmbarVarMi([string]$desen,$Basliklar,[int]$limit=5){
+  $u=AmbarSorguUrl $desen $limit
+  $r=$null
+  try{ $r=Invoke-RestMethod -Uri $u -Headers $Basliklar -TimeoutSec 90 }catch{ return @{ var=$null; sayi=0; ornekler=@(); hata="$($_.Exception.Message)" } }
+  $s=@($r)
+  return @{ var=($s.Count -gt 0); sayi=$s.Count; ornekler=@($s|ForEach-Object{ "$($_.kaynak_ad)" }) }
+}
+
 # --- 4) SIRALI-N (tuzak 1) ----------------------------------------------------
 # "Ilk N'i al" ile "ilgiye gore sirala, sonra N al" AYNI SEY DEGILDIR.
 # Bu oturumda bes kez ayni hata yapildi. Secim yapan her yerde bu kullanilir.
@@ -138,6 +164,16 @@ function Test-OlcumKapilari([switch]$Sessiz){
   $q3=AmbarSorgu 'cek zorunlu unsurlari'
   if($q3 -and ('çek zorunlu unsurları nelerdir' -notmatch $q3)){ $hata.Add("AmbarSorgu: 'çek/unsurları' eslesmedi ($q3)") }
 
+  # 5) AmbarSorguUrl: tek satirlik cekimi REDDETMELI, siralama ZORUNLU koymali
+  try{
+    $u=AmbarSorguUrl '%492 s.K.%' 5
+    if($u -notmatch 'order='){ $hata.Add('AmbarSorguUrl: sorguya order= koymadi (siralamasiz sayfalama kararsiz)') }
+    if($u -notmatch 'limit=5'){ $hata.Add('AmbarSorguUrl: limit yazilmadi') }
+  }catch{ $hata.Add("AmbarSorguUrl coktu: $($_.Exception.Message)") }
+  $tekSatirRed=$false
+  try{ [void](AmbarSorguUrl '%x%' 1) }catch{ $tekSatirRed=$true }
+  if(-not $tekSatirRed){ $hata.Add('AmbarSorguUrl: limit=1 KABUL ETTI - tek satirlik cekim var/yok testi degildir') }
+
   # 4) SiraliIlkN: puani yuksek olan secilmeli, ilk gelen degil
   $ogeler=@(
     [pscustomobject]@{ ad='alakasiz'; p=0 }
@@ -151,7 +187,7 @@ function Test-OlcumKapilari([switch]$Sessiz){
     if($hata.Count){
       Write-Host "⛔ OLCUM KAPILARI OZ-SINAVI KIRMIZI ($($hata.Count) kusur):" -ForegroundColor Red
       foreach($h in $hata.ToArray()){ Write-Host "   - $h" -ForegroundColor Red }
-    } else { Write-Host "OLCUM KAPILARI OZ-SINAVI YESIL (4/4)" -ForegroundColor Green }
+    } else { Write-Host "OLCUM KAPILARI OZ-SINAVI YESIL (5/5)" -ForegroundColor Green }
   }
   return ,$hata.ToArray()
 }
