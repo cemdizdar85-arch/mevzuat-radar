@@ -158,10 +158,45 @@ F4. **Çıkmış soru çapası** bu derslerde de zorunlu (1.1); köprüde çapa 
 F5. **Yabancı Dil ayrı geçiş:** soru ve şıklar İngilizce, açıklama/adım Türkçe; Türkçe harf kapıları (D2, K, yazım onarımı) soru/şık alanlarında kapatılır (`-Dil en`, ⏳). Pilot sonrası.
 F6. **Sıra:** not üretimi (≈120 × 0,14 ≈ 17 USD) → 5 ders × 2 konu × kolay/zor pilot (≈20 soru, ≈8 USD) → karne + Cem örneklemi → tam basım (`plan-sgs-t1-genel`, 591 soru, ≈220 USD anlık). Açılış (15.09) SGS 9 dersle çıkar; bu hat sonra eklenir (K16).
 
+## G · RET KÜTÜĞÜ — üretim turu bitince, istisnasız (11.09.2026, Cem "bir daha karşılaşmayacak şekilde kurumsal olarak kâğıda dök")
+
+**G1. KURAL:** Her üretim/hasat turu bittiğinde `arac/ret-kutugu.ps1` koşar (bedel 0).
+Çıktı: `veri/RET-KUTUGU.md` (Cem okur) + `veri/ret-kutugu.json` (onarım betikleri okur).
+**Ret nedenleri okunmadan yeni tur başlatılmaz.**
+
+**G2. NİYE:** 11.09'da kapı turunda 3 sorudan 1'i düştü. Nedenini bulmak için kaydı elle
+açıp hakem gerekçesini okumak gerekti — 1.288 ret için bu yapılamaz. Ret gerekçeleri
+toplu okunmadığı sürece **aynı kusur parayla yeniden üretiliyor**.
+
+**G3. İLK ÖLÇÜM (11.09, 3.701 soru / 1.288 ret):**
+
+| Kök neden | Ret | Pay |
+|---|---:|---:|
+| **KAYNAK-EKSIK** — paket cevabı destekleyen hükmü taşımıyor | **699** | **%54,3** |
+| SIM-YANLIS — öğrenci simülasyonu yanlış cevapladı | 155 | %12,0 |
+| HAKEM-KOSMADI — soru hiç denetlenmemiş | 108 | %8,4 |
+| KOR-CELISKI — kör çözüm anahtardan farklı | 63 | %4,9 |
+| YZ-KOKUSU — en uzun şık doğru, mutlak ifade | 57 | %4,4 |
+| YAPAY-DIL | 34 | %2,6 |
+| KAYNAK-KESIK — paket ortadan kesik (kp-01 sınıfı) | 30 | %2,3 |
+| (sınıflanmamış) | 128 | %9,9 |
+
+**G4. HÜKÜM:** Retlerin **%56,6'sı (729) soruyla ilgili değil, KAYNAK PAKETİYLE ilgili.**
+Soru doğru yazılmış, hakem cevabı kaynakta bulamadığı için reddetmiş. Bu yüzden
+kaynak paketi artık **KAPI-KP**'den geçer: konuya göre sıralanır, sığmayan kaynak
+**komple düşer** — başlığı kalıp gövdesi kesilen kaynak modele "bu kaynak var" diye
+yalan söyler.
+
+**G5. Bir kök neden sınıfı ilk üçe giriyorsa, önce ona KAPI kurulur.** Kapısız tekrar
+üretim aynı parayı ikinci kez yakar. `(sınıflanmamış)` %15'i aşarsa desen listesi
+(`$RET_SINIFLARI`) genişletilir — o kova yeni bir kusur ailesinin habercisidir.
+
 ## D · KARAR KAYDI
 
 | Tarih | Karar | Kim |
 |---|---|---|
+| 11.09.2026 | **Bölüm G · Ret kütüğü zorunlu**: tur bitince `arac/ret-kutugu.ps1`; ret nedenleri okunmadan yeni tur yok (Cem: "bir daha karşılaşmayacak şekilde kurumsal olarak kâğıda dök") | Cem |
+| 11.09.2026 | KAPI-KP: kaynak paketi konuya göre sıralanır, sınırda kesilir, ortadan değil | GM |
 | 07.09.2026 | v1 taslak (12 ortak + A + B + C) | GM |
 | 07.09.2026 | v2: sınav kalıbı, yapay zeka izi, formül, yıl, hesap kodu, kanun bölümleri ayrıntılı eklendi (Cem: "kalıplarımıza ayrıntılı bak") | GM |
 | 08.09.2026 | 4.5 KAPI-M, 4.6 KAPI-S, 6.10 hakem güncellik/atıf, 6.11 terim çiftleri kapı öncesi (Cem: "eski kanun, madde doğruluğu, süresi dolan veri, soru kalıpları") | GM |
