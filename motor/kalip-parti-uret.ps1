@@ -1390,6 +1390,48 @@ function KonuEtiketKapisi($c,[string]$konu){
   return @("konu '$konu' kelimelerinin HİÇBİRİ soru kökünde geçmiyor ($($kel -join ', '))")
 }
 
+# --- KAPI-SS: STANDART SETI (11.09.2026) -------------------------------------
+# Cem: "beyaz liste tek alan degil, alan kumesi"
+# OLCULDU: Kategori 1 (Muhasebe ve Denetim) sorularinin %40'i hesap kodu DEGIL
+# STANDART NUMARASI aniyor (449 soruda: 201 hesap kodu, 181 standart, 147 hicbiri).
+# Hesap kodunda KAPI-H + KAPI-HS vardi; standart numarasinda DENGI YOKTU.
+# Bu kapi, soruda anilan her BDS/TMS/TFRS/TSRS numarasinin ambarda GERCEKTEN
+# bulundugunu dogrular (KAPI-H'nin kod-ad ciftini dogruladigi gibi).
+#
+# BUGUN 0 IHLAL: basili 636 soruda anilan 50 benzersiz standardin hepsi ambarda.
+# Kapi ONLEYICI olarak kuruluyor - KAPI-HS de kp-80'e kadar hic ihlal
+# bulmamisti.
+#
+# ⚠ ENVANTER SAYFALANARAK URETILIR. Ilk olcumumde limit=1000 ile cektim, BDS'te
+#   7 numara gorundu (gercegi 37) ve "BDS 705 ambarda yok" gibi 33 SAHTE bulgu
+#   cikti. Envanter arac/standart-envanteri.ps1 ile uretilir, elle yazilmaz.
+$script:STD_ENV=$null
+function StandartEnvanteri{
+  if($null -ne $script:STD_ENV){ return $script:STD_ENV }
+  $script:STD_ENV=@{}
+  $sy=Join-Path $kok 'veri\standart-envanteri.json'
+  if(Test-Path $sy){
+    try{
+      $sj=Get-Content $sy -Raw -Encoding UTF8 | ConvertFrom-Json
+      foreach($pp in $sj.numaralar.PSObject.Properties){ $script:STD_ENV[$pp.Name]=@($pp.Value | ForEach-Object { "$_" }) }
+    }catch{}
+  }
+  return $script:STD_ENV
+}
+function StandartSetiKapisi($c){
+  if(-not $c -or -not $c.soru){ return @() }
+  $env=StandartEnvanteri
+  if(-not $env.Count){ return @() }               # envanter yoksa hukum verilmez
+  $m="$($c.soru) " + ((@('A','B','C','D','E') | ForEach-Object { "$($c.siklar.$_)" }) -join ' ')
+  $yok=New-Object System.Collections.Generic.List[string]
+  foreach($mm in [regex]::Matches($m,'(?i)\b(BDS|TMS|TFRS|TSRS|KKS)\s*(\d{1,4})')){
+    $on=$mm.Groups[1].Value.ToUpperInvariant(); $no=$mm.Groups[2].Value
+    if(-not $env.ContainsKey($on)){ continue }    # o onek hic yutulmamis - hukum yok
+    if(-not ($env[$on] -contains $no)){ if($yok -notcontains "$on $no"){ $yok.Add("$on $no") } }
+  }
+  if(-not $yok.Count){ return @() }
+  return @("soruda anilan standart ambarda YOK: " + ($yok -join ', '))
+}
 # --- KAPI-HS: HESAP SETI (11.09.2026) ----------------------------------------
 # Cem: "hesap setinin kurumsal dilde sorular basmadan otomatik engelleyecek
 # sekilde yapabiliyor muyuz"
@@ -1432,7 +1474,7 @@ function HesapKalibi([string]$ders,[string]$konu){
 function SikHesaplari($c){
   if(-not $c -or -not $c.dogru){ return @() }
   $m="$($c.siklar.$($c.dogru))"
-  return @([regex]::Matches($m,'(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])') |
+  return @([regex]::Matches($m,'(?<!(?:BDS|TMS|TFRS|TSRS|KKS|BOBİ FRS|KÜMİ FRS|BOBI FRS|KUMI FRS)\s)(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])') |
            ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
 }
 function HesapSetiKapisi($c,[string]$ders,[string]$konu){
@@ -2290,6 +2332,14 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   #   kaçırdığını gösterdi (71 yanlış etiketin 71'inde de "EVET" demişti).
   # --- KAPI-HS: hesap seti (11.09) -------------------------------------------
   # Muhurlu kalipta SERT (soru yeniden yazdirilir), muhursuzde hakeme uyari.
+  # 11.09 KAPI-SS: anilan standart numarasi ambarda var mi (hesap kodunun dengi)
+  $ssKusur=@(StandartSetiKapisi $aday)
+  if($ssKusur.Count -and $deneme -eq 1){
+    Write-Host "  KAPI-SS (standart seti) ($id): $($ssKusur[0]) - yeniden" -ForegroundColor Magenta
+    $ist=$ist+"`nKAPI-SS DUSTU: $($ssKusur[0]). Ambarda bulunmayan standart numarasi ANMA; yalniz kaynak paketinde gordugun standartlari kullan."
+    continue
+  }
+  if($ssKusur.Count){ Write-Host "  KAPI-SS NOTU ($id): $($ssKusur[0])" -ForegroundColor DarkYellow; $rapor.Add("KAPI-SS: $id | $($ssKusur[0])") }
   $hsKusur=@(HesapSetiKapisi $aday $DersRegex "$($ky.konu)")
   if($hsKusur.Count){
     $hsK=HesapKalibi $DersRegex "$($ky.konu)"

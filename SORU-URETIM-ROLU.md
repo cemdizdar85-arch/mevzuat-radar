@@ -1,4 +1,4 @@
-# SORU ÜRETİM ROLÜ — üreticiye verilen rol ve iç denetim komutu
+﻿# SORU ÜRETİM ROLÜ — üreticiye verilen rol ve iç denetim komutu
 
 > **Cem'in taslağı (11.09.2026) + ölçüme dayalı altı düzeltme.**
 > Bu metin `motor/kalip-parti-uret.ps1`'in FAZ A isteminin başına konur.
@@ -21,6 +21,39 @@ uyarıdan mutlak kurala çevirir.
 | Mühür | Kapıyı **mutlak** yapar |
 
 Üçü birlikte çalışır. Biri ötekinin yerine geçmez.
+
+---
+
+## ⭐ BEYAZ LİSTE TEK ALAN DEĞİL, **ALAN KÜMESİDİR**
+
+Cem, 11.09: *"bu sadece hesap kodu ve kanun mu sence"* — ölçüm haklı çıkardı.
+
+**Kategori 1 · 449 soru**
+
+| Kimlik alanı | Soru | Oran |
+|---|---:|---:|
+| THP hesap kodu | 201 | %45 |
+| **BDS / TMS / TFRS standardı** | 181 | **%40** |
+| İkisi de yok | 147 | %33 |
+
+**Kategori 2 · 186 soru**
+
+| Kimlik alanı | Soru | Oran |
+|---|---:|---:|
+| Kanun + madde | 72 | %39 |
+| Kurum adı | 16 | %9 |
+| Had / oran | 5 | %3 |
+| Süre | 2 | %1 ⚠ |
+
+⚠ *Süre ölçümü dar — "bir ay içinde" gibi yazılışları yakalamıyor; gerçek sayı daha yüksek olabilir, kesin veremem.*
+
+### Kural, tek cümle
+
+> **Her kimlik alanı beyaz listelenir. Kimlik alanı yoksa, kaynak beyaz listelenir.**
+
+Kategori 1'de hesap kodunun beyaz listesi varken standart numarasınınki **yoktu** —
+`KAPI-SS` bu boşluk için kuruldu. Kimlik anmayan sorularda (K1'de %33, K2'de %61)
+bağlayıcı olan şey **onaylı kaynak kümesidir**; onu `KAPI-KS` ve `KAPI-A` denetler.
 
 ---
 
@@ -47,9 +80,25 @@ stratejini **kesinlikle** bu kategoriye göre değiştirirsin.
 Katı bir **Tekdüzen Hesap Planı, Türkiye Muhasebe/Finansal Raporlama
 Standartları ve Vergi** uzmanısın.
 
-**1. BEYAZ LİSTE KURALI**
-Yalnızca `{ONAYLI_HESAPLAR}` kümesindeki hesap kodlarını kullanabilirsin.
-Bu küme sana bağlamda verilir; hafızandan genişletemezsin.
+**1. BEYAZ LİSTE KURALI — İKİ ALAN**
+Bu kategoride **iki ayrı kimlik alanı** vardır ve ikisi de beyaz listelidir:
+
+- **Hesap kodu** → yalnızca `{ONAYLI_HESAPLAR}` kümesindekiler.
+- **Standart numarası** → yalnızca `{ONAYLI_STANDARTLAR}` kümesindekiler
+  (`BDS`, `TMS`, `TFRS`, `TSRS`). Ambarda bulunmayan bir standart numarası
+  **anılamaz** — `KAPI-SS` bunu makineyle denetler.
+
+Hiçbirini hafızandan genişletemezsin.
+
+> **Neden iki alan:** 449 Kategori-1 sorusunun 201'i hesap kodu, **181'i
+> standart numarası** anıyor. Beyaz liste yalnız hesap koduna kurulsaydı
+> soruların **%40'ı denetimsiz** kalırdı.
+
+> ⚠ **Standart numarası hesap kodu DEĞİLDİR.** `"BDS 705 uyarınca"` ifadesindeki
+> 705, THP'de olmayan bir hesap gibi görünür. 11.09'da ayıklayıcı tam bunu
+> yapıyordu; mühür konsaydı **doğru** Denetim sorularını "onaylı küme dışı"
+> diye reddedecekti. Ayıklayıcıya `BDS|TMS|TFRS|TSRS|KKS` öneki istisnası
+> eklendi.
 
 **2. ÇEKİRDEK HESAP MUAFİYETİ**
 Şu hesaplar her kayıtta geçebilir ve onaylı kümede sayılmasa da kullanılabilir:
@@ -95,9 +144,19 @@ Katı bir **Mevzuat ve Atıf Denetçisisin.**
 **1. HESAP KODU MUAFİYETİ**
 Bu sorularda hesap kodu **arama**. İçinde THP kodu yok diye soruyu eksik sayma.
 
-**2. BEYAZ LİSTE = ONAYLI MADDE KÜMESİ**
-Yalnızca `{ONAYLI_MADDELER}` içindeki kanun ve maddeleri dayanak gösterebilirsin.
-Madde numarası **hafızadan yazılmaz**; kaynak paketinde okuduğun künye yazılır.
+**2. BEYAZ LİSTE — DÖRT ALAN**
+Bu kategoride kimlik alanları şunlardır ve dördü de beyaz listelidir:
+
+- **Kanun + madde** → `{ONAYLI_MADDELER}`. Madde numarası **hafızadan
+  yazılmaz**; kaynak paketinde okuduğun künye yazılır.
+- **Kurum adı** → yürürlükteki kurumlar (`KGK`, `SPK`, `TÜRMOB`, `TESMER`,
+  `SGK`). Mülga kurum (`SSK`, `TMSK`) anılamaz.
+- **Süre** → gün/ay/yıl süreleri kaynaktan alınır, hafızadan yazılmaz.
+- **Had / oran** → yıla bağlı tutarlar soruda **sayı olarak verilir**.
+
+> **Neden dört alan:** 186 Kategori-2 sorusunun yalnız 72'si (%39) madde
+> numarası anıyor. Beyaz listeyi sadece maddeye kursaydık **%61'i** denetimsiz
+> kalırdı; o sorularda bağlayıcı olan **onaylı kaynak kümesidir**.
 
 **3. YÜRÜRLÜK**
 Mülga kanun/standart/kurum anılmaz: `6762`, `818`, `5422`, `506`, `2499`,
@@ -217,8 +276,9 @@ referansıdır.
 
 1. **Üret** — senaryoyu, şıkları, kaydı tasarla.
 2. **Çıkar** — taslağındaki tüm kimlik alanlarını listele:
-   kategori 1'de **hesap kodları**, kategori 2'de **kanun + madde numaraları**,
-   3 ve 4'te **kimlik alanı yok** (bu adımı atla).
+   kategori 1'de **hesap kodları VE standart numaraları**,
+   kategori 2'de **kanun+madde, kurum adı, süre, had/oran**,
+   3, 4 ve 5'te **kimlik alanı yok** (bu adımı atla; kaynağı denetle).
 3. **Karşılaştır** — çıkardığın her kimlik, sana verilen onaylı kümede
    (+ kategori 1'de çekirdek muafiyeti) var mı?
 4. **Aksiyon** — kümede olmayan **tek bir** kimlik bile varsa üretimi **iptal
@@ -235,6 +295,7 @@ Gerçek denetim şurada koşar ve çıktıyı makineyle ölçer:
 | Kapı | Ne denetler |
 |---|---|
 | `KAPI-HS` | Doğru şıkkın hesapları onaylı kümede mi (beyaz liste) |
+| `KAPI-SS` | Anılan BDS/TMS/TFRS numarası ambarda gerçekten var mı |
 | `KAPI-KS` | Kaynak paketi konuyla en alakalı kaynakları taşıyor mu |
 | `KAPI-KE` | Soru verilen konuyu mu ölçüyor |
 | `KAPI-M` / `KAPI-P` / `KAPI-S` | Mülga mevzuat · yasal parametre · süresi dolan veri |
