@@ -200,6 +200,24 @@ if($dusen.Count){
 }
 $cikti | Group-Object ders | Sort-Object Count -Descending | ForEach-Object { Write-Host ("  {0,4}  {1}" -f $_.Count,$_.Name) }
 Write-Host ("DERS SAYISI: {0}" -f (@($cikti | Group-Object ders)).Count)
+
+# ⛔⭐ BOS HAVUZ KAPISI (12.09.2026) — SITEYI BOSALTMAYI ONLER.
+#   12.09'da yayin akisini yanlis parametreyle tetikledim (parti_indir=false).
+#   Parti onbellegi inmedi, 2.670 sorunun HEPSI "kayit yok" diye dustu, DERS SAYISI 0
+#   oldu. Kosuyu durduran tek sey asagidaki satirin SIFIRA BOLMESIYDI - yani bir kaza.
+#   O kaza olmasaydi ne olurdu, olctum:
+#     · satir 226 BOS secim dosyasini yazacakti
+#     · kaydir-yayin 0 ders grubu gorup dizin sayfasini BOS karlarla yeniden kuracakti
+#     · akis yesil bitip bunu ANA TELE itecekti -> sitedeki sinav dizini BOSALIRDI
+#   Bir kazaya guvenilmez. Kapi artik acikca burada ve SEBEBINI soyluyor.
+#   ⛔ Esik yok, tahmin yok: yalnizca "hic soru yok" hali durdurulur. Havuzun
+#   KUCULMESI (orn. yarisi) bu kapiya takilmaz - o ayri bir karar, Cem'e soruldu.
+if(-not $cikti.Count){
+  throw ("HAVUZ BOS - hicbir soru secilemedi, sayfalara DOKUNULMADI (sitedeki mevcut sayfalar korundu). " +
+         "En sik sebep: parti onbellegi inmemis. Bulut akisinda `parti_indir` girdisini true yap; " +
+         "yerelde once `arac/parti-senkron.ps1 -Indir -Yaz` kos. " +
+         "Ikinci olasilik: yayin sartini saglayan soru gercekten yok - `arac/havuz-kur.ps1` kuru kosu ile bak.")
+}
 if($cozulmeyen.Count){ Write-Host ("⚠ SOZLUKTE COZULEMEYEN DERS ADI: {0}" -f (($cozulmeyen.Keys) -join ' · ')) -ForegroundColor Yellow }
 
 # --- sade nabzi: ekranda gorunecek mi ------------------------------------------
