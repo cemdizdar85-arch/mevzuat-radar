@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tetikte — AMBAR yönü (zemin gerçek veriden çizilir)</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- =====================================================================
+     AMBAR — tasarım yönü 5 · 12.09.2026
+     Cem'in kararı: "pahalı görünen site" + görsel GERÇEK VERİDEN (0 TL).
+
+     ÖLÇÜMDEN GELEN KURAL (tasarim/RAKIP-ANA-EKRAN-OLCUMU.md, 8 site):
+       Marka ne kadar pahalı duruyorsa ilk ekranda o kadar AZ stok fotoğraf,
+       o kadar ÇOK ÖZEL ÜRETİLMİŞ görsel var. Wolters Kluwer illüstrasyon,
+       Thomson Reuters marka geometrisi, Bloomberg Tax soyut veri dokusu -
+       üçünde de insan fotoğrafı SIFIR. Türk kalıbı (Paraşüt/Logo/Uyumsoft)
+       gülen insan + karusel: pahalı değil KALABALIK duruyor.
+
+     BURADAKİ ÖZEL GÖRSEL: zemin dekor DEĞİL, AMBARIN KENDİSİ.
+       · veri/sinav-tek-sayfa.json -> `dersler` (54 kayıt, 4 sınav)
+       · Her sütun BİR DERS. Yanan hücre sayısı = o dersin `doluluk`u (%).
+       · doluluk -1 (SPL: henüz plan yok) -> sönük iskelet çizilir, yalan
+         söylenmez: boş olan boş görünür.
+       · Üstünden geçen ışık = NÖBET TARAMASI (markanın kendi metaforu).
+     Okunamazsa 12.09.2026 09:54 ölçümünün anlık kopyası çizilir (dosyada
+     yazılı, tarihiyle). Rakam uydurulmadı.
+
+     Koyu kahraman + açık gövde: ölçülen premium kalıbın deseni budur.
+     index.html'e DOKUNULMADI.
+     ===================================================================== -->
+<style>
+  :root{
+    /* koyu kahraman */
+    --gece:#06080c;
+    --gece2:#0b0f16;
+    --gece-cizgi:#1a2230;
+    --ak:#eef2f8;
+    --ak-govde:#9dabbd;
+    --ak-sonuk:#66738a;
+    --amber:#e8ad4e;
+    /* açık gövde */
+    --kagit:#faf9f6;
+    --yuzey:#ffffff;
+    --murekkep:#141a22;
+    --govde:#39424f;
+    --sonuk:#727b89;
+    --cizgi:#e5e3dd;
+    --cizgi-koyu:#cdcabf;
+    --dogru:#1d6b4c;
+    --dogru-zemin:#eff6f2;
+    --yanlis:#96202e;
+    --yanlis-zemin:#faf0f0;
+    --lacivert:#17243a;
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--kagit);color:var(--govde);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .sarmal{max-width:1160px;margin:0 auto;padding:0 30px}
+  .dar{max-width:790px;margin:0 auto}
+  .et{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--sonuk);font-weight:700}
+
+  /* ================= KAHRAMAN: zemin gerçek veriden ================= */
+  .kahraman{position:relative;background:var(--gece);overflow:hidden;isolation:isolate;
+            min-height:660px}
+  #ambarTuval{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+  /* Okunurluk perdesi: YALNIZ metnin durduğu sol şerit koyulaşır. İlk denemede
+     perde tüm genişliği kapatıyordu ve veri alanı gürültüye dönüşmüştü. */
+  .kahraman:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(95deg,var(--gece) 20%,
+               color-mix(in srgb,var(--gece) 82%,transparent) 34%,
+               transparent 52%)}
+  .kahraman:after{content:"";position:absolute;left:0;right:0;bottom:0;height:180px;z-index:1;
+    pointer-events:none;background:linear-gradient(to bottom,transparent,var(--gece))}
+  /* Alan üst çubuğa çarpmasın: tepede de perde var. */
+  .kah-tepe{position:absolute;left:0;right:0;top:0;height:120px;z-index:1;pointer-events:none;
+    background:linear-gradient(to bottom,var(--gece),transparent)}
+
+  .ust{position:relative;z-index:3;border-bottom:1px solid color-mix(in srgb,var(--gece-cizgi) 80%,transparent)}
+  .ust-ic{display:flex;align-items:center;gap:30px;height:66px}
+  .marka{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.01em;
+         color:var(--ak);text-decoration:none;display:flex;align-items:center;gap:10px}
+  .marka i{width:8px;height:8px;border-radius:50%;background:var(--amber);
+           box-shadow:0 0 0 4px color-mix(in srgb,var(--amber) 16%,transparent),
+                      0 0 18px color-mix(in srgb,var(--amber) 70%,transparent)}
+  .ust nav{display:flex;gap:26px;margin-left:auto;font-size:14px}
+  .ust nav a{text-decoration:none;color:var(--ak-govde)}
+  .ust nav a:hover{color:var(--ak)}
+  .giris{font-size:14px;color:var(--ak-sonuk);text-decoration:none}
+  .giris:hover{color:var(--ak)}
+  .dugme{background:var(--ak);color:var(--gece);text-decoration:none;font-size:14px;
+         font-weight:650;padding:9px 17px;border-radius:5px}
+  .dugme:hover{background:#fff}
+
+  .kah-ic{position:relative;z-index:3;padding:104px 0 96px;max-width:48em}
+  .nabiz{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;
+         color:var(--ak-govde);border:1px solid var(--gece-cizgi);border-radius:99px;
+         padding:5px 14px;margin-bottom:28px;
+         background:color-mix(in srgb,var(--gece2) 70%,transparent)}
+  .nabiz i{width:6px;height:6px;border-radius:50%;background:var(--amber);
+           box-shadow:0 0 10px var(--amber)}
+  .nabiz b{color:var(--ak);font-weight:650}
+  h1{font-size:60px;line-height:1.06;letter-spacing:-.035em;color:var(--ak);
+     font-weight:700;margin:0 0 24px;max-width:8.6em}
+  h1 span{color:var(--amber)}
+  .spot{font-size:18px;line-height:1.66;color:var(--ak-govde);margin:0 0 36px;max-width:31em}
+  .spot b{color:var(--ak);font-weight:600}
+  .eylem{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .dugme-b{background:var(--amber);color:#1b1305;text-decoration:none;font-size:16px;
+           font-weight:700;padding:15px 30px;border-radius:6px;
+           box-shadow:0 10px 40px color-mix(in srgb,var(--amber) 22%,transparent)}
+  .dugme-b:hover{filter:brightness(1.07)}
+  .ikincil{font-size:15px;color:var(--ak-govde);text-decoration:none;
+           border-bottom:1px solid var(--gece-cizgi);padding-bottom:3px}
+  .ikincil:hover{color:var(--ak)}
+
+  /* Zeminin ne olduğunu SÖYLEYEN satır - dekoru kanıta çevirir. */
+  .zemin-not{position:relative;z-index:3;padding:0 0 30px;font-size:13px;
+             color:var(--ak-govde);max-width:40em;line-height:1.75}
+  .zemin-not b{color:var(--ak);font-weight:650}
+  .zemin-not span{color:var(--ak-sonuk)}
+
+  /* ================= KANIT: gerçek soru ================= */
+  .kanit-blok{padding:64px 0 8px}
+  .kanit-giris{text-align:center;margin-bottom:26px}
+  .kanit-giris h2{font-family:var(--serif);font-size:29px;line-height:1.25;
+                  color:var(--murekkep);font-weight:600;margin:12px 0 8px;
+                  letter-spacing:-.012em}
+  .kanit-giris p{font-size:15px;color:var(--sonuk);margin:0}
+
+  .kabin{background:var(--yuzey);border:1px solid var(--cizgi-koyu);border-radius:5px;
+         box-shadow:0 24px 70px color-mix(in srgb,var(--murekkep) 8%,transparent)}
+  .kabin-ust{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;
+             justify-content:space-between;padding:13px 26px;
+             border-bottom:1px solid var(--cizgi);background:var(--kagit)}
+  .kabin-ust b{font-size:12.5px;color:var(--murekkep);font-weight:700;letter-spacing:.03em}
+  .kabin-ust span{font-size:12.5px;color:var(--sonuk)}
+  .soru{font-family:var(--serif);font-size:19.5px;line-height:1.55;color:var(--murekkep);
+        margin:0;padding:28px 26px 6px}
+  .siklar{list-style:none;margin:0;padding:10px 16px 16px}
+  .siklar li{margin:0 0 4px}
+  .sik{display:flex;gap:14px;width:100%;text-align:left;background:transparent;
+       border:1px solid transparent;border-radius:4px;padding:12px;font:inherit;
+       font-size:15px;color:var(--govde);cursor:pointer;line-height:1.55;align-items:flex-start}
+  .sik:hover{background:var(--kagit);border-color:var(--cizgi)}
+  .sik i{flex:none;font-style:normal;font-weight:700;font-size:13px;width:24px;height:24px;
+         line-height:24px;text-align:center;border:1px solid var(--cizgi-koyu);
+         border-radius:50%;color:var(--sonuk);margin-top:1px}
+  .sik u{margin-left:auto;flex:none;text-decoration:none;font-size:12.5px;color:var(--sonuk);
+         font-variant-numeric:tabular-nums;opacity:0;white-space:nowrap;padding-left:10px}
+  .sik.acildi u{opacity:1}
+  .sik.yanlis{background:var(--yanlis-zemin);border-color:var(--yanlis)}
+  .sik.yanlis i{background:var(--yanlis);border-color:var(--yanlis);color:#fff}
+  .sik.dogru{background:var(--dogru-zemin);border-color:var(--dogru)}
+  .sik.dogru i{background:var(--dogru);border-color:var(--dogru);color:#fff}
+  .sik[disabled]{cursor:default}
+  .panel{margin:2px 0 10px 12px;padding:14px 18px;border-left:3px solid var(--yanlis);
+         background:var(--yanlis-zemin);border-radius:0 4px 4px 0}
+  .panel.d{border-left-color:var(--dogru);background:var(--dogru-zemin)}
+  .panel b{display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+           color:var(--yanlis);font-weight:800;margin-bottom:6px}
+  .panel.d b{color:var(--dogru)}
+  .panel p{margin:0;font-size:14.5px;line-height:1.65;color:var(--govde)}
+  .panel p em{font-style:normal;font-weight:700;color:var(--murekkep)}
+  .cozum{margin:0 26px 24px;border:1px solid var(--cizgi);border-radius:4px;overflow:hidden}
+  .cozum-ust{padding:10px 16px;background:var(--kagit);border-bottom:1px solid var(--cizgi)}
+  .cozum table{border-collapse:collapse;width:100%;font-size:13.5px}
+  .cozum td{padding:9px 16px;border-bottom:1px solid var(--cizgi);color:var(--govde);vertical-align:top}
+  .cozum tr:last-child td{border-bottom:0}
+  .cozum td:last-child{text-align:right;white-space:nowrap;color:var(--murekkep);
+                       font-weight:600;font-variant-numeric:tabular-nums}
+  .kabin-dip{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;
+             justify-content:space-between;padding:14px 26px;border-top:1px solid var(--cizgi);
+             background:var(--kagit)}
+  .kabin-dip small{font-size:12.5px;color:var(--sonuk)}
+  .yeniden{background:none;border:0;font:inherit;font-size:13px;color:var(--sonuk);
+           cursor:pointer;text-decoration:underline;padding:0}
+
+  .cagri{text-align:center;padding:38px 0 10px}
+  .cagri p{font-size:16px;margin:0 0 18px}
+  .cagri p b{color:var(--murekkep);font-weight:700}
+  .dugme-k{display:inline-block;background:var(--lacivert);color:#fff;text-decoration:none;
+           font-size:15.5px;font-weight:650;padding:14px 28px;border-radius:5px}
+  .dugme-k:hover{background:var(--murekkep)}
+
+  /* ================= NÖBET + DİP ================= */
+  .nobet{margin-top:50px;border-top:1px solid var(--cizgi);border-bottom:1px solid var(--cizgi);
+         background:var(--yuzey)}
+  .nobet-ic{padding:26px 0}
+  .nobet-ust{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
+  .nobet-ust span{font-size:12.5px;color:var(--sonuk);font-variant-numeric:tabular-nums}
+  .nobet-sat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--cizgi);
+             border:1px solid var(--cizgi)}
+  .ns{background:var(--yuzey);padding:15px 18px;text-decoration:none;display:block}
+  .ns:hover{background:var(--kagit)}
+  .ns b{display:block;font-family:var(--serif);font-size:22px;color:var(--murekkep);
+        font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+  .ns b em{font-style:normal;font-family:var(--sans);font-size:12.5px;color:var(--sonuk);
+           font-weight:400;margin-left:5px}
+  .ns span{display:block;font-size:13px;color:var(--govde);margin-top:6px;line-height:1.45}
+  .nobet-dip{font-size:12.5px;color:var(--sonuk);margin-top:12px}
+  .bayat{color:var(--yanlis)}
+  .kunye{padding:34px 0;text-align:center}
+  .kunye-l{font-size:14px;color:var(--govde);line-height:1.95;max-width:58em;margin:10px auto 0}
+  .dip{border-top:1px solid var(--cizgi);background:var(--yuzey);padding:26px 0;
+       font-size:12.5px;color:var(--sonuk)}
+  .dip-ic{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .not{position:fixed;left:16px;bottom:16px;background:var(--lacivert);color:#fff;font-size:12px;
+       padding:8px 14px;border-radius:4px;z-index:9;text-decoration:none;font-weight:600}
+
+  @media(max-width:900px){
+    .sarmal{padding:0 18px}
+    .kah-ic{padding:56px 0 54px}
+    h1{font-size:36px}
+    .spot{font-size:16px}
+    .ust nav{display:none}
+    .soru{font-size:17.5px;padding:22px 18px 4px}
+    .siklar{padding:8px 10px 12px}
+    .kabin-ust,.kabin-dip{padding:12px 18px}
+    .cozum{margin:0 18px 20px}
+    .nobet-sat{grid-template-columns:1fr 1fr}
+    .sik u{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){ .nabiz i{box-shadow:none} }
+</style>
+</head>
+<body>
+
+<!-- ==================== KAHRAMAN ==================== -->
+<div class="kahraman">
+  <canvas id="ambarTuval" aria-hidden="true"></canvas>
+  <div class="kah-tepe" aria-hidden="true"></div>
+
+  <header class="ust"><div class="sarmal ust-ic">
+    <a class="marka" href="#"><i></i>Tetikte</a>
+    <nav><a href="#">Sınavlar</a><a href="#">Radarlar</a><a href="#">Araçlar</a><a href="#">Abonelik</a></nav>
+    <a class="giris" href="#">Giriş</a>
+    <a class="dugme" href="#">Ücretsiz başla</a>
+  </div></header>
+
+  <div class="sarmal">
+    <div class="kah-ic">
+      <div class="nabiz"><i></i>Nöbet açık · son koşu <b id="nbKosu">bu sabah 09:20</b></div>
+      <h1>Arkanda <span id="h1Kasa">30.569</span> soruluk<br>bir ambar var.</h1>
+      <p class="spot">Her soru gerçek sınav kalıbında; <b>her şıkkın gerekçesi mevzuattaki
+        maddeye bağlı.</b> Yanlış şıkkı seç, tuzağın adını ve doğrusunu yan yana gör.
+        İş başındaysan aynı sistem büro, şirket ve mükellef nöbetini tutuyor.</p>
+      <div class="eylem">
+        <a class="dugme-b" href="#kanit">Soru çözmeye başla</a>
+        <a class="ikincil" href="#kanit">Önce bir soru dene →</a>
+      </div>
+    </div>
+    <div class="zemin-not">
+      <b>Bu zemin bir süsleme değil.</b> Arkadaki ışık alanı ambarın kendisidir:
+      her sütun bir ders, yanan hücreler o dersin doluluğu, sönük iskeletler henüz
+      yazılmamış olanlar. Üstünden geçen ışık, her sabah koşan nöbet taramasıdır.
+      <span id="zeminOlcum">Ölçüm 12.09.2026 · 54 ders.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== KANIT ==================== -->
+<section class="kanit-blok" id="kanit"><div class="sarmal">
+  <div class="kanit-giris dar">
+    <div class="et" id="ust1">SMMM Staja Giriş · Ticaret Hukuku · Genel işlem koşulları</div>
+    <h2>İddiayı okuma, dene: bir şık seç.</h2>
+    <p>Bugünün gerçek sorusu. Üyelik yok, kayıt yok.</p>
+  </div>
+
+  <div class="kabin dar" id="kabin">
+    <div class="kabin-ust">
+      <b id="kbDers">Ticaret Hukuku · genel işlem koşulları</b>
+      <span id="kbKunye">SGS 2026/1 Soru 125 kalıbı · 9 dönemde çıktı</span>
+    </div>
+    <p class="soru" id="kbSoru">Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı
+      tartışılarak kabul edildiğine dair kayıt düşmüştür. Hüküm, sözleşmenin niteliğine ve işin
+      özelliğine yabancıdır. Türk Borçlar Kanunu'na göre aşağıdakilerden hangisi doğrudur?</p>
+    <ul class="siklar" id="kbSiklar">
+      <li><button class="sik" type="button" data-k="A"><i>A</i><span>Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmadığından, işin özelliğine yabancı olan bu hüküm yazılmamış sayılır.</span><u>m.20 f.2-3</u></button></li>
+      <li><button class="sik" type="button" data-k="B"><i>B</i><span>Kabul kaydı bulunduğundan, hükmün işin özelliğine yabancı olması sonucu değiştirmez ve hüküm geçerli kabul edilir.</span><u>m.20 f.3</u></button></li>
+      <li><button class="sik" type="button" data-k="C"><i>C</i><span>İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığından, bu hüküm zaten genel işlem koşulu sayılmaz ve yazılmamışlık hükmü uygulanmaz.</span><u>m.20 f.2</u></button></li>
+      <li><button class="sik" type="button" data-k="D"><i>D</i><span>Hükmün sözleşme metninde değil ekinde yer alması hâlinde, kabul kaydıyla birlikte nitelendirme değişir ve hüküm yazılmamış sayılmaz.</span><u>m.20 f.1</u></button></li>
+      <li><button class="sik" type="button" data-k="E"><i>E</i><span>Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğundan, bu kayıt varken yazılmamışlık hükmü hiçbir şekilde uygulanamaz.</span><u>m.20 f.2-3</u></button></li>
+    </ul>
+    <div id="kbCozum"></div>
+    <div class="kabin-dip">
+      <small id="kbDip">Her şıkkın karşısındaki madde, şık açılınca görünür.</small>
+      <button class="yeniden" type="button" id="kbSifirla" hidden>Baştan dene</button>
+    </div>
+  </div>
+
+  <div class="cagri dar">
+    <p>Havuzdaki <b id="cgKasa">30.569</b> sorunun her birinde aynı ekran.</p>
+    <a class="dugme-k" id="cgDugme" href="#">Soru havuzuna gir</a>
+  </div>
+</div></section>
+
+<!-- ==================== NÖBET ==================== -->
+<section class="nobet"><div class="sarmal nobet-ic">
+  <div class="nobet-ust">
+    <div class="et">Aynı sistem iş tarafında da nöbet tutuyor</div>
+    <span><span id="ndNeZaman">Son koşu</span> · <span id="ndTarih">12.09.2026</span></span>
+  </div>
+  <div class="nobet-sat">
+    <a class="ns" href="#"><b id="ndRg">1<em>değişiklik</em></b><span>Resmî Gazete okundu, seni bağlayan kısım ayrıldı</span></a>
+    <a class="ns" href="#"><b id="ndIhale">250<em>ilan</em></b><span>İhale ilanı süzüldü, sektörüne uymayan elendi</span></a>
+    <a class="ns" href="#"><b id="ndSgs">70<em>gün</em></b><span>Staja Giriş sınavına · başvuru 21 Eylül'de açılıyor</span></a>
+    <a class="ns" href="#"><b id="ndYet">77<em>gün</em></b><span>Yeterlilik sınavına · canlı deneme 27.09</span></a>
+  </div>
+  <div class="nobet-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+</div></section>
+
+<section class="kunye"><div class="sarmal">
+  <div class="et">Okunan kaynaklar</div>
+  <div class="kunye-l">Resmî Gazete · TÜRMOB sınav takvimi · KGK denetim standartları ·
+    SPK mevzuatı · EKAP ihale ilanları · TÜRKPATENT marka bülteni · Gümrük Tarife Cetveli</div>
+</div></section>
+
+<footer class="dip"><div class="sarmal dip-ic">
+  <span>© 2026 Tetikte · Mevzuat ve sınav nöbeti</span>
+  <span>Kaynak künyesi her kartta gösterilir.</span>
+</div></footer>
+
+<a class="not" href="kurumsal.html">← yönleri karşılaştır</a>
+
+<script>
+/* =====================================================================
+   1) AMBAR ALANI — zemin, veri/sinav-tek-sayfa.json'daki `dersler`den çizilir.
+      Her sütun bir ders; yanan hücre = doluluk; doluluk<0 ise sönük iskelet.
+      Okunamazsa aşağıdaki 12.09.2026 09:54 ölçümünün kopyası kullanılır.
+   ===================================================================== */
+(function(){
+  var tuval=document.getElementById('ambarTuval'); if(!tuval) return;
+  var ctx=tuval.getContext('2d');
+  var durgun=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* YEDEK: 12.09.2026 09:54 ölçümü — [sınav, doluluk]. Uydurma değil, kopya. */
+  var YEDEK=[['SGS',100],['SGS',28],['SGS',24],['SGS',100],['SGS',100],['SGS',100],['SGS',100],
+    ['SGS',82],['SGS',23],['SGS',28],['SGS',35],['SGS',48],['SGS',100],['SGS',100],['SGS',30],
+    ['SMMM',100],['SMMM',100],['SMMM',100],['SMMM',13],['SMMM',100],['SMMM',100],['SMMM',100],['SMMM',28],
+    ['KGK',78],['KGK',71],['KGK',8],['KGK',0],['KGK',0],['KGK',0],['KGK',1],['KGK',0],
+    ['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],
+    ['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],
+    ['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1],['SPL',-1]];
+  /* Sütun SIRASI bir iddia değil, yerleşim kararıdır: ters çevrilir ki henüz
+     yazılmamış dersler metnin yanında sessiz kalsın, dolu kütle sağ kenardan
+     taşsın. Değerler aynen kalır - hiçbir ders gizlenmez. */
+  function sutunYap(dizi){
+    return dizi.slice().reverse().map(function(d,i){ return {doluluk:d, faz:i*0.7}; });
+  }
+  var SUTUN=sutunYap(YEDEK.map(function(d){ return d[1]; }));
+
+  var G=1, W=0, H=0;
+  function olcekle(){
+    G=Math.min(window.devicePixelRatio||1, 2);
+    W=tuval.clientWidth; H=tuval.clientHeight;
+    tuval.width=Math.round(W*G); tuval.height=Math.round(H*G);
+    ctx.setTransform(G,0,0,G,0,0);
+  }
+
+  var HUCRE_SAYISI=34;
+  /* Alan SAĞA toplanır ve hafifçe EĞİLİR. Düz ve tam genişlikte çizilince
+     alan bir çubuk grafiğe benziyordu ve perdenin altında kayboluyordu;
+     eğim derinlik veriyor, sağa toplanmak metni serbest bırakıyor. */
+  function ciz(t){
+    if(!W||!H) return;
+    ctx.clearRect(0,0,W,H);
+    var dar = W<900;
+    var solKenar = dar ? W*0.30 : W*0.53;            /* metin serbest kalsın */
+    var alanGen = (W-solKenar)*1.28;                 /* sağdan taşsın, kesilmiş dursun */
+    /* Telefonda metin tam genişlik kaplıyor; alan kaçacak yer bulamıyor.
+       Ölçüldü (375 px): paragraf hücrelerin üstünde okunmuyordu. Çare alanı
+       kaldırmak değil KISMAK - doku kalır, metin öne geçer. */
+    var kisilma = dar ? 0.40 : 1;
+    var n=SUTUN.length;
+    var adim=alanGen/n;
+    var gen=Math.max(3,Math.min(adim*0.52,9));
+    var alanBoy=H*0.92, aralik=alanBoy/HUCRE_SAYISI;
+    var boy=Math.max(3,Math.min(aralik*0.5,8));
+    var taban=H*0.99;
+    var tara=durgun? -9999 : ((t/9000)%1.4-0.2)*alanGen;
+
+    ctx.save();
+    ctx.translate(solKenar, 0);
+    /* Eğim DİKEY ORTADAN döner: x' = x - k*(y - H/2). Tek yönlü eğimde alanın
+       alt ucu sola kayıp metnin üstüne biniyordu. */
+    var k=0.16;
+    ctx.transform(1,0,-k,1, k*H/2, 0);
+
+    for(var i=0;i<n;i++){
+      var s=SUTUN[i], x=adim*i+adim/2;
+      var olculmedi = s.doluluk<0;
+      var dolu = olculmedi?0:Math.round(s.doluluk/100*HUCRE_SAYISI);
+      var yakin = Math.max(0,1-Math.abs(x-tara)/190);
+      for(var j=0;j<HUCRE_SAYISI;j++){
+        var y=taban-aralik*(j+1)+aralik/2;
+        var yanik = j<dolu, a;
+        if(yanik){
+          var kipir = durgun?0:0.09*Math.sin(t/1500+s.faz+j*0.45);
+          a = 0.42 + 0.26*(1-j/HUCRE_SAYISI) + kipir + yakin*0.32;
+        }else{
+          /* iskelet: yazılmamış olan SÖNÜK ama görünür kalır - yalan söylemez */
+          a = (olculmedi?0.10:0.065) + yakin*0.16;
+        }
+        a*=kisilma;
+        if(a<=0.02) continue;
+        ctx.globalAlpha=Math.min(a,1);
+        ctx.fillStyle = yanik ? '#e8ad4e' : '#63738d';
+        ctx.fillRect(x-gen/2,y-boy/2,gen,boy);
+      }
+      /* Dolu sütunun tepesinde hâle - derinlik buradan gelir. */
+      if(dolu>0){
+        /* Hâleler üst üste binince sağ üst patlıyordu: yarıçap ve şiddet kısıldı. */
+        var ty=taban-aralik*dolu, r=44;
+        var hale=ctx.createRadialGradient(x,ty,0,x,ty,r);
+        hale.addColorStop(0,'rgba(232,173,78,'+((0.10+yakin*0.15)*kisilma).toFixed(3)+')');
+        hale.addColorStop(1,'rgba(232,173,78,0)');
+        ctx.globalAlpha=1; ctx.fillStyle=hale;
+        ctx.fillRect(x-r,ty-r,r*2,r*2);
+      }
+    }
+    ctx.restore();
+    ctx.globalAlpha=1;
+  }
+
+  var son=0;
+  function dongu(t){
+    /* ~30 fps yeter; dizüstünde pili yakmasın. */
+    if(t-son>33){ ciz(t); son=t; }
+    requestAnimationFrame(dongu);
+  }
+  olcekle(); ciz(0);
+  if(durgun){ /* hareket kapalı: tek kare yeter */ }
+  else requestAnimationFrame(dongu);
+  window.addEventListener('resize',function(){ olcekle(); ciz(performance.now()); });
+
+  /* Canlı ölçüm: dersler gelirse sütunlar gerçek doluluğa geçer. */
+  fetch('../veri/sinav-tek-sayfa.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return;
+      if(d.dersler&&d.dersler.length){
+        SUTUN=sutunYap(d.dersler.map(function(r){ return +r.doluluk; }));
+        var o=String(d.olcum||'').split(' ')[0];
+        var z=document.getElementById('zeminOlcum');
+        if(z)z.textContent='Ölçüm '+(o||'—')+' · '+d.dersler.length+' ders.';
+        ciz(performance.now());
+      }
+      var oz=d.sinav_ozet||[],kasa=0;
+      oz.forEach(function(s){kasa+=+s.kasa||0;});
+      if(kasa>0){
+        var tr=Number(kasa).toLocaleString('tr-TR');
+        document.getElementById('h1Kasa').textContent=tr;
+        document.getElementById('cgKasa').textContent=tr;
+      }
+    }).catch(function(){});
+})();
+
+/* =====================================================================
+   2) SORU KABİNİ + NÖBET — index.html ile aynı kural:
+      HTML'de son GERÇEK değer durur, JSON okunabilirse üzerine yazılır.
+   ===================================================================== */
+(function(){
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var V=null;
+  var siklarEl=document.getElementById('kbSiklar');
+  var cozumEl=document.getElementById('kbCozum');
+  var dipEl=document.getElementById('kbDip');
+  var sifirlaEl=document.getElementById('kbSifirla');
+
+  function madde(k){
+    if(!V||!V.satirlar)return null;
+    for(var i=0;i<V.satirlar.length;i++){
+      if(String(V.satirlar[i][0]||'').indexOf(k+')')===0)return V.satirlar[i][1];
+    } return null;
+  }
+  var YEDEK_TUZAK={
+    B:{ad:'Yeterlilik Tuzağı',metin:"Öğrenci kabul kaydının tek başına yeterli olduğunu düşünüp hükmü geçerli sayar. Doğrusu: Kanun kaydın 'tek başına' yeterli olmadığını açıkça belirtir, yazılmamışlık hükmü ayrıca uygulanır."},
+    C:{ad:'Özdeşlik Tuzağı',metin:'Öğrenci metinlerin özdeş olmaması kuralını ters yönde kullanıp hükmün zaten genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması genel işlem koşulu sayılmayı engellemez.'},
+    D:{ad:'Şekil Tuzağı',metin:'Öğrenci hükmün metinde mi ekte mi yer aldığının nitelendirmeyi etkilediğini sanır. Doğrusu: Yer, kapsam, yazı türü ve şekli nitelendirmede önem taşımaz.'},
+    E:{ad:'Mutlaklaştırma Tuzağı',metin:"Öğrenci 'tek başına yeterli değildir' ifadesini 'hiçbir şekilde uygulanamaz' şeklinde ters çevirir. Doğrusu: Kanun yalnız kaydın tek başına yetersizliğini söyler."}
+  };
+  var YEDEK_SATIR=[];
+  [].forEach.call(siklarEl.querySelectorAll('.sik'),function(b){
+    var m=b.querySelector('u'),s=b.querySelector('span');
+    if(m&&s)YEDEK_SATIR.push([b.getAttribute('data-k')+') '+s.textContent.slice(0,58)+'…',m.textContent]);
+  });
+
+  function panelYaz(btn,dogruMu){
+    var k=btn.getAttribute('data-k');
+    if(btn.parentNode.querySelector('.panel'))return;
+    var p=document.createElement('div'); p.className='panel'+(dogruMu?' d':'');
+    var baslik,metin;
+    if(dogruMu){
+      baslik='Doğru';
+      metin=(V&&V.hap)||'Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmaz; işin özelliğine yabancı hüküm yine de yazılmamış sayılır.';
+    }else{
+      var t=(V&&V.tuzak&&V.tuzak[k])||YEDEK_TUZAK[k];
+      baslik='Tuzak · '+((t&&t.ad)||'Tuzak'); metin=(t&&t.metin)||'';
+    }
+    p.innerHTML='<b>'+esc(baslik)+'</b><p>'+esc(metin).replace(/Doğrusu:/,'<em>Doğrusu:</em>')+'</p>';
+    btn.parentNode.appendChild(p);
+  }
+  function cozumAc(){
+    if(!cozumEl||cozumEl.innerHTML)return;
+    var sat=(V&&V.satirlar)||YEDEK_SATIR; if(!sat||!sat.length)return;
+    cozumEl.innerHTML='<div class="cozum"><div class="cozum-ust et">Her şık, dayandığı madde</div><table>'
+      +sat.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>';}).join('')
+      +'</table></div>';
+  }
+  siklarEl.addEventListener('click',function(e){
+    var btn=e.target.closest?e.target.closest('.sik'):null;
+    if(!btn||btn.disabled)return;
+    var dogru=(V&&V.dogru)||'A';
+    btn.classList.add('acildi');
+    if(btn.getAttribute('data-k')===dogru){
+      btn.classList.add('dogru'); panelYaz(btn,true); cozumAc();
+      [].forEach.call(siklarEl.querySelectorAll('.sik'),function(b){b.classList.add('acildi');b.disabled=true;});
+      if(dipEl)dipEl.textContent='Çözüm açıldı. Havuzda her soru bu düzende.';
+    }else{
+      btn.classList.add('yanlis'); btn.disabled=true; panelYaz(btn,false);
+      if(dipEl)dipEl.textContent='Tuzağın adı yazıldı. Doğru şıkkı bulunca tam çözüm açılır.';
+    }
+    if(sifirlaEl)sifirlaEl.hidden=false;
+  });
+  if(sifirlaEl)sifirlaEl.addEventListener('click',function(){
+    [].forEach.call(siklarEl.querySelectorAll('.panel'),function(p){p.parentNode.removeChild(p);});
+    [].forEach.call(siklarEl.querySelectorAll('.sik'),function(b){b.className='sik';b.disabled=false;});
+    cozumEl.innerHTML=''; sifirlaEl.hidden=true;
+    if(dipEl)dipEl.textContent='Her şıkkın karşısındaki madde, şık açılınca görünür.';
+  });
+
+  fetch('../veri/vitrin-kart-ozet.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d||!d.sinavlar)return;
+      var kod=d.sinavlar.sgs?'sgs':Object.keys(d.sinavlar)[0];
+      var v=d.sinavlar[kod]; if(!v||!v.siklar)return;
+      V=v;
+      var ders=String(v.ders||'').split('|')[0];
+      document.getElementById('ust1').textContent=(v.ad||'SMMM Staja Giriş')+' · '+ders+' · '+(v.konu||'');
+      document.getElementById('kbDers').textContent=ders+(v.konu?' · '+v.konu:'');
+      document.getElementById('kbKunye').textContent=(v.kunye||'')+(v.donem?' · '+v.donem+' dönemde çıktı':'');
+      document.getElementById('kbSoru').textContent=v.soru||'';
+      siklarEl.innerHTML=Object.keys(v.siklar).map(function(k){
+        var m=madde(k);
+        return '<li><button class="sik" type="button" data-k="'+k+'"><i>'+k+'</i><span>'
+          +esc(v.siklar[k])+'</span>'+(m?'<u>'+esc(m)+'</u>':'')+'</button></li>';}).join('');
+      if(v.baglanti)document.getElementById('cgDugme').href='../'+v.baglanti;
+    }).catch(function(){});
+
+  var SINAVLAR=[{id:'ndSgs',tarih:'2026-11-21'},{id:'ndYet',tarih:'2026-11-28'}];
+  function gunFarki(h){var b=new Date(),t=new Date(h+'T00:00:00');b.setHours(0,0,0,0);
+    return Math.round((t-b)/86400000);}
+  function sayiYaz(el,d,b){if(el)el.innerHTML=d+'<em>'+b+'</em>';}
+  SINAVLAR.forEach(function(s){var g=gunFarki(s.tarih);
+    sayiYaz(document.getElementById(s.id),g>0?g:'—',g>0?'gün':(g===0?'bugün':'geçti'));});
+
+  fetch('../veri/uyari-ozet.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return; var v=d.veri||{};
+      if(typeof v.rg_karti==='number')sayiYaz(document.getElementById('ndRg'),v.rg_karti,'değişiklik');
+      if(typeof v.ihale_ilani==='number')sayiYaz(document.getElementById('ndIhale'),v.ihale_ilani,'ilan');
+      var p=String(d.tarih||'').split(' ');
+      if(p[0])document.getElementById('ndTarih').textContent=p[0];
+      var g=p[0]?p[0].split('.'):null;
+      if(g&&g.length===3){
+        var sa=(p[1]||'00:00').split(':');
+        var kosu=new Date(+g[2],+g[1]-1,+g[0],+sa[0]||0,+sa[1]||0);
+        var saatFark=(new Date()-kosu)/3600000;
+        var gunBas=new Date();gunBas.setHours(0,0,0,0);
+        var gunFark=Math.round((gunBas-new Date(+g[2],+g[1]-1,+g[0]))/86400000);
+        var ne=gunFark===0?(kosu.getHours()<5?'Bu gece':kosu.getHours()<12?'Bu sabah':'Bugün')
+              :gunFark===1?'Dün':p[0];
+        var et=document.getElementById('ndNeZaman'); if(et)et.textContent=ne;
+        var nb=document.getElementById('nbKosu');
+        if(nb)nb.textContent=ne.toLocaleLowerCase('tr')+' '+(p[1]||'');
+        if(saatFark>=30){
+          var dip=document.getElementById('ndDip');
+          dip.textContent='Son robot koşusu '+p[0]+' '+(p[1]||'')+' — '+gunFark+' gün önce.';
+          dip.className='nobet-dip bayat';
+          if(nb)nb.textContent=p[0]+' — '+gunFark+' gün önce';
+        }
+      }
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>
