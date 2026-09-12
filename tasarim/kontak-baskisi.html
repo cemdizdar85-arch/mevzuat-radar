@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontak baskısı — sekiz ilk ekran, eleme için</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- =====================================================================
+     KONTAK BASKISI · 12.09.2026
+     Beş tur "tam sayfa kur -> beğendin mi?" çalışmadı. Yöntem değişti:
+     çok sayıda küçük deneme, yan yana, ONAY değil ELEME.
+
+     KURAL: sekizinde de METİN AYNI. Yalnız BİÇİM değişir - böylece
+     "olmadı" cevabı bilgi taşır. Tek istisna 8 numara: orada rakamın
+     kendisi biçimdir.
+
+     Her ekranın altında TUT / ELE var; sayfanın en altındaki kutu
+     seçimi tek satır özet olarak yazar, Cem kopyalayıp yapıştırır.
+     Seçim yalnız bu tarayıcıda durur, hiçbir yere gitmez.
+
+     Rakamlar gerçek: 30.569 soru (veri/sinav-tek-sayfa.json, 12.09
+     09:54 ölçümü), nöbet 12.09 09:20 koşusu. Uydurma yok.
+     index.html'e DOKUNULMADI.
+     ===================================================================== -->
+<style>
+  :root{
+    --kagit:#faf9f6; --yuzey:#fff; --murekkep:#141a22; --govde:#39424f;
+    --sonuk:#727b89; --cizgi:#e5e3dd; --cizgi-koyu:#cdcabf;
+    --gece:#07090e; --gece2:#101724; --ak:#eef2f8; --ak-govde:#9dabbd;
+    --amber:#e8ad4e; --lacivert:#17243a; --mor:#4b3f9e; --yesil:#12654a;
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#eceae5;color:var(--govde);font-family:var(--sans);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .sar{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  /* ---------- sayfa başlığı ---------- */
+  .tepe{background:var(--murekkep);color:#fff;padding:30px 0 26px}
+  .tepe .sar{max-width:1180px}
+  .tepe h1{font-size:25px;margin:0 0 8px;font-weight:700;letter-spacing:-.02em}
+  .tepe p{margin:0;font-size:14.5px;color:#b3bcc9;max-width:60em}
+  .tepe b{color:#fff}
+
+  /* ---------- her deneme ---------- */
+  .deneme{margin:26px 0}
+  .kunye{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 10px}
+  .no{background:var(--murekkep);color:#fff;font-size:13px;font-weight:800;
+      width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none}
+  .kunye h2{font-size:16.5px;margin:0;color:var(--murekkep);font-weight:700;letter-spacing:-.015em}
+  .kunye span{font-size:13.5px;color:var(--sonuk)}
+  .oy{margin-left:auto;display:flex;gap:8px}
+  .oy button{font:inherit;font-size:13px;font-weight:650;padding:7px 15px;border-radius:6px;
+             border:1px solid var(--cizgi-koyu);background:var(--yuzey);color:var(--govde);cursor:pointer}
+  .oy button:hover{border-color:var(--murekkep);color:var(--murekkep)}
+  .oy button.secili.tut{background:var(--yesil);border-color:var(--yesil);color:#fff}
+  .oy button.secili.ele{background:#8a1c2b;border-color:#8a1c2b;color:#fff}
+  .cerceve{border:1px solid var(--cizgi-koyu);border-radius:6px;overflow:hidden;
+           box-shadow:0 10px 34px rgba(20,26,34,.09)}
+
+  /* ---------- ortak kahraman iskeleti ---------- */
+  .k{min-height:520px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .k .bar{display:flex;align-items:center;gap:24px;height:56px;padding:0 30px;flex:none;
+          font-size:13.5px}
+  .k .logo{font-family:var(--serif);font-size:19px;font-weight:600;display:flex;
+           align-items:center;gap:8px;letter-spacing:-.01em}
+  .k .logo i{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+  .k .bar nav{display:flex;gap:20px;margin-left:auto}
+  .k .cta-ust{padding:7px 14px;border-radius:5px;font-size:13px;font-weight:650}
+  .k .govde{flex:1;display:flex;align-items:center;padding:0 30px 30px}
+  .k .ic{max-width:30em}
+  .k .goz{font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;
+          margin-bottom:16px;opacity:.72}
+  .k h3{font-size:42px;line-height:1.1;letter-spacing:-.03em;margin:0 0 16px;font-weight:700}
+  .k p.alt{font-size:16px;line-height:1.6;margin:0 0 26px;opacity:.82}
+  .k .cta{display:inline-block;padding:13px 26px;border-radius:6px;font-size:15px;
+          font-weight:700;text-decoration:none}
+
+  /* ===== 1 · KOYU · saf tipografi ===== */
+  .v1{background:var(--gece);color:var(--ak)}
+  .v1 .bar{border-bottom:1px solid #1b2432;color:var(--ak-govde)}
+  .v1 .logo{color:var(--ak)} .v1 .cta-ust{background:var(--ak);color:var(--gece)}
+  .v1 h3{font-size:54px} .v1 .cta{background:var(--amber);color:#1b1305}
+
+  /* ===== 2 · AÇIK · saf tipografi ===== */
+  .v2{background:var(--yuzey);color:var(--govde)}
+  .v2 .bar{border-bottom:1px solid var(--cizgi);color:var(--govde)}
+  .v2 .logo{color:var(--murekkep)} .v2 .cta-ust{background:var(--murekkep);color:#fff}
+  .v2 h3{font-size:54px;color:var(--murekkep)} .v2 .cta{background:var(--murekkep);color:#fff}
+
+  /* ===== 3 · KOYU · veri dokusu (bugünkü Ambar - kontrol grubu) ===== */
+  .v3{background:var(--gece);color:var(--ak)}
+  .v3 .bar{border-bottom:1px solid #1b2432;color:var(--ak-govde)}
+  .v3 .logo{color:var(--ak)} .v3 .cta-ust{background:var(--ak);color:var(--gece)}
+  .v3 .cta{background:var(--amber);color:#1b1305}
+  .v3 canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .v3 .bar,.v3 .govde{position:relative;z-index:2}
+  .v3:before{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(95deg,var(--gece) 24%,rgba(7,9,14,.82) 40%,transparent 60%)}
+
+  /* ===== 4 · AÇIK · dev renk bloğu ===== */
+  .v4{background:var(--yuzey);color:var(--govde)}
+  .v4 .bar{border-bottom:1px solid var(--cizgi);color:var(--govde)}
+  .v4 .logo{color:var(--murekkep)} .v4 .cta-ust{background:var(--mor);color:#fff}
+  .v4 h3{color:var(--murekkep)} .v4 .cta{background:var(--mor);color:#fff}
+  .v4 .blok{position:absolute;right:-70px;top:-70px;width:520px;height:520px;
+    border-radius:50%;background:radial-gradient(circle at 30% 30%,#6f61e8,#3b2f8f);
+    opacity:.16;z-index:0}
+  .v4 .blok2{position:absolute;right:120px;bottom:-140px;width:330px;height:330px;
+    border-radius:50%;background:var(--amber);opacity:.14;z-index:0}
+  .v4 .bar,.v4 .govde{position:relative;z-index:2}
+
+  /* ===== 5 · ÜRÜN EKRANI ÖNDE ===== */
+  .v5{background:var(--kagit);color:var(--govde)}
+  .v5 .bar{border-bottom:1px solid var(--cizgi);color:var(--govde)}
+  .v5 .logo{color:var(--murekkep)} .v5 .cta-ust{background:var(--murekkep);color:#fff}
+  .v5 .govde{flex-direction:column;align-items:center;text-align:center;padding-top:34px}
+  .v5 .ic{max-width:34em}
+  .v5 h3{font-size:36px;color:var(--murekkep)}
+  .v5 .cta{background:var(--murekkep);color:#fff}
+  .v5 .ekran{width:min(660px,100%);margin:26px auto -90px;background:var(--yuzey);
+    border:1px solid var(--cizgi-koyu);border-radius:9px 9px 0 0;text-align:left;
+    box-shadow:0 -2px 0 rgba(0,0,0,.02),0 26px 60px rgba(20,26,34,.16);overflow:hidden}
+  .ekran-bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--cizgi);
+    background:var(--kagit)}
+  .ekran-bar i{width:9px;height:9px;border-radius:50%;background:var(--cizgi-koyu);display:block}
+  .ekran-ic{padding:16px 18px}
+  .ekran-ic .s{font-family:var(--serif);font-size:15px;color:var(--murekkep);
+    line-height:1.45;margin:0 0 12px}
+  .ekran-ic .o{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;padding:8px 10px;
+    border:1px solid var(--cizgi);border-radius:5px;margin-bottom:6px;line-height:1.4}
+  .ekran-ic .o b{flex:none;width:19px;height:19px;border-radius:50%;border:1px solid var(--cizgi-koyu);
+    font-size:11px;display:grid;place-items:center;color:var(--sonuk);font-weight:700}
+  .ekran-ic .o.y{border-color:#96202e;background:#faf0f0}
+  .ekran-ic .o.y b{background:#96202e;border-color:#96202e;color:#fff}
+  .ekran-ic .o.d{border-color:#1d6b4c;background:#eff6f2}
+  .ekran-ic .o.d b{background:#1d6b4c;border-color:#1d6b4c;color:#fff}
+  .ekran-ic .tz{font-size:11.5px;color:#96202e;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;margin:8px 0 0 29px}
+
+  /* ===== 6 · BÖLÜNMÜŞ EKRAN ===== */
+  .v6{background:var(--yuzey);color:var(--govde);flex-direction:column}
+  .v6 .bar{border-bottom:1px solid var(--cizgi);color:var(--govde)}
+  .v6 .logo{color:var(--murekkep)} .v6 .cta-ust{background:var(--lacivert);color:#fff}
+  .v6 .govde{padding:0}
+  .v6 .sol{flex:1;padding:44px 30px;display:flex;align-items:center}
+  .v6 .sag{width:44%;background:var(--lacivert);align-self:stretch;position:relative;
+    display:grid;place-items:center;padding:26px}
+  .v6 h3{font-size:38px;color:var(--murekkep)} .v6 .cta{background:var(--lacivert);color:#fff}
+  .v6 .kart{background:var(--yuzey);border-radius:7px;padding:16px 18px;width:100%;
+    max-width:320px;box-shadow:0 22px 54px rgba(0,0,0,.30)}
+  .v6 .kart .s{font-family:var(--serif);font-size:14px;color:var(--murekkep);margin:0 0 10px;line-height:1.45}
+
+  /* ===== 7 · ORTALANMIŞ · kaynak rozet şeridi ===== */
+  .v7{background:var(--yuzey);color:var(--govde)}
+  .v7 .bar{border-bottom:1px solid var(--cizgi);color:var(--govde)}
+  .v7 .logo{color:var(--murekkep)} .v7 .cta-ust{background:var(--murekkep);color:#fff}
+  .v7 .govde{flex-direction:column;align-items:center;text-align:center;justify-content:center}
+  .v7 .ic{max-width:33em}
+  .v7 h3{font-size:44px;color:var(--murekkep)} .v7 .cta{background:var(--murekkep);color:#fff}
+  .v7 .rozet{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;margin-top:34px;
+    padding-top:20px;border-top:1px solid var(--cizgi);width:min(720px,100%)}
+  .v7 .rozet span{font-size:12.5px;color:var(--sonuk);font-weight:650;letter-spacing:.02em}
+
+  /* ===== 8 · DEV RAKAM (tipografik anıt) ===== */
+  .v8{background:var(--gece);color:var(--ak)}
+  .v8 .bar{border-bottom:1px solid #1b2432;color:var(--ak-govde)}
+  .v8 .logo{color:var(--ak)} .v8 .cta-ust{background:var(--ak);color:var(--gece)}
+  .v8 .govde{flex-direction:column;justify-content:center;align-items:flex-start}
+  .v8 .dev{font-size:clamp(72px,13vw,168px);line-height:.9;font-weight:800;
+    letter-spacing:-.05em;color:var(--amber);margin:0 0 6px;font-variant-numeric:tabular-nums}
+  .v8 h3{font-size:27px;font-weight:650;margin:0 0 14px}
+  .v8 .ic{max-width:36em} .v8 .cta{background:var(--amber);color:#1b1305}
+
+  /* ---------- özet kutusu ---------- */
+  .ozet{position:sticky;bottom:0;background:var(--murekkep);color:#fff;padding:16px 0;
+        margin-top:34px;z-index:20;box-shadow:0 -10px 30px rgba(0,0,0,.18)}
+  .ozet-ic{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .ozet b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#9aa6b6;flex:none}
+  .ozet output{font-size:15px;font-weight:650;flex:1;min-width:220px}
+  .ozet button{font:inherit;font-size:13px;font-weight:650;padding:8px 16px;border-radius:6px;
+    border:1px solid #3a4658;background:transparent;color:#fff;cursor:pointer}
+  .ozet button:hover{background:#26303f}
+
+  @media(max-width:900px){
+    .sar{padding:0 16px}
+    .k h3,.v1 h3,.v2 h3{font-size:30px}
+    .v6 .govde{flex-direction:column}
+    .v6 .sag{width:100%}
+    .k .bar nav{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="tepe"><div class="sar">
+  <h1>Kontak baskısı — sekiz ilk ekran</h1>
+  <p>Sekizinde de <b>metin aynı</b>; yalnız biçim değişiyor. Amaç beğenmek değil <b>elemek</b>:
+     her birine 5 saniye bak, <b>TUT</b> ya da <b>ELE</b>. Aşağıdaki şerit seçimini tek satır
+     yazar. Hayatta kalanın dört varyasyonunu yaparım.</p>
+</div></div>
+
+<div class="sar">
+
+  <!-- 1 -->
+  <div class="deneme" data-no="1">
+    <div class="kunye"><span class="no">1</span><h2>Koyu · saf tipografi</h2>
+      <span>Görsel yok. Sadece dev yazı ve boşluk. Linear'ın koyu hâli.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v1">
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde"><div class="ic">
+        <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+        <h3>Yanlışını, sebebiyle birlikte öğren.</h3>
+        <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+        <span class="cta">Soru çözmeye başla</span>
+      </div></div>
+    </div></div>
+  </div>
+
+  <!-- 2 -->
+  <div class="deneme" data-no="2">
+    <div class="kunye"><span class="no">2</span><h2>Açık · saf tipografi</h2>
+      <span>Birincinin beyazı. Aynı iskelet, ters zemin.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v2">
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde"><div class="ic">
+        <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+        <h3>Yanlışını, sebebiyle birlikte öğren.</h3>
+        <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+        <span class="cta">Soru çözmeye başla</span>
+      </div></div>
+    </div></div>
+  </div>
+
+  <!-- 3 -->
+  <div class="deneme" data-no="3">
+    <div class="kunye"><span class="no">3</span><h2>Koyu · veri dokusu</h2>
+      <span>Bugün beğenmediğin Ambar. Kontrol grubu olarak duruyor — kıyas lazım.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v3">
+      <canvas id="dokuTuval"></canvas>
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde"><div class="ic">
+        <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+        <h3>Yanlışını, sebebiyle birlikte öğren.</h3>
+        <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+        <span class="cta">Soru çözmeye başla</span>
+      </div></div>
+    </div></div>
+  </div>
+
+  <!-- 4 -->
+  <div class="deneme" data-no="4">
+    <div class="kunye"><span class="no">4</span><h2>Açık · dev renk bloğu</h2>
+      <span>Soyut renk kütleleri, yumuşak. Becker'ın lavanta zemini tarafı.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v4">
+      <span class="blok"></span><span class="blok2"></span>
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde"><div class="ic">
+        <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+        <h3>Yanlışını, sebebiyle birlikte öğren.</h3>
+        <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+        <span class="cta">Soru çözmeye başla</span>
+      </div></div>
+    </div></div>
+  </div>
+
+  <!-- 5 -->
+  <div class="deneme" data-no="5">
+    <div class="kunye"><span class="no">5</span><h2>Ürün ekranı önde</h2>
+      <span>Ortalanmış başlık, altında ürünün kendisi pencere içinde. Stripe/Linear deseni.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v5">
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde"><div class="ic">
+        <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+        <h3>Yanlışını, sebebiyle birlikte öğren.</h3>
+        <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+        <span class="cta">Soru çözmeye başla</span>
+      </div>
+      <div class="ekran">
+        <div class="ekran-bar"><i></i><i></i><i></i></div>
+        <div class="ekran-ic">
+          <p class="s">Standart sözleşmedeki hüküm, tartışılarak kabul edildiğine dair kayıt taşıyor
+            ama işin özelliğine yabancı. Hangisi doğrudur?</p>
+          <div class="o d"><b>A</b><span>Kayıt tek başına genel işlem koşulu olmaktan çıkarmaz; hüküm yazılmamış sayılır.</span></div>
+          <div class="o y"><b>C</b><span>Metinler özdeş olmadığından genel işlem koşulu sayılmaz.</span></div>
+          <div class="tz">Tuzak · Özdeşlik Tuzağı</div>
+        </div>
+      </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 6 -->
+  <div class="deneme" data-no="6">
+    <div class="kunye"><span class="no">6</span><h2>Bölünmüş ekran</h2>
+      <span>Sol metin, sağda tam yükseklik renkli blok ve içinde ürün kesiti.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v6">
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde">
+        <div class="sol"><div class="ic">
+          <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+          <h3>Yanlışını, sebebiyle birlikte öğren.</h3>
+          <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+          <span class="cta">Soru çözmeye başla</span>
+        </div></div>
+        <div class="sag"><div class="kart">
+          <p class="s">Hüküm, tartışılarak kabul edildiğine dair kayıt taşıyor ama işin
+            özelliğine yabancı. Hangisi doğrudur?</p>
+          <div class="ekran-ic" style="padding:0">
+            <div class="o d"><b>A</b><span>Hüküm yazılmamış sayılır.</span></div>
+            <div class="o y"><b>C</b><span>Genel işlem koşulu sayılmaz.</span></div>
+            <div class="tz" style="margin-left:0">Tuzak · Özdeşlik Tuzağı</div>
+          </div>
+        </div></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 7 -->
+  <div class="deneme" data-no="7">
+    <div class="kunye"><span class="no">7</span><h2>Ortalanmış · kaynak rozet şeridi</h2>
+      <span>Altta okunan kurumların adı rozet olarak. Becker'ın Trustpilot yerine koyduğumuz güven işareti.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v7">
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde">
+        <div class="ic">
+          <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+          <h3>Yanlışını, sebebiyle birlikte öğren.</h3>
+          <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+          <span class="cta">Soru çözmeye başla</span>
+        </div>
+        <div class="rozet">
+          <span>RESMÎ GAZETE</span><span>TÜRMOB</span><span>KGK</span><span>SPK</span>
+          <span>EKAP</span><span>TÜRKPATENT</span><span>GÜMRÜK TARİFE CETVELİ</span>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 8 -->
+  <div class="deneme" data-no="8">
+    <div class="kunye"><span class="no">8</span><h2>Dev rakam</h2>
+      <span>Rakamın kendisi biçim. Tek istisna: burada metin de değişiyor.</span>
+      <span class="oy"><button class="tut">Tut</button><button class="ele">Ele</button></span></div>
+    <div class="cerceve"><div class="k v8">
+      <div class="bar"><span class="logo"><i></i>Tetikte</span>
+        <nav><span>Sınavlar</span><span>Radarlar</span><span>Araçlar</span></nav>
+        <span class="cta-ust">Ücretsiz başla</span></div>
+      <div class="govde"><div class="ic">
+        <div class="goz">SMMM Staja Giriş · Yeterlilik · KGK · SPK</div>
+        <p class="dev" id="devSayi">30.569</p>
+        <h3>soru. Her birinde yanlışın sebebi yazılı.</h3>
+        <p class="alt">Her gerekçe mevzuattaki maddeye bağlı.</p>
+        <span class="cta">Soru çözmeye başla</span>
+      </div></div>
+    </div></div>
+  </div>
+
+</div>
+
+<div class="ozet"><div class="sar ozet-ic">
+  <b>Seçim</b>
+  <output id="ozetMetin">Henüz işaretlemedin.</output>
+  <button type="button" id="kopyala">Kopyala</button>
+  <button type="button" id="temizle">Temizle</button>
+</div></div>
+
+<script>
+(function(){
+  /* ---- 3 numaranın veri dokusu: gerçek doluluk oranlarından (12.09 ölçümü) ---- */
+  var t3=document.getElementById('dokuTuval');
+  if(t3){
+    var c=t3.getContext('2d');
+    var D=[100,28,24,100,100,100,100,82,23,28,35,48,100,100,30,
+           100,100,100,13,100,100,100,28, 78,71,8,0,0,0,1,0].concat(
+           Array(23).fill(-1)).reverse();
+    function ciz(){
+      var W=t3.clientWidth,H=t3.clientHeight,g=Math.min(devicePixelRatio||1,2);
+      if(!W||!H)return;
+      t3.width=W*g; t3.height=H*g; c.setTransform(g,0,0,g,0,0);
+      c.clearRect(0,0,W,H);
+      var sol=W*0.46, gen=(W-sol)*1.3, n=D.length, adim=gen/n, HC=26;
+      var ar=H*0.9/HC, bx=Math.max(3,Math.min(adim*0.5,8)), by=Math.max(3,Math.min(ar*0.5,7));
+      c.save(); c.translate(sol,0); c.transform(1,0,-0.16,1,0.16*H/2,0);
+      for(var i=0;i<n;i++){
+        var x=adim*i+adim/2, d=D[i], dolu=d<0?0:Math.round(d/100*HC);
+        for(var j=0;j<HC;j++){
+          var y=H*0.99-ar*(j+1)+ar/2, yanik=j<dolu;
+          c.globalAlpha=yanik?(0.44+0.24*(1-j/HC)):(d<0?0.10:0.07);
+          c.fillStyle=yanik?'#e8ad4e':'#63738d';
+          c.fillRect(x-bx/2,y-by/2,bx,by);
+        }
+      }
+      c.restore(); c.globalAlpha=1;
+    }
+    ciz(); window.addEventListener('resize',ciz);
+    /* Canlı doluluk gelirse üzerine yaz. */
+    fetch('../veri/sinav-tek-sayfa.json',{cache:'no-store'})
+      .then(function(y){return y.ok?y.json():null;})
+      .then(function(d){
+        if(d&&d.dersler&&d.dersler.length){
+          D=d.dersler.map(function(r){return +r.doluluk;}).reverse(); ciz();
+        }
+        var oz=(d&&d.sinav_ozet)||[],kasa=0;
+        oz.forEach(function(s){kasa+=+s.kasa||0;});
+        if(kasa>0)document.getElementById('devSayi').textContent=Number(kasa).toLocaleString('tr-TR');
+      }).catch(function(){});
+  }
+
+  /* ---- TUT / ELE ---- */
+  var secim={};
+  function yaz(){
+    var tut=[],ele=[];
+    Object.keys(secim).forEach(function(k){ (secim[k]==='tut'?tut:ele).push(k); });
+    tut.sort(); ele.sort();
+    var m='';
+    if(tut.length) m+='TUT: '+tut.join(', ');
+    if(ele.length) m+=(m?'  ·  ':'')+'ELE: '+ele.join(', ');
+    document.getElementById('ozetMetin').textContent = m || 'Henüz işaretlemedin.';
+  }
+  document.querySelectorAll('.deneme').forEach(function(d){
+    var no=d.getAttribute('data-no');
+    d.querySelectorAll('.oy button').forEach(function(b){
+      b.addEventListener('click',function(){
+        var tip=b.classList.contains('tut')?'tut':'ele';
+        if(secim[no]===tip){ delete secim[no]; }
+        else { secim[no]=tip; }
+        d.querySelectorAll('.oy button').forEach(function(x){x.classList.remove('secili');});
+        if(secim[no])b.classList.add('secili');
+        yaz();
+      });
+    });
+  });
+  document.getElementById('temizle').addEventListener('click',function(){
+    secim={}; document.querySelectorAll('.oy button').forEach(function(x){x.classList.remove('secili');}); yaz();
+  });
+  document.getElementById('kopyala').addEventListener('click',function(){
+    var m=document.getElementById('ozetMetin').textContent;
+    if(navigator.clipboard)navigator.clipboard.writeText(m);
+    var b=this, e=b.textContent; b.textContent='Kopyalandı'; setTimeout(function(){b.textContent=e;},1200);
+  });
+})();
+</script>
+</body>
+</html>
