@@ -1,0 +1,106 @@
+# .github/workflows/yayin-bas.yml — HAVUZU KUR, SAYFALARI BAS, SITEYE IT
+#
+# 12.09.2026, Cem: "ben bilgisayari kapatsam bile etkilenmiyor deme artik"
+#
+# NIYE: olctum ve cevap "hayir"di. Uretim buluta tasinmisti ama YAYIN adimi
+# Cem'in makinesinde kaliyordu:
+#     bulut uretir -> ambara yazar -> (BURADA DURUYOR) -> Cem acar -> siteye cikar
+# Yani bulutta uretilen soru, makine acilana kadar ogrenciye gorunmuyordu.
+# Bu akis o son halkayi da buluta alir. Artik zincirin tamami makineden bagimsiz:
+#     bulut-uretim.yml -> ambar -> yayin-bas.yml -> tetikte.com
+#
+# ⛔ windows-latest, ubuntu DEGIL: motor/kaydir-coz.ps1 ve zinciri ters bolulu
+#    yol kullaniyor ('veri\fabrika\...'); Linux'ta bunlar tek dosya ADI olur.
+#    (Ayni sebep bulut-uretim.yml'de de yazili.)
+#
+# ⛔ BOS COMMIT ATILMAZ: sayfalar degismediyse commit YOK. Depo kuralı - robot
+#    ciktisi her kosuda "degismis" gorunurse kapanis denetimi takilir ve
+#    robotlar bos commit uretir.
+#
+# ⚠ ITME CAKISMASI: robotlar ana tele dakikalar icinde yaziyor. Push reddedilirse
+#   fetch+merge ile 5 kez denenir (motor/oturum.ps1'deki desenin aynisi).
+name: Yayin (havuz kur + sayfa bas + ite)
+
+on:
+  workflow_dispatch:
+    inputs:
+      parti_indir:
+        description: "Parti onbellegini ambardan indir (bulut uretiminden sonra GEREKLI)"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write        # sayfalari depoya itecek
+
+concurrency:
+  group: yayin-bas
+  cancel-in-progress: false
+
+jobs:
+  yayin:
+    runs-on: windows-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # merge icin gecmis gerekli
+
+      - name: Sir yerinde mi
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if(-not "$env:SUPABASE_SERVICE_KEY"){ throw 'SUPABASE_SERVICE_KEY secret yok.' }
+          "sir tamam"
+
+      - name: Parti onbellegini ambardan indir
+        if: ${{ inputs.parti_indir }}
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/parti-senkron.ps1 -Indir -Yaz
+
+      - name: Havuzu kur (yayin sartini saglayan her soru secilir)
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/havuz-kur.ps1 -Yaz
+
+      - name: Sayfalari bas (Kaydir-Coz)
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/sgs-650-bas.ps1
+
+      - name: Degisen varsa ite
+        shell: powershell
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "bildirim@tetikte.com"
+          git add kaydir/sgs veri/sinav/kaydir-secim
+          $degisen = @(git diff --cached --name-only)
+          if(-not $degisen.Count){ "degisiklik yok - commit ATILMADI"; exit 0 }
+          "degisen dosya: $($degisen.Count)"
+          git commit -m "Yayin: havuz tazelendi (bulut kosusu ${{ github.run_number }})"
+          for($i=1; $i -le 5; $i++){
+            git push origin HEAD:main 2>&1 | Out-Null
+            if($LASTEXITCODE -eq 0){ "itildi (deneme $i)"; exit 0 }
+            git fetch origin main -q
+            git merge origin/main --no-edit -q
+            $cakisma = @(git diff --name-only --diff-filter=U)
+            if($cakisma.Count){ throw "itmede cakisma - elle coz: $($cakisma -join ', ')" }
+            Start-Sleep -Seconds 4
+          }
+          throw 'push 5 denemede basarisiz'
+
+      - name: Ozet
+        if: always()
+        shell: powershell
+        run: |
+          $y='veri/sinav/kaydir-secim/sgs-650-secim.json'
+          if(Test-Path $y){
+            $ham=Get-Content $y -Raw -Encoding UTF8|ConvertFrom-Json
+            $s=@($ham)
+            "HAVUZ: $($s.Count) soru"
+          } else { "secim dosyasi yok" }
