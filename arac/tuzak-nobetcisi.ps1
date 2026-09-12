@@ -65,7 +65,19 @@ function K1-DegiskenCakismasi($metin,$ast,$dosya){
   #    gercek cikmisti; ayni hataya dusmeyelim.
   # OLCUT: BUYUK HARFLI sabit, kucuk harfli atamadan SONRA da OKUNUYOR mu?
   #        Okunuyorsa 🔴 ZARARLI (eski deger gitti), okunmuyorsa ⚠ RISKLI.
-  $kullanim=$ast.FindAll({param($x) $x -is [System.Management.Automation.Language.VariableExpressionAst]},$true)
+  # ⛔ 12.09 DARALTILDI (dorduncu kez): ATAMA HEDEFI OKUMA DEGILDIR.
+  #    kaydir-coz.ps1:337 "$KEY=$env:SUPABASE_SERVICE_KEY" satiri, satir 268'deki
+  #    dongu-ici $key yuzunden "ezildi ve HALA OKUNUYOR" diye ZARARLI bildirildi.
+  #    Oysa 337 $KEY'i okumuyor, ATIYOR - eski deger zaten kullanilmayacakti.
+  #    Atamanin SOL tarafindaki degisken dugumleri okuma sayilmaz.
+  $atamaSol=@{}
+  foreach($a in $atama){
+    if($a.Left -is [System.Management.Automation.Language.VariableExpressionAst]){
+      $atamaSol[("{0}:{1}" -f $a.Left.Extent.StartLineNumber,$a.Left.Extent.StartColumnNumber)]=$true
+    }
+  }
+  $kullanim=@($ast.FindAll({param($x) $x -is [System.Management.Automation.Language.VariableExpressionAst]},$true) |
+    Where-Object{ -not $atamaSol.ContainsKey(("{0}:{1}" -f $_.Extent.StartLineNumber,$_.Extent.StartColumnNumber)) })
   foreach($k in $adlar.Keys){
     $l=$adlar[$k].ToArray()
     $yazim=@($l|ForEach-Object{$_.ad}|Select-Object -Unique)
@@ -85,7 +97,15 @@ function K1-DegiskenCakismasi($metin,$ast,$dosya){
     # sabitin ezilmeden SONRAKI okumasi var mi?
     $sonraOkuma=@($kullanim|Where-Object{
       $_.VariablePath.UserPath -ceq $buyuk[0] -and $_.Extent.StartLineNumber -gt $ezenSatir })
-    $agir = $sonraOkuma.Count -gt 0
+    # ⛔ 12.09 (besinci daraltma): SABIT EZILDIKTEN SONRA YENIDEN ATANDIYSA ZARAR YOK.
+    #    kaydir-coz.ps1:337 "$KEY=$env:...; $SBH=@{ apikey=$KEY; ... }" - ayni satirda
+    #    once ATIYOR sonra okuyor. Satir numarasina bakan model bunu ayiramaz ve
+    #    "eski deger GITTI" der; oysa deger tazelenmis. Sabitin ezilme satirindan
+    #    SONRA bir atamasi varsa bulgu RISKLI'ye duser.
+    #    (Tam dogru olcum veri akisi analizi ister; bu arac onu yapmaz ve YAPTIGINI
+    #     IDDIA ETMEZ - suphede YANLIS ALARM URETMEMEYI secer.)
+    $sonraAtama=@($l|Where-Object{ $_.ad -ceq $buyuk[0] -and $_.satir -gt $ezenSatir })
+    $agir = ($sonraOkuma.Count -gt 0) -and ($sonraAtama.Count -eq 0)
     $isaret = if($agir){ '🔴 ZARARLI' } else { '⚠ RISKLI' }
     $not = if($agir){ ("sabit satir {0}'de EZILIYOR ve satir {1}'de HALA OKUNUYOR - eski deger GITTI" -f $ezenSatir,$sonraOkuma[0].Extent.StartLineNumber) }
            else { ("sabit satir {0}'de eziliyor ama sonrasinda OKUNMUYOR - bugun zararsiz, ad yine de degistirilmeli" -f $ezenSatir) }

@@ -354,7 +354,10 @@ function AmbarKaydet(){ if($script:ONB_KIRLI){ [IO.File]::WriteAllText($ONB_YOL,
 $THP=@{}
 function ThpTanim([string]$kod){
   if($THP.ContainsKey($kod)){ return $THP[$kod] }
-  $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString("THP $kod %")+'&limit=1'
+  # ⛔ 12.09: order= YOKTU. 'THP <kod> %' deseni birden cok belgeye uyabilir ve
+#    sirasiz limit=1 onlardan RASTGELE birini alir - ayni hesap kodu icin her
+#    basimda BASKA tanim gelebilirdi, sessizce. Tuzak Nobetcisi yakaladi.
+$u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString("THP $kod %")+'&order=kaynak_ad.asc&limit=1'
   $son=$null
   try{ $g=AmbarGetir $u ("THP|"+$kod); $r=@(); if($g){ $r=@($g) }   # @($null).Count 1 döner - PS 5.1 tuzağı
     if($r.Count){ $ad=("$($r[0].kaynak_ad)" -replace '^THP\s*\d{3}\s*-\s*','').Trim(); $m="$($r[0].metin)" -replace '\s+',' '; $m=$m -replace '^MSUGT.*?Tekduzen Hesap Plani\s*-\s*',''; $m=$m -replace ('^'+$kod+'\s+[^:]{1,80}:\s*',''); $m=($m -replace '\s*\(\d{2}\.\d{2}\s+eklendi[^)]*\)','').Trim(); if($m.Length -gt 340){ $kes=$m.LastIndexOf('. ',340); if($kes -gt 120){ $m=$m.Substring(0,$kes+1) } else { $m=$m.Substring(0,340)+'…' } }; $son=@{ ad=$ad; tanim=$m } } }catch{}
