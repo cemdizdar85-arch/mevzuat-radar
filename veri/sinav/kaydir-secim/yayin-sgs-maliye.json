@@ -1,14 +1,6 @@
 [
     {
-        "etiket":  "sgs-t4-maliye-zor",
-        "id":  "kp-01",
-        "ders":  "Maliye",
-        "konu":  "butce ilkeleri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-maliye-cokzor",
+        "etiket":  "sgs-a6-maliye-zor-r1",
         "id":  "kp-01",
         "ders":  "Maliye",
         "konu":  "butce ilkeleri",
@@ -24,15 +16,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-maliye-zor-r1",
-        "id":  "kp-01",
-        "ders":  "Maliye",
-        "konu":  "butce ilkeleri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-maliye-zor",
+        "etiket":  "sgs-t4-maliye-zor",
         "id":  "kp-01",
         "ders":  "Maliye",
         "konu":  "butce ilkeleri",
@@ -48,7 +32,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliye-kolay-r3",
+        "etiket":  "sgs-t1-genel-maliye-zor",
+        "id":  "kp-01",
+        "ders":  "Maliye",
+        "konu":  "butce ilkeleri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-maliye-cokzor",
+        "id":  "kp-01",
+        "ders":  "Maliye",
+        "konu":  "butce ilkeleri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliye-kolay-r1",
         "id":  "kp-02",
         "ders":  "Maliye",
         "konu":  "butce siniflandirmasi",
@@ -56,7 +56,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliye-kolay-r1",
+        "etiket":  "sgs-p-maliye-kolay-r3",
         "id":  "kp-02",
         "ders":  "Maliye",
         "konu":  "butce siniflandirmasi",
@@ -80,14 +80,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-maliye-zor-r1",
-        "id":  "kp-03",
-        "ders":  "Maliye",
-        "konu":  "kamu harcamalari siniflandirma",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-02",
         "ders":  "Maliye",
@@ -96,8 +88,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gk-pilot2-maliye-kolay",
-        "id":  "kp-01",
+        "etiket":  "sgs-a6-maliye-zor-r1",
+        "id":  "kp-03",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma",
         "donem":  3,
@@ -105,6 +97,14 @@
     },
     {
         "etiket":  "sgs-gk-pilot2-maliye-zor",
+        "id":  "kp-01",
+        "ders":  "Maliye",
+        "konu":  "kamu harcamalari siniflandirma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gk-pilot2-maliye-kolay",
         "id":  "kp-01",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma",
@@ -160,14 +160,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-cokzor",
-        "id":  "kp-05",
-        "ders":  "Maliye",
-        "konu":  "kamu gelirleri turleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-05",
         "ders":  "Maliye",
@@ -185,6 +177,14 @@
     },
     {
         "etiket":  "sgs-t1-genel-maliye-cokzor",
+        "id":  "kp-05",
+        "ders":  "Maliye",
+        "konu":  "kamu gelirleri turleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-04",
         "ders":  "Maliye",
         "konu":  "operasyonel acik",
@@ -192,7 +192,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-kolay",
+        "etiket":  "sgs-t1-genel-maliye-cokzor",
         "id":  "kp-04",
         "ders":  "Maliye",
         "konu":  "operasyonel acik",
@@ -208,6 +208,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-bc-maliye-cokzor-r2",
+        "id":  "kp-02",
+        "ders":  "Maliye",
+        "konu":  "otomatik istikrarlandiricilar",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliye-zor-r2",
         "id":  "kp-03",
         "ders":  "Maliye",
@@ -216,10 +224,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-bc-maliye-cokzor-r1",
+        "id":  "kp-02",
         "ders":  "Maliye",
-        "konu":  "parafiskal gelir",
+        "konu":  "otomatik istikrarlandiricilar",
         "donem":  2,
         "kurtarma":  false
     },
@@ -240,10 +248,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-maliye-cokzor-r1",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-genel-maliye-zor",
+        "id":  "kp-03",
         "ders":  "Maliye",
-        "konu":  "parafiskal gelirler",
+        "konu":  "parafiskal gelir",
         "donem":  2,
         "kurtarma":  false
     },
@@ -256,16 +264,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliye-kolay-r2-a",
-        "id":  "kp-03",
+        "etiket":  "sgs-a6-maliye-cokzor-r1",
+        "id":  "kp-09",
         "ders":  "Maliye",
-        "konu":  "vergi yansimasi",
+        "konu":  "parafiskal gelirler",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-c2-maliye-zor-r1",
         "id":  "kp-01",
+        "ders":  "Maliye",
+        "konu":  "vergi yansimasi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliye-kolay-r2-a",
+        "id":  "kp-03",
         "ders":  "Maliye",
         "konu":  "vergi yansimasi",
         "donem":  2,
@@ -328,6 +344,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-maliye-zor",
+        "id":  "kp-12",
+        "ders":  "Maliye",
+        "konu":  "butce hazirlama sureci",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-maliye-cokzor",
         "id":  "kp-12",
         "ders":  "Maliye",
@@ -344,10 +368,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-zor",
-        "id":  "kp-12",
+        "etiket":  "sgs-t4-maliye-cokzor",
+        "id":  "kp-17",
         "ders":  "Maliye",
-        "konu":  "butce hazirlama sureci",
+        "konu":  "dolayli vergiler ozellikleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -370,14 +394,6 @@
     {
         "etiket":  "sgs-t1-genel-maliye-cokzor",
         "id":  "kp-22",
-        "ders":  "Maliye",
-        "konu":  "dolayli vergiler ozellikleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-maliye-cokzor",
-        "id":  "kp-17",
         "ders":  "Maliye",
         "konu":  "dolayli vergiler ozellikleri",
         "donem":  1,
@@ -392,6 +408,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-maliye-cokzor",
+        "id":  "kp-08",
+        "ders":  "Maliye",
+        "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-maliye-cokzor",
         "id":  "kp-05",
         "ders":  "Maliye",
@@ -400,8 +424,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-kolay",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-genel-maliye-zor",
+        "id":  "kp-08",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
         "donem":  1,
@@ -416,16 +440,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-cokzor",
-        "id":  "kp-08",
-        "ders":  "Maliye",
-        "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-maliye-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-t4-maliye-kolay",
+        "id":  "kp-05",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
         "donem":  1,
@@ -456,22 +472,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-zor",
-        "id":  "kp-03",
-        "ders":  "Maliye",
-        "konu":  "mali uyum kalitesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-maliye-kolay",
-        "id":  "kp-03",
-        "ders":  "Maliye",
-        "konu":  "mali uyum kalitesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-maliye-zor",
         "id":  "kp-07",
         "ders":  "Maliye",
@@ -480,8 +480,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-maliye-zor",
+        "id":  "kp-03",
+        "ders":  "Maliye",
+        "konu":  "mali uyum kalitesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-07",
+        "ders":  "Maliye",
+        "konu":  "mali uyum kalitesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-maliye-kolay",
+        "id":  "kp-03",
         "ders":  "Maliye",
         "konu":  "mali uyum kalitesi",
         "donem":  1,
@@ -496,14 +512,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-zor",
-        "id":  "kp-10",
-        "ders":  "Maliye",
-        "konu":  "transfer harcamalari siniflandirma",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-10",
         "ders":  "Maliye",
@@ -520,7 +528,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-cokzor",
+        "etiket":  "sgs-t1-genel-maliye-zor",
+        "id":  "kp-10",
+        "ders":  "Maliye",
+        "konu":  "transfer harcamalari siniflandirma",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-maliye-zor",
         "id":  "kp-06",
         "ders":  "Maliye",
         "konu":  "vergi ozellikleri",
@@ -528,7 +544,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-zor",
+        "etiket":  "sgs-t4-maliye-cokzor",
         "id":  "kp-06",
         "ders":  "Maliye",
         "konu":  "vergi ozellikleri",
