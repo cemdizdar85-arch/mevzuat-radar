@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tetikte — TERMİNAL yönü (kurumsal tasarım denemesi)</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- =====================================================================
+     TERMİNAL — kurumsal tasarım yönü 2/3 · 12.09.2026
+     Eksen: Bloomberg / S&P Global / Moody's veri terminali.
+     Karar dili: koyu grafit · ince ızgara · monospace rakam · büyük harf
+     mikro etiket · vurgu SADECE durum işareti (amber/yeşil) · hitap nötr.
+     ⚠ Bu yön Kaydır-Çöz'ün AÇIK TEMA kararıyla çelişir; koyu tema yalnız
+       ana sayfada kalır, soru ekranı açık kalmaya devam eder.
+     Canlı veri index.html ile aynı kuraldan okunur.
+     ===================================================================== -->
+<style>
+  :root{
+    --taban:#0b0e13;
+    --yuzey:#111620;
+    --yuzey2:#161c28;
+    --cizgi:#1f2733;
+    --cizgi-parlak:#2b3646;
+    --ink:#e8ecf2;
+    --govde:#aab5c4;
+    --sonuk:#6f7c8d;
+    --amber:#e2a641;     /* tek vurgu: nöbet işareti */
+    --yesil:#4fbf8b;
+    --sans:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--taban);color:var(--govde);
+       font-family:var(--sans);font-size:14.5px;line-height:1.65;
+       -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .sarmal{max-width:1200px;margin:0 auto;padding:0 30px}
+  .etiket{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+          text-transform:uppercase;color:var(--sonuk)}
+
+  /* ---- ÜST BAR ---- */
+  .ust{border-bottom:1px solid var(--cizgi);background:var(--yuzey)}
+  .ust-ic{display:flex;align-items:center;gap:34px;height:60px}
+  .marka{font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--ink);
+         text-decoration:none;display:flex;align-items:center;gap:9px}
+  .marka i{width:8px;height:8px;background:var(--amber);border-radius:50%;
+           box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 18%,transparent)}
+  .ust nav{display:flex;gap:2px;margin-left:auto}
+  .ust nav a{text-decoration:none;color:var(--govde);font-size:13.5px;
+             padding:7px 13px;border-radius:4px}
+  .ust nav a:hover{color:var(--ink);background:var(--yuzey2)}
+  .giris{font-size:13.5px;color:var(--sonuk);text-decoration:none;margin-left:14px}
+  .giris:hover{color:var(--ink)}
+  .dugme{background:var(--ink);color:var(--taban);text-decoration:none;
+         font-size:13.5px;font-weight:650;padding:9px 16px;border-radius:4px}
+  .dugme:hover{background:#fff}
+
+  /* ---- DURUM ŞERİDİ: terminal başlığı ---- */
+  .serit{border-bottom:1px solid var(--cizgi);background:var(--taban)}
+  .serit-ic{display:flex;align-items:center;gap:26px;height:36px;
+            font-family:var(--mono);font-size:11.5px;color:var(--sonuk);
+            overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  .serit-ic::-webkit-scrollbar{display:none}
+  .serit b{color:var(--govde);font-weight:500}
+  .serit .ok{color:var(--yesil)}
+  .nabiz{width:6px;height:6px;border-radius:50%;background:var(--yesil);
+         display:inline-block;margin-right:7px}
+
+  /* ---- HERO ---- */
+  .hero{padding:68px 0 56px;position:relative;
+        background:
+          linear-gradient(to right,var(--cizgi) 1px,transparent 1px) 0 0/96px 100%,
+          linear-gradient(to bottom,var(--cizgi) 1px,transparent 1px) 0 0/100% 96px,
+          var(--taban);
+        background-blend-mode:normal}
+  .hero:after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 80% at 12% 0%,transparent 30%,var(--taban) 78%)}
+  .hero-ic{position:relative;z-index:1;display:grid;
+           grid-template-columns:1.05fr .95fr;gap:64px;align-items:start}
+  h1{font-size:42px;line-height:1.14;letter-spacing:-.028em;color:var(--ink);
+     font-weight:700;margin:18px 0 20px}
+  .spot{font-size:16px;line-height:1.72;margin:0 0 30px;max-width:36em}
+  .spot b{color:var(--ink);font-weight:600}
+  .eylem{display:flex;align-items:center;gap:22px;margin-bottom:12px}
+  .dugme-b{background:var(--amber);color:#1a1205;text-decoration:none;
+           font-size:15px;font-weight:700;padding:13px 24px;border-radius:5px}
+  .dugme-b:hover{filter:brightness(1.08)}
+  .ikincil{font-size:14.5px;color:var(--govde);text-decoration:none;
+           border-bottom:1px solid var(--cizgi-parlak);padding-bottom:2px}
+  .ikincil:hover{color:var(--ink)}
+  .bedava{font-size:13px;color:var(--sonuk);margin:0 0 34px}
+  .kunye{border-top:1px solid var(--cizgi);padding-top:16px;max-width:34em}
+  .kunye-l{font-family:var(--mono);font-size:12px;color:var(--sonuk);
+           line-height:2;margin-top:8px}
+  .kunye-l s{text-decoration:none;color:var(--govde)}
+
+  /* ---- NÖBET DEFTERİ: kütük görünümü ---- */
+  .defter{background:var(--yuzey);border:1px solid var(--cizgi);border-radius:6px;
+          overflow:hidden}
+  .defter-ust{display:flex;align-items:center;justify-content:space-between;
+              padding:12px 18px;border-bottom:1px solid var(--cizgi);
+              background:var(--yuzey2);font-family:var(--mono);font-size:11.5px;
+              letter-spacing:.1em;text-transform:uppercase}
+  .defter-ust b{color:var(--ink);font-weight:600}
+  .defter-ust span{color:var(--sonuk)}
+  .sat{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:baseline;
+       padding:15px 18px;border-bottom:1px solid var(--cizgi);text-decoration:none}
+  .sat:last-of-type{border-bottom:0}
+  .sat:hover{background:var(--yuzey2)}
+  .sat b{display:block;font-size:14.5px;color:var(--ink);font-weight:600}
+  .sat small{display:block;font-size:12.5px;color:var(--sonuk);margin-top:2px}
+  /* Rakamların HEPSİ amber olursa vurgu vurgu olmaktan çıkar - bugünkü ana
+     sayfanın kusuru buydu. Amber yalnız ZAMAN BASKISI taşıyan satırda
+     (geri sayım) kalır; sayım satırları mürekkep renginde. */
+  .sat-n{font-family:var(--mono);font-size:19px;color:var(--ink);font-weight:600;
+         white-space:nowrap;font-variant-numeric:tabular-nums}
+  .sat-n.uyar{color:var(--amber)}
+  .sat-n em{font-style:normal;font-size:11px;color:var(--sonuk);margin-left:5px;
+            letter-spacing:.06em;text-transform:uppercase}
+  .defter-dip{padding:11px 18px;font-family:var(--mono);font-size:11.5px;
+              color:var(--sonuk);background:var(--yuzey2);border-top:1px solid var(--cizgi)}
+  .bayat{color:var(--amber)}
+
+  /* ---- KANIT ---- */
+  .kanit{border-top:1px solid var(--cizgi);border-bottom:1px solid var(--cizgi);
+         background:var(--yuzey)}
+  .kanit-ic{display:grid;grid-template-columns:repeat(4,1fr)}
+  .kn{padding:28px 26px;text-decoration:none;border-right:1px solid var(--cizgi);display:block}
+  .kn:last-child{border-right:0}
+  .kn:hover{background:var(--yuzey2)}
+  .kn b{display:block;font-family:var(--mono);font-size:30px;color:var(--ink);
+        font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .kn span{display:block;font-size:12.5px;color:var(--sonuk);margin-top:9px;line-height:1.55}
+  .kanit-not{padding:12px 26px;border-top:1px solid var(--cizgi);
+             font-family:var(--mono);font-size:11px;color:var(--sonuk);text-align:right}
+
+  /* ---- İKİ KAPI ---- */
+  .kapilar{padding:52px 0 66px}
+  .kapi-ic{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
+  .kapi{background:var(--yuzey);border:1px solid var(--cizgi);border-radius:6px;
+        padding:26px;text-decoration:none;display:block}
+  .kapi:hover{border-color:var(--cizgi-parlak);background:var(--yuzey2)}
+  .kapi h3{font-size:19px;color:var(--ink);margin:10px 0 9px;font-weight:650;
+           letter-spacing:-.015em}
+  .kapi p{font-size:14px;margin:0 0 14px;line-height:1.65}
+  .kapi u{text-decoration:none;font-size:13.5px;color:var(--amber);font-weight:600}
+
+  .dip{border-top:1px solid var(--cizgi);padding:26px 0;font-family:var(--mono);
+       font-size:11.5px;color:var(--sonuk)}
+  .dip-ic{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+  .not{position:fixed;left:16px;bottom:16px;background:var(--ink);color:var(--taban);
+       font-size:12px;padding:8px 14px;border-radius:4px;z-index:9;
+       text-decoration:none;font-weight:600}
+
+  @media(max-width:900px){
+    .sarmal{padding:0 18px}
+    .hero-ic,.kapi-ic{grid-template-columns:1fr;gap:40px}
+    .kanit-ic{grid-template-columns:1fr 1fr}
+    .kn:nth-child(2){border-right:0}
+    .kn:nth-child(1),.kn:nth-child(2){border-bottom:1px solid var(--cizgi)}
+    h1{font-size:32px}
+    .ust nav{display:none}
+    .hero{padding:44px 0 36px}
+  }
+</style>
+</head>
+<body>
+
+<header class="ust"><div class="sarmal ust-ic">
+  <a class="marka" href="#"><i></i>tetikte</a>
+  <nav>
+    <a href="#">Sınavlar</a><a href="#">Radarlar</a><a href="#">Araçlar</a><a href="#">Abonelik</a>
+  </nav>
+  <a class="giris" href="#">Giriş</a>
+  <a class="dugme" href="#">Ücretsiz başla</a>
+</div></header>
+
+<div class="serit"><div class="sarmal serit-ic">
+  <span><i class="nabiz"></i><span class="ok">NÖBET AÇIK</span></span>
+  <span>SON KOŞU <b id="srKosu">12.09.2026 09:20</b></span>
+  <span>RG <b id="srRg">1</b></span>
+  <span>EKAP <b id="srIhale">250</b></span>
+  <span>SGS T-<b id="srSgs">70</b></span>
+  <span>YET T-<b id="srYet">77</b></span>
+</div></div>
+
+<section class="hero"><div class="sarmal hero-ic">
+  <div>
+    <div class="etiket">SMMM STAJA GİRİŞ · YETERLİLİK · KGK BAĞIMSIZ DENETÇİ · SPK LİSANSLAMA</div>
+    <h1>Mevzuat her gün değişiyor.<br>Değişeni okuyan bir nöbet var.</h1>
+    <p class="spot">Resmî Gazete, EKAP, marka bülteni ve sınav takvimi her sabah taranır;
+      <b>seni bağlayan kısım madde numarasıyla ayrılır</b>. Sınav tarafında her şıkkın
+      gerekçesi, gerekçenin dayandığı hüküm künyesiyle birlikte açılır.</p>
+    <div class="eylem">
+      <a class="dugme-b" href="#">Soru çözmeye başla</a>
+      <a class="ikincil" href="#">Nasıl çalışır →</a>
+    </div>
+    <p class="bedava">Üyelik gerekmez · soru çözmek ve yükümlülükleri görmek ücretsiz</p>
+    <div class="kunye">
+      <div class="etiket">Okunan kaynaklar</div>
+      <div class="kunye-l">
+        <s>Resmî Gazete</s> / <s>TÜRMOB sınav takvimi</s> / <s>KGK denetim standartları</s> /<br>
+        <s>SPK mevzuatı</s> / <s>EKAP ihale ilanları</s> / <s>Marka bülteni</s> / <s>Gümrük Tarife Cetveli</s>
+      </div>
+    </div>
+  </div>
+
+  <div class="defter">
+    <div class="defter-ust">
+      <b><span id="ndNeZaman">Son koşu</span> · nöbet tutuldu</b>
+      <span id="ndTarih">12.09.2026</span>
+    </div>
+    <a class="sat" href="#">
+      <span><b>Resmî Gazete okundu</b><small>Seni bağlayan değişiklikler, madde numarasıyla</small></span>
+      <span class="sat-n" id="ndRg">1<em>değişiklik</em></span></a>
+    <a class="sat" href="#">
+      <span><b>İhale ilanları süzüldü</b><small>Sektörüne uyanlar ayrıldı, gerisi elendi</small></span>
+      <span class="sat-n" id="ndIhale">250<em>ilan</em></span></a>
+    <a class="sat" href="#">
+      <span><b>Staja Giriş sınavı</b><small>Başvuru penceresi 21 Eylül'de açılıyor</small></span>
+      <span class="sat-n uyar" id="ndSgs">70<em>gün</em></span></a>
+    <a class="sat" href="#">
+      <span><b>Yeterlilik sınavı</b><small>Canlı deneme 27.09 · kayıt açık</small></span>
+      <span class="sat-n uyar" id="ndYet">77<em>gün</em></span></a>
+    <div class="defter-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+  </div>
+</div></section>
+
+<section class="kanit"><div class="sarmal" style="padding:0">
+  <div class="kanit-ic">
+    <a class="kn" href="#"><b id="knKasa">30.569</b><span>soru üretildi · her şık gerekçeli</span></a>
+    <a class="kn" href="#"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
+    <a class="kn" href="#"><b id="knDers">31</b><span>ders · SGS, Yeterlilik, KGK, SPK</span></a>
+    <a class="kn" href="#"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
+  </div>
+  <div class="kanit-not">SAYILAR ROBOT ÖLÇÜMÜNDEN · SON ÖLÇÜM <span id="knTarih">12.09.2026</span></div>
+</div></section>
+
+<section class="kapilar"><div class="sarmal">
+  <div class="etiket">Nereden girilir</div>
+  <div class="kapi-ic">
+    <a class="kapi" href="#">
+      <div class="etiket">01 · SINAV</div>
+      <h3>Sınava hazırlanıyorum</h3>
+      <p>SMMM Staja Giriş, Yeterlilik, KGK bağımsız denetçilik ve SPK lisanslama.
+         Kaydır-Çöz düzeninde soru, altında kaynağa bağlı çözüm.</p>
+      <u>Soru havuzuna gir →</u>
+    </a>
+    <a class="kapi" href="#">
+      <div class="etiket">02 · NÖBET</div>
+      <h3>İş başındayım</h3>
+      <p>Büro, şirket ve mükellef nöbeti: süre bekçisi, ceza asistanı, marka izleme,
+         alacak radarı, ihale radarı ve mevzuat kartları.</p>
+      <u>Nöbet defterini aç →</u>
+    </a>
+  </div>
+</div></section>
+
+<footer class="dip"><div class="sarmal dip-ic">
+  <span>© 2026 TETİKTE · MEVZUAT VE SINAV NÖBETİ</span>
+  <span>KAYNAK KÜNYESİ HER KARTTA GÖSTERİLİR</span>
+</div></footer>
+
+<a class="not" href="kurumsal.html">← üç yönü karşılaştır</a>
+
+<script>
+/* CANLI VERİ — index.html ile AYNI kural. */
+(function(){
+  var SINAVLAR=[{id:'ndSgs',serit:'srSgs',tarih:'2026-11-21'},
+                {id:'ndYet',serit:'srYet',tarih:'2026-11-28'}];
+  function gunFarki(h){var b=new Date(),t=new Date(h+'T00:00:00');b.setHours(0,0,0,0);
+    return Math.round((t-b)/86400000);}
+  function sayiYaz(el,d,b){if(el)el.innerHTML=d+'<em>'+b+'</em>';}
+  SINAVLAR.forEach(function(s){
+    var g=gunFarki(s.tarih), e=document.getElementById(s.id), sr=document.getElementById(s.serit);
+    if(e) sayiYaz(e, g>0?g:'—', g>0?'gün':(g===0?'bugün':'geçti'));
+    if(sr) sr.textContent = g>0?g:(g===0?'0':'—');
+  });
+
+  fetch('../veri/uyari-ozet.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return; var v=d.veri||{};
+      if(typeof v.rg_karti==='number'){
+        sayiYaz(document.getElementById('ndRg'),v.rg_karti,'değişiklik');
+        document.getElementById('srRg').textContent=v.rg_karti;}
+      if(typeof v.ihale_ilani==='number'){
+        sayiYaz(document.getElementById('ndIhale'),v.ihale_ilani,'ilan');
+        document.getElementById('srIhale').textContent=v.ihale_ilani;}
+      if(d.tarih)document.getElementById('srKosu').textContent=d.tarih;
+      var p=String(d.tarih||'').split(' ');
+      if(p[0])document.getElementById('ndTarih').textContent=p[0];
+      var g=p[0]?p[0].split('.'):null;
+      if(g&&g.length===3){
+        var sa=(p[1]||'00:00').split(':');
+        var kosu=new Date(+g[2],+g[1]-1,+g[0],+sa[0]||0,+sa[1]||0);
+        var saatFark=(new Date()-kosu)/3600000;
+        var gunBas=new Date();gunBas.setHours(0,0,0,0);
+        var gunFark=Math.round((gunBas-new Date(+g[2],+g[1]-1,+g[0]))/86400000);
+        var et=document.getElementById('ndNeZaman');
+        if(et)et.textContent=gunFark===0?(kosu.getHours()<5?'Bu gece':kosu.getHours()<12?'Bu sabah':'Bugün')
+                            :gunFark===1?'Dün':p[0];
+        if(saatFark>=30){var dip=document.getElementById('ndDip');
+          dip.textContent='Son robot koşusu '+p[0]+' '+(p[1]||'')+' — '+gunFark+' gün önce.';
+          dip.className='defter-dip bayat';}
+      }
+    }).catch(function(){});
+
+  var tr=function(n){return Number(n).toLocaleString('tr-TR');};
+  fetch('../veri/sinav-tek-sayfa.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return; var oz=d.sinav_ozet||[],kasa=0,ders=0;
+      oz.forEach(function(s){kasa+=+s.kasa||0;ders+=+s.ders||0;});
+      if(kasa>0)document.getElementById('knKasa').textContent=tr(kasa);
+      if(ders>0)document.getElementById('knDers').textContent=ders;
+      var ar=(d.cikmis&&d.cikmis.arsiv)||[],cik=0;
+      ar.forEach(function(a){cik+=+a.soru||0;});
+      if(cik>0)document.getElementById('knCikmis').textContent=tr(cik);
+      var o=String(d.olcum||'').split(' ')[0];
+      if(o)document.getElementById('knTarih').textContent=o;
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>

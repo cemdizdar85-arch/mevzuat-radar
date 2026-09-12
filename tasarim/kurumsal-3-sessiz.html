@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tetikte — SESSİZ yönü (kurumsal tasarım denemesi)</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- =====================================================================
+     SESSİZ — kurumsal tasarım yönü 3/3 · 12.09.2026
+     Eksen: Stripe / Linear / Mercury.
+     Karar dili: beyaz · çok boşluk · küçük punto · gölge yok, tek kılçık
+     çerçeve · TEK accent (lacivert) yalnız bağlantı ve birincil düğmede ·
+     hitap "sen" (mevcut markanın dili korunur).
+     Canlı veri index.html ile aynı kuraldan okunur.
+     ===================================================================== -->
+<style>
+  :root{
+    --taban:#ffffff;
+    --yuzey:#fafafa;
+    --ink:#0f1115;
+    --govde:#4a5160;
+    --sonuk:#8a919e;
+    --cizgi:#eceef1;
+    --cizgi-koyu:#dcdfe4;
+    --accent:#2a4ec4;
+    --accent-zemin:#f1f4fd;
+    --yesil:#12855f;
+    --sans:-apple-system,"Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--taban);color:var(--govde);
+       font-family:var(--sans);font-size:15px;line-height:1.68;
+       -webkit-font-smoothing:antialiased;letter-spacing:-.002em}
+  a{color:inherit}
+  .sarmal{max-width:1120px;margin:0 auto;padding:0 32px}
+
+  /* ---- ÜST BAR ---- */
+  .ust{border-bottom:1px solid var(--cizgi);position:sticky;top:0;z-index:5;
+       background:color-mix(in srgb,var(--taban) 88%,transparent);
+       backdrop-filter:saturate(180%) blur(12px)}
+  .ust-ic{display:flex;align-items:center;gap:32px;height:64px}
+  .marka{font-size:18px;font-weight:700;letter-spacing:-.03em;color:var(--ink);
+         text-decoration:none;display:flex;align-items:center;gap:8px}
+  .marka i{width:9px;height:9px;border-radius:50%;background:var(--ink)}
+  .ust nav{display:flex;gap:26px;margin-left:auto;font-size:14px}
+  .ust nav a{text-decoration:none;color:var(--govde)}
+  .ust nav a:hover{color:var(--ink)}
+  .giris{font-size:14px;color:var(--govde);text-decoration:none}
+  .giris:hover{color:var(--ink)}
+  .dugme{background:var(--ink);color:#fff;text-decoration:none;font-size:14px;
+         font-weight:600;padding:9px 15px;border-radius:7px;letter-spacing:-.01em}
+  .dugme:hover{background:var(--accent)}
+
+  /* ---- HERO: ortalanmış, çok boşluk ---- */
+  .hero{padding:96px 0 72px;text-align:center}
+  .rozet{display:inline-flex;align-items:center;gap:8px;font-size:13px;
+         color:var(--govde);background:var(--yuzey);border:1px solid var(--cizgi);
+         padding:6px 14px;border-radius:99px;margin-bottom:30px}
+  .rozet i{width:6px;height:6px;border-radius:50%;background:var(--yesil)}
+  .rozet b{color:var(--ink);font-weight:600}
+  h1{font-size:52px;line-height:1.1;letter-spacing:-.035em;color:var(--ink);
+     font-weight:680;margin:0 auto 22px;max-width:15em}
+  .spot{font-size:18px;line-height:1.62;margin:0 auto 34px;max-width:34em;
+        color:var(--govde)}
+  .eylem{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:16px}
+  .dugme-b{background:var(--ink);color:#fff;text-decoration:none;font-size:15px;
+           font-weight:600;padding:13px 24px;border-radius:8px;letter-spacing:-.01em}
+  .dugme-b:hover{background:var(--accent)}
+  .dugme-i{background:var(--taban);color:var(--ink);text-decoration:none;font-size:15px;
+           font-weight:600;padding:12px 22px;border-radius:8px;
+           border:1px solid var(--cizgi-koyu);letter-spacing:-.01em}
+  .dugme-i:hover{background:var(--yuzey)}
+  .bedava{font-size:13.5px;color:var(--sonuk);margin:0}
+  .bedava a{color:var(--accent);text-decoration:none}
+  .bedava a:hover{text-decoration:underline}
+
+  /* ---- ÜRÜN PENCERESİ: nöbet defteri, ortada ---- */
+  .pencere{max-width:840px;margin:56px auto 0;border:1px solid var(--cizgi);
+           border-radius:14px;overflow:hidden;background:var(--taban);text-align:left}
+  .pencere-ust{display:flex;align-items:center;justify-content:space-between;
+               padding:14px 20px;border-bottom:1px solid var(--cizgi);
+               background:var(--yuzey)}
+  .pencere-ust b{font-size:13.5px;color:var(--ink);font-weight:600;
+                 display:flex;align-items:center;gap:9px}
+  .pencere-ust b i{width:7px;height:7px;border-radius:50%;background:var(--yesil)}
+  .pencere-ust span{font-size:12.5px;color:var(--sonuk);font-variant-numeric:tabular-nums}
+  .sat{display:flex;align-items:center;gap:18px;padding:17px 20px;
+       border-bottom:1px solid var(--cizgi);text-decoration:none}
+  .sat:last-of-type{border-bottom:0}
+  .sat:hover{background:var(--yuzey)}
+  .sat-m{flex:1;min-width:0}
+  .sat-m b{display:block;font-size:14.5px;color:var(--ink);font-weight:600;letter-spacing:-.012em}
+  .sat-m small{display:block;font-size:13px;color:var(--sonuk);margin-top:1px}
+  .sat-n{font-size:15px;color:var(--ink);font-weight:650;white-space:nowrap;
+         font-variant-numeric:tabular-nums;letter-spacing:-.015em}
+  .sat-n em{font-style:normal;font-weight:400;color:var(--sonuk);margin-left:4px;font-size:13.5px}
+  .pencere-dip{padding:13px 20px;font-size:12.5px;color:var(--sonuk);
+               background:var(--yuzey);border-top:1px solid var(--cizgi)}
+  .bayat{color:var(--accent)}
+
+  /* ---- KÜNYE ---- */
+  .kunye{padding:60px 0;text-align:center;border-bottom:1px solid var(--cizgi)}
+  .kunye-et{font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+            color:var(--sonuk);font-weight:600;margin-bottom:18px}
+  .kunye-l{font-size:15px;color:var(--govde);max-width:56em;margin:0 auto;line-height:2}
+  .kunye-l b{color:var(--ink);font-weight:600}
+
+  /* ---- KANIT ---- */
+  .kanit{padding:60px 0;border-bottom:1px solid var(--cizgi)}
+  .kanit-ic{display:grid;grid-template-columns:repeat(4,1fr);gap:44px}
+  .kn{text-decoration:none;display:block}
+  .kn b{display:block;font-size:34px;color:var(--ink);font-weight:680;
+        letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+  .kn span{display:block;font-size:13.5px;color:var(--sonuk);margin-top:9px;line-height:1.55}
+  .kn:hover b{color:var(--accent)}
+  .kanit-not{font-size:12.5px;color:var(--sonuk);margin-top:34px}
+
+  /* ---- İKİ KAPI ---- */
+  .kapilar{padding:64px 0 88px}
+  .kapi-ic{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .kapi{border:1px solid var(--cizgi);border-radius:12px;padding:30px;
+        text-decoration:none;display:block;background:var(--taban)}
+  .kapi:hover{border-color:var(--cizgi-koyu);background:var(--yuzey)}
+  .kapi h3{font-size:20px;color:var(--ink);margin:0 0 10px;font-weight:650;letter-spacing:-.022em}
+  .kapi p{font-size:14.5px;margin:0 0 16px;line-height:1.65}
+  .kapi u{text-decoration:none;font-size:14px;color:var(--accent);font-weight:600}
+  .kapi:hover u{text-decoration:underline}
+
+  .dip{border-top:1px solid var(--cizgi);padding:30px 0;font-size:13px;color:var(--sonuk)}
+  .dip-ic{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+  .not{position:fixed;left:16px;bottom:16px;background:var(--ink);color:#fff;
+       font-size:12px;padding:8px 14px;border-radius:7px;z-index:9;
+       text-decoration:none;font-weight:600}
+
+  @media(max-width:900px){
+    .sarmal{padding:0 20px}
+    .hero{padding:56px 0 44px}
+    h1{font-size:34px}
+    .spot{font-size:16px}
+    .kanit-ic{grid-template-columns:1fr 1fr;gap:32px}
+    .kapi-ic{grid-template-columns:1fr}
+    .ust nav{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="ust"><div class="sarmal ust-ic">
+  <a class="marka" href="#"><i></i>Tetikte</a>
+  <nav><a href="#">Sınavlar</a><a href="#">Radarlar</a><a href="#">Araçlar</a><a href="#">Abonelik</a></nav>
+  <a class="giris" href="#">Giriş</a>
+  <a class="dugme" href="#">Ücretsiz başla</a>
+</div></header>
+
+<section class="hero"><div class="sarmal">
+  <div class="rozet"><i></i><span id="rozetMetin">Nöbet açık · son koşu <b id="rzKosu">bu sabah 09:20</b></span></div>
+  <h1>Yanlışını, sebebiyle birlikte öğren.</h1>
+  <p class="spot">Her soru gerçek sınav kalıbında. Her şıkkın gerekçesi var, her gerekçe
+    mevzuattaki maddeye bağlı. Yanlış şıkkı seçtiğinde tuzağın adını ve doğrusunu
+    yan yana görürsün.</p>
+  <div class="eylem">
+    <a class="dugme-b" href="#">Soru çözmeye başla</a>
+    <a class="dugme-i" href="#">İş başındayım</a>
+  </div>
+  <p class="bedava">Üye olmadan başlarsın. <a href="#">Nasıl çalışır →</a></p>
+
+  <div class="pencere">
+    <div class="pencere-ust">
+      <b><i></i><span id="ndNeZaman">Son koşu</span> · nöbet tutuldu</b>
+      <span id="ndTarih">12.09.2026</span>
+    </div>
+    <a class="sat" href="#">
+      <span class="sat-m"><b>Resmî Gazete okundu</b>
+        <small>Seni bağlayan değişiklikler, madde numarasıyla</small></span>
+      <span class="sat-n" id="ndRg">1<em>değişiklik</em></span></a>
+    <a class="sat" href="#">
+      <span class="sat-m"><b>İhale ilanları süzüldü</b>
+        <small>Sektörüne uyanlar ayrıldı, gerisi elendi</small></span>
+      <span class="sat-n" id="ndIhale">250<em>ilan</em></span></a>
+    <a class="sat" href="#">
+      <span class="sat-m"><b>Staja Giriş sınavı</b>
+        <small>Başvuru penceresi 21 Eylül'de açılıyor</small></span>
+      <span class="sat-n" id="ndSgs">70<em>gün</em></span></a>
+    <a class="sat" href="#">
+      <span class="sat-m"><b>Yeterlilik sınavı</b>
+        <small>Canlı deneme 27.09 · kayıt açık</small></span>
+      <span class="sat-n" id="ndYet">77<em>gün</em></span></a>
+    <div class="pencere-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+  </div>
+</div></section>
+
+<section class="kunye"><div class="sarmal">
+  <div class="kunye-et">Okunan kaynaklar</div>
+  <div class="kunye-l"><b>Resmî Gazete</b> · <b>TÜRMOB</b> sınav takvimi · <b>KGK</b> denetim standartları ·
+    <b>SPK</b> mevzuatı · <b>EKAP</b> ihale ilanları · <b>TÜRKPATENT</b> marka bülteni ·
+    <b>Gümrük Tarife Cetveli</b></div>
+</div></section>
+
+<section class="kanit"><div class="sarmal">
+  <div class="kanit-ic">
+    <a class="kn" href="#"><b id="knKasa">30.569</b><span>soru üretildi · her şık gerekçeli</span></a>
+    <a class="kn" href="#"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
+    <a class="kn" href="#"><b id="knDers">31 ders</b><span>SGS · Yeterlilik · Bağımsız denetçilik · SPK</span></a>
+    <a class="kn" href="#"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
+  </div>
+  <div class="kanit-not">Sayılar robot ölçümünden gelir · son ölçüm <span id="knTarih">12.09.2026</span></div>
+</div></section>
+
+<section class="kapilar"><div class="sarmal">
+  <div class="kapi-ic">
+    <a class="kapi" href="#">
+      <h3>Sınava hazırlanıyorum</h3>
+      <p>SMMM Staja Giriş, Yeterlilik, KGK bağımsız denetçilik ve SPK lisanslama.
+         Kaydır-Çöz düzeninde soru, altında kaynağa bağlı çözüm.</p>
+      <u>Soru havuzuna gir →</u>
+    </a>
+    <a class="kapi" href="#">
+      <h3>İş başındayım</h3>
+      <p>Büro, şirket ve mükellef nöbeti: süre bekçisi, ceza asistanı, marka izleme,
+         alacak radarı, ihale radarı ve mevzuat kartları.</p>
+      <u>Nöbet defterini aç →</u>
+    </a>
+  </div>
+</div></section>
+
+<footer class="dip"><div class="sarmal dip-ic">
+  <span>© 2026 Tetikte · Mevzuat ve sınav nöbeti</span>
+  <span>Kaynak künyesi her kartta gösterilir.</span>
+</div></footer>
+
+<a class="not" href="kurumsal.html">← üç yönü karşılaştır</a>
+
+<script>
+/* CANLI VERİ — index.html ile AYNI kural. */
+(function(){
+  var SINAVLAR=[{id:'ndSgs',tarih:'2026-11-21'},{id:'ndYet',tarih:'2026-11-28'}];
+  function gunFarki(h){var b=new Date(),t=new Date(h+'T00:00:00');b.setHours(0,0,0,0);
+    return Math.round((t-b)/86400000);}
+  function sayiYaz(el,d,b){if(el)el.innerHTML=d+'<em>'+b+'</em>';}
+  SINAVLAR.forEach(function(s){var e=document.getElementById(s.id);if(!e)return;
+    var g=gunFarki(s.tarih);
+    sayiYaz(e, g>0?g:'—', g>0?'gün':(g===0?'bugün':'geçti'));});
+
+  fetch('../veri/uyari-ozet.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return; var v=d.veri||{};
+      if(typeof v.rg_karti==='number') sayiYaz(document.getElementById('ndRg'),v.rg_karti,'değişiklik');
+      if(typeof v.ihale_ilani==='number') sayiYaz(document.getElementById('ndIhale'),v.ihale_ilani,'ilan');
+      var p=String(d.tarih||'').split(' ');
+      if(p[0])document.getElementById('ndTarih').textContent=p[0];
+      var g=p[0]?p[0].split('.'):null;
+      if(g&&g.length===3){
+        var sa=(p[1]||'00:00').split(':');
+        var kosu=new Date(+g[2],+g[1]-1,+g[0],+sa[0]||0,+sa[1]||0);
+        var saatFark=(new Date()-kosu)/3600000;
+        var gunBas=new Date();gunBas.setHours(0,0,0,0);
+        var gunFark=Math.round((gunBas-new Date(+g[2],+g[1]-1,+g[0]))/86400000);
+        var ne = gunFark===0?(kosu.getHours()<5?'Bu gece':kosu.getHours()<12?'Bu sabah':'Bugün')
+                :gunFark===1?'Dün':p[0];
+        var et=document.getElementById('ndNeZaman'); if(et)et.textContent=ne;
+        var rz=document.getElementById('rzKosu');
+        if(rz)rz.textContent=ne.toLocaleLowerCase('tr')+' '+(p[1]||'');
+        /* BAYAT NÖBETÇİ: 30 saati geçtiyse hem kutu hem üstteki rozet söyler. */
+        if(saatFark>=30){
+          var dip=document.getElementById('ndDip');
+          dip.textContent='Son robot koşusu '+p[0]+' '+(p[1]||'')+' — '+gunFark+' gün önce.';
+          dip.className='pencere-dip bayat';
+          var rm=document.getElementById('rozetMetin');
+          if(rm)rm.innerHTML='Son koşu <b>'+p[0]+'</b> — '+gunFark+' gün önce';
+          var ik=document.querySelector('.rozet i');
+          if(ik)ik.style.background='var(--accent)';
+        }
+      }
+    }).catch(function(){});
+
+  var tr=function(n){return Number(n).toLocaleString('tr-TR');};
+  fetch('../veri/sinav-tek-sayfa.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return; var oz=d.sinav_ozet||[],kasa=0,ders=0;
+      oz.forEach(function(s){kasa+=+s.kasa||0;ders+=+s.ders||0;});
+      if(kasa>0)document.getElementById('knKasa').textContent=tr(kasa);
+      if(ders>0)document.getElementById('knDers').textContent=ders+' ders';
+      var ar=(d.cikmis&&d.cikmis.arsiv)||[],cik=0;
+      ar.forEach(function(a){cik+=+a.soru||0;});
+      if(cik>0)document.getElementById('knCikmis').textContent=tr(cik);
+      var o=String(d.olcum||'').split(' ')[0];
+      if(o)document.getElementById('knTarih').textContent=o;
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>

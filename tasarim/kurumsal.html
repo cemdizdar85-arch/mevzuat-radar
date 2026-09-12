@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kurumsal duruş — üç tasarım yönü (karar sayfası)</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- =====================================================================
+     KARAR SAYFASI · 12.09.2026
+     Cem: "kurumsal duran bir site öner artık bana."
+     Üç yön ikiz olarak kuruldu; index.html'e DOKUNULMADI (ANA SAYFA
+     KARAR A kilidi duruyor). Seçilen yön index'e taşınır, ötekiler silinir.
+     Sayfalar CANLI veriyle çalışır: ../veri/uyari-ozet.json +
+     ../veri/sinav-tek-sayfa.json. Rakam uydurulmadı.
+     ===================================================================== -->
+<style>
+  :root{
+    --taban:#f7f7f5;--yuzey:#fff;--ink:#14181f;--govde:#454d5a;--sonuk:#7c8492;
+    --cizgi:#e4e4e0;--accent:#8a1c2b;
+    --sans:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--taban);color:var(--govde);font-family:var(--sans);
+       font-size:15px;line-height:1.68;-webkit-font-smoothing:antialiased}
+  .sarmal{max-width:1080px;margin:0 auto;padding:0 28px}
+  header{padding:56px 0 34px;border-bottom:1px solid var(--cizgi)}
+  .et{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+      color:var(--sonuk);font-weight:700}
+  h1{font-size:34px;line-height:1.2;letter-spacing:-.025em;color:var(--ink);
+     font-weight:700;margin:14px 0 12px}
+  .spot{font-size:16px;max-width:48em;margin:0}
+  .kartlar{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:36px 0 10px}
+  .kart{background:var(--yuzey);border:1px solid var(--cizgi);border-radius:10px;
+        padding:24px;display:flex;flex-direction:column}
+  .kart h2{font-size:19px;color:var(--ink);margin:10px 0 4px;font-weight:700;
+           letter-spacing:-.02em}
+  .kart .eksen{font-size:13px;color:var(--sonuk);margin:0 0 14px}
+  .kart p{font-size:14px;margin:0 0 14px}
+  .kart ul{margin:0 0 18px;padding-left:18px;font-size:13.5px;line-height:1.75}
+  .kart li b{color:var(--ink);font-weight:600}
+  .kart a.ac{margin-top:auto;display:block;text-align:center;background:var(--ink);
+             color:#fff;text-decoration:none;font-size:14px;font-weight:650;
+             padding:11px 16px;border-radius:7px}
+  .kart a.ac:hover{background:var(--accent)}
+  .no{display:inline-block;font-size:12px;font-weight:700;color:var(--sonuk);
+      border:1px solid var(--cizgi);border-radius:5px;padding:2px 8px}
+  .uyari{background:var(--yuzey);border:1px solid var(--cizgi);
+         border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px;
+         font-size:13.5px;margin-top:14px}
+  section.blok{padding:40px 0;border-top:1px solid var(--cizgi)}
+  h3{font-size:18px;color:var(--ink);margin:0 0 14px;font-weight:700;letter-spacing:-.02em}
+  table{border-collapse:collapse;width:100%;background:var(--yuzey);
+        border:1px solid var(--cizgi);border-radius:8px;overflow:hidden;font-size:14px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--cizgi);vertical-align:top}
+  th{background:var(--taban);font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+     color:var(--sonuk);font-weight:700}
+  tr:last-child td{border-bottom:0}
+  td b{color:var(--ink)}
+  ol.adim{font-size:14.5px;line-height:1.8;padding-left:20px}
+  ol.adim b{color:var(--ink)}
+  footer{padding:30px 0 60px;font-size:13px;color:var(--sonuk)}
+  @media(max-width:860px){.kartlar{grid-template-columns:1fr}h1{font-size:26px}}
+</style>
+</head>
+<body>
+
+<header><div class="sarmal">
+  <div class="et">Karar sayfası · 12.09.2026</div>
+  <h1>Kurumsal duruş: üç yön, aynı içerik, aynı canlı veri</h1>
+  <p class="spot">Üçü de <b>ikiz</b>dir — <code>index.html</code>'e dokunulmadı, ANA SAYFA KARAR A
+    kilidi duruyor. Üçü de nöbet kutusunu ve kanıt şeridini gerçek robot verisinden
+    okur; hiçbir rakam elle yazılmadı. Beğendiğin yön index'e taşınır, diğer ikisi silinir.</p>
+</div></header>
+
+<div class="sarmal">
+  <div class="kartlar">
+
+    <div class="kart">
+      <span class="no">YÖN 1</span>
+      <h2>Sicil</h2>
+      <p class="eksen">Wolters Kluwer · Thomson Reuters · Bloomberg Law</p>
+      <p>Kağıt zemin, serif başlık, kılçık çizgiler. Bir kuruma değil bir <b>kayda</b>
+         benziyor. Mevzuat işinin doğal görüntüsü.</p>
+      <ul>
+        <li>Hitap <b>"siz"</b> — en resmî olan</li>
+        <li>Vurgu rengi koyu bordo, sayfanın ~%2'si</li>
+        <li>Gölge yok, yuvarlak köşe neredeyse yok</li>
+        <li>Rakamlar serif + tabular</li>
+      </ul>
+      <a class="ac" href="kurumsal-1-sicil.html">Sicil'i aç →</a>
+    </div>
+
+    <div class="kart">
+      <span class="no">YÖN 2</span>
+      <h2>Terminal</h2>
+      <p class="eksen">Bloomberg · S&amp;P Global · Moody's</p>
+      <p>Koyu grafit, ince ızgara, üstte canlı durum şeridi, monospace rakam.
+         "Nöbet" metaforunun en doğrudan karşılığı.</p>
+      <ul>
+        <li>Hitap <b>nötr/sen</b> karışık</li>
+        <li>Amber yalnız <b>durum işareti</b> olarak kaldı</li>
+        <li>Üst şeritte RG / EKAP / T-gün canlı</li>
+        <li>Veri ürünü gibi duruyor, kurs gibi değil</li>
+      </ul>
+      <a class="ac" href="kurumsal-2-terminal.html">Terminal'i aç →</a>
+    </div>
+
+    <div class="kart">
+      <span class="no">YÖN 3</span>
+      <h2>Sessiz</h2>
+      <p class="eksen">Stripe · Linear · Mercury</p>
+      <p>Beyaz, ortalanmış, çok boşluk. Ortada ürün penceresi olarak nöbet defteri.
+         En modern, en "yazılım şirketi" duran.</p>
+      <ul>
+        <li>Hitap <b>"sen"</b> — mevcut marka dili korundu</li>
+        <li>Tek accent (lacivert), yalnız bağlantı ve düğmede</li>
+        <li>Bayat veri uyarısı <b>üstteki rozete de</b> düşüyor</li>
+        <li>Turuncu tamamen çıktı</li>
+      </ul>
+      <a class="ac" href="kurumsal-3-sessiz.html">Sessiz'i aç →</a>
+    </div>
+
+  </div>
+
+  <div class="uyari"><b>Terminal yönünün tek çelişkisi:</b> koyu tema, Kaydır-Çöz için
+    alınan <b>AÇIK TEMA</b> kararıyla çakışır. Seçilirse koyu tema yalnız ana sayfada
+    kalır; soru ekranı açık kalmaya devam eder. Bu bir kusur değil, bilinçli bir sınır —
+    ama karar verilirken bilinmeli.</div>
+
+  <section class="blok">
+    <h3>Üç yönün de ortadan kaldırdığı altı kusur</h3>
+    <table>
+      <tr><th style="width:38%">Bugünkü ana sayfada</th><th>Üç ikizde de</th></tr>
+      <tr><td><b>İki eşit ağırlıkta çağrı</b> — "Giriş / Üye Ol" ve "Ücretsiz Başla" yan yana</td>
+          <td>Tek birincil düğme. Giriş düz metin bağlantısına indi.</td></tr>
+      <tr><td><b>Turuncu sayfanın ~%20'si</b> — logo, düğme, her rakam</td>
+          <td>Vurgu rengi %2–3'e indi. Rakamlar mürekkep renginde; vurgu yalnız tek yerde.</td></tr>
+      <tr><td><b>Çok iri ağır başlık</b> — kurs/bootcamp dili</td>
+          <td>44–52 px arası, dar satır aralığı, negatif harf aralığı.</td></tr>
+      <tr><td><b>Yedi hap düğmesi</b> ("Okunan kaynaklar") — prototip hissi</td>
+          <td>Tek satır kaynak künyesi, ayraçla. Hap yok.</td></tr>
+      <tr><td><b>Nöbet kutusunda hiyerarşi yok</b> — dört sayı aynı ağırlıkta</td>
+          <td>Satır başlığı mürekkep, açıklama sönük, sayı tabular ve hizalı; birim küçük.</td></tr>
+      <tr><td><b>Canlı iddia kendini çürütüyor</b> — kırmızı nokta + "5 gün önce"</td>
+          <td>Bayat nöbetçi korundu ama <b>tutarlı</b>: bayatsa nokta da, rozet de değişiyor.</td></tr>
+    </table>
+  </section>
+
+  <section class="blok">
+    <h3>Seçtikten sonra sıradaki adımlar</h3>
+    <ol class="adim">
+      <li><b>Bağlantılar canlanır.</b> İkizlerde <code>href="#"</code> duruyor; seçilen yönde
+          gerçek hedefler (Kaydır-Çöz havuzu, karne, radarlar) bağlanır.</li>
+      <li><b>Renkler jetona çevrilir.</b> Şu an her ikizin kendi <code>:root</code> paleti var.
+          index'e taşınırken jetonlar <code>stil-acik.css</code>'e girer — yoksa
+          <code>arac/renk-sabiti-denetcisi.ps1</code> kapısı düşer.</li>
+      <li><b>Kontrast kapısı koşar.</b> <code>arac/kontrast-kapisi.js</code> + görünüm nöbetçileri
+          yeni palet üstünde ölçülür.</li>
+      <li><b>Üst menü ve alt bilgi.</b> Bu tur yalnız ana sayfa kabuğuydu; <code>menu.js</code>
+          aynı dile çekilir, yoksa iç sayfalar eski görüntüde kalır.</li>
+      <li><b>Soru şeridi ve araç kutuları.</b> Bugünkü index'te ana ekranın altında duran
+          günün sorusu + ürün kutuları yeni dile taşınır.</li>
+    </ol>
+  </section>
+</div>
+
+<footer><div class="sarmal">
+  Bu sayfa ve üç ikiz <code>noindex</code>'tir; sitemap'e ve menüye eklenmedi.
+  Karar verilince seçilen yön index'e taşınır, bu klasör silinir.
+</div></footer>
+
+</body>
+</html>
