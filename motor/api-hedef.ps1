@@ -465,7 +465,18 @@ function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket,[bool]$bedelYa
   return $out
 }
 function Invoke-ClaudeToplu {
-  param([Parameter(Mandatory=$true)][array]$Isler,[string]$Etiket='',[int]$BeklemeDk=180,[int]$YoklamaSn=30)
+  # ⛔⭐ 12.09.2026 — YOKLAMA 30 sn -> 10 sn (Cem onayi: "bosa bekliyor olabilir miyiz").
+  #   OLCULDU: bir parti YEDI sirali kuyruk turu geciyor (H·K·H2·B·S·G·C) ve asagidaki
+  #   dongu her turda ONCE uyuyor, SONRA soruyor. Yani her turda en fazla YoklamaSn
+  #   kadar, ortalama yarisi kadar BOSA bekleniyor:
+  #     30 sn ile: 7 tur x ~15 sn = ~1,8 dk/parti     10 sn ile: ~35 sn/parti
+  #   100 dakikalik kosuda ~%1-2; kucuk ama bedeli SIFIR ve toplu kipin zaten
+  #   kacinilmaz olan beklemesinin ustune BIZIM ekledigimiz tek gecikme buydu.
+  #   ⚠ YUK: yoklama TOKEN YAKMAZ (yalnizca batch durum ucu). 63 es zamanli parti
+  #   10 sn'de bir sorarsa ~378 istek/dk olur. 429 gorulurse once bunu yukselt:
+  #   MEVZUAT_TOPLU_YOKLAMA_SN ortam degiskeni kod degistirmeden ezer.
+  param([Parameter(Mandatory=$true)][array]$Isler,[string]$Etiket='',[int]$BeklemeDk=180,
+        [int]$YoklamaSn=$(if("$env:MEVZUAT_TOPLU_YOKLAMA_SN" -match '^\d+$' -and [int]$env:MEVZUAT_TOPLU_YOKLAMA_SN -ge 1){ [int]$env:MEVZUAT_TOPLU_YOKLAMA_SN } else { 10 }))
   if(-not @($Isler).Count){ return @{} }
   $hedef = Get-TopluBasliklar
   $req = @()
