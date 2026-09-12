@@ -52,8 +52,23 @@ permissions:
   contents: read
 
 # Iki bulut kosusu ayni anda ayni partiye yazarsa kayit bozulur.
+# ⛔⭐ 12.09.2026 — ES ZAMANLILIK PLAN BAZINA CEVRILDI (Cem: gece SGS'yi bitirmek)
+#   Onceden group 'bulut-uretim' idi: ikinci kosu PARALEL DEGIL KUYRUKTA bekliyordu.
+#   Olculdu: B kosusu 94 parti / 95 dakika. Gece hedefi ~3.500 parti-soru; tek
+#   kosuda 9+ saat, GitHub'in 350 dakikalik is tavanini asar ve yarida kesilir.
+#   Depo PUBLIC, GitHub 20 es zamanli is veriyor -> ayrik planlar paralel kosar.
+#
+#   NIYE GUVENLI (olculdu):
+#     · her parti KENDI onbellek dosyasina yazar (motor/kalip-kosucu.ps1 satir ~106)
+#     · ayrik planlarda etiket kumeleri kesismez -> ayni dosyaya iki kosu yazmaz
+#     · bedel defteri tekillestirmesi (zaman+etiket+tutar) ucludur; ayrik
+#       etiketlerde mukerrer satir dogmaz
+#   ⛔ SART: AYRI PLAN DOSYALARI + AYRI ETIKET ONEKI. Ayni plani iki kez
+#     basmak ya da ayni oneki paylasmak TOPLU HASAT TUZAGINI acar (bkz.
+#     motor/plandan-parti-kur.ps1 > EtiketOn). Bu yuzden grup PLAN ADINDAN
+#     turetiliyor: ayni plan iki kez dispatch edilirse yine KUYRUGA girer.
 concurrency:
-  group: bulut-uretim
+  group: bulut-uretim-${{ inputs.plan }}
   cancel-in-progress: false
 
 jobs:
