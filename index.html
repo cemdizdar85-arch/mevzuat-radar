@@ -456,7 +456,7 @@ window.veriAl = (function(){
     <a class="nl" href="#fiyat">Abonelik</a>
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px">Giriş / Üye Ol</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
-    <a class="btn" href="kaydir/sgs/">Ücretsiz Başla</a>
+    <a class="btn" href="genc.html">Ücretsiz Başla</a>
     <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
   </div>
 </nav>
@@ -570,9 +570,9 @@ window.veriAl = (function(){
                ⚠ Alt metin de düzeltildi: Kaydır-Çöz şu an YALNIZ SGS için var;
                  dört sınavı saymak olmayanı vaat etmek olurdu. Diğerleri
                  açıldığında bu satır güncellenir. Takvim ayrı kapı olarak kaldı. -->
-          <a class="hkapi hkapi-birincil" href="kaydir/sgs/">
+          <a class="hkapi hkapi-birincil" href="genc.html">
             <b>Soru çözmeye başla →</b>
-            <small>SMMM Staja Giriş (SGS) · 1.836 soru · 11 ders · her soruda Nöbetçi anlatıyor</small>
+            <small>SMMM Staja Giriş (SGS) · SMMM Yeterlilik · KGK Bağımsız Denetçi · SPK Lisanslama</small>
           </a>
           <a class="hkapi" href="karne.html">
             <b>İş başındayım →</b>
@@ -634,7 +634,7 @@ window.veriAl = (function(){
    da 0 bağlantı ölçüldü).
    Artık: veri bağlantı taşıyorsa o kullanılır; taşımıyorsa dersin kendi
    Kaydır-Çöz sayfasına, o da bilinmiyorsa havuzun kapağına gider. */
-var VITRIN_HAVUZ='kaydir/sgs/';
+var VITRIN_HAVUZ='kaydir/vitrin/sgs.html?vitrin=1&tema=acik';
 var VITRIN_DERS={'finansal muhasebe':'finansal-muhasebe','denetim':'denetim','maliyet muhasebesi':'maliyet-muhasebesi',
   'mali tablolar analizi':'mali-tablolar-analizi','ticaret hukuku':'ticaret-hukuku','borclar hukuku':'borclar-hukuku',
   'vergi hukuku':'vergi-hukuku','meslek hukuku':'meslek-hukuku','is ve sosyal guvenlik hukuku':'is-ve-sosyal-guvenlik-hukuku',
@@ -650,7 +650,7 @@ function vHedef(v,kod){
   if(v && v.baglanti){ return v.baglanti; }
   if(String(kod||'').toLowerCase()!=='sgs'){ return 'kaydir/vitrin/'+(kod||'sgs')+'.html?vitrin=1&tema=acik'; }
   var d = VITRIN_DERS[vKatla(v && v.ders)];
-  return d ? (VITRIN_HAVUZ + d + '.html') : VITRIN_HAVUZ;
+  return VITRIN_HAVUZ; /* 12.09 Cem: ziyaretci girmesin, tam bitmedi - ders sayfasina DEGIL vitrine */
 }
           var VERI=null, SECILI=null;
           function ciz(kod){
@@ -698,7 +698,7 @@ function vHedef(v,kod){
          Karar: nöbet kutusu sağda kalır, soru KENDİ ŞERİDİNDE ve kendi içinde iki kolon (solda soru+şıklar,
          sağda tuzak+doğrusu+çözüm). Tek ekran, kaymaz; veri veri/vitrin-kart-ozet.json (günün sorusu). -->
     <section class="v-serit" aria-label="Bugünün sorusu">
-      <div class="v-serit-bas"><span class="v-serit-et">Bugünün sorusu · her sabah değişir</span><a class="v-serit-git" href="kaydir/sgs/">Soru bankasına git →</a></div>
+      <div class="v-serit-bas"><span class="v-serit-et">Bugünün sorusu · her sabah değişir</span><a class="v-serit-git" href="genc.html">Soru bankasına git →</a></div>
     <!-- ============ GÖSTERİMLİK SORU KARTI (09.09.2026) ==============================
          Cem: "yanda gösterimlik olabilir" — ürünün TEK ANI (29.08 kilidi: yanlış şık → tuzak adı +
          doğrusu + çözüm tablosu), kaydırmadan, tek ekranda. Soru vitrin seçicisinin 1. sırası
@@ -788,7 +788,7 @@ function vHedef(v,kod){
           <tr><td>Eşdeğer birim maliyeti (160.000 / 1.600)</td><td>100</td></tr>
           <tr class="sonuc"><td>L ürünü payı (900 × 100)</td><td>90.000 TL</td></tr>
         </table>
-        <div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. 7 adımda Nöbetçi anlatır.</span><a href="kaydir/sgs/">Tüm soruları çöz →</a></div>
+        <div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. 7 adımda Nöbetçi anlatır.</span><a href="kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik">Nöbetçi anlatsın →</a></div>
 <!-- ⛔ 12.09: burası kaydir/vitrin/sgs.html'e gidiyordu. Ölçüldü: o sayfada
      HİÇ bağlantı yok (0 adet) - yani vitrinden ürüne çıkış yoktu, ziyaretçi
      orada kalıyordu. Artık doğrudan havuzun kapağına (11 ders, 1.836 soru). -->
@@ -834,7 +834,7 @@ function vHedef(v,kod){
      soru. Ölçüldü: soru_havuzu'nda yayin=true olan satır 0; çözülebilir olan
      Kaydır-Çöz'deki 1.836. "Bankasında" demek, olmayanı vaat etmekti.
      Bağlantı da takvim sayfasına gidiyordu; artık gerçek havuza gidiyor. -->
-<a class="kn" href="kaydir/sgs/"><b id="knKasa">30.569</b><span>soru üretildi · her şık gerekçeli</span></a>
+<a class="kn" href="genc.html"><b id="knKasa">30.569</b><span>soru üretildi · her şık gerekçeli</span></a>
       <a class="kn" href="genc.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
       <a class="kn" href="genc.html"><b id="knDers">31 ders</b><span>Staja Giriş · Yeterlilik · Bağımsız denetçilik · SPK lisanslama</span></a>
       <a class="kn" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
