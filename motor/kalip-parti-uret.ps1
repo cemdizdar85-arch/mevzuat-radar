@@ -2460,12 +2460,33 @@ foreach($kk in $KONULAR){
   # oysa KVK m.2 / m.32 / m.5 ambarda (680 KVK kaydı). Köprü dayanağı eski Seri No 86 tebliğiydi: güncellik kapısı onu eledi, dayanak "zayıf"
   # sayılmadığı için (kanun numarası yok) dersin ana kanunlarında '@' araması hiç yapılmadı → boş. İKİNCİ DENEME: dayanaksız/zayıf sayılarak
   # ders kanunları + teori notlarında konu köküyle yeniden aranır; yine boşsa gerçek borçtur.
-  if(-not $amb.metin -or $amb.metin.Length -lt 300){
+  # ⛔⭐ 12.09.2026 — IKINCI DENEME ESIGI 300 -> 1000. OLCULDU (4.141 soru,
+  #    veri/ret-kutugu.json ile paket uzunlugu yan yana konarak):
+  #      paket   0- 499 : KAYNAK-EKSIK %30,3 · TUM RET %44,2
+  #      paket 500- 999 : KAYNAK-EKSIK %27,9 · TUM RET %44,3
+  #      paket 1000-1499: KAYNAK-EKSIK  %7,5 · TUM RET %29,3
+  #      paket 1500-1999: KAYNAK-EKSIK  %0,4 · TUM RET %19,1
+  #    Ucurum 1.000 karakterde. Altinda her uc sorudan biri "kaynak cevabi
+  #    desteklemiyor" diye DUSUYOR; ustunde %2'lere iniyor.
+  #    KAYNAK-EKSIK bugun ret kutugunde BIRINCI sinif (482 ret, %38).
+  #
+  #    ⚠ ESIK 'VAZGECME' DEGIL 'YENIDEN DENEME' ESIGI OLARAK YUKSELTILDI.
+  #      Vazgecme esigini 1.000 yapmak YANLIS olurdu: 1.000 altinda uretilen
+  #      1.216 sorunun %56'si (≈678 soru) kapilardan GECIYOR. Onlari atmak
+  #      538 reti onlemek icin 678 iyi soru kaybetmek olurdu.
+  #      Bu yuzden: paket 1.000'in altindaysa dayanaksiz arama ile GENISLETMEYI
+  #      DENE (bedelsiz, ambar okuma); yine de 300'un altinda kalirsa vazgec
+  #      (asagidaki blok, esigi DEGISMEDI).
+  if(-not $amb.metin -or $amb.metin.Length -lt 1000){
     $kyZ=[pscustomobject]@{ konu="$($ky.konu)"; dayanak=''; cikmis_dayanak=''; guc='ZAYIF' }
     $desen2=@(DesenUret $kyZ | Where-Object { $desenler -notcontains $_ })
     if($desen2.Count){
+      # ⛔ 12.09: KABUL SARTI "daha UZUN olmali" eklendi. Ikinci deneme esigi
+      #    300 -> 1000 yukseltilince bu satir bir GERILEME kapisina donuyordu:
+      #    900 karakterlik iyi paket, 400 karakterlik denemeyle DEGISTIRILEBILIRDI
+      #    (eski sart yalnizca ">= 300" idi). Artik yalniz IYILESTIRIYORSA alinir.
       $script:AMBAR_AG_HATASI=$null; $amb2z=AmbarCek $desen2
-      if($amb2z.metin -and $amb2z.metin.Length -ge 300){ Write-Host "  KAYNAK İKİNCİ DENEME (ders kanunu/teori, dayanaksız arama): $($ky.konu) <- $(@($amb2z.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan; $rapor.Add("KAYNAK IKINCI DENEME: $($ky.konu) <- $(@($amb2z.adlar | Select-Object -First 3) -join ' ; ')"); $amb=$amb2z; $desenler=@($desenler)+$desen2 }
+      if($amb2z.metin -and $amb2z.metin.Length -ge 300 -and $amb2z.metin.Length -gt [int]("$($amb.metin)".Length)){ Write-Host "  KAYNAK İKİNCİ DENEME (ders kanunu/teori, dayanaksız arama): $($ky.konu) <- $(@($amb2z.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan; $rapor.Add("KAYNAK IKINCI DENEME: $($ky.konu) <- $(@($amb2z.adlar | Select-Object -First 3) -join ' ; ')"); $amb=$amb2z; $desenler=@($desenler)+$desen2 }
     }
   }
   if(-not $amb.metin -or $amb.metin.Length -lt 300){
