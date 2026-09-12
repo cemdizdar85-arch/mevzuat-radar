@@ -14,7 +14,17 @@ param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok='',[switch]$SayfaYo
 # paralellik toplu modun yavasligini telafi eder.
 # ⛔ Tavan kalkti ama KORLEMESINE degil: asagida BOS RAM olculur ve sigmayan
 #    paralellik sessizce degil, SEBEBI SOYLENEREK dusurulur.
-[ValidateRange(1,40)][int]$Paralel=4,
+  # ⛔⭐ 12.09.2026 TAVAN 40 -> 72 (Cem: "ayni anda fazla parti gondeririz diye
+  #    konusmustuk, ondan bilgisayari tasidik RAM yemeyelim diye").
+  #    OLCULDU, B kosusunun kutugunden:
+  #        PARALELLIK: 32 (bos RAM 13769 MB · 71 surece kadar sigar)
+  #    Bulut runner'inda 13,8 GB bos RAM var, 71 surece yer var. Darbogaz RAM
+  #    DEGIL, bu satirdaki ELLE KONMUS TAVANDI. Buluta tasinmanin sebebi tam bu
+  #    basligi acmakti; tavan onu kapatiyordu.
+  #    Tavan 72 = olculen 71'in hemen ustu. GERCEK sinir asagidaki BOS RAM
+  #    KAPISI: her kosuda kendi olcumunu yapar, sigmayani SEBEBIYLE dusurur.
+  #    Yani tavan artik guvenlik agi, karar mekanizmasi degil.
+  [ValidateRange(1,72)][int]$Paralel=4,
   [double]$AylikTavan=2000,      # 08.09 Cem: konsolda aylık tavan 2.000 USD (GM göremez, Cem okudu)
   [double]$EmniyetPayi=300)      # tavana bu kadar kala koşucu durur: parti ortada ölmez, ödenen iş yazılmadan kaybolmaz (ağustos dersi)
 $ErrorActionPreference='Continue'
