@@ -13,14 +13,54 @@ function Slug([string]$s){ $t=("$s" -creplace 'İ','i' -creplace 'I','i' -crepla
 $hedefDir=Join-Path $kok "kaydir\$Sinav"; New-Item -ItemType Directory -Force $hedefDir | Out-Null
 $gruplar=@($sec | Group-Object ders | Sort-Object Name)
 $kartlar=@(); $toplam=0
+# ⛔⭐ 12.09.2026 — K6-STDERR YARASI KAPATILDI (Cem: "dikkatli, siteyi ve soruyu
+#   hatalı getirecek bir şey yapmıyoruz").
+#   ESKİSİ:  $out = & powershell ... 2>&1 | Select-String ...
+#   İKİ AYRI KUSUR TAŞIYORDU, ikisi de 12.09'da ÖLÇÜLDÜ:
+#     (1) `2>&1` YERLİ komutun stderr'ini NativeCommandError kaydına çevirir; bu
+#         dosyanın başında $ErrorActionPreference='Stop' olduğu için o kayıt
+#         SONLANDIRICI olur. Yani çocuk süreç ürünü DOĞRU ÜRETSE bile, stderr'e
+#         tek zararsız satır yazması bütün yayını öldürür. 12.09'da tam bu oldu:
+#         sayfa yazıldı ("yazildi ... soru 1" günlükte hatadan ÖNCE), sonra bir
+#         RAPOR satırı hata verdi ve 2.670 soru siteye çıkamadı.
+#     (2) `$LASTEXITCODE` HİÇ bakılmıyordu. Yani gerçekten düşen bir çocuk süreç
+#         SESSİZCE geçebiliyordu; eski sayfa yerinde kalır, kimse fark etmez.
+#   PROVA (sahte çocuk süreçle, dört senaryo — eski mantık vs yeni):
+#     temiz koşu            : eski GEÇTİ · yeni GEÇTİ
+#     stderr yazdı, başarılı: eski DÜŞTÜ  · yeni GEÇTİ   <- bugünkü felaket
+#     sert hata (çıkış 1)   : eski DÜŞTÜ  · yeni DÜŞTÜ (doğru sebeple)
+#     sessizce hiç üretmedi : eski GEÇTİ  · yeni DÜŞTÜ   <- sessiz kayıp kapandı
+#   Yani yeni mantık iki yerde DAHA İYİ, hiçbir yerde daha kötü değil.
+#
+#   KARAR: stderr'e yönlendirme YAZILMAZ (doğrudan koşu kütüğüne akar, zaten
+#   okumak istediğimiz şey). Hüküm üç ölçüme dayanır: çıkış kodu · sayfa var mı ·
+#   sayfa BU koşuda mı tazelendi. Üçü de nesnel, eşik/tahmin yok.
+#
+#   ⛔ Bir ders düşerse DİĞERLERİ YİNE BASILIR, hata biriktirilir ve döngü
+#   bitince topluca atılır. Sebep: tek kusurlu ders yüzünden koşuyu ortasında
+#   kesmek, kalan derslerdeki kusurları da gizler (bugün aynı hatayı üç turda
+#   öğrendik). Hata varsa dizin sayfası YAZILMAZ ve akış kırmızı biter -> yarım
+#   sayfa kümesi siteye ÇIKMAZ.
+$hatalar=New-Object System.Collections.Generic.List[object]
 foreach($g in $gruplar){
   $ders="$($g.Name)"; $slug=Slug $ders; $altSec="yayin-$Sinav-$slug.json"
   [IO.File]::WriteAllText((Join-Path $kok "veri\sinav\kaydir-secim\$altSec"),(ConvertTo-Json -InputObject @($g.Group) -Depth 3),[Text.UTF8Encoding]::new($false))
   $cikti="..\kaydir\$Sinav\$slug.html"
-  $out=& powershell -NoProfile -File (Join-Path $PSScriptRoot 'kaydir-coz.ps1') -SecimDosya $altSec -Cikti $cikti 2>&1 | Select-String -Pattern 'yazildi|ÖZ-SINAV|Exception|Cannot' | ForEach-Object { $_.Line }
+  $sayfa=Join-Path $hedefDir "$slug.html"
+  $t0=Get-Date
+  $out=& powershell -NoProfile -File (Join-Path $PSScriptRoot 'kaydir-coz.ps1') -SecimDosya $altSec -Cikti $cikti | Select-String -Pattern 'yazildi|ÖZ-SINAV|DOLDUR|Exception|Cannot' | ForEach-Object { $_.Line }
+  $kod=$LASTEXITCODE
   $out | ForEach-Object { "  $ders : $_" }
+  if($kod -ne 0){ $hatalar.Add("$ders : sayfa basimi $kod cikis kodu ile dustu") }
+  elseif(-not (Test-Path $sayfa)){ $hatalar.Add("$ders : sayfa YAZILMADI ($slug.html)") }
+  elseif((Get-Item $sayfa).LastWriteTime -lt $t0){ $hatalar.Add("$ders : sayfa TAZELENMEDI - eski dosya duruyor ($slug.html)") }
   $n=@($g.Group).Count; $toplam+=$n
   $kartlar+=[pscustomobject]@{ ders=$ders; slug=$slug; n=$n; konular=(@($g.Group | ForEach-Object { "$($_.konu)" } | Select-Object -Unique) -join ' · ') }
+}
+if($hatalar.Count){
+  Write-Host "`nSAYFA BASIMI DUSTU ($($hatalar.Count) ders) - dizin sayfasi yazilmadi, hicbir sey yayinlanmiyor:" -ForegroundColor Red
+  foreach($h in $hatalar.ToArray()){ Write-Host "  $h" -ForegroundColor Red }
+  throw "$($hatalar.Count) derste sayfa basilamadi - yukaridaki listeye bak"
 }
 function E([string]$s){ [System.Net.WebUtility]::HtmlEncode("$s") }
 $kartH=($kartlar | ForEach-Object { "<a class=`"kart`" href=`"$($_.slug).html`"><div class=`"ad`">$(E $_.ders)</div><div class=`"sayi`">$($_.n) soru</div><div class=`"konu`">$(E $_.konular)</div></a>" }) -join "`n"
