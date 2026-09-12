@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tetikte — BRONZ (referans görselin gerçek hâli)</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- =====================================================================
+     BRONZ · 13.09.2026
+     Cem bir referans görsel gösterdi (yakın-siyah + bronz ışık, perspektifte
+     uçuşan kartlar, sağda cam panel) ve "senle ben yapacağız" dedi.
+
+     GÖRSELİN İKİ KUSURU VARDI, İKİSİ DE BURADA KAPANDI:
+       1. O bir RESİMDİ, sayfa değildi -> canlı veri taşıyamazdı.
+          Burada her parça koddan çizilir ve kendini günceller.
+       2. İÇERİĞİ SAHTEYDİ -> arkadaki beş kartta aynı "RG: 12.09.2026/32812
+          Madde 3" satırı tekrarlanıyordu, ısı haritası hiçbir şeyi
+          göstermiyordu, tuzak adı "Mevzuat Analizi"ydi (öyle bir tuzak yok).
+          Burada:
+            · Uçuşan kartlar  -> veri/rg-gozetim-haritasi.json (231 GERÇEK
+              Resmî Gazete kaydı: tarih + RG kodu + başlık + bağlantı),
+              en yenisi 6 tanesi, altısı da FARKLI.
+            · Isı alanı       -> veri/sinav-tek-sayfa.json `dersler`,
+              54 dersin GERÇEK doluluk oranı.
+            · Cam paneldeki soru, şıklar ve TUZAK ADI ->
+              veri/vitrin-kart-ozet.json, bugünün gerçek sorusu.
+          Hiçbiri okunamazsa yerine ölçüm tarihli GERÇEK kopya çizilir.
+
+     ⚠ ÜRETİM NOTU: rg-gozetim-haritasi.json 66 KB. Ana sayfada bu boyut
+       çekilmez; index'e taşınırsa robot küçük bir `veri/rg-son.json`
+       (son 6 kayıt) basmalı. Bu ikizde tam dosya okunuyor.
+
+     Menü adları referanstan alındı: "Mevzuat Takibi" / "Denetim Araçları"
+     — bugünkü "Radarlar / Araçlar"dan daha anlaşılır (ayrı iş, not düşüldü).
+     index.html'e DOKUNULMADI.
+     ===================================================================== -->
+<style>
+  :root{
+    --gece:#0a0b0e;
+    --gece2:#101319;
+    --cam:rgba(30,34,43,.62);
+    --cam-cizgi:rgba(214,180,126,.20);
+    --ak:#f2f4f8;
+    --ak-govde:#aab3c0;
+    --ak-sonuk:#78828f;
+    --bronz:#cfa163;
+    --bronz-acik:#eccb96;
+    --bronz-koyu:#8d6c38;
+    --yanlis:#c9554f;
+    --dogru:#5bb98c;
+    /* açık gövde */
+    --kagit:#f6f5f2;
+    --yuzey:#fff;
+    --murekkep:#14181f;
+    --govde:#3b4450;
+    --sonuk:#79818e;
+    --cizgi:#e4e2dc;
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--kagit);color:var(--govde);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .sar{max-width:1320px;margin:0 auto;padding:0 28px}
+  .et{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+
+  /* ============ ÇERÇEVELİ KAHRAMAN ============ */
+  .cerceve{margin:26px auto 0;max-width:1320px;padding:0 28px}
+  .kah{position:relative;border-radius:20px;overflow:hidden;background:var(--gece);
+       min-height:640px;display:flex;flex-direction:column;
+       box-shadow:0 40px 90px rgba(15,18,24,.22),0 2px 0 rgba(255,255,255,.5)}
+
+  /* --- sahne: perspektifte uçuşan GERÇEK RG kartları --- */
+  .sahne{position:absolute;inset:0;z-index:0;overflow:hidden;perspective:1500px}
+  /* 54/-40 derece fazlaydi: kartlar okunamiyordu ve GERCEK olmalarinin
+     anlami kayboluyordu. Egim yumusatildi. */
+  .deste{position:absolute;right:-12%;top:-16%;width:62%;height:104%;
+         transform-style:preserve-3d;transform:rotateX(32deg) rotateZ(-19deg) translateZ(-20px)}
+  .rk{position:absolute;left:0;width:84%;border-radius:11px;padding:15px 18px;
+      background:linear-gradient(135deg,rgba(48,53,65,.97),rgba(23,27,34,.95));
+      border:1px solid rgba(214,180,126,.30);
+      box-shadow:0 30px 64px rgba(0,0,0,.6);color:var(--ak-govde)}
+  .rk .kod{font-size:12px;letter-spacing:.09em;color:var(--bronz-acik);font-weight:700;
+           display:block;margin-bottom:6px}
+  .rk .bas{font-size:13.5px;line-height:1.4;color:var(--ak);display:block;
+           overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  /* --- ısı alanı: 54 dersin gerçek doluluğu --- */
+  .isi{position:absolute;right:1%;top:2%;width:34%;height:30%;
+       transform:rotateX(32deg) rotateZ(-19deg);opacity:1}
+  .isi canvas{width:100%;height:100%;display:block}
+  /* --- atmosfer --- */
+  .kah:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(60% 55% at 74% 16%,rgba(207,161,99,.22),transparent 62%),
+      linear-gradient(100deg,var(--gece) 26%,rgba(10,11,14,.86) 44%,rgba(10,11,14,.30) 66%,rgba(10,11,14,.55) 100%)}
+  .kah:after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:1;
+    pointer-events:none;background:linear-gradient(to bottom,transparent,var(--gece))}
+
+  /* --- üst bar --- */
+  .bar{position:relative;z-index:4;display:flex;align-items:center;gap:34px;
+       height:74px;padding:0 34px;flex:none}
+  .logo{font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--ak);
+        text-decoration:none;display:flex;align-items:center;gap:2px}
+  .logo i{width:9px;height:9px;border-radius:50%;background:var(--bronz);
+          display:inline-block;margin-right:9px;flex:none;
+          box-shadow:0 0 14px rgba(207,161,99,.9)}
+  .bar nav{display:flex;gap:28px;margin-left:auto;font-size:14.5px;color:var(--ak-govde)}
+  .bar nav a{text-decoration:none}
+  .bar nav a:hover{color:var(--ak)}
+  .cta-ust{font-size:14px;font-weight:650;color:var(--bronz-acik);text-decoration:none;
+           padding:9px 20px;border:1px solid var(--bronz-koyu);border-radius:9px;
+           background:rgba(207,161,99,.07)}
+  .cta-ust:hover{background:rgba(207,161,99,.16);border-color:var(--bronz)}
+
+  /* --- gövde --- */
+  .govde{position:relative;z-index:4;flex:1;display:grid;
+         grid-template-columns:minmax(0,1fr) minmax(0,420px);
+         gap:40px;align-items:center;padding:10px 34px 54px}
+  .goz{color:var(--bronz);margin-bottom:20px}
+  h1{font-size:54px;line-height:1.08;letter-spacing:-.033em;color:var(--ak);
+     font-weight:700;margin:0 0 20px;max-width:11em}
+  h1 b{color:var(--bronz);font-weight:700}
+  .alt{font-size:17px;line-height:1.6;color:var(--ak-govde);margin:0 0 32px;max-width:26em}
+  .cta{display:inline-block;background:linear-gradient(180deg,var(--bronz-acik),var(--bronz));
+       color:#221704;text-decoration:none;font-size:15.5px;font-weight:750;
+       padding:14px 30px;border-radius:11px;
+       box-shadow:0 14px 36px rgba(207,161,99,.26)}
+  .cta:hover{filter:brightness(1.06)}
+
+  /* --- cam panel: gerçek soru --- */
+  .cam{background:var(--cam);border:1px solid var(--cam-cizgi);border-radius:16px;
+       padding:20px;backdrop-filter:blur(20px) saturate(140%);
+       -webkit-backdrop-filter:blur(20px) saturate(140%);
+       box-shadow:0 30px 70px rgba(0,0,0,.5)}
+  .cam-soru{font-size:14.5px;line-height:1.5;color:var(--ak);margin:0 0 16px}
+  .cam-sik{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .sik{display:flex;align-items:center;justify-content:space-between;gap:10px;
+       background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
+       border-radius:11px;padding:12px 14px;font:inherit;width:100%;text-align:left;
+       cursor:pointer;color:var(--ak-govde)}
+  .sik:hover{background:rgba(255,255,255,.09)}
+  .sik em{font-style:normal;font-size:19px;font-weight:600;color:var(--ak)}
+  .sik span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+            font-size:12px;font-weight:800;flex:none;
+            background:rgba(255,255,255,.10);color:var(--ak-sonuk)}
+  .sik.d{border-color:rgba(91,185,140,.55);background:rgba(91,185,140,.12)}
+  .sik.d span{background:var(--dogru);color:#06281b}
+  .sik.y{border-color:rgba(201,85,79,.55);background:rgba(201,85,79,.12)}
+  .sik.y span{background:var(--yanlis);color:#2a0906}
+  .tuzak{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;
+         border-radius:11px;background:rgba(201,85,79,.12);
+         border:1px solid rgba(201,85,79,.34);font-size:13px;color:var(--ak)}
+  .tuzak b{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+           color:var(--yanlis);font-weight:800;flex:none}
+  .tuzak i{font-style:normal;color:var(--ak-govde)}
+  .cam-dip{margin-top:12px;font-size:11.5px;color:var(--ak-sonuk);line-height:1.5}
+
+  /* --- sahne künyesi: dekor değil VERİ olduğunu söyler --- */
+  .sahne-not{position:relative;z-index:4;padding:0 34px 26px;font-size:12px;
+             color:var(--ak-sonuk);line-height:1.65;max-width:58em}
+  .sahne-not b{color:var(--ak-govde);font-weight:650}
+
+  /* ============ AÇIK GÖVDE ============ */
+  .nobet{margin-top:44px;border-top:1px solid var(--cizgi);border-bottom:1px solid var(--cizgi);
+         background:var(--yuzey)}
+  .nobet-ic{padding:26px 0}
+  .nobet-ust{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
+  .nobet-ust .et{color:var(--sonuk)}
+  .nobet-ust span{font-size:12.5px;color:var(--sonuk);font-variant-numeric:tabular-nums}
+  .nobet-sat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--cizgi);
+             border:1px solid var(--cizgi)}
+  .ns{background:var(--yuzey);padding:16px 18px;text-decoration:none;display:block}
+  .ns:hover{background:var(--kagit)}
+  .ns b{display:block;font-family:var(--serif);font-size:23px;color:var(--murekkep);
+        font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+  .ns b em{font-style:normal;font-family:var(--sans);font-size:12.5px;color:var(--sonuk);
+           font-weight:400;margin-left:5px}
+  .ns span{display:block;font-size:13px;color:var(--govde);margin-top:6px;line-height:1.45}
+  .nobet-dip{font-size:12.5px;color:var(--sonuk);margin-top:12px}
+  .bayat{color:#96202e}
+  .kunye{padding:34px 0;text-align:center}
+  .kunye .et{color:var(--sonuk)}
+  .kunye-l{font-size:14px;color:var(--govde);line-height:1.95;max-width:58em;margin:10px auto 0}
+  .dip{border-top:1px solid var(--cizgi);background:var(--yuzey);padding:26px 0;
+       font-size:12.5px;color:var(--sonuk)}
+  .dip-ic{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .not{position:fixed;left:16px;bottom:16px;background:var(--murekkep);color:#fff;font-size:12px;
+       padding:8px 14px;border-radius:6px;z-index:30;text-decoration:none;font-weight:600}
+
+  @media(max-width:1040px){
+    h1{font-size:40px}
+    .govde{grid-template-columns:1fr;gap:28px;padding:6px 24px 44px}
+    .cam{max-width:440px}
+    .deste{right:-30%;width:110%;opacity:.55}
+    .isi{display:none}
+  }
+  @media(max-width:700px){
+    .cerceve{padding:0 14px}
+    .kah{border-radius:14px;min-height:560px}
+    .bar{height:62px;padding:0 20px;gap:16px}
+    .bar nav{display:none}
+    h1{font-size:31px}
+    .alt{font-size:15.5px}
+    .sahne-not{padding:0 20px 22px}
+    .cam-sik{grid-template-columns:1fr}
+    .nobet-sat{grid-template-columns:1fr 1fr}
+    .deste{opacity:.38}
+  }
+  @media(prefers-reduced-motion:reduce){ .logo i{box-shadow:none} }
+</style>
+</head>
+<body>
+
+<div class="cerceve">
+  <div class="kah">
+
+    <!-- ===== SAHNE: gerçek RG kayıtları + gerçek doluluk ısı alanı ===== -->
+    <div class="sahne" aria-hidden="true">
+      <div class="deste" id="deste"></div>
+      <div class="isi"><canvas id="isiTuval"></canvas></div>
+    </div>
+
+    <div class="bar">
+      <!-- Lamba noktası "ı"nın yerine geçince marka "Tet*kte" okunuyordu
+           (ölçüldü). Nokta ayrı duruyor, kelime bozulmuyor. -->
+      <a class="logo" href="#"><i></i>Tetikte</a>
+      <nav>
+        <a href="#">Sınavlar</a><a href="#">Mevzuat Takibi</a><a href="#">Denetim Araçları</a>
+      </nav>
+      <a class="cta-ust" href="#">Ücretsiz Başla</a>
+    </div>
+
+    <div class="govde">
+      <div>
+        <div class="et goz">SMMM Staja Giriş &nbsp;•&nbsp; Yeterlilik &nbsp;•&nbsp; KGK &nbsp;•&nbsp; SPK</div>
+        <h1>Yanlışını, sebebiyle birlikte öğren<b>.</b></h1>
+        <p class="alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
+        <a class="cta" href="#">Soru çözmeye başla</a>
+      </div>
+
+      <div class="cam">
+        <p class="cam-soru" id="camSoru">Hüküm, tartışılarak kabul edildiğine dair kayıt taşıyor
+          ama işin özelliğine yabancı. Hangisi doğrudur?</p>
+        <div class="cam-sik">
+          <button class="sik d" type="button" id="sikD"><em>A</em><span>✓</span></button>
+          <button class="sik y" type="button" id="sikY"><em>C</em><span>✕</span></button>
+        </div>
+        <div class="tuzak"><b>Tuzak</b><i id="tuzakAd">Özdeşlik Tuzağı</i></div>
+        <p class="cam-dip" id="camDip">Ticaret Hukuku · genel işlem koşulları · dayanak m.20 f.2-3</p>
+      </div>
+    </div>
+
+    <div class="sahne-not">
+      <b>Arkadaki kartlar süsleme değil.</b> Her biri robotun okuduğu gerçek bir Resmî Gazete
+      kaydıdır — tarihi, RG kodu ve başlığıyla. Sağ üstteki ısı alanı
+      <span id="notDers">54</span> dersin gerçek doluluk oranıdır.
+      <span id="notOlcum">Ölçüm 13.09.2026.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== AÇIK GÖVDE ===== -->
+<section class="nobet"><div class="sar nobet-ic">
+  <div class="nobet-ust">
+    <div class="et">Aynı sistem iş tarafında da nöbet tutuyor</div>
+    <span><span id="ndNeZaman">Son koşu</span> · <span id="ndTarih">12.09.2026</span></span>
+  </div>
+  <div class="nobet-sat">
+    <a class="ns" href="#"><b id="ndRg">1<em>değişiklik</em></b><span>Resmî Gazete okundu, seni bağlayan kısım ayrıldı</span></a>
+    <a class="ns" href="#"><b id="ndIhale">250<em>ilan</em></b><span>İhale ilanı süzüldü, sektörüne uymayan elendi</span></a>
+    <a class="ns" href="#"><b id="ndSgs">69<em>gün</em></b><span>Staja Giriş sınavına · başvuru 21 Eylül'de açılıyor</span></a>
+    <a class="ns" href="#"><b id="ndYet">76<em>gün</em></b><span>Yeterlilik sınavına · canlı deneme 27.09</span></a>
+  </div>
+  <div class="nobet-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+</div></section>
+
+<section class="kunye"><div class="sar">
+  <div class="et">Okunan kaynaklar</div>
+  <div class="kunye-l">Resmî Gazete · TÜRMOB sınav takvimi · KGK denetim standartları ·
+    SPK mevzuatı · EKAP ihale ilanları · TÜRKPATENT marka bülteni · Gümrük Tarife Cetveli</div>
+</div></section>
+
+<footer class="dip"><div class="sar dip-ic">
+  <span>© 2026 Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · İzmir</span>
+  <span>Kaynak künyesi her kartta gösterilir.</span>
+</div></footer>
+
+<a class="not" href="kontak-baskisi.html">← kontak baskısı</a>
+
+<script>
+(function(){
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+
+/* ===================================================================
+   1) UÇUŞAN KARTLAR — GERÇEK Resmî Gazete kayıtları
+   Kaynak: veri/rg-gozetim-haritasi.json (231 kayıt).
+   Yedek: aynı dosyadan alınmış altı GERÇEK kayıt (13.09.2026 kopyası).
+   =================================================================== */
+var YEDEK_RG=[
+ ['20251230-3','30.12.2025','Türkiye Ürün İhtisas Borsasında Aracılık Faaliyetleri ile Aracıların Gözetimi ve Denetimi Hakkında Yönetmelikte Değişiklik'],
+ ['20250731-12','31.07.2025','İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (No: 2025/4)'],
+ ['20250731-11','31.07.2025','İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (No: 2025/3)'],
+ ['20241231-1','31.12.2024','Özellik Arz Eden Binaların Tasarım Gözetimi ve Kontrolü Hizmetlerine Dair Yönetmelikte Değişiklik'],
+ ['20240531-18','31.05.2024','İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2024/6)’de Değişiklik'],
+ ['20221231-3','31.12.2022','İki veya Üç Tekerlekli Motorlu Araçların Tip Onayı ve Piyasa Gözetimi ve Denetimi Yönetmeliğinde Değişiklik']
+];
+var deste=document.getElementById('deste');
+function kartlariCiz(liste){
+  if(!deste)return;
+  deste.innerHTML=liste.slice(0,6).map(function(r,i){
+    /* kademeli yerleşim: her kart biraz aşağı, biraz sağa, biraz derine */
+    var st='top:'+(20+i*13.5)+'%;left:'+(i*2.4)+'%;transform:translateZ('+(i*26)+'px);'
+          +'opacity:'+(1-i*0.11).toFixed(2)+';';
+    return '<div class="rk" style="'+st+'"><span class="kod">RG '+esc(r[1])+' · '+esc(r[0])+'</span>'
+         + '<span class="bas">'+esc(r[2])+'</span></div>';
+  }).join('');
+}
+kartlariCiz(YEDEK_RG);
+
+function gunSayi(t){ /* "31.12.2024" -> sıralanabilir sayı */
+  var p=String(t||'').split('.'); if(p.length!==3) return 0;
+  return (+p[2])*10000+(+p[1])*100+(+p[0]);
+}
+fetch('../veri/rg-gozetim-haritasi.json',{cache:'no-store'})
+  .then(function(y){return y.ok?y.json():null;})
+  .then(function(d){
+    var k=d&&d.kayit; if(!k||!k.length)return;
+    var son=k.slice().sort(function(a,b){return gunSayi(b.tarih)-gunSayi(a.tarih);}).slice(0,6);
+    kartlariCiz(son.map(function(r){
+      /* başlıklardaki "–– " öneki kaynakta var, ekranda temizlenir */
+      return [r.kod, r.tarih, String(r.baslik||'').replace(/^[–-]+\s*/,'')];
+    }));
+  }).catch(function(){});
+
+/* ===================================================================
+   2) ISI ALANI — 54 dersin GERÇEK doluluk oranı
+   =================================================================== */
+var tuval=document.getElementById('isiTuval');
+if(tuval){
+  var c=tuval.getContext('2d');
+  /* 12.09.2026 09:54 ölçümünün kopyası; canlı veri gelirse üzerine yazılır. */
+  var D=[100,28,24,100,100,100,100,82,23,28,35,48,100,100,30,
+         100,100,100,13,100,100,100,28,78,71,8,0,0,0,1,0].concat(Array(23).fill(-1));
+  function isiCiz(){
+    var W=tuval.clientWidth,H=tuval.clientHeight,g=Math.min(window.devicePixelRatio||1,2);
+    if(!W||!H)return;
+    tuval.width=W*g; tuval.height=H*g; c.setTransform(g,0,0,g,0,0);
+    c.clearRect(0,0,W,H);
+    var sut=9, sat=Math.ceil(D.length/sut);
+    var hw=W/sut, hh=H/sat, pw=hw*0.76, ph=hh*0.72;
+    for(var i=0;i<D.length;i++){
+      var sx=(i%sut)*hw, sy=Math.floor(i/sut)*hh, d=D[i];
+      /* Radyal gecisler zeminde kayboluyordu (olculdu): hucre artik KESIN
+         kenarli cizilir, ustune yalniz dolu olanlar hale alir. */
+      var a = d<0 ? 0.10 : 0.16+0.64*(d/100);
+      c.fillStyle = d<0 ? 'rgba(99,115,141,'+a+')'
+                  : d>=70 ? 'rgba(236,203,150,'+a+')'
+                  : 'rgba(207,161,99,'+a+')';
+      c.fillRect(sx+hw*0.12, sy+hh*0.12, pw, ph);
+      if(d>=70){
+        var g2=c.createRadialGradient(sx+hw/2,sy+hh/2,0,sx+hw/2,sy+hh/2,hw*0.9);
+        g2.addColorStop(0,'rgba(236,203,150,.30)'); g2.addColorStop(1,'rgba(0,0,0,0)');
+        c.fillStyle=g2; c.fillRect(sx-hw*0.4,sy-hh*0.4,hw*1.8,hh*1.8);
+      }
+    }
+  }
+  isiCiz(); window.addEventListener('resize',isiCiz);
+  fetch('../veri/sinav-tek-sayfa.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return;
+      if(d.dersler&&d.dersler.length){
+        D=d.dersler.map(function(r){return +r.doluluk;}); isiCiz();
+        var nd=document.getElementById('notDers'); if(nd)nd.textContent=d.dersler.length;
+      }
+      var o=String(d.olcum||'').split(' ')[0];
+      var no=document.getElementById('notOlcum'); if(o&&no)no.textContent='Ölçüm '+o+'.';
+    }).catch(function(){});
+}
+
+/* ===================================================================
+   3) CAM PANEL — bugünün GERÇEK sorusu ve GERÇEK tuzak adı
+   =================================================================== */
+fetch('../veri/vitrin-kart-ozet.json',{cache:'no-store'})
+  .then(function(y){return y.ok?y.json():null;})
+  .then(function(d){
+    if(!d||!d.sinavlar)return;
+    var kod=d.sinavlar.sgs?'sgs':Object.keys(d.sinavlar)[0];
+    var v=d.sinavlar[kod]; if(!v||!v.siklar)return;
+    var dogru=v.dogru||'A';
+    var yanlisAnahtar=Object.keys(v.tuzak||{})[0]
+      || Object.keys(v.siklar).filter(function(k){return k!==dogru;})[0];
+    var t=(v.tuzak||{})[yanlisAnahtar]||{};
+    document.getElementById('camSoru').textContent=v.soru||'';
+    document.getElementById('sikD').querySelector('em').textContent=dogru;
+    document.getElementById('sikY').querySelector('em').textContent=yanlisAnahtar||'C';
+    if(t.ad)document.getElementById('tuzakAd').textContent=t.ad;
+    /* dayanak: satirlar içinden doğru şıkkın maddesi */
+    var madde='';
+    (v.satirlar||[]).forEach(function(r){
+      if(String(r[0]||'').indexOf(dogru+')')===0) madde=r[1];
+    });
+    var ders=String(v.ders||'').split('|')[0];
+    document.getElementById('camDip').textContent=
+      [ders, v.konu, madde?('dayanak '+madde):''].filter(Boolean).join(' · ');
+  }).catch(function(){});
+
+/* ===================================================================
+   4) NÖBET ŞERİDİ — index.html ile aynı kural
+   =================================================================== */
+var SINAVLAR=[{id:'ndSgs',tarih:'2026-11-21'},{id:'ndYet',tarih:'2026-11-28'}];
+function gunFarki(h){var b=new Date(),t=new Date(h+'T00:00:00');b.setHours(0,0,0,0);
+  return Math.round((t-b)/86400000);}
+function sayiYaz(el,d,b){if(el)el.innerHTML=d+'<em>'+b+'</em>';}
+SINAVLAR.forEach(function(s){var g=gunFarki(s.tarih);
+  sayiYaz(document.getElementById(s.id),g>0?g:'—',g>0?'gün':(g===0?'bugün':'geçti'));});
+
+fetch('../veri/uyari-ozet.json',{cache:'no-store'})
+  .then(function(y){return y.ok?y.json():null;})
+  .then(function(d){
+    if(!d)return; var v=d.veri||{};
+    if(typeof v.rg_karti==='number')sayiYaz(document.getElementById('ndRg'),v.rg_karti,'değişiklik');
+    if(typeof v.ihale_ilani==='number')sayiYaz(document.getElementById('ndIhale'),v.ihale_ilani,'ilan');
+    var p=String(d.tarih||'').split(' ');
+    if(p[0])document.getElementById('ndTarih').textContent=p[0];
+    var g=p[0]?p[0].split('.'):null;
+    if(g&&g.length===3){
+      var sa=(p[1]||'00:00').split(':');
+      var kosu=new Date(+g[2],+g[1]-1,+g[0],+sa[0]||0,+sa[1]||0);
+      var saatFark=(new Date()-kosu)/3600000;
+      var gunBas=new Date();gunBas.setHours(0,0,0,0);
+      var gunFark=Math.round((gunBas-new Date(+g[2],+g[1]-1,+g[0]))/86400000);
+      var et=document.getElementById('ndNeZaman');
+      if(et)et.textContent=gunFark===0?(kosu.getHours()<5?'Bu gece':kosu.getHours()<12?'Bu sabah':'Bugün')
+                          :gunFark===1?'Dün':p[0];
+      if(saatFark>=30){var dip=document.getElementById('ndDip');
+        dip.textContent='Son robot koşusu '+p[0]+' '+(p[1]||'')+' — '+gunFark+' gün önce.';
+        dip.className='nobet-dip bayat';}
+    }
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>
