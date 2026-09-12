@@ -134,33 +134,53 @@
        box-shadow:0 14px 36px rgba(207,161,99,.26)}
   .cta:hover{filter:brightness(1.06)}
 
-  /* --- cam panel: gerçek soru --- */
+  /* --- CAM KABİN: küçük bir vitrin değil, GERÇEK soru ekranının kendisi.
+     13.09 Cem: "burayı bizim sorumuz gibi yapmak istiyorum, cevap versin,
+     nöbetçi çıksın, gerçek soruyu görsünler." Panel bu yüzden büyüdü:
+     tam soru metni + BÜTÜN şıklar + cevaptan sonra NÖBETÇİ konuşur.
+     Yeri değişmedi (Cem: "sağ tarafta dursa olmaz mı") - yalnız büyüdü. */
   .cam{background:var(--cam);border:1px solid var(--cam-cizgi);border-radius:16px;
-       padding:20px;backdrop-filter:blur(20px) saturate(140%);
+       padding:18px 18px 16px;backdrop-filter:blur(20px) saturate(140%);
        -webkit-backdrop-filter:blur(20px) saturate(140%);
-       box-shadow:0 30px 70px rgba(0,0,0,.5)}
-  .cam-soru{font-size:14.5px;line-height:1.5;color:var(--ak);margin:0 0 16px}
-  .cam-sik{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .sik{display:flex;align-items:center;justify-content:space-between;gap:10px;
-       background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
-       border-radius:11px;padding:12px 14px;font:inherit;width:100%;text-align:left;
-       cursor:pointer;color:var(--ak-govde)}
-  .sik:hover{background:rgba(255,255,255,.09)}
-  .sik em{font-style:normal;font-size:19px;font-weight:600;color:var(--ak)}
-  .sik span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
-            font-size:12px;font-weight:800;flex:none;
-            background:rgba(255,255,255,.10);color:var(--ak-sonuk)}
-  .sik.d{border-color:rgba(123,164,141,.50);background:rgba(123,164,141,.10)}
-  .sik.d span{background:var(--dogru);color:#0e2018}
-  .sik.y{border-color:rgba(176,115,109,.50);background:rgba(176,115,109,.10)}
-  .sik.y span{background:var(--yanlis);color:#241110}
-  .tuzak{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;
-         border-radius:11px;background:rgba(176,115,109,.10);
-         border:1px solid rgba(176,115,109,.30);font-size:13px;color:var(--ak)}
-  .tuzak b{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-           color:var(--yanlis);font-weight:800;flex:none}
-  .tuzak i{font-style:normal;color:var(--ak-govde)}
-  .cam-dip{margin-top:12px;font-size:11.5px;color:var(--ak-sonuk);line-height:1.5}
+       box-shadow:0 30px 70px rgba(0,0,0,.5);
+       max-height:min(76vh,620px);overflow-y:auto;overscroll-behavior:contain}
+  .cam-ust{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;
+           font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+           color:var(--bronz);font-weight:700;margin-bottom:12px}
+  .cam-ust s{text-decoration:none;color:var(--ak-sonuk);font-weight:600}
+  .cam-soru{font-size:14px;line-height:1.55;color:var(--ak);margin:0 0 14px}
+  .cam-sik{display:flex;flex-direction:column;gap:7px}
+  .sik{display:flex;align-items:flex-start;gap:11px;
+       background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);
+       border-radius:10px;padding:10px 12px;font:inherit;width:100%;text-align:left;
+       cursor:pointer;color:var(--ak-govde);font-size:12.8px;line-height:1.45}
+  .sik:hover:not([disabled]){background:rgba(255,255,255,.09);border-color:rgba(214,180,126,.30)}
+  .sik em{font-style:normal;font-size:12px;font-weight:800;flex:none;
+          width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+          background:rgba(255,255,255,.10);color:var(--ak);margin-top:1px}
+  .sik[disabled]{cursor:default}
+  .sik.d{border-color:rgba(123,164,141,.55);background:rgba(123,164,141,.11)}
+  .sik.d em{background:var(--dogru);color:#0e2018}
+  .sik.y{border-color:rgba(176,115,109,.55);background:rgba(176,115,109,.11)}
+  .sik.y em{background:var(--yanlis);color:#241110}
+  .sik,.nobetci{transition:background .18s ease,border-color .18s ease}
+  .ipucu{margin-top:11px;font-size:12px;color:var(--ak-sonuk);letter-spacing:.02em}
+
+  /* --- NÖBETÇİ konuşur (üründe "hoca" yok, "Nöbetçi" var) --- */
+  .nobetci{margin-top:11px;padding:12px 14px;border-radius:11px;
+           background:rgba(176,115,109,.10);border:1px solid rgba(176,115,109,.30)}
+  .nobetci.d{background:rgba(123,164,141,.10);border-color:rgba(123,164,141,.30)}
+  .nobetci-ust{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+  .nobetci-ust b{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+                 color:var(--bronz-acik);font-weight:800}
+  .nobetci-ust i{font-style:normal;font-size:11.5px;font-weight:800;
+                 letter-spacing:.08em;text-transform:uppercase;color:var(--yanlis)}
+  .nobetci.d .nobetci-ust i{color:var(--dogru)}
+  .nobetci p{margin:0;font-size:12.8px;line-height:1.55;color:var(--ak)}
+  .nobetci p b{color:var(--ak);font-weight:750}
+  .nobetci .dayanak{display:inline-block;margin-top:8px;font-size:11px;
+                    letter-spacing:.06em;color:var(--bronz);font-weight:700}
+  .cam-dip{margin-top:11px;font-size:11px;color:var(--ak-sonuk);line-height:1.5}
 
   /* --- sahne künyesi: dekor değil VERİ olduğunu söyler --- */
   .sahne-not{position:relative;z-index:4;padding:0 34px 26px;font-size:12px;
@@ -246,14 +266,26 @@
       </div>
 
       <div class="cam">
-        <p class="cam-soru" id="camSoru">Hüküm, tartışılarak kabul edildiğine dair kayıt taşıyor
-          ama işin özelliğine yabancı. Hangisi doğrudur?</p>
-        <div class="cam-sik">
-          <button class="sik d" type="button" id="sikD"><em>A</em><span>✓</span></button>
-          <button class="sik y" type="button" id="sikY"><em>C</em><span>✕</span></button>
+        <div class="cam-ust"><span id="camDers">Ticaret Hukuku · genel işlem koşulları</span><s id="camKunye">SGS 2026/1 Soru 125 kalıbı</s></div>
+        <p class="cam-soru" id="camSoru">Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı
+          tartışılarak kabul edildiğine dair kayıt düşmüştür. Hüküm, sözleşmenin niteliğine ve işin
+          özelliğine yabancıdır. Türk Borçlar Kanunu'na göre aşağıdakilerden hangisi doğrudur?</p>
+        <!-- Şıklar betikten doldurulur; okunamazsa aşağıdaki BUGÜNÜN GERÇEK
+             sorusunun beş şıkkı kalır (veri/vitrin-kart-ozet.json kopyası). -->
+        <div class="cam-sik" id="camSiklar">
+          <button class="sik" type="button" data-k="A"><em>A</em><span>Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmadığından, işin özelliğine yabancı olan bu hüküm yazılmamış sayılır.</span></button>
+          <button class="sik" type="button" data-k="B"><em>B</em><span>Kabul kaydı bulunduğundan, hükmün işin özelliğine yabancı olması sonucu değiştirmez ve hüküm geçerli kabul edilir.</span></button>
+          <button class="sik" type="button" data-k="C"><em>C</em><span>İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığından, bu hüküm zaten genel işlem koşulu sayılmaz ve yazılmamışlık hükmü uygulanmaz.</span></button>
+          <button class="sik" type="button" data-k="D"><em>D</em><span>Hükmün sözleşme metninde değil ekinde yer alması hâlinde, kabul kaydıyla birlikte nitelendirme değişir ve hüküm yazılmamış sayılmaz.</span></button>
+          <button class="sik" type="button" data-k="E"><em>E</em><span>Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğundan, bu kayıt varken yazılmamışlık hükmü hiçbir şekilde uygulanamaz.</span></button>
         </div>
-        <div class="tuzak"><b>Tuzak</b><i id="tuzakAd">Özdeşlik Tuzağı</i></div>
-        <p class="cam-dip" id="camDip">Ticaret Hukuku · genel işlem koşulları · dayanak m.20 f.2-3</p>
+        <div class="ipucu" id="ipucu">Bir şık seç — yanlışsa Nöbetçi tuzağın adını söyler.</div>
+        <div class="nobetci" id="nobetci" hidden aria-live="polite">
+          <div class="nobetci-ust"><b>Nöbetçi</b><i id="nobetciEt"></i></div>
+          <p id="nobetciMetin"></p>
+          <span class="dayanak" id="nobetciDayanak"></span>
+        </div>
+        <p class="cam-dip" id="camDip">Ticaret Hukuku · genel işlem koşulları</p>
       </div>
     </div>
 
@@ -437,30 +469,92 @@ if(tuval){
 /* ===================================================================
    3) CAM PANEL — bugünün GERÇEK sorusu ve GERÇEK tuzak adı
    =================================================================== */
+var V=null;                                   /* canlı soru; null ise HTML'deki gerçek kopya kalır */
+var siklarEl=document.getElementById('camSiklar');
+var nobetci=document.getElementById('nobetci');
+var nEt=document.getElementById('nobetciEt'), nMetin=document.getElementById('nobetciMetin');
+var nDayanak=document.getElementById('nobetciDayanak'), ipucu=document.getElementById('ipucu');
+
+/* HTML'de duran bugünün gerçek sorusunun tuzakları - JSON okunamazsa kullanılır. */
+var YEDEK={
+  dogru:'A',
+  hap:'Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmaz; işin özelliğine yabancı hüküm yine de yazılmamış sayılır.',
+  madde:{A:'m.20 f.2-3',B:'m.20 f.3',C:'m.20 f.2',D:'m.20 f.1',E:'m.20 f.2-3'},
+  tuzak:{
+    B:{ad:'Yeterlilik Tuzağı',metin:"Öğrenci kabul kaydının tek başına yeterli olduğunu düşünüp hükmü geçerli sayar. Doğrusu: Kanun kaydın 'tek başına' yeterli olmadığını açıkça belirtir, yazılmamışlık hükmü ayrıca uygulanır."},
+    C:{ad:'Özdeşlik Tuzağı',metin:'Öğrenci metinlerin özdeş olmaması kuralını ters yönde kullanıp hükmün zaten genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması genel işlem koşulu sayılmayı engellemez.'},
+    D:{ad:'Şekil Tuzağı',metin:'Öğrenci hükmün metinde mi ekte mi yer aldığının nitelendirmeyi etkilediğini sanır. Doğrusu: Yer, kapsam, yazı türü ve şekli nitelendirmede önem taşımaz.'},
+    E:{ad:'Mutlaklaştırma Tuzağı',metin:"Öğrenci 'tek başına yeterli değildir' ifadesini 'hiçbir şekilde uygulanamaz' şeklinde ters çevirir. Doğrusu: Kanun yalnız kaydın tek başına yetersizliğini söyler."}
+  }
+};
+
+function dogruHarf(){ return (V&&V.dogru)||YEDEK.dogru; }
+function maddeBul(k){
+  if(V&&V.satirlar){
+    for(var i=0;i<V.satirlar.length;i++){
+      if(String(V.satirlar[i][0]||'').indexOf(k+')')===0) return V.satirlar[i][1];
+    }
+    return '';
+  }
+  return YEDEK.madde[k]||'';
+}
+function tuzakBul(k){ return (V&&V.tuzak&&V.tuzak[k]) || YEDEK.tuzak[k] || null; }
+
+/* NÖBETÇİ konuşur. Üründe "hoca" yok - anlatan Nöbetçi'dir. */
+function nobetciSoylesin(k){
+  var d=dogruHarf(), dogruMu=(k===d), md=maddeBul(k);
+  if(dogruMu){
+    nobetci.className='nobetci d';
+    nEt.textContent='Doğru';
+    nMetin.textContent=(V&&V.hap)||YEDEK.hap;
+  }else{
+    var tz=tuzakBul(k);
+    nobetci.className='nobetci';
+    nEt.textContent=tz&&tz.ad ? tz.ad : 'Tuzak';
+    /* "Doğrusu:" kalıbı metnin içinde geçer; göz yakalasın diye kalın. */
+    nMetin.innerHTML=esc((tz&&tz.metin)||'').replace(/Doğrusu:/,'<b>Doğrusu:</b>');
+  }
+  nDayanak.textContent = md ? ('Dayanak · '+md) : '';
+  nobetci.hidden=false;
+  if(ipucu) ipucu.textContent = dogruMu
+    ? 'Havuzdaki her soruda aynı ekran.'
+    : 'Başka bir şık dene — doğruyu bulunca Nöbetçi kuralı söyler.';
+}
+
+siklarEl.addEventListener('click',function(e){
+  var b=e.target.closest?e.target.closest('.sik'):null;
+  if(!b||b.disabled)return;
+  var k=b.getAttribute('data-k'), d=dogruHarf();
+  if(k===d){
+    b.classList.add('d'); 
+    /* doğru bulununca tüm şıklar kilitlenir, yanlış denenenler işaretli kalır */
+    [].forEach.call(siklarEl.querySelectorAll('.sik'),function(x){ x.disabled=true; });
+  }else{
+    b.classList.add('y'); b.disabled=true;
+  }
+  nobetciSoylesin(k);
+});
+
 fetch('../veri/vitrin-kart-ozet.json',{cache:'no-store'})
   .then(function(y){return y.ok?y.json():null;})
   .then(function(d){
     if(!d||!d.sinavlar)return;
     var kod=d.sinavlar.sgs?'sgs':Object.keys(d.sinavlar)[0];
     var v=d.sinavlar[kod]; if(!v||!v.siklar)return;
-    var dogru=v.dogru||'A';
-    var yanlisAnahtar=Object.keys(v.tuzak||{})[0]
-      || Object.keys(v.siklar).filter(function(k){return k!==dogru;})[0];
-    var t=(v.tuzak||{})[yanlisAnahtar]||{};
-    document.getElementById('camSoru').textContent=v.soru||'';
-    document.getElementById('sikD').querySelector('em').textContent=dogru;
-    document.getElementById('sikY').querySelector('em').textContent=yanlisAnahtar||'C';
-    if(t.ad)document.getElementById('tuzakAd').textContent=t.ad;
-    /* dayanak: satirlar içinden doğru şıkkın maddesi */
-    var madde='';
-    (v.satirlar||[]).forEach(function(r){
-      if(String(r[0]||'').indexOf(dogru+')')===0) madde=r[1];
-    });
+    V=v;
     var ders=String(v.ders||'').split('|')[0];
-    document.getElementById('camDip').textContent=
-      [ders, v.konu, madde?('dayanak '+madde):''].filter(Boolean).join(' · ');
+    document.getElementById('camDers').textContent=ders+(v.konu?' · '+v.konu:'');
+    document.getElementById('camKunye').textContent=
+      (v.kunye||'')+(v.donem?' · '+v.donem+' dönemde çıktı':'');
+    document.getElementById('camSoru').textContent=v.soru||'';
+    document.getElementById('camDip').textContent=ders+(v.konu?' · '+v.konu:'');
+    siklarEl.innerHTML=Object.keys(v.siklar).map(function(k){
+      return '<button class="sik" type="button" data-k="'+k+'"><em>'+k+'</em><span>'
+        +esc(v.siklar[k])+'</span></button>';
+    }).join('');
+    nobetci.hidden=true;
+    if(ipucu) ipucu.textContent='Bir şık seç — yanlışsa Nöbetçi tuzağın adını söyler.';
   }).catch(function(){});
-
 /* ===================================================================
    4) NÖBET ŞERİDİ — index.html ile aynı kural
    =================================================================== */
