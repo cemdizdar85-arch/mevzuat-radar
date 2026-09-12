@@ -38,7 +38,7 @@ on:
         required: true
         type: string
       paralel:
-        description: "Es zamanli parti sayisi (1-8)"
+        description: "Es zamanli parti sayisi (1-40; toplu partiler ~%2 CPU yedigi icin yuksek deger guvenli, kosucuda BOS RAM kapisi var)"
         required: false
         default: "6"
         type: string
