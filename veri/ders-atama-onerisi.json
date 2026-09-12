@@ -1,0 +1,480 @@
+{
+    "olcum":  "2026-09-12 18:00",
+    "kural":  "ONERI - ONAY CEM\u0027DE. veri/ders-elle-atama.json kurali geregi ders atamasi onaysiz uygulanmaz. Kapsam: ayristirilamayan kovada, SIMDI hattinda, cikmis\u003e=2 konular.",
+    "kazanc_soru":  187,
+    "onay_nasil":  "onerilen_ders alanini kontrol et; yanlislari duzelt, bosları doldur, sonra bana \"onayliyorum\" de.",
+    "satirlar":  [
+                     {
+                         "konu":  "bilanco hesaplari",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "borclu temerrudu",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "buro edinme zorunlulugu",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  4,
+                         "onerilen_ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "calisma suresi",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Is ve Sosyal Guvenlik Hukuku"
+                     },
+                     {
+                         "konu":  "calisma ve dinlenme sureleri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Is ve Sosyal Guvenlik Hukuku"
+                     },
+                     {
+                         "konu":  "cek hukuku",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "hukuka uygunluk sebepleri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  1,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "kusursuz sorumluluk halleri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "odeme emrine itiraz",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  2,
+                         "onerilen_ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "taylor prensibi",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  4,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "tazminattan indirim halleri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "temel muhasebe kavramlari",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  4,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "ticari is kavrami",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "ucret hukumleri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  4,
+                         "onerilen_ders":  "Is ve Sosyal Guvenlik Hukuku"
+                     },
+                     {
+                         "konu":  "yonetim beyanlari",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  3,
+                         "donem":  3,
+                         "acik":  5,
+                         "onerilen_ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "akreditif kaydi",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "analitik prosedur",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "bilanco sonrasi olaylar",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "bilanco toplami degisimi",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "borc senedi yenileme",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  1,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "cek odeme kontrolu",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "dis teyit prosedurleri",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "duzenleyici hesaplar",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "etik ilkeler tehditler",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "finansal oranlar",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "finansal tablo iddialari",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "gecici is iliskisi",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Is ve Sosyal Guvenlik Hukuku"
+                     },
+                     {
+                         "konu":  "gresham kanunu",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "haksiz rekabet ve reklam yasagi",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "hukuka aykiriligi kaldiran haller",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "iasb calismalari",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  2,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "ihtiyati hacze itiraz suresi (15 gun)",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "iliskili taraf tanimi",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "irade bozuklugu",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "ise iade arabuluculuk",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Is ve Sosyal Guvenlik Hukuku"
+                     },
+                     {
+                         "konu":  "isyeri devri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Is ve Sosyal Guvenlik Hukuku"
+                     },
+                     {
+                         "konu":  "kesin hukumsuzluk halleri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "keynesyen tuketim fonksiyonu",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "likidite tuzagi",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "operasyonel acik",
+                         "kova":  "Maliye (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  1,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "ozkaynak hesaplari",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  1,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "ozkaynaklar hesaplama",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "paranin yansizligi",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "piyasa degeri-defter degeri orani",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "sorumsuzluk anlasmalari",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Borclar Hukuku"
+                     },
+                     {
+                         "konu":  "standart oranlar",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "stokta kalma suresi hesabi",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "surekli dosya icerigi",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "sureli fesih kurallari",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Is ve Sosyal Guvenlik Hukuku"
+                     },
+                     {
+                         "konu":  "taylor kurali",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "ticari faaliyet yasagi",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "ticari orf ve adet",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "tuketici fazlasi",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "tuketim duzlestirmesi",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "tuketim fonksiyonu",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "uluslararasi muhasebe kuruluslari",
+                         "kova":  "Muhasebe (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Finansal Muhasebe"
+                     },
+                     {
+                         "konu":  "uyarma cezasi halleri",
+                         "kova":  "Hukuk (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "wagner yasasi",
+                         "kova":  "Maliye (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Maliye"
+                     },
+                     {
+                         "konu":  "yeni keynesyen model",
+                         "kova":  "Ekonomi (ayristirilamadi)",
+                         "cikmis":  2,
+                         "donem":  2,
+                         "acik":  3,
+                         "onerilen_ders":  "Ekonomi"
+                     }
+                 ]
+}
