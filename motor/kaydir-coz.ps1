@@ -141,6 +141,8 @@ function TuzakMetin($a){
   if($a.PSObject.Properties['tuzak'] -and $a.tuzak){ $t="$($a.tuzak)"; if($a.PSObject.Properties['dogrusu'] -and $a.dogrusu){ $t+=" Doğrusu: $($a.dogrusu)" }; return $t }
   return (AciklamaDuz $a)
 }
+# 12.09: sayıya çevrilemeyen doldur hücreleri — sessiz atlanmaz, sonda sayılıp yazılır (kör kalma kuralı).
+$script:DOLDUR_SAYISIZ=New-Object System.Collections.Generic.List[object]
 $sorular=@()
 foreach($x in $sec){
   $v=$x.v; $d="$($v.dogru)"; $acD=AciklamaDuz $v.aciklama.$d
@@ -165,7 +167,19 @@ foreach($x in $sec){
     if($adimlar.Count){ $onc=$adimlar[$adimlar.Count-1].formul; $adK={ param($f) $p=@("$f" -split '\s=\s'); @(($p[0] -replace '\s+',' ').Trim().ToLowerInvariant(), ($p[-1] -replace '\s*\([^)]*\)','' -replace '\s+',' ').Trim().ToLowerInvariant()) }
       $k1=& $adK $onc; $k2=& $adK $fmT; if($k1[0] -eq $k2[0] -and $k1[1] -eq $k2[1] -and $k1[0] -notmatch '^(verilen|soruda ne var|yanlış yol)'){ $adAyni=$true } }
     if($adAyni){ $adimlar[$adimlar.Count-1].anlatim=($adimlar[$adimlar.Count-1].anlatim+' '+$an).Trim(); "    adım birleştirildi (tekrar): $fmT"; continue }
-    $adimH=@{ anlatim=$an; formul=$fmT; doldur=@(@($a.doldur) | ForEach-Object { ,@(@($_ | ForEach-Object { [int]$_ })) }) }
+    # ⛔ 12.09.2026 — TEK SORU BÜTÜN YAYINI ÖLDÜRÜYORDU. c5 sonrası iki yayın koşusu
+    #   "Cannot convert value "Verilen" to type "System.Int32"" ile düştü; ~500 ödenmiş
+    #   soru siteye çıkamadı. Sebep: `doldur` ögesi normalde [satır,sütun] ÇİFTİ, ama
+    #   model bir soruda (kalip-parti-sgs-c5-fmuh-kolay-r1 / kp-19) ÜÇÜNCÜ öge olarak
+    #   hücrenin DEĞERİNİ yazmış ('Verilen', '60-50', '10+5', '15/50', '%30'). Üçüncü öge
+    #   ne burada ne aşağıda ne de sayfadaki JS'te okunuyor (hepsi yalnız p[0]/p[1]) —
+    #   yani tamamen ölü yüktü, ama `[int]` onu da çevirmeye kalkıp koşuyu öldürüyordu.
+    #   ⭐ ÖLÇÜLDÜ (647 parti, 17.835 doldur ögesi): yeni ifade eskisiyle 17.830 ögede
+    #     BİREBİR aynı sonucu veriyor, 0 fark; yalnız eskinin çöktüğü 5 hücreyi kurtarıyor.
+    #     İlk denememde `[int]::TryParse` yazmıştım: boş/null ögede eski `0`, yeni `""`
+    #     veriyordu -> 7.384 sapma. Prova onu yakaladı. Doğru biçim `try{[int]}catch{metin}`:
+    #     eski ne yapıyorsa aynen o, sadece çökmüyor.
+    $adimH=@{ anlatim=$an; formul=$fmT; doldur=@(@($a.doldur) | ForEach-Object { ,@(@($_ | ForEach-Object { try{ [int]$_ }catch{ [void]$script:DOLDUR_SAYISIZ.Add("$($x.id): '$_'"); "$_" } })) }) }
     foreach($fx in 'sik','karar','paragraf'){ if($a.PSObject.Properties[$fx] -and "$($a.$fx)".Trim()){ $adimH[$fx]="$($a.$fx)".Trim() } }   # 07.09 Ö56: teori dersi şık adımları
     $adimlar+=$adimH }
   # 04.09 FAZ S: sade Doğrusu + sınav dili + yanlış şık sade nedeni + anahtar kavramlar (üretici cache'inden; yoksa null)
@@ -1454,4 +1468,8 @@ foreach($sq in $sorular){ if(-not $sq.tablo -or $sq.teori){ continue }
     if([int]$p[0] -ge $sat.Count){ $sebep+="satır $($p[0]) tabloda yok"; continue }; $hc="$(@($sat[[int]$p[0]])[[int]$p[1]])"; $rak=($hc -replace '\D','')
     if($hc -match '\d' -and $hc.Trim().Length -le 24 -and $rak.Length -ge 2){ $var=$true; break } else { $sebep+="hücre '$hc' sayı değil ya da uzun" } }
   if(-not $var){ $tahminYok+="$($sq.id) ($((@($sebep | Select-Object -Unique)) -join '; '))" } }
+if($script:DOLDUR_SAYISIZ.Count){
+  $ozet=@($script:DOLDUR_SAYISIZ) | Group-Object { "$_".Split(':')[0] } | ForEach-Object { "$($_.Name) ($($_.Count) hücre)" }
+  Write-Host "DOLDUR SAYISIZ HÜCRE ($($script:DOLDUR_SAYISIZ.Count) hücre / $(@($ozet).Count) soru): $($ozet -join ' · ') — koordinat yerine metin yazılmış; hücre metin olarak bırakıldı, sayfa basıldı. Üreticide kapı gerekiyor." -ForegroundColor Yellow
+} else { Write-Host "DOLDUR: her hücre koordinat (sayı)" -ForegroundColor DarkGreen }
 if($tahminYok.Count){ Write-Host "ÖZ-SINAV TAHMİN YOK ($($tahminYok.Count) hesap sorusunda 'Önce sen dene' açılamaz): $($tahminYok -join ' · ')" -ForegroundColor Yellow } else { Write-Host "ÖZ-SINAV: her hesap sorusunda tahmin ekranı açılabilir" -ForegroundColor DarkGreen }
