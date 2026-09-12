@@ -126,9 +126,15 @@ foreach($x in $sirali){
 
 # --- CEKIRDEK sayfasi ---------------------------------------------------------
 $cekSayfa=New-Object System.Collections.Generic.List[object]
-$cekSayfa.Add(@('Ders','Konu','Kaç yıl',("Son $Pencere yıl soru"),'Toplam soru','Son görüldüğü yıllar'))
+# ⛔ 12.09 — BU SUTUN YANILTIYORDU. Once "Son görüldüğü yıllar" adiyla yalniz
+#    SON 3 yil yaziliyordu; Cem baktiginda Muhasebe konulari 3 yillik gorundu.
+#    Ornek: "dikey yuzde analizi" gercekte 8 yilda cikmis
+#    (2015,2016,2018,2019,2020,2024,2025,2026) ama hucrede "2024, 2025, 2026"
+#    yaziyordu. "Kac yil" sutunu 8 diyor, yanindaki hucre 3 yil gosteriyordu -
+#    iki sutun birbirini yalanliyordu. Artik TUM yillar yazilir; kirpma YOK.
+$cekSayfa.Add(@('Ders','Konu','Kaç yıl',("Son $Pencere yıl soru"),'Toplam soru','Çıktığı yıllar (tamamı)'))
 foreach($x in $cek){
-  $gy=@($x.yil.Keys|Sort-Object{[int]$_}|Select-Object -Last 3)
+  $gy=@($x.yil.Keys|Sort-Object{[int]$_})
   $cekSayfa.Add(@($x.ders,$x.konu,[int]$x.yilSayi,[int]$x.guncel,[int]$x.toplam,($gy -join ', ')))
 }
 
