@@ -1,5 +1,13 @@
 [
     {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-01",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "genel islem kosullari",
+        "donem":  9,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-ticaret-zor",
         "id":  "kp-01",
         "ders":  "Ticaret Hukuku",
@@ -9,14 +17,6 @@
     },
     {
         "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-01",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "genel islem kosullari",
-        "donem":  9,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-01",
         "ders":  "Ticaret Hukuku",
         "konu":  "genel islem kosullari",
@@ -48,6 +48,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ticaret-cokzor-r4-bulut",
+        "id":  "kp-01",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticaret unvani",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-03",
         "ders":  "Ticaret Hukuku",
@@ -61,6 +69,14 @@
         "ders":  "Ticaret Hukuku",
         "konu":  "ticaret unvani",
         "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r4-bulut",
+        "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "bono zorunlu unsurlari",
+        "donem":  4,
         "kurtarma":  false
     },
     {
@@ -84,14 +100,6 @@
         "id":  "kp-05",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak ciro",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-zor",
-        "id":  "kp-01",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "tacir sifati",
         "donem":  4,
         "kurtarma":  false
     },
@@ -112,6 +120,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t5-ticaret-zor",
+        "id":  "kp-01",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "tacir sifati",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-ticaret-cokzor",
         "id":  "kp-02",
         "ders":  "Ticaret Hukuku",
@@ -120,8 +136,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-06",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "haksiz rekabet davalari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-kolay",
+        "id":  "kp-03",
         "ders":  "Ticaret Hukuku",
         "konu":  "haksiz rekabet davalari",
         "donem":  3,
@@ -144,24 +168,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-06",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "haksiz rekabet davalari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-kolay",
-        "id":  "kp-03",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "haksiz rekabet davalari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-kolay",
+        "etiket":  "sgs-t2-ticaret-kolay",
         "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "haksiz rekabet davalari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-09",
         "ders":  "Ticaret Hukuku",
         "konu":  "hukuka uygunluk sebepleri",
         "donem":  3,
@@ -176,15 +192,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-t5-ticaret-zor",
+        "id":  "kp-02",
         "ders":  "Ticaret Hukuku",
         "konu":  "hukuka uygunluk sebepleri",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t5-ticaret-zor",
+        "etiket":  "sgs-t5-ticaret-kolay",
         "id":  "kp-02",
         "ders":  "Ticaret Hukuku",
         "konu":  "hukuka uygunluk sebepleri",
@@ -240,6 +256,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-16",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "anonim sirket temsili",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-16",
         "ders":  "Ticaret Hukuku",
@@ -256,24 +280,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-16",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "anonim sirket temsili",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-15",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "anonim sirket yonetim kurulu yetkisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-t2-ticaret-cokzor",
+        "id":  "kp-09",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket yonetim kurulu yetkisi",
         "donem":  2,
@@ -288,8 +296,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-cokzor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t5-ticaret-cokzor",
+        "id":  "kp-05",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "anonim sirket yonetim kurulu yetkisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-15",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket yonetim kurulu yetkisi",
         "donem":  2,
@@ -344,8 +360,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t5-ticaret-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-17",
         "ders":  "Ticaret Hukuku",
         "konu":  "kambiyo senedi cirosu",
         "donem":  2,
@@ -360,16 +376,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-17",
+        "etiket":  "sgs-t5-ticaret-zor",
+        "id":  "kp-04",
         "ders":  "Ticaret Hukuku",
         "konu":  "kambiyo senedi cirosu",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-14",
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-07",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak bono",
         "donem":  2,
@@ -384,8 +400,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-07",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-14",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak bono",
         "donem":  2,
@@ -400,6 +416,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-11",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "limited sirket ozellikleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-11",
         "ders":  "Ticaret Hukuku",
@@ -409,22 +433,6 @@
     },
     {
         "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-11",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "limited sirket ozellikleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-10",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "reklam yoluyla haksiz rekabet",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-10",
         "ders":  "Ticaret Hukuku",
         "konu":  "reklam yoluyla haksiz rekabet",
@@ -434,6 +442,14 @@
     {
         "etiket":  "sgs-t2-ticaret-cokzor",
         "id":  "kp-06",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "reklam yoluyla haksiz rekabet",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-10",
         "ders":  "Ticaret Hukuku",
         "konu":  "reklam yoluyla haksiz rekabet",
         "donem":  2,
@@ -1256,7 +1272,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
+        "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-29",
         "ders":  "Ticaret Hukuku",
         "konu":  "yazili sekil imza sartlari",
@@ -1264,7 +1280,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-zor",
+        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-29",
         "ders":  "Ticaret Hukuku",
         "konu":  "yazili sekil imza sartlari",
