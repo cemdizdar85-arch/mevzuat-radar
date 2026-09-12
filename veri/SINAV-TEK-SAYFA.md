@@ -1,6 +1,6 @@
 # SINAV TEK SAYFA — üç sınavın tek doğru sayfası
 
-> Üretim: **12.09.2026 09:29** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
+> Üretim: **12.09.2026 09:54** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
 > **KURAL:** Sınavla ilgili "var mı / kaç tane / eksik ne" sorusunun TEK cevabı bu sayfadır. Başında **⚠** olan satırın girdisi bayat (> 7 gün) ya da kırıktır: o sayı **ölçülmedi** sayılır, önce girdisi tazelenir (bölüm 5).
 > Bu sayfa hiçbir şeyi kendisi ölçmez; ölçüm robotlarının çıktılarını birleştirir ve her sayının yanına kaynağını + tarihini yazar.
 
@@ -192,25 +192,25 @@ Bu sayfanın her girdisi aşağıda. **TAZE** = ≤ 7 gün · **BAYAT** = daha e
 
 | Girdi | Dosya | Durum | Ölçüm damgası | Dosya tarihi | Üretici | Robot |
 |---|---|---|---|---|---|---|
-| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 12.09.2026 09:28 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
-| kasa-sayim | veri/kasa-sayim.json | TAZE | 12.09.2026 05:38 | 12.09.2026 09:28 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
-| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 12.09.2026 09:28 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 12.09.2026 09:28 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 12.09.2026 09:28 | motor/kota-kur.ps1 (elle) | yok (Cem kararı; tarih anlamsız) |
-| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 12.09.2026 08:51 | 12.09.2026 09:28 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
-| ambar-envanteri | veri/AMBAR-ENVANTERI.md | **BAYAT (10 gün)** | 02.09.2026 17:57 | 12.09.2026 09:28 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 11.09.2026 12:46 | 12.09.2026 09:28 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| cikmis-karnesi | veri/cikmis-soru-karnesi.json | **BAYAT (19 gün)** | 24.08.2026 00:05 | 12.09.2026 09:28 | motor/cikmis-soru-karnesi.ps1 | yok |
-| siklik-kunyesi | veri/siklik-kunyesi.json | **BAYAT (13 gün)** | 30.08.2026 08:43 | 12.09.2026 09:28 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
-| kgk-analiz | veri/kgk-analiz.json | **BAYAT (24 gün)** | 19.08.2026 (TAM ARSIV) | 12.09.2026 09:28 | motor/kgk-siklik-derle.ps1 | yok |
-| ders-karnesi | veri/ders-karnesi.json | **BAYAT (17 gün)** | 2026-08-26 00:11 | 12.09.2026 09:28 | motor/ders-karnesi.ps1 | dogrula.yml |
-| karne-sgs | veri/konu-kaynak-karnesi.json | **BAYAT (16 gün)** | 2026-08-27 14:09 | 12.09.2026 09:28 | motor/konu-kaynak-karnesi.ps1 | karne.yml · sgs-analiz push tetikli |
-| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | **BAYAT (17 gün)** | 2026-08-26 00:51 | 12.09.2026 09:28 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | **BAYAT (17 gün)** | 2026-08-26 03:00 | 12.09.2026 09:28 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 12.09.2026 09:28 | arac/dayanak-metinsiz-tarama.ps1 | yok |
-| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 12.09.2026 09:28 | arac/dayanak-kara-liste.ps1 | yok |
-| bekleyen-partiler | veri/bekleyen-partiler.json | TAZE |  | 12.09.2026 09:28 | motor/parti-hasat.ps1 | parti-liste.yml · her gün 03:26 TR |
-| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 12.09.2026 09:28 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
+| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 12.09.2026 09:54 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
+| kasa-sayim | veri/kasa-sayim.json | TAZE | 12.09.2026 05:38 | 12.09.2026 09:54 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
+| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 12.09.2026 09:54 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 12.09.2026 09:54 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 12.09.2026 09:54 | motor/kota-kur.ps1 (elle) | yok (Cem kararı; tarih anlamsız) |
+| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 12.09.2026 08:51 | 12.09.2026 09:54 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
+| ambar-envanteri | veri/AMBAR-ENVANTERI.md | **BAYAT (10 gün)** | 02.09.2026 17:57 | 12.09.2026 09:54 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 11.09.2026 12:46 | 12.09.2026 09:54 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| cikmis-karnesi | veri/cikmis-soru-karnesi.json | **BAYAT (19 gün)** | 24.08.2026 00:05 | 12.09.2026 09:54 | motor/cikmis-soru-karnesi.ps1 | yok |
+| siklik-kunyesi | veri/siklik-kunyesi.json | **BAYAT (13 gün)** | 30.08.2026 08:43 | 12.09.2026 09:54 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
+| kgk-analiz | veri/kgk-analiz.json | **BAYAT (24 gün)** | 19.08.2026 (TAM ARSIV) | 12.09.2026 09:54 | motor/kgk-siklik-derle.ps1 | yok |
+| ders-karnesi | veri/ders-karnesi.json | **BAYAT (17 gün)** | 2026-08-26 00:11 | 12.09.2026 09:54 | motor/ders-karnesi.ps1 | dogrula.yml |
+| karne-sgs | veri/konu-kaynak-karnesi.json | **BAYAT (16 gün)** | 2026-08-27 14:09 | 12.09.2026 09:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml · sgs-analiz push tetikli |
+| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | **BAYAT (17 gün)** | 2026-08-26 00:51 | 12.09.2026 09:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | **BAYAT (17 gün)** | 2026-08-26 03:00 | 12.09.2026 09:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 12.09.2026 09:54 | arac/dayanak-metinsiz-tarama.ps1 | yok |
+| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 12.09.2026 09:54 | arac/dayanak-kara-liste.ps1 | yok |
+| bekleyen-partiler | veri/bekleyen-partiler.json | TAZE |  | 12.09.2026 09:54 | motor/parti-hasat.ps1 | parti-liste.yml · her gün 03:26 TR |
+| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 12.09.2026 09:54 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
 
 **Şu an TAZE olmayan girdi: 12 / 19.**
 
