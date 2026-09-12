@@ -1,6 +1,6 @@
 [
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme",
@@ -16,7 +16,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
+        "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme",
@@ -24,7 +24,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-cokzor",
+        "etiket":  "sgs-p-borclar-zor-r2",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "alacagin devri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa yeri",
@@ -40,7 +48,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
+        "etiket":  "sgs-p-borclar-cokzor-r3",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa yeri",
@@ -56,10 +64,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
+        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa yeri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borcun ifa yeri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-kolay-r1-b2",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil zamanasimi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -80,7 +104,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r1-b2",
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil zamanasimi",
@@ -88,10 +112,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
+        "etiket":  "sgs-p-borclar-zor-r4-b2",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil zamanasimi",
+        "konu":  "sozlesmenin kurulmasi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -112,11 +136,19 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-zor-r4-b2",
-        "id":  "kp-02",
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
-        "konu":  "sozlesmenin kurulmasi",
-        "donem":  4,
+        "konu":  "borclarin ifasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-kolay-r1",
+        "id":  "kp-06",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borclarin ifasi",
+        "donem":  3,
         "kurtarma":  false
     },
     {
@@ -128,18 +160,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-05",
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "borclarin ifasi",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-borclar-zor-r1",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
-        "konu":  "borclarin ifasi",
+        "konu":  "haksiz fiil",
         "donem":  3,
         "kurtarma":  false
     },
@@ -160,6 +192,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-borclar-kolay-r3",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil unsurlari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-kolay-r2",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "tazminattan indirim halleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-borclar-zor-r3-b2",
         "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
@@ -168,10 +216,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-borclar-cokzor-r1",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
-        "konu":  "zamanasimi suresi",
+        "konu":  "ucret sozlesmesi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -184,10 +232,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "zamanasimi suresi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-borclar-zor-r1-b2",
         "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "manevi tazminat",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-zor-r1",
+        "id":  "kp-07",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "manevi tazminat",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-cokzor-r1",
+        "id":  "kp-07",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "muteselsil borcluluk",
         "donem":  2,
         "kurtarma":  false
     },
@@ -208,6 +280,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-borclar-kolay-r1",
+        "id":  "kp-07",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "muteselsil sorumluluk",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-kolay-r2",
+        "id":  "kp-06",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "muteselsil sorumluluk",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-borclar-cokzor-r1-b2",
         "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
@@ -216,7 +304,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
+        "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-08",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme zamanasimi",
@@ -232,7 +320,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-08",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme zamanasimi",
@@ -288,8 +376,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
+        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
         "id":  "kp-05",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "ucret sozlesmesi kurallari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-cokzor-r1",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi kurallari",
         "donem":  2,
@@ -304,19 +400,19 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-borclar-cokzor-r2",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi kurallari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-23",
+        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
-        "konu":  "adam calistiranin sorumlulugu",
-        "donem":  1,
+        "konu":  "ucret sozlesmesi kurallari",
+        "donem":  2,
         "kurtarma":  false
     },
     {
@@ -330,6 +426,14 @@
     {
         "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-12",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "adam calistiranin sorumlulugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-23",
         "ders":  "Borçlar Hukuku",
         "konu":  "adam calistiranin sorumlulugu",
         "donem":  1,
@@ -4144,6 +4248,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ekonomi-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "is-lm para politikasi etkinligi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-ekonomi-zor-r1-a",
         "id":  "kp-01",
         "ders":  "Ekonomi",
@@ -4168,7 +4280,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ekonomi-kolay-r2-a",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "talep esnekligi",
@@ -4184,7 +4296,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
+        "etiket":  "sgs-p-ekonomi-kolay-r2-a",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "talep esnekligi",
@@ -4192,7 +4304,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "talep esnekligi",
@@ -4224,6 +4336,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ekonomi-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "para politikasi araclari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-02",
         "ders":  "Ekonomi",
@@ -4234,6 +4354,14 @@
     {
         "etiket":  "sgs-p-ekonomi-zor-r1-a",
         "id":  "kp-03",
+        "ders":  "Ekonomi",
+        "konu":  "cari islemler hesabi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ekonomi-cokzor-r1",
+        "id":  "kp-02",
         "ders":  "Ekonomi",
         "konu":  "cari islemler hesabi",
         "donem":  2,
@@ -4264,7 +4392,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
         "id":  "kp-07",
         "ders":  "Ekonomi",
         "konu":  "genisletici para politikasi araclari",
@@ -4272,7 +4400,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-07",
         "ders":  "Ekonomi",
         "konu":  "genisletici para politikasi araclari",
@@ -4288,7 +4416,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-05",
         "ders":  "Ekonomi",
         "konu":  "j egrisi",
@@ -4296,7 +4424,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
         "id":  "kp-05",
         "ders":  "Ekonomi",
         "konu":  "j egrisi",
@@ -4336,7 +4464,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
         "id":  "kp-03",
         "ders":  "Ekonomi",
         "konu":  "talep fiyat esnekligi",
@@ -4344,7 +4472,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
         "id":  "kp-03",
         "ders":  "Ekonomi",
         "konu":  "talep fiyat esnekligi",
@@ -9888,8 +10016,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-issgk-cokzor-r4-a",
+        "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
         "donem":  5,
@@ -9912,6 +10040,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-issgk-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-issgk-cokzor-r3-a",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -9920,15 +10056,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r4-a",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
         "donem":  5,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r1-a",
+        "etiket":  "sgs-p-issgk-zor-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi feshi",
@@ -9944,19 +10080,19 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-issgk-kolay-r1-a",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi feshi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-issgk-zor-r1-a",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "yillik ucretli izin",
         "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-07",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "hizmet borclanmasi",
-        "donem":  3,
         "kurtarma":  false
     },
     {
@@ -9968,10 +10104,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-issgk-cokzor-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "İs kanunu kapsami",
+        "konu":  "hizmet borclanmasi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -9988,6 +10124,22 @@
         "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "İs kanunu kapsami",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-a6-issgk-cokzor-r1",
+        "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "İs kanunu kapsami",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-zor-r1",
+        "id":  "kp-04",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi sayilmayan haller",
         "donem":  3,
         "kurtarma":  false
     },
@@ -10016,10 +10168,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r4-a",
+        "etiket":  "sgs-p-issgk-cokzor-r3",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sureli fesih",
+        "konu":  "isveren vekili",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r2",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "isveren vekili",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r1",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "isveren vekili",
         "donem":  3,
         "kurtarma":  false
     },
@@ -10033,6 +10201,14 @@
     },
     {
         "etiket":  "sgs-p-issgk-kolay-r2-a",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sureli fesih",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-kolay-r4-a",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sureli fesih",
@@ -10120,7 +10296,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "grev lokavt yasagi",
@@ -10128,7 +10304,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-zor",
         "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "grev lokavt yasagi",
@@ -10208,7 +10384,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-09",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendikal guvenceler",
@@ -10216,7 +10392,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-09",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendikal guvenceler",
@@ -10248,7 +10424,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-29",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fazla calisma hukumleri",
@@ -10256,7 +10432,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-29",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fazla calisma hukumleri",
@@ -10328,16 +10504,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-issgk-cokzor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-27",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is guvencesi kapsami",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-27",
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "id":  "kp-14",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is guvencesi kapsami",
         "donem":  1,
@@ -10376,7 +10552,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -10384,7 +10560,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -10400,14 +10576,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-33",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "isyeri devri-is kanunu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-33",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -10417,6 +10585,14 @@
     },
     {
         "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-33",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "isyeri devri-is kanunu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-zor",
         "id":  "kp-33",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isyeri devri-is kanunu",
@@ -10432,6 +10608,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-16",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika yetkisi dusmesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-issgk-zor",
         "id":  "kp-16",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -10449,14 +10633,6 @@
     },
     {
         "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-16",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika yetkisi dusmesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-20",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sigortali sayilmayanlar",
@@ -10464,7 +10640,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-24",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sosyal sigortali sayilma",
@@ -10472,7 +10648,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-24",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sosyal sigortali sayilma",
@@ -10504,6 +10680,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-mta-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "dikey yuzde analizi",
+        "donem":  11,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-kolay-r2-a",
         "id":  "kp-01",
         "ders":  "Mali Tablolar Analizi",
@@ -10536,22 +10720,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-cokzor",
-        "id":  "kp-03",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif devir hizi",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-01",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif devir hizi",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-mta-kolay-r1-a",
         "id":  "kp-02",
         "ders":  "Mali Tablolar Analizi",
@@ -10560,7 +10728,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
+        "etiket":  "sgs-p-mta-kolay-r4",
         "id":  "kp-02",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "aktif devir hizi",
@@ -10568,16 +10736,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
+        "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-01",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif devir hizi",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "aktif devir hizi",
         "donem":  8,
@@ -10593,7 +10753,71 @@
     },
     {
         "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-mta-cokzor",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r3",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "net isletme sermayesi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "net isletme sermayesi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r1",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "net isletme sermayesi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "yatay analiz",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r3",
+        "id":  "kp-01",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "yatay analiz",
         "donem":  8,
@@ -10616,6 +10840,38 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-mta-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "yatay analiz",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r4",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran analizi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r4",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "stok devir hizi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "stok devir hizi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r1-a",
         "id":  "kp-02",
         "ders":  "Mali Tablolar Analizi",
@@ -10624,10 +10880,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
+        "etiket":  "sgs-p-mta-zor-r2",
         "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "cari oran hesaplama",
+        "konu":  "asit-test orani",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r1",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "asit-test orani",
         "donem":  4,
         "kurtarma":  false
     },
@@ -10640,6 +10904,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran hesaplama",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r3-a",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif karlilik orani",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r1-a",
         "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
@@ -10648,10 +10928,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-cokzor-r3-a",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-mta-kolay-r4-a",
+        "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif karlilik orani",
+        "konu":  "dikey analiz",
         "donem":  3,
         "kurtarma":  false
     },
@@ -10672,8 +10952,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-kolay-r4-a",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-mta-cokzor-r1",
+        "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "dikey analiz",
         "donem":  3,
@@ -10688,6 +10968,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-mta-cokzor-r1-a",
+        "id":  "kp-07",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "basit (dogrudan) dagitim yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r3-a",
         "id":  "kp-07",
         "ders":  "Mali Tablolar Analizi",
@@ -10697,14 +10985,6 @@
     },
     {
         "etiket":  "sgs-p-mta-cokzor-r2-a",
-        "id":  "kp-07",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "basit (dogrudan) dagitim yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-mta-cokzor-r1-a",
         "id":  "kp-07",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "basit (dogrudan) dagitim yontemi",
@@ -10720,14 +11000,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
-        "id":  "kp-07",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "brut kar orani",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-06",
         "ders":  "Mali Tablolar Analizi",
@@ -10736,10 +11008,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-07",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "brut kar orani",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r1",
+        "id":  "kp-04",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran duran varlik",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r3-a",
         "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "cari oran duran varlik",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-kolay-r3-a",
+        "id":  "kp-07",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "dikey yuzdelerden oz kaynak-aktif",
         "donem":  2,
         "kurtarma":  false
     },
@@ -10753,9 +11049,9 @@
     },
     {
         "etiket":  "sgs-p-mta-kolay-r3-a",
-        "id":  "kp-07",
+        "id":  "kp-06",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "dikey yuzdelerden oz kaynak-aktif",
+        "konu":  "kapasite artirici harcama amortismani",
         "donem":  2,
         "kurtarma":  false
     },
@@ -10768,10 +11064,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-kolay-r3-a",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-mta-cokzor-r2",
+        "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "kapasite artirici harcama amortismani",
+        "konu":  "karsilastirmali tablolar analizi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -10808,16 +11104,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "yuzde degisim analizi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "yuzde degisim analizi",
         "donem":  2,
@@ -10840,16 +11136,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-zor",
-        "id":  "kp-25",
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-20",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "bilanco kaldirac orani",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-22",
+        "etiket":  "sgs-t1-mta-zor",
+        "id":  "kp-25",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "bilanco kaldirac orani",
         "donem":  1,
@@ -10864,24 +11160,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
-        "id":  "kp-20",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-22",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "bilanco kaldirac orani",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-20",
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-21",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "calisma sermayesi analizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
-        "id":  "kp-21",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-20",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "calisma sermayesi analizi",
         "donem":  1,
@@ -10896,14 +11192,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-21",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "cari oran bilanco analizi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-18",
         "ders":  "Mali Tablolar Analizi",
@@ -10914,6 +11202,14 @@
     {
         "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-18",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran bilanco analizi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-21",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "cari oran bilanco analizi",
         "donem":  1,
@@ -10936,6 +11232,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-mta-cokzor",
+        "id":  "kp-23",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "dikey analiz orani",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-19",
         "ders":  "Mali Tablolar Analizi",
@@ -10945,14 +11249,6 @@
     },
     {
         "etiket":  "sgs-t1-mta-zor",
-        "id":  "kp-23",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "dikey analiz orani",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-mta-cokzor",
         "id":  "kp-23",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "dikey analiz orani",
@@ -11008,6 +11304,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-32",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "gelir tablosu analiz sinirlamalari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-26",
         "ders":  "Mali Tablolar Analizi",
@@ -11017,23 +11321,15 @@
     },
     {
         "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-32",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "gelir tablosu analiz sinirlamalari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-23",
+        "id":  "kp-27",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "kâr marji analizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-27",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-23",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "kâr marji analizi",
         "donem":  1,
@@ -11128,7 +11424,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
+        "etiket":  "sgs-t1-mta-kolay",
         "id":  "kp-09",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "mali tablolar analiz teknikleri",
@@ -11136,7 +11432,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-kolay",
+        "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-09",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "mali tablolar analiz teknikleri",
@@ -11160,16 +11456,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-mta-zor",
+        "id":  "kp-11",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "net calisma sermayesi devir hizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-zor",
-        "id":  "kp-11",
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-06",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "net calisma sermayesi devir hizi",
         "donem":  1,
@@ -11208,16 +11504,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-13",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "sektor oranlari analizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
-        "id":  "kp-13",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-14",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "sektor oranlari analizi",
         "donem":  1,
@@ -11280,6 +11576,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-maliye-zor",
+        "id":  "kp-01",
+        "ders":  "Maliye",
+        "konu":  "butce ilkeleri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-maliye-cokzor",
         "id":  "kp-01",
         "ders":  "Maliye",
@@ -11296,23 +11600,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-zor",
-        "id":  "kp-01",
-        "ders":  "Maliye",
-        "konu":  "butce ilkeleri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-a6-maliye-zor-r1",
-        "id":  "kp-01",
-        "ders":  "Maliye",
-        "konu":  "butce ilkeleri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-a6-maliye-cokzor-r1",
         "id":  "kp-01",
         "ders":  "Maliye",
         "konu":  "butce ilkeleri",
@@ -11328,6 +11616,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-a6-maliye-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "Maliye",
+        "konu":  "butce ilkeleri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliye-zor-r1-a",
         "id":  "kp-01",
         "ders":  "Maliye",
@@ -11336,8 +11632,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gk-pilot2-maliye-kolay",
-        "id":  "kp-01",
+        "etiket":  "sgs-p-maliye-kolay-r2",
+        "id":  "kp-02",
+        "ders":  "Maliye",
+        "konu":  "butce siniflandirmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliye-kolay-r1",
+        "id":  "kp-02",
+        "ders":  "Maliye",
+        "konu":  "butce siniflandirmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliye-kolay-r3",
+        "id":  "kp-02",
+        "ders":  "Maliye",
+        "konu":  "butce siniflandirmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-a6-maliye-zor-r1",
+        "id":  "kp-03",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma",
         "donem":  3,
@@ -11345,6 +11665,14 @@
     },
     {
         "etiket":  "sgs-gk-pilot2-maliye-zor",
+        "id":  "kp-01",
+        "ders":  "Maliye",
+        "konu":  "kamu harcamalari siniflandirma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gk-pilot2-maliye-kolay",
         "id":  "kp-01",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma",
@@ -11360,10 +11688,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-maliye-zor-r1",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-maliye-zor-r1",
+        "id":  "kp-01",
         "ders":  "Maliye",
-        "konu":  "kamu harcamalari siniflandirma",
+        "konu":  "mali anestezi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -11384,18 +11712,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliye-zor-r2-a",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-maliye-cokzor-r1",
+        "id":  "kp-03",
         "ders":  "Maliye",
         "konu":  "artan oranli vergi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-maliye-zor-r2-a",
+        "id":  "kp-04",
         "ders":  "Maliye",
-        "konu":  "kamu gelirleri turleri",
+        "konu":  "artan oranli vergi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -11408,7 +11736,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-kolay",
+        "etiket":  "sgs-t1-genel-maliye-cokzor",
         "id":  "kp-05",
         "ders":  "Maliye",
         "konu":  "kamu gelirleri turleri",
@@ -11417,6 +11745,14 @@
     },
     {
         "etiket":  "sgs-p-maliye-zor-r1-a",
+        "id":  "kp-05",
+        "ders":  "Maliye",
+        "konu":  "kamu gelirleri turleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-05",
         "ders":  "Maliye",
         "konu":  "kamu gelirleri turleri",
@@ -11448,6 +11784,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliye-zor-r2",
+        "id":  "kp-03",
+        "ders":  "Maliye",
+        "konu":  "otomatik istikrarlandiricilar",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-maliye-zor",
         "id":  "kp-03",
         "ders":  "Maliye",
@@ -11472,16 +11816,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-maliye-cokzor-r1",
-        "id":  "kp-09",
+        "etiket":  "sgs-a6-maliye-zor-r1",
+        "id":  "kp-08",
         "ders":  "Maliye",
         "konu":  "parafiskal gelirler",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-maliye-zor-r1",
-        "id":  "kp-08",
+        "etiket":  "sgs-a6-maliye-cokzor-r1",
+        "id":  "kp-09",
         "ders":  "Maliye",
         "konu":  "parafiskal gelirler",
         "donem":  2,
@@ -11504,7 +11848,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-zor",
+        "etiket":  "sgs-t4-maliye-cokzor",
         "id":  "kp-13",
         "ders":  "Maliye",
         "konu":  "5018 butce turleri",
@@ -11520,18 +11864,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-cokzor",
+        "etiket":  "sgs-t4-maliye-zor",
         "id":  "kp-13",
         "ders":  "Maliye",
         "konu":  "5018 butce turleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-maliye-cokzor",
-        "id":  "kp-16",
-        "ders":  "Maliye",
-        "konu":  "borc stoku surdurulebilirligi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -11544,7 +11880,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-kolay",
+        "etiket":  "sgs-t1-genel-maliye-cokzor",
+        "id":  "kp-16",
+        "ders":  "Maliye",
+        "konu":  "borc stoku surdurulebilirligi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-maliye-zor",
         "id":  "kp-12",
         "ders":  "Maliye",
         "konu":  "butce hazirlama sureci",
@@ -11560,7 +11904,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-zor",
+        "etiket":  "sgs-t4-maliye-kolay",
         "id":  "kp-12",
         "ders":  "Maliye",
         "konu":  "butce hazirlama sureci",
@@ -11576,14 +11920,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-kolay",
-        "id":  "kp-17",
-        "ders":  "Maliye",
-        "konu":  "dolayli vergiler ozellikleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-maliye-zor",
         "id":  "kp-22",
         "ders":  "Maliye",
@@ -11592,7 +11928,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-cokzor",
+        "etiket":  "sgs-t4-maliye-kolay",
         "id":  "kp-17",
         "ders":  "Maliye",
         "konu":  "dolayli vergiler ozellikleri",
@@ -11602,6 +11938,14 @@
     {
         "etiket":  "sgs-t1-genel-maliye-cokzor",
         "id":  "kp-22",
+        "ders":  "Maliye",
+        "konu":  "dolayli vergiler ozellikleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-maliye-cokzor",
+        "id":  "kp-17",
         "ders":  "Maliye",
         "konu":  "dolayli vergiler ozellikleri",
         "donem":  1,
@@ -11616,14 +11960,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-cokzor",
-        "id":  "kp-08",
-        "ders":  "Maliye",
-        "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-maliye-cokzor",
         "id":  "kp-05",
         "ders":  "Maliye",
@@ -11640,7 +11976,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-zor",
+        "etiket":  "sgs-t1-genel-maliye-cokzor",
         "id":  "kp-08",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
@@ -11650,6 +11986,14 @@
     {
         "etiket":  "sgs-t4-maliye-zor",
         "id":  "kp-05",
+        "ders":  "Maliye",
+        "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-maliye-zor",
+        "id":  "kp-08",
         "ders":  "Maliye",
         "konu":  "kamu harcamalari siniflandirma (cari-yatirim)",
         "donem":  1,
@@ -11688,6 +12032,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-maliye-kolay",
+        "id":  "kp-03",
+        "ders":  "Maliye",
+        "konu":  "mali uyum kalitesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-07",
         "ders":  "Maliye",
@@ -11697,14 +12049,6 @@
     },
     {
         "etiket":  "sgs-t4-maliye-zor",
-        "id":  "kp-03",
-        "ders":  "Maliye",
-        "konu":  "mali uyum kalitesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-maliye-kolay",
         "id":  "kp-03",
         "ders":  "Maliye",
         "konu":  "mali uyum kalitesi",
@@ -11720,6 +12064,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-maliye-kolay",
+        "id":  "kp-10",
+        "ders":  "Maliye",
+        "konu":  "transfer harcamalari siniflandirma",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-maliye-zor",
         "id":  "kp-10",
         "ders":  "Maliye",
@@ -11736,15 +12088,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-maliye-kolay",
-        "id":  "kp-10",
+        "etiket":  "sgs-t4-maliye-zor",
+        "id":  "kp-06",
         "ders":  "Maliye",
-        "konu":  "transfer harcamalari siniflandirma",
+        "konu":  "vergi ozellikleri",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-zor",
+        "etiket":  "sgs-t4-maliye-kolay",
         "id":  "kp-06",
         "ders":  "Maliye",
         "konu":  "vergi ozellikleri",
@@ -11760,32 +12112,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-maliye-kolay",
-        "id":  "kp-06",
-        "ders":  "Maliye",
-        "konu":  "vergi ozellikleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-maliye-kolay",
         "id":  "kp-11",
-        "ders":  "Maliye",
-        "konu":  "vergi siniflandirmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-maliye-zor",
-        "id":  "kp-11",
-        "ders":  "Maliye",
-        "konu":  "vergi siniflandirmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-maliye-kolay",
-        "id":  "kp-07",
         "ders":  "Maliye",
         "konu":  "vergi siniflandirmasi",
         "donem":  1,
@@ -11800,47 +12128,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
+        "etiket":  "sgs-t4-maliye-kolay",
+        "id":  "kp-07",
+        "ders":  "Maliye",
+        "konu":  "vergi siniflandirmasi",
+        "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
+        "etiket":  "sgs-t1-genel-maliye-zor",
+        "id":  "kp-11",
+        "ders":  "Maliye",
+        "konu":  "vergi siniflandirmasi",
+        "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "etiket":  "sgs-p-maliyet-kolay-r4",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -11856,7 +12160,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r3",
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -11872,7 +12184,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "etiket":  "sgs-p-maliyet-kolay-r1",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -11880,7 +12192,39 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r3",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r1",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
@@ -11888,7 +12232,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
+        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri dagitimi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r4",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
@@ -11904,14 +12256,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri dagitimi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
@@ -11920,8 +12264,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
         "donem":  7,
@@ -11936,6 +12280,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r4",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-kolay-r4-b2",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
@@ -11944,15 +12304,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi",
         "donem":  7,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi",
@@ -11968,7 +12328,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi",
@@ -11976,7 +12344,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "etiket":  "sgs-p-maliyet-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi",
@@ -11985,9 +12369,9 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-03",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet yontemi",
+        "konu":  "siparis maliyet sistemi",
         "donem":  7,
         "kurtarma":  false
     },
@@ -12000,15 +12384,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r1-b2",
+        "etiket":  "sgs-p-maliyet-zor-r3-b2",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet sistemi",
@@ -12024,6 +12400,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-zor-r1-b2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet sistemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-zor-r3",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -12032,27 +12416,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r3-b2",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet sistemi",
         "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r4-b2",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "evre maliyet sistemi",
-        "donem":  5,
         "kurtarma":  false
     },
     {
@@ -12064,8 +12432,48 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "evre maliyet sistemi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r4-b2",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "evre maliyet sistemi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r4",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "evre maliyet sistemi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-05",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satilan mamul maliyeti",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r4",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satilan mamul maliyeti",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
         "donem":  5,
@@ -12080,24 +12488,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-05",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "satilan mamul maliyeti",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r4",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "satilan mamul maliyeti",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-05",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
         "donem":  5,
@@ -12112,7 +12504,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "kademeli dagitim yontemi",
@@ -12120,7 +12512,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "kademeli dagitim yontemi",
@@ -12136,6 +12528,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "kademeli dagitim yontemi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-kolay-r2",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
@@ -12144,11 +12544,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-maliyet-zor-r3-b2",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "kademeli dagitim yontemi",
-        "donem":  4,
+        "konu":  "birlesik maliyet dagitimi",
+        "donem":  3,
         "kurtarma":  false
     },
     {
@@ -12168,14 +12568,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r3-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "birlesik maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
@@ -12184,8 +12576,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1-b2",
+        "etiket":  "sgs-p-maliyet-zor-r2-b2",
         "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri yukleme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri yukleme",
         "donem":  3,
@@ -12200,7 +12600,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r2-b2",
+        "etiket":  "sgs-p-maliyet-zor-r1-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri yukleme",
@@ -12208,16 +12608,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-07",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri yukleme",
+        "konu":  "ortak urun maliyet dagitimi",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak urun maliyet dagitimi",
         "donem":  3,
@@ -12226,6 +12626,14 @@
     {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak urun maliyet dagitimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak urun maliyet dagitimi",
         "donem":  3,
@@ -12240,14 +12648,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak urun maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r2-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
@@ -12256,16 +12656,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-maliyet-zor-r1",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak urun maliyet dagitimi",
+        "konu":  "standart maliyet farklari",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-maliyet-zor-r2",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet farklari",
         "donem":  3,
@@ -12280,39 +12680,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet farklari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r2",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r4",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-zor-r3",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r2",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapmasi",
@@ -12328,6 +12704,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-zor-r4",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-cokzor-r2-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
@@ -12336,8 +12720,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
+        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
         "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r2",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "uretim maliyeti hesaplama",
         "donem":  3,
@@ -12352,10 +12752,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r3",
+        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "yari mamul maliyeti",
+        "konu":  "uretim maliyeti hesaplama",
         "donem":  3,
         "kurtarma":  false
     },
@@ -12368,16 +12768,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "yari mamul maliyeti",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-maliyet-kolay-r3",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yari mamul maliyeti",
         "donem":  3,
@@ -12392,15 +12784,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "ardisik donem satilan mamul maliyeti",
-        "donem":  2,
+        "konu":  "yari mamul maliyeti",
+        "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "yari mamul maliyeti",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ardisik donem satilan mamul maliyeti",
@@ -12416,10 +12816,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ardisik donem satilan mamul maliyeti",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-zor-r2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik maliyet uretim miktari yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r1",
+        "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken-normal maliyet birim farki",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-12",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken-normal maliyet birim farki",
         "donem":  2,
         "kurtarma":  false
     },
@@ -12440,26 +12864,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
-        "id":  "kp-12",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken-normal maliyet birim farki",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r1",
-        "id":  "kp-07",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken-normal maliyet birim farki",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r2",
         "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt ilk madde geriye dogru hesap",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt iscilik farklari",
         "donem":  2,
         "kurtarma":  false
     },
@@ -12480,14 +12896,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-06",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "direkt iscilik farklari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-cokzor-r2-b2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
@@ -12496,7 +12904,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-08",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "esdeger birim hesabi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r2",
         "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo esdeger birim (dimm)",
@@ -12504,7 +12920,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2",
+        "etiket":  "sgs-p-maliyet-kolay-r1",
         "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo esdeger birim (dimm)",
@@ -12544,6 +12960,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ozel maliyet amortismani",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-kolay-r1-b2",
         "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
@@ -12560,10 +12984,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1-b2",
-        "id":  "kp-11",
+        "etiket":  "sgs-p-maliyet-cokzor-r2",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "safha maliyet sistemi",
+        "konu":  "ozel maliyet tahliye kaydi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -12578,6 +13002,14 @@
     {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-13",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "safha maliyet sistemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r1-b2",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyet sistemi",
         "donem":  2,
@@ -12600,7 +13032,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satislarin maliyeti tablosu",
@@ -12608,7 +13040,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satislarin maliyeti tablosu",
@@ -12648,16 +13080,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet miktar sapmasi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet miktar sapmasi",
         "donem":  2,
@@ -12668,6 +13100,14 @@
         "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet miktar sapmasi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapma analizi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -12688,24 +13128,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-07",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapma analizi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-09",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sistemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
-        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sistemi",
         "donem":  2,
@@ -12720,8 +13144,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sistemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-10",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam maliyet yontemi",
         "donem":  2,
@@ -12736,8 +13168,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-10",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam maliyet yontemi",
         "donem":  2,
@@ -12760,16 +13192,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-21",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-36",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "7-a secenegi uretim maliyeti kaydi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-36",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-21",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "7-a secenegi uretim maliyeti kaydi",
         "donem":  1,
@@ -12780,14 +13212,6 @@
         "id":  "kp-22",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "7-a secenegi uretim maliyeti kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-39",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "agirlikli ortalama maliyet",
         "donem":  1,
         "kurtarma":  false
     },
@@ -12808,18 +13232,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-22",
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-39",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "agirlikli ortalama maliyet",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-38",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-22",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "birlesik urun katsayi yontemi",
+        "konu":  "agirlikli ortalama maliyet",
         "donem":  1,
         "kurtarma":  false
     },
@@ -12840,32 +13264,16 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-38",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "birlesik urun katsayi yontemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-19",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken maliyet sistemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-33",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken maliyet sistemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-19",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken maliyet sistemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-33",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "degisken maliyet sistemi",
         "donem":  1,
@@ -12880,8 +13288,32 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-33",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken maliyet sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-33",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken maliyet sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-20",
+        "id":  "kp-19",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken maliyet sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-26",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt hammadde miktari",
         "donem":  1,
@@ -12896,16 +13328,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-26",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-20",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt hammadde miktari",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-20",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-35",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik gideri hesaplama",
         "donem":  1,
@@ -12920,8 +13352,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-35",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-20",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik gideri hesaplama",
         "donem":  1,
@@ -12952,8 +13384,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-23",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-26",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim fifo yontemi",
         "donem":  1,
@@ -12968,16 +13400,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-26",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-23",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim fifo yontemi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-44",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-23",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim maliyeti",
         "donem":  1,
@@ -12992,18 +13424,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-23",
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-44",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim maliyeti",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-47",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "esdeger birim tamamlanma derecesi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -13025,14 +13449,14 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-46",
+        "id":  "kp-47",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "fifo yontemi maliyet",
+        "konu":  "esdeger birim tamamlanma derecesi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-46",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo yontemi maliyet",
@@ -13041,6 +13465,14 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-46",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "fifo yontemi maliyet",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-46",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo yontemi maliyet",
@@ -13056,14 +13488,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-27",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim giderleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-24",
         "ders":  "Maliyet Muhasebesi",
@@ -13072,10 +13496,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-21",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-27",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug dagitimi makine saati",
+        "konu":  "genel uretim giderleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -13097,15 +13521,23 @@
     },
     {
         "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-22",
+        "id":  "kp-21",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug kademeli dagitim tablosu",
+        "konu":  "gug dagitimi makine saati",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-43",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "gug kademeli dagitim tablosu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-22",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug kademeli dagitim tablosu",
         "donem":  1,
@@ -13128,14 +13560,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-18",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug matematiksel dagitim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-42",
         "ders":  "Maliyet Muhasebesi",
@@ -13144,16 +13568,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-31",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-18",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug yukleme orani",
+        "konu":  "gug matematiksel dagitim",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-11",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "gug yukleme orani",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-31",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug yukleme orani",
         "donem":  1,
@@ -13176,14 +13608,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-08",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "katsayili maliyet dagitimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-19",
         "ders":  "Maliyet Muhasebesi",
@@ -13208,6 +13632,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-08",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "katsayili maliyet dagitimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
@@ -13224,14 +13656,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-22",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "maliyet esasi kavrami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
@@ -13241,6 +13665,14 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-22",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "maliyet esasi kavrami",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-21",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi gug hesaplama",
@@ -13248,7 +13680,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-21",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi gug hesaplama",
@@ -13264,22 +13696,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-10",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet-kapasite kullanim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-15",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet-kapasite kullanim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-maliyet-zor",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
@@ -13288,6 +13704,30 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-10",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet-kapasite kullanim",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-15",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet-kapasite kullanim",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-16",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet-katsayili yontem",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-15",
         "ders":  "Maliyet Muhasebesi",
@@ -13305,9 +13745,9 @@
     },
     {
         "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-16",
+        "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet-katsayili yontem",
+        "konu":  "ozel maliyet itfasi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -13320,18 +13760,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-18",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ozel maliyet itfasi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-18",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-17",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "ozel maliyet itfasi",
+        "konu":  "ozel maliyetler bakim onarim",
         "donem":  1,
         "kurtarma":  false
     },
@@ -13352,14 +13792,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-17",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ozel maliyetler bakim onarim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-28",
         "ders":  "Maliyet Muhasebesi",
@@ -13368,7 +13800,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-28",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyet miktar saglama",
@@ -13376,7 +13808,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-28",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyet miktar saglama",
@@ -13400,7 +13832,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-30",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet-gug hesaplama",
@@ -13408,7 +13840,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-30",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet-gug hesaplama",
@@ -13448,14 +13880,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-14",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet direkt iscilik",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-29",
         "ders":  "Maliyet Muhasebesi",
@@ -13466,6 +13890,14 @@
     {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-29",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet direkt iscilik",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet direkt iscilik",
         "donem":  1,
@@ -13480,16 +13912,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-12",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-15",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapma kapanisi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-15",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-12",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapma kapanisi",
         "donem":  1,
@@ -13528,14 +13960,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-26",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim satis maliyeti hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-26",
         "ders":  "Maliyet Muhasebesi",
@@ -13544,10 +13968,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-12",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-26",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "yatirim siparis avansi",
+        "konu":  "uretim satis maliyeti hesaplama",
         "donem":  1,
         "kurtarma":  false
     },
@@ -13560,6 +13984,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-12",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "yatirim siparis avansi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-meslek-kolay-r3-a",
+        "id":  "kp-01",
+        "ders":  "Meslek Hukuku",
+        "konu":  "disiplin cezalari",
+        "donem":  11,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-meslek-zor",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
@@ -13569,14 +14009,6 @@
     },
     {
         "etiket":  "sgs-p-meslek-kolay-r4-a",
-        "id":  "kp-01",
-        "ders":  "Meslek Hukuku",
-        "konu":  "disiplin cezalari",
-        "donem":  11,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-meslek-kolay-r3-a",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin cezalari",
@@ -13600,6 +14032,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-meslek-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Meslek Hukuku",
+        "konu":  "meslek etik ilkeleri",
+        "donem":  9,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-meslek-zor-r2-a",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
@@ -13609,6 +14049,14 @@
     },
     {
         "etiket":  "sgs-p-meslek-cokzor-r1-a",
+        "id":  "kp-01",
+        "ders":  "Meslek Hukuku",
+        "konu":  "haksiz rekabet reklam yasagi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-meslek-cokzor-r4",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
         "konu":  "haksiz rekabet reklam yasagi",
@@ -13632,6 +14080,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-meslek-kolay-r1",
+        "id":  "kp-03",
+        "ders":  "Meslek Hukuku",
+        "konu":  "serbest meslek kazanci",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-meslek-kolay",
         "id":  "kp-07",
         "ders":  "Meslek Hukuku",
@@ -13648,7 +14104,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-kolay",
+        "etiket":  "sgs-t1-meslek-cokzor",
         "id":  "kp-08",
         "ders":  "Meslek Hukuku",
         "konu":  "meslek mensubu olma engelleri",
@@ -13656,7 +14112,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-cokzor",
+        "etiket":  "sgs-t1-meslek-kolay",
         "id":  "kp-08",
         "ders":  "Meslek Hukuku",
         "konu":  "meslek mensubu olma engelleri",
@@ -13705,6 +14161,14 @@
     },
     {
         "etiket":  "sgs-t1-meslek-cokzor",
+        "id":  "kp-04",
+        "ders":  "Meslek Hukuku",
+        "konu":  "ucret tarifesi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-meslek-zor-r1",
         "id":  "kp-04",
         "ders":  "Meslek Hukuku",
         "konu":  "ucret tarifesi",
@@ -13769,14 +14233,6 @@
     },
     {
         "etiket":  "sgs-t1-meslek-cokzor",
-        "id":  "kp-11",
-        "ders":  "Meslek Hukuku",
-        "konu":  "mesleki davranis ilkesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-meslek-cokzor",
         "id":  "kp-20",
         "ders":  "Meslek Hukuku",
         "konu":  "mesleki davranis ilkesi",
@@ -13784,7 +14240,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-kolay",
+        "etiket":  "sgs-t1-meslek-cokzor",
         "id":  "kp-11",
         "ders":  "Meslek Hukuku",
         "konu":  "mesleki davranis ilkesi",
@@ -13794,6 +14250,14 @@
     {
         "etiket":  "sgs-t1-meslek-kolay",
         "id":  "kp-23",
+        "ders":  "Meslek Hukuku",
+        "konu":  "mesleki davranis ilkesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-meslek-kolay",
+        "id":  "kp-11",
         "ders":  "Meslek Hukuku",
         "konu":  "mesleki davranis ilkesi",
         "donem":  1,
@@ -13856,14 +14320,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-zor",
-        "id":  "kp-15",
-        "ders":  "Meslek Hukuku",
-        "konu":  "ymm tasdik yasaklari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-meslek-cokzor",
         "id":  "kp-15",
         "ders":  "Meslek Hukuku",
@@ -13872,7 +14328,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-meslek-zor",
+        "id":  "kp-15",
+        "ders":  "Meslek Hukuku",
+        "konu":  "ymm tasdik yasaklari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-01",
         "ders":  "Ticaret Hukuku",
         "konu":  "genel islem kosullari",
@@ -13880,7 +14344,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-01",
         "ders":  "Ticaret Hukuku",
         "konu":  "genel islem kosullari",
@@ -13920,14 +14384,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ticaret-cokzor-r2-b2",
-        "id":  "kp-01",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "ticaret unvani",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-03",
         "ders":  "Ticaret Hukuku",
@@ -13936,15 +14392,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-03",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "ticaret unvani",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-ticaret-cokzor-r4-bulut",
+        "etiket":  "sgs-p-ticaret-cokzor-r2-b2",
         "id":  "kp-01",
         "ders":  "Ticaret Hukuku",
         "konu":  "ticaret unvani",
@@ -13960,10 +14408,50 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ticaret-cokzor-r4-bulut",
+        "id":  "kp-01",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticaret unvani",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-zor-r4",
+        "id":  "kp-01",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticaret unvani",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-03",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticaret unvani",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-cokzor-r4",
+        "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "bono zorunlu unsurlari",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-ticaret-kolay-r4-bulut",
         "id":  "kp-02",
         "ders":  "Ticaret Hukuku",
         "konu":  "bono zorunlu unsurlari",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-05",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kiymetli evrak ciro",
         "donem":  4,
         "kurtarma":  false
     },
@@ -13984,7 +14472,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-zor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-05",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak ciro",
@@ -13992,10 +14480,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-ticaret-kolay-r1",
+        "id":  "kp-03",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak ciro",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r2",
+        "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kiymetli evrak ciro",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-04",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "tacir sifati",
         "donem":  4,
         "kurtarma":  false
     },
@@ -14010,14 +14514,6 @@
     {
         "etiket":  "sgs-t2-ticaret-cokzor",
         "id":  "kp-02",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "tacir sifati",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-04",
         "ders":  "Ticaret Hukuku",
         "konu":  "tacir sifati",
         "donem":  4,
@@ -14040,8 +14536,48 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ticaret-zor-r2",
+        "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticari temsilci yetkisi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r3",
+        "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "cek hukuku",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r4",
+        "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "cek hukuku",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r2",
+        "id":  "kp-03",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "cek hukuku",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-ticaret-kolay",
         "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "haksiz rekabet davalari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-06",
         "ders":  "Ticaret Hukuku",
         "konu":  "haksiz rekabet davalari",
         "donem":  3,
@@ -14072,23 +14608,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-06",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "haksiz rekabet davalari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t5-ticaret-kolay",
-        "id":  "kp-02",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "hukuka uygunluk sebepleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-zor",
         "id":  "kp-02",
         "ders":  "Ticaret Hukuku",
         "konu":  "hukuka uygunluk sebepleri",
@@ -14112,7 +14632,31 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t5-ticaret-zor",
+        "id":  "kp-02",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "hukuka uygunluk sebepleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-kolay",
+        "id":  "kp-01",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kiymetli evrak cek",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-ticaret-cokzor",
+        "id":  "kp-04",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kiymetli evrak cek",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r1-b2",
         "id":  "kp-04",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak cek",
@@ -14128,22 +14672,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ticaret-kolay-r1-b2",
-        "id":  "kp-04",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "kiymetli evrak cek",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-ticaret-kolay",
-        "id":  "kp-01",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "kiymetli evrak cek",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-08",
         "ders":  "Ticaret Hukuku",
@@ -14152,16 +14680,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-07",
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-04",
         "ders":  "Ticaret Hukuku",
         "konu":  "odeme emrine itiraz",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-07",
         "ders":  "Ticaret Hukuku",
         "konu":  "odeme emrine itiraz",
         "donem":  3,
@@ -14176,10 +14704,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ticaret-zor-r1",
+        "id":  "kp-03",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "tacir olmanin sonuclari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-zor-r2",
+        "id":  "kp-03",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "tacir olmanin sonuclari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-ticaret-kolay-r1-b2",
         "id":  "kp-08",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket organlari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-16",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "anonim sirket temsili",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14200,16 +14752,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-16",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "anonim sirket temsili",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-kolay",
-        "id":  "kp-05",
+        "etiket":  "sgs-ticaret-p30",
+        "id":  "kp-01",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket yonetim kurulu yetkisi",
         "donem":  2,
@@ -14218,14 +14762,6 @@
     {
         "etiket":  "sgs-t5-ticaret-cokzor",
         "id":  "kp-05",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "anonim sirket yonetim kurulu yetkisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-15",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket yonetim kurulu yetkisi",
         "donem":  2,
@@ -14240,8 +14776,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-ticaret-p30",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-15",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket yonetim kurulu yetkisi",
         "donem":  2,
@@ -14252,6 +14788,30 @@
         "id":  "kp-05",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket yonetim kurulu yetkisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-kolay",
+        "id":  "kp-05",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "anonim sirket yonetim kurulu yetkisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-cokzor-r1",
+        "id":  "kp-06",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "bono unsurlari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r2-b2",
+        "id":  "kp-07",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "cek uzerindeki kayitlar",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14272,34 +14832,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ticaret-kolay-r2-b2",
-        "id":  "kp-07",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "cek uzerindeki kayitlar",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2-ticaret-zor",
         "id":  "kp-11",
         "ders":  "Ticaret Hukuku",
         "konu":  "cek uzerindeki kayitlar",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-kolay",
-        "id":  "kp-04",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "kambiyo senedi cirosu",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-ticaret-kolay",
-        "id":  "kp-03",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "kambiyo senedi cirosu",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14320,6 +14856,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2-ticaret-kolay",
+        "id":  "kp-03",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kambiyo senedi cirosu",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-17",
         "ders":  "Ticaret Hukuku",
@@ -14328,7 +14872,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
+        "etiket":  "sgs-t5-ticaret-kolay",
+        "id":  "kp-04",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kambiyo senedi cirosu",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-14",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak bono",
@@ -14344,7 +14896,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-14",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak bono",
@@ -14360,6 +14912,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-11",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "limited sirket ozellikleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-ticaret-zor-r1-b2",
         "id":  "kp-06",
         "ders":  "Ticaret Hukuku",
@@ -14368,14 +14928,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-11",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "limited sirket ozellikleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-11",
         "ders":  "Ticaret Hukuku",
@@ -14384,18 +14936,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-10",
+        "etiket":  "sgs-p-ticaret-kolay-r1",
+        "id":  "kp-07",
         "ders":  "Ticaret Hukuku",
-        "konu":  "reklam yoluyla haksiz rekabet",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-10",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "reklam yoluyla haksiz rekabet",
+        "konu":  "limited sirket sermayesi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14404,6 +14948,38 @@
         "id":  "kp-06",
         "ders":  "Ticaret Hukuku",
         "konu":  "reklam yoluyla haksiz rekabet",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-10",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "reklam yoluyla haksiz rekabet",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-10",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "reklam yoluyla haksiz rekabet",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-zor-r1",
+        "id":  "kp-06",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "tacir kavrami",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ticaret-kolay-r1",
+        "id":  "kp-05",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "temsil yetkisinin sona ermesi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14424,6 +15000,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-08",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticari defter tutma yukumlulugu",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-13",
         "ders":  "Ticaret Hukuku",
@@ -14440,15 +15024,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-12",
         "ders":  "Ticaret Hukuku",
-        "konu":  "ticari defter tutma yukumlulugu",
+        "konu":  "yonetim kurulu yetkileri",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-zor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-12",
         "ders":  "Ticaret Hukuku",
         "konu":  "yonetim kurulu yetkileri",
@@ -14458,14 +15042,6 @@
     {
         "etiket":  "sgs-t2-ticaret-cokzor",
         "id":  "kp-07",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "yonetim kurulu yetkileri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-12",
         "ders":  "Ticaret Hukuku",
         "konu":  "yonetim kurulu yetkileri",
         "donem":  2,
@@ -14484,6 +15060,14 @@
         "id":  "kp-39",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket ayni sermaye",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-40",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "anonim sirket kurulusu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -14504,10 +15088,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-40",
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-41",
         "ders":  "Ticaret Hukuku",
-        "konu":  "anonim sirket kurulusu",
+        "konu":  "anonim sirket pay devri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -14521,14 +15105,6 @@
     },
     {
         "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-41",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "anonim sirket pay devri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-41",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket pay devri",
@@ -14544,7 +15120,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-zor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-38",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket sermaye",
@@ -14552,7 +15128,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-38",
         "ders":  "Ticaret Hukuku",
         "konu":  "anonim sirket sermaye",
@@ -14568,34 +15144,18 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-35",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "bono gidersiz kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-35",
         "ders":  "Ticaret Hukuku",
         "konu":  "bono gidersiz kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-35",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "bono gidersiz kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-cokzor",
-        "id":  "kp-12",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "bono imza sorumlulugu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-36",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "bono imza sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -14608,8 +15168,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-36",
+        "etiket":  "sgs-t5-ticaret-cokzor",
+        "id":  "kp-12",
         "ders":  "Ticaret Hukuku",
         "konu":  "bono imza sorumlulugu",
         "donem":  1,
@@ -14624,16 +15184,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-21",
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-36",
         "ders":  "Ticaret Hukuku",
-        "konu":  "cekte muhatap banka",
+        "konu":  "bono imza sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-37",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-36",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "bono imza sorumlulugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-21",
         "ders":  "Ticaret Hukuku",
         "konu":  "cekte muhatap banka",
         "donem":  1,
@@ -14648,6 +15216,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-37",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "cekte muhatap banka",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-42",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "esasli yanilma halleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-42",
         "ders":  "Ticaret Hukuku",
@@ -14657,14 +15241,6 @@
     },
     {
         "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-42",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "esasli yanilma halleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-42",
         "ders":  "Ticaret Hukuku",
         "konu":  "esasli yanilma halleri",
@@ -14688,14 +15264,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-22",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "genel islem sartlari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-48",
         "ders":  "Ticaret Hukuku",
@@ -14706,6 +15274,14 @@
     {
         "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-48",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "genel islem sartlari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-22",
         "ders":  "Ticaret Hukuku",
         "konu":  "genel islem sartlari",
         "donem":  1,
@@ -14720,38 +15296,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-49",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "haksiz rekabet yasagi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-46",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "haksiz rekabet yasagi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-49",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "haksiz rekabet yasagi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-46",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "haksiz rekabet yasagi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2-ticaret-cokzor",
         "id":  "kp-22",
         "ders":  "Ticaret Hukuku",
@@ -14761,14 +15305,38 @@
     },
     {
         "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-43",
+        "id":  "kp-49",
         "ders":  "Ticaret Hukuku",
-        "konu":  "kambiyo senedi beyaz ciro",
+        "konu":  "haksiz rekabet yasagi",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-49",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "haksiz rekabet yasagi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-46",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "haksiz rekabet yasagi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-46",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "haksiz rekabet yasagi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-43",
         "ders":  "Ticaret Hukuku",
         "konu":  "kambiyo senedi beyaz ciro",
@@ -14784,16 +15352,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-cokzor",
-        "id":  "kp-25",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-43",
         "ders":  "Ticaret Hukuku",
-        "konu":  "kesin hukumsuzluk sebepleri",
+        "konu":  "kambiyo senedi beyaz ciro",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t2-ticaret-kolay",
         "id":  "kp-16",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kesin hukumsuzluk sebepleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-cokzor",
+        "id":  "kp-25",
         "ders":  "Ticaret Hukuku",
         "konu":  "kesin hukumsuzluk sebepleri",
         "donem":  1,
@@ -14840,14 +15416,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-cokzor",
-        "id":  "kp-23",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "kiymetli evrak bono cirosu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2-ticaret-kolay",
         "id":  "kp-18",
         "ders":  "Ticaret Hukuku",
@@ -14857,15 +15425,15 @@
     },
     {
         "etiket":  "sgs-t2-ticaret-cokzor",
-        "id":  "kp-18",
+        "id":  "kp-23",
         "ders":  "Ticaret Hukuku",
-        "konu":  "limited sirket ortak sorumlulugu",
+        "konu":  "kiymetli evrak bono cirosu",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t5-ticaret-kolay",
-        "id":  "kp-15",
+        "etiket":  "sgs-t2-ticaret-cokzor",
+        "id":  "kp-18",
         "ders":  "Ticaret Hukuku",
         "konu":  "limited sirket ortak sorumlulugu",
         "donem":  1,
@@ -14881,9 +15449,9 @@
     },
     {
         "etiket":  "sgs-t5-ticaret-kolay",
-        "id":  "kp-14",
+        "id":  "kp-15",
         "ders":  "Ticaret Hukuku",
-        "konu":  "limited sirket sona erme",
+        "konu":  "limited sirket ortak sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -14920,6 +15488,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t5-ticaret-kolay",
+        "id":  "kp-14",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "limited sirket sona erme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-25",
         "ders":  "Ticaret Hukuku",
@@ -14936,8 +15512,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-kolay",
-        "id":  "kp-12",
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-14",
         "ders":  "Ticaret Hukuku",
         "konu":  "sermaye azaltimi",
         "donem":  1,
@@ -14952,24 +15528,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t2-ticaret-kolay",
+        "id":  "kp-12",
         "ders":  "Ticaret Hukuku",
         "konu":  "sermaye azaltimi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-19",
+        "etiket":  "sgs-t2-ticaret-kolay",
+        "id":  "kp-07",
         "ders":  "Ticaret Hukuku",
         "konu":  "sirketlerde asgari ortak sayisi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-kolay",
-        "id":  "kp-07",
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-19",
         "ders":  "Ticaret Hukuku",
         "konu":  "sirketlerde asgari ortak sayisi",
         "donem":  1,
@@ -15008,7 +15584,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-21",
         "ders":  "Ticaret Hukuku",
         "konu":  "tacir sayilma",
@@ -15016,7 +15592,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-21",
         "ders":  "Ticaret Hukuku",
         "konu":  "tacir sayilma",
@@ -15028,14 +15604,6 @@
         "id":  "kp-12",
         "ders":  "Ticaret Hukuku",
         "konu":  "tacir sayilma",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-kolay",
-        "id":  "kp-06",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "tacir yardimcilari temsil yetkisi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -15056,8 +15624,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-kolay",
-        "id":  "kp-05",
+        "etiket":  "sgs-t5-ticaret-kolay",
+        "id":  "kp-06",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "tacir yardimcilari temsil yetkisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-18",
         "ders":  "Ticaret Hukuku",
         "konu":  "tacir-esnaf ortak hukumler",
         "donem":  1,
@@ -15072,18 +15648,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-18",
+        "etiket":  "sgs-t2-ticaret-kolay",
+        "id":  "kp-05",
         "ders":  "Ticaret Hukuku",
         "konu":  "tacir-esnaf ortak hukumler",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-32",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "tescilin kurucu etkisi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -15097,6 +15665,14 @@
     },
     {
         "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-32",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "tescilin kurucu etkisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-32",
         "ders":  "Ticaret Hukuku",
         "konu":  "tescilin kurucu etkisi",
@@ -15112,14 +15688,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t5-ticaret-zor",
-        "id":  "kp-08",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "ticari dava kapsami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-33",
         "ders":  "Ticaret Hukuku",
@@ -15128,8 +15696,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-kolay",
-        "id":  "kp-11",
+        "etiket":  "sgs-t5-ticaret-zor",
+        "id":  "kp-08",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticari dava kapsami",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-cokzor",
+        "id":  "kp-08",
         "ders":  "Ticaret Hukuku",
         "konu":  "ticari dava kapsami",
         "donem":  1,
@@ -15144,18 +15720,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t5-ticaret-cokzor",
-        "id":  "kp-08",
+        "etiket":  "sgs-t2-ticaret-kolay",
+        "id":  "kp-11",
         "ders":  "Ticaret Hukuku",
         "konu":  "ticari dava kapsami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-cokzor",
-        "id":  "kp-10",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "ticari defterlerle ispat",
         "donem":  1,
         "kurtarma":  false
     },
@@ -15169,6 +15737,14 @@
     },
     {
         "etiket":  "sgs-t2-ticaret-kolay",
+        "id":  "kp-10",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ticari defterlerle ispat",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-cokzor",
         "id":  "kp-10",
         "ders":  "Ticaret Hukuku",
         "konu":  "ticari defterlerle ispat",
@@ -15192,7 +15768,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t5-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-28",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "ttk ihtar bildirim sekli",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t5-ticaret-cokzor",
         "id":  "kp-09",
         "ders":  "Ticaret Hukuku",
         "konu":  "ttk ihtar bildirim sekli",
@@ -15200,16 +15784,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-28",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "ttk ihtar bildirim sekli",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-28",
+        "etiket":  "sgs-t5-ticaret-kolay",
+        "id":  "kp-09",
         "ders":  "Ticaret Hukuku",
         "konu":  "ttk ihtar bildirim sekli",
         "donem":  1,
@@ -15224,8 +15800,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t5-ticaret-cokzor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-28",
         "ders":  "Ticaret Hukuku",
         "konu":  "ttk ihtar bildirim sekli",
         "donem":  1,
@@ -15256,6 +15832,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "cek zorunlu unsurlari",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-vergi-cokzor",
         "id":  "kp-01",
         "ders":  "Vergi Hukuku",
@@ -15264,10 +15848,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
+        "etiket":  "sgs-p-vergi-kolay-r2",
         "id":  "kp-01",
         "ders":  "Vergi Hukuku",
-        "konu":  "cek zorunlu unsurlari",
+        "konu":  "damga vergisi",
         "donem":  5,
         "kurtarma":  false
     },
@@ -15288,14 +15872,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
-        "id":  "kp-02",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv istisnalari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-vergi-kolay",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
@@ -15312,6 +15888,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-02",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv istisnalari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
@@ -15320,7 +15904,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-zor-r3-a",
+        "etiket":  "sgs-p-vergi-zor-r2-a",
         "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv matrahi",
@@ -15344,7 +15928,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-zor-r2-a",
+        "etiket":  "sgs-p-vergi-zor-r3-a",
         "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv matrahi",
@@ -15352,7 +15936,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-cokzor-r3-a",
+        "etiket":  "sgs-p-vergi-zor-r1",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
         "konu":  "kurumlar vergisi mukellefleri",
@@ -15368,7 +15952,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-cokzor-r4-a",
+        "etiket":  "sgs-p-vergi-cokzor-r3-a",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
         "konu":  "kurumlar vergisi mukellefleri",
@@ -15376,10 +15960,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-vergi-cokzor-r4-a",
+        "id":  "kp-02",
         "ders":  "Vergi Hukuku",
-        "konu":  "serbest meslek kazanci",
+        "konu":  "kurumlar vergisi mukellefleri",
         "donem":  3,
         "kurtarma":  false
     },
@@ -15400,26 +15984,18 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-vergi-kolay",
+        "id":  "kp-03",
+        "ders":  "Vergi Hukuku",
+        "konu":  "serbest meslek kazanci",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-vergi-cokzor",
         "id":  "kp-05",
         "ders":  "Vergi Hukuku",
         "konu":  "asgari kurumlar vergisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-03",
-        "ders":  "Vergi Hukuku",
-        "konu":  "emsal kira bedeli",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-cokzor",
-        "id":  "kp-03",
-        "ders":  "Vergi Hukuku",
-        "konu":  "emsal kira bedeli",
         "donem":  2,
         "kurtarma":  false
     },
@@ -15440,7 +16016,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-kolay-r3-a",
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-03",
+        "ders":  "Vergi Hukuku",
+        "konu":  "emsal kira bedeli",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-03",
+        "ders":  "Vergi Hukuku",
+        "konu":  "emsal kira bedeli",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-kolay-r1-a",
         "id":  "kp-06",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv indirimi",
@@ -15448,7 +16040,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-kolay-r1-a",
+        "etiket":  "sgs-p-vergi-kolay-r3-a",
         "id":  "kp-06",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv indirimi",
@@ -15504,11 +16096,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
-        "id":  "kp-14",
+        "etiket":  "sgs-p-vergi-kolay-r1",
+        "id":  "kp-04",
         "ders":  "Vergi Hukuku",
-        "konu":  "amme alacagi tasarruf iptali",
-        "donem":  1,
+        "konu":  "vergi cezalari",
+        "donem":  2,
         "kurtarma":  false
     },
     {
@@ -15521,6 +16113,14 @@
     },
     {
         "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-14",
+        "ders":  "Vergi Hukuku",
+        "konu":  "amme alacagi tasarruf iptali",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-15",
         "ders":  "Vergi Hukuku",
         "konu":  "amme alacagi tecil",
@@ -15536,14 +16136,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-15",
-        "ders":  "Vergi Hukuku",
-        "konu":  "amme alacagi tecil",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-vergi-cokzor",
         "id":  "kp-15",
         "ders":  "Vergi Hukuku",
@@ -15552,15 +16144,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-zor",
-        "id":  "kp-19",
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-15",
         "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi sure uzatimi",
+        "konu":  "amme alacagi tecil",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-cokzor",
+        "etiket":  "sgs-t1-vergi-zor",
         "id":  "kp-19",
         "ders":  "Vergi Hukuku",
         "konu":  "damga vergisi sure uzatimi",
@@ -15584,15 +16176,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
-        "id":  "kp-20",
+        "etiket":  "sgs-t1-vergi-cokzor",
+        "id":  "kp-19",
         "ders":  "Vergi Hukuku",
-        "konu":  "elektronik tebligat",
+        "konu":  "damga vergisi sure uzatimi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-cokzor",
+        "etiket":  "sgs-t1-vergi-kolay",
         "id":  "kp-20",
         "ders":  "Vergi Hukuku",
         "konu":  "elektronik tebligat",
@@ -15608,10 +16200,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-18",
+        "etiket":  "sgs-t1-vergi-cokzor",
+        "id":  "kp-20",
         "ders":  "Vergi Hukuku",
-        "konu":  "emlak vergisi-bina vergisi",
+        "konu":  "elektronik tebligat",
         "donem":  1,
         "kurtarma":  false
     },
@@ -15632,6 +16224,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-18",
+        "ders":  "Vergi Hukuku",
+        "konu":  "emlak vergisi-bina vergisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-18",
+        "ders":  "Vergi Hukuku",
+        "konu":  "emlak vergisi-bina vergisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-vergi-kolay",
         "id":  "kp-18",
         "ders":  "Vergi Hukuku",
@@ -15640,14 +16248,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
-        "id":  "kp-18",
-        "ders":  "Vergi Hukuku",
-        "konu":  "emlak vergisi-bina vergisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-19",
         "ders":  "Vergi Hukuku",
@@ -15664,15 +16264,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
-        "id":  "kp-16",
-        "ders":  "Vergi Hukuku",
-        "konu":  "gelir vergisi-yurt disi kazanc istisnasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-zor",
+        "etiket":  "sgs-t4-vergi-kolay",
         "id":  "kp-16",
         "ders":  "Vergi Hukuku",
         "konu":  "gelir vergisi-yurt disi kazanc istisnasi",
@@ -15688,7 +16280,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
+        "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-16",
         "ders":  "Vergi Hukuku",
         "konu":  "gelir vergisi-yurt disi kazanc istisnasi",
@@ -15696,23 +16288,31 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
-        "id":  "kp-17",
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-16",
         "ders":  "Vergi Hukuku",
-        "konu":  "kdv matrahina dahil unsurlar",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-17",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv matrahina dahil unsurlar",
+        "konu":  "gelir vergisi-yurt disi kazanc istisnasi",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-17",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv matrahina dahil unsurlar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-vergi-zor",
+        "id":  "kp-24",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv matrahina dahil unsurlar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-kolay",
         "id":  "kp-17",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv matrahina dahil unsurlar",
@@ -15728,16 +16328,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-zor",
-        "id":  "kp-24",
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-17",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv matrahina dahil unsurlar",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-t2-vergi-kolay",
+        "id":  "kp-09",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv vergiye tabi islemler",
         "donem":  1,
@@ -15752,8 +16352,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-cokzor",
-        "id":  "kp-25",
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-06",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv vergiye tabi islemler",
         "donem":  1,
@@ -15768,8 +16368,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-vergi-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-vergi-cokzor",
+        "id":  "kp-25",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv vergiye tabi islemler",
         "donem":  1,
@@ -15840,14 +16440,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-cokzor",
-        "id":  "kp-08",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vergi tarhi on islemleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-vergi-kolay",
         "id":  "kp-08",
         "ders":  "Vergi Hukuku",
@@ -15856,32 +16448,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-zor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-vergi-cokzor",
+        "id":  "kp-08",
         "ders":  "Vergi Hukuku",
-        "konu":  "vergi ziyai cezasi zamanasimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-cokzor",
-        "id":  "kp-05",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vergi ziyai cezasi zamanasimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-kolay",
-        "id":  "kp-05",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vergi ziyai cezasi zamanasimi",
+        "konu":  "vergi tarhi on islemleri",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-05",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vergi ziyai cezasi zamanasimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-vergi-zor",
+        "id":  "kp-09",
         "ders":  "Vergi Hukuku",
         "konu":  "vergi ziyai cezasi zamanasimi",
         "donem":  1,
@@ -15896,6 +16480,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-05",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vergi ziyai cezasi zamanasimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-05",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vergi ziyai cezasi zamanasimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-vergi-cokzor",
         "id":  "kp-10",
         "ders":  "Vergi Hukuku",
@@ -15912,7 +16512,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
+        "etiket":  "sgs-t1-vergi-zor",
         "id":  "kp-17",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk defterikebir",
@@ -15920,7 +16520,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-zor",
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-11",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vuk defterikebir",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-vergi-kolay",
         "id":  "kp-17",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk defterikebir",
@@ -15932,22 +16540,6 @@
         "id":  "kp-11",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk defterikebir",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-11",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vuk defterikebir",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-08",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vuk karsilik",
         "donem":  1,
         "kurtarma":  false
     },
@@ -15960,14 +16552,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
-        "id":  "kp-08",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vuk karsilik",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-vergi-zor",
         "id":  "kp-15",
         "ders":  "Vergi Hukuku",
@@ -15976,8 +16560,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-08",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vuk karsilik",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-vergi-kolay",
         "id":  "kp-15",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vuk karsilik",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-08",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk karsilik",
         "donem":  1,
@@ -16016,16 +16616,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
-        "id":  "kp-28",
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-09",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk vergi mukellefiyeti",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-vergi-kolay",
+        "id":  "kp-28",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk vergi mukellefiyeti",
         "donem":  1,

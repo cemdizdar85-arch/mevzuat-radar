@@ -1,5 +1,13 @@
 [
     {
+        "etiket":  "sgs-p-mta-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "dikey yuzde analizi",
+        "donem":  11,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-kolay-r2-a",
         "id":  "kp-01",
         "ders":  "Mali Tablolar Analizi",
@@ -32,22 +40,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-cokzor",
-        "id":  "kp-03",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif devir hizi",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-01",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif devir hizi",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-mta-kolay-r1-a",
         "id":  "kp-02",
         "ders":  "Mali Tablolar Analizi",
@@ -56,7 +48,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
+        "etiket":  "sgs-p-mta-kolay-r4",
         "id":  "kp-02",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "aktif devir hizi",
@@ -64,16 +56,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
+        "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-01",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif devir hizi",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "aktif devir hizi",
         "donem":  8,
@@ -89,7 +73,71 @@
     },
     {
         "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-mta-cokzor",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif devir hizi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r3",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "net isletme sermayesi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "net isletme sermayesi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r1",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "net isletme sermayesi",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "yatay analiz",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r3",
+        "id":  "kp-01",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "yatay analiz",
         "donem":  8,
@@ -112,6 +160,38 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-mta-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "yatay analiz",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r4",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran analizi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r4",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "stok devir hizi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "stok devir hizi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r1-a",
         "id":  "kp-02",
         "ders":  "Mali Tablolar Analizi",
@@ -120,10 +200,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
+        "etiket":  "sgs-p-mta-zor-r2",
         "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "cari oran hesaplama",
+        "konu":  "asit-test orani",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-zor-r1",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "asit-test orani",
         "donem":  4,
         "kurtarma":  false
     },
@@ -136,6 +224,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran hesaplama",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r3-a",
+        "id":  "kp-03",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "aktif karlilik orani",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r1-a",
         "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
@@ -144,10 +248,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-cokzor-r3-a",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-mta-kolay-r4-a",
+        "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "aktif karlilik orani",
+        "konu":  "dikey analiz",
         "donem":  3,
         "kurtarma":  false
     },
@@ -168,8 +272,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-kolay-r4-a",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-mta-cokzor-r1",
+        "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "dikey analiz",
         "donem":  3,
@@ -184,6 +288,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-mta-cokzor-r1-a",
+        "id":  "kp-07",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "basit (dogrudan) dagitim yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r3-a",
         "id":  "kp-07",
         "ders":  "Mali Tablolar Analizi",
@@ -193,14 +305,6 @@
     },
     {
         "etiket":  "sgs-p-mta-cokzor-r2-a",
-        "id":  "kp-07",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "basit (dogrudan) dagitim yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-mta-cokzor-r1-a",
         "id":  "kp-07",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "basit (dogrudan) dagitim yontemi",
@@ -216,14 +320,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
-        "id":  "kp-07",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "brut kar orani",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-06",
         "ders":  "Mali Tablolar Analizi",
@@ -232,10 +328,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-07",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "brut kar orani",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-cokzor-r1",
+        "id":  "kp-04",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran duran varlik",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-mta-cokzor-r3-a",
         "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "cari oran duran varlik",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-mta-kolay-r3-a",
+        "id":  "kp-07",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "dikey yuzdelerden oz kaynak-aktif",
         "donem":  2,
         "kurtarma":  false
     },
@@ -249,9 +369,9 @@
     },
     {
         "etiket":  "sgs-p-mta-kolay-r3-a",
-        "id":  "kp-07",
+        "id":  "kp-06",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "dikey yuzdelerden oz kaynak-aktif",
+        "konu":  "kapasite artirici harcama amortismani",
         "donem":  2,
         "kurtarma":  false
     },
@@ -264,10 +384,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-kolay-r3-a",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-mta-cokzor-r2",
+        "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
-        "konu":  "kapasite artirici harcama amortismani",
+        "konu":  "karsilastirmali tablolar analizi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -304,16 +424,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-03",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "yuzde degisim analizi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-04",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "yuzde degisim analizi",
         "donem":  2,
@@ -336,16 +456,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-zor",
-        "id":  "kp-25",
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-20",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "bilanco kaldirac orani",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-22",
+        "etiket":  "sgs-t1-mta-zor",
+        "id":  "kp-25",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "bilanco kaldirac orani",
         "donem":  1,
@@ -360,24 +480,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
-        "id":  "kp-20",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-22",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "bilanco kaldirac orani",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-20",
+        "etiket":  "sgs-t2b-mta-cokzor",
+        "id":  "kp-21",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "calisma sermayesi analizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-cokzor",
-        "id":  "kp-21",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-20",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "calisma sermayesi analizi",
         "donem":  1,
@@ -392,14 +512,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-21",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "cari oran bilanco analizi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-18",
         "ders":  "Mali Tablolar Analizi",
@@ -410,6 +522,14 @@
     {
         "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-18",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "cari oran bilanco analizi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-21",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "cari oran bilanco analizi",
         "donem":  1,
@@ -432,6 +552,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-mta-cokzor",
+        "id":  "kp-23",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "dikey analiz orani",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-19",
         "ders":  "Mali Tablolar Analizi",
@@ -441,14 +569,6 @@
     },
     {
         "etiket":  "sgs-t1-mta-zor",
-        "id":  "kp-23",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "dikey analiz orani",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-mta-cokzor",
         "id":  "kp-23",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "dikey analiz orani",
@@ -504,6 +624,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-mta-kolay",
+        "id":  "kp-32",
+        "ders":  "Mali Tablolar Analizi",
+        "konu":  "gelir tablosu analiz sinirlamalari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-mta-cokzor",
         "id":  "kp-26",
         "ders":  "Mali Tablolar Analizi",
@@ -513,23 +641,15 @@
     },
     {
         "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-32",
-        "ders":  "Mali Tablolar Analizi",
-        "konu":  "gelir tablosu analiz sinirlamalari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-23",
+        "id":  "kp-27",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "kâr marji analizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-kolay",
-        "id":  "kp-27",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-23",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "kâr marji analizi",
         "donem":  1,
@@ -624,7 +744,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
+        "etiket":  "sgs-t1-mta-kolay",
         "id":  "kp-09",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "mali tablolar analiz teknikleri",
@@ -632,7 +752,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-kolay",
+        "etiket":  "sgs-t2b-mta-zor",
         "id":  "kp-09",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "mali tablolar analiz teknikleri",
@@ -656,16 +776,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-mta-zor",
+        "id":  "kp-11",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "net calisma sermayesi devir hizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-mta-zor",
-        "id":  "kp-11",
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-06",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "net calisma sermayesi devir hizi",
         "donem":  1,
@@ -704,16 +824,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t2b-mta-kolay",
+        "id":  "kp-13",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "sektor oranlari analizi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-mta-kolay",
-        "id":  "kp-13",
+        "etiket":  "sgs-t2b-mta-zor",
+        "id":  "kp-14",
         "ders":  "Mali Tablolar Analizi",
         "konu":  "sektor oranlari analizi",
         "donem":  1,
