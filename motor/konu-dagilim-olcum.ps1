@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KONU DAGILIM OLCUMU (04.08.2026) — 0 USD, API YOK, YAZMA YOK
 #
 #  CEM: "biz hep konusurken sinavda cikan sorularda hangi konu fazla

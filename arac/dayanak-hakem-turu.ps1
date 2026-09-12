@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DAYANAK HAKEM TURU — "buldu" ne kadarinda "DOGRU"?
 #
 #  NEDEN VAR (10.09.2026). Konu getirme karnesi sunu olctu: soru fabrikasinin

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  API CEVIRI TESTI (Katman 1 kapisi — her push'ta kosar, 0 USD, CAGRI YOK)
 #
 #  NEDEN VAR: 16.08'de Anthropic tavani dolunca istekler OpenRouter yedek

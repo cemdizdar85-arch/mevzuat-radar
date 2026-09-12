@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DAYANAK KAPSAM OLCUMU — kasa capinda "kaynak cozuluyor mu?" (03.08.2026)
 #
 #  NEDEN: Ilk 40'lik denetimde 40 sorunun 39'unda dayanak cozulemiyordu;

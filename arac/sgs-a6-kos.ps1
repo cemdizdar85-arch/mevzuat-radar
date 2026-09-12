@@ -1,4 +1,4 @@
-# SGS ACILIS KOSUCUSU (sgs-a6) - ANLIK MOD (10.09.2026 Cem: kuyruk 3 saat tikandi, "daha hizli").
+﻿# SGS ACILIS KOSUCUSU (sgs-a6) - ANLIK MOD (10.09.2026 Cem: kuyruk 3 saat tikandi, "daha hizli").
 #
 # Kullanim (fabrika sohbeti):
 #   powershell -NoProfile -ExecutionPolicy Bypass -File arac/sgs-a6-kos.ps1 -Grup "Finansal Muhasebe,Muhasebe" -ButceTavan 150

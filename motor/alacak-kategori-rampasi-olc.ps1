@@ -1,4 +1,4 @@
-# OLCUM 3: 'iflas-ve-tasfiye' alt kategorisi HANGI AY basliyor?
+﻿# OLCUM 3: 'iflas-ve-tasfiye' alt kategorisi HANGI AY basliyor?
 # Derin bolgeyi tarayip iflas-hukuku ilanlarini AY x ALT-KATEGORI olarak sayar.
 # Kasadaki 06.04.2026 sinirini KAYNAKTAN dogrular (ya da curutur).
 $ErrorActionPreference = 'Stop'

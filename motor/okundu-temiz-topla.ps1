@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  OKUNDU-TEMIZ TOPLAYICI (13.08.2026) — 0 USD
 #  GM okuyucu hukum dosyalarini (veri/gm-okuyucu/hukum-*.json) tarar;
 #  hukum='uygun' olan id'leri veri/gm-okuyucu/okundu-temiz.json'a derler,

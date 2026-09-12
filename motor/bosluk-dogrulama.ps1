@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  BOSLUK DOGRULAMA (04.08.2026) — 0 USD, API YOK, YAZMA YOK
 #
 #  NEDEN: konu-dagilim-olcum.ps1 "planda var kasada HIC YOK: 280 konu" dedi ve

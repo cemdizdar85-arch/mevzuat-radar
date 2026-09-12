@@ -1,4 +1,4 @@
-# SGS ACILIS PLANI KURUCU (10.09.2026) - 0 USD, model cagrisi YOK.
+﻿# SGS ACILIS PLANI KURUCU (10.09.2026) - 0 USD, model cagrisi YOK.
 #
 # Girdi : veri/fabrika/sgs-acilis-is-plani.csv  (konu · arsiv_ders · bizim_ders · yazilacak)
 # Cikti : veri/sinav/konu/sgs-a6-<ders>-<seviye>-r<tur>.json  (FABRIKA dersleri)

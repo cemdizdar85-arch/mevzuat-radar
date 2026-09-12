@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  IKI SINAV AYRI AYRI: KONU FAZLA/EKSIK OLCUMU (05.08.2026) — 0 USD
 #
 #  CEM: "konulara ayri ayri sinavda cikan sorulara bak ve ona gore fazla ya

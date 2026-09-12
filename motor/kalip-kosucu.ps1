@@ -37,6 +37,44 @@ function KonuYoluCoz($PLAN_SATIRI){
   }
   return $KONU_YOLU
 }
+
+# ---------------------------------------------------------------------------
+# CANLI NABIZ  (12.09.2026, Cem "1.2.3 ucunu de yap" - GM onerisi 1)
+#
+# NIYE: 12.09'da A kosusu 125 dakika kostu ve "kac parti bitti" sorusunun
+#   cevabi YOKTU. Olculdu, tahmin degil:
+#     gh run view <id> --log              -> bos (kutuk kosu bitince doluyor)
+#     gh api .../jobs/<id>/logs           -> BlobNotFound
+#     ambar                               -> bos (yazma adimi EN SONDA tek adim)
+#   Yani 350 dakikalik odenmis bir kosuyu KOR izliyorduk. Ben o bosluga bakip
+#   "0/32 parti bitti" diye bir sayi urettim - bilgi yoklugunu olcum sandim.
+#
+# NE YAPAR: her parti bitisinde harcama defterini ambara YUKLER. Boylece
+#   kosu surerken `bedel_kaydi` tablosundan "kac parti bitti, ne harcandi"
+#   okunabilir. Yeni tablo/SQL GEREKMEZ - bedel_kaydi zaten (zaman, etiket,
+#   ders, toplam_usd, yazan) tasiyor.
+#
+# ⛔ NIYE ANA DONGUDE, PARTI SURECINDE DEGIL: bedel-senkron tekillestirmeyi
+#   ISTEMCI tarafinda yapiyor (ambardaki satirlari cekip kiyasliyor). 16
+#   paralel parti ayni anda cagirsa ayni satir iki kez POST edilebilir ->
+#   harcama toplami sisr -> AYLIK TAVAN FRENI yanlis tetiklenir. Ana dongu
+#   tek is parcaciklidir, yaris yok.
+#
+# ⛔ ASLA KOSUYU DUSURMEZ: nabiz bir kolaylik, urun degil. Her sey try/catch
+#   icinde; anahtar yoksa sessizce atlanir (yerel kosularda normal).
+$NABIZ_BITEN=0
+function NabizYaz($ETIKET,$TOPLAM){
+  $script:NABIZ_BITEN=$script:NABIZ_BITEN+1
+  $NABIZ_ILETI="NABIZ: {0}/{1} parti bitti (son: {2})" -f $script:NABIZ_BITEN,$TOPLAM,$ETIKET
+  Write-Host $NABIZ_ILETI -ForegroundColor Cyan
+  if(-not "$env:SUPABASE_SERVICE_KEY"){ return }
+  try{
+    $NABIZ_BETIK=Join-Path $Kok 'arac\bedel-senkron.ps1'
+    if(Test-Path $NABIZ_BETIK){ & $NABIZ_BETIK -Yukle -Yaz *> $null }
+  }catch{
+    Write-Host ("  nabiz yazilamadi (kosu etkilenmedi): " + $_.Exception.Message) -ForegroundColor DarkGray
+  }
+}
 $uret=Join-Path $buDizin 'kalip-parti-uret.ps1'
 # --- BEDEL EMNİYETİ: bu ayın harcaması bedel defterinden (veri/fabrika/bedel-kayit.jsonl, 08.09'dan itibaren tam; öncesi eksik → tutucu) ---
 function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; $ay=(Get-Date -Format 'yyyy-MM')
@@ -240,6 +278,7 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
    if(-not $a.ps.HasExited){ continue }
    $ozetTum+=(PartiKuyrukBitir $a)
    [void]$ucan.Remove($a)
+   NabizYaz "$($a.s.etiket)" $satirlar.Count   # canli nabiz - bkz. NabizYaz
  }
 }
 # seçim (8.1 yayın şartı)

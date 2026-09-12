@@ -1,4 +1,4 @@
-# kgk-siklik-derle.ps1 - 06.08.2026
+﻿# kgk-siklik-derle.ps1 - 06.08.2026
 # KGK cikmis-soru ETIKETLERINDEN konu-siklik haritasi cikarir (0 USD, deterministik).
 # Girdi : veri/kgk-arsiv/etiket/*.json (+ etiket/tmp/*.json parcalari)
 # Cikti : veri/kgk-analiz.json  — REPOYA GIREBILIR: yalniz etiket+sayi tasir,

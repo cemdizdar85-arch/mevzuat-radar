@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KAYNAK EKSIK KONULAR — "maddesiz kaldigi icin ATLANAN konu" is emri
 #
 #  NEDEN VAR (10.09.2026 olcumu): uretim raporlarinin `hazirlik.planSatir` ve

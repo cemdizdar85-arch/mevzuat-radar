@@ -218,7 +218,20 @@ function K5-BomsuzTurkce($metin,$ast,$dosya){
   #    Yani nobetci, yakalamak icin yazildigi tuzagin KENDISINE dustu (ikinci kez).
   #    Sinif zaten iki yazimi da tasiyor (çğıöşü + ÇĞİÖŞÜ), -cmatch dogru olcum.
   #    Olcum: gercek sayi 104 degil 45.
-  if($metin -cnotmatch '[çğıöşüÇĞİÖŞÜ]'){ return $bul.ToArray() }
+  # ⛔⭐ 12.09 GENISLETILDI — OLCUT ARTIK "ASCII DISI HER KARAKTER".
+  #   Once yalniz Turkce harf sinifina bakiyordu. GEDIK: tire (—), orta nokta (·),
+  #   ok (→), tirnak (“ ”) de UTF-8'de cok baytlidir ve BOM yoksa PS 5.1 onlari
+  #   ANSI sanip bozar. Bunu bizzat yasadim: bu oturumda arac/kosu-nabzi.ps1'i
+  #   BOM'suz yazdim, icindeki "—" karakteri "â€”" oldu ve betik AYRISTIRILAMADI
+  #   ("Unexpected token ... Missing closing ')'"). Nobetci o dosyaya 0 bulgu
+  #   demisti - cunku dosyada Turkce HARF yoktu, sadece tire vardi.
+  #   OLCULDU: bu genisletme 23 dosya daha yakaliyor.
+  #   Kirilma noktasi harf degil BAYT SAYISI; olcut de o olmali.
+  #   ⚠ Desen yalniz ASCII karakterle yazilir ('\x00-\x7F'), ham karakter
+  #     araligiyla DEGIL - ham yazilirsa desenin KENDISI kodlama kazasinda
+  #     bozulur. Ilk denemede tam bu oldu: desen '[^ -]'e dondu (her seyi
+  #     eslestiren yanlis sinif) ve kural ters cevrildi.
+  if($metin -cnotmatch '[^\x00-\x7F]'){ return $bul.ToArray() }
   $b=[IO.File]::ReadAllBytes($dosya)
   if($b.Length -lt 3 -or -not ($b[0] -eq 239 -and $b[1] -eq 187 -and $b[2] -eq 191)){
     $bul.Add([pscustomobject]@{ satir=1
@@ -423,6 +436,12 @@ function GitGuvenli{
     @{ ad='BOMsuz+turkce'; kod='$x="baska is"'.Replace('baska','başka'); bom=$false; bekle=$true }
     @{ ad='BOMsuz+ASCII-I'; kod='# GERI YUKLEME ISI'; bom=$false; bekle=$false }
     @{ ad='BOMlu+turkce';  kod='$x="baska is"'.Replace('baska','başka'); bom=$true;  bekle=$false }
+    # ⭐ 12.09 EKLENDI: ASCII disi ama TURKCE HARF OLMAYAN karakter de bozulur.
+    #   Gedigi bizzat yasadim - arac/kosu-nabzi.ps1 BOM'suz yazildi, icindeki
+    #   tire karakteri bozuldu, betik AYRISTIRILAMADI; nobetci ise 0 bulgu
+    #   demisti cunku dosyada Turkce harf yoktu. Olculdu: 23 dosya daha.
+    @{ ad='BOMsuz+tire';   kod=('# olcum ' + [char]0x2014 + ' nabiz'); bom=$false; bekle=$true }
+    @{ ad='BOMlu+tire';    kod=('# olcum ' + [char]0x2014 + ' nabiz'); bom=$true;  bekle=$false }
   )
   foreach($v in $k5Vaka){
     [IO.File]::WriteAllText($gec,$v.kod,(New-Object Text.UTF8Encoding ([bool]$v.bom)))

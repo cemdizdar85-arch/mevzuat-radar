@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  STANDART DAMGASI — TMS/TFRS/BDS hash nobeti (03.08.2026, Gorev #60)
 #
 #  NEDEN: Kanunlarda madde-damga var (degisen madde -> dayanan soru isaretlenir)

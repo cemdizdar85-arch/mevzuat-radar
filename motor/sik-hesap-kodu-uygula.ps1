@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SIK HESAP KODU UYGULAYICI (03.08.2026 gece) — KASAYA YAZAR (dikkat)
 #
 #  Girdi: veri/sik-hesap-kodu-onerisi.json (sik-hesap-kodu-oneri.ps1 uretir)

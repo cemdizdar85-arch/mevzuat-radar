@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SPK REPO JSON ONARICI — veri/mevzuat/spk-portal-*.json'u AMBARDAN yeniden kurar
 #
 #  NEDEN VAR (10.09.2026, ayni gun yasandi). motor/spk-mevzuat-yut.ps1 repo

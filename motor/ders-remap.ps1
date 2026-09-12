@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DERS REMAP — kasadaki SGS sorularinin ders etiketini RESMI sinav kirilimina
 #  oturtur. Kaynak: TURMOB YKK 17.07.2020/22 + TESMER Uygulama Yonergesi 2024 m.6.2:
 #  GK-Yetenek 20 (Turkce 7, Matematik 8, Inkilap 5) + Yabanci Dil 10 + Alan 100
