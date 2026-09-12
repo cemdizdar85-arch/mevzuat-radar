@@ -273,25 +273,52 @@
       </div>
 
       <div class="cam">
-        <div class="cam-ust"><span id="camDers">Ticaret Hukuku · genel işlem koşulları</span><s id="camKunye">SGS 2026/1 Soru 125 kalıbı</s></div>
-        <p class="cam-soru" id="camSoru">Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı
-          tartışılarak kabul edildiğine dair kayıt düşmüştür. Hüküm, sözleşmenin niteliğine ve işin
-          özelliğine yabancıdır. Türk Borçlar Kanunu'na göre aşağıdakilerden hangisi doğrudur?</p>
-        <!-- Yanlış + doğru satırı ve Nöbetçi'nin sözü betikten doldurulur;
-             okunamazsa BUGÜNÜN GERÇEK sorusunun kopyası kalır. -->
-        <div class="sat y"><em>C</em><span id="satY">İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığından, bu hüküm zaten genel işlem koşulu sayılmaz ve yazılmamışlık hükmü uygulanmaz.</span></div>
-        <span class="tuzak-et" id="tuzakEt">Özdeşlik Tuzağı</span>
-        <div class="sat d" style="margin-top:8px"><em>A</em><span id="satD">Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmadığından, işin özelliğine yabancı olan bu hüküm yazılmamış sayılır.</span></div>
+        <!-- ================================================================
+             VİTRİN SORUSU · 13.09.2026 · Cem: "tıklasın ve çözsün, sınavda en
+             çok sorulan Maliyet ya da Finansal Muhasebe sorusu girsin,
+             farkımızı baştan görsün" + "ambardan seç, bazıları kullanılmayan
+             sorular, ona dikkat et".
 
-        <div class="nobetci">
-          <b class="kim">Nöbetçi</b>
-          <p id="nobetciMetin">Öğrenci metinlerin özdeş olmaması kuralını ters yönde kullanıp hükmün zaten genel işlem koşulu sayılmayacağını sanır. <b>Doğrusu:</b> Metinlerin özdeş olmaması genel işlem koşulu sayılmayı engellemez.</p>
+             SEÇİM ÖLÇÜMLE YAPILDI, dört kapıdan geçti:
+              1. DERS: SGS'de en çok sorulan ders Finansal Muhasebe (26 soru).
+                 Maliyet 8, Denetim 16. Ölçüm veri/sinav-tek-sayfa.json.
+              2. YAYINDA MI: veri/vitrin/01-sgs.json'daki 7 FM sorusunun
+                 (tv26xx) hepsi `durum: denetimde` ve HİÇBİRİ yayın listesinde
+                 yok - Cem'in uyardığı "kullanılmayan soru" tam olarak bunlar,
+                 KULLANILMADI. Seçilen soru yayın listesinde:
+                 veri/sinav/kaydir-secim/yayin-sgs-finansal-muhasebe.json
+                 etiket sgs-t1-fmuh-kolay · id kp-28.
+              3. HİZA: doğru şıkkın açıklaması "Ne soruluyor" ile başlamalı.
+                 Ölçüldü: 53 yayın sorusunun 52'si hizalı, 1'i KAYMIŞ (kp-33 -
+                 doğru D ama "Ne soruluyor" C'de). kp-33 ELENDİ, kp-28 hizalı.
+              4. BOY: şıklar tek satır olmalı (ilk ekran şişmesin). kp-28'in
+                 şıkları beş rakam.
+
+             Gövde veri/fabrika/kalip-parti-sgs-t1-fmuh-kolay.json → kp-28'den
+             AYNEN kopyalandı (13.09.2026). Üretimde bu elle durmaz: vitrin
+             robotu yukarıdaki dört kapıyı uygulayıp basmalı.
+             ================================================================ -->
+        <div class="cam-ust"><span id="camDers">Finansal Muhasebe · hesap işleyişi</span><s id="camKunye">SGS · 3 dönemde çıktı</s></div>
+        <p class="cam-soru" id="camSoru">İşletme, satıcıdan 100.000 TL tutarında ticari mal satın almış, bedelin tamamını senetsiz olarak vadeye bırakmıştır. KDV oranı %20'dir. Bu alışa ilişkin kayıtta <b>320 SATICILAR</b> hesabına kaydedilecek tutar kaç TL'dir?</p>
+
+        <div class="cam-sik" id="camSiklar">
+          <button class="sik" type="button" data-k="A"><em>A</em><span>80.000</span></button>
+          <button class="sik" type="button" data-k="B"><em>B</em><span>96.000</span></button>
+          <button class="sik" type="button" data-k="C"><em>C</em><span>100.000</span></button>
+          <button class="sik" type="button" data-k="D"><em>D</em><span>120.000</span></button>
+          <button class="sik" type="button" data-k="E"><em>E</em><span>144.000</span></button>
+        </div>
+        <div class="ipucu" id="ipucu">Bir şık seç — Nöbetçi neden yanlış olduğunu söyler.</div>
+
+        <div class="nobetci" id="nobetci" hidden aria-live="polite">
+          <b class="kim" id="nobetciKim">Nöbetçi</b>
+          <p id="nobetciMetin"></p>
         </div>
 
         <div class="cam-dip">
-          <span class="dayanak" id="camDayanak">Dayanak · m.20 f.2-3</span>
-          <a href="#" id="tamSoru">Tam soruyu çöz →</a>
-        </div>      </div>
+          <span class="dayanak">MSUGT Tekdüzen Hesap Planı · 320 · 191</span>
+          <span><a href="#" id="baskaSoru">Başka soru</a> &nbsp;·&nbsp; <a href="../kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik" id="tamSoru">Havuza geç →</a></span>
+        </div>      </div>      </div>
     </div>
 
     <!-- ⛔ 13.09.2026 — BURADAKİ AÇIKLAMA METNİ KALDIRILDI.
@@ -474,50 +501,101 @@ if(tuval){
 /* ===================================================================
    3) CAM PANEL — bugünün GERÇEK sorusu ve GERÇEK tuzak adı
    =================================================================== */
-/* Panel artık SINAV değil AÇIKLAMA EKRANI: bir yanlış şık, tuzağın adı,
-   doğru şık, Nöbetçi'nin sözü, dayanak. Tıklama YOK - sınama gerçek kabinde,
-   düğmenin arkasında. (Bir önceki turdaki tıklanabilirlik ısrarı geri alındı:
-   panelin işi sınamak değil KANITLAMAK.) */
-fetch('../veri/vitrin-kart-ozet.json',{cache:'no-store'})
-  .then(function(y){return y.ok?y.json():null;})
-  .then(function(d){
-    if(!d||!d.sinavlar)return;
-    var kod=d.sinavlar.sgs?'sgs':Object.keys(d.sinavlar)[0];
-    var v=d.sinavlar[kod]; if(!v||!v.siklar)return;
-    var dogru=v.dogru||'A';
-    /* Gösterilecek yanlış şık: adı KONMUŞ ilk tuzak. Adsız tuzak vitrine
-       çıkmaz - "Tuzak" diye genel bir etiket iddiayı boşa düşürür. */
-    var yanlis=null, tz=null;
-    Object.keys(v.tuzak||{}).some(function(k){
-      if(k!==dogru && v.tuzak[k] && v.tuzak[k].ad){ yanlis=k; tz=v.tuzak[k]; return true; }
-      return false;
-    });
-    if(!yanlis) return;                     /* adlı tuzak yoksa HTML'deki gerçek kopya kalır */
+/* Panel TIKLANIR ve soru HER GÜN DEĞİŞİR.
+   Cem: "tıklasın ve çözsün" + "her gün aynı olmaması önemli, 20 seçersin
+   sonra onlar döner".
+   Havuz: veri/vitrin-soru-havuzu.json — motor/vitrin-soru-sec.ps1 üretir,
+   dört kapıdan geçen 20 soru (yayında · açıklama hizası · adı konmuş tuzak ·
+   ilk ekrana sığan boy) + konu çeşitliliği. Ölçüm 13.09: 1.146 yayın kaydı
+   tarandı, 203'ü kapılardan geçti, 20 farklı konu seçildi.
+   Havuz okunamazsa HTML'de duran kp-28 (yayındaki gerçek soru) kalır. */
+var SORU={
+  dogru:'D',
+  hap:'320 Satıcılar hesabı, mal ve hizmet alımından doğan senetsiz borcun KDV dahil tutarını alacak kaydeder.',
+  kural:'Kural: 320 Satıcılar hesabı, mal ve hizmet alımından doğan senetsiz borcun tamamını, KDV dahil olarak alacak kaydeder. Hesap: 100.000 + 20.000 = 120.000.',
+  tuzak:{
+    A:{ad:"KDV'yi Ters Düşme Tuzağı",metin:"KDV'nin ayrı bir hesaba (191 İndirilecek KDV) borç kaydedileceğini unutup mal bedelinden düşürdün. Doğrusu: Satıcılar hesabına KDV eklenir, düşülmez, tutar 120.000 TL'dir."},
+    B:{ad:'Çift İndirim Tuzağı',metin:"KDV dahil tutarı (120.000) bulduktan sonra yine üzerinden %20 indirim uygulayarak KDV'yi iki kez hesaba kattın. Doğrusu: KDV bir defa hesaplanır, Satıcılar hesabına 120.000 TL alacak kaydedilir."},
+    C:{ad:"KDV'yi Unutma Tuzağı",metin:"Sorudaki tutarı sadece mal bedeli olarak okuyup KDV'yi hiç hesaba katmadın. Doğrusu: 320 Satıcılar hesabı, alım borcunun KDV dahil tamamını alacak kaydeder, yani 120.000 TL'dir."},
+    E:{ad:"KDV'yi İkinci Kez Ekleme Tuzağı",metin:"KDV dahil tutarı (120.000) bulduktan sonra bu tutar üzerinden tekrar %20 KDV hesaplayıp ekledin. Doğrusu: KDV yalnızca mal bedeli üzerinden bir kez hesaplanır, sonuç 120.000 TL'dir."}
+  }
+};
+(function(){
+  var siklarEl=document.getElementById('camSiklar');
+  var nobetci=document.getElementById('nobetci');
+  var nMetin=document.getElementById('nobetciMetin');
+  var nKim=document.getElementById('nobetciKim');
+  var ipucu=document.getElementById('ipucu');
+  var basla='Bir şık seç — Nöbetçi neden yanlış olduğunu söyler.';
+  if(!siklarEl||!nobetci) return;
 
-    var ders=String(v.ders||'').split('|')[0];
-    document.getElementById('camDers').textContent=ders+(v.konu?' · '+v.konu:'');
+  function soylesin(k){
+    var dogruMu=(k===SORU.dogru);
+    if(dogruMu){
+      nobetci.className='nobetci d';
+      nKim.textContent='Nöbetçi · Doğru';
+      nMetin.innerHTML='<b>'+esc(SORU.hap)+'</b> '+esc(SORU.kural||'').replace(/^Ne soruluyor:[^.]*\.\s*/,'');
+    }else{
+      var tz=SORU.tuzak[k]; if(!tz) return;
+      nobetci.className='nobetci';
+      nKim.textContent='Nöbetçi · '+tz.ad;
+      /* "Doğrusu:" kalıbı metnin içinde geçer; göz yakalasın diye kalın. */
+      nMetin.innerHTML=esc(tz.metin).replace(/Doğrusu:/,'<b>Doğrusu:</b>');
+    }
+    nobetci.hidden=false;
+    if(ipucu) ipucu.textContent = dogruMu
+      ? 'Havuzdaki her soruda aynı ekran: tuzağın adı ve dayandığı hesap.'
+      : 'Başka bir şık dene — doğruyu bulunca kuralı söyler.';
+  }
+
+  siklarEl.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('.sik'):null;
+    if(!b||b.disabled)return;
+    var k=b.getAttribute('data-k');
+    if(k===SORU.dogru){
+      b.classList.add('d');
+      [].forEach.call(siklarEl.querySelectorAll('.sik'),function(x){ x.disabled=true; });
+    }else{
+      b.classList.add('y'); b.disabled=true;
+    }
+    soylesin(k);
+  });
+
+  /* ---- HAVUZ: gün bazlı döner ---- */
+  function ciz(q){
+    SORU={dogru:q.dogru, hap:q.hap, kural:q.kural, tuzak:q.tuzak||{}};
+    document.getElementById('camDers').textContent=
+      (q.ders||'')+(q.konu?' · '+q.konu:'');
     document.getElementById('camKunye').textContent=
-      (v.kunye||'')+(v.donem?' · '+v.donem+' dönemde çıktı':'');
-    document.getElementById('camSoru').textContent=v.soru||'';
+      'SGS'+(q.donem?' · '+q.donem+' dönemde çıktı':'');
+    document.getElementById('camSoru').textContent=q.soru||'';
+    siklarEl.innerHTML=Object.keys(q.siklar).map(function(k){
+      return '<button class="sik" type="button" data-k="'+k+'"><em>'+k+'</em><span>'
+        +esc(q.siklar[k])+'</span></button>';
+    }).join('');
+    var dy=document.querySelector('.cam-dip .dayanak');
+    if(dy&&q.dayanak) dy.textContent=q.dayanak;
+    nobetci.hidden=true;
+    if(ipucu) ipucu.textContent=basla;
+  }
 
-    var satY=document.getElementById('satY'), satD=document.getElementById('satD');
-    satY.textContent=v.siklar[yanlis]||'';
-    satY.parentNode.querySelector('em').textContent=yanlis;
-    satD.textContent=v.siklar[dogru]||'';
-    satD.parentNode.querySelector('em').textContent=dogru;
-    document.getElementById('tuzakEt').textContent=tz.ad;
-
-    /* "Doğrusu:" kalıbı metnin içinde geçer; göz yakalasın diye kalın. */
-    document.getElementById('nobetciMetin').innerHTML=
-      esc(tz.metin||'').replace(/Doğrusu:/,'<b>Doğrusu:</b>');
-
-    var madde='';
-    (v.satirlar||[]).forEach(function(r){
-      if(String(r[0]||'').indexOf(dogru+')')===0) madde=r[1];
-    });
-    document.getElementById('camDayanak').textContent = madde ? ('Dayanak · '+madde) : '';
-    if(v.baglanti) document.getElementById('tamSoru').href='../'+v.baglanti;
-  }).catch(function(){});
+  fetch('../veri/vitrin-soru-havuzu.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      var h=d&&d.sorular; if(!h||!h.length)return;
+      /* Gün bazlı sıra: aynı gün herkese aynı soru, ertesi gün bir sonraki.
+         Rastgele seçmiyoruz - "günün sorusu" olmasi nöbet fikrine uyuyor ve
+         ekran görüntüsü/paylaşım tutarlı kalıyor. */
+      var gun=Math.floor(Date.now()/86400000);
+      var i=((gun % h.length)+h.length)%h.length;
+      ciz(h[i]);
+      /* Merak eden beklemesin: sıradaki soruya elle geçebilir. */
+      var bag=document.getElementById('baskaSoru');
+      if(bag) bag.addEventListener('click',function(e){
+        e.preventDefault(); i=(i+1)%h.length; ciz(h[i]);
+      });
+    }).catch(function(){});
+})();
 /* ===================================================================
    4) NÖBET ŞERİDİ — index.html ile aynı kural
    =================================================================== */

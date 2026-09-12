@@ -1,0 +1,728 @@
+{
+    "uretim":  "2026-09-13 01:10",
+    "uretici":  "motor/vitrin-soru-sec.ps1",
+    "kapilar":  "K1 yayinda · K2 aciklama hizasi · K3 adi konmus tuzak · K4 boy",
+    "adet":  20,
+    "sorular":  [
+                    {
+                        "id":  "sgs-p-fmuh-kolay-r1/kp-01",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "muhasebe bilgi sistemi",
+                        "donem":  10,
+                        "soru":  "Muhasebe sürecinde envanter (sayım ve değerleme) ile dönem sonu ayarlama kayıtları yapıldıktan SONRA düzenlenen ve mali tabloların kendisinden hazırlandığı mizana ne ad verilir?",
+                        "siklar":  {
+                                       "A":  "Aylık (geçici) mizan",
+                                       "B":  "Genel geçici mizan",
+                                       "C":  "Kesin mizan",
+                                       "D":  "Kapanış mizanı",
+                                       "E":  "Defter-i kebir (büyük defter)"
+                                   },
+                        "dogru":  "C",
+                        "hap":  "Genel geçici mizan envanterden önce, kesin mizan envanter ve ayarlama kayıtlarından sonra düzenlenir; mali tablolar kesin mizandan çıkar.",
+                        "kural":  "Ne soruluyor: Muhasebe sürecindeki mizan türlerinden hangisinin envanter ve ayarlama kayıtlarından sonra düzenlendiği soruluyor. Kural: Genel geçici mizan envanterden önce, kesin mizan envanter ve dönem sonu kayıtlarından sonra düzenlenir ve mali tablolar bundan hazırlanır. Doğrusu: Bu mizan kesin mizandır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Aylık (Geçici) Mizan Tuzağı",
+                                                "metin":  "Her ay sonu düzenlenen ara mizanı, dönem sonu envanterden sonraki mizanla karıştırırsın. Doğrusu: Aylık mizan yıl içindeki ay sonlarında düzenlenir, envanterle ilgisi yoktur."
+                                            },
+                                      "B":  {
+                                                "ad":  "Genel Geçici Mizan Tuzağı",
+                                                "metin":  "\u002712. ay\u0027 ifadesini görünce envanterden sonraki mizanı seçersin, ama genel geçici mizan envanterden ÖNCEki 12. ay mizanıdır. Doğrusu: Envanterden sonraki mizan kesin mizandır."
+                                            },
+                                      "D":  {
+                                                "ad":  "Kapanış Mizanı Tuzağı",
+                                                "metin":  "Süreç sonunda düzenlenen her mizanı \u0027son mizan\u0027 sayıp kapanış mizanıyla karıştırırsın. Doğrusu: Kapanış mizanı hesaplar kapatıldıktan SONRA tüm kalanların sıfırlandığını gösterir, mali tablolar ondan hazırlanmaz."
+                                            },
+                                      "E":  {
+                                                "ad":  "Defter Karıştırma Tuzağı",
+                                                "metin":  "Mizanı büyük defterle aynı belge sanırsın. Doğrusu: Defter-i kebir hesap bazında kayıtların toplandığı defterdir, mizan ise bu defterin borç-alacak toplam ve kalanlarını gösteren ayrı bir cetveldir."
+                                            }
+                                  },
+                        "dayanak":  "Ders kitabı - muhasebe süreci ve mizan türleri (geçici, genel geçici, kesin, kapanış mizanı)"
+                    },
+                    {
+                        "id":  "sgs-p-fmuh-zor-r1/kp-01",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "hisse senedi satisi",
+                        "donem":  7,
+                        "soru":  "İşletme, nominal değeri 400.000 TL olan hisse senetlerini nakden 460.000 TL bedelle ihraç ederek sermaye artırımını tamamlamıştır. Buna göre yapılacak muhasebe kaydına ilişkin aşağıdakilerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "500 Sermaye hesabı 460.000 TL alacaklandırılır.",
+                                       "B":  "520 Hisse Senedi İhraç Primleri hesabı 60.000 TL alacaklandırılır.",
+                                       "C":  "501 Ödenmemiş Sermaye hesabı 400.000 TL alacaklandırılır.",
+                                       "D":  "645 Menkul Kıymet Satış Kârları hesabı 60.000 TL alacaklandırılır.",
+                                       "E":  "520 Hisse Senedi İhraç Primleri hesabı 460.000 TL alacaklandırılır."
+                                   },
+                        "dogru":  "B",
+                        "hap":  "Primli hisse senedi ihracında 500 Sermaye hep nominal değerle, aşan kısım 520 Hisse Senedi İhraç Primleri\u0027ne alacak yazılır.",
+                        "kural":  "Ne soruluyor: Primli hisse senedi ihracında hangi hesabın ne tutarla alacaklandığı soruluyor. Kural: Nakden ihraçta nominal değer 500 Sermaye\u0027ye, nominal üstü fark 520 Hisse Senedi İhraç Primleri\u0027ne alacak yazılır. Hesap: 460.000 - 400.000 = 60.000. Doğrusu: 520 Hisse Senedi İhraç Primleri hesabı 60.000 TL alacaklandırılır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Nominal Değer Tuzağı",
+                                                "metin":  "Satış bedelinin tamamını sermayeye yazdın; oysa 500 Sermaye hesabına yalnız hisselerin NOMİNAL değeri (400.000 TL) alacak kaydedilir. Doğrusu: aradaki fark 500\u0027e değil 520\u0027ye gider."
+                                            },
+                                      "C":  {
+                                                "ad":  "Aşama Karıştırma Tuzağı",
+                                                "metin":  "Taahhüt aşamasındaki 501 Ödenmemiş Sermaye kaydını burada kurdun; oysa işlem doğrudan nakit tahsilatlı ihraçtır, 501 hiç açılmaz. Doğrusu: nakit girişi doğrudan 102 Bankalar borcuna, karşılığı 500 ve 520\u0027ye yazılır."
+                                            },
+                                      "D":  {
+                                                "ad":  "Gelir Sanma Tuzağı",
+                                                "metin":  "Nominal üstü farkı satıştan doğan kâr sandın ve 645\u0027e yazdın; oysa 645 menkul kıymet alım-satımına ilişkindir, bu işlem özkaynak işlemidir ve gelir tablosuna girmez. Doğrusu: fark 520 Hisse Senedi İhraç Primleri\u0027ne gider."
+                                            },
+                                      "E":  {
+                                                "ad":  "Ayrıştırmama Tuzağı",
+                                                "metin":  "Satış bedelinin tamamını prim hesabına yazdın; oysa önce nominal değer 500\u0027e ayrılmalı, yalnız kalan fark 520\u0027ye yazılmalıdır. Doğrusu: 520\u0027ye yazılacak tutar 460.000 değil 60.000 TL\u0027dir."
+                                            }
+                                  },
+                        "dayanak":  "Tekdüzen Hesap Planı 500/520 hesap açıklaması, MSUGT Sıra No:1 Tekdüzen Hesap Planı"
+                    },
+                    {
+                        "id":  "sgs-p-fmuh-kolay-r4/kp-03",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "gider tahakkuku",
+                        "donem":  7,
+                        "soru":  "İşletme, 2026 yılı Aralık ayında yararlandığı ancak faturası henüz gelmemiş danışmanlık hizmeti bedeli olan 60.000 TL\u0027yi 31.12.2026 tarihinde tahakkuk ettirmiştir. Bu işlemle ilgili 31.12.2026 tarihli kayıtta aşağıdaki hesaplardan hangisinin kullanımı doğrudur?",
+                        "siklar":  {
+                                       "A":  "632 Genel Yönetim Giderleri hesabı 60.000 TL alacaklandırılır.",
+                                       "B":  "381 Gider Tahakkukları hesabı 60.000 TL borçlandırılır.",
+                                       "C":  "360 Ödenecek Vergi ve Fonlar hesabı 60.000 TL alacaklandırılır.",
+                                       "D":  "320 Satıcılar hesabı 60.000 TL alacaklandırılır.",
+                                       "E":  "381 Gider Tahakkukları hesabı 60.000 TL alacaklandırılır."
+                                   },
+                        "dogru":  "E",
+                        "hap":  "Cari döneme ait olup henüz ödenmemiş ve belgesi gelmemiş kesin nitelikli giderler, dönem sonunda ilgili gider hesabına borç, 381 Gider Tahakkukları hesabına alacak kaydedilir.",
+                        "kural":  "Ne soruluyor: Dönem sonunda faturası gelmemiş ancak kesin nitelikte olan bir gider için hangi hesabın kullanılacağı soruluyor. Kural: Vergi Usul Kanunu m.287 gereğince cari döneme ait olup henüz ödenmemiş giderler pasifleştirilir; Tekdüzen Hesap Planı\u0027nda bu, 381 Gider Tahakkukları hesabına alacak kaydıyla yapılır. Hesap: 632 borç 60.000 - 381 alacak 60.000. Doğrusu: 381 Gider Tahakkukları hesabı 60.000 TL alacaklandırılır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Ters Kayıt Tuzağı",
+                                                "metin":  "Öğrenci gider hesabının dönem sonunda alacaklandırılabileceğini sanır. Doğrusu: Gider hesabı borç kalanı verir, tahakkuk eden tutar 381 Gider Tahakkukları hesabına alacak yazılır, 632 hesabı yalnız borçlandırılır."
+                                            },
+                                      "B":  {
+                                                "ad":  "İşleyiş Karışıklığı Tuzağı",
+                                                "metin":  "Öğrenci tahakkuk kaydını, gelecekte yapılacak ödeme kaydıyla karıştırıp hesabı borçlandırır. Doğrusu: 381 hesabı yalnız ödeme yapıldığında borçlandırılır, tahakkuk anında alacaklandırılır."
+                                            },
+                                      "C":  {
+                                                "ad":  "Kapsam Tuzağı",
+                                                "metin":  "Öğrenci henüz ödenmemiş her gideri vergi/fon borcu sanıp 360 hesabı kullanır. Doğrusu: Bu tutar vergi veya SGK kesintisi değil, hizmetten doğan gider tahakkukudur, 381 hesabına kaydedilir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Belge/Kanıt Tuzağı",
+                                                "metin":  "Öğrenci fatura gelmese de tutarı kesin ticari borç sayıp 320 Satıcılar hesabına kaydeder. Doğrusu: Fatura henüz düzenlenmediğinden kesinleşmiş ticari borç değil, tahmini/tahakkuk eden gider söz konusudur; 381 hesabı kullanılır."
+                                            }
+                                  },
+                        "dayanak":  "213 sayılı Vergi Usul Kanunu m.287; MSUGT Sıra No:1 Tekdüzen Hesap Planı 381 Gider Tahakkukları"
+                    },
+                    {
+                        "id":  "sgs-p-maliyet-kolay-r1/kp-02",
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "genel uretim gideri dagitimi",
+                        "donem":  7,
+                        "soru":  "Montaj bölümünün dönem genel üretim gideri toplamı 90.000 TL, dönem makine saati toplamı 3.000 saattir. Bu bölümde üretilen A mamulü siparişi 600 makine saati kullanmış ve siparişten 20 adet üretilmiştir. Buna göre, A mamulünün birim genel üretim gideri kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "30",
+                                       "B":  "150",
+                                       "C":  "900",
+                                       "D":  "4.500",
+                                       "E":  "18.000"
+                                   },
+                        "dogru":  "C",
+                        "hap":  "Mamulün birim genel üretim gideri, yükleme oranı ile mamulün kullandığı anahtar miktarının çarpımının üretim adedine bölünmesiyle bulunur.",
+                        "kural":  "Ne soruluyor: A mamulünün birim genel üretim gideri soruluyor. Kural: yükleme oranı = gider yeri genel üretim gideri toplamı / anahtar toplamı; mamule yüklenen genel üretim gideri = kullanılan anahtar × yükleme oranı; birim genel üretim gideri = yüklenen genel üretim gideri / üretim adedi. Hesap: 90.000/3.000=30; 600×30=18.000; 18.000/20=900. Doğrusu: A mamulünün birim genel üretim gideri 900 TL\u0027dir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Yükleme Oranı Tuzağı",
+                                                "metin":  "Gider yerinin genel üretim gideri toplamının anahtar toplamına bölümüyle bulunan 30 TL/saat oranını, mamulün birim genel üretim gideri\u0027ü ile aynı şey sanmış olabilirsin. Doğrusu: oran, mamulün kullandığı saatle çarpılıp adete bölünmeden birim maliyet olamaz."
+                                            },
+                                      "B":  {
+                                                "ad":  "Yanlış Anahtar Toplamı Tuzağı",
+                                                "metin":  "Yükleme oranını bulurken gider yeri toplamını dönemin makine saati toplamına değil, A mamulünün kullandığı 600 saate bölmüşsün. Doğrusu: yükleme oranı = gider yeri genel üretim gideri toplamı / gider yerinin anahtar TOPLAMI, yani 3.000 saate bölünmelidir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Anahtarı Atlama Tuzağı",
+                                                "metin":  "Genel üretim gideri toplamını doğrudan üretim adedine bölmüşsün, makine saati anahtarını hiç kullanmamışsın. Doğrusu: dağıtım anahtarı devreye girmeden genel üretim gideri mamule paylaştırılamaz, önce yükleme oranı bulunmalıdır."
+                                            },
+                                      "E":  {
+                                                "ad":  "Birime Bölmeyi Unutma Tuzağı",
+                                                "metin":  "A mamulüne yüklenen toplam genel üretim gideri\u0027ü (600×30=18.000) doğru bulmuşsun ama bunu siparişten çıkan 20 adete bölmeyi unutmuşsun. Doğrusu: birim genel üretim gideri için toplam yüklenen gider üretim adedine bölünmelidir."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 730 Genel Üretim Giderleri ve 731 Genel Üretim Giderleri Yansıtma Hesabı açıklamaları"
+                    },
+                    {
+                        "id":  "sgs-t2b-maliyet-cokzor/kp-02",
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "normal maliyet yontemi",
+                        "donem":  7,
+                        "soru":  "Bir işletmede birim değişken üretim maliyeti 42 TL, dönemin sabit genel üretim gideri 540.000 TL\u0027dir. Normal kapasite 15.000 birim iken dönemde 12.000 birim üretilmiş, 11.000 birim satılmıştır. Buna göre normal maliyet yöntemine göre satılan mamullerin maliyeti kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "462.000",
+                                       "B":  "858.000",
+                                       "C":  "936.000",
+                                       "D":  "957.000",
+                                       "E":  "1.044.000"
+                                   },
+                        "dogru":  "B",
+                        "hap":  "Normal maliyette birim sabit gider normal kapasiteye bölünür, satılanların maliyeti satılan miktar çarpı bu birim maliyettir ve boş kapasite gideri ayrı izlenir.",
+                        "kural":  "Ne soruluyor: Normal maliyet yöntemine göre satılan mamullerin maliyeti isteniyor. Kural: Normal maliyette birim mamul maliyeti, birim değişken üretim maliyeti ile sabit genel üretim giderinin normal kapasiteye bölümünden oluşur; satılan mamullerin maliyeti satılan miktarla bu birim maliyetin çarpımıdır; boş kapasiteye düşen sabit gider mamule girmez, dönem gideri olur. Hesap: Birim sabit 540.000 / 15.000 = 36; birim maliyet 42 + 36 = 78; satılanların maliyeti 11.000 × 78 = 858.000. Doğrusu: 858.000 TL.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Değişken Maliyet Tuzağı",
+                                                "metin":  "Satılanlara yalnız değişken üretim maliyetini yükledin; normal maliyet sabit giderin kullanılan kapasite payını da yükler. Doğrusu: 11.000 × 78 = 858.000 TL."
+                                            },
+                                      "C":  {
+                                                "ad":  "Miktar Tuzağı",
+                                                "metin":  "Üretilen miktarla çarptın; satılmayan 1.000 birimin maliyeti stokta kalır. Doğrusu: 858.000 TL."
+                                            },
+                                      "D":  {
+                                                "ad":  "Yöntem Tuzağı",
+                                                "metin":  "Birim sabit gideri fiili üretime bölerek tam maliyete göre hesap yaptın; normal maliyette payda normal kapasitedir. Doğrusu: 858.000 TL."
+                                            },
+                                      "E":  {
+                                                "ad":  "Çift Hata Tuzağı",
+                                                "metin":  "Hem tam maliyet birimini kullandın hem üretilen miktarla çarptın. Doğrusu: 858.000 TL."
+                                            }
+                                  },
+                        "dayanak":  "Normal maliyet kuralı: birim mamul maliyeti = birim değişken üretim maliyeti + sabit genel üretim gideri / normal kapasite; satılan mamullerin maliyeti = satılan miktar × birim maliyet; boş kapasite gideri mamule yüklenmez (teori notu: Normal maliyet yöntemi ve kapasite kullanım oranı); Tekdüzen Hesap Planı 620, 680"
+                    },
+                    {
+                        "id":  "sgs-t1-fmuh-kolay/kp-06",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "maddi olmayan duran varlik (haklar)",
+                        "donem":  6,
+                        "soru":  "İşletme, 1 Eylül 2026 tarihinde kullanıma hazır hale gelen bir bilgisayar yazılımı için 240.000 TL ödemiştir. Yazılımın yararlı ömrü 5 yıl olarak belirlenmiş ve doğrusal itfa yöntemi uygulanmıştır. Buna göre işletmenin 2026 yılı için ayıracağı itfa payı kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "4.000",
+                                       "B":  "12.000",
+                                       "C":  "16.000",
+                                       "D":  "20.000",
+                                       "E":  "48.000"
+                                   },
+                        "dogru":  "C",
+                        "hap":  "Maddi olmayan duran varlıklarda itfa, varlığın fiilen kullanıma hazır olduğu tarihten başlar; yıl içindeki bu tarihe göre kesirli ay hesabı yapılır.",
+                        "kural":  "Ne soruluyor: 2026 yılına ait itfa payı tutarı isteniyor. Kural: TMS 38 p.97\u0027ye göre itfa, varlık kullanıma hazır olduğunda başlar ve doğrusal yöntemde maliyet yararlı ömre eşit olarak dağıtılır. Hesap: 240.000 / (5x12=60 ay) = 4.000 TL aylık pay; Eylül-Aralık 4 ay x 4.000 = 16.000 TL. Doğrusu: 2026 yılı itfa payı 16.000 TL\u0027dir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Tek Ay Tuzağı",
+                                                "metin":  "Yalnızca kullanıma hazır olunan ayı sayıp aylık payı doğrudan sonuç sandın. Doğrusu: itfa, kullanıma hazır olunan Eylül ayından yıl sonuna kadar geçen dört ay için hesaplanır."
+                                            },
+                                      "B":  {
+                                                "ad":  "Eksik Ay Sayımı Tuzağı",
+                                                "metin":  "İtfanın kullanıma hazır olma ayını (Eylül) saymayıp Ekim-Aralık şeklinde üç ay saydın. Doğrusu: TMS 38 p.97\u0027ye göre itfa, varlığın kullanıma hazır olduğu ay dahil başlar, bu yüzden dört ay sayılır."
+                                            },
+                                      "D":  {
+                                                "ad":  "Erken Başlangıç Tuzağı",
+                                                "metin":  "İtfayı fiilen kullanıma hazır olunan tarihten önce, Ağustos ayından başlatarak beş ay saydın. Doğrusu: itfa başlangıcı kullanıma hazır olma tarihi olan 1 Eylül\u0027dür, bu yüzden dört ay hesaplanmalıdır."
+                                            },
+                                      "E":  {
+                                                "ad":  "Tam Yıl Tuzağı",
+                                                "metin":  "Varlık yıl içinde kullanıma hazır olduğu hâlde maliyeti 5 yıla değil doğrudan tam bir yıla böldün. Doğrusu: itfa yalnızca kullanıma hazır olunan Eylül-Aralık dönemi için, yani kesirli ay üzerinden hesaplanır."
+                                            }
+                                  },
+                        "dayanak":  "TMS 38 p.97"
+                    },
+                    {
+                        "id":  "sgs-p-fmuh-kolay-r1/kp-05",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "ozkaynak hesaplama",
+                        "donem":  5,
+                        "soru":  "Bir tekstil işletmesinin 2026 yılı bilanço kalemleri şöyledir: Sermaye 150.000 TL, Yasal Yedekler 12.500 TL, Geçmiş Yıllar Karları 47.350 TL, Dönem Net Karı 18.750 TL, Banka Kredileri 35.000 TL. Buna göre işletmenin özkaynak toplamı kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "181.250",
+                                       "B":  "209.850",
+                                       "C":  "216.100",
+                                       "D":  "228.600",
+                                       "E":  "263.600"
+                                   },
+                        "dogru":  "D",
+                        "hap":  "Özkaynak toplamına yalnız Sermaye, Yedekler, Geçmiş Yıllar Karları ve Dönem Net Karı hesapları girer; yabancı kaynaklar hiçbir zaman dahil edilmez.",
+                        "kural":  "Ne soruluyor: İşletmenin özkaynak toplamının bulunması isteniyor. Kural: Sermaye, Yasal Yedekler, Geçmiş Yıllar Karları ve Dönem Net Karı hesapları özkaynak grubundadır; Banka Kredileri yabancı kaynaktır. Hesap: 150.000+12.500+47.350+18.750=228.600 Doğrusu: Özkaynak toplamı 228.600 TL\u0027dir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Kapsam Tuzağı",
+                                                "metin":  "Geçmiş Yıllar Karları hesabını özkaynak dışı sanıp toplamdan çıkarmışsın. Doğrusu: 570 GEÇMİŞ YILLAR KARLARI dağıtılmamış kar olarak özkaynak kalemidir, toplama dahil edilir."
+                                            },
+                                      "B":  {
+                                                "ad":  "Zamanlama Tuzağı",
+                                                "metin":  "Dönem Net Karının henüz kesinleşmediğini düşünüp 590 hesabı özkaynaktan saymamışsın. Doğrusu: 590 DÖNEM NET KARI dönem sonunda özkaynak toplamına dahil edilen bir kalemdir."
+                                            },
+                                      "C":  {
+                                                "ad":  "Hesap Seçimi Tuzağı",
+                                                "metin":  "Yasal Yedekleri karın parçası sanıp ayrıca saymayı unutmuşsun. Doğrusu: 540 YASAL YEDEKLER, karın dışında ayrı bir özkaynak hesabıdır ve toplama eklenir."
+                                            },
+                                      "E":  {
+                                                "ad":  "Kapsam Tuzağı",
+                                                "metin":  "Banka Kredilerini de özkaynak sanıp toplama dahil etmişsin. Doğrusu: Banka Kredileri yabancı kaynak hesabıdır, özkaynak toplamına girmez."
+                                            }
+                                  },
+                        "dayanak":  "Tekdüzen Hesap Planı 500 / 540 / 570 / 590 (MSUGT Sıra No:1 Tekdüzen Hesap Planı)"
+                    },
+                    {
+                        "id":  "sgs-t2-fmuh-kolay/kp-02",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 12 ertelenmis vergi",
+                        "donem":  5,
+                        "soru":  "2026 yılında bir işletmenin aktifinde yer alan bir varlığın defter değeri 500.000 TL, vergiye esas değeri ise 350.000 TL\u0027dir. Kurumlar vergisi oranı %20\u0027dir. Bu varlığa ilişkin 2026 yılı sonunda muhasebeleştirilecek ertelenmiş vergi borcu kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "30.000",
+                                       "B":  "70.000",
+                                       "C":  "100.000",
+                                       "D":  "150.000",
+                                       "E":  "170.000"
+                                   },
+                        "dogru":  "A",
+                        "hap":  "Ertelenmiş vergi borcu = (Defter değeri - Vergiye esas değer) × vergi oranı.",
+                        "kural":  "Ne soruluyor: 2026 yılı sonunda muhasebeleştirilecek ertelenmiş vergi borcu tutarı soruluyor. Kural: TMS 12 paragraf 16 uyarınca varlığın defter değeri vergiye esas değerini aştığında aradaki fark vergiye tabi geçici fark olur ve bu fark üzerinden ertelenmiş vergi borcu muhasebeleştirilir. Hesap: (500.000-350.000)=150.000; 150.000×%20=30.000. Doğrusu: İşletme 30.000 TL ertelenmiş vergi borcu muhasebeleştirir.",
+                        "tuzak":  {
+                                      "B":  {
+                                                "ad":  "Taban Seçimi Tuzağı",
+                                                "metin":  "Vergiye esas değerin kendisini vergi oranıyla çarpıp (350.000×%20=70.000) sonuca ulaştın, oysa vergi geçici fark üzerinden hesaplanır. Doğrusu: Ertelenmiş vergi borcu yalnız defter değeri ile vergiye esas değer arasındaki farka uygulanır."
+                                            },
+                                      "C":  {
+                                                "ad":  "Defter Değeri Tuzağı",
+                                                "metin":  "Farkı almadan doğrudan defter değerinin tamamını (500.000×%20=100.000) vergiye tabi tutan hesap yaptın. Doğrusu: Vergilendirme yalnızca geçici fark üzerinden yapılır, varlığın toplam defter değeri üzerinden değil."
+                                            },
+                                      "D":  {
+                                                "ad":  "Oran Unutma Tuzağı",
+                                                "metin":  "Vergiye tabi geçici farkı (500.000-350.000=150.000) doğru buldun ama vergi oranını uygulamayı unuttun. Doğrusu: Fark bulunduktan sonra mutlaka vergi oranıyla çarpılmalıdır."
+                                            },
+                                      "E":  {
+                                                "ad":  "Toplama Tuzağı",
+                                                "metin":  "Farkı değil, defter değeri ile vergiye esas değerin toplamını esas alıp (500.000+350.000)×%20=170.000 hesapladın. Doğrusu: Ertelenmiş vergi hesaplamasında toplam değil fark esas alınır."
+                                            }
+                                  },
+                        "dayanak":  "TMS 12 p.16"
+                    },
+                    {
+                        "id":  "sgs-t1-fmuh-kolay/kp-08",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 2 stoklar",
+                        "donem":  5,
+                        "soru":  "Bir işletme ticari mal alımında mal bedeli olarak 100.000 TL ödemiş, ayrıca malın taşınması için 6.000 TL nakliye gideri yüklenmiş ve satıcıdan 4.000 TL alış iskontosu elde etmiştir. TMS 2 Stoklar\u0027a göre bu malın 153 TİCARİ MALLAR hesabına kaydedilecek maliyet bedeli kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "96.000",
+                                       "B":  "98.000",
+                                       "C":  "100.000",
+                                       "D":  "102.000",
+                                       "E":  "110.000"
+                                   },
+                        "dogru":  "D",
+                        "hap":  "Stok maliyeti = mal bedeli + satın almaya doğrudan bağlı giderler - alış iskontoları.",
+                        "kural":  "Ne soruluyor: verilen kalemlerden ticari malın maliyet bedelinin nasıl hesaplandığı soruluyor. Kural: satın alma maliyeti, mal bedeline satın almaya doğrudan bağlı giderlerin eklenmesi ve alış iskontolarının düşülmesiyle bulunur. Hesap: 100.000 + 6.000 - 4.000 = 102.000. Doğrusu: 153 TİCARİ MALLAR hesabına 102.000 TL kaydedilir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Ters Katman Tuzağı",
+                                                "metin":  "Nakliye giderini maliyete hiç eklemeden yalnız mal bedelinden iskontoyu düştün. Doğrusu: nakliye gideri satın almaya doğrudan bağlı bir maliyet unsurudur ve mal bedeline eklenir."
+                                            },
+                                      "B":  {
+                                                "ad":  "Çift İşaret Tuzağı",
+                                                "metin":  "Nakliyeyi maliyetten düşülecek, iskontoyu ise eklenecek kalem sandın; ikisinin de yönünü ters uyguladın. Doğrusu: nakliye eklenir, alış iskontosu düşülür."
+                                            },
+                                      "C":  {
+                                                "ad":  "Eksik Unsur Tuzağı",
+                                                "metin":  "Yalnız mal bedelini maliyet saydın, nakliye ve iskontoyu hiç hesaba katmadın. Doğrusu: mal bedeline doğrudan bağlı giderler eklenir, iskontolar düşülür."
+                                            },
+                                      "E":  {
+                                                "ad":  "Ters Kayıt Tuzağı",
+                                                "metin":  "Alış iskontosunu maliyetten düşmek yerine maliyete dahil ederek topladın. Doğrusu: alış iskontosu maliyet bedelini azaltan bir kalemdir, toplama eklenmez."
+                                            }
+                                  },
+                        "dayanak":  "Tekdüzen Hesap Planı 153 Ticari Mallar"
+                    },
+                    {
+                        "id":  "sgs-c2-fmuh-kolay-r3/kp-05",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "gelir tahakkuku",
+                        "donem":  5,
+                        "soru":  "İşletme, boş bir depo binasını 1 Kasım 2026-31 Ocak 2027 tarihleri arasında üç ay süreyle kiraya vermiştir. Aylık kira tutarı 15.000 TL olup üç aylık kira bedelinin tamamı 31 Ocak 2027 tarihinde tahsil edilecektir. İşletmenin 31.12.2026 tarihinde yapacağı muhasebe kaydı aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "102 BANKALAR 30.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 30.000",
+                                       "B":  "181 GELİR TAHAKKUKLARI 45.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 45.000",
+                                       "C":  "102 BANKALAR 45.000 / 181 GELİR TAHAKKUKLARI 45.000",
+                                       "D":  "181 GELİR TAHAKKUKLARI 15.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 15.000",
+                                       "E":  "181 GELİR TAHAKKUKLARI 30.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 30.000"
+                                   },
+                        "dogru":  "E",
+                        "hap":  "Dönemine ait olup tahsili sonraki döneme kalan gelirler, dönem sonunda 181 GELİR TAHAKKUKLARI hesabına borç, ilgili gelir hesabına alacak kaydedilir.",
+                        "kural":  "Ne soruluyor: 31.12.2026 tarihinde yapılacak dönem sonu tahakkuk kaydı soruluyor. Kural: 181 GELİR TAHAKKUKLARI, tahsili sonraki döneme kalan ancak içinde bulunulan döneme ait gelirin ilgili gelir hesabı karşılığında borç kaydedildiği hesaptır. Hesap: Kasım (15.000) + Aralık (15.000) = 30.000 TL. Doğrusu: 181 GELİR TAHAKKUKLARI hesabı 30.000 TL borçlandırılır, 649 DİĞER OLAĞAN GELİR VE KÂRLAR hesabı 30.000 TL alacaklandırılır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Peşin Tahsilat Tuzağı",
+                                                "metin":  "Kira bedelinin henüz tahsil edilmediğini gözden kaçırıp tutarı doğrudan Bankalar hesabına yazdın. Doğrusu: Tahsilat 31 Ocak 2027\u0027de yapılacağından 31.12.2026\u0027da Bankalar hesabı hiç kullanılmaz, tutar Gelir Tahakkukları hesabına borç yazılır."
+                                            },
+                                      "B":  {
+                                                "ad":  "Dönem Aşımı Tuzağı",
+                                                "metin":  "Üç aylık kiranın tamamını içinde bulunulan döneme ait sayıp Ocak 2027\u0027ye ait payı da tahakkuk ettirdin. Doğrusu: Yalnız Kasım ve Aralık ayları 2026 dönemine ait olduğundan tahakkuk tutarı 30.000 TL\u0027dir."
+                                            },
+                                      "C":  {
+                                                "ad":  "Hesap Karıştırma Tuzağı",
+                                                "metin":  "Hem tahsilat hem tahakkuk kaydı gibi tutarı yanlış hesaplara bölüştürüp toplam kira bedelini kaydettin. Doğrusu: 31.12.2026\u0027da herhangi bir tahsilat yoktur, tek hesap olarak 181 GELİR TAHAKKUKLARI hesabı 30.000 TL borçlandırılır."
+                                            },
+                                      "D":  {
+                                                "ad":  "Ay Eksik Sayma Tuzağı",
+                                                "metin":  "Tahakkuku sadece Aralık ayı ile sınırlı tutup Kasım ayının payını unuttun. Doğrusu: Kasım ve Aralık aylarının ikisi de 2026 dönemine ait olduğundan tahakkuk tutarı 15.000 değil 30.000 TL\u0027dir."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sira No:1 Tekduzen Hesap Plani - 181 GELİR TAHAKKUKLARI"
+                    },
+                    {
+                        "id":  "sgs-c2-fmuh-kolay-r1/kp-09",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "depozito iadesi kaydi",
+                        "donem":  4,
+                        "soru":  "İşletme, bir hizmet sözleşmesi kapsamında üçüncü kişiye verdiği 70.000 TL depozitoyu, sözleşme sonunda satıcıya olan 40.000 TL borcuna mahsup ettirmiş, kalan tutarı nakden tahsil etmiştir. Buna göre işletmenin nakden tahsil ettiği tutar kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "30.000",
+                                       "B":  "36.000",
+                                       "C":  "40.000",
+                                       "D":  "70.000",
+                                       "E":  "110.000"
+                                   },
+                        "dogru":  "A",
+                        "hap":  "Verilen depozito geri alındığında 126 hesap alacaklanır; karşılığı nakit tahsilat ile mahsup edilen hesap arasında paylaşılır.",
+                        "kural":  "Ne soruluyor: verilen depozitonun mahsup sonrası nakden tahsil edilen kısmı soruluyor. Kural: 126 VERİLEN DEPOZİTO VE TEMİNATLAR hesabı geri alınan tutar kadar alacaklanır; alacağın karşılığı hem 320 SATICILAR mahsubu hem 100 KASA tahsilatı olabilir. Hesap: 70.000 - 40.000 = 30.000. Doğrusu: nakden tahsil edilen tutar 30.000 TL\u0027dir.",
+                        "tuzak":  {
+                                      "B":  {
+                                                "ad":  "KDV Uygulama Tuzağı",
+                                                "metin":  "depozito iadesini bir teslim gibi görüp tutara KDV eklemeye çalışırsın. Doğrusu: depozito iadesi bir mal/hizmet teslimi değildir, KDV hesaplanmaz; 30.000 TL doğru tutardır."
+                                            },
+                                      "C":  {
+                                                "ad":  "Ters Yön Tuzağı",
+                                                "metin":  "satıcı borcuna mahsup edilen 40.000 TL\u0027yi nakden tahsil edilen tutarın kendisi sanırsın. Doğrusu: 40.000 TL mahsup kısmıdır, nakit kısmı bunun dışındaki 30.000 TL\u0027dir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Kapsam Atlama Tuzağı",
+                                                "metin":  "mahsup işlemini hesaba katmadan verilen depozitonun tamamını nakit tahsilat sanırsın. Doğrusu: 70.000 TL\u0027nin 40.000 TL\u0027si mahsupla kapanmış, sadece 30.000 TL nakit girmiştir."
+                                            },
+                                      "E":  {
+                                                "ad":  "Toplama Hatası Tuzağı",
+                                                "metin":  "mahsup edilen ve nakit tahsil edilen tutarları çıkarmak yerine toplarsın. Doğrusu: 70.000 TL depozitonun tamamı zaten mahsup ve nakit toplamına eşittir, ayrıca toplamak yanlıştır."
+                                            }
+                                  },
+                        "dayanak":  "Tekdüzen Hesap Planı 126 Verilen Depozito ve Teminatlar - hesap işleyişi"
+                    },
+                    {
+                        "id":  "sgs-t1-fmuh-kolay/kp-17",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "duran varlik satisi",
+                        "donem":  4,
+                        "soru":  "İşletme, maliyet bedeli 200.000 TL olan ve birikmiş amortismanı 120.000 TL olan bir makinesini 100.000 TL\u0027ye satarak bedelini banka aracılığıyla tahsil etmiştir. 213 sayılı Vergi Usul Kanununa göre bu satış işleminden doğan kâr veya zarar tutarı kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "20.000",
+                                       "B":  "80.000",
+                                       "C":  "100.000",
+                                       "D":  "120.000",
+                                       "E":  "220.000"
+                                   },
+                        "dogru":  "A",
+                        "hap":  "Amortismana tabi duran varlık satışında kâr/zarar, satış bedeli ile net defter değeri (maliyet - birikmiş amortisman) arasındaki farktır.",
+                        "kural":  "Ne soruluyor: Duran varlık satışından doğan kâr veya zarar tutarının bulunması isteniyor. Kural: Vergi Usul Kanunu m.328 uyarınca satış bedeli ile net defter değeri (maliyet bedelinden birikmiş amortisman düşülmüş hali) arasındaki fark kâr veya zarar olarak kayıtlara alınır. Hesap: Net defter değeri=200.000-120.000=80.000; Kâr=100.000-80.000=20.000. Doğrusu: Satıştan 20.000 TL kâr elde edilmiştir.",
+                        "tuzak":  {
+                                      "B":  {
+                                                "ad":  "Net Defter Değerini Kâr Sanma Tuzağı",
+                                                "metin":  "Öğrenci birikmiş amortismanı düşürdükten sonra bulduğu 80.000 TL\u0027lik net defter değerini doğrudan kâr tutarı zannedip satış bedeliyle farkını almayı unutur. Doğrusu: 80.000 TL sadece net defter değeridir, kâr 20.000 TL\u0027dir."
+                                            },
+                                      "C":  {
+                                                "ad":  "Amortismanı Hesaba Katmama Tuzağı",
+                                                "metin":  "Öğrenci birikmiş amortismanı düşürmeden doğrudan maliyet bedeli ile satış bedelinin farkını (200.000-100.000) alarak 100.000 TL\u0027lik hatalı bir tutara ulaşır. Doğrusu: Önce net defter değeri bulunmalı, kâr 20.000 TL\u0027dir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Birikmiş Amortismanı Kâr Sanma Tuzağı",
+                                                "metin":  "Öğrenci 257 BİRİKMİŞ AMORTİSMANLAR hesabındaki 120.000 TL\u0027yi doğrudan satış kârı olarak yorumlar. Doğrusu: 120.000 TL amortisman tutarıdır, kâr 20.000 TL\u0027dir."
+                                            },
+                                      "E":  {
+                                                "ad":  "Amortismanı Ters İşlemle Ekleme Tuzağı",
+                                                "metin":  "Öğrenci net defter değerini bulurken birikmiş amortismanı maliyetten düşmek yerine maliyete ekler (200.000+120.000=320.000) ve satış bedeliyle farkını (320.000-100.000) 220.000 TL olarak hesaplar. Doğrusu: Amortisman maliyetten düşülür, kâr 20.000 TL\u0027dir."
+                                            }
+                                  },
+                        "dayanak":  "213 sayılı Vergi Usul Kanunu m.328/1; Tekdüzen Hesap Planı 253/257/679"
+                    },
+                    {
+                        "id":  "sgs-t1-fmuh-kolay/kp-18",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "kollektif sirket kar dagitimi",
+                        "donem":  4,
+                        "soru":  "Deniz Nakliyat Kollektif Şirketinin sermayesi 90.000 TL olup Ali\u0027nin sermaye payı 54.000 TL, Veli\u0027nin sermaye payı 36.000 TL\u0027dir. Şirket ana sözleşmesine göre 2026 yılı kârı olan 15.000 TL, ortaklara sermaye paylarıyla orantılı olarak dağıtılacaktır. Buna göre ortak Ali\u0027nin kâr payı kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "6.000",
+                                       "B":  "7.500",
+                                       "C":  "9.000",
+                                       "D":  "15.000",
+                                       "E":  "18.000"
+                                   },
+                        "dogru":  "C",
+                        "hap":  "Kollektif şirkette kâr, sözleşmede aksi kararlaştırılmadıkça ortakların sermaye paylarıyla orantılı olarak dağıtılır.",
+                        "kural":  "Ne soruluyor: Kollektif şirkette sermaye paylarına göre kâr dağıtımında bir ortağın kâr payı tutarı soruluyor. Kural: Türk Ticaret Kanunu m.227 ve m.228 uyarınca ortakların kâr payı, şirket sözleşmesinde öngörülen esasa göre belirlenir; burada esas sermaye oranıdır. Hesap: Ali\u0027nin sermaye oranı 54.000/90.000=0,60; kâr payı 15.000×0,60=9.000. Doğrusu: Ali\u0027nin kâr payı 9.000 TL\u0027dir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Ortak Karıştırma Tuzağı",
+                                                "metin":  "Ali\u0027nin payı yerine Veli\u0027nin sermaye oranı olan 36.000/90.000 kullanılarak hesap yapılmış, sonuç yanlış ortağa ait paya çıkmıştır. Doğrusu: Ali\u0027nin kendi sermaye oranı olan 54.000/90.000 esas alınmalıdır."
+                                            },
+                                      "B":  {
+                                                "ad":  "Eşit Bölüşüm Tuzağı",
+                                                "metin":  "Şirket sözleşmesindeki sermaye oranı esası göz ardı edilip kâr iki ortağa eşit bölünmüştür. Doğrusu: Türk Ticaret Kanunu m.227 uyarınca sözleşmede belirlenen esas, yani sermaye oranı uygulanmalıdır."
+                                            },
+                                      "D":  {
+                                                "ad":  "Toplamı Kendine Yazma Tuzağı",
+                                                "metin":  "Oranın paydasına toplam sermaye yerine yalnız kendi sermayesi konularak kârın tamamı tek ortağa aitmiş gibi işlem yapılmıştır. Doğrusu: Payda daima ortakların toplam sermayesi olmalıdır."
+                                            },
+                                      "E":  {
+                                                "ad":  "Sermaye Farkını Kâr Sanma Tuzağı",
+                                                "metin":  "Ortakların sermaye tutarları arasındaki fark kâr payı sanılmış, kâr tutarı hiç kullanılmamıştır. Doğrusu: Kâr payı hesabı kâr tutarının sermaye oranına bölüştürülmesiyle bulunur, sermaye farkıyla ilgisi yoktur."
+                                            }
+                                  },
+                        "dayanak":  "Türk Ticaret Kanunu m.227 ve m.228 (kâr payının şirket sözleşmesinde öngörülen esasa göre belirlenmesi)"
+                    },
+                    {
+                        "id":  "sgs-c2-fmuh-kolay-r2/kp-15",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "azalan bakiyeler amortisman",
+                        "donem":  3,
+                        "soru":  "İşletme, 250.000 TL maliyetli, faydalı ömrü 5 yıl olan bir makineyi azalan bakiyeler usulüyle amortismana tabi tutmaktadır. Buna göre makinenin ikinci yıl amortisman gideri kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "50.000",
+                                       "B":  "60.000",
+                                       "C":  "75.000",
+                                       "D":  "100.000",
+                                       "E":  "125.000"
+                                   },
+                        "dogru":  "B",
+                        "hap":  "Azalan bakiyelerde oran normal oranın iki katıdır fakat %50\u0027yi geçemez ve her yıl bir önceki yılın net defter değerine uygulanır.",
+                        "kural":  "Ne soruluyor: azalan bakiyeler usulünde ikinci yıl amortisman gideri isteniyor. Kural: 213 sayılı Vergi Usul Kanunu mükerrer m.315 gereği oran normal oranın iki katı olup her yıl bir önceki yılın net defter değerine uygulanır. Hesap: 250.000×%40=100.000 (1. yıl); (250.000-100.000)=150.000; 150.000×%40=60.000. Doğrusu: ikinci yıl amortisman gideri 60.000 TL\u0027dir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Normal Oran Tuzağı",
+                                                "metin":  "Öğrenci azalan bakiyelerde oranı iki katına çıkarmayı unutup normal oranı (%20) doğrudan uyguladı. Doğrusu: oran %20\u0027nin iki katı olan %40\u0027tır."
+                                            },
+                                      "C":  {
+                                                "ad":  "Tavan Oranı Sabit Oran Sanma Tuzağı",
+                                                "metin":  "Öğrenci %50 tavanını, oranın kendisi sanıp ikinci yıl matrahına doğrudan %50 uyguladı. Doğrusu: oran normal oranın iki katı olan %40\u0027tır, %50 yalnız bir üst sınırdır."
+                                            },
+                                      "D":  {
+                                                "ad":  "Matrah Tuzağı",
+                                                "metin":  "Öğrenci ikinci yılda da matrahı maliyet bedeli (250.000) aldı, net defter değerine indirmeyi atladı. Doğrusu: ikinci yıl matrahı 150.000\u0027dir çünkü birinci yıl ayrılan amortisman düşülür."
+                                            },
+                                      "E":  {
+                                                "ad":  "Çifte Hata Tuzağı",
+                                                "metin":  "Öğrenci hem matrahı maliyet bedeli aldı hem de %50 tavanını sabit oran sandı. Doğrusu: matrah 150.000, oran %40 olmalıdır."
+                                            }
+                                  },
+                        "dayanak":  "213 sayılı Vergi Usul Kanunu mükerrer m.315"
+                    },
+                    {
+                        "id":  "sgs-t1-fmuh-kolay/kp-28",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "hesap isleyisi",
+                        "donem":  3,
+                        "soru":  "İşletme, satıcıdan 100.000 TL tutarında ticari mal satın almış, bedelin tamamını senetsiz olarak vadeye bırakmıştır. KDV oranı %20\u0027dir. Bu alışa ilişkin kayıtta 320 SATICILAR hesabına kaydedilecek tutar kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "80.000",
+                                       "B":  "96.000",
+                                       "C":  "100.000",
+                                       "D":  "120.000",
+                                       "E":  "144.000"
+                                   },
+                        "dogru":  "D",
+                        "hap":  "320 Satıcılar hesabı, mal ve hizmet alımından doğan senetsiz borcun KDV dahil tutarını alacak kaydeder.",
+                        "kural":  "Ne soruluyor: 320 SATICILAR hesabına kaydedilecek tutar soruluyor. Kural: 320 Satıcılar hesabı, mal ve hizmet alımından doğan senetsiz borcun tamamını, KDV dahil olarak alacak kaydeder. Hesap: 100.000 + 20.000 = 120.000. Doğrusu: Satıcılar hesabına 120.000 TL alacak kaydedilir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "KDV\u0027yi Ters Düşme Tuzağı",
+                                                "metin":  "KDV\u0027nin ayrı bir hesaba (191 İndirilecek KDV) borç kaydedileceğini unutup mal bedelinden düşürdün. Doğrusu: Satıcılar hesabına KDV eklenir, düşülmez, tutar 120.000 TL\u0027dir."
+                                            },
+                                      "B":  {
+                                                "ad":  "Çift İndirim Tuzağı",
+                                                "metin":  "KDV dahil tutarı (120.000) bulduktan sonra yine üzerinden %20 indirim uygulayarak KDV\u0027yi iki kez hesaba kattın. Doğrusu: KDV bir defa hesaplanır, Satıcılar hesabına 120.000 TL alacak kaydedilir."
+                                            },
+                                      "C":  {
+                                                "ad":  "KDV\u0027yi Unutma Tuzağı",
+                                                "metin":  "Ne soruluyor cümlesindeki tutarı sadece mal bedeli olarak okuyup KDV\u0027yi hiç hesaba katmadın. Doğrusu: 320 Satıcılar hesabı, alım borcunun KDV dahil tamamını alacak kaydeder, yani 120.000 TL\u0027dir."
+                                            },
+                                      "E":  {
+                                                "ad":  "KDV\u0027yi İkinci Kez Ekleme Tuzağı",
+                                                "metin":  "KDV dahil tutarı (120.000) bulduktan sonra bu tutar üzerinden tekrar %20 KDV hesaplayıp ekledin. Doğrusu: KDV yalnızca mal bedeli üzerinden bir kez hesaplanır, sonuç 120.000 TL\u0027dir."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sira No:1 Tekduzen Hesap Plani - 320 Satıcılar işleyişi; 191 İndirilecek KDV işleyişi"
+                    },
+                    {
+                        "id":  "sgs-p-fmuh-kolay-r1/kp-12",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "gelir tablosu hesaplari",
+                        "donem":  3,
+                        "soru":  "İşletme, 100.000 TL tutarındaki kredili mal satışına ait bedelin vadesinden önce ödenmesi nedeniyle alıcıya 3.000 TL kasa iskontosu uygulamıştır. Bu işlem sonucunda gelir tablosunda yer alacak net satışlar tutarı kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "94.000",
+                                       "B":  "97.000",
+                                       "C":  "100.000",
+                                       "D":  "103.000",
+                                       "E":  "106.000"
+                                   },
+                        "dogru":  "B",
+                        "hap":  "Net satışlar, 600 Yurtiçi Satışlar hesabının tutarından 611 Satış İskontoları hesabının bakiyesi düşülerek bulunur.",
+                        "kural":  "Ne soruluyor: Kredili satışta sonradan uygulanan kasa iskontosunun net satışlara etkisi soruluyor. Kural: 611 Satış İskontoları Hesabı, satış gerçekleştikten sonra verilen kasa/miktar iskontosunu satış hasılatından indiren bir gider tablosu hesabıdır. Hesap: 100.000 - 3.000 = 97.000 Doğrusu: Net satışlar 97.000 TL\u0027dir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Çift Düşme Tuzağı",
+                                                "metin":  "İskonto tutarını hem 611 hesaba hem de tekrar başka bir kalemden düşerek satışları iki kez azalttın. Doğrusu: 3.000 TL iskonto yalnız bir kez, 600 hesabın tutarından düşülür."
+                                            },
+                                      "C":  {
+                                                "ad":  "Gözden Kaçırma Tuzağı",
+                                                "metin":  "611 Satış İskontoları Hesabını hiç dikkate almayıp brüt satış tutarını net satış sandın. Doğrusu: 611 hesabın bakiyesi 600 hesabın tutarından mutlaka indirilir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Ters İşlem Tuzağı",
+                                                "metin":  "İskontoyu satışlardan düşülmesi gereken bir gider kalemi yerine satışlara eklenen bir gelir kalemi gibi işlem yaptın. Doğrusu: 611 hesap alacak değil borç çalışır ve satışları azaltır."
+                                            },
+                                      "E":  {
+                                                "ad":  "Çift Ters İşlem Tuzağı",
+                                                "metin":  "Hem iskontoyu ters yönde ekledin hem de bunu iki kez tekrarladın. Doğrusu: 611 hesabın bakiyesi tek seferde ve satışlardan düşülerek dikkate alınır."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı, 611 SATIŞ ISKONTOLARI (-) işleyiş açıklaması"
+                    },
+                    {
+                        "id":  "sgs-p-fmuh-kolay-r3/kp-14",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "gelecek yillara ait giderler",
+                        "donem":  3,
+                        "soru":  "İşletme, 01.07.2026 tarihinde depo kirası için 24 aylık kira tutarı olan 48.000 TL\u0027yi peşin olarak bankadan ödemiştir. Aylık kira tutarı sabittir. Bu bilgilere göre yapılacak kayıtta 280 GELECEK YILLARA AİT GİDERLER hesabına kaç TL borç yazılmalıdır?",
+                        "siklar":  {
+                                       "A":  "6.000",
+                                       "B":  "12.000",
+                                       "C":  "24.000",
+                                       "D":  "36.000",
+                                       "E":  "48.000"
+                                   },
+                        "dogru":  "B",
+                        "hap":  "Peşin ödenen giderin bilanço tarihinden itibaren bir yılı aşan kısmı 280 GELECEK YILLARA AİT GİDERLER hesabına, bir yıl içindeki kısmı 180 GELECEK AYLARA AİT GİDERLER hesabına borç yazılır.",
+                        "kural":  "Ne soruluyor: Ne soruluyor: Peşin ödenen giderin bir yılı aşan kısmının hangi hesaba ve ne tutarda yazılacağı soruluyor. Kural: Tekdüzen Hesap Planına göre peşin ödenen giderin bilanço tarihinden itibaren bir yılı aşan kısmı 280 GELECEK YILLARA AİT GİDERLER hesabına borç kaydedilir. Hesap: 48.000/24=2.000 aylık; 2026 (6 ay)=12.000 - 770; 2027 (12 ay)=24.000 - 180; 2028 (6 ay)=12.000 - 280. Doğrusu: Bir yılı aşan 6 aylık kısım olan 12.000 TL 280 hesabına borç yazılır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Ay Sayımı Tuzağı",
+                                                "metin":  "Bir yılı aşan süreyi yanlış ay sayısıyla (3 ay) hesaplayıp 3x2.000=6.000 bulmuşsun. Doğrusu: bir yılı aşan kısım 6 aylık dönemdir ve 12.000 TL\u0027dir."
+                                            },
+                                      "C":  {
+                                                "ad":  "Hesap Karıştırma Tuzağı",
+                                                "metin":  "Bir yıl içinde kullanılacak 12 aylık kısmı (180\u0027e ait 24.000 TL) yanlışlıkla 280 hesabına yazmışsın. Doğrusu: 24.000 TL bir yıl içi olduğu için 180 GELECEK AYLARA AİT GİDERLER hesabına aittir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Ayrım Yapmama Tuzağı",
+                                                "metin":  "Cari dönem sonrası kalan tüm 18 aylık (36.000 TL) tutarı ayrım yapmadan bir yılı aşan sanmışsın. Doğrusu: Bu tutarın 24.000 TL\u0027si bir yıl içi (180), sadece 12.000 TL\u0027si bir yılı aşan kısımdır (280)."
+                                            },
+                                      "E":  {
+                                                "ad":  "Toplam Tutar Tuzağı",
+                                                "metin":  "Peşin ödenen kiranın tamamını hiç bölüştürmeden 280 hesabına yazmışsın. Doğrusu: Ödemenin cari döneme, bir yıl içine ve bir yılı aşan kısma bölünmesi gerekir; 280\u0027e yalnız 12.000 TL düşer."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 280 Gelecek Yıllara Ait Giderler hesabı işleyişi"
+                    },
+                    {
+                        "id":  "sgs-t2-fmuh-kolay/kp-12",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "finansman bonosu ihraci",
+                        "donem":  3,
+                        "soru":  "İşletme, 01.03.2026 tarihinde çıkardığı 6 ay vadeli, 1.000.000 TL nominal değerli finansman bonosunu bankalar aracılığıyla 850.000 TL\u0027ye satmış ve tutarı banka hesabına tahsil etmiştir. İhraç anında yapılacak muhasebe kaydıyla ilgili aşağıdakilerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "305 ÇIKARILMIŞ BONOLAR VE SENETLER hesabı 850.000 TL alacaklandırılır.",
+                                       "B":  "300 BANKA KREDİLERİ hesabı 1.000.000 TL alacaklandırılır.",
+                                       "C":  "308 MENKUL KIYMETLER İHRAÇ FARKI hesabı 150.000 TL borçlandırılır.",
+                                       "D":  "305 ÇIKARILMIŞ BONOLAR VE SENETLER hesabı 1.000.000 TL borçlandırılır.",
+                                       "E":  "308 MENKUL KIYMETLER İHRAÇ FARKI hesabı 150.000 TL alacaklandırılır."
+                                   },
+                        "dogru":  "C",
+                        "hap":  "Nominal değerin altında ihraç edilen finansman bonosunda 305 hesap NOMİNAL bedelle alacaklandırılır, tahsil edilen tutar ile nominal arasındaki fark 308 Menkul Kıymetler İhraç Farkı hesabının borcuna yazılır.",
+                        "kural":  "Ne soruluyor: bir işleme ilişkin doğru muhasebe kaydı soruluyor. Kural: 305 hesap nominal bedelle alacaklandırılır, tahsil edilen tutar ilgili varlık hesabına borç yazılır, aradaki fark 308 Menkul Kıymetler İhraç Farkı hesabının borcuna kaydedilir. Hesap: 1.000.000 - 850.000 = 150.000. Doğrusu: 308 MENKUL KIYMETLER İHRAÇ FARKI hesabı 150.000 TL borçlandırılır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Nominal Değer Yerine Satış Tutarı Tuzağı",
+                                                "metin":  "Öğrenci 305 hesabı tahsil edilen 850.000 TL ile kaydedip aradaki farkı hiç göstermeyi unutur. Doğrusu: 305 hesap her zaman NOMİNAL bedel olan 1.000.000 TL ile alacaklandırılır."
+                                            },
+                                      "B":  {
+                                                "ad":  "Hesap Karıştırma Tuzağı",
+                                                "metin":  "Öğrenci finansman bonosunu bir kredi işlemi sanıp 300 Banka Kredileri hesabını kullanır. Doğrusu: menkul kıymet ihracı 305 ÇIKARILMIŞ BONOLAR VE SENETLER hesabında izlenir, banka kredisiyle ilgisi yoktur."
+                                            },
+                                      "D":  {
+                                                "ad":  "Taraf (Borç/Alacak) Tuzağı",
+                                                "metin":  "Öğrenci ihraç kaydını ters kurup 305 hesabı borçlandırır, sanki bono geri ödeniyormuş gibi düşünür. Doğrusu: ihraç anında 305 hesap ALACAKLANDIRILIR, borçlandırma yalnız ödeme anında yapılır."
+                                            },
+                                      "E":  {
+                                                "ad":  "Taraf Tuzağı",
+                                                "metin":  "Öğrenci ihraç farkını gelir zannedip 308 hesabı alacaklandırır. Doğrusu: nominal değerin altında satışta oluşan fark GİDER niteliğindedir ve 308 hesabın BORCUNA kaydedilir."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı - Tekdüzen Hesap Planı 305 ve Tekdüzen Hesap Planı 308 hesapların işleyişi"
+                    },
+                    {
+                        "id":  "sgs-p-fmuh-kolay-r1/kp-10",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "maddi duran varlik denetimi",
+                        "donem":  3,
+                        "soru":  "Maliyeti 150.000 TL, birikmiş amortismanı 90.000 TL olan bir taşıt, 75.000 TL takas değeriyle verilip 45.000 TL nakit ödenerek 120.000 TL değerinde yeni bir taşıt alınmıştır (KDV ihmal edilmiştir). Takas işlemi sonucunda oluşan kâr veya zarar kaç TL\u0027dir ve hangi hesaba kaydedilir?",
+                        "siklar":  {
+                                       "A":  "15.000 TL kâr olup 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir.",
+                                       "B":  "15.000 TL zarar olup 689 Diğer Olağandışı Gider ve Zararlar hesabına borç kaydedilir.",
+                                       "C":  "60.000 TL kâr olup 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir.",
+                                       "D":  "60.000 TL zarar olup 689 Diğer Olağandışı Gider ve Zararlar hesabına borç kaydedilir.",
+                                       "E":  "75.000 TL zarar olup 689 Diğer Olağandışı Gider ve Zararlar hesabına borç kaydedilir."
+                                   },
+                        "dogru":  "A",
+                        "hap":  "Duran varlık takasında kâr/zarar, takas değeri ile net defter değeri arasındaki farktır; nakit fark yalnız yeni varlığın maliyetine eklenir.",
+                        "kural":  "Ne soruluyor: Takas işleminde oluşan kâr/zarar tutarı ve kaydedileceği hesap soruluyor. Kural: Kâr/zarar, takas değeri ile net defter değeri (maliyet-birikmiş amortisman) arasındaki farktır. Hesap: 150.000-90.000=60.000; 75.000-60.000=15.000 Doğrusu: 15.000 TL kâr oluşur ve 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir.",
+                        "tuzak":  {
+                                      "B":  {
+                                                "ad":  "Ters Çıkarma Tuzağı",
+                                                "metin":  "Net defter değerinden takas değerini çıkarıp kârı zarar gibi gösterirsin. Doğrusu: Fark takas değerinden net defter değeri çıkarılarak bulunur ve sonuç kârdır."
+                                            },
+                                      "C":  {
+                                                "ad":  "Nakit Farkı Katma Tuzağı",
+                                                "metin":  "Ödenen nakit farkı kâr hesaplamasına dahil edip tutarı büyütürsün. Doğrusu: Nakit fark yalnız yeni varlığın maliyetine eklenir, kâr/zarar hesaplamasına girmez."
+                                            },
+                                      "D":  {
+                                                "ad":  "Nakit Farkı Zarara Katma Tuzağı",
+                                                "metin":  "Nakit farkı zarar tutarına da eklersin ve yönü ters çevirirsin. Doğrusu: Kâr/zarar sadece takas değeri ile net defter değeri farkıdır, nakit fark bu hesaba girmez."
+                                            },
+                                      "E":  {
+                                                "ad":  "Maliyet Karşılaştırma Tuzağı",
+                                                "metin":  "Net defter değeri yerine varlığın brüt maliyetini kullanırsın. Doğrusu: Karşılaştırma net defter değeriyle yapılır, brüt maliyetle değil."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 257/679-689 işleyişi"
+                    },
+                    {
+                        "id":  "sgs-c5-fmuh-kolay-r1/kp-01",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "temel muhasebe kavramlari",
+                        "donem":  3,
+                        "soru":  "İşletme, 1 Kasım 2026 tarihinde altı aylık kullanım için peşin ödediği 60.000 TL sigorta bedelinin tamamını ödeme tarihinde 770 Genel Yönetim Giderleri hesabına gider yazmış, gelecek döneme ait kısmı ilgili hesaba aktarmamıştır. Bu uygulama hangi temel muhasebe kavramına aykırıdır?",
+                        "siklar":  {
+                                       "A":  "Tutarlılık",
+                                       "B":  "Dönemsellik",
+                                       "C":  "İhtiyatlılık",
+                                       "D":  "Özün Önceliği",
+                                       "E":  "Önemlilik"
+                                   },
+                        "dogru":  "B",
+                        "hap":  "Peşin ödenen gider dönemler arasında bölüştürülmezse dönemsellik kavramı ihlal edilmiş olur.",
+                        "kural":  "Ne soruluyor: hangi kavramın ihlal edildiği soruluyor. Kural: Dönemsellik kavramına göre gelir ve giderler tahakkuk esasına göre ait oldukları döneme yazılır; peşin ödenen ve gelecek döneme ait gider kısmı 180 Gelecek Aylara Ait Giderler hesabına aktarılır. Hesap: 6 aylık 60.000 TL\u0027nin yalnız 2 aylık kısmı (Kasım-Aralık) cari dönem gideridir, kalan 4 aylık kısım gelecek döneme aittir. Doğrusu: Tamamının cari döneme gider yazılması dönemsellik kavramına aykırıdır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Tutarlılık Tuzağı",
+                                                "metin":  "Yöntemin dönemden döneme değişip değişmediğine bakılır sanılır; burada yöntem değişikliği yok, tek bir işlemde dönem ayrımı yapılmaması söz konusudur. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                            },
+                                      "C":  {
+                                                "ad":  "İhtiyatlılık Tuzağı",
+                                                "metin":  "Giderin erken kaydedilmesi ihtiyatlı davranış sanılır; ihtiyatlılık olası zarar/kâr belirsizliğiyle ilgilidir, burada belirsizlik değil dönem ayrımı hatası vardır. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Özün Önceliği Tuzağı",
+                                                "metin":  "İşlemin biçimi değil özü esas alınır kuralı yanlış hatırlanıp buraya uygulanır; burada biçim-öz çatışması yok, süre paylaştırması eksik. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                            },
+                                      "E":  {
+                                                "ad":  "Önemlilik Tuzağı",
+                                                "metin":  "Tutarın büyüklüğüne bakılıp önemlilik kavramı seçilir; önemlilik tutarın mali tabloları etkileme derecesiyle ilgilidir, burada sorun tutarın dönemler arası paylaştırılmamasıdır. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sıra No 1, Muhasebenin Temel Kavramları - Dönemsellik"
+                    }
+                ]
+}
