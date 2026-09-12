@@ -136,7 +136,7 @@ foreach ($k in $KOVALAR) {
             "&order=ilan_no.asc&limit=$adim"
       if ($son) { $uu += "&ilan_no=gt.$son" }
       $ham  = Invoke-WebRequest -Method Get -Uri $uu -Headers $H -TimeoutSec 300
-      $rows = @($ham.Content | ConvertFrom-Json)
+      $rows = @(($ham.Content | ConvertFrom-Json))
       if (-not $rows.Count) { break }
       foreach ($row in $rows) { $ilanlar += $row }
       $son = "$($rows[-1].ilan_no)"

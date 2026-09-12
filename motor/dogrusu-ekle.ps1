@@ -43,7 +43,7 @@ while($true){
   # partisinde tamamlanacak - tek gonderim, tek odeme.
   $w = Invoke-WebRequest -Uri "${U}?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,tablo,yevmiye&order=id&limit=1000&offset=$ofs" -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
-  $l = @($ham | ConvertFrom-Json); if($l.Count -eq 0){ break }
+  $l = @(($ham | ConvertFrom-Json)); if($l.Count -eq 0){ break }
   foreach($s in $l){ $kasa.Add($s) }
   if($l.Count -lt 1000){ break }
   $ofs += 1000

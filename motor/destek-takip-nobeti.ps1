@@ -58,7 +58,7 @@ function SbGetTum($yol){
     $ham = if($w.RawContentStream){[Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())}else{$w.Content}
     if([int]$w.StatusCode -ge 400 -and [int]$w.StatusCode -ne 416){ throw ("Supabase {0}: {1}" -f $w.StatusCode,$ham) }
     if([int]$w.StatusCode -eq 416){ break }
-    $parca = @($ham | ConvertFrom-Json)
+    $parca = @(($ham | ConvertFrom-Json))
     foreach($x in $parca){ $hepsi.Add($x) }
     if($parca.Count -lt $adim){ break }
     $bas += $adim

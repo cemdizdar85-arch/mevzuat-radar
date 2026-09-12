@@ -57,7 +57,7 @@ $ham = [ordered]@{ uri = $hamUri }
 try {
   $hw = Invoke-WebRequest -UseBasicParsing -Uri $hamUri -Headers $H -TimeoutSec 60
   $gv = if($hw.RawContentStream){ [Text.Encoding]::UTF8.GetString($hw.RawContentStream.ToArray()) } else { "$($hw.Content)" }
-  $liste = @($gv | ConvertFrom-Json)
+  $liste = @(($gv | ConvertFrom-Json))
   $ham['http'] = [int]$hw.StatusCode
   $ham['kayit'] = $liste.Count
   $ham['ilk'] = $(if($liste.Count){ "$($liste[0].kaynak_ad)" } else { '' })

@@ -264,7 +264,7 @@ try {
     $u2 = "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&id=in.($liste)"
     $h2 = Invoke-WebRequest -UseBasicParsing -Uri $u2 -Headers $H -TimeoutSec 120
     $g2 = if($h2.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($h2.Content) } else { "$($h2.Content)" }
-    $y = @($g2 | ConvertFrom-Json)
+    $y = @(($g2 | ConvertFrom-Json))
     Write-Host ("     tam metin cekilen: {0} (istenen {1})" -f $y.Count, $sec.Count)
   }
   # ConvertTo-Json'a BORU ile bos dizi vermek $null dondurur, WriteAllText de
@@ -324,7 +324,7 @@ if($PILOT_SINAV -or $PILOT_DERS){
         $uk = "$SB_URL/rest/v1/soru_havuzu?select=id&" + ($suz -join '&') + "&order=id&offset=$ofsP&limit=1000"
         $hk = Invoke-WebRequest -UseBasicParsing -Uri $uk -Headers $H -TimeoutSec 120
         $gkk = if($hk.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hk.Content) } else { "$($hk.Content)" }
-        $dk = @($gkk | ConvertFrom-Json)
+        $dk = @(($gkk | ConvertFrom-Json))
         foreach($r in $dk){ $pk.Add("$($r.id)") }
         if($dk.Count -lt 1000){ break }
         $ofsP += 1000

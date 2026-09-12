@@ -71,7 +71,7 @@ if($env:SUPABASE_SERVICE_KEY){
   for($o=0; $o -lt 60000; $o+=1000){
     $ham = Invoke-WebRequest -Uri "$U`?select=ders,konu&order=id&limit=1000&offset=$o" -Headers $SB -UseBasicParsing -TimeoutSec 180
     $mt = if($ham.RawContentStream){ [Text.Encoding]::UTF8.GetString($ham.RawContentStream.ToArray()) } else { "$($ham.Content)" }
-    $r = @($mt | ConvertFrom-Json)
+    $r = @(($mt | ConvertFrom-Json))
     if($r.Count -eq 0){ break }
     $sorular += $r
     if($r.Count -lt 1000){ break }

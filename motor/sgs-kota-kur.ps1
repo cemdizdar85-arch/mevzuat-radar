@@ -142,7 +142,7 @@ if($KEY){
     $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders&sinav=eq.SGS$(if($sonId){"&id=gt.$sonId"})&order=id&limit=1000"
     $ham = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $H -TimeoutSec 120
     $govde = if($ham.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($ham.Content) } else { "$($ham.Content)" }
-    $dilim = @($govde | ConvertFrom-Json)
+    $dilim = @(($govde | ConvertFrom-Json))
     if($dilim.Count -gt 0){ $sonId = "$($dilim[-1].id)" }
     foreach($r in $dilim){ $ak = SayimAnahtar $r.ders; $VAR[$ak] = 1 + [int]$VAR[$ak] }
     $n += $dilim.Count

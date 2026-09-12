@@ -62,7 +62,7 @@ $ofs = 0
 while($true){
   $w = Invoke-WebRequest -Uri ($sorgu + "&offset=$ofs") -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
-  $l = @($ham | ConvertFrom-Json); if($l.Count -eq 0){ break }
+  $l = @(($ham | ConvertFrom-Json)); if($l.Count -eq 0){ break }
   foreach($s in $l){
     $tam = "$($s.id)"; $kisa = if($tam.Length -ge 8){ $tam.Substring(0,8) } else { $tam }
     if($aday.Contains($tam) -or $aday.Contains($kisa)){ $yayinda.Add($s) }

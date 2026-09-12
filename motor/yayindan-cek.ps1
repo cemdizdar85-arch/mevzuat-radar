@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  YAYINDAN CEKME (31.07 Cem: "cekebilirsin - yayina ~15 gun sonra girecegiz,
 #  hazirlik asamasindayiz; korkmadan en dogrusunu yap").
 #  Hakem yargisi destek != 'evet' olan (hayir/yetersiz/kismen) YAYINDAKI
@@ -27,7 +27,7 @@ $ofs = 0
 while($true){
   $w = Invoke-WebRequest -Uri "${U}?select=id&yayin=eq.true&limit=1000&offset=$ofs&order=id" -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
-  $liste = @($ham | ConvertFrom-Json)
+  $liste = @(($ham | ConvertFrom-Json))
   if($liste.Count -eq 0){ break }
   foreach($s in $liste){
     $j = $yarg["$($s.id)"]

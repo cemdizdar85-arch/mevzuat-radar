@@ -52,7 +52,7 @@ while($true){
   # Olmayan alan $null gelir, cikti JSON'da bos kalir, kimse kirilmaz.
   $w = Invoke-WebRequest -Uri "${U}?select=*&yayin=eq.true&limit=500&offset=$ofs&order=id" -Headers $SB -UseBasicParsing -TimeoutSec 180
   $ham = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
-  $liste = @($ham | ConvertFrom-Json)
+  $liste = @(($ham | ConvertFrom-Json))
   if(-not $liste.Count){ break }
   foreach($s in $liste){
     $id = "$($s.id)"

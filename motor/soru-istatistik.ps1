@@ -33,7 +33,7 @@ $ofs = 0
 while($true){
   $w = Invoke-WebRequest -Uri "${U}?select=soru_id,dogru,sure_ms,secilen&order=soru_id&limit=1000&offset=$ofs" -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
-  $l = @($ham | ConvertFrom-Json); if($l.Count -eq 0){ break }
+  $l = @(($ham | ConvertFrom-Json)); if($l.Count -eq 0){ break }
   foreach($x in $l){ $kayit.Add($x) }
   if($l.Count -lt 1000){ break }
   $ofs += 1000

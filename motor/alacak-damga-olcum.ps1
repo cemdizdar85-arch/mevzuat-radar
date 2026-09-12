@@ -45,7 +45,7 @@ function Cek([string]$durum) {
     for ($d = 1; $d -le 3 -and -not $rows; $d++) {
       try {
         $ham  = Invoke-WebRequest -Method Get -Uri $u -Headers $H -TimeoutSec 300
-        $rows = @($ham.Content | ConvertFrom-Json)
+        $rows = @(($ham.Content | ConvertFrom-Json))
       } catch {
         Write-Host ("    '{0}' ofset {1} deneme {2}/3 basarisiz: {3}" -f $durum, $ofset, $d,
           "$($_.Exception.Message)".Substring(0, [Math]::Min(60, "$($_.Exception.Message)".Length)))

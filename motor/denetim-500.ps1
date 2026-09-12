@@ -123,7 +123,7 @@ $ofs = 0
 while($true){
   $w = Invoke-WebRequest -Uri "${U}?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,kaynak,tablo,yevmiye&order=id&limit=1000&offset=$ofs" -Headers $SB -UseBasicParsing -TimeoutSec 180
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
-  $l = @($ham | ConvertFrom-Json); if($l.Count -eq 0){ break }
+  $l = @(($ham | ConvertFrom-Json)); if($l.Count -eq 0){ break }
   foreach($s in $l){
     $tumKasa++
     $tam = "$($s.id)"; $kisa = if($tam.Length -ge 8){ $tam.Substring(0,8) } else { $tam }

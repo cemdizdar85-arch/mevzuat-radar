@@ -54,7 +54,7 @@ $sayfa = 0
 for($o = 0; $o -lt 60000; $o += 1000){
   $ham = Invoke-WebRequest -Uri "$U`?select=id,ders,soru,dogru,aciklama,tablo,yevmiye&order=id&limit=1000&offset=$o" -Headers $SB -UseBasicParsing -TimeoutSec 180
   $metin = if($ham.RawContentStream){ [Text.Encoding]::UTF8.GetString($ham.RawContentStream.ToArray()) } else { "$($ham.Content)" }
-  $r = @($metin | ConvertFrom-Json)
+  $r = @(($metin | ConvertFrom-Json))
   $sayfa++
   Write-Host ("  sayfa {0} (offset {1}): {2} satir" -f $sayfa, $o, $r.Count)
   if($r.Count -eq 0){ break }

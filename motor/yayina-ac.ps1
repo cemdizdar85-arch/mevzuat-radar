@@ -105,7 +105,7 @@ $ofs = 0
 while($true){
   $w = Invoke-WebRequest -Uri "${U}?select=id&yayin=eq.false&limit=1000&offset=$ofs&order=id" -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
-  $liste = @($ham | ConvertFrom-Json)
+  $liste = @(($ham | ConvertFrom-Json))
   if($liste.Count -eq 0){ break }
   foreach($s in $liste){ $kasaIdler.Add("$($s.id)") }
   if($liste.Count -lt 1000){ break }
