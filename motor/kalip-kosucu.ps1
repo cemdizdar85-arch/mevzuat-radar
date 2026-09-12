@@ -6,7 +6,15 @@
 # Kullanım: powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-sgs-08-09.json
 param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok='',[switch]$SayfaYok,
   # 11.09 Cem "paralel kostur": ayni anda kac parti. 1 = eski sirali davranis.
-  [ValidateRange(1,8)][int]$Paralel=4,
+  # 12.09 Cem: "toplu moda bulutta hizlanacakti ondan gectik" - HAKLI, ve tavan
+# tam onu engelliyordu. 8 siniri CEM'IN MAKINESI icin konmustu (olculdu: 8
+# paralelde 543 MB bos kalmisti). Bulut runner'inda 16 GB var ve uzerinde
+# baska is YOK. Dahasi toplu parti CPU'nun %2'sini kullanip kuyrukta BEKLIYOR;
+# 24 parti ayni anda beklerse 8 partinin bekledigi surede biter - yani
+# paralellik toplu modun yavasligini telafi eder.
+# ⛔ Tavan kalkti ama KORLEMESINE degil: asagida BOS RAM olculur ve sigmayan
+#    paralellik sessizce degil, SEBEBI SOYLENEREK dusurulur.
+[ValidateRange(1,40)][int]$Paralel=4,
   [double]$AylikTavan=2000,      # 08.09 Cem: konsolda aylık tavan 2.000 USD (GM göremez, Cem okudu)
   [double]$EmniyetPayi=300)      # tavana bu kadar kala koşucu durur: parti ortada ölmez, ödenen iş yazılmadan kaybolmaz (ağustos dersi)
 $ErrorActionPreference='Continue'
@@ -23,6 +31,20 @@ function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; $ay=(Get
   if(Test-Path $kj){ try{ $ko=ConvertFrom-Json -InputObject (Get-Content $kj -Raw -Encoding UTF8); if("$($ko.zaman)" -like "$ay*"){ $t=[double]$ko.harcama; $esik="$($ko.zaman)" } }catch{} }
   if(-not (Test-Path $y)){ return $t }
   foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }; try{ $o=ConvertFrom-Json -InputObject $sat; $z="$($o.zaman)"; if($z -like "$ay*" -and (-not $esik -or $z -gt $esik)){ $t+=[double]$o.toplamUsd } }catch{} }; return $t }
+# --- PARALELLIK RAM KAPISI (12.09.2026) --------------------------------------
+# Tavan 8'den 40'a cikarildi (bulut runner'i 16 GB, uzerinde baska is yok).
+# Ama makine makineye degisir: Cem'in dizustunde 8 paralelde 543 MB kalmisti.
+# Istenen paralellik BOS RAM'e gore olculur; sigmiyorsa SESSIZCE degil,
+# SEBEBI SOYLENEREK dusurulur. Olculen: surec basina ~180 MB (11.09).
+$SUREC_MB=180; $PAY_MB=900
+try{
+  $bosMB=[int]((Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory/1KB)
+  $sigan=[Math]::Max(1,[int](($bosMB-$PAY_MB)/$SUREC_MB))
+  if($Paralel -gt $sigan){
+    "PARALELLIK DUSURULDU: $Paralel -> $sigan (bos RAM $bosMB MB · surec ~$SUREC_MB MB · pay $PAY_MB MB)"
+    $Paralel=$sigan
+  } else { "PARALELLIK: $Paralel (bos RAM $bosMB MB · $sigan surece kadar sigar)" }
+}catch{ "PARALELLIK: $Paralel (bos RAM olculemedi)" }
 $harcanan=AyHarcama
 # ⚠ 11.09.2026 CEM KARARI: "BU İKİ RAKAMI İPTAL ET" — aylık tavan artık KAPI DEĞİL,
 #   yalnız RAPOR. Gerekçe (Cem): "bakiye kadar harcayacak ve bizim istediğimiz soru
@@ -124,12 +146,45 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
   # 09.09 Cem "ara ara deneyelim orayı, rakamı düşürmemiz lazım": MEVZUAT_TOPLU='auto' → motor/toplu-sonda.ps1'in yazdığı sağlık dosyasına bakılır;
   # son 40 dk içinde "acik" ölçülmüşse bu etiket TOPLU (yarı fiyat), değilse anlık. Üretici ayrıca faz bazında MEVZUAT_TOPLU_BEKLE_DK sonra anlığa düşer.
-  $topluAc=$false
-  if($s.PSObject.Properties['toplu'] -and [bool]$s.toplu){
-    if("$env:MEVZUAT_TOPLU" -eq 'auto'){
+  # ⛔⭐ 12.09.2026 CEM KURALI: "sorulari TOPLU MODDA basiyoruz, bu kural olsun;
+  #     diger yerde basmayalim, bosuna para harciyoruz."
+  #     TOPLU ARTIK VARSAYILAN. Onceden plan satirinda `toplu:true` YOKSA anlik
+  #     kosuyordu - yani planı yazan unutursa TAM FIYAT odeniyordu. Olculen fark:
+  #     toplu YARI FIYAT (688 soruluk plan: ~330 USD anlik / ~165 USD toplu).
+  #     Yavasligi paralellikle telafi edilir (tavan 8 -> 40, bkz. yukarisi):
+  #     toplu parti CPU'nun %2'sini kullanip kuyrukta bekler, 24 parti ayni anda
+  #     beklerse 8 partinin bekledigi surede biter.
+  #  ⚠ ANLIK ISTISNADIR, kural degil: plan satirinda ACIKCA `toplu:false` yazan
+  #    ya da MEVZUAT_TOPLU=0 verilen kosular anlik gider. Ikisi de BILEREK
+  #    yazilmis olmali; unutulunca artik pahaliya degil UCUZA kacar.
+  $topluAc=$true
+  if($s.PSObject.Properties['toplu'] -and -not [bool]$s.toplu){
+    $topluAc=$false
+    "[$(Get-Date -Format HH:mm)] ANLIK (plan acikca toplu:false demis) · $($s.etiket)"
+  }
+  # ⛔ ORTAM DEGISKENI EZER. Varsayilan TOPLU oldugu icin bu blok artik yalnizca
+  #    "toplu'yu KAPAT" yonunde calisir; acma yonu zaten varsayilan.
+  #    (Ilk yazdigimda bunu atlamistim: $topluAc=$true baslayinca MEVZUAT_TOPLU=0
+  #     ezemiyordu ve saglıksız kuyrukta da toplu kaliyordu.)
+  if($topluAc){
+    if("$env:MEVZUAT_TOPLU" -eq '0'){
+      $topluAc=$false
+      "[$(Get-Date -Format HH:mm)] ANLIK (MEVZUAT_TOPLU=0 ezdi) · $($s.etiket)"
+    }
+    elseif("$env:MEVZUAT_TOPLU" -eq 'auto'){
+      # 09.09 Cem "ara ara deneyelim orayi": kuyruk sagligi son 40 dk icinde
+      # 'acik' olculmusse toplu, degilse anlik. Saglik bilinmiyorsa TOPLU kalir
+      # (Cem 12.09: toplu KURAL; suphede ucuz olan secilir, pahali olan degil).
       $sagYol=Join-Path $Kok 'veri\fabrika\toplu-kuyruk-sagligi.json'
-      if(Test-Path $sagYol){ try{ $sg=ConvertFrom-Json -InputObject (Get-Content $sagYol -Raw); $yas=((Get-Date)-[datetime]$sg.zaman).TotalMinutes; if("$($sg.durum)" -eq 'acik' -and $yas -le 40){ $topluAc=$true }; "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK: $($sg.durum) ($([int]$yas) dk önce, $($sg.sure_sn) sn) → $(if($topluAc){'TOPLU'}else{'ANLIK'}) · $($s.etiket)" }catch{ "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK okunamadı → anlık" } } else { "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK dosyası yok → anlık" }
-    } elseif("$env:MEVZUAT_TOPLU" -ne '0'){ $topluAc=$true }
+      if(Test-Path $sagYol){
+        try{
+          $sg=ConvertFrom-Json -InputObject (Get-Content $sagYol -Raw)
+          $yas=((Get-Date)-[datetime]$sg.zaman).TotalMinutes
+          if("$($sg.durum)" -ne 'acik' -and $yas -le 40){ $topluAc=$false }
+          "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK: $($sg.durum) ($([int]$yas) dk önce) → $(if($topluAc){'TOPLU'}else{'ANLIK'}) · $($s.etiket)"
+        }catch{ "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK okunamadı → TOPLU (varsayilan)" }
+      } else { "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK dosyası yok → TOPLU (varsayilan)" }
+    }
   }
   if($topluAc){ $arg+=@('-Toplu') }   # 08.09: fazların ilk denemesi Message Batches ile (yarı fiyat)
   # 08.09 17:10 hız ölçümü: anlık modda 192 konuluk etiket tek hatta ≈16 saat → etiket ikiye bölünür: eski etiket yalnız önbellekteki id'lerle (pilot),
