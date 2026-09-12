@@ -1,11 +1,11 @@
 {
-  "tarih": "12.09.2026 15:59",
+  "tarih": "12.09.2026 16:20",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 865,
   "riskli_madde": 1313,
   "sayfa": 65,
   "atifli_iddia": 283,
-  "dayanaksiz_iddia": 354,
+  "dayanaksiz_iddia": 356,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -811,19 +811,31 @@
     },
     {
       "sayfa": "durum.html",
-      "satir": 78,
+      "satir": 80,
       "iddia": "24 saat",
       "metin": "İş akışları — son 24 saat"
     },
     {
       "sayfa": "durum.html",
-      "satir": 164,
+      "satir": 129,
+      "iddia": "24 saat",
+      "metin": "çekiliyor, \"son 24 saat\" penceresi ise Date.now() ile kuruluyordu"
+    },
+    {
+      "sayfa": "durum.html",
+      "satir": 130,
+      "iddia": "24 saat",
+      "metin": "(sinir = Date.now() - 24 saat). Açık kalan bir sekmede pencere kayar"
+    },
+    {
+      "sayfa": "durum.html",
+      "satir": 183,
       "iddia": "24 saat",
       "metin": "}).join('') : ' son 24 saatte koşu yok ';"
     },
     {
       "sayfa": "durum.html",
-      "satir": 190,
+      "satir": 210,
       "iddia": "24 saat",
       "metin": "else { snf='yesil'; bas='HER ŞEY YOLUNDA'; ack='Tüm nöbetçiler temiz, son 24 saatte kırmızı iş akışı yok.'; }"
     },
@@ -1465,49 +1477,49 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 784,
+      "satir": 789,
       "iddia": "90.000 TL",
       "metin": "Doğrusu C, 90.000 TL. Katsayılı bölmede anahtar miktar değil, miktar ile katsayının çarpımı olan eşdeğer birimdir."
     },
     {
       "sayfa": "index.html",
-      "satir": 789,
+      "satir": 794,
       "iddia": "90.000 TL",
       "metin": "L ürünü payı (900 × 100) 90.000 TL"
     },
     {
       "sayfa": "index.html",
-      "satir": 793,
+      "satir": 798,
       "iddia": "0 adet",
       "metin": "HİÇ bağlantı yok (0 adet) - yani vitrinden ürüne çıkış yoktu, ziyaretçi"
     },
     {
       "sayfa": "index.html",
-      "satir": 807,
+      "satir": 812,
       "iddia": "90.000 TL",
       "metin": "if(k==='C'){ b.classList.add('dogru'); roz.className='v-roz d'; roz.textContent='Doğru'; tm.textContent='Eşdeğer birim 900, birim maliyeti 100; pay 90.000 TL. Tablodaki adımlar bir"
     },
     {
       "sayfa": "index.html",
-      "satir": 905,
+      "satir": 910,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 921,
+      "satir": 926,
       "iddia": "5 gün",
       "metin": "bugünün saatiyle kıyaslanınca \"5 gün önce\" yazıp KIRMIZI yanıyor:"
     },
     {
       "sayfa": "index.html",
-      "satir": 957,
+      "satir": 959,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 960,
+      "satir": 962,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
