@@ -67,13 +67,26 @@ $RET_SINIFLARI=@(
   # var. Ikisi cumlenin neresinde olursa olsun eslesir.
   @{ ad='KAYNAK-EKSIK'
      desen ='(?i)kaynak|pakette|sa[gğ]lanan metin|verilen metin'
-     desen2='(?i)(yer alma|yer verme|bulunma|ge[cç]me|i[cç]erme|belirtme|desteklenme|[cç][iı]kar[iı]lama|mevcut de[gğ]il|sunulma|bahsedilme|yoktur|a[cç][iı]k bir kural yok|hi[cç] (bahsedil|ge[cç]m|yer al))'
+     # ⛔ 12.09 GENISLETILDI — (siniflanmamis) 275 okundu, 103'u KAPI-HAKEM'di ve
+     #   BUNLARIN 100'U KAYNAK diyordu; desen2 sadece "yokluk" fiillerini ariyordu,
+     #   hakem ayni kusuru "eksiktir / yetersiz / sadece X icerir / dayanak madde
+     #   yok / tasimamaktadir" diye de yaziyor. Ornek (kgk-muhstd/kp-17):
+     #   "...temel mantigi kaynakta EKSIKTIR" -> hicbir yokluk fiili yok, siniflanamiyordu.
+     # ⚠ "eksik" TEK BASINA KULLANILMAZ — prova yakaladi: "Dogru sik ifadesi EKSIK ve
+     #   yaniltici" cumlesi kaynakla ilgili degil, ama yakalaniyordu (COK-ANLAMLI'dan
+     #   calmisti). O yuzden eksik/yetersiz YALNIZ 'kaynak' kelimesine YAKINSA sayilir.
+     desen2='(?i)(yer alma|yer verme|bulunma|ge[cç]me|i[cç]erme|belirtme|desteklenme|[cç][iı]kar[iı]lama|mevcut de[gğ]il|sunulma|bahsedilme|yoktur|a[cç][iı]k bir kural yok|hi[cç] (bahsedil|ge[cç]m|yer al)|kaynak\w*.{0,45}(eksik|yetersiz)|(eksik|yetersiz).{0,35}kaynak|dayanak (madde|paragraf|h[uü]k[uü]m|metni)|sadece .{0,60}i[cç]erir|ta[sş][iı]mamakta|ta[sş][iı]m[iı]yor)'
      onarim='Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri.' }
   @{ ad='KAYNAK-ILGISIZ' ; desen='(?i)ilgisiz kaynak|konuyla ilgili kaynak|ba[sş]ka bir (standart|kanun|konu)ya ait'
      onarim='Pakete konunun kaynagi hic girmemis. Konu-kaynak bagi (veri/konu-kaynak-bagi.json) duzeltilir.' }
   @{ ad='SINAV-DUZEYI'   ; desen='(?i)(YMM|ba[gğ][iı]ms[iı]z denet[cç]i|akademik|hukuk s[iı]nav[iı]).{0,40}(d[uü]zey|yak[iı]n|kal[iı]p)|SGS.{0,30}kullan[iı]lmaz|d[uü]zeyin[ei] (g[oö]re )?(a[gğ][iı]r|[uü]st)'
      onarim='Soru SGS duzeyinin USTUNDE (paragraf numarasi sorgusu vb). Konu kartina zorluk tavani yazilir; soru sadelestirilir.' }
-  @{ ad='YZ-KOKUSU'      ; desen='(?i)kli[sş]e|yapay kesinlik|HER ZAMAN do[gğ]rudur|do[gğ]ru [sş][iı]k.{0,40}daha uzun|ek n[uü]ans'
+  # ⛔ 12.09 GENISLETILDI — (siniflanmamis) 275'in 172'si KAPI-HAKEM2'ydi ve
+  #   BUNLARIN 158'I SIK KALIBI diyordu. Ikinci hakemin dili cok degisken; 61'i
+  #   duz "KOKU:" ile basliyor, kalani "A, C, E siklarinda 'yalnizca' kelimesinin
+  #   mekanik tekrari" gibi serbest cumleler. Eski desen yalnizca bes kalip
+  #   ariyordu ve hepsini kaciriyordu.
+  @{ ad='YZ-KOKUSU'      ; desen='(?i)kli[sş]e|yapay kesinlik|HER ZAMAN do[gğ]rudur|do[gğ]ru [sş][iı]k.{0,40}daha uzun|ek n[uü]ans|^\s*KOKU\s*:|[sş][iı]k.{0,40}(ayn[iı] kal[iı]b|kal[iı]p.{0,12}tekrar|tekrar[iı] [sş]eklinde|mekanik tekrar|birebir ayn[iı])|absol[uü]tist|mutlak.{0,25}(dil|kal[iı]p|ifade|g[uü]vence)|kelime e[sş]le[sş]mesiyle ele ver'
      onarim='Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir.' }
   @{ ad='HESAP-YANLIS'   ; desen='(?i)hesap kodu (yanli|hatal)|yanlis hesap|kod-ad|THP \d{3}.*(yanli|olmal)'
      onarim='kp-80 sinifi. KAPI-HS beyaz listesi ve hesap kalibi guncellenir; soru yeniden yazilir.' }

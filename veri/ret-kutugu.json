@@ -1,5 +1,5 @@
 ﻿{
-    "olcum":  "2026-09-12 23:01",
+    "olcum":  "2026-09-13 00:46",
     "kural":  "URETIM TURU BITTIGINDE BU BETIK KOSAR. Ret nedenleri okunmadan yeni tur baslatilmaz.",
     "taranan_soru":  5627,
     "ret":  1852,
@@ -11,15 +11,15 @@
                           "hakem KOSMADI":  112
                       },
     "sinif_dagilimi":  {
-                           "KAYNAK-EKSIK":  777,
+                           "KAYNAK-EKSIK":  785,
                            "SIM-YANLIS":  291,
-                           "(siniflanmamis)":  275,
+                           "YZ-KOKUSU":  218,
+                           "(siniflanmamis)":  206,
                            "KOR-CELISKI":  151,
-                           "YZ-KOKUSU":  117,
                            "HAKEM-KOSMADI":  112,
-                           "YAPAY-DIL":  53,
                            "KAYNAK-KESIK":  46,
-                           "COK-ANLAMLI":  14,
+                           "YAPAY-DIL":  14,
+                           "COK-ANLAMLI":  13,
                            "SINAV-DUZEYI":  10,
                            "CELDIRICI-SAHTE":  6
                        },
@@ -317,18 +317,18 @@
                          "id":  "kp-17",
                          "konu":  "supheli alacak kaydi",
                          "kapi":  "KAPI-HAKEM",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metinde THP 128 hesabının işleyişi açıklanmakta ancak doğru sikta gösterilen muhasebe kaydının (128 borç / 120 alacak) temel mantığı kaynakta eksiktir; kaynakta \u0027ilgili hesapların alacağı karşılığında bu hesaba borç yazılır\u0027 genel ifadesi vardır fakat 120 Alıcılar hesabının alacaklandırılması kuralı açıkça tanımlanmamıştır.",
-                         "onarim":  ""
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "kgk-bosluk-trkiyemuhasebestandartlar",
                          "id":  "kp-18",
                          "konu":  "satilan mamul maliyeti",
                          "kapi":  "KAPI-HAKEM",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni sadece THP 622 (hizmet maliyeti) ve teorik üç kademeli formülü içerir; mamul maliyeti hesaplama yöntemi için muhasebe standardı, TMS, TFRS veya MSUGT/BOBI FRS dayanak maddesi/paragrafı yok.",
-                         "onarim":  ""
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "kgk-bosluk-trkiyemuhasebestandartlar",
@@ -470,18 +470,18 @@
                          "id":  "kp-02",
                          "konu":  "denetim calisma kagitlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B, D, E şıkları hemen hemen aynı kalıbın (\u0027yalnızca X\u0027i kapsar, Y\u0027yi kapsamaz/hizmet etmez\u0027) tekrarı şeklinde kurulmuş.",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-a6-denetim-cokzor-r1",
                          "id":  "kp-04",
                          "konu":  "calisma kagitlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, B, C şıklarının hepsi aynı \u0027X yeterlidir, Y gerekmez\u0027 kalıbının tekrarı, yapay simetri kokusu var",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-a6e-meslek-cokzor",
@@ -1082,9 +1082,9 @@
                          "id":  "kp-04",
                          "konu":  "vergilemede etkinlik",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Soru kökündeki \u0027ekonomik, malî ve sosyal etkinliğin birlikte sağlanması\u0027 ifadesi doğru şıkta (B) birebir tekrarlanıyor; bu doğru cevabı kelime eşleşmesiyle ele veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-a6-maliye-zor-r1",
@@ -1208,9 +1208,9 @@
                          "id":  "kp-01",
                          "konu":  "likidite tuzagi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıkları birbirine çok benzer ve içiçe geçmiş çeldirici yapıda, bu tekrar hafif yapay bir düzenlemeyi düşündürüyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-bc-fmuh-cokzor-r1",
@@ -1235,9 +1235,9 @@
                          "id":  "kp-05",
                          "konu":  "menkul sermaye iradi sayilmayanlar",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Tüm tutarlar tam yuvarlak sayılar (2.000 adet, 10 TL, 20.000, 300, 26.000, 400) - gerçek sınavda da sık görülse de tekrar eden bir yuvarlaklık dikkat çekiyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-bc-fmuh-cokzor-r2",
@@ -1532,54 +1532,54 @@
                          "id":  "kp-03",
                          "konu":  "iliskili taraflar denetimi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A şıkkında \u0027sadece\u0027 ifadesiyle absolüt dil kalıbı tekrarlanıyor; C\u0027de \u0027incelemeksizin\u0027 ile aynı absolutist kalıp tekrar ediyor - dört çeldiricinin hepsinin aşırı kesin/absolutist dille kurulması kalıp tekrarı sayılabilir",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-cokzor-r1",
                          "id":  "kp-04",
                          "konu":  "guvence hizmetleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, B, C, D şıklarında \u0027kapsamına alır/almaz\u0027 zıtlıklarının tekrarı biraz kalıpsal ama sınavlarda da görülen bir stil",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-cokzor-r1",
                          "id":  "kp-05",
                          "konu":  "is guvencesi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A ve B şıkları birbirine yakın/tekrar niteliğinde (ikisi de mutlak güvence vurgusu yapıyor)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-cokzor-r1",
                          "id":  "kp-08",
                          "konu":  "stok denetimi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, C ve E şıkları aynı kalıbı tekrarlıyor: \u0027sorumluluğunu tamamlamış sayılır / yeterlidir, gerekli değildir / gerek kalmaz\u0027 ifadeleri neredeyse birebir aynı yapının üç kez yinelenmesi",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-cokzor-r1",
                          "id":  "kp-10",
                          "konu":  "denetim kaniti uygunlugu",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027her zaman\u0027, \u0027her durumda\u0027, \u0027her koşulda\u0027 ifadelerinin dört şıkta tekrarlanması yapay bir kalıp tekrarı oluşturuyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-cokzor-r1",
                          "id":  "kp-12",
                          "konu":  "denetim finansal tablo iddialari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Doğru şık (A) diğerlerinden anlam olarak daha eksiksiz/nüanslı, çeldiriciler \u0027yalnızca...yeterlidir\u0027 kalıbının tekrarıyla oluşturulmuş, bu tekrar biraz yapay",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-cokzor-r2",
@@ -1595,9 +1595,9 @@
                          "id":  "kp-06",
                          "konu":  "denetim planlamasi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Üç şıkta \u0027yalnızca\u0027 ifadesinin tekrarı hafif kalıp tekrarı sayılabilir ama bu klasik dışlayıcı çeldirici tekniğidir, yapay iz olarak değerlendirilmedi",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-cokzor-r3",
@@ -1631,9 +1631,9 @@
                          "id":  "kp-02",
                          "konu":  "denetim kanitlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, C, E şıklarında \u0027yalnızca\u0027 kelimesinin mekanik tekrarı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-kolay-r3",
@@ -1676,18 +1676,18 @@
                          "id":  "kp-11",
                          "konu":  "kamu alacagi guvence onlemleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, B, E şıklarının birbirine çok yakın ve tekrar eden ifadeler olması (aynı kalıbın üç kez tekrarı) yapay çeldirici üretimini andırıyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-zor-r2",
                          "id":  "kp-04",
                          "konu":  "bagimsiz denetim sureci",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Tüm şıklarda aynı \u0027safha - BDS numarası - fiil\u0027 kalıbının mekanik tekrarı (A-E hepsi aynı şablon)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-denetim-zor-r2",
@@ -1991,9 +1991,9 @@
                          "id":  "kp-24",
                          "konu":  "tms 17 kiralama",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027genellikle\u0027 ifadesinin birden çok şıkta tekrarı (A ve D)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-fmuh-kolay-r2",
@@ -2126,9 +2126,9 @@
                          "id":  "kp-23",
                          "konu":  "tms 1 finansal tablolar",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Beş şıkkın tamamı birebir aynı kalıpla kurulmuş: \u0027İşletmenin varlığı, ... olması durumunda varlık cari varlık olarak sınıflandırılır.\u0027 - mekanik tekrar hissi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c2-fmuh-zor-r1",
@@ -2405,9 +2405,9 @@
                          "id":  "kp-02",
                          "konu":  "hukuka aykiriligi kaldiran haller",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Dört yanlış şıkta da aynı kalıp tekrarlanıyor: gerçek bir hukuka aykırılığı kaldıran hale \u0027ancak/yalnızca ... şartıyla\u0027 türünden yapay bir ek koşul iliştirilmiş; bu mekanik tekrar YZ izine benzer.",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-borclar-kolay-r1",
@@ -2477,18 +2477,18 @@
                          "id":  "kp-20",
                          "konu":  "denetim planlamasi alt asamalari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027yalnızca\u0027, \u0027ancak\u0027, \u0027hiçbir biçimde\u0027, \u0027tek amacı\u0027 gibi mutlaklaştırıcı kalıpların her yanlış şıkta tekrarı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-denetim-cokzor-r1-2",
                          "id":  "kp-03",
                          "konu":  "bds 220 etik ilkeler",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Çeldiricilerde \u0027bizzat\u0027, \u0027yalnızca\u0027, \u0027sadece\u0027 gibi mutlak/kesinlik belirten kelimelerin tekrarlanan kalıp olarak kullanılması",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-denetim-cokzor-r2",
@@ -2522,9 +2522,9 @@
                          "id":  "kp-06",
                          "konu":  "guvence denetim raporu unsurlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: D ve E şıklarında \u0027tek başına yeterli/uygun kanıt\u0027 ifadesinin tekrarı biraz kalıpsı ama anlamlı bağlamda kullanılmış, ciddi yapay iz yok",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-denetim-cokzor-r2",
@@ -2621,9 +2621,9 @@
                          "id":  "kp-02",
                          "konu":  "onemlilik kullanim alanlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şık A ve şık E kısmen kalıp tekrarı içeriyor (\u0027yalnızca ... kullanılır/oluşturulur\u0027 ifadesiyle aşırı genelleme kalıbı üç şıkta tekrarlanmış (A, E ve kısmen B)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-denetim-kolay-r2",
@@ -2729,9 +2729,9 @@
                          "id":  "kp-02",
                          "konu":  "surekli dosya icerigi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Tüm yanlış şıklarda benzer \u0027genel/uzun vadeli\u0027 vurgusu tekrarlanarak kalıp tekrarına yakın bir yapı oluşmuş",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-denetim-zor-r1",
@@ -2747,9 +2747,9 @@
                          "id":  "kp-10",
                          "konu":  "risk odakli denetim adimlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "Soru kökü, sınavın kısa/doğrudan bilgi test eden kök yapısından farklı olarak BDS metnini adım adım özetleyip sonra \u0027bu adım hangi aşama\u0027 diye soruyor; bu, kök içinde cevabı büyük ölçüde veren, gerçek sınavda görülmeyen bir kalıp (kökte cevap ipucu/paraphrase-then-ask tekniği). · D ve E şıkları (mesleki şüphecilik, mutlak güvence) konuyla ilgili genel BDS 200 kavramları olsa da soru kökündeki süreç tanımıyla doğrudan alakasız, adayı gerçek bir kavram karışıklığına düşürecek yakınlıkta değil; kök zaten cevabı tarif ediyor.",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-denetim-zor-r1",
@@ -3170,9 +3170,9 @@
                          "id":  "kp-08",
                          "konu":  "tms 1 toplam kapsamli gelir",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B,C,D,E şıkları aynı \u0027X ile Y mahsup edilip net gösterilmesi\u0027 kalıbının tekrarı şeklinde kurulmuş, bu tekrar doğal bir çeşitlilik yerine şablon hissi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-fmuh-cokzor-r2-2",
@@ -4610,9 +4610,9 @@
                          "id":  "kp-06",
                          "konu":  "ticaret unvani ve isletme adi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: E ve A şıkları da neredeyse aynı fikri (ayırt etme işlevi) tekrar ediyor, gereksiz doldurma",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-c5-vergi-cokzor-r1",
@@ -4799,36 +4799,36 @@
                          "id":  "kp-01",
                          "konu":  "gelir tablosu",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: T�m tutarlar (40.000, 58.000, 60.000, 66.000, 30.000, 21.000, 4.000) bastan sona yuvarlak binlik rakamlar; ger�ek�ilik kaygisi olmayan yapay sayi se�imi izlenimi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-fmuh-p30",
                          "id":  "kp-02",
                          "konu":  "sermaye kaydi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027ABC A.S.\u0027 seklinde anlamsiz harf dizisiyle kurulan yer tutucu unvan kullanimi · KOKU: Tutarin yuvarlak sayi (300.000 TL) olarak se�ilmesi",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-fmuh-p30",
                          "id":  "kp-03",
                          "konu":  "kurumlar vergisi kaydi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Sirket adi olarak yalnizca \u0027ABC A.S.\u0027 kullanilmis; bu tam olarak anlamsiz harf dizisi t�r�nde yer tutucu isimdir (ger�ek�i bir unvan degil), bu YZ kokusu sayilir.",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-fmuh-p30",
                          "id":  "kp-06",
                          "konu":  "faaliyet kâri hesaplama",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: ABC A.Ş. yer tutucu unvan kullanılmış · KOKU: Tüm tutarlar yuvarlak (10.000\u0027in katları)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-fmuh-parti1",
@@ -5114,9 +5114,9 @@
                          "id":  "kp-04",
                          "konu":  "aktif devir hizi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027ABC A.Ş.\u0027 anlamsız harf dizisi unvan kullanımı (yer tutucu koku)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-borclar-cokzor-r1",
@@ -5375,9 +5375,9 @@
                          "id":  "kp-04",
                          "konu":  "takas",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: C ve E şıkları neredeyse birbirinin karşıtı/tekrarı gibi kurgulanmış (ikisi de zamanaşımı-çekişme konusuna değiniyor, D ile E de birbirine çok yakın ve tersi niteliğinde)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-denetim-cokzor-r1",
@@ -5393,18 +5393,18 @@
                          "id":  "kp-05",
                          "konu":  "bagimsiz denetim sureci",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve E şıkları birbirine çok benzer \u0027yalnızca X kullanılır, başka işlevi yok\u0027 kalıbının tekrarı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-denetim-cokzor-r1",
                          "id":  "kp-07",
                          "konu":  "uluslararasi muhasebe kuruluslari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027bünyesinde faaliyet gösteren bağımsız bir kuruldur\u0027 ifadesi A ve C şıklarında neredeyse birebir tekrar ediyor, kalıp tekrarı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-denetim-cokzor-r1",
@@ -5429,9 +5429,9 @@
                          "id":  "kp-03",
                          "konu":  "iliskili taraflar denetimi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, C, D, E şıklarının hepsinde \u0027her koşulda/her zaman/koşulsuz\u0027 gibi mutlaklık kalıbının tekrarlanması yapay bir örüntü oluşturuyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-denetim-cokzor-r1-b2",
@@ -5654,9 +5654,9 @@
                          "id":  "kp-02",
                          "konu":  "denetim calisma kagitlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027katkıda bulunmak\u0027 kalıbının A,B,C,D şıklarında tekrarı yapay bir kalıp hissi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-denetim-kolay-r1",
@@ -5699,9 +5699,9 @@
                          "id":  "kp-04",
                          "konu":  "calisma kagitlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıkları aynı \u0027yalnızca X belgelendirilir, Y belirtilmez\u0027 kalıbının tekrarı, mekanik çeldirici üretimi izlenimi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-denetim-kolay-r2",
@@ -5906,9 +5906,9 @@
                          "id":  "kp-08",
                          "konu":  "ucuncu taraf stok denetimi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027yalnızca ... ile yetinilmesi\u0027 ifadesinin üç şıkta (B,C,E) tekrarlanması kalıp tekrarı sayılabilir",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-denetim-zor-r4",
@@ -5942,9 +5942,9 @@
                          "id":  "kp-01",
                          "konu":  "para politikasi araclari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A ve C şıkları aynı kalıbın (X puan artırılırsa Y olur) tekrarı, bu kalıp E ile de tekrar ediyor ama bu doğal bir soru yapısı olduğundan hafif tekrar sayılabilir",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-ekonomi-cokzor-r1-a",
@@ -5978,9 +5978,9 @@
                          "id":  "kp-03",
                          "konu":  "likidite tuzagi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıkları birbirine çok yakın/tekrar niteliğinde (faizde değişme olmaz ifadesi iki şıkta da var, gereksiz tekrar)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-ekonomi-kolay-r1-a",
@@ -6014,9 +6014,9 @@
                          "id":  "kp-03",
                          "konu":  "talep fiyat esnekligi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "SGS ekonomi sorularında şıklar sonuç+kısa etiket biçiminde, gerekçesiz yazılır; burada her şıkkın yanına \u0027çünkü...\u0027 ile uzun gerekçe eklenmiş, bu klasik sınav kalıbına uymuyor. · C şıkkı soru öncülüyle çelişen \u0027talep inelastik olduğunda\u0027 ifadesini taşıyor ki soru zaten esnek talep varsayımıyla sorulmuş, bu bir kavram karışıklığından çok mantıksal tutarsızlık; E şıkkı ise \u0027marjinal hasılat pozitifken toplam hasılat düşer\u0027 diyerek MR-TR ilişkisini tersine çeviren, gerçek bir öğrenci hatasından çok yapay/anlamsız bir önerme içeriyor. · KOKU: Her şıkta aynı \u0027X olur; çünkü Y\u0027 kalıbının mekanik tekrarı",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-ekonomi-kolay-r3",
@@ -6671,9 +6671,9 @@
                          "id":  "kp-02",
                          "konu":  "sigortali sayilma",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "5510 sayılı Kanun md.6/(i) bendi, kamu idarelerinde sözleşmeli çalışıp ilgili kanununda sigortalı olması öngörülmemiş kişileri de (III. madde) sigortalı sayılmayanlar arasında saymaktadır. Dolayısıyla III de I ve II gibi doğru bir \u0027sigortalı sayılmaz\u0027 hâli olup, doğru cevabın yalnız \u0027I ve II\u0027 (B) olması kanun metniyle çelişmektedir; bu durumda hem doğru şıkta hem de III\u0027ü yanlış gösteren çeldiricide hata vardır, gerçek bir kavram tuzağından çok kanun maddesinin eksik/yanlış aktarılmasından kaynaklanmaktadır.",
-                         "onarim":  ""
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-p-issgk-kolay-r1",
@@ -6734,9 +6734,9 @@
                          "id":  "kp-03",
                          "konu":  "ucret yonetmeligi kurallari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: İşletme/kişi kısaltmalarının hepsi tek harf (A,B,C,D) olması biraz mekanik ama sınavlarda da yaygın, yine de tekrarlı harf kullanımı hafif yapaylık izi taşıyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-issgk-zor-r1-a",
@@ -6905,9 +6905,9 @@
                          "id":  "kp-04",
                          "konu":  "otomatik istikrarlandiricilar",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: C şıkkı doğru tanımı neredeyse aynen veriyor ama yanlış işaretlenmiş gibi görünmüyor, ancak A/B/D şıklarında \u0027tümüyle\u0027, \u0027bağımsızdır\u0027 gibi mutlak ifadelerin tekrarı kalıp tekrarı kokusu taşıyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-maliyet-cokzor-r1",
@@ -7481,9 +7481,9 @@
                          "id":  "kp-03",
                          "konu":  "smmm odalari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A,B,C,E şıklarının dördünde de \u0027yalnızca\u0027 kelimesinin tekrarlanması yapay bir kalıp tekrarı oluşturuyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-meslek-cokzor-r1",
@@ -7661,9 +7661,9 @@
                          "id":  "kp-03",
                          "konu":  "disiplin yonetmeligi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şıklarda \u0027yalnızca\u0027, \u0027ancak\u0027, \u0027alınmadıkça\u0027 gibi kesinlik bildiren aşırı mutlak ifadelerin tekrarı çeldiricileri belirgin şekilde yapaylaştırmış · KOKU: Doğru şık diğerlerine göre daha nötr ve kısa, çeldiriciler ise abartılı şart cümleleriyle kurulmuş, bu kalıp tekrarı doğal sınav dilinden sapma gösteriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-meslek-zor-r1-a",
@@ -7742,9 +7742,9 @@
                          "id":  "kp-01",
                          "konu":  "yatay analiz",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, D, E şıklarının hepsinde \u0027her zaman\u0027 ifadesinin mekanik biçimde tekrarlanması yapay bir kalıp izlenimi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-mta-cokzor-r3",
@@ -7904,9 +7904,9 @@
                          "id":  "kp-03",
                          "konu":  "kiymetli evrak cek",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: C ve E şıklarında \u0027hiç kimseye/hiçbir hamile karşı ileri süremez\u0027 ifadesinin neredeyse aynı kalıpla tekrarlanması",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-ticaret-cokzor-r3-b2",
@@ -8192,9 +8192,9 @@
                          "id":  "kp-05",
                          "konu":  "vuk kapsami",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Doğru şık tam kanun metnini birebir tekrarlıyor, çeldiriciler \u0027yalnızca\u0027 kalıbıyla mekanik şekilde tek fiile indirgenmiş - kalıp tekrarı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-vergi-kolay-r3-a",
@@ -8219,9 +8219,9 @@
                          "id":  "kp-05",
                          "konu":  "asgari kurumlar vergisi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şıkların tamamı mevzuat maddesinin birebir kopyalanmış gibi kuru, tekrarlayan \u0027düşülür/indirilir\u0027 kalıbıyla bitiyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-p-vergi-zor-r1-a",
@@ -8273,9 +8273,9 @@
                          "id":  "kp-02",
                          "konu":  "ozel tuketim vergisi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Doğru şık (A) neredeyse birebir kanun lafzını tekrarlıyor ve diğer şıklardan daha \u0027dengeli/nötr\u0027 ifade edilmiş; yanlış şıklar ise abartılı kesinlik bildiren zarflarla yüklü (\u0027hiçbir şekilde\u0027, \u0027dahi\u0027, \u0027ancak... aksi halde\u0027) ki bu YZ tarzı kutuplaştırılmış çeldirici kalıbıdır",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-borclar-cokzor",
@@ -8336,18 +8336,18 @@
                          "id":  "kp-04",
                          "konu":  "zamanasimi suresi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıklarında \u0027yalnızca\u0027 kelimesinin tekrarı kalıplaşmış çeldirici üretimini andırıyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-borclar-kolay",
                          "id":  "kp-07",
                          "konu":  "secimlik borc",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A ve E şıkları neredeyse birebir aynı kalıbın tekrarı (alacaklı/borçlu değişimiyle simetrik çeldirici), bu tarz ayna-şık kullanımı yapay üretim izi taşıyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-borclar-kolay",
@@ -8399,9 +8399,9 @@
                          "id":  "kp-07",
                          "konu":  "secimlik borc",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıkları birbirinin neredeyse tekrarı/aşırı vurgulu hali (biri \u0027kural olarak alacaklıya\u0027, diğeri \u0027mutlak biçimde alacaklıya\u0027) - gereksiz tekrar",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-borclar-zor",
@@ -8471,9 +8471,9 @@
                          "id":  "kp-14",
                          "konu":  "ornekleme riski",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B, D ve E şıklarında \u0027öncelikli olarak ele alınır/aynı öncelikte değerlendirilir\u0027 ifadesinin mekanik şekilde tekrarlanması",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-cokzor",
@@ -8525,9 +8525,9 @@
                          "id":  "kp-31",
                          "konu":  "denetim gorus turleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, C, D şıklarında \u0027her koşulda\u0027, \u0027her hâlükârda\u0027, \u0027hiçbir şekilde\u0027 gibi aşırı kesinlik ifadelerinin art arda tekrarı yapay bir kalıp izlenimi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-cokzor",
@@ -8543,9 +8543,9 @@
                          "id":  "kp-35",
                          "konu":  "denetim kaniti tetkik",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "Soru kökü BDS 500/402 paragraf numaralarına dayalı çok spesifik bir bilgi sorusu; gerçek sınavlarda bu tür paragraf numarası eşleştirmesi genelde bu kadar doğrudan ve tek cümlelik verilmez, ayrıca şıklardaki \u0027hiç dikkate alınamaz\u0027, \u0027hiçbir şekilde test edemez\u0027 gibi kesin/mutlak ifadeler sınav dilinden çok yapay bir keskinlik taşıyor.",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-cokzor",
@@ -8615,18 +8615,18 @@
                          "id":  "kp-72",
                          "konu":  "bds 706 dikkat cekilen hususlar",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: D ve E şıklarında \u0027Hiçbiri/üçü de\u0027 kalıbının art arda kullanılması hafif şablon tekrarı sayılabilir",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-cokzor",
                          "id":  "kp-73",
                          "konu":  "birikmis amortisman denetim proseduru",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: E ile D şıklarının ikisi de \u0027kontrol edilmez/kapsam dışı bırakılır\u0027 şeklinde birbirine yakın ret cümleleri, hafif tekrarlı kalıp izlenimi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-cokzor",
@@ -8678,18 +8678,18 @@
                          "id":  "kp-13",
                          "konu":  "onemli yanlislik riski",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıkları birbirinin ayna simetriği gibi kurgulanmış (aynı kavramların çapraz yer değiştirmesi), kalıp tekrarı hissi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-kolay",
                          "id":  "kp-17",
                          "konu":  "bds 230 calisma kagitlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027yalnızca... gerek yoktur\u0027 gibi mutlak ifadeli çeldiricilerin tekrarı (A, B, D benzer kalıpta olumsuzlama)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-kolay",
@@ -8822,9 +8822,9 @@
                          "id":  "kp-85",
                          "konu":  "bds 700 gorus bolumu unsurlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: D ve E şıkları birebir aynı cümleyi (\u0027tek bir finansal tablonun ya da finansal tablodaki belirli bir unsurun, hesabın veya kalemin denetimine ilişkin özel hususları düzenler\u0027) taşıyor; bu kopyala-yapıştır izlenimi veriyor ve doğal soru yazımında nadiren böyle birebir tekrar görülür.",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-zor",
@@ -8903,9 +8903,9 @@
                          "id":  "kp-24",
                          "konu":  "denetim sureci asamalari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B,C,D,E şıklarının hepsi aynı olumsuz mutlaklık kalıbını tekrarlıyor: \u0027tek ve yeterli unsurdur\u0027, \u0027yalnızca ... ile sınırlıdır\u0027, \u0027gerekmez\u0027, \u0027yalnızca ... üzerinden değerlendirilir\u0027 - dört şıkkın da aynı reddedici kalıpla kurulmuş olması yapay bir örüntü izi taşıyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-zor",
@@ -8975,9 +8975,9 @@
                          "id":  "kp-62",
                          "konu":  "bds 330 yetersiz denetim kaniti",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "Gerçek SGS sınavında şıklar kısa etiket biçiminde olur, gerekçe içermez; burada her şıkta \u0027bu prosedür ... riskine karşı ihtiyaca uygundur/değildir\u0027 şeklinde doğrudan gerekçe verilmiş, bu da ders kitabı/yapay üretim üslubuna yakın, sınav formatına aykırıdır. · KOKU: A-C ve B-D çiftleri aynı prosedürün birebir tersi sonuçla tekrarlanması (mekanik varyasyon) · KOKU: Her şıkta aynı kalıbın tekrarı: \u0027...doğrulanması; bu prosedür ... riskine karşı ihtiyaca uygundur/değildir\u0027",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-zor",
@@ -9029,9 +9029,9 @@
                          "id":  "kp-81",
                          "konu":  "bds 530 orneklem buyuklugu",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "Kök ve şık uzunluğu sınav formatına yakın olsa da, B ve E şıkları aynı BDS 530 par.11 hükmünü (\u0027yerini alan başka bir kalem üzerinde prosedür uygulanır\u0027) neredeyse birebir aynı anlamla iki kez tekrarlıyor; gerçek TESMER sınavında aynı doğru bilgiyi iki ayrı şıkta tekrarlayan bir kurgu kullanılmaz, bu da soruyu yapay/kusurlu kılıyor. · B ve E aynı doğru-yanlış değerine sahip iki şık olduğundan, bu ikisi arasında gerçek bir ayırt edici tuzak yok; adayın gerçekten düşebileceği tekil bir çeldirici kurgusu bozulmuş, çünkü iki şık birbirinin kopyası niteliğinde ve bu durum sınavda \u0027birden fazla doğru/aynı şık\u0027 sorunu yaratır. · KOKU: B ve E şıkları anlamca birebir aynı (aynı kalıbın/ifadenin iki kez tekrarı)",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-denetim-zor",
@@ -9128,9 +9128,9 @@
                          "id":  "kp-35",
                          "konu":  "onemlilik kavrami denetim",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Doğru şık (C) diğer şıklardan farklı olarak hem kavram tanımını hem de senaryodaki dipnot açıklamasını doğrudan tekrarlıyor, bu da onu diğerlerinden belirgin şekilde ayırt edici/uzun kılıyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-fmuh-cokzor",
@@ -9254,9 +9254,9 @@
                          "id":  "kp-69",
                          "konu":  "senet iskonto ettirme",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B şıkkı A şıkkının borç-alacak yer değiştirmiş hali, mekanik tekrar izlenimi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-fmuh-cokzor",
@@ -9875,9 +9875,9 @@
                          "id":  "kp-91",
                          "konu":  "olagandisi gelir siniflandirma",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Tüm şıklar birebir aynı kalıpla bitiyor: \u0027... hesabına alacak kaydedilir\u0027 - yapay tekrar",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-fmuh-kolay-b",
@@ -10316,9 +10316,9 @@
                          "id":  "kp-68",
                          "konu":  "senet ile mal alisi",
                          "kapi":  "KAPI-HAKEM",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metinde VUK m.274 yalnızca \u0027maliyet bedeli\u0027 tanımını içerir ancak ticari iskonto, nakliye gideri ve KDV hesaplama kurallarını açıkça desteklemez; soru bu temel muhasebe işlemini ölçmesine rağmen kaynakta tam hukuki dayanak eksiktir. Matematiksel hesap doğru: 200.000 − 10.000 = 190.000; 190.000 + 8.000 = 198.000; 198.000 × 1,20 = 237.600 TL. Kaynak metinde VUK m.274 yalnızca \u0027maliyet bedeliyle değerleme\u0027 ilkesini içerir; ticari iskonto düşülmesi, doğrudan giderlerin eklenmesi ve KDV hesaplama kuralları bu madde metninde açıkça yazılı değildir (muhtemelen m.10 veya başka maddelerdedir).",
-                         "onarim":  ""
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t1-fmuh-zor",
@@ -10586,9 +10586,9 @@
                          "id":  "kp-162",
                          "konu":  "kavramsal cerceve yukumluluk",
                          "kapi":  "KAPI-HAKEM",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni yalnızca Tekduzen Hesap Planı (THP) kıdem tazminatı ve statü yedekleri hesaplarının işleyişini, VUK\u0027un vergi inceleme/arama prosedürlerini ve uluslararası bilgi değişimini içerir; Finansal Raporlamaya İlişkin Kavramsal Çerçeve\u0027nin yükümlülüğün tanımı ve mevcut mükellefiyetin niteliğine ilişkin kurallarını (p.4.36 vb.) açıkça desteklemeyen eksik/başlangıç metindir. Kaynak metni Kavramsal Çerçeve\u0027nin yalnızca başlık kısmını içerir ve p.4.36 (Geçmişteki olaylar sonucunda oluşan mevcut mükellefiyet) maddesini tam metin olarak vermemektedir; ancak kural başka kaynaktan doğrulanabilir olduğu için karar HAYIR değildir.",
-                         "onarim":  ""
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t1-fmuh-zor-b",
@@ -10955,9 +10955,9 @@
                          "id":  "kp-28",
                          "konu":  "i. dunya savasi osmanli ekonomisi",
                          "kapi":  "KAPI-HAKEM",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni I. Dünya Savaşı yıllarında Osmanlı ekonomisine ilişkin teorik bilgi sunmakta, ancak enflasyon mekanizması ve karşılıksız kâğıt para basımının enflasyona yol açması hakkında AÇIK bir bağlantı kurmamaktadır; savaş finansmanı başlığında kâğıt para ve borçlanma SAYILMAKTA ancak bunların enflasyon üzerine etkisi KAYNAKTAKİ METINDE EKSİKTİR. Seçenek B tarihsel gerçeğe uygundur; ancak bu bilgi kaynakta tam olarak kanıtlanmamıştır. Kaynak metni \u0027TEORI - i. dunya savasi osmanli ekonomisi\u0027 başlığı altında savaş finansmanı (kâğıt para, borçlanma) hakkında bilgi sunsada, enflasyon ile karşılıksız kâğıt para basımı arasındaki nedensellik ilişkisi KAYNAKTAKİ METINDE AÇIKÇA KURULMAMIŞTUR; ilişki öğrenci tarafından çıkarım yapılarak kurulmalıdır.",
-                         "onarim":  ""
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t1-genel-inkilap-cokzor",
@@ -11072,9 +11072,9 @@
                          "id":  "kp-09",
                          "konu":  "mondros mutarekesi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A şıkkı soru kökünü kelimesi kelimesine tekrar ederek diğer şıklardan belirgin biçimde farklı/uzun ve doğrudan ipucu veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-genel-inkilap-zor",
@@ -11108,9 +11108,9 @@
                          "id":  "kp-23",
                          "konu":  "ataturk donemi diplomasi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B, C, E şıklarında \u0027tamamen\u0027, \u0027kesin biçimde\u0027, \u0027bütünüyle\u0027 gibi aşırı kesinlik zarflarının art arda tekrarı yapay/şablon hissi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-genel-maliye-cokzor",
@@ -11153,9 +11153,9 @@
                          "id":  "kp-13",
                          "konu":  "servet vergisi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şıkların tamamı \u0027X, Y olduğu için Z niteliğindedir\u0027 kalıbıyla simetrik kurulmuş, bu yapay tekrar hissi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-genel-maliye-cokzor",
@@ -11558,9 +11558,9 @@
                          "id":  "kp-14",
                          "konu":  "paragraf tamamlama",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: C şıkkı \u0027Ancak\u0027 ile başlıyor, oysa boşluktan sonra gelen cümle de \u0027Ancak\u0027 ile başlıyor; art arda aynı bağlaçla iki cümle gelmesi doğal bir metinde nadir rastlanan, yapay bir tekrar hissi veriyor.",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-genel-turkce-cokzor",
@@ -11657,9 +11657,9 @@
                          "id":  "kp-25",
                          "konu":  "anlatim ozellikleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A şıkkında \u0027bir daha tekrar yeniden\u0027 üçlü fazlalık diğer şıklara göre çok belirgin/aşırı vurgulu, doğru cevabı ele veren yapay bir yığılma izlenimi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-genel-turkce-kolay",
@@ -11675,9 +11675,9 @@
                          "id":  "kp-27",
                          "konu":  "anlatim akisi bozuklugu",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Beş şıkkın tamamı neredeyse birebir aynı \u0027X yaptı ve Y yaptı\u0027 kalıbının mekanik tekrarı; çeşitlilik yok.",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-genel-turkce-kolay",
@@ -11846,9 +11846,9 @@
                          "id":  "kp-07",
                          "konu":  "sentence completion",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıkları aynı hatayı (cümleye ikinci bir bağlaç -\u0027because\u0027, \u0027despite that\u0027- ekleyerek yapısal bozukluk yaratma) tekrarlıyor; bu, çeldirici çeşitliliği yerine tek bir kalıbın iki kez kopyalanması izlenimi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-genel-yd-zor",
@@ -11972,9 +11972,9 @@
                          "id":  "kp-04",
                          "konu":  "is sozlesmesi turleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: C ve D şıkları birbirinin neredeyse tam tersi/tekrarı niteliğinde (aynı konunun olumlu-olumsuz hali art arda verilmiş)",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-issgk-kolay",
@@ -12215,9 +12215,9 @@
                          "id":  "kp-27",
                          "konu":  "safha maliyet-esdeger birim",
                          "kapi":  "KAPI-HAKEM",
-                         "sinif":  "COK-ANLAMLI",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metni safha maliyet-eşdeğer birim konusunu teorik olarak tanımlasa da, soru FIFO formülünün uygulanmasını gerektirir; kaynaktaki \u0027Teori Notu\u0027 bu formülü tam olarak açıklamaz ve verilen 4.780 sayısının nasıl oluştuğu (hangi bileşenlerden) metinde net değildir. C) 4.350 matematiksel olarak doğrudur: 4.780 - 280 (ek çalışma) - 150 (dönem sonu YM katkısı) = 4.350. Teori Notu \u0027safha maliyet sisteminde eşdeğer ürün birimleri\u0027 başlığı taşırken, soru FIFO formülü elemanlarının (ek çalışma = donem basi YM x (1-tamamlanma yüzdesi)) tam ayrıntısını metinde bulamamıştır; formülün bileşenleri teorik ama işletme verilerinden hesaplama adımı kaynakta eksiktir.",
-                         "onarim":  "Istem cumlesi tek anlama indirilir; cogu zaman tek kelime duzeltmesi yeter."
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t1-maliyet-cokzor",
@@ -12566,9 +12566,9 @@
                          "id":  "kp-12",
                          "konu":  "meslek mensubu etik sosyal sorumluluk",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A,B,D,E şıkları hepsi \u0027yalnızca...dışındadır\u0027 biçiminde aynı dışlayıcı kalıbın tekrarı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-meslek-cokzor",
@@ -12674,18 +12674,18 @@
                          "id":  "kp-06",
                          "konu":  "meslekle bagdasmayan isler",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A,B ve D,E şıkları neredeyse birebir simetrik kalıpla kurulmuş (aynı cümle yapısının \u0027yürütmeksizin/yürüterek\u0027 zıtlığıyla tekrarı), bu durum doğal soru yazımından çok yapay bir şablon izlenimi verebilir",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-meslek-kolay",
                          "id":  "kp-12",
                          "konu":  "meslek mensubu etik sosyal sorumluluk",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Tüm yanlış şıklarda \u0027Yalnızca\u0027 kelimesinin mekanik tekrarı · KOKU: D ve E şıkları benzer daraltma kalıbının tekrarı (oda/birlik ayrımı yapay çeşitlendirme hissi veriyor)",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-meslek-kolay",
@@ -13016,9 +13016,9 @@
                          "id":  "kp-14",
                          "konu":  "mali tablo standart oranlar",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve E şıkları (sektör/sanayi standart oranları) neredeyse eş anlamlı iki çeldirici olarak verilmiş, bu gereksiz tekrar yapay doldurma izlenimi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-mta-zor",
@@ -13259,9 +13259,9 @@
                          "id":  "kp-07",
                          "konu":  "odeme emrine itiraz",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Anlamsız harf/yer tutucu unvan yok ama tüm şıklar aynı \u0027yasak/izin\u0027 kalıbını tekrarlıyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-ticaret-zor",
@@ -13286,9 +13286,9 @@
                          "id":  "kp-21",
                          "konu":  "tacir sayilma",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A, B ve D şıklarının hepsi aynı \u0027yalnızca ... bakımından söz konusu/aranan bir yükümlülüktür\u0027 kalıbının mekanik tekrarı ile kurulmuş; bu üç şık adeta tek bir şablondan türetilmiş izlenimi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-ticaret-zor",
@@ -13313,9 +13313,9 @@
                          "id":  "kp-33",
                          "konu":  "ticari dava kapsami",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şık isimlerinde harf kısaltmalı kurum adları (A Lojistik A.Ş., B Katılım Bankası, C Kuruluşu) art arda kullanılmış; bu tekrar eden \u0027A/B/C harfi + sektör adı\u0027 kalıbı yapay üretim izlenimi veriyor.",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t1-ticaret-zor",
@@ -13628,9 +13628,9 @@
                          "id":  "kp-08",
                          "konu":  "mali tablolar analiz teknikleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Beş şıkkın tamamı aynı sözdizimsel kalıpta (\u0027... sorusu için ... analiz\u0027), bu paralel yapı soru tipi gereği olsa da mekanik bir tekrar hissi veriyor",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2b-mta-cokzor",
@@ -13691,9 +13691,9 @@
                          "id":  "kp-07",
                          "konu":  "bds 230 calisma kagitlari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027Yalnızca\u0027 kelimesinin A ve C şıklarında tekrarlanması yapay bir eleme kalıbı oluşturuyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-denetim-cokzor",
@@ -13736,9 +13736,9 @@
                          "id":  "kp-15",
                          "konu":  "kasa denetimi var olma hedefi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: D şıkkı diğerlerinden görece uzun ve nüanslı, çeldiricilerdeki \u0027yalnızca...değerlendirilir\u0027 kalıbının tekrarı yapay bir simetri oluşturuyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-denetim-cokzor",
@@ -13790,9 +13790,9 @@
                          "id":  "kp-27",
                          "konu":  "calisma kagitlari nihai dosya",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027çalışma kağıtlarını gözden geçirerek kanıt elde eder\u0027 gibi ifadelerde hafif teknik jargon tekrarı var ama belirgin yapay zeka kokusu yok",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-denetim-kolay",
@@ -13871,18 +13871,18 @@
                          "id":  "kp-17",
                          "konu":  "denetim kanit toplama prosedurleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: A şıkkında \u0027her durumda\u0027 ifadesi de aynı mutlaklaştırma kalıbının tekrarı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-denetim-kolay",
                          "id":  "kp-23",
                          "konu":  "stok sayim fazlasi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şıklarda \u0027herhangi bir düzeltme ya da ek prosedüre gerek görmeden\u0027, \u0027yalnızca... yetinmelidir\u0027, \u0027hiç almamalıdır\u0027 gibi aşırı kesin/mutlak ifadelerin her yanlış şıkta tekrarlanması yapay bir kalıp izlenimi veriyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-denetim-kolay",
@@ -13925,9 +13925,9 @@
                          "id":  "kp-06",
                          "konu":  "musteri kabul sureci",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B, C, D, E şıklarının tamamı aynı mutlak/kesin dil kalıbıyla kurulmuş (\u0027araştırılmaksızın\u0027, \u0027hiçbir şekilde\u0027, \u0027hiçbir koşulda\u0027, \u0027yalnızca... başka hiçbir kaynak kabul edilmez\u0027) - dört celdiricinin aynı retorik kalıbı tekrarlaması yapay bir örüntü oluşturuyor",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-denetim-zor",
@@ -14222,9 +14222,9 @@
                          "id":  "kp-72",
                          "konu":  "tahvil hisse donusumu",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Tüm tutarlar yuvarlak (500.000, 18.000, 518.000) - gerçekçi ama tekrarlayan bir kurgu izlenimi veriyor.",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-cokzor",
@@ -14402,9 +14402,9 @@
                          "id":  "kp-111",
                          "konu":  "kavramsal cerceve yukumluluk",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şıklarda \u0027gönüllü olarak\u0027, \u0027planlamaktadır\u0027, \u0027mümkün değildir\u0027 gibi tekrarlayan kalıp ifadeler var ama bu sınav dilinde normal; belirgin yapay iz yok",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-cokzor",
@@ -14645,9 +14645,9 @@
                          "id":  "kp-41",
                          "konu":  "senet ile mal alisi",
                          "kapi":  "KAPI-HAKEM",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metindeki VUK m.274 emtianın \u0027maliyet bedeliyle değerleneceğini\u0027 belirtir ancak senetle satın alınan mal için KDV dâhil toplam tutarın (48.000 TL) 321 hesabına alacak kaydedilmesinin kural dayanak göstermez. Kaynak metinde VUK m.274 \u0027maliyet bedeli\u0027 kuralı yer alır ancak 321 BORÇ SENETLERİ hesabına KDV dâhil tutarın alacak kaydedilmesi kuralı, sağlanan kaynakta açıkça gösterilmemektedir; Tekdüzen Hesap Planı 321 hesabının tanımı kaynakta eksiktir.",
-                         "onarim":  ""
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-kolay",
@@ -14744,9 +14744,9 @@
                          "id":  "kp-66",
                          "konu":  "tfrs 3 negatif serefiye",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027pazarlıklı satın alma kazancı\u0027 parantez içi tanım tekrarı hafif didaktik ama kabul edilebilir düzeyde",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-kolay",
@@ -15005,9 +15005,9 @@
                          "id":  "kp-54",
                          "konu":  "tahvil ihraci-iskonto",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve C şıkları sayısal olarak birebir aynı (102:475.200, 408:20.000, 780:4.800, 405:500.000), yalnızca borç/alacak yazım sırası değişik verilmiş; bu durum gerçek bir çeldirici değil, kopyala-yapıştır kaynaklı yapay tekrar izidir ve pratikte \u0027iki doğru şık\u0027 algısı yaratır.",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-fmuh-zor",
@@ -15284,9 +15284,9 @@
                          "id":  "kp-08",
                          "konu":  "kambiyo senedi cirosu",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: D şıkkında \u0027cироyu\u0027 ifadesinde Kiril alfabesi karakterleri (и, о) kullanılmış — bariz OCR/AI üretim hatası/yazım kokusu",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t2-ticaret-cokzor",
@@ -15734,9 +15734,9 @@
                          "id":  "kp-05",
                          "konu":  "isletmenin surekliligi gorusu",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: C ve E şıkları birbirine karşıt uçlar (olumsuz görüş / olumlu görüş) şeklinde kurulmuş, bu tekrarlayan bir kalıp",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t4-fmuh-zor",
@@ -16130,9 +16130,9 @@
                          "id":  "kp-21",
                          "konu":  "bds 300 denetim planlamasi",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "YAPAY-DIL",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şıkların her biri \u0027kavram; sebep-sonuç cümlesi\u0027 kalıbında tekrarlanıyor, yapay simetri var",
-                         "onarim":  "Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur."
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t5-denetim-cokzor",
@@ -16166,9 +16166,9 @@
                          "id":  "kp-13",
                          "konu":  "ic kontrol amaclari",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: B ve D şıkları birbirine yakın \u0027X aynı şey değildir/kapsam dışıdır\u0027 kalıbının tekrarı · KOKU: C, D, E şıkları hepsi \u0027kapsam dışında/değildir\u0027 şeklinde tersine çevirme kalıbıyla kurulmuş, tekrarlı yapı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t5-denetim-kolay",
@@ -16184,9 +16184,9 @@
                          "id":  "kp-18",
                          "konu":  "ic kontrol sistemi ozellikleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: D ve E de aynı şekilde ilgili kısıtlamanın \u0027tam tersi\u0027 iddiasını taşıyor, dört yanlış şıkkın hepsi aynı kalıpla \u0027kısıtlama değildir/engellenir\u0027 şeklinde kurulmuş, tekrarlı yapı",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t5-denetim-kolay",
@@ -16220,9 +16220,9 @@
                          "id":  "kp-02",
                          "konu":  "hukuka uygunluk sebepleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: \u0027gerçek dışı ve yanıltıcı\u0027 ifadesinin hem soru kökünde hem E şıkkında tekrarlanması",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-t5-ticaret-cokzor",
@@ -16301,9 +16301,9 @@
                          "id":  "kp-03",
                          "konu":  "anonim sirket temsili",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: Şirket unvanı olarak \u0027ABC Anonim Şirketi\u0027 kullanılmış; bu, talimatta belirtilen \u0027ABC/XYZ gibi anlamsız harf dizisi\u0027 yer tutucu kokusuna tam örnektir (gerçekçi bir unvan yerine şık harfleriyle çakışan soyut kısaltma kullanılmış).",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "sgs-vergi-k10e",
@@ -16373,9 +16373,9 @@
                          "id":  "kp-09",
                          "konu":  "ilk denetim acilis bakiyeleri",
                          "kapi":  "KAPI-HAKEM2",
-                         "sinif":  "(siniflanmamis)",
+                         "sinif":  "YZ-KOKUSU",
                          "gerekce":  "KOKU: D ve E şıkları birbirinin doğrudan yer değiştirmiş (ters) versiyonu; bu klasik ama yine de şablon tekrarı sayılabilecek bir çeldirici kurgusu",
-                         "onarim":  ""
+                         "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
                          "etiket":  "smmm-denetim-30",
