@@ -26,6 +26,7 @@
 #>
 param(
   [string]$Kosu = '',        # GitHub run id (bos = suzme yok)
+  [string]$EtiketOn = '',    # 12.09: etiket oneki - 'sgs-d2' gibi; YALNIZ o dalga sayilir
   [string]$Ay   = '',        # 'YYYY-MM' (bos = bu ay)
   [int]$SonSaat = 0,         # yalniz son N saat (0 = suzme yok)
   [switch]$Dokum             # parti parti liste
@@ -62,6 +63,16 @@ while($true){
   $KAYDIRMA+=1000
 }
 $TUM=$KAYITLAR.ToArray()
+# ⛔⭐ 12.09.2026 — ETIKET ONEKI SUZGECI (Cem: "ne durumda" sorusu uc kez cevapsiz kaldi).
+#   Canli nabiz ZATEN calisiyordu: motor/kalip-kosucu.ps1 > NabizYaz her PARTI bitiminde
+#   defteri ambara yukluyor. Eksik olan OKUMA tarafiydi - bu betik AYLIK toplami
+#   basiyordu, "su an kosan d2 dalgasi nerede" sorusuna cevap vermiyordu.
+#   Artik: -EtiketOn 'sgs-d2' -> yalniz o dalganin partileri sayilir.
+#   ⚠ Tek partilik kosuda nabiz YOKTUR (parti bitmeden yazilmaz) - bu normaldir,
+#     asagidaki "kayit yok" notu zaten bunu soyluyor.
+if($EtiketOn){
+  $TUM=@($TUM | Where-Object{ "$($_.etiket)" -like "$EtiketOn*" })
+}
 if($SonSaat -gt 0){
   $ESIK=(Get-Date).ToUniversalTime().AddHours(-1*$SonSaat)
   $TUM=@($TUM | Where-Object{ ([datetime]::Parse("$($_.zaman)")).ToUniversalTime() -ge $ESIK })
