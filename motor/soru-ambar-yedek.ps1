@@ -59,13 +59,20 @@ $AMBAR_BASLIK=@{ apikey=$AMBAR_ANAHTAR; Authorization="Bearer $AMBAR_ANAHTAR"
 $AMBAR_TABAN='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 
-# tablo -> birincil anahtar (imlec alani). Sirali imlec icin TEKIL olmali.
+# tablo -> imlec alani + SAYFA BOYU.
+# ⛔ SAYFA BOYU TABLOYA GORE. Ilk surumde hepsi 1000'di ve bulut kosusu #1
+#    KIRMIZI dustu. Yerelde birebir tekrarlandi:
+#      "kalip_parti sayfa 0 okunamadi: (500) Ic Sunucu Hatasi"
+#    Sebep: kalip_parti 298 satir ama 106 MB - satir basina ~350 KB jsonb.
+#    1000 satirlik sayfa = TEK YANITTA 106 MB; PostgREST tasiyamiyor.
+#    Satir SAYISI degil satir AGIRLIGI onemli. dokumanlar 45.741 satir ama
+#    1000'lik sayfalarla sorunsuz indi (satir ~6 KB).
 $VARSAYILAN=[ordered]@{
-  'dokumanlar'   = 'id'
-  'soru_havuzu'  = 'id'
-  'konu_koprusu' = 'id'
-  'bedel_kaydi'  = 'id'
-  'kalip_parti'  = 'etiket'
+  'dokumanlar'   = @{ pk='id';     sayfa=1000 }   # ~6 KB/satir
+  'soru_havuzu'  = @{ pk='id';     sayfa=1000 }   # ~3,5 KB/satir (olculdu: 108 MB/30.569)
+  'konu_koprusu' = @{ pk='id';     sayfa=1000 }
+  'bedel_kaydi'  = @{ pk='id';     sayfa=1000 }
+  'kalip_parti'  = @{ pk='etiket'; sayfa=5    }   # ~350 KB/satir -> sayfa ~1,75 MB
 }
 if($Tablolar.Count){
   $secili=[ordered]@{}
@@ -86,7 +93,9 @@ $kunye=[ordered]@{ olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm'); damga=$damga; ta
 $toplamSatir=0; $toplamBayt=0
 
 foreach($tablo in $VARSAYILAN.Keys){
-  $imlecAlan=$VARSAYILAN[$tablo]
+  $ayar=$VARSAYILAN[$tablo]
+  $imlecAlan=$ayar.pk
+  $sayfaBoyu=[int]$ayar.sayfa
   $beklenen=SatirSayisi $tablo
   $hedef=Join-Path $Kok ("soru-ambar-$damga-$tablo.ndjson")
   Write-Host ("{0,-14} bekleniyor {1,7:N0} satir -> {2}" -f $tablo,$beklenen,(Split-Path $hedef -Leaf)) -ForegroundColor Cyan
@@ -95,15 +104,26 @@ foreach($tablo in $VARSAYILAN.Keys){
   $yazici=New-Object System.IO.StreamWriter($hedef,$false,(New-Object Text.UTF8Encoding $false))
   $sayac=0; $imlec=$null; $sayfa=0
   try{
+    $buSayfa=$sayfaBoyu
     while($true){
-      $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit=1000'
+      $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
       if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
       $cevap=$null
-      foreach($deneme in 1..3){
+      foreach($deneme in 1..4){
         try{ $cevap=Invoke-RestMethod -Uri $adres -Headers $AMBAR_BASLIK -TimeoutSec 300; break }
         catch{
-          if($deneme -eq 3){ throw ("$tablo sayfa $sayfa okunamadi: " + $_.Exception.Message) }
-          Start-Sleep -Seconds (5*$deneme)   # 57014 gecici olabilir (AMBAR-OLCUM-TUZAKLARI)
+          if($deneme -eq 4){ throw ("$tablo sayfa $sayfa okunamadi (limit=$buSayfa): " + $_.Exception.Message) }
+          # ⛔ UYARLANIR SAYFA: 500/57014 cogu zaman "yanit COK BUYUK" demektir.
+          #    Beklemek cozmez - sayfayi KUCULTMEK cozer. Tablolar buyudukce
+          #    (satir agirligi artikca) bu kendiliginden devreye girsin diye
+          #    sabit degil uyarlanir yapildi.
+          if($buSayfa -gt 1){
+            $buSayfa=[Math]::Max(1,[int]($buSayfa/4))
+            $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
+            if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
+            Write-Host ("   ! sayfa kuculttu -> limit=$buSayfa") -ForegroundColor Yellow
+          }
+          Start-Sleep -Seconds (3*$deneme)
         }
       }
       $satirlar=@($cevap)
@@ -114,7 +134,7 @@ foreach($tablo in $VARSAYILAN.Keys){
       }
       $imlec=$satirlar[-1].$imlecAlan
       $sayfa++
-      if($satirlar.Count -lt 1000){ break }
+      if($satirlar.Count -lt $buSayfa){ break }
       if($sayfa % 10 -eq 0){ Write-Host ("   ... {0:N0}" -f $sayac) -ForegroundColor DarkGray }
     }
   } finally { $yazici.Close(); $yazici.Dispose() }
