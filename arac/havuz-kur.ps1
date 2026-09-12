@@ -24,7 +24,22 @@
   ⛔ SORU SILMEZ, YENIDEN URETMEZ. Yalniz secim dosyasi yazar. BEDEL 0.
 ================================================================================
 #>
-param([switch]$Yaz)
+param(
+  [switch]$Yaz,
+  # ⛔⭐ 12.09.2026 SINAV FILTRESI (Cem onayi). Havuz artik YALNIZ bu onekli
+  #   partilerden kurulur. Niye: havuz-kur butun kalip-parti-*.json dosyalarini
+  #   tariyor ve soruyu DERS ADINA gore dagitiyordu - sinav bilgisi hic bakilmiyordu.
+  #   "Denetim" ve "Finansal Muhasebe" adlari SGS ile YETERLILIK'te ortak oldugu icin
+  #   yeterlilik (smmm-*) ve pilot (pilot6-*) sorulari SGS havuzuna siziyordu.
+  #   OLCULDU 12.09: havuzdaki 2.670 sorunun 5'i SGS DISI partidendi
+  #     smmm-denetim-30/kp-21 (yeterlilik - SGS'den DAHA ZOR bir sinav)
+  #     pilot6-fmuh-zor/kp-01, pilot6-fmuh-{cokzor,zor,kolay}/kp-02 (deneme partileri)
+  #   Ambarda 614 sgs partisine karsi 33 SGS disi parti var (spl 14 · kgk 9 · smmm 6
+  #   · pilot6 3 · devir 1); bugun yalniz 5 soru sizmisti ama mekanizma her yeni
+  #   yeterlilik/KGK partisinde yeniden isleyecekti.
+  #   ⚠ Ad PS'te kisa degil: bu dosyada baska `$sinav` YOK (olculdu) - carpisma yok.
+  [string]$Sinav='sgs'
+)
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
@@ -61,8 +76,15 @@ function DosyaAdi([string]$ders){
 
 $sayac=@{}; $atlanan=@{}; $toplam=0; $gecen=0
 $kova=@{}
+$disSinav=@{}   # sinav filtresinin disarida biraktigi partiler - SESSIZ gecilmez
 foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip-parti-*.json')){
   $et=($x.BaseName -replace '^kalip-parti-','')
+  # SINAV FILTRESI (bkz. param aciklamasi): baska sinavin sorusu bu havuza girmez.
+  if($et -notlike "$Sinav-*"){
+    $on=if($et -match '^([a-z0-9]+)-'){ $matches[1] } else { $et }
+    $disSinav[$on]=1+[int]$disSinav[$on]
+    continue
+  }
   $ders=DersBul $et
   $c=$null
   foreach($d in 1..3){ try{ $c=Get-Content $x.FullName -Raw -Encoding UTF8|ConvertFrom-Json; break }catch{ Start-Sleep -Milliseconds 400 } }
@@ -91,6 +113,11 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
   }
 }
 Write-Host ("taranan {0:N0} soru · YAYIN SARTINI saglayan {1:N0}" -f $toplam,$gecen) -ForegroundColor Cyan
+if($disSinav.Count){
+  $dn=0; foreach($v in $disSinav.Values){ $dn+=$v }
+  Write-Host ("SINAV FILTRESI ('{0}-*'): {1} parti dosyasi disarida birakildi -> {2}" -f $Sinav,$dn,
+    (($disSinav.GetEnumerator()|Sort-Object Value -Descending|ForEach-Object{ "$($_.Key) $($_.Value)" }) -join ' · ')) -ForegroundColor DarkGray
+}
 Write-Host ""
 foreach($d in ($sayac.GetEnumerator()|Sort-Object Value -Descending)){ Write-Host ("  {0,-32} {1,5:N0}" -f $d.Key,$d.Value) }
 $topYaz=0; foreach($d in $sayac.Keys){ $topYaz+=$sayac[$d] }
