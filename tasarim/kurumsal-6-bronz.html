@@ -157,44 +157,62 @@
            font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
            color:var(--bronz);font-weight:700;margin-bottom:10px}
   .cam-ust s{text-decoration:none;color:var(--ak-sonuk);font-weight:600}
-  .cam-soru{font-size:13.5px;line-height:1.5;color:var(--ak-govde);margin:0 0 13px;
-            display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-            overflow:hidden}
+  /* Soru artık KIRPILMIYOR: ziyaretçi gerçek soruyu birebir okuyacak. */
+  .cam-soru{font-size:13.5px;line-height:1.5;color:var(--ak);margin:0 0 12px}
   /* ⛔ 13.09 üçüncü kez: ŞIK LİSTESİ KALDIRILDI.
      Cem: "şık vermeyecektik, nasıl çözdüğümüzü gösterecektik hani." Haklı -
      "tıklasın çözsün" denince şıklı teste savrulmuştum. Vitrin artık soru
      SORMUYOR; NÖBETÇİ'nin çözümünü gösteriyor: hesap satır satır doluyor,
      sonunda "en sık hata" söyleniyor. Kaynak: ambardaki cozum_tablo ve
      adimlar alanları (uydurma yok, K6 kapısı bunu şart koşuyor). */
-  .cozum-et{display:flex;align-items:center;gap:8px;margin:0 0 8px;
-            font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
-            color:var(--bronz-acik);font-weight:800}
-  .cozum-et i{width:5px;height:5px;border-radius:50%;background:var(--bronz);
-              display:inline-block;box-shadow:0 0 8px var(--bronz);flex:none}
-  .cozum{border:1px solid rgba(214,180,126,.20);border-radius:11px;overflow:hidden}
+  /* ⛔ 13.09 dördüncü tur — Cem: "nöbetçiye basacağız, gerçek soru gibi
+     akacak, İleri diyecek, soruyu birebir orada yaşayacak."
+     Önceki turlarda hep ürünü ÖZETLEYEN bir vitrin yapıyordum; istenen
+     ürünün KENDİSİ. Panel artık Kaydır-Çöz'ün küçük hâli: ziyaretçi
+     "Nöbetçi çözsün"e basar, İleri'ye basa basa çözümü kendi sürükler,
+     hesap tablosu adım adım dolar. Kaynak: ambardaki `adimlar` (formül +
+     anlatım + hangi hücreyi doldurduğu) - K7 kapısı bunu şart koşuyor. */
+  .cozum{border:1px solid rgba(214,180,126,.20);border-radius:11px;overflow:hidden;
+         margin-bottom:11px}
   .cz{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
-      padding:10px 13px;border-bottom:1px solid rgba(255,255,255,.06);
-      font-size:12.6px;line-height:1.4;color:var(--ak-govde);
-      opacity:0;transform:translateY(5px);
-      transition:opacity .45s ease,transform .45s ease}
-  .cz.gel{opacity:1;transform:none}
+      padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.06);
+      font-size:12.5px;line-height:1.4;color:var(--ak-sonuk)}
   .cz:last-child{border-bottom:0}
-  .cz b{color:var(--ak);font-weight:700;white-space:nowrap;
-        font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-  .cz.sonuc{background:rgba(207,161,99,.10)}
-  .cz.sonuc span{color:var(--ak)}
-  .cz.sonuc b{color:var(--bronz-acik);font-size:15px}
-  .hata{margin-top:10px;padding:10px 13px;border-radius:10px;
-        background:rgba(176,115,109,.10);border:1px solid rgba(176,115,109,.28);
-        opacity:0;transition:opacity .5s ease}
-  .hata.gel{opacity:1}
-  .hata b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
-          color:var(--yanlis);font-weight:800;margin-bottom:5px}
-  .hata p{margin:0;font-size:12.4px;line-height:1.5;color:var(--ak)}
-  @media(prefers-reduced-motion:reduce){
-    .cz,.hata{opacity:1;transform:none;transition:none}
-  }  .cam-dip{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;
-           align-items:baseline;margin-top:11px;font-size:11px}
+  .cz b{color:var(--ak-sonuk);font-weight:700;white-space:nowrap;
+        font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+        transition:color .3s ease,opacity .3s ease;opacity:.45}
+  .cz.doldu{color:var(--ak-govde)}
+  .cz.doldu b{color:var(--ak);opacity:1}
+  .cz.doldu.sonuc{background:rgba(207,161,99,.10)}
+  .cz.doldu.sonuc span{color:var(--ak)}
+  .cz.doldu.sonuc b{color:var(--bronz-acik);font-size:15px}
+
+  .nobetci{padding:11px 13px;border-radius:11px;margin-bottom:11px;
+           background:rgba(207,161,99,.07);border:1px solid rgba(214,180,126,.24)}
+  .nobetci .kim{display:flex;align-items:center;gap:8px;font-size:10.5px;
+                letter-spacing:.15em;text-transform:uppercase;
+                color:var(--bronz-acik);font-weight:800;margin-bottom:6px}
+  .nobetci .kim s{text-decoration:none;color:var(--ak-sonuk);letter-spacing:.06em;
+                  margin-left:auto;font-weight:700}
+  .nobetci p{margin:0;font-size:12.6px;line-height:1.55;color:var(--ak)}
+  .nobetci .formul{margin-top:8px;padding:8px 10px;border-radius:8px;
+                   background:rgba(0,0,0,.28);font-size:12px;line-height:1.45;
+                   color:var(--bronz-acik);font-variant-numeric:tabular-nums}
+  .nobetci.hata{background:rgba(176,115,109,.10);border-color:rgba(176,115,109,.30)}
+  .nobetci.hata .kim{color:var(--yanlis)}
+
+  .surucu{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .ileri{font:inherit;font-size:13.5px;font-weight:750;cursor:pointer;
+         background:linear-gradient(180deg,var(--bronz-acik),var(--bronz));
+         color:#221704;border:0;border-radius:9px;padding:10px 18px}
+  .ileri:hover{filter:brightness(1.07)}
+  .ileri.bitti{background:transparent;color:var(--ak-govde);
+               border:1px solid rgba(214,180,126,.35)}
+  .surucu .dayanak{font-size:10.5px;letter-spacing:.05em;color:var(--bronz);
+                   font-weight:700;line-height:1.4}
+  .cam-dip{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;
+           align-items:baseline;margin-top:11px;font-size:11px;
+           padding-top:10px;border-top:1px solid rgba(255,255,255,.07)}
   .cam-dip .dayanak{letter-spacing:.06em;color:var(--bronz);font-weight:700}
   .cam-dip a{color:var(--ak-govde);text-decoration:none;
              border-bottom:1px solid rgba(214,180,126,.35);padding-bottom:1px}
@@ -311,19 +329,27 @@
         <div class="cam-ust"><span id="camDers">Finansal Muhasebe · hesap işleyişi</span><s id="camKunye">SGS · 3 dönemde çıktı</s></div>
         <p class="cam-soru" id="camSoru">İşletme, satıcıdan 100.000 TL tutarında ticari mal satın almış, bedelin tamamını senetsiz olarak vadeye bırakmıştır. KDV oranı %20'dir. Bu alışa ilişkin kayıtta <b>320 SATICILAR</b> hesabına kaydedilecek tutar kaç TL'dir?</p>
 
-        <div class="cozum-et"><i></i>Nöbetçi çözüyor</div>
         <div class="cozum" id="cozum">
           <div class="cz"><span>Mal bedeli + Nakliye gideri</span><b>106.000</b></div>
           <div class="cz"><span>Alış iskontosunun düşülmesi</span><b>106.000 − 4.000</b></div>
           <div class="cz sonuc"><span>Maliyet bedeli (153 Ticari Mallar)</span><b>102.000</b></div>
         </div>
-        <div class="hata" id="hata">
-          <b>En sık hata</b>
-          <p id="hataMetin">İskontoyu düşmeden 106.000'i maliyet sanmak. Alış iskontosu maliyetten düşülmezse hesap yanlış çıkar.</p>
-        </div>        <div class="cam-dip">
-          <span class="dayanak">MSUGT Tekdüzen Hesap Planı · 320 · 191</span>
-          <span><a href="#" id="baskaSoru">Başka soru</a> &nbsp;·&nbsp; <a href="../kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik" id="tamSoru">Havuza geç →</a></span>
-        </div>      </div>      </div>
+
+        <div class="nobetci" id="nobetci" hidden aria-live="polite">
+          <div class="kim"><span id="nobetciKim">Nöbetçi</span><s id="adimNo"></s></div>
+          <p id="anlatim"></p>
+          <div class="formul" id="formul" hidden></div>
+        </div>
+
+        <div class="surucu">
+          <button class="ileri" type="button" id="ileri">Nöbetçi çözsün →</button>
+          <span class="dayanak" id="camDayanak">MSUGT Tekdüzen Hesap Planı · 153</span>
+        </div>
+
+        <div class="cam-dip">
+          <span><a href="#" id="baskaSoru">Başka soru</a></span>
+          <a href="../kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik" id="tamSoru">Havuza geç →</a>
+        </div>      </div>      </div>      </div>
     </div>
 
     <!-- ⛔ 13.09.2026 — BURADAKİ AÇIKLAMA METNİ KALDIRILDI.
@@ -506,67 +532,104 @@ if(tuval){
 /* ===================================================================
    3) CAM PANEL — bugünün GERÇEK sorusu ve GERÇEK tuzak adı
    =================================================================== */
-/* VİTRİN: soru SORMAZ, ÇÖZÜMÜ GÖSTERİR.
-   Cem: "şık vermeyecektik, nasıl çözdüğümüzü gösterecektik hani" +
-   "her gün aynı olmaması önemli, 20 seçersin sonra onlar döner".
-   Havuz: veri/vitrin-soru-havuzu.json — motor/vitrin-soru-sec.ps1 üretir.
-   Altı kapı: yayında · açıklama hizası · adı konmuş tuzak · boy ·
-   konu çeşitliliği · ÇÖZÜM TABLOSU. Ölçüm 13.09: 1.146 yayın kaydı tarandı,
-   132'si geçti, 20 farklı konu seçildi.
-   Havuz okunamazsa HTML'de duran gerçek çözüm (kp-08) kalır. */
+/* VİTRİN = ÜRÜNÜN KENDİSİ, özeti değil.
+   Cem: "sorudaki gibi soru yazacak, nöbetçiye basacağız, gerçek soru gibi
+   akacak, İleri diyecek, soruyu birebir orada yaşayacak."
+   Ziyaretçi "Nöbetçi çözsün"e basar, her İleri'de bir adım ilerler ve hesap
+   tablosu o adımda dolar - Kaydır-Çöz'ün ana sayfadaki küçük hâli.
+   Havuz: veri/vitrin-soru-havuzu.json (motor/vitrin-soru-sec.ps1, yedi kapı).
+   Okunamazsa HTML'de duran gerçek çözüm (kp-08) kalır. */
 (function(){
   var cozumEl=document.getElementById('cozum');
-  var hataEl=document.getElementById('hata');
-  var hataMetin=document.getElementById('hataMetin');
-  if(!cozumEl) return;
-  var durgun=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var zamanlar=[];
+  var nobetci=document.getElementById('nobetci');
+  var kimEl=document.getElementById('nobetciKim');
+  var adimNoEl=document.getElementById('adimNo');
+  var anlatimEl=document.getElementById('anlatim');
+  var formulEl=document.getElementById('formul');
+  var ileriEl=document.getElementById('ileri');
+  if(!cozumEl||!ileriEl) return;
 
-  /* Satırlar sırayla dolar - "hücre hücre dolan tablo" ürünün kendi mekaniği. */
-  function oynat(){
-    zamanlar.forEach(clearTimeout); zamanlar=[];
-    var satirlar=cozumEl.querySelectorAll('.cz');
-    [].forEach.call(satirlar,function(s){ s.classList.remove('gel'); });
-    if(hataEl) hataEl.classList.remove('gel');
-    if(durgun){
-      [].forEach.call(satirlar,function(s){ s.classList.add('gel'); });
-      if(hataEl) hataEl.classList.add('gel');
-      return;
-    }
-    [].forEach.call(satirlar,function(s,i){
-      zamanlar.push(setTimeout(function(){ s.classList.add('gel'); }, 260+i*520));
-    });
-    zamanlar.push(setTimeout(function(){
-      if(hataEl) hataEl.classList.add('gel');
-    }, 260+satirlar.length*520+260));
+  /* Havuz gelmezse HTML'de duran gerçek çözümün adımları (kp-08). */
+  var SORU={
+    cozum:[['Mal bedeli + Nakliye gideri','106.000'],
+           ['Alış iskontosunun düşülmesi','106.000 − 4.000'],
+           ['Maliyet bedeli (153 Ticari Mallar)','102.000']],
+    adimlar:[
+      {formul:'Verilen: Mal bedeli 100.000 TL; Nakliye gideri 6.000 TL; Alış iskontosu 4.000 TL',
+       anlatim:'Soru bize şunları vermiş: mal bedeli 100.000 TL, nakliye gideri 6.000 TL, alış iskontosu 4.000 TL. Bu üç rakamı biz bulmadık, soru verdi.',doldur:[]},
+      {formul:'153 TİCARİ MALLAR: alışta borç, satışta alacak',
+       anlatim:'153 Ticari Mallar nedir? Satmak için alınan malın maliyet bedelinin tutulduğu hesaptır.',doldur:[]},
+      {formul:'Mal bedeli + Nakliye gideri = 100.000 + 6.000 = 106.000',
+       anlatim:"TMS 2'ye göre malın maliyetine, alışa doğrudan bağlı giderler eklenir. Nakliye masrafı malı işletmeye getirmek için yapıldığından maliyete girer.",doldur:[[0,0],[0,1]]},
+      {formul:'Ara toplam − Alış iskontosu = 106.000 − 4.000',
+       anlatim:'Alış iskontosu maliyeti düşürür, çünkü mal aslında daha ucuza gelmiştir.',doldur:[[1,0],[1,1]]},
+      {formul:'Maliyet bedeli (153 Ticari Mallar) = 106.000 − 4.000 = 102.000',
+       anlatim:'Son maliyet bedelini buluyoruz; bu tutar 153 hesaba borç yazılacak tutardır.',doldur:[[2,0],[2,1]]},
+      {formul:'Yanlış yol: 100.000 + 6.000 = 106.000 (HATALI) → doğrusu 102.000',
+       anlatim:"En sık hata: iskontoyu düşmeden 106.000'i maliyet sanmak.",doldur:[]}
+    ]
+  };
+  var sira=-1;   /* -1 = henüz başlamadı */
+
+  function tabloCiz(){
+    var c=SORU.cozum||[];
+    cozumEl.innerHTML=c.map(function(r,i){
+      var son=(i===c.length-1)?' sonuc':'';
+      return '<div class="cz'+son+'" data-satir="'+i+'"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>';
+    }).join('');
   }
 
+  function basaAl(){
+    sira=-1;
+    tabloCiz();
+    nobetci.hidden=true;
+    nobetci.className='nobetci';
+    ileriEl.textContent='Nöbetçi çözsün →';
+    ileriEl.className='ileri';
+  }
+
+  function adimGoster(){
+    var a=(SORU.adimlar||[])[sira]; if(!a) return;
+    /* Bu adımda dolan hücrelerin satırı açılır - "hücre hücre dolan tablo". */
+    (a.doldur||[]).forEach(function(h){
+      var s=cozumEl.querySelector('.cz[data-satir="'+h[0]+'"]');
+      if(s) s.classList.add('doldu');
+    });
+    var sonAdim=(sira===SORU.adimlar.length-1);
+    /* Son adım ambarda "Yanlış yol / En sık hata" adımıdır: kutu kırmızıya döner. */
+    var hataAdimi = sonAdim && /Yanl[ıi]ş yol|En s[ıi]k hata/i.test((a.formul||'')+' '+(a.anlatim||''));
+    nobetci.className='nobetci'+(hataAdimi?' hata':'');
+    kimEl.textContent = hataAdimi ? 'Nöbetçi · En sık hata' : 'Nöbetçi';
+    adimNoEl.textContent=(sira+1)+' / '+SORU.adimlar.length;
+    anlatimEl.textContent=a.anlatim||'';
+    if(a.formul){ formulEl.textContent=a.formul; formulEl.hidden=false; }
+    else { formulEl.hidden=true; }
+    nobetci.hidden=false;
+    ileriEl.textContent = sonAdim ? 'Baştan al ↺' : 'İleri →';
+    ileriEl.className = sonAdim ? 'ileri bitti' : 'ileri';
+  }
+
+  ileriEl.addEventListener('click',function(){
+    if(sira>=0 && sira===SORU.adimlar.length-1){ basaAl(); return; }
+    sira++; adimGoster();
+  });
+
   function ciz(q){
+    SORU={cozum:q.cozum||[], adimlar:q.adimlar||[]};
     document.getElementById('camDers').textContent=(q.ders||'')+(q.konu?' · '+q.konu:'');
     document.getElementById('camKunye').textContent='SGS'+(q.donem?' · '+q.donem+' dönemde çıktı':'');
     document.getElementById('camSoru').textContent=q.soru||'';
-    var c=q.cozum||[];
-    cozumEl.innerHTML=c.map(function(r,i){
-      var son=(i===c.length-1)?' sonuc':'';
-      return '<div class="cz'+son+'"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>';
-    }).join('');
-    /* "En sık hata:" ön ekini atıp cümleyi olduğu gibi bırakıyoruz. */
-    var h=String(q.enSikHata||'').replace(/^\s*En s[ıi]k hata\s*:\s*/i,'');
-    if(hataMetin) hataMetin.textContent=h;
-    if(hataEl) hataEl.hidden = !h;
-    var dy=document.querySelector('.cam-dip .dayanak');
+    var dy=document.getElementById('camDayanak');
     if(dy&&q.dayanak) dy.textContent=q.dayanak;
-    oynat();
+    basaAl();
   }
-
-  oynat();   /* havuz gelmezse HTML'deki gerçek çözüm oynar */
+  basaAl();
 
   fetch('../veri/vitrin-soru-havuzu.json',{cache:'no-store'})
     .then(function(y){return y.ok?y.json():null;})
     .then(function(d){
       var h=d&&d.sorular; if(!h||!h.length)return;
-      /* Gün bazlı sıra: aynı gün herkese aynı soru, ertesi gün sırası gelen.
-         Rastgele değil - "günün sorusu" nöbet fikrine uyuyor. */
+      /* Gün bazlı sıra: aynı gün herkese aynı soru, ertesi gün sırası gelen. */
       var gun=Math.floor(Date.now()/86400000);
       var i=((gun%h.length)+h.length)%h.length;
       ciz(h[i]);
