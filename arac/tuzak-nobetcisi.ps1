@@ -208,12 +208,62 @@ function K5-BomsuzTurkce($metin,$ast,$dosya){
   return $bul.ToArray()
 }
 
+function K6-YerelKomutStderr($metin,$ast,$dosya){
+  # PS 5.1: yerel bir komutun stderr'i `2>&1` ile birlestirilince her satir
+  # NativeCommandError KAYDINA cevrilir. $ErrorActionPreference='Stop' altinda
+  # bu kayit SONLANDIRICIDIR. git ilerlemesini ("To https://github.com/...")
+  # stderr'e yazdigi icin BASARILI bir push bile adimi oldurur.
+  #
+  # 12.09.2026 BEDELI: yayin-bas.yml koszusu #1. Adimlar:
+  #     ✓ havuz kur  ✓ sayfa bas  ✗ "Degisen varsa ite"
+  #   Log: "[main 96620788] Yayin: havuz tazelendi" -> commit ATILDI,
+  #        "git : To https://github.com/..." + NativeCommandError -> adim OLDU.
+  #   Olculdu: `git merge-base --is-ancestor 96620788 origin/main` = 0.
+  #   Yani PUSH GERCEKTE BASARILIYDI; akis bos yere kirmizi dustu, 16 dakikalik
+  #   odenmis is "basarisiz" gorundu ve yeniden kosulmaya aday oldu.
+  #
+  # ⚠ Bu tuzak nobetcinin KENDI 310-316. satirlarinda YAZILIYDI (GitDosya
+  #   sarmalayicisi tam bunun icin var). Yorum kimseyi durdurmadi - kural oldu.
+  #
+  # NEREDE GECERLI:
+  #   .ps1   -> dosyada $ErrorActionPreference='Stop' varsa
+  #   .yml   -> yalniz `shell: powershell` bloklarinda. `shell: bash` NativeCommand
+  #             kaydi uretmez; `shell: pwsh` (PS 7) de uretmez
+  #             ($PSNativeCommandUseErrorActionPreference varsayilani $false).
+  $bul=New-Object System.Collections.Generic.List[object]
+  $ps1=("$dosya" -match '\.ps1$')
+  $satirlar=$metin -split "`r?`n"
+  $tehlike=$false
+  if($ps1){ $tehlike = ($metin -cmatch '\$ErrorActionPreference\s*=\s*[''"]Stop[''"]') }
+  for($i=0;$i -lt $satirlar.Count;$i++){
+    $sat=$satirlar[$i]
+    if(-not $ps1){
+      # Akis dosyasinda en son gorulen `shell:` bildirimini takip et.
+      # Bildirim YOKSA tehlike VARSAYILMAZ (Windows runner varsayilani pwsh'tir).
+      if($sat -match '^\s*shell:\s*([A-Za-z0-9_-]+)'){
+        $tehlike = ($Matches[1].ToLowerInvariant() -eq 'powershell'); continue
+      }
+    }
+    if(-not $tehlike){ continue }
+    if($sat -match '^\s*#'){ continue }
+    if($sat -notmatch '2>&1'){ continue }
+    if($sat -notmatch '\b(git|gh|npm|npx|node|python|py|curl|dotnet|docker)\b'){ continue }
+    $bul.Add([pscustomobject]@{ satir=$i+1
+      ileti='YEREL KOMUT + 2>&1 + EAP=Stop: PS 5.1 stderr''i NativeCommandError''a cevirir; komut BASARILI olsa bile adim oLUR (12.09 yayin-bas.yml: push gecti, akis kirmizi dustu). `2>&1`''i KALDIR, sonucu `$LASTEXITCODE` ile olc.' })
+  }
+  return $bul.ToArray()
+}
+
+# yml=$true olan kurallar .github/workflows/*.yml icinde de kosar.
+# ⛔ Yalniz K6 acildi - BILEREK. K1/K3/K5 AST ya da bayt olcer (yml'de anlamsiz),
+#    K2/K4 metin olcer ama yml'de HIC olculmedi; olcmeden acmak kurt masalidir.
 $KURALLAR=@(
-  @{ ad='K1-CAKISMA';   fn=(Get-Item function:K1-DegiskenCakismasi) }
-  @{ ad='K2-JSONDIZI';  fn=(Get-Item function:K2-JsonDiziSarma) }
-  @{ ad='K3-LISTSARMA'; fn=(Get-Item function:K3-ListeSarma) }
-  @{ ad='K4-SIRASIZ';   fn=(Get-Item function:K4-SiralamasizTekSatir) }
-  @{ ad='K5-BOMSUZ';    fn=(Get-Item function:K5-BomsuzTurkce) }
+  @{ ad='K1-CAKISMA';   fn=(Get-Item function:K1-DegiskenCakismasi);  yml=$false }
+  @{ ad='K2-JSONDIZI';  fn=(Get-Item function:K2-JsonDiziSarma);      yml=$false }
+  @{ ad='K3-LISTSARMA'; fn=(Get-Item function:K3-ListeSarma);         yml=$false }
+  @{ ad='K4-SIRASIZ';   fn=(Get-Item function:K4-SiralamasizTekSatir);yml=$false }
+  @{ ad='K5-BOMSUZ';    fn=(Get-Item function:K5-BomsuzTurkce);       yml=$false }
+  @{ ad='K6-STDERR';    fn=(Get-Item function:K6-YerelKomutStderr);   yml=$true  }
 )
 
 # ---------------------------------------------------------------------------
@@ -253,6 +303,16 @@ $d=@($l)' }
     # eq. ile TEKIL alan sorgusu belirlidir - alarm verilmemeli (olculdu 12.09:
     # kaynak_ad 3.000 ornekte tekil; kural 2 yanlis alarm uretmisti).
     @{ kural='K4-SIRASIZ';   kotu='$u="https://x.supabase.co/rest/v1/t?select=a&ad=like.x%25&limit=2"'; iyi='$u="https://x.supabase.co/rest/v1/t?select=metin&kaynak_ad=eq.VUK+m.231&limit=1"' }
+    # K6 IKI ornekle sinanir: (1) 2>&1 kaldirilinca alarm susuyor mu?
+    @{ kural='K6-STDERR';    kotu='$ErrorActionPreference=''Stop''
+git push origin HEAD:main 2>&1 | Out-Null'; iyi='$ErrorActionPreference=''Stop''
+git push origin HEAD:main | Out-Null
+if($LASTEXITCODE -ne 0){ throw ''push dustu'' }' }
+    # (2) EAP=Continue TEHLIKELI DEGIL - alarm verilmemeli. Olculdu 12.09:
+    #     motor/bulten-gunluk.ps1 tam boyle ve hic dusmedi.
+    @{ kural='K6-STDERR';    kotu='$ErrorActionPreference=''Stop''
+git fetch origin main 2>&1 | Out-Null'; iyi='$ErrorActionPreference="Continue"
+git push -q 2>&1 | Out-Null' }
   )
   # nobetci:bolge-bitir
   $gec=Join-Path $env:TEMP ('tuzak-sinav-'+[guid]::NewGuid().ToString('N')+'.ps1')
@@ -290,6 +350,27 @@ $d=@($l)' }
     if($var -ne [bool]$v.bekle){ $hata.Add("K5-BOMSUZ: $($v.ad) vakasi YANLIS - beklenen bulgu=$($v.bekle), cikan=$var") }
   }
 
+  # --- K6 AKIS DOSYASI AYRI SINANIR: olcut `shell:` bildirimi ----------------
+  #     Gercek yara .ps1'de degil AKIS dosyasindaydi; yalniz .ps1 sinayan bir
+  #     oz-sinav, kuralin ise yarayan yarisini hic olcmemis olurdu.
+  # nobetci:bolge-basla — asagisi BILEREK BOZUK akis ornegidir (test verisi).
+  $k6=($KURALLAR|Where-Object{ $_.ad -eq 'K6-STDERR' }|Select-Object -First 1)
+  $k6Vaka=@(
+    @{ ad='shell-powershell'; kod="      - name: ite`n        shell: powershell`n        run: |`n          git push origin HEAD:main 2>&1 | Out-Null"; bekle=$true }
+    @{ ad='shell-bash';       kod="      - name: ite`n        shell: bash`n        run: |`n          if git push origin HEAD:main 2>&1; then echo ok; fi"; bekle=$false }
+    @{ ad='shell-pwsh';       kod="      - name: ite`n        shell: pwsh`n        run: |`n          git push 2>&1 | Out-Null"; bekle=$false }
+    @{ ad='shell-bildirimsiz';kod="      - name: ite`n        run: |`n          git push 2>&1 | Out-Null"; bekle=$false }
+  )
+  # nobetci:bolge-bitir
+  $gecY=Join-Path $env:TEMP ('tuzak-sinav-'+[guid]::NewGuid().ToString('N')+'.yml')
+  foreach($v in $k6Vaka){
+    [IO.File]::WriteAllText($gecY,$v.kod,(New-Object Text.UTF8Encoding $true))
+    $b=@(& $k6.fn $v.kod $null $gecY)
+    $var=($b.Count -gt 0)
+    if($var -ne [bool]$v.bekle){ $hata.Add("K6-STDERR: $($v.ad) vakasi YANLIS - beklenen bulgu=$($v.bekle), cikan=$var") }
+  }
+  Remove-Item $gecY -Force -ErrorAction SilentlyContinue
+
   Remove-Item $gec -Force -ErrorAction SilentlyContinue
   if(-not $Sessiz2){
     if($hata.Count){ Write-Host "⛔ TUZAK NOBETCISI OZ-SINAVI KIRMIZI:" -ForegroundColor Red; foreach($h in $hata.ToArray()){ Write-Host "   - $h" -ForegroundColor Red } }
@@ -314,20 +395,21 @@ elseif($Degisen){
     $eskiEAP=$ErrorActionPreference; $ErrorActionPreference='SilentlyContinue'
     try{ return @(& git -C $depoKok @arg 2>$null) } finally{ $ErrorActionPreference=$eskiEAP }
   }
-  foreach($s in (GitDosya @('diff','--name-only','HEAD'))){
-    if("$s" -match '\.ps1$'){ $t=Join-Path $depoKok "$s"; if(Test-Path $t){ $dosyalar.Add($t) } }
-  }
-  foreach($s in (GitDosya @('diff','--cached','--name-only'))){
-    if("$s" -match '\.ps1$'){ $t=Join-Path $depoKok "$s"; if(Test-Path $t){ $dosyalar.Add($t) } }
-  }
-  foreach($s in (GitDosya @('ls-files','--others','--exclude-standard'))){
-    if("$s" -match '\.ps1$'){ $t=Join-Path $depoKok "$s"; if(Test-Path $t){ $dosyalar.Add($t) } }
+  # ⛔ 12.09: .yml DE ALINIR. K6'nin bedelini odeyen yara .ps1'de degil
+  #    .github/workflows/yayin-bas.yml'deydi; yalniz .ps1 toplayan bir nobetci
+  #    o yarayi hic gormezdi.
+  $ilgi='(\.ps1$)|(^\.github/workflows/.+\.ya?ml$)'
+  foreach($komut in @(@('diff','--name-only','HEAD'), @('diff','--cached','--name-only'), @('ls-files','--others','--exclude-standard'))){
+    foreach($s in (GitDosya $komut)){
+      if("$s" -match $ilgi){ $t=Join-Path $depoKok "$s"; if(Test-Path $t){ $dosyalar.Add($t) } }
+    }
   }
 }
 else{
   foreach($d in @('motor','arac')){
     foreach($x in @(Get-ChildItem (Join-Path $depoKok $d) -Filter '*.ps1' -ErrorAction SilentlyContinue)){ $dosyalar.Add($x.FullName) }
   }
+  foreach($x in @(Get-ChildItem (Join-Path $depoKok '.github\workflows') -Filter '*.yml' -ErrorAction SilentlyContinue)){ $dosyalar.Add($x.FullName) }
 }
 $liste=@($dosyalar.ToArray()|Select-Object -Unique)
 Write-Host ("taranan dosya: {0}" -f $liste.Count) -ForegroundColor Cyan
@@ -336,8 +418,11 @@ $tumBulgu=New-Object System.Collections.Generic.List[object]
 foreach($f in $liste){
   $metin=$null
   try{ $metin=[IO.File]::ReadAllText($f,[Text.UTF8Encoding]::new($true)) }catch{ continue }
+  $ymlMi=("$f" -match '\.ya?ml$')
   $ast=$null
-  try{ $ast=[System.Management.Automation.Language.Parser]::ParseInput($metin,[ref]$null,[ref]$null) }catch{ continue }
+  if(-not $ymlMi){
+    try{ $ast=[System.Management.Automation.Language.Parser]::ParseInput($metin,[ref]$null,[ref]$null) }catch{ continue }
+  }
   # --- SUSTURMA ISARETLERI --------------------------------------------------
   # Nobetcinin KENDI oz-sinav ornekleri bilerek BOZUK koddur; kendi test
   # verisini kusur diye bildiren kapi, ilk gun kapatilan kapidir.
@@ -353,6 +438,7 @@ foreach($f in $liste){
     if($s -match 'nobetci:bolge-bitir'){ $bolge=$false }
   }
   foreach($k in $KURALLAR){
+    if($ymlMi -and -not $k.yml){ continue }   # AST/bayt kurallari yml'de anlamsiz
     $b=@()
     try{ $b=@(& $k.fn $metin $ast $f) }catch{}
     foreach($x in $b){ if($sus.ContainsKey([int]$x.satir)){ continue }

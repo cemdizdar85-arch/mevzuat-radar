@@ -136,7 +136,7 @@ foreach ($f in $denetlenecek) {
     [void]$red.Add([ordered]@{ dosya=$f; sebepler=@($sebepler) })
     if (-not $Deneme) {
       # SON SAGLAM SURUMU GERI KOY - yayin korunur
-      git checkout HEAD -- $f 2>&1 | Out-Null
+      git checkout HEAD -- $f 2>$null | Out-Null
       Write-Host ("        -> son saglam surum geri konuldu (HEAD)")
     }
   } else {

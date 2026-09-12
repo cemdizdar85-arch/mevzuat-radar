@@ -236,12 +236,12 @@ $cikti = [ordered]@{
 if($yayinla){
   try {
     Push-Location $kok
-    & git add -- 'veri/gorev-nabzi.json' 2>&1 | Out-Null
+    & git add -- 'veri/gorev-nabzi.json' 2>$null | Out-Null
     $fark = & git diff --cached --name-only -- 'veri/gorev-nabzi.json'
     if($fark){
-      & git commit -q -m ("gorev nabzi: {0} ({1})" -f $hukum, $simdi.ToString('dd.MM.yyyy HH:mm')) -- 'veri/gorev-nabzi.json' 2>&1 | Out-Null
-      & git fetch -q origin 2>&1 | Out-Null
-      & git push -q origin HEAD:main 2>&1 | Out-Null
+      & git commit -q -m ("gorev nabzi: {0} ({1})" -f $hukum, $simdi.ToString('dd.MM.yyyy HH:mm')) -- 'veri/gorev-nabzi.json' 2>$null | Out-Null
+      & git fetch -q origin 2>$null | Out-Null
+      & git push -q origin HEAD:main 2>$null | Out-Null
       if(-not $sessiz){ Write-Host 'NABIZ YAYINLANDI (yalniz veri/gorev-nabzi.json).' }
     } elseif(-not $sessiz){ Write-Host 'NABIZ: degisiklik yok, commit yok.' }
   } catch {

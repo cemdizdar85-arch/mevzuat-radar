@@ -53,7 +53,8 @@ foreach($g in ($konular | Group-Object ders | Sort-Object { -$SIN[$_.Name].s }))
   }
   foreach($sv in 'kolay','zor','cokzor'){ $liste=@($sev[$sv] | Select-Object -Unique); if(-not $liste.Count){ continue }
     $kd=Join-Path $konuDir "$Ad-$($bilgi.k)-$sv.json"; [IO.File]::WriteAllText($kd,(ConvertTo-Json -InputObject @($liste) -Depth 2),[Text.UTF8Encoding]::new($false))
-    $plan+=[pscustomobject]@{ ders=$bilgi.r; dersAd=$ders; etiket="$Ad-$($bilgi.k)-$sv"; adet=$liste.Count; tavan=$tavan; zorluk=$sv; sinav='SGS'; konuDosya=$kd; toplu=[bool]$Toplu; disla=''; tur=$Tur }
+    # ⛔ 12.09: konuDosya DEPOYA GORECE (bulutta mutlak yerel yol cozulmez)
+    $plan+=[pscustomobject]@{ ders=$bilgi.r; dersAd=$ders; etiket="$Ad-$($bilgi.k)-$sv"; adet=$liste.Count; tavan=$tavan; zorluk=$sv; sinav='SGS'; konuDosya=("veri/sinav/konu/$Ad-$($bilgi.k)-$sv.json"); toplu=[bool]$Toplu; disla=''; tur=$Tur }
     $toplam+=$liste.Count }
 }
 $planYol=Join-Path $kok "veri\sinav\plan-$Ad.json"; [IO.File]::WriteAllText($planYol,(ConvertTo-Json -InputObject @($plan) -Depth 3),[Text.UTF8Encoding]::new($false))

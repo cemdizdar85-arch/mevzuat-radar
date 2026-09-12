@@ -1006,7 +1006,17 @@ $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ("$($_.bizim_ders)$($_
 # (json dizi: konu adlari); ders suzgeci yalniz PROFIL secimi icin kalir, konu secimi listeden.
 # Neden: bosluk konularinin bizim_ders'i bos (bizde yok), arsiv etiketi 'Hukuk' gibi genis;
 # ders ancak dayanagin kanunundan bilinir - o esleme disarida yapilip listeye yazilir.
-if($KonuDosya -and (Test-Path $KonuDosya)){
+# ⛔⭐ 12.09.2026 — SESSIZ DUSUS KAPATILDI. Onceki kosul `if($KonuDosya -and
+#    (Test-Path $KonuDosya))` idi: yol VERILMIS ama YOKSA blok sessizce atlanir,
+#    parti konu listesini hic gormeden BASKA bir secimle uretirdi. Yesil kosu,
+#    yanlis sorular, odenmis para. Bulutta bu kesin olurdu: planlar konuDosya'yi
+#    "C:\Users\cemdi\..." diye mutlak yaziyor, runner'da o yol yok (688 soruluk
+#    plan-siklik-tum.json'un 126 partisinin TAMAMI boyleydi).
+#    Kural: yol istendiyse ya CALISIR ya DURUR. Esi motor/kalip-kosucu.ps1'de.
+if($KonuDosya -and -not (Test-Path $KonuDosya)){
+  throw "KONU DOSYASI YOK: '$KonuDosya' - konu listesi istendi ama dosya bulunamadi. Sessizce baska konularla uretmektense DURULUYOR. (Plan gorece yol kullanmali: veri/sinav/konu/<etiket>.json)"
+}
+if($KonuDosya){
   # PS 5.1: ConvertFrom-Json JSON dizisini TEK nesne olarak verir; boru ile "$_" yapinca
   # butun liste tek metin olur ("istenen 1" - 03.09 ilk kosu boyle 0 aday secti). foreach ile acilir.
   $istenenListe=New-Object System.Collections.Generic.List[string]

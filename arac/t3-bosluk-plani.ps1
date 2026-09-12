@@ -72,7 +72,8 @@ foreach($g in ($secilen | Group-Object ders | Sort-Object { -($_.Group | Measure
     [IO.File]::WriteAllText($kd,(ConvertTo-Json -InputObject @($liste) -Depth 2),[Text.UTF8Encoding]::new($false))
     $plan += [pscustomobject]@{
       ders=$bilgi.r; dersAd=$g.Name; etiket="$Ad-$($bilgi.k)-$sv"; adet=$liste.Count
-      tavan=$bilgi.t; zorluk=$sv; sinav='SGS'; konuDosya=$kd; toplu=$true; disla=''; tur=3
+      # ⛔ 12.09: GORECE yol (mutlak yerel yol bulutta cozulmez)
+      tavan=$bilgi.t; zorluk=$sv; sinav='SGS'; konuDosya=("veri/sinav/konu/$Ad-$($bilgi.k)-$sv.json"); toplu=$true; disla=''; tur=3
       eksikToplam=($g.Group | Measure-Object -Property eksik -Sum).Sum
     }
   }

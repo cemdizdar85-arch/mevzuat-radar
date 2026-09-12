@@ -84,10 +84,19 @@ jobs:
           "degisen dosya: $($degisen.Count)"
           git commit -m "Yayin: havuz tazelendi (bulut kosusu ${{ github.run_number }})"
           for($i=1; $i -le 5; $i++){
-            git push origin HEAD:main 2>&1 | Out-Null
+            # ⛔ `2>&1` YAZMA. PS 5.1 yerel komutun stderr'ini NativeCommandError
+            #    kaydina cevirir; GitHub'in `shell: powershell` sarmalayicisi
+            #    $ErrorActionPreference='stop' koydugu icin bu SONLANDIRICI olur.
+            #    git ilerlemesini ("To https://github.com/...") stderr'e yazar ->
+            #    BASARILI push bile adimi oldurur.
+            #    12.09 kosu #1 tam boyle dustu: commit 96620788 ATILDI, push
+            #    GECTI (merge-base ile olculdu), akis yine de kirmizi oldu ve
+            #    16 dakikalik odenmis is "basarisiz" gorundu.
+            #    Kural artik mekanik: arac/tuzak-nobetcisi.ps1 > K6-STDERR.
+            git push origin HEAD:main 2>$null | Out-Null
             if($LASTEXITCODE -eq 0){ "itildi (deneme $i)"; exit 0 }
-            git fetch origin main -q
-            git merge origin/main --no-edit -q
+            git fetch origin main -q 2>$null
+            git merge origin/main --no-edit -q 2>$null
             $cakisma = @(git diff --name-only --diff-filter=U)
             if($cakisma.Count){ throw "itmede cakisma - elle coz: $($cakisma -join ', ')" }
             Start-Sleep -Seconds 4

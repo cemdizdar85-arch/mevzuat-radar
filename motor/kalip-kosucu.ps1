@@ -21,6 +21,22 @@ $ErrorActionPreference='Continue'
 # 08.09: Start-Process ile -File çağrısında param varsayılanındaki $PSScriptRoot BOŞ geldi (Split-Path hatası) → kök gövdede hesaplanır
 $buDizin=$(if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 if(-not $Kok){ $Kok=Split-Path $buDizin -Parent }
+
+# Plan satirindaki konuDosya'yi CALISILABILIR yola cevirir. Gerekcesi kuyruk
+# dongusundeki KONU DOSYASI KAPISI yorumunda. Uzun degisken adlari bilerek:
+# PS harf ayirmaz, $Kok ile $kok ayni degiskendir (K1 tuzagi).
+function KonuYoluCoz($PLAN_SATIRI){
+  $KONU_YOLU="$($PLAN_SATIRI.konuDosya)"
+  if($KONU_YOLU -notmatch '^[A-Za-z]:\\' -and $KONU_YOLU -notmatch '^\\\\'){
+    $KONU_YOLU=Join-Path $Kok ($KONU_YOLU -replace '/','\')
+  }
+  if(-not (Test-Path $KONU_YOLU)){
+    throw ("KONU DOSYASI YOK: parti '$($PLAN_SATIRI.etiket)' -> $KONU_YOLU`n" +
+           "  Plan satirindaki konuDosya mutlak yerel yol olabilir (C:\Users\...); bulutta cozulmez.`n" +
+           "  Cozum: plani depoya GORECE yolla yaz -> veri/sinav/konu/<etiket>.json")
+  }
+  return $KONU_YOLU
+}
 $uret=Join-Path $buDizin 'kalip-parti-uret.ps1'
 # --- BEDEL EMNİYETİ: bu ayın harcaması bedel defterinden (veri/fabrika/bedel-kayit.jsonl, 08.09'dan itibaren tam; öncesi eksik → tutucu) ---
 function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; $ay=(Get-Date -Format 'yyyy-MM')
@@ -131,6 +147,16 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
  while($ucan.Count -lt $Paralel -and $kuyruk.Count -gt 0 -and -not $durduruldu){
   $s=$kuyruk.Dequeue()
   $sinav=$(if($s.PSObject.Properties['sinav'] -and $s.sinav){ "$($s.sinav)" } else { 'SGS' })
+  # ⛔⭐ 12.09.2026 — KONU DOSYASI KAPISI. Plan satirindaki `konuDosya` MUTLAK
+  #    YEREL YOL olabiliyor (arac/plan-uret.ps1 ve motor/plandan-parti-kur.ps1
+  #    boyle yaziyor: "C:\Users\cemdi\...\veri\sinav\konu\x.json"). Bulut
+  #    runner'inda o yol YOKTUR - ve kalip-parti-uret.ps1:1009
+  #    `if($KonuDosya -and (Test-Path $KonuDosya))` diyerek SESSIZCE atliyordu.
+  #    Sonuc: parti konu listesini hic gormeden, baska bir secimle uretirdi;
+  #    yesil kosu + yanlis sorular + odenmis para. Kapi iki is yapar:
+  #      1) gorece yolu depo kokune gore cozer (runner CWD'sine guvenmez)
+  #      2) yol yoksa DURUR - sessiz dusus yok.
+  #    Ayni kapinin ureticideki esi: kalip-parti-uret.ps1 FAZ K.
   $log=Join-Path $logDir ("$($s.etiket).log")
   # 🔴 10.09.2026 — FAZ S (-Sade) BU LİSTEDE YOKTU. Ölçüldü: 213 partinin
   # yalnız 15'inde `sade` alanı var, hepsi 04-06.09 arası ELLE koşulan küçük
@@ -142,7 +168,7 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   # cevap kalıbı 05.09'da KİLİTLENDİ, üretim 07.09'da o kilidi takip etmeyi bıraktı.)
   $arg=@('-Sinav',$sinav,'-DersRegex',"$($s.ders)",'-Adet',"$([int]$s.adet)",'-Etiket',"$($s.etiket)",'-UzunlukTavan',"$(DersTavani $s)",'-Verilenler','-KonuGiris','-Simulasyon','-SimModel','claude-sonnet-5','-Sade')
   if($s.PSObject.Properties['eskiKaynak'] -and "$($s.eskiKaynak)"){ $arg+=@('-EskiKaynak',"$($s.eskiKaynak)",'-DonemPencere','0') }
-  else { $arg+=@('-DonemPencere','7'); if($s.PSObject.Properties['zorluk'] -and (@('zor','kolay','cokzor') -contains "$($s.zorluk)")){ $arg+=@('-Zorluk',"$($s.zorluk)") }; if($s.PSObject.Properties['disla'] -and "$($s.disla)"){ $arg+=@('-KonuDisla',"$($s.disla)") }; if($s.PSObject.Properties['konuDosya'] -and "$($s.konuDosya)"){ $arg+=@('-KonuDosya',"$($s.konuDosya)") } }
+  else { $arg+=@('-DonemPencere','7'); if($s.PSObject.Properties['zorluk'] -and (@('zor','kolay','cokzor') -contains "$($s.zorluk)")){ $arg+=@('-Zorluk',"$($s.zorluk)") }; if($s.PSObject.Properties['disla'] -and "$($s.disla)"){ $arg+=@('-KonuDisla',"$($s.disla)") }; if($s.PSObject.Properties['konuDosya'] -and "$($s.konuDosya)"){ $arg+=@('-KonuDosya',(KonuYoluCoz $s)) } }
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
   # 09.09 Cem "ara ara deneyelim orayı, rakamı düşürmemiz lazım": MEVZUAT_TOPLU='auto' → motor/toplu-sonda.ps1'in yazdığı sağlık dosyasına bakılır;
   # son 40 dk içinde "acik" ölçülmüşse bu etiket TOPLU (yarı fiyat), değilse anlık. Üretici ayrıca faz bazında MEVZUAT_TOPLU_BEKLE_DK sonra anlığa düşer.

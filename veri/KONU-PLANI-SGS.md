@@ -1,12 +1,12 @@
 ﻿# KONU PLANI — STAJA BAŞLAMA (SGS)
 
-> Uretim: **11.09.2026 17:14** (makine; elle duzenlenmez — motor/konu-plani.ps1). Bedel 0.
+> Uretim: **11.09.2026 18:37** (makine; elle duzenlenmez — motor/konu-plani.ps1). Bedel 0.
 > Kaynak: cikmis siklik = veri/fabrika/konu-koprusu.json · bizim soru = veri/fabrika/kalip-parti-*.json · ders agirligi = veri/ders-profili.json
 > Hedef kurali: konu cikmis arsivde N kez gorulduyse hedef = max(2, N x 1,5), tavan 12. Cikmis arsivde HIC gorulmemis konu plana GIRMEZ.
 
 ## 0 · TEK CUMLE
 
-Cikmis SGS arsivinde gorulen **3.238 konu** var. Bunlarin **2.818**'inde elimizde soru YETERSIZ; toplam **6.597 soru** basilacak. Su an bu konularda **1.746** saglam sorumuz var.
+Cikmis SGS arsivinde gorulen **3.238 konu** var. Bunlarin **2.833**'inde elimizde soru YETERSIZ; toplam **6.636 soru** basilacak. Su an bu konularda **1.687** saglam sorumuz var.
 
 ## 0a · IKI HAT — Cem karari (11.09)
 
@@ -14,8 +14,8 @@ Cikmis SGS arsivinde gorulen **3.238 konu** var. Bunlarin **2.818**'inde elimizd
 
 | Hat | Ders | Konu | Soru | Bedel (toplu) |
 |---|---|---:|---:|---:|
-| **SIMDI** | Alan Bilgisi (muhasebe · denetim · hukuk · ekonomi · maliye) | **2.252** | **5.164** | **33.876 TL** |
-| BEKLESIN | Matematik · Yabanci Dil · Turkce · Inkilap · Genel Kultur | 566 | 1.433 | 9.400 TL |
+| **SIMDI** | Alan Bilgisi (muhasebe · denetim · hukuk · ekonomi · maliye) | **2.265** | **5.197** | **34.092 TL** |
+| BEKLESIN | Matematik · Yabanci Dil · Turkce · Inkilap · Genel Kultur | 568 | 1.439 | 9.440 TL |
 
 Bekleyen hat mevzuata dayanmaz; kaynak paketi mantigi (ambardan madde cekme)
 orada islemez, ayri bir hat gerektirir. 08.09'da da ayni sebeple Tur 1 disinda kalmislardi.
@@ -28,11 +28,11 @@ Toplu istekle (Message Batches) bunun **yarisi** hedeflenir.
 
 | Oncelik | Kural | Konu | Soru | Bedel (sirali) | Bedel (toplu) |
 |---|---|---:|---:|---:|---:|
-| 1 · cok kritik | cikmis >= 10 | 5 | 45 | 590 TL | 295 TL |
-| 2 · kritik | cikmis >= 5 | 47 | 365 | 4.789 TL | 2.394 TL |
-| 3 · onemli | cikmis >= 3 | 184 | 954 | 12.516 TL | 6.258 TL |
-| 4 · orta | cikmis >= 2 | 404 | 1.540 | 20.205 TL | 10.102 TL |
-| 5 · tamami | cikmis >= 1 | 2.252 | 5.164 | 67.752 TL | 33.876 TL |
+| 1 · cok kritik | cikmis >= 10 | 5 | 46 | 604 TL | 302 TL |
+| 2 · kritik | cikmis >= 5 | 47 | 367 | 4.815 TL | 2.408 TL |
+| 3 · onemli | cikmis >= 3 | 184 | 962 | 12.621 TL | 6.311 TL |
+| 4 · orta | cikmis >= 2 | 408 | 1.557 | 20.428 TL | 10.214 TL |
+| 5 · tamami | cikmis >= 1 | 2.265 | 5.197 | 68.185 TL | 34.092 TL |
 
 **Oneri:** once **cikmis >= 3** kusagini bas. O kusak sinavda tekrar eden konulardir; geri kalan uzun kuyruk tek donemlik konulardan olusur (cikmis arsivinde 3.246 konunun 2.668'i TEK donemlik — sinav anatomisi olcumu).
 
@@ -40,29 +40,29 @@ Toplu istekle (Message Batches) bunun **yarisi** hedeflenir.
 
 | Ders | Sinavda | Cikmis konu | Bizde soru | Hedef | ACIK soru | Acik konu |
 |---|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 26 | 598 | 340 | 1.526 | **1.227** | 522 |
-| Denetim | 16 | 337 | 287 | 822 | **629** | 265 |
-| Mali Tablolar Analizi | 8 | 107 | 65 | 295 | **242** | 90 |
-| Maliyet Muhasebesi | 8 | 209 | 140 | 521 | **410** | 170 |
-| Maliye | 6 | 103 | 71 | 236 | **188** | 88 |
-| Ekonomi | 6 | 79 | 41 | 178 | **143** | 67 |
-| Borclar Hukuku | 6 | 98 | 92 | 260 | **187** | 72 |
-| Ticaret Hukuku | 6 | 133 | 113 | 331 | **247** | 109 |
+| Finansal Muhasebe | 26 | 598 | 332 | 1.526 | **1.232** | 524 |
+| Denetim | 16 | 337 | 281 | 822 | **630** | 265 |
+| Mali Tablolar Analizi | 8 | 107 | 64 | 295 | **243** | 91 |
+| Maliyet Muhasebesi | 8 | 209 | 133 | 521 | **413** | 173 |
+| Maliye | 6 | 103 | 70 | 236 | **188** | 88 |
+| Ekonomi | 6 | 79 | 39 | 178 | **145** | 68 |
+| Borclar Hukuku | 6 | 98 | 89 | 260 | **189** | 72 |
+| Ticaret Hukuku | 6 | 133 | 111 | 331 | **248** | 109 |
 | Meslek Hukuku | 6 | 73 | 23 | 204 | **182** | 71 |
-| Vergi Hukuku | 6 | 153 | 85 | 349 | **294** | 131 |
-| Is ve Sosyal Guvenlik Hukuku | 6 | 92 | 50 | 245 | **196** | 81 |
-| Ekonomi (ayristirilamadi) | — | 93 | 29 | 199 | **175** | 85 |
-| Hukuk (ayristirilamadi) | — | 221 | 58 | 491 | **448** | 206 |
-| Muhasebe (ayristirilamadi) | — | 269 | 68 | 566 | **506** | 250 |
-| Maliye (ayristirilamadi) | — | 47 | 7 | 96 | **90** | 45 |
-| **TOPLAM** | **130** | **3.238** | **1.746** | | **6.597** | **2.818** |
+| Vergi Hukuku | 6 | 153 | 81 | 349 | **297** | 131 |
+| Is ve Sosyal Guvenlik Hukuku | 6 | 92 | 44 | 245 | **202** | 83 |
+| Ekonomi (ayristirilamadi) | — | 93 | 25 | 199 | **178** | 86 |
+| Hukuk (ayristirilamadi) | — | 221 | 55 | 491 | **451** | 207 |
+| Muhasebe (ayristirilamadi) | — | 269 | 66 | 566 | **508** | 251 |
+| Maliye (ayristirilamadi) | — | 47 | 6 | 96 | **91** | 46 |
+| **TOPLAM** | **130** | **3.238** | **1.687** | | **6.636** | **2.833** |
 
 ## 2 · DERS DERS, KONU KONU — ne basacagiz
 
 Her ders icin konular **cikmis sikliga gore** siralidir: ustteki konu sinavda daha cok cikiyor.
 ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listelenmez.
 
-### Finansal Muhasebe — 522 konu, 1227 soru basilacak
+### Finansal Muhasebe — 524 konu, 1232 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -72,8 +72,8 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | hisse senedi satisi | 7 | 7 | 0 | 0 | 11 | **11** |
 | sermaye artirimi | 7 | 7 | 0 | 1 | 11 | **10** |
 | gider tahakkuku | 7 | 7 | 2 | 0 | 11 | **9** |
-| tms 36 deger dusuklugu | 7 | 7 | 2 | 1 | 11 | **8** |
 | tms 37 karsiliklar | 7 | 7 | 3 | 0 | 11 | **8** |
+| tms 36 deger dusuklugu | 7 | 7 | 2 | 1 | 11 | **8** |
 | tms 18 hasilat | 6 | 6 | 0 | 0 | 9 | **9** |
 | tms 38 maddi olmayan duran varlik | 6 | 6 | 1 | 0 | 9 | **8** |
 | gelir tahakkuku | 5 | 5 | 1 | 0 | 8 | **7** |
@@ -82,10 +82,10 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | ozkaynak hesaplama | 5 | 5 | 1 | 2 | 8 | **5** |
 | kar dagitimi kaydi | 5 | 5 | 2 | 2 | 8 | **4** |
 | tms 12 ertelenmis vergi | 5 | 5 | 0 | 4 | 8 | **4** |
-| kasa sayim farki | 4 | 4 | 0 | 0 | 6 | **6** |
-| depozito iadesi kaydi | 4 | 4 | 0 | 0 | 6 | **6** |
 | gelecek aylara ait giderler | 4 | 4 | 0 | 0 | 6 | **6** |
 | yasal yedek akce | 4 | 4 | 0 | 0 | 6 | **6** |
+| kasa sayim farki | 4 | 4 | 0 | 0 | 6 | **6** |
+| depozito iadesi kaydi | 4 | 4 | 0 | 0 | 6 | **6** |
 | stok deger dusuklugu | 4 | 4 | 0 | 1 | 6 | **5** |
 | tutarlilik kavrami | 4 | 4 | 0 | 2 | 6 | **4** |
 | supheli alacak karsiligi | 4 | 4 | 2 | 0 | 6 | **4** |
@@ -94,25 +94,25 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | tms 7 nakit akis tablosu | 4 | 4 | 1 | 2 | 6 | **3** |
 | tms 28 istirakler | 4 | 4 | 4 | 0 | 6 | **2** |
 | duran varlik satisi | 4 | 4 | 4 | 0 | 6 | **2** |
-| kesin mizan | 3 | 3 | 0 | 0 | 5 | **5** |
 | fifo yontemi | 3 | 3 | 0 | 0 | 5 | **5** |
-| tahvil ihraci | 3 | 3 | 0 | 0 | 5 | **5** |
-| tms 21 kur cevrimi | 3 | 3 | 0 | 0 | 5 | **5** |
-| maddi duran varlik denetimi | 3 | 3 | 0 | 0 | 5 | **5** |
-| donem kari zarari hesabi | 3 | 3 | 0 | 0 | 5 | **5** |
-| nazim hesaplar | 3 | 3 | 0 | 0 | 5 | **5** |
-| kidem tazminati | 3 | 3 | 0 | 0 | 5 | **5** |
+| donem kari hesaplama | 3 | 3 | 0 | 0 | 5 | **5** |
+| depozitolu kap kirilmasi kaydi | 3 | 3 | 0 | 0 | 5 | **5** |
 | isletmenin surekliligi | 3 | 3 | 0 | 0 | 5 | **5** |
-| sermaye taahhudu iptali | 3 | 3 | 0 | 0 | 5 | **5** |
+| tahvil ihraci | 3 | 3 | 0 | 0 | 5 | **5** |
 | onemlilik kavrami | 3 | 3 | 0 | 0 | 5 | **5** |
-| tms-38 maddi olmayan duran varliklar | 3 | 3 | 0 | 0 | 5 | **5** |
-| _… 482 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| kidem tazminati | 3 | 3 | 0 | 0 | 5 | **5** |
+| maddi duran varlik denetimi | 3 | 3 | 0 | 0 | 5 | **5** |
+| azalan bakiyeler amortisman | 3 | 3 | 0 | 0 | 5 | **5** |
+| nazim hesaplar | 3 | 3 | 0 | 0 | 5 | **5** |
+| gelecek yillara ait giderler | 3 | 3 | 0 | 0 | 5 | **5** |
+| donem kari zarari hesabi | 3 | 3 | 0 | 0 | 5 | **5** |
+| _… 484 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Denetim — 265 konu, 629 soru basilacak
+### Denetim — 265 konu, 630 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
-| denetim kaniti yeterliligi | 11 | 9 | 2 | 3 | 12 | **7** |
+| denetim kaniti yeterliligi | 11 | 9 | 2 | 2 | 12 | **8** |
 | denetim kaniti guvenilirligi | 8 | 7 | 0 | 0 | 12 | **12** |
 | denetim riski | 6 | 5 | 0 | 0 | 9 | **9** |
 | kasa denetimi | 5 | 5 | 0 | 0 | 8 | **8** |
@@ -154,7 +154,7 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | denetim kalite kontrolu | 2 | 2 | 0 | 0 | 3 | **3** |
 | _… 225 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Mali Tablolar Analizi — 90 konu, 242 soru basilacak
+### Mali Tablolar Analizi — 91 konu, 243 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -198,9 +198,9 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | kaldirac siniriyla kredi kapasitesi | 1 | 1 | 0 | 0 | 2 | **2** |
 | dikey yuzde faaliyet kari | 1 | 1 | 0 | 0 | 2 | **2** |
 | cari oran-asit test hesabi | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 50 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| _… 51 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Maliyet Muhasebesi — 170 konu, 410 soru basilacak
+### Maliyet Muhasebesi — 173 konu, 413 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -211,40 +211,40 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | evre maliyet sistemi | 5 | 5 | 0 | 0 | 8 | **8** |
 | satilan mamul maliyeti | 5 | 5 | 1 | 2 | 8 | **5** |
 | kademeli dagitim yontemi | 4 | 4 | 0 | 0 | 6 | **6** |
-| standart maliyet sapmasi | 3 | 3 | 0 | 0 | 5 | **5** |
 | birlesik maliyet dagitimi | 3 | 3 | 0 | 0 | 5 | **5** |
-| ekonomik siparis miktari | 3 | 3 | 0 | 0 | 5 | **5** |
-| uretim maliyeti hesaplama | 3 | 3 | 0 | 0 | 5 | **5** |
 | standart maliyet farklari | 3 | 3 | 0 | 0 | 5 | **5** |
+| ekonomik siparis miktari | 3 | 3 | 0 | 0 | 5 | **5** |
+| standart maliyet sapmasi | 3 | 3 | 0 | 0 | 5 | **5** |
+| uretim maliyeti hesaplama | 3 | 3 | 0 | 0 | 5 | **5** |
 | yari mamul maliyeti | 3 | 3 | 0 | 0 | 5 | **5** |
 | ortak urun maliyet dagitimi | 3 | 3 | 1 | 2 | 5 | **2** |
 | genel uretim gideri yukleme | 3 | 3 | 2 | 1 | 5 | **2** |
+| safha maliyetleme | 2 | 2 | 0 | 0 | 3 | **3** |
+| direkt ilk madde geriye dogru hesap | 2 | 2 | 0 | 0 | 3 | **3** |
 | ardisik donem satilan mamul maliyeti | 2 | 2 | 0 | 0 | 3 | **3** |
-| maliyet fonksiyonu | 2 | 2 | 0 | 0 | 3 | **3** |
 | esdeger birim hesabi | 2 | 2 | 0 | 0 | 3 | **3** |
 | birlesik maliyet uretim miktari yontemi | 2 | 2 | 0 | 0 | 3 | **3** |
-| direkt ilk madde geriye dogru hesap | 2 | 2 | 0 | 0 | 3 | **3** |
 | ozel maliyet amortismani | 2 | 2 | 0 | 0 | 3 | **3** |
 | ozel maliyet tahliye kaydi | 2 | 2 | 0 | 0 | 3 | **3** |
-| birlesik maliyet satis degeri yontemi | 2 | 2 | 0 | 0 | 3 | **3** |
 | degisken-normal maliyet birim farki | 2 | 2 | 0 | 0 | 3 | **3** |
-| safha maliyetleme | 2 | 2 | 0 | 0 | 3 | **3** |
-| maliyet yontemleri karsilastirma | 2 | 2 | 0 | 0 | 3 | **3** |
-| gug birim pay hesabi | 2 | 2 | 0 | 0 | 3 | **3** |
-| birim uretim maliyeti | 2 | 2 | 0 | 0 | 3 | **3** |
 | fifo esdeger birim (dimm) | 2 | 2 | 0 | 0 | 3 | **3** |
+| birlesik maliyet satis degeri yontemi | 2 | 2 | 0 | 0 | 3 | **3** |
+| maliyet fonksiyonu | 2 | 2 | 0 | 0 | 3 | **3** |
 | standart maliyet sapma analizi | 2 | 2 | 0 | 0 | 3 | **3** |
+| gug birim pay hesabi | 2 | 2 | 0 | 0 | 3 | **3** |
+| maliyet yontemleri karsilastirma | 2 | 2 | 0 | 0 | 3 | **3** |
 | borclanma maliyetleri tms23 | 2 | 1 | 0 | 0 | 3 | **3** |
-| siparis avansi mahsubu | 2 | 2 | 1 | 1 | 3 | **1** |
+| birim uretim maliyeti | 2 | 2 | 0 | 0 | 3 | **3** |
+| siparis maliyet gug yukleme | 2 | 2 | 0 | 2 | 3 | **1** |
 | standart maliyet sistemi | 2 | 2 | 1 | 1 | 3 | **1** |
-| ozel maliyetler kaydi | 1 | 1 | 0 | 0 | 2 | **2** |
-| tam ve degisken maliyet sistemi | 1 | 1 | 0 | 0 | 2 | **2** |
-| ortalama maliyet tamamlanma derecesi | 1 | 1 | 0 | 0 | 2 | **2** |
-| basabas noktasi | 1 | 1 | 0 | 0 | 2 | **2** |
-| ozel maliyet duran varlik | 1 | 1 | 0 | 0 | 2 | **2** |
+| safha maliyet sistemi | 2 | 2 | 1 | 1 | 3 | **1** |
+| siparis avansi mahsubu | 2 | 2 | 1 | 1 | 3 | **1** |
+| direkt ilk madde tuketimi hesabi | 1 | 1 | 0 | 0 | 2 | **2** |
 | aralikli envanter satilan mal maliyeti | 1 | 1 | 0 | 0 | 2 | **2** |
+| tam ve degisken maliyet sistemi | 1 | 1 | 0 | 0 | 2 | **2** |
+| ozel siparis karari | 1 | 1 | 0 | 0 | 2 | **2** |
 | sekillendirme (donusturme) maliyeti birim hesabi | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 130 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| _… 133 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
 ### Maliye — 88 konu, 188 soru basilacak
 
@@ -292,7 +292,7 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | cebre dayanan kamu gelirleri | 1 | 1 | 0 | 0 | 2 | **2** |
 | _… 48 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Ekonomi — 67 konu, 143 soru basilacak
+### Ekonomi — 68 konu, 145 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -300,54 +300,54 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | talep esnekligi | 4 | 4 | 0 | 2 | 6 | **4** |
 | para politikasi araclari | 3 | 3 | 0 | 0 | 5 | **5** |
 | marjinal fayda | 3 | 3 | 0 | 0 | 5 | **5** |
-| mukayeseli ustunluk firsat maliyeti | 2 | 2 | 0 | 0 | 3 | **3** |
 | cari islemler hesabi | 2 | 2 | 0 | 0 | 3 | **3** |
 | stolper-samuelson teoremi | 2 | 2 | 0 | 0 | 3 | **3** |
-| j egrisi | 2 | 2 | 0 | 2 | 3 | **1** |
+| mukayeseli ustunluk firsat maliyeti | 2 | 2 | 0 | 0 | 3 | **3** |
+| talep fiyat esnekligi | 2 | 2 | 0 | 1 | 3 | **2** |
 | genisletici para politikasi araclari | 2 | 2 | 0 | 2 | 3 | **1** |
-| toplam arz egrileri (keynesyen) | 1 | 1 | 0 | 0 | 2 | **2** |
-| doviz kuru sterilizasyon | 1 | 1 | 0 | 0 | 2 | **2** |
-| dogrusal uretim fonksiyonu kose cozumu | 1 | 1 | 0 | 0 | 2 | **2** |
-| leontief uretim fonksiyonu | 1 | 1 | 0 | 0 | 2 | **2** |
-| gsyh harcama yaklasimi | 1 | 1 | 0 | 0 | 2 | **2** |
-| uretim fonksiyonu ikame esnekligi (dogrusal) | 1 | 1 | 0 | 0 | 2 | **2** |
-| talep/fiyat esnekligi kâr analizi | 1 | 1 | 0 | 0 | 2 | **2** |
-| bilanco talep haklari | 1 | 1 | 0 | 0 | 2 | **2** |
+| j egrisi | 2 | 2 | 0 | 2 | 3 | **1** |
 | issizlik istihdam hesaplama | 1 | 1 | 0 | 0 | 2 | **2** |
+| talep/fiyat esnekligi kâr analizi | 1 | 1 | 0 | 0 | 2 | **2** |
+| dogrusal uretim fonksiyonu kose cozumu | 1 | 1 | 0 | 0 | 2 | **2** |
+| doviz kuru sterilizasyon | 1 | 1 | 0 | 0 | 2 | **2** |
+| bilesik faiz cari hesap | 1 | 1 | 0 | 0 | 2 | **2** |
+| j egrisi devaluasyon | 1 | 1 | 0 | 0 | 2 | **2** |
+| bilanco talep haklari | 1 | 1 | 0 | 0 | 2 | **2** |
 | fayda maksimizasyonu | 1 | 1 | 0 | 0 | 2 | **2** |
 | doymazlik varsayimi marjinal fayda | 1 | 1 | 0 | 0 | 2 | **2** |
+| tekelci rekabet dengesi | 1 | 1 | 0 | 0 | 2 | **2** |
 | issizlik turleri hesabi | 1 | 1 | 0 | 0 | 2 | **2** |
-| j egrisi devaluasyon | 1 | 1 | 0 | 0 | 2 | **2** |
-| marjinal fayda hesaplama | 1 | 1 | 0 | 0 | 2 | **2** |
-| manset enflasyon | 1 | 1 | 0 | 0 | 2 | **2** |
-| toplam talep uzun donem denge | 1 | 1 | 0 | 0 | 2 | **2** |
 | talep kanunu | 1 | 1 | 0 | 0 | 2 | **2** |
-| gsyh hesaplama | 1 | 1 | 0 | 0 | 2 | **2** |
-| gsyih kapsami | 1 | 1 | 0 | 0 | 2 | **2** |
-| phillips egrisi | 1 | 1 | 0 | 0 | 2 | **2** |
 | tasarruf paradoksu | 1 | 1 | 0 | 0 | 2 | **2** |
+| esneklik ilkesi | 1 | 1 | 0 | 0 | 2 | **2** |
+| toplam talep uzun donem denge | 1 | 1 | 0 | 0 | 2 | **2** |
+| gsyh hesaplama | 1 | 1 | 0 | 0 | 2 | **2** |
+| phillips egrisi | 1 | 1 | 0 | 0 | 2 | **2** |
+| manset enflasyon | 1 | 1 | 0 | 0 | 2 | **2** |
+| faiz orani ust siniri | 1 | 1 | 0 | 0 | 2 | **2** |
+| marjinal fayda hesaplama | 1 | 1 | 0 | 0 | 2 | **2** |
+| leontief uretim fonksiyonu | 1 | 1 | 0 | 0 | 2 | **2** |
+| uretim fonksiyonu ikame esnekligi (dogrusal) | 1 | 1 | 0 | 0 | 2 | **2** |
+| marjinal tuketim egilimi | 1 | 1 | 0 | 0 | 2 | **2** |
+| arz talep esnekligi | 1 | 1 | 0 | 0 | 2 | **2** |
 | tam rekabet uretim durdurma | 1 | 1 | 0 | 0 | 2 | **2** |
 | enflasyon olcum sapmasi | 1 | 1 | 0 | 0 | 2 | **2** |
-| marjinal tuketim egilimi | 1 | 1 | 0 | 0 | 2 | **2** |
-| esneklik ilkesi | 1 | 1 | 0 | 0 | 2 | **2** |
-| faiz orani ust siniri | 1 | 1 | 0 | 0 | 2 | **2** |
-| arz talep esnekligi | 1 | 1 | 0 | 0 | 2 | **2** |
-| tekelci rekabet dengesi | 1 | 1 | 0 | 0 | 2 | **2** |
-| is-lm maliye politikasi | 1 | 1 | 0 | 0 | 2 | **2** |
-| cobb-douglas uretim fonksiyonu | 1 | 1 | 0 | 0 | 2 | **2** |
-| enflasyon hedeflemesi | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 27 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| talep egrisini kaydiran faktorler | 1 | 1 | 0 | 0 | 2 | **2** |
+| talep fiyat esnekligi (inelastik) | 1 | 1 | 0 | 0 | 2 | **2** |
+| enflasyon-dezenflasyon ayrimi | 1 | 1 | 0 | 0 | 2 | **2** |
+| dogal issizlik turleri | 1 | 1 | 0 | 0 | 2 | **2** |
+| _… 28 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Borclar Hukuku — 72 konu, 187 soru basilacak
+### Borclar Hukuku — 72 konu, 189 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
-| sebepsiz zenginlesme | 8 | 8 | 2 | 1 | 12 | **9** |
+| sebepsiz zenginlesme | 8 | 8 | 2 | 0 | 12 | **10** |
 | sozlesme sekli | 5 | 5 | 0 | 0 | 8 | **8** |
 | sozlesmenin kurulmasi | 4 | 4 | 0 | 0 | 6 | **6** |
 | alacagin devri | 4 | 4 | 0 | 0 | 6 | **6** |
+| borcun ifa yeri | 4 | 4 | 1 | 1 | 6 | **4** |
 | haksiz fiil zamanasimi | 4 | 4 | 2 | 1 | 6 | **3** |
-| borcun ifa yeri | 4 | 4 | 1 | 2 | 6 | **3** |
 | zamanasimi | 3 | 3 | 0 | 0 | 5 | **5** |
 | ucret sozlesmesi | 3 | 3 | 0 | 0 | 5 | **5** |
 | takas | 3 | 3 | 0 | 0 | 5 | **5** |
@@ -384,7 +384,7 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | ucret sozlesmesi asgari bilgileri | 1 | 1 | 0 | 0 | 2 | **2** |
 | _… 32 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Ticaret Hukuku — 109 konu, 247 soru basilacak
+### Ticaret Hukuku — 109 konu, 248 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -408,7 +408,7 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | anonim sirket sona erme | 2 | 2 | 0 | 0 | 3 | **3** |
 | ticari isletme unsurlari | 2 | 2 | 0 | 0 | 3 | **3** |
 | temsil yetkisinin sona ermesi | 2 | 2 | 0 | 0 | 3 | **3** |
-| cek uzerindeki kayitlar | 2 | 2 | 0 | 2 | 3 | **1** |
+| cek uzerindeki kayitlar | 2 | 2 | 0 | 1 | 3 | **2** |
 | limited sirket ozellikleri | 2 | 2 | 2 | 0 | 3 | **1** |
 | pay senedi getirisi | 1 | 1 | 0 | 0 | 2 | **2** |
 | anonim sirkete ayni sermaye olabilecekler | 1 | 1 | 0 | 0 | 2 | **2** |
@@ -476,7 +476,7 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | smmm'nin yapabilecegi isler | 1 | 1 | 0 | 0 | 2 | **2** |
 | _… 31 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Vergi Hukuku — 131 konu, 294 soru basilacak
+### Vergi Hukuku — 131 konu, 297 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -487,7 +487,7 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | kdv matrahi | 3 | 3 | 0 | 0 | 5 | **5** |
 | transfer fiyatlandirmasi | 3 | 3 | 0 | 0 | 5 | **5** |
 | kurumlar vergisi mukellefleri | 3 | 3 | 0 | 1 | 5 | **4** |
-| kdv istisnalari | 3 | 3 | 0 | 3 | 5 | **2** |
+| kdv istisnalari | 3 | 3 | 0 | 1 | 5 | **4** |
 | kdv indirimi | 2 | 2 | 0 | 0 | 3 | **3** |
 | asgari kurumlar vergisi | 2 | 2 | 0 | 0 | 3 | **3** |
 | kurumlar vergisi istisnalari | 2 | 2 | 0 | 0 | 3 | **3** |
@@ -522,7 +522,7 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | emlak vergisi | 1 | 1 | 0 | 0 | 2 | **2** |
 | _… 91 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Is ve Sosyal Guvenlik Hukuku — 81 konu, 196 soru basilacak
+### Is ve Sosyal Guvenlik Hukuku — 83 konu, 202 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -532,30 +532,31 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | yillik ucretli izin | 4 | 4 | 0 | 0 | 6 | **6** |
 | is sozlesmesi feshi | 4 | 4 | 0 | 0 | 6 | **6** |
 | isci ucretleri | 3 | 3 | 0 | 0 | 5 | **5** |
-| is kazasi sayilmayan haller | 3 | 3 | 0 | 0 | 5 | **5** |
 | sigortali sayilma | 3 | 3 | 0 | 0 | 5 | **5** |
-| sureli fesih | 3 | 3 | 0 | 0 | 5 | **5** |
 | isveren vekili | 3 | 3 | 0 | 0 | 5 | **5** |
+| is kazasi sayilmayan haller | 3 | 3 | 0 | 0 | 5 | **5** |
+| sureli fesih | 3 | 3 | 0 | 0 | 5 | **5** |
 | ucret yonetmeligi kurallari | 3 | 3 | 0 | 0 | 5 | **5** |
-| İs kanunu kapsami | 3 | 3 | 0 | 2 | 5 | **3** |
+| İs kanunu kapsami | 3 | 3 | 0 | 1 | 5 | **4** |
 | kisa uzun vadeli sigorta kollari | 2 | 2 | 0 | 0 | 3 | **3** |
-| is kazasi meslek hastaligi | 2 | 2 | 0 | 0 | 3 | **3** |
-| grev lokavt | 2 | 2 | 0 | 0 | 3 | **3** |
 | is kazasi sigortasi | 2 | 2 | 0 | 0 | 3 | **3** |
-| toplu is sozlesmesi kurallari | 2 | 2 | 0 | 0 | 3 | **3** |
+| is kazasi meslek hastaligi | 2 | 2 | 0 | 0 | 3 | **3** |
 | isletme toplu is sozlesmesi | 2 | 2 | 0 | 0 | 3 | **3** |
-| fazla calisma | 2 | 2 | 0 | 2 | 3 | **1** |
+| toplu is sozlesmesi kurallari | 2 | 2 | 0 | 0 | 3 | **3** |
+| grev lokavt | 2 | 2 | 0 | 0 | 3 | **3** |
+| kismi sureli is sozlesmesi | 2 | 2 | 0 | 1 | 3 | **2** |
 | belirli sureli is sozlesmesi | 2 | 2 | 1 | 1 | 3 | **1** |
-| kismi sureli is sozlesmesi | 2 | 2 | 0 | 2 | 3 | **1** |
+| fazla calisma | 2 | 2 | 0 | 2 | 3 | **1** |
+| uzun vadeli sigorta kollari | 2 | 2 | 1 | 1 | 3 | **1** |
 | alt isverenlik | 2 | 2 | 1 | 1 | 3 | **1** |
-| sendika toplu is sozlesmesi yetkisi (%1) | 1 | 1 | 0 | 0 | 2 | **2** |
 | satis sozlesmesi zapttan sorumluluk | 1 | 1 | 0 | 0 | 2 | **2** |
+| sendika uyeligi kurallari (issizlik 1 yil) | 1 | 1 | 0 | 0 | 2 | **2** |
+| sigortalilik | 1 | 1 | 0 | 0 | 2 | **2** |
+| sendika toplu is sozlesmesi yetkisi (%1) | 1 | 1 | 0 | 0 | 2 | **2** |
+| alt isveren iliskisi | 1 | 1 | 0 | 0 | 2 | **2** |
 | grev lokavt erteleme | 1 | 1 | 0 | 0 | 2 | **2** |
 | yaslilik ayligi prim gunu | 1 | 1 | 0 | 0 | 2 | **2** |
-| sendika uyeligi kurallari (issizlik 1 yil) | 1 | 1 | 0 | 0 | 2 | **2** |
-| alt isveren iliskisi | 1 | 1 | 0 | 0 | 2 | **2** |
 | is sozlesmesi sekli ve turleri | 1 | 1 | 0 | 0 | 2 | **2** |
-| sigortalilik | 1 | 1 | 0 | 0 | 2 | **2** |
 | is sozlesmesi feshi alacaklari | 1 | 1 | 0 | 0 | 2 | **2** |
 | toplu is sozlesmesi yararlanma | 1 | 1 | 0 | 0 | 2 | **2** |
 | is kazasi sigortasi kapsami disindakiler | 1 | 1 | 0 | 0 | 2 | **2** |
@@ -565,40 +566,40 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | grev-lokavtta is sozlesmesinin askida kalmasi | 1 | 1 | 0 | 0 | 2 | **2** |
 | sendika uyeligi kurallari (15 yas) | 1 | 1 | 0 | 0 | 2 | **2** |
 | isyeri tanimi | 1 | 1 | 0 | 0 | 2 | **2** |
-| sendika uyeligi kurallari | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 41 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| _… 43 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Ekonomi (ayristirilamadi) — 85 konu, 175 soru basilacak
+### Ekonomi (ayristirilamadi) — 86 konu, 178 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
 | taylor prensibi | 3 | 3 | 0 | 1 | 5 | **4** |
 | keynesyen tuketim fonksiyonu | 2 | 2 | 0 | 0 | 3 | **3** |
+| tuketici fazlasi | 2 | 2 | 0 | 0 | 3 | **3** |
 | gresham kanunu | 2 | 2 | 0 | 0 | 3 | **3** |
 | tuketim fonksiyonu | 2 | 2 | 0 | 0 | 3 | **3** |
-| tuketici fazlasi | 2 | 2 | 0 | 0 | 3 | **3** |
 | likidite tuzagi | 2 | 2 | 0 | 0 | 3 | **3** |
-| paranin yansizligi | 2 | 2 | 0 | 0 | 3 | **3** |
+| tuketim duzlestirmesi | 2 | 2 | 0 | 0 | 3 | **3** |
 | yeni keynesyen model | 2 | 2 | 0 | 0 | 3 | **3** |
+| paranin yansizligi | 2 | 2 | 0 | 0 | 3 | **3** |
 | taylor kurali | 2 | 2 | 0 | 0 | 3 | **3** |
-| tuketim duzlestirmesi | 2 | 2 | 0 | 2 | 3 | **1** |
+| tam rekabet piyasa dengesi | 1 | 1 | 0 | 0 | 2 | **2** |
 | fayda fonksiyonu | 1 | 1 | 0 | 0 | 2 | **2** |
 | rasyonel bekleyisler hipotezi | 1 | 1 | 0 | 0 | 2 | **2** |
-| toplam fayda doyum noktasi | 1 | 1 | 0 | 0 | 2 | **2** |
-| tam rekabet piyasa dengesi | 1 | 1 | 0 | 0 | 2 | **2** |
-| ricardo modeli varsayimlari | 1 | 1 | 0 | 0 | 2 | **2** |
-| tuketici tercihleri konvekslik | 1 | 1 | 0 | 0 | 2 | **2** |
 | lm egrisi kaymasi | 1 | 1 | 0 | 0 | 2 | **2** |
+| tuketici tercihleri konvekslik | 1 | 1 | 0 | 0 | 2 | **2** |
+| toplam fayda doyum noktasi | 1 | 1 | 0 | 0 | 2 | **2** |
 | kredi tayinlamasi | 1 | 1 | 0 | 0 | 2 | **2** |
+| ricardo modeli varsayimlari | 1 | 1 | 0 | 0 | 2 | **2** |
+| tam rekabet denge uretimi | 1 | 1 | 0 | 0 | 2 | **2** |
 | heckscher-ohlin modeli | 1 | 1 | 0 | 0 | 2 | **2** |
-| uclu acmaz | 1 | 1 | 0 | 0 | 2 | **2** |
+| tahvil piyasasi dengesi | 1 | 1 | 0 | 0 | 2 | **2** |
 | rasyonel bekleyisli makro modeller | 1 | 1 | 0 | 0 | 2 | **2** |
 | cobb-douglas ikame esnekligi | 1 | 1 | 0 | 0 | 2 | **2** |
-| lm egrisi ozellikleri | 1 | 1 | 0 | 0 | 2 | **2** |
-| tuketici tercih aksiyomlari | 1 | 1 | 0 | 0 | 2 | **2** |
-| tam rekabet denge uretimi | 1 | 1 | 0 | 0 | 2 | **2** |
-| is-lm modeli | 1 | 1 | 0 | 0 | 2 | **2** |
 | carpan etkisi | 1 | 1 | 0 | 0 | 2 | **2** |
+| tuketici tercih aksiyomlari | 1 | 1 | 0 | 0 | 2 | **2** |
+| uclu acmaz | 1 | 1 | 0 | 0 | 2 | **2** |
+| lm egrisi ozellikleri | 1 | 1 | 0 | 0 | 2 | **2** |
+| trampa ekonomisi fiyat sayisi | 1 | 1 | 0 | 0 | 2 | **2** |
 | uretim varsayimlari | 1 | 1 | 0 | 0 | 2 | **2** |
 | piyasa denge fiyati | 1 | 1 | 0 | 0 | 2 | **2** |
 | pigou etkisi | 1 | 1 | 0 | 0 | 2 | **2** |
@@ -608,59 +609,58 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | tuketici fazlasi degisimi | 1 | 1 | 0 | 0 | 2 | **2** |
 | yeni klasik model | 1 | 1 | 0 | 0 | 2 | **2** |
 | tam ikame mallar kose dengesi | 1 | 1 | 0 | 0 | 2 | **2** |
-| tekelci firma fiyat belirleme | 1 | 1 | 0 | 0 | 2 | **2** |
 | is-lm analizi | 1 | 1 | 0 | 0 | 2 | **2** |
-| trampa ekonomisi fiyat sayisi | 1 | 1 | 0 | 0 | 2 | **2** |
+| isci yanilma modeli | 1 | 1 | 0 | 0 | 2 | **2** |
 | alman merkantilizmi | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 45 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| _… 46 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Hukuk (ayristirilamadi) — 206 konu, 448 soru basilacak
+### Hukuk (ayristirilamadi) — 207 konu, 451 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
 | ticari is kavrami | 3 | 3 | 0 | 0 | 5 | **5** |
-| kusursuz sorumluluk halleri | 3 | 3 | 0 | 0 | 5 | **5** |
 | calisma suresi | 3 | 3 | 0 | 0 | 5 | **5** |
-| cek hukuku | 3 | 3 | 0 | 0 | 5 | **5** |
-| calisma ve dinlenme sureleri | 3 | 3 | 0 | 0 | 5 | **5** |
-| tazminattan indirim halleri | 3 | 3 | 0 | 0 | 5 | **5** |
 | borclu temerrudu | 3 | 3 | 0 | 0 | 5 | **5** |
+| cek hukuku | 3 | 3 | 0 | 0 | 5 | **5** |
+| tazminattan indirim halleri | 3 | 3 | 0 | 0 | 5 | **5** |
+| kusursuz sorumluluk halleri | 3 | 3 | 0 | 0 | 5 | **5** |
+| calisma ve dinlenme sureleri | 3 | 3 | 0 | 0 | 5 | **5** |
 | buro edinme zorunlulugu | 3 | 3 | 1 | 0 | 5 | **4** |
-| ucret hukumleri | 3 | 3 | 0 | 2 | 5 | **3** |
+| ucret hukumleri | 3 | 3 | 0 | 1 | 5 | **4** |
 | odeme emrine itiraz | 3 | 3 | 1 | 2 | 5 | **2** |
 | hukuka uygunluk sebepleri | 3 | 3 | 2 | 2 | 5 | **1** |
-| isyeri devri | 2 | 2 | 0 | 0 | 3 | **3** |
 | kesin hukumsuzluk halleri | 2 | 2 | 0 | 0 | 3 | **3** |
-| etik ilkeler tehditler | 2 | 2 | 0 | 0 | 3 | **3** |
-| sorumsuzluk anlasmalari | 2 | 2 | 0 | 0 | 3 | **3** |
+| isyeri devri | 2 | 2 | 0 | 0 | 3 | **3** |
 | ise iade arabuluculuk | 2 | 2 | 0 | 0 | 3 | **3** |
-| haksiz rekabet ve reklam yasagi | 2 | 2 | 0 | 0 | 3 | **3** |
-| ticari orf ve adet | 2 | 2 | 0 | 0 | 3 | **3** |
+| sorumsuzluk anlasmalari | 2 | 2 | 0 | 0 | 3 | **3** |
 | hukuka aykiriligi kaldiran haller | 2 | 2 | 0 | 0 | 3 | **3** |
+| haksiz rekabet ve reklam yasagi | 2 | 2 | 0 | 0 | 3 | **3** |
+| etik ilkeler tehditler | 2 | 2 | 0 | 0 | 3 | **3** |
+| ticari orf ve adet | 2 | 2 | 0 | 0 | 3 | **3** |
 | ticari faaliyet yasagi | 2 | 2 | 0 | 0 | 3 | **3** |
-| irade bozuklugu | 2 | 2 | 0 | 0 | 3 | **3** |
-| gecici is iliskisi | 2 | 2 | 0 | 0 | 3 | **3** |
 | ihtiyati hacze itiraz suresi (15 gun) | 2 | 2 | 0 | 0 | 3 | **3** |
+| gecici is iliskisi | 2 | 2 | 0 | 0 | 3 | **3** |
 | cek odeme kontrolu | 2 | 2 | 0 | 0 | 3 | **3** |
 | sureli fesih kurallari | 2 | 2 | 0 | 0 | 3 | **3** |
+| irade bozuklugu | 2 | 2 | 0 | 0 | 3 | **3** |
 | uyarma cezasi halleri | 2 | 2 | 0 | 0 | 3 | **3** |
-| etik ilkeler tehdit | 1 | 1 | 0 | 0 | 2 | **2** |
+| kesin hukumsuzluk-iptal sebepleri ayrimi | 1 | 1 | 0 | 0 | 2 | **2** |
 | ayirt etme gucunun gecici kaybi sorumlulugu | 1 | 1 | 0 | 0 | 2 | **2** |
 | ticari faaliyet yasagi cezasi | 1 | 1 | 0 | 0 | 2 | **2** |
+| etik ilkeler tehdit | 1 | 1 | 0 | 0 | 2 | **2** |
 | etik ilkeler kisisel cikar | 1 | 1 | 0 | 0 | 2 | **2** |
 | defter belge teslimi | 1 | 1 | 0 | 0 | 2 | **2** |
-| cek hukumleri | 1 | 1 | 0 | 0 | 2 | **2** |
-| odeme emrine dava acma suresi | 1 | 1 | 0 | 0 | 2 | **2** |
-| kesin hukumsuzluk-iptal sebepleri ayrimi | 1 | 1 | 0 | 0 | 2 | **2** |
-| asiri yararlanma (gabin) | 1 | 1 | 0 | 0 | 2 | **2** |
+| isyeri bildirgesi | 1 | 1 | 0 | 0 | 2 | **2** |
+| etik ilkeler tesvik | 1 | 1 | 0 | 0 | 2 | **2** |
+| engelli ve eski hukumlu calistirma | 1 | 1 | 0 | 0 | 2 | **2** |
 | sosyal guvenlik ayligi | 1 | 1 | 0 | 0 | 2 | **2** |
 | 4857 kapsam disi istisnalar | 1 | 1 | 0 | 0 | 2 | **2** |
-| isyeri bildirgesi | 1 | 1 | 0 | 0 | 2 | **2** |
-| engelli ve eski hukumlu calistirma | 1 | 1 | 0 | 0 | 2 | **2** |
-| etik ilkeler tesvik | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 166 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| asiri yararlanma (gabin) | 1 | 1 | 0 | 0 | 2 | **2** |
+| cek hukumleri | 1 | 1 | 0 | 0 | 2 | **2** |
+| odeme emrine dava acma suresi | 1 | 1 | 0 | 0 | 2 | **2** |
+| _… 167 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Muhasebe (ayristirilamadi) — 250 konu, 506 soru basilacak
+### Muhasebe (ayristirilamadi) — 251 konu, 508 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -696,17 +696,17 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | ara donem raporlama | 1 | 1 | 0 | 0 | 2 | **2** |
 | ihtiyatlilik kavrami (yedek akce) | 1 | 1 | 0 | 0 | 2 | **2** |
 | doviz degerleme | 1 | 1 | 0 | 0 | 2 | **2** |
-| kismi kredili satis kayitlari | 1 | 1 | 0 | 0 | 2 | **2** |
 | alacaklara ait uygunluk testleri | 1 | 1 | 0 | 0 | 2 | **2** |
 | baslangic analitik prosedur amaclari | 1 | 1 | 0 | 0 | 2 | **2** |
-| uluslararasi standart kuruluslari | 1 | 1 | 0 | 0 | 2 | **2** |
-| dis teyit | 1 | 1 | 0 | 0 | 2 | **2** |
+| sorgulama tanimi | 1 | 1 | 0 | 0 | 2 | **2** |
+| kismi kredili satis kayitlari | 1 | 1 | 0 | 0 | 2 | **2** |
 | cift amacli test | 1 | 1 | 0 | 0 | 2 | **2** |
 | planlama asamasinda ele alinan konular | 1 | 1 | 0 | 0 | 2 | **2** |
-| sorgulama tanimi | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 210 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| uluslararasi standart kuruluslari | 1 | 1 | 0 | 0 | 2 | **2** |
+| aktif duzenleyici hesaplar | 1 | 1 | 0 | 0 | 2 | **2** |
+| _… 211 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
-### Maliye (ayristirilamadi) — 45 konu, 90 soru basilacak
+### Maliye (ayristirilamadi) — 46 konu, 91 soru basilacak
 
 | Konu | Cikmis | Donem | Yayinda | Rafta | Hedef | ACIK |
 |---|---:|---:|---:|---:|---:|---:|
@@ -750,20 +750,20 @@ ACIK sutunu o konudan kac soru basilacagini soyler. Acigi olmayan konular listel
 | peacock-wiseman teorisi | 1 | 1 | 0 | 0 | 2 | **2** |
 | mundell-fleming esnek kur genisletici maliye | 1 | 1 | 0 | 0 | 2 | **2** |
 | kalkinma carileri | 1 | 1 | 0 | 0 | 2 | **2** |
-| _… 5 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
+| _… 6 konu daha (tamami veri/konu-plani-sgs.json)_ | | | | | | |
 
 ## 4 · BEKLEYEN HAT — simdilik basilmayacak
 
-Cem karari (11.09): bu dersler **sonraya**. 566 konu · 1.433 soru · 9.400 TL.
+Cem karari (11.09): bu dersler **sonraya**. 568 konu · 1.439 soru · 9.440 TL.
 
 | Ders | Acik konu | Acik soru |
 |---|---:|---:|
 | Genel Kultur-Genel Yetenek (ayristirilamadi) | 166 | 362 |
-| Matematik-Istatistik (ayristirilamadi) | 123 | 290 |
-| Yabanci Dil | 65 | 215 |
+| Matematik-Istatistik (ayristirilamadi) | 124 | 293 |
+| Yabanci Dil | 65 | 216 |
 | Turkce | 74 | 210 |
 | Yabanci Dil (ayristirilamadi) | 69 | 170 |
-| Matematik | 55 | 145 |
+| Matematik | 56 | 147 |
 | Ataturk Ilke ve Inkilap Tarihi | 14 | 41 |
 
 En cok cikan bekleyen konular (hat acildiginda ilk bunlar basilir):
@@ -775,14 +775,14 @@ En cok cikan bekleyen konular (hat acildiginda ilk bunlar basilir):
 | Turkce | noktalama isaretleri | 16 | 3 | 9 |
 | Turkce | anlatim bozuklugu | 15 | 4 | 8 |
 | Yabanci Dil | kelime bilgisi | 14 | 1 | 11 |
-| Yabanci Dil (ayristirilamadi) | sentence completion | 9 | 4 | 8 |
 | Matematik | denklem cozme | 9 | 2 | 10 |
+| Yabanci Dil (ayristirilamadi) | sentence completion | 9 | 4 | 8 |
 | Turkce | ses olaylari | 8 | 0 | 12 |
 | Genel Kultur-Genel Yetenek (ayristirilamadi) | sozcukte anlam | 8 | 3 | 9 |
-| Yabanci Dil | cumle tamamlama-kosul | 7 | 1 | 10 |
-| Matematik-Istatistik (ayristirilamadi) | yas problemi | 7 | 0 | 11 |
 | Yabanci Dil (ayristirilamadi) | kelime tamamlama | 7 | 0 | 11 |
-| Yabanci Dil | baglac kullanimi | 6 | 0 | 9 |
+| Matematik-Istatistik (ayristirilamadi) | yas problemi | 7 | 0 | 11 |
+| Yabanci Dil | cumle tamamlama-kosul | 7 | 1 | 10 |
+| Yabanci Dil | edat kullanimi | 6 | 2 | 7 |
+| Ataturk Ilke ve Inkilap Tarihi | lozan antlasmasi | 6 | 0 | 9 |
 | Matematik-Istatistik (ayristirilamadi) | seri toplami | 6 | 0 | 9 |
-| Matematik | belirli integral | 6 | 1 | 8 |
 

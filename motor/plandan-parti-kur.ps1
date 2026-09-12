@@ -146,7 +146,11 @@ foreach($g in (@($sec | Group-Object ders | Sort-Object { $s=0; foreach($pg in $
         $planSatir.Add([pscustomobject][ordered]@{
           ders="$($g.Name)"; dersAd="$($g.Name)"; etiket=$et
           adet=$konular.Count           # = konu sayisi = uretilecek soru sayisi
-          zorluk=$zorAd; sinav='SGS'; konuDosya=$kd; toplu=$true; disla=''; tur=$tur
+          # ⛔ 12.09: konuDosya DEPOYA GORECE yazilir. Mutlak yerel yol
+          #    ("C:\Users\cemdi\...") bulut runner'inda cozulmez; uretici de
+          #    eskiden sessizce atliyordu -> yanlis konularla uretim.
+          #    854 yol bu tarihte 37 plan dosyasinda goreceye cevrildi.
+          zorluk=$zorAd; sinav='SGS'; konuDosya=("veri/sinav/konu/$et.json"); toplu=$true; disla=''; tur=$tur
         })
         $yazilanKonu+=$konular.Count
       }

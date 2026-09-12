@@ -55,7 +55,7 @@ function SaatFark($iso){
 # --------------------------------------------------------------------------
 if($Nabiz){
   try {
-    git -C $KOK fetch origin main -q 2>&1 | Out-Null
+    git -C $KOK fetch origin main -q 2>$null | Out-Null
     $geri  = [int](git -C $KOK rev-list --count HEAD..origin/main 2>$null)
     $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD 2>$null)
     $kirli = @(git -C $KOK status --short 2>$null | Where-Object { $_ -match '^( M|M |MM|A |AM)' }).Count
@@ -135,14 +135,14 @@ if($Ac){
   }
 
   Yaz "`n=== 1/3 · ANA TELLE HİZALAMA ===" 'Cyan'
-  git -C $KOK fetch origin main -q 2>&1 | Out-Null
+  git -C $KOK fetch origin main -q 2>$null | Out-Null
   $geri  = [int](git -C $KOK rev-list --count HEAD..origin/main)
   $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
   Yaz "  geride: $geri commit · ileride: $ileri commit"
 
   if($geri -gt 0){
     Yaz "  -> birleştiriliyor..." 'Yellow'
-    $cikti = git -C $KOK merge origin/main --no-edit 2>&1
+    $cikti = git -C $KOK merge origin/main --no-edit 2>$null
     $cak = git -C $KOK diff --name-only --diff-filter=U
     if($cak){
       Yaz "`n  ⛔ ÇAKIŞMA — $(@($cak).Count) dosya. ÖLÇMEDEN ÇÖZME." 'Red'
@@ -254,15 +254,15 @@ if($Kapat){
     } else { Yaz "  ✓ tuzak nöbetçisi temiz (değişen betikler)" 'Green' }
   }
 
-  git -C $KOK fetch origin main -q 2>&1 | Out-Null
+  git -C $KOK fetch origin main -q 2>$null | Out-Null
   $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
   if($ileri -gt 0){
     Yaz "  $ileri commit itilecek..." 'Yellow'
     for($i=1; $i -le 5; $i++){
-      git -C $KOK push origin HEAD:main 2>&1 | Out-Null
+      git -C $KOK push origin HEAD:main 2>$null | Out-Null
       if($LASTEXITCODE -eq 0){ Yaz "  -> itildi (deneme $i)" 'Green'; break }
-      git -C $KOK fetch origin main -q 2>&1 | Out-Null
-      git -C $KOK merge origin/main --no-edit -q 2>&1 | Out-Null
+      git -C $KOK fetch origin main -q 2>$null | Out-Null
+      git -C $KOK merge origin/main --no-edit -q 2>$null | Out-Null
       if(git -C $KOK diff --name-only --diff-filter=U){ Yaz "  ⛔ itmede çakışma — elle çöz" 'Red'; exit 2 }
       Start-Sleep -Seconds 2
     }
