@@ -46,8 +46,12 @@
     --bronz:#cfa163;
     --bronz-acik:#eccb96;
     --bronz-koyu:#8d6c38;
-    --yanlis:#c9554f;
-    --dogru:#5bb98c;
+    /* 13.09: durum renkleri MATLASTIRILDI (haklı eleştiri: fazla parlaktı).
+       Pastele çekilirken ayırt edilebilirlik korundu - bu bir öğrenme ürünü,
+       o renkler süs değil ANLAM taşıyor; ayrıca ✓/✕ işaretleri duruyor ki
+       renk körü kullanıcı da ayırt etsin. */
+    --yanlis:#b0736d;
+    --dogru:#7ba48d;
     /* açık gövde */
     --kagit:#f6f5f2;
     --yuzey:#fff;
@@ -77,7 +81,7 @@
      anlami kayboluyordu. Egim yumusatildi. */
   .deste{position:absolute;right:-12%;top:-16%;width:62%;height:104%;
          transform-style:preserve-3d;transform:rotateX(32deg) rotateZ(-19deg) translateZ(-20px)}
-  .rk{position:absolute;left:0;width:84%;border-radius:11px;padding:15px 18px;
+  .rk{position:absolute;left:0;width:84%;min-height:86px;border-radius:11px;padding:15px 18px;
       background:linear-gradient(135deg,rgba(48,53,65,.97),rgba(23,27,34,.95));
       border:1px solid rgba(214,180,126,.30);
       box-shadow:0 30px 64px rgba(0,0,0,.6);color:var(--ak-govde)}
@@ -86,8 +90,10 @@
   .rk .bas{font-size:13.5px;line-height:1.4;color:var(--ak);display:block;
            overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
   /* --- ısı alanı: 54 dersin gerçek doluluğu --- */
-  .isi{position:absolute;right:1%;top:2%;width:34%;height:30%;
-       transform:rotateX(32deg) rotateZ(-19deg);opacity:1}
+  /* Yaylar once kucuk bir kutuda ve rotateX(40) altinda eziliyordu, zeminde
+     kayboldu (olculdu). Artik tum sahneyi kapliyor, egim yok; yelpaze sol
+     alttan acilip kartlarin altini ve alt bandi dolduruyor. */
+  .isi{position:absolute;inset:0;opacity:1}
   .isi canvas{width:100%;height:100%;display:block}
   /* --- atmosfer --- */
   .kah:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -128,33 +134,53 @@
        box-shadow:0 14px 36px rgba(207,161,99,.26)}
   .cta:hover{filter:brightness(1.06)}
 
-  /* --- cam panel: gerçek soru --- */
+  /* --- CAM KABİN: küçük bir vitrin değil, GERÇEK soru ekranının kendisi.
+     13.09 Cem: "burayı bizim sorumuz gibi yapmak istiyorum, cevap versin,
+     nöbetçi çıksın, gerçek soruyu görsünler." Panel bu yüzden büyüdü:
+     tam soru metni + BÜTÜN şıklar + cevaptan sonra NÖBETÇİ konuşur.
+     Yeri değişmedi (Cem: "sağ tarafta dursa olmaz mı") - yalnız büyüdü. */
   .cam{background:var(--cam);border:1px solid var(--cam-cizgi);border-radius:16px;
-       padding:20px;backdrop-filter:blur(20px) saturate(140%);
+       padding:18px 18px 16px;backdrop-filter:blur(20px) saturate(140%);
        -webkit-backdrop-filter:blur(20px) saturate(140%);
-       box-shadow:0 30px 70px rgba(0,0,0,.5)}
-  .cam-soru{font-size:14.5px;line-height:1.5;color:var(--ak);margin:0 0 16px}
-  .cam-sik{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .sik{display:flex;align-items:center;justify-content:space-between;gap:10px;
-       background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
-       border-radius:11px;padding:12px 14px;font:inherit;width:100%;text-align:left;
-       cursor:pointer;color:var(--ak-govde)}
-  .sik:hover{background:rgba(255,255,255,.09)}
-  .sik em{font-style:normal;font-size:19px;font-weight:600;color:var(--ak)}
-  .sik span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
-            font-size:12px;font-weight:800;flex:none;
-            background:rgba(255,255,255,.10);color:var(--ak-sonuk)}
-  .sik.d{border-color:rgba(91,185,140,.55);background:rgba(91,185,140,.12)}
-  .sik.d span{background:var(--dogru);color:#06281b}
-  .sik.y{border-color:rgba(201,85,79,.55);background:rgba(201,85,79,.12)}
-  .sik.y span{background:var(--yanlis);color:#2a0906}
-  .tuzak{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;
-         border-radius:11px;background:rgba(201,85,79,.12);
-         border:1px solid rgba(201,85,79,.34);font-size:13px;color:var(--ak)}
-  .tuzak b{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-           color:var(--yanlis);font-weight:800;flex:none}
-  .tuzak i{font-style:normal;color:var(--ak-govde)}
-  .cam-dip{margin-top:12px;font-size:11.5px;color:var(--ak-sonuk);line-height:1.5}
+       box-shadow:0 30px 70px rgba(0,0,0,.5);
+       max-height:min(76vh,620px);overflow-y:auto;overscroll-behavior:contain}
+  .cam-ust{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;
+           font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+           color:var(--bronz);font-weight:700;margin-bottom:12px}
+  .cam-ust s{text-decoration:none;color:var(--ak-sonuk);font-weight:600}
+  .cam-soru{font-size:14px;line-height:1.55;color:var(--ak);margin:0 0 14px}
+  .cam-sik{display:flex;flex-direction:column;gap:7px}
+  .sik{display:flex;align-items:flex-start;gap:11px;
+       background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);
+       border-radius:10px;padding:10px 12px;font:inherit;width:100%;text-align:left;
+       cursor:pointer;color:var(--ak-govde);font-size:12.8px;line-height:1.45}
+  .sik:hover:not([disabled]){background:rgba(255,255,255,.09);border-color:rgba(214,180,126,.30)}
+  .sik em{font-style:normal;font-size:12px;font-weight:800;flex:none;
+          width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+          background:rgba(255,255,255,.10);color:var(--ak);margin-top:1px}
+  .sik[disabled]{cursor:default}
+  .sik.d{border-color:rgba(123,164,141,.55);background:rgba(123,164,141,.11)}
+  .sik.d em{background:var(--dogru);color:#0e2018}
+  .sik.y{border-color:rgba(176,115,109,.55);background:rgba(176,115,109,.11)}
+  .sik.y em{background:var(--yanlis);color:#241110}
+  .sik,.nobetci{transition:background .18s ease,border-color .18s ease}
+  .ipucu{margin-top:11px;font-size:12px;color:var(--ak-sonuk);letter-spacing:.02em}
+
+  /* --- NÖBETÇİ konuşur (üründe "hoca" yok, "Nöbetçi" var) --- */
+  .nobetci{margin-top:11px;padding:12px 14px;border-radius:11px;
+           background:rgba(176,115,109,.10);border:1px solid rgba(176,115,109,.30)}
+  .nobetci.d{background:rgba(123,164,141,.10);border-color:rgba(123,164,141,.30)}
+  .nobetci-ust{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+  .nobetci-ust b{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+                 color:var(--bronz-acik);font-weight:800}
+  .nobetci-ust i{font-style:normal;font-size:11.5px;font-weight:800;
+                 letter-spacing:.08em;text-transform:uppercase;color:var(--yanlis)}
+  .nobetci.d .nobetci-ust i{color:var(--dogru)}
+  .nobetci p{margin:0;font-size:12.8px;line-height:1.55;color:var(--ak)}
+  .nobetci p b{color:var(--ak);font-weight:750}
+  .nobetci .dayanak{display:inline-block;margin-top:8px;font-size:11px;
+                    letter-spacing:.06em;color:var(--bronz);font-weight:700}
+  .cam-dip{margin-top:11px;font-size:11px;color:var(--ak-sonuk);line-height:1.5}
 
   /* --- sahne künyesi: dekor değil VERİ olduğunu söyler --- */
   .sahne-not{position:relative;z-index:4;padding:0 34px 26px;font-size:12px;
@@ -240,23 +266,38 @@
       </div>
 
       <div class="cam">
-        <p class="cam-soru" id="camSoru">Hüküm, tartışılarak kabul edildiğine dair kayıt taşıyor
-          ama işin özelliğine yabancı. Hangisi doğrudur?</p>
-        <div class="cam-sik">
-          <button class="sik d" type="button" id="sikD"><em>A</em><span>✓</span></button>
-          <button class="sik y" type="button" id="sikY"><em>C</em><span>✕</span></button>
+        <div class="cam-ust"><span id="camDers">Ticaret Hukuku · genel işlem koşulları</span><s id="camKunye">SGS 2026/1 Soru 125 kalıbı</s></div>
+        <p class="cam-soru" id="camSoru">Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı
+          tartışılarak kabul edildiğine dair kayıt düşmüştür. Hüküm, sözleşmenin niteliğine ve işin
+          özelliğine yabancıdır. Türk Borçlar Kanunu'na göre aşağıdakilerden hangisi doğrudur?</p>
+        <!-- Şıklar betikten doldurulur; okunamazsa aşağıdaki BUGÜNÜN GERÇEK
+             sorusunun beş şıkkı kalır (veri/vitrin-kart-ozet.json kopyası). -->
+        <div class="cam-sik" id="camSiklar">
+          <button class="sik" type="button" data-k="A"><em>A</em><span>Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmadığından, işin özelliğine yabancı olan bu hüküm yazılmamış sayılır.</span></button>
+          <button class="sik" type="button" data-k="B"><em>B</em><span>Kabul kaydı bulunduğundan, hükmün işin özelliğine yabancı olması sonucu değiştirmez ve hüküm geçerli kabul edilir.</span></button>
+          <button class="sik" type="button" data-k="C"><em>C</em><span>İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığından, bu hüküm zaten genel işlem koşulu sayılmaz ve yazılmamışlık hükmü uygulanmaz.</span></button>
+          <button class="sik" type="button" data-k="D"><em>D</em><span>Hükmün sözleşme metninde değil ekinde yer alması hâlinde, kabul kaydıyla birlikte nitelendirme değişir ve hüküm yazılmamış sayılmaz.</span></button>
+          <button class="sik" type="button" data-k="E"><em>E</em><span>Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğundan, bu kayıt varken yazılmamışlık hükmü hiçbir şekilde uygulanamaz.</span></button>
         </div>
-        <div class="tuzak"><b>Tuzak</b><i id="tuzakAd">Özdeşlik Tuzağı</i></div>
-        <p class="cam-dip" id="camDip">Ticaret Hukuku · genel işlem koşulları · dayanak m.20 f.2-3</p>
+        <div class="ipucu" id="ipucu">Bir şık seç — yanlışsa Nöbetçi tuzağın adını söyler.</div>
+        <div class="nobetci" id="nobetci" hidden aria-live="polite">
+          <div class="nobetci-ust"><b>Nöbetçi</b><i id="nobetciEt"></i></div>
+          <p id="nobetciMetin"></p>
+          <span class="dayanak" id="nobetciDayanak"></span>
+        </div>
+        <p class="cam-dip" id="camDip">Ticaret Hukuku · genel işlem koşulları</p>
       </div>
     </div>
 
-    <div class="sahne-not">
-      <b>Arkadaki kartlar süsleme değil.</b> Her biri robotun okuduğu gerçek bir Resmî Gazete
-      kaydıdır — tarihi, RG kodu ve başlığıyla. Sağ üstteki ısı alanı
-      <span id="notDers">54</span> dersin gerçek doluluk oranıdır.
-      <span id="notOlcum">Ölçüm 13.09.2026.</span>
-    </div>
+    <!-- ⛔ 13.09.2026 — BURADAKİ AÇIKLAMA METNİ KALDIRILDI.
+         "Arkadaki kartlar süsleme değil. Her biri robotun okuduğu gerçek bir
+         Resmî Gazete kaydıdır…" yazıyordu. Haklı eleştiri geldi: üst düzey bir
+         marka kendi duvar kâğıdını ziyaretçiye AÇIKLAMAZ; açıkladığı anda
+         güvensizliğini ilan eder. Daha derin kural: bir arka plan altyazıya
+         ihtiyaç duyuyorsa zaten çalışmıyordur.
+         Yerine önerilen "Gerçek zamanlı mevzuat entegrasyonu…" cümlesi de
+         KONMADI - robot günde bir koşuyor, "gerçek zamanlı" YALAN olurdu.
+         Yerinde boşluk kaldı; ferahlık oradan geliyor. -->
 
   </div>
 </div>
@@ -313,7 +354,7 @@ function kartlariCiz(liste){
   deste.innerHTML=liste.slice(0,6).map(function(r,i){
     /* kademeli yerleşim: her kart biraz aşağı, biraz sağa, biraz derine */
     var st='top:'+(20+i*13.5)+'%;left:'+(i*2.4)+'%;transform:translateZ('+(i*26)+'px);'
-          +'opacity:'+(1-i*0.11).toFixed(2)+';';
+          +'opacity:'+Math.max(0.14,1-i*0.185).toFixed(2)+';';
     return '<div class="rk" style="'+st+'"><span class="kod">RG '+esc(r[1])+' · '+esc(r[0])+'</span>'
          + '<span class="bas">'+esc(r[2])+'</span></div>';
   }).join('');
@@ -324,15 +365,44 @@ function gunSayi(t){ /* "31.12.2024" -> sıralanabilir sayı */
   var p=String(t||'').split('.'); if(p.length!==3) return 0;
   return (+p[2])*10000+(+p[1])*100+(+p[0]);
 }
+/* ⛔ 13.09 — KAYNAK DEĞİŞTİ. Ekranda 24.06.2026 görünüyordu ve haklı olarak
+   "site güncellenmiyor" diye okundu. Sebep tarih GÖSTERMEMİZ değil, benim
+   YANLIŞ DOSYAYI seçmemdi: rg-gozetim-haritasi.json sekiz yıllık bir ARŞİV
+   taramasıdır (en yeni kaydı 24.06.2026), günlük akış değil.
+   Artık ÖNDE günün gerçek hap kartı (veri/kartlar-guncel.json) durur; arşiv
+   kayıtları ARKAYA geçer ve perspektifle zaten silikleşir.
+   Metni bulanıklaştırmak yerine kaynağı düzeltmek: bulanık arka plan bu
+   arızayı GİZLERDİ - okunur veri aynı zamanda bir nöbetçidir. */
+function rgKodu(u){                       /* .../2026/09/20260910-1.htm -> 20260910-1 */
+  var m=String(u||'').match(/(\d{8}-\d+)\.htm/); return m?m[1]:'';
+}
+function noktali(g){                      /* "10-09-2026" -> "10.09.2026" */
+  return String(g||'').replace(/-/g,'.');
+}
+var ON=[], ARKA=[];
+function birlestir(){
+  var hepsi=ON.concat(ARKA).slice(0,6);
+  if(hepsi.length) kartlariCiz(hepsi);
+}
+fetch('../veri/kartlar-guncel.json',{cache:'no-store'})
+  .then(function(y){return y.ok?y.json():null;})
+  .then(function(d){
+    var k=d&&d.kartlar; if(!k||!k.length)return;
+    var tarih=noktali(d.gun);
+    ON=k.slice(0,2).map(function(r){ return [rgKodu(r.url), tarih, r.baslik||'']; });
+    birlestir();
+  }).catch(function(){});
+
 fetch('../veri/rg-gozetim-haritasi.json',{cache:'no-store'})
   .then(function(y){return y.ok?y.json():null;})
   .then(function(d){
     var k=d&&d.kayit; if(!k||!k.length)return;
-    var son=k.slice().sort(function(a,b){return gunSayi(b.tarih)-gunSayi(a.tarih);}).slice(0,6);
-    kartlariCiz(son.map(function(r){
-      /* başlıklardaki "–– " öneki kaynakta var, ekranda temizlenir */
-      return [r.kod, r.tarih, String(r.baslik||'').replace(/^[–-]+\s*/,'')];
-    }));
+    ARKA=k.slice().sort(function(a,b){return gunSayi(b.tarih)-gunSayi(a.tarih);})
+      .slice(0,6).map(function(r){
+        /* başlıklardaki "–– " öneki kaynakta var, ekranda temizlenir */
+        return [r.kod, r.tarih, String(r.baslik||'').replace(/^[–-]+\s*/,'')];
+      });
+    birlestir();
   }).catch(function(){});
 
 /* ===================================================================
@@ -344,30 +414,45 @@ if(tuval){
   /* 12.09.2026 09:54 ölçümünün kopyası; canlı veri gelirse üzerine yazılır. */
   var D=[100,28,24,100,100,100,100,82,23,28,35,48,100,100,30,
          100,100,100,13,100,100,100,28,78,71,8,0,0,0,1,0].concat(Array(23).fill(-1));
-  function isiCiz(){
+  function isiCiz(t){ t=t||0;
     var W=tuval.clientWidth,H=tuval.clientHeight,g=Math.min(window.devicePixelRatio||1,2);
     if(!W||!H)return;
     tuval.width=W*g; tuval.height=H*g; c.setTransform(g,0,0,g,0,0);
     c.clearRect(0,0,W,H);
-    var sut=9, sat=Math.ceil(D.length/sut);
-    var hw=W/sut, hh=H/sat, pw=hw*0.76, ph=hh*0.72;
-    for(var i=0;i<D.length;i++){
-      var sx=(i%sut)*hw, sy=Math.floor(i/sut)*hh, d=D[i];
-      /* Radyal gecisler zeminde kayboluyordu (olculdu): hucre artik KESIN
-         kenarli cizilir, ustune yalniz dolu olanlar hale alir. */
-      var a = d<0 ? 0.10 : 0.16+0.64*(d/100);
-      c.fillStyle = d<0 ? 'rgba(99,115,141,'+a+')'
-                  : d>=70 ? 'rgba(236,203,150,'+a+')'
-                  : 'rgba(207,161,99,'+a+')';
-      c.fillRect(sx+hw*0.12, sy+hh*0.12, pw, ph);
-      if(d>=70){
-        var g2=c.createRadialGradient(sx+hw/2,sy+hh/2,0,sx+hw/2,sy+hh/2,hw*0.9);
-        g2.addColorStop(0,'rgba(236,203,150,.30)'); g2.addColorStop(1,'rgba(0,0,0,0)');
-        c.fillStyle=g2; c.fillRect(sx-hw*0.4,sy-hh*0.4,hw*1.8,hh*1.8);
-      }
+    /* ⛔ 13.09 — KARE IZGARA KALDIRILDI.
+       Haklı eleştiri: kutulu yapı GitHub katkı grafiğine benziyordu, kaba
+       duruyordu. Önerilen "akan soyut çizgiler" ise veri TAŞIYAMAZ - o an
+       dekora döner ve kaçındığımız sahte arka plana geri döneriz.
+       Sentez: ince EŞMERKEZLİ YAYLAR. Her yay bir ders, yayın süpürdüğü açı
+       o dersin GERÇEK doluluğu. Hem ince/akışkan/zarif, hem hâlâ veri -
+       ve radar halkası gibi duruyor, ürünün adı zaten Mevzuat Radarı. */
+    var mx=W*0.18, my=H*1.06;                       /* merkez: sol altta, kadraj disinda */
+    var enR=Math.max(W,H)*1.15, ilkR=enR*0.20;
+    var n=D.length, adim=(enR-ilkR)/n;
+    var suv = durgun ? -9 : ((t/14000)%1)*(Math.PI/2)-Math.PI/2;   /* yavaş süpürme */
+    c.lineCap='round';
+    for(var i=0;i<n;i++){
+      var d=D[i], R=ilkR+adim*i;
+      var bas=-Math.PI/2;
+      var aci=(d<0?0.10:Math.max(d,2)/100)*(Math.PI/2);
+      /* süpürme ışığı yayın üstünden geçerken parlatır */
+      var orta=bas+aci/2, yakin=durgun?0:Math.max(0,1-Math.abs(orta-suv)/0.30);
+      var a = d<0 ? 0.10+yakin*0.10 : 0.20+0.46*(d/100)+yakin*0.34;
+      c.strokeStyle = d<0 ? 'rgba(122,136,158,'+a.toFixed(3)+')'
+                    : d>=70 ? 'rgba(236,203,150,'+a.toFixed(3)+')'
+                    : 'rgba(207,161,99,'+a.toFixed(3)+')';
+      c.lineWidth = d<0 ? 1 : 1.45;
+      if(d<0){ c.setLineDash([2,7]); } else { c.setLineDash([]); }
+      c.beginPath(); c.arc(mx,my,R,bas,bas+aci); c.stroke();
     }
+    c.setLineDash([]);
   }
-  isiCiz(); window.addEventListener('resize',isiCiz);
+  var durgun=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var sonKare=0;
+  function dongu(z){ if(z-sonKare>40){ isiCiz(z); sonKare=z; } requestAnimationFrame(dongu); }
+  isiCiz(0);
+  if(!durgun) requestAnimationFrame(dongu);
+  window.addEventListener('resize',function(){ isiCiz(performance.now()); });
   fetch('../veri/sinav-tek-sayfa.json',{cache:'no-store'})
     .then(function(y){return y.ok?y.json():null;})
     .then(function(d){
@@ -384,30 +469,92 @@ if(tuval){
 /* ===================================================================
    3) CAM PANEL — bugünün GERÇEK sorusu ve GERÇEK tuzak adı
    =================================================================== */
+var V=null;                                   /* canlı soru; null ise HTML'deki gerçek kopya kalır */
+var siklarEl=document.getElementById('camSiklar');
+var nobetci=document.getElementById('nobetci');
+var nEt=document.getElementById('nobetciEt'), nMetin=document.getElementById('nobetciMetin');
+var nDayanak=document.getElementById('nobetciDayanak'), ipucu=document.getElementById('ipucu');
+
+/* HTML'de duran bugünün gerçek sorusunun tuzakları - JSON okunamazsa kullanılır. */
+var YEDEK={
+  dogru:'A',
+  hap:'Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmaz; işin özelliğine yabancı hüküm yine de yazılmamış sayılır.',
+  madde:{A:'m.20 f.2-3',B:'m.20 f.3',C:'m.20 f.2',D:'m.20 f.1',E:'m.20 f.2-3'},
+  tuzak:{
+    B:{ad:'Yeterlilik Tuzağı',metin:"Öğrenci kabul kaydının tek başına yeterli olduğunu düşünüp hükmü geçerli sayar. Doğrusu: Kanun kaydın 'tek başına' yeterli olmadığını açıkça belirtir, yazılmamışlık hükmü ayrıca uygulanır."},
+    C:{ad:'Özdeşlik Tuzağı',metin:'Öğrenci metinlerin özdeş olmaması kuralını ters yönde kullanıp hükmün zaten genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması genel işlem koşulu sayılmayı engellemez.'},
+    D:{ad:'Şekil Tuzağı',metin:'Öğrenci hükmün metinde mi ekte mi yer aldığının nitelendirmeyi etkilediğini sanır. Doğrusu: Yer, kapsam, yazı türü ve şekli nitelendirmede önem taşımaz.'},
+    E:{ad:'Mutlaklaştırma Tuzağı',metin:"Öğrenci 'tek başına yeterli değildir' ifadesini 'hiçbir şekilde uygulanamaz' şeklinde ters çevirir. Doğrusu: Kanun yalnız kaydın tek başına yetersizliğini söyler."}
+  }
+};
+
+function dogruHarf(){ return (V&&V.dogru)||YEDEK.dogru; }
+function maddeBul(k){
+  if(V&&V.satirlar){
+    for(var i=0;i<V.satirlar.length;i++){
+      if(String(V.satirlar[i][0]||'').indexOf(k+')')===0) return V.satirlar[i][1];
+    }
+    return '';
+  }
+  return YEDEK.madde[k]||'';
+}
+function tuzakBul(k){ return (V&&V.tuzak&&V.tuzak[k]) || YEDEK.tuzak[k] || null; }
+
+/* NÖBETÇİ konuşur. Üründe "hoca" yok - anlatan Nöbetçi'dir. */
+function nobetciSoylesin(k){
+  var d=dogruHarf(), dogruMu=(k===d), md=maddeBul(k);
+  if(dogruMu){
+    nobetci.className='nobetci d';
+    nEt.textContent='Doğru';
+    nMetin.textContent=(V&&V.hap)||YEDEK.hap;
+  }else{
+    var tz=tuzakBul(k);
+    nobetci.className='nobetci';
+    nEt.textContent=tz&&tz.ad ? tz.ad : 'Tuzak';
+    /* "Doğrusu:" kalıbı metnin içinde geçer; göz yakalasın diye kalın. */
+    nMetin.innerHTML=esc((tz&&tz.metin)||'').replace(/Doğrusu:/,'<b>Doğrusu:</b>');
+  }
+  nDayanak.textContent = md ? ('Dayanak · '+md) : '';
+  nobetci.hidden=false;
+  if(ipucu) ipucu.textContent = dogruMu
+    ? 'Havuzdaki her soruda aynı ekran.'
+    : 'Başka bir şık dene — doğruyu bulunca Nöbetçi kuralı söyler.';
+}
+
+siklarEl.addEventListener('click',function(e){
+  var b=e.target.closest?e.target.closest('.sik'):null;
+  if(!b||b.disabled)return;
+  var k=b.getAttribute('data-k'), d=dogruHarf();
+  if(k===d){
+    b.classList.add('d'); 
+    /* doğru bulununca tüm şıklar kilitlenir, yanlış denenenler işaretli kalır */
+    [].forEach.call(siklarEl.querySelectorAll('.sik'),function(x){ x.disabled=true; });
+  }else{
+    b.classList.add('y'); b.disabled=true;
+  }
+  nobetciSoylesin(k);
+});
+
 fetch('../veri/vitrin-kart-ozet.json',{cache:'no-store'})
   .then(function(y){return y.ok?y.json():null;})
   .then(function(d){
     if(!d||!d.sinavlar)return;
     var kod=d.sinavlar.sgs?'sgs':Object.keys(d.sinavlar)[0];
     var v=d.sinavlar[kod]; if(!v||!v.siklar)return;
-    var dogru=v.dogru||'A';
-    var yanlisAnahtar=Object.keys(v.tuzak||{})[0]
-      || Object.keys(v.siklar).filter(function(k){return k!==dogru;})[0];
-    var t=(v.tuzak||{})[yanlisAnahtar]||{};
-    document.getElementById('camSoru').textContent=v.soru||'';
-    document.getElementById('sikD').querySelector('em').textContent=dogru;
-    document.getElementById('sikY').querySelector('em').textContent=yanlisAnahtar||'C';
-    if(t.ad)document.getElementById('tuzakAd').textContent=t.ad;
-    /* dayanak: satirlar içinden doğru şıkkın maddesi */
-    var madde='';
-    (v.satirlar||[]).forEach(function(r){
-      if(String(r[0]||'').indexOf(dogru+')')===0) madde=r[1];
-    });
+    V=v;
     var ders=String(v.ders||'').split('|')[0];
-    document.getElementById('camDip').textContent=
-      [ders, v.konu, madde?('dayanak '+madde):''].filter(Boolean).join(' · ');
+    document.getElementById('camDers').textContent=ders+(v.konu?' · '+v.konu:'');
+    document.getElementById('camKunye').textContent=
+      (v.kunye||'')+(v.donem?' · '+v.donem+' dönemde çıktı':'');
+    document.getElementById('camSoru').textContent=v.soru||'';
+    document.getElementById('camDip').textContent=ders+(v.konu?' · '+v.konu:'');
+    siklarEl.innerHTML=Object.keys(v.siklar).map(function(k){
+      return '<button class="sik" type="button" data-k="'+k+'"><em>'+k+'</em><span>'
+        +esc(v.siklar[k])+'</span></button>';
+    }).join('');
+    nobetci.hidden=true;
+    if(ipucu) ipucu.textContent='Bir şık seç — yanlışsa Nöbetçi tuzağın adını söyler.';
   }).catch(function(){});
-
 /* ===================================================================
    4) NÖBET ŞERİDİ — index.html ile aynı kural
    =================================================================== */

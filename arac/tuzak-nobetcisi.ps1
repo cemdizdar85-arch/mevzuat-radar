@@ -203,10 +203,24 @@ function K3-ListeSarma($metin,$ast,$dosya){
   #    (Ayni ders bugun ucuncu kez: tek olcutlu ikiz kapisi 14'te 3, madde
   #     teshisi iki kez yanlis etiket, simdi bu. Kural yazmak kolay; kuralin
   #     YANLIS ALARMINI olcmek isin asil yarisi.)
-  $listeAd=@([regex]::Matches($metin,'\$(\w+)\s*=\s*New-Object\s+System\.Collections\.Generic\.List\[object\]')|ForEach-Object{ $_.Groups[1].Value }|Select-Object -Unique)
+  # ⛔ 12.09 GENISLETILDI — KURAL GERCEK BIR KAZAYI KACIRDI.
+  #    motor/kaydir-coz.ps1'e `$script:DOLDUR_SAYISIZ=New-Object ...List[object]`
+  #    yazdim, sonra `@($script:DOLDUR_SAYISIZ)` ile sardim. Nobetci "0 ZARARLI"
+  #    dedi; kosu Finansal Muhasebe'de ArgumentException ile dustu ve BUTUN YAYIN
+  #    olurdu (2.670 soru siteye cikamadi). Sebep: desendeki `\w+` iki nokta
+  #    iceren KAPSAM ONEKINI (`script:`, `global:`, `private:`) eslestirmiyordu.
+  #    Bu yuzden ad bulunamadi, kullanim da aranmadi. Artik onek istege bagli ve
+  #    bildirimle kullanim ONEKI FARKLI olsa da eslesir (PS ayni degiskendir).
+  $listeAd=@([regex]::Matches($metin,'\$(?:[A-Za-z]+:)?(\w+)\s*=\s*New-Object\s+System\.Collections\.Generic\.List\[object\]')|ForEach-Object{ $_.Groups[1].Value }|Select-Object -Unique)
   foreach($ad in $listeAd){
-    foreach($m in [regex]::Matches($metin,('@\(\s*\$'+[regex]::Escape($ad)+'\s*\)'))){
+    foreach($m in [regex]::Matches($metin,('@\(\s*\$(?:[A-Za-z]+:)?'+[regex]::Escape($ad)+'\s*\)'))){
       $satir=($metin.Substring(0,$m.Index) -split "`n").Count
+      # ⚠ 12.09 — YORUM SATIRI KUSUR DEGILDIR (K2'de ayni ayiklama yapilmisti).
+      #   Kurali genisletir genisletmez ilk bulgusu, tuzagi ANLATAN kendi yorumum
+      #   oldu (kaydir-coz.ps1:1473). Tuzaga karsi yazilmis uyariyi kusur saymak,
+      #   kapiya guveni bitiren seydir.
+      $satirMetni=($metin -split "`r?`n")[$satir-1]
+      if($satirMetni -match '^\s*#'){ continue }
       $bul.Add([pscustomobject]@{ satir=$satir
         ileti=("LIST SARMA: @(`$$ad) — List[object] tr-TR PS 5.1'de ArgumentException atar. `$$ad.ToArray() kullan.") })
     }
@@ -536,7 +550,24 @@ $x=@(ConvertFrom-Json -InputObject $m)'; bekle=$true
     @{ kural='K3-LISTSARMA'; ad='List[string] patlamaz'
        kod='$l=New-Object System.Collections.Generic.List[string]
 $d=@($l)'; bekle=$false
-       neden='OLCULDU (tr-TR PS 5.1.26100): @() sarmasi YALNIZ List[object] icin ArgumentException atar. List[string]/[psobject]/[int], ArrayList, HashSet[object] hepsi GECER. K3 daraltmasi TAM - kacirdigi yok.' }
+       neden='OLCULDU (tr-TR PS 5.1.26100): @() sarmasi YALNIZ List[object] icin ArgumentException atar. List[string]/[psobject]/[int], ArrayList, HashSet[object] hepsi GECER. TUR daraltmasi dogru.' }
+    # ⛔ 12.09 — "K3 daraltmasi TAM, kacirdigi yok" IDDIASI YANLIS CIKTI.
+    #   O gun kural gercek bir kazayi kacirdi: kapsam onekli ad. Iddia silindi,
+    #   yerine bu iki vaka kondu. Ders: "kacirdigi yok" cumlesi ancak KACIRMA
+    #   VAKASI yazilip kirmiziya dustugu gorulunce kurulur.
+    @{ kural='K3-LISTSARMA'; ad='kapsam onekli ad ($script:) - GERCEK KAZA 12.09'
+       kod='$script:SAYAC=New-Object System.Collections.Generic.List[object]
+$d=@($script:SAYAC)'; bekle=$true
+       neden='GERCEK OLAY: motor/kaydir-coz.ps1''de tam bu kalip yazildi, nobetci 0 ZARARLI dedi, yayin kosusu ArgumentException ile dustu ve 2.670 soru siteye cikamadi. Desendeki \w+ iki nokta iceren oneki eslestirmiyordu.' }
+    @{ kural='K3-LISTSARMA'; ad='bildirim onekli, kullanim oneksiz'
+       kod='$script:SAYAC=New-Object System.Collections.Generic.List[object]
+$d=@($SAYAC)'; bekle=$true
+       neden='PS''te $script:SAYAC ile $SAYAC ayni degiskendir; sarma yine patlar. Kural ikisini de gormeli.' }
+    @{ kural='K3-LISTSARMA'; ad='tuzagi ANLATAN yorum kusur degildir'
+       kod='$script:SAYAC=New-Object System.Collections.Generic.List[object]
+#  tuzak: @($script:SAYAC) yazma, ArgumentException atar
+$d=$script:SAYAC.ToArray()'; bekle=$false
+       neden='Kurali genisletir genisletmez ilk bulgusu tuzagi anlatan kendi yorumum oldu (kaydir-coz.ps1:1473). Uyariyi kusur saymak kapiya guveni bitirir - K2''de de ayni ayiklama yapilmisti.' }
     @{ kural='K6-STDERR';   ad='2>$null de oldurur'
        kod='$ErrorActionPreference=''Stop''
 git fetch origin main 2>$null'; bekle=$true
