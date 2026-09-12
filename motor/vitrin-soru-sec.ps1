@@ -45,11 +45,35 @@ $secimKok  = Join-Path $depoKok "veri\sinav\kaydir-secim"
 $fabrikaKok = Join-Path $depoKok "veri\fabrika"
 $hedefYol  = Join-Path $depoKok "veri\vitrin-soru-havuzu.json"
 
+# Vitrinin CEKIM GUCU "bu soru son N sinavin M tanesinde cikti" cumlesinden
+# gelir. N uydurulamaz: cikmis sinav taramasindan okunur.
+$taranan = 0
+$tekSayfaYol = Join-Path $depoKok "veri\sinav-tek-sayfa.json"
+if (Test-Path -LiteralPath $tekSayfaYol) {
+  $tekSayfaMetni = Get-Content $tekSayfaYol -Raw -Encoding UTF8
+  $tekSayfa = $tekSayfaMetni | ConvertFrom-Json
+  if ($tekSayfa.cikmis -and $tekSayfa.cikmis.sgs_siklik) {
+    $taranan = [int]$tekSayfa.cikmis.sgs_siklik.donem
+  }
+}
+
 # Ders onceligi OLCUMDEN gelir (veri/sinav-tek-sayfa.json, dersler.sinav_soru):
 # SGS'de Finansal Muhasebe 26 soru, Denetim 16, Maliyet 8. Vitrin agirligi da oyle.
+# ⛔ 13.09 - ILK SURUMDE YALNIZ IKI DOSYA TARANIYORDU ve en cok cikan konular
+# havuza hic giremiyordu. Olculdu (veri/sinav-tek-sayfa.json, 35 donem):
+#   ortak maliyet dagitimi 13/35 donem -> 10 yayin sorusu, 10'u da vitrine hazir
+#   dikey yuzde analizi    11/35 donem ->  7 yayin sorusu,  6'si hazir
+# Ikisi de FM/Maliyet disindaki dosyalarda duruyordu. Vitrinin cekim gucu
+# "bu soru son 35 sinavin N'inde cikti" cumlesinden geliyor; o yuzden kaynak
+# listesi sinavdaki AGIRLIGA gore genisletildi (dersler.sinav_soru):
+#   FM 26 · Denetim 16 · Maliyet 8 · Mali Tablolar Analizi 8 · Vergi 6 · Ticaret 6
 $yayinDosyalari = @(
-  @{ ders = "Finansal Muhasebe";  dosya = "yayin-sgs-finansal-muhasebe.json" },
-  @{ ders = "Maliyet Muhasebesi"; dosya = "yayin-sgs-maliyet-muhasebesi.json" }
+  @{ ders = "Finansal Muhasebe";     dosya = "yayin-sgs-finansal-muhasebe.json" },
+  @{ ders = "Denetim";               dosya = "yayin-sgs-denetim.json" },
+  @{ ders = "Maliyet Muhasebesi";    dosya = "yayin-sgs-maliyet-muhasebesi.json" },
+  @{ ders = "Mali Tablolar Analizi"; dosya = "yayin-sgs-mali-tablolar-analizi.json" },
+  @{ ders = "Vergi Hukuku";          dosya = "yayin-sgs-vergi-hukuku.json" },
+  @{ ders = "Ticaret Hukuku";        dosya = "yayin-sgs-ticaret-hukuku.json" }
 )
 
 $TUZAK_DESEN = '^\s*([^:]{3,45}[Tt]uza[gğ][ıi])\s*:\s*(.+)$'
@@ -260,6 +284,7 @@ $cikti = [ordered]@{
   uretim  = (Get-Date -Format "yyyy-MM-dd HH:mm")
   uretici = "motor/vitrin-soru-sec.ps1"
   kapilar = "K1 yayinda · K2 aciklama hizasi · K3 adi konmus tuzak · K4 boy · K5 konu cesitliligi · K6 cozum tablosu · K7 adimlar"
+  taranan_donem = $taranan
   adet    = $secilen.Count
   sorular = @($secilen | Select-Object id, ders, konu, donem, soru, siklar, dogru, hap, kural, tuzak, dayanak, cozum, enSikHata, taktik, adimlar)
 }
