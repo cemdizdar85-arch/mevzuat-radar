@@ -1,0 +1,122 @@
+# .github/workflows/bulut-uretim.yml — SORU URETIMI BULUTTA
+#
+# 12.09.2026, Cem "bulut hattini simdi kuralim, bagimsiz denetim ve SPK da var".
+#
+# NIYE: uretim Cem'in dizustune bagliydi. Olculdu (11.09 gecesi): 8 es zamanli
+# surecte RAM doluyor (bos 736 MB, takas 2.385 MB) ve makine kapaninca uretim
+# duruyor. Uc yerel durum 11.09'da ambara tasindi (kalip_parti, bedel_kaydi,
+# konu_koprusu) - bu akis o tasimanin karsiligi: bulut ayni yerden okur, ayni
+# yere yazar.
+#
+# ⛔ NEDEN windows-latest, ubuntu DEGIL:
+#    Olculdu - motor/kalip-parti-uret.ps1'de 22, kalip-kosucu.ps1'de 5 yerde
+#    TERS BOLULU yol var ('veri\fabrika\...'). Linux'ta bunlar tek bir dosya
+#    ADI olur, klasor olmaz; uretim sessizce yanlis yere bakar. Ayrica hat
+#    PowerShell 5.1 icin yazildi. Windows runner ikisini de karsiliyor.
+#    (Public depoda Actions dakikasi ucretsiz; windows runner daha yavas ama
+#     darbogaz zaten model cagrisi, CPU degil.)
+#
+# ⛔ SONUC YUKLEME ADIMI if: always() — uretim yarida kalsa (tavan, zaman asimi,
+#    iptal) bile ODENEN IS AMBARA YAZILIR. Bu olmazsa saatlerce koşan ve parasi
+#    odenmis partiler runner ile birlikte silinir. "Yarim kosu = iki kez odeme"
+#    dersi 11.09'da yazildi, burada kapiya cevrildi.
+#
+# FREN: motor/kalip-parti-uret.ps1 icindeki KAPI-BAKIYE her parti ONCESI
+# Anthropic bakiyesini yokluyor; yetmezse parti HIC BASLAMIYOR. Yerel dosyaya
+# bagli olmadigi icin bulutta da calisir. (Aylik tavan 11.09'da Cem karariyla
+# kapi olmaktan cikarildi: "bakiye kadar harcayacak ve istedigimiz soru kadar
+# basacak".)
+#
+# ⛔ ELLE TETIKLENIR. cron YOK - para harcayan bir akis kendiliginden kosmaz.
+name: Bulut Uretim (soru basimi)
+
+on:
+  workflow_dispatch:
+    inputs:
+      plan:
+        description: "Plan dosyasi (depo icinde, or. veri/sinav/plan-sgs-c3-ince-anlik.json)"
+        required: true
+        type: string
+      paralel:
+        description: "Es zamanli parti sayisi (1-8)"
+        required: false
+        default: "6"
+        type: string
+      indir_parti:
+        description: "Parti onbellegini ambardan indir (ikiz denetimi icin gerekli)"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+# Iki bulut kosusu ayni anda ayni partiye yazarsa kayit bozulur.
+concurrency:
+  group: bulut-uretim
+  cancel-in-progress: false
+
+jobs:
+  uret:
+    runs-on: windows-latest
+    timeout-minutes: 350        # GitHub is tavani 360; yukleme adimina pay birakildi
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sirlar yerinde mi (kosmadan once DUR)
+        shell: powershell
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $eksik=@()
+          if(-not "$env:ANTHROPIC_API_KEY"){ $eksik+='ANTHROPIC_API_KEY' }
+          if(-not "$env:SUPABASE_SERVICE_KEY"){ $eksik+='SUPABASE_SERVICE_KEY' }
+          if($eksik.Count){ throw ("GitHub Secret eksik: " + ($eksik -join ', ') + ". Depo > Settings > Secrets > Actions") }
+          "sirlar tamam · plan: ${{ inputs.plan }} · paralel: ${{ inputs.paralel }}"
+          if(-not (Test-Path "${{ inputs.plan }}")){ throw "plan dosyasi depoda yok: ${{ inputs.plan }}" }
+
+      - name: Durumu ambardan indir (kopru + defter + parti onbellegi)
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          # Kopru: uretici KONU SECIMINI bundan yapar. Yoksa "kopru disi sentez"
+          # yoluna duser, dayanak BOS kalir ve KAYNAK-EKSIK reti artar (11.09'da
+          # 777 ret, tum retlerin %54'u tam bu aileydi).
+          ./arac/kopru-senkron.ps1 -Indir -Yaz -Sinav SGS
+          # Defter: harcama kaydi tek yerden gorulsun
+          ./arac/bedel-senkron.ps1 -Indir -Yaz
+          if ("${{ inputs.indir_parti }}" -eq "true") {
+            # Parti onbellegi: ikiz denetimi kardes partilere bakar
+            ./arac/parti-senkron.ps1 -Indir -Yaz
+          } else {
+            "parti onbellegi ATLANDI (ikiz denetimi zayif kosar)"
+          }
+
+      - name: Uret
+        shell: powershell
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./motor/kalip-kosucu.ps1 -Plan "${{ inputs.plan }}" -Paralel ${{ inputs.paralel }}
+
+      - name: Sonucu ambara yaz (KOSU DUSSE BILE)
+        if: always()
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          # ⛔ if: always() — uretim yarida kalsa bile ODENEN IS yazilir.
+          ./arac/parti-senkron.ps1 -Yukle -Yaz
+          ./arac/bedel-senkron.ps1 -Yukle -Yaz
+
+      - name: Kosu gunlugunu sakla
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bulut-uretim-log-${{ github.run_number }}
+          path: veri/fabrika/kosucu-log/**
+          retention-days: 14
+          if-no-files-found: warn
