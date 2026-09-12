@@ -89,9 +89,21 @@ if(Test-Path $ayrYol){
   Write-Host ("ders ayristirma: {0:N0} konu cozulmus (geri sinama %{1})" -f $ayristirma.Count,$hamAyr.geri_sinama.isabet_yuzde) -ForegroundColor Cyan
 } else { Write-Host "⚠ ders-ayristirma-sgs.json YOK - dersi bos konular kurtarilamaz" -ForegroundColor Yellow }
 
+# --- 2c) CEM'IN ELLE ATAMALARI (en yuksek oncelik) ----------------------------
+# 12.09: ayristiricinin cozemedigi 11 konu Cem'e soruldu, onayladi. Bunlar
+# kopru ve ayristiricidan ONCE okunur - insan karari makineyi ezer.
+$elle=@{}
+$elleYol=Join-Path $depoKok 'veri\ders-elle-atama.json'
+if(Test-Path $elleYol){
+  $hamElle=Get-Content $elleYol -Raw -Encoding UTF8|ConvertFrom-Json
+  foreach($a in @($hamElle.atamalar)){ $elle[(Katla4 "$($a.konu)")]="$($a.ders)".Trim() }
+  Write-Host ("elle atama: {0} konu (Cem onayli)" -f $elle.Count) -ForegroundColor Cyan
+}
+
 $plan=New-Object System.Collections.Generic.List[object]
 $dersiYok=New-Object System.Collections.Generic.List[object]
 $kurtarilan=0
+$elleKullanilan=0
 $sozelBekleyen=New-Object System.Collections.Generic.List[object]
 $doygun=0
 foreach($x in $tekrar){
@@ -104,7 +116,9 @@ foreach($x in $tekrar){
   $eksik=[Math]::Max(0,$hedefSoru-$mevcut)
   $ders="$($x.bizim_ders)".Trim()
   $kaynak='kopru'
-  if(-not $ders -and $ayristirma.ContainsKey($kok)){ $ders=$ayristirma[$kok]; $kaynak='ayristirici'; $kurtarilan++ }
+  # ⛔ SIRA: elle atama > kopru > ayristirici. Cem'in karari makineyi ezer.
+  if($elle.ContainsKey($kok)){ $ders=$elle[$kok]; $kaynak='elle'; $elleKullanilan++ }
+  elseif(-not $ders -and $ayristirma.ContainsKey($kok)){ $ders=$ayristirma[$kok]; $kaynak='ayristirici'; $kurtarilan++ }
   $kayit=[pscustomobject]@{ ders=$ders; konu="$($x.konu)"; donem=$donem; cikmis=$cikmis
                             kat=$kat; hedef=$hedefSoru; mevcut=$mevcut; eksik=$eksik; ders_kaynagi=$kaynak }
   if(-not $ders){ $dersiYok.Add($kayit); continue }                 # ⛔ ATLANMAZ, is emri olur
@@ -146,6 +160,34 @@ if($Yaz){
   New-Item -ItemType Directory -Force (Split-Path $yol -Parent) | Out-Null
   [IO.File]::WriteAllText($yol,($p|ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding $false))
   Write-Host ("`nyazildi: {0}" -f $Hedef) -ForegroundColor Green
+
+  # ⛔ KOSUCU BICIMI: parti bolme, zorluk dagitimi ve konu dosyasi yazma isini
+  #    motor/plandan-parti-kur.ps1 ZATEN yapiyor ve 11.09'da sinandi. Onu
+  #    yeniden yazmak yerine, plan onun BEKLEDIGI bicimde de yazilir:
+  #      hat · ders · konu · cikmis · donem · yayinda · rafta · bizde · hedef · acik
+  #    Boylece zincir tek: siklik-plani -> plandan-parti-kur -> kalip-kosucu.
+  #    'hat' alani SIMDI/BEKLESIN ayrimini tasir (sozel BEKLESIN).
+  $kosucuSatir=New-Object System.Collections.Generic.List[object]
+  foreach($x in $p){
+    $kosucuSatir.Add([ordered]@{ hat='SIMDI'; ders=$x.ders; konu=$x.konu; cikmis=[int]$x.cikmis
+      donem=[int]$x.donem; yayinda=[int]$x.mevcut; rafta=0; bizde=[int]$x.mevcut
+      hedef=[int]$x.hedef; acik=[int]$x.eksik; kat=[int]$x.kat })
+  }
+  foreach($x in $sozelBekleyen.ToArray()){
+    $kosucuSatir.Add([ordered]@{ hat='BEKLESIN'; ders=$x.ders; konu=$x.konu; cikmis=[int]$x.cikmis
+      donem=[int]$x.donem; yayinda=[int]$x.mevcut; rafta=0; bizde=[int]$x.mevcut
+      hedef=[int]$x.hedef; acik=[int]$x.eksik; kat=[int]$x.kat })
+  }
+  $kosucuPlan=[ordered]@{
+    olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
+    kural='SIKLIK PLANI. Carpan SIKLIGA bagli (donem>=5 Kat 5, 3-4 Kat 4, 2 Kat 3); tek donemlik konu ALINMAZ (olculen olasilik %2,6). Hedeften havuzdaki mevcut DUSULMUS - ayni soru iki kez basilmaz. Ders sirasi: Cem elle atama > kopru > ayristirici.'
+    cikmis_konu=$sgs.Count; bizde_soru=$havuz.Count
+    acik_soru=$toplamEksik; acik_konu=$p.Count
+    satirlar=@($kosucuSatir.ToArray())
+  }
+  $kosucuYol=Join-Path $depoKok 'veri\konu-plani-siklik.json'
+  [IO.File]::WriteAllText($kosucuYol,($kosucuPlan|ConvertTo-Json -Depth 5),(New-Object Text.UTF8Encoding $false))
+  Write-Host ("yazildi: veri/konu-plani-siklik.json (kosucu bicimi · {0} satir)" -f $kosucuSatir.Count) -ForegroundColor Green
   $isEmri=Join-Path $depoKok 'veri\dersi-atanmamis-konular.json'
   [IO.File]::WriteAllText($isEmri,(($dersiYok.ToArray())|ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding $false))
   Write-Host ("yazildi: veri/dersi-atanmamis-konular.json ({0} konu)" -f $dersiYok.Count) -ForegroundColor Yellow

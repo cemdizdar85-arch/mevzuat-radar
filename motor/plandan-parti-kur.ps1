@@ -36,6 +36,8 @@ param(
   [int]$PartiTavan = 30,         # tek partide en fazla kac KONU (=soru, uretici konu basina 1 soru yazar)
   [int]$TurTavan   = 4,          # bir konudan en fazla kac TUR (r1..rN) kosulsun
   [string]$Ad = '',              # plan adi (bos: otomatik)
+  [string]$PlanDosyasi = '',     # 12.09: konu plani yolu (bos: veri\konu-plani-<sinav>.json)
+  [int]$EnAzKat = 0,             # 12.09: siklik plani icin - yalniz bu Kat ve ustu
   [switch]$AyristirilamayanDahil # kaba kovada kalmis konular da girsin mi
 )
 $ErrorActionPreference='Stop'
@@ -55,7 +57,12 @@ if((Dizi $ok_kusur).Count){
 
 if(-not $Ad){ $Ad = ("{0}-c{1}-{2}" -f $Sinav.ToLowerInvariant(),$EnAzCikmis,(Get-Date -Format 'ddMM')) }
 
-$planYol=Join-Path $depoKok ('veri\konu-plani-'+$Sinav.ToLowerInvariant()+'.json')
+# ⚠ 12.09: plan yolu artik DISARIDAN verilebilir (-PlanDosyasi). Sebep: siklik
+#   plani (arac/siklik-plani.ps1) ayri bir dosyaya yaziyor ve bu betigi yeniden
+#   yazmak yerine ONU beslemek dogru - parti bolme, zorluk dagitimi ve konu
+#   dosyasi yazma burada zaten sinanmis durumda. Verilmezse eski davranis.
+$planYol=$(if($PlanDosyasi){ $(if([IO.Path]::IsPathRooted($PlanDosyasi)){ $PlanDosyasi }else{ Join-Path $depoKok $PlanDosyasi }) }
+           else { Join-Path $depoKok ('veri\konu-plani-'+$Sinav.ToLowerInvariant()+'.json') })
 if(-not (Test-Path $planYol)){ throw "konu plani yok: $planYol  (once motor/konu-plani.ps1 -Sinav $Sinav)" }
 $pj=Get-Content $planYol -Raw -Encoding UTF8|ConvertFrom-Json
 $sat=@($pj.satirlar)
@@ -66,7 +73,10 @@ $sec=@($sat | Where-Object {
   [int]$_.acik -gt 0 -and
   [int]$_.cikmis -ge $EnAzCikmis -and
   ($Hat -eq 'HEPSI' -or "$($_.hat)" -eq $Hat) -and
-  ($AyristirilamayanDahil -or "$($_.ders)" -notmatch 'ayristirilamadi')
+  ($AyristirilamayanDahil -or "$($_.ders)" -notmatch 'ayristirilamadi') -and
+  # 12.09: siklik planinda her satir 'kat' tasir. -EnAzKat 5 verilirse yalniz
+  # en sik cikan konular alinir (olculen olasilik: 5+ donem -> %21,6 / %63,2).
+  ($EnAzKat -le 0 -or ($_.PSObject.Properties['kat'] -and [int]$_.kat -ge $EnAzKat))
 })
 $topSoru=0; foreach($sc in $sec){ $topSoru+=[int]$sc.acik }
 Write-Host ("suzgec: hat={0} · cikmis>={1} · ayristirilamayan {2}" -f $Hat,$EnAzCikmis,$(if($AyristirilamayanDahil){'DAHIL'}else{'HARIC'}))
