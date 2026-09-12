@@ -47,6 +47,19 @@ on:
         required: false
         default: true
         type: boolean
+      # ⛔⭐ 12.09.2026 — TOPLU KUYRUK PARCA BOYU DISARI ACILDI.
+      #   motor/api-hedef.ps1:480'deki 09.09 olcumu: Anthropic kuyrugu KUCUK partileri
+      #   one aliyor - 8/30/36/83 istekli partiler 3-15 dk'da islendi, 62 ve 96 istekli
+      #   olanlar 20 dk'da SIFIRDI. O yuzden istekler MEVZUAT_TOPLU_PARCA boyunda
+      #   parcalara bolunup birlikte gonderiliyor (varsayilan 30).
+      #   ⚠ Bu ayar YALNIZ bir fazda parca boyundan COK istek varsa fark yaratir.
+      #     8 soruluk bir parti icin 30 da 15 de TEK parcadir - olcum yapmaz.
+      #   BOS birakilirsa kod varsayilani (30) gecerlidir; hicbir sey degismez.
+      toplu_parca:
+        description: "Toplu kuyruk parca boyu (bos = 30). A/B olcumu icin: bir plani 30, digerini 15 ile kos."
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -114,7 +127,11 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # Bos girdi = degisken hic yok sayilir; api-hedef.ps1 kendi varsayilanini (30) kullanir.
+          MEVZUAT_TOPLU_PARCA: ${{ inputs.toplu_parca }}
         run: |
+          if("$env:MEVZUAT_TOPLU_PARCA" -match '^\d+$'){ "TOPLU PARCA BOYU: $env:MEVZUAT_TOPLU_PARCA (girdiden)" }
+          else { "TOPLU PARCA BOYU: kod varsayilani (30)" }
           ./motor/kalip-kosucu.ps1 -Plan "${{ inputs.plan }}" -Paralel ${{ inputs.paralel }}
 
       - name: Sonucu ambara yaz (KOSU DUSSE BILE)
