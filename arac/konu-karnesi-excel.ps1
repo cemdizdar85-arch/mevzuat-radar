@@ -48,19 +48,33 @@ if(-not $Hedef){
 # 1) ÇIKMIŞ SINAV — konu konu kaç soru, kaç dönem, son yıl
 # ---------------------------------------------------------------------------
 # ⛔ önce değişkene al, sonra sar (PS 5.1 @(...|ConvertFrom-Json) tuzağı)
+# ⛔⭐ 12.09 DUZELTILDI — BIRLESIM YALNIZ KONU ADIYLA YAPILIR, DERSLE DEGIL.
+#   Ilk surum "Ders|konu" ile birlestiriyordu ve FELAKET bir yanlis uretti:
+#   "1.409 soru sinavda olmayan konuda" dedim. YANLISTI.
+#   OLCULDU: cikmis analizi ders adini GENIS GRUP olarak tutuyor -
+#     Muhasebe (2.013 kayit) · Hukuk (1.033) · Genel Kultur-Genel Yetenek ·
+#     Matematik-Istatistik · Yabanci Dil · Ekonomi · Maliye
+#   Bizim sorular ise INCE ders adi tasiyor (Finansal Muhasebe, Vergi Hukuku).
+#   Yani "Vergi Hukuku|kdv matrahi" ile "Hukuk|kdv matrahi" ASLA eslesmez.
+#   Yalniz KONU ADIYLA birlestirince gercek ortaya cikti:
+#     2.004 sorumuzun 2.003'u cikmis sinavda adi gecen konularda (tek istisna
+#     'ic kontrol ic denetim').
+#   Ders adi bilgi olarak TASINIR ama ANAHTAR DEGILDIR.
 $ANALIZ_HAM=Get-Content (Join-Path $DEPO_KOK 'veri\sgs-analiz.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $DONEMLER=@($ANALIZ_HAM.donemler)
-$CIKMIS=@{}       # "Ders|konu" -> @{ soru; donem; sonYil; yillar }
+$CIKMIS=@{}       # konu (ders YOK) -> @{ soru; donem; sonYil; grup }
 foreach($D in $DONEMLER){
   if("$($D.donem)" -notmatch '^(\d{4})/(\d)$'){ continue }
   $YIL=[int]$Matches[1]
   foreach($P in $D.konuSayim.PSObject.Properties){
-    $A="$($P.Name)"
-    if(-not $CIKMIS.ContainsKey($A)){ $CIKMIS[$A]=@{ soru=0; donem=0; sonYil=0; yillar=@{} } }
-    $CIKMIS[$A].soru  += [int]$P.Value
-    $CIKMIS[$A].donem += 1
-    if($YIL -gt $CIKMIS[$A].sonYil){ $CIKMIS[$A].sonYil=$YIL }
-    $CIKMIS[$A].yillar["$YIL"]=$true
+    $PARCA="$($P.Name)" -split '\|'
+    $GRUP=$PARCA[0]
+    $K=$(if($PARCA.Count -gt 1){ $PARCA[1] } else { '' })
+    if(-not $K){ continue }
+    if(-not $CIKMIS.ContainsKey($K)){ $CIKMIS[$K]=@{ soru=0; donem=0; sonYil=0; grup=$GRUP } }
+    $CIKMIS[$K].soru  += [int]$P.Value
+    $CIKMIS[$K].donem += 1
+    if($YIL -gt $CIKMIS[$K].sonYil){ $CIKMIS[$K].sonYil=$YIL }
   }
 }
 
@@ -70,7 +84,7 @@ foreach($D in $DONEMLER){
 $PLAN_HAM=Get-Content (Join-Path $DEPO_KOK 'veri\sinav\plan-siklik.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $PLAN=@($PLAN_HAM)
 $OLCUT=@{}
-foreach($P in $PLAN){ $OLCUT[("$($P.ders)|$($P.konu)")]=$P }
+foreach($P in $PLAN){ $OLCUT[("$($P.konu)")]=$P }   # anahtar KONU (bkz. birlesim notu)
 
 # ---------------------------------------------------------------------------
 # 3) BİZİM BASTIĞIMIZ — canlı sayım (yayına seçilmiş sorular)
@@ -80,7 +94,8 @@ if(-not (Test-Path $SECIM_YOL)){ throw "yayin secim dosyasi yok: $SECIM_YOL" }
 $SECIM_HAM=Get-Content $SECIM_YOL -Raw -Encoding UTF8 | ConvertFrom-Json
 $SECIM=@($SECIM_HAM)
 $BASTIGIMIZ=@{}
-foreach($S in $SECIM){ $A="$($S.ders)|$($S.konu)"; $BASTIGIMIZ[$A]=[int]$BASTIGIMIZ[$A]+1 }
+$BIZIM_DERS=@{}
+foreach($S in $SECIM){ $A="$($S.konu)"; $BASTIGIMIZ[$A]=[int]$BASTIGIMIZ[$A]+1; if(-not $BIZIM_DERS.ContainsKey($A)){ $BIZIM_DERS[$A]="$($S.ders)" } }
 
 # ---------------------------------------------------------------------------
 # 4) BİRLEŞİK KONU LİSTESİ — çıkmışta olan + bizim bastığımız
@@ -98,9 +113,8 @@ foreach($A in $OLCUT.Keys){ $TUM_ANAHTAR[$A]=$true }
 
 $SATIR=New-Object System.Collections.Generic.List[object]
 foreach($A in $TUM_ANAHTAR.Keys){
-  $PARCA=$A -split '\|'
-  $DERS=$PARCA[0]
-  $KONU=$(if($PARCA.Count -gt 1){ $PARCA[1] } else { '' })
+  $KONU=$A
+  $DERS=$(if($BIZIM_DERS.ContainsKey($A)){ $BIZIM_DERS[$A] } elseif($CIKMIS.ContainsKey($A)){ $CIKMIS[$A].grup } else { '?' })
   $C=$(if($CIKMIS.ContainsKey($A)){ $CIKMIS[$A] } else { $null })
   $O=$(if($OLCUT.ContainsKey($A)){ $OLCUT[$A] } else { $null })
   $B=[int]$BASTIGIMIZ[$A]
