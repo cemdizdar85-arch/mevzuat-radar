@@ -135,7 +135,23 @@ function K2-JsonDiziSarma($metin,$ast,$dosya){
   #   @('[{"a":1},{"a":2},{"a":3}]' | ConvertFrom-Json).Count  ->  1   (dogrusu 3)  # nobetci:gec
   #   once degiskene alip @() ile sarinca                      ->  3
   # Yani tuzak GERCEK, varsayim degil.
-  foreach($m in [regex]::Matches($metin,'@\(\s*(?:Get-Content|\$[\w]+)[^)]{0,200}?\|\s*ConvertFrom-Json[^)]{0,40}\)')){
+  # ⛔⭐ 12.09 GENISLETILDI — GEDIK SINAVI buldu (bkz. betik sonu, $GEDIK).
+  #   Desen yalnizca BORU bicimini ariyordu: `@($x | ConvertFrom-Json)`.
+  #   OLCULDU: -InputObject bicimi AYNI hatayi yapiyor ama kacIYORDU:
+  #       @($j | ConvertFrom-Json).Count            -> 1
+  #       @(ConvertFrom-Json -InputObject $j).Count -> 1   <-- kural gormuyordu
+  #   Depoda 20 yerde, 14 dosyada - uretim hatti dahil (kalip-parti-uret 4,
+  #   kalip-kosucu 1). Dahasi: kalip-kosucu.ps1:118'de birinin bu hataya
+  #   carpip `SyncRoot` yamasiyla etrafindan dolastigi goruluyor - yani tuzak
+  #   yasanmis, kural onu hic gormemis.
+  #   Ikinci desen KAPANIS PARANTEZINI ARAMAZ: `@(ConvertFrom-Json` dizilimi
+  #   zaten imzadir ve ic ice parantez ('-InputObject (Get-Content ...)')
+  #   [^)] tabanli bir desenle guvenilir eslesmez.
+  $ESLESMELER=New-Object System.Collections.Generic.List[object]
+  foreach($m in [regex]::Matches($metin,'@\(\s*(?:Get-Content|\$[\w]+)[^)]{0,200}?\|\s*ConvertFrom-Json[^)]{0,40}\)')){ $ESLESMELER.Add($m) }
+  foreach($m in [regex]::Matches($metin,'@\(\s*ConvertFrom-Json\b')){ $ESLESMELER.Add($m) }
+  $GORULEN_SATIR=@{}
+  foreach($m in $ESLESMELER.ToArray()){
     # ⚠ YANLIS ALARM AYIKLAMASI: satir satir JSONL okuyan kalip DOGRUDUR -
     #   @(Get-Content f | % { $_ | ConvertFrom-Json })  burada her satir ayri
     #   nesne, @() dogru sayiyor. Elle bakildi (cila-parti.ps1:181), gercek degil.
@@ -149,8 +165,11 @@ function K2-JsonDiziSarma($metin,$ast,$dosya){
     #   ayiklama yapildi). Olcum: 76 bulgunun 2'si buydu -> gercek 74.
     $satirMetni=($metin -split "`r?`n")[$satir-1]
     if($satirMetni -match '^\s*#'){ continue }
+    # Iki desen ayni satiri iki kez yakalayabilir - tek bulgu yeter.
+    if($GORULEN_SATIR.ContainsKey($satir)){ continue }
+    $GORULEN_SATIR[$satir]=$true
     $bul.Add([pscustomobject]@{ satir=$satir
-      ileti='@(... | ConvertFrom-Json): PS 5.1 diziyi TEK ogeye sarar. Once degiskene al, sonra @() ile sar. (arac/olcum-kapilari.ps1 JsonDizi)' })
+      ileti='@(...ConvertFrom-Json...): PS 5.1 diziyi TEK ogeye sarar (boru VE -InputObject bicimi, ikisi de olculdu: Count=1). Care: fazladan parantez -> @((ifade | ConvertFrom-Json)); ya da once degiskene al. (arac/olcum-kapilari.ps1 JsonDizi)' })
   }
   return $bul.ToArray()
 }
@@ -472,10 +491,65 @@ function GitGuvenli{
   }
   Remove-Item $gecY -Force -ErrorAction SilentlyContinue
 
+  # =========================================================================
+  # GEDIK SINAVI — "BU OLCUT NEYI KACIRIR?"   (12.09.2026, Cem "3 yap")
+  #
+  # NIYE VAR: oz-sinav "kural dogru CALISIYOR mu" diye soruyor. Bugun uc kez
+  # kuralin OLCUTU yanlis cikti - kural kusursuz calisiyordu, YANLIS SEYI
+  # olcuyordu:
+  #   K6: olcut '2>&1' idi -> `2>$null` da oldurur, KACIYORDU
+  #   K6: "yalniz gurultulu alt komutlar" diye daralttim -> `git diff` CRLF
+  #       uyarisiyla oldurdu, KACIYORDU
+  #   K5: olcut TURKCE HARF idi -> tire/orta nokta da bozar, KACIYORDU
+  #       (bu beni bizzat isirdi: kosu-nabzi.ps1 ayristirilamadi)
+  # Ucunu de TESADUFEN yakaladim. Bir sonraki gedigi bana degil KAPIYA
+  # buldurmak icin: her kural icin "ayni ariza baska nasil olur?" vakasi.
+  #
+  # KURAL: bir gedik vakasi eklenirken NEDEN alanina OLCUM yazilir.
+  # Olculmemis gedik vakasi eklenmez - tahminle vaka yazmak, kuralin kendi
+  # hatasini oz-sinava kopyalamak olur.
+  # nobetci:bolge-basla — asagisi BILEREK BOZUK ornek koddur (test verisi).
+  $GEDIK=@(
+    @{ kural='K2-JSONDIZI'; ad='-InputObject bicimi'
+       kod='$ErrorActionPreference=''Stop''
+$x=@(ConvertFrom-Json -InputObject $m)'; bekle=$true
+       neden='OLCULDU: @(ConvertFrom-Json -InputObject $j).Count = 1, boru bicimiyle AYNI hata. Desen yalniz boruyu ariyordu; depoda 20 yer, 14 dosya (uretim hatti dahil).' }
+    @{ kural='K2-JSONDIZI'; ad='-InputObject + ic ice parantez'
+       kod='$x=@(ConvertFrom-Json -InputObject (Get-Content $y -Raw -Encoding UTF8))'; bekle=$true
+       neden='Ayni gedik, ic ice parantezli hali. [^)] tabanli desen bunu eslestiremez - bu yuzden ikinci desen kapanis parantezi ARAMAZ.' }
+    @{ kural='K2-JSONDIZI'; ad='parantezli DOGRU surum'
+       kod='$x=@(($m | ConvertFrom-Json))'; bekle=$false
+       neden='OLCULDU: dizi 3 · tek nesne 1 · bos 0 - hepsi dogru. Dogru cozume alarm verilmemeli.' }
+    @{ kural='K3-LISTSARMA'; ad='List[string] patlamaz'
+       kod='$l=New-Object System.Collections.Generic.List[string]
+$d=@($l)'; bekle=$false
+       neden='OLCULDU (tr-TR PS 5.1.26100): @() sarmasi YALNIZ List[object] icin ArgumentException atar. List[string]/[psobject]/[int], ArrayList, HashSet[object] hepsi GECER. K3 daraltmasi TAM - kacirdigi yok.' }
+    @{ kural='K6-STDERR';   ad='2>$null de oldurur'
+       kod='$ErrorActionPreference=''Stop''
+git fetch origin main 2>$null'; bekle=$true
+       neden='OLCULDU (klon, `git checkout -b` stderr''e yazar): yonlendirme YOK -> GECTI · 2>&1 -> DUSTU · 2>$null -> DUSTU. Ilk surum yalniz 2>&1 ariyordu.' }
+    @{ kural='K6-STDERR';   ad='SORGU komutu da isirir'
+       kod='$ErrorActionPreference=''Stop''
+$d = @(git diff --name-only 2>$null)'; bekle=$true
+       neden='OLCULDU: bu depoda `git diff --name-only 2>$null` "LF will be replaced by CRLF" uyarisiyla betigi OLDURDU. "Sorgu komutlari sessizdir" daraltmasi bu yuzden KALDIRILDI.' }
+  )
+  # nobetci:bolge-bitir
+  foreach($G in $GEDIK){
+    $KG=($KURALLAR|Where-Object{ $_.ad -eq $G.kural }|Select-Object -First 1)
+    if(-not $KG){ $hata.Add("GEDIK: '$($G.kural)' diye kural YOK"); continue }
+    [IO.File]::WriteAllText($gec,$G.kod,(New-Object Text.UTF8Encoding $true))
+    $AG=[System.Management.Automation.Language.Parser]::ParseInput($G.kod,[ref]$null,[ref]$null)
+    $BG=@(& $KG.fn $G.kod $AG $gec)
+    $VAR=($BG.Count -gt 0)
+    if($VAR -ne [bool]$G.bekle){
+      $hata.Add("GEDIK [$($G.kural)] '$($G.ad)': beklenen bulgu=$($G.bekle), cikan=$VAR · NEDEN: $($G.neden)")
+    }
+  }
+
   Remove-Item $gec -Force -ErrorAction SilentlyContinue
   if(-not $Sessiz2){
     if($hata.Count){ Write-Host "⛔ TUZAK NOBETCISI OZ-SINAVI KIRMIZI:" -ForegroundColor Red; foreach($h in $hata.ToArray()){ Write-Host "   - $h" -ForegroundColor Red } }
-    else{ Write-Host ("TUZAK NOBETCISI OZ-SINAVI YESIL ({0}/{0} kural · kotu yakalandi, iyiye alarm yok)" -f $ornek.Count) -ForegroundColor Green }
+    else{ Write-Host ("TUZAK NOBETCISI OZ-SINAVI YESIL ({0} vaka · {1} K5 baytvakasi · {2} K6 akisvakasi · {3} GEDIK vakasi)" -f $ornek.Count,$k5Vaka.Count,$k6Vaka.Count,$GEDIK.Count) -ForegroundColor Green }
   }
   return ,$hata.ToArray()
 }
