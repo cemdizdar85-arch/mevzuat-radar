@@ -97,6 +97,20 @@ $ayrYol=Join-Path $depoKok (Join-Path 'veri' ('ders-ayristirma-'+$Sinav.ToLowerI
 if(Test-Path $ayrYol){
   $ayrHam=Get-Content $ayrYol -Raw -Encoding UTF8|ConvertFrom-Json
   foreach($a in @($ayrHam.kayitlar)){ if("$($a.ders)" -and "$($a.ders)" -ne '(ayristirilamadi)'){ $script:AYR[(Katla "$($a.konu)")]="$($a.ders)" } }
+
+# ⛔ ELLE ATAMA TABLOSU (veri/ders-elle-atama.json) - Cem'in onayladigi konu->ders
+#   eslemeleri. Ayristiricidan ve kopruden ONCE uygulanir (asagida $script:ELLE).
+$script:ELLE=@{}
+$elleYolKP=Join-Path $depoKok 'veri\ders-elle-atama.json'
+if(Test-Path $elleYolKP){
+  try{
+    $elleHam=Get-Content $elleYolKP -Raw -Encoding UTF8 | ConvertFrom-Json   # ONCE DEGISKENE (K2)
+    foreach($ea in @($elleHam.atamalar)){
+      if("$($ea.konu)".Trim() -and "$($ea.ders)".Trim()){ $script:ELLE[(Katla "$($ea.konu)")]="$($ea.ders)".Trim() }
+    }
+    Write-Host ("ELLE ATAMA: {0} konu okundu (veri/ders-elle-atama.json)" -f $script:ELLE.Count) -ForegroundColor Cyan
+  }catch{ Write-Host "ELLE ATAMA okunamadi: $($_.Exception.Message)" -ForegroundColor Yellow }
+}
   Write-Host ("ders ayristirmasi: {0:N0} konu (geri sinama %{1})" -f $script:AYR.Count,$ayrHam.geri_sinama.isabet_yuzde) -ForegroundColor DarkCyan
 }
 
@@ -112,7 +126,21 @@ foreach($r in @($kopruHam)){
   # kopruce "BOSLUK" damgali kayitlarda bizim_ders BOS, ama `arsiv_ders` dolu
   # (kaba ad: Muhasebe / Hukuk / Genel Kultur...). Kaba ad, hic ders olmamasindan
   # iyidir: plan okunabilir kalir ve ayristirma isi GORUNUR olur.
-  $d="$($r.bizim_ders)".Trim()
+    # ⛔⭐ 12.09.2026 — ELLE ATAMA EN USTTE OKUNUR (Cem: "ders duzeltmesi kaynak
+    #    sorununun en ucuz caresi, bunu duzelt").
+    #    OLCULDU: veri/ders-elle-atama.json'u YALNIZ arac/siklik-plani.ps1
+    #    okuyordu; ASIL konu planini ureten bu betik okumuyordu. Sonuc: Cem'in
+    #    onayladigi atamalar konu-plani-sgs.json'a HIC gecmiyordu.
+    #    NIYE ONEMLI: yanlis ders -> YANLIS KAYNAK. 'kontrol cevresi unsurlari'
+    #    ve 'isletmenin surekliligi gorusu' plana Finansal Muhasebe yazilmisti;
+    #    ikisi de Denetim konusu. FM etiketiyle basilinca uretici THP/MSUGT
+    #    cekiyor, BDS degil - hakem "kaynak konuyu kapsamiyor" deyip dusuruyor.
+    #    94 konu / 239 soruluk hedef boyleydi; KAYNAK-EKSIK'in (777) sebeplerinden.
+    #    Sira: ELLE ATAMA > kopru (bizim_ders) > ayristirici > kaba kova.
+    $d=''
+    $elleAnahtar=Katla "$($r.konu)"
+    if($script:ELLE -and $script:ELLE.ContainsKey($elleAnahtar)){ $d=$script:ELLE[$elleAnahtar] }
+    if(-not $d){ $d="$($r.bizim_ders)".Trim() }
   if(-not $d){
     # 11.09: arac/ders-ayristir.ps1 kaba kovadaki konulari anahtar kelimeyle
     # dagitiyor. Geri sinama %88,8 (esik %85, 787 bilinen konu uzerinde).

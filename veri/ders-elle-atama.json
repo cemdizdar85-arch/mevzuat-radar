@@ -1,6 +1,7 @@
 {
-    "_not":  "Cem\u0027in ELLE onayladigi ders atamalari. Ders ayristirici bu konulari cozemedi; yanlis derse atamak atamamaktan kotu oldugu icin Cem\u0027e soruldu. Bu dosya kopru ve ayristiricidan ONCE okunur. 12.09 ilk 11 atama; 12.09 aksam Cem 48 atamayi daha onayladi (\u00272.3 iki ve ucu onayladim\u0027) - oneri arac uretti, Cem onayladi.",
-    "_olcum":  "2026-09-12 19:50",
+    "_not":  "Cem\u0027in ELLE onayladigi ders atamalari. Ayristirici cozemedigi ya da YANLIS cozdugu konular. Bu dosya kopru ve ayristiricidan ONCE okunur - 12.09\u0027da motor/konu-plani.ps1 de bagland (onceden yalniz siklik-plani.ps1 okuyordu, yani atamalar asil plana GECMIYORDU). 12.09 aksam: 91 ders DUZELTMESI eklendi (yanlis ders -\u003e yanlis kaynak zinciri olculdu).",
+    "_olcum":  "2026-09-12 23:25",
+    "_atlanan":  "Tartismali 3 konu UYGULANMADI (Cem hukum vermedi): gider tahakkuku, gelir tahakkuku, haksiz rekabet reklam yasagi",
     "atamalar":  [
                      {
                          "konu":  "yonetim beyanlari",
@@ -136,7 +137,7 @@
                      },
                      {
                          "konu":  "haksiz rekabet ve reklam yasagi",
-                         "ders":  "Meslek Hukuku"
+                         "ders":  "Ticaret Hukuku"
                      },
                      {
                          "konu":  "hukuka aykiriligi kaldiran haller",
@@ -237,6 +238,342 @@
                      {
                          "konu":  "yeni keynesyen model",
                          "ders":  "Ekonomi"
+                     },
+                     {
+                         "konu":  "maddi duran varlik denetimi",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "finansman bonosu ihraci",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "hazine bonosu tahsili",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "maddi olmayan duran varlik denetimi",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "isletmenin surekliligi gorusu",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "gider yeri dagitimi",
+                         "ders":  "Maliyet Muhasebesi"
+                     },
+                     {
+                         "konu":  "kontrol cevresi unsurlari",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "kambiyo senetleri",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "bds 570 isletmenin surekliligi",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "cek hukumleri",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "dikey yuzdelerden tutar hesabi",
+                         "ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "odeme emrine dava acma suresi",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "genel uretim gideri ikramiye tahakkuku",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "baslangic analitik prosedur amaclari",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "hazine bonosu tahsili vergi kesintili kayit",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "gorus bildirmekten kacinma raporu",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "tasit sahiplik kaniti",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "dis teyit",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "amme alacagi guvence onlemleri",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "haksiz rekabet talepleri",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "cek kanunu sorumluluk",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "alacak senet cek kaydi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "amme alacagi zamanasimi",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "cek cirosunun bilanco esitligine etkisi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "kdv tahakkuk kaydi (devreden)",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "cek cirosu kurallari",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "yonetim beyani duzeyinde risk bilesenleri",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "esas gider yerinde gug payi",
+                         "ders":  "Maliyet Muhasebesi"
+                     },
+                     {
+                         "konu":  "reklam yasagi kurallari",
+                         "ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "finansman bonosu kaydi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "kasa kambiyo kur farki",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "ucret yoluyla haksiz rekabet halleri",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "finansman bonosu",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "dis teyit proseduru (alacak var olma)",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "dikey yuzde ile pasif tutar hesabi",
+                         "ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "cebren tahsilin baslamasi (odeme emri)",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "finansman bonosu itfasi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "haksiz rekabet ve reklam yasagi yonetmeligi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "net isletme sermayesi negatif kosulu",
+                         "ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "anonim sirket denetimi",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "ic kontrol testi",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "tamamlama asamasi analitik prosedur",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "fazla mesai ucretinin gider yeri",
+                         "ders":  "Maliyet Muhasebesi"
+                     },
+                     {
+                         "konu":  "satis kaydi kdv",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "is sahipleriyle haksiz rekabet halleri",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "faiz geliri tahakkuku",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "finansman bonosu vade sonu kaydi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "haksiz rekabet davalari (oda yetkisi)",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "cek kurallari (kapital faizi yasagi)",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "yardimci gider yeri dagitimi",
+                         "ders":  "Maliyet Muhasebesi"
+                     },
+                     {
+                         "konu":  "cek kurallari",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "maddi duran varlik analitik prosedurleri",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "kambiyo kar zarar",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "cek odeme suresi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "unvan kullanma cezasi (6 ay-1 yil)",
+                         "ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "anonim sirket bagimsiz denetim",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "gorus bildirmekten kacinma",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "kambiyo kari",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "dogrulama teknigi kanitlari",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "internet reklam yasagi",
+                         "ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "kdv tahakkuk kaydi",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "reklam yasagi yonetmeligi",
+                         "ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "ttk bagimsiz denetim",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "finansman bonosu muhasebelestirme",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "gelir tahakkuklari",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "gelir vergisi beyannamesi",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "dikey yuzdelerle brut satislar hesabi",
+                         "ders":  "Mali Tablolar Analizi"
+                     },
+                     {
+                         "konu":  "tacir defter tutma",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "mal iadesi kdv",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "kdv mahsup kaydi",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "reklam yasagi yonetmeligi (seminer duyurusu)",
+                         "ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "haksiz rekabet mucadele kurulu",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "reklam yoluyla haksiz rekabet halleri",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "ciro edilmis bono alinmasi kaydi",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "banka kredisi cek cirosu ile odeme",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "kambiyo senetleri faiz",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "analitik prosedur asamalari",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "cek denetimi kontrol testleri",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "gider muhasebe kaydi kdv",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "cek kurallari (vade kaydi)",
+                         "ders":  "Ticaret Hukuku"
+                     },
+                     {
+                         "konu":  "meslek hukuku reklam yasagi",
+                         "ders":  "Meslek Hukuku"
+                     },
+                     {
+                         "konu":  "banka kredisi faiz tahakkuku",
+                         "ders":  "Vergi Hukuku"
+                     },
+                     {
+                         "konu":  "gorus bildirmekten kacinma (belirsizlik)",
+                         "ders":  "Denetim"
+                     },
+                     {
+                         "konu":  "aval (kambiyo teminati)",
+                         "ders":  "Ticaret Hukuku"
                      }
                  ]
 }
