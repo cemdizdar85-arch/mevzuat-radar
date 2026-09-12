@@ -29,6 +29,16 @@ on:
         required: false
         default: true
         type: boolean
+      taban_tazele:
+        description: "ISTISNA: cevap dagilimi TABANINI bu kosunun olcumune esitle (kotulesmeyi KABUL ET). Gerekce zorunlu."
+        required: false
+        default: false
+        type: boolean
+      taban_gerekce:
+        description: "taban_tazele=true ise ZORUNLU: niye kotulesme kabul edildi"
+        required: false
+        default: ""
+        type: string
   # ⭐ 12.09.2026 — ZINCIRIN SON HALKASI. Cem: "ben bilgisayari kapatsam bile
   #   etkilenmiyor deme artik". Uretim bitiyordu ama yayin ELLE basiliyordu:
   #       bulut uretir -> ambara yazar -> (DURUYOR) -> biri gelir -> siteye cikar
@@ -99,9 +109,23 @@ jobs:
       #   kendiliginden asagi cekilir, geri yukselmez.
       #   Olcum: basili sayfalardan ders ders harf sayimi. Hedef %20 -
       #   gercek SGS anahtari olculdu (595 cevap, ki-kare 0,6).
+      # ⛔ TABAN TAZELEMESI NIYE BURADA, YERELDE DEGIL: taban, kosunun KENDI
+      #   bastigi sayfalardan olculmeli. 12.09'da tabani yerelde n=1.805
+      #   fotografindan almistim; sayfalar o sirada 2.079'a cikmisti ve kapi
+      #   bu zamanlama farki yuzunden de kirmiziya dondu. Tazeleme kosu icinde
+      #   yapilirsa olcum ile taban AYNI ANIN fotografi olur.
       - name: Cevap dagilimi kapisi (ders ders, circir)
         shell: powershell
-        run: ./arac/cevap-dagilimi-olc.ps1 -Yaz -Kapi
+        run: |
+          $tazele = "${{ inputs.taban_tazele }}" -eq 'true'
+          $gerekce = "${{ inputs.taban_gerekce }}"
+          if($tazele){
+            if(-not $gerekce.Trim()){ throw 'taban_tazele=true ama taban_gerekce BOS. Istisna gerekcesiz yapilmaz.' }
+            "ISTISNA: taban tazelenecek · gerekce: $gerekce"
+            ./arac/cevap-dagilimi-olc.ps1 -Yaz -TabanTazele -Gerekce $gerekce
+          } else {
+            ./arac/cevap-dagilimi-olc.ps1 -Yaz -Kapi
+          }
 
       - name: Degisen varsa ite
         shell: powershell

@@ -38,6 +38,8 @@
 param(
   [switch]$Yaz,
   [switch]$Kapi,              # CIRCIR KAPISI: bir ders TABANINDAN kotuye giderse 1 doner
+  [switch]$TabanTazele,       # TEK SEFERLIK ISTISNA: tabani o anki degere esitler (asagi DA yukari DA)
+  [string]$Gerekce = '',      # -TabanTazele ile ZORUNLU: niye istisna yapildigi
   [double]$Tolerans = 3.0,    # ki-kare olcum gurultusu payi
   [string]$Hedef = ''
 )
@@ -133,6 +135,10 @@ if(Test-Path $Hedef){
   try{ $ESKI=Get-Content $Hedef -Raw -Encoding UTF8 | ConvertFrom-Json }catch{ $ESKI=$null }
 }
 $BOZULAN=New-Object System.Collections.Generic.List[string]
+$TAZELENEN=New-Object System.Collections.Generic.List[string]
+if($TabanTazele -and -not "$Gerekce".Trim()){
+  throw '-TabanTazele GEREKCE ister. Istisna gerekcesiz yapilmaz - "niye kotulesmeyi kabul ettik" kayda gecer.'
+}
 foreach($AD in $DERSLER.Keys){
   $SIMDI=[double]$DERSLER[$AD].kikare
   $TABAN=$SIMDI
@@ -141,20 +147,97 @@ foreach($AD in $DERSLER.Keys){
     if($E.PSObject.Properties['taban']){ $TABAN=[double]$E.taban }
     elseif($E.PSObject.Properties['kikare']){ $TABAN=[double]$E.kikare }
   }
-  if($SIMDI -gt ($TABAN+$Tolerans)){
+  if($SIMDI -gt ($TABAN+$Tolerans) -and -not $TabanTazele){
     $BOZULAN.Add(("{0}: ki-kare {1:N1} -> {2:N1} (taban+{3} asildi)" -f $AD,$TABAN,$SIMDI,$Tolerans))
   }
-  # CIRCIR: duzeldiyse taban asagi cekilir, geri yukselmez
-  $DERSLER[$AD]['taban']=[Math]::Round([Math]::Min($TABAN,$SIMDI),1)
+  if($TabanTazele){
+    # ⛔⭐ TEK SEFERLIK ISTISNA (12.09, Cem "Benim onerim A, bunu yapalim")
+    #   CIRCIR normalde tabani YALNIZ asagi ceker. -TabanTazele o kurali BIR KEZ
+    #   askiya alir ve tabani o anki degere esitler - yani KOTULESMEYI kabul eder.
+    #   NIYE GEREKTI: 12.09 yayin akisi kirmizi dustu (Denetim 10,5->19,9,
+    #   Maliyet 49,0->76,8) ve 428 soruyu tuttu. OLCULDU, sebep yeni uretim DEGIL:
+    #     havuza yeni giren 331 ESKI parti sorusu -> ki-kare 18,2 · E %13,9
+    #     havuza yeni giren  97 B kosusu sorusu   -> ki-kare  5,7 · E %20,6
+    #   Yani dengeleyici CALISIYOR (B neredeyse kusursuz); bozulmayi dengeleyici
+    #   YOKKEN basilmis, odenmis ve hic yayinlanmamis eski sorular yapti.
+    #   Onlari rafta tutmak odenmis isi cope atmak olurdu; kapiyi gevsetmek ise
+    #   gelecegi korumasiz birakirdi. Cozum: tabani BIR KEZ, GEREKCESIYLE tazele.
+    if($SIMDI -ne $TABAN){ $TAZELENEN.Add(("{0}: taban {1:N1} -> {2:N1}" -f $AD,$TABAN,$SIMDI)) }
+    $DERSLER[$AD]['taban']=[Math]::Round($SIMDI,1)
+    $DERSLER[$AD]['taban_gerekce']=$Gerekce
+    $DERSLER[$AD]['taban_tarih']=(Get-Date -Format 'yyyy-MM-dd HH:mm')
+  } else {
+    # CIRCIR: duzeldiyse taban asagi cekilir, geri yukselmez
+    $DERSLER[$AD]['taban']=[Math]::Round([Math]::Min($TABAN,$SIMDI),1)
+  }
 }
 $CIKTI.dersler=$DERSLER
+
+# ---------------------------------------------------------------------------
+# HAVUZA YENI GIRENLER — "kim kotulestirdi?" sorusunun AYRISTIRILMIS cevabi
+# ---------------------------------------------------------------------------
+# ⛔⭐ 12.09, Cem "Kapinin mesajini ayristiralim, bunu yapalim".
+#   Ilk surum duz bir cumle yaziyordu: "yeni basilan sorular o dersin
+#   dagilimini kotulestirdi." O cumle BUGUN BENI YANLIS YERE BAKTIRDI.
+#   Gercek olcum: bozulmayi YENI URETIM yapmadi -
+#     havuza yeni giren 331 ESKI parti sorusu -> ki-kare 18,2 · E %13,9
+#     havuza yeni giren  97 B kosusu sorusu   -> ki-kare  5,7 · E %20,6
+#   Yani "yeni basilan" ile "ilk kez yayinlanan ESKI soru" AYRI SEYLER ve
+#   kapi ikisini ayirmadan dogru teshis veremez.
+#   Olcut: yayin secim dosyasinin GIT'TEKI hali ile simdiki hali karsilastirilir;
+#   fark = havuza YENI GIREN sorular. Onlarin kendi dagilimi ayrica yazilir.
+$YENI_OZET=$null
+try{
+  $SECIM_GOR='veri/sinav/kaydir-secim/sgs-650-secim.json'
+  # ⛔ git stderr'i EAP=Stop altinda betigi oldurur (K6) -> EAP dusurulur
+  $ESKI_EAP=$ErrorActionPreference; $ErrorActionPreference='SilentlyContinue'
+  $ESKI_SECIM_HAM=$null
+  try{ $ESKI_SECIM_HAM=(& git -C $DEPO_KOK show "HEAD:$SECIM_GOR" 2>$null) -join "`n" } finally{ $ErrorActionPreference=$ESKI_EAP }
+  if("$ESKI_SECIM_HAM".Trim()){
+    $ESKI_OBJ=$ESKI_SECIM_HAM | ConvertFrom-Json          # ONCE DEGISKENE (K2)
+    $ESKI_LISTE=@($ESKI_OBJ)
+    $ESKI_ANAHTAR=@{}
+    foreach($X in $ESKI_LISTE){ $ESKI_ANAHTAR[("$($X.etiket)/$($X.id)")]=$true }
+    $YENI=@($SECIM | Where-Object{ -not $ESKI_ANAHTAR.ContainsKey(("$($_.etiket)/$($_.id)")) })
+    if($YENI.Count){
+      # bu soruların harfini basili sayfalardan degil PARTI ONBELLEGINDEN alamayiz
+      # (kosucuda onbellek olmayabilir) - bu yuzden yalniz SAYI ve ETIKET dokumu.
+      $YENI_ETIKET=@($YENI | Group-Object etiket | Sort-Object Count -Descending)
+      $YENI_OZET=[ordered]@{
+        soru=$YENI.Count
+        etiket=$YENI_ETIKET.Count
+        ilk10=@($YENI_ETIKET | Select-Object -First 10 | ForEach-Object{ "$($_.Name) ($($_.Count))" })
+      }
+    }
+  }
+}catch{ }
 
 if($BOZULAN.Count){
   Write-Host ""
   Write-Host "⛔ CEVAP DAGILIMI BOZULDU (circir kapisi):" -ForegroundColor Red
   foreach($X in $BOZULAN.ToArray()){ Write-Host "   - $X" -ForegroundColor Red }
-  Write-Host "   Sebep: yeni basilan sorular o dersin dagilimini kotulestirdi." -ForegroundColor Red
-  Write-Host "   Bakilacak: motor/kalip-parti-uret.ps1 > SIK DENGESI blogu ve veri/cevap-dagilimi.json" -ForegroundColor Red
+  Write-Host ""
+  if($YENI_OZET){
+    Write-Host ("   HAVUZA YENI GIREN: {0} soru · {1} parti" -f $YENI_OZET.soru,$YENI_OZET.etiket) -ForegroundColor Yellow
+    Write-Host  "   En cok katki veren partiler (etiket adindan kaynagini oku):" -ForegroundColor Yellow
+    foreach($X in $YENI_OZET.ilk10){ Write-Host "     - $X" -ForegroundColor DarkGray }
+    Write-Host ""
+    Write-Host  "   ⚠ TESHIS AYRIMI: 'yeni URETIM' ile 'ilk kez YAYINLANAN eski soru'" -ForegroundColor Yellow
+    Write-Host  "     ayri seylerdir. Yukaridaki etiketler bu kosuda uretilen partilere" -ForegroundColor Yellow
+    Write-Host  "     ait degilse, bozulma dengeleyiciden DEGIL eski birikimden gelir." -ForegroundColor Yellow
+    Write-Host  "     12.09'da tam bu oldu: 331 eski soru (ki-kare 18,2) + 97 yeni soru" -ForegroundColor Yellow
+    Write-Host  "     (ki-kare 5,7). Dengeleyici calisiyordu, bozan eski birikimdi." -ForegroundColor Yellow
+  } else {
+    Write-Host  "   (havuza yeni giren soru tespit edilemedi - secim dosyasinin git'teki hali okunamadi)" -ForegroundColor DarkGray
+  }
+  Write-Host ""
+  Write-Host  "   NE YAPILIR:" -ForegroundColor Red
+  Write-Host  "     yeni URETIM bozduysa -> motor/kalip-parti-uret.ps1 > SIK DENGESI blogu" -ForegroundColor Red
+  Write-Host  "     eski BIRIKIM bozduysa -> bilincli istisna: -TabanTazele -Gerekce '...'" -ForegroundColor Red
+} elseif($TAZELENEN.Count){
+  Write-Host ""
+  Write-Host ("⚠ TABAN TAZELENDI (tek seferlik istisna) · gerekce: {0}" -f $Gerekce) -ForegroundColor Yellow
+  foreach($X in $TAZELENEN.ToArray()){ Write-Host "   - $X" -ForegroundColor Yellow }
 } elseif($ESKI) {
   Write-Host "`ncircir kapisi YESIL - hicbir ders tabanindan kotuye gitmedi" -ForegroundColor Green
 }
