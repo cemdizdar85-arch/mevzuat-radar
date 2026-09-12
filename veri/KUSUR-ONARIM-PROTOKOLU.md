@@ -60,6 +60,27 @@ onların hiçbirine denk gelmeyebilirdi. Ambarın tamamı taranır — bedeli 0,
 
 ---
 
+### Provanın üç kuralı — üçü de 12.09'da kanla yazıldı
+
+**1 · Prova, değişikliğin TAMAMINI kapsar — yalnız düzelttiğin satırı değil.**
+`doldur` onarımında eşdeğerlik provasını *düzelttiğim* ifadeye koştum ve yeşil aldı.
+Ama aynı commit'te kör kalmamak için bir **rapor satırı** da eklemiştim; onu provalamadım.
+O satırda `@($script:LIST)` vardı — K3 tuzağı. Sayfa doğru basıldı, rapor satırı patladı,
+ve `kaydir-yayin.ps1`'deki `2>&1` yüzünden **bütün yayın öldü**. Eklediğin her satır
+değişikliğin parçasıdır.
+
+**2 · "Sözdizimi temiz" ≠ "çalışıyor". Fonksiyonu ÇIKAR ve KOŞTUR.**
+Üreticiye eklediğim kapıyı dosyadan çıkarıp gerçek veri üstünde çalıştırdım; ilk
+satırında `"adim $ai: ..."` vardı. PS 5.1 `$ai:` ifadesindeki iki noktayı **sürücü
+ayracı** sayıyor ve **bütün üretici betiği ayrıştırılamaz** hâle geliyordu. Parser'ı
+o an çalıştırsaydım yakalardım; ama asıl yakalatan, fonksiyonu gerçekten koşturmak oldu.
+
+**3 · Veriye dokunan düzeltmede önce VERİNİN GERÇEK ŞEKLİNİ ölç.**
+`doldur` kapısını yazarken "2'den az ögeli kayıt bozuktur, düşür" diyecektim.
+Ölçtüm: **62 adımda `doldur` düzleşmiş** — `['3','1']` aslında tek bir `[3,1]` çifti,
+PS 5.1 tek elemanlı diziyi düzleştiriyor. O "düzeltme" 62 adımın koordinatlarını
+silecekti. Verinin şeklini tahmin etme; say.
+
 ## 2 · ONARIM SIRASI — beş adım, atlanmaz
 
 1. **ÖLÇ — kusuru yerelde tekrar et.** Hata mesajını birebir üretemiyorsan kök nedeni

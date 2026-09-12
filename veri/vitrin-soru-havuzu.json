@@ -1,45 +1,9 @@
 {
-    "uretim":  "2026-09-13 01:10",
+    "uretim":  "2026-09-13 01:26",
     "uretici":  "motor/vitrin-soru-sec.ps1",
-    "kapilar":  "K1 yayinda · K2 aciklama hizasi · K3 adi konmus tuzak · K4 boy",
+    "kapilar":  "K1 yayinda · K2 aciklama hizasi · K3 adi konmus tuzak · K4 boy · K5 konu cesitliligi · K6 cozum tablosu · K7 adimlar",
     "adet":  20,
     "sorular":  [
-                    {
-                        "id":  "sgs-p-fmuh-kolay-r1/kp-01",
-                        "ders":  "Finansal Muhasebe",
-                        "konu":  "muhasebe bilgi sistemi",
-                        "donem":  10,
-                        "soru":  "Muhasebe sürecinde envanter (sayım ve değerleme) ile dönem sonu ayarlama kayıtları yapıldıktan SONRA düzenlenen ve mali tabloların kendisinden hazırlandığı mizana ne ad verilir?",
-                        "siklar":  {
-                                       "A":  "Aylık (geçici) mizan",
-                                       "B":  "Genel geçici mizan",
-                                       "C":  "Kesin mizan",
-                                       "D":  "Kapanış mizanı",
-                                       "E":  "Defter-i kebir (büyük defter)"
-                                   },
-                        "dogru":  "C",
-                        "hap":  "Genel geçici mizan envanterden önce, kesin mizan envanter ve ayarlama kayıtlarından sonra düzenlenir; mali tablolar kesin mizandan çıkar.",
-                        "kural":  "Ne soruluyor: Muhasebe sürecindeki mizan türlerinden hangisinin envanter ve ayarlama kayıtlarından sonra düzenlendiği soruluyor. Kural: Genel geçici mizan envanterden önce, kesin mizan envanter ve dönem sonu kayıtlarından sonra düzenlenir ve mali tablolar bundan hazırlanır. Doğrusu: Bu mizan kesin mizandır.",
-                        "tuzak":  {
-                                      "A":  {
-                                                "ad":  "Aylık (Geçici) Mizan Tuzağı",
-                                                "metin":  "Her ay sonu düzenlenen ara mizanı, dönem sonu envanterden sonraki mizanla karıştırırsın. Doğrusu: Aylık mizan yıl içindeki ay sonlarında düzenlenir, envanterle ilgisi yoktur."
-                                            },
-                                      "B":  {
-                                                "ad":  "Genel Geçici Mizan Tuzağı",
-                                                "metin":  "\u002712. ay\u0027 ifadesini görünce envanterden sonraki mizanı seçersin, ama genel geçici mizan envanterden ÖNCEki 12. ay mizanıdır. Doğrusu: Envanterden sonraki mizan kesin mizandır."
-                                            },
-                                      "D":  {
-                                                "ad":  "Kapanış Mizanı Tuzağı",
-                                                "metin":  "Süreç sonunda düzenlenen her mizanı \u0027son mizan\u0027 sayıp kapanış mizanıyla karıştırırsın. Doğrusu: Kapanış mizanı hesaplar kapatıldıktan SONRA tüm kalanların sıfırlandığını gösterir, mali tablolar ondan hazırlanmaz."
-                                            },
-                                      "E":  {
-                                                "ad":  "Defter Karıştırma Tuzağı",
-                                                "metin":  "Mizanı büyük defterle aynı belge sanırsın. Doğrusu: Defter-i kebir hesap bazında kayıtların toplandığı defterdir, mizan ise bu defterin borç-alacak toplam ve kalanlarını gösteren ayrı bir cetveldir."
-                                            }
-                                  },
-                        "dayanak":  "Ders kitabı - muhasebe süreci ve mizan türleri (geçici, genel geçici, kesin, kapanış mizanı)"
-                    },
                     {
                         "id":  "sgs-p-fmuh-zor-r1/kp-01",
                         "ders":  "Finansal Muhasebe",
@@ -74,7 +38,83 @@
                                                 "metin":  "Satış bedelinin tamamını prim hesabına yazdın; oysa önce nominal değer 500\u0027e ayrılmalı, yalnız kalan fark 520\u0027ye yazılmalıdır. Doğrusu: 520\u0027ye yazılacak tutar 460.000 değil 60.000 TL\u0027dir."
                                             }
                                   },
-                        "dayanak":  "Tekdüzen Hesap Planı 500/520 hesap açıklaması, MSUGT Sıra No:1 Tekdüzen Hesap Planı"
+                        "dayanak":  "Tekdüzen Hesap Planı 500/520 hesap açıklaması, MSUGT Sıra No:1 Tekdüzen Hesap Planı",
+                        "cozum":  [
+                                      [
+                                          "Nominal değer (500 Sermaye)",
+                                          "400.000"
+                                      ],
+                                      [
+                                          "İhraç primi (460.000 - 400.000)",
+                                          "60.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: 60.000 TL\u0027yi 645 Menkul Kıymet Satış Kârları\u0027na yazmaktır, oysa bu tutar satış kârı değil sermaye katkısıdır.",
+                        "taktik":  "Önce nominal değeri sermayeye ayır, kalan farkı prim hesabına yaz; tek bir hesaba tüm tutarı yazan şıklar hep yanlıştır.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Nominal değer 400.000 TL (soruda verilen); İhraç bedeli 460.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: nominal değeri 400.000 TL olan hisse senedi, nakden 460.000 TL bedelle ihraç edilmiş.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "İhraç Primi = İhraç Bedeli - Nominal Değer = 460.000 (soruda verilen) - 400.000 (soruda verilen) = 60.000 TL",
+                                            "anlatim":  "Şimdi primi hesaplıyoruz. Satış bedeli nominalden fazla olduğu için aradaki fark ihraç primidir.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "100 KASA (BORÇ) 460.000 = 400.000 nominal (soruda verilen) + 60.000 prim (4. adımda bulduk)",
+                                            "anlatim":  "100 Kasa\u0027ya toplam giren para 460.000 TL borç yazılır çünkü nakit varlık artıyor.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "500 SERMAYE (ALACAK) 400.000 = nominal değer (soruda verilen)",
+                                            "anlatim":  "500 Sermaye\u0027ye nominal değer kadar alacak yazılır çünkü kaynak (öz kaynak) artışı burada izlenir.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "520 HİSSE SENEDİ İHRAÇ PRİMLERİ (ALACAK) 60.000 = 4. adımda bulduk",
+                                            "anlatim":  "520 Hisse Senedi İhraç Primleri\u0027ne 60.000 TL alacak yazılır çünkü nominal üstü kısım bu hesapta toplanır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sonuç: 520 Hisse Senedi İhraç Primleri = 60.000 TL (4. adımda bulduk)",
+                                            "anlatim":  "Sonuç: doğru kayıt, 520 hesabın 60.000 TL alacaklandırılmasıdır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: satış \u003c nominal → fark 655 Menkul Kıymet Satış Zararları\u0027na borç",
+                                            "anlatim":  "Ters durumda: satış bedeli nominalin altında olsaydı fark 520\u0027ye değil zarar hesabına giderdi.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 645 Menkul Kıymet Satış Kârları 60.000 (HATALI) → doğrusu 520 Hisse Senedi İhraç Primleri 60.000 (4. adımda bulduk)",
+                                            "anlatim":  "En sık hata: 60.000 TL\u0027yi 645 Menkul Kıymet Satış Kârları\u0027na yazmaktır, oysa bu tutar satış kârı değil sermaye katkısıdır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-p-fmuh-kolay-r4/kp-03",
@@ -110,7 +150,83 @@
                                                 "metin":  "Öğrenci fatura gelmese de tutarı kesin ticari borç sayıp 320 Satıcılar hesabına kaydeder. Doğrusu: Fatura henüz düzenlenmediğinden kesinleşmiş ticari borç değil, tahmini/tahakkuk eden gider söz konusudur; 381 hesabı kullanılır."
                                             }
                                   },
-                        "dayanak":  "213 sayılı Vergi Usul Kanunu m.287; MSUGT Sıra No:1 Tekdüzen Hesap Planı 381 Gider Tahakkukları"
+                        "dayanak":  "213 sayılı Vergi Usul Kanunu m.287; MSUGT Sıra No:1 Tekdüzen Hesap Planı 381 Gider Tahakkukları",
+                        "cozum":  [
+                                      [
+                                          "632 Genel Yönetim Giderleri (borç)",
+                                          "60.000"
+                                      ],
+                                      [
+                                          "381 Gider Tahakkukları (alacak)",
+                                          "60.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci burada 320 Satıcılar hesabını kullanır ama fatura henüz gelmediği için ticari borç doğmamıştır. Satıcılar hesabı ancak fatura kesildiğinde çalışır.",
+                        "taktik":  "Hesap adında \u0027Tahakkuk\u0027 geçiyorsa önce hesabın alacak mı borç mu çalıştığını Tekdüzen Hesap Planı işleyiş cümlesinden hatırla, sonra taraf belirle.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Gider tutarı 60.000 TL (soruda verilen); fatura gelmemiş, tahakkuk yapılmış (soruda verilen)",
+                                            "anlatim":  "Soru bize şunu vermiş: danışmanlık gideri 60.000 TL, faturası gelmemiş ama tahakkuk ettirilmiş. Tarih 31.12.2026, yani dönem sonu kaydı.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "632 Genel Yönetim Giderleri (BORÇ) - kapsam: üretimle ilişkisi kurulamayan dışarıdan sağlanan fayda ve hizmet giderleri",
+                                            "anlatim":  "632 Genel Yönetim Giderleri nedir? Danışmanlık gibi üretimle ilgisi olmayan yönetim giderlerinin borç kaydedildiği hesap. Gider arttığı için borç çalışır.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               0
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "381 Gider Tahakkukları (ALACAK) - kapsam: belgeye dayalı ama henüz faturalanmamış gider tahakkukları",
+                                            "anlatim":  "381 Gider Tahakkukları nedir? Faturası gelmemiş ama bu döneme ait kesin giderin karşılığını tutan hesap. Borç yerine yükümlülük doğduğu için alacak çalışır, ödeme gelince borçlanır.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               0
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "632 GENEL YÖNETİM GİDERLERİ (BORÇ) 60.000 (soruda verilen) = 381 GİDER TAHAKKUKLARI (ALACAK) 60.000 (soruda verilen)",
+                                            "anlatim":  "Şimdi kaydı kuruyoruz: gider bu döneme ait, o yüzden gider hesabı borçlanır. Karşılığında henüz ödenmediği için borç değil, tahakkuk hesabı alacaklanır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sonuç = 381 GİDER TAHAKKUKLARI (ALACAK) = 60.000 TL",
+                                            "anlatim":  "Sonuç: doğru hesap 381 Gider Tahakkukları, 60.000 TL ile alacaklandırılır. Vergi Usul Kanunu m.287 bu tür giderlerin pasifleştirilmesini emreder.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: ödeme yapılması → 381 GİDER TAHAKKUKLARI (BORÇ)",
+                                            "anlatim":  "Ters durumda: fatura gelip ödeme yapılsaydı 381 hesap borçlanırdı, çünkü yükümlülük kapanır. Şimdi ise tahakkuk aşamasındayız, o yüzden alacak.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 320 SATICILAR (ALACAK) 60.000 (HATALI) → doğrusu 381 GİDER TAHAKKUKLARI (ALACAK) 60.000 (4. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenci burada 320 Satıcılar hesabını kullanır ama fatura henüz gelmediği için ticari borç doğmamıştır. Satıcılar hesabı ancak fatura kesildiğinde çalışır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-p-maliyet-kolay-r1/kp-02",
@@ -146,7 +262,88 @@
                                                 "metin":  "A mamulüne yüklenen toplam genel üretim gideri\u0027ü (600×30=18.000) doğru bulmuşsun ama bunu siparişten çıkan 20 adete bölmeyi unutmuşsun. Doğrusu: birim genel üretim gideri için toplam yüklenen gider üretim adedine bölünmelidir."
                                             }
                                   },
-                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 730 Genel Üretim Giderleri ve 731 Genel Üretim Giderleri Yansıtma Hesabı açıklamaları"
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 730 Genel Üretim Giderleri ve 731 Genel Üretim Giderleri Yansıtma Hesabı açıklamaları",
+                        "cozum":  [
+                                      [
+                                          "Yükleme oranı",
+                                          "90.000 / 3.000"
+                                      ],
+                                      [
+                                          "A mamulüne yüklenen genel üretim gideri",
+                                          "600 × 30"
+                                      ],
+                                      [
+                                          "A mamulü birim genel üretim gideri",
+                                          "18.000 / 20"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: toplam gideri direkt adede bölmek. Bu yanlış çünkü makine saatini ve yükleme oranını atlıyor, gerçek dağıtımı yansıtmıyor.",
+                        "taktik":  "Önce yükleme oranını (gider yeri toplamı / anahtar toplamı) bul, sonra mamulün anahtarıyla çarp, en son adete böl; ara adımı atlarsan çeldiriciye düşersin.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Montaj genel üretim gideri toplamı 90.000 TL (soruda verilen); dönem makine saati toplamı 3.000 saat (soruda verilen); A siparişinin makine saati 600 saat (soruda verilen); üretilen adet 20 (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: Montaj bölümünün genel üretim gideri toplamı, dönem makine saati toplamı, A mamulünün kullandığı makine saati ve ürettiği adet.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yükleme oranı = Gider yeri genel üretim gideri toplamı / Anahtar toplamı = 90.000 (soruda verilen) / 3.000 (soruda verilen) = 30 TL/saat",
+                                            "anlatim":  "Yükleme oranı nedir? Bölümün toplam giderini toplam anahtar miktarına bölüp 1 saatlik payı buluyoruz. Bu oran her mamule pay dağıtmanın anahtarı.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               0,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yüklenen genel üretim gideri = Kullanılan makine saati × Yükleme oranı = 600 (soruda verilen) × 30 (2. adımda bulduk) = 18.000 TL",
+                                            "anlatim":  "Şimdi A mamulüne yüklenen genel üretim gideri\u0027yü hesaplıyoruz. Sipariş kaç saat kullanmışsa, o kadar saat × yükleme oranı kadar gider ona yüklenir.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Birim genel üretim gideri = Yüklenen genel üretim gideri / Üretim adedi = 18.000 (3. adımda bulduk) / 20 (soruda verilen) = 900 TL",
+                                            "anlatim":  "Toplam yüklenen gideri üretilen adede bölünce birim gider çıkar. Neden bölüyoruz? Çünkü soru bir mamulün birim payını soruyor.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ],
+                                                           [
+                                                               2,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sonuç = 900 TL/adet",
+                                            "anlatim":  "Sonuç: A mamulünün birim genel üretim gideri 900 TL. Yükleme oranı üzerinden gidince doğru dağıtım yapılmış oluyor.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 90.000 / 20 = 4.500 (HATALI) → doğrusu 900 (4. adımda bulduk)",
+                                            "anlatim":  "En sık hata: toplam gideri direkt adede bölmek. Bu yanlış çünkü makine saatini ve yükleme oranını atlıyor, gerçek dağıtımı yansıtmıyor.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t2b-maliyet-cokzor/kp-02",
@@ -182,7 +379,76 @@
                                                 "metin":  "Hem tam maliyet birimini kullandın hem üretilen miktarla çarptın. Doğrusu: 858.000 TL."
                                             }
                                   },
-                        "dayanak":  "Normal maliyet kuralı: birim mamul maliyeti = birim değişken üretim maliyeti + sabit genel üretim gideri / normal kapasite; satılan mamullerin maliyeti = satılan miktar × birim maliyet; boş kapasite gideri mamule yüklenmez (teori notu: Normal maliyet yöntemi ve kapasite kullanım oranı); Tekdüzen Hesap Planı 620, 680"
+                        "dayanak":  "Normal maliyet kuralı: birim mamul maliyeti = birim değişken üretim maliyeti + sabit genel üretim gideri / normal kapasite; satılan mamullerin maliyeti = satılan miktar × birim maliyet; boş kapasite gideri mamule yüklenmez (teori notu: Normal maliyet yöntemi ve kapasite kullanım oranı); Tekdüzen Hesap Planı 620, 680",
+                        "cozum":  [
+                                      [
+                                          "Normal maliyette birim sabit gider (540.000 / 15.000), TL",
+                                          "36"
+                                      ],
+                                      [
+                                          "Normal maliyette birim mamul maliyeti (42 + 36), TL",
+                                          "78"
+                                      ],
+                                      [
+                                          "Boş kapasite gideri (3.000 × 36), TL",
+                                          "108.000"
+                                      ],
+                                      [
+                                          "Satılan mamullerin maliyeti (11.000 × 78), TL",
+                                          "858.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "Satılmayan 1.000 birimin 78.000 TL maliyeti stokta kalır. En sık hata üretilen 12.000 birimle çarpmaktır.",
+                        "taktik":  "Birim maliyeti normal kapasiteyle kur, satılan miktarla çarp; üretim miktarı ve tam maliyet birimi şıklarda çeldiricidir.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilenler = birim değişken 42, sabit gider 540.000, normal kapasite 15.000, üretim 12.000, satış 11.000 (soruda verilen)",
+                                            "anlatim":  "Normal maliyette iki şey ayrı yürür: mamule yüklenen birim maliyet ve boş kapasitenin dönem gideri.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Birim Sabit Gider = Sabit Gider / Normal Kapasite = 540.000 (soruda verilen) / 15.000 (soruda verilen) = 36 TL",
+                                            "anlatim":  "Payda normal kapasitedir. Tam maliyette olsaydı 12.000\u0027e bölünür ve 45 TL çıkardı.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Birim Mamul Maliyeti = 42 (soruda verilen) + 36 (2. adımda bulduk) = 78 TL",
+                                            "anlatim":  "Her mamul 78 TL ile stoka girer. Bu tutar üretim miktarı değişse de sabit kalır.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Boş Kapasite Gideri = 3.000 (15.000 − 12.000) × 36 (2. adımda bulduk) = 108.000 TL",
+                                            "anlatim":  "Kullanılmayan kapasitenin sabit gideri mamule yüklenmez, 680 hesabıyla döneme gider. Satılanların maliyetine karışmaz.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Satılan Mamullerin Maliyeti = 11.000 (soruda verilen) × 78 (3. adımda bulduk) = 858.000 TL",
+                                            "anlatim":  "Satılmayan 1.000 birimin 78.000 TL maliyeti stokta kalır. En sık hata üretilen 12.000 birimle çarpmaktır.",
+                                            "doldur":  [
+                                                           [
+                                                               3,
+                                                               1
+                                                           ]
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t1-fmuh-kolay/kp-06",
@@ -218,7 +484,76 @@
                                                 "metin":  "Varlık yıl içinde kullanıma hazır olduğu hâlde maliyeti 5 yıla değil doğrudan tam bir yıla böldün. Doğrusu: itfa yalnızca kullanıma hazır olunan Eylül-Aralık dönemi için, yani kesirli ay üzerinden hesaplanır."
                                             }
                                   },
-                        "dayanak":  "TMS 38 p.97"
+                        "dayanak":  "TMS 38 p.97",
+                        "cozum":  [
+                                      [
+                                          "Aylık itfa payı (240.000 / 60 ay)",
+                                          "4.000"
+                                      ],
+                                      [
+                                          "İtfa edilen ay sayısı (Eylül-Aralık 2026)",
+                                          "4"
+                                      ],
+                                      [
+                                          "2026 yılı itfa payı",
+                                          "16.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: bazı öğrenciler yılın tamamı için itfa hesaplar, yani 240.000/5=48.000 der. Ama itfa Eylül\u0027de başladığı için sadece 4 aylık pay 2026\u0027ya aittir.",
+                        "taktik":  "İtfa/amortisman sorularında ilk iş, varlığın kullanıma hazır olduğu ayı bulup yıl sonuna kadar kaç ay kaldığını saymaktır.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Maliyet 240.000 TL (soruda verilen); Yararlı ömür 5 yıl (soruda verilen); Kullanıma hazır tarih 1 Eylül 2026 (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: yazılım için ödenen tutar 240.000 TL, yararlı ömür 5 yıl, kullanıma hazır olma tarihi 1 Eylül 2026. İstenen: 2026 yılı itfa payı.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Aylık itfa payı = Maliyet / (Yıl × 12) = 240.000 (soruda verilen) / (5 (soruda verilen) × 12) = 240.000 / 60 = 4.000 TL",
+                                            "anlatim":  "260 Haklar hesabında izlenen maddi olmayan duran varlıklar, kullanıma hazır olduğu andan itibaren itfa edilir. Doğrusal yöntemde maliyet yararlı ömre eşit dağıtılır, o yüzden önce aylık payı buluruz.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "İtfa edilen ay sayısı = Eylül\u0027den Aralık\u0027a kadar = 4 ay (soruda verilen tarihten çıkarılır)",
+                                            "anlatim":  "Yazılım Eylül ayında kullanıma hazır oldu, itfa o aydan başlar. 2026\u0027da Eylül, Ekim, Kasım, Aralık olmak üzere 4 ay kullanılmış.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "2026 yılı itfa payı = Aylık itfa payı × Ay sayısı = 4.000 (2. adımda bulduk) × 4 (3. adımda bulduk) = 16.000 TL",
+                                            "anlatim":  "Şimdi 2026 yılı toplam itfa payını buluyoruz. Aylık payı, kullanılan ay sayısıyla çarpmak yeterli.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sağlama: 4.000 × 4 = 16.000 ✓ (4. adımda bulduğumuzla aynı)",
+                                            "anlatim":  "Sağlama: 5 yılda toplam 60 ay var ve 240.000 TL\u0027nin tamamı bu 60 aya eşit bölünüyor. 4 ay × 4.000 TL gerçekten 16.000 TL ediyor, tutarlı.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 240.000 / 5 = 48.000 TL (HATALI) → doğrusu 16.000 TL (4. adımda bulduk)",
+                                            "anlatim":  "En sık hata: bazı öğrenciler yılın tamamı için itfa hesaplar, yani 240.000/5=48.000 der. Ama itfa Eylül\u0027de başladığı için sadece 4 aylık pay 2026\u0027ya aittir.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-p-fmuh-kolay-r1/kp-05",
@@ -254,7 +589,93 @@
                                                 "metin":  "Banka Kredilerini de özkaynak sanıp toplama dahil etmişsin. Doğrusu: Banka Kredileri yabancı kaynak hesabıdır, özkaynak toplamına girmez."
                                             }
                                   },
-                        "dayanak":  "Tekdüzen Hesap Planı 500 / 540 / 570 / 590 (MSUGT Sıra No:1 Tekdüzen Hesap Planı)"
+                        "dayanak":  "Tekdüzen Hesap Planı 500 / 540 / 570 / 590 (MSUGT Sıra No:1 Tekdüzen Hesap Planı)",
+                        "cozum":  [
+                                      [
+                                          "Sermaye",
+                                          "150.000"
+                                      ],
+                                      [
+                                          "Yasal Yedekler",
+                                          "12.500"
+                                      ],
+                                      [
+                                          "Geçmiş Yıllar Karları",
+                                          "47.350"
+                                      ],
+                                      [
+                                          "Dönem Net Karı",
+                                          "18.750"
+                                      ],
+                                      [
+                                          "Özkaynak Toplamı",
+                                          "228.600"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata, Banka Kredileri\u0027ni de toplamaya katıp 263.600 TL bulmaktır. Bu yanlıştır çünkü kredi özkaynak değil, yabancı kaynaktır.",
+                        "taktik":  "Bilanço kalemlerini toplamadan önce her kalemi tek tek \u0027özkaynak mı, yabancı kaynak mı\u0027 diye ayır, sonra topla.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Sermaye 150.000 TL (soruda verilen); Yasal Yedekler 12.500 TL (soruda verilen); Geçmiş Yıllar Kârları 47.350 TL (soruda verilen); Dönem Net Kârı 18.750 TL (soruda verilen); Banka Kredileri 35.000 TL (soruda verilen, özkaynak değil)",
+                                            "anlatim":  "Soru bize dört özkaynak kalemini veriyor, bir de yabancı kaynak veriyor. Dikkat: Banka Kredileri özkaynak değil, işi karıştırmak için konulmuş.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ],
+                                                           [
+                                                               2,
+                                                               1
+                                                           ],
+                                                           [
+                                                               3,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Özkaynak grubu = Sermaye + Yasal Yedekler + Geçmiş Yıllar Kârları + Dönem Net Kârı",
+                                            "anlatim":  "Özkaynak, işletme sahibine ait kaynaktır. Sermaye, yedekler ve kârlar buraya girer, kredi ise borç olduğu için girmez.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Özkaynak Toplamı = 150.000 (soruda verilen) + 12.500 (soruda verilen) + 47.350 (soruda verilen) + 18.750 (soruda verilen) = 228.600 TL",
+                                            "anlatim":  "Şimdi dört kalemi topluyoruz, çünkü özkaynak toplamı bunların birleşimidir. Banka Kredileri bu toplamın hiçbir yerinde yok.",
+                                            "doldur":  [
+                                                           [
+                                                               4,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sonuç: Özkaynak Toplamı = 228.600 TL (4. adımda bulduk)",
+                                            "anlatim":  "Sonuç olarak özkaynak toplamı 228.600 TL çıktı. Bu dört kalem bilançonun pasifinde özkaynaklar başlığı altında toplanır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: yabancı kaynak toplamı sorulsaydı → sadece 35.000 TL (soruda verilen) Banka Kredileri",
+                                            "anlatim":  "Ters durumda soru \u0027yabancı kaynak toplamı\u0027 isteseydi, bu kez sadece Banka Kredileri alınırdı. Kural tersine döner ama mantık aynı: hangi grup sorulmuşsa o hesaplar toplanır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 150.000 + 12.500 + 47.350 + 18.750 + 35.000 = 263.600 (HATALI) → doğrusu 228.600 TL (3. adımda bulduk)",
+                                            "anlatim":  "En sık hata, Banka Kredileri\u0027ni de toplamaya katıp 263.600 TL bulmaktır. Bu yanlıştır çünkü kredi özkaynak değil, yabancı kaynaktır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t2-fmuh-kolay/kp-02",
@@ -290,7 +711,82 @@
                                                 "metin":  "Farkı değil, defter değeri ile vergiye esas değerin toplamını esas alıp (500.000+350.000)×%20=170.000 hesapladın. Doğrusu: Ertelenmiş vergi hesaplamasında toplam değil fark esas alınır."
                                             }
                                   },
-                        "dayanak":  "TMS 12 p.16"
+                        "dayanak":  "TMS 12 p.16",
+                        "cozum":  [
+                                      [
+                                          "Vergiye tabi geçici fark (500.000-350.000)",
+                                          "150.000"
+                                      ],
+                                      [
+                                          "Ertelenmiş vergi borcu (150.000×%20)",
+                                          "30.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "Sonuç: işletme 2026 yılı sonunda 30.000 TL ertelenmiş vergi borcu muhasebeleştirir. En sık hata: 500.000 TL\u0027nin tamamına vergi oranı uygulamaktır.",
+                        "taktik":  "Ertelenmiş vergi sorularında önce iki değer arasındaki farkı bul, oranı en son ve yalnız farka uygula; toplam ya da tek değeri direkt çarpma.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Defter değeri 500.000 TL (soruda verilen); Vergiye esas değer 350.000 TL (soruda verilen); Kurumlar vergisi oranı %20 (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: varlığın defter değeri, vergiye esas değeri ve vergi oranı.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Vergiye tabi geçici fark = Defter değeri − Vergiye esas değer",
+                                            "anlatim":  "Ertelenmiş vergi nedir? Muhasebe kârı ile vergi matrahı arasındaki geçici farkların gelecekte doğuracağı vergi etkisini bugünden kaydetmemizi sağlar. Defter değeri vergi değerini aşarsa bu \u0027vergiye tabi geçici fark\u0027tır ve borç doğurur.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               0
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Vergiye tabi geçici fark = Defter değeri − Vergiye esas değer = 500.000 (soruda verilen) − 350.000 (soruda verilen) = 150.000 TL",
+                                            "anlatim":  "Şimdi farkı hesaplıyoruz: varlık defterde daha yüksek görünüyor, ileride vergi matrahını büyütecek. Bu yüzden fark vergiye tabidir.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ertelenmiş vergi borcu = Vergiye tabi geçici fark × Vergi oranı",
+                                            "anlatim":  "Ertelenmiş vergi borcu nedir? Vergiye tabi geçici fark üzerinden hesaplanan ve gelecekte ödenecek vergiyi bugünden gösteren yükümlülüktür. Kurumlar vergisi oranıyla çarpılır.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               0
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ertelenmiş vergi borcu = 150.000 (2. adımda bulduk) × %20 (soruda verilen) = 30.000 TL",
+                                            "anlatim":  "Şimdi borcu hesaplıyoruz: farkı bulduğumuz tutarla vergi oranını çarpıyoruz. Sonuç 2026 sonunda kaydedilecek borç tutarıdır.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: Defter değeri \u003c Vergiye esas değer → 291 Ertelenmiş Vergi Varlığı",
+                                            "anlatim":  "Ters durumda: defter değeri vergiye esas değerin altında olsaydı fark indirilebilir geçici fark olur ve ertelenmiş vergi varlığı doğar.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 500.000 (soruda verilen) × %20 (soruda verilen) = 100.000 TL (HATALI) → doğrusu 30.000 TL (4. adımda bulduk)",
+                                            "anlatim":  "Sonuç: işletme 2026 yılı sonunda 30.000 TL ertelenmiş vergi borcu muhasebeleştirir. En sık hata: 500.000 TL\u0027nin tamamına vergi oranı uygulamaktır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t1-fmuh-kolay/kp-08",
@@ -326,43 +822,88 @@
                                                 "metin":  "Alış iskontosunu maliyetten düşmek yerine maliyete dahil ederek topladın. Doğrusu: alış iskontosu maliyet bedelini azaltan bir kalemdir, toplama eklenmez."
                                             }
                                   },
-                        "dayanak":  "Tekdüzen Hesap Planı 153 Ticari Mallar"
-                    },
-                    {
-                        "id":  "sgs-c2-fmuh-kolay-r3/kp-05",
-                        "ders":  "Finansal Muhasebe",
-                        "konu":  "gelir tahakkuku",
-                        "donem":  5,
-                        "soru":  "İşletme, boş bir depo binasını 1 Kasım 2026-31 Ocak 2027 tarihleri arasında üç ay süreyle kiraya vermiştir. Aylık kira tutarı 15.000 TL olup üç aylık kira bedelinin tamamı 31 Ocak 2027 tarihinde tahsil edilecektir. İşletmenin 31.12.2026 tarihinde yapacağı muhasebe kaydı aşağıdakilerden hangisidir?",
-                        "siklar":  {
-                                       "A":  "102 BANKALAR 30.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 30.000",
-                                       "B":  "181 GELİR TAHAKKUKLARI 45.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 45.000",
-                                       "C":  "102 BANKALAR 45.000 / 181 GELİR TAHAKKUKLARI 45.000",
-                                       "D":  "181 GELİR TAHAKKUKLARI 15.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 15.000",
-                                       "E":  "181 GELİR TAHAKKUKLARI 30.000 / 649 DİĞER OLAĞAN GELİR VE KÂRLAR 30.000"
-                                   },
-                        "dogru":  "E",
-                        "hap":  "Dönemine ait olup tahsili sonraki döneme kalan gelirler, dönem sonunda 181 GELİR TAHAKKUKLARI hesabına borç, ilgili gelir hesabına alacak kaydedilir.",
-                        "kural":  "Ne soruluyor: 31.12.2026 tarihinde yapılacak dönem sonu tahakkuk kaydı soruluyor. Kural: 181 GELİR TAHAKKUKLARI, tahsili sonraki döneme kalan ancak içinde bulunulan döneme ait gelirin ilgili gelir hesabı karşılığında borç kaydedildiği hesaptır. Hesap: Kasım (15.000) + Aralık (15.000) = 30.000 TL. Doğrusu: 181 GELİR TAHAKKUKLARI hesabı 30.000 TL borçlandırılır, 649 DİĞER OLAĞAN GELİR VE KÂRLAR hesabı 30.000 TL alacaklandırılır.",
-                        "tuzak":  {
-                                      "A":  {
-                                                "ad":  "Peşin Tahsilat Tuzağı",
-                                                "metin":  "Kira bedelinin henüz tahsil edilmediğini gözden kaçırıp tutarı doğrudan Bankalar hesabına yazdın. Doğrusu: Tahsilat 31 Ocak 2027\u0027de yapılacağından 31.12.2026\u0027da Bankalar hesabı hiç kullanılmaz, tutar Gelir Tahakkukları hesabına borç yazılır."
-                                            },
-                                      "B":  {
-                                                "ad":  "Dönem Aşımı Tuzağı",
-                                                "metin":  "Üç aylık kiranın tamamını içinde bulunulan döneme ait sayıp Ocak 2027\u0027ye ait payı da tahakkuk ettirdin. Doğrusu: Yalnız Kasım ve Aralık ayları 2026 dönemine ait olduğundan tahakkuk tutarı 30.000 TL\u0027dir."
-                                            },
-                                      "C":  {
-                                                "ad":  "Hesap Karıştırma Tuzağı",
-                                                "metin":  "Hem tahsilat hem tahakkuk kaydı gibi tutarı yanlış hesaplara bölüştürüp toplam kira bedelini kaydettin. Doğrusu: 31.12.2026\u0027da herhangi bir tahsilat yoktur, tek hesap olarak 181 GELİR TAHAKKUKLARI hesabı 30.000 TL borçlandırılır."
-                                            },
-                                      "D":  {
-                                                "ad":  "Ay Eksik Sayma Tuzağı",
-                                                "metin":  "Tahakkuku sadece Aralık ayı ile sınırlı tutup Kasım ayının payını unuttun. Doğrusu: Kasım ve Aralık aylarının ikisi de 2026 dönemine ait olduğundan tahakkuk tutarı 15.000 değil 30.000 TL\u0027dir."
-                                            }
-                                  },
-                        "dayanak":  "MSUGT Sira No:1 Tekduzen Hesap Plani - 181 GELİR TAHAKKUKLARI"
+                        "dayanak":  "Tekdüzen Hesap Planı 153 Ticari Mallar",
+                        "cozum":  [
+                                      [
+                                          "Mal bedeli + Nakliye gideri",
+                                          "106.000"
+                                      ],
+                                      [
+                                          "Alış iskontosunun düşülmesi",
+                                          "106.000 - 4.000"
+                                      ],
+                                      [
+                                          "Maliyet bedeli (153 Ticari Mallar)",
+                                          "102.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: iskontoyu düşmeden 106.000\u0027i maliyet sanmak. Alış iskontosu maliyetten düşülmezse hesap yanlış çıkar.",
+                        "taktik":  "Önce mal bedelini yaz, sonra hangi kalemin arttırdığını hangi kalemin azalttığını tek tek işaretle, en son topla.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Mal bedeli 100.000 TL (soruda verilen); Nakliye gideri 6.000 TL (soruda verilen); Alış iskontosu 4.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: mal bedeli 100.000 TL, nakliye gideri 6.000 TL, alış iskontosu 4.000 TL. Bu üç rakamı biz bulmadık, soru verdi.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "153 TİCARİ MALLAR: alışta borç, satışta alacak",
+                                            "anlatim":  "153 Ticari Mallar nedir? Satmak için alınan malın maliyet bedelinin tutulduğu hesaptır. Mal alınınca borç, satılınca alacak yazılır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Mal bedeli + Nakliye gideri = 100.000 (soruda verilen) + 6.000 (soruda verilen) = 106.000",
+                                            "anlatim":  "TMS 2\u0027ye göre malın maliyetine, alışa doğrudan bağlı giderler eklenir. Nakliye masrafı malı işletmeye getirmek için yapıldığından maliyete girer.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               0
+                                                           ],
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ara toplam − Alış iskontosu = 106.000 (3. adımda bulduk) − 4.000 (soruda verilen)",
+                                            "anlatim":  "Alış iskontosu maliyeti düşürür, çünkü mal aslında daha ucuza gelmiştir. Bu yüzden toplamdan iskontoyu çıkarıyoruz.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               0
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Maliyet bedeli (153 Ticari Mallar) = 106.000 (3. adımda bulduk) − 4.000 (soruda verilen) = 102.000",
+                                            "anlatim":  "Şimdi son maliyet bedelini buluyoruz, bu tutar 153 hesaba borç yazılacak tutardır. Malın gerçek maliyeti budur.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               0
+                                                           ],
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 100.000 + 6.000 = 106.000 (HATALI) → doğrusu 102.000 (5. adımda bulduk)",
+                                            "anlatim":  "En sık hata: iskontoyu düşmeden 106.000\u0027i maliyet sanmak. Alış iskontosu maliyetten düşülmezse hesap yanlış çıkar.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-c2-fmuh-kolay-r1/kp-09",
@@ -398,7 +939,65 @@
                                                 "metin":  "mahsup edilen ve nakit tahsil edilen tutarları çıkarmak yerine toplarsın. Doğrusu: 70.000 TL depozitonun tamamı zaten mahsup ve nakit toplamına eşittir, ayrıca toplamak yanlıştır."
                                             }
                                   },
-                        "dayanak":  "Tekdüzen Hesap Planı 126 Verilen Depozito ve Teminatlar - hesap işleyişi"
+                        "dayanak":  "Tekdüzen Hesap Planı 126 Verilen Depozito ve Teminatlar - hesap işleyişi",
+                        "cozum":  [
+                                      [
+                                          "Satıcı borcuna mahsup edilen (320 hesap borç)",
+                                          "40.000"
+                                      ],
+                                      [
+                                          "Nakden tahsil edilen (100 hesap borç)",
+                                          "30.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci 70.000\u0027i doğrudan nakit tahsilat sanır, mahsup edilen kısmı düşmeyi unutur.",
+                        "taktik":  "Depozito iadesi sorularında önce mahsup edilen kısmı düş, kalanı nakit kabul et.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Verilen depozito 70.000 TL (soruda verilen); Satıcıya olan borç 40.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: verilen depozito 70.000 TL, satıcıya olan borç 40.000 TL ve bu borca mahsup yapılmış.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "320 SATICILAR (BORÇ) 40.000 = 40.000 mahsup edilen borç (soruda verilen)",
+                                            "anlatim":  "320 Satıcılar nedir? Mal-hizmet alımından doğan borcu tutar, borç ödenince bu hesaba borç kaydı yapılır. Burada mahsup ile borç kapanıyor.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Nakden tahsil edilen = Verilen depozito - Satıcıya mahsup edilen = 70.000 (soruda verilen) - 40.000 (soruda verilen) = 30.000 TL",
+                                            "anlatim":  "100 Kasa nedir? İşletmeye giren nakit parayı izler, tahsilat kasaya borç yazılır. Depozitonun kalanı buraya nakit girer.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sağlama = 40.000 (soruda verilen) + 30.000 (4. adımda bulduk) = 70.000 TL",
+                                            "anlatim":  "Sağlama yapıyoruz: mahsup ile nakit tahsilatı topladığında depozito tutarına ulaşmalıyız.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: Nakden tahsil = 70.000 (HATALI) → doğrusu 30.000 (4. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenci 70.000\u0027i doğrudan nakit tahsilat sanır, mahsup edilen kısmı düşmeyi unutur.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t1-fmuh-kolay/kp-17",
@@ -434,7 +1033,69 @@
                                                 "metin":  "Öğrenci net defter değerini bulurken birikmiş amortismanı maliyetten düşmek yerine maliyete ekler (200.000+120.000=320.000) ve satış bedeliyle farkını (320.000-100.000) 220.000 TL olarak hesaplar. Doğrusu: Amortisman maliyetten düşülür, kâr 20.000 TL\u0027dir."
                                             }
                                   },
-                        "dayanak":  "213 sayılı Vergi Usul Kanunu m.328/1; Tekdüzen Hesap Planı 253/257/679"
+                        "dayanak":  "213 sayılı Vergi Usul Kanunu m.328/1; Tekdüzen Hesap Planı 253/257/679",
+                        "cozum":  [
+                                      [
+                                          "Net defter değeri (200.000-120.000)",
+                                          "80.000"
+                                      ],
+                                      [
+                                          "Satış kârı (100.000-80.000)",
+                                          "20.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "Sonuç: işletme bu satıştan 20.000 TL kâr elde etmiştir. En sık hata, satış bedelini doğrudan maliyet bedeliyle karşılaştırmaktır.",
+                        "taktik":  "Önce net defter değerini bul, sonra satış bedeliyle farkını al; ara adımı atlama.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Maliyet bedeli 200.000 TL (soruda verilen); Birikmiş amortisman 120.000 TL (soruda verilen); Satış bedeli 100.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: makinenin maliyet bedeli, birikmiş amortismanı ve satış bedeli. Bu üç sayı üstünden kâr ya da zarar bulunacak.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Net Defter Değeri = Maliyet Bedeli − Birikmiş Amortisman = 200.000 (soruda verilen) − 120.000 (soruda verilen) = 80.000 TL",
+                                            "anlatim":  "Net defter değeri, varlığın henüz amorti edilmemiş kısmıdır. Vergi Usul Kanunu m.328\u0027e göre kâr-zarar bu değer üstünden hesaplanır.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Satış Kârı = Satış Bedeli − Net Defter Değeri = 100.000 (soruda verilen) − 80.000 (1. adımda bulduk) = 20.000 TL",
+                                            "anlatim":  "Satış bedeli net defter değerinden büyükse aradaki fark kârdır. Burada 100.000, 80.000\u0027den büyük olduğu için kâr çıkar.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sağlama: Net Defter Değeri + Kâr = 80.000 (1. adımda bulduk) + 20.000 (2. adımda bulduk) = 100.000 ✓",
+                                            "anlatim":  "Sağlama yapalım: net defter değerine kârı eklersek satış bedeline ulaşmalıyız. Kontrol tutuyorsa hesap doğrudur.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: Satış bedeli \u003c Net defter değeri → aradaki fark zarar olur",
+                                            "anlatim":  "Ters durumda satış bedeli net defter değerinden düşük olsaydı, fark zarar sayılırdı. İşaret değişir ama formülün mantığı aynı kalır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 200.000 − 100.000 = 100.000 (HATALI) → doğrusu 20.000 (2. adımda bulduk)",
+                                            "anlatim":  "Sonuç: işletme bu satıştan 20.000 TL kâr elde etmiştir. En sık hata, satış bedelini doğrudan maliyet bedeliyle karşılaştırmaktır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t1-fmuh-kolay/kp-18",
@@ -470,7 +1131,69 @@
                                                 "metin":  "Ortakların sermaye tutarları arasındaki fark kâr payı sanılmış, kâr tutarı hiç kullanılmamıştır. Doğrusu: Kâr payı hesabı kâr tutarının sermaye oranına bölüştürülmesiyle bulunur, sermaye farkıyla ilgisi yoktur."
                                             }
                                   },
-                        "dayanak":  "Türk Ticaret Kanunu m.227 ve m.228 (kâr payının şirket sözleşmesinde öngörülen esasa göre belirlenmesi)"
+                        "dayanak":  "Türk Ticaret Kanunu m.227 ve m.228 (kâr payının şirket sözleşmesinde öngörülen esasa göre belirlenmesi)",
+                        "cozum":  [
+                                      [
+                                          "Ali\u0027nin sermaye oranı (54.000/90.000)",
+                                          "0,60"
+                                      ],
+                                      [
+                                          "Ali\u0027nin kâr payı (15.000 × 0,60)",
+                                          "9.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: kârı ortak sayısına bölüp eşit paylaştırmak, ama burada sözleşme sermaye oranı diyor. Eşit bölmek yanlış çünkü paylar eşit değil.",
+                        "taktik":  "Oran sorularında paydaya mutlaka TOPLAM sermayeyi koy, tek bir ortağın sermayesini değil.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Şirket sermayesi 90.000 TL (soruda verilen); Ali\u0027nin sermaye payı 54.000 TL (soruda verilen); Veli\u0027nin sermaye payı 36.000 TL (soruda verilen); 2026 kârı 15.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: şirket sermayesi, ortakların payları ve dağıtılacak kâr. Ali\u0027nin kâr payını bulmamız isteniyor.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Kural = Ortağın kâr payı = Ortağın sermaye oranı × Dağıtılacak kâr",
+                                            "anlatim":  "Kollektif şirkette kâr payı nedir? Türk Ticaret Kanunu m.227 ve m.228\u0027e göre ortaklar kârı, sözleşmedeki esasa göre paylaşır. Burada esas, sermaye oranı.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ali\u0027nin sermaye oranı = Ali\u0027nin payı / Toplam sermaye = 54.000 (soruda verilen) / 90.000 (soruda verilen) = 0,60",
+                                            "anlatim":  "Önce Ali\u0027nin şirketteki ağırlığını buluyoruz, çünkü kâr bu ağırlığa göre bölüşülecek. Kendi payını toplam sermayeye bölüyoruz.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ali\u0027nin kâr payı = 2026 kârı × Ali\u0027nin sermaye oranı = 15.000 (soruda verilen) × %60 (3. adımda bulduk) = 9.000 TL",
+                                            "anlatim":  "Şimdi bulduğumuz oranı toplam kâra uyguluyoruz, çünkü kâr payı bu oranla dağıtılıyor. Sonuç Ali\u0027nin cebine giren tutar.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: kâr yerine zarar olsaydı → yine %60 (3. adımda bulduk) oranı uygulanır",
+                                            "anlatim":  "Ters durumda: şirket zarar etseydi de aynı sermaye oranıyla, yani Ali yine %60\u0027ını üstlenirdi.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 15.000 / 2 = 7.500 (HATALI) → doğrusu 9.000 (4. adımda bulduk)",
+                                            "anlatim":  "En sık hata: kârı ortak sayısına bölüp eşit paylaştırmak, ama burada sözleşme sermaye oranı diyor. Eşit bölmek yanlış çünkü paylar eşit değil.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-c2-fmuh-kolay-r2/kp-15",
@@ -506,7 +1229,97 @@
                                                 "metin":  "Öğrenci hem matrahı maliyet bedeli aldı hem de %50 tavanını sabit oran sandı. Doğrusu: matrah 150.000, oran %40 olmalıdır."
                                             }
                                   },
-                        "dayanak":  "213 sayılı Vergi Usul Kanunu mükerrer m.315"
+                        "dayanak":  "213 sayılı Vergi Usul Kanunu mükerrer m.315",
+                        "cozum":  [
+                                      [
+                                          "1. Yıl",
+                                          "250.000"
+                                      ],
+                                      [
+                                          "2. Yıl",
+                                          "150.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci ikinci yılda da 250.000 TL\u0027yi baz alıp %40 uygulayarak 100.000 TL bulur, bu yanlıştır. Azalan bakiyelerde matrah her yıl önceki net defter değerine göre küçülür.",
+                        "taktik":  "Azalan bakiyelerde matrahı her yıl NET DEFTER DEĞERİ üzerinden al, maliyeti değil.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Maliyet 250.000 TL (soruda verilen); Faydalı ömür 5 yıl (soruda verilen); Amortisman oranı %40 (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: makinenin maliyeti 250.000 TL, faydalı ömrü 5 yıl. Azalan bakiyeler usulü kullanılıyor, oran %40 olarak veriliyor.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               0,
+                                                               2
+                                                           ],
+                                                           [
+                                                               1,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Genel kural: N. yıl matrahı = (N-1). yıl matrahı − (N-1). yıl amortismanı",
+                                            "anlatim":  "Azalan bakiyeler usulü nedir? Her yıl amortisman, o yılın başındaki net defter değerine sabit bir oran uygulanarak bulunur - normal oranın iki katıdır. Dikkat: matrah her yıl küçülür, ilk yıldaki maliyet değil önceki yılın net değeri kullanılır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "1. Yıl Amortismanı = Maliyet × Oran = 250.000 (soruda verilen) × %40 (soruda verilen) = 100.000 TL",
+                                            "anlatim":  "Önce birinci yılın amortismanını buluyoruz, çünkü ikinci yılın matrahı ona bağlı. İlk yıl matrahı maliyetin kendisidir.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               3
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "2. Yıl Matrahı = 1. Yıl Matrahı − 1. Yıl Amortismanı = 250.000 (soruda verilen) − 100.000 (3. adımda bulduk) = 150.000 TL",
+                                            "anlatim":  "İkinci yılın matrahını buluyoruz. Birinci yıl ayrılan amortisman, net defter değerinden düşülür.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "2. Yıl Amortismanı = 2. Yıl Matrahı × Oran = 150.000 (4. adımda bulduk) × %40 (soruda verilen) = 60.000 TL",
+                                            "anlatim":  "Şimdi ikinci yıl amortismanını hesaplıyoruz, aynı oran yeni matraha uygulanır. Bu yöntemde oran hep aynı, matrah her yıl değişir.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               3
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: doğrusal usul → Amortisman = Maliyet / Faydalı Ömür, her yıl sabit",
+                                            "anlatim":  "Ters durumda: eşit tutarlı amortisman isteniyorsa normal (doğrusal) usule bakılır, matrah hep maliyet kalır ve oran değişmez.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sonuç: 2. Yıl Amortisman Gideri = 60.000 TL",
+                                            "anlatim":  "Sonuç: ikinci yıl amortisman gideri 60.000 TL\u0027dir. Bu tutar 150.000 TL\u0027lik matraha %40 uygulanarak bulundu.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 250.000 (soruda verilen) × %40 = 100.000 TL (HATALI) → doğrusu 150.000 × %40 = 60.000 TL (5. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenci ikinci yılda da 250.000 TL\u0027yi baz alıp %40 uygulayarak 100.000 TL bulur, bu yanlıştır. Azalan bakiyelerde matrah her yıl önceki net defter değerine göre küçülür.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t1-fmuh-kolay/kp-28",
@@ -542,7 +1355,69 @@
                                                 "metin":  "KDV dahil tutarı (120.000) bulduktan sonra bu tutar üzerinden tekrar %20 KDV hesaplayıp ekledin. Doğrusu: KDV yalnızca mal bedeli üzerinden bir kez hesaplanır, sonuç 120.000 TL\u0027dir."
                                             }
                                   },
-                        "dayanak":  "MSUGT Sira No:1 Tekduzen Hesap Plani - 320 Satıcılar işleyişi; 191 İndirilecek KDV işleyişi"
+                        "dayanak":  "MSUGT Sira No:1 Tekduzen Hesap Plani - 320 Satıcılar işleyişi; 191 İndirilecek KDV işleyişi",
+                        "cozum":  [
+                                      [
+                                          "Mal bedeli (153 Ticari Mallar)",
+                                          "100.000"
+                                      ],
+                                      [
+                                          "İndirilecek KDV (191)",
+                                          "20.000"
+                                      ],
+                                      [
+                                          "Satıcılar (320) toplam borç",
+                                          "120.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: sadece mal bedelini yani 100.000 TL\u0027yi Satıcılar hesabına yazmak. Bu yanlış çünkü Satıcılar hesabı KDV dahil toplam borcu gösterir.",
+                        "taktik":  "KDV\u0027li alışta önce mal bedeli üzerinden KDV\u0027yi ayrı hesapla, sonra ikisini topla; Satıcılar borcu her zaman KDV dahil tutardır.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Mal bedeli 100.000 TL (soruda verilen); KDV oranı %20 (soruda verilen); ödeme şekli senetsiz vade (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: mal bedeli 100.000 TL, KDV oranı %20, ödeme senetsiz ve vadeli.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "İndirilecek KDV = Mal bedeli × KDV oranı = 100.000 (soruda verilen) × %20 (soruda verilen) = 20.000 TL",
+                                            "anlatim":  "Şimdi KDV tutarını hesaplıyoruz. Alış bedelinin üzerine oran uygulanır, çünkü KDV mal bedeline eklenir.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Satıcılar (320) toplam borç = Mal bedeli + İndirilecek KDV = 100.000 (soruda verilen) + 20.000 (5. adımda bulduk) = 120.000 TL",
+                                            "anlatim":  "Satıcılar hesabına KDV dahil toplam borç yazılır. Çünkü bu hesap ödenecek toplam tutarı gösterir, sadece mal bedelini değil.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "153 TİCARİ MALLAR (BORÇ) 100.000 = mal bedeli (soruda verilen); 191 İNDİRİLECEK KDV (BORÇ) 20.000 = KDV (5. adımda bulduk); 320 SATICILAR (ALACAK) 120.000 = toplam borç (6. adımda bulduk)",
+                                            "anlatim":  "Kaydı birlikte kuralım. Varlık artışı borç, kaynak artışı alacak yazılır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: Satıcılar = 100.000 (HATALI) → doğrusu 120.000 (6. adımda bulduk)",
+                                            "anlatim":  "En sık hata: sadece mal bedelini yani 100.000 TL\u0027yi Satıcılar hesabına yazmak. Bu yanlış çünkü Satıcılar hesabı KDV dahil toplam borcu gösterir.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-p-fmuh-kolay-r1/kp-12",
@@ -578,7 +1453,70 @@
                                                 "metin":  "Hem iskontoyu ters yönde ekledin hem de bunu iki kez tekrarladın. Doğrusu: 611 hesabın bakiyesi tek seferde ve satışlardan düşülerek dikkate alınır."
                                             }
                                   },
-                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı, 611 SATIŞ ISKONTOLARI (-) işleyiş açıklaması"
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı, 611 SATIŞ ISKONTOLARI (-) işleyiş açıklaması",
+                        "cozum":  [
+                                      [
+                                          "Brüt satışlar (600)",
+                                          "100.000"
+                                      ],
+                                      [
+                                          "Satış iskontoları (611) (-)",
+                                          "3.000"
+                                      ],
+                                      [
+                                          "Net satışlar",
+                                          "97.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci iskontoyu gider olarak görüp net satışları değiştirmeden 100.000 TL yazar. Oysa 611 satış hasılatını azaltan bir hesaptır, genel yönetim gideri değildir.",
+                        "taktik":  "Net satış sorusunda önce brüt satış hesabını bul, sonra 61x grubu indirim hesaplarını tek tek düş.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Brüt satış 100.000 TL (soruda verilen); Satış iskontosu 3.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: kredili satış 100.000 TL, sonradan verilen kasa iskontosu 3.000 TL.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "611 SATIŞ İSKONTOLARI (BORÇ) 3.000 = vade öncesi ödeme indirimi (soruda verilen)",
+                                            "anlatim":  "611 Satış İskontoları nedir? Satış gerçekleştikten sonra verilen kasa ya da miktar iskontosunu tutan gider tablosu hesabıdır. Alıcı hesabına alacak yazılırken bu hesaba borç yazılır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Net Satışlar = Brüt Satışlar − Satış İskontoları = 100.000 (soruda verilen) − 3.000 (soruda verilen) = 97.000 TL",
+                                            "anlatim":  "Kasa iskontosu vadeden önce ödeme yapıldığı için verilir, satış hasılatını azaltan bir kalemdir. Bu yüzden net satışlar hesaplanırken brüt satıştan düşülür.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sağlama: 97.000 + 3.000 = 100.000 ✓ (soruda verilen brüt satışa eşit)",
+                                            "anlatim":  "Sağlama olarak bakalım: 611 hesabı gelir tablosunda satış indirimleri arasında gösterilir, 600 hesabından düşülür. Sonuç yine aynı çıkar.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: Net Satışlar = 100.000 (HATALI) → doğrusu 97.000 (3. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenci iskontoyu gider olarak görüp net satışları değiştirmeden 100.000 TL yazar. Oysa 611 satış hasılatını azaltan bir hesaptır, genel yönetim gideri değildir.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-p-fmuh-kolay-r3/kp-14",
@@ -614,7 +1552,116 @@
                                                 "metin":  "Peşin ödenen kiranın tamamını hiç bölüştürmeden 280 hesabına yazmışsın. Doğrusu: Ödemenin cari döneme, bir yıl içine ve bir yılı aşan kısma bölünmesi gerekir; 280\u0027e yalnız 12.000 TL düşer."
                                             }
                                   },
-                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 280 Gelecek Yıllara Ait Giderler hesabı işleyişi"
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 280 Gelecek Yıllara Ait Giderler hesabı işleyişi",
+                        "cozum":  [
+                                      [
+                                          "2026 yılına ait cari dönem gideri (Temmuz-Aralık)",
+                                          "6 ay"
+                                      ],
+                                      [
+                                          "2027 yılına ait bir yıl içi kısım",
+                                          "12 ay"
+                                      ],
+                                      [
+                                          "2028 yılına ait bir yılı aşan kısım",
+                                          "6 ay"
+                                      ],
+                                      [
+                                          "280 hesabına yazılacak tutar",
+                                          "-"
+                                      ]
+                                  ],
+                        "enSikHata":  "Ay Sayımı Tuzağı: Bir yılı aşan süreyi yanlış ay sayısıyla (3 ay) hesaplayıp 3x2.000=6.000 bulmuşsun. Doğrusu: bir yılı aşan kısım 6 aylık dönemdir ve 12.000 TL\u0027dir.",
+                        "taktik":  "Önce cari döneme ait ayları, sonra bilanço tarihinden bir yıl sonrasına kadar kalan ayları, en son bir yılı aşan ayları ayrı ayrı say; her grubu farklı hesaba yaz.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Ödeme tarihi 01.07.2026 (soruda verilen); Toplam kira tutarı 48.000 TL (soruda verilen); Süre 24 ay (soruda verilen)",
+                                            "anlatim":  "Soru bize ödeme tarihini, toplam tutarı ve süreyi vermiş. Aylık payı ve yılların dağılımını biz hesaplayacağız.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "280 GELECEK YILLARA AİT GİDERLER: peşin ödenen giderin bilanço tarihinden itibaren bir yılı aşan kısmı",
+                                            "anlatim":  "280 GELECEK YILLARA AİT GİDERLER, peşin ödenen giderin bir yılı aşan kısmını tutan hesaptır. Gider henüz gerçekleşmediği için borç tarafına yazılır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Aylık Kira = Toplam Tutar / Süre = 48.000 (soruda verilen) / 24 (soruda verilen) = 2.000 TL",
+                                            "anlatim":  "Önce aylık kira tutarını buluyoruz, çünkü her yılın payını buradan çıkaracağız.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "2026 cari dönem gideri = Aylık kira × Ay sayısı = 2.000 (3. adımda bulduk) × 6 (soruda verilen) = 12.000 TL",
+                                            "anlatim":  "2026 yılında Temmuz-Aralık arası 6 aylık kira gideri oluşur. Bu tutar cari dönemin gideridir, 280 hesabına girmez.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               0,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "2027 yılı payı = 2.000 (3. adımda bulduk) × 12 (soruda verilen) = 24.000 TL",
+                                            "anlatim":  "2027 yılının tamamı bilanço tarihinden itibaren bir yıl içinde kalır. Bu yüzden dönen varlık sayılır, 280 hesabına girmez.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "2028 yılı payı (bir yılı aşan) = 2.000 (3. adımda bulduk) × 6 (soruda verilen) = 12.000 TL",
+                                            "anlatim":  "2028 yılının payı bilanço tarihinden bir yılı aşıyor. Tekdüzen Hesap Planına göre bu kısım 280 hesabına borç yazılır.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ],
+                                                           [
+                                                               2,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "280 GELECEK YILLARA AİT GİDERLER (BORÇ) 12.000 = 2028 yılı payı (6. adımda bulduk)",
+                                            "anlatim":  "280 GELECEK YILLARA AİT GİDERLER hesabına borç yazılacak tutar bulunuyor. Bu tutar yalnızca bir yılı aşan 2028 payıdır.",
+                                            "doldur":  [
+                                                           [
+                                                               3,
+                                                               2
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: süre 12 ay olsaydı → 280 hesabı 0 TL",
+                                            "anlatim":  "Süre 12 ay olsaydı bir yılı aşan kısım hiç oluşmazdı. O durumda 280 hesabı hiç kullanılmazdı.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 280 hesabına 24.000 (2027 payı) yazmak (HATALI) → doğrusu 12.000 (6. adımda bulduk)",
+                                            "anlatim":  "Öğrenciler çoğu zaman 2027 payını da 280\u0027e yazar, bu yanlıştır. 2027 bir yıl içinde kaldığı için 180 hesabına gider, 280\u0027e yalnız 2028\u0027in payı girer.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-t2-fmuh-kolay/kp-12",
@@ -650,7 +1697,102 @@
                                                 "metin":  "Öğrenci ihraç farkını gelir zannedip 308 hesabı alacaklandırır. Doğrusu: nominal değerin altında satışta oluşan fark GİDER niteliğindedir ve 308 hesabın BORCUNA kaydedilir."
                                             }
                                   },
-                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı - Tekdüzen Hesap Planı 305 ve Tekdüzen Hesap Planı 308 hesapların işleyişi"
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı - Tekdüzen Hesap Planı 305 ve Tekdüzen Hesap Planı 308 hesapların işleyişi",
+                        "cozum":  [
+                                      [
+                                          "Nominal değer (305 hesap alacak)",
+                                          "1.000.000"
+                                      ],
+                                      [
+                                          "Satış tutarı (102 hesap borç)",
+                                          "850.000"
+                                      ],
+                                      [
+                                          "İhraç farkı (308 hesap borç) = 1.000.000 - 850.000",
+                                          "150.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenciler 305 hesabı 850.000 ile alacaklandırıyor, oysa 305 her zaman nominal değerle yazılır.",
+                        "taktik":  "İhraç kaydında önce nominal tutarı 305\u0027e alacak yaz, sonra tahsil edilen tutarı düş; kalan fark her zaman 308\u0027in borcuna gider.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Nominal değer 1.000.000 TL (soruda verilen); Satış tutarı 850.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: nominal değeri 1.000.000 TL olan bono, 850.000 TL\u0027ye satılmış. Banka hesabına 850.000 TL girmiş.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "305 ÇIKARILMIŞ BONOLAR VE SENETLER (ALACAK) = 1.000.000 (soruda verilen)",
+                                            "anlatim":  "305 Çıkarılmış Bonolar ve Senetler nedir? İşletmenin çıkardığı bonoyu nominal bedelle gösterir, kaynak arttığı için alacak yazılır.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               0
+                                                           ],
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "102 BANKALAR (BORÇ) = 850.000 (soruda verilen)",
+                                            "anlatim":  "102 Bankalar nedir? İşletmenin banka hesabındaki parayı gösterir, para girdiği için borç yazılır.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               0
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "İhraç Farkı = Nominal değer − Satış tutarı = 1.000.000 (soruda verilen) − 850.000 (soruda verilen) = 150.000 TL",
+                                            "anlatim":  "308 Menkul Kıymetler İhraç Farkı nedir? Nominalin altında satılan bononun aradaki farkını gösterir, gider niteliğinde olduğu için borç yazılır.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               0
+                                                           ],
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "102 BANKALAR (BORÇ) 850.000 (soruda verilen) + 308 MENKUL KIYMETLER İHRAÇ FARKI (BORÇ) 150.000 (3. adımda bulduk) = 305 ÇIKARILMIŞ BONOLAR VE SENETLER (ALACAK) 1.000.000 (soruda verilen)",
+                                            "anlatim":  "Şimdi kaydı birlikte yazalım. Kaynak 305 alacak, varlık 102 borç, fark 308 borç olarak dengelenir.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "SONUÇ: 308 MENKUL KIYMETLER İHRAÇ FARKI (BORÇ) = 150.000 TL (3. adımda bulduk)",
+                                            "anlatim":  "Sonuç: doğru kayıt 308 hesabın 150.000 TL borçlandırılmasıdır. Bu fark gelecek döneme ait finansman gideri gibi izlenir.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 305 ÇIKARILMIŞ BONOLAR VE SENETLER (ALACAK) 850.000 (HATALI) → doğrusu 305 hesap 1.000.000 (soruda verilen), fark 308 hesaba 150.000 (3. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenciler 305 hesabı 850.000 ile alacaklandırıyor, oysa 305 her zaman nominal değerle yazılır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
                         "id":  "sgs-p-fmuh-kolay-r1/kp-10",
@@ -686,43 +1828,444 @@
                                                 "metin":  "Net defter değeri yerine varlığın brüt maliyetini kullanırsın. Doğrusu: Karşılaştırma net defter değeriyle yapılır, brüt maliyetle değil."
                                             }
                                   },
-                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 257/679-689 işleyişi"
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı 257/679-689 işleyişi",
+                        "cozum":  [
+                                      [
+                                          "Net defter değeri (150.000-90.000)",
+                                          "60.000"
+                                      ],
+                                      [
+                                          "Kâr (75.000-60.000)",
+                                          "15.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci kârı 120.000 yeni taşıt değeriyle veya maliyet 150.000 ile kıyaslıyor. Doğrusu her zaman takas değeri ile net defter değeri farkıdır.",
+                        "taktik":  "Önce net defter değerini (maliyet-amortisman) bul, sonra takas değeriyle karşılaştır; nakit farkı bu hesaba katma.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Maliyet 150.000 TL (soruda verilen); Birikmiş amortisman 90.000 TL (soruda verilen); Takas değeri 75.000 TL (soruda verilen); Nakit ödeme 45.000 TL (soruda verilen); Yeni taşıt değeri 120.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: taşıtın maliyeti 150.000 TL, birikmiş amortismanı 90.000 TL. Takas değeri 75.000 TL, üstüne 45.000 TL nakit verilip 120.000 TL değerinde yeni taşıt alınmış.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Net defter değeri = Maliyet - Birikmiş amortisman = 150.000 (soruda verilen) - 90.000 (soruda verilen) = 60.000 TL",
+                                            "anlatim":  "Net defter değeri, varlığın maliyetinden bugüne kadar ayrılan amortismanın çıkarılmasıyla bulunur. Takas kararında asıl kıyaslanan şey bu değerdir, maliyet değil.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               0
+                                                           ],
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "679 DİĞER OLAĞANDIŞI GELİR VE KÂRLAR: duran varlık elden çıkarmasından doğan kâr → alacak",
+                                            "anlatim":  "679 Diğer Olağandışı Gelir ve Kârlar nedir? Duran varlık satış veya takasından doğan kârın yazıldığı hesaptır, alacak tarafına işler. Burada elden çıkan taşıttan kâr doğarsa bu hesaba gider.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Kâr = Takas değeri - Net defter değeri = 75.000 (soruda verilen) - 60.000 (2. adımda bulduk) = 15.000 TL",
+                                            "anlatim":  "Takas kârı, elden çıkan taşıtın takas değeriyle net defter değeri arasındaki farktır. Takas değeri defter değerinden büyükse kâr oluşur.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               0
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sonuç: 15.000 TL kâr, 679 DİĞER OLAĞANDIŞI GELİR VE KÂRLAR (ALACAK) 15.000 = 75.000 (soruda verilen) - 60.000 (2. adımda bulduk)",
+                                            "anlatim":  "Takas değeri defter değerinden fazla çıktığı için elden çıkarma kârlıdır. Bu kâr 679 hesabına alacak yazılır çünkü gelir/kâr hesapları alacak tarafta büyür.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: Takas değeri \u003c Net defter değeri → 689 DİĞER OLAĞANÜSTÜ GİDER VE ZARARLAR (BORÇ)",
+                                            "anlatim":  "Ters durumda takas değeri defter değerinden düşük çıksaydı zarar oluşurdu. O durumda kayıt 689 Diğer Olağanüstü Gider ve Zararlar hesabının borcuna yazılırdı.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 120.000 - 150.000 = -30.000 (HATALI) → doğrusu 75.000 (soruda verilen) - 60.000 (2. adımda bulduk) = 15.000 TL kâr",
+                                            "anlatim":  "En sık hata: öğrenci kârı 120.000 yeni taşıt değeriyle veya maliyet 150.000 ile kıyaslıyor. Doğrusu her zaman takas değeri ile net defter değeri farkıdır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     },
                     {
-                        "id":  "sgs-c5-fmuh-kolay-r1/kp-01",
+                        "id":  "sgs-c2-fmuh-kolay-r1/kp-17",
                         "ders":  "Finansal Muhasebe",
-                        "konu":  "temel muhasebe kavramlari",
+                        "konu":  "kar dagitimi",
                         "donem":  3,
-                        "soru":  "İşletme, 1 Kasım 2026 tarihinde altı aylık kullanım için peşin ödediği 60.000 TL sigorta bedelinin tamamını ödeme tarihinde 770 Genel Yönetim Giderleri hesabına gider yazmış, gelecek döneme ait kısmı ilgili hesaba aktarmamıştır. Bu uygulama hangi temel muhasebe kavramına aykırıdır?",
+                        "soru":  "Bir anonim şirketin ödenmiş sermayesi 800.000 TL\u0027dir. Şirketin bilançosunda daha önce ayrılmış genel kanuni yedek akçe tutarı 100.000 TL\u0027dir. Şirketin 2026 hesap dönemi net karı 500.000 TL\u0027dir. Türk Ticaret Kanunu hükümlerine göre bu dönemde ayrılacak genel kanuni yedek akçe kaç TL\u0027dir?",
                         "siklar":  {
-                                       "A":  "Tutarlılık",
-                                       "B":  "Dönemsellik",
-                                       "C":  "İhtiyatlılık",
-                                       "D":  "Özün Önceliği",
-                                       "E":  "Önemlilik"
+                                       "A":  "25.000",
+                                       "B":  "50.000",
+                                       "C":  "60.000",
+                                       "D":  "100.000",
+                                       "E":  "160.000"
                                    },
-                        "dogru":  "B",
-                        "hap":  "Peşin ödenen gider dönemler arasında bölüştürülmezse dönemsellik kavramı ihlal edilmiş olur.",
-                        "kural":  "Ne soruluyor: hangi kavramın ihlal edildiği soruluyor. Kural: Dönemsellik kavramına göre gelir ve giderler tahakkuk esasına göre ait oldukları döneme yazılır; peşin ödenen ve gelecek döneme ait gider kısmı 180 Gelecek Aylara Ait Giderler hesabına aktarılır. Hesap: 6 aylık 60.000 TL\u0027nin yalnız 2 aylık kısmı (Kasım-Aralık) cari dönem gideridir, kalan 4 aylık kısım gelecek döneme aittir. Doğrusu: Tamamının cari döneme gider yazılması dönemsellik kavramına aykırıdır.",
+                        "dogru":  "A",
+                        "hap":  "Genel kanuni yedek akçe, ödenmiş sermayenin %20\u0027sine ulaşıncaya kadar her dönem yıllık karın %5\u0027i olarak ayrılır.",
+                        "kural":  "Ne soruluyor: dönem karından genel kanuni yedek akçeye ayrılacak tutar soruluyor. Kural: Türk Ticaret Kanununun 519 uncu maddesinin birinci fıkrasına göre yıllık karın yüzde beşi, ödenmiş sermayenin yüzde yirmisine (800.000 x %20 = 160.000 TL) ulaşıncaya kadar genel kanuni yedek akçeye ayrılır. Hesap: 500.000 x %5 = 25.000 TL; mevcut yedek akçe (100.000 TL) + 25.000 TL = 125.000 TL, bu tutar sınır olan 160.000 TL\u0027yi aşmadığından tam olarak ayrılır. Doğrusu: ayrılacak genel kanuni yedek akçe 25.000 TL\u0027dir.",
                         "tuzak":  {
-                                      "A":  {
-                                                "ad":  "Tutarlılık Tuzağı",
-                                                "metin":  "Yöntemin dönemden döneme değişip değişmediğine bakılır sanılır; burada yöntem değişikliği yok, tek bir işlemde dönem ayrımı yapılmaması söz konusudur. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                      "B":  {
+                                                "ad":  "Oran Karıştırma Tuzağı",
+                                                "metin":  "yüzde beşlik genel oranı, ancak sınıra ulaşıldıktan sonra kar payı dağıtımı sonrasında uygulanan yüzde on oranıyla karıştırıp 500.000 x %10 işlemi yaptın. Doğrusu: birinci fıkra sınırına ulaşılmadan yalnız yüzde beş oranı uygulanır, sonuç 25.000 TL\u0027dir."
                                             },
                                       "C":  {
-                                                "ad":  "İhtiyatlılık Tuzağı",
-                                                "metin":  "Giderin erken kaydedilmesi ihtiyatlı davranış sanılır; ihtiyatlılık olası zarar/kâr belirsizliğiyle ilgilidir, burada belirsizlik değil dönem ayrımı hatası vardır. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                                "ad":  "Kalan Sınır Tuzağı",
+                                                "metin":  "sınıra ulaşmak için kalan tutarı (160.000-100.000=60.000) doğrudan bu dönem ayrılacak yedek akçe sandın. Doğrusu: ayrılacak tutar kalan sınırla değil yıllık karın yüzde beşiyle bulunur ve bu tutar 25.000 TL\u0027dir."
                                             },
                                       "D":  {
-                                                "ad":  "Özün Önceliği Tuzağı",
-                                                "metin":  "İşlemin biçimi değil özü esas alınır kuralı yanlış hatırlanıp buraya uygulanır; burada biçim-öz çatışması yok, süre paylaştırması eksik. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                                "ad":  "Mevcut Bakiye Tuzağı",
+                                                "metin":  "bilançoda önceden var olan 100.000 TL\u0027lik yedek akçe tutarını bu dönem ayrılacak tutar olarak yazdın. Doğrusu: soru bu dönemde YENİ ayrılacak tutarı sorar, bu da 25.000 TL\u0027dir."
                                             },
                                       "E":  {
-                                                "ad":  "Önemlilik Tuzağı",
-                                                "metin":  "Tutarın büyüklüğüne bakılıp önemlilik kavramı seçilir; önemlilik tutarın mali tabloları etkileme derecesiyle ilgilidir, burada sorun tutarın dönemler arası paylaştırılmamasıdır. Doğrusu: İhlal edilen kavram dönemselliktir."
+                                                "ad":  "Sınır Tutarı Tuzağı",
+                                                "metin":  "ödenmiş sermayenin yüzde yirmisi olan tavan tutarını (160.000 TL), ayrılacak tutarın kendisi sandın. Doğrusu: 160.000 TL yalnız yedek akçenin ulaşabileceği üst sınırdır, bu dönem ayrılacak tutar 25.000 TL\u0027dir."
                                             }
                                   },
-                        "dayanak":  "MSUGT Sıra No 1, Muhasebenin Temel Kavramları - Dönemsellik"
+                        "dayanak":  "Türk Ticaret Kanunu (6102 s.K.) m.519/1",
+                        "cozum":  [
+                                      [
+                                          "Ödenmiş sermayenin %20\u0027si (tavan)",
+                                          "160.000"
+                                      ],
+                                      [
+                                          "Yıllık karın %5\u0027i",
+                                          "25.000"
+                                      ],
+                                      [
+                                          "Mevcut yedek akçe + yeni pay",
+                                          "125.000"
+                                      ],
+                                      [
+                                          "Tavan kontrolü (125.000 \u003c 160.000)",
+                                          "Uygun"
+                                      ],
+                                      [
+                                          "Ayrılacak genel kanuni yedek akçe",
+                                          "25.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci direkt 800.000 × %20 = 160.000\u0027i cevap sanır, ama bu tavan sınırıdır, gerçek ayrılan tutar değil. Doğrusu yıllık kârın %5\u0027i olan 25.000 TL\u0027dir, çünkü tavana daha ulaşılmamış.",
+                        "taktik":  "Önce ödenmiş sermayenin %20\u0027sini (tavan) hesapla, sonra yıllık karın %5\u0027ini bul; tavanı aşıp aşmadığını kontrol et.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Ödenmiş sermaye 800.000 TL (soruda verilen); Mevcut genel kanuni yedek akçe 100.000 TL (soruda verilen); Dönem net kârı 500.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: ödenmiş sermaye 800.000 TL, önceden ayrılmış genel kanuni yedek akçe 100.000 TL, bu dönem net kâr 500.000 TL. İstenen: bu dönem ayrılacak genel kanuni yedek akçe.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Tavan = Ödenmiş sermaye × %20 = 800.000 (soruda verilen) × %20 = 160.000",
+                                            "anlatim":  "519 nedir? Türk Ticaret Kanunu 519. madde, yıllık kârın %5\u0027inin genel kanuni yedek akçeye ayrılmasını söyler. Bu ayırma, sermayenin %20\u0027sine ulaşana kadar sürer, sonra durur.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yıllık pay = Net kâr × %5 = 500.000 (soruda verilen) × %5 = 25.000",
+                                            "anlatim":  "Şimdi yıllık kârın yasal payını hesaplıyoruz. Bu, kanunun istediği %5\u0027lik dilim.",
+                                            "doldur":  [
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Mevcut + yeni pay = 100.000 (soruda verilen) + 25.000 (3. adımda bulduk) = 125.000",
+                                            "anlatim":  "Mevcut yedek akçeye bu payı ekleyip tavanla karşılaştırıyoruz. Amaç, sınırı aşıp aşmadığını görmek.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "büyük olan: 125.000 ile 160.000 → 160.000; 125.000 (4. adımda bulduk) \u003c 160.000 (2. adımda bulduk) → Uygun",
+                                            "anlatim":  "125.000 tavan olan 160.000\u0027i aşmıyor, yani hesapladığımız pay tam olarak ayrılabilir. Aşsaydı, sadece tavana kadar olan kısım ayrılırdı.",
+                                            "doldur":  [
+                                                           [
+                                                               3,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ayrılacak genel kanuni yedek akçe = 25.000 (3. adımda bulduk)",
+                                            "anlatim":  "Sınır aşılmadığı için yıllık kârın %5\u0027i olduğu gibi ayrılır. Sonuç, 3. adımda bulduğumuz tutardır.",
+                                            "doldur":  [
+                                                           [
+                                                               4,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: Mevcut + yeni pay \u003e Tavan → Ayrılacak = Tavan − Mevcut yedek akçe",
+                                            "anlatim":  "Ters durumda: mevcut yedek akçe + yeni pay tavanı aşsaydı, sadece tavana kadar olan fark ayrılırdı. Yani 125.000 yerine örneğin 170.000 çıksaydı, ayrılacak tutar 160.000 − 100.000 = 60.000 olurdu.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 800.000 × %20 = 160.000 (HATALI) → doğrusu 25.000 (3. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenci direkt 800.000 × %20 = 160.000\u0027i cevap sanır, ama bu tavan sınırıdır, gerçek ayrılan tutar değil. Doğrusu yıllık kârın %5\u0027i olan 25.000 TL\u0027dir, çünkü tavana daha ulaşılmamış.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
+                    },
+                    {
+                        "id":  "sgs-t1-fmuh-kolay/kp-27",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "bilanco hesaplari",
+                        "donem":  3,
+                        "soru":  "İşletme, 60.000 TL tutarındaki ticari malı krediyle (senetsiz) satın almış, aynı gün bankadaki hesabından 20.000 TL ile satıcılara olan borcunun bir kısmını ödemiş, ayrıca alıcısından 15.000 TL\u0027yi kasaya nakden tahsil etmiştir. Bu üç işlem sonucunda işletmenin aktif toplamı ne kadar değişmiştir?",
+                        "siklar":  {
+                                       "A":  "20.000 artmıştır",
+                                       "B":  "20.000 azalmıştır",
+                                       "C":  "40.000 artmıştır",
+                                       "D":  "40.000 azalmıştır",
+                                       "E":  "60.000 artmıştır"
+                                   },
+                        "dogru":  "C",
+                        "hap":  "Aktif içi yer değiştiren işlemler (tahsilat, çek bankaya yatırma) aktif toplamını değiştirmez; yalnız kredili alış/borç ödemesi gibi karşı taraflı işlemler toplamı büyütür ya da küçültür.",
+                        "kural":  "Ne soruluyor: Üç ayrı işlemin aktif toplamına birlikte etkisi soruluyor. Kural: karşı taraflı işlemler (kredili alış, borç ödemesi) toplamı değiştirir, aktif içi yer değiştirme (tahsilat) değiştirmez. Hesap: 60.000 (kredili alış, artış) - 20.000 (borç ödemesi, azalış) + 0 (tahsilat, aktif içi kayma) = 40.000. Doğrusu: aktif toplamı net 40.000 TL artmıştır.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Ters İşaret Tuzağı",
+                                                "metin":  "Bankadan yapılan borç ödemesinin varlıkları azalttığını unutup bu tutarı artış yönünde sayarsan bu şıkka ulaşırsın. Doğrusu: banka ile satıcı borcu ödemesi aktif toplamını 20.000 TL azaltır, artırmaz."
+                                            },
+                                      "B":  {
+                                                "ad":  "Tek İşlem Genelleme Tuzağı",
+                                                "metin":  "Yalnızca borç ödemesinin etkisine bakıp kredili alışı hesaba katmazsan aktif toplamının 20.000 TL azaldığını sanırsın. Doğrusu: kredili alış aynı anda aktifi 60.000 TL artırdığı için net etki bu tek işlemden ibaret değildir."
+                                            },
+                                      "D":  {
+                                                "ad":  "Yön Karıştırma Tuzağı",
+                                                "metin":  "Kredili mal alışının aktifi artırdığını, borç ödemesinin ise azalttığını ters kurarsan (-60.000+20.000) net sonucu 40.000 azalış olarak bulursun. Doğrusu: kredili alış aktifi artırır, borç ödemesi azaltır; işaretler tam tersidir."
+                                            },
+                                      "E":  {
+                                                "ad":  "Eksik İşlem Tuzağı",
+                                                "metin":  "Yalnızca kredili mal alışını dikkate alıp banka ile yapılan borç ödemesinin etkisini unutursan aktif toplamının 60.000 TL arttığını sanırsın. Doğrusu: aynı gün gerçekleşen 20.000 TL\u0027lik borç ödemesi bu artışı kısmen dengeler."
+                                            }
+                                  },
+                        "dayanak":  "TEORI - İşlemlerin bilanço eşitliğine ve aktif toplamına etkisi",
+                        "cozum":  [
+                                      [
+                                          "Kredili mal alışı (153 / 320)",
+                                          "+60.000"
+                                      ],
+                                      [
+                                          "Banka ile satıcı borcu ödemesi (102 / 320)",
+                                          "-20.000"
+                                      ],
+                                      [
+                                          "Alacağın kasaya tahsili (100 / 120)",
+                                          "0"
+                                      ],
+                                      [
+                                          "Net aktif toplamı değişimi",
+                                          "+40.000"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci 15.000 TL\u0027lik tahsilatı da aktif artışı sanıp 40.000 yerine 55.000 der. Oysa kasa artarken alıcılar aynı tutarda azaldığı için bu işlem aktif toplamını hiç etkilemez.",
+                        "taktik":  "Her işlemi ayrı ayrı hangi hesabı borçlandırıp hangisini alacaklandırdığını yazarak çöz, sonra net etkiyi topla; tek işlemi genel sonuç sanma.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Kredili mal alışı 60.000 TL (soruda verilen); Banka ile satıcı borcu ödemesi 20.000 TL (soruda verilen); Alacağın kasaya tahsili 15.000 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: kredili mal alışı 60.000 TL, bankadan yapılan borç ödemesi 20.000 TL, kasaya tahsilat 15.000 TL. Bu üç işlemin aktif toplamına birlikte etkisini soruyor.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "153 TİCARİ MALLAR (BORÇ) 60.000 = 60.000 (soruda verilen) / 320 SATICILAR (ALACAK) 60.000 = 60.000 (soruda verilen)",
+                                            "anlatim":  "153 TİCARİ MALLAR bir aktif hesap, mal alınınca borçlanır. 320 SATICILAR ise pasif hesap, senetsiz borç doğunca alacaklanır - burada mal krediyle alındığı için hem varlık hem borç birlikte artıyor.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "320 SATICILAR (BORÇ) 20.000 = 20.000 (soruda verilen) / 102 BANKALAR (ALACAK) 20.000 = 20.000 (soruda verilen)",
+                                            "anlatim":  "102 BANKALAR aktif hesap, para çıkınca alacaklanır yani azalır. 320 SATICILAR ise borcu ödenince borçlanır, yani pasif azalır - burada aktif azalıyor ama karşılığı borç olduğu için toplam da düşüyor.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "100 KASA (BORÇ) 15.000 = 15.000 (soruda verilen) / 120 ALICILAR (ALACAK) 15.000 = 15.000 (soruda verilen); Aktif içi etki = 15.000 − 15.000 = 0",
+                                            "anlatim":  "120 ALICILAR tahsil edilince alacaklanır yani azalır, 100 KASA ise para girince borçlanır yani artar. İkisi de aktif hesap, biri azalırken öteki aynı tutarda arttığı için aktif toplamı hiç değişmez.",
+                                            "doldur":  [
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Net aktif toplamı değişimi = 60.000 (2. adımda bulduk) − 20.000 (3. adımda bulduk) + 0 (4. adımda bulduk) = 40.000 TL",
+                                            "anlatim":  "Şimdi üç işlemin net etkisini topluyoruz. Karşı taraflı işlemler toplamı değiştirir, aktif içi kayma değiştirmez - o yüzden tahsilat sıfır sayılır.",
+                                            "doldur":  [
+                                                           [
+                                                               3,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Ters durum: işlemin karşı tarafı aktif hesap ise → aktif toplamına etki 0",
+                                            "anlatim":  "Ters durumda: borç ödemesi yerine bankaya para yatan bir alacak tahsili olsaydı bu da aktif içi kayma sayılır ve yine toplamı değiştirmezdi. Yön değişse de kural aynı kalır: karşı taraf pasifse toplam değişir, karşı taraf aktifse değişmez.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 60.000 − 20.000 + 15.000 = 55.000 (HATALI) → doğrusu 40.000 (5. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenci 15.000 TL\u0027lik tahsilatı da aktif artışı sanıp 40.000 yerine 55.000 der. Oysa kasa artarken alıcılar aynı tutarda azaldığı için bu işlem aktif toplamını hiç etkilemez.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
+                    },
+                    {
+                        "id":  "sgs-p-maliyet-kolay-r3/kp-04",
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "yari mamul maliyeti",
+                        "donem":  3,
+                        "soru":  "İşletme, 7/A seçeneğini uygulamaktadır. Dönemde üretime verilen direkt ilk madde ve malzemenin tutarı 62.500 TL, direkt işçilik gideri 37.250 TL, genel üretim gideri ise 24.750 TL olarak gerçekleşmiştir. Maliyet dönemi sonunda 151 Yarı Mamuller-Üretim hesabına borç kaydedilecek tutar kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "62.000",
+                                       "B":  "87.250",
+                                       "C":  "99.750",
+                                       "D":  "124.500",
+                                       "E":  "149.250"
+                                   },
+                        "dogru":  "D",
+                        "hap":  "151 Yarı Mamuller-Üretim hesabı, dönem sonunda direkt ilk madde ve malzeme, direkt işçilik ve genel üretim giderleri toplamı kadar borçlandırılır.",
+                        "kural":  "Ne soruluyor: Maliyet dönemi sonunda 151 hesabına borç yazılacak tutar isteniyor. Kural: Tekdüzen Hesap Planı 151 açıklamasına göre bu hesap direkt ilk madde ve malzeme, direkt işçilik ve genel üretim giderleri toplamı kadar borçlandırılır. Hesap: 62.500 + 37.250 + 24.750 = 124.500. Doğrusu: 151 hesabına 124.500 TL borç kaydedilir.",
+                        "tuzak":  {
+                                      "A":  {
+                                                "ad":  "Eksik Kalem Tuzağı",
+                                                "metin":  "Direkt ilk madde ve malzeme tutarını unutup yalnız direkt işçilik ile genel üretim giderini topladın. Doğrusu: Üç unsurun tamamı toplanmalıdır, bu tutar 62.500 TL eksiktir."
+                                            },
+                                      "B":  {
+                                                "ad":  "Eksik Kalem Tuzağı",
+                                                "metin":  "Direkt işçilik tutarını atlayıp yalnız direkt ilk madde ve genel üretim giderini topladın. Doğrusu: Direkt işçilik de 151 borcuna dahildir, bu tutar 37.250 TL eksiktir."
+                                            },
+                                      "C":  {
+                                                "ad":  "Eksik Kalem Tuzağı",
+                                                "metin":  "Genel üretim giderini unutup yalnız direkt ilk madde ve direkt işçiliği topladın. Doğrusu: Genel üretim gideri de üretim maliyetinin bir parçasıdır, bu tutar 24.750 TL eksiktir."
+                                            },
+                                      "E":  {
+                                                "ad":  "Mükerrer Sayım Tuzağı",
+                                                "metin":  "Genel üretim giderini hem kendi tutarıyla hem de toplam içinde ikinci kez sayarak fazladan eklemişsin. Doğrusu: Her gider unsuru yalnız bir kez toplanır, bu tutar 24.750 TL fazladır."
+                                            }
+                                  },
+                        "dayanak":  "MSUGT Sıra No:1 Tekdüzen Hesap Planı, 151 Yarı Mamuller-Üretim hesabı işleyiş açıklaması",
+                        "cozum":  [
+                                      [
+                                          "Direkt ilk madde ve malzeme",
+                                          "62.500"
+                                      ],
+                                      [
+                                          "Direkt işçilik gideri",
+                                          "37.250"
+                                      ],
+                                      [
+                                          "Genel üretim gideri",
+                                          "24.750"
+                                      ],
+                                      [
+                                          "151 Yarı Mamuller-Üretim (Toplam)",
+                                          "124.500"
+                                      ]
+                                  ],
+                        "enSikHata":  "En sık hata: öğrenci sadece direkt ilk madde ve direkt işçiliği toplar, genel üretim giderini unutur. Oysa 151 hesabı üç unsurun tamamından pay alır.",
+                        "taktik":  "Üç maliyet unsurunu ayrı ayrı listele, hiçbirini atlamadan ve ikinci kez saymadan topla.",
+                        "adimlar":  [
+                                        {
+                                            "formul":  "Verilen: Direkt ilk madde ve malzeme 62.500 TL (soruda verilen); Direkt işçilik gideri 37.250 TL (soruda verilen); Genel üretim gideri 24.750 TL (soruda verilen)",
+                                            "anlatim":  "Soru bize şunları vermiş: direkt ilk madde ve malzeme 62.500 TL, direkt işçilik gideri 37.250 TL, genel üretim gideri 24.750 TL.",
+                                            "doldur":  [
+                                                           [
+                                                               0,
+                                                               1
+                                                           ],
+                                                           [
+                                                               1,
+                                                               1
+                                                           ],
+                                                           [
+                                                               2,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "151 YARI MAMULLER-ÜRETİM (BORÇ) = direkt ilk madde ve malzeme + direkt işçilik gideri + genel üretim gideri",
+                                            "anlatim":  "151 YARI MAMULLER-ÜRETİM nedir? Henüz mamul haline gelmemiş üretimin maliyetini tutan hesaptır. Direkt ilk madde, direkt işçilik ve genel üretim giderlerinden pay aldıkça borçlanır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "151 YARI MAMULLER-ÜRETİM (Toplam) = 62.500 (soruda verilen) + 37.250 (soruda verilen) + 24.750 (soruda verilen) = 124.500 TL",
+                                            "anlatim":  "Şimdi biz hesaplıyoruz: dönem sonunda 151 hesabına bu üç maliyet unsurunun toplamı borç yazılır. Neden bu taraf? Üretim maliyeti varlık gibi biriktiği için borç kaydedilir.",
+                                            "doldur":  [
+                                                           [
+                                                               3,
+                                                               1
+                                                           ]
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Sağlama: 62.500 + 37.250 = 99.750; 99.750 + 24.750 = 124.500 TL ✓",
+                                            "anlatim":  "Sağlama yapalım: her üç kalemi tekrar tek tek toplayınca aynı sonuca ulaşıyoruz. Bu, hesabın doğru kurulduğunu gösterir.",
+                                            "doldur":  [
+
+                                                       ]
+                                        },
+                                        {
+                                            "formul":  "Yanlış yol: 62.500 + 37.250 = 99.750 TL (HATALI) → doğrusu 124.500 TL (3. adımda bulduk)",
+                                            "anlatim":  "En sık hata: öğrenci sadece direkt ilk madde ve direkt işçiliği toplar, genel üretim giderini unutur. Oysa 151 hesabı üç unsurun tamamından pay alır.",
+                                            "doldur":  [
+
+                                                       ]
+                                        }
+                                    ]
                     }
                 ]
 }

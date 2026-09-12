@@ -64,7 +64,7 @@ function TuzakAyir {
 }
 
 $adaylar = New-Object System.Collections.Generic.List[object]
-$sayac = [ordered]@{ bakilan = 0; govdesiz = 0; k2_hiza = 0; k3_tuzak = 0; k4_boy = 0; gecen = 0 }
+$sayac = [ordered]@{ bakilan = 0; govdesiz = 0; k2_hiza = 0; k3_tuzak = 0; k4_boy = 0; k6_cozum = 0; k7_adim = 0; gecen = 0 }
 $partiOnbellek = @{}
 
 foreach ($grup in $yayinDosyalari) {
@@ -127,6 +127,66 @@ foreach ($grup in $yayinDosyalari) {
     }
     if (-not $tuzakTam) { $sayac.k3_tuzak++; continue }
 
+    # --- K6: COZUM TABLOSU -------------------------------------------------
+    # Vitrin sik SORMAZ, COZUMU GOSTERIR (Cem: "sik vermeyecektik, nasil
+    # cozdugumuzu gosterecektik"). Gosterilecek tablo yoksa soru vitrine
+    # cikamaz. En az iki satir gerekir: bir ara islem + bir sonuc.
+    $cozumSatir = @()
+    if ($soru.cozum_tablo -and $soru.cozum_tablo.satirlar) {
+      foreach ($satir in $soru.cozum_tablo.satirlar) {
+        $hucre = @($satir)
+        if ($hucre.Count -ge 2) {
+          $cozumSatir += ,@([string]$hucre[0], [string]$hucre[1])
+        }
+      }
+    }
+    if ($cozumSatir.Count -lt 2) { $sayac.k6_cozum++; continue }
+
+    # "En sik hata" adimi: adimlar icinde "En sik hata" geceni.
+    # BULUNAMAZSA adi konmus ilk tuzaktan doldurulur - vitrinde bu satir BOS
+    # KALAMAZ, cunku farkimiz orada duruyor (13.09 olcumu: havuzdaki her
+    # soruda yok, "gelir tahakkuku" sorusunda bos cikti).
+    $enSikHata = ""
+    if ($soru.adimlar) {
+      foreach ($adim in $soru.adimlar) {
+        $anlatim = [string]$adim.anlatim
+        if ($anlatim -match 'En s[ıi]k hata') { $enSikHata = $anlatim; break }
+      }
+    }
+    if ([string]::IsNullOrWhiteSpace($enSikHata)) {
+      foreach ($harf in $tuzaklar.Keys) {
+        $enSikHata = ("{0}: {1}" -f $tuzaklar[$harf].ad, $tuzaklar[$harf].metin)
+        break
+      }
+    }
+    if ([string]::IsNullOrWhiteSpace($enSikHata)) { $sayac.k6_cozum++; continue }
+
+    # --- K7: ADIMLAR ------------------------------------------------------
+    # Cem: "nobetciye basacagiz, gercek soru gibi akacak, ileri diyecek, soruyu
+    # birebir orada yasayacak." Vitrin bir OZET degil, urunun kendisidir:
+    # ziyaretci Ileri'ye basa basa cozumu surukler. Adimsiz soru bunu yapamaz.
+    # doldur = [[satir,sutun],...] - o adimda dolan cozum tablosu hucreleri.
+    $adimListesi = @()
+    if ($soru.adimlar) {
+      foreach ($adim in $soru.adimlar) {
+        $formul = ([string]$adim.formul).Trim()
+        if ([string]::IsNullOrWhiteSpace($formul)) { continue }
+        $hucreler = @()
+        if ($adim.doldur) {
+          foreach ($hucre in $adim.doldur) {
+            $ikili = @($hucre)
+            if ($ikili.Count -ge 2) { $hucreler += ,@([int]$ikili[0], [int]$ikili[1]) }
+          }
+        }
+        $adimListesi += ,([ordered]@{
+          formul  = $formul
+          anlatim = ([string]$adim.anlatim).Trim()
+          doldur  = $hucreler
+        })
+      }
+    }
+    if ($adimListesi.Count -lt 3) { $sayac.k7_adim++; continue }
+
     $siklar = [ordered]@{}
     foreach ($s in $sikListesi) { $siklar[$s.Name] = [string]$s.Value }
 
@@ -143,6 +203,10 @@ foreach ($grup in $yayinDosyalari) {
       kural    = $dogruAciklama
       tuzak    = $tuzaklar
       dayanak  = (($soru.dayanak | Out-String).Trim())
+      cozum    = $cozumSatir
+      enSikHata = $enSikHata
+      taktik   = ([string]$soru.sinav_taktigi)
+      adimlar  = $adimListesi
       soruBoy  = ([string]$soru.soru).Length
     })
   }
@@ -154,6 +218,8 @@ Write-Host ("  govdesi bulunamayan : {0}" -f $sayac.govdesiz)
 Write-Host ("  K2 hiza dusuren     : {0}" -f $sayac.k2_hiza)
 Write-Host ("  K3 adsiz tuzak      : {0}" -f $sayac.k3_tuzak)
 Write-Host ("  K4 boy asan         : {0}" -f $sayac.k4_boy)
+Write-Host ("  K6 cozum tablosuz   : {0}" -f $sayac.k6_cozum)
+Write-Host ("  K7 adimsiz          : {0}" -f $sayac.k7_adim)
 Write-Host ("  DORT KAPIDAN GECEN  : {0}" -f $sayac.gecen)
 
 if ($adaylar.Count -eq 0) {
@@ -193,9 +259,9 @@ if ($Kuru) { Write-Host "  kuru kosu - dosyaya YAZILMADI."; exit 0 }
 $cikti = [ordered]@{
   uretim  = (Get-Date -Format "yyyy-MM-dd HH:mm")
   uretici = "motor/vitrin-soru-sec.ps1"
-  kapilar = "K1 yayinda · K2 aciklama hizasi · K3 adi konmus tuzak · K4 boy"
+  kapilar = "K1 yayinda · K2 aciklama hizasi · K3 adi konmus tuzak · K4 boy · K5 konu cesitliligi · K6 cozum tablosu · K7 adimlar"
   adet    = $secilen.Count
-  sorular = @($secilen | Select-Object id, ders, konu, donem, soru, siklar, dogru, hap, kural, tuzak, dayanak)
+  sorular = @($secilen | Select-Object id, ders, konu, donem, soru, siklar, dogru, hap, kural, tuzak, dayanak, cozum, enSikHata, taktik, adimlar)
 }
 
 # BOM'SUZ yazilir: BOM'lu JSON'u Node/tarayici ayristiricilari reddeder.
