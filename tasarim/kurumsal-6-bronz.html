@@ -172,44 +172,27 @@
      "Nöbetçi çözsün"e basar, İleri'ye basa basa çözümü kendi sürükler,
      hesap tablosu adım adım dolar. Kaynak: ambardaki `adimlar` (formül +
      anlatım + hangi hücreyi doldurduğu) - K7 kapısı bunu şart koşuyor. */
-  .cozum{border:1px solid rgba(214,180,126,.20);border-radius:11px;overflow:hidden;
-         margin-bottom:11px}
-  .cz{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
-      padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.06);
-      font-size:12.5px;line-height:1.4;color:var(--ak-sonuk)}
-  .cz:last-child{border-bottom:0}
-  .cz b{color:var(--ak-sonuk);font-weight:700;white-space:nowrap;
-        font-variant-numeric:tabular-nums;letter-spacing:-.01em;
-        transition:color .3s ease,opacity .3s ease;opacity:.45}
-  .cz.doldu{color:var(--ak-govde)}
-  .cz.doldu b{color:var(--ak);opacity:1}
-  .cz.doldu.sonuc{background:rgba(207,161,99,.10)}
-  .cz.doldu.sonuc span{color:var(--ak)}
-  .cz.doldu.sonuc b{color:var(--bronz-acik);font-size:15px}
-
-  .nobetci{padding:11px 13px;border-radius:11px;margin-bottom:11px;
-           background:rgba(207,161,99,.07);border:1px solid rgba(214,180,126,.24)}
-  .nobetci .kim{display:flex;align-items:center;gap:8px;font-size:10.5px;
-                letter-spacing:.15em;text-transform:uppercase;
-                color:var(--bronz-acik);font-weight:800;margin-bottom:6px}
-  .nobetci .kim s{text-decoration:none;color:var(--ak-sonuk);letter-spacing:.06em;
-                  margin-left:auto;font-weight:700}
-  .nobetci p{margin:0;font-size:12.6px;line-height:1.55;color:var(--ak)}
-  .nobetci .formul{margin-top:8px;padding:8px 10px;border-radius:8px;
-                   background:rgba(0,0,0,.28);font-size:12px;line-height:1.45;
-                   color:var(--bronz-acik);font-variant-numeric:tabular-nums}
-  .nobetci.hata{background:rgba(176,115,109,.10);border-color:rgba(176,115,109,.30)}
-  .nobetci.hata .kim{color:var(--yanlis)}
-
-  .surucu{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-  .ileri{font:inherit;font-size:13.5px;font-weight:750;cursor:pointer;
-         background:linear-gradient(180deg,var(--bronz-acik),var(--bronz));
-         color:#221704;border:0;border-radius:9px;padding:10px 18px}
-  .ileri:hover{filter:brightness(1.07)}
-  .ileri.bitti{background:transparent;color:var(--ak-govde);
-               border:1px solid rgba(214,180,126,.35)}
-  .surucu .dayanak{font-size:10.5px;letter-spacing:.05em;color:var(--bronz);
-                   font-weight:700;line-height:1.4}
+  /* ⛔ 13.09 — ELLE YAZILAN PANEL KALDIRILDI.
+     Cem: "sen ayrıntılı bu bulduğun soruyu tümden bizim site çözsen görcen."
+     Çözdüm: gerçek Kaydır-Çöz kartı benim elle yazdığımdan çok daha zengin
+     (sınav künyesi, süre, "Ne sanıyorsun / Aslında / Nereden anlarsın",
+     VERİLENLER/HESAP ayrımı, 9 adımlı "Nöbetçi anlatıyor", hesap kâğıdı).
+     Taklit hem fakirdi hem SAPACAKTI - kartı üreten makine kaydir-coz.ps1.
+     Cem "birinci yap" dedi: vitrin artık ÜRÜNÜN KENDİSİNİ gösteriyor.
+     kaydir/vitrin/sgs.html zaten bunun için yapılmış: ?vitrin=1 tema düğmesini
+     gizler ve kasaya cevap YAZMAZ (vitrin tıklaması ölçümü kirletmesin),
+     #s=<sıra> "ana sayfa kartı → günün sorusu" derin bağlantısıdır.
+     Ana sayfa 304 KB'lık ürün sayfasını PEŞİNEN yüklemez: önce afiş durur,
+     düğmeye basılınca çerçeve açılır. */
+  .afis-rozet{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;
+              font-weight:750;color:var(--bronz-acik);background:rgba(207,161,99,.10);
+              border:1px solid rgba(214,180,126,.30);border-radius:99px;
+              padding:5px 12px;margin-bottom:11px}
+  .afis-ozet{font-size:13.2px;line-height:1.5;color:var(--ak);margin:0 0 14px}
+  .urun-cerceve{border:1px solid rgba(214,180,126,.26);border-radius:12px;
+                overflow:hidden;background:#fff;margin-bottom:11px}
+  .urun-cerceve iframe{display:block;width:100%;height:540px;border:0}
+  .yukleniyor{padding:26px 14px;text-align:center;font-size:12.5px;color:var(--ak-sonuk)}
   .cam-dip{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;
            align-items:baseline;margin-top:11px;font-size:11px;
            padding-top:10px;border-top:1px solid rgba(255,255,255,.07)}
@@ -329,24 +312,15 @@
         <div class="cam-ust"><span id="camDers">Finansal Muhasebe · hesap işleyişi</span><s id="camKunye">SGS · 3 dönemde çıktı</s></div>
         <p class="cam-soru" id="camSoru">İşletme, satıcıdan 100.000 TL tutarında ticari mal satın almış, bedelin tamamını senetsiz olarak vadeye bırakmıştır. KDV oranı %20'dir. Bu alışa ilişkin kayıtta <b>320 SATICILAR</b> hesabına kaydedilecek tutar kaç TL'dir?</p>
 
-        <div class="cozum" id="cozum">
-          <div class="cz"><span>Mal bedeli + Nakliye gideri</span><b>106.000</b></div>
-          <div class="cz"><span>Alış iskontosunun düşülmesi</span><b>106.000 − 4.000</b></div>
-          <div class="cz sonuc"><span>Maliyet bedeli (153 Ticari Mallar)</span><b>102.000</b></div>
-        </div>
+        <div class="afis-rozet" id="afisRozet">📌 Son 35 sınavın 11 tanesinde çıktı</div>
+        <p class="afis-ozet" id="afisOzet">İşletmenin 2026 yılı gelir tablosu dikey yüzde analizinde satılan malın maliyeti net satışların %65'i, faaliyet giderleri toplamı ise net satışların %20'sidir.</p>
 
-        <div class="nobetci" id="nobetci" hidden aria-live="polite">
-          <div class="kim"><span id="nobetciKim">Nöbetçi</span><s id="adimNo"></s></div>
-          <p id="anlatim"></p>
-          <div class="formul" id="formul" hidden></div>
-        </div>
+        <div class="urun-cerceve" id="urunCerceve" hidden></div>
 
         <div class="surucu">
           <button class="ileri" type="button" id="ileri">Nöbetçi çözsün →</button>
-          <span class="dayanak" id="camDayanak">MSUGT Tekdüzen Hesap Planı · 153</span>
-        </div>
-
-        <div class="cam-dip">
+          <span class="dayanak" id="camDayanak">Gerçek soru · şıkkı seç, çözümü aç</span>
+        </div>        <div class="cam-dip">
           <span><a href="#" id="baskaSoru">Başka soru</a></span>
           <a href="../kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik" id="tamSoru">Havuza geç →</a>
         </div>      </div>      </div>      </div>
@@ -532,110 +506,78 @@ if(tuval){
 /* ===================================================================
    3) CAM PANEL — bugünün GERÇEK sorusu ve GERÇEK tuzak adı
    =================================================================== */
-/* VİTRİN = ÜRÜNÜN KENDİSİ, özeti değil.
-   Cem: "sorudaki gibi soru yazacak, nöbetçiye basacağız, gerçek soru gibi
-   akacak, İleri diyecek, soruyu birebir orada yaşayacak."
-   Ziyaretçi "Nöbetçi çözsün"e basar, her İleri'de bir adım ilerler ve hesap
-   tablosu o adımda dolar - Kaydır-Çöz'ün ana sayfadaki küçük hâli.
-   Havuz: veri/vitrin-soru-havuzu.json (motor/vitrin-soru-sec.ps1, yedi kapı).
-   Okunamazsa HTML'de duran gerçek çözüm (kp-08) kalır. */
+/* VİTRİN = ÜRÜNÜN KENDİSİ.
+   Afiş (künye + "son N sınavın M tanesinde çıktı" + sorunun ilk cümlesi)
+   veri/vitrin-kunye.json'dan gelir - motor/vitrin-kunye-cikar.ps1 onu
+   kaydir/vitrin/sgs.html'in içindeki gerçek SORULAR dizisinden çıkarır.
+   Düğmeye basılınca ÜRÜN SAYFASININ KENDİSİ çerçeve içinde açılır
+   (?vitrin=1: tema düğmesi gizli, kasaya cevap yazılmaz; #s=<sıra> günün
+   sorusunu açar). Ana sayfa 304 KB'lık sayfayı peşinen yüklemez. */
 (function(){
-  var cozumEl=document.getElementById('cozum');
-  var nobetci=document.getElementById('nobetci');
-  var kimEl=document.getElementById('nobetciKim');
-  var adimNoEl=document.getElementById('adimNo');
-  var anlatimEl=document.getElementById('anlatim');
-  var formulEl=document.getElementById('formul');
+  var rozetEl=document.getElementById('afisRozet');
+  var ozetEl=document.getElementById('afisOzet');
+  var cerceveEl=document.getElementById('urunCerceve');
   var ileriEl=document.getElementById('ileri');
-  if(!cozumEl||!ileriEl) return;
+  var dayanakEl=document.getElementById('camDayanak');
+  if(!ileriEl||!cerceveEl) return;
 
-  /* Havuz gelmezse HTML'de duran gerçek çözümün adımları (kp-08). */
-  var SORU={
-    cozum:[['Mal bedeli + Nakliye gideri','106.000'],
-           ['Alış iskontosunun düşülmesi','106.000 − 4.000'],
-           ['Maliyet bedeli (153 Ticari Mallar)','102.000']],
-    adimlar:[
-      {formul:'Verilen: Mal bedeli 100.000 TL; Nakliye gideri 6.000 TL; Alış iskontosu 4.000 TL',
-       anlatim:'Soru bize şunları vermiş: mal bedeli 100.000 TL, nakliye gideri 6.000 TL, alış iskontosu 4.000 TL. Bu üç rakamı biz bulmadık, soru verdi.',doldur:[]},
-      {formul:'153 TİCARİ MALLAR: alışta borç, satışta alacak',
-       anlatim:'153 Ticari Mallar nedir? Satmak için alınan malın maliyet bedelinin tutulduğu hesaptır.',doldur:[]},
-      {formul:'Mal bedeli + Nakliye gideri = 100.000 + 6.000 = 106.000',
-       anlatim:"TMS 2'ye göre malın maliyetine, alışa doğrudan bağlı giderler eklenir. Nakliye masrafı malı işletmeye getirmek için yapıldığından maliyete girer.",doldur:[[0,0],[0,1]]},
-      {formul:'Ara toplam − Alış iskontosu = 106.000 − 4.000',
-       anlatim:'Alış iskontosu maliyeti düşürür, çünkü mal aslında daha ucuza gelmiştir.',doldur:[[1,0],[1,1]]},
-      {formul:'Maliyet bedeli (153 Ticari Mallar) = 106.000 − 4.000 = 102.000',
-       anlatim:'Son maliyet bedelini buluyoruz; bu tutar 153 hesaba borç yazılacak tutardır.',doldur:[[2,0],[2,1]]},
-      {formul:'Yanlış yol: 100.000 + 6.000 = 106.000 (HATALI) → doğrusu 102.000',
-       anlatim:"En sık hata: iskontoyu düşmeden 106.000'i maliyet sanmak.",doldur:[]}
-    ]
-  };
-  var sira=-1;   /* -1 = henüz başlamadı */
+  var KUNYE=null, sira=0, acildi=false;
+  var YOL='../kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=';
 
-  function tabloCiz(){
-    var c=SORU.cozum||[];
-    cozumEl.innerHTML=c.map(function(r,i){
-      var son=(i===c.length-1)?' sonuc':'';
-      return '<div class="cz'+son+'" data-satir="'+i+'"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>';
-    }).join('');
+  function afisCiz(){
+    if(!KUNYE) return;
+    var k=KUNYE.kartlar[sira]; if(!k) return;
+    document.getElementById('camDers').textContent=(k.ders||'')+(k.konu?' · '+k.konu:'');
+    document.getElementById('camKunye').textContent='SGS · Kaydır-Çöz';
+    document.getElementById('camSoru').textContent='';
+    /* "N tanesinde" bilerek: Türkçe sıra eki her rakamda değişir
+       (11'inde / 7'sinde / 3'ünde), "tanesinde" hepsinde doğru. */
+    rozetEl.textContent='📌 Son '+KUNYE.taranan_donem+' sınavın '+k.donem+' tanesinde çıktı';
+    ozetEl.textContent=k.ozet||'';
+    kapat();
   }
 
-  function basaAl(){
-    sira=-1;
-    tabloCiz();
-    nobetci.hidden=true;
-    nobetci.className='nobetci';
+  function kapat(){
+    acildi=false;
+    cerceveEl.hidden=true; cerceveEl.innerHTML='';
     ileriEl.textContent='Nöbetçi çözsün →';
     ileriEl.className='ileri';
+    rozetEl.hidden=false; ozetEl.hidden=false;
+    if(dayanakEl) dayanakEl.textContent='Gerçek soru · şıkkı seç, çözümü aç';
   }
 
-  function adimGoster(){
-    var a=(SORU.adimlar||[])[sira]; if(!a) return;
-    /* Bu adımda dolan hücrelerin satırı açılır - "hücre hücre dolan tablo". */
-    (a.doldur||[]).forEach(function(h){
-      var s=cozumEl.querySelector('.cz[data-satir="'+h[0]+'"]');
-      if(s) s.classList.add('doldu');
-    });
-    var sonAdim=(sira===SORU.adimlar.length-1);
-    /* Son adım ambarda "Yanlış yol / En sık hata" adımıdır: kutu kırmızıya döner. */
-    var hataAdimi = sonAdim && /Yanl[ıi]ş yol|En s[ıi]k hata/i.test((a.formul||'')+' '+(a.anlatim||''));
-    nobetci.className='nobetci'+(hataAdimi?' hata':'');
-    kimEl.textContent = hataAdimi ? 'Nöbetçi · En sık hata' : 'Nöbetçi';
-    adimNoEl.textContent=(sira+1)+' / '+SORU.adimlar.length;
-    anlatimEl.textContent=a.anlatim||'';
-    if(a.formul){ formulEl.textContent=a.formul; formulEl.hidden=false; }
-    else { formulEl.hidden=true; }
-    nobetci.hidden=false;
-    ileriEl.textContent = sonAdim ? 'Baştan al ↺' : 'İleri →';
-    ileriEl.className = sonAdim ? 'ileri bitti' : 'ileri';
+  function ac(){
+    acildi=true;
+    /* Ürün sayfası ANCAK ŞİMDİ yüklenir - ana sayfa hafif kalsın. */
+    cerceveEl.innerHTML='<div class="yukleniyor">Nöbetçi geliyor…</div>';
+    cerceveEl.hidden=false;
+    var cer=document.createElement('iframe');
+    cer.setAttribute('title','Tetikte Kaydır-Çöz — günün sorusu');
+    cer.setAttribute('loading','lazy');
+    cer.src=YOL+sira;
+    cer.onload=function(){ var y=cerceveEl.querySelector('.yukleniyor'); if(y) y.remove(); };
+    cerceveEl.appendChild(cer);
+    rozetEl.hidden=true; ozetEl.hidden=true;
+    ileriEl.textContent='Kapat ✕';
+    ileriEl.className='ileri bitti';
+    if(dayanakEl) dayanakEl.textContent='Bu, ürünün kendisi — ana sayfa kopyası değil.';
   }
 
-  ileriEl.addEventListener('click',function(){
-    if(sira>=0 && sira===SORU.adimlar.length-1){ basaAl(); return; }
-    sira++; adimGoster();
-  });
+  ileriEl.addEventListener('click',function(){ if(acildi) kapat(); else ac(); });
 
-  function ciz(q){
-    SORU={cozum:q.cozum||[], adimlar:q.adimlar||[]};
-    document.getElementById('camDers').textContent=(q.ders||'')+(q.konu?' · '+q.konu:'');
-    document.getElementById('camKunye').textContent='SGS'+(q.donem?' · '+q.donem+' dönemde çıktı':'');
-    document.getElementById('camSoru').textContent=q.soru||'';
-    var dy=document.getElementById('camDayanak');
-    if(dy&&q.dayanak) dy.textContent=q.dayanak;
-    basaAl();
-  }
-  basaAl();
-
-  fetch('../veri/vitrin-soru-havuzu.json',{cache:'no-store'})
+  fetch('../veri/vitrin-kunye.json',{cache:'no-store'})
     .then(function(y){return y.ok?y.json():null;})
     .then(function(d){
-      var h=d&&d.sorular; if(!h||!h.length)return;
+      if(!d||!d.kartlar||!d.kartlar.length)return;
+      KUNYE=d;
+      if(d.baglanti) YOL='../'+d.baglanti;
       /* Gün bazlı sıra: aynı gün herkese aynı soru, ertesi gün sırası gelen. */
       var gun=Math.floor(Date.now()/86400000);
-      var i=((gun%h.length)+h.length)%h.length;
-      ciz(h[i]);
+      sira=((gun%d.kartlar.length)+d.kartlar.length)%d.kartlar.length;
+      afisCiz();
       var bag=document.getElementById('baskaSoru');
       if(bag) bag.addEventListener('click',function(e){
-        e.preventDefault(); i=(i+1)%h.length; ciz(h[i]);
+        e.preventDefault(); sira=(sira+1)%d.kartlar.length; afisCiz();
       });
     }).catch(function(){});
 })();
