@@ -86,6 +86,11 @@ if($SadeceHtml){
 }
 $CACHE=Join-Path $kok "veri\fabrika\kalip-parti-$Etiket.json"
 $HEDEF=Join-Path $kok "sql-yerel\kalip-parti-$Etiket.html"
+# ⛔ 12.09 bulut kosusu #1: bu iki klasor de .gitignore'da, Actions checkout'unda
+#    YOKTUR ve WriteAllText klasor acmaz. Yerelde hep var oldugu icin yillarca
+#    gorunmedi; bulutta ilk kosuda dustu. Acilista bir kez acilir - bedelsiz.
+New-Item -ItemType Directory -Force (Split-Path $CACHE -Parent) | Out-Null
+New-Item -ItemType Directory -Force (Split-Path $HEDEF -Parent) | Out-Null
 $KEY=$env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ throw 'SUPABASE_SERVICE_KEY yok.' }
 $SB=@{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' }

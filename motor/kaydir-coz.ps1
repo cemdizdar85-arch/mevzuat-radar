@@ -1424,8 +1424,22 @@ window.addEventListener('load',function(){ try{ var m=location.hash.match(/#s=(\
 '@
 $html=$html.Replace('__JSON__',$json)
 $out=Join-Path $kok "sql-yerel\$Cikti"
+# ⛔ 12.09: BULUT KOSUSU #1 BURADA DUSTU.
+#    "Could not find a part of the path ...\sql-yerel\KAYDIR-COZ-plan-bulut-sinav.html"
+#    sql-yerel/ .gitignore'da; Actions checkout'unda o klasor YOK ve WriteAllText
+#    klasor acmaz. Uretim bitmis, 8 soru uretilmis, 3'u kapilari gecmis, bedel
+#    2,88 USD odenmisti - kosu yalnizca son cizim adiminda kirmizi dondu.
+#    (Sonuc kaybolmadi: akistaki 'Sonucu ambara yaz' adimi if: always() ile korumali.)
+New-Item -ItemType Directory -Force (Split-Path $out -Parent) | Out-Null
 [IO.File]::WriteAllText($out,$html,[Text.UTF8Encoding]::new($false))
-$y="C:\TETIKTE-YEDEK\kaydir-coz-$(Get-Date -Format yyyyMMdd)"; New-Item -ItemType Directory -Force $y | Out-Null; Copy-Item $out $y -Force
+# ⚠ Yerel yedek kopyasi: C:\TETIKTE-YEDEK Cem'in makinesine ait, bulut runner'inda
+#   YOK. Kopyalanamamasi urunu etkilemez - bu bir KOLAYLIK, kapi degil. O yuzden
+#   sessizce degil, SEBEBINI SOYLEYEREK gecilir (kor kalma kurali).
+try{
+  $y="C:\TETIKTE-YEDEK\kaydir-coz-$(Get-Date -Format yyyyMMdd)"
+  New-Item -ItemType Directory -Force $y -ErrorAction Stop | Out-Null
+  Copy-Item $out $y -Force -ErrorAction Stop
+}catch{ Write-Host "  not: yerel yedek kopyasi alinamadi ($($_.Exception.Message.Split([char]10)[0])) - urun etkilenmez" -ForegroundColor DarkGray }
 AmbarKaydet
 "yazildi: $out ($([math]::Round((Get-Item $out).Length/1024)) KB) · soru $($sorular.Count)"
 # 07.09 ÖZ-SINAV (Cem "bundan sonra engelleyebilecek miyiz?"): her HESAP sorusunda en az bir adım tahmin ekranı açabilmeli (tutar sütunu
