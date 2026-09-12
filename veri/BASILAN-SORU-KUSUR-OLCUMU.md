@@ -87,10 +87,51 @@ Bu ölçüt üç şeyi kaçırıyor:
 **"En uzun şık doğru" = 327/1.802 = %18,1.** 5 şıkta rastgele beklenti %20'dir; yani **sapma yok**, hatta
 beklentinin biraz altında. Bu bir kusur değil ve öyle sunulmamalı.
 
-## 6 · ÖLÇÜLEMEYEN — dürüst boşluk
+## 6 · HEDEF DAĞILIM — ÖLÇÜLDÜ (12.09, Cem "2 yap")
 
-Doğru ölçüt "bizim dağılım düzgün mü" değil, **"gerçek sınavın dağılımına benziyor mu"**dur.
-Gerçek SGS kitapçıklarının **cevap anahtarı yerel olarak yapılandırılmış hâlde YOK**: arşiv (253 belge /
-20.851 soru) `dokumanlar` tablosunda ham metin olarak duruyor, şık + doğru cevap alanı ayrıştırılmamış.
-Dolayısıyla "gerçek sınavda da doğru cevap ortada mı kümeleniyor?" sorusu **ölçülmedi** — tahmin yazılmadı.
-Bu kıyas yapılana kadar hedef, hiç değilse uçları (E %1,3) düzeltmek olabilir.
+Doğru ölçüt "bizim dağılım düzgün mü" değil, **"gerçek sınava benziyor mu"**dur.
+
+### 6.1 · SGS'nin gerçek cevap anahtarı ELDE EDİLEMİYOR — dört yol denendi
+
+| Yol | Sonuç |
+|---|---|
+| Arşivdeki 575 kitapçık metni, **harf duyarlı** `CEVAP ANAHTAR` araması | **0 dosya** |
+| Kitapçık PDF'lerinin sonu (anahtar son sayfada olabilir) | tek başına "numara harf" satırı **0**; kuyrukta yalnız sınav yönergesi |
+| TESMER `soru_cevaplar` dizininde 8 aday dosya adı | **8'i de yok**; kontrol olarak gerçek kitapçık VAR döndü (2.318.491 bayt) |
+| tesmer.org.tr duyuru arşivi (WP REST), "cevap anahtarı" | 3 sonuç, **üçü de sınav kuralları sayfası** — anahtar yayını yok |
+
+⚠ **TUZAK (kayda geçiyor):** tesmer sunucusu **olmayan dosyaya da HTTP 200 dönüyor**, ama
+`Content-Type: text/html` ile. Yalnız kodu okuyan bir ölçüm "8 anahtar dosyası VAR" derdi.
+`motor/sinav-arsiv-kesif.ps1`'in `PdfMi` fonksiyonu bu yüzden içerik tipi + 20 KB alt sınırı birlikte
+bakıyor; aynı koruma burada da kullanıldı.
+
+⚠ İlk turda "535 dosyada anahtar izi var" ölçtüm, **yanlıştı**: `-match` harf ayırmıyor ve
+"tatminkâr **cevaplar** almamış" gibi SORU METİNLERİ eşleşiyordu. Harf duyarlı ölçüm 0 dedi.
+
+### 6.2 · Elimizdeki tek GERÇEK anahtar: KGK — ve dengeli
+
+`veri/kgk-arsiv` içinde gerçek KGK cevap anahtarları var (2 tekil kitapçık, **240 cevap**):
+
+| harf | adet | pay |
+|---|---:|---:|
+| A | 100 | %20,8 |
+| B | 90 | %18,8 |
+| C | 88 | %18,3 |
+| D | 90 | %18,8 |
+| E | 112 | %23,3 |
+
+χ² = **4,3** (sd 4) ⇒ **gerçek sınav DENGELİ** (kritik değer p=0,05 → 9,49; sapma bile yok).
+
+### 6.3 · HÜKÜM
+
+| | χ² |
+|---|---:|
+| gerçek KGK sınavı | **4,3** — dengeli |
+| bizim banka (5 şıklı 1.799 soru) | **87,1** |
+| bizim sayısal alt küme (554 soru) | **215,4** · E %1,3 |
+
+KGK, üç sınavımızdan biri ve resmî bir kurulun kitapçığı. SGS'nin kendi anahtarı elde edilemedi,
+ama gerçek bir resmî sınavın ölçülen dağılımı **düzgün**. Dolayısıyla hedef **düzgün dağılım**dır
+ve bizim sapmamız sadakat değil **kusur**.
+
+> SGS anahtarı ileride ele geçerse bu bölüm tazelenir; hedef o zaman SGS'nin kendi dağılımı olur.
