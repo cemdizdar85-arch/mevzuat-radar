@@ -1,21 +1,25 @@
 {
-  "tarih": "19.08.2026 07:12",
+  "tarih": "12.09.2026 11:44",
   "durum": "TAMAM",
   "toplam_soru": 30569,
-  "benzersiz_kaynak": 8519,
-  "cozulen_soru": 27107,
-  "cozum_orani_yuzde": 88.7,
+  "benzersiz_kaynak": 19118,
+  "cozulen_soru": 26986,
+  "cozum_orani_yuzde": 88.3,
   "durum_dagilimi": {
-    "kanun-bulunamadi": 351,
-    "ambarda-yok": 198,
-    "cozuldu-standart": 4290,
+    "cozuldu-hesapplani": 3587,
+    "kanun-bulunamadi": 560,
+    "cozuldu-standart": 4324,
+    "cozuldu-teori": 1286,
     "mevzuat-disi": 2912,
-    "cozuldu": 17700,
-    "cozuldu-teori": 1287,
-    "cozuldu-hesapplani": 3830,
-    "madde-bulunamadi": 1
+    "madde-bulunamadi": 1,
+    "cozuldu": 17789,
+    "ambarda-yok": 110
   },
   "cozulmeyen_en_sik_40": [
+    {
+      "kaynak": "THP 621",
+      "soru": 257
+    },
     {
       "kaynak": "MSUGT Tekduzen Hesap Plani",
       "soru": 104
@@ -27,18 +31,6 @@
     {
       "kaynak": "MSUGT 1 kavram - Önemlilik Kavramı",
       "soru": 31
-    },
-    {
-      "kaynak": "TMS 36 p.100-102 - Sirket varliklari",
-      "soru": 29
-    },
-    {
-      "kaynak": "Teori Notu - oran oranti ve karisim problemleri",
-      "soru": 20
-    },
-    {
-      "kaynak": "Sermaye Piyasası K. (6362 s.K.) m.77 [1/2]",
-      "soru": 18
     },
     {
       "kaynak": "TDK mecaz anlam kuralı",
@@ -53,10 +45,6 @@
       "soru": 13
     },
     {
-      "kaynak": "Sermaye Piyasası K. (6362 s.K.) m.50 [1/2]",
-      "soru": 11
-    },
-    {
       "kaynak": "Kurumsal Yonetim Tebligi (II-17.1) m.17 [20/24]",
       "soru": 10
     },
@@ -65,12 +53,12 @@
       "soru": 9
     },
     {
-      "kaynak": "Paragrafta ana düşünce - yardımcı düşünce ayrımı kuralı",
+      "kaynak": "paragrafta ana düşünce - yardımcı düşünce ayrımı kuralı",
       "soru": 8
     },
     {
-      "kaynak": "TDK çok anlamlılık kuralı",
-      "soru": 7
+      "kaynak": "Teori Notu - oran analizi likidite",
+      "soru": 8
     },
     {
       "kaynak": "Third Conditional (Type 3) kullanım kuralı",
@@ -81,35 +69,11 @@
       "soru": 7
     },
     {
-      "kaynak": "MSUGT 1 kavram - Özün Önceliği Kavramı",
-      "soru": 6
+      "kaynak": "TDK çok anlamlılık kuralı",
+      "soru": 7
     },
     {
-      "kaynak": "Paragrafta konu bütünlüğü (anlatım akışı) kuralı",
-      "soru": 6
-    },
-    {
-      "kaynak": "Possessive Relative Pronoun (whose) kullanım kuralı",
-      "soru": 6
-    },
-    {
-      "kaynak": "5510 s. SGK Kanunu m.81 [1/11]",
-      "soru": 6
-    },
-    {
-      "kaynak": "Whose İlgi Zamiri (Possessive Relative Pronoun) Kullanım Kuralı",
-      "soru": 6
-    },
-    {
-      "kaynak": "öznel-nesnel anlatım ayrımı kuralı",
-      "soru": 6
-    },
-    {
-      "kaynak": "Causative Form (have something done) kullanım kuralı",
-      "soru": 6
-    },
-    {
-      "kaynak": "Sermaye Piyasası K. (6362 s.K.) m.35",
+      "kaynak": "Possessive Relative Pronoun (whose) Kullanım Kuralı",
       "soru": 6
     },
     {
@@ -117,27 +81,35 @@
       "soru": 6
     },
     {
+      "kaynak": "Whose İlgi Zamiri (Possessive Relative Pronoun) Kullanım Kuralı",
+      "soru": 6
+    },
+    {
+      "kaynak": "Paragrafta konu bütünlüğü (anlatım akışı) kuralı",
+      "soru": 6
+    },
+    {
+      "kaynak": "öznel-nesnel anlatım ayrımı kuralı",
+      "soru": 6
+    },
+    {
+      "kaynak": "MSUGT 1 kavram - Özün Önceliği Kavramı",
+      "soru": 6
+    },
+    {
       "kaynak": "TDK öznel-nesnel anlatım ayrımı kuralı",
       "soru": 6
     },
     {
-      "kaynak": "TDK düzeltme işareti (^) - anlam ayırt etme kuralı",
-      "soru": 5
+      "kaynak": "Causative Form (have something done) kullanım kuralı",
+      "soru": 6
     },
     {
-      "kaynak": "Paragrafta konu bütünlüğü ve anlatım akışı bozukluğu kuralı",
-      "soru": 5
+      "kaynak": "5510 s. SGK Kanunu m.81 [1/11]",
+      "soru": 6
     },
     {
       "kaynak": "TDK terim anlam kuralı",
-      "soru": 5
-    },
-    {
-      "kaynak": "VUK m.73",
-      "soru": 5
-    },
-    {
-      "kaynak": "TEORI - Kamusal mallar, dissalliklar ve kamusal tercih (ogreti notu)",
       "soru": 5
     },
     {
@@ -145,27 +117,19 @@
       "soru": 5
     },
     {
-      "kaynak": "Anlatım biçimlerini ayırt etme kuralı (öyküleme-betimleme-açıklama-tartışma sınıflandırması)",
-      "soru": 4
+      "kaynak": "Paragrafta konu bütünlüğü ve anlatım akışı bozukluğu kuralı",
+      "soru": 5
+    },
+    {
+      "kaynak": "TDK düzeltme işareti (^) - anlam ayırt etme kuralı",
+      "soru": 5
     },
     {
       "kaynak": "TDK paragrafta konu birliği (bütünlük) ilkesi",
       "soru": 4
     },
     {
-      "kaynak": "düşünceyi geliştirme yolları - tanık gösterme kuralı",
-      "soru": 4
-    },
-    {
-      "kaynak": "Paragrafta ana düşünceyi bulma kuralı",
-      "soru": 4
-    },
-    {
-      "kaynak": "Anlatımda konu bütünlüğü (bağlam tutarlılığı) kuralı",
-      "soru": 4
-    },
-    {
-      "kaynak": "TMS 1 p.1 - Amaç",
+      "kaynak": "paragrafta ana düşünce bulma kuralı",
       "soru": 4
     },
     {
@@ -174,6 +138,42 @@
     },
     {
       "kaynak": "Paragrafta konu bütünlüğü / anlatım akışı kuralı",
+      "soru": 4
+    },
+    {
+      "kaynak": "TDK ünlü daralması kuralı",
+      "soru": 4
+    },
+    {
+      "kaynak": "TDK sıfat-zarf ayrımı kuralı",
+      "soru": 4
+    },
+    {
+      "kaynak": "Düşünceyi geliştirme yolları - tanık gösterme kuralı",
+      "soru": 4
+    },
+    {
+      "kaynak": "Anlatım biçimlerini ayırt etme kuralı (öyküleme-betimleme-açıklama-tartışma sınıflandırması)",
+      "soru": 4
+    },
+    {
+      "kaynak": "3568 s. SMMM K. m.45 (reklam yasağı — ek fıkra)",
+      "soru": 4
+    },
+    {
+      "kaynak": "Paragrafta ana düşünceyi bulma kuralı",
+      "soru": 4
+    },
+    {
+      "kaynak": "Paragrafta konu butunlugu ve dusuncenin akisi kurali",
+      "soru": 4
+    },
+    {
+      "kaynak": "Düşünceyi geliştirme yolları - karşılaştırma kuralı",
+      "soru": 4
+    },
+    {
+      "kaynak": "Anlatımda konu bütünlüğü (bağlam tutarlılığı) kuralı",
       "soru": 4
     }
   ]
