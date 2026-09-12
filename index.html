@@ -414,6 +414,11 @@ window.veriAl = (function(){
 })();
 </script>
 
+<!-- TAZELİK MOTORU (12.09.2026) — tazelik iddiası kuran her sayfa bunu bağlar.
+     defer YOK: sayfa gövdesindeki satır içi betikler Tazelik.kur'u çağırıyor,
+     o yüzden onlardan ÖNCE yüklenmesi gerekir. Bekçisi arac/tazelik-kapisi.js -->
+<script src="tazelik.js"></script>
+
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -923,18 +928,15 @@ function vHedef(v,kod){
 
          KURAL: İDDİA İLE KANIT AYNI ANDA TAZELENİR. Veri sekmeye her
          dönüşte ve 10 dakikada bir yeniden çekilir; çekilemezse suç
-         robotta değil SAYFADA aranır ("bu sayfa tazelenemedi"). */
-      var ndDip0 = (document.getElementById('ndDip') || {}).textContent || '';
-      var ndSonCekim = 0;
+         robotta değil SAYFADA aranır ("bu sayfa tazelenemedi").
 
-      function nobetTazele(zorla){
-        /* focus + visibilitychange birlikte gelirse tek çekim yeter */
-        var ms = Date.now();
-        if(!zorla && ms - ndSonCekim < 30000) return;
-        ndSonCekim = ms;
-        /* ?t= : no-store'a rağmen araya giren her önbellek katmanını aşar -
-           07.09 gövdesinin bugüne kadar yaşamasının yolu buydu. */
-        fetch('veri/uyari-ozet.json?t=' + ms, {cache:'no-store'})
+         12.09 ikinci tur (Cem "1.2.3 üçünü de yap"): tazeleme mantığı
+         tazelik.js'e taşındı - pano.html ve durum.html de aynı motoru
+         kullanıyor. Dördüncü sayfada dördüncü kez elle yazılmasın. */
+      var ndDip0 = (document.getElementById('ndDip') || {}).textContent || '';
+
+      Tazelik.kur({ ad: 'nöbet kutusu', cek: function(){
+        fetch(Tazelik.url('veri/uyari-ozet.json'), {cache:'no-store'})
         .then(function(y){ return y.ok ? y.json() : null; })
         .then(function(d){
           if(!d) throw new Error('gövde okunamadı');
@@ -999,19 +1001,16 @@ function vHedef(v,kod){
             dip.classList.add('nd-bayat');
           }
         });
-      }
-
-      nobetTazele(true);
-      /* sekmeye dönüş · pencereye odak · bfcache'ten geri gelme · 10 dk */
-      document.addEventListener('visibilitychange', function(){ if(!document.hidden) nobetTazele(); });
-      window.addEventListener('focus', function(){ nobetTazele(); });
-      window.addEventListener('pageshow', function(e){ if(e.persisted) nobetTazele(true); });
-      setInterval(function(){ if(!document.hidden) nobetTazele(true); }, 600000);
+      }});
 
       /* KANIT ŞERİDİ — tek dosyadan üç sayı. 0 gelen sayı yazılmaz: HTML'deki
-         son gerçek değer kalır (ölçülmemiş hücre "0" diye gösterilmez). */
+         son gerçek değer kalır (ölçülmemiş hücre "0" diye gösterilmez).
+         12.09: bu şerit de ÖLÇÜM TARİHİ yazıyor (knTarih) - yani tazelik
+         iddiası kuruyor. Tek seferlik çekimle bırakılırsa nöbet kutusunun
+         aynı arızasını üretir; Tazelik'e bağlandı. */
       var tr = function(n){ return Number(n).toLocaleString('tr-TR'); };
-      fetch('veri/sinav-tek-sayfa.json', {cache:'no-store'})
+      Tazelik.kur({ ad: 'kanıt şeridi', cek: function(){
+        fetch(Tazelik.url('veri/sinav-tek-sayfa.json'), {cache:'no-store'})
         .then(function(y){ return y.ok ? y.json() : null; })
         .then(function(d){
           if(!d) return;
@@ -1028,7 +1027,8 @@ function vHedef(v,kod){
           var o = String(d.olcum || '').split(' ')[0];
           if(o) document.getElementById('knTarih').textContent = o;
         })
-        .catch(function(){});
+        .catch(function(){ Tazelik.dusme('knTarih', 'tazelenemedi'); });
+      }});
     })();
     </script>
 

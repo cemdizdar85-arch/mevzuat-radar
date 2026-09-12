@@ -1,0 +1,65 @@
+{
+  "baslik": "Tazelik borcu - tazelik iddiasi kuran ama kanitini tazelemeyen sayfalar",
+  "tarih": "12.09.2026",
+  "dogus": "Cem: 'ben kalici cozum ariyorum surekli ayni hata karsilasiyorum' + '1.2.3 ucunu de yap'. Ana sayfanin Nobetci kutusu 'son robot kosusu 07.09 - 5 gun once' yazip KIRMIZI yandi. Robot hic gun atlamamisti: veri/uyari-ozet.json damga izi 04.09-12.09 gunde iki kosu, bosluk yok; canli dosya 12.09 09:20'ydi. Ekrandaki govde 07.09 21:49'du - parmak izi rg_karti=2 (YALNIZ 5eef7e5f commit'inde; canlida 1, HTML yedeginde 3). Kok neden: sayfa veriyi acilista BIR KEZ cekiyor, bayatlik hukmunu O ANKI SAATLE kuruyordu.",
+  "kural": "Bu listedeki sayfalar arac/tazelik-kapisi.js kapisini KIRMIZI YAPMAZ - bilinen ve kayitli borctur (SARI). Kapinin isi YENI ihlal eklenmesini engellemek. Borc kapandikca satir SILINIR. Deftere yeni satir eklemek ancak yazili gerekceyle olur.",
+  "taban_gerekcesi": "Uc sayfa (index/pano/durum) ayni commit'te DUZELTILDI. Kapi kurulunca 8 sayfa daha ayni arizada cikti - hepsini ayni commit'te sifirdan yazmak kapiyi ilk gun kapatirdi ve 8 canli radar sayfasini olcumsuz riske atardi. tuzak-nobetcisi'nin 210 eski bulgusunda alinan dersin aynisi: kapi bugun kurulur, borc sirayla kapanir. TAZELEME BEKLIYOR.",
+  "olcum_turlari": "Kapi imzalari uc turda daraltildi: (1) ham metin 31 kirmizi -> 17'si sql-yerel/ (git disi), 3'u yalniz yorumda; (2) Date.now()/getTime() 33 aday -> sinyal DEGIL, onbellek kiricida ve zamanlayicida da var; (3) iddia yalniz <script> govdesinde 12 aday -> kalan 4 yalan alarm duz metin sabitiydi ('30 gun once yazili bildir' = hukuki tavsiye; burasi bir MEVZUAT sitesi). Son kural: iddia VERIDEN gelen bir degerle kurulmus olmali (SINIF-A birlestirme, SINIF-B bayatlik degiskeni) -> 8 gercek.",
+  "onbellek_notu": "Sekiz sayfanin cogu URL'ye zaten ?'+Date.now() ekliyor, yani ONBELLEK sorunu onlarda YOK. Eksik olan TEK sey sekmeye donuste yeniden cekim. Bu, borcu kucuk ve mekanik yapar: her sayfada cekimi Tazelik.kur({ad,cek}) ile sarmak yeterli.",
+  "sayfalar": [
+    {
+      "dosya": "alacak-radari.html",
+      "iddia": "AI_BAYAT / aiBayatlik(iso) bayatlik hukmu + 'son cekim' + 'gundur'",
+      "veri": "veri/risk-merkezi.json · veri/alacak-ilan.json · Supabase RPC",
+      "oncelik": 1,
+      "not": "En yuksek oncelik: bayatlik hukmunu KENDI kuran tek sayfa, yani ana sayfanin arizasinin birebir ikizi"
+    },
+    {
+      "dosya": "marka-portfoy.html",
+      "iddia": "'Sicil kaynagi (TMview) N gundur robotumuza cevap vermiyor (son basarili cekim ...)'",
+      "veri": "veri/marka-kaynak-nabiz.json",
+      "oncelik": 2,
+      "not": "TMview ag duzeyinde kapali oldugu icin bu uyari SUREKLI gorunuyor; gun sayisi acik sekmede kayar"
+    },
+    {
+      "dosya": "marka-radari.html",
+      "iddia": "aynı nabiz uyarisi ('N gundur')",
+      "veri": "veri/marka-kaynak-nabiz.json",
+      "oncelik": 2,
+      "not": "marka-portfoy ile ayni desen; ikisi birlikte kapatilir"
+    },
+    {
+      "dosya": "marka-izleme.html",
+      "iddia": "'Bu liste N gundur tazelenmedi (son cekim ...)'",
+      "veri": "veri/marka-yeni-basvurular.json",
+      "oncelik": 2,
+      "not": "Ana sayfadaki cumlenin neredeyse aynisi"
+    },
+    {
+      "dosya": "ihale-radari.html",
+      "iddia": "'son cekim: <tarih> · Turkiye listesinde N ilan'",
+      "veri": "veri/ihale-yurtici.json · veri/ihale-ted.json",
+      "oncelik": 3
+    },
+    {
+      "dosya": "destekler.html",
+      "iddia": "'son cekim <tarih>' (cagri radari damgasi)",
+      "veri": "veri/cagri-radar.json",
+      "oncelik": 3
+    },
+    {
+      "dosya": "saglik.html",
+      "iddia": "'Son olcum: <guncelleme> · olcum her sabah 06:45'te otomatik yenilenir'",
+      "veri": "veri/saglik-karnesi.json",
+      "oncelik": 3,
+      "not": "69 satir, en kolay kapanacak olan. Ustelik cumlenin KENDISI otomatik yenilenme VAAT ediyor"
+    },
+    {
+      "dosya": "senaryo-raporu.html",
+      "iddia": "yasKontrol(TAZELIK.*.tarih) -> bayat=true",
+      "veri": "veri/gtip-*.json (10 dosya, Promise.all)",
+      "oncelik": 4,
+      "not": "En karmasigi: on dosyalik Promise.all; hata toleransi dosya basina, dikkatli sarilmali"
+    }
+  ]
+}

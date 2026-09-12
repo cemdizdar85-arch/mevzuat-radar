@@ -60,6 +60,8 @@
   .sar>p.dip{margin-top:26px;font-size:13px;color:var(--dim);line-height:1.7}
   .kaydir{overflow-x:auto}
 </style>
+<!-- TAZELİK MOTORU (12.09.2026): iddia ile kanıt aynı anda tazelenir. -->
+<script src="tazelik.js"></script>
 </head>
 <body>
 <div class="sar">
@@ -112,7 +114,15 @@
     return Math.floor((Date.now() - t.getTime()) / 86400000);
   }
 
-  fetch('veri/URUN-KUNYELERI.json', {cache:'no-store'})
+  /* ⭐ 12.09.2026 — TAZELİK MOTORUNA BAĞLANDI (Cem "1.2.3 üçünü de yap").
+     Bu sayfa "ölçüm: <tarih>" ve ürün başına "N gün önce" yazıyor: yani
+     tazelik iddiası kuruyor. Ana sayfada ölçülen arıza aynen buradaydı -
+     veri açılışta BİR KEZ çekiliyor, ama "kaç gün önce" hükmü Date.now()
+     ile kuruluyordu (gecenGun). Açık kalan sekme eski kopyayı bugünün
+     saatiyle kıyaslayıp robotu suçlardı. Artık sekmeye dönüşte ve 10
+     dakikada bir yeniden çekiliyor. Motor: tazelik.js */
+  Tazelik.kur({ ad: 'ürün panosu', cek: function(){
+  fetch(Tazelik.url('veri/URUN-KUNYELERI.json'), {cache:'no-store'})
     .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
     .then(function(k){
       var ol = new Date(k.olcum_zamani);
@@ -170,8 +180,11 @@
       G.innerHTML = '<tr><td colspan="6" class="olcum">Künye okunamadı (' + e.message +
         '). <code>veri/URUN-KUNYELERI.json</code> henüz üretilmemiş olabilir — ' +
         '<code>motor/urun-kunyesi.ps1</code> bir kez koşturulmalı.</td></tr>';
-      Z.textContent = 'ölçüm okunamadı';
+      /* 12.09: "ölçüm okunamadı" iyi bir cümle ama eksikti - ziyaretçi
+         sayfayı yenilemesi gerektiğini bilmiyordu. */
+      Z.textContent = 'ölçüm tazelenemedi — sayfayı yenile';
     });
+  }});
 })();
 </script>
 </body>

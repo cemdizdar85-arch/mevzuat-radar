@@ -53,6 +53,8 @@
   .not{color:var(--dim);font-size:12px;line-height:1.8;margin-top:8px}
   .yuk{color:var(--muted);font-size:13px}
 </style>
+<!-- TAZELİK MOTORU (12.09.2026): iddia ile kanıt aynı anda tazelenir. -->
+<script src="tazelik.js"></script>
 </head>
 <body>
 <div class="dz">
@@ -120,9 +122,25 @@
   function hucre(d){ var c = d==='KIRMIZI'?'kirmizi' : d==='UYARI'?'sari' : d==='TEMİZ'?'yesil' : 'gri';
                      return '<span class="'+c+'">'+rz(d)+d+'</span>'; }
 
+  /* ⭐ 12.09.2026 — TAZELİK MOTORUNA BAĞLANDI (Cem "1.2.3 üçünü de yap").
+     Bu sayfanın TAMAMI bir tazelik iddiasıdır: nöbetçi raporları, son 24
+     saatin iş akışları ve altta "Okundu: <saat>" satırı. Ana sayfada
+     ölçülen arıza buraya da birebir uyuyordu - veri açılışta BİR KEZ
+     çekiliyor, "son 24 saat" penceresi ise Date.now() ile kuruluyordu
+     (sinir = Date.now() - 24 saat). Açık kalan bir sekmede pencere kayar
+     ama veri kaymaz: sayfa dünün koşularını bugünün penceresiyle ölçer.
+     Artık sekmeye dönüşte ve 10 dakikada bir yeniden çekiliyor.
+     Motor: tazelik.js */
   var sonuc = [];
+  var akisDurum = null;
+
+  Tazelik.kur({ ad: 'sistem durumu', cek: function(){
+  /* İKİSİ BİRLİKTE SIFIRLANIR: hukum() ancak ikisi de dolduğunda hüküm
+     kurar (aşağıda erken dönüş var). Sıfırlamazsak tazeleme sırasında
+     yarısı yeni yarısı eski veriyle karma bir hüküm çıkardı. */
+  sonuc = []; akisDurum = null;
   Promise.all(NOBETLER.map(function(n){
-    return fetch(n.dosya, {cache:'no-store'})
+    return fetch(Tazelik.url(n.dosya), {cache:'no-store'})
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(d){ var y=n.oku(d); return {ad:n.ad, durum:y.d, mesaj:y.m, tarih:d.tarih||''}; })
       /* Okunamayan rapor YESIL SAYILMAZ - "bilinmiyor" ayri bir durumdur. */
@@ -136,9 +154,10 @@
     hukum();
   });
 
-  /* IS AKISLARI - depo public oldugu icin kimliksiz okunur. */
-  var akisDurum = null;
-  fetch('https://api.github.com/repos/'+DEPO+'/actions/runs?per_page=100')
+  /* IS AKISLARI - depo public oldugu icin kimliksiz okunur.
+     12.09: kimliksiz sinir saatte 60 istek; 10 dakikalik tazeleme saatte 6
+     eder, sinira uzak. */
+  fetch(Tazelik.url('https://api.github.com/repos/'+DEPO+'/actions/runs?per_page=100'))
     .then(function(r){
       if(r.status===403){ throw new Error('GitHub API saatlik limiti doldu (kimliksiz 60 istek/saat). Biraz sonra tekrar aç.'); }
       if(!r.ok) throw new Error('GitHub API okunamadı (HTTP '+r.status+')');
@@ -170,6 +189,7 @@
       document.getElementById('akisNot').textContent = 'İş akışı durumu OKUNAMADI. Bu, "her şey yolunda" demek DEĞİLDİR.';
       hukum();
     });
+  }});
 
   /* TEK HUKUM: en kotu durum kazanir. Bilinmeyen, yesil sayilmaz. */
   function hukum(){

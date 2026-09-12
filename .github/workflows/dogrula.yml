@@ -214,6 +214,22 @@ jobs:
               kabuk: bash, komut: "node arac/acilis-kapisi.js",
               rapor: "veri/acilis-raporu.json" }
 
+          # 12.09 (Cem "1.2.3 ucunu de yap"): ana sayfanin Nobetci kutusu
+          # "son robot kosusu 07.09 - 5 gun once" yazip KIRMIZI yandi. ROBOT
+          # HIC GUN ATLAMAMISTI: damga izi 04.09-12.09 gunde iki kosu, bosluk
+          # yok; canli dosya 12.09 09:20'ydi. Ekrandaki govde 07.09 21:49'du
+          # (parmak izi rg_karti=2, yalniz o tek commit'te). Kok neden: sayfa
+          # veriyi acilista BIR KEZ cekiyor ama bayatlik hukmunu O ANKI SAATLE
+          # kuruyordu - tarayicida kalmis eski kopya robotu SUCLUYORDU.
+          # Uc tur bu yanlis teshise gitti.
+          # Uc sayfa duzeltildi (index/pano/durum, ortak motor tazelik.js);
+          # bu kapi DORDUNCUSUNU onluyor. Kural yorumda kalirsa unutulur -
+          # bugun tam bu yuzden unutulmustu.
+          # Taban: veri/tazelik-borcu.json (8 sayfa SARI, is emri). Defterde
+          # OLMAYAN yeni ihlal KIRMIZI. Bedel 0 - yalniz dosya okur.
+          - { ad: "Tazelik kapisi (iddia ile kanit ayni anda tazelenir)",
+              kabuk: bash, komut: "node arac/tazelik-kapisi.js" }
+
           # 30.08: damping oranlari kaynak Excel'den UC AYRI bicimde iniyor
           # ("%38,26-%45,99" / "21,12%-28,87%" / "0.29" = Excel ondaligi %29).
           # Okuyucu yalnizca birincisini taniyordu; 141 kaydin 30'u SESSIZCE
