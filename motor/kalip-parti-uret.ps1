@@ -1174,6 +1174,20 @@ try{
     }
   }
 }catch{}
+# ⛔ BULUT YEDEĞİ (12.09.2026): yukarıdaki kaynak `veri/fabrika/sik90-sonuc.jsonl`
+#    (823 KB) ve o klasör .gitignore'da — GitHub Actions'ta o dosya YOKTUR.
+#    Ölçüldü: bulut üretiminde biçim çapası BOŞ kalırdı ve soru biçimi sınavdan
+#    sapardı; sessizce, hata vermeden. Çapanın kendisi TEK bir onaylı sorudur
+#    (p90-SGS-01, ortak maliyet/katsayı), 568 karakter — dosyaya çıkarıldı ve
+#    depoya konuldu. Kendi onayladığımız örnek olduğu için public depoda durması
+#    sakıncasız; ham parti çıktısı (denetlenmemiş soru) YİNE depoya girmiyor.
+if(-not $ornekSoru){
+  $capaYol=Join-Path $kok 'veri\sgs-bicim-capasi.txt'
+  if(Test-Path $capaYol){
+    $ornekSoru=[IO.File]::ReadAllText($capaYol,[Text.Encoding]::UTF8).Trim()
+    "biçim çapası YEDEK dosyadan: veri/sgs-bicim-capasi.txt ($($ornekSoru.Length) kr)"
+  }
+}
 # 05.09 (kalıp-3 pilotu, Cem "sınavda sorulma şekli neyse o"): çapa tek sabit Finansal örneğiydi; konunun gerçek çıkmış sorusu
 # dosyadan verilebilir. Ölçüm: 13 dönemin ortak maliyet soruları yöntemi ve politikayı işletme cümlesiyle SÖYLÜYOR, çözüm sırasını değil.
 if($OrnekDosya -and (Test-Path $OrnekDosya)){ $ornekSoru=[IO.File]::ReadAllText($OrnekDosya,[Text.Encoding]::UTF8).Trim(); "biçim çapası dosyadan: $OrnekDosya ($($ornekSoru.Length) kr)" }
