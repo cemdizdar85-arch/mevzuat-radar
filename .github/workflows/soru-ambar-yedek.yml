@@ -1,0 +1,89 @@
+# .github/workflows/soru-ambar-yedek.yml — SORU AMBARI BULUT YEDEGI (SIFRELI)
+#
+# 12.09.2026, Cem "1 sen yap".
+#
+# NIYE: 11.09 gecesine kadar uretimin durumu IKI yerdeydi - Cem'in dizustunde VE
+# ambarda. Yani yedek kendiliginden vardi. Bulut uretimine gecince o ikilik
+# BITIYOR: uretim yalniz ambara yazacak, tek kopya kalacak. Alacak kasasinin
+# sifreli yedegi 07.09'da kurulmustu; SORU AMBARININ yoktu.
+#
+# NEDEN SIFRELI: depo PUBLIC. Artifact'i okuma yetkisi olan HERKES indirebilir
+# (public repoda bu herkestir). Icinde henuz denetlenmemis soru metni, hakem
+# kararlari ve insan onayi tasiyan havuz satirlari var. Dosyalar AES-256 ile
+# sifrelenir, AES anahtari RSA-4096 ACIK anahtarla zarflanir
+# (motor/anahtar/alacak-yedek.pub - depoda durmasi guvenli).
+# COZEN OZEL ANAHTAR YALNIZ Cem'de: C:\TETIKTE-YEDEK\anahtar\alacak-yedek.key
+# (ikinci kopya OneDrive _yerel-veri-kasasi\anahtar\, ucuncu kopya GitHub Secret).
+# ⚠ Ozel anahtar kaybolursa YEDEKLER OKUNAMAZ. Alacak kasasiyla AYNI anahtar
+#   bilerek kullanildi: korunacak tek sir olsun, iki degil.
+#
+# COZME: powershell -NoProfile -File motor/soru-ambar-yedek-coz.ps1 -Klasor <artifact klasoru>
+#
+# ⛔ EKSIK YEDEK ARTIFACT'A YAZILMAZ. motor/soru-ambar-yedek.ps1 her tabloda
+#    beklenen/yazilan satiri kiyaslar; biri eksikse betik DUSER ve akis kirmizi
+#    biter. "Yesil kosu = tam veri" degildir - o ders 12.08'de odenmisti.
+name: Soru Ambari Yedegi (bulut, sifreli)
+
+on:
+  schedule:
+    - cron: "23 1 * * 0"      # Pazar 04:23 TR - uretim hatti bos oldugu saat
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/soru-ambar-yedek.yml"   # akis degisince bir kez kosar (ilk teyit)
+      - "motor/soru-ambar-yedek.ps1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: soru-ambar-yedek
+  cancel-in-progress: false
+
+jobs:
+  yedek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ambari dok (NDJSON, imlecli sayfalama)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          YEDEK_KOK: ${{ github.workspace }}/_yedek
+        run: |
+          if (-not "$env:SUPABASE_SERVICE_KEY") { throw 'SUPABASE_SERVICE_KEY secret yok - yedek ALINMADI.' }
+          ./motor/soru-ambar-yedek.ps1
+
+      - name: Sikistir + sifrele (gzip -> AES-256 dosya + RSA-4096 anahtar zarfi)
+        run: |
+          set -e
+          cd _yedek
+          ls -la
+          # NDJSON cok iyi sikisir (olculdu: metin agirlikli, ~8x). Once gzip,
+          # sonra sifrele - sifreli veri sikismaz, sira TERS olamaz.
+          for f in soru-ambar-*.ndjson soru-ambar-*-kunye.json; do
+            [ -e "$f" ] || continue
+            gzip -9 "$f"
+          done
+          # TEK AES anahtari, TEK RSA zarfi: cozerken 5 ayri anahtar acmak gerekmesin.
+          openssl rand -base64 32 > k
+          for f in soru-ambar-*.gz; do
+            openssl enc -aes-256-cbc -pbkdf2 -salt -in "$f" -out "$f.enc" -pass file:k
+            rm -f "$f"
+          done
+          openssl pkeyutl -encrypt -pubin -inkey ../motor/anahtar/alacak-yedek.pub -in k -out zarf.k.enc
+          # ⛔ Acik metin ve gecici AES anahtari runner'da BILE birakilmaz.
+          rm -f k
+          ls -la
+          echo "sifreli dosya: $(ls -1 *.enc | wc -l)"
+
+      - name: Artifact olarak sakla (90 gun, sifreli)
+        uses: actions/upload-artifact@v4
+        with:
+          name: soru-ambar-yedek-${{ github.run_number }}
+          path: _yedek/*.enc
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 0   # zaten gzip'li; ikinci sikistirma bosa CPU
