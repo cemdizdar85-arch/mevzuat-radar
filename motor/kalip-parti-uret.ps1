@@ -2792,6 +2792,43 @@ function ZincirHesapla([string]$sol){
   if($null -ne $cur){ $terimler.Add($(if($bekleyen -eq '-'){ -$cur } else { $cur })) }
   $t=0.0; foreach($x in $terimler){ $t+=$x }; return $t
 }
+# ⛔⭐ DOLDUR KOORDINAT KAPISI (12.09.2026) — BILDIRIR, DEGISTIRMEZ.
+#   NIYE VAR: `doldur` ogesi [satir,sutun] CIFTI olmalidir. 12.09'da model bir
+#   soruda (sgs-c5-fmuh-kolay-r1/kp-19) UCUNCU oge olarak hucrenin DEGERINI yazdi:
+#   'Verilen', '60-50', '10+5', '15/50', '%30'. Sayfa yapicisi o ogeyi [int]'e
+#   cevirmeye kalkti ve BUTUN YAYIN dustu; ~500 odenmis soru siteye cikamadi.
+#   Yapici artik dayanikli, ama KAYNAKTAKI kusur duruyordu - kapi o yuzden burada.
+#
+#   ⛔ NIYE MUTASYON YOK (olculdu, 647 parti):
+#     · ucuncu oge ne PS tarafinda ne sayfadaki JS'te okunuyor (hepsi p[0]/p[1]) ->
+#       zararsiz olu yuk; bu yuzden soruyu REDDETMEK de dogru degil ("bosa para yok").
+#     · dahasi `doldur` listesi PS 5.1'de DUZLESEBILIYOR: tek cift [[3,1]] diziden
+#       cikarken ['3','1'] olur. AMBARDA 62 ADIMDA TAM BOYLE. Naif bir "kisa kaydi
+#       at" duzeltmesi bu 62 adimin koordinatlarini SILERDI. (kaydir-coz.ps1'deki
+#       Kaydir fonksiyonu bu hali zaten geri sariyor.)
+#   Bu yuzden kapi yalnizca RAPOR yazar: kusur gorunur olur, soru zarar gormez.
+function DoldurKusur($adimlar){
+  $out=New-Object System.Collections.Generic.List[string]
+  $ai=0
+  foreach($ad in @($adimlar)){
+    $ai++
+    if(-not $ad -or -not $ad.PSObject.Properties['doldur']){ continue }
+    $d=@($ad.doldur); if(-not $d.Count){ continue }
+    foreach($c in $d){
+      # duzlesmis liste (oge dizi degil): Kaydir geri sariyor - DOKUNMA, kusur sayma
+      if(-not ($c -is [array] -or ($c -and $c.PSObject.Properties['SyncRoot']))){ continue }
+      $arr=@($c); if($arr.Count -lt 2){ continue }
+      $r=0; $k=0
+      if(-not [int]::TryParse("$($arr[0])",[ref]$r) -or -not [int]::TryParse("$($arr[1])",[ref]$k)){
+        # ⚠ ${ai} SART: PS 5.1'de "$ai:" ifadesindeki iki nokta SURUCU ayraci sayilir
+        #   ("Variable reference is not valid") ve BUTUN BETIK ayristirilamaz olur.
+        #   Prova bunu basilmadan yakaladi; yazili birakiyorum, bir daha yazmayalim.
+        $out.Add("adim ${ai}: koordinat sayi degil ('$($arr[0])','$($arr[1])')"); continue }
+      if($arr.Count -gt 2){ $out.Add("adim ${ai}: doldur CIFT olmali, $($arr.Count) oge var (3. oge: '$($arr[2])')") }
+    }
+  }
+  return $out.ToArray()
+}
 function AritmetikKusur($adimlar){
   $out=New-Object System.Collections.Generic.List[string]
   foreach($a in @($adimlar)){
@@ -2877,6 +2914,7 @@ if($HazirSoru -and -not $SadeceHtml){
     if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }
     if($adimVar){
       foreach($ad1 in @($e.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }
+      foreach($x in @(DoldurKusur $e.adimlar)){ $rapor.Add("DOLDUR KUSURU: $id | $x") }   # 12.09 koordinat kapisi (bildirir, degistirmez)
       $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue @($e.adimlar) -Force
       $cvp | Add-Member -NotePropertyName aritmetik -NotePropertyValue @() -Force
       $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($(if($e.PSObject.Properties['verilen'] -and $null -ne $e.verilen){ $e.verilen } else { @() })) -Force
@@ -3661,6 +3699,7 @@ foreach($id in @($don.Keys)){
   }
   if($a2 -and $a2.adimlar){
     foreach($ad1 in @($a2.adimlar)){ if($ad1){ foreach($alan in @('anlatim','formul')){ if($ad1.PSObject.Properties[$alan] -and $ad1.$alan -is [string]){ $ad1.$alan=DilOnar $ad1.$alan } } } }   # sinav dili kapisi (adimlar)
+    foreach($x in @(DoldurKusur $a2.adimlar)){ $rapor.Add("DOLDUR KUSURU: $id | $x") }   # 12.09 koordinat kapisi (bildirir, degistirmez)
     $cvp | Add-Member -NotePropertyName adimlar -NotePropertyValue $a2.adimlar -Force
     $cvp | Add-Member -NotePropertyName aritmetik -NotePropertyValue @($aritK) -Force   # boş = bütün zincirler tuttu (karne hücresi)
     $cvp | Add-Member -NotePropertyName verilen -NotePropertyValue @($a2.verilen) -Force
