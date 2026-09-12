@@ -456,7 +456,7 @@ window.veriAl = (function(){
     <a class="nl" href="#fiyat">Abonelik</a>
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px">Giriş / Üye Ol</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
-    <a class="btn" href="genc.html">Ücretsiz Başla</a>
+    <a class="btn" href="kaydir/sgs/">Ücretsiz Başla</a>
     <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
   </div>
 </nav>
@@ -698,7 +698,7 @@ function vHedef(v,kod){
          Karar: nöbet kutusu sağda kalır, soru KENDİ ŞERİDİNDE ve kendi içinde iki kolon (solda soru+şıklar,
          sağda tuzak+doğrusu+çözüm). Tek ekran, kaymaz; veri veri/vitrin-kart-ozet.json (günün sorusu). -->
     <section class="v-serit" aria-label="Bugünün sorusu">
-      <div class="v-serit-bas"><span class="v-serit-et">Bugünün sorusu · her sabah değişir</span><a class="v-serit-git" href="genc.html">Soru bankasına git →</a></div>
+      <div class="v-serit-bas"><span class="v-serit-et">Bugünün sorusu · her sabah değişir</span><a class="v-serit-git" href="kaydir/sgs/">Soru bankasına git →</a></div>
     <!-- ============ GÖSTERİMLİK SORU KARTI (09.09.2026) ==============================
          Cem: "yanda gösterimlik olabilir" — ürünün TEK ANI (29.08 kilidi: yanlış şık → tuzak adı +
          doğrusu + çözüm tablosu), kaydırmadan, tek ekranda. Soru vitrin seçicisinin 1. sırası
@@ -829,7 +829,12 @@ function vHedef(v,kod){
          değil; bir sonraki koşuda sayı düşer ve vitrin yalan söylerdi.
          Birikimli sayı Supabase marka_bulten_kutuk'ta; ona bağlanınca gelir. -->
     <div class="kanit" aria-label="Sayılarla Tetikte">
-      <a class="kn" href="genc.html"><b id="knKasa">30.569</b><span>soru bankasında, her şık gerekçeli</span></a>
+      <!-- ⛔ 12.09.2026 — ETİKET YANILTIYORDU. Rakam ölçülü (veri/vitrin-sayilar.json
+     soru_uretilen=30.569) ama etiket "soru BANKASINDA" diyordu; o rakam ÜRETİLEN
+     soru. Ölçüldü: soru_havuzu'nda yayin=true olan satır 0; çözülebilir olan
+     Kaydır-Çöz'deki 1.836. "Bankasında" demek, olmayanı vaat etmekti.
+     Bağlantı da takvim sayfasına gidiyordu; artık gerçek havuza gidiyor. -->
+<a class="kn" href="kaydir/sgs/"><b id="knKasa">30.569</b><span>soru üretildi · her şık gerekçeli</span></a>
       <a class="kn" href="genc.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
       <a class="kn" href="genc.html"><b id="knDers">31 ders</b><span>Staja Giriş · Yeterlilik · Bağımsız denetçilik · SPK lisanslama</span></a>
       <a class="kn" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
