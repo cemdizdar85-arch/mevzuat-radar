@@ -38,6 +38,8 @@ param(
   [string]$Ad = '',              # plan adi (bos: otomatik)
   [string]$PlanDosyasi = '',     # 12.09: konu plani yolu (bos: veri\konu-plani-<sinav>.json)
   [int]$EnAzKat = 0,             # 12.09: siklik plani icin - yalniz bu Kat ve ustu
+  [ValidatePattern('^[a-z0-9-]{2,16}$')]
+  [string]$EtiketOn = 'sgs-p',   # 12.09: etiket oneki - YENI PLAN = YENI ONEK (cakisma onlemi)
   [switch]$AyristirilamayanDahil # kaba kovada kalmis konular da girsin mi
 )
 $ErrorActionPreference='Stop'
@@ -139,7 +141,17 @@ foreach($g in (@($sec | Group-Object ders | Sort-Object { $s=0; foreach($pg in $
         $parca++
         $son=[Math]::Min($bas+$PartiTavan-1,$turKonu.Count-1)
         $konular=@($turKonu[$bas..$son])
-        $et = "sgs-p-$kis-$zorAd-r$tur" + $(if($parca -gt 1){ "-$parca" } else { '' })
+        # ⛔⭐ 12.09.2026 — ETIKET ONEKI PARAMETRE OLDU. Onceden sabit "sgs-p-"
+        #    idi ve bu SESSIZ BIR CAKISMA FABRIKASIYDI: ayni betikle kurulan iki
+        #    AYRI plan ayni etiketleri uretiyordu (sgs-p-fmuh-kolay-r1 ...).
+        #    Bugun yakalandi: 73 bos cekirdek konu icin kurulan 80 partinin
+        #    14'unun etiketi onbellekte ZATEN VARDI (A/B kosusundan).
+        #    O plan boyle basilsa, hafizadaki TOPLU HASAT TUZAGI isleyecekti:
+        #    uretici ayni etiket/faz icin onceki partinin cevaplarini bedavaya
+        #    hasat eder; sorular farkli oldugu icin kor/hakem2 YANLIS eslesir
+        #    (10.09'da Meslek'te 13 sahte "kor yanlis" boyle dogmustu).
+        #    Kural: YENI PLAN = YENI ONEK.
+        $et = "$EtiketOn-$kis-$zorAd-r$tur" + $(if($parca -gt 1){ "-$parca" } else { '' })
         $kd = Join-Path $konuDir "$et.json"
         $adlar=@($konular | ForEach-Object { "$($_.konu)" })
         [IO.File]::WriteAllText($kd,($adlar|ConvertTo-Json -Depth 3),(New-Object Text.UTF8Encoding $false))
