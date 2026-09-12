@@ -1,57 +1,69 @@
 {
-  "olcum": "2026-09-11T07:21:14.822Z",
-  "gun": "2026-09-11",
+  "olcum": "2026-09-12T07:13:41.361Z",
+  "gun": "2026-09-12",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 3,
+      "sira": 4,
       "toplam": 10,
-      "id": "sgs-t1-mta-kolay/kp-02",
-      "ders": "Mali Tablolar Analizi",
-      "konu": "yatay analiz",
-      "kunye": "SGS 2025/2 Soru 71 kalıbı",
-      "donem": 8,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "Bir perakende işletmesinin ticari alacakları 2025 yılında 200.000 TL, 2026 yılında 250.000 TL olarak gerçekleşmiştir. Yatay analiz tekniğine göre ticari alacaklardaki yüzde değişim kaçtır?",
+      "id": "sgs-t1-ticaret-cokzor/kp-01",
+      "ders": "Ticaret Hukuku|Ticaret ve Borclar",
+      "konu": "genel işlem koşulları",
+      "kunye": "SGS 2026/1 Soru 125 kalıbı",
+      "donem": 9,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı tartışılarak kabul edildiğine dair kayıt düşmüştür. Hüküm, sözleşmenin niteliğine ve işin özelliğine yabancıdır. Türk Borçlar Kanunu'na göre aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "20",
-        "B": "25",
-        "C": "50",
-        "D": "100",
-        "E": "125"
+        "A": "Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmadığından, işin özelliğine yabancı olan bu hüküm yazılmamış sayılır.",
+        "B": "Kabul kaydı bulunduğundan, hükmün işin özelliğine yabancı olması sonucu değiştirmez ve hüküm geçerli kabul edilir.",
+        "C": "İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığından, bu hüküm zaten genel işlem koşulu sayılmaz ve yazılmamışlık hükmü uygulanmaz.",
+        "D": "Hükmün sözleşme metninde değil ekinde yer alması hâlinde, kabul kaydıyla birlikte nitelendirme değişir ve hüküm yazılmamış sayılmaz.",
+        "E": "Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğundan, bu kayıt varken yazılmamışlık hükmü hiçbir şekilde uygulanamaz."
       },
-      "dogru": "B",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Ölçek Hatası",
-          "metin": "50.000 TL'lik tutar farkını doğrudan yüzde değere çevirip 50 yazdın. Doğrusu: tutar farkı yüzdeye çevrilirken mutlaka baz döneme bölünüp 100 ile çarpılır, farkın kendisi yüzde değil."
+          "ad": "Özdeşlik Tuzağı",
+          "metin": "Öğrenci metinlerin özdeş olmaması kuralını ters yönde kullanıp hükmün zaten genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması genel işlem koşulu sayılmayı engellemez, bu kural farklı bir olguy…"
         },
         "E": {
-          "ad": "Endeks-Değişim Karışıklığı",
-          "metin": "yeni dönemin baz döneme oranı olan endeksi (250.000/200.000x100=125) yüzde değişimin kendisi sandın. Doğrusu: 125 endeks değeridir, yüzde DEĞİŞİM bundan 100 çıkarılarak bulunur ve %25'e eşittir."
+          "ad": "Mutlaklaştırma Tuzağı",
+          "metin": "Öğrenci 'tek başına yeterli değildir' ifadesini 'hiçbir şekilde uygulanamaz' şeklinde ters çevirir. Doğrusu: Kanun yalnız kaydın tek başına yetersizliğini söyler, yazılmamışlık hükmünün uygulanmasını engellemez."
         },
         "D": {
-          "ad": "Trend Analizi Karışıklığı",
-          "metin": "trend (eğilim) analizinde baz yılın kendisi 100 kabul edilir kuralını buraya taşıyıp cari yılın baz döneme oranı yerine sabit 100 yazdın. Doğrusu: bu kural yatay analizin yüzde değişim formülüyle karıştırılmamalıdır, ya…"
+          "ad": "Şekil Tuzağı",
+          "metin": "Öğrenci hükmün metinde mi ekte mi yer aldığının nitelendirmeyi etkilediğini sanır. Doğrusu: Yer, kapsam, yazı türü ve şekli nitelendirmede önem taşımaz; bu unsur kabul kaydıyla birleştirilemez."
         },
-        "A": {
-          "ad": "Taban Yılı Tuzağı",
-          "metin": "Cari yılı (2026) payda alıp (250.000-200.000)/250.000x100 işlemini yaptın. Doğrusu: yatay analizde baz alınan payda her zaman ESKİ (baz) dönemdir, cari dönem değil."
+        "B": {
+          "ad": "Yeterlilik Tuzağı",
+          "metin": "Öğrenci kabul kaydının tek başına yeterli olduğunu düşünüp hükmü geçerli sayar. Doğrusu: Kanun kaydın 'tek başına' yeterli olmadığını açıkça belirtir, yazılmamışlık hükmü ayrıca uygulanır."
         }
       },
-      "hap": "Yatay analizde yüzde değişimin paydası her zaman BAZ (eski) dönem tutarıdır; bu değer sıfır ya da negatifse yüzde değişim hesaplanamaz.",
+      "hap": "Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmaz; işin özelliğine yabancı hüküm yine de yazılmamış sayılır.",
       "satirlar": [
         [
-          "Tutar Farkı (250.000-200.000)",
-          "50.000"
+          "A) Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek b…",
+          "m.20 f.2-3"
         ],
         [
-          "Yüzde Değişim (50.000/200.000x100)",
-          "25"
+          "B) Kabul kaydı bulunduğundan, hükmün işin özelliğine yabanc…",
+          "m.20 f.3"
+        ],
+        [
+          "C) İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığ…",
+          "m.20 f.2"
+        ],
+        [
+          "D) Hükmün sözleşme metninde değil ekinde yer alması hâlinde…",
+          "m.20 f.1"
+        ],
+        [
+          "E) Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğ…",
+          "m.20 f.2-3"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=3"
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=4"
     }
   }
 }
