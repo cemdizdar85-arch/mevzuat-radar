@@ -112,11 +112,15 @@ jobs:
           ./arac/parti-senkron.ps1 -Yukle -Yaz
           ./arac/bedel-senkron.ps1 -Yukle -Yaz
 
-      - name: Kosu gunlugunu sakla
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: bulut-uretim-log-${{ github.run_number }}
-          path: veri/fabrika/kosucu-log/**
-          retention-days: 14
-          if-no-files-found: warn
+      # ⛔ KOSU GUNLUGU ARTIFACT'I KALDIRILDI (12.09, ilk kosudan ONCE olculdu).
+      #    Ilk surumde veri/fabrika/kosucu-log/** yukleniyordu. Olctum:
+      #      · parti gunlukleri 200 KB'a cikiyor ve kaynak paketinden MEVZUAT
+      #        METNI tasiyor (o kamuya acik, ama denetlenmemis icerik de gecebilir)
+      #      · depo PUBLIC: artifact'i herkes indirir
+      #      · dahasi, motor/artifact-nobeti.ps1 '.enc' disi her dosyayi ACIK
+      #        sayar -> bu artifact nobetciyi HER GUN KIRMIZI yapardi. Hep
+      #        kirmizi yanan alarm, kimsenin okumadigi alarmdir; ayni "kurt
+      #        masali" hatasini bugun uc kez duzelttik, dorduncusunu kurmayalim.
+      #    Teshis kaybi YOK: Actions kendi kosu gunlugu stdout'u zaten tutuyor
+      #    (gh auth login sonrasi tek komutla okunur).
+
