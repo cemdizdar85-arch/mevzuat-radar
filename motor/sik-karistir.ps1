@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SIK KARISTIRICI — dogru cevap harfini dengeler (03.08.2026)
 #
 #  NEDEN: Ilk sik-dagilimi olcumu (kasa-desen 12:48): dogru cevaplarin

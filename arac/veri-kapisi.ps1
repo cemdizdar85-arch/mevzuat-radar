@@ -79,7 +79,7 @@ if ($Dosya) {
   $adaylar = @($Dosya -replace '\\','/')
 } else {
   # calisma agacinda HEAD'e gore degismis veri dosyalari
-  $degisen = @(git diff --name-only HEAD -- 'veri/*.json' 2>$null) + @(git diff --name-only --cached HEAD -- 'veri/*.json' 2>$null)
+  $degisen = @(git diff --name-only HEAD -- 'veri/*.json') + @(git diff --name-only --cached HEAD -- 'veri/*.json')
   $adaylar = @($degisen | Where-Object { $_ } | ForEach-Object { $_ -replace '\\','/' } | Select-Object -Unique)
 }
 $denetlenecek = @($adaylar | Where-Object { $sozlesmeli -contains $_ })
@@ -113,7 +113,7 @@ foreach ($f in $denetlenecek) {
 
       # --- HACIM DUSUSU: HEAD'deki son saglam surumle karsilastir ---
       $eskiHam = $null
-      try { $eskiHam = (git show "HEAD:$f" 2>$null) | Out-String } catch {}
+      try { $eskiHam = (git show "HEAD:$f") | Out-String } catch {}
       if ($eskiHam -and $eskiHam.Trim()) {
         $eskiBayt = [Text.Encoding]::UTF8.GetByteCount($eskiHam)
         $eskiKayit = 0
@@ -136,7 +136,7 @@ foreach ($f in $denetlenecek) {
     [void]$red.Add([ordered]@{ dosya=$f; sebepler=@($sebepler) })
     if (-not $Deneme) {
       # SON SAGLAM SURUMU GERI KOY - yayin korunur
-      git checkout HEAD -- $f 2>$null | Out-Null
+      git checkout HEAD -- $f | Out-Null
       Write-Host ("        -> son saglam surum geri konuldu (HEAD)")
     }
   } else {

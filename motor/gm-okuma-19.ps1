@@ -1,4 +1,4 @@
-# gm-okuma-19.ps1 - 05.08.2026 gece  (BOM'lu kaydedilmeli)
+﻿# gm-okuma-19.ps1 - 05.08.2026 gece  (BOM'lu kaydedilmeli)
 # GM IKINCI GOZ TURU: fabrika deposunda gmDenetim'siz gorunen 17 soru yeniden
 # okundu (Cem: "okuma yutma onlar olsun"). SONUC: 17/17 mevcut durumla UYUMLU -
 # 15 gm-onay dogru, 2 kasa-mukerrer dogru. TTK 482/483 ve VUK 359 sorulari

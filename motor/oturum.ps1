@@ -55,11 +55,11 @@ function SaatFark($iso){
 # --------------------------------------------------------------------------
 if($Nabiz){
   try {
-    git -C $KOK fetch origin main -q 2>$null | Out-Null
-    $geri  = [int](git -C $KOK rev-list --count HEAD..origin/main 2>$null)
-    $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD 2>$null)
-    $kirli = @(git -C $KOK status --short 2>$null | Where-Object { $_ -match '^( M|M |MM|A |AM)' }).Count
-    $dal   = git -C $KOK rev-parse --abbrev-ref HEAD 2>$null
+    git -C $KOK fetch origin main -q | Out-Null
+    $geri  = [int](git -C $KOK rev-list --count HEAD..origin/main)
+    $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
+    $kirli = @(git -C $KOK status --short | Where-Object { $_ -match '^( M|M |MM|A |AM)' }).Count
+    $dal   = git -C $KOK rev-parse --abbrev-ref HEAD
 
     Write-Host "`n===== TETİKTE · OTURUM NABZI =====" -ForegroundColor Cyan
     Write-Host "  dal: $dal"
@@ -119,11 +119,11 @@ if($Ac){
   # Eski bir oturumdan yarım kalmış REBASE varken (".git/rebase-merge", HEAD dalsız) betik yine merge etti: birleşme
   # detached HEAD'e gitti, push'lar ana tele ulaştı ama yerel `main` 29 commit geride kaldı, robot dosyası iki kez çakıştı.
   # Kural: yarım kalmış rebase / merge / cherry-pick ya da dalsız HEAD varsa HİZALAMA YAPILMAZ, önce toparlanır.
-  $gitDir = (git -C $KOK rev-parse --git-dir 2>$null); if($gitDir -and -not [IO.Path]::IsPathRooted($gitDir)){ $gitDir = Join-Path $KOK $gitDir }
+  $gitDir = (git -C $KOK rev-parse --git-dir); if($gitDir -and -not [IO.Path]::IsPathRooted($gitDir)){ $gitDir = Join-Path $KOK $gitDir }
   $yarim = @()
   foreach($iz in 'rebase-merge','rebase-apply'){ if(Test-Path (Join-Path $gitDir $iz)){ $yarim += "yarım REBASE ($iz)" } }
   foreach($iz in 'MERGE_HEAD','CHERRY_PICK_HEAD','REVERT_HEAD','BISECT_LOG'){ if(Test-Path (Join-Path $gitDir $iz)){ $yarim += "yarım $($iz -replace '_HEAD|_LOG','')" } }
-  $dal = (git -C $KOK symbolic-ref -q --short HEAD 2>$null)
+  $dal = (git -C $KOK symbolic-ref -q --short HEAD)
   if(-not $dal){ $yarim += "HEAD dalsız (detached) - $(git -C $KOK rev-parse --short HEAD)" }
   elseif($dal -ne 'main'){ Yaz "  ⚠ dal '$dal' (main değil) - kural: dalda uzun çalışılmaz" 'Yellow' }
   if($yarim.Count){
@@ -135,14 +135,14 @@ if($Ac){
   }
 
   Yaz "`n=== 1/3 · ANA TELLE HİZALAMA ===" 'Cyan'
-  git -C $KOK fetch origin main -q 2>$null | Out-Null
+  git -C $KOK fetch origin main -q | Out-Null
   $geri  = [int](git -C $KOK rev-list --count HEAD..origin/main)
   $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
   Yaz "  geride: $geri commit · ileride: $ileri commit"
 
   if($geri -gt 0){
     Yaz "  -> birleştiriliyor..." 'Yellow'
-    $cikti = git -C $KOK merge origin/main --no-edit 2>$null
+    $cikti = git -C $KOK merge origin/main --no-edit
     $cak = git -C $KOK diff --name-only --diff-filter=U
     if($cak){
       Yaz "`n  ⛔ ÇAKIŞMA — $(@($cak).Count) dosya. ÖLÇMEDEN ÇÖZME." 'Red'
@@ -254,15 +254,15 @@ if($Kapat){
     } else { Yaz "  ✓ tuzak nöbetçisi temiz (değişen betikler)" 'Green' }
   }
 
-  git -C $KOK fetch origin main -q 2>$null | Out-Null
+  git -C $KOK fetch origin main -q | Out-Null
   $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
   if($ileri -gt 0){
     Yaz "  $ileri commit itilecek..." 'Yellow'
     for($i=1; $i -le 5; $i++){
-      git -C $KOK push origin HEAD:main 2>$null | Out-Null
+      git -C $KOK push origin HEAD:main | Out-Null
       if($LASTEXITCODE -eq 0){ Yaz "  -> itildi (deneme $i)" 'Green'; break }
-      git -C $KOK fetch origin main -q 2>$null | Out-Null
-      git -C $KOK merge origin/main --no-edit -q 2>$null | Out-Null
+      git -C $KOK fetch origin main -q | Out-Null
+      git -C $KOK merge origin/main --no-edit -q | Out-Null
       if(git -C $KOK diff --name-only --diff-filter=U){ Yaz "  ⛔ itmede çakışma — elle çöz" 'Red'; exit 2 }
       Start-Sleep -Seconds 2
     }

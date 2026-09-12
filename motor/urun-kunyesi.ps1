@@ -63,7 +63,7 @@ foreach($u in $URUNLER){
   $sonCommit = $null
   if($dosyalar){
     $yollar = $dosyalar | ForEach-Object { 'veri/' + $_.Name }
-    try { $sonCommit = (git -C $KOK log -1 --format='%ci' -- $yollar 2>$null) } catch {}
+    try { $sonCommit = (git -C $KOK log -1 --format='%ci' -- $yollar) } catch {}
   }
 
   # Bu ürünü besleyen zamanlanmış robotlar. Ölçüt İKİ KEZ düzeltildi (30.08):

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KASA ORNEKLEM OKUYUCUSU (06.08.2026) — 0 USD, YENI AI CAGRISI YOK
 #
 #  Cem'in okuma turu icin: kasadan SINAV bazli, ders-orantili ORNEKLEM ceker

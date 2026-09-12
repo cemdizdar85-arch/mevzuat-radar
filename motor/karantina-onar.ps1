@@ -1,4 +1,4 @@
-# karantina-onar.ps1 - 28.07.2026
+﻿# karantina-onar.ps1 - 28.07.2026
 # GM okumasinin MEKANIK kismi. Parasi odenmis ama yapisal kusur ya da DETEKTOR HATASI
 # yuzunden karantinada bekleyen sorulari onarir / akladigini isaretler.
 #

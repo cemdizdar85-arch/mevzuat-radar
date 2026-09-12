@@ -93,7 +93,7 @@ Not ("  simdi : " + @($yeni.cagrilar).Count + " cagri, bilgi tasiyan %" + $genel
 
 # --- onceki surum -----------------------------------------------------------
 $eskiHam = ""
-try { $eskiHam = (git -C $kok show "${Onceki}:veri/cagri-radar.json" 2>$null) -join "`n" } catch {}
+try { $eskiHam = (git -C $kok show "${Onceki}:veri/cagri-radar.json") -join "`n" } catch {}
 if(-not $eskiHam){
   # Kor kalma kurali: kiyas yapamadigimizi SOYLERIZ, "gecti" diye yutmayiz.
   Not "  KIYAS YAPILAMADI: onceki surum okunamadi ($Onceki). Kapi bu kosuda OLCMEDI."

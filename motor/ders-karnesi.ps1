@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DERS KARNESI — Konu-Kaynak Karnesi'ni RESMI SINAV DERSLERINE baglar
 #
 #  SORUN: konu-kaynak-karnesi.ps1 cikmis sinav konularini ESKI ders adlariyla

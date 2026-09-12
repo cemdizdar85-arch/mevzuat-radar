@@ -54,7 +54,7 @@ if($null -eq $pdftotext){ Log "HATA: pdftotext bulunamadi (poppler kurulu degil?
 # push'u kolaylastirmakti; artik push gecici worktree'den yapiliyor (asagida).
 # fetch calisma agacina DOKUNMAZ: ne stash, ne rebase, ne catisma.
 try {
-  git fetch -q origin 2>$null | Out-Null
+  git fetch -q origin | Out-Null
   if($LASTEXITCODE -eq 0){ Log 'git fetch tamam (calisma agacina dokunulmadi)' }
   else { Log "!! git fetch TUTMADI (kod $LASTEXITCODE) - indirmeye devam ediliyor" }
 } catch { Log "!! git fetch HATASI: $_ - indirmeye devam ediliyor" }
@@ -187,9 +187,9 @@ Set-Content -LiteralPath (Join-Path $kok 'veri/yerel-indirici-nabiz.json') -Valu
 $YOLLAR = @('veri/mevzuat-hazir','veri/yerel-indirici-nabiz.json')
 $degisiklikVar = $false
 foreach($y in $YOLLAR){
-  git diff --quiet HEAD -- $y 2>$null
+  git diff --quiet HEAD -- $y
   if($LASTEXITCODE -ne 0){ $degisiklikVar = $true }
-  git ls-files --others --exclude-standard -- $y 2>$null | ForEach-Object { $degisiklikVar = $true }
+  git ls-files --others --exclude-standard -- $y | ForEach-Object { $degisiklikVar = $true }
 }
 if($degisiklikVar){
   $wt = Join-Path $env:TEMP ("yerel-indirici-wt-" + [guid]::NewGuid().ToString('N').Substring(0,8))

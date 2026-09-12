@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SIK HESAP KODU ONERISI (03.08.2026 gece) — 0 USD, API YOK, KASAYA YAZMAZ
 #
 #  NEDEN: Cem pilotta #194'te SIKKIN KENDI METNINDE ("500 ORTAKLARDAN ALACAKLAR")

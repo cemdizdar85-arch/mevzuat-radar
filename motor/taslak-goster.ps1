@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  TASLAK GOSTERICI (03.08.2026) — 0 USD, YENI AI CAGRISI YOK
 #
 #  NEDEN: Pilot ciktisi ozel kovaya JSON olarak yazildi ama (1) ham JSON gozle

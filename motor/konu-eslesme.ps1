@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KONU ETIKET HIZALAMASI (02.08.2026) — 0 USD, API YOK
 #
 #  SORUN: Siklik kunyesi (D9) calisiyor ama vitrin bankasinin 150 sorusundan

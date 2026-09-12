@@ -33,7 +33,7 @@ foreach($iz in $izlenen){
   if(-not (Test-Path $iz.yol)){ continue }
   # onceki surum var mi (yeni dosyaysa kontrol yok)
   $eskiHam = $null
-  try { $eskiHam = git show ("HEAD~1:" + $iz.yol) 2>$null } catch {}
+  try { $eskiHam = git show ("HEAD~1:" + $iz.yol) } catch {}
   if(-not $eskiHam){ continue }
   try {
     $yeni = & $iz.say (Get-Content $iz.yol -Raw -Encoding UTF8 | ConvertFrom-Json)

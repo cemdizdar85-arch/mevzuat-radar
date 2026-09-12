@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  RG KARAR ARAMA - belirli bir tarih araligindaki Resmi Gazete fihristlerini
 #  tarar ve verilen desenleri arar. Cem 13.08: "Cumhurbaskani karari var mi - olc".
 #  Somut soru: 4734 s.K. ek m.13 (Ek: 24/7/2026-7590/13 md.) yerli mali

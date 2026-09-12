@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  USLUP OLCUMU - kasadaki sorular "baglayici senaryo" mu "kuru kalip" mi?
 #  (Cem 31.07: "komik/dikkat ceken sorular yaptilar mi yapmadilar mi olcelim")
 #  Ornekleme: yayindaki + bekleyen sorulardan parcali kesitler. YALNIZ SAYI

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  IHALE SLUG KESIF - ilan.gov.tr'de SONUC ve DUZELTME ilanlari ayri dusuyor mu?
 #  Cem 13.08: (2) sonuclanan ihaleler (3) ayni ihalenin ilanlarini birlestirme.
 #  Ikisi de ayni soruya baglı: kaynak bu turleri veriyor mu, hangi kimlikle?

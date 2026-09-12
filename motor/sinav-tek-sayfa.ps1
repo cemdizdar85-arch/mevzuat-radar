@@ -129,7 +129,7 @@ foreach($g in $GIRDILER){
     $bilgi = Get-Item $tam
     $sonYazim = $bilgi.LastWriteTime
     try {
-      $gitTarih = (& git -C $depoKok log -1 --format=%cI -- $g.yol 2>$null)
+      $gitTarih = (& git -C $depoKok log -1 --format=%cI -- $g.yol)
       if($gitTarih){ $sonYazim = [datetime]::Parse("$gitTarih", [Globalization.CultureInfo]::InvariantCulture) }
     } catch {}
     if($bilgi.LastWriteTime -gt $sonYazim.AddMinutes(5) -and -not $env:GITHUB_ACTIONS){ $sonYazim = $bilgi.LastWriteTime }  # yerelde commit'siz taze dosya

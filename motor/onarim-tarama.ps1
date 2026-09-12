@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  ONARIM TARAMASI — 500'luk el okumasinin makinelesen dersleri (03.08.2026)
 #
 #  NEDEN: GM 500 soruyu elle okudu; cikan kusurlarin bir kismi MAKINEYLE

@@ -49,7 +49,7 @@ foreach ($h in Get-ChildItem -Filter *.html -File) {
 $dosyaTarih = @{}
 foreach ($d in ($sayfaVeri.Values | ForEach-Object { $_ } | Select-Object -Unique)) {
   $ts = $null
-  try { $ts = (git log -1 --format=%ct -- $d 2>$null | Select-Object -First 1) } catch {}
+  try { $ts = (git log -1 --format=%ct -- $d | Select-Object -First 1) } catch {}
   if ($ts) { $dosyaTarih[$d] = ([DateTimeOffset]::FromUnixTimeSeconds([int]$ts)).LocalDateTime }
 }
 

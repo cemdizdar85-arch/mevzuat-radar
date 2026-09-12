@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KAMU IHALE BULTENI - GERIYE DONUK ARSIV DOLDURMA (14.08.2026)
 #
 #  Cem: "EKAP isini cozersek super olacak, ordaki bilgileri almamiz lazim."

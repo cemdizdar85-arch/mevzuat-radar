@@ -29,6 +29,18 @@ on:
         required: false
         default: true
         type: boolean
+  # ⭐ 12.09.2026 — ZINCIRIN SON HALKASI. Cem: "ben bilgisayari kapatsam bile
+  #   etkilenmiyor deme artik". Uretim bitiyordu ama yayin ELLE basiliyordu:
+  #       bulut uretir -> ambara yazar -> (DURUYOR) -> biri gelir -> siteye cikar
+  #   Artik uretim YESIL bitince yayin kendiliginden kosar:
+  #       bulut-uretim.yml ✓ -> yayin-bas.yml -> tetikte.com
+  #   ⛔ `types: [completed]` + asagidaki `if` sarttir: workflow_run KIRMIZI
+  #      bitiste DE tetiklenir; suzmezsek dusen uretimden sonra yayin kosar.
+  #   ⛔ workflow_run YALNIZ ana teldeki akis dosyasindan tetiklenir - dalda
+  #      denemesi bos yere ugrastirir.
+  workflow_run:
+    workflows: ["Bulut Uretim (soru basimi)"]
+    types: [completed]
 
 permissions:
   contents: write        # sayfalari depoya itecek
@@ -39,6 +51,8 @@ concurrency:
 
 jobs:
   yayin:
+    # Elle basilirsa her zaman kosar; zincirden gelirse YALNIZ uretim YESILSE.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: windows-latest
     timeout-minutes: 180
     steps:
@@ -55,7 +69,10 @@ jobs:
           "sir tamam"
 
       - name: Parti onbellegini ambardan indir
-        if: ${{ inputs.parti_indir }}
+        # ⛔ Zincirden gelisde `inputs` YOKTUR (null) - sadece `inputs.parti_indir`
+        #   yazilsaydi bu adim atlanir, yayin BAYAT onbellekle kosardi. Uretimden
+        #   sonra indirme ZORUNLU; o yuzden workflow_run'da her zaman acik.
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.parti_indir }}
         shell: powershell
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
@@ -84,19 +101,25 @@ jobs:
           "degisen dosya: $($degisen.Count)"
           git commit -m "Yayin: havuz tazelendi (bulut kosusu ${{ github.run_number }})"
           for($i=1; $i -le 5; $i++){
-            # ⛔ `2>&1` YAZMA. PS 5.1 yerel komutun stderr'ini NativeCommandError
-            #    kaydina cevirir; GitHub'in `shell: powershell` sarmalayicisi
+            # ⛔ STDERR YONLENDIRMESI YAZMA - NE `2>&1` NE `2>$null`.
+            #    PS 5.1 yerel komutun stderr'ini NativeCommandError kaydina
+            #    cevirir; GitHub'in `shell: powershell` sarmalayicisi
             #    $ErrorActionPreference='stop' koydugu icin bu SONLANDIRICI olur.
             #    git ilerlemesini ("To https://github.com/...") stderr'e yazar ->
             #    BASARILI push bile adimi oldurur.
             #    12.09 kosu #1 tam boyle dustu: commit 96620788 ATILDI, push
             #    GECTI (merge-base ile olculdu), akis yine de kirmizi oldu ve
             #    16 dakikalik odenmis is "basarisiz" gorundu.
+            #    ⭐ OLCULDU (klon uzerinde, stderr'e yazan `git checkout -b`):
+            #       yonlendirme YOK -> GECTI · 2>&1 -> DUSTU · 2>$null -> DUSTU
+            #    Ilk duzeltmemde `2>$null` yazmistim; olcum onu da OLDURDUGUNU
+            #    soyledi. Dogru care: yonlendirmeyi HIC yazmamak. stderr dogrudan
+            #    kutuge akar (zaten okumak istedigimiz sey), karar $LASTEXITCODE.
             #    Kural artik mekanik: arac/tuzak-nobetcisi.ps1 > K6-STDERR.
-            git push origin HEAD:main 2>$null | Out-Null
+            git push origin HEAD:main | Out-Null
             if($LASTEXITCODE -eq 0){ "itildi (deneme $i)"; exit 0 }
-            git fetch origin main -q 2>$null
-            git merge origin/main --no-edit -q 2>$null
+            git fetch origin main -q
+            git merge origin/main --no-edit -q
             $cakisma = @(git diff --name-only --diff-filter=U)
             if($cakisma.Count){ throw "itmede cakisma - elle coz: $($cakisma -join ', ')" }
             Start-Sleep -Seconds 4

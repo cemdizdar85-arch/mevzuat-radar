@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  TABLO FORMAT TARAMASI (03.08.2026 gece) — 0 USD, API YOK
 #
 #  CEM: "27 bin sorumuz var, onlarda [tabloyu] degistirecegiz demeyecegim -

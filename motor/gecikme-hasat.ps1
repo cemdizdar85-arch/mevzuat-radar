@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  GECIKME ZAMMI HASAT — GiB "Gecikme Zammi Orani" PDF -> veri/gecikme-zammi.json
 #  Cross-platform (pdftotext / poppler-utils). En GUNCEL tarihli orani secer.
 #  DETERMINISTIK: en yuksek tarihli "DD/MM/YYYY ... % X,Y" satirini alir; oran

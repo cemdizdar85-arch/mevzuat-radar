@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DEV PARCA BOLUCU — ambardaki buyuk satirlari YERINDE diliмler
 #
 #  NEDEN VAR (10.09.2026). Ambardaki dev satirlar aramada MIKNATIS gibi

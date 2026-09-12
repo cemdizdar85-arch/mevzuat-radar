@@ -37,7 +37,7 @@ try {
 [IO.File]::WriteAllText((Join-Path $kok "veri\canli\anahtar-$oturum.json"), $govde, (New-Object Text.UTF8Encoding($false)))
 git add "veri/canli/anahtar-$oturum.json"
 git commit -m "CANLI DENEME anahtari yayinda: $oturum" | Out-Null
-git pull --rebase origin main 2>$null | Out-Null
-git push origin HEAD:main 2>$null | Out-Null
+git pull --rebase origin main | Out-Null
+git push origin HEAD:main | Out-Null
 Write-Host 'repo kanali: push edildi (Pages 1-2 dk icinde)'
 Write-Host ("ANAHTAR YAYINDA: $oturum")

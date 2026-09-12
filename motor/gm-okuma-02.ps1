@@ -1,4 +1,4 @@
-# gm-okuma-02.ps1 - 28.07.2026
+﻿# gm-okuma-02.ps1 - 28.07.2026
 # GM OKUMASI, PARTI 2: Vergi Mevzuati - binek otomobil gider kisitlamasi.
 #
 # KAYNAK: GVK m.40 (ambardan), 311 Seri No.lu GVK Genel Tebligi ve GIB "Binek

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  ACILIS TEKDUZELIK OLCUMU (04.08.2026) — 0 USD, API YOK, YAZMA YOK
 #
 #  CEM: "aciklamalar hem ilk basa 'ne soruluyor' yaziyor, bu yapay zeka

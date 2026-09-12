@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SIKLIK KUNYESI (SINAV-KURALLARI D9) — 02.08.2026, 0 USD, API YOK
 #
 #  CEM: "senin onerin vardi onu yapacaktin." Dogru - siklik kunyesi BENIM

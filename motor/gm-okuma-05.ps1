@@ -1,4 +1,4 @@
-# gm-okuma-05.ps1 - 28.07.2026
+﻿# gm-okuma-05.ps1 - 28.07.2026
 # GM OKUMASI, PARTI 5: Genel Kultur-Genel Yetenek, 'katman1-temiz' 105 soru.
 #
 # YONTEM: her soru elle okundu. Turkce/paragraf sorularinda dogrulama tamdir

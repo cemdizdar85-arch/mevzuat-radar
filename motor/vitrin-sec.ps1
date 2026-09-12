@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  VITRIN SECICI - kayitsiz ziyaretcinin gordugu ORNEK BANKAYI kurar.
 #  (31.07 Cem onayi: "150'lik havuz uygun; cok cikan konular + en cok
 #  zorlanilan dersler [Maliyet gibi] mukemmel anlatilmis olsun".)

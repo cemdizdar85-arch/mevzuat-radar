@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  SORU DENETCISI K2 v2 — BATCH TABANLI bagimsiz icerik dogrulamasi (%50)
 #  25.07 kokten cozum: senkron istekler gunduz batch'leri islenirken SUREKLI 429
 #  yiyordu (40 backoff bile yetmedi) -> K2 tamamen Batch API'ye tasindi.
@@ -151,13 +151,13 @@ foreach($fd in $dosyalar){
     [IO.File]::WriteAllText($fd.FullName, ($j | ConvertTo-Json -Depth 8), $enc)
     if($env:GITHUB_ACTIONS -eq 'true'){
       try {
-        git add -- $fd.FullName 2>$null
-        git commit -m ("K2 ara kayit: " + $fd.Name + " denetlendi") 2>$null | Out-Null
+        git add -- $fd.FullName
+        git commit -m ("K2 ara kayit: " + $fd.Name + " denetlendi") | Out-Null
         $pushOldu = $false
         foreach($den in 1..4){
-          git pull --rebase origin main 2>$null | Out-Null
-          if($LASTEXITCODE -ne 0){ git rebase --abort 2>$null; git pull --no-rebase -s recursive -X ours origin main 2>$null | Out-Null }
-          git push origin HEAD:main 2>$null | Out-Null
+          git pull --rebase origin main | Out-Null
+          if($LASTEXITCODE -ne 0){ git rebase --abort | Out-Null; git pull --no-rebase -s recursive -X ours origin main | Out-Null }
+          git push origin HEAD:main | Out-Null
           if($LASTEXITCODE -eq 0){ $pushOldu = $true; break }
           Start-Sleep -Seconds 8
         }

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  THP LISTESI MALIYET OLCUMU (03.08.2026 gece) — 0 USD, API YOK, YAZMA YOK
 #
 #  NEDEN: 3. pilotta tam kasa tahmini ~325 -> ~367 USD'ye cikti. Suphelilerden

@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  HAP ONARIMI — kisa "AKILDA KALSIN" alanlarini gerekceden mekanik doldurur.
 #  (30.07.2026 - kalite taramasi: 4.911 kisa hap; cogunun gercek hap icerigi
 #  gerekcenin "Akılda kalsın:" bolumunde zaten YAZILI. AI GEREKMEZ - bedava.)

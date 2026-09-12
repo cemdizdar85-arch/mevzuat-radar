@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DEV PARCA TARAMASI — "hangi belgeler bolunmemis, ne kadar buyuk?"
 #
 #  NEDEN VAR (10.09.2026). Konu getirme karnesi olculdu: fabrikanin atladigi

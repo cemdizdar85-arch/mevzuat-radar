@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  GECE PAKET ACILISI (31.07 Cem: "bu gece 00'dan sonra API acilacak,
 #  planlarin icine alalim; Yeterlilik VE Staja Giris planlandigi kadar").
 #  Gorevi: 1 Agustos emirlerini (uretim #16 SGS, #19 SMMM, #17 hap;
@@ -71,7 +71,7 @@ if($degisti){
   git add veri/uretim-emir.json
   git add veri/profesor-emir.json
   git commit -m "GECE PAKETI: 1 Agustos emirleri acildi (Cem onayi 31.07) [veri-operasyonu]"
-  git pull --rebase; if($LASTEXITCODE -ne 0){ git rebase --abort 2>$null }
+  git pull --rebase; if($LASTEXITCODE -ne 0){ git rebase --abort }
   $n=0; while($true){ git push; if($LASTEXITCODE -eq 0){ break }; $n++; if($n -ge 4){ Write-Host "PUSH BASARISIZ"; exit 1 }; Start-Sleep 5; git pull --rebase }
   Write-Host "Push tamam - soru-uret-v2 ve profesor-v2 paths tetigiyle atesle(n)di."
 } else {

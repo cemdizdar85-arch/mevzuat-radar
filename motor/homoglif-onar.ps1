@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  HOMOGLIF ONARIMI — Kiril harf sizintisini deterministik duzeltir (03.08.2026)
 #
 #  NEDEN: Onarim taramasi 99 soruda Kiril/Yunan karakter buldu ("amortisман"

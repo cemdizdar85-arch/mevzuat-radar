@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  VEKTOR KANALI KARNESI — vektor arama, madde_ara'nin bulamadigini buluyor mu?
 #
 #  NEDEN VAR (10.09.2026). Butun gun olculen tek arıza su: ambarda DURAN dogru

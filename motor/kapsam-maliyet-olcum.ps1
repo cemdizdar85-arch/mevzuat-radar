@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KAPSAM VE MALIYET OLCUMU (04.08.2026) — 0 USD, API YOK, YAZMA YOK
 #
 #  CEM: "benim 4.334 sorum yok, diger sorulari nasil yapacagiz? Tum bunlar

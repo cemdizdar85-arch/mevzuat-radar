@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KAMU IHALE BULTENI KESIF - 4734 s.K. m.47: "ihale sonuclari ... Kurum
 #  tarafindan Kamu Ihale Bulteninde yayimlanir". ilan.gov.tr sonuc ilani
 #  YAYIMLAMIYOR (600 ilan olculdu), EKAP arama API'si korumali (401).

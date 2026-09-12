@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  TASLAK DENETIMI (04.08.2026) — 0 USD, API YOK, KASAYA YAZMAZ
 #
 #  NEDEN: Cem taslakta #45'te "sadece 2 adet yanlis cevap geldi" dedi (bes

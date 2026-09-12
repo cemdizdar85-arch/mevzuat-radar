@@ -34,8 +34,19 @@
 param(
   [string]$Yol = '',          # tek dosya (bos = tum depo)
   [switch]$Degisen,           # yalniz git'te degismis .ps1 dosyalari
+  [string]$Ref = '',          # <commit>..HEAD arasinda degisenler (CI kipi)
   [switch]$Sessiz             # yalniz ozet
 )
+# ⛔ 12.09 — $Ref NIYE VAR (CI kapisi):
+#   Nobetci bugune kadar YALNIZ `oturum.ps1 -Kapat`ta kosuyordu. Yani bir robot
+#   commit'i ya da dogrudan itilen bir akis dosyasi kapidan HIC gecmiyordu -
+#   ve K6'nin bedelini odeyen yara tam da bir akis dosyasindaydi.
+#   CI'da tum depoyu taramak ise kapiyi ILK GUN KIRMIZIYA CIVILER: depoda
+#   173 eski bulgu var (K2 76 · K5 44 · K4 32 · K1 14 · K3 7), hepsi ayri is
+#   emri. Surekli kirmizi bir kapi, kapali kapidir.
+#   Cozum: CI yalnizca O ITMEDE DEGISEN dosyalara bakar ($Ref). Cikis kodu
+#   zaten YALNIZ ZARARLI bulguda 1 (bkz. betik sonu) - yani eski birikim
+#   kapiyi bloke etmez, yeni tuzak iceri giremez.
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
@@ -230,9 +241,53 @@ function K6-YerelKomutStderr($metin,$ast,$dosya){
   #   .yml   -> yalniz `shell: powershell` bloklarinda. `shell: bash` NativeCommand
   #             kaydi uretmez; `shell: pwsh` (PS 7) de uretmez
   #             ($PSNativeCommandUseErrorActionPreference varsayilani $false).
+  # ⭐ OLCULDU 12.09 (klon uzerinde, `git checkout -b` stderr'e yazar):
+  #     git ... (yonlendirme YOK)          -> GECTI
+  #     git ... 2>&1                       -> DUSTU
+  #     git ... 2>$null                    -> DUSTU      <-- ilk surumde "care"
+  #                                                          diye ONERILIYORDU
+  #     EAP dusur + git ... 2>$null        -> GECTI
+  #   Yani `2>$null` de oldurur; yonlendirmenin KENDISI hatali. Ilk yazdigimda
+  #   13 yeri `2>&1` -> `2>$null` diye "duzeltmistim"; olcum yanlis oldugunu
+  #   soyledi ve hepsi yonlendirmesiz hale cevrildi.
+  #
+  # ⛔ DARALTMA DENENDI VE OLCUM CURUTTU - o yuzden YOK.
+  #   Once "yalniz gurultulu alt komutlar isirir" diye daralttim; sorgu
+  #   komutlarini (diff/status/rev-list...) muaf tuttum, gerekce "basari
+  #   yolunda stderr'e yazmazlar" idi. AYNI OTURUMDA curudu: bu depoda
+  #     git diff --name-only 2>$null
+  #   satiri "warning: LF will be replaced by CRLF" uyarisiyla betigi
+  #   OLDURDU. Yani uyari her worktree'ye dokunan komuttan gelebiliyor.
+  #   Muafiyet listesi tutmak, listeye girmeyen her komutu sessiz mayin
+  #   birakmak demekti. Simdi olcut tek ve basit:
+  #     EAP=Stop altinda git/gh + stderr yonlendirmesi = BULGU.
+  #   Yanlis alarm korkusu yersiz, cunku care BEDELSIZ: yonlendirmeyi
+  #   silmek her zaman guvenli (olculdu) ve hicbir davranisi degistirmez -
+  #   stderr sadece kutuge akar.
   $bul=New-Object System.Collections.Generic.List[object]
   $ps1=("$dosya" -match '\.ps1$')
   $satirlar=$metin -split "`r?`n"
+
+  # EAP'yi DUSUREN fonksiyon govdeleri GUVENLI BOLGEDIR. Nobetcinin kendi
+  # GitDosya sarmalayicisi ve yerel-indirici.ps1 tam boyle yazilmis; onlari
+  # isaretlemek dogru cozumu kusur diye bildirmek olurdu.
+  $GUVENLI=New-Object System.Collections.Generic.List[object]
+  if($ast){
+    foreach($AT in $ast.FindAll({param($x) $x -is [System.Management.Automation.Language.AssignmentStatementAst]},$true)){
+      if("$($AT.Left)" -notmatch '\$ErrorActionPreference'){ continue }
+      if("$($AT.Right)" -cmatch 'Stop'){ continue }
+      # Guvenli bolge = EAP'yi dusuren atamayi KAPSAYAN blok. Fonksiyon govdesi
+      # ya da betik duzeyindeki bir ifade blogu olabilir; ikincisi de gecerli
+      # (nobetcinin kendi -Ref blogu tam boyle yazilmis: elseif icinde EAP
+      # dusurulup try/finally ile geri konuyor).
+      $KAPSAYAN=$AT.Parent
+      while($KAPSAYAN -and -not (
+              $KAPSAYAN -is [System.Management.Automation.Language.FunctionDefinitionAst] -or
+              $KAPSAYAN -is [System.Management.Automation.Language.StatementBlockAst])){ $KAPSAYAN=$KAPSAYAN.Parent }
+      if($KAPSAYAN){ $GUVENLI.Add([pscustomobject]@{ bas=$KAPSAYAN.Extent.StartLineNumber; son=$KAPSAYAN.Extent.EndLineNumber }) }
+    }
+  }
+
   $tehlike=$false
   if($ps1){ $tehlike = ($metin -cmatch '\$ErrorActionPreference\s*=\s*[''"]Stop[''"]') }
   for($i=0;$i -lt $satirlar.Count;$i++){
@@ -246,10 +301,14 @@ function K6-YerelKomutStderr($metin,$ast,$dosya){
     }
     if(-not $tehlike){ continue }
     if($sat -match '^\s*#'){ continue }
-    if($sat -notmatch '2>&1'){ continue }
-    if($sat -notmatch '\b(git|gh|npm|npx|node|python|py|curl|dotnet|docker)\b'){ continue }
-    $bul.Add([pscustomobject]@{ satir=$i+1
-      ileti='YEREL KOMUT + 2>&1 + EAP=Stop: PS 5.1 stderr''i NativeCommandError''a cevirir; komut BASARILI olsa bile adim oLUR (12.09 yayin-bas.yml: push gecti, akis kirmizi dustu). `2>&1`''i KALDIR, sonucu `$LASTEXITCODE` ile olc.' })
+    if($sat -notmatch '2>(&1|\$null)'){ continue }
+    if($sat -notmatch '\b(git|gh)\b'){ continue }
+    $SATIR_NO=$i+1
+    $ATLA=$false
+    foreach($G in $GUVENLI.ToArray()){ if($SATIR_NO -ge $G.bas -and $SATIR_NO -le $G.son){ $ATLA=$true; break } }
+    if($ATLA){ continue }
+    $bul.Add([pscustomobject]@{ satir=$SATIR_NO
+      ileti='YEREL KOMUT + stderr YONLENDIRMESI + EAP=Stop: PS 5.1 stderr''i NativeCommandError''a cevirir; komut BASARILI olsa bile adim oLUR (12.09 yayin-bas.yml: push GECTI, akis kirmizi dustu). Care: yonlendirmeyi TAMAMEN KALDIR (olculdu: yonlendirmesiz GECER) ve sonucu $LASTEXITCODE ile olc. Cikti lazimsa EAP''yi dusuren bir sarmalayici icine al. `2>$null` CARE DEGILDIR - o da oldurur.' })
   }
   return $bul.ToArray()
 }
@@ -303,16 +362,31 @@ $d=@($l)' }
     # eq. ile TEKIL alan sorgusu belirlidir - alarm verilmemeli (olculdu 12.09:
     # kaynak_ad 3.000 ornekte tekil; kural 2 yanlis alarm uretmisti).
     @{ kural='K4-SIRASIZ';   kotu='$u="https://x.supabase.co/rest/v1/t?select=a&ad=like.x%25&limit=2"'; iyi='$u="https://x.supabase.co/rest/v1/t?select=metin&kaynak_ad=eq.VUK+m.231&limit=1"' }
-    # K6 IKI ornekle sinanir: (1) 2>&1 kaldirilinca alarm susuyor mu?
+    # K6 DORT ornekle sinanir. Hepsi 12.09 olcumunden dogdu.
+    # (1) yonlendirme kaldirilinca alarm susuyor mu?
     @{ kural='K6-STDERR';    kotu='$ErrorActionPreference=''Stop''
 git push origin HEAD:main 2>&1 | Out-Null'; iyi='$ErrorActionPreference=''Stop''
 git push origin HEAD:main | Out-Null
 if($LASTEXITCODE -ne 0){ throw ''push dustu'' }' }
-    # (2) EAP=Continue TEHLIKELI DEGIL - alarm verilmemeli. Olculdu 12.09:
-    #     motor/bulten-gunluk.ps1 tam boyle ve hic dusmedi.
+    # (2) `2>$null` DE OLDURUR (olculdu) - yakalanmali. Ve EAP=Continue
+    #     tehlikeli DEGIL (motor/bulten-gunluk.ps1 tam boyle, hic dusmedi).
     @{ kural='K6-STDERR';    kotu='$ErrorActionPreference=''Stop''
-git fetch origin main 2>&1 | Out-Null'; iyi='$ErrorActionPreference="Continue"
+git fetch origin main 2>$null | Out-Null'; iyi='$ErrorActionPreference="Continue"
 git push -q 2>&1 | Out-Null' }
+    # (3) SORGU komutu da MUAF DEGIL. Once muaf tutmustum; ayni oturumda
+    #     `git diff --name-only 2>$null` CRLF uyarisiyla betigi oldurdu.
+    #     Yonlendirmesiz hali temizdir - alarm verilmemeli.
+    @{ kural='K6-STDERR';    kotu='$ErrorActionPreference=''Stop''
+$geri = [int](git rev-list --count HEAD..origin/main 2>$null)'; iyi='$ErrorActionPreference=''Stop''
+$geri = [int](git rev-list --count HEAD..origin/main)' }
+    # (4) EAP''yi DUSUREN sarmalayici DOGRU cozumdur - alarm verilmemeli.
+    #     Nobetcinin kendi GitDosya fonksiyonu tam boyle yazilmis.
+    @{ kural='K6-STDERR';    kotu='$ErrorActionPreference=''Stop''
+git checkout -b yeni 2>&1 | Out-Null'; iyi='$ErrorActionPreference=''Stop''
+function GitGuvenli{
+  $e=$ErrorActionPreference; $ErrorActionPreference=''SilentlyContinue''
+  try{ git fetch origin main 2>$null | Out-Null } finally{ $ErrorActionPreference=$e }
+}' }
   )
   # nobetci:bolge-bitir
   $gec=Join-Path $env:TEMP ('tuzak-sinav-'+[guid]::NewGuid().ToString('N')+'.ps1')
@@ -386,7 +460,56 @@ if(@($sinav).Count){ throw 'oz-sinav dustu - nobetciye guvenilmez' }
 # TARAMA
 # ---------------------------------------------------------------------------
 $dosyalar=New-Object System.Collections.Generic.List[string]
+$ILGI_DESEN='(\.ps1$)|(^\.github/workflows/.+\.ya?ml$)'
 if($Yol){ $dosyalar.Add((Resolve-Path $Yol).Path) }
+elseif($Ref){
+  # CI kipi: <Ref>..HEAD arasinda degisen ilgili dosyalar.
+  # ⛔ git'in stderr'i EAP=Stop altinda betigi oldurur -> 2>$null (K6).
+  # ⛔ Ad bilerek UZUN: asagida (442) $liste dosya listesi icin kullaniliyor.
+  #   PS harf ayirmaz; ayni adi burada kullanmak tam K1 tuzagidir.
+  $eskiEAP=$ErrorActionPreference; $ErrorActionPreference='SilentlyContinue'
+  $REF_DEGISEN=@()
+  try{ $REF_DEGISEN=@(& git -C $depoKok diff --name-only "$Ref" HEAD 2>$null) } finally{ $ErrorActionPreference=$eskiEAP }
+  # Ilk itmede ya da zorlanmis gecmiste $Ref cozulmeyebilir; o zaman son commit.
+  if(-not $REF_DEGISEN.Count){
+    $eskiEAP=$ErrorActionPreference; $ErrorActionPreference='SilentlyContinue'
+    try{ $REF_DEGISEN=@(& git -C $depoKok diff --name-only 'HEAD~1' HEAD 2>$null) } finally{ $ErrorActionPreference=$eskiEAP }
+  }
+  foreach($s in $REF_DEGISEN){
+    if("$s" -match $ILGI_DESEN){ $t=Join-Path $depoKok "$s"; if(Test-Path $t){ $dosyalar.Add($t) } }
+  }
+  # ⛔⭐ DEGISEN SATIR SUZGECI — kapinin kirmiziya civilenmesini bu onler.
+  #   Kapiyi ilk kurdugumda dosya bazliydi. Olctum: kalip-parti-uret.ps1 gibi
+  #   eski bulgu tasiyan bir dosyaya TEK SATIR dokunan itme, kendi yazmadigi
+  #   173 birikimden duserdi. Iki sonucu olurdu: (1) is yapan kisi kendi
+  #   yazmadigi seyden sorumlu tutulur, (2) kapi surekli kirmizi kalir ve
+  #   kimse bakmaz - yani kapali kapi.
+  #   Cozum: CI kipinde YALNIZ bu itmede degisen SATIRLARDAKI bulgu sayilir.
+  #   Eski birikim goze gorunur ama kapiyi dusurmez.
+  #   ⚠ K5 (BOM) DISARIDA BIRAKILIR: onun bulgusu her zaman 1. satiri gosterir
+  #     ama olcutu DOSYANIN TAMAMIDIR; satir suzgecine takilirsa hic calismaz.
+  $REF_SATIR=@{}
+  foreach($s in $REF_DEGISEN){
+    if("$s" -notmatch $ILGI_DESEN){ continue }
+    $TAM_YOL=Join-Path $depoKok "$s"
+    if(-not (Test-Path $TAM_YOL)){ continue }
+    $eskiEAP=$ErrorActionPreference; $ErrorActionPreference='SilentlyContinue'
+    $HUNK=@()
+    try{ $HUNK=@(& git -C $depoKok diff -U0 "$Ref" HEAD -- "$s" 2>$null) } finally{ $ErrorActionPreference=$eskiEAP }
+    if(-not $HUNK.Count){
+      $eskiEAP=$ErrorActionPreference; $ErrorActionPreference='SilentlyContinue'
+      try{ $HUNK=@(& git -C $depoKok diff -U0 'HEAD~1' HEAD -- "$s" 2>$null) } finally{ $ErrorActionPreference=$eskiEAP }
+    }
+    $KUME=@{}
+    foreach($SAT in $HUNK){
+      if("$SAT" -notmatch '^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@'){ continue }
+      $BAS=[int]$Matches[1]
+      $ADET=$(if($Matches[2]){ [int]$Matches[2] } else { 1 })
+      for($N=$BAS; $N -lt ($BAS+$ADET); $N++){ $KUME[$N]=$true }
+    }
+    $REF_SATIR[$TAM_YOL]=$KUME
+  }
+}
 elseif($Degisen){
   # ⚠ git'in stderr'i ($ErrorActionPreference='Stop' altinda) NativeCommandError
   #   atip betigi OLDURUYOR - "LF will be replaced by CRLF" uyarisi bile yetti.
@@ -442,6 +565,10 @@ foreach($f in $liste){
     $b=@()
     try{ $b=@(& $k.fn $metin $ast $f) }catch{}
     foreach($x in $b){ if($sus.ContainsKey([int]$x.satir)){ continue }
+      # CI kipi: yalniz bu itmede degisen satirlar. K5 haric (bkz. suzgec notu).
+      if($REF_SATIR -and $REF_SATIR.ContainsKey($f) -and $k.ad -ne 'K5-BOMSUZ'){
+        if(-not $REF_SATIR[$f].ContainsKey([int]$x.satir)){ continue }
+      }
       $agirMi=$false; if($x.PSObject.Properties['agir']){ $agirMi=[bool]$x.agir } else { $agirMi=$true }
       $tumBulgu.Add([pscustomobject]@{ dosya=(Split-Path $f -Leaf); kural=$k.ad; satir=$x.satir; ileti=$x.ileti; agir=$agirMi }) }
   }

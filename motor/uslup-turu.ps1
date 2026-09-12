@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  USLUP TURU — 29.07.2026   (PARA HARCAR - tek kapisi veri/uslup-emir.json)
 #
 #  NIYE VAR: Cem'in sarti - "ogrenci bunlari yapay zeka yazmis demesin."

@@ -1,0 +1,67 @@
+# .github/workflows/tuzak-nobeti.yml — TUZAK NOBETCISI CI KAPISI
+#
+# 12.09.2026, Cem "1.2.3 ucunu de yap" (GM onerisi 2).
+#
+# NIYE VAR
+#   Nobetci bugune kadar YALNIZ `motor/oturum.ps1 -Kapat` icinde kosuyordu.
+#   Yani kapi ancak BIR OTURUM duzgun kapanirsa isliyordu. Kapidan HIC gecmeyen
+#   uc yol vardi:
+#     1) robotlarin dogrudan ana tele attigi commit'ler
+#     2) akis dosyalari (.github/workflows/*.yml) - nobetci onlari hic taramiyordu
+#     3) oturum kapanisi atlanan / -Birak ile gecilen isler
+#   K6'nin bedelini odeyen yara tam da 2. yoldaydi: yayin-bas.yml'deki
+#   `git push ... 2>&1`. Push GERCEKTEN gecti, akis yine kirmizi dustu ve
+#   16 dakikalik odenmis is "basarisiz" gorundu.
+#
+# ⛔ TUM DEPOYU TARAMIYOR - VE BU BILEREK.
+#   Depoda 173 eski bulgu var (K2 76 · K5 44 · K4 32 · K1 14 · K3 7); hepsi
+#   ayri is emri. Tum depoyu tarayan bir kapi ILK GUN kirmiziya civilenir,
+#   kimse bakmaz, kapi kapali sayilir. (Ayni hata artifact nobetcisinde
+#   yasanmisti.) Bu yuzden yalniz O ITMEDE DEGISEN dosyalara bakilir.
+#
+# ⛔ Cikis kodu zaten YALNIZ 🔴 ZARARLI bulguda 1'dir; "riskli ama bugun
+#   zararsiz" bulgular uyari kalir ve kapiyi dusurmez.
+#
+# ⛔ windows-latest SART: nobetci PS 5.1 tuzaklarini olcuyor ve kendisi de
+#   PS 5.1 betigi (BOM, -cmatch, AST). ubuntu'da pwsh farkli davranir.
+name: Tuzak nobetcisi (CI kapisi)
+
+on:
+  push:
+    paths:
+      - '**.ps1'
+      - '.github/workflows/**.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tuzak-nobeti-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nobet:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # $Ref'i cozebilmek icin gecmis gerekli
+
+      - name: Degisen dosyalarda tuzak ara
+        shell: powershell
+        run: |
+          # github.event.before: itmeden ONCEKI ana tel ucu. Ilk itmede ya da
+          # zorlanmis gecmiste cozulmeyebilir - nobetci o durumda HEAD~1'e duser.
+          ./arac/tuzak-nobetcisi.ps1 -Ref "${{ github.event.before }}"
+
+      - name: Kapi dustuyse ne yapilir
+        if: failure()
+        shell: powershell
+        run: |
+          "ZARARLI tuzak bulundu - yukaridaki dosya:satir listesine bak."
+          "Bilerek bozuk test verisiyse: # nobetci:gec  ya da"
+          "  # nobetci:bolge-basla ... # nobetci:bolge-bitir  (GEREKCESI YAZILARAK)"
+          "Kural listesi: mevzuat-radar/CLAUDE.md > 'Bilinen tuzagi tekrar yazmak'"
+          exit 1

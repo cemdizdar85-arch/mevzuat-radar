@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  FORMUL EKSIK TARAMASI (03.08.2026 gece) — 0 USD, API YOK, KASAYA YAZMAZ
 #
 #  NEDEN: Cem "Aktif Devir Hizi ve Oz Kaynak Kaldiraci" sorusunda Kural kisminda

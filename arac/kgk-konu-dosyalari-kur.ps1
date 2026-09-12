@@ -1,4 +1,4 @@
-# KGK KONU DOSYALARI (10.09.2026) - 0 USD, model cagrisi YOK.
+﻿# KGK KONU DOSYALARI (10.09.2026) - 0 USD, model cagrisi YOK.
 # Girdi : veri/fabrika/kgk-plan.csv (arac tarafindan degil, olcum betigi tarafindan uretildi)
 # Cikti : veri/sinav/konu/kgk-olcum-<modul>.json  -> YALNIZ kaynak on-olcumu icin
 #         (basim konu dosyalari plan onaylandiktan sonra ayrica uretilir)

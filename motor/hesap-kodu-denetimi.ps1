@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  HESAP KODU DENETIMI (03.08.2026) — 0 USD, API YOK
 #
 #  NEDEN: Cem pilot taslaginda dort yanlis hesap kodu yakaladi — personel avansi

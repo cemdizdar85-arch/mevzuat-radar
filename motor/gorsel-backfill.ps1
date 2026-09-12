@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  GORSEL BACKFILL — kasadaki TABLOSUZ analiz sorularina exhibit tablosu uretir.
 #  Cem karari 24.07: "sadece bunda degil digerlerinde de yok - hepsinde olsun,
 #  bilanco/nakit akis da gosterelim." Yeni uretim zaten zorunlu-tablolu (7b);

@@ -51,6 +51,6 @@ $yol = Join-Path $kok "veri\canli\sonuc-$oturum.json"
 [IO.File]::WriteAllText($yol, (ConvertTo-Json -InputObject $cikti -Depth 4), (New-Object Text.UTF8Encoding($false)))
 git add "veri/canli/sonuc-$oturum.json"
 git commit -m "Canli deneme sonucu yayinda: $oturum (katilim $n)" | Out-Null
-git pull --rebase origin main 2>$null | Out-Null
-git push origin HEAD:main 2>$null | Out-Null
+git pull --rebase origin main | Out-Null
+git push origin HEAD:main | Out-Null
 Write-Host ("SONUC YAYINDA: sonuc-$oturum.json (tur: {0})" -f $cikti.tur)

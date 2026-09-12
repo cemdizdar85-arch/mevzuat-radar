@@ -45,7 +45,7 @@ foreach ($p in $soz.dosyalar.PSObject.Properties) {
 
   # TAZE VERININ GELDIGI AN = son git commit'i. Dosya icindeki tarihler DEGIL.
   $ts = $null
-  try { $ts = (git log -1 --format=%ct -- $f 2>$null | Select-Object -First 1) } catch {}
+  try { $ts = (git log -1 --format=%ct -- $f | Select-Object -First 1) } catch {}
   if (-not $ts) { [void]$tanimsiz.Add([ordered]@{ dosya=$f; sebep='git gecmisi yok (henuz commit edilmemis)' }); continue }
   $yasSaat = [Math]::Round(((Get-Date) - ([DateTimeOffset]::FromUnixTimeSeconds([int]$ts)).LocalDateTime).TotalHours, 1)
 
