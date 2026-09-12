@@ -1468,8 +1468,21 @@ foreach($sq in $sorular){ if(-not $sq.tablo -or $sq.teori){ continue }
     if([int]$p[0] -ge $sat.Count){ $sebep+="satır $($p[0]) tabloda yok"; continue }; $hc="$(@($sat[[int]$p[0]])[[int]$p[1]])"; $rak=($hc -replace '\D','')
     if($hc -match '\d' -and $hc.Trim().Length -le 24 -and $rak.Length -ge 2){ $var=$true; break } else { $sebep+="hücre '$hc' sayı değil ya da uzun" } }
   if(-not $var){ $tahminYok+="$($sq.id) ($((@($sebep | Select-Object -Unique)) -join '; '))" } }
-if($script:DOLDUR_SAYISIZ.Count){
-  $ozet=@($script:DOLDUR_SAYISIZ) | Group-Object { "$_".Split(':')[0] } | ForEach-Object { "$($_.Name) ($($_.Count) hücre)" }
-  Write-Host "DOLDUR SAYISIZ HÜCRE ($($script:DOLDUR_SAYISIZ.Count) hücre / $(@($ozet).Count) soru): $($ozet -join ' · ') — koordinat yerine metin yazılmış; hücre metin olarak bırakıldı, sayfa basıldı. Üreticide kapı gerekiyor." -ForegroundColor Yellow
-} else { Write-Host "DOLDUR: her hücre koordinat (sayı)" -ForegroundColor DarkGreen }
+# ⛔ 12.09 — BU BLOK RAPORDUR, ÜRÜN DEĞİL: hiçbir koşulda yayını öldürmez.
+#   İlk yazışımda iki kusur birdendi ve ikisi de ölçüldü:
+#     1) `@($script:DOLDUR_SAYISIZ)` — K3 TUZAĞI. `@(...)` bir List[object] üzerinde
+#        ArgumentException ("Bağımsız değişken türleri eşleşmiyor") atar. Ölçüldü:
+#        `@($L)` çöküyor · `$L | Group-Object` geçiyor · `$L.ToArray()` geçiyor.
+#        ⚠ Tuzak nöbetçisi bunu YAKALAMADI: K3 kuralı `$script:` önekli adı tanımıyor.
+#     2) Sayfa BAŞARIYLA yazıldıktan SONRA patlıyordu, ama motor/kaydir-yayin.ps1:20'de
+#        `2>&1` + $ErrorActionPreference='Stop' olduğu için çocuğun stderr'e yazdığı bu
+#        satır bütün yayını öldürdü (12.09 koşu 34718311164: Borçlar/Denetim/Ekonomi
+#        basıldı, Finansal Muhasebe'de düştü). Bir RAPOR satırı üretimi durduramamalı.
+#   Bu yüzden: ToArray() + try/catch. Rapor kendi içinde bile çökse iş sürer.
+try{
+  if($script:DOLDUR_SAYISIZ.Count){
+    $ozet=$script:DOLDUR_SAYISIZ.ToArray() | Group-Object { ("$_" -split ':')[0] } | ForEach-Object { "$($_.Name) ($($_.Count) hücre)" }
+    Write-Host "DOLDUR SAYISIZ HÜCRE ($($script:DOLDUR_SAYISIZ.Count) hücre / $(@($ozet).Count) soru): $($ozet -join ' · ') — koordinat yerine metin yazılmış; hücre metin olarak bırakıldı, sayfa basıldı. Üreticide kapı gerekiyor." -ForegroundColor Yellow
+  } else { Write-Host "DOLDUR: her hücre koordinat (sayı)" -ForegroundColor DarkGreen }
+}catch{ Write-Host "DOLDUR raporu yazılamadı ($($_.Exception.Message)) - ürün etkilenmez" -ForegroundColor DarkGray }
 if($tahminYok.Count){ Write-Host "ÖZ-SINAV TAHMİN YOK ($($tahminYok.Count) hesap sorusunda 'Önce sen dene' açılamaz): $($tahminYok -join ' · ')" -ForegroundColor Yellow } else { Write-Host "ÖZ-SINAV: her hesap sorusunda tahmin ekranı açılabilir" -ForegroundColor DarkGreen }
