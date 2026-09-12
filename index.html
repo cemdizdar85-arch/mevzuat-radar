@@ -618,6 +618,32 @@ window.veriAl = (function(){
         (function(){
           var kart=document.getElementById('vKart'), sek=document.getElementById('vSekmeler'); if(!kart||!sek) return;
           var esc=function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+/* ⛔ 12.09.2026 — ANA SAYFANIN TEK ÇAĞRI DÜĞMESİ ÖLÜYDÜ.
+   Burası href olarak v.baglanti yazıyordu; ölçüldü: veri/vitrin/01-sgs.json'daki
+   14 sorunun HİÇBİRİNDE `baglanti` alanı YOK. Yani href boş çıkıyor, "Nöbetçi
+   anlatsın →" tıklanınca sayfa kendini yeniliyordu. Kaydır-Çöz'de 1.836 soru
+   CANLIYDI ama tetikte.com'dan oraya giden hiçbir yol yoktu (vitrin sayfasında
+   da 0 bağlantı ölçüldü).
+   Artık: veri bağlantı taşıyorsa o kullanılır; taşımıyorsa dersin kendi
+   Kaydır-Çöz sayfasına, o da bilinmiyorsa havuzun kapağına gider. */
+var VITRIN_HAVUZ='kaydir/sgs/';
+var VITRIN_DERS={'finansal muhasebe':'finansal-muhasebe','denetim':'denetim','maliyet muhasebesi':'maliyet-muhasebesi',
+  'mali tablolar analizi':'mali-tablolar-analizi','ticaret hukuku':'ticaret-hukuku','borclar hukuku':'borclar-hukuku',
+  'vergi hukuku':'vergi-hukuku','meslek hukuku':'meslek-hukuku','is ve sosyal guvenlik hukuku':'is-ve-sosyal-guvenlik-hukuku',
+  'ekonomi':'ekonomi','maliye':'maliye'};
+function vKatla(s){ return String(s==null?'':s).toLowerCase()
+  .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/i̇/g,'i')
+  .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/\s+/g,' ').trim(); }
+/* ⚠ SINAV KODU sekmeden gelir, kayıttan DEĞİL. İlk sürümde kaydın `sinav`
+   alanına bakıyordu; ölçüldü (veri/vitrin/03-kgk.json) - o alan yok ve KGK
+   sorusu da SGS havuzuna yollanıyordu. Kaydır-Çöz şu an YALNIZ SGS için var;
+   diğer sınavlarda eski vitrin bağlantısı korunur. */
+function vHedef(v,kod){
+  if(v && v.baglanti){ return v.baglanti; }
+  if(String(kod||'').toLowerCase()!=='sgs'){ return 'kaydir/vitrin/'+(kod||'sgs')+'.html?vitrin=1&tema=acik'; }
+  var d = VITRIN_DERS[vKatla(v && v.ders)];
+  return d ? (VITRIN_HAVUZ + d + '.html') : VITRIN_HAVUZ;
+}
           var VERI=null, SECILI=null;
           function ciz(kod){
             var v=VERI.sinavlar[kod]; if(!v) return; SECILI=kod;
@@ -629,7 +655,7 @@ window.veriAl = (function(){
               +'<p class="v-soru">'+esc(v.soru)+'</p><ul class="v-siklar'+(v.rakamSik?'':' metin')+'" id="vSiklar">'+siklar+'</ul>'
               +'<div class="v-panel"><div class="v-tuzak"><span class="v-roz y" id="vRoz"></span><p id="vTuzak"></p></div>'
               +'<div class="v-dogrusu"><b>Doğrusu '+esc(v.dogru)+dogruMetin+'.</b> '+esc(v.hap)+'</div>'+tablo
-              +'<div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. Bugünün sorusu; her sabah değişir.</span><a href="'+esc(v.baglanti)+'">Nöbetçi anlatsın →</a></div></div>';
+              +'<div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. Bugünün sorusu; her sabah değişir.</span><a href="'+esc(vHedef(v,kod))+'">'+(vHedef(v,kod).indexOf(VITRIN_HAVUZ)===0?'Tüm soruları çöz →':'Nöbetçi anlatsın →')+'</a></div></div>';
             sec(yanlisIlk);
             sek.querySelectorAll('.v-sekme').forEach(function(b){ b.setAttribute('aria-selected',b.getAttribute('data-s')===kod?'true':'false'); });
             try{ localStorage.setItem('v_sekme',kod); }catch(e){}
@@ -754,7 +780,10 @@ window.veriAl = (function(){
           <tr><td>Eşdeğer birim maliyeti (160.000 / 1.600)</td><td>100</td></tr>
           <tr class="sonuc"><td>L ürünü payı (900 × 100)</td><td>90.000 TL</td></tr>
         </table>
-        <div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. 7 adımda Nöbetçi anlatır.</span><a href="kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik">Nöbetçi anlatsın →</a></div>
+        <div class="v-panel-alt"><span>Şıkka tıkla, tuzağı gör. 7 adımda Nöbetçi anlatır.</span><a href="kaydir/sgs/">Tüm soruları çöz →</a></div>
+<!-- ⛔ 12.09: burası kaydir/vitrin/sgs.html'e gidiyordu. Ölçüldü: o sayfada
+     HİÇ bağlantı yok (0 adet) - yani vitrinden ürüne çıkış yoktu, ziyaretçi
+     orada kalıyordu. Artık doğrudan havuzun kapağına (11 ders, 1.836 soru). -->
       </div>
     </div>
     <script>
