@@ -1116,7 +1116,11 @@ if($DonemPencere -gt 0){
       $aralik=$null; foreach($cift in $DERS_ARALIK){ if($DersRegex -match $cift[0]){ $aralik=$cift[1]; break } }
       $bloklar=New-Object System.Collections.Generic.List[object]
       foreach($dn in $sonD){
-        $uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.'+[uri]::EscapeDataString("CIKMIS SINAV - SGS $($dn.donem) (%ingilizce)")+'&limit=1'
+        # ⛔ 12.09: burada `order=` YOKTU. ilike DESENI birden cok belgeye uyabilir ve
+#    sirasiz limit=1 onlardan RASTGELE birini alir - ayni donem icin her kosuda
+#    BASKA capa gelebilirdi, sessizce. (11.09'da ayni sinif hata '492 Harclar
+#    ambarda yok' yanilgisini uretmisti.) Tuzak Nobetcisi yakaladi.
+$uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.'+[uri]::EscapeDataString("CIKMIS SINAV - SGS $($dn.donem) (%ingilizce)")+'&order=kaynak_ad.asc&limit=1'
         try{ $rB=$null; (ConvertFrom-Json (Invoke-WebRequest -Uri $uB -Headers $SB -UseBasicParsing -TimeoutSec 120).Content) | ForEach-Object { if(-not $rB){ $rB=$_ } } }catch{ $rB=$null }
         if(-not $rB){ continue }
         foreach($p in [regex]::Split("$($rB.metin)",'(?=SORU \d+:)')){ if($p -match '^SORU (\d+):'){ $no=[int]$Matches[1]; $govde=$p; $kes=$govde.IndexOf('TÜRMOB'); if($kes -gt 0){ $govde=$govde.Substring(0,$kes) }; $govde=$govde -replace '\s+',' '; $govde=$govde -replace '\s+\d+\s+(İzleyen|Diğer) sayfaya geçiniz\.?.*$','' -replace '\s+STAJA GİRİŞ SINAVI.*$','' -replace '\s+\d+\s+(İzleyen|Diğer) sayfaya geçiniz\.?\s*[A-E]?\s*$',''; $bloklar.Add([pscustomobject]@{ donem="$($dn.donem)"; no=$no; metin=$govde.Trim() }) } }

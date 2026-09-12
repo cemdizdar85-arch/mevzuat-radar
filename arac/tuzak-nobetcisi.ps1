@@ -120,7 +120,19 @@ function K3-ListeSarma($metin,$ast,$dosya){
   # @($list) -- $list bir List[object] ise -- tr-TR PS 5.1'de ArgumentException atar.
   # .ToArray() kullanilir. (arac/olcum-kapilari.ps1 Dizi)
   $bul=New-Object System.Collections.Generic.List[object]
-  $listeAd=@([regex]::Matches($metin,'\$(\w+)\s*=\s*New-Object\s+System\.Collections\.Generic\.List')|ForEach-Object{ $_.Groups[1].Value }|Select-Object -Unique)
+  # ⛔ 12.09 DARALTILDI — KURAL KURT MASALI OKUYORDU.
+  #    Ilk surum List[<HER TUR>] yakaliyordu. kalip-parti-uret.ps1'e dokununca
+  #    7 "ZARARLI" bulgu verdi; altisi da List[string] cikti ve HICBIRI patlamaz.
+  #    OLCULDU (tr-TR, PS 5.1.26100) - @($liste) hangi turde patliyor:
+  #      List[object]         -> PATLIYOR (ArgumentException)
+  #      List[string]         -> calisiyor      List[psobject] -> calisiyor
+  #      List[int]            -> calisiyor      List[hashtable] -> calisiyor
+  #      List[pscustomobject] -> calisiyor      List[double]/[bool] -> calisiyor
+  #    Yani tuzak YALNIZ List[object]'te var. Desen ona daraltildi.
+  #    (Ayni ders bugun ucuncu kez: tek olcutlu ikiz kapisi 14'te 3, madde
+  #     teshisi iki kez yanlis etiket, simdi bu. Kural yazmak kolay; kuralin
+  #     YANLIS ALARMINI olcmek isin asil yarisi.)
+  $listeAd=@([regex]::Matches($metin,'\$(\w+)\s*=\s*New-Object\s+System\.Collections\.Generic\.List\[object\]')|ForEach-Object{ $_.Groups[1].Value }|Select-Object -Unique)
   foreach($ad in $listeAd){
     foreach($m in [regex]::Matches($metin,('@\(\s*\$'+[regex]::Escape($ad)+'\s*\)'))){
       $satir=($metin.Substring(0,$m.Index) -split "`n").Count
@@ -140,6 +152,16 @@ function K4-SiralamasizTekSatir($metin,$ast,$dosya){
     if($sat -match 'order='){ continue }                     # sirali ise sorun yok
     if($sat -match '^\s*#'){ continue }                       # yorum satiri
     if($sat -notmatch 'rest/v1|supabase'){ continue }         # ambar sorgusu degilse dokunma
+    # ⛔ 12.09 DARALTILDI — BU KURAL DA KURT MASALI OKUYORDU.
+    #    kalip-parti-uret.ps1:2986 ve :3524 "ZARARLI" bildirildi; ikisi de
+    #    `kaynak_ad=eq.<ad>&limit=1` idi. OLCULDU: 3.000 satirlik orneklemde
+    #    kaynak_ad TEKIL (3.000 ad / 0 mukerrer). Tekil bir alanda eq.+limit=1
+    #    belirli sonuc doner - rastgele secim YOK, kusur da yok.
+    #    Tuzak DESEN eslesmesinde: ilike/like/fts bircok satir dondurebilir ve
+    #    sirasiz limit=1 onlardan RASTGELE birini alir. '492 Harclar ambarda
+    #    yok' yanilgisi tam buydu.
+    #    Bu yuzden: desenli sorgu isaretlenir, eq.'li sorgu isaretlenmez.
+    if($sat -match '=eq\.' -and $sat -notmatch '=(i?like|fts)'){ continue }
     $satir=($metin.Substring(0,$m.Index) -split "`n").Count
     $bul.Add([pscustomobject]@{ satir=$satir
       ileti="SIRALAMASIZ TEK SATIR: limit=1/2 + order= YOK. Var/yok testi DEGILDIR - ilk donen baska belge olabilir (11.09: '492 ambarda yok' yanilgisi). order= ekle ve limit>=3 yap." })
@@ -202,7 +224,15 @@ $x=@($h)' }
     @{ kural='K3-LISTSARMA'; kotu='$l=New-Object System.Collections.Generic.List[object]
 $d=@($l)'; iyi='$l=New-Object System.Collections.Generic.List[object]
 $d=$l.ToArray()' }
-    @{ kural='K4-SIRASIZ';   kotu='$u="https://x.supabase.co/rest/v1/t?select=a&limit=1"'; iyi='$u="https://x.supabase.co/rest/v1/t?select=a&order=a.asc&limit=5"' }
+    # List[string] PATLAMAZ (olculdu) - alarm verilmemeli. 12.09'da bu vaka
+    # kalip-parti-uret.ps1'de 6 yanlis alarm uretmisti.
+    @{ kural='K3-LISTSARMA'; kotu='$l=New-Object System.Collections.Generic.List[object]
+$d=@($l)'; iyi='$l=New-Object System.Collections.Generic.List[string]
+$d=@($l)' }
+    @{ kural='K4-SIRASIZ';   kotu='$u="https://x.supabase.co/rest/v1/t?select=a&ad=ilike.%25x%25&limit=1"'; iyi='$u="https://x.supabase.co/rest/v1/t?select=a&order=a.asc&limit=5"' }
+    # eq. ile TEKIL alan sorgusu belirlidir - alarm verilmemeli (olculdu 12.09:
+    # kaynak_ad 3.000 ornekte tekil; kural 2 yanlis alarm uretmisti).
+    @{ kural='K4-SIRASIZ';   kotu='$u="https://x.supabase.co/rest/v1/t?select=a&ad=like.x%25&limit=2"'; iyi='$u="https://x.supabase.co/rest/v1/t?select=metin&kaynak_ad=eq.VUK+m.231&limit=1"' }
   )
   # nobetci:bolge-bitir
   $gec=Join-Path $env:TEMP ('tuzak-sinav-'+[guid]::NewGuid().ToString('N')+'.ps1')
