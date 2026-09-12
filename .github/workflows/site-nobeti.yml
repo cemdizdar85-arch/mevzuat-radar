@@ -1,0 +1,45 @@
+# .github/workflows/site-nobeti.yml — SITE AYAKTA MI (15 dakikada bir)
+#
+# 12.09.2026, Cem: "guvenlik, hizli olmak ve site hic kesilmemesi cok onemli".
+#
+# NIYE: 12.09'da olculdu - 146 akisin 12'si tetikte.com'dan BAHSEDIYOR ama
+# HICBIRI "ayakta mi" diye BAKMIYOR. Kotu bir commit ya da Pages kesintisi
+# saatlerce fark edilmezdi.
+#
+# ⛔ HTTP 200 YETMEZ (CLAUDE.md, 30.08): "olu adres 200+HTML doner". Nobetci
+#    uc olcute bakar: 200 + asgari boy + imza metni.
+# ⛔ KURT MASALI OKUMAZ: her adres 3 kez denenir; ucu de duserse kirmizi.
+#
+# ⚠ Kirmizi surdukce her 15 dakikada bir mail gelir - bilerek. Susturmak
+#   ariza kapaninca kendiliginden olur; "bir kez haber ver sonra sus" deseydik
+#   gece 03:00'te dusen site sabaha kadar sessiz kalirdi.
+name: Site Nobeti (tetikte.com ayakta mi)
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/site-nobeti.yml"
+      - "motor/site-nobeti.ps1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-nobeti
+  cancel-in-progress: true      # gecikmis kosu birikmesin, en son olcum yeter
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Olc
+        shell: pwsh
+        env:
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/site-nobeti.ps1 -Mail

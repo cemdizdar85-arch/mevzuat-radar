@@ -26,7 +26,12 @@ name: Soru Ambari Yedegi (bulut, sifreli)
 
 on:
   schedule:
-    - cron: "23 1 * * 0"      # Pazar 04:23 TR - uretim hatti bos oldugu saat
+    # ⚠ 12.09: HAFTALIKTAN GUNLUGE cekildi (Cem "kurumsal firmalar gibi olsun").
+    #   Haftalik yedekte en kotu durum 6 GUNLUK uretim kaybiydi; gecede ~180
+    #   parti bastigimiz bir hatta bu kabul edilemez. Gunluk yedegin bedeli 0:
+    #   public depoda Actions dakikasi ve artifact depolamasi ucretsiz, kosu
+    #   6 dakika suruyor ve uretim hatti o saatte bos.
+    - cron: "23 1 * * *"      # her gun 04:23 TR
   workflow_dispatch:
   push:
     paths:

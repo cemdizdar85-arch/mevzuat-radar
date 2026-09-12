@@ -101,7 +101,25 @@ if(-not $SadeceHtml -and "$env:MEVZUAT_BAKIYE_KAPISI" -ne '0'){
   $bkHedef=Get-ApiHedef
   # yoklama gövdesi Messages API biçimindedir; OpenRouter hattı /chat/completions kullanır, orada yoklama YAPILMAZ
   # (yanlış biçimden dönen hata bakiye hatası sanılmaz, ama boşuna gürültü de üretmesin).
-  if(@('anthropic','aws') -notcontains "$($bkHedef.ad)"){ "KAPI-BAKIYE: atlandı (hat '$($bkHedef.ad)', Messages API değil)" }
+  if(@('anthropic','aws') -notcontains "$($bkHedef.ad)"){
+    # ⛔ KAPI-HAT (12.09.2026, Cem "sadece anthropic kullanalım der misin").
+    #    ÖNCEDEN bu satır yalnızca "atlandı" deyip geçiyordu. Yani başka bir
+    #    hatta (OpenRouter vb.) koşulduğunda BAKİYE FRENİ SESSİZCE DEVRE DIŞI
+    #    kalıyordu — ve 11.09'da aylık tavan da Cem kararıyla kapı olmaktan
+    #    çıkarıldı. İkisi birleşince geriye HİÇ fren kalmıyordu: yanlış bir
+    #    ayar bakiye bitene kadar para yakardı.
+    #    Ölçülü iki sebep daha:
+    #      · Toplu istek (yarı fiyat) yalnız Anthropic-native'de var; OpenRouter
+    #        batch API'yi desteklemiyor → üretim bedeli İKİ KATI olurdu.
+    #      · Cem'in değişmez kuralı: "müşteri verisi güvenli yerde, DOĞRUDAN
+    #        sağlayıcı." OpenRouter araya üçüncü bir şirket koyar.
+    #    Bilerek aşmak için: MEVZUAT_HAT_KAPISI=0
+    if("$env:MEVZUAT_HAT_KAPISI" -eq '0'){
+      Write-Host "KAPI-HAT: BİLEREK AŞILDI (MEVZUAT_HAT_KAPISI=0) · hat '$($bkHedef.ad)' · BAKİYE FRENİ YOK" -ForegroundColor Red
+    } else {
+      throw "KAPI-HAT DÜŞTÜ: soru üretimi yalnız 'anthropic' (ya da 'aws') hattında koşar; şu anki hat '$($bkHedef.ad)'. Bu hatta KAPI-BAKIYE çalışmaz (bakiye freni YOK), toplu istek yoktur (bedel 2 katı) ve veri üçüncü bir aracıdan geçer. Bilerek aşmak için MEVZUAT_HAT_KAPISI=0."
+    }
+  }
   else{
   $bkGovde=@{ model='claude-haiku-4-5-20251001'; max_tokens=1; messages=@(@{ role='user'; content=@(@{ type='text'; text='.' }) }) }
   try{
