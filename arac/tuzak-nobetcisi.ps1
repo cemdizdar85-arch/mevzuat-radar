@@ -141,6 +141,14 @@ function K2-JsonDiziSarma($metin,$ast,$dosya){
     #   nesne, @() dogru sayiyor. Elle bakildi (cila-parti.ps1:181), gercek degil.
     if($m.Value -match 'ForEach-Object|\|\s*%\s*\{'){ continue }
     $satir=($metin.Substring(0,$m.Index) -split "`n").Count
+    # ⚠ 12.09 DARALTILDI: YORUM SATIRI KUSUR DEGILDIR. Iki dosya (feda-fark-uret.ps1:38,
+    #   feda-kunye-tamamla.ps1:16) tam da BU TUZAGI ANLATAN yorumu tasiyor:
+    #     "#  PS 5.1 tuzagi: @($x | ConvertFrom-Json) diziyi ACMAZ - once ata, sonra sar."
+    #   Yani kural, tuzaga karsi yazilmis UYARIYI kusur diye bildiriyordu. Dogru
+    #   davranisi kusur saymak, kapiya guveni bitiren seydir (K4/K5'te de ayni
+    #   ayiklama yapildi). Olcum: 76 bulgunun 2'si buydu -> gercek 74.
+    $satirMetni=($metin -split "`r?`n")[$satir-1]
+    if($satirMetni -match '^\s*#'){ continue }
     $bul.Add([pscustomobject]@{ satir=$satir
       ileti='@(... | ConvertFrom-Json): PS 5.1 diziyi TEK ogeye sarar. Once degiskene al, sonra @() ile sar. (arac/olcum-kapilari.ps1 JsonDizi)' })
   }
