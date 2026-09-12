@@ -2292,7 +2292,11 @@ Yalnız JSON: {"cozum_tablo":{...}|null,"teshis":{"A":{...},"B":{...},"C":{...},
 '@
   function EskiSayiSikli($c){ $n=0; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '^\s*%?\s*-?\d[\d.,]*\s*(TL|₺|%|adet|kg|gün|yıl|ay|saat|birim)?\s*$'){ $n++ } }; return ($n -ge 4) }
   $dusenYol=Join-Path $kok "veri\fabrika\kurtarma-dusen-$Etiket.json"; $dusenL=New-Object System.Collections.Generic.List[object]
-  if(Test-Path $dusenYol){ foreach($x in @(ConvertFrom-Json -InputObject (Get-Content $dusenYol -Raw -Encoding UTF8))){ if($x -and $x.PSObject.Properties['id']){ $dusenL.Add($x) } } }
+  # ⛔ 12.09: FAZLADAN PARANTEZ ZORUNLU. Oncesi `@(ConvertFrom-Json -InputObject (...))` idi;
+#    PS 5.1 diziyi TEK ogeye sardigi icin bu foreach BIR KEZ donuyor, $x diziyi
+#    tutuyor, $x.PSObject.Properties['id'] tutmuyor -> $dusenL HIC DOLMUYORDU.
+#    Olculdu: @($j|ConvertFrom-Json).Count=1 · @(($j|ConvertFrom-Json)).Count=3
+if(Test-Path $dusenYol){ foreach($x in @((ConvertFrom-Json -InputObject (Get-Content $dusenYol -Raw -Encoding UTF8)))){ if($x -and $x.PSObject.Properties['id']){ $dusenL.Add($x) } } }
   $dusenId=New-Object 'System.Collections.Generic.HashSet[string]'; foreach($x in $dusenL){ [void]$dusenId.Add("$($x.id)") }
   function Dus([string]$id,$e,[string]$sebep){ $dusenL.Add([pscustomobject]@{ id=$id; eski_id="$($e.id)"; ders="$($e.ders)"; konu="$($e.konu)"; sebep=$sebep; tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm') }); [void]$dusenId.Add($id); Write-Host "  KURTARMA DÜŞTÜ $id [$($e.konu)]: $sebep" -ForegroundColor Red; $rapor.Add("KURTARMA DÜŞTÜ: $id [$($e.konu)] $sebep") }
   foreach($e in $eskiL){
@@ -2872,10 +2876,32 @@ if($HazirSoru -and -not $SadeceHtml){
 # birlikte taşınır ("Hepsi / Hiçbiri / Yukarıdakilerin" içeren soruya dokunulmaz). 10.09: adımı OLAN soru değil, adımı ŞIK HARFİNE
 # BAĞLI olan soru taşınmaz (AdimHarfeBagliMi) — eski hâli hazır soru yolunda dengelemeyi tümüyle kapatıyordu.
 function SikTasi($c,[string]$kaynakH,[string]$hedefH){
+  # ⛔⭐ 12.09.2026 — sade.siklar EKLENDI. OLCULDU, tahmin degil:
+  #   sade.siklar her harf icin "BU SIK NEDEN YANLIS" metnini tutar ve
+  #   Kaydir-Coz panelinde EKRANDA GOSTERILIR (motor/kaydir-coz.ps1:174).
+  #   299 soruda olculdu: yanlis siklarda 1.196 dolu / 0 bos · dogru sikta
+  #   248 bos (dogru sik "yanlis" degil, o yuzden bos).
+  #   Bu alan tasinmazsa harf kayar ama gerekce yerinde kalir: panel, artik
+  #   DOGRU olan sikkin altinda "su yuzden yanlis" yazar. Gorunur, ciddi hasar.
+  #   sade FAZ S ile 04.09'da geldi; SikTasi ondan once yazilmisti ve
+  #   guncellenmemisti - yani bu tuzak bugune kadar sessizce bekliyordu.
+  #
+  # ⚠ teori_ikiz'e BILEREK DOKUNULMUYOR. Olculdu: teori_ikiz AYRI BIR SORU
+  #   (farkli senaryo, kendi dogru harfi). Ayni sik kumesini paylassa da
+  #   bagimsizdir; ana sorunun harfi tasinirken onu da tasimak IKIZI BOZAR.
+  #   (Ilk teshisimde "tasimiyor" diye kusur saymistim - yanlisti.)
   foreach($alan in 'siklar','aciklama','teshis','celdirici_yol'){ if(-not $c.PSObject.Properties[$alan] -or -not $c.$alan){ continue }; $o=$c.$alan
     $vK=$(if($o.PSObject.Properties[$kaynakH]){ $o.$kaynakH } else { $null }); $vH=$(if($o.PSObject.Properties[$hedefH]){ $o.$hedefH } else { $null })
     if($null -ne $vK){ $o | Add-Member -NotePropertyName $hedefH -NotePropertyValue $vK -Force } elseif($o.PSObject.Properties[$hedefH]){ $o.PSObject.Properties.Remove($hedefH) }
     if($null -ne $vH){ $o | Add-Member -NotePropertyName $kaynakH -NotePropertyValue $vH -Force } elseif($o.PSObject.Properties[$kaynakH]){ $o.PSObject.Properties.Remove($kaynakH) } }
+  # --- 2. SEVIYE: sade.siklar (ekranda gosterilen "neden yanlis" metni) -----
+  if($c.PSObject.Properties['sade'] -and $c.sade -and $c.sade.PSObject.Properties['siklar'] -and $c.sade.siklar){
+    $sd=$c.sade.siklar
+    $sK=$(if($sd.PSObject.Properties[$kaynakH]){ $sd.$kaynakH } else { $null })
+    $sH=$(if($sd.PSObject.Properties[$hedefH]){ $sd.$hedefH } else { $null })
+    if($null -ne $sK){ $sd | Add-Member -NotePropertyName $hedefH -NotePropertyValue $sK -Force } elseif($sd.PSObject.Properties[$hedefH]){ $sd.PSObject.Properties.Remove($hedefH) }
+    if($null -ne $sH){ $sd | Add-Member -NotePropertyName $kaynakH -NotePropertyValue $sH -Force } elseif($sd.PSObject.Properties[$kaynakH]){ $sd.PSObject.Properties.Remove($kaynakH) }
+  }
   $c.dogru=$hedefH
   # 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): dengeleme YARGILAMADAN SONRA da çalışabiliyor (hazır soru yolunda parti iki turda basılıyor).
   # kor_cozum HARFE BAĞLI üç alan taşır: 'cevap' (modelin seçtiği harf), 'dogru' (o anki doğru harf) ve 'hesap' (şık şık A) B) C)
@@ -2897,22 +2923,118 @@ function AdimHarfeBagliMi($c){
   return ($t -match '(?i)(\b[A-E]\s*[şs]ık|\b[şs]ık+[ıi]?\s*\(?[A-E]\)?\b|\([A-E]\)\s*[şs]ık)')
 }
 if(-not $SadeceHtml -and -not $SadeceAdim){
-  $cumleli=@($don.Keys | Where-Object { $c=$don[$_]; $c -and $c.soru -and $c.siklar -and -not (SayiSikli $c) })
+  # ⛔⭐ 12.09.2026 CEM KURALI: "bundan sonraki duzgun yapalim, kural koyalim,
+  #    bundan sonra kacmasin" · "ders ders bakmak lazim, sinav sinav degil"
+  #
+  #  ESKI HALI IKI SEYI KACIRIYORDU - OLCULDU:
+  #  1) SAYISAL SIKLI SORULAR KUMEYE HIC GIRMIYORDU (`-not (SayiSikli $c)`).
+  #     1.802 basili soruda olculdu: sayisal alt kumede (554 soru)
+  #     ki-kare 215,4 · E %1,3 (554 soruda 7 tane) · C %35,9.
+  #     Sebebi: siklar ARTAN siralaniyor (537/554) ve celdiriciler dogru
+  #     degerin altina/ustune serpildigi icin dogru deger DOGAL OLARAK ORTADA
+  #     kaliyor -> orta = C. Sayi sorulari dengelenmeyince ipucu dogdu:
+  #     "sayi sorusunda E'yi isaretleme" kurali %98,7 dogruydu.
+  #  2) OLCUT "PARTI ICINDE %40'I GECMESIN" idi - yani TABANA hic bakmiyordu.
+  #     Bir harf %1'e duse kapi sessizdi. Ve parti ici olcum banka genelini
+  #     hic gormedigi icin kapi 611 kutukten yalniz 12'sinde tetiklendi.
+  #
+  #  GERCEK SGS HEDEFI OLCULDU (veri/sgs-arsiv anahtar tablolari, 595 cevap):
+  #     A %21,0 B %20,2 C %19,5 D %20,2 E %19,2 · ki-kare 0,6
+  #  Yani gercek sinav harfleri BILEREK esitliyor. Hedef %20.
+  #
+  #  YENI OLCUT: hedef partinin degil DERSIN KUMULATIF ortalamasi.
+  #  veri/cevap-dagilimi.json (arac/cevap-dagilimi-olc.ps1) dersin bankadaki
+  #  mevcut sayimini verir; parti o eksigi kapatacak yonde dengelenir.
+  #  Boylece eksigi olan derste eksik harf FAZLA basilir, zaten dengeli
+  #  derste %20'de tutulur (olculdu: 11 dersin 6'si ZATEN dengeli - onlari
+  #  kor bir duzeltme BOZARDI).
+  #
+  #  ⛔ ESKI SORULAR DEGISTIRILMEZ (Cem sarti 12.09). Duzeltme yalniz yeni
+  #     sorularla. Hesap: yeni sorular tam %20 basilirsa ortalama %20'ye ASLA
+  #     varmaz (E'yi %19'a cekmek 11.823 soru ister); eksik harf FAZLA
+  #     basilirsa ~700-1.000 soru yeter.
+  #  ⛔ PARTI TAVANI %40 KALIYOR (guvenlik): kumulatif eksik buyuk olsa bile
+  #     tek parti "hepsi E" olmaz; duzeltme partilere yayilir.
+  $cumleli=@($don.Keys | Where-Object { $c=$don[$_]; $c -and $c.soru -and $c.siklar })
+  # Dersin bankadaki mevcut dagilimi (yoksa bos - o zaman yalniz parti dengelenir)
+  $bankaSay=@{}; foreach($hh in 'A','B','C','D','E'){ $bankaSay[$hh]=0 }
+  try{
+    $dagYol=Join-Path $kok 'veri\cevap-dagilimi.json'
+    if(Test-Path $dagYol){
+      $dagHam=Get-Content $dagYol -Raw -Encoding UTF8 | ConvertFrom-Json   # ONCE DEGISKENE (K2)
+      if($dagHam.PSObject.Properties['dersler'] -and $dagHam.dersler){
+        foreach($dp in $dagHam.dersler.PSObject.Properties){
+          # ders adi -DersRegex ile eslesiyor mu (harf ayrimsiz, kasitli)
+          if("$($dp.Name)" -match "$DersRegex" -or "$DersRegex" -match [regex]::Escape("$($dp.Name)")){
+            foreach($hh in 'A','B','C','D','E'){ $bankaSay[$hh]=[int]$bankaSay[$hh]+[int]$dp.Value.say.$hh }
+            break
+          }
+        }
+      }
+    }
+  }catch{ Write-Host "  ŞIK DENGESİ: banka dağılımı okunamadı, yalnız parti dengelenir ($($_.Exception.Message))" -ForegroundColor DarkGray }
+  $bankaTop=0; foreach($hh in 'A','B','C','D','E'){ $bankaTop+=[int]$bankaSay[$hh] }
+  if($bankaTop -gt 0){ Write-Host ("  ŞIK DENGESİ: ders bankası $bankaTop soru · " + (@('A','B','C','D','E') | ForEach-Object { "$_=$([int]$bankaSay[$_])" }) -join ' ') -ForegroundColor DarkGray }
   if($cumleli.Count -ge 5){
     # 10.09: tur tavanı 10'du ve her tur YALNIZ BİR soru taşır. Borçlar zor partisinde gereken taşıma tam 10 çıktı (18 -> 8),
     # yani tavan bir soru daha kaysa hedef SESSİZCE tutturulamayacaktı (döngü biter, uyarı yok). Döngü zaten hedefe varınca
     # kırılıyor, fazla tur bedelsiz: tavan parti büyüklüğüne yer bırakacak biçimde 40'a çıkarıldı.
-    for($tur=0;$tur -lt 40;$tur++){
-      $say=@{}; foreach($hh in 'A','B','C','D','E'){ $say[$hh]=0 }; foreach($oid in $cumleli){ $dg="$($don[$oid].dogru)".Trim().ToUpperInvariant(); if($say.ContainsKey($dg)){ $say[$dg]++ } }
-      $enCok=($say.GetEnumerator() | Sort-Object { -$_.Value } | Select-Object -First 1); $enAz=($say.GetEnumerator() | Sort-Object { $_.Value } | Select-Object -First 1)
-      # 10.09: eşik Ceiling idi ve %40'ın ÜSTÜNDE duruyordu (12 soruda 5 = %42, 11 soruda 5 = %45, 8 soruda 4 = %50) —
-      # oysa ön denetimin cevap dağılımı kapısı ">%40" diyor. İki kapı birbirini tutmuyordu: üretici "dengeledim" deyip
-      # çıkıyor, denetçi aynı partiye KUSUR veriyordu. Floor ile eşik %40'ın ALTINDA kalır ve iki kapı hizalanır.
-      if($enCok.Value -le [math]::Floor(0.40*$cumleli.Count)){ break }
-      $aday=$null; foreach($oid in $cumleli){ $c=$don[$oid]; if("$($c.dogru)" -ne $enCok.Key){ continue }; if(AdimHarfeBagliMi $c){ continue }
-        $hepsi=$false; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '(?i)hepsi|hiçbiri|yukarıdaki|yalnız (I|II|III)\b'){ $hepsi=$true } }; if($hepsi){ continue }; $aday=$oid; break }
+    # ⛔ 12.09 PROVADA OLCULDU - TAVAN %40'TAN %30'A INDI, TABAN EKLENDI.
+    #    Kumulatif hedefle ilk prova: sgs-t2-fmuh-cokzor (111 soru) partisinde
+    #    C 33 -> 5 (%4,5) ve E 10 -> 44 (%39,6) oldu. Birlesik ortalama duzeliyordu
+    #    ama PARTININ KENDISI dengesizlesti - o partiden cekilen bir deneme
+    #    sinavinda ogrenci E'yi dort kat fazla gorurdu. Duzeltme partilere
+    #    YAYILMALI: B kosusu 94 parti / 343 soru, uc dersin eksigi toplam 106 -
+    #    %30 tavanla rahat sigar.
+    #    TABAN da sart: kaynak harf bosaltilip yeni bir sapma uretilmemeli.
+    $partiTavan=[math]::Floor(0.30*$cumleli.Count)
+    $partiTaban=[math]::Ceiling(0.10*$cumleli.Count)
+    for($tur=0;$tur -lt 80;$tur++){
+      # parti sayimi
+      $say=@{}; foreach($hh in 'A','B','C','D','E'){ $say[$hh]=0 }
+      foreach($oid in $cumleli){ $dg="$($don[$oid].dogru)".Trim().ToUpperInvariant(); if($say.ContainsKey($dg)){ $say[$dg]++ } }
+      # BIRLESIK sayim (banka + bu parti) -> hedef bunun uzerinden hesaplanir
+      $bir=@{}; foreach($hh in 'A','B','C','D','E'){ $bir[$hh]=[int]$say[$hh]+[int]$bankaSay[$hh] }
+      $birTop=0; foreach($hh in 'A','B','C','D','E'){ $birTop+=[int]$bir[$hh] }
+      $birHedef=$birTop/5.0
+      # en FAZLA harf: birlesikte artigi en buyuk VE partide tasinacak sorusu olan
+      $fazla=$null; $fazlaArtik=0
+      foreach($hh in 'A','B','C','D','E'){
+        if([int]$say[$hh] -lt 1){ continue }
+        $artik=[int]$bir[$hh]-$birHedef
+        if($artik -gt $fazlaArtik){ $fazlaArtik=$artik; $fazla=$hh }
+      }
+      # en EKSIK harf: birlesikte eksigi en buyuk
+      $eksik=$null; $eksikMik=0
+      foreach($hh in 'A','B','C','D','E'){
+        $mik=$birHedef-[int]$bir[$hh]
+        if($mik -gt $eksikMik){ $eksikMik=$mik; $eksik=$hh }
+      }
+      # DURMA SARTLARI
+      if(-not $fazla -or -not $eksik -or $fazla -eq $eksik){ break }
+      if($fazlaArtik -lt 1 -or $eksikMik -lt 1){ break }          # birlesik zaten dengeli
+      if(([int]$say[$eksik]+1) -gt $partiTavan -and $partiTavan -ge 1){ break }  # parti guvenlik TAVANI
+      if(([int]$say[$fazla]-1) -lt $partiTaban){ break }                          # parti guvenlik TABANI
+      # tasinabilir aday
+      $aday=$null
+      foreach($oid in $cumleli){ $c=$don[$oid]
+        if("$($c.dogru)".Trim().ToUpperInvariant() -ne $fazla){ continue }
+        if(AdimHarfeBagliMi $c){ continue }
+        $hepsi=$false; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '(?i)hepsi|hiçbiri|yukarıdaki|yalnız (I|II|III)\b'){ $hepsi=$true } }
+        if($hepsi){ continue }
+        # ⛔ sema.ogeler HARFE ANAHTARLI olabilir ve SikTasi onu TASIMIYOR.
+        #    Olculdu: 1.802 soruda 1 tane. Tasimak yerine o soruya DOKUNMUYORUZ -
+        #    yanlis tasimak, hic tasimamaktan kotudur.
+        if($c.PSObject.Properties['sema'] -and $c.sema -and $c.sema.PSObject.Properties['ogeler'] -and $c.sema.ogeler){
+          $semaAd=@($c.sema.ogeler.PSObject.Properties.Name)
+          if(@($semaAd | Where-Object { $_ -cmatch '^[A-E]$' }).Count -ge 3){ continue }
+        }
+        $aday=$oid; break
+      }
       if(-not $aday){ break }
-      SikTasi $don[$aday] $enCok.Key $enAz.Key; Write-Host "  ŞIK DENGESİ: $aday doğru $($enCok.Key) -> $($enAz.Key) taşındı (parti dağılımı $(($say.GetEnumerator() | Sort-Object Key | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ' '))" -ForegroundColor DarkGray; $script:sikDengeYaz=$true
+      SikTasi $don[$aday] $fazla $eksik
+      Write-Host ("  ŞIK DENGESİ: $aday doğru $fazla -> $eksik taşındı (parti " + ((@('A','B','C','D','E') | ForEach-Object { "$_=$([int]$say[$_])" }) -join ' ') + " · birleşik hedef $([math]::Round($birHedef,1)))") -ForegroundColor DarkGray
+      $script:sikDengeYaz=$true
     }
     if($script:sikDengeYaz){ CacheYaz }
   }

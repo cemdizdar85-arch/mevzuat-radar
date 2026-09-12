@@ -165,6 +165,19 @@ function K2-JsonDiziSarma($metin,$ast,$dosya){
     #   ayiklama yapildi). Olcum: 76 bulgunun 2'si buydu -> gercek 74.
     $satirMetni=($metin -split "`r?`n")[$satir-1]
     if($satirMetni -match '^\s*#'){ continue }
+    # ⚠ 12.09 DARALTILDI: SyncRoot ACMASI VARSA TUZAK ZATEN KAPATILMIS.
+    #   Genisletilmis desen uretimde 4 bulgu verdi; UCU (kalip-parti-uret.ps1
+    #   1115, 2271, 2807) su kalibi tasiyordu:
+    #     $x=@(ConvertFrom-Json -InputObject (...))
+    #     if($x.Count -eq 1 -and $x[0].PSObject.Properties['SyncRoot']){ $x=@($x[0].SyncRoot) }
+    #   Yani yazan kisi tuzagi BILIP elle acmis. Bunu kusur saymak, dogru
+    #   cozume alarm vermektir - K3/K4/K5'te de ayni ayiklama yapildi.
+    #   Dorduncusu (2295) YAMASIZ bir foreach'ti ve GERCEK kusurdu: dongu tek
+    #   kez donuyor, liste hic dolmuyordu. Daraltma gercek bulguyu korudu.
+    $satirlarK2=($metin -split "`r?`n")
+    $pencereK2=''
+    for($j=$satir-1; $j -lt [Math]::Min($satirlarK2.Count,$satir+2); $j++){ $pencereK2+=$satirlarK2[$j]+"`n" }
+    if($pencereK2 -match 'SyncRoot'){ continue }
     # Iki desen ayni satiri iki kez yakalayabilir - tek bulgu yeter.
     if($GORULEN_SATIR.ContainsKey($satir)){ continue }
     $GORULEN_SATIR[$satir]=$true
@@ -540,9 +553,9 @@ $d = @(git diff --name-only 2>$null)'; bekle=$true
     [IO.File]::WriteAllText($gec,$G.kod,(New-Object Text.UTF8Encoding $true))
     $AG=[System.Management.Automation.Language.Parser]::ParseInput($G.kod,[ref]$null,[ref]$null)
     $BG=@(& $KG.fn $G.kod $AG $gec)
-    $VAR=($BG.Count -gt 0)
-    if($VAR -ne [bool]$G.bekle){
-      $hata.Add("GEDIK [$($G.kural)] '$($G.ad)': beklenen bulgu=$($G.bekle), cikan=$VAR · NEDEN: $($G.neden)")
+    $GEDIK_VAR=($BG.Count -gt 0)
+    if($GEDIK_VAR -ne [bool]$G.bekle){
+      $hata.Add("GEDIK [$($G.kural)] '$($G.ad)': beklenen bulgu=$($G.bekle), cikan=$GEDIK_VAR · NEDEN: $($G.neden)")
     }
   }
 

@@ -90,12 +90,25 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./arac/sgs-650-bas.ps1
 
+      # ⛔⭐ 12.09.2026 CEM KURALI: "kural koyalim bundan sonra kacmasin"
+      #   Cevap dagilimi kapisi ITMEDEN ONCE kosar - bozulmus bir dagilim
+      #   siteye CIKMAZ. Kapi CIRCIR: her dersin o anki ki-karesi taban olarak
+      #   kayitli; yalnizca bir ders TABANINDAN KOTUYE giderse duser. Yani
+      #   bugunku birikim (fmuh 63,4 · maliyet 49,0 · mta 42,2) kapiyi bloke
+      #   etmez, ama yeni bozulma iceri giremez. Ders duzeldikce taban
+      #   kendiliginden asagi cekilir, geri yukselmez.
+      #   Olcum: basili sayfalardan ders ders harf sayimi. Hedef %20 -
+      #   gercek SGS anahtari olculdu (595 cevap, ki-kare 0,6).
+      - name: Cevap dagilimi kapisi (ders ders, circir)
+        shell: powershell
+        run: ./arac/cevap-dagilimi-olc.ps1 -Yaz -Kapi
+
       - name: Degisen varsa ite
         shell: powershell
         run: |
           git config user.name  "tetikte-robot"
           git config user.email "bildirim@tetikte.com"
-          git add kaydir/sgs veri/sinav/kaydir-secim
+          git add kaydir/sgs veri/sinav/kaydir-secim veri/cevap-dagilimi.json
           $degisen = @(git diff --cached --name-only)
           if(-not $degisen.Count){ "degisiklik yok - commit ATILMADI"; exit 0 }
           "degisen dosya: $($degisen.Count)"
