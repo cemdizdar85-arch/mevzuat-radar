@@ -3,15 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kurumsal duruş — üç tasarım yönü (karar sayfası)</title>
+<title>Kurumsal duruş — dört tasarım yönü (karar sayfası)</title>
 <meta name="robots" content="noindex,nofollow">
 <!-- =====================================================================
      KARAR SAYFASI · 12.09.2026
-     Cem: "kurumsal duran bir site öner artık bana."
-     Üç yön ikiz olarak kuruldu; index.html'e DOKUNULMADI (ANA SAYFA
-     KARAR A kilidi duruyor). Seçilen yön index'e taşınır, ötekiler silinir.
-     Sayfalar CANLI veriyle çalışır: ../veri/uyari-ozet.json +
-     ../veri/sinav-tek-sayfa.json. Rakam uydurulmadı.
+     Tur 1 — Cem: "kurumsal duran bir site öner artık bana."
+       Üç yön ikiz olarak kuruldu (Sicil / Terminal / Sessiz).
+     Tur 2 — Cem: "ben bu çok iyi süper diyemiyorum, senin önerdiğin var mı"
+       HAKLIYDI. Üçü de AYNI ekranın renk düzenlemesiydi. Dördüncü yön
+       (KANIT) ekranın kendisini değiştirir: ilk ekran ürünü anlatmaz,
+       ÜRÜNÜN KENDİSİ olur. GM önerisi budur.
+     index.html'e DOKUNULMADI (ANA SAYFA KARAR A kilidi duruyor).
+     Sayfalar CANLI veriyle çalışır: ../veri/vitrin-kart-ozet.json +
+     ../veri/uyari-ozet.json + ../veri/sinav-tek-sayfa.json.
+     Rakam uydurulmadı.
      ===================================================================== -->
 <style>
   :root{
@@ -44,6 +49,31 @@
   .kart a.ac:hover{background:var(--accent)}
   .no{display:inline-block;font-size:12px;font-weight:700;color:var(--sonuk);
       border:1px solid var(--cizgi);border-radius:5px;padding:2px 8px}
+  /* ---- GM önerisi bloğu: kartlardan ayrı dursun, aynı sırada görünmesin ---- */
+  .oneri{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;background:var(--yuzey);
+         border:1px solid var(--cizgi);border-top:3px solid var(--accent);
+         border-radius:10px;padding:30px;margin-top:34px}
+  .oneri h2{font-size:27px;color:var(--ink);margin:12px 0 4px;font-weight:700;
+            letter-spacing:-.028em}
+  .oneri .eksen{font-size:13px;color:var(--sonuk);margin:0 0 16px}
+  .oneri p{font-size:14.5px;margin:0 0 13px}
+  .oneri p b{color:var(--ink);font-weight:650}
+  .no.vurgu{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+  a.ac.genis{margin-top:8px;display:inline-block;text-align:left;background:var(--ink);
+             color:#fff;text-decoration:none;font-size:14.5px;font-weight:650;
+             padding:12px 20px;border-radius:7px}
+  a.ac.genis:hover{background:var(--accent)}
+  .mini{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:10px}
+  .mini td{padding:8px 10px;border-bottom:1px solid var(--cizgi);vertical-align:top}
+  .mini tr:first-child td{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+                          color:var(--sonuk);font-weight:700}
+  .mini td:last-child{color:var(--ink)}
+  .mini tr:last-child td{border-bottom:0}
+  .mini-not{font-size:12.5px;color:var(--sonuk);margin-top:14px;line-height:1.6}
+  .ayrac{display:flex;align-items:center;gap:16px;margin:38px 0 0;color:var(--sonuk);
+         font-size:12.5px}
+  .ayrac:before,.ayrac:after{content:"";height:1px;background:var(--cizgi);flex:1}
+
   .uyari{background:var(--yuzey);border:1px solid var(--cizgi);
          border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px;
          font-size:13.5px;margin-top:14px}
@@ -59,20 +89,59 @@
   ol.adim{font-size:14.5px;line-height:1.8;padding-left:20px}
   ol.adim b{color:var(--ink)}
   footer{padding:30px 0 60px;font-size:13px;color:var(--sonuk)}
-  @media(max-width:860px){.kartlar{grid-template-columns:1fr}h1{font-size:26px}}
+  @media(max-width:860px){.kartlar{grid-template-columns:1fr}h1{font-size:26px}
+    .oneri{grid-template-columns:1fr;gap:24px;padding:22px}}
 </style>
 </head>
 <body>
 
 <header><div class="sarmal">
   <div class="et">Karar sayfası · 12.09.2026</div>
-  <h1>Kurumsal duruş: üç yön, aynı içerik, aynı canlı veri</h1>
-  <p class="spot">Üçü de <b>ikiz</b>dir — <code>index.html</code>'e dokunulmadı, ANA SAYFA KARAR A
-    kilidi duruyor. Üçü de nöbet kutusunu ve kanıt şeridini gerçek robot verisinden
-    okur; hiçbir rakam elle yazılmadı. Beğendiğin yön index'e taşınır, diğer ikisi silinir.</p>
+  <h1>Dört yön: üçü palet, biri kurgu</h1>
+  <p class="spot">Hepsi <b>ikiz</b>dir — <code>index.html</code>'e dokunulmadı, ANA SAYFA KARAR A
+    kilidi duruyor. Hepsi nöbet kutusunu ve kanıt şeridini gerçek robot verisinden
+    okur; hiçbir rakam elle yazılmadı. Seçilen yön index'e taşınır, ötekiler silinir.</p>
 </div></header>
 
 <div class="sarmal">
+
+  <!-- ======= GM ÖNERİSİ: kurgu değişikliği, palet değişikliği değil ======= -->
+  <div class="oneri">
+    <div class="oneri-sol">
+      <span class="no vurgu">YÖN 4 · GM ÖNERİSİ</span>
+      <h2>Kanıt</h2>
+      <p class="eksen">Eksen yok — bu bir kopya değil, kurgu değişikliği</p>
+      <p><b>Ana ekran ürünü anlatmasın, ürünün kendisi olsun.</b> Bugünkü ilk ekranda dört
+        iddia var: 30.569 soru, 250 ilan, 70 gün, "her şıkkın gerekçesi var". Ziyaretçi
+        bunların hiçbirini doğrulayamıyor, yalnız okuyor.</p>
+      <p>Oysa Türkiye'de başkasında olmayan tek şey elimizde: <b>yanlış şıkkı seçince
+        tuzağın adını ve dayandığı maddeyi açan ekran</b>. Stripe ilk ekranda ödeme
+        formunu, Bloomberg veriyi, Wolters Kluwer belgeyi gösterir. Biz o ekranı
+        anlatıyoruz — gösterebilecekken.</p>
+      <p>Kurumsal duruş buradan gelir: <b>iddia eden site amatör durur, kanıt gösteren
+        site kurumsal durur.</b> Bu aynı zamanda 29.08'de kilitlenen kararın ana sayfaya
+        uygulanmış hâli — bugünkü index'te soru kartı hero'nun <i>altında</i>, üstte
+        iddialar var. Sıra ters.</p>
+      <a class="ac genis" href="kurumsal-4-kanit.html">Kanıt'ı aç — soruyu çöz, ne olduğunu gör →</a>
+    </div>
+    <div class="oneri-sag">
+      <div class="et">İlk ekranda ne değişiyor</div>
+      <table class="mini">
+        <tr><td>Bugün</td><td><b>Yarın</b></td></tr>
+        <tr><td>Dev slogan başlık</td><td><b>Gerçek soru</b></td></tr>
+        <tr><td>Dört iddia rakamı</td><td><b>Tıklanabilir beş şık</b></td></tr>
+        <tr><td>"Her gerekçe kaynağına bağlı" cümlesi</td><td><b>Ekranda açılan madde</b></td></tr>
+        <tr><td>Nöbet kutusu yıldız</td><td><b>Nöbet dipnot, soru yıldız</b></td></tr>
+        <tr><td>Ziyaretçi okur</td><td><b>Ziyaretçi dener</b></td></tr>
+      </table>
+      <p class="mini-not">Soru <code>veri/vitrin-kart-ozet.json</code>'dan gelir, robot her
+        sabah 07:13'te tazeler. Bugünkü: Ticaret Hukuku — genel işlem koşulları,
+        SGS 2026/1 Soru 125 kalıbı, dört tuzak adlandırılmış.</p>
+    </div>
+  </div>
+
+  <div class="ayrac"><span>Aşağıdaki üçü aynı ekranın üç ayrı paleti — karşılaştırma için duruyor</span></div>
+
   <div class="kartlar">
 
     <div class="kart">
@@ -128,9 +197,9 @@
     ama karar verilirken bilinmeli.</div>
 
   <section class="blok">
-    <h3>Üç yönün de ortadan kaldırdığı altı kusur</h3>
+    <h3>Dört yönün de ortadan kaldırdığı altı kusur</h3>
     <table>
-      <tr><th style="width:38%">Bugünkü ana sayfada</th><th>Üç ikizde de</th></tr>
+      <tr><th style="width:38%">Bugünkü ana sayfada</th><th>Dört ikizde de</th></tr>
       <tr><td><b>İki eşit ağırlıkta çağrı</b> — "Giriş / Üye Ol" ve "Ücretsiz Başla" yan yana</td>
           <td>Tek birincil düğme. Giriş düz metin bağlantısına indi.</td></tr>
       <tr><td><b>Turuncu sayfanın ~%20'si</b> — logo, düğme, her rakam</td>
@@ -159,13 +228,33 @@
       <li><b>Üst menü ve alt bilgi.</b> Bu tur yalnız ana sayfa kabuğuydu; <code>menu.js</code>
           aynı dile çekilir, yoksa iç sayfalar eski görüntüde kalır.</li>
       <li><b>Soru şeridi ve araç kutuları.</b> Bugünkü index'te ana ekranın altında duran
-          günün sorusu + ürün kutuları yeni dile taşınır.</li>
+          günün sorusu + ürün kutuları yeni dile taşınır. <i>Kanıt seçilirse bu madde
+          tersine döner: soru yukarı çıkar, kutular aşağı iner.</i></li>
+    </ol>
+  </section>
+
+  <section class="blok">
+    <h3>Kanıt seçilirse ek olarak bunlar gerekir</h3>
+    <ol class="adim">
+      <li><b>Vitrin verisi ana sayfanın can damarı olur.</b> Bugün <code>vitrin-kart-ozet.json</code>
+          düşse ana sayfa yalnız bir kartı kaybediyor; Kanıt'ta ilk ekran boşalır. Yedek
+          kuruldu (HTML'de bugünün gerçek sorusu duruyor) ama <b>vitrin robotuna nöbetçi</b>
+          gerekir: dosya bayatlarsa uyarı gitsin.</li>
+      <li><b>Tuzak metinleri tam olmalı.</b> Ölçüldü: bugünkü sorunun "Özdeşlik Tuzağı"
+          metni veride <b>kesik</b> bitiyor ("…bu kural farklı bir olguy…"). Kart hero'nun
+          altındayken göze batmıyordu; ilk ekrana çıkınca <b>ilk okunan cümle</b> olur.
+          Bilinen kusur: kesik ambar metni.</li>
+      <li><b>Her sınav için soru gerekir.</b> Bugün <code>vitrin-kart-ozet.json</code>'da
+          yalnız <b>SGS</b> var. Kanıt SGS ile açılır; Yeterlilik ve KGK girdikçe ilk ekran
+          sınav sekmesi kazanır.</li>
+      <li><b>Ölçüm: ilk ekranda kaç kişi şıkka tıklıyor?</b> Kurgunun tek sınavı bu. Tıklama
+          oranı düşükse tez yanlıştır ve palet yönlerinden birine dönülür.</li>
     </ol>
   </section>
 </div>
 
 <footer><div class="sarmal">
-  Bu sayfa ve üç ikiz <code>noindex</code>'tir; sitemap'e ve menüye eklenmedi.
+  Bu sayfa ve dört ikiz <code>noindex</code>'tir; sitemap'e ve menüye eklenmedi.
   Karar verilince seçilen yön index'e taşınır, bu klasör silinir.
 </div></footer>
 

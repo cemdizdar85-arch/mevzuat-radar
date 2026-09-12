@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tetikte — KANIT yönü (ilk ekran ürünün kendisi)</title>
+<meta name="robots" content="noindex,nofollow">
+<!-- =====================================================================
+     KANIT — tasarım yönü 4/4 · 12.09.2026
+     Cem: "ben bu çok iyi süper diyemiyorum, senin önerdiğin var mı"
+     HAKLIYDI. 1-2-3 aynı ekranın renk düzenlemesiydi; palet değişti,
+     EKRANDA DURAN ŞEY değişmedi.
+
+     TEZ: Ana ekran ürünü ANLATMASIN, ürünün KENDİSİ olsun.
+       · Bugünkü ilk ekran dört İDDİA taşıyor (30.569 soru, 250 ilan,
+         70 gün, "her şıkkın gerekçesi var"). Ziyaretçi hiçbirini
+         doğrulayamıyor, yalnız okuyor.
+       · Elimizde Türkiye'de başkasında olmayan tek şey var: yanlış şıkkı
+         seçince TUZAĞIN ADINI ve dayandığı MADDEYİ açan ekran.
+       · Stripe ilk ekranda ödeme formunu, Bloomberg veriyi, Wolters Kluwer
+         belgeyi gösterir. Biz o ekranı ANLATIYORUZ - gösterebilecekken.
+       · Kurumsal duruş buradan gelir: iddia eden site amatör durur,
+         KANIT gösteren site kurumsal durur.
+
+     Bu, 29.08'de KİLİTLENEN kararın ana sayfaya uygulanmış hâlidir
+     ("tüm Tetikte pazarlaması açıklama ekranı üstüne"). Bugünkü index'te
+     soru kartı hero'nun ALTINDA duruyor, üstte iddialar var. Sıra ters.
+
+     VERİ GERÇEK: ../veri/vitrin-kart-ozet.json (robot 07:13 TR).
+     Okunamazsa HTML'deki bugünün gerçek sorusu kalır - index kuralı.
+     index.html'e DOKUNULMADI.
+     ===================================================================== -->
+<style>
+  :root{
+    --kagit:#faf9f6;
+    --yuzey:#ffffff;
+    --murekkep:#141a22;
+    --govde:#39424f;
+    --sonuk:#727b89;
+    --cizgi:#e5e3dd;
+    --cizgi-koyu:#cdcabf;
+    --dogru:#1d6b4c;
+    --dogru-zemin:#eff6f2;
+    --yanlis:#96202e;
+    --yanlis-zemin:#faf0f0;
+    --lacivert:#17243a;
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--kagit);color:var(--govde);
+       font-family:var(--sans);font-size:15px;line-height:1.65;
+       -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .sarmal{max-width:1060px;margin:0 auto;padding:0 28px}
+  .dar{max-width:780px;margin:0 auto}
+  .et{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--sonuk);font-weight:700}
+
+  /* ---- ÜST BAR: mümkün olduğunca sessiz, soruyu ezmesin ---- */
+  .ust{background:var(--yuzey);border-bottom:1px solid var(--cizgi)}
+  .ust-ic{display:flex;align-items:center;gap:30px;height:60px}
+  .marka{font-family:var(--serif);font-size:21px;font-weight:600;
+         letter-spacing:-.01em;color:var(--murekkep);text-decoration:none;
+         display:flex;align-items:center;gap:9px}
+  .marka i{width:7px;height:7px;border-radius:50%;background:var(--lacivert)}
+  .ust nav{display:flex;gap:24px;margin-left:auto;font-size:14px}
+  .ust nav a{text-decoration:none;color:var(--govde)}
+  .ust nav a:hover{color:var(--murekkep)}
+  .giris{font-size:14px;color:var(--sonuk);text-decoration:none}
+  .dugme{background:var(--lacivert);color:#fff;text-decoration:none;font-size:14px;
+         font-weight:600;padding:9px 16px;border-radius:4px}
+  .dugme:hover{background:var(--murekkep)}
+
+  /* ---- BAŞLIK: küçük. Yıldız başlık değil, SORU. ---- */
+  .giris-blok{padding:52px 0 26px;text-align:center}
+  .giris-blok h1{font-family:var(--serif);font-size:30px;line-height:1.25;
+                 letter-spacing:-.012em;color:var(--murekkep);font-weight:600;
+                 margin:14px 0 10px}
+  .giris-blok p{font-size:15px;color:var(--sonuk);margin:0;max-width:34em;
+                margin-left:auto;margin-right:auto}
+
+  /* ---- SORU KABİNİ: sayfanın yıldızı ---- */
+  .kabin{background:var(--yuzey);border:1px solid var(--cizgi-koyu);
+         border-radius:4px}
+  .kabin-ust{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;
+             justify-content:space-between;padding:13px 26px;
+             border-bottom:1px solid var(--cizgi);background:var(--kagit)}
+  .kabin-ust b{font-size:12.5px;color:var(--murekkep);font-weight:700;
+               letter-spacing:.03em}
+  .kabin-ust span{font-size:12.5px;color:var(--sonuk)}
+  .soru{font-family:var(--serif);font-size:19.5px;line-height:1.55;
+        color:var(--murekkep);margin:0;padding:28px 26px 6px}
+  .siklar{list-style:none;margin:0;padding:10px 16px 16px}
+  .siklar li{margin:0 0 4px}
+  .sik{display:flex;gap:14px;width:100%;text-align:left;background:transparent;
+       border:1px solid transparent;border-radius:4px;padding:12px 12px;
+       font:inherit;font-size:15px;color:var(--govde);cursor:pointer;
+       line-height:1.55;align-items:flex-start}
+  .sik:hover{background:var(--kagit);border-color:var(--cizgi)}
+  .sik i{flex:none;font-style:normal;font-weight:700;font-size:13px;
+         width:24px;height:24px;line-height:24px;text-align:center;
+         border:1px solid var(--cizgi-koyu);border-radius:50%;color:var(--sonuk);
+         margin-top:1px}
+  .sik u{margin-left:auto;flex:none;text-decoration:none;font-size:12.5px;
+         color:var(--sonuk);font-variant-numeric:tabular-nums;opacity:0;
+         white-space:nowrap;padding-left:10px}
+  .sik.acildi u{opacity:1}
+  .sik.yanlis{background:var(--yanlis-zemin);border-color:var(--yanlis)}
+  .sik.yanlis i{background:var(--yanlis);border-color:var(--yanlis);color:#fff}
+  .sik.dogru{background:var(--dogru-zemin);border-color:var(--dogru)}
+  .sik.dogru i{background:var(--dogru);border-color:var(--dogru);color:#fff}
+  .sik[disabled]{cursor:default}
+
+  /* ---- AÇILAN PANEL: tuzağın adı + doğrusu ---- */
+  .panel{margin:2px 0 10px 12px;padding:14px 18px;border-left:3px solid var(--yanlis);
+         background:var(--yanlis-zemin);border-radius:0 4px 4px 0}
+  .panel.d{border-left-color:var(--dogru);background:var(--dogru-zemin)}
+  .panel b{display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+           color:var(--yanlis);font-weight:800;margin-bottom:6px}
+  .panel.d b{color:var(--dogru)}
+  .panel p{margin:0;font-size:14.5px;line-height:1.65;color:var(--govde)}
+  .panel p em{font-style:normal;font-weight:700;color:var(--murekkep)}
+
+  /* ---- ÇÖZÜM TABLOSU: doğru bulunca açılır ---- */
+  .cozum{margin:0 26px 24px;border:1px solid var(--cizgi);border-radius:4px;
+         overflow:hidden}
+  .cozum-ust{padding:10px 16px;background:var(--kagit);
+             border-bottom:1px solid var(--cizgi)}
+  .cozum table{border-collapse:collapse;width:100%;font-size:13.5px}
+  .cozum td{padding:9px 16px;border-bottom:1px solid var(--cizgi);
+            color:var(--govde);vertical-align:top}
+  .cozum tr:last-child td{border-bottom:0}
+  .cozum td:last-child{text-align:right;white-space:nowrap;color:var(--murekkep);
+                       font-weight:600;font-variant-numeric:tabular-nums}
+
+  .kabin-dip{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;
+             justify-content:space-between;padding:14px 26px;
+             border-top:1px solid var(--cizgi);background:var(--kagit)}
+  .kabin-dip small{font-size:12.5px;color:var(--sonuk)}
+  .yeniden{font-size:13px;color:var(--sonuk);background:none;border:0;
+           font:inherit;font-size:13px;cursor:pointer;text-decoration:underline;
+           padding:0}
+
+  /* ---- KANIT SONRASI ÇAĞRI ---- */
+  .cagri{text-align:center;padding:40px 0 8px}
+  .cagri p{font-size:16px;color:var(--govde);margin:0 0 20px}
+  .cagri p b{color:var(--murekkep);font-weight:700}
+  .dugme-b{display:inline-block;background:var(--lacivert);color:#fff;
+           text-decoration:none;font-size:15.5px;font-weight:600;
+           padding:14px 28px;border-radius:4px}
+  .dugme-b:hover{background:var(--murekkep)}
+  .cagri small{display:block;font-size:13px;color:var(--sonuk);margin-top:12px}
+
+  /* ---- NÖBET ŞERİDİ: iddia değil, dipnot. Yıldız soru. ---- */
+  .nobet{margin-top:56px;border-top:1px solid var(--cizgi);
+         border-bottom:1px solid var(--cizgi);background:var(--yuzey)}
+  .nobet-ic{padding:26px 0}
+  .nobet-ust{display:flex;align-items:baseline;justify-content:space-between;
+             gap:16px;margin-bottom:14px}
+  .nobet-ust span{font-size:12.5px;color:var(--sonuk);font-variant-numeric:tabular-nums}
+  .nobet-sat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+             background:var(--cizgi);border:1px solid var(--cizgi)}
+  .ns{background:var(--yuzey);padding:15px 18px;text-decoration:none;display:block}
+  .ns:hover{background:var(--kagit)}
+  .ns b{display:block;font-family:var(--serif);font-size:22px;color:var(--murekkep);
+        font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+  .ns b em{font-style:normal;font-family:var(--sans);font-size:12.5px;
+           color:var(--sonuk);font-weight:400;margin-left:5px}
+  .ns span{display:block;font-size:13px;color:var(--govde);margin-top:6px;line-height:1.45}
+  .nobet-dip{font-size:12.5px;color:var(--sonuk);margin-top:12px}
+  .bayat{color:var(--yanlis)}
+
+  /* ---- KÜNYE + KAPILAR ---- */
+  .kunye{padding:36px 0 34px;text-align:center;border-bottom:1px solid var(--cizgi)}
+  .kunye-l{font-size:14px;color:var(--govde);line-height:1.95;max-width:58em;
+           margin:10px auto 0}
+  .kapilar{padding:44px 0 72px}
+  .kapi-ic{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:22px}
+  .kapi{border-top:2px solid var(--murekkep);padding-top:18px;text-decoration:none;display:block}
+  .kapi:nth-child(2){border-top-color:var(--cizgi-koyu)}
+  .kapi h3{font-family:var(--serif);font-size:21px;color:var(--murekkep);
+           margin:0 0 8px;font-weight:600}
+  .kapi p{font-size:14.5px;margin:0 0 12px}
+  .kapi u{text-decoration:none;font-size:14px;color:var(--lacivert);font-weight:700}
+  .kapi:hover u{text-decoration:underline}
+  .dip{border-top:1px solid var(--cizgi);background:var(--yuzey);padding:26px 0;
+       font-size:12.5px;color:var(--sonuk)}
+  .dip-ic{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+  .not{position:fixed;left:16px;bottom:16px;background:var(--lacivert);color:#fff;
+       font-size:12px;padding:8px 14px;border-radius:4px;z-index:9;
+       text-decoration:none;font-weight:600}
+
+  @media(max-width:820px){
+    .sarmal{padding:0 18px}
+    .giris-blok{padding:34px 0 20px}
+    .giris-blok h1{font-size:24px}
+    .soru{font-size:17.5px;padding:22px 18px 4px}
+    .siklar{padding:8px 10px 12px}
+    .kabin-ust,.kabin-dip{padding:12px 18px}
+    .cozum{margin:0 18px 20px}
+    .nobet-sat{grid-template-columns:1fr 1fr}
+    .kapi-ic{grid-template-columns:1fr;gap:26px}
+    .ust nav{display:none}
+    .sik u{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="ust"><div class="sarmal ust-ic">
+  <a class="marka" href="#"><i></i>Tetikte</a>
+  <nav><a href="#">Sınavlar</a><a href="#">Radarlar</a><a href="#">Araçlar</a><a href="#">Abonelik</a></nav>
+  <a class="giris" href="#">Giriş</a>
+  <a class="dugme" href="#">Ücretsiz başla</a>
+</div></header>
+
+<div class="sarmal">
+  <div class="giris-blok dar">
+    <div class="et" id="ust1">SMMM Staja Giriş · Ticaret Hukuku · Genel işlem koşulları</div>
+    <h1>Bir şık seç. Yanlışsa tuzağın adını göreceksin.</h1>
+    <p>Bugünün gerçek sorusu. Üyelik yok, kayıt yok — tıkla, ne olduğunu gör.</p>
+  </div>
+
+  <!-- ================= SORU KABİNİ = SAYFANIN İLK EKRANI ================= -->
+  <div class="kabin dar" id="kabin">
+    <div class="kabin-ust">
+      <b id="kbDers">Ticaret Hukuku · genel işlem koşulları</b>
+      <span id="kbKunye">SGS 2026/1 Soru 125 kalıbı · 9 dönemde çıktı</span>
+    </div>
+
+    <p class="soru" id="kbSoru">Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı
+      tartışılarak kabul edildiğine dair kayıt düşmüştür. Hüküm, sözleşmenin niteliğine ve işin
+      özelliğine yabancıdır. Türk Borçlar Kanunu'na göre aşağıdakilerden hangisi doğrudur?</p>
+
+    <ul class="siklar" id="kbSiklar">
+      <!-- Betik doldurur; okunamazsa aşağıdaki bugünün GERÇEK sorusu kalır. -->
+      <li><button class="sik" type="button" data-k="A"><i>A</i><span>Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmadığından, işin özelliğine yabancı olan bu hüküm yazılmamış sayılır.</span><u>m.20 f.2-3</u></button></li>
+      <li><button class="sik" type="button" data-k="B"><i>B</i><span>Kabul kaydı bulunduğundan, hükmün işin özelliğine yabancı olması sonucu değiştirmez ve hüküm geçerli kabul edilir.</span><u>m.20 f.3</u></button></li>
+      <li><button class="sik" type="button" data-k="C"><i>C</i><span>İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığından, bu hüküm zaten genel işlem koşulu sayılmaz ve yazılmamışlık hükmü uygulanmaz.</span><u>m.20 f.2</u></button></li>
+      <li><button class="sik" type="button" data-k="D"><i>D</i><span>Hükmün sözleşme metninde değil ekinde yer alması hâlinde, kabul kaydıyla birlikte nitelendirme değişir ve hüküm yazılmamış sayılmaz.</span><u>m.20 f.1</u></button></li>
+      <li><button class="sik" type="button" data-k="E"><i>E</i><span>Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğundan, bu kayıt varken yazılmamışlık hükmü hiçbir şekilde uygulanamaz.</span><u>m.20 f.2-3</u></button></li>
+    </ul>
+
+    <div id="kbCozum"></div>
+
+    <div class="kabin-dip">
+      <small id="kbDip">Her şıkkın karşısındaki madde, şık açılınca görünür.</small>
+      <button class="yeniden" type="button" id="kbSifirla" hidden>Baştan dene</button>
+    </div>
+  </div>
+
+  <div class="cagri dar">
+    <p id="cagriMetin">Havuzda <b id="cgKasa">30.569</b> soru var. Her birinde aynı ekran:
+      şıkkın gerekçesi, gerekçenin dayandığı madde.</p>
+    <a class="dugme-b" id="cgDugme" href="#">Soru çözmeye başla</a>
+    <small>SMMM Staja Giriş · Yeterlilik · KGK Bağımsız Denetçi · SPK Lisanslama</small>
+  </div>
+</div>
+
+<!-- ================= NÖBET: iddia değil dipnot ================= -->
+<section class="nobet"><div class="sarmal nobet-ic">
+  <div class="nobet-ust">
+    <div class="et">Aynı sistem iş tarafında da nöbet tutuyor</div>
+    <span><span id="ndNeZaman">Son koşu</span> · <span id="ndTarih">12.09.2026</span></span>
+  </div>
+  <div class="nobet-sat">
+    <a class="ns" href="#"><b id="ndRg">1<em>değişiklik</em></b><span>Resmî Gazete okundu, seni bağlayan kısım ayrıldı</span></a>
+    <a class="ns" href="#"><b id="ndIhale">250<em>ilan</em></b><span>İhale ilanı süzüldü, sektörüne uymayan elendi</span></a>
+    <a class="ns" href="#"><b id="ndSgs">70<em>gün</em></b><span>Staja Giriş sınavına · başvuru 21 Eylül'de açılıyor</span></a>
+    <a class="ns" href="#"><b id="ndYet">77<em>gün</em></b><span>Yeterlilik sınavına · canlı deneme 27.09</span></a>
+  </div>
+  <div class="nobet-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+</div></section>
+
+<section class="kunye"><div class="sarmal">
+  <div class="et">Okunan kaynaklar</div>
+  <div class="kunye-l">Resmî Gazete · TÜRMOB sınav takvimi · KGK denetim standartları ·
+    SPK mevzuatı · EKAP ihale ilanları · TÜRKPATENT marka bülteni · Gümrük Tarife Cetveli</div>
+</div></section>
+
+<section class="kapilar"><div class="sarmal">
+  <div class="et">Nereden girersin</div>
+  <div class="kapi-ic">
+    <a class="kapi" href="#">
+      <h3>Sınava hazırlanıyorum</h3>
+      <p>SMMM Staja Giriş, Yeterlilik, KGK bağımsız denetçilik ve SPK lisanslama.
+         Yukarıdaki ekranın <b id="kpKasa">30.569</b> katı.</p>
+      <u>Soru havuzuna gir →</u>
+    </a>
+    <a class="kapi" href="#">
+      <h3>İş başındayım</h3>
+      <p>Büro, şirket ve mükellef nöbeti: süre bekçisi, ceza asistanı, marka izleme,
+         alacak radarı, ihale radarı ve mevzuat kartları.</p>
+      <u>Nöbet defterini aç →</u>
+    </a>
+  </div>
+</div></section>
+
+<footer class="dip"><div class="sarmal dip-ic">
+  <span>© 2026 Tetikte · Mevzuat ve sınav nöbeti</span>
+  <span>Kaynak künyesi her kartta gösterilir.</span>
+</div></footer>
+
+<a class="not" href="kurumsal.html">← dört yönü karşılaştır</a>
+
+<script>
+(function(){
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+
+  /* ---------- SORU KABİNİ ---------- */
+  var V=null;                                   /* canlı soru; null ise HTML'deki kalır */
+  var siklarEl=document.getElementById('kbSiklar');
+  var cozumEl=document.getElementById('kbCozum');
+  var dipEl=document.getElementById('kbDip');
+  var sifirlaEl=document.getElementById('kbSifirla');
+  var bulundu=false;
+
+  /* Şıkkın karşısındaki madde: satirlar[] "A) ..." ile başlar. */
+  function madde(k){
+    if(!V||!V.satirlar) return null;
+    for(var i=0;i<V.satirlar.length;i++){
+      if(String(V.satirlar[i][0]||'').indexOf(k+')')===0) return V.satirlar[i][1];
+    }
+    return null;
+  }
+
+  function panelYaz(btn,dogruMu){
+    var k=btn.getAttribute('data-k');
+    if(btn.parentNode.querySelector('.panel')) return;     /* iki kez açılmaz */
+    var p=document.createElement('div');
+    p.className='panel'+(dogruMu?' d':'');
+    var baslik,metin;
+    if(dogruMu){
+      baslik='Doğru';
+      metin=(V&&V.hap)||'Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmaz; işin özelliğine yabancı hüküm yine de yazılmamış sayılır.';
+    }else{
+      var t=(V&&V.tuzak&&V.tuzak[k])||YEDEK_TUZAK[k];
+      baslik='Tuzak · '+((t&&t.ad)||'Tuzak');
+      metin=(t&&t.metin)||'';
+    }
+    /* "Doğrusu:" kalıbı metnin içinde geçiyor - kalın gösterilir ki göz yakalasın. */
+    var govde=esc(metin).replace(/Doğrusu:/,'<em>Doğrusu:</em>');
+    p.innerHTML='<b>'+esc(baslik)+'</b><p>'+govde+'</p>';
+    btn.parentNode.appendChild(p);
+  }
+
+  function cozumAc(){
+    if(!cozumEl||cozumEl.innerHTML) return;
+    var satirlar=(V&&V.satirlar)||YEDEK_SATIR;
+    if(!satirlar||!satirlar.length) return;
+    var tr=satirlar.map(function(r){
+      return '<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>';}).join('');
+    cozumEl.innerHTML='<div class="cozum"><div class="cozum-ust et">Her şık, dayandığı madde</div>'
+      +'<table>'+tr+'</table></div>';
+  }
+
+  function tikla(e){
+    var btn=e.target.closest?e.target.closest('.sik'):null;
+    if(!btn||btn.disabled)return;
+    var k=btn.getAttribute('data-k');
+    var dogru=(V&&V.dogru)||'A';
+    btn.classList.add('acildi');
+    if(k===dogru){
+      btn.classList.add('dogru'); panelYaz(btn,true);
+      bulundu=true; cozumAc();
+      /* Doğru bulununca bütün şıkların maddesi açılır - kanıt tamamlanır. */
+      [].forEach.call(siklarEl.querySelectorAll('.sik'),function(b){
+        b.classList.add('acildi'); b.disabled=true; });
+      if(dipEl)dipEl.textContent='Çözüm açıldı. Havuzda her soru bu düzende.';
+    }else{
+      btn.classList.add('yanlis'); btn.disabled=true; panelYaz(btn,false);
+      if(dipEl)dipEl.textContent='Tuzağın adı yazıldı. Doğru şıkkı bulunca tam çözüm açılır.';
+    }
+    if(sifirlaEl)sifirlaEl.hidden=false;
+  }
+  siklarEl.addEventListener('click',tikla);
+
+  if(sifirlaEl)sifirlaEl.addEventListener('click',function(){
+    [].forEach.call(siklarEl.querySelectorAll('.panel'),function(p){p.parentNode.removeChild(p);});
+    [].forEach.call(siklarEl.querySelectorAll('.sik'),function(b){
+      b.className='sik'; b.disabled=false;});
+    cozumEl.innerHTML=''; bulundu=false; sifirlaEl.hidden=true;
+    if(dipEl)dipEl.textContent='Her şıkkın karşısındaki madde, şık açılınca görünür.';
+  });
+
+  /* HTML'de duran bugünün gerçek sorusunun tuzakları - JSON okunamazsa kullanılır. */
+  var YEDEK_TUZAK={
+    B:{ad:'Yeterlilik Tuzağı',metin:"Öğrenci kabul kaydının tek başına yeterli olduğunu düşünüp hükmü geçerli sayar. Doğrusu: Kanun kaydın 'tek başına' yeterli olmadığını açıkça belirtir, yazılmamışlık hükmü ayrıca uygulanır."},
+    C:{ad:'Özdeşlik Tuzağı',metin:'Öğrenci metinlerin özdeş olmaması kuralını ters yönde kullanıp hükmün zaten genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması genel işlem koşulu sayılmayı engellemez.'},
+    D:{ad:'Şekil Tuzağı',metin:'Öğrenci hükmün metinde mi ekte mi yer aldığının nitelendirmeyi etkilediğini sanır. Doğrusu: Yer, kapsam, yazı türü ve şekli nitelendirmede önem taşımaz.'},
+    E:{ad:'Mutlaklaştırma Tuzağı',metin:"Öğrenci 'tek başına yeterli değildir' ifadesini 'hiçbir şekilde uygulanamaz' şeklinde ters çevirir. Doğrusu: Kanun yalnız kaydın tek başına yetersizliğini söyler."}
+  };
+  var YEDEK_SATIR=[];
+  [].forEach.call(siklarEl.querySelectorAll('.sik'),function(b){
+    var m=b.querySelector('u'), s=b.querySelector('span');
+    if(m&&s)YEDEK_SATIR.push([b.getAttribute('data-k')+') '+s.textContent.slice(0,58)+'…',m.textContent]);
+  });
+
+  /* ---------- CANLI SORU ---------- */
+  fetch('../veri/vitrin-kart-ozet.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d||!d.sinavlar)return;
+      var kod=d.sinavlar.sgs?'sgs':Object.keys(d.sinavlar)[0];
+      var v=d.sinavlar[kod]; if(!v||!v.siklar)return;
+      V=v;
+      /* ders alanı "Ticaret Hukuku|Ticaret ve Borclar" gelebiliyor - ilk parça alınır. */
+      var ders=String(v.ders||'').split('|')[0];
+      document.getElementById('ust1').textContent=
+        (v.ad||'SMMM Staja Giriş')+' · '+ders+' · '+(v.konu||'');
+      document.getElementById('kbDers').textContent=ders+(v.konu?' · '+v.konu:'');
+      document.getElementById('kbKunye').textContent=
+        (v.kunye||'')+(v.donem?' · '+v.donem+' dönemde çıktı':'');
+      document.getElementById('kbSoru').textContent=v.soru||'';
+      siklarEl.innerHTML=Object.keys(v.siklar).map(function(k){
+        var m=madde(k);
+        return '<li><button class="sik" type="button" data-k="'+k+'"><i>'+k+'</i><span>'
+          +esc(v.siklar[k])+'</span>'+(m?'<u>'+esc(m)+'</u>':'')+'</button></li>';
+      }).join('');
+      if(v.baglanti)document.getElementById('cgDugme').href='../'+v.baglanti;
+    }).catch(function(){});
+
+  /* ---------- NÖBET ŞERİDİ + SAYILAR (index.html ile aynı kural) ---------- */
+  var SINAVLAR=[{id:'ndSgs',tarih:'2026-11-21'},{id:'ndYet',tarih:'2026-11-28'}];
+  function gunFarki(h){var b=new Date(),t=new Date(h+'T00:00:00');b.setHours(0,0,0,0);
+    return Math.round((t-b)/86400000);}
+  function sayiYaz(el,d,b){if(el)el.innerHTML=d+'<em>'+b+'</em>';}
+  SINAVLAR.forEach(function(s){var g=gunFarki(s.tarih);
+    sayiYaz(document.getElementById(s.id), g>0?g:'—', g>0?'gün':(g===0?'bugün':'geçti'));});
+
+  fetch('../veri/uyari-ozet.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return; var v=d.veri||{};
+      if(typeof v.rg_karti==='number')sayiYaz(document.getElementById('ndRg'),v.rg_karti,'değişiklik');
+      if(typeof v.ihale_ilani==='number')sayiYaz(document.getElementById('ndIhale'),v.ihale_ilani,'ilan');
+      var p=String(d.tarih||'').split(' ');
+      if(p[0])document.getElementById('ndTarih').textContent=p[0];
+      var g=p[0]?p[0].split('.'):null;
+      if(g&&g.length===3){
+        var sa=(p[1]||'00:00').split(':');
+        var kosu=new Date(+g[2],+g[1]-1,+g[0],+sa[0]||0,+sa[1]||0);
+        var saatFark=(new Date()-kosu)/3600000;
+        var gunBas=new Date();gunBas.setHours(0,0,0,0);
+        var gunFark=Math.round((gunBas-new Date(+g[2],+g[1]-1,+g[0]))/86400000);
+        var et=document.getElementById('ndNeZaman');
+        if(et)et.textContent=gunFark===0?(kosu.getHours()<5?'Bu gece':kosu.getHours()<12?'Bu sabah':'Bugün')
+                            :gunFark===1?'Dün':p[0];
+        if(saatFark>=30){var dip=document.getElementById('ndDip');
+          dip.textContent='Son robot koşusu '+p[0]+' '+(p[1]||'')+' — '+gunFark+' gün önce.';
+          dip.className='nobet-dip bayat';}
+      }
+    }).catch(function(){});
+
+  var tr=function(n){return Number(n).toLocaleString('tr-TR');};
+  fetch('../veri/sinav-tek-sayfa.json',{cache:'no-store'})
+    .then(function(y){return y.ok?y.json():null;})
+    .then(function(d){
+      if(!d)return; var oz=d.sinav_ozet||[],kasa=0;
+      oz.forEach(function(s){kasa+=+s.kasa||0;});
+      if(kasa>0){document.getElementById('cgKasa').textContent=tr(kasa);
+                 document.getElementById('kpKasa').textContent=tr(kasa);}
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>
