@@ -2975,7 +2975,15 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
   }catch{ Write-Host "  ŞIK DENGESİ: banka dağılımı okunamadı, yalnız parti dengelenir ($($_.Exception.Message))" -ForegroundColor DarkGray }
   $bankaTop=0; foreach($hh in 'A','B','C','D','E'){ $bankaTop+=[int]$bankaSay[$hh] }
   if($bankaTop -gt 0){ Write-Host ("  ŞIK DENGESİ: ders bankası $bankaTop soru · " + (@('A','B','C','D','E') | ForEach-Object { "$_=$([int]$bankaSay[$_])" }) -join ' ') -ForegroundColor DarkGray }
-  if($cumleli.Count -ge 5){
+  # ⛔⭐ 12.09 ESIK 5 -> 2. OLCULDU, B kosusunu BASMADAN ONCE yakalandi:
+  #   plan-siklik-tum-b.json 94 partinin 65'i BES SORUDAN KUCUK - yani 343
+  #   sorunun 164'u (%48) dengeleyiciye HIC GIRMEYECEKTI. Esik 5'te kalsaydi
+  #   duzeltme yarim kosardi ve bunu ancak basdiktan sonra gorurduk.
+  #   Kucuk partide "parti ici dagilim" zaten anlamsizdir; onemli olan DERSIN
+  #   KUMULATIF ortalamasi - 65 parti birer soru tasirsa 65 duzeltme eder.
+  #   Bu yuzden: taban denetimi yalniz 5+ soruluk partilerde uygulanir (kucukte
+  #   bosaltilacak bir dagilim yok), tavan ise en az 1'e sabitlenir.
+  if($cumleli.Count -ge 2){
     # 10.09: tur tavanı 10'du ve her tur YALNIZ BİR soru taşır. Borçlar zor partisinde gereken taşıma tam 10 çıktı (18 -> 8),
     # yani tavan bir soru daha kaysa hedef SESSİZCE tutturulamayacaktı (döngü biter, uyarı yok). Döngü zaten hedefe varınca
     # kırılıyor, fazla tur bedelsiz: tavan parti büyüklüğüne yer bırakacak biçimde 40'a çıkarıldı.
@@ -2987,8 +2995,9 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
     #    YAYILMALI: B kosusu 94 parti / 343 soru, uc dersin eksigi toplam 106 -
     #    %30 tavanla rahat sigar.
     #    TABAN da sart: kaynak harf bosaltilip yeni bir sapma uretilmemeli.
-    $partiTavan=[math]::Floor(0.30*$cumleli.Count)
-    $partiTaban=[math]::Ceiling(0.10*$cumleli.Count)
+    $partiTavan=[Math]::Max(1,[math]::Floor(0.30*$cumleli.Count))
+    # taban YALNIZ 5+ soruluk partide anlamli; kucukte 0 (denetim devre disi)
+    $partiTaban=$(if($cumleli.Count -ge 5){ [math]::Ceiling(0.10*$cumleli.Count) } else { 0 })
     for($tur=0;$tur -lt 80;$tur++){
       # parti sayimi
       $say=@{}; foreach($hh in 'A','B','C','D','E'){ $say[$hh]=0 }
