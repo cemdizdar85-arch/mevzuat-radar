@@ -171,6 +171,19 @@
       "gerekce": "Emir #11'in 10 kitapcigi (sonucu kaybolmustu) + 3 YENIDEN etiketleme: 2021/1-01 FM (eski kayit 1 konu), 2023/2-01 FM (1 konu), 2021/1-02 FTA (9 harfli istek, 2 konu). Istem: numarali islem/harfli istek her biri ayri kayit + betik madde sayar ve modele soyler + AYRINTI KAPISI (hesap derslerinde kayit < yerel sayim/2 ise RED). Kapi mevcut 45 hesap kaydinda yalniz 2'yi yakaliyor (2021/1-02, 2022/2-02). Basari olcusu: 2013/2-01 >= 13 konu; eski 1-konu FM kayitlari artik tutarli. Olculen birim 0,043 USD/kitapcik -> ~0,6 USD. Kaydetme adimi artik karneden once + 5 tekrar + kirmizi.",
       "tahmini_usd": 0.6,
       "uygulandi": "13.09.2026 12:32"
+    },
+    {
+      "no": 13,
+      "tarih": "13.09.2026",
+      "veren": "Cem Dizdar (13.09: \"1.2.3 ucunude yapalim\" - prova tutarsa kalan kitapciklar)",
+      "emir": "SMMM klasik arsiv - TOPLU etiketleme (ayrinti standardi) 280 kitapcik",
+      "onay": true,
+      "limit": 280,
+      "model": "claude-sonnet-5",
+      "sinav": "SMMM",
+      "donem_min": 0,
+      "gerekce": "PROVA #12 TUTTU (run 34757139207, 13 kitapcik, 0,87 USD = 0,067 USD/kitapcik): 2013/2 FM 3->36 konu, 2021/1 FM 1->59, 2023/2 FM 1->64 (2023-25 bandi 27-62 ile tutarli), 2021/1 FTA 2->15; sonuc bu kez buluta yazildi (eef6078f). Bu emir: 2008-2020 kalan 261 kesif kitapcigi + ayrinti standardinin altinda kalan 19 eski kayit (FM 2021/2-2022/3, FTA 2021/2-2025/3) = 280. Taranmis 13 kitapcik DAHIL DEGIL - OCR metni ambara yazilinca ayri emirle. Tahmin 280 x 0,067 = ~19 USD.",
+      "tahmini_usd": 19
     }
   ]
 }
