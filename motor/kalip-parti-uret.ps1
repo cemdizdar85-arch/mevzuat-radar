@@ -2258,6 +2258,8 @@ Cevap YALNIZ JSON:
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
+# 13.09 Cem "bir iki ve üçü": SGS ile bitirme adayı farklı; "Universite mezunu gence" SGS adayını anlatır → yalnız SMMM'de bitirme adayı tarifi (SGS/KGK metni aynı)
+if($Sinav -eq 'SMMM'){ $soruIstem=$soruIstem.Replace('Universite mezunu gence, gercek sinav ayarinda.','Stajını tamamlamış, meslekte çalışan SMMM Yeterlilik (bitirme) adayına; ileri düzey senaryo, gerçek sınav ayarında.') }
 if($script:PARA_BIRIMI -eq '₺'){ $soruIstem=$soruIstem.Replace('para birimi "TL" yazılır (₺ yazma).','para birimi "₺" yazılır (TL yazma; bu sınavın son iki dönemi ₺ kullanıyor, kök "kaç ₺''dir?").') }   # 13.09 Cem kararı
 # --- SINAV DILI (03.09 Cem "1 yap, uretici­ye isle"; olcum scratchpad sinav-dili-sozlugu.ps1, 1.042 belge) -------
 # SGS: kanun kisaltmasi ~0 (VUK 3 / "Vergi Usul Kanunu" 346 / "213 sayili" 251; TTK 0/1079/953; TBK 0/1226/1198;
@@ -4274,6 +4276,7 @@ KONU: {KONU} · çıkmış arşivde {DONEM} dönemde soruldu
 SORU: {SORU}
 === KAYNAK METİNLERİ === {KAYNAK}
 '@
+if($Sinav -eq 'SMMM'){ $girisIstem=$girisIstem.Replace('konuyu HİÇ bilmeyen bir gence','stajını tamamlamış ama bu konuyu HİÇ bilmeyen bir bitirme adayına') }   # 13.09 bitirme adayı tarifi (SGS/KGK aynı)
 # 07.09 Cem (FMuh gelir tablosu girişi: "hisse senedi satış kârı · denetçi belirler · sen hesaplarsın — ne bu, yanlış"): istem "denetçi belirler"i
 # BÜTÜN derslere örnek veriyordu, model muhasebe sorusunda onu seçti. "kim" seçenekleri DERSE göre verilir + ders dışı belirleyen kapıda düşer.
 $dersAdiG=($DersRegex -replace '[\^\$\\]','')
@@ -4447,6 +4450,10 @@ ADIMLAR:
 === YENİ SORU (bunu çöz) ===
 {IKIZ}
 '@
+# 13.09 bitirme adayı tarifi: simülasyon "bu konuyu hiç bilmeyen" testi AYNEN kalır (anlatım öğretiyor mu?), yalnız sınav/aday düzeyi SMMM'de doğru anılır.
+# SGS/KGK'da $SIM_ADAY eski cümlenin kendisidir → istem bayt bayt aynı.
+$SIM_ADAY=$(if($Sinav -eq 'SMMM'){ 'Sen stajını tamamlamış bir SMMM Yeterlilik (bitirme) sınavı adayısın ama bu konuyu HİÇ bilmiyorsun.' } else { 'Sen bu konuyu HİÇ bilmeyen bir staja giriş sınavı adayısın.' })
+$simIstem=$simIstem.Replace('Sen bu konuyu HİÇ bilmeyen bir staja giriş sınavı adayısın.',$SIM_ADAY)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $Simulasyon){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
@@ -4490,7 +4497,7 @@ $("$($cvp.kaynak_metin_ozet)".Substring(0,[Math]::Min(2500,"$($cvp.kaynak_metin_
     $adimMetinT=($adimSiz | ForEach-Object -Begin { $q=0 } -Process { $q++; $f="$($_.formul)"; $an="$($_.anlatim)"; if($dogruMetin.Length -ge 12){ $f=$f.Replace($dogruMetin,'[…]'); $an=$an.Replace($dogruMetin,'[…]') }; $an=$an -replace ('(?i)doğru (şık|cevap)\s*:?\s*'+[regex]::Escape("$($cvp.dogru)")+'\)?'),'doğru şık: […]'; "$q) $f`n   $an" }) -join "`n"
     if(@($cvp.adimlar).Count -ne $adimSiz.Count){ Write-Host "  SIM SIZDIRMAZ ($id): $(@($cvp.adimlar).Count - $adimSiz.Count) 'Doğru şık' adımı gizlendi" -ForegroundColor DarkGray }
     $istOT=@"
-Sen bu konuyu HİÇ bilmeyen bir staja giriş sınavı adayısın. Ezber bilgin yok, kaynak yok. Sana yalnız aşağıdaki ÇÖZÜM ANLATIMI verildi (bir örnek sorunun adım adım açıklaması). Bu anlatımdaki KURALI öğrenip YENİ SORUDA doğru şıkkı seç.
+$SIM_ADAY Ezber bilgin yok, kaynak yok. Sana yalnız aşağıdaki ÇÖZÜM ANLATIMI verildi (bir örnek sorunun adım adım açıklaması). Bu anlatımdaki KURALI öğrenip YENİ SORUDA doğru şıkkı seç.
 Kurallar: yalnız anlatımın öğrettiği kadarıyla karar ver; anlatım yetmiyorsa cevap "yetmedi" olsun ve neyin eksik olduğunu yaz.
 Yalnız JSON: {"cevap":"A-E ya da yetmedi","neden":"tek cümle","eksik":"anlatımda eksik ya da karışık olan şey; yoksa boş"}
 === ÇÖZÜM ANLATIMI (örnek soru ve Nöbetçi adımları) ===
