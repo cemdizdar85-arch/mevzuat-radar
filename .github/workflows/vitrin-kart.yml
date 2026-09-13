@@ -22,13 +22,41 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Havuz ömrü öz-sınavı
+        run: node motor/vitrin-kart.js --sinav
       - name: Günün sorusunu seç
         run: node motor/vitrin-kart.js
+      # 13.09.2026 Cem: "sınavdan sonrası için hatırlatıcı". Havuz adet kadar gün tekrarsız döner;
+      # yenileyen basım (motor/vitrin-bas.ps1) bulutta KOŞAMAZ (soru gövdeleri git dışı), Cem'in
+      # makinesinde yapılır. Bitmeye 7/3/1 gün kala, bittiği gün ve sonra haftada bir mail gider.
+      - name: Havuz bitiyorsa Cem'e mail
+        # mail adimi dusse bile gunun sorusu kaydedilsin
+        continue-on-error: true
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          $o = Get-Content veri/vitrin-kart-ozet.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          foreach ($p in $o.sinavlar.PSObject.Properties) {
+            $h = $p.Value.havuz
+            if (-not $h -or -not $h.mail_gunu) { continue }
+            $sinavAd = $p.Value.ad
+            if ($h.kalan_gun -gt 0) {
+              $konu = "TETIKTE - vitrin sorulari $($h.kalan_gun) gun sonra TEKRARA giriyor ($sinavAd)"
+              $ne = "$($h.adet) soruluk vitrin havuzu $($h.bitis) tarihinde bitiyor; o gunden sonra ana sayfada ayni sorular geri gelir."
+            } else {
+              $konu = "TETIKTE KIRMIZI - vitrin sorulari TEKRAR EDIYOR ($sinavAd)"
+              $ne = "$($h.adet) soruluk vitrin havuzu $($h.bitis) tarihinde bitti; ana sayfa $(-$h.kalan_gun) gundur ayni sorulari yeniden gosteriyor."
+            }
+            $mesaj = "$ne`n`nYapilacak (Cem'in bilgisayarinda, bulutta kosmaz):`n  powershell -NoProfile -File motor/vitrin-bas.ps1 -Sinav $($p.Name) -Adet 70`n  powershell -NoProfile -File motor/vitrin-kunye-cikar.ps1`nSonra commit + push. Robot ertesi sabah yeni havuzu gorur, sayac kendiliginden sifirlanir.`n`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            ./arac/alarm-maili.ps1 -Konu $konu -Mesaj $mesaj
+          }
       - name: Depoya işle
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@tetikte.com"
-          git add veri/vitrin-kart-ozet.json || true
+          git add veri/vitrin-kart-ozet.json veri/vitrin-havuz.json || true
           git diff --cached --quiet && { echo "değişiklik yok"; exit 0; }
           git commit -m "Vitrin kart: günün sorusu [veri-operasyonu]"
           for i in 1 2 3 4 5; do
