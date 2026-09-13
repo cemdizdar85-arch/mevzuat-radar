@@ -46,6 +46,7 @@ param(
   [switch]$Toplu,          # 08.09 Cem "daha ucuza": her fazın İLK denemesi Message Batches ile (yarı fiyat, paralel); kapıdan dönen tekrarlar anlık
   [int]$TopluBeklemeDk=$(if("$env:MEVZUAT_TOPLU_BEKLE_DK" -match '^\d+$'){ [int]$env:MEVZUAT_TOPLU_BEKLE_DK } else { 180 }),   # 09.09 Tur 2: kuyruk takılırsa faz 45 dk'da anlığa düşsün (ortam değişkeni; koşucu parametre geçirmiyor)
   [string]$HazirSoru='',   # 09.09 Cem "bunu sen yapabiliyorsun niye para verelim" → B: GM'in oturumda yazdığı soru+adım dosyası (json dizi). FAZ A ve FAZ B model çağrısı YOK; FAZ A'nın kod kapıları + hakem/kör/hakem2/giriş/ikiz/sim aynen koşar.
+  [string]$HakemYenileId='',  # 13.09: virgüllü id listesi. Kayıtlı hakem kararı yok sayılır, hakem YENİDEN sorulur; soru metni ve diğer kararlar yerinde kalır (boşsa davranış aynı)
   [string]$HazirYenileId='',  # 13.09: virgüllü id listesi (kp-06,kp-12). Önbellekteki GM kaydı düşer, soru HazirSoru dosyasındaki DÜZELTİLMİŞ hâliyle yeniden alınır (yalnız bu id'ler; boşsa davranış aynı)
   [string]$EskiKaynak='',  # 08.09 B yolu (KURTARMA): eski soru dosyası (json dizi: id, soru, siklar, dogru, aciklama, konu, ders, kanun_no, madde_no, madde_damga, kaynak). FAZ A koşmaz; FAZ U eski soruyu kalıp alanlarına uyarlar, kalan fazlar aynen.
   [switch]$Simulasyon,     # 06.09 Cem "geç": FAZ Ö - öğrenci simülasyonu: Haiku hiç bilmeyen rolünde adımları okuyup ikizi çözer (≈0,01 USD)
@@ -3271,7 +3272,10 @@ foreach($id in @($don.Keys)){
   #    -PilotId ile sinirla; yoksa 636 sorunun hakemi bastan koşar.
   if($SadeceHtml -or $SadeceAdim){ continue }   # yalniz cizim / yalniz adim: eski karar neyse o kalir, hakem cagrilmaz
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }   # pilot: yalniz secili sorular
-  if($cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['hesap_uyum'] -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
+  # 13.09 -HakemYenileId (Cem onayı "evet yapalım"): olumsuz kök notu gelmeden verilmiş 86 çelişkili HAYIR kararı, soru YENİDEN
+  # ÜRETİLMEDEN (RedYenile FAZ A'da soruyu baştan yazdırır) yalnız hakeme yeniden sorulur. Boşsa koşul hiç doğmaz (davranış aynı).
+  $hakemYenidenSor=[bool]($HakemYenileId -and ((($HakemYenileId -split ',') | ForEach-Object { $_.Trim() }) -contains $id))
+  if(-not $hakemYenidenSor -and $cvp.PSObject.Properties['hakem'] -and $cvp.hakem -and $cvp.hakem.PSObject.Properties['hesap_uyum'] -and $cvp.hakem.PSObject.Properties['ders_uyum'] -and $cvp.hakem.PSObject.Properties['konu_uyum']){ continue }
   # sema normalizasyonu geriye donuk (ogeler<-adimlar)
   if($cvp.sema -and -not $cvp.sema.PSObject.Properties['ogeler'] -and $cvp.sema.PSObject.Properties['adimlar']){
     $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force

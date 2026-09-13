@@ -245,6 +245,11 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   if($s.PSObject.Properties['hazirSoru'] -and "$($s.hazirSoru)"){ $arg+=@('-HazirSoru',(HazirYoluCoz $s)) }
   if($s.PSObject.Properties['korModel'] -and "$($s.korModel)"){ $arg+=@('-KorModel',"$($s.korModel)") }
   if($s.PSObject.Properties['korKaynak'] -and [bool]$s.korKaynak){ $arg+=@('-KorKaynak') }
+  # 13.09 (Cem "evet yapalım": 86 çelişkili olumsuz kök retinin yeniden hakemi): plan satırı yalnız seçili soruları koşturabilsin.
+  #   pilotId verilince üretici FAZ A'da soru ÜRETMEZ (kalip-parti-uret.ps1 'if($PilotId){ continue }'); hakemYenileId kayıtlı hakem
+  #   kararını yeniden sordurur. Alanlar YOKSA argüman listesi ESKİSİYLE BİREBİR aynıdır.
+  if($s.PSObject.Properties['pilotId'] -and "$($s.pilotId)"){ $arg+=@('-PilotId',"$($s.pilotId)") }
+  if($s.PSObject.Properties['hakemYenileId'] -and "$($s.hakemYenileId)"){ $arg+=@('-HakemYenileId',"$($s.hakemYenileId)") }
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
   # 09.09 Cem "ara ara deneyelim orayı, rakamı düşürmemiz lazım": MEVZUAT_TOPLU='auto' → motor/toplu-sonda.ps1'in yazdığı sağlık dosyasına bakılır;
   # son 40 dk içinde "acik" ölçülmüşse bu etiket TOPLU (yarı fiyat), değilse anlık. Üretici ayrıca faz bazında MEVZUAT_TOPLU_BEKLE_DK sonra anlığa düşer.
