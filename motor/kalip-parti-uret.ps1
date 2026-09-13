@@ -3071,7 +3071,7 @@ if($HazirSoru -and -not $SadeceHtml){
     if($HazirYenileId -and (($HazirYenileId -split ',') | ForEach-Object { $_.Trim() }) -contains $id -and $don.Contains($id)){ Write-Host "  HAZIR SORU YENİLENİYOR (düzeltilmiş dosya metni): $id" -ForegroundColor Yellow; $don.Remove($id) }
     if($don.Contains($id) -and $don[$id].soru -and $don[$id].PSObject.Properties['gm_kapi']){ continue }
     $cvp=[pscustomobject]@{ soru="$($e.soru)"; siklar=$e.siklar; dogru="$($e.dogru)"; aciklama=$e.aciklama; konu="$($kk.kayit.konu)"; yazar='GM'; donem=$kk.kayit.donem; sema=$(if($e.PSObject.Properties['sema']){ $e.sema } else { $null }) }
-    foreach($alan in 'teshis','celdirici_yol','verilenler','dayanak','cozum_tablo','hap','sinav_taktigi','notlandirici'){ if($e.PSObject.Properties[$alan] -and $null -ne $e.$alan){ $cvp | Add-Member -NotePropertyName $alan -NotePropertyValue $e.$alan -Force } }
+    foreach($alan in 'teshis','celdirici_yol','verilenler','dayanak','cozum_tablo','hap','sinav_taktigi','notlandirici','sade','konu_giris'){ if($e.PSObject.Properties[$alan] -and $null -ne $e.$alan){ $cvp | Add-Member -NotePropertyName $alan -NotePropertyValue $e.$alan -Force } }   # 13.09 Cem 'Nobetci anlatsin, para vermeyelim': GM sade (Sade Dogrusu) + konu_giris (0. adim karti) de yazabilir; dosyada yoksa davranis ayni (FAZ S / FAZ G sonra yazar)
     if(-not $cvp.siklar -or -not $cvp.dogru -or -not $cvp.aciklama){ HzDus "$($e.konu)" 'şık / doğru / açıklama eksik'; continue }
     YazimOnarNesne $cvp; DilOnarNesne $cvp
     $kus=New-Object System.Collections.Generic.List[string]
