@@ -110,6 +110,10 @@ New-Item -ItemType Directory -Force (Split-Path $HEDEF -Parent) | Out-Null
 $KEY=$env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ throw 'SUPABASE_SERVICE_KEY yok.' }
 $SB=@{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' }
+# 13.09 Cem "son iki sınava ne çıktıysa o para birimini kullan": birim her koşuda o sınavın son iki dönem çıkmışından ölçülür
+# (motor/kapi-cikmis-gun.ps1 SinavParaBirimi). Uygulama listesinde olmayan sınavda ağ çağrısı yok, birim TL (davranış aynı).
+$script:PARA_BIRIMI='TL'
+if(-not $SadeceHtml){ $pbOlcum=SinavParaBirimi $Sinav $SB; $script:PARA_BIRIMI=$pbOlcum.birim; "PARA BİRİMİ ($Sinav): $($script:PARA_BIRIMI) · $($pbOlcum.kanit)" }
 
 # --- KAPI-BAKIYE (10.09 ÖLÇÜLDÜ: GM Vergi t4) ------------------------------------------------------------------------
 # vergi-kolay ve vergi-zor partileri hakem/kör/ikiz fazlarını TAMAMLADIKTAN sonra giriş fazında HTTP 400 ile öldü.
@@ -1424,7 +1428,8 @@ elseif($Sinav -eq 'SMMM'){
 $don=[ordered]@{}
 if(Test-Path $CACHE){ foreach($p in (Get-Content $CACHE -Raw -Encoding UTF8|ConvertFrom-Json).PSObject.Properties){ $don[$p.Name]=$p.Value } }
 "cache: $($don.Count) hazir"
-function CacheYaz{ $dN=[ordered]@{}; foreach($x in ($don.Keys|Sort-Object)){ $dN[$x]=$don[$x] }; [IO.File]::WriteAllText($CACHE,(ConvertTo-Json -InputObject $dN -Depth 10),[Text.UTF8Encoding]::new($false)) }
+# 13.09 para birimi normalizasyonu: birim ₺ ise her soru önbelleğe yazılırken TL → ₺ (TL'de dokunmaz)
+function CacheYaz{ $dN=[ordered]@{}; foreach($x in ($don.Keys|Sort-Object)){ if($script:PARA_BIRIMI -eq '₺'){ [void](ParaBirimiOnar $don[$x] '₺') }; $dN[$x]=$don[$x] }; [IO.File]::WriteAllText($CACHE,(ConvertTo-Json -InputObject $dN -Depth 10),[Text.UTF8Encoding]::new($false)) }
 # --- TOPLU İSTEK ÖN GEÇİŞİ (08.09, Cem "daha ucuza nasıl?"): her faz -Toplu ile iki geçiş koşar. 1. geçiş (ON_GECIS) yalnız istemleri toplar,
 # tek partide gönderir (yarı fiyat, paralel), cevaplar TOPLU_HAZIR'a düşer. 2. geçiş normal döngüdür: ilk denemede TopluAl hazır cevabı verir,
 # API çağrısı yapılmaz; kapıdan dönen tekrarlar ve tek kalan istekler anlık gider. İstem her iki geçişte AYNI koddan üretilir (sapma yok).
@@ -1588,7 +1593,7 @@ function BenzerlikKusur($a,[string]$benId){
 # doğrulayamaz (SORU-BASMA-KURALLARI 3.1 / 4.1). Parametre adı geçen cümlede sayı (% ya da TL) yoksa düşer.
 function ParametreKapisi($a){ $out=@(); $soru="$($a.soru)"
   $parametreler=@('asgari ücret','kıdem tazminatı tavanı','kıdem tavanı','KDV oranı','katma değer vergisi oranı','SGK prim oranı','sigorta prim oranı','işsizlik sigortası prim','damga vergisi oranı','gecikme zammı oranı','gecikme faizi oranı','yeniden değerleme oranı','istisna haddi','istisna tutarı','beyanname verme sınırı','defter tutma haddi','amortisman sınırı','fatura düzenleme sınırı','kurumlar vergisi oranı','gelir vergisi tarifesi','stopaj oranı','tevkifat oranı','asgari geçim','vergi dilimi')
-  foreach($cumle in ($soru -split '(?<=[.!?;])\s+')){ foreach($pa in $parametreler){ if($cumle -match ('(?i)'+[regex]::Escape($pa))){ if($cumle -notmatch '%\s*\d|\d\s*%|\d{1,3}(\.\d{3})+|\d+(,\d+)?\s*TL'){ $out+="'$pa' geçiyor ama cümlede sayısı yok (yıla bağlı had soruda verilir)" } } } }
+  foreach($cumle in ($soru -split '(?<=[.!?;])\s+')){ foreach($pa in $parametreler){ if($cumle -match ('(?i)'+[regex]::Escape($pa))){ if($cumle -notmatch '%\s*\d|\d\s*%|\d{1,3}(\.\d{3})+|\d+(,\d+)?\s*(TL|₺)'){ $out+="'$pa' geçiyor ama cümlede sayısı yok (yıla bağlı had soruda verilir)" } } } }
   return @($out | Select-Object -Unique)
 }
 # 08.09 Cem: "yanlışlıkla eski kanuna bakıyordur, o kanun değişmiştir, onun kontrolünü yapsın" — KAPI-M MÜLGA MEVZUAT / ESKİ KURUM.
@@ -2253,6 +2258,7 @@ Cevap YALNIZ JSON:
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
+if($script:PARA_BIRIMI -eq '₺'){ $soruIstem=$soruIstem.Replace('para birimi "TL" yazılır (₺ yazma).','para birimi "₺" yazılır (TL yazma; bu sınavın son iki dönemi ₺ kullanıyor, kök "kaç ₺''dir?").') }   # 13.09 Cem kararı
 # --- SINAV DILI (03.09 Cem "1 yap, uretici­ye isle"; olcum scratchpad sinav-dili-sozlugu.ps1, 1.042 belge) -------
 # SGS: kanun kisaltmasi ~0 (VUK 3 / "Vergi Usul Kanunu" 346 / "213 sayili" 251; TTK 0/1079/953; TBK 0/1226/1198;
 #      GVK 0/281/238) -> kanun TAM ADIYLA ve/veya "sayili" ile; hesap "100 KASA" buyuk harf (11.790 kez).

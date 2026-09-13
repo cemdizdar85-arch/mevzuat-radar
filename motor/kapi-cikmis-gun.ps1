@@ -236,3 +236,67 @@ function GunTabaniKapisi($soruNesne, $adimListe) {
   foreach ($gunTaban in @(GunTabaniKullanimi $dogruMetin)) { if ($yazilan -notcontains $gunTaban) { $cikti += "soru kökü $($yazilan -join '/') gün diyor, doğru çözüm $gunTaban gün kullanıyor" } }
   return $cikti
 }
+
+# ============================================================================
+#  PARA BİRİMİ = SON İKİ SINAVIN KULLANDIĞI   13.09.2026
+#  Cem 13.09: "sınavda çıkanlara bak, son iki sınava ne çıktıysa o para birimini kullan".
+#  Ölçüm (ambar çıkmışları, 13.09): SMMM 2026/1+2026/2 ₺ 423 · TL 2 | SGS 2026/1+2026/2 ₺ 296 · TL 0 |
+#  KGK 2025 Kasım + 2026 ₺ 0 · TL 800. Karar HER KOŞUDA yeniden ölçülür (yeni dönem gelirse kendiliğinden döner).
+#  UYGULAMA ALANI: yalnız $PARA_BIRIMI_UYGULANAN'daki sınavlar. SGS ölçümü de ₺ ama SGS bankası (6.477 soru) TL ile
+#  basıldı; SGS'ye geçiş karışık banka yaratır → SGS kararı Cem'de. Listede olmayan sınavda ağ çağrısı YOK, birim TL (davranış aynı).
+# ============================================================================
+$PARA_BIRIMI_UYGULANAN = @('SMMM')
+$PARA_TL_DESENI = '(?<![A-Za-zÇĞİÖŞÜçğıöşü])TL(?![A-Za-zÇĞİÖŞÜçğıöşü])'
+
+# Çıkmış belge adından sıralanabilir dönem anahtarı: SMMM/SGS yıl*100+dönem, KGK yıl*100+ay
+function CikmisDonemBilgi([string]$belgeAd) {
+  $mt = [regex]::Match($belgeAd, 'smmm_(20[0-3]\d)_(\d)_'); if ($mt.Success) { return @{ anahtar = [int]$mt.Groups[1].Value * 100 + [int]$mt.Groups[2].Value; etiket = "$($mt.Groups[1].Value)/$($mt.Groups[2].Value)" } }
+  $mt = [regex]::Match($belgeAd, 'SGS (20[0-3]\d)/(\d)'); if ($mt.Success) { return @{ anahtar = [int]$mt.Groups[1].Value * 100 + [int]$mt.Groups[2].Value; etiket = "$($mt.Groups[1].Value)/$($mt.Groups[2].Value)" } }
+  $ayTablo = @{ ocak = 1; subat = 2; mart = 3; nisan = 4; mayis = 5; haziran = 6; temmuz = 7; agustos = 8; eylul = 9; ekim = 10; kasim = 11; aralik = 12 }
+  $mt = [regex]::Match($belgeAd, '(\d{1,2})_([A-Za-zÇĞİÖŞÜçğıöşü]+)_(20[0-3]\d)')
+  if ($mt.Success) { $ayKatli = ([KapiCikmisDizin]::Katla($mt.Groups[2].Value)).Trim(); if ($ayTablo.ContainsKey($ayKatli)) { return @{ anahtar = [int]$mt.Groups[3].Value * 100 + $ayTablo[$ayKatli]; etiket = "$($mt.Groups[3].Value) $($mt.Groups[2].Value)" } } }
+  return $null
+}
+
+function SinavParaBirimi([string]$sinavAdi, $basliklar) {
+  $pbSonuc = [pscustomobject]@{ birim = 'TL'; olculen = ''; kanit = ''; uygulandi = $false }
+  if ($PARA_BIRIMI_UYGULANAN -notcontains $sinavAdi) { $pbSonuc.kanit = "$sinavAdi için uygulanmıyor (karar yalnız: $($PARA_BIRIMI_UYGULANAN -join ', '))"; return $pbSonuc }
+  $donemSayim = @{}; $ofs = 0
+  try {
+    while ($true) {
+      $adr = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.' + [uri]::EscapeDataString("CIKMIS SINAV - $sinavAdi %") + '&order=id.asc&limit=40&offset=' + $ofs
+      $sayfaYanit = Invoke-WebRequest -Uri $adr -Headers $basliklar -UseBasicParsing -TimeoutSec 180
+      $sayfaSatir = @((ConvertFrom-Json -InputObject $sayfaYanit.Content))
+      foreach ($st in $sayfaSatir) {
+        if (-not $st) { continue }
+        $bilgi = CikmisDonemBilgi "$($st.kaynak_ad)"; if (-not $bilgi) { continue }
+        if (-not $donemSayim.ContainsKey($bilgi.anahtar)) { $donemSayim[$bilgi.anahtar] = @{ etiket = $bilgi.etiket; lira = 0; tl = 0 } }
+        $donemSayim[$bilgi.anahtar].lira += ([regex]::Matches("$($st.metin)", '₺')).Count
+        $donemSayim[$bilgi.anahtar].tl += ([regex]::Matches("$($st.metin)", $PARA_TL_DESENI)).Count
+      }
+      $ofs += $sayfaSatir.Count
+      if ($sayfaSatir.Count -lt 40) { break }
+    }
+  } catch { $pbSonuc.kanit = "KÖR: ambar çekilemedi ($($_.Exception.Message)) — varsayılan TL"; return $pbSonuc }
+  if ($donemSayim.Count -lt 2) { $pbSonuc.kanit = "KÖR: $sinavAdi için dönemli çıkmış $($donemSayim.Count) (en az 2 gerek) — varsayılan TL"; return $pbSonuc }
+  $sonIki = @($donemSayim.Keys | Sort-Object -Descending | Select-Object -First 2)
+  $liraTop = 0; $tlTop = 0; $etiketler = @()
+  foreach ($anh in $sonIki) { $liraTop += $donemSayim[$anh].lira; $tlTop += $donemSayim[$anh].tl; $etiketler += $donemSayim[$anh].etiket }
+  $pbSonuc.olculen = $(if ($liraTop -gt $tlTop) { '₺' } else { 'TL' })
+  $pbSonuc.kanit = "son iki dönem $($etiketler -join ' + '): ₺ $liraTop · TL $tlTop"
+  $pbSonuc.birim = $pbSonuc.olculen; $pbSonuc.uygulandi = $true
+  return $pbSonuc
+}
+
+# Soru nesnesinde para birimi "TL" → "₺" (yerinde). Kanun/çıkmış alıntısı ve hakem kayıtları DOKUNULMAZ.
+$PARA_DOKUNULMAZ_ALAN = @('dayanak', 'capa_metin', 'capa_kaynak', 'kaynak_metin_ozet', 'kaynak_adlar', 'atif_genisletme', 'hakem', 'hakem2', 'kor_cozum', 'gm_kapi')
+function ParaBirimiOnar($deger, [string]$hedefBirim) {
+  if ($hedefBirim -ne '₺' -or $null -eq $deger) { return $deger }
+  if ($deger -is [string]) { return [regex]::Replace($deger, $PARA_TL_DESENI, '₺') }
+  if ($deger -is [System.Collections.IList]) { for ($ix = 0; $ix -lt $deger.Count; $ix++) { $deger[$ix] = ParaBirimiOnar $deger[$ix] $hedefBirim }; return , $deger }
+  if ($deger -is [System.Management.Automation.PSCustomObject]) {
+    foreach ($pr in @($deger.PSObject.Properties)) { if ($PARA_DOKUNULMAZ_ALAN -contains $pr.Name) { continue }; $pr.Value = ParaBirimiOnar $pr.Value $hedefBirim }
+    return $deger
+  }
+  return $deger
+}
