@@ -22016,7 +22016,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
+        "etiket":  "sgs-d4-mat-kolay-r3",
         "id":  "kp-01",
         "ders":  "Matematik",
         "konu":  "denklem cozme",
@@ -22032,7 +22032,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-mat-kolay-r3",
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "id":  "kp-01",
+        "ders":  "Matematik",
+        "konu":  "denklem cozme",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r4",
         "id":  "kp-01",
         "ders":  "Matematik",
         "konu":  "denklem cozme",
@@ -22056,15 +22064,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-mat-kolay-r4",
-        "id":  "kp-01",
+        "etiket":  "sgs-gm5-mat-r2",
+        "id":  "kp-02",
         "ders":  "Matematik",
-        "konu":  "denklem cozme",
-        "donem":  7,
+        "konu":  "belirli integral",
+        "donem":  6,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-mat-r2",
+        "etiket":  "sgs-gm5-mat-r1",
         "id":  "kp-02",
         "ders":  "Matematik",
         "konu":  "belirli integral",
@@ -22080,7 +22088,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "id":  "kp-03",
+        "ders":  "Matematik",
+        "konu":  "seri toplami",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-zor",
+        "id":  "kp-03",
+        "ders":  "Matematik",
+        "konu":  "seri toplami",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-03",
         "ders":  "Matematik",
         "konu":  "seri toplami",
@@ -22104,15 +22128,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-mat-cokzor-r2",
-        "id":  "kp-01",
-        "ders":  "Matematik",
-        "konu":  "limit hesaplama",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-05",
         "ders":  "Matematik",
         "konu":  "limit hesaplama",
@@ -22120,7 +22136,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-05",
         "ders":  "Matematik",
         "konu":  "limit hesaplama",
@@ -22144,6 +22160,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d4-mat-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "Matematik",
+        "konu":  "limit hesaplama",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r3",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "uslu sayilar",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-mat-kolay-r1",
         "id":  "kp-02",
         "ders":  "Matematik",
@@ -22160,18 +22192,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-mat-kolay-r3",
-        "id":  "kp-02",
-        "ders":  "Matematik",
-        "konu":  "uslu sayilar",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-gm5-mat-r2",
         "id":  "kp-05",
         "ders":  "Matematik",
         "konu":  "cebirsel ifadeler",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r2",
+        "id":  "kp-04",
+        "ders":  "Matematik",
+        "konu":  "koklu ifadeler",
         "donem":  4,
         "kurtarma":  false
     },
@@ -22184,6 +22216,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-01",
+        "ders":  "Matematik",
+        "konu":  "oran oranti",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-mat-cokzor-r1",
         "id":  "kp-02",
         "ders":  "Matematik",
@@ -22192,7 +22232,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
+        "etiket":  "sgs-d4-mat-cokzor-r2",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "oran oranti",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-08",
         "ders":  "Matematik",
         "konu":  "oran oranti",
@@ -22208,7 +22256,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-08",
         "ders":  "Matematik",
         "konu":  "oran oranti",
@@ -22216,10 +22264,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-mat-cokzor-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "id":  "kp-07",
         "ders":  "Matematik",
-        "konu":  "oran oranti",
+        "konu":  "sayi problemi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -22248,10 +22296,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
-        "id":  "kp-07",
+        "etiket":  "sgs-t1-genel-mat-zor",
+        "id":  "kp-06",
         "ders":  "Matematik",
-        "konu":  "sayi problemi",
+        "konu":  "tanimli islem",
         "donem":  4,
         "kurtarma":  false
     },
@@ -22272,7 +22320,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-gm5-mat-r2",
         "id":  "kp-06",
         "ders":  "Matematik",
         "konu":  "tanimli islem",
@@ -22296,8 +22344,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-11",
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-02",
         "ders":  "Matematik",
         "konu":  "bileske fonksiyon",
         "donem":  3,
@@ -22313,7 +22361,31 @@
     },
     {
         "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-11",
+        "ders":  "Matematik",
+        "konu":  "bileske fonksiyon",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-12",
+        "ders":  "Matematik",
+        "konu":  "cebirsel sadelestirme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-12",
+        "ders":  "Matematik",
+        "konu":  "cebirsel sadelestirme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-01",
         "ders":  "Matematik",
         "konu":  "cebirsel sadelestirme",
         "donem":  3,
@@ -22321,14 +22393,6 @@
     },
     {
         "etiket":  "sgs-t1-genel-mat-kolay",
-        "id":  "kp-12",
-        "ders":  "Matematik",
-        "konu":  "cebirsel sadelestirme",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-12",
         "ders":  "Matematik",
         "konu":  "cebirsel sadelestirme",
@@ -22376,7 +22440,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-17",
         "ders":  "Matematik",
         "konu":  "analitik geometri",
@@ -22384,7 +22448,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-17",
         "ders":  "Matematik",
         "konu":  "analitik geometri",
@@ -22408,6 +22472,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d4-mat-kolay-r3",
+        "id":  "kp-05",
+        "ders":  "Matematik",
+        "konu":  "denklem sistemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-mat-kolay-r1",
         "id":  "kp-05",
         "ders":  "Matematik",
@@ -22424,22 +22496,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-mat-kolay-r3",
-        "id":  "kp-05",
-        "ders":  "Matematik",
-        "konu":  "denklem sistemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-mat-kolay",
-        "id":  "kp-19",
-        "ders":  "Matematik",
-        "konu":  "dogru denklemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-19",
         "ders":  "Matematik",
@@ -22452,6 +22508,38 @@
         "id":  "kp-19",
         "ders":  "Matematik",
         "konu":  "dogru denklemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-04",
+        "ders":  "Matematik",
+        "konu":  "dogru denklemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "id":  "kp-19",
+        "ders":  "Matematik",
+        "konu":  "dogru denklemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r2",
+        "id":  "kp-10",
+        "ders":  "Matematik",
+        "konu":  "integral hesaplama",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r2",
+        "id":  "kp-11",
+        "ders":  "Matematik",
+        "konu":  "kesirli islem",
         "donem":  2,
         "kurtarma":  false
     },
@@ -22464,6 +22552,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-mat-zor",
+        "id":  "kp-13",
+        "ders":  "Matematik",
+        "konu":  "logaritma denklemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-13",
         "ders":  "Matematik",
@@ -22480,8 +22576,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
-        "id":  "kp-13",
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-03",
         "ders":  "Matematik",
         "konu":  "logaritma denklemi",
         "donem":  2,
@@ -22512,6 +22608,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "sayi problemleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-gm5-mat-r1",
         "id":  "kp-11",
         "ders":  "Matematik",
@@ -22536,6 +22640,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "id":  "kp-15",
+        "ders":  "Matematik",
+        "konu":  "yuzde problemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-zor",
+        "id":  "kp-15",
+        "ders":  "Matematik",
+        "konu":  "yuzde problemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-mat-cokzor-r1",
         "id":  "kp-03",
         "ders":  "Matematik",
@@ -22544,23 +22664,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
-        "id":  "kp-15",
-        "ders":  "Matematik",
-        "konu":  "yuzde problemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-mat-kolay",
-        "id":  "kp-15",
-        "ders":  "Matematik",
-        "konu":  "yuzde problemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-33",
         "ders":  "Matematik",
         "konu":  "ardisik sayi problemi",
@@ -22568,7 +22672,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-33",
         "ders":  "Matematik",
         "konu":  "ardisik sayi problemi",
@@ -22584,6 +22688,54 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-15",
+        "ders":  "Matematik",
+        "konu":  "ardisik sayilar toplami",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-15",
+        "ders":  "Matematik",
+        "konu":  "aritmetik ortalama ve medyan",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-13",
+        "ders":  "Matematik",
+        "konu":  "basit ve bilesik faiz",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-10",
+        "ders":  "Matematik",
+        "konu":  "birinci dereceden esitsizlik",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-07",
+        "ders":  "Matematik",
+        "konu":  "bolunebilme kurallari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-32",
+        "ders":  "Matematik",
+        "konu":  "carpanlara ayirma sadelestirme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-32",
         "ders":  "Matematik",
@@ -22592,15 +22744,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-32",
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-08",
         "ders":  "Matematik",
-        "konu":  "carpanlara ayirma sadelestirme",
+        "konu":  "cebirsel ozdeslikler",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-11",
+        "ders":  "Matematik",
+        "konu":  "ekok bulusma problemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-30",
         "ders":  "Matematik",
         "konu":  "fonksiyon denklemi",
@@ -22608,7 +22768,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-30",
         "ders":  "Matematik",
         "konu":  "fonksiyon denklemi",
@@ -22632,6 +22792,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-38",
+        "ders":  "Matematik",
+        "konu":  "fonksiyon katsayi bulma",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-38",
         "ders":  "Matematik",
@@ -22640,10 +22808,74 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-38",
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-12",
         "ders":  "Matematik",
-        "konu":  "fonksiyon katsayi bulma",
+        "konu":  "iki bilinmeyenli denklem sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-12",
+        "ders":  "Matematik",
+        "konu":  "ikinci dereceden denklem",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-08",
+        "ders":  "Matematik",
+        "konu":  "isci havuz problemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-09",
+        "ders":  "Matematik",
+        "konu":  "karisim problemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-zor",
+        "id":  "kp-37",
+        "ders":  "Matematik",
+        "konu":  "kismi turev",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-37",
+        "ders":  "Matematik",
+        "konu":  "kismi turev",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-10",
+        "ders":  "Matematik",
+        "konu":  "kombinasyon secimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-11",
+        "ders":  "Matematik",
+        "konu":  "kumeler ve sayma",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "id":  "kp-35",
+        "ders":  "Matematik",
+        "konu":  "logaritma islemleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -22656,10 +22888,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
-        "id":  "kp-35",
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-05",
         "ders":  "Matematik",
-        "konu":  "logaritma islemleri",
+        "konu":  "logaritma taban donusumu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-05",
+        "ders":  "Matematik",
+        "konu":  "mutlak deger denklemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-06",
+        "ders":  "Matematik",
+        "konu":  "mutlak deger esitsizligi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -22672,6 +22920,30 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-04",
+        "ders":  "Matematik",
+        "konu":  "noktanin dogruya uzakligi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-03",
+        "ders":  "Matematik",
+        "konu":  "ondalik sayilarda islem",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-23",
+        "ders":  "Matematik",
+        "konu":  "oran oranti denklem sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-23",
         "ders":  "Matematik",
@@ -22680,15 +22952,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-23",
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-14",
         "ders":  "Matematik",
-        "konu":  "oran oranti denklem sistemi",
+        "konu":  "polinom bolmesinde kalan",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-22",
         "ders":  "Matematik",
         "konu":  "polinom sadelestirme",
@@ -22696,7 +22968,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-22",
         "ders":  "Matematik",
         "konu":  "polinom sadelestirme",
@@ -22728,6 +23000,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-mat-zor",
+        "id":  "kp-29",
+        "ders":  "Matematik",
+        "konu":  "tamsayi cift sayi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-29",
         "ders":  "Matematik",
@@ -22737,14 +23017,6 @@
     },
     {
         "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-29",
-        "ders":  "Matematik",
-        "konu":  "tamsayi cift sayi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-29",
         "ders":  "Matematik",
         "konu":  "tamsayi cift sayi",
@@ -22760,14 +23032,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-25",
-        "ders":  "Matematik",
-        "konu":  "turev alma",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-25",
         "ders":  "Matematik",
@@ -22776,10 +23040,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-mat-r1",
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-25",
+        "ders":  "Matematik",
+        "konu":  "turev alma",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
         "id":  "kp-14",
         "ders":  "Matematik",
-        "konu":  "yas problemleri",
+        "konu":  "turev ile maksimum deger",
         "donem":  1,
         "kurtarma":  false
     },
@@ -22792,10 +23064,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-26",
+        "etiket":  "sgs-gm5-mat-r1",
+        "id":  "kp-14",
         "ders":  "Matematik",
-        "konu":  "yuzde problemi (indirim)",
+        "konu":  "yas problemleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -22808,10 +23080,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-26",
+        "ders":  "Matematik",
+        "konu":  "yuzde problemi (indirim)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-gm5-mat-r1",
         "id":  "kp-15",
         "ders":  "Matematik",
         "konu":  "geometrik dizi ve seri toplamı",
+        "donem":  0,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r3",
+        "id":  "kp-06",
+        "ders":  "Matematik",
+        "konu":  "olasilik temelleri",
+        "donem":  0,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-mat-r4",
+        "id":  "kp-07",
+        "ders":  "Matematik",
+        "konu":  "ters orantı",
         "donem":  0,
         "kurtarma":  false
     },
@@ -27880,7 +28176,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-d4-yd-kolay-r3",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama",
@@ -27889,38 +28185,6 @@
     },
     {
         "etiket":  "sgs-d4-yd-kolay-r4",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r3",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama",
@@ -27944,6 +28208,38 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t3-yd-kolay",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
@@ -27960,15 +28256,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6e-yabancidil-p1b",
-        "id":  "kp-02",
-        "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi",
-        "donem":  9,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-gm5-yd-r2",
+        "etiket":  "sgs-d4-yd-zor-r4",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi",
@@ -27984,7 +28272,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r4",
+        "etiket":  "sgs-gm5-yd-r2",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi",
@@ -28008,19 +28296,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r1",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama-kosul",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-gm5-yd-r2",
+        "etiket":  "sgs-a6e-yabancidil-p1b",
         "id":  "kp-02",
         "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama-kosul",
-        "donem":  7,
+        "konu":  "kelime bilgisi",
+        "donem":  9,
         "kurtarma":  false
     },
     {
@@ -28040,7 +28320,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r3",
+        "etiket":  "sgs-d4-yd-cokzor-r1",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama-kosul",
@@ -28056,6 +28336,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d4-yd-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama-kosul",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama-kosul",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-yd-cokzor-r4",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
@@ -28064,11 +28360,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-02",
         "ders":  "Yabancı Dil",
-        "konu":  "baglac kullanimi",
-        "donem":  6,
+        "konu":  "cumle tamamlama-kosul",
+        "donem":  7,
         "kurtarma":  false
     },
     {
@@ -28080,7 +28376,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6e-yabancidil-p1b",
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-02",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac kullanimi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac kullanimi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "edat kullanimi",
@@ -28096,7 +28408,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "edat kullanimi",
@@ -28104,11 +28416,19 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-a6e-yabancidil-p1b",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "edat kullanimi",
         "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac secimi",
+        "donem":  5,
         "kurtarma":  false
     },
     {
@@ -28124,6 +28444,14 @@
         "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "baglac secimi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama (zitlik)",
         "donem":  5,
         "kurtarma":  false
     },
@@ -28144,18 +28472,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (zitlik)",
         "donem":  5,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
-        "id":  "kp-05",
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (zitlik)",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "karsilastirma yapilari",
         "donem":  5,
         "kurtarma":  false
     },
@@ -28176,7 +28512,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "passive voice",
@@ -28192,8 +28528,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-d4-yd-kolay-r1",
+        "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "passive voice",
         "donem":  5,
@@ -28201,6 +28537,14 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "passive voice",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "passive voice",
@@ -28216,14 +28560,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r1",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "passive voice",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d4-yd-kolay-r2",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
@@ -28240,15 +28576,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-04",
-        "ders":  "Yabancı Dil",
-        "konu":  "present perfect tense",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r3",
+        "etiket":  "sgs-d4-yd-kolay-r2",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "present perfect tense",
@@ -28264,8 +28592,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r2",
-        "id":  "kp-04",
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "present perfect tense",
         "donem":  5,
@@ -28288,8 +28616,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "present perfect tense",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r3",
+        "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "present perfect tense",
         "donem":  5,
@@ -28304,7 +28640,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r1",
+        "etiket":  "sgs-d4-yd-kolay-r3",
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (zaman)",
@@ -28320,7 +28656,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r3",
+        "etiket":  "sgs-d4-yd-kolay-r1",
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (zaman)",
@@ -28344,7 +28680,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r2",
+        "etiket":  "sgs-d4-yd-zor-r3",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "ilgi zamiri",
@@ -28352,7 +28688,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r3",
+        "etiket":  "sgs-d4-yd-zor-r2",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "ilgi zamiri",
@@ -28376,6 +28712,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "kosul cumlesi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-gm5-yd-r2",
         "id":  "kp-07",
         "ders":  "Yabancı Dil",
@@ -28392,14 +28736,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "relative clause",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-06",
         "ders":  "Yabancı Dil",
@@ -28408,8 +28744,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r2",
-        "id":  "kp-04",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-06",
         "ders":  "Yabancı Dil",
         "konu":  "relative clause",
         "donem":  4,
@@ -28417,6 +28753,14 @@
     },
     {
         "etiket":  "sgs-d4-yd-cokzor-r1",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "relative clause",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-cokzor-r2",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "relative clause",
@@ -28432,6 +28776,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-09",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac (although)",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-gm5-yd-r1",
         "id":  "kp-15",
         "ders":  "Yabancı Dil",
@@ -28440,8 +28792,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-d4-yd-cokzor-r4",
+        "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (sonuc)",
         "donem":  3,
@@ -28456,8 +28808,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r4",
-        "id":  "kp-04",
+        "etiket":  "sgs-d4-yd-cokzor-r1",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (sonuc)",
         "donem":  3,
@@ -28474,14 +28826,6 @@
     {
         "etiket":  "sgs-d4-yd-cokzor-r2",
         "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "fiil secimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-cokzor-r4",
-        "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "fiil secimi",
         "donem":  3,
@@ -28496,10 +28840,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-d4-yd-cokzor-r4",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
-        "konu":  "ilgi zamiri (which)",
+        "konu":  "fiil secimi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -28512,16 +28856,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r1",
+        "etiket":  "sgs-d4-yd-zor-r1",
         "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "ilgi zamiri (which)",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-09",
         "ders":  "Yabancı Dil",
         "konu":  "ilgi zamiri whose",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-09",
+        "ders":  "Yabancı Dil",
+        "konu":  "ilgi zamiri whose",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r1",
+        "id":  "kp-06",
         "ders":  "Yabancı Dil",
         "konu":  "ilgi zamiri whose",
         "donem":  3,
@@ -28536,15 +28896,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-09",
-        "ders":  "Yabancı Dil",
-        "konu":  "ilgi zamiri whose",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-09",
         "ders":  "Yabancı Dil",
         "konu":  "ilgi zamiri whose",
@@ -28568,10 +28920,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-10",
         "ders":  "Yabancı Dil",
-        "konu":  "modal fiil",
+        "konu":  "kelime tamamlama",
         "donem":  3,
         "kurtarma":  false
     },
@@ -28600,15 +28952,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-d4-yd-zor-r1",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
-        "konu":  "modal verbs",
+        "konu":  "modal fiil",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "modal verbs",
@@ -28632,6 +28984,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-08",
+        "ders":  "Yabancı Dil",
+        "konu":  "modal verbs",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-07",
         "ders":  "Yabancı Dil",
@@ -28648,16 +29008,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
-        "id":  "kp-10",
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "sentence completion",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-17",
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-10",
         "ders":  "Yabancı Dil",
         "konu":  "sentence completion",
         "donem":  3,
@@ -28681,7 +29041,23 @@
     },
     {
         "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-17",
+        "ders":  "Yabancı Dil",
+        "konu":  "sentence completion",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
         "id":  "kp-12",
+        "ders":  "Yabancı Dil",
+        "konu":  "sifat karsilastirma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-07",
         "ders":  "Yabancı Dil",
         "konu":  "sifat karsilastirma",
         "donem":  3,
@@ -28752,14 +29128,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
-        "id":  "kp-11",
-        "ders":  "Yabancı Dil",
-        "konu":  "edilgen yapi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-gm5-yd-r1",
         "id":  "kp-19",
         "ders":  "Yabancı Dil",
@@ -28768,16 +29136,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r1",
-        "id":  "kp-08",
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-11",
         "ders":  "Yabancı Dil",
-        "konu":  "fiil zamani",
+        "konu":  "edilgen yapi",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-d4-yd-kolay-r3",
         "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "fiil zamani",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r1",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "fiil zamani",
         "donem":  2,
@@ -28792,7 +29168,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-11",
+        "ders":  "Yabancı Dil",
+        "konu":  "phrasal verb",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
@@ -28800,7 +29184,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
@@ -28816,18 +29200,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-13",
-        "ders":  "Yabancı Dil",
-        "konu":  "prepositions",
         "donem":  2,
         "kurtarma":  false
     },
@@ -28848,8 +29224,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-07",
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-13",
+        "ders":  "Yabancı Dil",
+        "konu":  "prepositions",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-10",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-10",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary",
         "donem":  2,
@@ -28864,34 +29256,18 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t3-yd-kolay",
+        "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-10",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-10",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-10",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-zor-r2",
-        "id":  "kp-08",
-        "ders":  "Yabancı Dil",
-        "konu":  "zarf secimi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -28904,7 +29280,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-d4-yd-zor-r2",
+        "id":  "kp-08",
+        "ders":  "Yabancı Dil",
+        "konu":  "zarf secimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-29",
         "ders":  "Yabancı Dil",
         "konu":  "adjective secimi",
@@ -28912,7 +29296,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-29",
         "ders":  "Yabancı Dil",
         "konu":  "adjective secimi",
@@ -28932,14 +29316,6 @@
         "id":  "kp-30",
         "ders":  "Yabancı Dil",
         "konu":  "adverb secimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-28",
-        "ders":  "Yabancı Dil",
-        "konu":  "adverb usage",
         "donem":  1,
         "kurtarma":  false
     },
@@ -28953,6 +29329,14 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-28",
+        "ders":  "Yabancı Dil",
+        "konu":  "adverb usage",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-26",
         "ders":  "Yabancı Dil",
         "konu":  "correlative conjunction",
@@ -28960,7 +29344,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-26",
         "ders":  "Yabancı Dil",
         "konu":  "correlative conjunction",
@@ -29008,14 +29392,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-31",
-        "ders":  "Yabancı Dil",
-        "konu":  "fiil zamani (past tense)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-31",
         "ders":  "Yabancı Dil",
@@ -29025,17 +29401,9 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-35",
+        "id":  "kp-31",
         "ders":  "Yabancı Dil",
-        "konu":  "isim kelime bilgisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-35",
-        "ders":  "Yabancı Dil",
-        "konu":  "isim kelime bilgisi",
+        "konu":  "fiil zamani (past tense)",
         "donem":  1,
         "kurtarma":  false
     },
@@ -29048,7 +29416,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-35",
+        "ders":  "Yabancı Dil",
+        "konu":  "isim kelime bilgisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-35",
+        "ders":  "Yabancı Dil",
+        "konu":  "isim kelime bilgisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-36",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi (fiil secimi)",
@@ -29056,7 +29440,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-36",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi (fiil secimi)",
@@ -29080,7 +29464,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-34",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi (isim secimi)",
@@ -29088,7 +29472,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-34",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi (isim secimi)",
@@ -29120,18 +29504,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-33",
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-12",
         "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi sifat",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-33",
-        "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi sifat",
+        "konu":  "kelime bilgisi fiil",
         "donem":  1,
         "kurtarma":  false
     },
@@ -29145,6 +29521,22 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-33",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi sifat",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-33",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi sifat",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-25",
         "ders":  "Yabancı Dil",
         "konu":  "modal passive yapi",
@@ -29160,7 +29552,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-25",
         "ders":  "Yabancı Dil",
         "konu":  "modal passive yapi",
@@ -29272,22 +29664,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-19",
-        "ders":  "Yabancı Dil",
-        "konu":  "sifat kelime bilgisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-19",
-        "ders":  "Yabancı Dil",
-        "konu":  "sifat kelime bilgisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-19",
         "ders":  "Yabancı Dil",
@@ -29297,9 +29673,17 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-23",
+        "id":  "kp-19",
         "ders":  "Yabancı Dil",
-        "konu":  "sifat kullanimi",
+        "konu":  "sifat kelime bilgisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-19",
+        "ders":  "Yabancı Dil",
+        "konu":  "sifat kelime bilgisi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -29312,10 +29696,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-23",
+        "ders":  "Yabancı Dil",
+        "konu":  "sifat kullanimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-23",
         "ders":  "Yabancı Dil",
         "konu":  "sifat kullanimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-24",
+        "ders":  "Yabancı Dil",
+        "konu":  "verb tense passive",
         "donem":  1,
         "kurtarma":  false
     },
@@ -29336,15 +29736,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-24",
-        "ders":  "Yabancı Dil",
-        "konu":  "verb tense passive",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-22",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary choice",
@@ -29360,7 +29752,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-22",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary choice",
@@ -29376,7 +29768,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-20",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary verb choice",
@@ -29384,7 +29776,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-20",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary verb choice",

@@ -412,6 +412,8 @@ SORULAR.forEach((s,i)=>{
     else { const cO=k.querySelector('.cOgret'); if(cO) cO.style.display='none'; }
     document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add(dogruMu?'ok':'yan'));
     cevapKaydet(s,dogruMu);   // yanlis kutusu + hazirlik skoru
+    // 13.09 Cem "1.2.3 yap": ana sayfa cercevesi cevabi duysun (yanlista "kutuna dustu" kancasi). Yalniz vitrin + ayni koken.
+    if(VITRIN&&window.parent!==window){ try{ window.parent.postMessage({tetikte:'vitrin-cevap',id:s.id,dogru:!!dogruMu},location.origin); }catch(e){} }
     // TEK ANA DUGME (Cem 03.09 "gencleri sikar mi?"): yanlista Nobetci, dogruda Sen yap birincil; gerisi "Daha fazla"da
     const bDersC=k.querySelector('.bDers'), bOyunC=k.querySelector('.bOyun'); [bDersC,bOyunC].forEach(x=>{ if(x) x.classList.remove('birincil'); });
     const kayitVar=!!(s.kayit&&s.kayit.length); const oyunVar=!!(s.oyun&&(s.oyun.tur==='tablo'||(s.oyun.kayit&&s.oyun.kayit.length)));
