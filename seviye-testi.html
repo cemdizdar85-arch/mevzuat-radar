@@ -127,8 +127,11 @@
       <form id="svForm" novalidate>
         <input type="email" id="svEposta" placeholder="e-posta adresin" autocomplete="email" required>
         <input type="text" id="svHp" name="_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-        <label class="sv-onay"><input type="checkbox" id="svKvkk"> <span>Karnemin bu adrese gönderilmesi için e-postamın işlenmesine izin veriyorum. <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metni</a></span></label>
-        <label class="sv-onay"><input type="checkbox" id="svIzin"> <span>Sınav hatırlatmaları ve Tetikte duyuruları da gelsin (isteğe bağlı).</span></label>
+        <!-- 14.09 KVKK ölçümü: karne öğrencinin KENDİ TALEBİ -> hukuki sebep talep/sözleşme (m.5/2-c), rıza DEĞİL.
+             İlk sürüm "işlenmesine izin veriyorum" diyerek yanlış dayanak kuruyordu. Duyuru izni ise gerçek açık rıza:
+             kvkk.html bölüm 7'deki metne bağlandı (yurt dışı sağlayıcı dahil), ayrı ve isteğe bağlı. -->
+        <label class="sv-onay"><input type="checkbox" id="svKvkk"> <span><a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metnini</a> okudum; karnemin bu adrese gönderilmesini istiyorum.</span></label>
+        <label class="sv-onay"><input type="checkbox" id="svIzin"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza metnindeki</a> kapsamda rıza veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
         <button class="sv-btn ana" type="submit" id="svGonder">Karnemi gönder</button>
         <div class="sv-durum" id="svDurum" role="status"></div>
       </form>
