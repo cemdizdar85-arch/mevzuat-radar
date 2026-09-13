@@ -3156,6 +3156,13 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
       $aday=$null
       foreach($oid in $cumleli){ $c=$don[$oid]
         if("$($c.dogru)".Trim().ToUpperInvariant() -ne $fazla){ continue }
+        # ⛔⭐ 13.09.2026 ÖLÇÜLDÜ — YARGILANMIŞ SORU TAŞINMAZ. Bu döngü partinin BÜTÜN önbellek sorularına bakıyordu (PilotId ile
+        #    sınırlı değil). Olumsuz kök yeniden hakem koşusu (pilot, 71 parti) dengeleyiciyi de çalıştırdı ve YAYINDAKİ 31 sorunun
+        #    doğru harfini taşıdı (t2-fmuh-zor 13, issgk 4, fmuh 4, maliye 4, mta 2, vergi 2, denetim 2); SikTasi kör çözüm ve
+        #    simülasyonu düşürdüğü için 31 soru yayın şartını kaybetti ve bir sonraki yayında siteden düşecekti (yayın iptal edildi).
+        #    Bankada eski kuralla taşıma adayı 3.786 soru (1.670'i yayında), yeni kuralla 27 (henüz hakem görmemiş). Dengeleme
+        #    yalnız YENİ üretilmiş, hakem kararı olmayan soruya uygulanır - bloğun özgün niyeti ("adımları yazılmadan önce").
+        if($c.PSObject.Properties['hakem'] -and $c.hakem){ continue }
         if(AdimHarfeBagliMi $c){ continue }
         $hepsi=$false; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '(?i)hepsi|hiçbiri|yukarıdaki|yalnız (I|II|III)\b'){ $hepsi=$true } }
         if($hepsi){ continue }
