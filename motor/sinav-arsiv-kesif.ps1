@@ -34,6 +34,15 @@ function PdfMi([string]$u){
     if("$($r.Headers['Content-Type'])" -match 'html'){ return 0 }
     $b = 0; [void][int]::TryParse("$($r.Headers['Content-Length'])", [ref]$b)
     if($b -lt 20000){ return 0 }
+    # 13.09: baslik yetmez - ilk 8 bayt okunur, '%PDF' degilse YOK. SMMM 2026/3
+    # boyle "var" sayilip analize girmisti (bkz arac/hayalet-donem-ayikla.ps1).
+    $istek = [System.Net.HttpWebRequest]::Create($u)
+    $istek.UserAgent = $UA; $istek.Timeout = 25000; $istek.AddRange(0, 7)
+    $yanit = $istek.GetResponse(); $akis = $yanit.GetResponseStream()
+    $tampon = New-Object byte[] 8; $okunan = 0
+    while($okunan -lt 4){ $n = $akis.Read($tampon, $okunan, 8 - $okunan); if($n -le 0){ break }; $okunan += $n }
+    $yanit.Close()
+    if([Text.Encoding]::ASCII.GetString($tampon, 0, 4) -ne '%PDF'){ return 0 }
     return $b
   } catch { return 0 }
 }

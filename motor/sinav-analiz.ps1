@@ -163,6 +163,25 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   Write-Host ("=== [{0}] {1} {2} ({3}) isleniyor..." -f $sinavTip, $d.donem, $d.ders, $d.tarih)
   $tmp = Join-Path ([IO.Path]::GetTempPath()) "sgs.pdf"
   try { Invoke-WebRequest -Uri $d.url -OutFile $tmp -UserAgent "Mozilla/5.0" -TimeoutSec 180 -UseBasicParsing } catch { Write-Host "  indirilemedi, atlandi"; continue }
+  # 13.09 KAPI 0 - HAYALET KITAPCIK. SMMM 2026/3'un 8 dersi 28.07'de "tamam"
+  # yazildi; oysa 2026/3 sinavi yok (TESMER adresi 200+HTML). O gun 8 adrese de
+  # 2026/2 Sermaye Piyasasi kitapcigi etiketlendi: Finansal Muhasebe'nin
+  # "konulari" genel kurul cagri suresi, izahname sorumlulugu... Iki delik:
+  # (a) indirilen dosyanin PDF imzasina bakilmiyordu, (b) ayni dosyanin baska
+  # (donem|ders) adina okunmasi fark edilmiyordu. Ikisi de API'ye gitmeden eler.
+  $imza = [IO.File]::ReadAllBytes($tmp) | Select-Object -First 4
+  if(([Text.Encoding]::ASCII.GetString([byte[]]@($imza))) -ne '%PDF'){
+    Write-Host "  RED: indirilen dosya PDF degil (200+HTML tuzagi) - hayalet"; $d.durum='hayalet'; $islenen++; continue }
+  $pdfSha = (Get-FileHash -Path $tmp -Algorithm SHA256).Hash
+  $anahtarBu = "$($d.donem)|$($d.ders)"
+  if(-not $script:shaKutuk){
+    $script:shaKutuk = @{}
+    foreach($x in @($analiz.donemler) + @($analizS.donemler)){
+      if($x.PSObject.Properties['pdfSha256'] -and "$($x.pdfSha256)"){ $script:shaKutuk["$($x.pdfSha256)"] = "$($x.donem)|$($x.ders)" } }
+  }
+  if($script:shaKutuk.ContainsKey($pdfSha) -and $script:shaKutuk[$pdfSha] -ne $anahtarBu){
+    Write-Host ("  RED: bu PDF zaten '{0}' adina okundu - mukerrer icerik" -f $script:shaKutuk[$pdfSha]); $d.durum='mukerrer-icerik'; $islenen++; continue }
+  $script:shaKutuk[$pdfSha] = $anahtarBu
   # 29.07 (Cem: "pdf olmadi sen oku, az butce yakalim"): kitapcik ARTIK MODELE
   # PDF OLARAK GONDERILMIYOR. PDF girisi SAYFA basina token yakar; 169 kitapcigi
   # oyle okutmak butcenin buyuk kismini tek adima gomerdi. Onun yerine yerelde
@@ -311,7 +330,7 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   }
   $yeni = [pscustomobject]@{ donem=$d.donem; ders=$d.ders; tarih=$d.tarih; kaynakUrl=$d.url; toplamSoru=$sorular.Count;
     dersSayim=$dersSayim; konuSayim=$konuSayim; tipSayim=$tipSayim; uzunSayim=$uzunSayim
-    analizTarihi=(Get-Date -Format "dd.MM.yyyy"); yontem="cift okuma + hakem" }
+    analizTarihi=(Get-Date -Format "dd.MM.yyyy"); yontem="cift okuma + hakem"; pdfSha256=$pdfSha }
   $hedefAnaliz = if($sinavTip -eq 'SMMM'){ $analizS } else { $analiz }
   $anahtar = "$($d.donem)|$($d.ders)"
   $dl = New-Object System.Collections.Generic.List[object]
