@@ -3639,11 +3639,20 @@ foreach($id in @($don.Keys)){
     default { 'Sınav yapısı için ek bilgi yok; yalnız sorunun kalıbını değerlendir.' } })
   $istH=$hakem2Istem.Replace('{YAPI}',$YAPI_TARIF).Replace('{SINAV}',$Sinav).Replace('{DERS}',($DersRegex -replace '[\^\$\\]','')).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($cvp.dogru)").Replace('{ACIK}',"$acikM")
   if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istH 1500 $HAKEM2_EFFORT; continue }   # 08.09: yargı fazı, düşünme low
-  $yH=TopluAl 'H2' $id
+  $yH=TopluAl 'H2' $id; $yHToplu=[bool]$yH
   if(-not $yH){ foreach($d in 1..3){ try{ $yH=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500 -Effort $HAKEM2_EFFORT; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
   Write-Host ("  HAKEM2 TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray
   $aH=Coz $yH.metin
-  if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $rapor.Add("HAKEM2 BOZUK: $id"); continue }
+  # 13.09 ÖLÇÜLDÜ (a6e Meslek çok zor kp-11, kp-18): toplu cevap ayrıştırılamayınca "HAKEM2 BOZUK" yazılıp geçiliyordu; sonraki
+  # koşuda istem aynı olduğu için parmak izi tutuyor ve AYNI bozuk cevap bedava hasat ediliyordu → soru her koşuda kararsız kaldı.
+  # Toplu cevap bozuksa istem bir kez ANLIK sorulur; o da bozuksa eski davranış (rapora BOZUK, karar yazılmaz).
+  if((-not $aH -or -not $aH.PSObject.Properties['karar']) -and $yHToplu){
+    $bozukBas=("$($yH.metin)" -replace '\s+',' '); $bozukBas=$bozukBas.Substring(0,[Math]::Min(160,$bozukBas.Length))
+    Write-Host "  HAKEM2 TOPLU CEVAP BOZUK ($id) → anlık bir kez yeniden: $bozukBas" -ForegroundColor Yellow
+    $yH2=$null; foreach($d in 1..3){ try{ $yH2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 1500 -Effort $HAKEM2_EFFORT; break }catch{ if($d -eq 3){ $yH2=$null }; Start-Sleep -Seconds (8*$d) } }
+    if($yH2){ $yH=$yH2; $aH=Coz $yH.metin; Write-Host ("  HAKEM2 TOKEN (anlık) {0}: girdi {1} · cikti {2}" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray }
+  }
+  if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $bozukBas=("$($yH.metin)" -replace '\s+',' '); $rapor.Add("HAKEM2 BOZUK: $id | $($bozukBas.Substring(0,[Math]::Min(160,$bozukBas.Length)))"); continue }
   $koku=@($aH.koku | Where-Object { "$_".Trim() })
   # 08.09 ölçümü: hakem2 gerçekçi işletme adını ("Çelik Makine Sanayi A.Ş.") yer tutucu sayıp düşürdü → yalnız DETERMİNİSTİK koku sınıfları kararı etkiler
   # (ABC/XYZ harf dizisi, hepsi yuvarlak tutar, klişe, aynı kalıp tekrarı, uzun tire); kalan koku notları bilgi olarak saklanır (koku_not).
