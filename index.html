@@ -7,8 +7,9 @@
      Google'in ilk gordugu sey bu ve markayi yanlis tanitiyordu. Yeni baslik
      uc arama niyetini birden karsiliyor (mevzuat takibi / GTIP / SMMM sinavi)
      ve ~60 karakterde kaliyor (Google bu civarda kesiyor). -->
-<title>Tetikte — SMMM Staja Giriş, Yeterlilik, KGK ve SPK sınavı: yanlışını böyle öğrenirsin</title>
-<meta name="description" content="SMMM Staja Giriş (SGS), Yeterlilik, KGK bağımsız denetçi ve SPK lisanslama sınavları için soru bankası: her şıkkın gerekçesi kaynağıyla. Büro ve şirketler için mevzuat nöbeti aynı sayfada.">
+<!-- 13.09 Cem: SPK başlıktan ve kahramandan çıktı - SPK lisanslama soru bankası yok; "bitince eklenir". -->
+<title>Tetikte — SMMM Staja Giriş, Yeterlilik ve KGK sınavı: yanlışını böyle öğrenirsin</title>
+<meta name="description" content="SMMM Staja Giriş (SGS), Yeterlilik ve KGK bağımsız denetçi sınavları için soru bankası: her şıkkın gerekçesi kaynağıyla. Büro ve şirketler için mevzuat nöbeti aynı sayfada.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -709,7 +710,7 @@ window.veriAl = (function(){
         </div>
         <div class="bz-govde">
           <div>
-            <p class="bz-goz">SMMM Staja Giriş &nbsp;•&nbsp; Yeterlilik &nbsp;•&nbsp; KGK &nbsp;•&nbsp; SPK</p>
+            <p class="bz-goz">SMMM Staja Giriş &nbsp;•&nbsp; Yeterlilik &nbsp;•&nbsp; KGK</p>
             <h1 class="bz-baslik">Yanlışını, sebebiyle birlikte öğren<b>.</b></h1>
             <p class="bz-alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
             <!-- 12.09 Cem: "ziyaretçi girmesin, tam bitmedi" -> vitrine gidiyordu.
@@ -1721,32 +1722,41 @@ window.veriAl = (function(){
       <p>Mevzuatta yanlış bilgi; ödenen fazla vergi, kesilen ceza demektir. Bu yüzden tek kuralımız var: her şey resmî kaynaktan, madde madde.</p>
     </div>
     <div class="guven-grid">
+      <!-- ⭐ 13.09.2026 SÖZ DENETİMİ (Cem: "vitrindeki her söz kanıtlı olsun"). Altı kart kodla/veriyle ölçüldü:
+           1 "Her oran doğrudan resmî metinden"  -> mutlak ifade ölçülemez; kaynak listesi doğru, "her" kalktı.
+           2 "Kanunları madde madde taradık"      -> veri/AMBAR-ENVANTERI.md kayıtlı AMA eksikler de var
+                                                    (4734 s.K. "DELİK-İNCELE kesik:1 öksüz:1") - "eksik de işaretli" diye yazıldı.
+           3 "Çift okuma, sonra hakem"            -> DOĞRU: motor/kart-toplu.ps1 iki okuma kıyaslar, anlaşmazlıkta
+                                                    Sonnet hakem. "hiçbir rakamı yayınlamayız" mutlak, ölçülmedi -> kalktı.
+           4 '"kaynakta belirtilmemiş" der'        -> bu ifade kodda HİÇ yok (yalnız bu kartta) -> alıntı kalktı.
+           5 "ekstre, ciro, VKN sunucuya gönderilmez" -> YANLIŞTI: karne.html e-posta formu çalışan/ciro/aktif'i
+                                                    sunucuya yolluyor; alacak radarına VKN eklenince sunucuda tutuluyor.
+           6 '"hata bildir" ... düzeltme şeffaf yayınlanır' -> YANLIŞTI: Kaydır-Çöz'de bildirim yalnız TARAYICIDA
+                                                    saklanıyor (kaydir-coz.ps1 "prototip: yerelde saklanir"), bize ulaşmıyor.
+           Doğru hâle getirilen metinler aşağıda; hata bildirimi kasaya bağlanınca 6. karttaki söz geri gelebilir. -->
       <div class="gk reveal">
-        <h3>Birincil kaynak, ikincisi yok</h3>
-        <p>Her oran, süre ve tutar doğrudan Resmî Gazete, GİB, Kamu İhale Kurumu ve TÜRKPATENT metinlerinden okunur. Blog, kulaktan dolma, "internette böyle yazıyor" bu sitede yer bulmaz.</p>
+        <h3>Birincil kaynak</h3>
+        <p>Oranlar, süreler ve tutarlar Resmî Gazete, GİB, Kamu İhale Kurumu ve TÜRKPATENT metinlerinden okunur ve kaynağıyla gösterilir. Blog, kulaktan dolma, "internette böyle yazıyor" kaynak sayılmaz.</p>
       </div>
       <div class="gk reveal">
-        <h3>Kanunları madde madde okuduk</h3>
-        <p>İhale, Vergi Usul, İcra-İflas, Sınai Mülkiyet ve Gümrük kanunlarını madde madde taradık; hangi maddeye değindiğimiz kayıt altında. "Bir yeri atladık mı?" sorusu bizde tahmine bırakılmaz.</p>
+        <h3>Mevzuat madde madde, eksiği de kayıtlı</h3>
+        <p>İhale, Vergi Usul, İcra-İflas, Sınai Mülkiyet ve Gümrük mevzuatı madde madde ambara alındı. Hangi metnin tam, hangisinin eksik okunduğu envanterde işaretli; "bir yeri atladık mı?" tahmine bırakılmaz.</p>
       </div>
       <div class="gk reveal">
         <h3>Çift okuma, sonra hakem</h3>
-        <p>Otomatik ürettiğimiz her kart iki bağımsız okumadan geçer; iki okuma anlaşamazsa üçüncü bir kontrol devreye girer. Güvenle doğrulayamadığımız hiçbir rakamı yayınlamayız.</p>
+        <p>Resmî Gazete'den ürettiğimiz her kart iki ayrı okumadan geçer; iki okuma anlaşamazsa üçüncü bir hakem kontrolü devreye girer.</p>
       </div>
       <div class="gk reveal">
-        <h3>Yapamadığımızı da söyleriz</h3>
-        <p>Emin olmadığımız yerde "kaynakta belirtilmemiş" der, seni doğru kapıya yönlendiririz. Abartılı vaat yok; ne biliyorsak onu, olduğu gibi.</p>
-      </div>
-      <!-- 30.07 Cem: "bu bolume ekleme yap" - iki yeni guven kaniti, ikisi de
-           olculebilir gercek: hesap araclari tarayicida calisir (KVKK metniyle
-           birebir), hakem elegi + hata-bildir dugmesi + tazelik damgasi canli. -->
-      <div class="gk reveal">
-        <h3>Verin cihazından çıkmaz</h3>
-        <p>Hesap araçlarına girdiğin ekstre, ciro, VKN tarayıcında işlenir, sunucuya gönderilmez. Üyelik verisi ise yalnız sana aittir: veritabanı satır düzeyinde kilitlidir, başka üye senin kaydını göremez.</p>
+        <h3>Bilmediğimizi uydurmayız</h3>
+        <p>Emin olmadığımız yerde tahmin yürütmeyiz; bilmediğimizi söyler, seni doğru kapıya yönlendiririz. Abartılı vaat yok; ne biliyorsak onu, olduğu gibi.</p>
       </div>
       <div class="gk reveal">
-        <h3>Hatayı saklamayız, geri çekeriz</h3>
-        <p>Bağımsız hakem denetiminde şüpheye düşen içerik yayından çekilir. Her soruda "hata bildir" düğmesi vardır; haklı çıkarsan düzeltme şeffaf yayınlanır. Listelerde tazelik damgası görürsün; söze değil tarihe bakarsın.</p>
+        <h3>Verin nerede, açıkça</h3>
+        <p>Hesap araçlarına girdiğin rakamlar tarayıcında hesaplanır. Bir formu gönderdiğinde ya da radara firma eklediğinde bilgi sunucumuza gelir; üyelik verisi satır düzeyinde kilitlidir, başka üye senin kaydını göremez.</p>
+      </div>
+      <div class="gk reveal">
+        <h3>Söze değil tarihe bak</h3>
+        <p>Sorular yayına çıkmadan bağımsız hakem denetiminden geçer; şüpheye düşen soru yayına alınmaz. Güncel olduğunu söyleyen kutularda tazelik damgası görürsün: verinin ne zaman okunduğu yazar.</p>
       </div>
     </div>
     <div class="kaynak-bar reveal">
