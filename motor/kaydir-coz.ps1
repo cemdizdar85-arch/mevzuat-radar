@@ -495,6 +495,9 @@ $html=@'
    koyu temanın MAVİ vurgusu yalnız çerçevede sitenin BRONZUNA çevrilir. Ürünün kendi
    teması değişmez - kural data-tek'e bağlı, normal Kaydır-Çöz'e dokunmaz. */
 :root[data-tek][data-theme="dark"]{--mavi:#e3b877}
+/* 13.09 Cem onayı: akran satırı ("👥 9 adayın %89'u senin gibi B dedi") çerçevede gizli.
+   Örneklem küçükken ilk kez gelen ziyaretçi "sitede 9 kişi var" diye okur. Üründe durur. */
+:root[data-tek] .akranNot{display:none}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:Segoe UI,system-ui,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
