@@ -1,0 +1,47 @@
+[
+    {
+        "ders":  "Matematik",
+        "dersAd":  "Matematik",
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "adet":  39,
+        "tavan":  300,
+        "zorluk":  "cokzor",
+        "sinav":  "SGS",
+        "konuDosya":  "veri/sinav/konu/sgs-t1-genel-mat-cokzor.json",
+        "toplu":  true,
+        "disla":  "",
+        "tur":  1,
+        "pilotId":  "kp-03,kp-37",
+        "hakemYenileId":  "kp-03,kp-37"
+    },
+    {
+        "ders":  "Matematik",
+        "dersAd":  "Matematik",
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "adet":  39,
+        "tavan":  300,
+        "zorluk":  "kolay",
+        "sinav":  "SGS",
+        "konuDosya":  "veri/sinav/konu/sgs-t1-genel-mat-kolay.json",
+        "toplu":  true,
+        "disla":  "",
+        "tur":  1,
+        "pilotId":  "kp-03",
+        "hakemYenileId":  "kp-03"
+    },
+    {
+        "ders":  "Matematik",
+        "dersAd":  "Matematik",
+        "etiket":  "sgs-t1-genel-mat-zor",
+        "adet":  39,
+        "tavan":  300,
+        "zorluk":  "zor",
+        "sinav":  "SGS",
+        "konuDosya":  "veri/sinav/konu/sgs-t1-genel-mat-zor.json",
+        "toplu":  true,
+        "disla":  "",
+        "tur":  1,
+        "pilotId":  "kp-14,kp-37",
+        "hakemYenileId":  "kp-14,kp-37"
+    }
+]
