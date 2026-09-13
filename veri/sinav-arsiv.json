@@ -1,4 +1,4 @@
-﻿{
+{
   "aciklama": "Çıkmış sınav kitapçığı envanteri. KAYNAK: TESMER resmî arşivi (www2.tesmer.org.tr/files/ortak/soru_cevaplar/...) — 22.07.2026'dan itibaren tüm yeni kayıtlar birincil kaynaktan; ilk 6 SGS kaydı açık kopyadan işlendi (analiz sonuçları geçerli, kaynakUrl'leri tarihî not). sinav-analiz robotu 'bekliyor' olanları işler; SGS sonuçları sgs-analiz.json'a, SMMM (Yeterlilik) sonuçları smmm-analiz.json'a yazılır. Kitapçık İÇERİĞİ siteye kopyalanmaz — yalnız konu/adet analizi yayınlanır. SMMM 2026/1'den itibaren test formatı (TESMER duyurusu). | 23.08.2026 KESIF: TESMER arsivi taranarak envanter genisletildi (motor/sinav-arsiv-kesif.ps1). Eklenen satirlar durum='kesif' -- sinav-analiz robotu YALNIZ durum='bekliyor' satirlari isler, yani bu satirlar KENDILIGINDEN API harcamaz. Etiketlemeye alinacak satir Cem isaretiyle 'bekliyor' yapilir.",
   "donemler": [
     {
@@ -441,7 +441,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2021/1/01/smmm_2021_1_01.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -450,7 +450,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2021/1/02/smmm_2021_1_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -945,7 +945,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2023/2/01/smmm_2023_2_01.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3807,7 +3807,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/1/07/smmm_2009_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4024,7 +4024,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/2/06/smmm_2010_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4225,7 +4225,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/3/03/smmm_2011_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4490,7 +4490,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/2/01/smmm_2013_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4667,7 +4667,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/2/02/smmm_2014_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5020,7 +5020,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/08/smmm_2016_1_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5253,7 +5253,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/05/smmm_2017_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5374,7 +5374,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/04/smmm_2018_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5695,7 +5695,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/3/04/smmm_2019_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5832,7 +5832,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/2/05/smmm_2020_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",

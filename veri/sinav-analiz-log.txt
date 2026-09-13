@@ -1,136 +1,132 @@
 **********************
 PowerShell transcript start
-Start time: 20260729143839
-Username: runnervmvrwv9\runner
-RunAs User: runnervmvrwv9\runner
+Start time: 20260913122754
+Username: runnervmlun5p\runner
+RunAs User: runnervmlun5p\runner
 Configuration Name: 
-Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/3ae0e52b-761c-42c2-be9c-28355757f5ec.ps1'
-Process ID: 2777
-PSVersion: 7.6.3
+Machine: runnervmlun5p (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c97ef936-4fd3-45c9-8808-b9041150daf7.ps1'
+Process ID: 2780
+PSVersion: 7.6.5
 PSEdition: Core
-GitCommitId: 7.6.3
-OS: Ubuntu 24.04.4 LTS
+GitCommitId: 7.6.5
+OS: Ubuntu 24.04.5 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
 PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-BASLADI  model=claude-sonnet-5  LIMIT=15  anahtar=VAR
-SUZGEC: sinav='SGS' donem>=0
-=== [SGS] 2016/2  () isleniyor...
-  pdf 581 KB -> metin 119,981 karakter, okuma 1/2...
+BASLADI  model=claude-sonnet-5  LIMIT=13  anahtar=VAR
+SUZGEC: sinav='SMMM' donem>=0
+=== [SMMM] 2021/1 Finansal Muhasebe () isleniyor...
+  pdf 389 KB -> metin 30,047 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 48
-  TAMAM: 130 soru etiketlendi, 7 ders
-=== [SGS] 2016/3  () isleniyor...
-  pdf 1368 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=33 soru, okuma2=33 soru
+  YAZILI: okuma1 33 konu, okuma2 33 konu, ortusme %100
+  BIRLESIM: 59 konu
+  TAMAM: 59 soru etiketlendi, 1 ders
+=== [SMMM] 2021/1 Finansal Tablolar ve Analizi () isleniyor...
+  pdf 320 KB -> metin 6,636 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 1 (%1) · konu farkli: 74
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 129 soru etiketlendi, 7 ders
-=== [SGS] 2017/1  () isleniyor...
-  pdf 1899 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=9 soru, okuma2=9 soru
+  YAZILI: okuma1 9 konu, okuma2 9 konu, ortusme %100
+  BIRLESIM: 15 konu
+  AYRINTI: yerel madde 9, kayit 15, esik 4
+  TAMAM: 15 soru etiketlendi, 1 ders
+=== [SMMM] 2023/2 Finansal Muhasebe () isleniyor...
+  pdf 559 KB -> metin 29,311 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=129 soru, okuma2=129 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 55
-  TAMAM: 129 soru etiketlendi, 7 ders
-=== [SGS] 2017/2  () isleniyor...
-  pdf 1167 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=35 soru, okuma2=36 soru
+  YAZILI: okuma1 35 konu, okuma2 36 konu, ortusme %100
+  BIRLESIM: 64 konu
+  TAMAM: 64 soru etiketlendi, 1 ders
+=== [SMMM] 2009/1 Muh. ve Mali Müş. Meslek Hukuku () isleniyor...
+  pdf 129 KB -> metin 4,112 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=128 soru, okuma2=128 soru
-  ders uyusmayan: 2 (%2) · konu farkli: 52
-  TAMAM: 126 soru etiketlendi, 7 ders
-=== [SGS] 2017/3  () isleniyor...
-  pdf 621 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=5 soru, okuma2=5 soru
+  YAZILI: okuma1 5 konu, okuma2 5 konu, ortusme %100
+  BIRLESIM: 6 konu
+  TAMAM: 6 soru etiketlendi, 1 ders
+=== [SMMM] 2010/2 Hukuk () isleniyor...
+  pdf 89 KB -> metin 4,078 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 1 (%1) · konu farkli: 55
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 129 soru etiketlendi, 7 ders
-=== [SGS] 2018/1  () isleniyor...
-  pdf 686 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=5 soru, okuma2=5 soru
+  YAZILI: okuma1 5 konu, okuma2 5 konu, ortusme %100
+  BIRLESIM: 5 konu
+  TAMAM: 5 soru etiketlendi, 1 ders
+=== [SMMM] 2011/3 Maliyet Muhasebesi () isleniyor...
+  pdf 117 KB -> metin 7,100 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 56
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 130 soru etiketlendi, 7 ders
-=== [SGS] 2018/2  () isleniyor...
-  pdf 420 KB -> metin 114,046 karakter, okuma 1/2...
+  okuma1=5 soru, okuma2=5 soru
+  YAZILI: okuma1 5 konu, okuma2 5 konu, ortusme %100
+  BIRLESIM: 5 konu
+  AYRINTI: yerel madde 10, kayit 5, esik 5
+  TAMAM: 5 soru etiketlendi, 1 ders
+=== [SMMM] 2013/2 Finansal Muhasebe () isleniyor...
+  pdf 337 KB -> metin 30,814 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 1 (%1) · konu farkli: 50
-  TAMAM: 129 soru etiketlendi, 7 ders
-=== [SGS] 2018/3  () isleniyor...
-  pdf 558 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=26 soru, okuma2=26 soru
+  YAZILI: okuma1 26 konu, okuma2 26 konu, ortusme %92
+  BIRLESIM: 36 konu
+  AYRINTI: yerel madde 27, kayit 36, esik 13
+  TAMAM: 36 soru etiketlendi, 1 ders
+=== [SMMM] 2014/2 Finansal Tablolar ve Analizi () isleniyor...
+  pdf 217 KB -> metin 22,792 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 41
-  TAMAM: 130 soru etiketlendi, 7 ders
-=== [SGS] 2019/1  () isleniyor...
-  pdf 572 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=5 soru, okuma2=5 soru
+  YAZILI: okuma1 5 konu, okuma2 5 konu, ortusme %100
+  BIRLESIM: 5 konu
+  TAMAM: 5 soru etiketlendi, 1 ders
+=== [SMMM] 2016/1 Sermaye Piyasası Mevzuatı () isleniyor...
+  pdf 166 KB -> metin 5,076 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=128 soru, okuma2=128 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 49
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 128 soru etiketlendi, 7 ders
-=== [SGS] 2019/2  () isleniyor...
-  pdf 460 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=10 soru, okuma2=10 soru
+  YAZILI: okuma1 10 konu, okuma2 10 konu, ortusme %100
+  BIRLESIM: 14 konu
+  TAMAM: 14 soru etiketlendi, 1 ders
+=== [SMMM] 2017/2 Vergi Mevzuatı ve Uygulaması () isleniyor...
+  pdf 228 KB -> metin 6,072 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=126 soru, okuma2=127 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 66
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 126 soru etiketlendi, 7 ders
-=== [SGS] 2019/3  () isleniyor...
-  pdf 502 KB -> metin 119,884 karakter, okuma 1/2...
+  okuma1=15 soru, okuma2=15 soru
+  YAZILI: okuma1 15 konu, okuma2 15 konu, ortusme %100
+  BIRLESIM: 21 konu
+  TAMAM: 21 soru etiketlendi, 1 ders
+=== [SMMM] 2018/1 Muhasebe Denetimi () isleniyor...
+  pdf 194 KB -> metin 5,230 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 61
-  TAMAM: 130 soru etiketlendi, 7 ders
-=== [SGS] 2020/1  () isleniyor...
-  pdf 1173 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=7 soru, okuma2=7 soru
+  YAZILI: okuma1 7 konu, okuma2 7 konu, ortusme %100
+  BIRLESIM: 9 konu
+  TAMAM: 9 soru etiketlendi, 1 ders
+=== [SMMM] 2019/3 Muhasebe Denetimi () isleniyor...
+  pdf 669 KB -> metin 6,142 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 55
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 130 soru etiketlendi, 7 ders
-=== [SGS] 2020/2  () isleniyor...
-  pdf 1271 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma1=4 soru, okuma2=3 soru
+  YAZILI: okuma1 4 konu, okuma2 3 konu, ortusme %100
+  BIRLESIM: 5 konu
+  TAMAM: 5 soru etiketlendi, 1 ders
+=== [SMMM] 2020/2 Vergi Mevzuatı ve Uygulaması () isleniyor...
+  pdf 378 KB -> metin 2,107 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=130 soru, okuma2=130 soru
-  ders uyusmayan: 2 (%2) · konu farkli: 71
-  TAMAM: 128 soru etiketlendi, 7 ders
-=== [SGS] 2020/3  () isleniyor...
-  pdf 1062 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
-  okuma 2/2...
-  okuma1=125 soru, okuma2=125 soru
-  ders uyusmayan: 1 (%1) · konu farkli: 50
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 124 soru etiketlendi, 7 ders
-=== [SGS] 2021/1  () isleniyor...
-  pdf 559 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
-  okuma 2/2...
-  okuma1=129 soru, okuma2=129 soru
-  ders uyusmayan: 0 (%0) · konu farkli: 57
-PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
-  TAMAM: 129 soru etiketlendi, 7 ders
-BITTI: bu kosuda 15 donem islendi.
+  okuma1=7 soru, okuma2=7 soru
+  YAZILI: okuma1 6 konu, okuma2 6 konu, ortusme %100
+  BIRLESIM: 6 konu
+  TAMAM: 6 soru etiketlendi, 1 ders
+BITTI: bu kosuda 13 donem islendi.
   model     : claude-sonnet-5  (fiyat varsayimi 3/15 USD-M)
 
 ======== GERCEK FATURA ========
-  cagri     : 45  (15 kitapcik x 2 bagimsiz okuma)
-  giris     : 1,262,049 token
-  cikis     : 296,253 token
-  TUTAR     : ~8.23 USD
-  KITAPCIK BASINA: ~0.549 USD
-  -> kuyruktaki 169 kitapcik icin tahmin: ~93 USD
+  cagri     : 26  (13 kitapcik x 2 bagimsiz okuma)
+  giris     : 148,506 token
+  cikis     : 28,091 token
+  TUTAR     : ~0.87 USD
+  KITAPCIK BASINA: ~0.067 USD
+  -> kuyruktaki 169 kitapcik icin tahmin: ~11 USD
 -> veri/sinav-analiz-fatura.json
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729152258
+End time: 20260913123242
 **********************
