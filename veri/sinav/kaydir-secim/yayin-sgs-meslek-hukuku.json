@@ -1,6 +1,14 @@
 [
     {
-        "etiket":  "sgs-t1-meslek-zor",
+        "etiket":  "sgs-p-meslek-kolay-r1-a",
+        "id":  "kp-01",
+        "ders":  "Meslek Hukuku",
+        "konu":  "disiplin cezalari",
+        "donem":  11,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-meslek-kolay-r3-a",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin cezalari",
@@ -16,22 +24,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-kolay",
-        "id":  "kp-01",
-        "ders":  "Meslek Hukuku",
-        "konu":  "disiplin cezalari",
-        "donem":  11,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-meslek-kolay-r1-a",
-        "id":  "kp-01",
-        "ders":  "Meslek Hukuku",
-        "konu":  "disiplin cezalari",
-        "donem":  11,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-meslek-kolay-r4-a",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
@@ -40,7 +32,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-meslek-kolay-r3-a",
+        "etiket":  "sgs-t1-meslek-zor",
+        "id":  "kp-01",
+        "ders":  "Meslek Hukuku",
+        "konu":  "disiplin cezalari",
+        "donem":  11,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-meslek-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Meslek Hukuku",
+        "konu":  "disiplin cezalari",
+        "donem":  11,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-meslek-kolay",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin cezalari",
@@ -64,7 +72,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-meslek-cokzor-r1-a",
+        "etiket":  "sgs-c2-meslek-cokzor-r3",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
         "konu":  "haksiz rekabet reklam yasagi",
@@ -80,11 +88,19 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-meslek-cokzor-r3",
+        "etiket":  "sgs-p-meslek-cokzor-r1-a",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
         "konu":  "haksiz rekabet reklam yasagi",
         "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-meslek-kolay-r1",
+        "id":  "kp-04",
+        "ders":  "Meslek Hukuku",
+        "konu":  "buro edinme zorunlulugu",
+        "donem":  3,
         "kurtarma":  false
     },
     {
@@ -106,6 +122,14 @@
     {
         "etiket":  "sgs-p-meslek-zor-r2-a",
         "id":  "kp-03",
+        "ders":  "Meslek Hukuku",
+        "konu":  "disiplin yonetmeligi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-meslek-zor-r2",
+        "id":  "kp-04",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin yonetmeligi",
         "donem":  3,
@@ -136,7 +160,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-cokzor",
+        "etiket":  "sgs-t1-meslek-kolay",
         "id":  "kp-07",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin kovusturmasi",
@@ -144,7 +168,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-kolay",
+        "etiket":  "sgs-t1-meslek-cokzor",
         "id":  "kp-07",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin kovusturmasi",
@@ -168,14 +192,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-cokzor",
-        "id":  "kp-08",
-        "ders":  "Meslek Hukuku",
-        "konu":  "meslek mensubu olma engelleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-meslek-kolay",
         "id":  "kp-08",
         "ders":  "Meslek Hukuku",
@@ -184,7 +200,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-zor",
+        "etiket":  "sgs-t1-meslek-cokzor",
+        "id":  "kp-08",
+        "ders":  "Meslek Hukuku",
+        "konu":  "meslek mensubu olma engelleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-meslek-zor-r2-a",
         "id":  "kp-06",
         "ders":  "Meslek Hukuku",
         "konu":  "meslekle bagdasmayan isler",
@@ -200,7 +224,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-meslek-zor-r2-a",
+        "etiket":  "sgs-t1-meslek-zor",
         "id":  "kp-06",
         "ders":  "Meslek Hukuku",
         "konu":  "meslekle bagdasmayan isler",
@@ -240,6 +264,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-meslek-zor-r1",
+        "id":  "kp-05",
+        "ders":  "Meslek Hukuku",
+        "konu":  "ticari faaliyet yasagi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-meslek-cokzor-r1",
         "id":  "kp-01",
         "ders":  "Meslek Hukuku",
@@ -248,15 +280,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-cokzor",
-        "id":  "kp-04",
+        "etiket":  "sgs-d2-meslek-zor-r2",
+        "id":  "kp-05",
         "ders":  "Meslek Hukuku",
-        "konu":  "ucret tarifesi",
+        "konu":  "ticari faaliyet yasagi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-meslek-zor-r1",
+        "etiket":  "sgs-t1-meslek-cokzor",
         "id":  "kp-04",
         "ders":  "Meslek Hukuku",
         "konu":  "ucret tarifesi",
@@ -272,6 +304,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-meslek-zor-r1",
+        "id":  "kp-04",
+        "ders":  "Meslek Hukuku",
+        "konu":  "ucret tarifesi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-meslek-cokzor",
+        "id":  "kp-05",
+        "ders":  "Meslek Hukuku",
+        "konu":  "ucret tarifesi esaslari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-meslek-kolay",
         "id":  "kp-05",
         "ders":  "Meslek Hukuku",
@@ -280,7 +328,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-cokzor",
+        "etiket":  "sgs-d2-meslek-kolay-r1",
         "id":  "kp-05",
         "ders":  "Meslek Hukuku",
         "konu":  "ucret tarifesi esaslari",
@@ -312,6 +360,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-meslek-kolay-r1",
+        "id":  "kp-07",
+        "ders":  "Meslek Hukuku",
+        "konu":  "disiplin cezalarinin uygulanmasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-meslek-kolay-r2",
         "id":  "kp-06",
         "ders":  "Meslek Hukuku",
@@ -321,23 +377,15 @@
     },
     {
         "etiket":  "sgs-c5-meslek-kolay-r1",
-        "id":  "kp-07",
-        "ders":  "Meslek Hukuku",
-        "konu":  "disiplin cezalarinin uygulanmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-meslek-zor",
-        "id":  "kp-24",
+        "id":  "kp-08",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin cezasi kinama",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-meslek-kolay-r1",
-        "id":  "kp-08",
+        "etiket":  "sgs-t1-meslek-zor",
+        "id":  "kp-24",
         "ders":  "Meslek Hukuku",
         "konu":  "disiplin cezasi kinama",
         "donem":  1,
@@ -416,6 +464,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-meslek-kolay",
+        "id":  "kp-09",
+        "ders":  "Meslek Hukuku",
+        "konu":  "ozen sorumlulugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-meslek-zor",
         "id":  "kp-09",
         "ders":  "Meslek Hukuku",
@@ -424,10 +480,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-meslek-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-c5-meslek-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "Meslek Hukuku",
-        "konu":  "ozen sorumlulugu",
+        "konu":  "ruhsat iptali-meslek hukuku",
         "donem":  1,
         "kurtarma":  false
     },
@@ -440,10 +496,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-meslek-cokzor-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-t1-meslek-zor",
+        "id":  "kp-17",
         "ders":  "Meslek Hukuku",
-        "konu":  "ruhsat iptali-meslek hukuku",
+        "konu":  "smmm olma sartlari",
         "donem":  1,
         "kurtarma":  false
     },
@@ -457,14 +513,6 @@
     },
     {
         "etiket":  "sgs-t1-meslek-kolay",
-        "id":  "kp-17",
-        "ders":  "Meslek Hukuku",
-        "konu":  "smmm olma sartlari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-meslek-zor",
         "id":  "kp-17",
         "ders":  "Meslek Hukuku",
         "konu":  "smmm olma sartlari",
