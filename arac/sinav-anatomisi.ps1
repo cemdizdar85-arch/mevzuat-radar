@@ -88,6 +88,10 @@ function DersBul([string]$g){
   if($enPuan -lt 1){ return 'belirsiz' }
   return $enIyi
 }
+# 13.09 SMMM: kitapçık TEK ders → ders kitapçık kodundan okunur, anahtar kelimeyle tahmin edilmez
+# (02.09 ölçümünde 240 sorunun 72'si 'belirsiz' kalmıştı). ÜÇ DOSYA SENKRON: motor/celdirici-olcum.ps1 · arac/cikmis-ders-kalibi.ps1
+$SMMM_DERS=@{ '01'='Finansal Muhasebe'; '02'='Finansal Tablolar ve Analizi'; '03'='Maliyet Muhasebesi'; '04'='Muhasebe Denetimi'; '05'='Vergi Mevzuatı ve Uygulaması'; '06'='Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)'; '07'='Muhasebecilik ve Mali Müşavirlik Meslek Hukuku'; '08'='Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)' }
+function SmmmDers([string]$ad){ $sk=[regex]::Match($ad,'smmm_\d{4}_\d_(\d{2})').Groups[1].Value; if($SMMM_DERS.ContainsKey($sk)){ return $SMMM_DERS[$sk] }; return 'belirsiz' }
 
 # --- kitapçıkları çek --------------------------------------------------------
 $u1=$SB+'?select=kaynak_ad&kaynak_ad=ilike.'+[uri]::EscapeDataString("CIKMIS SINAV - $Sinav%")+"&limit=80&order=kaynak_ad.desc"
@@ -146,7 +150,7 @@ foreach($ad in ($adlar | Select-Object -First $KitapcikTavan)){
     $sikOrt=if($sikUz.Count){ ($sikUz | Measure-Object -Average).Average } else { 0 }
     if($sikOrt -gt 60){ $z += 5 }                               # uzun sik = okuma yuku
     $S.Add([pscustomobject]@{
-      kitapcik=$ad; donem=$donem; no=$no; uzunluk=$g.Length; ders=(DersBul $g); tip=$tip
+      kitapcik=$ad; donem=$donem; no=$no; uzunluk=$g.Length; ders=$(if($Sinav -eq 'SMMM'){ SmmmDers $ad } else { DersBul $g }); tip=$tip
       rakam=$rakamAdet; hesapKodu=$hesapKodu; mevzuat=$mevzuatAtif; negatif=$negatif
       onculu=$onculu; tablo=$tabloVar; sikSayi=$siklar.Count
       sikOrtUz=[math]::Round($sikOrt); sikRakam=$sikRakamMi; zorluk=[math]::Min(100,$z)

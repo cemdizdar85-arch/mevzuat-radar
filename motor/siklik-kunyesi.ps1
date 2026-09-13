@@ -12,16 +12,23 @@
 #  D9 FRENI: sayim yoksa kunye YAZILMAZ. "Sik cikar" gibi olcusuz ifade yasak.
 #  Cikti: veri/siklik-kunyesi.json
 # ============================================================================
+# 13.09 SMMM (Cem "staja baslamada ne yaptiysak bunda aynisi"): -Sinav SMMM
+#  kaynak veri/smmm-analiz.json, cikti veri/siklik-kunyesi-smmm.json. SGS yolu
+#  (varsayilan) BIREBIR ayni kalir. SMMM'de kayit (donem|ders) bazli: her ders
+#  bir donemde tek kayit oldugu icin "kac kayitta" = "kac donemde"; donem_sayisi
+#  ise TEKIL donem sayisidir (kayit sayisi degil).
+param([ValidateSet('SGS','SMMM')][string]$Sinav = 'SGS')
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$kaynak = Join-Path $kok 'veri/sgs-analiz.json'
-$cikti  = Join-Path $kok 'veri/siklik-kunyesi.json'
-if(-not (Test-Path $kaynak)){ Write-Host "sgs-analiz.json yok - cikildi."; exit 1 }
+$kaynak = if($Sinav -eq 'SMMM'){ Join-Path $kok 'veri/smmm-analiz.json' } else { Join-Path $kok 'veri/sgs-analiz.json' }
+$cikti  = if($Sinav -eq 'SMMM'){ Join-Path $kok 'veri/siklik-kunyesi-smmm.json' } else { Join-Path $kok 'veri/siklik-kunyesi.json' }
+if(-not (Test-Path $kaynak)){ Write-Host "$kaynak yok - cikildi."; exit 1 }
 
 $a = Get-Content $kaynak -Raw -Encoding UTF8 | ConvertFrom-Json
 $donemler = @($a.donemler | Where-Object { $_.konuSayim })
-Write-Host ("Donem: {0}" -f $donemler.Count)
+$donemSayisi = if($Sinav -eq 'SMMM'){ @($donemler | ForEach-Object { "$($_.donem)" } | Sort-Object -Unique).Count } else { $donemler.Count }
+Write-Host ("Donem: {0} (kayit {1})" -f $donemSayisi, $donemler.Count)
 
 # Turkce-toleransli normalize: kasadaki etiketle kitapciktaki etiket birebir
 # ayni yazilmiyor; aksan/buyuk-kucuk farkini eritip esitliyoruz.
@@ -60,8 +67,8 @@ foreach($k in ($konu.GetEnumerator() | Sort-Object Name)){
 
 $rapor = [ordered]@{
   tarih         = (Get-Date -Format 'dd.MM.yyyy HH:mm')
-  kaynak        = 'veri/sgs-analiz.json — cikmis SGS kitapciklarinin konu sayimi'
-  donem_sayisi  = $donemler.Count
+  kaynak        = $(if($Sinav -eq 'SMMM'){ 'veri/smmm-analiz.json — cikmis SMMM Yeterlilik kitapciklarinin (yazili + test) konu sayimi' } else { 'veri/sgs-analiz.json — cikmis SGS kitapciklarinin konu sayimi' })
+  donem_sayisi  = $donemSayisi
   konu_sayisi   = $konu.Count
   en_cok_cikan  = @($enCok | ForEach-Object { [ordered]@{ konu = $_.Value.ad; donem = $_.Value.donem; soru = $_.Value.soru } })
   konular       = $tablo
@@ -70,6 +77,6 @@ $rapor = [ordered]@{
 Set-Content -LiteralPath $cikti -Value (ConvertTo-Json -InputObject $rapor -Depth 6) -Encoding UTF8 -NoNewline
 Write-Host "`n=== EN COK CIKAN 10 KONU ==="
 $enCok | Select-Object -First 10 | ForEach-Object {
-  Write-Host ("  {0,2}/{1} donem · {2,3} soru · {3}" -f $_.Value.donem, $donemler.Count, $_.Value.soru, $_.Value.ad)
+  Write-Host ("  {0,2}/{1} donem · {2,3} soru · {3}" -f $_.Value.donem, $donemSayisi, $_.Value.soru, $_.Value.ad)
 }
 Write-Host ("`n-> {0}" -f $cikti)

@@ -1,0 +1,122 @@
+﻿{
+    "aciklama":  "Cikmis SMMM kitapciklarindan ders bazli GERCEK soru kalibi. Uretici her dersin \u0027tavan\u0027 degerini soru govdesi ust siniri olarak kullanir. Sinıflandirma anahtar-kelime bazli; guveni dusuk sorular \u0027belirsiz\u0027 sayilip kalip disi birakilir.",
+    "sinav":  "SMMM",
+    "kitapcik_sayisi":  16,
+    "toplam_soru":  320,
+    "siniflandirilamayan":  0,
+    "dersler":  {
+                    "Maliyet Muhasebesi":  {
+                                               "soru_sayisi":  40,
+                                               "ortalama":  298,
+                                               "medyan":  319,
+                                               "p75":  438,
+                                               "p90":  576,
+                                               "en_uzun":  688,
+                                               "tavan":  576,
+                                               "tip_dagilim":  {
+                                                                   "teori":  19,
+                                                                   "hesaplama":  15,
+                                                                   "diger":  5,
+                                                                   "kayit":  1
+                                                               }
+                                           },
+                    "Muhasebe Denetimi":  {
+                                              "soru_sayisi":  40,
+                                              "ortalama":  270,
+                                              "medyan":  178,
+                                              "p75":  374,
+                                              "p90":  554,
+                                              "en_uzun":  1161,
+                                              "tavan":  554,
+                                              "tip_dagilim":  {
+                                                                  "teori":  25,
+                                                                  "diger":  15
+                                                              }
+                                          },
+                    "Finansal Muhasebe":  {
+                                              "soru_sayisi":  40,
+                                              "ortalama":  283,
+                                              "medyan":  283,
+                                              "p75":  359,
+                                              "p90":  467,
+                                              "en_uzun":  597,
+                                              "tavan":  467,
+                                              "tip_dagilim":  {
+                                                                  "teori":  15,
+                                                                  "kayit":  11,
+                                                                  "hesaplama":  8,
+                                                                  "diger":  6
+                                                              }
+                                          },
+                    "Finansal Tablolar ve Analizi":  {
+                                                         "soru_sayisi":  40,
+                                                         "ortalama":  138,
+                                                         "medyan":  98,
+                                                         "p75":  157,
+                                                         "p90":  293,
+                                                         "en_uzun":  563,
+                                                         "tavan":  293,
+                                                         "tip_dagilim":  {
+                                                                             "hesaplama":  25,
+                                                                             "teori":  14,
+                                                                             "diger":  1
+                                                                         }
+                                                     },
+                    "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku":  {
+                                                                           "soru_sayisi":  40,
+                                                                           "ortalama":  261,
+                                                                           "medyan":  240,
+                                                                           "p75":  311,
+                                                                           "p90":  461,
+                                                                           "en_uzun":  737,
+                                                                           "tavan":  461,
+                                                                           "tip_dagilim":  {
+                                                                                               "teori":  29,
+                                                                                               "diger":  9,
+                                                                                               "hesaplama":  2
+                                                                                           }
+                                                                       },
+                    "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)":  {
+                                                                               "soru_sayisi":  40,
+                                                                               "ortalama":  354,
+                                                                               "medyan":  292,
+                                                                               "p75":  433,
+                                                                               "p90":  950,
+                                                                               "en_uzun":  1131,
+                                                                               "tavan":  950,
+                                                                               "tip_dagilim":  {
+                                                                                                   "teori":  26,
+                                                                                                   "diger":  9,
+                                                                                                   "hesaplama":  5
+                                                                                               }
+                                                                           },
+                    "Vergi Mevzuatı ve Uygulaması":  {
+                                                         "soru_sayisi":  40,
+                                                         "ortalama":  374,
+                                                         "medyan":  331,
+                                                         "p75":  594,
+                                                         "p90":  730,
+                                                         "en_uzun":  1006,
+                                                         "tavan":  730,
+                                                         "tip_dagilim":  {
+                                                                             "teori":  20,
+                                                                             "hesaplama":  15,
+                                                                             "diger":  5
+                                                                         }
+                                                     },
+                    "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)":  {
+                                                                                                               "soru_sayisi":  40,
+                                                                                                               "ortalama":  188,
+                                                                                                               "medyan":  169,
+                                                                                                               "p75":  229,
+                                                                                                               "p90":  308,
+                                                                                                               "en_uzun":  469,
+                                                                                                               "tavan":  308,
+                                                                                                               "tip_dagilim":  {
+                                                                                                                                   "teori":  19,
+                                                                                                                                   "hesaplama":  11,
+                                                                                                                                   "diger":  10
+                                                                                                                               }
+                                                                                                           }
+                }
+}

@@ -66,6 +66,7 @@ function DersBul([string]$govde){
   if($enPuan -lt 1){ return @{ ders='belirsiz'; puan=0 } }
   return @{ ders=$enIyi; puan=$enPuan }
 }
+$SMMM_DERS=@{ '01'='Finansal Muhasebe'; '02'='Finansal Tablolar ve Analizi'; '03'='Maliyet Muhasebesi'; '04'='Muhasebe Denetimi'; '05'='Vergi Mevzuatı ve Uygulaması'; '06'='Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)'; '07'='Muhasebecilik ve Mali Müşavirlik Meslek Hukuku'; '08'='Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)' }
 # --- SORU TIPI ---------------------------------------------------------------
 function TipBul([string]$govde){
   $k=Katla $govde
@@ -100,7 +101,9 @@ foreach($ad in ($adlar | Select-Object -First $KitapcikTavan)){
     if($sp.Count -lt 2){ continue }
     $g=$sp[0].Trim()
     if($g.Length -lt 25 -or $g.Length -gt 3000){ continue }
-    $d=DersBul $g
+    # 13.09 SMMM: kitapçık TEK ders → ders kitapçık kodundan (tahmin yok). ÜÇ DOSYA SENKRON: motor/celdirici-olcum.ps1 · arac/sinav-anatomisi.ps1
+    if($Sinav -eq 'SMMM'){ $sk=[regex]::Match($ad,'smmm_\d{4}_\d_(\d{2})').Groups[1].Value; $d=$(if($SMMM_DERS.ContainsKey($sk)){ @{ ders=$SMMM_DERS[$sk]; puan=99 } } else { @{ ders='belirsiz'; puan=0 } }) }
+    else { $d=DersBul $g }
     $kayitlar.Add([pscustomobject]@{
       kitapcik=$ad; no=$no; uzunluk=$g.Length; ders=$d.ders; guven=$d.puan
       tip=(TipBul $g); tabloVar=($g -match '(?m)^\s*[IVX]+\.|\t')

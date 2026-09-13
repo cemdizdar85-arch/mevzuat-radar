@@ -53,6 +53,14 @@ if($Sinav -ne 'KGK' -and (Test-Path $anYol)){ try{ $aj=Get-Content $anYol -Raw -
 $ANAHTAR_KGK=@{}; $KGK_MODUL=@{ sabah=@('Muhasebe Standartları','Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı','Kurumsal Yönetim İlkeleri ve Finansal Yönetim','Denetim'); 'ogleden-sonra'=@('Muhasebe','Genel Hukuk Mevzuatı') }
 function KgkKok([string]$ad){ $no=[regex]::Match($ad,'\b(\d{4,5})_').Groups[1].Value; $kit=$(if($ad -match '(?i)[_\-]([AB])[_\-]|_([AB])_Grubu|\b([AB])_K'){ ($Matches[1]+$Matches[2]+$Matches[3]) } else { '' }); $ot=$(if($ad -match '(?i)SABAH|Birinci'){ 'sabah' } elseif($ad -match '(?i)Ö_S|ÖĞLEDEN|OGLEDEN|İkinci|Ikinci|Ikinici'){ 'ogleden-sonra' } else { '' }); if($no -and $kit -and $ot){ return "$no|$kit|$ot" }; return '' }
 if($Sinav -eq 'KGK' -and (Test-Path $anYol)){ try{ $aj=Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($p in $aj.oturumlar.PSObject.Properties){ $kk=KgkKok $p.Name; if(-not $kk){ continue }; $mods=@{}; foreach($mp in $p.Value.moduller.PSObject.Properties){ $harfler=@{}; foreach($q in $mp.Value.PSObject.Properties){ $harfler[$q.Name]="$($q.Value)" }; $mods[$mp.Name]=$harfler }; $ANAHTAR_KGK[$kk]=$mods } }catch{ $ANAHTAR_KGK=@{} } }
+# SMMM (13.09, Cem "staja başlamada ne yaptıysak bunda aynısı"): her kitapçık TEK ders → ders anahtar kelimeyle
+# tahmin edilmez, kitapçık kodundan okunur (smmm_2026_1_04 → 04 Muhasebe Denetimi). Anahtar "dönem|kod" bazlı
+# (motor/smmm-cevap-anahtari.ps1); İPTAL sorunun doğru harfi ölçüme girmez.
+# ÜÇ DOSYA SENKRON: arac/cikmis-ders-kalibi.ps1 · arac/sinav-anatomisi.ps1 · bu dosya.
+$SMMM_DERS=@{ '01'='Finansal Muhasebe'; '02'='Finansal Tablolar ve Analizi'; '03'='Maliyet Muhasebesi'; '04'='Muhasebe Denetimi'; '05'='Vergi Mevzuatı ve Uygulaması'; '06'='Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)'; '07'='Muhasebecilik ve Mali Müşavirlik Meslek Hukuku'; '08'='Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)' }
+$SMMM_IPTAL=@{}
+if($Sinav -eq 'SMMM' -and (Test-Path $anYol)){ try{ $ajS=Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($p in $ajS.donemler.PSObject.Properties){ foreach($ip in @($p.Value.iptal)){ if($ip){ $SMMM_IPTAL["$($p.Name)#$ip"]=1 } } } }catch{} }
+function SmmmKod([string]$ad){ return [regex]::Match($ad,'smmm_\d{4}_\d_(\d{2})').Groups[1].Value }
 Write-Host "cevap anahtarı: $(if($Sinav -eq 'KGK'){ "$($ANAHTAR_KGK.Count) oturum (KGK)" } else { "$($ANAHTAR.Count) dönem" })"
 # --- KİTAPÇIKLAR --------------------------------------------------------------
 # KGK kitapçık adlarında dönem "20xx" ile başlamaz ("CIKMIS SINAV - KGK SABAH (10202_…)"); 2018 kitapçıkları "Soru ve Cevapları"
@@ -78,7 +86,7 @@ foreach($ad in $adlar){
     if($sp.Count -lt 11){ continue }
     $govde=$sp[0].Trim(); $sik=@(); for($q=2;$q -lt $sp.Count;$q+=2){ $sik+=(($sp[$q] -split "`n")[0]).Trim() }
     $sik=@($sik | Select-Object -First 5); if(@($sik | Where-Object { $_ }).Count -lt 5){ continue }
-    $tip=SikTip $sik; $ders=$(if($Sinav -eq 'KGK'){ if($kgkMods.Count -gt $modIdx){ $kgkMods[$modIdx] } else { 'belirsiz' } } else { DersBul $govde })
+    $tip=SikTip $sik; $ders=$(if($Sinav -eq 'KGK'){ if($kgkMods.Count -gt $modIdx){ $kgkMods[$modIdx] } else { 'belirsiz' } } elseif($Sinav -eq 'SMMM'){ $sk=SmmmKod $ad; if($SMMM_DERS.ContainsKey($sk)){ $SMMM_DERS[$sk] } else { 'belirsiz' } } else { DersBul $govde })
     $sayilar=@($sik | ForEach-Object { Sayi $_ } | Where-Object { $null -ne $_ })
     $tekil=@($sayilar | Select-Object -Unique).Count
     $artan=$false; if($sayilar.Count -ge 4){ $artan=$true; for($q=1;$q -lt $sayilar.Count;$q++){ if($sayilar[$q] -lt $sayilar[$q-1]){ $artan=$false; break } } }
@@ -87,7 +95,9 @@ foreach($ad in $adlar){
     # 04.09 cevap anahtarı (veri/sgs-cevap-anahtari.json, 14 dönem kitapçık içinden): doğru harf → "doğru en uzun mu",
     # "doğru kaçıncı büyük", harf dağılımı. Anahtarı olmayan dönemde alanlar boş kalır (ölçülmedi).
     $no=0; [void][int]::TryParse($parca[$i],[ref]$no); $dnm=[regex]::Match($ad,'(\d{4})/(\d)').Value
+    if($Sinav -eq 'SMMM'){ $dnm="$dnm|$(SmmmKod $ad)" }
     $dogru=''; if($ANAHTAR -and $dnm -and $ANAHTAR.ContainsKey($dnm) -and $ANAHTAR[$dnm].ContainsKey("$no")){ $dogru=$ANAHTAR[$dnm]["$no"] }
+    if($Sinav -eq 'SMMM' -and $SMMM_IPTAL.ContainsKey("$dnm#$no")){ $dogru='' }
     if($Sinav -eq 'KGK' -and $kgkKok -and $ANAHTAR_KGK.ContainsKey($kgkKok) -and $ders -ne 'belirsiz' -and $ANAHTAR_KGK[$kgkKok].ContainsKey($ders) -and $ANAHTAR_KGK[$kgkKok][$ders].ContainsKey("$no")){ $dogru=$ANAHTAR_KGK[$kgkKok][$ders]["$no"] }
     $dogruIdx=@('A','B','C','D','E').IndexOf($dogru)
     $dogruEnUzun=$null; $dogruSira=$null
