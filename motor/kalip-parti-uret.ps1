@@ -783,7 +783,7 @@ $OZEL_DESEN=@{
   'aktiflesen gider'                = @('VUK (213 s.K.) m.272','VUK (213 s.K.) m.262%','VUK (213 s.K.) m.269')
   # --- Meslek Hukuku: Avukatlik K. m.168 ve TSPB Sermaye Piyasasi Etik Ilkeleri geliyordu
   'ucret tarifesi'                  = @('SMMM K. (3568 s.K.) m.46','TÜRMOB Etik İlkeler Yön. EK%')
-  'etik ilkeler tehditleri'         = @('TÜRMOB Etik İlkeler Yön. EK%','TÜRMOB Etik İlkeler Yön. m.4','TÜRMOB Etik İlkeler Yön. m.5')
+  'etik ilkeler tehditleri'         = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 3','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 7','TÜRMOB Etik İlkeler Yön. EK bolum 8','TÜRMOB Etik İlkeler Yön. m.4','TÜRMOB Etik İlkeler Yön. m.5')   # 13.09 ÖLÇÜLDÜ (a6e zor kp-21): 'EK%' joker AmbarCek limit=6 ile bolum 1-6'da kesiliyordu; önlem maddeleri m.27-30 (bolum 7-8) pakete HİÇ girmedi, kör yanlış şık seçti. Açık liste: temel ilkeler(1) · tehdit türleri(2) · önlem grupları m.4(3) · bağımsız tehdit örnekleri(6) · önlemler m.26-30(7-8)
   # --- Ticaret Hukuku: TTK m.235 (kollektif sirket), m.147 (birlesme), Kooperatifler K. m.25,
   #     SPK Borsa Istanbul karari geliyordu; dogru maddeler asagida
   'ticari temsilcilik yetkisi'      = @('TBK (6098 s.K.) m.547','TBK (6098 s.K.) m.548','TBK (6098 s.K.) m.551')
