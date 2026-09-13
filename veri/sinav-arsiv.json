@@ -1,4 +1,4 @@
-﻿{
+{
   "aciklama": "Çıkmış sınav kitapçığı envanteri. KAYNAK: TESMER resmî arşivi (www2.tesmer.org.tr/files/ortak/soru_cevaplar/...) — 22.07.2026'dan itibaren tüm yeni kayıtlar birincil kaynaktan; ilk 6 SGS kaydı açık kopyadan işlendi (analiz sonuçları geçerli, kaynakUrl'leri tarihî not). sinav-analiz robotu 'bekliyor' olanları işler; SGS sonuçları sgs-analiz.json'a, SMMM (Yeterlilik) sonuçları smmm-analiz.json'a yazılır. Kitapçık İÇERİĞİ siteye kopyalanmaz — yalnız konu/adet analizi yayınlanır. SMMM 2026/1'den itibaren test formatı (TESMER duyurusu). | 23.08.2026 KESIF: TESMER arsivi taranarak envanter genisletildi (motor/sinav-arsiv-kesif.ps1). Eklenen satirlar durum='kesif' -- sinav-analiz robotu YALNIZ durum='bekliyor' satirlari isler, yani bu satirlar KENDILIGINDEN API harcamaz. Etiketlemeye alinacak satir Cem isaretiyle 'bekliyor' yapilir.",
   "donemler": [
     {
@@ -513,7 +513,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2021/2/01/smmm_2021_2_01.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -522,7 +522,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2021/2/02/smmm_2021_2_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -585,7 +585,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2021/3/01/smmm_2021_3_01.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -594,7 +594,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2021/3/02/smmm_2021_3_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -657,7 +657,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2022/1/01/smmm_2022_1_01.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -666,7 +666,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2022/1/02/smmm_2022_1_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -729,7 +729,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2022/2/01/smmm_2022_2_01.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -738,7 +738,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2022/2/02/smmm_2022_2_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -801,7 +801,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2022/3/01/smmm_2022_3_01.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -810,7 +810,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2022/3/02/smmm_2022_3_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -882,7 +882,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2023/1/02/smmm_2023_1_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -954,7 +954,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2023/2/02/smmm_2023_2_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -1026,7 +1026,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2023/3/02/smmm_2023_3_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -1098,7 +1098,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2024/1/02/smmm_2024_1_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -1170,7 +1170,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2024/2/02/smmm_2024_2_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -1242,7 +1242,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2024/3/02/smmm_2024_3_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -1314,7 +1314,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2025/1/02/smmm_2025_1_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -1386,7 +1386,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2025/2/02/smmm_2025_2_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -1458,7 +1458,7 @@
       "format": "yazili",
       "tarih": "",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2025/3/02/smmm_2025_3_02.pdf",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3591,7 +3591,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/1/01/smmm_2008_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3600,7 +3600,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/1/02/smmm_2008_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3609,7 +3609,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/1/03/smmm_2008_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3618,7 +3618,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/1/04/smmm_2008_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3627,7 +3627,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/1/05/smmm_2008_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3636,7 +3636,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/1/06/smmm_2008_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3645,7 +3645,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/1/07/smmm_2008_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3654,7 +3654,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/2/01/smmm_2008_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3663,7 +3663,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/2/02/smmm_2008_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3672,7 +3672,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/2/03/smmm_2008_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3681,7 +3681,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/2/04/smmm_2008_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3690,7 +3690,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/2/05/smmm_2008_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3699,7 +3699,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/2/06/smmm_2008_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3708,7 +3708,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/2/07/smmm_2008_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3717,7 +3717,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/3/01/smmm_2008_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3726,7 +3726,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/3/02/smmm_2008_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3735,7 +3735,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/3/03/smmm_2008_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3744,7 +3744,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/3/04/smmm_2008_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3753,7 +3753,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/3/05/smmm_2008_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3762,7 +3762,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/3/06/smmm_2008_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "inceleme"
     },
     {
       "sinav": "SMMM",
@@ -3771,7 +3771,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2008/3/07/smmm_2008_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3780,7 +3780,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/1/01/smmm_2009_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3789,7 +3789,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/1/02/smmm_2009_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3798,7 +3798,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/1/03/smmm_2009_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "inceleme-ayrinti"
     },
     {
       "sinav": "SMMM",
@@ -3807,7 +3807,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/1/04/smmm_2009_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3816,7 +3816,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/1/05/smmm_2009_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3825,7 +3825,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/1/06/smmm_2009_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3843,7 +3843,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/2/01/smmm_2009_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3852,7 +3852,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/2/02/smmm_2009_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3861,7 +3861,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/2/03/smmm_2009_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3870,7 +3870,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/2/04/smmm_2009_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3879,7 +3879,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/2/05/smmm_2009_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3888,7 +3888,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/2/06/smmm_2009_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3897,7 +3897,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/2/07/smmm_2009_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3906,7 +3906,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/3/01/smmm_2009_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3915,7 +3915,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/3/02/smmm_2009_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3924,7 +3924,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/3/03/smmm_2009_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3933,7 +3933,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/3/04/smmm_2009_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3942,7 +3942,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/3/05/smmm_2009_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3951,7 +3951,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/3/06/smmm_2009_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3960,7 +3960,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2009/3/07/smmm_2009_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3969,7 +3969,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/1/01/smmm_2010_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3978,7 +3978,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/1/02/smmm_2010_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3987,7 +3987,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/1/03/smmm_2010_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -3996,7 +3996,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/1/04/smmm_2010_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4005,7 +4005,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/1/05/smmm_2010_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4014,7 +4014,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/1/06/smmm_2010_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4023,7 +4023,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/1/07/smmm_2010_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4032,7 +4032,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/2/01/smmm_2010_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4041,7 +4041,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/2/02/smmm_2010_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4050,7 +4050,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/2/03/smmm_2010_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4059,7 +4059,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/2/04/smmm_2010_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4068,7 +4068,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/2/05/smmm_2010_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4086,7 +4086,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/2/07/smmm_2010_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4095,7 +4095,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/3/01/smmm_2010_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4104,7 +4104,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/3/02/smmm_2010_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4113,7 +4113,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/3/03/smmm_2010_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4122,7 +4122,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/3/04/smmm_2010_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4131,7 +4131,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/3/05/smmm_2010_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4140,7 +4140,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/3/06/smmm_2010_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4149,7 +4149,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2010/3/07/smmm_2010_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4158,7 +4158,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/1/01/smmm_2011_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4167,7 +4167,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/1/02/smmm_2011_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4176,7 +4176,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/1/03/smmm_2011_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4185,7 +4185,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/1/04/smmm_2011_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4194,7 +4194,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/1/05/smmm_2011_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4203,7 +4203,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/1/06/smmm_2011_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4212,7 +4212,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/1/07/smmm_2011_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4221,7 +4221,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/2/01/smmm_2011_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4230,7 +4230,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/2/02/smmm_2011_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4239,7 +4239,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/2/03/smmm_2011_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4248,7 +4248,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/2/04/smmm_2011_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4257,7 +4257,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/2/05/smmm_2011_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4266,7 +4266,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/2/06/smmm_2011_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4275,7 +4275,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/2/07/smmm_2011_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4284,7 +4284,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/3/01/smmm_2011_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4293,7 +4293,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/3/02/smmm_2011_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4311,7 +4311,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/3/04/smmm_2011_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4320,7 +4320,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/3/05/smmm_2011_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4329,7 +4329,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/3/06/smmm_2011_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4338,7 +4338,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2011/3/07/smmm_2011_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4347,7 +4347,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/1/01/smmm_2012_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4356,7 +4356,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/1/02/smmm_2012_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4365,7 +4365,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/1/03/smmm_2012_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4374,7 +4374,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/1/04/smmm_2012_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4383,7 +4383,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/1/05/smmm_2012_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4392,7 +4392,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/1/06/smmm_2012_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4401,7 +4401,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/1/07/smmm_2012_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4410,7 +4410,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/2/01/smmm_2012_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4419,7 +4419,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/2/02/smmm_2012_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "inceleme-ayrinti"
     },
     {
       "sinav": "SMMM",
@@ -4436,7 +4436,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/2/04/smmm_2012_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4445,7 +4445,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/2/05/smmm_2012_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4454,7 +4454,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/2/06/smmm_2012_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4463,7 +4463,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/2/07/smmm_2012_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4472,7 +4472,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/3/01/smmm_2012_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4481,7 +4481,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/3/02/smmm_2012_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4490,7 +4490,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/3/03/smmm_2012_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4499,7 +4499,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/3/04/smmm_2012_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4508,7 +4508,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/3/05/smmm_2012_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4517,7 +4517,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/3/06/smmm_2012_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4526,7 +4526,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2012/3/07/smmm_2012_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4535,7 +4535,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/1/01/smmm_2013_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4544,7 +4544,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/1/02/smmm_2013_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4553,7 +4553,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/1/03/smmm_2013_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4562,7 +4562,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/1/04/smmm_2013_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4571,7 +4571,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/1/05/smmm_2013_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4580,7 +4580,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/1/06/smmm_2013_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4589,7 +4589,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/1/07/smmm_2013_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4607,7 +4607,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/2/02/smmm_2013_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4616,7 +4616,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/2/03/smmm_2013_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4625,7 +4625,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/2/04/smmm_2013_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4634,7 +4634,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/2/05/smmm_2013_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4643,7 +4643,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/2/06/smmm_2013_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4652,7 +4652,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/2/07/smmm_2013_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4661,7 +4661,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/3/01/smmm_2013_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4670,7 +4670,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/3/02/smmm_2013_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4679,7 +4679,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/3/03/smmm_2013_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4688,7 +4688,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/3/04/smmm_2013_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4697,7 +4697,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/3/05/smmm_2013_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4706,7 +4706,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/3/06/smmm_2013_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4715,7 +4715,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2013/3/07/smmm_2013_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4724,7 +4724,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/1/01/smmm_2014_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4733,7 +4733,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/1/02/smmm_2014_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4742,7 +4742,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/1/03/smmm_2014_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4759,7 +4759,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/1/05/smmm_2014_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4768,7 +4768,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/1/06/smmm_2014_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4777,7 +4777,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/1/07/smmm_2014_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4786,7 +4786,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/2/01/smmm_2014_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4804,7 +4804,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/2/03/smmm_2014_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4813,7 +4813,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/2/04/smmm_2014_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4822,7 +4822,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/2/05/smmm_2014_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4831,7 +4831,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/2/06/smmm_2014_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4840,7 +4840,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/2/07/smmm_2014_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4849,7 +4849,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/3/01/smmm_2014_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4858,7 +4858,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/3/02/smmm_2014_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4867,7 +4867,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/3/03/smmm_2014_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4876,7 +4876,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/3/04/smmm_2014_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4885,7 +4885,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/3/05/smmm_2014_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4894,7 +4894,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/3/06/smmm_2014_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4903,7 +4903,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2014/3/07/smmm_2014_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4912,7 +4912,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/01/smmm_2015_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4921,7 +4921,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/02/smmm_2015_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4930,7 +4930,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/03/smmm_2015_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4939,7 +4939,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/04/smmm_2015_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4948,7 +4948,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/05/smmm_2015_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4957,7 +4957,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/06/smmm_2015_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4966,7 +4966,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/07/smmm_2015_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4975,7 +4975,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/1/08/smmm_2015_1_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4984,7 +4984,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/01/smmm_2015_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -4993,7 +4993,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/02/smmm_2015_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5002,7 +5002,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/03/smmm_2015_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5011,7 +5011,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/04/smmm_2015_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5020,7 +5020,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/05/smmm_2015_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5029,7 +5029,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/06/smmm_2015_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5038,7 +5038,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/07/smmm_2015_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5047,7 +5047,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/2/08/smmm_2015_2_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5056,7 +5056,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/01/smmm_2015_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5065,7 +5065,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/02/smmm_2015_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5074,7 +5074,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/03/smmm_2015_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5083,7 +5083,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/04/smmm_2015_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5092,7 +5092,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/05/smmm_2015_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5101,7 +5101,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/06/smmm_2015_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5110,7 +5110,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/07/smmm_2015_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5119,7 +5119,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2015/3/08/smmm_2015_3_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5128,7 +5128,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/01/smmm_2016_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5137,7 +5137,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/02/smmm_2016_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5146,7 +5146,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/03/smmm_2016_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5155,7 +5155,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/04/smmm_2016_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5164,7 +5164,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/05/smmm_2016_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5173,7 +5173,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/06/smmm_2016_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5182,7 +5182,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/1/07/smmm_2016_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5200,7 +5200,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/01/smmm_2016_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5209,7 +5209,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/02/smmm_2016_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5218,7 +5218,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/03/smmm_2016_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5227,7 +5227,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/04/smmm_2016_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5236,7 +5236,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/05/smmm_2016_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5245,7 +5245,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/06/smmm_2016_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5254,7 +5254,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/07/smmm_2016_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5263,7 +5263,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/2/08/smmm_2016_2_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5272,7 +5272,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/01/smmm_2016_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5281,7 +5281,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/02/smmm_2016_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5290,7 +5290,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/03/smmm_2016_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5299,7 +5299,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/04/smmm_2016_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5308,7 +5308,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/05/smmm_2016_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5317,7 +5317,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/06/smmm_2016_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5326,7 +5326,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/07/smmm_2016_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5335,7 +5335,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2016/3/08/smmm_2016_3_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5344,7 +5344,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/01/smmm_2017_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5353,7 +5353,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/02/smmm_2017_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5362,7 +5362,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/03/smmm_2017_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5371,7 +5371,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/04/smmm_2017_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5380,7 +5380,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/05/smmm_2017_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5389,7 +5389,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/06/smmm_2017_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5398,7 +5398,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/07/smmm_2017_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5407,7 +5407,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/1/08/smmm_2017_1_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5416,7 +5416,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/01/smmm_2017_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5425,7 +5425,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/02/smmm_2017_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5434,7 +5434,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/03/smmm_2017_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5443,7 +5443,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/04/smmm_2017_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5461,7 +5461,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/06/smmm_2017_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5470,7 +5470,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/07/smmm_2017_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5479,7 +5479,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/2/08/smmm_2017_2_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5488,7 +5488,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/01/smmm_2017_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5497,7 +5497,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/02/smmm_2017_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5506,7 +5506,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/03/smmm_2017_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5515,7 +5515,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/04/smmm_2017_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5524,7 +5524,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/05/smmm_2017_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5533,7 +5533,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/06/smmm_2017_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5542,7 +5542,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/07/smmm_2017_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5551,7 +5551,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2017/3/08/smmm_2017_3_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5560,7 +5560,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/01/smmm_2018_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5569,7 +5569,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/02/smmm_2018_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5578,7 +5578,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/03/smmm_2018_1_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5596,7 +5596,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/05/smmm_2018_1_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5605,7 +5605,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/06/smmm_2018_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5614,7 +5614,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/07/smmm_2018_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5623,7 +5623,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/1/08/smmm_2018_1_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5632,7 +5632,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/01/smmm_2018_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5641,7 +5641,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/02/smmm_2018_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5650,7 +5650,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/03/smmm_2018_2_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5659,7 +5659,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/04/smmm_2018_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5668,7 +5668,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/05/smmm_2018_2_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5677,7 +5677,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/06/smmm_2018_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5686,7 +5686,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/07/smmm_2018_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5695,7 +5695,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/2/08/smmm_2018_2_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5704,7 +5704,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/01/smmm_2018_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5713,7 +5713,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/02/smmm_2018_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5722,7 +5722,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/03/smmm_2018_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5731,7 +5731,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/04/smmm_2018_3_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5740,7 +5740,7 @@
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/05/smmm_2018_3_05.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5749,7 +5749,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/06/smmm_2018_3_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5758,7 +5758,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/07/smmm_2018_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5767,7 +5767,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2018/3/08/smmm_2018_3_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5776,7 +5776,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/1/01/smmm_2019_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5785,7 +5785,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/1/02/smmm_2019_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5802,7 +5802,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/1/04/smmm_2019_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5819,7 +5819,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/1/06/smmm_2019_1_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5828,7 +5828,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/1/07/smmm_2019_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5837,7 +5837,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/1/08/smmm_2019_1_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5846,7 +5846,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/2/01/smmm_2019_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5855,7 +5855,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/2/02/smmm_2019_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5872,7 +5872,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/2/04/smmm_2019_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5889,7 +5889,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/2/06/smmm_2019_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5898,7 +5898,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/2/07/smmm_2019_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5907,7 +5907,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/2/08/smmm_2019_2_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5916,7 +5916,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/3/01/smmm_2019_3_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5925,7 +5925,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/3/02/smmm_2019_3_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5934,7 +5934,7 @@
       "ders": "Maliyet Muhasebesi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/3/03/smmm_2019_3_03.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5968,7 +5968,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/3/07/smmm_2019_3_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5977,7 +5977,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2019/3/08/smmm_2019_3_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5986,7 +5986,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/1/01/smmm_2020_1_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -5995,7 +5995,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/1/02/smmm_2020_1_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6012,7 +6012,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/1/04/smmm_2020_1_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6037,7 +6037,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/1/07/smmm_2020_1_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6046,7 +6046,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/1/08/smmm_2020_1_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6055,7 +6055,7 @@
       "ders": "Finansal Muhasebe",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/2/01/smmm_2020_2_01.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6064,7 +6064,7 @@
       "ders": "Finansal Tablolar ve Analizi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/2/02/smmm_2020_2_02.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6081,7 +6081,7 @@
       "ders": "Muhasebe Denetimi",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/2/04/smmm_2020_2_04.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6099,7 +6099,7 @@
       "ders": "Hukuk",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/2/06/smmm_2020_2_06.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6108,7 +6108,7 @@
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/2/07/smmm_2020_2_07.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     },
     {
       "sinav": "SMMM",
@@ -6117,7 +6117,7 @@
       "ders": "Sermaye Piyasası Mevzuatı",
       "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2020/2/08/smmm_2020_2_08.pdf",
       "format": "yazili",
-      "durum": "bekliyor"
+      "durum": "tamam"
     }
   ]
 }
