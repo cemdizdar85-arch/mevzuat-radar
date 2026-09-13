@@ -2210,9 +2210,12 @@ function DilOnar([string]$t){
 }
 function DilOnarNesne($cvp){
   if(-not $cvp){ return }
-  foreach($alan in @('soru','hap','sinav_taktigi','notlandirici')){ if($cvp.PSObject.Properties[$alan] -and $cvp.$alan -is [string]){ $cvp.$alan=DilOnar $cvp.$alan } }
+  # 13.09 ÖLÇÜLDÜ (GM YD sgs-gm5-yd-r1 kp-01): YD modunda İngilizce doğru şık "... at once" → "... at önce" oldu, hakem2 "Türkçe kelime sızmış"
+  # diye reddetti. YazimOnarNesne YD'de soru/şıkları atlıyordu, DilOnarNesne atlamıyordu. Tarama: yereldeki 181 İngilizce sorunun 0'ında başka vaka yok.
+  $dilAlan=$(if($script:YD_MOD){ @('hap','sinav_taktigi','notlandirici') } else { @('soru','hap','sinav_taktigi','notlandirici') })
+  foreach($alan in $dilAlan){ if($cvp.PSObject.Properties[$alan] -and $cvp.$alan -is [string]){ $cvp.$alan=DilOnar $cvp.$alan } }
   foreach($h in 'A','B','C','D','E'){
-    if($cvp.siklar -and $cvp.siklar.PSObject.Properties[$h] -and $cvp.siklar.$h -is [string]){ $cvp.siklar.$h=DilOnar $cvp.siklar.$h }
+    if(-not $script:YD_MOD -and $cvp.siklar -and $cvp.siklar.PSObject.Properties[$h] -and $cvp.siklar.$h -is [string]){ $cvp.siklar.$h=DilOnar $cvp.siklar.$h }
     if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$h] -and $cvp.aciklama.$h -is [string]){ $cvp.aciklama.$h=DilOnar $cvp.aciklama.$h }
     elseif($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$h] -and $cvp.aciklama.$h){ $ao=$cvp.aciklama.$h; foreach($p in @($ao.PSObject.Properties)){ if($p.Value -is [string]){ $ao.($p.Name)=DilOnar $p.Value } } }   # 04.09: yapılı açıklama (ne_soruluyor/kural/hesap/dogrusu) da kapıdan geçer
   }
