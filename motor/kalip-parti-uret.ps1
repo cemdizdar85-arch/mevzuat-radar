@@ -110,6 +110,28 @@ New-Item -ItemType Directory -Force (Split-Path $HEDEF -Parent) | Out-Null
 $KEY=$env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ throw 'SUPABASE_SERVICE_KEY yok.' }
 $SB=@{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' }
+# --- KAPI-AMBAR (14.09 ÖLÇÜLDÜ) -------------------------------------------------------------------------------------------
+# 13.09 23:21'de ambar dokumanlar tur= sorgularında 57014 zaman aşımına düştü; o sırada başlayan sgs-gm5-mat-r7 koşusu
+# KAPI-CB KÖR + kaynak paketi BOŞ ile hakemsiz 15 soru bastı (para gitti, parti çöpe). Kapı koşunun BAŞINDA, para harcayan
+# hiçbir çağrıdan önce, kapıların kullandığı sorgunun aynısını yoklar: 5 sn altındaysa akış aynen sürer (tek satır çıktı);
+# değilse 2 dk arayla 15 kez (30 dk) bekler, düzelmezse koşuyu hiç başlatmadan durdurur. Bilerek aşmak: MEVZUAT_AMBAR_KAPISI=0
+# KAPI-AMBAR-BASLA
+function AmbarYokla([hashtable]$Baslik){
+  $sw=[Diagnostics.Stopwatch]::StartNew()
+  try{ [void](Invoke-WebRequest -UseBasicParsing -Uri 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=id&tur=eq.cikmis-soru&limit=1' -Headers $Baslik -TimeoutSec 30); return [math]::Round($sw.Elapsed.TotalSeconds,1) }catch{ return -1 }
+}
+if(-not $SadeceHtml -and "$env:MEVZUAT_AMBAR_KAPISI" -ne '0'){
+  $akSure=-1
+  for($akDeneme=1; $akDeneme -le 15; $akDeneme++){
+    $akSure=AmbarYokla $SB
+    if($akSure -ge 0 -and $akSure -lt 5){ break }
+    Write-Host "KAPI-AMBAR: ambar yavaş/yanıtsız ($akSure sn) · deneme $akDeneme/15 · 2 dk beklenecek" -ForegroundColor DarkYellow
+    if($akDeneme -lt 15){ Start-Sleep -Seconds 120 }
+  }
+  if($akSure -lt 0 -or $akSure -ge 5){ throw "KAPI-AMBAR DÜŞTÜ: ambar 30 dk boyunca sağlıksız (son yoklama $akSure sn). Kaynak paketleri boş gelir, hakem atlanır, para boşa gider; koşu HİÇ BAŞLAMADAN durduruldu. Bilerek aşmak için MEVZUAT_AMBAR_KAPISI=0." }
+  "KAPI-AMBAR: açık ($akSure sn)"
+}
+# KAPI-AMBAR-BITIR
 # 13.09 Cem "son iki sınava ne çıktıysa o para birimini kullan": birim her koşuda o sınavın son iki dönem çıkmışından ölçülür
 # (motor/kapi-cikmis-gun.ps1 SinavParaBirimi). Uygulama listesinde olmayan sınavda ağ çağrısı yok, birim TL (davranış aynı).
 $script:KCB_KLASIK_SMMM=($Sinav -eq 'SMMM')   # 13.09 klasik→test dönüştürme: bitirme koşusunda kopya kapısı klasik SMMM soru metinlerini de tanır (SGS/KGK kapalı)
