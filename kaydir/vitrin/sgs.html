@@ -15,6 +15,10 @@
 :root[data-tek] .bSonraki,:root[data-tek] .ipucu{display:none}
 /* tek kartta dizi göstergeleri yanıltır: ilerleme noktaları, "10 / 10" sayacı, hazırlık skoru ve yanlış kutusu çipleri gizli. */
 :root[data-tek] .noktalar,:root[data-tek] .ustSag{display:none}
+/* 13.09 Cem: "renk koyu olsa, site rengi". Ana sayfa çerçevesi koyu açılır (tema=koyu);
+   koyu temanın MAVİ vurgusu yalnız çerçevede sitenin BRONZUNA çevrilir. Ürünün kendi
+   teması değişmez - kural data-tek'e bağlı, normal Kaydır-Çöz'e dokunmaz. */
+:root[data-tek][data-theme="dark"]{--mavi:#e3b877}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:Segoe UI,system-ui,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}

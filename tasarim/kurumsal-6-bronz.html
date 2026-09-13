@@ -190,7 +190,7 @@
               padding:5px 12px;margin-bottom:11px}
   .afis-ozet{font-size:13.2px;line-height:1.5;color:var(--ak);margin:0 0 14px}
   .urun-cerceve{border:1px solid rgba(214,180,126,.26);border-radius:12px;
-                overflow:hidden;background:#fff;margin-bottom:11px}
+                overflow:hidden;background:var(--gece2);margin-bottom:11px}
   .urun-cerceve iframe{display:block;width:100%;height:540px;border:0}
   .yukleniyor{padding:26px 14px;text-align:center;font-size:12.5px;color:var(--ak-sonuk)}
 
@@ -535,7 +535,7 @@ if(tuval){
   if(!ileriEl||!cerceveEl) return;
 
   var KUNYE=null, sira=0, acildi=false;
-  var YOL='../kaydir/vitrin/sgs.html?vitrin=1&tek=1&tema=acik#s=';
+  var YOL='../kaydir/vitrin/sgs.html?vitrin=1&tek=1&tema=koyu#s=';
 
   function afisCiz(){
     if(!KUNYE) return;
@@ -583,7 +583,7 @@ if(tuval){
     .then(function(d){
       if(!d||!d.kartlar||!d.kartlar.length)return;
       KUNYE=d;
-      if(d.baglanti) YOL='../'+d.baglanti;
+      if(d.baglanti) YOL='../'+d.baglanti.replace('tema=acik','tema=koyu');
       /* Gün bazlı sıra: aynı gün herkese aynı soru, ertesi gün sırası gelen. */
       var gun=Math.floor(Date.now()/86400000);
       sira=((gun%d.kartlar.length)+d.kartlar.length)%d.kartlar.length;
