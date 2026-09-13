@@ -142,6 +142,19 @@
       "gerekce": "SGS ARSIVININ BES YILLIK DELIGI. Kota 20 donemden kuruldu ama arsivde 2016/2 - 2021/1 arasi 15 donem HIC ANALIZ EDILMEMIS. Bu 15 donem ~1.950 gercek sinav sorusu demek ve su an kotaya hic girmiyor. Onemi sayida degil KAPSAMDA: kotadaki 1.160 konunun 1.024'u yalnizca BIR kez cikmis - TESMER her donem baska konu soruyor. Yani konu listesi ne kadar genisse aday o kadar az surprizle karsilasir; 15 donem eksikken 127 USD'lik uretimi basmak, parayi dar bir konu listesine yigmak olur. MUKERRER TUZAGI TEMIZLENDI: arsivde 14 donem CIFT kayitliydi (biri tesmer.org.tr biri aktifonline linkiyle) ve ikisi de 'bekliyor' gorunuyordu. Kuyruk oylece acilsaydi o 14 donem ikinci kez analiz edilir, ~7,4 USD bosa giderdi - ve daha kotusu konulari IKI KAT sayilir, kota agirliklari bozulurdu. O satirlar 'mukerrer' olarak isaretlendi (silinmedi, gorunur kaldi). ESKI DONEM ITIRAZI YOK: konuyu eski sinavdan aliyoruz ama cevabi BUGUNKU kanun metninden - uretici maddenin guncel tam metnini isteme koyuyor. Yani 2017'de sorulmus bir konu, 2026 mevzuatiyla cevaplanir. MALIYET OLCULDU, TAHMIN DEGIL: emir #1'de dort SGS kitapcigi 2,10 USD tuttu -> 0,526 USD/kitapcik (SGS kitapciklari 130 soruluk; 0,126'lik karma birim SMMM'nin 20 soruluk kitapciklarini da iceriyordu, o rakamla hesap yapmak yanlis olurdu). 15 x 0,526 = ~7,9 USD.",
       "tahmini_usd": 7.9,
       "uygulandi": "29.07.2026 15:22"
+    },
+    {
+      "no": 11,
+      "tarih": "13.09.2026",
+      "veren": "Cem Dizdar (13.09: \"1 ve 3 yap\" - once 10 kitapcik prova, tutarsa kalan 273)",
+      "emir": "SMMM Yeterlilik 2008-2020 klasik arsiv - PROVA 10 kitapcik",
+      "onay": true,
+      "limit": 10,
+      "model": "claude-sonnet-5",
+      "sinav": "SMMM",
+      "donem_min": 0,
+      "gerekce": "Konu siklik haritasi 18 yilin yalniz 5'ini kapsiyor (2021-2026). 2008-2020 arasi 283 kitapcik kesif durumundaydi. UCUZ PROVA: her dersten 1 kitapcik + en agir FM monografisi (2013/2-01, 32 KB) + yalniz-cevap donemleri (2019/3, 2020/2) = 10 kitapcik; ortalama metin 10,0 KB (kalan evren 12,5 KB). Olcu: 29.07 SMMM yazili kosulari ~0,13 USD/kitapcik (betik fiyat varsayimi 3/15 USD-M). Bu kosu ayni zamanda 13.09 KAPI 0'i (PDF imzasi + pdfSha256 mukerrer) canlida sinar. Kuyruga alma: arac/analiz-kuyruga-al.ps1 (format='yazili' yazar; alan yoksa robot test istemini kullaniyordu).",
+      "tahmini_usd": 1.6
     }
   ]
 }
