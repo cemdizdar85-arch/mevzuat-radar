@@ -1,69 +1,69 @@
 {
-  "olcum": "2026-09-12T07:13:41.361Z",
-  "gun": "2026-09-12",
+  "olcum": "2026-09-13T07:31:45.958Z",
+  "gun": "2026-09-13",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 4,
+      "sira": 5,
       "toplam": 10,
-      "id": "sgs-t1-ticaret-cokzor/kp-01",
+      "id": "sgs-t1-ticaret-kolay/kp-02",
       "ders": "Ticaret Hukuku|Ticaret ve Borclar",
-      "konu": "genel işlem koşulları",
-      "kunye": "SGS 2026/1 Soru 125 kalıbı",
-      "donem": 9,
+      "konu": "haksız rekabet reklam yasağı",
+      "kunye": "SGS 2025/1 Soru 103 kalıbı",
+      "donem": 7,
       "teori": true,
       "rakamSik": false,
-      "soru": "Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı tartışılarak kabul edildiğine dair kayıt düşmüştür. Hüküm, sözleşmenin niteliğine ve işin özelliğine yabancıdır. Türk Borçlar Kanunu'na göre aşağıdakilerden hangisi doğrudur?",
+      "soru": "Türk Ticaret Kanunu'na göre aşağıdakilerden hangisi dürüstlük kuralına aykırı reklam ve satış yöntemleri kapsamında bir haksız rekabet hali değildir?",
       "siklar": {
-        "A": "Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmadığından, işin özelliğine yabancı olan bu hüküm yazılmamış sayılır.",
-        "B": "Kabul kaydı bulunduğundan, hükmün işin özelliğine yabancı olması sonucu değiştirmez ve hüküm geçerli kabul edilir.",
-        "C": "İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığından, bu hüküm zaten genel işlem koşulu sayılmaz ve yazılmamışlık hükmü uygulanmaz.",
-        "D": "Hükmün sözleşme metninde değil ekinde yer alması hâlinde, kabul kaydıyla birlikte nitelendirme değişir ve hüküm yazılmamış sayılmaz.",
-        "E": "Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğundan, bu kayıt varken yazılmamışlık hükmü hiçbir şekilde uygulanamaz."
+        "A": "Başkalarının mallarını, iş ürünlerini veya faaliyetlerini yanlış, yanıltıcı veya gereksiz yere incitici açıklamalarla kötülemek.",
+        "B": "Kendisi veya işletmesi hakkında gerçek dışı ya da yanıltıcı açıklamalarda bulunarak üçüncü kişiyi rekabette öne geçirmek.",
+        "C": "Almadığı bir paye, diploma veya ödüle sahipmiş gibi hareket ederek müstesna yeteneğe sahip olduğu izlenimini uyandırmak.",
+        "D": "Sermaye taahhüdünde bulunanın ödeme yeterliliğinin bulunmadığını bilerek buna onay veren kişinin, bu borcun ödenmemesinden doğan zarardan sorumlu tutulması.",
+        "E": "Başkasının malları, iş ürünleri veya faaliyetleriyle karıştırılmaya yol açacak önlemler almak."
       },
-      "dogru": "A",
+      "dogru": "D",
       "tuzak": {
         "C": {
-          "ad": "Özdeşlik Tuzağı",
-          "metin": "Öğrenci metinlerin özdeş olmaması kuralını ters yönde kullanıp hükmün zaten genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması genel işlem koşulu sayılmayı engellemez, bu kural farklı bir olguy…"
+          "ad": "Sıfat Yanılgısı Tuzağı",
+          "metin": "Almadığı ödülü almış gibi göstermeyi yalnız etik ihlal sayıp kanuni haksız rekabet halinden ayrı tutarsın. Doğrusu: 3 üncü alt bent bunu haksız rekabet hali olarak düzenler."
         },
         "E": {
-          "ad": "Mutlaklaştırma Tuzağı",
-          "metin": "Öğrenci 'tek başına yeterli değildir' ifadesini 'hiçbir şekilde uygulanamaz' şeklinde ters çevirir. Doğrusu: Kanun yalnız kaydın tek başına yetersizliğini söyler, yazılmamışlık hükmünün uygulanmasını engellemez."
+          "ad": "Karıştırma Tuzağı",
+          "metin": "Bu önlemleri yalnız marka hukukunun konusu sanırsın. Doğrusu: 4 üncü alt bent karıştırılmaya yol açan önlemleri haksız rekabet hali sayar, bu şık da soruya cevap değildir."
         },
-        "D": {
-          "ad": "Şekil Tuzağı",
-          "metin": "Öğrenci hükmün metinde mi ekte mi yer aldığının nitelendirmeyi etkilediğini sanır. Doğrusu: Yer, kapsam, yazı türü ve şekli nitelendirmede önem taşımaz; bu unsur kabul kaydıyla birleştirilemez."
+        "A": {
+          "ad": "Kötüleme Tuzağı",
+          "metin": "Bu ifadeyi kanunun konu dışı bıraktığını sanırsın ama Türk Ticaret Kanununun 55 inci maddesinin birinci fıkrasının (a) bendinin 1 inci alt bendi tam olarak bunu haksız rekabet hali sayar. Doğrusu: bu bir haksız rekabet …"
         },
         "B": {
-          "ad": "Yeterlilik Tuzağı",
-          "metin": "Öğrenci kabul kaydının tek başına yeterli olduğunu düşünüp hükmü geçerli sayar. Doğrusu: Kanun kaydın 'tek başına' yeterli olmadığını açıkça belirtir, yazılmamışlık hükmü ayrıca uygulanır."
+          "ad": "Öne Geçirme Tuzağı",
+          "metin": "Gerçek dışı açıklamayı sadece 'reklam serbestisi' sanıp haksız rekabet dışı zannedersin. Doğrusu: aynı maddenin 2 nci alt bendi bunu açıkça haksız rekabet hali sayar."
         }
       },
-      "hap": "Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek başına genel işlem koşulu olmaktan çıkarmaz; işin özelliğine yabancı hüküm yine de yazılmamış sayılır.",
+      "hap": "Türk Ticaret Kanununun 55 inci maddesi haksız rekabet hallerini sayar; 550 ve 551 inci maddeler ise şirket kuruluşundan doğan ayrı sorumluluk hallerini düzenler, ikisi karıştırılmaz.",
       "satirlar": [
         [
-          "A) Tartışılarak kabul edildiğine ilişkin kayıt, hükmü tek b…",
-          "m.20 f.2-3"
+          "A) Başkalarının mallarını, iş ürünlerini veya faaliyetlerin…",
+          "m.55/1-a-1"
         ],
         [
-          "B) Kabul kaydı bulunduğundan, hükmün işin özelliğine yabanc…",
-          "m.20 f.3"
+          "B) Kendisi veya işletmesi hakkında gerçek dışı ya da yanılt…",
+          "m.55/1-a-2"
         ],
         [
-          "C) İşletmenin diğer sözleşmelerinin metinleri özdeş olmadığ…",
-          "m.20 f.2"
+          "C) Almadığı bir paye, diploma veya ödüle sahipmiş gibi hare…",
+          "m.55/1-a-3"
         ],
         [
-          "D) Hükmün sözleşme metninde değil ekinde yer alması hâlinde…",
-          "m.20 f.1"
+          "D) Sermaye taahhüdünde bulunanın ödeme yeterliliğinin bulun…",
+          "m.550/2"
         ],
         [
-          "E) Kabul kaydı kanunda öngörülen tek geçerlilik şartı olduğ…",
-          "m.20 f.2-3"
+          "E) Başkasının malları, iş ürünleri veya faaliyetleriyle kar…",
+          "m.55/1-a-4"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=4"
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=5"
     }
   }
 }
