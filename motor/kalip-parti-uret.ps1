@@ -1209,7 +1209,13 @@ function SmmmTestBloklari(){
   if($null -ne $script:SMMM_BLOK){ return $script:SMMM_BLOK }
   $smmmBlokListe=New-Object System.Collections.Generic.List[object]
   $uL='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.'+[uri]::EscapeDataString('CIKMIS SINAV - SMMM %')+'&order=kaynak_ad.asc&limit=200'
-  try{ $hamL=ConvertFrom-Json -InputObject (Invoke-WebRequest -Uri $uL -Headers $SB -UseBasicParsing -TimeoutSec 120).Content }catch{ "  SMMM test kitapçıkları çekilemedi: $($_.Exception.Message)"; $hamL=@() }
+  # 13.09 SIZINTI DENETİMİ (Cem "bir iki ve üçü"): smmm-gm-p1-ydenetim koşusunda çekim bir kez düştü; catch'teki mesaj Write-Host değil
+  # ÇIKTI olduğu için fonksiyonun dönüş dizisine karışıp yutuldu, boş sonuç önbelleğe yazıldı ve Denetim sorusu SESSİZCE SGS yedek
+  # biçim örneğini (p90-SGS-01) aldı. Tekrar koşuda aynı çekim 320 blok verdi (geçici). Artık: 3 deneme, KÖR mesajı ekrana, boş sonuç
+  # önbelleğe YAZILMAZ (sonraki çağrı yeniden dener). Yalnız SMMM yolu çağırır; SGS etkilenmez.
+  $hamL=$null
+  foreach($denL in 1..3){ try{ $hamL=ConvertFrom-Json -InputObject (Invoke-WebRequest -Uri $uL -Headers $SB -UseBasicParsing -TimeoutSec 120).Content; break }catch{ Write-Host "  SMMM test kitapçıkları çekilemedi (deneme $denL/3): $($_.Exception.Message)" -ForegroundColor Red; if($denL -lt 3){ Start-Sleep -Seconds (5*$denL) } } }
+  if($null -eq $hamL){ Write-Host "  KÖR: SMMM test kitapçıkları çekilemedi — çapa ve KAPI-K sözlüğü bu çağrıda BOŞ (önbelleğe yazılmadı)" -ForegroundColor Red; return @() }
   foreach($rL in @($hamL)){
     $mL=[regex]::Match("$($rL.kaynak_ad)",'smmm_(\d{4})_(\d)_(\d{2})'); if(-not $mL.Success){ continue }
     # DİKKAT (13.09 ölçüldü): ambar metninde sütun sırası karışık, anahtar tablosu metnin ORTASINA düşebiliyor (2026/1-01: 14.210 kr'nin
