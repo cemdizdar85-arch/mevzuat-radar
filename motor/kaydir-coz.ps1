@@ -498,6 +498,9 @@ $html=@'
 /* 13.09 Cem onayı: akran satırı ("👥 9 adayın %89'u senin gibi B dedi") çerçevede gizli.
    Örneklem küçükken ilk kez gelen ziyaretçi "sitede 9 kişi var" diye okur. Üründe durur. */
 :root[data-tek] .akranNot{display:none}
+/* Aynı akran verisi şıkların üstüne de basılıyor (.sikYuzde: "B) 1,50 %89", "C) 1,67 %0").
+   Öğrenci turunda görüldü: doğru cevabın yanında %0, ilk gelene "site bozuk mu" dedirtiyor. */
+:root[data-tek] .sikYuzde{display:none}
 /* 13.09 Cem seçimi (tek tek gidildi): Alarm rozeti (kişisel ustalık seviyesi, ilk gelene
    anlamsız ve kırmızı "Alarm" hata gibi okunuyor) ile cevap sonrası ikinci "Kâğıdım" düğmesi
    (üstteki "Kâğıt" aynı işi yapıyor) çerçevede gizli. "Daha fazla" ve "Sen çöz" KALDI. */
