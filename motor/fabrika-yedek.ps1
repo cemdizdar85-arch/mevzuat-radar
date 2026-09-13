@@ -90,6 +90,15 @@ if($Coz){
 $kaynakDir = Join-Path $kok 'veri\fabrika'
 $dosyalar = @(Get-ChildItem $kaynakDir -Filter 'kalip-parti-*.json' -File)
 if(-not $dosyalar.Count){ throw "Yedeklenecek dosya yok: $kaynakDir\kalip-parti-*.json" }
+# ⛔⭐ 13.09.2026 — GEDIK KAPANDI: GM'IN ELLE YAZDIGI SORULAR YEDEGE GIRMIYORDU.
+#   Bu betik yalniz kalip-parti-*.json aliyordu. Ama `hazir-*.json` dosyalari GM'in
+#   oturumda ELLE yazdigi sorularin KAYNAK kopyasidir ve onlar da .gitignore'da:
+#   depoda YOK, ambarda YOK, bu yedekte de YOKTU. Olculdu 13.09: 143 dosya, 11,1 MB,
+#   birlestirilmis dosyalarda 766 soru - hepsi TEK kopya halinde bu diskteydi.
+#   Ayni gece t2b-meslek partisinin ISLENMIS hali ambarda bulunamadi (10.09'da kostugu
+#   denetim sayfasindan belli). Kaynak dosyalar sagdi ama yedek olmasaydi o da giderdi.
+#   hazir-dusen-* ALINMAZ: onlar kod kapisinda dusen sorularin kutugu, kaynak degil.
+$dosyalar += @(Get-ChildItem $kaynakDir -Filter 'hazir-*.json' -File | Where-Object { $_.Name -notlike 'hazir-dusen-*' })
 
 $yedekKok = if("$($env:YEDEK_KOK)".Trim()){ $env:YEDEK_KOK } else { 'C:\TETIKTE-YEDEK\fabrika' }
 if(-not (Test-Path $yedekKok)){ New-Item -ItemType Directory -Force $yedekKok | Out-Null }

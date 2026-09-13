@@ -48,6 +48,28 @@ function KonuYoluCoz($PLAN_SATIRI){
   return $KONU_YOLU
 }
 
+# ⛔⭐ 13.09.2026 — HAZIR SORU (GM elle yazimi) PLAN SATIRINDAN (Cem "1.2.3 ucunu de yap", GM-3).
+#   NIYE: uretici -HazirSoru'yu 09.09'dan beri destekliyordu ama BU KOSUCU onu HIC gecirmiyordu.
+#   Sonuc olculdu 13.09: GM'in elle yazdigi Meslek sorulari plan satiriyla kosulamadi; t2b-meslek
+#   plan satiri kossaydi hazir dosyayi KULLANMAYIP modele YENI soru URETTIRECEKTI.
+#   ⛔ DOSYA YOKSA SESSIZ DUSUS YOK: bayrak dusurulup devam edilirse uretici FAZ A ile soru URETIR ->
+#     elle yazilmis is dururken para odenir. Bu yuzden dosya yoksa DURULUR.
+#   ⚠ BULUT: hazir-*.json .gitignore'dadir (veri/fabrika/*); depoda ve runner'da YOKTUR. Bu alan bugun
+#     YALNIZ dosyanin durdugu makinede calisir; bulutta bilerek YUKSEK SESLE durur. Bulutta calismasi icin
+#     dosyalarin runner'a indirilmesi gerekir (sifreli yedek anahtarsiz acilmaz - ayri is).
+function HazirYoluCoz($PLAN_SATIRI){
+  $HAZIR_YOLU="$($PLAN_SATIRI.hazirSoru)"
+  if($HAZIR_YOLU -notmatch '^[A-Za-z]:\\' -and $HAZIR_YOLU -notmatch '^\\\\'){
+    $HAZIR_YOLU=Join-Path $Kok ($HAZIR_YOLU -replace '/','\')
+  }
+  if(-not (Test-Path $HAZIR_YOLU)){
+    throw ("HAZIR SORU DOSYASI YOK: parti '$($PLAN_SATIRI.etiket)' -> $HAZIR_YOLU`n" +
+           "  hazir-*.json .gitignore'dadir: depoda ve BULUTTA yoktur; bu satir yalniz dosyanin durdugu makinede kosar.`n" +
+           "  Sessiz devam EDILMEDI: bayrak dusseydi model elle yazilmis soru yerine YENI soru uretecekti.")
+  }
+  return $HAZIR_YOLU
+}
+
 # ---------------------------------------------------------------------------
 # CANLI NABIZ  (12.09.2026, Cem "1.2.3 ucunu de yap" - GM onerisi 1)
 #
@@ -217,6 +239,12 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   $arg=@('-Sinav',$sinav,'-DersRegex',"$($s.ders)",'-Adet',"$([int]$s.adet)",'-Etiket',"$($s.etiket)",'-UzunlukTavan',"$(DersTavani $s)",'-Verilenler','-KonuGiris','-Simulasyon','-SimModel','claude-sonnet-5','-Sade')
   if($s.PSObject.Properties['eskiKaynak'] -and "$($s.eskiKaynak)"){ $arg+=@('-EskiKaynak',"$($s.eskiKaynak)",'-DonemPencere','0') }
   else { $arg+=@('-DonemPencere','7'); if($s.PSObject.Properties['zorluk'] -and (@('zor','kolay','cokzor') -contains "$($s.zorluk)")){ $arg+=@('-Zorluk',"$($s.zorluk)") }; if($s.PSObject.Properties['disla'] -and "$($s.disla)"){ $arg+=@('-KonuDisla',"$($s.disla)") }; if($s.PSObject.Properties['konuDosya'] -and "$($s.konuDosya)"){ $arg+=@('-KonuDosya',(KonuYoluCoz $s)) } }
+  # 13.09 (bkz. HazirYoluCoz): GM elle yazimi + kor cozum modeli plan satirindan. Uc alan da YOKSA arguman
+  #   listesi ESKISIYLE BIREBIR aynidir (olculdu: depodaki hicbir plan bu alanlari tasimiyor).
+  #   korModel: yazar GM (Opus) ise kor cozum FARKLI model olmali (SORU-BASMA-KURALLARI 3.5).
+  if($s.PSObject.Properties['hazirSoru'] -and "$($s.hazirSoru)"){ $arg+=@('-HazirSoru',(HazirYoluCoz $s)) }
+  if($s.PSObject.Properties['korModel'] -and "$($s.korModel)"){ $arg+=@('-KorModel',"$($s.korModel)") }
+  if($s.PSObject.Properties['korKaynak'] -and [bool]$s.korKaynak){ $arg+=@('-KorKaynak') }
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
   # 09.09 Cem "ara ara deneyelim orayı, rakamı düşürmemiz lazım": MEVZUAT_TOPLU='auto' → motor/toplu-sonda.ps1'in yazdığı sağlık dosyasına bakılır;
   # son 40 dk içinde "acik" ölçülmüşse bu etiket TOPLU (yarı fiyat), değilse anlık. Üretici ayrıca faz bazında MEVZUAT_TOPLU_BEKLE_DK sonra anlığa düşer.
