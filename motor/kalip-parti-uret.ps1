@@ -3003,6 +3003,58 @@ if($HazirSoru -and -not $SadeceHtml){
 # %40'ı aşarsa (n≥5) o harfteki bir soru henüz ADIMLARI YAZILMAMIŞKEN en az kullanılan harfe taşınır: siklar · aciklama · teshis · celdirici_yol
 # birlikte taşınır ("Hepsi / Hiçbiri / Yukarıdakilerin" içeren soruya dokunulmaz). 10.09: adımı OLAN soru değil, adımı ŞIK HARFİNE
 # BAĞLI olan soru taşınmaz (AdimHarfeBagliMi) — eski hâli hazır soru yolunda dengelemeyi tümüyle kapatıyordu.
+# --- 13.09.2026 HARF ATFI ÇEVİRİCİ (SikTasi 3. seviye) — scratch'te 32 sözel soruda denetimle doğrulanan dönüşüm -------------
+$script:SIKHARF_HRF='A-Za-zÇĞİÖŞÜçğıöşü'
+$script:SIKHARF_KESME="['$([char]0x2019)]"
+$script:SIKHARF_TEK="(?<![$($script:SIKHARF_HRF)])[A-E](?![$($script:SIKHARF_HRF)])"
+$script:SIKHARF_ARALIK="(?<![$($script:SIKHARF_HRF)])[A-E]$($script:SIKHARF_KESME)(dan|den|tan|ten)\s+[A-E]$($script:SIKHARF_KESME)(y?a|y?e)(?![$($script:SIKHARF_HRF)])"
+$script:SIKHARF_EK="(?<![$($script:SIKHARF_HRF)])([A-E])($($script:SIKHARF_KESME))([a-zçğıöşü]+)"
+$script:SIKHARF_ATIF=@(
+  "[şŞ]ık+\w*\s*:?\s*\(?[A-E]\)?(?![$($script:SIKHARF_HRF)])", "[A-E]\s*[şŞ]ık\w*", "s[iı]k\w*\s*:?\s*[A-E](?![$($script:SIKHARF_HRF)])", "(?<![$($script:SIKHARF_HRF)])[A-E]\s*s[iı]k\w*",
+  "\([A-E]\)", "(?<![$($script:SIKHARF_HRF)])[A-E]\)", "[cC]evap\s*[A-E](?![$($script:SIKHARF_HRF)])", "(?<![$($script:SIKHARF_HRF)])[A-E]\s*seçene\w*", "seçene\w*\s*[A-E](?![$($script:SIKHARF_HRF)])",
+  "[dD]oğru(su)?\s*:?\s*[A-E](?![$($script:SIKHARF_HRF)])", "(?<![$($script:SIKHARF_HRF)])[A-E]\s*[✓✗]", "(?<![$($script:SIKHARF_HRF)])[A-E]$($script:SIKHARF_KESME)[a-zçğıöşü]+",
+  "(?<![$($script:SIKHARF_HRF)])[A-E](,[A-E])+(?![$($script:SIKHARF_HRF)])", "cümle\s+[A-E](?![$($script:SIKHARF_HRF)])", "Sadece\s+[A-E](?![$($script:SIKHARF_HRF)])", "(?<![$($script:SIKHARF_HRF)])[A-E]\s+anında",
+  "(?<![$($script:SIKHARF_HRF)])[A-E]\s+ve\s+(?=[A-E]\s*[sşSŞ][iıİI]k)", "tek\s+s[iı]k\s*:\s*[A-E](?![$($script:SIKHARF_HRF)])"
+) -join '|'
+function SikHarfEkUyumu([string]$metin){
+  if(-not $metin){ return $metin }
+  return [regex]::Replace($metin,$script:SIKHARF_EK,{ param($em) $ekMetin=$em.Groups[3].Value
+    if($em.Groups[1].Value -eq 'A'){ $ekMetin=$ekMetin.Replace('e','a').Replace('i','ı').Replace('ü','u').Replace('ö','o') } else { $ekMetin=$ekMetin.Replace('a','e').Replace('ı','i').Replace('u','ü').Replace('o','ö') }
+    return $em.Groups[1].Value+$em.Groups[2].Value+$ekMetin })
+}
+function SikHarfCevirIc([string]$metin,[string]$harf1,[string]$harf2){
+  return [regex]::Replace($metin,$script:SIKHARF_ATIF,{ param($eslesme)
+    return [regex]::Replace($eslesme.Value,$script:SIKHARF_TEK,{ param($hm) $hv=$hm.Value; if($hv -eq $harf1){ $harf2 } elseif($hv -eq $harf2){ $harf1 } else { $hv } })
+  }) | ForEach-Object { SikHarfEkUyumu $_ }
+}
+function SikHarfCevir([string]$metin,[string]$harf1,[string]$harf2){
+  if(-not $metin){ return $metin }
+  $korunan=New-Object System.Collections.Generic.List[string]
+  $metin=[regex]::Replace($metin,$script:SIKHARF_ARALIK,{ param($rm) $korunan.Add($rm.Value); return "$([char]1)$($korunan.Count-1)$([char]2)" })
+  $sonucMetin=SikHarfCevirIc $metin $harf1 $harf2
+  for($ki=0;$ki -lt $korunan.Count;$ki++){ $sonucMetin=$sonucMetin.Replace("$([char]1)$ki$([char]2)",$korunan[$ki]) }
+  return $sonucMetin
+}
+function SikHarfKapanis([string]$metin){
+  $km=[regex]::Match($metin,'[A-E]\s*[✓✗](\s+[A-E]\s*[✓✗]){2,}')
+  if(-not $km.Success){ return $metin }
+  $ciftler=@([regex]::Matches($km.Value,'([A-E])\s*([✓✗])') | ForEach-Object { [pscustomobject]@{ h=$_.Groups[1].Value; i=$_.Groups[2].Value } } | Sort-Object h)
+  return $metin.Substring(0,$km.Index)+(($ciftler | ForEach-Object { "$($_.h) $($_.i)" }) -join ' ')+$metin.Substring($km.Index+$km.Length)
+}
+function SikHarfDerin($nesne,[string]$harf1,[string]$harf2){
+  if($null -eq $nesne){ return $nesne }
+  if($nesne -is [string]){ return (SikHarfCevir $nesne $harf1 $harf2) }
+  if($nesne -is [array]){ $yeniDizi=@(); foreach($el in $nesne){ $yeniDizi+=,(SikHarfDerin $el $harf1 $harf2) }; return ,$yeniDizi }
+  if($nesne -is [pscustomobject]){ foreach($pp in @($nesne.PSObject.Properties)){ $nesne.($pp.Name)=(SikHarfDerin $pp.Value $harf1 $harf2) }; return $nesne }
+  return $nesne
+}
+# adımlar şık başına yapılıysa (her A-E harfi için tam bir adım, adım.sik alanıyla) SikTasi harfe bağlı anlatımı da taşıyabilir
+function AdimSikYapili($c){
+  if(-not ($c.PSObject.Properties['adimlar'] -and $c.adimlar)){ return $false }
+  $sayH=@{}; foreach($ad in @($c.adimlar)){ if($ad -and $ad.PSObject.Properties['sik'] -and "$($ad.sik)" -cmatch '^[A-E]$'){ $sayH["$($ad.sik)"]=1+[int]$sayH["$($ad.sik)"] } }
+  foreach($hh in 'A','B','C','D','E'){ if([int]$sayH[$hh] -ne 1){ return $false } }
+  return $true
+}
 function SikTasi($c,[string]$kaynakH,[string]$hedefH){
   # ⛔⭐ 12.09.2026 — sade.siklar EKLENDI. OLCULDU, tahmin degil:
   #   sade.siklar her harf icin "BU SIK NEDEN YANLIS" metnini tutar ve
@@ -3030,6 +3082,34 @@ function SikTasi($c,[string]$kaynakH,[string]$hedefH){
     if($null -ne $sK){ $sd | Add-Member -NotePropertyName $hedefH -NotePropertyValue $sK -Force } elseif($sd.PSObject.Properties[$hedefH]){ $sd.PSObject.Properties.Remove($hedefH) }
     if($null -ne $sH){ $sd | Add-Member -NotePropertyName $kaynakH -NotePropertyValue $sH -Force } elseif($sd.PSObject.Properties[$kaynakH]){ $sd.PSObject.Properties.Remove($kaynakH) }
   }
+  # --- 3. SEVIYE (13.09.2026, Cem "dengele" + "kalıcı yap"): harfe BAĞLI anlatım da taşınır -----------------------------------
+  #   ÖLÇÜLDÜ: d4 sözel dalgasında 85 yeni sorunun 82'si adımlarını şık başına yazıyordu ("Şık A: ...", adım.sik='A') ve dengeleyici
+  #   bu soruları AdimHarfeBagliMi yüzünden atlıyordu; Türkçe/YD'de doğru cevap %36-42 A'ya yığıldı, yayın kapısı 3 kez düştü.
+  #   Elle doğrulanan dönüşüm (32 soru, alan alan permütasyon denetimi + göz kontrolü) buraya taşındı:
+  #     · adım.sik=kaynak ve adım.sik=hedef olan iki adımın İÇERİĞİ yer değiştirir (sik alanı yerinde kalır)
+  #     · sema.ogeler harf anahtarlıysa anahtarlar yer değiştirir
+  #     · ekranda görünen metinlerde harf ATIFLARI karşılıklı çevrilir ("Şık X", "X şıkkı", "cevap X", "(X)", "X ✓", "X'de" ...);
+  #       "A'dan E'ye kadar" gibi ARALIK ifadeleri korunur; harf-ek çiftinde ünlü uyumu (A kalın, B-E ince) düzeltilir;
+  #       "Kapanış: A ✓ B ✗ ..." satırı alfabetik dizilir. hakem/hakem2/capa/kaynak metinlerine DOKUNULMAZ (iç kayıt / gerçek sınav).
+  if($c.PSObject.Properties['adimlar'] -and $c.adimlar){
+    $adimK=$null; $adimH=$null
+    foreach($ad in @($c.adimlar)){ if(-not $ad){ continue }; if("$($ad.sik)" -eq $kaynakH){ $adimK=$ad }; if("$($ad.sik)" -eq $hedefH){ $adimH=$ad } }
+    if($adimK -and $adimH){
+      $kopK=(ConvertTo-Json $adimK -Depth 20 | ConvertFrom-Json); $kopH=(ConvertTo-Json $adimH -Depth 20 | ConvertFrom-Json)
+      foreach($pp in @($kopH.PSObject.Properties)){ if($pp.Name -ne 'sik'){ $adimK | Add-Member -NotePropertyName $pp.Name -NotePropertyValue $pp.Value -Force } }
+      foreach($pp in @($kopK.PSObject.Properties)){ if($pp.Name -ne 'sik'){ $adimH | Add-Member -NotePropertyName $pp.Name -NotePropertyValue $pp.Value -Force } }
+    }
+  }
+  if($c.PSObject.Properties['sema'] -and $c.sema -and $c.sema.PSObject.Properties['ogeler'] -and $c.sema.ogeler -is [pscustomobject]){
+    if(@($c.sema.ogeler.PSObject.Properties.Name | Where-Object { $_ -cmatch '^[A-E]$' }).Count){
+      $oK=$(if($c.sema.ogeler.PSObject.Properties[$kaynakH]){ $c.sema.ogeler.$kaynakH } else { $null }); $oH=$(if($c.sema.ogeler.PSObject.Properties[$hedefH]){ $c.sema.ogeler.$hedefH } else { $null })
+      if($null -ne $oK){ $c.sema.ogeler | Add-Member -NotePropertyName $hedefH -NotePropertyValue $oK -Force } elseif($c.sema.ogeler.PSObject.Properties[$hedefH]){ $c.sema.ogeler.PSObject.Properties.Remove($hedefH) }
+      if($null -ne $oH){ $c.sema.ogeler | Add-Member -NotePropertyName $kaynakH -NotePropertyValue $oH -Force } elseif($c.sema.ogeler.PSObject.Properties[$kaynakH]){ $c.sema.ogeler.PSObject.Properties.Remove($kaynakH) }
+    }
+  }
+  foreach($alan in 'aciklama','teshis','celdirici_yol','adimlar','hap','sinav_taktigi','notlandirici','sema'){ if($c.PSObject.Properties[$alan] -and $null -ne $c.$alan){ $c.$alan=(SikHarfDerin $c.$alan $kaynakH $hedefH) } }
+  if($c.PSObject.Properties['sade'] -and $c.sade){ foreach($alan in 'dogru','siklar'){ if($c.sade.PSObject.Properties[$alan]){ $c.sade.$alan=(SikHarfDerin $c.sade.$alan $kaynakH $hedefH) } } }
+  if($c.PSObject.Properties['adimlar'] -and $c.adimlar){ foreach($ad in @($c.adimlar)){ if(-not $ad){ continue }; foreach($alan in 'formul','anlatim'){ if("$($ad.$alan)"){ $ad.$alan=(SikHarfKapanis "$($ad.$alan)") } } } }
   $c.dogru=$hedefH
   # 10.09 ÖLÇÜLDÜ (GM Borçlar t2b): dengeleme YARGILAMADAN SONRA da çalışabiliyor (hazır soru yolunda parti iki turda basılıyor).
   # kor_cozum HARFE BAĞLI üç alan taşır: 'cevap' (modelin seçtiği harf), 'dogru' (o anki doğru harf) ve 'hesap' (şık şık A) B) C)
@@ -3163,7 +3243,8 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
         #    Bankada eski kuralla taşıma adayı 3.786 soru (1.670'i yayında), yeni kuralla 27 (henüz hakem görmemiş). Dengeleme
         #    yalnız YENİ üretilmiş, hakem kararı olmayan soruya uygulanır - bloğun özgün niyeti ("adımları yazılmadan önce").
         if($c.PSObject.Properties['hakem'] -and $c.hakem){ continue }
-        if(AdimHarfeBagliMi $c){ continue }
+        # 13.09: şık başına yapılı adımlar (adım.sik A-E) artık SikTasi 3. seviyede taşınıyor; engel yalnız yapısız serbest harf atfında
+        if((AdimHarfeBagliMi $c) -and -not (AdimSikYapili $c)){ continue }
         $hepsi=$false; foreach($hh in 'A','B','C','D','E'){ if("$($c.siklar.$hh)" -match '(?i)hepsi|hiçbiri|yukarıdaki|yalnız (I|II|III)\b'){ $hepsi=$true } }
         if($hepsi){ continue }
         # ⛔ sema.ogeler HARFE ANAHTARLI olabilir ve SikTasi onu TASIMIYOR.
