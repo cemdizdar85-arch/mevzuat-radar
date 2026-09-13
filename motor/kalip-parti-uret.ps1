@@ -284,6 +284,11 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
       }
       # 07.09 Ö47 asgari GÜNCELLİK KAPISI (Vergi): eski 5422 dönemi Kurumlar Vergisi tebliğleri (Seri No ≠ 1) ve metninde "5422 sayılı" geçen kaynak paketi dışı
       if($DersRegex -match 'Vergi'){ $kaEski=("$($x.kaynak_ad)" -match '(?i)Kurumlar Vergisi.*Seri No:?\s*(\d+)' -and [int]$matches[1] -ne 1) -or ("$($x.metin)" -match '5422 sayılı'); if($kaEski){ Write-Host "  GÜNCELLİK: eski dönem kaynağı atlandı: $($x.kaynak_ad)" -ForegroundColor DarkGray; continue } }
+      # 13.09 ÖLÇÜLDÜ (71 Matematik/Türkçe/YD partisi, 596 kayıt): bu üç derste pakete giren TEORİ DIŞI kaynağın hepsi alakasızdı
+      # (oran orantı ← BDS 530, türev ← TFRS 9/BDDK, ses olayları ← GDS 3410/TFRS 15, büyük harf ← SPK m.33, fiil zamanı ← VUK m.30);
+      # kısmi türev sorusu SPK m.91/m.112 yüzünden hakemden döndü. Bu derslerin mevzuat kaynağı yoktur → yalnız TEORİ notu girer.
+      # Etki ölçümü: 34 kayıt, paketi boşalan 0. Öteki dersler (GK_SAF false) birebir aynı.
+      if($script:GK_SAF -and "$($x.kaynak_ad)" -notmatch '^(TEORI|Teori Notu)'){ Write-Host "  GK KAYNAK SÜZGECİ: teori dışı kaynak atlandı: $($x.kaynak_ad)" -ForegroundColor DarkGray; continue }
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
     # 03.09 OLCULDU (SMMM 'kambiyo kari kaydi' -> KAYNAK BORCU; oysa THP 646 KAMBIYO KARLARI ambarda):
@@ -292,7 +297,7 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     if($d.StartsWith('@') -and @($r).Count -eq 0){
       $u2='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&kaynak_ad=imatch.'+[uri]::EscapeDataString($rx)+'&limit=3'
       $r2=$null; try{ $r2=Invoke-RestMethod -Uri $u2 -Headers $SB -TimeoutSec 60 }catch{}
-      foreach($x in @($r2)){ if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") } }
+      foreach($x in @($r2)){ if($script:GK_SAF -and "$($x.kaynak_ad)" -notmatch '^(TEORI|Teori Notu)'){ continue }; if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") } }
     }
     if($adlar.Count -ge 10){ break }
   }
@@ -840,6 +845,11 @@ $OZEL_DESEN=@{
   'cari oran duran varlik'   = @('~teori bilanco esitli','~teori cari oran','~teori duran varlik','THP 253%','THP 300%')
   'brut satis kari degisimi' = @('~teori brut satis kari','THP 600%','THP 621%','THP 610%','THP 611%')
   'hasilat kavrami'          = @('~teori gelir hasilat kazanc','THP 600%','THP 679%','THP 649%','THP 391%')
+  # 13.09 SGS Matematik ÖLÇÜLDÜ (bulut yeniden hakem, t1-genel mat): tek kök 'topla' / 'turev' denetim, Keynes, türev ürünler notlarını çekti;
+  # doğru not pakete girmedi ya da sona düştü. Etki: yalnız bu üç konu + kök eşleşmesiyle 'geometrik dizi ve seri toplamı', 'teleskopik seri toplami' (hepsi Matematik).
+  'seri toplami'             = @('~teori matematik aritmetik dizi toplami','~teori matematik geometrik dizi seri toplami','~teori matematik ardisik sayilar toplami')
+  'turev hesabi'             = @('~teori turev hesabi','~teori matematik turev ile maksimum')
+  'kismi turev'              = @('~teori kismi turev','~teori turev hesabi')
   'ust yonetimle iletisim'   = @('~teori istirak bagli ortaklik','THP 242%','THP 245%','THP 240%')   # konu adı yanlış; Tur 1 sorusu 245 Bağlı Ortaklıklar yönetim çoğunluğu ölçütünü sormuştu
   # 09.09 GM maliyet-kolay ÖLÇÜLDÜ (5 hakem reddi, hepsi kaynak): 'standart' GENEL_KOK'ta olduğu için "standart maliyet sistemi" tek kök "maliyet"le 6 alakasız
   # not çekti; "normal maliyet" ve "bakım onarım" dayanağındaki TMS 2 / TMS 16 atıfı paketi standart paragraflarıyla doldurdu. Doğru notlar ADLA öne alınır.
@@ -1516,6 +1526,7 @@ $script:YD_MOD=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İng
 # (Türkçe/Matematik/YD/İnkılap/Ekonomi/Maliye) not adları bizim yazdığımız başlıklardır ve sınav gövdesiyle örtüşmez — bu derslerde
 # kaynak adı süzgeci KAPALI (soru gövdesi kapısı KAPI-K ayrıca çalışır, YD'de o da kapalı).
 $script:GK_DERS=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce|Turkce|Türkçe|Matematik|Ataturk|Atatürk|Inkilap|İnkılap|Ekonomi|Maliye')
+$script:GK_SAF=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce|Turkce|Türkçe|Matematik')   # 13.09: mevzuat kaynağı OLMAYAN üç ders (AmbarCek süzgeci); Maliye/Ekonomi/Atatürk kanun anabilir, girmez
 $YD_DIL_KURAL=@'
 
     YABANCI DİL (İNGİLİZCE) MODU: Bu ders SGS kitapçığının 21–30. soruları gibi İNGİLİZCE yazılır. Soru kökü ve 5 şık İngilizce;
