@@ -100,7 +100,10 @@ if($Yukle){
     if(-not $icerik){ Write-Host ("  ! okunamadi: {0}" -f $x.etiket) -ForegroundColor Yellow; $hata++; continue }
     # Bozuk JSON gonderilmez
     try{ [void]($icerik|ConvertFrom-Json) }catch{ Write-Host ("  ! bozuk JSON, ATLANDI: {0}" -f $x.etiket) -ForegroundColor Red; $hata++; continue }
-    $govde = '{"etiket":' + (ConvertTo-Json $x.etiket) + ',"sinav":' + (ConvertTo-Json $Sinav) +
+    # 13.09 OLCULDU: ambardaki 975 partinin 15'i yanlis etiketliydi (smmm-* 6 + kgk-* 9 -> sinav=SGS), cunku -Yukle HER partiye
+    # -Sinav'i (varsayilan SGS) basiyordu. Etiket oneki sinavi kesin soyluyorsa o kazanir; digerleri (sgs-, pilot6-, devir-, spl-) eskisi gibi.
+    $sinavBu = if("$($x.etiket)" -match '^smmm-'){ 'SMMM' } elseif("$($x.etiket)" -match '^kgk-'){ 'KGK' } else { $Sinav }
+    $govde = '{"etiket":' + (ConvertTo-Json $x.etiket) + ',"sinav":' + (ConvertTo-Json $sinavBu) +
              ',"yazan":' + (ConvertTo-Json $yazan) + ',"icerik":' + $icerik + '}'
     try{
       $b=[Text.Encoding]::UTF8.GetBytes($govde)
