@@ -32,6 +32,9 @@ $basladi=0
 foreach($g in $gorevler){
   $ad=$g.TaskName -replace '^tetikte-hat-',''      # sgs-t1-p2, sgs-t2-p4 ...
   if($g.State -eq 'Running'){ continue }
+  # 13.09: Disabled görev bilerek durdurulmuş hattır; Start-ScheduledTask onu başlatamaz (0x80041326) ama hata sonlandırıcı
+  # olmadığından catch'e düşmüyor ve 5 dk'da bir sahte "YENİDEN BAŞLATILDI" yazılıyordu (sgs-genel-p1/p3, 09.09'dan beri).
+  if($g.State -eq 'Disabled'){ continue }
   $log=Join-Path $logDir "$ad.log"
   if(-not (Test-Path $log)){ continue }
   # koşucu logunun son anlamlı satırı TAMAM ise plan bitmiştir; değilse hat yarım kalmıştır
@@ -42,7 +45,7 @@ foreach($g in $gorevler){
   # aynı hattın koşucusu başka yoldan canlıysa (eski başlatma) dokunma
   $canli=@(Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like "*\hat\$ad.ps1*" })
   if($canli.Count){ continue }
-  try{ Start-ScheduledTask -TaskName $g.TaskName; $basladi++; Yaz "YENİDEN BAŞLATILDI: $ad (görev $($g.State) idi; son satır: $("$son".Trim().Substring(0,[Math]::Min(70,"$son".Trim().Length))))" }catch{ Yaz "BAŞLATILAMADI: $ad · $($_.Exception.Message)" }
+  try{ Start-ScheduledTask -TaskName $g.TaskName -ErrorAction Stop; $basladi++; Yaz "YENİDEN BAŞLATILDI: $ad (görev $($g.State) idi; son satır: $("$son".Trim().Substring(0,[Math]::Min(70,"$son".Trim().Length))))" }catch{ Yaz "BAŞLATILAMADI: $ad · $($_.Exception.Message)" }
   Start-Sleep -Seconds 8
 }
 if($basladi){ Yaz "toplam $basladi hat yeniden başlatıldı" }
