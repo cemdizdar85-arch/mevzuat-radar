@@ -3245,6 +3245,16 @@ Cevap YALNIZ JSON: {"karar":"EVET|HAYIR","gerekce":"tek cumle","dogru_sik_var":"
 === DOGRU SIKKIN ACIKLAMASI === {ACIK}
 === KAYNAK METNI === {KAYNAK}
 '@
+# 13.09 olumsuz kök notu (kullanım: $ih kurulduktan hemen sonra; gerekçe orada). Desen kök cümlesinin SON fiiline bağlıdır:
+# "devredilemez görev ... hangisi doğrudur?" gibi olumlu kökler tetiklemez (bankada 5.468 kökte ölçüldü: 816 + 11 eşleşme).
+$OLUMSUZ_KOK_RX='(?i)(yanlıştır|yanlış eşleştirilmiştir|yanlış verilmiştir|aykırıdır|değildir|doğurmaz|yoktur|söylenemez|sayılmaz|sayılmamıştır|bulunmaz|yer almaz|girmez|gerektirmez|olamaz|yapılamaz|kullanılamaz|edilemez|içermez|kapsamaz)\s*\?\s*$'
+$OLUMSUZ_KOK_NOT=@'
+OLUMSUZ KOK UYARISI: Bu sorunun koku OLUMSUZDUR (yanlistir / aykiridir / degildir / sayilmaz / yer almaz gibi).
+Bu tip soruda isaretli DOGRU SIK, kurala AYKIRI ya da YANLIS olan ifadedir; sikkin metninin kaynakla CELISMESI BEKLENEN durumdur, kusur DEGILDIR.
+- 1) DAYANAK sorusunu soyle cevapla: isaretli sikkin kurala aykiri / yanlis oldugu KAYNAK METNINDEN cikiyor mu? Cikiyorsa EVET.
+- 8) DOGRU SIK VAR MI sorusunda kokun istedigi YANLIS ifadeyi ara.
+- Isaretli siktan baska bir sik da kurala aykiriysa (iki yanlis ifade varsa) tek_anlam alanina CIFT-ANLAM yaz.
+'@
 # --- 11.09 TOPLU: FAZ H de iki gecisli kosar (Cem "toplu istege gec") ---------
 # A · K · H2 · B · G · C fazlari 08.09'dan beri toplu gidiyordu; HAKEM ve SADE
 # disarida kalmisti. Hasat turu tam bu iki fazi kosuyor: 1.098 soru x 2 cagri
@@ -3377,6 +3387,11 @@ foreach($id in @($don.Keys)){
 # bu isaretin tek basina isabeti %35, yani hukum degil DIKKAT CAGRISIDIR.
 $keIsaret = $(if($cvp.PSObject.Properties['konu_sapma_isareti'] -and "$($cvp.konu_sapma_isareti)".Trim()){ "DIKKAT: sozcuk olcumu bu soruda konu sapmasi isaretledi ($($cvp.konu_sapma_isareti)); konu uyumunu ozellikle dikkatli denetle. " } else { '' })
 $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
+  # 13.09 ÖLÇÜLDÜ (bankanın tamamı, 5.438 hakem kararı): kök OLUMSUZ olduğunda ("...hangisi yanlıştır?") hakem, işaretli şıkkın
+  # metni kuralla çeliştiği için "dayanak kaynakta yok" deyip HAYIR veriyordu. Olumsuz kökte red %24,1, olumlu kökte %16,7; bütün alt
+  # ölçütleri EVET olup kararı HAYIR olan 157 çelişkili retten 87'si olumsuz köklü (a6e Meslek çok zor kp-16: gerekçesi "A şıkkı yanlış
+  # eşleştirme içeriyor", yani sorunun istediği şey). Not YALNIZ son fiili olumsuz köklerde eklenir; olumlu kökte istem bayt bayt aynı.
+  if("$($cvp.soru)".Trim() -match $OLUMSUZ_KOK_RX){ $ih=$ih.Replace('=== SORU === ',$OLUMSUZ_KOK_NOT+"`n=== SORU === ") }
   # 1. gecis: yalniz istemi topla (istem YUKARIDA ayni koddan kuruldu, sapma yok)
   if($script:ON_GECIS){ TopluTopla $id 'claude-haiku-4-5-20251001' $ih 2000; continue }
   $yh=TopluAl 'H' $id            # 2. gecis: partiden gelen cevap varsa bedava
