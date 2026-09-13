@@ -193,6 +193,19 @@
                 overflow:hidden;background:#fff;margin-bottom:11px}
   .urun-cerceve iframe{display:block;width:100%;height:540px;border:0}
   .yukleniyor{padding:26px 14px;text-align:center;font-size:12.5px;color:var(--ak-sonuk)}
+
+  /* 13.09: bu dört kural bir önceki CSS değişikliğinde yanlışlıkla KESİLDİ
+     ve "Nöbetçi çözsün" düğmesi çıplak tarayıcı düğmesi olarak kaldı
+     (ekran görüntüsünde görüldü). Geri kondu. */
+  .surucu{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .ileri{font:inherit;font-size:13.5px;font-weight:750;cursor:pointer;
+         background:linear-gradient(180deg,var(--bronz-acik),var(--bronz));
+         color:#221704;border:0;border-radius:9px;padding:10px 18px}
+  .ileri:hover{filter:brightness(1.07)}
+  .ileri.bitti{background:transparent;color:var(--ak-govde);
+               border:1px solid rgba(214,180,126,.35)}
+  .surucu .dayanak{font-size:10.5px;letter-spacing:.05em;color:var(--bronz);
+                   font-weight:700;line-height:1.4}
   .cam-dip{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;
            align-items:baseline;margin-top:11px;font-size:11px;
            padding-top:10px;border-top:1px solid rgba(255,255,255,.07)}
