@@ -1,23 +1,15 @@
 [
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika uyeligi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-issgk-kolay-r2",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika uyeligi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-issgk-p30",
         "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika uyeligi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika uyeligi",
         "donem":  6,
@@ -32,7 +24,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-d2-issgk-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika uyeligi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika uyeligi",
@@ -48,14 +48,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "toplu is sozlesmesi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -64,16 +56,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r3",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
+        "konu":  "toplu is sozlesmesi",
+        "donem":  6,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r3-a",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
         "donem":  5,
@@ -81,6 +73,14 @@
     },
     {
         "etiket":  "sgs-d2-issgk-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r3",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
@@ -96,8 +96,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-issgk-cokzor-r3-a",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-issgk-cokzor-r1",
+        "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
         "donem":  5,
@@ -128,7 +136,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r2-a",
+        "etiket":  "sgs-p-issgk-zor-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi feshi",
@@ -136,7 +144,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-zor-r1",
+        "etiket":  "sgs-d3-issgk-kolay-r1",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi feshi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-kolay-r2-a",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi feshi",
@@ -152,14 +168,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-issgk-kolay-r3",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "yillik ucretli izin",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-issgk-kolay-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -168,7 +176,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "etiket":  "sgs-d2-issgk-kolay-r3",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "yillik ucretli izin",
@@ -184,6 +192,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "yillik ucretli izin",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-issgk-zor-r1",
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -192,7 +208,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "hizmet borclanmasi",
@@ -200,7 +216,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "hizmet borclanmasi",
@@ -216,6 +232,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-a6-issgk-cokzor-r1",
+        "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "İs kanunu kapsami",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -224,8 +248,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-issgk-cokzor-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-d3-issgk-kolay-r1",
+        "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "İs kanunu kapsami",
         "donem":  3,
@@ -272,22 +296,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r2",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "isveren vekili",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-cokzor-r1",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "isveren vekili",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-issgk-cokzor-r3",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -296,7 +304,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-cokzor-r1",
+        "etiket":  "sgs-p-issgk-cokzor-r2",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
@@ -312,7 +320,47 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-issgk-cokzor-r1",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "isveren vekili",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r1",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "isveren vekili",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-issgk-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sigortali sayilma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-issgk-cokzor-r4",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sigortali sayilma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-issgk-kolay-r2-a",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sureli fesih",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-kolay-r4-a",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sureli fesih",
@@ -328,7 +376,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r4-a",
+        "etiket":  "sgs-p-issgk-kolay-r3-a",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sureli fesih",
@@ -336,10 +384,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r3-a",
-        "id":  "kp-03",
+        "etiket":  "sgs-d3-issgk-cokzor-r3",
+        "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sureli fesih",
+        "konu":  "ucret hukumleri",
         "donem":  3,
         "kurtarma":  false
     },
@@ -352,31 +400,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-kolay-r1",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "ucret yonetmeligi kurallari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-issgk-kolay-r2",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "ucret yonetmeligi kurallari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-zor-r3-a",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "ucret yonetmeligi kurallari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-issgk-kolay-r3",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucret yonetmeligi kurallari",
@@ -392,16 +416,40 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-12",
+        "etiket":  "sgs-p-issgk-zor-r3-a",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "ucret yonetmeligi kurallari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-issgk-kolay-r1",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "ucret yonetmeligi kurallari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-issgk-kolay-r3",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "ucret yonetmeligi kurallari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r1-a",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "alt isverenlik",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r1-a",
-        "id":  "kp-07",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-12",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "alt isverenlik",
         "donem":  2,
@@ -456,6 +504,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d3-issgk-kolay-r2",
+        "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "gecici is iliskisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-issgk-kolay-r3",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -472,7 +528,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
+        "etiket":  "sgs-d3-issgk-kolay-r2",
+        "id":  "kp-07",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "grev lokavt",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "grev lokavt yasagi",
@@ -488,7 +552,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-zor",
         "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "grev lokavt yasagi",
@@ -528,8 +592,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-kolay-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-d3-issgk-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ise iade arabuluculuk",
         "donem":  2,
@@ -538,6 +602,14 @@
     {
         "etiket":  "sgs-d2-issgk-kolay-r2",
         "id":  "kp-07",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "ise iade arabuluculuk",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-issgk-kolay-r2",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ise iade arabuluculuk",
         "donem":  2,
@@ -568,14 +640,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r3-a",
-        "id":  "kp-05",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "kisa uzun vadeli sigorta kollari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-issgk-kolay-r2-a",
         "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -584,10 +648,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-08",
+        "etiket":  "sgs-p-issgk-kolay-r3-a",
+        "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "kismi sureli is sozlesmesi",
+        "konu":  "kisa uzun vadeli sigorta kollari",
         "donem":  2,
         "kurtarma":  false
     },
@@ -608,10 +672,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendikal guvenceler",
+        "konu":  "kismi sureli is sozlesmesi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -620,6 +684,22 @@
         "id":  "kp-09",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendikal guvenceler",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-09",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendikal guvenceler",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-issgk-cokzor-r1",
+        "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sureli fesih kurallari",
         "donem":  2,
         "kurtarma":  false
     },
@@ -632,22 +712,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-10",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "uzun vadeli sigorta kollari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-10",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "uzun vadeli sigorta kollari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-issgk-cokzor-r1",
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -656,6 +720,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-10",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "uzun vadeli sigorta kollari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-10",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "uzun vadeli sigorta kollari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-29",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -700,6 +780,22 @@
         "id":  "kp-28",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "gecici is goremezlik sigorta kollari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-26",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "haciz siniri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-26",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "haciz siniri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -712,18 +808,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-26",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "haciz siniri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-26",
+        "id":  "kp-27",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "haciz siniri",
+        "konu":  "is guvencesi kapsami",
         "donem":  1,
         "kurtarma":  false
     },
@@ -737,14 +825,6 @@
     },
     {
         "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-27",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is guvencesi kapsami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-zor",
         "id":  "kp-27",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is guvencesi kapsami",
@@ -784,7 +864,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -792,7 +872,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -840,7 +920,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-33",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isyeri devri-is kanunu",
@@ -856,7 +936,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-33",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isyeri devri-is kanunu",
@@ -904,7 +984,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-16",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika yetkisi dusmesi",
@@ -912,7 +992,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-zor",
         "id":  "kp-16",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika yetkisi dusmesi",
@@ -936,7 +1016,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-24",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sosyal sigortali sayilma",
@@ -944,7 +1024,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-24",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sosyal sigortali sayilma",
@@ -968,16 +1048,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-issgk-cokzor",
-        "id":  "kp-11",
+        "etiket":  "sgs-c5-issgk-cokzor-r1",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucretin odenmemesi hakli fesih",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-cokzor-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucretin odenmemesi hakli fesih",
         "donem":  1,
