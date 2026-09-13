@@ -868,13 +868,34 @@ $OZEL_DESEN=@{
   # ambardaki TEK "Disiplin Yönetmeliği" adlı belgeye, yani SPK Türkiye Sermaye Piyasaları Birliği
   # Disiplin Yönetmeliği'ne bağlanıyordu. Doğru kaynak 'SMMM ve YMM K. Disiplin Yonetmeligi' ile
   # SMMM K. (3568 s.K.) m.48-49'dur; ikisi de ambarda VARDI, çekim yanlış belgeye gidiyordu.
-  'disiplin yonetmeligi itiraz'            = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%','SMMM K. (3568 s.K.) m.49%')
-  'disiplin cezalari'                      = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
-  'disiplin cezasi kinama'                 = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
-  'disiplin cezalari eslestirme'           = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
-  'disiplin kovusturmasi'                  = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.49%')
-  'meslek hukuku disiplin cezasi'          = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
-  'turmob meslek odasi gelirleri'          = @('TÜRMOB Birlik Yön.%','SMMM K. (3568 s.K.) m.28%','SMMM K. (3568 s.K.) m.29%')
+  # ⛔⭐ 13.09.2026 — "BUTUN YONETMELIK" DESENLERI DARALTILDI (kor cozum YANLIS RET veriyordu).
+  #   OLAY: GM'in elle yazdigi Meslek kolay partisinde 14 sorunun 4'u KOR COZUMDE dustu. Kaynaktan tek
+  #   tek yargilandi: 3'unde GM'in anahtari DOGRU, kor cozum (Sonnet) YANLISTI:
+  #     kp-13 itiraz: kaynak m.28 (RG-14/1/2026) "posta ile itirazda KURUM EVRAKINA GIRDIGI tarih" ve
+  #       30 gun diyor; kor cozum ESKI kurali ("postaya verildigi tarih") ve "15 gun" dedi.
+  #     kp-14 kinama: GM'in sectigi "sahip olunmayan unvan" m.6/b = KINAMA; kor cozumun sectigi
+  #       "musterilerin islerine kayitsiz kalma" m.5/a = UYARMA.
+  #     kp-08 YMM tasdik: m.6/c "esinin (BOSANMIS DAHI OLSA) ... islerine bakilmasi" - kor cozum
+  #       "bosanmayla hisimlik sona erer" dedi.
+  #   SEBEP: bu desenler 'SMMM ve YMM K. Disiplin Yonetmeligi%' idi = 45 madde parcasi. Paket tasiyor,
+  #   KAPI-KP sigmayani kirpiyor ve KARAR VEREN madde kor cozume HIC ULASMIYORDU; model hafizasindan
+  #   (ve eski mevzuattan) cevapliyordu. Kor cozum yalniz eline verilen metin kadar iyidir.
+  #   YONTEM: yonetmeligin madde basliklari ambardan okundu (m.5 uyarma · m.6 kinama · m.7 gecici
+  #   alikoyma · m.8 YMM sifatinin kaldirilmasi · m.9 meslekten cikarma · m.15-23 sorusturma/kovusturma
+  #   · m.28 itiraz · m.29 kesinlesme). Kanun atiflari (3568 m.48/m.49) AYNEN korundu; yalniz tasan
+  #   "butun belge" parcasi karar veren maddelerle degistirildi.
+  #   ⚠ TAZELEME BILEREK YAPILMADI: yayindaki Meslek sorulari eski (genis) paketle yargilanmisti; Cem
+  #     kurali "eski yaptigimiz sorulari degistirmeyelim". Yeni desen yeni degerlendirmeden gecerli.
+  'disiplin yonetmeligi itiraz'            = @('SMMM ve YMM K. Disiplin Yonetmeligi m.28','SMMM ve YMM K. Disiplin Yonetmeligi m.29','SMMM ve YMM K. Disiplin Yonetmeligi m.18','SMMM K. (3568 s.K.) m.48%','SMMM K. (3568 s.K.) m.49%')
+  'disiplin cezalari'                      = @('SMMM ve YMM K. Disiplin Yonetmeligi m.4','SMMM ve YMM K. Disiplin Yonetmeligi m.5 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.7 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.8','SMMM ve YMM K. Disiplin Yonetmeligi m.9','SMMM K. (3568 s.K.) m.48%')
+  'disiplin cezasi kinama'                 = @('SMMM ve YMM K. Disiplin Yonetmeligi m.5 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM K. (3568 s.K.) m.48%')
+  'disiplin cezalari eslestirme'           = @('SMMM ve YMM K. Disiplin Yonetmeligi m.5 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.7 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.8','SMMM ve YMM K. Disiplin Yonetmeligi m.9','SMMM K. (3568 s.K.) m.48%')
+  'disiplin kovusturmasi'                  = @('SMMM ve YMM K. Disiplin Yonetmeligi m.15','SMMM ve YMM K. Disiplin Yonetmeligi m.19 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.20','SMMM ve YMM K. Disiplin Yonetmeligi m.21','SMMM ve YMM K. Disiplin Yonetmeligi m.22','SMMM ve YMM K. Disiplin Yonetmeligi m.23 [%','SMMM K. (3568 s.K.) m.49%')
+  'meslek hukuku disiplin cezasi'          = @('SMMM ve YMM K. Disiplin Yonetmeligi m.4','SMMM ve YMM K. Disiplin Yonetmeligi m.5 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.7 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.9','SMMM K. (3568 s.K.) m.48%')
+  # oda gelirleri: 3568 m.16 "Odaların gelirleri" + m.30 "Birliğin gelirleri" + Birlik Yön. m.8 "Birliğin
+  #   Gelirleri", m.9 odanın Birliğe pay aktarımı (ambardan okundu). Onceki 3568 m.28/m.29 Birligin
+  #   KURULUSU ve GOREVLERIYDI, gelir degil; 'TÜRMOB Birlik Yön.%' ise 68 madde - ikisi de yanlis yeri gosteriyordu.
+  'turmob meslek odasi gelirleri'          = @('SMMM K. (3568 s.K.) m.16','SMMM K. (3568 s.K.) m.30','TÜRMOB Birlik Yön. m.8','TÜRMOB Birlik Yön. m.9')
   # ⛔⭐ 13.09.2026 — MESLEK HUKUKU 19 KONU DESENI (GM elle; Cem "Meslek Hukuku ve Maliye -> ben yazayım").
   #   NIYE: GM'in 10.09'da ELLE yazdigi 114 Meslek sorusu HIC degerlendirilmemisti (a6e 54 soruda hakem
   #   kosmamis · t2b 60 soru hatta hic girmemis). Bu 114 sorunun 28 konusundan 19'unun ACIK deseni YOKTU;
@@ -897,7 +918,9 @@ $OZEL_DESEN=@{
   'reklam yasagi'                         = @('SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.19 [%','Haksız Rekabet ve Reklam Yasağı Yön. m.14','Haksız Rekabet ve Reklam Yasağı Yön. m.15')
   'internet reklam yasagi'                = @('Haksız Rekabet ve Reklam Yasağı Yön. m.14','Haksız Rekabet ve Reklam Yasağı Yön. m.15','Haksız Rekabet ve Reklam Yasağı Yön. m.17','Haksız Rekabet ve Reklam Yasağı Yön. m.21','Haksız Rekabet ve Reklam Yasağı Yön. m.22')
   'tabela asilmasi kurallari'             = @('Haksız Rekabet ve Reklam Yasağı Yön. m.14')
-  'ymm tasdik yasaklari'                  = @('SMMM K. (3568 s.K.) m.12 [%')
+  # ymm tasdik: 3568 m.12 YMM'nin NEYI tasdik edecegini anlatir; "esinin (bosanmis dahi olsa) ... islerine
+  #   bakilmasi" YASAGI ise Disiplin Yon. m.6/c'de, YMM sifatinin kaldirilmasi m.8'de (13.09 kp-08 dersi).
+  'ymm tasdik yasaklari'                  = @('SMMM K. (3568 s.K.) m.12 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.8')
   'meslekle bagdasmayan isler'            = @('SMMM K. (3568 s.K.) m.45 [%')
   'meslek hukuku ucret sozlesmesi'        = @('SMMM K. (3568 s.K.) m.46')
   'ucret tarifesi esaslari'               = @('SMMM K. (3568 s.K.) m.46')
