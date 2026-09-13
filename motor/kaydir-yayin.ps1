@@ -88,3 +88,7 @@ $kartH
 "@
 [IO.File]::WriteAllText((Join-Path $hedefDir 'index.html'),$html,[Text.UTF8Encoding]::new($false))
 "yazildi: $hedefDir\index.html · $toplam soru · $($kartlar.Count) ders sayfası"
+# 13.09.2026: "Soru çöz" kapısı (sorular.html) ders listesini ve soru sayılarını veri/soru-dizini.json'dan okur.
+# Sayfalar yeniden basılınca dizin de AYNI koşuda tazelenir; yoksa kapı eski sayıyı gösterir.
+& node (Join-Path $PSScriptRoot 'soru-dizini.js')
+if($LASTEXITCODE -ne 0){ throw "soru dizini tazelenemedi (motor/soru-dizini.js cikis $LASTEXITCODE) - sorular.html eski sayiyi gosterir" }

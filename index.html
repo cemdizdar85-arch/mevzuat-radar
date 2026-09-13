@@ -666,6 +666,19 @@ window.veriAl = (function(){
       .bz-ns span{display:block;font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.4}
       .bz-nobet-dip{font-size:12px;color:var(--dim);margin-top:8px}
 
+      /* KOYU SAHNE DEVAMI (13.09 Cem, canlı ekran: "ekranın altında böyle görünüyor, aynı renk olması lazım").
+         Ölçüldü: nöbet şeridi stil-sade.css section kuralından 74 px üst+alt dolgu alıyor, rakam şeridi 40 px
+         üst boşlukla beyaz zeminde tek başına kalıyordu -> kahraman bitince 180 px'lik beyaz boşluk.
+         Büyük sitelerin kalıbı: kahramanın hemen altında AYNI zeminde tek kanıt bandı, detay bölümleri sonra açık zeminde.
+         İki şerit kahramanla aynı gece rengine alınır, kenardan kenara; jetonlar yerelde koyuya çevrilir. */
+      .hero-sade .bz-nobet,.hero-sade .kanit{
+        --ink:#f2f4f8; --muted:#aab3c0; --dim:#78828f; --panel:#141820; --line:#262b35; --bz-gece:#0a0b0e;
+        max-width:none;width:auto;box-sizing:border-box;margin:0 calc(50% - 50vw);background:var(--bz-gece);
+        padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%)}
+      .hero-sade .bz-nobet{padding-top:6px;padding-bottom:30px}
+      .hero-sade .bz-nobet .nd-dip{background:transparent;padding:0;margin-top:10px}
+      .hero-sade .kanit{padding-top:34px;padding-bottom:56px;border-top:1px solid var(--line)}
+
       @media(max-width:1040px){
         .bz-kah .bz-baslik{font-size:38px}
         .bz-kah .bz-govde{grid-template-columns:1fr;gap:26px;padding:144px 22px 40px}
@@ -699,8 +712,10 @@ window.veriAl = (function(){
             <p class="bz-goz">SMMM Staja Giriş &nbsp;•&nbsp; Yeterlilik &nbsp;•&nbsp; KGK &nbsp;•&nbsp; SPK</p>
             <h1 class="bz-baslik">Yanlışını, sebebiyle birlikte öğren<b>.</b></h1>
             <p class="bz-alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
-            <!-- 12.09 Cem: "ziyaretçi girmesin, tam bitmedi" - havuzun kapağına değil VİTRİNE gider. -->
-            <a class="bz-cta" href="kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik">Soru çözmeye başla</a>
+            <!-- 12.09 Cem: "ziyaretçi girmesin, tam bitmedi" -> vitrine gidiyordu.
+                 13.09 Cem: "soru çözmeye başla dediğinde direkt sorular geliyor; başta sınavlar gelmeli,
+                 altında ders ders" -> SINAV SEÇİMİ sayfasına (sorular.html). Site hâlâ açılış perdesinin arkasında. -->
+            <a class="bz-cta" href="sorular.html">Soru çözmeye başla</a>
           </div>
           <div class="bz-cam">
             <div class="bz-cam-ust"><span id="bzDers">Türkçe · anlatım bozukluğu</span><s>SGS · Kaydır-Çöz</s></div>
@@ -714,7 +729,7 @@ window.veriAl = (function(){
             </div>
             <div class="bz-dip">
               <a href="#" id="bzBaska">Başka soru</a>
-              <a href="kaydir/vitrin/sgs.html?vitrin=1&amp;tema=acik">Havuza geç →</a>
+              <a href="sorular.html">Tüm sorular →</a>
             </div>
           </div>
         </div>
