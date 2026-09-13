@@ -26,7 +26,8 @@ permissions:
 
 concurrency:
   group: dayanak-harita
-  cancel-in-progress: false
+  # 14.09: harita yalniz son sayfa durumunu yansitir; yeni push gelince eski kosu iptal (13.09 gecesi kosular ust uste yigildi)
+  cancel-in-progress: true
 
 jobs:
   harita:

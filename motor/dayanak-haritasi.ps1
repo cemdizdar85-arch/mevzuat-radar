@@ -105,6 +105,10 @@ Write-Host ""
 Write-Host ("Tekil (kanun, madde) cifti: {0} - ambarda araniyor..." -f $tumCift.Count)
 $yok = New-Object System.Collections.Generic.List[object]
 $var = 0
+# 14.09 KÖR KAPISI: 13.09 20:11 ve 20:43 koşularında ambar zaman aşımındaydı; 117 sorgunun 117'si 60 sn bekleyip düştü
+# (koşu 26 dk, hasta ambara ek yük) ve "ambarda bulunan 0" diyen harita commit'lendi. Artık üst üste 3 sorgu hatası
+# gelirse tarama durur; herhangi bir sorgu hatası varsa eski harita KORUNUR ve koşu kırmızı biter. Sağlıklı koşuda fark yok.
+$ardisikHata = 0
 foreach($a in ($tumCift.Keys | Sort-Object)){
   $p = $a -split '\|'
   $desen = $tumCift[$a]
@@ -117,6 +121,14 @@ foreach($a in ($tumCift.Keys | Sort-Object)){
   } catch { $adet = -1 }
   if($adet -gt 0){ $var++ }
   else { $yok.Add([ordered]@{ kanun_no=$p[0]; madde_no=$p[1]; desen=$desen; durum=$(if($adet -eq 0){'ambarda-yok'}else{'sorgu-hatasi'}) }) }
+  if($adet -lt 0){ $ardisikHata++ } else { $ardisikHata = 0 }
+  if($ardisikHata -ge 3){ break }
+}
+$sorguHatasi = @($yok | Where-Object { $_.durum -eq 'sorgu-hatasi' }).Count
+if($sorguHatasi -gt 0){
+  Write-Host ("KÖR: {0} sorgu hatası (üst üste {1}) - ambar sağlıksız, veri/dayanak-haritasi.json DEĞİŞTİRİLMEDİ" -f $sorguHatasi, $ardisikHata)
+  try{Stop-Transcript|Out-Null}catch{}
+  exit 1
 }
 
 Write-Host ("  ambarda BULUNAN : {0}" -f $var)
