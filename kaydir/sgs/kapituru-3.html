@@ -303,7 +303,8 @@ const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 const nrm=t=>String(t||'').toLowerCase().replace(/tl/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
 const say=t=>{const n=parseFloat(nrm(t));return isNaN(n)?0:n;};
 const fmt=n=>n.toLocaleString('tr-TR');
-function noktalar(i){ return '<div class="noktalar'+(SORULAR.length>12?' cok':'')+'">'+SORULAR.map((s,j)=>'<i data-j="'+j+'" class="'+(j===i?'simdi':'')+'"></i>').join('')+'<i data-j="son"></i></div>'; }
+// 13.09 (Cem "3 yap"): 991 soruluk sayfada her kart 992 nokta çiziyordu -> 983 bin öğe, ilk tepki 5,5 sn. 12 soruya kadar çıktı AYNI; üstünde kart yalnız kendi çevresindeki 15 noktayı çizer.
+function noktalar(i){ const N=SORULAR.length; let a=0,b=N; if(N>12){ a=Math.max(0,Math.min(i-7,N-15)); b=Math.min(N,a+15); } let h=''; for(let j=a;j<b;j++){ h+='<i data-j="'+j+'" class="'+(j===i?'simdi':'')+'"></i>'; } return '<div class="noktalar'+(N>12?' cok':'')+'">'+h+(b===N?'<i data-j="son"></i>':'')+'</div>'; }
 SORULAR.forEach((s,i)=>{
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
   // 06.09 (Cem "bu beşi geç" #4): SEVİYE etiketi ölçümden türer, elle yazılmaz — teori 🟢 Isınma · kayıt/hesap 🟡 Nöbet · Maliyet-MTA hesabı ya da
@@ -955,7 +956,7 @@ son.innerHTML='<div class="ust"><span>Nöbet bitti</span>'+noktalar(-1)+'<span>&
 akis.appendChild(son);
 document.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); skorCiz();
 if(!durum.t0) durum.t0={}; durum.t0[0]=Date.now();   // ilk kart: süre sayfa açılınca başlar
-akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clientHeight); document.querySelectorAll('.noktalar i').forEach(n=>n.classList.toggle('simdi',n.dataset.j==String(i)||(i>=SORULAR.length&&n.dataset.j==='son')));
+akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clientHeight); document.querySelectorAll('.noktalar i.simdi').forEach(n=>n.classList.remove('simdi')); document.querySelectorAll(i>=SORULAR.length?'.noktalar i[data-j="son"]':'.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add('simdi'));
   if(i<SORULAR.length&&durum.cevap[i]===undefined&&!durum.t0[i]) durum.t0[i]=Date.now();   // 06.09: karta gelince süre başlar
   if(i>=SORULAR.length){ const c=Object.keys(durum.cevap).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+durum.dogru+' / '+SORULAR.length+'</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(SORULAR.length-durum.dogru)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+durum.dogru+'/'+SORULAR.length+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
 document.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){ akis.scrollBy({top:akis.clientHeight,behavior:'smooth'}); } if(e.key==='ArrowUp'||e.key==='PageUp'){ akis.scrollBy({top:-akis.clientHeight,behavior:'smooth'}); } });
