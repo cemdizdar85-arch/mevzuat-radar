@@ -574,16 +574,22 @@ window.veriAl = (function(){
          seçicileri eziyor, önek ve özgüllük çakışmayı önler.
     ================================================================================= -->
     <style>
-      .bz-sar{margin:6px auto 0;max-width:1240px;width:100%}
+      /* 13.09 Cem (canlı ekran, 2000 px): "yandaki beyazlar kalacak mı" -> KENARDAN KENARA.
+         Koyu bant menünün altından başlar, iki yanda beyaz kalmaz; içerik 1240 px'te ortalı kalır.
+         Taşan kaydırma çubuğu payı (100vw) başlıkta overflow-x:clip ile kırpılır - kaydırma kabı yaratmaz. */
+      .hero-sade{overflow-x:clip}
+      .bz-sar{max-width:none;width:auto;margin:-112px calc(50% - 50vw) 0}
       .bz-kah{
         --bz-gece:#0a0b0e; --bz-gece2:#101319;
         --bz-ak:#f2f4f8; --bz-ak-govde:#aab3c0; --bz-ak-sonuk:#78828f;
         --bz-bronz:#cfa163; --bz-bronz-acik:#eccb96; --bz-bronz-koyu:#8d6c38;
         --bz-cta-yazi:#221704;
-        position:relative;border-radius:20px;overflow:hidden;background:var(--bz-gece);
-        min-height:560px;display:flex;flex-direction:column;text-align:left;
-        box-shadow:0 36px 80px rgba(15,18,24,.22)}
-      .bz-kah .bz-sahne{position:absolute;inset:0;z-index:0;overflow:hidden;perspective:1500px}
+        position:relative;overflow:hidden;background:var(--bz-gece);
+        min-height:680px;display:flex;flex-direction:column;text-align:left}
+      .bz-kah .bz-sahne{position:absolute;top:0;bottom:0;left:50%;width:min(100%,1600px);transform:translateX(-50%);
+        z-index:0;overflow:hidden;perspective:1500px;
+        -webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+        mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
       .bz-kah .bz-deste{position:absolute;right:-12%;top:-16%;width:62%;height:104%;
         transform-style:preserve-3d;transform:rotateX(32deg) rotateZ(-19deg) translateZ(-20px)}
       .bz-kah .bz-rk{position:absolute;left:0;width:84%;min-height:86px;border-radius:11px;padding:15px 18px;
@@ -601,7 +607,8 @@ window.veriAl = (function(){
         pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bz-gece))}
 
       .bz-kah .bz-govde{position:relative;z-index:4;flex:1;display:grid;
-        grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px;align-items:center;padding:44px 40px 46px}
+        grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px;align-items:center;
+        width:100%;max-width:1240px;margin:0 auto;box-sizing:border-box;padding:150px 40px 64px}
       .bz-kah .bz-goz{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;
         color:var(--bz-bronz);margin:0 0 20px}
       .bz-kah .bz-baslik{font-size:52px;line-height:1.08;letter-spacing:-.033em;color:var(--bz-ak);
@@ -661,13 +668,17 @@ window.veriAl = (function(){
 
       @media(max-width:1040px){
         .bz-kah .bz-baslik{font-size:38px}
-        .bz-kah .bz-govde{grid-template-columns:1fr;gap:26px;padding:32px 22px 34px}
+        .bz-kah .bz-govde{grid-template-columns:1fr;gap:26px;padding:144px 22px 40px}
         .bz-kah .bz-cam{max-width:560px}
         .bz-kah .bz-deste{right:-30%;width:110%;opacity:.55}
         .bz-nobet-sat{grid-template-columns:1fr 1fr}
       }
+      /* stil-odak.css: 900 px altında başlık üst boşluğu 112 -> 96 */
+      @media(max-width:900px){
+        .bz-sar{margin-top:-96px}
+        .bz-kah .bz-govde{padding-top:124px}
+      }
       @media(max-width:700px){
-        .bz-kah{border-radius:14px}
         .bz-kah .bz-baslik{font-size:30px}
         .bz-kah .bz-alt{font-size:15.5px}
         /* 13.09: dar ekranda kartların yazısı başlığın arkasına düşüp kalabalık ediyordu -
