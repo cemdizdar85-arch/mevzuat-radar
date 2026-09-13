@@ -24,11 +24,24 @@
   bir kısmı başka dersin konusu çıktı - etiket onarımı bitmeden vitrine çıkmaz.
 -->
 <style>
-  .sc-ust{
+  /* 13.09 Cem (ekran görüntüsü): "görüntümüz bu mu olacak, hepsi koyu yapsak" - GM önerisi de bu:
+     sayfa bir KAPI/vitrin, ana sayfanın koyu kahramanıyla aynı dil. Üst koyu + alt açık iki parçaya
+     bölünüyordu ve menu.js'in "← Geri" hapı aradaki beyazda yetim kalıyordu.
+     Jetonlar BODY'de yeniden tanımlanır: stil.css/stil-acik.css ve menu.js'in eklediği ögeler (Geri,
+     Araçlar düğmesi) aynı jetonları okuduğu için kendiliğinden koyuya uyar.
+     Soru çözme ekranları (kaydir/) 09.09 kararıyla BEYAZ kalır - uzun okumada göz yormaz. */
+  body.sc-koyu{
     --bz-gece:#0a0b0e; --bz-gece2:#12151b;
     --bz-ak:#f2f4f8; --bz-ak-govde:#aab3c0; --bz-ak-sonuk:#78828f;
     --bz-bronz:#cfa163; --bz-bronz-acik:#eccb96; --bz-cta-yazi:#221704;
-    position:relative;overflow:hidden;background:var(--bz-gece);color:var(--bz-ak)}
+    --ink:#f2f4f8; --muted:#aab3c0; --dim:#8a93a0; --panel:#12151b; --panel2:#171b22;
+    --line:#232833; --line2:#2e3440; --amber:#e3b877; --accent:#e3b877; --yuzey:#12151b;
+    --bg:#0a0b0e; --bg2:#101319;
+    background:var(--bz-gece);color:var(--ink)}
+  .sc-ust{position:relative;overflow:hidden;color:var(--bz-ak)}
+  /* site başlık şeridi (.top): menu.js "← Geri"yi buraya, marka yazısının önüne yerleştirir.
+     stil-acik.css .top'a koyu gri kutu verir; burada zemin zaten koyu, kutu kaldırılır. */
+  .sc-ust .sc-bar .top{background:transparent;border:0;margin:0;padding:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .sc-ust:before{content:"";position:absolute;inset:0;pointer-events:none;
     background:radial-gradient(55% 70% at 80% 0%,rgba(207,161,99,.20),transparent 62%),
       radial-gradient(40% 60% at 0% 100%,rgba(207,161,99,.08),transparent 70%)}
@@ -75,12 +88,34 @@
   a.sc-ders:hover{border-color:var(--amber)}
   .sc-ders .sc-dad{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.3}
   .sc-ders .sc-dalt{font-size:12px;color:var(--dim);margin-top:2px;line-height:1.4}
-  .sc-ders .sc-agirlik{grid-column:1 / -1;display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted)}
-  .sc-ders .sc-cubuk{flex:1;height:5px;border-radius:9px;background:var(--line);overflow:hidden;max-width:160px}
-  .sc-ders .sc-cubuk i{display:block;height:100%;background:var(--amber);border-radius:9px}
+  /* 13.09 Cem: "kırmızılar tam dolmamış, eksiğimiz var gibi" - ağırlık ÇUBUĞU ilerleme çubuğu gibi
+     okunuyordu. Becker bölüm ağırlığını YAZIYLA verir ("Area I ... 30–40%"); UWorld'de çubuk yalnız
+     öğrencinin KENDİ başarısında. Ağırlık artık yazı; çubuk ileride öğrencinin ilerlemesine ayrılır. */
+  .sc-ders .sc-agirlik{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+  .sc-ders .sc-agirlik b{display:inline-block;font-weight:700;color:var(--bz-bronz-acik);
+    border:1px solid rgba(214,180,126,.28);background:rgba(207,161,99,.08);border-radius:99px;padding:2px 9px}
+  .sc-sinav,.sc-ders{box-shadow:none}
+  a.sc-ders{transition:border-color .15s,transform .15s,background .15s}
+  a.sc-ders:hover{background:var(--panel2);transform:translateY(-1px)}
   .sc-ders .sc-git{font-size:13.5px;font-weight:750;color:var(--amber);white-space:nowrap}
   .sc-ders.kapali{opacity:.72}
   .sc-ders.kapali .sc-git{color:var(--dim);font-weight:600}
+  .sc-deneme{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;text-decoration:none;color:inherit;
+    margin:0 0 30px;padding:20px 22px;border-radius:14px;border:1px solid var(--bz-bronz);
+    background:linear-gradient(135deg,rgba(207,161,99,.16),rgba(207,161,99,.04));transition:transform .15s,box-shadow .15s}
+  .sc-deneme:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(0,0,0,.4)}
+  .sc-deneme>span:first-child{display:flex;flex-direction:column;gap:5px;max-width:44em}
+  .sc-deneme-et{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--bz-bronz-acik)}
+  .sc-deneme b{font-size:20px;color:var(--ink);letter-spacing:-.01em}
+  .sc-deneme-alt{font-size:14px;color:var(--muted);line-height:1.5}
+  .sc-deneme-git{font-size:15px;font-weight:750;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));
+    border-radius:10px;padding:11px 20px;white-space:nowrap}
+  .sc-seviye{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;text-decoration:none;color:inherit;
+    margin:0 0 12px;padding:16px 22px;border-radius:14px;border:1px solid var(--line2);background:var(--panel);transition:border-color .15s}
+  .sc-seviye:hover{border-color:var(--bz-bronz)}
+  .sc-seviye>span:first-child{display:flex;flex-direction:column;gap:4px;max-width:46em}
+  .sc-seviye b{font-size:17px;color:var(--ink)}
+  .sc-seviye-git{font-size:15px;font-weight:750;color:var(--bz-bronz-acik);white-space:nowrap}
   .sc-not{font-size:13px;color:var(--dim);border-top:1px solid var(--line);padding-top:14px;margin-top:8px;line-height:1.6}
   .sc-yuk{color:var(--dim);font-size:14px;padding:30px 0}
 
@@ -92,14 +127,14 @@
   }
 </style>
 </head>
-<body>
+<body class="sc-koyu">
 <a class="atla" href="#icerik">İçeriğe atla</a>
 
 <header class="sc-ust">
   <div class="sc-ic">
     <div class="sc-bar">
-      <a class="sc-marka" href="index.html"><span class="sc-lamba" aria-hidden="true"></span>tetikte</a>
-      <!-- "← Ana sayfa" düğmesini menu.js zaten ekliyor; ikincisi yazılmadı. -->
+      <!-- .top = site başlık şeridi: menu.js "← Geri / Ana sayfa" düğmesini buranın başına koyar. -->
+      <div class="top"><a class="sc-marka" href="index.html"><span class="sc-lamba" aria-hidden="true"></span>tetikte</a></div>
     </div>
     <div class="sc-bas">
       <p class="sc-goz">Soru çöz</p>
@@ -121,7 +156,7 @@
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var sayi=function(n){return Number(n||0).toLocaleString('tr-TR');};
   var sinavlarEl=document.getElementById('scSinavlar'), derslerEl=document.getElementById('scDersler');
-  var DIZIN=null, TAKVIM=null, SECILI=null;
+  var DIZIN=null, TAKVIM=null, SECILI=null, DENEME={};
   /* takvimdeki anahtar: dizin kodu -> sinav-takvimi.json sinavlar.<KOD> */
   var TAKVIM_KOD={sgs:'SGS', smmm:'SMMM', kgk:'KGK'};
   /* Alan Bilgisi 100 soru, Genel Kültür 20, Yabancı Dil 10 - büyükten küçüğe */
@@ -153,9 +188,12 @@
     });
   }
 
-  function dersKart(d, enCok, acik){
-    var agirlik=d.sinav_soru>0?'<span class="sc-agirlik"><span class="sc-cubuk"><i style="width:'+Math.max(6,Math.round(100*d.sinav_soru/enCok))+'%"></i></span>Sınavda '+d.sinav_soru+' soru'+(d.soru?' · '+sayi(d.soru)+' çözümlü soru':'')+'</span>'
-      :(d.soru?'<span class="sc-agirlik">'+sayi(d.soru)+' çözümlü soru</span>':'');
+  function dersKart(d, sinavToplam, acik){
+    /* yüzde = bu dersin sınavdaki soru payı (TESMER dağılımı; SGS'de toplam 130) */
+    var pay=(d.sinav_soru>0&&sinavToplam>0)?' · %'+Math.round(100*d.sinav_soru/sinavToplam):'';
+    var agirlik=(d.sinav_soru>0||d.soru)?'<span class="sc-agirlik">'
+        +(d.sinav_soru>0?'<b>Sınavda '+d.sinav_soru+' soru'+pay+'</b>':'<span></span>')
+        +(d.soru?'<span>'+sayi(d.soru)+' çözümlü soru</span>':'')+'</span>':'';
     var ic='<span><span class="sc-dad">'+esc(d.ad)+'</span>'+(d.alt?'<span class="sc-dalt" style="display:block">'+esc(d.alt)+'</span>':'')+'</span>'
       +'<span class="sc-git">'+(d.sayfa?'Çöz →':'Hazırlanıyor')+'</span>'+agirlik;
     return d.sayfa&&acik?'<a class="sc-ders" href="'+esc(d.sayfa)+'">'+ic+'</a>':'<div class="sc-ders kapali">'+ic+'</div>';
@@ -164,20 +202,29 @@
   function dersleriCiz(){
     var s=DIZIN.sinavlar.filter(function(x){return x.kod===SECILI;})[0]; if(!s) return;
     var acik=s.durum==='acik';
-    var enCok=Math.max.apply(null,s.dersler.map(function(d){return d.sinav_soru;}).concat([1]));
+    var sinavToplam=s.dersler.reduce(function(t,d){return t+(+d.sinav_soru||0);},0);
     var gruplar={}, sira=[];
     s.dersler.forEach(function(d){ var b=d.bolum||''; if(!gruplar[b]){ gruplar[b]=[]; sira.push(b); } gruplar[b].push(d); });
     sira.sort(function(a,b){ var ia=BOLUM_SIRA.indexOf(a), ib=BOLUM_SIRA.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib); });
-    var h='<div class="sc-gbas"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
+    /* 13.09 Cem "sınav gibi her dersten soru çıkacak bir şey": hazır set dizini varsa derslerin ÜSTÜNDE büyük kart */
+    var dn=DENEME[s.kod];
+    var denemeKart=(acik&&dn)?'<a class="sc-deneme" href="sinav-gibi.html"><span><span class="sc-deneme-et">Sınav gibi çöz</span>'
+      +'<b>'+dn.toplam_soru+' soru · '+dn.sure_dk+' dakika · gerçek ders dağılımı</b>'
+      +'<span class="sc-deneme-alt">Çözerken cevap görünmez; bitince ders ders karne ve her yanlışın Nöbetçi anlatımı. '+dn.set_sayisi+' set, aynı soru iki kez gelmez.</span></span>'
+      +'<span class="sc-deneme-git">Başla →</span></a>':'';
+    /* 13.09: seviye testi (20 soru, geçme ihtimali) - yalnız SGS için hazır */
+    var seviyeKart=(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="seviye-testi.html"><span><b>Önce 20 soruda geçme ihtimalini ölç</b>'
+      +'<span class="sc-deneme-alt">Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin, zayıf alanın ve istersen e-postana karne.</span></span><span class="sc-seviye-git">Ölç →</span></a>':'';
+    var h=seviyeKart+denemeKart+'<div class="sc-gbas"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik
-        ?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır, sonra aynı mantıkta ikizini sen çözersin.'
+        ?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'
         :'Bu sınavın soruları hakem ve çözüm kapılarından geçiyor. Açıldığında dersler burada, Staja Giriş\'teki gibi ders ders görünecek.')+'</p>';
     sira.forEach(function(b){
       var liste=gruplar[b].slice().sort(function(x,y){ return (y.sinav_soru-x.sinav_soru)||(y.soru-x.soru); });
       var toplam=liste.reduce(function(t,d){return t+d.sinav_soru;},0);
       var baslik=b?b.charAt(0).toLocaleUpperCase('tr')+b.slice(1):'';
       h+='<section class="sc-bolum">'+(sira.length>1&&baslik?'<h3>'+esc(baslik)+(toplam?'<s>· sınavda '+toplam+' soru</s>':'')+'</h3>':'')
-        +'<div class="sc-dersler">'+liste.map(function(d){return dersKart(d,enCok,acik);}).join('')+'</div></section>';
+        +'<div class="sc-dersler">'+liste.map(function(d){return dersKart(d,sinavToplam,acik);}).join('')+'</div></section>';
     });
     h+='<p class="sc-not">Sınavdaki soru sayıları TESMER yönergesindeki ders dağılımından; sınav tarihi TÜRMOB 2026 resmî takviminden. Çözümlü soru sayısı yayındaki sayfalardan her basımda yeniden sayılır.</p>';
     derslerEl.innerHTML=h;
@@ -194,9 +241,10 @@
 
   Promise.all([
     fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;}),
-    fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;})
+    fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;}),
+    fetch('veri/deneme/sgs-dizin.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;})
   ]).then(function(r){
-    DIZIN=r[0]; TAKVIM=r[1];
+    DIZIN=r[0]; TAKVIM=r[1]; if(r[2]&&r[2].setler&&r[2].setler.length) DENEME[r[2].sinav]=r[2];
     if(!DIZIN||!DIZIN.sinavlar||!DIZIN.sinavlar.length){
       sinavlarEl.innerHTML=''; derslerEl.innerHTML='<p class="sc-yuk">Sınav listesi şu an okunamadı. Sayfayı yenilemeyi dene.</p>'; return;
     }

@@ -19,7 +19,8 @@ param(
   [int]$SonYil = 2026,
   [int]$Bekleme = 250,
   [switch]$YalnizSGS,
-  [switch]$YalnizSMMM
+  [switch]$YalnizSMMM,
+  [string]$CiktiYolu = ''   # 13.09: bos = eskisi gibi veri/sinav-arsiv-kesif.json; dolu = bu yola yaz (arac/smmm-yeni-kitapcik.ps1 ortak dosyayi ezmesin)
 )
 $ErrorActionPreference='Continue'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -92,7 +93,7 @@ if(-not $YalnizSGS){
   }
 }
 
-$cikti = Join-Path $kok 'veri\sinav-arsiv-kesif.json'
+$cikti = $(if($CiktiYolu){ $CiktiYolu } else { Join-Path $kok 'veri\sinav-arsiv-kesif.json' })
 [IO.File]::WriteAllText($cikti,
   (ConvertTo-Json -InputObject ([ordered]@{
      tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
@@ -100,4 +101,4 @@ $cikti = Join-Path $kok 'veri\sinav-arsiv-kesif.json'
      denenen=$denenen; bulunan=$bulunan.Count; satirlar=$bulunan.ToArray() }) -Depth 4),
   (New-Object Text.UTF8Encoding($false)))
 Write-Host ("`nOZET: denenen={0} bulunan={1}" -f $denenen, $bulunan.Count)
-Write-Host "Rapor: veri/sinav-arsiv-kesif.json"
+Write-Host "Rapor: $cikti"

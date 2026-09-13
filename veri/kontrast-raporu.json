@@ -2,12 +2,12 @@
   "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 71,
+  "sayfa": 73,
   "koyu_gecis": 4,
-  "temiz_sayfa": 70,
-  "denetlenen_metin": 11848,
-  "toplam_kirik": 3,
-  "denetlenen_sinir": 3641,
+  "temiz_sayfa": 71,
+  "denetlenen_metin": 11933,
+  "toplam_kirik": 8,
+  "denetlenen_sinir": 3682,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
@@ -48,6 +48,57 @@
           "renk": "rgb(251, 250, 248)",
           "zemin": "rgb(255,194,75)",
           "iz": "<button class=\"sbtn on\" data-v=\"ltd\">Limited (LTD)</button>"
+        }
+      ]
+    },
+    {
+      "sayfa": "sorular.html",
+      "adet": 5,
+      "ornekler": [
+        {
+          "oge": "h1",
+          "yazi": "Tetikte",
+          "oran": 1.06,
+          "esik": 3,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(251,250,248)",
+          "iz": "<h1 style=\"font-size:30px;letter-spacing:-1px;margin:0 0 10px\">Tetikte</h1>"
+        },
+        {
+          "oge": "p",
+          "yazi": "Mevzuatı senin yerine izleyen sistem son",
+          "oran": 2.03,
+          "esik": 4.5,
+          "renk": "rgb(170, 179, 192)",
+          "zemin": "rgb(251,250,248)",
+          "iz": "<p style=\"color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px\"><b style=\"color:var(--ink)\">İşin"
+        },
+        {
+          "oge": "b",
+          "yazi": "İşinin nöbetçisi çok yakında.",
+          "oran": 1.06,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(251,250,248)",
+          "iz": "<b style=\"color:var(--ink)\">İşinin nöbetçisi çok yakında.</b>"
+        },
+        {
+          "oge": "span",
+          "yazi": "E-postamın, Tetikte açılış bilgilendirme",
+          "oran": 2.03,
+          "esik": 4.5,
+          "renk": "rgb(170, 179, 192)",
+          "zemin": "rgb(251,250,248)",
+          "iz": "<span style=\"max-width:400px\">E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İs"
+        },
+        {
+          "oge": "a",
+          "yazi": "Aydınlatma metni",
+          "oran": 1.77,
+          "esik": 4.5,
+          "renk": "rgb(227, 184, 119)",
+          "zemin": "rgb(251,250,248)",
+          "iz": "<a href=\"/kvkk.html\" target=\"_blank\" style=\"color:#ffc24b\">Aydınlatma metni</a>"
         }
       ]
     }

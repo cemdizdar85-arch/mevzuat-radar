@@ -1,0 +1,56 @@
+{
+ "uretim": "2026-09-13 19:40",
+ "uretici": "motor/deneme-seti-bas.js",
+ "sinav": "sgs",
+ "ad": "Staja Giriş",
+ "set_sayisi": 10,
+ "toplam_soru": 130,
+ "sure_dk": 165,
+ "sure_kaynak": "TÜRMOB-TESMER Staja Giriş Sınavı Uygulama Kılavuzu: toplam cevaplama süresi 165 dakika",
+ "dagilim_kaynak": "veri/sgs-sinav-yapisi.json",
+ "dagilim_ad": "TESMER Uygulama Yönergesi m.6.2",
+ "degerlendirme": "Bağıl değerlendirme (ortalama 50, standart sapma 10); 60 ve üzeri puan geçer. 5 seçenekli, yanlış doğruyu götürmez.",
+ "sira_notu": "Sorular yönerge tablosundaki bölüm ve ders sırasıyla gelir; gerçek kitapçık sırası ölçülmedi.",
+ "setler": [
+  {
+   "no": 1,
+   "dosya": "veri/deneme/sgs-set-01.json"
+  },
+  {
+   "no": 2,
+   "dosya": "veri/deneme/sgs-set-02.json"
+  },
+  {
+   "no": 3,
+   "dosya": "veri/deneme/sgs-set-03.json"
+  },
+  {
+   "no": 4,
+   "dosya": "veri/deneme/sgs-set-04.json"
+  },
+  {
+   "no": 5,
+   "dosya": "veri/deneme/sgs-set-05.json"
+  },
+  {
+   "no": 6,
+   "dosya": "veri/deneme/sgs-set-06.json"
+  },
+  {
+   "no": 7,
+   "dosya": "veri/deneme/sgs-set-07.json"
+  },
+  {
+   "no": 8,
+   "dosya": "veri/deneme/sgs-set-08.json"
+  },
+  {
+   "no": 9,
+   "dosya": "veri/deneme/sgs-set-09.json"
+  },
+  {
+   "no": 10,
+   "dosya": "veri/deneme/sgs-set-10.json"
+  }
+ ]
+}

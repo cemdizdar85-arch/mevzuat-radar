@@ -112,6 +112,7 @@ if(-not $KEY){ throw 'SUPABASE_SERVICE_KEY yok.' }
 $SB=@{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' }
 # 13.09 Cem "son iki sınava ne çıktıysa o para birimini kullan": birim her koşuda o sınavın son iki dönem çıkmışından ölçülür
 # (motor/kapi-cikmis-gun.ps1 SinavParaBirimi). Uygulama listesinde olmayan sınavda ağ çağrısı yok, birim TL (davranış aynı).
+$script:KCB_KLASIK_SMMM=($Sinav -eq 'SMMM')   # 13.09 klasik→test dönüştürme: bitirme koşusunda kopya kapısı klasik SMMM soru metinlerini de tanır (SGS/KGK kapalı)
 $script:PARA_BIRIMI='TL'
 if(-not $SadeceHtml){ $pbOlcum=SinavParaBirimi $Sinav $SB; $script:PARA_BIRIMI=$pbOlcum.birim; "PARA BİRİMİ ($Sinav): $($script:PARA_BIRIMI) · $($pbOlcum.kanit)" }
 

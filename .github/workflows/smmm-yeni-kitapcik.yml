@@ -1,0 +1,39 @@
+# .github/workflows/smmm-yeni-kitapcik.yml — BİTİRME (SMMM) YENİ KİTAPÇIK NÖBETÇİSİ (0 USD)
+# 13.09.2026 Cem "eski çıkmış sınavın yenisi çıktı mı kontrolü yapıyor muyuz?" → "1 yap".
+# Haftada bir TESMER'de bu yıl + gelecek yılın SMMM kitapçıklarını tarar (HEAD + ilk 8 bayt),
+# arşivde olmayanı bulursa Cem'e bir kez mail atar. Para harcamaz, arşive yazmaz, etiketleme emri vermez.
+name: Bitirme yeni kitapcik nobetcisi (0 USD)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * 1'   # pazartesi 07:17 TR
+permissions:
+  contents: write
+concurrency:
+  group: smmm-yeni-kitapcik
+  cancel-in-progress: false
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nobet kos
+        shell: pwsh
+        env:
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./arac/smmm-yeni-kitapcik.ps1
+      - name: Sonuc commit (kirmizi olsa da)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/smmm-yeni-kitapcik.json 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Bitirme yeni kitapcik nobeti [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i*10))
+          done
+          echo "::error::sonuc push edilemedi (5 deneme)"; exit 1

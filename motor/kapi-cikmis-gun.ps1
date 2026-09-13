@@ -92,6 +92,23 @@ public class KapiCikmisDizin {
       }
     }
   }
+  // 13.09 SMMM klasik (yazılı) sınav: "SORU n" işareti düzensiz; soru kısmı işaretlerden parçalara bölünür, işaret yoksa tek parça
+  static readonly Regex KlasikBol = new Regex(@"(?=\b(?:SORU|Soru)\s*\d+|(?<![\d.,])\d\s*-\s*\))", RegexOptions.Compiled);
+  public void BelgeEkleKlasik(string ad, string soruKismi) {
+    if (string.IsNullOrEmpty(soruKismi)) return;
+    string duz = Regex.Replace(soruKismi, @"\s+", " ");
+    int n = 0;
+    foreach (string p in KlasikBol.Split(duz)) {
+      if (p.Trim().Length < 40) continue;
+      n++; int birim = Birimler.Count; Birimler.Add(ad + " · klasik parça " + n.ToString(CultureInfo.InvariantCulture));
+      foreach (string c in Parcala(p)) {
+        HashSet<string> k = Kume(c);
+        if (k.Count < MinKelime) continue;
+        int sid = seg.Count; seg.Add(k); segBirim.Add(birim);
+        foreach (string w in k) { List<int> l; if (!ilan.TryGetValue(w, out l)) { l = new List<int>(); ilan[w] = l; } l.Add(sid); }
+      }
+    }
+  }
   int Df(string w) { List<int> l; return ilan.TryGetValue(w, out l) ? l.Count : 0; }
 
   // Dönüş: "probIndex<TAB>birim<TAB>benzerlik" (her prob için her birimde en yüksek benzerlik, esik ve üstü)
@@ -123,6 +140,7 @@ public class KapiCikmisDizin {
 
 $script:CIKMIS_DIZIN = $null
 $script:CIKMIS_DIZIN_KOR = ''
+$script:KCB_KLASIK_SMMM = $false   # 13.09: üretici $Sinav -eq 'SMMM' iken açar (klasik SMMM soru kısmı dizine); varsayılan kapalı → SGS/KGK dizini aynı
 function CikmisDiziniKur($basliklar) {
   if ($null -ne $script:CIKMIS_DIZIN -or $script:CIKMIS_DIZIN_KOR) { return $script:CIKMIS_DIZIN }
   $dizinYeni = New-Object KapiCikmisDizin
@@ -139,6 +157,30 @@ function CikmisDiziniKur($basliklar) {
     }
   } catch { $script:CIKMIS_DIZIN_KOR = "ambar çekilemedi: $($_.Exception.Message)"; Write-Host "  KAPI-CB KÖR: $($script:CIKMIS_DIZIN_KOR)" -ForegroundColor Red; return $null }
   if ($belgeSay -lt 100) { $script:CIKMIS_DIZIN_KOR = "ambardan yalnız $belgeSay çıkmış belge geldi (beklenen >= 100)"; Write-Host "  KAPI-CB KÖR: $($script:CIKMIS_DIZIN_KOR)" -ForegroundColor Red; return $null }
+  # 13.09 Cem "1. yap" (klasik→test dönüştürme): SMMM koşusunda klasik (yazılı) SMMM sınavlarının SORU KISMI da dizine girer
+  # (komisyon cevabı kısmı girmez: kanun alıntısı gürültüsü). Yalnız $KCB_KLASIK_SMMM açıkken; SGS/KGK koşusunda dizin AYNI.
+  if ($script:KCB_KLASIK_SMMM) {
+    $klasikSay = 0; $ofsK = 0
+    try {
+      while ($true) {
+        $adrK = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-komisyon-cevabi&kaynak_ad=ilike.' + [uri]::EscapeDataString('%smmm_%') + '&order=id.asc&limit=40&offset=' + $ofsK
+        $yanitK = $null
+        for ($denK = 1; $denK -le 3; $denK++) { try { $yanitK = Invoke-WebRequest -Uri $adrK -Headers $basliklar -UseBasicParsing -TimeoutSec 180; break } catch { if ($denK -eq 3) { throw }; Start-Sleep -Seconds (5 * $denK) } }
+        $satirK = @((ConvertFrom-Json -InputObject $yanitK.Content))
+        foreach ($stK in $satirK) {
+          if (-not $stK) { continue }
+          $metinK = ("$($stK.metin)" -replace '\s+', ' ')
+          if (-not [regex]::IsMatch($metinK, '\bSORULAR\b|\bSORU\s*\d+|\bSoru\s*\d+|(?<![\d.,])\d\s*-\s*\)|İSTENİLEN|İstenilen|hesaplayınız|yapınız|açıklayınız|yazınız|belirtiniz')) { continue }   # yalnız cevap belgesi
+          $cevapK = [regex]::Match($metinK, '\bCEVAPLAR\b|\bCEVAP\s*1\b|\bCevap\s*1\b|\bYANITLAR\b')
+          $soruK = $(if ($cevapK.Success) { $metinK.Substring(0, $cevapK.Index) } else { $metinK })
+          $dizinYeni.BelgeEkleKlasik("$($stK.kaynak_ad)", $soruK); $klasikSay++
+        }
+        $ofsK += $satirK.Count
+        if ($satirK.Count -lt 40) { break }
+      }
+      Write-Host "  KAPI-CB klasik SMMM soru kısmı dizine eklendi: $klasikSay belge" -ForegroundColor DarkGray
+    } catch { Write-Host "  KAPI-CB klasik SMMM eklenemedi (test dizini yine çalışır, klasik KÖR): $($_.Exception.Message)" -ForegroundColor Red }
+  }
   Write-Host "  KAPI-CB çıkmış cümle dizini: $belgeSay belge · $($dizinYeni.Birimler.Count) soru · $($dizinYeni.SegmentSayisi) cümle" -ForegroundColor DarkGray
   $script:CIKMIS_DIZIN = $dizinYeni
   return $dizinYeni

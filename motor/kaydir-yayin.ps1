@@ -92,3 +92,12 @@ $kartH
 # Sayfalar yeniden basılınca dizin de AYNI koşuda tazelenir; yoksa kapı eski sayıyı gösterir.
 & node (Join-Path $PSScriptRoot 'soru-dizini.js')
 if($LASTEXITCODE -ne 0){ throw "soru dizini tazelenemedi (motor/soru-dizini.js cikis $LASTEXITCODE) - sorular.html eski sayiyi gosterir" }
+# 13.09.2026: "Sınav gibi çöz" setleri (veri/deneme/sgs-*.json) ders sayfalarındaki SORULAR'dan kurulur;
+# sayfa yeniden basılınca set de aynı koşuda tazelenir (setteki "Nöbetçi anlatsın" sıraları sayfayla tutarlı kalsın).
+if($Sinav -eq 'sgs'){
+  & node (Join-Path $PSScriptRoot 'deneme-seti-bas.js')
+  if($LASTEXITCODE -ne 0){ throw "deneme setleri tazelenemedi (motor/deneme-seti-bas.js cikis $LASTEXITCODE) - sinav-gibi.html eski sıralara bağlanır" }
+  # seviye testi havuzu deneme setlerinden SONRA kurulur (setlerde olmayan soruları önceler)
+  & node (Join-Path $PSScriptRoot 'seviye-havuz-bas.js')
+  if($LASTEXITCODE -ne 0){ throw "seviye havuzu tazelenemedi (motor/seviye-havuz-bas.js cikis $LASTEXITCODE)" }
+}

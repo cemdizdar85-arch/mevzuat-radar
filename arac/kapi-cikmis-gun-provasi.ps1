@@ -14,11 +14,13 @@
 #  Kapı bugünden sonraki üretimi düşürür; mevcut işaretli sorular silinmez →
 #  rapordaki liste "TAZELEME BEKLİYOR" iş emridir.
 # ============================================================================
-param([string]$Etiket = '')
+param([string]$Etiket = '', [switch]$KlasikSmmm)   # 13.09 -KlasikSmmm: yalnız sinav=SMMM partileri, klasik SMMM soru kısmı dizinde (ayrı çıktı dosyası)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
 . (Join-Path $depoKok 'motor\kapi-cikmis-gun.ps1')
+if ($KlasikSmmm) { $script:KCB_KLASIK_SMMM = $true }
+$ciktiEk = $(if ($KlasikSmmm) { '-smmm-klasik' } else { '' })
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $anahtarSb = "$($env:SUPABASE_SERVICE_KEY)".Trim()
 if (-not $anahtarSb) { $anahtarSb = "$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
@@ -32,7 +34,7 @@ $sinavSayac = @{}
 $liste = New-Object System.Collections.Generic.List[object]
 $ofs = 0; $sayfaBoy = 10
 while ($true) {
-  $adr = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?select=etiket,sinav,icerik&order=etiket.asc&limit=' + $sayfaBoy + '&offset=' + $ofs
+  $adr = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?select=etiket,sinav,icerik' + $(if ($KlasikSmmm) { '&sinav=eq.SMMM' } else { '' }) + '&order=etiket.asc&limit=' + $sayfaBoy + '&offset=' + $ofs
   if ($Etiket) { $adr = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?select=etiket,sinav,icerik&etiket=eq.' + [uri]::EscapeDataString($Etiket) }
   $sayfa = $null
   # K2 tuzağı (13.09 ilk koşuda yaşandı): PS 5.1 Invoke-RestMethod JSON dizisini TEK nesne olarak verir; @(...) 1 elemanlı dizi yapar → foreach ile aç
@@ -74,7 +76,7 @@ $cikti = [ordered]@{
   sinav = $sinavSayac
   isaretli = @($liste.ToArray())
 }
-$hedefJson = Join-Path $depoKok 'veri\kapi-cikmis-gun-provasi.json'
+$hedefJson = Join-Path $depoKok "veri\kapi-cikmis-gun-provasi$ciktiEk.json"
 RaporYaz -Hedef $hedefJson -Nesne $cikti
 
 $md = New-Object System.Text.StringBuilder
@@ -94,7 +96,7 @@ foreach ($sn in @($sinavSayac.Keys | Sort-Object)) { $v = $sinavSayac[$sn]; [voi
 [void]$md.AppendLine('## İşaretli sorular (TAZELEME BEKLİYOR)')
 [void]$md.AppendLine('')
 foreach ($s in $liste) { [void]$md.AppendLine("- ``$($s.etiket)/$($s.id)`` [$($s.sinav)] $($s.konu) · hakem $($s.hakem)$(if(@($s.cb).Count){' · CB: ' + (@($s.cb)[0])})$(if(@($s.gt).Count){' · GT: ' + (@($s.gt) -join '; ')})") }
-$hedefMd = Join-Path $depoKok 'veri\kapi-cikmis-gun-provasi.md'
+$hedefMd = Join-Path $depoKok "veri\kapi-cikmis-gun-provasi$ciktiEk.md"
 $mdMetin = $md.ToString()
 $eskiMd = $(if (Test-Path $hedefMd) { ([IO.File]::ReadAllText($hedefMd, [Text.Encoding]::UTF8) -replace '(?m)^Ölçüm: .*$', '') } else { '' })
 if ($eskiMd -ne ($mdMetin -replace '(?m)^Ölçüm: .*$', '')) { [IO.File]::WriteAllText($hedefMd, $mdMetin, [Text.UTF8Encoding]::new($false)) }
