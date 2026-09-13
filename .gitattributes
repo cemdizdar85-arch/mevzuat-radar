@@ -80,3 +80,33 @@ veri/*-olcum.json         merge=tetikte-robot
 veri/*-taramasi.json      merge=tetikte-robot
 veri/ihale-kesik-*.json   merge=tetikte-robot
 veri/URUN-KUNYELERI.json  merge=tetikte-robot
+
+# ============================================================================
+# 13.09.2026 CAKISMA DERSI — YAYIN KOSUSU DUSTU (Cem onayi ile eklendi)
+#
+# OLAY: gece iki uretim kosusu bitince zincir IKI yayin kosusu tetikledi. Yayin
+# kosusu basinda depoyu cekiyor ama ~20-40 dk suruyor; itme aninda taban BAYAT
+# kaliyor. 34729587713 tam boyle dustu: birlestirme
+# veri/sinav/kaydir-secim/sgs-650-secim.json'da cakisti, dosyada <<<<<<< =======
+# isaretleri kaldi, Ozet adimi onu JSON diye okumaya calisip patladi.
+# ⭐ KAPI DOGRU CALISTI: bozuk icerik ANA TELE GITMEDI (kontrol edildi - cakisma
+#   isareti 0, JSON gecerli). Kayip yalnizca o kosunun bosa gitmesiydi.
+#
+# NIYE BU DOSYALAR KURALA GIRIYOR: ikisi de HER yayin kosusunda AMBARDAN sifirdan
+# uretiliyor (arac/havuz-kur.ps1 ve motor/kaydir-coz.ps1). Icinde el emegi YOK;
+# cakismalari anlamsizdir, tipki yukaridaki rapor dosyalari gibi. Kuralin kendi
+# olcutu bu: "her kosuda yeniden uretilen dosya".
+#
+# ⛔ veri/cevap-dagilimi.json BILEREK DISARIDA: o circir TABANLARINI tutar, yani
+#   DURUM tasir. Korlemesine "yereli al" demek taban gecmisini bozabilir.
+#
+# TEST EDILDI (13.09, ayri bos depoda, driver tanimliyken) - dosyanin kendi
+# uyarisi geregi ("merge=ours yazmak SESSIZCE HICBIR SEY YAPMAZ, 30.08'de
+# calisiyor sanildi"): iki dal ayni dosyalari FARKLI degistirdi, birlestirildi.
+#   veri/sinav/kaydir-secim/secim.json -> CAKISMADI, yerel korundu ✓
+#   kaydir/sgs/ders.html               -> CAKISMADI, yerel korundu ✓
+#   motor/betik.ps1 (desen DISI)       -> normal CAKISTI ✓
+# Yani kural tam hedefine vuruyor ve tasmiyor.
+# ============================================================================
+veri/sinav/kaydir-secim/*.json   merge=tetikte-robot
+kaydir/*/*.html                  merge=tetikte-robot

@@ -132,6 +132,15 @@ jobs:
         run: |
           git config user.name  "tetikte-robot"
           git config user.email "bildirim@tetikte.com"
+          # ⛔⭐ 13.09.2026 — BIRLESTIRME SURUCUSU BURADA DA TANIMLANMALI.
+          #   .gitattributes'teki `merge=tetikte-robot` kurali, surucu git config'de
+          #   TANIMLI DEGILSE SESSIZCE HICBIR SEY YAPMAZ (dosyanin kendi uyarisi;
+          #   30.08'de `merge=ours` tam boyle "calisiyor sanildi"). Tanimi yerelde
+          #   motor/oturum.ps1 -Ac kuruyor - ama RUNNER onu hic calistirmiyor.
+          #   Yani kurali ekleyip burayi atlasaydik, cakismanin OLDUGU yerde kural
+          #   olu kalacakti. 13.09 gecesi kosu 34729587713 tam bu adimda dustu.
+          git config merge.tetikte-robot.name "Tetikte robot ciktisi: cakismada yereldeki korunur"
+          git config merge.tetikte-robot.driver true
           git add kaydir/sgs veri/sinav/kaydir-secim veri/cevap-dagilimi.json
           $degisen = @(git diff --cached --name-only)
           if(-not $degisen.Count){ "degisiklik yok - commit ATILMADI"; exit 0 }
