@@ -1,0 +1,40 @@
+# .github/workflows/sgs-yeni-kitapcik.yml — SGS YENİ KİTAPÇIK NÖBETÇİSİ (0 USD)
+# 13.09.2026 Cem "çıkmış sınavlardan yenisi geldi mi otomatik çekiyor muyuz?" → GM önerisi 3.
+# Haftada bir TESMER'de bu yıl + gelecek yılın SGS kitapçıklarını tarar (HEAD + ilk 8 bayt),
+# arşivde olmayanı bulursa Cem'e bir kez mail atar. Para harcamaz, arşive/ambara yazmaz, etiketleme emri vermez.
+# Bitirme ikizi: smmm-yeni-kitapcik.yml (pazartesi 07:17). Bu akış 07:47'de koşar, TESMER'e aynı anda yüklenmesin.
+name: SGS yeni kitapcik nobetcisi (0 USD)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 4 * * 1'   # pazartesi 07:47 TR
+permissions:
+  contents: write
+concurrency:
+  group: sgs-yeni-kitapcik
+  cancel-in-progress: false
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nobet kos
+        shell: pwsh
+        env:
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./arac/sgs-yeni-kitapcik.ps1
+      - name: Sonuc commit (kirmizi olsa da)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/sgs-yeni-kitapcik.json 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "SGS yeni kitapcik nobeti [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i*10))
+          done
+          echo "::error::sonuc push edilemedi (5 deneme)"; exit 1
