@@ -121,12 +121,21 @@ jobs:
           # Kopru: uretici KONU SECIMINI bundan yapar. Yoksa "kopru disi sentez"
           # yoluna duser, dayanak BOS kalir ve KAYNAK-EKSIK reti artar (11.09'da
           # 777 ret, tum retlerin %54'u tam bu aileydi).
-          ./arac/kopru-senkron.ps1 -Indir -Yaz -Sinav SGS
+          # 13.09 SMMM: kopru ve parti sinavi PLANDAN okunur (eskiden sabit SGS'ydi -> SMMM plani bulutta
+          # SIFIR konu adayi bulurdu; olculdu: SMMM'nin 6 partisi ambarda sinav=SGS diye durur).
+          # Karisik sinavli plan REDDEDILIR: parti-senkron -Yukle tek sinav etiketi basar.
+          $planSatirlari = @((Get-Content "${{ inputs.plan }}" -Raw -Encoding UTF8 | ConvertFrom-Json))
+          $planSinavlari = @($planSatirlari | ForEach-Object { if($_.PSObject.Properties['sinav'] -and "$($_.sinav)"){ "$($_.sinav)" } else { 'SGS' } } | Sort-Object -Unique)
+          if($planSinavlari.Count -ne 1){ throw ("Plan birden fazla sinav iceriyor ({0}) - sinav basina ayri plan kosun" -f ($planSinavlari -join ', ')) }
+          $planSinavi = $planSinavlari[0]
+          "PLAN SINAVI: $planSinavi"
+          "PLAN_SINAVI=$planSinavi" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+          ./arac/kopru-senkron.ps1 -Indir -Yaz -Sinav $planSinavi
           # Defter: harcama kaydi tek yerden gorulsun
           ./arac/bedel-senkron.ps1 -Indir -Yaz
           if ("${{ inputs.indir_parti }}" -eq "true") {
             # Parti onbellegi: ikiz denetimi kardes partilere bakar
-            ./arac/parti-senkron.ps1 -Indir -Yaz
+            ./arac/parti-senkron.ps1 -Indir -Yaz -Sinav $planSinavi
           } else {
             "parti onbellegi ATLANDI (ikiz denetimi zayif kosar)"
           }
@@ -150,7 +159,9 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           # ⛔ if: always() — uretim yarida kalsa bile ODENEN IS yazilir.
-          ./arac/parti-senkron.ps1 -Yukle -Yaz
+          # 13.09: sinav etiketi plandan (PLAN_SINAVI ilk adimda yazildi). Bos kalirsa eski varsayilan SGS.
+          $ps = "$env:PLAN_SINAVI".Trim(); if(-not $ps){ $ps = 'SGS' }
+          ./arac/parti-senkron.ps1 -Yukle -Yaz -Sinav $ps
           ./arac/bedel-senkron.ps1 -Yukle -Yaz
 
       # ⛔ KOSU GUNLUGU ARTIFACT'I KALDIRILDI (12.09, ilk kosudan ONCE olculdu).

@@ -164,9 +164,23 @@ if(Test-Path $anatomiYol){
     foreach($p in $an.C_ders_kalibi.PSObject.Properties){ $DERS_TAVAN[$p.Name] = [int]$p.Value.uzunluk.p90 }
   }catch{ }
 }
+# 13.09 SMMM: tavan sabit olarak SGS anatomisinden okunuyordu -> SMMM Vergi (gerçek p90 730) ve SPK (950) 350'ye, Denetim SGS'nin
+# 342'sine düşerdi. Satırın sınavı SMMM ise veri/sinav-anatomisi-smmm.json okunur. SGS yolu (sınav yok/SGS) BİREBİR aynı sözlük.
+$DERS_TAVAN_SMMM = @{}
+$anatomiYolSmmm = Join-Path $Kok 'veri\sinav-anatomisi-smmm.json'
+if(Test-Path $anatomiYolSmmm){
+  try{
+    $anS = ConvertFrom-Json -InputObject (Get-Content $anatomiYolSmmm -Raw -Encoding UTF8)
+    foreach($p in $anS.C_ders_kalibi.PSObject.Properties){ $DERS_TAVAN_SMMM[$p.Name] = [int]$p.Value.uzunluk.p90 }
+  }catch{ }
+}
 function DersTavani($satir){
   if($satir.PSObject.Properties['tavan'] -and $satir.tavan){ return [int]$satir.tavan }
   $d = "$($satir.ders)"
+  if($satir.PSObject.Properties['sinav'] -and "$($satir.sinav)" -eq 'SMMM'){
+    foreach($k in $DERS_TAVAN_SMMM.Keys){ if($d -match [regex]::Escape($k) -or $k -match [regex]::Escape($d)){ return $DERS_TAVAN_SMMM[$k] } }
+    return 350
+  }
   foreach($k in $DERS_TAVAN.Keys){ if($d -match [regex]::Escape($k) -or $k -match [regex]::Escape($d)){ return $DERS_TAVAN[$k] } }
   return 350   # ölçüm bulunamazsa eski varsayılan; sessizce yanlış tavan yerine BİLİNEN tavan
 }
