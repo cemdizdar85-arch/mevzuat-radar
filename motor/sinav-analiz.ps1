@@ -200,8 +200,10 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   # 13.09 AMBAR YEDEGI: 13 SMMM kitapcigi taranmis PDF (metin katmani yok; 2012/2-03,
   # 2014/1-04, 2019-2020 Maliyet/Vergi/Hukuk, 2022/1-05). Runner'daki pdftotext bunlardan
   # 360-2.000 karakter cikariyor. OCR'li metin ambarda (dokumanlar) duruyorsa O kullanilir.
+  # Esik 1.500'du: 13 taranmis kitapcigin 5'i (2019/1-03 2.031, 2020/1-03 2.013 ...) ustunde
+  # kaldigi icin yedege hic dusmezdi -> 3.000; ambar metni yalniz 1,5 kat doluysa kullanilir.
   $bosluksuz = ("$icerik" -replace '\s','').Length
-  if($bosluksuz -lt 1500 -and $env:SUPABASE_SERVICE_KEY -and "$($d.url)" -match '/((smmm|sgs)_[^/]+)\.pdf$'){
+  if($bosluksuz -lt 3000 -and $env:SUPABASE_SERVICE_KEY -and "$($d.url)" -match '/((smmm|sgs)_[^/]+)\.pdf$'){
     $kokAd = $Matches[1]
     try {
       $sbH = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent'='mevzuat-radar-robot/1.0' }
@@ -209,7 +211,7 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
       $sbYanit = Invoke-WebRequest -UseBasicParsing -Uri $sbU -Headers $sbH -TimeoutSec 120
       $sbDizi = ConvertFrom-Json -InputObject $sbYanit.Content
       $ambarMetin = "$(@($sbDizi)[0].metin)"
-      if(($ambarMetin -replace '\s','').Length -gt $bosluksuz){ Write-Host ("  metin AMBARDAN (pdftotext {0} kr, ambar {1} kr)" -f $bosluksuz, ($ambarMetin -replace '\s','').Length); $icerik = $ambarMetin }
+      if(($ambarMetin -replace '\s','').Length -ge 1.5 * $bosluksuz){ Write-Host ("  metin AMBARDAN (pdftotext {0} kr, ambar {1} kr)" -f $bosluksuz, ($ambarMetin -replace '\s','').Length); $icerik = $ambarMetin }
     } catch { Write-Host "  ambar yedegi okunamadi: $($_.Exception.Message)" }
   }
   if("$icerik".Trim().Length -lt 500){ Write-Host "  RED: metin cikmadi (taranmis pdf olabilir)"; $d.durum='inceleme'; $islenen++; continue }
