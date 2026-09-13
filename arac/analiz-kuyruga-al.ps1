@@ -24,7 +24,9 @@ $arsivMetin = [IO.File]::ReadAllText($arsivYolu, [Text.Encoding]::UTF8)
 $secilen = New-Object System.Collections.Generic.List[object]
 foreach($r in @($arsivNesne.donemler)){
   $istenenDurum = if($Yeniden){ 'tamam' } else { 'kesif' }
-  if("$($r.sinav)" -ne 'SMMM' -or "$($r.durum)" -ne $istenenDurum){ continue }
+  # 13.09: -Yeniden reddedilen (inceleme / inceleme-ayrinti) satirlari da alir - ikinci deneme
+  $durumUyar = if($Yeniden){ "$($r.durum)" -match '^(tamam|inceleme|inceleme-ayrinti)$' } else { "$($r.durum)" -eq 'kesif' }
+  if("$($r.sinav)" -ne 'SMMM' -or -not $durumUyar){ continue }
   $kod = [regex]::Match("$($r.url)", '_(\d{2})\.pdf$').Groups[1].Value
   $anh = "$($r.donem)|$kod"
   if($Tumu -or ($Anahtar -contains $anh)){ $secilen.Add([pscustomobject]@{ anahtar = $anh; ders = "$($r.ders)"; adres = "$($r.url)"; yil = [int](("$($r.donem)" -split '/')[0]) }) }
@@ -38,7 +40,7 @@ $degisen = 0
 foreach($s in $secilen){
   $bicimAdi = if($s.yil -ge 2026){ 'test' } else { 'yazili' }
   if($Yeniden){
-    $desen = '("url"\s*:\s*"' + [regex]::Escape($s.adres) + '",\s*"durum"\s*:\s*)"tamam"'
+    $desen = '("url"\s*:\s*"' + [regex]::Escape($s.adres) + '",(?:\s*"format"\s*:\s*"[^"]*",)?\s*"durum"\s*:\s*)"(tamam|inceleme|inceleme-ayrinti)"'   # 13.09: robot yazinca url ile durum arasina format girer
     $esles = [regex]::Matches($arsivMetin, $desen).Count
     if($esles -ne 1){ Write-Host ("  ATLA {0}: {1} eslesme" -f $s.anahtar, $esles); continue }
     $arsivMetin = [regex]::Replace($arsivMetin, $desen, '$1"bekliyor"')
