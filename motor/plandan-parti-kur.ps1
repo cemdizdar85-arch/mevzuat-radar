@@ -40,7 +40,9 @@ param(
   [int]$EnAzKat = 0,             # 12.09: siklik plani icin - yalniz bu Kat ve ustu
   [ValidatePattern('^[a-z0-9-]{2,16}$')]
   [string]$EtiketOn = 'sgs-p',   # 12.09: etiket oneki - YENI PLAN = YENI ONEK (cakisma onlemi)
-  [switch]$AyristirilamayanDahil # kaba kovada kalmis konular da girsin mi
+  [switch]$AyristirilamayanDahil, # kaba kovada kalmis konular da girsin mi
+  [switch]$BayatGec,             # 13.09: BAYAT ONBELLEK kapisini bilerek atla (gerekce ZORUNLU)
+  [string]$BayatGerekce = ''     # 13.09: -BayatGec verildiyse niye atlandigi
 )
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -55,6 +57,37 @@ if((Dizi $ok_kusur).Count){
   Write-Host '⛔ OLCUM KAPILARI KIRMIZI - bu olcume guvenilmez:' -ForegroundColor Red
   foreach($h in (Dizi $ok_kusur)){ Write-Host "   - $h" -ForegroundColor Red }
   throw 'olcum kapilari oz-sinavi dustu'
+}
+
+# ⛔⭐ BAYAT ONBELLEK KAPISI (13.09.2026) — "AYNI SORU IKI KEZ YOK" KURALININ MEKANIK HALI
+#   OLAY: d3 dalgasini kurarken konu plani "bizdeki saglam soru 3.042" dedi. Ama o gece
+#   668 soru basmistik. Sebep: uretim BULUTTA kosuyor, plan kurma YERELDE; bulutta
+#   uretilen partiler ambara yaziliyor ama yerel onbellege inmiyor. Plan sessizce
+#   ESKI FOTOGRAFLA calisiyordu ve gece bastigimiz konulari IKINCI KEZ bastiracakti.
+#   Onbellek indirilince: 3.042 -> 3.220 saglam soru, ACIK 5.431 -> 5.253.
+#   Yani bu kapi olmasaydi ~111 USD dogrudan cope gidecekti - ve KIMSE FARK ETMEYECEKTI,
+#   cunku plan hata vermez, yalnizca bayat sayiyla dogru gorunen bir plan uretir.
+#   ⚠ Bu kusuru yakalamam SANSA bagliydi (rakamin degismedigini fark ettim). Sans
+#     kapi degildir; kapi burada.
+#
+#   OLCUM: ambardaki parti sayisi (metadata listesi, ucuz) vs yereldeki dosya sayisi.
+#   Ambar ILERIDEYSE plan KURULMAZ. Bilerek gecmek icin -BayatGec + gerekce.
+if(-not $BayatGec){
+  $yerelP = @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip-parti-*.json' -ErrorAction SilentlyContinue).Count
+  $ambarP = -1
+  try{
+    $cikti = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $depoKok 'arac\parti-senkron.ps1') -Indir -Sinav $Sinav 2>&1
+    foreach($satir in @($cikti)){ if("$satir" -match 'ambarda parti:\s*([\d\.]+)'){ $ambarP=[int](($matches[1]) -replace '\.','') } }
+  }catch{ Write-Host "  bayat onbellek kapisi: ambar okunamadi ($($_.Exception.Message.Split([char]10)[0])) - kapi ATLANDI" -ForegroundColor DarkYellow }
+  if($ambarP -ge 0){
+    if($ambarP -gt $yerelP){
+      throw ("BAYAT ONBELLEK - PLAN KURULMADI. Ambarda {0} parti var, yerelde {1}. Aradaki {2} parti BULUTTA uretilmis ve burada YOK; bu haliyle plan o konulari IKINCI KEZ bastirir (para iki kez odenir). Once sunu kos:`n  powershell -NoProfile -File arac/parti-senkron.ps1 -Indir -Yaz`nSonra konu planini tazele (motor/konu-plani.ps1) ve bu betigi yeniden kos.`nBilerek gecmek icin: -BayatGec -BayatGerekce '<neden>'" -f $ambarP,$yerelP,($ambarP-$yerelP))
+    }
+    Write-Host ("bayat onbellek kapisi: YESIL (ambar {0} · yerel {1})" -f $ambarP,$yerelP) -ForegroundColor DarkGreen
+  }
+} else {
+  if(-not "$BayatGerekce".Trim()){ throw '-BayatGec verildi ama -BayatGerekce BOS. Istisna gerekcesiz yapilmaz.' }
+  Write-Host "⚠ BAYAT ONBELLEK KAPISI BILEREK ATLANDI · gerekce: $BayatGerekce" -ForegroundColor Yellow
 }
 
 if(-not $Ad){ $Ad = ("{0}-c{1}-{2}" -f $Sinav.ToLowerInvariant(),$EnAzCikmis,(Get-Date -Format 'ddMM')) }
