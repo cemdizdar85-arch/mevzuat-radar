@@ -114,6 +114,16 @@ if(Test-Path $elleYolKP){
   Write-Host ("ders ayristirmasi: {0:N0} konu (geri sinama %{1})" -f $script:AYR.Count,$ayrHam.geri_sinama.isabet_yuzde) -ForegroundColor DarkCyan
 }
 
+# SMMM kisa ad (katlanmis desen) -> ders-profili resmi adi. SIRA ONEMLI: 'meslek' 'hukuk'tan, 'finansal tablo' 'finansal muhasebe'den once.
+$SMMM_RESMI_AD=@()
+if($Sinav -eq 'SMMM'){
+  $resmiAdlar=@($sinavDugum.PSObject.Properties.Name)
+  foreach($cift in @(@('meslek','Meslek Hukuku'),@('sermaye piyasas','Sermaye Piyasas'),@('finansal tablo','Finansal Tablolar'),@('finansal muhasebe','Finansal Muhasebe'),@('maliyet','Maliyet'),@('denetim','Denetimi'),@('vergi','Vergi'),@('hukuk','^Hukuk'))){
+    $bul=@($resmiAdlar | Where-Object { $_ -match $cift[1] } | Select-Object -First 1)
+    if($bul.Count){ $SMMM_RESMI_AD+=,@($cift[0],$bul[0]) }
+  }
+  Write-Host ("SMMM resmi ad tablosu: {0} ders" -f $SMMM_RESMI_AD.Count) -ForegroundColor DarkCyan
+}
 $kopruHam=Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8|ConvertFrom-Json
 $konu=@{}   # katlanmis konu adi -> kayit
 foreach($r in @($kopruHam)){
@@ -155,6 +165,13 @@ foreach($r in @($kopruHam)){
       elseif($ad){ $d="$ad (ayristirilamadi)" }
     }
   }
+  # 13.09 SMMM: kopru arsiv adlari KISA ("Muh. ve Mali Müş. Meslek Hukuku", "Hukuk", "Sermaye Piyasası Mevzuatı"); tavan
+  # (sinav-anatomisi-smmm), ders kalibi ve celdirici dosyalari RESMI adla anahtarli -> Meslek 461 yerine 350 tavan alirdi,
+  # kalip/celdirici eslesmezdi (olculdu). Plan satiri ders-profili'ndeki resmi adi tasir.
+  if($Sinav -eq 'SMMM' -and $d){
+    $dKatli = Katla $d
+    foreach($resmi in $SMMM_RESMI_AD){ if($dKatli -match $resmi[0]){ $d=$resmi[1]; break } }
+  }
   if($konu.ContainsKey($ka)){
     if($c -gt [int]$konu[$ka].cikmis){ $konu[$ka].cikmis=$c; $konu[$ka].donem=[int]$r.donem }
     if(-not $konu[$ka].ders -and $d){ $konu[$ka].ders=$d }
@@ -185,6 +202,12 @@ function KapilardanGecti($v){
 $eslesmeyen=@{}   # bizde var ama kopruce taninmayan konu (sessizce yutulmaz)
 foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip-parti-*.json')){
   $et=($x.BaseName -replace '^kalip-parti-','')
+  # 13.09 SINAV AYRIMI (Cem: "ayni agacta ama ayri yerlerde"): "bizde saglam soru" butun partileri sayiyordu, sinava bakmiyordu.
+  # OLCULDU: SMMM plani "659 saglam soru var" dedi - kapidan gecen SMMM sorusu 1, gerisi ayni adli konulardaki SGS sorulari
+  # (SMMM acigi yanlis kuculuyordu). SGS planinda da 1 SMMM sorusu SGS sayiliyordu. havuz-kur.ps1 onek mantigiyla ayni:
+  # SMMM yalniz smmm-*, KGK yalniz kgk-*, SGS diger sinavlarin partilerini (smmm-/kgk-/spl-) SAYMAZ (pilot6/devir eskisi gibi).
+  $partiSinavUyar = switch($Sinav){ 'SMMM' { $et -like 'smmm-*' } 'KGK' { $et -like 'kgk-*' } default { $et -notmatch '^(smmm|kgk|spl)-' } }
+  if(-not $partiSinavUyar){ continue }
   $c=$null; try{ $c=Get-Content $x.FullName -Raw -Encoding UTF8|ConvertFrom-Json }catch{ continue }
   foreach($p in $c.PSObject.Properties){
     $v=$p.Value
