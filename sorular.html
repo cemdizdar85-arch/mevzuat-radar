@@ -110,6 +110,12 @@
   .sc-deneme-alt{font-size:14px;color:var(--muted);line-height:1.5}
   .sc-deneme-git{font-size:15px;font-weight:750;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));
     border-radius:10px;padding:11px 20px;white-space:nowrap}
+  .sc-seviye{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;text-decoration:none;color:inherit;
+    margin:0 0 12px;padding:16px 22px;border-radius:14px;border:1px solid var(--line2);background:var(--panel);transition:border-color .15s}
+  .sc-seviye:hover{border-color:var(--bz-bronz)}
+  .sc-seviye>span:first-child{display:flex;flex-direction:column;gap:4px;max-width:46em}
+  .sc-seviye b{font-size:17px;color:var(--ink)}
+  .sc-seviye-git{font-size:15px;font-weight:750;color:var(--bz-bronz-acik);white-space:nowrap}
   .sc-not{font-size:13px;color:var(--dim);border-top:1px solid var(--line);padding-top:14px;margin-top:8px;line-height:1.6}
   .sc-yuk{color:var(--dim);font-size:14px;padding:30px 0}
 
@@ -206,7 +212,10 @@
       +'<b>'+dn.toplam_soru+' soru · '+dn.sure_dk+' dakika · gerçek ders dağılımı</b>'
       +'<span class="sc-deneme-alt">Çözerken cevap görünmez; bitince ders ders karne ve her yanlışın Nöbetçi anlatımı. '+dn.set_sayisi+' set, aynı soru iki kez gelmez.</span></span>'
       +'<span class="sc-deneme-git">Başla →</span></a>':'';
-    var h=denemeKart+'<div class="sc-gbas"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
+    /* 13.09: seviye testi (20 soru, geçme ihtimali) - yalnız SGS için hazır */
+    var seviyeKart=(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="seviye-testi.html"><span><b>Önce 20 soruda geçme ihtimalini ölç</b>'
+      +'<span class="sc-deneme-alt">Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin, zayıf alanın ve istersen e-postana karne.</span></span><span class="sc-seviye-git">Ölç →</span></a>':'';
+    var h=seviyeKart+denemeKart+'<div class="sc-gbas"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik
         ?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'
         :'Bu sınavın soruları hakem ve çözüm kapılarından geçiyor. Açıldığında dersler burada, Staja Giriş\'teki gibi ders ders görünecek.')+'</p>';

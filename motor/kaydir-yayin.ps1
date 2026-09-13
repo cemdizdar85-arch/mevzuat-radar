@@ -97,4 +97,7 @@ if($LASTEXITCODE -ne 0){ throw "soru dizini tazelenemedi (motor/soru-dizini.js c
 if($Sinav -eq 'sgs'){
   & node (Join-Path $PSScriptRoot 'deneme-seti-bas.js')
   if($LASTEXITCODE -ne 0){ throw "deneme setleri tazelenemedi (motor/deneme-seti-bas.js cikis $LASTEXITCODE) - sinav-gibi.html eski sıralara bağlanır" }
+  # seviye testi havuzu deneme setlerinden SONRA kurulur (setlerde olmayan soruları önceler)
+  & node (Join-Path $PSScriptRoot 'seviye-havuz-bas.js')
+  if($LASTEXITCODE -ne 0){ throw "seviye havuzu tazelenemedi (motor/seviye-havuz-bas.js cikis $LASTEXITCODE)" }
 }

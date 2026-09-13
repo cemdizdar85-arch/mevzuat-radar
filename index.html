@@ -620,6 +620,10 @@ window.veriAl = (function(){
         color:var(--bz-cta-yazi);text-decoration:none;font-size:15.5px;font-weight:750;padding:14px 30px;
         border-radius:11px;box-shadow:0 14px 36px rgba(207,161,99,.26)}
       .bz-kah .bz-cta:hover{filter:brightness(1.06)}
+      .bz-kah .bz-cta2{display:inline-block;margin:0 0 0 18px;font-size:15px;font-weight:700;color:var(--bz-bronz-acik);
+        text-decoration:none;border-bottom:1px solid rgba(214,180,126,.45);padding:4px 0}
+      .bz-kah .bz-cta2:hover{color:var(--bz-ak)}
+      @media(max-width:520px){ .bz-kah .bz-cta2{display:block;margin:18px 0 0;width:max-content} }
 
       .bz-kah .bz-cam{background:rgba(30,34,43,.62);border:1px solid rgba(214,180,126,.20);border-radius:16px;
         padding:16px 18px 14px;backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
@@ -717,6 +721,8 @@ window.veriAl = (function(){
                  13.09 Cem: "soru çözmeye başla dediğinde direkt sorular geliyor; başta sınavlar gelmeli,
                  altında ders ders" -> SINAV SEÇİMİ sayfasına (sorular.html). Site hâlâ açılış perdesinin arkasında. -->
             <a class="bz-cta" href="sorular.html">Soru çözmeye başla</a>
+            <!-- 13.09 Cem: "ilk testim müşteri çekmek için; bu sınavda kaç puan alırsın, denetle tarzı" -> seviye-testi.html -->
+            <a class="bz-cta2" href="seviye-testi.html">20 soruda geçme ihtimalini ölç →</a>
           </div>
           <div class="bz-cam">
             <div class="bz-cam-ust"><span id="bzDers">Türkçe · anlatım bozukluğu</span><s>SGS · Kaydır-Çöz</s></div>
