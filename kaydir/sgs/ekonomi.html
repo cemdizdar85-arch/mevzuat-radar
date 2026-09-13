@@ -7,6 +7,33 @@
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 :root[data-vitrin] .temaB{display:none}
+/* 13.09 Cem: "nöbetçi çöz dediğinde sadece ekrandaki soru çözsün, başka alt alta soru olmasın."
+   ?tek=1 = ana sayfa çerçevesi: YALNIZ #s=<sıra> kartı görünür, akış kaydırılamaz,
+   "Sonraki" ve "yukarı kaydır" ipucu gizlenir (sonraki kart yokken yanıltır). */
+:root[data-tek] #akis{overflow:hidden;scroll-snap-type:none}
+:root[data-tek] #akis>*:not(.tekKart){display:none}
+:root[data-tek] .bSonraki,:root[data-tek] .ipucu{display:none}
+/* tek kartta dizi göstergeleri yanıltır: ilerleme noktaları, "10 / 10" sayacı, hazırlık skoru ve yanlış kutusu çipleri gizli. */
+:root[data-tek] .noktalar,:root[data-tek] .ustSag{display:none}
+/* 13.09 Cem: "renk koyu olsa, site rengi". Ana sayfa çerçevesi koyu açılır (tema=koyu);
+   koyu temanın MAVİ vurgusu yalnız çerçevede sitenin BRONZUNA çevrilir. Ürünün kendi
+   teması değişmez - kural data-tek'e bağlı, normal Kaydır-Çöz'e dokunmaz. */
+:root[data-tek][data-theme="dark"]{--mavi:#e3b877}
+/* 13.09 Cem onayı: akran satırı ("👥 9 adayın %89'u senin gibi B dedi") çerçevede gizli.
+   Örneklem küçükken ilk kez gelen ziyaretçi "sitede 9 kişi var" diye okur. Üründe durur. */
+:root[data-tek] .akranNot{display:none}
+/* Aynı akran verisi şıkların üstüne de basılıyor (.sikYuzde: "B) 1,50 %89", "C) 1,67 %0").
+   Öğrenci turunda görüldü: doğru cevabın yanında %0, ilk gelene "site bozuk mu" dedirtiyor. */
+:root[data-tek] .sikYuzde{display:none}
+/* 13.09 Cem seçimi (tek tek gidildi): Alarm rozeti (kişisel ustalık seviyesi, ilk gelene
+   anlamsız ve kırmızı "Alarm" hata gibi okunuyor) ile cevap sonrası ikinci "Kâğıdım" düğmesi
+   (üstteki "Kâğıt" aynı işi yapıyor) çerçevede gizli. "Daha fazla" ve "Sen çöz" KALDI. */
+:root[data-tek] .seviye,:root[data-tek] .cKagit{display:none}
+/* 13.09 Cem: "Hata bildir'i sil". Vitrinden gelen bildirim gerçek adayların bildirimleriyle
+   aynı kutuya düşerdi; ana sayfa ziyaretçisine hata düğmesi de güven vermez. Üründe durur. */
+/* Özgüllük: ürünün ".cipler.acikEk .cip2.ek{display:inline-block}" kuralı (0,4,0) "Daha fazla"
+   açılınca ":root[data-tek] .cHata"yı (0,3,0) eziyordu - ölçüldü. Seçici (0,5,0)'a çıkarıldı, !important yok. */
+:root[data-tek] .cipler .cip2.cHata{display:none}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:Segoe UI,system-ui,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
@@ -235,10 +262,12 @@
 // 09.09 tema + vitrin: varsayılan açık (site), koyu yalnız düğmeyle; ?tema=koyu|acik zorlar; ?vitrin=1 = ana sayfa vitrini
 // (düğme gizli, kasaya cevap/kâğıt YAZMAZ ki "en çok yanıltan soru" ölçümü vitrin tıklamasıyla kirlenmesin).
 const VITRIN=/[?&]vitrin=1/.test(location.search);
+const TEK=/[?&]tek=1/.test(location.search);
 (function(){ const d=document.documentElement; const q=(location.search.match(/[?&]tema=(koyu|acik)/)||[])[1]; let t=null; try{ t=localStorage.getItem('kc_tema'); }catch(e){}
   if(q==='koyu') t='dark'; else if(q==='acik') t='light';
   if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');
   if(VITRIN) d.setAttribute('data-vitrin','1');
+  if(TEK) d.setAttribute('data-tek','1');
   document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('temaB'); if(!b) return;
     const ikon=()=>{ const koyu=d.getAttribute('data-theme')==='dark'; b.textContent=koyu?'☀':'☾'; b.setAttribute('aria-label',koyu?'Açık temaya geç':'Koyu temaya geç'); };
     ikon(); b.addEventListener('click',()=>{ const y=d.getAttribute('data-theme')==='dark'?'light':'dark'; if(y==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme'); try{ localStorage.setItem('kc_tema',y); }catch(e){} ikon(); }); });
@@ -960,5 +989,8 @@ akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clie
   if(i>=SORULAR.length){ const c=Object.keys(durum.cevap).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+durum.dogru+' / '+SORULAR.length+'</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(SORULAR.length-durum.dogru)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+durum.dogru+'/'+SORULAR.length+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
 document.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){ akis.scrollBy({top:akis.clientHeight,behavior:'smooth'}); } if(e.key==='ArrowUp'||e.key==='PageUp'){ akis.scrollBy({top:-akis.clientHeight,behavior:'smooth'}); } });
 /* 09.09 derin bağlantı (ana sayfa kartı → günün sorusu): #s=<sıra> kartını açar; yoksa baştan. */
-window.addEventListener('load',function(){ try{ var m=location.hash.match(/#s=(\d+)/); var a=document.getElementById('akis'); if(m&&a&&a.children[+m[1]]) a.scrollTo({top:a.children[+m[1]].offsetTop,behavior:'instant'}); }catch(e){} });
+window.addEventListener('load',function(){ try{ var m=location.hash.match(/#s=(\d+)/); var a=document.getElementById('akis'); if(!a) return;
+  /* ?tek=1: hedef kart işaretlenir, gerisi CSS ile gizli. Sıra yoksa/aralık dışıysa ilk kart - boş çerçeve kalmaz. */
+  if(TEK){ var n=(m&&a.children[+m[1]])?+m[1]:0; if(a.children[n]) a.children[n].classList.add('tekKart'); a.scrollTop=0; return; }
+  if(m&&a.children[+m[1]]) a.scrollTo({top:a.children[+m[1]].offsetTop,behavior:'instant'}); }catch(e){} });
 </script></body></html>

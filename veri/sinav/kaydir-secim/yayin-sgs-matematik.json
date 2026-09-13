@@ -1,6 +1,6 @@
 [
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
+        "etiket":  "sgs-d4-mat-kolay-r3",
         "id":  "kp-01",
         "ders":  "Matematik",
         "konu":  "denklem cozme",
@@ -9,6 +9,30 @@
     },
     {
         "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-01",
+        "ders":  "Matematik",
+        "konu":  "denklem cozme",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r4",
+        "id":  "kp-01",
+        "ders":  "Matematik",
+        "konu":  "denklem cozme",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-kolay",
+        "id":  "kp-01",
+        "ders":  "Matematik",
+        "konu":  "denklem cozme",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r2",
         "id":  "kp-01",
         "ders":  "Matematik",
         "konu":  "denklem cozme",
@@ -32,6 +56,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-05",
+        "ders":  "Matematik",
+        "konu":  "limit hesaplama",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-05",
         "ders":  "Matematik",
@@ -48,16 +80,56 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-d4-mat-cokzor-r3",
+        "id":  "kp-01",
         "ders":  "Matematik",
         "konu":  "limit hesaplama",
         "donem":  5,
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d4-mat-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "Matematik",
+        "konu":  "limit hesaplama",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r1",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "uslu sayilar",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r4",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "uslu sayilar",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r3",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "uslu sayilar",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-08",
+        "ders":  "Matematik",
+        "konu":  "oran oranti",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-cokzor-r1",
+        "id":  "kp-02",
         "ders":  "Matematik",
         "konu":  "oran oranti",
         "donem":  4,
@@ -76,6 +148,22 @@
         "id":  "kp-08",
         "ders":  "Matematik",
         "konu":  "oran oranti",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-cokzor-r2",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "oran oranti",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-zor-r2",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "sayi problemi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -96,7 +184,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
+        "etiket":  "sgs-d4-mat-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Matematik",
+        "konu":  "sayi problemi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-06",
         "ders":  "Matematik",
         "konu":  "tanimli islem",
@@ -104,7 +200,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-06",
         "ders":  "Matematik",
         "konu":  "tanimli islem",
@@ -136,14 +232,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
-        "id":  "kp-12",
-        "ders":  "Matematik",
-        "konu":  "cebirsel sadelestirme",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-12",
         "ders":  "Matematik",
@@ -153,6 +241,14 @@
     },
     {
         "etiket":  "sgs-t1-genel-mat-cokzor",
+        "id":  "kp-12",
+        "ders":  "Matematik",
+        "konu":  "cebirsel sadelestirme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-12",
         "ders":  "Matematik",
         "konu":  "cebirsel sadelestirme",
@@ -180,6 +276,30 @@
         "id":  "kp-18",
         "ders":  "Matematik",
         "konu":  "cebirsel ifade sadelestirme",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r2",
+        "id":  "kp-05",
+        "ders":  "Matematik",
+        "konu":  "denklem sistemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r3",
+        "id":  "kp-05",
+        "ders":  "Matematik",
+        "konu":  "denklem sistemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-kolay-r1",
+        "id":  "kp-05",
+        "ders":  "Matematik",
+        "konu":  "denklem sistemi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -240,6 +360,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d4-mat-cokzor-r3",
+        "id":  "kp-04",
+        "ders":  "Matematik",
+        "konu":  "sayi problemleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t3-mat-cokzor",
         "id":  "kp-04",
         "ders":  "Matematik",
@@ -248,8 +376,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d4-mat-cokzor-r1",
+        "id":  "kp-04",
+        "ders":  "Matematik",
+        "konu":  "turev hesaplama",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-15",
+        "ders":  "Matematik",
+        "konu":  "yuzde problemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-mat-cokzor-r1",
+        "id":  "kp-03",
         "ders":  "Matematik",
         "konu":  "yuzde problemi",
         "donem":  2,
@@ -264,7 +408,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-kolay",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-33",
         "ders":  "Matematik",
         "konu":  "ardisik sayi problemi",
@@ -272,7 +416,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-t1-genel-mat-kolay",
         "id":  "kp-33",
         "ders":  "Matematik",
         "konu":  "ardisik sayi problemi",
@@ -304,7 +448,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-30",
         "ders":  "Matematik",
         "konu":  "fonksiyon denklemi",
@@ -312,7 +456,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-30",
         "ders":  "Matematik",
         "konu":  "fonksiyon denklemi",
@@ -464,7 +608,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-cokzor",
+        "etiket":  "sgs-t1-genel-mat-zor",
         "id":  "kp-25",
         "ders":  "Matematik",
         "konu":  "turev alma",
@@ -472,7 +616,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-mat-zor",
+        "etiket":  "sgs-t1-genel-mat-cokzor",
         "id":  "kp-25",
         "ders":  "Matematik",
         "konu":  "turev alma",
