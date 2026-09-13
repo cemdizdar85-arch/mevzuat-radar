@@ -75,6 +75,21 @@ jobs:
           $no = [int]'${{ steps.emir.outputs.no }}'
           foreach($x in $e.emirler){ if([int]$x.no -eq $no){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force } }
           [IO.File]::WriteAllText($y, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+      # 13.09 - PARALI SONUC ONCE KAYDEDILIR. Emir #11 (SMMM prova) analiz adimi
+      # 2 dakikada bitti, ama karne adimi 1,5 saati gecti ve kaydetme adimi ONUN
+      # ARKASINDA, kosulsuz degildi: karne duserse ya da is zaman asimina ugrarsa
+      # parasi odenmis etiketleme runner'la birlikte kaybolurdu. Artik analiz
+      # dosyalari karneden ONCE, always() ile commit+push edilir; karne ayrica
+      # zaman sinirli ve hatasi kosuyu dusurmez.
+      - name: Analiz sonuclarini kaydet (karneden ONCE)
+        if: always() && steps.emir.outputs.kos == 'evet'
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          for f in veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json veri/sinav-analiz-fatura.json veri/sinav-analiz-log.txt veri/sinav-analiz-emir.json; do git add "$f" 2>/dev/null || true; done
+          git diff --cached --quiet || git commit -m "Sinav analizi: ${{ steps.emir.outputs.sinav }} etiketleme emir #${{ steps.emir.outputs.no }} ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
+          git pull --rebase --autostash origin main || true
+          git push || true
       # 29.07 - KARNE AYNI KOSUDA YENILENIR, TETIGE GUVENILMEZ.
       # Karne is akisi "veri/sgs-analiz.json degisince kos" diye kurulmustu ama
       # o dosyayi BU ROBOT yaziyor ve GITHUB_TOKEN ile yapilan robot push'lari
@@ -84,11 +99,14 @@ jobs:
       # PARA HARCAMAZ: karne yalniz ambar okur.
       - name: Karneyi yenile (yeni konular kotaya girebilsin)
         if: always() && steps.emir.outputs.kos == 'evet'
+        timeout-minutes: 45
+        continue-on-error: true
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/konu-kaynak-karnesi.ps1
       - name: Sonuclari kaydet
+        if: always()
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
