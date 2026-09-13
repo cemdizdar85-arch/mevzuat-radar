@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260913210229
+Start time: 20260913210458
 Username: runnervmlun5p\runner
 RunAs User: runnervmlun5p\runner
 Configuration Name: 
 Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a2bbc0fe-311e-4d40-81a0-41b1868ce1f0.ps1'
-Process ID: 2252
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/fef67c0a-49d1-4975-ab9f-193cd700b2a7.ps1'
+Process ID: 2029
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -46,18 +46,793 @@ Taranan sayfa: 69
   uyari-teyit.html           1 dayanak
 
 Tekil (kanun, madde) cifti: 117 - ambarda araniyor...
-  ambarda BULUNAN : 116
-  BULUNAMAYAN     : 1
-
-  BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
-     213 m.372   [ambarda-yok]
-
-  NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
-  olabilir ya da o kanun ambara henuz tam girmemis olabilir. GM
-  tek tek bakacak. Ama her biri KONTROL EDILMEDEN yayinda kalmaz.
-
--> veri/dayanak-haritasi.json  (26 sayfa, 117 tekil dayanak)
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST002",
+  "details": null,
+  "hint": null,
+  "message": "Could not query the database for the schema cache. Retrying."
+}"
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> $global:?
+False
 **********************
 PowerShell transcript end
-End time: 20260913210333
+End time: 20260913212125
 **********************
