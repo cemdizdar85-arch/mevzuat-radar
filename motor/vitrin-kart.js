@@ -1,5 +1,5 @@
 // GÜNÜN VİTRİN SORUSU (09.09.2026, Cem "2 yap") — ana sayfadaki gösterimlik kartın verisi.
-// Kaynak: kaydir/vitrin/<sinav>.html (motor/vitrin-bas.ps1 ile basılan, ölçütle seçilmiş 10 soru).
+// Kaynak: kaydir/vitrin/<sinav>.html (motor/vitrin-bas.ps1 ile basılan, ölçütle seçilmiş havuz; 13.09'dan beri 70 soru).
 // Her sınav için o günün sorusu = yılın günü mod soru sayısı (TR günü); sayfa sırasıyla aynı
 // (kart bağlantısı #s=<sıra> ile Nöbetçi'de o soruyu açar). Sınav sekmesi yalnız vitrin dosyası
 // olan sınav için üretilir → smmm/kgk basılınca sekme kendiliğinden gelir.
@@ -41,7 +41,11 @@ for (const [kod, ad] of SINAVLAR) {
   sinavlar[kod] = {
     ad, sira: i, toplam: liste.length, id: s.id, ders: s.ders, konu: s.konu,
     kunye: (s.capa && s.capa.kaynak) ? s.capa.kaynak + ' kalıbı' : (s.ders + ' · yeni soru'),
-    donem: (s.cikmis && Array.isArray(s.cikmis.donemler)) ? s.cikmis.donemler.length : 0,   // GERÇEK çıkma sayısı (rozetle aynı); pencereDonemler pencere genişliğidir
+    // ⛔ 13.09: yorum "rozetle aynı" diyordu ama DEĞİLDİ. Karttaki rozet kaydir-coz.ps1'de
+    // max(s.donem, cikmis.donemler.length); gece yayınlanan havuzda cikmis.donemler boş, s.donem dolu.
+    // Eski hâl yeni sorularda afişe "0 dönem" yazdırıyordu. Artık rozetle birebir aynı ölçü.
+    // (pencereDonemler PENCERE genişliğidir, her soruda 7 - kullanılmaz.)
+    donem: Math.max(parseInt(s.donem, 10) || 0, (s.cikmis && Array.isArray(s.cikmis.donemler)) ? s.cikmis.donemler.length : 0),
     teori: !!s.teori, rakamSik,
     soru: String(s.soru || ''), siklar, dogru: String(s.dogru || ''), tuzak,
     hap: kisalt(s.hap || s.kural || '', 240), satirlar,

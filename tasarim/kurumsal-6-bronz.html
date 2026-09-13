@@ -578,21 +578,38 @@ if(tuval){
 
   ileriEl.addEventListener('click',function(){ if(acildi) kapat(); else ac(); });
 
-  fetch('../veri/vitrin-kunye.json',{cache:'no-store'})
-    .then(function(y){return y.ok?y.json():null;})
-    .then(function(d){
-      if(!d||!d.kartlar||!d.kartlar.length)return;
-      KUNYE=d;
-      if(d.baglanti) YOL='../'+d.baglanti.replace('tema=acik','tema=koyu');
-      /* Gün bazlı sıra: aynı gün herkese aynı soru, ertesi gün sırası gelen. */
-      var gun=Math.floor(Date.now()/86400000);
-      sira=((gun%d.kartlar.length)+d.kartlar.length)%d.kartlar.length;
-      afisCiz();
-      var bag=document.getElementById('baskaSoru');
-      if(bag) bag.addEventListener('click',function(e){
-        e.preventDefault(); sira=(sira+1)%d.kartlar.length; afisCiz();
-      });
-    }).catch(function(){});
+  /* ⛔ 13.09 — GÜNÜN SORUSU TEK KAYNAKTAN.
+     Önceki hâl sırayı SAYFADA hesaplıyordu: UTC'ye göre "1970'ten beri gün mod N".
+     Her sabah 05:20'de koşan robot (motor/vitrin-kart.js) ise İSTANBUL saatine göre
+     "yılın günü mod N" kullanıyor. İkisi aynı gün FARKLI soruyu gösterebiliyordu.
+     Artık afiş ve çerçeve robotun o sabah seçtiği sırayı okur
+     (veri/vitrin-kart-ozet.json → sinavlar.sgs.sira). Künye dosyası yalnız
+     "son N sınav" tabanı ve "Başka soru" listesi için kullanılır. Robot dosyası
+     yoksa sıra ROBOTUN AYNI FORMÜLÜYLE hesaplanır. */
+  function robotGunu(n){
+    var s=new Date(), tr=new Date(s.toLocaleString('en-US',{timeZone:'Europe/Istanbul'}));
+    var gunNo=Math.floor((tr-new Date(tr.getFullYear(),0,1))/86400000);
+    return ((gunNo%n)+n)%n;
+  }
+  Promise.all([
+    fetch('../veri/vitrin-kunye.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;}),
+    fetch('../veri/vitrin-kart-ozet.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;})
+  ]).then(function(r){
+    var d=r[0], oz=r[1];
+    if(!d||!d.kartlar||!d.kartlar.length)return;
+    KUNYE=d;
+    if(d.baglanti) YOL='../'+d.baglanti.replace('tema=acik','tema=koyu');
+    var robot=oz&&oz.sinavlar&&oz.sinavlar.sgs;
+    /* Robotun sırası ancak aynı havuza aitse kullanılır (toplam eşleşmeli);
+       havuz yeniden basılıp robot henüz koşmadıysa eski sıra yanlış kartı açar. */
+    if(robot && robot.toplam===d.kartlar.length && d.kartlar[robot.sira]){ sira=robot.sira; }
+    else { sira=robotGunu(d.kartlar.length); }
+    afisCiz();
+    var bag=document.getElementById('baskaSoru');
+    if(bag) bag.addEventListener('click',function(e){
+      e.preventDefault(); sira=(sira+1)%d.kartlar.length; afisCiz();
+    });
+  });
 })();
 /* ===================================================================
    4) NÖBET ŞERİDİ — index.html ile aynı kural

@@ -1,69 +1,69 @@
 {
-  "olcum": "2026-09-13T07:31:45.958Z",
+  "olcum": "2026-09-13T07:59:58.946Z",
   "gun": "2026-09-13",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 5,
-      "toplam": 10,
-      "id": "sgs-t1-ticaret-kolay/kp-02",
-      "ders": "Ticaret Hukuku|Ticaret ve Borclar",
-      "konu": "haksız rekabet reklam yasağı",
-      "kunye": "SGS 2025/1 Soru 103 kalıbı",
-      "donem": 7,
+      "sira": 45,
+      "toplam": 70,
+      "id": "sgs-t1-genel-turkce-zor/kp-03",
+      "ders": "Türkçe",
+      "konu": "anlatım bozukluğu",
+      "kunye": "SGS 2025/1 Soru 1 kalıbı",
+      "donem": 15,
       "teori": true,
       "rakamSik": false,
-      "soru": "Türk Ticaret Kanunu'na göre aşağıdakilerden hangisi dürüstlük kuralına aykırı reklam ve satış yöntemleri kapsamında bir haksız rekabet hali değildir?",
+      "soru": "\"Sporcular, antrenörün verdiği talimatları dinledi ve harfiyen uydu.\" cümlesindeki anlatım bozukluğunun benzeri, aşağıdakilerin hangisinde vardır?",
       "siklar": {
-        "A": "Başkalarının mallarını, iş ürünlerini veya faaliyetlerini yanlış, yanıltıcı veya gereksiz yere incitici açıklamalarla kötülemek.",
-        "B": "Kendisi veya işletmesi hakkında gerçek dışı ya da yanıltıcı açıklamalarda bulunarak üçüncü kişiyi rekabette öne geçirmek.",
-        "C": "Almadığı bir paye, diploma veya ödüle sahipmiş gibi hareket ederek müstesna yeteneğe sahip olduğu izlenimini uyandırmak.",
-        "D": "Sermaye taahhüdünde bulunanın ödeme yeterliliğinin bulunmadığını bilerek buna onay veren kişinin, bu borcun ödenmemesinden doğan zarardan sorumlu tutulması.",
-        "E": "Başkasının malları, iş ürünleri veya faaliyetleriyle karıştırılmaya yol açacak önlemler almak."
+        "A": "Fabrikada üretilen ürünler paketlendi ve depoya gönderdi.",
+        "B": "Bahçıvan, çiçekleri suladı ve baktı.",
+        "C": "Bu proje için en ideal çözümü henüz bulamadık.",
+        "D": "Ben de bu görüşe katılıyoruz, herkes memnun.",
+        "E": "Öğretmenin öğrencisini öven müdürü gördüm."
       },
-      "dogru": "D",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Sıfat Yanılgısı Tuzağı",
-          "metin": "Almadığı ödülü almış gibi göstermeyi yalnız etik ihlal sayıp kanuni haksız rekabet halinden ayrı tutarsın. Doğrusu: 3 üncü alt bent bunu haksız rekabet hali olarak düzenler."
+          "ad": "Gereksiz Sözcük Tuzağı",
+          "metin": "Öğrenci burada da öge eksikliği arar ama asıl sorun \"ideal\" sözcüğünün zaten üstünlük bildirmesidir; \"en\" atıldığında anlam bozulmaz. Doğrusu: Bu cümledeki bozukluk gereksiz sözcük kullanımıdır, öge eksikliği değildir."
         },
         "E": {
-          "ad": "Karıştırma Tuzağı",
-          "metin": "Bu önlemleri yalnız marka hukukunun konusu sanırsın. Doğrusu: 4 üncü alt bent karıştırılmaya yol açan önlemleri haksız rekabet hali sayar, bu şık da soruya cevap değildir."
+          "ad": "Anlam Belirsizliği Tuzağı",
+          "metin": "Öğrenci burada da fiil-ek uyumsuzluğu arar ama cümlede iyelik eksikliğinden doğan belirsizlik vardır; öven kişi öğretmen mi müdür mü belli değildir. Doğrusu: Bu cümledeki bozukluk anlam belirsizliğidir, öge eksikliği de…"
+        },
+        "D": {
+          "ad": "Özne-Yüklem Uyumu Tuzağı",
+          "metin": "Öğrenci ortak tümleç arayışıyla yanılır; oysa \"ben\" tekil öznesi \"katılıyoruz\" çoğul yüklemiyle kişi bakımından uyumsuzdur. Doğrusu: Bu cümledeki bozukluk özne-yüklem (kişi) uyumsuzluğudur."
         },
         "A": {
-          "ad": "Kötüleme Tuzağı",
-          "metin": "Bu ifadeyi kanunun konu dışı bıraktığını sanırsın ama Türk Ticaret Kanununun 55 inci maddesinin birinci fıkrasının (a) bendinin 1 inci alt bendi tam olarak bunu haksız rekabet hali sayar. Doğrusu: bu bir haksız rekabet …"
-        },
-        "B": {
-          "ad": "Öne Geçirme Tuzağı",
-          "metin": "Gerçek dışı açıklamayı sadece 'reklam serbestisi' sanıp haksız rekabet dışı zannedersin. Doğrusu: aynı maddenin 2 nci alt bendi bunu açıkça haksız rekabet hali sayar."
+          "ad": "Çatı Uyumsuzluğu Tuzağı",
+          "metin": "Öğrenci burada da ortak nesne sorunu arıyor ama gördüğü şey farklıdır; \"paketlendi\" edilgen çatılı, \"gönderdi\" etken çatılıdır ve aynı özneye bağlanamaz. Doğrusu: Bu cümledeki bozukluk çatı uyumsuzluğudur, kökteki öge e…"
         }
       },
-      "hap": "Türk Ticaret Kanununun 55 inci maddesi haksız rekabet hallerini sayar; 550 ve 551 inci maddeler ise şirket kuruluşundan doğan ayrı sorumluluk hallerini düzenler, ikisi karıştırılmaz.",
+      "hap": "İki fiil ortak bir tümlece bağlanıyorsa önce ikisinin de aynı hal ekini isteyip istemediğine bak.",
       "satirlar": [
         [
-          "A) Başkalarının mallarını, iş ürünlerini veya faaliyetlerin…",
-          "m.55/1-a-1"
+          "A) Fabrikada üretilen ürünler paketlendi ve depoya gönderdi.",
+          "Yapıya Dayalı Bozukluklar (4) Çatı Uyumsuzluğu"
         ],
         [
-          "B) Kendisi veya işletmesi hakkında gerçek dışı ya da yanılt…",
-          "m.55/1-a-2"
+          "B) Bahçıvan, çiçekleri suladı ve baktı.",
+          "Yapıya Dayalı Bozukluklar (1) Öge Eksikliği - ortak tümleç"
         ],
         [
-          "C) Almadığı bir paye, diploma veya ödüle sahipmiş gibi hare…",
-          "m.55/1-a-3"
+          "C) Bu proje için en ideal çözümü henüz bulamadık.",
+          "Anlama Dayalı Bozukluklar (1) Gereksiz Sözcük"
         ],
         [
-          "D) Sermaye taahhüdünde bulunanın ödeme yeterliliğinin bulun…",
-          "m.550/2"
+          "D) Ben de bu görüşe katılıyoruz, herkes memnun.",
+          "Yapıya Dayalı Bozukluklar (2) Özne-Yüklem Uyumsuzluğu"
         ],
         [
-          "E) Başkasının malları, iş ürünleri veya faaliyetleriyle kar…",
-          "m.55/1-a-4"
+          "E) Öğretmenin öğrencisini öven müdürü gördüm.",
+          "Anlama Dayalı Bozukluklar (2) Anlam Belirsizliği"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=5"
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=45"
     }
   }
 }

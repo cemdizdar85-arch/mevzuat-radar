@@ -1,80 +1,500 @@
 {
-    "uretim":  "2026-09-13 09:38",
+    "uretim":  "2026-09-13 11:00",
     "uretici":  "motor/vitrin-kunye-cikar.ps1",
     "kaynak":  "kaydir/vitrin/sgs.html",
     "baglanti":  "kaydir/vitrin/sgs.html?vitrin=1\u0026tek=1\u0026tema=acik#s=",
     "taranan_donem":  35,
-    "adet":  10,
+    "adet":  70,
     "kartlar":  [
                     {
                         "sira":  0,
-                        "ders":  "Mali Tablolar Analizi",
-                        "konu":  "dikey yüzde analizi",
-                        "donem":  11,
-                        "ozet":  "İşletmenin 2026 yılı gelir tablosu dikey yüzde analizinde satılan malın maliyeti net satışların %65\u0027i, faaliyet giderleri toplamı ise net satışların %20\u0027sidir."
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "muhasebe bilgi sistemi",
+                        "donem":  10,
+                        "ozet":  "İşletmenin muhasebe departmanı 2026 yılı Aralık ayında şu işlemleri gerçekleştirmiştir: Yevmiyede 153 Ticari Mallar hesabına kaydedilmesi gereken 18.000 TL\u0027lik mal alışı sehven 255 Demirbaşlar hesa..."
                     },
                     {
                         "sira":  1,
-                        "ders":  "Meslek Hukuku",
-                        "konu":  "disiplin cezalari",
-                        "donem":  11,
-                        "ozet":  "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir."
-                    },
-                    {
-                        "sira":  2,
                         "ders":  "Denetim",
                         "konu":  "denetim kanıtı yeterliliği",
                         "donem":  9,
                         "ozet":  "İşletmenin kayıtlı ticari borç tutarı 940.000 TL\u0027dir."
                     },
                     {
+                        "sira":  2,
+                        "ders":  "Yabancı Dil",
+                        "konu":  "cümle tamamlama",
+                        "donem":  18,
+                        "ozet":  "Although the audit team had full access to all the accounting records, ----."
+                    },
+                    {
                         "sira":  3,
-                        "ders":  "Mali Tablolar Analizi",
-                        "konu":  "yatay analiz",
-                        "donem":  8,
-                        "ozet":  "Bir perakende işletmesinin ticari alacakları 2025 yılında 200.000 TL, 2026 yılında 250.000 TL olarak gerçekleşmiştir."
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "ortak maliyet dağıtımı",
+                        "donem":  13,
+                        "ozet":  "Bir tekstil işletmesinde A ve B ana ürünleri ile Z yan ürünü aynı ortak üretim sürecinden elde edilmektedir."
                     },
                     {
                         "sira":  4,
-                        "ders":  "Ticaret Hukuku",
-                        "konu":  "genel işlem koşulları",
-                        "donem":  9,
-                        "ozet":  "Bir işletme, standart sözleşmeye koyduğu bir hükmün ayrı ayrı tartışılarak kabul edildiğine dair kayıt düşmüştür."
+                        "ders":  "Mali Tablolar Analizi",
+                        "konu":  "dikey yüzde analizi",
+                        "donem":  11,
+                        "ozet":  "İşletmenin 2026 yılı gelir tablosu dikey yüzde analizinde satılan malın maliyeti net satışların %65\u0027i, faaliyet giderleri toplamı ise net satışların %20\u0027sidir."
                     },
                     {
                         "sira":  5,
-                        "ders":  "Ticaret Hukuku",
-                        "konu":  "haksız rekabet reklam yasağı",
+                        "ders":  "Matematik",
+                        "konu":  "denklem cozme",
                         "donem":  7,
-                        "ozet":  "Türk Ticaret Kanunu\u0027na göre aşağıdakilerden hangisi dürüstlük kuralına aykırı reklam ve satış yöntemleri kapsamında bir haksız rekabet hali değildir?"
+                        "ozet":  "x² − (2k + 2)x + (k² + k − 2) = 0 denkleminin iki farklı reel kökü x₁, x₂\u0027dir."
                     },
                     {
                         "sira":  6,
-                        "ders":  "Denetim",
-                        "konu":  "analitik prosedürler",
-                        "donem":  5,
-                        "ozet":  "Kira geliri hesabında analitik maddi doğrulama prosedürü uygulanmaktadır."
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 40 yatırım amaçlı gayrimenkul",
+                        "donem":  8,
+                        "ozet":  "İşletme, kira geliri elde etmek amacıyla kendi imkanlarıyla inşa ettirdiği ve gerçeğe uygun değer yöntemiyle izlenen yatırım amaçlı gayrimenkulünü 2026\u0027da tamamlamıştır."
                     },
                     {
                         "sira":  7,
-                        "ders":  "Is ve Sosyal Guvenlik Hukuku",
+                        "ders":  "Türkçe",
+                        "konu":  "yazım kuralları",
+                        "donem":  16,
+                        "ozet":  "Aşağıdaki cümlelerin hangisinde yazım kuralına aykırı bir kullanım vardır?"
+                    },
+                    {
+                        "sira":  8,
+                        "ders":  "Denetim",
+                        "konu":  "denetim kanıtı güvenilirliği",
+                        "donem":  7,
+                        "ozet":  "Bir bağımsız denetimde denetçi, farklı kaynaklardan elde ettiği kanıtların güvenilirlik derecesini karşılaştırmaktadır."
+                    },
+                    {
+                        "sira":  9,
+                        "ders":  "Meslek Hukuku",
+                        "konu":  "disiplin cezalari",
+                        "donem":  11,
+                        "ozet":  "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir."
+                    },
+                    {
+                        "sira":  10,
+                        "ders":  "Ticaret Hukuku",
+                        "konu":  "genel işlem koşulları",
+                        "donem":  9,
+                        "ozet":  "6098 sayılı Türk Borçlar Kanunu\u0027na göre genel işlem koşulları hakkında aşağıdakilerden hangisi yanlıştır?"
+                    },
+                    {
+                        "sira":  11,
+                        "ders":  "Borçlar Hukuku",
+                        "konu":  "sebepsiz zenginleşme",
+                        "donem":  8,
+                        "ozet":  "6098 sayılı Türk Borçlar Kanunu\u0027na göre sebepsiz zenginleşme hükümleri kapsamında aşağıdaki ifadelerden hangisi doğrudur?"
+                    },
+                    {
+                        "sira":  12,
+                        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+                        "konu":  "sendika üyeliği",
+                        "donem":  6,
+                        "ozet":  "Ahmet, metal işkolunda faaliyet gösteren iki farklı işverene ait işyerinde aynı dönemde çalışmakta olup bu işkolunda kurulu iki ayrı sendikaya üye olmak istemektedir."
+                    },
+                    {
+                        "sira":  13,
+                        "ders":  "Ekonomi",
+                        "konu":  "talep esnekliği",
+                        "donem":  4,
+                        "ozet":  "Bir X malının talep fonksiyonu Qd = 300 - 3P olarak verilmiştir."
+                    },
+                    {
+                        "sira":  14,
+                        "ders":  "Vergi Hukuku",
+                        "konu":  "çek zorunlu unsurlari",
+                        "donem":  5,
+                        "ozet":  "Bir çekte, muhatabın ticaret unvanı yanında hem İstanbul hem Ankara yazılıdır; düzenleyenin adı yanında yalnızca İzmir belirtilmiş, düzenlenme yeri ayrıca gösterilmemiştir."
+                    },
+                    {
+                        "sira":  15,
+                        "ders":  "Maliye",
+                        "konu":  "bütçe ilkeleri",
+                        "donem":  4,
+                        "ozet":  "Belirli bir gelirin belirli bir gidere tahsis edilmemesi hangi ilke ile ifade edilir?"
+                    },
+                    {
+                        "sira":  16,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "nakit akış tablosu",
+                        "donem":  7,
+                        "ozet":  "Bir işletmenin 2026 hesap dönemine ait bilgileri şöyledir: Dönem kârı 500.000 TL, amortisman giderleri 60.000 TL, maddi duran varlık satışından doğan kâr 25.000 TL, bu satıştan elde edilen nakit ta..."
+                    },
+                    {
+                        "sira":  17,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 36 değer düşüklüğü",
+                        "donem":  7,
+                        "ozet":  "Bir makine, diğer varlıklardan bağımsız nakit girişi yaratmaktadır."
+                    },
+                    {
+                        "sira":  18,
+                        "ders":  "Yabancı Dil",
+                        "konu":  "kelime bilgisi",
+                        "donem":  9,
+                        "ozet":  "Since the company could not collect its receivables on time, it had to ---- its short-term borrowing."
+                    },
+                    {
+                        "sira":  19,
+                        "ders":  "Denetim",
+                        "konu":  "analitik prosedürler",
+                        "donem":  5,
+                        "ozet":  "Bir alışveriş merkezi işletmesinin 2026 yılı kira geliri hesabı için analitik maddi doğrulama prosedürü uygulanmaktadır."
+                    },
+                    {
+                        "sira":  20,
+                        "ders":  "Mali Tablolar Analizi",
+                        "konu":  "net işletme sermayesi",
+                        "donem":  8,
+                        "ozet":  "İşletmenin 2026 yılına ait bilanço kalemleri şöyledir: Kasa 25.000 TL, Banka 45.000 TL, Ticari Alacaklar 80.000 TL, Stoklar 100.000 TL, Banka Kredileri (kısa vadeli) 60.000 TL, Ticari Borçlar 70.00..."
+                    },
+                    {
+                        "sira":  21,
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "genel üretim gideri dağıtımı",
+                        "donem":  7,
+                        "ozet":  "İşletmede genel üretim giderleri kademeli dağıtım yöntemiyle dağıtılmaktadır; dağıtım sırası önce Enerji, sonra Bakım-Onarım gider yeridir ve sıradaki yardımcı gider yeri geriye pay almaz."
+                    },
+                    {
+                        "sira":  22,
+                        "ders":  "Matematik",
+                        "konu":  "belirli integral",
+                        "donem":  6,
+                        "ozet":  "f(x) = 2x - 2 fonksiyonu ile Ox ekseni arasında, x = 0 ile x = 2 doğruları arasında kalan bölgenin alanı kaç birimkaredir?"
+                    },
+                    {
+                        "sira":  23,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "gider tahakkuku",
+                        "donem":  7,
+                        "ozet":  "İşletme, 01.10.2026 tarihinde bankadan yıllık %24 faiz oranlı, faizi vade sonunda (30.09.2027) tek seferde ödenecek 900.000 TL kredi kullanmıştır."
+                    },
+                    {
+                        "sira":  24,
+                        "ders":  "Türkçe",
+                        "konu":  "noktalama işaretleri",
+                        "donem":  15,
+                        "ozet":  "Amcam şehre göç etti ( ) burada dükkân açtı ( ) Bize sık sık ( ) “Elini işten ayırma ( )” derdi ( ) çünkü çalışmayı severdi ( ) ablam bu öğüdü unutmadı ( ) Ayraçlarla belirtilen yerlere getirilecek..."
+                    },
+                    {
+                        "sira":  25,
+                        "ders":  "Denetim",
+                        "konu":  "denetim çalışma kagitlari",
+                        "donem":  5,
+                        "ozet":  "BDS 230 uyarınca denetçi, uygulanan denetim prosedürlerinin niteliğini, zamanlamasını ve kapsamını belgelendirirken aşağıdakilerden hangisini kayıt altına alır?"
+                    },
+                    {
+                        "sira":  26,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "sermaye artirimi",
+                        "donem":  7,
+                        "ozet":  "Bir işletmenin 200.000 TL nominal değerli sermaye artırımının 150.000 TL\u0027lik kısmı nakit karşılığı ortaklara taahhüt ettirilmiş, kalan 50.000 TL ise yasal yedeklerden karşılanmıştır."
+                    },
+                    {
+                        "sira":  27,
+                        "ders":  "Yabancı Dil",
+                        "konu":  "cümle tamamlama-koşul",
+                        "donem":  7,
+                        "ozet":  "30. Verilen cümleyi uygun şekilde tamamlayan ifadeyi bulunuz. If the engineers ---- the design flaw earlier, the bridge would not have to be closed now."
+                    },
+                    {
+                        "sira":  28,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "hisse senedi satışı",
+                        "donem":  7,
+                        "ozet":  "İşletmenin alış bedeli 80.000 TL olan hisse senetleri için önceki dönem sonunda borsa değeri 68.000 TL olduğundan 654 Karşılık Giderleri hesabına 12.000 TL karşılık ayrılmıştır."
+                    },
+                    {
+                        "sira":  29,
+                        "ders":  "Denetim",
+                        "konu":  "denetim kanıtları",
+                        "donem":  5,
+                        "ozet":  "Bağımsız Denetim Kanıtları\u0027na göre denetçi, bir işletmenin alacaklarının bilanço tarihinden sonraki dönemde tahsil edildiğine ilişkin belgeleri incelemektedir."
+                    },
+                    {
+                        "sira":  30,
+                        "ders":  "Mali Tablolar Analizi",
+                        "konu":  "yatay analiz",
+                        "donem":  8,
+                        "ozet":  "İşletme, ticari alacaklar kalemine yatay analiz uygulamaktadır."
+                    },
+                    {
+                        "sira":  31,
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "normal maliyet yöntemi",
+                        "donem":  7,
+                        "ozet":  "Bir üretim işletmesinin aylık normal kapasitesi 20.000 adet mamuldür."
+                    },
+                    {
+                        "sira":  32,
+                        "ders":  "Matematik",
+                        "konu":  "limit hesaplama",
+                        "donem":  5,
+                        "ozet":  "lim (x→1) (x²−1)/(x−1) ile lim (x→∞) (2x²−3)/(x²+5) limitlerinin toplamı kaçtır?"
+                    },
+                    {
+                        "sira":  33,
+                        "ders":  "Meslek Hukuku",
+                        "konu":  "meslek etik ilkeleri",
+                        "donem":  9,
+                        "ozet":  "3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu\u0027na göre, meslek mensuplarının çalışma şekli, sorumluluğu ve meslekle bağdaşmayan işlere ilişkin olarak aşağıdakilerd..."
+                    },
+                    {
+                        "sira":  34,
+                        "ders":  "İş ve Sosyal Güvenlik Hukuku",
                         "konu":  "toplu is sözleşmesi",
                         "donem":  6,
                         "ozet":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu\u0027na göre toplu iş sözleşmesinin kapsamı ve sözleşmeden yararlanmaya ilişkin aşağıdaki durumlardan hangisi HER ZAMAN doğrudur?"
                     },
                     {
-                        "sira":  8,
-                        "ders":  "Is ve Sosyal Guvenlik Hukuku",
-                        "konu":  "sendika üyeliği",
-                        "donem":  6,
-                        "ozet":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu\u0027na göre sendika üyeliği ve üst kuruluş üyeliğine ilişkin aşağıdakilerden hangisi doğrudur?"
+                        "sira":  35,
+                        "ders":  "Ticaret Hukuku",
+                        "konu":  "ticaret unvanı",
+                        "donem":  5,
+                        "ozet":  "Gerçek kişi tacir olarak faaliyet gösteren \"Boğaziçi Marangozluk - Ahmet Demir\" işletmesi, ticaret unvanına hem \"Türk\" ibaresini eklemek hem de \"ve Ortakları\" ibaresiyle bir şirket bulunduğu izleni..."
                     },
                     {
-                        "sira":  9,
-                        "ders":  "Mali Tablolar Analizi",
-                        "konu":  "cari oran hesaplama",
+                        "sira":  36,
+                        "ders":  "Ekonomi",
+                        "konu":  "is-lm para politikası etkinliği",
                         "donem":  4,
-                        "ozet":  "İşletmenin ödeme öncesi dönen varlıkları 180.000 TL, kısa vadeli yabancı kaynakları 120.000 TL\u0027dir."
+                        "ozet":  "Bir ekonomide para talebinin faize duyarlılığı sonsuzdur (likidite tuzağı)."
+                    },
+                    {
+                        "sira":  37,
+                        "ders":  "Borçlar Hukuku",
+                        "konu":  "alacağın devri",
+                        "donem":  4,
+                        "ozet":  "A\u0027nın B\u0027den olan 60.000 TL alacağı, A ile C arasında yazılı şekle uyulmaksızın yapılan sözlü bir sözleşmeyle C\u0027ye devredilmiştir."
+                    },
+                    {
+                        "sira":  38,
+                        "ders":  "Vergi Hukuku",
+                        "konu":  "damga vergisi",
+                        "donem":  5,
+                        "ozet":  "488 sayılı Damga Vergisi Kanununun 14 üncü maddesine göre, akreditif mektup ve telgraflarında sürenin uzatılması halinde damga vergisi asıl verginin hangi miktarı üzerinden alınır?"
+                    },
+                    {
+                        "sira":  39,
+                        "ders":  "Maliye",
+                        "konu":  "bütçe siniflandirmasi",
+                        "donem":  3,
+                        "ozet":  "Analitik bütçe sınıflandırması, kurumsal (organik), fonksiyonel, finansman tipi ve ekonomik sınıflandırma olmak üzere dört ayrı bakış açısıyla oluşturulur."
+                    },
+                    {
+                        "sira":  40,
+                        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
+                        "konu":  "i. dünya savaşı",
+                        "donem":  3,
+                        "ozet":  "I. Dünya Savaşı\u0027nda İttifak Devletleri arasında ateşkes imzalayarak savaştan ilk çekilen devlet ile Mondros Ateşkes Antlaşması\u0027nı Osmanlı Devleti adına imzalayan kişi aşağıdakilerin hangisinde birl..."
+                    },
+                    {
+                        "sira":  41,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 38 maddi olmayan duran varlık",
+                        "donem":  6,
+                        "ozet":  "Bir işletme, 1 Ocak 2026 tarihinde 120.000 TL bedelle satın aldığı bir yazılımı, yönetimin amaçladığı şekilde faaliyete geçebilmesi için gerekli kurulum çalışmalarının 1 Nisan 2026\u0027da tamamlanmasın..."
+                    },
+                    {
+                        "sira":  42,
+                        "ders":  "Yabancı Dil",
+                        "konu":  "edat kullanımı",
+                        "donem":  6,
+                        "ozet":  "The auditor is responsible ---- expressing an opinion on the financial statements."
+                    },
+                    {
+                        "sira":  43,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 18 hasılat",
+                        "donem":  6,
+                        "ozet":  "İşletme, toplam bedeli 240.000 TL olan ve TFRS 15 uyarınca girdilerin (işçilik saatinin) sözleşme süresi boyunca eşit miktarda kullanıldığı bir hizmet sözleşmesini 6 ayda tamamlamayı taahhüt etmiştir."
+                    },
+                    {
+                        "sira":  44,
+                        "ders":  "Denetim",
+                        "konu":  "denetim riski",
+                        "donem":  5,
+                        "ozet":  "BDS 200\u0027e göre denetim riski, işletmenin kontrol yapısından doğan riskler ile denetçinin uyguladığı prosedürlerin sonucu olan risk arasındaki ilişkiden oluşur."
+                    },
+                    {
+                        "sira":  45,
+                        "ders":  "Türkçe",
+                        "konu":  "anlatım bozukluğu",
+                        "donem":  15,
+                        "ozet":  "\"Sporcular, antrenörün verdiği talimatları dinledi ve harfiyen uydu.\" cümlesindeki anlatım bozukluğunun benzeri, aşağıdakilerin hangisinde vardır?"
+                    },
+                    {
+                        "sira":  46,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 37 karşılıklar",
+                        "donem":  7,
+                        "ozet":  "İşletmenin dönem sonu değerleme işlemlerinden hangisinde, ilgili karşılık için 479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı alacaklandırılır?"
+                    },
+                    {
+                        "sira":  47,
+                        "ders":  "Mali Tablolar Analizi",
+                        "konu":  "aktif devir hızı",
+                        "donem":  8,
+                        "ozet":  "Bir işletmenin stok devir hızı 6, ortalama stoku 375.000 TL ve aktif devir hızı 2,40\u0027tır."
+                    },
+                    {
+                        "sira":  48,
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "sipariş maliyet sistemi",
+                        "donem":  7,
+                        "ozet":  "İşletme sipariş maliyet sistemi kullanmaktadır."
+                    },
+                    {
+                        "sira":  49,
+                        "ders":  "Matematik",
+                        "konu":  "oran orantı",
+                        "donem":  4,
+                        "ozet":  "Bir üretim tesisinde üç makinenin günlük üretim miktarları a, b, c olup a:b = 3:4 ve b:c = 5:6 oranındadır."
+                    },
+                    {
+                        "sira":  50,
+                        "ders":  "Denetim",
+                        "konu":  "kasa denetimi",
+                        "donem":  5,
+                        "ozet":  "Kasa ve nakit denetiminde denetçinin fiilen kasadaki parayı sayıp bunu kasa defterindeki bakiye ile karşılaştırması işlemi hangi yönetim beyanını test eder ve testin yönü nedir?"
+                    },
+                    {
+                        "sira":  51,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "maddi olmayan duran varlık (haklar)",
+                        "donem":  6,
+                        "ozet":  "İşletme, 1 Eylül 2026 tarihinde kullanıma hazır hale gelen bir bilgisayar yazılımı için 240.000 TL ödemiştir."
+                    },
+                    {
+                        "sira":  52,
+                        "ders":  "Yabancı Dil",
+                        "konu":  "passive voice",
+                        "donem":  5,
+                        "ozet":  "All the monthly expense reports ---- by the accounting department every week."
+                    },
+                    {
+                        "sira":  53,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "tms 2 stoklar",
+                        "donem":  5,
+                        "ozet":  "İşletme, ticaret amacıyla aldığı bir mal partisi için 200.000 TL mal bedeli ödemiş, 6.000 TL nakliye ve 4.000 TL sigorta giderine katlanmış, satıcıdan 12.000 TL alış iskontosu almıştır."
+                    },
+                    {
+                        "sira":  54,
+                        "ders":  "Denetim",
+                        "konu":  "maddi duran varlık denetimi",
+                        "donem":  3,
+                        "ozet":  "İşletme, maliyeti 187.500 TL, birikmiş amortismanı 132.800 TL olan taşıtı 47.350 TL takas değeriyle verip 62.900 TL nakit ekleyerek yeni taşıt almıştır."
+                    },
+                    {
+                        "sira":  55,
+                        "ders":  "Meslek Hukuku",
+                        "konu":  "haksız rekabet reklam yasağı",
+                        "donem":  7,
+                        "ozet":  "Bir SMMM hakkında, Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Mesleklerine İlişkin Haksız Rekabet ve Reklam Yasağı Yönetmeliğine aykırılık iddiasıyla yapılan şikâyetin soruşturul..."
+                    },
+                    {
+                        "sira":  56,
+                        "ders":  "Borçlar Hukuku",
+                        "konu":  "haksız fiil zamanaşımı",
+                        "donem":  4,
+                        "ozet":  "Bir haksız fiil 05.01.2016\u0027da işlenmiş, zarar gören zararı ve tazminat yükümlüsünü 10.03.2019\u0027da öğrenmiştir."
+                    },
+                    {
+                        "sira":  57,
+                        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+                        "konu":  "is sözleşmesi turleri",
+                        "donem":  5,
+                        "ozet":  "Bir işyerinde niteliği itibarıyla en çok yirmi beş iş günü sürecek montaj işinde çalıştırılacak işçi ile işveren arasında çağrı üzerine çalışmaya dayalı kısmi süreli, yazılı bir iş sözleşmesi yapıl..."
+                    },
+                    {
+                        "sira":  58,
+                        "ders":  "Ekonomi",
+                        "konu":  "taylor prensibi",
+                        "donem":  3,
+                        "ozet":  "Denge reel faiz %2, cari enflasyon %8, enflasyon hedefi %5, çıktı açığı 1 puandır."
+                    },
+                    {
+                        "sira":  59,
+                        "ders":  "Vergi Hukuku",
+                        "konu":  "kdv matrahı",
+                        "donem":  3,
+                        "ozet":  "Bir işletme, gerçek kişiye yaptığı mal teslimi karşılığında 500.000 TL mal bedeli, 20.000 TL vade farkı, 15.000 TL kur farkı ve teslim yerine kadar yapılan 5.000 TL taşıma gideri tahsil etmiş, fatu..."
+                    },
+                    {
+                        "sira":  60,
+                        "ders":  "Ticaret Hukuku",
+                        "konu":  "kıymetli evrak ciro",
+                        "donem":  4,
+                        "ozet":  "Bir poliçe, ilk lehtar tarafından beyaz ciro ile devredilmiş ve senedi devralan hamil iyiniyetlidir."
+                    },
+                    {
+                        "sira":  61,
+                        "ders":  "Maliye",
+                        "konu":  "kamu harcamaları sınıflandırma",
+                        "donem":  3,
+                        "ozet":  "Kamu harcamalarının sınıflandırılmasına ilişkin aşağıdaki ifadelerden hangisi doğrudur?"
+                    },
+                    {
+                        "sira":  62,
+                        "ders":  "Türkçe",
+                        "konu":  "sozcukte anlam",
+                        "donem":  8,
+                        "ozet":  "Aşağıdaki cümlelerin hangisinde tırnak içindeki sözcük yan anlamda kullanılmıştır?"
+                    },
+                    {
+                        "sira":  63,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "özkaynak hesaplama",
+                        "donem":  5,
+                        "ozet":  "İşletmenin 2026 yılı sonu bazı bilanço kalemlerine ait tutarlar şöyledir: 500 SERMAYE hesabı 200.000 TL, 540 YASAL YEDEKLER hesabı 15.000 TL, 570 GEÇMİŞ YILLAR KARLARI hesabı 10.000 TL, 590 DÖNEM N..."
+                    },
+                    {
+                        "sira":  64,
+                        "ders":  "Mali Tablolar Analizi",
+                        "konu":  "cari oran analizi",
+                        "donem":  6,
+                        "ozet":  "İşletmenin 2026 yılı cari oranı 1,80\u0027dir. Kısa vadeli yabancı kaynaklar toplamı 240.000 TL, uzun vadeli yabancı kaynaklar toplamı 90.000 TL\u0027dir. Dönen varlıklar içinde 100 KASA 15.000 TL, 101 ALINA..."
+                    },
+                    {
+                        "sira":  65,
+                        "ders":  "Maliyet Muhasebesi",
+                        "konu":  "evre maliyet sistemi",
+                        "donem":  5,
+                        "ozet":  "Evre (safha) maliyet sistemi uygulayan bir tekstil işletmesinde 2026 yılı dönem verileri şöyledir: direkt ilk madde ve malzeme gideri 245.000 TL, direkt işçilik gideri 132.500 TL, genel üretim gide..."
+                    },
+                    {
+                        "sira":  66,
+                        "ders":  "Matematik",
+                        "konu":  "tanımlı işlem",
+                        "donem":  4,
+                        "ozet":  "x ⋆ y = 2x + y − 4 ve x ◇ y = x + y − 6 işlemleri tanımlanıyor."
+                    },
+                    {
+                        "sira":  67,
+                        "ders":  "Yabancı Dil",
+                        "konu":  "present perfect tense",
+                        "donem":  5,
+                        "ozet":  "Since she ---- to Istanbul five years ago, she ---- in three different companies."
+                    },
+                    {
+                        "sira":  68,
+                        "ders":  "Denetim",
+                        "konu":  "denetim görüşü",
+                        "donem":  4,
+                        "ozet":  "Bir işletme bankalarla borç yeniden yapılandırması görüşmesi sürdürmekte olup görüşmenin sonucu belirsizdir."
+                    },
+                    {
+                        "sira":  69,
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "gelir tahakkuku",
+                        "donem":  5,
+                        "ozet":  "İşletme, 01.10.2025 tarihinde bir işletmeye 600.000 TL borç para vermiş, yıllık %20 basit faiz uygulamış ve alacağını 30.09.2026 tarihinde tahsil edecektir."
                     }
                 ]
 }

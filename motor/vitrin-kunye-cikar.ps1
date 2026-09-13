@@ -90,7 +90,8 @@ foreach ($s in $sorular) {
     sira  = $sira
     ders  = $ders
     konu  = ([string]$s.konu).Trim()
-    donem = [int]$s.donem
+    # Karttaki rozetle AYNI olcu: max(s.donem, cikmis.donemler sayisi) - kaydir-coz.ps1 rozeti boyle ciziyor.
+    donem = [Math]::Max([int]$s.donem, $(if ($s.cikmis -and $s.cikmis.donemler) { ($s.cikmis.donemler | Measure-Object).Count } else { 0 }))
     ozet  = $ilkCumle
   })
   $sira++
