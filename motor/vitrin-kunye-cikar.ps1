@@ -88,6 +88,8 @@ foreach ($s in $sorular) {
 
   $kartlar.Add([ordered]@{
     sira  = $sira
+    # id: ana sayfa, tarayicidaki yanlis kutusunda (localStorage kc_kutu) vadesi gelen soruyu bununla tanir.
+    id    = [string]$s.id
     ders  = $ders
     konu  = ([string]$s.konu).Trim()
     # Karttaki rozetle AYNI olcu: max(s.donem, cikmis.donemler sayisi) - kaydir-coz.ps1 rozeti boyle ciziyor.

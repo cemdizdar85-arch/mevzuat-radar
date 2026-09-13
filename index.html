@@ -638,6 +638,14 @@ window.veriAl = (function(){
         margin-top:11px;font-size:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07)}
       .bz-kah .bz-dip a{color:var(--bz-ak-govde);text-decoration:none;border-bottom:1px solid rgba(214,180,126,.35);padding-bottom:1px}
       .bz-kah .bz-dip a:hover{color:var(--bz-ak)}
+      /* KANCA (13.09 Cem "1.2.3 yap"): cevaptan sonra panelde tek cümle + üyelik düğmesi */
+      .bz-kah .bz-kanca{border:1px solid color-mix(in srgb,var(--bz-bronz) 38%,transparent);
+        background:color-mix(in srgb,var(--bz-bronz) 9%,transparent);border-radius:12px;padding:12px 14px;margin-bottom:11px}
+      .bz-kah .bz-kanca b{display:block;font-size:14px;color:var(--bz-ak);margin-bottom:4px}
+      .bz-kah .bz-kanca p{font-size:12.5px;line-height:1.5;color:var(--bz-ak-govde);margin:0 0 10px}
+      .bz-kah .bz-kanca a{display:inline-block;font-size:13px;font-weight:750;text-decoration:none;color:var(--bz-cta-yazi);
+        background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));border-radius:9px;padding:8px 16px}
+      .bz-kah .bz-kanca small{display:inline-block;margin-left:10px;font-size:11px;color:var(--bz-ak-sonuk)}
 
       /* nöbet şeridi: sitenin kendi (açık/koyu) temasını izler - jeton stil.css / stil-acik.css'ten */
       .bz-nobet{margin:18px auto 0;max-width:1240px;width:100%;text-align:left}
@@ -662,7 +670,10 @@ window.veriAl = (function(){
         .bz-kah{border-radius:14px}
         .bz-kah .bz-baslik{font-size:30px}
         .bz-kah .bz-alt{font-size:15.5px}
-        .bz-kah .bz-deste{opacity:.38}
+        /* 13.09: dar ekranda kartların yazısı başlığın arkasına düşüp kalabalık ediyordu -
+           kart gövdeleri doku olarak kalır, yazıları gizlenir (o boyda zaten okunmuyordu) */
+        .bz-kah .bz-deste{opacity:.5}
+        .bz-kah .bz-rk-kod,.bz-kah .bz-rk-bas{visibility:hidden}
       }
     </style>
 
@@ -685,6 +696,7 @@ window.veriAl = (function(){
             <div class="bz-rozet" id="bzRozet">📌 Son 35 sınavın 15 tanesinde çıktı</div>
             <p class="bz-ozet" id="bzOzet">"Sporcular, antrenörün verdiği talimatları dinledi ve harfiyen uydu." cümlesindeki anlatım bozukluğunun benzeri, aşağıdakilerin hangisinde vardır?</p>
             <div class="bz-cerceve" id="bzCerceve" hidden></div>
+            <div class="bz-kanca" id="bzKanca" hidden aria-live="polite"><b id="bzKancaBas"></b><p id="bzKancaMetin"></p><a href="radar-app.html">Ücretsiz üye ol</a><small id="bzKancaDip"></small></div>
             <div class="bz-surucu">
               <button class="bz-ileri" type="button" id="bzIleri">Nöbetçi çözsün →</button>
               <span class="bz-not" id="bzNot">Gerçek soru · şıkkı seç, çözümü aç</span>
@@ -780,8 +792,28 @@ window.veriAl = (function(){
       var cerceveEl=document.getElementById('bzCerceve'), ileriEl=document.getElementById('bzIleri'), notEl=document.getElementById('bzNot');
       if(!ileriEl||!cerceveEl) return;
       var KUNYE=null, sira=45, acik=false, YOL='kaydir/vitrin/sgs.html?vitrin=1&tek=1&tema=koyu#s=';
+      var kancaEl=document.getElementById('bzKanca'), tekrar=null;   /* tekrar: bu sıradaki soru yanlış kutusundan geldiyse kutu kaydı */
+      function kanca(bas,metin,dip){
+        if(!kancaEl) return;
+        document.getElementById('bzKancaBas').textContent=bas;
+        document.getElementById('bzKancaMetin').textContent=metin;
+        document.getElementById('bzKancaDip').textContent=dip||'';
+        kancaEl.hidden=false;
+      }
+      /* YANLIŞ KUTUSU: ürün (kaydir-coz) yanlış cevabı bu tarayıcıda kc_kutu'ya yazar - 2 gün sonra vade, o gün doğruysa 7 gün sonra son tur.
+         Ana sayfa aynı kaydı okur: vadesi gelmiş soru havuzdaysa günün sorusunun YERİNE o gelir. Söz "karşına çıkar" böylece gerçek. */
+      function kutuOku(){ try{ return { kutu:JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri:parseInt(localStorage.getItem('kc_ileri')||'0')||0 }; }catch(e){ return { kutu:[], ileri:0 }; } }
+      window.addEventListener('message',function(e){
+        var f=cerceveEl.querySelector('iframe');
+        if(e.origin!==location.origin||!f||e.source!==f.contentWindow) return;
+        var m=e.data; if(!m||m.tetikte!=='vitrin-cevap') return;
+        if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru burada yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu tarayıcıda tutulur.');
+        else if(tekrar&&tekrar.tur>=2) kanca('Kutundan çıktı.','İki tekrarı da doğru bildin; bu soru artık sende.','');
+        else if(tekrar) kanca('Doğru — ilk tekrarı geçtin.','7 gün sonra son bir kez karşına çıkacak; onu da bilirsen kutundan çıkar.','');
+        else kanca('Doğru.','Yarın sabah yeni soru gelir — sınava kadar her gün bir tane, aynısı tekrar etmez.','');
+      });
       function kapat(){
-        acik=false; cerceveEl.hidden=true; cerceveEl.innerHTML='';
+        acik=false; cerceveEl.hidden=true; cerceveEl.innerHTML=''; if(kancaEl) kancaEl.hidden=true;
         ileriEl.textContent='Nöbetçi çözsün →'; ileriEl.className='bz-ileri';
         rozetEl.hidden=false; ozetEl.hidden=false; notEl.textContent='Gerçek soru · şıkkı seç, çözümü aç';
       }
@@ -789,7 +821,8 @@ window.veriAl = (function(){
         if(!KUNYE) return; var k=KUNYE.kartlar[sira]; if(!k) return;
         dersEl.textContent=(k.ders||'')+(k.konu?' · '+k.konu:'');
         /* "tanesinde": Türkçe sıra eki her rakamda değişir (11'inde/7'sinde/3'ünde), bu hepsinde doğru */
-        rozetEl.textContent='📌 Son '+KUNYE.taranan_donem+' sınavın '+k.donem+' tanesinde çıktı';
+        rozetEl.textContent=tekrar?(tekrar.tur>=2?'📥 Yanlış kutundan · son tur: bilirsen kutundan çıkar':'📥 Yanlış kutundan · daha önce bu soruyu kaçırmıştın')
+          :'📌 Son '+KUNYE.taranan_donem+' sınavın '+k.donem+' tanesinde çıktı';
         ozetEl.textContent=k.ozet||'';
         kapat();
       }
@@ -818,9 +851,16 @@ window.veriAl = (function(){
         var robot=oz&&oz.sinavlar&&oz.sinavlar.sgs;
         /* robotun sırası yalnız aynı havuza aitse (toplam eşleşmeli) - yoksa robotun AYNI formülü */
         sira=(robot&&robot.toplam===d.kartlar.length&&d.kartlar[robot.sira])?robot.sira:robotGunu(d.kartlar.length);
+        /* vadesi gelmiş kutu sorusu havuzdaysa önce o (en eski vade önce) */
+        var ku=kutuOku(), an=Date.now()+ku.ileri;
+        var vadeli=ku.kutu.filter(function(x){ return x&&x.due<=an; }).sort(function(a,b){ return a.due-b.due; });
+        for(var v=0;v<vadeli.length;v++){
+          var j=-1; for(var q=0;q<d.kartlar.length;q++){ if(d.kartlar[q].id===vadeli[v].id){ j=q; break; } }
+          if(j>=0){ sira=j; tekrar=vadeli[v]; break; }
+        }
         afisCiz();
         var bag=document.getElementById('bzBaska');
-        if(bag) bag.addEventListener('click',function(e){ e.preventDefault(); sira=(sira+1)%d.kartlar.length; afisCiz(); });
+        if(bag) bag.addEventListener('click',function(e){ e.preventDefault(); tekrar=null; sira=(sira+1)%d.kartlar.length; afisCiz(); });
       });
     })();
     </script>
