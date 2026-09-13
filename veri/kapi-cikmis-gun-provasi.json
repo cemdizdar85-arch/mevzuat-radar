@@ -1,0 +1,2434 @@
+{
+    "olcum":  "2026-09-13 21:17",
+    "kapi_dosyasi":  "motor/kapi-cikmis-gun.ps1",
+    "esik":  0.8,
+    "sert_adet":  2,
+    "cikmis_dizini":  {
+                          "soru":  20851,
+                          "cumle":  61068
+                      },
+    "eski_mantik_isaretli":  0,
+    "yeni_mantik_isaretli":  178,
+    "sayac":  {
+                  "parti":  986,
+                  "soru":  6856,
+                  "cb_sert":  122,
+                  "cb_not":  370,
+                  "gt":  56,
+                  "herhangi_sert":  178
+              },
+    "sinav":  {
+                  "SMMM":  {
+                               "soru":  73,
+                               "cb_sert":  2,
+                               "cb_not":  3,
+                               "gt":  1
+                           },
+                  "KGK":  {
+                              "soru":  306,
+                              "cb_sert":  1,
+                              "cb_not":  7,
+                              "gt":  2
+                          },
+                  "SGS":  {
+                              "soru":  6477,
+                              "cb_sert":  119,
+                              "cb_not":  360,
+                              "gt":  53
+                          }
+              },
+    "isaretli":  [
+                     {
+                         "etiket":  "kgk-bosluk-sermayepiyasasmevzuat",
+                         "id":  "kp-10",
+                         "sinav":  "KGK",
+                         "konu":  "portfoy yonetim sirketi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (8166_Birinci_Oturum_A_Grubu_Sınav_Soru_ve_Cevapları) · SORU 9 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Sermaye piyasası araçlarının kendi hesabından alım ve satımı\u0027)",
+                                    "CIKMIS SINAV - KGK  (8166_Birinci_Oturum_B_Grubu_Sınav_Soru_ve_Cevapları) · SORU 33 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Sermaye piyasası araçlarının kendi hesabından alım ve satımı\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "kgk-bosluk-trkiyemuhasebestandartlar",
+                         "id":  "kp-04",
+                         "sinav":  "KGK",
+                         "konu":  "stok devir hizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365/360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "kgk-kurfin-30",
+                         "id":  "kp-08",
+                         "sinav":  "KGK",
+                         "konu":  "stok devir hizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-a6-vergi-kolay-r1",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "kdv vergiyi doguran olay",
+                         "hakem":  "",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/2 (sgs_2025_2_lisans_a_ingilizce) · SORU 115 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Mal teslimi ve hizmet ifası hallerinde, malın teslimi veya hizmetin yapılması\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-bc-fmuh-cokzor-r2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "ortalama tahsilat suresi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-bc-issgk-kolay-r3",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "sigortali sayilma",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/3 (sgs_2020_3_lisans_a_ingilizce) · SORU 109 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Sağlık hizmet sunucuları tarafından işe alıştırılmakta olan veya rehabilite edilen hasta v…\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 112 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Sağlık hizmet sunucuları tarafından işe alıştırılmakta olan veya rehabilite edilen hasta v…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-bc-maliyet-kolay-r3",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "ekonomik siparis miktari",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-bc-mta-zor-r1",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "stokta kalma suresi hesabi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-borclar-cokzor-r2",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "sozlesmenin kurulmasi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-A-_Kitapçığı) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Taraflar sözleşmenin esaslı noktalarında uyuşmuşlarsa, ikinci derecedeki noktalar üzerinde…\u0027)",
+                                    "CIKMIS SINAV - KGK B (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-B-_Kitapçığı) · SORU 33 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Taraflar sözleşmenin esaslı noktalarında uyuşmuşlarsa, ikinci derecedeki noktalar üzerinde…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-borclar-cokzor-r2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-borclar-kolay-r1",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "sebepsiz zenginlesme sartlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 14 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Haklı bir sebep olmaksızın bir başkasının malvarlığından veya emeğinden zenginleşen, bu ze…\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 23 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Haklı bir sebep olmaksızın bir başkasının malvarlığından veya emeğinden zenginleşen, bu ze…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-borclar-zor-r1",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "manevi tazminat",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2016/2 (sgs_2016_2_lisans_a_ingilizce) · SORU 126 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kişilik hakkının zedelenmesinden zarar gören, uğradığı manevi zarara karşılık manevi tazmi…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-denetim-kolay-r2",
+                         "id":  "kp-08",
+                         "sinav":  "SGS",
+                         "konu":  "iliskili taraf denetimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A (10270_13_Haziran_2021_Sabah_Oturumu_-A-_Kitapçığı_1_) · SORU 40 ile 2 cümle %80+ aynı (en yüksek 0.86; ör. \u0027İşletme üzerinde bir veya birden fazla aracı yoluyla doğrudan veya dolaylı kontrole ya da …\u0027)",
+                                    "CIKMIS SINAV - KGK B (10270_13_Haziran_2021_Sabah_Oturumu_-B-_Kitapçığı__1_) · SORU 18 ile 2 cümle %80+ aynı (en yüksek 0.86; ör. \u0027İşletme üzerinde bir veya birden fazla aracı yoluyla doğrudan veya dolaylı kontrole ya da …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-fmuh-cokzor-r1",
+                         "id":  "kp-21",
+                         "sinav":  "SGS",
+                         "konu":  "reeskont kaydi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-fmuh-kolay-r1",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "gider tahakkuku",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-fmuh-kolay-r1",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "tms 18 hasilat",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (11486_Sabah_Oturumu_B_Kitapcigi_12_1_2022) · SORU 4 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Sözleşmenin tarafları, sözleşmeyi onaylamış ve kendi edimlerini yerine getirmeyi taahhüt e…\u0027)",
+                                    "CIKMIS SINAV - KGK  (11486_SabahOturumu_A_Kitapcigi_12_11_2022) · SORU 23 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Sözleşmenin tarafları, sözleşmeyi onaylamış ve kendi edimlerini yerine getirmeyi taahhüt e…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-fmuh-kolay-r2",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "tms 18 hasilat",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (11486_Sabah_Oturumu_B_Kitapcigi_12_1_2022) · SORU 4 ile 3 cümle %80+ aynı (en yüksek 0.87; ör. \u0027Sözleşmenin taraflarının sözleşmeyi onaylamış ve kendi edimlerini yerine getirmeyi taahhüt…\u0027)",
+                                    "CIKMIS SINAV - KGK  (11486_SabahOturumu_A_Kitapcigi_12_11_2022) · SORU 23 ile 3 cümle %80+ aynı (en yüksek 0.87; ör. \u0027Sözleşmenin taraflarının sözleşmeyi onaylamış ve kendi edimlerini yerine getirmeyi taahhüt…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-fmuh-kolay-r3",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "tms 18 hasilat",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A/KİTAPÇIĞI (ca1444_SABAH-A_KİTAPÇIĞI-13_05_2018) · SORU 24 ile 3 cümle %80+ aynı (en yüksek 0.91; ör. \u0027Sözleşmenin tarafları sözleşmeyi onaylamış ve kendi edimlerini yerine getirmeyi taahhüt et…\u0027)",
+                                    "CIKMIS SINAV - KGK B/KİTAPÇIĞI (ca1444_SABAH-B_KİTAPÇIĞI-13_05_2018) · SORU 17 ile 3 cümle %80+ aynı (en yüksek 0.91; ör. \u0027Sözleşmenin tarafları sözleşmeyi onaylamış ve kendi edimlerini yerine getirmeyi taahhüt et…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-issgk-cokzor-r1",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "isveren vekili",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 108 ile 2 cümle %80+ aynı (en yüksek 0.90; ör. \u0027İşveren adına hareket eden ve işin, işyerinin veya işletmenin yönetiminde görev alan kimse…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c2-maliyet-zor-r3",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "genel uretim gideri dagitimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-borclar-cokzor-r1",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "sozlesmelerde sekil serbestisi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2015/2 (sgs_2015_2_lisans_a) · SORU 120 ile 2 cümle %80+ aynı (en yüksek 0.92; ör. \u0027Kanunda yazılı şekilde yapılması öngörülen bir sözleşmenin sonradan değiştirilmesinde de y…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-borclar-zor-r1",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "temsil heyeti gorevinin sonu (tbmm)",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 15 ile 2 cümle %80+ aynı (en yüksek 0.86; ör. \u0027Temsil yetkisi üçüncü kişiye bildirilmişse, yetkinin içeriği ve derecesi bu bildirime göre…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 4 ile 2 cümle %80+ aynı (en yüksek 0.86; ör. \u0027Temsil yetkisi üçüncü kişiye bildirilmişse, yetkinin içeriği ve derecesi bu bildirime göre…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-denetim-cokzor-r1-2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "bds 230 calisma kagitlari ilave amaclar",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-denetim-cokzor-r2-2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "bds 230 calisma kagitlari ilave amaclar",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-denetim-kolay-r2",
+                         "id":  "kp-18",
+                         "sinav":  "SGS",
+                         "konu":  "hile riskine karsi islemler",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_A) · SORU 21 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Hilenin önlenmesi ve tespit edilmesine ilişkin esas sorumluluk yönetime ve üst yönetimden …\u0027)",
+                                    "CIKMIS SINAV - KGK /B (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_B) · SORU 1 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Hilenin önlenmesi ve tespit edilmesine ilişkin esas sorumluluk yönetime ve üst yönetimden …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-ekonomi-zor-r1",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "tuketim duzlestirmesi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/1 (sgs_2026_1_lisans_a_ingilizce) · SORU 91 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İki dönemli bir ekonomide bir bireyin birinci dönem geliri 100, ikinci dönem geliri ise 14…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-fmuh-cokzor-r1",
+                         "id":  "kp-13",
+                         "sinav":  "SGS",
+                         "konu":  "doviz borc senedi reeskont-tasarruf degeri",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-fmuh-cokzor-r2",
+                         "id":  "kp-13",
+                         "sinav":  "SGS",
+                         "konu":  "doviz borc senedi reeskont-tasarruf degeri",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-fmuh-zor-r1-3",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskontosu kaydi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-issgk-kolay-r1",
+                         "id":  "kp-10",
+                         "sinav":  "SGS",
+                         "konu":  "sendika kanunu tanimlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/1 (sgs_2026_1_lisans_a_ingilizce) · SORU 110 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Yönetici: Kuruluşun ve şubesinin yönetim kurulu üyelerini ifade eder.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-issgk-kolay-r3",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "gecici is iliskisi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2017/3 (sgs_2017_3_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşletmenin günlük işlerinden sayılmayan ve aralıklı olarak gördürülen işlerde\u0027)",
+                                    "CIKMIS SINAV - SGS 2026/2 (sgs_2026_2_lisans_a_ingilizce) · SORU 110 ile 2 cümle %80+ aynı (en yüksek 0.89; ör. \u0027İşletmenin günlük işlerinden sayılmayan ve aralıklı olarak gördürülen işlerde\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-issgk-zor-r2",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "sendika uyeligi kurallari (issizlik 1 yil)",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/1 (sgs_2025_1_lisans_a_ingilizce) · SORU 112 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşçi sendikası üyesinin bir yılı geçmemek üzere işsiz kalması üyeliğini etkilemez.\u0027)",
+                                    "CIKMIS SINAV - SGS 2025/3 (sgs_2025_3_lisans_a_ingilizce) · SORU 112 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşçi sendikası üyesinin bir yılı geçmemek üzere işsiz kalması üyeliğini etkilemez.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-meslek-kolay-r2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "etik ilkeler tehditler",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/3 (sgs_2020_3_lisans_a_ingilizce) · SORU 105 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kişisel Çıkar Tehditleri, meslek mensubunun kendisinin veya yakın ailesinden bir üyenin fi…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-meslek-kolay-r3",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "etik ilkeler tehditler",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/3 (sgs_2020_3_lisans_a_ingilizce) · SORU 105 ile 3 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Kişisel çıkar tehditleri, meslek mensubunun kendisinin veya yakın ailesinden bir üyenin fi…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-meslek-zor-r2",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "uyarma cezasi halleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/1 (sgs_2025_1_lisans_a_ingilizce) · SORU 104 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Birlikçe yayımlanan genelge ve yönerge hükümlerine aykırı olarak, meslek disiplinini bozuc…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-vergi-zor-r1",
+                         "id":  "kp-11",
+                         "sinav":  "SGS",
+                         "konu":  "mukellefiyet ve vergi sorumlulugu",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/3 (sgs_2025_3_lisans_a_ingilizce) · SORU 115 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Vergi sorumlusu, verginin ödenmesi bakımından alacaklı vergi dairesine karşı muhatap olan …\u0027)",
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 32 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Vergi sorumlusu, verginin ödenmesi bakımından alacaklı vergi dairesine karşı muhatap olan …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-c5-vergi-zor-r2",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "mukellefiyet ve vergi sorumlulugu",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 32 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Mükellef, vergi kanunlarına göre kendisine vergi borcu terettüp eden gerçek veya tüzel kiş…\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 6 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Mükellef, vergi kanunlarına göre kendisine vergi borcu terettüp eden gerçek veya tüzel kiş…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-borclar-kolay-r4",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "sebepsiz zenginlesme",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 14 ile 2 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Zamanaşımına uğramış bir borcun ifasından kaynaklanan zenginleşme geri istenemez.\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 23 ile 2 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Zamanaşımına uğramış bir borcun ifasından kaynaklanan zenginleşme geri istenemez.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-borclar-zor-r1",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-fmuh-cokzor-r1-2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senetleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-fmuh-kolay-r1",
+                         "id":  "kp-23",
+                         "sinav":  "SGS",
+                         "konu":  "reeskont kaydi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-maliyet-zor-r1",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "evre maliyet sistemi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-mta-cokzor-r1",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "stok devir hizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-mta-cokzor-r1",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "stokta kalma suresi hesabi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d2-mta-cokzor-r3",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "stok devir hizi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d3-borclar-kolay-r1",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "sebepsiz zenginlesme",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2024/3 (sgs_2024_3_lisans_a_ingilizce) · SORU 129 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Borçlanmadığı edimi kendi isteğiyle yerine getiren kimse, bunu ancak kendisini borçlu sana…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d3-issgk-cokzor-r2",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "sigortali sayilma",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2024/3 (sgs_2024_3_lisans_a_ingilizce) · SORU 111 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Türkiye İş Kurumu tarafından düzenlenen Toplum Yararına Çalışma Programlarından yararlanan…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d3-issgk-cokzor-r4",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "sigortali sayilma",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/1 (sgs_2026_1_lisans_a_ingilizce) · SORU 108 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u00276132 sayılı At Yarışları Hakkında Kanuna tabi jokey ve antrenörler\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d3-issgk-kolay-r1",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "İs kanunu kapsami",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2018/1 (sgs_2018_1_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kıyılarda veya liman ve iskelelerde gemilerden karaya, karadan gemilere yapılan yükleme ve…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d3-meslek-kolay-r2",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "smmm odalari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2014/1 (sgs_2014_1_lisans_a) · SORU 94 ile 2 cümle %80+ aynı (en yüksek 0.91; ör. \u0027Haksız rekabetin neticesi olan maddi durumun ortadan kaldırılması\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/3 (sgs_2024_3_lisans_a_ingilizce) · SORU 102 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Haksız rekabetin neticesi olan maddi durumun ortadan kaldırılması\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d3-ticaret-zor-r3",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "ticari is kavrami",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2016/3 (sgs_2016_3_lisans_a_ingilizce) · SORU 122 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Ticari örf ve adet, tacir sıfatını haiz bulunmayanlar hakkında ancak onlar tarafından bili…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d3-vergi-kolay-r3",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "vuk degerleme olculeri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 36 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Mukayyet değer, bir iktisadi kıymetin muhasebe kayıtlarında gösterilen hesap değeridir.\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 1 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Mukayyet değer, bir iktisadi kıymetin muhasebe kayıtlarında gösterilen hesap değeridir.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-borclar-kolay-r2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "zamanasimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 126 ile 2 cümle %80+ aynı (en yüksek 0.83; ör. \u0027Haksız fiilden doğan tazminat istemi, zarar görenin zararı ve tazminat yükümlüsünü öğrendi…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-borclar-kolay-r2",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil tazminati",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-borclar-zor-r1",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "temsil genel hukumleri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 125 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Yetkili temsilci tarafından başkası adına ve hesabına yapılan hukuki işlemin sonuçları, do…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-denetim-zor-r1",
+                         "id":  "kp-11",
+                         "sinav":  "SGS",
+                         "konu":  "alinan cekler denetimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (8030_SINAV_SABAH_A_12_11_2017) · SORU 9 ile 2 cümle %80+ aynı (en yüksek 0.91; ör. \u0027Piyasa fiyatının önemli derecede altındaki fiyatlardan alım yapılması\u0027)",
+                                    "CIKMIS SINAV - KGK  (8030_SINAV_SABAH_B_12_11_2017) · SORU 28 ile 2 cümle %80+ aynı (en yüksek 0.91; ör. \u0027Piyasa fiyatının önemli derecede altındaki fiyatlardan alım yapılması\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-denetim-zor-r2",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "orneklem riski",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (10248_Sabah_A_Kitapcigi__14_11_2020) · SORU 28 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetçi, tasarlanan denetim prosedürünün seçilen kaleme uygulanamaması durumunda, bu kalem…\u0027)",
+                                    "CIKMIS SINAV - KGK  (10248_Sabah_B_Kitapcigi_14_11_2020) · SORU 8 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetçi, tasarlanan denetim prosedürünün seçilen kaleme uygulanamaması durumunda, bu kalem…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-fmuh-cokzor-r1",
+                         "id":  "kp-19",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senedi iskonto",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-issgk-zor-r2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "ucret hukumleri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2024/1 (sgs_2024_1_lisans_a_ingilizce) · SORU 110 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Ücreti, ödeme gününden itibaren yirmi gün içinde mücbir neden olmaksızın ödenmeyen işçi iş…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-maliyet-cokzor-r1",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "genel uretim giderleri dagitimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-meslek-zor-r2",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "smmm staj yonetmeligi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2016/1 (sgs_2016_1_lisans_a_ingilizce) · SORU 101 ile 2 cümle %80+ aynı (en yüksek 0.86; ör. \u0027Vergi incelemesine yetkili olanların bu yetkiyi aldıktan sonra kamu hizmetinde geçen sürel…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-mta-cokzor-r2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "stokta kalma suresi hesabi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-d5-vergi-kolay-r1",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "vergilendirme ilkeleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 33 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Vergiyi doğuran olayla ilgisi tabii ve açık bulunmayan şahit ifadesi de ispat vasıtası ola…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 25 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Vergiyi doğuran olayla ilgisi tabii ve açık bulunmayan şahit ifadesi de ispat vasıtası ola…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-denetim-parti2",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "yapisal risk faktorleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_A) · SORU 6 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Dönem içinde gerçekleşen önemli olay veya işlemlerin denetime olan etkileri\u0027)",
+                                    "CIKMIS SINAV - KGK /B (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_B) · SORU 26 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Dönem içinde gerçekleşen önemli olay veya işlemlerin denetime olan etkileri\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-fmuh-30",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "sermaye artirimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-gm5-mat-r1",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "hareket problemi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-gm5-mat-r3",
+                         "id":  "kp-13",
+                         "sinav":  "SGS",
+                         "konu":  "yuzde artis azalis",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-issgk-k10e",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "is sozlesmesi turleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2018/1 (sgs_2018_1_lisans_a_ingilizce) · SORU 108 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İş ilişkisinin bir süreye bağlı olarak yapılmadığı hâllerde iş sözleşmesi belirsiz süreli …\u0027)",
+                                    "CIKMIS SINAV - SGS 2019/2 (sgs_2019_2_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 0.85; ör. \u0027İş ilişkisinin bir süreye bağlı olarak yapılmadığı hâllerde iş sözleşmesi belirsiz süreli …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-cokzor-r3-b2",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "borcun ifa yeri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2019/1 (sgs_2019_1_lisans_a_ingilizce) · SORU 126 ile 2 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Para borçları, alacaklının ifa zamanındaki yerleşim yerinde ifa edilir.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-cokzor-r4-bulut",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "borcun ifa yeri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-A-_Kitapçığı) · SORU 18 ile 2 cümle %80+ aynı (en yüksek 0.85; ör. \u0027İfa yeri, tarafların açık veya örtülü iradesine göre belirlenir.\u0027)",
+                                    "CIKMIS SINAV - KGK B (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-B-_Kitapçığı) · SORU 35 ile 2 cümle %80+ aynı (en yüksek 0.85; ör. \u0027İfa yeri, tarafların açık veya örtülü iradesine göre belirlenir.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-kolay-r1",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "borclarin ifasi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-A-_Kitapçığı) · SORU 18 ile 3 cümle %80+ aynı (en yüksek 0.92; ör. \u0027Para borçları, aksine bir anlaşma yoksa, borçlunun ifa zamanındaki yerleşim yerinde ifa ed…\u0027)",
+                                    "CIKMIS SINAV - KGK B (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-B-_Kitapçığı) · SORU 35 ile 3 cümle %80+ aynı (en yüksek 0.92; ör. \u0027Para borçları, aksine bir anlaşma yoksa, borçlunun ifa zamanındaki yerleşim yerinde ifa ed…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-kolay-r1-b2",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil zamanasimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 126 ile 3 cümle %80+ aynı (en yüksek 0.93; ör. \u0027Tazminat istemi, zarar görenin zararı ve tazminat yükümlüsünü öğrendiği tarihten başlayara…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-kolay-r1-b2",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil unsurlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-kolay-r2",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil unsurlari",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-kolay-r3-b2",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil unsurlari",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Zarar verici fiili yasaklayan bir hukuk kuralı bulunmasa bile, ahlaka aykırı bir fiille ba…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Zarar verici fiili yasaklayan bir hukuk kuralı bulunmasa bile, ahlaka aykırı bir fiille ba…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-zor-r1",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-zor-r2",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-zor-r3",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 16 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 5 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kusurlu ve hukuka aykırı bir fiille başkasına zarar veren, bu zararı gidermekle yükümlüdür…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-borclar-zor-r3-b2",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "manevi tazminat",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2016/2 (sgs_2016_2_lisans_a_ingilizce) · SORU 126 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Hakim, manevi tazminatın ödenmesi yerine diğer bir giderim biçimi kararlaştırabilir veya b…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-denetim-kolay-r1",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "denetim calisma kagitlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-denetim-kolay-r1",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "calisma kagitlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olur.\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 0.88; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olur.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-denetim-kolay-r1",
+                         "id":  "kp-11",
+                         "sinav":  "SGS",
+                         "konu":  "hile riski",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_A) · SORU 21 ile 2 cümle %80+ aynı (en yüksek 0.92; ör. \u0027Hile kaynaklı önemli bir yanlışlığı tespit edememe riski, hata kaynaklı önemli bir yanlışl…\u0027)",
+                                    "CIKMIS SINAV - KGK /B (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_B) · SORU 1 ile 2 cümle %80+ aynı (en yüksek 0.92; ör. \u0027Hile kaynaklı önemli bir yanlışlığı tespit edememe riski, hata kaynaklı önemli bir yanlışl…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-denetim-kolay-r2",
+                         "id":  "kp-10",
+                         "sinav":  "SGS",
+                         "konu":  "kamu alacagi guvence onlemleri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A (11487_Sabah-A-08_07_2023-_1_) · SORU 25 ile 3 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Finansal tabloların tarihi, finansal tabloların ait olduğu en son dönemin son günüdür.\u0027)",
+                                    "CIKMIS SINAV - KGK B (11487_Sabah-B-08_07_2023-_1_) · SORU 7 ile 3 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Finansal tabloların tarihi, finansal tabloların ait olduğu en son dönemin son günüdür.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-denetim-zor-r2",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "ic kontrol sistemi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_04) · SORU 17 ile 2 cümle %80+ aynı (en yüksek 0.90; ör. \u0027Denetim riski, önemli yanlışlık riski ile tespit edememe riskinin bir fonksiyonudur.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-denetim-zor-r3-b2",
+                         "id":  "kp-09",
+                         "sinav":  "SGS",
+                         "konu":  "risk degerlendirme prosedurleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SMMM 2026/2 (smmm_2026_2_04) · SORU 17 ile 2 cümle %80+ aynı (en yüksek 0.90; ör. \u0027Denetim riski, önemli yanlışlık riski ile tespit edememe riskinin bir fonksiyonudur.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-fmuh-cokzor-r2",
+                         "id":  "kp-21",
+                         "sinav":  "SGS",
+                         "konu":  "reeskont kaydi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-fmuh-zor-r1",
+                         "id":  "kp-24",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senetleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-issgk-cokzor-r1",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "isveren vekili",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 108 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşveren adına hareket eden ve işin, işyerinin ve işletmenin yönetiminde görev alan kimseye…\u0027)",
+                                    "CIKMIS SINAV - SGS 2019/1 (sgs_2019_1_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşveren vekilliği sıfatı, işçilere tanınan hak ve yükümlülükleri ortadan kaldırır.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-issgk-cokzor-r1-a",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "sigortali sayilma",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/1 (sgs_2026_1_lisans_a_ingilizce) · SORU 108 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u00276132 sayılı At Yarışları Hakkında Kanuna tabi jokey ve antrenörler\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-issgk-cokzor-r1-a",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "alt isverenlik",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2019/3 (sgs_2019_3_lisans_a_ingilizce) · SORU 108 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Asıl işverenin işçilerinin alt işveren tarafından işe alınarak çalıştırılmaya devam ettiri…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-issgk-kolay-r3-a",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "İs kanunu kapsami",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2018/1 (sgs_2018_1_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kıyılarda veya liman ve iskelelerde gemilerden karaya ve karadan gemilere yapılan yükleme …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-issgk-zor-r1-a",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "isveren vekili",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 108 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşveren adına hareket eden ve işin, işyerinin ve işletmenin yönetiminde görev alan kimsele…\u0027)",
+                                    "CIKMIS SINAV - SGS 2019/1 (sgs_2019_1_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşveren vekilinin bu sıfatla işçilere karşı işlem ve yükümlülüklerinden doğrudan işveren s…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-issgk-zor-r2-a",
+                         "id":  "kp-05",
+                         "sinav":  "SGS",
+                         "konu":  "toplu is sozlesmesi kurallari",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2019/2 (sgs_2019_2_lisans_a_ingilizce) · SORU 109 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Faaliyetleri bir yıldan az süren işlerde uygulanmak üzere yapılan toplu iş sözleşmelerinin…\u0027)",
+                                    "CIKMIS SINAV - SGS 2021/1 (sgs_2021_1_lisans_a_ingilizce) · SORU 109 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Toplu iş sözleşmesi en az bir, en çok üç yıl süreli olarak yapılabilir;\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-issgk-zor-r3",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "sendika uyeligi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/2 (sgs_2025_2_lisans_a_ingilizce) · SORU 109 ile 2 cümle %80+ aynı (en yüksek 0.93; ör. \u0027Aynı işkolunda ve aynı zamanda farklı işverenlere ait işyerlerinde çalışan işçiler birden …\u0027)",
+                                    "CIKMIS SINAV - SGS 2026/1 (sgs_2026_1_lisans_a_ingilizce) · SORU 112 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Sendika üyeliğinden çıkarılma kararı, sendikanın yönetim kurulu tarafından verilir.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+                         "id":  "kp-08",
+                         "sinav":  "SGS",
+                         "konu":  "esdeger birim hesabi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-mta-cokzor-r1-a",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "stok devir hizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-mta-cokzor-r2-a",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "alacak devir hizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-mta-cokzor-r3-a",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "alacak devir hizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-mta-zor-r1",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "stokta kalma suresi hesabi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-mta-zor-r2",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "stokta kalma suresi hesabi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-mta-zor-r4",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "stok devir hizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-ticaret-zor-r1",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "tacir kavrami",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 2 ile 2 cümle %80+ aynı (en yüksek 0.83; ör. \u0027Bir ticari işletmeyi kısmen de olsa kendi adına işleten kişi tacir sayılır.\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 28 ile 2 cümle %80+ aynı (en yüksek 0.83; ör. \u0027Bir ticari işletmeyi kısmen de olsa kendi adına işleten kişi tacir sayılır.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-p-ticaret-zor-r2-b2",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "tacir olmanin sonuclari",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-A-_Kitapçığı) · SORU 3 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Her tacir, ticari işletmesine ilişkin işlemleri ticaret unvanıyla yapmak zorundadır.\u0027)",
+                                    "CIKMIS SINAV - KGK B (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-B-_Kitapçığı) · SORU 20 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Her tacir, ticari işletmesine ilişkin işlemleri ticaret unvanıyla yapmak zorundadır.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-kolay",
+                         "id":  "kp-23",
+                         "sinav":  "SGS",
+                         "konu":  "adam calistiranin sorumlulugu",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/3 (sgs_2025_3_lisans_a_ingilizce) · SORU 128 ile 3 cümle %80+ aynı (en yüksek 0.90; ör. \u0027Adam çalıştıran, çalışanını seçerken, işiyle ilgili talimat verirken, gözetim ve denetimde…\u0027)",
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 13 ile 2 cümle %80+ aynı (en yüksek 0.91; ör. \u0027Adam çalıştıran, çalışanını seçerken, işiyle ilgili talimat verirken, gözetim ve denetimde…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil zamanasimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 126 ile 2 cümle %80+ aynı (en yüksek 0.88; ör. \u0027Tazminat istemi, zarar görenin zararı ve tazminat yükümlüsünü öğrendiği tarihten başlayara…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "borcun ifa yeri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK A (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-A-_Kitapçığı) · SORU 18 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Borcun ifa yeri öncelikle tarafların açık veya örtülü iradesine göre belirlenir.\u0027)",
+                                    "CIKMIS SINAV - KGK B (10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-B-_Kitapçığı) · SORU 35 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Borcun ifa yeri öncelikle tarafların açık veya örtülü iradesine göre belirlenir.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-06",
+                         "sinav":  "SGS",
+                         "konu":  "ucret sozlesmesi esaslari",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2024/1 (sgs_2024_1_lisans_a_ingilizce) · SORU 110 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Ücretini ödeme gününden itibaren yirmi gün içinde mücbir neden dışında alamayan işçi, iş g…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "secimlik borc",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/2 (sgs_2025_2_lisans_a_ingilizce) · SORU 126 ile 2 cümle %80+ aynı (en yüksek 0.88; ör. \u0027Seçimlik borçlarda, hukuki ilişkiden ve işin özelliğinden aksi anlaşılmadıkça, edimlerden …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-16",
+                         "sinav":  "SGS",
+                         "konu":  "yapi maliki sorumlulugu",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/2 (sgs_2026_2_lisans_a_ingilizce) · SORU 127 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Bir binanın veya diğer yapı eserlerinin maliki, bunların yapımındaki bozukluklardan doğan …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-borclar-zor",
+                         "id":  "kp-28",
+                         "sinav":  "SGS",
+                         "konu":  "haksiz fiil tazminat indirimi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/2 (sgs_2022_2_lisans_a_ingilizce) · SORU 130 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Zarara hafif kusuruyla sebep olan tazminat yükümlüsü, tazminatı ödediğinde yoksulluğa düşe…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-cokzor",
+                         "id":  "kp-78",
+                         "sinav":  "SGS",
+                         "konu":  "calisma kagitlari amaci",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olması\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 0.88; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olması\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-cokzor",
+                         "id":  "kp-86",
+                         "sinav":  "SGS",
+                         "konu":  "bds 530 ornekleme yontemi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_A_Kitapçığı_-_28_Haziran_2025_1_) · SORU 30 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)",
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_B_Kitapçığı_-_28_Haziran_2025_1_) · SORU 10 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-kolay",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "denetim calisma kagitlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-kolay",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "kilit denetim konulari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (11769_Sabah_A) · SORU 9 ile 2 cümle %80+ aynı (en yüksek 0.85; ör. \u0027Kilit denetim konularının bildirilmesi, münferit konulara ilişkin ayrı bir görüş değildir.\u0027)",
+                                    "CIKMIS SINAV - KGK  (11769_Sabah_B) · SORU 29 ile 2 cümle %80+ aynı (en yüksek 0.85; ör. \u0027Kilit denetim konularının bildirilmesi, münferit konulara ilişkin ayrı bir görüş değildir.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-kolay",
+                         "id":  "kp-14",
+                         "sinav":  "SGS",
+                         "konu":  "ornekleme riski",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_A_Kitapçığı_-_28_Haziran_2025_1_) · SORU 30 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)",
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_B_Kitapçığı_-_28_Haziran_2025_1_) · SORU 10 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-kolay",
+                         "id":  "kp-39",
+                         "sinav":  "SGS",
+                         "konu":  "ornekleme yontemleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_A_Kitapçığı_-_28_Haziran_2025_1_) · SORU 30 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Anomali, bir anakitlede bulunan yanlışlıkları veya sapmaları açıkça temsil etmeyen bir yan…\u0027)",
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_B_Kitapçığı_-_28_Haziran_2025_1_) · SORU 10 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Anomali, bir anakitlede bulunan yanlışlıkları veya sapmaları açıkça temsil etmeyen bir yan…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-kolay",
+                         "id":  "kp-57",
+                         "sinav":  "SGS",
+                         "konu":  "bds 300 denetim planlamasi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (6556_SABAH_A_23092014) · SORU 19 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetimin önemli alanlarına dikkatini yoğunlaştırması konusunda denetçiye yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - KGK  (6556_SABAH_B_23092014) · SORU 39 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetimin önemli alanlarına dikkatini yoğunlaştırması konusunda denetçiye yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-kolay",
+                         "id":  "kp-63",
+                         "sinav":  "SGS",
+                         "konu":  "bds 230 denetim belgelendirme",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-kolay",
+                         "id":  "kp-64",
+                         "sinav":  "SGS",
+                         "konu":  "bds 240 hasilat hile denetimi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_A) · SORU 21 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Hilenin önlenmesi ve tespit edilmesine ilişkin esas sorumluluk yönetime ve üst yönetimden …\u0027)",
+                                    "CIKMIS SINAV - KGK /B (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_B) · SORU 1 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Hilenin önlenmesi ve tespit edilmesine ilişkin esas sorumluluk yönetime ve üst yönetimden …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-zor",
+                         "id":  "kp-14",
+                         "sinav":  "SGS",
+                         "konu":  "ornekleme riski",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_A_Kitapçığı_-_28_Haziran_2025_1_) · SORU 30 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)",
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_B_Kitapçığı_-_28_Haziran_2025_1_) · SORU 10 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-zor",
+                         "id":  "kp-39",
+                         "sinav":  "SGS",
+                         "konu":  "ornekleme yontemleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_A_Kitapçığı_-_28_Haziran_2025_1_) · SORU 30 ile 3 cümle %80+ aynı (en yüksek 0.92; ör. \u0027Örnekleme dışı risk, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı prosedürü…\u0027)",
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_B_Kitapçığı_-_28_Haziran_2025_1_) · SORU 10 ile 3 cümle %80+ aynı (en yüksek 0.92; ör. \u0027Örnekleme dışı risk, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı prosedürü…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-zor",
+                         "id":  "kp-67",
+                         "sinav":  "SGS",
+                         "konu":  "bds 240 hile ucgeni",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_A) · SORU 21 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Hilenin önlenmesi ve tespit edilmesine ilişkin esas sorumluluk, yönetime ve üst yönetimden…\u0027)",
+                                    "CIKMIS SINAV - KGK /B (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_B) · SORU 1 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Hilenin önlenmesi ve tespit edilmesine ilişkin esas sorumluluk, yönetime ve üst yönetimden…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-zor",
+                         "id":  "kp-81",
+                         "sinav":  "SGS",
+                         "konu":  "bds 530 orneklem buyuklugu",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (10248_Sabah_A_Kitapcigi__14_11_2020) · SORU 28 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetçi, seçilen her bir kaleme ilgili amaca uygun denetim prosedürlerini uygular.\u0027)",
+                                    "CIKMIS SINAV - KGK  (10248_Sabah_B_Kitapcigi_14_11_2020) · SORU 8 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetçi, seçilen her bir kaleme ilgili amaca uygun denetim prosedürlerini uygular.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-denetim-zor",
+                         "id":  "kp-86",
+                         "sinav":  "SGS",
+                         "konu":  "bds 530 ornekleme yontemi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_A_Kitapçığı_-_28_Haziran_2025_1_) · SORU 30 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)",
+                                    "CIKMIS SINAV - KGK /28/Haziran/2025/1/ (11972_Sabah_B_Kitapçığı_-_28_Haziran_2025_1_) · SORU 10 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Örnekleme riski, denetçinin bir örneklemi temel alarak vardığı sonucun, aynı denetim prose…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-37",
+                         "sinav":  "SGS",
+                         "konu":  "kredi faiz tahakkuku",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360/365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-50",
+                         "sinav":  "SGS",
+                         "konu":  "gelir tahakkuku",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-58",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senetleri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-kolay",
+                         "id":  "kp-87",
+                         "sinav":  "SGS",
+                         "konu":  "nakit akis brut raporlama",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/1 (sgs_2026_1_lisans_a_ingilizce) · SORU 71 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Nakit girişi ve nakit çıkışı karşılaştırılır, büyük olan tutar raporlanır.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-45",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskonto kaydi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-50",
+                         "sinav":  "SGS",
+                         "konu":  "bilanco sonrasi olaylar",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360/365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-58",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senetleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-69",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskonto ettirme",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor",
+                         "id":  "kp-85",
+                         "sinav":  "SGS",
+                         "konu":  "normal amortisman yontemi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor-b",
+                         "id":  "kp-92",
+                         "sinav":  "SGS",
+                         "konu":  "reeskont islemleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor-b",
+                         "id":  "kp-152",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senetleri reeskontu",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-fmuh-zor-b",
+                         "id":  "kp-154",
+                         "sinav":  "SGS",
+                         "konu":  "borc senedi iskontosu",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-cokzor",
+                         "id":  "kp-17",
+                         "sinav":  "SGS",
+                         "konu":  "sendika kanunu tanimlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2025/1 (sgs_2025_1_lisans_a_ingilizce) · SORU 111 ile 4 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Grup toplu iş sözleşmesi, bir gerçek veya tüzel kişiye ya da bir kamu kurum veya kuruluşun…\u0027)",
+                                    "CIKMIS SINAV - SGS 2025/2 (sgs_2025_2_lisans_a_ingilizce) · SORU 108 ile 4 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İşletme toplu iş sözleşmesi, işçi sendikası ile işveren sendikası arasında, birden çok üye…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-02",
+                         "sinav":  "SGS",
+                         "konu":  "sendika uyeligi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/2 (sgs_2026_2_lisans_a_ingilizce) · SORU 108 ile 2 cümle %80+ aynı (en yüksek 0.94; ör. \u0027Haklı bir neden gösterilmeden üyelik başvurusu kabul edilmeyenler, bu kararın kendilerine …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "is sozlesmesi turleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2018/1 (sgs_2018_1_lisans_a_ingilizce) · SORU 108 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İş ilişkisinin bir süreye bağlı olarak yapılmadığı hâllerde sözleşme belirsiz süreli sayıl…\u0027)",
+                                    "CIKMIS SINAV - SGS 2025/3 (sgs_2025_3_lisans_a_ingilizce) · SORU 109 ile 2 cümle %80+ aynı (en yüksek 0.92; ör. \u0027İş ilişkisinin bir süreye bağlı olarak yapılmadığı hâllerde sözleşme belirsiz süreli sayıl…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-12",
+                         "sinav":  "SGS",
+                         "konu":  "alt isverenlik",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2019/3 (sgs_2019_3_lisans_a_ingilizce) · SORU 108 ile 3 cümle %80+ aynı (en yüksek 0.93; ör. \u0027Asıl işveren, alt işverenin işçilerine karşı o işyeri ile ilgili olarak İş Kanunundan, iş …\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-28",
+                         "sinav":  "SGS",
+                         "konu":  "gecici is goremezlik sigorta kollari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 110 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İş kazası ve meslek hastalığı sigortası, hastalık sigortası, analık sigortası\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/1 (sgs_2024_1_lisans_a_ingilizce) · SORU 111 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İş kazası ve meslek hastalığı sigortası, hastalık sigortası, analık sigortası\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-kolay",
+                         "id":  "kp-36",
+                         "sinav":  "SGS",
+                         "konu":  "is kazasi isveren sorumlulugu",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI) · SORU 17 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Adam çalıştıran, çalışanını seçerken, işiyle ilgili talimat verirken, gözetim ve denetimde…\u0027)",
+                                    "CIKMIS SINAV - KGK /ÖĞLEDEN/SONRA (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI) · SORU 6 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Adam çalıştıran, çalışanını seçerken, işiyle ilgili talimat verirken, gözetim ve denetimde…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-issgk-zor",
+                         "id":  "kp-13",
+                         "sinav":  "SGS",
+                         "konu":  "belirli sureli is sozlesmesi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2018/1 (sgs_2018_1_lisans_a_ingilizce) · SORU 108 ile 3 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İş ilişkisinin bir süreye bağlı olarak yapılmadığı hâlde sözleşme belirsiz süreli sayılır.\u0027)",
+                                    "CIKMIS SINAV - SGS 2025/3 (sgs_2025_3_lisans_a_ingilizce) · SORU 109 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İş ilişkisinin bir süreye bağlı olarak yapılmadığı hâlde sözleşme belirsiz süreli sayılır.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-meslek-cokzor",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "ucret tarifesi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2019/1 (sgs_2019_1_lisans_a_ingilizce) · SORU 102 ile 2 cümle %80+ aynı (en yüksek 0.89; ör. \u0027Tek bir müşteriden alınacak toplam ücrete aşırı bağlılık duyulması\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-mta-cokzor",
+                         "id":  "kp-15",
+                         "sinav":  "SGS",
+                         "konu":  "stokta kalma suresi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-mta-kolay",
+                         "id":  "kp-15",
+                         "sinav":  "SGS",
+                         "konu":  "stokta kalma suresi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365/360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-mta-zor",
+                         "id":  "kp-31",
+                         "sinav":  "SGS",
+                         "konu":  "fiyat kazanc orani",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-cokzor",
+                         "id":  "kp-17",
+                         "sinav":  "SGS",
+                         "konu":  "kambiyo senedi cirosu",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-kolay",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "genel islem kosullari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 10 ile 4 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Genel işlem koşulları, düzenleyenin ileride çok sayıda benzer sözleşmede kullanmak amacıyl…\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 32 ile 4 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Genel işlem koşulları, düzenleyenin ileride çok sayıda benzer sözleşmede kullanmak amacıyl…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-kolay",
+                         "id":  "kp-04",
+                         "sinav":  "SGS",
+                         "konu":  "tacir sifati",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 2 ile 2 cümle %80+ aynı (en yüksek 0.88; ör. \u0027Bir ticari işletmeyi, kısmen de olsa, kendi adına işleten kişi tacir sayılır.\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 28 ile 2 cümle %80+ aynı (en yüksek 0.88; ör. \u0027Bir ticari işletmeyi, kısmen de olsa, kendi adına işleten kişi tacir sayılır.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-kolay",
+                         "id":  "kp-13",
+                         "sinav":  "SGS",
+                         "konu":  "ticari defter tutma yukumlulugu",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/2 (sgs_2020_2_lisans_a_ingilizce) · SORU 119 ile 4 cümle %80+ aynı (en yüksek 0.95; ör. \u0027Yönetim kurulu karar defterinin kapanış onayı, izleyen faaliyet döneminin birinci ayının s…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-kolay",
+                         "id":  "kp-15",
+                         "sinav":  "SGS",
+                         "konu":  "anonim sirket yonetim kurulu yetkisi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2015/1 (sgs_2015_1_lisans_a) · SORU 111 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Şirketin üst düzeyde yönetimi ve bunlarla ilgili talimatların verilmesi\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-kolay",
+                         "id":  "kp-29",
+                         "sinav":  "SGS",
+                         "konu":  "yazili sekil imza sartlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2015/2 (sgs_2015_2_lisans_a) · SORU 120 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Yazılı şekilde yapılması öngörülen sözleşmelerde borç altına girenlerin imzalarının bulunm…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-zor",
+                         "id":  "kp-29",
+                         "sinav":  "SGS",
+                         "konu":  "yazili sekil imza sartlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2015/2 (sgs_2015_2_lisans_a) · SORU 120 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kanunda öngörülen şekle uyulmaksızın kurulan sözleşmeler hüküm doğurmaz.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t1-ticaret-zor",
+                         "id":  "kp-42",
+                         "sinav":  "SGS",
+                         "konu":  "esasli yanilma halleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2020/2 (sgs_2020_2_lisans_a_ingilizce) · SORU 130 ile 2 cümle %80+ aynı (en yüksek 0.88; ör. \u0027Yanılanın, kurulmasını istediği sözleşmeden başka bir sözleşme için iradesini açıklamış ol…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-cokzor",
+                         "id":  "kp-18",
+                         "sinav":  "SGS",
+                         "konu":  "gkgds calisma alani standartlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (11486_Sabah_Oturumu_B_Kitapcigi_12_1_2022) · SORU 28 ile 2 cümle %80+ aynı (en yüksek 0.83; ör. \u0027denetçi tespit ettiği önemli iç kontrol eksikliklerini üst yönetimden sorumlu olanlara zam…\u0027)",
+                                    "CIKMIS SINAV - KGK  (11486_SabahOturumu_A_Kitapcigi_12_11_2022) · SORU 8 ile 2 cümle %80+ aynı (en yüksek 0.83; ör. \u0027denetçi tespit ettiği önemli iç kontrol eksikliklerini üst yönetimden sorumlu olanlara zam…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-kolay",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "denetim calisma kagitlari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-kolay",
+                         "id":  "kp-27",
+                         "sinav":  "SGS",
+                         "konu":  "ic kontrol sistemi ozellikleri",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2026/1 (sgs_2026_1_lisans_a_ingilizce) · SORU 81 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027İç kontrol sistemini tasarlama, uygulama ve sürdürme şekli işletmenin büyüklüğüne ve karma…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-kolay",
+                         "id":  "kp-28",
+                         "sinav":  "SGS",
+                         "konu":  "bds 265 ic kontrol eksikligi",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (10248_Sabah_A_Kitapcigi__14_11_2020) · SORU 7 ile 2 cümle %80+ aynı (en yüksek 0.90; ör. \u0027Denetimin amacının finansal tablolar hakkında bir görüş vermek olduğu açıklanır.\u0027)",
+                                    "CIKMIS SINAV - KGK  (10248_Sabah_B_Kitapcigi_14_11_2020) · SORU 27 ile 2 cümle %80+ aynı (en yüksek 0.90; ör. \u0027Denetimin amacının finansal tablolar hakkında bir görüş vermek olduğu açıklanır.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-kolay",
+                         "id":  "kp-39",
+                         "sinav":  "SGS",
+                         "konu":  "calisma kagitlari amaci",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 85 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)",
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 78 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetim ekibinin denetimi planlamasına ve yürütmesine yardımcı olmak\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-denetim-zor",
+                         "id":  "kp-08",
+                         "sinav":  "SGS",
+                         "konu":  "ornekleme riski",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK  (11970_Sürdürülebilirlik_Denetçiliği_Sınavı_A_Kitapçığı) · SORU 8 ile 2 cümle %80+ aynı (en yüksek 0.94; ör. \u0027Bu durumda söz konusu kalem, kontrol testleri açısından öngörülen kontrolden bir sapma, de…\u0027)",
+                                    "CIKMIS SINAV - KGK  (11970_Sürdürülebilirlik_Denetçiliği_Sınavı_B_Kitapçığı) · SORU 31 ile 2 cümle %80+ aynı (en yüksek 0.94; ör. \u0027Bu durumda söz konusu kalem, kontrol testleri açısından öngörülen kontrolden bir sapma, de…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-cokzor",
+                         "id":  "kp-31",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senedi yenileme",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-kolay",
+                         "id":  "kp-25",
+                         "sinav":  "SGS",
+                         "konu":  "alacak senetleri",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-kolay",
+                         "id":  "kp-38",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskonto ettirme",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-23",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskonto kaydi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-fmuh-zor",
+                         "id":  "kp-35",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskonto ettirme",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-issgk-cokzor",
+                         "id":  "kp-03",
+                         "sinav":  "SGS",
+                         "konu":  "İs kanunu kapsami",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2018/1 (sgs_2018_1_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Aile ekonomisi sınırları içinde kalan tarımla ilgili her çeşit yapı işleri\u0027)",
+                                    "CIKMIS SINAV - SGS 2020/1 (sgs_2020_1_lisans_a_ingilizce) · SORU 107 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Aile ekonomisi sınırları içinde kalan tarımla ilgili her çeşit yapı işleri\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2-ticaret-zor",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "genel islem kosullari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 10 ile 4 cümle %80+ aynı (en yüksek 0.96; ör. \u0027Genel işlem koşulları, düzenleyenin ileride çok sayıda benzer sözleşmede kullanmak amacıyl…\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 32 ile 4 cümle %80+ aynı (en yüksek 0.96; ör. \u0027Genel işlem koşulları, düzenleyenin ileride çok sayıda benzer sözleşmede kullanmak amacıyl…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t2b-mta-cokzor",
+                         "id":  "kp-13",
+                         "sinav":  "SGS",
+                         "konu":  "sektor oranlari analizi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t3-fmuh-kolay",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskonto kaydi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t3-fmuh-zor",
+                         "id":  "kp-07",
+                         "sinav":  "SGS",
+                         "konu":  "senet iskonto kaydi",
+                         "hakem":  "EVET",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 360 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 360 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t4-fmuh-kolay",
+                         "id":  "kp-23",
+                         "sinav":  "SGS",
+                         "konu":  "surdurulebilirlik standartlari issb",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2018/1 (sgs_2018_1_lisans_a_ingilizce) · SORU 55 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu (KGK)\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-t4-vergi-kolay",
+                         "id":  "kp-09",
+                         "sinav":  "SGS",
+                         "konu":  "vuk vergi mukellefiyeti",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2022/1 (sgs_2022_1_lisans_a_ingilizce) · SORU 114 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Mükellefiyet ve vergi sorumluluğu için kanuni ehliyet şarttır\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-ticaret-k10d",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "genel islem kosullari",
+                         "hakem":  "EVET",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_) · SORU 10 ile 4 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Bu koşulların sözleşme metninde veya ekinde yer alması, kapsamı, yazı türü ve şekli, nitel…\u0027)",
+                                    "CIKMIS SINAV - KGK /B/Kitapçığı/ (ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_) · SORU 32 ile 4 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Bu koşulların sözleşme metninde veya ekinde yer alması, kapsamı, yazı türü ve şekli, nitel…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "sgs-vergi-p30",
+                         "id":  "kp-01",
+                         "sinav":  "SGS",
+                         "konu":  "kurumlar vergisi istisnasi",
+                         "hakem":  "HAYIR",
+                         "cb":  [
+                                    "CIKMIS SINAV - SGS 2024/2 (sgs_2024_2_lisans_a_ingilizce) · SORU 114 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Kurumların, tam mükellefiyete tabi başka bir kurumun sermayesine katılımlarından elde etti…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "smmm-gm-p1-ydenetim",
+                         "id":  "kp-01",
+                         "sinav":  "SMMM",
+                         "konu":  "denetim raporu bolumleri",
+                         "hakem":  "",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /A (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_A) · SORU 26 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetçi raporunun ilk bölümü “Görüş” başlığı altında denetçi görüşünü içerir.\u0027)",
+                                    "CIKMIS SINAV - KGK /B (11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_B) · SORU 6 ile 2 cümle %80+ aynı (en yüksek 1.00; ör. \u0027Denetçi raporunun ilk bölümü “Görüş” başlığı altında denetçi görüşünü içerir.\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     },
+                     {
+                         "etiket":  "smmm-gm-p1-yfta",
+                         "id":  "kp-01",
+                         "sinav":  "SMMM",
+                         "konu":  "stok devir hizi",
+                         "hakem":  "",
+                         "cb":  [
+
+                                ],
+                         "gt":  [
+                                    "çözüm yılı 365 gün alıyor ama soru kökünde gün tabanı yazmıyor (\u00271 yıl 365 gün kabul edilecektir\u0027)"
+                                ]
+                     },
+                     {
+                         "etiket":  "smmm-gm-p1-yspk",
+                         "id":  "kp-01",
+                         "sinav":  "SMMM",
+                         "konu":  "halka acik ortaklik statusu",
+                         "hakem":  "",
+                         "cb":  [
+                                    "CIKMIS SINAV - KGK /SABAH/ (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_SABAH_-A_KİTAPÇIĞI) · SORU 6 ile 2 cümle %80+ aynı (en yüksek 0.96; ör. \u0027Payları borsada işlem gören ortaklıklar ile kitle fonlaması suretiyle halktan para toplaya…\u0027)",
+                                    "CIKMIS SINAV - KGK /SABAH/ (ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_SABAH_-B_KİTAPÇIĞI) · SORU 33 ile 2 cümle %80+ aynı (en yüksek 0.96; ör. \u0027Payları borsada işlem gören ortaklıklar ile kitle fonlaması suretiyle halktan para toplaya…\u0027)"
+                                ],
+                         "gt":  [
+
+                                ]
+                     }
+                 ]
+}

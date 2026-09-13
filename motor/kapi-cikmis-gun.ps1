@@ -1,0 +1,238 @@
+﻿# ============================================================================
+#  KAPI-CB ÇIKMIŞ CÜMLE BENZERLİĞİ + KAPI-GT GÜN TABANI   13.09.2026
+#
+#  NEDEN (Cem 13.09 "1.2.3 üçünü de yap", GM incelemesi smmm-gm-p1):
+#   KAPI-CB: Denetim sorusunun (BDS 700) A ve C şıkları KGK 23.11.2024 SORU 26'nın
+#   I-II öncülleriyle, B şıkkı KGK 19.11.2023 SORU 36 öncül II ile neredeyse kelimesi
+#   kelimesine aynıydı; kod kapılarının hepsinden geçti. Sebep: KAPI-B (BenzerlikKusur)
+#   yalnız SORU KÖKÜNÜ ve yalnız o konunun TEK çapasını karşılaştırıyor; şıklara,
+#   öncüllere ve öteki sınavların (KGK/SGS/SMMM) çıkmışlarına hiç bakmıyordu.
+#   Bu kapı sorunun kökünü, öncüllerini ve her şıkkı cümle cümle, ambardaki BÜTÜN
+#   çıkmış soru metinleriyle (tur=cikmis-soru, üç sınav) karşılaştırır.
+#   Benzerlik = ortak kelime / max(bizim kelime, çıkmış kelime) (katlanmış, >=2 harf).
+#   Cümle en az 8 kelime değilse karşılaştırılmaz ("Yalnız I" gibi şıklar).
+#   Karar: aynı çıkmış soruyla >= $KCB_ESIK benzer cümle sayısı $KCB_SERT_ADET ve üstüyse
+#   SERT (yeniden paketlenmiş çıkmış soru); tek cümle ise NOT (kanun cümlesini aynen
+#   alan her iki soruda da doğal olarak görülür; eşik 13.09 provasıyla seçildi,
+#   bkz. veri/kapi-cikmis-gun-provasi.md).
+#
+#   KAPI-GT: FTA sorusu stokta kalma süresini 365 günle hesapladı ama soruda gün
+#   tabanı yazmıyordu. Ölçüm (13.09, ambar çıkmışları): tabanı açıkça yazan 51
+#   ifadenin 47'si 360 (SMMM 3/3, SGS 10/10, KGK 34/38), 4'ü 365 (yalnız KGK 2025);
+#   gerçek sınav tabanı HER ZAMAN soruda yazar. Çözüm (açıklama, çeldirici yolu,
+#   çözüm tablosu, adımlar) 360/365 ile bölüyor/çarpıyorsa soru kökü aynı tabanı
+#   "360 gün" / "365 gün" diye söylemeli; söylemiyorsa ya da başka taban diyorsa SERT.
+#
+#  Kullanan: motor/kalip-parti-uret.ps1 (FAZ A + FAZ GM) · arac/kapi-cikmis-gun-provasi.ps1
+#  Ambar çekilemezse KAPI-CB KÖR kalır ve bunu söyler (sessizce geçmez).
+# ============================================================================
+$KCB_ESIK = 0.80
+$KCB_SERT_ADET = 2
+
+if (-not ('KapiCikmisDizin' -as [type])) {
+Add-Type -Language CSharp -TypeDefinition @'
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
+
+public class KapiCikmisDizin {
+  List<HashSet<string>> seg = new List<HashSet<string>>();
+  List<int> segBirim = new List<int>();
+  Dictionary<string, List<int>> ilan = new Dictionary<string, List<int>>();
+  public List<string> Birimler = new List<string>();
+  public const int MinKelime = 8;
+  static readonly Regex Bol = new Regex(@"(?<=[.?!;])\s+|\s+(?=[A-E]\)\s)|\s+(?=(?:I|II|III|IV|V|VI)\.\s)|\n+", RegexOptions.Compiled);
+  static readonly Regex SoruBol = new Regex(@"(?=SORU \d+\s*:)", RegexOptions.Compiled);
+  static readonly Regex SoruBas = new Regex(@"^SORU (\d+)\s*:", RegexOptions.Compiled);
+
+  public static string Katla(string s) {
+    if (s == null) return "";
+    StringBuilder sb = new StringBuilder(s.Length);
+    foreach (char c0 in s) {
+      char c = c0;
+      switch (c) {
+        case 'ç': case 'Ç': c = 'c'; break;
+        case 'ğ': case 'Ğ': c = 'g'; break;
+        case 'ı': case 'I': case 'İ': case 'î': case 'Î': c = 'i'; break;
+        case 'ö': case 'Ö': c = 'o'; break;
+        case 'ş': case 'Ş': c = 's'; break;
+        case 'ü': case 'Ü': case 'û': case 'Û': c = 'u'; break;
+        case 'â': case 'Â': c = 'a'; break;
+        case '̇': continue;
+      }
+      c = char.ToLowerInvariant(c);
+      sb.Append((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') ? c : ' ');
+    }
+    return sb.ToString();
+  }
+  public static HashSet<string> Kume(string s) {
+    HashSet<string> k = new HashSet<string>();
+    foreach (string w in Katla(s).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)) { if (w.Length >= 2) k.Add(w); }
+    return k;
+  }
+  public static string[] Parcala(string s) { return Bol.Split(s ?? ""); }
+  public static int KelimeSayisi(string s) { return Kume(s).Count; }
+  public int SegmentSayisi { get { return seg.Count; } }
+
+  public void BelgeEkle(string ad, string metin) {
+    if (string.IsNullOrEmpty(metin)) return;
+    string duz = Regex.Replace(metin, @"[ \t\r\f]+", " ");
+    foreach (string p in SoruBol.Split(duz)) {
+      Match m = SoruBas.Match(p);
+      if (!m.Success) continue;
+      int birim = Birimler.Count;
+      Birimler.Add(ad + " · SORU " + m.Groups[1].Value);
+      foreach (string c in Parcala(p.Substring(m.Length))) {
+        HashSet<string> k = Kume(c);
+        if (k.Count < MinKelime) continue;
+        int sid = seg.Count; seg.Add(k); segBirim.Add(birim);
+        foreach (string w in k) { List<int> l; if (!ilan.TryGetValue(w, out l)) { l = new List<int>(); ilan[w] = l; } l.Add(sid); }
+      }
+    }
+  }
+  int Df(string w) { List<int> l; return ilan.TryGetValue(w, out l) ? l.Count : 0; }
+
+  // Dönüş: "probIndex<TAB>birim<TAB>benzerlik" (her prob için her birimde en yüksek benzerlik, esik ve üstü)
+  public List<string> Ara(string[] problar, double esik) {
+    List<string> sonuc = new List<string>();
+    for (int i = 0; i < problar.Length; i++) {
+      HashSet<string> P = Kume(problar[i]);
+      if (P.Count < MinKelime) continue;
+      List<string> sirali = new List<string>(P);
+      sirali.Sort(delegate (string a, string b) { return Df(a).CompareTo(Df(b)); });
+      // benzerlik >= esik ise P'nin en fazla floor((1-esik)|P|) kelimesi ortak DEĞİLDİR → en nadir floor(..)+1 kelimeden biri mutlaka ortaktır
+      int kac = (int)Math.Floor((1.0 - esik) * P.Count) + 1; if (kac > sirali.Count) kac = sirali.Count;
+      HashSet<int> aday = new HashSet<int>();
+      for (int j = 0; j < kac; j++) { List<int> l; if (ilan.TryGetValue(sirali[j], out l)) foreach (int s in l) aday.Add(s); }
+      Dictionary<int, double> enIyi = new Dictionary<int, double>();
+      foreach (int s in aday) {
+        HashSet<string> S = seg[s]; int ortak = 0;
+        foreach (string w in P) if (S.Contains(w)) ortak++;
+        double b = (double)ortak / Math.Max(P.Count, S.Count);
+        if (b >= esik) { int bi = segBirim[s]; double eski; if (!enIyi.TryGetValue(bi, out eski) || b > eski) enIyi[bi] = b; }
+      }
+      foreach (KeyValuePair<int, double> kv in enIyi) sonuc.Add(i.ToString(CultureInfo.InvariantCulture) + "\t" + Birimler[kv.Key] + "\t" + kv.Value.ToString("0.00", CultureInfo.InvariantCulture));
+    }
+    return sonuc;
+  }
+}
+'@
+}
+
+$script:CIKMIS_DIZIN = $null
+$script:CIKMIS_DIZIN_KOR = ''
+function CikmisDiziniKur($basliklar) {
+  if ($null -ne $script:CIKMIS_DIZIN -or $script:CIKMIS_DIZIN_KOR) { return $script:CIKMIS_DIZIN }
+  $dizinYeni = New-Object KapiCikmisDizin
+  $belgeSay = 0; $ofs = 0
+  try {
+    while ($true) {
+      $adr = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&order=id.asc&limit=40&offset=' + $ofs
+      $yanitSayfa = $null
+      for ($den = 1; $den -le 3; $den++) { try { $yanitSayfa = Invoke-WebRequest -Uri $adr -Headers $basliklar -UseBasicParsing -TimeoutSec 180; break } catch { if ($den -eq 3) { throw } ; Start-Sleep -Seconds (5 * $den) } }
+      $satirlar = @((ConvertFrom-Json -InputObject $yanitSayfa.Content))
+      foreach ($st in $satirlar) { if ($st) { $dizinYeni.BelgeEkle("$($st.kaynak_ad)", "$($st.metin)"); $belgeSay++ } }
+      $ofs += $satirlar.Count
+      if ($satirlar.Count -lt 40) { break }
+    }
+  } catch { $script:CIKMIS_DIZIN_KOR = "ambar çekilemedi: $($_.Exception.Message)"; Write-Host "  KAPI-CB KÖR: $($script:CIKMIS_DIZIN_KOR)" -ForegroundColor Red; return $null }
+  if ($belgeSay -lt 100) { $script:CIKMIS_DIZIN_KOR = "ambardan yalnız $belgeSay çıkmış belge geldi (beklenen >= 100)"; Write-Host "  KAPI-CB KÖR: $($script:CIKMIS_DIZIN_KOR)" -ForegroundColor Red; return $null }
+  Write-Host "  KAPI-CB çıkmış cümle dizini: $belgeSay belge · $($dizinYeni.Birimler.Count) soru · $($dizinYeni.SegmentSayisi) cümle" -ForegroundColor DarkGray
+  $script:CIKMIS_DIZIN = $dizinYeni
+  return $dizinYeni
+}
+
+# İç içe alan (string / dizi / nesne) → düz metin
+function KcgMetin($deger) {
+  if ($null -eq $deger) { return '' }
+  if ($deger -is [string]) { return $deger }
+  if ($deger -is [System.Collections.IEnumerable]) { return ((@($deger) | ForEach-Object { KcgMetin $_ }) -join ' ') }
+  if ($deger -is [psobject] -and $deger.PSObject.Properties.Count) { return ((@($deger.PSObject.Properties) | ForEach-Object { KcgMetin $_.Value }) -join ' ') }
+  return "$deger"
+}
+
+# Sorunun karşılaştırılacak cümleleri: kök (öncül satırları dahil) + her şık.
+# 13.09 PROVA (986 parti / 6.856 soru) iki yanlış alarm sınıfı gösterdi, ikisi prob dışı:
+#  (1) SORU CÜMLESİ: "…yapacağı muhasebe kaydı aşağıdakilerden hangisidir?" her sınavda aynı kalıptır, kopya değildir.
+#  (2) YEVMİYE SATIRI: "770 GENEL YÖNETİM GİDERLERİ 150.000 / 360 ÖDENECEK VERGİ…" hesap kodu + resmî hesap adı + tutar; kelimeleri
+#      Tekdüzen Hesap Planı'ndan gelir, her kayıt sorusunda benzer. Hesap kodlu ya da sayı ağırlıklı (>= %30) parça karşılaştırılmaz.
+function CikmisProbUygun([string]$parca) {
+  if ([KapiCikmisDizin]::KelimeSayisi($parca) -lt [KapiCikmisDizin]::MinKelime) { return $false }
+  if ($parca -match '(?i)hangisi|hangileri|kaçtır|kaç\s+(TL|₺|gün|yıl|ay|adet|birim|puan)|aşağıdaki(ler)?\s|yukarıdaki') { return $false }
+  if ($parca -cmatch '(?<![\d.,])[1-7]\d{2}\s+[A-ZÇĞİÖŞÜ][a-zçğıöşüA-ZÇĞİÖŞÜ]') { return $false }
+  $kelimeler = @(([KapiCikmisDizin]::Katla($parca)) -split '\s+' | Where-Object { $_.Length -ge 1 })
+  $sayilar = @($kelimeler | Where-Object { $_ -match '^\d+$' })
+  if ($kelimeler.Count -and ($sayilar.Count / $kelimeler.Count) -ge 0.30) { return $false }
+  return $true
+}
+function CikmisProblar($soruNesne) {
+  $liste = New-Object System.Collections.Generic.List[string]
+  foreach ($parca in [KapiCikmisDizin]::Parcala("$($soruNesne.soru)")) { if (CikmisProbUygun $parca) { $liste.Add($parca.Trim()) } }
+  if ($soruNesne.siklar) {
+    foreach ($harf in 'A', 'B', 'C', 'D', 'E') {
+      foreach ($parca in [KapiCikmisDizin]::Parcala("$($soruNesne.siklar.$harf)")) { if (CikmisProbUygun $parca) { $liste.Add($parca.Trim()) } }
+    }
+  }
+  return , $liste.ToArray()
+}
+
+# Dönüş: kusur (sert) · not (tek cümle) · kor · isabet (ham satırlar, prova için)
+function CikmisCumleKapisi($soruNesne, $basliklar) {
+  $sonucNesne = [pscustomobject]@{ kusur = @(); not = @(); kor = ''; isabet = @() }
+  if (-not $soruNesne -or -not $soruNesne.soru) { return $sonucNesne }
+  $dz = CikmisDiziniKur $basliklar
+  if (-not $dz) { $sonucNesne.kor = $script:CIKMIS_DIZIN_KOR; return $sonucNesne }
+  $problar = CikmisProblar $soruNesne
+  if (-not $problar.Count) { return $sonucNesne }
+  $hamIsabet = @($dz.Ara($problar, $KCB_ESIK))
+  $sonucNesne.isabet = $hamIsabet
+  if (-not $hamIsabet.Count) { return $sonucNesne }
+  $birimProb = @{}; $birimEnYuksek = @{}
+  foreach ($satirIsabet in $hamIsabet) {
+    $pr = $satirIsabet -split "`t"
+    if (-not $birimProb.ContainsKey($pr[1])) { $birimProb[$pr[1]] = @{}; $birimEnYuksek[$pr[1]] = 0.0 }
+    $birimProb[$pr[1]][[int]$pr[0]] = 1
+    $bn = [double]::Parse($pr[2], [Globalization.CultureInfo]::InvariantCulture); if ($bn -gt $birimEnYuksek[$pr[1]]) { $birimEnYuksek[$pr[1]] = $bn }
+  }
+  foreach ($birimAd in @($birimProb.Keys | Sort-Object { - $birimProb[$_].Count }, { $_ })) {
+    $adet = $birimProb[$birimAd].Count
+    $ornekCumle = $problar[@($birimProb[$birimAd].Keys | Sort-Object)[0]]; if ($ornekCumle.Length -gt 90) { $ornekCumle = $ornekCumle.Substring(0, 90) + '…' }
+    $yazi = "$birimAd ile $adet cümle %$([int]($KCB_ESIK*100))+ aynı (en yüksek $($birimEnYuksek[$birimAd].ToString('0.00',[Globalization.CultureInfo]::InvariantCulture)); ör. '$ornekCumle')"
+    if ($adet -ge $KCB_SERT_ADET) { $sonucNesne.kusur += $yazi } else { $sonucNesne.not += $yazi }
+  }
+  # aynı çıkmış soru A/B kitapçıkta iki kez bulunur: rapor kısa kalsın
+  $sonucNesne.kusur = @($sonucNesne.kusur | Select-Object -First 2)
+  $sonucNesne.not = @($sonucNesne.not | Select-Object -First 2)
+  return $sonucNesne
+}
+
+# KAPI-GT: çözüm 360/365 ile hesaplıyorsa soru kökü aynı tabanı yazmalı
+# 13.09 PROVA: yevmiye satırındaki "150.000 / 360 ÖDENECEK VERGİ VE FONLAR" hesap kodu gün tabanı sanılıyordu → sayıdan sonra büyük harfle
+# başlayan kelime (hesap adı) gelirse kullanım sayılmaz.
+function GunTabaniKullanimi([string]$metin) {
+  return @([regex]::Matches($metin, '(?<![\d.,])(360|365)(?!\s+[A-ZÇĞİÖŞÜ])\s*[/÷×xX\*]|[/÷×xX\*]\s*(360|365)(?![\d.,])(?!\s+[A-ZÇĞİÖŞÜ])') | ForEach-Object { if ($_.Groups[1].Success) { $_.Groups[1].Value } else { $_.Groups[2].Value } } | Select-Object -Unique)
+}
+function GunTabaniKapisi($soruNesne, $adimListe) {
+  $cikti = @()
+  if (-not $soruNesne) { return $cikti }
+  $tabloMetin = $(if ($soruNesne.PSObject.Properties['cozum_tablo']) { KcgMetin $soruNesne.cozum_tablo } else { '' })
+  $tumMetin = (KcgMetin $soruNesne.aciklama) + ' ' + $(if ($soruNesne.PSObject.Properties['celdirici_yol']) { KcgMetin $soruNesne.celdirici_yol } else { '' }) + ' ' + $tabloMetin
+  $dogruAdimMetin = ''
+  foreach ($adimTek in @($adimListe)) {
+    if ($adimTek -and $adimTek.PSObject.Properties['formul']) {
+      $tumMetin += ' ' + "$($adimTek.formul)"
+      if ("$($adimTek.formul)" -notmatch 'HATALI') { $dogruAdimMetin += ' ' + "$($adimTek.formul)" }
+    }
+  }
+  $kullanilan = @(GunTabaniKullanimi $tumMetin)
+  if (-not $kullanilan.Count) { return $cikti }
+  $yazilan = @([regex]::Matches("$($soruNesne.soru)", '(?<![\d.,])(360|365)\s*gün') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+  if (-not $yazilan.Count) { return @("çözüm yılı $($kullanilan -join '/') gün alıyor ama soru kökünde gün tabanı yazmıyor ('1 yıl $($kullanilan[0]) gün kabul edilecektir')") }
+  # Taban yazılıysa yalnız DOĞRU yol denetlenir: yanlış tabanı kullanan çeldirici (bilerek yanlış) meşrudur.
+  $dogruHarf = "$($soruNesne.dogru)"
+  $dogruMetin = $(if ($dogruHarf -and $soruNesne.aciklama -and $soruNesne.aciklama.PSObject.Properties[$dogruHarf]) { KcgMetin $soruNesne.aciklama.$dogruHarf } else { '' }) + ' ' + $tabloMetin + ' ' + $dogruAdimMetin
+  foreach ($gunTaban in @(GunTabaniKullanimi $dogruMetin)) { if ($yazilan -notcontains $gunTaban) { $cikti += "soru kökü $($yazilan -join '/') gün diyor, doğru çözüm $gunTaban gün kullanıyor" } }
+  return $cikti
+}
