@@ -1048,7 +1048,14 @@ if(Test-Path $profYol){
   $prof=Get-Content $profYol -Raw -Encoding UTF8 | ConvertFrom-Json
   $svTam=@($prof.sinavlar.PSObject.Properties.Name | Where-Object { $_ -match [regex]::Escape($Sinav) }) | Select-Object -First 1
   if($svTam){
-    $dAd=@($prof.sinavlar.$svTam.PSObject.Properties.Name | Where-Object { $_ -match $DersRegex }) | Select-Object -First 1
+    # ⛔ 13.09 ÖLÇÜLDÜ: çıpasız "Maliye" deseni SGS profil sırasında önce gelen "Maliyet Muhasebesi"ne takılıyordu. Maliye parti günlüklerinin
+    # 11'inde "ders profili: ... / Maliyet Muhasebesi" yazıyor (9'unda doğru); hakem Maliye sorusunu Maliyet Muhasebesi kapsamıyla yargıladı
+    # → 192 Maliye sorusunda 80 hakem reddinin 72'si DERS-DISI (gerekçelerde "Maliyet Muhasebesi resmi ders kapsamı"). Plan satırlarının
+    # 145'i "Maliye", 17'si "^Maliye$". Önce TAM ad aranır, yoksa eski kısmi eşleşme. Eşdeğerlik: 4 sınav × 23 plan deseni = 92 seçimde
+    # fark tam 1 (SGS 'Maliye': Maliyet Muhasebesi -> Maliye).
+    $dAdlar=@($prof.sinavlar.$svTam.PSObject.Properties.Name); $dersSade=($DersRegex -replace '^\^','' -replace '\$$','')
+    $dAd=@($dAdlar | Where-Object { $_ -eq $dersSade }) | Select-Object -First 1
+    if(-not $dAd){ $dAd=@($dAdlar | Where-Object { $_ -match $DersRegex }) | Select-Object -First 1 }
     if($dAd){
       $dp=$prof.sinavlar.$svTam.$dAd
       if($dp.kapsam_tarifi){ $DERS_TARIF="$($dp.kapsam_tarifi)" }
