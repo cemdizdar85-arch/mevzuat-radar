@@ -923,13 +923,13 @@ $OZEL_DESEN=@{
   #   bakilmasi" YASAGI ise Disiplin Yon. m.6/c'de, YMM sifatinin kaldirilmasi m.8'de (13.09 kp-08 dersi).
   'ymm tasdik yasaklari'                  = @('SMMM K. (3568 s.K.) m.12 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.8')
   'meslekle bagdasmayan isler'            = @('SMMM K. (3568 s.K.) m.45 [%')
-  'meslek hukuku ucret sozlesmesi'        = @('SMMM K. (3568 s.K.) m.46')
+  'meslek hukuku ucret sozlesmesi'        = @('SMMM K. (3568 s.K.) m.46','SMMM ve YMM K. Disiplin Yonetmeligi m.6 [1/3]','TÜRMOB Etik İlkeler Yön. EK bolum 12')   # 13.09 ÖLÇÜLDÜ (a6e çok zor kp-07): yalnız m.46 vardı, hakem "kriterler kaynakta yok" dedi; kınama bentleri (m.6/d,g) ve ücret etiği (EK m.40-43) eklendi
   'ucret tarifesi esaslari'               = @('SMMM K. (3568 s.K.) m.46')
   'ruhsat iptali-meslek hukuku'           = @('SMMM ve YMM K. Disiplin Yonetmeligi m.9','SMMM ve YMM K. Disiplin Yonetmeligi m.12 [%')
   'genel kurul kararlari'                 = @('SMMM K. (3568 s.K.) m.19','SMMM K. (3568 s.K.) m.18','SMMM K. (3568 s.K.) m.33')
   'yeminli mali musavirlik sinavi'        = @('SMMM K. (3568 s.K.) m.9 [%','SMMM K. (3568 s.K.) m.10 [%')
   'meslek mensubu olma engelleri'         = @('SMMM K. (3568 s.K.) m.4','SMMM K. (3568 s.K.) m.5')
-  'ozen sorumlulugu'                      = @('SMMM K. (3568 s.K.) m.43')
+  'ozen sorumlulugu'                      = @('SMMM K. (3568 s.K.) m.43','TÜRMOB Etik İlkeler Yön. EK bolum 4')   # 13.09 ÖLÇÜLDÜ (a6e çok zor kp-06): m.43 "görev sona erse bile" demiyor; bu hüküm EK m.13'te (bolum 4: m.10-14 özen + gizlilik)
   'buro edinme zorunlulugu'               = @('SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.13','SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.14 [%')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
