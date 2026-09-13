@@ -675,7 +675,7 @@ window.veriAl = (function(){
         --ink:#f2f4f8; --muted:#aab3c0; --dim:#78828f; --panel:#141820; --line:#262b35; --bz-gece:#0a0b0e;
         max-width:none;width:auto;box-sizing:border-box;margin:0 calc(50% - 50vw);background:var(--bz-gece);
         padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%)}
-      .hero-sade .bz-nobet{padding-top:6px;padding-bottom:30px}
+      .hero-sade .bz-nobet{padding-top:6px;padding-bottom:52px}
       .hero-sade .bz-nobet .nd-dip{background:transparent;padding:0;margin-top:10px}
       .hero-sade .kanit{padding-top:34px;padding-bottom:56px;border-top:1px solid var(--line)}
 
@@ -736,21 +736,32 @@ window.veriAl = (function(){
       </div>
     </div>
 
-    <!-- NÖBET ŞERİDİ: kimlikler eski nöbet kutusuyla AYNI; sayfanın aşağıdaki nöbet betiği
-         değişmeden doldurur. HTML'deki değerler son gerçek ölçüm (13.09.2026 09:44). -->
-    <section class="bz-nobet" aria-label="Nöbet defteri">
+    <!-- SINAV BANDI (13.09 Cem "1.2.3 yap", GM önerisi 1): kahramanın hemen altındaki koyu bant YALNIZ
+         sınava hazırlananı ilgilendiren dört rakamı taşır - büyük sitelerin kalıbı "tek kitle, tek kanıt bandı".
+         Resmî Gazete / ihale / gümrük rakamları aşağıya, iş bölümünün girişine (#is-nobet) taşındı.
+         Kimlikler korundu: ndSgs/ndYet (nöbet betiği geri sayar), knCikmis (kanıt betiği), bzCozulebilir
+         (veri/soru-dizini.json - yayındaki Kaydır-Çöz sayfalarında çözülebilir soru; kasa sayısı DEĞİL).
+         Alt yazılar sınav tarihini taşır (TÜRMOB 2026 resmî takvimi): "başvuru 21 Eylül'de açılıyor" gibi
+         birkaç günde eskiyen cümle yazılmadı. -->
+    <section class="bz-nobet" aria-label="Sınav nöbeti">
       <div class="bz-nobet-ust">
-        <span class="bz-et">Aynı sistem iş tarafında da nöbet tutuyor</span>
-        <span><span id="ndNeZaman">Son koşu</span> <span id="ndSaat">09:44</span> · <span id="ndTarih">13.09.2026</span></span>
+        <span class="bz-et">Sınava hazırlanan için</span>
+        <span>Sınav tarihleri TÜRMOB 2026 resmî takviminden</span>
       </div>
       <div class="bz-nobet-sat">
-        <a class="bz-ns" href="kartlar.html"><b id="ndRg">1 değişiklik</b><span>Resmî Gazete okundu, seni bağlayan kısım ayrıldı</span></a>
-        <a class="bz-ns" href="ihale-radari.html"><b id="ndIhale">250 ilan</b><span>İhale ilanı süzüldü, sektörüne uymayan elendi</span></a>
-        <a class="bz-ns" href="genc.html"><b id="ndSgs">69 gün</b><span>Staja Giriş sınavına · başvuru 21 Eylül'de açılıyor</span></a>
-        <a class="bz-ns" href="canli-deneme.html"><b id="ndYet">76 gün</b><span>Yeterlilik sınavına · canlı deneme 27.09</span></a>
+        <a class="bz-ns" href="sorular.html#sgs"><b id="ndSgs">69 gün</b><span>Staja Giriş sınavına · 21 Kasım 2026</span></a>
+        <a class="bz-ns" href="sorular.html#smmm"><b id="ndYet">76 gün</b><span>Yeterlilik sınavına · 28 Kasım 2026</span></a>
+        <a class="bz-ns" href="sorular.html"><b id="bzCozulebilir">3.678</b><span>çözümlü soru bugün açık · her şıkkın gerekçesi yazılı</span></a>
+        <a class="bz-ns" href="sorular.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
       </div>
-      <div class="bz-nobet-dip nd-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
     </section>
+    <script>
+    /* bzCozulebilir: HTML'deki değer son ölçüm (13.09.2026); dizin okunursa üzerine yazılır, 0 gelirse yazılmaz. */
+    fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
+      if(!d||!d.sinavlar) return; var n=0; d.sinavlar.forEach(function(s){ n+=+s.soru||0; });
+      var e=document.getElementById('bzCozulebilir'); if(e&&n>0) e.textContent=n.toLocaleString('tr-TR');
+    }).catch(function(){});
+    </script>
 
     <script>
     (function(){
@@ -907,40 +918,82 @@ window.veriAl = (function(){
          başına sayar (islenen = o koşuda işlenen bültenler), birikimli
          değil; bir sonraki koşuda sayı düşer ve vitrin yalan söylerdi.
          Birikimli sayı Supabase marka_bulten_kutuk'ta; ona bağlanınca gelir. -->
-    <div class="kanit" aria-label="Sayılarla Tetikte">
-      <!-- ⛔ 12.09.2026 — ETİKET YANILTIYORDU. Rakam ölçülü (veri/vitrin-sayilar.json
-     soru_uretilen=30.569) ama etiket "soru BANKASINDA" diyordu; o rakam ÜRETİLEN
-     soru. Ölçüldü: soru_havuzu'nda yayin=true olan satır 0; çözülebilir olan
-     Kaydır-Çöz'deki 1.836. "Bankasında" demek, olmayanı vaat etmekti.
-     Bağlantı da takvim sayfasına gidiyordu; artık gerçek havuza gidiyor. -->
-<a class="kn" href="genc.html"><b id="knKasa">30.569</b><span>soru üretildi · her şık gerekçeli</span></a>
-      <a class="kn" href="genc.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
-      <a class="kn" href="genc.html"><b id="knDers">31 ders</b><span>Staja Giriş · Yeterlilik · Bağımsız denetçilik · SPK lisanslama</span></a>
-      <a class="kn" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
-      <div class="kanit-not">Sayılar robot ölçümünden gelir · son ölçüm <span id="knTarih">03.09.2026</span></div>
-    </div>
+    <!-- 13.09.2026 (Cem "1.2.3 yap"): KANIT ŞERİDİ DAĞITILDI, rakamlar silinmedi -
+         · knCikmis  -> yukarıdaki koyu SINAV BANDI
+         · knKasa + knDers + knTarih -> aşağıdaki "Nasıl çalışır" altındaki kanıt satırı
+         · 15.717 gümrük kodu -> iş bölümü girişi (#is-nobet)
+         ⛔ knDers ETİKETİ YANLIŞTI: "Staja Giriş · Yeterlilik · Bağımsız denetçilik · SPK lisanslama"
+         yazıyordu; rakam sinav_ozet'in ÜÇ sınavının toplamı (15+8+8 = 31), SPK (23 ders) içinde DEĞİL.
+         12.09 notu (knKasa "bankasında" değil "üretildi") geçerli. -->
+
+    <!-- ============ NASIL ÇALIŞIR — SINAV AKIŞI (13.09.2026, GM önerisi 2) ============
+         Eski metin (Okur / Süzer / Kaynağıyla bildirir) Resmî Gazete, ihale ve marka bültenini anlatıyordu;
+         kahramandan sınava gelen ziyaretçi için anlamsızdı. O metin iş bölümünün girişine (#is-nobet) taşındı.
+         Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·
+         "Nöbetçi anlatsın" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir).
+         BİLEREK YAZILMADI: "ikizini sen çöz" - yalnız %40'ında var. -->
+    <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
+      <div class="nasil-bas">
+        <span class="nasil-et">Nasıl çalışır</span>
+        <h2>Dört adım, her soruda.</h2>
+      </div>
+      <div class="nasil-adimlar nasil-dort">
+        <div class="na"><span class="na-no">1</span><b>Sınavdaki gibi çöz</b><p>Soru sınav kitapçığındaki biçimde gelir. Süren işler, şıkları kâğıttaki gibi çizerek elersin.</p></div>
+        <div class="na"><span class="na-no">2</span><b>Yanlışını gör</b><p>Seçtiğin şıkkın neden yanlış, doğrusunun neden doğru olduğu tek tek yazar.</p></div>
+        <div class="na"><span class="na-no">3</span><b>Nöbetçi anlatsın</b><p>Çözüm adım adım açılır; takıldığın adımda durur, geri dönersin.</p></div>
+        <div class="na"><span class="na-no">4</span><b>Unutma</b><p>Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar.</p></div>
+      </div>
+      <p class="nasil-kanit">Bugüne kadar <b id="knKasa">30.569</b> soru üretildi; hakem, bağımsız çözüm ve kaynak kapılarından geçenler yayına çıkar ·
+        <b id="knDers">31 ders</b>, üç sınav (Staja Giriş · Yeterlilik · Bağımsız Denetçilik) · son ölçüm <span id="knTarih">03.09.2026</span> ·
+        <a href="sorular.html">Sınavını seç →</a></p>
+    </section>
+    <style>
+      .nasil-adimlar.nasil-dort{grid-template-columns:repeat(4,1fr);gap:0 32px}
+      .nasil-kanit{margin:18px 0 0;font-size:13px;line-height:1.6;color:var(--dim)}
+      .nasil-kanit b{color:var(--ink);font-weight:700}
+      .nasil-kanit a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
+      @media(max-width:1040px){ .nasil-adimlar.nasil-dort{grid-template-columns:1fr 1fr} }
+      @media(max-width:900px){ .nasil-adimlar.nasil-dort{grid-template-columns:1fr} }
+      /* iş bölümü girişi: açık zeminde, sitenin kendi jetonlarıyla */
+      .is-nobet{margin-top:10px;padding-top:34px;border-top:1px solid var(--line);text-align:left}
+      .is-nobet .bz-nobet-ust{margin-top:26px}
+      .is-nobet .bz-nobet-sat{grid-template-columns:repeat(3,1fr)}
+      @media(max-width:700px){ .is-nobet .bz-nobet-sat{grid-template-columns:1fr} }
+    </style>
+
+    <!-- ============ İŞ TARAFINDA NÖBET (13.09.2026) ====================================
+         Kahramanın altındaki koyu banttan ve eski "Nasıl çalışır"dan TAŞINDI: aynı kimlikler
+         (ndRg/ndIhale/ndNeZaman/ndSaat/ndTarih/ndDip) - nöbet betiği değişmeden doldurur.
+         Metin sınav cümlelerinden arındırıldı ("dersin", "her soru şıkkının gerekçesiyle" çıktı). -->
+    <section class="is-nobet" id="is-nobet" aria-label="İş tarafında nöbet">
+      <div class="nasil-bas">
+        <span class="nasil-et">İş tarafında da aynı nöbet</span>
+        <h2 style="margin:0;font-family:inherit;font-size:clamp(22px,2.4vw,30px);font-weight:800;color:var(--ink);letter-spacing:-.02em">Üç adım, her sabah.</h2>
+      </div>
+      <div class="nasil-adimlar">
+        <div class="na"><span class="na-no">1</span><b>Okur</b><p>Resmî Gazete, ihale ilanları ve marka bültenleri her sabah robotla okunur; saat damgası kutuda durur.</p></div>
+        <div class="na"><span class="na-no">2</span><b>Süzer</b><p>Yalnız seni bağlayanlar kalır: sektörün, ilin. Gerisi elenir, gürültü gelmez.</p></div>
+        <div class="na"><span class="na-no">3</span><b>Kaynağıyla bildirir</b><p>Her uyarı madde numarasıyla gelir. Söze değil kaynağa bakarsın.</p></div>
+      </div>
+      <div class="bz-nobet-ust">
+        <span class="bz-et">Bu sabahın nöbeti</span>
+        <span><span id="ndNeZaman">Son koşu</span> <span id="ndSaat">09:44</span> · <span id="ndTarih">13.09.2026</span></span>
+      </div>
+      <div class="bz-nobet-sat">
+        <a class="bz-ns" href="kartlar.html"><b id="ndRg">1 değişiklik</b><span>Resmî Gazete okundu, seni bağlayan kısım ayrıldı</span></a>
+        <a class="bz-ns" href="ihale-radari.html"><b id="ndIhale">250 ilan</b><span>İhale ilanı süzüldü, sektörüne uymayan elendi</span></a>
+        <a class="bz-ns" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
+      </div>
+      <div class="bz-nobet-dip nd-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
+    </section>
 
     <!-- 29.07'den beri buradaki 01/02 KAPI KARTLARI (Sınava hazırlanıyorum /
          İş başındayım) 04.09'da hero'ya TAŞINDI: iki çağrı düğmesi kapının
          kendisi. Silinmedi, yükseldi; hedefler aynı (genc.html / karne.html
          - karne GİRİŞSİZ çalışır, 30.07 dersi). -->
 
-    <!-- ============ NASIL ÇALIŞIR (04.09, A kurgusunun parçası) ============
-         Kurumsal kalıp ilk ekranın altında üç adım ister; "Nasıl çalışır →"
-         çağrısının hedefi burası. İddialar ölçülü: RG, ihale ve marka
-         robotları her sabah koşuyor (uyari-ozet / kaynak nöbetçisi /
-         marka-bulten.yml 05:40); sınav takvimi canli-deneme.json'dan. -->
-    <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
-      <div class="nasil-bas">
-        <span class="nasil-et">Nasıl çalışır</span>
-        <h2>Üç adım, her sabah.</h2>
-      </div>
-      <div class="nasil-adimlar">
-        <div class="na"><span class="na-no">1</span><b>Okur</b><p>Resmî Gazete, ihale ilanları, marka bültenleri ve sınav takvimi her sabah robotla okunur; saat damgası kutuda durur.</p></div>
-        <div class="na"><span class="na-no">2</span><b>Süzer</b><p>Yalnız seni bağlayanlar kalır: sektörün, ilin, dersin. Gerisi elenir, gürültü gelmez.</p></div>
-        <div class="na"><span class="na-no">3</span><b>Kaynağıyla bildirir</b><p>Her uyarı madde numarasıyla, her soru şıkkının gerekçesiyle gelir. Söze değil kaynağa bakarsın.</p></div>
-      </div>
-    </section>
+    <!-- (04.09 "Nasıl çalışır" bölümü 13.09'da ikiye ayrıldı: sınav akışı yukarıda #nasil,
+         Okur/Süzer/Bildirir metni yukarıdaki #is-nobet içinde.) -->
 
     <!-- ============ GTİP ARAMASI — KENDİ SATIRINA İNDİ ==================
          25.08'de hero'ya konmuştu ve gerekçesi doğruydu: "ürünü SAYFAYA
