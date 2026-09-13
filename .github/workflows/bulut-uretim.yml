@@ -139,6 +139,14 @@ jobs:
           } else {
             "parti onbellegi ATLANDI (ikiz denetimi zayif kosar)"
           }
+          # 13.09 OLCULDU (kosu 34772474588): sondaki -Yukle, basta INDIRILEN ve hic degismeyen partileri de geri yukluyordu
+          # (indirme dosya saatini yeniler -> "yerel daha yeni" sayilir). Kosu surerken baska oturumun guncelledigi 5 bitirme
+          # partisi eski icerikle ezildi. Cozum: indirmeden hemen sonra her partinin parmak izi alinir; sonda yalniz izi degisen
+          # ya da yeni olusan parti yuklenir.
+          $iz=[ordered]@{}
+          foreach($f in @(Get-ChildItem veri/fabrika -Filter 'kalip-parti-*.json' -ErrorAction SilentlyContinue)){ $iz[$f.Name]=(Get-FileHash $f.FullName -Algorithm SHA256).Hash }
+          [IO.File]::WriteAllText((Join-Path $env:RUNNER_TEMP 'parti-onizi.json'),(ConvertTo-Json -InputObject $iz -Compress),[Text.UTF8Encoding]::new($false))
+          "parti parmak izi alindi: $($iz.Count) dosya"
 
       - name: Uret
         shell: powershell
@@ -161,7 +169,21 @@ jobs:
           # ⛔ if: always() — uretim yarida kalsa bile ODENEN IS yazilir.
           # 13.09: sinav etiketi plandan (PLAN_SINAVI ilk adimda yazildi). Bos kalirsa eski varsayilan SGS.
           $ps = "$env:PLAN_SINAVI".Trim(); if(-not $ps){ $ps = 'SGS' }
-          ./arac/parti-senkron.ps1 -Yukle -Yaz -Sinav $ps
+          # 13.09: yalniz bu kosuda DEGISEN ya da YENI olusan parti yuklenir (indirmedeki parmak izine gore).
+          # Iz dosyasi yoksa (indirme adimi hic kosmadiysa) eski davranis: sinavin butun yerel partileri.
+          $izYol = Join-Path $env:RUNNER_TEMP 'parti-onizi.json'
+          if(Test-Path $izYol){
+            $onIz = @{}; $izJ = Get-Content $izYol -Raw -Encoding UTF8 | ConvertFrom-Json
+            foreach($p in $izJ.PSObject.Properties){ $onIz[$p.Name] = "$($p.Value)" }
+            $degisen = @(foreach($f in @(Get-ChildItem veri/fabrika -Filter 'kalip-parti-*.json' -ErrorAction SilentlyContinue)){
+              $h = (Get-FileHash $f.FullName -Algorithm SHA256).Hash
+              if(-not $onIz.ContainsKey($f.Name) -or $onIz[$f.Name] -ne $h){ $f.BaseName -replace '^kalip-parti-','' } })
+            "degisen/yeni parti: $($degisen.Count) (indirilen: $($onIz.Count))"
+            foreach($et in $degisen){ ./arac/parti-senkron.ps1 -Yukle -Yaz -Sinav $ps -Etiket $et }
+          } else {
+            "parmak izi yok - eski davranis: butun yerel partiler"
+            ./arac/parti-senkron.ps1 -Yukle -Yaz -Sinav $ps
+          }
           ./arac/bedel-senkron.ps1 -Yukle -Yaz
 
       # ⛔ KOSU GUNLUGU ARTIFACT'I KALDIRILDI (12.09, ilk kosudan ONCE olculdu).
