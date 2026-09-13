@@ -3534,6 +3534,24 @@ foreach($id in @($don.Keys)){
       foreach($x in (AmbarCek @("$ha") 900).metin){ if($x){ $kp.Add("$x") } }
     }
     if("$($cvp.kaynak_metin_ozet)".Trim()){ $kp.Add("$($cvp.kaynak_metin_ozet)") }
+    # 13.09 ÖLÇÜLDÜ (GM Meslek a6e kolay kp-08/13/14): HAZIR SORU yolu (FAZ GM) kaynak_metin_ozet YAZMIYOR; önbellekteki
+    # 5.469 SGS sorusunun 1.237'sinde alan boş, 955'i kör çözümden KAYNAKSIZ geçti/düştü. -KorKaynak verilse de paket boştu,
+    # kör ezberden çözdü → 3 doğru soru haksız düştü (Disiplin Yön. m.6/c "boşanmış dahi olsa", m.28 "evrakına girdiği tarih",
+    # m.5-6 kınama). Özet DOLUYSA bu blok koşmaz → istem baytı baytına aynı, toplu parmak izi aynı (eşdeğer).
+    # Özet BOŞSA hakemin gördüğü kaynak adları kullanılır: önce atıf (dayanakta anılan madde), sonra konuya göre sıralı
+    # 6 ad; blok bütün alınır, tavanı aşan blok atlanır (ortadan kesilmez, KAPI-KP ile aynı ilke). Gerekçe metni girmez.
+    elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
+      $korAt=@(); if($cvp.PSObject.Properties['atif_genisletme'] -and $cvp.atif_genisletme){ $korAt=@($cvp.atif_genisletme) }
+      $korSec=@($korAt)+@(KaynakSirala @(@($cvp.kaynak_adlar) | Where-Object { $korAt -notcontains $_ }) "$($cvp.konu)" 6)
+      $korBoy=0; foreach($hl in $kp){ $korBoy+=$hl.Length+5 }
+      foreach($ka in $korSec){
+        $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString("$ka")+'&limit=1'
+        $rK=$null; try{ $rK=@(Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60) }catch{ $rK=$null }
+        if(-not $rK -or -not $rK.Count -or -not $rK[0].metin){ continue }
+        $bK="[$ka] $($rK[0].metin)"
+        if($korBoy+$bK.Length+5 -le $KorKaynakTavan){ $kp.Add($bK); $korBoy+=$bK.Length+5 }
+      }
+    }
     $km=($kp -join "`n---`n")
     if($km.Length -gt $KorKaynakTavan){ $km=$km.Substring(0,$KorKaynakTavan) }
     if($km){ $korEk=$korKaynakEk.Replace('{METIN}',$km) }
