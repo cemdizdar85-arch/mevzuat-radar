@@ -61,7 +61,10 @@ function AmbarDamgalari{
     $r=$null
     try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 90 }
     catch{ throw ("ambar okunamadi: " + $_.Exception.Message + " — 011_kalip_parti.sql BASILDI MI? (radar-app/sql/UYGULANDI.md)") }
-    $s=@($r); foreach($x in $s){ $h["$($x.etiket)"]=[pscustomobject]@{ guncelleme=[datetime]$x.guncelleme; soru=[int]$x.soru_sayisi } }
+    # 13.09 ÖLÇÜLDÜ: [datetime]"2026-09-13T04:33:01+00:00" Kind=Local döner (07:33, TR +3); aşağıda dosyanın LastWriteTimeUtc'siyle
+    # kıyaslanıyordu → ambar 3 saat "daha yeni" görünüyordu. Sonuç: kuru koşu 883 partinin HEPSİNİ indirilecek sayıyordu ve ambar
+    # güncellemesinden sonraki 3 saat içinde yerelde değişen parti -Yukle'de SESSİZCE gönderilmiyordu. İki taraf da UTC.
+    $s=@($r); foreach($x in $s){ $h["$($x.etiket)"]=[pscustomobject]@{ guncelleme=[DateTimeOffset]::Parse("$($x.guncelleme)").UtcDateTime; soru=[int]$x.soru_sayisi } }
     if($Etiket -or $s.Count -lt 1000){ break }
     $off+=1000
   }
