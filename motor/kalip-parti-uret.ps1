@@ -783,7 +783,7 @@ $OZEL_DESEN=@{
   'aktiflesen gider'                = @('VUK (213 s.K.) m.272','VUK (213 s.K.) m.262%','VUK (213 s.K.) m.269')
   # --- Meslek Hukuku: Avukatlik K. m.168 ve TSPB Sermaye Piyasasi Etik Ilkeleri geliyordu
   'ucret tarifesi'                  = @('SMMM K. (3568 s.K.) m.46','TÜRMOB Etik İlkeler Yön. EK%')
-  'etik ilkeler tehditleri'         = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 3','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 7','TÜRMOB Etik İlkeler Yön. EK bolum 8','TÜRMOB Etik İlkeler Yön. m.4','TÜRMOB Etik İlkeler Yön. m.5')   # 13.09 ÖLÇÜLDÜ (a6e zor kp-21): 'EK%' joker AmbarCek limit=6 ile bolum 1-6'da kesiliyordu; önlem maddeleri m.27-30 (bolum 7-8) pakete HİÇ girmedi, kör yanlış şık seçti. Açık liste: temel ilkeler(1) · tehdit türleri(2) · önlem grupları m.4(3) · bağımsız tehdit örnekleri(6) · önlemler m.26-30(7-8)
+  'etik ilkeler tehditleri'         = @('TÜRMOB Etik İlkeler Yön. EK bolum 7','TÜRMOB Etik İlkeler Yön. EK bolum 8','TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 3','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. m.4','TÜRMOB Etik İlkeler Yön. m.5')   # 13.09 ÖLÇÜLDÜ (a6e zor kp-21): 'EK%' joker AmbarCek limit=6 ile bolum 1-6'da kesiliyordu; önlem maddeleri m.27-30 (bolum 7-8) pakete HİÇ girmedi, kör yanlış şık seçti. Bölümler ≈3.300 krk, 9.000 tavanına 7+8+2 (8.153) sığar: önlemler(7: m.26-28, 8: m.29-30) · tehdit türleri(2) önce; 3 (m.4 önlem grupları), 6, 1 yalnız yer kalırsa
   # --- Ticaret Hukuku: TTK m.235 (kollektif sirket), m.147 (birlesme), Kooperatifler K. m.25,
   #     SPK Borsa Istanbul karari geliyordu; dogru maddeler asagida
   'ticari temsilcilik yetkisi'      = @('TBK (6098 s.K.) m.547','TBK (6098 s.K.) m.548','TBK (6098 s.K.) m.551')
@@ -912,8 +912,10 @@ $OZEL_DESEN=@{
   #     hepsi ayni baslikla basliyor) - parca numarasi adindan bilinemez; metin aramasiyla secildi.
   'meslek standartlari ihlali'            = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 3','TÜRMOB Etik İlkeler Yön. EK bolum 4','TÜRMOB Etik İlkeler Yön. EK bolum 10','TÜRMOB Etik İlkeler Yön. EK bolum 11')
   'etik ilkeler tesvikler'                = @('TÜRMOB Etik İlkeler Yön. EK bolum 21','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 13','TÜRMOB Etik İlkeler Yön. EK bolum 18')
-  'etik ilkeler kisisel cikar tehdidi'    = @('TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 4','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 12')
-  'etik ilkeler kisisel cikar'            = @('TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 4','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 12')
+  # 13.09 ÖLÇÜLDÜ (a6e zor kp-16 + kolay kp-17, hakem "m.21 pakette yok"): EK bölümleri ≈3.300 krk; AmbarCek 9.000 tavanında sıradaki
+  # ilk iki bölüm sığıyor (2: 3.273 + 4: 3.331), m.21-25 örneklerini taşıyan bolum 6 hep dışarıda kalıyordu. Sıra ilgiliye göre: 6 önce.
+  'etik ilkeler kisisel cikar tehdidi'    = @('TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 12','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 4')
+  'etik ilkeler kisisel cikar'            = @('TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 12','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 4')
   'meslek mensubu etik sosyal sorumluluk' = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 2')
   'mesleki davranis ilkesi'               = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 5','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 11','TÜRMOB Etik İlkeler Yön. EK bolum 13')
   'reklam yasagi'                         = @('SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.19 [%','Haksız Rekabet ve Reklam Yasağı Yön. m.14','Haksız Rekabet ve Reklam Yasağı Yön. m.15')
