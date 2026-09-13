@@ -1,6 +1,6 @@
 ﻿# KONU PLANI — STAJA BAŞLAMA (SGS)
 
-> Uretim: **13.09.2026 06:19** (makine; elle duzenlenmez — motor/konu-plani.ps1). Bedel 0.
+> Uretim: **13.09.2026 07:08** (makine; elle duzenlenmez — motor/konu-plani.ps1). Bedel 0.
 > Kaynak: cikmis siklik = veri/fabrika/konu-koprusu.json · bizim soru = veri/fabrika/kalip-parti-*.json · ders agirligi = veri/ders-profili.json
 > Hedef kurali: konu cikmis arsivde N kez gorulduyse hedef = max(2, N x 1,5), tavan 12. Cikmis arsivde HIC gorulmemis konu plana GIRMEZ.
 
@@ -758,13 +758,13 @@ Cem karari (11.09): bu dersler **sonraya**. 566 konu · 1.428 soru · 9.368 TL.
 
 | Ders | Acik konu | Acik soru |
 |---|---:|---:|
-| Genel Kultur-Genel Yetenek (ayristirilamadi) | 166 | 362 |
-| Matematik-Istatistik (ayristirilamadi) | 124 | 290 |
-| Yabanci Dil | 64 | 212 |
-| Turkce | 74 | 208 |
-| Yabanci Dil (ayristirilamadi) | 69 | 170 |
-| Matematik | 55 | 145 |
-| Ataturk Ilke ve Inkilap Tarihi | 14 | 41 |
+| Genel Kultur-Genel Yetenek (ayristirilamadi) | 150 | 299 |
+| Yabanci Dil | 76 | 269 |
+| Turkce | 81 | 243 |
+| Matematik | 75 | 230 |
+| Matematik-Istatistik (ayristirilamadi) | 104 | 205 |
+| Yabanci Dil (ayristirilamadi) | 57 | 113 |
+| Ataturk Ilke ve Inkilap Tarihi | 23 | 69 |
 
 En cok cikan bekleyen konular (hat acildiginda ilk bunlar basilir):
 
@@ -775,15 +775,15 @@ En cok cikan bekleyen konular (hat acildiginda ilk bunlar basilir):
 | Turkce | noktalama isaretleri | 16 | 3 | 9 |
 | Turkce | anlatim bozuklugu | 15 | 4 | 8 |
 | Yabanci Dil | kelime bilgisi | 14 | 1 | 11 |
-| Yabanci Dil (ayristirilamadi) | sentence completion | 9 | 4 | 8 |
+| Yabanci Dil | sentence completion | 9 | 4 | 8 |
 | Matematik | denklem cozme | 9 | 2 | 10 |
 | Turkce | ses olaylari | 8 | 1 | 11 |
-| Genel Kultur-Genel Yetenek (ayristirilamadi) | sozcukte anlam | 8 | 3 | 9 |
+| Turkce | sozcukte anlam | 8 | 3 | 9 |
 | Yabanci Dil | cumle tamamlama-kosul | 7 | 1 | 10 |
-| Matematik-Istatistik (ayristirilamadi) | yas problemi | 7 | 0 | 11 |
-| Yabanci Dil (ayristirilamadi) | kelime tamamlama | 7 | 0 | 11 |
+| Matematik | yas problemi | 7 | 0 | 11 |
+| Yabanci Dil | kelime tamamlama | 7 | 0 | 11 |
 | Yabanci Dil | baglac kullanimi | 6 | 0 | 9 |
-| Matematik-Istatistik (ayristirilamadi) | seri toplami | 6 | 1 | 8 |
+| Matematik | seri toplami | 6 | 1 | 8 |
 | Matematik | belirli integral | 6 | 1 | 8 |
 
 ## 5 · KOPRUDE KARSILIGI OLMAYAN KONULARIMIZ
