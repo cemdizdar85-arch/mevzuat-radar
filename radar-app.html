@@ -525,7 +525,8 @@ async function pano(f){
   if(!KARTLAR){ try{ KARTLAR=await (await fetch('veri/kartlar-guncel.json?cb='+Date.now())).json(); }catch(e){ KARTLAR={kartlar:[]}; } }
   const fgtip=f.gtip_kodlari||[];
   const kartEslesen=(KARTLAR.kartlar||[]).filter(k=> fgtip.some(fk=> (k.gtip||[]).some(kk=> gtipEslesir(fk,kk)) )).slice(0,5);
-  const yon=v=>({'ithalatci aleyhine':['var(--red)','⚠ aleyhine'],'ithalatci lehine':['var(--green)','✓ lehine'],'karisik':['var(--amber)','~ karışık']})[(v||'').replace(/İ/g,'i').toLowerCase()]||['var(--dim)',''];
+  // 13.09: model yönü bazen Türkçe harfle yazıyor ("ithalatçı aleyhine") - katlanmadan eşleşmiyor, rozet boş kalıyordu.
+  const yon=v=>({'ithalatci aleyhine':['var(--red)','⚠ aleyhine'],'ithalatci lehine':['var(--green)','✓ lehine'],'karisik':['var(--amber)','~ karışık']})[String(v||'').replace(/İ/g,'i').replace(/I/g,'i').toLowerCase().replace(/ı/g,'i').replace(/ç/g,'c').replace(/ş/g,'s').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ö/g,'o').replace(/\s+/g,' ').trim()]||['var(--dim)',''];
   const kartHtml = kartEslesen.length
     ? kartEslesen.map(k=>{const y=yon(k.etki);return `<div class="radar-kart eslesme"><h4>${esc(k.baslik)}</h4><p>${esc(k.ne_oldu||'').slice(0,150)} ${k.etki?`<b style="color:${y[0]}">${y[1]}</b>`:''} · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ →</a></p>${degisimSerit(k)}</div>`;}).join('')
     : `<div class="radar-kart"><p>${fgtip.length?('GTİP kodlarına ('+fgtip.slice(0,3).join(', ')+'…) bugün dokunan değişiklik yok, robot her sabah tarar.'):'GTİP kodlarını gir, seni ilgilendiren mevzuat değişikliklerini burada gör.'}</p></div>`;

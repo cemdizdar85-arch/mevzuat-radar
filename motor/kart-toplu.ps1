@@ -31,6 +31,8 @@ if(-not $key){ try { $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Ra
 . (Join-Path $here 'teblig-yapi.ps1')
 # 19.08 - kaynak damgasi: bugun bosuna yeniden uretilmesin (kartlar.yml okur)
 . (Join-Path $here 'kaynak-damga.ps1')
+# 13.09 - kartın "Ne anlama geliyor" etiketinin Türkçe karşılığı ve rengi (ham kod ekrana basılmaz)
+. (Join-Path $here 'kart-etki-etiket.ps1')
 $hatAd = ''
 try { $hatAd = (Get-ApiHedef).ad } catch {}
 if(-not $hatAd -and (Read-ApiEnv 'OPENROUTER_KEY')){ $hatAd = 'openrouter' }
@@ -1366,12 +1368,11 @@ function KartBloguHtml($liste, [string]$degisimOnEk = 'arsiv/degisim/'){
   # gondermek, nobet tutmanin tam tersi. Bilmiyorsak susariz.
   if("$($k.yururluk)".Trim()){ [void]$s.AppendLine("<p><b>Yürürlük:</b> $($k.yururluk)</p>") }
   if($k.etki){
-    $renk = switch(($k.etki.yon -replace "İ","i").ToLowerInvariant()){
-      "ithalatci aleyhine" { "var(--amber)" }
-      "ithalatci lehine"   { "var(--green)" }
-      default              { "var(--dim)" }
-    }
-    [void]$s.AppendLine("<div style='border:1px solid $renk;border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:$renk'>Ne anlama geliyor (yorum · $($k.etki.yon)):</b> $($k.etki.aciklama)</div>")
+    # 13.09.2026: etiket ve renk TEK yerden (motor/kart-etki-etiket.ps1). Eskiden ham kod basılıyordu
+    # ("yorum · karisik", "yorum · notr") ve Türkçe harfli "ithalatçı aleyhine" renk eşlemesine düşmüyordu.
+    $etkiGorunum = KartEtkiEtiket $k.etki.yon
+    $renk = $etkiGorunum.renk
+    [void]$s.AppendLine("<div style='border:1px solid $renk;border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:$renk'>Ne anlama geliyor (yorum · $($etkiGorunum.etiket)):</b> $($k.etki.aciklama)</div>")
   }
   # Terim sozlugu: kartta gecen dis ticaret terimleri halk diliyle (Cem 19.08)
   $sozlukHtml = TerimSozluguHtml $k
