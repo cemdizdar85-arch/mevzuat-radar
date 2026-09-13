@@ -31,6 +31,7 @@ $here=if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation
 $depoKok=Split-Path -Parent $here
 . (Join-Path $depoKok 'arac\dayanak-normalize.ps1')
 . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
+. (Join-Path $depoKok 'arac\gk-mevzuat-disi.ps1')   # 13.09: Matematik/Türkçe/YD konusuna mevzuat dayanağı yazılmaz (47 kayıt ölçüldü)
 
 $ANAHTAR=if($env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY } else { [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $ANAHTAR){ throw 'SUPABASE_SERVICE_KEY yok - kasa okunamaz, köprü kurulamaz (sessiz "boş" DENMEZ).' }
@@ -169,7 +170,7 @@ $kayitlar=New-Object System.Collections.Generic.List[object]
 $tumAnahtarlar=New-Object System.Collections.Generic.HashSet[string]
 foreach($k in $cikmis.Keys){ [void]$tumAnahtarlar.Add($k) }
 foreach($k in $bizim.Keys){ [void]$tumAnahtarlar.Add($k) }
-$dayanakOlculmedi=0
+$dayanakOlculmedi=0; $gkMevzuatTemiz=0
 foreach($anahtar in $tumAnahtarlar){
   $parca=$anahtar -split '\|',2; $sinavAd=$parca[0]
   $c=$null; if($cikmis.ContainsKey($anahtar)){ $c=$cikmis[$anahtar] }
@@ -187,6 +188,10 @@ foreach($anahtar in $tumAnahtarlar){
     if($daySoz.ContainsKey($anahtar)){ $cikmisDayanak="$($daySoz[$anahtar].d)"; $guc="$($daySoz[$anahtar].g)" }
     else { $guc='OLCULMEDI'; $dayanakOlculmedi++ }
   }
+  # 13.09 ÖLÇÜLDÜ: 31.08 sözlüğü genel kültür konularına mevzuat yazmış ("limit hesabi" ← III-45.1 Tebliği); üretici tebliğ kodunu
+  # teori notunun önüne koyduğu için kaynak paketi yanlış kanunla doluyordu. Prova: 21.333 kayıtta 47 değişir, meşru 86 GK dayanağı kalır.
+  if(GkMevzuatDisiMi $bizimDers $arsivDers $cikmisDayanak){ $cikmisDayanak=''; $guc='ZAYIF'; $gkMevzuatTemiz++ }
+  if(GkMevzuatDisiMi $bizimDers $arsivDers $dayanak){ $dayanak=''; $gkMevzuatTemiz++ }
   $kayitlar.Add([pscustomobject]@{
     sinav=$sinavAd; konu=$konuAd; bizim_ders=$bizimDers; arsiv_ders=$arsivDers
     bizim=$bizimSoru; cikmis=$cikmisSoru; durum=$durum; dayanak=$dayanak
@@ -243,6 +248,7 @@ $ozet['kasa_okunan_soru']=$okunan
 $ozet['arsiv_damgasi']=$arsivDamga
 $ozet['sozlukle_koprulenen_kasa_etiketi']=$sozluk.Count
 $ozet['cikmis_dayanak_olculmedi']=$dayanakOlculmedi
+$ozet['gk_mevzuat_dayanak_temizlenen']=$gkMevzuatTemiz
 $ozet['karantina_donem']=$(if($script:KARANTINA){ $script:KARANTINA.ToArray() } else { @() })
 $ozet['ders_koprusu']=$dersListe.ToArray()
 $ozet['agir_bosluk_sayisi']=$agir.Count
