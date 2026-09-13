@@ -1,21 +1,5 @@
 [
     {
-        "etiket":  "sgs-d2-borclar-kolay-r4",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-borclar-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-borclar-kolay-r2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
@@ -32,6 +16,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-borclar-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-borclar-kolay-r4-bulut",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
@@ -40,7 +40,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
+        "etiket":  "sgs-d2-borclar-kolay-r4",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-borclar-kolay-r1",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme",
@@ -64,14 +72,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-kolay-r1",
-        "id":  "kp-02",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "alacagin devri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-borclar-zor-r2",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
@@ -80,8 +80,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bc-borclar-zor-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-d3-borclar-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "alacagin devri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-borclar-kolay-r1",
+        "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "alacagin devri",
         "donem":  4,
@@ -96,39 +104,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-03",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "borcun ifa yeri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-borclar-cokzor",
+        "etiket":  "sgs-bc-borclar-zor-r2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
-        "konu":  "borcun ifa yeri",
+        "konu":  "alacagin devri",
         "donem":  4,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-p-borclar-cokzor-r2-b2",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "borcun ifa yeri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "borcun ifa yeri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-borclar-cokzor-r3",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa yeri",
@@ -144,23 +128,39 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-borclar-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borcun ifa yeri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borcun ifa yeri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borcun ifa yeri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-02",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil zamanasimi",
+        "konu":  "borcun ifa yeri",
         "donem":  4,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-02",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil zamanasimi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-borclar-kolay-r1-b2",
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil zamanasimi",
@@ -176,7 +176,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-zor-r4-b2",
+        "etiket":  "sgs-p-borclar-kolay-r1-b2",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil zamanasimi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil zamanasimi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-zor-r2-b2",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesmenin kurulmasi",
@@ -200,7 +216,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-zor-r2-b2",
+        "etiket":  "sgs-p-borclar-zor-r4-b2",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesmenin kurulmasi",
@@ -208,16 +224,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
+        "etiket":  "sgs-t2b-borclar-cokzor",
         "id":  "kp-02",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "borclarin ifasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-borclar-zor-r1",
-        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "borclarin ifasi",
         "donem":  3,
@@ -232,6 +240,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borclarin ifasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-borclar-kolay-r1",
         "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
@@ -240,8 +256,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-02",
+        "etiket":  "sgs-d2-borclar-zor-r1",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "borclarin ifasi",
         "donem":  3,
@@ -256,7 +272,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-cokzor-r2",
+        "etiket":  "sgs-c2-borclar-cokzor-r1",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil",
@@ -272,7 +288,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-cokzor-r1",
+        "etiket":  "sgs-c2-borclar-cokzor-r2",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil",
@@ -280,16 +296,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r1-b2",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-borclar-kolay-r3",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil unsurlari",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r3",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-borclar-kolay-r1-b2",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil unsurlari",
         "donem":  3,
@@ -308,6 +324,22 @@
         "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "hukuka uygunluk sebepleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-borclar-kolay-r1",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "kusursuz sorumluluk halleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-borclar-kolay-r3",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "kusursuz sorumluluk halleri",
         "donem":  3,
         "kurtarma":  false
     },
@@ -336,14 +368,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-borclar-kolay-r3",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "kusursuz sorumluluk halleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-borclar-kolay-r2",
         "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
@@ -352,8 +376,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-zor-r3-b2",
-        "id":  "kp-03",
+        "etiket":  "sgs-d2-borclar-kolay-r1",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi",
         "donem":  3,
@@ -368,8 +392,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-kolay-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-c2-borclar-zor-r2",
+        "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi",
         "donem":  3,
@@ -384,18 +408,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-zor-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-borclar-zor-r3-b2",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-04",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "zamanasimi suresi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -408,8 +424,32 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "zamanasimi suresi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-borclar-cokzor-r2",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "hukuka aykiriligi kaldiran haller",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-borclar-kolay-r2",
         "id":  "kp-07",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "hukuka aykiriligi kaldiran haller",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-borclar-cokzor-r1",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "hukuka aykiriligi kaldiran haller",
         "donem":  2,
@@ -432,14 +472,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-borclar-kolay-r3",
-        "id":  "kp-02",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "kesin hukumsuzluk halleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-borclar-kolay-r2",
         "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
@@ -448,8 +480,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-zor-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-c5-borclar-kolay-r3",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "kesin hukumsuzluk halleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-borclar-zor-r1",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "manevi tazminat",
         "donem":  2,
@@ -464,10 +504,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-zor-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-borclar-zor-r1",
+        "id":  "kp-07",
         "ders":  "Borçlar Hukuku",
         "konu":  "manevi tazminat",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-cokzor-r1",
+        "id":  "kp-07",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "muteselsil borcluluk",
         "donem":  2,
         "kurtarma":  false
     },
@@ -482,14 +530,6 @@
     {
         "etiket":  "sgs-p-borclar-kolay-r2-b2",
         "id":  "kp-06",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "muteselsil borcluluk",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-borclar-cokzor-r1",
-        "id":  "kp-07",
         "ders":  "Borçlar Hukuku",
         "konu":  "muteselsil borcluluk",
         "donem":  2,
@@ -520,16 +560,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-kolay-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme sartlari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
-        "id":  "kp-06",
+        "etiket":  "sgs-c2-borclar-kolay-r1",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme sartlari",
         "donem":  2,
@@ -568,16 +608,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "secimlik borc",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
         "konu":  "secimlik borc",
         "donem":  2,
@@ -592,10 +632,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-d3-borclar-zor-r1",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
-        "konu":  "ucret sozlesmesi esaslari",
+        "konu":  "sorumsuzluk anlasmalari",
         "donem":  2,
         "kurtarma":  false
     },
@@ -616,24 +656,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
-        "id":  "kp-05",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
-        "konu":  "ucret sozlesmesi kurallari",
+        "konu":  "ucret sozlesmesi esaslari",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-p-borclar-cokzor-r2",
         "id":  "kp-06",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "ucret sozlesmesi kurallari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-borclar-cokzor-r3-b2",
-        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi kurallari",
         "donem":  2,
@@ -648,6 +680,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
+        "id":  "kp-05",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "ucret sozlesmesi kurallari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-borclar-cokzor-r1-b2",
         "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
@@ -656,7 +696,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
+        "etiket":  "sgs-p-borclar-cokzor-r3-b2",
+        "id":  "kp-05",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "ucret sozlesmesi kurallari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-23",
         "ders":  "Borçlar Hukuku",
         "konu":  "adam calistiranin sorumlulugu",
@@ -664,7 +712,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
+        "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-23",
         "ders":  "Borçlar Hukuku",
         "konu":  "adam calistiranin sorumlulugu",
@@ -680,7 +728,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
+        "etiket":  "sgs-t1-borclar-zor",
         "id":  "kp-23",
         "ders":  "Borçlar Hukuku",
         "konu":  "adam calistiranin sorumlulugu",
@@ -688,8 +736,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-10",
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-24",
         "ders":  "Borçlar Hukuku",
         "konu":  "borc iliskisi sona erme",
         "donem":  1,
@@ -704,18 +752,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-24",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-10",
         "ders":  "Borçlar Hukuku",
         "konu":  "borc iliskisi sona erme",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-22",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "borclar kanunu\u0027nda temsil",
         "donem":  1,
         "kurtarma":  false
     },
@@ -729,6 +769,14 @@
     },
     {
         "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-22",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borclar kanunu\u0027nda temsil",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-22",
         "ders":  "Borçlar Hukuku",
         "konu":  "borclar kanunu\u0027nda temsil",
@@ -792,6 +840,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-25",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil ispat yuku",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-25",
         "ders":  "Borçlar Hukuku",
@@ -808,24 +864,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-25",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil ispat yuku",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-borclar-zor",
         "id":  "kp-16",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil sartlari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-29",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil sartlari",
         "donem":  1,
@@ -840,10 +880,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-19",
+        "etiket":  "sgs-t1-borclar-kolay",
+        "id":  "kp-29",
         "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil sorumlulugu",
+        "konu":  "haksiz fiil sartlari",
         "donem":  1,
         "kurtarma":  false
     },
@@ -864,8 +904,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-28",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-19",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil sorumlulugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-09",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil tazminat indirimi",
         "donem":  1,
@@ -880,8 +928,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-28",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil tazminat indirimi",
         "donem":  1,
@@ -889,6 +937,14 @@
     },
     {
         "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-26",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "hayvan bulunduran sorumlulugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-zor",
         "id":  "kp-26",
         "ders":  "Borçlar Hukuku",
         "konu":  "hayvan bulunduran sorumlulugu",
@@ -904,22 +960,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-26",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "hayvan bulunduran sorumlulugu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-10",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "ibra islemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-borclar-zor",
         "id":  "kp-17",
         "ders":  "Borçlar Hukuku",
@@ -930,6 +970,14 @@
     {
         "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-27",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "ibra islemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-10",
         "ders":  "Borçlar Hukuku",
         "konu":  "ibra islemi",
         "donem":  1,
@@ -960,14 +1008,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-12",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "kusursuz sorumluluk",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-borclar-cokzor",
         "id":  "kp-07",
         "ders":  "Borçlar Hukuku",
@@ -976,7 +1016,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-12",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "kusursuz sorumluluk",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-13",
         "ders":  "Borçlar Hukuku",
         "konu":  "kusursuz sorumluluk kurtulus kaniti",
@@ -984,7 +1032,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
+        "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-13",
         "ders":  "Borçlar Hukuku",
         "konu":  "kusursuz sorumluluk kurtulus kaniti",
@@ -1008,8 +1056,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-11",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme genel esaslar",
         "donem":  1,
@@ -1024,8 +1072,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-09",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme genel esaslar",
         "donem":  1,
@@ -1040,16 +1088,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-09",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme giderler",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme giderler",
         "donem":  1,
@@ -1064,6 +1112,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-14",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme iadesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-14",
         "ders":  "Borçlar Hukuku",
@@ -1074,14 +1130,6 @@
     {
         "etiket":  "sgs-t2b-borclar-kolay",
         "id":  "kp-05",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme iadesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-14",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme iadesi",
         "donem":  1,
@@ -1104,16 +1152,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-18",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-12",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesme iptal sebepleri",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-12",
+        "etiket":  "sgs-t1-borclar-kolay",
+        "id":  "kp-18",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesme iptal sebepleri",
         "donem":  1,
@@ -1128,16 +1176,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "takas-borclar kanunu",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "takas-borclar kanunu",
         "donem":  1,
@@ -1185,6 +1233,14 @@
     },
     {
         "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-15",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "vekalet sozlesmesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-15",
         "ders":  "Borçlar Hukuku",
         "konu":  "vekalet sozlesmesi",
@@ -1200,16 +1256,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-15",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "vekalet sozlesmesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-16",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "yapi maliki sorumlulugu",
         "donem":  1,
@@ -1224,8 +1272,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-16",
         "ders":  "Borçlar Hukuku",
         "konu":  "yapi maliki sorumlulugu",
         "donem":  1,
