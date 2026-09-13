@@ -1,11 +1,11 @@
 {
-  "tarih": "13.09.2026 19:29",
+  "tarih": "13.09.2026 19:45",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 872,
   "riskli_madde": 1313,
-  "sayfa": 66,
+  "sayfa": 67,
   "atifli_iddia": 282,
-  "dayanaksiz_iddia": 359,
+  "dayanaksiz_iddia": 362,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -2220,6 +2220,24 @@
       "metin": "${askiyaTanim?` ⏸️ Bu kod, gümrük vergisi ASKIYA ALINMIŞ ürünler listesinde (İthalat Rejimi V Sayılı Liste). Şartları tutuyorsa gümrük vergisi %0 olabilir ve tablodaki oranlar bu ü"
     },
     {
+      "sayfa": "sinav-gibi.html",
+      "satir": 155,
+      "iddia": "2 gün",
+      "metin": "Yanlışların yanlış kutuna düştü: 2 gün sonra ders sayfasında yeniden karşına çıkar."
+    },
+    {
+      "sayfa": "sinav-gibi.html",
+      "satir": 207,
+      "iddia": "%5",
+      "metin": "if(Math.floor(DURUM.kalanSn)%5===0) yaz();"
+    },
+    {
+      "sayfa": "sinav-gibi.html",
+      "satir": 274,
+      "iddia": "2 gün",
+      "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
+    },
+    {
       "sayfa": "songun.html",
       "satir": 6,
       "iddia": "5 Saat",
@@ -2263,7 +2281,7 @@
     },
     {
       "sayfa": "sorular.html",
-      "satir": 195,
+      "satir": 211,
       "iddia": "2 gün",
       "metin": "?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'"
     },
