@@ -154,7 +154,22 @@
       "sinav": "SMMM",
       "donem_min": 0,
       "gerekce": "Konu siklik haritasi 18 yilin yalniz 5'ini kapsiyor (2021-2026). 2008-2020 arasi 283 kitapcik kesif durumundaydi. UCUZ PROVA: her dersten 1 kitapcik + en agir FM monografisi (2013/2-01, 32 KB) + yalniz-cevap donemleri (2019/3, 2020/2) = 10 kitapcik; ortalama metin 10,0 KB (kalan evren 12,5 KB). Olcu: 29.07 SMMM yazili kosulari ~0,13 USD/kitapcik (betik fiyat varsayimi 3/15 USD-M). Bu kosu ayni zamanda 13.09 KAPI 0'i (PDF imzasi + pdfSha256 mukerrer) canlida sinar. Kuyruga alma: arac/analiz-kuyruga-al.ps1 (format='yazili' yazar; alan yoksa robot test istemini kullaniyordu).",
-      "tahmini_usd": 1.6
+      "tahmini_usd": 1.6,
+      "uygulandi": "13.09.2026 11:12 (KAYIP)",
+      "_sonuc": "run 34747017046: 10 kitapcik etiketlendi, 20 cagri, 96.292 giris + 9.238 cikis token, ~0,43 USD (0,043 USD/kitapcik). SONUC PUSH EDILEMEDI: kaydetme adimi karne robotuyla konu-kaynak-karnesi.json cakismasina dustu, || true yuttu. Damga elle basildi ki emir tekrar kosmasin; yerine #12. Ayrica 2013/2 FM 25 islem maddesinden 3 konu verdi -> ayrinti standardi #12 ile geldi."
+    },
+    {
+      "no": 12,
+      "tarih": "13.09.2026",
+      "veren": "Cem Dizdar (13.09: \"1.2.3 ucunude yapalim\" - 2 = ayrinti standardi + prova, tutarsa kalan 273)",
+      "emir": "SMMM klasik arsiv - AYRINTI STANDARDI PROVASI (13 kitapcik)",
+      "onay": true,
+      "limit": 13,
+      "model": "claude-sonnet-5",
+      "sinav": "SMMM",
+      "donem_min": 0,
+      "gerekce": "Emir #11'in 10 kitapcigi (sonucu kaybolmustu) + 3 YENIDEN etiketleme: 2021/1-01 FM (eski kayit 1 konu), 2023/2-01 FM (1 konu), 2021/1-02 FTA (9 harfli istek, 2 konu). Istem: numarali islem/harfli istek her biri ayri kayit + betik madde sayar ve modele soyler + AYRINTI KAPISI (hesap derslerinde kayit < yerel sayim/2 ise RED). Kapi mevcut 45 hesap kaydinda yalniz 2'yi yakaliyor (2021/1-02, 2022/2-02). Basari olcusu: 2013/2-01 >= 13 konu; eski 1-konu FM kayitlari artik tutarli. Olculen birim 0,043 USD/kitapcik -> ~0,6 USD. Kaydetme adimi artik karneden once + 5 tekrar + kirmizi.",
+      "tahmini_usd": 0.6
     }
   ]
 }

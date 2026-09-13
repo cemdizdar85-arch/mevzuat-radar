@@ -129,6 +129,11 @@ islemleri verilir, altinda a) b) c) ... diye ONLARCA ALT ISTEK bulunur.
 GOREV: HER ALT ISTEGI AYRI KAYIT olarak etiketle. Alt istekler bu sinavda
 sorunun kendisidir; onlari tek kayda toplarsan konu bilgisi kaybolur.
 Ana soru tek satirlik ve alt istegi yoksa onu tek kayit yaz.
+AYRINTI STANDARDI (tum donemlerde AYNI olcu - sayilar donemler arasi karsilastirilacak):
+  - Metindeki NUMARALI islem/olay maddesi (1) 2) 3- ...) ve HARFLI istek (a) b) c) ...) HER BIRI AYRI kayittir.
+  - Bir vakanin altinda 25 islem maddesi varsa 25 kayit yazilir; "yevmiye kayitlari" gibi TOPLU tek etiket YASAK.
+  - Ayni konu iki maddede geciyorsa iki kayit yazilir (sayim donem agirligini olcer).
+  - Metin yalniz KOMISYON CEVABI ise: her cevap numarasi / alt harfi bir kayit; cevabin icindeki madde listesi (1. 2. 3. ...) ayri kayit DEGILDIR.
 Her kayit icin:
   no    - "1a", "1b", "2" gibi ana numara + alt harf
   ders  - SABIT: '$($d.ders)'
@@ -192,6 +197,21 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   & pdftotext -enc UTF-8 -layout $tmp $txt 2>$null
   if(-not (Test-Path $txt)){ Write-Host "  pdftotext calismadi, atlandi"; continue }
   $icerik = Get-Content $txt -Raw -Encoding UTF8
+  # 13.09 AMBAR YEDEGI: 13 SMMM kitapcigi taranmis PDF (metin katmani yok; 2012/2-03,
+  # 2014/1-04, 2019-2020 Maliyet/Vergi/Hukuk, 2022/1-05). Runner'daki pdftotext bunlardan
+  # 360-2.000 karakter cikariyor. OCR'li metin ambarda (dokumanlar) duruyorsa O kullanilir.
+  $bosluksuz = ("$icerik" -replace '\s','').Length
+  if($bosluksuz -lt 1500 -and $env:SUPABASE_SERVICE_KEY -and "$($d.url)" -match '/((smmm|sgs)_[^/]+)\.pdf$'){
+    $kokAd = $Matches[1]
+    try {
+      $sbH = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent'='mevzuat-radar-robot/1.0' }
+      $sbU = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=ilike.*$kokAd*&order=id.desc&limit=1"
+      $sbYanit = Invoke-WebRequest -UseBasicParsing -Uri $sbU -Headers $sbH -TimeoutSec 120
+      $sbDizi = ConvertFrom-Json -InputObject $sbYanit.Content
+      $ambarMetin = "$(@($sbDizi)[0].metin)"
+      if(($ambarMetin -replace '\s','').Length -gt $bosluksuz){ Write-Host ("  metin AMBARDAN (pdftotext {0} kr, ambar {1} kr)" -f $bosluksuz, ($ambarMetin -replace '\s','').Length); $icerik = $ambarMetin }
+    } catch { Write-Host "  ambar yedegi okunamadi: $($_.Exception.Message)" }
+  }
   if("$icerik".Trim().Length -lt 500){ Write-Host "  RED: metin cikmadi (taranmis pdf olabilir)"; $d.durum='inceleme'; $islenen++; continue }
   # cok uzun kitapciklarda kirp - konu etiketi icin bas kisim yeterli, ama
   # kirpma ISARETLENIR ki sessiz eksik okuma olmasin
@@ -200,6 +220,17 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   if($icerik.Length -gt $KIRP){ $icerik = $icerik.Substring(0,$KIRP); $kirpildi = $true }
   Write-Host ("  pdf {0} KB -> metin {1:N0} karakter{2}, okuma 1/2..." -f [math]::Round((Get-Item $tmp).Length/1KB), $icerik.Length, $(if($kirpildi){' (KIRPILDI)'}else{''}))
 
+  # 13.09 AYRINTI SAYIMI: Finansal Muhasebe ayni istemle 2021-22'de donem basina 1,
+  # 2023-25'te 27-62, 13.09 provasinda (2013/2, 25 islem maddesi) 3 konu verdi -
+  # siklik haritasi bu karisimla olculemez. Metindeki numarali/harfli madde betikte
+  # sayilir, modele soylenir, asagidaki AYRINTI KAPISI da ayni sayiya bakar.
+  $yerelMadde = 0
+  if($bicim -eq 'yazili'){
+    $numaralar = @([regex]::Matches($icerik, '(?m)^\s{0,4}(\d{1,2})\s*[\)\.\-](?!\d)') | ForEach-Object { [int]$_.Groups[1].Value } | Sort-Object -Unique)
+    $harfler = @([regex]::Matches($icerik, '(?m)^\s{0,6}[a-hA-H]\)\s')).Count
+    $yerelMadde = $numaralar.Count + $harfler
+    $istemAktif += "`nOTOMATIK SAYIM: bu metinde satir basinda yaklasik $($numaralar.Count) numarali madde ve $harfler harfli istek bulundu. Kayit sayin bununla tutarli olmali (numarali cevap icindeki madde listeleri haric)."
+  }
   $tamIstem = $istemAktif + "`n`n=== KITAPCIK METNI ===`n" + $icerik
 
   # KAPI 1: iki bagimsiz okuma
@@ -276,6 +307,15 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
       $sorular.Add(@{ no="y$i2"; ders=$d.ders; konu=$k; tip=$(if($ek){$ek.tip}else{''}); uzun=$(if($ek){$ek.uzun}else{''}) })
     }
     Write-Host ("  BIRLESIM: {0} konu" -f $sorular.Count)
+    # 13.09 AYRINTI KAPISI: yalniz monografi/hesap dersleri (islem maddesi = konu).
+    # Hukuk/Vergi/Denetim sorulari dogal olarak 4-6 soru; cevap metnindeki madde
+    # listeleri sayimi sisirir -> orada kapi yok. Esik: yerel sayimin yarisi (en cok 30).
+    $hesapDersi = ("$($d.ders)" -match 'Finansal Muhasebe|Finansal Tablolar|Maliyet')
+    if($hesapDersi -and $yerelMadde -ge 8){
+      $esik = [Math]::Floor([Math]::Min($yerelMadde, 60) / 2)
+      Write-Host ("  AYRINTI: yerel madde {0}, kayit {1}, esik {2}" -f $yerelMadde, $sorular.Count, $esik)
+      if($sorular.Count -lt $esik){ Write-Host "  RED: ayrinti eksik - maddeler toplu etiketlenmis"; $d.durum='inceleme-ayrinti'; $islenen++; continue }
+    }
     $atla = $true
   } else {
     $atla = $false

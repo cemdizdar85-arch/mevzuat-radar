@@ -13,7 +13,8 @@
 #  -Anahtar "2013/2|01" gibi (donem|ders kodu) liste; -Tumu tum SMMM kesif.
 #  -Uygula yoksa KURU.
 # ============================================================================
-param([string[]]$Anahtar = @(), [switch]$Tumu, [switch]$Uygula)
+param([string[]]$Anahtar = @(), [switch]$Tumu, [switch]$Yeniden, [switch]$Uygula)
+# -Yeniden: durum=tamam satirini yeniden etiketlemeye alir (13.09 ayrinti standardi: 2021-22 FM 1 konu)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 $arsivYolu = Join-Path $depoKok 'veri\sinav-arsiv.json'
@@ -22,23 +23,31 @@ $arsivMetin = [IO.File]::ReadAllText($arsivYolu, [Text.Encoding]::UTF8)
 
 $secilen = New-Object System.Collections.Generic.List[object]
 foreach($r in @($arsivNesne.donemler)){
-  if("$($r.sinav)" -ne 'SMMM' -or "$($r.durum)" -ne 'kesif'){ continue }
+  $istenenDurum = if($Yeniden){ 'tamam' } else { 'kesif' }
+  if("$($r.sinav)" -ne 'SMMM' -or "$($r.durum)" -ne $istenenDurum){ continue }
   $kod = [regex]::Match("$($r.url)", '_(\d{2})\.pdf$').Groups[1].Value
   $anh = "$($r.donem)|$kod"
   if($Tumu -or ($Anahtar -contains $anh)){ $secilen.Add([pscustomobject]@{ anahtar = $anh; ders = "$($r.ders)"; adres = "$($r.url)"; yil = [int](("$($r.donem)" -split '/')[0]) }) }
 }
 if(-not $Tumu){
   $bulunan = @($secilen | ForEach-Object { $_.anahtar })
-  foreach($x in $Anahtar){ if($bulunan -notcontains $x){ Write-Host "UYARI: '$x' kesif durumunda SMMM satiri degil - atlandi" } }
+  foreach($x in $Anahtar){ if($bulunan -notcontains $x){ Write-Host "UYARI: '$x' $istenenDurum durumunda SMMM satiri degil - atlandi" } }
 }
 Write-Host ("Kuyruga alinacak: {0}" -f $secilen.Count)
 $degisen = 0
 foreach($s in $secilen){
   $bicimAdi = if($s.yil -ge 2026){ 'test' } else { 'yazili' }
-  $desen = '("url"\s*:\s*"' + [regex]::Escape($s.adres) + '",)(\s*)"durum"\s*:\s*"kesif"'
-  $esles = [regex]::Matches($arsivMetin, $desen).Count
-  if($esles -ne 1){ Write-Host ("  ATLA {0}: {1} eslesme" -f $s.anahtar, $esles); continue }
-  $arsivMetin = [regex]::Replace($arsivMetin, $desen, ('$1$2"format": "' + $bicimAdi + '",$2"durum": "bekliyor"'))
+  if($Yeniden){
+    $desen = '("url"\s*:\s*"' + [regex]::Escape($s.adres) + '",\s*"durum"\s*:\s*)"tamam"'
+    $esles = [regex]::Matches($arsivMetin, $desen).Count
+    if($esles -ne 1){ Write-Host ("  ATLA {0}: {1} eslesme" -f $s.anahtar, $esles); continue }
+    $arsivMetin = [regex]::Replace($arsivMetin, $desen, '$1"bekliyor"')
+  } else {
+    $desen = '("url"\s*:\s*"' + [regex]::Escape($s.adres) + '",)(\s*)"durum"\s*:\s*"kesif"'
+    $esles = [regex]::Matches($arsivMetin, $desen).Count
+    if($esles -ne 1){ Write-Host ("  ATLA {0}: {1} eslesme" -f $s.anahtar, $esles); continue }
+    $arsivMetin = [regex]::Replace($arsivMetin, $desen, ('$1$2"format": "' + $bicimAdi + '",$2"durum": "bekliyor"'))
+  }
   $degisen++
   Write-Host ("  {0} {1} -> bekliyor ({2})" -f $s.anahtar, $s.ders, $bicimAdi)
 }

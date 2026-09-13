@@ -65,6 +65,7 @@ jobs:
           ANALIZ_MODEL: ${{ steps.emir.outputs.model }}
           ANALIZ_SINAV: ${{ steps.emir.outputs.sinav }}
           ANALIZ_DONEM_MIN: ${{ steps.emir.outputs.donemmin }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}   # 13.09 taranmis PDF -> ambar metni yedegi (yalniz okuma)
         run: ./motor/sinav-analiz.ps1
       - name: Emri damgala
         if: always() && steps.emir.outputs.kos == 'evet'
