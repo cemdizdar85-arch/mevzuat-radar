@@ -161,6 +161,25 @@ function Coz([string]$txt){
   $c=$null; try{ $c=$tt|ConvertFrom-Json }catch{ $son=$tt.LastIndexOf('}'); if($son -gt 0){ try{ $c=$tt.Substring(0,$son+1)|ConvertFrom-Json }catch{} } }
   return $c
 }
+# 13.09 (Cem notu: "kör çözüm ayrıştırıcısının JSON'dan önceki düz metni tolere etmesi"): kör model bazen önce düz metinle
+# çözüp ("Önce ortalama stoku bulalım... {json}") sonra JSON veriyor; Coz baştaki metni atmadığı için soru "KÖR ÇÖZÜM BOZUK"
+# sayılıyordu. KorCoz YALNIZ FAZ K'de kullanılır: önce Coz aynen denenir (başarılıysa sonuç birebir aynı), olmazsa metnin
+# içindeki ```json bloğu, sonra 'cevap' alanı taşıyan ilk geçerli JSON nesnesi aranır. Diğer fazların ayrıştırması değişmez.
+function KorCoz([string]$txt){
+  $korIlk=Coz $txt
+  if($korIlk -and $korIlk.PSObject.Properties['cevap']){ return $korIlk }
+  $korHam="$txt"
+  $korBlok=[regex]::Match($korHam,'```(?:json)?\s*(\{[\s\S]*?\})\s*```')
+  if($korBlok.Success){ try{ $korAday=$korBlok.Groups[1].Value | ConvertFrom-Json; if($korAday -and $korAday.PSObject.Properties['cevap']){ return $korAday } }catch{} }
+  $korSon=$korHam.LastIndexOf('}')
+  if($korSon -lt 0){ return $korIlk }
+  $korBas=$korHam.IndexOf('{')
+  while($korBas -ge 0 -and $korBas -lt $korSon){
+    try{ $korAday=$korHam.Substring($korBas,$korSon-$korBas+1) | ConvertFrom-Json; if($korAday -and $korAday.PSObject.Properties['cevap']){ return $korAday } }catch{}
+    $korBas=$korHam.IndexOf('{',$korBas+1)
+  }
+  return $korIlk
+}
 function K([string]$t){ return "$t".Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;') }
 # 01.09 Cem yakaladi: model aciklamayi bazen YAPILI nesne dondurur; ekrana ham
 # '@{ne_soruluyor=...}' dokulur. Nesneyse alanlarindan okunur metin derlenir.
@@ -3782,14 +3801,14 @@ foreach($id in @($don.Keys)){
   $yK=TopluAl 'K' $id; $yKToplu=[bool]$yK
   if(-not $yK){ foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
   Write-Host ("  KÖR TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yK.girdi,$yK.cikti,$KorModel) -ForegroundColor DarkGray
-  $aK=Coz $yK.metin
+  $aK=KorCoz $yK.metin
   # 13.09 ÖLÇÜLDÜ (GM sgs-gm5-mat-r1 kp-02, kp-08): hakem2'de kapatılan kusurun kör çözüm eşi — toplu cevap ayrıştırılamayınca
   # sonraki koşu aynı bozuk cevabı "bedava hasat" ediyor, soru hiç kör kararı almıyordu. Toplu cevap bozuksa bir kez ANLIK sorulur.
   if((-not $aK -or -not $aK.PSObject.Properties['cevap']) -and $yKToplu){
     $bozukBasK=("$($yK.metin)" -replace '\s+',' '); $bozukBasK=$bozukBasK.Substring(0,[Math]::Min(160,$bozukBasK.Length))
     Write-Host "  KÖR TOPLU CEVAP BOZUK ($id) → anlık bir kez yeniden: $bozukBasK" -ForegroundColor Yellow
     $yK2=$null; foreach($d in 1..3){ try{ $yK2=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){ $yK2=$null }; Start-Sleep -Seconds (8*$d) } }
-    if($yK2){ $yK=$yK2; $aK=Coz $yK.metin; Write-Host ("  KÖR TOKEN (anlık) {0}: girdi {1} · cikti {2}" -f $id,$yK.girdi,$yK.cikti) -ForegroundColor DarkGray }
+    if($yK2){ $yK=$yK2; $aK=KorCoz $yK.metin; Write-Host ("  KÖR TOKEN (anlık) {0}: girdi {1} · cikti {2}" -f $id,$yK.girdi,$yK.cikti) -ForegroundColor DarkGray }
   }
   if(-not $aK -or -not $aK.PSObject.Properties['cevap']){ $bozukSonK=("$($yK.metin)" -replace '\s+',' '); Write-Host "  KÖR BOZUK METİN ($id): $($bozukSonK.Substring(0,[Math]::Min(240,$bozukSonK.Length)))" -ForegroundColor DarkYellow }
   if(-not $aK -or -not $aK.PSObject.Properties['cevap']){ $rapor.Add("KÖR ÇÖZÜM BOZUK: $id"); Write-Host "  KÖR ÇÖZÜM BOZUK ($id)" -ForegroundColor Red; continue }
