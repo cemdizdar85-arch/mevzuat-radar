@@ -58,8 +58,21 @@ $DERS_TABLO=[ordered]@{
   'mta'='Mali Tablolar Analizi'; 'ticaret'='Ticaret Hukuku'; 'borclar'='Borçlar Hukuku'
   'vergi'='Vergi Hukuku'; 'meslek'='Meslek Hukuku'; 'issgk'='İş ve Sosyal Güvenlik Hukuku'
   'ekonomi'='Ekonomi'; 'maliye'='Maliye'
-  # ⚠ SOZEL HAT (Cem 11.09 "beklesin"): yayina ALINMAZ. Buraya yazilmadi;
-  #   etiketi cozulemeyen parti zaten atlanir ve ekrana yazilir.
+  # ⛔⭐ SOZEL HAT ACILDI — 13.09.2026, Cem "1 yap" (11.09'daki "beklesin" karari KALDIRILDI).
+  #   Bu dort ders havuza HIC girmiyordu; sebep kalite DEGIL, bu tablodaydi: etiket
+  #   parcalarinin karsiligi yoktu, DersBul bos donuyor, soru "DERSI COZULEMEDIGI ICIN
+  #   ALINMAYAN" diye atlaniyordu. OLCULDU (arac/sozel-hat-excel.ps1): bu hat sinavin
+  #   %22,7'si (35 donemde 1.020 soru); uretilmis, odenmis, KAPILARI GECMIS sorular
+  #   rafta duruyordu.
+  #   Adlar veri/ders-sozlugu.json RESMI ekran adlariyla BIREBIR ayni (yoksa
+  #   sgs-650-bas.ps1 ekran adini bulamaz). Resmi liste SINAV-TEK-SAYFA (Cem 01.09):
+  #   Turkce 7 · Matematik 8 · Ataturk Ilk. ve Ink. Tarihi 5 · Yabanci Dil 10 soru/sinav.
+  #   ⚠ Turkce ile Inkilap AYRI derstir, tek sayfada birlestirilmez.
+  'yd'='Yabancı Dil'; 'mat'='Matematik'; 'turkce'='Türkçe'
+  'inkilap'='Atatürk İlkeleri ve İnkılap Tarihi'
+  # a6e serisi etiketi 'yd' degil 'yabancidil' yaziyor (sgs-a6e-yabancidil-p1b, 4 soru).
+  # ⚠ sgs-kapituru-* BILEREK eslenmez: kapi deneme turu, ders degil.
+  'yabancidil'='Yabancı Dil'
 }
 # ⛔ PS TUZAGI (11.09'da ALTINCI kez): tablonun adi $DERS idi ve asagida
 #    "$ders=DersBul $et" yazdim. PS harf AYIRMAZ -> ilk atama TABLOYU string
@@ -83,6 +96,17 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
   if($et -notlike "$Sinav-*"){
     $on=if($et -match '^([a-z0-9]+)-'){ $matches[1] } else { $et }
     $disSinav[$on]=1+[int]$disSinav[$on]
+    continue
+  }
+  # ⛔ PILOT PARTI HAVUZA GIRMEZ (13.09.2026). Sozel hat acilirken olculdu: yeni ders
+  #   anahtarlari sgs-gk-pilot*-{yd,mat,turkce,inkilap}-* DENEME partilerine de vuruyordu
+  #   (17 sozel pilot parti). Pilotlar hat kurulurken istemi denemek icin kosuldu; siteye
+  #   cikmak icin uretilmediler. Ayni gece pilot6-* sorulari da ayni gerekceyle
+  #   cikarilmisti - kural artik mekanik ve her ders icin gecerli.
+  #   ⚠ YAN ETKI OLCULDU: mevcut havuzda 5 pilot soru vardi (sgs-gk-pilot 2 · pilot2 3,
+  #     alan derslerine dusen pilotlardan). Bu kural onlari da cikarir - bilerek.
+  if($et -match '(^|-)pilot\d*(-|$)'){
+    $disSinav['pilot']=1+[int]$disSinav['pilot']
     continue
   }
   $ders=DersBul $et

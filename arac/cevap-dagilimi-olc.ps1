@@ -77,6 +77,20 @@ $DERS_ADI=@{
   'borclar-hukuku'               = 'Borclar Hukuku'
   'meslek-hukuku'                = 'Meslek Hukuku'
   'is-ve-sosyal-guvenlik-hukuku' = 'Is ve Sosyal Guvenlik Hukuku'
+# ⛔⭐ 13.09.2026 — SOZEL HAT ACILDI, KAPI DA GORMELI.
+#   arac/havuz-kur.ps1'e dort ders eklendi. Bu tabloya eklenmeseydi asagidaki
+#   `if(-not $DERS_ADI.ContainsKey($ANAHTAR)){ continue }` satiri yeni sayfalari
+#   SESSIZCE ATLARDI: sorular siteye cikar ama cevap dagilimlari HIC olculmez,
+#   circir kapisi o dort derste KOR kalirdi.
+#   Sayfa adlari TAHMIN EDILMEDI: motor/kaydir-yayin.ps1'deki Slug fonksiyonunun
+#   kendisi calistirilarak uretildi (mevcut 'is-ve-sosyal-guvenlik-hukuku' ile tutarli).
+#   ILK KOSUDA DUSMEZ: tabani olmayan ders icin satir ~144 TABAN = ilk olcum.
+#   ⚠ Kucuk ornek (49-102 soru): ki-kare gurultusu yuksektir; sonraki eklemelerde
+#     tolerans (3,0) asilabilir. Oyle olursa once n buyusun, taban hemen tazelenmesin.
+'yabanci-dil'                        = 'Yabanci Dil'
+'matematik'                          = 'Matematik'
+'turkce'                             = 'Turkce'
+'ataturk-ilkeleri-ve-inkilap-tarihi' = 'Ataturk Ilkeleri ve Inkilap Tarihi'
 }
 
 $DERSLER=[ordered]@{}
