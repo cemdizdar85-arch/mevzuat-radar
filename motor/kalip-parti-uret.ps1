@@ -17,6 +17,7 @@ param(
   [string]$KonuDosya='',
   [switch]$RedYenile,      # 03.09: hakem HAYIR / DERS-DISI kalan cache kayitlarini dusur, yeniden uret
   [switch]$SadeceHtml,     # 03.09 Cem "her seyde bedeli sor": yalniz cache'ten HTML cizer; API cagrisi denenirse DURUR (bedel 0 garantisi)
+[switch]$ApiKapali,      # 13.09 Cem "5 adet yap sen yap para vermeyelim": -HazirSoru ile GM KOD KAPILARI kosar, ODEMELI HER CAGRI patlar (bedel 0 garantisi); ilk model fazinda betik durur, kapidan gecen sorular cache'te kalir
   [string]$PilotId='',     # 03.09: pilot - model fazlari YALNIZ bu id'lere calisir (virgullu: kp-04,kp-31); digerleri cache'ten
   [switch]$AdimYenile,     # 04.09 Cem "30'luk SGS seti": pilot id'lerin ESKI adimlari silinir, ogretici istemle yeniden yazilir
   [switch]$SadeceAdim,     # 04.09: yalniz FAZ B (adim) calisir; ikiz/yevmiye/hakem fazlari atlanir (bedel yalniz onaylanan is)
@@ -85,6 +86,18 @@ if($SadeceHtml){
   # SIGORTA: model cagrisi yapan tek kapi bu fonksiyon; -SadeceHtml'de patlar, betik durur, para gitmez.
   function Invoke-ClaudeMesaj { throw 'SADECE-HTML: API cagrisi engellendi - cache eksik, once Cem''den bedel onayi al.' }
   "SADECE-HTML modu: API kapali, yalniz cache'ten cizim"
+}
+if($ApiKapali){
+  # 13.09 SIGORTA (-SadeceHtml ile ayni ilke, ama FAZ GM kapilari ACIK). Olculen odemeli yollar: Invoke-ClaudeMesaj (19 cagri),
+  # Invoke-ClaudeToplu (1), Get-ClaudeTopluSonuc, ic hatlar Invoke-AnthropicAnlik / Invoke-OpenRouterAnlik, KAPI-BAKIYE yoklamasi.
+  # Hepsi burada ezilir (api-hedef.ps1 yukarida yuklendi, bu tanimlar SONRA gelir ve kazanir).
+  function Invoke-ClaudeMesaj { throw 'API-KAPALI: odemeli model cagrisi engellendi (bedel 0). GM kod kapilari tamam; model fazlari icin Cem onayi.' }
+  function Invoke-ClaudeToplu { throw 'API-KAPALI: toplu model cagrisi engellendi (bedel 0).' }
+  function Get-ClaudeTopluSonuc { throw 'API-KAPALI: toplu sonuc cekimi engellendi (bedel 0).' }
+  function Invoke-AnthropicAnlik { throw 'API-KAPALI: Anthropic hatti engellendi (bedel 0).' }
+  function Invoke-OpenRouterAnlik { throw 'API-KAPALI: OpenRouter hatti engellendi (bedel 0).' }
+  $env:MEVZUAT_BAKIYE_KAPISI='0'
+  "API-KAPALI modu: odemeli cagrilarin HEPSI kapali; yalniz kod kapilari"
 }
 $CACHE=Join-Path $kok "veri\fabrika\kalip-parti-$Etiket.json"
 $HEDEF=Join-Path $kok "sql-yerel\kalip-parti-$Etiket.html"
