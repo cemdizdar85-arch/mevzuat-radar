@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Sınav gibi çöz · Staja Giriş | Tetikte</title>
+<meta name="description" content="130 soru, 165 dakika, resmî ders dağılımı. Bitince ders ders karne ve her yanlışın Nöbetçi anlatımı.">
+<link rel="stylesheet" href="stil.css">
+<!--
+  SINAV GİBİ ÇÖZ (13.09.2026)
+  Cem: "sınav sınav, bir de sınav gibi her dersten soru çıkacak bir şey yapmak lazım" -> GM planı -> "yap".
+  VERİ: veri/deneme/sgs-dizin.json + sgs-set-NN.json (motor/deneme-seti-bas.js; Kaydır-Çöz sayfalarındaki
+  onaylı sorulardan, TESMER dağılımıyla, setler arası tekrarsız). Süre 165 dk (TÜRMOB-TESMER kılavuzu).
+  AKIŞ: set seç -> çözerken cevap/açıklama GÖSTERİLMEZ, sayaç işler -> bitir -> ders ders karne ->
+  her yanlış/boş için "Nöbetçi anlatsın" (kaydir/sgs/<ders>.html#s=<sıra>) + yanlışlar yanlış kutusuna (kc_kutu).
+  İLERLEME tarayıcıda (localStorage sg_sgs_<no>): sayfa kapanırsa kaldığı yerden devam; süre sayfa açıkken işler.
+  PUAN YAZILMAZ: SGS bağıl değerlendirilir (ortalama 50, std 10) - tek başına hesaplanamaz; doğru sayısı gösterilir.
+  Soru çözme ekranı olduğu için AÇIK tema (09.09 kararı).
+-->
+<style>
+  body{margin:0}
+  .sg{max-width:1080px;margin:0 auto;padding:22px 20px 80px;text-align:left}
+  .sg-gizli{display:none !important}
+  .sg h1{font-size:34px;line-height:1.15;margin:6px 0 10px;letter-spacing:-.02em}
+  .sg-alt{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 20px;max-width:46em}
+  .sg-kural{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .sg-kural span{font-size:13px;border:1px solid var(--line2);border-radius:99px;padding:5px 12px;color:var(--ink);background:var(--panel)}
+  .sg-setler{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+  .sg-set{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:6px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;padding:14px 16px;transition:border-color .15s,transform .15s}
+  .sg-set:hover{border-color:var(--amber);transform:translateY(-1px)}
+  .sg-set:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .sg-set b{font-size:16px;color:var(--ink)}
+  .sg-set small{font-size:12.5px;color:var(--muted)}
+  .sg-set .sg-durum{font-size:12px;font-weight:700;color:var(--amber)}
+  .sg-set .sg-durum.bitti{color:var(--green)}
+  .sg-not{font-size:12.5px;color:var(--dim);margin-top:18px;line-height:1.6}
+
+  /* sınav ekranı */
+  .sg-ust{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:16px}
+  .sg-ust .sg-bilgi{font-size:13.5px;color:var(--muted)}
+  .sg-ust .sg-bilgi b{color:var(--ink)}
+  .sg-sayac{font:700 20px/1 ui-monospace,Consolas,monospace;color:var(--ink);font-variant-numeric:tabular-nums;
+    border:1px solid var(--line2);border-radius:10px;padding:8px 12px;background:var(--panel)}
+  .sg-sayac.az{color:var(--red);border-color:var(--red)}
+  .sg-duzen{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start}
+  .sg-kart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px}
+  .sg-kunye{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:10px}
+  .sg-soru{font-size:17px;line-height:1.6;color:var(--ink);white-space:pre-line;margin:0 0 16px}
+  .sg-sik{all:unset;box-sizing:border-box;display:flex;gap:12px;align-items:flex-start;width:100%;cursor:pointer;
+    border:1px solid var(--line2);border-radius:10px;padding:12px 14px;margin:0 0 8px;font-size:15.5px;line-height:1.5;color:var(--ink);min-height:44px}
+  .sg-sik:hover{border-color:var(--amber)}
+  .sg-sik:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .sg-sik b{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line2);display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+  .sg-sik.secili{border-color:var(--amber);background:color-mix(in srgb,var(--amber) 10%,transparent)}
+  .sg-sik.secili b{background:var(--amber);border-color:var(--amber);color:var(--bg)}
+  .sg-dugmeler{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .sg-btn{font:inherit;font-size:14px;font-weight:700;cursor:pointer;border-radius:10px;padding:10px 16px;border:1px solid var(--line2);background:var(--panel);color:var(--ink)}
+  .sg-btn:hover{border-color:var(--amber)}
+  .sg-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
+  .sg-btn.bayrak.acik{border-color:var(--amber);color:var(--amber)}
+  .sg-btn:disabled{opacity:.45;cursor:default}
+  .sg-harita{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;position:sticky;top:70px}
+  .sg-harita h3{font-size:13px;margin:0 0 4px;color:var(--ink)}
+  .sg-harita .sg-ozet{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+  .sg-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+  .sg-no{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;font-size:11px;font-variant-numeric:tabular-nums;
+    border:1px solid var(--line);border-radius:5px;padding:4px 0;color:var(--muted)}
+  .sg-no.dolu{background:color-mix(in srgb,var(--amber) 22%,transparent);border-color:var(--amber);color:var(--ink)}
+  .sg-no.bayrakli{box-shadow:inset 0 -3px 0 var(--red)}
+  .sg-no.simdi{outline:2px solid var(--ink);outline-offset:1px}
+  .sg-bolum-ay{grid-column:1/-1;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin:6px 0 2px}
+
+  /* sonuç */
+  .sg-skor{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 18px}
+  .sg-skor div{background:var(--panel);padding:14px 16px}
+  .sg-skor b{display:block;font-size:26px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .sg-skor span{font-size:12.5px;color:var(--muted)}
+  .sg-tablo-sar{overflow-x:auto;margin:0 0 20px}
+  .sg-tablo{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+  .sg-tablo th,.sg-tablo td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right}
+  .sg-tablo th:first-child,.sg-tablo td:first-child{text-align:left}
+  .sg-tablo th{font-size:12px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .sg-tablo tr.zayif td:first-child{font-weight:700;color:var(--red)}
+  .sg-yanlis{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:12px 14px;margin:0 0 8px}
+  .sg-yanlis .sg-y-ust{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--dim);margin-bottom:6px}
+  .sg-yanlis p{margin:0 0 8px;font-size:14.5px;line-height:1.5;color:var(--ink)}
+  .sg-yanlis .sg-y-alt{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;font-size:13.5px}
+  .sg-yanlis a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
+  .sg-yanlis .yan{color:var(--red);font-weight:700}
+  .sg-yanlis .dog{color:var(--green);font-weight:700}
+  @media(max-width:880px){
+    .sg-duzen{grid-template-columns:1fr}
+    .sg-harita{position:static}
+    .sg-skor{grid-template-columns:1fr 1fr}
+    .sg h1{font-size:27px}
+  }
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="sg" id="icerik">
+  <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html#sgs">Soru çöz</a> · Sınav gibi</div>
+
+  <!-- 1) GİRİŞ -->
+  <section id="sgGiris">
+    <h1>Staja Giriş · sınav gibi çöz</h1>
+    <p class="sg-alt">Gerçek sınavın ders dağılımıyla 130 soru. Çözerken cevap ve açıklama görünmez; bitirince ders ders karne gelir, her yanlışın yanında Nöbetçi'nin adım adım anlatımı olur.</p>
+    <div class="sg-kural" id="sgKural"><span>130 soru</span><span>165 dakika</span><span>5 seçenek</span><span>Yanlış doğruyu götürmez</span></div>
+    <div class="sg-setler" id="sgSetler"><p class="sg-alt">Setler yükleniyor…</p></div>
+    <p class="sg-not" id="sgNot"></p>
+  </section>
+
+  <!-- 2) SINAV -->
+  <section id="sgSinav" class="sg-gizli">
+    <div class="sg-ust">
+      <div class="sg-bilgi"><b id="sgBaslik">Set 1</b> · soru <b id="sgNo">1</b> / <span id="sgToplam">130</span> · <span id="sgCevapli">0</span> cevaplı</div>
+      <div class="sg-sayac" id="sgSayac" aria-live="off">165:00</div>
+    </div>
+    <div class="sg-duzen">
+      <div>
+        <div class="sg-kart">
+          <div class="sg-kunye" id="sgKunye"></div>
+          <p class="sg-soru" id="sgSoru"></p>
+          <div id="sgSiklar" role="radiogroup" aria-label="Seçenekler"></div>
+          <div class="sg-dugmeler">
+            <button class="sg-btn" id="sgOnceki" type="button">◀ Önceki</button>
+            <button class="sg-btn" id="sgSonraki" type="button">Sonraki ▶</button>
+            <button class="sg-btn bayrak" id="sgBayrak" type="button">⚑ Sonra bak</button>
+            <button class="sg-btn" id="sgBos" type="button">Boş bırak</button>
+          </div>
+        </div>
+      </div>
+      <aside class="sg-harita">
+        <h3>Soru haritası</h3>
+        <p class="sg-ozet" id="sgHaritaOzet"></p>
+        <div class="sg-grid" id="sgGrid"></div>
+        <div class="sg-dugmeler"><button class="sg-btn ana" id="sgBitir" type="button">Sınavı bitir</button></div>
+        <p class="sg-not">Klavye: A–E şık seçer, ← → soru değiştirir. Sayfadan çıkarsan kaldığın yerden devam edersin; süre sayfa açıkken işler.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 3) SONUÇ -->
+  <section id="sgSonuc" class="sg-gizli">
+    <h1 id="sgSonucBaslik">Set 1 · sonuç</h1>
+    <p class="sg-alt" id="sgSonucAlt"></p>
+    <div class="sg-skor" id="sgSkor"></div>
+    <h2 style="font-size:20px;margin:0 0 8px">Ders ders</h2>
+    <div class="sg-tablo-sar"><table class="sg-tablo" id="sgTablo"></table></div>
+    <h2 style="font-size:20px;margin:0 0 8px" id="sgYanlisBaslik">Yanlış ve boş bıraktıkların</h2>
+    <p class="sg-alt" style="margin-bottom:12px">Yanlışların yanlış kutuna düştü: 2 gün sonra ders sayfasında yeniden karşına çıkar.</p>
+    <div id="sgYanlislar"></div>
+    <div class="sg-dugmeler"><button class="sg-btn" id="sgSetlereDon" type="button">← Setlere dön</button><button class="sg-btn" id="sgYeniden" type="button">Bu seti baştan çöz</button></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var SINAV='sgs', DIZIN=null, SET=null, DURUM=null, AKTIF=0, SAYAC=null;
+  var $=function(id){return document.getElementById(id);};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var GUN=86400000;
+  function anahtar(no){ return 'sg_'+SINAV+'_'+no; }
+  function oku(no){ try{ return JSON.parse(localStorage.getItem(anahtar(no))||'null'); }catch(e){ return null; } }
+  function yaz(){ try{ localStorage.setItem(anahtar(SET.no), JSON.stringify(DURUM)); }catch(e){} }
+  function sure(sn){ sn=Math.max(0,Math.round(sn)); var s=Math.floor(sn/3600), d=Math.floor(sn%3600/60), x=sn%60; return (s?s+':':'')+(s&&d<10?'0':'')+d+':'+(x<10?'0':'')+x; }
+  function goster(id){ ['sgGiris','sgSinav','sgSonuc'].forEach(function(k){ $(k).classList.toggle('sg-gizli', k!==id); }); window.scrollTo(0,0); }
+
+  /* ---------- 1) GİRİŞ ---------- */
+  function setleriCiz(){
+    $('sgSetler').innerHTML=DIZIN.setler.map(function(s){
+      var d=oku(s.no), durum='', alt='130 soru · '+DIZIN.sure_dk+' dk';
+      if(d&&d.bitti){ durum='<span class="sg-durum bitti">Bitti · '+d.sonuc.dogru+' doğru</span>'; }
+      else if(d){ var n=Object.keys(d.cevap||{}).length; durum='<span class="sg-durum">Devam et · '+n+'/'+DIZIN.toplam_soru+' · '+sure(d.kalanSn)+' kaldı</span>'; }
+      return '<button type="button" class="sg-set" data-no="'+s.no+'"><b>Set '+s.no+'</b><small>'+alt+'</small>'+durum+'</button>';
+    }).join('');
+    $('sgSetler').querySelectorAll('.sg-set').forEach(function(b){ b.addEventListener('click',function(){ setAc(+b.getAttribute('data-no')); }); });
+    $('sgNot').textContent='Sorular, sitedeki onaylı soru havuzundan resmî ders dağılımıyla ('+DIZIN.dagilim_ad+') seçildi; setler arasında aynı soru yok. '
+      +DIZIN.sira_notu+' Süre: '+DIZIN.sure_kaynak+'. '+DIZIN.degerlendirme+' Bu yüzden burada puan değil doğru sayısı gösterilir.';
+  }
+
+  function setAc(no){
+    var bilgi=DIZIN.setler.filter(function(s){return s.no===no;})[0]; if(!bilgi) return;
+    fetch(bilgi.dosya,{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(function(d){
+      SET=d; DURUM=oku(no);
+      if(DURUM&&DURUM.bitti){ sonucCiz(); return; }
+      if(!DURUM){ DURUM={ cevap:{}, bayrak:{}, kalanSn:d.sure_dk*60, aktif:0, basla:new Date().toISOString() }; yaz(); }
+      AKTIF=DURUM.aktif||0; sinaviBaslat();
+    }).catch(function(){ alert('Set yüklenemedi. Sayfayı yenileyip yeniden dene.'); });
+  }
+
+  /* ---------- 2) SINAV ---------- */
+  function sinaviBaslat(){
+    $('sgBaslik').textContent='Set '+SET.no; $('sgToplam').textContent=SET.toplam;
+    haritaKur(); soruCiz(); goster('sgSinav');
+    if(SAYAC) clearInterval(SAYAC);
+    var son=Date.now();
+    SAYAC=setInterval(function(){
+      if(document.hidden){ son=Date.now(); return; }          // sekme görünmezken süre işlemez
+      var simdi=Date.now(); DURUM.kalanSn-= (simdi-son)/1000; son=simdi;
+      sayacCiz();
+      if(Math.floor(DURUM.kalanSn)%5===0) yaz();
+      if(DURUM.kalanSn<=0){ DURUM.kalanSn=0; bitir(true); }
+    },1000);
+    sayacCiz();
+  }
+  function sayacCiz(){ var e=$('sgSayac'); e.textContent=sure(DURUM.kalanSn); e.classList.toggle('az', DURUM.kalanSn<=600); }
+
+  function haritaKur(){
+    var h='', onceki='';
+    SET.sorular.forEach(function(q,i){
+      if(q.bolum!==onceki){ h+='<div class="sg-bolum-ay">'+esc(q.bolum)+'</div>'; onceki=q.bolum; }
+      h+='<button type="button" class="sg-no" data-i="'+i+'" aria-label="Soru '+(i+1)+'">'+(i+1)+'</button>';
+    });
+    $('sgGrid').innerHTML=h;
+    $('sgGrid').querySelectorAll('.sg-no').forEach(function(b){ b.addEventListener('click',function(){ git(+b.getAttribute('data-i')); }); });
+  }
+  function haritaGuncelle(){
+    var dolu=0, bay=0;
+    $('sgGrid').querySelectorAll('.sg-no').forEach(function(b){
+      var i=+b.getAttribute('data-i'), id=SET.sorular[i].id;
+      var d=!!DURUM.cevap[id], f=!!DURUM.bayrak[id]; if(d) dolu++; if(f) bay++;
+      b.classList.toggle('dolu',d); b.classList.toggle('bayrakli',f); b.classList.toggle('simdi',i===AKTIF);
+    });
+    $('sgCevapli').textContent=dolu;
+    $('sgHaritaOzet').textContent=dolu+' cevaplı · '+(SET.toplam-dolu)+' boş'+(bay?' · '+bay+' işaretli':'');
+  }
+  function soruCiz(){
+    var q=SET.sorular[AKTIF], secili=DURUM.cevap[q.id]||'';
+    $('sgNo').textContent=AKTIF+1;
+    $('sgKunye').textContent=q.bolum+' · '+q.ders;
+    $('sgSoru').textContent=q.soru;
+    $('sgSiklar').innerHTML=Object.keys(q.siklar).sort().map(function(h){
+      return '<button type="button" class="sg-sik'+(secili===h?' secili':'')+'" role="radio" aria-checked="'+(secili===h)+'" data-h="'+h+'"><b>'+h+'</b><span>'+esc(q.siklar[h])+'</span></button>';
+    }).join('');
+    $('sgSiklar').querySelectorAll('.sg-sik').forEach(function(b){ b.addEventListener('click',function(){ sec(b.getAttribute('data-h')); }); });
+    $('sgOnceki').disabled=AKTIF===0; $('sgSonraki').disabled=AKTIF===SET.toplam-1;
+    $('sgBayrak').classList.toggle('acik',!!DURUM.bayrak[q.id]);
+    haritaGuncelle();
+  }
+  function sec(h){ var q=SET.sorular[AKTIF]; if(DURUM.cevap[q.id]===h) delete DURUM.cevap[q.id]; else DURUM.cevap[q.id]=h; yaz(); soruCiz(); }
+  function git(i){ AKTIF=Math.max(0,Math.min(SET.toplam-1,i)); DURUM.aktif=AKTIF; yaz(); soruCiz(); if(window.matchMedia('(max-width:880px)').matches) window.scrollTo(0,0); }
+  $('sgOnceki').addEventListener('click',function(){ git(AKTIF-1); });
+  $('sgSonraki').addEventListener('click',function(){ git(AKTIF+1); });
+  $('sgBayrak').addEventListener('click',function(){ var id=SET.sorular[AKTIF].id; if(DURUM.bayrak[id]) delete DURUM.bayrak[id]; else DURUM.bayrak[id]=1; yaz(); soruCiz(); });
+  $('sgBos').addEventListener('click',function(){ delete DURUM.cevap[SET.sorular[AKTIF].id]; yaz(); soruCiz(); });
+  $('sgBitir').addEventListener('click',function(){
+    var bos=SET.toplam-Object.keys(DURUM.cevap).length;
+    if(confirm((bos?bos+' soru boş. ':'')+'Sınavı bitirmek istiyor musun? Bitirince cevaplar değiştirilemez.')) bitir(false);
+  });
+  document.addEventListener('keydown',function(e){
+    if($('sgSinav').classList.contains('sg-gizli')||e.ctrlKey||e.metaKey||e.altKey) return;
+    var t=(e.target&&e.target.tagName)||''; if(t==='INPUT'||t==='TEXTAREA') return;
+    var k=e.key.toUpperCase();
+    if(/^[A-E]$/.test(k)){ sec(k); e.preventDefault(); }
+    else if(e.key==='ArrowRight'){ git(AKTIF+1); e.preventDefault(); }
+    else if(e.key==='ArrowLeft'){ git(AKTIF-1); e.preventDefault(); }
+  });
+
+  function bitir(sureDoldu){
+    if(SAYAC){ clearInterval(SAYAC); SAYAC=null; }
+    var dogru=0, yanlis=0, bos=0;
+    SET.sorular.forEach(function(q){ var c=DURUM.cevap[q.id]; if(!c) bos++; else if(c===q.dogru) dogru++; else yanlis++; });
+    DURUM.bitti=true; DURUM.sureDoldu=!!sureDoldu; DURUM.bitis=new Date().toISOString();
+    DURUM.sonuc={dogru:dogru,yanlis:yanlis,bos:bos}; yaz();
+    kutuyaYaz();
+    sonucCiz();
+  }
+  /* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */
+  function kutuyaYaz(){
+    try{
+      var kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
+      SET.sorular.forEach(function(q){
+        var c=DURUM.cevap[q.id]; if(!c||c===q.dogru) return;
+        var k=kutu.filter(function(x){return x.id===q.id;})[0];
+        if(k){ k.tur=1; k.due=an+2*GUN; k.yanlis=(k.yanlis||0)+1; }
+        else kutu.push({id:q.id,konu:q.konu,ders:q.ders,donem:q.donem,tur:1,due:an+2*GUN,yanlis:1});
+      });
+      localStorage.setItem('kc_kutu',JSON.stringify(kutu));
+    }catch(e){}
+  }
+
+  /* ---------- 3) SONUÇ ---------- */
+  function sonucCiz(){
+    var r=DURUM.sonuc, harc=SET.sure_dk*60-Math.max(0,DURUM.kalanSn);
+    $('sgSonucBaslik').textContent='Set '+SET.no+' · sonuç';
+    $('sgSonucAlt').textContent=(DURUM.sureDoldu?'Süre doldu, sınav kendiliğinden bitti. ':'')+'Staja Giriş\'te yanlış doğruyu götürmez ve puan bağıl hesaplanır; bu yüzden burada puan değil doğru sayısı var.';
+    $('sgSkor').innerHTML='<div><b>'+r.dogru+'</b><span>doğru / '+SET.toplam+'</span></div><div><b>'+r.yanlis+'</b><span>yanlış</span></div><div><b>'+r.bos+'</b><span>boş</span></div><div><b>'+sure(harc)+'</b><span>kullanılan süre</span></div>';
+    var ders={}, sira=[];
+    SET.sorular.forEach(function(q){
+      if(!ders[q.ders]){ ders[q.ders]={ad:q.ders,soru:0,dogru:0,yanlis:0,bos:0}; sira.push(q.ders); }
+      var d=ders[q.ders], c=DURUM.cevap[q.id]; d.soru++; if(!c) d.bos++; else if(c===q.dogru) d.dogru++; else d.yanlis++;
+    });
+    var satir=sira.map(function(k){ var d=ders[k]; d.oran=Math.round(100*d.dogru/d.soru); return d; });
+    var enZayif=satir.slice().sort(function(a,b){return a.oran-b.oran;}).slice(0,3).map(function(d){return d.ad;});
+    $('sgTablo').innerHTML='<thead><tr><th>Ders</th><th>Soru</th><th>Doğru</th><th>Yanlış</th><th>Boş</th><th>Başarı</th></tr></thead><tbody>'
+      +satir.map(function(d){ return '<tr'+(enZayif.indexOf(d.ad)>-1&&d.oran<100?' class="zayif"':'')+'><td>'+esc(d.ad)+'</td><td>'+d.soru+'</td><td>'+d.dogru+'</td><td>'+d.yanlis+'</td><td>'+d.bos+'</td><td>%'+d.oran+'</td></tr>'; }).join('')+'</tbody>';
+    var liste=SET.sorular.filter(function(q){ return DURUM.cevap[q.id]!==q.dogru; });
+    $('sgYanlisBaslik').textContent='Yanlış ve boş bıraktıkların ('+liste.length+')';
+    $('sgYanlislar').innerHTML=liste.length?liste.map(function(q){
+      var c=DURUM.cevap[q.id];
+      /* konu adı gösterilmez: bir kısmı harf katlanmış ("denklem cozme") - etiket onarımı bitince eklenir */
+      return '<div class="sg-yanlis"><div class="sg-y-ust"><span>Soru '+q.n+' · '+esc(q.ders)+'</span></div>'
+        +'<p>'+esc(q.soru.length>220?q.soru.slice(0,217)+'…':q.soru)+'</p>'
+        +'<div class="sg-y-alt"><span>'+(c?'Senin cevabın <span class="yan">'+c+'</span> · ':'Boş bıraktın · ')+'doğrusu <span class="dog">'+q.dogru+'</span></span>'
+        +'<a href="'+esc(q.sayfa)+'#s='+q.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın →</a></div></div>';
+    }).join(''):'<p class="sg-alt">Hepsi doğru. Bu seti tam çözdün.</p>';
+    goster('sgSonuc');
+  }
+  $('sgSetlereDon').addEventListener('click',function(){ setleriCiz(); goster('sgGiris'); });
+  $('sgYeniden').addEventListener('click',function(){
+    if(!confirm('Bu setin cevapları silinip baştan başlanacak. Emin misin?')) return;
+    try{ localStorage.removeItem(anahtar(SET.no)); }catch(e){}
+    setAc(SET.no);
+  });
+  window.addEventListener('beforeunload',function(){ if(DURUM&&!DURUM.bitti) yaz(); });
+
+  fetch('veri/deneme/'+SINAV+'-dizin.json',{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(function(d){
+    DIZIN=d;
+    $('sgKural').innerHTML='<span>'+d.toplam_soru+' soru</span><span>'+d.sure_dk+' dakika</span><span>5 seçenek</span><span>Yanlış doğruyu götürmez</span><span>'+d.set_sayisi+' set, setler arası tekrar yok</span>';
+    setleriCiz();
+    var m=location.hash.match(/set=(\d+)/); if(m) setAc(+m[1]);
+  }).catch(function(){ $('sgSetler').innerHTML='<p class="sg-alt">Setler şu an yüklenemedi. Sayfayı yenilemeyi dene.</p>'; });
+})();
+</script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>
