@@ -84,21 +84,8 @@ jobs:
       # 13.09 KANIT: emir #11 (10 kitapcik, 0,43 USD) BU YUZDEN KAYBOLDU - kaydetme
       # adimi karne robotuyla konu-kaynak-karnesi.json'da cakisti, rebase durdu,
       # "|| true" hatayi yuttu, kosu YESIL gorundu, sonuc runner'la gitti.
-      # Iki onlem: (1) parali cikti ONCE bulut artifact'ina yuklenir (push olmasa
-      # da 30 gun durur), (2) push tekrar denenir, olmazsa adim KIRMIZI duser.
-      - name: Analiz ciktisini bulut artifact'ina yukle (push'tan bagimsiz)
-        if: always() && steps.emir.outputs.kos == 'evet'
-        uses: actions/upload-artifact@v4
-        with:
-          name: sinav-analiz-emir-${{ steps.emir.outputs.no }}-${{ github.run_id }}
-          path: |
-            veri/sgs-analiz.json
-            veri/smmm-analiz.json
-            veri/sinav-arsiv.json
-            veri/sinav-analiz-fatura.json
-            veri/sinav-analiz-log.txt
-            veri/sinav-analiz-emir.json
-          retention-days: 30
+      # Onlem: push 5 kez tekrar denenir, olmazsa adim KIRMIZI duser (sessiz kayip yok).
+      # Artifact YEDEGI BILEREK YOK: public repo + artifact-nobeti yalniz .enc kabul eder.
       - name: Analiz sonuclarini kaydet (karneden ONCE)
         if: always() && steps.emir.outputs.kos == 'evet'
         run: |
@@ -112,7 +99,7 @@ jobs:
             git rebase --abort 2>/dev/null || true
             sleep $((i*15))
           done
-          echo "::error::Analiz sonucu PUSH EDILEMEDI - artifact'tan geri alinmali (sinav-analiz-emir-${{ steps.emir.outputs.no }}-${{ github.run_id }})"
+          echo "::error::Analiz sonucu PUSH EDILEMEDI - emir #${{ steps.emir.outputs.no }} yeniden kosulmali"
           exit 1
       # 29.07 - KARNE AYNI KOSUDA YENILENIR, TETIGE GUVENILMEZ.
       # Karne is akisi "veri/sgs-analiz.json degisince kos" diye kurulmustu ama
