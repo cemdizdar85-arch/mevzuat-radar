@@ -1,7 +1,8 @@
 {
-    "_not":  "Cem\u0027in ELLE onayladigi ders atamalari. Ayristirici cozemedigi ya da YANLIS cozdugu konular. Bu dosya kopru ve ayristiricidan ONCE okunur - 12.09\u0027da motor/konu-plani.ps1 de bagland (onceden yalniz siklik-plani.ps1 okuyordu, yani atamalar asil plana GECMIYORDU). 12.09 aksam: 91 ders DUZELTMESI eklendi (yanlis ders -\u003e yanlis kaynak zinciri olculdu).",
-    "_olcum":  "2026-09-12 23:25",
-    "_atlanan":  "Tartismali 3 konu UYGULANMADI (Cem hukum vermedi): gider tahakkuku, gelir tahakkuku, haksiz rekabet reklam yasagi",
+    "_not":  "Cem\u0027in ELLE onayladigi ders atamalari. Ayristirici cozemedigi ya da YANLIS cozdugu konular. Bu dosya kopru ve ayristiricidan ONCE okunur - 12.09\u0027da motor/konu-plani.ps1 de bagland (onceden yalniz siklik-plani.ps1 okuyordu, yani atamalar asil plana GECMIYORDU). 12.09 aksam: 91 ders DUZELTMESI eklendi (yanlis ders -\u003e yanlis kaynak zinciri olculdu). 13.09 ELLE DENETIM (GM): 20 atama duzeltildi - siniflandirici ARACIN adina (bono/cek/kambiyo/KDV) bakip hukuk/vergi dersine atmisti, oysa konu adi OLCULEN BECERIYI soyluyor (\u0027ihraci\u0027,\u0027tahsili\u0027,\u0027kaydi\u0027,\u0027tahakkuku\u0027 = muhasebe kaydi sorusu). Kural: DERS BECERIYI IZLER, ARACI DEGIL.",
+    "_olcum":  "2026-09-13 06:19",
+    "_atlanan":  "13.09 KARARA BAGLANDI (GM hukmu, artik bekleyen yok): gider tahakkuku -\u003e Finansal Muhasebe (donem sonu tahakkuk kaydi, THP 381; VUK degil) · gelir tahakkuku -\u003e Finansal Muhasebe (THP 181) · haksiz rekabet reklam yasagi -\u003e Meslek Hukuku (SMMM reklam yasagi TURMOB yonetmeligi; TTK haksiz rekabeti degil). Ucu de MEVCUT dersinde dogruydu, degisiklik gerekmedi.",
+    "_elle_denetim_reddedilen":  "Imza taramasi 23 celiski buldu, 3\u0027u YANLIS ALARM cikti ve UYGULANMADI: \u0027cebren tahsilin baslamasi (odeme emri)\u0027 (6183 odeme emri, Vergi Hukuku dogru - \u0027tahsil\u0027 kelimesi yaniltti) · \u0027ttk bagimsiz denetim\u0027 (TTK m.397 hangi sirketler denetime tabi, Ticaret Hukuku dogru) · \u0027cek kurallari (vade kaydi)\u0027 (cekin uzerindeki vade serhi, muhasebe kaydi DEGIL).",
     "atamalar":  [
                      {
                          "konu":  "yonetim beyanlari",
@@ -249,7 +250,7 @@
                      },
                      {
                          "konu":  "hazine bonosu tahsili",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "maddi olmayan duran varlik denetimi",
@@ -289,7 +290,7 @@
                      },
                      {
                          "konu":  "genel uretim gideri ikramiye tahakkuku",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Maliyet Muhasebesi"
                      },
                      {
                          "konu":  "baslangic analitik prosedur amaclari",
@@ -297,7 +298,7 @@
                      },
                      {
                          "konu":  "hazine bonosu tahsili vergi kesintili kayit",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "gorus bildirmekten kacinma raporu",
@@ -325,7 +326,7 @@
                      },
                      {
                          "konu":  "alacak senet cek kaydi",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "amme alacagi zamanasimi",
@@ -333,11 +334,11 @@
                      },
                      {
                          "konu":  "cek cirosunun bilanco esitligine etkisi",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "kdv tahakkuk kaydi (devreden)",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "cek cirosu kurallari",
@@ -357,11 +358,11 @@
                      },
                      {
                          "konu":  "finansman bonosu kaydi",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "kasa kambiyo kur farki",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "ucret yoluyla haksiz rekabet halleri",
@@ -385,7 +386,7 @@
                      },
                      {
                          "konu":  "finansman bonosu itfasi",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "haksiz rekabet ve reklam yasagi yonetmeligi",
@@ -413,7 +414,7 @@
                      },
                      {
                          "konu":  "satis kaydi kdv",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "is sahipleriyle haksiz rekabet halleri",
@@ -421,11 +422,11 @@
                      },
                      {
                          "konu":  "faiz geliri tahakkuku",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "finansman bonosu vade sonu kaydi",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "haksiz rekabet davalari (oda yetkisi)",
@@ -481,7 +482,7 @@
                      },
                      {
                          "konu":  "kdv tahakkuk kaydi",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "reklam yasagi yonetmeligi",
@@ -493,11 +494,11 @@
                      },
                      {
                          "konu":  "finansman bonosu muhasebelestirme",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "gelir tahakkuklari",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "gelir vergisi beyannamesi",
@@ -517,7 +518,7 @@
                      },
                      {
                          "konu":  "kdv mahsup kaydi",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "reklam yasagi yonetmeligi (seminer duyurusu)",
@@ -533,7 +534,7 @@
                      },
                      {
                          "konu":  "ciro edilmis bono alinmasi kaydi",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "banka kredisi cek cirosu ile odeme",
@@ -549,11 +550,11 @@
                      },
                      {
                          "konu":  "cek denetimi kontrol testleri",
-                         "ders":  "Ticaret Hukuku"
+                         "ders":  "Denetim"
                      },
                      {
                          "konu":  "gider muhasebe kaydi kdv",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "cek kurallari (vade kaydi)",
@@ -565,7 +566,7 @@
                      },
                      {
                          "konu":  "banka kredisi faiz tahakkuku",
-                         "ders":  "Vergi Hukuku"
+                         "ders":  "Finansal Muhasebe"
                      },
                      {
                          "konu":  "gorus bildirmekten kacinma (belirsizlik)",
