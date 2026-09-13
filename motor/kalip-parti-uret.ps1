@@ -875,6 +875,38 @@ $OZEL_DESEN=@{
   'disiplin kovusturmasi'                  = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.49%')
   'meslek hukuku disiplin cezasi'          = @('SMMM ve YMM K. Disiplin Yonetmeligi%','SMMM K. (3568 s.K.) m.48%')
   'turmob meslek odasi gelirleri'          = @('TÜRMOB Birlik Yön.%','SMMM K. (3568 s.K.) m.28%','SMMM K. (3568 s.K.) m.29%')
+  # ⛔⭐ 13.09.2026 — MESLEK HUKUKU 19 KONU DESENI (GM elle; Cem "Meslek Hukuku ve Maliye -> ben yazayım").
+  #   NIYE: GM'in 10.09'da ELLE yazdigi 114 Meslek sorusu HIC degerlendirilmemisti (a6e 54 soruda hakem
+  #   kosmamis · t2b 60 soru hatta hic girmemis). Bu 114 sorunun 28 konusundan 19'unun ACIK deseni YOKTU;
+  #   yani hatta girseler eslestirici alakasiz madde getirecek, hakem DOGRU soruyu reddedecekti - 10.09'da
+  #   Vergi+Maliye'de 108 hazir sorunun 34'unu tam bu yuzden kaybettik ("soru kusurlu degildi, paket yanlisti").
+  #   YONTEM: her desen sorunun KENDI `dayanak` alanindan kuruldu (hangi maddeye dayanarak yazildiysa), sonra
+  #   ambarda metin icinde anahtar kelimeyle ARANDI (uretici satir ~228 yontemi). Tahmin YOK.
+  #   ⚠ JOKER: tek parcali madde TAM ad ('m.4' - 'm.4%' m.40-49'u da yakalar), parcali madde 'm.X [%'.
+  #   ⚠ ASIL YAKALAMA - BURO: hat 'buro edinme' konusuna AVUKATLIK K. (1136) m.43'u getiriyordu (avukat
+  #     burosu). SMMM'nin buro kurali 3568'de de DEGIL (m.44 = mesleki egitim seminerleri, olculdu);
+  #     dogru kaynak 'SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.13-14'.
+  #   ETIK: 'TÜRMOB Etik İlkeler Yön. EK bolum N' parcalari KONUYA gore degil uzun metnin kesimi (22 parca,
+  #     hepsi ayni baslikla basliyor) - parca numarasi adindan bilinemez; metin aramasiyla secildi.
+  'meslek standartlari ihlali'            = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 3','TÜRMOB Etik İlkeler Yön. EK bolum 4','TÜRMOB Etik İlkeler Yön. EK bolum 10','TÜRMOB Etik İlkeler Yön. EK bolum 11')
+  'etik ilkeler tesvikler'                = @('TÜRMOB Etik İlkeler Yön. EK bolum 21','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 13','TÜRMOB Etik İlkeler Yön. EK bolum 18')
+  'etik ilkeler kisisel cikar tehdidi'    = @('TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 4','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 12')
+  'etik ilkeler kisisel cikar'            = @('TÜRMOB Etik İlkeler Yön. EK bolum 2','TÜRMOB Etik İlkeler Yön. EK bolum 4','TÜRMOB Etik İlkeler Yön. EK bolum 6','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 12')
+  'meslek mensubu etik sosyal sorumluluk' = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 2')
+  'mesleki davranis ilkesi'               = @('TÜRMOB Etik İlkeler Yön. EK bolum 1','TÜRMOB Etik İlkeler Yön. EK bolum 5','TÜRMOB Etik İlkeler Yön. EK bolum 9','TÜRMOB Etik İlkeler Yön. EK bolum 11','TÜRMOB Etik İlkeler Yön. EK bolum 13')
+  'reklam yasagi'                         = @('SMMM ve YMM K. Disiplin Yonetmeligi m.6 [%','SMMM ve YMM K. Disiplin Yonetmeligi m.19 [%','Haksız Rekabet ve Reklam Yasağı Yön. m.14','Haksız Rekabet ve Reklam Yasağı Yön. m.15')
+  'internet reklam yasagi'                = @('Haksız Rekabet ve Reklam Yasağı Yön. m.14','Haksız Rekabet ve Reklam Yasağı Yön. m.15','Haksız Rekabet ve Reklam Yasağı Yön. m.17','Haksız Rekabet ve Reklam Yasağı Yön. m.21','Haksız Rekabet ve Reklam Yasağı Yön. m.22')
+  'tabela asilmasi kurallari'             = @('Haksız Rekabet ve Reklam Yasağı Yön. m.14')
+  'ymm tasdik yasaklari'                  = @('SMMM K. (3568 s.K.) m.12 [%')
+  'meslekle bagdasmayan isler'            = @('SMMM K. (3568 s.K.) m.45 [%')
+  'meslek hukuku ucret sozlesmesi'        = @('SMMM K. (3568 s.K.) m.46')
+  'ucret tarifesi esaslari'               = @('SMMM K. (3568 s.K.) m.46')
+  'ruhsat iptali-meslek hukuku'           = @('SMMM ve YMM K. Disiplin Yonetmeligi m.9','SMMM ve YMM K. Disiplin Yonetmeligi m.12 [%')
+  'genel kurul kararlari'                 = @('SMMM K. (3568 s.K.) m.19','SMMM K. (3568 s.K.) m.18','SMMM K. (3568 s.K.) m.33')
+  'yeminli mali musavirlik sinavi'        = @('SMMM K. (3568 s.K.) m.9 [%','SMMM K. (3568 s.K.) m.10 [%')
+  'meslek mensubu olma engelleri'         = @('SMMM K. (3568 s.K.) m.4','SMMM K. (3568 s.K.) m.5')
+  'ozen sorumlulugu'                      = @('SMMM K. (3568 s.K.) m.43')
+  'buro edinme zorunlulugu'               = @('SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.13','SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.14 [%')
   'police muhasebelestirme'  = @('THP 121%','THP 321%','TTK (6102 s.K.) m.671%','TTK (6102 s.K.) m.672%')
   'önemlilik kavramı'        = @('MSUGT 1 kavram%')
   'amortisman ayirma'        = @('THP 257%','THP 730%','THP 770%','VUK (213 s.K.) m.313%','VUK (213 s.K.) m.315%')
