@@ -114,7 +114,8 @@ $cikti = [ordered]@{
   uretim        = (Get-Date -Format "yyyy-MM-dd HH:mm")
   uretici       = "motor/vitrin-kunye-cikar.ps1"
   kaynak        = "kaydir/vitrin/sgs.html"
-  baglanti      = "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s="
+  # tek=1: cerceve YALNIZ o soruyu gosterir, alt alta baska soru akmaz (Cem 13.09).
+  baglanti      = "kaydir/vitrin/sgs.html?vitrin=1&tek=1&tema=acik#s="
   taranan_donem = $taranan
   adet          = $kartlar.Count
   # ⛔ @($kartlar) YAZILMAZ: depoda kayitli K3 tuzagi (List patlamasi).
