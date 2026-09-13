@@ -1,5 +1,5 @@
 ﻿{
-    "olcum":  "2026-09-13 02:36",
+    "olcum":  "2026-09-13 04:11",
     "kaynak":  "kaydir/sgs/*.html (basili sayfalar)",
     "hedef_pay":  0.2,
     "gercek_sgs_kiyas":  {
@@ -13,17 +13,30 @@
                              "not":  "veri/sgs-arsiv kitapciklarinin sonundaki anahtar tablosu (5 kitapcik)"
                          },
     "genel":  {
-                  "n":  2830,
+                  "n":  3094,
                   "say":  {
-                              "E":  427,
-                              "D":  549,
-                              "B":  592,
-                              "C":  657,
-                              "A":  605
+                              "E":  466,
+                              "D":  593,
+                              "B":  643,
+                              "C":  717,
+                              "A":  675
                           },
-                  "kikare":  53.2
+                  "kikare":  60.4
               },
     "dersler":  {
+                    "Ataturk Ilkeleri ve Inkilap Tarihi":  {
+                                                               "n":  49,
+                                                               "say":  {
+                                                                           "A":  7,
+                                                                           "B":  10,
+                                                                           "C":  16,
+                                                                           "D":  9,
+                                                                           "E":  7
+                                                                       },
+                                                               "kikare":  5.6,
+                                                               "hukum":  "dengeli",
+                                                               "taban":  5.6
+                                                           },
                     "Borclar Hukuku":  {
                                            "n":  155,
                                            "say":  {
@@ -51,17 +64,17 @@
                                     "taban":  7.6
                                 },
                     "Ekonomi":  {
-                                    "n":  116,
+                                    "n":  114,
                                     "say":  {
                                                 "A":  24,
                                                 "B":  25,
-                                                "C":  26,
-                                                "D":  24,
+                                                "C":  25,
+                                                "D":  23,
                                                 "E":  17
                                             },
-                                    "kikare":  2.2,
+                                    "kikare":  2,
                                     "hukum":  "dengeli",
-                                    "taban":  2.2
+                                    "taban":  2
                                 },
                     "Finansal Muhasebe":  {
                                               "n":  907,
@@ -103,15 +116,15 @@
                                                   "taban":  24.1
                                               },
                     "Maliye":  {
-                                   "n":  79,
+                                   "n":  76,
                                    "say":  {
-                                               "A":  14,
+                                               "A":  12,
                                                "B":  14,
-                                               "C":  19,
+                                               "C":  18,
                                                "D":  17,
                                                "E":  15
                                            },
-                                   "kikare":  1.2,
+                                   "kikare":  1.5,
                                    "hukum":  "dengeli",
                                    "taban":  1.2
                                },
@@ -128,6 +141,19 @@
                                                "hukum":  "DENGESIZ",
                                                "taban":  39.9
                                            },
+                    "Matematik":  {
+                                      "n":  62,
+                                      "say":  {
+                                                  "A":  8,
+                                                  "B":  14,
+                                                  "C":  20,
+                                                  "D":  15,
+                                                  "E":  5
+                                              },
+                                      "kikare":  11.4,
+                                      "hukum":  "sapma",
+                                      "taban":  11.4
+                                  },
                     "Meslek Hukuku":  {
                                           "n":  75,
                                           "say":  {
@@ -154,6 +180,19 @@
                                            "hukum":  "dengeli",
                                            "taban":  3.3
                                        },
+                    "Turkce":  {
+                                   "n":  56,
+                                   "say":  {
+                                               "A":  19,
+                                               "B":  10,
+                                               "C":  10,
+                                               "D":  5,
+                                               "E":  12
+                                           },
+                                   "kikare":  9.2,
+                                   "hukum":  "dengeli",
+                                   "taban":  9.2
+                               },
                     "Vergi Hukuku":  {
                                          "n":  132,
                                          "say":  {
@@ -166,6 +205,19 @@
                                          "kikare":  7.8,
                                          "hukum":  "dengeli",
                                          "taban":  7.8
-                                     }
+                                     },
+                    "Yabanci Dil":  {
+                                        "n":  102,
+                                        "say":  {
+                                                    "A":  38,
+                                                    "B":  17,
+                                                    "C":  16,
+                                                    "D":  16,
+                                                    "E":  15
+                                                },
+                                        "kikare":  19.1,
+                                        "hukum":  "DENGESIZ",
+                                        "taban":  19.1
+                                    }
                 }
 }
