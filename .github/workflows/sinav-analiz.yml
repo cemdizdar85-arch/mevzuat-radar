@@ -81,15 +81,39 @@ jobs:
       # parasi odenmis etiketleme runner'la birlikte kaybolurdu. Artik analiz
       # dosyalari karneden ONCE, always() ile commit+push edilir; karne ayrica
       # zaman sinirli ve hatasi kosuyu dusurmez.
+      # 13.09 KANIT: emir #11 (10 kitapcik, 0,43 USD) BU YUZDEN KAYBOLDU - kaydetme
+      # adimi karne robotuyla konu-kaynak-karnesi.json'da cakisti, rebase durdu,
+      # "|| true" hatayi yuttu, kosu YESIL gorundu, sonuc runner'la gitti.
+      # Iki onlem: (1) parali cikti ONCE bulut artifact'ina yuklenir (push olmasa
+      # da 30 gun durur), (2) push tekrar denenir, olmazsa adim KIRMIZI duser.
+      - name: Analiz ciktisini bulut artifact'ina yukle (push'tan bagimsiz)
+        if: always() && steps.emir.outputs.kos == 'evet'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sinav-analiz-emir-${{ steps.emir.outputs.no }}-${{ github.run_id }}
+          path: |
+            veri/sgs-analiz.json
+            veri/smmm-analiz.json
+            veri/sinav-arsiv.json
+            veri/sinav-analiz-fatura.json
+            veri/sinav-analiz-log.txt
+            veri/sinav-analiz-emir.json
+          retention-days: 30
       - name: Analiz sonuclarini kaydet (karneden ONCE)
         if: always() && steps.emir.outputs.kos == 'evet'
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
           for f in veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json veri/sinav-analiz-fatura.json veri/sinav-analiz-log.txt veri/sinav-analiz-emir.json; do git add "$f" 2>/dev/null || true; done
-          git diff --cached --quiet || git commit -m "Sinav analizi: ${{ steps.emir.outputs.sinav }} etiketleme emir #${{ steps.emir.outputs.no }} ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
-          git pull --rebase --autostash origin main || true
-          git push || true
+          git diff --cached --quiet && { echo "degisiklik yok"; exit 0; }
+          git commit -m "Sinav analizi: ${{ steps.emir.outputs.sinav }} etiketleme emir #${{ steps.emir.outputs.no }} ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase origin main && git push origin HEAD:main; then echo "PUSH OK ($i)"; exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i*15))
+          done
+          echo "::error::Analiz sonucu PUSH EDILEMEDI - artifact'tan geri alinmali (sinav-analiz-emir-${{ steps.emir.outputs.no }}-${{ github.run_id }})"
+          exit 1
       # 29.07 - KARNE AYNI KOSUDA YENILENIR, TETIGE GUVENILMEZ.
       # Karne is akisi "veri/sgs-analiz.json degisince kos" diye kurulmustu ama
       # o dosyayi BU ROBOT yaziyor ve GITHUB_TOKEN ile yapilan robot push'lari
