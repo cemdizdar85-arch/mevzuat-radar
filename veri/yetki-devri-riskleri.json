@@ -1,11 +1,11 @@
 {
-  "tarih": "13.09.2026 17:46",
+  "tarih": "13.09.2026 18:02",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 871,
   "riskli_madde": 1313,
-  "sayfa": 65,
+  "sayfa": 66,
   "atifli_iddia": 282,
-  "dayanaksiz_iddia": 356,
+  "dayanaksiz_iddia": 358,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -187,7 +187,7 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1205,
+      "satir": 1220,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -1483,73 +1483,73 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 814,
+      "satir": 829,
       "iddia": "2 gün",
       "metin": "/* YANLIŞ KUTUSU: ürün (kaydir-coz) yanlış cevabı bu tarayıcıda kc_kutu'ya yazar - 2 gün sonra vade, o gün doğruysa 7 gün sonra son tur."
     },
     {
       "sayfa": "index.html",
-      "satir": 821,
+      "satir": 836,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru burada yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Ku"
     },
     {
       "sayfa": "index.html",
-      "satir": 823,
+      "satir": 838,
       "iddia": "7 gün",
       "metin": "else if(tekrar) kanca('Doğru — ilk tekrarı geçtin.','7 gün sonra son bir kez karşına çıkacak; onu da bilirsen kutundan çıkar.','');"
     },
     {
       "sayfa": "index.html",
-      "satir": 969,
+      "satir": 984,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 985,
+      "satir": 1000,
       "iddia": "5 gün",
       "metin": "bugünün saatiyle kıyaslanınca \"5 gün önce\" yazıp KIRMIZI yanıyor:"
     },
     {
       "sayfa": "index.html",
-      "satir": 1018,
+      "satir": 1033,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 1021,
+      "satir": 1036,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1216,
+      "satir": 1231,
       "iddia": "30 gün",
       "metin": "İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek"
     },
     {
       "sayfa": "index.html",
-      "satir": 1586,
+      "satir": 1601,
       "iddia": "%16",
       "metin": "// olmadan \"(II/C/6.3.) -> (II/C/7.3)\" bolum referansindan \"%16 artis\""
     },
     {
       "sayfa": "index.html",
-      "satir": 1634,
+      "satir": 1649,
       "iddia": "18 gun",
       "metin": "// Vitrinde 18 gunluk kart \"gercek tarama\" diye duruyordu; ziyaretci"
     },
     {
       "sayfa": "index.html",
-      "satir": 1635,
+      "satir": 1650,
       "iddia": "3 gun",
       "metin": "// tarihi okumadan taze sanir. Veri 3 gunden eskiyse acikca yaziyoruz."
     },
     {
       "sayfa": "index.html",
-      "satir": 1643,
+      "satir": 1658,
       "iddia": "19 gun",
       "metin": "// 30.07: \"Son tarama 11.07 - 19 gun once\" diye yaziyorduk; o tarih son"
     },
@@ -2248,6 +2248,18 @@
       "satir": 323,
       "iddia": "%88",
       "metin": "// sıradaydı ve birincinin %88'i kadar puan almıştı; mutlak eşik onu"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 33,
+      "iddia": "% 70",
+      "metin": "background:radial-gradient(55% 70% at 80% 0%,rgba(207,161,99,.20),transparent 62%),"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 34,
+      "iddia": "% 60",
+      "metin": "radial-gradient(40% 60% at 0% 100%,rgba(207,161,99,.08),transparent 70%)}"
     },
     {
       "sayfa": "teslimat-iade.html",
