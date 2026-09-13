@@ -127,6 +127,11 @@ $KISALT=@{
   'Ekonomi'='ekonomi'; 'Maliye'='maliye'; 'Matematik'='mat'; 'Turkce'='turkce'
   'Yabanci Dil'='yd'; 'Ataturk Ilke ve Inkilap Tarihi'='inkilap'
   'Ataturk Ilkeleri ve Inkilap Tarihi'='inkilap'
+  # 13.09 SMMM Yeterlilik (ders-profili adlari + smmm-analiz kisa adlari, harf katlanmis). Onek 'y': SGS kisa adlariyla karismasin.
+  'Finansal Tablolar ve Analizi'='yfta'; 'Muhasebe Denetimi'='ydenetim'; 'Vergi Mevzuati ve Uygulamasi'='yvergi'
+  'Hukuk (Ticaret H., Borclar H., Is H., SSK ve Bag-Kur Mevzuati, Idari Yargilama H.)'='yhukuk'; 'Hukuk'='yhukuk'
+  'Muhasebecilik ve Mali Musavirlik Meslek Hukuku'='ymeslek'; 'Muh. ve Mali Mus. Meslek Hukuku'='ymeslek'
+  'Sermaye Piyasasi Mevzuati (Ek: RG-19/8/2014-29093)'='yspk'; 'Sermaye Piyasasi Mevzuati'='yspk'
 }
 $ZORLUK=@('kolay','zor','cokzor')
 $konuDir=Join-Path $depoKok 'veri\sinav\konu'
@@ -136,6 +141,9 @@ $planSatir=New-Object System.Collections.Generic.List[object]
 $yazilanKonu=0; $tanimsizDers=@{}
 foreach($g in (@($sec | Group-Object ders | Sort-Object { $s=0; foreach($pg in $_.Group){ $s+=[int]$pg.acik }; -$s }))){
   $kis=$KISALT["$($g.Name)"]
+  # 13.09: SMMM ders adlari Turkce harfli gelir ("Vergi Mevzuatı ve Uygulaması"), anahtarlar katlanmis. -creplace SART:
+  # tr-TR'de -replace 'İ' her kucuk i'yi de yakalar ("Vergi" -> "VergI", anahtar tutmaz - 13.09 olculdu).
+  if(-not $kis){ $katli=("$($g.Name)" -creplace 'ı','i' -creplace 'İ','I' -creplace 'ş','s' -creplace 'Ş','S' -creplace 'ğ','g' -creplace 'Ğ','G' -creplace 'ü','u' -creplace 'Ü','U' -creplace 'ö','o' -creplace 'Ö','O' -creplace 'ç','c' -creplace 'Ç','C'); $kis=$KISALT[$katli] }
   if(-not $kis){ $tanimsizDers["$($g.Name)"]=$g.Count; continue }   # etiketi bilinmeyen ders ATLANIR, sessizce degil
   # Cikmis sikliga gore sirala; zorluk kovalarina SIRAYLA dagit (cok cikan konu her zorlukta olsun)
   # ⚠ Degisken adlari BILEREK uzun: Sort-Object/Group-Object scriptblock'lari
@@ -195,7 +203,7 @@ foreach($g in (@($sec | Group-Object ders | Sort-Object { $s=0; foreach($pg in $
           #    ("C:\Users\cemdi\...") bulut runner'inda cozulmez; uretici de
           #    eskiden sessizce atliyordu -> yanlis konularla uretim.
           #    854 yol bu tarihte 37 plan dosyasinda goreceye cevrildi.
-          zorluk=$zorAd; sinav='SGS'; konuDosya=("veri/sinav/konu/$et.json"); toplu=$true; disla=''; tur=$tur
+          zorluk=$zorAd; sinav=$Sinav; konuDosya=("veri/sinav/konu/$et.json"); toplu=$true; disla=''; tur=$tur
         })
         $yazilanKonu+=$konular.Count
       }

@@ -149,7 +149,10 @@ foreach($r in @($kopruHam)){
     if($script:AYR.ContainsKey($ak)){ $d=$script:AYR[$ak] }
     else{
       $ad="$($r.arsiv_ders)".Trim() -replace '\s*/\s*.*$',''
-      if($ad){ $d="$ad (ayristirilamadi)" }
+      # 13.09 SMMM: yeterlilikte arsiv dersi KABA KOVA degil - her kitapcik TEK ders (smmm_Y_D_KK), arsiv_ders zaten
+      # dersin kendisi ("Vergi Mevzuatı ve Uygulaması"). '(ayristirilamadi)' eki SMMM konularini plandan dusururdu.
+      if($ad -and $Sinav -eq 'SMMM'){ $d=$ad }
+      elseif($ad){ $d="$ad (ayristirilamadi)" }
     }
   }
   if($konu.ContainsKey($ka)){

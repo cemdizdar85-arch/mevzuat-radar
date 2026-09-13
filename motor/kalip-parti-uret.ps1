@@ -436,10 +436,15 @@ $DERS_KANUN=@{
   'Sürdürülebilirlik Denetimi'=@('GDS','SBDS','TSRS')
   # SMMM Yeterlilik (03.09, Cem "bitince SMMM icin de kos")
   'Hukuk'=@('TTK (6102 s.K.)','TBK (6098 s.K.)','İş K. (4857 s.K.)','5510 s. SGK Kanunu','İYUK (2577 s.K.)')
-  'Muhasebe Denetimi'=@('BDS','KYS','Bagimsiz Denetim Yonetmeligi')
-  'Vergi Mevzuatı ve Uygulaması'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','AATUHK (6183 s.K.)')
-  'Finansal Tablolar ve Analizi'=@('TEORI','Teori Notu','TMS')
-  'Muhasebecilik ve Mali Müşavirlik Meslek Hukuku'=@('SMMM K. (3568 s.K.)')
+  # 13.09 (Cem "1.2.3", SGS dersleri SMMM'ye tasindi): SGS'de hakem retleriyle BULUNUP eklenen kaynaklar SMMM listelerinde YOKTU -
+  # Vergi'de KVK 5520/OTV/Harc/Damga/MTV/Emlak/VIV/Gider (SGS "Vergi 4->1" 07.09), Denetim'de TEORI (08.09), FTA'da THP (09.09 MTA),
+  # Meslek'te yonetmelikler (07.09: 'haksiz rekabet reklam yasagi' TTK'ya dustu). Adlar ambarda 13.09 CANLI olculdu, 27/27 var.
+  # SGS etkilenmez: SGS ders adlarinin hepsi DersKanunAnahtari'nda BIREBIR kendi anahtarini bulur (Vergi Hukuku/Denetim/Meslek Hukuku/MTA).
+  'Muhasebe Denetimi'=@('BDS','KYS','Bagimsiz Denetim Yonetmeligi','TEORI','Teori Notu')
+  'Vergi Mevzuatı ve Uygulaması'=@('VUK (213 s.K.)','GVK (193 s.K.)','KVK (5520 s.K.)','KVK GUT (1 Seri No)','KDVK (3065 s.K.)','Damga V.K. (488 s.K.)','AATUHK (6183 s.K.)','İİK (2004 s.K.)',
+                                   'ÖTV K. (4760 s.K.)','MTV K. (197 s.K.)','Harçlar K. (492 s.K.)','Emlak V.K. (1319 s.K.)','Veraset ve İntikal V.K. (7338 s.K.)','Gider Vergileri K. (6802 s.K.)')
+  'Finansal Tablolar ve Analizi'=@('TEORI','Teori Notu','TMS','THP')
+  'Muhasebecilik ve Mali Müşavirlik Meslek Hukuku'=@('SMMM K. (3568 s.K.)','Haksız Rekabet ve Reklam Yasağı Yön.','TÜRMOB Etik İlkeler Yön.','TÜRMOB Etik İlkeler Yön. EK','SMMM ve YMM K. Disiplin Yonetmeligi','SMMM Staj Yonetmeligi')
   # SPL / SPK LISANSLAMA (03.09, Cem "SPK sinavlarinda hazirlik yaptiracagiz, 7 ders yakin sinav var")
   # Ambar adlari canli olculdu: "Sermaye Piyasası K. (6362 s.K.) m.N", "<Ad> Tebligi (II-23.2) m.N",
   # "SPK Tebliğ (II-15.2) - ...", "SPK Rehber - ...", "SPK Diğer Karar - ...". '%' ile baslayan onek = icerir.
@@ -1143,13 +1148,50 @@ function PencereKavram([string]$metin,[switch]$YalnizDar){
 }
 function KokOnek([string]$s){ $t=(Katla2 $s) -replace '[^a-z0-9 ]',' '; $es=@{ 'evre'='safha'; 'gug'='genel'; 'ilk'='ilk'; 'dimm'='ilk'; 'esdeger'='esdeger' }
   @(($t -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|ile|veya|icin|bir|olan|sistemi|yontemi|sistem|yontem|hesaplama|hesabi|kaydi|kayit|analizi|analiz|orani|oran|tablosu|tablo|muhasebesi|muhasebe)$' } | ForEach-Object { $w=$_; if($es.ContainsKey($w)){ $w=$es[$w] }; if($w.Length -gt 5){ $w.Substring(0,5) } else { $w } } | Select-Object -Unique) }
+# 13.09 SMMM yardımcıları. Ders kodu kitapçık adındaki KK (smmm_Y_D_KK). 'Meslek' 'Hukuk'tan, 'Finansal Tablolar' 'Finansal Muhasebe'den
+# ÖNCE sınanır ("Muhasebecilik ve Mali Müşavirlik Meslek Hukuku" hem Hukuk hem Muhasebe içerir).
+function SmmmDersKodu([string]$r){
+  $k=Katla2 $r
+  if($k -match 'meslek'){ return '07' }; if($k -match 'sermaye piyasas'){ return '08' }; if($k -match 'finansal tablo|mali tablo'){ return '02' }
+  if($k -match 'finansal muhasebe'){ return '01' }; if($k -match 'maliyet'){ return '03' }; if($k -match 'denetim'){ return '04' }
+  if($k -match 'vergi'){ return '05' }; if($k -match 'hukuk'){ return '06' }; return ''
+}
+# SMMM test kitapçıkları (tur=cikmis-soru, 2026/1'den beri) soru blokları; koşu içinde bir kez çekilir. Cevap anahtarı tablosu ("<Ders> Cevap
+# Anahtarı") ve "TEST BİTTİ" sonrası atılır. Sıralı + order'lı çekim (12.09 sırasız limit tuzağı).
+function SmmmTestBloklari(){
+  if($null -ne $script:SMMM_BLOK){ return $script:SMMM_BLOK }
+  $smmmBlokListe=New-Object System.Collections.Generic.List[object]
+  $uL='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.'+[uri]::EscapeDataString('CIKMIS SINAV - SMMM %')+'&order=kaynak_ad.asc&limit=200'
+  try{ $hamL=ConvertFrom-Json -InputObject (Invoke-WebRequest -Uri $uL -Headers $SB -UseBasicParsing -TimeoutSec 120).Content }catch{ "  SMMM test kitapçıkları çekilemedi: $($_.Exception.Message)"; $hamL=@() }
+  foreach($rL in @($hamL)){
+    $mL=[regex]::Match("$($rL.kaynak_ad)",'smmm_(\d{4})_(\d)_(\d{2})'); if(-not $mL.Success){ continue }
+    # DİKKAT (13.09 ölçüldü): ambar metninde sütun sırası karışık, anahtar tablosu metnin ORTASINA düşebiliyor (2026/1-01: 14.210 kr'nin
+    # 8.069'uncu kr'si). Bütün metni ilk "Cevap Anahtarı"ndan kesmek arkadaki soruları atıyordu (242/320) → kesim BLOK İÇİNDE yapılır.
+    $govdeTum="$($rL.metin)"
+    foreach($p in [regex]::Split($govdeTum,'(?=SORU \d+:)')){ if($p -match '^SORU (\d+):'){
+      $noL=[int]$Matches[1]; $gv=$p; $kesA=[regex]::Match($gv,'(?i)[A-ZÇĞİÖŞÜa-zçğıöşü\.\s]{0,40}Cevap\s+Anahtar|\d*\s*A\s+Kitap\S{0,6}\s+Soru\s+No'); if($kesA.Success){ $gv=$gv.Substring(0,$kesA.Index) }
+      $gv=($gv -replace '(?s)TEST B[İI]TT[İI].*$','') -replace '\s+',' '
+      $smmmBlokListe.Add([pscustomobject]@{ donem="$($mL.Groups[1].Value)/$($mL.Groups[2].Value)"; kod=$mL.Groups[3].Value; no=$noL; metin=($gv -replace '^SORU \d+:\s*','').Trim() }) } }
+  }
+  $script:SMMM_BLOK=$smmmBlokListe.ToArray(); return $script:SMMM_BLOK
+}
 if($DonemPencere -gt 0){
   $anYol=Join-Path $kok ("veri\" + $Sinav.ToLowerInvariant() + "-analiz.json")
   if(-not (Test-Path $anYol)){ "PENCERE: $anYol yok - pencere uygulanamadi (olculmedi)" }
   else {
     $anJ=Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json
     $dList=New-Object System.Collections.Generic.List[object]; $anJ.donemler | ForEach-Object { $dList.Add($_) }
+    if($Sinav -eq 'SMMM'){
+      # 13.09 SMMM: smmm-analiz.json (donem|ders) basina TEK kayit (SGS'de donem basina tek kayit). Eski satir "ilk N KAYIT"
+      # aliyordu: SMMM'de ilk 7 kayit = 2026/2'nin 7 dersi = 1 donem (olculdu). Burada TEKIL N donem + yalniz bu dersin kayitlari.
+      $smmmKod=SmmmDersKodu $DersRegex
+      $dersKayit=@($dList | Where-Object { -not $smmmKod -or [regex]::Match("$($_.kaynakUrl)",'_(\d{2})\.pdf$').Groups[1].Value -eq $smmmKod })
+      $donemSec=@($dersKayit | ForEach-Object { "$($_.donem)" } | Sort-Object -Unique | Sort-Object { [int]($_ -replace '/','') } -Descending | Select-Object -First $DonemPencere)
+      $sonD=@($dersKayit | Where-Object { $donemSec -contains "$($_.donem)" } | Sort-Object { [int]("$($_.donem)" -replace '/','') } -Descending)
+      "PENCERE (SMMM): ders kodu $(if($smmmKod){$smmmKod}else{'bilinmiyor - tum dersler'}) · $($sonD.Count) kayit / $($donemSec.Count) donem"
+    } else {
     $sonD=@($dList | Sort-Object { [int]("$($_.donem)" -replace '/','') } -Descending | Select-Object -First $DonemPencere)
+    }
     $etiketDonem=@{}   # etiket kökleri -> dönem kümesi
     foreach($dn in $sonD){ foreach($p in @($dn.konuSayim.PSObject.Properties)){ $lab=($p.Name -replace '^[^|]*\|',''); $k=(KokOnek $lab) -join ' '; if(-not $etiketDonem.ContainsKey($k)){ $etiketDonem[$k]=@{} }; $etiketDonem[$k]["$($dn.donem)"]=1 } }
     "PENCERE: son $DonemPencere donem = $(($sonD | ForEach-Object { $_.donem }) -join ', ') · $($etiketDonem.Count) etiket"
@@ -1263,6 +1305,37 @@ $uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_a
         else { "  çapa: $($kk.id) pencerede eşleşen çıkmış soru YOK (kök isabeti $enPuan) - sabit çapa kullanılır" }
       }
     }
+    elseif($Sinav -eq 'SMMM' -and -not $OrnekDosya){
+      # 13.09 SMMM ÇAPA + KAPI-K/T (Cem "staja başlamada ne yaptıysak bunda aynısı"): SGS dalı yalnız SGS'de koşuyordu → her SMMM
+      # sorusu SGS'nin sabit maliyet örneğini (p90-SGS-01) alıyor, KAPI-K sözlüğü kurulmadığı için kelime/tip kapıları SESSİZCE kapalıydı.
+      # SMMM'de kitapçık TEK ders (smmm_Y_D_KK) → ders aralığı tablosu gerekmez: GENİŞ sözlük = tüm SMMM test kitapçıkları,
+      # DAR = bu dersin kitapçıkları; çapa adayı yalnız bu dersin soruları. Klasik (2008-2025) kitapçıklar çoktan seçmeli değil → çapa olmaz.
+      $smmmKod=SmmmDersKodu $DersRegex
+      $tumBlok=@(SmmmTestBloklari)
+      $bloklar=@($tumBlok | Where-Object { $_.kod -eq $smmmKod })
+      "  çapa havuzu (SMMM): ders $smmmKod · $($bloklar.Count) soru bloğu · tüm SMMM test $($tumBlok.Count)"
+      $script:PENCERE_KOK=@{}; $script:PENCERE_KOK_DAR=$(if($bloklar.Count){ @{} } else { $null })
+      foreach($bl in $tumBlok){ $darMi=($bl.kod -eq $smmmKod); foreach($w in ((Katla2 $bl.metin) -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -ge 5){ $on=$w.Substring(0,5); $script:PENCERE_KOK[$on]=1; if($darMi){ $script:PENCERE_KOK_DAR[$on]=1 } } } }
+      "  kök sözlüğü (SMMM): geniş $($script:PENCERE_KOK.Keys.Count) · dar $(if($script:PENCERE_KOK_DAR){ $script:PENCERE_KOK_DAR.Keys.Count } else { 'yok' })"
+      foreach($kk in $KONULAR){
+        $kokler=@(KokOnek "$($kk.kayit.konu)"); $enIyi=$null; $enPuan=0
+        $konuKat=(Katla2 "$($kk.kayit.konu)") -replace '\s+',' '; $ikili=@(); $kw=@($konuKat -split ' ' | Where-Object { $_.Length -ge 3 }); for($q=0;$q -lt $kw.Count-1;$q++){ $ikili+=("$($kw[$q]) $($kw[$q+1])") }
+        foreach($bl in $bloklar){ $gk=(Katla2 $bl.metin) -replace '\s+',' '
+          $puan=@($kokler | Where-Object { $gk -match ('\b'+[regex]::Escape($_)) }).Count
+          if($konuKat.Length -ge 6 -and $gk -match [regex]::Escape($konuKat)){ $puan+=3 }
+          foreach($ik in $ikili){ if($gk -match [regex]::Escape($ik)){ $puan+=2 } }
+          if($puan -gt $enPuan -or ($puan -eq $enPuan -and $enIyi -and $bl.metin.Length -gt $enIyi.metin.Length)){ $enPuan=$puan; $enIyi=$bl } }
+        $secBlok=$null; $isabet=$true
+        if($enIyi -and $enPuan -ge [Math]::Min(2,$kokler.Count)){ $secBlok=$enIyi }
+        elseif($bloklar.Count){ $sira=[int](($kk.id -replace '\D','')); $secBlok=@($bloklar | Sort-Object { $_.donem },{ $_.no })[$sira % $bloklar.Count]; $isabet=$false }
+        if($secBlok){
+          $CAPA[$kk.id]=$secBlok.metin; $cg=$CAPA[$kk.id]; $sayiN=@([regex]::Matches($cg,'\d{1,3}(?:\.\d{3})+|\b\d{2,}\b')).Count
+          $CAPA_TIP[$kk.id]=$(if($cg -match '(?i)\bkaç\b' -or $sayiN -ge 3){ 'hesaplama' } elseif($cg -match '(?i)\b[1-7]\d{2}\s+[A-ZÇĞİÖŞÜ][^\n]{2,40}(HS\.?|hesabı)'){ 'kayit' } else { 'teori' })
+          $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SMMM $($secBlok.donem) ders $smmmKod Soru $($secBlok.no)" -Force
+          "  çapa$(if(-not $isabet){' (dersten, konu isabeti yok)'}): $($kk.id) <- SMMM $($secBlok.donem) ders $smmmKod Soru $($secBlok.no) ($($cg.Length) kr, isabet $enPuan/$($kokler.Count), tip $($CAPA_TIP[$kk.id]))"
+        } else { "  çapa: $($kk.id) SMMM test bloğu yok - sabit çapa kullanılır" }
+      }
+    }
   }
 }
 
@@ -1294,6 +1367,14 @@ if(-not $ornekSoru){
 # 05.09 (kalıp-3 pilotu, Cem "sınavda sorulma şekli neyse o"): çapa tek sabit Finansal örneğiydi; konunun gerçek çıkmış sorusu
 # dosyadan verilebilir. Ölçüm: 13 dönemin ortak maliyet soruları yöntemi ve politikayı işletme cümlesiyle SÖYLÜYOR, çözüm sırasını değil.
 if($OrnekDosya -and (Test-Path $OrnekDosya)){ $ornekSoru=[IO.File]::ReadAllText($OrnekDosya,[Text.Encoding]::UTF8).Trim(); "biçim çapası dosyadan: $OrnekDosya ($($ornekSoru.Length) kr)" }
+# 13.09 SMMM: sabit örnek bir SGS maliyet sorusu (p90-SGS-01) - SMMM Hukuk/Vergi/SPK sorusuna maliyet biçimi verilmesin.
+# Dersin gerçek SMMM test sorusu (en uzun ilk üçten biri değil, sıradaki ilk) yedek örnek olur; çapası olan konu zaten kendi çapasını alır.
+elseif($Sinav -eq 'SMMM'){
+  $smmmKodO=SmmmDersKodu $DersRegex
+  $ornekBlok=@(SmmmTestBloklari | Where-Object { $_.kod -eq $smmmKodO } | Sort-Object { $_.donem },{ $_.no } | Select-Object -First 1)
+  if($ornekBlok.Count){ $ornekSoru=$ornekBlok[0].metin; "biçim çapası (SMMM ders $smmmKodO): $($ornekBlok[0].donem) Soru $($ornekBlok[0].no) ($($ornekSoru.Length) kr)" }
+  else { "biçim çapası: SMMM ders '$DersRegex' için test bloğu bulunamadı - SGS yedek örneği kalıyor (UYARI)" }
+}
 "bicim ornegi: $($ornekSoru.Length) kr"
 
 # --- cache ---
@@ -3171,6 +3252,10 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
   $bankaSay=@{}; foreach($hh in 'A','B','C','D','E'){ $bankaSay[$hh]=0 }
   try{
     $dagYol=Join-Path $kok 'veri\cevap-dagilimi.json'
+    # 13.09 SMMM: SGS bankası SMMM dersine yanlış eşleşiyordu ("Muhasebe Denetimi" -match 'Denetim' → SGS Denetim bankası;
+    # "Finansal Muhasebe" SGS FMuh'un E eksiğini miras alırdı). SMMM kendi dosyasını okur; henüz yoksa (basılı SMMM sayfası yok)
+    # banka boş kalır ve yalnız parti dengelenir. Gerçek SMMM anahtarı zaten dengeli (320 cevap: A71 B63 C64 D59 E63).
+    if($Sinav -eq 'SMMM'){ $dagYol=Join-Path $kok 'veri\cevap-dagilimi-smmm.json' }
     if(Test-Path $dagYol){
       $dagHam=Get-Content $dagYol -Raw -Encoding UTF8 | ConvertFrom-Json   # ONCE DEGISKENE (K2)
       if($dagHam.PSObject.Properties['dersler'] -and $dagHam.dersler){
