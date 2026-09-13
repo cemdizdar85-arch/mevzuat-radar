@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Öğrenci paneli · Tetikte</title>
+<meta name="description" content="Staja Giriş hazırlığın tek yerde: seviye testi geçmişin, geçme ihtimali grafiğin, deneme sonuçların ve yanlış kutun.">
+<link rel="stylesheet" href="stil.css">
+<!--
+  ÖĞRENCİ KAPISI (13.09.2026)
+  Cem: "Öğrenciler için üyelik kapısı yok. yapalım". ÖLÇÜLEN KUSUR: sitenin tek üyelik kapısı radar-app.html
+  işletmeye göre kurulu; öğrenci üye olunca "firma profilini doldur" formu açılıyordu. deneme.html'de yalnız giriş vardı.
+  BU SAYFA: aynı Supabase hesap sistemi (e-posta + şifre), öğrenciye özel panel.
+   · Üyelik: signUp user_metadata { hesap_turu:'ogrenci', kosul_kabul, pazarlama_rizasi, riza_tarihi } -
+     radar-app.html ile aynı onay alanları (koşullar zorunlu, açık rıza isteğe bağlı ve ayrı).
+   · Panel: seviye testi geçmişi + geçme ihtimali grafiği · sınav gibi deneme sonuçları · yanlış kutusu · sınava gün.
+   · Aktarım: bu cihazdaki sonuçlar (sv_sonuclar, sg_sgs_<no>) üyenin hesabına yazılır (ogrenci_sonuc; tekil anahtarla
+     iki kez yazılmaz). Tablo basılmamışsa (radar-app/sql/2026-09-13-ogrenci-sonuc.sql) sayfa yalnız cihazdakini gösterir
+     ve bunu açıkça söyler.
+  Açık tema (çalışma ekranı).
+-->
+<style>
+  body{margin:0}
+  .og{max-width:980px;margin:0 auto;padding:22px 20px 80px;text-align:left}
+  .og-gizli{display:none !important}
+  .og h1{font-size:32px;line-height:1.15;margin:8px 0 8px;letter-spacing:-.02em}
+  .og-alt{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 18px;max-width:44em}
+  .og-iki{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+  .og-maddeler{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  .og-maddeler li{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14.5px;color:var(--ink);line-height:1.5}
+  .og-maddeler li b{display:block;margin-bottom:2px}
+  .og-kutu{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .og-kutu label.og-et{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:10px 0 4px}
+  .og-kutu input[type=email],.og-kutu input[type=password]{font:inherit;font-size:15px;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
+  .og-onay{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5;margin:10px 0 0}
+  .og-onay input{margin-top:3px}
+  .og-onay a,.og-link{color:var(--amber)}
+  .og-btn{font:inherit;font-size:15px;font-weight:750;cursor:pointer;border-radius:10px;padding:11px 18px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);text-decoration:none;display:inline-block}
+  .og-btn:hover{border-color:var(--amber)}
+  .og-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
+  .og-btnler{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+  .og-hata{font-size:14px;color:var(--red);min-height:1.4em;margin-top:10px}
+  .og-bilgi{font-size:14px;color:var(--green);min-height:1.4em;margin-top:10px}
+  .og-ust{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .og-ust span{font-size:13.5px;color:var(--muted)}
+  .og-kartlar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+  .og-kart{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .og-kart b{display:block;font-size:28px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+  .og-kart span{font-size:13px;color:var(--muted)}
+  .og-bolum{margin:22px 0 0}
+  .og-bolum h2{font-size:20px;margin:0 0 8px}
+  .og-grafik{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto}
+  .og-grafik svg{display:block;width:100%;min-width:420px;height:auto}
+  .og-satir{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0;font-size:14px;color:var(--ink)}
+  .og-satir:first-child{border-top:0}
+  .og-satir span{color:var(--muted)}
+  .og-uyari{background:color-mix(in srgb,var(--amber) 10%,transparent);border:1px solid var(--amber);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--ink);margin:14px 0 0}
+  @media(max-width:860px){ .og-iki{grid-template-columns:1fr} .og-kartlar{grid-template-columns:1fr 1fr} .og h1{font-size:26px} }
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="og" id="icerik">
+  <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html#sgs">Soru çöz</a> · Öğrenci paneli</div>
+
+  <!-- ÜYE DEĞİLSE -->
+  <section id="ogGiris" class="og-gizli">
+    <div class="og-iki">
+      <div>
+        <h1>Hazırlığın tek yerde, kaybolmadan</h1>
+        <p class="og-alt">Ücretsiz öğrenci hesabı. Seviye testlerin ve denemelerin hesabına kaydedilir; telefonda da bilgisayarda da aynı yerden devam edersin.</p>
+        <ul class="og-maddeler">
+          <li><b>Geçme ihtimalin nasıl değişiyor?</b>Her seviye testinden sonra grafik güncellenir; 7 günde bir yeniden çöz, ilerlemeni gör.</li>
+          <li><b>Deneme sonuçların</b>"Sınav gibi çöz" setlerinde kaç doğru yaptığın set set durur.</li>
+          <li><b>Yanlış kutun</b>Bugün tekrar etmen gereken sorular tek bakışta.</li>
+        </ul>
+        <p class="og-alt" style="margin-top:16px;font-size:13.5px">İşletme hesabı mı arıyorsun? <a class="og-link" href="radar-app.html">Radar paneline git</a>.</p>
+      </div>
+      <div class="og-kutu">
+        <label class="og-et" for="ogEposta">E-posta</label><input id="ogEposta" type="email" autocomplete="email" placeholder="ornek@mail.com">
+        <label class="og-et" for="ogSifre">Şifre</label><input id="ogSifre" type="password" autocomplete="current-password" placeholder="en az 6 karakter">
+        <div class="og-btnler">
+          <button class="og-btn ana" id="ogKayit" type="button">Ücretsiz hesap aç</button>
+          <button class="og-btn" id="ogGirisBtn" type="button">Giriş yap</button>
+        </div>
+        <label class="og-onay"><input type="checkbox" id="ogKosul"> <span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b>(hesap açmak için zorunlu)</b></span></label>
+        <label class="og-onay"><input type="checkbox" id="ogRiza"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html" target="_blank" rel="noopener">açık rıza</a> veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
+        <div class="og-hata" id="ogHata" role="alert"></div>
+        <p style="font-size:13px;margin:6px 0 0"><a class="og-link" href="#" id="ogSifremi">Şifremi unuttum</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÜYEYSE -->
+  <section id="ogPanel" class="og-gizli">
+    <div class="og-ust"><h1>Staja Giriş hazırlığın</h1><span id="ogKim"></span></div>
+    <div class="og-kartlar">
+      <div class="og-kart"><b id="ogGun">–</b><span>gün kaldı · <span id="ogTarih">21 Kasım 2026</span></span></div>
+      <div class="og-kart"><b id="ogSonGecme">–</b><span id="ogSonGecmeAlt">son geçme ihtimalin</span></div>
+      <div class="og-kart"><b id="ogKutu">–</b><span id="ogKutuAlt">bugün tekrar edilecek soru</span></div>
+    </div>
+    <div id="ogKasaUyari" class="og-uyari og-gizli"></div>
+
+    <div class="og-bolum">
+      <h2>Geçme ihtimalin</h2>
+      <div class="og-grafik" id="ogGrafik"></div>
+      <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogTestBtn">Seviye testini çöz →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
+    </div>
+
+    <div class="og-bolum">
+      <h2>Sınav gibi denemeler</h2>
+      <div class="og-kutu" id="ogDenemeler"></div>
+      <div class="og-btnler"><a class="og-btn" href="sinav-gibi.html">Sınav gibi çöz (130 soru)</a><a class="og-btn" href="sorular.html#sgs">Ders ders çalış</a></div>
+    </div>
+
+    <div class="og-btnler" style="margin-top:28px"><button class="og-btn" id="ogCikis" type="button">Çıkış yap</button></div>
+  </section>
+
+  <p id="ogYuk" class="og-alt">Yükleniyor…</p>
+</div>
+
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $=function(id){return document.getElementById(id);};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var sb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+  var SINAV_TARIHI='2026-11-21';   /* TÜRMOB 2026 resmî takvimi - veri/sinav-takvimi.json'dan tazelenir */
+
+  function trHata(e){
+    var k=(e&&(e.code||e.error_code))||'', m=(e&&e.message)||'';
+    if(/invalid_credentials/i.test(k)||/invalid login/i.test(m)) return 'E-posta veya şifre hatalı. Hesabın yoksa "Ücretsiz hesap aç"a bas.';
+    if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';
+    if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap"ı dene.';
+    if(/validation_failed/i.test(k)||/invalid.*email/i.test(m)) return 'E-posta adresi geçerli görünmüyor.';
+    if(/email_not_confirmed/i.test(k)) return 'E-postanı doğrulaman gerekiyor: gelen kutunu kontrol et.';
+    if(/rate limit/i.test(k+m)) return 'Çok sık denendi. Bir dakika bekleyip tekrar dene.';
+    return m||'Bir sorun oldu, tekrar dene.';
+  }
+  function yerel(k,v){ try{ return JSON.parse(localStorage.getItem(k)||'null')||v; }catch(e){ return v; } }
+
+  /* bu cihazdaki sonuçlar -> ortak biçim */
+  function cihazSonuclari(){
+    var liste=[];
+    (yerel('sv_sonuclar',[])||[]).forEach(function(s){ if(s&&s.tarih&&typeof s.gecme==='number') liste.push({tur:'seviye',anahtar:'sv-'+s.tarih,veri:{gecme:s.gecme,dogru:s.dogru,soru:s.soru,dogru130:s.dogru130||null,gruplar:s.gruplar||null,tarih:s.tarih}}); });
+    for(var no=1;no<=10;no++){ var d=yerel('sg_sgs_'+no,null); if(d&&d.bitti&&d.sonuc) liste.push({tur:'deneme',anahtar:'sg-'+no+'-'+(d.bitis||''),veri:{set:no,dogru:d.sonuc.dogru,yanlis:d.sonuc.yanlis,bos:d.sonuc.bos,tarih:d.bitis||null}}); }
+    return liste;
+  }
+
+  async function panel(user){
+    $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
+    $('ogKim').textContent=user.email||'';
+    var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;
+    /* 1) cihazdakini hesaba aktar (tekil anahtar - iki kez yazılmaz) */
+    if(cihaz.length){
+      var r=await sb.from('ogrenci_sonuc').upsert(cihaz.map(function(x){ return {tur:x.tur,sinav:'sgs',anahtar:x.anahtar,veri:x.veri}; }),{onConflict:'user_id,tur,anahtar',ignoreDuplicates:true});
+      if(r.error){ kasaVar=false; }
+    }
+    /* 2) hesaptakini oku */
+    var o=await sb.from('ogrenci_sonuc').select('tur,anahtar,veri,olusturma').eq('sinav','sgs').order('olusturma',{ascending:true}).limit(500);
+    if(o.error){ kasaVar=false; } else { kasa=o.data||[]; }
+    if(!kasaVar){
+      $('ogKasaUyari').classList.remove('og-gizli');
+      $('ogKasaUyari').textContent='Sonuç kasası hazırlanıyor: şu an yalnız bu cihazdaki sonuçların görünüyor. Hazır olunca buradaki sonuçların hesabına kendiliğinden aktarılacak.';
+      kasa=cihaz.map(function(x){ return {tur:x.tur,anahtar:x.anahtar,veri:x.veri,olusturma:x.veri.tarih}; });
+    }
+    var seviye=kasa.filter(function(x){return x.tur==='seviye';}).sort(function(a,b){ return String(a.veri.tarih||a.olusturma).localeCompare(String(b.veri.tarih||b.olusturma)); });
+    var deneme=kasa.filter(function(x){return x.tur==='deneme';});
+    grafikCiz(seviye);
+    var son=seviye[seviye.length-1];
+    if(son){
+      $('ogSonGecme').textContent='%'+son.veri.gecme;
+      var once=seviye.length>1?seviye[seviye.length-2].veri.gecme:null;
+      $('ogSonGecmeAlt').textContent='son geçme ihtimalin'+(once!==null?' ('+(son.veri.gecme-once>=0?'+':'')+(son.veri.gecme-once)+' puan)':'');
+      var gecen=Math.floor((Date.now()-new Date(son.veri.tarih||son.olusturma))/86400000);
+      $('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';
+    } else { $('ogSonGecme').textContent='–'; $('ogTestNot').textContent='Henüz seviye testi yok. 20 soruda ilk ölçümünü al.'; }
+    $('ogDenemeler').innerHTML=deneme.length?deneme.sort(function(a,b){return a.veri.set-b.veri.set;}).map(function(x){ return '<div class="og-satir"><b>Set '+x.veri.set+'</b><span>'+x.veri.dogru+' doğru · '+x.veri.yanlis+' yanlış · '+x.veri.bos+' boş</span></div>'; }).join('')
+      :'<p class="og-alt" style="margin:0">Henüz bitirilmiş deneme yok. 130 soruluk "Sınav gibi çöz" setleri seni bekliyor.</p>';
+    var kutu=yerel('kc_kutu',[]), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
+    var vadeli=kutu.filter(function(x){return x&&x.due<=an;}).length;
+    $('ogKutu').textContent=vadeli; $('ogKutuAlt').textContent='bugün tekrar edilecek soru · kutuda '+kutu.length;
+    fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
+      var bugun=new Date(new Date().toDateString()), don=d&&d.sinavlar&&d.sinavlar.SGS&&d.sinavlar.SGS.donemler||[];
+      for(var i=0;i<don.length;i++){ var t=new Date(don[i].tarih+'T00:00:00'); if(t>=bugun){ $('ogGun').textContent=Math.round((t-bugun)/86400000); $('ogTarih').textContent=don[i].tarihYazi; return; } }
+    }).catch(function(){ var t=new Date(SINAV_TARIHI+'T00:00:00'); $('ogGun').textContent=Math.max(0,Math.round((t-new Date(new Date().toDateString()))/86400000)); });
+  }
+
+  function grafikCiz(seviye){
+    var kap=$('ogGrafik');
+    if(!seviye.length){ kap.innerHTML='<p class="og-alt" style="margin:6px">İlk seviye testini çözünce geçme ihtimalin burada çizilecek.</p>'; return; }
+    var W=640,H=220,sol=40,sag=16,ust=16,alt=34, n=seviye.length;
+    var x=function(i){ return n===1 ? sol+(W-sol-sag)/2 : sol+i*(W-sol-sag)/(n-1); };
+    var y=function(v){ return ust+(100-v)*(H-ust-alt)/100; };
+    var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Geçme ihtimali grafiği">';
+    [0,25,50,75,100].forEach(function(v){ s+='<line x1="'+sol+'" x2="'+(W-sag)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="var(--line)" stroke-width="1"/><text x="'+(sol-8)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="11" fill="var(--dim)">%'+v+'</text>'; });
+    var yol=seviye.map(function(r,i){ return (i?'L':'M')+x(i).toFixed(1)+' '+y(r.veri.gecme).toFixed(1); }).join(' ');
+    if(n>1) s+='<path d="'+yol+'" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linejoin="round"/>';
+    seviye.forEach(function(r,i){
+      var t=new Date(r.veri.tarih||r.olusturma), et=t.toLocaleDateString('tr-TR',{day:'numeric',month:'short'});
+      s+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(r.veri.gecme).toFixed(1)+'" r="5" fill="var(--amber)"><title>%'+r.veri.gecme+' · '+esc(et)+'</title></circle>';
+      if(n<=8||i===0||i===n-1) s+='<text x="'+x(i).toFixed(1)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="var(--dim)">'+esc(et)+'</text>';
+    });
+    kap.innerHTML=s+'</svg>';
+  }
+
+  function girisGoster(){
+    $('ogYuk').classList.add('og-gizli'); $('ogPanel').classList.add('og-gizli'); $('ogGiris').classList.remove('og-gizli');
+  }
+  $('ogGirisBtn').addEventListener('click',async function(){
+    $('ogHata').className='og-hata'; $('ogHata').textContent='';
+    var r=await sb.auth.signInWithPassword({email:$('ogEposta').value.trim(),password:$('ogSifre').value});
+    if(r.error){ $('ogHata').textContent=trHata(r.error); return; }
+    panel(r.data.user);
+  });
+  $('ogKayit').addEventListener('click',async function(){
+    var h=$('ogHata'); h.className='og-hata'; h.textContent='';
+    if(!$('ogKosul').checked){ h.textContent='Hesap açmak için koşulları ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('ogEposta').value.trim())){ h.textContent='E-posta adresini yaz.'; return; }
+    if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }
+    var an=new Date().toISOString(), riza=$('ogRiza').checked;
+    var r=await sb.auth.signUp({ email:$('ogEposta').value.trim(), password:$('ogSifre').value,
+      options:{ emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null } } });
+    if(r.error){ h.textContent=trHata(r.error); return; }
+    if(r.data.session){ panel(r.data.user); }
+    else { h.className='og-bilgi'; h.textContent='Hesabın açıldı. E-postana bir doğrulama bağlantısı geldiyse ona tıkla, sonra giriş yap.'; }
+  });
+  $('ogSifremi').addEventListener('click',async function(e){
+    e.preventDefault(); var h=$('ogHata'), ep=$('ogEposta').value.trim();
+    if(!ep){ h.className='og-hata'; h.textContent='Önce e-posta adresini yaz.'; return; }
+    var r=await sb.auth.resetPasswordForEmail(ep,{redirectTo:location.origin+'/ogrenci.html'});
+    h.className=r.error?'og-hata':'og-bilgi'; h.textContent=r.error?trHata(r.error):'Şifre yenileme bağlantısı e-postana gönderildi.';
+  });
+  $('ogCikis').addEventListener('click',function(){ sb.auth.signOut().then(function(){ location.reload(); }); });
+
+  /* şifre yenileme bağlantısıyla dönüldüyse yeni şifre sorulur */
+  sb.auth.onAuthStateChange(function(olay){
+    if(olay!=='PASSWORD_RECOVERY') return;
+    var yeni=prompt('Yeni şifreni yaz (en az 6 karakter):');
+    if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }
+    sb.auth.updateUser({password:yeni}).then(function(r){ alert(r.error?('Şifre değişmedi: '+trHata(r.error)):'Şifren yenilendi.'); });
+  });
+  sb.auth.getSession().then(function(r){ var s=r.data&&r.data.session; if(s) panel(s.user); else girisGoster(); }).catch(girisGoster);
+})();
+</script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>

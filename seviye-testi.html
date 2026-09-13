@@ -235,7 +235,7 @@
     var liste=sira.map(function(k){return gruplar[k];});
     var dogruSay=CEVAPLAR.filter(function(c){return c.dogru;}).length;
     SONUC={ gecme:t.gecme, dogru130:t.dogru130, soru:CEVAPLAR.length, dogru:dogruSay, gruplar:liste, tarih:new Date().toISOString() };
-    try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); }catch(e){}
+    try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,dogru130:SONUC.dogru130,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}),tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); }catch(e){}
     /* yanlışlar Kaydır-Çöz yanlış kutusuna (aynı biçim) */
     try{
       var kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
@@ -260,6 +260,8 @@
     var yollar = g>=70
       ? '<a class="sv-btn ana" href="sinav-gibi.html" style="text-decoration:none">Sınav gibi çöz (130 soru) →</a><a class="sv-btn" href="sorular.html#sgs" style="text-decoration:none">Ders ders çalış</a>'
       : '<a class="sv-btn ana" href="sorular.html#sgs" style="text-decoration:none">En zayıf alanından başla →</a><a class="sv-btn" href="sinav-gibi.html" style="text-decoration:none">Sınav gibi çöz</a>';
+    /* 13.09 öğrenci kapısı: üye olmayanın sonucu yalnız bu cihazda - hesap açınca ogrenci.html kendisi aktarır */
+    yollar+='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>';
     $('svYollar').innerHTML=yollar;
     var y=CEVAPLAR.filter(function(c){return !c.dogru;});
     $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';

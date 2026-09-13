@@ -351,3 +351,9 @@ kayboluyordu. Bu üç tablo o bağı kesiyor; yerel de bulut da aynı yerden oku
 Fren provası Cem kararıyla DÜŞTÜ ("tutar için uğraşma, bakiye kadar harcar") —
 gerekçe ölçüldü: `motor/kalip-parti-uret.ps1` içindeki **KAPI-BAKIYE** her parti
 öncesi Anthropic bakiyesini yokluyor ve bulutta da çalışıyor.
+
+## 13.09.2026 · öğrenci paneli
+
+| Dosya | Ne yapar | Durum |
+|---|---|---|
+| `radar-app/sql/2026-09-13-ogrenci-sonuc.sql` | `ogrenci_sonuc` tablosu: ogrenci.html seviye testi + sınav gibi deneme sonuçlarını üyenin hesabına yazar; RLS yalnız `user_id = auth.uid()` (oku/ekle/sil, UPDATE yok), anon hakkı YOK, `(user_id,tur,anahtar)` tekil. Önce ölçüldü: tablo YOKTU (PGRST205). | ⏳ **BASILMADI** (13.09 hazırlandı). Basılana kadar ogrenci.html sonuçları yalnız cihazda gösterir ve 'kasa hazırlanıyor' der. Basınca dosya sonundaki iki ölçüm sorgusu + anon SELECT/INSERT dış ölçümü. |
