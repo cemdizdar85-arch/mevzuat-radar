@@ -55,8 +55,17 @@ on:
       #   ⚠ Bu ayar YALNIZ bir fazda parca boyundan COK istek varsa fark yaratir.
       #     8 soruluk bir parti icin 30 da 15 de TEK parcadir - olcum yapmaz.
       #   BOS birakilirsa kod varsayilani (30) gecerlidir; hicbir sey degismez.
+      # ⭐ A/B SONUCU (13.09.2026, ayni anda kosan iki esit plan):
+      #     plan-d2a · parca 30 (varsayilan) · 62 parti / 326 soru -> 74 dk
+      #     plan-d2b · parca 15              · 63 parti / 334 soru -> 83 dk
+      #   PARCA 30 %12 DAHA HIZLI. Kucuk parca HIZLANDIRMIYOR, yavaslatiyor:
+      #   bir faz ancak IKI parcanin da donmesiyle tamamlanir, yani en yavas
+      #   parcayi beklersin; tek parca olsa tek bekleme olurdu.
+      #   "Kucuk parti kuyrukta one gecer" sezgisi 30'un ALTINDA artik islemiyor
+      #   (09.09 olcumu 62 ve 96 istekli partiler icin dogruydu; 30 zaten esigin altinda).
+      #   ⛔ VARSAYILAN 30'DA KALIYOR. Bu girdi artik olcum araci, ayar degil.
       toplu_parca:
-        description: "Toplu kuyruk parca boyu (bos = 30). A/B olcumu icin: bir plani 30, digerini 15 ile kos."
+        description: "Toplu kuyruk parca boyu (bos = 30). OLCULDU 13.09: 30 > 15 (74 dk vs 83 dk). Degistirmeden once yeni bir A/B kos."
         required: false
         default: ""
         type: string
