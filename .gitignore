@@ -155,3 +155,6 @@ kaydir/*
 !kaydir/sgs/
 # 09.09 ana sayfa vitrini (Nöbetçi kartı): motor/vitrin-bas.ps1 basar, index.html gömer
 !kaydir/vitrin/
+
+# 14.09: 1.835 soruluk eski soru dökümü kazara depoya girmişti (12.09, 8259666b). Kasada: _yerel-veri-kasasi/soru-dokumu/. Paket içeriği depoya girmez.
+veri/_cozme-sorular.json
