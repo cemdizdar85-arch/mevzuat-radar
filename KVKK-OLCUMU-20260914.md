@@ -24,7 +24,7 @@
 
 | # | Akış | Kodda ne gidiyor / nerede duruyor | Metinde |
 |---|---|---|---|
-| 1 | **Kaydır-Çöz cevap kaydı** (`cevap_kayit`) | soru kimliği, seçilen şık, doğru mu, süre, elenen şıklar + cihazda üretilen rastgele **oturum damgası** (`kc_oturum`) — üyelik yok, Supabase (Frankfurt) | Yok. Metin yalnız "Deneme sınavında … üyeliğinize bağlı" diyor. |
+| 1 | **Kaydır-Çöz cevap kaydı** (`cevap_kayit`) | soru kimliği, seçilen şık, doğru mu, süre, elenen şıklar + cihazda üretilen rastgele **oturum damgası** (`kc_oturum`) — üyelik yok, Supabase (İrlanda; 14.09 düzeltme: "Frankfurt" yanlıştı) | Yok. Metin yalnız "Deneme sınavında … üyeliğinize bağlı" diyor. |
 | 2 | **Hesap kâğıdı kaydı** (`kagit_kayit`) | öğrencinin kâğıda yazdığı **serbest metin (≤4.000 karakter)**, çizim yapıp yapmadığı, oturum damgası | Yok. Serbest metin kişisel veri içerebilir. |
 | 3 | **Seviye testi** (`seviye-testi.html`, 13.09) | cevaplar (1 ile aynı) · karne formu: e-posta, sonuç sayıları, onay, duyuru izni → `form_kayit` + **Resend ile öğrencinin kendi adresine** mail (`karne-gonder`) | Yok. |
 | 4 | **Hata bildir** (Kaydır-Çöz, 13.09) | bildirim metni (≤1.500), soru kimliği/metni → `form_kayit` + bize mail | Genel "form" cümlesine giriyor, adı yok. |

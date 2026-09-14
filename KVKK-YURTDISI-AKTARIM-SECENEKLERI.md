@@ -7,15 +7,15 @@
 
 Daha önce "AB'deki bir sağlayıcıya geçelim, sorun kalmaz" gibi konuştum. **Yanlıştı.** KVKK'da
 Türkiye dışındaki her ülke yurt dışıdır; AB'nin ayrıcalığı yok. Kurul'un yayımladığı bir
-yeterlilik kararı bulamadım. Bu yüzden Almanya'daki Supabase de, Finlandiya'daki GoatCounter da
+yeterlilik kararı bulamadım. Bu yüzden İrlanda'daki Supabase veritabanı da, Finlandiya'daki GoatCounter da
 m.9 kapsamında. kvkk.html 6. bölüm "ABD'deki sağlayıcılar" diye yazıyordu; bu turda
-"Almanya ve Finlandiya dahil" diye düzeltildi.
+"İrlanda, Almanya ve Finlandiya dahil" diye düzeltildi. **14.09 ek düzeltme:** veritabanı Almanya'da değil **İrlanda'da** (AWS eu-west-1). Veritabanı adresinin IPv6 öneki AWS'nin resmî adres listesinde eu-west-1'e düşüyor; 20.08 panel ölçümü de aynı. Sunucu fonksiyonları ise Frankfurt'ta çalışıyor (`x-sb-edge-region: eu-central-1` başlığı).
 
 ## 1. Bugün ne nereye gidiyor (ölçülmüş hâl, kvkk.html v2 tablosu)
 
 | Sağlayıcı | Ülke | Giden kişisel veri | Ağırlık |
 |---|---|---|---|
-| Supabase | Almanya | **Hepsi**: üyelik, e-posta, firma izleme, sonuçlar, formlar, soru çözme kayıtları | 🔴 çekirdek |
+| Supabase | İrlanda (veritabanı), Almanya (fonksiyonlar) | **Hepsi**: üyelik, e-posta, firma izleme, sonuçlar, formlar, soru çözme kayıtları | 🔴 çekirdek |
 | Resend | ABD | Mail adresi + mail içeriği (karne, uyarı, form bildirimi) | 🟠 sürekli |
 | GitHub Pages | ABD | Ziyaretçinin IP'si ve tarayıcı bilgisi (her web sunucusu gibi) | 🟡 teknik |
 | GoatCounter | Finlandiya/Almanya | Konum için IP (saklamıyor), tarayıcı bilgisi | 🟡 teknik |

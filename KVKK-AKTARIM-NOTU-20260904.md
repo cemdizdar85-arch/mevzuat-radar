@@ -8,7 +8,7 @@ karar değil, **ölçülmüş olgu listesi + seçilecek dayanak seçenekleri**di
 
 | Sağlayıcı | Ne taşıyor | Ülke | Kanıt |
 |---|---|---|---|
-| Supabase (Pro plan) | üye hesabı + şifre özeti, beyanname/marka/evrak verisi, site formları (`form_kayit`) | Almanya, Frankfurt | uç başlığı `x-sb-edge-region=eu-central-1`; Supabase kendisi Cloudflare arkasında (İstanbul düğümü) |
+| Supabase (Pro plan) | üye hesabı + şifre özeti, beyanname/marka/evrak verisi, site formları (`form_kayit`) | ~~Almanya, Frankfurt~~ **İrlanda (eu-west-1) — 14.09 düzeltme:** `x-sb-edge-region` fonksiyonların çalıştığı bölgedir, veritabanının değil; veritabanı IPv6 öneki eu-west-1 | uç başlığı `x-sb-edge-region=eu-central-1`; Supabase kendisi Cloudflare arkasında (İstanbul düğümü) |
 | Resend | üye e-posta adresi, form bildirimi içeriği (ad, e-posta, mesaj) | ABD | Resend hizmet şartları |
 | GitHub Pages | yalnız statik sayfa; kişisel veri tutmaz | ABD | — |
 | Anthropic API | Net Cevap aracında kullanıcının yazdığı soru metni (kimlikle eşleşmez) | ABD | `radar-app/edge/net-cevap.ts` |
