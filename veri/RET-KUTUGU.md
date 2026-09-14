@@ -1,7 +1,7 @@
 ﻿# RET KUTUGU — dusen sorularin nedeni ve onarim emri
 
-> Uretim: **13.09.2026 00:46** (makine; elle duzenlenmez — arac/ret-kutugu.ps1). Bedel 0.
-> Taranan 5.627 soru · dusen **1.852** (%32,9)
+> Uretim: **14.09.2026 08:45** (makine; elle duzenlenmez — arac/ret-kutugu.ps1). Bedel 0.
+> Taranan 6.624 soru · dusen **2.095** (%31,6)
 
 ## KURAL
 
@@ -12,38 +12,38 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 
 | Kapi | Soru | Pay |
 |---|---:|---:|
-| KAPI-HAKEM | 930 | %50,2 |
-| KAPI-HAKEM2 | 368 | %19,9 |
-| KAPI-SIM | 291 | %15,7 |
-| KAPI-KOR | 151 | %8,2 |
-| hakem KOSMADI | 112 | %6,0 |
+| KAPI-HAKEM | 1.073 | %51,2 |
+| KAPI-HAKEM2 | 432 | %20,6 |
+| KAPI-SIM | 344 | %16,4 |
+| KAPI-KOR | 174 | %8,3 |
+| hakem KOSMADI | 72 | %3,4 |
 
 ## 2 · KOK NEDEN SINIFI — asil okunacak tablo
 
 | Sinif | Soru | Pay | Onarim yolu |
 |---|---:|---:|---|
-| KAYNAK-EKSIK | 785 | %42,4 | Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri. |
-| SIM-YANLIS | 291 | %15,7 | Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter. |
-| YZ-KOKUSU | 218 | %11,8 | Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir. |
-| (siniflanmamis) | 206 | %11,1 | **Desen yok — yeni kusur ailesi olabilir, asagidaki orneklere bak ve SINIF listesine desen ekle.** |
-| KOR-CELISKI | 151 | %8,2 | Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret. |
-| HAKEM-KOSMADI | 112 | %6,0 | Soru hic denetlenmemis. Parti -PilotId ile yeniden kosulur; kapilardan gecerse hasada girer. |
-| KAYNAK-KESIK | 46 | %2,5 | Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir. |
-| YAPAY-DIL | 14 | %0,8 | Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur. |
-| COK-ANLAMLI | 13 | %0,7 | Istem cumlesi tek anlama indirilir; cogu zaman tek kelime duzeltmesi yeter. |
-| SINAV-DUZEYI | 10 | %0,5 | Soru SGS duzeyinin USTUNDE (paragraf numarasi sorgusu vb). Konu kartina zorluk tavani yazilir; soru sadelestirilir. |
-| CELDIRICI-SAHTE | 6 | %0,3 | Celdirici sayilar uydurulmus. KAPI-C yolu; soru yeniden uretilir. |
+| KAYNAK-EKSIK | 922 | %44,0 | Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri. |
+| SIM-YANLIS | 344 | %16,4 | Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter. |
+| YZ-KOKUSU | 253 | %12,1 | Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir. |
+| (siniflanmamis) | 232 | %11,1 | **Desen yok — yeni kusur ailesi olabilir, asagidaki orneklere bak ve SINIF listesine desen ekle.** |
+| KOR-CELISKI | 174 | %8,3 | Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret. |
+| HAKEM-KOSMADI | 72 | %3,4 | Soru hic denetlenmemis. Parti -PilotId ile yeniden kosulur; kapilardan gecerse hasada girer. |
+| KAYNAK-KESIK | 48 | %2,3 | Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir. |
+| COK-ANLAMLI | 17 | %0,8 | Istem cumlesi tek anlama indirilir; cogu zaman tek kelime duzeltmesi yeter. |
+| YAPAY-DIL | 14 | %0,7 | Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur. |
+| SINAV-DUZEYI | 11 | %0,5 | Soru SGS duzeyinin USTUNDE (paragraf numarasi sorgusu vb). Konu kartina zorluk tavani yazilir; soru sadelestirilir. |
+| CELDIRICI-SAHTE | 8 | %0,4 | Celdirici sayilar uydurulmus. KAPI-C yolu; soru yeniden uretilir. |
 
-### Siniflanmamis 206 gerekceden ornekler
+### Siniflanmamis 232 gerekceden ornekler
 
 - kgk-bosluk-trkiyedenetimstandartlar/kp-06 [KAPI-HAKEM] Soru VUK m.323'e dayansa da, şüpheli alacak karşılığı muhasebe/vergi muhasebesi konusu olup bağımsız denetim standartları kapsamında değildir.
 - kgk-kurfin-30/kp-05 [KAPI-HAKEM] Kaynak metni matematik (kesirler) teorisi içerir; soru ise saf matematik problemidir ve denetçilik/muhasebe/finansal yönetim bilgisine dayanmaz.
 - sgs-bc-denetim-zor-r1/kp-01 [KAPI-HAKEM2] SGS Denetim sorularında genellikle işlem/uygulama, TDS madde-hükmü veya kısa tanım sorulur; bu soru uluslararası kurumsal yapı (IASB/IFAC/IFRS Vakfı) şemasını ezbere dayalı ve akademik/CPA s…
-- sgs-bc-ekonomi-kolay-r1/kp-01 [KAPI-HAKEM] Doğru sık (C) yanlış işaretlenmiştir; likidite tuzağında para arzı artışı faizi düşüremez, bu nedenle 'faiz oranını düşürmeye devam eder' ifadesi yanlıştır ve yanlış olduğu belirtilen ifaded…
 - sgs-bc-meslek-cokzor-r1/kp-02 [KAPI-HAKEM2] Gerçek SGS sorularında şıklar kısa, gerekçesiz sonuç ifadeleridir. Burada B-E şıkları 'X Tuzağı: ...sanırsın. Doğrusu: ...' şeklinde öğretici/meta-açıklama kalıbıyla yazılmış; bu ne kadar TE…
 - sgs-c2-denetim-cokzor-r3/kp-02 [KAPI-HAKEM2] TESMER denetim sorularında şıklar genelde 'sonuç + kısa etiket' biçimindedir, gerekçe şıkta yer almaz; burada her şık 'X'dir çünkü/ile ...' kalıbıyla uzun gerekçe/tanım içeriyor, bu ders kit…
 - sgs-c2-ekonomi-cokzor-r1/kp-01 [KAPI-HAKEM2] B ve C şıkları gerçek bir kavram karışıklığını yansıtıyor (Stolper-Samuelson'ı Heckscher-Ohlin faktör bolluğu mantığıyla karıştırma), bu güçlü bir çeldirici; ama D ve E şıkları gerçekçi bir …
 - sgs-c2-fmuh-cokzor-r1/kp-06 [KAPI-HAKEM2] Kök yapısı (varlık tanımı + birden fazla masraf kalemi + sonuç isteme), şık formatı (sonuç TL, gerekçesiz, yakın aralıklı rakamlar) SGS finansal muhasebe/TFRS sorularıyla uyumlu; dil ve veri…
+- sgs-c2-fmuh-cokzor-r1-2/kp-02 [KAPI-HAKEM2] Soru dil ve şık biçimi olarak (sonuç+kısa gerekçe, beş ifadeden aykırı olanı bulma) sınav kalıbına uysa da, TFRS 18 gibi çok yeni ve son derece teknik bir standardın madde numarası düzeyinde…
 - sgs-c2-fmuh-cokzor-r2/kp-06 [KAPI-HAKEM] Soru TMS 36 kapsamında stoklar için değer düşüklüğü uygulanmasını soruyor, ancak TMS 36 p.2(a) ve p.3'e göre stoklar TMS 36'nın kapsamı dışındadır ve TMS 2 Stoklar Standardı uygulanır. Soru …
 - sgs-c2-fmuh-cokzor-r3/kp-03 [KAPI-HAKEM] TMS 38 p.2(d) ve p.3 kapsamında maden çıkarma hakkı, Madenler, petrol, doğal gaz ve benzeri yenilenemeyen kaynakların geliştirilmesi ve çıkarılmasına ilişkin harcamalar istisnası altında old…
 - sgs-c2-fmuh-cokzor-r3/kp-05 [KAPI-HAKEM] TMS 36 p.2 açıkça 'Stoklar (bakınız: TMS 2 Stoklar)' istisnası nedeniyle TMS 36 stok değer düşüklüğüne uygulanmaz; sorunun dayanağı geçersizdir. Ticari malların stok değer düşüklüğü TMS 2 ka…
@@ -51,7 +51,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 
 ## 3 · ONARIM EMRI — sinif sinif ilk 10 soru
 
-### KAYNAK-EKSIK (785 soru)
+### KAYNAK-EKSIK (922 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -66,10 +66,11 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | kgk-bosluk-trkiyedenetimstandartlar/kp-29 | mevzuata aykirilik gostergeleri | Kaynak metinde BDS 315 A23 paragrafından iç hukuk müşavirinin sorgulanması konusunda hiç bahsedilmemiş; sağlanan metinde yapısal risk aralığı, temel k… |
 | kgk-bosluk-trkiyedenetimstandartlar/kp-30 | operasyonel risk tanimi | Kaynak metinde 'iş hayatına ilişkin riskler' tanımı yer almamakta; sağlanan BDS 315 paragrafları yapısal risk, kontrol riski, BT riskleri ve ciddi ris… |
 
-### SIM-YANLIS (291 soru)
+### SIM-YANLIS (344 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
+| sgs-a6e-meslek-kolay/kp-02 | buro edinme zorunlulugu |  |
 | sgs-a6-maliye-zor-r1/kp-11 | parafiskal gelir |  |
 | sgs-bc-borclar-kolay-r1/kp-03 | muteselsil sorumluluk |  |
 | sgs-bc-issgk-kolay-r3/kp-01 | sigortali sayilma |  |
@@ -79,9 +80,8 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | sgs-c2-borclar-cokzor-r1/kp-01 | sozlesmenin kurulmasi |  |
 | sgs-c2-denetim-cokzor-r2/kp-02 | denetim riski |  |
 | sgs-c2-denetim-zor-r3/kp-03 | bagimsiz denetim sureci |  |
-| sgs-c2-fmuh-cokzor-r1/kp-14 | maddi duran varlik denetimi |  |
 
-### YZ-KOKUSU (218 soru)
+### YZ-KOKUSU (253 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -96,7 +96,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | sgs-c2-denetim-cokzor-r1/kp-04 | guvence hizmetleri | KOKU: A, B, C, D şıklarında 'kapsamına alır/almaz' zıtlıklarının tekrarı biraz kalıpsal ama sınavlarda da görülen bir stil |
 | sgs-c2-denetim-cokzor-r1/kp-05 | is guvencesi | KOKU: A ve B şıkları birbirine yakın/tekrar niteliğinde (ikisi de mutlak güvence vurgusu yapıyor) |
 
-### KOR-CELISKI (151 soru)
+### KOR-CELISKI (174 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -111,7 +111,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | sgs-c2-fmuh-cokzor-r1/kp-04 | kar dagitimi kaydi | kor cozum HİÇBİRİ · anahtar B |
 | sgs-c2-fmuh-cokzor-r1/kp-07 | kasa sayim farki | kor cozum C · anahtar A |
 
-### HAKEM-KOSMADI (112 soru)
+### HAKEM-KOSMADI (72 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -126,20 +126,35 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim/kp-27 | isletme sermayesi yetersizligi |  |
 | kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim/kp-28 | isleyen tesebbus degeri |  |
 
-### KAYNAK-KESIK (46 soru)
+### KAYNAK-KESIK (48 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
 | kgk-bosluk-sigortaclkvezelemeklilikmevzuat/kp-07 | sigorta ettiren yukumlulukleri | Kaynak metinde m.3/4 hükmü açıkça yer almamakta; sağlanan metinde yalnızca m.1, m.2 ve m.3'ün başlangıcı bulunmakta olup kooperatiflerin üyeleri dışın… |
 | kgk-kurfin-30/kp-13 | optimal sermaye yapisi | Kaynak metni sermaye bütçelemesi, işletme sermayesi yönetimi ve belirsizlik altında yatırım kararlarını kapsamakta; sermaye yapısı teorileri bölümü ke… |
 | sgs-c2-borclar-cokzor-r1/kp-03 | haksiz fiil unsurlari | Kaynak metni TBK m.49'u içermediği için doğru sık dayanağı kaynaktan teyit edilemiyor; m.56 manevi tazminat, m.55 bedensel zararlar, m.48 temsil yetki… |
+| sgs-d3-issgk-kolay-r1/kp-07 | grev lokavt | Sorunun doğru cevabı olarak sunulan sikka dayanak olarak gösterilen 5510 s. SGK Kanunu m.41/1-g, sağlanan kaynak metinlerinde yer almamaktadır. Kaynak… |
 | sgs-gk-pilot-ekonomi-zor/kp-01 | mutlak ustunlukler teorisi | Soru 'mutlak üstünlükler teorisi' konusunu ölçüyor ve doğru sikk (B) teorinin tanımına göre hatalıdır; X tekstilde 4 saat (daha az) ile Y'nin 6 saatin… |
 | sgs-kapituru-11eylul/kp-01 | muhasebe bilgi sistemi | Kaynak metni muhasebe bilgi sistemi kontrolleri ve nakit dönüşüm döngüsü konularını içermekte, mizan türleri ve kesin mizanın tanımını açıklayan teori… |
 | sgs-p-meslek-cokzor-r2-a/kp-04 | ucret tarifesi | Dogru sikkin dayandigi Etik İlkeler Yönetmeliği madde 3/1-a kaynakta sunulmamıştır; kaynakta yalnızca m.1 (temel ilkeler) yer almakta, madde 3 ve 'kiş… |
 | sgs-p-ticaret-cokzor-r3-b2/kp-06 | sirket birlesmesi | Kaynak metni (TTK m.39-42) ticaret unvanı ve şirket türlerine ilişkin hükümleri içermekte, ancak birleşme-bölünme-tür değiştirme kapsamında 'genel kur… |
 | sgs-p-ticaret-zor-r2-b2/kp-02 | tacir sifati | Kaynak metinde m.12/2 ve m.16/1 doğru tarafından desteklenirken, m.16/2 açıkça II. ve IV. seçeneklerin tacir olmadığını belirtir; ancak m.12/1 eksik o… |
 | sgs-p-vergi-kolay-r3-a/kp-03 | kdv istisnalari | Kaynak metni madde 12'yi içermemektedir; soru madde 12/1'e atıf yapmakta ancak kaynakta madde 11 ve madde 12'nin başlığı (İKİNCİ BÖLÜM Araçlar...) yer… |
-| sgs-t1-borclar-kolay/kp-10 | sebepsiz zenginlesme giderler | Kaynak metinde m.79/II başlığı 'Giderleri isteme hakkı' görünmekle birlikte, bu bölümün tam metni ve zorunlu giderlerin zaman sınırlaması (öğrendiği a… |
+
+### COK-ANLAMLI (17 soru)
+
+| Parti / id | Konu | Gerekce |
+|---|---|---|
+| sgs-c2-denetim-zor-r3/kp-02 | stok sayimi denetimi | 5.000 olumlu/olumsuz çeldirici mantıklı (yön karıştırma hatası), ama 25.000 tutarının hangi işlem hatasından (örn. alış-satış maliyeti farkının yanlış… |
+| sgs-d2-denetim-zor-r1/kp-08 | denetim gorusu turleri | Doğru şıkta önemli bir eksiklik var: BDS 570'e göre süreklilik konusunda önemli belirsizlik varsa (açıklama yeterli olsa da) denetçi 'olumlu görüş' ve… |
+| sgs-d3-vergi-kolay-r1/kp-07 | kdv indirimi | Soru kökü mevzuat atfı biçiminde sınav diline uygun görünse de doğru şık ('Bu Kanun hükümlerine göre işlem yapılır') somut bir hüküm belirtmeyen, döng… |
+| sgs-d4-turkce-zor-r2/kp-06 | i. dunya savasi | Soru Türkçe dersinin (yazım, noktalama, anlatım bozukluğu, paragraf akışı) resmi kapsamına uygun olmasına rağmen, kaynak metinde soruda adı geçen olay… |
+| sgs-d4-yd-zor-r2/kp-09 | cumle tamamlama (although) | D ve E bağlaç çatışması (so/because, although ile birlikte kullanılamaz) nedeniyle bariz şekilde elenebilir, gerçek çeldirici değil; ama daha önemlisi… |
+| sgs-fmuh-parti1/kp-01 | muhasebe bilgi sistemi | 900 TL'lik sapma seçeneklerinin (A ve C) nereden türetildiği belirsizdir; verilen 6 rakamdan mantıklı bir yanlış toplama, atlama veya rakam ters yazma… |
+| sgs-p-fmuh-kolay-r3/kp-07 | isletmenin surekliligi | Soru Denetim standardı (BDS 570) hakkında olup Finansal Muhasebe dersinin kapsamı dışındadır; Denetim dersinin konusudur. Kaynak metinde (TEORI bölümü… |
+| sgs-p-issgk-zor-r1-a/kp-07 | belirli sureli is sozlesmesi | İfade II (belirli süreli sözleşme sözlü yapılabilir) kaynakta açıkça yanlışlanmakta; m.11 'yazılı şekilde' şartı ve m.8 'süresi bir yıl ve daha fazla'… |
+| sgs-t1-fmuh-cokzor/kp-71 | satistan iade-surekli envanter | 610 Satıştan İadeler hesabı tanımında 'fatura tutarları' kapsar denilmektedir; kaynak metinde nakliye bedelinin iadesinde 610'a kaydedilmeyeceği açıkç… |
+| sgs-t1-fmuh-cokzor/kp-89 | muhasebe bilgi sistemi kontrolleri | SGS Finansal Muhasebe sınavı tipik olarak hesap/işlem bazlı sayısal veya doğru-yanlış kısa teori soruları içerir; bu soru bilgi sistemleri denetimi/iç… |
 
 ### YAPAY-DIL (14 soru)
 
@@ -156,40 +171,27 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | sgs-t1-genel-yd-cokzor/kp-37 | cumle tamamlama-although | Kalıp (although ile başlayan zıtlık tümleme sorusu) SGS/YDS tipi sorulara benzese de şık biçimi bozuk: C ve D şıkları kendi içinde bağımsız bağlaç (be… |
 | sgs-t1-genel-yd-kolay/kp-28 | adverb usage | B, C, E şıkları gerçek kelime türü karışıklığı (sıfat/isim/superlative) yansıtsa da D şıkkı gerçekçi bir adayın düşebileceği tek bir hata değil, iki f… |
 
-### COK-ANLAMLI (13 soru)
-
-| Parti / id | Konu | Gerekce |
-|---|---|---|
-| sgs-c2-denetim-zor-r3/kp-02 | stok sayimi denetimi | 5.000 olumlu/olumsuz çeldirici mantıklı (yön karıştırma hatası), ama 25.000 tutarının hangi işlem hatasından (örn. alış-satış maliyeti farkının yanlış… |
-| sgs-fmuh-parti1/kp-01 | muhasebe bilgi sistemi | 900 TL'lik sapma seçeneklerinin (A ve C) nereden türetildiği belirsizdir; verilen 6 rakamdan mantıklı bir yanlış toplama, atlama veya rakam ters yazma… |
-| sgs-p-fmuh-kolay-r3/kp-07 | isletmenin surekliligi | Soru Denetim standardı (BDS 570) hakkında olup Finansal Muhasebe dersinin kapsamı dışındadır; Denetim dersinin konusudur. Kaynak metinde (TEORI bölümü… |
-| sgs-p-issgk-zor-r1-a/kp-07 | belirli sureli is sozlesmesi | İfade II (belirli süreli sözleşme sözlü yapılabilir) kaynakta açıkça yanlışlanmakta; m.11 'yazılı şekilde' şartı ve m.8 'süresi bir yıl ve daha fazla'… |
-| sgs-t1-fmuh-cokzor/kp-71 | satistan iade-surekli envanter | 610 Satıştan İadeler hesabı tanımında 'fatura tutarları' kapsar denilmektedir; kaynak metinde nakliye bedelinin iadesinde 610'a kaydedilmeyeceği açıkç… |
-| sgs-t1-fmuh-cokzor/kp-89 | muhasebe bilgi sistemi kontrolleri | SGS Finansal Muhasebe sınavı tipik olarak hesap/işlem bazlı sayısal veya doğru-yanlış kısa teori soruları içerir; bu soru bilgi sistemleri denetimi/iç… |
-| sgs-t1-genel-ekonomi-kolay/kp-02 | taylor prensibi | C(8) ve A(4) mantıklı hata kaynakları (sadece enflasyonu alma, sadece katsayı terimini alma) olsa da D(10) ve B(7) için net bir hesaplama hatası izlen… |
-| sgs-t1-genel-turkce-kolay/kp-31 | belirtisiz ad tamlamasi | C şıkkı 'Yün kazak' dil bilgisinde tartışmalı bir örnektir; bazı kaynaklarda madde+isim ilişkisi nedeniyle belirtisiz ad tamlaması, bazılarında sıfat … |
-| sgs-t1-mta-cokzor/kp-02 | yatay analiz | B(150.000=60.000/0,4 UFE ile karıştırma) ve E(300.000=60.000/0,2) mantıklı çeldiriciler; C(180.000) hangi hatadan türediği belirsiz; A(2.400) ise muht… |
-| sgs-t2b-borclar-zor/kp-01 | sebepsiz zenginlesme | Doğru sık ifadesi eksik ve yanıltıcı; TBK m.79'a göre iyiniyetli elden çıkaran kişi için 'iade gerekir ama iyiniyetle elden çıkan kısım kapsam dışıdır… |
-
-### SINAV-DUZEYI (10 soru)
+### SINAV-DUZEYI (11 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
 | sgs-a6-denetim-cokzor-r1/kp-01 | denetim kaniti yeterliligi | SGS denetim sorularında standart paragraf numarası (A27-A29) verilerek 'birlikte değerlendirildiğinde' şeklinde akademik/hukuk sınavı kalıbı kullanılm… |
 | sgs-c2-maliye-kolay-r1/kp-02 | otomatik istikrarlandirici | Gerçek SGS maliye sorularında şıklar kısa, sonuç bildiren ifadelerdir; burada her şık uzun, gerekçeli, alt-analiz içeren tam cümleler (örn. 'genişleme… |
 | sgs-c5-fmuh-cokzor-r2-2/kp-19 | genel standartlar (deneyim) | SGS denetim soruları genelde kısa, somut bir olay/duruma dayalı ve tek bir kuralı test eden sorulardır (örn. 'X durumunda hangi standart ihlal edilmiş… |
+| sgs-d2-fmuh-cokzor-r2/kp-12 | iasb calismalari | SGS Finansal Muhasebe soruları TMS/TFRS uygulama, hesap işleyişi, mali tablo kalemi hesaplama ağırlıklı olup kısa veri setleri ve sayısal/işlemsel kök… |
 | sgs-p-denetim-cokzor-r1-b2/kp-09 | stok denetimi | SGS denetim sorularında BDS madde bilgisi kısa kök+kısa şık formatında sorulur; bu soru uzun, çok cümleli ve teorik tartışma biçiminde şıklar içeriyor… |
 | sgs-p-denetim-cokzor-r2/kp-06 | uluslararasi muhasebe kuruluslari | Soru kökü ve şıkların biçimi (sonuç+kısa etiket) sınav formatına uygun olsa da, IFRS Vakfı/IFAC/IASB/IAASB/İzleme Kurulu/IFRS Yorum Komitesi arasındak… |
 | sgs-p-denetim-cokzor-r2-b2/kp-03 | iliskili taraflar denetimi | Kök 'HER ZAMAN doğrudur' kalıbıyla beş ayrı teorik önerme karşılaştırması istiyor; bu, SGS/Denetim çıkmışlarındaki kısa, tek bir olay/duruma dayalı so… |
 | sgs-t1-fmuh-zor-b/kp-99 | tms 36 deger dusuklugu testi | SGS Finansal Muhasebe soruları genelde işlem/kayıt/hesaplama ağırlıklıdır; bu soru TFRS/TMS standart metnini birebir aktaran, tamamen kavramsal-teorik… |
 | sgs-t1-genel-ekonomi-cokzor/kp-08 | rasyonel beklentiler hipotezi | SGS Ekonomi soruları genellikle kısa bir tanım/hesap/karşılaştırma sorar; bu soru ise tek kökte 'önceden duyurulup duyurulmamasına VE Phillips eğrisin… |
 | sgs-t2-fmuh-cokzor/kp-53 | muhasebe akis semasi | SGS Finansal Muhasebe soruları genellikle işlem/hesap üzerinden tutar hesaplatan somut sorulardır (mizan, envanter, dönem sonu kaydı vb.). Bu soru 'ak… |
-| sgs-t2-fmuh-zor/kp-65 | tfrs 15 hasilat olcumu | Kök, TFRS 15 sözleşme feshi/tahsil hakkı konusunu içeriyor; bu düzeyde teorik-hesaplama karışımı bir soru SGS Finansal Muhasebe'de görülen klasik enva… |
 
-### CELDIRICI-SAHTE (6 soru)
+### CELDIRICI-SAHTE (8 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
+| sgs-d2-ticaret-kolay-r1/kp-06 | kambiyo senetleri | B ve D gerçek TTK hükümlerinin (670, 671. md) tersine çevrilmesiyle kurulmuş makul çeldiriciler; ancak E şıkkı adayın düşebileceği gerçek bir kavram k… |
+| sgs-d4-mat-zor-r4/kp-02 | sayi problemi | A) 4 en küçük sayı, B) 6 ortanca, E) 14 toplam gibi anlamlı çeldiriciler olsa da C) 7 tek sayı olup ardışık çift sayı bağlamında hiçbir hesap adımında… |
 | sgs-t1-denetim-kolay/kp-30 | denetim kanit toplama prosedurleri | Kök cümle BDS 500 diline uygun ama şık seti sınav pratiğine aykırı: A ve B aynı konuya (ticari borç eksik gösterimi) odaklanırken C, D, E tamamen fark… |
 | sgs-t1-fmuh-zor/kp-29 | hazine bonosu tahsili | B ve E şıkları gerçekçi bir celdirici (nominal değer ile alış bedelinin karıştırılması, net tahsilatın brüt değer sanılması) iken; C şıkkındaki 20.000… |
 | sgs-t1-genel-turkce-cokzor/kp-15 | mecaz anlam | Çeldiriciler rastgele değil ama ölçme hatası var: B şıkkındaki 'göz kulak olmak' kalıbı bizatihi bir deyim olup 'göz' burada da mecazi/deyimleşmiş kul… |
