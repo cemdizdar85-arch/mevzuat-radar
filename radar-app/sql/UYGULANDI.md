@@ -193,7 +193,7 @@ kaynak_ad, tur+kaynak_ad), tablo yapısına ve veriye dokunmaz.
 | Dosya | Durum |
 |---|---|
 | `2026-08-30-ambar-index.sql` | ⛔ **BASILMAYACAK — yerine 14.09 dosyası.** 14.09 08:10 panelde `pg_indexes` okundu: `arama_fold` GIN'i zaten var (`dokumanlar_arama_fold_idx`, başka adla); bu dosya basılsa ikinci GIN kurulurdu (disk 5,75/8 GB). `kaynak_ad` ve `tur` indeksleri YOK. |
-| `2026-09-14-dokumanlar-tur-kaynak-index.sql` | ⏳ **BASILMADI** — Cem basacak. Yalnız eksik iki btree (`tur,kaynak_ad` · `kaynak_ad`) + analyze; aynı Run'da 5 indeks adı dönmeli. Neden: 13–14.09 gecesi `tur=eq.cikmis-soru` sorgusu 22–24 sn / 57014; üretici kapıları kör kaldı, iki parti çöpe gitti. |
+| `2026-09-14-dokumanlar-tur-kaynak-index.sql` | ✅ **BASILDI 14.09 ~08:22 (Cem, SQL Editor)** — doğrulama sorgusu 5 ad döndü: dokuman_arama_idx · dokumanlar_arama_fold_idx · dokumanlar_kaynak_ad_idx · dokumanlar_pkey · dokumanlar_tur_kaynak_idx. Ölçüm (REST, 3 tekrar ortancası, ağ tabanı ~0,13 sn): tur=cikmis-soru 0,30→0,16 · KAPI-CB 40'lık sayfa 0,52→0,17 · tur+kaynak_ad ilike 0,24→0,14 · kaynak_ad eşitlik 0,15→0,15 sn. Önceki not: Yalnız eksik iki btree (`tur,kaynak_ad` · `kaynak_ad`) + analyze; aynı Run'da 5 indeks adı dönmeli. Neden: 13–14.09 gecesi `tur=eq.cikmis-soru` sorgusu 22–24 sn / 57014; üretici kapıları kör kaldı, iki parti çöpe gitti. |
 
 Bu indeksler basılmadan: Net Cevap araması cevapsız kalmaya devam eder ve
 Destek Radarı'ndaki "Dayanağı" satırı ambardaki maddeye **bağlanamaz**
