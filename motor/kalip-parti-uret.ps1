@@ -4501,6 +4501,9 @@ foreach($id in @($don.Keys)){
     # yeniden ister (3 deneme). Tutarlı ikiz çıkmazsa sim YANLIŞ kaydı düşer (kapı gevşemez). SGS/KGK ve olumlu kök: istem ve akış AYNI.
     $olumsuzTI=($Sinav -eq 'SMMM' -and "$($cvp.soru)" -match '(?i)yanlıştır|değildir|söylenemez|yer almaz|bulunmaz')
     $olumsuzKural=$(if($olumsuzTI){ "`nOLUMSUZ KÖK KURALI: Ana soru 'hangisi yanlıştır / değildir' biçimindedir; ikizin kökü de olumsuz kalır. İkizde DÖRT şık kaynağa göre DOĞRU, TAM BİR şık kaynağa AYKIRI (yanlış) yazılır ve dogru alanı o yanlış şıkkın harfidir. Ana sorudaki yanlış ifadeyi kopyalama, düzeltip de bırakma: yanlış şık aynı kuralı başka bir unsuru (kişi, süre, tür, sınır, kurum) değiştirerek bozar. JSON'a ayrıca yanlis_ifade alanı ekle: yanlış şıkta kaynağa aykırı olan kısa kelime grubu, o şıktaki yazımıyla AYNEN." } else { '' })
+    # 14.09 ikinci ölçüm: hazır soru yolunda kaynak_metin_ozet BOŞ (3/3 soru 0 kr) → istemin DAYANAK bölümü boş gidiyor, model GVK m.84'ü hafızadan
+    # yanlış hatırlayıp "dar mükellef" ifadesini yanlış sandı. Yalnız SMMM: özet boşsa sorunun dayanak metni verilir (SGS/KGK: eskisi gibi özet).
+    $tiKaynak="$($cvp.kaynak_metin_ozet)"; if($Sinav -eq 'SMMM' -and -not $tiKaynak.Trim() -and $cvp.PSObject.Properties['dayanak']){ $tiKaynak="$($cvp.dayanak)" }
     $tiDeneme=0
     while(-not ($cvp.PSObject.Properties['teori_ikiz'] -and $cvp.teori_ikiz -and $cvp.teori_ikiz.soru) -and $tiDeneme -lt $(if($olumsuzTI){ 3 } else { 1 })){
       $tiDeneme++
@@ -4517,7 +4520,7 @@ D) $($cvp.siklar.D)
 E) $($cvp.siklar.E)
 DOĞRU: $($cvp.dogru)
 === DAYANAK (kaynak özeti) ===
-$("$($cvp.kaynak_metin_ozet)".Substring(0,[Math]::Min(2500,"$($cvp.kaynak_metin_ozet)".Length)))
+$($tiKaynak.Substring(0,[Math]::Min(2500,$tiKaynak.Length)))
 "@
       $yT=$null; foreach($d in 1..3){ try{ $yT=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istTI -MaxTok 4000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
       Write-Host ("  TEORİ İKİZ TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yT.girdi,$yT.cikti) -ForegroundColor DarkGray
@@ -4528,6 +4531,12 @@ $("$($cvp.kaynak_metin_ozet)".Substring(0,[Math]::Min(2500,"$($cvp.kaynak_metin_
         if($tiYanlis.Length -lt 3 -or -not $tiSik -or $tiSik.IndexOf($tiYanlis,[StringComparison]::OrdinalIgnoreCase) -lt 0){
           Write-Host "  TEORİ İKİZ TUTARSIZ ($id, deneme $tiDeneme): yanlis_ifade '$tiYanlis' cevap şıkkı $tiHarf içinde yok — yeniden" -ForegroundColor DarkYellow
           $rapor.Add("TEORI IKIZ TUTARSIZ: $id | deneme $tiDeneme | '$tiYanlis' $tiHarf şıkkında yok"); continue
+        }
+        # Kaynakta AYNEN geçen çok kelimeli ifade "kaynağa aykırı" olamaz (14.09: model "dar mükellef"i yanlış sandı; m.84 aynen "dar mükellefiyete tabi olanların" der)
+        $tiKat={ param($s) ((Katla2 "$s") -replace '[^a-z0-9 ]',' ' -replace '\s+',' ').Trim() }
+        if(@($tiYanlis -split '\s+' | Where-Object { $_ }).Count -ge 2 -and (& $tiKat $tiKaynak).Contains((& $tiKat $tiYanlis))){
+          Write-Host "  TEORİ İKİZ TUTARSIZ ($id, deneme $tiDeneme): '$tiYanlis' kaynakta aynen geçiyor, yanlış ifade olamaz — yeniden" -ForegroundColor DarkYellow
+          $rapor.Add("TEORI IKIZ TUTARSIZ: $id | deneme $tiDeneme | '$tiYanlis' kaynakta aynen geciyor"); continue
         }
       }
       $cvp | Add-Member -NotePropertyName teori_ikiz -NotePropertyValue ([pscustomobject]@{ soru=(DilOnar "$($tI.soru)"); siklar=$tI.siklar; dogru="$($tI.dogru)".Trim().ToUpperInvariant(); gerekce="$($tI.gerekce)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
