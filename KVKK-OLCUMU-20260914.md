@@ -1,5 +1,16 @@
 # KVKK aydınlatma metni ölçümü — 14.09.2026
 
+> ✅ **UYGULANDI 14.09.2026 (kvkk.html sürüm 2).** Cem: "avukata 100 bin vermeyeceğiz, büyük firmaları
+> denetle ve gereğini yap". Bölüm 1 ve 2'deki bütün akışlar metne girdi (veri-amaç-hukuki sebep-saklama
+> tablosu, 12 satır), alıcı listesi GoatCounter (Finlandiya/Almanya, IP saklamaz — sağlayıcının gizlilik
+> sayfası) ve OpenRouter ile tamamlandı, hız sınırı sayacındaki IP (rate_log, ~10 dk) eklendi, cihazda
+> tutulanlar ve başvuru usulü (Başvuru Tebliği unsurları) yazıldı, açık rıza `#riza` ile AYRI bölüm oldu.
+> Ölçülerek doğrulanan sözler: soru-cevap aracı soruyu tabloya yazmıyor (net-cevap.ts); cevap/kâğıt/form
+> kayıtları anon'a kapalı (401/42501).
+> **KAPANMAYANLAR (metinle kapanmaz):** (11) ABD sağlayıcıları için standart sözleşme + Kurul bildirimi —
+> metin "süreç yürütülmektedir, veri asgaride" diyor; (10) unvan Cem teyidi; (12) saklama süreleri GM
+> önerisi yazıldı — **2 yıl / 30 gün silme için otomatik silme işi YOK (iş emri)**; (15) İYS kaydı.
+
 > Cem 14.09: "KVKK aydınlatma metni hâlâ ölçülmedi. ölçelim."
 > Yöntem: `kvkk.html` (son güncelleme 04.09.2026) cümle cümle okundu; sitenin **bugün gerçekten
 > gönderdiği/sakladığı** veri koddan çıkarıldı ve karşılaştırıldı. Hukuki görüş değildir —
