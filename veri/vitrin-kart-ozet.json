@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-09-13T16:29:15.521Z",
-  "gun": "2026-09-13",
+  "olcum": "2026-09-14T07:58:21.093Z",
+  "gun": "2026-09-14",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 45,
+      "sira": 46,
       "toplam": 70,
-      "id": "sgs-t1-genel-turkce-zor/kp-03",
-      "ders": "Türkçe",
-      "konu": "anlatım bozukluğu",
-      "kunye": "SGS 2025/1 Soru 1 kalıbı",
-      "donem": 15,
+      "id": "sgs-c2-fmuh-cokzor-r1/kp-01",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 37 karşılıklar",
+      "kunye": "SGS 2024/2 Soru 54 kalıbı",
+      "donem": 7,
       "teori": true,
       "rakamSik": false,
-      "soru": "\"Sporcular, antrenörün verdiği talimatları dinledi ve harfiyen uydu.\" cümlesindeki anlatım bozukluğunun benzeri, aşağıdakilerin hangisinde vardır?",
+      "soru": "İşletmenin dönem sonu değerleme işlemlerinden hangisinde, ilgili karşılık için 479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı alacaklandırılır?",
       "siklar": {
-        "A": "Fabrikada üretilen ürünler paketlendi ve depoya gönderdi.",
-        "B": "Bahçıvan, çiçekleri suladı ve baktı.",
-        "C": "Bu proje için en ideal çözümü henüz bulamadık.",
-        "D": "Ben de bu görüşe katılıyoruz, herkes memnun.",
-        "E": "Öğretmenin öğrencisini öven müdürü gördüm."
+        "A": "Aleyhine açılan ve sonucunun 8 ay içinde kesinleşmesi beklenen tazminat davası için ayrılan karşılık",
+        "B": "Tahsilinin şüpheli hâle gelmesi nedeniyle ticari alacak için ayrılan değer düşüklüğü karşılığı",
+        "C": "Kıdem tazminatının önümüzdeki 12 ay içinde ödenmesi planlanan kısmı için ayrılan tutar",
+        "D": "Aralık ayında hizmeti alınmış, tutarı kesinleşmiş ancak faturası henüz gelmemiş kira gideri",
+        "E": "Aleyhine açılan ve sonucunun 1 yıl 6 ay içinde kesinleşmesi beklenen tazminat davası için ayrılan karşılık"
       },
-      "dogru": "B",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Gereksiz Sözcük Tuzağı",
-          "metin": "Öğrenci burada da öge eksikliği arar ama asıl sorun \"ideal\" sözcüğünün zaten üstünlük bildirmesidir; \"en\" atıldığında anlam bozulmaz. Doğrusu: Bu cümledeki bozukluk gereksiz sözcük kullanımıdır, öge eksikliği değildir."
-        },
-        "E": {
-          "ad": "Anlam Belirsizliği Tuzağı",
-          "metin": "Öğrenci burada da fiil-ek uyumsuzluğu arar ama cümlede iyelik eksikliğinden doğan belirsizlik vardır; öven kişi öğretmen mi müdür mü belli değildir. Doğrusu: Bu cümledeki bozukluk anlam belirsizliğidir, öge eksikliği de…"
-        },
-        "D": {
-          "ad": "Özne-Yüklem Uyumu Tuzağı",
-          "metin": "Öğrenci ortak tümleç arayışıyla yanılır; oysa \"ben\" tekil öznesi \"katılıyoruz\" çoğul yüklemiyle kişi bakımından uyumsuzdur. Doğrusu: Bu cümledeki bozukluk özne-yüklem (kişi) uyumsuzluğudur."
+          "ad": "Özel Hesap Tuzağı",
+          "metin": "kıdem tazminatı için 37 grubunun genel hesapları değil, kendine özgü 472 (uzun vadeli) ve bir yıl içine giren kısım için 372 hesabı kullanılır. Doğrusu: kıdem tazminatının kısa vadeli kısmı 372'ye aktarılır, 479'a girme…"
         },
         "A": {
-          "ad": "Çatı Uyumsuzluğu Tuzağı",
-          "metin": "Öğrenci burada da ortak nesne sorunu arıyor ama gördüğü şey farklıdır; \"paketlendi\" edilgen çatılı, \"gönderdi\" etken çatılıdır ve aynı özneye bağlanamaz. Doğrusu: Bu cümledeki bozukluk çatı uyumsuzluğudur, kökteki öge e…"
+          "ad": "Vade Tuzağı",
+          "metin": "8 ay bilanço tarihinden itibaren bir yılı aşmadığı için bu karşılık 379 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabında izlenir, öğrenci 'dava karşılığı' başlığını görüp otomatik 479'a yazar. Doğrusu: vade bir yılı aşmadıkça…"
+        },
+        "D": {
+          "ad": "Karşılık-Tahakkuk Tuzağı",
+          "metin": "tutar kesinleşmiş ve gider gerçekleşmiş olduğundan bu bir tahmini karşılık değil, 381 GİDER TAHAKKUKLARI hesabına yazılacak bir tahakkuktur. Doğrusu: kesinleşmiş ama ödenmemiş gider karşılık değil tahakkuktur."
+        },
+        "B": {
+          "ad": "Hesap Katmanı Tuzağı",
+          "metin": "bu bir borç karşılığı değil varlık değer düşüklüğü karşılığıdır; 129 Şüpheli Ticari Alacaklar Karşılığı ile 654 Karşılık Giderleri hesabı kullanılır, 379/479 grubuna hiç girmez. Doğrusu: 654/129 ayrımı borç karşılıkları…"
         }
       },
-      "hap": "İki fiil ortak bir tümlece bağlanıyorsa önce ikisinin de aynı hal ekini isteyip istemediğine bak.",
+      "hap": "Borç ve gider karşılıklarında vade bir yılı aşıyorsa 479, aşmıyorsa 379 kullanılır; kesinleşmiş gider karşılık değil tahakkuktur, kıdem tazminatının kendi hesapları (372/472) vardır.",
       "satirlar": [
         [
-          "A) Fabrikada üretilen ürünler paketlendi ve depoya gönderdi.",
-          "Yapıya Dayalı Bozukluklar (4) Çatı Uyumsuzluğu"
+          "A) Aleyhine açılan ve sonucunun 8 ay içinde kesinleşmesi be…",
+          "THP 379/479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı açıklaması"
         ],
         [
-          "B) Bahçıvan, çiçekleri suladı ve baktı.",
-          "Yapıya Dayalı Bozukluklar (1) Öge Eksikliği - ortak tümleç"
+          "B) Tahsilinin şüpheli hâle gelmesi nedeniyle ticari alacak …",
+          "THP 654 KARŞILIK GİDERLERİ (-) hesabı açıklaması"
         ],
         [
-          "C) Bu proje için en ideal çözümü henüz bulamadık.",
-          "Anlama Dayalı Bozukluklar (1) Gereksiz Sözcük"
+          "C) Kıdem tazminatının önümüzdeki 12 ay içinde ödenmesi plan…",
+          "THP 372/472 KIDEM TAZMİNATI KARŞILIĞI hesabı açıklaması"
         ],
         [
-          "D) Ben de bu görüşe katılıyoruz, herkes memnun.",
-          "Yapıya Dayalı Bozukluklar (2) Özne-Yüklem Uyumsuzluğu"
+          "D) Aralık ayında hizmeti alınmış, tutarı kesinleşmiş ancak …",
+          "THP 381 GİDER TAHAKKUKLARI hesabı açıklaması"
         ],
         [
-          "E) Öğretmenin öğrencisini öven müdürü gördüm.",
-          "Anlama Dayalı Bozukluklar (2) Anlam Belirsizliği"
+          "E) Aleyhine açılan ve sonucunun 1 yıl 6 ay içinde kesinleşm…",
+          "THP 479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı açıklaması"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=45",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=46",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 70,
+        "kalan_gun": 69,
         "durum": "YESIL",
         "mail_gunu": false
       }
