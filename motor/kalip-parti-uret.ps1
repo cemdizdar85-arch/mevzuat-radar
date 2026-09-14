@@ -4010,6 +4010,10 @@ $script:ON_GECIS=$false
 # Simülasyon (FAZ Ö) adımları okuduğu için yerinde kalır. Yayın kuralı DEĞİŞMEDİ (hakem ∧ sim ∧ kör ∧ hakem2).
 if(-not ($SadeceHtml -or $SadeceAdim)){ foreach($hid in @($don.Keys)){ $hc=$don[$hid]; if(-not $hc.soru){ continue }   # yalnız çizim/adım modunda FAZ K ve H2 hiç koşmaz; kararları yok diye anlatım kapatılmaz
   $korOk=($hc.PSObject.Properties['kor_cozum'] -and $hc.kor_cozum -and $hc.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$hc.kor_cozum.dogru_mu)
+  # 14.09 YALNIZ BİTİRME (Cem "1.2.3 üçünüde yap", GM önerisi 1): kör ✗ ama kaynaklı ikinci çözümü doğru (bu metne + bu kör cevaba ait) olan
+  # soru Cem'in onay listesine gidiyor; onay vermeden önce simülasyon + teori ikizi de görsün diye anlatım fazlarına girer.
+  # YAYIN kuralı değişmedi: arac/smmm-yayin-sarti.ps1 hâlâ Cem ONAY + parmak izi + sim yanlış değil ister. SGS'de koşul ilk terimde düşer.
+  if(-not $korOk -and $Sinav -eq 'SMMM' -and $hc.PSObject.Properties['kor_cozum_kaynakli'] -and $hc.kor_cozum_kaynakli -and [bool]$hc.kor_cozum_kaynakli.dogru_mu -and "$($hc.kor_cozum_kaynakli.parmak_izi)" -eq (SmmmParmakIzi $hc) -and "$($hc.kor_cozum_kaynakli.kor_cevap)" -eq "$($hc.kor_cozum.cevap)"){ $korOk=$true }
   $h2Ok=($hc.PSObject.Properties['hakem2'] -and $hc.hakem2 -and "$($hc.hakem2.karar)" -eq 'EVET')
   if(-not ($korOk -and $h2Ok)){ [void]$HAKEM_GECMEDI.Add($hid) } } }
 if($HAKEM_GECMEDI.Count){ Write-Host "  KAPI ÖNDE: $($HAKEM_GECMEDI.Count) soru hakem/kör/hakem2'den geçmedi → anlatım fazlarına (adım, giriş, ikiz, sim) girmeyecek" -ForegroundColor Yellow; $rapor.Add("KAPI ONDE: $($HAKEM_GECMEDI.Count) soru anlatim fazlarina girmedi") }
