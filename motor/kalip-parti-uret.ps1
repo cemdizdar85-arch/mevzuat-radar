@@ -4621,13 +4621,16 @@ foreach($id in @($don.Keys)){
     # 14.09 ikinci ölçüm: hazır soru yolunda kaynak_metin_ozet BOŞ (3/3 soru 0 kr) → istemin DAYANAK bölümü boş gidiyor, model GVK m.84'ü hafızadan
     # yanlış hatırlayıp "dar mükellef" ifadesini yanlış sandı. Yalnız SMMM: özet boşsa sorunun dayanak metni verilir (SGS/KGK: eskisi gibi özet).
     $tiKaynak="$($cvp.kaynak_metin_ozet)"; if($Sinav -eq 'SMMM' -and -not $tiKaynak.Trim() -and $cvp.PSObject.Properties['dayanak']){ $tiKaynak="$($cvp.dayanak)" }
+    # 14.09 ÖLÇÜLDÜ (kp-03 üç deneme "yanlis_ifade ''"): kural cümlesi alanı istiyordu ama hemen altındaki JSON kalıbında alan YOKTU, model kalıba uydu.
+    # Yalnız SMMM olumsuz kökte kalıba yanlis_ifade eklenir; öteki bütün koşularda kalıp metni baytı baytına eskisi.
+    $tiJsonKalip=$(if($olumsuzTI){ '{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A-E","yanlis_ifade":"yanlış şıkta kaynağa aykırı kısa kelime grubu, şıktaki yazımıyla AYNEN","gerekce":"tek cümle"}' } else { '{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A-E","gerekce":"tek cümle"}' })
     $tiDeneme=0
     while(-not ($cvp.PSObject.Properties['teori_ikiz'] -and $cvp.teori_ikiz -and $cvp.teori_ikiz.soru) -and $tiDeneme -lt $(if($olumsuzTI){ 3 } else { 1 })){
       $tiDeneme++
       $istTI=@"
 Aşağıdaki TEORİ sorusunun İKİZİNİ üret: AYNI kural/hüküm, FARKLI olay (başka işletme, başka durum, başka kişi), 5 şık (A-E), tek doğru.
 Kurallar: kaynaktaki hükmü değiştirme; olay sınav dilinde ve kısa; şıklar cümle, doğru şık en uzun OLMASIN; Türkçe harfler tam; kısaltma yok.$olumsuzKural
-Yalnız JSON: {"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A-E","gerekce":"tek cümle"}
+Yalnız JSON: $tiJsonKalip
 === ANA SORU ===
 $($cvp.soru)
 A) $($cvp.siklar.A)
