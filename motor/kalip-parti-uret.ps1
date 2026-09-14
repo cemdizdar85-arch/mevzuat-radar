@@ -637,6 +637,7 @@ function DesenUret($kayit){
       elseif($ham -match '3065|KDVK|Katma Değer|KDV Kanunu|\bKDV\b'){ $onekM='KDVK (3065 s.K.)' }   # 07.09 Ö48: köprü "KDV Kanunu m.10" yazıyor, ambar "KDVK (3065 s.K.) m.10" (170 kayıt) → kaynak borcu sahteydi
       elseif($ham -match '6356|STİSK|STISK|Sendikalar ve Toplu'){ $onekM='Sendikalar ve TİS K. (6356 s.K.)' }   # 07.09 Ö48: 6356 ambarda VAR (102 madde), köprü uzun adla/STİSK ile yazıyordu
       elseif($ham -match '\b488\b|Damga'){ $onekM='Damga V.K. (488 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '\b5174\b'){ $onekM='TOBB/Odalar K. (5174 s.K.)' }   # 14.09 yalnız bitirme: SPK 'ürün ihtisas borsası' → 5174 m.53 (ambar adı 'TOBB/Odalar K. (5174 s.K.) m.53 [1/5]')
       # 14.09 yalnız bitirme: 6362'de ek maddeler 'm.61/A' (gayrimenkul sertifikası), 'm.35/A' (kitle fonlama) diye adlanır; eski desen /A'yı atıp m.61'i (kira sertifikası) çekiyordu
       if($onekM){ foreach($m in [regex]::Matches($ham,$(if($Sinav -eq 'SMMM'){ '\bm(?:adde)?\.?\s*(\d+(?:/[A-Z])?)' } else { '\bm(?:adde)?\.?\s*(\d+)' }))){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
