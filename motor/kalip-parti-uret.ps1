@@ -1169,7 +1169,12 @@ if($KonuDosya){
   $istenenListe=New-Object System.Collections.Generic.List[string]
   # 05.09: köprü konu adları ASCII ("sapmasi"), konu dosyası Türkçe ("sapması") → eşleşmiyor, konu sentezleniyor ve dönem 1'e
   # düşüyordu (kalıp-1 sorusu "1 dönemde çıktı" rozeti aldı, gerçek 3). Karşılaştırma Türkçe harf katlanarak yapılır.
-  foreach($x in @((Get-Content $KonuDosya -Raw -Encoding UTF8 | ConvertFrom-Json))){ $istenenListe.Add((Katla2 "$x")) }
+  # 14.09 (bitirme SPK, Cem "1.2.3 üçünü de düzelt"): satır DÜZ METİN (eskisi gibi) ya da {"konu":"…","dayanak":"…"} nesnesi olabilir.
+  # ÖLÇÜLDÜ: köprüde bitirme SPK konularının 115/354'ünde dayanak BOŞ (pilot 'yatirim ortakligi kurulus izni', 'sermaye piyasasi kurumlari');
+  # boş dayanakta paket kanunun tanım maddelerine (6362 m.2-3) düştü, model 'kaynak yetersiz' deyip soruyu yazmadı. Dayanak kelime aramasıyla
+  # DEĞİL, maddeyi okuyarak konu dosyasına yazılır (hafıza: konu-kaynak eşleştirme yasağı). Nesnedeki dayanak köprünün boş/zayıf dayanağının yerine geçer.
+  $konuDayanak=@{}
+  foreach($x in @((Get-Content $KonuDosya -Raw -Encoding UTF8 | ConvertFrom-Json))){ if($x -isnot [string] -and $x.PSObject.Properties['konu']){ $istenenListe.Add((Katla2 "$($x.konu)")); if("$($x.dayanak)".Trim()){ $konuDayanak[(Katla2 "$($x.konu)")]="$($x.dayanak)".Trim() } } else { $istenenListe.Add((Katla2 "$x")) } }
   $istenen=$istenenListe.ToArray()
   $adaylar=@($tam | Where-Object { $_.sinav -eq $Sinav -and ($istenen -contains (Katla2 "$($_.konu)")) } | Sort-Object donem -Descending)
   "konu dosyasi: $KonuDosya -> $($adaylar.Count) aday (istenen $($istenen.Count))"
@@ -1182,6 +1187,7 @@ if($KonuDosya){
     foreach($ek in $eksikler){ $sentez.Add([pscustomobject]@{ sinav=$Sinav; konu=$ek; bizim_ders=''; arsiv_ders=''; bizim=0; cikmis=0; durum='LISTEDEN (kopru kaydi yok)'; dayanak=''; cikmis_dayanak=''; guc=''; donem=1; dayanak_anahtar=''; cikmis_dayanak_anahtar='' }) }
     if($sentez.Count){ $adaylar=@($adaylar)+$sentez.ToArray(); "  kopru disi sentez: $($sentez.Count) konu (SPL resmi alt-konu listesi gibi)" }
   }
+  if($konuDayanak.Count){ $adaylar=@(foreach($a0 in $adaylar){ $kd0=(Katla2 "$($a0.konu)"); if($konuDayanak.ContainsKey($kd0)){ $a1=$a0.PSObject.Copy(); $a1.dayanak=$konuDayanak[$kd0]; $a1.guc='KONU DOSYASI (elle okunmuş dayanak)'; Write-Host "  konu dosyası dayanağı: $($a0.konu) -> $($a1.dayanak)"; $a1 } else { $a0 } }) }
 }
 $gorulen=@{}; $KONULAR=New-Object System.Collections.Generic.List[object]; $sira=0
 foreach($a in $adaylar){
@@ -2865,6 +2871,9 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
       $sebep=if(-not $aday){ 'JSON COZULEMEDI' } elseif(-not $aday.soru){ 'soru alani yok' } else { 'aciklama alani yok' }
       [IO.File]::WriteAllText($bozukYol,("sebep: $sebep | durma: $($y.dur) | cikti token: $($y.cikti) | uzunluk: $("$($y.metin)".Length) kr`n`n$($y.metin)"),[Text.UTF8Encoding]::new($false))
       Write-Host "  BOZUK SEBEP ($id d$deneme): $sebep, durma=$($y.dur), $("$($y.metin)".Length) kr -> $(Split-Path $bozukYol -Leaf)" -ForegroundColor DarkYellow
+      # 14.09 yalnız bitirme: istem modele 'yetmiyorsa HATA: Onayli madde kumesi yetersiz' dedirtiyor; bu BOZUK değil KAYNAK YETERSİZ cevabıdır.
+      # ÖLÇÜLDÜ (pilot yspk-zor d1+d2, yspk-cokzor d2): aynı paketle ikinci deneme de aynı cevabı verdi, çağrı boşa ödendi. Tekrar yok, kaynak borcu.
+      if($Sinav -eq 'SMMM' -and "$($y.metin)" -match '(?i)^\s*HATA:\s*Onayl[ıi]\s+(madde|hesap)\s+k[üu]mesi\s+yetersiz'){ $kyTxt=("$($y.metin)" -replace '\s+',' '); $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | MODEL: kaynak paketi yetersiz — $($kyTxt.Substring(0,[Math]::Min(220,$kyTxt.Length)))"); $rapor.Add("KAYNAK YETERSIZ (model soruyu yazmadi, tekrar yok): $($ky.konu)"); Write-Host "  KAYNAK YETERSİZ ($id): model paketle soru kuramadı — ikinci deneme ÖDENMİYOR, kaynak borcu" -ForegroundColor Yellow; $cvp=$null; break }
       continue
     }
     # 08.09: kapılardan ÖNCE yazım onarımı (YazimOnar sözlüğü: dogrusu→doğrusu, hesabi→hesabı…) — kapı yalnız sözlüğün düzeltemediğini düşürür,
@@ -2945,6 +2954,13 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     $cyKusur=@(CeldiriciYolKapisi $aday)   # 07.09 KAPI-Ç: her yanlış şık = gerçek bir yanlış yolun sonucu
     # 09.09 pilot3 (mat-kolay 0 soru): KAPI-Ç formülü makinede hesaplar; matematik dersinde yanlış yol fonksiyon/limit/türev gösterimi taşır
     # ("g(3)=2·3+1"), aritmetik ayrıştırıcı çözemez ve "çözülemedi" sert kapı olur. Genel kültürde ÇÖZÜLEMEDİ = not, YANLIŞ SONUÇ = kapı.
+    # 14.09 yalnız bitirme (pilot yspk-kolay iki deneme): SPK sayı sorusunda yanlış yol 'üçte biri yukarı yuvarlanır' gibi YUVARLAMA kuralı taşıdı,
+    # aritmetik ayrıştırıcı yuvarlamayı çözemedi, 'çözülemedi' SERT sayılıp soru iki kez düştü. Yuvarlama içeren ÇÖZÜLEMEDİ = not (hakem/kör/sim yine sınar);
+    # YANLIŞ SONUÇ çıkan yol ve yuvarlamasız çözülemeyen yol eskisi gibi kapı.
+    if($Sinav -eq 'SMMM' -and -not $script:GK_DERS -and $cyKusur.Count){
+      $cyNotY=@($cyKusur | Where-Object { $_ -match 'çözülemedi|hesaplanamadı' -and $_ -match '(?i)yuvarla' }); $cyKusur=@($cyKusur | Where-Object { -not ($_ -match 'çözülemedi|hesaplanamadı' -and $_ -match '(?i)yuvarla') })
+      if($cyNotY.Count){ Write-Host "  KAPI-Ç NOTU (yuvarlama, tekrar yok) ($id): $($cyNotY -join ' · ')" -ForegroundColor DarkGray; $rapor.Add("KAPI-C NOTU (yuvarlama): $id | $($cyNotY -join '; ')") }
+    }
     if($script:GK_DERS -and $cyKusur.Count){
       $cyNot=@($cyKusur | Where-Object { $_ -match 'çözülemedi|hesaplanamadı' }); $cyKusur=@($cyKusur | Where-Object { $_ -notmatch 'çözülemedi|hesaplanamadı' })
       if($cyNot.Count){ Write-Host "  KAPI-Ç NOTU (genel kültür, tekrar yok) ($id): $($cyNot -join ' · ')" -ForegroundColor DarkGray; $rapor.Add("KAPI-C NOTU: $id | $($cyNot -join '; ')") }
