@@ -1,0 +1,40 @@
+# .github/workflows/smmm-onay-nobetcisi.yml — BİTİRME (SMMM) ONAY NÖBETÇİSİ (0 USD)
+# 14.09.2026 Cem "1 ve 2 yap" (GM önerisi 2): kör çözümü yanılıp kaynaklı ikinci çözümü doğru bulan bitirme soruları
+# Cem'in ONAY'ı olmadan yayına giremez; bu nöbetçi haftada bir ambardaki smmm-* partilerini okur, karar bekleyen kart
+# varsa ve bu kartlar daha önce bildirilmediyse Cem'e TEK mail atar. Karar VERMEZ, model çağırmaz, soru metnini depoya yazmaz.
+name: Bitirme onay nobetcisi (0 USD)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 4 * * 1'   # pazartesi 07:37 TR
+permissions:
+  contents: write
+concurrency:
+  group: smmm-onay-nobetcisi
+  cancel-in-progress: false
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Onay listesi + bildirim
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./arac/smmm-onay.ps1 -Liste -Ambar -Mail
+      - name: Bildirim kutugu commit
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/smmm-onay-bildirim.json 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Bitirme onay nobeti [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i*10))
+          done
+          echo "::error::sonuc push edilemedi (5 deneme)"; exit 1
