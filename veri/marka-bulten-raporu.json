@@ -1,59 +1,55 @@
 {
- "tarih": "2026-09-13 00:23",
+ "tarih": "2026-09-14 00:27",
  "islenen": [
   {
-   "bulten_no": 351,
-   "yayin_tarihi": "2020-06-29",
-   "kayit": 4662,
-   "ham": 4662,
+   "bulten_no": 346,
+   "yayin_tarihi": "2020-04-13",
+   "kayit": 10239,
+   "ham": 10239,
    "tekrar": 0,
-   "tam": 4662,
-   "itiraz_son": "2020-08-29"
+   "tam": 10239,
+   "itiraz_son": "2020-06-13"
   },
   {
-   "bulten_no": 350,
-   "yayin_tarihi": "2020-06-12",
-   "kayit": 5000,
-   "ham": 5000,
+   "bulten_no": 345,
+   "yayin_tarihi": "2020-03-27",
+   "kayit": 5552,
+   "ham": 5552,
    "tekrar": 0,
-   "tam": 5000,
-   "itiraz_son": "2020-08-12"
+   "tam": 5552,
+   "itiraz_son": "2020-05-27"
   },
   {
-   "bulten_no": 349,
-   "yayin_tarihi": "2020-05-27",
-   "kayit": 6262,
-   "ham": 6262,
-   "tekrar": 0,
-   "tam": 6261,
-   "itiraz_son": "2020-07-27"
+   "bulten_no": 344,
+   "yayin_tarihi": "2020-03-12",
+   "kayit": 6436,
+   "ham": 6447,
+   "tekrar": 11,
+   "tam": 6435,
+   "itiraz_son": "2020-05-12"
   },
   {
-   "bulten_no": 348,
-   "yayin_tarihi": "2020-05-12",
-   "kayit": 6466,
-   "ham": 6466,
+   "bulten_no": 343,
+   "yayin_tarihi": "2020-02-27",
+   "kayit": 7632,
+   "ham": 7632,
    "tekrar": 0,
-   "tam": 6466,
-   "itiraz_son": "2020-07-12"
+   "tam": 7632,
+   "itiraz_son": "2020-04-27"
   },
   {
-   "bulten_no": 347,
-   "yayin_tarihi": "2020-04-27",
-   "kayit": 8897,
-   "ham": 8897,
+   "bulten_no": 342,
+   "yayin_tarihi": "2020-02-12",
+   "kayit": 8067,
+   "ham": 8067,
    "tekrar": 0,
-   "tam": 8897,
-   "itiraz_son": "2020-06-27"
+   "tam": 8067,
+   "itiraz_son": "2020-04-12"
   }
  ],
  "hata": [
   {
-   "bulten_no": 346,
-   "mesaj": "Supabase marka_bulten?on_conflict=basvuru_no,bulten_no: HTTP 500 {\"code\":\"57014\",\"details\":null,\"hint\":null,\"message\":\"canceling statement due to statement timeout\"}"
-  },
-  {
-   "bulten_no": 345,
+   "bulten_no": 341,
    "mesaj": "Supabase marka_bulten?on_conflict=basvuru_no,bulten_no: HTTP 500 {\"code\":\"57014\",\"details\":null,\"hint\":null,\"message\":\"canceling statement due to statement timeout\"}"
   }
  ]
