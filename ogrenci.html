@@ -150,7 +150,17 @@
     return liste;
   }
 
+  /* 14.09: paket-kapisi.js "Giriş yap" ?sonra=<sayfa> ile gönderir; girişten sonra oraya dönülür.
+     Yalnız site içi göreli .html adresi kabul edilir (açık yönlendirme olmasın). */
+  function sonraGit(){
+    try{
+      var s=new URLSearchParams(location.search).get('sonra')||'';
+      if(!/^[a-z0-9][a-z0-9\-\/._]*\.html(?:[?#][^\s<>"']*)?$/i.test(s) || s.indexOf('//')>-1 || s.indexOf('..')>-1) return false;
+      location.replace(s); return true;
+    }catch(e){ return false; }
+  }
   async function panel(user){
+    if(sonraGit()) return;
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
     $('ogKim').textContent=user.email||'';
     var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;

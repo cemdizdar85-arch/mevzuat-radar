@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>Ücretsiz dene · Staja Giriş sınavı | Tetikte</title>
+<meta name="description" content="Üye olmadan dene: 20 soruda geçme ihtimalini ölç, 15 dersin tamamından örnek soruları çözümleriyle çöz.">
+<link rel="stylesheet" href="stil.css">
+<!--
+  ÜCRETSİZ DENE (14.09.2026)
+  Cem: "soru çözme kısmı paralı olacak; deneme amaçlı sadece kendin dene yapalım, onu ön sayfaya alalım."
+  Ücretsiz katman: seviye testi (20 soru, veri/seviye/sgs-havuz.json) + vitrin Kaydır-Çöz (kaydir/vitrin/sgs.html,
+  paket-kapisi.js bu yolu MUAF tutar). 14.09 ölçümü: vitrin 70 soru, 15 dersin 15'i temsil ediliyor
+  (FM 14, Denetim 9 ... Atatürk 1). "15 dersin tamamından" cümlesi bu ölçüme dayanır; vitrin yeniden
+  basılırsa yeniden sayılmalı. Bankanın büyüklüğü soru-dizini.json'dan okunur.
+  Paket içeriği (kaydir/sgs/*, sinav-gibi) paket-kapisi.js arkasında.
+-->
+<style>
+  /* palet: stil.css body.bz-koyu */
+  body.uc-koyu{margin:0}
+
+  .uc-ic{max-width:1080px;margin:0 auto;padding:0 26px 70px}
+  .uc-bar{padding:20px 0}
+  .uc-bar .top{background:transparent;border:0;margin:0;padding:0;display:flex;align-items:center;gap:10px}
+  .uc-marka{display:inline-flex;align-items:center;gap:10px;color:var(--bz-ak);text-decoration:none;font-weight:800;font-size:19px}
+  .uc-lamba{width:12px;height:12px;border-radius:50%;background:var(--bz-bronz-acik)}
+  .uc-bas{padding:26px 0 30px}
+  .uc-goz{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--bz-bronz);margin:0 0 14px}
+  .uc-bas h1{font-size:42px;line-height:1.1;letter-spacing:-.03em;margin:0 0 12px;color:var(--bz-ak);font-weight:700}
+  .uc-bas p{font-size:16.5px;line-height:1.6;color:var(--bz-ak-govde);margin:0;max-width:40em}
+  .uc-kartlar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .uc-kart{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit;background:var(--panel);
+    border:1px solid var(--line2);border-radius:18px;padding:24px 22px 22px;transition:border-color .15s,transform .15s}
+  .uc-kart:hover{border-color:var(--bz-bronz);transform:translateY(-2px)}
+  .uc-et{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--bz-bronz-acik)}
+  .uc-kart b{font-size:22px;color:var(--ink);letter-spacing:-.01em;line-height:1.25}
+  .uc-kart span.uc-alt{font-size:14.5px;color:var(--muted);line-height:1.55}
+  .uc-git{margin-top:10px;align-self:flex-start;font-size:15px;font-weight:750;color:var(--bz-cta-yazi);
+    background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));border-radius:11px;padding:11px 18px}
+  .uc-paket{margin-top:34px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    border-top:1px solid var(--line);padding-top:24px}
+  .uc-paket p{margin:0;font-size:15px;color:var(--muted);line-height:1.6;max-width:44em}
+  .uc-paket p b{color:var(--ink)}
+  .uc-paket a{font-size:15px;font-weight:750;color:var(--bz-bronz-acik);text-decoration:none;white-space:nowrap}
+  .uc-paket a.uc-ikinci{color:var(--muted);font-weight:600;margin-left:16px}
+  @media(max-width:760px){ .uc-kartlar{grid-template-columns:1fr} .uc-bas h1{font-size:32px} }
+</style>
+</head>
+<body class="uc-koyu bz-koyu">
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="uc-ic">
+  <div class="uc-bar"><div class="top"><a class="uc-marka" href="index.html"><span class="uc-lamba" aria-hidden="true"></span>tetikte</a></div></div>
+  <main id="icerik">
+    <div class="uc-bas">
+      <p class="uc-goz">Ücretsiz dene · üyelik gerekmez</p>
+      <h1>Önce kendin dene.</h1>
+      <p>Staja Giriş sınavında nerede olduğunu gör, soruların nasıl çözüldüğünü kendi gözünle incele. Kart, e-posta, üyelik istemiyoruz.</p>
+    </div>
+    <div class="uc-kartlar">
+      <a class="uc-kart" href="seviye-testi.html">
+        <span class="uc-et">1 · Seviye testi</span>
+        <b>20 soruda geçme ihtimalini ölç</b>
+        <span class="uc-alt">Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin, güçlü ve zayıf alanların çıkar; istersen karne e-postana gelir.</span>
+        <span class="uc-git">Teste başla →</span>
+      </a>
+      <a class="uc-kart" href="kaydir/vitrin/sgs.html">
+        <span class="uc-et">2 · Örnek sorular</span>
+        <b id="ucOrnekBaslik">15 dersin tamamından örnek sorular</b>
+        <span class="uc-alt">Gerçek soru bankasından seçildi. Her şıkkın neden doğru ya da yanlış olduğu ve dayandığı mevzuat maddesi yanında.</span>
+        <span class="uc-git">Soruları çöz →</span>
+      </a>
+    </div>
+    <div class="uc-paket">
+      <p><b>Beğendiysen tamamı pakette:</b> <span id="ucBanka">binlerce çözümlü soru</span>, gerçek sınav dağılımında deneme setleri, "sınav gibi" süreli mod ve ilerleme paneli.</p>
+      <span><a href="fiyat.html">Paketleri gör →</a><a class="uc-ikinci" href="ogrenci.html">Paketin varsa giriş yap</a></span>
+    </div>
+  </main>
+</div>
+<script>
+(function(){
+  /* Rakamlar elle yazılmaz: soru bankası büyüklüğü soru-dizini.json'dan okunur. */
+  fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
+    var s=d&&d.sinavlar&&d.sinavlar.filter(function(x){return x.kod==='sgs';})[0];
+    if(s&&s.soru) document.getElementById('ucBanka').textContent=Number(s.soru).toLocaleString('tr-TR')+' çözümlü soru';
+  }).catch(function(){});
+})();
+</script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>

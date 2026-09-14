@@ -149,3 +149,13 @@ input[type=checkbox],input[type=radio]{
   width:.34em;height:.34em;border-radius:50%;
   background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));
   box-shadow:0 0 .3em color-mix(in srgb,var(--marka-lamba-1) 70%,transparent)}
+/* 14.09 BRONZ KOYU PALET — tek kaynak. sorular.html'deki kopya buraya taşındı; ucretsiz-dene.html de okur.
+   index.html kahramanı kendi kopyasını taşıyor (ayrı iş, eşdeğerlik provasıyla taşınır). */
+  body.bz-koyu{
+    --bz-gece:#0a0b0e; --bz-gece2:#12151b;
+    --bz-ak:#f2f4f8; --bz-ak-govde:#aab3c0; --bz-ak-sonuk:#78828f;
+    --bz-bronz:#cfa163; --bz-bronz-acik:#eccb96; --bz-cta-yazi:#221704;
+    --ink:#f2f4f8; --muted:#aab3c0; --dim:#8a93a0; --panel:#12151b; --panel2:#171b22;
+    --line:#232833; --line2:#2e3440; --amber:#e3b877; --accent:#e3b877; --yuzey:#12151b;
+    --bg:#0a0b0e; --bg2:#101319;
+    background:var(--bz-gece);color:var(--ink)}
