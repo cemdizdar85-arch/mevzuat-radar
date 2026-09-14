@@ -114,6 +114,13 @@ function SikKusur($c){
 function KaynakBilgi($c){
   $adlar=@($c.kaynak_adlar | Where-Object { $_ }); if(-not $adlar.Count){ return @{ durum='KIRMIZI'; not='kaynak adı yok' } }
   if($AmbarYok){ return @{ durum='OLCULMEDI'; not="$($adlar.Count) kaynak adı var, tarih ölçülmedi (ağ yok)" } }
+  # 14.09 yalnız bitirme (pilot yfta-cokzor ÖLÇÜLDÜ): ad virgül/parantez taşıyınca in.(...) sorgusu boş dönüyor, var olan kaynak "ambarda bulunamadı" diye KIRMIZI yazılıyordu.
+  # smmm-* etiketinde ilk üç ad TEK TEK eq ile sorulur. SGS/KGK yolu aynı (bildirildi).
+  if($script:KARNE_ET -like 'smmm-*'){ try{ $ilkS=@($adlar | Select-Object -First 3); $rowsS=New-Object System.Collections.Generic.List[object]; foreach($adS in $ilkS){ $uS=$SB_URL+'?select=kaynak_ad,belge_tarihi,yuklenme&kaynak_ad=eq.'+[uri]::EscapeDataString("$adS")+'&limit=1'; foreach($rS in @((ConvertFrom-Json (Invoke-WebRequest -Uri $uS -Headers $BASLIK -UseBasicParsing -TimeoutSec 60).Content))){ if($rS){ $rowsS.Add($rS) } } }
+    if(-not $rowsS.Count){ return @{ durum='KIRMIZI'; not="kaynak adı ambarda bulunamadı (ilk üç ad; ambar yeniden yüklendiyse ad değişmiş olabilir): $($ilkS[0])" } }
+    $tarS=@($rowsS | ForEach-Object { if("$($_.belge_tarihi)"){ "$($_.belge_tarihi)" } else { "$($_.yuklenme)".Substring(0,10) } } | Sort-Object -Descending)
+    return @{ durum=$(if($rowsS.Count -lt $ilkS.Count){'KIRMIZI'}else{'YESIL'}); not="$($rowsS.Count)/$($ilkS.Count) kaynak ambarda · en yeni $($tarS[0])$(if($rowsS.Count -lt $ilkS.Count){ ' · eksik ad var (yeniden yükleme sonrası eski ad?)' })" }
+  }catch{ return @{ durum='OLCULMEDI'; not="ambar sorgusu düştü: $($_.Exception.Message)" } } }
   try{ $ilk=@($adlar | Select-Object -First 3); $u=$SB_URL+'?select=kaynak_ad,belge_tarihi,yuklenme&kaynak_ad=in.('+(($ilk | ForEach-Object { '"'+($_ -replace '"','') +'"' }) -join ',')+')&limit=5'
     $rows=New-Object System.Collections.Generic.List[object]; (ConvertFrom-Json (Invoke-WebRequest -Uri ([uri]::EscapeUriString($u)) -Headers $BASLIK -UseBasicParsing -TimeoutSec 60).Content) | ForEach-Object { $rows.Add($_) }
     if(-not $rows.Count){ return @{ durum='KIRMIZI'; not="kaynak adı ambarda bulunamadı: $($ilk[0])" } }
@@ -163,7 +170,7 @@ function PencereSay([string]$sinav,[string]$konu){
 }
 
 $sorular=New-Object System.Collections.Generic.List[object]
-foreach($et in ($Etiketler -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })){
+foreach($et in ($Etiketler -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })){ $script:KARNE_ET=$et   # 14.09 KaynakBilgi etiketi bilsin (bitirme)
   $yol=Join-Path $kok "veri\fabrika\kalip-parti-$et.json"
   if(-not (Test-Path $yol)){ Write-Host "YOK: $yol" -ForegroundColor Yellow; continue }
   $j=Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
@@ -186,7 +193,10 @@ foreach($et in ($Etiketler -split ',' | ForEach-Object { $_.Trim() } | Where-Obj
     # 6 şık dengesi
     $sk=SikKusur $c; $h.sik=Hucre $(if($sk.Count){'KIRMIZI'}else{'YESIL'}) $(if($sk.Count){ $sk -join ' · ' } else { 'şıklar dengeli' })
     # 7 pencere (K10)
-    if($c.PSObject.Properties['son_donem']){ $sd=[int]$c.son_donem; $kvm=$(if($c.PSObject.Properties['pencere_kavram']){ @($c.pencere_kavram | Where-Object { $_ }) } else { @() }); $h.pencere=Hucre $(if($sd -ge 1 -and -not $kvm.Count){'YESIL'}else{'KIRMIZI'}) "son $($c.pencere) dönemde $sd kez$(if($c.PSObject.Properties['capa_kaynak'] -and $c.capa_kaynak){ ' · çapa '+$c.capa_kaynak })$(if($kvm.Count){ ' · PENCERE DIŞI KAVRAM: '+($kvm -join ', ') })" }
+    # 14.09 yalnız bitirme: test biçimi yalnız 2 dönem (2026/1-2, 320 soru); pencere kavram sözlüğü bu kadar veriyle "normal, klasik, makine" gibi
+    # sıradan kelimeleri "pencere dışı" sayıyor (pilot 1309: seçilen 12 sorudaki 9 kırmızının 7'si). Ölçemediğine kusur deme → OLCULMEDI + gerekçe.
+    if($et -like 'smmm-*'){ $h.pencere=Hucre 'OLCULMEDI' "bitirme test çapası 2 dönem (320 soru): pencere/kavram ölçümü güvenilir değil$(if($c.PSObject.Properties['son_donem']){ " · ham: son $($c.pencere) dönemde $($c.son_donem) kez" })$(if($c.PSObject.Properties['pencere_kavram'] -and @($c.pencere_kavram | Where-Object { $_ }).Count){ ' · sözlükte yok: '+(@($c.pencere_kavram) -join ', ') })" }
+    elseif($c.PSObject.Properties['son_donem']){ $sd=[int]$c.son_donem; $kvm=$(if($c.PSObject.Properties['pencere_kavram']){ @($c.pencere_kavram | Where-Object { $_ }) } else { @() }); $h.pencere=Hucre $(if($sd -ge 1 -and -not $kvm.Count){'YESIL'}else{'KIRMIZI'}) "son $($c.pencere) dönemde $sd kez$(if($c.PSObject.Properties['capa_kaynak'] -and $c.capa_kaynak){ ' · çapa '+$c.capa_kaynak })$(if($kvm.Count){ ' · PENCERE DIŞI KAVRAM: '+($kvm -join ', ') })" }
     else { $sd=PencereSay ($et -replace '-.*$','') "$($c.konu)"; if($null -eq $sd){ $h.pencere=Hucre 'OLCULMEDI' "pencere ölçülmedi (toplam $($c.donem) dönem, 2015'ten)" } else { $h.pencere=Hucre $(if($sd -ge 1){'YESIL'}else{'KIRMIZI'}) "son $PENCERE dönemde $sd kez (karne ölçtü; toplam $($c.donem))" } }
     # 8 kaynak
     $kb=KaynakBilgi $c; $h.kaynak=Hucre $kb.durum $kb.not
