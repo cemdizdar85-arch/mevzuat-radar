@@ -93,7 +93,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     ``,
     `Nasıl hesaplandı? Bu bir TAHMİNDİR. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, bu testteki cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. Ayrıntı: ${site}/seviye-testi.html#nasil`,
     ``,
-    `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim A.Ş. · info@dizdardenetim.com · Kişisel verilerin: ${site}/kvkk.html`,
+    `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · Kişisel verilerin: ${site}/kvkk.html`,
   ].join("\n");
   const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td></tr>`).join("");
   const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px">
@@ -106,7 +106,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 <p style="margin:0 0 18px"><a href="${site}/sinav-gibi.html" style="background:#cfa163;color:#221704;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:8px;display:inline-block">Sınav gibi çöz →</a>
 &nbsp; <a href="${site}/sorular.html" style="color:#8d6c38;font-weight:700">Ders ders soru çöz</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. <a href="${site}/seviye-testi.html#nasil" style="color:#6b7280">Ayrıntı</a></p>
-<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
+<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
 </div>`;
   return { konu: `Seviye testi karnen: geçme ihtimalin %${s.gecme}`, metin, html };
 }

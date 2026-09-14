@@ -243,6 +243,9 @@ var css=''+
  'border:1px solid var(--line2);border-radius:10px}'+
 '.mrxUst a:hover{color:var(--ink)}'+
 '.mrxUst a.mrxUye{background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;border:0;font-weight:800}'+
+/* 14.09: giris ikiye ayrildi (ogrenci / isletme). Dar ekranda iki buton alt satira
+   yan yana iner; logo + Ana Sayfa + kapat ust satirda kalir. */
+'@media(max-width:560px){.mrxUst a.mrxUye{order:5;flex:1 1 40%;text-align:center}}'+
 '#mrxKapat{margin-left:auto;appearance:none;border:1px solid var(--line2);background:transparent;'+
  'color:var(--ink);font-size:18px;border-radius:10px;padding:6px 13px;cursor:pointer}'+
 '#mrxAra{width:100%;padding:13px 16px;border:1px solid var(--line2);border-radius:12px;'+
@@ -389,7 +392,7 @@ function kur(){
   var kap=document.createElement('div'); kap.id='mrxKaplama';
   var h='<div class="mrxIc"><div class="mrxUst">'+
     '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
-    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'radar-app.html">Giriş / Üye Ol</a>'+
+    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">Öğrenci girişi</a><a class="mrxUye" href="'+KOK+'radar-app.html">İşletme girişi</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
     '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, ihale, fiş…" autocomplete="off">';
   GRUPLAR.forEach(function(g){
@@ -466,7 +469,7 @@ function kur(){
         '<a href="' + KOK + 'mesafeli-satis.html" style="color:var(--muted);text-decoration:none">Mesafeli Satış</a> · ' +
         '<a href="' + KOK + 'teslimat-iade.html" style="color:var(--muted);text-decoration:none">Teslimat & İade</a> · ' +
         '<a href="' + KOK + 'iletisim.html" style="color:var(--muted);text-decoration:none">İletişim</a>' +
-        '<br>Dizdar Denetim ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com' +
+        '<br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com' +
         '<br><span data-veri-damgasi></span>';
       document.body.appendChild(yf);
     }

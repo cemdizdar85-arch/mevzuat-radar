@@ -265,7 +265,7 @@ async function mukellefPano(token){
     <div style="font-size:12px;color:var(--dim);text-align:center;margin-bottom:8px">📂 ${esc(data.mukellef||'')}, beyanname &amp; tahakkuk panosu</div>
     ${bl.length? bl.map(b=>`<div class="soruSat"><div>📄</div><div class="body"><div style="font-weight:650;font-size:13.5px">${esc(b.tur||'Belge')} · ${esc(b.donem||'')}</div><div style="font-size:12px;color:var(--dim)">${esc(b.dosya_adi)} · ${b.ts?new Date(b.ts).toLocaleDateString('tr-TR'):''}</div><a class="fis" href="#" onclick="window._belgeAc('${b.url}');return false">📥 indir / görüntüle</a></div></div>`).join('')
       : '<div class="bos">Henüz belge yüklenmedi. Muhasebeciniz yükledikçe burada görünecek.</div>'}
-    <div style="font-size:11px;color:var(--dim);text-align:center;margin-top:10px">Tetikte · Fiş Fabrikası, bir Dizdar Denetim A.Ş. yazılımıdır.</div>
+    <div style="font-size:11px;color:var(--dim);text-align:center;margin-top:10px">Tetikte · Fiş Fabrikası, bir Dizdar Denetim Danışmanlık ve Yazılım A.Ş. yazılımıdır.</div>
   </div>`;
 }
 
