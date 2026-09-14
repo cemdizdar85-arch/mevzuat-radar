@@ -182,12 +182,19 @@
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
   </table>
 
+  <!-- 14.09: Mesafeli Sözleşmeler Yönetmeliği m.5-6 ön bilgilendirme teyidi + m.15 anında ifa onayı
+       AÇIKÇA alınır (sözleşme "Üye anında ifaya onay verir" diyordu ama ekranda bu onay yoktu).
+       KVKK kutusu rıza değil bilgilendirme teyidi: sipariş verisinin dayanağı sözleşmedir (m.5/2-c). -->
   <label class="onay"><input type="checkbox" id="onSoz">
-    <span><a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
-    <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını okudum, onaylıyorum.</span></label>
+    <span><a href="on-bilgilendirme.html" target="_blank" rel="noopener">Ön Bilgilendirme Formu</a>'nu okudum;
+    <a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
+    <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını onaylıyorum.</span></label>
+  <label class="onay"><input type="checkbox" id="onIfa">
+    <span>Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
+    yasal cayma hakkı olmadığını, <b>7 gün koşulsuz iade</b> hakkımın ise saklı olduğunu biliyorum.</span></label>
   <label class="onay"><input type="checkbox" id="onKvkk">
-    <span>Bilgilerimin sipariş, fatura ve üyelik işlemleri için işlenmesine izin veriyorum.
-    <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metni</a></span></label>
+    <span>Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
+    <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>'ni okudum.</span></label>
 
   <button class="btn" id="gonder">Siparişi tamamla</button>
   <div class="sonuc" id="sonuc"></div>
@@ -226,6 +233,9 @@
 
 <p class="kucuk">Fiyatlar Türk Lirası ve KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası, deneme ve
 açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
+<p class="kucuk"><a href="on-bilgilendirme.html">Ön Bilgilendirme Formu</a> · <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> ·
+<a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik, Güvenlik ve Çerez</a> ·
+<a href="kvkk.html">KVKK</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></p>
 
 </div>
 
@@ -399,7 +409,8 @@ btn.addEventListener('click', function(){
     if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ goster('T.C. kimlik no 11 hane olmalı.', false); return; }
   }
   if(!document.getElementById('onSoz').checked){ goster('Mesafeli satış sözleşmesini onaylaman gerekiyor.', false); return; }
-  if(!document.getElementById('onKvkk').checked){ goster('KVKK onay kutusunu işaretle.', false); return; }
+  if(!document.getElementById('onIfa').checked){ goster('Hizmetin hemen başlatılması onayını işaretle.', false); return; }
+  if(!document.getElementById('onKvkk').checked){ goster('Aydınlatma metnini okuduğunu işaretle.', false); return; }
 
   /* Ders bazli pakette secim EKSIKSE siparis alinmaz: erisimi neye acacagimizi
      bilmeden para almak, tutamayacagimiz bir soz vermek olur. */
@@ -443,7 +454,8 @@ btn.addEventListener('click', function(){
         from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(secili.fiyat)+' TL',
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
-        'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT' })});
+        'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT',
+        'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade · anında ifa onayı · aydınlatma okundu · ' + new Date().toISOString() })});
 
   if(!window.sb){
     posta.then(function(r){ if(r.ok) bitir(); else basarisiz(); }, basarisiz);

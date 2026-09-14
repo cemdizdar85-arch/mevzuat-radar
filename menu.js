@@ -59,7 +59,8 @@ try {
   /* 05.08: yasal sayfalar perdeden MUAF — odeme kurulusu (iyzico/PayTR) incelemesi
      mesafeli satis/iade/iletisim/KVKK metinlerini gormek zorunda; bu sayfalarin
      kanunen de acik olmasi gerekir. Urun icerigi tasimadiklari icin sizinti yok. */
-  var yasalMuaf = /(?:^|\/)(mesafeli-satis|teslimat-iade|iletisim|kvkk)\.html$/.test(location.pathname);
+  /* 14.09: on-bilgilendirme, gizlilik-politikasi, uyelik-sozlesmesi de muaf (ayni gerekce). */
+  var yasalMuaf = /(?:^|\/)(mesafeli-satis|teslimat-iade|iletisim|kvkk|on-bilgilendirme|gizlilik-politikasi|uyelik-sozlesmesi)\.html$/.test(location.pathname);
   if (localStorage.getItem('mrOnizleme') !== '1' && !yasalMuaf) {
     var perde = function(){
       if (document.getElementById('mrPerde')) return;
@@ -464,11 +465,13 @@ function kur(){
     if (!document.querySelector('a[href$="kvkk.html"]')) {
       var yf = document.createElement('div');
       yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid var(--line);font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
-      yf.innerHTML = '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a> · ' +
-        '<a href="' + KOK + 'uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
+      yf.innerHTML = '<a href="' + KOK + 'iletisim.html" style="color:var(--muted);text-decoration:none">Hakkımızda ve İletişim</a> · ' +
+        '<a href="' + KOK + 'on-bilgilendirme.html" style="color:var(--muted);text-decoration:none">Ön Bilgilendirme</a> · ' +
         '<a href="' + KOK + 'mesafeli-satis.html" style="color:var(--muted);text-decoration:none">Mesafeli Satış</a> · ' +
         '<a href="' + KOK + 'teslimat-iade.html" style="color:var(--muted);text-decoration:none">Teslimat & İade</a> · ' +
-        '<a href="' + KOK + 'iletisim.html" style="color:var(--muted);text-decoration:none">İletişim</a>' +
+        '<a href="' + KOK + 'gizlilik-politikasi.html" style="color:var(--muted);text-decoration:none">Gizlilik ve Çerez</a> · ' +
+        '<a href="' + KOK + 'uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
+        '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a>' +
         '<br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com' +
         '<br><span data-veri-damgasi></span>';
       document.body.appendChild(yf);
