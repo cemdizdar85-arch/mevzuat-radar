@@ -121,6 +121,18 @@
     </div>
     <div class="sv-gruplar" id="svGruplar"></div>
 
+    <!-- 14.09 Cem "ücretsiz denemeyi pazarlamanın merkezine koyalım": test bitince TAM BANKA teklifi.
+         Rakamlar elle yazılmaz: banka büyüklüğü soru-dizini.json, set sayısı deneme/sgs-dizin.json, fiyat fiyat-motoru.js. -->
+    <div class="sv-kutu" id="svTeklif">
+      <h2 id="svTeklifBaslik">Tam bankayı aç</h2>
+      <p class="sv-alt" id="svTeklifMetin" style="margin:0 0 12px"></p>
+      <p class="sv-not" id="svTeklifFiyat" style="margin:0 0 12px" hidden></p>
+      <div class="sv-dugmeler">
+        <a class="sv-btn ana" href="satin-al.html?paket=sgs" style="text-decoration:none">Tam bankayı aç →</a>
+        <a class="sv-btn" href="kaydir/vitrin/sgs.html" style="text-decoration:none">Önce örnek soruları çöz</a>
+      </div>
+    </div>
+
     <div class="sv-kutu" id="svKarne">
       <h2>Karnen e-postana gelsin</h2>
       <p class="sv-alt" style="margin:0 0 4px">Geçme ihtimalin, alan alan sonucun ve sana en çok puan getirecek başlangıç noktası.</p>
@@ -159,6 +171,7 @@
 </div>
 
 <script src="seviye-model.js"></script>
+<script src="fiyat-motoru.js"></script>
 <script>
 (function(){
   'use strict';
@@ -248,6 +261,36 @@
     }catch(e){}
     sonucCiz(liste);
   }
+  /* 14.09 TAM BANKA TEKLİFİ — seviyeye göre başlık; rakamlar kaynaktan, okunamazsa rakamsız cümle. */
+  function teklifCiz(g, zayif, yanlisSay){
+    var zAd=zayif?zayif.ad.toLowerCase():'';
+    $('svTeklifBaslik').textContent = g>=70 ? 'Sonucu gerçek sınav koşulunda doğrula'
+      : g>=40 ? 'Seni geçirecek birkaç doğru pakette' : 'Başlangıç noktan belli: '+zAd;
+    var metin=function(banka, set){
+      return (g>=70 ? '130 soruluk, gerçek süreli ve gerçek ders dağılımlı deneme setleriyle hazır olup olmadığını gör. '
+          : 'En zayıf alanın '+zAd+'; orada her soruyu çözerken yanlış şıkkın neden yanlış olduğunu Nöbetçi adım adım anlatır. ')
+        +'Tam bankada '+(banka?'<b>'+banka+' çözümlü soru</b>':'bütün dersler')+(set?', <b>'+set+' deneme seti</b>':', deneme setleri')+' ve "sınav gibi" süreli mod var.'
+        +(yanlisSay?' Bu testteki <b>'+yanlisSay+' yanlışının</b> anlatımı da orada.':'');
+    };
+    $('svTeklifMetin').innerHTML=metin(null,null);
+    try{
+      if(typeof FIYAT!=='undefined'&&FIYAT.sgs){
+        var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
+        $('svTeklifFiyat').innerHTML='<b>'+tl(f.kurulus)+' TL</b> · KDV dahil · '+ay+' ay erişim'
+          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye kuruluş fiyatı (sonra '+tl(f.liste)+' TL)':'')
+          +' · 7 gün koşulsuz iade';
+        $('svTeklifFiyat').hidden=false;
+      }
+    }catch(e){}
+    Promise.all([
+      fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+      fetch('veri/deneme/sgs-dizin.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+    ]).then(function(r){
+      var s=r[0]&&r[0].sinavlar&&r[0].sinavlar.filter(function(x){return x.kod==='sgs';})[0];
+      var banka=s&&s.soru?Number(s.soru).toLocaleString('tr-TR'):null, set=r[1]&&r[1].set_sayisi||null;
+      $('svTeklifMetin').innerHTML=metin(banka,set);
+    });
+  }
   function sonucCiz(liste){
     var g=SONUC.gecme, sinif=g>=70?'yuksek':g>=40?'orta':'dusuk';
     $('svYuzde').textContent=g;
@@ -260,14 +303,15 @@
       : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+'.';
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x===zayif&&x.dogru<x.soru?' zayif':'')+'"><b>'+esc(x.ad)+'</b><span>'+x.dogru+' / '+x.soru+' doğru'+(x===zayif&&x.dogru<x.soru?' · önce burası':'')+'</span></div>'; }).join('');
-    var yollar = g>=70
-      ? '<a class="sv-btn ana" href="sinav-gibi.html" style="text-decoration:none">Sınav gibi çöz (130 soru) →</a><a class="sv-btn" href="sorular.html#sgs" style="text-decoration:none">Ders ders çalış</a>'
-      : '<a class="sv-btn ana" href="sorular.html#sgs" style="text-decoration:none">En zayıf alanından başla →</a><a class="sv-btn" href="sinav-gibi.html" style="text-decoration:none">Sınav gibi çöz</a>';
-    /* 13.09 öğrenci kapısı: üye olmayanın sonucu yalnız bu cihazda - hesap açınca ogrenci.html kendisi aktarır */
-    yollar+='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>';
-    $('svYollar').innerHTML=yollar;
     var y=CEVAPLAR.filter(function(c){return !c.dogru;});
-    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
+    teklifCiz(g, zayif, y.length);
+    /* 14.09: ders sayfaları ve "sınav gibi" pakete dahil (paket-kapisi.js). Paketsiz ziyaretçiyi kilide değil
+       teklife yönlendir; paketi olan için "sınav gibi" yolu açık kalır. */
+    var yollar='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>'
+      +'<a class="sv-btn" href="sinav-gibi.html" style="text-decoration:none">Paketin varsa: sınav gibi çöz (130 soru)</a>';
+    /* 13.09 öğrenci kapısı: üye olmayanın sonucu yalnız bu cihazda - hesap açınca ogrenci.html kendisi aktarır */
+    $('svYollar').innerHTML=yollar;
+    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
     $('svDurum').textContent=''; $('svDurum').className='sv-durum'; $('svGonder').disabled=false;
     goster('svSonuc');
   }

@@ -87,8 +87,9 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     `En çok çalışman gereken grup: ${enZayif.ad}`,
     oneri,
     ``,
-    `Sınav gibi çöz: ${site}/sinav-gibi.html`,
-    `Ders ders soru çöz: ${site}/sorular.html`,
+    `Tam soru bankası, deneme setleri ve "sınav gibi" süreli mod pakette; bu testteki yanlışlarının adım adım anlatımı da orada.`,
+    `Tam bankayı aç: ${site}/satin-al.html?paket=sgs`,
+    `Önce örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/sgs.html`,
     `Testi yeniden çöz: ${site}/seviye-testi.html`,
     ``,
     `Nasıl hesaplandı? Bu bir TAHMİNDİR. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, bu testteki cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. Ayrıntı: ${site}/seviye-testi.html#nasil`,
@@ -103,8 +104,9 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
 <p style="margin:0 0 6px"><b>En çok çalışman gereken grup:</b> ${kacis(enZayif.ad)}</p>
 <p style="margin:0 0 16px">${kacis(oneri)}</p>
-<p style="margin:0 0 18px"><a href="${site}/sinav-gibi.html" style="background:#cfa163;color:#221704;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:8px;display:inline-block">Sınav gibi çöz →</a>
-&nbsp; <a href="${site}/sorular.html" style="color:#8d6c38;font-weight:700">Ders ders soru çöz</a></p>
+<p style="margin:0 0 10px">Tam soru bankası, deneme setleri ve "sınav gibi" süreli mod pakette; bu testteki yanlışlarının adım adım anlatımı da orada.</p>
+<p style="margin:0 0 18px"><a href="${site}/satin-al.html?paket=sgs" style="background:#cfa163;color:#221704;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:8px;display:inline-block">Tam bankayı aç →</a>
+&nbsp; <a href="${site}/kaydir/vitrin/sgs.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. <a href="${site}/seviye-testi.html#nasil" style="color:#6b7280">Ayrıntı</a></p>
 <p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
 </div>`;
