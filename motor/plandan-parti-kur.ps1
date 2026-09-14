@@ -134,6 +134,13 @@ $KISALT=@{
   'Sermaye Piyasasi Mevzuati (Ek: RG-19/8/2014-29093)'='yspk'; 'Sermaye Piyasasi Mevzuati'='yspk'
 }
 $ZORLUK=@('kolay','zor','cokzor')
+# 14.09 BİTİRME ZORLUK PAYI (Cem "1.2.3 üçünü de yap", GM önerisi 3): SMMM planında konular üç zorluğa EŞİT (sırayla) değil, bitirme çıkmış
+# test kitapçıklarından ÖLÇÜLEN paya göre dağıtılır (arac/smmm-zorluk-olcumu.ps1 → veri/sinav/smmm-zorluk-olcumu.json; 14.09: 320 soru,
+# kolay %58,4 · zor %36,2 · çok zor %5,3). Sıklığa göre sıralı konular en büyük açık kuralıyla (her adımda payının en gerisinde kalan zorluk) atanır,
+# böylece çok çıkan konu yine birden fazla zorlukta yer alır. Ders bazlı pay KULLANILMAZ: cetvel sayısal yükü ölçer, teori derslerinde
+# (Denetim/Meslek %97,5 "kolay") gerçek zorluğu ölçemez. Ölçüm dosyası yoksa ya da SGS/KGK ise eski eşit dağıtım AYNEN.
+$smmmZorlukPayi=$null
+if($Sinav -eq 'SMMM'){ $zorOlcYol=Join-Path $depoKok 'veri\sinav\smmm-zorluk-olcumu.json'; if(Test-Path $zorOlcYol){ $zorOlc=Get-Content $zorOlcYol -Raw -Encoding UTF8 | ConvertFrom-Json; $zorToplam=[double]$zorOlc.kolay+[double]$zorOlc.zor+[double]$zorOlc.cokzor; if($zorToplam -gt 0){ $smmmZorlukPayi=@{ kolay=[double]$zorOlc.kolay/$zorToplam; zor=[double]$zorOlc.zor/$zorToplam; cokzor=[double]$zorOlc.cokzor/$zorToplam }; Write-Host ("SMMM zorluk payı (ölçüm {0}): kolay %{1} · zor %{2} · çok zor %{3}" -f $zorOlc.olcum,$zorOlc.kolay,$zorOlc.zor,$zorOlc.cokzor) -ForegroundColor DarkCyan } } }
 $konuDir=Join-Path $depoKok 'veri\sinav\konu'
 New-Item -ItemType Directory -Force $konuDir | Out-Null
 
@@ -153,9 +160,16 @@ foreach($g in (@($sec | Group-Object ders | Sort-Object { $s=0; foreach($pg in $
   $zorlukKova=@{}
   foreach($zorAd in $ZORLUK){ $zorlukKova[$zorAd]=New-Object System.Collections.Generic.List[object] }
   $dagitimSira=0
+  if($smmmZorlukPayi){
+    $zorlukAtanan=@{ kolay=0; zor=0; cokzor=0 }
+    foreach($konuK in $siraliKonu){ $dagitimSira++; $enGeriZor=$null; $enGeriFark=[double]::MinValue
+      foreach($zorAd in $ZORLUK){ $zorFark=$smmmZorlukPayi[$zorAd]*$dagitimSira-$zorlukAtanan[$zorAd]; if($zorFark -gt $enGeriFark){ $enGeriFark=$zorFark; $enGeriZor=$zorAd } }
+      $zorlukAtanan[$enGeriZor]++; $zorlukKova[$enGeriZor].Add($konuK) }
+  } else {
   foreach($konuK in $siraliKonu){
     $hedefZor=$ZORLUK[$dagitimSira % $ZORLUK.Count]
     $zorlukKova[$hedefZor].Add($konuK); $dagitimSira++
+  }
   }
   foreach($zorAd in $ZORLUK){
     # ⛔ PS 5.1 TUZAGI (11.09'da BURADA yakalandi, tr-TR 5.1.26100):

@@ -149,6 +149,11 @@ function ZorlukCetvel($c){
 }
 # çıkmış sınav dağılımı (26.08 ölçümü, 16.355 tekil çıkmış soru): kolay %42 · zor %52 · çok zor %7; öncüllü %5,4; şaşırtmalı kök %4,3
 $SINAV_Z=@{ z1=42; z2=52; z3=7; oncul=5.4; sasirt=4.3 }
+# 14.09 bitirme: yukarıdaki oran SGS arşivinden (26.08, veri/sgs-arsiv) ölçüldü. Etiketlerin HEPSİ smmm-* ise bitirme çıkmış test ölçümü kullanılır
+# (arac/smmm-zorluk-olcumu.ps1 → veri/sinav/smmm-zorluk-olcumu.json). SGS/KGK/karışık karne: eski değer ve eski metin AYNEN.
+$SINAV_Z_METIN='%42 / %52 / %7 · %5,4 · %4,3'
+$karneEtiketleri=@($Etiketler -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+if($karneEtiketleri.Count -and -not @($karneEtiketleri | Where-Object { $_ -notlike 'smmm-*' }).Count){ $smmmZorYol=Join-Path $kok 'veri\sinav\smmm-zorluk-olcumu.json'; if(Test-Path $smmmZorYol){ $smmmZor=Get-Content $smmmZorYol -Raw -Encoding UTF8 | ConvertFrom-Json; $SINAV_Z=@{ z1=[double]$smmmZor.kolay; z2=[double]$smmmZor.zor; z3=[double]$smmmZor.cokzor; oncul=[double]$smmmZor.oncullu; sasirt=[double]$smmmZor.sasirtmali }; $SINAV_Z_METIN="bitirme %$($smmmZor.kolay) / %$($smmmZor.zor) / %$($smmmZor.cokzor) · %$($smmmZor.oncullu) · %$($smmmZor.sasirtmali)" } }
 # K10 pencere (06.09): üretici alanı yoksa karne kendisi ölçer — veri/<sinav>-analiz.json son N dönem etiketleri, kök-önekiyle eşleşme
 # (üreticideki KokOnek ile aynı kural; "evre"→"safha", "gug"→"genel"). Sonuç: kaç dönemde geçti; analiz dosyası yoksa $null (ölçülmedi).
 $PENCERE=7
@@ -224,7 +229,7 @@ if($nZ){ $z1=@($sorular | Where-Object { $_.hucre.zorluk.not -like 'Z1*' }).Coun
   $zOz=[ordered]@{ z1=[math]::Round(100*$z1/$nZ); z2=[math]::Round(100*$z2/$nZ); z3=[math]::Round(100*$z3/$nZ); oncul=[math]::Round(100*$on/$nZ,1); sasirt=[math]::Round(100*$sa/$nZ,1); sinav=$SINAV_Z; sapma=$(
     $sp=@(); if([math]::Abs([math]::Round(100*$z1/$nZ)-$SINAV_Z.z1) -gt 20){ $sp+='kolay' }; if([math]::Abs([math]::Round(100*$z2/$nZ)-$SINAV_Z.z2) -gt 20){ $sp+='zor' }; if([math]::Abs([math]::Round(100*$z3/$nZ)-$SINAV_Z.z3) -gt 20){ $sp+='çok zor' }; if([math]::Round(100*$sa/$nZ,1) -gt 3*$SINAV_Z.sasirt){ $sp+='şaşırtmalı kök (sınavın 3 katından fazla)' }
     if($sp.Count){ "SARI: sınavdan sapıyor -> $($sp -join ', ')" } else { 'sınavla uyumlu (±20 puan)' }) }
-  "ZORLUK (parti): kolay %$($zOz.z1) · zor %$($zOz.z2) · çok zor %$($zOz.z3) · öncüllü %$($zOz.oncul) · şaşırtmalı %$($zOz.sasirt)  |  sınav: %42 / %52 / %7 · %5,4 · %4,3  → $($zOz.sapma)" }
+  "ZORLUK (parti): kolay %$($zOz.z1) · zor %$($zOz.z2) · çok zor %$($zOz.z3) · öncüllü %$($zOz.oncul) · şaşırtmalı %$($zOz.sasirt)  |  sınav: $SINAV_Z_METIN  → $($zOz.sapma)" }
 $hucreOzet=[ordered]@{}; foreach($ad in 'hakem','sim','aritmetik','hesapKod','turkce','sik','pencere','kaynak','kor','hakem2','zorluk'){ $hucreOzet[$ad]=[ordered]@{ yesil=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'YESIL' }).Count; kirmizi=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'KIRMIZI' }).Count; olculmedi=@($sorular | Where-Object { $_.hucre[$ad].durum -eq 'OLCULMEDI' }).Count } }
 # PS harf tuzağı: rapor nesnesi $Cikti parametresiyle çakışmasın diye $raporNesne (ilk koşuda sayfa yolu OrderedDictionary oldu)
 $raporNesne=[ordered]@{ olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiketler=$Etiketler; orneklem_yuzde=$OrneklemYuzde; ozet=$ozet; hucre_ozet=$hucreOzet; zorluk_dagilim=$zOz; sorular=@($sorular | ForEach-Object { $s=$_; [ordered]@{ id=$s.id; ders=$s.ders; konu=$s.konu; durum=$s.durum; kuyruk=$s.kuyruk; ornek=$s.ornek; hucre=$s.hucre } }) }
