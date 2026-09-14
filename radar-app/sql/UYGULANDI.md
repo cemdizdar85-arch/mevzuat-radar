@@ -192,7 +192,8 @@ kaynak_ad, tur+kaynak_ad), tablo yapısına ve veriye dokunmaz.
 
 | Dosya | Durum |
 |---|---|
-| `2026-08-30-ambar-index.sql` | ⏳ **BASILMADI** — Cem'in basması bekleniyor. Basılınca dosyanın sonundaki üç doğrulama sorgusu koşulur; üçü de hatasız dönmeden madde görüntüleyici sayfa yazılmaz. |
+| `2026-08-30-ambar-index.sql` | ⛔ **BASILMAYACAK — yerine 14.09 dosyası.** 14.09 08:10 panelde `pg_indexes` okundu: `arama_fold` GIN'i zaten var (`dokumanlar_arama_fold_idx`, başka adla); bu dosya basılsa ikinci GIN kurulurdu (disk 5,75/8 GB). `kaynak_ad` ve `tur` indeksleri YOK. |
+| `2026-09-14-dokumanlar-tur-kaynak-index.sql` | ⏳ **BASILMADI** — Cem basacak. Yalnız eksik iki btree (`tur,kaynak_ad` · `kaynak_ad`) + analyze; aynı Run'da 5 indeks adı dönmeli. Neden: 13–14.09 gecesi `tur=eq.cikmis-soru` sorgusu 22–24 sn / 57014; üretici kapıları kör kaldı, iki parti çöpe gitti. |
 
 Bu indeksler basılmadan: Net Cevap araması cevapsız kalmaya devam eder ve
 Destek Radarı'ndaki "Dayanağı" satırı ambardaki maddeye **bağlanamaz**
