@@ -1,0 +1,36 @@
+# .github/workflows/saklama-robotu.yml — KVKK SAKLAMA SÜRESİ ROBOTU
+#
+# NEDEN VAR (14.09.2026, Cem "1.2.3 üçünü de yap"): kvkk.html sürüm 2 saklama süresi
+# SÖZÜ veriyor (soru çözme kaydı 2 yıl sonra kimliksizleşir, form/karne/hata bildirimi
+# 2 yıl, IP sayacı kısa süreli). Söz kodla tutulmazsa metin yalan olur. Kurallar ve
+# kapılar motor/saklama-robotu.js başındaki tabloda.
+#
+# İlk 2 yıl 2 yıllık kurallar 0 satıra dokunur (en eski kayıt 04.09.2026); ilk gerçek iş
+# rate_log'daki 1 günden eski IP satırlarıdır. Günlük koşu bu yüzden "boş" görünür — doğru.
+#
+# KÖR KALMA: anahtar yoksa ya da kasa hata verirse akış KIRMIZI yanar (sessiz geçmez).
+# Rapor depoya işlenmez (değişmeyen sayılar boş commit üretirdi); koşu özetinde tablo olarak durur.
+name: Saklama Robotu
+
+on:
+  schedule:
+    - cron: "47 1 * * *"    # 04:47 TR — trafiğin en düşük olduğu saat
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  saklama:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Öz-sınav
+        run: node motor/saklama-robotu.js --sinav
+      - name: Saklama sürelerini uygula
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node motor/saklama-robotu.js --yaz

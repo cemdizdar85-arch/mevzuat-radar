@@ -91,7 +91,7 @@ table.kv tr:last-child td{border-bottom:0}
     <thead><tr><th>Durum</th><th>İşlenen veri</th><th>Amaç</th><th>Hukuki sebep</th><th>Saklama</th></tr></thead>
     <tbody>
       <tr><td><b>Siteyi gezerseniz</b></td><td>Sayfa görüntüleme, tarayıcı türü, dil, ekran genişliği, yaklaşık ülke/şehir (IP adresinden türetilir, IP saklanmaz)</td><td>Hangi sayfaların kullanıldığını ölçmek</td><td>Meşru menfaat (m.5/2-f)</td><td>Sayaç sağlayıcısında toplu istatistik olarak</td></tr>
-      <tr><td><b>Form gönderirseniz, soru-cevap aracını ya da Alacak Radarı sorgusunu kullanırsanız</b> (güvenlik)</td><td>IP adresi ve istek zamanı</td><td>Otomatik ve aşırı sayıda isteği engellemek</td><td>Meşru menfaat (m.5/2-f)</td><td>Kısa süreli sayaçta; eski kayıtlar kendiliğinden silinir (sayaç son 10 dakikaya bakar)</td></tr>
+      <tr><td><b>Form gönderirseniz, soru-cevap aracını ya da Alacak Radarı sorgusunu kullanırsanız</b> (güvenlik)</td><td>IP adresi ve istek zamanı</td><td>Otomatik ve aşırı sayıda isteği engellemek</td><td>Meşru menfaat (m.5/2-f)</td><td>Kısa süreli sayaçta (sayaç son 10 dakikaya bakar); en geç 1 gün içinde otomatik silinir</td></tr>
       <tr><td><b>Hesaplama araçlarını kullanırsanız</b> (Yükümlülük Karnesi, GTİP, Fiş Fabrikası, KDV, ceza hesapları)</td><td>Girdiğiniz rakamlar ve dosyalar <b>bize gönderilmez</b>, tarayıcınızda işlenir</td><td>—</td><td>—</td><td>Tutulmaz</td></tr>
       <tr><td><b>Soru çözerseniz</b> (Kaydır-Çöz, seviye testi, sınav gibi deneme)</td><td>Çözdüğünüz soru, seçtiğiniz şık, doğru/yanlış, soruya ayırdığınız süre, elediğiniz şıklar, hesap kâğıdına yazdığınız metin ve çizim yapıp yapmadığınız; üye değilseniz tarayıcınızda üretilen <b>rastgele oturum numarası</b> (adınız, e-postanız eklenmez)</td><td>Soruların gerçek zorluğunu ölçmek, "bu şıkkı seçenlerin yüzdesi" gibi anonim istatistik üretmek, soru kalitesini denetlemek</td><td>Meşru menfaat (m.5/2-f)</td><td>En fazla 2 yıl; sonra oturum numarası silinerek yalnız toplu istatistik kalır</td></tr>
       <tr><td><b>Deneme sınavında üyeliğinizle soru çözerseniz</b></td><td>Çözdüğünüz soru, doğru/yanlış, süre (üyeliğinize bağlı)</td><td>Size karne üretmek; en az 20 çözümden sonra kimliksiz ders ortalaması hesaplamak</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td><td>Üyelik süresince</td></tr>
@@ -105,6 +105,9 @@ table.kv tr:last-child td{border-bottom:0}
     </tbody>
   </table>
   </div>
+  <p>Süresi dolan kayıtlar her gece çalışan otomatik bir işle kimliksizleştirilir ya da silinir. Kayıtların
+  haftalık güvenlik yedeği <b>şifreli</b> tutulur ve <b>90 gün sonra kendiliğinden silinir</b>; silinen bir kayıt bu süre
+  boyunca yalnızca bu şifreli yedekte kalabilir.</p>
 
   <h2>2. Özel durumlar</h2>
   <ul>

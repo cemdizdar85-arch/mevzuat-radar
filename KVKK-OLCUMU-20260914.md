@@ -8,8 +8,11 @@
 > Ölçülerek doğrulanan sözler: soru-cevap aracı soruyu tabloya yazmıyor (net-cevap.ts); cevap/kâğıt/form
 > kayıtları anon'a kapalı (401/42501).
 > **KAPANMAYANLAR (metinle kapanmaz):** (11) ABD sağlayıcıları için standart sözleşme + Kurul bildirimi —
-> metin "süreç yürütülmektedir, veri asgaride" diyor; (10) unvan Cem teyidi; (12) saklama süreleri GM
-> önerisi yazıldı — **2 yıl / 30 gün silme için otomatik silme işi YOK (iş emri)**; (15) İYS kaydı.
+> metin "süreç yürütülmektedir, veri asgaride" diyor; (15) İYS kaydı.
+> ✅ 14.09 KAPANDI: (10) unvan — D&B + MERSİS kaydıyla "Dizdar Denetim Danışmanlık ve Yazılım A.Ş.", 46 yerde
+> birleştirildi; (12) saklama — `motor/saklama-robotu.js` + `saklama-robotu.yml` her gece (kuru koşu ve sıfır
+> satırlık yazma provası geçti), "hesabımı sil" için `motor/hesap-sil.js`; metne 90 günlük şifreli yedek cümlesi
+> eklendi. Yurt dışı aktarım yol seçimi: `KVKK-YURTDISI-AKTARIM-SECENEKLERI.md`.
 
 > Cem 14.09: "KVKK aydınlatma metni hâlâ ölçülmedi. ölçelim."
 > Yöntem: `kvkk.html` (son güncelleme 04.09.2026) cümle cümle okundu; sitenin **bugün gerçekten
