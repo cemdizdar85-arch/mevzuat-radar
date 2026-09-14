@@ -4,7 +4,7 @@
 # Her ders için: tam hat (soru/uyarlama + adımlar + verilenler + giriş + ikiz + sim Sonnet + hakem + kör çözüm + hakem2), sonra seçim
 # (hakem EVET ∧ sim ✓ ∧ kör ✓ ∧ hakem2 EVET — SORU-BASMA-KURALLARI 8.1), Kaydır-Çöz sayfası ve karne. Loglar veri/fabrika/kosucu-log/<plan>/.
 # Kullanım: powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-sgs-08-09.json
-param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok='',[switch]$SayfaYok,
+param([Parameter(Mandatory=$true)][string]$Plan,[string]$Kok='',[switch]$SayfaYok,[switch]$SadeceSecim,   # 14.09 (bitirme, Cem "1.2.3 üçünü de yap"): hiçbir parti KOŞTURULMAZ, yalnız önbellekten seçim + sayfa + karne (bedel 0). Varsayılan kapalı → davranış aynı
   # 11.09 Cem "paralel kostur": ayni anda kac parti. 1 = eski sirali davranis.
   # 12.09 Cem: "toplu moda bulutta hizlanacakti ondan gectik" - HAKLI, ve tavan
 # tam onu engelliyordu. 8 siniri CEM'IN MAKINESI icin konmustu (olculdu: 8
@@ -224,6 +224,7 @@ function PartiKuyrukBitir($a){
 
 $kuyruk=New-Object System.Collections.Generic.Queue[object]
 foreach($s in $satirlar){ $kuyruk.Enqueue($s) }
+if($SadeceSecim){ $kuyruk.Clear(); "SADECE SEÇİM: plan partileri koşturulmadı (bedel 0) — seçim, sayfa ve karne önbellekten yeniden kuruluyor" }   # 14.09: kod kapısı/yayın şartı değişince seçimi parti koşturmadan tazelemek için (koşucu önbelleği olmayan partiyi yeniden üretirdi)
 $ucan=New-Object System.Collections.Generic.List[object]
 $durduruldu=$false
 
