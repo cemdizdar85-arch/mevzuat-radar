@@ -63,6 +63,44 @@ Hukuka aykırı aktarım veri güvenliği ihlali sayılırsa **256.357 – 17.09
 8 kâğıt, 3 form, 0 öğrenci sonucu var. Risk küçükken haftalarca taşıma işine girip güvenliği zayıflatmak
 yanlış sıra olur. Veri büyümeden, yani ücretli öğrenci gelmeden önce karar verilir.
 
+## 5. Ek ölçüm, 14.09 ("1.2.3 üçüne de bak")
+
+### 5.1 Sözleşme metni neden imzalatılması zor bir metin
+Kurul'un resmî Standart Sözleşme 2 metnini (TR + Kurum'un İngilizce çevirisi) okudum. Veri alıcısına şu yükleri koyuyor:
+- **Madde 12:** Kurul'un yetkisine tabi olmak, istenen belgeyi vermek, **gerekirse yerinde incelemeye izin vermek**.
+- **Madde 13:** "Ülkemde bu sözleşmeyle çelişen mevzuat ya da uygulama yok" diye beyan etmek. ABD'li bir şirketin bunu
+  kendi ülkesinde kamu makamlarının veriye erişim yetkileri varken beyan etmesi zor.
+- **Madde 7.9(c-d):** veri aktaranın, yani bizim, **yerinde denetimine** izin vermek.
+- **Madde 11(b):** ilgili kişiye doğrudan tazminat sorumluluğu.
+- **Madde 17-18:** Türk hukuku ve **Türk mahkemeleri**.
+
+Supabase ve Resend'in kendi sözleşmelerinde bunların yerine AB/İngiltere/İsviçre mekanizmaları var. **Sonuç: imzalamamaları
+güçlü ihtimal. Bu, belgelerden gelen tahmin; ölçüm maille gelir.** Taslaklar hazır, git dışında duruyor:
+`_yerel-veri-kasasi/sozlesmeler/kvkk-standart-sozlesme-2026/`. İçinde resmî PDF'ler, Supabase ve Resend için Ek I-II-III ve
+İngilizce kapak mailleri var. **Gönderilmedi.**
+
+### 5.2 Türkiye'de barındırma: ölçülen seçenekler
+| Seçenek | Ne var | Fiyat (kaynak) | Not |
+|---|---|---|---|
+| **AWS İstanbul Local Zone** (`eu-central-1-ist-1a`) | 20.05.2026'da açıldı (AWS duyurusu). EC2, EBS, S3 One Zone-IA, ECS, EKS. **Yönetilen veritabanı (RDS) listede yok** | m7i.large (2 vCPU/8 GB) **0,1268 USD/saat ≈ 92,6 USD/ay**; disk ve trafik ayrıca, ölçülmedi (aws-pricing.com, 12.09.2026) | Ana bölge Frankfurt. Türkiye'deki hesapların sözleşme tarafı **AWS Turkey Ltd. Şti.** (AWS SSS). Veri Türkiye'de durur, güvenlik altyapısı AWS'nin. **Açık soru:** uzaktan yönetim ve destek erişimi yurt dışı aktarım sayılır mı? Hukuken tartışmalı |
+| **Alastyr bulut sunucu, İzmir** | 4 vCPU / 8 GB / 120 GB NVMe | **2.011,55 TL/ay KDV dahil** (Alastyr sayfası) | Yerli şirket, yerli veri merkezi. Güvenlik ve yama tamamen bizde |
+| Turkcell Bulut / Türk Telekom Bulut | Yönetilen ilişkisel veritabanı var denmiş | **Fiyat yayımlanmıyor**, teklif gerekir | Kurumsal satış süreci |
+
+Üç seçenekte de Supabase'i kendimiz kurarız (açık kaynak, Docker) ya da düz Postgres ve kendi üyelik sistemimize geçeriz.
+Taşıma emeği haftalar (bkz. bölüm 3).
+
+### 5.3 Yerli işlemsel mail
+| Sağlayıcı | Türkiye'de mi | SMTP/API | Fiyat (kaynak) |
+|---|---|---|---|
+| **SenderTR** (Alastyr Telekomünikasyon A.Ş., İzmir) | "Tüm sunucular Türkiye'de" (kendi sayfası) | SMTP 587 + REST API, işlemsel ayrı IP havuzu | **10.000 kredi 1.050 TL · 100.000 kredi 5.900 TL · 250.000 kredi 12.750 TL**, KDV hariç, süresiz (kendi sayfası, 14.09) |
+| Uzman Posta İşlemsel | Türkiye lokasyonu (kendi sayfası) | SMTP + API | Yayımlanmıyor, teklif gerekir |
+| Euromsg Express | Şirket İstanbul'da; veri merkezi yazmıyor | API | Sayfada fiyat yok |
+
+**Ölçülen tercih: SenderTR.** Türkiye'de tutma sözü, SMTP ve API desteği ve açık fiyatı olan tek sağlayıcı bu.
+Aylık gönderim hacmimiz ölçülmedi; Resend panelinden okunur. Kaç kredilik paketin yeteceği bu sayıyla hesaplanır.
+Krediler süresiz olduğu için en küçük paket (1.050 TL) deneme için yeterli. Resend'den geçiş: 24 dosyada `api.resend.com` çağrısı var.
+Tek bir ortak gönderici yazılıp hepsi ona bağlanır. **Teklif ya da üyelik açmak Cem kararı** (hesap açma ve ödeme ben yapamam).
+
 ## Kaynaklar
 - KVKK, standart sözleşmelerde dikkat edilecek hususlar: https://www.kvkk.gov.tr/Icerik/8170/
 - KVKK, Standart Sözleşme Bildirim Modülü duyurusu (17.10.2024 açıldı): https://www.kvkk.gov.tr/Icerik/8043/
@@ -71,4 +109,10 @@ yanlış sıra olur. Veri büyümeden, yani ücretli öğrenci gelmeden önce ka
 - Microsoft Q&A, Azure için KVKK standart sözleşmesi: https://learn.microsoft.com/en-us/answers/questions/5615914/
 - Supabase DPA'sı AB SCC içerir: https://github.com/orgs/supabase/discussions/2341
 - Sunucu fiyatı (Alastyr Cloud-8G, İzmir): https://www.alastyr.com/sunucu-fiyatlari
-- Yerli işlemsel mail (fiyat yayımlanmıyor): https://uzmanposta.com/
+- Yerli işlemsel mail (fiyat yayımlanmıyor): https://uzmanposta.com/islemsel-e-posta/
+- Kurul standart sözleşmeleri (TR): https://www.kvkk.gov.tr/Icerik/7929/Standart-Sozlesmeler · (EN): https://www.kvkk.gov.tr/Icerik/7991/Standard-Contracts
+- AWS İstanbul Local Zone duyurusu: https://aws.amazon.com/about-aws/whats-new/2026/05/aws-local-zones-istanbul-turkiye/
+- AWS Türkiye sözleşme tarafı SSS: https://aws.amazon.com/legal/awstr/
+- İstanbul Local Zone fiyatları: https://aws-pricing.com/eu-central-1-ist-1.html
+- SenderTR: https://sendertr.com/
+- Supabase DPA: https://supabase.com/legal/dpa · Resend DPA: https://resend.com/legal/dpa
