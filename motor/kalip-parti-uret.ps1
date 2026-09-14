@@ -4588,7 +4588,11 @@ E) $($ti.siklar.E)
   if(-not $oN -or -not $oN.PSObject.Properties['cevap']){ $mC=[regex]::Match("$($yO.metin)",'"cevap"\s*:\s*"([^"]*)"'); $mE=[regex]::Match("$($yO.metin)",'"eksik"\s*:\s*"([^"]*)"'); if($mC.Success){ $oN=[pscustomobject]@{ cevap=$mC.Groups[1].Value; adimlar=''; eksik=$(if($mE.Success){ $mE.Groups[1].Value } else { '' }) }; Write-Host "  SIM JSON bozuktu, regex ile kurtarıldı ($id)" -ForegroundColor DarkYellow } }
   if(-not $oN){ $rapor.Add("SIM BOZUK: $id"); Write-Host "  SIM BOZUK ($id): $("$($yO.metin)".Substring(0,[Math]::Min(160,"$($yO.metin)".Length)))" -ForegroundColor Red; continue }
   $trO=[cultureinfo]::GetCultureInfo('tr-TR'); $sayi={ param($t) $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ [double]::Parse($m.Value,$trO) }catch{ $null } } else { $null } }
-  $cv=& $sayi $oN.cevap; $hd=& $sayi $hedefS
+  # 14.09 ÖLÇÜLDÜ (smmm-gm-p2, 8 simülasyon): ikiz hücresi "6.348.000 - 188.250 = 6.159.750" biçimindeyken $sayi İLK sayıyı (6.348.000) alıyordu;
+  # öğrenci 6.159.750 dediği hâlde YANLIŞ yazıldı (8/8 hesaplı sim). Bitirme koşusunda "=" varsa SON eşittirden sonrası hedeftir.
+  # Yalnız SMMM (Cem 13.09: bitirme oturumu SGS'ye dokunmaz; SGS'deki aynı açık SGS konuşmasına not edildi) → SGS/KGK sonucu aynı.
+  $sayiHedef={ param($t) $u="$t"; if($Sinav -eq 'SMMM' -and $u -match '='){ $u=($u -split '=')[-1] }; & $sayi $u }
+  $cv=& $sayi $oN.cevap; $hd=& $sayiHedef $hedefS
   # 06.09 Ö35: hedef yön kelimesiyle geliyorsa ("%37,5 azalış", "12.000 olumsuz") işaret karşılaştırmaya girmez — MTA kp-02'de "-37,5" doğruyken yanlış sayılmıştı
   $yonluHedef=("$hedefS" -match '(?i)azalış|azalis|olumsuz|olumlu|artış|artis|düşüş|dusus|lehte|aleyhte|\(-\)')
   $dogruMu=$false; if($null -ne $cv -and $null -ne $hd){ $cvK=$(if($yonluHedef){ [math]::Abs($cv) } else { $cv }); $hdK=$(if($yonluHedef){ [math]::Abs($hd) } else { $hd }); $dogruMu=([math]::Abs($cvK-$hdK) -le [math]::Max(0.5,[math]::Abs($hdK)*0.01)) }
@@ -4598,7 +4602,7 @@ E) $($ti.siklar.E)
   # (2) satır etiketi istenenle en az bir kök paylaşıyorsa; küçük sayılarda tolerans 0,02 (1,25 ile -1/2 eşleşmesin).
   if(-not $dogruMu -and $null -ne $cv -and $kokM.Success -and $istenenK -and $istenenK.Count){
     foreach($st in $adaySat){ $etK2=@(((Katla2 ("$(@($st)[0])" -replace '\([^)]*\)',' ')) -replace '[^a-z ]+',' ') -split '\s+' | Where-Object { $_ } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); $ort=@($istenenK | Where-Object { $ik=$_; @($etK2 | Where-Object { & $kokEs $ik $_ }).Count -gt 0 }).Count; if($ort -lt 1){ continue }
-      $hv=$null; $hc=-1; for($c2=@($st).Count-1;$c2 -ge 1;$c2--){ if("$(@($st)[$c2])" -match '\d'){ $hv=& $sayi "$(@($st)[$c2])"; $hc=$c2; break } }
+      $hv=$null; $hc=-1; for($c2=@($st).Count-1;$c2 -ge 1;$c2--){ if("$(@($st)[$c2])" -match '\d'){ $hv=& $sayiHedef "$(@($st)[$c2])"; $hc=$c2; break } }
       if($null -eq $hv){ continue }; $tol=$(if([math]::Abs($hv) -ge 100){ [math]::Max(0.5,[math]::Abs($hv)*0.01) } else { [math]::Max(0.02,[math]::Abs($hv)*0.01) })
       if([math]::Abs([math]::Abs($cv)-[math]::Abs($hv)) -le $tol){ $dogruMu=$true; $hedefS="$(@($st)[$hc])"; Write-Host "  SIM HEDEF DÜZELTİLDİ ($id): öğrenci cevabı '$(@($st)[0])' satırıyla eşleşti (kök ortak $ort)" -ForegroundColor DarkYellow; $rapor.Add("SIM HEDEF DUZELTILDI: $id | $(@($st)[0])"); break } } }
   $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }
