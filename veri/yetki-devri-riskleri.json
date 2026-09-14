@@ -1,9 +1,9 @@
 {
-  "tarih": "14.09.2026 09:42",
+  "tarih": "14.09.2026 09:55",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 872,
   "riskli_madde": 1313,
-  "sayfa": 71,
+  "sayfa": 72,
   "atifli_iddia": 290,
   "dayanaksiz_iddia": 374,
   "kirmizi_aday": 29,
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -187,7 +187,7 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1257,
+      "satir": 1259,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -1495,73 +1495,73 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 848,
+      "satir": 850,
       "iddia": "2 gün",
       "metin": "/* YANLIŞ KUTUSU: ürün (kaydir-coz) yanlış cevabı bu tarayıcıda kc_kutu'ya yazar - 2 gün sonra vade, o gün doğruysa 7 gün sonra son tur."
     },
     {
       "sayfa": "index.html",
-      "satir": 855,
+      "satir": 857,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru burada yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Ku"
     },
     {
       "sayfa": "index.html",
-      "satir": 857,
+      "satir": 859,
       "iddia": "7 gün",
       "metin": "else if(tekrar) kanca('Doğru — ilk tekrarı geçtin.','7 gün sonra son bir kez karşına çıkacak; onu da bilirsen kutundan çıkar.','');"
     },
     {
       "sayfa": "index.html",
-      "satir": 940,
+      "satir": 942,
       "iddia": "%100",
       "metin": "Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·"
     },
     {
       "sayfa": "index.html",
-      "satir": 941,
+      "satir": 943,
       "iddia": "%96",
       "metin": "\"Nöbetçi anlatsın\" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir)."
     },
     {
       "sayfa": "index.html",
-      "satir": 942,
+      "satir": 944,
       "iddia": "%40",
       "metin": "BİLEREK YAZILMADI: \"ikizini sen çöz\" - yalnız %40'ında var. -->"
     },
     {
       "sayfa": "index.html",
-      "satir": 952,
+      "satir": 954,
       "iddia": "2 gün",
       "metin": "4 Unutma Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar."
     },
     {
       "sayfa": "index.html",
-      "satir": 1067,
+      "satir": 1069,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 1083,
+      "satir": 1085,
       "iddia": "5 gün",
       "metin": "bugünün saatiyle kıyaslanınca \"5 gün önce\" yazıp KIRMIZI yanıyor:"
     },
     {
       "sayfa": "index.html",
-      "satir": 1116,
+      "satir": 1118,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 1119,
+      "satir": 1121,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1311,
+      "satir": 1313,
       "iddia": "5 gün",
       "metin": "robot bugün koştuğu hâlde dosya değişmediği için 5 gün eskide kalıyordu. Akış bandı raftaki"
     },
@@ -2053,19 +2053,19 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 179,
+      "satir": 189,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 223,
+      "satir": 233,
       "iddia": "en az 6",
       "metin": "if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 243,
+      "satir": 253,
       "iddia": "en az 6",
       "metin": "if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }"
     },
@@ -2293,19 +2293,19 @@
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 155,
+      "satir": 156,
       "iddia": "2 gün",
       "metin": "Yanlışların yanlış kutuna düştü: 2 gün sonra ders sayfasında yeniden karşına çıkar."
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 207,
+      "satir": 208,
       "iddia": "%5",
       "metin": "if(Math.floor(DURUM.kalanSn)%5===0) yaz();"
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 274,
+      "satir": 275,
       "iddia": "2 gün",
       "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
     },
@@ -2341,19 +2341,19 @@
     },
     {
       "sayfa": "sorular.html",
-      "satir": 46,
+      "satir": 40,
       "iddia": "% 70",
       "metin": "background:radial-gradient(55% 70% at 80% 0%,rgba(207,161,99,.20),transparent 62%),"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 47,
+      "satir": 41,
       "iddia": "% 60",
       "metin": "radial-gradient(40% 60% at 0% 100%,rgba(207,161,99,.08),transparent 70%)}"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 220,
+      "satir": 218,
       "iddia": "2 gün",
       "metin": "?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'"
     },
