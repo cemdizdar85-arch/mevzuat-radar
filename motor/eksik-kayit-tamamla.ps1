@@ -53,7 +53,15 @@ $artik=@(); $eksik=@()
 foreach($aday in $adaylar){
   $ad="$($aday.kaynak_ad)"
   $debris=$false
-  if(-not $hepsiniGeriKoy -and $ad -notmatch $ayriYayinDeseni){
+  # 14.09.2026 DERSI: desen PARAGRAF BASLIGINDAKI kelimeye de takiliyordu: "TFRS 16 p.44 - Kiralamada yapilan
+  # degisiklikler" ayri yayin sanildi, 6 eski bolme artigi ambara geri basildi (elle silindi). Harf duyarliligi
+  # yetmez ("BDS 320 p.12 - Denetim Yurutulurken Degisiklik Yapilmasi"). KURAL: adinda paragraf numarasi
+  # (" p.") olan kayit bolmenin parcasidir, AYRI YAYIN DEGILDIR; desen yalniz paragrafsiz adlarda aranir.
+  # Olculdu (tum veri/fabrika/yedek-*.json): eski kural 313 adi ayri yayin sayiyordu (paragraf basliklari dahil);
+  # bu kural paragraf (" p.N") ve Ek ("Ek A") parcalarini disarida birakir. "bolum N" DISLANMAZ: gercek ayri yayin
+  # "TMS 28 Degisiklikleri ... (RG 31.07.2026-33326)" bolum adlariyla durur (25.08'de geri getirilmesi gereken vaka).
+  $ayriYayinMi = ($ad -notmatch '\s(p\.[A-Z]?\d|Ek [A-Z]\b)') -and ($ad -match $ayriYayinDeseni)
+  if(-not $hepsiniGeriKoy -and -not $ayriYayinMi){
     foreach($p in $tazeOnek){ if($ad.StartsWith("$p ")){ $debris=$true; break } }
   }
   if($debris){ $artik += $aday } else { $eksik += $aday }

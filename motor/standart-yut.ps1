@@ -26,7 +26,8 @@ param(
   [int]$yil = 2026,
   [switch]$uygula,
   [switch]$kucultmeyeOnayVer,
-  [switch]$duzen            # pdftotext -layout: iki sutunlu sayfalarda sutunlari korur
+  [switch]$duzen,           # pdftotext -layout: iki sutunlu sayfalarda sutunlari korur
+  [string]$PlanYaz = ''     # 14.09: kuru provada ESKI ve YENI parca adlarini bu JSON'a yazar (soru-kaynak bagi etkisi olcumu icin; ambara yazmaz)
 )
 
 $ErrorActionPreference = 'Stop'
@@ -50,11 +51,26 @@ $depoKok = Split-Path -Parent $here
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 function SY_PdfAraci {
-  foreach($a in @('C:\Program Files\Git\mingw64\bin\pdftotext.exe','C:\Program Files (x86)\Git\mingw64\bin\pdftotext.exe')){
-    if(Test-Path $a){ return $a }
+  # ⚠ 14.09.2026 DERSI — GIT'IN ICINDEKI XPDF 4.06 ONCELIKLIYDI, POPPLER DEGIL.
+  # Git'le gelen pdftotext (xpdf 4.06) TMS/TFRS PDF'lerinde paragraf numarasini
+  # metinle AYNI satira yapistiriyor ("29A Bazi isletmeler ..."); TMS kipi
+  # numarayi goremiyor. TMS 16 p.31-40 (yeniden degerleme modeli) boyle sahte
+  # "p.5" govdesine gomuldu; TMS 12/19/36/37/40/41 · TFRS 17 delikleri ayni
+  # sinif. GitHub Actions poppler kullaniyor (ambar-kapilari.yml) - yerel ve
+  # bulut FARKLI metin uretiyordu. Olculdu: ayni TMS 16 PDF'i poppler 25.07 ile
+  # 102 parca (p.31-40 ayri), xpdf 4.06 ile 84 parca (p.31-40 yok).
+  # KURAL: poppler varsa HER ZAMAN o; xpdf yalniz baska arac yoksa.
+  $adaylar = New-Object System.Collections.Generic.List[string]
+  foreach($c in @(Get-Command pdftotext -All -ErrorAction SilentlyContinue)){ if($c.Source){ $adaylar.Add($c.Source) } }
+  foreach($a in @('C:\Program Files\Git\mingw64\bin\pdftotext.exe','C:\Program Files (x86)\Git\mingw64\bin\pdftotext.exe')){ if(Test-Path $a){ $adaylar.Add($a) } }
+  foreach($a in $adaylar){
+    # surum stderr'e yazilir; PS 5.1'de Stop tercihi stderr'i hataya cevirir -> yerelde gevset.
+    # (cmd /c KULLANMA: Linux runner'da cmd yok.)
+    $oncekiTercih = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+    try { $surum = (@(& $a -v 2>&1) | ForEach-Object { "$_" }) -join ' ' } catch { $surum = '' } finally { $ErrorActionPreference = $oncekiTercih }
+    if($surum -notmatch 'xpdfreader'){ return $a }
   }
-  $c=Get-Command pdftotext -ErrorAction SilentlyContinue
-  if($c){ return $c.Source }
+  if($adaylar.Count -gt 0){ return $adaylar[0] }
   return ''
 }
 
@@ -98,8 +114,32 @@ function SY_Bol([string]$metin, [string]$std){
   $baslik = ''
   $suAn = $null
   $sozlukModu = $false          # Ek A: numarasiz terim-tanim sozlugu
+  # ⚠ 14.09.2026 DERSI — SAYFA NUMARASI + KOSU BASLIGI PARAGRAF SANILIYORDU.
+  # TMS/TFRS kipinde tek basina duran HER sayi paragraf aciyordu. Sayfa sonu
+  # "5" + bos satir + bir sonraki sayfanin ust basligi "TMS 16" geldiginde
+  # sahte "p.5" acildi; gercek 31-40 (yeniden degerleme modeli) onun GOVDESINE
+  # gomuldu, ambarda "TMS 16 p.5 - Maliyet modeli" adiyla durdu. Hakem "p.31
+  # kaynakta yok" dedi (KGK ret kutugu KAYNAK-EKSIK). Kural: tek basina sayinin
+  # ardindaki ilk dolu satir standardin KOSU BASLIGIYSA ("TMS 16") o sayi
+  # SAYFA NUMARASIDIR; baslik satiri da govdeye girmez.
+  $kosuBasligi = [regex]::Escape($std.Trim())
+  $sayfaSatiri = New-Object System.Collections.Generic.HashSet[int]
+  for($si=0; $si -lt $satirlar.Count; $si++){
+    $siTrim = $satirlar[$si].Trim()
+    if($siTrim -match '^\d{1,3}$'){
+      for($sj=$si+1; $sj -lt [Math]::Min($satirlar.Count,$si+4); $sj++){
+        $sjTrim = $satirlar[$sj].Trim()
+        if($sjTrim.Length -eq 0){ continue }
+        if($sjTrim -match "^$kosuBasligi$"){ [void]$sayfaSatiri.Add($si); [void]$sayfaSatiri.Add($sj) }
+        break
+      }
+    }
+  }
+  $satirSirasi = -1
   foreach($ham in $satirlar){
+    $satirSirasi++
     $s = $ham.Trim()
+    if($sayfaSatiri.Contains($satirSirasi)){ continue }
 
     # --- EK basliklari: kip degistirir
     if($s -match '^Ek\s+A\b'){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$true; $baslik='Ek A - Tanımlanan terimler'; continue }
@@ -346,6 +386,13 @@ Kiralama, bir varligin kullanim hakkini belirli bir sure icin devreden sozlesmed
   # numarasi olup govdesi olmayan satir atlanmis mi
   $bos = @(SY_Bol "Baslik`n`n7`n`n`n8`n`nGercek govde burada yeterince uzun bir cumledir." 'TEST 2')
   if($bos.Count -ne 1){ $dusen += "BOS PARAGRAF ATLANMADI: $($bos.Count) parca cikti, 1 bekleniyordu" }
+  # --- 14.09: sayfa numarasi + kosu basligi (TMS 16 p.31-40 "p.5" icine gomulmustu)
+  $sayfaOrnek = "Maliyet modeli`n30`n`nBir kalem maliyetinden birikmis amortisman indirilerek gosterilir.`n`n5`n`nTEST 5`n`nYeniden degerleme modeli`n31`n`nGercege uygun degeri guvenilir olarak olculebilen kalem yeniden degerlenmis tutari uzerinden gosterilir."
+  $sy = @(SY_Bol $sayfaOrnek 'TEST 5')
+  $syAdlar = @($sy | ForEach-Object { $_.kaynak_ad })
+  if(@($sy | Where-Object { $_.kaynak_ad -match 'p\.5\b' }).Count -gt 0){ $dusen += "SAYFA NUMARASI PARAGRAF SANILDI: $($syAdlar -join ' | ')" }
+  if(@($sy | Where-Object { $_.kaynak_ad -match 'p\.31 - Yeniden degerleme modeli' }).Count -ne 1){ $dusen += "SAYFA SONRASI PARAGRAF KAYBOLDU: $($syAdlar -join ' | ')" }
+  if((($sy | ForEach-Object { $_.metin }) -join ' ') -match '(^| )TEST 5( |$)'){ $dusen += 'KOSU BASLIGI GOVDEYE SIZDI' }
 
   # --- EK DALLARI (25.08: ilk surum EKLERI TUMUYLE ATLIYORDU) ---
   $ekOrnek = @"
@@ -513,7 +560,7 @@ if($sinav.Count){
   foreach($d in $sinav){ Write-Host "   $d" }
   exit 1
 }
-Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3)'
+Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09])'
 Write-Host '  SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma'
 Write-Host ''
 
@@ -590,6 +637,29 @@ if((-not $duzen) -and ($standart -match '^(BDS|GDS|SBDS|SGDS)\s')){
       Write-Host ("  -> LAYOUT cikarimi secildi ({0:N0} karakter)" -f $tamMetin.Length)
     }
   }
+  # 14.09 OLCULDU (81 standart kuru prova): poppler 34 BDS/GDS'nin 26'sinda xpdf'ten FAZLA paragraf veriyor
+  # (BDS 300 13->38 · BDS 500 35->79 · BDS 570 26->62 parca), ama 8'inde (BDS 510/705/706/710/720/800/805/810)
+  # satir basi numaralari sayfa numaralarindan az kaliyor. O 8'de xpdf duzgun cikiyordu. Kural: bozuksa
+  # durmadan once IKINCI ARACLA (xpdf) ayni iki cikarim (duz + layout) denenir; o da bozuksa durulur.
+  if(SY_LayoutGerekli $tamMetin $standart){
+    $ikinciArac = @('C:\Program Files\Git\mingw64\bin\pdftotext.exe','C:\Program Files (x86)\Git\mingw64\bin\pdftotext.exe') | Where-Object { (Test-Path $_) -and $_ -ne $arac } | Select-Object -First 1
+    if($ikinciArac){
+      Write-Host "  cikarim bozuk ($arac) -> ikinci arac deneniyor: $ikinciArac" -ForegroundColor Yellow
+      $ikinciDuz = Join-Path $gecici 'kaynak-2.txt'; $ikinciLay = Join-Path $gecici 'kaynak-2-layout.txt'
+      & $ikinciArac -enc UTF-8 -nopgbrk $pdfYolu $ikinciDuz 2>$null | Out-Null
+      & $ikinciArac -enc UTF-8 -nopgbrk -layout $pdfYolu $ikinciLay 2>$null | Out-Null
+      # eski (xpdf) yolla BIREBIR: duz ve layout'tan satir basi numarasi COK olan secilir, sonra bozukluk sinanir
+      $adayMetinler = @()
+      foreach($adayYol in @($ikinciDuz,$ikinciLay)){
+        if(-not (Test-Path $adayYol)){ continue }
+        $adayMetin = [IO.File]::ReadAllText($adayYol,[Text.Encoding]::UTF8)
+        $adaySayi = @(($adayMetin -split "`r?`n") | Where-Object { $_.Trim() -match '^A?\d{1,3}\.\s+\S' }).Count
+        $adayMetinler += [pscustomobject]@{ metin=$adayMetin; sayi=$adaySayi }
+      }
+      $enIyiAday = $adayMetinler | Sort-Object sayi -Descending | Select-Object -First 1
+      if($enIyiAday -and -not (SY_LayoutGerekli $enIyiAday.metin $standart)){ $tamMetin = $enIyiAday.metin; $arac = $ikinciArac; Write-Host ("  -> ikinci arac cikarimi secildi ({0:N0} karakter, satir basi numara {1})" -f $tamMetin.Length,$enIyiAday.sayi) }
+    }
+  }
   if(SY_LayoutGerekli $tamMetin $standart){
     Write-Host '!! CIKARIM BOZUK: satir basi numaralar sayfa numaralarindan az. Elle incele.' -ForegroundColor Red
     exit 1
@@ -631,6 +701,10 @@ Write-Host ''
 Write-Host ("AMBARDAKI HALI : {0} parca · {1:N0} karakter" -f $eski.Count,$eskiKarakter)
 Write-Host ("YENI HALI      : {0} parca · {1:N0} karakter" -f $yeni.Count,$yeniKarakter)
 Write-Host ("KAZANC         : +{0} parca · +{1:N0} karakter ({2:N1} kat)" -f ($yeni.Count-$eski.Count),($yeniKarakter-$eskiKarakter),$(if($eskiKarakter){$yeniKarakter/$eskiKarakter}else{0}))
+if($PlanYaz){
+  $planNesnesi = [ordered]@{ standart=$standart; url=$url; eski_adlar=@($eski | ForEach-Object { "$($_.kaynak_ad)" }); yeni_adlar=@($yeni | ForEach-Object { "$($_.kaynak_ad)" }); eski_karakter=$eskiKarakter; yeni_karakter=$yeniKarakter }
+  [IO.File]::WriteAllText($PlanYaz,(ConvertTo-Json -InputObject $planNesnesi -Depth 4),(New-Object Text.UTF8Encoding($false)))
+}
 
 # ⚠⚠ KUCULME FRENI — 25.08'in en pahali dersi.
 # TMS 2 kosusunda KGK adresindeki PDF standardin TAMAMI degil bir OZETI cikti;
