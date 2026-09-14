@@ -1,0 +1,52 @@
+# .github/workflows/icerik-nobeti.yml — PAKET İÇERİĞİ NÖBETÇİSİ
+#
+# NEDEN (14.09.2026, Cem "site hep güvenli diye konuşuyoruz, bu nasıl oluyor"): kişisel veri
+# kilitliydi ama satılacak SGS soruları (cevap + açıklama) herkese açık depoda ve canlı sitede
+# duruyordu. Nöbetçi her gün depoda soru içeriği taşıyan dosyaları sayar, canlı sitede açık mı yoklar.
+#   YEŞİL açık paket içeriği yok · SARI hepsi bilinen (arac/icerik-nobeti-taban.json, Adım 2 bekliyor)
+#   KIRMIZI tabanda olmayan YENİ dosyada paket içeriği -> Cem'e mail + akış kırmızı · KÖR tarama çalışmadı -> mail
+# Rapor depoya işlenmez (koşu özetinde tablo + annotation); secret yalnız mail için.
+name: Icerik Nobetcisi
+
+on:
+  schedule:
+    - cron: "50 5 * * *"    # 08:50 TR
+  workflow_dispatch:
+  push:
+    paths:
+      - 'kaydir/**'
+      - 'veri/deneme/**'
+      - 'veri/seviye/**'
+      - 'arac/icerik-nobeti-taban.json'
+      - 'motor/icerik-nobetcisi.js'
+      - '.github/workflows/icerik-nobeti.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Öz-sınav
+        run: node motor/icerik-nobetcisi.js --sinav
+      - name: Depo + canlı site taraması
+        id: nobet
+        continue-on-error: true
+        run: node motor/icerik-nobetcisi.js
+      - name: KIRMIZI / KÖR ise Cem'e mail
+        if: steps.nobet.outputs.hukum == 'KIRMIZI' || steps.nobet.outputs.hukum == 'KÖR' || steps.nobet.outputs.hukum == ''
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          HUKUM: ${{ steps.nobet.outputs.hukum }}
+          NEDEN: ${{ steps.nobet.outputs.neden }}
+        run: |
+          $h = if ($env:HUKUM) { $env:HUKUM } else { 'KÖR (çıktı yok)' }
+          ./arac/alarm-maili.ps1 -Konu "TETIKTE ICERIK NOBETI $h - paket sorulari acikta olabilir" -Mesaj ("Hüküm: $h`n$($env:NEDEN)`n`nAyrıntı (dosya dosya soru sayısı, canlı durum): https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`nTabanda olmayan bir dosyada soru+şık+doğru cevap bulunduysa bu YENİ bir sızıntıdır: dosya depodan çıkarılmalı ya da gerekçesiyle tabana yazılmalı.")
+          exit 1
