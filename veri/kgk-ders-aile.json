@@ -1,0 +1,39 @@
+{
+  "aciklama": "KAPI-AILE (14.09.2026, Cem '1 ve 3 yap'): KGK uretiminde kaynak paketine YALNIZ dersin resmi kaynak ailelerinden parca girer. Desenler dokumanlar.kaynak_ad uzerinde, buyuk/kucuk harf duyarsiz regex. Kullanan: motor/kalip-parti-uret.ps1 AmbarCek (yalniz -Sinav KGK). Elle duzenlenen KARAR dosyasidir (robot ciktisi degil).",
+  "neden": "veri/KGK-KAYNAK-OLCUMU.md bolum 6-1: kgk-kurfin-30 partisinde 'yonetim kurulu komiteleri' sorusuna Varlik Yonetim Sirketleri Yonetmeligi m.1-5, 'sistematik olmayan risk' ve 'net gelir yaklasimi' sorularina TFRS 17 p.0-5 paketlendi; hakem 'kaynakta yok' dedi (ret kutugu KAYNAK-EKSIK). Kural ambarda vardi, paket yanlis aileden geliyordu.",
+  "taslak_yasak": "SGDS 5000 (TASLAK - soru dayanagi yapilamaz) hicbir derste izinli degildir.",
+  "dersler": [
+    {
+      "ders_desen": "Muhasebe Standart",
+      "izinli": ["^TMS \\d", "^TFRS \\d", "^BOB[Iİ] FRS", "^K[UÜ]M[Iİ] FRS", "Kavramsal [CÇ]er[cç]eve"]
+    },
+    {
+      "ders_desen": "Denetim Standart",
+      "izinli": ["^BDS \\d", "^GDS \\d", "^SBDS \\d", "^KYS \\d", "^KYS Duyuru", "^Etik Kurallar", "^Ba[gğ][ıi]ms[ıi]z Denetim Y[oö]netmeli[gğ]i", "^KGK Kurulus KHK", "^Ba[gğ][ıi]ms[ıi]z Denetime Tabi", "^Surekli Egitim Tebligi"]
+    },
+    {
+      "ders_desen": "Kurumsal Y[oö]netim|Finansal Y[oö]netim",
+      "izinli": ["Kurumsal Y[oö]netim Tebli[gğ]i \\(II-17\\.1\\)", "^TTK \\(6102", "^Sermaye Piyasas[ıi] K\\. \\(6362", "Tebli[gğ]i \\(II-", "^SPK Tebli[gğ] \\(II-", "^SPK Rehber", "^TEORI", "^Teori Notu", "6361 s\\.K\\.", "Bor[cç]lanma Ara[cç]lar[ıi] Tebli[gğ]i \\(VII-128\\.8\\)"]
+    },
+    {
+      "ders_desen": "Sermaye Piyasas",
+      "izinli": ["^Sermaye Piyasas[ıi] K\\. \\(6362", "Tebli[gğ]i \\((I|II|III|IV|V|VI|VII)[-\\.]", "^SPK ", "^TTK \\(6102", "Borsa", "Takas", "Merkezi Kay[ıi]t", "Yat[ıi]r[ıi]mc[ıi] Tazmin", "^TSPB", "Portf[oö]y", "Yat[ıi]r[ıi]m Fon", "Emeklilik Yat[ıi]r[ıi]m Fon", "^Kurumsal Y[oö]netim Tebli[gğ]i"]
+    },
+    {
+      "ders_desen": "Bankac[ıi]l[ıi]k",
+      "izinli": ["^Bankac[ıi]l[ıi]k K\\. \\(5411", "^Bankalar[ıi]n ", "^BDDK ", "Varl[ıi]k Y[oö]netim [SŞ]irketlerinin", "6361 s\\.K\\.", "^TFRS 9\\b"]
+    },
+    {
+      "ders_desen": "Sigortac[ıi]l[ıi]k",
+      "izinli": ["^Sigortac[ıi]l[ıi]k K\\. \\(5684", "^BES K\\. \\(4632", "^Sigorta", "Emeklilik", "^TTK \\(6102 s\\.K\\.\\) m\\.1(4\\d\\d|5[0-2]\\d)\\b", "^TFRS 17\\b", "^Guvence Hesab", "^Afet Sigortalar", "Katilim Esaslari Cercevesinde Sigortacilik", "Bireysel Emeklilik"]
+    },
+    {
+      "ders_desen": "S[uü]rd[uü]r[uü]lebilirlik Raporlama",
+      "izinli": ["^TSRS", "^SPK Surdurulebilirlik", "^SPK Rehber - (S[uü]rd[uü]r[uü]lebilir|Ye[sş]il|Sorumlu)", "^SPK Yesil"]
+    },
+    {
+      "ders_desen": "S[uü]rd[uü]r[uü]lebilirlik Denetim",
+      "izinli": ["^GDS \\d", "^SBDS \\d", "^TSRS", "^KYS \\d", "^Etik Kurallar"]
+    }
+  ]
+}

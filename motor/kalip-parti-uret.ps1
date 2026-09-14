@@ -319,6 +319,10 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
       # kısmi türev sorusu SPK m.91/m.112 yüzünden hakemden döndü. Bu derslerin mevzuat kaynağı yoktur → yalnız TEORİ notu girer.
       # Etki ölçümü: 34 kayıt, paketi boşalan 0. Öteki dersler (GK_SAF false) birebir aynı.
       if($script:GK_SAF -and "$($x.kaynak_ad)" -notmatch '^(TEORI|Teori Notu)'){ Write-Host "  GK KAYNAK SÜZGECİ: teori dışı kaynak atlandı: $($x.kaynak_ad)" -ForegroundColor DarkGray; continue }
+      # 14.09 KAPI-AILE (Cem "1 ve 3 yap", yalnız -Sinav KGK): paket YALNIZ dersin resmî kaynak ailelerinden (veri/kgk-ders-aile.json).
+      # Ölçüldü: kgk-kurfin-30 'yönetim kurulu komiteleri' ← VYŞ Yön. m.1-5, 'sistematik olmayan risk' ← TFRS 17; sigorta 'BES devlet katkısı' ← TTK m.215-217.
+      # Etki (9 KGK önbelleği, 306 soru): 3.187 parçadan 254 ayıklanır, 29 paket boşalır (boş paket mevcut "kaynak çekilemedi" kapısıyla hakemden önce düşer).
+      if($script:KGK_AILE_RX -and "$($x.kaynak_ad)" -notmatch $script:KGK_AILE_RX){ $script:KAPI_AILE_SAY++; Write-Host "  KAPI-AILE: ders dışı kaynak ailesi atlandı: $($x.kaynak_ad)" -ForegroundColor DarkGray; continue }
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
     # 03.09 OLCULDU (SMMM 'kambiyo kari kaydi' -> KAYNAK BORCU; oysa THP 646 KAMBIYO KARLARI ambarda):
@@ -327,7 +331,7 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     if($d.StartsWith('@') -and @($r).Count -eq 0){
       $u2='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&kaynak_ad=imatch.'+[uri]::EscapeDataString($rx)+'&limit=3'
       $r2=$null; try{ $r2=Invoke-RestMethod -Uri $u2 -Headers $SB -TimeoutSec 60 }catch{}
-      foreach($x in @($r2)){ if($script:GK_SAF -and "$($x.kaynak_ad)" -notmatch '^(TEORI|Teori Notu)'){ continue }; if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") } }
+      foreach($x in @($r2)){ if($script:GK_SAF -and "$($x.kaynak_ad)" -notmatch '^(TEORI|Teori Notu)'){ continue }; if($script:KGK_AILE_RX -and "$($x.kaynak_ad)" -notmatch $script:KGK_AILE_RX){ $script:KAPI_AILE_SAY++; continue }; if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") } }
     }
     if($adlar.Count -ge 10){ break }
   }
@@ -1564,6 +1568,19 @@ $script:YD_MOD=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İng
 # kaynak adı süzgeci KAPALI (soru gövdesi kapısı KAPI-K ayrıca çalışır, YD'de o da kapalı).
 $script:GK_DERS=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce|Turkce|Türkçe|Matematik|Ataturk|Atatürk|Inkilap|İnkılap|Ekonomi|Maliye')
 $script:GK_SAF=[bool]($DersRegex -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce|Turkce|Türkçe|Matematik')   # 13.09: mevzuat kaynağı OLMAYAN üç ders (AmbarCek süzgeci); Maliye/Ekonomi/Atatürk kanun anabilir, girmez
+# 14.09 KAPI-AILE: yalnız KGK. Ders adına uyan TÜM kural satırlarının izinli desenleri birleşir (birleşik ders "KY ve FY" iki satırı da alır).
+# SGS/SMMM/SPL'de $script:KGK_AILE_RX boş kalır → AmbarCek davranışı birebir aynı. Kural dosyası yoksa ya da ders eşleşmezse DURULUR
+# (kapısız KGK üretimi = 14.09 öncesi yanlış aile paketleri; sessiz geçiş yok).
+$script:KGK_AILE_RX=''; $script:KAPI_AILE_SAY=0
+if($Sinav -eq 'KGK'){
+  $aileKuralYolu=Join-Path (Split-Path -Parent $PSScriptRoot) 'veri\kgk-ders-aile.json'
+  if(-not (Test-Path $aileKuralYolu)){ throw "KAPI-AILE: kural dosyası yok ($aileKuralYolu) — KGK üretimi kapısız koşmaz" }
+  $aileKurallari=Get-Content $aileKuralYolu -Raw -Encoding UTF8 | ConvertFrom-Json
+  $aileDesenleri=@(); foreach($aileKurali in $aileKurallari.dersler){ if($DersRegex -match "(?i)$($aileKurali.ders_desen)"){ $aileDesenleri+=@($aileKurali.izinli) } }
+  if($aileDesenleri.Count -eq 0){ throw "KAPI-AILE: '$DersRegex' için veri/kgk-ders-aile.json'da ders satırı yok — önce kural eklenmeli" }
+  $script:KGK_AILE_RX='(?i)(' + ($aileDesenleri -join ')|(') + ')'
+  Write-Host ("KAPI-AILE açık: {0} izinli kaynak deseni ({1})" -f $aileDesenleri.Count,$DersRegex) -ForegroundColor Cyan
+}
 $YD_DIL_KURAL=@'
 
     YABANCI DİL (İNGİLİZCE) MODU: Bu ders SGS kitapçığının 21–30. soruları gibi İNGİLİZCE yazılır. Soru kökü ve 5 şık İngilizce;
