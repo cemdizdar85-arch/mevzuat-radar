@@ -22,6 +22,7 @@ param(
   [switch]$AdimYenile,     # 04.09 Cem "30'luk SGS seti": pilot id'lerin ESKI adimlari silinir, ogretici istemle yeniden yazilir
   [switch]$SadeceAdim,     # 04.09: yalniz FAZ B (adim) calisir; ikiz/yevmiye/hakem fazlari atlanir (bedel yalniz onaylanan is)
   [switch]$Sade,           # 04.09 Cem "dogru kismini herkesin anlayacagi dilde": FAZ S (sade Dogrusu + anahtar kavram) - sade'si OLMAYAN sorulara; ayri onayli bedel
+  [switch]$SadeceHakem,     # 14.09 (bitirme, Cem "1.2. yap"): yalnız hakem fazı koşar, bedel defterine yazılır ve betik orada biter (kör/hakem2/anlatım çağrılmaz). Varsayılan kapalı → davranış aynı
   [switch]$SadeYenile,     # 04.09: FAZ S eldeki sade'yi de yeniden yazar
   [int]$Adet=30,
   [int]$UzunlukTavan=350,  # 04.09: ders bazlı soru uzunluğu tavanı (kr). FMuh medyan 317 → 350 (Cem 02.09). Maliyet medyan 551 → 600.
@@ -3535,6 +3536,21 @@ Bu tip soruda isaretli DOGRU SIK, kurala AYKIRI ya da YANLIS olan ifadedir; sikk
 - 8) DOGRU SIK VAR MI sorusunda kokun istedigi YANLIS ifadeyi ara.
 - Isaretli siktan baska bir sik da kurala aykiriysa (iki yanlis ifade varsa) tek_anlam alanina CIFT-ANLAM yaz.
 '@
+# 14.09 yalnız bitirme: olumsuz kökte çelişkili HAYIR için ikinci bakış istemi (kullanım: hakem döngüsü, 'HAKEM CIKTISI BOZUK' satırının üstü)
+$IKINCI_BAKIS_ISTEM=@'
+Sen SMMM Yeterlilik sinav komisyonunda kidemli bir hakemsin. Asagidaki sorunun koku OLUMSUZDUR: kok, kurala AYKIRI ya da YANLIS olan ifadeyi istiyor.
+Isaretli cevap {DOGRU} sikkidir. YALNIZ asagidaki KAYNAK METNINE dayanarak uc seyi incele (ezberinle hukum verme):
+1) isaretli_yanlis_mi: {DOGRU} sikkindaki ifade kaynaga gore gercekten YANLIS / kurala aykiri mi? (EVET | HAYIR | TEYITSIZ)
+2) oteki_siklar: {DOGRU} DISINDAKI dort sikkin her biri kaynaga gore DOGRU mu? Her harf icin DOGRU | YANLIS | TEYITSIZ yaz.
+   Baska bir sik da yanlissa soru iki cevaplidir; kaynakta dayanagi bulunmayan sik TEYITSIZ'dir.
+3) kaynak_yeterli: kaynak metni bu yargilari vermeye yetiyor mu? (EVET | HAYIR)
+karar: 1 EVET, 2'de dort sikkin HEPSI DOGRU ve 3 EVET ise EVET; aksi halde HAYIR. Emin degilsen HAYIR.
+Yalniz JSON: {"karar":"EVET|HAYIR","isaretli_yanlis_mi":"EVET|HAYIR|TEYITSIZ","isaretli_gerekce":"tek cumle, kaynaktaki hukmu an","oteki_siklar":{"A":"DOGRU|YANLIS|TEYITSIZ","B":"...","C":"...","D":"...","E":"..."},"kaynak_yeterli":"EVET|HAYIR","gerekce":"tek cumle"}
+=== SORU === {SORU}
+=== SIKLAR ===
+{SIKLAR}
+=== KAYNAK METNI === {KAYNAK}
+'@
 # --- 11.09 TOPLU: FAZ H de iki gecisli kosar (Cem "toplu istege gec") ---------
 # A · K · H2 · B · G · C fazlari 08.09'dan beri toplu gidiyordu; HAKEM ve SADE
 # disarida kalmisti. Hasat turu tam bu iki fazi kosuyor: 1.098 soru x 2 cagri
@@ -3761,6 +3777,35 @@ $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Re
     # 08.09 güncellik + atıf (hakem 5 ve 6): ESKI / ATIF-YANLIS karar HAYIR'la gelir (istem); TEYITSIZ yayına çıkar ama karneye iz düşer
     if($hk.PSObject.Properties['guncellik'] -and "$($hk.guncellik)" -eq 'ESKI'){ Write-Host "  GÜNCELLİK ESKİ (KAPI-M/S hakem): $id [$($cvp.konu)] -> $($hk.guncellik_gerekce)" -ForegroundColor Magenta; $rapor.Add("GUNCELLIK ESKI (hakem): $($cvp.konu) | $($hk.guncellik_gerekce)") }
     if($hk.PSObject.Properties['atif'] -and "$($hk.atif)" -ne 'EVET'){ Write-Host "  ATIF $($hk.atif) (hakem): $id [$($cvp.konu)] -> $($hk.atif_gerekce)" -ForegroundColor $(if("$($hk.atif)" -eq 'ATIF-YANLIS'){'Magenta'}else{'DarkYellow'}); $rapor.Add("ATIF $($hk.atif) (hakem): $($cvp.konu) | $($hk.atif_gerekce)") }
+    # 14.09 YALNIZ BİTİRME — OLUMSUZ KÖK İKİNCİ BAKIŞ (Cem "1.2. yap"). 13.09 olumsuz kök notu istemde duruyor ama Haiku onu dinlemedi:
+    # ÖLÇÜLDÜ (önbelleğin tamamı, 14.09): bitirmede hakemin gördüğü 5 olumsuz köklü sorunun 3'ü düştü, üçünde de gerekçe kararla çelişiyordu
+    # (smmm-gm-p2-vergi kp-03 iki kez, pilot ydenetim-zor BDS 265 p.10(b), yhukuk-zor İş K. m.21: 'işaretli şık yanlış ifade' diyip HAYIR).
+    # Alt ölçütlerin HEPSİ temizken gelen HAYIR, daha güçlü modele DAR bir soruyla bir kez sorulur: işaretli şık kaynağa göre yanlış mı,
+    # öteki DÖRT şıkkın her biri kaynağa göre doğru mu, kaynak yetiyor mu. Karar ancak üçü de temizse EVET'e döner (mekanik denetim);
+    # herhangi biri TEYITSIZ/HAYIR ise ilk HAYIR kalır. Kayıt hakem.ikinci_bakis'ta. SGS/KGK'da koşul ilk terimde düşer.
+    if($Sinav -eq 'SMMM' -and "$($cvp.soru)".Trim() -match $OLUMSUZ_KOK_RX -and "$($hk.karar)" -eq 'HAYIR' -and "$($hk.dogru_sik_var)".Trim().ToUpperInvariant() -eq 'EVET' -and "$($hk.tek_anlam)" -eq 'EVET' -and "$($hk.ders_uyum)" -eq 'EVET' -and "$($hk.konu_uyum)" -eq 'EVET' -and "$($hk.hesap_uyum)" -ne 'HESAP-YANLIS' -and "$($hk.guncellik)" -ne 'ESKI' -and "$($hk.atif)" -ne 'ATIF-YANLIS'){
+      $ibHarf="$($cvp.dogru)".Trim().ToUpperInvariant()
+      $ibSiklar=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
+      $ibIst=$IKINCI_BAKIS_ISTEM.Replace('{DOGRU}',$ibHarf).Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$ibSiklar).Replace('{KAYNAK}',$kMetin)
+      $ibY=$null; foreach($d in 1..3){ try{ $ibY=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $ibIst -MaxTok 1500; break }catch{ if($d -eq 3){ $ibY=$null }else{ Start-Sleep -Seconds (8*$d) } } }
+      $ibO=$(if($ibY){ Coz $ibY.metin } else { $null })
+      $ibTemiz=$false; $ibNeden='ikinci bakış çağrısı düştü ya da çıktı bozuk'
+      if($ibO -and $ibO.PSObject.Properties['karar']){
+        $ibOteki=@(@('A','B','C','D','E') | Where-Object { $_ -ne $ibHarf } | ForEach-Object { $ibH=$_; $ibD=$(if($ibO.oteki_siklar -and $ibO.oteki_siklar.PSObject.Properties[$ibH]){ "$($ibO.oteki_siklar.$ibH)".Trim().ToUpperInvariant() } else { '' }); if($ibD -ne 'DOGRU'){ "$ibH=$(if($ibD){$ibD}else{'YOK'})" } })
+        if("$($ibO.karar)".Trim().ToUpperInvariant() -ne 'EVET'){ $ibNeden="ikinci bakış da HAYIR: $($ibO.gerekce)" }
+        elseif("$($ibO.isaretli_yanlis_mi)".Trim().ToUpperInvariant() -ne 'EVET'){ $ibNeden="işaretli şık kaynağa göre yanlış bulunmadı ($($ibO.isaretli_yanlis_mi))" }
+        elseif("$($ibO.kaynak_yeterli)".Trim().ToUpperInvariant() -ne 'EVET'){ $ibNeden='kaynak yetersiz' }
+        elseif($ibOteki.Count){ $ibNeden="öteki şıklardan kaynağa göre doğru olmayan/teyitsiz: $($ibOteki -join ', ')" }
+        else{ $ibTemiz=$true; $ibNeden="$($ibO.gerekce)" }
+      }
+      $ibKayit=[pscustomobject][ordered]@{ model='claude-sonnet-5'; ilk_karar='HAYIR'; ilk_gerekce="$($hk.gerekce)"; sonuc=$(if($ibTemiz){'EVET'}else{'HAYIR'}); neden=$ibNeden; ham=$ibO; tarih=(Get-Date -Format 'yyyy-MM-dd') }
+      $hk | Add-Member -NotePropertyName ikinci_bakis -NotePropertyValue $ibKayit -Force
+      if($ibTemiz){ $hk.karar='EVET' }
+      $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force; CacheYaz
+      if($ibY){ Write-Host ("  İKİNCİ BAKIŞ TOKEN {0}: girdi {1} · cikti {2}" -f $id,$ibY.girdi,$ibY.cikti) -ForegroundColor DarkGray }
+      Write-Host "  HAKEM İKİNCİ BAKIŞ ($id, olumsuz kök): $(if($ibTemiz){'EVET — çelişkili HAYIR kalktı'}else{'HAYIR kaldı'}) · $ibNeden" -ForegroundColor $(if($ibTemiz){'Green'}else{'Red'})
+      $rapor.Add("HAKEM IKINCI BAKIS: $id | $(if($ibTemiz){'EVET'}else{'HAYIR'}) | $ibNeden")
+    }
   } else { $rapor.Add("HAKEM CIKTISI BOZUK: $id") }
 }
 # 1. gecisin rapor satirlarini geri al (FAZ A ile ayni desen): on gecis hicbir
@@ -3775,6 +3820,30 @@ $script:ON_GECIS=$false
 $hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and ("$($don[$_].hakem.karar)" -eq 'HAYIR' -or "$($don[$_].hakem.konu_uyum)" -eq 'KONU-DISI') })
 foreach($id in @($don.Keys)){ if($don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI'){ Write-Host "  KONU-DISI (KAPI D): $id [$($don[$id].konu)] -> $($don[$id].hakem.konu_gerekce)" -ForegroundColor Magenta } }
 $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
+# 14.09: bedel defteri bloğu fonksiyon (gövde aynen; çağrı yeri değişmedi, -SadeceHakem erken çıkışı da çağırır)
+function BedelDefterYaz{
+try{
+  if(Get-Command Get-BedelOzet -ErrorAction SilentlyContinue){
+    $bz=Get-BedelOzet
+    foreach($s in $bz.satirlar){ Write-Host ("  BEDEL {0}: {1} çağrı · girdi {2} · çıktı {3} · önbellek okuma {4} · ≈{5} USD" -f $s.model,$s.cagri,$s.girdi,$s.cikti,$s.onbellekOkuma,$(if($null -ne $s.usd){ $s.usd } else { '?' })) -ForegroundColor DarkCyan }
+    Write-Host ("BEDEL TOPLAM (bu koşu, {0}): ≈{1} USD{2}" -f $Etiket,$bz.toplamUsd,$(if($bz.fiyatVarsayim){ ' (fiyat tablosu VARSAYIM: Sonnet 3/15, Opus 15/75, Haiku 1/5 USD/M; MEVZUAT_FIYAT_JSON ile ez)' } else { '' })) -ForegroundColor Cyan
+    if($bz.bilinmeyenModel.Count){ Write-Host "  BEDEL: fiyatı bilinmeyen model: $($bz.bilinmeyenModel -join ', ')" -ForegroundColor Yellow }
+    $bedelYol=Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl'
+    # 11.09 (Cem "paralel kostur"): artik AYNI ANDA birden cok parti kosuyor ve
+    # hepsi bu TEK dosyaya ekliyor. Kilitsiz AppendAllText'te iki surec ayni anda
+    # yazarsa satir bozulur ya da cagri "erisim engellendi" ile duser - bedel
+    # defteri, harcamanin TEK kaydidir; bozulmasi olculemez harcama demektir.
+    # Makine capinda adlandirilmis Mutex (bekleyen-partiler.json ile ayni desen).
+    $bedelSatir=((ConvertTo-Json -InputObject ([ordered]@{ zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiket=$Etiket; ders=$DersRegex; toplamUsd=$bz.toplamUsd; varsayim=$bz.fiyatVarsayim; satirlar=$bz.satirlar }) -Compress -Depth 4)+"`n")
+    $bmx=New-Object System.Threading.Mutex($false,'Global\tetikte-bedel-kayit'); $bal=$false
+    try{ $bal=$bmx.WaitOne(20000) }catch{ $bal=$true }   # AbandonedMutex: sahibi olduk
+    try{ [IO.File]::AppendAllText($bedelYol,$bedelSatir,[Text.UTF8Encoding]::new($false)) }
+    finally{ if($bal){ try{ $bmx.ReleaseMutex() }catch{} }; $bmx.Dispose() }
+    if($bz.toplamUsd -gt 0 -and -not @($bz.satirlar | Where-Object { $_.onbellekOkuma -gt 0 }).Count){ Write-Host "  BEDEL NOTU: istem önbelleği hiç okunmadı (0) — kaynak paketi cache_control ile işaretlenirse girdi bedeli düşer (açık iş)" -ForegroundColor DarkYellow }
+  }
+}catch{ Write-Host "  BEDEL özeti yazılamadı: $($_.Exception.Message)" -ForegroundColor Yellow }
+}
+if($SadeceHakem){ Write-Host "SADECE HAKEM: hakem fazı bitti; kör/hakem2/anlatım fazları bu koşuda ÇAĞRILMADI" -ForegroundColor Cyan; if($rapor.Count){ $rapor | Select-Object -Last 20 | ForEach-Object { Write-Host "  RAPOR: $_" -ForegroundColor DarkGray } }; BedelDefterYaz; return }
 
 # 08.09 21:40 Cem "hakemi öne al yaz": KAPI B (dayanak hakemi, Haiku ≈0,03 USD/soru) artık FAZ A'nın hemen ardında. Tur 1 ölçümü: hakem HAYIR
 # soruların üçte biri; her biri adım+giriş+ikiz+sim+kör+hakem2'den geçip ≈0,20 USD yiyordu. Hakemden geçmeyen soru pahalı fazlara GİRMEZ.
@@ -4843,26 +4912,7 @@ foreach($id in @($don.Keys)){
 if($script:aritYaz -and -not $SadeceHtml){ CacheYaz }
 
 # --- BEDEL (07.09 A kovası 9): bu koşunun bütün çağrıları model bazında + USD tahmini; veri/fabrika/bedel-<etiket>.jsonl'a eklenir ---------
-try{
-  if(Get-Command Get-BedelOzet -ErrorAction SilentlyContinue){
-    $bz=Get-BedelOzet
-    foreach($s in $bz.satirlar){ Write-Host ("  BEDEL {0}: {1} çağrı · girdi {2} · çıktı {3} · önbellek okuma {4} · ≈{5} USD" -f $s.model,$s.cagri,$s.girdi,$s.cikti,$s.onbellekOkuma,$(if($null -ne $s.usd){ $s.usd } else { '?' })) -ForegroundColor DarkCyan }
-    Write-Host ("BEDEL TOPLAM (bu koşu, {0}): ≈{1} USD{2}" -f $Etiket,$bz.toplamUsd,$(if($bz.fiyatVarsayim){ ' (fiyat tablosu VARSAYIM: Sonnet 3/15, Opus 15/75, Haiku 1/5 USD/M; MEVZUAT_FIYAT_JSON ile ez)' } else { '' })) -ForegroundColor Cyan
-    if($bz.bilinmeyenModel.Count){ Write-Host "  BEDEL: fiyatı bilinmeyen model: $($bz.bilinmeyenModel -join ', ')" -ForegroundColor Yellow }
-    $bedelYol=Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl'
-    # 11.09 (Cem "paralel kostur"): artik AYNI ANDA birden cok parti kosuyor ve
-    # hepsi bu TEK dosyaya ekliyor. Kilitsiz AppendAllText'te iki surec ayni anda
-    # yazarsa satir bozulur ya da cagri "erisim engellendi" ile duser - bedel
-    # defteri, harcamanin TEK kaydidir; bozulmasi olculemez harcama demektir.
-    # Makine capinda adlandirilmis Mutex (bekleyen-partiler.json ile ayni desen).
-    $bedelSatir=((ConvertTo-Json -InputObject ([ordered]@{ zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiket=$Etiket; ders=$DersRegex; toplamUsd=$bz.toplamUsd; varsayim=$bz.fiyatVarsayim; satirlar=$bz.satirlar }) -Compress -Depth 4)+"`n")
-    $bmx=New-Object System.Threading.Mutex($false,'Global\tetikte-bedel-kayit'); $bal=$false
-    try{ $bal=$bmx.WaitOne(20000) }catch{ $bal=$true }   # AbandonedMutex: sahibi olduk
-    try{ [IO.File]::AppendAllText($bedelYol,$bedelSatir,[Text.UTF8Encoding]::new($false)) }
-    finally{ if($bal){ try{ $bmx.ReleaseMutex() }catch{} }; $bmx.Dispose() }
-    if($bz.toplamUsd -gt 0 -and -not @($bz.satirlar | Where-Object { $_.onbellekOkuma -gt 0 }).Count){ Write-Host "  BEDEL NOTU: istem önbelleği hiç okunmadı (0) — kaynak paketi cache_control ile işaretlenirse girdi bedeli düşer (açık iş)" -ForegroundColor DarkYellow }
-  }
-}catch{ Write-Host "  BEDEL özeti yazılamadı: $($_.Exception.Message)" -ForegroundColor Yellow }
+BedelDefterYaz   # 14.09: blok fonksiyona alındı (gövde aynen) — -SadeceHakem erken çıkışı da aynı defteri yazar
 
 # --- SAYFA (tiklanabilir TAM deneyim: sik->tuzak->oynatici->ikiz->ipucu) -----
 $ekCss=@'
