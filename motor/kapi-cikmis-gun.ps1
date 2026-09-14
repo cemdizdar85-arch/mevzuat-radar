@@ -141,19 +141,68 @@ public class KapiCikmisDizin {
 $script:CIKMIS_DIZIN = $null
 $script:CIKMIS_DIZIN_KOR = ''
 $script:KCB_KLASIK_SMMM = $false   # 13.09: üretici $Sinav -eq 'SMMM' iken açar (klasik SMMM soru kısmı dizine); varsayılan kapalı → SGS/KGK dizini aynı
+# 14.09 KAPI-CB DİSK ÖNBELLEĞİ (Cem, paralel hat notu: "253 belgeyi günde bir kez indirip diskten okusun; paralel hatlarda en büyük
+# süre kazancı bu"). ÖLÇÜLDÜ (pilot 1309 günlükleri): her parti CikmisDiziniKur'da çıkmış soruları (tur=cikmis-soru) ve bitirmede klasik
+# SMMM belgelerini ambardan BAŞTAN indiriyordu; 3 paralel partide aynı indirme aynı anda üç kez.
+# Kural: ambar sayfalarının HAM JSON gövdesi günde bir kez yerel diske (OneDrive DIŞI: %LOCALAPPDATA%\tetikte\cikmis-onbellek\<anahtar>-<gün>)
+# yazılır, gün içindeki bütün koşular oradan okur. Okuyan kod gövdeyi ağdan gelmiş gibi AYNI ConvertFrom-Json yolundan geçirir → dizin
+# birebir aynı. Aynı gün paralel partilerden yalnız biri indirir (makine çapında Mutex), ötekiler bekleyip diskten okur. İndirme yarıda
+# düşerse klasör silinir ve hata eskisi gibi yukarı atılır (KAPI-CB KÖR). TAMAM işareti olmayan klasör okunmaz. Eski günlerin klasörü silinir.
+# Bedel: gün içinde ambarda yeni çıkmış belge eklenirse kapı onu ertesi gün görür (Cem'in istediği "günde bir kez").
+function CikmisOnbellekDizini([string]$anahtar) {
+  $kokD = $(if ($env:LOCALAPPDATA) { Join-Path $env:LOCALAPPDATA 'tetikte' } else { [IO.Path]::GetTempPath() })
+  return (Join-Path (Join-Path $kokD 'cikmis-onbellek') ("$anahtar-" + (Get-Date -Format 'yyyyMMdd')))
+}
+function CikmisSayfalariOku([string]$anahtar, [string]$adresTaban, $basliklar) {
+  $dizinD = CikmisOnbellekDizini $anahtar
+  $tamamYol = Join-Path $dizinD 'TAMAM'
+  $kilit = $null; $sahip = $false
+  try {
+    if (-not (Test-Path $tamamYol)) {
+      $kilit = New-Object System.Threading.Mutex($false, "Global\tetikte-cikmis-onbellek-$anahtar")
+      try { $sahip = $kilit.WaitOne(900000) } catch [System.Threading.AbandonedMutexException] { $sahip = $true }
+    }
+    $sayfalar = New-Object System.Collections.Generic.List[string]
+    $yazabilir = ($sahip -or -not $kilit)   # kilidi 15 dk bekleyip ALAMAYAN parti diske DOKUNMAZ (öteki indirirken klasörü silmesin); yalnız ağdan okur
+    if (Test-Path $tamamYol) {
+      foreach ($dosyaS in @(Get-ChildItem $dizinD -Filter 'sayfa-*.json' | Sort-Object Name)) { $sayfalar.Add([IO.File]::ReadAllText($dosyaS.FullName, [Text.UTF8Encoding]::new($false))) }
+      Write-Host "  KAPI-CB disk önbelleği ($anahtar): $($sayfalar.Count) sayfa diskten okundu" -ForegroundColor DarkGray
+      return , $sayfalar
+    }
+    if ($yazabilir) { if (Test-Path $dizinD) { Remove-Item $dizinD -Recurse -Force }; New-Item -ItemType Directory -Force $dizinD | Out-Null }
+    else { Write-Host "  KAPI-CB disk önbelleği ($anahtar): indirme kilidi 15 dk içinde alınamadı → bu koşu yalnız ağdan okuyor, diske yazmıyor" -ForegroundColor DarkYellow }
+    $ofsD = 0
+    try {
+      while ($true) {
+        $adrD = $adresTaban + $ofsD
+        $yanitD = $null
+        for ($denD = 1; $denD -le 3; $denD++) { try { $yanitD = Invoke-WebRequest -Uri $adrD -Headers $basliklar -UseBasicParsing -TimeoutSec 180; break } catch { if ($denD -eq 3) { throw }; Start-Sleep -Seconds (5 * $denD) } }
+        $icerikD = $yanitD.Content
+        if ($yazabilir) { [IO.File]::WriteAllText((Join-Path $dizinD ('sayfa-{0:D4}.json' -f $sayfalar.Count)), $icerikD, [Text.UTF8Encoding]::new($false)) }
+        $sayfalar.Add($icerikD)
+        $adetD = @((ConvertFrom-Json -InputObject $icerikD)).Count
+        $ofsD += $adetD
+        if ($adetD -lt 40) { break }
+      }
+    } catch { if ($yazabilir) { Remove-Item $dizinD -Recurse -Force -ErrorAction SilentlyContinue }; throw }
+    if (-not $yazabilir) { return , $sayfalar }
+    [IO.File]::WriteAllText($tamamYol, (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), [Text.UTF8Encoding]::new($false))
+    foreach ($eskiD in @(Get-ChildItem (Split-Path $dizinD -Parent) -Directory -Filter "$anahtar-*" -ErrorAction SilentlyContinue | Where-Object { $_.FullName -ne $dizinD })) { Remove-Item $eskiD.FullName -Recurse -Force -ErrorAction SilentlyContinue }
+    Write-Host "  KAPI-CB disk önbelleği ($anahtar): ambardan indirildi, $($sayfalar.Count) sayfa diske yazıldı" -ForegroundColor DarkGray
+    return , $sayfalar
+  } finally { if ($sahip) { try { $kilit.ReleaseMutex() } catch {} }; if ($kilit) { $kilit.Dispose() } }
+}
+
 function CikmisDiziniKur($basliklar) {
   if ($null -ne $script:CIKMIS_DIZIN -or $script:CIKMIS_DIZIN_KOR) { return $script:CIKMIS_DIZIN }
   $dizinYeni = New-Object KapiCikmisDizin
   $belgeSay = 0; $ofs = 0
   try {
-    while ($true) {
-      $adr = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&order=id.asc&limit=40&offset=' + $ofs
-      $yanitSayfa = $null
-      for ($den = 1; $den -le 3; $den++) { try { $yanitSayfa = Invoke-WebRequest -Uri $adr -Headers $basliklar -UseBasicParsing -TimeoutSec 180; break } catch { if ($den -eq 3) { throw } ; Start-Sleep -Seconds (5 * $den) } }
-      $satirlar = @((ConvertFrom-Json -InputObject $yanitSayfa.Content))
+    # 14.09: sayfalar günlük disk önbelleğinden (ağdan aynı sorgu, aynı sıra; gövde aynı ConvertFrom-Json yolundan geçer)
+    foreach ($icerikSayfa in (CikmisSayfalariOku 'cikmis-soru' 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&order=id.asc&limit=40&offset=' $basliklar)) {
+      $satirlar = @((ConvertFrom-Json -InputObject $icerikSayfa))
       foreach ($st in $satirlar) { if ($st) { $dizinYeni.BelgeEkle("$($st.kaynak_ad)", "$($st.metin)"); $belgeSay++ } }
       $ofs += $satirlar.Count
-      if ($satirlar.Count -lt 40) { break }
     }
   } catch { $script:CIKMIS_DIZIN_KOR = "ambar çekilemedi: $($_.Exception.Message)"; Write-Host "  KAPI-CB KÖR: $($script:CIKMIS_DIZIN_KOR)" -ForegroundColor Red; return $null }
   if ($belgeSay -lt 100) { $script:CIKMIS_DIZIN_KOR = "ambardan yalnız $belgeSay çıkmış belge geldi (beklenen >= 100)"; Write-Host "  KAPI-CB KÖR: $($script:CIKMIS_DIZIN_KOR)" -ForegroundColor Red; return $null }
@@ -162,11 +211,9 @@ function CikmisDiziniKur($basliklar) {
   if ($script:KCB_KLASIK_SMMM) {
     $klasikSay = 0; $ofsK = 0
     try {
-      while ($true) {
-        $adrK = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-komisyon-cevabi&kaynak_ad=ilike.' + [uri]::EscapeDataString('%smmm_%') + '&order=id.asc&limit=40&offset=' + $ofsK
-        $yanitK = $null
-        for ($denK = 1; $denK -le 3; $denK++) { try { $yanitK = Invoke-WebRequest -Uri $adrK -Headers $basliklar -UseBasicParsing -TimeoutSec 180; break } catch { if ($denK -eq 3) { throw }; Start-Sleep -Seconds (5 * $denK) } }
-        $satirK = @((ConvertFrom-Json -InputObject $yanitK.Content))
+      # 14.09: sayfalar günlük disk önbelleğinden (ağdan aynı sorgu, aynı sıra)
+      foreach ($icerikK in (CikmisSayfalariOku 'cikmis-klasik-smmm' ('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-komisyon-cevabi&kaynak_ad=ilike.' + [uri]::EscapeDataString('%smmm_%') + '&order=id.asc&limit=40&offset=') $basliklar)) {
+        $satirK = @((ConvertFrom-Json -InputObject $icerikK))
         foreach ($stK in $satirK) {
           if (-not $stK) { continue }
           $metinK = ("$($stK.metin)" -replace '\s+', ' ')
@@ -176,7 +223,6 @@ function CikmisDiziniKur($basliklar) {
           $dizinYeni.BelgeEkleKlasik("$($stK.kaynak_ad)", $soruK); $klasikSay++
         }
         $ofsK += $satirK.Count
-        if ($satirK.Count -lt 40) { break }
       }
       Write-Host "  KAPI-CB klasik SMMM soru kısmı dizine eklendi: $klasikSay belge" -ForegroundColor DarkGray
     } catch { Write-Host "  KAPI-CB klasik SMMM eklenemedi (test dizini yine çalışır, klasik KÖR): $($_.Exception.Message)" -ForegroundColor Red }
