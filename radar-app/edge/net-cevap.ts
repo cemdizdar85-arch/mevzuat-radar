@@ -1,3 +1,4 @@
+// @ts-nocheck  (14.09: kisisel-gizle.js blogu duz JS; tip denetimi yayini durdurmasin)
 // ============================================================================
 //  NET-CEVAP Edge Function (Supabase)  —  soru → kaynak parçaları → Claude →
 //  sade Türkçe, KAYNAĞA BAĞLI cevap. Kaynakta yoksa UYDURMAZ: kapsamda=false.
@@ -136,6 +137,52 @@ async function ozetle(istem: string): Promise<OzetSonuc> {
   }
 }
 
+// ---- KISISEL BILGI GIZLEME (14.09.2026) ------------------------------------
+// Soru yurt disindaki ozetleyiciye gitmeden TC kimlik / VKN / telefon / e-posta / IBAN
+// etiketle degistirilir. Tarayici (soru-cevap.html) zaten gizleyip gonderiyor; bu
+// ikinci kat, sayfayi atlayip dogrudan bu uca yazan istekler icin.
+// KAYNAK: kisisel-gizle.js - blok BIREBIR ayni kalir (node kisisel-gizle.js --sinav denetler).
+// GIZLE-BASLA
+function kisiselGizle(metin) {
+  var s = String(metin == null ? '' : metin);
+  var sayac = { iban: 0, eposta: 0, telefon: 0, tckn: 0, vkn: 0 };
+  var PARA = /^\s*(tl|₺|try|lira|usd|eur|\$|€|dolar|euro|avro)\b/i;
+  function tcknGecerli(d) {
+    if (d.length !== 11 || d[0] === '0') return false;
+    var n = d.split('').map(Number);
+    var on = ((n[0] + n[2] + n[4] + n[6] + n[8]) * 7 - (n[1] + n[3] + n[5] + n[7])) % 10;
+    if (((on % 10) + 10) % 10 !== n[9]) return false;
+    var top = 0; for (var i = 0; i < 10; i++) top += n[i];
+    return top % 10 === n[10];
+  }
+  function vknGecerli(d) {
+    if (d.length !== 10) return false;
+    var n = d.split('').map(Number), top = 0;
+    for (var i = 0; i < 9; i++) {
+      var t = (n[i] + (9 - i)) % 10;
+      var v = (t * Math.pow(2, 9 - i)) % 9;
+      if (t !== 0 && v === 0) v = 9;
+      top += v;
+    }
+    return (10 - (top % 10)) % 10 === n[9];
+  }
+  s = s.replace(/\bTR\s?\d{2}(?:\s?\d{4}){5}\s?\d{2}\b/gi, function () { sayac.iban++; return '[IBAN]'; });
+  s = s.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, function () { sayac.eposta++; return '[e-posta]'; });
+  s = s.replace(/(^|[^\d])((?:(?:\+90|0090|90)[\s-]?)?\(?0?5\d{2}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2})(?!\d)/g, function (m, on, tel) {
+    sayac.telefon++; return on + '[telefon]';
+  });
+  s = s.replace(/(^|[^\d.,])(\d{10,11})(?![\d.,]*\d)/g, function (m, on, d, konum, tum) {
+    var sonra = tum.slice(konum + m.length);
+    if (PARA.test(sonra)) return m;
+    if (d.length === 11 && tcknGecerli(d)) { sayac.tckn++; return on + '[TC kimlik no]'; }
+    if (d.length === 10 && vknGecerli(d)) { sayac.vkn++; return on + '[vergi no]'; }
+    return m;
+  });
+  var toplam = sayac.iban + sayac.eposta + sayac.telefon + sayac.tckn + sayac.vkn;
+  return { metin: s, gizlenen: toplam, sayac: sayac };
+}
+// GIZLE-BITIR
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
 
@@ -157,7 +204,7 @@ Deno.serve(async (req) => {
   if (await rlAsti(ip)) return json({ kapsamda: false, neden: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   try {
     const { soru } = await req.json();
-    const q = String(soru || "").slice(0, 400);
+    const q = kisiselGizle(String(soru || "")).metin.slice(0, 400);
     if (q.trim().length < 4) return json({ kapsamda: false, neden: "soru kisa" });
 
     // ---- 1) KAYNAK TOPLA -------------------------------------------------

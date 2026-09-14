@@ -82,6 +82,7 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
 .paywall h3{margin:0 0 6px;font-size:19px}.paywall p{margin:0 0 15px;font-size:13.5px;color:var(--muted)}
 .hak{font-size:12px;color:var(--dim);margin-top:10px;font-family:var(--mono)}
 .uyari{font-size:12px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:16px 0}.uyari b{color:var(--muted)}
+.gizleNot{font-size:12px;color:var(--dim);margin:8px 2px 0}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 </style>
 <style>
@@ -115,8 +116,8 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
          hale getirmek icin ekibe iletiliyor (form-al uç fonksiyonu) - kullanici bunu
          BILMELIYDI. Aciklama + KVKK baglantisi eklendi. -->
     <div style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.5">
-      Sorular kimlikle eşleştirilmez. Cevaplayamadığımız soru, kapsama eklenmesi
-      için yazdığın haliyle ekibe iletilir, kişisel veri yazmamanı öneririz.
+      Soruların kimliğinle eşleştirilmez. Yazdığın TC kimlik, vergi no, telefon, e-posta ve IBAN
+      gönderilmeden önce otomatik gizlenir. Cevaplanamayan sorular bilgi tabanını büyütmek için kaydedilir.
       <a href="kvkk.html" style="color:var(--accent2)">Aydınlatma metni</a>
     </div>
   </div>
@@ -127,6 +128,7 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
   <div class="dip">Tetikte · Net Cevap (kaynağa bağlı) · Kaynak: mevzuat.gov.tr / GİB / KİK / TÜRKPATENT, birincil. Tetikte, bir Dizdar Denetim Danışmanlık ve Yazılım A.Ş. yazılımıdır.</div>
 </div>
 
+<script src="kisisel-gizle.js"></script>
 <script>
 const LIMIT=3, LSK='mr_sorucevap_hak';
 let KB={kayitlar:[]}, RGK=null;
@@ -225,8 +227,8 @@ function durustKutu(){
   return `<div class="durust"><div class="konu">KAPSAMDA DEĞİL</div>`
     +`<h3>Bunu şu an güvenle cevaplayamıyorum</h3>`
     +`<p>Bu soru doğrulanmış bilgi tabanımızda henüz yok. <b>Uydurmuyorum</b>, yanlış bir rakam/süre sana ceza olarak döner, o riski almam.</p>`
-    +`<p>Sorunu kaydettim; kaynağını (madde/tebliğ/özelge) yükleyip ekleyeceğiz. Bu arada resmî kaynağa (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p>`
-    +`<div class="neden"><b>Neden boş cevap veriyoruz?</b> Çünkü emin olmadığımızda konuşmak, emin olduğumuzda konuşmaktan daha kötüdür. Bilgi tabanımız her gün büyüyor, talebin ona ekleniyor.</div></div>`;
+    +`<p>Bu konu bilgi tabanına eklenecekler listesine yazıldı. Şimdilik resmî kaynağa (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p>`
+    +`<div class="neden"><b>Neden boş cevap veriyoruz?</b> Çünkü emin olmadığımızda konuşmak, emin olduğumuzda konuşmaktan daha kötüdür. Bilgi tabanımız her gün büyüyor.</div></div>`;
 }
 // 26.08: deneme.html "Hocaya sor" koprusu — ?soru=... ile gelinirse kutu dolu acilir
 // (otomatik SORMAZ: sorgu hakki kullanicinin bilincli tikiyla harcansin).
@@ -237,7 +239,7 @@ function durustKutu(){
   }catch(e){}
 })();
 async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('sorucevap')) return;
-  const q=$('#soru').value.trim(); if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }
+  const gz=kisiselGizle($('#soru').value.trim()); const q=gz.metin; SON_GZ=gz; if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }
   if(kullanilan()>=LIMIT){
     $('#cevapAlan').innerHTML=`<div class="paywall"><h3>Ücretsiz ${LIMIT} soru hakkın doldu</h3><p>Sınırsız net cevap + firmana özel radar uyarıları için üye ol. Erken erişim ücretsiz.</p><a class="btn" href="radar-app.html" style="text-decoration:none">Üye ol, devam et →</a></div>`;
     return;
@@ -294,6 +296,10 @@ async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('so
   }catch(e){ beyinKotu(); /* beyin kapalı/ulaşılamaz → yerel motor */ }
   localSor(q);
 }
+// 14.09: gizleme yapildiysa kullaniciya sessizce degil, tek satirla soylenir (ne gitti, bilsin).
+let SON_GZ=null;
+try{ new MutationObserver(function(){ var a=$('#cevapAlan'); if(a && SON_GZ && SON_GZ.gizlenen && !a.querySelector('.gizleNot')) gizlemeNotu(SON_GZ); }).observe(document.getElementById('cevapAlan'),{childList:true}); }catch(e){}
+function gizlemeNotu(gz){ if(!gz||!gz.gizlenen) return; var a=$('#cevapAlan'); if(!a) return; var d=document.createElement('div'); d.className='gizleNot'; d.textContent='🔒 Sorundaki '+gz.gizlenen+' kişisel bilgi (TC kimlik, vergi no, telefon, e-posta, IBAN) gönderilmeden gizlendi.'; a.appendChild(d); }
 function kapsamDisi(q){
   const rgler=rgEsles(q);
   if(rgler.length){
