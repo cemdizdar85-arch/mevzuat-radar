@@ -339,6 +339,7 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
  }
 }
 # seçim (8.1 yayın şartı)
+. (Join-Path $Kok 'arac\smmm-yayin-sarti.ps1'); $smmmOnay=SmmmOnayHarita $Kok   # 14.09 bitirme kör istisnası (yalnız smmm-* etiketinde kullanılır)
 $secim=@()
 foreach($s in $satirlar){
   $cf=Join-Path $Kok "veri\fabrika\kalip-parti-$($s.etiket).json"; if(-not (Test-Path $cf)){ continue }
@@ -363,7 +364,11 @@ foreach($s in $satirlar){
     if("$($v.hakem.tek_anlam)" -eq 'CIFT-ANLAM'){ continue }
     $simOk=$true; foreach($sa in 'simulasyon_sonnet','simulasyon'){ if($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu){ $simOk=$false } }
     if(-not $simOk){ continue }
-    if(-not ($v.PSObject.Properties['kor_cozum'] -and $v.kor_cozum -and $v.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$v.kor_cozum.dogru_mu)){ continue }
+    $korOk=[bool]($v.PSObject.Properties['kor_cozum'] -and $v.kor_cozum -and $v.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$v.kor_cozum.dogru_mu)
+    # 14.09 YALNIZ BİTİRME (Cem: "(a) + kaynaklı ikinci çözüm + senin onayın ... siteye yanlış bir soru girmesini istemiyorum onu engelle"):
+    # kör ✗ soru yalnız ÜÇ KİLİTLE geçer — kaynaklı ikinci çözüm doğru + Cem ONAY + parmak izi (arac/smmm-yayin-sarti.ps1). SGS/KGK etiketine hiç girmez.
+    if(-not $korOk -and "$($s.etiket)" -like 'smmm-*'){ $korOk=[bool](SmmmKorIstisna "$($s.etiket)/$($p.Name)" $v $smmmOnay).gecer }
+    if(-not $korOk){ continue }
     if(-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2 -and "$($v.hakem2.karar)" -eq 'EVET')){ continue }
     $secim+=[pscustomobject]@{ etiket="$($s.etiket)"; id=$p.Name; ders="$(if($v.PSObject.Properties['ders'] -and $v.ders){ $v.ders } else { $s.ders })"; konu="$($v.konu)"; donem=[int]$v.donem; kurtarma=[bool]($v.PSObject.Properties['kurtarma'] -and $v.kurtarma) }
   }
@@ -373,7 +378,7 @@ $secYol=Join-Path $Kok "veri\sinav\kaydir-secim\$planAd-secim.json"
 "SECIM: $($secim.Count) soru (yayın şartı: hakem[karar+ders+konu+tek anlam] ∧ sim ∧ kör ∧ hakem2) -> $secYol"
 if(-not $SayfaYok -and $secim.Count){
   & powershell -NoProfile -File (Join-Path $buDizin 'kaydir-coz.ps1') -SecimDosya "$planAd-secim.json" -Cikti "KAYDIR-COZ-$planAd.html" *> (Join-Path $logDir 'builder.log')
-  Get-Content (Join-Path $logDir 'builder.log') | Select-String -Pattern 'yazildi|ÖZ-SINAV|Exception|Cannot' | ForEach-Object { $_.Line }
+  Get-Content (Join-Path $logDir 'builder.log') | Select-String -Pattern 'yazildi|ÖZ-SINAV|Exception|Cannot|SON KAPI' | ForEach-Object { $_.Line }
 }
 $etk=($satirlar | ForEach-Object { $_.etiket }) -join ','
 & powershell -NoProfile -File (Join-Path $buDizin 'soru-karnesi.ps1') -Etiketler $etk -Cikti "KARNE-$planAd.html" *> (Join-Path $logDir 'karne.log')

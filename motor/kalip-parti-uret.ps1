@@ -63,6 +63,7 @@ $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
 . (Join-Path $kok 'arac\kimlik-ayikla.ps1')   # 11.09: kimlik ayiklama TEK kaynaktan
 . (Join-Path $here 'kapi-cikmis-gun.ps1')     # 13.09: KAPI-CB çıkmış cümle benzerliği (3 sınav, şık+öncül dahil) + KAPI-GT gün tabanı (360/365 kökte yazılı)
+. (Join-Path $kok 'arac\smmm-yayin-sarti.ps1')   # 14.09: bitirme yayın şartı + parmak izi (yalnız fonksiyon; SGS yolunda çağrılmaz)
 # 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
 # aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
 # bitiş damgası (sql-yerel/kalip-parti-<etiket>.html) varsa ATLAR. Koşan koşucular eski kod olsa da üretici her etikette yeniden okunur.
@@ -3813,13 +3814,79 @@ Cevabı bu kaynaklardan DOĞRULA. Ezberin kaynakla çelişiyorsa KAYNAĞA uy ve
 "kaynak_celisti" alanına neyin çeliştiğini yaz. Kaynak soruyu çözmeye yetmiyorsa
 kendi bilginle çöz ama bunu "guven" alanına yansıt.
 '@
+# 14.09: FAZ K kaynak paketi fonksiyona alındı (gövde aynen; tavan parametre). -KorKaynak yolunda $KorKaynakTavan ile çağrılır → istem aynı.
+function KorKaynakPaket($cvp,[int]$tavan){
+  $kp=New-Object System.Collections.Generic.List[string]
+  foreach($ha in @($cvp.hesap_genisletme)){
+    if(-not $ha){ continue }
+    foreach($x in (AmbarCek @("$ha") 900).metin){ if($x){ $kp.Add("$x") } }
+  }
+  if("$($cvp.kaynak_metin_ozet)".Trim()){ $kp.Add("$($cvp.kaynak_metin_ozet)") }
+  # 13.09 ÖLÇÜLDÜ (GM Meslek a6e kolay kp-08/13/14): HAZIR SORU yolu (FAZ GM) kaynak_metin_ozet YAZMIYOR; önbellekteki
+  # 5.469 SGS sorusunun 1.237'sinde alan boş, 955'i kör çözümden KAYNAKSIZ geçti/düştü. -KorKaynak verilse de paket boştu,
+  # kör ezberden çözdü → 3 doğru soru haksız düştü (Disiplin Yön. m.6/c "boşanmış dahi olsa", m.28 "evrakına girdiği tarih",
+  # m.5-6 kınama). Özet DOLUYSA bu blok koşmaz → istem baytı baytına aynı, toplu parmak izi aynı (eşdeğer).
+  # Özet BOŞSA hakemin gördüğü kaynak adları kullanılır: önce atıf (dayanakta anılan madde), sonra konuya göre sıralı
+  # 6 ad; blok bütün alınır, tavanı aşan blok atlanır (ortadan kesilmez, KAPI-KP ile aynı ilke). Gerekçe metni girmez.
+  elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
+    $korAt=@(); if($cvp.PSObject.Properties['atif_genisletme'] -and $cvp.atif_genisletme){ $korAt=@($cvp.atif_genisletme) }
+    $korSec=@($korAt)+@(KaynakSirala @(@($cvp.kaynak_adlar) | Where-Object { $korAt -notcontains $_ }) "$($cvp.konu)" 6)
+    $korBoy=0; foreach($hl in $kp){ $korBoy+=$hl.Length+5 }
+    foreach($ka in $korSec){
+      $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString("$ka")+'&limit=1'
+      $rK=$null; try{ $rK=@(Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60) }catch{ $rK=$null }
+      if(-not $rK -or -not $rK.Count -or -not $rK[0].metin){ continue }
+      $bK="[$ka] $($rK[0].metin)"
+      if($korBoy+$bK.Length+5 -le $tavan){ $kp.Add($bK); $korBoy+=$bK.Length+5 }
+    }
+  }
+  $km=($kp -join "`n---`n")
+  if($km.Length -gt $tavan){ $km=$km.Substring(0,$tavan) }
+  return $km
+}
+# 14.09 YALNIZ BİTİRME (SMMM) — KAYNAKLI İKİNCİ ÇÖZÜM. Cem: "(a) + kaynaklı ikinci çözüm + senin onayın ... ben siteye yanlış bir soru girmesini istemiyorum onu engelle".
+# Ölçülen vaka: smmm-gm-p1-yvergi kp-01 — kör (kaynaksız) C seçti = bizim 'Yarım Oran Tuzağı' (KVK m.11/1-ı %50). Kör çözüm kanunun ince kuralını
+# bilmediği için kurduğumuz tuzağa düşünce soru ATILIYORDU. Kör yanlış VE seçtiği şık bizim tuzağımızsa (celdirici_yol'da var ya da açıklamasında
+# 'Tuzağı' yazıyor) soru kanun metniyle (dayanak/açıklama VERİLMEZ) BİR KEZ daha çözdürülür → kor_cozum_kaynakli. Bu kayıt TEK BAŞINA yayın AÇMAZ:
+# arac/smmm-yayin-sarti.ps1 ayrıca Cem'in parmak izine bağlı ONAY'ını ister. SGS/KGK'da KorKaynakliGerekli ilk satırda $false → yol hiç koşmaz.
+function KorKaynakliGerekli($cvp){
+  if($Sinav -ne 'SMMM' -or $KorKaynak -or $ApiKapali -or $SadeceHtml){ return $false }
+  if(-not ($cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum) -or [bool]$cvp.kor_cozum.dogru_mu){ return $false }
+  $kkHarf="$($cvp.kor_cozum.cevap)"; if($kkHarf -notmatch '^[A-E]$'){ return $false }
+  $kkTuzak=$false
+  if($cvp.PSObject.Properties['celdirici_yol'] -and $cvp.celdirici_yol -and $cvp.celdirici_yol.PSObject.Properties[$kkHarf] -and "$($cvp.celdirici_yol.$kkHarf)".Trim()){ $kkTuzak=$true }
+  if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$kkHarf] -and "$($cvp.aciklama.$kkHarf)" -match 'Tuza[gğ]'){ $kkTuzak=$true }
+  if(-not $kkTuzak){ return $false }
+  if($cvp.PSObject.Properties['kor_cozum_kaynakli'] -and $cvp.kor_cozum_kaynakli -and "$($cvp.kor_cozum_kaynakli.parmak_izi)" -eq (SmmmParmakIzi $cvp) -and "$($cvp.kor_cozum_kaynakli.kor_cevap)" -eq $kkHarf){ return $false }   # bu soru metni için güncel karar var
+  return $true
+}
+function KorKaynakliCoz([string]$id,$cvp,[string]$sikM){
+  CacheYaz   # para birimi düzeltmesi önce otursun: parmak izi yazılan metinden alınır
+  $kkTavan=[Math]::Max($KorKaynakTavan,12000)   # ölçüldü 14.09: p1-yvergi 7 blok ≈10.000 kr; 4.500 tavanda kuralı taşıyan m.11 [2/2] dışarıda kalabiliyordu
+  $kkMetin=KorKaynakPaket $cvp $kkTavan
+  if(-not "$kkMetin".Trim()){ $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM KOŞMADI (kaynak paketi boş): $id"); Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM KOŞMADI ($id): kaynak paketi boş — soru yayına girmez" -ForegroundColor Yellow; return }
+  $istKK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{KAYNAK}',$korKaynakEk.Replace('{METIN}',$kkMetin))
+  $yKK=$null; foreach($d in 1..3){ try{ $yKK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istKK -MaxTok 2500; break }catch{ if($d -eq 3){ $yKK=$null }else{ Start-Sleep -Seconds (8*$d) } } }
+  if(-not $yKK){ $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM ÇAĞRI DÜŞTÜ: $id"); Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ÇAĞRI DÜŞTÜ ($id)" -ForegroundColor Red; return }
+  Write-Host ("  KAYNAKLI TOKEN {0}: girdi {1} · cikti {2} · paket {3} kr" -f $id,$yKK.girdi,$yKK.cikti,$kkMetin.Length) -ForegroundColor DarkGray
+  $aKK=KorCoz $yKK.metin
+  if(-not $aKK -or -not $aKK.PSObject.Properties['cevap']){ $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM BOZUK: $id"); Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM BOZUK ($id)" -ForegroundColor Red; return }
+  $cevKK=("$($aKK.cevap)".Trim().ToUpperInvariant() -replace '[^A-EHİ]','')
+  if($cevKK -match '^H'){ $cevKK='HİÇBİRİ' } elseif($cevKK.Length -gt 1){ $cevKK=$cevKK.Substring(0,1) }
+  $dmKK=($cevKK -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
+  $cvp | Add-Member -NotePropertyName kor_cozum_kaynakli -NotePropertyValue ([pscustomobject][ordered]@{ cevap=$cevKK; dogru=$cvp.dogru; dogru_mu=$dmKK; sonuc="$($aKK.sonuc)"; hesap="$($aKK.hesap)"; guven="$($aKK.guven)"; kusur="$($aKK.kusur)"; kaynak_celisti="$($aKK.kaynak_celisti)"; kor_cevap="$($cvp.kor_cozum.cevap)"; parmak_izi=(SmmmParmakIzi $cvp); paket_boy=$kkMetin.Length; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  CacheYaz
+  if($dmKK){ Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ✓ ($id): $cevKK → CEM ONAY LİSTESİNE (arac/smmm-onay.ps1 -Liste); onaysız yayına girmez" -ForegroundColor Cyan; $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM DOĞRU → CEM ONAYI BEKLİYOR: $id | kör $($cvp.kor_cozum.cevap), kaynaklı $cevKK | $($aKK.hesap)") }
+  else { Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ✗ ($id): $cevKK · anahtar $($cvp.dogru) — soru yayına girmez" -ForegroundColor Red; $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM DE YANLIŞ: $id | kaynaklı $cevKK, anahtar $($cvp.dogru) | $($aKK.hesap)") }
+  if("$($aKK.kaynak_celisti)".Trim()){ $rapor.Add("KAYNAKLI ÇÖZÜM KAYNAK ÇELİŞKİSİ: $id | $($aKK.kaynak_celisti)") }
+}
 foreach($gecisK in @(1,2)){ if($gecisK -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisK -eq 1)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or $SadeceAdim){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
   if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
-  if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ continue }
+  if(-not $KorYenile -and $cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum -and $cvp.kor_cozum.PSObject.Properties['dogru_mu']){ if(-not $script:ON_GECIS -and (KorKaynakliGerekli $cvp)){ KorKaynakliCoz $id $cvp ((@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n") }; continue }   # 14.09 yalnız SMMM: kayıtlı kör ✗ + tuzak → eksik kaynaklı çözüm tamamlanır
   $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($cvp.siklar.$_)" }) -join "`n"
   # --- KÖR PAKETİ: kaynak VAR, anlatım YOK -----------------------------------
   # Pakete giren: hesap grubu tanımları (KAPI-HG'nin çektiği) + kaynak_metin_ozet.
@@ -3829,32 +3896,7 @@ foreach($id in @($don.Keys)){
   # anılan hesabın tanımı pakette yoktu).
   $korEk=''
   if($KorKaynak){
-    $kp=New-Object System.Collections.Generic.List[string]
-    foreach($ha in @($cvp.hesap_genisletme)){
-      if(-not $ha){ continue }
-      foreach($x in (AmbarCek @("$ha") 900).metin){ if($x){ $kp.Add("$x") } }
-    }
-    if("$($cvp.kaynak_metin_ozet)".Trim()){ $kp.Add("$($cvp.kaynak_metin_ozet)") }
-    # 13.09 ÖLÇÜLDÜ (GM Meslek a6e kolay kp-08/13/14): HAZIR SORU yolu (FAZ GM) kaynak_metin_ozet YAZMIYOR; önbellekteki
-    # 5.469 SGS sorusunun 1.237'sinde alan boş, 955'i kör çözümden KAYNAKSIZ geçti/düştü. -KorKaynak verilse de paket boştu,
-    # kör ezberden çözdü → 3 doğru soru haksız düştü (Disiplin Yön. m.6/c "boşanmış dahi olsa", m.28 "evrakına girdiği tarih",
-    # m.5-6 kınama). Özet DOLUYSA bu blok koşmaz → istem baytı baytına aynı, toplu parmak izi aynı (eşdeğer).
-    # Özet BOŞSA hakemin gördüğü kaynak adları kullanılır: önce atıf (dayanakta anılan madde), sonra konuya göre sıralı
-    # 6 ad; blok bütün alınır, tavanı aşan blok atlanır (ortadan kesilmez, KAPI-KP ile aynı ilke). Gerekçe metni girmez.
-    elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
-      $korAt=@(); if($cvp.PSObject.Properties['atif_genisletme'] -and $cvp.atif_genisletme){ $korAt=@($cvp.atif_genisletme) }
-      $korSec=@($korAt)+@(KaynakSirala @(@($cvp.kaynak_adlar) | Where-Object { $korAt -notcontains $_ }) "$($cvp.konu)" 6)
-      $korBoy=0; foreach($hl in $kp){ $korBoy+=$hl.Length+5 }
-      foreach($ka in $korSec){
-        $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString("$ka")+'&limit=1'
-        $rK=$null; try{ $rK=@(Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60) }catch{ $rK=$null }
-        if(-not $rK -or -not $rK.Count -or -not $rK[0].metin){ continue }
-        $bK="[$ka] $($rK[0].metin)"
-        if($korBoy+$bK.Length+5 -le $KorKaynakTavan){ $kp.Add($bK); $korBoy+=$bK.Length+5 }
-      }
-    }
-    $km=($kp -join "`n---`n")
-    if($km.Length -gt $KorKaynakTavan){ $km=$km.Substring(0,$KorKaynakTavan) }
+    $km=KorKaynakPaket $cvp $KorKaynakTavan
     if($km){ $korEk=$korKaynakEk.Replace('{METIN}',$km) }
   }
   $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{KAYNAK}',$korEk)
@@ -3877,12 +3919,14 @@ foreach($id in @($don.Keys)){
   if($cev -match '^H'){ $cev='HİÇBİRİ' } elseif($cev.Length -gt 1){ $cev=$cev.Substring(0,1) }
   $dm=($cev -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
   $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; kaynak_celisti="$($aK.kaynak_celisti)"; kaynakli=[bool]$KorKaynak; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  if($Sinav -eq 'SMMM' -and $cvp.PSObject.Properties['kor_cozum_kaynakli']){ $cvp.PSObject.Properties.Remove('kor_cozum_kaynakli') }   # 14.09 yalnız bitirme: kör yenilendi → eski kaynaklı karar bayat
   CacheYaz
   if($dm){ Write-Host "  KÖR ÇÖZÜM ✓ ($id): $cev" -ForegroundColor Green } else { Write-Host "  KÖR ÇÖZÜM ✗ ($id): kör $cev · anahtar $($cvp.dogru) · $("$($aK.hesap)".Substring(0,[Math]::Min(160,"$($aK.hesap)".Length)))" -ForegroundColor Red; $rapor.Add("KÖR ÇÖZÜM YANLIŞ: $id | kör $cev, anahtar $($cvp.dogru) | $($aK.hesap)") }
   if("$($aK.kusur)".Trim()){ $rapor.Add("KÖR ÇÖZÜM KUSUR NOTU: $id | $($aK.kusur)") }
   # 11.09: kaynakla ezber çeliştiyse bu EN DEĞERLİ sinyaldir - kp-80 tipi hatanın
   # doğrudan parmak izi. Sessiz geçmez.
   if("$($aK.kaynak_celisti)".Trim()){ Write-Host "  KÖR: KAYNAK ÇELİŞTİ ($id): $($aK.kaynak_celisti)" -ForegroundColor Magenta; $rapor.Add("KÖR KAYNAK ÇELİŞKİSİ: $id | $($aK.kaynak_celisti)") }
+  if(KorKaynakliGerekli $cvp){ KorKaynakliCoz $id $cvp $sikM }
 }
 if($script:ON_GECIS){ TopluGonder 'K' } }
 $script:ON_GECIS=$false

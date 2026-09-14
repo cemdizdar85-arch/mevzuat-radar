@@ -30,6 +30,13 @@ if($SecimDosya){
     if(-not $cacheOn.ContainsKey($l.etiket)){ $cf=Join-Path $kok "veri\fabrika\kalip-parti-$($l.etiket).json"; $cacheOn[$l.etiket]=if(Test-Path $cf){ Get-Content $cf -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null } }
     $c=$cacheOn[$l.etiket]; if(-not $c -or -not $c.PSObject.Properties[$l.id]){ "  YOK: $($l.etiket)/$($l.id)"; continue }
     $v=$c.($l.id); $ky=$null; $kyAll=@()
+    # 14.09 BİTİRME SON KAPI (Cem: "ben siteye yanlış bir soru girmesini istemiyorum onu engelle"): seçim dosyası elle de yazılabiliyor
+    # (smmm-gm-p1-secim.json kör ✗ p1 Vergi'yi taşıyordu). smmm-* sorusu burada yayın şartından BİR KEZ DAHA geçer; geçmeyen basılmaz.
+    if("$($l.etiket)" -like 'smmm-*'){
+      if(-not $smmmYuklu){ . (Join-Path $kok 'arac\smmm-yayin-sarti.ps1'); $smmmOnayH=SmmmOnayHarita $kok; $smmmYuklu=$true }
+      $smmmSart=SmmmYayinSarti "$($l.etiket)/$($l.id)" $v $smmmOnayH
+      if(-not $smmmSart.gecer){ "  SON KAPI RED (basılmadı): $($l.etiket)/$($l.id) — $($smmmSart.neden)"; continue }
+    }
     if($v.sema -and "$($v.sema.tur)" -eq 'yevmiye'){ $kyt=@(); if($v.sema.kayitlar){ $kyt=@($v.sema.kayitlar) } elseif($v.sema.ogeler){ $kyt=@(,([pscustomobject]@{baslik='';ogeler=$v.sema.ogeler})) }
       $kyAll=@($kyt | Where-Object { $_.ogeler -and $_.ogeler.borc -and $_.ogeler.alacak })
       # 07.09 Cem "yarım kayıt": VUK 328 sorusunda şema İKİ kayıt taşıyordu (kıst amortisman + satış), ekrana yalnız ilki çıkıyordu.
