@@ -16,6 +16,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "smmm-pilot-ydenetim-zor-r1",
+        "id":  "kp-01",
+        "ders":  "Muhasebe Denetimi",
+        "konu":  "denetim raporu bolumleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "smmm-pilot-yhukuk-kolay-r1",
         "id":  "kp-01",
         "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
@@ -64,19 +72,27 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "smmm-pilot-ymeslek-zor-r1",
-        "id":  "kp-01",
-        "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
-        "konu":  "meslekten cikarma cezasi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "smmm-pilot-maliyet-kolay-r1",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satislarin maliyeti tablosu",
         "donem":  11,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "smmm-pilot-maliyet-zor-r1",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "smmm-pilot-maliyet-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satilan mamul maliyeti",
+        "donem":  5,
         "kurtarma":  false
     }
 ]
