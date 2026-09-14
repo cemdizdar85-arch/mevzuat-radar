@@ -36,6 +36,12 @@ function SmmmKorDogru($soruNesne) {
   return [bool]($soruNesne.PSObject.Properties['kor_cozum'] -and $soruNesne.kor_cozum -and $soruNesne.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$soruNesne.kor_cozum.dogru_mu)
 }
 
+# Simülasyon koşmuş VE doğru mu (Sonnet ya da Haiku kaydı)
+function SmmmSimDogru($soruNesne) {
+  foreach ($sa in 'simulasyon_sonnet', 'simulasyon') { if ($soruNesne.PSObject.Properties[$sa] -and $soruNesne.$sa -and $soruNesne.$sa.PSObject.Properties['dogru_mu'] -and [bool]$soruNesne.$sa.dogru_mu) { return $true } }
+  return $false
+}
+
 # Kör çözüm yanlışken yayına izin veren TEK istisna — üç kilit
 function SmmmKorIstisna([string]$anahtar, $soruNesne, $onayHarita) {
   $kaynakli = $(if ($soruNesne.PSObject.Properties['kor_cozum_kaynakli']) { $soruNesne.kor_cozum_kaynakli } else { $null })
@@ -60,6 +66,9 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   if ("$($v.hakem.konu_uyum)" -eq 'KONU-DISI') { return [pscustomobject]@{ gecer = $false; neden = 'hakem KONU-DISI' } }
   if ("$($v.hakem.tek_anlam)" -eq 'CIFT-ANLAM') { return [pscustomobject]@{ gecer = $false; neden = 'hakem CIFT-ANLAM' } }
   foreach ($sa in 'simulasyon_sonnet', 'simulasyon') { if ($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu) { return [pscustomobject]@{ gecer = $false; neden = 'simülasyon yanlış' } } }
+  # 14.09 (Cem "1.2 yap", GM önerisi): simülasyonu HİÇ koşmamış soru da geçmez. Ölçüldü: pilot smmm-pilot-ymeslek-zor kp-01 adımları
+  # (çözüm anlatımı) yazılmadığı için simülasyon sessizce atlandı, kural yalnız "yanlış değil" dediğinden anlatımsız + sınanmamış soru seçildi.
+  if (-not (SmmmSimDogru $v)) { return [pscustomobject]@{ gecer = $false; neden = $(if (-not ($v.PSObject.Properties['adimlar'] -and @($v.adimlar).Count)) { 'çözüm anlatımı (adımlar) yok → simülasyon koşamadı' } else { 'simülasyon hiç koşmadı' }) } }
   if (-not (SmmmKorDogru $v)) {
     $ist = SmmmKorIstisna $anahtar $v $onayHarita
     if (-not $ist.gecer) { return [pscustomobject]@{ gecer = $false; neden = "kör çözüm yanlış; $($ist.neden)" } }

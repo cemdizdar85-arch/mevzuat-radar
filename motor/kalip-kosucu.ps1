@@ -364,6 +364,7 @@ foreach($s in $satirlar){
     if("$($v.hakem.tek_anlam)" -eq 'CIFT-ANLAM'){ continue }
     $simOk=$true; foreach($sa in 'simulasyon_sonnet','simulasyon'){ if($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu){ $simOk=$false } }
     if(-not $simOk){ continue }
+    if("$($s.etiket)" -like 'smmm-*' -and -not (SmmmSimDogru $v)){ continue }   # 14.09 yalnız bitirme: simülasyonu hiç koşmamış (anlatımsız) soru seçilmez — arac/smmm-yayin-sarti.ps1
     $korOk=[bool]($v.PSObject.Properties['kor_cozum'] -and $v.kor_cozum -and $v.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$v.kor_cozum.dogru_mu)
     # 14.09 YALNIZ BİTİRME (Cem: "(a) + kaynaklı ikinci çözüm + senin onayın ... siteye yanlış bir soru girmesini istemiyorum onu engelle"):
     # kör ✗ soru yalnız ÜÇ KİLİTLE geçer — kaynaklı ikinci çözüm doğru + Cem ONAY + parmak izi (arac/smmm-yayin-sarti.ps1). SGS/KGK etiketine hiç girmez.

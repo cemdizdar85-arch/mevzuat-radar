@@ -4702,6 +4702,10 @@ E) $($ti.siklar.E)
   # kâr/zararı (-137.500) hedef alıp YANLIŞ saydı). Soru kökündeki istenen ifade ile satır etiketleri kök-önekiyle eşlenir; eşleşme yoksa son satır.
   $satirlarI=@($cvp.ikiz.tablo.satirlar); $hedefSat=$null
   $kokM=[regex]::Match("$($cvp.ikiz.ikiz_soru)",'([^.?!]{6,}?)\s*(kaç|ne kadardır|hangisidir|nedir)[^.?!]*\?\s*$')
+  # 14.09 ÖLÇÜLDÜ (pilot smmm-pilot-maliyet-zor kp-01): ikiz kökü "…üretilen mamulün boş kapasite giderini bulunuz." — soru işareti ve "kaç/nedir" yok,
+  # kök eşleşmedi, hedef tablonun SON satırına (Birim mamul maliyeti 50) düştü; öğrenci doğru 200.000 dediği hâlde SIM YANLIŞ yazıldı.
+  # Yalnız SMMM: emir kipi kök ("bulunuz / hesaplayınız / belirleyiniz") da istenen öbeği verir. SGS/KGK'da eşleşme eskisi gibi.
+  if(-not $kokM.Success -and $Sinav -eq 'SMMM'){ $kokM=[regex]::Match("$($cvp.ikiz.ikiz_soru)",'([^.?!]{6,}?)\s*(bulunuz|hesaplayınız|hesaplayiniz|belirleyiniz|gösteriniz|tespit ediniz)[^.?!]*[.?]?\s*$') }
   if($kokM.Success){
     # 06.09 maliyet-k10d dersi: cümlenin tamamı ("ortak maliyetin ... dağıtımı sonucunda R ürününün kg başına maliyeti") 'Ortak Maliyet Payı' satırını seçti,
     # oysa istenen SON öbek ("kg başına maliyeti" → Birim Maliyet). İstenen = "kaç"tan önceki son 5 kelime.
