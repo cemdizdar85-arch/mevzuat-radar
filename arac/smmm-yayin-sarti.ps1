@@ -61,6 +61,9 @@ function SmmmKorIstisna([string]$anahtar, $soruNesne, $onayHarita) {
 function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   $v = $soruNesne
   if (-not $v -or -not $v.soru) { return [pscustomobject]@{ gecer = $false; neden = 'soru yok' } }
+  # 14.09: doğru şıkkın açıklaması boş soru ekranda "Doğrusu" kısmı boş çıkar (pilot ymeslek-zor kp-01) → geçmez
+  $dogruHarf = "$($v.dogru)".Trim().ToUpperInvariant()
+  if ($v.aciklama -and $v.aciklama -isnot [string] -and -not "$($v.aciklama.$dogruHarf)".Trim()) { return [pscustomobject]@{ gecer = $false; neden = "doğru şık $dogruHarf için açıklama boş" } }
   if ("$($v.hakem.karar)" -ne 'EVET') { return [pscustomobject]@{ gecer = $false; neden = 'hakem EVET değil' } }
   if ("$($v.hakem.ders_uyum)" -eq 'DERS-DISI') { return [pscustomobject]@{ gecer = $false; neden = 'hakem DERS-DISI' } }
   if ("$($v.hakem.konu_uyum)" -eq 'KONU-DISI') { return [pscustomobject]@{ gecer = $false; neden = 'hakem KONU-DISI' } }

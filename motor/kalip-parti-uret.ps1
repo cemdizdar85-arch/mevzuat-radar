@@ -2944,13 +2944,18 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     $muKusur=@(MulgaKapisi $aday); $suKusur=@(SureKapisi $aday)   # 08.09 KAPI-M mülga mevzuat/kurum · KAPI-S süresi dolan veri (Cem "eski kanun, süresi dolan veri")
     # 13.09 KAPI-CB (çıkmış soruyla ≥2 cümle %80+ aynı, 3 sınav) + KAPI-GT (çözüm 360/365 kullanıyor, kök tabanı yazmıyor) — motor/kapi-cikmis-gun.ps1
     $cbSonuc=CikmisCumleKapisi $aday $SB; $cbKusur=@($cbSonuc.kusur); $gtKusur=@(GunTabaniKapisi $aday @())
+    # 14.09 KAPI-AÇ YALNIZ BİTİRME (Cem "1.2.3 üçünü de yap"). ÖLÇÜLDÜ (pilot smmm-pilot-ymeslek-zor kp-01): doğru şık C'nin açıklaması BOŞ üretildi,
+    # dört tuzak açıklaması doluydu; hiçbir kapı yakalamadı, hakem boş {ACIK} ile EVET dedi, FAZ B kavram tablosu kuramayıp adımları sessizce atladı,
+    # simülasyon da koşmadı. Doğru şıkkın açıklaması (aciklama.<harf>) boşsa soru yeniden yazdırılır; ikinci denemede de boşsa SERT (kaydedilmez).
+    $acKusur=@(); if($Sinav -eq 'SMMM' -and $aday.aciklama -and $aday.aciklama -isnot [string] -and -not "$($aday.aciklama.$("$($aday.dogru)".Trim().ToUpperInvariant()))".Trim()){ $acKusur=@("doğru şık $("$($aday.dogru)".Trim()) için açıklama boş") }
     if($cbSonuc.kor -and $deneme -eq 1){ $rapor.Add("KAPI-CB KÖR: $id | $($cbSonuc.kor)") }
     if(@($cbSonuc.not).Count -and -not $cbKusur.Count){ $rapor.Add("KAPI-CB NOTU (deneme $deneme): $id | $(@($cbSonuc.not)[0])") }
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count -and -not $cbKusur.Count -and -not $gtKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
+    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count -and -not $cbKusur.Count -and -not $gtKusur.Count -and -not $acKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
     if($muKusur.Count){ Write-Host "  KAPI-M (mülga mevzuat) ($id): $($muKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-M DÜŞTÜ (mülga mevzuat/kurum): $($muKusur -join '; '). Soru yalnız YÜRÜRLÜKTEKİ kanun, standart ve kurum adıyla yazılır; eski kanun numarası, mülga standart, kapanmış kurum adı ve eski/yeni karşılaştırması geçmez. Kaynak paketindeki güncel metne dayan." }
     if($suKusur.Count){ Write-Host "  KAPI-S (süresi dolan veri) ($id): $($suKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-S DÜŞTÜ (süresi dolan veri): $($suKusur -join '; '). Geçmiş bir son tarihe ya da eski yılın had/oranına dayanan veri kullanılmaz; tarihler $((Get-Date).Year) ve sonrası olur, had/oran soruda sayı olarak verilir." }
     if($cbKusur.Count){ Write-Host "  KAPI-CB (çıkmış cümle) ($id): $($cbKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-CB DÜŞTÜ (çıkmış soruyla aynı cümleler): $($cbKusur -join '; '). Şıkları ve öncülleri çıkmış bir sorunun cümlelerinden kurma; aynı kuralı KENDİ cümlenle, farklı bir hükmü ya da farklı bir yanlış yolu sınayacak biçimde yaz." }
     if($gtKusur.Count){ Write-Host "  KAPI-GT (gün tabanı) ($id): $($gtKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-GT DÜŞTÜ: $($gtKusur -join '; '). Gün esaslı her hesapta soru kökü tabanı açıkça yazar ('1 yıl 360 gün kabul edilecektir'); çıkmış sınavlarda baskın taban 360'tır. Açıklama, çeldirici yolu ve tablo aynı tabanı kullanır." }
+    if($acKusur.Count){ Write-Host "  KAPI-AÇ (doğru şık açıklaması) ($id): $($acKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-AÇ DÜŞTÜ: $($acKusur -join '; '). aciklama alanında DOĞRU şıkkın açıklaması boş bırakılamaz: 'Ne soruluyor: … Kural: … Bu olayda: … Doğrusu: …' biçiminde yaz; tuzak şıkların açıklamaları da kalır." }
     if($trKusur.Count){ Write-Host "  KAPI-D2 (Türkçe harf) ($id): $($trKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-D2 DÜŞTÜ: şu kelimeler Türkçe harfsiz yazılmış: $($trKusur -join ', '). Bütün metinde ş, ç, ğ, ı, ö, ü, İ tam yazılır (için, değil, işletme, yıl, kâr)." }
     if($ydKusur.Count){ Write-Host "  KAPI-YD (yevmiye dengesi) ($id): $($ydKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-YD DÜŞTÜ: yevmiye kaydında borç toplamı alacak toplamına eşit değil ($($ydKusur -join '; ')). Her kayıtta borç = alacak; tutarları yeniden hesapla, gerekirse şıkları düzelt." }
     if($paKusur.Count){ Write-Host "  KAPI-P (yasal parametre) ($id): $($paKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-P DÜŞTÜ: $($paKusur -join '; '). Yıla bağlı her had/oran/tavan soruda SAYI olarak verilir ('KDV oranı %20', 'kıdem tazminatı tavanı 50.000 TL olduğu varsayılmıştır'); hafızadan yıl parametresi kullanılmaz." }
@@ -2983,7 +2988,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
       if($suKusur.Count){ $rapor.Add("KAPI-S (süresi dolan veri) DÜŞTÜ: $($ky.konu) | $($suKusur -join '; ')") }
       if($cbKusur.Count){ $rapor.Add("KAPI-CB (çıkmış cümle) DÜŞTÜ: $($ky.konu) | $($cbKusur -join '; ')") }
       if($gtKusur.Count){ $rapor.Add("KAPI-GT (gün tabanı) DÜŞTÜ: $($ky.konu) | $($gtKusur -join '; ')") }
-      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count -or $paKusur.Count -or $muKusur.Count -or $suKusur.Count -or $cbKusur.Count -or $gtKusur.Count)
+      if($acKusur.Count){ $rapor.Add("KAPI-AÇ (doğru şık açıklaması) DÜŞTÜ: $($ky.konu) | $($acKusur -join '; ')") }
+      $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count -or $paKusur.Count -or $muKusur.Count -or $suKusur.Count -or $cbKusur.Count -or $gtKusur.Count -or $acKusur.Count)
       if($sertDustu){ Write-Host "  SORU DÜŞTÜ ($id): sert kapı ikinci denemede de tutmadı - kaydedilmedi" -ForegroundColor Red; $rapor.Add("SORU DÜŞTÜ (sert kapı ×2): $($ky.konu)"); $cvp=$null }
       else { $cvp=$aday }   # yalnız yumuşak kusur: en sonuncuyu al, rapora yazıldı
     }
@@ -4048,13 +4054,16 @@ foreach($id in @($don.Keys)){
   # 13.09 ÖLÇÜLDÜ (a6e Meslek çok zor kp-11, kp-18): toplu cevap ayrıştırılamayınca "HAKEM2 BOZUK" yazılıp geçiliyordu; sonraki
   # koşuda istem aynı olduğu için parmak izi tutuyor ve AYNI bozuk cevap bedava hasat ediliyordu → soru her koşuda kararsız kaldı.
   # Toplu cevap bozuksa istem bir kez ANLIK sorulur; o da bozuksa eski davranış (rapora BOZUK, karar yazılmaz).
-  if((-not $aH -or -not $aH.PSObject.Properties['karar']) -and $yHToplu){
+  # 14.09 ÖLÇÜLDÜ (pilot smmm-pilot-maliyet-cokzor kp-01): TEK istek (toplu değil) 1.500 çıktı tavanında kesildi, tekrar yalnız toplu cevapta
+  # yapılıyordu → karar sessizce yazılmadı, soru anlatım fazlarına giremedi. Yalnız SMMM: anlık cevap da bozuksa 3.000 tavanla bir kez daha.
+  if((-not $aH -or -not $aH.PSObject.Properties['karar']) -and ($yHToplu -or $Sinav -eq 'SMMM')){
     $bozukBas=("$($yH.metin)" -replace '\s+',' '); $bozukBas=$bozukBas.Substring(0,[Math]::Min(160,$bozukBas.Length))
     Write-Host "  HAKEM2 TOPLU CEVAP BOZUK ($id) → anlık bir kez yeniden: $bozukBas" -ForegroundColor Yellow
     # 13.09 ÖLÇÜLDÜ (sgs-gm5-mat-r1 kp-09): toplu cevap 1500 çıktı tavanında kesilmişti, anlık tekrar da 1500'de kesildi → tekrar 3000 tavanla
     $yH2=$null; foreach($d in 1..3){ try{ $yH2=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istH -MaxTok 3000 -Effort $HAKEM2_EFFORT; break }catch{ if($d -eq 3){ $yH2=$null }; Start-Sleep -Seconds (8*$d) } }
     if($yH2){ $yH=$yH2; $aH=Coz $yH.metin; Write-Host ("  HAKEM2 TOKEN (anlık) {0}: girdi {1} · cikti {2}" -f $id,$yH.girdi,$yH.cikti) -ForegroundColor DarkGray }
   }
+  if($Sinav -eq 'SMMM' -and (-not $aH -or -not $aH.PSObject.Properties['karar'])){ Write-Host "  HAKEM2 BOZUK ($id): cevap ayrıştırılamadı (çıktı $($yH.cikti) jeton) — karar yazılmadı, soru yayına giremez" -ForegroundColor Red }
   if(-not $aH -or -not $aH.PSObject.Properties['karar']){ $bozukBas=("$($yH.metin)" -replace '\s+',' '); $rapor.Add("HAKEM2 BOZUK: $id | $($bozukBas.Substring(0,[Math]::Min(160,$bozukBas.Length)))"); continue }
   $koku=@($aH.koku | Where-Object { "$_".Trim() })
   # 08.09 ölçümü: hakem2 gerçekçi işletme adını ("Çelik Makine Sanayi A.Ş.") yer tutucu sayıp düşürdü → yalnız DETERMİNİSTİK koku sınıfları kararı etkiler
@@ -4104,6 +4113,8 @@ function AdimTablosu($cvp){
     $ku=[regex]::Match($ac,'(?s)Kural:\s*(.*?)(?=Hesap:|Bu olayda:|Doğrusu:|Dogrusu:|$)'); if($ku.Success -and $ku.Groups[1].Value.Trim()){ $sat+=,@('Kural',$ku.Groups[1].Value.Trim()) }
     $ol=[regex]::Match($ac,'(?s)(Hesap:|Bu olayda:)\s*(.*?)(?=Doğrusu:|Dogrusu:|$)'); if($ol.Success -and $ol.Groups[2].Value.Trim()){ $sat+=,@('Bu olayda',$ol.Groups[2].Value.Trim()) }
     $sat+=,@('Doğru şık',"$($cvp.dogru)) $($cvp.siklar.$($cvp.dogru))")
+    # 14.09 yalnız bitirme: açıklama DOLU ama 'Ne soruluyor/Kural' başlıkları yoksa açıklamanın tamamı tek satır olur (anlatım yine yazılır)
+    if($sat.Count -lt 2 -and $Sinav -eq 'SMMM' -and "$ac".Trim()){ $sat=@(,@('Açıklama',"$ac".Trim()))+$sat }
     if($sat.Count -lt 2){ return $null }
     return [pscustomobject]@{ basliklar=@('Adım','İçerik'); satirlar=$sat; teori=$true }
   }
@@ -4139,7 +4150,7 @@ foreach($id in @($don.Keys)){
   if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]
   $tabloAdim=AdimTablosu $cvp
-  if(-not $tabloAdim){ continue }
+  if(-not $tabloAdim){ if($Sinav -eq 'SMMM'){ Write-Host "  ADIM YAZILAMADI ($id): anlatım tablosu kurulamadı (doğru şık açıklaması boş/ayrıştırılamadı, çözüm tablosu yok) — simülasyon da koşmayacak, soru yayına giremez" -ForegroundColor Red; $rapor.Add("ADIM YAZILAMADI: $id | anlatım tablosu kurulamadı") }; continue }   # 14.09 bitirmede sessiz geçmez
   if(-not $AdimYenile -and $cvp.PSObject.Properties['adimlar'] -and $cvp.adimlar -and $cvp.PSObject.Properties['verilen']){ continue }
   if($AdimYenile -and $cvp.PSObject.Properties['adimlar']){ Write-Host "  ADIM YENILENIYOR (ogretici istem): $id" -ForegroundColor Yellow }
   $teoriDers=[bool]($tabloAdim.PSObject.Properties['teori'] -and $tabloAdim.teori)
