@@ -4495,10 +4495,18 @@ foreach($id in @($don.Keys)){
     $teoriMi=(-not ($cvp.cozum_tablo -and $cvp.cozum_tablo.satirlar)) -and (-not ($cvp.sema -and "$($cvp.sema.tur)" -eq 'yevmiye'))
     if(-not $teoriMi){ Write-Host "  SIM ATLANDI ($id): ikiz yok" -ForegroundColor DarkGray; continue }
     if(-not $SimYenile -and $cvp.PSObject.Properties[$simAlanT] -and $cvp.$simAlanT -and "$($cvp.$simAlanT.tur)" -eq 'teori'){ continue }
-    if(-not ($cvp.PSObject.Properties['teori_ikiz'] -and $cvp.teori_ikiz -and $cvp.teori_ikiz.soru)){
+    # 14.09 ÖLÇÜLDÜ (smmm-gm-p2-vergi kp-03, GVK m.84 "hangisi yanlıştır"): Sonnet ikizde yanlış ifadeyi DÜZELTİP kopyaladı, beş şıkkın beşi doğru
+    # kaldı ama dogru=B yazdı — iki denemede de aynı. Simülasyon haklı olarak YETMEDİ dedi. Bitirmede olumsuz kök %38-45 (Denetim/Meslek/SPK) →
+    # yalnız SMMM + olumsuz kökte: istem kuralı + `yanlis_ifade` alanı; kod, bu ifadenin cevap şıkkında AYNEN geçtiğini denetler, geçmezse
+    # yeniden ister (3 deneme). Tutarlı ikiz çıkmazsa sim YANLIŞ kaydı düşer (kapı gevşemez). SGS/KGK ve olumlu kök: istem ve akış AYNI.
+    $olumsuzTI=($Sinav -eq 'SMMM' -and "$($cvp.soru)" -match '(?i)yanlıştır|değildir|söylenemez|yer almaz|bulunmaz')
+    $olumsuzKural=$(if($olumsuzTI){ "`nOLUMSUZ KÖK KURALI: Ana soru 'hangisi yanlıştır / değildir' biçimindedir; ikizin kökü de olumsuz kalır. İkizde DÖRT şık kaynağa göre DOĞRU, TAM BİR şık kaynağa AYKIRI (yanlış) yazılır ve dogru alanı o yanlış şıkkın harfidir. Ana sorudaki yanlış ifadeyi kopyalama, düzeltip de bırakma: yanlış şık aynı kuralı başka bir unsuru (kişi, süre, tür, sınır, kurum) değiştirerek bozar. JSON'a ayrıca yanlis_ifade alanı ekle: yanlış şıkta kaynağa aykırı olan kısa kelime grubu, o şıktaki yazımıyla AYNEN." } else { '' })
+    $tiDeneme=0
+    while(-not ($cvp.PSObject.Properties['teori_ikiz'] -and $cvp.teori_ikiz -and $cvp.teori_ikiz.soru) -and $tiDeneme -lt $(if($olumsuzTI){ 3 } else { 1 })){
+      $tiDeneme++
       $istTI=@"
 Aşağıdaki TEORİ sorusunun İKİZİNİ üret: AYNI kural/hüküm, FARKLI olay (başka işletme, başka durum, başka kişi), 5 şık (A-E), tek doğru.
-Kurallar: kaynaktaki hükmü değiştirme; olay sınav dilinde ve kısa; şıklar cümle, doğru şık en uzun OLMASIN; Türkçe harfler tam; kısaltma yok.
+Kurallar: kaynaktaki hükmü değiştirme; olay sınav dilinde ve kısa; şıklar cümle, doğru şık en uzun OLMASIN; Türkçe harfler tam; kısaltma yok.$olumsuzKural
 Yalnız JSON: {"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A-E","gerekce":"tek cümle"}
 === ANA SORU ===
 $($cvp.soru)
@@ -4514,9 +4522,21 @@ $("$($cvp.kaynak_metin_ozet)".Substring(0,[Math]::Min(2500,"$($cvp.kaynak_metin_
       $yT=$null; foreach($d in 1..3){ try{ $yT=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istTI -MaxTok 4000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
       Write-Host ("  TEORİ İKİZ TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yT.girdi,$yT.cikti) -ForegroundColor DarkGray
       $tI=Coz $yT.metin
-      if(-not ($tI -and $tI.soru -and $tI.siklar -and $tI.dogru)){ $rapor.Add("TEORI IKIZ BOZUK: $id"); Write-Host "  TEORİ İKİZ BOZUK ($id)" -ForegroundColor Red; continue }
+      if(-not ($tI -and $tI.soru -and $tI.siklar -and $tI.dogru)){ $rapor.Add("TEORI IKIZ BOZUK: $id"); Write-Host "  TEORİ İKİZ BOZUK ($id)" -ForegroundColor Red; if($olumsuzTI){ continue } else { break } }
+      if($olumsuzTI){
+        $tiHarf="$($tI.dogru)".Trim().ToUpperInvariant(); $tiSik="$($tI.siklar.$tiHarf)"; $tiYanlis="$(if($tI.PSObject.Properties['yanlis_ifade']){ $tI.yanlis_ifade })".Trim()
+        if($tiYanlis.Length -lt 3 -or -not $tiSik -or $tiSik.IndexOf($tiYanlis,[StringComparison]::OrdinalIgnoreCase) -lt 0){
+          Write-Host "  TEORİ İKİZ TUTARSIZ ($id, deneme $tiDeneme): yanlis_ifade '$tiYanlis' cevap şıkkı $tiHarf içinde yok — yeniden" -ForegroundColor DarkYellow
+          $rapor.Add("TEORI IKIZ TUTARSIZ: $id | deneme $tiDeneme | '$tiYanlis' $tiHarf şıkkında yok"); continue
+        }
+      }
       $cvp | Add-Member -NotePropertyName teori_ikiz -NotePropertyValue ([pscustomobject]@{ soru=(DilOnar "$($tI.soru)"); siklar=$tI.siklar; dogru="$($tI.dogru)".Trim().ToUpperInvariant(); gerekce="$($tI.gerekce)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
       CacheYaz
+    }
+    if(-not ($cvp.PSObject.Properties['teori_ikiz'] -and $cvp.teori_ikiz -and $cvp.teori_ikiz.soru)){
+      # ikiz yok: eskisi gibi bu sorunun simülasyonu atlanır; SMMM olumsuz kökte tutarlı ikiz çıkmadıysa kapı GEVŞEMEZ → sim YANLIŞ kaydı
+      if($olumsuzTI){ $cvp | Add-Member -NotePropertyName $simAlanT -NotePropertyValue ([pscustomobject]@{ tur='teori'; cevap=''; hedef=''; dogru_mu=$false; eksik="teori ikizi $tiDeneme denemede tutarlı üretilemedi (yanlis_ifade cevap şıkkında yok)"; adimlar=''; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force; CacheYaz; Write-Host "  SIM YANLIŞ ($id, teori): tutarlı ikiz üretilemedi" -ForegroundColor Red; $rapor.Add("SIM YANLIŞ (teori): $id | tutarlı ikiz üretilemedi") }
+      continue
     }
     $ti=$cvp.teori_ikiz
     # 06.09 Cem "2 yap" — SIZDIRMAZ ölçüm: ilk koşu 8/8 doğruydu ama öğrenci örnek sorunun "Doğru şık" adımını ve doğru şık metnini görüyordu.
