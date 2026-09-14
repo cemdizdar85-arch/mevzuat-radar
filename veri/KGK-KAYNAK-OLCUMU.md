@@ -1,5 +1,34 @@
 # KGK (BAĞIMSIZ DENETÇİLİK) KAYNAK ÖLÇÜMÜ — 14.09.2026
 
+> ## ⚡ GÜNCELLEME 14.09.2026 ~15:00 — ONARIM SONRASI (Cem "1 ve 3 yap")
+>
+> **Onarım yapıldı (bedel 0):**
+> - Yalnız özet olan 13 standart resmî metinle yeniden yutuldu (TMS 24/27, TFRS 8/9/10, BDS 260/265/330/510/580/620/701, GDS 3400).
+> - Yutucunun iki kök kusuru düzeltildi: Git'teki xpdf 4.06 yerine poppler, sayfa numarası + koşu başlığı kuralı (commit `f71256e5`).
+> - Reçeteyle 76 standart + TMS 37 yeniden yazıldı, düşen 0. Ölçüm `-Tazele` ile yeniden koşuldu (ambar 47.675 satır, 14:38).
+>
+> | Ders | HAZIR | ZAYIF | YOK | (sabah: H / Z / Y) |
+> |---|---:|---:|---:|---|
+> | a) TMS | 12 | 18 | **0** | 11 / 13 / 6 |
+> | b) TDS | 28 | 3 | **0** | 24 / 0 / 7 |
+> | c) KY + FY | 10 | 1 | 11 | 10 / 1 / 11 |
+> | ç) SPK | 7 | 1 | 0 | aynı |
+> | d) Bankacılık | 6 | 5 | 0 | aynı |
+> | e) Sigortacılık | 3 | 2 | 1 | aynı |
+> | f) Sürdürülebilirlik Rap. | 0 | 13 | 0 | aynı |
+> | g) Sürdürülebilirlik Den. | 4 | 2 | 0 | 3 / 3 / 0 |
+>
+> **Okuma notu:**
+> - TMS/TDS'de **YOK kalmadı**; özet olan her standart artık resmî metin.
+> - TMS'de ZAYIF'ın artması bir kötüleşme değil. Yeni bölmede metin tam, ama bazı paragrafların **numara etiketi kayık**. Poppler bazı sayfalarda numaraları alt alta diziyor ("16", "17" art arda, metin sonra geliyor); bölücü p.16'yı boş sayıp metnini p.17'nin altına koyuyor. Kontrol edilen örnek TMS 16 p.11/16/23/73–76.
+> - Bu kusur eski kuralda da vardı. Açık iş: bölücüye "ardışık numara sütunu" kuralı + eşdeğerlik provası.
+>
+> **3. madde yapıldı:** KAPI-AILE (commit `2e0d333c`). KGK kaynak paketine yalnız dersin resmî aileleri girer (`veri/kgk-ders-aile.json`).
+>
+> **Yan etki kaydı:** Kaynak adı bağı kopan 243 soru `veri/standart-yutma-kopan-bag-20260914.json` dosyasında (KGK 218, SGS 25). Ayrıca 2.725 standart kaynaklı sorunun bağı bugünden önce kopuktu.
+>
+> **Aşağıdaki bölümler sabahki (onarım öncesi) ölçümdür**; iş emri 4-B uygulandı.
+
 > **Bedel: 0 USD.** Soru basılmadı, ambara/kasaya yazılmadı, para harcayan çağrı yok.
 > Ölçüm betiği: `arac/kgk-kaynak-olcumu.ps1` · makine çıktısı: `veri/kgk-kaynak-olcumu.json`
 > Ambar okuması: 14.09.2026 11:06 (46.281 satırın ad listesi) + KGK kaynak ailelerinin 10.701 satırının metni.
