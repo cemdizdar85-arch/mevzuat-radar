@@ -883,6 +883,11 @@ $OZEL_DESEN=@{
   # doğru not pakete girmedi ya da sona düştü. Etki: yalnız bu üç konu + kök eşleşmesiyle 'geometrik dizi ve seri toplamı', 'teleskopik seri toplami' (hepsi Matematik).
   'seri toplami'             = @('~teori matematik aritmetik dizi toplami','~teori matematik geometrik dizi seri toplami','~teori matematik ardisik sayilar toplami')
   'turev hesabi'             = @('~teori turev hesabi','~teori matematik turev ile maksimum')
+  # 14.09 ÖLÇÜLDÜ (gm5 r13 kp-05/kp-09 hakem HAYIR, iki koşu): 'hareket' kökü 'hareketli ortalama' stok notlarını, 'sayi' konusu yalnız yaş notunu
+  # paketin başına çekiyordu. Eşdeğerlik: 929 partide 1.839 konu tarandı, fark yalnız bu 4 matematik konusu (22 kayıt).
+  'hareket problemi'         = @('~teori matematik hareket problemi')
+  'sayi problemleri'         = @('~teori matematik yas ve sayi problemleri')
+  'ardisik sayi problemi'    = @('~teori matematik ardisik sayilar toplami','~teori matematik yas ve sayi problemleri')
   'kismi turev'              = @('~teori kismi turev','~teori turev hesabi')
   'ust yonetimle iletisim'   = @('~teori istirak bagli ortaklik','THP 242%','THP 245%','THP 240%')   # konu adı yanlış; Tur 1 sorusu 245 Bağlı Ortaklıklar yönetim çoğunluğu ölçütünü sormuştu
   # 09.09 GM maliyet-kolay ÖLÇÜLDÜ (5 hakem reddi, hepsi kaynak): 'standart' GENEL_KOK'ta olduğu için "standart maliyet sistemi" tek kök "maliyet"le 6 alakasız
