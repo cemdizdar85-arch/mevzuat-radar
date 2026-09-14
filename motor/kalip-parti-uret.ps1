@@ -637,7 +637,8 @@ function DesenUret($kayit){
       elseif($ham -match '3065|KDVK|Katma Değer|KDV Kanunu|\bKDV\b'){ $onekM='KDVK (3065 s.K.)' }   # 07.09 Ö48: köprü "KDV Kanunu m.10" yazıyor, ambar "KDVK (3065 s.K.) m.10" (170 kayıt) → kaynak borcu sahteydi
       elseif($ham -match '6356|STİSK|STISK|Sendikalar ve Toplu'){ $onekM='Sendikalar ve TİS K. (6356 s.K.)' }   # 07.09 Ö48: 6356 ambarda VAR (102 madde), köprü uzun adla/STİSK ile yazıyordu
       elseif($ham -match '\b488\b|Damga'){ $onekM='Damga V.K. (488 s.K.)' }
-      if($onekM){ foreach($m in [regex]::Matches($ham,'\bm(?:adde)?\.?\s*(\d+)')){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
+      # 14.09 yalnız bitirme: 6362'de ek maddeler 'm.61/A' (gayrimenkul sertifikası), 'm.35/A' (kitle fonlama) diye adlanır; eski desen /A'yı atıp m.61'i (kira sertifikası) çekiyordu
+      if($onekM){ foreach($m in [regex]::Matches($ham,$(if($Sinav -eq 'SMMM'){ '\bm(?:adde)?\.?\s*(\d+(?:/[A-Z])?)' } else { '\bm(?:adde)?\.?\s*(\d+)' }))){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
   }
   if($d.Count -eq 0){
@@ -1194,6 +1195,13 @@ if($KonuDosya){
   }
   if($konuDayanak.Count){ $adaylar=@(foreach($a0 in $adaylar){ $kd0=(Katla2 "$($a0.konu)"); if($konuDayanak.ContainsKey($kd0)){ $a1=$a0.PSObject.Copy(); $a1.dayanak=$konuDayanak[$kd0]; $a1.guc='KONU DOSYASI (elle okunmuş dayanak)'; Write-Host "  konu dosyası dayanağı: $($a0.konu) -> $($a1.dayanak)"; $a1 } else { $a0 } }) }
 }
+# 14.09 BİTİRME KONU-DAYANAK HARİTASI (Cem "1.2.3 üçünü de yap", GM önerisi 2): köprüde dayanağı BOŞ olan bitirme konularına veri/sinav/smmm-konu-dayanak.json'dan
+# OKUNARAK yazılmış dayanak verilir (ilk tur: 115 SPK konusu, 6362 başlıkları okundu). Yalnız durum 'MADDE OKUNDU' ve yalnız köprü dayanağı + çıkmış dayanağı
+# ikisi de boşsa; konu dosyasındaki elle dayanak ve köprünün dolu dayanağı korunur. SGS/KGK'da blok hiç koşmaz.
+if($Sinav -eq 'SMMM' -and $adaylar.Count){ $hdYol=Join-Path $kok 'veri\sinav\smmm-konu-dayanak.json'
+  if(Test-Path $hdYol){ $hdHarita=@{}; foreach($hdZ in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)){ if("$($hdZ.durum)" -eq 'MADDE OKUNDU' -and "$($hdZ.dayanak)".Trim()){ $hdHarita[(Katla2 "$($hdZ.konu)")]="$($hdZ.dayanak)".Trim() } }
+    $hdSay=0; $adaylar=@(foreach($a0 in $adaylar){ $kd0=(Katla2 "$($a0.konu)"); if($hdHarita.ContainsKey($kd0) -and -not "$($a0.dayanak)".Trim() -and -not "$($a0.cikmis_dayanak)".Trim()){ $a1=$a0.PSObject.Copy(); $a1.dayanak=$hdHarita[$kd0]; $a1.guc='SMMM KONU-DAYANAK HARITASI (okunmus madde)'; $hdSay++; $a1 } else { $a0 } })
+    if($hdSay){ Write-Host "  SMMM konu-dayanak haritası: $hdSay konuya okunmuş dayanak verildi" -ForegroundColor DarkCyan } } }
 $gorulen=@{}; $KONULAR=New-Object System.Collections.Generic.List[object]; $sira=0
 foreach($a in $adaylar){
   $kAd="$($a.konu)".ToLowerInvariant()
