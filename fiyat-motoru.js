@@ -84,7 +84,10 @@ var TAKSIT_ADET = 3;
    tüketiciye satışta tüm vergiler dahil tek tutar gösterilir.
 --------------------------------------------------------------------------- */
 var FIYAT = {
-  sgs:            { kurulus:1790, liste:2490 },
+  /* 15.09.2026 CEM KARARI: "1.990 + KDV" → etikette 2.390 (KDV dahil); liste 2.490 + KDV → 2.990.
+     Gerekçe: rakip taraması (58 kurum) — uygulamalar 499, kurslar 4.500+; "ucuz = kalitesiz" algısı olmasın.
+     Yeterlilik ve KGK bilerek DEĞİŞMEDİ (Cem: "bitirme ve KGK aynı kalsın"). */
+  sgs:            { kurulus:2390, liste:2990 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.190 < 1.260 · 2 ders 1.990 < 2.520 · 3 ders 2.590 < 3.780
      4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080                     */

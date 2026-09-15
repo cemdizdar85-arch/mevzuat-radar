@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
 <title>Fiyatlar | Tetikte</title>
-<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Kuruluş fiyatı 1.790 TL'den başlar; her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
+<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.390 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/fiyat.html">
 <meta property="og:title" content="Fiyatlar">
-<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Kuruluş fiyatı 1.790 TL'den başlar; her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
+<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.390 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fiyatlar">
-<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Kuruluş fiyatı 1.790 TL'den başlar; her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
+<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.390 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
@@ -105,7 +105,7 @@
 <!-- ACILIS VURUSU (02.08 Cem onayi): Cem'in "sinava tekrar girme parasina bize uye olun"
      fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge. -->
 <div class="vurus">
-  <div class="buyuk">Sınava bir kez daha girmenin bedeli <b>1.635 TL</b>.<br>Biz <b>1.790 TL</b> istiyoruz, bir daha girmeyesin diye.</div>
+  <div class="buyuk">Sınava bir kez daha girmek <b>1.635 TL</b> ve dört ay demek.<br>Biz <b id="vurusFiyat">2.390 TL</b> istiyoruz, bir daha girmeyesin diye.</div>
   <p>Staja Giriş Sınavı başvuru bedeli 2026'da 1.635 TL. Kalırsan bu parayı yeniden ödersin, üstüne dört ay kaybedersin.
   Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
@@ -315,7 +315,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><td>Son 15 Gün planı</td><td class="sag">890 TL</td></tr>
     <tr><td>Zayıf konu karnesi + çalışma önerisi</td><td class="sag">490 TL</td></tr>
     <tr><td><b>Toplam değer</b></td><td class="sag"><b>3.560 TL</b></td></tr>
-    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">1.790 TL</b></td></tr>
+    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">2.390 TL</b></td></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Son 15 Gün'ü gerçekten 890 TL'ye ayrı satıyoruz; uydurma bir "değer" değil,
   aşağıda fiyatı yazan gerçek ürün.</p>
@@ -438,6 +438,7 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 
 // Deger yigini kutusundaki paket fiyati.
 document.getElementById('yiginFiyat').textContent = tl(pSgs.fiyat) + ' TL';
+document.getElementById('vurusFiyat').textContent = tl(pSgs.fiyat) + ' TL';
 document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 
 // HARC KARSILASTIRMASI: her basamak harctan ucuz mu, tablo kendisi gostersin.
