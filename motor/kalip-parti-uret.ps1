@@ -236,6 +236,17 @@ function AciklamaDuz($a){
   return ($p -join ' ')
 }
 # sema tur adlari serbest donebiliyor - cizdiricinin tanidigi enum'a indir
+# 15.09 YALNIZ BİTİRME (Cem "2 ve 3 yap"): istemlerde KONU adı köprüdeki ASCII küçük harfli biçimiyle gidiyordu ("gug yukleme katsayisi", "sorumlu denetci sartlari kayik").
+# Model kısaltmayı metne aynen taşıyabiliyor (KAPI-D2 Türkçe harf). Yalnız İSTEMDE gösterilen ad düzeltilir; soru kaydındaki 'konu' alanı, önbellek anahtarları ve
+# parmak izi (soru+şıklar+doğru) değişmez. Sözlük: SMMM köprü + çıkmış analizindeki konu adlarında sesli harfsiz/kısaltma sözcükleri sayılarak kuruldu.
+$SMMM_KISALTMA=@{ 'kdv'='KDV'; 'ttk'='TTK'; 'tbk'='TBK'; 'tmk'='TMK'; 'vuk'='VUK'; 'gvk'='GVK'; 'kvk'='KVK'; 'otv'='ÖTV'; 'mtv'='MTV'; 'bsmv'='BSMV'; 'aatuhk'='AATUHK'; 'gmsi'='GMSİ'; 'viv'='VİV'; 'kkeg'='KKEG'
+  'sgk'='SGK'; 'ssk'='SSK'; 'gss'='GSS'; 'spk'='SPK'; 'spkn'='SPKn'; 'kgk'='KGK'; 'kap'='KAP'; 'tck'='TCK'; 'iik'='İİK'; 'iyuk'='İYUK'; 'osym'='ÖSYM'; 'meb'='MEB'
+  'smmm'='SMMM'; 'ymm'='YMM'; 'turmob'='TÜRMOB'; 'bdy'='BDY'; 'kayik'='KAYİK'; 'bds'='BDS'; 'coso'='COSO'; 'tms'='TMS'; 'tms1'='TMS 1'; 'tfrs'='TFRS'; 'thp'='THP'; 'msugt'='MSUGT'
+  'gug'='GÜG'; 'dimm'='DİMM'; 'dimmg'='DİMMG'; 'dig'='DİG'; 'dsym'='DSYM'; 'stmm'='STMM'; 'smm'='SMM'; 'fifo'='FIFO'; 'lifo'='LIFO'; 'kvyk'='KVYK'; 'kva'='KVA'; 'dth'='DTH'; 'eft'='EFT'; 'tl'='TL'; 'roa'='ROA' }
+function KonuGoster([string]$ad){
+  if($Sinav -ne 'SMMM'){ return $ad }
+  return [regex]::Replace($ad,"(?<![\p{L}\d])[\p{L}\d]+(?![\p{L}\d])",{ param($m) $k=("$($m.Value)" -creplace 'İ','i').ToLowerInvariant(); if($SMMM_KISALTMA.ContainsKey($k)){ $SMMM_KISALTMA[$k] } else { $m.Value } })
+}
 function Katla2([string]$s){
   ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' `
         -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' `
@@ -2903,7 +2914,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   # Kategori dersten turetilir, hesap/standart kumeleri makineden gelir.
   # Kategori cozulemezse baslik EKLENMEZ (bos string) - eski davranis korunur.
   $rolB = RolBasligi $DersRegex "$($ky.konu)"
-  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',"$($ky.konu)").Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',(KonuGoster "$($ky.konu)")).Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
@@ -3809,7 +3820,7 @@ foreach($id in @($don.Keys)){
 # kokunde HIC gecmiyor" dediyse hakem konu uyumunu ozellikle denetler. Olculdu:
 # bu isaretin tek basina isabeti %35, yani hukum degil DIKKAT CAGRISIDIR.
 $keIsaret = $(if($cvp.PSObject.Properties['konu_sapma_isareti'] -and "$($cvp.konu_sapma_isareti)".Trim()){ "DIKKAT: sozcuk olcumu bu soruda konu sapmasi isaretledi ($($cvp.konu_sapma_isareti)); konu uyumunu ozellikle dikkatli denetle. " } else { '' })
-$ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',"$($cvp.konu)").Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
+$ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Replace('{KOMSULAR}',$KOMSULAR).Replace('{TARIF}',$DERS_TARIF).Replace('{SORU}',"$($cvp.soru)").Replace('{DOGRU}',"$($cvp.dogru)").Replace('{SIK}',"$($cvp.siklar.$($cvp.dogru))").Replace('{ACIK}',"$($cvp.aciklama.$($cvp.dogru))").Replace('{KONU}',(KonuGoster "$($cvp.konu)")).Replace('{KAYNAK}',$kMetin).Replace('{DAYANAK}',"$($cvp.dayanak)").Replace('{GECICI}',$geciciNot)
   # 13.09 ÖLÇÜLDÜ (bankanın tamamı, 5.438 hakem kararı): kök OLUMSUZ olduğunda ("...hangisi yanlıştır?") hakem, işaretli şıkkın
   # metni kuralla çeliştiği için "dayanak kaynakta yok" deyip HAYIR veriyordu. Olumsuz kökte red %24,1, olumlu kökte %16,7; bütün alt
   # ölçütleri EVET olup kararı HAYIR olan 157 çelişkili retten 87'si olumsuz köklü (a6e Meslek çok zor kp-16: gerekçesi "A şıkkı yanlış
@@ -4569,7 +4580,7 @@ foreach($id in @($don.Keys)){
   $cvp=$don[$id]; if(-not $cvp.soru){ continue }
   if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['harita'] -and "$($cvp.konu_giris.harita)".Trim()){ continue }   # 07.09 Ö54: haritasız (eski iki katmansız) giriş yenilenir; -GirisYenile hepsini
   $kMetinG=SadeKaynak $cvp; $kgT=PaketTavani 6000; if($kMetinG.Length -gt $kgT){ $kMetinG=$kMetinG.Substring(0,$kgT) }
-  $istG=$girisIstem.Replace('{KONU}',"$($cvp.konu)").Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
+  $istG=$girisIstem.Replace('{KONU}',(KonuGoster "$($cvp.konu)")).Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
   if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istG 3000 $GIRIS_EFFORT; continue }   # 08.09: giriş anlatım fazı, düşünme low (pilot: 4.177 çıktı / 2.243 kr metin, max_tokens'ta kesildi)
   $gN=$null; $tokG=0; $tokC=0
   foreach($tur in 1..2){
