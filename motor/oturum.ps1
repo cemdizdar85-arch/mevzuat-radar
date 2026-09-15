@@ -25,7 +25,12 @@ param(
   # Kapıyı gevşetmek yerine bilinçli çıkış yolu açıldı: gerekçe YAZILIR ve
   # bırakılan dosyalar kütüğe geçer. Gerekçesiz bırakma yok.
   [string]$Birak = "",
-  [switch]$Zorla      # bayat kilidi ez (yalnız Cem söylerse)
+  [switch]$Zorla,     # bayat kilidi ez (yalnız Cem söylerse)
+  # 15.09: kilide oturumun ne yaptığı ve mesaj adı yazılır → başka oturum notu DOĞRU oturuma gönderir
+  # (15.09'da "bitirme oturumuna not" iki yanlış oturuma gitti: adlar yalnız numaraydı).
+  [string]$Is = "",   # kısa iş açıklaması: "kgk-soru", "bitirme basımı" …
+  [string]$Ad = "",   # ListAgents'te görünen oturum adı (ör. mevzuat-i-i-cc) — mesaj adresi
+  [switch]$KilitSinavi   # kilit mantığının öz-sınavı (kilit dosyasına ve depoya dokunmaz)
 )
 
 $ErrorActionPreference = 'Stop'
@@ -46,6 +51,129 @@ function KilitYaz($o){
 }
 function SaatFark($iso){
   try { return [math]::Round(((Get-Date) - [datetime]::Parse($iso)).TotalHours, 1) } catch { return 999 }
+}
+
+# --------------------------------------------------------------------------
+#  KİLİT KİMLİĞİ — 15.09.2026 DERSİ (iki kusur, biri kilidi fiilen işlevsiz bırakıyordu)
+#  (1) Kilide `$PID` yazılıyordu: bu, `oturum.ps1`'i çalıştıran ve SANİYELER içinde kapanan
+#      powershell sürecidir. Bir sonraki `-Ac` onu ölü görüp "sahipsiz kilit temizlendi" diyordu
+#      → kilit kimseyi durdurmuyordu (14.09 ve 15.09 günlüklerinde "sahipsiz … temizlendi" satırları).
+#  (2) `-Kapat -Kol X` kilidi KOLDAN siliyordu: 15.09 20:29'da site oturumu kendi eski kilidini
+#      bırakırken sınav oturumunun canlı kilidini sildi.
+#  ÇÖZÜM: kimlik = Claude oturumu. CLAUDE_CODE_SESSION_ID (oturum) + CLAUDE_PID (canlı süreç).
+#  Ortam yoksa (elle terminal, robot): powershell/cmd dışındaki ilk ata süreç. Kapat YALNIZ kendi
+#  oturumunun kilidini bırakır; başkasınınkini ancak -Zorla ile.
+# --------------------------------------------------------------------------
+function OturumKimligi {
+  $oturumId = "$env:CLAUDE_CODE_SESSION_ID"
+  $sahipPid = 0
+  if("$env:CLAUDE_PID" -match '^\d+$'){ $sahipPid = [int]$env:CLAUDE_PID }
+  if(-not $sahipPid){
+    $surecNo = $PID
+    for($adim=0; $adim -lt 8 -and $surecNo; $adim++){
+      $surec = Get-CimInstance Win32_Process -Filter "ProcessId=$surecNo" -ErrorAction SilentlyContinue
+      if(-not $surec){ break }
+      if($surec.Name -notmatch '^(powershell|pwsh|cmd|conhost|bash|sh|git|OpenConsole)\.exe$'){ $sahipPid = [int]$surec.ProcessId; break }   # bash.exe: Claude'un Bash aracı zinciri (bash ×3 → claude.exe), site oturumu ölçtü 15.09
+      $surecNo = $surec.ParentProcessId
+    }
+    if(-not $sahipPid){ $sahipPid = $PID }
+  }
+  if(-not $oturumId){ $oturumId = "pid-$sahipPid" }
+  return [pscustomobject]@{ oturum = $oturumId; pid = $sahipPid }
+}
+function SahipYasiyorMu($o){
+  $surec = Get-Process -Id ([int]$o.pid) -ErrorAction SilentlyContinue
+  if(-not $surec){ return $false }
+  # PID geri dönüşümü: aynı numarayı sonradan başlayan başka süreç almışsa sahipsiz
+  try { if($surec.StartTime -gt ([datetime]$o.acilis)){ return $false } } catch { }
+  return $true
+}
+function EskiBicimMi($o){ return (-not $o.PSObject.Properties['oturum']) }
+function KilitAl($liste, [string]$kolAdi, $kimlik, [string]$isAciklamasi, [string]$mesajAdi, [bool]$zorlaGec){
+  # GEÇİŞ (15.09): eski biçim kayıtta (oturum alanı yok) sahip PID'i HER ZAMAN ölüdür (kapanmış powershell);
+  # yaşına göre değerlendirilir: BAYAT_SA'dan gençse KORUNUR ama ENGEL SAYILMAZ (kimin olduğu bilinemez,
+  # engel sayılsa kendi eski kilidini de ezmek gerekirdi), bayatsa temizlenir. Site oturumu uyardı: yoksa ilk
+  # yeni -Ac açık oturumların kaydını siler.
+  $eskiGenc = @($liste | Where-Object { (EskiBicimMi $_) -and (SaatFark $_.acilis) -le $BAYAT_SA -and $_.kol -ne $kolAdi })
+  $temizler = @($liste | Where-Object { if(EskiBicimMi $_){ (SaatFark $_.acilis) -gt $BAYAT_SA -or $_.kol -eq $kolAdi } else { -not (SahipYasiyorMu $_) } })
+  $canli = @(@($liste | Where-Object { -not (EskiBicimMi $_) -and (SahipYasiyorMu $_) }) + $eskiGenc)
+  $engel = @($canli | Where-Object { -not (EskiBicimMi $_) -and $_.kol -eq $kolAdi -and "$($_.oturum)" -ne $kimlik.oturum })
+  if($engel.Count -and -not $zorlaGec){ return [pscustomobject]@{ sonuc='ENGEL'; liste=$canli; engel=$engel[0]; temizlenen=$temizler } }
+  $sonuc = if($engel.Count){ 'DEVRALINDI' } elseif(@($canli | Where-Object { $_.kol -eq $kolAdi -and "$($_.oturum)" -eq $kimlik.oturum }).Count){ 'YENILENDI' } else { 'ALINDI' }
+  $yeniListe = @($canli | Where-Object { $_.kol -ne $kolAdi })
+  $yeniListe += [pscustomobject]@{ kol=$kolAdi; oturum=$kimlik.oturum; pid=$kimlik.pid; is=$isAciklamasi; ad=$mesajAdi; acilis=(Get-Date -Format 'o') }
+  return [pscustomobject]@{ sonuc=$sonuc; liste=$yeniListe; engel=$(if($engel.Count){ $engel[0] } else { $null }); temizlenen=$temizler }
+}
+function KilitBirak($liste, [string]$kolAdi, $kimlik, [bool]$zorlaGec){
+  $benim = @($liste | Where-Object { "$($_.oturum)" -eq $kimlik.oturum -and ($kolAdi -eq '' -or $_.kol -eq $kolAdi) })
+  $baskasi = @($liste | Where-Object { $kolAdi -ne '' -and $_.kol -eq $kolAdi -and "$($_.oturum)" -ne $kimlik.oturum })
+  $birakilan = @($benim)
+  if($zorlaGec){ $birakilan += $baskasi }
+  $kalan = @($liste | Where-Object { $birakilan -notcontains $_ })
+  return [pscustomobject]@{ birakilan=$birakilan; baskasi=$(if($zorlaGec){ @() } else { $baskasi }); liste=$kalan }
+}
+function KilitSinavi {
+  # Kilit mantığının kendi sınavı: sahte kimliklerle, dosyaya yazmadan. Canlı süreç = bu sınav süreci; ölü süreç = olmayan PID.
+  $dusen = New-Object System.Collections.Generic.List[string]
+  $gecmis = (Get-Date).AddHours(-1).ToString('o')   # yalnız ÖLÜ/eski kayıtlar için (1 sa önce = BAYAT_SA'dan genç)
+  $canliPid = $PID
+  $canliAcilis = (Get-Date).ToString('o')           # canlı kayıt: sınav sürecinin başlangıcından SONRA (PID geri dönüşüm kuralı)
+  $oluPid = 999999; while(Get-Process -Id $oluPid -ErrorAction SilentlyContinue){ $oluPid-- }
+  $oturumA = [pscustomobject]@{ oturum='oturum-A'; pid=$canliPid }
+  $oturumB = [pscustomobject]@{ oturum='oturum-B'; pid=$canliPid }
+  $kilitA = [pscustomobject]@{ kol='sinav'; oturum='oturum-A'; pid=$canliPid; is='kgk'; ad='a'; acilis=$canliAcilis }
+  # 1) B, A'nın canlı sınav kilidine giremez
+  $s1 = KilitAl @($kilitA) 'sinav' $oturumB 'baska' 'b' $false
+  if($s1.sonuc -ne 'ENGEL'){ $dusen.Add("1 başka oturumun canlı kilidi ENGEL vermedi: $($s1.sonuc)") }
+  # 2) A aynı kolu yeniden açınca yenilenir, çift kayıt olmaz
+  $s2 = KilitAl @($kilitA) 'sinav' $oturumA 'kgk' 'a' $false
+  if($s2.sonuc -ne 'YENILENDI' -or @($s2.liste).Count -ne 1){ $dusen.Add("2 aynı oturum yenilemesi: $($s2.sonuc) · kayıt $(@($s2.liste).Count)") }
+  # 3) B '-Kapat -Kol sinav' A'nın kilidini SİLMEZ (15.09 20:29 olayı)
+  $s3 = KilitBirak @($kilitA) 'sinav' $oturumB $false
+  if(@($s3.liste).Count -ne 1 -or @($s3.baskasi).Count -ne 1){ $dusen.Add("3 başka oturum kilidi sildi: kalan $(@($s3.liste).Count)") }
+  # 4) A kendi kilidini bırakır
+  $s4 = KilitBirak @($kilitA) 'sinav' $oturumA $false
+  if(@($s4.liste).Count -ne 0){ $dusen.Add("4 kendi kilidini bırakamadı") }
+  # 5) sahibi ölü kilit temizlenir ve kol alınır (eski biçim: oturum alanı yok)
+  $olu = [pscustomobject]@{ kol='sinav'; pid=$oluPid; acilis=$gecmis }
+  $s5 = KilitAl @($olu) 'sinav' $oturumB '' '' $false
+  if($s5.sonuc -ne 'ALINDI' -or @($s5.temizlenen).Count -ne 1){ $dusen.Add("5 ölü kilit temizlenmedi: $($s5.sonuc)") }
+  # 6) -Kol verilmeden Kapat: yalnız kendi oturumunun BÜTÜN kollarını bırakır
+  $kilitA2 = [pscustomobject]@{ kol='altyapi'; oturum='oturum-A'; pid=$canliPid; is=''; ad=''; acilis=$canliAcilis }
+  $kilitB = [pscustomobject]@{ kol='site'; oturum='oturum-B'; pid=$canliPid; is=''; ad=''; acilis=$canliAcilis }
+  $s6 = KilitBirak @($kilitA,$kilitA2,$kilitB) '' $oturumA $false
+  if(@($s6.birakilan).Count -ne 2 -or @($s6.liste).Count -ne 1 -or $s6.liste[0].kol -ne 'site'){ $dusen.Add("6 kolsuz kapanış yanlış: bırakılan $(@($s6.birakilan).Count) · kalan $(@($s6.liste).Count)") }
+  # 7) -Zorla ile başkasının kilidi devralınır
+  $s7 = KilitAl @($kilitA) 'sinav' $oturumB 'baska' 'b' $true
+  if($s7.sonuc -ne 'DEVRALINDI' -or "$($s7.liste[0].oturum)" -ne 'oturum-B'){ $dusen.Add("7 zorla devralma: $($s7.sonuc)") }
+  # 8) GEÇİŞ: başka koldaki GENÇ eski biçim kayıt korunur, engel olmaz; aynı koldaki ve BAYAT eski kayıt temizlenir
+  $eskiGencBaska = [pscustomobject]@{ kol='site'; pid=$oluPid; acilis=$gecmis }
+  $eskiAyniKol = [pscustomobject]@{ kol='sinav'; pid=$oluPid; acilis=$gecmis }
+  $eskiBayat = [pscustomobject]@{ kol='marka'; pid=$oluPid; acilis=(Get-Date).AddHours(-9).ToString('o') }
+  $s8 = KilitAl @($eskiGencBaska,$eskiAyniKol,$eskiBayat) 'sinav' $oturumB 'kgk' 'b' $false
+  if($s8.sonuc -ne 'ALINDI' -or @($s8.liste | Where-Object { $_.kol -eq 'site' }).Count -ne 1 -or @($s8.temizlenen).Count -ne 2){ $dusen.Add("8 geçiş: sonuç $($s8.sonuc) · site korundu $(@($s8.liste | Where-Object { $_.kol -eq 'site' }).Count) · temizlenen $(@($s8.temizlenen).Count)") }
+  return $dusen.ToArray()
+}
+
+if($KilitSinavi){
+  $sinavSonucu = @(KilitSinavi)
+  if($sinavSonucu.Count){ $sinavSonucu | ForEach-Object { Yaz "  ⛔ $_" 'Red' }; exit 1 }
+  Yaz "KİLİT ÖZ-SINAVI YEŞİL (8 vaka)" 'Green'; exit 0
+}
+
+function EskiBicimUyarisi($kayitlar){
+  # 15.09 (Cem "kilit düzenini diğer oturumlara da oturtalım"): eski biçim kayıt kimliksizdir — hiçbir oturumu durdurmaz,
+  # mesaj adı yoktur. Sahibi yeni biçimle yeniden açsın; açmazsa BAYAT_SA sonra kendiliğinden temizlenir.
+  $eskiler = @($kayitlar | Where-Object { EskiBicimMi $_ })
+  if(-not $eskiler.Count){ return }
+  Write-Host ("  ⚠ {0} eski biçim kilit kaydı (kimliksiz, kimseyi durdurmaz): {1}" -f $eskiler.Count, (($eskiler | ForEach-Object { $_.kol }) -join ', ')) -ForegroundColor Yellow
+  Write-Host "     O kolda çalışan oturum kaydını yenilesin: motor/oturum.ps1 -Ac -Kol <kol> -Is `"<kısa iş>`" -Ad `"<ListAgents adı>`" ($BAYAT_SA sa sonra kendiliğinden silinir)" -ForegroundColor Yellow
+}
+function KilitSatiri($o){
+  $sure = SaatFark $o.acilis
+  $ek = @(); if("$($o.is)"){ $ek += "iş: $($o.is)" }; if("$($o.ad)"){ $ek += "mesaj adı: $($o.ad)" }
+  $durum = if(EskiBicimMi $o){ 'eski biçim (kimlik yok)' } elseif(SahipYasiyorMu $o){ 'canlı' } else { 'SAHİPSİZ' }
+  return ("{0,-10} {1,5} sa · {2} · oturum {3}{4}" -f $o.kol, $sure, $durum, ("$($o.oturum)".Substring(0,[Math]::Min(8,"$($o.oturum)".Length))), $(if($ek.Count){ ' · ' + ($ek -join ' · ') } else { '' }))
 }
 
 # --------------------------------------------------------------------------
@@ -74,8 +202,9 @@ if($Nabiz){
     $acikKollar = if($k){ @($k.oturumlar) } else { @() }
     if($acikKollar.Count -gt 0){
       Write-Host "  AÇIK KOLLAR:" -ForegroundColor Yellow
-      foreach($o in $acikKollar){ Write-Host ("    {0} ({1} sa, pid={2})" -f $o.kol, (SaatFark $o.acilis), $o.pid) -ForegroundColor Yellow }
+      foreach($o in $acikKollar){ Write-Host ("    " + (KilitSatiri $o)) -ForegroundColor Yellow }
       Write-Host "  -> bu kollara DOKUNMA" -ForegroundColor Yellow
+      EskiBicimUyarisi $acikKollar
     } else { Write-Host "  açık oturum yok" }
 
     Write-Host "  Başlarken: powershell -NoProfile -File motor/oturum.ps1 -Ac -Kol <kol>" -ForegroundColor Cyan
@@ -89,11 +218,10 @@ if($Durum){
   $k = KilitOku
   if(-not $k -or -not $k.oturumlar -or @($k.oturumlar).Count -eq 0){ Yaz "Açık oturum yok." 'Green'; exit 0 }
   Yaz "`n=== AÇIK OTURUMLAR ===" 'Cyan'
-  foreach($o in $k.oturumlar){
-    $s = SaatFark $o.acilis
-    $et = if($s -gt $BAYAT_SA){ "BAYAT ($s sa)" } else { "$s sa" }
-    Yaz ("  {0,-12} pid={1,-8} {2}" -f $o.kol, $o.pid, $et)
-  }
+  foreach($o in $k.oturumlar){ Yaz ("  " + (KilitSatiri $o)) }
+  EskiBicimUyarisi @($k.oturumlar)
+  $benimKimligim = OturumKimligi
+  Yaz ("  (bu oturum: {0})" -f $benimKimligim.oturum) 'DarkGray'
   exit 0
 }
 
@@ -161,41 +289,22 @@ if($Ac){
   if(-not $k){ $k = [pscustomobject]@{ oturumlar = @() } }
   $liste = @($k.oturumlar)
 
-  # 30.08.2026 KUSUR: kilit YALNIZCA yasa gore ($BAYAT_SA=4 sa) bayat sayiliyordu.
-  # Oturum cokerse / kapanis kosulmadan kapanirsa kilit ORTADA KALIYOR ve dort
-  # saat boyunca herkesi bloke ediyor. Bugun yasandi: pid 41864 olmustu, kol
-  # yarim saat bos yere kapali kaldi. Artik SAHIP YASIYOR MU diye bakiliyor.
-  # PID geri donusumu tuzagi: ayni numarayi baska bir surec almis olabilir -
-  # o yuzden surecin BASLAMA ZAMANI kilidin acilisindan sonraysa da sahipsiz sayilir.
-  function SahipYasiyorMu($o){
-    $p = Get-Process -Id $o.pid -ErrorAction SilentlyContinue
-    if(-not $p){ return $false }
-    try { if($p.StartTime -gt ([datetime]$o.acilis)){ return $false } } catch { }
-    return $true
+  # 30.08: sahibi ölü kilit temizlenir (çöken oturum kolu saatlerce kapatmasın).
+  # 15.09: sahip = Claude oturumu (OturumKimligi). Canlı oturumun kilidi yaşına bakılmadan yalnız -Zorla ile ezilir.
+  $kimlik = OturumKimligi
+  $alim = KilitAl $liste $Kol $kimlik $Is $Ad ([bool]$Zorla)
+  foreach($o in @($alim.temizlenen)){ Yaz ("  ⚠ sahipsiz/eski kilit temizlendi: {0} (süreç {1})" -f $o.kol, $o.pid) 'Yellow' }
+  if($alim.sonuc -eq 'ENGEL'){
+    Yaz "`n  ⛔ '$Kol' kolunda başka bir CANLI oturum çalışıyor:" 'Red'
+    Yaz ("     " + (KilitSatiri $alim.engel)) 'Red'
+    Yaz "     BU KOLA DOKUNMA. Cem'e söyle, başka kol öner$(if("$($alim.engel.ad)"){ " ya da o oturuma mesaj at: $($alim.engel.ad)" })." 'Red'
+    Yaz "     Boş kollar: $((($KOLLAR | Where-Object { @($alim.liste).kol -notcontains $_ }) -join ' · '))" 'Yellow'
+    exit 3
   }
-  $sahipsiz = @($liste | Where-Object { -not (SahipYasiyorMu $_) })
-  if($sahipsiz.Count){
-    foreach($o in $sahipsiz){ Yaz ("  ⚠ sahipsiz kilit temizlendi: {0} (pid={1} artik yok)" -f $o.kol, $o.pid) 'Yellow' }
-    $liste = @($liste | Where-Object { SahipYasiyorMu $_ })
-  }
-
-  $cakisan = $liste | Where-Object { $_.kol -eq $Kol -and $_.pid -ne $PID }
-  if($cakisan){
-    $s = SaatFark $cakisan[0].acilis
-    if($s -le $BAYAT_SA -and -not $Zorla){
-      Yaz "`n  ⛔ '$Kol' kolunda başka oturum çalışıyor ($s saattir, pid=$($cakisan[0].pid))." 'Red'
-      Yaz "     BU KOLA DOKUNMA. Cem'e söyle, başka kol öner." 'Red'
-      Yaz "     Boş kollar: $((($KOLLAR | Where-Object { $liste.kol -notcontains $_ }) -join ' · '))" 'Yellow'
-      exit 3
-    }
-    Yaz "  ⚠ '$Kol' kolunda bayat kilit vardı ($s sa) — devralınıyor" 'Yellow'
-    $liste = $liste | Where-Object { $_.kol -ne $Kol }
-  }
-
-  $liste = @($liste | Where-Object { $_.pid -ne $PID })
-  $liste += [pscustomobject]@{ kol=$Kol; pid=$PID; acilis=(Get-Date -Format 'o'); dal=(git -C $KOK rev-parse --abbrev-ref HEAD) }
-  KilitYaz ([pscustomobject]@{ oturumlar = $liste })
-  Yaz "  -> '$Kol' kilitlendi (pid=$PID)" 'Green'
+  if($alim.sonuc -eq 'DEVRALINDI'){ Yaz ("  ⚠ -Zorla: '{0}' kilidi başka oturumdan devralındı ({1})" -f $Kol, $alim.engel.oturum) 'Yellow' }
+  KilitYaz ([pscustomobject]@{ oturumlar = @($alim.liste) })
+  Yaz ("  -> '{0}' {1} (oturum {2}, süreç {3})" -f $Kol, $(if($alim.sonuc -eq 'YENILENDI'){ 'kilidi yenilendi' } else { 'kilitlendi' }), $kimlik.oturum, $kimlik.pid) 'Green'
+  if(-not $Is -or -not $Ad){ Yaz "  ⓘ Başka oturumlar seni bulabilsin: -Is `"kısa iş`" -Ad <ListAgents'teki adın> ver ve oturum başlığını '$Kol · <iş>' yap." 'DarkGray' }
 
   Yaz "`n=== 3/3 · HAZIR ===" 'Cyan'
   Yaz "  Dal: $(git -C $KOK rev-parse --abbrev-ref HEAD) · ana telle eşit"
@@ -276,22 +385,26 @@ if($Kapat){
   # ama kilit duruyordu; bir sonraki oturum aynı kola giremiyordu.
   # (Kendi kurduğum kapı beni durdurdu - kapı çalıştı, mantık yanlıştı.)
   #
-  # Doğru ölçüt PID değil KOL: kapanan oturum hangi kolu açtıysa onu bırakır.
+  # 30.08: ölçüt PID değil KOL oldu. 15.09 KUSUR: KOL tek başına da yanlış — site oturumu "-Kapat -Kol sinav"
+  # ile sınav oturumunun CANLI kilidini sildi. Doğru ölçüt: KOL + OTURUM. Kapanan oturum yalnız KENDİ açtığı
+  # kilidi bırakır; -Kol verilmezse kendi oturumunun bütün kollarını bırakır; başkasınınkini ancak -Zorla ile.
+  # Eski biçim kayıt (oturum alanı yok) kimseye ait sayılmaz; -Kol ile adıyla verilirse bırakılır (geçiş kolaylığı).
   $k = KilitOku
   if($k){
-    $liste = @($k.oturumlar)
-    if($Kol -ne ""){
-      $kalan = @($liste | Where-Object { $_.kol -ne $Kol })
-      KilitYaz ([pscustomobject]@{ oturumlar = $kalan })
-      Yaz "  -> '$Kol' kilidi bırakıldı"
-    } elseif($liste.Count -eq 1){
-      # Tek kilit varsa belirsizlik yok, o bırakılır.
-      Yaz "  -> '$($liste[0].kol)' kilidi bırakıldı (tek açık kol)"
-      KilitYaz ([pscustomobject]@{ oturumlar = @() })
-    } elseif($liste.Count -gt 1){
-      Yaz "  ⚠ $($liste.Count) kol açık, hangisi kapanacağı belirsiz:" 'Yellow'
-      $liste | ForEach-Object { Yaz "      $($_.kol)" 'Yellow' }
-      Yaz "  -> kilit BIRAKILMADI. Şunu koş: ... -Kapat -Kol <kol>" 'Yellow'
+    $kimlik = OturumKimligi
+    $tumListe = @($k.oturumlar)
+    $eskiAdli = @($tumListe | Where-Object { (EskiBicimMi $_) -and $Kol -ne '' -and $_.kol -eq $Kol })
+    $yeniBicim = @($tumListe | Where-Object { -not (EskiBicimMi $_) })
+    $birakma = KilitBirak $yeniBicim $Kol $kimlik ([bool]$Zorla)
+    $kalanListe = @(@($birakma.liste) + @($tumListe | Where-Object { (EskiBicimMi $_) -and $eskiAdli -notcontains $_ }))
+    $birakilanlar = @(@($birakma.birakilan) + $eskiAdli)
+    if($birakilanlar.Count){
+      KilitYaz ([pscustomobject]@{ oturumlar = $kalanListe })
+      foreach($o in $birakilanlar){ Yaz ("  -> '{0}' kilidi bırakıldı{1}" -f $o.kol, $(if(EskiBicimMi $o){ ' (eski biçim kayıt)' } elseif("$($o.oturum)" -ne $kimlik.oturum){ ' (-Zorla: başka oturumun)' } else { '' })) }
+    } else { Yaz "  -> bu oturumun açık kilidi yok$(if($Kol){ " ('$Kol')" })" 'DarkGray' }
+    foreach($o in @($birakma.baskasi)){
+      Yaz ("  ⚠ '{0}' kilidi BAŞKA bir oturumun — dokunulmadı: {1}" -f $o.kol, (KilitSatiri $o)) 'Yellow'
+      Yaz "     Gerçekten terk edilmişse Cem onayıyla: ... -Kapat -Kol $($o.kol) -Zorla" 'Yellow'
     }
   }
   Yaz "  ✅ OTURUM TEMİZ KAPANDI`n" 'Green'
