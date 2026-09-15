@@ -1,0 +1,53 @@
+# .github/workflows/edge-nobeti.yml — CANLI UÇ FONKSİYON = DEPO NÖBETÇİSİ
+#
+# NEDEN (15.09.2026, Cem "1.2.3 üçünü de yap"): Supabase fonksiyonları panelden ELLE yükleniyor; 14.09'da
+# iki fonksiyon depoda yeni, canlıda 1 gün eski kaldı. Her fonksiyon ?surum=1 ile kod imzasını söyler
+# (arac/edge-imza.js); nöbetçi depoyla kıyaslar. YEŞİL eşit · SARI yayın bekliyor (<24 saat) ·
+# KIRMIZI 24 saati geçti ya da depoda imza bayat -> Cem'e mail · KÖR canlıya ulaşılamadı -> mail.
+# Anahtar istemez, ücretli çağrı yapmaz.
+name: Edge Nobetcisi
+
+on:
+  schedule:
+    - cron: "10 6 * * *"    # 09:10 TR
+  workflow_dispatch:
+  push:
+    paths:
+      - 'radar-app/edge/**'
+      - 'arac/edge-imza.js'
+      - 'motor/edge-nobetcisi.js'
+      - '.github/workflows/edge-nobeti.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 50      # depo değişikliğinin yaşı için git log gerekir
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Öz-sınav
+        run: |
+          node arac/edge-imza.js --sinav
+          node motor/edge-nobetcisi.js --sinav
+      - name: Canlı = depo
+        id: nobet
+        continue-on-error: true
+        run: node motor/edge-nobetcisi.js
+      - name: KIRMIZI / KÖR ise Cem'e mail
+        if: steps.nobet.outputs.hukum == 'KIRMIZI' || steps.nobet.outputs.hukum == 'KÖR' || steps.nobet.outputs.hukum == ''
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          HUKUM: ${{ steps.nobet.outputs.hukum }}
+          NEDEN: ${{ steps.nobet.outputs.neden }}
+        run: |
+          $h = if ($env:HUKUM) { $env:HUKUM } else { 'KÖR (çıktı yok)' }
+          ./arac/alarm-maili.ps1 -Konu "TETIKTE UC FONKSIYON NOBETI $h - canli kod depodan farkli" -Mesaj ("Hüküm: $h`n$($env:NEDEN)`n`nCanlı fonksiyon depodaki koddan farklı ya da ulaşılamıyor. Çare: Supabase panel -> Edge Functions -> ilgili fonksiyon -> Code -> depodaki radar-app/edge dosyasını yapıştır -> Deploy updates.`nAyrıntı: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          exit 1
