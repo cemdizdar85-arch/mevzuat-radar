@@ -43,6 +43,7 @@ param(
   [switch]$KorYenile,      # eldeki kör çözüm kararını yeniden verdirir
   [switch]$KorKaynak,      # 11.09 Cem "bu yapalım": FAZ K'ye KAYNAK METNİ verilir (anlatım DEĞİL). Körlük korunur, ezber körlüğü kalkar.
   [int]$KorKaynakTavan=4500,  # kör pakete giren kaynak metninin karakter tavanı (Opus girdi 15 USD/M — tavan bedeli tutar)
+  [switch]$EskiPaketTavani,   # 15.09 Cem "yap tavansız": kaynak paketi karakter tavanları VARSAYILAN KAPALI (tavansız). Bu anahtar 15.09 öncesi tavanları (4.500/6.000/7.000/9.000/12.000/20.000…) BİREBİR geri getirir — prova kolu ve geri dönüş yolu
   [switch]$Hakem2Yenile,   # eldeki ikinci hakem kararını yeniden verdirir
   [switch]$KonuYenile,     # konu listesi dosyasını (veri/fabrika/konu-secim-<etiket>.json) yok sayıp konuları yeniden seçer
   [switch]$Toplu,          # 08.09 Cem "daha ucuza": her fazın İLK denemesi Message Batches ile (yarı fiyat, paralel); kapıdan dönen tekrarlar anlık
@@ -59,6 +60,12 @@ param(
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
+# ⚠ 15.09.2026 CEM KARARI — KAYNAK PAKETİ TAVANSIZ. Ölçüm (veri/PAKET-TAVANI-OLCUMU.md, 6.762 soru): 4.500 kr tavanı aşan sorularda
+# hakem reddi 2,1–2,4 kat; SPK kp-03 (ilke kararı) ve GDS kp-03 (GDS 3402 p.9, 6.408 kr) doğrudan tavan yüzünden düştü.
+# Model bağlamı (200k jeton) en büyük paketi (≈107k kr ≈ 35k jeton) taşır; ortalama paket 3.651 → 8.034 kr.
+# Her karakter tavanı bu işlevden geçer: varsayılan sınırsız, -EskiPaketTavani ile eski değer. Kaynak SAYISI sınırları
+# (AmbarCek 10 kaynak, KaynakSirala 4) ve model çıktı jetonu sınırları bu karardan ETKİLENMEZ.
+function PaketTavani([int]$eskiDeger){ if($EskiPaketTavani){ return $eskiDeger } else { return [int]::MaxValue } }
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
@@ -246,6 +253,7 @@ function SemaNormalize($s){
   return $s
 }
 function AmbarCek([string[]]$desenler,[int]$tavan=9000){
+  $tavan=PaketTavani $tavan   # 15.09 tavansız (varsayılan); -EskiPaketTavani eski değer
   $topla=New-Object System.Collections.Generic.List[string]
   $adlar=New-Object System.Collections.Generic.List[string]
   foreach($d in $desenler){
@@ -2635,7 +2643,7 @@ if(Test-Path $dusenYol){ foreach($x in @((ConvertFrom-Json -InputObject (Get-Con
     if(-not $amb.metin -or $amb.metin.Length -lt 200){ Dus $id $e "kaynak ambarda bulunamadı (dayanak: $day)"; continue }
     $sikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $($e.siklar.$_)" }) -join "`n"
     $acikM=(@('A','B','C','D','E') | ForEach-Object { "$_) $(if($e.aciklama){ AciklamaDuz $e.aciklama.$_ })" }) -join "`n"
-    $kMet=$amb.metin; if($kMet.Length -gt 6000){ $kMet=$kMet.Substring(0,6000) }
+    $kMet=$amb.metin; $kMetT=PaketTavani 6000; if($kMet.Length -gt $kMetT){ $kMet=$kMet.Substring(0,$kMetT) }
     $istU=$uyarIstem.Replace('{SORU}',"$($e.soru)").Replace('{SIKLAR}',$sikM).Replace('{DOGRU}',"$($e.dogru)").Replace('{ACIK}',$acikM).Replace('{KAYNAK}',$kMet)
     $yU=$null; foreach($d in 1..3){ try{ $yU=Invoke-ClaudeMesaj -Model 'claude-sonnet-5' -Icerik $istU -MaxTok 7000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } }
     Write-Host ("  UYARLAMA TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$yU.girdi,$yU.cikti) -ForegroundColor DarkGray
@@ -2648,7 +2656,7 @@ if(Test-Path $dusenYol){ foreach($x in @((ConvertFrom-Json -InputObject (Get-Con
     $hk=@(HesapKodKapisi $cvp); if($hk.Count){ Dus $id $e "kod-ad çifti tutmuyor: $($hk -join '; ')"; continue }
     $cy=@(CeldiriciYolKapisi $cvp); if($cy.Count){ Dus $id $e "çeldirici yolu hesaplanmıyor: $($cy -join '; ')"; continue }
     $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @() -Force
-    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" 4500 ([ref]$kpAt)) -Force
+    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt)) -Force
     if($kpAt -and @($kpAt).Count){ Write-Host "  KAPI-KP: $id paket 4500 krk -> konu disi $(@($kpAt).Count) kaynak komple dusuruldu: $(@($kpAt | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan }
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
     $cvp | Add-Member -NotePropertyName uyarlama -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); model='claude-sonnet-5'; girdi=[int]$yU.girdi; cikti=[int]$yU.cikti; hesap=$hesapMi }) -Force
@@ -3068,7 +3076,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($ky.PSObject.Properties['son_donem']){ $cvp | Add-Member -NotePropertyName son_donem -NotePropertyValue ([int]$ky.son_donem) -Force; $cvp | Add-Member -NotePropertyName pencere -NotePropertyValue $DonemPencere -Force }
     if($ky.PSObject.Properties['capa_kaynak']){ $cvp | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($ky.capa_kaynak)" -Force }
     if($CAPA.ContainsKey($id)){ $cvp | Add-Member -NotePropertyName capa_metin -NotePropertyValue "$($CAPA[$id])" -Force }   # 06.09 Cem "3 yap": giriş kartında "Sınavda böyle çıktı" (cevapsız gerçek soru)
-    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" 4500 ([ref]$kpAt)) -Force
+    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt)) -Force
     if($kpAt -and @($kpAt).Count){ Write-Host "  KAPI-KP: $id paket 4500 krk -> konu disi $(@($kpAt).Count) kaynak komple dusuruldu: $(@($kpAt | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan }
     $cvp | Add-Member -NotePropertyName donem -NotePropertyValue $ky.donem -Force
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
@@ -3651,7 +3659,7 @@ foreach($id in @($don.Keys)){
       try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
     }
     $kMetin=($parca -join "`n---`n")
-    if($kMetin.Length -gt 4500){ $kpAt2=$null; $kMetin=PaketKirp $kMetin "$($cvp.konu)" 4500 ([ref]$kpAt2)
+    $hkT=PaketTavani 4500; if($kMetin.Length -gt $hkT){ $kpAt2=$null; $kMetin=PaketKirp $kMetin "$($cvp.konu)" $hkT ([ref]$kpAt2)
       if($kpAt2 -and @($kpAt2).Count){ Write-Host "  KAPI-KP (hakem): $id konu disi $(@($kpAt2).Count) kaynak dusuruldu" -ForegroundColor DarkCyan } }
   }
   else{
@@ -3685,7 +3693,7 @@ foreach($id in @($don.Keys)){
         $yeniAd=@($atif.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $atif.adlar -notcontains $_ })
         $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($yeniAd) -Force
         $cvp | Add-Member -NotePropertyName atif_genisletme -NotePropertyValue @($atif.adlar) -Force
-        $kMetin=$atif.metin + "`n---`n" + $kMetin; if($kMetin.Length -gt 12000){ $kMetin=$kMetin.Substring(0,12000) }
+        $kMetin=$atif.metin + "`n---`n" + $kMetin; $atT=PaketTavani 12000; if($kMetin.Length -gt $atT){ $kMetin=$kMetin.Substring(0,$atT) }
         Write-Host "  ATIF GENISLETME: $id <- $(@($atif.adlar | Select-Object -First 3) -join ' ; ')" -ForegroundColor DarkCyan
       } else {
         # 08.09 Cem "kanun maddelerinin doğru olduğu": dayanaktaki madde ambarda yoksa numara doğrulanamaz → iz + hakeme TEYITSIZ uyarısı
@@ -3741,9 +3749,9 @@ foreach($id in @($don.Keys)){
       }
       if($hgParca.Count){
         $hgPaket=($hgParca -join "`n---`n")
-        if($hgPaket.Length -gt 9000){ $hgPaket=$hgPaket.Substring(0,9000) }
+        $hgT=PaketTavani 9000; if($hgPaket.Length -gt $hgT){ $hgPaket=$hgPaket.Substring(0,$hgT) }
         $kMetin = "=== ILGILI HESAP GRUBUNUN TUM HESAPLARI ===`n" + $hgPaket + "`n---`n" + $kMetin
-        if($kMetin.Length -gt 20000){ $kMetin=$kMetin.Substring(0,20000) }
+        $hgT2=PaketTavani 20000; if($kMetin.Length -gt $hgT2){ $kMetin=$kMetin.Substring(0,$hgT2) }
         $cvp | Add-Member -NotePropertyName hesap_genisletme -NotePropertyValue @($hgAdlar) -Force
         Write-Host ("  HESAP GRUBU: {0} <- {1} grubu, {2} hesap tanimi eklendi" -f $id,($hgGruplar -join '/'),$hgAdlar.Count) -ForegroundColor DarkCyan
       } else {
@@ -4005,7 +4013,7 @@ function KorKaynakliGerekli($cvp){
 }
 function KorKaynakliCoz([string]$id,$cvp,[string]$sikM){
   CacheYaz   # para birimi düzeltmesi önce otursun: parmak izi yazılan metinden alınır
-  $kkTavan=[Math]::Max($KorKaynakTavan,12000)   # ölçüldü 14.09: p1-yvergi 7 blok ≈10.000 kr; 4.500 tavanda kuralı taşıyan m.11 [2/2] dışarıda kalabiliyordu
+  $kkTavan=PaketTavani ([Math]::Max($KorKaynakTavan,12000))   # ölçüldü 14.09: p1-yvergi 7 blok ≈10.000 kr; 4.500 tavanda kuralı taşıyan m.11 [2/2] dışarıda kalabiliyordu
   $kkMetin=KorKaynakPaket $cvp $kkTavan
   if(-not "$kkMetin".Trim()){ $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM KOŞMADI (kaynak paketi boş): $id"); Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM KOŞMADI ($id): kaynak paketi boş — soru yayına girmez" -ForegroundColor Yellow; return }
   $istKK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{KAYNAK}',$korKaynakEk.Replace('{METIN}',$kkMetin))
@@ -4345,7 +4353,7 @@ function SadeKaynak($cvp){
   $kodlarS=New-Object 'System.Collections.Generic.HashSet[string]'
   foreach($h in 'A','B','C','D','E'){ foreach($m in [regex]::Matches((@(Get-HesapKodu "$($cvp.siklar.$h)") -join ' '),'([1-7]\d{2})')){ [void]$kodlarS.Add($m.Groups[1].Value) } }
   if($kodlarS.Count){ $thpS=AmbarCek @($kodlarS | ForEach-Object { "THP $_ %" }) 3000; if($thpS.metin){ $parca.Add($thpS.metin) } }
-  $m0=($parca -join "`n---`n"); if($m0.Length -gt 9000){ $m0=$m0.Substring(0,9000) }
+  $m0=($parca -join "`n---`n"); $m0T=PaketTavani 9000; if($m0.Length -gt $m0T){ $m0=$m0.Substring(0,$m0T) }
   return $m0
 }
 # --- 11.09 TOPLU: FAZ S de iki gecisli (Cem "toplu istege gec") --------------
@@ -4518,7 +4526,7 @@ foreach($id in @($don.Keys)){
   if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru){ continue }
   if(-not $GirisYenile -and $cvp.PSObject.Properties['konu_giris'] -and $cvp.konu_giris -and $cvp.konu_giris.nedir -and $cvp.konu_giris.PSObject.Properties['harita'] -and "$($cvp.konu_giris.harita)".Trim()){ continue }   # 07.09 Ö54: haritasız (eski iki katmansız) giriş yenilenir; -GirisYenile hepsini
-  $kMetinG=SadeKaynak $cvp; if($kMetinG.Length -gt 6000){ $kMetinG=$kMetinG.Substring(0,6000) }
+  $kMetinG=SadeKaynak $cvp; $kgT=PaketTavani 6000; if($kMetinG.Length -gt $kgT){ $kMetinG=$kMetinG.Substring(0,$kgT) }
   $istG=$girisIstem.Replace('{KONU}',"$($cvp.konu)").Replace('{DONEM}',"$($cvp.donem)").Replace('{SORU}',"$($cvp.soru)").Replace('{KAYNAK}',$(if($kMetinG){ $kMetinG } else { '(kaynak metni yok: yalnız soruya dayan, genel kural yazma)' }))
   if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $istG 3000 $GIRIS_EFFORT; continue }   # 08.09: giriş anlatım fazı, düşünme low (pilot: 4.177 çıktı / 2.243 kr metin, max_tokens'ta kesildi)
   $gN=$null; $tokG=0; $tokC=0
