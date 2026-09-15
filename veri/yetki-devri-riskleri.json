@@ -1,14 +1,22 @@
 {
-  "tarih": "15.09.2026 05:39",
+  "tarih": "15.09.2026 12:17",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 872,
   "riskli_madde": 1313,
   "sayfa": 72,
   "atifli_iddia": 290,
   "dayanaksiz_iddia": 375,
-  "kirmizi_aday": 29,
-  "yeni_aday": 0,
-  "yeni": [],
+  "kirmizi_aday": 30,
+  "yeni_aday": 1,
+  "yeni": [
+    {
+      "sayfa": "fiyat.html",
+      "satir": 108,
+      "iddia": "1.635 TL",
+      "kanun": "390",
+      "metin": "Sınava bir kez daha girmek 1.635 TL ve dört ay demek. Biz 2.390 TL istiyoruz, bir daha girmeyesin diye."
+    }
+  ],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -49,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -84,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -177,6 +185,13 @@
       "iddia": "%50,",
       "kanun": "5986",
       "metin": "oran:[\"Temel oran %50, pazaryeri tanıtımında pazaryeri başına 3 yıl (5986 s. Karar m.4; e-ihracat tanıtım gideri sınırı: pazaryeri satışının %20'si)\",\"Sipariş karşılama (fulfilment"
+    },
+    {
+      "sayfa": "fiyat.html",
+      "satir": 108,
+      "iddia": "1.635 TL",
+      "kanun": "390",
+      "metin": "Sınava bir kez daha girmek 1.635 TL ve dört ay demek. Biz 2.390 TL istiyoruz, bir daha girmeyesin diye."
     },
     {
       "sayfa": "hizmet.html",
@@ -1034,8 +1049,8 @@
     {
       "sayfa": "fiyat.html",
       "satir": 318,
-      "iddia": "1.790 TL",
-      "metin": "Paket fiyatı 1.790 TL"
+      "iddia": "2.390 TL",
+      "metin": "Paket fiyatı 2.390 TL"
     },
     {
       "sayfa": "fiyat.html",
@@ -1616,8 +1631,8 @@
     {
       "sayfa": "karsilastirma.html",
       "satir": 88,
-      "iddia": "1.790 TL",
-      "metin": "1.790 TL'den başlar SGS 1.790 · Yeterlilik 2.790 · KGK 2.790 (kuruluş fiyatları)"
+      "iddia": "2.390 TL",
+      "metin": "SGS 2.390 TL Yeterlilik 1.190–3.490 · KGK 1.490–3.990 (kuruluş fiyatları, KDV dahil)"
     },
     {
       "sayfa": "karsilastirma.html",
