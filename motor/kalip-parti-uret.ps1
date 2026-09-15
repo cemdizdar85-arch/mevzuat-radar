@@ -43,6 +43,7 @@ param(
   [switch]$KorYenile,      # eldeki kör çözüm kararını yeniden verdirir
   [switch]$KorKaynak,      # 11.09 Cem "bu yapalım": FAZ K'ye KAYNAK METNİ verilir (anlatım DEĞİL). Körlük korunur, ezber körlüğü kalkar.
   [int]$KorKaynakTavan=4500,  # kör pakete giren kaynak metninin karakter tavanı (Opus girdi 15 USD/M — tavan bedeli tutar)
+  [string]$IlgisizTeoriSuzgeci='',  # 15.09 Cem "1.2.3 yap": FAZ A paketinden adı konu kökü taşımayan TEORİ notu blokları çıkar. '' = varsayılan (YALNIZ SGS açık; ölçüm SGS'den), 'ac' = her sınavda aç, 'kapat' = kapat. SMMM varsayılan kapalı (bitirme oturumu şartı: SPK konularının 17'si yalnız teori dayanaklı)
   [switch]$EskiPaketTavani,   # 15.09 Cem "yap tavansız": kaynak paketi karakter tavanları VARSAYILAN KAPALI (tavansız). Bu anahtar 15.09 öncesi tavanları (4.500/6.000/7.000/9.000/12.000/20.000…) BİREBİR geri getirir — prova kolu ve geri dönüş yolu
   [switch]$Hakem2Yenile,   # eldeki ikinci hakem kararını yeniden verdirir
   [switch]$KonuYenile,     # konu listesi dosyasını (veri/fabrika/konu-secim-<etiket>.json) yok sayıp konuları yeniden seçer
@@ -2783,6 +2784,32 @@ foreach($kk in $KONULAR){
     $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | dayanak: $($ky.dayanak) / $($ky.cikmis_dayanak)")
     Write-Host "  KAYNAK BORCU: $($ky.konu)" -ForegroundColor Yellow
     continue
+  }
+  # ⭐ 15.09.2026 KAPI-İT (İLGİSİZ TEORİ SÜZGECİ) — Cem "1.2.3 üçünüde yap". ÖLÇÜLDÜ (5.718 hakemli model sorusu,
+  #    veri/PAKET-TAVANI-OLCUMU.md): SGS'de kaynak listesindeki ilgisiz TEORİ notu payı 0 / <%30 / %30-60 / ≥%60 iken
+  #    hakem reddi %17,3 / %27,7 / %34,7 / %55,2. "Kaynakta yok" gerekçesi dilimlerde ARTMIYOR → ilgisiz paket soruyu
+  #    konudan saptırıyor; süzgeç SORU YAZILMADAN önce. Kural (ölçümle aynı tanım): adı ^(TEORI|Teori Notu) olan blok, konunun
+  #    ≥4 harfli köklerinden (genel sözcükler hariç, ilk 5 harf) HİÇBİRİNİ adında taşımıyorsa çıkar. Kanun/standart/THP'ye
+  #    dokunulmaz. OZEL_DESEN (elle doğrulanmış) konu atlanır; süzülmüş paket 300 kr altına inecekse süzme yapılmaz.
+  #    Varsayılan yalnız SGS; SMMM kapalı (bitirme: SPK 17 konu yalnız teori dayanaklı), KGK kapalı (KAPI-AILE zaten var, veri az).
+  $itAcik = if($IlgisizTeoriSuzgeci -eq 'ac'){ $true } elseif($IlgisizTeoriSuzgeci -eq 'kapat'){ $false } else { $Sinav -eq 'SGS' }
+  if($itAcik -and -not $OZEL_DESEN.ContainsKey($konuLc) -and "$($amb.metin)" -match '\[(TEORI|Teori Notu)'){
+    $itGenel=@('hesap','hesabi','kaydi','kayit','tutar','islem','isletme','teori','notu','hesaplama','yontem','yontemi','ornek','uygulama','tanimi','turleri','genel','temel','ilke','ilkesi')
+    $itKokler=@([regex]::Matches((Katla2 "$($ky.konu)"),'[a-z]{4,}') | ForEach-Object { $_.Value } | Where-Object { $itGenel -notcontains $_ } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } } | Select-Object -Unique)
+    if($itKokler.Count){
+      $itBloklar=@("$($amb.metin)" -split "`n---`n" | Where-Object { "$_".Trim() })
+      $itKalan=New-Object System.Collections.Generic.List[string]; $itAtilan=New-Object System.Collections.Generic.List[string]
+      foreach($itBlok in $itBloklar){
+        $itAd=''; $itEs=[regex]::Match($itBlok,'^\s*\[([^\]]{1,300})\]'); if($itEs.Success){ $itAd=$itEs.Groups[1].Value }
+        if($itAd -match '^(TEORI|Teori Notu)'){ $itAdK=Katla2 $itAd; if(-not @($itKokler | Where-Object { $itAdK.Contains($_) }).Count){ $itAtilan.Add($itAd); continue } }
+        $itKalan.Add($itBlok)
+      }
+      $itYeniMetin=($itKalan.ToArray() -join "`n---`n")
+      if($itAtilan.Count -and $itYeniMetin.Length -ge 300){
+        $amb=@{ metin=$itYeniMetin; adlar=@($amb.adlar | Where-Object { $itAtilan -notcontains "$_" }); agHatasi=$amb.agHatasi }
+        Write-Host "  KAPI-İT: $($ky.konu) <- ilgisiz teori notu $($itAtilan.Count) çıkarıldı: $(@($itAtilan | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan
+      } elseif($itAtilan.Count){ Write-Host "  KAPI-İT atlandı (süzülmüş paket 300 kr altı): $($ky.konu)" -ForegroundColor DarkGray }
+    }
   }
   # KAPI A (01.09 Cem: "boyle yanlislar olursa ben yanarim"): kaynak-konu ALAKA denetimi.
   # Konu kelime koklerinden en az biri kaynak metninde gecmeli; gecmiyorsa kaynak
