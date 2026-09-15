@@ -142,9 +142,14 @@ async function mailGonder(konu: string, satirlar: [string, string][], yanitAdres
   } catch { return false; }
 }
 
+// Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
+const KOD_IMZA = "afa687dd9971b46a";
+
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin");
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
+  // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
+  if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
 
   const url = new URL(req.url);
   if (url.searchParams.get("tani") === "1") {

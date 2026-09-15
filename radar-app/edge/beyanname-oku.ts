@@ -33,8 +33,13 @@ async function rlAsti(ip: string): Promise<boolean> {
   } catch { return false; }
 }
 
+// Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
+const KOD_IMZA = "e178cdb068a93770";
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
+  if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
   const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
   if (await rlAsti(ip)) return json({ hata: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   try {

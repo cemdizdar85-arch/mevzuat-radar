@@ -183,8 +183,13 @@ function kisiselGizle(metin) {
 }
 // GIZLE-BITIR
 
+// Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
+const KOD_IMZA = "5ad0eec8fa3a43bb";
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
+  if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
 
   // ---- TANI UCU: /net-cevap?tani=1 -----------------------------------------
   // Hangi anahtarin TANIMLI oldugunu (yalniz true/false) ve her hattin ne

@@ -116,6 +116,9 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 // ---------------------------------------------------------------------------
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
+// Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
+const KOD_IMZA = "05689ba2c711c316";
+
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
   const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
@@ -162,6 +165,8 @@ if (Deno && Deno.serve) {
   Deno.serve(async (req: Request) => {
     const origin = req.headers.get("origin");
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
+    // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
+    if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
     if (new URL(req.url).searchParams.get("tani") === "1") {
       return cevap(200, { tani: true, secret_tanimli: { RESEND_KEY: !!RESEND_KEY, RESEND_FROM: !!Deno.env.get("RESEND_FROM"), SERVICE_ROLE: !!SB_SERVICE, ANON: !!SB_ANON } }, origin);
     }
