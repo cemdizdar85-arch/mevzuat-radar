@@ -66,3 +66,22 @@ Hakem reddi almış ve paketi tavanı aşan **100 SGS/SMMM sorusunu** (soru metn
 **Okuma:** Tavan bazı doğru soruları kesik paket yüzünden düşürüyordu, bu kanıtlandı. Ama tavanı tamamen kaldırmak pakete ilgisiz kaynakları da (atıf genişletmesi 10 kaynağa kadar) doldurduğu için hakemi başka sorularda şaşırtıyor. Sorunun kökü karakter sayısı değil, **pakete ilgisiz kaynağın girmesi**.
 
 **Durum:** Kod tavansız kaldı (Cem kararı; bedel etkisi +%8 hakem girdisi). Önerilen sonraki adım Cem onayında: tavansız + atıf genişletmesinde yalnız dayanakla aynı aileden kaynak (KGK'daki KAPI-AILE mantığının SGS/SMMM'ye taşınması), aynı 120 soruda yeniden prova (≈0,7 USD).
+
+---
+
+## GÜNCELLEME 15.09 ~20:45 · Cem "1.2.3 üçünüde yap"
+
+**Öneri 1 — atıf genişletmesine süzgeç: yapılmadı, para harcanmadı.** Parasız incelemede önerdiğim "aile süzgeci" ölçülen gürültüyü yakalamıyor: kp-24'teki ilgisiz notların hepsi TEORİ ailesinden (izinli aile), kp-13'teki TMS 7 p.1/p.3/p.45 da izinli ailede. Kök neden ölçüldü: dayanak paragraf numarası vermeden standart anınca ("TMS 7 …") atıf deseni `TMS 7 p.%` olup ambardan standardın ilk kayıtları (sırasız, limit 6) geliyor. Bunun yerine "dayanak+konu kelimelerine göre en ilgili 4 paragraf" seçimi yazıldı ve 120 prova sorusunda parasız sınandı: yalnız 28 atıfta devreye giriyor, seçtiği paragraflar çoğu kez yine ilgisiz (ör. "TMS 16 amortisman" → TMS 1 p.104; "kontrol çevresi" → BDS 315 p.A241) ve kp-13'ü çözmüyor (dayanağa ilgisiz standart yazılmış). 120 soruluk ödemeli prova bu kadar küçük etkiyi ölçemeyeceği için ≈0,7 USD harcanmadı; kod geri alındı (ölü kod bırakılmadı).
+**Asıl kök (ölçüldü, iş emri):** gürültü hakem aşamasında değil ÜRETİM aşamasında doğuyor — `kaynak_adlar` listeleri soruyla ilgisiz TEORİ notlarıyla dolu (kp-24 "satış iskontosu": hisse senedi getirisi, ortak maliyet dağıtımı, tahvil türleri…) ve model dayanağa ilgisiz standart yazabiliyor (kp-13 "faaliyet kârı" → TMS 7).
+
+**Öneri 2 — bitirme oturumuna not:** açık oturumlara gönderildi; ikisi de bitirme değildi (SGS GM ve site oturumu), bitirme oturumu şu an açık değil. Not kalıcı olarak hafıza endeksinde (`paket-tavani`) ve bu raporda. SGS GM oturumunun bildirdiği karıştırıcı: 7223deb6 (15.09 19:36) KAPI-HG'yi değiştirdi; muhasebe partilerinde ret farkının bir kısmı ondan gelebilir.
+
+**Öneri 3 — izleme:** `arac/tavan-izleme.ps1` → `veri/tavan-izleme.json` (bedel 0). Dönem ayrımı: dosya 66c413f6 sonrası değişmiş + saklı paket > 4.500 kr (tavansız izi). Başlangıç çizgisi (20:40):
+
+| Sınav | Dönem | Parti | Hakemli | Ret | Ret oranı |
+|---|---|---|---|---|---|
+| SGS | önce | 893 | 6.315 | 1.042 | %16,5 |
+| SMMM | önce | 34 | 102 | 16 | %15,7 |
+| KGK | önce | 14 | 325 | 24 | %7,4 |
+
+Tavansız dönem partisi henüz yok. Yeni üretimden sonra aynı betik koşulur; ret oranı başlangıç çizgisinin belirgin üstüne çıkarsa `-EskiPaketTavani` ile karşılaştırılır.
