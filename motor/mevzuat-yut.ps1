@@ -28,6 +28,10 @@ if(Test-Path $durumYol){ try { (Get-Content $durumYol -Raw -Encoding UTF8 | Conv
 # --- madde madde parcalayici (eski "Madde N -" + modern "MADDE N-"; TR unsuz yumusamasi) ---
 # 22.07.2026: taksimli madde (32/A, 32/C...) + TUM-BUYUK "EK MADDE/GECICI MADDE/MUKERRER MADDE"
 # varyantlari eklendi — KVK 32/C (asgari KV) ve 7524 ek maddeleri bu desenin disinda kaliyordu.
+function AralikliMaddeDuzelt([string]$duzMetin){
+  # "M A D D E1 2 -" / "M A D D E1 –" -> "MADDE 12 -" / "MADDE 1 –" (yalniz harfleri tek tek aralikli yazim; normal "MADDE 12" dokunulmaz)
+  return [regex]::Replace($duzMetin, '\bM A D D E ?((?:\d ?){1,3})(?=[-–:(])', { param($es) 'MADDE ' + ($es.Groups[1].Value -replace ' ','') + ' ' })
+}
 function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
   # 14.08 KUSUR (olculdu, Dahilde Isleme Rejimi Karari vakasi): desen madde
   # numarasindan HEMEN SONRA tire bekliyordu. Ama bazi metinlerde degisiklik
@@ -298,6 +302,11 @@ foreach($law in $manifest.kanunlar){
   # ve hicbir kanun yeniden yutulmaz; bu bayrak o kapiyi acar.
   if($yhash -eq $eski -and "$($env:ZORLA)" -ne "1" -and "$($env:ZORLA)" -ne "true"){ Write-Host ("DEGISMEDI: {0}" -f $law.ad); continue }
   if($yhash -eq $eski){ Write-Host ("ZORLA: {0} (hash ayni ama yeniden yutuluyor)" -f $law.ad) }
+  # 15.09.2026 KUSUR (olculdu, KGK Devlet Katkisi Yon.): bazi PDF'lerde madde basligi harf harf aralikli
+  # cikiyor ("M A D D E1 2 -"); Parcala onu madde basi saymiyor, m.12 m.11'in icine yapisiyordu. Tum _txt
+  # taramasi: 4 kaynak / 6 madde (bddk-kredi-islemleri m.13/17/20, bes-devlet-katkisi m.12, tahsilatgt11 m.1,
+  # vukgt545 m.12). Hash DUZELTMEDEN ONCE alinir -> baska kaynak yeniden yutulmaz; etkilenenler ZORLA ile.
+  $flat = AralikliMaddeDuzelt $flat
 
   $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
          else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
