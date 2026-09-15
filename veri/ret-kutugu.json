@@ -1,21 +1,21 @@
 {
-    "olcum":  "2026-09-14 08:45",
+    "olcum":  "2026-09-15 08:36",
     "kural":  "URETIM TURU BITTIGINDE BU BETIK KOSAR. Ret nedenleri okunmadan yeni tur baslatilmaz.",
-    "taranan_soru":  6624,
-    "ret":  2095,
+    "taranan_soru":  6728,
+    "ret":  2099,
     "kapi_dagilimi":  {
-                          "KAPI-HAKEM":  1073,
+                          "KAPI-HAKEM":  1075,
                           "KAPI-HAKEM2":  432,
-                          "KAPI-SIM":  344,
-                          "KAPI-KOR":  174,
+                          "KAPI-SIM":  345,
+                          "KAPI-KOR":  175,
                           "hakem KOSMADI":  72
                       },
     "sinif_dagilimi":  {
-                           "KAYNAK-EKSIK":  922,
-                           "SIM-YANLIS":  344,
+                           "KAYNAK-EKSIK":  923,
+                           "SIM-YANLIS":  345,
                            "YZ-KOKUSU":  253,
-                           "(siniflanmamis)":  232,
-                           "KOR-CELISKI":  174,
+                           "(siniflanmamis)":  233,
+                           "KOR-CELISKI":  175,
                            "HAKEM-KOSMADI":  72,
                            "KAYNAK-KESIK":  48,
                            "COK-ANLAMLI":  17,
@@ -7241,15 +7241,6 @@
                          "sinif":  "(siniflanmamis)",
                          "gerekce":  "Kaynak metni yalnızca THP hesap tanımları ve yüzde kar-zarar-faiz hesaplama teorisini içerir; soru muhasebe hesabı değil saf matematik kâr oranı sorusudur ve ders kapsamı dışındadır. %25 matematiksel olarak doğru: Kâr = 150 − 120 = 30; Kâr oranı = 30/120 × 100 = %25. Kaynak \u0027Teori Notu - yuzde kar zarar faiz hesaplari\u0027 başlığında \u0027Kar-zarar: Satis = Maliyet x (1 + kar orani)\u0027 kuralını ve \u0027yuzde kaç kar sorusu MALIYETE gore sorulur\u0027 tuzağını içerir; atıf tutarlıdır.",
                          "onarim":  ""
-                     },
-                     {
-                         "etiket":  "sgs-gm5-mat-r5",
-                         "id":  "kp-01",
-                         "konu":  "belirli integral",
-                         "kapi":  "KAPI-SIM",
-                         "sinif":  "SIM-YANLIS",
-                         "gerekce":  "",
-                         "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
                      },
                      {
                          "etiket":  "sgs-gm5-mat-r5",
@@ -18592,13 +18583,58 @@
                          "onarim":  "Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret."
                      },
                      {
-                         "etiket":  "smmm-gm-p2-vergi",
-                         "id":  "kp-03",
-                         "konu":  "beyanname cesitleri",
+                         "etiket":  "smmm-pilot-fmuh-kolay-r1",
+                         "id":  "kp-01",
+                         "konu":  "gelir tablosu duzenleme",
+                         "kapi":  "KAPI-SIM",
+                         "sinif":  "SIM-YANLIS",
+                         "gerekce":  "",
+                         "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
+                     },
+                     {
+                         "etiket":  "smmm-pilot-yhukuk-cokzor-r1",
+                         "id":  "kp-01",
+                         "konu":  "fiil ehliyeti",
                          "kapi":  "KAPI-HAKEM",
                          "sinif":  "KAYNAK-EKSIK",
-                         "gerekce":  "B seçeneği yanlıştır çünkü münferit beyanname dar mükelleflerin (tam mükelleflerin değil) beyannamesidir; GVK m.84/3 bunu açıkça belirtir. B seçeneği kurala aykırı ifade içerir ve soruda istenen yanlış ifadedir. GVK m.84 (Beyanname çeşitleri) kaynakta mevcuttur ve münferit beyanname için \u0027dar mükellefiyete tabi olanların\u0027 ifadesi yer almaktadır.",
+                         "gerekce":  "Kaynak metni TTK m.121/5\u0027i içermesine rağmen, soru m.121/5 hükmünün ATIF KONUSU olan Borçlar Kanunu m.513\u0027ü kaynak metinde teyit edilemediği için hükmün tam uygulanabilirliği teyitsizdir. TTK m.121/5\u0027e göre 300.000×%70=210.000 hak edilen ücret, 150.000 ödenen tutar çıkıldığında 60.000 ₺ ek ödeme doğrudur. TTK m.121/5 içinde gönderme yapılan \u0027Türk Borçlar Kanununun 513 üncü maddesi hükmü\u0027 kaynak metinde yer almadığından, atıf konusu hüküm teyit edilememiştir; ancak hükmün geçerliliğinde sorun bulunmamaktadır.",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "smmm-pilot-yhukuk-zor-r1",
+                         "id":  "kp-01",
+                         "konu":  "kidem tazminati kosullari",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru olumsuz köklü olup isaretli sikkin (E) kurala aykırı olmadığı, aksine kanuna uygun olduğu için yanlış değerdir. 4857 m.21 ek fıkrası açıkça \u0027dava tarihindeki ücreti esas alarak\u0027 tazminat ve ücreti belirleme zorunluluğu getirirken, isaretli sık \u0027işe başlatılmadığı tarihteki ücret\u0027 esas alınması gerektiğini söyleyerek kanuna aykırı ifade ortaya koymaktadır; olumsuz köklü soruda bu doğru seçenek olmalıydı, ancak öteki dört sıkka da bakıldığında bunlar da yanlış/kanuna aykırı ifadeler içerebilir ve soruda tek bir yanlış ifade seçilmesi gerekirken yanlış ifadelerin çoğluğu nedeni sorunun kalitesi bozulmuş durumdadır. Doğru sık 4857 m.21 ek fıkrası \u0027dava tarihindeki ücreti esas alarak\u0027 hükmüne atıfta bulunmakta ve kaynak metinde bu hüküm açıkça yer almaktadır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "smmm-pilot-ymeslek-cokzor-r1",
+                         "id":  "kp-01",
+                         "konu":  "musterek muteselsil sorumluluk",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "Soru, SMMM Kanunu m.8/A\u0027da tanımlanan \u0027müştereken ve müteselsil sorumluluk\u0027 konusunu ölçüyor ancak bu konu, \u0027Muhasebecilik ve Mali Müşavirlik Meslek Hukuku\u0027 dersinin resmi kapsamı dışında, \u0027Hukuk (Borçlar Hukuku)\u0027 komşu dersinin konusudur. A şıkkı, SMMM Kanunu m.8/A\u0027nın son paragrafında açıkça yer alan hükmü doğru yansıtır: \u0027rapor kapsamı ile sınırlı olmak üzere, ziyaa uğratılan vergilerden ve kesilecek cezalardan mükellefle birlikte müştereken ve müteselsilen sorumlu olurlar.\u0027 Kaynak metinde SMMM Kanunu (3568 s.K.) m.8/A başlığı altında serbest muhasebeci mali müşavirlerin rapor düzenleme sorumluluğu açıkça tanımlanmıştır.",
+                         "onarim":  ""
+                     },
+                     {
+                         "etiket":  "smmm-pilot-yspk-kolay-r1",
+                         "id":  "kp-01",
+                         "konu":  "sermaye piyasasi kurumlari",
+                         "kapi":  "KAPI-SIM",
+                         "sinif":  "SIM-YANLIS",
+                         "gerekce":  "",
+                         "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
+                     },
+                     {
+                         "etiket":  "smmm-pilot-yvergi-cokzor-r1",
+                         "id":  "kp-01",
+                         "konu":  "kurumlar vergisi hesaplama",
+                         "kapi":  "KAPI-KOR",
+                         "sinif":  "KOR-CELISKI",
+                         "gerekce":  "kor cozum HİÇBİRİ · anahtar C",
+                         "onarim":  "Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret."
                      },
                      {
                          "etiket":  "spl-duzey1-1002",
