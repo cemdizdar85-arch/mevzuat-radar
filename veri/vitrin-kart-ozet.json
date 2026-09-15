@@ -1,74 +1,66 @@
 {
-  "olcum": "2026-09-14T07:58:21.093Z",
-  "gun": "2026-09-14",
+  "olcum": "2026-09-15T07:52:48.532Z",
+  "gun": "2026-09-15",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 46,
+      "sira": 47,
       "toplam": 70,
-      "id": "sgs-c2-fmuh-cokzor-r1/kp-01",
-      "ders": "Finansal Muhasebe",
-      "konu": "tms 37 karşılıklar",
-      "kunye": "SGS 2024/2 Soru 54 kalıbı",
-      "donem": 7,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "İşletmenin dönem sonu değerleme işlemlerinden hangisinde, ilgili karşılık için 479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı alacaklandırılır?",
+      "id": "sgs-t2b-mta-cokzor/kp-02",
+      "ders": "Mali Tablolar Analizi",
+      "konu": "aktif devir hızı",
+      "kunye": "çıkmış soru kalıbı",
+      "donem": 8,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Bir işletmenin stok devir hızı 6, ortalama stoku 375.000 TL ve aktif devir hızı 2,40'tır. Satışların maliyeti net satışların yüzde 75'i olduğuna göre işletmenin aktif toplamı kaç TL'dir?",
       "siklar": {
-        "A": "Aleyhine açılan ve sonucunun 8 ay içinde kesinleşmesi beklenen tazminat davası için ayrılan karşılık",
-        "B": "Tahsilinin şüpheli hâle gelmesi nedeniyle ticari alacak için ayrılan değer düşüklüğü karşılığı",
-        "C": "Kıdem tazminatının önümüzdeki 12 ay içinde ödenmesi planlanan kısmı için ayrılan tutar",
-        "D": "Aralık ayında hizmeti alınmış, tutarı kesinleşmiş ancak faturası henüz gelmemiş kira gideri",
-        "E": "Aleyhine açılan ve sonucunun 1 yıl 6 ay içinde kesinleşmesi beklenen tazminat davası için ayrılan karşılık"
+        "A": "937.500",
+        "B": "1.250.000",
+        "C": "1.500.000",
+        "D": "2.250.000",
+        "E": "7.200.000"
       },
-      "dogru": "E",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Özel Hesap Tuzağı",
-          "metin": "kıdem tazminatı için 37 grubunun genel hesapları değil, kendine özgü 472 (uzun vadeli) ve bir yıl içine giren kısım için 372 hesabı kullanılır. Doğrusu: kıdem tazminatının kısa vadeli kısmı 372'ye aktarılır, 479'a girme…"
+          "ad": "Hesap Tuzağı",
+          "metin": "Aktif devir hızını yanlış aldın. Doğrusu: payda 2,40'tır, 1.250.000 TL."
         },
-        "A": {
-          "ad": "Vade Tuzağı",
-          "metin": "8 ay bilanço tarihinden itibaren bir yılı aşmadığı için bu karşılık 379 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabında izlenir, öğrenci 'dava karşılığı' başlığını görüp otomatik 479'a yazar. Doğrusu: vade bir yılı aşmadıkça…"
+        "E": {
+          "ad": "İşlem Tuzağı",
+          "metin": "Net satışları aktif devir hızına böleceğine çarptın. Doğrusu: 1.250.000 TL."
         },
         "D": {
-          "ad": "Karşılık-Tahakkuk Tuzağı",
-          "metin": "tutar kesinleşmiş ve gider gerçekleşmiş olduğundan bu bir tahmini karşılık değil, 381 GİDER TAHAKKUKLARI hesabına yazılacak bir tahakkuktur. Doğrusu: kesinleşmiş ama ödenmemiş gider karşılık değil tahakkuktur."
+          "ad": "Kalem Tuzağı",
+          "metin": "Satışların maliyetini cevap sandın. Doğrusu: 1.250.000 TL."
         },
-        "B": {
-          "ad": "Hesap Katmanı Tuzağı",
-          "metin": "bu bir borç karşılığı değil varlık değer düşüklüğü karşılığıdır; 129 Şüpheli Ticari Alacaklar Karşılığı ile 654 Karşılık Giderleri hesabı kullanılır, 379/479 grubuna hiç girmez. Doğrusu: 654/129 ayrımı borç karşılıkları…"
+        "A": {
+          "ad": "Kalem Tuzağı",
+          "metin": "Satışların maliyetini aktif devir hızına böldün; devir hızının payı net satışlardır. Doğrusu: 3.000.000 / 2,40 = 1.250.000 TL."
         }
       },
-      "hap": "Borç ve gider karşılıklarında vade bir yılı aşıyorsa 479, aşmıyorsa 379 kullanılır; kesinleşmiş gider karşılık değil tahakkuktur, kıdem tazminatının kendi hesapları (372/472) vardır.",
+      "hap": "Stok devir hızı satışların maliyetini, maliyet oranı net satışları, aktif devir hızı da aktif toplamını verir; üç adım birbirine zincirlenir.",
       "satirlar": [
         [
-          "A) Aleyhine açılan ve sonucunun 8 ay içinde kesinleşmesi be…",
-          "THP 379/479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı açıklaması"
+          "Satışların maliyeti (6 × 375.000)",
+          "2.250.000"
         ],
         [
-          "B) Tahsilinin şüpheli hâle gelmesi nedeniyle ticari alacak …",
-          "THP 654 KARŞILIK GİDERLERİ (-) hesabı açıklaması"
+          "Net satışlar (2.250.000 / 0,75)",
+          "3.000.000"
         ],
         [
-          "C) Kıdem tazminatının önümüzdeki 12 ay içinde ödenmesi plan…",
-          "THP 372/472 KIDEM TAZMİNATI KARŞILIĞI hesabı açıklaması"
-        ],
-        [
-          "D) Aralık ayında hizmeti alınmış, tutarı kesinleşmiş ancak …",
-          "THP 381 GİDER TAHAKKUKLARI hesabı açıklaması"
-        ],
-        [
-          "E) Aleyhine açılan ve sonucunun 1 yıl 6 ay içinde kesinleşm…",
-          "THP 479 DİĞER BORÇ VE GİDER KARŞILIKLARI hesabı açıklaması"
+          "Aktif toplamı (3.000.000 / 2,40)",
+          "1.250.000"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=46",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=47",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 69,
+        "kalan_gun": 68,
         "durum": "YESIL",
         "mail_gunu": false
       }
