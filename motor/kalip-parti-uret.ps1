@@ -2911,6 +2911,10 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # 08.09 Tur 1 denetim-cokzor ölçümü: 43 KAPI-K tekrarının çoğu TEK sıradan kelime ("teyide, edindiği, kesiksiz, çözülmüş") — pencere sözlüğü
     # 119 soruluk, her Türkçe kelimeyi içermiyor. Tek kelime = rapor notu (tekrar yok); ≥2 kelime yine tekrar (Cem'in "anormal düzeltme" vakası 2 kelimeydi).
     if($kvKusur.Count -eq 1){ $rapor.Add("KAPI-K NOTU (tek kelime, tekrar yok): $id | $($kvKusur[0])"); $kvKusur=@() }
+    # 15.09 yalnız bitirme (Cem "1.2.3 üçünü de yap", GM önerisi 2): pencere sözlüğü bitirmede yalnız 2 test dönemi (320 soru) — "kooperatifi, tarımsal, hasılatı"
+    # gibi sıradan kelimeler "sınavda geçmiyor" sayılıp soru YENİDEN yazdırılıyordu (pilot yspk-cokzor 15.09 iki kez; karnede aynı ölçüm OLCULMEDI yapıldı 14.09).
+    # SMMM'de KAPI-K soruyu düşürmez/yeniden yazdırmaz, rapora not düşer; hakem/kör/hakem2/sim sınamaya devam eder. SGS/KGK aynı.
+    if($Sinav -eq 'SMMM' -and $kvKusur.Count){ $rapor.Add("KAPI-K NOTU (bitirme, tekrar yok): $id | $($kvKusur -join ', ')"); Write-Host "  KAPI-K NOTU (bitirme, tekrar yok) ($id): $($kvKusur -join ', ')" -ForegroundColor DarkGray; $kvKusur=@() }
   # 11.09 KAPI-KE: soru verilen konuyu mu ölçüyor? Yalnız 1. denemede tekrar
   # ister; 2. denemede de düşerse soru kabul edilir, rapora not düşer. Sapmayı
   # azaltmak için, doğru soruyu öldürmek için değil (bkz. fonksiyon başlığı).
