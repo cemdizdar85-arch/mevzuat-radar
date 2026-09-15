@@ -577,6 +577,14 @@ function DersKanunAnahtari([string]$dersAdi){
   return @()
 }
 function DesenUret($kayit){
+  # 15.09 YALNIZ BİTİRME (Cem "1 ve 2 yap", GM 2): FTA ve Maliyet'te köprünün KANUN dayanağı desen üretimine girmez. ÖLÇÜLDÜ (köprü, SMMM):
+  # 'likidite orani' ← TTK m.516, 'ortak personel borc odeme' ← VUK m.275, 'satilan mamul maliyeti tablosu' ← VUK m.262 — kelime aramasıyla bağlanmış.
+  # Bu iki dersin kaynağı TEORİ notu + THP/TMS (+ Maliyet'te MSUGT Sıra No 2, 07.09 K6 kararı); kanun maddesi pakete girip hakemi yanıltıyordu.
+  # THP/TMS/TFRS/MSUGT/teori dayanağı korunur (karşılaştırma Katla2 ile: tr-TR'de -match "TEORI"yi "teori" ile eşleştirmiyor, I≠i — ölçüldü). Dayanak boşalınca konu "dayanaksız" sayılır → ders kaynak listesinde konu köküyle aranır.
+  if($Sinav -eq 'SMMM' -and $DersRegex -match 'Finansal Tablolar|Maliyet Muhasebesi'){
+    $bosAlan=@(foreach($alan in @('dayanak','cikmis_dayanak')){ if($kayit.PSObject.Properties[$alan]){ $v="$($kayit.$alan)"; if($v.Trim() -and (Katla2 $v) -notmatch '\b(thp|tms|tfrs|msugt)\b|teori|tekduzen|muhasebe sistemi'){ $alan } } })
+    if($bosAlan.Count){ $kayit=$kayit.PSObject.Copy(); foreach($alan in $bosAlan){ $kayit.$alan='' } }
+  }
   $d=New-Object System.Collections.Generic.List[string]
   # 03.09 SPL Duzey 1 olcumu (4 ret): konu adi TEBLIG KODU tasiyor ("... tebliğ iii-45.1") ve o Teblig
   # ambarda VAR ("... Tebligi (III-45.1) m.1", 46 madde) ama aranmiyordu; uretici SPKn m.3'e kayiyor,
@@ -647,6 +655,10 @@ function DesenUret($kayit){
       elseif($ham -match '6356|STİSK|STISK|Sendikalar ve Toplu'){ $onekM='Sendikalar ve TİS K. (6356 s.K.)' }   # 07.09 Ö48: 6356 ambarda VAR (102 madde), köprü uzun adla/STİSK ile yazıyordu
       elseif($ham -match '\b488\b|Damga'){ $onekM='Damga V.K. (488 s.K.)' }
       elseif($Sinav -eq 'SMMM' -and $ham -match '\b5174\b'){ $onekM='TOBB/Odalar K. (5174 s.K.)' }   # 14.09 yalnız bitirme: SPK 'ürün ihtisas borsası' → 5174 m.53 (ambar adı 'TOBB/Odalar K. (5174 s.K.) m.53 [1/5]')
+      # 15.09 yalnız bitirme (GM 1, konu-dayanak haritası Hukuk): 'TTK ... m.36' biçimi yukarıdaki 'm.36%' desenine düşer ve ÖLÇÜLDÜ: ambarda
+      # m.36 + m.360…364 gelir (5 ilgisiz madde, 10 kaynak kotası dolar). Harita '6102 sayılı Türk Ticaret Kanunu m.36' yazar → tam madde deseni.
+      elseif($Sinav -eq 'SMMM' -and $ham -match '\b6102\b'){ $onekM='TTK (6102 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '\b6098\b'){ $onekM='TBK (6098 s.K.)' }
       # 14.09 yalnız bitirme: 6362'de ek maddeler 'm.61/A' (gayrimenkul sertifikası), 'm.35/A' (kitle fonlama) diye adlanır; eski desen /A'yı atıp m.61'i (kira sertifikası) çekiyordu
       if($onekM){ foreach($m in [regex]::Matches($ham,$(if($Sinav -eq 'SMMM'){ '\bm(?:adde)?\.?\s*(\d+(?:/[A-Z])?)' } else { '\bm(?:adde)?\.?\s*(\d+)' }))){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
@@ -2768,7 +2780,10 @@ foreach($kk in $KONULAR){
   #      Bu yuzden: paket 1.000'in altindaysa dayanaksiz arama ile GENISLETMEYI
   #      DENE (bedelsiz, ambar okuma); yine de 300'un altinda kalirsa vazgec
   #      (asagidaki blok, esigi DEGISMEDI).
-  if(-not $amb.metin -or $amb.metin.Length -lt 1000){
+  # 15.09 YALNIZ BİTİRME (Cem "1 ve 2 yap"): dayanağı MADDE OKUNARAK verilmiş konu (harita / konu dosyası) kısa ama TAM paketini korur.
+  # ÖLÇÜLDÜ: 'sozlesme icerigi sinirlama' TBK m.26+m.27 = 576 kr; ikinci deneme 10.169 kr'lik TTK gec. m.4/m.21/m.24 + TBK m.1-3 paketini "daha uzun" diye yerine koyardı.
+  $okunmusKisa = ($Sinav -eq 'SMMM' -and "$($ky.guc)" -match 'HARITASI|KONU DOSYASI' -and "$($amb.metin)".Length -ge 300)
+  if((-not $amb.metin -or $amb.metin.Length -lt 1000) -and -not $okunmusKisa){
     $kyZ=[pscustomobject]@{ konu="$($ky.konu)"; dayanak=''; cikmis_dayanak=''; guc='ZAYIF' }
     $desen2=@(DesenUret $kyZ | Where-Object { $desenler -notcontains $_ })
     if($desen2.Count){

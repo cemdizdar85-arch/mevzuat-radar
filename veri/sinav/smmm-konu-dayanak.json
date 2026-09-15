@@ -1,121 +1,589 @@
 {
-  "aciklama": "BİTİRME (SMMM) konu → dayanak haritası. 14.09.2026, Cem \"1.2.3 üçünü de yap\" (GM önerisi 2). Köprüde (veri/fabrika/konu-koprusu.json) dayanağı BOŞ olan 115 SPK konusu için dayanak, kelime aramasıyla DEĞİL, 6362 sayılı Kanun'un 160 madde başlığı ambardan okunarak yazıldı (hafıza: konu-kaynak eşleştirme yasağı). durum: 'MADDE OKUNDU' = üretici kullanır · 'TEORI' = mevzuatı yok, teori notu gerekir · 'OLCULEMEDI' = madde başlığından karar verilemedi, madde metni okunmadan dayanak yazılmaz. Üretici yalnız SMMM'de ve yalnız köprü dayanağı boşsa uygular (motor/kalip-parti-uret.ps1). · 14.09 ikinci okuma (Cem \"1.2.3 üçünü de yap\", GM önerisi 2): OLCULEMEDI 18 konunun aday madde METİNLERİ okundu → 7 MADDE OKUNDU, 4 MULGA OLABILIR, 7 OLCULEMEDI kaldı (gerekçe 'not' alanında).",
-  "kaynak_okuma": "ambar: Sermaye Piyasası K. (6362 s.K.) m.1-m.151 ilk 150 karakter (253 parça) · 14.09.2026 · 14.09 ikinci okuma: TOBB K. m.53, II-5.2 m.1-9, II-5.1 m.6, VII-128.1 m.13/m.51, II-23.2 m.21, 6362 m.39/40/65",
-  "konular": [
-    {"konu":"sermaye piyasasi kurumlari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.35"},
-    {"konu":"yatirim ortakligi kurulus izni","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.49, m.48"},
-    {"konu":"spk suc tipleri","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.106, m.107, m.109, m.110, m.111, m.112"},
-    {"konu":"bagimsiz denetim sorumlulugu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.63"},
-    {"konu":"spk temel kavramlar","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3"},
-    {"konu":"sermaye piyasasi suclari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.106, m.107, m.109, m.110, m.112"},
-    {"konu":"yatirim fonu tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.52"},
-    {"konu":"urun ihtisas borsasi","durum":"MADDE OKUNDU","dayanak":"5174 sayılı TOBB ve Odalar ve Borsalar Kanunu m.53"},
-    {"konu":"sermaye piyasasi kavramlari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3"},
-    {"konu":"gayrimenkul sertifikasi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.61/A"},
-    {"konu":"borclanma araclari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.31, m.31/A"},
-    {"konu":"halka arz yontemleri","durum":"MADDE OKUNDU","dayanak":"Satış Tebliği (II-5.2) m.6"},
-    {"konu":"halka arz tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3, m.4"},
-    {"konu":"oydan yoksun pay turleri","durum":"MULGA OLABILIR","not":"Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"},
-    {"konu":"oydan yoksun pay turleri degeri","durum":"MULGA OLABILIR","not":"Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"},
-    {"konu":"oydan yoksun paylar tanimi","durum":"MULGA OLABILIR","not":"Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"},
-    {"konu":"oydan yoksun pay tanimi","durum":"MULGA OLABILIR","not":"Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"},
-    {"konu":"nitelikli yatirimci satislari","durum":"MADDE OKUNDU","dayanak":"Satış Tebliği (II-5.2) m.6, m.9; Pay Tebliği (VII-128.1) m.13"},
-    {"konu":"nitelikli yatirimci satisi","durum":"MADDE OKUNDU","dayanak":"Satış Tebliği (II-5.2) m.6, m.9; Pay Tebliği (VII-128.1) m.13"},
-    {"konu":"ortulu kazanc aktarimi yasagi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.21"},
-    {"konu":"paylarin halka arzi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.4"},
-    {"konu":"piyasa likiditesi","durum":"TEORI"},
-    {"konu":"reel piyasaya kaynak","durum":"TEORI"},
-    {"konu":"ozel durum aciklamasi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.15"},
-    {"konu":"para ve sermaye piyasasi","durum":"TEORI"},
-    {"konu":"pay turleri ve haklari","durum":"OLCULEMEDI","not":"TTK/Pay Tebliği maddesi okunarak belirlenemedi"},
-    {"konu":"kira sertifikasi varlik kiralama","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.61"},
-    {"konu":"kitle fonlamasi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.35/A"},
-    {"konu":"kolektif yatirim kurulusu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3, m.48, m.52"},
-    {"konu":"kayitli sermaye tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.18"},
-    {"konu":"kayitli sermaye tavani","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.18"},
-    {"konu":"kayitli sermaye tavani suresi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.18"},
-    {"konu":"muhasebe kayit usulsuzlugu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.112"},
-    {"konu":"muhasebe usulsuzluk sucu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.112"},
-    {"konu":"mulkiyeti tabana yayma","durum":"TEORI"},
-    {"konu":"menkul kiymet satis sekilleri","durum":"MADDE OKUNDU","dayanak":"Satış Tebliği (II-5.2) m.6"},
-    {"konu":"menkul kiymet yatirim ortakligi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48, m.49"},
-    {"konu":"merkezi takas kuruluslari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.77, m.78"},
-    {"konu":"referans fiyat","durum":"OLCULEMEDI","not":"yalnız II-23.2 m.21 içinde \"borsanın ilan edeceği referans fiyat\" geçiyor; borsa düzenlemesi ambarda bulunamadı"},
-    {"konu":"yatirim kurulusu yan hizmetler","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.38"},
-    {"konu":"yatirim ortakligi faaliyet alani","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48"},
-    {"konu":"yatirim ortakligi tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48"},
-    {"konu":"vadeli islem uzun pozisyon","durum":"TEORI"},
-    {"konu":"varlik kiralama sirketi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.61"},
-    {"konu":"yatirim fonu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.52, m.53"},
-    {"konu":"yatirim ortakliklari turleri","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48, m.50"},
-    {"konu":"yatirim tazmin merkezi gelirleri","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.83"},
-    {"konu":"yetki belgesi iptali","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.41"},
-    {"konu":"yatirim ortakliklari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48, m.49"},
-    {"konu":"yatirim ortakliklari faaliyet alani","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48"},
-    {"konu":"yatirim ortakliklari tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48"},
-    {"konu":"urun ihtisas borsalari","durum":"MADDE OKUNDU","dayanak":"5174 sayılı TOBB ve Odalar ve Borsalar Kanunu m.53"},
-    {"konu":"sermaye birikimi","durum":"TEORI"},
-    {"konu":"sermaye piyasasi araci tanimlari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3"},
-    {"konu":"sermaye piyasasi faaliyetleri","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.34, m.37"},
-    {"konu":"risk dagitimi","durum":"TEORI"},
-    {"konu":"sabit sermayeli ortaklik","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48, m.50"},
-    {"konu":"satis opsiyonu uzun pozisyon","durum":"TEORI"},
-    {"konu":"spk'da duzenlenen suclar","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.106, m.107, m.109, m.110, m.111, m.112"},
-    {"konu":"spkn kavram tanimlari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3"},
-    {"konu":"turkiye sermaye piyasalari birligi gorevleri","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.74, m.75"},
-    {"konu":"sermaye piyasasi islevleri","durum":"TEORI"},
-    {"konu":"sermaye piyasasi unsurlari","durum":"TEORI"},
-    {"konu":"sermaye piyasasi unsurlari ve yatirimci turleri","durum":"TEORI"},
-    {"konu":"birlesme sermaye artirimi","durum":"OLCULEMEDI","not":"II-23.2 m.21 okundu: birleşmede Kurul ücreti hesabı, sermaye artırımı hükmü değil; karar verilemedi"},
-    {"konu":"birlesme sermaye artirimi hesabi","durum":"OLCULEMEDI","not":"II-23.2 m.21 okundu: Kurul ücreti hesabı; birleşme oranı/artırım hesabının maddesi bulunamadı"},
-    {"konu":"borsa amaclari","durum":"OLCULEMEDI","not":"6362 m.65 metni okundu: kuruluş şartları, amaç hükmü yok"},
-    {"konu":"birinci ikinci el piyasa","durum":"TEORI"},
-    {"konu":"birincil ikincil piyasa","durum":"TEORI"},
-    {"konu":"birincil piyasa tanimi","durum":"TEORI"},
-    {"konu":"finansal piyasa fonksiyonlari","durum":"TEORI"},
-    {"konu":"gayrimenkul yatirim ortakligi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48; Gayrimenkul Yatırım Ortaklıklarına İlişkin Esaslar Tebliği (III-48.1)"},
-    {"konu":"girisim sermayesi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48; Girişim Sermayesi Yatırım Ortaklıkları Tebliği (III-48.3)"},
-    {"konu":"borsa denetimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.72"},
-    {"konu":"borsa kurulus sekli","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.65"},
-    {"konu":"cikarilmis sermaye tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.18"},
-    {"konu":"bilgi belge vermeme cezasi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.111, m.90"},
-    {"konu":"bagimsiz denetim raporu isteme","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.62"},
-    {"konu":"bagimsiz denetim raporu isteme yetkisi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.62"},
-    {"konu":"bagimsiz denetim sorumluluklari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.63"},
-    {"konu":"alim opsiyonu uzun pozisyon","durum":"TEORI"},
-    {"konu":"araci kurum faaliyet sartlari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.39, m.43"},
-    {"konu":"araci kurum kurulus izni","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.43, m.44"},
-    {"konu":"baslangic sermayesi tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3, m.49"},
-    {"konu":"baslangic sermayesi tutari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.49"},
-    {"konu":"baz fiyat hesaplama","durum":"OLCULEMEDI","not":"yalnız Varantlar Tebliği (VII-128.3) m.9 \"borsa düzenlemeleri çerçevesinde belirlenir\" diyor; hesap kuralı ambarda yok"},
-    {"konu":"bagimsiz denetim yukumlulugu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.14, m.62"},
-    {"konu":"bagimsiz denetleme yukumlulugu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.14, m.62"},
-    {"konu":"bankalarin sermaye piyasasi faaliyetleri","durum":"OLCULEMEDI","not":"6362 m.39-40 metni okundu: bankalara özgü hüküm açık değil"},
-    {"konu":"girisim sermayesi tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48; Girişim Sermayesi Yatırım Ortaklıkları Tebliği (III-48.3)"},
-    {"konu":"izahname tanim ve yukumlulukler","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"},
-    {"konu":"izahname tanimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"},
-    {"konu":"izahname tanimi ve yukumlulukler","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"},
-    {"konu":"izahname muafiyeti","durum":"MADDE OKUNDU","dayanak":"İzahname ve İhraç Belgesi Tebliği (II-5.1) m.6"},
-    {"konu":"izahname onay sureci","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.6, m.7"},
-    {"konu":"izahname sorumluluk","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.10"},
-    {"konu":"kanuna aykiri ihrac tedbirleri","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.91"},
-    {"konu":"kar dagitimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.19, m.20"},
-    {"konu":"kaydilestirme","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.13, m.81"},
-    {"konu":"kamuyu aydinlatma tazminat talebi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.32, m.10"},
-    {"konu":"kamuyu aydinlatma tazminat talebi reddi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.32, m.10"},
-    {"konu":"kamuyu aydinlatma yukumlulugu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.15"},
-    {"konu":"izahname kap borsa tanimlari","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.3, m.4"},
-    {"konu":"halka aciklik statusunun sona ermesi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.16"},
-    {"konu":"halka arz mali tablo yukumlulugu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.14"},
-    {"konu":"iceriden ogrenenlerin ticareti","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.106"},
-    {"konu":"girisim sermayesi yatirim ortakligi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.48; Girişim Sermayesi Yatırım Ortaklıkları Tebliği (III-48.3)"},
-    {"konu":"guveni kotuye kullanma sucu","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.110"},
-    {"konu":"halka acik ortaklik statusu sona ermesi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.16"},
-    {"konu":"ipotek varlik teminatli menkul kiymet","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.59"},
-    {"konu":"izahname","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"},
-    {"konu":"izahname degisiklik bildirimi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.8"},
-    {"konu":"ihtisas mahkemesi","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.116"},
-    {"konu":"ikinci el piyasasi tanimi","durum":"TEORI"},
-    {"konu":"imtiyazli paylar","durum":"MADDE OKUNDU","dayanak":"6362 sayılı Sermaye Piyasası Kanunu m.28"}
-  ]
+    "aciklama":  "BİTİRME (SMMM) konu → dayanak haritası. 14.09.2026, Cem \"1.2.3 üçünü de yap\" (GM önerisi 2). Köprüde (veri/fabrika/konu-koprusu.json) dayanağı BOŞ olan 115 SPK konusu için dayanak, kelime aramasıyla DEĞİL, 6362 sayılı Kanun\u0027un 160 madde başlığı ambardan okunarak yazıldı (hafıza: konu-kaynak eşleştirme yasağı). durum: \u0027MADDE OKUNDU\u0027 = üretici kullanır · \u0027TEORI\u0027 = mevzuatı yok, teori notu gerekir · \u0027OLCULEMEDI\u0027 = madde başlığından karar verilemedi, madde metni okunmadan dayanak yazılmaz. Üretici yalnız SMMM\u0027de ve yalnız köprü dayanağı boşsa uygular (motor/kalip-parti-uret.ps1). · 14.09 ikinci okuma (Cem \"1.2.3 üçünü de yap\", GM önerisi 2): OLCULEMEDI 18 konunun aday madde METİNLERİ okundu → 7 MADDE OKUNDU, 4 MULGA OLABILIR, 7 OLCULEMEDI kaldı (gerekçe \u0027not\u0027 alanında). · 15.09: Hukuk\u0027ta köprüde kaydı olmayan 5 dalga-1 konusu eklendi (maddeler okunarak). Maliyet\u0027in köprü dışı 4 konusu (mamul stok maliyeti, ortak mamul maliyeti, safha maliyeti uretim miktari, fireli safha maliyeti) eklenmedi: kanun maddesi yok, üretici teori notunu konu adıyla buluyor.",
+    "kaynak_okuma":  "ambar: Sermaye Piyasası K. (6362 s.K.) m.1-m.151 ilk 150 karakter (253 parça) · 14.09.2026 · 14.09 ikinci okuma: TOBB K. m.53, II-5.2 m.1-9, II-5.1 m.6, VII-128.1 m.13/m.51, II-23.2 m.21, 6362 m.39/40/65 · 15.09 (Cem \"1 ve 2 yap\", dalga 1 köprü dışı Hukuk konuları): TBK m.26-27, TTK m.211-249, m.35-37, m.303-309 ambardan okundu",
+    "konular":  [
+                    {
+                        "konu":  "sermaye piyasasi kurumlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.35"
+                    },
+                    {
+                        "konu":  "yatirim ortakligi kurulus izni",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.49, m.48"
+                    },
+                    {
+                        "konu":  "spk suc tipleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.106, m.107, m.109, m.110, m.111, m.112"
+                    },
+                    {
+                        "konu":  "bagimsiz denetim sorumlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.63"
+                    },
+                    {
+                        "konu":  "spk temel kavramlar",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3"
+                    },
+                    {
+                        "konu":  "sermaye piyasasi suclari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.106, m.107, m.109, m.110, m.112"
+                    },
+                    {
+                        "konu":  "yatirim fonu tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.52"
+                    },
+                    {
+                        "konu":  "urun ihtisas borsasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "5174 sayılı TOBB ve Odalar ve Borsalar Kanunu m.53"
+                    },
+                    {
+                        "konu":  "sermaye piyasasi kavramlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3"
+                    },
+                    {
+                        "konu":  "gayrimenkul sertifikasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.61/A"
+                    },
+                    {
+                        "konu":  "borclanma araclari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.31, m.31/A"
+                    },
+                    {
+                        "konu":  "halka arz yontemleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Satış Tebliği (II-5.2) m.6"
+                    },
+                    {
+                        "konu":  "halka arz tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3, m.4"
+                    },
+                    {
+                        "konu":  "oydan yoksun pay turleri",
+                        "durum":  "MULGA OLABILIR",
+                        "not":  "Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"
+                    },
+                    {
+                        "konu":  "oydan yoksun pay turleri degeri",
+                        "durum":  "MULGA OLABILIR",
+                        "not":  "Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"
+                    },
+                    {
+                        "konu":  "oydan yoksun paylar tanimi",
+                        "durum":  "MULGA OLABILIR",
+                        "not":  "Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"
+                    },
+                    {
+                        "konu":  "oydan yoksun pay tanimi",
+                        "durum":  "MULGA OLABILIR",
+                        "not":  "Oydan Yoksun Paylara İlişkin Tebliğ (Seri:I, No:36) Pay Tebliği (VII-128.1) m.51 ile yürürlükten kaldırılmış (madde okundu); güncel hükmü bulunmadan plana alınmaz"
+                    },
+                    {
+                        "konu":  "nitelikli yatirimci satislari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Satış Tebliği (II-5.2) m.6, m.9; Pay Tebliği (VII-128.1) m.13"
+                    },
+                    {
+                        "konu":  "nitelikli yatirimci satisi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Satış Tebliği (II-5.2) m.6, m.9; Pay Tebliği (VII-128.1) m.13"
+                    },
+                    {
+                        "konu":  "ortulu kazanc aktarimi yasagi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.21"
+                    },
+                    {
+                        "konu":  "paylarin halka arzi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.4"
+                    },
+                    {
+                        "konu":  "piyasa likiditesi",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "reel piyasaya kaynak",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "ozel durum aciklamasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.15"
+                    },
+                    {
+                        "konu":  "para ve sermaye piyasasi",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "pay turleri ve haklari",
+                        "durum":  "OLCULEMEDI",
+                        "not":  "TTK/Pay Tebliği maddesi okunarak belirlenemedi"
+                    },
+                    {
+                        "konu":  "kira sertifikasi varlik kiralama",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.61"
+                    },
+                    {
+                        "konu":  "kitle fonlamasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.35/A"
+                    },
+                    {
+                        "konu":  "kolektif yatirim kurulusu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3, m.48, m.52"
+                    },
+                    {
+                        "konu":  "kayitli sermaye tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.18"
+                    },
+                    {
+                        "konu":  "kayitli sermaye tavani",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.18"
+                    },
+                    {
+                        "konu":  "kayitli sermaye tavani suresi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.18"
+                    },
+                    {
+                        "konu":  "muhasebe kayit usulsuzlugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.112"
+                    },
+                    {
+                        "konu":  "muhasebe usulsuzluk sucu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.112"
+                    },
+                    {
+                        "konu":  "mulkiyeti tabana yayma",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "menkul kiymet satis sekilleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Satış Tebliği (II-5.2) m.6"
+                    },
+                    {
+                        "konu":  "menkul kiymet yatirim ortakligi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48, m.49"
+                    },
+                    {
+                        "konu":  "merkezi takas kuruluslari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.77, m.78"
+                    },
+                    {
+                        "konu":  "referans fiyat",
+                        "durum":  "OLCULEMEDI",
+                        "not":  "yalnız II-23.2 m.21 içinde \"borsanın ilan edeceği referans fiyat\" geçiyor; borsa düzenlemesi ambarda bulunamadı"
+                    },
+                    {
+                        "konu":  "yatirim kurulusu yan hizmetler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.38"
+                    },
+                    {
+                        "konu":  "yatirim ortakligi faaliyet alani",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48"
+                    },
+                    {
+                        "konu":  "yatirim ortakligi tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48"
+                    },
+                    {
+                        "konu":  "vadeli islem uzun pozisyon",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "varlik kiralama sirketi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.61"
+                    },
+                    {
+                        "konu":  "yatirim fonu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.52, m.53"
+                    },
+                    {
+                        "konu":  "yatirim ortakliklari turleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48, m.50"
+                    },
+                    {
+                        "konu":  "yatirim tazmin merkezi gelirleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.83"
+                    },
+                    {
+                        "konu":  "yetki belgesi iptali",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.41"
+                    },
+                    {
+                        "konu":  "yatirim ortakliklari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48, m.49"
+                    },
+                    {
+                        "konu":  "yatirim ortakliklari faaliyet alani",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48"
+                    },
+                    {
+                        "konu":  "yatirim ortakliklari tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48"
+                    },
+                    {
+                        "konu":  "urun ihtisas borsalari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "5174 sayılı TOBB ve Odalar ve Borsalar Kanunu m.53"
+                    },
+                    {
+                        "konu":  "sermaye birikimi",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "sermaye piyasasi araci tanimlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3"
+                    },
+                    {
+                        "konu":  "sermaye piyasasi faaliyetleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.34, m.37"
+                    },
+                    {
+                        "konu":  "risk dagitimi",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "sabit sermayeli ortaklik",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48, m.50"
+                    },
+                    {
+                        "konu":  "satis opsiyonu uzun pozisyon",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "spk\u0027da duzenlenen suclar",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.106, m.107, m.109, m.110, m.111, m.112"
+                    },
+                    {
+                        "konu":  "spkn kavram tanimlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3"
+                    },
+                    {
+                        "konu":  "turkiye sermaye piyasalari birligi gorevleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.74, m.75"
+                    },
+                    {
+                        "konu":  "sermaye piyasasi islevleri",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "sermaye piyasasi unsurlari",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "sermaye piyasasi unsurlari ve yatirimci turleri",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "birlesme sermaye artirimi",
+                        "durum":  "OLCULEMEDI",
+                        "not":  "II-23.2 m.21 okundu: birleşmede Kurul ücreti hesabı, sermaye artırımı hükmü değil; karar verilemedi"
+                    },
+                    {
+                        "konu":  "birlesme sermaye artirimi hesabi",
+                        "durum":  "OLCULEMEDI",
+                        "not":  "II-23.2 m.21 okundu: Kurul ücreti hesabı; birleşme oranı/artırım hesabının maddesi bulunamadı"
+                    },
+                    {
+                        "konu":  "borsa amaclari",
+                        "durum":  "OLCULEMEDI",
+                        "not":  "6362 m.65 metni okundu: kuruluş şartları, amaç hükmü yok"
+                    },
+                    {
+                        "konu":  "birinci ikinci el piyasa",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "birincil ikincil piyasa",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "birincil piyasa tanimi",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "finansal piyasa fonksiyonlari",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "gayrimenkul yatirim ortakligi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48; Gayrimenkul Yatırım Ortaklıklarına İlişkin Esaslar Tebliği (III-48.1)"
+                    },
+                    {
+                        "konu":  "girisim sermayesi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48; Girişim Sermayesi Yatırım Ortaklıkları Tebliği (III-48.3)"
+                    },
+                    {
+                        "konu":  "borsa denetimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.72"
+                    },
+                    {
+                        "konu":  "borsa kurulus sekli",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.65"
+                    },
+                    {
+                        "konu":  "cikarilmis sermaye tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.18"
+                    },
+                    {
+                        "konu":  "bilgi belge vermeme cezasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.111, m.90"
+                    },
+                    {
+                        "konu":  "bagimsiz denetim raporu isteme",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.62"
+                    },
+                    {
+                        "konu":  "bagimsiz denetim raporu isteme yetkisi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.62"
+                    },
+                    {
+                        "konu":  "bagimsiz denetim sorumluluklari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.63"
+                    },
+                    {
+                        "konu":  "alim opsiyonu uzun pozisyon",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "araci kurum faaliyet sartlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.39, m.43"
+                    },
+                    {
+                        "konu":  "araci kurum kurulus izni",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.43, m.44"
+                    },
+                    {
+                        "konu":  "baslangic sermayesi tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3, m.49"
+                    },
+                    {
+                        "konu":  "baslangic sermayesi tutari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.49"
+                    },
+                    {
+                        "konu":  "baz fiyat hesaplama",
+                        "durum":  "OLCULEMEDI",
+                        "not":  "yalnız Varantlar Tebliği (VII-128.3) m.9 \"borsa düzenlemeleri çerçevesinde belirlenir\" diyor; hesap kuralı ambarda yok"
+                    },
+                    {
+                        "konu":  "bagimsiz denetim yukumlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.14, m.62"
+                    },
+                    {
+                        "konu":  "bagimsiz denetleme yukumlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.14, m.62"
+                    },
+                    {
+                        "konu":  "bankalarin sermaye piyasasi faaliyetleri",
+                        "durum":  "OLCULEMEDI",
+                        "not":  "6362 m.39-40 metni okundu: bankalara özgü hüküm açık değil"
+                    },
+                    {
+                        "konu":  "girisim sermayesi tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48; Girişim Sermayesi Yatırım Ortaklıkları Tebliği (III-48.3)"
+                    },
+                    {
+                        "konu":  "izahname tanim ve yukumlulukler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"
+                    },
+                    {
+                        "konu":  "izahname tanimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"
+                    },
+                    {
+                        "konu":  "izahname tanimi ve yukumlulukler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"
+                    },
+                    {
+                        "konu":  "izahname muafiyeti",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "İzahname ve İhraç Belgesi Tebliği (II-5.1) m.6"
+                    },
+                    {
+                        "konu":  "izahname onay sureci",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.6, m.7"
+                    },
+                    {
+                        "konu":  "izahname sorumluluk",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.10"
+                    },
+                    {
+                        "konu":  "kanuna aykiri ihrac tedbirleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.91"
+                    },
+                    {
+                        "konu":  "kar dagitimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.19, m.20"
+                    },
+                    {
+                        "konu":  "kaydilestirme",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.13, m.81"
+                    },
+                    {
+                        "konu":  "kamuyu aydinlatma tazminat talebi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.32, m.10"
+                    },
+                    {
+                        "konu":  "kamuyu aydinlatma tazminat talebi reddi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.32, m.10"
+                    },
+                    {
+                        "konu":  "kamuyu aydinlatma yukumlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.15"
+                    },
+                    {
+                        "konu":  "izahname kap borsa tanimlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.3, m.4"
+                    },
+                    {
+                        "konu":  "halka aciklik statusunun sona ermesi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.16"
+                    },
+                    {
+                        "konu":  "halka arz mali tablo yukumlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.14"
+                    },
+                    {
+                        "konu":  "iceriden ogrenenlerin ticareti",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.106"
+                    },
+                    {
+                        "konu":  "girisim sermayesi yatirim ortakligi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.48; Girişim Sermayesi Yatırım Ortaklıkları Tebliği (III-48.3)"
+                    },
+                    {
+                        "konu":  "guveni kotuye kullanma sucu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.110"
+                    },
+                    {
+                        "konu":  "halka acik ortaklik statusu sona ermesi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.16"
+                    },
+                    {
+                        "konu":  "ipotek varlik teminatli menkul kiymet",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.59"
+                    },
+                    {
+                        "konu":  "izahname",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.4, m.5"
+                    },
+                    {
+                        "konu":  "izahname degisiklik bildirimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.8"
+                    },
+                    {
+                        "konu":  "ihtisas mahkemesi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.116"
+                    },
+                    {
+                        "konu":  "ikinci el piyasasi tanimi",
+                        "durum":  "TEORI"
+                    },
+                    {
+                        "konu":  "imtiyazli paylar",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.28"
+                    },
+                    {
+                        "konu":  "sozlesme icerigi sinirlama",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6098 sayılı Türk Borçlar Kanunu m.26, m.27"
+                    },
+                    {
+                        "konu":  "kollektif sirket sorumluluk",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6102 sayılı Türk Ticaret Kanunu m.236, m.237"
+                    },
+                    {
+                        "konu":  "kollektif sirket tescil sorumlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6102 sayılı Türk Ticaret Kanunu m.215, m.216"
+                    },
+                    {
+                        "konu":  "komandit sirket sozlesmesi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6102 sayılı Türk Ticaret Kanunu m.305, m.307"
+                    },
+                    {
+                        "konu":  "ticaret sicili etkisi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6102 sayılı Türk Ticaret Kanunu m.36, m.37"
+                    }
+                ]
 }
