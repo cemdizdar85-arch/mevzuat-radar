@@ -136,10 +136,27 @@ function SY_Bol([string]$metin, [string]$std){
     }
   }
   $satirSirasi = -1
+  # ⚠ 15.09.2026 DERSI — BDS/GDS RAKAMLI EKLERI ANA METNIN NUMARALARIYLA CAKISIYORDU.
+  # BDS'lerde ekler "Ek 1", "Ek 2" (GDS 3000'de yalniz "Ek") basligiyla TEK SATIRDA durur ve
+  # numaralandirma 1'den yeniden baslar. Kural yalniz harfli ekleri (Ek A/B/C) taniyordu;
+  # BDS 530 Ek 2 tablosu "BDS 530 p.1 - ETKİSİ" adiyla ana metnin "p.1 - Kapsam"iyla cakisti
+  # (BDS 315/540/600/210, GDS 3000 ayni sinif). Kural: yalniz TEK BASINA duran "Ek N"/"Ek"
+  # satiri eki acar; sonraki parcalar "<STD> Ek N p.<no>" adini alir. Icindekiler satiri
+  # ("Ek 1: Baslik") ve metin ici atif ("Ek 2'de ...") bu bicime uymaz, eki acmaz.
+  $ekEtiketi = ''
   foreach($ham in $satirlar){
     $satirSirasi++
     $s = $ham.Trim()
+    if($suAn -and -not $suAn.Contains('ek')){ $suAn['ek'] = $ekEtiketi }   # parca, acildigi andaki eke aittir
     if($sayfaSatiri.Contains($satirSirasi)){ continue }
+
+    if($s -cmatch '^Ek(?:\s*[-–]?\s*(\d{1,2}))?$'){   # -cmatch: GDS 3410'da satir sonuna dusen kucuk harfli "ek" sozcugu eki aciyordu
+      if($suAn){ $parcalar.Add($suAn); $suAn=$null }
+      $sozlukModu = $false
+      $ekEtiketi = if($Matches[1]){ "Ek $($Matches[1])" } else { 'Ek' }
+      $baslik = ''
+      continue
+    }
 
     # --- EK basliklari: kip degistirir
     if($s -match '^Ek\s+A\b'){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$true; $baslik='Ek A - Tanımlanan terimler'; continue }
@@ -271,11 +288,16 @@ function SY_Bol([string]$metin, [string]$std){
     # Kunye ATILACAK metin degil: RG tarihi ve degisiklik gecmisi ORADA -
     # damga ve guncellik denetiminin ihtiyaci olan bilgi. p.0 olarak saklanir.
     if($null -eq $suAn){
-      $suAn = [ordered]@{ onek=''; no=0; sonek=''; kunye=$true; baslik='Künye ve yürürlük'; govde=New-Object System.Collections.Generic.List[string] }
+      if($ekEtiketi){
+        # 15.09: ek basligindan sonra ilk numarali paragraftan onceki metin (atif satiri, ek aciklamasi) ekin GIRIS parcasidir, kunye degil
+        $suAn = [ordered]@{ onek=''; no=0; sonek=''; baslik=$(if($baslik){ $baslik } else { 'Giriş' }); ek=$ekEtiketi; govde=New-Object System.Collections.Generic.List[string] }
+      } else {
+        $suAn = [ordered]@{ onek=''; no=0; sonek=''; kunye=$true; baslik='Künye ve yürürlük'; govde=New-Object System.Collections.Generic.List[string] }
+      }
     }
     $suAn.govde.Add($s)
   }
-  if($suAn){ $parcalar.Add($suAn) }
+  if($suAn){ if(-not $suAn.Contains('ek')){ $suAn['ek'] = $ekEtiketi }; $parcalar.Add($suAn) }
   # kayda cevir
   $kayitlar = New-Object System.Collections.Generic.List[object]
   foreach($p in $parcalar){
@@ -318,7 +340,11 @@ function SY_Bol([string]$metin, [string]$std){
       $ad = ''
     } else {
       $etiket = "p." + $p.onek + $p.no + $p.sonek
-      $ad = "$std $etiket" + $(if($p.baslik){ " - $($p.baslik)" } else { '' })
+      $ekOnEki = if($p.Contains('ek') -and $p.ek){ "$($p.ek) " } else { '' }
+      $ad = "$std $ekOnEki$etiket" + $(if($p.baslik){ " - $($p.baslik)" } else { '' })
+      # 15.09: layout tablolarindan gelen basliklar ad icine hizalama boslugu/sekme tasiyordu ("FAKTÖR                    ETKİSİ");
+      # olculdu: ambarda 13 boyle ad, bagli soru 0 -> tek bosluga indirmek hicbir bagi koparmaz
+      $ad = ($ad -replace '\s+',' ').Trim()
     }
     if($ad.Length -gt 160){ $ad = $ad.Substring(0,160) }
     $kayitlar.Add([pscustomobject]@{ kaynak_ad=$ad; metin=$govde })
@@ -630,6 +656,17 @@ A12. Mevzuat denetcinin raporunda farkli bir bicim ongorebilir.
   if(SY_LayoutGerekli $saglam 'BDS 230'){ $dusen += 'LAYOUT KARARI: saglikli BDS cikarimina gereksiz layout istendi' }
   # TMS'te tek basina numara MESRU paragraf numarasidir - layout istenmez.
   if(SY_LayoutGerekli $bozuk 'TMS 2'){ $dusen += 'LAYOUT KARARI: TMS icin layout istendi (tek basina numara TMS''te mesrudur)' }
+
+  # --- 15.09 BDS RAKAMLI EK: "Ek 2" tek satir eki acar; icindekiler ("Ek 1: ...") ve atif ("Ek 1'de ...") acmaz
+  $ekOrnek = "Ek 1: Gruplandirma ve Deger Agirlikli Secim`nKapsam`n1. Bu BDS denetcinin orneklem kullanimini duzenleyen hukumleri icerir ve ilgili`nek`nprosedurleri uygulamasini ister.`n2. Ek 1'de gruplandirmaya iliskin ilave aciklamalar yer almaktadir ve bunlar dikkate alinir.`nA1. Orneklem buyuklugu denetcinin risk degerlendirmesine gore belirlenir ve belgelenir.`n`nEk 1`n(Bakiniz: A8 paragrafi)`nGruplandirma Yontemi`n1. Denetci anakitleyi belirli ozelliklere sahip alt gruplara ayirarak etkinligi artirabilir.`n2. Detay testlerinde anakitle genellikle parasal degerler esas alinarak gruplandirilir."
+  $ep = @(SY_Bol $ekOrnek 'TEST 7')
+  $eAd = @($ep | ForEach-Object { $_.kaynak_ad })
+  if(@($ep | Where-Object { $_.kaynak_ad -match '^TEST 7 p\.1(\s|$)' }).Count -ne 1){ $dusen += "BDS EK: ana metin p.1 tek olmali: $($eAd -join ' | ')" }
+  if(@($ep | Where-Object { $_.kaynak_ad -match '^TEST 7 Ek 1 p\.1(\s|$)' }).Count -ne 1){ $dusen += "BDS EK: ek paragrafi 'Ek 1 p.1' adini almadi: $($eAd -join ' | ')" }
+  if(@($ep | Where-Object { $_.kaynak_ad -match '^TEST 7 Ek 1 p\.(2|A1)(\s|$)' -and $_.metin -match 'ilave aciklamalar|risk degerlendirmesine' }).Count){ $dusen += "BDS EK: icindekiler/atif satiri eki erken acti: $($eAd -join ' | ')" }
+  if(@($ep | Where-Object { $_.kaynak_ad -match '^TEST 7 p\.2(\s|$)' }).Count -ne 1){ $dusen += "BDS EK: ana metin p.2 kayboldu: $($eAd -join ' | ')" }
+  if(@($ep | Where-Object { $_.kaynak_ad -cmatch '^TEST 7 Ek p\.' }).Count){ $dusen += "BDS EK: kucuk harfli 'ek' satiri eki acti: $($eAd -join ' | ')" }
+  if(@($ep | Where-Object { $_.kaynak_ad -match 'Künye' -and $_.kaynak_ad -match ' Ek ' }).Count){ $dusen += "BDS EK: ek giris metni 'Künye' adini aldi: $($eAd -join ' | ')" }
 
   # --- 15.09 TMS LAYOUT DUZELTICI: sayfa sonu bolunen paragraf (TMS 40 p.32A) + dipnot isareti (TMS 41) + [Silinmistir]
   # BILINEN SINIR (TMS 36 p.140G): dipnot metni onceki paragrafa eklenir; onceki paragraf [Silinmistir] ise govde uzar ve parca olur. Dipnot resmi metin oldugu icin atilmaz.
