@@ -45,3 +45,24 @@ Hakem reddi almış ve paketi tavanı aşan **100 SGS/SMMM sorusunu** (soru metn
 ## Bu ölçümün değiştirmediği şeyler
 
 Üretici koduna, tavana, hiçbir soruya ve kasaya dokunulmadı.
+
+---
+
+## GÜNCELLEME 15.09 ~20:10 · Cem "yap tavansız" — kod değişti + iki kollu prova
+
+**Kod (`66c413f6`):** 15 karakter tavanı `PaketTavani()` işlevine bağlandı; varsayılan **tavansız**, `-EskiPaketTavani` eski değerleri birebir getirir. Kaynak sayısı sınırları (AmbarCek 10, KaynakSirala 4) ve model çıktı jetonu sınırları değişmedi.
+
+**Prova:** SGS Finansal Muhasebe T2 partilerinden (kolay/zor/çokzor) paketi tavanı aşan 60 tarihsel RET + 60 tarihsel KABUL soru. Asıl parti dosyalarına yazılmadı: kopya etiketler, yalnız hakem (`-SadeceHakem -HakemYenileId`, toplu), paket `kaynak_adlar`tan yeniden kuruldu; her soru iki kez soruldu (eski tavan / tavansız). Kopyalar prova sonunda silindi. **Bedel ≈1,31 USD** (eski kol 0,63 · tavansız kol 0,68); tahminim ≈0,8 idi, kopya partilerin atıf genişletmesi ve istem boyu tahminin üstünde çıktı.
+
+| Tarihsel | Soru | EVET — eski tavan | EVET — tavansız | HAYIR→EVET | EVET→HAYIR |
+|---|---|---|---|---|---|
+| RET | 60 | 10 | 15 | 8 | 3 |
+| KABUL | 60 | 56 | 54 | 1 | 3 |
+
+- **Gürültü kontrolü:** eski kolda paketi kırpılmayan 43 soruda (iki kolda paket aynı) karar değişen 2 (%4,7). Paketi gerçekten kırpılan 77 soruda karar değişen 13 (%16,9). → Tavanın hakem kararına etkisi **gerçek** (gürültünün ~3,6 katı).
+- **Yön karışık:** retten kabule dönen 8 sorunun gerekçelerinde hakem kuralı artık pakette buluyor (ör. "320 Satıcılar tanımı", "TMS 7 net gösterim istisnası") → tavanın yol açtığı yanlış retler. Kabulden redde dönen 3 sorudan biri (kp-13) açık dikkat dağılması: hakem "kaynak yalnız TMS 7, iç kontrol ve TMS 41 içerir" diyerek büyüyen paketteki ilgisiz metne takılmış. Bir şüpheli kabul: kp-125 eski kolda "ders dışı" (IIA/COSO), tavansızda EVET.
+- **Net etki bu örneklemde ~nötr:** retlerde +5/60, kabullerde −2/60. Tavanı aşan 100 soruya ölçeklenince (ret oranı ~%21) kazanç ≈ +1,8, kayıp ≈ −2,6 soru — gürültü payı içinde.
+
+**Okuma:** Tavan bazı doğru soruları kesik paket yüzünden düşürüyordu, bu kanıtlandı. Ama tavanı tamamen kaldırmak pakete ilgisiz kaynakları da (atıf genişletmesi 10 kaynağa kadar) doldurduğu için hakemi başka sorularda şaşırtıyor. Sorunun kökü karakter sayısı değil, **pakete ilgisiz kaynağın girmesi**.
+
+**Durum:** Kod tavansız kaldı (Cem kararı; bedel etkisi +%8 hakem girdisi). Önerilen sonraki adım Cem onayında: tavansız + atıf genişletmesinde yalnız dayanakla aynı aileden kaynak (KGK'daki KAPI-AILE mantığının SGS/SMMM'ye taşınması), aynı 120 soruda yeniden prova (≈0,7 USD).
