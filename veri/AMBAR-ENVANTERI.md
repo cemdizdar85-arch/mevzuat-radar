@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **15.09.2026 06:59** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **15.09.2026 12:40** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 47675 parça · 2665 tekil kaynak | Bütünlük ölçülen: 2665 (delikli: 374; son ölçüm: 15.09.2026) | Sürüm ölçülen: 43 (sorunlu: 13; son ölçüm: 15.09.2026 06:57)
+**ÖZET:** 47662 parça · 2665 tekil kaynak | Bütünlük ölçülen: 2665 (delikli: 365; son ölçüm: 15.09.2026) | Sürüm ölçülen: 43 (sorunlu: 4; son ölçüm: 15.09.2026 12:38)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -2127,24 +2127,24 @@
 | Tebligat K. (7201 s.K.) | kanun-madde | 68 | DELİK-İNCELE(par:3/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teknoloji Gel. Bölg. K. (4691 s.K.) | kanun-madde | 41 | DELİK-İNCELE(par:210/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teminatli Menkul Kiymetler Tebligi (III-59.1) | kanun-madde | 56 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TFRS 1 | standart-madde | 149 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
-| TFRS 10 | standart-madde | 191 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 11 | standart-madde | 94 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TFRS 12 | standart-madde | 78 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
-| TFRS 13 | standart-madde | 159 | TAM(set-birebir; kapı notu: par:7/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 14 | standart-madde | 68 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 15 | standart-madde | 234 | TAM(set-birebir; kapı notu: par:10/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 16 | standart-madde | 200 | TAM(set-birebir; kapı notu: par:10/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TFRS 17 | standart-madde | 277 | TAM(set-birebir; kapı notu: par:13/kesik:0/oksuz:4 resmî metinde de yok) | TUTARLI |
+| TFRS 1 | standart-madde | 146 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 10 | standart-madde | 193 | TAM | TUTARLI |
+| TFRS 11 | standart-madde | 93 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 12 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 13 | standart-madde | 160 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 14 | standart-madde | 70 | TAM | TUTARLI |
+| TFRS 15 | standart-madde | 242 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 16 | standart-madde | 207 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 17 | standart-madde | 285 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TFRS 18 | standart-madde | 21 | DELİK-İNCELE(par:48/kesik:0/oksuz:0) | INCELE |
 | TFRS 18 - TMS 1 ve TMS 8 iliskisi (gecis notu) | standart-madde | 1 | TAM | INCELE |
 | TFRS 18 B98-B105 - Kisa/uzun vade sinir vakalari | standart-madde | 1 | TAM | INCELE |
-| TFRS 2 | standart-madde | 155 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
-| TFRS 3 | standart-madde | 172 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TFRS 5 | standart-madde | 68 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | INCELE |
-| TFRS 6 | standart-madde | 31 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 7 | standart-madde | 199 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:5 resmî metinde de yok) | TUTARLI |
-| TFRS 8 | standart-madde | 42 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TFRS 2 | standart-madde | 153 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 3 | standart-madde | 177 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 5 | standart-madde | 62 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 6 | standart-madde | 30 | TAM | TUTARLI |
+| TFRS 7 | standart-madde | 200 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 8 | standart-madde | 41 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TFRS 9 | standart-madde | 272 | TAM(set-birebir; kapı notu: par:0/kesik:1/oksuz:21 resmî metinde de yok) | TUTARLI |
 | THP 100 - Kasa | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 101 - ALINAN ÇEKLER | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2421,29 +2421,29 @@
 | TKHK (6502 s.K.) | kanun-madde | 133 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TMK (4721 s.K.) | kanun-madde | 1023 | DELİK-İNCELE(par:11/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TMS 1 | standart-madde | 158 | DELİK-İNCELE(par:10/kesik:0/oksuz:0) | INCELE |
-| TMS 10 | standart-madde | 29 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 12 | standart-madde | 136 | TAM(set-birebir; kapı notu: par:815/kesik:0/oksuz:9 resmî metinde de yok) | TUTARLI |
-| TMS 16 | standart-madde | 97 | TAM(set-birebir; kapı notu: par:11/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 19 | standart-madde | 181 | TAM(set-birebir; kapı notu: par:493/kesik:0/oksuz:5 resmî metinde de yok) | TUTARLI |
-| TMS 2 | standart-madde | 44 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TMS 20 | standart-madde | 49 | DELİK-İNCELE(par:5/kesik:0/oksuz:1) | INCELE |
-| TMS 21 | standart-madde | 97 | DELİK-İNCELE(par:3/kesik:0/oksuz:2) | INCELE |
-| TMS 23 | standart-madde | 35 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 24 | standart-madde | 36 | DELİK-İNCELE(par:3/kesik:0/oksuz:0) | INCELE |
-| TMS 26 | standart-madde | 39 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 10 | standart-madde | 28 | TAM | TUTARLI |
+| TMS 12 | standart-madde | 131 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
+| TMS 16 | standart-madde | 101 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 19 | standart-madde | 185 | TAM(set-birebir; kapı notu: par:495/kesik:0/oksuz:7 resmî metinde de yok) | TUTARLI |
+| TMS 2 | standart-madde | 45 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 20 | standart-madde | 46 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 21 | standart-madde | 91 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 23 | standart-madde | 36 | TAM(set-birebir; kapı notu: par:10/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 24 | standart-madde | 36 | TAM | TUTARLI |
+| TMS 26 | standart-madde | 38 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 27 | standart-madde | 15 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TMS 28 | standart-madde | 66 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TMS 29 | standart-madde | 40 | TAM(set-birebir; kapı notu: par:3/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 32 | standart-madde | 87 | DELİK-İNCELE(par:47/kesik:0/oksuz:0) | INCELE |
-| TMS 33 | standart-madde | 93 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 34 | standart-madde | 67 | DELİK-İNCELE(par:7/kesik:0/oksuz:2) | INCELE |
-| TMS 36 | standart-madde | 171 | DELİK-İNCELE(par:12/kesik:0/oksuz:2) | INCELE |
-| TMS 37 | standart-madde | 104 | TAM(set-birebir; kapı notu: par:6/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 38 | standart-madde | 147 | TAM(set-birebir; kapı notu: par:11/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
-| TMS 40 | standart-madde | 90 | TAM(set-birebir; kapı notu: par:19/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 41 | standart-madde | 56 | TAM(set-birebir; kapı notu: par:14/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 7 | standart-madde | 75 | DELİK-İNCELE(par:7/kesik:0/oksuz:0) | INCELE |
-| TMS 8 | standart-madde | 93 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | INCELE |
+| TMS 28 | standart-madde | 65 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 29 | standart-madde | 41 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 32 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:48/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 33 | standart-madde | 92 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 34 | standart-madde | 60 | TAM(set-birebir; kapı notu: par:8/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 36 | standart-madde | 157 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 37 | standart-madde | 102 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 38 | standart-madde | 146 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 40 | standart-madde | 90 | TAM(set-birebir; kapı notu: par:18/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 41 | standart-madde | 59 | TAM(set-birebir; kapı notu: par:11/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 7 | standart-madde | 78 | TAM(set-birebir; kapı notu: par:3/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 8 | standart-madde | 92 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TOBB/Odalar K. (5174 s.K.) | kanun-madde | 162 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TPKK (1567 s.K.) | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSPB Sermaye Piyasasi Calisanlari Etik Ilkeleri ve Davranis Kurallari (Genelge 191) | kanun-madde | 79 | DELİK-İNCELE(par:0/kesik:3/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
