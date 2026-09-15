@@ -78,6 +78,23 @@ function sayfalariOku() {
   return out;
 }
 
+// Seviye testi havuzu (ücretsiz katman): sunucu cevap kontrolü (seviye_kontrol) yalnız ucretsiz satırlarda
+// çalıştığı için bu kimlikler de ucretsiz işaretlenir. Havuzda olup ders sayfasında olmayan kimlik -> hata listesi.
+function seviyeKimlikleri() {
+  const y = path.join(KOK, 'veri', 'seviye', 'sgs-havuz.json');
+  if (!fs.existsSync(y)) return [];
+  const h = JSON.parse(fs.readFileSync(y, 'utf8').replace(/^﻿/, ''));
+  // biçim: havuz[ders][zorluk] = [{id, soru, siklar, dogru, sayfa, sira}]
+  const ids = [];
+  (function gez(x) { if (Array.isArray(x)) x.forEach(gez); else if (x && typeof x === 'object') { if (x.id && x.soru) ids.push(String(x.id)); else for (const k in x) gez(x[k]); } })(h.havuz);
+  return ids;
+}
+function seviyeIsaretle(satirlar, kimlikler) {
+  const m = new Map(satirlar.map(s => [s.id, s])); const bulunamayan = [];
+  for (const id of kimlikler) { if (m.has(id)) m.get(id).ucretsiz = true; else bulunamayan.push(id); }
+  return bulunamayan;
+}
+
 async function yaz(satirlar) {
   const K = process.env.SUPABASE_SERVICE_KEY;
   if (!K) throw new Error('SUPABASE_SERVICE_KEY yok');
@@ -109,6 +126,9 @@ function sinav() {
   t('sıra korunur', s.satirlar.find(x => x.id === 'e/kp-02').sira === 1);
   const t2 = satirlariKur([{ yol: 'a', sinav: 'sgs', ucretsiz: false, sorular: [{ id: 'x' }] }, { yol: 'b', sinav: 'sgs', ucretsiz: false, sorular: [{ id: 'x' }] }]);
   t('iki paket sayfasında aynı kimlik tekrar olarak raporlanır', t2.tekrar.length === 1);
+  const sv = [{ id: 'a' , ucretsiz: false }, { id: 'b', ucretsiz: false }];
+  const svy = seviyeIsaretle(sv, ['b', 'z']);
+  t('seviye kimliği ucretsiz işaretlenir, olmayan raporlanır', sv[1].ucretsiz === true && sv[0].ucretsiz === false && svy.length === 1 && svy[0] === 'z');
   let atti = false; try { satirlariKur([{ yol: 'a', sinav: 'sgs', ucretsiz: false, sorular: [{ soru: 'kimliksiz' }] }]); } catch (e) { atti = true; }
   t('kimliksiz soru durdurur', atti);
   console.log(hata ? `ÖZ-SINAV DÜŞTÜ (${hata})` : 'ÖZ-SINAV GEÇTİ');
@@ -119,6 +139,10 @@ async function ana() {
   if (process.argv.includes('--sinav')) process.exit(sinav() ? 1 : 0);
   const sayfalar = sayfalariOku();
   const { satirlar, tekrar } = satirlariKur(sayfalar);
+  const svKimlik = seviyeKimlikleri();
+  const svYok = seviyeIsaretle(satirlar, svKimlik);
+  console.log(`  seviye havuzu ${svKimlik.length} kimlik · kasada bulunamayan ${svYok.length}`);
+  if (svYok.length) { console.log(`  ⛔ SEVİYE HAVUZUNDA KASADA OLMAYAN KİMLİK: ${svYok.slice(0, 5).join(', ')}`); process.exit(2); }
   const bayt = satirlar.reduce((t, s) => t + Buffer.byteLength(JSON.stringify(s.veri)), 0);
   const dersSay = {}; for (const s of satirlar) dersSay[s.ders] = (dersSay[s.ders] || 0) + 1;
   console.log(`KASA YÜKLEYİCİ · ${process.argv.includes('--yaz') ? 'YAZ' : 'KURU'}`);
@@ -132,4 +156,4 @@ async function ana() {
 }
 
 if (require.main === module) ana().catch(e => { console.error('KASA YÜKLEYİCİ DÜŞTÜ: ' + e.message); process.exit(1); });
-module.exports = { sorulariCek, satirlariKur };
+module.exports = { sorulariCek, satirlariKur, seviyeIsaretle };

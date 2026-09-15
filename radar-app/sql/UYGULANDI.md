@@ -362,4 +362,4 @@ gerekçe ölçüldü: `motor/kalip-parti-uret.ps1` içindeki **KAPI-BAKIYE** her
 ## `TASLAK-2026-09-15-paket-soru.sql` — ⏸ TASLAK, BASILMADI (Adım 2)
 | Dosya | Ne yapar | Durum |
 |---|---|---|
-| `radar-app/sql/TASLAK-2026-09-15-paket-soru.sql` | `paket_soru` kasası (RLS: aktif paket + ders bazlı erişim), anonim `ucretsiz_soru` görünümü (doğru şık YOK), `seviye_kontrol()` sunucu cevap kontrolü (hız sınırlı) | ⏸ **BASILMADI — kart ödemesi haftası + Cem'in 3 kararı** (ADIM2-PAKET-KASASI-PLANI.md). Yükleyici `motor/kasa-soru-yukle.js` kuru koşu 15.09: 16 sayfa, 3.727 satır (70 ücretsiz), 49,9 MB. Basmadan önce dosya başındaki 3 koşul. |
+| `radar-app/sql/TASLAK-2026-09-15-paket-soru.sql` | `paket_soru` kasası (RLS: aktif paket + ders bazlı erişim), anonim `ucretsiz_soru` görünümü (doğru şık YOK), `seviye_kontrol()` sunucu cevap kontrolü (hız sınırlı) | ⏸ **BASILMADI — kart ödemesi haftası + Cem'in 3 kararı** (ADIM2-PAKET-KASASI-PLANI.md). Yükleyici `motor/kasa-soru-yukle.js` kuru koşu 15.09: 16 sayfa, 3.727 satır (518 ücretsiz = vitrin 70 + seviye havuzu 450, 2 ortak), 49,9 MB. Basmadan önce dosya başındaki 3 koşul. |
