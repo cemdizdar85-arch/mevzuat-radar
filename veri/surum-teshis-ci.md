@@ -3,9 +3,9 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-09-15 06:57:43 UTC
-- commit: ce229ffba9d737f839ef0886e09df1c27c5a5015
-- kosu no: 36
+- zaman: 2026-09-15 12:38:41 UTC
+- commit: 7ae253f2c2b7c3d86805bd15f659064a62de0e08
+- kosu no: 37
 
 ## ortam
 - pdftotext: /usr/bin/pdftotext
@@ -25,9 +25,9 @@ PDF: https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026
   -> LAYOUT bolmesi secildi (resmi numaralardan sapma azaldi)
   bolundu  : 207 parca · 108,159 karakter
 
-AMBARDAKI HALI : 200 parca · 106,788 karakter
+AMBARDAKI HALI : 207 parca · 108,159 karakter
 YENI HALI      : 207 parca · 108,159 karakter
-KAZANC         : +7 parca · +1,371 karakter (1.0 kat)
+KAZANC         : +0 parca · +0 karakter (1.0 kat)
 
 KURU PROVA — ambara hicbir sey yazilmadi. Ilk 10 yeni parca:
    TFRS 16 p.0 - Künye ve yürürlük                        468 krk
