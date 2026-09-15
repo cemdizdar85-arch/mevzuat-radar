@@ -85,3 +85,27 @@ Hakem reddi almış ve paketi tavanı aşan **100 SGS/SMMM sorusunu** (soru metn
 | KGK | önce | 14 | 325 | 24 | %7,4 |
 
 Tavansız dönem partisi henüz yok. Yeni üretimden sonra aynı betik koşulur; ret oranı başlangıç çizgisinin belirgin üstüne çıkarsa `-EskiPaketTavani` ile karşılaştırılır.
+
+---
+
+## GÜNCELLEME 15.09 ~21:15 · Üretim paketinde ilgisiz TEORİ notu ölçümü (bedel 0)
+
+Yerel önbelleklerde model yazımı, hakemli **5.718 soru**. "İlgisiz teori notu" = kaynak listesindeki TEORİ/Teori Notu kaydının adı, sorunun konu köklerinden hiçbirini taşımıyor (4+ harfli kök, genel sözcükler hariç).
+
+| Sınav | Kaynağın ilgisiz teori payı | Soru | Hakem reddi | "Kaynakta yok" gerekçesi |
+|---|---|---|---|---|
+| SGS | 0 | 5.049 | %17,3 | %30,0 |
+| SGS | < %30 | 94 | %27,7 | %28,7 |
+| SGS | %30–60 | 95 | %34,7 | %30,5 |
+| SGS | ≥ %60 | 105 | **%55,2** | %28,6 |
+| KGK | 0 | 276 | %8,7 | %11,6 |
+| SMMM | 0 | 85 | %18,8 | %35,3 |
+
+- **Güçlü ve tek yönlü ilişki (SGS):** ilgisiz teori payı arttıkça ret %17 → %28 → %35 → %55.
+- **Kapsam dar:** soruların yalnız %5,4'ünde en az bir ilgisiz teori notu var (ortalama kaynak 7,6, ilgisiz 0,3). KGK/SMMM'de vaka birkaç tane (ölçülemez).
+- **"Kaynakta yok" gerekçesi dilimlerde artmıyor (%29–31).** Yani bu sorular paket eksik diye değil, büyük olasılıkla **soru baştan konuya yanlış/ilgisiz yazıldığı için** reddediliyor: ilgisiz paket → ilgisiz soru. Hakem aşamasında paketi süzmek bu soruları kurtarmaz; süzgeç **soru yazılmadan önce** (FAZ A paketi) konmalı.
+
+**Karar Cem'de — seçenekler ve bedel:**
+1. **Süzgeci koda koy, geçmişte ölçme (kod bedeli 0):** FAZ A paketinden adı konu kökü taşımayan TEORİ notlarını çıkar (kanun/standart/THP'ye dokunmadan). Etkisi yalnız yeni üretimde, `arac/tavan-izleme.ps1` benzeri izlemeyle görülür.
+2. **Yeniden üretimle prova (~10 USD):** ilgisiz payı ≥ %30 olan 100 SGS konusunu süzgeçli paketle yeniden yazdırıp dört kapıdan geçir; ret oranını bu tablodaki %35–55 ile karşılaştır.
+3. **Yalnız hakem provası (~1 USD) — önermiyorum:** soru metni değişmediği için süzgecin asıl etkisini (daha iyi soru yazımı) ölçemez.
