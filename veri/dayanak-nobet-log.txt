@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260915054253
+Start time: 20260915064400
 Username: runnervmlun5p\runner
 RunAs User: runnervmlun5p\runner
 Configuration Name: 
 Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/81f25d9f-115e-442e-93ee-8c9b3755beff.ps1'
-Process ID: 11098
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b5db4d86-a92b-431d-9357-5af5d4538d2b.ps1'
+Process ID: 11250
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -17,11 +17,15 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 0
+Degisen madde : 1
 Haritadaki sayfa: 27
+  ayristirilan cift: 0
+  AYRISTIRILAMAYAN 1 kayit (gozden kacmasin diye yaziliyor):
+     KVK GUT (1 Seri No) b.10.6.3
 
-TEMIZ: degisen madde yok, etkilenen sayfa yok.
+Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
+(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
 **********************
 PowerShell transcript end
-End time: 20260915054253
+End time: 20260915064400
 **********************
