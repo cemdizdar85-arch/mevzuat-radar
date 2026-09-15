@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260915192105
+Start time: 20260915200832
 Username: runnervmlun5p\runner
 RunAs User: runnervmlun5p\runner
 Configuration Name: 
 Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a8bdbbf0-3627-45e2-bc11-7f61660f6150.ps1'
-Process ID: 11221
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8c65b3b8-205e-4607-8d30-833de0c02015.ps1'
+Process ID: 11228
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -17,11 +17,18 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 0
+Degisen madde : 4
 Haritadaki sayfa: 27
+  ayristirilan cift: 0
+  AYRISTIRILAMAYAN 4 kayit (gozden kacmasin diye yaziliyor):
+     Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.12 [1/2]
+     Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.16 [1/3]
+     Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.19
+     VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:545) m.10 [1/2]
 
-TEMIZ: degisen madde yok, etkilenen sayfa yok.
+Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
+(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
 **********************
 PowerShell transcript end
-End time: 20260915192105
+End time: 20260915200832
 **********************
