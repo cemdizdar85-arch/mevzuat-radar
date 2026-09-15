@@ -161,6 +161,14 @@ if($KilitSinavi){
   Yaz "KİLİT ÖZ-SINAVI YEŞİL (8 vaka)" 'Green'; exit 0
 }
 
+function EskiBicimUyarisi($kayitlar){
+  # 15.09 (Cem "kilit düzenini diğer oturumlara da oturtalım"): eski biçim kayıt kimliksizdir — hiçbir oturumu durdurmaz,
+  # mesaj adı yoktur. Sahibi yeni biçimle yeniden açsın; açmazsa BAYAT_SA sonra kendiliğinden temizlenir.
+  $eskiler = @($kayitlar | Where-Object { EskiBicimMi $_ })
+  if(-not $eskiler.Count){ return }
+  Write-Host ("  ⚠ {0} eski biçim kilit kaydı (kimliksiz, kimseyi durdurmaz): {1}" -f $eskiler.Count, (($eskiler | ForEach-Object { $_.kol }) -join ', ')) -ForegroundColor Yellow
+  Write-Host "     O kolda çalışan oturum kaydını yenilesin: motor/oturum.ps1 -Ac -Kol <kol> -Is `"<kısa iş>`" -Ad `"<ListAgents adı>`" ($BAYAT_SA sa sonra kendiliğinden silinir)" -ForegroundColor Yellow
+}
 function KilitSatiri($o){
   $sure = SaatFark $o.acilis
   $ek = @(); if("$($o.is)"){ $ek += "iş: $($o.is)" }; if("$($o.ad)"){ $ek += "mesaj adı: $($o.ad)" }
@@ -196,6 +204,7 @@ if($Nabiz){
       Write-Host "  AÇIK KOLLAR:" -ForegroundColor Yellow
       foreach($o in $acikKollar){ Write-Host ("    " + (KilitSatiri $o)) -ForegroundColor Yellow }
       Write-Host "  -> bu kollara DOKUNMA" -ForegroundColor Yellow
+      EskiBicimUyarisi $acikKollar
     } else { Write-Host "  açık oturum yok" }
 
     Write-Host "  Başlarken: powershell -NoProfile -File motor/oturum.ps1 -Ac -Kol <kol>" -ForegroundColor Cyan
@@ -210,6 +219,7 @@ if($Durum){
   if(-not $k -or -not $k.oturumlar -or @($k.oturumlar).Count -eq 0){ Yaz "Açık oturum yok." 'Green'; exit 0 }
   Yaz "`n=== AÇIK OTURUMLAR ===" 'Cyan'
   foreach($o in $k.oturumlar){ Yaz ("  " + (KilitSatiri $o)) }
+  EskiBicimUyarisi @($k.oturumlar)
   $benimKimligim = OturumKimligi
   Yaz ("  (bu oturum: {0})" -f $benimKimligim.oturum) 'DarkGray'
   exit 0
