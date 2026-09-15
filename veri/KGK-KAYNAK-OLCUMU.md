@@ -253,3 +253,28 @@ Hesap: 1.183 × 0,30 = 354,9 · × 0,40 = 473,2 · 706 × 0,30 = 211,8 · × 0,4
 1. **Önce parasız onarım, sonra para (bu hafta 1. gün).** Bölüm 4-B'deki 13 PDF'i (11 özet standart + GDS 3400) ve 4-D'deki delikli aileleri KGK/mevzuat resmî setinden yeniden yut; bu betiği `-Tazele` ile yeniden koş. Beklenen: a) 6 YOK + b) 7 YOK konunun resmî metne kavuşması (çıkmış* 140 soru), TSRS onarılırsa f) dersinin açılması (çıkmış* 151). Bedel 0; yutma listesi senin onayına bağlı.
 2. **Sprint'i boş derslerden başlat, ucuz provayla.** Faz 0 (≈16 USD, 75 üretilen) KGK'ya özgü verimi ölçer; oran Tur 1'in %54 yayın verimine yakınsa Faz 1 (1.183 soru, ≈355–473 USD). a/b zaten %71–78 dolu; Faz 2 onarım bittikten sonra, HAZIR satır sayısı artmış hâlde koşulursa aynı para daha fazla konuya yayılır.
 3. **Paketleyiciye "beklenen ailede kal" kapısı (KGK yolu, SGS'ye dokunmadan).** KGK konu satırında beklenen resmî aile belli (bu ölçümün `aileler` alanı); kaynak paketi o ailenin dışından parça alırsa hakem öncesi düşsün. Bölüm 6-1'deki üç ret doğrudan bu kapıya takılırdı. Ayrı iş emri; kod değişikliği senin onayınla.
+
+---
+
+## GÜNCELLEME 15.09 ~14:45 · Cem "1.2.3 üçünüde yap"
+
+**(1) GM elle yazım → kilitli kasa (`kalip_parti`).** Her soru kaynak alıntısıyla geri okundu, kod kapılarından (0 USD) ve dört ücretli kapıdan geçti (hakem EVET ∧ kör çözüm doğru ∧ hakem2 EVET ∧ simülasyon doğru).
+
+| Parti | Ders | Soru | Ücretli doğrulama |
+|---|---|---|---|
+| kgk-gm-ky-r1 | Kurumsal Yönetim (II-17.1) | 10 | ≈0,33 USD (14.09) |
+| kgk-gm-spk-r1 | Sermaye Piyasası (II-5.2, II-5.1, VII-128.8, 6362 m.65/107) | 7 | ≈0,27 USD |
+| kgk-gm-bank-r1 | Bankacılık (Kredi İşl. Yön., KSK Yön., VYŞ Yön., 5411 m.68-70) | 6 | ≈0,13 USD (+ağ kesintisinde yarım kalan toplu parti) |
+| kgk-gm-gds-r1 | Sürdürülebilirlik Denetimi (GDS 3000, 3400, 3402) | 4 | ≈0,11 USD |
+
+Yeni soru 27 (15.09) + 10 (14.09) = 37. Düzeltilerek geçen: SPK kp-03 (ilke kararı paketten düştü → D şıkkı Tebliğ m.13), SPK kp-04 (hakem olumsuz kökte şaştı → olumlu kök), GDS kp-03 (GDS 3402 p.9 6.408 kr, 4.500 kr hakem paketinden düştü → p.2/p.8/p.15). Site sayfası kurulmadı (paket içeriği açıkta riski; karar Cem'de).
+
+**Hat dersleri (tekrar düşülmesin):** hakem paketi 4.500 kr → dayanak parçaları kısa ve toplamı tavanın altında seçilir · KGK'da olumlu kök · tutar resmî yazımla ("750.000.000 TL"; "750 milyon" KAPI-H'de THP 750 hesabı sanılıyor) · `-DersRegex` KAPI-AILE ders desenini tutmalı ("Bankacılık", "Sürdürülebilirlik Denetim").
+
+**(3) TMS/TFRS paragraf numarası onarımı (`b5ad762b`, 0 USD).** Layout bölmesi + resmî numara hakikati seçimi. Eşdeğerlik provası 41 standartta (ambarın tamamı): eksik 641→412 · sahte 27→7 · çift 225→24; kötüleşen yalnız TMS 36 p.140G (+1 sahte, metin kaybı yok). 37 standart `yutma-recetesi -uygula` ile yazıldı, 37/37 doğrulandı, düşen 0; bağ etkisi önceden ölçüldü: kopan bağ 0, korunan 582, TMS 8'in 39 kopuk bağı ("p.1 - Amaç") kendiliğinden geri geldi.
+
+Tazeleme (14:37, bu betik `-Tazele`): **a) TMS HAZIR 12→23, ZAYIF 18→7** · b) H28/Z3 · c) H10/Z1/Y11 · ç) H7/Z1 · d) H6/Z5 · e) H4/Z1/Y1 · f) Z13 · g) H4/Z2.
+
+**Kopan bağlar:** 243'ün 137'si (KGK, yayında değil, "BDS 501/505/520/705 p.1 - Giriş - Kapsam" → "p.1 - Kapsam") yeniden bağlandı, geri okundu; yedek `_yerel-veri-kasasi/baglama-yedek/20260915-bds-p1-kapsam.json`. TMS 8 (39) yeniden yutmayla döndü. **Açık:** 2 SGS sorusu (BDS 501; SGS'ye dokunulmadı) · 65 KGK sorusu "BDS 530 Ek-2 1" (yeni ad da kusurlu, aşağıda) · TMS/TFRS'de eskiden kopuk 1.659 bağ (eski numaralar kaymalı olduğu için p-numarasıyla körlemesine bağlanamaz; metin eşleştirmeli iş emri).
+
+**Yeni bulgular:** BDS 530/315/540/600/210 ve GDS 3000 ek tabloları "Ek" ön ekini kaybetmiş (ör. `BDS 530 p.1 - ETKİSİ`, ana metnin p.1'iyle çakışıyor; tablo metni sütun karışık) · GDS 3000 p.45–47 S/M iki sütun iç içe · TFRS 17 B-serisi, TMS 32 UR, TMS 33/21 Ek A, TMS 27 p.6+ iki kipte de ayrı parçaya bölünmüyor (412 eksiğin çoğu; metin var, etiket yok).

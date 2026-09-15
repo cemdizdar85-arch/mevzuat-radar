@@ -1,20 +1,20 @@
 {
-    "olcum":  "2026-09-15 08:36",
+    "olcum":  "2026-09-15 14:44",
     "kural":  "URETIM TURU BITTIGINDE BU BETIK KOSAR. Ret nedenleri okunmadan yeni tur baslatilmaz.",
-    "taranan_soru":  6728,
-    "ret":  2099,
+    "taranan_soru":  6775,
+    "ret":  2101,
     "kapi_dagilimi":  {
                           "KAPI-HAKEM":  1075,
-                          "KAPI-HAKEM2":  432,
-                          "KAPI-SIM":  345,
+                          "KAPI-HAKEM2":  433,
+                          "KAPI-SIM":  346,
                           "KAPI-KOR":  175,
                           "hakem KOSMADI":  72
                       },
     "sinif_dagilimi":  {
                            "KAYNAK-EKSIK":  923,
-                           "SIM-YANLIS":  345,
+                           "SIM-YANLIS":  346,
                            "YZ-KOKUSU":  253,
-                           "(siniflanmamis)":  233,
+                           "(siniflanmamis)":  234,
                            "KOR-CELISKI":  175,
                            "HAKEM-KOSMADI":  72,
                            "KAYNAK-KESIK":  48,
@@ -7198,6 +7198,15 @@
                          "onarim":  "Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir."
                      },
                      {
+                         "etiket":  "sgs-gm5-ata-r1",
+                         "id":  "kp-05",
+                         "konu":  "balkan antanti",
+                         "kapi":  "KAPI-SIM",
+                         "sinif":  "SIM-YANLIS",
+                         "gerekce":  "",
+                         "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
+                     },
+                     {
                          "etiket":  "sgs-gm5-mat-r1",
                          "id":  "kp-09",
                          "konu":  "ustel denklem",
@@ -7231,6 +7240,15 @@
                          "kapi":  "KAPI-HAKEM",
                          "sinif":  "(siniflanmamis)",
                          "gerekce":  "Kaynak metni yalnızca THP 240-249 hesap planı ve matematiksel logaritma teorisini içerir; soru Matematik dersinin kapsamında doğru olarak tasarlanmış ve hesaplaması (3/2 + 5/2 = 4) matematiksel olarak yerindedir, ancak kaynak metninde hesap grubu tanımları bu soruya hiç ilişkisiz olduğundan kaynak bütünlüğü bozulmuştur. log₄ 8 = log₍₂²₎ 2³ = 3/2 ve log₉ 243 = log₍₃²₎ 3⁵ = 5/2 olup toplam 4\u0027tür; doğru cevap C seçeneğindedir. Kaynak metinde \u0027TEORI - Matematik: logaritma taban donusumu\u0027 başlığı altında log₍ₐₘ₎(aⁿ) = n/m kuralı ve taban dönüşümü yöntemi açık olarak tanımlanmıştır.",
+                         "onarim":  ""
+                     },
+                     {
+                         "etiket":  "sgs-gm5-mat-r17",
+                         "id":  "kp-14",
+                         "konu":  "bolunebilme kurallari",
+                         "kapi":  "KAPI-HAKEM2",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "a bir rakam (0-9) olmak zorundadır; E şıkkındaki 10 değeri rakam olarak geçersizdir, bu da gerçekçi bir çeldirici değil, biçimsel bir hata/anlamsız seçenektir. Diğer şıklar (0,5,9) b ile a\u0027yı karıştırma veya toplamı yanlış hesaplama gibi gerçek tuzakları yansıtır ama E şıkkı bu tutarlılığı bozar.",
                          "onarim":  ""
                      },
                      {
