@@ -5,9 +5,9 @@
   "sayfa": 77,
   "koyu_gecis": 4,
   "temiz_sayfa": 74,
-  "denetlenen_metin": 12337,
-  "toplam_kirik": 13,
-  "denetlenen_sinir": 3876,
+  "denetlenen_metin": 12284,
+  "toplam_kirik": 15,
+  "denetlenen_sinir": 3869,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
@@ -104,8 +104,26 @@
     },
     {
       "sayfa": "ucretsiz-dene.html",
-      "adet": 5,
+      "adet": 7,
       "ornekler": [
+        {
+          "oge": "a",
+          "yazi": "Yeterlilik",
+          "oran": 4.48,
+          "esik": 4.5,
+          "renk": "rgb(120, 130, 143)",
+          "zemin": "rgb(22,26,31)",
+          "iz": "<a href=\"ucretsiz-dene.html?sinav=yeterlilik\" data-sinav=\"yeterlilik\">Yeterlilik</a>"
+        },
+        {
+          "oge": "a",
+          "yazi": "KGK",
+          "oran": 4.48,
+          "esik": 4.5,
+          "renk": "rgb(120, 130, 143)",
+          "zemin": "rgb(22,26,31)",
+          "iz": "<a href=\"ucretsiz-dene.html?sinav=kgk\" data-sinav=\"kgk\">KGK</a>"
+        },
         {
           "oge": "h1",
           "yazi": "Tetikte",
@@ -141,15 +159,6 @@
           "renk": "rgb(170, 179, 192)",
           "zemin": "rgb(251,250,248)",
           "iz": "<span style=\"max-width:400px\">E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İs"
-        },
-        {
-          "oge": "a",
-          "yazi": "Aydınlatma metni",
-          "oran": 1.77,
-          "esik": 4.5,
-          "renk": "rgb(227, 184, 119)",
-          "zemin": "rgb(251,250,248)",
-          "iz": "<a href=\"/kvkk.html\" target=\"_blank\" style=\"color:#ffc24b\">Aydınlatma metni</a>"
         }
       ]
     }
