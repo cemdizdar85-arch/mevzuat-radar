@@ -1,4 +1,4 @@
-﻿# GÖÇ KÜTÜĞÜ — hangi SQL Supabase'de basılı?
+# GÖÇ KÜTÜĞÜ — hangi SQL Supabase'de basılı?
 
 **Kuruluş sebebi (29.08.2026, Cem "1.2 yap"):** 28.08'de `alacak-radari.html`
 kasadan `secilenGun` / `turIlk` / `turGun` okuyordu ama o alanları üreten göç
@@ -358,3 +358,8 @@ gerekçe ölçüldü: `motor/kalip-parti-uret.ps1` içindeki **KAPI-BAKIYE** her
 | Dosya | Ne yapar | Durum |
 |---|---|---|
 | `radar-app/sql/2026-09-13-ogrenci-sonuc.sql` | `ogrenci_sonuc` tablosu: ogrenci.html seviye testi + sınav gibi deneme sonuçlarını üyenin hesabına yazar; RLS yalnız `user_id = auth.uid()` (oku/ekle/sil, UPDATE yok), anon hakkı YOK, `(user_id,tur,anahtar)` tekil. Önce ölçüldü: tablo YOKTU (PGRST205). | ✅ **BASILDI 14.09.2026 (GM, Cem onayıyla, Chrome eklentisi → SQL Editor).** Dosya parmak izi GitHub = yerel (sha256 37cec226…). Editör "destructive operations" uyarısı verdi (drop policy if exists / revoke — tablo YOKTU, silinen şey yok), onaylandı. **Dış ölçüm:** servis SELECT **200 []** · anon SELECT **401 / 42501** · anon INSERT **401 / 42501**. ⚠️ **KESİNTİ:** sorgu "Running" beklerken PostgREST **bütün tablolarda ~2-3 dk 503 PGRST002** ("could not query the database for the schema cache") döndü; sorgu Success olunca form_kayit 200, cevap_kayit yazma yolu sağlıklı. Muhtemel sebep: `references auth.users` kilidi + şema önbelleği yenilemesi. **Ders:** canlı tabloya/auth.users'a bağlanan DDL düşük trafik saatinde basılır ve basarken PostgREST sağlığı eşzamanlı izlenir. |
+
+## `TASLAK-2026-09-15-paket-soru.sql` — ⏸ TASLAK, BASILMADI (Adım 2)
+| Dosya | Ne yapar | Durum |
+|---|---|---|
+| `radar-app/sql/TASLAK-2026-09-15-paket-soru.sql` | `paket_soru` kasası (RLS: aktif paket + ders bazlı erişim), anonim `ucretsiz_soru` görünümü (doğru şık YOK), `seviye_kontrol()` sunucu cevap kontrolü (hız sınırlı) | ⏸ **BASILMADI — kart ödemesi haftası + Cem'in 3 kararı** (ADIM2-PAKET-KASASI-PLANI.md). Yükleyici `motor/kasa-soru-yukle.js` kuru koşu 15.09: 16 sayfa, 3.727 satır (70 ücretsiz), 49,9 MB. Basmadan önce dosya başındaki 3 koşul. |

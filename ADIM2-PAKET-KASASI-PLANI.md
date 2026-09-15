@@ -11,7 +11,7 @@
 - **Ücretsiz katman da cevap dağıtıyor:** seviye testi havuzu 450 soru, cevaplarıyla `veri/seviye/sgs-havuz.json`'da açık.
 - **Paket kuralı eksik:** `soru_havuzu` politikası paketin **süresine** bakıyor, **hangi dersleri** aldığına (`paket_uyeler.dersler`) bakmıyor.
 - **Yayındaki soruların kalitesi:** 3.809 sorudan 4'ünün ret kaydı var, dördü de Matematik, sınıf "kaynak eksik".
-  Cevaplar bağımsız hesapla doğrulandı: 210 · 348 · 18 · 15, dördü doğru. Seçim adımı ret kütüğüne bakmıyor (bkz. 6).
+  Cevaplar bağımsız hesapla doğrulandı: 210 · 348 · 18 · 15, dördü doğru. **15.09 DÜZELTME:** basım adımı bu 4 soruyu zaten "hakem HAYIR" ile düşürüyor (kuru koşu); sayfa bu hükümden önce basılmış, yeniden basılmamış. Ret kütüğü kapısı ve nöbetçi satırı b48b9574 ile eklendi (madde 6 TAMAM).
 
 ## 1. Hedef mimari
 ```
@@ -26,12 +26,12 @@ Depo / GitHub Pages: yalnız sayfa KABUĞU (soru yok) + kimlik dosyaları (sıra
 
 | # | İş | Ayrıntı | Süre (tahmin) |
 |---|---|---|---|
-| 1 | **Tablo + kurallar** | `paket_soru(id pk "etiket/kp-NN", sinav, ders, konu, sira, veri jsonb, ucretsiz bool, guncelleme)`. RLS: okuma = aktif paket + (paket tam **ya da** ders `paket_uyeler.dersler` içinde); `ucretsiz` satırlar anonim okunur ama `veri`'den doğru şık ve açıklama çıkarılmış görünümle. DDL düşük trafik saatinde, eşzamanlı sağlık izlemesiyle (14.09 PostgREST 503 dersi). `UYGULANDI.md`'ye satır. | 1–2 saat |
-| 2 | **Yükleyici** | `motor/kasa-soru-yukle.js`: Kaydır-Çöz basımındaki soru nesnelerini `paket_soru`'ya upsert eder. `yayin-bas.yml` içinde sayfa basımından hemen sonra koşar (secret zaten var). Kuru koşu + sayım kapısı: yüklenen = basılan. | yarım gün |
-| 3 | **Sayfa kabuğu** | `kaydir-coz.ps1` şablonuna kasa modu: `SORULAR` gömülmez; sayfa oturumla kasadan ders sorularını 50'şerli çeker. **EŞDEĞERLİK PROVASI:** kasadan gelen 3.809 sorunun tamamı, bugünkü gömülü nesneyle alan alan aynı olmalı; fark = 0 değilse yayın yok. | 1 gün |
+| 1 | 🟡 **Tablo + kurallar** (taslak hazır: `radar-app/sql/TASLAK-2026-09-15-paket-soru.sql`, basılmadı) | `paket_soru(id pk "etiket/kp-NN", sinav, ders, konu, sira, veri jsonb, ucretsiz bool, guncelleme)`. RLS: okuma = aktif paket + (paket tam **ya da** ders `paket_uyeler.dersler` içinde); `ucretsiz` satırlar anonim okunur ama `veri`'den doğru şık ve açıklama çıkarılmış görünümle. DDL düşük trafik saatinde, eşzamanlı sağlık izlemesiyle (14.09 PostgREST 503 dersi). `UYGULANDI.md`'ye satır. | 1–2 saat |
+| 2 | 🟡 **Yükleyici** (hazır: `motor/kasa-soru-yukle.js`, yalnız kuru koşu; 3.727 satır / 49,9 MB) | `motor/kasa-soru-yukle.js`: Kaydır-Çöz basımındaki soru nesnelerini `paket_soru`'ya upsert eder. `yayin-bas.yml` içinde sayfa basımından hemen sonra koşar (secret zaten var). Kuru koşu + sayım kapısı: yüklenen = basılan. | yarım gün |
+| 3 | **Sayfa kabuğu** | `kaydir-coz.ps1` şablonuna kasa modu: `SORULAR` gömülmez; sayfa oturumla kasadan ders sorularını 50'şerli çeker. **EŞDEĞERLİK PROVASI:** kasadan gelen 3.727 benzersiz sorunun tamamı (3.809 sayımı muhur-10/kapituru-3 tekrarlarını içeriyordu), bugünkü gömülü nesneyle alan alan aynı olmalı; fark = 0 değilse yayın yok. | 1 gün |
 | 4 | **Deneme ve "sınav gibi"** | Set dosyaları yalnız kimlik ve sıra taşır; sorular kasadan kimlikle çekilir. | yarım gün |
 | 5 | **Seviye testi** | Soru istemcide cevapsız gelir; doğru mu kontrolü sunucuda: `seviye_kontrol(id, secim)` fonksiyonu, IP başına hız sınırıyla. Böylece ücretsiz test cevap dağıtmaz. | yarım gün |
-| 6 | **Kalite kapısı** | Seçim adımı (`sgs-650-bas.ps1`) ret kütüğündeki kimliği seçmez. Ya da seçerse gerekçesi yazılı "kurtarma" işareti ister. İçerik nöbetçisine "yayında ret kaydı olan soru" satırı eklenir. | 2 saat |
+| 6 | ✅ **Kalite kapısı** (15.09 yapıldı, b48b9574) | Seçim adımı (`sgs-650-bas.ps1`) ret kütüğündeki kimliği seçmez. Ya da seçerse gerekçesi yazılı "kurtarma" işareti ister. İçerik nöbetçisine "yayında ret kaydı olan soru" satırı eklenir. | 2 saat |
 | 7 | **Depodan çıkarma** | 17 sayfa kabukla değişir; deneme setleri kimlik dosyası olur; arşiv ve örnek soru dosyaları git dışındaki kasaya taşınır. İçerik nöbetçisinin tabanı **boşaltılır** → YEŞİL. | 1–2 saat |
 | 8 | **Geçmiş temizliği** | [[gecmis-temizligi]] reçetesi: izole çıplak klon, soru dosyalarının geçmişten silinmesi, robot commit'lerinin taşınması, `--force-with-lease` ile gönderim. 20.08'de 4.095 commit ~105 dk sürdü. **Canlı klasörde yapılmaz.** GitHub önbelleği için Support'tan temizlik istenebilir. | 3–4 saat |
 
