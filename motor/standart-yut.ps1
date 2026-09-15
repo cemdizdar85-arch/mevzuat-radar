@@ -329,6 +329,85 @@ function SY_Bol([string]$metin, [string]$std){
   return $kayitlar.ToArray()
 }
 
+function SY_TmsLayoutDuzle([string]$layoutMetin, [string]$std){
+  # ⚠ 15.09.2026 DERSI — POPPLER DUZ CIKARIMDA NUMARA SUTUNU AYRILIYOR.
+  # TMS/TFRS PDF'lerinde paragraf numarasi sol sutunda durur. pdftotext duz kipte
+  # ard arda gelen numaralari ALT ALTA basiyor ("16", "17", sonra iki paragrafin
+  # metni) -> bolucu p.16'yi bos sayip metnini p.17'nin altina koyuyordu
+  # (TMS 16 p.11/16/23/73-76, TMS 12/36/40 ayni sinif). -layout kipinde numara
+  # kendi paragrafinin satirinda: "16   Bir maddi duran varlik ...".
+  # Bu islev layout metnini SY_Bol'un TMS kipinin anladigi bicime cevirir:
+  # sutun 0'da "numara + en az 2 bosluk + metin" -> "numara" satiri + "metin" satiri;
+  # girintiler atilir; sayfa numarasi + kosu basligi satirlari atlanir.
+  $kosu = [regex]::Escape($std.Trim())
+  $cikti = New-Object System.Text.StringBuilder
+  $satirlar = @($layoutMetin -split "`r?`n")
+  for($satirNo = 0; $satirNo -lt $satirlar.Count; $satirNo++){
+    $hamSatir = $satirlar[$satirNo]
+    $kirpik = $hamSatir.Trim()
+    if($kirpik -match "^$kosu$"){ continue }
+    if($kirpik -match '^\d{1,3}$' -and $hamSatir -match '^\s{8,}'){ continue }   # ortalanmis sayfa numarasi
+    if($kirpik -match '^\d{1,3}$'){
+      # ⚠ 15.09 DERSI — TMS 40 p.32A "Isletme," sayfa sonunda bitiyor; sol sutundaki sayfa numarasi "4"
+      # + kosu basligi geliyor. Baslik yukarida atildigi icin "4" PARAGRAF sanildi: 32A kayboldu,
+      # (a)/(b) bentleri sahte "p.4"e gitti. Sayfa numarasi = oncesinde ya da sonrasinda (bos satirlar
+      # atlanarak) kosu basligi olan tek basina sayi.
+      $komsuBaslik = $false
+      foreach($yon in -1,1){
+        $bakilan = $satirNo + $yon
+        while($bakilan -ge 0 -and $bakilan -lt $satirlar.Count -and -not $satirlar[$bakilan].Trim()){ $bakilan += $yon }
+        if($bakilan -ge 0 -and $bakilan -lt $satirlar.Count -and $satirlar[$bakilan].Trim() -match "^$kosu$"){ $komsuBaslik = $true }
+      }
+      if($komsuBaslik){ continue }
+      # DIPNOT: layout kipinde gercek paragraf numarasi metniyle AYNI satirdadir ("58    Bu Standart ...").
+      # Tek basina sayi + sonraki dolu satir girintili = dipnot isareti (TMS 41 "1 / Mayis 2025'te TFRS 18..."
+      # sahte "p.1 - Yururluk tarihi" uretiyordu; TMS 8, TFRS 5 ayni sinif). Isaret atlanir, dipnot metni onceki paragrafta kalir.
+      $sonraki = $satirNo + 1
+      while($sonraki -lt $satirlar.Count -and -not $satirlar[$sonraki].Trim()){ $sonraki++ }
+      if($sonraki -lt $satirlar.Count -and $satirlar[$sonraki] -match '^\s{3,}\S'){ continue }
+    }
+    $numaraEsi = [regex]::Match($hamSatir,'^([A-D]?\d{1,3}[A-Z]?(?:[–-]\d{1,3}[A-Z]?)?)\s{2,}(\S.*)$')
+    if($numaraEsi.Success){
+      [void]$cikti.AppendLine($numaraEsi.Groups[1].Value)
+      [void]$cikti.AppendLine('')
+      [void]$cikti.AppendLine(($numaraEsi.Groups[2].Value.Trim() -replace '\s{2,}',' '))
+      continue
+    }
+    [void]$cikti.AppendLine(($kirpik -replace '\s{2,}',' '))   # layout hizalama bosluklari metne sizmasin: "(a)       Indirimler" -> "(a) Indirimler"
+  }
+  return $cikti.ToString()
+}
+
+function SY_LayoutHakikat([string]$layoutMetin){
+  # ⚠ 15.09 DERSI — "NUMARA DELIGI" SECIM OLCUTU YANLIS CEZA KESIYORDU. TMS 32 p.1 ve p.5-7 resmi metinde
+  # [Silinmistir]/dipnot; dogru bolme bu numaralari uretmedigi icin "delik" sayildi, sahte p.5-7 ureten
+  # duz bolme kazandi. Hakikat = layout metninde sutun 0'da METNIYLE AYNI SATIRDA duran numara;
+  # "[Silinmistir]" satirlari hakikatten cikar (bolme onlari uretmemeli).
+  $gercek = New-Object System.Collections.Generic.HashSet[string]; $silinen = New-Object System.Collections.Generic.HashSet[string]
+  foreach($satir in ($layoutMetin -split "`r?`n")){
+    $es = [regex]::Match($satir,'^([A-Z]{0,2}\d{1,3}[A-Z]{0,2})\s{2,}(\S.*)$')
+    if(-not $es.Success){ continue }
+    if($es.Groups[2].Value -match '^\[Silinmi'){ [void]$silinen.Add($es.Groups[1].Value) } else { [void]$gercek.Add($es.Groups[1].Value) }
+  }
+  Write-Output -NoEnumerate $gercek   # HashSet acilmasin: tek elemanda string'e donup .Contains alt-dize arardi
+}
+
+function SY_HakikatSapmasi($parcalar, $gercek){
+  # eksik (hakikatte var, bolmede yok) + fazla (bolmede var, hakikatte yok; p.0 kunye haric) + cift (ayni numara birden cok parcada, [k/n] haric)
+  $sayac = @{}
+  foreach($parca in $parcalar){
+    $ad = "$($parca.kaynak_ad)"; $parcaliMi = $ad -match '\s\[\d+/\d+\]'
+    $es = [regex]::Match(($ad -replace '\s\[\d+/\d+\]',''),'\sp\.([A-Z]{0,2}\d{1,3}[A-Z]{0,2})(?:\s|$)')
+    if(-not $es.Success){ continue }
+    $no = $es.Groups[1].Value
+    if($parcaliMi){ if(-not $sayac.ContainsKey($no)){ $sayac[$no] = 1 } } else { $sayac[$no] = 1 + [int]$sayac[$no] }
+  }
+  $eksik = @($gercek | Where-Object { -not $sayac.ContainsKey($_) }).Count
+  $fazla = @($sayac.Keys | Where-Object { $_ -ne '0' -and -not $gercek.Contains($_) }).Count
+  $cift  = @($sayac.Keys | Where-Object { $sayac[$_] -gt 1 -and $_ -ne '0' }).Count
+  return ($eksik + $fazla + $cift)
+}
+
 function SY_LayoutGerekli([string]$metin, [string]$std){
   # ⚠ 25.08 GECE DERSI — 16 BDS/GDS'DE A-SERISI SESSIZCE KAYBOLDU.
   # Bu PDF'lerde varsayilan (okuma sirasi) cikarim paragraf numaralarini
@@ -551,6 +630,19 @@ A12. Mevzuat denetcinin raporunda farkli bir bicim ongorebilir.
   if(SY_LayoutGerekli $saglam 'BDS 230'){ $dusen += 'LAYOUT KARARI: saglikli BDS cikarimina gereksiz layout istendi' }
   # TMS'te tek basina numara MESRU paragraf numarasidir - layout istenmez.
   if(SY_LayoutGerekli $bozuk 'TMS 2'){ $dusen += 'LAYOUT KARARI: TMS icin layout istendi (tek basina numara TMS''te mesrudur)' }
+
+  # --- 15.09 TMS LAYOUT DUZELTICI: sayfa sonu bolunen paragraf (TMS 40 p.32A) + dipnot isareti (TMS 41) + [Silinmistir]
+  # BILINEN SINIR (TMS 36 p.140G): dipnot metni onceki paragrafa eklenir; onceki paragraf [Silinmistir] ise govde uzar ve parca olur. Dipnot resmi metin oldugu icin atilmaz.
+  $lay = "31       Isletme gercege uygun deger yontemini veya maliyet yontemini secer ve tum gayrimenkullere uygular.`n32A      Isletme,`n`n`n`n                                   TEST 9`n`n4`nsecimini asagidaki gruplar icin ayri yapar:`n        (a)     birinci grup icin gercege uygun deger yontemini`n        secebilir.`n33       Gercege uygun deger yontemi uygulayan isletme tum gayrimenkulleri bu yontemle olcer ve raporlar.`n`n1`n       Mayis 2025'te bu Standardin adi degistirilmistir ve yeni ad kullanilir.`n34       [Silinmistir]`n35       Kazanc veya kayip olustugu donemde kar veya zarara yansitilir ve ayrica aciklanir gerekirse."
+  $lp = @(SY_Bol (SY_TmsLayoutDuzle $lay 'TEST 9') 'TEST 9')
+  $lAd = @($lp | ForEach-Object { $_.kaynak_ad })
+  if(@($lp | Where-Object { $_.kaynak_ad -match 'p\.(4|1|34)(\s|$)' }).Count){ $dusen += "LAYOUT: SAYFA NO / DIPNOT PARAGRAF SANILDI: $($lAd -join ' | ')" }
+  $p32a = @($lp | Where-Object { $_.kaynak_ad -match 'p\.32A(\s|$)' })
+  if($p32a.Count -ne 1 -or $p32a[0].metin -notmatch 'birinci grup'){ $dusen += "LAYOUT: SAYFA SONU BOLUNEN PARAGRAF KAYBOLDU (32A + bentler): $($lAd -join ' | ')" }
+  if(@($lp | Where-Object { $_.kaynak_ad -match 'p\.35(\s|$)' }).Count -ne 1){ $dusen += "LAYOUT: DIPNOTTAN SONRAKI PARAGRAF KAYBOLDU: $($lAd -join ' | ')" }
+  $hk = SY_LayoutHakikat $lay
+  if(-not $hk.Contains('32A') -or $hk.Contains('34') -or $hk.Contains('4')){ $dusen += "HAKIKAT: numara kumesi yanlis ($(@($hk) -join ','))" }
+  if((SY_HakikatSapmasi $lp $hk) -ne 0){ $dusen += "HAKIKAT SAPMASI: dogru bolmede 0 beklenirken $(SY_HakikatSapmasi $lp $hk)" }
   return $dusen
 }
 
@@ -668,6 +760,23 @@ if((-not $duzen) -and ($standart -match '^(BDS|GDS|SBDS|SGDS)\s')){
 
 # --- 2) BOL
 $yeni = @(SY_Bol $tamMetin $standart)
+# 15.09: TMS/TFRS icin layout adayi. YALNIZ resmi metnin paragraf numaralarindan SAPMA (eksik+fazla+cift)
+# AZALIYOR ve metin kaybi %2'yi gecmiyorsa secilir; esitlikte eski yol kalir (esdegerlik). Secim ekrana yazilir.
+# ("delik" etiketi prova betiklerinin okudugu bicim; deger = hakikat sapmasi)
+if((-not $duzen) -and ($standart -match '^(TMS|TFRS)\s')){
+  $tmsLayoutYolu = Join-Path $gecici 'kaynak-tms-layout.txt'
+  & $arac -enc UTF-8 -nopgbrk -layout $pdfYolu $tmsLayoutYolu 2>$null | Out-Null
+  if(Test-Path $tmsLayoutYolu){
+    $tmsLayoutMetni = [IO.File]::ReadAllText($tmsLayoutYolu,[Text.Encoding]::UTF8)
+    $layoutAday = @(SY_Bol (SY_TmsLayoutDuzle $tmsLayoutMetni $standart) $standart)
+    $tmsHakikat = SY_LayoutHakikat $tmsLayoutMetni
+    $duzDelik = SY_HakikatSapmasi $yeni $tmsHakikat; $layDelik = SY_HakikatSapmasi $layoutAday $tmsHakikat
+    $duzKr = ($yeni | ForEach-Object { $_.metin.Length } | Measure-Object -Sum).Sum
+    $layKr = ($layoutAday | ForEach-Object { $_.metin.Length } | Measure-Object -Sum).Sum
+    Write-Host ("  TMS layout adayi: delik duz {0} · layout {1} · karakter duz {2:N0} · layout {3:N0}" -f $duzDelik,$layDelik,$duzKr,$layKr)
+    if($layoutAday.Count -gt 0 -and $layDelik -lt $duzDelik -and $layKr -ge ($duzKr * 0.98)){ $yeni = $layoutAday; Write-Host '  -> LAYOUT bolmesi secildi (resmi numaralardan sapma azaldi)' }
+  }
+}
 $yeniKarakter = ($yeni | ForEach-Object { $_.metin.Length } | Measure-Object -Sum).Sum
 Write-Host ("  bolundu  : {0} parca · {1:N0} karakter" -f $yeni.Count,$yeniKarakter)
 
