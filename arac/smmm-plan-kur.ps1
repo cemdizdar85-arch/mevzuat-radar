@@ -58,7 +58,7 @@ function GorunenAd([string]$key) { $a = $konu[$key].adlar; if (-not $a -or $a.Co
 # --- 2) yardımcı veriler ---
 $grupJ = Get-Content (Join-Path $depoKok 'veri\sinav\smmm-konu-grup.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $grupOf = @{}   # "resmi|konu" -> grup
-foreach ($dp in $grupJ.dersler.PSObject.Properties) { $rd = ResmiDers $dp.Name; foreach ($gp in $dp.Value.PSObject.Properties) { foreach ($k in @($gp.Value)) { $kk = "$($rd[0])|$(Katla $k)"; if ($esAd.ContainsKey($kk)) { $kk = "$($rd[0])|$(Katla $esAd[$kk])" }; $grupOf[$kk] = $gp.Name } } }
+foreach ($dp in $grupJ.dersler.PSObject.Properties) { $rd = ResmiDers $dp.Name; foreach ($gp in $dp.Value.PSObject.Properties) { foreach ($k in @($gp.Value)) { $kk = "$($rd[0])|$(Katla $k)"; $dolayli = $esAd.ContainsKey($kk); if ($dolayli) { $kk = "$($rd[0])|$(Katla $esAd[$kk])" }; if (-not $dolayli -or -not $grupOf.ContainsKey($kk)) { $grupOf[$kk] = $gp.Name } } } }   # 15.09: kanonik adın kendi grubu, eş yazımının grubunu ezer
 $mulga = @{}; foreach ($h in (Get-Content (Join-Path $depoKok 'veri\sinav\smmm-konu-dayanak.json') -Raw -Encoding UTF8 | ConvertFrom-Json).konular) { if ("$($h.durum)" -like 'MULGA*') { $mulga[(Katla $h.konu)] = 1 } }
 $bizde = @{}; $kpYol = Join-Path $depoKok 'veri\konu-plani-smmm.json'; if (Test-Path $kpYol) { foreach ($s in (Get-Content $kpYol -Raw -Encoding UTF8 | ConvertFrom-Json).satirlar) { $rd = ResmiDers $s.ders; if ($rd -and [int]$s.bizde -gt 0) { $bizde["$($rd[0])|$(Katla $s.konu)"] = [int]$s.bizde } } }
 $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq 'SMMM') { $kopru[(Katla $x.konu)] = 1 } }

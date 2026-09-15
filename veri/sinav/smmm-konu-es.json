@@ -1,5 +1,5 @@
 {
-    "aciklama":  "BİTİRME (SMMM) konu adı eşlemesi — 15.09.2026, Cem \"1 ve 3 yap\" (GM 3). Çıkmış analizindeki ad köprüde yoksa ve köprüde AYNI konuyu anlatan kayıt varsa analiz adı köprü adına bağlanır (sayım birleşir, soru köprü adına basılır). Yalnız ad denkliği; dayanak bu dosyadan verilmez. Karşılığı olmayan ad bağlanmaz (üretici köprü dışı sentez olarak alır).",
+    "aciklama":  "BİTİRME (SMMM) konu adı eşlemesi — 15.09.2026, Cem \"1 ve 3 yap\" (GM 3). Çıkmış analizindeki ad köprüde yoksa ve köprüde AYNI konuyu anlatan kayıt varsa analiz adı köprü adına bağlanır (sayım birleşir, soru köprü adına basılır). Yalnız ad denkliği; dayanak bu dosyadan verilmez. Karşılığı olmayan ad bağlanmaz (üretici köprü dışı sentez olarak alır). · 15.09 akşam (Cem \"1.2 bir ve iki yap\"): aynı konunun farklı yazımları (ör. \u0027kdv mahsubu\u0027 / \u0027kdv mahsup kaydi\u0027) tek konuya bağlandı; kanonik ad köprüde olan, yoksa en sık çıkan yazım. Adaylar kural ile bulundu, kararlar okunarak verildi (9 küme reddedildi: ör. \u0027kasa banka transferi\u0027 ≠ \u0027banka kasa transferi\u0027).",
     "eslemeler":  [
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -30,6 +30,2790 @@
                           "analiz":  "komandit sirket ana sozlesme",
                           "kopru":  "komandit sirket sozlesmesi",
                           "neden":  "aynı konu; ikisi de köprü dışı, çift sayım birleşir"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "7a yevmiye buyuk defter",
+                          "kopru":  "yevmiye buyuk defter 7a",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "7/a yevmiye buyuk defter",
+                          "kopru":  "yevmiye buyuk defter 7a",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "acilis bilancosu kaydi",
+                          "kopru":  "acilis kaydi bilanco",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "defteri kebir acilis",
+                          "kopru":  "acilis kaydi defteri kebir",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "acilis kaydi sermaye",
+                          "kopru":  "sermaye acilis kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek yila ait gider aktarimi",
+                          "kopru":  "gelecek yila ait gider aktarim",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek aylara ait giderler",
+                          "kopru":  "gelecek aylara ait gider",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek aylara ait gider mahsup",
+                          "kopru":  "gelecek aylara ait gider mahsubu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek yila ait gider duzeltmesi",
+                          "kopru":  "gelecek yila ait gider duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir hesaplari donem karina aktarim",
+                          "kopru":  "gelir hesaplari donem karina aktarma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gider hesaplari donem karina aktarim",
+                          "kopru":  "gider hesaplari donem karina aktarma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "diger ticari alacaklar kaydi",
+                          "kopru":  "diger ticari alacak kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "doviz alacak tahsilati",
+                          "kopru":  "doviz alacak tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alacak senedi iskontosu",
+                          "kopru":  "alacak senedi iskonto",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "istirak alacak tahsili",
+                          "kopru":  "istirak alacagi tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alacak senedi tahsil komisyonu",
+                          "kopru":  "alacak senedi tahsil komisyon",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alacak senedi tahsili komisyon",
+                          "kopru":  "alacak senedi tahsil komisyon",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alacak tahsilat kredi virmani",
+                          "kopru":  "alacak tahsilat kredi virman",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ortaklardan alacak kaydi",
+                          "kopru":  "ortaklardan alacaklar",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alacak senedi tahsili",
+                          "kopru":  "alacak senedi tahsilati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "supheli alacak kaydi",
+                          "kopru":  "supheli alacak",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alacak tahsili supheli alacak",
+                          "kopru":  "supheli alacak tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "supheli alacak tahsil",
+                          "kopru":  "supheli alacak tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "supheli alacak tahsilat",
+                          "kopru":  "supheli alacak tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "supheli alacak tahsilati",
+                          "kopru":  "supheli alacak tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alici tahsilat kaydi",
+                          "kopru":  "alici tahsilati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "alicilardan tahsilat",
+                          "kopru":  "alici tahsilati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "tasit alimi avans mahsubu",
+                          "kopru":  "tasit alimi avans mahsup",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "demirbas alimi kaydi",
+                          "kopru":  "demirbas alimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "demirbas alimi senet",
+                          "kopru":  "demirbas alimi senetle",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "senetle demirbas alimi",
+                          "kopru":  "demirbas alimi senetle",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "demirbas alimi ve tahsilat",
+                          "kopru":  "demirbas alimi tahsilat",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "istirak alimi kaydi",
+                          "kopru":  "istirak alimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kamu kesimi tahvili alimi",
+                          "kopru":  "kamu kesimi tahvil alimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal alimi kdv kaydi",
+                          "kopru":  "mal alimi kdv",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal alimi kaydi",
+                          "kopru":  "mal alimi kayit",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal alimi nakliye",
+                          "kopru":  "mal alimi nakliye kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yatirim malzemesi alimi",
+                          "kopru":  "yatirim malzeme alimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "tasit alimi kaydi",
+                          "kopru":  "tasit alimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal alisi siparis avansi",
+                          "kopru":  "siparis avansi mal alisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "amortisman ayirma kaydi",
+                          "kopru":  "amortisman ayirma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "amortisman azalan bakiyeler",
+                          "kopru":  "azalan bakiyeler amortisman",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "amortisman ozel fon",
+                          "kopru":  "ozel fon amortisman",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "amortisman ve ozel fon",
+                          "kopru":  "ozel fon amortisman",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ozel fon amortisman kaydi",
+                          "kopru":  "ozel fon amortisman",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "amortisman ve yenileme fonu",
+                          "kopru":  "amortisman yenileme fonu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "amortisman gideri kaydi",
+                          "kopru":  "amortisman gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredi anapara faiz odeme",
+                          "kopru":  "kredi anapara faiz odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "arsa satisi kaydi",
+                          "kopru":  "arsa satisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sermaye artirim ihrac primi",
+                          "kopru":  "sermaye artirimi ihrac primi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sermaye artirim kaydi",
+                          "kopru":  "sermaye artirimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satis iadesi ve avans",
+                          "kopru":  "satis iadesi avans",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal satisi avans mahsubu",
+                          "kopru":  "mal satisi avans mahsup",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ticari mal satisi avans mahsubu",
+                          "kopru":  "ticari mal satisi avans mahsup",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "siparis avansi mahsubu",
+                          "kopru":  "siparis avansi mahsup",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "siparis avansi tahsilat",
+                          "kopru":  "siparis avansi tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "siparis avansi verilen",
+                          "kopru":  "verilen siparis avansi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "siparis avansi verilmesi",
+                          "kopru":  "verilen siparis avansi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "verilen avans kaydi",
+                          "kopru":  "verilen avans",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek ay gelir duzeltmesi",
+                          "kopru":  "gelecek ay geliri duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "faiz tahakkuku banka",
+                          "kopru":  "banka faiz tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "pazarlama gideri banka odemesi",
+                          "kopru":  "pazarlama gideri banka odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "banka kdv muhasebesi",
+                          "kopru":  "banka kdv muhasebe",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "banka kredisi odemesi",
+                          "kopru":  "banka kredisi odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "banka hesap ozeti mutabakat",
+                          "kopru":  "banka hesap ozeti mutabakati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "stopaj beyani odemesi",
+                          "kopru":  "stopaj beyan odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "donem sonu bilancosu",
+                          "kopru":  "donem sonu bilanco",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "bilanco ve gelir tablosu duzenleme",
+                          "kopru":  "bilanco gelir tablosu duzenleme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir tablosu bilanco duzenleme",
+                          "kopru":  "bilanco gelir tablosu duzenleme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir tablosu ve bilanco duzenleme",
+                          "kopru":  "bilanco gelir tablosu duzenleme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "bilanco gelir tablosu hazirlama",
+                          "kopru":  "gelir tablosu bilanco hazirlama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir tablosu ve bilanco hazirlama",
+                          "kopru":  "gelir tablosu bilanco hazirlama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mizan gelir tablosu bilanco",
+                          "kopru":  "mizan bilanco gelir tablosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir tablosu bilanco",
+                          "kopru":  "bilanco gelir tablosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "bilanco hesaplari kapanis",
+                          "kopru":  "bilanco hesaplari kapanis kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "bilanco kapanis kaydi",
+                          "kopru":  "kapanis bilancosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kapanis kaydi bilanco",
+                          "kopru":  "kapanis bilancosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kapanis kaydi ve bilanco",
+                          "kopru":  "kapanis bilancosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "bono ihraci kaydi",
+                          "kopru":  "bono ihraci",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "finansal kiralama borc odeme",
+                          "kopru":  "finansal kiralama borc odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ortaklara borc odemesi",
+                          "kopru":  "ortaklara borc odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ortak personel borc odeme",
+                          "kopru":  "ortak personel borc odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ortak ve personel borc odemesi",
+                          "kopru":  "ortak personel borc odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ortaklara personele borc odemesi",
+                          "kopru":  "ortak personel borc odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "personel borc odemesi",
+                          "kopru":  "personel borc odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satici borc senedi odeme",
+                          "kopru":  "satici borc senedi odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "borc senedi odeme",
+                          "kopru":  "borc senedi odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ticari borc odemesi",
+                          "kopru":  "ticari borc odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satici borc senedi kaydi",
+                          "kopru":  "satici borc senedi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "vergi borcu odeme",
+                          "kopru":  "vergi borcu odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret bordrosu tahakkuk",
+                          "kopru":  "ucret tahakkuku bordro",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret bordrosu tahakkuku",
+                          "kopru":  "ucret tahakkuku bordro",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "buyuk defter kayitlari",
+                          "kopru":  "buyuk defter kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "buyuk defter t hesap",
+                          "kopru":  "buyuk defter kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yevmiye ve buyuk defter kaydi",
+                          "kopru":  "yevmiye buyuk defter kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "cek tahsilati komisyon",
+                          "kopru":  "cek tahsilat komisyon",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "cek tahsili ve komisyon",
+                          "kopru":  "cek tahsilat komisyon",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "verilen cek mahsup",
+                          "kopru":  "verilen cek mahsubu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "cek ile odeme",
+                          "kopru":  "cek odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "cek odeme kaydi",
+                          "kopru":  "cek odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satici odeme cek",
+                          "kopru":  "satici cek odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "verilen cek ile odeme",
+                          "kopru":  "verilen cek odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "cek tahsilat",
+                          "kopru":  "cek tahsilati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "cek tahsili kaydi",
+                          "kopru":  "cek tahsilati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "defteri kebir kayitlari",
+                          "kopru":  "defteri kebir kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "defteri kebir ve yevmiye kaydi",
+                          "kopru":  "yevmiye defteri kebir kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yevmiye defteri kebir",
+                          "kopru":  "yevmiye defteri kebir kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yevmiye ve defteri kebir",
+                          "kopru":  "yevmiye defteri kebir kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "diger hazir degerler tahsilati",
+                          "kopru":  "diger hazir deger tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kasa doviz degerlemesi",
+                          "kopru":  "kasa doviz degerleme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "doviz kur degerleme",
+                          "kopru":  "doviz kur degerlemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kur degerleme farki",
+                          "kopru":  "kur farki degerleme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kur degerlemesi kambiyo",
+                          "kopru":  "kur degerleme kambiyo",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "depozito iadesi kaydi",
+                          "kopru":  "depozito iadesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "verilen depozito kaydi",
+                          "kopru":  "verilen depozito",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv mahsubu devreden",
+                          "kopru":  "kdv mahsubu devreden kdv",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek donem gelir duzeltmesi",
+                          "kopru":  "gelecek donem geliri duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "doviz ile satici odemesi",
+                          "kopru":  "saticiya doviz odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "tahvil faiz tahsilati duzeltme",
+                          "kopru":  "tahvil faiz tahsilat duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek yil gider duzeltmesi",
+                          "kopru":  "gelecek yil gider duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek yil gideri duzeltme",
+                          "kopru":  "gelecek yil gider duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satistan iade kdv duzeltme",
+                          "kopru":  "satis iade kdv duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "stok maliyet duzeltmesi",
+                          "kopru":  "stok maliyet duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "stok maliyeti duzeltme",
+                          "kopru":  "stok maliyet duzeltme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "elektrik fatura odemesi",
+                          "kopru":  "elektrik faturasi odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "elektrik faturasi odeme",
+                          "kopru":  "elektrik faturasi odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "elektrik gideri odemesi",
+                          "kopru":  "elektrik gideri odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "faiz gelir tahakkuku",
+                          "kopru":  "faiz geliri tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir tahakkuku faiz",
+                          "kopru":  "faiz geliri tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "faiz geliri tahsilat",
+                          "kopru":  "faiz geliri tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "faiz geliri tahsilati",
+                          "kopru":  "faiz geliri tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredi taksit faiz odemesi",
+                          "kopru":  "kredi taksit faiz odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "reeskont faiz islemleri",
+                          "kopru":  "reeskont faiz kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "menkul kiymet ihrac farki gideri",
+                          "kopru":  "menkul kiymet ihrac farki gider",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kambiyo kur farki kaydi",
+                          "kopru":  "kambiyo kur farki",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sayim noksan fazlasi",
+                          "kopru":  "sayim fazla noksan",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gayrimenkul satis kaydi",
+                          "kopru":  "gayrimenkul satisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir gider hesaplari kapanis",
+                          "kopru":  "gelir gider hesaplari kapanisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gider ve gelir hesaplari kapanisi",
+                          "kopru":  "gelir gider hesaplari kapanisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir tahakkuku kaydi",
+                          "kopru":  "gelir tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredi geri odemesi",
+                          "kopru":  "kredi geri odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gider hesaplari yansitma kaydi",
+                          "kopru":  "gider yansitma hesaplari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "maliyet gideri karsiligi",
+                          "kopru":  "maliyet gider karsiligi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kira gideri tahakkuku",
+                          "kopru":  "kira gider tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kirtasiye gideri kaydi",
+                          "kopru":  "kirtasiye gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gider tahakkuku mahsubu",
+                          "kopru":  "gider tahakkuk mahsubu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "nakliye gideri",
+                          "kopru":  "nakliye gideri kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "pazarlama gideri odemesi",
+                          "kopru":  "pazarlama gideri odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "reklam gideri odemesi",
+                          "kopru":  "reklam gideri odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "tamir gideri odemesi",
+                          "kopru":  "tamir gideri odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "genel yonetim gideri odemesi",
+                          "kopru":  "genel yonetim gideri odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "pazarlama satis gideri kaydi",
+                          "kopru":  "pazarlama satis gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "pazarlama gideri tahakkuku",
+                          "kopru":  "pazarlama gideri tahakkuk",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "personel gider tahakkuku",
+                          "kopru":  "personel gideri tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "personel gideri tahakkuk",
+                          "kopru":  "personel gideri tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gider tahakkuku kaydi",
+                          "kopru":  "gider tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gider yansitma kayitlari",
+                          "kopru":  "gider yansitma kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "genel yonetim gideri kaydi",
+                          "kopru":  "genel yonetim gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "hesaplanan kdv mahsubu",
+                          "kopru":  "kdv hesaplari mahsubu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yansitma hesaplari",
+                          "kopru":  "yansitma hesaplari kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satistan iade kaydi",
+                          "kopru":  "satistan iade",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal iadesi satici",
+                          "kopru":  "saticiya mal iadesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satis iadesi kaydi",
+                          "kopru":  "satis iadesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "tahvil ihraci kaydi",
+                          "kopru":  "tahvil ihraci",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satis iskontosu kaydi",
+                          "kopru":  "satis iskontosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "istirak temettu mahsubu",
+                          "kopru":  "istirak temettu mahsup",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satici odemesi kambiyo kari",
+                          "kopru":  "satici odeme kambiyo kari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kapanis kayitlari",
+                          "kopru":  "kapanis kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kapanis yevmiye kayitlari",
+                          "kopru":  "kapanis yevmiye kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "vergi karsiligi mahsup",
+                          "kopru":  "vergi karsiligi mahsubu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredi karti tahsilat",
+                          "kopru":  "kredi karti tahsilati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv mahsubu",
+                          "kopru":  "kdv mahsup kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv mahsup",
+                          "kopru":  "kdv mahsup kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv mahsup islemi",
+                          "kopru":  "kdv mahsup kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv mahsup tahakkuku",
+                          "kopru":  "kdv mahsup tahakkuk",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv mahsup ve tahakkuk",
+                          "kopru":  "kdv mahsup tahakkuk",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv tevkifati mahsubu",
+                          "kopru":  "kdv mahsup tevkifat",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal satisi kdv kaydi",
+                          "kopru":  "mal satisi kdv",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv tahakkuku",
+                          "kopru":  "kdv tahakkuk kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yevmiye kebir kayitlari",
+                          "kopru":  "yevmiye ve kebir kayitlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yevmiye ve kebir kaydi",
+                          "kopru":  "yevmiye ve kebir kayitlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal satisi kredili",
+                          "kopru":  "kredili mal satisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredili satis",
+                          "kopru":  "kredili satis kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredi taksit siniflama",
+                          "kopru":  "kredi taksit siniflandirma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredi taksit siniflamasi",
+                          "kopru":  "kredi taksit siniflandirma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kredi vade siniflama",
+                          "kopru":  "kredi vade siniflandirma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kurumlar vergisi odemesi",
+                          "kopru":  "kurumlar vergisi odeme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "senet mahsup kaydi",
+                          "kopru":  "senet mahsubu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satilan mal maliyeti hesaplama",
+                          "kopru":  "satilan mal maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satilan mal maliyeti kaydi",
+                          "kopru":  "satilan mal maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal satisi nakliye kaydi",
+                          "kopru":  "mal satisi nakliye",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "mal satis kaydi",
+                          "kopru":  "mal satisi kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satilan malin maliyeti kaydi",
+                          "kopru":  "satilan malin maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satis maliyet kaydi",
+                          "kopru":  "satis ve maliyet kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "stok sayim maliyet",
+                          "kopru":  "stok sayim maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "stok sayimi maliyet",
+                          "kopru":  "stok sayim maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sermaye odeme kaydi",
+                          "kopru":  "sermaye odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sermaye odemesi kaydi",
+                          "kopru":  "sermaye odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sermaye taahhudu odemesi",
+                          "kopru":  "sermaye taahhut odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sgk ve vergi odemesi",
+                          "kopru":  "sgk vergi odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "vergi sgk odemesi",
+                          "kopru":  "sgk vergi odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret tahakkuku odeme",
+                          "kopru":  "ucret tahakkuku ve odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret tahakkuku ve odeme",
+                          "kopru":  "ucret tahakkuku ve odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "odenmemis sermaye tahsilati",
+                          "kopru":  "odenmemis sermaye tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret tahakkuku personel",
+                          "kopru":  "personel ucret tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "senet protesto kaydi",
+                          "kopru":  "protestolu senet",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "reeskont",
+                          "kopru":  "reeskont hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "reeskont islemi",
+                          "kopru":  "reeskont hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "senet reeskont hesaplama",
+                          "kopru":  "senet reeskontu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "tasit satis zarari",
+                          "kopru":  "tasit satisi zarar",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "tasit satisi zarari",
+                          "kopru":  "tasit satisi zarar",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sermaye taahhudu",
+                          "kopru":  "sermaye taahhudu kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "sermaye taahhudu tahsili",
+                          "kopru":  "sermaye taahhut tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret tahakkuku kaydi",
+                          "kopru":  "ucret tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "temettu tahsilati",
+                          "kopru":  "temettu tahsili",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yatirim tamamlama kaydi",
+                          "kopru":  "yatirimin tamamlanmasi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "yansitma kayitlari",
+                          "kopru":  "yansitma kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "alacak devir hizi yorumu",
+                          "kopru":  "alacak devir hizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "alacak ve stok devir hizi",
+                          "kopru":  "alacak stok devir hizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "alacak-satis iliskisi",
+                          "kopru":  "alacak satis iliskisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "alacak tahsil suresi",
+                          "kopru":  "alacak tahsilat suresi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "alacak tahsil suresi yorumu",
+                          "kopru":  "alacak tahsilat suresi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "ticari alacak tahsilat suresi",
+                          "kopru":  "ticari alacak tahsil suresi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "analiz cesitleri",
+                          "kopru":  "analiz turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "dikey yuzdeler analizi",
+                          "kopru":  "dikey yuzde analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "egilim yuzdeleri trend analizi",
+                          "kopru":  "trend egilim yuzdeleri analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "finansal analiz cesitleri",
+                          "kopru":  "finansal analiz turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "gelir tablosu yatay analiz",
+                          "kopru":  "yatay analiz gelir tablosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "karsilastirmali tablo analizi",
+                          "kopru":  "karsilastirmali tablolar analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "kredi analizleri",
+                          "kopru":  "kredi analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "satis maliyeti trend analizi",
+                          "kopru":  "trend analizi satis-maliyet",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend analizi hesaplama",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend analizi yorum",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend analizi yorumlama",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend analizi yorumu",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "yatay analiz yorumlama",
+                          "kopru":  "yatay analiz yorum",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "likidite asit test orani",
+                          "kopru":  "likidite asit-test orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "asit test oran",
+                          "kopru":  "asit-test oran",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "bilanco gelir tablosu tanimi",
+                          "kopru":  "bilanco gelir tablosu tanim",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "finansal borclar ozkaynaklar orani",
+                          "kopru":  "finansal borclar ozkaynak orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "net calisma sermayesi yorum",
+                          "kopru":  "net calisma sermayesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "net calisma sermayesi yorumu",
+                          "kopru":  "net calisma sermayesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "cari oran hesaplama",
+                          "kopru":  "cari oran",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "faaliyet giderleri nakit cikisi",
+                          "kopru":  "faaliyet gideri nakit cikisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "stok devir hizi hesaplama",
+                          "kopru":  "stok devir hizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "faaliyet dongusu hesaplama",
+                          "kopru":  "faaliyet dongusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "nakit dongusu hesaplama",
+                          "kopru":  "nakit dongusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "maddi duran varliklar ozkaynak trend",
+                          "kopru":  "maddi duran varlik ozkaynak trend",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend egilim yuzdeleri",
+                          "kopru":  "trend egilim yuzdesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "finans gideri karsilama orani",
+                          "kopru":  "finansman gideri karsilama orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "finansal kaldirac hesaplama",
+                          "kopru":  "finansal kaldirac",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "stok satis iliskisi",
+                          "kopru":  "stok-satis iliskisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "net isletme sermayesi yorum",
+                          "kopru":  "net isletme sermayesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "kaldirac orani hesaplama",
+                          "kopru":  "kaldirac orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "kar kalemleri yorumlama",
+                          "kopru":  "kar kalemleri yorumu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "karlilik oranlari hesaplama",
+                          "kopru":  "karlilik oranlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "varlik kârliligi hesaplama",
+                          "kopru":  "varlik kârliligi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "likidite kavrami",
+                          "kopru":  "likidite tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "likidite orani hesaplama",
+                          "kopru":  "likidite orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "muhasebe kavramlari",
+                          "kopru":  "muhasebe temel kavramlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "temel muhasebe kavramlari",
+                          "kopru":  "muhasebe temel kavramlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "muhasebe temel varsayimlari",
+                          "kopru":  "muhasebe varsayimlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "nakit orani hesaplama",
+                          "kopru":  "nakit orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "nakit oran",
+                          "kopru":  "nakit orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "nakit oran hesaplama",
+                          "kopru":  "nakit orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "acentenin borclari",
+                          "kopru":  "acente borclari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "anonim sirket kurulus sermaye yonetim kurulu",
+                          "kopru":  "anonim sirket kurulus sermaye yonetim",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "tacir bagimli yardimcilari",
+                          "kopru":  "tacirin bagimli yardimcilari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "sigortalilik baslangic tarihleri",
+                          "kopru":  "sigortalilik baslangic tarihi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "borc iliskisinin unsurlari",
+                          "kopru":  "borc iliskisi unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "borclunun temerrudu",
+                          "kopru":  "borclu temerrudu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "yenilik doguran hak ozellikleri",
+                          "kopru":  "yenilik doguran hak",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "yenilik doguran hak tanimi",
+                          "kopru":  "yenilik doguran hak",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "vergi yargisinda yurutmenin durdurulmasi",
+                          "kopru":  "vergi yargisi yurutmenin durdurulmasi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "fiil ehliyeti turleri",
+                          "kopru":  "fiil ehliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "is sozlesmesinin feshi",
+                          "kopru":  "is sozlesmesi feshi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "gercek kisi tacir tanimi",
+                          "kopru":  "gercek kisi tacir",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "hukuk kaynaklari hiyerarsi",
+                          "kopru":  "hukuk kaynaklari hiyerarsisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "hukuksal islemlerin turleri",
+                          "kopru":  "hukuksal islem turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "sozlesmenin kesin hukumsuzlugu",
+                          "kopru":  "sozlesmede kesin hukumsuzluk",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "sozlesmelerde hukumsuzluk",
+                          "kopru":  "sozlesmede hukumsuzluk",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "is sozlesmesi cesitleri yazili sekil",
+                          "kopru":  "is sozlesmesi yazili sekil",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "is sozlesmesi tanim unsurlari",
+                          "kopru":  "is sozlesmesi tanimi ve unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "is sozlesmesi tanimi",
+                          "kopru":  "is sozlesmesi tanimi ve unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "is sozlesmesi tanimi unsurlari",
+                          "kopru":  "is sozlesmesi tanimi ve unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "is sozlesmesi unsurlari",
+                          "kopru":  "is sozlesmesi tanimi ve unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "yazili is sozlesmesi",
+                          "kopru":  "yazili is sozlesmeleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "yazili is sozlesmesi turleri",
+                          "kopru":  "yazili is sozlesmeleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticari is kavrami",
+                          "kopru":  "ticari is tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticari isletme sube unsurlari",
+                          "kopru":  "ticari isletme sube",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticari isletme kavrami",
+                          "kopru":  "ticari isletme unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticari isletme tanimi",
+                          "kopru":  "ticari isletme unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticari isletme tanimi unsurlari",
+                          "kopru":  "ticari isletme unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "kambiyo senetleri",
+                          "kopru":  "kambiyo senetleri ozellikleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "kidem tazminati kosullari hesaplama",
+                          "kopru":  "kidem tazminati kosullari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "kidem tazminati kosullari ve hesabi",
+                          "kopru":  "kidem tazminati kosullari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "kira sozlesmesi unsurlari",
+                          "kopru":  "kira sozlesmesi tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "kolektif sirket kurulusu",
+                          "kopru":  "kollektif sirket kurulusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "kollektif sirket kurulus",
+                          "kopru":  "kollektif sirket kurulusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "tacir olmanin hukumleri",
+                          "kopru":  "tacir olmanin sonuclari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticari senetler ortak ozellikleri",
+                          "kopru":  "ticari senetler ortak ozellikler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "takas sartlari hukumleri",
+                          "kopru":  "takas sartlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "sebepsiz zenginlesme unsurlari",
+                          "kopru":  "sebepsiz zenginlesme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticaret siciline tescil suresi",
+                          "kopru":  "ticaret sicili tescil suresi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "ticaret sirketleri turleri",
+                          "kopru":  "ticaret sirketi turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+                          "analiz":  "tacir kavrami",
+                          "kopru":  "tacir tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "esdeger birim maliyet",
+                          "kopru":  "esdeger birim maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "birim maliyet hesabi",
+                          "kopru":  "birim maliyet hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "birim maliyet ve satis kaydi",
+                          "kopru":  "birim maliyet satis kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "gug kademeli dagitim",
+                          "kopru":  "kademeli dagitim gug",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "sapma dagitimi ve kayit",
+                          "kopru":  "sapma dagitimi kayit",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "degisken maliyet ve katki tablosu",
+                          "kopru":  "degisken maliyet katki tablosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "direkt iscilik gideri hesabi",
+                          "kopru":  "direkt iscilik gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "donem giderleri yansitma kaydi",
+                          "kopru":  "donem gideri yansitma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "enerji gideri tahakkuku kaydi",
+                          "kopru":  "enerji gider tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "esdeger urun miktari hesaplama",
+                          "kopru":  "esdeger urun miktari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "genel uretim giderleri",
+                          "kopru":  "genel uretim gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "genel uretim giderleri ozellikleri",
+                          "kopru":  "genel uretim gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "uretim giderleri yansitma kaydi",
+                          "kopru":  "uretim gideri yansitma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "gug yukleme katsayilari hesabi",
+                          "kopru":  "gug yukleme katsayisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "gug yukleme katsayisi hesaplama",
+                          "kopru":  "gug yukleme katsayisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "hizmet uretim maliyeti kaydi",
+                          "kopru":  "hizmet uretim maliyeti kayit",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "toplam iscilik sapmasi",
+                          "kopru":  "iscilik toplam sapma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "satis karliligi hesaplama",
+                          "kopru":  "satis karliligi hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "mamul maliyeti hesabi",
+                          "kopru":  "mamul maliyeti kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "mamul maliyeti hesaplama",
+                          "kopru":  "mamul maliyeti kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "satilan mamul maliyeti kaydi",
+                          "kopru":  "satilan mamul maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "tamamlanan mamul yari mamul maliyeti",
+                          "kopru":  "tamamlanan yari mamul maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "tamamlanan ve yari mamul maliyeti",
+                          "kopru":  "tamamlanan yari mamul maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "tamamlanan-yari mamul maliyeti",
+                          "kopru":  "tamamlanan yari mamul maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "maliyet muhasebe kayitlari",
+                          "kopru":  "maliyet muhasebesi kayitlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "yan urun maliyeti hesabi",
+                          "kopru":  "yan urun maliyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "yari mamul stok hesaplama",
+                          "kopru":  "yari mamul stok hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "net ucret hesaplama",
+                          "kopru":  "net ucret hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "acilis bakiyeleri kaniti",
+                          "kopru":  "acilis bakiyeleri kanit",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "supheli alacak karsiligi kaydi",
+                          "kopru":  "supheli alacak karsiligi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetcinin genel amaclari",
+                          "kopru":  "denetci genel amaclari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "analitik prosedurler tanimi",
+                          "kopru":  "analitik prosedurler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim tamamlanma asamalari",
+                          "kopru":  "denetim tamamlama asamalari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ic denetci bagimsiz denetci karsilastirmasi",
+                          "kopru":  "ic denetci bagimsiz denetci karsilastirma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "esas ve sekil bagimsizlik",
+                          "kopru":  "bagimsizlik esas sekil",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim gorusu tipi belirleme",
+                          "kopru":  "denetim gorus tipi belirleme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "yaygin olmayan kontrol degerlendirmesi",
+                          "kopru":  "yaygin olmayan kontrol degerlendirme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetci etik ilkeleri",
+                          "kopru":  "denetci etik ilkeler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetci temel etik ilkeleri",
+                          "kopru":  "denetci etik ilkeler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim gorusune etkisi",
+                          "kopru":  "denetim gorusu etkisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim gorusu turleri",
+                          "kopru":  "denetim gorus turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "kasa hesabi denetim hedefleri",
+                          "kopru":  "kasa denetim hedefleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ic denetci",
+                          "kopru":  "ic denetim",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ic kontrol ic denetim tanimi",
+                          "kopru":  "ic kontrol ic denetim",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim kaniti tanimi",
+                          "kopru":  "denetim kanitlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim kanitlari tanimi",
+                          "kopru":  "denetim kanitlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim kaniti uygunluk unsurlari",
+                          "kopru":  "denetim kaniti uygunlugu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim kaniti yeterliligi ve ozellikleri",
+                          "kopru":  "denetim kaniti yeterliligi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim riski",
+                          "kopru":  "denetim riski turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim riski tanimi",
+                          "kopru":  "denetim riski turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim riski tanimi ve turleri",
+                          "kopru":  "denetim riski turleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim teknigi tanimi",
+                          "kopru":  "denetim teknikleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ozel maliyetler kaydi dogrulugu",
+                          "kopru":  "ozel maliyet kaydi dogrulugu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "dogrulama teknigi turleri",
+                          "kopru":  "dogrulama teknigi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ozel maliyetler duzeltme kaydi",
+                          "kopru":  "ozel maliyet duzeltme kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ic kontrol eksikligi tanimi",
+                          "kopru":  "ic kontrol eksikligi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "supheli finansal tablo kalemleri",
+                          "kopru":  "finansal tablo kalemi suphesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "teyit teknigi kullanilan hesaplar",
+                          "kopru":  "teyit teknigi kullanim hesaplari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ic kontrol tanim unsurlari",
+                          "kopru":  "ic kontrol unsurlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "sozlesmede asgari bilgiler",
+                          "kopru":  "sozlesme asgari bilgiler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "meslek onuru ile bagdasmayan haller",
+                          "kopru":  "meslek onuruyla bagdasmayan haller",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "sinav sonuclari bilirkisi heyeti",
+                          "kopru":  "sinav bilirkisi heyeti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "birlik disiplin kurulu gorevleri",
+                          "kopru":  "birlik disiplin kurulu gorevi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "ticari faaliyette bulunamama yasagi",
+                          "kopru":  "ticari faaliyette bulunma yasagi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "disiplin cezalarinda farkli uygulama",
+                          "kopru":  "disiplin cezalari farkli uygulama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "disiplin cezasi uygulanmasi",
+                          "kopru":  "disiplin cezasi uygulama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "isin devri ucret",
+                          "kopru":  "isin devri ucret esaslari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "disiplin kararlarina itiraz",
+                          "kopru":  "disiplin kararina itiraz",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "disiplin kurulu kararlarina itiraz",
+                          "kopru":  "disiplin kurulu kararina itiraz",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "disiplin sorusturmasi organlari",
+                          "kopru":  "disiplin sorusturma organlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik komitesi gorevi",
+                          "kopru":  "etik komitesi gorevleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "temel etik ilkeler",
+                          "kopru":  "etik ilkeler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik ilkeler tehdit turleri",
+                          "kopru":  "etik ilkelere tehditler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik ilkeler tehditler",
+                          "kopru":  "etik ilkelere tehditler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik ilkeler tehditleri",
+                          "kopru":  "etik ilkelere tehditler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik ilkelere yonelik tehditler",
+                          "kopru":  "etik ilkelere tehditler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "temel etik ilkelere yonelik tehdit turleri",
+                          "kopru":  "etik ilkelere tehditler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik komitesi tesekkulu",
+                          "kopru":  "etik komitesi tesekkul",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik yonetmelik yetkili merci",
+                          "kopru":  "etik yonetmelik yetki mercii",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "tam tasdik sozlesmesi feshi",
+                          "kopru":  "tam tasdik sozlesme feshi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "haksiz rekabeti mucadele kurulu",
+                          "kopru":  "haksiz rekabet mucadele kurulu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "ucretle haksiz rekabet",
+                          "kopru":  "ucret haksiz rekabet",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "ymm idare yargi yetkileri",
+                          "kopru":  "ymm idare yargi yetkisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "is kabulu reddi esaslari",
+                          "kopru":  "is kabulu reddi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "meslegin konusu",
+                          "kopru":  "meslek konusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "meslek konusu tanimi",
+                          "kopru":  "meslek konusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "oda organlari ve yonetim kurulu",
+                          "kopru":  "oda organlari yonetim kurulu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "mali tablolar siniflandirmasi",
+                          "kopru":  "mali tablolar siniflandirma",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "meslek mensubu genel sartlar",
+                          "kopru":  "meslek mensubu genel sartlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "meslek mensubu sartlari",
+                          "kopru":  "meslek mensubu genel sartlari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "meslek mensuplari yasaklari",
+                          "kopru":  "meslek mensubu yasaklari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "meslek sirri kavrami",
+                          "kopru":  "meslek sirri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "yatirim ortakliklari faaliyet alani",
+                          "kopru":  "yatirim ortakligi faaliyet alani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "birlesme sermaye artirimi hesabi",
+                          "kopru":  "birlesme sermaye artirimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "halka arz kavramlari",
+                          "kopru":  "halka arz tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "halka arz tanimlari",
+                          "kopru":  "halka arz tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "bagimsiz denetim sorumluluklari",
+                          "kopru":  "bagimsiz denetim sorumlulugu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "bagimsiz denetleme yukumlulugu",
+                          "kopru":  "bagimsiz denetim yukumlulugu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "urun ihtisas borsalari",
+                          "kopru":  "urun ihtisas borsasi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "piyasa bozucu eylemler",
+                          "kopru":  "piyasa bozucu eylem",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "yatirim fonu",
+                          "kopru":  "yatirim fonu tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "girisim sermayesi tanimi",
+                          "kopru":  "girisim sermayesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "izahname tanimi",
+                          "kopru":  "izahname",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "izahname sorumluluk",
+                          "kopru":  "izahname sorumlulugu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "izahname tanimi ve yukumlulukler",
+                          "kopru":  "izahname tanim ve yukumlulukler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "merkezi takas kuruluslari",
+                          "kopru":  "merkezi takas kurulusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "nitelikli yatirimci satislari",
+                          "kopru":  "nitelikli yatirimci satisi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "yatirim ortakligi tanimi",
+                          "kopru":  "yatirim ortakliklari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+                          "analiz":  "yatirim ortakliklari tanimi",
+                          "kopru":  "yatirim ortakliklari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "aciz hali ve sonuclari",
+                          "kopru":  "aciz hali",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "amme alacagi tecili",
+                          "kopru":  "amme alacagi tecil",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "amme alacaginin tecili",
+                          "kopru":  "amme alacagi tecil",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "vergilendirilmeyecek deger artisi kazanclari",
+                          "kopru":  "vergilendirilmeyecek deger artisi kazanci",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gayrimenkul degerleme ve maliyet bedeli",
+                          "kopru":  "gayrimenkul degerleme maliyet bedeli",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "emsal bedel esaslari",
+                          "kopru":  "emsal bedeli",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "emsal bedel tanimi",
+                          "kopru":  "emsal bedeli",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "emsal bedeli esaslari",
+                          "kopru":  "emsal bedeli",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "emsal bedeli tanimi",
+                          "kopru":  "emsal bedeli",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "emsal bedel kdv hesabi",
+                          "kopru":  "emsal bedeli kdv",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "emsal bedel kdv hesaplama",
+                          "kopru":  "emsal bedeli kdv",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "kdv emsal bedeli",
+                          "kopru":  "emsal bedeli kdv",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "emsal bedeli ve ucret",
+                          "kopru":  "emsal bedeli ucreti",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "sahte belge tanimi",
+                          "kopru":  "sahte belge",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "yaniltici belge tanimi",
+                          "kopru":  "yaniltici belge",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "kira geliri beyani hesaplama",
+                          "kopru":  "kira geliri beyani hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi beyan unsurlari",
+                          "kopru":  "gelir vergisi beyani hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi beyani",
+                          "kopru":  "gelir vergisi beyani hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi beyanname hesaplama",
+                          "kopru":  "gelir vergisi beyani hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "serbest meslek kazanci hesaplama ve beyani",
+                          "kopru":  "serbest meslek kazanci beyani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "bilanco esasi defterleri",
+                          "kopru":  "bilanco esasi defterler",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "kurumlarda birlesme",
+                          "kopru":  "kurumlar birlesme",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "dar mukellefiyette ticari kazanc",
+                          "kopru":  "dar mukellef ticari kazanc",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gecikme zammi-faizi",
+                          "kopru":  "gecikme zammi faizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir tanimi ve unsurlari",
+                          "kopru":  "gelir tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir unsurlari tanimi",
+                          "kopru":  "gelir tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelirin tanimi ve unsurlari",
+                          "kopru":  "gelir tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi matrahi",
+                          "kopru":  "gelir vergisi matrahi hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi matrahi hesabi",
+                          "kopru":  "gelir vergisi matrahi hesaplama",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi hesaplama",
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "yetismemis mahsullerin haczi",
+                          "kopru":  "yetismemis mahsul haczi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "hesap hatalari turleri",
+                          "kopru":  "hesap hatalari",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "hizmet tanimi kdv",
+                          "kopru":  "kdv hizmet tanimi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "ilk iktisap otv",
+                          "kopru":  "otv ilk iktisap",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "yillara sari insaat matrah hesabi",
+                          "kopru":  "yillara sari insaat matrah",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "kdv tam-kismi istisna",
+                          "kopru":  "kdv tam kismi istisna",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "ithalat kdv hesaplama",
+                          "kopru":  "ithalatta kdv hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "serbest meslek kazanci hesabi",
+                          "kopru":  "serbest meslek kazanci",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "serbest meslek kazanci hesaplama",
+                          "kopru":  "serbest meslek kazanci",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "telif kazanci stopaj hesaplama",
+                          "kopru":  "telif kazanci stopaj hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "kurumlar vergisi matrahi hesabi",
+                          "kopru":  "kurumlar vergisi matrahi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "kurumlar vergisi matrahi hesaplama",
+                          "kopru":  "kurumlar vergisi matrahi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "kurumlar vergisi mukellefiyeti",
+                          "kopru":  "kurumlar vergisi mukellefleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "tasfiye memurlarinin sorumlulugu",
+                          "kopru":  "tasfiye memurlari sorumlulugu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "ortulu sermaye hesabi",
+                          "kopru":  "ortulu sermaye",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "ortulu sermaye hesaplama",
+                          "kopru":  "ortulu sermaye",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "vergi sorumlusu tanimi",
+                          "kopru":  "vergi sorumlusu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "vergi teminati tanimi",
+                          "kopru":  "vergi teminati",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "vergi ziyai tanimi",
+                          "kopru":  "vergi ziyai",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
                       }
                   ]
 }
