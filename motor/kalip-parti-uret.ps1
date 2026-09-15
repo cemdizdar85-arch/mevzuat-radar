@@ -3720,9 +3720,14 @@ foreach($id in @($don.Keys)){
   #   StringBuilder'a veriliyor ($sb) ve PS harf ayirmadigi icin onu EZER. Bu blok
   #   3525'ten ONCE oldugu icin dogru calisiyor; hesap/atif cekimini oradan SONRAYA
   #   tasiyan biri sessizce kirar.
-  if($cvp.siklar){
+  # 15.09 ÖLÇÜLDÜ (gm5 r18 kp-14 hakem HAYIR "kaynak muhasebe hesaplarıyla karışık"): desen tutarı da kod sayıyordu — "540 TL'dir" → THP 54x grubu,
+  # "500 bakteri" → 50x. Cem onayı (15.09 "hesap grubu düzeltmesini yap"): (1) Matematik/Atatürk dersinde blok atlanır; (2) öteki derslerde kod,
+  # her geçişinde ardından para/ölçü birimi geliyorsa (TL, kg, adet, gün…) hesap kodu sayılmaz. Eşdeğerlik: 6.846 parti sorusu, eski HG 1.410;
+  # değişen = 36 mat/ata (ders atlama) + 207 muhasebe/maliyet (hepsi birim izleyen tutar). Birim dışı bir geçişi olan kod ("100 Kasa") korunur.
+  if($cvp.siklar -and $DersRegex -notmatch 'Matematik|Atat'){
     $hgMetin = "$($cvp.soru) " + ((@('A','B','C','D','E') | ForEach-Object { "$($cvp.siklar.$_)" }) -join ' ')
-    $hgKodlar = @(Get-HesapKodu $hgMetin)
+    $hgBirim = '(?:TL|YTL|TRY|USD|EUR|₺|lira|kuruş|kurus|adet|kg|gram|ton|km|cm|mm|metre|litre|gün|gun|ay|yıl|yil|saat|dakika|saniye|kişi|kisi)'
+    $hgKodlar = @(Get-HesapKodu $hgMetin | Where-Object { [regex]::IsMatch($hgMetin,"(?<![\d.,])$_(?![\d.,])\s+(?!$hgBirim(?![A-Za-zÇĞİÖŞÜçğıöşü]))") })
     $hgGruplar = @($hgKodlar | ForEach-Object { $_.Substring(0,2) } | Select-Object -Unique)
     if($hgGruplar.Count){
       $hgParca = New-Object System.Collections.Generic.List[string]
