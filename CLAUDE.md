@@ -11,17 +11,23 @@
 Kod ya da veri dosyasına dokunmadan **ÖNCE** şunu koş:
 
 ```powershell
-powershell -NoProfile -File motor/oturum.ps1 -Ac -Kol "<iş kolu>"
+powershell -NoProfile -File motor/oturum.ps1 -Ac -Kol "<iş kolu>" -Is "<kısa iş>" -Ad "<ListAgents'teki adın>"
 ```
 
 İş kolu adları: `alacak` · `marka` · `destek` · `ihale` · `sinav` · `site` · `pazarlama` · `altyapi`
 
+**Adını öğren, başlığını koy (15.09.2026, Cem "oturum adına iş kolu yazalım"):**
+`ListAgents` çıktısının ilk satırı bu oturumun mesaj adını söyler ("This session is mevzuat-i-i-cc") → `-Ad`e o yazılır.
+Oturum başlığı `set_session_title` ile **`<kol> · <iş>`** yapılır (ör. `sinav · bitirme basımı`).
+Neden: 15.09'da "bitirme oturumuna not" iki yanlış oturuma gitti — oturum adları yalnız numaraydı, kilit kaydında iş yazmıyordu.
+Başka bir oturuma not düşeceksen önce `motor/oturum.ps1 -Durum` bak: kol · iş · **mesaj adı** orada.
+
 Betik üç şeyi yapar ve **üçü de geçmeden çalışmaya başlanmaz:**
 1. `git fetch` + ana telden ne kadar geride olunduğunu söyler — geride ise **önce birleştirir**
-2. Aynı iş kolunda başka bir oturum açık mı bakar (`veri/OTURUM-KILIDI.json`)
+2. Aynı iş kolunda başka bir **canlı oturum** açık mı bakar (`veri/OTURUM-KILIDI.json`; kimlik = `CLAUDE_CODE_SESSION_ID` + `CLAUDE_PID`)
 3. Bu oturumu kütüğe yazar
 
-**Başka oturum aynı kolda çalışıyorsa:** o kola dokunma. Cem'e söyle, başka kol öner.
+**Başka oturum aynı kolda çalışıyorsa:** o kola dokunma. Cem'e söyle, başka kol öner — ya da kilitteki mesaj adına yaz.
 
 ---
 
@@ -31,9 +37,12 @@ Betik üç şeyi yapar ve **üçü de geçmeden çalışmaya başlanmaz:**
 powershell -NoProfile -File motor/oturum.ps1 -Kapat -Kol "<açtığın kol>"
 ```
 
-> `-Kol` **yaz**. Kilit koldan bırakılır, PID'den değil (`-Ac` ile `-Kapat`
-> ayrı süreçlerdir). Kol yazılmazsa: tek kilit varsa bırakılır, birden fazla
-> kol açıksa **hiçbiri bırakılmaz** ve sana sorulur.
+> Kilit **KOL + OTURUM** ile bırakılır (15.09.2026): `-Kapat` yalnız **bu oturumun** açtığı kilidi
+> bırakır; `-Kol` yazılmazsa bu oturumun bütün kollarını bırakır. Başka bir oturumun kilidine
+> dokunmaz, uyarır — gerçekten terk edilmişse Cem onayıyla `-Zorla`. (15.09 20:29'da eski mantık
+> site oturumunun kapanışında sınav oturumunun canlı kilidini silmişti; ayrıca kilit, kapanan
+> powershell'in PID'ini tuttuğu için hiçbir oturumu fiilen durdurmuyordu.)
+> Kilit mantığının öz-sınavı: `powershell -NoProfile -File motor/oturum.ps1 -KilitSinavi`
 
 > Bu makinede `pwsh` (PowerShell 7) **yok**, `powershell` (5.1) var. Betikleri
 > `powershell -NoProfile -File` ile çağır. Ayrıca 5.1 BOM'suz UTF-8'i ANSI sanar:
