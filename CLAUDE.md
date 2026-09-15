@@ -29,6 +29,13 @@ Betik üç şeyi yapar ve **üçü de geçmeden çalışmaya başlanmaz:**
 
 **Başka oturum aynı kolda çalışıyorsa:** o kola dokunma. Cem'e söyle, başka kol öner — ya da kilitteki mesaj adına yaz.
 
+**Bir iş = bir oturum (15.09.2026, Cem "bir işi tek oturuma verelim").** Aynı iş iki pencereye yazılmış olabilir
+(15.09'da `motor/oturum.ps1` kilit onarımı iki oturuma birden verildi; iki çözüm aynı dosyada üst üste bindi, biri durup
+diğeri çekildi). Kilidi olmayan bir dosyaya — `motor/`, `arac/`, `CLAUDE.md` gibi kol dışı ortak dosyalar dahil — büyük
+bir değişiklik yapmadan ÖNCE: `ListAgents` + `-Durum` ile başka oturumun aynı işi tutup tutmadığına bak; tutuyorsa ona
+yaz ve **ilk başlayan devam eder**, sonra gelen çekilir ve kendi değişikliğini geri alır. Düzenleme sırasında "dosya diskte
+değişti" uyarısı gelirse DUR: başka oturum aynı dosyadadır, önce mesajlaş.
+
 ---
 
 ## 🔴 KAPANIŞ PROTOKOLÜ — iş biter bitmez, "sonra" yok
@@ -118,13 +125,11 @@ karşılama ekranı · `sitemap.xml` · ilgili radar sayfası. Biri unutulursa a
 `C:\Program Files\GitHub CLI\gh.exe` — yeni açılan kabukta `gh` olarak da
 çalışır, eski oturumda tam yol gerekir.
 
-🔴 **Giriş HENÜZ YAPILMADI.** Cem'in bir kez şunu koşması gerekir (tarayıcı
-açar, kimlik bilgisi Claude'a girilmez):
+✅ **Giriş YAPILI** (15.09.2026 ölçüldü: `gh auth status` → hesap `cemdizdar85-arch`, anahtar zinciri,
+kapsam `repo`). Eski not "yapılmadı" diyordu ve bir gün boyunca Cem'e elle "Run workflow" tıklatılmak
+istendi — önce `gh auth status` bak. Giriş düşerse Cem şunu koşar (tarayıcı açar, kimlik bilgisi Claude'a girilmez): `gh auth login`.
 
-```
-gh auth login
-```
-→ GitHub.com · HTTPS · "Login with a web browser" · çıkan kodu tarayıcıya gir.
+**Elle akış tetikleme (Cem onayıyla):** `gh workflow run <akis>.yml -f girdi=deger` → `gh run watch <id> --exit-status`.
 
 **Neden gerekli:** Actions günlüğünü okumak depo yöneticisi yetkisi ister.
 30.08'de `ihale-ozet-tazele.yml` üç kez düştü ve sebep görülemediği için üç
