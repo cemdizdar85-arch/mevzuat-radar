@@ -3,9 +3,9 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-09-14 14:57:10 UTC
-- commit: 823e41dafcc9122bb9134e4667637bbe09f16bfe
-- kosu no: 35
+- zaman: 2026-09-15 06:57:43 UTC
+- commit: ce229ffba9d737f839ef0886e09df1c27c5a5015
+- kosu no: 36
 
 ## ortam
 - pdftotext: /usr/bin/pdftotext
@@ -21,23 +21,25 @@ Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duz
 PDF: https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 16.pdf
   indirildi: 679,907 bayt · GERCEK PDF
   metin    : 113,495 karakter
-  bolundu  : 200 parca · 106,788 karakter
+  TMS layout adayi: delik duz 36 · layout 3 · karakter duz 106,788 · layout 108,159
+  -> LAYOUT bolmesi secildi (resmi numaralardan sapma azaldi)
+  bolundu  : 207 parca · 108,159 karakter
 
 AMBARDAKI HALI : 200 parca · 106,788 karakter
-YENI HALI      : 200 parca · 106,788 karakter
-KAZANC         : +0 parca · +0 karakter (1.0 kat)
+YENI HALI      : 207 parca · 108,159 karakter
+KAZANC         : +7 parca · +1,371 karakter (1.0 kat)
 
 KURU PROVA — ambara hicbir sey yazilmadi. Ilk 10 yeni parca:
    TFRS 16 p.0 - Künye ve yürürlük                        468 krk
    TFRS 16 p.1 - Amaç                                     452 krk
    TFRS 16 p.2 - Amaç                                     211 krk
-   TFRS 16 p.4 - Kapsam                                   979 krk
-   TFRS 16 p.5 - Finansal tablolara almaya ilişkin isti   195 krk
-   TFRS 16 p.6 - Kısa vadeli kiralamalar ve               453 krk
-   TFRS 16 p.7 - Kısa vadeli kiralamalar ve               201 krk
-   TFRS 16 p.8 - Kısa vadeli kiralamalar ve               524 krk
+   TFRS 16 p.3 - Kapsam                                   815 krk
+   TFRS 16 p.4 - Kapsam                                   163 krk
+   TFRS 16 p.5 - Finansal tablolara almaya ilişkin isti   222 krk
+   TFRS 16 p.6 - Finansal tablolara almaya ilişkin isti   453 krk
+   TFRS 16 p.7 - Finansal tablolara almaya ilişkin isti   401 krk
+   TFRS 16 p.8 - Finansal tablolara almaya ilişkin isti   361 krk
    TFRS 16 p.9 - Kiralamanın tanımlanması (B9–B33 parag   506 krk
-   TFRS 16 p.10 - Kiralamanın tanımlanması (B9–B33 para   158 krk
 
 -uygula ile yaz.
 
