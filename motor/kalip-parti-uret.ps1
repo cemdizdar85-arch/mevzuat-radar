@@ -890,6 +890,9 @@ $OZEL_DESEN=@{
   'hareket problemi'         = @('~teori matematik hareket problemi')
   'sayi problemleri'         = @('~teori matematik yas ve sayi problemleri')
   'ardisik sayi problemi'    = @('~teori matematik ardisik sayilar toplami','~teori matematik yas ve sayi problemleri')
+  # 15.09 ÖLÇÜLDÜ (gm5 r18 kp-14 hakem HAYIR): özel desen yokken zam/indirim/fiyat kelimeleri THP 540-549 ve yatay analiz notlarını çekti.
+  # Eşdeğerlik: 2.634 konu dizesi tarandı, eşleşmesi değişen tek konu bu (eskiden DesenUret).
+  'yuzde artis azalis'       = @('~teori matematik yuzde artis azalis')
   'kismi turev'              = @('~teori kismi turev','~teori turev hesabi')
   'ust yonetimle iletisim'   = @('~teori istirak bagli ortaklik','THP 242%','THP 245%','THP 240%')   # konu adı yanlış; Tur 1 sorusu 245 Bağlı Ortaklıklar yönetim çoğunluğu ölçütünü sormuştu
   # 09.09 GM maliyet-kolay ÖLÇÜLDÜ (5 hakem reddi, hepsi kaynak): 'standart' GENEL_KOK'ta olduğu için "standart maliyet sistemi" tek kök "maliyet"le 6 alakasız
