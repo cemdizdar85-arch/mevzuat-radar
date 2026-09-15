@@ -1,13 +1,13 @@
 {
-  "tarih": "15.09.2026 13:24",
+  "tarih": "15.09.2026 20:59",
   "kapsam": "hepsi",
   "durum": "KIRMIZI",
-  "belge": 47710,
-  "kaynak_temiz": 2316,
-  "kaynak_sorunlu": 397,
-  "kesik_belge": 767,
-  "oksuz_belge": 281,
-  "olculen_kaynak_sayisi": 2713,
+  "belge": 48344,
+  "kaynak_temiz": 2327,
+  "kaynak_sorunlu": 393,
+  "kesik_belge": 769,
+  "oksuz_belge": 286,
+  "olculen_kaynak_sayisi": 2720,
   "olculen_kaynaklar": [
     "[ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi)",
     "[ARŞİV] ÇIKMIŞ SINAV (cikmis-soru)",
@@ -57,6 +57,7 @@
     "Banka ve Kredi Kartları K. (5464 s.K.)",
     "Bankacılık K. (5411 s.K.)",
     "Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik",
+    "Bankalarin Bilgi Sistemleri ve Elektronik Bankacilik Hizmetleri Hakkinda Yonetmelik",
     "Bankalarin Ic Sistemleri ve Icsel Sermaye Yeterliligi Degerlendirme Sureci Hakkinda Yonetmelik",
     "Bankalarin Kredi Islemlerine Iliskin Yonetmelik",
     "Bankalarin Muhasebe Uygulamalarina Iliskin Yonetmelik",
@@ -394,6 +395,7 @@
     "BES K. (4632 s.K.)",
     "Bilirkişilik K. (6754 s.K.)",
     "BİM-İdare-Vergi Mahk. K. (2576 s.K.)",
+    "Bireysel Emeklilik Sisteminde Devlet Katkisi Hakkinda Yonetmelik",
     "Birlesme ve Bolunme Tebligi (II-23.2)",
     "BOBI FRS",
     "Borclanma Araci Sahipleri Kurulu Tebligi (II-31/A.1)",
@@ -650,6 +652,9 @@
     "HARÇLAR KANUNU GENEL TEBLİĞİ (SIRA NO: 43)",
     "HMK (6100 s.K.)",
     "Ihracat Destekleri Hakkinda Karar (5973 s. CB Karari)",
+    "İHS 4400",
+    "İHS 4400 Ek 1",
+    "İHS 4400 Ek 2",
     "İİK — Konkordato (m.285-309)",
     "İİK (2004 s.K.)",
     "İnfaz K. (5275 s.K.)",
@@ -1749,6 +1754,7 @@
     "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Sermaye Yeterliliklerinin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik",
     "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
     "Sigortacilik Tekduzen Hesap Plani ve Izahnamesi Hakkinda Teblig",
+    "Sigortacilik ve Ozel Emeklilik Sektorlerinde Ic Sistemlere Dair Yonetmelik",
     "Sigortacılık K. (5684 s.K.)",
     "SMK — İtiraz ve bülten (m.18-20)",
     "SMK — Marka koruması (m.4-30)",
@@ -2175,6 +2181,7 @@
     "TFRS 18",
     "TFRS 18 - TMS 1 ve TMS 8 iliskisi (gecis notu)",
     "TFRS 18 B98-B105 - Kisa/uzun vade sinir vakalari",
+    "TFRS 19",
     "TFRS 2",
     "TFRS 3",
     "TFRS 5",
@@ -3858,19 +3865,10 @@
     {
       "kaynak": "Araci Kurumlar, Portfoy Yonetim Sirketleri ve Kripto Varlik Hizmet Saglayicilar Tarafindan Kullanilacak Uzaktan Kimlik Tespiti Tebligi (III-42.1)",
       "parca": 23,
-      "eksik_paragraf": 1,
+      "eksik_paragraf": 0,
       "kesik_belge": 0,
       "oksuz_belge": 1,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 16.0,
-          "eksik": [
-            13.0
-          ]
-        }
-      ]
+      "delikler": []
     },
     {
       "kaynak": "Avukatlık K. (1136 s.K.)",
@@ -7176,58 +7174,28 @@
       ]
     },
     {
-      "kaynak": "Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik",
-      "parca": 36,
-      "eksik_paragraf": 1,
+      "kaynak": "Bankalarin Bilgi Sistemleri ve Elektronik Bankacilik Hizmetleri Hakkinda Yonetmelik",
+      "parca": 98,
+      "eksik_paragraf": 0,
       "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 27.0,
-          "eksik": [
-            22.0
-          ]
-        }
-      ]
+      "oksuz_belge": 1,
+      "delikler": []
     },
     {
       "kaynak": "Bankalarin Ic Sistemleri ve Icsel Sermaye Yeterliligi Degerlendirme Sureci Hakkinda Yonetmelik",
       "parca": 101,
-      "eksik_paragraf": 1,
+      "eksik_paragraf": 0,
       "kesik_belge": 0,
       "oksuz_belge": 3,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 67.0,
-          "eksik": [
-            15.0
-          ]
-        }
-      ]
+      "delikler": []
     },
     {
       "kaynak": "Bankalarin Kredi Islemlerine Iliskin Yonetmelik",
-      "parca": 23,
-      "eksik_paragraf": 4,
+      "parca": 27,
+      "eksik_paragraf": 0,
       "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 19.0,
-          "eksik": [
-            10.0,
-            11.0,
-            13.0,
-            17.0
-          ]
-        }
-      ]
+      "oksuz_belge": 1,
+      "delikler": []
     },
     {
       "kaynak": "Bankalarin Muhasebe Uygulamalarina Iliskin Yonetmelik",
@@ -9908,24 +9876,6 @@
       ]
     },
     {
-      "kaynak": "Guvence Hesabi Yonetmeligi",
-      "parca": 29,
-      "eksik_paragraf": 2,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 24.0,
-          "eksik": [
-            20.0,
-            22.0
-          ]
-        }
-      ]
-    },
-    {
       "kaynak": "GVK (193 s.K.)",
       "parca": 368,
       "eksik_paragraf": 124,
@@ -10357,6 +10307,14 @@
       ]
     },
     {
+      "kaynak": "İHS 4400",
+      "parca": 96,
+      "eksik_paragraf": 0,
+      "kesik_belge": 2,
+      "oksuz_belge": 0,
+      "delikler": []
+    },
+    {
       "kaynak": "İİK (2004 s.K.)",
       "parca": 496,
       "eksik_paragraf": 3,
@@ -10471,45 +10429,6 @@
             34.0,
             35.0,
             36.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "Istanbul Takas ve Saklama Bankasi A.S. Merkezi Karsi Taraf Yonetmeligi",
-      "parca": 67,
-      "eksik_paragraf": 6,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 54.0,
-          "eksik": [
-            11.0,
-            28.0,
-            29.0,
-            39.0,
-            41.0,
-            51.0
-          ]
-        }
-      ]
-    },
-    {
-      "kaynak": "Istanbul Takas ve Saklama Bankasi A.S. Merkezi Takas Yonetmeligi",
-      "parca": 71,
-      "eksik_paragraf": 1,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 65.0,
-          "eksik": [
-            54.0
           ]
         }
       ]
@@ -10682,24 +10601,6 @@
       "delikler": []
     },
     {
-      "kaynak": "Kaydilestirilen Sermaye Piyasasi Araclarina Iliskin Kayitlarin Tutulmasi Tebligi (II-13.1)",
-      "parca": 48,
-      "eksik_paragraf": 2,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 40.0,
-          "eksik": [
-            11.0,
-            24.0
-          ]
-        }
-      ]
-    },
-    {
       "kaynak": "KDV GUT",
       "parca": 1580,
       "eksik_paragraf": 0,
@@ -10759,24 +10660,6 @@
       "kesik_belge": 1,
       "oksuz_belge": 1,
       "delikler": []
-    },
-    {
-      "kaynak": "Kitle Fonlamasi Tebligi (III-35/A.2)",
-      "parca": 71,
-      "eksik_paragraf": 2,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 35.0,
-          "eksik": [
-            8.0,
-            12.0
-          ]
-        }
-      ]
     },
     {
       "kaynak": "Kooperatifler K. (1163 s.K.)",
@@ -11038,8 +10921,8 @@
     },
     {
       "kaynak": "Merkezi Takas Kuruluslarinin Kurulus ve Calisma Esaslari Hakkinda Genel Yonetmelik",
-      "parca": 97,
-      "eksik_paragraf": 2,
+      "parca": 98,
+      "eksik_paragraf": 1,
       "kesik_belge": 0,
       "oksuz_belge": 1,
       "delikler": [
@@ -11048,8 +10931,7 @@
           "enKucuk": 1.0,
           "enBuyuk": 45.0,
           "eksik": [
-            8.0,
-            27.0
+            8.0
           ]
         }
       ]
@@ -12214,8 +12096,8 @@
     },
     {
       "kaynak": "Pay Tebligi (VII-128.1)",
-      "parca": 106,
-      "eksik_paragraf": 2,
+      "parca": 107,
+      "eksik_paragraf": 1,
       "kesik_belge": 15,
       "oksuz_belge": 0,
       "delikler": [
@@ -12224,7 +12106,6 @@
           "enKucuk": 1.0,
           "enBuyuk": 53.0,
           "eksik": [
-            16.0,
             27.0
           ]
         }
@@ -12439,8 +12320,8 @@
     },
     {
       "kaynak": "Sigorta Acenteleri Yonetmeligi",
-      "parca": 37,
-      "eksik_paragraf": 2,
+      "parca": 38,
+      "eksik_paragraf": 1,
       "kesik_belge": 0,
       "oksuz_belge": 0,
       "delikler": [
@@ -12449,16 +12330,15 @@
           "enKucuk": 1.0,
           "enBuyuk": 27.0,
           "eksik": [
-            21.0,
-            25.0
+            21.0
           ]
         }
       ]
     },
     {
       "kaynak": "Sigorta Eksperleri Yonetmeligi",
-      "parca": 35,
-      "eksik_paragraf": 2,
+      "parca": 36,
+      "eksik_paragraf": 1,
       "kesik_belge": 0,
       "oksuz_belge": 0,
       "delikler": [
@@ -12467,28 +12347,18 @@
           "enKucuk": 1.0,
           "enBuyuk": 32.0,
           "eksik": [
-            16.0,
-            18.0
+            16.0
           ]
         }
       ]
     },
     {
       "kaynak": "Sigorta ve Reasurans Brokerleri Yonetmeligi",
-      "parca": 29,
-      "eksik_paragraf": 1,
+      "parca": 30,
+      "eksik_paragraf": 0,
       "kesik_belge": 0,
       "oksuz_belge": 1,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 25.0,
-          "eksik": [
-            8.0
-          ]
-        }
-      ]
+      "delikler": []
     },
     {
       "kaynak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
@@ -12506,6 +12376,14 @@
           ]
         }
       ]
+    },
+    {
+      "kaynak": "Sigortacilik ve Ozel Emeklilik Sektorlerinde Ic Sistemlere Dair Yonetmelik",
+      "parca": 91,
+      "eksik_paragraf": 0,
+      "kesik_belge": 0,
+      "oksuz_belge": 2,
+      "delikler": []
     },
     {
       "kaynak": "Sigortacılık K. (5684 s.K.)",
@@ -13294,25 +13172,6 @@
       "delikler": []
     },
     {
-      "kaynak": "TAHSİLAT GENEL TEBLİĞİ SERİ:B SIRA NO:11",
-      "parca": 6,
-      "eksik_paragraf": 3,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 2.0,
-          "enBuyuk": 8.0,
-          "eksik": [
-            4.0,
-            5.0,
-            6.0
-          ]
-        }
-      ]
-    },
-    {
       "kaynak": "TBK (6098 s.K.)",
       "parca": 652,
       "eksik_paragraf": 1,
@@ -13721,6 +13580,43 @@
             119.0,
             120.0,
             125.0
+          ]
+        }
+      ]
+    },
+    {
+      "kaynak": "TFRS 19",
+      "parca": 283,
+      "eksik_paragraf": 21,
+      "kesik_belge": 0,
+      "oksuz_belge": 1,
+      "delikler": [
+        {
+          "tip": "par",
+          "enKucuk": 1.0,
+          "enBuyuk": 276.0,
+          "eksik": [
+            142.0,
+            143.0,
+            144.0,
+            145.0,
+            146.0,
+            147.0,
+            148.0,
+            149.0,
+            150.0,
+            151.0,
+            152.0,
+            153.0,
+            154.0,
+            155.0,
+            156.0,
+            157.0,
+            158.0,
+            159.0,
+            167.0,
+            198.0,
+            222.0
           ]
         }
       ]
@@ -15949,24 +15845,6 @@
       "delikler": []
     },
     {
-      "kaynak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:545)",
-      "parca": 16,
-      "eksik_paragraf": 2,
-      "kesik_belge": 0,
-      "oksuz_belge": 0,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 14.0,
-          "eksik": [
-            11.0,
-            12.0
-          ]
-        }
-      ]
-    },
-    {
       "kaynak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (Sıra No: 507)",
       "parca": 16,
       "eksik_paragraf": 0,
@@ -17480,21 +17358,11 @@
     },
     {
       "kaynak": "Yatirim Kuruluslarinin Kurulus ve Faaliyet Esaslari Tebligi (III-39.1)",
-      "parca": 116,
-      "eksik_paragraf": 2,
+      "parca": 118,
+      "eksik_paragraf": 0,
       "kesik_belge": 2,
       "oksuz_belge": 3,
-      "delikler": [
-        {
-          "tip": "madde",
-          "enKucuk": 1.0,
-          "enBuyuk": 78.0,
-          "eksik": [
-            22.0,
-            63.0
-          ]
-        }
-      ]
+      "delikler": []
     },
     {
       "kaynak": "Yatirimci Tazmin Merkezi Yonetmeligi",
