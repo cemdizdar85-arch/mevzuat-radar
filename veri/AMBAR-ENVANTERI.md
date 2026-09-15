@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **15.09.2026 12:40** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **15.09.2026 13:25** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 47662 parça · 2665 tekil kaynak | Bütünlük ölçülen: 2665 (delikli: 365; son ölçüm: 15.09.2026) | Sürüm ölçülen: 43 (sorunlu: 4; son ölçüm: 15.09.2026 12:38)
+**ÖZET:** 47710 parça · 2713 tekil kaynak | Bütünlük ölçülen: 2713 (delikli: 371; son ölçüm: 15.09.2026) | Sürüm ölçülen: 44 (sorunlu: 4; son ölçüm: 15.09.2026 13:23)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -324,15 +324,30 @@
 | BDDK THP izahname hesap 992 - SINIRLAMALARA TABİ OLMAYAN KREDİLERDEN ALACAKLAR - TÜRK PARASI | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK THP izahname hesap 996 - DİĞER FİNANSAL DURUM TABLOSU DIŞI HESAPLARDAN ALACAKLAR - TÜRK PARASI | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 200 | standart-madde | 108 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 210 | standart-madde | 66 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 210 | standart-madde | 61 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 210 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 210 Ek 2 | standart-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 220 | standart-madde | 162 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 230 | standart-madde | 41 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 230 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 240 | standart-madde | 118 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 240 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 240 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 240 Ek 3 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 250 | standart-madde | 68 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 260 | standart-madde | 79 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 260 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 260 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 265 | standart-madde | 42 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 300 | standart-madde | 38 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 315 | standart-madde | 352 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 300 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 315 | standart-madde | 280 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 315 Ek 1 | standart-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 315 Ek 2 | standart-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 315 Ek 3 | standart-madde | 25 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 315 Ek 4 | standart-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 315 Ek 5 | standart-madde | 24 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 315 Ek 6 | standart-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 320 | standart-madde | 29 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 330 | standart-madde | 96 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 402 | standart-madde | 67 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -342,24 +357,50 @@
 | BDS 505 | standart-madde | 42 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 510 | standart-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 520 | standart-madde | 29 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 530 | standart-madde | 53 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 540 | standart-madde | 217 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 530 | standart-madde | 39 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 530 Ek 1 | standart-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 530 Ek 2 | standart-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 530 Ek 3 | standart-madde | 6 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 530 Ek 4 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 540 | standart-madde | 194 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 540 Ek 1 | standart-madde | 24 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 540 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 550 | standart-madde | 79 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 560 | standart-madde | 38 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 570 | standart-madde | 62 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 570 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 580 | standart-madde | 48 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 600 | standart-madde | 251 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 580 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 580 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 600 | standart-madde | 242 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 600 Ek 1 | standart-madde | 3 | DELİK-İNCELE(par:3/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 600 Ek 2 | standart-madde | 8 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 600 Ek 3 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 610 | standart-madde | 79 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 620 | standart-madde | 58 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 620 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 700 | standart-madde | 140 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 700 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 701 | standart-madde | 83 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 705 | standart-madde | 58 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 705 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 706 | standart-madde | 31 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 706 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 706 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 706 Ek 3 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 706 Ek 4 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 710 | standart-madde | 33 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 710 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 720 | standart-madde | 85 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 720 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 720 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 800 | standart-madde | 36 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 800 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 805 | standart-madde | 46 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 805 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 805 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 810 | standart-madde | 55 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 810 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Belediye Gelirleri K. (2464 s.K.) | kanun-madde | 113 | DELİK-İNCELE(par:70/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BES K. (4632 s.K.) | kanun-madde | 65 | DELİK-İNCELE(par:0/kesik:1/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bilirkişilik K. (6754 s.K.) | kanun-madde | 33 | DELİK-İNCELE(par:29/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -464,10 +505,16 @@
 | FSEK (5846 s.K.) | kanun-madde | 132 | DELİK-İNCELE(par:7/kesik:30/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Fuar Desteklerine Iliskin Genelge (5973 uygulama) | kanun-madde | 85 | DELİK-İNCELE(par:0/kesik:2/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gayrimenkul Yatirim Ortakliklarina Iliskin Esaslar Tebligi (III-48.1) | kanun-madde | 91 | DELİK-İNCELE(par:1/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GDS 3000 | standart-madde | 292 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3000 | standart-madde | 287 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3000 Ek | standart-madde | 6 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3400 | standart-madde | 33 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3402 | standart-madde | 110 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3402 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3402 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3402 Ek 3 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3410 | standart-madde | 214 | DELİK-İNCELE(par:15/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3410 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3410 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 251) | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 253) | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 254) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2435,6 +2482,7 @@
 | TMS 28 | standart-madde | 65 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 29 | standart-madde | 41 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 32 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:48/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 32 Ek | standart-madde | 1 | TAM | TUTARLI |
 | TMS 33 | standart-madde | 92 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 34 | standart-madde | 60 | TAM(set-birebir; kapı notu: par:8/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 36 | standart-madde | 157 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
