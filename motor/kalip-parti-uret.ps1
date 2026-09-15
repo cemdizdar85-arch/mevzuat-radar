@@ -1413,6 +1413,14 @@ $uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_a
       # SMMM'de kitapçık TEK ders (smmm_Y_D_KK) → ders aralığı tablosu gerekmez: GENİŞ sözlük = tüm SMMM test kitapçıkları,
       # DAR = bu dersin kitapçıkları; çapa adayı yalnız bu dersin soruları. Klasik (2008-2025) kitapçıklar çoktan seçmeli değil → çapa olmaz.
       $smmmKod=SmmmDersKodu $DersRegex
+      # 15.09 (Cem "1.2.3 üçünü de yap", GM önerisi 1): çapa tipi "3+ sayı ya da kaç" ile hesaplama sayılıyordu; SPK/Meslek/Denetim çıkmışında
+      # "500 pay sahibi", "2 yıl" gibi sayılar geçen CÜMLE ŞIKLI teori soruları hesaplama çapası oluyor, KAPI-T tablosuz teori sorusunu iki kez
+      # düşürüyordu (pilot yspk-zor + yspk-cokzor, 14.09 yeniden koşu). ÖLÇÜLDÜ (veri/cikmis-ders-kalibi-smmm.json): hesaplama payı Denetim 0/40,
+      # Meslek 2/40, SPK 5/40. Hesaplama payı ≤ %15 olan derste çapa ancak KENDİ şıklarının en az üçü sayısal ise (ya da kökte "kaç" varsa)
+      # hesaplama sayılır. Öteki SMMM dersleri (FMuh yevmiye, Hukuk %27,5 hesap) ve SGS/KGK aynı.
+      $smmmAzHesap=$false; $kalipYolS=Join-Path $kok 'veri\cikmis-ders-kalibi-smmm.json'; $dersSadeS=($DersRegex -replace '^\^|\$$','')
+      if(Test-Path $kalipYolS){ try{ $kpS=Get-Content $kalipYolS -Raw -Encoding UTF8 | ConvertFrom-Json; $dAdS=@($kpS.dersler.PSObject.Properties.Name | Where-Object { $_ -eq $dersSadeS -or (Katla2 $_) -eq (Katla2 $dersSadeS) }) | Select-Object -First 1
+        if($dAdS){ $dkS=$kpS.dersler.$dAdS; $hsS=$(if($dkS.tip_dagilim.PSObject.Properties['hesaplama']){ [int]$dkS.tip_dagilim.hesaplama } else { 0 }); if([int]$dkS.soru_sayisi -gt 0 -and $hsS/[int]$dkS.soru_sayisi -le 0.15){ $smmmAzHesap=$true; "  çapa tip kuralı (SMMM, hesaplama payı $hsS/$($dkS.soru_sayisi)): hesaplama çapasının şıkları sayısal olmalı" } } }catch{} }
       $tumBlok=@(SmmmTestBloklari)
       $bloklar=@($tumBlok | Where-Object { $_.kod -eq $smmmKod })
       "  çapa havuzu (SMMM): ders $smmmKod · $($bloklar.Count) soru bloğu · tüm SMMM test $($tumBlok.Count)"
@@ -1433,6 +1441,7 @@ $uB='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_a
         if($secBlok){
           $CAPA[$kk.id]=$secBlok.metin; $cg=$CAPA[$kk.id]; $sayiN=@([regex]::Matches($cg,'\d{1,3}(?:\.\d{3})+|\b\d{2,}\b')).Count
           $CAPA_TIP[$kk.id]=$(if($cg -match '(?i)\bkaç\b' -or $sayiN -ge 3){ 'hesaplama' } elseif($cg -match '(?i)\b[1-7]\d{2}\s+[A-ZÇĞİÖŞÜ][^\n]{2,40}(HS\.?|hesabı)'){ 'kayit' } else { 'teori' })
+          if($smmmAzHesap -and $CAPA_TIP[$kk.id] -eq 'hesaplama' -and $cg -notmatch '(?i)\bkaç\b'){ $sikM=[regex]::Match($cg,'\bA\)\s*(.*?)\s+B\)\s*(.*?)\s+C\)\s*(.*?)\s+D\)\s*(.*?)\s+E\)\s*(.*)$'); if($sikM.Success){ $sikSay=0; foreach($gS in 1..5){ $sS=$sikM.Groups[$gS].Value.Trim(); if($gS -eq 5){ $sS=($sS -split '\s{2,}')[0] }; if($sS -match '\d' -and ($sS -replace '[\d\s.,%₺TL/()\-+:x×=]','').Length -le 12){ $sikSay++ } }; if($sikSay -lt 3){ $CAPA_TIP[$kk.id]='teori' } } }
           $kk.kayit | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "SMMM $($secBlok.donem) ders $smmmKod Soru $($secBlok.no)" -Force
           "  çapa$(if(-not $isabet){' (dersten, konu isabeti yok)'}): $($kk.id) <- SMMM $($secBlok.donem) ders $smmmKod Soru $($secBlok.no) ($($cg.Length) kr, isabet $enPuan/$($kokler.Count), tip $($CAPA_TIP[$kk.id]))"
         } else { "  çapa: $($kk.id) SMMM test bloğu yok - sabit çapa kullanılır" }
