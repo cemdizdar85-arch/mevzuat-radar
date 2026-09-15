@@ -96,7 +96,9 @@ function AileEkle([string]$aileKodu,[string]$gorunenAd,[string]$adDeseni,[string
   $script:aileler[$aileKodu]=[pscustomobject]@{ kod=$aileKodu; ad=$gorunenAd; desen=$adDeseni; tur=$aileTuru; turSarti=$turSarti }
 }
 foreach($stdNo in 1,2,7,8,10,12,16,19,20,21,23,24,26,27,28,29,32,33,34,36,37,38,40,41){ AileEkle "TMS $stdNo" "TMS $stdNo" "^tms $stdNo(?![0-9])" }
-foreach($stdNo in 1,2,3,5,7,8,9,10,11,12,13,15,16,17,18){ AileEkle "TFRS $stdNo" "TFRS $stdNo" "^tfrs $stdNo(?![0-9])" }
+foreach($stdNo in 1,2,3,5,7,8,9,10,11,12,13,15,16,17,18,19){ AileEkle "TFRS $stdNo" "TFRS $stdNo" "^tfrs $stdNo(?![0-9])" }
+AileEkle 'İHS 4400' 'İHS 4400 Üzerinde Mutabık Kalınan Prosedürlerin Uygulandığı İşler' '^ihs 4400(?![0-9])'   # 15.09 yutuldu
+AileEkle 'BILGI-SIS-BANKA' 'Bankaların Bilgi Sistemleri ve Elektronik Bankacılık Hizmetleri Yön.' 'bankalarin bilgi sistemleri ve elektronik'   # 15.09 yutuldu
 AileEkle 'BOBI FRS' 'BOBİ FRS' '^bobi frs'
 foreach($stdNo in 200,210,220,230,240,250,260,265,300,315,320,330,402,450,500,501,505,510,520,530,540,550,560,570,580,600,610,620,700,701,705,706,710,720){ AileEkle "BDS $stdNo" "BDS $stdNo" "^bds $stdNo(?![0-9])" }
 AileEkle 'BDY' 'Bağımsız Denetim Yönetmeliği' '^bagimsiz denetim yonetmeligi'
@@ -175,6 +177,9 @@ $turkHarfDeseni='[' + [char]0x00E7 + [char]0x011F + [char]0x0131 + [char]0x00F6 
 $bitisDeseni='[\.\:\;\)\!\?\]' + [char]0x0022 + [char]0x0027 + [char]0x201D + [char]0x2019 + ']'
 $aileOlcumu=[ordered]@{}
 $aileKatliMetin=@{}
+$hakikatOlcumu=@{}
+$hakikatYolu=Join-Path $depoKok 'veri\kgk-hakikat-olcumu.json'
+if(Test-Path $hakikatYolu){ foreach($hkSatiri in @((Get-Content $hakikatYolu -Raw -Encoding UTF8 | ConvertFrom-Json).standartlar)){ $hakikatOlcumu["$($hkSatiri.standart)"]=$hkSatiri } }
 foreach($aileNesnesi in $aileler.Values){
   $satirListesi=$aileSatirlari[$aileNesnesi.kod]
   $parcaSayisi=$satirListesi.Count
@@ -237,6 +242,14 @@ foreach($aileNesnesi in $aileler.Values){
     $delikOrani= if($enBuyukNo -gt 0){ $delikSayisi/$enBuyukNo } else { 0 }
     $kesikOrani=$kesikAdayi/$parcaSayisi
     if($eksikBolum -eq 0 -and $delikOrani -le 0.05 -and $kesikOrani -le 0.05){ $tamlik='TAM' } else { $tamlik='DELIKLI' }
+    # 15.09 (Cem "1.2.3 üçünüde yapalım"): standartta numara deliği ölçütü "[Silinmiştir]" paragrafları delik sayıyordu
+    # (TMS 40: 18 "delik", resmî PDF'e göre 1 eksik). Resmî PDF'le kıyaslanmış hakikat ölçümü varsa KARAR ONUN:
+    # arac/kgk-hakikat-olcumu.ps1 -> veri/kgk-hakikat-olcumu.json (TAM = resmî paragrafların ≤%5'i parçasız).
+    if($hakikatOlcumu.ContainsKey($aileNesnesi.kod)){
+      $hk=$hakikatOlcumu[$aileNesnesi.kod]
+      if($hk.durum -eq 'TAM'){ $tamlik='TAM' } elseif($hk.durum -eq 'EKSİK'){ $tamlik='DELIKLI' }
+      $delikSayisi=[int]$hk.eksik; $delikOrnek=@("$($hk.eksik_ornek)" -split ',' | Where-Object { $_ } | Select-Object -First 12); $enBuyukNo=[int]$hk.resmi_paragraf
+    }
   }
   $metinNiteligi= if($aileNesnesi.tur -eq 'teori'){ 'TEORI-NOTU' } elseif($aileNesnesi.tur -eq 'taslak'){ 'TASLAK' } elseif($parcaSayisi -eq 0){ '-' } elseif($resmiOrani -ge 0.8){ 'RESMI' } elseif($resmiOrani -ge 0.3){ 'KARISIK' } else { 'OZET' }
   $aileOlcumu[$aileNesnesi.kod]=[ordered]@{

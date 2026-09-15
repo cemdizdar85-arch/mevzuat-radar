@@ -290,3 +290,32 @@ Düzeltilen: TMS 37 hesaplı garanti karşılığı sorusu hakemden iki kez HAYI
 Yan etki (ölçüldü): 4 ek giriş parçası yalnız atıf satırından oluşuyor ("(Bkz.: A88 paragrafı)", 21–45 kr), bütünlük kapısı bunları başlık-only sayıyor. Metin resmî, kayıp yok. SBDS 2400/2410 kapsam dışı bırakıldı: ambardaki biçimleri başka hattan ("ön bölüm [k/31]").
 
 **(3) Hakem/kör paket tavanı ölçümü — 0 USD.** Ayrı rapor: [PAKET-TAVANI-OLCUMU.md](PAKET-TAVANI-OLCUMU.md). Tavanı (4.500 kr) aşan sorularda hakem reddi 2,1–2,4 kat (SGS %20,9 / %8,6 · SMMM %24,5 / %12,4 · KGK %9,0 / %4,3); korelasyon, nedensellik ≈0,5 USD'lik provayla ölçülür. Tavan yükseltmenin tahmini bedeli +0,003–0,005 USD/soru. Karar Cem'de.
+
+---
+
+## GÜNCELLEME 15.09 ~23:50 · Cem "1.2.3 üçünüde yapalım" (eksik resmî metin · Finansal Yönetim · parasız onarım/ölçüm)
+
+Kaynak: KGK sınav/kaynak/basım Excel'i (masaüstü `KGK-Sinav-Kaynak-Basim-Plani.xlsx`; 29 dönem, 5.440 çıkmış soru × kaynak × ambar). Bedel 0.
+
+**(1) Eksik resmî metinler — yutuldu (geri okumayla doğrulandı):**
+
+| Kaynak | Künye | Ambar | Çıkmış (2022+) |
+|---|---|---|---|
+| Bankaların Bilgi Sistemleri ve Elektronik Bankacılık Hizmetleri Yön. | RG 15.03.2020-31069 · MevzuatNo 34360 | 98 parça · m.1–47 deliksiz | 23 (23) |
+| BES Devlet Katkısı Hakkında Yön. | RG 31.12.2022-32060 (5. mük.) · 39939 | 38 parça · m.1–22 + geç. 3 | 14 (12) |
+| Sigortacılık ve Özel Emeklilik Sektörlerinde İç Sistemlere **Dair** Yön. | RG 25.11.2021-31670 · 39063 | 91 parça · m.1–58 | 10 (8) |
+| İHS 4400 Üzerinde Mutabık Kalınan Prosedürlerin Uygulandığı İşler | KGK TDS 2025 seti | 98 parça · 1–35, A1–A60, Ek 1–2 | 3 (2) |
+| TFRS 19 Kamuya Hesap Verme Sorumluluğu Bulunmayan Bağlı Ortaklıklar | RG 10.08.2025-32982 | 283 parça | 1 (1) |
+
+**BEKLİYOR — TFRS 18** (RG 08.05.2025-32894, 01.01.2027'de yürürlüğe girer): resmî metin 255 parça hazır (kuru prova), ama ambardaki 23 özet parçasına **103 parti bağı (SGS 65 · KGK 28 · SMMM/SPL 10) + 37 KGK havuz sorusu** bağlı. Yutmak bağları koparır, SGS partilerine dokunmayı gerektirir → Cem kararı.
+
+**Parçalayıcı kusuru (motor/mevzuat-yut.ps1 AralikliMaddeDuzelt):** bazı resmî PDF'lerde madde başlığı harf harf aralıklı ("M A D D E1 2 -", "M ADDE 25 –"); madde öncekinin içine yapışıyordu. Eşdeğerlik: 719 metnin tamamı, değişen **18 kaynak**, hepsi kasıtlı (kaybolan madde geri geldi). 18'i yeniden yutuldu. Bağ: soru_havuzu 0; 1 GM sorusu (kgk-gm-bank-r1 kp-01, dayanağı m.13/2) "m.12 [2/2]"den "m.13"e, 2 KGK parti sorusu Pay Tebliği m.15 [2/5]/[3/5]'ten m.15 [2/2]/m.16 [1/4]'e taşındı (yedek `_yerel-veri-kasasi/baglama-yedek/20260915-*`). spl-duzey1-1002 kp-07 kasada sinav=SGS → dokunulmadı.
+
+**(2) Finansal Yönetim:** SPL 1007 "Finansal Yönetim ve Mali Analiz" notu (159 sayfa, 30.06.2026) ilk sayfasında SPL'nin izni olmadan "çoğaltılamaz, kopya edilemez, dijital ortama aktarılamaz" diyor → **izinsiz yutulamaz.** Ambarda FY için ~40 kendi teori notumuz var (paranın zaman değeri, WACC, CAPM, oranlar…); resmî metin değil.
+
+**(3) Tamlık ölçütü düzeltildi — `arac/kgk-hakikat-olcumu.ps1` → `veri/kgk-hakikat-olcumu.json`:** eski "numara deliği" ölçütü resmî metinde [Silinmiştir] olan paragrafları delik sayıyordu (TMS 40: 18 "delik", resmî PDF'e göre 1 eksik). Yeni ölçüt resmî PDF'in paragraf numaralarıyla kıyaslar. **84 standart: 67 TAM · 17 EKSİK.** Eski "delikli" TMS 12/16/40/41, BDS 510/570/610/705 → TAM. EKSİK olanlarda (TFRS 9 161 · TFRS 17 149 · TMS 32 55 · TMS 36 35 · TMS 27 29 …) örneklemde 137 eksik paragrafın 134'ünün **metni ambarda komşu parçada** — metin kaybı değil, etiket (paket hassasiyeti) eksiği. 14 delikli standardın 12'sinde resmî PDF'ten yeniden parçalama ambarla birebir aynı çıktı → yeniden yutma kazandırmıyor; iş bölücüde (B/AG/UR serileri). `kgk-kaynak-olcumu.ps1` artık standart tamlığında hakikat sonucunu kullanıyor. TSRS 1/2 KGK PDF adresi olmadığı için ölçülemedi.
+
+Maddeli SPK/BDDK/SEDDK kaynakları (ambar ad dizisi, bedel 0): SPK tebliğlerinin çoğu deliksiz; mülga maddeler (ör. Sigorta Acenteleri m.21) gerçek.
+
+**Tazeleme sonrası sınıflar:** a) H22/Z8 · b) H30/Z1 · c) H10/Z1/Y11 (Y = FY) · ç) H7/Z1 · d) H6/Z5 · e) H4/Z2/**Y0** · f) Z13 (TSRS ölçülemedi) · g) **H6/Z0**.
+**Basım (Excel, modül başına 400):** şimdi basılabilir 1.648 · önce onarım/ölçüm 964 · basılamaz 319 (FY 304 + teori + TFRS 18).

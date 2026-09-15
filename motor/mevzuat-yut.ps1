@@ -29,8 +29,9 @@ if(Test-Path $durumYol){ try { (Get-Content $durumYol -Raw -Encoding UTF8 | Conv
 # 22.07.2026: taksimli madde (32/A, 32/C...) + TUM-BUYUK "EK MADDE/GECICI MADDE/MUKERRER MADDE"
 # varyantlari eklendi — KVK 32/C (asgari KV) ve 7524 ek maddeleri bu desenin disinda kaliyordu.
 function AralikliMaddeDuzelt([string]$duzMetin){
-  # "M A D D E1 2 -" / "M A D D E1 –" -> "MADDE 12 -" / "MADDE 1 –" (yalniz harfleri tek tek aralikli yazim; normal "MADDE 12" dokunulmaz)
-  return [regex]::Replace($duzMetin, '\bM A D D E ?((?:\d ?){1,3})(?=[-–:(])', { param($es) 'MADDE ' + ($es.Groups[1].Value -replace ' ','') + ' ' })
+  # "M A D D E1 2 -" / "M A D D E1 –" / "M ADDE 25 –" -> "MADDE 12 -" / "MADDE 1 –" / "MADDE 25 –"
+  # (MADDE kelimesinin ICINDE en az bir bosluk olan yazim; normal "MADDE 12" (?!MADDE) ile dokunulmaz)
+  return [regex]::Replace($duzMetin, '\b(?!MADDE)(?=M ?A ?D ?D ?E)M ?A ?D ?D ?E ?((?:\d ?){1,3})(?=[-–:(])', { param($es) 'MADDE ' + ($es.Groups[1].Value -replace ' ','') + ' ' })
 }
 function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
   # 14.08 KUSUR (olculdu, Dahilde Isleme Rejimi Karari vakasi): desen madde
