@@ -50,6 +50,7 @@ powershell -NoProfile -File motor/oturum.ps1 -Kapat -Kol "<açtığın kol>"
 > site oturumunun kapanışında sınav oturumunun canlı kilidini silmişti; ayrıca kilit, kapanan
 > powershell'in PID'ini tuttuğu için hiçbir oturumu fiilen durdurmuyordu.)
 > Kilit mantığının öz-sınavı: `powershell -NoProfile -File motor/oturum.ps1 -KilitSinavi`
+> Kilitsiz düzenleme uyarısı (15.09): kilidi olmayan oturum depo dosyasına Edit/Write yapınca `arac/kilit-uyari-kapisi.ps1` hook'u **uyarır, durdurmaz** (10 dk'da bir). Uyarı gelirse önce `-Ac` ile kol al. Öz-sınav: `arac/kilit-uyari-kapisi.ps1 -Sinav`
 
 > Bu makinede `pwsh` (PowerShell 7) **yok**, `powershell` (5.1) var. Betikleri
 > `powershell -NoProfile -File` ile çağır. Ayrıca 5.1 BOM'suz UTF-8'i ANSI sanar:
