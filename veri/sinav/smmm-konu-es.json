@@ -1,0 +1,35 @@
+{
+    "aciklama":  "BİTİRME (SMMM) konu adı eşlemesi — 15.09.2026, Cem \"1 ve 3 yap\" (GM 3). Çıkmış analizindeki ad köprüde yoksa ve köprüde AYNI konuyu anlatan kayıt varsa analiz adı köprü adına bağlanır (sayım birleşir, soru köprü adına basılır). Yalnız ad denkliği; dayanak bu dosyadan verilmez. Karşılığı olmayan ad bağlanmaz (üretici köprü dışı sentez olarak alır).",
+    "eslemeler":  [
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "asit-test orani",
+                          "kopru":  "asit test orani",
+                          "neden":  "yalnız tire farkı"
+                      },
+                      {
+                          "ders":  "Hukuk",
+                          "analiz":  "sebepsiz zenginlesme davasi",
+                          "kopru":  "sebepsiz zenginlesme",
+                          "neden":  "aynı kurum (TBK m.77 vd.); köprü kaydı dayanaklı"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "otv beyannamesi",
+                          "kopru":  "otv beyannamesi mukellefi",
+                          "neden":  "aynı konu, köprüde tek kayıt"
+                      },
+                      {
+                          "ders":  "Hukuk",
+                          "analiz":  "sozlesme icerigi sinirlamasi",
+                          "kopru":  "sozlesme icerigi sinirlama",
+                          "neden":  "ek farkı; ikisi de köprü dışı, çift sayım birleşir"
+                      },
+                      {
+                          "ders":  "Hukuk",
+                          "analiz":  "komandit sirket ana sozlesme",
+                          "kopru":  "komandit sirket sozlesmesi",
+                          "neden":  "aynı konu; ikisi de köprü dışı, çift sayım birleşir"
+                      }
+                  ]
+}

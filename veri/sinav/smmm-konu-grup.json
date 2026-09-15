@@ -1,5 +1,5 @@
 {
-    "aciklama":  "BİTİRME (SMMM) konu grupları — 15.09.2026, Cem \"1.2.3 üçünü de yap\" (GM 2-3). Son 7 yılda (2020+) çıkan konular. Hukuk ve SPK konuları okunarak elle gruplandı; Finansal Muhasebe 618 konu THP işlem türü kurallarıyla (okunarak kurulan sıralı kural) gruplandı. Grup = soru hakkı dağıtım birimi; soru yine grubun gerçek konu adına basılır. DURUM: CEM ONAYI BEKLİYOR.",
+    "aciklama":  "BİTİRME (SMMM) konu grupları — 15.09.2026, Cem \"1.2.3 üçünü de yap\" (GM 2-3) + \"1 ve 3 yap\" (FTA ve Maliyet eklendi). Son 7 yılda (2020+) çıkan konular. Hukuk, SPK, FTA ve Maliyet konuları okunarak elle gruplandı; Finansal Muhasebe 618 konu THP işlem türü kurallarıyla (okunarak kurulan sıralı kural) gruplandı. Meslek, Denetim, Vergi grupsuz (her konu kendi grubu). Grup = soru hakkı dağıtım birimi; soru yine grubun gerçek konu adına basılır. DURUM: CEM ONAYI BEKLİYOR.",
     "durum":  "ONAY BEKLIYOR",
     "dersler":  {
                     "Hukuk":  {
@@ -948,6 +948,253 @@
                                                                                  "yatirimin aktiflestirilmesi",
                                                                                  "yatirimin tamamlanmasi"
                                                                              ]
-                                          }
+                                          },
+                    "Finansal Tablolar ve Analizi":  {
+                                                         "Likidite oranları ve işletme sermayesi":  [
+                                                                                                        "asit-test orani",
+                                                                                                        "cari oran",
+                                                                                                        "cari oran hesaplama",
+                                                                                                        "likidite asit-test orani",
+                                                                                                        "likidite orani",
+                                                                                                        "likidite orani hedefi",
+                                                                                                        "likidite orani hesaplama",
+                                                                                                        "nakit oran hesaplama",
+                                                                                                        "nakit orani",
+                                                                                                        "nakit orani hesaplama",
+                                                                                                        "net isletme sermayesi",
+                                                                                                        "brut isletme sermayesi"
+                                                                                                    ],
+                                                         "Finansal yapı oranları (kaldıraç, devamlı sermaye, faiz karşılama)":  [
+                                                                                                                                    "kaldirac orani",
+                                                                                                                                    "kaldirac orani hesaplama",
+                                                                                                                                    "devamli sermaye orani",
+                                                                                                                                    "faiz karsilama orani",
+                                                                                                                                    "finans gideri karsilama orani",
+                                                                                                                                    "finansman gideri karsilama orani"
+                                                                                                                                ],
+                                                         "Stok devir hızı ve süresi":  [
+                                                                                           "dİmm stok devir hizi/suresi",
+                                                                                           "mamul devir hizi",
+                                                                                           "mamul stok devir hizi",
+                                                                                           "mamul stok devir suresi",
+                                                                                           "stok devir hizi",
+                                                                                           "stok devir suresi",
+                                                                                           "ticari mal devir hizi",
+                                                                                           "ticari mal devir hizi/suresi",
+                                                                                           "yari mamul devir hizi/suresi",
+                                                                                           "stok tahmini"
+                                                                                       ],
+                                                         "Alacak devir hızı ve tahsil süresi":  [
+                                                                                                    "alacak devir hizi",
+                                                                                                    "alacak devir hizi yorumu",
+                                                                                                    "alacak tahsil suresi",
+                                                                                                    "alacak tahsilat suresi",
+                                                                                                    "alacak tahsilat suresi hedefi",
+                                                                                                    "ticari alacak devir hizi",
+                                                                                                    "ticari alacak tahsil suresi",
+                                                                                                    "ticari alacak tahsilat suresi",
+                                                                                                    "ticari alacak tahmini",
+                                                                                                    "supheli alacak etkisi"
+                                                                                                ],
+                                                         "Borç devir hızı ve ödeme süresi":  [
+                                                                                                 "ticari borc devir hizi",
+                                                                                                 "ticari borc odeme suresi",
+                                                                                                 "ticari borc tahmini"
+                                                                                             ],
+                                                         "Faaliyet ve nakit döngüsü":  [
+                                                                                           "faaliyet dongusu",
+                                                                                           "faaliyet dongusu hesaplama",
+                                                                                           "nakit dongusu",
+                                                                                           "alacak borc devir hizi"
+                                                                                       ],
+                                                         "Varlık devir hızları":  [
+                                                                                      "aktif devir hizi",
+                                                                                      "duran varlik devir hizi",
+                                                                                      "varlik devir hizi",
+                                                                                      "devir hizi analizi"
+                                                                                  ],
+                                                         "Satış ve faaliyet kârlılığı":  [
+                                                                                             "brut satis karliligi",
+                                                                                             "brut satis kârliligi",
+                                                                                             "faaliyet karliligi",
+                                                                                             "faaliyet kârliligi",
+                                                                                             "faaliyet karlilik orani",
+                                                                                             "faaliyet kârlilik orani",
+                                                                                             "olagan kârlilik orani",
+                                                                                             "satis karlilik orani",
+                                                                                             "satislarin karliligi",
+                                                                                             "satislarin kârliligi",
+                                                                                             "satislarin karliligi hesaplama",
+                                                                                             "satislarin kârliligi hesaplama",
+                                                                                             "satislarin kârlilik orani",
+                                                                                             "kur etkisi kârlilik"
+                                                                                         ],
+                                                         "Varlık ve özsermaye kârlılığı":  [
+                                                                                               "ozsermaye kârlilik orani",
+                                                                                               "varlik kârliligi",
+                                                                                               "varlik kârliligi hesaplama",
+                                                                                               "varlik karlilik orani",
+                                                                                               "varlik kârlilik orani",
+                                                                                               "varliklarin karliligi",
+                                                                                               "varliklarin kârliligi"
+                                                                                           ],
+                                                         "Dikey (yüzde) analiz":  [
+                                                                                      "bilanco dikey yuzde analizi",
+                                                                                      "dikey analiz gelir tablosu",
+                                                                                      "dikey yuzde analizi",
+                                                                                      "dikey yuzde donem net kari",
+                                                                                      "dikey yuzde mali borclar",
+                                                                                      "dikey yuzde satis indirimleri",
+                                                                                      "yuzde yontemi gelir tablosu"
+                                                                                  ],
+                                                         "Yatay (karşılaştırmalı tablolar) analiz":  [
+                                                                                                         "karsilastirmali bilanco analizi",
+                                                                                                         "karsilastirmali gelir tablosu analizi",
+                                                                                                         "karsilastirmali tablo analizi",
+                                                                                                         "karsilastirmali tablolar - kisa vadeli mali borc degisimi",
+                                                                                                         "karsilastirmali tablolar - ticari borc degisimi",
+                                                                                                         "karsilastirmali tablolar analizi",
+                                                                                                         "yatay analiz bilanco",
+                                                                                                         "yatay analiz gelir tablosu"
+                                                                                                     ],
+                                                         "Trend analizi ve grafik yorumu":  [
+                                                                                                "gelir tablosu trend analizi",
+                                                                                                "trend analizi",
+                                                                                                "trend analizi alacak borc devir hizi",
+                                                                                                "trend analizi net satis",
+                                                                                                "trend analizi stok",
+                                                                                                "grafik yorumlama",
+                                                                                                "likidite trend yorumu"
+                                                                                            ],
+                                                         "Nakit giriş ve çıkışları":  [
+                                                                                          "faaliyet gideri nakit cikisi",
+                                                                                          "faaliyet giderleri nakit cikisi",
+                                                                                          "maliyet kaynakli nakit cikisi",
+                                                                                          "satislardan nakit girisi",
+                                                                                          "satislardan saglanan nakit girisi",
+                                                                                          "stok degisimi nakit cikisi"
+                                                                                      ],
+                                                         "Genel oran analizi ve tablo kavramları":  [
+                                                                                                        "aktif toplami hesaplama",
+                                                                                                        "finansal oran analizi",
+                                                                                                        "finansal oranlar hesaplama",
+                                                                                                        "oran analizi hesaplama",
+                                                                                                        "net satislar hesaplama",
+                                                                                                        "finansal tablolar seti",
+                                                                                                        "kapsamli gelir tanimi",
+                                                                                                        "kambiyo kar zarar etkisi"
+                                                                                                    ]
+                                                     },
+                    "Maliyet Muhasebesi":  {
+                                               "Temel kavramlar, sistemler ve stok değerleme":  [
+                                                                                                    "maliyet muhasebesi amaclari",
+                                                                                                    "maliyet muhasebesi temel kavramlari",
+                                                                                                    "muhasebe bilgi sistemi",
+                                                                                                    "asal ve donusum maliyeti",
+                                                                                                    "donusturme maliyeti hesabi",
+                                                                                                    "maliyet hacim kar varsayimlari",
+                                                                                                    "siparis maliyeti sistemi",
+                                                                                                    "stok degerleme yontemleri",
+                                                                                                    "stok degerleme brut kar"
+                                                                                                ],
+                                               "Gider hesapları ve kayıt (7/A, yansıtma, direkt giderler)":  [
+                                                                                                                 "7/a eszamanli kayit yontemi",
+                                                                                                                 "fonksiyonel gider hesaplari",
+                                                                                                                 "gider yansitma hesaplari",
+                                                                                                                 "hizmet uretim maliyeti yansitma kaydi",
+                                                                                                                 "finansman giderleri hesabi",
+                                                                                                                 "direkt ilk madde malzeme alimi",
+                                                                                                                 "direkt ilk madde malzeme gideri",
+                                                                                                                 "direkt iscilik gideri hesabi",
+                                                                                                                 "gider cesitleri ve yerleri"
+                                                                                                             ],
+                                               "Gider yerleri ve dağıtım (MSUGT)":  [
+                                                                                        "gider yeri tanimi (msugt)",
+                                                                                        "gider yerleri ikinci dagitim",
+                                                                                        "ikinci dagitim ve gider ayrimi",
+                                                                                        "yardimci gider yeri dagitimi"
+                                                                                    ],
+                                               "GÜG yükleme oranı ve katsayısı":  [
+                                                                                      "birim genel uretim gideri",
+                                                                                      "gug yukleme katsayilari hesabi",
+                                                                                      "gug yukleme katsayisi",
+                                                                                      "gug yukleme katsayisi hesaplama",
+                                                                                      "gug yukleme orani",
+                                                                                      "gug yukleme oranlari"
+                                                                                  ],
+                                               "GÜG kapsamı, dağıtımı ve farkları":  [
+                                                                                         "genel uretim giderleri",
+                                                                                         "genel uretim giderleri kapsami",
+                                                                                         "genel uretim giderleri ozellikleri",
+                                                                                         "gug butce farklari hesabi",
+                                                                                         "gug dagitim tablosu",
+                                                                                         "gug dagitimi birim maliyet",
+                                                                                         "gug dagitimi ve mamul birim maliyeti",
+                                                                                         "gug dagitimi ve yukleme",
+                                                                                         "gug yukleme farklari"
+                                                                                     ],
+                                               "Eşdeğer mamul birimi":  [
+                                                                            "esdeger birim maliyeti",
+                                                                            "esdeger mamul birimi",
+                                                                            "esdeger mamul birimi yontemi",
+                                                                            "esdeger mamul birimleri tablosu",
+                                                                            "esdeger mamul miktari",
+                                                                            "esdeger urun birimi ve maliyeti hesaplama",
+                                                                            "esdeger urun birimleri",
+                                                                            "esdeger urun miktari hesaplama",
+                                                                            "safha maliyette tamamlanma derecesi"
+                                                                        ],
+                                               "Safha maliyet sistemi ve miktar dengesi":  [
+                                                                                               "safha maliyet sistemi",
+                                                                                               "safha maliyet sistemi/yontemi",
+                                                                                               "safha maliyeti fifo",
+                                                                                               "safha maliyeti miktar dengesi",
+                                                                                               "safha maliyeti uretim miktari",
+                                                                                               "safha maliyeti ve hesap plani",
+                                                                                               "uretim miktar dengesi",
+                                                                                               "yarimamul miktar dengesi"
+                                                                                           ],
+                                               "Fire ve üretim kayıpları":  [
+                                                                                "fire ve yari mamul maliyeti",
+                                                                                "fireli safha maliyeti",
+                                                                                "uretim kayiplari",
+                                                                                "yari mamul stok ve fire maliyeti"
+                                                                            ],
+                                               "Ortak (birleşik) mamul maliyeti":  [
+                                                                                       "birlesik maliyet dagitimi",
+                                                                                       "birlesik mamul maliyetleme",
+                                                                                       "katsayili bolme yontemi",
+                                                                                       "katsayili ortak gider dagitimi",
+                                                                                       "net satis degeri yontemi",
+                                                                                       "ortak maliyet dagitimi",
+                                                                                       "ortak mamul maliyet dagitimi",
+                                                                                       "ortak mamul maliyeti"
+                                                                                   ],
+                                               "Yan ürün maliyeti":  [
+                                                                         "kayit teknigi ve yan urun",
+                                                                         "yan urun maliyeti",
+                                                                         "yan urun maliyeti hesabi"
+                                                                     ],
+                                               "Standart maliyet ve sapmalar":  [
+                                                                                    "fiyat miktar sapmasi",
+                                                                                    "iscilik zaman ucret sapmasi",
+                                                                                    "standart maliyet farklari",
+                                                                                    "standart maliyet sapma analizi",
+                                                                                    "standart maliyet sistemi"
+                                                                                ],
+                                               "Satılan mamul maliyeti ve birim maliyet":  [
+                                                                                               "birim maliyet hesaplama",
+                                                                                               "mamul birim maliyeti",
+                                                                                               "mamul stok maliyeti",
+                                                                                               "satilan mal maliyeti",
+                                                                                               "satilan mamul maliyeti",
+                                                                                               "satilan mamul maliyeti tablosu",
+                                                                                               "satilan mamul maliyeti tablosu (safha maliyet)",
+                                                                                               "satilan ticari mal maliyeti",
+                                                                                               "satislarin maliyeti tablosu",
+                                                                                               "uretilen mamul maliyeti formulu",
+                                                                                               "uretim ve satilan mamul maliyeti"
+                                                                                           ]
+                                           }
                 }
 }
