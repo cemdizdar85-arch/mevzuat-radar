@@ -18,7 +18,12 @@
 #  Çıktı: -Yaz ile veri/sinav/plan-<Ad>.json + veri/sinav/konu/<etiket>.json; her durumda inceleme sayfası (depo DIŞI).
 #  Üretim ayrı komut ve AYRI ONAY: powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-<Ad>.json
 # ============================================================================
-param([int]$DersHak = 125, [int]$YilEsik = 2020, [double]$TestAgirlik = 2, [int]$PartiTavan = 30,
+param([int]$DersHak = 125, [int]$YilEsik = 2020, [int]$PartiTavan = 30,
+  # 15.09 (Cem "1.2.3 üçünü de yap"): kesin 7 yıl sınırı yerine YIL AĞIRLIĞI. ÖLÇÜLDÜ: 2008-2025 kitapçıkları KLASİK (2023/1 Maliyet "Cevap 1 (Toplam Puan: 35)",
+  # ders başına dönemde 3-8 uzun soru), 2026 TEST (A-E, kitapçık başına 20). Klasik sınav az konuya dokunduğu için "7 yıldır çıkmadı" diye 2.029 konu dışarıda kalıyordu.
+  # Bir konunun ağırlığı = EskiAgirlik × (YilEsik öncesi çıkma) + YeniAgirlik × (YilEsik–2025 çıkma) + TestAgirlik × (2026 test çıkma).
+  # EskiAgirlik 0 · YeniAgirlik 1 · TestAgirlik 2 = 15.09 öğleden sonraki "yalnız son 7 yıl" planı (eşdeğerlik provası bununla yapıldı).
+  [double]$EskiAgirlik = 1, [double]$YeniAgirlik = 2, [double]$TestAgirlik = 4,
   [int]$KonuTavan = -1,   # -1 = kendiliğinden max(2, ⌈DersHak/50⌉) (125 → 3, 500 → 10) · 0 = tavansız (15.09 öncesi davranış)
   [ValidatePattern('^[a-z0-9-]{2,16}$')][string]$EtiketOn = 'smmm-d1', [string]$Ad = 'smmm-dalga1', [switch]$Yaz,
   [string]$SayfaYolu = '')
@@ -43,11 +48,12 @@ foreach ($r in $an.donemler) {
   foreach ($p in $r.konuSayim.PSObject.Properties) {
     $parca = $p.Name -split '\|', 2; $rd = ResmiDers $parca[0]; if (-not $rd) { continue }
     if ($esAd.ContainsKey("$($rd[0])|$(Katla $parca[1])")) { $parca[1] = $esAd["$($rd[0])|$(Katla $parca[1])"] }
-    $key = "$($rd[0])|$(Katla $parca[1])"; if (-not $konu.ContainsKey($key)) { $konu[$key] = @{ yeni = 0; test = 0; son = 0; adlar = @{} } }
-    $x = $konu[$key]; if ($yil -gt $x.son) { $x.son = $yil }; if ($yil -ge $YilEsik) { $x.yeni += [int]$p.Value }; if ($yil -ge 2026) { $x.test += [int]$p.Value }
+    $key = "$($rd[0])|$(Katla $parca[1])"; if (-not $konu.ContainsKey($key)) { $konu[$key] = @{ yeni = 0; test = 0; eski = 0; son = 0; adlar = @{} } }
+    $x = $konu[$key]; if ($yil -gt $x.son) { $x.son = $yil }; if ($yil -ge $YilEsik) { $x.yeni += [int]$p.Value } else { $x.eski += [int]$p.Value }; if ($yil -ge 2026) { $x.test += [int]$p.Value }
     $x.adlar[$parca[1]] = [int]$x.adlar[$parca[1]] + [int]$p.Value
   }
 }
+function KonuAgirlik([string]$key) { $v = $konu[$key]; $EskiAgirlik * [double]$v.eski + $YeniAgirlik * ([double]$v.yeni - [double]$v.test) + $TestAgirlik * [double]$v.test }
 function GorunenAd([string]$key) { $a = $konu[$key].adlar; if (-not $a -or $a.Count -eq 0) { return ($key -split '\|', 2)[1] }; (@($a.Keys | Sort-Object @{e = { $a[$_] }; Descending = $true }, @{e = { $_ } })[0]) -creplace 'İ', 'i' }
 # --- 2) yardımcı veriler ---
 $grupJ = Get-Content (Join-Path $depoKok 'veri\sinav\smmm-konu-grup.json') -Raw -Encoding UTF8 | ConvertFrom-Json
@@ -58,7 +64,7 @@ $bizde = @{}; $kpYol = Join-Path $depoKok 'veri\konu-plani-smmm.json'; if (Test-
 $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq 'SMMM') { $kopru[(Katla $x.konu)] = 1 } }
 $istisnaYol = Join-Path $depoKok 'veri\sinav\smmm-konu-istisna.json'; $istisna = @()
 if (Test-Path $istisnaYol) { $istisna = @(foreach ($i in (Get-Content $istisnaYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular) { $i }) }
-foreach ($i in $istisna) { $rd = ResmiDers $i.ders; if (-not $rd) { continue }; $key = "$($rd[0])|$(Katla $i.konu)"; if (-not $konu.ContainsKey($key)) { $konu[$key] = @{ yeni = 0; test = 0; son = $YilEsik; adlar = @{ "$($i.konu)" = 1 } } }; $konu[$key].yeni += [math]::Max(1, [int]$i.agirlik); $konu[$key].istisna = "$($i.neden)" }
+foreach ($i in $istisna) { $rd = ResmiDers $i.ders; if (-not $rd) { continue }; $key = "$($rd[0])|$(Katla $i.konu)"; if (-not $konu.ContainsKey($key)) { $konu[$key] = @{ yeni = 0; test = 0; eski = 0; son = $YilEsik; adlar = @{ "$($i.konu)" = 1 } } }; $konu[$key].yeni += [math]::Max(1, [int]$i.agirlik); $konu[$key].istisna = "$($i.neden)" }
 $zor = Get-Content (Join-Path $depoKok 'veri\sinav\smmm-zorluk-olcumu.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $zt = [double]$zor.kolay + [double]$zor.zor + [double]$zor.cokzor; $ZPAY = [ordered]@{ kolay = [double]$zor.kolay / $zt; zor = [double]$zor.zor / $zt; cokzor = [double]$zor.cokzor / $zt }
 
@@ -91,13 +97,13 @@ $dersOzet = New-Object System.Collections.Generic.List[object]; $grupSatir = New
 $kopruDisi = New-Object System.Collections.Generic.List[string]; $mulgaAtilan = 0
 foreach ($rd in $RESMI.Values) {
   $ders = $rd[0]
-  $uyeler = @($konu.Keys | Where-Object { $_.StartsWith("$ders|") -and $konu[$_].son -ge $YilEsik -and $konu[$_].yeni -gt 0 })
+  $uyeler = @($konu.Keys | Where-Object { $_.StartsWith("$ders|") -and $(if ($EskiAgirlik -gt 0) { (KonuAgirlik $_) -gt 0 } else { $konu[$_].son -ge $YilEsik -and $konu[$_].yeni -gt 0 }) })
   $uyeler = @($uyeler | Where-Object { if ($mulga.ContainsKey((Katla ($_ -split '\|', 2)[1]))) { $script:mulgaAtilan++; $false } else { $true } })
   $gAg = @{}; $gUye = @{}
-  foreach ($key in $uyeler) { $g = $(if ($grupOf.ContainsKey($key)) { $grupOf[$key] } else { GorunenAd $key }); $w = $konu[$key].yeni + ($TestAgirlik - 1) * $konu[$key].test; $gAg[$g] = [double]$gAg[$g] + $w; if (-not $gUye.ContainsKey($g)) { $gUye[$g] = New-Object System.Collections.Generic.List[string] }; $gUye[$g].Add($key) }
+  foreach ($key in $uyeler) { $g = $(if ($grupOf.ContainsKey($key)) { $grupOf[$key] } else { GorunenAd $key }); $w = KonuAgirlik $key; $gAg[$g] = [double]$gAg[$g] + $w; if (-not $gUye.ContainsKey($g)) { $gUye[$g] = New-Object System.Collections.Generic.List[string] }; $gUye[$g].Add($key) }
   $gSoru = EnBuyukKalan $gAg $DersHak
   # konu tavanı: grup payı önce grubun konularına tavanlı dağılır; taşan ders içinde tavanı dolmamış konulara ağırlıkla gider
-  $uAgTum = @{}; foreach ($key in $uyeler) { $uAgTum[$key] = $konu[$key].yeni + ($TestAgirlik - 1) * $konu[$key].test }
+  $uAgTum = @{}; foreach ($key in $uyeler) { $uAgTum[$key] = KonuAgirlik $key }
   $uSoruTum = @{}; $tasan = 0
   foreach ($g in $gSoru.Keys) { if ($gSoru[$g] -le 0) { continue }; $uAg = @{}; foreach ($key in $gUye[$g]) { $uAg[$key] = $uAgTum[$key] }
     $td = TavanliDagit $uAg $gSoru[$g] @{} $tavanKonu; foreach ($key in $td.sonuc.Keys) { $uSoruTum[$key] = $td.sonuc[$key] }; $tasan += $td.artan }
@@ -137,8 +143,8 @@ foreach ($grp in ($slotTum | Group-Object ders, zorluk, tur | Sort-Object Name))
 }
 $cakisan = @($planSatir | Where-Object { (Test-Path (Join-Path $depoKok "veri\fabrika\kalip-parti-$($_.etiket).json")) -or (Test-Path (Join-Path $depoKok "veri\sinav\konu\$($_.etiket).json")) } | ForEach-Object etiket)
 $topPlan = ($planSatir | Measure-Object adet -Sum).Sum
-"SMMM DALGA PLANI [$Ad] · yıl ≥ $YilEsik · ders hakkı $DersHak · test ağırlığı $TestAgirlik · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · istisna $($istisna.Count)"
-foreach ($d in $dersOzet) { "  {0,-48} son {1} yıl konu {2,3} · grup {3,3} · plan {4,4} (bizde düşülen {5}) · kolay {6} zor {7} çok zor {8}" -f $d.ders.Substring(0, [math]::Min(48, $d.ders.Length)), (2026 - $YilEsik + 1), $d.konu7, $d.grup, $d.plan, $d.bizdeDusulen, $d.kolay, $d.zor, $d.cokzor }
+"SMMM DALGA PLANI [$Ad] · yıl ağırlığı: $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik · 2026 test ×$TestAgirlik · ders hakkı $DersHak · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · istisna $($istisna.Count)"
+foreach ($d in $dersOzet) { "  {0,-48} $(if ($EskiAgirlik -gt 0) { 'tüm yıllar' } else { "son $(2026 - $YilEsik + 1) yıl" }) konu {2,3} · grup {3,3} · plan {4,4} (bizde düşülen {5}) · kolay {6} zor {7} çok zor {8}" -f $d.ders.Substring(0, [math]::Min(48, $d.ders.Length)), (2026 - $YilEsik + 1), $d.konu7, $d.grup, $d.plan, $d.bizdeDusulen, $d.kolay, $d.zor, $d.cokzor }
 "TOPLAM soru $topPlan · parti $($planSatir.Count) · köprü dışı konu adı $($kopruDisi.Count) · mevcut etiketle çakışan $($cakisan.Count)"
 if ($cakisan.Count) { throw "ETİKET ÇAKIŞMASI — yeni plan yeni önek ister: $($cakisan -join ', ')" }
 
@@ -146,8 +152,8 @@ if ($cakisan.Count) { throw "ETİKET ÇAKIŞMASI — yeni plan yeni önek ister:
 if (-not $SayfaYolu) { $SayfaYolu = Join-Path (Split-Path $depoKok -Parent) "SMMM-Plan-$Ad.html" }
 $sb = New-Object Text.StringBuilder
 [void]$sb.Append("<!doctype html><html lang=tr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>SMMM $Ad</title><style>:root{--z:#faf9f6;--y:#1c1c1c;--s:#666;--c:#ddd;--b:#eee}@media (prefers-color-scheme:dark){:root{--z:#161616;--y:#eee;--s:#aaa;--c:#333;--b:#222}}body{background:var(--z);color:var(--y);font:14px/1.45 -apple-system,Segoe UI,Arial,sans-serif;margin:0;padding:16px;max-width:1100px}h1{font-size:19px;margin:0 0 4px}h2{font-size:16px;margin:22px 0 8px}.s{color:var(--s);font-size:12px}.tk{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border-bottom:1px solid var(--c);padding:5px 6px;text-align:left;vertical-align:top}th{background:var(--b)}td.n{text-align:right}details{border:1px solid var(--c);border-radius:8px;margin:8px 0;padding:6px 10px}summary{cursor:pointer;font-weight:600}</style></head><body>")
-[void]$sb.Append("<h1>SMMM bitirme — $(HtmlK $Ad) planı (SORU BASILMADI)</h1><div class=s>Kural: yalnız $YilEsik ve sonrası çıkan konular · her derse $DersHak soru hakkı · ders içinde grup/konu sıklık payı · 2026 test konuları ×$TestAgirlik · bizde olan soru düşülür · MÜLGA konu girmez · zorluk bitirme ölçümü (%$($zor.kolay) / %$($zor.zor) / %$($zor.cokzor)). Kaynak: veri/smmm-analiz.json, veri/sinav/smmm-konu-grup.json (ONAY BEKLİYOR).</div>")
-[void]$sb.Append("<h2>Ders özeti</h2><div class=tk><table><tr><th>Ders</th><th>Son $(2026-$YilEsik+1) yılda konu</th><th>Grup</th><th>Plan soru</th><th>Bizde olduğu için düşülen</th><th>Kolay</th><th>Zor</th><th>Çok zor</th></tr>")
+[void]$sb.Append("<h1>SMMM bitirme — $(HtmlK $Ad) planı (SORU BASILMADI)</h1><div class=s>Kural: $(if ($EskiAgirlik -gt 0) { "tüm yıllar, ağırlık $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik" } else { "yalnız $YilEsik ve sonrası çıkan konular" }) · her derse $DersHak soru hakkı · ders içinde grup/konu sıklık payı · 2026 test konuları ×$TestAgirlik · bizde olan soru düşülür · MÜLGA konu girmez · zorluk bitirme ölçümü (%$($zor.kolay) / %$($zor.zor) / %$($zor.cokzor)). Kaynak: veri/smmm-analiz.json, veri/sinav/smmm-konu-grup.json (ONAY BEKLİYOR).</div>")
+[void]$sb.Append("<h2>Ders özeti</h2><div class=tk><table><tr><th>Ders</th><th>$(if ($EskiAgirlik -gt 0) { 'Konu (tüm yıllar)' } else { "Son $(2026-$YilEsik+1) yılda konu" })</th><th>Grup</th><th>Plan soru</th><th>Bizde olduğu için düşülen</th><th>Kolay</th><th>Zor</th><th>Çok zor</th></tr>")
 foreach ($d in $dersOzet) { [void]$sb.Append("<tr><td>$(HtmlK $d.ders)</td><td class=n>$($d.konu7)</td><td class=n>$($d.grup)</td><td class=n>$($d.plan)</td><td class=n>$($d.bizdeDusulen)</td><td class=n>$($d.kolay)</td><td class=n>$($d.zor)</td><td class=n>$($d.cokzor)</td></tr>") }
 [void]$sb.Append("<tr><th>TOPLAM</th><th></th><th></th><th class=n>$topPlan</th><th></th><th class=n>$(($dersOzet|Measure-Object kolay -Sum).Sum)</th><th class=n>$(($dersOzet|Measure-Object zor -Sum).Sum)</th><th class=n>$(($dersOzet|Measure-Object cokzor -Sum).Sum)</th></tr></table></div>")
 [void]$sb.Append("<p class=s>Bedel tahmini (basılmadı): pilot ölçümü plan satırı başına ≈0,40 USD → ≈$([math]::Round($topPlan*0.35)) – $([math]::Round($topPlan*0.45)) USD. Yayın oranı toplu basımda ölçülmedi (pilot 24 satırda 12).</p>")
