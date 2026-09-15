@@ -79,6 +79,17 @@ var TAKSIT_ACIK = false;
 var TAKSIT_ADET = 3;
 
 /* ---------------------------------------------------------------------------
+   ELÇİ KODU — 15.09.2026 Cem kararı: elçi koduyla alan takipçiye SGS'de 400 TL
+   indirim (2.590 → 2.190). İndirimin geçerliliğine SUNUCU karar verir
+   (radar-app/sql/2026-09-15-elci-programi.sql · siparis_elci_damga); buradaki
+   rakam yalnız EKRAN gösterimidir ve sunucudaki elci_indirim tablosuyla AYNI olmalı.
+   acik=false iken satin-al.html'de kod alanı HİÇ görünmez: SQL basılmadan
+   açılırsa takipçi indirimi ekranda görür ama sipariş indirimsiz yazılır.
+   SQL basılıp doğrulandıktan sonra true yapılır.
+--------------------------------------------------------------------------- */
+var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
+
+/* ---------------------------------------------------------------------------
    FİYATLAR — kuruluş / liste çifti. TL, KDV DAHİL (sınav tarafı).
    Sınav tarafı KDV dahil olmak ZORUNDA: 6502 m.54 + Fiyat Etiketi Yönetmeliği,
    tüketiciye satışta tüm vergiler dahil tek tutar gösterilir.
@@ -266,7 +277,11 @@ function paketler(){
              ad:KGK_ADLAR[m], kim:KGK_KIM[m], modul:m,
              fiyat:FIYAT.kgk[m].kurulus, liste:FIYAT.kgk[m].liste,
              kota:KOTA.kgk, erisim:'3 ay', sinav:null,
-             harcYazi:'Piyasada tek modül kursu 2.500 – 5.250 TL', acik:true });
+             /* 15.09.2026 ölçümü (kurumların kendi siteleri): modül başına kurs
+                5.250 (Suat Hoca) · 7.250+KDV (Fuat Hoca, kayıttan) · 10.800 (Piyasa Okulu)
+                · 12.600+KDV (Deha) · 13.500 (Uğurlu). Eski "2.500 – 5.250" ek alan
+                modüllerini de sayıyordu, temel alan konusu için yanıltıcıydı. */
+             harcYazi:'Piyasada konu başına kurs 5.250 TL\'den başlıyor', acik:true });
   }
   L.push({ id:'kgk-tum', grup:'Bağımsız Denetçilik (KGK)',
            ad:'KGK — dört konunun tamamı', modul:HARC.kgk.temelAlanKonu,

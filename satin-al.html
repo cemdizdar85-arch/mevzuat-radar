@@ -149,6 +149,14 @@
     <div class="alan"><label class="et" for="davet">Davet kodu <span style="color:var(--dim)">— varsa; ikinize de +1 ay</span></label>
       <input type="text" id="davet" maxlength="6" placeholder="örn. TT7K2M" style="text-transform:uppercase"></div>
   </div>
+  <!-- 15.09 Elçi kodu: elçinin takipçisine verdiği indirim kodu. ELCI.acik=false iken
+       (sunucu SQL'i basılmadan) bu satır HİÇ görünmez. İndirimi SUNUCU damgalar;
+       buradaki gösterim elci_kodu_kontrol() cevabına dayanır. -->
+  <div class="satir" id="elciSatir" style="display:none">
+    <div class="alan"><label class="et" for="elci">Elçi kodu <span style="color:var(--dim)">— size özel indirim kodu varsa</span></label>
+      <input type="text" id="elci" maxlength="12" placeholder="örn. AYSE" style="text-transform:uppercase" autocomplete="off">
+      <p class="kucuk" id="elciDurum" style="margin:5px 0 0"></p></div>
+  </div>
 
   <label class="et">Fatura tipi *</label>
   <div class="tip">
@@ -179,6 +187,7 @@
   <table>
     <tr><td id="ozAd">—</td><td class="sag" id="ozFy">—</td></tr>
     <tr><td class="kucuk" id="ozEr" colspan="2">—</td></tr>
+    <tr id="ozIndSatir" style="display:none"><td>Elçi kodu indirimi</td><td class="sag" id="ozInd">—</td></tr>
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
   </table>
 
@@ -278,6 +287,7 @@ var PAKETLER = acikPaketler(), secili = null;
       el.classList.toggle('sec', el.getAttribute('data-id') === e.target.value);
     });
     ozetCiz();
+    elciDenetle();
   });
 })();
 
@@ -332,9 +342,57 @@ function ozetCiz(){
   document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
   document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Yukarıdan bir paket seç.';
-  document.getElementById('ozTop').textContent = secili ? tl(secili.fiyat) + ' TL' : '—';
+  var ind = secili ? elciIndirim : 0;
+  document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
+  document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
+  document.getElementById('ozTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
   dersCiz();
 }
+
+/* ---- ELÇİ KODU (15.09) ----
+   Adres .../satin-al.html?e=AYSE ile gelir ya da elle yazılır. Tarayıcı yalnız
+   "bu kod bu pakette kaç TL indirir?" diye sorar (elci_kodu_kontrol); asıl indirim
+   sipariş yazılırken SUNUCUDA damgalanır. Sorulamazsa indirim 0 kalır: ekranda
+   gösterip siparişte vermemek, hiç göstermemekten kötüdür. */
+var elciIndirim = 0, elciSira = 0;
+function elciAcik(){ return typeof ELCI !== 'undefined' && ELCI.acik === true; }
+function elciTemizle(s){
+  s = (s || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,12);
+  return (elciAcik() && ELCI.bicim.test(s)) ? s : '';
+}
+function odenecekTutar(){ return secili ? Math.max(0, secili.fiyat - elciIndirim) : 0; }
+function elciDurumYaz(m, renk){ var d = document.getElementById('elciDurum'); d.textContent = m; d.style.color = renk || 'var(--dim)'; }
+function elciDenetle(){
+  if(!elciAcik()) return;
+  var ham = document.getElementById('elci').value, kod = elciTemizle(ham), sira = ++elciSira;
+  elciIndirim = 0;
+  if(!ham.trim()){ elciDurumYaz(''); ozetCiz(); return; }
+  if(!kod){ elciDurumYaz('Kod biçimi geçersiz (3–12 harf/rakam).', 'var(--red)'); ozetCiz(); return; }
+  try{ localStorage.setItem('tt_elci', kod); }catch(e){}
+  if(!secili){ elciDurumYaz('Paket seçince kodun geçerliliği görünecek.'); ozetCiz(); return; }
+  if(!(ELCI.indirim[secili.id] > 0)){ elciDurumYaz('Bu kod seçtiğin pakette indirim sağlamıyor.'); ozetCiz(); return; }
+  if(!window.sb){ elciDurumYaz('Kod şu an doğrulanamadı; siparişten sonra bize yazarsan kontrol ederiz.', 'var(--amber)'); ozetCiz(); return; }
+  elciDurumYaz('Kod kontrol ediliyor…');
+  window.sb.rpc('elci_kodu_kontrol', { p_kod:kod, p_paket:secili.id }).then(function(r){
+    if(sira !== elciSira) return;
+    var v = (r && !r.error && typeof r.data === 'number') ? r.data : 0;
+    elciIndirim = v > 0 ? v : 0;
+    if(elciIndirim > 0){ elciDurumYaz('✓ Kod geçerli: ' + tl(elciIndirim) + ' TL indirim uygulandı.', 'var(--green)'); }
+    else { elciDurumYaz('Bu kod bulunamadı ya da artık geçerli değil.', 'var(--red)'); }
+    ozetCiz();
+  }, function(){ if(sira === elciSira){ elciDurumYaz('Kod şu an doğrulanamadı.', 'var(--amber)'); ozetCiz(); } });
+}
+(function(){
+  if(!elciAcik()) return;
+  document.getElementById('elciSatir').style.display = '';
+  var q = elciTemizle(new URLSearchParams(location.search).get('e'));
+  if(!q){ try{ q = elciTemizle(localStorage.getItem('tt_elci')); }catch(e){} }
+  if(q){ document.getElementById('elci').value = q; }
+  var t = null;
+  document.getElementById('elci').addEventListener('input', function(){ clearTimeout(t); t = setTimeout(elciDenetle, 450); });
+  /* supabase kütüphanesi sayfanın sonunda yüklenir; ilk denetim onu bekler */
+  window.addEventListener('load', function(){ if(q) elciDenetle(); });
+})();
 ozetCiz();
 
 /* Adresten gelen ?paket=... ile dogrudan secili gelsin (fiyat.html butonlari boyle baglanir). */
@@ -424,19 +482,24 @@ btn.addEventListener('click', function(){
   var davet = davetTemizle(deger('davet'));
 
   var no = siparisNo();
-  var kayit = { siparis_no:no, paket:secili.id, paket_ad:secili.ad, tutar:secili.fiyat,
+  var tutar = odenecekTutar();
+  var elciKod = elciIndirim > 0 ? elciTemizle(deger('elci')) : '';
+  var kayit = { siparis_no:no, paket:secili.id, paket_ad:secili.ad, tutar:tutar,
                 liste_fiyat:secili.liste, dersler:(secili.ders || secili.modul || null),
                 secilen_dersler:(secilenD.length ? secilenD : null),
                 ad_soyad:ad, email:mail, telefon:tel, adres:adres, fatura:fatura,
                 davet_kodu:(davet || null),
                 odeme:'havale', durum:'odeme_bekliyor' };
+  /* Elçi kolonları yalnız ELCI.acik iken gönderilir: SQL basılmadan bu anahtarlar
+     gitseydi tablo bilinmeyen kolonu reddeder, sipariş yalnız e-postaya düşerdi. */
+  if(elciAcik()){ kayit.elci_kodu = elciKod || null; kayit.indirim_tl = elciIndirim; }
 
   btn.disabled = true; goster('Siparişin kaydediliyor…', true);
 
   function bitir(){
     document.getElementById('tmNo').textContent    = no;
     document.getElementById('tmPaket').textContent = secili.ad;
-    document.getElementById('tmTutar').textContent = tl(secili.fiyat) + ' TL';
+    document.getElementById('tmTutar').textContent = tl(tutar) + ' TL';
     document.getElementById('tmUnvan').textContent = 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.';
     document.getElementById('tmBanka').textContent = BANKA.ad;
     document.getElementById('tmIban').textContent  = BANKA.iban;
@@ -450,8 +513,9 @@ btn.addEventListener('click', function(){
      hem Cem'in bildirimi hem de yedek yol - tablo kurulmamışsa sipariş kaybolmasın.
      19.08 DERSİ: supabase-js sorguları TEMBELDİR, .then'siz insert HİÇ GÖNDERİLMEZ. */
   var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({ subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(secili.fiyat) + ' TL',
-        from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(secili.fiyat)+' TL',
+      body: JSON.stringify({ subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(tutar) + ' TL',
+        from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(tutar)+' TL',
+        'Elçi kodu':(elciKod ? elciKod + ' (−' + tl(elciIndirim) + ' TL)' : '—'),
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
         'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT',
