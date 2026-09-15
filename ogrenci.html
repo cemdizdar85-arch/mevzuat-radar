@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>Öğrenci paneli · Tetikte</title>
+<title>Hesabım · Tetikte</title>
 <meta name="description" content="Staja Giriş hazırlığın tek yerde: seviye testi geçmişin, geçme ihtimali grafiğin, deneme sonuçların ve yanlış kutun.">
 <link rel="stylesheet" href="stil.css">
 <!--
@@ -56,6 +56,13 @@
   .og-satir{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 0;font-size:14px;color:var(--ink)}
   .og-satir:first-child{border-top:0}
   .og-satir span{color:var(--muted)}
+  /* 15.09 HESABIM · PAKETLERİM (Cem "üç sınav ayrılsın"): sınav başına bir kart */
+  .og-paketler{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+  .og-paket{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .og-paket .og-paket-et{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:6px}
+  .og-paket b{display:block;font-size:20px;color:var(--ink)}
+  .og-paket .og-paket-alt{font-size:13.5px;color:var(--muted)}
+  .og-paket .og-btnler{margin-top:10px}
   .og-uyari{background:color-mix(in srgb,var(--amber) 10%,transparent);border:1px solid var(--amber);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--ink);margin:14px 0 0}
   @media(max-width:860px){ .og-iki{grid-template-columns:1fr} .og-kartlar{grid-template-columns:1fr 1fr} .og h1{font-size:26px} }
 </style>
@@ -63,7 +70,7 @@
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
 <div class="og" id="icerik">
-  <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html#sgs">Soru çöz</a> · Öğrenci paneli</div>
+  <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html#sgs">Soru çöz</a> · Hesabım</div>
 
   <!-- ÜYE DEĞİLSE -->
   <section id="ogGiris" class="og-gizli">
@@ -95,7 +102,12 @@
 
   <!-- ÜYEYSE -->
   <section id="ogPanel" class="og-gizli">
-    <div class="og-ust"><h1>Staja Giriş hazırlığın</h1><span id="ogKim"></span></div>
+    <div class="og-ust"><h1>Hesabım</h1><span id="ogKim"></span></div>
+    <div class="og-bolum" style="margin-top:8px">
+      <h2>Paketlerim</h2>
+      <div class="og-paketler" id="ogPaketler"><p class="og-alt" style="margin:0">Paket bilgin okunuyor…</p></div>
+    </div>
+    <h2 style="font-size:20px;margin:28px 0 0" id="ogIlerleme">Staja Giriş ilerlemen</h2>
     <div class="og-kartlar">
       <div class="og-kart"><b id="ogGun">–</b><span>gün kaldı · <span id="ogTarih">21 Kasım 2026</span></span></div>
       <div class="og-kart"><b id="ogSonGecme">–</b><span id="ogSonGecmeAlt">son geçme ihtimalin</span></div>
@@ -122,12 +134,46 @@
 </div>
 
 <script src="kutuphane/supabase-2.112.3.js"></script>
+<!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
+<script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
+<script src="uye-durumu.js"></script>
 <script>
 (function(){
   'use strict';
   var $=function(id){return document.getElementById(id);};
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
-  var sb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+  var sb=window.__pkSb;
+
+  /* 15.09 PAKETLERİM: sınav başına kart. Sınav adları/sayfaları uye-durumu.js SINAVLAR'dan (tek kaynak). */
+  async function paketlerCiz(user){
+    var kap=$('ogPaketler'), U=window.TetikteUye;
+    if(!kap||!U) return;
+    var r=await sb.from('paket_uyeler').select('paket,bitis,dersler').eq('user_id',user.id);
+    if(r.error){ kap.innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; return; }
+    var d=U.durumHesapla(r.data,user.email), S=U.SINAVLAR;
+    var sinavlar=U.SIRA.filter(function(k){ var x=d.sinavlar[k].durum; return x==='aktif'||x==='bitmis'; });
+    if(!sinavlar.length){
+      kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla seviye testi ve örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
+        +'<div class="og-btnler"><a class="og-btn ana" href="fiyat.html">Paketleri gör</a><a class="og-btn" href="ucretsiz-dene.html">Ücretsiz dene</a></div></div>';
+      return;
+    }
+    kap.innerHTML=sinavlar.map(function(k){
+      var s=S[k], o=d.sinavlar[k], bit=U.tarihYazi(o.bitis);
+      var h='<div class="og-paket"><span class="og-paket-et">'+esc(s.uzun)+'</span>';
+      if(o.durum==='bitmis'){
+        h+='<b>Süresi bitti</b><span class="og-paket-alt">'+(bit?esc(bit)+' tarihinde bitti':'')+'</span>'
+          +'<div class="og-btnler">'+(s.icerik?'<a class="og-btn ana" href="'+s.al+'">Paketini yenile</a>':'<a class="og-btn" href="'+s.onkayit+'">Ön kayıt</a>')+'</div>';
+      } else if(s.icerik){
+        h+='<b>Açık</b><span class="og-paket-alt">'+(bit?esc(bit)+' tarihine kadar':'süresiz')+'</span>'
+          +'<div class="og-btnler"><a class="og-btn ana" href="'+s.gir+'">Sınava gir</a><a class="og-btn" href="'+s.devam+'">Soru bankası</a><a class="og-btn" href="#ogIlerleme">İlerlemem</a></div>';
+      } else {
+        h+='<b>Açık</b><span class="og-paket-alt">'+(bit?esc(bit)+' tarihine kadar':'süresiz')+'</span>'
+          +'<p class="og-alt" style="margin:8px 0 0;font-size:13.5px">Soruları yayına hazırlıyoruz; açıldığı gün e-postana haber gelir.</p>';
+      }
+      if(o.dersler&&o.dersler.length) h+='<p class="og-alt" style="margin:8px 0 0;font-size:13px">Dersler: '+o.dersler.map(esc).join(' · ')+'</p>';
+      return h+'</div>';
+    }).join('');
+  }
   var SINAV_TARIHI='2026-11-21';   /* TÜRMOB 2026 resmî takvimi - veri/sinav-takvimi.json'dan tazelenir */
 
   function trHata(e){
@@ -163,6 +209,7 @@
     if(sonraGit()) return;
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
     $('ogKim').textContent=user.email||'';
+    paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;
     /* 1) cihazdakini hesaba aktar (tekil anahtar - iki kez yazılmaz) */
     if(cihaz.length){

@@ -90,6 +90,19 @@ var TAKSIT_ADET = 3;
 var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ---------------------------------------------------------------------------
+   İÇERİK HAZIR MI — 15.09.2026 CEM KARARI ("1.2.3 yap"): soru sayfası yayında
+   olmayan sınavın paketi SATILMAZ, ÖN KAYIT alınır. Ölçüm 15.09: sitede soru
+   bankası, ücretsiz deneme ve seviye testi yalnız Staja Başlama için var;
+   Yeterlilik ve KGK paketleri satışta görünüyordu ama alan kişinin girecek
+   sayfası yoktu (kasada soru var, yayında sayfa yok).
+   false iken: satin-al.html bu paketleri listelemez · fiyat.html düğmesi
+   "Ön kayıt ol" olur (ucretsiz-dene.html?sinav=...#onkayit) · ana sayfa ön kayda
+   yönlendirir (uye-durumu.js SINAVLAR.icerik ile AYNI tutulur).
+   Sayfalar yayına girince true yapılır; iki dosya birlikte değişir.
+--------------------------------------------------------------------------- */
+var ICERIK_HAZIR = { sgs:true, yeterlilik:false, kgk:false };
+
+/* ---------------------------------------------------------------------------
    FİYATLAR — kuruluş / liste çifti. TL, KDV DAHİL (sınav tarafı).
    Sınav tarafı KDV dahil olmak ZORUNDA: 6502 m.54 + Fiyat Etiketi Yönetmeliği,
    tüketiciye satışta tüm vergiler dahil tek tutar gösterilir.
@@ -249,12 +262,12 @@ function paketler(){
              ad:'Yeterlilik — ' + n + ' ders', ders:n,
              fiyat:FIYAT.yeterlilik[n].kurulus, liste:FIYAT.yeterlilik[n].liste,
              kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik',
-             harcYazi:n + ' dersin harcı ' + tl(HARC.yeterlilik.ders * n) + ' TL', acik:true });
+             harcYazi:n + ' dersin harcı ' + tl(HARC.yeterlilik.ders * n) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
   }
   L.push({ id:'yeterlilik-tum', grup:'SMMM Yeterlilik', ad:'Yeterlilik — tüm dersler', ders:8,
            fiyat:FIYAT.yeterlilikTum.kurulus, liste:FIYAT.yeterlilikTum.liste,
            kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik',
-           harcYazi:'İlk başvuru harcı ' + tl(HARC.yeterlilik.ilkBasvuru) + ' TL', acik:true });
+           harcYazi:'İlk başvuru harcı ' + tl(HARC.yeterlilik.ilkBasvuru) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
 
   /* KGK'da harç çapası kullanılmaz (yukarıdaki nota bak); satır KURS fiyatını
      gösterir — 29.08'de rakiplerin kendi sitelerinden ölçüldü. */
@@ -281,20 +294,20 @@ function paketler(){
                 5.250 (Suat Hoca) · 7.250+KDV (Fuat Hoca, kayıttan) · 10.800 (Piyasa Okulu)
                 · 12.600+KDV (Deha) · 13.500 (Uğurlu). Eski "2.500 – 5.250" ek alan
                 modüllerini de sayıyordu, temel alan konusu için yanıltıcıydı. */
-             harcYazi:'Piyasada konu başına kurs 5.250 TL\'den başlıyor', acik:true });
+             harcYazi:'Piyasada konu başına kurs 5.250 TL\'den başlıyor', acik:ICERIK_HAZIR.kgk });
   }
   L.push({ id:'kgk-tum', grup:'Bağımsız Denetçilik (KGK)',
            ad:'KGK — dört konunun tamamı', modul:HARC.kgk.temelAlanKonu,
            kim:'Sektör mevzuatından da sorumluysan',
            fiyat:FIYAT.kgkTum.kurulus, liste:FIYAT.kgkTum.liste,
            kota:KOTA.kgk, erisim:'3 ay', sinav:null,
-           harcYazi:'Piyasada tam paket kursu 13.500 – 15.120 TL', acik:true });
+           harcYazi:'Piyasada tam paket kursu 13.500 – 15.120 TL', acik:ICERIK_HAZIR.kgk });
 
   L.push({ id:'yeterlilik-kgk', grup:'Bağımsız Denetçilik (KGK)',
            ad:'Yeterlilik + KGK', fiyat:FIYAT.yeterlilikKgk.kurulus, liste:FIYAT.yeterlilikKgk.liste,
            kota:KOTA.kgk, erisim:'3 ay · iki sınav birden', sinav:null,
            harcYazi:'Ayrı ayrı ' + tl(FIYAT.yeterlilikTum.kurulus + FIYAT.kgkTum.kurulus) + ' TL',
-           acik:true });
+           acik:(ICERIK_HAZIR.yeterlilik && ICERIK_HAZIR.kgk) });
 
   L.push({ id:'son15', grup:'Ek', ad:'Son 15 Gün planı',
            fiyat:FIYAT.son15.kurulus, liste:FIYAT.son15.liste, kota:null,

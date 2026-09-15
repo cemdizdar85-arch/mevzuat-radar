@@ -460,7 +460,7 @@ window.veriAl = (function(){
       </div>
     </div>
     <a class="nl" href="#fiyat">Abonelik</a>
-    <a class="nl" href="ogrenci.html" title="Sınava hazırlanan öğrenci hesabı">Öğrenci girişi</a>
+    <a class="nl" id="navOgrenci" href="ogrenci.html" title="Sınava hazırlanan öğrenci hesabı">Öğrenci girişi</a>
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px" title="Büro ve firma paneli">İşletme girişi</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
     <a class="btn" href="genc.html">Ücretsiz Başla</a>
@@ -625,6 +625,17 @@ window.veriAl = (function(){
         text-decoration:none;border-bottom:1px solid rgba(214,180,126,.45);padding:4px 0}
       .bz-kah .bz-cta2:hover{color:var(--bz-ak)}
       @media(max-width:520px){ .bz-kah .bz-cta2{display:block;margin:18px 0 0;width:max-content} }
+      /* SINAV SEKMESİ (15.09 Cem "sınava giriş, bitirme ve KGK nasıl girecek, ayırmak lazım"):
+         göz satırı üç tıklanır sekme olur; düğmeler seçili sınav × üye durumuna göre uye-durumu.js'ten yazılır. */
+      .bz-kah .bz-sekme{display:flex;flex-wrap:wrap;gap:4px 22px;margin:0 0 20px;padding:0;list-style:none}
+      .bz-kah .bz-sekme button{font:inherit;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;
+        background:none;border:0;border-bottom:2px solid transparent;padding:4px 0 6px;cursor:pointer;color:var(--bz-ak-sonuk)}
+      .bz-kah .bz-sekme button:hover{color:var(--bz-bronz-acik)}
+      .bz-kah .bz-sekme button[aria-selected="true"]{color:var(--bz-bronz);border-bottom-color:var(--bz-bronz)}
+      .bz-kah .bz-sekme button:focus-visible{outline:2px solid var(--bz-bronz-acik);outline-offset:3px}
+      .bz-kah [hidden]{display:none !important}   /* .bz-cta2{display:inline-block} hidden özniteliğini ezmesin */
+      .bz-kah .bz-durum{margin:16px 0 0;font-size:13.5px;line-height:1.5;color:var(--bz-ak-govde);min-height:1.5em}
+      .bz-kah .bz-durum b{color:var(--bz-bronz-acik);font-weight:700}
 
       .bz-kah .bz-cam{background:rgba(30,34,43,.62);border:1px solid rgba(214,180,126,.20);border-radius:16px;
         padding:16px 18px 14px;backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
@@ -715,7 +726,11 @@ window.veriAl = (function(){
         </div>
         <div class="bz-govde">
           <div>
-            <p class="bz-goz">SMMM Staja Giriş &nbsp;•&nbsp; Yeterlilik &nbsp;•&nbsp; KGK</p>
+            <div class="bz-sekme" role="tablist" aria-label="Sınav seç">
+              <button type="button" role="tab" id="bzSkSgs" data-sinav="sgs" aria-selected="true">SMMM Staja Giriş</button>
+              <button type="button" role="tab" id="bzSkYet" data-sinav="yeterlilik" aria-selected="false">Yeterlilik</button>
+              <button type="button" role="tab" id="bzSkKgk" data-sinav="kgk" aria-selected="false">KGK</button>
+            </div>
             <h1 class="bz-baslik">Yanlışını, sebebiyle birlikte öğren<b>.</b></h1>
             <p class="bz-alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
             <!-- 12.09 Cem: "ziyaretçi girmesin, tam bitmedi" -> vitrine gidiyordu.
@@ -723,16 +738,21 @@ window.veriAl = (function(){
                  altında ders ders" -> SINAV SEÇİMİ sayfasına (sorular.html). Site hâlâ açılış perdesinin arkasında. -->
             <!-- 14.09 Cem: "soru çözme kısmı paralı olacak; deneme amaçlı sadece kendin dene, onu ön sayfaya alalım"
                  -> birincil düğme ÜCRETSİZ DENE (seviye testi + vitrin örnek sorular). Soru bankası pakette (paket-kapisi.js). -->
-            <a class="bz-cta" href="ucretsiz-dene.html">Ücretsiz dene</a>
+            <!-- 15.09 Cem: "kurumsal firmalar üyeler ile yeni üyelere farklı giriş yapıyor" -> sayfa tek, düğme kişiye göre:
+                 ziyaretçi/paketsiz "Ücretsiz dene" · paketi aktif "Sınava gir" · süresi bitmiş "Paketini yenile".
+                 İçeriği henüz yayında olmayan sınavda (Yeterlilik, KGK) "Ön kayıt ol". Aşağıdaki yazılar oturumsuz
+                 hâlin kendisidir; betik çalışmazsa sayfa bununla kalır. Karar tablosu: bzDugmeCiz(). -->
+            <a class="bz-cta" id="bzCta" href="ucretsiz-dene.html?sinav=sgs">Ücretsiz dene</a>
             <!-- 13.09 Cem: "ilk testim müşteri çekmek için; bu sınavda kaç puan alırsın, denetle tarzı" -> seviye-testi.html -->
-            <a class="bz-cta2" href="seviye-testi.html">20 soruda geçme ihtimalini ölç →</a>
+            <a class="bz-cta2" id="bzCta2" href="seviye-testi.html">20 soruda geçme ihtimalini ölç →</a>
+            <p class="bz-durum" id="bzDurum" aria-live="polite"></p>
           </div>
           <div class="bz-cam">
             <div class="bz-cam-ust"><span id="bzDers">Türkçe · anlatım bozukluğu</span><s>SGS · Kaydır-Çöz</s></div>
             <div class="bz-rozet" id="bzRozet">📌 Son 35 sınavın 15 tanesinde çıktı</div>
             <p class="bz-ozet" id="bzOzet">"Sporcular, antrenörün verdiği talimatları dinledi ve harfiyen uydu." cümlesindeki anlatım bozukluğunun benzeri, aşağıdakilerin hangisinde vardır?</p>
             <div class="bz-cerceve" id="bzCerceve" hidden></div>
-            <div class="bz-kanca" id="bzKanca" hidden aria-live="polite"><b id="bzKancaBas"></b><p id="bzKancaMetin"></p><a href="radar-app.html">Ücretsiz üye ol</a><small id="bzKancaDip"></small></div>
+            <div class="bz-kanca" id="bzKanca" hidden aria-live="polite"><b id="bzKancaBas"></b><p id="bzKancaMetin"></p><a href="ogrenci.html">Ücretsiz üye ol</a><small id="bzKancaDip"></small></div>
             <div class="bz-surucu">
               <button class="bz-ileri" type="button" id="bzIleri">Nöbetçi çözsün →</button>
               <span class="bz-not" id="bzNot">Gerçek soru · şıkkı seç, çözümü aç</span>
@@ -771,6 +791,69 @@ window.veriAl = (function(){
       if(!d||!d.sinavlar) return; var n=0; d.sinavlar.forEach(function(s){ n+=+s.soru||0; });
       var e=document.getElementById('bzCozulebilir'); if(e&&n>0) e.textContent=n.toLocaleString('tr-TR');
     }).catch(function(){});
+    </script>
+    <script src="uye-durumu.js"></script>
+    <script>
+    /* SINAV × ÜYE DURUMU -> kahraman düğmeleri (15.09.2026, Cem "1.2.3 yap").
+       Karar tablosu (değişirse YALNIZ burası değişir):
+                          içerik yayında (SGS)                         içerik hazırlanıyor (Yeterlilik, KGK)
+         ziyaretçi        Ücretsiz dene · 20 soruda ölç                 Ön kayıt ol · Staja Giriş'i şimdi dene
+         üye, paketsiz    Ücretsiz dene · Paketleri gör                 Ön kayıt ol · Staja Giriş'i şimdi dene
+         paket aktif      Sınava gir · Kaldığın yerden devam            Hesabım · (sorular açılınca e-posta)
+         paket bitmiş     Paketini yenile · Ücretsiz sorular            Ön kayıt ol · Hesabım                     */
+    (function(){
+      if(!window.TetikteUye) return;
+      var U=window.TetikteUye, S=U.SINAVLAR, son={oturum:false,sinavlar:{}};
+      var cta=document.getElementById('bzCta'), cta2=document.getElementById('bzCta2'), durumEl=document.getElementById('bzDurum');
+      var sekmeler=[].slice.call(document.querySelectorAll('.bz-sekme button'));
+      var secili=U.seciliSinav();
+      function yaz(el,metin,adres){ if(!el) return; el.textContent=metin; el.setAttribute('href',adres); el.hidden=false; }
+      function bzDugmeCiz(){
+        var s=S[secili], d=(son.sinavlar&&son.sinavlar[secili])||{durum:son.oturum?'uye':'ziyaretci'}, bit=U.tarihYazi(d.bitis);
+        sekmeler.forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-sinav')===secili?'true':'false'); });
+        durumEl.textContent='';
+        if(s.icerik){
+          if(d.durum==='aktif'){
+            yaz(cta,'Sınava gir',s.gir); yaz(cta2,'Kaldığın yerden devam →',s.devam);
+            durumEl.innerHTML='Paketin açık'+(bit?' · <b>'+bit+'</b> tarihine kadar':'');
+          } else if(d.durum==='bitmis'){
+            yaz(cta,'Paketini yenile',s.al); yaz(cta2,'Ücretsiz sorular →',s.dene);
+            durumEl.innerHTML='Paketinin süresi '+(bit?'<b>'+bit+'</b> tarihinde ':'')+'bitti.';
+          } else {
+            yaz(cta,'Ücretsiz dene',s.dene);
+            if(d.durum==='uye') yaz(cta2,'Paketleri gör →',s.fiyat); else yaz(cta2,'20 soruda geçme ihtimalini ölç →',s.olc);
+          }
+        } else {
+          if(d.durum==='aktif'){
+            yaz(cta,'Hesabım','ogrenci.html'); cta2.hidden=true;
+            durumEl.textContent=s.ad+' paketin açık'+(bit?' ('+bit+' tarihine kadar)':'')+'. Soruları yayına hazırlıyoruz; açıldığı gün e-postana haber gelir.';
+          } else {
+            yaz(cta,'Ön kayıt ol',s.onkayit);
+            if(d.durum==='bitmis') yaz(cta2,'Hesabım →','ogrenci.html'); else yaz(cta2,"Staja Giriş'i şimdi dene →",S.sgs.dene);
+            durumEl.textContent=s.ad+' soru bankası hazırlanıyor. Ön kayıt bırak, açıldığı gün ilk sen öğren.';
+          }
+        }
+      }
+      sekmeler.forEach(function(b){
+        b.addEventListener('click',function(){ secili=b.getAttribute('data-sinav'); U.sinavSec(secili); bzDugmeCiz(); });
+        b.addEventListener('keydown',function(e){
+          if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return;
+          var i=sekmeler.indexOf(b)+(e.key==='ArrowRight'?1:-1); i=(i+sekmeler.length)%sekmeler.length;
+          sekmeler[i].focus(); sekmeler[i].click();
+        });
+      });
+      bzDugmeCiz();
+      function uyeGeldi(d){
+        son=d||son; bzDugmeCiz();
+        var nav=document.getElementById('navOgrenci');
+        if(nav&&son.oturum){ nav.textContent='Hesabım'; nav.title=son.eposta||'Öğrenci hesabın'; }
+        /* üye olmuş kişiye "Ücretsiz Başla" gösterilmez */
+        var basla=document.querySelector('#nav a.btn[href="genc.html"]'); if(basla) basla.hidden=!!son.oturum;
+      }
+      /* olay, bu betik okunmadan ateşlenmiş olabilir (ziyaretçide söz anında çözülür) -> söz de dinlenir */
+      U.hazir.then(uyeGeldi);
+      document.addEventListener('tetikte-uye',function(e){ uyeGeldi(e.detail); });
+    })();
     </script>
 
     <script>

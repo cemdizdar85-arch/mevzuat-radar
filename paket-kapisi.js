@@ -97,11 +97,20 @@
       var oturum = (await sb.auth.getSession()).data.session;
       if (!oturum) { clearTimeout(zaman); return perde('giris'); }
       /* supabase-js sorgusu tembeldir: await edilmeden GİTMEZ (19.08 dersi). */
-      var r = await sb.from('paket_uyeler').select('paket,bitis').eq('user_id', oturum.user.id).maybeSingle();
+      var r = await sb.from('paket_uyeler').select('paket,bitis').eq('user_id', oturum.user.id);
       clearTimeout(zaman);
       if (r.error) return perde('hata');
       var bugun = new Date().toISOString().slice(0, 10);
-      if (r.data && (!r.data.bitis || r.data.bitis >= bugun)) return ac();
+      /* 15.09 ÜÇ SINAV: paket SINAVI kapsamalı. Önceden herhangi bir aktif paket SGS sayfalarını açıyordu —
+         KGK paketi alan biri SGS soru bankasına girerdi. Eşleme uye-durumu.js paketSinavlari ile AYNI. */
+      var sinavi = /\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs' : null;
+      var kapsar = function (paket) {
+        var p = String(paket == null ? '' : paket).trim().toLowerCase();
+        if (!sinavi || !p || p === 'tam' || p === 'kurucu') return true;
+        if (sinavi === 'sgs') return p === 'sgs' || p.indexOf('sgs-') === 0 || p === 'sinav-249';
+        return false;
+      };
+      if ((r.data || []).some(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); })) return ac();
       perde('paket');
     } catch (e) { clearTimeout(zaman); perde('hata'); }
   });

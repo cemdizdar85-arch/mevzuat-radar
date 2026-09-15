@@ -170,7 +170,10 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li>Konu notu · SRS tekrar destesi</li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn ikincil" href="satin-al.html?paket=yeterlilik-tum">Satın al — kuruluş fiyatından</a>
+    <!-- 15.09 Cem kararı: soru sayfaları yayında olmayan sınav satılmaz, ön kayıt alınır (fiyat-motoru.js ICERIK_HAZIR).
+         Düğme ICERIK_HAZIR.yeterlilik true olunca aşağıdaki betikle "Satın al"a döner. -->
+    <p class="kucuk" id="onYet" style="margin:0 0 8px">Soru bankası yayına hazırlanıyor · şimdilik ön kayıt</p>
+    <a class="btn ikincil" id="alYet" href="ucretsiz-dene.html?sinav=yeterlilik#onkayit">Ön kayıt ol — açılınca ilk sen öğren</a>
   </div>
 
   <!-- KGK: Kasim 2026 BD sinavinin kesin gunu heniz ILAN EDILMEDI
@@ -178,7 +181,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
        29.08 olcumu: piyasanin en buyuk ismi (Fuat Hoca) KGK'yi henuz
        fiyatlamamis, on kayit topluyor. Fiyati belli tek KGK urunuyuz. -->
   <div class="p">
-    <span class="rozet">YENİ</span>
+    <span class="rozet" id="rzKgk">ÖN KAYIT</span>
     <h3>Bağımsız Denetçi (KGK)</h3>
     <div class="kim">3 ay</div>
     <div class="gunluk" id="fyKgk">— <small>TL</small></div>
@@ -192,7 +195,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li>Her soruda standart/madde kaynağı</li>
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
-    <a class="btn ikincil" href="satin-al.html?paket=kgk-3">Satın al — kuruluş fiyatından</a>
+    <p class="kucuk" id="onKgk" style="margin:0 0 8px">Soru bankası yayına hazırlanıyor · şimdilik ön kayıt</p>
+    <a class="btn ikincil" id="alKgk" href="ucretsiz-dene.html?sinav=kgk#onkayit">Ön kayıt ol — açılınca ilk sen öğren</a>
   </div>
 
 </div>
@@ -435,6 +439,15 @@ document.getElementById('erYet').textContent = pYet.erisim;
 document.getElementById('fyYet1').textContent = tl(paketBul('yeterlilik-1').fiyat);
 document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
 document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
+
+// 15.09: icerigi yayinda olan sinavda dugme "Satin al"a doner (tek anahtar fiyat-motoru.js ICERIK_HAZIR).
+[['Yet','yeterlilik','yeterlilik-tum'],['Kgk','kgk','kgk-3']].forEach(function(x){
+  if(!ICERIK_HAZIR[x[1]]) return;
+  var a = document.getElementById('al' + x[0]), on = document.getElementById('on' + x[0]);
+  a.textContent = 'Satın al — kuruluş fiyatından'; a.href = 'satin-al.html?paket=' + x[2];
+  if(on) on.remove();
+  if(x[1] === 'kgk'){ document.getElementById('rzKgk').textContent = 'YENİ'; }
+});
 
 // Deger yigini kutusundaki paket fiyati.
 document.getElementById('yiginFiyat').textContent = tl(pSgs.fiyat) + ' TL';

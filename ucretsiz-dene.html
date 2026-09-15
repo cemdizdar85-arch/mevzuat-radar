@@ -46,6 +46,28 @@
   .uc-paket a{font-size:15px;font-weight:750;color:var(--bz-bronz-acik);text-decoration:none;white-space:nowrap}
   .uc-paket a.uc-ikinci{color:var(--muted);font-weight:600;margin-left:16px}
   @media(max-width:760px){ .uc-kartlar{grid-template-columns:1fr} .uc-bas h1{font-size:32px} }
+  /* 15.09 ÜÇ SINAV: sekme + hazırlanan sınavda ön kayıt kutusu */
+  .uc-ic [hidden]{display:none !important}   /* .uc-kartlar{display:grid} hidden özniteliğini eziyordu */
+  .uc-sekme{display:flex;flex-wrap:wrap;gap:4px 22px;margin:0 0 18px}
+  .uc-sekme a{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;
+    color:var(--bz-ak-sonuk);border-bottom:2px solid transparent;padding:4px 0 6px}
+  .uc-sekme a:hover{color:var(--bz-bronz-acik)}
+  .uc-sekme a[aria-current="page"]{color:var(--bz-bronz);border-bottom-color:var(--bz-bronz)}
+  .uc-onkayit{background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:24px 22px;max-width:620px}
+  .uc-onkayit h2{margin:0 0 8px;font-size:22px;color:var(--ink)}
+  .uc-onkayit p{margin:0 0 14px;font-size:14.5px;line-height:1.6;color:var(--muted)}
+  .uc-onkayit form{display:flex;flex-wrap:wrap;gap:10px}
+  .uc-onkayit input[type=email]{flex:1 1 240px;font:inherit;font-size:15px;padding:12px 13px;border-radius:11px;
+    border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
+  .uc-onkayit button{font:inherit;font-size:15px;font-weight:750;cursor:pointer;border:0;border-radius:11px;padding:12px 20px;
+    color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz))}
+  .uc-onkayit label.uc-riza{flex-basis:100%;display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--muted)}
+  .uc-onkayit label.uc-riza input{margin-top:3px}
+  .uc-onkayit label.uc-riza a{color:var(--bz-bronz-acik)}
+  .uc-onkayit .uc-ok{font-size:14.5px;font-weight:700;color:var(--green)}
+  .uc-onkayit .uc-hata{font-size:13.5px;color:var(--red);flex-basis:100%}
+  .uc-onkayit .uc-baska{margin:16px 0 0;font-size:14px}
+  .uc-onkayit .uc-baska a{color:var(--bz-bronz-acik);font-weight:700;text-decoration:none}
 </style>
 </head>
 <body class="uc-koyu bz-koyu">
@@ -53,12 +75,33 @@
 <div class="uc-ic">
   <div class="uc-bar"><div class="top"><a class="uc-marka" href="index.html"><span class="uc-lamba" aria-hidden="true"></span>tetikte</a></div></div>
   <main id="icerik">
-    <div class="uc-bas">
+    <!-- 15.09 ÜÇ SINAV (Cem "sınava giriş, bitirme ve KGK ayrılsın"): ?sinav=sgs|yeterlilik|kgk.
+         İçeriği yayında olmayan sınavda (uye-durumu.js SINAVLAR.icerik=false) kartlar yerine ÖN KAYIT kutusu çıkar.
+         Betik çalışmazsa sayfa bugünkü hâliyle (Staja Giriş) kalır. -->
+    <nav class="uc-sekme" aria-label="Sınav seç">
+      <a href="ucretsiz-dene.html?sinav=sgs" data-sinav="sgs" aria-current="page">SMMM Staja Giriş</a>
+      <a href="ucretsiz-dene.html?sinav=yeterlilik" data-sinav="yeterlilik">Yeterlilik</a>
+      <a href="ucretsiz-dene.html?sinav=kgk" data-sinav="kgk">KGK</a>
+    </nav>
+    <div class="uc-bas" id="ucBas">
       <p class="uc-goz">Ücretsiz dene · üyelik gerekmez</p>
       <h1>Önce kendin dene.</h1>
       <p>Staja Giriş sınavında nerede olduğunu gör, soruların nasıl çözüldüğünü kendi gözünle incele. Kart, e-posta, üyelik istemiyoruz.</p>
     </div>
-    <div class="uc-kartlar">
+    <section class="uc-onkayit" id="onkayit" hidden>
+      <h2 id="okBaslik">Ön kayıt</h2>
+      <p id="okMetin"></p>
+      <form id="okForm" novalidate>
+        <input type="email" id="okEposta" autocomplete="email" placeholder="e-posta adresin" aria-label="E-posta adresin" required>
+        <button type="submit">Ön kayıt bırak</button>
+        <label class="uc-riza"><input type="checkbox" id="okRiza" required> <span>E-postamın, bu sınavın soru bankası açıldığında bilgilendirilmem için işlenmesine izin veriyorum. İstediğimde çıkabilirim. <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metni</a></span></label>
+        <input type="text" name="_hp" id="okHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+        <div class="uc-hata" id="okHata" role="alert"></div>
+      </form>
+      <div class="uc-ok" id="okTamam" hidden>✓ Ön kaydın alındı. Soru bankası açıldığı gün e-postana yazacağız.</div>
+      <p class="uc-baska">Staja Giriş'e mi hazırlanıyorsun? <a href="ucretsiz-dene.html?sinav=sgs">Onu şimdi ücretsiz dene →</a></p>
+    </section>
+    <div class="uc-kartlar" id="ucKartlar">
       <a class="uc-kart" href="seviye-testi.html">
         <span class="uc-et">1 · Seviye testi</span>
         <b>20 soruda geçme ihtimalini ölç</b>
@@ -72,7 +115,7 @@
         <span class="uc-git">Soruları çöz →</span>
       </a>
     </div>
-    <div class="uc-paket">
+    <div class="uc-paket" id="ucPaket">
       <p><b>Beğendiysen tamamı pakette:</b> <span id="ucBanka">binlerce çözümlü soru</span>, gerçek sınav dağılımında deneme setleri, "sınav gibi" süreli mod ve ilerleme paneli.</p>
       <span><a href="fiyat.html">Paketleri gör →</a><a class="uc-ikinci" href="ogrenci.html">Paketin varsa giriş yap</a></span>
     </div>
@@ -85,6 +128,43 @@
     var s=d&&d.sinavlar&&d.sinavlar.filter(function(x){return x.kod==='sgs';})[0];
     if(s&&s.soru) document.getElementById('ucBanka').textContent=Number(s.soru).toLocaleString('tr-TR')+' çözümlü soru';
   }).catch(function(){});
+})();
+</script>
+<script src="uye-durumu.js"></script>
+<script>
+/* 15.09 ÜÇ SINAV: seçili sınava göre sayfa. Ön kayıt formu sitenin tek form kapısına gider
+   (radar-app/edge/form-al.ts, canlı adı quick-task): Frankfurt kasası + bize mail; köken listesi, bal küpü, hız sınırı sunucuda. */
+(function(){
+  if(!window.TetikteUye) return;
+  var U=window.TetikteUye, S=U.SINAVLAR, $=function(id){return document.getElementById(id);};
+  var m=/[?&]sinav=(sgs|yeterlilik|kgk)\b/.exec(location.search);
+  var k=m?m[1]:U.seciliSinav(), s=S[k];
+  U.sinavSec(k);
+  [].forEach.call(document.querySelectorAll('.uc-sekme a'),function(a){
+    if(a.getAttribute('data-sinav')===k) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+  });
+  if(s.icerik) return;                              /* Staja Giriş: sayfa olduğu gibi */
+  document.title='Ön kayıt · '+s.uzun+' | Tetikte';
+  $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · '+s.uzun;
+  $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';
+  $('ucBas').querySelector('p:not(.uc-goz)').textContent='Soruları, Staja Giriş\'te olduğu gibi her şıkkın gerekçesi ve dayandığı madde yanında olacak şekilde yayına hazırlıyoruz. Hazır olmadan satmıyoruz.';
+  $('ucKartlar').hidden=true; $('ucPaket').hidden=true;
+  $('onkayit').hidden=false;
+  $('okBaslik').textContent=s.ad+' açıldığında ilk sen öğren';
+  $('okMetin').textContent='E-postanı bırak; ücretsiz deneme ve paket açıldığı gün tek bir e-posta gelir. Başka bir şey göndermeyiz.';
+  $('okForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var ep=$('okEposta').value.trim(), h=$('okHata'); h.textContent='';
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ep)){ h.textContent='E-posta adresini yaz.'; return; }
+    if(!$('okRiza').checked){ h.textContent='Ön kayıt için bilgilendirme iznini işaretlemen gerekiyor.'; return; }
+    var dugme=this.querySelector('button'); dugme.disabled=true;
+    fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',
+      headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({email:ep,subject:'ON KAYIT '+k,from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})
+    }).then(function(y){ return y.ok?y.json():Promise.reject(y.status); }).then(function(){
+      $('okForm').hidden=true; $('okTamam').hidden=false;
+    }).catch(function(){ dugme.disabled=false; h.textContent='Kaydın şu an alınamadı. Birazdan yeniden dene ya da info@dizdardenetim.com adresine yaz.'; });
+  });
 })();
 </script>
 <script src="menu.js" defer></script>

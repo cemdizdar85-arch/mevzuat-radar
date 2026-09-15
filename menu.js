@@ -391,9 +391,11 @@ function kur(){
   document.body.appendChild(fab);
 
   var kap=document.createElement('div'); kap.id='mrxKaplama';
+  /* 15.09: oturum anahtarı cihazdaysa "Öğrenci girişi" yerine "Hesabım" (üye ile yeni gelen ayrı kapı; uye-durumu.js ile aynı ölçüt) */
+  var mrxUyeVar=(function(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } })();
   var h='<div class="mrxIc"><div class="mrxUst">'+
     '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
-    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">Öğrenci girişi</a><a class="mrxUye" href="'+KOK+'radar-app.html">İşletme girişi</a>'+
+    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">'+(mrxUyeVar?'Hesabım':'Öğrenci girişi')+'</a><a class="mrxUye" href="'+KOK+'radar-app.html">İşletme girişi</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
     '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, ihale, fiş…" autocomplete="off">';
   GRUPLAR.forEach(function(g){
