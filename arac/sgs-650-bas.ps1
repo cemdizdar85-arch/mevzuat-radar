@@ -89,6 +89,22 @@ function HesapKalibiAl([string]$ders,[string]$konu){
   return $null
 }
 
+# --- RET KUTUGU KAPISI (15.09.2026, Cem "1.2.3 yap" / Adim 2 madde 6) ---------
+# Ucuncu savunma hatti: veri/ret-kutugu.json'da (arac/ret-kutugu.ps1, parti
+# dosyalarindan uretilir) kaydi olan soru basilmaz. Hakem alanlari bu betikte
+# zaten soruluyor; ama KAPI-SIM (ogrenci simulasyonu yanlis) ve KAPI-KOR (kor
+# cozum celiskisi) burada HIC sorulmuyordu - kutuk ikisini de tasiyor.
+# Olcum (15.09): yayin secimi 3.727 kayit ∩ ret kutugu = 4 soru, dordu de zaten
+# "hakem HAYIR" ile dusuyor -> bugun davranis DEGISMEZ (esdegerlik: kuru kosu
+# once/sonra dusen kumesi ayni).
+$script:RET=@{}
+$retYol=Join-Path $depoKok 'veri\ret-kutugu.json'
+if(Test-Path $retYol){
+  $retJ = Get-Content $retYol -Raw -Encoding UTF8 | ConvertFrom-Json
+  foreach($rk in @($retJ.kayitlar)){ $script:RET["$($rk.etiket)|$($rk.id)"] = "$($rk.kapi) $($rk.sinif)" }
+  Write-Host ("RET KUTUGU KAPISI: {0} kayit yuklendi (olcum {1})" -f $script:RET.Count, $retJ.olcum) -ForegroundColor Cyan
+} else { Write-Host '⚠ RET KUTUGU KAPISI: veri/ret-kutugu.json yok, kapi UYGULANMADI' -ForegroundColor Yellow }
+
 $onbGate=@{}
 function Kayit([string]$etiket,[string]$id){
   if(-not $onbGate.ContainsKey($etiket)){
@@ -185,6 +201,7 @@ foreach($r in $hep){
   $gorulen[$anahtarSoru]=$true
   if($ikizDisi.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-IK ikiz)"); continue }
   $sebep = DusmeSebebi $r.etiket $r.id
+  if(-not $sebep -and $script:RET.ContainsKey($anahtarSoru)){ $sebep = "ret kutugu: $($script:RET[$anahtarSoru])" }
   if($sebep){ $dusen.Add("$anahtarSoru ($sebep)"); continue }
   $ham="$($r.ders)"
   $resmi=($ham -split '\|')[0].Trim()                   # bilesik adin sol yarisi

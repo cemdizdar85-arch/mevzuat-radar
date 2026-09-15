@@ -17,6 +17,7 @@ on:
       - 'kaydir/**'
       - 'veri/deneme/**'
       - 'veri/seviye/**'
+      - 'veri/ret-kutugu.json'   # 15.09 kalite: yayindaki soru ret kutugunde mi
       - 'arac/icerik-nobeti-taban.json'
       - 'motor/icerik-nobetcisi.js'
       - '.github/workflows/icerik-nobeti.yml'

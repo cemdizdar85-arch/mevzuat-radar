@@ -62,7 +62,37 @@ function soruSay(deger) {
   return n;
 }
 
-// "const SORULAR=[...]" dizisini dize içindeki köşeli parantezleri sayMADAN keser.
+// "const SORULAR=[...]" dizisini keser ve nesneleri döndürür (yoksa [], bozuksa null).
+function htmlSorulariCek(metin) {
+  const i = metin.indexOf('const SORULAR=');
+  if (i < 0) return [];
+  const j = i + 'const SORULAR='.length;
+  if (metin[j] !== '[') return [];
+  let derinlik = 0, dizede = false, kacis = false;
+  for (let k = j; k < metin.length; k++) {
+    const ch = metin[k];
+    if (dizede) { if (kacis) kacis = false; else if (ch === '\\') kacis = true; else if (ch === '"') dizede = false; continue; }
+    if (ch === '"') dizede = true;
+    else if (ch === '[') derinlik++;
+    else if (ch === ']') { derinlik--; if (derinlik === 0) { try { return JSON.parse(metin.slice(j, k + 1)); } catch (e) { return null; } } }
+  }
+  return null;
+}
+
+// KALİTE (15.09.2026): yayındaki soru ret kütüğünde mi? Basım kapısı (arac/sgs-650-bas.ps1) bu soruları
+// düşürür; ama sayfa, hakem SONRADAN HAYIR dediyse yeniden basılana kadar soruyu taşımaya devam eder.
+// 15.09 ölçümü: 3.809 yayındaki sorudan 4'ü (Matematik, KAYNAK-EKSIK) bu durumdaydı.
+// Cevabı riskli sınıflar KIRMIZI (öğrenci yanlış öğrenir), diğerleri SARI (yeniden basım bekliyor).
+const CEVAP_RISKI = /SIM-YANLIS|KOR-CELISKI|HESAP-YANLIS|CIFT-ANLAM|COK-ANLAMLI|CELDIRICI-SAHTE/;
+function kaliteHukmu(yayindakiIdler, retKayitlari) {
+  const ret = new Map();
+  for (const r of retKayitlari || []) { const k = r.etiket + '/' + r.id; if (!ret.has(k)) ret.set(k, r); }
+  const esles = [];
+  for (const [id, sayfa] of yayindakiIdler) if (ret.has(id)) { const r = ret.get(id); esles.push({ id, sayfa, kapi: r.kapi, sinif: r.sinif, risk: CEVAP_RISKI.test(String(r.sinif)) }); }
+  const hukum = esles.some(e => e.risk) ? 'KIRMIZI' : esles.length ? 'SARI' : 'YEŞİL';
+  return { hukum, esles };
+}
+
 function htmlSorulariSay(metin) {
   const i = metin.indexOf('const SORULAR=');
   if (i < 0) return 0;
@@ -156,6 +186,11 @@ function sinav() {
   t('tabanda olmayan KIRMIZI', hukumVer(tar, { acik_dosyalar: [] }).hukum === 'KIRMIZI');
   t('açık yok YEŞİL', hukumVer({ taranan: 5, okunamayan: [], paket: [], ucretsiz: [] }, null).hukum === 'YEŞİL');
   t('hiç tarama yok KÖR', hukumVer({ taranan: 0, okunamayan: [], paket: [], ucretsiz: [] }, null).hukum === 'KÖR');
+  const yay = new Map([['a/kp-01', 'x.html'], ['b/kp-02', 'y.html']]);
+  t('kalite: ret yok YEŞİL', kaliteHukmu(yay, [{ etiket: 'c', id: 'kp-01', sinif: 'SIM-YANLIS' }]).hukum === 'YEŞİL');
+  t('kalite: kaynak eksik SARI', kaliteHukmu(yay, [{ etiket: 'a', id: 'kp-01', sinif: 'KAYNAK-EKSIK' }]).hukum === 'SARI');
+  t('kalite: simülasyon yanlış KIRMIZI', kaliteHukmu(yay, [{ etiket: 'b', id: 'kp-02', sinif: 'SIM-YANLIS' }]).hukum === 'KIRMIZI');
+  t('kalite: SORULAR nesneleri çekilir', (htmlSorulariCek('const SORULAR=[{"id":"a/kp-01","soru":"]"}];') || [])[0].id === 'a/kp-01');
   console.log(h ? 'ÖZ-SINAV DÜŞTÜ (' + h + ')' : 'ÖZ-SINAV GEÇTİ');
   return h ? 1 : 0;
 }
@@ -177,6 +212,28 @@ async function ana() {
 
   if (!process.argv.includes('--canli-yok')) { await canliYokla(tarama.paket); await canliYokla(tarama.ucretsiz); }
   const h = hukumVer(tarama, taban);
+
+  // KALİTE: yayındaki Kaydır-Çöz soruları × veri/ret-kutugu.json
+  const yayin = new Map(); let kaliteKor = null;
+  try {
+    for (const dir of ['kaydir/sgs', 'kaydir/vitrin']) {
+      const d = path.join(KOK, dir); if (!fs.existsSync(d)) continue;
+      for (const f of fs.readdirSync(d).filter(x => x.endsWith('.html'))) {
+        const arr = htmlSorulariCek(fs.readFileSync(path.join(d, f), 'utf8'));
+        if (arr === null) { kaliteKor = dir + '/' + f + ' ayrıştırılamadı'; continue; }
+        for (const q of arr) if (q && q.id) yayin.set(String(q.id), dir + '/' + f);
+      }
+    }
+  } catch (e) { kaliteKor = e.message; }
+  let kalite;
+  try { kalite = kaliteHukmu(yayin, JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'ret-kutugu.json'), 'utf8').replace(/^﻿/, '')).kayitlar); }
+  catch (e) { kalite = { hukum: 'KÖR', esles: [] }; kaliteKor = 'ret kütüğü okunamadı: ' + e.message; }
+  if (kaliteKor) kalite.hukum = 'KÖR';
+  console.log(`KALİTE · ${kalite.hukum} · yayındaki ${yayin.size} soru × ret kütüğü → ${kalite.esles.length} eşleşme${kaliteKor ? ' · ' + kaliteKor : ''}`);
+  for (const e of kalite.esles) console.log(`    ${e.risk ? 'CEVAP RİSKİ' : 'yeniden basım'}  ${e.id}  ${e.kapi} ${e.sinif}  (${e.sayfa})`);
+  const SIRA = { 'YEŞİL': 0, 'SARI': 1, 'KÖR': 2, 'KIRMIZI': 3 };
+  if (SIRA[kalite.hukum] > SIRA[h.hukum]) { h.hukum = kalite.hukum; }
+  if (kalite.esles.length) h.neden += ` · kalite: yayında ${kalite.esles.length} ret kayıtlı soru (${kalite.esles.filter(e => e.risk).length} cevap riski)`;
   const topPaket = tarama.paket.reduce((t, k) => t + k.soru, 0);
   const topUcr = tarama.ucretsiz.reduce((t, k) => t + k.soru, 0);
   const canliAcik = tarama.paket.filter(k => k.canli === 200).length;
