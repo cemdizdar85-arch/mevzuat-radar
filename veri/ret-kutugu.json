@@ -1,23 +1,23 @@
 {
-    "olcum":  "2026-09-15 14:44",
+    "olcum":  "2026-09-15 15:53",
     "kural":  "URETIM TURU BITTIGINDE BU BETIK KOSAR. Ret nedenleri okunmadan yeni tur baslatilmaz.",
-    "taranan_soru":  6775,
-    "ret":  2101,
+    "taranan_soru":  6816,
+    "ret":  2109,
     "kapi_dagilimi":  {
-                          "KAPI-HAKEM":  1075,
-                          "KAPI-HAKEM2":  433,
+                          "KAPI-HAKEM":  1084,
+                          "KAPI-HAKEM2":  432,
                           "KAPI-SIM":  346,
                           "KAPI-KOR":  175,
                           "hakem KOSMADI":  72
                       },
     "sinif_dagilimi":  {
-                           "KAYNAK-EKSIK":  923,
+                           "KAYNAK-EKSIK":  928,
                            "SIM-YANLIS":  346,
                            "YZ-KOKUSU":  253,
-                           "(siniflanmamis)":  234,
+                           "(siniflanmamis)":  235,
                            "KOR-CELISKI":  175,
                            "HAKEM-KOSMADI":  72,
-                           "KAYNAK-KESIK":  48,
+                           "KAYNAK-KESIK":  50,
                            "COK-ANLAMLI":  17,
                            "YAPAY-DIL":  14,
                            "SINAV-DUZEYI":  11,
@@ -7207,6 +7207,24 @@
                          "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
                      },
                      {
+                         "etiket":  "sgs-gm5-ata-r2",
+                         "id":  "kp-05",
+                         "konu":  "v. mehmet resat donemi",
+                         "kapi":  "KAPI-SIM",
+                         "sinif":  "SIM-YANLIS",
+                         "gerekce":  "",
+                         "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
+                     },
+                     {
+                         "etiket":  "sgs-gm5-ata-r3",
+                         "id":  "kp-12",
+                         "konu":  "ataturk tarih tezi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru, Güneş Dil Teorisini soruyor; kaynaktaki tuzak notu açıkça bu ikisinin farklı şeyler olduğunu belirtir. B seçeneği (Güneş Dil Teorisi) tarihsel olarak doğru cevap olup siklarda mevcuttur; ancak soru ve kaynak metni arasında uyum sorunu vardır. Kaynak metni Güneş Dil Teorisinin tanımını ve tarihini net biçimde içerir fakat soru metninde bu teoriye yer verme gerekçesi kaynağa dayandırılmamıştır; kaynak sadece \u0027sınav tuzağı\u0027 olarak belirtir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
                          "etiket":  "sgs-gm5-mat-r1",
                          "id":  "kp-09",
                          "konu":  "ustel denklem",
@@ -7243,12 +7261,12 @@
                          "onarim":  ""
                      },
                      {
-                         "etiket":  "sgs-gm5-mat-r17",
+                         "etiket":  "sgs-gm5-mat-r18",
                          "id":  "kp-14",
-                         "konu":  "bolunebilme kurallari",
-                         "kapi":  "KAPI-HAKEM2",
+                         "konu":  "yuzde artis azalis",
+                         "kapi":  "KAPI-HAKEM",
                          "sinif":  "(siniflanmamis)",
-                         "gerekce":  "a bir rakam (0-9) olmak zorundadır; E şıkkındaki 10 değeri rakam olarak geçersizdir, bu da gerçekçi bir çeldirici değil, biçimsel bir hata/anlamsız seçenektir. Diğer şıklar (0,5,9) b ile a\u0027yı karıştırma veya toplamı yanlış hesaplama gibi gerçek tuzakları yansıtır ama E şıkkı bu tutarlılığı bozar.",
+                         "gerekce":  "Kaynak metni soru için tamamen uygunsuz; THP 540-549 (yedekler ve fonlar) ile Mali Tablolar Analizi (yatay analiz) içeriyor, ancak soru basit ardışık yüzde değişimi (matematik) konusunu soruyor. Matematiksel olarak doğru cevap 600 TL\u0027dir (katsayı yöntemi: 540 / (1,2 × 0,75) = 540 / 0,9 = 600). Kaynak metinde \u0027[TEORI - Matematik: yuzde artis azalis ve ardisik yuzde degisimi]\u0027 başlığı altında katsayı yöntemi tam olarak açıklanmış ve kullanılan kural (\u0027ardışık değişimlerde katsayılar çarpılır; ilk değer = son değer / toplam katsayı\u0027) doğrudan desteklenmiş.",
                          "onarim":  ""
                      },
                      {
@@ -18529,6 +18547,42 @@
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
+                         "etiket":  "smmm-bosluk-finansalmuhasebe",
+                         "id":  "kp-03",
+                         "konu":  "gider yansitma kaydi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "(siniflanmamis)",
+                         "gerekce":  "7/B seçeneğinde 750 ve 760 hesaplarından 798\u0027e yansıtma yapılırken, doğru kayıt 751 ve 761 yansıtma hesaplarını ara basamak olarak kullanmalıdır; kaynak metni 750→751→630 ve 760→761→631 akışını tanımlar, doğrudan 750/760→798 transferi 7/B kuralına aykırıdır. Doğru kayıt: 751 Araştırma ve Geliştirme Giderleri Yansıtma Hesabı 80.000 ₺ borç / 761 Pazarlama Satış ve Dağıtım Giderleri Yansıtma Hesabı 120.000 ₺ borç / 798 Gider Çeşitleri Yansıtma Hesabı 200.000 ₺ alacak olmalıdır; çünkü 750 ve 760 hesapları sırasıyla 751 ve 761 ile kapatılır, ardından bu yansıtma hesaplarının alacağı karşılığı 630 ve 631\u0027e borç yazılır. MSUGT Sıra No:1 Tekdüzen Hesap Planı - THP 798 tanımı \u0027Gider Çeşitleri Yansıtma Hesabı (7/B seçeneği)\u0027 başlığında kaynak metinde mevcuttur ve tanım 750/760 doğrudan transferini desteklemez.",
+                         "onarim":  ""
+                     },
+                     {
+                         "etiket":  "smmm-bosluk-sermayepiyasasmevzuatekrg",
+                         "id":  "kp-02",
+                         "konu":  "sermaye piyasasi kavramlari",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-KESIK",
+                         "gerekce":  "Kaynak metni m.3/1-f \u0027Halka arz\u0027 tanımının tam metni içermemektedir; madde başında kesintiye uğramıştır. Soru ve açıklama uyumlu; tanım m.3/1-f\u0027ye göre halka arz olarak belirtilmiştir. Kaynak metni m.3/1-f maddesinde \u0027Halka arz:\u0027 başlığı bulunmakta ancak tanım cümlesi kesintiye uğramış, tam metin kaynakta verilmemiştir.",
+                         "onarim":  "Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir."
+                     },
+                     {
+                         "etiket":  "smmm-bosluk-sermayepiyasasmevzuatekrg",
+                         "id":  "kp-05",
+                         "konu":  "spk tanimlar",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-KESIK",
+                         "gerekce":  "Kaynak metni SPK Kanunu m.2 ve Pay Tebliği m.3-4 başlangıçlarını içermesine rağmen, sorunun dayandığı Pay Tebliği (VII-128.1) m.4/1-l hükmü (kayıtlı sermaye tanımı) kaynak pakette yer almamaktadır. Doğru cevap \u0027Kayıtlı sermaye\u0027dir; tanım SPK mevzuatında bu terimle ifade edilen yasal bir kavramdır. Sorunun dayandığı Pay Tebliği (VII-128.1) m.4/1-l tam metni kaynak pakette yer almamakta; m.4\u0027ün başlangıcı kesilmiş durumda olup \u0027l\u0027 bendine ulaşılamamaktadır.",
+                         "onarim":  "Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir."
+                     },
+                     {
+                         "etiket":  "smmm-bosluk-sermayepiyasasmevzuatekrg",
+                         "id":  "kp-29",
+                         "konu":  "pay sahipligi haklari",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni m.83/4\u0027ü içermemektedir; soru dayanağı olan hukum pakette yoktur. Kaynakta m.83/4 bulunmadığından, doğru cevabın (C) sikkının dayandığı hukum desteklenememektedir; soru yanıtlanamaz. Soru m.83/4\u0027e atıf yapmakta ancak kaynak metni m.2 ve m.3 tanımlarını içermektedir; m.83/4 pakette yer almamaktadır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
                          "etiket":  "smmm-denetim-30",
                          "id":  "kp-03",
                          "konu":  "onemlilik kavrami",
@@ -18536,6 +18590,15 @@
                          "sinif":  "(siniflanmamis)",
                          "gerekce":  "Kaynak metni, önemlilik ilkesinin dağıtım ANAHTARI SEÇİMİne uygulanacağını (tutarı küçük giderler için basit anahtarlar yeterlidir) açıkça belirtir, ancak ABC sisteminin karmaşıklığının fayda-maliyet dengesine aykırı olup olmadığını veya \u0027mevcut karmaşık ABC uygulamasının değiştirilmesi gerektiğini\u0027 kural olarak tartışmaz.",
                          "onarim":  ""
+                     },
+                     {
+                         "etiket":  "smmm-denetim-30",
+                         "id":  "kp-04",
+                         "konu":  "uygulamali mesleki egitim",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru Muhasebe Denetimi dersinin kapsamı dışında olup, Muhasebecilik ve Mali Müşavirlik Meslek Hukuku ile Meslek Örgütleri konusuna aittir. B şıkkı kaynakta açıkça desteklenmektedir: TÜRMOB ve TMUD her ikisi de IFAC üyesi olabilir, mesleki eğitim standartlarını IAESB belirler. Kaynak metin \u0027Teori Notu - TMUD ve meslek örgütlerinin uluslararası üyelikleri\u0027 başlığı altında IFAC, IAESB, TÜRMOB ve TMUD ilişkilerini doğru şekilde tanımlamaktadır.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
                          "etiket":  "smmm-denetim-30",
@@ -18566,6 +18629,15 @@
                      },
                      {
                          "etiket":  "smmm-denetim-30",
+                         "id":  "kp-14",
+                         "konu":  "kayİk denetimi yetkisi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Kaynak metni BDS 505 ve BDS 330\u0027de \u0027mutabakat mektubu\u0027 veya \u0027pozitif/negatif doğrulama mektubu\u0027 kavramlarına hiç yer vermez; doğru sık dayandığı kural kaynakta açıkça desteklenmemektedir. Kaynak metinde \u0027maddi doğrulama prosedürü\u0027 tanımı vardır (BDS 330 p.18-19) ancak \u0027mutabakat mektubu\u0027, \u0027pozitif doğrulama\u0027, \u0027negatif doğrulama\u0027 gibi mektup türlerinin tanımı, özellikleri ve ne zaman kullanılacağı hiç belirtilmemiştir; teorik açıklamada geçse de kaynakta kural yoktur. Doğru sık dayandığı kurallar (pozitif/negatif mutabakat mektubu tanımı, özellikleri, kullanım koşulları) verilen BDS 505 ve BDS 330 metinlerinde yer almamaktadır; teorik bilgi olarak tanındığı halde kaynak pakette kaidesi belirtilmemiştir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "smmm-denetim-30",
                          "id":  "kp-15",
                          "konu":  "kayİk ve denetim ucreti aciklamasi",
                          "kapi":  "KAPI-HAKEM",
@@ -18580,6 +18652,15 @@
                          "kapi":  "KAPI-HAKEM",
                          "sinif":  "KAYNAK-EKSIK",
                          "gerekce":  "Kaynak metinde tespit edememe riski tanımı ve denetim riski bileşenleri (doğal risk, kontrol riski, tespit edememe riski) açıkça yer almamakta; sadece \u0027denetim riski\u0027 genel tanımı bulunmaktadır. Tespit edememe riski tanımı standartlara uygun olmasına rağmen, verilen kaynak metinde bu spesifik risk türünün tanımı ve denetim riskinin bileşenleri detaylı şekilde açıklanmamıştır. Kaynak metinde BDS 200 p.5 ve p.17\u0027de denetim riski genel tanımı verilmişse de, tespit edememe riskinin spesifik bileşen tanımı (doğal risk x kontrol riski = önemli yanlışlık riski; bu x tespit edememe riski = denetim riski) metinde açıkça bulunmamaktadır; A31-A57 paragraflarına gönderme yapılmış ancak metin pakete dahil değildir.",
+                         "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
+                     },
+                     {
+                         "etiket":  "smmm-denetim-30",
+                         "id":  "kp-27",
+                         "konu":  "uygulamali mesleki egitim suresi",
+                         "kapi":  "KAPI-HAKEM",
+                         "sinif":  "KAYNAK-EKSIK",
+                         "gerekce":  "Soru ve doğru sık IAESB\u0027yi işaret etse de, kaynak metni içinde \u0027uygulamalı mesleki eğitim\u0027 (applied professional experience/practical training) ile \u0027mesleki eğitim standartları\u0027 (professional education standards) arasında kavramsal ayrım yapılmamıştır; metinde IAESB sadece \u0027mesleki eğitim standartlarını düzenleyen\u0027 olarak tanımlanmış, \u0027uygulamalı\u0027 nitelemesi açıkça belirtilmemiştir. IAESB, IFAC\u0027e bağlı işlevsel olarak bağımsız kurul olarak metinde doğru tanımlanmıştır ve mesleki eğitim standartlarından sorumludur. Kaynak metni IAESB\u0027nin kuruluş yapısı ve sorumluluğunu doğru tanımlamakta ancak spesifik kanun/madde/yönetmelik atıfı bulunmamaktadır; tanım genel literatür çerçevesine dayanmaktadır.",
                          "onarim":  "Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri."
                      },
                      {
@@ -18635,15 +18716,6 @@
                          "sinif":  "(siniflanmamis)",
                          "gerekce":  "Soru, SMMM Kanunu m.8/A\u0027da tanımlanan \u0027müştereken ve müteselsil sorumluluk\u0027 konusunu ölçüyor ancak bu konu, \u0027Muhasebecilik ve Mali Müşavirlik Meslek Hukuku\u0027 dersinin resmi kapsamı dışında, \u0027Hukuk (Borçlar Hukuku)\u0027 komşu dersinin konusudur. A şıkkı, SMMM Kanunu m.8/A\u0027nın son paragrafında açıkça yer alan hükmü doğru yansıtır: \u0027rapor kapsamı ile sınırlı olmak üzere, ziyaa uğratılan vergilerden ve kesilecek cezalardan mükellefle birlikte müştereken ve müteselsilen sorumlu olurlar.\u0027 Kaynak metinde SMMM Kanunu (3568 s.K.) m.8/A başlığı altında serbest muhasebeci mali müşavirlerin rapor düzenleme sorumluluğu açıkça tanımlanmıştır.",
                          "onarim":  ""
-                     },
-                     {
-                         "etiket":  "smmm-pilot-yspk-kolay-r1",
-                         "id":  "kp-01",
-                         "konu":  "sermaye piyasasi kurumlari",
-                         "kapi":  "KAPI-SIM",
-                         "sinif":  "SIM-YANLIS",
-                         "gerekce":  "",
-                         "onarim":  "Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter."
                      },
                      {
                          "etiket":  "smmm-pilot-yvergi-cokzor-r1",

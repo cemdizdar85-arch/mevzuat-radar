@@ -278,3 +278,15 @@ Tazeleme (14:37, bu betik `-Tazele`): **a) TMS HAZIR 12→23, ZAYIF 18→7** · 
 **Kopan bağlar:** 243'ün 137'si (KGK, yayında değil, "BDS 501/505/520/705 p.1 - Giriş - Kapsam" → "p.1 - Kapsam") yeniden bağlandı, geri okundu; yedek `_yerel-veri-kasasi/baglama-yedek/20260915-bds-p1-kapsam.json`. TMS 8 (39) yeniden yutmayla döndü. **Açık:** 2 SGS sorusu (BDS 501; SGS'ye dokunulmadı) · 65 KGK sorusu "BDS 530 Ek-2 1" (yeni ad da kusurlu, aşağıda) · TMS/TFRS'de eskiden kopuk 1.659 bağ (eski numaralar kaymalı olduğu için p-numarasıyla körlemesine bağlanamaz; metin eşleştirmeli iş emri).
 
 **Yeni bulgular:** BDS 530/315/540/600/210 ve GDS 3000 ek tabloları "Ek" ön ekini kaybetmiş (ör. `BDS 530 p.1 - ETKİSİ`, ana metnin p.1'iyle çakışıyor; tablo metni sütun karışık) · GDS 3000 p.45–47 S/M iki sütun iç içe · TFRS 17 B-serisi, TMS 32 UR, TMS 33/21 Ek A, TMS 27 p.6+ iki kipte de ayrı parçaya bölünmüyor (412 eksiğin çoğu; metin var, etiket yok).
+
+---
+
+## GÜNCELLEME 15.09 ~16:00 · Cem ikinci "1.2.3 üçünüde yap"
+
+**(1) Muhasebe Standartları GM elle yazım — `kgk-gm-tms-r1`, 10 soru kasada.** 15.09 TMS onarımıyla yeni HAZIR olan konular: TFRS 15, TMS 7, TMS 38, TFRS 16 (hesaplı), TMS 37, TMS 29, TFRS 13, TMS 19, TFRS 8, TMS 23. Dört ücretli kapı 10/10; bedel ≈0,34 USD. TMS 24 bilerek seçilmedi (p.9 tek başına 4.890 kr, hakem paketine sığmaz). Kasa şimdi: KY 10 · SPK 7 · Bankacılık 6 · GDS 4 · TMS 10 = **37+10 = 47 GM sorusu**.
+Düzeltilen: TMS 37 hesaplı garanti karşılığı sorusu hakemden iki kez HAYIR aldı (hakem "sayılar Standarttaki çözümlü örnekle aynı değil" dedi, doğru şıkkı kendisi EVET buldu) → kavramsal soruya çevrildi, geçti. **Hat kusuru:** Standardın içinde çözümlü sayısal örnek bulunan paragrafa dayanan hesaplı sorularda hakem yanlış HAYIR veriyor; TFRS 16 hesaplısı (örneksiz paragraf) geçti.
+
+**(2) BDS/GDS rakamlı ek adları — `7ae253f2`, 0 USD.** "Ek 1/2" başlıklı ekler artık `BDS 530 Ek 2 p.1 - …` adını alıyor; ad içindeki hizalama boşlukları sadeleşti. Eşdeğerlik: 86 standart asıl hat provası (fark yalnız ek önekli adlar + 5 boşluk sadeleşmesi, diğer 0) + 82 standart işlev düzeyi (ek başlığı dışında metin 82/82 aynı). 24 standart yeniden yutuldu (24/24 doğrulandı, düşen 0, kopan soru bağı 0). **65 KGK sorusu** `BDS 530 Ek-2 1 - …` → `BDS 530 Ek 2 p.1 - FAKTÖR ETKİSİ` bağlandı, 65/65 geri okundu (yedek `_yerel-veri-kasasi/baglama-yedek/20260915-bds530-ek2.json`). 15.09 sabahki 243 kopuk bağdan açık kalan: yalnız 2 SGS sorusu (SGS'ye dokunulmadı).
+Yan etki (ölçüldü): 4 ek giriş parçası yalnız atıf satırından oluşuyor ("(Bkz.: A88 paragrafı)", 21–45 kr), bütünlük kapısı bunları başlık-only sayıyor. Metin resmî, kayıp yok. SBDS 2400/2410 kapsam dışı bırakıldı: ambardaki biçimleri başka hattan ("ön bölüm [k/31]").
+
+**(3) Hakem/kör paket tavanı ölçümü — 0 USD.** Ayrı rapor: [PAKET-TAVANI-OLCUMU.md](PAKET-TAVANI-OLCUMU.md). Tavanı (4.500 kr) aşan sorularda hakem reddi 2,1–2,4 kat (SGS %20,9 / %8,6 · SMMM %24,5 / %12,4 · KGK %9,0 / %4,3); korelasyon, nedensellik ≈0,5 USD'lik provayla ölçülür. Tavan yükseltmenin tahmini bedeli +0,003–0,005 USD/soru. Karar Cem'de.
