@@ -1,6 +1,6 @@
 {
-    "aciklama":  "BİTİRME (SMMM) konu → dayanak haritası. 14.09.2026, Cem \"1.2.3 üçünü de yap\" (GM önerisi 2). Köprüde (veri/fabrika/konu-koprusu.json) dayanağı BOŞ olan 115 SPK konusu için dayanak, kelime aramasıyla DEĞİL, 6362 sayılı Kanun\u0027un 160 madde başlığı ambardan okunarak yazıldı (hafıza: konu-kaynak eşleştirme yasağı). durum: \u0027MADDE OKUNDU\u0027 = üretici kullanır · \u0027TEORI\u0027 = mevzuatı yok, teori notu gerekir · \u0027OLCULEMEDI\u0027 = madde başlığından karar verilemedi, madde metni okunmadan dayanak yazılmaz. Üretici yalnız SMMM\u0027de ve yalnız köprü dayanağı boşsa uygular (motor/kalip-parti-uret.ps1). · 14.09 ikinci okuma (Cem \"1.2.3 üçünü de yap\", GM önerisi 2): OLCULEMEDI 18 konunun aday madde METİNLERİ okundu → 7 MADDE OKUNDU, 4 MULGA OLABILIR, 7 OLCULEMEDI kaldı (gerekçe \u0027not\u0027 alanında). · 15.09: Hukuk\u0027ta köprüde kaydı olmayan 5 dalga-1 konusu eklendi (maddeler okunarak). Maliyet\u0027in köprü dışı 4 konusu (mamul stok maliyeti, ortak mamul maliyeti, safha maliyeti uretim miktari, fireli safha maliyeti) eklenmedi: kanun maddesi yok, üretici teori notunu konu adıyla buluyor.",
-    "kaynak_okuma":  "ambar: Sermaye Piyasası K. (6362 s.K.) m.1-m.151 ilk 150 karakter (253 parça) · 14.09.2026 · 14.09 ikinci okuma: TOBB K. m.53, II-5.2 m.1-9, II-5.1 m.6, VII-128.1 m.13/m.51, II-23.2 m.21, 6362 m.39/40/65 · 15.09 (Cem \"1 ve 2 yap\", dalga 1 köprü dışı Hukuk konuları): TBK m.26-27, TTK m.211-249, m.35-37, m.303-309 ambardan okundu",
+    "aciklama":  "BİTİRME (SMMM) konu → dayanak haritası. 14.09.2026, Cem \"1.2.3 üçünü de yap\" (GM önerisi 2). Köprüde (veri/fabrika/konu-koprusu.json) dayanağı BOŞ olan 115 SPK konusu için dayanak, kelime aramasıyla DEĞİL, 6362 sayılı Kanun\u0027un 160 madde başlığı ambardan okunarak yazıldı (hafıza: konu-kaynak eşleştirme yasağı). durum: \u0027MADDE OKUNDU\u0027 = üretici kullanır · \u0027TEORI\u0027 = mevzuatı yok, teori notu gerekir · \u0027OLCULEMEDI\u0027 = madde başlığından karar verilemedi, madde metni okunmadan dayanak yazılmaz. Üretici yalnız SMMM\u0027de ve yalnız köprü dayanağı boşsa uygular (motor/kalip-parti-uret.ps1). · 14.09 ikinci okuma (Cem \"1.2.3 üçünü de yap\", GM önerisi 2): OLCULEMEDI 18 konunun aday madde METİNLERİ okundu → 7 MADDE OKUNDU, 4 MULGA OLABILIR, 7 OLCULEMEDI kaldı (gerekçe \u0027not\u0027 alanında). · 15.09: Hukuk\u0027ta köprüde kaydı olmayan 5 dalga-1 konusu eklendi (maddeler okunarak). Maliyet\u0027in köprü dışı 4 konusu (mamul stok maliyeti, ortak mamul maliyeti, safha maliyeti uretim miktari, fireli safha maliyeti) eklenmedi: kanun maddesi yok, üretici teori notunu konu adıyla buluyor. · 16.09: ambar ölçümünde paketi boş kalan 5 konuya okunmuş dayanak verildi (marka hukuku, kdv\u0027nin konusu, acilis reeskont kâr aktarim, diger olagandisi gelir, uzun vadeli borclar).",
+    "kaynak_okuma":  "ambar: Sermaye Piyasası K. (6362 s.K.) m.1-m.151 ilk 150 karakter (253 parça) · 14.09.2026 · 14.09 ikinci okuma: TOBB K. m.53, II-5.2 m.1-9, II-5.1 m.6, VII-128.1 m.13/m.51, II-23.2 m.21, 6362 m.39/40/65 · 15.09 (Cem \"1 ve 2 yap\", dalga 1 köprü dışı Hukuk konuları): TBK m.26-27, TTK m.211-249, m.35-37, m.303-309 ambardan okundu · 16.09 (kaynak ölçümü KAYNAK YOK listesi): SMK m.4/m.6, KDVK m.1, THP 122/322/647/679/649/499/400/409/421 ambardan okundu",
     "konular":  [
                     {
                         "konu":  "sermaye piyasasi kurumlari",
@@ -584,6 +584,31 @@
                         "konu":  "ticaret sicili etkisi",
                         "durum":  "MADDE OKUNDU",
                         "dayanak":  "6102 sayılı Türk Ticaret Kanunu m.36, m.37"
+                    },
+                    {
+                        "konu":  "marka hukuku",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "6769 sayılı Sınai Mülkiyet Kanunu m.4, m.6"
+                    },
+                    {
+                        "konu":  "kdv\u0027nin konusu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3065 sayılı Katma Değer Vergisi Kanunu m.1"
+                    },
+                    {
+                        "konu":  "acilis reeskont kâr aktarim",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "THP 122; THP 322; THP 647"
+                    },
+                    {
+                        "konu":  "diger olagandisi gelir",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "THP 679; THP 649"
+                    },
+                    {
+                        "konu":  "uzun vadeli borclar",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "THP 499; THP 400; THP 409; THP 421"
                     }
                 ]
 }
