@@ -26,7 +26,7 @@ $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $PSScriptRoot 'smmm-yayin-sarti.ps1')
 
 if (-not $IndirmeYok) {
-  & powershell -NoProfile -File (Join-Path $PSScriptRoot 'parti-senkron.ps1') -Indir -Sinav SMMM | Select-Object -Last 3
+  & powershell -NoProfile -File (Join-Path $PSScriptRoot 'parti-senkron.ps1') -Indir -Yaz -OnEk 'smmm-' | Select-Object -Last 3
   if ($LASTEXITCODE) { throw "parti indirme düştü ($LASTEXITCODE)" }
 }
 $fabrika = Join-Path $depoKok 'veri\fabrika'

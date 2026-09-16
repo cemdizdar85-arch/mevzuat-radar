@@ -169,7 +169,8 @@ jobs:
           ./arac/bedel-senkron.ps1 -Indir -Yaz
           if ("${{ inputs.indir_parti }}" -eq "true") {
             # Parti onbellegi: ikiz denetimi kardes partilere bakar
-            ./arac/parti-senkron.ps1 -Indir -Yaz -Sinav $planSinavi
+            # 16.09: bitirme planinda yalniz smmm- partileri iner (kardes ikiz denetimi icin yeterli; 1.064 yerine ~34 parti)
+            if($planSinavi -eq 'SMMM'){ ./arac/parti-senkron.ps1 -Indir -Yaz -Sinav $planSinavi -OnEk 'smmm-' } else { ./arac/parti-senkron.ps1 -Indir -Yaz -Sinav $planSinavi }
           } else {
             "parti onbellegi ATLANDI (ikiz denetimi zayif kosar)"
           }
