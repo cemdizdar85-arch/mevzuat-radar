@@ -27,7 +27,22 @@ if(-not $sbAnahtar){ Write-Host 'SUPABASE_SERVICE_KEY yok'; exit 1 }
 $sbBasliklar = @{ apikey=$sbAnahtar; Authorization="Bearer $sbAnahtar"; 'User-Agent'='mevzuat-radar-robot/1.0' }
 $ambarUcu = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar'
 $kaynakNotu = "KAYNAK NOTU: TESMER/TÜRMOB PDF'inde soru kâğıdı imzalı tarama (görüntü) olarak yayımlanmıştır. Soru metni görüntüden yazıya geçirilmiştir (arac/smmm-soru-metni-yut.ps1). Doğrulama: iki bağımsız OCR (Tesseract, Windows OCR) + görsel okuma; her kelime ve rakam en az iki okumayla eşleştirildi, eşleşmeyenler görüntüden tek tek kontrol edildi. Antet, imzalar ve adres satırı alınmamıştır."
+$sikistirmaNotu = "SIKIŞTIRMA NOTU: Bu PDF'in metin katmanı JBIG2 sembol eşleştirmeli sıkıştırmayla kaydedilmiştir; bu yöntem birbirine benzeyen karakterleri (ör. 2/7, 6/8, y/v) birbirinin yerine basabilir. BASIM NOTU'nda geçen tutarsızlıklar kâğıttaki baskıdan değil sıkıştırmadan da kaynaklanabilir; hesap soruları bu kalemlere dayandırılmamalıdır."
 [void](New-Item -ItemType Directory -Force $yedekKlasoru)
+# 17.09: 2021–2025 PDF'lerinin çoğunda metin katmanı JBIG2 sembol sözlüğü (segment tip 0) ile kodlu → glif değişimi riski.
+#   Gömülü JBIG2 akışında ilk segment sayfa bilgisi (48), ikincisi sembol sözlüğüyse (0) belgeye SIKIŞTIRMA NOTU girer.
+function Jbig2Sembol([string]$Kok){
+  $pdfYolu = Join-Path (Join-Path $arsiv 'pdf') "$Kok.pdf"
+  if(-not (Test-Path $pdfYolu)){ return $null }
+  $bayt = [IO.File]::ReadAllBytes($pdfYolu); $ham = [Text.Encoding]::GetEncoding(28591).GetString($bayt)
+  foreach($eslesme in [regex]::Matches($ham,'JBIG2Decode')){
+    $bas = $ham.IndexOf('stream',$eslesme.Index) + 6; while($bayt[$bas] -eq 13 -or $bayt[$bas] -eq 10){ $bas++ }
+    if(($bayt[$bas+4] -band 0x3F) -ne 48){ continue }
+    $ilkBoy = [BitConverter]::ToUInt32(($bayt[($bas+10)..($bas+7)]),0)
+    if(($bayt[$bas+11+$ilkBoy+4] -band 0x3F) -eq 0){ return $true }
+  }
+  return $false
+}
 function AmbarIstek([string]$Uri, [string]$Yontem = 'Get', $Govde = $null, $EkBaslik = @{}){
   # 16.09: Supabase ara sıra 504 veriyor → 5 deneme, artan bekleme
   for($deneme = 1; $deneme -le 5; $deneme++){
@@ -70,7 +85,9 @@ foreach($dosya in (Get-ChildItem $metinKlasoru -Filter "$Desen.txt" | Sort-Objec
   $soruKismi = if($kip -eq 'EKLE'){ $govdeMetni } else { [regex]::Split($govdeMetni,"(?m)^CEVAPLAR\r?$")[0] }
   $kesim = [regex]::Match($soruKismi, $kesimDeseni)
   if($kesim.Success){ Write-Host ("  ⚠ {0}: soru metninde '{1}' geçiyor — KAPI-CB soru kısmının son {2} karakterini keser (resmî metin korunur)" -f $kok,$kesim.Value,($soruKismi.Length - $kesim.Index)) }
-  $notMetni = (@($basimNotlari | ForEach-Object { "BASIM NOTU: $_" }) -join "`n")
+  $sembol = Jbig2Sembol $kok
+  if($null -eq $sembol){ Write-Host "  !! $kok PDF'i yok — sıkıştırma türü ölçülemedi, yazılmaz"; $hata++; continue }
+  $notMetni = (@($(if($sembol){ $sikistirmaNotu }) ; $basimNotlari | ForEach-Object { "BASIM NOTU: $_" }) -join "`n")
   if($kip -eq 'DEGISTIR' -and $basimNotlari.Count){ Write-Host "  !! $kok DEGISTIR kipinde NOT satırı desteklenmiyor"; $hata++; continue }
   $yeni = if($kip -eq 'EKLE'){ "SORULAR`n$govdeMetni`n`n$kaynakNotu$(if($notMetni){"`n$notMetni"})`n`n$($eski.Trim())" } else { $govdeMetni }
   Write-Host ("  {0} {1}: {2:N0} → {3:N0} kr" -f $kip,$kok,$eski.Length,$yeni.Length)
