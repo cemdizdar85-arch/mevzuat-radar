@@ -1,5 +1,5 @@
 {
-    "aciklama":  "BİTİRME (SMMM) konu → dayanak haritası. 14.09.2026, Cem \"1.2.3 üçünü de yap\" (GM önerisi 2). Köprüde (veri/fabrika/konu-koprusu.json) dayanağı BOŞ olan 115 SPK konusu için dayanak, kelime aramasıyla DEĞİL, 6362 sayılı Kanun\u0027un 160 madde başlığı ambardan okunarak yazıldı (hafıza: konu-kaynak eşleştirme yasağı). durum: \u0027MADDE OKUNDU\u0027 = üretici kullanır · \u0027TEORI\u0027 = mevzuatı yok, teori notu gerekir · \u0027OLCULEMEDI\u0027 = madde başlığından karar verilemedi, madde metni okunmadan dayanak yazılmaz. Üretici yalnız SMMM\u0027de ve yalnız köprü dayanağı boşsa uygular (motor/kalip-parti-uret.ps1). · 14.09 ikinci okuma (Cem \"1.2.3 üçünü de yap\", GM önerisi 2): OLCULEMEDI 18 konunun aday madde METİNLERİ okundu → 7 MADDE OKUNDU, 4 MULGA OLABILIR, 7 OLCULEMEDI kaldı (gerekçe \u0027not\u0027 alanında). · 15.09: Hukuk\u0027ta köprüde kaydı olmayan 5 dalga-1 konusu eklendi (maddeler okunarak). Maliyet\u0027in köprü dışı 4 konusu (mamul stok maliyeti, ortak mamul maliyeti, safha maliyeti uretim miktari, fireli safha maliyeti) eklenmedi: kanun maddesi yok, üretici teori notunu konu adıyla buluyor. · 16.09: ambar ölçümünde paketi boş kalan 5 konuya okunmuş dayanak verildi (marka hukuku, kdv\u0027nin konusu, acilis reeskont kâr aktarim, diger olagandisi gelir, uzun vadeli borclar).",
+    "aciklama":  "BİTİRME (SMMM) konu → dayanak haritası. 14.09.2026, Cem \"1.2.3 üçünü de yap\" (GM önerisi 2). Köprüde (veri/fabrika/konu-koprusu.json) dayanağı BOŞ olan 115 SPK konusu için dayanak, kelime aramasıyla DEĞİL, 6362 sayılı Kanun\u0027un 160 madde başlığı ambardan okunarak yazıldı (hafıza: konu-kaynak eşleştirme yasağı). durum: \u0027MADDE OKUNDU\u0027 = üretici kullanır · \u0027TEORI\u0027 = mevzuatı yok, teori notu gerekir · \u0027OLCULEMEDI\u0027 = madde başlığından karar verilemedi, madde metni okunmadan dayanak yazılmaz. Üretici yalnız SMMM\u0027de ve yalnız köprü dayanağı boşsa uygular (motor/kalip-parti-uret.ps1). · 14.09 ikinci okuma (Cem \"1.2.3 üçünü de yap\", GM önerisi 2): OLCULEMEDI 18 konunun aday madde METİNLERİ okundu → 7 MADDE OKUNDU, 4 MULGA OLABILIR, 7 OLCULEMEDI kaldı (gerekçe \u0027not\u0027 alanında). · 15.09: Hukuk\u0027ta köprüde kaydı olmayan 5 dalga-1 konusu eklendi (maddeler okunarak). Maliyet\u0027in köprü dışı 4 konusu (mamul stok maliyeti, ortak mamul maliyeti, safha maliyeti uretim miktari, fireli safha maliyeti) eklenmedi: kanun maddesi yok, üretici teori notunu konu adıyla buluyor. · 16.09: ambar ölçümünde paketi boş kalan 5 konuya okunmuş dayanak verildi (marka hukuku, kdv\u0027nin konusu, acilis reeskont kâr aktarim, diger olagandisi gelir, uzun vadeli borclar). · 16.09 Meslek (Cem \"1.2.3 üçünü de yap\", GM 2): dalga-1\u0027in 106 Meslek konusundan 94\u0027üne dayanak, 3568 ile yedi meslek yönetmeliğinin madde METİNLERİ ambardan okunarak yazıldı; köprü bu konuları çoğunlukla ilgisiz maddeye bağlamıştı (etik ilkeler ← 3568 m.45, disiplin cezaları ← m.50). \u0027dayanak2\u0027 = ikinci kaynak (üretici çıkmış dayanağı yerine koyar). Okunmuş harita artık köprünün dolu dayanağını da EZER (yalnız SMMM). Kaynağı okunamayan 12 konu yazılmadı: sınav hakları ve süresi, sınav başarı şartı, sınav bilirkişi heyeti, bilirkişi heyeti, mal bildirimi, SMG kredisi, işin devri ücret esasları, tam tasdik sözleşme feshi (ambarda karşılığı bulunamadı) ile kişilik kavramı, mali tablo aykırılık giderme, mali tablolar sınıflandırma, genel mesleki standartlar (Meslek mevzuatı dışı; MSUGT/teori).",
     "kaynak_okuma":  "ambar: Sermaye Piyasası K. (6362 s.K.) m.1-m.151 ilk 150 karakter (253 parça) · 14.09.2026 · 14.09 ikinci okuma: TOBB K. m.53, II-5.2 m.1-9, II-5.1 m.6, VII-128.1 m.13/m.51, II-23.2 m.21, 6362 m.39/40/65 · 15.09 (Cem \"1 ve 2 yap\", dalga 1 köprü dışı Hukuk konuları): TBK m.26-27, TTK m.211-249, m.35-37, m.303-309 ambardan okundu · 16.09 (kaynak ölçümü KAYNAK YOK listesi): SMK m.4/m.6, KDVK m.1, THP 122/322/647/679/649/499/400/409/421 ambardan okundu",
     "konular":  [
                     {
@@ -609,6 +609,634 @@
                         "konu":  "uzun vadeli borclar",
                         "durum":  "MADDE OKUNDU",
                         "dayanak":  "THP 499; THP 400; THP 409; THP 421"
+                    },
+                    {
+                        "konu":  "disiplin kurulu itiraz suresi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.28, m.29",
+                        "dayanak2":  "3568 sayılı Kanun m.38",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin tedbir karari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.30",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin cezasi is yasagi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.13",
+                        "dayanak2":  "3568 sayılı Kanun m.48",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin sorusturma organlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.14, m.15, m.19",
+                        "dayanak2":  "3568 sayılı Kanun m.26",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin kurulu kararina itiraz",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.28, m.29",
+                        "dayanak2":  "3568 sayılı Kanun m.38",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslekten cikarma cezasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.9",
+                        "dayanak2":  "3568 sayılı Kanun m.48",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin cezalari bildirimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.12",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "faaliyetten alikoyma cezasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.7",
+                        "dayanak2":  "3568 sayılı Kanun m.48",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "gecici mesleki alikoyma cezasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.7",
+                        "dayanak2":  "3568 sayılı Kanun m.48",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik disiplin kurulu uye sayisi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.38",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.34",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek kutugunden silinme",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.63, m.11",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "calisanlar listesinden silinme",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.35, m.36, m.37",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin cezasi uygulama",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.12, m.13",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin sorusturmasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.15, m.18, m.19",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "uyarma cezasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.5",
+                        "dayanak2":  "3568 sayılı Kanun m.48",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin kararina itiraz",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.28, m.29",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin cezalari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.48",
+                        "dayanak2":  "Meslek Disiplin Yönetmeliği m.4",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin cezasi is kabul yasagi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.13, m.7",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik disiplin kurulu gorevi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "TÜRMOB Birlik Yönetmeliği m.35",
+                        "dayanak2":  "3568 sayılı Kanun m.38",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "disiplin cezalari farkli uygulama",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Meslek Disiplin Yönetmeliği m.11",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik ilke tehditleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 2",
+                        "dayanak2":  "Etik İlkeler EK bölüm 6",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik ilkelere tehditler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 2",
+                        "dayanak2":  "Etik İlkeler EK bölüm 6",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "tarafsizlik ilkesi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 14",
+                        "dayanak2":  "Etik İlkeler EK bölüm 1",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "mesleki etik ilkeler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 1",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.6",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik ilkeler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 1",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.6",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik komitesi gorevleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler Yönetmeliği m.7",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik kurulu gorev yetkileri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler Yönetmeliği m.7, m.5",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik komitesi tesekkul",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler Yönetmeliği m.5",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik tehdit onlemleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 3",
+                        "dayanak2":  "Etik İlkeler EK bölüm 8",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik ilkeler tehdit onlemleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 3",
+                        "dayanak2":  "Etik İlkeler EK bölüm 8",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "etik ilkeler kisisel cikar tehdidi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Etik İlkeler EK bölüm 6",
+                        "dayanak2":  "Etik İlkeler EK bölüm 2",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "reklamla haksiz rekabet",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.8",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "haksiz rekabet",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.5, m.6",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.10",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "haksiz rekabet mucadele kurulu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.24, m.25, m.28",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "haksiz rekabet dava haklari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.9, m.10",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "haksiz rekabet kurulu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.24, m.26, m.29",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "haksiz rekabet halleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.6, m.7, m.8",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "haksiz rekabet reklam yasagi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.8, m.12",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "reklam yasagi kurallari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.12, m.13, m.23",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.45",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "ucret haksiz rekabet",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.7",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "reklam yoluyla haksiz rekabet",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.8",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "tabela bilgileri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Haksız Rekabet ve Reklam Yasağı Yönetmeliği m.14",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.15",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslekle bagdasan isler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.47",
+                        "dayanak2":  "3568 sayılı Kanun m.45",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "isyeri acilis bildirimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.14",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek konusu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.2",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.18, m.19",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "ticari faaliyette bulunma yasagi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.43",
+                        "dayanak2":  "3568 sayılı Kanun m.45",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "ticari faaliyet yasagi kapsami",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.43",
+                        "dayanak2":  "3568 sayılı Kanun m.45",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek onuruyla bagdasmayan haller",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.42",
+                        "dayanak2":  "3568 sayılı Kanun m.45",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "yasaklanmis faaliyetler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.45",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.43, m.44",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek mensubu yasaklari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.45",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.43, m.44",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek mensubu ozel sartlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.5",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek mensubu genel sartlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.4",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek mensubu olma sartlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.4, m.5",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "mesleki faaliyet baslama sarti",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.14",
+                        "dayanak2":  "Odalar Yönetmeliği m.34",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "stajdan sayilan haller",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Staj Yönetmeliği m.9",
+                        "dayanak2":  "3568 sayılı Kanun m.6",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "surekli mesleki gelistirme egitimi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.44",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "staj sonrasi hizmet yasagi ve bekleme suresi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Staj Yönetmeliği m.25",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "meslek sirri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.43",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.7",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "musterek muteselsil sorumluluk",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.12",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.41",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda organlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.17",
+                        "dayanak2":  "Odalar Yönetmeliği m.6",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "odalarin organlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.17",
+                        "dayanak2":  "Odalar Yönetmeliği m.6",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda genel kurulu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.18, m.20",
+                        "dayanak2":  "Odalar Yönetmeliği m.7",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "turmob gelirleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.30",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.8",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda kurulus meslek mensubu sayisi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.15",
+                        "dayanak2":  "Odalar Yönetmeliği m.5",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "ilcede oda kurma sarti",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.15",
+                        "dayanak2":  "Odalar Yönetmeliği m.5",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda yonetim kurulu uye sayisi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.21",
+                        "dayanak2":  "Odalar Yönetmeliği m.10",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik yonetim kurulu uye sayisi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.35",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.21",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik genel kurulu gorevleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.33",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.12",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "turmob genel kurulu gorevleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.33",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.12",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik payi azami oran",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "TÜRMOB Birlik Yönetmeliği m.8",
+                        "dayanak2":  "3568 sayılı Kanun m.30",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik payi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "TÜRMOB Birlik Yönetmeliği m.8",
+                        "dayanak2":  "3568 sayılı Kanun m.30",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda gelirleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.16",
+                        "dayanak2":  "Odalar Yönetmeliği m.16",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "odalarin gelirleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.16",
+                        "dayanak2":  "Odalar Yönetmeliği m.16",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda organlari yonetim kurulu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.17, m.21, m.23",
+                        "dayanak2":  "Odalar Yönetmeliği m.12",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda giris ucreti ve aidat tespiti",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.19, m.16",
+                        "dayanak2":  "Odalar Yönetmeliği m.16",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "odalarin kurulus maksadi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.14",
+                        "dayanak2":  "Odalar Yönetmeliği m.24",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik genel kurulu olusumu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.32",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.11",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "turmob\u0027un gorevleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.29",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.7",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "turmob birlik organlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.31",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.10",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "birlik organlari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.31",
+                        "dayanak2":  "TÜRMOB Birlik Yönetmeliği m.10",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "oda genel kurulu gorevleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.19",
+                        "dayanak2":  "Odalar Yönetmeliği m.8",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "asgari ucret alti is kabulu cezasi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "3568 sayılı Kanun m.46",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.46",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "defter belge iade suresi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.26",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.27",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "defter belge saklama iade",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.27",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.26",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "sozlesme asgari unsurlar",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.25",
+                        "dayanak2":  "Odalar Yönetmeliği m.47",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "hizmet sozlesmesi asgari bilgileri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.25",
+                        "dayanak2":  "Odalar Yönetmeliği m.47",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "sozlesme asgari bilgiler",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.25",
+                        "dayanak2":  "Odalar Yönetmeliği m.47",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "sozlesme zorunlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.24",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "zorunlu sozlesme konulari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.24",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "sozlesme yapilmasi zorunlulugu",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.24",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "sozlesme fesih gerekceleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.26",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "ucret sozlesmesi esaslari",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.46",
+                        "dayanak2":  "3568 sayılı Kanun m.46",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "is kabulu reddi",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.23",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.52",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
+                    },
+                    {
+                        "konu":  "denetim raporu bolumleri",
+                        "durum":  "MADDE OKUNDU",
+                        "dayanak":  "Çalışma Usul ve Esasları Yönetmeliği m.58",
+                        "dayanak2":  "Çalışma Usul ve Esasları Yönetmeliği m.59",
+                        "not":  "16.09 Meslek: madde metni ambardan okundu (3568, Disiplin, Çalışma Usul, Odalar, Birlik, Haksız Rekabet, Staj, Etik yönetmelikleri)"
                     }
                 ]
 }

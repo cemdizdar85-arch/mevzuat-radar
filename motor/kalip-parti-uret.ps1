@@ -673,9 +673,21 @@ function DesenUret($kayit){
     # ambarda): yukaridaki madde deseni yalniz VUK/TTK/TBK/GVK/SMMM taniyordu; Is K., 5510, SPKn,
     # 3568 maddeli dayanaklar hic aranmiyordu. Kanun no ile onek bulunur, madde iki bicimde aranir
     # ('m.11' tam / 'm.11 ' devam) ki m.110-111 karismasin.
+    # 16.09 YALNIZ BİTİRME (Cem "1.2.3 üçünü de yap", GM 2 Meslek haritası): TÜRMOB Etik İlkeler ekinin ambar adı madde değil BÖLÜM taşır
+    # ('TÜRMOB Etik İlkeler Yön. EK bolum 5'). Harita 'Etik İlkeler EK bölüm 5' yazar → o bölüm tam adla çekilir.
+    if($Sinav -eq 'SMMM' -and $ham -match 'Etik İlkeler EK'){ foreach($m in [regex]::Matches($ham,'b[oö]l[uü]m\s*(\d+)')){ $d.Add("TÜRMOB Etik İlkeler Yön. EK bolum $($m.Groups[1].Value)") }; continue }
     if($ham -notmatch '\b(VUK|TTK|TBK|GVK|SMMM)\b' -and $ham -match '\bm(?:adde)?\.?\s*(\d+)'){
       $onekM=''
-      if($ham -match '4857|İş K'){ $onekM='İş K. (4857 s.K.)' }
+      # 16.09 YALNIZ BİTİRME (GM 2): meslek yönetmelikleri ambarda VAR (Disiplin 45 · Çalışma Usul 80 · Odalar 49 · Birlik 70 · Haksız Rekabet 35 ·
+      # Staj 38 · Etik 9 parça) ama zincirde öneki yoktu; okunmuş harita bu adlarla yazar. Kanun numarası taşımadıkları için aşağıdaki dallara düşmezler.
+      if($Sinav -eq 'SMMM' -and $ham -match 'Meslek Disiplin Yönetmeliği'){ $onekM='SMMM ve YMM K. Disiplin Yonetmeligi' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match 'Çalışma Usul ve Esasları Yönetmeliği'){ $onekM='SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^Odalar Yönetmeliği'){ $onekM='SMMM Odalari Yonetmeligi' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match 'TÜRMOB Birlik Yönetmeliği'){ $onekM='TÜRMOB Birlik Yön.' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match 'Haksız Rekabet ve Reklam Yasağı Yönetmeliği'){ $onekM='Haksız Rekabet ve Reklam Yasağı Yön.' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^Staj Yönetmeliği'){ $onekM='SMMM Staj Yonetmeligi' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^Etik İlkeler Yönetmeliği'){ $onekM='TÜRMOB Etik İlkeler Yön.' }
+      elseif($ham -match '4857|İş K'){ $onekM='İş K. (4857 s.K.)' }
       elseif($ham -match '5510'){ $onekM='5510 s. SGK Kanunu' }
       elseif($ham -match '3568'){ $onekM='SMMM K. (3568 s.K.)' }
       elseif($ham -match '6362|Sermaye Piyasas|SPKn|\bSPK\b'){ $onekM='Sermaye Piyasası K. (6362 s.K.)' }
@@ -1271,8 +1283,12 @@ if($KonuDosya){
 # OKUNARAK yazılmış dayanak verilir (ilk tur: 115 SPK konusu, 6362 başlıkları okundu). Yalnız durum 'MADDE OKUNDU' ve yalnız köprü dayanağı + çıkmış dayanağı
 # ikisi de boşsa; konu dosyasındaki elle dayanak ve köprünün dolu dayanağı korunur. SGS/KGK'da blok hiç koşmaz.
 if($Sinav -eq 'SMMM' -and $adaylar.Count){ $hdYol=Join-Path $kok 'veri\sinav\smmm-konu-dayanak.json'
-  if(Test-Path $hdYol){ $hdHarita=@{}; foreach($hdZ in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)){ if("$($hdZ.durum)" -eq 'MADDE OKUNDU' -and "$($hdZ.dayanak)".Trim()){ $hdHarita[(Katla2 "$($hdZ.konu)")]="$($hdZ.dayanak)".Trim() } }
-    $hdSay=0; $adaylar=@(foreach($a0 in $adaylar){ $kd0=(Katla2 "$($a0.konu)"); if($hdHarita.ContainsKey($kd0) -and -not "$($a0.dayanak)".Trim() -and -not "$($a0.cikmis_dayanak)".Trim()){ $a1=$a0.PSObject.Copy(); $a1.dayanak=$hdHarita[$kd0]; $a1.guc='SMMM KONU-DAYANAK HARITASI (okunmus madde)'; $hdSay++; $a1 } else { $a0 } })
+  # 16.09 (Cem "1.2.3 üçünü de yap", GM 2): okunmuş harita köprünün DOLU dayanağını da ezer. ÖLÇÜLDÜ: köprü Meslek konularını ilgisiz maddeye
+  # bağlamıştı (etik ilkeler ← 3568 m.45 çalışma şekli, disiplin cezaları ← m.50 yönetmelik listesi; ön denemede 8 Meslek konusunun 6'sı İLGİSİZ),
+  # 'kdv''nin konusu' ← ÖTV K. m.1. Elle okunmuş madde kelime aramasıyla kurulmuş bağdan üstündür. 'dayanak2' çıkmış dayanağın yerine geçer.
+  # Konu dosyasındaki elle dayanak (guc 'KONU DOSYASI ...') yine korunur. Eşdeğerlik: köprü dayanağı boş olan eski 88 konu birebir aynı.
+  if(Test-Path $hdYol){ $hdHarita=@{}; foreach($hdZ in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)){ if("$($hdZ.durum)" -eq 'MADDE OKUNDU' -and "$($hdZ.dayanak)".Trim()){ $hdHarita[(Katla2 "$($hdZ.konu)")]=@("$($hdZ.dayanak)".Trim(), "$($hdZ.dayanak2)".Trim()) } }
+    $hdSay=0; $adaylar=@(foreach($a0 in $adaylar){ $kd0=(Katla2 "$($a0.konu)"); if($hdHarita.ContainsKey($kd0) -and "$($a0.guc)" -notlike 'KONU DOSYASI*'){ $a1=$a0.PSObject.Copy(); $hdIki=$hdHarita[$kd0]; $a1.dayanak=$hdIki[0]; $a1.cikmis_dayanak=$(if($hdIki[1]){ $hdIki[1] } elseif(-not "$($a0.dayanak)".Trim() -and -not "$($a0.cikmis_dayanak)".Trim()){ "$($a0.cikmis_dayanak)" } else { '' }); $a1.guc='SMMM KONU-DAYANAK HARITASI (okunmus madde)'; $hdSay++; $a1 } else { $a0 } })
     if($hdSay){ Write-Host "  SMMM konu-dayanak haritası: $hdSay konuya okunmuş dayanak verildi" -ForegroundColor DarkCyan } } }
 $gorulen=@{}; $KONULAR=New-Object System.Collections.Generic.List[object]; $sira=0
 foreach($a in $adaylar){

@@ -87,7 +87,7 @@ else {
   function Write-Host { }   # ayıklanan fonksiyonların ekran çıktısı susturulur
   $hd = @{}
   $hdYol = Join-Path $depoKok 'veri\sinav\smmm-konu-dayanak.json'   # elle okunmuş madde haritası YALNIZ bitirmede var; öteki sınavlarda boş kalır (üretici de öyle davranır)
-  if ($Sinav -eq 'SMMM' -and (Test-Path $hdYol)) { foreach ($z in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'MADDE OKUNDU' -and "$($z.dayanak)".Trim()) { $hd[(Katla2 "$($z.konu)")] = "$($z.dayanak)".Trim() } } }
+  if ($Sinav -eq 'SMMM' -and (Test-Path $hdYol)) { foreach ($z in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'MADDE OKUNDU' -and "$($z.dayanak)".Trim()) { $hd[(Katla2 "$($z.konu)")] = @("$($z.dayanak)".Trim(), "$($z.dayanak2)".Trim()) } } }
   $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq $Sinav -and -not $kopru.ContainsKey((Katla2 $x.konu))) { $kopru[(Katla2 $x.konu)] = $x } }
   # ilgi ölçütünün dolgu kelimeleri: konuyu ayırt etmeyen, her kaynakta geçebilecek sözcükler (katlanmış yazımla)
   $ILGI_DUR = @('icin', 'veya', 'gore', 'olan', 'sartlari', 'sartlar', 'sureleri', 'suresi', 'turleri', 'turu', 'tanimi', 'tanimlari', 'tanimlar', 'kavrami', 'kavram', 'hesabi', 'hesaplama', 'hesaplanmasi', 'kaydi', 'kayit', 'kayitlari', 'uygulamasi', 'uygulama', 'esaslari', 'genel', 'halleri', 'hukumleri', 'ornekleri', 'islemleri', 'islemi', 'yontemi', 'sistemi', 'ttk', 'vuk', 'tbk', 'ozellikleri', 'ozellikler', 'ozellik', 'haklari', 'hakki', 'unsuru', 'unsurlari', 'ile', 'olarak', 'bir', 'her', 'dis', 'ici')
@@ -100,26 +100,27 @@ else {
     $DersRegex = $ders
     $ky = $(if ($kopru.ContainsKey((Katla2 $ad))) { $kopru[(Katla2 $ad)].PSObject.Copy() } else { [pscustomobject]@{ sinav = $Sinav; konu = $ad; bizim_ders = ''; arsiv_ders = ''; dayanak = ''; cikmis_dayanak = ''; guc = ''; donem = 1 } })
     $kopruVar = $kopru.ContainsKey((Katla2 $ad))
-    if ($hd.ContainsKey((Katla2 $ad)) -and -not "$($ky.dayanak)".Trim() -and -not "$($ky.cikmis_dayanak)".Trim()) { $ky.dayanak = $hd[(Katla2 $ad)]; $ky.guc = 'SMMM KONU-DAYANAK HARITASI (okunmus madde)' }
+    # 16.09: üreticiyle aynı — okunmuş harita köprünün dolu dayanağını da ezer, 'dayanak2' çıkmış dayanağın yerine geçer (motor/kalip-parti-uret.ps1)
+    if ($hd.ContainsKey((Katla2 $ad))) { $hdIki = $hd[(Katla2 $ad)]; $ky.dayanak = $hdIki[0]; $ky.cikmis_dayanak = $hdIki[1]; $ky.guc = 'SMMM KONU-DAYANAK HARITASI (okunmus madde)' }
     $paket = ''; $adlar = @(); $hata = ''; $desen = @()
     try { $desen = @(DesenUret $ky); $script:AMBAR_AG_HATASI = $null; $amb = AmbarCek $desen; $paket = "$($amb.metin)"; $adlar = @($amb.adlar); if ($amb.agHatasi) { $hata = 'AG' } }
     catch { $hata = "HATA: $($_.Exception.Message)" }
     # 16.09 İLGİ ÖLÇÜTÜ (Cem "1.2.3 üçünü de yap", GM 1; ölçüt SGS oturumu 92 ile ortak): boy tek başına yalan söylüyordu —
     # "otv ilk iktisap" paketi 16.715 kr klasik iktisat notuydu, "cari oran" TMS 2 (stoklar), "idari yargi sureleri" TTK maddeleri; hepsi GÜÇLÜ yazılıyordu.
     # Paket bloklara ayrılır ("[ad] metin", "---" ile birleşik); blok, konu köklerini BAŞLIĞINDA ya da metninin İLK 400 karakterinde taşıyorsa ilgilidir.
-    # Kök = anlamlı kelimenin (≥3 harf: çek, KDV, SPK kök sayılır) ilk 5 harfi (katlanmış), yalnız kelime başında eşleşir ('cek' 'gercek'te sayılmaz). En çok 2 kök varsa hepsi, daha çoksa yarısı (yukarı yuvarlanır) geçmeli. Durum İLGİLİ boydan çıkar.
+    # Kök = anlamlı kelimenin (≥3 harf: çek, KDV, SPK kök sayılır) ilk 5 harfi (katlanmış), yalnız kelime başında eşleşir ('cek' 'gercek'te sayılmaz). En çok 3 kök varsa hepsi, daha çoksa en az 3 kök geçmeli. Durum İLGİLİ boydan çıkar.
     $kokler = @((IlgiKatla $ad) -split '[^a-z0-9]+' | Where-Object { $_.Length -ge 3 -and $ILGI_DUR -notcontains $_ } | ForEach-Object { $_.Substring(0, [math]::Min(5, $_.Length)) } | Select-Object -Unique)
-    $gerek = $(if ($kokler.Count -le 2) { $kokler.Count } else { [math]::Ceiling($kokler.Count / 2) })
-    $ilgiliBoy = 0; $ilgiliSay = 0; $ilgisizAd = New-Object System.Collections.Generic.List[string]
+    $gerek = [math]::Min($kokler.Count, 3)   # 16.09 sıkılaştı: "yarısı" kuralı genel köklerle (bolge, gorev, serma, vergi) yanlış GÜÇLÜ veriyordu — "bölge idare mahkemesi görevleri" TTK maddeleriyle geçmişti
+    $ilgiliBoy = 0; $ilgiliSay = 0; $ilgisizAd = New-Object System.Collections.Generic.List[string]; $ilgiliAd = New-Object System.Collections.Generic.List[string]
     foreach ($blok in @($paket -split "`n---`n")) {
       if (-not $blok) { continue }
       $bas = IlgiKatla ($blok.Substring(0, [math]::Min($blok.Length, 400 + ($blok.IndexOf(']') + 1))))
       $tut = @($kokler | Where-Object { $bas -match ('(?<![a-z0-9])' + [regex]::Escape($_)) }).Count   # yalnız KELİME BAŞINDA: 'cek' 'gercek'te sayılmaz (16.09 ölçüldü)
-      if ($kokler.Count -eq 0 -or $tut -ge $gerek) { $ilgiliBoy += $blok.Length; $ilgiliSay++ }
+      if ($kokler.Count -eq 0 -or $tut -ge $gerek) { $ilgiliBoy += $blok.Length; $ilgiliSay++; if ($blok -match '^\[([^\]]+)\]') { $ilgiliAd.Add($matches[1]) } }
       elseif ($blok -match '^\[([^\]]+)\]') { $ilgisizAd.Add($matches[1]) }
     }
     $durum = $(if ($hata -eq 'AG') { 'OLCULEMEDI-AG' } elseif ($hata) { 'OLCULEMEDI' } elseif ($paket.Length -lt 300) { 'KAYNAK YOK' } elseif ($ilgiliBoy -ge 1000) { 'GUCLU' } elseif ($ilgiliBoy -ge 300) { 'ZAYIF' } else { 'ILGISIZ' })
-    $kayit = [ordered]@{ ders = $ders; konu = $ad; soru = [int]$konuSay[$anahtar]; durum = $durum; paketBoy = $paket.Length; ilgiliBoy = $ilgiliBoy; ilgiliKaynak = $ilgiliSay; kokler = ($kokler -join ' '); ilgisizKaynak = (@($ilgisizAd | Select-Object -First 4) -join ' ; '); kaynakSayi = $adlar.Count
+    $kayit = [ordered]@{ ders = $ders; konu = $ad; soru = [int]$konuSay[$anahtar]; durum = $durum; paketBoy = $paket.Length; ilgiliBoy = $ilgiliBoy; ilgiliKaynak = $ilgiliSay; kokler = ($kokler -join ' '); ilgisizKaynak = (@($ilgisizAd | Select-Object -First 4) -join ' ; '); ilgiliKaynakAd = (@($ilgiliAd | Select-Object -First 4) -join ' ; '); kaynakSayi = $adlar.Count
       kopruKaydi = $kopruVar; dayanak = "$($ky.dayanak)"; cikmisDayanak = "$($ky.cikmis_dayanak)"; desenSayi = $desen.Count
       ilkDesen = (@($desen | Select-Object -First 3) -join ' ; '); kaynaklar = (@($adlar | Select-Object -First 3) -join ' ; ') }
     $sonuc.Add([pscustomobject]$kayit)
@@ -145,7 +146,7 @@ foreach ($g in @($sonucDizi | Group-Object ders | Sort-Object Name)) {
   $y = @($g.Group | Where-Object { $_.durum -eq 'KAYNAK YOK' }); $z = @($g.Group | Where-Object { $_.durum -eq 'ZAYIF' }); $gu = @($g.Group | Where-Object { $_.durum -eq 'GUCLU' }); $ilg = @($g.Group | Where-Object { $_.durum -eq 'ILGISIZ' })
   "  {0,-46} güçlü {1,4} · zayıf {2,3} · İLGİSİZ {5,3} · KAYNAK YOK {3,3} ({4} soru)" -f $g.Name.Substring(0, [math]::Min(46, $g.Name.Length)), $gu.Count, $z.Count, $y.Count, (($y | Measure-Object soru -Sum).Sum), $ilg.Count
 }
-if ($Yaz) {
+if ($Yaz -or ($Cikti -and -not $Ic)) {   # 16.09 (92 bildirdi): -Cikti tek başına verilince dosya YAZILMIYORDU; -Cikti yazma isteğidir
   . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
   $hedefYol = $(if ($Cikti -and -not $Ic) { $Cikti } else { Join-Path $depoKok "veri\sinav\$($Sinav.ToLowerInvariant())-kaynak-olcumu.json" })
   # 16.09 ÖLÇÜLDÜ: dar bir planı ölçmek kütüğü BUDUYORDU — 2.095 konuluk dosya 880'e düştü ve içinde plan süzgecinin dayandığı

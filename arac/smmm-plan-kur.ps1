@@ -79,7 +79,7 @@ if ($KaynakSuzgeci -ne 0 -and $env:SMMM_KANUN_KAPISI -ne '0') {   # ortam deği�
     $x = $kbD[(Katla $h.konu)]; $kd = $(if ("$($x.dayanak)".Trim()) { "$($x.dayanak)" } else { "$($x.cikmis_dayanak)" })
     if ($kd.Trim() -and (KanunNo $kd) -ne (KanunNo "$($h.dayanak)")) {
       $kanunUyusmaz++
-      foreach ($rd in @($grupOf.Keys | Where-Object { $_.EndsWith("|$(Katla $h.konu)") })) { $kaynakYok[$rd] = 1 }
+      # 16.09 ikinci karar: üretici okunmuş haritayı artık köprünün önüne koyuyor (kalip-parti-uret.ps1), uyuşmaz konu doğru kanunla basılır → plandan DÜŞÜRÜLMEZ, yalnız sayılır.
     }
   }
 }
