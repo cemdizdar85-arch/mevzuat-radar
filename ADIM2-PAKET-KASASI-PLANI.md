@@ -62,3 +62,34 @@ Depo / GitHub Pages: yalnız sayfa KABUĞU (soru yok) + kimlik dosyaları (sıra
    hemen önce Cem'e **bir kez daha** "şimdi basıyorum" diye sorulur — onay tarihi ile basım günü arasında robot/oturum durumu değişmiş olabilir.
 Uygulama **site kolunun** işidir (sınav oturumu site dosyasına dokunmaz). Site oturumu açıldığında bu bölümden başlar.
 Ek bilgi (16.09 ölçümü): depoyu gizli yapmak ≈300–450 USD/ay (30 günde ~49k Linux + ~3,1k Windows dakika) + Pages için ücretli plan → **önerilmedi**; açık içerik sorununu bu plan çözer.
+
+---
+
+## 6. 16.09.2026 — Cem "depoda soru içeriği kalmasın, 1.2.3 üçünü de yap" (site oturumu 3c)
+
+**Kapsam genişledi:** yalnız satılan sayfalar değil, sınav çalışma dosyaları da açık depodan çıkar.
+Depo ölçümü 16.09 (origin/main): Kaydır-Çöz 19 dosya / 57,6 MB · deneme + seviye 12 / 1,6 MB ·
+plan + konu 2.171 / 1,9 MB · teori notu adlı 64 / 1,2 MB · çıkmış + diğer `veri/sinav` 122 / 10,5 MB · kod 2.008 / 38,3 MB.
+Fork 0 · 14 günde klon 30.531 (1.458 tekil; çoğu kendi robotlarımız, ayrılamıyor) · görüntüleme 51 (6 tekil).
+**Kod açık kalır** (gizlemek ≈300–450 USD/ay); içerik çıkar.
+
+### 6.1 Yol A — satılan sorular Supabase'e (bu belgenin 1–7. adımları)
+- SQL son hâli: `radar-app/sql/2026-09-16-paket-soru.sql` (taslak eskidi). ⏳ Cem onayıyla, düşük trafikte basılır.
+- **Pilot:** kasa modu önce **Türkçe (77 soru)** sayfasında açılır, bir gün izlenir, sonra 15 derse yayılır.
+- Vitrin (`kaydir/vitrin/sgs.html`, Cem 31.07 onaylı ücretsiz örnek) gömülü kalır — bilinçli açık.
+
+### 6.2 Yol B — sınav çalışma dosyaları gizli depoya
+- Depo kuruldu: **`cemdizdar85-arch/tetikte-kasa` (PRIVATE, 16.09)**. İçinde Actions KOŞMAZ → bedel 0.
+- Taşımayı **sınav kolu** yapar (92 kabul etti, 16.09). Taşınacak: `veri/sinav/plan-*`, `veri/sinav/konu/`,
+  `veri/mevzuat/teori-notlari-*.json`, çıkmış soru dosyaları, `veri/deneme/` soru gövdeleri, `veri/seviye/sgs-havuz.json` (Yol A bitince).
+- **92'nin üç şartı:** (1) `motor/kalip-kosucu.ps1` plan/konu yolunu gizli depo klasöründen de çözer;
+  (2) teori notunu okuyan robotlar (mevzuat-yukle) yeni yeri bilir; (3) açık depodaki kopyalar **koşan bulut işleri bittikten sonra** silinir.
+- 🔴 **CEM ADIMI (oturumlar anahtar üretmez, görmez):** GitHub → Settings → Developer settings → Fine-grained tokens →
+  *Generate new token* · Repository access: **Only select repositories → tetikte-kasa** · Permissions: **Contents: Read-only** · süre 1 yıl.
+  Sonra mevzuat-radar → Settings → Secrets and variables → Actions → *New repository secret* · ad: **`KASA_OKUMA_TOKEN`**.
+  Bulut işi `actions/checkout` ile `repository: cemdizdar85-arch/tetikte-kasa`, `token: ${{ secrets.KASA_OKUMA_TOKEN }}`, `path: _kasa` okur.
+  Gizli depoya YAZAN iş gerekirse ayrı, yazma yetkili ikinci anahtar — şimdilik yok.
+
+### 6.3 Geçmiş temizliği (8. adım)
+- Yol A pilotu + 15 ders kasa modunda **en az bir gün sorunsuz** koştuktan ve Yol B taşıması bittikten sonraki bir akşam.
+- Zorla gönderimden hemen önce Cem'e bir kez daha sorulur (16.09 kararı geçerli).
