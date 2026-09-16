@@ -338,6 +338,26 @@
   .disclaimer{max-width:1180px;margin:14px auto 0;font-size:11px;color:var(--dim);line-height:1.6}
 
   /* ---------- NEDEN GÜVENİLİR ---------- */
+  /* BİZ KİMİZ (16.09.2026, Cem "biz kimiz diye bir yer yapsak"): şirket bilgisi güven bölümünün
+     EN ALTINDA, en küçük yazıdaydı - sitenin en güven veren cümlesi en görünmez yerdeydi. Yukarı alındı.
+     Rakamlar sicil belgelerinden (23.07.2026'da PDF'ler okundu): MERSİS · ticaret sicil · unvan. */
+  /* ⚠ #guven KOYU BANT: stil-acik.css orada --ink/--muted/--line jetonlarını açık renge çevirir ama
+     --panel/--panel2 BEYAZ kalır. İlk denemede zemin var(--panel)=beyaz + yazı var(--ink)=beyaz oldu,
+     kutu görünmez çıktı (tarayıcıda ölçüldü: bRenk rgb(255,255,255)). Bu yüzden yüzey jetondan
+     TÜRETİLİYOR: ink'in saydam payı. Hem koyu bantta hem koyu temada doğru çalışır. */
+  .bizkim{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:start;
+    background:color-mix(in srgb,var(--ink) 6%,transparent);border:1px solid var(--line2);
+    border-radius:16px;padding:22px 24px;margin:0 0 22px}
+  .bizkim h3{font-size:20px;margin:0 0 8px}
+  .bizkim p{font-size:14.5px;line-height:1.65;color:var(--muted);margin:0 0 10px}
+  .bizkim p b{color:var(--ink)}
+  .bizkim .bk-soz{font-size:15px;line-height:1.6;color:var(--ink);border-left:2px solid var(--amber);padding-left:12px;margin:12px 0 0}
+  .bizkim .bk-kunye{font-size:13px;line-height:1.85;color:var(--dim);
+    background:color-mix(in srgb,var(--ink) 5%,transparent);
+    border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .bizkim .bk-kunye b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:4px}
+  .bizkim .bk-kunye a{color:var(--amber);font-weight:700;text-decoration:none}
+  @media(max-width:760px){ .bizkim{grid-template-columns:1fr;padding:18px} }
   .guven-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:760px){.guven-grid{grid-template-columns:1fr}}
   .gk{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
@@ -692,7 +712,12 @@ window.veriAl = (function(){
         --ink:#f2f4f8; --muted:#aab3c0; --dim:#78828f; --panel:#141820; --line:#262b35; --bz-gece:#0a0b0e;
         max-width:none;width:auto;box-sizing:border-box;margin:0 calc(50% - 50vw);background:var(--bz-gece);
         padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%)}
-      .hero-sade .bz-nobet{padding-top:6px;padding-bottom:52px}
+      .hero-sade .bz-nobet{padding-top:6px;padding-bottom:52px;position:relative}
+      /* 16.09 Cem: "yukarısı ile aşağısı tutmuyor, renk olarak". Ölçüldü: bant #0a0b0e (koyu),
+         hemen altındaki "Nasıl çalışır" bölümü sayfanın açık zemininde (#fbfaf8) - araya keskin bir
+         dikiş çizgisi giriyordu. Koyu bant korunur (sınav nöbeti hissi), geçiş 72 px'de eritilir. */
+      .hero-sade .bz-nobet:after{content:"";position:absolute;left:0;right:0;bottom:0;height:72px;
+        pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg))}
       .hero-sade .bz-nobet .nd-dip{background:transparent;padding:0;margin-top:10px}
       .hero-sade .kanit{padding-top:34px;padding-bottom:56px;border-top:1px solid var(--line)}
 
@@ -1036,9 +1061,13 @@ window.veriAl = (function(){
         <div class="na"><span class="na-no">3</span><b>Nöbetçi anlatsın</b><p>Çözüm adım adım açılır; takıldığın adımda durur, geri dönersin.</p></div>
         <div class="na"><span class="na-no">4</span><b>Unutma</b><p>Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar.</p></div>
       </div>
-      <p class="nasil-kanit">Bugüne kadar <b id="knKasa">30.569</b> soru üretildi; hakem, bağımsız çözüm ve kaynak kapılarından geçenler yayına çıkar ·
-        <b id="knDers">31 ders</b>, üç sınav (Staja Giriş · Yeterlilik · Bağımsız Denetçilik) · son ölçüm <span id="knTarih">03.09.2026</span> ·
-        <a href="sorular.html">Sınavını seç →</a></p>
+      <!-- 16.09 Cem: "yukarıda bilgi vermişiz, bir daha bilgi vermeye gerek var mı?" - HAYIR.
+           Kanıt şeridi iki rakamı yan yana koyuyordu: sınav bandı "3.678 çözümlü soru bugün açık",
+           bu satır "bugüne kadar 30.569 soru üretildi". İkisi farklı şeyi sayıyor (yayındaki ≠ üretilen),
+           ziyaretçi ikisini kıyaslayınca çelişki sanıyor. Ziyaretçiyi ilgilendiren, önünde AÇIK olan sorudur;
+           üretim rakamı iç ölçümümüzdür (veri/SINAV-TEK-SAYFA.md). Satır kaldırıldı, yönlendirme kaldı.
+           knKasa/knDers/knTarih kimlikleri de bu satırla gitti; kanıt betiği artık yoksa atlıyor. -->
+      <p class="nasil-kanit"><a href="sorular.html">Sınavını seç →</a></p>
       <!-- 13.09 (Cem "1.2.3 yap"): öğrenci fiyatı ana sayfada hiç yoktu. Rakam ELLE YAZILMAZ: fiyat-motoru.js
            (FIYAT.sgs / KOTA.sgs / SURE_GUN) okunur; Cem'in planladığı zam motora girince burası kendiliğinden değişir.
            Yalnız Staja Giriş fiyatı yazılır: Yeterlilik ve Bağımsız Denetçilik soru sayfaları henüz "Hazırlanıyor". -->
@@ -1256,20 +1285,19 @@ window.veriAl = (function(){
         .then(function(y){ return y.ok ? y.json() : null; })
         .then(function(d){
           if(!d) return;
+          /* 16.09: kanıt satırı kaldırıldı (knKasa/knDers/knTarih artık sayfada YOK) ->
+             her yazma kimliği kontrol eder; eksik kimlik betiği durdurmaz (knCikmis yazılmaya devam eder). */
+          var yaz = function(id, deger){ var e = document.getElementById(id); if(e && deger) e.textContent = deger; };
           var oz = d.sinav_ozet || [], kasa = 0, ders = 0;
           oz.forEach(function(s){ kasa += +s.kasa || 0; ders += +s.ders || 0; });
-          if(kasa > 0) document.getElementById('knKasa').textContent = tr(kasa);
-          /* 04.09: sınav sayısı yazılmıyor - altındaki satır dört sınavı
-             sayıyor (SPK dahil), sinav_ozet üçü; SPL girince ders sayısı
-             kendiliğinden büyür, çelişki çıkmaz. */
-          if(ders > 0) document.getElementById('knDers').textContent = ders + ' ders';
+          if(kasa > 0) yaz('knKasa', tr(kasa));
+          if(ders > 0) yaz('knDers', ders + ' ders');
           var ar = (d.cikmis && d.cikmis.arsiv) || [], cik = 0;
           ar.forEach(function(a){ cik += +a.soru || 0; });
-          if(cik > 0) document.getElementById('knCikmis').textContent = tr(cik);
-          var o = String(d.olcum || '').split(' ')[0];
-          if(o) document.getElementById('knTarih').textContent = o;
+          if(cik > 0) yaz('knCikmis', tr(cik));
+          yaz('knTarih', String(d.olcum || '').split(' ')[0]);
         })
-        .catch(function(){ Tazelik.dusme('knTarih', 'tazelenemedi'); });
+        .catch(function(){ Tazelik.dusme('knCikmis', 'tazelenemedi'); });
       }});
     })();
     </script>
@@ -1813,6 +1841,24 @@ window.veriAl = (function(){
       <h2>Neden bize güvenebilirsin?</h2>
       <p>Mevzuatta yanlış bilgi; ödenen fazla vergi, kesilen ceza demektir. Bu yüzden tek kuralımız var: her şey resmî kaynaktan, madde madde.</p>
     </div>
+    <div class="bizkim reveal">
+      <div>
+        <h3>Biz kimiz?</h3>
+        <p>Tetikte'yi İzmir'de kurulu bir anonim şirket yapıyor: <b>Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</b>
+        Kurucusu <b>Cem Dizdar</b>. Şirket vergi, iç denetim, ERP mimarisi ve finansal yazılım alanında çalışıyor.</p>
+        <p>Tetikte bu işin içinden çıktı: mevzuat değişikliğini kaçırmamak ve "bu soruda neden yanlış yaptım?"
+        sorusunu maddesiyle birlikte cevaplamak için. Kâğıt üstünde kalan bir vaat değil, her gün çalışan bir nöbet.</p>
+        <p class="bk-soz">Herkesin bir hocası var; senin bir nöbetçin var.</p>
+      </div>
+      <div class="bk-kunye">
+        <b>Künye</b>
+        Dizdar Denetim Danışmanlık ve Yazılım A.Ş.<br>
+        MERSİS 0301130343200001<br>
+        Ticaret Sicil No 270764 · İzmir<br>
+        Alsancak Mah. Atatürk Cad. No:378/B · Konak/İzmir<br>
+        <a href="iletisim.html">İletişim ve tam künye →</a>
+      </div>
+    </div>
     <div class="guven-grid">
       <!-- ⭐ 13.09.2026 SÖZ DENETİMİ (Cem: "vitrindeki her söz kanıtlı olsun"). Altı kart kodla/veriyle ölçüldü:
            1 "Her oran doğrudan resmî metinden"  -> mutlak ifade ölçülemez; kaynak listesi doğru, "her" kalktı.
@@ -1845,18 +1891,26 @@ window.veriAl = (function(){
       <div class="gk reveal">
         <h3>Verin nerede, açıkça</h3>
         <p>Hesap araçlarına girdiğin rakamlar tarayıcında hesaplanır. Bir formu gönderdiğinde ya da radara firma eklediğinde bilgi sunucumuza gelir; üyelik verisi satır düzeyinde kilitlidir, başka üye senin kaydını göremez.</p>
+        <!-- 16.09: seviye testi sonucu artık e-posta/telefon kapısının arkasında; ne aldığımızı burada da yazıyoruz. -->
+        <p>Seviye testinde karneni gönderebilmek için e-posta adresini, istersen telefonunu alırız. Duyuru ve arama izni <b>ayrı ve isteğe bağlı</b> bir kutudadır; işaretlemezsen yalnız karnen gider.</p>
       </div>
       <div class="gk reveal">
         <h3>Söze değil tarihe bak</h3>
         <p>Sorular yayına çıkmadan bağımsız hakem denetiminden geçer; şüpheye düşen soru yayına alınmaz. Güncel olduğunu söyleyen kutularda tazelik damgası görürsün: verinin ne zaman okunduğu yazar.</p>
+        <!-- 16.09: hata bildirimi 13.09'da form kapısına bağlandı (kaydir-coz: kasaya yazılır + bize e-posta düşer).
+             13.09 söz denetiminde "yalnız tarayıcıda kalıyor" diye kaldırılan söz, artık kodla karşılanıyor. -->
+        <p>Soruda hata görürsen "hata bildir" dersin: bildirimin doğrudan bize düşer, kasaya kaydedilir ve e-postayla ekibe gider.</p>
       </div>
     </div>
     <div class="kaynak-bar reveal">
       <span>Beslendiğimiz resmî kaynaklar:</span>
-      <b>Resmî Gazete</b><b>GİB</b><b>Kamu İhale Kurumu</b><b>TÜRKPATENT</b><b>TCMB</b><b>Basın İlan Kurumu</b>
+      <!-- 16.09: sınav tarafının iki ana kaynağı listede yoktu; harç/ücret rakamları TESMER'in kendi
+           tarifesinden, denetim standartları KGK'nın kendi metinlerinden okunuyor. -->
+      <b>Resmî Gazete</b><b>GİB</b><b>TESMER</b><b>KGK</b><b>Kamu İhale Kurumu</b><b>TÜRKPATENT</b><b>TCMB</b><b>Basın İlan Kurumu</b>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:26px;font-size:14px;color:var(--muted)">
-      Tetikte, kurumsal bir anonim şirket olan <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:700;text-decoration:none">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</a>'nin bir yazılımıdır: vergi, iç denetim, ERP mimarisi ve finansal yazılımda uzman.</p>
+    <!-- 16.09: buradaki şirket cümlesi bölümün BAŞINDAKİ "Biz kimiz" kutusuna taşındı; iki kez yazılmıyor. -->
+    <p class="reveal" style="text-align:center;margin-top:26px;font-size:13.5px;color:var(--dim)">
+      Şirketin kendi sitesi: <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:700;text-decoration:none">dizdardenetim.com</a></p>
   </div>
 </section>
 
