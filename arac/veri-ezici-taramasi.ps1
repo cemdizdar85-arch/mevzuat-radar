@@ -64,12 +64,12 @@ foreach($yol in $izlenen){
   $yaprak = Split-Path $yol -Leaf
   if(-not $yazarlar.ContainsKey($yaprak)){ continue }
   $tamYol = Join-Path $depoKok $yol
-  if(-not (Test-Path $tamYol) -or (Get-Item $tamYol).Length -gt 30MB){ continue }
+  if(-not (Test-Path -LiteralPath $tamYol) -or (Get-Item -LiteralPath $tamYol -Force).Length -gt 30MB){ continue }   # -Force: Linux'ta nokta ile başlayan dosya gizlidir (.kaynak-hash.json)
   $yolDuz = ($yol -replace '\\','/')
   $betikListesi = @($yazarlar[$yaprak] | Where-Object { -not $_.iz -or $yolDuz.EndsWith($_.iz.TrimStart('.','/')) } | ForEach-Object { $_.betik } | Select-Object -Unique)
   if(-not $betikListesi.Count){ continue }
   if($betikListesi.Count -gt 1){ $cokYazarli.Add([ordered]@{ dosya=$yol; yazarlar=$betikListesi }) }
-  try { $icerik = Get-Content $tamYol -Raw -Encoding UTF8 | ConvertFrom-Json } catch { continue }
+  try { $icerik = Get-Content -LiteralPath $tamYol -Raw -Encoding UTF8 -Force | ConvertFrom-Json } catch { continue }
   if($null -eq $icerik -or $icerik -is [array] -or $icerik -isnot [pscustomobject]){ continue }
   $alanlar = @($icerik.PSObject.Properties.Name)
   if(-not $alanlar.Count){ continue }
