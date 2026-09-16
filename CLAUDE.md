@@ -180,6 +180,18 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   anlık yola düşme yok. `motor/kalip-kosucu.ps1` yerelde **durur** (`MEVZUAT_YEREL_BASIM='<gerekçe>'` ile bilerek açılır — yalnız
   hazır-soru dosyası gibi bu makineye bağlı işler için). Neden: 16.09'da yerel koşular 65 süreç, 281 MB boş RAM, paralellik 1 üretti.
   Yerelde kalan tek iş: planı kurmak, küçük onarım (`kalip-parti-uret.ps1 -PilotId`), ölçüm.
+- ⛔⭐ **BULUT GÜVENLİĞİ — "bulut güvenli, kimse sızamaz" DENMEZ** (16.09.2026, Cem: *"güvenlik kısmını kural olarak yaz"*).
+  Ölçülmüş gerçek (16.09): depo **PUBLIC**; Actions iş günlükleri herkese açık. 13.09 bulut koşusunun günlüğünde soru metni **yok**,
+  sırlar `***` ile maskeli. Ama depoda plan/konu dosyaları, `veri/mevzuat/teori-notlari-*.json` ve (14.09 ölçümü) 7.043 SGS sorusu taşıyan
+  dosyalar **herkese açık** durur. Kurallar:
+  1. **Sır yalnız GitHub Secrets / kullanıcı ortam değişkeninde.** Koda, plana, günlüğe, commit mesajına anahtar yazılmaz; sır `echo`/`Write-Host` edilmez.
+  2. **Bulut işinin ekran çıktısına (stdout) soru metni, şık, cevap, açıklama, kaynak paketi basılmaz.** Yalnız sayı, etiket, bedel. Yeni bir
+     bulut adımı eklerken bu kural günlükte ölçülür (`gh run view <id> --log` taranır).
+  3. **Bulut işi artifact yüklemez** (`motor/artifact-nobeti.ps1` `.enc` dışını kırmızı sayar). Parti içeriği yalnız ambara (Supabase,
+     servis anahtarı, RLS açık + politika yok) yazılır.
+  4. **Müşteri verisi (alacak, fiş, evrak, kişi verisi) buluta/Actions'a/açık depoya GİRMEZ** — kurumsal güvenli servis kuralı her şeyin üstünde.
+  5. **Depoya yeni soru içeriği commit'lenmez**; soru ve cevap ambarda durur. Depoda duran açık içerik ayrı iş emri (paket kasası, `ADIM2-PAKET-KASASI-PLANI.md`).
+  6. Güvenlik iddiası **ölçümle** yazılır: "sızmaz" değil, "şu günlükte/şu dosyada şu yok (tarih)" denir. Ölçülmemişse "ölçülmedi".
 
 - ⭐ **Sınavla ilgili "var mı / kaç / eksik ne" sorusunun TEK cevabı `veri/SINAV-TEK-SAYFA.md`** (02.09.2026, Cem: "tek yerden, hızlı, güvenilir, kaybolmadan"). 7 bölüm = Cem'in 7 sorusu: dersler · çıkmış sorular · yeterli miyiz · ambar · kaynak sağlığı · yutulmayan mevzuat · basılacaklar. Üretici `motor/sinav-tek-sayfa.ps1`, robot `sinav-tek-sayfa.yml` (her sabah 08:30 TR). Elle düzenlenmez; **⚠ işaretli satır = girdisi bayat/kırık, o sayı "ölçülmedi"dir** — önce bölüm 5'teki girdi tazelenir. Hafızadan sınav rakamı YAZILMAZ, bu sayfadan okunur.
 - ⛔⭐ **RET KÜTÜĞÜ — üretim/hasat turu bitince, istisnasız** (11.09.2026, Cem: *"retleri topla ama bir daha karşılaşmayacak şekilde kurumsal olarak kâğıda dök"*). Tur biter bitmez `powershell -NoProfile -File arac/ret-kutugu.ps1` koşar (bedel 0) → `veri/RET-KUTUGU.md`. **Ret nedenleri okunmadan yeni tur başlatılmaz.** Bir kök neden sınıfı ilk üçe giriyorsa önce ona kapı kurulur — kapısız tekrar üretim aynı parayı ikinci kez yakar. **İlk ölçüm (11.09): 1.288 retin %56,6'sı soruyla değil KAYNAK PAKETİYLE ilgiliydi** (paket cevabı destekleyen hükmü taşımıyor ya da ortadan kesik). Şartname: `SORU-BASMA-KURALLARI.md` bölüm G.
