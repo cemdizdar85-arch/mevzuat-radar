@@ -712,6 +712,20 @@ function DesenUret($kayit){
       elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS' -or $Sinav -eq 'KGK') -and $ham -match '\b5520\b'){ $onekM='KVK (5520 s.K.)' }
       elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS' -or $Sinav -eq 'KGK') -and $ham -match '\b4760\b|Ö?TV K\.'){ $onekM='ÖTV K. (4760 s.K.)' }
       elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS' -or $Sinav -eq 'KGK') -and $ham -match '\b6769\b'){ $onekM='SMK (6769 s.K.)' }
+      # 16.09 YALNIZ BİTİRME (Cem "1.2.3 üçünü de yapalım", Hukuk/Vergi okunmuş haritası): harita dayanağı "<no> sayılı <Kanun adı> m.N" biçiminde yazar;
+      # bu kanunların zincirde öneki yoktu. Yalnız SATIR BAŞINDA "<no> sayılı" ile tetiklenir (m.193 gibi madde numarasıyla karışmaz).
+      # Ambar adları 16.09'da ölçüldü: İYUK (2577 s.K.) · İİK (2004 s.K.) · TMK (4721 s.K.) · Anayasa (2709) · GVK (193 s.K.) · VUK (213 s.K.) ·
+      # Emlak V.K. (1319 s.K.) · MTV K. (197 s.K.) · Dijital Hizmet V.K. (7194 s.K.) · BİM-İdare-Vergi Mahk. K. (2576 s.K.)
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^2577 sayılı'){ $onekM='İYUK (2577 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^2004 sayılı'){ $onekM='İİK (2004 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^4721 sayılı'){ $onekM='TMK (4721 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^2709 sayılı'){ $onekM='Anayasa (2709)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^193 sayılı'){ $onekM='GVK (193 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^213 sayılı'){ $onekM='VUK (213 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^1319 sayılı'){ $onekM='Emlak V.K. (1319 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^197 sayılı'){ $onekM='MTV K. (197 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^7194 sayılı'){ $onekM='Dijital Hizmet V.K. (7194 s.K.)' }
+      elseif($Sinav -eq 'SMMM' -and $ham -match '^2576 sayılı'){ $onekM='BİM-İdare-Vergi Mahk. K. (2576 s.K.)' }
       # 14.09 yalnız bitirme: 6362'de ek maddeler 'm.61/A' (gayrimenkul sertifikası), 'm.35/A' (kitle fonlama) diye adlanır; eski desen /A'yı atıp m.61'i (kira sertifikası) çekiyordu
       if($onekM){ foreach($m in [regex]::Matches($ham,$(if($Sinav -eq 'SMMM'){ '\bm(?:adde)?\.?\s*(\d+(?:/[A-Z])?)' } else { '\bm(?:adde)?\.?\s*(\d+)' }))){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
