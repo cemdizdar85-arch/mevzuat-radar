@@ -97,7 +97,7 @@ else {
   $i = 0
   foreach ($anahtar in $hedefler) {
     $i++; if ($i -le $Bastan) { continue }; if ($Bitis -gt 0 -and $i -gt $Bitis) { break }
-    $parcali = $anahtar -split '\|', 2; $ders = $parcali[0]; $ad = $parcali[1]
+    $bol = $anahtar.LastIndexOf('|'); $ders = $anahtar.Substring(0, $bol); $ad = $anahtar.Substring($bol + 1)   # 16.09 (92 bildirdi): ders regexi 'A|B' olabilir → SON '|'tan böl; konu adında '|' yok
     $DersRegex = $ders
     $ky = $(if ($kopru.ContainsKey((Katla2 $ad))) { $kopru[(Katla2 $ad)].PSObject.Copy() } else { [pscustomobject]@{ sinav = $Sinav; konu = $ad; bizim_ders = ''; arsiv_ders = ''; dayanak = ''; cikmis_dayanak = ''; guc = ''; donem = 1 } })
     $kopruVar = $kopru.ContainsKey((Katla2 $ad))
