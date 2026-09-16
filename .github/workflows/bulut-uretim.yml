@@ -243,6 +243,22 @@ jobs:
           # 16.09: bu koşuda gonderilen toplu parti kimlikleri ambara (sonraki halka bunlari hasat eder / bekler)
           ./arac/bekleyen-senkron.ps1 -Yukle
 
+      # 16.09 Cem "basilan bitirme sorulari dogrudan kilitli kasaya gitsin" (GM onerisi 1): SMMM plani bitince (halka yarim
+      # kalsa da) yayin sartindan + ret kutugunden + ikiz suzgecinden gecen bitirme sorulari paket_soru'ya (sinav=smmm) yazilir.
+      # Sayfa runner'da sql-yerel/ altinda kurulur ve silinir; depoya/artifact'a icerik GITMEZ; ekrana yalniz sayi basilir.
+      # Idempotent: ayni soru yeniden yazilir (upsert), yayindan dusen soru kasadan silinir. SGS planinda bu adim KOSMAZ.
+      - name: Bitirme sorularini kilitli kasaya yaz (yalniz SMMM plani)
+        if: always() && !cancelled() && env.PLAN_SINAVI == 'SMMM'
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $ErrorActionPreference = 'Continue'   # alt surecin stderr satiri adimi dusurmesin; cikis kodu asagida okunur
+          & powershell -NoProfile -File ./arac/smmm-kasa-yayin.ps1 -Yaz
+          $kod = $LASTEXITCODE
+          "kasa yayini cikis kodu: $kod"
+          if($kod){ "::error::bitirme kasa yayini dustu ($kod) - sorular ambarda duruyor, adim elle yeniden kosulabilir: powershell -File arac/smmm-kasa-yayin.ps1 -Yaz"; exit $kod }
+
       - name: Toplu kuyruk bitmediyse ayni plani yeniden tetikle
         if: always() && !cancelled()
         shell: powershell

@@ -26,6 +26,7 @@ param(
   [switch]$Indir,
   [switch]$Yukle,
   [string]$Etiket = '',            # yalniz bu parti (bos = hepsi)
+  [string]$OnEk = '',              # 16.09: yalniz bu onekle baslayan partiler (or. 'smmm-'); bos = hepsi
   [string]$Sinav  = 'SGS',
   [switch]$Zorla,                  # damga kiyaslamasini atla
   [switch]$Yaz                     # olmadan: kuru kosu
@@ -58,6 +59,7 @@ function AmbarDamgalari{
   while($true){
     $u=$TABAN+'?select=etiket,guncelleme,soru_sayisi&order=etiket.asc&limit=1000&offset='+$off
     if($Etiket){ $u=$TABAN+'?select=etiket,guncelleme,soru_sayisi&etiket=eq.'+[uri]::EscapeDataString($Etiket) }
+    elseif($OnEk){ $u=$TABAN+'?select=etiket,guncelleme,soru_sayisi&order=etiket.asc&limit=1000&offset='+$off+'&etiket=like.'+[uri]::EscapeDataString($OnEk+'*') }
     $r=$null
     try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 90 }
     catch{ throw ("ambar okunamadi: " + $_.Exception.Message + " — 011_kalip_parti.sql BASILDI MI? (radar-app/sql/UYGULANDI.md)") }
@@ -77,6 +79,7 @@ $yerel=@{}
 foreach($x in @(Get-ChildItem $fabrika -Filter 'kalip-parti-*.json' -ErrorAction SilentlyContinue)){
   $et=($x.BaseName -replace '^kalip-parti-','')
   if($Etiket -and $et -ne $Etiket){ continue }
+  if($OnEk -and -not $et.StartsWith($OnEk)){ continue }
   $yerel[$et]=$x
 }
 Write-Host ("yerelde parti: {0:N0}" -f $yerel.Count) -ForegroundColor Cyan
