@@ -226,6 +226,13 @@ var css=''+
  'cursor:pointer;box-shadow:0 8px 28px color-mix(in srgb,var(--marka-lamba-1) 40%,transparent);letter-spacing:.2px;'+
  'transition:transform .28s ease,opacity .28s ease}'+
 '#mrxFab:hover{transform:translateY(-2px)}'+
+/* 16.09 tema düğmesi: Araçlar düğmesinin hemen üstünde, aynı köşede, aynı dilde */
+'#mrxTema{position:fixed;right:18px;bottom:74px;z-index:99990;appearance:none;cursor:pointer;'+
+'width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:var(--panel);'+
+'color:var(--ink);font-size:17px;line-height:1;display:grid;place-items:center;'+
+'box-shadow:0 6px 18px color-mix(in srgb,var(--ink) 12%,transparent);transition:transform .15s,border-color .15s}'+
+'#mrxTema:hover{transform:translateY(-2px);border-color:var(--amber)}'+
+'@media print{#mrxTema{display:none!important}}'+
 '#mrxFab.mrxGizli{transform:translateY(140%);opacity:0;pointer-events:none}'+
 '#mrxKaplama{position:fixed;inset:0;z-index:99991;background:color-mix(in srgb,var(--taban) 93%,transparent);backdrop-filter:blur(6px);'+
  'display:none;overflow-y:auto;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}'+
@@ -389,6 +396,40 @@ function kur(){
   var fab=document.createElement('button');
   fab.id='mrxFab'; fab.type='button'; fab.textContent='☰ Araçlar';
   document.body.appendChild(fab);
+
+  /* ============================================================================
+     TEMA DÜĞMESİ (16.09.2026) — Cem: "site koyu, beyaz bir koyu yapalım; bir de oraya
+     bir şey koy, bas beyaz olsun." Açık/koyu artık ZİYARETÇİNİN kararı.
+
+     NASIL: açık tema tek bir dosyadan geliyor (stil-acik.css, her sayfada en sonda bağlı).
+     Düğme o bağlantıyı devre dışı bırakır -> altındaki stil.css (koyu palet) ortaya çıkar;
+     yeniden açınca açık temaya döner. Yani iki ayrı palet bakımı YOK, tek anahtar var.
+     Tercih cihazda saklanır (tt_tema) ve her sayfada geçerlidir - menu.js her sayfada yüklü.
+     Kaydır-Çöz'ün kendi anahtarı (kc_tema) ayrıdır, ona dokunulmaz.
+     ⚠ Açık tema dosyası bağlı olmayan sayfada düğme HİÇ çıkmaz (zaten koyudur).
+     ============================================================================ */
+  (function(){
+    var baglar=[].slice.call(document.querySelectorAll('link[rel="stylesheet"]')).filter(function(l){
+      return /stil-acik\.css/.test(l.getAttribute('href')||'');
+    });
+    if(!baglar.length) return;
+    function oku(){ try{ return localStorage.getItem('tt_tema')||'acik'; }catch(e){ return 'acik'; } }
+    function uygula(t){ baglar.forEach(function(l){ l.disabled=(t==='koyu'); }); }
+    var dugme=document.createElement('button');
+    dugme.id='mrxTema'; dugme.type='button';
+    function yaz(){ var t=oku();
+      dugme.textContent = t==='koyu' ? '☀' : '☾';
+      dugme.title = t==='koyu' ? 'Açık temaya geç' : 'Koyu temaya geç';
+      dugme.setAttribute('aria-label',dugme.title);
+    }
+    dugme.addEventListener('click',function(){
+      var yeni = oku()==='koyu' ? 'acik' : 'koyu';
+      try{ localStorage.setItem('tt_tema',yeni); }catch(e){}
+      uygula(yeni); yaz();
+    });
+    uygula(oku()); yaz();
+    document.body.appendChild(dugme);
+  })();
 
   var kap=document.createElement('div'); kap.id='mrxKaplama';
   /* 15.09: oturum anahtarı cihazdaysa "Öğrenci girişi" yerine "Hesabım" (üye ile yeni gelen ayrı kapı; uye-durumu.js ile aynı ölçüt) */

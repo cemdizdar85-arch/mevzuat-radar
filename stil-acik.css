@@ -489,3 +489,28 @@ nav .marka-ad,nav .marka .i{color:#16191d}
 /* 16.09: ust seridin marka yazisi var(--ink) ile yaziliyor ama serit koyu bant iken jeton
    beyaza sabitlenmisti; serit acilinca beyaz uzerinde beyaz kaldi (olculdu 1,12). */
 .top .ust-marka,.ust-serit .ust-marka{color:#16191d}
+
+/* ============================================================================
+   KAHRAMAN AÇIK TEMA (16.09.2026)
+   Cem: "site açık bir bak, koyu siyah görünüyor" -> ölçüldü: ekran 768 px, kahraman
+   750 px, açılışta görünen alanın %98'i koyuydu. "Baştan sona açık" kararı verildi;
+   aynı gün tema düğmesi istendi ("bas beyaz olsun").
+   Bu yüzden kahramanın KOYU tabanı index.html'de kalır, AÇIK değerleri BURADADIR:
+   düğme bu dosyayı kapatınca kahraman kendiliğinden koyuya döner.
+   Kontrast kapısı ölçümüyle ayarlandı: açık zeminde bronzun açık tonu metin/dolgu
+   olarak 3,5-3,7 ölçtü -> üçlü bir basamak koyulaştırıldı (5,2+).
+   ============================================================================ */
+html body .bz-kah{
+  --bz-gece:#fbfaf8; --bz-gece2:#f4f2ee;
+  --bz-ak:#16191d; --bz-ak-govde:#4b5563; --bz-ak-sonuk:#5f6875;
+  --bz-bronz:#6b4a1c; --bz-bronz-acik:#8a6224; --bz-bronz-koyu:#4f3714;
+  --bz-cta-yazi:#fbfaf8}
+html body .bz-kah .bz-rk{
+  background:linear-gradient(135deg,rgba(255,255,255,.97),rgba(247,245,241,.95));
+  border-color:rgba(138,98,36,.22);box-shadow:0 18px 40px rgba(22,25,29,.10)}
+html body .bz-kah:before{
+  background:radial-gradient(60% 55% at 74% 16%,rgba(138,98,36,.08),transparent 62%),
+    linear-gradient(100deg,var(--bz-gece) 26%,rgba(251,250,248,.92) 44%,rgba(251,250,248,.55) 66%,rgba(251,250,248,.80) 100%)}
+html body .bz-kah .bz-cam{background:rgba(255,255,255,.92);border-color:rgba(138,98,36,.22);
+  box-shadow:0 20px 48px rgba(22,25,29,.10)}
+html body .bz-kah .bz-dip{border-top-color:rgba(22,25,29,.10)}
