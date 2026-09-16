@@ -1,4 +1,6 @@
 {
-  "aciklama": "ADIM 2 kasa modu (16.09.2026). Listelenen Kaydir-Coz sayfalari yayinda SORUSUZ kabuktur; sorular Supabase paket_soru tablosundan paketli uyeye gelir. Uretici: motor/kasa-kabuk.js (yayin-bas.yml). Pilot Turkce (kaydir/sgs/turkce.html) paket_soru SQL'i basilip yukleme dogrulaninca eklenir; bir gun sorunsuz kosunca diger dersler.",
-  "sayfalar": []
+  "aciklama": "ADIM 2 kasa modu (16.09.2026). Listelenen Kaydir-Coz sayfalari yayinda SORUSUZ kabuktur; sorular Supabase paket_soru tablosundan paketli uyeye gelir. Uretici: motor/kasa-kabuk.js (yayin-bas.yml). Pilot Turkce 16.09 aksam; bir gun sorunsuz kosunca diger dersler (Meslek Hukuku oncesi motor/site-nobeti.ps1 300 KB alt siniri degismeli).",
+  "sayfalar": [
+    "kaydir/sgs/turkce.html"
+  ]
 }

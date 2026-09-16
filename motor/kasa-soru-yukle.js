@@ -110,9 +110,26 @@ async function yaz(satirlar, sayfaYollari) {
   const var_ = await fetch(SB + 'paket_soru?select=id&limit=1', { headers: h });
   if (var_.status === 404 || var_.status === 400) throw new TabloYok('paket_soru tablosu yok (2026-09-16-paket-soru.sql basılmadı) — yazılmadı');
   if (!var_.ok) throw new Error(`kasa yoklaması HTTP ${var_.status}`);
+  // 16.09: YALNIZ DEĞİŞEN satır yazılır. Her yayın 4.000+ satırı (~53 MB) yeniden yazsaydı disk (%84, 8 GB tavan)
+  // ölü satırla şişerdi. Kasadaki satır bu koşunun sayfalarından okunur, alan alan (anahtar sırası bağımsız) kıyaslanır.
+  const mevcut = new Map();
+  for (const yol of sayfaYollari) {
+    for (let i = 0; ; i += 500) {
+      const r = await fetch(SB + 'paket_soru?select=id,sinav,ders,konu,sayfa,sira,ucretsiz,veri&sayfa=eq.' + encodeURIComponent(yol) + '&order=id.asc&limit=500&offset=' + i, { headers: h });
+      if (!r.ok) throw new Error(`kasa okuma ${yol}: HTTP ${r.status}`);
+      const p = await r.json(); for (const x of p) mevcut.set(x.id, x);
+      if (p.length < 500) break;
+    }
+  }
+  // Başka sayfadaki (ör. vitrinden paket sayfasına taşınan) kimlik yukarıda okunmadı -> değişmiş sayılır, yazılır.
+  const degisen = satirlar.filter(s => {
+    const m = mevcut.get(s.id);
+    return !m || m.sinav !== s.sinav || m.ders !== s.ders || (m.konu || null) !== (s.konu || null) || m.sayfa !== s.sayfa
+      || m.sira !== s.sira || m.ucretsiz !== s.ucretsiz || kanonik(m.veri) !== kanonik(s.veri);
+  });
   let yazilan = 0;
-  for (let i = 0; i < satirlar.length; i += PARCA) {
-    const parca = satirlar.slice(i, i + PARCA).map(s => Object.assign({}, s, { guncelleme: new Date().toISOString() }));
+  for (let i = 0; i < degisen.length; i += PARCA) {
+    const parca = degisen.slice(i, i + PARCA).map(s => Object.assign({}, s, { guncelleme: new Date().toISOString() }));
     const r = await fetch(SB + 'paket_soru?on_conflict=id', { method: 'POST', headers: Object.assign({ Prefer: 'resolution=merge-duplicates,return=minimal' }, h), body: JSON.stringify(parca) });
     if (!r.ok) throw new Error(`parça ${i}: HTTP ${r.status} ${(await r.text()).slice(0, 200)}`);
     yazilan += parca.length;
@@ -122,14 +139,9 @@ async function yaz(satirlar, sayfaYollari) {
   const guncel = new Set(satirlar.map(s => s.id));
   let silinen = 0;
   for (const yol of sayfaYollari) {
-    const kasadaki = [];
-    for (let i = 0; ; i += 1000) {
-      const r = await fetch(SB + 'paket_soru?select=id&sayfa=eq.' + encodeURIComponent(yol) + '&order=id.asc&limit=1000&offset=' + i, { headers: h });
-      if (!r.ok) throw new Error(`bayat okuma ${yol}: HTTP ${r.status}`);
-      const p = await r.json(); kasadaki.push(...p.map(x => x.id));
-      if (p.length < 1000) break;
-    }
-    const bayat = kasadaki.filter(id => !guncel.has(id));
+    // Yukarıda okunan satırdan bu sayfada kalan ve bu koşuda o sayfaya ait olmayan kimlik = bayat.
+    // Upsert sayfa alanını başka sayfaya taşıdıysa (guncel'de var) silinmez.
+    const bayat = [...mevcut.values()].filter(m => m.sayfa === yol && !guncel.has(m.id)).map(m => m.id);
     for (let i = 0; i < bayat.length; i += 50) {
       const liste = bayat.slice(i, i + 50).map(id => '"' + String(id).replace(/"/g, '') + '"').join(',');
       const r = await fetch(SB + 'paket_soru?id=in.(' + encodeURIComponent(liste) + ')', { method: 'DELETE', headers: Object.assign({ Prefer: 'return=minimal' }, h) });
@@ -139,7 +151,14 @@ async function yaz(satirlar, sayfaYollari) {
   }
   const say =await fetch(SB + 'paket_soru?select=id', { method: 'HEAD', headers: Object.assign({ Prefer: 'count=exact', Range: '0-0' }, h) });
   const kasada = Number((say.headers.get('content-range') || '').split('/')[1]);
-  return { yazilan, kasada, silinen };
+  return { yazilan, degismeyen: satirlar.length - degisen.length, kasada, silinen };
+}
+
+// Anahtar sırasından bağımsız kanonik metin (jsonb anahtarları yeniden sıralar). kasa-kabuk.js ile aynı tanım.
+function kanonik(x) {
+  if (Array.isArray(x)) return '[' + x.map(kanonik).join(',') + ']';
+  if (x && typeof x === 'object') return '{' + Object.keys(x).sort().map(k => JSON.stringify(k) + ':' + kanonik(x[k])).join(',') + '}';
+  return JSON.stringify(x);
 }
 
 function sinav() {
@@ -191,7 +210,7 @@ async function ana() {
     if ((km.sayfalar || []).length) { console.error('  ⛔ ' + e.message + ' — ama kasa modunda sayfa var, DURULDU'); process.exitCode = 1; return; }
     console.log('  ATLANDI: ' + e.message + ' (kasa modunda sayfa yok, yayın bugünkü gibi sürer)'); process.exitCode = 3; return;
   }
-  console.log(`  yazılan ${r.yazilan} · bayat silinen ${r.silinen} · kasada ${r.kasada}`);
+  console.log(`  yazılan ${r.yazilan} · değişmeyen ${r.degismeyen} · bayat silinen ${r.silinen} · kasada (tüm sınavlar) ${r.kasada}`);
   if (r.kasada < satirlar.length) { console.log('  ⛔ KASADAKİ SATIR < SAYILAN'); process.exitCode = 2; return; }
 }
 
