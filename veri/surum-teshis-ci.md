@@ -3,9 +3,9 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-09-16 08:02:36 UTC
-- commit: 90467b641248b22f930078d3157b6f3bf5664cb1
-- kosu no: 41
+- zaman: 2026-09-16 11:09:53 UTC
+- commit: aba6701d5546a40c710e90adf2dc5a860eaa139f
+- kosu no: 42
 
 ## ortam
 - pdftotext: /usr/bin/pdftotext
@@ -15,18 +15,18 @@
 ## standart-yut.ps1 -standart 'TFRS 16' ciktisi
 
 ```
-Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09])
+Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 [16.09])
   SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma
 
 PDF: https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 16.pdf
   indirildi: 679,907 bayt · GERCEK PDF
   metin    : 113,495 karakter
-  TMS layout adayi: delik duz 36 · layout 3 · karakter duz 106,788 · layout 108,159
+  TMS layout adayi: delik duz 33 · layout 0 · karakter duz 106,785 · layout 108,138
   -> LAYOUT bolmesi secildi (resmi numaralardan sapma azaldi)
-  bolundu  : 207 parca · 108,159 karakter
+  bolundu  : 210 parca · 108,138 karakter
 
-AMBARDAKI HALI : 207 parca · 108,159 karakter
-YENI HALI      : 207 parca · 108,159 karakter
+AMBARDAKI HALI : 210 parca · 108,138 karakter
+YENI HALI      : 210 parca · 108,138 karakter
 KAZANC         : +0 parca · +0 karakter (1.0 kat)
 
 KURU PROVA — ambara hicbir sey yazilmadi. Ilk 10 yeni parca:
