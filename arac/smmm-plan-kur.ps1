@@ -65,7 +65,7 @@ $mulga = @{}; foreach ($h in (Get-Content (Join-Path $depoKok 'veri\sinav\smmm-k
 # üretici zaten soru BASMIYOR (kaynak borcuna yazıyor). O konu plana da girmez, payı aynı grubun kaynağı olan konularına dağılır.
 # Dosya yoksa ya da -KaynakSuzgeci 0 ise davranış birebir eskisi (eşdeğerlik provası bununla yapıldı).
 $kaynakYok = @{}; $koYol = Join-Path $depoKok 'veri\sinav\smmm-kaynak-olcumu.json'
-if ($KaynakSuzgeci -ne 0 -and (Test-Path $koYol)) { foreach ($z in @((Get-Content $koYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'KAYNAK YOK') { $kaynakYok["$(ResmiDers $z.ders | Select-Object -First 1)|$(Katla $z.konu)"] = 1 } } }
+if ($KaynakSuzgeci -ne 0 -and (Test-Path $koYol)) { foreach ($z in @((Get-Content $koYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if (@('KAYNAK YOK', 'ILGISIZ') -contains "$($z.durum)") { $kaynakYok["$(ResmiDers $z.ders | Select-Object -First 1)|$(Katla $z.konu)"] = 1 } } }
 # 16.09 KANUN UYUŞMAZLIĞI KAPISI (ölçüldü): harita "MADDE OKUNDU" ile köprü dayanağı FARKLI kanunu gösteriyorsa üretici köprüyü kullanır
 # (harita yalnız köprü dayanağı boşken devreye girer). "kdv'nin konusu": harita KDVK (3065) m.1, köprü ÖTV K. (4760) m.1 — ÖTV kısaltması
 # eklenince paket 0 -> 1.239 kr oldu ve ölçüm GÜÇLÜ dedi; yani plan bu konuya ÖTV metniyle KDV sorusu bastıracaktı. 97 okunmuş konuda 2 uyuşmaz.

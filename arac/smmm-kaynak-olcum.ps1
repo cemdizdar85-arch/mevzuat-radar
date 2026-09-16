@@ -8,6 +8,7 @@
 #     paket < 300 kr  -> KAYNAK YOK  (üretici konuyu kaynak borcuna yazar, soru BASILMAZ)
 #     300-999 kr      -> ZAYIF       (üretici dayanaksız ikinci arama dener)
 #     >= 1000 kr      -> GÜÇLÜ       (12.09 ölçümü: 1.000 kr altında her üç sorudan biri "kaynak cevabı desteklemiyor" diye düşüyor)
+#  16.09 İLGİ: eşikler paketin TAMAMINA değil, konu köklerini taşıyan bloklarına uygulanır; paket dolu ama ilgili kısım < 300 kr -> İLGİSİZ.
 #  Fonksiyonlar üreticiden AST ile AYIKLANIR (kopya kod yok, üretici değişirse ölçüm de değişir); ödemeli hiçbir yol yüklenmez.
 #  Kullanım:
 #     powershell -NoProfile -File arac/smmm-kaynak-olcum.ps1 -Plan veri/sinav/plan-smmm-dalga1.json -Sinav SMMM -Parca 8 -Yaz
@@ -88,6 +89,9 @@ else {
   $hdYol = Join-Path $depoKok 'veri\sinav\smmm-konu-dayanak.json'   # elle okunmuş madde haritası YALNIZ bitirmede var; öteki sınavlarda boş kalır (üretici de öyle davranır)
   if ($Sinav -eq 'SMMM' -and (Test-Path $hdYol)) { foreach ($z in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'MADDE OKUNDU' -and "$($z.dayanak)".Trim()) { $hd[(Katla2 "$($z.konu)")] = "$($z.dayanak)".Trim() } } }
   $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq $Sinav -and -not $kopru.ContainsKey((Katla2 $x.konu))) { $kopru[(Katla2 $x.konu)] = $x } }
+  # ilgi ölçütünün dolgu kelimeleri: konuyu ayırt etmeyen, her kaynakta geçebilecek sözcükler (katlanmış yazımla)
+  $ILGI_DUR = @('icin', 'veya', 'gore', 'olan', 'sartlari', 'sartlar', 'sureleri', 'suresi', 'turleri', 'turu', 'tanimi', 'tanimlari', 'tanimlar', 'kavrami', 'kavram', 'hesabi', 'hesaplama', 'hesaplanmasi', 'kaydi', 'kayit', 'kayitlari', 'uygulamasi', 'uygulama', 'esaslari', 'genel', 'halleri', 'hukumleri', 'ornekleri', 'islemleri', 'islemi', 'yontemi', 'sistemi', 'ttk', 'vuk', 'tbk')
+  function IlgiKatla([string]$s) { (Katla2 $s) -replace 'â', 'a' -replace 'î', 'i' -replace 'û', 'u' }
   $sonuc = New-Object System.Collections.Generic.List[object]
   $i = 0
   foreach ($anahtar in $hedefler) {
@@ -100,8 +104,22 @@ else {
     $paket = ''; $adlar = @(); $hata = ''; $desen = @()
     try { $desen = @(DesenUret $ky); $script:AMBAR_AG_HATASI = $null; $amb = AmbarCek $desen; $paket = "$($amb.metin)"; $adlar = @($amb.adlar); if ($amb.agHatasi) { $hata = 'AG' } }
     catch { $hata = "HATA: $($_.Exception.Message)" }
-    $durum = $(if ($hata -eq 'AG') { 'OLCULEMEDI-AG' } elseif ($hata) { 'OLCULEMEDI' } elseif ($paket.Length -ge 1000) { 'GUCLU' } elseif ($paket.Length -ge 300) { 'ZAYIF' } else { 'KAYNAK YOK' })
-    $kayit = [ordered]@{ ders = $ders; konu = $ad; soru = [int]$konuSay[$anahtar]; durum = $durum; paketBoy = $paket.Length; kaynakSayi = $adlar.Count
+    # 16.09 İLGİ ÖLÇÜTÜ (Cem "1.2.3 üçünü de yap", GM 1; ölçüt SGS oturumu 92 ile ortak): boy tek başına yalan söylüyordu —
+    # "otv ilk iktisap" paketi 16.715 kr klasik iktisat notuydu, "cari oran" TMS 2 (stoklar), "idari yargi sureleri" TTK maddeleri; hepsi GÜÇLÜ yazılıyordu.
+    # Paket bloklara ayrılır ("[ad] metin", "---" ile birleşik); blok, konu köklerini BAŞLIĞINDA ya da metninin İLK 400 karakterinde taşıyorsa ilgilidir.
+    # Kök = anlamlı kelimenin ilk 5 harfi (katlanmış). En çok 2 kök varsa hepsi, daha çoksa yarısı (yukarı yuvarlanır) geçmeli. Durum İLGİLİ boydan çıkar.
+    $kokler = @((IlgiKatla $ad) -split '[^a-z0-9]+' | Where-Object { $_.Length -ge 4 -and $ILGI_DUR -notcontains $_ } | ForEach-Object { $_.Substring(0, [math]::Min(5, $_.Length)) } | Select-Object -Unique)
+    $gerek = $(if ($kokler.Count -le 2) { $kokler.Count } else { [math]::Ceiling($kokler.Count / 2) })
+    $ilgiliBoy = 0; $ilgiliSay = 0; $ilgisizAd = New-Object System.Collections.Generic.List[string]
+    foreach ($blok in @($paket -split "`n---`n")) {
+      if (-not $blok) { continue }
+      $bas = IlgiKatla ($blok.Substring(0, [math]::Min($blok.Length, 400 + ($blok.IndexOf(']') + 1))))
+      $tut = @($kokler | Where-Object { $bas.Contains($_) }).Count
+      if ($kokler.Count -eq 0 -or $tut -ge $gerek) { $ilgiliBoy += $blok.Length; $ilgiliSay++ }
+      elseif ($blok -match '^\[([^\]]+)\]') { $ilgisizAd.Add($matches[1]) }
+    }
+    $durum = $(if ($hata -eq 'AG') { 'OLCULEMEDI-AG' } elseif ($hata) { 'OLCULEMEDI' } elseif ($paket.Length -lt 300) { 'KAYNAK YOK' } elseif ($ilgiliBoy -ge 1000) { 'GUCLU' } elseif ($ilgiliBoy -ge 300) { 'ZAYIF' } else { 'ILGISIZ' })
+    $kayit = [ordered]@{ ders = $ders; konu = $ad; soru = [int]$konuSay[$anahtar]; durum = $durum; paketBoy = $paket.Length; ilgiliBoy = $ilgiliBoy; ilgiliKaynak = $ilgiliSay; kokler = ($kokler -join ' '); ilgisizKaynak = (@($ilgisizAd | Select-Object -First 4) -join ' ; '); kaynakSayi = $adlar.Count
       kopruKaydi = $kopruVar; dayanak = "$($ky.dayanak)"; cikmisDayanak = "$($ky.cikmis_dayanak)"; desenSayi = $desen.Count
       ilkDesen = (@($desen | Select-Object -First 3) -join ' ; '); kaynaklar = (@($adlar | Select-Object -First 3) -join ' ; ') }
     $sonuc.Add([pscustomobject]$kayit)
@@ -124,8 +142,8 @@ foreach ($g in @($sonucDizi | Group-Object durum | Sort-Object Count -Descending
 ""
 "DERS DERS (konu sayısı):"
 foreach ($g in @($sonucDizi | Group-Object ders | Sort-Object Name)) {
-  $y = @($g.Group | Where-Object { $_.durum -eq 'KAYNAK YOK' }); $z = @($g.Group | Where-Object { $_.durum -eq 'ZAYIF' }); $gu = @($g.Group | Where-Object { $_.durum -eq 'GUCLU' })
-  "  {0,-46} güçlü {1,4} · zayıf {2,3} · KAYNAK YOK {3,3} ({4} soru)" -f $g.Name.Substring(0, [math]::Min(46, $g.Name.Length)), $gu.Count, $z.Count, $y.Count, (($y | Measure-Object soru -Sum).Sum)
+  $y = @($g.Group | Where-Object { $_.durum -eq 'KAYNAK YOK' }); $z = @($g.Group | Where-Object { $_.durum -eq 'ZAYIF' }); $gu = @($g.Group | Where-Object { $_.durum -eq 'GUCLU' }); $ilg = @($g.Group | Where-Object { $_.durum -eq 'ILGISIZ' })
+  "  {0,-46} güçlü {1,4} · zayıf {2,3} · İLGİSİZ {5,3} · KAYNAK YOK {3,3} ({4} soru)" -f $g.Name.Substring(0, [math]::Min(46, $g.Name.Length)), $gu.Count, $z.Count, $y.Count, (($y | Measure-Object soru -Sum).Sum), $ilg.Count
 }
 if ($Yaz) {
   . (Join-Path $depoKok 'arac\rapor-yaz.ps1')

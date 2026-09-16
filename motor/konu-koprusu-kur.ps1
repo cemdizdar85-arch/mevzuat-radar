@@ -32,6 +32,9 @@ $depoKok=Split-Path -Parent $here
 . (Join-Path $depoKok 'arac\dayanak-normalize.ps1')
 . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
 . (Join-Path $depoKok 'arac\gk-mevzuat-disi.ps1')   # 13.09: Matematik/Türkçe/YD konusuna mevzuat dayanağı yazılmaz (47 kayıt ölçüldü)
+. (Join-Path $depoKok 'arac\vergi-turu-uyusmaz.ps1')   # 16.09: vergi anan konuya başka verginin/ilgisiz kanunun dayanağı yazılmaz
+# Kural sınav sınav açılır. SMMM açık (ölçüm: 13 dayanak). SGS'de 22, KGK'da 3 kayıt değişir; o sınavların oturumu kendi provasıyla ekler.
+$script:VERGI_UYUSMAZ_SINAV=@('SMMM')
 
 $ANAHTAR=if($env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY } else { [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $ANAHTAR){ throw 'SUPABASE_SERVICE_KEY yok - kasa okunamaz, köprü kurulamaz (sessiz "boş" DENMEZ).' }
@@ -170,7 +173,7 @@ $kayitlar=New-Object System.Collections.Generic.List[object]
 $tumAnahtarlar=New-Object System.Collections.Generic.HashSet[string]
 foreach($k in $cikmis.Keys){ [void]$tumAnahtarlar.Add($k) }
 foreach($k in $bizim.Keys){ [void]$tumAnahtarlar.Add($k) }
-$dayanakOlculmedi=0; $gkMevzuatTemiz=0
+$dayanakOlculmedi=0; $gkMevzuatTemiz=0; $vergiTuruTemiz=0
 foreach($anahtar in $tumAnahtarlar){
   $parca=$anahtar -split '\|',2; $sinavAd=$parca[0]
   $c=$null; if($cikmis.ContainsKey($anahtar)){ $c=$cikmis[$anahtar] }
@@ -192,6 +195,11 @@ foreach($anahtar in $tumAnahtarlar){
   # teori notunun önüne koyduğu için kaynak paketi yanlış kanunla doluyordu. Prova: 21.333 kayıtta 47 değişir, meşru 86 GK dayanağı kalır.
   if(GkMevzuatDisiMi $bizimDers $arsivDers $cikmisDayanak){ $cikmisDayanak=''; $guc='ZAYIF'; $gkMevzuatTemiz++ }
   if(GkMevzuatDisiMi $bizimDers $arsivDers $dayanak){ $dayanak=''; $gkMevzuatTemiz++ }
+  # 16.09: 'kdv''nin konusu' ← ÖTV K. m.1, 'otv ilk iktisap' ← GVGT 311 gibi bağlar paketi yanlış kanunla dolduruyordu (arac/vergi-turu-uyusmaz.ps1)
+  if($script:VERGI_UYUSMAZ_SINAV -contains $sinavAd){
+    if(VergiTuruUyusmazMi $konuAd $cikmisDayanak){ $cikmisDayanak=''; $guc='ZAYIF'; $vergiTuruTemiz++ }
+    if(VergiTuruUyusmazMi $konuAd $dayanak){ $dayanak=''; $vergiTuruTemiz++ }
+  }
   $kayitlar.Add([pscustomobject]@{
     sinav=$sinavAd; konu=$konuAd; bizim_ders=$bizimDers; arsiv_ders=$arsivDers
     bizim=$bizimSoru; cikmis=$cikmisSoru; durum=$durum; dayanak=$dayanak
@@ -249,6 +257,7 @@ $ozet['arsiv_damgasi']=$arsivDamga
 $ozet['sozlukle_koprulenen_kasa_etiketi']=$sozluk.Count
 $ozet['cikmis_dayanak_olculmedi']=$dayanakOlculmedi
 $ozet['gk_mevzuat_dayanak_temizlenen']=$gkMevzuatTemiz
+$ozet['vergi_turu_dayanak_temizlenen']=$vergiTuruTemiz
 $ozet['karantina_donem']=$(if($script:KARANTINA){ $script:KARANTINA.ToArray() } else { @() })
 $ozet['ders_koprusu']=$dersListe.ToArray()
 $ozet['agir_bosluk_sayisi']=$agir.Count
