@@ -827,7 +827,10 @@ function DesenUret($kayit){
   # 03.09 OLCULDU (SGS Vergi 'damga vergisi' -> 5510 gec. m.55 SGK affi; 'kdv matrahi' -> 5510 m.81 prim
   # tesviki): kopru dayanagi DERSIN KANUN LISTESI DISINDA bir kanunsa (kanun numarasiyla olculur) dayanak
   # ZAYIF sayilir; ders kanunlari one gecer, kopru dayanagi yine listede kalir (hakem+KAPI D sinar).
-  if(-not $dayanakZayif){
+  # 16.09 YALNIZ BİTİRME (hukuk-vergi ilgi hakemi ölçümü): okunmuş madde haritası (guc 'HARITASI') elle doğrulanmış dayanaktır; Hukuk
+  # dersinin listesinde TMK/Anayasa/İİK/2576, Vergi'de 7194, SPK'da 5174 yok diye "ders dışı" sayılıp ZAYIF'a düşürülüyor, ders kanunu
+  # '@' desenleri öne geçip 10 kaynak kotasını dolduruyor ve haritadaki madde pakete HİÇ girmiyordu (fiil ehliyeti: TMK yerine TTK/TBK).
+  if(-not $dayanakZayif -and -not ($Sinav -eq 'SMMM' -and "$($kayit.guc)" -match 'HARITASI')){
     $dersAdiK=($DersRegex -replace '[\^\$\\]','')
     $dersNo=New-Object 'System.Collections.Generic.HashSet[string]'
     foreach($dk in (DersKanunAnahtari $dersAdiK)){ foreach($px in @($DERS_KANUN[$dk])){ foreach($m in [regex]::Matches($px,'\b(\d{3,4})\b')){ [void]$dersNo.Add($m.Groups[1].Value) } } }
