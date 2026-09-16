@@ -15,6 +15,9 @@
 #  SGS/KGK soruları bu dosyadan geçmez (çağıranlar yalnız smmm-* etiketinde çağırır).
 # ============================================================================
 
+if (-not (Get-Command Get-KodsuzHesapAdi -ErrorAction SilentlyContinue)) { . (Join-Path $PSScriptRoot 'kimlik-ayikla.ps1') }   # 16.09 KAPI-KH için (çağıranın kapsamına yüklenir)
+. (Join-Path $PSScriptRoot 'mevzuat-degisti.ps1')   # 16.09 yeni hat mevzuat engel listesi
+$script:MD_LISTE = $null
 function SmmmParmakIzi($soruNesne) {
   $parca = @("$($soruNesne.soru)") + @('A', 'B', 'C', 'D', 'E' | ForEach-Object { "$($soruNesne.siklar.$_)" }) + @("$($soruNesne.dogru)".Trim().ToUpperInvariant())
   $bayt = [Text.Encoding]::UTF8.GetBytes(($parca -join [char]0x1E))
@@ -68,6 +71,15 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   if ("$($v.hakem.ders_uyum)" -eq 'DERS-DISI') { return [pscustomobject]@{ gecer = $false; neden = 'hakem DERS-DISI' } }
   if ("$($v.hakem.konu_uyum)" -eq 'KONU-DISI') { return [pscustomobject]@{ gecer = $false; neden = 'hakem KONU-DISI' } }
   if ("$($v.hakem.tek_anlam)" -eq 'CIFT-ANLAM') { return [pscustomobject]@{ gecer = $false; neden = 'hakem CIFT-ANLAM' } }
+  # 16.09 (Cem "SGS'nin yapıp bizim atladığımız bir şey varsa basmadan yapalım"): SGS yayın betiği (arac/sgs-650-bas.ps1 DusmeSebebi)
+  # hakem HESAP-YANLIS ve KAPI-KH (doğru şıkta kodsuz hesap adı) sorularını düşürüyordu; bitirme yayın şartında ikisi de YOKTU.
+  if ("$($v.hakem.hesap_uyum)" -eq 'HESAP-YANLIS') { return [pscustomobject]@{ gecer = $false; neden = 'hakem HESAP-YANLIS' } }
+  $khY = @(Get-KodsuzHesapAdi "$($v.siklar.$dogruHarf)")
+  if ($khY.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-KH kodsuz hesap adı: $($khY -join ', ')" } }
+  # 16.09 mevzuat nöbetçisi (yeni hat): dayandığı madde değişen/silinen soru, yeniden yazılana kadar geçmez
+  if ($null -eq $script:MD_LISTE) { $script:MD_LISTE = MdListeOku (Split-Path -Parent $PSScriptRoot) }
+  $mdE = MdEngel $script:MD_LISTE $anahtar $v
+  if ($mdE) { return [pscustomobject]@{ gecer = $false; neden = "mevzuat değişti: $($mdE.kaynak) ($($mdE.tur), $($mdE.tarih))" } }
   foreach ($sa in 'simulasyon_sonnet', 'simulasyon') { if ($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu) { return [pscustomobject]@{ gecer = $false; neden = 'simülasyon yanlış' } } }
   # 14.09 (Cem "1.2 yap", GM önerisi): simülasyonu HİÇ koşmamış soru da geçmez. Ölçüldü: pilot smmm-pilot-ymeslek-zor kp-01 adımları
   # (çözüm anlatımı) yazılmadığı için simülasyon sessizce atlandı, kural yalnız "yanlış değil" dediğinden anlatımsız + sınanmamış soru seçildi.

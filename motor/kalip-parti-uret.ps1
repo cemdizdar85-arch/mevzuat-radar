@@ -4225,7 +4225,14 @@ function KorKaynakliCoz([string]$id,$cvp,[string]$sikM){
   $kkMetin=KorKaynakPaket $cvp $kkTavan
   if(-not "$kkMetin".Trim()){ $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM KOŞMADI (kaynak paketi boş): $id"); Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM KOŞMADI ($id): kaynak paketi boş — soru yayına girmez" -ForegroundColor Yellow; return }
   $istKK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{KAYNAK}',$korKaynakEk.Replace('{METIN}',$kkMetin))
-  $yKK=$null; foreach($d in 1..3){ try{ $yKK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istKK -MaxTok 2500; break }catch{ if($d -eq 3){ $yKK=$null }else{ Start-Sleep -Seconds (8*$d) } } }
+  $yKK=$null
+  # 16.09 Cem "ne olursa olsun toplu": kaynaklı ikinci çözüm (Opus, büyük paket) anlıktı. -Toplu koşuda FAZ K'nın 2. geçişinde 'KK' toplu
+  # partisine alınır, 3. geçişte cevap kimlikle okunur. İstem/model/tavan aynı. (3. geçişte kör cevabı yeni gelen soru için son çare anlık.)
+  if($Toplu){
+    $yKK=TopluAlKalici @('KK') $id
+    if(-not $yKK -and (Dalga2Mi)){ TopluTopla $id $KorModel $istKK 2500 '' 'KK'; Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ($id) toplu partiye alındı" -ForegroundColor DarkCyan; return }
+  }
+  if(-not $yKK){ foreach($d in 1..3){ try{ $yKK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istKK -MaxTok 2500; break }catch{ if($d -eq 3){ $yKK=$null }else{ Start-Sleep -Seconds (8*$d) } } } }
   if(-not $yKK){ $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM ÇAĞRI DÜŞTÜ: $id"); Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ÇAĞRI DÜŞTÜ ($id)" -ForegroundColor Red; return }
   Write-Host ("  KAYNAKLI TOKEN {0}: girdi {1} · cikti {2} · paket {3} kr" -f $id,$yKK.girdi,$yKK.cikti,$kkMetin.Length) -ForegroundColor DarkGray
   $aKK=KorCoz $yKK.metin
@@ -4288,7 +4295,7 @@ foreach($id in @($don.Keys)){
   if("$($aK.kaynak_celisti)".Trim()){ Write-Host "  KÖR: KAYNAK ÇELİŞTİ ($id): $($aK.kaynak_celisti)" -ForegroundColor Magenta; $rapor.Add("KÖR KAYNAK ÇELİŞKİSİ: $id | $($aK.kaynak_celisti)") }
   if(KorKaynakliGerekli $cvp){ KorKaynakliCoz $id $cvp $sikM }
 }
-if($script:ON_GECIS){ TopluGonder 'K' }; if($script:DALGA2_TOPLA){ TopluGonder 'K#2' } }
+if($script:ON_GECIS){ TopluGonder 'K' }; if($script:DALGA2_TOPLA){ TopluGonder 'K#2'; TopluGonder 'KK' } }
 $script:ON_GECIS=$false; $script:DALGA2_TOPLA=$false
 # --- FAZ H2: İKİNCİ HAKEM (07.09 A kovası 2 — "sınav sorusu gibi mi, yapay zeka kokusu var mı, çeldirici gerçek adayın tuzağı mı") ----------
 # Birinci hakem kaynak-uyum bakar; bu hakem sınav kalıbı + dil + çeldirici gerçekçiliği + zorluk seviyesi verir. Karar EVET değilse koşucu seçmez.

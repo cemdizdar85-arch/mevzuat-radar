@@ -82,12 +82,76 @@ if(($degisen.Count + $silinen.Count) -gt 0){
   }
 }
 
+# --- 16.09 YENİ HAT (Cem "SGS gibi nöbetçi ... herşey var"): Kaydır-Çöz soruları soru_havuzu'nda DEĞİL; ambar kalip_parti'de
+# üretilir, kilitli kasaya (paket_soru) yayımlanır. Damgası değişen/silinen maddeyi KAYNAK olarak kullanmış (kaynak_adlar) her
+# yeni hat sorusu engel listesine yazılır (arac/mevzuat-degisti.ps1; yalnız kimlik + içerik izi) ve kasadan çekilir.
+# Yayın şartları listeyi okur; soru yeniden yazılırsa içerik izi değişir ve engel kalkar. Parti dosyalarına YAZILMAZ
+# (CLAUDE.md: bulutta koşan partiye ambardan yazılmaz).
+$yeniHatEngel = 0; $yeniHatHata = $false; $kasadanCekilen = 0
+$kanunAnah = @(($degisen + $silinen) | Where-Object { $_ -match '^\d+\|' })
+if ($kanunAnah.Count) {
+  . (Join-Path (Join-Path $kok 'arac') 'mevzuat-degisti.ps1')
+  $kokTur = @{}
+  foreach ($a in $kanunAnah) {
+    $kay = $(if ($guncel.PSObject.Properties[$a]) { $guncel.$a } else { $onceki.$a })
+    $mk = MdMaddeKoku "$($kay.ad)"
+    if ($mk) { $kokTur[$mk] = @{ anahtar = $a; tur = $(if ($silinen -contains $a) { 'SILINDI' } else { 'degisti' }) } }
+  }
+  if ($kokTur.Count) {
+    try {
+      $liste = MdListeOku $kok
+      $Hs = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent' = 'mevzuat-radar-robot/1.0' }
+      $yeniAnah = New-Object System.Collections.Generic.List[string]
+      for ($ofs = 0; ; $ofs += 40) {
+        $yan = Invoke-WebRequest -UseBasicParsing -Uri ("https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?select=etiket,icerik&order=etiket.asc&limit=40&offset=$ofs") -Headers $Hs -TimeoutSec 300
+        $jp = ConvertFrom-Json -InputObject ([Text.Encoding]::UTF8.GetString($yan.RawContentStream.ToArray()))
+        $partiler = @($jp | ForEach-Object { $_ })
+        foreach ($pr in $partiler) {
+          $ic = $pr.icerik; if ($ic -is [string]) { $ic = ConvertFrom-Json -InputObject $ic }
+          foreach ($q in $ic.PSObject.Properties) {
+            $v = $q.Value; if (-not $v -or -not $v.PSObject.Properties['soru'] -or -not $v.soru) { continue }
+            foreach ($ka in @($v.kaynak_adlar)) {
+              $mk = MdMaddeKoku "$ka"
+              if (-not ($mk -and $kokTur.ContainsKey($mk))) { continue }
+              $an = "$($pr.etiket)/$($q.Name)"; $iz = MdIcerikIzi $v
+              if (-not ($liste.ContainsKey($an) -and "$($liste[$an].iz)" -eq $iz)) {
+                $liste[$an] = [pscustomobject][ordered]@{ anahtar = $an; iz = $iz; madde = $kokTur[$mk].anahtar; kaynak = $mk; tur = $kokTur[$mk].tur; tarih = (Get-Date -Format 'dd.MM.yyyy') }
+                $yeniAnah.Add($an)
+              }
+              break
+            }
+          }
+        }
+        if ($partiler.Count -lt 40) { break }
+      }
+      if ($yeniAnah.Count) {
+        $listeNesne = [ordered]@{ aciklama = 'Yeni hat (Kaydır-Çöz) soruları: dayandığı madde değişti/silindi. Yayın şartları geçirmez; soru yeniden yazılırsa (iz değişir) engel kalkar. Üreten: motor/soru-dayanak-nobetcisi.ps1'; kayitlar = @($liste.Values | Sort-Object anahtar) }
+        [IO.File]::WriteAllText((MdListeYolu $kok), (ConvertTo-Json -InputObject $listeNesne -Depth 4), (New-Object Text.UTF8Encoding($false)))
+        $yeniHatEngel = $yeniAnah.Count
+        # kilitli kasadan çek (tablo henüz yoksa 404/400 → atla; liste yine yayın şartında engeller)
+        for ($i = 0; $i -lt $yeniAnah.Count; $i += 50) {
+          $parca = @($yeniAnah | Select-Object -Skip $i -First 50 | ForEach-Object { '"' + ($_ -replace '"', '') + '"' }) -join ','
+          try {
+            [void](Invoke-WebRequest -UseBasicParsing -Method Delete -Uri ("https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?id=in.(" + [uri]::EscapeDataString($parca) + ")") -Headers ($Hs + @{ Prefer = 'return=minimal' }) -TimeoutSec 120)
+            $kasadanCekilen += [math]::Min(50, $yeniAnah.Count - $i)
+          } catch {
+            $kodK = 0; try { $kodK = [int]$_.Exception.Response.StatusCode } catch {}
+            if ($kodK -eq 404 -or $kodK -eq 400) { Write-Host 'paket_soru tablosu yok — kasadan çekme atlandı (liste yayını engeller)'; break }
+            throw
+          }
+        }
+      }
+      Write-Host ("YENİ HAT: değişen madde kökü {0} · yeni engellenen soru {1} · kasadan çekilen {2}" -f $kokTur.Count, $yeniHatEngel, $kasadanCekilen)
+    } catch { $yeniHatHata = $true; Write-Host "YENİ HAT TARAMASI DÜŞTÜ: $($_.Exception.Message)" }
+  }
+}
+
 # 16.08 DUZELTME (3): taban KOSULSUZ ilerliyordu. Kosu yarida hata alsa bile
 # "onceki damga" ileri gidiyor ve DEGISIM SINYALI KALICI OLARAK KAYBOLUYORDU -
 # o madde bir daha hic "degisti" demezdi. Artik taban yalniz isaretleme
 # tamamlandiysa ilerler; aksi halde bir sonraki kosu ayni degisimi yeniden
 # gorur (tekrar gormek, kaybetmekten iyidir).
-$isaretlemeTamam = ($isaretli -gt 0) -or ($etkilenen.Count -eq 0)
+$isaretlemeTamam = (($isaretli -gt 0) -or ($etkilenen.Count -eq 0)) -and -not $yeniHatHata   # 16.09: yeni hat taraması düştüyse sinyal korunur
 if($isaretlemeTamam){
   Copy-Item $guncelYol $oncekiYol -Force
   Write-Host 'Taban ilerletildi.'
@@ -99,6 +163,7 @@ RaporYaz ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum=$durum
   degisenMadde=$degisen.Count; silinenMadde=$silinen.Count; isaretlenenSoru=$isaretli
   taban_ilerletildi=$isaretlemeTamam
+  yeniHatEngellenen=$yeniHatEngel; yeniHatKasadanCekilen=$kasadanCekilen; yeniHatTaramaHatasi=$yeniHatHata
   etkilenen=@($etkilenen | Select-Object -First 100)
   not='Isaretlenen sorular yayin=false + mevzuat-degisti notu tasir; hakem+GM yargisi sonrasi geri acilir.'
 })

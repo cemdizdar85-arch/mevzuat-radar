@@ -44,7 +44,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add veri/soru-dayanak-raporu.json veri/mevzuat/_madde-damga-onceki.json 2>/dev/null || true
+          git add veri/soru-dayanak-raporu.json veri/mevzuat/_madde-damga-onceki.json veri/sinav/mevzuat-degisti-yeni-hat.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Degisiklik yok - commit atilmadi."
             exit 0
