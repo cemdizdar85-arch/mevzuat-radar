@@ -175,6 +175,10 @@
     <p class="sv-not" style="margin-top:0">Yanlışların yanlış kutuna düştü; 2 gün sonra ders sayfasında yeniden karşına çıkar.</p>
     <div id="svYanlislar"></div>
 
+    <!-- 16.09: kalibrasyon kutusu (sinav-sonucu.js) - "geçme ihtimali" iddiasının arkasında durabilmek
+         için gerçek sınav sonuçlarını toplayan tek yer. 21.11.2026 sonrası hesap bu kayıtlarla ayarlanır. -->
+    <div id="ssKutu"></div>
+
     <details class="sv-nasil" id="nasil">
       <summary>Nasıl hesaplandı?</summary>
       <p>Bu bir <b>tahmindir</b>. Staja Giriş'te puan bağıl hesaplanır (ortalama 50, standart sapma 10; 60 ve üzeri geçer) ve geçme sınırı her dönem sınava girenlere göre değişir; resmî sınır yayımlanmaz.</p>
@@ -384,6 +388,7 @@
   }).catch(function(){ $('svBasla').textContent='Sorular yüklenemedi, sayfayı yenile'; });
 })();
 </script>
+<script src="sinav-sonucu.js" defer></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

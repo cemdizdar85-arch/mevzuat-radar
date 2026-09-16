@@ -127,6 +127,9 @@
       <div class="og-btnler"><a class="og-btn" href="sinav-gibi.html">Sınav gibi çöz (130 soru)</a><a class="og-btn" href="sorular.html#sgs">Ders ders çalış</a></div>
     </div>
 
+    <!-- 16.09: gerçek sınav sonucu -> seviye testi kalibrasyonu (sinav-sonucu.js; aynı kutu seviye-testi.html'de de var) -->
+    <div id="ssKutu"></div>
+
     <div class="og-btnler" style="margin-top:28px"><button class="og-btn" id="ogCikis" type="button">Çıkış yap</button></div>
   </section>
 
@@ -303,6 +306,7 @@
   sb.auth.getSession().then(function(r){ var s=r.data&&r.data.session; if(s) panel(s.user); else girisGoster(); }).catch(girisGoster);
 })();
 </script>
+<script src="sinav-sonucu.js" defer></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
