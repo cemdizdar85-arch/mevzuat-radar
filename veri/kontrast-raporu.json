@@ -6,8 +6,8 @@
   "koyu_gecis": 4,
   "temiz_sayfa": 73,
   "denetlenen_metin": 12319,
-  "toplam_kirik": 14,
-  "denetlenen_sinir": 3874,
+  "toplam_kirik": 19,
+  "denetlenen_sinir": 3875,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
@@ -68,8 +68,17 @@
     },
     {
       "sayfa": "sorular.html",
-      "adet": 5,
+      "adet": 6,
       "ornekler": [
+        {
+          "oge": "a.sc-marka",
+          "yazi": "tetikte",
+          "oran": 1.12,
+          "esik": 3,
+          "renk": "rgb(22, 25, 29)",
+          "zemin": "rgb(10,11,14)",
+          "iz": "<a class=\"sc-marka\" href=\"index.html\"><span class=\"sc-lamba\" aria-hidden=\"true\"></span>tetikte</a>"
+        },
         {
           "oge": "h1",
           "yazi": "Tetikte",
@@ -119,8 +128,44 @@
     },
     {
       "sayfa": "ucretsiz-dene.html",
-      "adet": 5,
+      "adet": 9,
       "ornekler": [
+        {
+          "oge": "a.uc-marka",
+          "yazi": "tetikte",
+          "oran": 1.12,
+          "esik": 3,
+          "renk": "rgb(22, 25, 29)",
+          "zemin": "rgb(10,11,14)",
+          "iz": "<a class=\"uc-marka\" href=\"index.html\"><span class=\"uc-lamba\" aria-hidden=\"true\"></span>tetikte</a>"
+        },
+        {
+          "oge": "a",
+          "yazi": "SMMM Staja Giriş",
+          "oran": 1.9,
+          "esik": 4.5,
+          "renk": "rgb(207, 161, 99)",
+          "zemin": "rgb(232,231,229)",
+          "iz": "<a href=\"ucretsiz-dene.html?sinav=sgs\" data-sinav=\"sgs\" aria-current=\"page\">SMMM Staja Giriş</a>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Yeterlilik",
+          "oran": 3.15,
+          "esik": 4.5,
+          "renk": "rgb(120, 130, 143)",
+          "zemin": "rgb(232,231,229)",
+          "iz": "<a href=\"ucretsiz-dene.html?sinav=yeterlilik\" data-sinav=\"yeterlilik\">Yeterlilik</a>"
+        },
+        {
+          "oge": "a",
+          "yazi": "KGK",
+          "oran": 3.15,
+          "esik": 4.5,
+          "renk": "rgb(120, 130, 143)",
+          "zemin": "rgb(232,231,229)",
+          "iz": "<a href=\"ucretsiz-dene.html?sinav=kgk\" data-sinav=\"kgk\">KGK</a>"
+        },
         {
           "oge": "h1",
           "yazi": "Tetikte",
@@ -138,33 +183,6 @@
           "renk": "rgb(170, 179, 192)",
           "zemin": "rgb(251,250,248)",
           "iz": "<p style=\"color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px\"><b style=\"color:var(--ink)\">İşin"
-        },
-        {
-          "oge": "b",
-          "yazi": "İşinin nöbetçisi çok yakında.",
-          "oran": 1.06,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(251,250,248)",
-          "iz": "<b style=\"color:var(--ink)\">İşinin nöbetçisi çok yakında.</b>"
-        },
-        {
-          "oge": "span",
-          "yazi": "E-postamın, Tetikte açılış bilgilendirme",
-          "oran": 2.03,
-          "esik": 4.5,
-          "renk": "rgb(170, 179, 192)",
-          "zemin": "rgb(251,250,248)",
-          "iz": "<span style=\"max-width:400px\">E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İs"
-        },
-        {
-          "oge": "a",
-          "yazi": "Aydınlatma metni",
-          "oran": 1.77,
-          "esik": 4.5,
-          "renk": "rgb(227, 184, 119)",
-          "zemin": "rgb(251,250,248)",
-          "iz": "<a href=\"/kvkk.html\" target=\"_blank\" style=\"color:#ffc24b\">Aydınlatma metni</a>"
         }
       ]
     }
