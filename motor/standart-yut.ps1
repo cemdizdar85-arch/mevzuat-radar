@@ -883,6 +883,14 @@ $ambarUcu = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar'
 # DOGRUSU: standardin adi ya AYNEN esit olmali, ya da ardindan BOSLUK gelmeli.
 # 'TMS 2 ' oneki TMS 20'yi tutmaz; 'TMS 2' esitligi de yalniz kendisini tutar.
 $suzgec = 'or=(kaynak_ad.eq.' + [uri]::EscapeDataString($standart) + ',kaynak_ad.like.' + [uri]::EscapeDataString("$standart *") + ')'
+# 16.09 — AYRI YAYIN (degisiklik metni) bu standardin parcasi DEGILDIR.
+# TSRS 2 kosusunda "TSRS 2 Degisiklikleri - ... (RG 28.07.2026)" 9 parcasi onek suzgecine
+# girdi: kuculme freni sahte "5.367 kr kayip" dedi, -uygula olsaydi bu 9 parca SILINIRDI
+# ve yeni bolmede karsiligi olmadigi icin geri gelmezdi (elle yedekten dondu).
+# Suzgec DAR tutuldu: yalniz ad "<standart> Degisiklikleri" ile BASLIYORSA disarida kalir.
+# "degisiklik" gecen paragraf basliklari (TMS 8, BDS 320 p.12, TFRS 14 p.13...) ETKILENMEZ.
+# Olcum 16.09: ambarda bu kalipta 9 kayit var, hepsi TSRS 2 (bkz. veri/KGK-KAYNAK-OLCUMU.md).
+$suzgec += '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$standart Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$standart Değişiklikleri*")
 
 function SY_Cek([string]$adres){
   $y=Invoke-WebRequest -UseBasicParsing -Uri $adres -Headers $basliklar -TimeoutSec 240
