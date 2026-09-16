@@ -29,6 +29,8 @@
 #
 # ⛔ ELLE TETIKLENIR. cron YOK - para harcayan bir akis kendiliginden kosmaz.
 name: Bulut Uretim (soru basimi)
+# 16.09: kosu adi PLANI tasir; parti cakisma kapisi koşan islerin planini buradan okur.
+run-name: "Bulut Uretim | ${{ inputs.plan }} | halka ${{ inputs.zincir }}"
 
 on:
   workflow_dispatch:
@@ -170,7 +172,25 @@ jobs:
           # 16.09 Cem "hep toplu, ucuza bekle": bekleme anlik yola dusmez; SON_AN'da surec 75 ile biter, zincir devam ettirir.
           MEVZUAT_TOPLU_BEKLE_DK: "1440"
           MEVZUAT_TOPLU_ANLIKSIZ: "1"
+          GH_TOKEN: ${{ github.token }}
         run: |
+          # 16.09 PARTI CAKISMA KAPISI: bu isten ONCE baslamis, hala kosan bulut islerinin planlarindaki etiketler atlanir
+          # (ayni partiyi iki is yazarsa son yazan oncekini siler). Atlanan parti zincirle sonraki halkada kosar.
+          $atla=@()
+          try{
+            $buKosu=[long]"${{ github.run_id }}"
+            $kosanlar=@(gh run list --workflow=bulut-uretim.yml --status in_progress --limit 50 --json databaseId,displayTitle | ConvertFrom-Json)
+            foreach($k in $kosanlar){
+              if([long]$k.databaseId -ge $buKosu){ continue }
+              $m=[regex]::Match("$($k.displayTitle)",'Bulut Uretim \| (\S+) \| halka')
+              if(-not $m.Success){ continue }
+              $digerPlan=$m.Groups[1].Value
+              if($digerPlan -eq "${{ inputs.plan }}" -or -not (Test-Path $digerPlan)){ continue }
+              foreach($r in @((Get-Content $digerPlan -Raw -Encoding UTF8 | ConvertFrom-Json))){ if("$($r.etiket)"){ $atla+="$($r.etiket)" } }
+            }
+          }catch{ "cakisma kapisi okunamadi: $($_.Exception.Message) (atlama yok)" }
+          $env:MEVZUAT_ATLA_ETIKET=(@($atla | Sort-Object -Unique) -join ',')
+          "cakisma kapisi: koşan islerden $(@($atla | Sort-Object -Unique).Count) etiket bu kosuda atlanir"
           if("$env:MEVZUAT_TOPLU_PARCA" -match '^\d+$'){ "TOPLU PARCA BOYU: $env:MEVZUAT_TOPLU_PARCA (girdiden)" }
           else { "TOPLU PARCA BOYU: kod varsayilani (30)" }
           ./motor/kalip-kosucu.ps1 -Plan "${{ inputs.plan }}" -Paralel ${{ inputs.paralel }}

@@ -235,7 +235,19 @@ function PartiKuyrukBitir($a){
 }
 
 $kuyruk=New-Object System.Collections.Generic.Queue[object]
-foreach($s in $satirlar){ $kuyruk.Enqueue($s) }
+# 16.09.2026 (Cem "1.2.3 yap"): PARTİ ÇAKIŞMA KAPISI. Aynı parti iki bulut işinde aynı anda koşarsa ikisi de ambardan indirip
+#   kendi sorusunu işler, sonda tüm parti dosyasını yükler → son yazan öncekinin sonucunu SİLER (16.09'da c5-mta-zor-r2 elle ayrıldı).
+#   bulut-uretim.yml, daha ÖNCE başlamış koşan işlerin planlarındaki etiketleri MEVZUAT_ATLA_ETIKET'e yazar; burada atlanır.
+#   Atlanan parti için "TOPLU ANLIKSIZ (çakışma)" izi düşülür → iş sonunda zincir aynı planı yeniden tetikler, parti o zaman koşar.
+$ATLA_KUMESI=@{}; foreach($atlaEt in @("$env:MEVZUAT_ATLA_ETIKET" -split ',')){ if($atlaEt.Trim()){ $ATLA_KUMESI[$atlaEt.Trim()]=1 } }
+foreach($s in $satirlar){
+  if($ATLA_KUMESI.ContainsKey("$($s.etiket)")){
+    "[$(Get-Date -Format HH:mm)] ATLANDI (başka bulut işinde koşuyor): $($s.etiket)"
+    [IO.File]::AppendAllText((Join-Path $logDir 'cakisma-atlanan.log'),("TOPLU ANLIKSIZ (çakışma) · $($s.etiket) · $(Get-Date -Format 'yyyy-MM-dd HH:mm')`r`n"),[Text.UTF8Encoding]::new($false))
+    continue
+  }
+  $kuyruk.Enqueue($s)
+}
 if($SadeceSecim){ $kuyruk.Clear(); "SADECE SEÇİM: plan partileri koşturulmadı (bedel 0) — seçim, sayfa ve karne önbellekten yeniden kuruluyor" }   # 14.09: kod kapısı/yayın şartı değişince seçimi parti koşturmadan tazelemek için (koşucu önbelleği olmayan partiyi yeniden üretirdi)
 $ucan=New-Object System.Collections.Generic.List[object]
 $durduruldu=$false
