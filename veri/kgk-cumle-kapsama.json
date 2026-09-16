@@ -1,27 +1,876 @@
 {
-    "olcum":  "16.09.2026 14:04",
+    "olcum":  "16.09.2026 15:59",
     "kural":  "Resmî PDF cümlesinin (≥50 kr) harf-yalnız ilk VE son 40 karakterinin ikisi de ambardaki standart metninde yoksa \"bulunamadı\". METİN TAM ≤%5 (gürültü tabanı %0,2–1,6, 8 TAM standartta ölçüldü) · METİN EKSİK \u003e%5.",
     "ozet":  {
-                 "olculen":  3,
-                 "TAM":  2,
-                 "EKSIK":  1
+                 "olculen":  89,
+                 "TAM":  89,
+                 "EKSIK":  0
              },
     "standartlar":  [
+                        {
+                            "standart":  "BDS 200",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 200_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  425,
+                            "bulunamayan":  7,
+                            "bulunamayan_kr":  624,
+                            "oran":  1.6,
+                            "ambar_parca":  108,
+                            "ambar_kr":  75257,
+                            "ornek":  [
+                                          "4 BDS 230, “Bağımsız Denetimin Belgelendirilmesi”, 8(c) paragrafı 11 *** Açıklayıcı Hükümler ve Uygulama Finansal Tabloların Denetimi Deneti",
+                                          "Dürüstlük, Tarafsızlık, Mesleki yeterlik ve özen, Sır saklama ve Mesleğe uygun davranış.",
+                                          "14 BDS 500 “Bağımsız Denetim Kanıtları” 7-9 uncu paragraflar 15 BDS 240, 13 üncü paragraf;",
+                                          "BDS 505, “Dış Teyitler”, 10-11 ve 16 ncı paragraflar 17 Mesleki Muhakeme (Bkz.:",
+                                          "5 ve 17 nci paragraflar) Denetim Kanıtlarının Yeterliliği ve Uygunluğu A31."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 210",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 210_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  271,
+                            "bulunamayan":  7,
+                            "bulunamayan_kr":  621,
+                            "oran":  2.6,
+                            "ambar_parca":  68,
+                            "ambar_kr":  55746,
+                            "ornek":  [
+                                          "Denetim Sözleşmesinin Kabulünü Etkileyen Diğer Etkenler 8.",
+                                          "Denetimin Ön Şartları Finansal Raporlama Çerçevesi (Bkz.:",
+                                          "17 BDS 200, 3-9 uncu paragraflar 18 BDS 701, “Kilit Denetim Konularının Bağımsız Denetçi Raporunda Bildirilmesi” 19 BDS 720, “Bağımsız Denet",
+                                          "A24-A26 paragrafları) BAĞIMSIZ DENETİM SÖZLEŞMESİ ÖRNEĞİ1 Sözleşmenin tarafları olan, ....",
+                                          "Denetimin Konusu ve Kapsamı Madde 1– (1) Denetimin amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 220",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 220_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  493,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  471,
+                            "oran":  1,
+                            "ambar_parca":  162,
+                            "ambar_kr":  109848,
+                            "ornek":  [
+                                          "A63-A69 paragrafları) Denetimin Yürütülmesi Yönlendirme, Gözetim ve Gözden Geçirme 29.",
+                                          "11 BDS 230, 8–11 ve A6 paragrafları 14 *** Açıklayıcı Hükümler ve Uygulama Kapsam (Bkz.:",
+                                          "Tanımlar Denetim Ekibi (Bkz.:12(d) paragrafı) A15.",
+                                          "Denetim Ekibinin Yetkinlik ve Kabiliyetleri (Bkz.:",
+                                          "39 BDS 701, 9 ve A14 paragrafları 40 KYS 2 Denetimin Kalitesine yönelik Gözden Geçirme 41 KYS 1, 34(f) paragrafı 42 BDS 700, 49 uncu paragra"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 230",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 230_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  148,
+                            "bulunamayan":  4,
+                            "bulunamayan_kr":  481,
+                            "oran":  2.7,
+                            "ambar_parca":  42,
+                            "ambar_kr":  29949,
+                            "ornek":  [
+                                          "8 *** Açıklayıcı Hükümler ve Uygulama Çalışma Kâğıtlarının Zamanında Hazırlanması (Bkz.:",
+                                          "6 BDS 315, 4 üncü paragrafta yer alan “ciddi risk” tanımı 7 BDS 701, “Kilit Denetim Konularının Bağımsız Denetçi Raporunda Bildirilmesi” 11 ",
+                                          "8 BDS 220 (Revize), 29-34 üncü paragraflar 12 Önemli Hususlara İlişkin Olarak Yönetimle, Üst Yönetimden Sorumlu Olanlarla ve Diğer Kişilerle",
+                                          "16 KYS 1, 31(f) paragrafı 17 KYS 1, A85 paragrafı 15 Ek (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 240",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 240_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  617,
+                            "bulunamayan":  6,
+                            "bulunamayan_kr":  503,
+                            "oran":  1,
+                            "ambar_parca":  121,
+                            "ambar_kr":  112940,
+                            "ornek":  [
+                                          "14 BDS 330, 28 inci paragraf 16 *** Açıklayıcı Hükümler ve Uygulama Hilenin Ayırt Edici Özellikleri (Bkz.:",
+                                          "Hilenin Tespitine ve Önlenmesine İlişkin Sorumluluk Denetçinin Sorumlulukları (Bkz.:",
+                                          "15 Etik Kurallar, A360.16-360.18 U1 paragrafları 16 BDS 200, A49 paragrafı 19 Denetim Ekibi İçinde Müzakere Yapılması (Bkz.:",
+                                          "29 BDS 260, A38 paragrafı 33 Hilenin Yetkili Bir Kuruma Rapor Edilmesi (Bkz.:",
+                                          "Teşvikler/Baskılar Finansal istikrarın veya kârlılığın;"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 250",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 250_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  215,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  68,
+                            "ambar_kr":  42875,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 260",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 260_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  341,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  174,
+                            "oran":  0.9,
+                            "ambar_parca":  81,
+                            "ambar_kr":  66183,
+                            "ornek":  [
+                                          "İletişim Süreci İletişim Sürecinin Oluşturulması 19.",
+                                          "İletişim Süreci İletişim Sürecinin Oluşturulması (Bkz.:",
+                                          "Muhasebe Tahminleri ve İlgili Açıklamalar BDS 540’da yer alan Ek 2;"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 265",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 265_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  156,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  42,
+                            "ambar_kr":  27232,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 300",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 300_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  177,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  215,
+                            "oran":  1.7,
+                            "ambar_parca":  39,
+                            "ambar_kr":  32885,
+                            "ornek":  [
+                                          "10 BDS 220 (Revize), A73-A74 paragrafları 9 Denetim Ekibindeki Kilit Üyelerin Katılımı (Bkz.:",
+                                          "Planlama Çalışmaları Genel Denetim Stratejisi (Bkz.:",
+                                          "15 BDS 510, “İlk Bağımsız Denetimler – Açılış Bakiyeleri” 14 Ek (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 315",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 315_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  1530,
+                            "bulunamayan":  32,
+                            "bulunamayan_kr":  2835,
+                            "oran":  2.1,
+                            "ambar_parca":  358,
+                            "ambar_kr":  292424,
+                            "ornek":  [
+                                          "İşletmenin aşağıdakilere ilişkin süreçleri ve hakkında kanaat edinmek (Bkz.:",
+                                          "Sürecin aşağıdakileri ele alan yönleri ve hakkında kanaat edinmek:",
+                                          "A123-A130 paragrafları) Bilgi sistemi ve iletişim 25.",
+                                          "14(a) paragrafı) Yönetimin ve İşletme İçindeki Diğer Kişilerin Sorgulanma Sebebi A22.",
+                                          "14(b) paragrafı) Analitik Prosedürlerin Risk Değerlendirme Prosedürü Olarak Uygulanma Sebebi A27."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 320",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 320_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  103,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  29,
+                            "ambar_kr":  23761,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 330",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 330_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  346,
+                            "bulunamayan":  6,
+                            "bulunamayan_kr":  371,
+                            "oran":  1.7,
+                            "ambar_parca":  96,
+                            "ambar_kr":  60861,
+                            "ornek":  [
+                                          "11 *** Açıklayıcı Hükümler ve Uygulama Yapılacak Genel İşler (Bkz.:",
+                                          "Risklerin Daha Yüksek Olarak Değerlendirilmesi (Bkz.:",
+                                          "Kontrol Testlerinin Zamanlaması İstenen güvenme dönemi (Bkz.:",
+                                          "Önceki denetimlerden sonra değişen kontroller (Bkz.:",
+                                          "7 BDS 315, 36 ncı paragraf 21 Maddi Doğrulama Prosedürlerinin Niteliği ve Kapsamı A45."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 402",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 402_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  250,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  179,
+                            "oran":  0.8,
+                            "ambar_parca":  67,
+                            "ambar_kr":  58668,
+                            "ornek":  [
+                                          "8 BDS 315, 30 uncu paragraf 9 GDS 3402, “Hizmet Kuruluşundaki Kontrollere İlişkin Güvence Raporları” 15 A17.",
+                                          "Denetim sırasında belirlenen iç kontrol eksikliklerinin iletilmesi A39."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 450",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 450_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  145,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  322,
+                            "oran":  2.1,
+                            "ambar_parca":  46,
+                            "ambar_kr":  32066,
+                            "ornek":  [
+                                          "3 üncü dipnot 5 BDS 230, “Bağımsız Denetimin Belgelendirilmesi”, 8-11 inci paragraflar ve A6 paragrafı 8 *** Açıklayıcı Hükümler ve Uygulama",
+                                          "9 BDS 530, “Bağımsız Denetimde Örnekleme”, 14-15 inci paragraflar 10 A8.",
+                                          "17 BDS 260, 13 üncü paragraf 18 BDS 260, 16(c)(ii) paragrafı 15 Belgelendirme (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 500",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 500_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  296,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  403,
+                            "oran":  1.7,
+                            "ambar_parca":  79,
+                            "ambar_kr":  57898,
+                            "ornek":  [
+                                          "8 *** Açıklayıcı Hükümler ve Uygulama Dış Bilgi Kaynağı (Bkz.:",
+                                          "Denetim Kanıtı Elde Edilmesine İlişkin Denetim Prosedürleri A14.",
+                                          "15 15 BDS 580, “Yazılı Beyanlar” 14 Denetim Kanıtı Olarak Kullanılacak Bilgiler İhtiyaca Uygunluk ve Güvenilirlik (Bkz.:",
+                                          "20 BDS 330, 6 ncı paragraf 21 BDS 540, 29 uncu paragraf 18 A44.",
+                                          "Tüm kalemlerin seçilmesi (%100 inceleme), Belirli kalemlerin seçilmesi ve Denetim örneklemesi."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 501",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 501_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  122,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  189,
+                            "oran":  2.5,
+                            "ambar_parca":  41,
+                            "ambar_kr":  23480,
+                            "ornek":  [
+                                          "A5 paragrafı), (iii) Stokları tetkik etmek (Bakınız:",
+                                          "8 *** Açıklayıcı Hükümler ve Uygulama Stoklar Fiziki Stok Sayımına Katılım (Bakınız:",
+                                          "Dava ve İddialar Dava ve İddiaların Tamlığı (Bakınız:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 505",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 505_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  141,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  445,
+                            "oran":  2.1,
+                            "ambar_parca":  42,
+                            "ambar_kr":  25430,
+                            "ornek":  [
+                                          "Denetim Kanıtı Elde Etmek için Uygulanan Dış Teyit Prosedürleri 2.",
+                                          "7 BDS 330, 18-19 uncu paragraflar 8 BDS 330, 7(b) paragrafı 9 BDS 330, A53 paragrafı 10 BDS 240, “Finansal Tabloların Bağımsız Denetiminde B",
+                                          "19 BDS 240, 24 üncü paragraf 20 BDS 315, 31 inci paragraf 21 BDS 240, 24 üncü paragraf 22 BDS 240, 35 inci paragraf 13 A22."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 510",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 510_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  108,
+                            "bulunamayan":  4,
+                            "bulunamayan_kr":  348,
+                            "oran":  3.7,
+                            "ambar_parca":  23,
+                            "ambar_kr":  22147,
+                            "ornek":  [
+                                          "Denetim Sonuçları ve Raporlama Açılış Bakiyeleri 10.",
+                                          "Denetim Sonuçları ve Raporlama Açılış Bakiyeleri (Bkz.:",
+                                          "A8 paragrafı) Denetçi Raporunda Sınırlı Olumlu Görüş Verilmesine İlişkin Örnek [TTK’ya göre uyarlanmamıştır] Örnek 1:",
+                                          "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 520",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 520_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  96,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  99,
+                            "oran":  1,
+                            "ambar_parca":  29,
+                            "ambar_kr":  19304,
+                            "ornek":  [
+                                          "A20-A21 paragrafları) 7 *** Açıklayıcı Hükümler ve Uygulama Analitik Prosedürlerin Tanımı (Bakınız:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 530",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 530_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  178,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  208,
+                            "oran":  1.7,
+                            "ambar_parca":  57,
+                            "ambar_kr":  33402,
+                            "ornek":  [
+                                          "1 BDS 500, “Bağımsız Denetim Kanıtları” 6 Örnekleme birimi:",
+                                          "8 *** Açıklayıcı Hükümler ve Uygulama Tanımlar Örnekleme Dışı Risk (Bakınız:",
+                                          "Denetim Prosedürlerinin Uygulanması (Bakınız:10-11 inci paragraflar) A14."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 540",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 540_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  892,
+                            "bulunamayan":  10,
+                            "bulunamayan_kr":  1026,
+                            "oran":  1.1,
+                            "ambar_parca":  219,
+                            "ambar_kr":  174628,
+                            "ornek":  [
+                                          "İşletmenin İç Kontrol Sistemi Hakkında Kanaat Edinilmesi İşletmenin;",
+                                          "9 BDS 315, 26(a)(i)-(iv) paragrafları 10 BDS 315, 31 ve 34 üncü paragraflar 11 17.",
+                                          "A85-A89 paragrafları).18 11 BDS 315, 32 nci paragraf 12 BDS 315, 26(a)(i) paragrafı 13 BDS 315, 26(a) paragrafı 14 BDS 330, 6-15 ve 18 inci ",
+                                          "21 BDS 330, 25-26 ncı paragraflar 22 BDS 500, 11 inci paragraf 23 BDS 705, “Bağımsız Denetçi Raporunda Olumlu Görüş Dışında Bir Görüş Verilm",
+                                          "18 *** Açıklayıcı Hükümler ve Uygulama Muhasebe Tahminlerinin Niteliği (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 550",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 550_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  334,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  378,
+                            "oran":  1.5,
+                            "ambar_parca":  79,
+                            "ambar_kr":  61608,
+                            "ornek":  [
+                                          "BDS 240, 16 ncı paragraf 8 İşletmenin İlişkili Taraf İlişkilerinin ve İşlemlerinin Tanınması 12.",
+                                          "İlişkili Taraf Niteliğindeki Özel Amaçlı İşletmeler A7.",
+                                          "11 inci paragraf) Kamu Sektörü İşletmelerine Özgü Hususlar A8.",
+                                          "İşletmenin İlişkili Taraf İlişkilerinin ve İşlemlerinin Tanınması Denetim Ekibi İçinde Müzakere Yapılması (Bakınız:",
+                                          "İşletmenin İlişkili Taraflarının Kimliği (Bakınız:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 560",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 560_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  138,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  124,
+                            "oran":  1.4,
+                            "ambar_parca":  38,
+                            "ambar_kr":  28598,
+                            "ornek":  [
+                                          "7(c) paragrafı) Kamu Sektörü İşletmelerine Özgü Hususlar A10.",
+                                          "15 inci paragraf) Kamu Sektörü İşletmelerine Özgü Hususlar A19."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 570",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 570_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  325,
+                            "bulunamayan":  8,
+                            "bulunamayan_kr":  840,
+                            "oran":  2.5,
+                            "ambar_parca":  63,
+                            "ambar_kr":  65825,
+                            "ornek":  [
+                                          "12 *** Açıklayıcı Hükümler ve Uygulama Kapsam (Bkz.:",
+                                          "2 nci paragraf) Kamu Sektörü İşletmelerine Özgü Hususlar A2.",
+                                          "Yönetimin Değerlendirmesinin Kapsadığı Dönem (Bkz.:",
+                                          "Denetçinin Vardığı Sonuçlar İşletmenin Sürekliliğini Devam Ettirme Kabiliyetine İlişkin Ciddi Şüphe Oluşturabilecek Olay veya Şartlarla İlgi",
+                                          "16 BDS 705, 10 uncu paragraf 21 Ek (Bkz.:A29, A31-A32 paragrafları) İşletmenin Sürekliliğine İlişkin Denetçi Raporu Örnekleri • Örnek 1:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 580",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 580_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  176,
+                            "bulunamayan":  8,
+                            "bulunamayan_kr":  537,
+                            "oran":  4.5,
+                            "ambar_parca":  50,
+                            "ambar_kr":  33068,
+                            "ornek":  [
+                                          "Yazılı Beyanlara İlişkin Hükümler İçeren BDS’lerin Listesi Ek 2:",
+                                          "Yazılı Beyanlarda Yönetimin Sorumluluklarının Açıklanması 12.",
+                                          "Yönetimin Sorumluluklarıyla İlgili Yazılı Beyanlar 20.",
+                                          "A26-A27 paragrafları) 9 *** Açıklayıcı Hükümler ve Uygulama Denetim Kanıtı Olarak Yazılı Beyanlar (Bkz.:",
+                                          "13 üncü Paragraf) Finansal Tablolarla İlgili İlâve Yazılı Beyanlar A10."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 600",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 600_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  932,
+                            "bulunamayan":  20,
+                            "bulunamayan_kr":  1931,
+                            "oran":  2.1,
+                            "ambar_parca":  254,
+                            "ambar_kr":  188786,
+                            "ornek":  [
+                                          "Topluluk İç Kontrol Sistemi Hakkında Kanaat Edinilmesi Ek 3:",
+                                          "A7-A9 paragrafları) Birim Denetçilerinin Katılımı 6.",
+                                          "Topluluk Sorumlu Denetçisinin ve Topluluk Denetçisinin Sorumlulukları 11.",
+                                          "10 BDS 220 (Revize), 12(d) paragrafı 11 BDS 220 (Revize), 12(a) paragrafı 10 (l) Topluluk yönetimi:",
+                                          "A157-A158 paragrafları) 28 BDS 560, Bilanço Tarihinden Sonraki Olaylar, 6-7 nci paragraflar 29 BDS 330, 26 ncı paragraf 18 Topluluk Yönetimi"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 610",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 610_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  263,
+                            "bulunamayan":  11,
+                            "bulunamayan_kr":  1446,
+                            "oran":  4.2,
+                            "ambar_parca":  79,
+                            "ambar_kr":  53881,
+                            "ornek":  [
+                                          "15-25 inci paragraflar 5 BDS 330, “Bağımsız Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler” 6 BDS 200, 14 üncü paragraf 7 Yürürlü",
+                                          "Ana Hükümler İç Denetim Fonksiyonunun Çalışmasının Kullanılıp Kullanılamayacağına, Hangi Alanlarda ve Ne Düzeyde Kullanılabileceğine Karar V",
+                                          "Ne kadar muhakeme içerdiğine, Değerlendirilmiş “önemli yanlışlık” riskine, İç denetim fonksiyonunun kurumsal statüsünün ve ilgili politika v",
+                                          "Denetimde önemli muhakeme yapmayı gerektiren (Bakınız:",
+                                          "9 BDS 260, 15 inci paragraf 10 BDS 220 (Revize), “Finansal Tabloların Bağımsız Denetiminde Kalite Yönetimi 12 Belgelendirme 36."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 620",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 620_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  252,
+                            "bulunamayan":  4,
+                            "bulunamayan_kr":  267,
+                            "oran":  1.6,
+                            "ambar_parca":  59,
+                            "ambar_kr":  43703,
+                            "ornek":  [
+                                          "8 *** Açıklayıcı Hükümler ve Uygulama Denetçinin Faydalandığı Uzman Tanımı (Bakınız:",
+                                          "15 BDS 220 (Revize), 4(b) ve A10 paragrafları 13 A17.",
+                                          "17 Varsayımlar, Yöntemler ve Kaynak Veriler Varsayımlar ve Yöntemler (Bakınız:",
+                                          "Uzman Tarafından Kullanılan Kaynak Veriler (Bakınız:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 700",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 700_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  677,
+                            "bulunamayan":  10,
+                            "bulunamayan_kr":  848,
+                            "oran":  1.5,
+                            "ambar_parca":  145,
+                            "ambar_kr":  134260,
+                            "ornek":  [
+                                          "BDS’lere Uygun Olarak Yapılan Denetimler için Denetçi Raporları Başlık 21.",
+                                          "Denetçi raporunun metninde bildirilir veya Denetçi raporunun ekinde bildirilir.",
+                                          "Birden Fazla Finansal Raporlama Çerçevesine Atıf Yapılması A13.",
+                                          "24-26 ncı paragraflar) Denetlenen finansal tablolara atıf A22.",
+                                          "Finansal tabloların ve sunduğu hususların açıklanması A26."
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 701",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 701_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  303,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  785,
+                            "oran":  1,
+                            "ambar_parca":  84,
+                            "ambar_kr":  61817,
+                            "ornek":  [
+                                          "Denetçi, Kilit denetim konusu olarak belirlediği hususları veya Uygun hâllerde;",
+                                          "13 BDS 706, 8(b) ve 10(b) paragrafları 14 BDS 706, A1-A3 paragrafları 15 BDS 710, “Karşılaştırmalı Bilgiler-Önceki Dönemlere Ait Karşılık Ge",
+                                          "18 BDS 260, 16(b) ve A21 paragrafları 19 BDS 550, “İlişkili Taraflar”, A42 paragrafı 20 BDS 600 (Revize), “Özel Hususlar-Topluluk Finansal T"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 705",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 705_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  377,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  549,
+                            "oran":  1.3,
+                            "ambar_parca":  61,
+                            "ambar_kr":  72573,
+                            "ornek":  [
+                                          "12 *** Açıklayıcı Hükümler ve Uygulama Olumlu Görüş Dışındaki Görüş Türleri (Bkz.:",
+                                          "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:",
+                                          "BDS 700’de yer alan Örnek 2] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:",
+                                          "BDS 700’de yer alan Örnek 2] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:",
+                                          "B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 706",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 706_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  194,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  537,
+                            "oran":  2.6,
+                            "ambar_parca":  35,
+                            "ambar_kr":  36985,
+                            "ornek":  [
+                                          "8 *** Açıklayıcı Hükümler ve Uygulama Denetçi Raporunda Yer Alan Dikkat Çekilen Hususlar Paragrafları ile Kilit Denetim Konuları Arasındaki ",
+                                          "Birden fazla finansal tablo setine ilişkin raporlama yapılması A13.",
+                                          "Denetçi Raporunun Dağıtımına ve Kullanımına İlişkin Kısıtlamalar A14.",
+                                          "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:",
+                                          "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 710",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 710_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  229,
+                            "bulunamayan":  8,
+                            "bulunamayan_kr":  743,
+                            "oran":  3.5,
+                            "ambar_parca":  34,
+                            "ambar_kr":  44212,
+                            "ornek":  [
+                                          "Denetimin Raporlanması Karşılık Gelen Bilgiler 10.",
+                                          "Denetimin Raporlanması Karşılık Gelen Bilgiler Denetçi Görüşünde Atıf Yapılmaması (Bkz.:",
+                                          "Karşılaştırmalı Finansal Tablolar Denetçinin Görüşünde Atıf Yapılması (Bkz.:",
+                                          "A5, A7, A10 paragrafları) Denetçi Raporu Örnekleri Örnek 1:",
+                                          "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:"
+                                      ]
+                        },
                         {
                             "standart":  "BDS 720",
                             "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 720_2025.pdf",
                             "durum":  "METİN TAM",
                             "resmi_cumle":  750,
-                            "bulunamayan":  4,
-                            "bulunamayan_kr":  647,
-                            "oran":  0.5,
-                            "ambar_parca":  87,
-                            "ambar_kr":  142689,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  711,
+                            "oran":  0.7,
+                            "ambar_parca":  96,
+                            "ambar_kr":  142637,
                             "ornek":  [
                                           "Finansal Tablolar Hakkında Verilen Diğer Bilgiler Hakkında Verilen Görüş Görüş Görüş Sınırlı Olumlu Olumsuz Olumlu Görüş Vermekten Görüş Gör",
+                                          "Kapsam Sınırlaması Nedeniyle Sınırlı Olumlu Görüş Verilmesi A56.",
                                           "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:",
                                           "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:",
                                           "BDS 700’de yer alan Örnek 1] B) Mevzuattan Kaynaklanan Diğer Yükümlülükler [BDS 700’e uygun olarak yapılan raporlama – Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 800",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 800_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  298,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  133,
+                            "oran":  0.7,
+                            "ambar_parca":  37,
+                            "ambar_kr":  55420,
+                            "ornek":  [
+                                          "Geçerli Finansal Raporlama Çerçevesine İlişkin Açıklama 12.",
+                                          "8 *** Açıklayıcı Hükümler ve Uygulama Özel Amaçlı Çerçevenin Tanımı (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 805",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 805_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  320,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  163,
+                            "oran":  0.6,
+                            "ambar_parca":  48,
+                            "ambar_kr":  64457,
+                            "ornek":  [
+                                          "Ana Hükümler Denetimin Kabulünde Dikkate Alınacak Hususlar BDS’lerin Uygulanması 7.",
+                                          "14 BDS 705, 15 inci paragraf 9 *** Açıklayıcı Hükümler ve Uygulama Kapsam (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "BDS 810",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS 810_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  306,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  227,
+                            "oran":  1,
+                            "ambar_parca":  56,
+                            "ambar_kr":  60419,
+                            "ornek":  [
+                                          "A23 paragrafı) Özet Finansal Tablolara İlişkin Olumlu Görüş Dışındaki Bir Görüş 21.",
+                                          "14 *** Açıklayıcı Hükümler ve Uygulama Denetimin Kabulü (Bkz.:",
+                                          "A23 paragrafı) Özet Finansal Tablolara İlişkin Denetçi Raporu Örnekleri • Örnek 1:"
+                                      ]
+                        },
+                        {
+                            "standart":  "ETIK",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BagimsizDenetcilerIcinEtik%20Kurallar_11_08_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  2907,
+                            "bulunamayan":  27,
+                            "bulunamayan_kr":  1668,
+                            "oran":  0.9,
+                            "ambar_parca":  1147,
+                            "ambar_kr":  543297,
+                            "ornek":  [
+                                          "ALT BÖLÜM 113 – MESLEKİ YETERLİK VE ÖZEN A113.1 Denetçi;",
+                                          "Mesleki Muhakemenin Kullanılması 120.5 U4 Mesleki muhakeme;",
+                                          "Uygun Gözden Geçiren Kişi 300.8 U4 Uygun bir gözden geçiren kişi;",
+                                          "32 BÖLÜM 310 ÇIKAR ÇATIŞMALARI Giriş 310.1 Denetçiler;",
+                                          "310.5 U3 Müşteri kabulüne ilişkin daha fazla bilgi Bölüm 320 Denetçinin Görevlendirilmesi’nde yer almaktadır."
+                                      ]
+                        },
+                        {
+                            "standart":  "GDS 3000",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS 3000_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  1050,
+                            "bulunamayan":  21,
+                            "bulunamayan_kr":  2280,
+                            "oran":  2,
+                            "ambar_parca":  299,
+                            "ambar_kr":  191370,
+                            "ornek":  [
+                                          "Ana Hükümler Denetimin Güvence Denetimi Standartlarına Uygun Olarak Yürütülmesi Denetimle İlgili Standartlara Uyum 14.",
+                                          "Kalite Yönetimi Sorumlu Denetçinin Özellikleri 31.",
+                                          "Denetimin Planlanması ve Yürütülmesi Denetimin Planlanması 40.",
+                                          "17 Kanıtların Elde Edilmesi Risklerin Değerlendirilmesi ve Risklere Karşı Yapılacak İşler Sınırlı Güvence Makul Güvence 48S.",
+                                          "18 Sınırlı Güvence Makul Güvence Sınırlı Bir Güvence Denetiminde İlave Makul Bir Güvence Denetiminde Risk Prosedürlerin Gerekip Gerekmediğin"
+                                      ]
+                        },
+                        {
+                            "standart":  "GDS 3400",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS 3400_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  104,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  33,
+                            "ambar_kr":  22489,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "GDS 3402",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS 3402_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  516,
+                            "bulunamayan":  8,
+                            "bulunamayan_kr":  531,
+                            "oran":  1.6,
+                            "ambar_parca":  113,
+                            "ambar_kr":  114085,
+                            "ornek":  [
+                                          "Hizmet Kuruluşunun Beyanlarına İlişkin Örnek Ek 2:",
+                                          "5 GDS 3000, 3(a), 20 ve 34 üncü paragraflar 6 GDS 3000, 3(b) ve 31(a) paragrafları.",
+                                          "21 *** Açıklayıcı Hükümler ve Uygulama Kapsam (Bkz.:",
+                                          "dönem görüşlere Tanımda belirtilen boyunca ilgili ilişkin kontrollerin;",
+                                          "(GDS 3000’de yer alan Tanımda belirtilen hükümler açısından, bu görüşe kontrollerin;"
+                                      ]
+                        },
+                        {
+                            "standart":  "GDS 3410",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS 3410_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  1093,
+                            "bulunamayan":  15,
+                            "bulunamayan_kr":  1050,
+                            "oran":  1.4,
+                            "ambar_parca":  233,
+                            "ambar_kr":  207397,
+                            "ornek":  [
+                                          "Emisyonlar, Arındırmalar ve Emisyon Mahsupları Ek 2:",
+                                          "Sera Gazı Beyanlarına İlişkin Güvence Raporu Örnekleri 5 Giriş 1.",
+                                          "GDS 3000, Diğer Mesleki Düzenlemeler ve Hükümlerle İlişkisi 9.",
+                                          "Denetim Sözleşmesinin Şartları Üzerinde Anlaşmaya Varılması 18.",
+                                          "A88(b) paragrafı), 16 (e) Faaliyetlerin niteliği (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "İHS 4400",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/%C4%B0HS%204400_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  435,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  370,
+                            "oran":  1.1,
+                            "ambar_parca":  99,
+                            "ambar_kr":  82004,
+                            "ornek":  [
+                                          "8 Ana Hükümler Üzerinde Mutabık Kalınan Prosedürlerin Uygulandığı İşin Bu İHS’ye Uygun Olarak Yürütülmesi 14.",
+                                          "14 *** Açıklayıcı Hükümler ve Uygulama Kapsam (Bkz.:",
+                                          "13(a), 13(b), 13(d), 13(g), 24(f)(i), 24(g), 30(e)(i), 30(e)(iii) paragrafları) A10.",
+                                          "6102 Sayılı Türk Ticaret Kanunu, 400 üncü madde 24 Müteakip İşler (Bkz.:",
+                                          "27 Denetçinin Faydalandığı Uzmana Yapılan Atıf (Bkz.:"
+                                      ]
+                        },
+                        {
+                            "standart":  "KYS 1",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/KYS 1_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  1059,
+                            "bulunamayan":  13,
+                            "bulunamayan_kr":  1266,
+                            "oran":  1.2,
+                            "ambar_parca":  267,
+                            "ambar_kr":  204151,
+                            "ornek":  [
+                                          "A3 paragrafı) Denetim şirketinin risk değerlendirme süreci, 1 KYS 2 Denetimin Kalitesinin Gözden Geçirilmesi 2 BDS 220 (Revize) Finansal Tab",
+                                          "A7 paragrafı) Açıklayıcı hükümler ve uygulama bölümü, (Bkz.:",
+                                          "A62– A64, A66 paragrafları) (a) Denetim şirketi ve personeli;",
+                                          "A114–A115 paragrafları) Risklere Karşı Yapılacak Belirli İşler 34.",
+                                          "A131– A132 paragrafları) politika veya prosedürler oluşturur."
+                                      ]
+                        },
+                        {
+                            "standart":  "KYS 2",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/KYS 2_2025.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  240,
+                            "bulunamayan":  4,
+                            "bulunamayan_kr":  311,
+                            "oran":  1.7,
+                            "ambar_parca":  84,
+                            "ambar_kr":  50720,
+                            "ornek":  [
+                                          "A22 paragrafı) politika veya prosedürler oluşturur.",
+                                          "A49 paragrafı) Kalitenin Gözden Geçirilmesinin Tamamlanması 27.",
+                                          "Topluluk Bağımsız Denetimlerine İlişkin Hususlar A32.",
+                                          "12 BDS 220 (Revize), 31 inci paragraf 13 BDS 230 Bağımsız Denetimin Belgelendirilmesi, 8(c) paragrafı 14 BDS 220 (Revize), A92 paragrafı 20 "
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 1",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 1.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  462,
+                            "bulunamayan":  6,
+                            "bulunamayan_kr":  492,
+                            "oran":  1.3,
+                            "ambar_parca":  159,
+                            "ambar_kr":  91495,
+                            "ornek":  [
+                                          "TFRS’lerin son hallerinin tutarlı olarak uygulanması Hükümlerin uygulanması A İşletmesi;",
+                                          "6 TFRS 1 Ek C İşletme birleşmelerine ilişkin muafiyetler Bu Ek, bu TFRS’nin ayrılmaz bir parçasıdır.",
+                                          "9 TFRS 1 Ek D Diğer TFRS’lerden muafiyetler Bu Ek, bu TFRS’nin ayrılmaz bir parçasıdır.",
+                                          "D10– D11 [Silinmiştir] Birikimli çevrim farkları D12 TMS 21;",
+                                          "14 TFRS 1 Bileşik finansal araçlar D18 TMS 32 Finansal Araçlar:"
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 2",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 2.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  522,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  221,
+                            "oran":  0.6,
+                            "ambar_parca":  155,
+                            "ambar_kr":  106024,
+                            "ornek":  [
+                                          "TFRS 2 Türkiye Finansal Raporlama Standardı 2 Hisse Bazlı Ödemeler Amaç 1 Bu TFRS’nin amacı;",
+                                          "63C TFRS 9 (2017 Sürümü) 6’ncı paragrafı değiştirmiştir.",
+                                          "16 TFRS 2 Ek B Uygulama kılavuzu Bu Ek, TFRS’nin ayrılmaz bir parçasıdır."
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 3",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 3.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  646,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  273,
+                            "oran":  0.5,
+                            "ambar_parca":  177,
+                            "ambar_kr":  126139,
+                            "ornek":  [
+                                          "14 TFRS 3 Ek A Terimlerin tanımları Bu Ek TFRS’nin ayrılmaz bir parçasıdır.",
+                                          "© IFRS Foundation 15 TFRS 3 Ek B Uygulama rehberi Bu Ek TFRS’nin ayrılmaz bir parçasıdır.",
+                                          "Edinilen işletmenin kiraya veren taraf olduğu faaliyet kiralamalarına konu olan varlıklar B42 Edinen işletme;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 5",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 5.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  201,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  139,
+                            "oran":  0.5,
+                            "ambar_parca":  62,
+                            "ambar_kr":  39583,
+                            "ornek":  [
+                                          "TFRS 5 Türkiye Finansal Raporlama Standardı 5 Satış Amaçlı Elde Tutulan Duran Varlıklar ve Durdurulan Faaliyetler Amaç 1 Bu TFRS’nin amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 6",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 6.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  75,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  30,
+                            "ambar_kr":  12495,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 7",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 7.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  702,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  210,
+                            "oran":  0.4,
+                            "ambar_parca":  216,
+                            "ambar_kr":  146543,
+                            "ornek":  [
+                                          "AÇIKLAMALAR GÜNCELLEMELER VE YÜRÜRLÜK TARİHLERİ • “TFRS 7 Finansal Araçlar:",
+                                          "TFRS 7 Türkiye Finansal Raporlama Standardı 7 Finansal Araçlar:",
+                                          "28 TFRS 7 Ek B Uygulama rehberi Bu Ek, TFRS’nin ayrılmaz bir parçasıdır."
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 8",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 8.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  135,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  53,
+                            "oran":  0.7,
+                            "ambar_parca":  41,
+                            "ambar_kr":  27074,
+                            "ornek":  [
+                                          "Faaliyet bölümleri 5 Faaliyet bölümü, bir işletmenin:"
                                       ]
                         },
                         {
@@ -29,35 +878,555 @@
                             "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 9.pdf",
                             "durum":  "METİN TAM",
                             "resmi_cumle":  2353,
-                            "bulunamayan":  29,
-                            "bulunamayan_kr":  4968,
-                            "oran":  1.2,
-                            "ambar_parca":  272,
-                            "ambar_kr":  511775,
+                            "bulunamayan":  6,
+                            "bulunamayan_kr":  876,
+                            "oran":  0.3,
+                            "ambar_parca":  404,
+                            "ambar_kr":  511709,
                             "ornek":  [
                                           "19 TFRS 9 Bölüm 6 Korunma Muhasebesi 6.1 Korunma Muhasebesinin Amacı ve Kapsamı 6.1.1 Korunma muhasebesinin amacı;",
                                           "6.3 Korunan Kalemler Korunan Kalemlerin Niteliği 6.3.1 Korunan bir kalem;",
                                           "Aşamaya ilişkin Geçiş 7.2.43 Gösterge Faiz Oranı Reformu – 2.",
-                                          "Finansal varlığın brüt Finansal varlığın herhangi bir zarar karşılığına göre düzeltilmeden önceki itfa defter değeri edilmiş maliyetidir.",
-                                          "Geçmişteki satışlar genellikle, politikasında belirlenen kredi kıstaslarını artık finansal varlıkların kredi riskinde, bu varlıkların karşıl"
+                                          "60 TFRS 9 Örnek Değerlendirme Örnek 3 Konsolide olarak grup, kredileri, sözleşmeye bağlı nakit akışlarını tahsil etmek için elde tutma İşlet",
+                                          "Örnek Değerlendirme Örnek 5 Söz konusu iş modelinin amacına sözleşmeye bağlı nakit akışları tahsil edilerek ve finansal Bir işletme birkaç y"
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 10",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 10.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  797,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  172,
+                            "oran":  0.3,
+                            "ambar_parca":  193,
+                            "ambar_kr":  145728,
+                            "ornek":  [
+                                          "Yatırımcıya yatırım yapılan işletme üzerinde güç sağlayan haklar B14 Güç haklardan doğar.",
+                                          "Muhasebeleştirme hükümleri Konsolidasyon işlemleri B86 Konsolide finansal tablolar:"
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 11",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 11.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  288,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  502,
+                            "oran":  0.7,
+                            "ambar_parca":  96,
+                            "ambar_kr":  51996,
+                            "ornek":  [
+                                          "4 TFRS 11 Ek B Uygulama rehberi Bu ek, bu TFRS’nin ayrılmaz bir parçasıdır.",
+                                          "6 TFRS 11 Müşterek kontrolün değerlendirilmesi Sözleşmeye bağlı anlaşma tarafların Hayır TFRS 11’in tümüne veya bir bölümüne anlaşma kapsamı"
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 12",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 12.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  266,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  273,
+                            "oran":  0.8,
+                            "ambar_parca":  84,
+                            "ambar_kr":  47500,
+                            "ornek":  [
+                                          "Bir işletmenin müşterek anlaşmalardaki ve iştiraklerdeki paylarının niteliği, kapsamı ve finansal etkileri 21 Bir işletme aşağıdakileri açık",
+                                          "6 TFRS 12 Bir işletmenin iş ortaklıklarındaki ve iştiraklerindeki paylarına ilişkin riskler 23 Bir işletme aşağıdakileri açıklar:"
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 13",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 13.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  622,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  147,
+                            "oran":  0.3,
+                            "ambar_parca":  160,
+                            "ambar_kr":  114651,
+                            "ornek":  [
+                                          "TFRS 13 Türkiye Finansal Raporlama Standardı 13 Gerçeğe Uygun Değer Ölçümü Amaç 1 Bu TFRS:",
+                                          "C5 TFRS 9 (2017 Sürümü), 52’nci paragrafı değiştirmiştir."
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 14",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 14.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  176,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  70,
+                            "ambar_kr":  42952,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 15",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 15.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  680,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  242,
+                            "ambar_kr":  139632,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 16",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 16.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  538,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  74,
+                            "oran":  0.2,
+                            "ambar_parca":  210,
+                            "ambar_kr":  108138,
+                            "ornek":  [
+                                          "Tanımlanan bir varlık var mı? Hayır B13-B20 paragraflarını dikkate alınız."
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 17",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 17.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  1211,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  202,
+                            "oran":  0.2,
+                            "ambar_parca":  370,
+                            "ambar_kr":  248585,
+                            "ornek":  [
+                                          "Sözleşmeye dayalı hizmet marjı 38 Sözleşmeye dayalı hizmet marjı;",
+                                          "Ölçüm (29–71 paragrafları) Gelecekteki nakit akışlarına ilişkin tahminler (33–35 paragrafları) B36 Bu bölüm aşağıdaki hususları düzenler:"
                                       ]
                         },
                         {
                             "standart":  "TFRS 18",
                             "adres":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS%2018%20.pdf",
-                            "durum":  "METİN EKSİK",
+                            "durum":  "METİN TAM",
                             "resmi_cumle":  835,
-                            "bulunamayan":  835,
-                            "bulunamayan_kr":  172744,
-                            "oran":  100,
-                            "ambar_parca":  23,
-                            "ambar_kr":  17590,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  242,
+                            "oran":  0.4,
+                            "ambar_parca":  288,
+                            "ambar_kr":  171494,
                             "ornek":  [
-                                          " TFRS 18 FİNANSAL TABLOLARDA SUNUM VE AÇIKLAMA GÜNCELLEMELER VE YÜRÜRLÜK TARİHLERİ • “TFRS 18 Finansal Tablolarda Sunum ve Açıklama” 01/01/2",
-                                          "• Bu Standarda ilişkin olarak, Uluslararası Finansal Raporlama Standartlarında meydana gelen değişikliklere paralellik sağlanması amacıyla y",
-                                          "Türkiye Finansal Raporlama Standardı 18 Finansal Tablolarda Sunum ve Açıklama Amaç 1 Bu Standart, genel amaçlı finansal tabloların (finansal",
-                                          "Kapsam 2 İşletme, TFRS’lere uygun olarak hazırlanan finansal tablolardaki bilgilerin sunulması ve açıklanmasında bu Standardı uygular.",
-                                          "3 Bu Standart, finansal performans tablosundaki (tablolarındaki), finansal durum tablosundaki ve özkaynak değişim tablosundaki bilgilerin su"
+                                          "Birleştirme ve ayrıştırma Birleştirme ve ayrıştırmaya ilişkin ilkeler 41 Bu Standart kapsamında bir kalem;",
+                                          "Kısa vadeli yükümlülükler Normal çalışma döngüsü (bakınız:",
+                                          "TMS 1’in yürürlükten kaldırılması C8 Bu Standart TMS 1’i yürürlükten kaldırır."
+                                      ]
+                        },
+                        {
+                            "standart":  "TFRS 19",
+                            "adres":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS%2019.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  718,
+                            "bulunamayan":  14,
+                            "bulunamayan_kr":  1092,
+                            "oran":  1.9,
+                            "ambar_parca":  288,
+                            "ambar_kr":  156017,
+                            "ornek":  [
+                                          "TFRS 2 Hisse Bazlı Ödemeler 31 İşletme aşağıdakileri açıklar:",
+                                          "Finansal araçlardan kaynaklanan risklerin niteliği ve boyutu Kredi riski:",
+                                          "Sözleşme bakiyeleri 105 İşletme aşağıdakileri açıklar:",
+                                          "Kalan Edim Yükümlülüklerine Dağıtılan İşlem Bedeli 108 İşletme aşağıdakileri açıklar:",
+                                          "Müşteriyle Sözleşme Yapılması veya Sözleşmenin Yerine Getirilmesi İçin Katlanılan Maliyetlerden Finansal Tablolara Alınan Varlıklar 113 İşle"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 1",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS_1_Finansal%20Tablolar%C4%B1n%20Sunulu%C5%9Fu.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  458,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  158,
+                            "ambar_kr":  95118,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 2",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 2.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  132,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  118,
+                            "oran":  1.5,
+                            "ambar_parca":  45,
+                            "ambar_kr":  20624,
+                            "ornek":  [
+                                          "Satın alma maliyetleri 11 Stokların satın alma maliyetleri;",
+                                          "Dönüştürme maliyetleri 12 Stokların dönüştürme maliyetleri;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 7",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 7.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  208,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  78,
+                            "ambar_kr":  39607,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 8",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 8.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  258,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  113,
+                            "oran":  0.4,
+                            "ambar_parca":  92,
+                            "ambar_kr":  52144,
+                            "ornek":  [
+                                          "TMS 8 Türkiye Muhasebe Standardı 8 Finansal Tabloların Hazırlanmasına İlişkin Esaslar Amaç 1 Bu Standardın amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 10",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 10.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  81,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  101,
+                            "oran":  1.2,
+                            "ambar_parca":  28,
+                            "ambar_kr":  14873,
+                            "ornek":  [
+                                          "TMS 10 Türkiye Muhasebe Standardı 10 Raporlama Döneminden Sonraki Olaylar Amaç 1 Bu Standardın amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 12",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 12.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  581,
+                            "bulunamayan":  4,
+                            "bulunamayan_kr":  555,
+                            "oran":  0.7,
+                            "ambar_parca":  131,
+                            "ambar_kr":  103396,
+                            "ornek":  [
+                                          "TMS 12 Türkiye Muhasebe Standardı 12 Gelir Vergileri Amaç Bu Standardın amacı;",
+                                          "Vergilendirilebilir Geçici Fark Vergi Oranı Ertelenmiş Vergi Borcu Birikmiş vergisel amortisman 30 30% 9 Satış hasılatının maliyeti aşan 50 ",
+                                          "Muhasebe kârı 2,500 3,000 İşletmenin merkezinin olduğu yerdeki geçerli vergi oranına göre hesaplanan vergi 700 750 Kanunen kabul edilmeyen g",
+                                          "TMS Yorum 21’in yürürlükten kaldırılması 99 2011 yılında yayımlanan Ertelenmiş Vergi:"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 16",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 16.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  326,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  118,
+                            "oran":  0.6,
+                            "ambar_parca":  101,
+                            "ambar_kr":  49667,
+                            "ornek":  [
+                                          "(örnek TFRS 2 Hisse Bazlı Ödemeler) 1 TMS 16 Amortismana tabi tutar:",
+                                          "81M TFRS 17, 29A ve 29B paragraflarını eklemiştir."
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 19",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 19.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  668,
+                            "bulunamayan":  4,
+                            "bulunamayan_kr":  337,
+                            "oran":  0.6,
+                            "ambar_parca":  186,
+                            "ambar_kr":  118012,
+                            "ornek":  [
+                                          "Çalışanlara sağlanan faydaların tanımları Çalışanlara sağlanan faydalar:",
+                                          "Tanımlanmış fayda maliyetine ilişkin tanımlar Hizmet maliyeti aşağıdakileri içerir:",
+                                          "Yıl 1 2 3 4 5 PB PB PB PB PB İlişkilendirildiği yıllar itibarıyla fayda tutarları:",
+                                          "Gelecekteki nakit akışlarının tutarı, zamanlaması ve belirsizliği 145 İşletme aşağıdakileri açıklar:"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 20",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 20.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  127,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  46,
+                            "ambar_kr":  18950,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 21",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 21.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  302,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  243,
+                            "oran":  1,
+                            "ambar_parca":  104,
+                            "ambar_kr":  53626,
+                            "ornek":  [
+                                          "Türkiye Muhasebe Standardı 21 Kur Değişiminin Etkileri Amaç 1 Bir işletme;",
+                                          "Tanımlarla ilgili ayrıntılar Takas edilebilirlik (A2-A10 paragrafları) 8A İşletme;",
+                                          "Yurtdışındaki işletmenin çevrimi 44 38-43 paragraflarına ek olarak, 45-47 paragrafları;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 23",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 23.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  93,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  57,
+                            "oran":  1.1,
+                            "ambar_parca":  36,
+                            "ambar_kr":  14052,
+                            "ornek":  [
+                                          "29B TFRS 9 (2017 Sürümü), 6’ncı paragrafı değiştirmiştir."
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 24",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 24.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  119,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  92,
+                            "oran":  0.8,
+                            "ambar_parca":  36,
+                            "ambar_kr":  21511,
+                            "ornek":  [
+                                          "TMS 24 Türkiye Muhasebe Standardı 24 İlişkili Taraf Açıklamaları Amaç 1 Bu Standardın amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 26",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 26.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  145,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  116,
+                            "oran":  0.7,
+                            "ambar_parca":  38,
+                            "ambar_kr":  22637,
+                            "ornek":  [
+                                          "TMS 26 Türkiye Muhasebe Standardı 26 Emeklilik Fayda Planlarında Muhasebeleştirme ve Raporlama Kapsam 1 Bu Standart;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 27",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 27.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  91,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  34,
+                            "ambar_kr":  17152,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 28",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 28.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  197,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  114,
+                            "oran":  0.5,
+                            "ambar_parca":  65,
+                            "ambar_kr":  39476,
+                            "ornek":  [
+                                          "TMS 28 Türkiye Muhasebe Standardı 28 İştiraklerdeki ve İş Ortaklıklarındaki Yatırımlar Amaç 1 Bu Standardın amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 29",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 29.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  113,
+                            "bulunamayan":  0,
+                            "bulunamayan_kr":  0,
+                            "oran":  0,
+                            "ambar_parca":  41,
+                            "ambar_kr":  16191,
+                            "ornek":  [
+
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 32",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 32.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  557,
+                            "bulunamayan":  6,
+                            "bulunamayan_kr":  400,
+                            "oran":  1.1,
+                            "ambar_parca":  135,
+                            "ambar_kr":  106678,
+                            "ornek":  [
+                                          "SUNUM GÜNCELLEMELER VE YÜRÜRLÜK TARİHLERİ • “TMS 32 Finansal Araçlar:",
+                                          "TMS 32 Türkiye Muhasebe Standardı 32 Finansal Araçlar:",
+                                          "İşletmenin geri satın alınan kendi hisseleri (bakınız:",
+                                          "Finansal varlık ve yükümlülüklerin netleştirilmesi (bakınız:",
+                                          "15 TMS 32 Ek Uygulama Rehberi TMS 32 Finansal Araçlar:"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 33",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 33.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  322,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  84,
+                            "oran":  0.3,
+                            "ambar_parca":  101,
+                            "ambar_kr":  59802,
+                            "ornek":  [
+                                          "TMS 33 Türkiye Muhasebe Standardı 33 Hisse Başına Kazanç Amaç 1 Bu Standardın amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 34",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 34.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  191,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  164,
+                            "oran":  1,
+                            "ambar_parca":  61,
+                            "ambar_kr":  35579,
+                            "ornek":  [
+                                          "TMS 34 Türkiye Muhasebe Standardı 34 Ara Dönem Finansal Raporlama Amaç Bu Standardın amacı;",
+                                          "Yürürlük Tarihi 46 “-” 47 “-”2 48 “-” 49 TFRS’lere İlişkin Değişiklikler;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 36",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 36.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  677,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  170,
+                            "oran":  0.3,
+                            "ambar_parca":  171,
+                            "ambar_kr":  115045,
+                            "ornek":  [
+                                          "TMS 36 Türkiye Muhasebe Standardı 36 Varlıklarda Değer Düşüklüğü Amaç 1 Bu Standardın amacı;",
+                                          "Geri kazanılabilir tutarın ölçülmesi 18 Bu Standart geri kazanılabilir tutarı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 37",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 37.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  284,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  112,
+                            "oran":  0.4,
+                            "ambar_parca":  102,
+                            "ambar_kr":  46990,
+                            "ornek":  [
+                                          "TMS 37 Türkiye Muhasebe Standardı 37 Karşılıklar, Koşullu Borçlar ve Koşullu Varlıklar Amaç Bu Standardın amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 38",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 38.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  485,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  64,
+                            "oran":  0.2,
+                            "ambar_parca":  146,
+                            "ambar_kr":  80278,
+                            "ornek":  [
+                                          "130L TFRS 16, 3, 6, 113 ve 114’üncü paragrafları değiştirmiştir."
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 40",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 40.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  284,
+                            "bulunamayan":  2,
+                            "bulunamayan_kr":  149,
+                            "oran":  0.7,
+                            "ambar_parca":  90,
+                            "ambar_kr":  53168,
+                            "ornek":  [
+                                          "TMS 40 Türkiye Muhasebe Standardı 40 Yatırım Amaçlı Gayrimenkuller Amaç 1 Bu Standardın amacı;",
+                                          "3 [Silinmiştir] 4 Bu Standart aşağıdakilere uygulanmaz:"
+                                      ]
+                        },
+                        {
+                            "standart":  "TMS 41",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TMS/TMS 41.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  166,
+                            "bulunamayan":  1,
+                            "bulunamayan_kr":  83,
+                            "oran":  0.6,
+                            "ambar_parca":  59,
+                            "ambar_kr":  24809,
+                            "ornek":  [
+                                          "TMS 41 Türkiye Muhasebe Standardı 41 Tarımsal Faaliyetler Amaç Bu Standardın amacı;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TSRS 1",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/RaporlamaStandarti/TSRS%201.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  507,
+                            "bulunamayan":  3,
+                            "bulunamayan_kr":  255,
+                            "oran":  0.6,
+                            "ambar_parca":  195,
+                            "ambar_kr":  96174,
+                            "ornek":  [
+                                          "Rehberlik kaynakları hakkındaki bilgilerin açıklanması 59 İşletme aşağıdakileri belirler:",
+                                          "Sürdürülebilirlikle ilgili risklerin ve fırsatların belirlenmesi B6 İşletme;",
+                                          "Bağlantılı bilgi (21–24 üncü paragraflar) B39 21 inci paragraf uyarınca, işletme, bilgiyi;"
+                                      ]
+                        },
+                        {
+                            "standart":  "TSRS 2",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/RaporlamaStandarti/TSRS%202.pdf",
+                            "durum":  "METİN TAM",
+                            "resmi_cumle":  461,
+                            "bulunamayan":  5,
+                            "bulunamayan_kr":  385,
+                            "oran":  1.1,
+                            "ambar_parca":  124,
+                            "ambar_kr":  92562,
+                            "ornek":  [
+                                          "3 TSRS 2 İklimle İlgili Açıklamalar Amaç 1 TSRS 2 İklimle İlgili Açıklamalar’ın amacı;",
+                                          "Sera Gazı Protokolünde belirtilen ölçüm yaklaşımı B27 Sera Gazı Protokolü:",
+                                          "Kapsam 2 sera gazı emisyonları B30 29(a)(v) paragrafı;",
+                                          "26 İklimle ilgili hedefler (33-37 nci paragraflar) İklimle ilgili hedefin özellikleri B66 33 üncü paragraf, işletmenin;",
+                                          "Karbon kredileri B70 36(e) paragrafı bir işletmenin;"
                                       ]
                         }
                     ]

@@ -1,23 +1,23 @@
 {
-    "olcum":  "16.09.2026 13:59",
-    "ad_listesi_olcumu":  "16.09.2026 13:42",
+    "olcum":  "16.09.2026 15:46",
+    "ad_listesi_olcumu":  "16.09.2026 15:30",
     "kural":  "HAZIR = beklenen resmî metin ambarda + RESMI nitelik (Türkçe harfli, özet değil) + TAM (madde/paragraf deliği ≤%5, bölünmüş parça eksiği 0, kesik adayı ≤%5) + hüküm anahtarı ailenin içinde ≥2 parçada. ZAYIF = resmî metin var ama delikli/kesik ya da hüküm anahtarı ailenin içinde \u003c2 parçada. YOK = beklenen resmî metin ambarda yok YA DA yalnız elle yazılmış özet/teori notu/taslak var (Cem 14.09: resmî metin şartı). Numara deliği iki anlama gelir: metin yok ya da başka parçaya yapışık (TMS 16 p.31-40 yapışık çıktı); ikisinde de paket seçici hükmü getiremez. Hüküm anahtarı mekanik bir göstergedir; hakem teyidi değildir.",
-    "ambar_satiri":  49553,
+    "ambar_satiri":  49993,
     "ozet":  {
                  "a) Türkiye Muhasebe Standartları":  {
-                                                          "HAZIR":  28,
-                                                          "ZAYIF":  2,
+                                                          "HAZIR":  30,
+                                                          "ZAYIF":  0,
                                                           "YOK":  0,
                                                           "OLCULMEDI":  0,
-                                                          "kota_HAZIR":  1301,
+                                                          "kota_HAZIR":  1391,
                                                           "kota_toplam":  1391
                                                       },
                  "b) Türkiye Denetim Standartları":  {
-                                                         "HAZIR":  30,
-                                                         "ZAYIF":  1,
+                                                         "HAZIR":  31,
+                                                         "ZAYIF":  0,
                                                          "YOK":  0,
                                                          "OLCULMEDI":  0,
-                                                         "kota_HAZIR":  1330,
+                                                         "kota_HAZIR":  1360,
                                                          "kota_toplam":  1360
                                                      },
                  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim":  {
@@ -492,17 +492,17 @@
                                },
                     "TFRS 9":  {
                                    "ad":  "TFRS 9",
-                                   "parca":  272,
-                                   "karakter":  511775,
+                                   "parca":  404,
+                                   "karakter":  511709,
                                    "resmi_orani":  1,
                                    "nitelik":  "RESMI",
                                    "numara_dizi":  394,
-                                   "numara_delik":  161,
-                                   "delik_ornek":  "2.3A,2.3B,3.2.1,3.2.4,3.2.5,3.2.13,3.2.16,4.1.1,4.1.2A,4.1.3,4.1.5,5.1.1A",
+                                   "numara_delik":  0,
+                                   "delik_ornek":  "",
                                    "bolum_eksik":  0,
-                                   "kesik_adayi":  4,
-                                   "kaynak_url_olan":  272,
-                                   "tamlik":  "DELIKLI"
+                                   "kesik_adayi":  3,
+                                   "kaynak_url_olan":  404,
+                                   "tamlik":  "TAM"
                                },
                     "TFRS 10":  {
                                     "ad":  "TFRS 10",
@@ -604,17 +604,17 @@
                                 },
                     "TFRS 18":  {
                                     "ad":  "TFRS 18",
-                                    "parca":  23,
-                                    "karakter":  17590,
-                                    "resmi_orani":  0,
-                                    "nitelik":  "OZET",
+                                    "parca":  288,
+                                    "karakter":  171494,
+                                    "resmi_orani":  1,
+                                    "nitelik":  "RESMI",
                                     "numara_dizi":  282,
-                                    "numara_delik":  261,
-                                    "delik_ornek":  "2,3,4,6,7,8,9,11,13,14,16,17",
+                                    "numara_delik":  0,
+                                    "delik_ornek":  "",
                                     "bolum_eksik":  0,
-                                    "kesik_adayi":  0,
-                                    "kaynak_url_olan":  23,
-                                    "tamlik":  "DELIKLI"
+                                    "kesik_adayi":  2,
+                                    "kaynak_url_olan":  288,
+                                    "tamlik":  "TAM"
                                 },
                     "TFRS 19":  {
                                     "ad":  "TFRS 19",
@@ -632,16 +632,16 @@
                                 },
                     "İHS 4400":  {
                                      "ad":  "İHS 4400 Üzerinde Mutabık Kalınan Prosedürlerin Uygulandığı İşler",
-                                     "parca":  98,
-                                     "karakter":  82011,
+                                     "parca":  99,
+                                     "karakter":  82004,
                                      "resmi_orani":  1,
                                      "nitelik":  "RESMI",
                                      "numara_dizi":  96,
-                                     "numara_delik":  1,
-                                     "delik_ornek":  "A38T",
+                                     "numara_delik":  0,
+                                     "delik_ornek":  "",
                                      "bolum_eksik":  0,
                                      "kesik_adayi":  0,
-                                     "kaynak_url_olan":  98,
+                                     "kaynak_url_olan":  99,
                                      "tamlik":  "TAM"
                                  },
                     "BILGI-SIS-BANKA":  {
@@ -1066,44 +1066,44 @@
                                 },
                     "BDS 700":  {
                                     "ad":  "BDS 700",
-                                    "parca":  141,
-                                    "karakter":  134284,
+                                    "parca":  145,
+                                    "karakter":  134260,
                                     "resmi_orani":  1,
                                     "nitelik":  "RESMI",
                                     "numara_dizi":  143,
-                                    "numara_delik":  4,
-                                    "delik_ornek":  "20T,30T,41T,46T",
+                                    "numara_delik":  0,
+                                    "delik_ornek":  "",
                                     "bolum_eksik":  0,
                                     "kesik_adayi":  3,
-                                    "kaynak_url_olan":  141,
+                                    "kaynak_url_olan":  145,
                                     "tamlik":  "TAM"
                                 },
                     "BDS 701":  {
                                     "ad":  "BDS 701",
-                                    "parca":  83,
-                                    "karakter":  61822,
+                                    "parca":  84,
+                                    "karakter":  61817,
                                     "resmi_orani":  1,
                                     "nitelik":  "RESMI",
                                     "numara_dizi":  83,
-                                    "numara_delik":  1,
-                                    "delik_ornek":  "5T",
+                                    "numara_delik":  0,
+                                    "delik_ornek":  "",
                                     "bolum_eksik":  0,
                                     "kesik_adayi":  0,
-                                    "kaynak_url_olan":  83,
+                                    "kaynak_url_olan":  84,
                                     "tamlik":  "TAM"
                                 },
                     "BDS 705":  {
                                     "ad":  "BDS 705",
-                                    "parca":  59,
-                                    "karakter":  72586,
+                                    "parca":  61,
+                                    "karakter":  72573,
                                     "resmi_orani":  1,
                                     "nitelik":  "RESMI",
                                     "numara_dizi":  59,
-                                    "numara_delik":  2,
-                                    "delik_ornek":  "29T,A16T",
+                                    "numara_delik":  0,
+                                    "delik_ornek":  "",
                                     "bolum_eksik":  0,
                                     "kesik_adayi":  3,
-                                    "kaynak_url_olan":  59,
+                                    "kaynak_url_olan":  61,
                                     "tamlik":  "TAM"
                                 },
                     "BDS 706":  {
@@ -1136,17 +1136,17 @@
                                 },
                     "BDS 720":  {
                                     "ad":  "BDS 720",
-                                    "parca":  87,
-                                    "karakter":  142689,
+                                    "parca":  96,
+                                    "karakter":  142637,
                                     "resmi_orani":  1,
                                     "nitelik":  "RESMI",
                                     "numara_dizi":  93,
-                                    "numara_delik":  9,
-                                    "delik_ornek":  "2T,8T,11T,14T,16T,18T,21T,22T,23T",
+                                    "numara_delik":  0,
+                                    "delik_ornek":  "",
                                     "bolum_eksik":  0,
                                     "kesik_adayi":  2,
-                                    "kaynak_url_olan":  87,
-                                    "tamlik":  "DELIKLI"
+                                    "kaynak_url_olan":  96,
+                                    "tamlik":  "TAM"
                                 },
                     "BDY":  {
                                 "ad":  "Bağımsız Denetim Yönetmeliği",
@@ -1220,8 +1220,8 @@
                                 },
                     "FY-TEORI":  {
                                      "ad":  "Finansal Yönetim teori notları (resmî metin DEĞİL)",
-                                     "parca":  86,
-                                     "karakter":  136294,
+                                     "parca":  88,
+                                     "karakter":  140282,
                                      "resmi_orani":  0.69,
                                      "nitelik":  "TEORI-NOTU",
                                      "numara_dizi":  1,
@@ -1612,16 +1612,16 @@
                                     },
                     "GDS 3000":  {
                                      "ad":  "GDS 3000",
-                                     "parca":  293,
-                                     "karakter":  191485,
+                                     "parca":  299,
+                                     "karakter":  191370,
                                      "resmi_orani":  1,
                                      "nitelik":  "RESMI",
                                      "numara_dizi":  290,
-                                     "numara_delik":  4,
-                                     "delik_ornek":  "46S,47S,48S,49S",
+                                     "numara_delik":  2,
+                                     "delik_ornek":  "46S,48S",
                                      "bolum_eksik":  0,
-                                     "kesik_adayi":  1,
-                                     "kaynak_url_olan":  293,
+                                     "kesik_adayi":  2,
+                                     "kaynak_url_olan":  299,
                                      "tamlik":  "TAM"
                                  },
                     "GDS 3400":  {
@@ -1654,16 +1654,16 @@
                                  },
                     "GDS 3410":  {
                                      "ad":  "GDS 3410",
-                                     "parca":  216,
-                                     "karakter":  207577,
+                                     "parca":  233,
+                                     "karakter":  207397,
                                      "resmi_orani":  1,
                                      "nitelik":  "RESMI",
                                      "numara_dizi":  224,
-                                     "numara_delik":  11,
-                                     "delik_ornek":  "25S,33S,37S,38M,39M,42S,43S,44S,48S,49S,72S",
+                                     "numara_delik":  7,
+                                     "delik_ornek":  "25S,33S,37S,42S,44S,48S,72S",
                                      "bolum_eksik":  0,
-                                     "kesik_adayi":  2,
-                                     "kaynak_url_olan":  216,
+                                     "kesik_adayi":  5,
+                                     "kaynak_url_olan":  233,
                                      "tamlik":  "TAM"
                                  },
                     "SGDS 5000":  {
@@ -2099,13 +2099,13 @@
                         "cikmis_soru":  25,
                         "cikmis_donem":  25,
                         "aileler":  "TFRS 9",
-                        "aile_parca":  272,
+                        "aile_parca":  404,
                         "nitelik":  "TFRS 9=RESMI",
-                        "tamlik":  "TFRS 9=DELIKLI",
-                        "hukum_parca":  25,
-                        "hukum_ornek":  "TFRS 9 p.5.5.9 - Genel Yaklaşım || TFRS 9 Ek A - Tanımlanan terimler [4/8] || TFRS 9 p.5.5.13 - Genel Yaklaşım",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TFRS 9: RESMI/DELIKLI"
+                        "tamlik":  "TFRS 9=TAM",
+                        "hukum_parca":  32,
+                        "hukum_ornek":  "TFRS 9 p.5.5.14 - Bulunan Finansal Varlıklar || TFRS 9 p.5.5.5 - Genel Yaklaşım || TFRS 9 p.B5.5.1 - Toplu ve Bireysel Olarak Değerlendirme Esası",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 32 parçada"
                     },
                     {
                         "ders":  "a) Türkiye Muhasebe Standartları",
@@ -2116,13 +2116,13 @@
                         "cikmis_soru":  2,
                         "cikmis_donem":  2,
                         "aileler":  "TFRS 9",
-                        "aile_parca":  272,
+                        "aile_parca":  404,
                         "nitelik":  "TFRS 9=RESMI",
-                        "tamlik":  "TFRS 9=DELIKLI",
-                        "hukum_parca":  5,
-                        "hukum_ornek":  "TFRS 9 p.0 - Künye ve yürürlük || TFRS 9 p.6.10.1 - Risk Bileşenlerinin Tanımlanması || TFRS 9 p.6.6.6 - Sıfır Net Pozisyonlar",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TFRS 9: RESMI/DELIKLI"
+                        "tamlik":  "TFRS 9=TAM",
+                        "hukum_parca":  9,
+                        "hukum_ornek":  "TFRS 9 p.B6.3.9 - Risk Bileşenleri || TFRS 9 p.7.2.21 - Korunma Muhasebesine İlişkin Geçiş Hükümleri (Bölüm 6) || TFRS 9 p.6.10.1 - Doğaya bağlı elektriğe dayanan sözleşmeler",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 9 parçada"
                     },
                     {
                         "ders":  "a) Türkiye Muhasebe Standartları",
@@ -2592,11 +2592,11 @@
                         "cikmis_soru":  15,
                         "cikmis_donem":  15,
                         "aileler":  "BDS 700",
-                        "aile_parca":  141,
+                        "aile_parca":  145,
                         "nitelik":  "BDS 700=RESMI",
                         "tamlik":  "BDS 700=TAM",
                         "hukum_parca":  53,
-                        "hukum_ornek":  "BDS 700 p.A80 - BDS 200, A58 paragrafı || BDS 700 p.A71 - Mevzuatta Öngörülen Denetçi Raporu (Bkz.: 50 nci paragraf) || BDS 700 p.10 - Finansal Tablolara İlişkin Görüş Oluşturma",
+                        "hukum_ornek":  "BDS 700 p.8 - Tanımlar || BDS 700 p.A30 - Finansal tabloların ve sunduğu hususların açıklanması || BDS 700 p.53 - BDS 701, 11-16 ncı paragraflar",
                         "sinif":  "HAZIR",
                         "gerekce":  "resmî+tam aile içinde hüküm anahtarı 53 parçada"
                     },
@@ -2609,13 +2609,13 @@
                         "cikmis_soru":  13,
                         "cikmis_donem":  13,
                         "aileler":  "BDS 701",
-                        "aile_parca":  83,
+                        "aile_parca":  84,
                         "nitelik":  "BDS 701=RESMI",
                         "tamlik":  "BDS 701=TAM",
-                        "hukum_parca":  67,
-                        "hukum_ornek":  "BDS 701 p.A51 - Denetimde Konunun Nasıl Ele Alındığı (Bkz.: 13(b) paragrafı) || BDS 701 p.A46 - Denetimde Konunun Nasıl Ele Alındığı (Bkz.: 13(b) paragrafı) || BDS 701 p.A3 - Kapsam (Bkz.: 2 nci paragraf)",
+                        "hukum_parca":  68,
+                        "hukum_ornek":  "BDS 701 p.A10 - Kilit Denetim Konularının Belirlenmesi (Bkz.: 9-10 uncu paragraflar) || BDS 701 p.A35 - Kilit Denetim Konularının Bildirilmesi || BDS 701 p.A44 - Bkz.: BDS 570’in A3 paragrafı",
                         "sinif":  "HAZIR",
-                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 67 parçada"
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 68 parçada"
                     },
                     {
                         "ders":  "b) Türkiye Denetim Standartları",
@@ -2626,13 +2626,13 @@
                         "cikmis_soru":  23,
                         "cikmis_donem":  23,
                         "aileler":  "BDS 705",
-                        "aile_parca":  59,
+                        "aile_parca":  61,
                         "nitelik":  "BDS 705=RESMI",
                         "tamlik":  "BDS 705=TAM",
-                        "hukum_parca":  28,
-                        "hukum_ornek":  "BDS 705 p.16 - Denetçi Görüşü || BDS 705 p.12 - Görüş Vermekten Kaçınma || BDS 705 p.29 - Alınacak Hususlar",
+                        "hukum_parca":  30,
+                        "hukum_ornek":  "BDS 705 p.5 - Tanımlar || BDS 705 p.29T - Alınacak Hususlar || BDS 705 p.21 - Kaçınmanın Dayanağı” başlıklarını kullanarak değiştirir ve",
                         "sinif":  "HAZIR",
-                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 28 parçada"
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 30 parçada"
                     },
                     {
                         "ders":  "b) Türkiye Denetim Standartları",
@@ -2660,13 +2660,13 @@
                         "cikmis_soru":  9,
                         "cikmis_donem":  9,
                         "aileler":  "BDS 720",
-                        "aile_parca":  87,
+                        "aile_parca":  96,
                         "nitelik":  "BDS 720=RESMI",
-                        "tamlik":  "BDS 720=DELIKLI",
-                        "hukum_parca":  77,
-                        "hukum_ornek":  "BDS 720 p.A27 - Y ürününden elde edilen YYY milyon TL’den oluşmaktadır.” || BDS 720 p.9 - Onaylanmadan önce ilan edilen finansal bilgiler veya || BDS 720 p.0 - Künye ve yürürlük",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: BDS 720: RESMI/DELIKLI"
+                        "tamlik":  "BDS 720=TAM",
+                        "hukum_parca":  85,
+                        "hukum_ornek":  "BDS 720 p.19 - Karşılık Verilmesi || BDS 720 p.A17 - Diğer Bilgilerin Elde Edilmesi (Bkz.: 13 üncü paragraf) || BDS 720 p.A43 - İlgili sektör, mevzuat /düzenlemeler ve diğer dış faktörler,",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 85 parçada"
                     },
                     {
                         "ders":  "b) Türkiye Denetim Standartları",
@@ -2898,13 +2898,13 @@
                         "cikmis_soru":  7,
                         "cikmis_donem":  7,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
-                        "hukum_parca":  12,
+                        "hukum_parca":  14,
                         "hukum_ornek":  "Teori Notu - oran analizi likidite || TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu || TEORI - Cari orani artiran/azaltan islemler",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -2915,13 +2915,13 @@
                         "cikmis_soru":  24,
                         "cikmis_donem":  24,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  8,
                         "hukum_ornek":  "Teori Notu - Black-Scholes opsiyon fiyatlama varsayimlari || Teori Notu - paranin zaman degeri || Teori Notu - sermaye butcelemesi NPV IRR",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -2932,13 +2932,13 @@
                         "cikmis_soru":  18,
                         "cikmis_donem":  18,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  13,
                         "hukum_ornek":  "TEORI - Stok bagimlilik orani || TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı || TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -2949,13 +2949,13 @@
                         "cikmis_soru":  2,
                         "cikmis_donem":  2,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  3,
                         "hukum_ornek":  "Teori Notu - sermaye yapisi teorileri ve finansman hiyerarsisi || Teori Notu - finansman kaynaklari ve sermaye yapisi || Teori Notu - sermaye maliyeti WACC",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -2966,13 +2966,13 @@
                         "cikmis_soru":  14,
                         "cikmis_donem":  14,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  2,
                         "hukum_ornek":  "Teori Notu - sermaye butcelemesi NPV IRR || Teori Notu - belirsizlik altinda sermaye butcelemesi",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -2983,13 +2983,13 @@
                         "cikmis_soru":  9,
                         "cikmis_donem":  9,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  4,
                         "hukum_ornek":  "TEORI - Coklu urunde basabas analizi || TEORI - Tahvilin basabasin altinda (iskontolu) ihraci || Teori Notu - kaldirac ve basabas",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -3000,13 +3000,13 @@
                         "cikmis_soru":  7,
                         "cikmis_donem":  7,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  11,
                         "hukum_ornek":  "Teori Notu - finansman kaynaklari ve sermaye yapisi || Teori Notu - faiz oranlarinin vade yapisi ve risk primleri || TEORI - Tahvil turleri ve kara istirakli tahvil",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -3017,13 +3017,13 @@
                         "cikmis_soru":  39,
                         "cikmis_donem":  39,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  4,
                         "hukum_ornek":  "Teori Notu - paranin zaman degeri || TEORI - Basit faiz hesabi ve bilesik faizden farki || TEORI - Matematik: basit ve bilesik faiz (anapara, oran, sure)",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -3034,13 +3034,13 @@
                         "cikmis_soru":  17,
                         "cikmis_donem":  17,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  3,
                         "hukum_ornek":  "TEORI - Sharpe orani ve portfoy performans olcutleri || Teori Notu - risk getiri portfoy || Teori Notu - sermaye maliyeti WACC",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -3051,7 +3051,7 @@
                         "cikmis_soru":  0,
                         "cikmis_donem":  0,
                         "aileler":  "FY-TEORI + 6361",
-                        "aile_parca":  177,
+                        "aile_parca":  179,
                         "nitelik":  "FY-TEORI=TEORI-NOTU 6361=RESMI",
                         "tamlik":  "FY-TEORI=TAM 6361=TAM",
                         "hukum_parca":  0,
@@ -3068,13 +3068,13 @@
                         "cikmis_soru":  3,
                         "cikmis_donem":  3,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  12,
                         "hukum_ornek":  "Teori Notu - Black-Scholes opsiyon fiyatlama varsayimlari || TEORI - Pay senedi getirisi || TEORI - Fiyat/kazanç oranı ve piyasa performans oranları: F/K, PD/DD, hisse başına kâr, temettü verimi",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
@@ -3085,13 +3085,13 @@
                         "cikmis_soru":  6,
                         "cikmis_donem":  6,
                         "aileler":  "FY-TEORI",
-                        "aile_parca":  86,
+                        "aile_parca":  88,
                         "nitelik":  "FY-TEORI=TEORI-NOTU",
                         "tamlik":  "FY-TEORI=TAM",
                         "hukum_parca":  5,
                         "hukum_ornek":  "Teori Notu - Black-Scholes opsiyon fiyatlama varsayimlari || Teori Notu - turev urunler forward futures opsiyon swap || Teori Notu - doviz kuru riski yonetimi",
                         "sinif":  "YOK",
-                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (86 parça)"
+                        "gerekce":  "resmî metin yok — ambarda yalnız FY-TEORI TEORI-NOTU (88 parça)"
                     },
                     {
                         "ders":  "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
@@ -3748,11 +3748,11 @@
                         "cikmis_soru":  20,
                         "cikmis_donem":  20,
                         "aileler":  "GDS 3000",
-                        "aile_parca":  293,
+                        "aile_parca":  299,
                         "nitelik":  "GDS 3000=RESMI",
                         "tamlik":  "GDS 3000=TAM",
                         "hukum_parca":  87,
-                        "hukum_ornek":  "GDS 3000 p.A2 - Amaçlar || GDS 3000 p.A92 - Önemlilik (Bkz.: 44 üncü paragraf) || GDS 3000 p.A3 - Tanımlar",
+                        "hukum_ornek":  "GDS 3000 p.43 - Denetime devam etmenin uygun olup olmadığı ve || GDS 3000 p.A207 - Çalışma Kâğıtlarının Nihai Denetim Dosyasında Birleştirilmesi || GDS 3000 p.A63 - Bilgi ve iletişim,",
                         "sinif":  "HAZIR",
                         "gerekce":  "resmî+tam aile içinde hüküm anahtarı 87 parçada"
                     },
@@ -3765,13 +3765,13 @@
                         "cikmis_soru":  3,
                         "cikmis_donem":  3,
                         "aileler":  "GDS 3000",
-                        "aile_parca":  293,
+                        "aile_parca":  299,
                         "nitelik":  "GDS 3000=RESMI",
                         "tamlik":  "GDS 3000=TAM",
-                        "hukum_parca":  4,
-                        "hukum_ornek":  "GDS 3000 p.45 - Önemlilik || GDS 3000 p.A103 - Denetim Şartlarının Anlaşılması (Bkz.: 45-47(M) paragrafları) || GDS 3000 p.A81 - Mesleki Muhakeme (Bkz.: 38 inci paragraf)",
+                        "hukum_parca":  3,
+                        "hukum_ornek":  "GDS 3000 p.A81 - Mesleki Muhakeme (Bkz.: 38 inci paragraf) || GDS 3000 p.A120 - Kanıtların Elde Edilmesi || GDS 3000 p.A103 - Denetim Şartlarının Anlaşılması (Bkz.: 45-47(M) paragrafları)",
                         "sinif":  "HAZIR",
-                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 4 parçada"
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 3 parçada"
                     },
                     {
                         "ders":  "g) Sürdürülebilirlik Denetimi",
@@ -3782,11 +3782,11 @@
                         "cikmis_soru":  24,
                         "cikmis_donem":  24,
                         "aileler":  "GDS 3410",
-                        "aile_parca":  216,
+                        "aile_parca":  233,
                         "nitelik":  "GDS 3410=RESMI",
                         "tamlik":  "GDS 3410=TAM",
                         "hukum_parca":  4,
-                        "hukum_ornek":  "GDS 3410 p.75 - Güvence Raporunun İçeriği || GDS 3410 p.0 - Künye ve yürürlük || GDS 3410 p.1 - Giriş",
+                        "hukum_ornek":  "GDS 3410 p.0 - Künye ve yürürlük || GDS 3410 Ek 2 p.0 - Giriş || GDS 3410 p.75 - Güvence Raporunun İçeriği",
                         "sinif":  "HAZIR",
                         "gerekce":  "resmî+tam aile içinde hüküm anahtarı 4 parçada"
                     },
@@ -3833,13 +3833,13 @@
                         "cikmis_soru":  0,
                         "cikmis_donem":  0,
                         "aileler":  "GDS 3410",
-                        "aile_parca":  216,
+                        "aile_parca":  233,
                         "nitelik":  "GDS 3410=RESMI",
                         "tamlik":  "GDS 3410=TAM",
-                        "hukum_parca":  90,
-                        "hukum_ornek":  "GDS 3410 p.A68 - Gözlem ve Tetkik (Bkz.: 24(c) paragrafı) || GDS 3410 p.A20 - SG Beyanının ve Denetimin Kapsamı (Bkz.: 17(a) paragrafı) || GDS 3410 p.2 - Kapsam",
+                        "hukum_parca":  93,
+                        "hukum_ornek":  "GDS 3410 p.17 - Denetimin Ön Şartları || GDS 3410 p.A8 - Emisyonlar (Bkz.: 14(f) paragrafı, Ek 1) || GDS 3410 p.65 - Belgelendirme",
                         "sinif":  "HAZIR",
-                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 90 parçada"
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 93 parçada"
                     }
                 ],
     "arsiv_kapsam_disi_soru":  640,

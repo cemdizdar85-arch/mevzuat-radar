@@ -20,7 +20,7 @@
 #
 #  Yazma yok (ambar), model yok, bedel 0. Çıktı: veri/kgk-cumle-kapsama.json (RaporYaz; -Yalniz verilince yazmaz).
 #  Kullanım: powershell -NoProfile -Command "& .\arac\kgk-cumle-kapsama.ps1 [-Yalniz 'TFRS 9','TMS 36']"
-#            (varsayılan: hakikat ölçümünde EKSİK olan standartlar)
+#            (varsayılan: hakikat ölçümünde adresi olan TÜM standartlar)
 # ============================================================================
 param([string[]]$Yalniz = @())
 $ErrorActionPreference = 'Stop'
@@ -40,7 +40,8 @@ $gecici = Join-Path ([IO.Path]::GetTempPath()) 'kgk-kapsama'; New-Item -ItemType
 
 $hakikat = Get-Content (Join-Path $depoKok 'veri\kgk-hakikat-olcumu.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $adresler = @{}; foreach($hs in $hakikat.standartlar){ $adresler["$($hs.standart)"] = "$($hs.adres)" }
-$liste = if($Yalniz.Count){ $Yalniz } else { @($hakikat.standartlar | Where-Object { $_.durum -eq 'EKSİK' } | ForEach-Object { "$($_.standart)" }) }
+# 16.09 akşam: hakikat 89/89 TAM olunca 'yalnız EKSİK' listesi boş kaldı ve rapor boşaldı → varsayılan: adresi olan TÜM standartlar
+$liste = if($Yalniz.Count){ $Yalniz } else { @($hakikat.standartlar | Where-Object { "$($_.adres)" } | ForEach-Object { "$($_.standart)" }) }
 
 # 16.09 kalibrasyon (TMS 2/16, TSRS 1 hakikatte TAM ama %15-23 'yok' çıktı): layout metninde cümlenin BAŞINA bölüm başlığı ve sayfa üst bilgisi
 # ('Kapsam 2 Bu Standart…', '2 TMS 2 14 Üretim…') yapışıyor. Çare: (a) standart kısaltması iki taraftan da atılır, (b) cümle başı YA DA sonu (40 harf) bulunursa var sayılır.

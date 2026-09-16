@@ -448,3 +448,30 @@ Soru havuzunda 37 KGK sorusu (hiçbiri yayında değil) kaynak alanında "TFRS 1
 - **A (öneri) — resmî metni yut, KGK/SMMM bağlarını taşı, SGS'ye dokunma.** 8 bağ taşınır; SGS'de 17 sorunun paket bağı eski özet adlarına bakar (5'i geçmiş). Kazanç: "TFRS 18 p.61" dayanaklı 3 geçmiş SGS sorusunun dayanağı ilk kez resmî metinde karşılık bulur; KGK Muhasebe modülündeki son "basılamaz" kalkar.
 - B — A + SGS bağlarını da taşı (SGS oturumuyla birlikte; kural gereği 92'ye).
 - C — bekle (01.01.2027'ye kadar yürürlükte değil; ama sınav soruyor).
+
+---
+
+## GÜNCELLEME 16.09 ~15:45 · Cem "2 ve 3 yap" — TFRS 18 resmî metin · otomatik bağ raporu + bulut kapısı · TFRS 9/BDS/GDS bölmesi
+
+**SONUÇ: hakikat 89/89 TAM · cümle kapsaması 89/89 METİN TAM · Muhasebe ve Denetim modülünde ZAYIF 0.** Excel: Muhasebe hemen 395→400, basılamaz 15→10 (TFRS 18 artık engel değil).
+
+### (2) TFRS 18 resmî metin (seçenek A)
+- Ambar: 23 elle yazılmış özet → **288 resmî parça / 171.494 kr** (KGK Kırmızı Kitap 2026). Yedek `veri/fabrika/yedek-TFRS18-20260916-1425.json` + yerel kasa.
+- Bağlar (bağ bazında; bir soruda birden çok özet adı vardı): KGK partilerinde 28 + SMMM 1 bağ **yeni resmî adlara taşındı** (eşleme özet adındaki paragraf aralığından: "p.10-11" → p.10, p.11), kasada doğrulandı. **SGS 87 bağ / 16 parti taşınmadı** — 13 parti bulutta koşuyor; 92 bulut boşalınca `-BekleyenleriIsle`/`-Tasi -Sinavlar SGS` ile taşıyacak. Soru havuzunda 37 KGK sorusu (yayında değil) "TFRS 18 - TMS 1 ve TMS 8 ilişkisi" yazıyor; karşılığı yok, dokunulmadı.
+- ⚠ `kgk-bosluk-trkiyemuhasebestandartlar` kp-67'nin paketi 72 parçaya çıktı (66'sı TFRS 18) — eski özetler geniş aralık kapsıyordu; soru hiçbir kapıdan geçmemiş eski partide.
+
+### (3a) Otomatik bağ raporu — `arac/kaynak-bolunme-etki.ps1` (92'nin isteği)
+- `standart-yut -uygula` her başarılı yazımdan sonra kendisi koşar (`-BagRaporuYok` ile kapanır; Linux'ta pwsh). Kopan ad yoksa rapor yazmaz.
+- Rapor: `veri/fabrika/kaynak-bolunme-etki-<zaman>-<std>.csv` — standart · etiket · sınav · kp · eski ad · önerilen yeni adlar · kapıdan geçti mi. soru_havuzu.kaynak da taranır.
+- Yeni ad önerisi: eski addaki paragraf numarası/aralığı (noktalı dahil) → yoksa eski metnin 30 harflik pencereleri (≥4 isabet).
+- `-Tasi -Sinavlar KGK,SMMM -Yaz`: yalnız verilen sınavların partileri; parti yedeği yerel kasaya; yükleme sonrası kasadan geri okuma.
+- **Bulut kapısı (CLAUDE.md kuralı, 92 b30e6034):** `arac/bulut-kosan-etiketler.ps1 -Kati` sorulur; koşan ya da durumu bilinmeyen parti TAŞINMAZ, `veri/fabrika/kaynak-bolunme-bekleyen.csv` sırasına yazılır; `-BekleyenleriIsle -Yaz` bulut boşalınca işler. Sınandı: koşan SGS partisine sahte satırla → kasa değişmedi, satır sırada kaldı.
+- Şu an sırada: **5 KGK bağı** (`kgk-gm-bank-r1` kp-05, TFRS 9; dört kapıdan geçmiş soru).
+
+### (3b) Bölücü — `motor/standart-yut.ps1`
+- **TFRS 9 noktalı numara:** TMS/TFRS artık kılavuz kipine düşmez; TMS kipi "3.2.1", "B5.4.17" okur; layout'ta "3.2 Finansal Varlıkların …" gibi bölüm başlığının numarası atılır (başlık olur); hakikat seçim ölçütü noktalı numarayı sayar. Noktalı metinde art arda gelen kısa satırlar (tablo hücreleri) artık kaybolmaz — bekleyen başlık gövdeye eklenir (yalnız ≥20 noktalı numaralı TMS/TFRS'de). Kelime ölçüsü: eski bölmedeki her kelime yeni bölmede (gövde + ad) var; ambarla kıyasta eksik 7 kelime = düz çıkarımın yapıştırdığı sözcükler ("kredideğer").
+- **BDS kipinde sonek:** "20T." (BDS 700/701/705/720), "25S."/"25M." (GDS), İHS 4400. ⚠ GDS 3000/3410'da S/M iki sütunlu tablo: M numarası ayrılıyor, S metni M parçasında iç içe (metin tam, etiket eksik — hakikat yine TAM: GDS 3410 eksik 7/224).
+- Öz-sınav +2 vaka (noktalı numara, BDS T soneki); önceki sürümde ikisi de düşüyor.
+- **Eşdeğerlik (91 standart, önceki sürüme göre):** 83 bayt bayt aynı; farklı 8 = BDS 700/701/705/720, GDS 3000/3410, İHS 4400, TFRS 9. Bir koşuda 5 standart indirme yarışından plan üretmedi → tek tek yeniden koşuldu.
+- **Ambar:** 8 standart yazıldı, geri okuma doğrulandı (TFRS 9 272→404 parça; BDS 720 87→96; GDS 3410 216→233). Kopan bağ: yalnız TFRS 9 → 6 KGK bağı (5'i sırada, 1'inin karşılığı yok: "p.6.6" artık paragraf değil bölüm başlığı).
+- `arac/kgk-cumle-kapsama.ps1` varsayılanı: TÜM standartlar (EKSİK kalmayınca rapor boşalıyordu).

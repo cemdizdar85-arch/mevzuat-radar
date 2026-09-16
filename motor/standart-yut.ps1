@@ -27,6 +27,7 @@ param(
   [switch]$uygula,
   [switch]$kucultmeyeOnayVer,
   [switch]$duzen,           # pdftotext -layout: iki sutunlu sayfalarda sutunlari korur
+  [switch]$BagRaporuYok,    # 16.09: yazımdan sonra arac/kaynak-bolunme-etki.ps1 koşmasın (varsayılan: koşar)
   [string]$PlanYaz = ''     # 14.09: kuru provada ESKI ve YENI parca adlarini bu JSON'a yazar (soru-kaynak bagi etkisi olcumu icin; ambara yazmaz)
 )
 
@@ -108,13 +109,20 @@ function SY_Bol([string]$metin, [string]$std){
   $kilavuzSay = @($satirlar | Where-Object { $_.Trim() -match '^\d{1,2}(\.\d{1,2}){1,3}\s+\S' -and $_ -notmatch '\.{5,}' }).Count
   $kilavuzTek = @($satirlar | Where-Object { $_.Trim() -match '^\d{1,2}(\.\d{1,2}){1,3}$' }).Count
   $kilavuzToplam = $kilavuzSay + $kilavuzTek
-  $kilavuzKip = ($kilavuzToplam -gt $tekBasina) -and ($kilavuzToplam -gt $satirBasi)
+  # 16.09 (TFRS 9): TMS/TFRS kılavuz değildir. TFRS 9'un noktalı numaraları ("3.2.1") kılavuz kipini açıyor, B serisi (B3.1.1)
+  #   ve bölüm başlıkları ("3.2 Finansal Varlıkların …") yanlış bölünüyordu. TMS/TFRS noktalı numarayı TMS kipinde okur (aşağıda).
+  $kilavuzKip = ($kilavuzToplam -gt $tekBasina) -and ($kilavuzToplam -gt $satirBasi) -and ($std -notmatch '^(TMS|TFRS)\s')
   $satirBasiKip = (-not $kilavuzKip) -and ($satirBasi -gt $tekBasina)
   # 16.09: DÖRDÜNCÜ DÜZEN — numara sol sütunda, metin sağda (TSRS). Kip ADA bağlı açılır (metne göre değil) ki
   # başka standartların bölünmesi kazara değişmesin; TSRS dışında $sutunKip hep $false'tur.
   $sutunKip = ($std -match '^TSRS\s') -and (@($satirlar | Where-Object { $_ -match '^\s{0,12}[A-E]?\d{1,3}[A-Z]?\s{2,}\S' }).Count -ge 3)   # 16.09: ad zaten TSRS ile sinirli; sayi esigi yalnizca bos/bozuk metni eler
   $parcalar = New-Object System.Collections.Generic.List[object]
   $baslik = ''
+  # 16.09 (TFRS 9): noktalı numaralı TMS/TFRS metninde (≥20 tek başına noktalı numara) tablo hücreleri kısa satır olarak gelir ve
+  #   art arda 'başlık' sanılır; yalnız sonuncusu ada girer, öncekiler KAYBOLURDU (TFRS 9 örnek tabloları ≈7.900 kr). Bu kipte
+  #   yerine yenisi gelen bekleyen başlık gövdeye eklenir. Öteki standartlarda davranış aynı.
+  $noktaliKip = ($std -match '^(TMS|TFRS)\s') -and (@($satirlar | Where-Object { $_.Trim() -match '^[A-Z]{0,2}\d{1,2}(\.\d{1,2}){1,3}$' }).Count -ge 20)
+  $bekleyenBaslik = ''
   $suAn = $null
   $sozlukModu = $false          # Ek A: numarasiz terim-tanim sozlugu
   # ⚠ 14.09.2026 DERSI — SAYFA NUMARASI + KOSU BASLIGI PARAGRAF SANILIYORDU.
@@ -241,7 +249,8 @@ function SY_Bol([string]$metin, [string]$std){
     #   (2) kucuk harf freni: capraz atif "(Bkz.: A11. paragrafi). Onceki..."
     #       satiri sahte bir p.A11 baslatiyordu - govdesi "paragrafi)..." diye
     #       KUCUK harfle baslar. Gercek paragraf govdesi kucuk harfle baslamaz.
-    if($satirBasiKip -and $s -match '^(?:(.{0,110}?)\s+)?(A?)(\d{1,3})\.\s+(\S.{5,})$' -and -not ($Matches[4] -cmatch '^[a-zçğıöşü]')){
+    # 16.09: Türkiye'ye özgü sonekli paragraf (BDS 700/720 "20T.", GDS 3410 "25S.", "38M.") — sonek grubu eklendi
+    if($satirBasiKip -and $s -cmatch '^(?:(.{0,110}?)\s+)?(A?)(\d{1,3})([A-Z]?)\.\s+(\S.{5,})$' -and -not ($Matches[5] -cmatch '^[a-zçğıöşü]')){
       # ⚠⚠ ONCE GRUPLARI KOPYALA. PowerShell'de HER -match/-notmatch/-cmatch
       # $Matches'i YENIDEN YAZAR. Ilk surumde asagidaki baslik kontrolu
       # ($onParca -notmatch ...) $Matches'i eziyordu ve sonraki satirdaki
@@ -249,7 +258,8 @@ function SY_Bol([string]$metin, [string]$std){
       # 2 parca cikardi. Sinav olmasaydi bu, 30 BDS'de sessizce ice islerdi.
       $gOnEk   = $Matches[2]
       $gNo     = [int]$Matches[3]
-      $gGovde  = $Matches[4]
+      $gSonek  = $Matches[4]
+      $gGovde  = $Matches[5]
       $onParca = if($Matches[1]){ $Matches[1].Trim() } else { '' }
       if($suAn){ $parcalar.Add($suAn) }
       # Onceki paragrafin SON CUMLESI de bu yakalamaya girebilir
@@ -260,7 +270,7 @@ function SY_Bol([string]$metin, [string]$std){
         if($onParca -notmatch '[.;:!?]$' -and $onParca -cmatch '^[A-ZÇĞİÖŞÜ]'){ $baslik = $onParca }
         elseif($parcalar.Count -gt 0){ $parcalar[$parcalar.Count-1].govde.Add($onParca) }
       }
-      $suAn = [ordered]@{ onek=$gOnEk; no=$gNo; sonek=''; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $suAn = [ordered]@{ onek=$gOnEk; no=$gNo; sonek=$gSonek; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
       $suAn.govde.Add($gGovde)
       continue
     }
@@ -269,10 +279,14 @@ function SY_Bol([string]$metin, [string]$std){
 
     # --- numarali paragraf: 12 · A1 · B9 · C20D   (kendi satirinda)
     # 16.09: önek A–E ve "UR" (TMS 32 uygulama rehberi), sonek iki harfe kadar (TFRS 1 39AH, TFRS 7 44ZA, TFRS 16 C20BA)
-    if((-not $satirBasiKip) -and (-not $kilavuzKip) -and $s -match '^([A-E]|UR)?(\d{1,3})([A-Z]{0,2})$'){
+    # 16.09: noktalı numara (TFRS 9 "3.2.1", "B5.4.17") — yalnız TMS/TFRS adında; öteki standartlarda desen eskisi gibi
+    $noktaliDesen = if($std -match '^(TMS|TFRS)\s'){ '^([A-E]|UR)?(\d{1,3})((?:\.\d{1,3}){0,3})([A-Z]{0,2})$' } else { '^([A-E]|UR)?(\d{1,3})()([A-Z]{0,2})$' }
+    if((-not $satirBasiKip) -and (-not $kilavuzKip) -and $s -match $noktaliDesen){
       if($suAn){ $parcalar.Add($suAn) }
       $sozlukModu = $false
-      $suAn = [ordered]@{ onek="$($Matches[1])"; no=[int]$Matches[2]; sonek=$Matches[3]; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $tmsNo = if($Matches[3]){ "$($Matches[2])$($Matches[3])" } else { [int]$Matches[2] }
+      $suAn = [ordered]@{ onek="$($Matches[1])"; no=$tmsNo; sonek=$Matches[4]; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $bekleyenBaslik = ''
       continue
     }
     # --- numara SATIR BASINDA metinle birlikte: "C21 Bu Standart ..."
@@ -311,7 +325,9 @@ function SY_Bol([string]$metin, [string]$std){
     # kisadir - esik 70 -> 45.
     $baslikEsik = if($kilavuzKip){ 45 } else { 70 }
     if($s.Length -le $baslikEsik -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and $s -cmatch '^[A-ZÇĞİÖŞÜ]' -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
+      if($noktaliKip -and $bekleyenBaslik -and $suAn){ $suAn.govde.Add($bekleyenBaslik) }
       $baslik = $s
+      $bekleyenBaslik = $s
       continue
     }
     # ⚠ ILK PARAGRAF NUMARASINDAN ONCEKI METIN — 25.08'de KAYBOLUYORDU.
@@ -439,7 +455,9 @@ function SY_TmsLayoutDuzle([string]$layoutMetin, [string]$std){
       while($sonraki -lt $satirlar.Count -and -not $satirlar[$sonraki].Trim()){ $sonraki++ }
       if($sonraki -lt $satirlar.Count -and $satirlar[$sonraki] -match '^\s{3,}\S'){ continue }
     }
-    $numaraEsi = [regex]::Match($hamSatir,'^((?:[A-E]|UR)?\d{1,3}[A-Z]{0,2}(?:[–-]\d{1,3}[A-Z]{0,2})?)\s{2,}(\S.*)$')   # 16.09: E/UR öneki + iki harfli sonek (SY_Bol TMS kipiyle aynı)
+    # 16.09 (TFRS 9): bölüm başlığı "3.2 Finansal Varlıkların …" numara + TEK boşluk + büyük harf → numara atılır, satır başlık olur
+    if($hamSatir -cmatch '^\d{1,2}(?:\.\d{1,2}){1,2} [A-ZÇĞİÖŞÜ]\S*(?: \S+){0,12}$' -and $hamSatir -notmatch '[.:;]\s*$'){ [void]$cikti.AppendLine(($hamSatir -replace '^\d{1,2}(?:\.\d{1,2}){1,2} ','')); continue }
+    $numaraEsi = [regex]::Match($hamSatir,'^((?:[A-E]|UR)?\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2}(?:[–-]\d{1,3}[A-Z]{0,2})?)\s{2,}(\S.*)$')   # 16.09: E/UR öneki + iki harfli sonek + noktalı numara (SY_Bol TMS kipiyle aynı)
     if($numaraEsi.Success){
       [void]$cikti.AppendLine($numaraEsi.Groups[1].Value)
       [void]$cikti.AppendLine('')
@@ -458,7 +476,7 @@ function SY_LayoutHakikat([string]$layoutMetin){
   # "[Silinmistir]" satirlari hakikatten cikar (bolme onlari uretmemeli).
   $gercek = New-Object System.Collections.Generic.HashSet[string]; $silinen = New-Object System.Collections.Generic.HashSet[string]
   foreach($satir in ($layoutMetin -split "`r?`n")){
-    $es = [regex]::Match($satir,'^([A-Z]{0,2}\d{1,3}[A-Z]{0,2})\s{2,}(\S.*)$')
+    $es = [regex]::Match($satir,'^([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})\s{2,}(\S.*)$')   # 16.09: noktalı numara (TFRS 9) hakikate girer
     if(-not $es.Success){ continue }
     if($es.Groups[2].Value -match '^\[Silinmi'){ [void]$silinen.Add($es.Groups[1].Value) } else { [void]$gercek.Add($es.Groups[1].Value) }
   }
@@ -470,7 +488,7 @@ function SY_HakikatSapmasi($parcalar, $gercek){
   $sayac = @{}
   foreach($parca in $parcalar){
     $ad = "$($parca.kaynak_ad)"; $parcaliMi = $ad -match '\s\[\d+/\d+\]'
-    $es = [regex]::Match(($ad -replace '\s\[\d+/\d+\]',''),'\sp\.([A-Z]{0,2}\d{1,3}[A-Z]{0,2})(?:\s|$)')
+    $es = [regex]::Match(($ad -replace '\s\[\d+/\d+\]',''),'\sp\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:\s|$)')
     if(-not $es.Success){ continue }
     $no = $es.Groups[1].Value
     if($parcaliMi){ if(-not $sayac.ContainsKey($no)){ $sayac[$no] = 1 } } else { $sayac[$no] = 1 + [int]$sayac[$no] }
@@ -762,6 +780,13 @@ kisa vade    Isletmenin raporlama donemini izleyen bir yillik donemdir.
   if(@($ekNumarali | Where-Object { $_.kaynak_ad -match ' p\.A[12] ' }).Count -ne 2){ $dusen += "NUMARALI EK A SOZLUKTE KALDI: $(@($ekNumarali | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
   $ikiHarf = @(SY_Bol "Amaç`n`n1`n`nBirinci paragraf metni burada yer alır ve yeterince uzundur.`n`n39AH`n`nİki harfli sonekli paragraf metni burada yer alır ve uzundur.`n`nUR1`n`nUygulama rehberi paragrafı metni burada yer alır ve uzundur." 'TEST 32')
   if(@($ikiHarf | Where-Object { $_.kaynak_ad -match ' p\.(39AH|UR1) ' }).Count -ne 2){ $dusen += "IKI HARFLI NUMARA AYRILMADI: $(@($ikiHarf | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
+  # 16.09 (2 vaka): (d) TFRS 9 noktalı numara + B serisi + başlıktaki numara atılır · (e) BDS "20T." soneki
+  $tfrs9Layout = "3.2 Finansal Varlıkların Finansal Tablo Dışı Bırakılması`n`n3.2.1    Bu paragraf birinci noktalı paragraftır ve yeterince uzundur.`n3.2.2    Bu paragraf ikinci noktalı paragraftır ve yeterince uzundur.`n`nKapsam (Bölüm 2)`n`nB2.1     Bu paragraf uygulama rehberinin ilk paragrafıdır ve uzundur."
+  $noktali = @(SY_Bol (SY_TmsLayoutDuzle $tfrs9Layout 'TFRS 9') 'TFRS 9')
+  $noktaliAdlar = @($noktali | ForEach-Object { $_.kaynak_ad })
+  if(@($noktaliAdlar | Where-Object { $_ -match ' p\.(3\.2\.1|3\.2\.2|B2\.1) ' }).Count -ne 3 -or @($noktaliAdlar | Where-Object { $_ -match ' p\.3\.2 ' }).Count){ $dusen += "NOKTALI NUMARA: $($noktaliAdlar -join ' | ')" }
+  $bdsT = @(SY_Bol "Kapsam`n1. Bu BDS denetçinin sorumluluklarını düzenler ve uygulanır.`n2. Bu BDS ayrıca raporlamayı da düzenler ve uygulanır.`n20T. Türkiye'ye özgü bu paragraf ayrıca uygulanır ve açıklanır.`n3. Üçüncü paragraf burada yer alır ve uygulanır." 'BDS 720')
+  if(@($bdsT | Where-Object { $_.kaynak_ad -match ' p\.20T ' }).Count -ne 1){ $dusen += "BDS T SONEKI: $(@($bdsT | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
   return $dusen
 }
 
@@ -771,7 +796,7 @@ if($sinav.Count){
   foreach($d in $sinav){ Write-Host "   $d" }
   exit 1
 }
-Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 [16.09])'
+Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09])'
 Write-Host '  SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma'
 Write-Host ''
 
@@ -1046,4 +1071,14 @@ if($geri.Count -ne $yeni.Count -or [Math]::Abs($geriKarakter-$yeniKarakter) -gt 
 }
 Write-Host 'DOGRULANDI — yazilan ile ambardaki birebir tutuyor.' -ForegroundColor Green
 Write-Host ''
+# 16.09 (Cem "2 ve 3 yap", 92'nin isteği): yeniden bölmede adı kalkan parçalara bağlı partiler raporlanır (bedel 0).
+#   Rapor: veri/fabrika/kaynak-bolunme-etki-<zaman>-<std>.csv (kopan ad yoksa yazılmaz). Bağ TAŞIMAZ; taşımak için aracı -Tasi ile çağır.
+if(-not $BagRaporuYok){
+  $etkiAraci = Join-Path $depoKok 'arac\kaynak-bolunme-etki.ps1'
+  if(Test-Path $etkiAraci){
+    $kabuk = if(Get-Command powershell -ErrorAction SilentlyContinue){ 'powershell' } else { 'pwsh' }   # Linux runner'da yalnız pwsh var
+    try { & $kabuk -NoProfile -File $etkiAraci -Standart $standart -YedekDosya $yedekYolu | ForEach-Object { Write-Host "  [bağ raporu] $_" } }
+    catch { Write-Host "  [bağ raporu] KOŞMADI: $($_.Exception.Message) — elle: arac\kaynak-bolunme-etki.ps1 -Standart '$standart' -YedekDosya '$yedekYolu'" -ForegroundColor Yellow }
+  }
+}
 Write-Host 'SIRADAKI: motor\butunluk-kapisi.ps1 -yalniz "' + $standart + '" ile delik kalmadigini teyit et.'
