@@ -163,8 +163,9 @@ jobs:
           ./arac/kopru-senkron.ps1 -Indir -Yaz -Sinav $planSinavi
           # 16.09: gonderilmis toplu parti kimlikleri (yeniden koşuda BEDAVA hasat / kuyruktakine baglanma; cift odeme yok)
           ./arac/bekleyen-senkron.ps1 -Indir
-          # Isin baslangici: toplu bekleme bu andan 320 dk sonra kesilir (is tavani 350, yukleme payi 30)
-          "MEVZUAT_TOPLU_SON_AN=$((Get-Date).ToUniversalTime().AddMinutes(320).ToString('o'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+          # Isin baslangici: toplu bekleme bu andan 290 dk sonra kesilir. 17.09 OLCULDU (35119974812): 320/335 butcesinde yukleme adimina 8 dk kaldi,
+          # 152 partinin 36'si yazilabildi, bekleyen kaydi hic yazilmadi. Butce: SON_AN 290 · Uret 305 · yukleme ~40 dk.
+          "MEVZUAT_TOPLU_SON_AN=$((Get-Date).ToUniversalTime().AddMinutes(290).ToString('o'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
           # Defter: harcama kaydi tek yerden gorulsun
           ./arac/bedel-senkron.ps1 -Indir -Yaz
           if ("${{ inputs.indir_parti }}" -eq "true") {
@@ -187,7 +188,8 @@ jobs:
         shell: powershell
         # 16.09 OLCULDU (35083827921): adim is tavanina (350) takilinca is IPTAL sayildi, zincir adimi (!cancelled) atlandi.
         # Adimin kendi tavani 335 dk: asilirsa adim BASARISIZ olur (iptal degil) -> yukleme ve zincir adimlari yine kosar.
-        timeout-minutes: 335
+        # 17.09: 335 yuklemeye yer birakmiyordu (35119974812) -> 305
+        timeout-minutes: 305
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
@@ -228,6 +230,8 @@ jobs:
           # ⛔ if: always() — uretim yarida kalsa bile ODENEN IS yazilir.
           # 13.09: sinav etiketi plandan (PLAN_SINAVI ilk adimda yazildi). Bos kalirsa eski varsayilan SGS.
           $ps = "$env:PLAN_SINAVI".Trim(); if(-not $ps){ $ps = 'SGS' }
+          # 17.09: EN ONCE toplu parti kaydi (kucuk, kritik): adim yarida kesilse bile sonraki halka odenmis partileri hasat eder.
+          ./arac/bekleyen-senkron.ps1 -Yukle
           # 13.09: yalniz bu kosuda DEGISEN ya da YENI olusan parti yuklenir (indirmedeki parmak izine gore).
           # Iz dosyasi yoksa (indirme adimi hic kosmadiysa) eski davranis: sinavin butun yerel partileri.
           $izYol = Join-Path $env:RUNNER_TEMP 'parti-onizi.json'
