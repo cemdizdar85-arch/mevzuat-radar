@@ -59,7 +59,8 @@ foreach($sv in 'SGS','SMMM','KGK'){
     if($sv -eq 'KGK'){
       $e = $diskKGK.Count
       $d = $diskKGK.Count
-      $a = @($ambarKayit | Where-Object { $_.tur -eq 'cikmis-soru' -and $_.kaynak_ad -notmatch '\((sgs|smmm)_' })
+      # 16.09: '-GORSELANAHTAR)' belgeleri goruntuden okunan cevaplardir, diskte karsiliklari yok -> disk/ambar kiyasina girmez
+      $a = @($ambarKayit | Where-Object { $_.tur -eq 'cikmis-soru' -and $_.kaynak_ad -notmatch '\((sgs|smmm)_' -and $_.kaynak_ad -notmatch '-GORSELANAHTAR\)$' })
     } else {
       $e = @($evren | Where-Object { $_.sinav -eq $sv -and "$($_.donem)" -like "$y/*" }).Count
       $onek = $sv.ToLowerInvariant() + '_' + $y + '_'
@@ -80,6 +81,8 @@ foreach($s in $satir){
 }
 $klasik = @($ambarKayit | Where-Object { $_.tur -eq 'cikmis-komisyon-cevabi' })
 Write-Host ("`nKOMISYON CEVABI (klasik donem yeterlilik): ambarda {0} belge" -f $klasik.Count)
+$gorselAnahtar = @($ambarKayit | Where-Object { $_.tur -eq 'cikmis-soru' -and $_.kaynak_ad -match '-GORSELANAHTAR\)$' })
+Write-Host ("KGK GORUNTUDEN OKUNAN CEVAP (arac/kgk-gorsel-cevap-yut.ps1): ambarda {0} belge" -f $gorselAnahtar.Count)
 Write-Host ("TOPLAM cikmis soru (ambar): {0}" -f ((@($ambarKayit | Where-Object { $_.tur -eq 'cikmis-soru' }) | ForEach-Object { SoruSay $_.baslik } | Measure-Object -Sum).Sum))
 
 [IO.File]::WriteAllText((Join-Path $kok 'veri\cikmis-soru-karnesi.json'),
@@ -87,5 +90,6 @@ Write-Host ("TOPLAM cikmis soru (ambar): {0}" -f ((@($ambarKayit | Where-Object 
      tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
      aciklama='Cikmis sinav arsivi karnesi. EVREN=TESMER kesfi, DISKTE=yerel txt (>800 bayt), AMBARDA=Supabase dokumanlar. Uc sutun ayni degilse aradaki fark GERCEK ISTIR.'
      komisyonCevabiBelgesi=$klasik.Count
+     kgkGorselCevapBelgesi=$gorselAnahtar.Count
      satirlar=$satir.ToArray() }) -Depth 4), (New-Object Text.UTF8Encoding($false)))
 Write-Host 'Kanit: veri/cikmis-soru-karnesi.json'

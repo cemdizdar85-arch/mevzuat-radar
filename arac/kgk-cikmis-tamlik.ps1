@@ -53,6 +53,22 @@ $tsvYolu = Join-Path $arsivKlasoru 'pdf-links.tsv'
 $tsvKodlari = @{}
 if(Test-Path $tsvYolu){ foreach($satir in (Get-Content $tsvYolu -Encoding UTF8)){ $kod = ($satir -split "`t")[0].Trim([char]0xFEFF).Trim(); if($kod){ $tsvKodlari[$kod] = $true; if(-not $sinavlar.Contains($kod)){ $sinavlar[$kod] = [ordered]@{ kod=$kod; ad=''; arsiv_sayfasinda=$false } } } } }
 
+# 16.09: görüntüden okunup ambara yazılan cevaplar (arac/kgk-gorsel-cevap-yut.ps1 → "…(<kök>-GORSELANAHTAR)")
+$gorselCevap = @{}
+$ambarOkundu = $false
+$sbAnahtar = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'); if(-not $sbAnahtar){ $sbAnahtar = $env:SUPABASE_SERVICE_KEY }
+if($sbAnahtar){
+  try {
+    $gorselAdres = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,baslik&tur=eq.cikmis-soru&kaynak_ad=like.' + [uri]::EscapeDataString('*-GORSELANAHTAR)') + '&order=kaynak_ad&limit=1000'
+    foreach($belge in (Invoke-RestMethod -Uri $gorselAdres -Headers @{ apikey=$sbAnahtar; Authorization="Bearer $sbAnahtar"; 'User-Agent'='mevzuat-radar-robot/1.0' } -TimeoutSec 120)){
+      $gorselKok = [regex]::Match("$($belge.kaynak_ad)",'\(([^)]+)-GORSELANAHTAR\)$').Groups[1].Value
+      $gorselSayi = [regex]::Match("$($belge.baslik)",'(\d+)\s*cevap').Groups[1].Value
+      if($gorselKok -and $gorselSayi){ $gorselCevap[$gorselKok] = [int]$gorselSayi }
+    }
+    $ambarOkundu = $true
+  } catch { Write-Host "UYARI: ambar okunamadı — görüntüden okunan cevaplar sayılmadı ($($_.Exception.Message))" }
+} else { Write-Host 'UYARI: SUPABASE_SERVICE_KEY yok — görüntüden okunan cevaplar sayılmadı' }
+
 # --- 2+3) sınav sınav
 $satirlar = New-Object System.Collections.Generic.List[object]
 foreach($kod in @($sinavlar.Keys)){
@@ -104,13 +120,18 @@ foreach($kod in @($sinavlar.Keys)){
         }
       }
     }
-    $kitapciklar.Add([ordered]@{ dosya=$dosya.BaseName; ayri_anahtar_dosyasi=[bool]$ayriAnahtar; cevap_bolumu=($bolumBasi -ge 0); dikey_liste=$dikeyListe; pdf_son_sayfa=$pdfSonSayfa; cevap_hucresi=$hucre; modul_tahmini=[math]::Round($hucre/40,1) })
+    # 16.09: cevabı görüntüden okunup ambara yazılmış kitapçıkta ambardaki sayı metinden okunandan büyükse o kullanılır
+    #   (2020 Kasım Sabah A: metin katmanı tek sütun = 40 hücre, ambarda 160)
+    $gorselden = $false
+    if(-not $ayriAnahtar -and $gorselCevap.ContainsKey($dosya.BaseName) -and $gorselCevap[$dosya.BaseName] -gt $hucre){ $hucre = $gorselCevap[$dosya.BaseName]; $gorselden = $true }
+    $kitapciklar.Add([ordered]@{ dosya=$dosya.BaseName; ayri_anahtar_dosyasi=[bool]$ayriAnahtar; cevap_bolumu=($bolumBasi -ge 0); dikey_liste=$dikeyListe; pdf_son_sayfa=$pdfSonSayfa; gorselden_ambarda=$gorselden; cevap_hucresi=$hucre; modul_tahmini=[math]::Round($hucre/40,1) })
   }
   $soruKitapciklari = @($kitapciklar | Where-Object { -not $_.ayri_anahtar_dosyasi })
   $anahtarsiz = @($soruKitapciklari | Where-Object { $_.cevap_hucresi -lt 20 })
   $ayriAnahtarVar = @($kitapciklar | Where-Object { $_.ayri_anahtar_dosyasi }).Count -gt 0
   # KISMİ: bazı kitapçıklarda cevap okunuyor, bazılarında okunmuyor (2020 Kasım: başlık+cevapların çoğu son sayfada GÖRÜNTÜ)
-  $cevapDurumu = if($soruKitapciklari.Count -eq 0){ 'KİTAPÇIK YOK' } elseif(-not $anahtarsiz.Count){ 'KİTAPÇIK İÇİNDE' } elseif($ayriAnahtarVar){ 'AYRI DOSYADA' } elseif($anahtarsiz.Count -lt $soruKitapciklari.Count){ 'KISMİ (görüntü)' } else { 'YOK (taranmış/okunamadı)' }
+  $gorselVar = @($soruKitapciklari | Where-Object { $_.gorselden_ambarda }).Count -gt 0
+  $cevapDurumu = if($soruKitapciklari.Count -eq 0){ 'KİTAPÇIK YOK' } elseif(-not $anahtarsiz.Count -and $gorselVar){ 'GÖRÜNTÜDEN OKUNDU (ambarda)' } elseif(-not $anahtarsiz.Count){ 'KİTAPÇIK İÇİNDE' } elseif($ayriAnahtarVar){ 'AYRI DOSYADA' } elseif($anahtarsiz.Count -lt $soruKitapciklari.Count){ 'KISMİ (görüntü)' } else { 'YOK (taranmış/okunamadı)' }
   $toplamHucre = [int](($soruKitapciklari | ForEach-Object { $_.cevap_hucresi }) | Measure-Object -Sum).Sum
   $satirlar.Add([ordered]@{
     kod=$kod; ad=$s.ad; arsiv_sayfasinda=$s.arsiv_sayfasinda; tsv_listesinde=[bool]$tsvKodlari.ContainsKey($kod)
@@ -124,7 +145,8 @@ foreach($kod in @($sinavlar.Keys)){
 $eksikToplam = (@($satirlar | ForEach-Object { @($_.eksik_pdf).Count }) | Measure-Object -Sum).Sum
 $rapor = [ordered]@{
   olcum = (Get-Date -Format 'dd.MM.yyyy HH:mm')
-  kural = 'EKSİK PDF = sınavın KGK sayfasında olup veri/kgk-arsiv/txt''de karşılığı olmayan dosya (kgk-arsiv-indir ad kuralı). Cevap: kitapçığın sonundaki CEVAP ANAHTARI bölümünde ≥20 "N. X" hücresi varsa KİTAPÇIK İÇİNDE. Modül tahmini = hücre/40.'
+  kural = 'EKSİK PDF = sınavın KGK sayfasında olup veri/kgk-arsiv/txt''de karşılığı olmayan dosya (kgk-arsiv-indir ad kuralı). Cevap: kitapçığın sonundaki CEVAP ANAHTARI bölümünde ≥20 "N. X" hücresi varsa KİTAPÇIK İÇİNDE. Metinden okunamayıp görüntüden okunarak ambara yazılan (…-GORSELANAHTAR) cevaplar GÖRÜNTÜDEN OKUNDU sayılır. Modül tahmini = hücre/40.'
+  gorsel_cevap_ambar = $(if($ambarOkundu){ 'OKUNDU' } else { 'OKUNAMADI — görüntüden okunan cevaplar sayılmadı' })
   sinav = $satirlar.Count
   arsiv_sayfasinda = @($satirlar | Where-Object { $_.arsiv_sayfasinda }).Count
   sayfasi_okunan = @($satirlar | Where-Object { $_.sayfa -eq 'OKUNDU' }).Count
