@@ -255,6 +255,13 @@ $durduruldu=$false
 while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
  while($ucan.Count -lt $Paralel -and $kuyruk.Count -gt 0 -and -not $durduruldu){
   $s=$kuyruk.Dequeue()
+  # 16.09 ÖLÇÜLDÜ (kurtarma-e 35083827921): SON_AN (iş başı +320 dk) geçtikten sonra da yeni parti başlatılıyordu; kuyruk kuyruğu
+  #   26 dk'lık payı yedi, iş 350 dk tavanına takılıp İPTAL sayıldı ve zincir adımı atlandı. SON_AN geçtiyse parti BAŞLATILMAZ,
+  #   "TOPLU ANLIKSIZ" izi düşülür → zincir sonraki halkada koşturur. SON_AN yoksa (yerel) davranış aynı.
+  if("$env:MEVZUAT_TOPLU_SON_AN"){ try{ if((Get-Date).ToUniversalTime() -ge [datetime]::Parse("$env:MEVZUAT_TOPLU_SON_AN").ToUniversalTime()){
+    "[$(Get-Date -Format HH:mm)] SÜRE DOLDU, başlatılmadı (sonraki halka): $($s.etiket)"
+    [IO.File]::AppendAllText((Join-Path $logDir 'sure-doldu-atlanan.log'),("TOPLU ANLIKSIZ (süre doldu) · $($s.etiket)`r`n"),[Text.UTF8Encoding]::new($false))
+    continue } }catch{} }
   $sinav=$(if($s.PSObject.Properties['sinav'] -and $s.sinav){ "$($s.sinav)" } else { 'SGS' })
   # ⛔⭐ 12.09.2026 — KONU DOSYASI KAPISI. Plan satirindaki `konuDosya` MUTLAK
   #    YEREL YOL olabiliyor (arac/plan-uret.ps1 ve motor/plandan-parti-kur.ps1

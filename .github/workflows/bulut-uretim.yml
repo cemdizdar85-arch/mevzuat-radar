@@ -185,6 +185,9 @@ jobs:
 
       - name: Uret
         shell: powershell
+        # 16.09 OLCULDU (35083827921): adim is tavanina (350) takilinca is IPTAL sayildi, zincir adimi (!cancelled) atlandi.
+        # Adimin kendi tavani 335 dk: asilirsa adim BASARISIZ olur (iptal degil) -> yukleme ve zincir adimlari yine kosar.
+        timeout-minutes: 335
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
