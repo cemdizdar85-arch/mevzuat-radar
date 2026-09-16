@@ -35,6 +35,11 @@ foreach($dosya in (Get-ChildItem $metinKlasoru -Filter "$Desen.txt" | Sort-Objec
   $icerik = [IO.File]::ReadAllText($dosya.FullName,[Text.Encoding]::UTF8).TrimStart([char]0xFEFF)
   $ilkSatir = ($icerik -split "`n",2)[0].Trim()
   $govdeMetni = (($icerik -split "`n",2)[1]).Trim()
+  # KIP satırından sonraki "NOT: …" satırları resmî metin DEĞİLDİR → kaynak notunun ardına "BASIM NOTU" olarak girer
+  #   (ör. kâğıtta basılı toplam hatası: soru üretimi hatayı kopyalamasın). Resmî metin değiştirilmez.
+  $basimNotlari = New-Object System.Collections.Generic.List[string]
+  while($govdeMetni -match '^NOT:\s*([^\r\n]+)\r?\n'){ $basimNotlari.Add($Matches[1].Trim()); $govdeMetni = $govdeMetni.Substring($Matches[0].Length).TrimStart() }
+  if(@($basimNotlari | Where-Object { $_ -match '\bCEVAPLAR\b|\bCEVAP\s*1\b|\bCevap\s*1\b|\bYANITLAR\b' }).Count){ Write-Host "  !! $kok BASIM NOTU'nda KAPI-CB kesim kelimesi var — yazılmaz"; $hata++; continue }
   if($ilkSatir -notmatch '^KIP:\s*(EKLE|DEGISTIR)$'){ Write-Host "  !! $kok ilk satır KIP: EKLE/DEGISTIR değil — atlandı"; $hata++; continue }
   $kip = $Matches[1]
   if($govdeMetni -match '\[OKUNAMADI\]'){ Write-Host "  !! $kok [OKUNAMADI] içeriyor — yazılmaz"; $hata++; continue }
@@ -56,7 +61,9 @@ foreach($dosya in (Get-ChildItem $metinKlasoru -Filter "$Desen.txt" | Sort-Objec
   $soruKismi = if($kip -eq 'EKLE'){ $govdeMetni } else { [regex]::Split($govdeMetni,"(?m)^CEVAPLAR\r?$")[0] }
   $kesim = [regex]::Match($soruKismi, $kesimDeseni)
   if($kesim.Success){ Write-Host ("  ⚠ {0}: soru metninde '{1}' geçiyor — KAPI-CB soru kısmının son {2} karakterini keser (resmî metin korunur)" -f $kok,$kesim.Value,($soruKismi.Length - $kesim.Index)) }
-  $yeni = if($kip -eq 'EKLE'){ "SORULAR`n$govdeMetni`n`n$kaynakNotu`n`n$($eski.Trim())" } else { $govdeMetni }
+  $notMetni = (@($basimNotlari | ForEach-Object { "BASIM NOTU: $_" }) -join "`n")
+  if($kip -eq 'DEGISTIR' -and $basimNotlari.Count){ Write-Host "  !! $kok DEGISTIR kipinde NOT satırı desteklenmiyor"; $hata++; continue }
+  $yeni = if($kip -eq 'EKLE'){ "SORULAR`n$govdeMetni`n`n$kaynakNotu$(if($notMetni){"`n$notMetni"})`n`n$($eski.Trim())" } else { $govdeMetni }
   Write-Host ("  {0} {1}: {2:N0} → {3:N0} kr" -f $kip,$kok,$eski.Length,$yeni.Length)
   if(-not $Yaz){ continue }
   if(-not (Test-Path $yedekYolu)){ [IO.File]::WriteAllText($yedekYolu,(ConvertTo-Json -InputObject ([ordered]@{ id=$kayitlar[0].id; kaynak_ad=$kayitlar[0].kaynak_ad; metin=$eski; yedeklendi=(Get-Date -Format 'dd.MM.yyyy HH:mm') }) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
