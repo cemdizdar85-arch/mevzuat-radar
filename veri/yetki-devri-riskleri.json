@@ -1,11 +1,11 @@
 {
-  "tarih": "16.09.2026 07:34",
+  "tarih": "16.09.2026 07:47",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 875,
   "riskli_madde": 1313,
   "sayfa": 72,
   "atifli_iddia": 299,
-  "dayanaksiz_iddia": 379,
+  "dayanaksiz_iddia": 378,
   "kirmizi_aday": 30,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -194,7 +194,7 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1402,
+      "satir": 1396,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -1502,91 +1502,85 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 617,
-      "iddia": "%98",
-      "metin": "ÖLÇÜLDÜ: ekran 768 px, kahraman 750 px -> açılışta görünen alanın %98'i koyuydu; ziyaretçi"
-    },
-    {
-      "sayfa": "index.html",
-      "satir": 648,
+      "satir": 642,
       "iddia": "% 55",
-      "metin": "background:radial-gradient(60% 55% at 74% 16%,rgba(138,98,36,.08),transparent 62%),"
+      "metin": "background:radial-gradient(60% 55% at 74% 16%,rgba(207,161,99,.22),transparent 62%),"
     },
     {
       "sayfa": "index.html",
-      "satir": 734,
+      "satir": 728,
       "iddia": "09 GÜN",
       "metin": "/* 16.09 GÜNCELLEME (Cem, canlı ekran: \"ekranın böyle olması mantıklı değil, yarısı öyle yarısı böyle\"):"
     },
     {
       "sayfa": "index.html",
-      "satir": 990,
+      "satir": 984,
       "iddia": "2 gün",
       "metin": "/* YANLIŞ KUTUSU: ürün (kaydir-coz) yanlış cevabı bu tarayıcıda kc_kutu'ya yazar - 2 gün sonra vade, o gün doğruysa 7 gün sonra son tur."
     },
     {
       "sayfa": "index.html",
-      "satir": 997,
+      "satir": 991,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru burada yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Ku"
     },
     {
       "sayfa": "index.html",
-      "satir": 999,
+      "satir": 993,
       "iddia": "7 gün",
       "metin": "else if(tekrar) kanca('Doğru — ilk tekrarı geçtin.','7 gün sonra son bir kez karşına çıkacak; onu da bilirsen kutundan çıkar.','');"
     },
     {
       "sayfa": "index.html",
-      "satir": 1082,
+      "satir": 1076,
       "iddia": "%100",
       "metin": "Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·"
     },
     {
       "sayfa": "index.html",
-      "satir": 1083,
+      "satir": 1077,
       "iddia": "%96",
       "metin": "\"Nöbetçi anlatsın\" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir)."
     },
     {
       "sayfa": "index.html",
-      "satir": 1084,
+      "satir": 1078,
       "iddia": "%40",
       "metin": "BİLEREK YAZILMADI: \"ikizini sen çöz\" - yalnız %40'ında var. -->"
     },
     {
       "sayfa": "index.html",
-      "satir": 1094,
+      "satir": 1088,
       "iddia": "2 gün",
       "metin": "4 Unutma Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar."
     },
     {
       "sayfa": "index.html",
-      "satir": 1213,
+      "satir": 1207,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 1229,
+      "satir": 1223,
       "iddia": "5 gün",
       "metin": "bugünün saatiyle kıyaslanınca \"5 gün önce\" yazıp KIRMIZI yanıyor:"
     },
     {
       "sayfa": "index.html",
-      "satir": 1262,
+      "satir": 1256,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 1265,
+      "satir": 1259,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1456,
+      "satir": 1450,
       "iddia": "5 gün",
       "metin": "robot bugün koştuğu hâlde dosya değişmediği için 5 gün eskide kalıyordu. Akış bandı raftaki"
     },
