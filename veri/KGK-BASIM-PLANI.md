@@ -16,14 +16,14 @@ Kaynak ölçümü: [KGK-KAYNAK-OLCUMU.md](KGK-KAYNAK-OLCUMU.md) · dağılım ve
 
 **Toplam (7 modül): şimdi basılabilir 2.295 · önce onarım 320 · basılamaz 319.**
 
-Denetim modülünün üstünlüğü: **34 BDS'nin tamamı resmî metinle TAM** (15.09–16.09 hakikat ölçümü), ek paragrafları (A-serisi) etiketli, dayanak ad köprüsü kurulu. Kurumsal Yönetim en sona kalır: 304 soruluk Finansal Yönetim kısmı resmî metinsiz (SPL kararı bekliyor).
+Denetim modülünün üstünlüğü: **34 BDS'nin 33'ü resmî metinle TAM** (16.09 hakikat ölçümü); BDS 720'de 9 paragraf ayrı parça değil (metni komşu parçada, soru yazılabilir ama paket hassasiyeti düşük). Ek paragrafları (A-serisi) etiketli, dayanak ad köprüsü kurulu. Kurumsal Yönetim en sona kalır: 304 soruluk Finansal Yönetim kısmı resmî metinsiz (SPL kararı bekliyor).
 
 ## 2 · Dalga yapısı (önerilen)
 
 **Dalga 1 — pilot, 5 kaynak / ≈107 soru.** En çok çıkan ve hepsi TAM olan beşi: BDS 315 (26) · BDS 200 (22) · BDS 330 (21) · BDS 530 (20) · BDS 240 (18).
 Amaç: ret oranını ve soru başına gerçek bedeli ÖLÇMEK. Dalga 2'ye ancak bu ölçüm görüldükten sonra geçilir.
 
-**Dalga 2 — kalan TAM kaynaklar, ≈256 soru.** BDS 500/505/540/570/600/700/705/720, BDS 210/230/250/260/265/300/320/402/450/501/510/520/550/560/580/610/620/701/706/710, GDS 3000/3400/3402, İHS 4400, BDY, 660 KHK.
+**Dalga 2 — kalan kaynaklar, ≈256 soru** (BDS 720 hariç hepsi TAM). BDS 500/505/540/570/600/700/705/720, BDS 210/230/250/260/265/300/320/402/450/501/510/520/550/560/580/610/620/701/706/710, GDS 3000/3400/3402, İHS 4400, BDY, 660 KHK.
 
 **Dalga 3 — onarım sonrası, ≈73 soru.** ETİK Kurallar (23) ve KYS 1 (17): ambarda resmî metin var, paragraf etiketi eksik (hakikat ölçümü "EKSİK"). Önce parasız onarım, sonra basım.
 
