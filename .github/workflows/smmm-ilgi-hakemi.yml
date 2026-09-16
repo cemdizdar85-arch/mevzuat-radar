@@ -1,0 +1,150 @@
+# .github/workflows/smmm-ilgi-hakemi.yml — BİTİRME (SMMM) KAYNAK İLGİ HAKEMİ BULUTTA (PARALI, hep TOPLU)
+#
+# 16.09.2026, Cem "döküm işini buluta taşı" + "soru basma işi bulutta olacak, benim bilgisayarda değil".
+# NE YAPAR: planın konularının kaynak paketlerini BULUT makinesinde diske döker (arac/smmm-kaynak-olcum.ps1 -PaketDok,
+# ambardan okuma, model yok), sonra arac/smmm-ilgi-hakemi.ps1 ile her paketin konuyla ilgisini modele sordurur (toplu).
+# Sonuç veri/sinav/smmm-ilgi-hakemi-<ad>.json olarak depoya yazılır: YALNIZ konu adı, durum, ilgili kaynak ADLARI, kısa gerekçe.
+#
+# GÜVENLİK (CLAUDE.md "BULUT GÜVENLİĞİ"): paketler (kaynak metni) yalnız RUNNER_TEMP'te durur, artifact YOK, depoya girmez.
+# Ekran çıktısı yalnız sayı/etiket/bedel. Soru metni bu akışta hiç yok.
+# BEDEL: konu başı ≈0,0025 USD (Sonnet 5 toplu). Dalga 1 (880 konu) ≈2,2 USD · kütük (2.095) ≈5,3 USD.
+# TOPLU KUYRUK YAVAŞSA: 92'nin bulut-uretim zinciriyle aynı yol — MEVZUAT_TOPLU_SON_AN'da süreç 75 ile biter, gönderilmiş
+# partiler ambara yazılır (arac/bekleyen-senkron.ps1), iş aynı girdilerle kendini yeniden tetikler; sonraki halka hazır cevabı
+# BEDAVA toplar ya da kuyruktakine bağlanır. ETİKET SABİT OLMALI (parmak izi eşleşmesi etikete bağlı).
+# ⛔ ELLE TETİKLENİR, cron YOK.
+name: Bitirme ilgi hakemi (bulut, parali)
+
+on:
+  workflow_dispatch:
+    inputs:
+      plan:
+        description: "Plan dosyasi (depo icinde; ders + konuDosya satirlari)"
+        required: true
+        default: "veri/sinav/plan-smmm-dalga1.json"
+        type: string
+      ad:
+        description: "Sonuc adi ve toplu etiket (sabit kalmali; or. dalga1)"
+        required: true
+        default: "dalga1"
+        type: string
+      kuru:
+        description: "KURU: paketler dokulur, hakem istegi GONDERILMEZ (0 USD, yol sinamasi)"
+        required: false
+        default: false
+        type: boolean
+      zincir:
+        description: "Otomatik yeniden tetikleme sayaci (elle 0 birak). 10'a varinca durur."
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: smmm-ilgi-hakemi-${{ inputs.ad }}
+  cancel-in-progress: false
+
+jobs:
+  hakem:
+    runs-on: windows-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sirlar ve plan
+        shell: powershell
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $eksik=@(); if(-not "$env:ANTHROPIC_API_KEY"){ $eksik+='ANTHROPIC_API_KEY' }; if(-not "$env:SUPABASE_SERVICE_KEY"){ $eksik+='SUPABASE_SERVICE_KEY' }
+          if($eksik.Count){ throw ("GitHub Secret eksik: " + ($eksik -join ', ')) }
+          if(-not (Test-Path "${{ inputs.plan }}")){ throw "plan dosyasi depoda yok: ${{ inputs.plan }}" }
+          if("${{ inputs.ad }}" -notmatch '^[a-z0-9-]{2,30}$'){ throw "ad yalniz kucuk harf/rakam/tire: ${{ inputs.ad }}" }
+          "plan: ${{ inputs.plan }} · ad: ${{ inputs.ad }} · halka: ${{ inputs.zincir }}"
+
+      - name: Durumu ambardan indir (kopru + bekleyen toplu partiler + defter)
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./arac/kopru-senkron.ps1 -Indir -Yaz -Sinav SMMM
+          ./arac/bekleyen-senkron.ps1 -Indir
+          ./arac/bedel-senkron.ps1 -Indir -Yaz
+          "MEVZUAT_TOPLU_SON_AN=$((Get-Date).ToUniversalTime().AddMinutes(300).ToString('o'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+
+      - name: Paketleri dok (ambardan okuma, model yok)
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $dok = Join-Path $env:RUNNER_TEMP 'paket-dok'; New-Item -ItemType Directory -Force $dok | Out-Null
+          ./arac/smmm-kaynak-olcum.ps1 -Plan "${{ inputs.plan }}" -Sinav SMMM -Parca 8 -Cikti (Join-Path $env:RUNNER_TEMP 'kelime-olcum.json') -PaketDok $dok | Select-String -Pattern '^(KAYNAK ÖLÇÜMÜ|ÖLÇÜLEN KONU)' | ForEach-Object { $_.Line }
+          $n = @(Get-ChildItem $dok -File).Count
+          "dokulen paket: $n"
+          if($n -eq 0){ throw "paket dokulmedi - hakem kosturulmadi (bedel 0)" }
+          # hakem listesi: planin tekil ders|konu ciftleri (yalniz ad; icerik yok)
+          $sat = New-Object System.Collections.Generic.List[object]; $gor = @{}
+          foreach($r in @((Get-Content "${{ inputs.plan }}" -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })){
+            $kd = "$($r.konuDosya)"; if(-not (Test-Path $kd)){ continue }
+            foreach($k in @((Get-Content $kd -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })){
+              $ad = $(if($k -is [string]){ "$k" } else { "$($k.konu)" }); $a = "$($r.ders)|$ad"
+              if($ad -and -not $gor.ContainsKey($a)){ $gor[$a] = 1; $sat.Add([pscustomobject]@{ ders = "$($r.ders)"; konu = $ad }) }
+            }
+          }
+          $sat | Export-Csv (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv') -NoTypeInformation -Encoding UTF8
+          "hakem listesi: $($sat.Count) konu"
+
+      - name: Ilgi hakemi (TOPLU, parali)
+        shell: powershell
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MEVZUAT_TOPLU_BEKLE_DK: "1440"
+          MEVZUAT_TOPLU_ANLIKSIZ: "1"
+        run: |
+          $kuru = ("${{ inputs.kuru }}" -eq "true")
+          $arg = @('-NoProfile', '-File', './arac/smmm-ilgi-hakemi.ps1', '-Liste', (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv'), '-PaketDok', (Join-Path $env:RUNNER_TEMP 'paket-dok'), '-Cikti', "veri/sinav/smmm-ilgi-hakemi-${{ inputs.ad }}.json", '-Etiket', "smmm-ilgi-hakemi-${{ inputs.ad }}")
+          if($kuru){ $arg += '-Kuru' }
+          & powershell @arg
+          $kod = $LASTEXITCODE
+          $durumKod = $(if($kuru -and $kod -eq 0){ 'kuru' } else { "$kod" })   # kuru koşu dosya yazmaz → depoya yazma adımı atlanır
+          "HAKEM_KOD=$durumKod" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+          "hakem cikis kodu: $kod (0 = bitti · 75 = toplu kuyruk bitmedi, zincir devam eder)"
+          if($kod -ne 0 -and $kod -ne 75){ exit $kod }
+
+      - name: Bekleyen partiler ve defter ambara (KOSU DUSSE BILE)
+        if: always()
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./arac/bekleyen-senkron.ps1 -Yukle
+          ./arac/bedel-senkron.ps1 -Yukle -Yaz
+
+      - name: Sonucu depoya yaz
+        if: env.HAKEM_KOD == '0'
+        shell: bash
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add "veri/sinav/smmm-ilgi-hakemi-${{ inputs.ad }}.json"
+          git diff --cached --quiet && { echo "degisiklik yok"; exit 0; }
+          git commit -m "Bitirme ilgi hakemi: ${{ inputs.ad }} [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i*10))
+          done
+          echo "::error::sonuc push edilemedi (5 deneme)"; exit 1
+
+      - name: Toplu kuyruk bitmediyse yeniden tetikle
+        if: always() && !cancelled() && env.HAKEM_KOD == '75'
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $halka = 0; [void][int]::TryParse("${{ inputs.zincir }}", [ref]$halka)
+          if($halka -ge 10){ "ZINCIR TAVANI (10) - yeniden tetiklenmedi. Elle bakilmali."; exit 1 }
+          gh workflow run smmm-ilgi-hakemi.yml --ref main -f plan="${{ inputs.plan }}" -f ad="${{ inputs.ad }}" -f zincir="$($halka + 1)"
+          "yeniden tetiklendi: halka $($halka + 1)"
