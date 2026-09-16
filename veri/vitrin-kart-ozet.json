@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-09-15T07:52:48.532Z",
-  "gun": "2026-09-15",
+  "olcum": "2026-09-16T07:46:18.269Z",
+  "gun": "2026-09-16",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 47,
+      "sira": 48,
       "toplam": 70,
-      "id": "sgs-t2b-mta-cokzor/kp-02",
-      "ders": "Mali Tablolar Analizi",
-      "konu": "aktif devir hızı",
-      "kunye": "çıkmış soru kalıbı",
-      "donem": 8,
+      "id": "sgs-d2-maliyet-cokzor-r1/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "sipariş maliyet sistemi",
+      "kunye": "SGS 2025/1 Soru 59 kalıbı",
+      "donem": 7,
       "teori": false,
-      "rakamSik": true,
-      "soru": "Bir işletmenin stok devir hızı 6, ortalama stoku 375.000 TL ve aktif devir hızı 2,40'tır. Satışların maliyeti net satışların yüzde 75'i olduğuna göre işletmenin aktif toplamı kaç TL'dir?",
+      "rakamSik": false,
+      "soru": "İşletme sipariş maliyet sistemi kullanmaktadır. Genel üretim giderleri, makine saati esas alınarak dönem başında belirlenen yükleme oranıyla siparişlere yüklenmektedir. Normal kapasite 20.000 makine saati olarak planlanmış; bu kapasitede bütçelenen sabit genel üretim gideri 400.000 TL, değişken genel üretim gideri oranı ise makine saati başına 20 TL olarak öngörülmüştür. Dönemde fiilen çalışılan makine saati 18.000'dir ve aynı dönemde fiili genel üretim gideri toplamı 774.000 TL olarak gerçekleşmiştir. İşletme ayrıca dönemde 90.000 TL genel yönetim gideri yapmış, direkt işçilerine ise saat başına 35 TL ücret ödemiştir. Buna göre dönemin bütçe (harcama) sapması kaç TL'dir ve yönü nedir?",
       "siklar": {
-        "A": "937.500",
-        "B": "1.250.000",
-        "C": "1.500.000",
-        "D": "2.250.000",
-        "E": "7.200.000"
+        "A": "14.000 olumlu",
+        "B": "14.000 olumsuz",
+        "C": "40.000 olumlu",
+        "D": "40.000 olumsuz",
+        "E": "54.000 olumsuz"
       },
       "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Hesap Tuzağı",
-          "metin": "Aktif devir hızını yanlış aldın. Doğrusu: payda 2,40'tır, 1.250.000 TL."
+          "ad": "Katman Tuzağı",
+          "metin": "Esnek bütçe ile yüklenen gider arasındaki kapasite sapmasını (760.000-720.000=40.000) bütçe sapması sanmış, ayrıca yönünü de ters işaretlemişsin. Doğrusu: Bu tutar kapasite sapmasıdır, bütçe sapması değildir."
         },
         "E": {
-          "ad": "İşlem Tuzağı",
-          "metin": "Net satışları aktif devir hızına böleceğine çarptın. Doğrusu: 1.250.000 TL."
+          "ad": "Ayrıştırma Tuzağı",
+          "metin": "Fiili gideri doğrudan yüklenen giderle karşılaştırıp toplam yükleme farkını (774.000-720.000=54.000) bütçe sapması sandın. Doğrusu: Bu tutar toplam yükleme farkıdır, bütçe ve kapasite sapmalarına ayrıştırılmamıştır."
         },
         "D": {
-          "ad": "Kalem Tuzağı",
-          "metin": "Satışların maliyetini cevap sandın. Doğrusu: 1.250.000 TL."
+          "ad": "Katman Tuzağı",
+          "metin": "Esnek bütçe ile yüklenen gider arasındaki kapasite sapmasını (760.000-720.000=40.000) bütçe sapması sandın. Doğrusu: Bu tutar kapasite sapmasına aittir, bütçe sapması ayrı bir katmandır ve 14.000 TL'dir."
         },
         "A": {
-          "ad": "Kalem Tuzağı",
-          "metin": "Satışların maliyetini aktif devir hızına böldün; devir hızının payı net satışlardır. Doğrusu: 3.000.000 / 2,40 = 1.250.000 TL."
+          "ad": "Yön Tuzağı",
+          "metin": "Fiili gider esnek bütçeden büyük olduğu için sapmayı işletme aleyhine değil lehine (olumlu) işaretlemiş olabilirsin. Doğrusu: Fiili gider esnek bütçeden büyük olduğunda sapma olumsuzdur, tutar 14.000 TL'dir."
         }
       },
-      "hap": "Stok devir hızı satışların maliyetini, maliyet oranı net satışları, aktif devir hızı da aktif toplamını verir; üç adım birbirine zincirlenir.",
+      "hap": "Bütçe sapması fiili genel üretim gideri ile esnek bütçe genel üretim gideri'ün farkıdır, kapasite sapması ise esnek bütçe ile yüklenen genel üretim gideri'ün farkıdır; ikisi ayrı katmandır.",
       "satirlar": [
         [
-          "Satışların maliyeti (6 × 375.000)",
-          "2.250.000"
+          "Bütçelenen toplam genel üretim gideri (400.000+20×20.000)",
+          "800.000"
         ],
         [
-          "Net satışlar (2.250.000 / 0,75)",
-          "3.000.000"
+          "Yükleme oranı (800.000/20.000)",
+          "40"
         ],
         [
-          "Aktif toplamı (3.000.000 / 2,40)",
-          "1.250.000"
+          "Yüklenen genel üretim gideri (18.000×40)",
+          "720.000"
+        ],
+        [
+          "Esnek bütçe genel üretim gideri (400.000+20×18.000)",
+          "760.000"
+        ],
+        [
+          "Bütçe (harcama) sapması (774.000-760.000)",
+          "14.000 (olumsuz)"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=47",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=48",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 68,
+        "kalan_gun": 67,
         "durum": "YESIL",
         "mail_gunu": false
       }
