@@ -21,6 +21,11 @@ on:
         required: false
         default: "25"
         type: string
+      hasat:
+        description: "Bitmis/iptal edilmis toplu parti kimlikleri (virgullu); cevaplari BEDAVA toplanir, yalniz eksik istekler gonderilir"
+        required: false
+        default: ""
+        type: string
       kuru:
         description: "KURU: istek GONDERILMEZ (0 USD, yol sinamasi + parmak izleri)"
         required: false
@@ -70,6 +75,7 @@ jobs:
           $ErrorActionPreference = 'Continue'   # Actions 'stop' koyar; alt sürecin stderr satırı adımı düşürüp 75'i yutmasın
           $kuru = ("${{ inputs.kuru }}" -eq "true")
           $arg = @('-NoProfile', '-File', './arac/smmm-kasa-kaynak-ornek.ps1', '-DersBasi', "${{ inputs.ders_basi }}", '-Cikti', (Join-Path $env:RUNNER_TEMP 'kasa-ornek.json'), '-Etiket', "${{ inputs.etiket }}")
+          if("${{ inputs.hasat }}"){ $arg += @('-HasatBid', "${{ inputs.hasat }}") }
           if($kuru){ $arg += '-Kuru' }
           & powershell @arg
           $kod = $LASTEXITCODE

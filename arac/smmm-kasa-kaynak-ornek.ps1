@@ -9,7 +9,7 @@
 #  GİZLİLİK: depo HERKESE AÇIK — soru metni depoya YAZILMAZ; ayrıntı yalnız -Cikti (scratchpad) dosyasına gider.
 #  Kullanım: powershell -NoProfile -File arac/smmm-kasa-kaynak-ornek.ps1 -DersBasi 25 -Cikti <scratchpad json> [-Kuru]
 # ============================================================================
-param([int]$DersBasi = 25, [int]$Tohum = 1609, [Parameter(Mandatory = $true)][string]$Cikti, [string]$Model = 'claude-sonnet-5', [int]$KaynakKr = 3000, [string]$Etiket = '', [switch]$Kuru)
+param([int]$DersBasi = 25, [int]$Tohum = 1609, [Parameter(Mandatory = $true)][string]$Cikti, [string]$Model = 'claude-sonnet-5', [int]$KaynakKr = 3000, [string]$Etiket = '', [string]$HasatBid = '', [switch]$Kuru)   # HasatBid: virgüllü toplu parti kimlikleri — bitmiş cevaplar BEDAVA toplanır, yalnız eksik istekler gönderilir
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $depoKok 'motor\api-hedef.ps1')
@@ -81,13 +81,26 @@ Karar ver:
 Emin değilsen false say.
 YALNIZ şu JSON'u döndür: {"konuyla_ilgili":true/false,"cevabi_destekliyor":true/false,"gerekce":"en çok 20 kelime"}
 "@
+  $istem = $istem -replace "`r`n", "`n"   # 16.09: satır sonu dosyanın çekiliş biçimine bağlıydı (yerel LF / bulut CRLF) → parmak izi tutmuyordu; tek biçim
   $isler.Add(@{ id = "q$($s.id)"; model = $Model; maxTok = 300; icerik = @(@{ type = 'text'; text = $istem }) })
 }
 "ÖRNEK: $($sorular.Count) soru · künye metni bulunan $($isler.Count) · bulunamayan $($sorular.Count - $isler.Count)"
 if (-not $Etiket) { $Etiket = "smmm-kasa-kaynak-ornek-$(Get-Date -Format yyyyMMdd-HHmm)" }   # 16.09: sabit etiket verilirse bulutta kuyruktaki partiye bağlanır
 if ($Kuru) { foreach ($i in $isler) { "PARMAK $($i.id) $(Get-IcerikParmak $i.icerik)" }; $kar = 0; foreach ($i in $isler) { $kar += "$($i.icerik[0].text)".Length }; "KURU: istek gönderilmedi · istem $kar kr (~$([math]::Round($kar / 3.2)) jeton) · tahmini toplu ≈ $([math]::Round((($kar / 3.2) * 2 + $isler.Count * 60 * 10) / 1e6 / 2, 3)) USD"; exit 0 }
 $sonuc = @{}
-if ($isler.Count) { $sonuc = Invoke-ClaudeToplu -Isler $isler.ToArray() -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu }
+# 16.09 HASAT: iptal/yeniden başlatma sonrası bitmiş partinin cevapları kimlikle toplanır (bedel defterine bir kez yazılır), kalan istekler gönderilir
+if ($HasatBid) {
+  $hedefH = Get-TopluBasliklar
+  foreach ($hb in @($HasatBid -split '[,\s]+' | Where-Object { $_ })) {
+    $hs = Get-ClaudeTopluSonuc $hb $hedefH $Etiket
+    if ($null -eq $hs) { "HASAT: $hb henüz bitmemiş — atlandı"; continue }
+    $al = 0; foreach ($hk in @($hs.Keys)) { if ($hk -notlike '__*' -and ($isler | Where-Object { $_.id -eq $hk })) { $sonuc[$hk] = $hs[$hk]; $al++ } }
+    "HASAT: $hb → $al cevap alındı"
+  }
+}
+$kalanIs = @($isler | Where-Object { -not $sonuc.ContainsKey($_.id) })
+"GÖNDERİLECEK: $($kalanIs.Count) istek (hasat edilen $($sonuc.Count))"
+if ($kalanIs.Count) { $yeniS = Invoke-ClaudeToplu -Isler $kalanIs -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu; foreach ($yk in @($yeniS.Keys)) { $sonuc[$yk] = $yeniS[$yk] } }
 if ($sonuc.ContainsKey('__zaman_asimi')) { throw "TOPLU ZAMAN AŞIMI — aynı komutla yeniden koşunca bedava hasat edilir. Çıktı YAZILMADI." }
 $cikis = New-Object System.Collections.Generic.List[object]
 foreach ($key in $kayit.Keys) {

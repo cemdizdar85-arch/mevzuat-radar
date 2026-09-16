@@ -37,6 +37,11 @@ on:
         required: false
         default: ""
         type: string
+      hasat:
+        description: "Bitmis/iptal edilmis toplu parti kimlikleri (virgullu); cevaplari BEDAVA toplanir, yalniz eksik istekler gonderilir"
+        required: false
+        default: ""
+        type: string
       kuru:
         description: "KURU: paketler dokulur, hakem istegi GONDERILMEZ (0 USD, yol sinamasi)"
         required: false
@@ -117,6 +122,7 @@ jobs:
           $ErrorActionPreference = 'Continue'   # Actions 'stop' koyar; alt sürecin stderr satırı adımı düşürüp 75'i yutmasın
           $kuru = ("${{ inputs.kuru }}" -eq "true")
           $arg = @('-NoProfile', '-File', './arac/smmm-ilgi-hakemi.ps1', '-Liste', (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv'), '-PaketDok', (Join-Path $env:RUNNER_TEMP 'paket-dok'), '-Cikti', "veri/sinav/smmm-ilgi-hakemi-${{ inputs.ad }}.json", '-Etiket', $(if("${{ inputs.etiket }}"){ "${{ inputs.etiket }}" } else { "smmm-ilgi-hakemi-${{ inputs.ad }}" }))
+          if("${{ inputs.hasat }}"){ $arg += @('-HasatBid', "${{ inputs.hasat }}") }
           if($kuru){ $arg += '-Kuru' }
           & powershell @arg
           $kod = $LASTEXITCODE

@@ -18,7 +18,7 @@
 #  -Liste 'ilgili' sütunu taşıyorsa (0/1) KALİBRASYON raporu da basılır (doğruluk, yanlış GÜÇLÜ, kaçan).
 # ============================================================================
 param([Parameter(Mandatory = $true)][string]$Liste, [Parameter(Mandatory = $true)][string]$PaketDok, [Parameter(Mandatory = $true)][string]$Cikti,
-  [string]$Model = 'claude-sonnet-5', [string]$Etiket = '', [int]$BlokKr = 700, [switch]$Kuru)
+  [string]$Model = 'claude-sonnet-5', [string]$Etiket = '', [int]$BlokKr = 700, [string]$HasatBid = '', [switch]$Kuru)   # HasatBid: virgüllü toplu parti kimlikleri — bitmiş cevaplar BEDAVA toplanır, yalnız eksik istekler gönderilir
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $depoKok 'motor\api-hedef.ps1')
@@ -64,6 +64,7 @@ YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
 
 $($sb.ToString())
 "@
+  $istem = $istem -replace "`r`n", "`n"   # 16.09: satır sonu dosyanın çekiliş biçimine bağlıydı (yerel LF / bulut CRLF) → parmak izi tutmuyordu; tek biçim
   $isler.Add(@{ id = $id; model = $Model; maxTok = 400; icerik = @(@{ type = 'text'; text = $istem }) })
 }
 "İLGİ HAKEMİ: $($satirlar.Count) konu · modele gidecek $($isler.Count) · paketi olmayan $(@($kayit.Values | Where-Object { $_.paketBoy -lt 0 }).Count) · model $Model · etiket $Etiket"
@@ -74,7 +75,19 @@ if ($Kuru) {
   exit 0
 }
 $sonuc = @{}
-if ($isler.Count) { $sonuc = Invoke-ClaudeToplu -Isler $isler.ToArray() -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu }
+# 16.09 HASAT: iptal/yeniden başlatma sonrası bitmiş partinin cevapları kimlikle toplanır (bedel defterine bir kez yazılır), kalan istekler gönderilir
+if ($HasatBid) {
+  $hedefH = Get-TopluBasliklar
+  foreach ($hb in @($HasatBid -split '[,\s]+' | Where-Object { $_ })) {
+    $hs = Get-ClaudeTopluSonuc $hb $hedefH $Etiket
+    if ($null -eq $hs) { "HASAT: $hb henüz bitmemiş — atlandı"; continue }
+    $al = 0; foreach ($hk in @($hs.Keys)) { if ($hk -notlike '__*' -and ($isler | Where-Object { $_.id -eq $hk })) { $sonuc[$hk] = $hs[$hk]; $al++ } }
+    "HASAT: $hb → $al cevap alındı"
+  }
+}
+$kalanIs = @($isler | Where-Object { -not $sonuc.ContainsKey($_.id) })
+"GÖNDERİLECEK: $($kalanIs.Count) istek (hasat edilen $($sonuc.Count))"
+if ($kalanIs.Count) { $yeniS = Invoke-ClaudeToplu -Isler $kalanIs -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu; foreach ($yk in @($yeniS.Keys)) { $sonuc[$yk] = $yeniS[$yk] } }
 if ($sonuc.ContainsKey('__zaman_asimi')) { throw "TOPLU ZAMAN AŞIMI: $($sonuc['__zaman_asimi']) — sonuçlar bekleyen-partiler.json'da; aynı komutla yeniden koşunca bedava hasat edilir. Çıktı YAZILMADI." }
 
 $cikis = New-Object System.Collections.Generic.List[object]
