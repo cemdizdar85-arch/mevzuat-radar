@@ -102,6 +102,13 @@ $rapor = [ordered]@{
   fy_konulari = @($konuListe | Where-Object { $_.modul -eq 'c: Finansal Yonetim' } | Sort-Object { -$_.adet })
   ky_konulari = @($konuListe | Where-Object { $_.modul -eq 'c: Kurumsal Yonetim' } | Sort-Object { -$_.adet })
 }
-[IO.File]::WriteAllText($cikti, (ConvertTo-Json -InputObject $rapor -Depth 5), (New-Object Text.UTF8Encoding($false)))
-Write-Host ("TAMAM: {0} soru, {1} donem, {2} modul catisi -> veri/kgk-analiz.json" -f $toplam, $donemSay.Count, $modulSay.Count)
+# ⛔ 16.09.2026 KORUMA (Cem "1.2.3 üçünüde yap" sırasında yaşandı): veri/kgk-analiz.json artık bu betiğin 06.08 biçimi DEĞİL;
+#   19.08'de 29 dönemlik "donemler[].konuSayim" biçimine geçti (TAM ARŞİV, 5 vardiya etiket). Onu okuyan: kgk-basim-excel,
+#   kgk-soru-atif-olcumu, konu-kaynak-karnesi (KARNE_GIRDI), kalip-parti-uret dönem penceresi. Bu betik koşunca dosyayı eski
+#   biçimle EZİYORDU (29 dönem → 0; geri yüklendi). Hedef yeni biçimdeyse bu betik kendi özetini AYRI dosyaya yazar.
+if((Test-Path $cikti) -and ((Get-Content $cikti -Raw -Encoding UTF8) -match '"donemler"')){
+  $cikti = Join-Path $kok 'veri\kgk-siklik-modul-ozeti.json'
+  Write-Host "  KORUMA: veri/kgk-analiz.json 29 dönemlik biçimde — ezilmedi; bu özet $cikti dosyasına yazılıyor." -ForegroundColor Yellow
+}[IO.File]::WriteAllText($cikti, (ConvertTo-Json -InputObject $rapor -Depth 5), (New-Object Text.UTF8Encoding($false)))
+Write-Host ("TAMAM: {0} soru, {1} donem, {2} modul catisi -> {3}" -f $toplam, $donemSay.Count, $modulSay.Count, $cikti)
 $modulSay.GetEnumerator() | Sort-Object -Property Value -Descending | ForEach-Object { Write-Host ("  {0,-42} {1}" -f $_.Key, $_.Value) }

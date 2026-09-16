@@ -46,7 +46,7 @@ $GIRDILER = @(
   @{ ad='butunluk-raporu';    yol='veri\butunluk-raporu.json';            uretici='motor/butunluk-kapisi.ps1';            robot='ambar-kapilari.yml · her gün 11:00 TR'; damga='tarih' }
   @{ ad='cikmis-karnesi';     yol='veri\cikmis-soru-karnesi.json';        uretici='motor/cikmis-soru-karnesi.ps1';        robot='yok';                                   damga='tarih' }
   @{ ad='siklik-kunyesi';     yol='veri\siklik-kunyesi.json';             uretici='motor/siklik-kunyesi.ps1';             robot='konu-eslesme.yml · yalnız push';        damga='tarih' }
-  @{ ad='kgk-analiz';         yol='veri\kgk-analiz.json';                 uretici='motor/kgk-siklik-derle.ps1';           robot='yok';                                   damga='guncelleme' }
+  @{ ad='kgk-analiz';         yol='veri\kgk-analiz.json';                 uretici='elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ)'; robot='yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml'; damga='guncelleme'; olayNobet='veri\kgk-sinav-nobeti.json' }   # 16.09: yaş değil olay (yeni kitapçık) belirler; kgk-sinav-nobeti YEŞİL = güncel
   @{ ad='ders-karnesi';       yol='veri\ders-karnesi.json';               uretici='motor/ders-karnesi.ps1';               robot='dogrula.yml';                           damga='guncelleme' }
   @{ ad='karne-sgs';          yol='veri\konu-kaynak-karnesi.json';        uretici='motor/konu-kaynak-karnesi.ps1';        robot='karne.yml · sgs-analiz push tetikli';   damga='guncelleme' }
   @{ ad='karne-smmm';         yol='veri\konu-kaynak-karnesi-smmm.json';   uretici='motor/konu-kaynak-karnesi.ps1';        robot='karne.yml';                             damga='guncelleme' }
@@ -150,7 +150,16 @@ foreach($g in $GIRDILER){
     $damgaGun = DamgaTarih $damgaMetin
     if($damgaGun){ $yas = [int]($simdi.Date - $damgaGun.Date).TotalDays }
     if($durum -eq 'YOK'){
-      if($g.ContainsKey('sabit') -and $g.sabit){ $durum = 'SABİT (karar dosyası)' }
+      if($g.ContainsKey('olayNobet')){
+        # 16.09: tazelik YAŞLA değil OLAYLA — yeni sınav kitapçığı çıkmadıkça arşiv analizi günceldir. Haberci nöbetçi YEŞİL ve ≤8 gün ise TAZE.
+        $nobet = Yukle $g.olayNobet
+        $nobetGun = if($nobet){ DamgaTarih "$($nobet.olcum)" } else { $null }
+        $nobetYas = if($nobetGun){ [int]($simdi.Date - $nobetGun.Date).TotalDays } else { 999 }
+        if($nobet -and "$($nobet.durum)" -eq 'YEŞİL' -and $nobetYas -le 8){ $durum = 'TAZE'; $damgaMetin = "$damgaMetin · nöbet YEŞİL $($nobet.olcum)" }
+        elseif($nobet -and "$($nobet.durum)" -eq 'KIRMIZI'){ $durum = "BAYAT (yeni sınav kitapçığı yayımlandı: $($nobet.neden))" }
+        else { $durum = "BAYAT (sınav nöbetçisi kör ya da $nobetYas gündür koşmadı)" }
+      }
+      elseif($g.ContainsKey('sabit') -and $g.sabit){ $durum = 'SABİT (karar dosyası)' }
       else { $durum = if($yas -gt $BAYAT_GUN){ "BAYAT ($yas gün)" } else { 'TAZE' } }
     }
   }
