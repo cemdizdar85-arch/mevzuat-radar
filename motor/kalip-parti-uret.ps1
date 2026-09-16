@@ -688,6 +688,16 @@ function DesenUret($kayit){
       # m.36 + m.360…364 gelir (5 ilgisiz madde, 10 kaynak kotası dolar). Harita '6102 sayılı Türk Ticaret Kanunu m.36' yazar → tam madde deseni.
       elseif($Sinav -eq 'SMMM' -and $ham -match '\b6102\b'){ $onekM='TTK (6102 s.K.)' }
       elseif($Sinav -eq 'SMMM' -and $ham -match '\b6098\b'){ $onekM='TBK (6098 s.K.)' }
+      # 16.09 YALNIZ BİTİRME (Cem "1.2.3 üçünü de yap", kaynak ölçümü bulgusu): KVK ve ÖTV zincirde YOKTU, $KANUN['KVK'] ise 'KVK GUT (1 Seri No)'ya bağlı.
+      # ÖLÇÜLDÜ (veri/sinav/smmm-kaynak-olcumu.json): dayanağı "KVK (5520 s.K.) m.2" olan 'kurumlar vergisi matrahi' (9 soru) ve "ÖTV K. (4760 s.K.) m.5" olan
+      # 'otv ihracat istisnasi' (3 soru) BOŞ paket alıyordu; oysa ambarda KVK 5520 ve ÖTV 4760 var. SMK 6769 da 'marka hukuku' konusu için eklendi (ambarda m.4-m.6 var).
+      # 16.09 SGS'e de açıldı (Cem "ikisini de yap"). EŞDEĞERLİK PROVASI ambarın tamamında koştu (996 SGS partisi, 6.922 soru):
+      # paketi değişen SGS sorusu 34 (KVK 5520: 22 · ÖTV 4760: 12 · SMK 6769: 0), bunların 14'ü kapıdan geçmiş (TAZELEME) 20'si düşük.
+      # Ambarda karşılığı var: KVK (5520 s.K.) 206 belge · ÖTV K. (4760 s.K.) 84 · SMK (6769 s.K.) 225. $KANUN['KVK']='KVK GUT' eşlemesine DOKUNULMADI
+      # (915 belge, mevcut sorular etkilenmesin); yalnız kanun NUMARASI geçen dayanaklar doğru belgeye bağlanır.
+      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS') -and $ham -match '\b5520\b'){ $onekM='KVK (5520 s.K.)' }
+      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS') -and $ham -match '\b4760\b|Ö?TV K\.'){ $onekM='ÖTV K. (4760 s.K.)' }
+      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS') -and $ham -match '\b6769\b'){ $onekM='SMK (6769 s.K.)' }
       # 14.09 yalnız bitirme: 6362'de ek maddeler 'm.61/A' (gayrimenkul sertifikası), 'm.35/A' (kitle fonlama) diye adlanır; eski desen /A'yı atıp m.61'i (kira sertifikası) çekiyordu
       if($onekM){ foreach($m in [regex]::Matches($ham,$(if($Sinav -eq 'SMMM'){ '\bm(?:adde)?\.?\s*(\d+(?:/[A-Z])?)' } else { '\bm(?:adde)?\.?\s*(\d+)' }))){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
@@ -1557,8 +1567,10 @@ function TopluTopla([string]$id,[string]$model,$icerik,[int]$maxTok,[string]$eff
 # 16.09 YALNIZ BİTİRME (Cem tasarruf talimatı adım 2): ONARIM TURU TUZU. Onarım koşusunda (-PilotId / -KorYenile / -HakemYenileId / -AdimYenile / -SimYenile)
 # istem baytı baytına aynı olduğu için toplu hasat, ONARILMASI istenen turun BOZUK cevabını "bedava" geri getiriyordu (14.09 dersi, satır ~4113/4184).
 # Tuz onarım parametrelerinden türer: aynı onarım komutu iki kez koşarsa hasat yine çalışır (çift ödeme yok), onarım ÖNCESİ turun cevabı gelmez.
-# SGS/KGK'da tuz boş → parmak izi ve hasat davranışı birebir eski hâli.
-$script:PARMAK_TUZ = $(if($Sinav -eq 'SMMM' -and ($PilotId -or $KorYenile -or $HakemYenileId -or $AdimYenile -or $SimYenile)){ "onarim|$PilotId|$([int][bool]$KorYenile)|$HakemYenileId|$([int][bool]$AdimYenile)|$([int][bool]$SimYenile)" } else { '' })
+# 16.09 SGS'e de açıldı (Cem "ikisini de yap"). ÖLÇÜLDÜ: satır ~85'teki $script:PARMAK_TUZU YALNIZ EKRANA YAZIYOR ("hasat EDİLMEZ" der),
+# hasatta kullanılan değişken bu satırdaki $script:PARMAK_TUZ'dur; SGS'de boş olduğu için günlük doğruyu söylemiyordu (sgs-fmuh-30 kurtarma koşusunda görüldü).
+# KGK'da tuz hâlâ boş → orada parmak izi ve hasat davranışı birebir eski hâli.
+$script:PARMAK_TUZ = $(if(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS') -and ($PilotId -or $KorYenile -or $HakemYenileId -or $AdimYenile -or $SimYenile)){ "onarim|$PilotId|$([int][bool]$KorYenile)|$HakemYenileId|$([int][bool]$AdimYenile)|$([int][bool]$SimYenile)" } else { '' })
 if($script:PARMAK_TUZ){ Write-Host "  ONARIM TURU TUZU: $($script:PARMAK_TUZ) (önceki turun toplu cevabı hasat edilmez)" -ForegroundColor DarkCyan }
 function TopluGonder([string]$faz){
   # 16.09: yalnız BU fazın işleri gider ('X' ve 'X#2' aynı faz köküdür); damgasız işler (tek fazlı eski çağrılar) her zaman gider.
