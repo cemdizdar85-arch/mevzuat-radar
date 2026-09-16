@@ -746,13 +746,21 @@ function DesenUret($kayit){
   # icinde konu kelimesiyle METIN aramasi (AmbarCek '@' deseni). Ilk iki kok ayri ayri denenir.
   foreach($ham in @("$($kayit.dayanak)","$($kayit.cikmis_dayanak)")){
     if(-not $ham -or $ham -match '\bm\.?\s*\d+'){ continue }
-    $onek=''
+    $onek=''; $onekler=@()
     foreach($ks in @('VUK','TTK','TBK','GVK','KVK','SPK')){ if($ham -match ('\b'+$ks+'\b') -and $KANUN.ContainsKey($ks) -and $KANUN[$ks] -notmatch '%$'){ $onek=$KANUN[$ks]; break } }
     if(-not $onek -and $ham -match '5510'){ $onek='5510 s. SGK Kanunu' }
     if(-not $onek -and $ham -match '4857'){ $onek='İş K. (4857 s.K.)' }
     if(-not $onek -and $ham -match '3568'){ $onek='SMMM K. (3568 s.K.)' }
-    if(-not $onek){ continue }
-    foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$onek|$tk") }
+    # 16.09 KARAR (Cem "ikisi birden"): KVK'da hem Genel Uygulama Tebliği hem KANUN METNİ pakete girer.
+    # Neden: ambarda 'KVK GUT%' 915 belge (uygulama), 'KVK (5520 s.K.)' 206 belge (hüküm); tek başına biri seçilince
+    # ötekinin taşıdığı bilgi pakete hiç girmiyordu. ÖTV kısaltması da listede yoktu, eklendi (ambarda 84 belge).
+    # EŞDEĞERLİK PROVASI (3 sınav, 1.044 partinin tamamı): dayanağında KVK/ÖTV geçip MADDE numarası olmayan soru 0 →
+    # mevcut hiçbir sorunun paketi değişmiyor, tazeleme gerekmiyor; etki yalnız bundan sonraki üretimde.
+    if($ham -match '\bKVK\b'){ $onekler=@('KVK GUT (1 Seri No)','KVK (5520 s.K.)') }
+    elseif($ham -match '\bÖTV\b|\bOTV\b'){ $onekler=@('ÖTV K. (4760 s.K.)') }
+    elseif($onek){ $onekler=@($onek) }
+    if(-not $onekler.Count){ continue }
+    foreach($on in $onekler){ foreach($tk in ($teoriKok | Select-Object -First 2)){ $d.Add("@$on|$tk") } }
     break
   }
   # 03.09 DENETIM olcumu (14 sorunun 6'si hakem reddi): '@BDS|kelime' aramasi rastgele BDS
