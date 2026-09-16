@@ -231,7 +231,9 @@ jobs:
           # 13.09: sinav etiketi plandan (PLAN_SINAVI ilk adimda yazildi). Bos kalirsa eski varsayilan SGS.
           $ps = "$env:PLAN_SINAVI".Trim(); if(-not $ps){ $ps = 'SGS' }
           # 17.09: EN ONCE toplu parti kaydi (kucuk, kritik): adim yarida kesilse bile sonraki halka odenmis partileri hasat eder.
-          ./arac/bekleyen-senkron.ps1 -Yukle
+          # Ambar yavasken (17.09 00:45 504 goruldu) hata parti yuklemesini DURDURMAZ; sonda bir kez daha denenir.
+          $bekleyenTamam=$false
+          try{ ./arac/bekleyen-senkron.ps1 -Yukle; $bekleyenTamam=$true }catch{ "bekleyen kaydi ilk deneme dustu: $($_.Exception.Message) (sonda yeniden)" }
           # 13.09: yalniz bu kosuda DEGISEN ya da YENI olusan parti yuklenir (indirmedeki parmak izine gore).
           # Iz dosyasi yoksa (indirme adimi hic kosmadiysa) eski davranis: sinavin butun yerel partileri.
           $izYol = Join-Path $env:RUNNER_TEMP 'parti-onizi.json'
@@ -247,9 +249,11 @@ jobs:
             "parmak izi yok - eski davranis: butun yerel partiler"
             ./arac/parti-senkron.ps1 -Yukle -Yaz -Sinav $ps
           }
-          ./arac/bedel-senkron.ps1 -Yukle -Yaz
-          # 16.09: bu koşuda gonderilen toplu parti kimlikleri ambara (sonraki halka bunlari hasat eder / bekler)
-          ./arac/bekleyen-senkron.ps1 -Yukle
+          try{ ./arac/bedel-senkron.ps1 -Yukle -Yaz }catch{ "bedel defteri yuklenemedi: $($_.Exception.Message)" }
+          # 16.09: bu koşuda gonderilen toplu parti kimlikleri ambara (sonraki halka bunlari hasat eder / bekler).
+          # 17.09: basta yazilmis olsa da tekrar (birlestirme, zarar yok); 3 deneme, artan bekleme.
+          foreach($deneme in 1..3){ try{ ./arac/bekleyen-senkron.ps1 -Yukle; $bekleyenTamam=$true; break }catch{ "bekleyen kaydi deneme $deneme dustu: $($_.Exception.Message)"; Start-Sleep -Seconds (20*$deneme) } }
+          if(-not $bekleyenTamam){ throw "BEKLEYEN TOPLU KAYDI AMBARA YAZILAMADI - sonraki halka odenmis partileri goremez" }
 
       # 16.09 Cem "basilan bitirme sorulari dogrudan kilitli kasaya gitsin" (GM onerisi 1): SMMM plani bitince (halka yarim
       # kalsa da) yayin sartindan + ret kutugunden + ikiz suzgecinden gecen bitirme sorulari paket_soru'ya (sinav=smmm) yazilir.
