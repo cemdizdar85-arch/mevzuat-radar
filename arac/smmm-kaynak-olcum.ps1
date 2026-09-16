@@ -90,7 +90,7 @@ else {
   if ($Sinav -eq 'SMMM' -and (Test-Path $hdYol)) { foreach ($z in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'MADDE OKUNDU' -and "$($z.dayanak)".Trim()) { $hd[(Katla2 "$($z.konu)")] = "$($z.dayanak)".Trim() } } }
   $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq $Sinav -and -not $kopru.ContainsKey((Katla2 $x.konu))) { $kopru[(Katla2 $x.konu)] = $x } }
   # ilgi ölçütünün dolgu kelimeleri: konuyu ayırt etmeyen, her kaynakta geçebilecek sözcükler (katlanmış yazımla)
-  $ILGI_DUR = @('icin', 'veya', 'gore', 'olan', 'sartlari', 'sartlar', 'sureleri', 'suresi', 'turleri', 'turu', 'tanimi', 'tanimlari', 'tanimlar', 'kavrami', 'kavram', 'hesabi', 'hesaplama', 'hesaplanmasi', 'kaydi', 'kayit', 'kayitlari', 'uygulamasi', 'uygulama', 'esaslari', 'genel', 'halleri', 'hukumleri', 'ornekleri', 'islemleri', 'islemi', 'yontemi', 'sistemi', 'ttk', 'vuk', 'tbk')
+  $ILGI_DUR = @('icin', 'veya', 'gore', 'olan', 'sartlari', 'sartlar', 'sureleri', 'suresi', 'turleri', 'turu', 'tanimi', 'tanimlari', 'tanimlar', 'kavrami', 'kavram', 'hesabi', 'hesaplama', 'hesaplanmasi', 'kaydi', 'kayit', 'kayitlari', 'uygulamasi', 'uygulama', 'esaslari', 'genel', 'halleri', 'hukumleri', 'ornekleri', 'islemleri', 'islemi', 'yontemi', 'sistemi', 'ttk', 'vuk', 'tbk', 'ozellikleri', 'ozellikler', 'ozellik', 'haklari', 'hakki', 'unsuru', 'unsurlari', 'ile', 'olarak', 'bir', 'her', 'dis', 'ici')
   function IlgiKatla([string]$s) { (Katla2 $s) -replace 'â', 'a' -replace 'î', 'i' -replace 'û', 'u' }
   $sonuc = New-Object System.Collections.Generic.List[object]
   $i = 0
@@ -107,14 +107,14 @@ else {
     # 16.09 İLGİ ÖLÇÜTÜ (Cem "1.2.3 üçünü de yap", GM 1; ölçüt SGS oturumu 92 ile ortak): boy tek başına yalan söylüyordu —
     # "otv ilk iktisap" paketi 16.715 kr klasik iktisat notuydu, "cari oran" TMS 2 (stoklar), "idari yargi sureleri" TTK maddeleri; hepsi GÜÇLÜ yazılıyordu.
     # Paket bloklara ayrılır ("[ad] metin", "---" ile birleşik); blok, konu köklerini BAŞLIĞINDA ya da metninin İLK 400 karakterinde taşıyorsa ilgilidir.
-    # Kök = anlamlı kelimenin ilk 5 harfi (katlanmış). En çok 2 kök varsa hepsi, daha çoksa yarısı (yukarı yuvarlanır) geçmeli. Durum İLGİLİ boydan çıkar.
-    $kokler = @((IlgiKatla $ad) -split '[^a-z0-9]+' | Where-Object { $_.Length -ge 4 -and $ILGI_DUR -notcontains $_ } | ForEach-Object { $_.Substring(0, [math]::Min(5, $_.Length)) } | Select-Object -Unique)
+    # Kök = anlamlı kelimenin (≥3 harf: çek, KDV, SPK kök sayılır) ilk 5 harfi (katlanmış), yalnız kelime başında eşleşir ('cek' 'gercek'te sayılmaz). En çok 2 kök varsa hepsi, daha çoksa yarısı (yukarı yuvarlanır) geçmeli. Durum İLGİLİ boydan çıkar.
+    $kokler = @((IlgiKatla $ad) -split '[^a-z0-9]+' | Where-Object { $_.Length -ge 3 -and $ILGI_DUR -notcontains $_ } | ForEach-Object { $_.Substring(0, [math]::Min(5, $_.Length)) } | Select-Object -Unique)
     $gerek = $(if ($kokler.Count -le 2) { $kokler.Count } else { [math]::Ceiling($kokler.Count / 2) })
     $ilgiliBoy = 0; $ilgiliSay = 0; $ilgisizAd = New-Object System.Collections.Generic.List[string]
     foreach ($blok in @($paket -split "`n---`n")) {
       if (-not $blok) { continue }
       $bas = IlgiKatla ($blok.Substring(0, [math]::Min($blok.Length, 400 + ($blok.IndexOf(']') + 1))))
-      $tut = @($kokler | Where-Object { $bas.Contains($_) }).Count
+      $tut = @($kokler | Where-Object { $bas -match ('(?<![a-z0-9])' + [regex]::Escape($_)) }).Count   # yalnız KELİME BAŞINDA: 'cek' 'gercek'te sayılmaz (16.09 ölçüldü)
       if ($kokler.Count -eq 0 -or $tut -ge $gerek) { $ilgiliBoy += $blok.Length; $ilgiliSay++ }
       elseif ($blok -match '^\[([^\]]+)\]') { $ilgisizAd.Add($matches[1]) }
     }
