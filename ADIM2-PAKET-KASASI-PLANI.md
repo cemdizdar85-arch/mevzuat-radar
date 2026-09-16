@@ -54,3 +54,11 @@ Depo / GitHub Pages: yalnız sayfa KABUĞU (soru yok) + kimlik dosyaları (sıra
 1. **Ders bazlı erişim:** ders paketi alan yalnız aldığı dersleri mi görsün? (Önerim: evet; satış sayfası zaten ders seçtiriyor.)
 2. **Seviye testi cevap kontrolü sunucuya taşınsın mı?** (Önerim: evet; yoksa ücretsiz katman 450 soruyu cevabıyla dağıtmaya devam eder.)
 3. **Geçmiş temizliği için zorla gönderim onayı** (8. adım; 20.08'deki gibi).
+
+### ✅ KARAR (16.09.2026, Cem "1.2.3 üçünü de yap" — sınav oturumu 92 aracılığıyla yazıldı)
+1. **Ders bazlı erişim: EVET.** Ders paketi alan yalnız aldığı dersleri görür (`paket_uyeler.dersler`).
+2. **Seviye testi cevap kontrolü sunucuya: EVET.** `seviye_kontrol(id, secim)` + IP başına hız sınırı; istemciye cevapsız soru.
+3. **Geçmiş temizliği: EVET, ama EN SON** (1–7 bitip kasa modu en az bir gün sorunsuz koştuktan sonra). Zorla gönderimden
+   hemen önce Cem'e **bir kez daha** "şimdi basıyorum" diye sorulur — onay tarihi ile basım günü arasında robot/oturum durumu değişmiş olabilir.
+Uygulama **site kolunun** işidir (sınav oturumu site dosyasına dokunmaz). Site oturumu açıldığında bu bölümden başlar.
+Ek bilgi (16.09 ölçümü): depoyu gizli yapmak ≈300–450 USD/ay (30 günde ~49k Linux + ~3,1k Windows dakika) + Pages için ücretli plan → **önerilmedi**; açık içerik sorununu bu plan çözer.
