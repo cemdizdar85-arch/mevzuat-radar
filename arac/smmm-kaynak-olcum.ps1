@@ -10,10 +10,15 @@
 #     >= 1000 kr      -> GÜÇLÜ       (12.09 ölçümü: 1.000 kr altında her üç sorudan biri "kaynak cevabı desteklemiyor" diye düşüyor)
 #  Fonksiyonlar üreticiden AST ile AYIKLANIR (kopya kod yok, üretici değişirse ölçüm de değişir); ödemeli hiçbir yol yüklenmez.
 #  Kullanım:
-#     powershell -NoProfile -File arac/smmm-kaynak-olcum.ps1 -Plan veri/sinav/plan-smmm-dalga1.json -Parca 8 -Yaz
-#  Çıktı: veri/sinav/smmm-kaynak-olcumu.json (-Yaz) + ekrana ders ders özet. -Parca paralel süreç sayısı (varsayılan 8).
+#     powershell -NoProfile -File arac/smmm-kaynak-olcum.ps1 -Plan veri/sinav/plan-smmm-dalga1.json -Sinav SMMM -Parca 8 -Yaz
+#  Çıktı: veri/sinav/<sinav>-kaynak-olcumu.json (-Yaz) + ekrana ders ders özet. -Parca paralel süreç sayısı (varsayılan 8).
+#  ÜÇ SINAV (16.09): araç SGS ve KGK planlarını da ölçer (-Sinav). Dosya adı "smmm-" ile başlıyor ama iş üçü içindir;
+#  ad değişimi SGS oturumunun koşan işini kırmasın diye ertelendi (92 ile mutabık kalınca arac/sinav-kaynak-olcum.ps1 olacak).
 # ============================================================================
 param([string]$Plan = 'veri/sinav/plan-smmm-dalga1.json', [int]$Parca = 8, [switch]$Yaz, [string]$Cikti = '',
+  # 16.09 (Cem "1.2.3 üçünü de yap", GM 3): araç ÜÇ SINAVA da açıldı — SGS oturumu kendi kopyasını çıkarmıştı, iki kopya ayrışmasın diye
+  # tek araç + -Sinav. Değişen yalnız: köprü süzgeci, konu-dayanak haritası (yalnız bitirmede var) ve çıktı dosyası adı. Ölçüm yolu aynı.
+  [ValidateSet('SMMM', 'SGS', 'KGK')][string]$Sinav = 'SMMM',
   [int]$Bastan = 0, [int]$Bitis = 0, [switch]$Ic, [switch]$OzSinav)   # -Ic: paralel alt süreç · -OzSinav: aracın kendisi sağlam mı (2 bilinen konu, plan okumaz, dosya yazmaz)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
@@ -37,7 +42,11 @@ $hedefler = @($konuSay.Keys)
 # 16.09 ÖZ-SINAV (Cem "1.2.3 üçünü de yap", GM 3): araç bugün iki kez SESSİZCE boş sonuç verdi (paralel çağrıda boşluklu yol tırnaklanmamıştı).
 # Bu kip iki BİLİNEN konuyu ölçer ve paketin dolu gelmesini şart koşar: biri kanun dayanaklı (VUK m.315), biri THP dayanaklı.
 # Ambar ya da desen yolu bozulduysa ilk koşuda anlaşılır; dosyaya hiçbir şey yazılmaz.
-if ($OzSinav) { $hedefler = @('Vergi Mevzuatı ve Uygulaması|amortisman ayirma', 'Maliyet Muhasebesi|satilan mamul maliyeti'); $konuSay = @{}; foreach ($h in $hedefler) { $konuSay[$h] = 1 } }
+if ($OzSinav) {
+  # bitirmede kanun dayanaklı konu "Vergi", SGS/KGK'da aynı konu "Finansal Muhasebe" dersinde duruyor
+  $hedefler = $(if ($Sinav -eq 'SMMM') { @('Vergi Mevzuatı ve Uygulaması|amortisman ayirma', 'Maliyet Muhasebesi|satilan mamul maliyeti') } else { @('Finansal Muhasebe|amortisman ayirma', 'Maliyet Muhasebesi|satilan mamul maliyeti') })
+  $konuSay = @{}; foreach ($h in $hedefler) { $konuSay[$h] = 1 }
+}
 if (-not $Ic -and -not $OzSinav -and $Parca -gt 1) {
   # --- paralel: kendini $Parca alt süreçle çağır, sonra birleştir ---
   $gecici = Join-Path $env:TEMP "smmm-kaynak-olcum-$(Get-Date -Format yyyyMMdd-HHmmss)"
@@ -49,7 +58,7 @@ if (-not $Ic -and -not $OzSinav -and $Parca -gt 1) {
     $b = ($p - 1) * $boy; $e = [math]::Min($p * $boy, $hedefler.Count); if ($b -ge $e) { continue }
     # yol BOŞLUK içerebilir (OneDrive\Masaüstü\mevzuat işi): Start-Process argümanları kendimiz tırnaklarız, yoksa alt süreç sessizce ölür ve sonuç BOŞ döner (16.09 ölçüldü)
     $cikYol = Join-Path $gecici "p$p.jsonl"
-    $arg = @('-NoProfile', '-File', ('"' + $PSCommandPath + '"'), '-Plan', ('"' + $planYol + '"'), '-Ic', '-Bastan', "$b", '-Bitis', "$e", '-Cikti', ('"' + $cikYol + '"'))
+    $arg = @('-NoProfile', '-File', ('"' + $PSCommandPath + '"'), '-Plan', ('"' + $planYol + '"'), '-Sinav', $Sinav, '-Ic', '-Bastan', "$b", '-Bitis', "$e", '-Cikti', ('"' + $cikYol + '"'))
     $isler += Start-Process powershell -PassThru -WindowStyle Hidden -ArgumentList $arg
   }
   foreach ($is in $isler) { $is.WaitForExit() }
@@ -75,16 +84,17 @@ else {
   $SB = @{ apikey = $KEY; Authorization = "Bearer $KEY"; 'User-Agent' = 'mevzuat-radar-robot/1.0' }
   . ([scriptblock]::Create(($parcaKod -join "`n")))
   function Write-Host { }   # ayıklanan fonksiyonların ekran çıktısı susturulur
-  $Sinav = 'SMMM'
-  $hd = @{}; foreach ($z in @((Get-Content (Join-Path $depoKok 'veri\sinav\smmm-konu-dayanak.json') -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'MADDE OKUNDU' -and "$($z.dayanak)".Trim()) { $hd[(Katla2 "$($z.konu)")] = "$($z.dayanak)".Trim() } }
-  $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq 'SMMM' -and -not $kopru.ContainsKey((Katla2 $x.konu))) { $kopru[(Katla2 $x.konu)] = $x } }
+  $hd = @{}
+  $hdYol = Join-Path $depoKok 'veri\sinav\smmm-konu-dayanak.json'   # elle okunmuş madde haritası YALNIZ bitirmede var; öteki sınavlarda boş kalır (üretici de öyle davranır)
+  if ($Sinav -eq 'SMMM' -and (Test-Path $hdYol)) { foreach ($z in @((Get-Content $hdYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'MADDE OKUNDU' -and "$($z.dayanak)".Trim()) { $hd[(Katla2 "$($z.konu)")] = "$($z.dayanak)".Trim() } } }
+  $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq $Sinav -and -not $kopru.ContainsKey((Katla2 $x.konu))) { $kopru[(Katla2 $x.konu)] = $x } }
   $sonuc = New-Object System.Collections.Generic.List[object]
   $i = 0
   foreach ($anahtar in $hedefler) {
     $i++; if ($i -le $Bastan) { continue }; if ($Bitis -gt 0 -and $i -gt $Bitis) { break }
     $parcali = $anahtar -split '\|', 2; $ders = $parcali[0]; $ad = $parcali[1]
     $DersRegex = $ders
-    $ky = $(if ($kopru.ContainsKey((Katla2 $ad))) { $kopru[(Katla2 $ad)].PSObject.Copy() } else { [pscustomobject]@{ sinav = 'SMMM'; konu = $ad; bizim_ders = ''; arsiv_ders = ''; dayanak = ''; cikmis_dayanak = ''; guc = ''; donem = 1 } })
+    $ky = $(if ($kopru.ContainsKey((Katla2 $ad))) { $kopru[(Katla2 $ad)].PSObject.Copy() } else { [pscustomobject]@{ sinav = $Sinav; konu = $ad; bizim_ders = ''; arsiv_ders = ''; dayanak = ''; cikmis_dayanak = ''; guc = ''; donem = 1 } })
     $kopruVar = $kopru.ContainsKey((Katla2 $ad))
     if ($hd.ContainsKey((Katla2 $ad)) -and -not "$($ky.dayanak)".Trim() -and -not "$($ky.cikmis_dayanak)".Trim()) { $ky.dayanak = $hd[(Katla2 $ad)]; $ky.guc = 'SMMM KONU-DAYANAK HARITASI (okunmus madde)' }
     $paket = ''; $adlar = @(); $hata = ''; $desen = @()
@@ -119,12 +129,23 @@ foreach ($g in @($sonucDizi | Group-Object ders | Sort-Object Name)) {
 }
 if ($Yaz) {
   . (Join-Path $depoKok 'arac\rapor-yaz.ps1')
-  $hedefYol = $(if ($Cikti -and -not $Ic) { $Cikti } else { Join-Path $depoKok 'veri\sinav\smmm-kaynak-olcumu.json' })
-  $nesne = [ordered]@{
-    aciklama = 'BİTİRME (SMMM) kaynak ölçümü: planın her konusu için üreticinin DesenUret + AmbarCek yolu koşuldu, ambardan dönen paketin uzunluğu ölçüldü. GUCLU >= 1000 kr · ZAYIF 300-999 · KAYNAK YOK < 300 (üretici bu eşikte konuyu kaynak borcuna yazar). Model çağrısı yok.'
-    plan     = $Plan; olcum = (Get-Date -Format 'yyyy-MM-dd HH:mm'); konu = $sonucDizi.Count
-    ozet     = [ordered]@{}; konular = $sonucDizi
+  $hedefYol = $(if ($Cikti -and -not $Ic) { $Cikti } else { Join-Path $depoKok "veri\sinav\$($Sinav.ToLowerInvariant())-kaynak-olcumu.json" })
+  # 16.09 ÖLÇÜLDÜ: dar bir planı ölçmek kütüğü BUDUYORDU — 2.095 konuluk dosya 880'e düştü ve içinde plan süzgecinin dayandığı
+  # 14 "KAYNAK YOK" kaydı da silindi (süzgeç körleşir, elenen konu bir sonraki planda geri girerdi). Artık kütük BİRLEŞTİRİLİR:
+  # eski kayıtlar korunur, bu koşudaki konular üzerine yazılır. Ayrı bir dosyaya (-Cikti) yazarken birleştirme YAPILMAZ.
+  $birlesik = [ordered]@{}
+  $eskiSay = 0
+  if (-not $Cikti -and (Test-Path $hedefYol)) {
+    foreach ($z in @((Get-Content $hedefYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { $birlesik["$($z.ders)|$($z.konu)"] = $z; $eskiSay++ }
   }
-  foreach ($g in @($sonucDizi | Group-Object durum)) { $nesne.ozet[$g.Name] = $g.Count }
+  foreach ($z in $sonucDizi) { $birlesik["$($z.ders)|$($z.konu)"] = $z }
+  $tumu = @($birlesik.Values)
+  if ($eskiSay) { "  kütük birleştirildi: eski $eskiSay + bu koşu $($sonucDizi.Count) -> $($tumu.Count) konu" }
+  $nesne = [ordered]@{
+    aciklama = "$Sinav kaynak ölçümü: planın her konusu için üreticinin DesenUret + AmbarCek yolu koşuldu, ambardan dönen paketin uzunluğu ölçüldü. GUCLU >= 1000 kr · ZAYIF 300-999 · KAYNAK YOK < 300 (üretici bu eşikte konuyu kaynak borcuna yazar). Model çağrısı yok. Dosya BİRİKİMLİDİR: her koşu yalnız kendi planının konularını tazeler."
+    sinav    = $Sinav; plan = $Plan; olcum = (Get-Date -Format 'yyyy-MM-dd HH:mm'); konu = $tumu.Count; sonKosuKonu = $sonucDizi.Count
+    ozet     = [ordered]@{}; konular = $tumu
+  }
+  foreach ($g in @($tumu | Group-Object durum)) { $nesne.ozet[$g.Name] = $g.Count }
   RaporYaz -Hedef $hedefYol -Nesne $nesne
 }
