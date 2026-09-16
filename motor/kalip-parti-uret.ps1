@@ -1614,7 +1614,8 @@ function TopluGonder([string]$faz){
   if(-not $isler.Count){ return }
   # 16.09 (Cem "hep toplu, ucuza bekle"): SGS'de tek istek de topluya gider. ÖLÇÜLDÜ: kurtarma kuyruğunun 182 partisinin 129'u tek soruluk;
   #   ilk 29 parti her aşamayı anlık koştu, ≈2,13 USD (toplu ≈1,07). Toplu API tek istekli partiyi kabul eder. SMMM/KGK davranışı değişmedi.
-  if($isler.Count -lt 2 -and $Sinav -ne 'SGS'){ if($isler.Count){ Write-Host "  TOPLU $faz : tek istek, anlık gidecek" -ForegroundColor DarkGray }; return }
+  # 16.09 SMMM de eklendi (Cem "hep toplu" + tasarruf talimatı 3. adım): yalnız gönderim yolu değişir; istem, model, effort, jeton tavanı AYNI $isler'dir.
+  if($isler.Count -lt 2 -and $Sinav -ne 'SGS' -and $Sinav -ne 'SMMM'){ if($isler.Count){ Write-Host "  TOPLU $faz : tek istek, anlık gidecek" -ForegroundColor DarkGray }; return }
   try{ $sonuc=Invoke-ClaudeToplu -Isler $isler -Etiket "$Etiket/$faz" -BeklemeDk $TopluBeklemeDk -OnbelleksizToplu:($Sinav -eq 'SMMM') -ParmakTuz $script:PARMAK_TUZ
     foreach($k in @($sonuc.Keys)){ if($k -notlike '__*'){ $script:TOPLU_HAZIR[$faz][$k]=$sonuc[$k] } }
     if($sonuc.ContainsKey('__hata') -and $sonuc['__hata'].Count){ foreach($hk in $sonuc['__hata'].Keys){ Write-Host "  TOPLU $faz hata ($hk): $($sonuc['__hata'][$hk]) → anlık denenecek" -ForegroundColor DarkYellow } }

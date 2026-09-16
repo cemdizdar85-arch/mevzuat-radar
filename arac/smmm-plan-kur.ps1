@@ -66,7 +66,24 @@ $mulga = @{}; foreach ($h in (Get-Content (Join-Path $depoKok 'veri\sinav\smmm-k
 # Dosya yoksa ya da -KaynakSuzgeci 0 ise davranış birebir eskisi (eşdeğerlik provası bununla yapıldı).
 $kaynakYok = @{}; $koYol = Join-Path $depoKok 'veri\sinav\smmm-kaynak-olcumu.json'
 if ($KaynakSuzgeci -ne 0 -and (Test-Path $koYol)) { foreach ($z in @((Get-Content $koYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'KAYNAK YOK') { $kaynakYok["$(ResmiDers $z.ders | Select-Object -First 1)|$(Katla $z.konu)"] = 1 } } }
-$bizde = @{}; $kpYol = Join-Path $depoKok 'veri\konu-plani-smmm.json'; if (Test-Path $kpYol) { foreach ($s in (Get-Content $kpYol -Raw -Encoding UTF8 | ConvertFrom-Json).satirlar) { $rd = ResmiDers $s.ders; if ($rd -and [int]$s.bizde -gt 0) { $bizde["$($rd[0])|$(Katla $s.konu)"] = [int]$s.bizde } } }
+# 16.09 KANUN UYUŞMAZLIĞI KAPISI (ölçüldü): harita "MADDE OKUNDU" ile köprü dayanağı FARKLI kanunu gösteriyorsa üretici köprüyü kullanır
+# (harita yalnız köprü dayanağı boşken devreye girer). "kdv'nin konusu": harita KDVK (3065) m.1, köprü ÖTV K. (4760) m.1 — ÖTV kısaltması
+# eklenince paket 0 -> 1.239 kr oldu ve ölçüm GÜÇLÜ dedi; yani plan bu konuya ÖTV metniyle KDV sorusu bastıracaktı. 97 okunmuş konuda 2 uyuşmaz.
+# Uyuşmaz konu KAYNAK YOK gibi plandan düşer; üretici tarafı onarılınca kapı kendiliğinden boşalır.
+function KanunNo([string]$s) { if ($s -match '\b(\d{4})\b\s*(s\.|sayılı)') { return 'K' + $matches[1] }; if ($s -match 'THP|Tekdüzen|\b[1-7]\d\d\b') { return 'THP' }; if ($s -match 'TMS|TFRS|BDS') { return 'STD' }; return '?' }
+$kanunUyusmaz = 0
+if ($KaynakSuzgeci -ne 0 -and $env:SMMM_KANUN_KAPISI -ne '0') {   # ortam değişkeni yalnız eşdeğerlik provası için
+  $kbD = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq 'SMMM' -and -not $kbD.ContainsKey((Katla $x.konu))) { $kbD[(Katla $x.konu)] = $x } }
+  foreach ($h in (Get-Content (Join-Path $depoKok 'veri\sinav\smmm-konu-dayanak.json') -Raw -Encoding UTF8 | ConvertFrom-Json).konular) {
+    if ("$($h.durum)" -ne 'MADDE OKUNDU' -or -not $kbD.ContainsKey((Katla $h.konu))) { continue }
+    $x = $kbD[(Katla $h.konu)]; $kd = $(if ("$($x.dayanak)".Trim()) { "$($x.dayanak)" } else { "$($x.cikmis_dayanak)" })
+    if ($kd.Trim() -and (KanunNo $kd) -ne (KanunNo "$($h.dayanak)")) {
+      $kanunUyusmaz++
+      foreach ($rd in @($grupOf.Keys | Where-Object { $_.EndsWith("|$(Katla $h.konu)") })) { $kaynakYok[$rd] = 1 }
+    }
+  }
+}
+$bizde = @{}; $kpYol =Join-Path $depoKok 'veri\konu-plani-smmm.json'; if (Test-Path $kpYol) { foreach ($s in (Get-Content $kpYol -Raw -Encoding UTF8 | ConvertFrom-Json).satirlar) { $rd = ResmiDers $s.ders; if ($rd -and [int]$s.bizde -gt 0) { $bizde["$($rd[0])|$(Katla $s.konu)"] = [int]$s.bizde } } }
 $kopru = @{}; foreach ($x in (Get-Content (Join-Path $depoKok 'veri\fabrika\konu-koprusu.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) { if ($x.sinav -eq 'SMMM') { $kopru[(Katla $x.konu)] = 1 } }
 $istisnaYol = Join-Path $depoKok 'veri\sinav\smmm-konu-istisna.json'; $istisna = @()
 if (Test-Path $istisnaYol) { $istisna = @(foreach ($i in (Get-Content $istisnaYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular) { $i }) }
@@ -150,7 +167,7 @@ foreach ($grp in ($slotTum | Group-Object ders, zorluk, tur | Sort-Object Name))
 }
 $cakisan = @($planSatir | Where-Object { (Test-Path (Join-Path $depoKok "veri\fabrika\kalip-parti-$($_.etiket).json")) -or (Test-Path (Join-Path $depoKok "veri\sinav\konu\$($_.etiket).json")) } | ForEach-Object etiket)
 $topPlan = ($planSatir | Measure-Object adet -Sum).Sum
-"SMMM DALGA PLANI [$Ad] · yıl ağırlığı: $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik · 2026 test ×$TestAgirlik · ders hakkı $DersHak · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · KAYNAK YOK atılan $kaynakAtilan · istisna $($istisna.Count)"
+"SMMM DALGA PLANI [$Ad] · yıl ağırlığı: $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik · 2026 test ×$TestAgirlik · ders hakkı $DersHak · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · KAYNAK YOK atılan $kaynakAtilan (kanun uyuşmazlığı $kanunUyusmaz konu) · istisna $($istisna.Count)"
 foreach ($d in $dersOzet) { "  {0,-48} $(if ($EskiAgirlik -gt 0) { 'tüm yıllar' } else { "son $(2026 - $YilEsik + 1) yıl" }) konu {2,3} · grup {3,3} · plan {4,4} (bizde düşülen {5}) · kolay {6} zor {7} çok zor {8}" -f $d.ders.Substring(0, [math]::Min(48, $d.ders.Length)), (2026 - $YilEsik + 1), $d.konu7, $d.grup, $d.plan, $d.bizdeDusulen, $d.kolay, $d.zor, $d.cokzor }
 "TOPLAM soru $topPlan · parti $($planSatir.Count) · köprü dışı konu adı $($kopruDisi.Count) · mevcut etiketle çakışan $($cakisan.Count)"
 if ($cakisan.Count) { throw "ETİKET ÇAKIŞMASI — yeni plan yeni önek ister: $($cakisan -join ', ')" }

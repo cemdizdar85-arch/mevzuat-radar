@@ -1,13 +1,13 @@
 {
-    "aciklama":  "BİTİRME (SMMM) kaynak ölçümü: planın her konusu için üreticinin DesenUret + AmbarCek yolu koşuldu, ambardan dönen paketin uzunluğu ölçüldü. GUCLU \u003e= 1000 kr · ZAYIF 300-999 · KAYNAK YOK \u003c 300 (üretici bu eşikte konuyu kaynak borcuna yazar). Model çağrısı yok.",
+    "aciklama":  "SMMM kaynak ölçümü: planın her konusu için üreticinin DesenUret + AmbarCek yolu koşuldu, ambardan dönen paketin uzunluğu ölçüldü. GUCLU \u003e= 1000 kr · ZAYIF 300-999 · KAYNAK YOK \u003c 300 (üretici bu eşikte konuyu kaynak borcuna yazar). Model çağrısı yok. Dosya BİRİKİMLİDİR: her koşu yalnız kendi planının konularını tazeler.",
     "sinav":  "SMMM",
-    "plan":  "veri/sinav/plan-smmm-dalga1.json",
-    "olcum":  "2026-09-16 10:31",
+    "plan":  "C:\\Users\\cemdi\\AppData\\Local\\Temp\\claude\\C--Users-cemdi-OneDrive-Masa-st--mevzuat-i-i\\30425b5f-f778-4f0b-8865-8db299a87a05\\scratchpad\\plan-sonra-kvk.json",
+    "olcum":  "2026-09-16 10:49",
     "konu":  2095,
-    "sonKosuKonu":  880,
+    "sonKosuKonu":  64,
     "ozet":  {
-                 "GUCLU":  2031,
-                 "KAYNAK YOK":  14,
+                 "GUCLU":  2035,
+                 "KAYNAK YOK":  10,
                  "ZAYIF":  50
              },
     "konular":  [
@@ -89,6 +89,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "TTK (6102 s.K.) m.720",
+                        "cikmisDayanak":  "MSUGT Tekduzen Hesap Plani - 180, 420",
+                        "desenSayi":  13,
+                        "ilkDesen":  "~teori acilis reesko aktar ; ~teori acilis aktar reesko ; ~teori reesko acilis aktar",
                         "kaynaklar":  ""
                     },
                     {
@@ -1407,6 +1410,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "THP 679",
+                        "cikmisDayanak":  "THP 679",
+                        "desenSayi":  13,
+                        "ilkDesen":  "~teori diger olagandi gelir ; ~teori diger gelir olagandi ; ~teori olagandi diger gelir",
                         "kaynaklar":  "THP 679 - DİĞER OLAĞANDIŞI GELİR VE KARLAR"
                     },
                     {
@@ -1960,6 +1966,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "desenSayi":  13,
+                        "ilkDesen":  "~teori gecmis zarari mahsu ; ~teori gecmis mahsu zarari ; ~teori zarari gecmis mahsu",
                         "kaynaklar":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri"
                     },
                     {
@@ -2215,6 +2224,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "THP 632",
+                        "cikmisDayanak":  "THP 632",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori yonet gideri ; ~teori gideri yonet ; THP 632%",
                         "kaynaklar":  "THP 632 - GENEL YÖNETİM GİDERLERİ (-)"
                     },
                     {
@@ -2237,6 +2249,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "THP 632",
+                        "cikmisDayanak":  "THP 632",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori yonet gideri ; ~teori gideri yonet ; THP 632%",
                         "kaynaklar":  "THP 632 - GENEL YÖNETİM GİDERLERİ (-)"
                     },
                     {
@@ -2262,6 +2277,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "TTK (6102 s.K.) m.720",
+                        "cikmisDayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori gider devri ; ~teori devri gider ; VUK (213 s.K.) m.283%",
                         "kaynaklar":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri"
                     },
                     {
@@ -2711,6 +2729,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "cikmisDayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori mahsu devred ; ~teori devred mahsu ; VUK (213 s.K.) m.283%",
                         "kaynaklar":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri"
                     },
                     {
@@ -2902,6 +2923,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "VUK (213 s.K.) m.279 - Menkul kıymetler",
+                        "cikmisDayanak":  "VUK (213 s.K.) m.279 - Menkul kıymetler",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori kredi satisi ; ~teori satisi kredi ; VUK (213 s.K.) m.279%",
                         "kaynaklar":  "VUK (213 s.K.) m.279 - Menkul kıymetler"
                     },
                     {
@@ -3566,6 +3590,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "THP 371",
+                        "cikmisDayanak":  "THP 371",
+                        "desenSayi":  13,
+                        "ilkDesen":  "~teori pesin vergi odeme ; ~teori pesin odeme vergi ; ~teori vergi pesin odeme",
                         "kaynaklar":  "THP 371 - DÖNEM KÂRININ PEŞİN ÖDENEN VERGİ VE DİĞER YÜKÜMLÜLÜKLERİ (-)"
                     },
                     {
@@ -3860,6 +3887,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "cikmisDayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori senet mahsu ; ~teori mahsu senet ; VUK (213 s.K.) m.283%",
                         "kaynaklar":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri"
                     },
                     {
@@ -4279,6 +4309,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman",
+                        "cikmisDayanak":  "VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman",
+                        "desenSayi":  13,
+                        "ilkDesen":  "~teori tasit satisi amortism ; ~teori tasit amortism satisi ; ~teori satisi tasit amortism",
                         "kaynaklar":  "VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman"
                     },
                     {
@@ -4470,6 +4503,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "THP 499",
+                        "cikmisDayanak":  "THP 499",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori vadeli borcl ; ~teori borcl vadeli ; THP 499%",
                         "kaynaklar":  "THP 499 - DİĞER ÇEŞİTLİ UZUN VADELİ YABANCI KAYNAKLAR"
                     },
                     {
@@ -4481,6 +4517,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "cikmisDayanak":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+                        "desenSayi":  13,
+                        "ilkDesen":  "~teori vadeli mevdu tahakku ; ~teori vadeli tahakku mevdu ; ~teori mevdu vadeli tahakku",
                         "kaynaklar":  "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri"
                     },
                     {
@@ -4517,6 +4556,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "THP 370",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori vergi karsili ; ~teori karsili vergi ; THP 370%",
                         "kaynaklar":  "THP 370 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI"
                     },
                     {
@@ -5549,6 +5591,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  3,
+                        "ilkDesen":  "@TMS|pont ; @THP|pont ; %pont%anali%",
                         "kaynaklar":  ""
                     },
                     {
@@ -5998,6 +6043,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "Teori Notu - finansal analiz oranlari",
+                        "cikmisDayanak":  "Teori Notu - finansal analiz oranlari",
+                        "desenSayi":  3,
+                        "ilkDesen":  "~teori finansm orani ; ~teori orani finansm ; %finansm%orani%",
                         "kaynaklar":  ""
                     },
                     {
@@ -9586,12 +9634,15 @@
                         "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
                         "konu":  "marka hukuku",
                         "soru":  1,
-                        "durum":  "KAYNAK YOK",
-                        "paketBoy":  0,
-                        "kaynakSayi":  0,
+                        "durum":  "GUCLU",
+                        "paketBoy":  3104,
+                        "kaynakSayi":  3,
                         "kopruKaydi":  true,
-                        "dayanak":  "",
-                        "kaynaklar":  ""
+                        "dayanak":  "6769 sayılı Sınai Mülkiyet Kanunu m.4, m.6",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  10,
+                        "ilkDesen":  "~teori marka ; @TTK (6102 s.K.)|marka ; @TBK (6098 s.K.)|marka",
+                        "kaynaklar":  "SMK (6769 s.K.) m.4 ; SMK (6769 s.K.) m.6 [1/2] ; SMK (6769 s.K.) m.6 [2/2]"
                     },
                     {
                         "ders":  "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
@@ -10468,6 +10519,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  23,
+                        "ilkDesen":  "~teori tipik isimli sozlesmel ; ~teori tipik sozlesmel isimli ; ~teori isimli tipik sozlesmel",
                         "kaynaklar":  ""
                     },
                     {
@@ -11098,6 +11152,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  7,
+                        "ilkDesen":  "~teori dimmg sapma ; ~teori sapma dimmg ; @MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)|dimmg",
                         "kaynaklar":  ""
                     },
                     {
@@ -11109,6 +11166,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  7,
+                        "ilkDesen":  "~teori dimmg sapmala ; ~teori sapmala dimmg ; @MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2)|dimmg",
                         "kaynaklar":  ""
                     },
                     {
@@ -17998,6 +18058,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  8,
+                        "ilkDesen":  "~teori ihtiyatlil ; @SMMM K. (3568 s.K.)|ihtiyatlil ; @Haksız Rekabet ve Reklam Yasağı Yön.|ihtiyatlil",
                         "kaynaklar":  ""
                     },
                     {
@@ -19695,6 +19758,9 @@
                         "kaynakSayi":  0,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  8,
+                        "ilkDesen":  "~teori tutarlil ; @SMMM K. (3568 s.K.)|tutarlil ; @Haksız Rekabet ve Reklam Yasağı Yön.|tutarlil",
                         "kaynaklar":  ""
                     },
                     {
@@ -20345,6 +20411,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.72",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  4,
+                        "ilkDesen":  "~teori borsa deneti ; ~teori deneti borsa ; Sermaye Piyasası K. (6362 s.K.) m.72",
                         "kaynaklar":  "Sermaye Piyasası K. (6362 s.K.) m.72"
                     },
                     {
@@ -20769,6 +20838,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.28",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  4,
+                        "ilkDesen":  "~teori imtiyaz paylar ; ~teori paylar imtiyaz ; Sermaye Piyasası K. (6362 s.K.) m.28",
                         "kaynaklar":  "Sermaye Piyasası K. (6362 s.K.) m.28"
                     },
                     {
@@ -21357,6 +21429,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "6362 sayılı Sermaye Piyasası Kanunu m.15",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  4,
+                        "ilkDesen":  "~teori durum aciklama ; ~teori aciklama durum ; Sermaye Piyasası K. (6362 s.K.) m.15",
                         "kaynaklar":  "Sermaye Piyasası K. (6362 s.K.) m.15"
                     },
                     {
@@ -22940,6 +23015,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  31,
+                        "ilkDesen":  "~teori gaibin zuhuru ; ~teori zuhuru gaibin ; @VUK (213 s.K.)|gaibin",
                         "kaynaklar":  "Veraset ve İntikal V.K. (7338 s.K.) m.21 - Başlar. Gaibin zuhuru"
                     },
                     {
@@ -22951,6 +23029,9 @@
                         "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "",
+                        "cikmisDayanak":  "",
+                        "desenSayi":  31,
+                        "ilkDesen":  "~teori gaibin zuhuru ; ~teori zuhuru gaibin ; @VUK (213 s.K.)|gaibin",
                         "kaynaklar":  "Veraset ve İntikal V.K. (7338 s.K.) m.21 - Başlar. Gaibin zuhuru"
                     },
                     {
@@ -24021,12 +24102,15 @@
                         "ders":  "Vergi Mevzuatı ve Uygulaması",
                         "konu":  "kdv\u0027nin konusu",
                         "soru":  3,
-                        "durum":  "KAYNAK YOK",
-                        "paketBoy":  0,
-                        "kaynakSayi":  0,
+                        "durum":  "GUCLU",
+                        "paketBoy":  1239,
+                        "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "",
-                        "kaynaklar":  ""
+                        "cikmisDayanak":  "ÖTV K. (4760 s.K.) m.1",
+                        "desenSayi":  4,
+                        "ilkDesen":  "~teori kdv\u0027n konusu ; ~teori konusu kdv\u0027n ; ÖTV K. (4760 s.K.) m.1",
+                        "kaynaklar":  "ÖTV K. (4760 s.K.) m.1"
                     },
                     {
                         "ders":  "Vergi Mevzuatı ve Uygulaması",
@@ -24187,12 +24271,15 @@
                         "ders":  "Vergi Mevzuatı ve Uygulaması",
                         "konu":  "kurumlar vergisi matrahi",
                         "soru":  9,
-                        "durum":  "KAYNAK YOK",
-                        "paketBoy":  0,
-                        "kaynakSayi":  0,
+                        "durum":  "GUCLU",
+                        "paketBoy":  2404,
+                        "kaynakSayi":  2,
                         "kopruKaydi":  true,
                         "dayanak":  "KVK (5520 s.K.) m.2 [1/2]",
-                        "kaynaklar":  ""
+                        "cikmisDayanak":  "KVK (5520 s.K.) m.2 [1/2]",
+                        "desenSayi":  14,
+                        "ilkDesen":  "~teori kuruml vergi matra ; ~teori kuruml matra vergi ; ~teori vergi kuruml matra",
+                        "kaynaklar":  "KVK (5520 s.K.) m.2 [1/2] ; KVK (5520 s.K.) m.2 [2/2]"
                     },
                     {
                         "ders":  "Vergi Mevzuatı ve Uygulaması",
@@ -24489,12 +24576,15 @@
                         "ders":  "Vergi Mevzuatı ve Uygulaması",
                         "konu":  "otv ihracat istisnasi",
                         "soru":  3,
-                        "durum":  "KAYNAK YOK",
-                        "paketBoy":  0,
-                        "kaynakSayi":  0,
+                        "durum":  "GUCLU",
+                        "paketBoy":  1798,
+                        "kaynakSayi":  1,
                         "kopruKaydi":  true,
                         "dayanak":  "ÖTV K. (4760 s.K.) m.5",
-                        "kaynaklar":  ""
+                        "cikmisDayanak":  "ÖTV K. (4760 s.K.) m.5",
+                        "desenSayi":  4,
+                        "ilkDesen":  "~teori ihrac istisna ; ~teori istisna ihrac ; ÖTV K. (4760 s.K.) m.5",
+                        "kaynaklar":  "ÖTV K. (4760 s.K.) m.5"
                     },
                     {
                         "ders":  "Vergi Mevzuatı ve Uygulaması",
