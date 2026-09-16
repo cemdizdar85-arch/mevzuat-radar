@@ -477,7 +477,13 @@ function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket,[bool]$bedelYa
   $st = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$bid") -Headers $hedef.basliklar -TimeoutSec 60
   if($st.processing_status -ne 'ended'){ return $null }
   $adres = $(if($st.results_url){ "$($st.results_url)" } else { $hedef.taban + "/v1/messages/batches/$bid/results" })
-  $cev = Invoke-WebRequest -UseBasicParsing -Uri $adres -Headers $hedef.basliklar -TimeoutSec 600
+  # 16.09 ÖLÇÜLDÜ (hukuk-vergi halka 1): parti "ended" olduktan 1 sn sonra sonuç adresi 404 döndü, süreç çöktü, zincir durdu.
+  # Sonuç dosyası birkaç saniye geç yayımlanabiliyor → 404/5xx için artan beklemeyle 6 deneme (~3,5 dk).
+  $cev = $null
+  foreach($dn in 1..6){
+    try{ $cev = Invoke-WebRequest -UseBasicParsing -Uri $adres -Headers $hedef.basliklar -TimeoutSec 600; break }
+    catch{ $kodR = 0; try{ $kodR = [int]$_.Exception.Response.StatusCode }catch{}; if($dn -eq 6 -or -not ($kodR -eq 404 -or $kodR -ge 500 -or $kodR -eq 0)){ throw }; Start-Sleep -Seconds (10*$dn) }
+  }
   $ham = $(if($cev.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($cev.Content) } else { "$($cev.Content)" })
   $out = @{}; $out['__hata'] = @{}
   foreach($sat in ($ham -split "`n")){ if(-not $sat.Trim()){ continue }
@@ -544,7 +550,10 @@ function Invoke-ClaudeToplu {
     try{
       $baglanan = @{}
       foreach($ep in @(Get-BekleyenPartiler $Etiket)){
-        if("$($ep.durum)" -match 'hasat'){ continue }
+        # 16.09 ÖLÇÜLDÜ (smmm-ilgi-hakemi-hukuk-vergi halka 1): zaman aşımına düşen partinin durumu 'zaman asimi - hasat BEKLIYOR'; eski 'hasat'
+        # eşleşmesi bunu da 'hasat edildi' sayıp atlıyordu → zincirin her halkası kuyruktaki partiye BAĞLANMADAN aynı istekleri yeniden gönderdi
+        # (parmak izleri 30/30 aynıydı). Yalnız gerçekten hasat edilmiş parti atlanır.
+        if("$($ep.durum)" -match '^hasat edildi'){ continue }
         $pmE = $(if($ep.PSObject.Properties['parmak']){ $ep.parmak } else { $null }); if(-not $pmE){ continue }
         $uyan = @(foreach($r in $req){ $cid = "$($r.custom_id)"; if(-not $baglanan.ContainsKey($cid) -and $pmE.PSObject.Properties[$cid] -and "$($pmE.$cid)" -eq "$($parmakHep[$cid])"){ $cid } })
         if(-not $uyan.Count){ continue }
