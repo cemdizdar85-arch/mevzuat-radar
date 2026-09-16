@@ -218,8 +218,15 @@ function CikmisDiziniKur($basliklar) {
           if (-not $stK) { continue }
           $metinK = ("$($stK.metin)" -replace '\s+', ' ')
           if (-not [regex]::IsMatch($metinK, '\bSORULAR\b|\bSORU\s*\d+|\bSoru\s*\d+|(?<![\d.,])\d\s*-\s*\)|İSTENİLEN|İstenilen|hesaplayınız|yapınız|açıklayınız|yazınız|belirtiniz')) { continue }   # yalnız cevap belgesi
-          $cevapK = [regex]::Match($metinK, '\bCEVAPLAR\b|\bCEVAP\s*1\b|\bCevap\s*1\b|\bYANITLAR\b')
-          $soruK = $(if ($cevapK.Success) { $metinK.Substring(0, $cevapK.Index) } else { $metinK })
+          # 17.09 (cc ölçümü, 2019/1–2025/3 belgelerine soru metni eklendi: "SORULAR … KAYNAK NOTU: … <komisyon cevabı>"): KAYNAK NOTU satırı
+          # varsa soru kısmı onun ÖNCESİDİR. Eski kural resmî uyarıdaki "…CEVAPLAR DEĞERLENDİRİLMEYECEKTİR" kelimesinde kesiyordu
+          # (smmm_2022_2_02: 4.164 kr soru kısmının yalnız 265'i dizine giriyordu). Satırı olmayan (2008–2018) belgede eski kural aynen.
+          $knK = [regex]::Match("$($stK.metin)", '(?m)^\s*KAYNAK NOTU:')
+          if ($knK.Success) { $soruK = ("$($stK.metin)".Substring(0, $knK.Index) -replace '\s+', ' ') }
+          else {
+            $cevapK = [regex]::Match($metinK, '\bCEVAPLAR\b|\bCEVAP\s*1\b|\bCevap\s*1\b|\bYANITLAR\b')
+            $soruK = $(if ($cevapK.Success) { $metinK.Substring(0, $cevapK.Index) } else { $metinK })
+          }
           $dizinYeni.BelgeEkleKlasik("$($stK.kaynak_ad)", $soruK); $klasikSay++
         }
         $ofsK += $satirK.Count
