@@ -305,3 +305,40 @@ nav a:focus-visible,.konu a:focus-visible,.arac:focus-visible{outline-offset:3px
 .mp-cubuk::after{content:"";position:absolute;left:96px;right:0;
   height:9px;border-radius:5px;background:var(--line);z-index:0}
 .mp-cubuk i{position:relative;z-index:1;height:9px;border-radius:5px;opacity:.9}
+
+/* ================================================================
+   ÖNE ÇIKAN ARAÇLAR — KART DÜZENİ (16.09.2026)
+   Cem: "şu araçları daha şık, sitemize uygun bir şekilde nasıl yaparız;
+   'rengi koyu olacak' deme — şık dursun, anlaşılabilir olsun."
+
+   ÖLÇÜLEN KUSUR: sade katman bütün kutuları düzleştiriyor
+   (.gk,.step,.mp... { background:none!important; border:0!important })
+   ve açık tema .mp zeminini saydam yapıyor. Sonuç: açık temada araçlar
+   beyaz üstünde beyaz, yani kutu YOK; ekranda arka arkaya dizilmiş
+   düz yazı blokları görünüyordu - hangi yazının hangi araca ait
+   olduğu ancak okuyarak anlaşılıyordu.
+
+   ÇÖZÜM (yalnız bu ızgaraya, başka kutuya dokunmadan):
+   · kağıt hissini bozmayan hafif yüzey (--panel2) + 1 px çizgi + yuvarlak köşe
+   · ada bronz nokta: göz önce aracın adını bulur
+   · etiket rozete döner (bronz, %10 zemin)
+   · açıklama 3 satırda kırpılır -> kartlar aynı boyda, ızgara dağılmaz
+   · ilk kart (öne çıkan) daha büyük yüzey + tam genişlik olarak kalır
+   Renk yazılmadı; hepsi tema jetonu. Koyu temada da aynı kural çalışır.
+   Geri almak: bu bloğu sil (başka hiçbir yere dokunulmadı).
+   ================================================================ */
+html body .mini-pencereler{grid-template-columns:repeat(3,1fr)!important;gap:14px!important}
+html body .mini-pencereler .mp{background:var(--panel2)!important;border:1px solid var(--line)!important;
+  border-radius:14px!important;padding:16px 16px 18px!important;transition:border-color .15s,background .15s}
+html body .mini-pencereler .mp:hover{border-color:var(--amber)!important;background:var(--panel)!important}
+html body .mini-pencereler .mp:first-child{background:var(--panel)!important;border:1px solid var(--line2)!important;
+  border-radius:16px!important;padding:20px 20px 22px!important}
+html body .mini-pencereler .mp-bar{display:flex;align-items:center;gap:8px!important;margin-bottom:8px!important}
+html body .mini-pencereler .mp-bar:before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--amber)}
+html body .mini-pencereler .mp-tag{display:inline-block;align-self:flex-start;font-size:10px!important;
+  letter-spacing:.1em!important;color:var(--amber)!important;border-radius:999px;padding:3px 9px;
+  background:color-mix(in srgb,var(--amber) 10%,transparent)}
+html body .mini-pencereler .mp-m{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+html body .mini-pencereler .mp-git{color:var(--amber)!important;font-weight:750!important}
+@media(max-width:1000px){ html body .mini-pencereler{grid-template-columns:repeat(2,1fr)!important} }
+@media(max-width:640px){ html body .mini-pencereler{grid-template-columns:1fr!important} }
