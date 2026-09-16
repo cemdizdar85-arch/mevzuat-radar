@@ -9,7 +9,7 @@
 #  GİZLİLİK: depo HERKESE AÇIK — soru metni depoya YAZILMAZ; ayrıntı yalnız -Cikti (scratchpad) dosyasına gider.
 #  Kullanım: powershell -NoProfile -File arac/smmm-kasa-kaynak-ornek.ps1 -DersBasi 25 -Cikti <scratchpad json> [-Kuru]
 # ============================================================================
-param([int]$DersBasi = 25, [int]$Tohum = 1609, [Parameter(Mandatory = $true)][string]$Cikti, [string]$Model = 'claude-sonnet-5', [int]$KaynakKr = 3000, [switch]$Kuru)
+param([int]$DersBasi = 25, [int]$Tohum = 1609, [Parameter(Mandatory = $true)][string]$Cikti, [string]$Model = 'claude-sonnet-5', [int]$KaynakKr = 3000, [string]$Etiket = '', [switch]$Kuru)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $depoKok 'motor\api-hedef.ps1')
@@ -84,9 +84,10 @@ YALNIZ şu JSON'u döndür: {"konuyla_ilgili":true/false,"cevabi_destekliyor":tr
   $isler.Add(@{ id = "q$($s.id)"; model = $Model; maxTok = 300; icerik = @(@{ type = 'text'; text = $istem }) })
 }
 "ÖRNEK: $($sorular.Count) soru · künye metni bulunan $($isler.Count) · bulunamayan $($sorular.Count - $isler.Count)"
-if ($Kuru) { $kar = 0; foreach ($i in $isler) { $kar += "$($i.icerik[0].text)".Length }; "KURU: istek gönderilmedi · istem $kar kr (~$([math]::Round($kar / 3.2)) jeton) · tahmini toplu ≈ $([math]::Round((($kar / 3.2) * 2 + $isler.Count * 60 * 10) / 1e6 / 2, 3)) USD"; exit 0 }
+if (-not $Etiket) { $Etiket = "smmm-kasa-kaynak-ornek-$(Get-Date -Format yyyyMMdd-HHmm)" }   # 16.09: sabit etiket verilirse bulutta kuyruktaki partiye bağlanır
+if ($Kuru) { foreach ($i in $isler) { "PARMAK $($i.id) $(Get-IcerikParmak $i.icerik)" }; $kar = 0; foreach ($i in $isler) { $kar += "$($i.icerik[0].text)".Length }; "KURU: istek gönderilmedi · istem $kar kr (~$([math]::Round($kar / 3.2)) jeton) · tahmini toplu ≈ $([math]::Round((($kar / 3.2) * 2 + $isler.Count * 60 * 10) / 1e6 / 2, 3)) USD"; exit 0 }
 $sonuc = @{}
-if ($isler.Count) { $sonuc = Invoke-ClaudeToplu -Isler $isler.ToArray() -Etiket "smmm-kasa-kaynak-ornek-$(Get-Date -Format yyyyMMdd-HHmm)" -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu }
+if ($isler.Count) { $sonuc = Invoke-ClaudeToplu -Isler $isler.ToArray() -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu }
 if ($sonuc.ContainsKey('__zaman_asimi')) { throw "TOPLU ZAMAN AŞIMI — aynı komutla yeniden koşunca bedava hasat edilir. Çıktı YAZILMADI." }
 $cikis = New-Object System.Collections.Generic.List[object]
 foreach ($key in $kayit.Keys) {

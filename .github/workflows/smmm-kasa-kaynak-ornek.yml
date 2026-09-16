@@ -1,0 +1,125 @@
+# .github/workflows/smmm-kasa-kaynak-ornek.yml — BİTİRME (SMMM) KASA KAYNAK ÖRNEKLEMİ BULUTTA (PARALI, hep TOPLU)
+#
+# 16.09.2026, Cem "kalibrasyon ve kasa örneklemesini buluta taşı".
+# arac/smmm-kasa-kaynak-ornek.ps1: kasadan ders başına N soru (sabit tohum), künyedeki madde ambardan okunur, "kaynak soruyu/doğru
+# cevabı destekliyor mu" hakemi (toplu). ≈0,18 USD / 200 soru.
+# GÜVENLİK: soru metni ekrana ve depoya YAZILMAZ; depoya yalnız soru kimliği, ders, konu, künye, sınıf, kısa gerekçe gider.
+# ETİKET SABİT: aynı etiket + aynı içerik → kuyruktaki partiye bağlanır (motor/api-hedef.ps1), yeniden gönderilmez; 75 → zincir.
+# ⛔ ELLE TETİKLENİR, cron YOK.
+name: Bitirme kasa kaynak orneklemi (bulut, parali)
+
+on:
+  workflow_dispatch:
+    inputs:
+      etiket:
+        description: "Toplu etiket (sabit kalmali)"
+        required: true
+        default: "smmm-kasa-kaynak-ornek-20260916-1232"
+        type: string
+      ders_basi:
+        description: "Ders basina soru"
+        required: false
+        default: "25"
+        type: string
+      kuru:
+        description: "KURU: istek GONDERILMEZ (0 USD, yol sinamasi + parmak izleri)"
+        required: false
+        default: false
+        type: boolean
+      zincir:
+        description: "Otomatik yeniden tetikleme sayaci (elle 0 birak). 10'a varinca durur."
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: smmm-kasa-kaynak-ornek-${{ inputs.etiket }}
+  cancel-in-progress: false
+
+jobs:
+  ornek:
+    runs-on: windows-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Durumu ambardan indir (bekleyen toplu partiler + defter)
+        shell: powershell
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if(-not "$env:ANTHROPIC_API_KEY" -or -not "$env:SUPABASE_SERVICE_KEY"){ throw "GitHub Secret eksik" }
+          ./arac/bekleyen-senkron.ps1 -Indir
+          ./arac/bedel-senkron.ps1 -Indir -Yaz
+          "MEVZUAT_TOPLU_SON_AN=$((Get-Date).ToUniversalTime().AddMinutes(300).ToString('o'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+          "etiket: ${{ inputs.etiket }} · ders basi: ${{ inputs.ders_basi }} · halka: ${{ inputs.zincir }}"
+
+      - name: Orneklem (TOPLU, parali)
+        shell: powershell
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          MEVZUAT_TOPLU_BEKLE_DK: "1440"
+          MEVZUAT_TOPLU_ANLIKSIZ: "1"
+        run: |
+          $ErrorActionPreference = 'Continue'   # Actions 'stop' koyar; alt sürecin stderr satırı adımı düşürüp 75'i yutmasın
+          $kuru = ("${{ inputs.kuru }}" -eq "true")
+          $arg = @('-NoProfile', '-File', './arac/smmm-kasa-kaynak-ornek.ps1', '-DersBasi', "${{ inputs.ders_basi }}", '-Cikti', (Join-Path $env:RUNNER_TEMP 'kasa-ornek.json'), '-Etiket', "${{ inputs.etiket }}")
+          if($kuru){ $arg += '-Kuru' }
+          & powershell @arg
+          $kod = $LASTEXITCODE
+          $durumKod = $(if($kuru -and $kod -eq 0){ 'kuru' } else { "$kod" })
+          "ORNEK_KOD=$durumKod" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+          "cikis kodu: $kod"
+          if($kod -ne 0 -and $kod -ne 75){ exit $kod }
+
+      - name: Bekleyen partiler ve defter ambara (KOSU DUSSE BILE)
+        if: always()
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./arac/bekleyen-senkron.ps1 -Yukle
+          ./arac/bedel-senkron.ps1 -Yukle -Yaz
+
+      - name: Ozet sonucu depoya yaz (soru metni YOK)
+        if: env.ORNEK_KOD == '0'
+        shell: powershell
+        run: |
+          $j = Get-Content (Join-Path $env:RUNNER_TEMP 'kasa-ornek.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+          $sat = @(foreach($s in $j.sorular){ [ordered]@{ id = $s.id; ders = $s.ders; konu = $s.konu; kaynak = $s.kaynak; yayin = $s.yayin; sinif = $s.sinif; gerekce = ("$($s.gerekce)" -replace '\s+', ' ').Substring(0, [math]::Min(160, ("$($s.gerekce)").Length)) } })
+          $cikti = [ordered]@{ olcum = $j.olcum; model = $j.model; tohum = $j.tohum; dersBasi = $j.dersBasi; bedelUsd = $j.bedelUsd; ozet = [ordered]@{}; sorular = $sat }
+          foreach($g in @($sat | Group-Object { $_.sinif })){ $cikti.ozet[$g.Name] = $g.Count }
+          [IO.File]::WriteAllText((Join-Path (Get-Location) 'veri\sinav\smmm-kasa-kaynak-ornek.json'), (ConvertTo-Json -InputObject $cikti -Depth 5), [Text.UTF8Encoding]::new($false))
+          "ozet: $(($cikti.ozet.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ' · ')"
+
+      - name: Ozet dosyasini gonder
+        if: env.ORNEK_KOD == '0'
+        shell: bash
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/sinav/smmm-kasa-kaynak-ornek.json
+          git diff --cached --quiet && { echo "degisiklik yok"; exit 0; }
+          git commit -m "Bitirme kasa kaynak orneklemi [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i*10))
+          done
+          echo "::error::sonuc push edilemedi (5 deneme)"; exit 1
+
+      - name: Toplu kuyruk bitmediyse yeniden tetikle
+        if: always() && !cancelled() && env.ORNEK_KOD == '75'
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $halka = 0; [void][int]::TryParse("${{ inputs.zincir }}", [ref]$halka)
+          if($halka -ge 10){ "ZINCIR TAVANI (10)"; exit 1 }
+          gh workflow run smmm-kasa-kaynak-ornek.yml --ref main -f etiket="${{ inputs.etiket }}" -f ders_basi="${{ inputs.ders_basi }}" -f zincir="$($halka + 1)"
+          "yeniden tetiklendi: halka $($halka + 1)"

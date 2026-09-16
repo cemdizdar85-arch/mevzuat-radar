@@ -27,6 +27,16 @@ on:
         required: true
         default: "dalga1"
         type: string
+      etiket:
+        description: "Toplu etiket (bos = smmm-ilgi-hakemi-<ad>); kuyruktaki partiye baglanmak icin eski etiket verilir"
+        required: false
+        default: ""
+        type: string
+      liste:
+        description: "Hazir konu listesi (depo icinde csv: ders,konu[,ilgili]); bos = plandan kurulur. ilgili sutunu varsa kalibrasyon raporu basilir"
+        required: false
+        default: ""
+        type: string
       kuru:
         description: "KURU: paketler dokulur, hakem istegi GONDERILMEZ (0 USD, yol sinamasi)"
         required: false
@@ -94,8 +104,8 @@ jobs:
               if($ad -and -not $gor.ContainsKey($a)){ $gor[$a] = 1; $sat.Add([pscustomobject]@{ ders = "$($r.ders)"; konu = $ad }) }
             }
           }
-          $sat | Export-Csv (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv') -NoTypeInformation -Encoding UTF8
-          "hakem listesi: $($sat.Count) konu"
+          if("${{ inputs.liste }}"){ Copy-Item "${{ inputs.liste }}" (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv') -Force; "hakem listesi: ${{ inputs.liste }} ($(@(Import-Csv '${{ inputs.liste }}').Count) konu)" }
+          else { $sat | Export-Csv (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv') -NoTypeInformation -Encoding UTF8; "hakem listesi: $($sat.Count) konu" }
 
       - name: Ilgi hakemi (TOPLU, parali)
         shell: powershell
@@ -104,8 +114,9 @@ jobs:
           MEVZUAT_TOPLU_BEKLE_DK: "1440"
           MEVZUAT_TOPLU_ANLIKSIZ: "1"
         run: |
+          $ErrorActionPreference = 'Continue'   # Actions 'stop' koyar; alt sürecin stderr satırı adımı düşürüp 75'i yutmasın
           $kuru = ("${{ inputs.kuru }}" -eq "true")
-          $arg = @('-NoProfile', '-File', './arac/smmm-ilgi-hakemi.ps1', '-Liste', (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv'), '-PaketDok', (Join-Path $env:RUNNER_TEMP 'paket-dok'), '-Cikti', "veri/sinav/smmm-ilgi-hakemi-${{ inputs.ad }}.json", '-Etiket', "smmm-ilgi-hakemi-${{ inputs.ad }}")
+          $arg = @('-NoProfile', '-File', './arac/smmm-ilgi-hakemi.ps1', '-Liste', (Join-Path $env:RUNNER_TEMP 'hakem-liste.csv'), '-PaketDok', (Join-Path $env:RUNNER_TEMP 'paket-dok'), '-Cikti', "veri/sinav/smmm-ilgi-hakemi-${{ inputs.ad }}.json", '-Etiket', $(if("${{ inputs.etiket }}"){ "${{ inputs.etiket }}" } else { "smmm-ilgi-hakemi-${{ inputs.ad }}" }))
           if($kuru){ $arg += '-Kuru' }
           & powershell @arg
           $kod = $LASTEXITCODE
@@ -146,5 +157,5 @@ jobs:
         run: |
           $halka = 0; [void][int]::TryParse("${{ inputs.zincir }}", [ref]$halka)
           if($halka -ge 10){ "ZINCIR TAVANI (10) - yeniden tetiklenmedi. Elle bakilmali."; exit 1 }
-          gh workflow run smmm-ilgi-hakemi.yml --ref main -f plan="${{ inputs.plan }}" -f ad="${{ inputs.ad }}" -f zincir="$($halka + 1)"
+          gh workflow run smmm-ilgi-hakemi.yml --ref main -f plan="${{ inputs.plan }}" -f ad="${{ inputs.ad }}" -f liste="${{ inputs.liste }}" -f etiket="${{ inputs.etiket }}" -f zincir="$($halka + 1)"
           "yeniden tetiklendi: halka $($halka + 1)"

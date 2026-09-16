@@ -69,6 +69,7 @@ $($sb.ToString())
 "İLGİ HAKEMİ: $($satirlar.Count) konu · modele gidecek $($isler.Count) · paketi olmayan $(@($kayit.Values | Where-Object { $_.paketBoy -lt 0 }).Count) · model $Model · etiket $Etiket"
 if ($Kuru) {
   $kar = 0; foreach ($i in $isler) { $kar += "$($i.icerik[0].text)".Length }
+  foreach ($i in $isler) { "PARMAK $($i.id) $(Get-IcerikParmak $i.icerik)" }   # buluta taşımada kuyruktaki partiye bağlanma kontrolü (yalnız özet değeri; içerik değil)
   "KURU: istek gönderilmedi. Toplam istem $kar kr (~$([math]::Round($kar / 3.2)) jeton) · tahmini toplu bedel ≈ $([math]::Round((($kar / 3.2) * 2 + $isler.Count * 80 * 10) / 1e6 / 2, 3)) USD (Sonnet 5)"
   exit 0
 }
