@@ -1,0 +1,74 @@
+# .github/workflows/kgk-sinav-nobeti.yml — KGK SINAV NOBETCISI
+#
+# NEDEN VAR (16.09.2026, Cem "1.2.3 ucunude yap"): KGK yeni bir Bagimsiz Denetcilik / Surdurulebilirlik Denetciligi
+# sinavinin soru kitapcigini yayimladiginda bize haber veren bir sey yoktu (karnedeki KGK "evren"i diskteki dosya
+# sayisiydi, resmi liste 08.05.2026'dan beri tazelenmemisti). Bu nobetci haftada iki kez KGK Soru Arsivi sayfasini
+# ambarla kiyaslar. YENI kitapcik -> KIRMIZI + Cem'e mail. Sayfa/ambar okunamazsa -> KOR + mail (sessiz yesil yok).
+# Rapor veri/kgk-sinav-nobeti.json (kor kalma kurali: kirmizi olsa da yayinlanir). API maliyeti SIFIR.
+name: KGK Sinav Nobetcisi
+
+on:
+  schedule:
+    - cron: "30 5 * * 1,4"    # pazartesi ve persembe 08:30 TR
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/kgk-sinav-nobeti.yml'
+      - 'motor/kgk-sinav-nobeti.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kgk-sinav-nobeti
+  cancel-in-progress: false
+
+env:
+  SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: KGK Soru Arsivini kolla
+        id: nobet
+        shell: pwsh
+        run: ./motor/kgk-sinav-nobeti.ps1
+
+      - name: Kirmizi ya da korse Cem'e mail
+        if: failure() && steps.nobet.outcome == 'failure'
+        shell: pwsh
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - KGK yeni sinav kitapcigi (ya da nobetci kor)' -Mesaj "KGK sinav nobetcisi YESIL degil. Durum ve yeni kitapcik listesi: veri/kgk-sinav-nobeti.json. Yeni kitapcik yayimlandiysa: veri/kgk-arsiv/pdf-links.tsv'ye satir -> motor/kgk-arsiv-indir.ps1 -> motor/cikmis-soru-ayristir.ps1 (yerelde). KOR ise sayfa duzeni degismis ya da ambar okunamamistir. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        shell: bash
+        run: |
+          set -uo pipefail
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/kgk-sinav-nobeti.json ]; then
+            echo "::warning title=kgk sinav nobeti rapor::rapor dosyasi yok - nobetci sona ulasamadi"
+            exit 0
+          fi
+          git add veri/kgk-sinav-nobeti.json
+          if git diff --cached --quiet; then
+            echo "Rapor degismedi - islenecek bir sey yok."
+            exit 0
+          fi
+          git commit -m "KGK sinav nobeti raporu [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if cikti=$(git pull --rebase --autostash origin main 2>&1) && cikti2=$(git push origin HEAD:main 2>&1); then
+              echo "Rapor islendi (deneme $i)."
+              exit 0
+            fi
+            echo "::warning title=kgk sinav nobeti yayin $i::${cikti:0:300} ${cikti2:0:200}"
+            sleep $((i * 7))
+          done
+          echo "::error::KGK sinav nobeti raporu 5 denemede islenemedi (kor kalma)."
+          exit 1
