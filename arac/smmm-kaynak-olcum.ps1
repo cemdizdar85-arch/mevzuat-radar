@@ -14,7 +14,7 @@
 #  Çıktı: veri/sinav/smmm-kaynak-olcumu.json (-Yaz) + ekrana ders ders özet. -Parca paralel süreç sayısı (varsayılan 8).
 # ============================================================================
 param([string]$Plan = 'veri/sinav/plan-smmm-dalga1.json', [int]$Parca = 8, [switch]$Yaz, [string]$Cikti = '',
-  [int]$Bastan = 0, [int]$Bitis = 0, [switch]$Ic)   # -Ic: paralel alt süreç (kendini çağırır)
+  [int]$Bastan = 0, [int]$Bitis = 0, [switch]$Ic, [switch]$OzSinav)   # -Ic: paralel alt süreç · -OzSinav: aracın kendisi sağlam mı (2 bilinen konu, plan okumaz, dosya yazmaz)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 $planYol = $(if ([IO.Path]::IsPathRooted($Plan)) { $Plan } else { Join-Path $depoKok $Plan })
@@ -34,7 +34,11 @@ foreach ($r in $planSatir) {
   }
 }
 $hedefler = @($konuSay.Keys)
-if (-not $Ic -and $Parca -gt 1) {
+# 16.09 ÖZ-SINAV (Cem "1.2.3 üçünü de yap", GM 3): araç bugün iki kez SESSİZCE boş sonuç verdi (paralel çağrıda boşluklu yol tırnaklanmamıştı).
+# Bu kip iki BİLİNEN konuyu ölçer ve paketin dolu gelmesini şart koşar: biri kanun dayanaklı (VUK m.315), biri THP dayanaklı.
+# Ambar ya da desen yolu bozulduysa ilk koşuda anlaşılır; dosyaya hiçbir şey yazılmaz.
+if ($OzSinav) { $hedefler = @('Vergi Mevzuatı ve Uygulaması|amortisman ayirma', 'Maliyet Muhasebesi|satilan mamul maliyeti'); $konuSay = @{}; foreach ($h in $hedefler) { $konuSay[$h] = 1 } }
+if (-not $Ic -and -not $OzSinav -and $Parca -gt 1) {
   # --- paralel: kendini $Parca alt süreçle çağır, sonra birleştir ---
   $gecici = Join-Path $env:TEMP "smmm-kaynak-olcum-$(Get-Date -Format yyyyMMdd-HHmmss)"
   New-Item -ItemType Directory -Force $gecici | Out-Null
@@ -43,11 +47,16 @@ if (-not $Ic -and $Parca -gt 1) {
   $isler = @()
   foreach ($p in 1..$Parca) {
     $b = ($p - 1) * $boy; $e = [math]::Min($p * $boy, $hedefler.Count); if ($b -ge $e) { continue }
-    $isler += Start-Process powershell -PassThru -WindowStyle Hidden -ArgumentList '-NoProfile', '-File', $PSCommandPath, '-Plan', $planYol, '-Ic', '-Bastan', $b, '-Bitis', $e, '-Cikti', (Join-Path $gecici "p$p.jsonl")
+    # yol BOŞLUK içerebilir (OneDrive\Masaüstü\mevzuat işi): Start-Process argümanları kendimiz tırnaklarız, yoksa alt süreç sessizce ölür ve sonuç BOŞ döner (16.09 ölçüldü)
+    $cikYol = Join-Path $gecici "p$p.jsonl"
+    $arg = @('-NoProfile', '-File', ('"' + $PSCommandPath + '"'), '-Plan', ('"' + $planYol + '"'), '-Ic', '-Bastan', "$b", '-Bitis', "$e", '-Cikti', ('"' + $cikYol + '"'))
+    $isler += Start-Process powershell -PassThru -WindowStyle Hidden -ArgumentList $arg
   }
   foreach ($is in $isler) { $is.WaitForExit() }
   $sonuc = New-Object System.Collections.Generic.List[object]
   foreach ($f in (Get-ChildItem $gecici -Filter '*.jsonl')) { foreach ($l in (Get-Content $f.FullName -Encoding UTF8)) { if ($l) { $sonuc.Add(($l | ConvertFrom-Json)) } } }
+  if ($sonuc.Count -eq 0) { throw "PARALEL KOŞU BOŞ DÖNDÜ ($gecici) — ölçüm dosyası EZİLMEDİ. Alt süreçler başlamamış olabilir; -Parca 1 ile tek süreçte koşun." }
+  if ($sonuc.Count -lt [math]::Floor($hedefler.Count * 0.9)) { throw "PARALEL KOŞU EKSİK: $($sonuc.Count) / $($hedefler.Count) — ölçüm dosyası EZİLMEDİ." }
 }
 else {
   # --- ölçüm: üreticinin fonksiyonlarını AST ile ayıkla, ambarı oku ---
@@ -91,6 +100,13 @@ else {
   if ($Ic) { return }
 }
 
+# --- öz-sınav: ölçüm yolu çalışıyor mu? ---
+if ($OzSinav) {
+  $bos = @($sonuc | Where-Object { [int]$_.paketBoy -lt 300 })
+  foreach ($s in $sonuc) { "  {0,-42} paket {1,6} kr · kaynak {2} · {3}" -f $s.konu, $s.paketBoy, $s.kaynakSayi, $s.durum }
+  if ($bos.Count) { throw "ÖZ-SINAV DÜŞTÜ: $($bos.Count)/$($sonuc.Count) bilinen konuda paket 300 kr altında — desen üretimi ya da ambar yolu bozuk. Ölçüm KOŞULMASIN." }
+  "ÖZ-SINAV TAMAM: $($sonuc.Count)/$($sonuc.Count) bilinen konuda paket dolu geldi (araç sağlam)."; exit 0
+}
 # --- özet ---
 $sonucDizi = $sonuc.ToArray()   # K3: @(List[object]) tr-TR PS 5.1'de ArgumentException atar; her iki kip de List döndürür
 "ÖLÇÜLEN KONU: $($sonucDizi.Count) · plan: $Plan"
