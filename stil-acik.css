@@ -206,19 +206,22 @@ body,p,.lead,.sade-alt,.sk-ac,.konu span,.arac span,.mp-m,.gk p{
    vurgulanan bolumu agirlastirir.
    Bizde o bolum en ciddi iddiamizin durdugu yer: kaynak ve dogrulama.
    ========================================================================== */
+/* 16.09: "bastan sona acik" karari - guven bandi da acik yuzeye dondu; bolumu ayiran sey
+   artik renk degil, yarim ton fark (#f4f2ee) + ust cizgi. */
 #guven{
-  background:#0a0b0e !important;
-  border-top:0 !important;
-  border-bottom:0 !important;
-  color:#eceff3;
+  background:#f4f2ee !important;
+  border-top:1px solid #e6e2da !important;
+  border-bottom:1px solid #e6e2da !important;
+  color:#16191d;
   margin-top:8px}
-#guven h2,#guven .gk h3{color:#ffffff}
-#guven .sec-head p,#guven .gk p{color:#b9c1cb}
-#guven .kaynak-bar{border-top-color:rgba(255,255,255,.14);color:#96a0ac}
-#guven .kaynak-bar b{color:#eceff3}
+#guven h2,#guven .gk h3{color:#16191d}
+#guven .sec-head p,#guven .gk p{color:#4b5563}
+#guven .kaynak-bar{border-top-color:#d5d0c6;color:#5f6875}
+#guven .kaynak-bar b{color:#16191d}
 #guven .kaynak-bar b+b::before{color:#6c7681}
 #guven .gk{box-shadow:none}
-#guven a{color:#eccb96}
+/* 16.09: guven bandi acik yuzeye donunce baglanti 3,93 olctu (esik 4,5) - bir ton koyu bronz */
+#guven a{color:#6b4a1c}
 #guven :focus-visible{outline-color:#eccb96}
 
 
@@ -244,26 +247,29 @@ body,p,.lead,.sade-alt,.sk-ac,.konu span,.arac span,.mp-m,.gk p{
    BEYAZA DONMEK ICIN: bu blogu sil, gerisi calisir.
    ============================================================================ */
 
+/* 16.09.2026 Cem "site acik bir bak, koyu siyah goruntuyor" -> BASTAN SONA ACIK karari:
+   ust menu de acik zemine dondu (once koyu banttı). Koyu hale donus: bu bes kuralı eski
+   degerlerine al (#0a0b0e zemin + beyaz yazi). */
 nav{
-  background:#0a0b0e;
-  border-bottom:1px solid rgba(255,255,255,.10);
-  backdrop-filter:none}
-nav.scrolled{border-bottom-color:rgba(255,255,255,.16)}
+  background:rgba(251,250,248,.92);
+  border-bottom:1px solid #e6e2da;
+  backdrop-filter:blur(14px) saturate(1.2)}
+nav.scrolled{border-bottom-color:#d5d0c6}
 
-nav .brand,nav .brand .kelime{color:#ffffff}
-nav .navlinks a,nav .navtrigger{color:#b9c1cb}
+nav .brand,nav .brand .kelime{color:#16191d}
+nav .navlinks a,nav .navtrigger{color:#4b5563}
 nav .navlinks a:hover,nav .navgroup:hover .navtrigger,
-nav .navgroup:focus-within .navtrigger{color:#ffffff}
+nav .navgroup:focus-within .navtrigger{color:#16191d}
 
 /* hayalet dugme koyu seritte cerceveyle ayrilir */
-nav .btn.ghost{color:#ffffff;border-color:rgba(255,255,255,.28);background:none}
-nav .btn.ghost:hover{border-color:rgba(255,255,255,.5)}
+nav .btn.ghost{color:#16191d;border-color:#d5d0c6;background:none}
+nav .btn.ghost:hover{border-color:#8a6224}
 
 /* palet dugmesi seride uyum saglar */
-nav .kp-dugme{background:none;color:#b9c1cb;border-color:rgba(255,255,255,.18)}
-nav .kp-dugme:hover{color:#ffffff;border-color:rgba(255,255,255,.34)}
+nav .kp-dugme{background:#ffffff;color:#4b5563;border-color:#d5d0c6}
+nav .kp-dugme:hover{color:#16191d;border-color:#8a6224}
 nav .kp-dugme kbd{background:rgba(255,255,255,.09);
-  border-color:rgba(255,255,255,.20);color:#b9c1cb}
+  border-color:#d5d0c6;color:#4b5563}
 
 /* acilir menu KAGIT kalir: sayfanin uzerine duser, seridin parcasi degil */
 nav .dropdown{background:#ffffff;border-color:var(--line2)}
@@ -271,7 +277,7 @@ nav .dropdown a{color:var(--ink)}
 nav .dropdown a span{color:var(--dim)}
 
 /* mobil menu dugmesi */
-nav .mobbtn{background:none;color:#ffffff;border-color:rgba(255,255,255,.28)}
+nav .mobbtn{background:none;color:#16191d;border-color:#d5d0c6}
 
 /* koyu seritte odak halkasi kehribar olmali, koyu degil */
 nav :focus-visible{outline-color:#eccb96}
@@ -281,8 +287,8 @@ nav :focus-visible{outline-color:#eccb96}
    var(--ink)}" (0,3,1) sonradan eklenen "nav .btn.ghost"u (0,2,1) yeniyordu.
    Olculdu: yazi rgb(22,25,29) / zemin rgb(22,26,31) -> kontrast 1,01:1.
    Ozgulluk asildi. */
-nav .navlinks a.btn.ghost,nav a.btn.ghost{color:#ffffff;border-color:rgba(255,255,255,.30)}
-nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:rgba(255,255,255,.55)}
+nav .navlinks a.btn.ghost,nav a.btn.ghost{color:#16191d;border-color:#d5d0c6}
+nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:#8a6224}
 
 
 /* ============================================================================
@@ -297,17 +303,17 @@ nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:rgba(255,255,
    ============================================================================ */
 
 /* --- ust serit: arac sayfalarinin masthead'i --- */
-.top{background:#0a0b0e;color:#b9c1cb;
+.top{background:#f4f2ee;color:#4b5563;
   margin:-24px -18px 24px;padding:14px 18px;
-  border-bottom:1px solid rgba(255,255,255,.10);flex-wrap:wrap}
-.top a{color:#b9c1cb}
-.top a:hover{color:#ffffff}
-.top b,.top strong{color:#ffffff}
+  border-bottom:1px solid #d5d0c6;flex-wrap:wrap}
+.top a{color:#4b5563}
+.top a:hover{color:#16191d}
+.top b,.top strong{color:#16191d}
 .top .logo,.top .mark{background:#f5a524}
-.top .kp-dugme{background:none;color:#b9c1cb;border-color:rgba(255,255,255,.18)}
-.top .kp-dugme:hover{color:#ffffff;border-color:rgba(255,255,255,.34)}
+.top .kp-dugme{background:#ffffff;color:#4b5563;border-color:#d5d0c6}
+.top .kp-dugme:hover{color:#16191d;border-color:#8a6224}
 .top .kp-dugme kbd{background:rgba(255,255,255,.09);
-  border-color:rgba(255,255,255,.20);color:#b9c1cb}
+  border-color:#d5d0c6;color:#4b5563}
 .top :focus-visible{outline-color:#eccb96}
 @media(max-width:640px){ .top{margin-left:-14px;margin-right:-14px;padding:12px 14px} }
 
@@ -332,11 +338,11 @@ a:hover{color:var(--accent2)}
    ayri ayri renklendirilmemisti; var(--ink) miras alan ogeler KOYU zemin
    uzerinde KOYU yaziyla cikiyordu (olculdu: 1,01:1). Serit icindeki her
    sey aydinlik olmali - tek tek degil topluca. */
-.top,.top *{color:#b9c1cb}
-.top a,.top b,.top strong,.top .logo,.top h1{color:#ffffff}
+.top,.top *{color:#4b5563}
+.top a,.top b,.top strong,.top .logo,.top h1{color:#16191d}
 .top a:hover{color:#eccb96}
-.top .kp-dugme,.top .kp-dugme *{color:#b9c1cb}
-.top .kp-dugme:hover,.top .kp-dugme:hover *{color:#ffffff}
+.top .kp-dugme,.top .kp-dugme *{color:#4b5563}
+.top .kp-dugme:hover,.top .kp-dugme:hover *{color:#16191d}
 
 /* Soru seridi (.ak): koyu tema icin yazilmis, acikta zemin/yazi cakisiyordu */
 .ak{background:var(--kagit);border-color:var(--line2);color:var(--muted)}
@@ -376,10 +382,10 @@ a:hover{color:var(--accent2)}
    kural tasiyan ogeler de dahil. Olculdu: "Alacak Radarı" basligi koyu serit
    uzerinde 1,01:1 cikiyordu. */
 .top,
-.top *:not([class*="logo"]):not([class*="mark"]){color:#b9c1cb !important}
-.top a,.top b,.top strong,.top h1,.top .logo{color:#ffffff !important}
+.top *:not([class*="logo"]):not([class*="mark"]){color:#4b5563 !important}
+.top a,.top b,.top strong,.top h1,.top .logo{color:#16191d !important}
 .top a:hover{color:#eccb96 !important}
-.top .kp-dugme kbd{color:#b9c1cb !important}
+.top .kp-dugme kbd{color:#4b5563 !important}
 
 /* Degiskene baglanamamis kalan koyu zeminler (satir ici stil vb.) */
 [style*="background:#0d141e"],[style*="background:#0a0f17"],
@@ -447,20 +453,39 @@ a:hover{color:var(--accent2)}
    var(--muted) - satir ici stiller dahil - kendiliginden acilir.
    Olculdu: ink 17,48 - muted 9,61 - dim 6,59 - amber 10,88 (esik 4,5).
    ============================================================================ */
+/* 16.09: bu blok KOYU BANTLAR icindi (jetonlari acik renge cevirip satir ici stilleri de kurtariyordu).
+   Bantlar acik yuzeye donunce jetonlarin ezilmesine gerek kalmadi; ezilseydi acik zeminde beyaz yazi
+   birakirdi (ayni tuzaga "Biz kimiz" kutusunda dusmustuk). Yalnizca bant icindeki cizgi tonu ayarlanir. */
 #guven, nav, .top{
-  --ink:#ffffff;
-  --muted:#b9c1cb;
-  --dim:#96a0ac;
-  --accent:#eccb96;
-  --accent2:#eccb96;
-  --amber:#eccb96;
-  --amber-dolgu:#eccb96;
-  --link:#eccb96;
-  --green:#3ddc97;
-  --red:#ff8a80;
-  --line:rgba(255,255,255,.12);
-  --line2:rgba(255,255,255,.20)}
+  --line:#e6e2da;
+  --line2:#d5d0c6}
 
 /* yapiskan ilerleme seridi: koyu yari saydam zemin acikta ters doner
    (kontrol-listesi: .bar-t yazisi rgb(43,45,50) uzerinde 1,82 idi) */
 .ilerleme{background:rgba(251,250,248,.90);border-bottom-color:var(--line2)}
+
+/* ============================================================================
+   UST MENU — ACIK ZEMIN TAMAMLAMASI (16.09.2026)
+   "Bastan sona acik" kararindan sonra nav zemini acildi ama menunun ICINDEKI
+   renkler koyu bant icin yazilmis sabitlerdi (#b9c1cb, #93a1b3, beyaz saydam
+   cerceveler). Kontrast kapisi olctu: "Araclar/Radarlar/Abonelik" 2,52 · komut
+   dugmesi 1,74 · hayalet dugme cercevesi 1,01 (gorunmez sinir). Hepsi burada
+   acik temaya baglandi. Koyu menuye donulurse bu blok da geri alinir.
+   ============================================================================ */
+/* ⚠ !important sart: index.html kendi <style> blogunda .navtrigger/.navlinks a kurallarini
+   var(--muted) ile yaziyor ve o blok bu dosyadan ONCE gelse de ozgullugu esit -> olculdu, renk
+   #93a1b3 (koyu tema tonu) kaliyordu. Acik zeminde 2,52 idi; sabitlenerek 7,4 e cikti. */
+nav .navtrigger,nav .nl,nav .navlinks a{color:#4b5563!important}
+nav .navlinks a.btn.ghost,nav .btn.ghost{color:#16191d!important}
+nav .navlinks a.btn:not(.ghost){color:#20160a!important}
+nav .navtrigger:hover,nav .nl:hover,nav .navlinks a:hover{color:#16191d}
+nav .kp-dugme{color:#4b5563;border-color:#d5d0c6;background:#ffffff}
+nav .kp-dugme:hover{color:#16191d;border-color:#8a6224}
+nav .kp-dugme kbd{background:#f4f2ee;border-color:#d5d0c6;color:#4b5563}
+nav .btn.ghost{color:#16191d;border-color:#d5d0c6;background:none}
+nav .btn.ghost:hover{border-color:#8a6224}
+nav .marka-ad,nav .marka .i{color:#16191d}
+
+/* 16.09: ust seridin marka yazisi var(--ink) ile yaziliyor ama serit koyu bant iken jeton
+   beyaza sabitlenmisti; serit acilinca beyaz uzerinde beyaz kaldi (olculdu 1,12). */
+.top .ust-marka,.ust-serit .ust-marka{color:#16191d}

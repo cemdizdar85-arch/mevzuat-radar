@@ -165,7 +165,7 @@ section p[style*="text-align:center"]{text-align:left !important}
 /* 16.09: kapı "görünmez sınır" dedi - kutunun çerçevesi rgba(255,255,255,.13) kalıp beyaz zeminde
    kayboluyordu (1,04; eşik 1,12). Çerçeve metnin jetonundan türetildi, her temada görünür. */
 #aracAra{max-width:420px;margin:0 0 4px;border-radius:8px;font-size:14px;padding:11px 13px;
-  border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}
+  border:1px solid color-mix(in srgb,var(--ink) 30%,transparent)!important}
 #aracAra:focus{box-shadow:none;border-color:var(--accent)}
 
 

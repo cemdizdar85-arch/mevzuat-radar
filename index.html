@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 16.09.2026: site AÇIK temadır. Bu satır olmadan, işletim sistemi koyu temadaysa tarayıcı
+     kendi koyu paletini karıştırıyor (ölçüldü: menü yazıları #4b5563 yerine #93a1b3 çıkıyor,
+     kontrast 7,4 yerine 2,52). CSS'te color-scheme iki dosyada çelişiyordu (stil.css: dark,
+     stil-acik.css: light); belge düzeyinde tek cevap burada veriliyor. -->
+<meta name="color-scheme" content="light">
 <!-- 29.07: baslik "Yukumlulük Karnesi"ydi - o artik 22 aracin YALNIZ BIRI.
      Google'in ilk gordugu sey bu ve markayi yanlis tanitiyordu. Yeni baslik
      uc arama niyetini birden karsiliyor (mevzuat takibi / GTIP / SMMM sinavi)
@@ -66,7 +71,10 @@
     box-shadow:0 4px 18px rgba(245,165,36,.35)}
   .marka b{font-size:15.5px;letter-spacing:.1px}
   .navlinks{display:flex;align-items:center;gap:26px;font-size:13.5px}
-  .navlinks a{color:var(--muted);text-decoration:none;transition:color .2s}
+  /* 16.09: menü yazısı var(--muted) ile yazılmıştı; koyu tema jetonu karışınca açık şeritte #93a1b3
+     kalıp 2,52 ölçüyordu (kontrast kapısı). Artık METNİN kendi jetonundan türetiliyor: ink'in %72 tonu -
+     hangi tema gelirse gelsin zemin ile yazı aynı kaynaktan gelir. */
+  .navlinks a{color:color-mix(in srgb,var(--ink) 72%,transparent);text-decoration:none;transition:color .2s}
   .navlinks a:hover{color:var(--ink)}
   .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;
     font-size:14.5px;padding:11px 22px;border-radius:12px;color:#03101f;
@@ -87,7 +95,7 @@
   @media(max-width:640px){.navlinks a.nl{display:none}}
   /* açılır grup menü */
   .navgroup{position:relative;display:flex;align-items:center}
-  .navtrigger{background:none;border:0;color:var(--muted);font-family:inherit;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:0;transition:color .2s}
+  .navtrigger{background:none;border:0;color:color-mix(in srgb,var(--ink) 72%,transparent);font-family:inherit;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:0;transition:color .2s}
   .navgroup:hover .navtrigger,.navgroup:focus-within .navtrigger{color:var(--ink)}
   .navtrigger .car{font-size:9px;opacity:.65;transition:transform .2s}
   .navgroup:hover .navtrigger .car,.navgroup:focus-within .navtrigger .car{transform:rotate(180deg)}
@@ -354,11 +362,11 @@
   .bizkim p{font-size:14.5px;line-height:1.65;color:var(--muted);margin:0 0 10px}
   .bizkim p b{color:var(--ink)}
   .bizkim .bk-soz{font-size:15px;line-height:1.6;color:var(--ink);border-left:2px solid var(--amber);padding-left:12px;margin:12px 0 0}
-  .bizkim .bk-kunye{font-size:13px;line-height:1.85;color:var(--dim);
+  .bizkim .bk-kunye{font-size:13px;line-height:1.85;color:var(--muted);
     background:color-mix(in srgb,var(--ink) 5%,transparent);
-    border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+    border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);border-radius:12px;padding:14px 16px}
   .bizkim .bk-kunye b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:4px}
-  .bizkim .bk-kunye a{color:var(--amber);font-weight:700;text-decoration:none}
+  .bizkim .bk-kunye a{color:color-mix(in srgb,var(--amber) 55%,var(--ink));font-weight:700;text-decoration:none}
   @media(max-width:760px){ .bizkim{grid-template-columns:1fr;padding:18px} }
   .guven-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:760px){.guven-grid{grid-template-columns:1fr}}
@@ -483,7 +491,9 @@ window.veriAl = (function(){
     </div>
     <a class="nl" href="#fiyat">Abonelik</a>
     <a class="nl" id="navOgrenci" href="ogrenci.html" title="Sınava hazırlanan öğrenci hesabı">Öğrenci girişi</a>
-    <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px" title="Büro ve firma paneli">İşletme girişi</a>
+    <!-- 16.09: hayalet düğmenin rengi üç ayrı kuraldan geçtiği için açık şeritte beyaz kalıyordu
+         (ölçüm: #eef2f7 üstünde #fbfaf8 = 1,08). Renk burada, öğenin kendisinde sabitlendi. -->
+    <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px;color:color-mix(in srgb,var(--ink) 92%,transparent)" title="Büro ve firma paneli">İşletme girişi</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
     <a class="btn" href="genc.html">Ücretsiz Başla</a>
     <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
@@ -603,11 +613,18 @@ window.veriAl = (function(){
          Taşan kaydırma çubuğu payı (100vw) başlıkta overflow-x:clip ile kırpılır - kaydırma kabı yaratmaz. */
       .hero-sade{overflow-x:clip}
       .bz-sar{max-width:none;width:auto;margin:-112px calc(50% - 50vw) 0}
+      /* 16.09.2026 — KAHRAMAN AÇIK TEMAYA ALINDI (Cem: "site açık bir bak, koyu siyah görünüyor").
+         ÖLÇÜLDÜ: ekran 768 px, kahraman 750 px -> açılışta görünen alanın %98'i koyuydu; ziyaretçi
+         açık zemini ancak kaydırınca görüyordu. Cem üç seçenek arasından "baştan sona açık"ı seçti.
+         Jeton adları KORUNDU (bz-gece/bz-ak/bz-bronz); yalnız değerleri açık temaya çevrildi, böylece
+         aşağıdaki 120 satırlık kullanım hiç değişmedi. Koyu hâle dönüş: bu beş satırı eski değerlere al. */
       .bz-kah{
-        --bz-gece:#0a0b0e; --bz-gece2:#101319;
-        --bz-ak:#f2f4f8; --bz-ak-govde:#aab3c0; --bz-ak-sonuk:#78828f;
-        --bz-bronz:#cfa163; --bz-bronz-acik:#eccb96; --bz-bronz-koyu:#8d6c38;
-        --bz-cta-yazi:#221704;
+        --bz-gece:#fbfaf8; --bz-gece2:#f4f2ee;
+        --bz-ak:#16191d; --bz-ak-govde:#4b5563; --bz-ak-sonuk:#5f6875;
+        /* 16.09 kontrast kapısı: açık zeminde bronzun AÇIK tonu metin ve düğme dolgusu olarak 3,5-3,7 ölçtü
+           (eşik 4,5). Üçlü bir basamak aşağı indirildi: artık "açık" ton koyu bronz, "koyu" ton daha da koyu. */
+        --bz-bronz:#6b4a1c; --bz-bronz-acik:#8a6224; --bz-bronz-koyu:#4f3714;
+        --bz-cta-yazi:#fbfaf8;
         position:relative;overflow:hidden;background:var(--bz-gece);
         min-height:680px;display:flex;flex-direction:column;text-align:left}
       .bz-kah .bz-sahne{position:absolute;top:0;bottom:0;left:50%;width:min(100%,1600px);transform:translateX(-50%);
@@ -616,17 +633,20 @@ window.veriAl = (function(){
         mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
       .bz-kah .bz-deste{position:absolute;right:-12%;top:-16%;width:62%;height:104%;
         transform-style:preserve-3d;transform:rotateX(32deg) rotateZ(-19deg) translateZ(-20px)}
+      /* 16.09: arkadaki Resmî Gazete kart destesi de açık temaya alındı (koyu kartlar beyaz zeminde leke oluyordu) */
       .bz-kah .bz-rk{position:absolute;left:0;width:84%;min-height:86px;border-radius:11px;padding:15px 18px;
-        background:linear-gradient(135deg,rgba(48,53,65,.97),rgba(23,27,34,.95));
-        border:1px solid rgba(214,180,126,.30);box-shadow:0 30px 64px rgba(0,0,0,.6)}
-      .bz-kah .bz-rk-kod{font-size:12px;letter-spacing:.09em;color:var(--bz-bronz-acik);font-weight:700;display:block;margin-bottom:6px}
+        background:linear-gradient(135deg,rgba(255,255,255,.97),rgba(247,245,241,.95));
+        border:1px solid rgba(138,98,36,.22);box-shadow:0 18px 40px rgba(22,25,29,.10)}
+      /* 16.09: açık kartta "bronz-açık" 3,51 ölçtü (eşik 4,5) -> koyu bronza alındı (5,22) */
+      .bz-kah .bz-rk-kod{font-size:12px;letter-spacing:.09em;color:var(--bz-bronz);font-weight:700;display:block;margin-bottom:6px}
       .bz-kah .bz-rk-bas{font-size:13.5px;line-height:1.4;color:var(--bz-ak);overflow:hidden;
         display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
       .bz-kah .bz-isi{position:absolute;inset:0}
       .bz-kah .bz-isi canvas{width:100%;height:100%;display:block}
+      /* 16.09: yazının okunduğu sol taraf için zemini açık tutan perde (eskiden koyu perdeydi) */
       .bz-kah:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-        background:radial-gradient(60% 55% at 74% 16%,rgba(207,161,99,.22),transparent 62%),
-          linear-gradient(100deg,var(--bz-gece) 26%,rgba(10,11,14,.86) 44%,rgba(10,11,14,.30) 66%,rgba(10,11,14,.55) 100%)}
+        background:radial-gradient(60% 55% at 74% 16%,rgba(138,98,36,.08),transparent 62%),
+          linear-gradient(100deg,var(--bz-gece) 26%,rgba(251,250,248,.92) 44%,rgba(251,250,248,.55) 66%,rgba(251,250,248,.80) 100%)}
       .bz-kah:after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:1;
         pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bz-gece))}
 
@@ -659,9 +679,10 @@ window.veriAl = (function(){
       .bz-kah .bz-durum{margin:16px 0 0;font-size:13.5px;line-height:1.5;color:var(--bz-ak-govde);min-height:1.5em}
       .bz-kah .bz-durum b{color:var(--bz-bronz-acik);font-weight:700}
 
-      .bz-kah .bz-cam{background:rgba(30,34,43,.62);border:1px solid rgba(214,180,126,.20);border-radius:16px;
+      /* 16.09: günün sorusu paneli - koyu camdan BEYAZ karta (açık tema) */
+      .bz-kah .bz-cam{background:rgba(255,255,255,.92);border:1px solid rgba(138,98,36,.22);border-radius:16px;
         padding:16px 18px 14px;backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
-        box-shadow:0 30px 70px rgba(0,0,0,.5)}
+        box-shadow:0 20px 48px rgba(22,25,29,.10)}
       .bz-kah .bz-cam-ust{display:flex;flex-wrap:wrap;gap:3px 12px;justify-content:space-between;font-size:10.5px;
         letter-spacing:.09em;text-transform:uppercase;color:var(--bz-bronz);font-weight:700;margin-bottom:10px}
       .bz-kah .bz-cam-ust s{text-decoration:none;color:var(--bz-ak-sonuk);font-weight:600}
@@ -681,7 +702,7 @@ window.veriAl = (function(){
       .bz-kah .bz-ileri.bz-bitti{background:transparent;color:var(--bz-ak-govde);border:1px solid rgba(214,180,126,.35)}
       .bz-kah .bz-not{font-size:10.5px;letter-spacing:.05em;color:var(--bz-bronz);font-weight:700;line-height:1.4}
       .bz-kah .bz-dip{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;align-items:baseline;
-        margin-top:11px;font-size:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07)}
+        margin-top:11px;font-size:11px;padding-top:10px;border-top:1px solid rgba(22,25,29,.10)}
       .bz-kah .bz-dip a{color:var(--bz-ak-govde);text-decoration:none;border-bottom:1px solid rgba(214,180,126,.35);padding-bottom:1px}
       .bz-kah .bz-dip a:hover{color:var(--bz-ak)}
       /* KANCA (13.09 Cem "1.2.3 yap"): cevaptan sonra panelde tek cümle + üyelik düğmesi */
