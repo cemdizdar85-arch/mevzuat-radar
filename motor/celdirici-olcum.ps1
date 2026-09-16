@@ -51,8 +51,32 @@ if($Sinav -ne 'KGK' -and (Test-Path $anYol)){ try{ $aj=Get-Content $anYol -Raw -
 # KGK (04.09): anahtar oturum+kitapçık bazlı, modül içi numara (1-40). Kitapçık adından anahtar kökü türetilir:
 #   "10202_A-KİTAPÇIĞI-SABAH" → 10202|A|sabah ; "8166_Birinci_Oturum_A_Grubu…" → 8166|A|sabah ; Ö_S/ÖĞLEDEN/İkinci → ogleden-sonra
 $ANAHTAR_KGK=@{}; $KGK_MODUL=@{ sabah=@('Muhasebe Standartları','Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı','Kurumsal Yönetim İlkeleri ve Finansal Yönetim','Denetim'); 'ogleden-sonra'=@('Muhasebe','Genel Hukuk Mevzuatı') }
-function KgkKok([string]$ad){ $no=[regex]::Match($ad,'\b(\d{4,5})_').Groups[1].Value; $kit=$(if($ad -match '(?i)[_\-]([AB])[_\-]|_([AB])_Grubu|\b([AB])_K'){ ($Matches[1]+$Matches[2]+$Matches[3]) } else { '' }); $ot=$(if($ad -match '(?i)SABAH|Birinci'){ 'sabah' } elseif($ad -match '(?i)Ö_S|ÖĞLEDEN|OGLEDEN|İkinci|Ikinci|Ikinici'){ 'ogleden-sonra' } else { '' }); if($no -and $kit -and $ot){ return "$no|$kit|$ot" }; return '' }
+function KgkKok([string]$ad){ $no=[regex]::Match($ad,'\b(\d{4,5})_').Groups[1].Value; $kit=$(if($ad -match '(?i)[_\-]([AB])[_\-]|_([AB])_Grubu|\b([AB])_K'){ ($Matches[1]+$Matches[2]+$Matches[3]) } else { '' }); $ot=$(if($ad -match '(?i)SABAH|Birinci'){ 'sabah' } elseif($ad -match '(?i)Ö_S|ÖĞLEDEN|OGLEDEN|İkinci|Ikinci|Ikinici'){ 'ogleden-sonra' } elseif($ad -match '(?i)_OS_|_[AB]-2\)'){ 'ogleden-sonra' } elseif($ad -match '(?i)_[AB]-1\)'){ 'sabah' } else { '' }); if($no -and $kit -and $ot){ return "$no|$kit|$ot" }; return '' }
 if($Sinav -eq 'KGK' -and (Test-Path $anYol)){ try{ $aj=Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($p in $aj.oturumlar.PSObject.Properties){ $kk=KgkKok $p.Name; if(-not $kk){ continue }; $mods=@{}; foreach($mp in $p.Value.moduller.PSObject.Properties){ $harfler=@{}; foreach($q in $mp.Value.PSObject.Properties){ $harfler[$q.Name]="$($q.Value)" }; $mods[$mp.Name]=$harfler }; $ANAHTAR_KGK[$kk]=$mods } }catch{ $ANAHTAR_KGK=@{} } }
+# KGK (16.09): görüntüden okunan cevaplar (2016 Mayıs, 2020 Kasım) DEPODA DEĞİL, ambarda → "…-GORSELANAHTAR)" belgelerinin
+#   "AYRIŞTIRILMIŞ CEVAPLAR" bölümünden okunur. Modül adı sıradan KGK_MODUL'e eşlenir (2020 başlıkları BÜYÜK harfli).
+#   Kök = kod|kitapçık|oturum, belgedeki "Kitapçık: X · Oturum: Y" satırından. JSON'daki oturumu ezmez.
+$KGK_GORSEL=0
+if($Sinav -eq 'KGK'){
+  try{
+    $gu=$SB+'?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=like.'+[uri]::EscapeDataString('*-GORSELANAHTAR)')+'&order=kaynak_ad&limit=100'
+    foreach($gb in (Invoke-RestMethod -Uri $gu -Headers $H -TimeoutSec 120)){
+      $gm="$($gb.metin)"; $gi=$gm.IndexOf('AYRIŞTIRILMIŞ CEVAPLAR'); if($gi -lt 0){ continue }
+      $gbolum=$gm.Substring($gi)
+      $gno=[regex]::Match("$($gb.kaynak_ad)",'\((\d{4,5})_').Groups[1].Value
+      $gust=[regex]::Match($gbolum,'Kitapçık:\s*([AB])\s*·\s*Oturum:\s*(\S+)')
+      if(-not $gno -or -not $gust.Success){ continue }
+      $got=$(if($gust.Groups[2].Value -match '^sabah'){ 'sabah' } else { 'ogleden-sonra' })
+      $gkk="$gno|$($gust.Groups[1].Value)|$got"
+      if($ANAHTAR_KGK.ContainsKey($gkk)){ continue }
+      $gsatirlar=@([regex]::Matches($gbolum,'(?m)^(.+?) \(\d+ soru\): (.+)$'))
+      if($gsatirlar.Count -ne $KGK_MODUL[$got].Count){ Write-Host "  UYARI: $($gb.kaynak_ad) modül sayısı $($gsatirlar.Count) — atlandı"; continue }
+      $gmods=@{}
+      for($gx=0;$gx -lt $gsatirlar.Count;$gx++){ $gharf=@{}; foreach($gc in [regex]::Matches($gsatirlar[$gx].Groups[2].Value,'(\d+)-([A-E])')){ $gharf[$gc.Groups[1].Value]=$gc.Groups[2].Value }; $gmods[$KGK_MODUL[$got][$gx]]=$gharf }
+      $ANAHTAR_KGK[$gkk]=$gmods; $KGK_GORSEL++
+    }
+  }catch{ Write-Host "  UYARI: görüntüden okunan KGK cevapları ambardan okunamadı ($($_.Exception.Message)) — yalnız JSON anahtarı" }
+}
 # SMMM (13.09, Cem "staja başlamada ne yaptıysak bunda aynısı"): her kitapçık TEK ders → ders anahtar kelimeyle
 # tahmin edilmez, kitapçık kodundan okunur (smmm_2026_1_04 → 04 Muhasebe Denetimi). Anahtar "dönem|kod" bazlı
 # (motor/smmm-cevap-anahtari.ps1); İPTAL sorunun doğru harfi ölçüme girmez.
@@ -61,7 +85,7 @@ $SMMM_DERS=@{ '01'='Finansal Muhasebe'; '02'='Finansal Tablolar ve Analizi'; '03
 $SMMM_IPTAL=@{}
 if($Sinav -eq 'SMMM' -and (Test-Path $anYol)){ try{ $ajS=Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($p in $ajS.donemler.PSObject.Properties){ foreach($ip in @($p.Value.iptal)){ if($ip){ $SMMM_IPTAL["$($p.Name)#$ip"]=1 } } } }catch{} }
 function SmmmKod([string]$ad){ return [regex]::Match($ad,'smmm_\d{4}_\d_(\d{2})').Groups[1].Value }
-Write-Host "cevap anahtarı: $(if($Sinav -eq 'KGK'){ "$($ANAHTAR_KGK.Count) oturum (KGK)" } else { "$($ANAHTAR.Count) dönem" })"
+Write-Host "cevap anahtarı: $(if($Sinav -eq 'KGK'){ "$($ANAHTAR_KGK.Count) oturum (KGK; $KGK_GORSEL görüntüden, ambardan)" } else { "$($ANAHTAR.Count) dönem" })"
 # --- KİTAPÇIKLAR --------------------------------------------------------------
 # KGK kitapçık adlarında dönem "20xx" ile başlamaz ("CIKMIS SINAV - KGK SABAH (10202_…)"); 2018 kitapçıkları "Soru ve Cevapları"
 # adıyla kayıtlı → KGK'da 'cevap' dışlanmaz.

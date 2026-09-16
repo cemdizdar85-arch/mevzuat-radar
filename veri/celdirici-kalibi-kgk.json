@@ -1,35 +1,36 @@
-﻿{
-    "olcum":  "2026-09-04 22:11",
+{
+    "olcum":  "2026-09-16 22:42",
     "sinav":  "KGK",
-    "kitapcik":  108,
+    "kitapcik":  120,
     "soru":  11861,
-    "belirsiz":  9405,
+    "belirsiz":  9305,
     "aciklama":  "Ders bazında ÇIKMIŞ şık yapısı. sayi_tekil_orani: sayı şıklarında beş tutarın hepsi farklı olan soru payı; sayi_artan_orani: küçükten büyüğe sıralı payı; yon_cift_orani: tutar+yön sorularında en az iki tutarın iki yönle göründüğü payı; cumle_uzunluk_orani_medyan: en uzun şık / medyan şık uzunluğu. Üretici kural 2a için ders örneklerini buradan okur.",
     "dersler":  {
                     "Kurumsal Yönetim İlkeleri ve Finansal Yönetim":  {
-                                                                          "soru":  484,
+                                                                          "soru":  487,
                                                                           "tip":  {
-                                                                                      "cumle":  416,
+                                                                                      "cumle":  419,
                                                                                       "sayi":  66,
                                                                                       "sayi+yon":  2
                                                                                   },
                                                                           "sayi_tekil_orani":  0.98,
                                                                           "sayi_artan_orani":  0.76,
                                                                           "yon_cift_orani":  0,
-                                                                          "cumle_uzunluk_orani_medyan":  1.47,
-                                                                          "anahtarli_soru":  85,
-                                                                          "dogru_en_uzun_orani":  0.07,
+                                                                          "cumle_uzunluk_orani_medyan":  1.48,
+                                                                          "anahtarli_soru":  128,
+                                                                          "dogru_en_uzun_orani":  0.11,
                                                                           "dogru_harf_dagilimi":  {
-                                                                                                      "A":  22,
-                                                                                                      "B":  9,
-                                                                                                      "C":  22,
-                                                                                                      "D":  18,
-                                                                                                      "E":  14
+                                                                                                      "A":  32,
+                                                                                                      "B":  19,
+                                                                                                      "C":  26,
+                                                                                                      "D":  25,
+                                                                                                      "E":  26
                                                                                                   },
                                                                           "sayi_dogru_sira_dagilimi":  {
-                                                                                                           "1. büyük":  1,
-                                                                                                           "2. büyük":  2,
-                                                                                                           "3. büyük":  10
+                                                                                                           "1. büyük":  2,
+                                                                                                           "2. büyük":  3,
+                                                                                                           "3. büyük":  15,
+                                                                                                           "4. büyük":  4
                                                                                                        },
                                                                           "ornek":  {
                                                                                         "sayi":  [
@@ -107,9 +108,9 @@
                                                                                     }
                                                                       },
                     "Denetim":  {
-                                    "soru":  473,
+                                    "soru":  474,
                                     "tip":  {
-                                                "cumle":  431,
+                                                "cumle":  432,
                                                 "sayi":  31,
                                                 "sayi+yon":  11
                                             },
@@ -117,14 +118,14 @@
                                     "sayi_artan_orani":  0.68,
                                     "yon_cift_orani":  0,
                                     "cumle_uzunluk_orani_medyan":  1.5,
-                                    "anahtarli_soru":  82,
+                                    "anahtarli_soru":  122,
                                     "dogru_en_uzun_orani":  0.15,
                                     "dogru_harf_dagilimi":  {
-                                                                "A":  15,
-                                                                "B":  15,
-                                                                "C":  19,
-                                                                "D":  14,
-                                                                "E":  19
+                                                                "A":  26,
+                                                                "B":  22,
+                                                                "C":  25,
+                                                                "D":  22,
+                                                                "E":  27
                                                             },
                                     "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                     "ornek":  {
@@ -203,23 +204,23 @@
                                               }
                                 },
                     "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı":  {
-                                                                                                  "soru":  455,
+                                                                                                  "soru":  457,
                                                                                                   "tip":  {
-                                                                                                              "cumle":  379,
-                                                                                                              "sayi":  76
+                                                                                                              "cumle":  380,
+                                                                                                              "sayi":  77
                                                                                                           },
                                                                                                   "sayi_tekil_orani":  1,
-                                                                                                  "sayi_artan_orani":  0.97,
+                                                                                                  "sayi_artan_orani":  0.96,
                                                                                                   "yon_cift_orani":  null,
                                                                                                   "cumle_uzunluk_orani_medyan":  1.55,
-                                                                                                  "anahtarli_soru":  78,
-                                                                                                  "dogru_en_uzun_orani":  0.09,
+                                                                                                  "anahtarli_soru":  122,
+                                                                                                  "dogru_en_uzun_orani":  0.11,
                                                                                                   "dogru_harf_dagilimi":  {
-                                                                                                                              "A":  9,
-                                                                                                                              "B":  18,
-                                                                                                                              "C":  15,
-                                                                                                                              "D":  12,
-                                                                                                                              "E":  24
+                                                                                                                              "A":  18,
+                                                                                                                              "B":  23,
+                                                                                                                              "C":  27,
+                                                                                                                              "D":  22,
+                                                                                                                              "E":  32
                                                                                                                           },
                                                                                                   "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                                                                                   "ornek":  {
@@ -274,29 +275,29 @@
                                                                                                             }
                                                                                               },
                     "Muhasebe Standartları":  {
-                                                  "soru":  396,
+                                                  "soru":  397,
                                                   "tip":  {
-                                                              "cumle":  342,
+                                                              "cumle":  343,
                                                               "sayi":  54
                                                           },
                                                   "sayi_tekil_orani":  1,
                                                   "sayi_artan_orani":  0.57,
                                                   "yon_cift_orani":  null,
                                                   "cumle_uzunluk_orani_medyan":  1.54,
-                                                  "anahtarli_soru":  72,
-                                                  "dogru_en_uzun_orani":  0.16,
+                                                  "anahtarli_soru":  113,
+                                                  "dogru_en_uzun_orani":  0.19,
                                                   "dogru_harf_dagilimi":  {
-                                                                              "A":  17,
-                                                                              "B":  12,
-                                                                              "C":  15,
-                                                                              "D":  15,
-                                                                              "E":  13
+                                                                              "A":  27,
+                                                                              "B":  18,
+                                                                              "C":  26,
+                                                                              "D":  23,
+                                                                              "E":  19
                                                                           },
                                                   "sayi_dogru_sira_dagilimi":  {
-                                                                                   "1. büyük":  1,
+                                                                                   "1. büyük":  6,
                                                                                    "2. büyük":  4,
                                                                                    "3. büyük":  2,
-                                                                                   "4. büyük":  3,
+                                                                                   "4. büyük":  4,
                                                                                    "5. büyük":  1
                                                                                },
                                                   "ornek":  {
@@ -351,30 +352,30 @@
                                                             }
                                               },
                     "Muhasebe":  {
-                                     "soru":  326,
+                                     "soru":  373,
                                      "tip":  {
-                                                 "cumle":  285,
-                                                 "sayi":  39,
+                                                 "cumle":  321,
+                                                 "sayi":  50,
                                                  "hesap":  2
                                              },
-                                     "sayi_tekil_orani":  0.97,
-                                     "sayi_artan_orani":  0.64,
+                                     "sayi_tekil_orani":  0.98,
+                                     "sayi_artan_orani":  0.72,
                                      "yon_cift_orani":  null,
                                      "cumle_uzunluk_orani_medyan":  1.29,
-                                     "anahtarli_soru":  79,
-                                     "dogru_en_uzun_orani":  0.23,
+                                     "anahtarli_soru":  126,
+                                     "dogru_en_uzun_orani":  0.18,
                                      "dogru_harf_dagilimi":  {
-                                                                 "A":  16,
-                                                                 "B":  16,
-                                                                 "C":  16,
-                                                                 "D":  13,
-                                                                 "E":  18
+                                                                 "A":  25,
+                                                                 "B":  24,
+                                                                 "C":  27,
+                                                                 "D":  19,
+                                                                 "E":  31
                                                              },
                                      "sayi_dogru_sira_dagilimi":  {
-                                                                      "1. büyük":  4,
-                                                                      "2. büyük":  2,
-                                                                      "3. büyük":  3,
-                                                                      "4. büyük":  3,
+                                                                      "1. büyük":  6,
+                                                                      "2. büyük":  5,
+                                                                      "3. büyük":  7,
+                                                                      "4. büyük":  5,
                                                                       "5. büyük":  2
                                                                   },
                                      "ornek":  {
@@ -453,23 +454,23 @@
                                                }
                                  },
                     "Genel Hukuk Mevzuatı":  {
-                                                 "soru":  322,
+                                                 "soru":  368,
                                                  "tip":  {
-                                                             "cumle":  316,
+                                                             "cumle":  362,
                                                              "sayi":  6
                                                          },
                                                  "sayi_tekil_orani":  0.67,
                                                  "sayi_artan_orani":  0.67,
                                                  "yon_cift_orani":  null,
                                                  "cumle_uzunluk_orani_medyan":  1.5,
-                                                 "anahtarli_soru":  82,
-                                                 "dogru_en_uzun_orani":  0.2,
+                                                 "anahtarli_soru":  128,
+                                                 "dogru_en_uzun_orani":  0.17,
                                                  "dogru_harf_dagilimi":  {
-                                                                             "A":  15,
-                                                                             "B":  22,
-                                                                             "C":  14,
-                                                                             "D":  11,
-                                                                             "E":  20
+                                                                             "A":  19,
+                                                                             "B":  33,
+                                                                             "C":  26,
+                                                                             "D":  20,
+                                                                             "E":  30
                                                                          },
                                                  "sayi_dogru_sira_dagilimi":  "ölçülmedi (anahtarlı sayı sorusu \u003c5)",
                                                  "ornek":  {

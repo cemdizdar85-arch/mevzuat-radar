@@ -1,24 +1,24 @@
-# ÇELDİRİCİ KALIBI — KGK (2026-09-04 22:14) · 108 kitapçık · 11861 soru
+# ÇELDİRİCİ KALIBI — KGK (2026-09-16 22:42) · 120 kitapçık · 11861 soru
 
 | Ders | Soru | sayı | sayı+yön | hesap | cümle | sayı: hepsi farklı | sayı: artan sıralı | yön: çift tutar | cümle: en uzun/medyan |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Kurumsal Yönetim İlkeleri ve Finansal Yönetim | 484 | 66 | 2 |  | 416 | 0.98 | 0.76 | 0 | 1.47 |
-| Denetim | 473 | 31 | 11 |  | 431 | 0.87 | 0.68 | 0 | 1.5 |
-| Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı | 455 | 76 |  |  | 379 | 1 | 0.97 |  | 1.55 |
-| Muhasebe Standartları | 396 | 54 |  |  | 342 | 1 | 0.57 |  | 1.54 |
-| Muhasebe | 326 | 39 |  | 2 | 285 | 0.97 | 0.64 |  | 1.29 |
-| Genel Hukuk Mevzuatı | 322 | 6 |  |  | 316 | 0.67 | 0.67 |  | 1.5 |
+| Kurumsal Yönetim İlkeleri ve Finansal Yönetim | 487 | 66 | 2 |  | 419 | 0.98 | 0.76 | 0 | 1.48 |
+| Denetim | 474 | 31 | 11 |  | 432 | 0.87 | 0.68 | 0 | 1.5 |
+| Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı | 457 | 77 |  |  | 380 | 1 | 0.96 |  | 1.55 |
+| Muhasebe Standartları | 397 | 54 |  |  | 343 | 1 | 0.57 |  | 1.54 |
+| Muhasebe | 373 | 50 |  | 2 | 321 | 0.98 | 0.72 |  | 1.29 |
+| Genel Hukuk Mevzuatı | 368 | 6 |  |  | 362 | 0.67 | 0.67 |  | 1.5 |
 
-## Cevap anahtarıyla ölçülenler (8 oturum anahtarlı)
+## Cevap anahtarıyla ölçülenler (16 oturum anahtarlı)
 
 | Ders | Anahtarlı soru | Doğru şık en uzun (cümle) | Doğru harf dağılımı | Sayı şıklarında doğru kaçıncı büyük |
 |---|---:|---:|---|---|
-| Kurumsal Yönetim İlkeleri ve Finansal Yönetim | 85 | 0.07 | A 22 · B 9 · C 22 · D 18 · E 14 | 1. büyük 1 · 2. büyük 2 · 3. büyük 10 |
-| Denetim | 82 | 0.15 | A 15 · B 15 · C 19 · D 14 · E 19 | ölçülmedi (anahtarlı sayı sorusu <5) |
-| Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı | 78 | 0.09 | A 9 · B 18 · C 15 · D 12 · E 24 | ölçülmedi (anahtarlı sayı sorusu <5) |
-| Muhasebe Standartları | 72 | 0.16 | A 17 · B 12 · C 15 · D 15 · E 13 | 1. büyük 1 · 2. büyük 4 · 3. büyük 2 · 4. büyük 3 · 5. büyük 1 |
-| Muhasebe | 79 | 0.23 | A 16 · B 16 · C 16 · D 13 · E 18 | 1. büyük 4 · 2. büyük 2 · 3. büyük 3 · 4. büyük 3 · 5. büyük 2 |
-| Genel Hukuk Mevzuatı | 82 | 0.2 | A 15 · B 22 · C 14 · D 11 · E 20 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Kurumsal Yönetim İlkeleri ve Finansal Yönetim | 128 | 0.11 | A 32 · B 19 · C 26 · D 25 · E 26 | 1. büyük 2 · 2. büyük 3 · 3. büyük 15 · 4. büyük 4 |
+| Denetim | 122 | 0.15 | A 26 · B 22 · C 25 · D 22 · E 27 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı | 122 | 0.11 | A 18 · B 23 · C 27 · D 22 · E 32 | ölçülmedi (anahtarlı sayı sorusu <5) |
+| Muhasebe Standartları | 113 | 0.19 | A 27 · B 18 · C 26 · D 23 · E 19 | 1. büyük 6 · 2. büyük 4 · 3. büyük 2 · 4. büyük 4 · 5. büyük 1 |
+| Muhasebe | 126 | 0.18 | A 25 · B 24 · C 27 · D 19 · E 31 | 1. büyük 6 · 2. büyük 5 · 3. büyük 7 · 4. büyük 5 · 5. büyük 2 |
+| Genel Hukuk Mevzuatı | 128 | 0.17 | A 19 · B 33 · C 26 · D 20 · E 30 | ölçülmedi (anahtarlı sayı sorusu <5) |
 
 ## Kurumsal Yönetim İlkeleri ve Finansal Yönetim — örnekler
 - **[sayi]** CIKMIS SINAV - KGK SINAV/SABAH/ (6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum): …r hisse senedinin beklenen getirisi %16, pazar portföyünün beklenen getirisi %10 ve risksiz faiz oranı %6 ise, söz konusu hisse senedinin beta katsayısı kaçtır?  
