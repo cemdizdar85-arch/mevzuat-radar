@@ -532,9 +532,40 @@ function Invoke-ClaudeToplu {
   # 20 dk'da sıfırdı (08–09.09 gece de 24+ istekliler takıldı). Kuyruk küçük partileri öne alıyor → istekler en çok MEVZUAT_TOPLU_PARCA (varsayılan 30)
   # isteklik PARÇALARA bölünür, hepsi birden gönderilir, birlikte yoklanır; biten parça hemen hasat edilir; zaman aşımında biten parçalar döner,
   # bitmeyenler bekleyen-partiler.json'da kalır (yeniden başlatmada BEDAVA hasat), eksik id'ler anlık koşar.
+  # ⛔⭐ 16.09.2026 (Cem "soru basmayı buluta taşıyalım") — İŞLENMEKTE OLAN ESKİ PARTİYE BAĞLAN, YENİDEN GÖNDERME.
+  #   ÖLÇÜLDÜ (15.09 gecesi): hat, eski parti bitmeden yeniden başlatılınca üretici yalnız BİTMİŞ partiyi hasat ediyordu; işlenmekte olanı
+  #   görmüyor, aynı istekleri İKİNCİ KEZ gönderiyordu (r22/H2, r6/K, r23/K; eskiler elle iptal edildi). Bulutta iş 350 dk tavanında kesilip
+  #   yeniden tetikleneceği için bu her gece olurdu. Artık: aynı etiketin gönderilmiş, henüz hasat edilmemiş ve DURUMU in_progress olan
+  #   partisinde bu istekle AYNI parmak izi varsa istek gönderilmez, o parti beklenir. Parmak izi uymazsa (içerik değişti) eski davranış.
+  #   EŞDEĞERLİK: yalnız "aynı içerik zaten kuyrukta" durumunu değiştirir; o durumda eskiden çift ödeme vardı. Kapatmak: MEVZUAT_TOPLU_BAGLAN=0.
+  $istenenId = @{}; foreach($r in $req){ $istenenId["$($r.custom_id)"] = 1 }
+  $baglananBid = New-Object System.Collections.Generic.List[string]
+  if("$env:MEVZUAT_TOPLU_BAGLAN" -ne '0'){
+    try{
+      $baglanan = @{}
+      foreach($ep in @(Get-BekleyenPartiler $Etiket)){
+        if("$($ep.durum)" -match 'hasat'){ continue }
+        $pmE = $(if($ep.PSObject.Properties['parmak']){ $ep.parmak } else { $null }); if(-not $pmE){ continue }
+        $uyan = @(foreach($r in $req){ $cid = "$($r.custom_id)"; if(-not $baglanan.ContainsKey($cid) -and $pmE.PSObject.Properties[$cid] -and "$($pmE.$cid)" -eq "$($parmakHep[$cid])"){ $cid } })
+        if(-not $uyan.Count){ continue }
+        $stE = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$($ep.id)") -Headers $hedef.basliklar -TimeoutSec 60
+        if("$($stE.processing_status)" -ne 'in_progress'){ continue }
+        foreach($cid in $uyan){ $baglanan[$cid] = "$($ep.id)" }
+        $baglananBid.Add("$($ep.id)")
+        Write-Host ("  TOPLU: {0} istek zaten kuyrukta (işleniyor) → YENİDEN GÖNDERİLMEDİ, bekleniyor · id {1} · etiket {2}" -f $uyan.Count,$ep.id,$Etiket) -ForegroundColor Cyan
+      }
+      if($baglanan.Count){ $req = @($req | Where-Object { -not $baglanan.ContainsKey("$($_.custom_id)") }) }
+    }catch{ Write-Host "  TOPLU: kuyruktaki eski parti yoklanamadı ($($_.Exception.Message)) → normal gönderim" -ForegroundColor DarkYellow }
+  }
+  # 16.09 BULUT: MEVZUAT_TOPLU_SON_AN (UTC, ISO) verilirse bekleme o ana kadar kısalır (GitHub iş tavanı 350 dk).
+  if("$env:MEVZUAT_TOPLU_SON_AN"){
+    try{ $kalanDk = [int][math]::Floor(([datetime]::Parse("$env:MEVZUAT_TOPLU_SON_AN").ToUniversalTime() - (Get-Date).ToUniversalTime()).TotalMinutes)
+      if($kalanDk -lt $BeklemeDk){ $BeklemeDk = [math]::Max(1,$kalanDk) } }catch{}
+  }
   $parcaBoy = $(if("$env:MEVZUAT_TOPLU_PARCA" -match '^\d+$' -and [int]$env:MEVZUAT_TOPLU_PARCA -ge 1){ [int]$env:MEVZUAT_TOPLU_PARCA } else { 30 })
   $parcalar = @(); for($pi=0; $pi -lt $req.Count; $pi+=$parcaBoy){ $parcalar += ,@($req[$pi..([Math]::Min($pi+$parcaBoy,$req.Count)-1)]) }
   $bidler = New-Object System.Collections.Generic.List[string]
+  foreach($bb in $baglananBid){ $bidler.Add($bb) }
   foreach($pr in $parcalar){
     $govde = @{ requests=@($pr) } | ConvertTo-Json -Depth 20
     $b = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages/batches') -Headers $hedef.basliklar -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 240
@@ -554,7 +585,9 @@ function Invoke-ClaudeToplu {
       if($st.processing_status -eq 'ended'){
         Write-Host ("  TOPLU PARTİ bitti ({0} dk): başarılı {1} · hata {2} · süresi dolan {3} · {4}" -f [int]((Get-Date)-$t0).TotalMinutes,$c.succeeded,$c.errored,$c.expired,$bid) -ForegroundColor Cyan
         [void]$biten.Add($bid)
-        $h1 = Get-ClaudeTopluSonuc $bid $hedef $Etiket; foreach($k1 in @($h1.Keys)){ $out[$k1] = $h1[$k1] }
+        $h1 = Get-ClaudeTopluSonuc $bid $hedef $Etiket
+        # 16.09: yalnız bu çağrıda İSTENEN kimlikler alınır (bağlanılan eski partide başka/eski içerikli kimlikler olabilir)
+        foreach($k1 in @($h1.Keys)){ if($k1 -eq '__hata'){ foreach($hk in @($h1[$k1].Keys)){ if($istenenId.ContainsKey($hk)){ if(-not $out.ContainsKey('__hata')){ $out['__hata'] = @{} }; $out['__hata'][$hk] = $h1[$k1][$hk] } } } elseif($istenenId.ContainsKey($k1)){ $out[$k1] = $h1[$k1] } }
       }
     }
     if($biten.Count -ge $bidler.Count){ break }
@@ -562,6 +595,12 @@ function Invoke-ClaudeToplu {
       $kalan = @($bidler | Where-Object { -not $biten.Contains($_) })
       Write-Host "  TOPLU PARTİ ZAMAN AŞIMI ($BeklemeDk dk): $($kalan.Count)/$($bidler.Count) parça bitmedi, sonuçları ÇEKİLMEDİ (bekleyen-partiler.json'da; yeniden başlatmada bedava hasat); biten $($biten.Count) parçanın $($out.Count) cevabı kullanılıyor, kalan işler anlık" -ForegroundColor Red
       foreach($bid in $kalan){ Set-BekleyenPartiDurum $bid 'zaman asimi - hasat bekliyor' }
+      # 16.09 BULUT (Cem "hep toplu"): MEVZUAT_TOPLU_ANLIKSIZ=1 ise kalan işler ANLIK koşturulmaz; süreç 75 koduyla biter.
+      #   Parti kuyrukta işlenmeye devam eder; aynı plan yeniden koşunca bitmişse bedava hasat edilir, bitmemişse ona bağlanılır.
+      if("$env:MEVZUAT_TOPLU_ANLIKSIZ" -eq '1'){
+        Write-Host "  TOPLU ANLIKSIZ: $Etiket için bekleme doldu, anlık yola DÜŞÜLMEDİ; süreç 75 ile bitiyor (yeniden koşuda kaldığı yerden)." -ForegroundColor Yellow
+        exit 75
+      }
       $out['__zaman_asimi'] = ($kalan -join ','); $out['__hata'] = @{}
       return $out
     }
