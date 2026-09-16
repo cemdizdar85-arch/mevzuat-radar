@@ -65,7 +65,8 @@ YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
 $($sb.ToString())
 "@
   $istem = $istem -replace "`r`n", "`n"   # 16.09: satır sonu dosyanın çekiliş biçimine bağlıydı (yerel LF / bulut CRLF) → parmak izi tutmuyordu; tek biçim
-  $isler.Add(@{ id = $id; model = $Model; maxTok = 1500;   # 16.09 kalibrasyon: 400'de Sonnet 5 düşünmeyi bitirip metin yazamadı (1/23); ücret yalnız kullanılan jeton icerik = @(@{ type = 'text'; text = $istem }) })
+  # 16.09 kalibrasyon: maxTok 400'de Sonnet 5 düşünmeyi bitirip metin yazamadı (1/23) → 1500; ücret yalnız kullanılan jeton
+  $isler.Add(@{ id = $id; model = $Model; maxTok = 1500; icerik = @(@{ type = 'text'; text = $istem }) })
 }
 "İLGİ HAKEMİ: $($satirlar.Count) konu · modele gidecek $($isler.Count) · paketi olmayan $(@($kayit.Values | Where-Object { $_.paketBoy -lt 0 }).Count) · model $Model · etiket $Etiket"
 if ($Kuru) {
