@@ -1,8 +1,8 @@
 {
-    "olcum":  "16.09.2026 09:19",
-    "ad_listesi_olcumu":  "16.09.2026 09:15",
+    "olcum":  "16.09.2026 10:15",
+    "ad_listesi_olcumu":  "16.09.2026 10:01",
     "kural":  "HAZIR = beklenen resmî metin ambarda + RESMI nitelik (Türkçe harfli, özet değil) + TAM (madde/paragraf deliği ≤%5, bölünmüş parça eksiği 0, kesik adayı ≤%5) + hüküm anahtarı ailenin içinde ≥2 parçada. ZAYIF = resmî metin var ama delikli/kesik ya da hüküm anahtarı ailenin içinde \u003c2 parçada. YOK = beklenen resmî metin ambarda yok YA DA yalnız elle yazılmış özet/teori notu/taslak var (Cem 14.09: resmî metin şartı). Numara deliği iki anlama gelir: metin yok ya da başka parçaya yapışık (TMS 16 p.31-40 yapışık çıktı); ikisinde de paket seçici hükmü getiremez. Hüküm anahtarı mekanik bir göstergedir; hakem teyidi değildir.",
-    "ambar_satiri":  48353,
+    "ambar_satiri":  48443,
     "ozet":  {
                  "a) Türkiye Muhasebe Standartları":  {
                                                           "HAZIR":  22,
@@ -45,11 +45,11 @@
                                                       "kota_toplam":  360
                                                   },
                  "f) Kurumsal Sürdürülebilirlik Raporlaması":  {
-                                                                   "HAZIR":  0,
-                                                                   "ZAYIF":  13,
+                                                                   "HAZIR":  6,
+                                                                   "ZAYIF":  7,
                                                                    "YOK":  0,
                                                                    "OLCULMEDI":  0,
-                                                                   "kota_HAZIR":  null,
+                                                                   "kota_HAZIR":  140,
                                                                    "kota_toplam":  300
                                                                },
                  "d) Bankacılık Mevzuatı":  {
@@ -1570,17 +1570,17 @@
                                          },
                     "TSRS 1":  {
                                    "ad":  "TSRS 1",
-                                   "parca":  105,
-                                   "karakter":  91175,
+                                   "parca":  195,
+                                   "karakter":  96174,
                                    "resmi_orani":  1,
                                    "nitelik":  "RESMI",
                                    "numara_dizi":  187,
-                                   "numara_delik":  109,
-                                   "delik_ornek":  "30,34,38,40,43,48,58,80,B1,B2,B3,B4",
+                                   "numara_delik":  0,
+                                   "delik_ornek":  "",
                                    "bolum_eksik":  0,
-                                   "kesik_adayi":  4,
-                                   "kaynak_url_olan":  0,
-                                   "tamlik":  "DELIKLI"
+                                   "kesik_adayi":  0,
+                                   "kaynak_url_olan":  195,
+                                   "tamlik":  "TAM"
                                },
                     "TSRS 2":  {
                                    "ad":  "TSRS 2 (+ 28.07.2026 değişiklikleri)",
@@ -3374,13 +3374,13 @@
                         "cikmis_soru":  47,
                         "cikmis_donem":  47,
                         "aileler":  "TSRS 1",
-                        "aile_parca":  105,
+                        "aile_parca":  195,
                         "nitelik":  "TSRS 1=RESMI",
-                        "tamlik":  "TSRS 1=DELIKLI",
-                        "hukum_parca":  6,
-                        "hukum_ornek":  "TSRS 1 p.13 || TSRS 1 p.26 [1/2] || TSRS 1 p.25 [1/2]",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 1: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 1=TAM",
+                        "hukum_parca":  16,
+                        "hukum_ornek":  "TSRS 1 p.D9 - Gerçeğe uygun sunum || TSRS 1 p.0 - Künye ve yürürlük || TSRS 1 p.D12 - Gerçeğe uygun sunum",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 16 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3391,13 +3391,13 @@
                         "cikmis_soru":  3,
                         "cikmis_donem":  3,
                         "aileler":  "TSRS 1",
-                        "aile_parca":  105,
+                        "aile_parca":  195,
                         "nitelik":  "TSRS 1=RESMI",
-                        "tamlik":  "TSRS 1=DELIKLI",
-                        "hukum_parca":  4,
-                        "hukum_ornek":  "TSRS 1 p.25 [1/2] || TSRS 1 p.26 [2/2] || TSRS 1 p.10",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 1: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 1=TAM",
+                        "hukum_parca":  7,
+                        "hukum_ornek":  "TSRS 1 p.0 - Künye ve yürürlük || TSRS 1 p.D2 - Giriş || TSRS 1 p.0 - Künye ve yürürlük",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 7 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3408,13 +3408,13 @@
                         "cikmis_soru":  4,
                         "cikmis_donem":  4,
                         "aileler":  "TSRS 1",
-                        "aile_parca":  105,
+                        "aile_parca":  195,
                         "nitelik":  "TSRS 1=RESMI",
-                        "tamlik":  "TSRS 1=DELIKLI",
-                        "hukum_parca":  12,
-                        "hukum_ornek":  "TSRS 1 p.79 || TSRS 1 p.74 || TSRS 1 p.73",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 1: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 1=TAM",
+                        "hukum_parca":  15,
+                        "hukum_ornek":  "TSRS 1 p.B13 - Önemlilik (17–19 uncu paragraflar) || TSRS 1 p.0 - Künye ve yürürlük || TSRS 1 p.58 - Uygulanabilir açıklama hükümlerinin belirlenmesi",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 15 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3425,13 +3425,13 @@
                         "cikmis_soru":  4,
                         "cikmis_donem":  4,
                         "aileler":  "TSRS 1",
-                        "aile_parca":  105,
+                        "aile_parca":  195,
                         "nitelik":  "TSRS 1=RESMI",
-                        "tamlik":  "TSRS 1=DELIKLI",
-                        "hukum_parca":  5,
-                        "hukum_ornek":  "TSRS 1 p.20 [2/2] || TSRS 1 p.55 || TSRS 1 p.57",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 1: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 1=TAM",
+                        "hukum_parca":  8,
+                        "hukum_ornek":  "TSRS 1 p.B46 - Çapraz referans yoluyla dâhil edilen bilgiler (63 üncü paragraf) || TSRS 1 p.58 - Uygulanabilir açıklama hükümlerinin belirlenmesi || TSRS 1 p.B47 - Çapraz referans yoluyla dâhil edilen bilgiler (63 üncü paragraf)",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 8 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3510,13 +3510,13 @@
                         "cikmis_soru":  8,
                         "cikmis_donem":  8,
                         "aileler":  "TSRS 1",
-                        "aile_parca":  105,
+                        "aile_parca":  195,
                         "nitelik":  "TSRS 1=RESMI",
-                        "tamlik":  "TSRS 1=DELIKLI",
-                        "hukum_parca":  3,
-                        "hukum_ornek":  "TSRS 1 p.29 [2/2] || TSRS 1 p.29 [1/2] || TSRS 1 p.83",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 1: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 1=TAM",
+                        "hukum_parca":  4,
+                        "hukum_ornek":  "TSRS 1 p.E3 - Geçiş || TSRS 1 p.E4 - Geçiş || TSRS 1 p.E5 - Geçiş",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 4 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3544,13 +3544,13 @@
                         "cikmis_soru":  2,
                         "cikmis_donem":  2,
                         "aileler":  "TSRS 1 + TSRS 2",
-                        "aile_parca":  178,
+                        "aile_parca":  268,
                         "nitelik":  "TSRS 1=RESMI TSRS 2=RESMI",
-                        "tamlik":  "TSRS 1=DELIKLI TSRS 2=DELIKLI",
+                        "tamlik":  "TSRS 1=TAM TSRS 2=DELIKLI",
                         "hukum_parca":  13,
-                        "hukum_ornek":  "TSRS 1 p.42 || TSRS 1 p.14 [2/2] || TSRS 1 p.44",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 1: RESMI/DELIKLI; TSRS 2: RESMI/DELIKLI"
+                        "hukum_ornek":  "TSRS 1 Ek A - Tanımlanan terimler [2/3] || TSRS 1 p.42 - Dirençlilik || TSRS 1 p.44 - Risk yönetimi",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 13 parçada"
                     },
                     {
                         "ders":  "d) Bankacılık Mevzuatı",

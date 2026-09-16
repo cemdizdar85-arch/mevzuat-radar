@@ -9,7 +9,8 @@
 #  veri/kgk-uretim-kotasi.json · veri/fabrika/kosucu-log/kgk-kaynak-adlar.json.
 #  Bedel 0, model yok. Excel COM ile yazılır (bu makinede Office var).
 #  Kullanım: powershell -NoProfile -File arac/kgk-basim-excel.ps1 [-ModulBanka 400] [-Cikti <yol>] [-ExcelYok]
-# ============================================================================param([int]$ModulBanka = 400, [string]$Cikti = 'C:\Users\cemdi\OneDrive\Masaüstü\KGK-Sinav-Kaynak-Basim-Plani.xlsx', [switch]$ExcelYok)
+# ============================================================================
+param([int]$ModulBanka = 400, [string]$Cikti = 'C:\Users\cemdi\OneDrive\Masaüstü\KGK-Sinav-Kaynak-Basim-Plani.xlsx', [switch]$ExcelYok)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 $sp = Join-Path ([IO.Path]::GetTempPath()) 'kgk-basim-excel'; New-Item -ItemType Directory -Force $sp | Out-Null
@@ -51,6 +52,26 @@ $mtBelgeDeseni=@{ 'BDY'='^Bagimsiz Denetim Yonetmeligi'; 'BBD-YON'='Bankalarin B
  'IC-SIS-BANKA'='Bankalarin Ic Sistemleri'; 'IC-SIS-SIGORTA'='Sektorlerinde Ic Sistemlere'; 'DEVLET-KATKI-YON'='Devlet Katkisi Hakkinda'; 'TK-YON'='Teknik Karsiliklarina'; 'BANKA-THP'='Bankalarin Tekduzen Hesap'; 'BILGI-SIS-BANKA'='Bankalarin Bilgi Sistemleri'
  'EYF-YON'='Emeklilik Yatirim Fonlarinin'; 'SIGORTA-ACENTE'='Sigorta Acenteleri'; 'SIGORTA-THP'='Sigortacilik Tekduzen Hesap'; 'TAKAS-YON'='Merkezi Takas|Takas ve Saklama'; 'YTM-YON'='Yatirimci Tazmin'; 'BORSA-YON'='Borsalar ve Piyasa|Borsa İstanbul A'; 'OZKAYNAK-YON'='Ozkaynaklari Yonetmeligi'
  'DERECE-BANKA'='Derecelendirme'; 'III-62.1'='Degerleme Standartlari|III-62\.'; 'SPK-BD'='Seri: X, No: 22'; 'TSPB'='TSPB|Sermaye Piyasalari Birligi' }
+# 16.09: sorunun KENDİ METNİNDEKİ açık atıf ölçümü (arac/kgk-soru-atif-olcumu.ps1). Etiketten bağımsız ikinci ölçü:
+# "ders varsayılanı" ile bağlanan payların metin kanıtı var mı, oradan okunur.
+$atifSayim=@{}; $atifHam=@()
+$atifYol=Join-Path $depoKok 'veri\kgk-soru-atif.json'
+if(Test-Path $atifYol){
+  $atifJson=Get-Content $atifYol -Raw -Encoding UTF8 | ConvertFrom-Json
+  $atifHam=@($atifJson.kaynaklar)
+  foreach($a in $atifHam){
+    $ad="$($a.kaynak)"; $kodA=''
+    if($ad -match '^(TMS|TFRS|BDS|GDS|TSRS|SBDS|KYS|İHS)\s\d'){ $kodA=$ad }
+    elseif($ad -match '^(\d{4}) s\.K\.$'){ $kodA=$Matches[1] }
+    elseif($ad -match '^(I{1,3}V?|VI{1,3}|V)-(\d)'){ $kodA=$ad }
+    elseif($ad -match 'Kavramsal'){ $kodA='KAVRAMSAL' }
+    elseif($ad -match '^BOB'){ $kodA='BOBI FRS' }
+    elseif($ad -match '^K[ÜU]M'){ $kodA='KUMI FRS' }
+    if(-not $kodA){ continue }
+    if(-not $atifSayim.ContainsKey($kodA)){ $atifSayim[$kodA]=[ordered]@{ toplam=0; s2022=0 } }
+    $atifSayim[$kodA].toplam += [int]$a.toplam; $atifSayim[$kodA].s2022 += [int]$a.s2022
+  }
+}
 $mevzuatTamlik=@{}
 $mtYol=Join-Path $depoKok 'veri\kgk-mevzuat-tamlik.json'
 if(Test-Path $mtYol){
@@ -231,7 +252,7 @@ foreach($y in ($es | Group-Object yontem)){ "  yöntem {0,-22} soru {1,5}" -f $(
 $kaynakSatir=New-Object System.Collections.Generic.List[object]
 foreach($g in ($es | Group-Object modul,ders,kaynak_kod)){
   $r=$g.Group; $kod=$r[0].kaynak_kod; $dz=KaynakDurumu $kod
-  $kaynakSatir.Add([pscustomobject]@{ modul=$r[0].modul; ders=$r[0].ders; kaynak_kod=$kod; kaynak=$(if($kod){ KaynakOku $kod } else { '(konu adından kaynak çıkarılamadı)' }); soru=($r | Measure-Object soru -Sum).Sum; s2022=($r | Measure-Object s2022 -Sum).Sum; s2024=($r | Measure-Object s2024 -Sum).Sum; etiket=$r.Count; son=($r | Measure-Object son -Maximum).Maximum; durum=$dz.durum; kova=$dz.kova; aciklama=$dz.aciklama; parca=$dz.parca; agirlik=0.0; oneri=0 })
+  $kaynakSatir.Add([pscustomobject]@{ modul=$r[0].modul; ders=$r[0].ders; kaynak_kod=$kod; kaynak=$(if($kod){ KaynakOku $kod } else { '(konu adından kaynak çıkarılamadı)' }); atif_toplam=[int]$(if($kod -and $atifSayim.ContainsKey($kod)){ $atifSayim[$kod].toplam } else { 0 }); atif_2022=[int]$(if($kod -and $atifSayim.ContainsKey($kod)){ $atifSayim[$kod].s2022 } else { 0 }); soru=($r | Measure-Object soru -Sum).Sum; s2022=($r | Measure-Object s2022 -Sum).Sum; s2024=($r | Measure-Object s2024 -Sum).Sum; etiket=$r.Count; son=($r | Measure-Object son -Maximum).Maximum; durum=$dz.durum; kova=$dz.kova; aciklama=$dz.aciklama; parca=$dz.parca; agirlik=0.0; oneri=0 })
 }
 $ks=$kaynakSatir.ToArray()
 foreach($k in $ks){ $k.agirlik = [double]$k.s2022 }   # yalnız 2022+ (güncel 7 modüllü yapı); eski dönemde çıkıp o zamandan beri çıkmayana taban 5
@@ -298,8 +319,8 @@ try{
   $s1.Columns('A').ColumnWidth=46; $s1.Range('B:N').ColumnWidth=14; $s1.Rows(4).RowHeight=45
 
   # 2 Kanun-Standart
-  [void](Tablo $s2 @('Modül','Ders','Kaynak (kanun / yönetmelik / tebliğ / standart)','Kod','Çıkmış soru (2013–2026)','2022+','2024+','Konu etiketi','Son çıktığı yıl','YUTTUK MU?','Ne yapılmalı','Açıklama','Ambarda parça','Önerilen basım') $ksSirali { param($k) @($k.modul,$k.ders,$k.kaynak,$k.kaynak_kod,$k.soru,$k.s2022,$k.s2024,$k.etiket,$k.son,$k.durum,$k.kova,$k.aciklama,$k.parca,$k.oneri) })
-  $s2.Columns('A').ColumnWidth=30; $s2.Columns('B').ColumnWidth=30; $s2.Columns('C').ColumnWidth=52; $s2.Columns('D').ColumnWidth=14; $s2.Range('E:I').ColumnWidth=10; $s2.Columns('J').ColumnWidth=30; $s2.Columns('K').ColumnWidth=26; $s2.Columns('L').ColumnWidth=50; $s2.Range('M:N').ColumnWidth=11
+  [void](Tablo $s2 @('Modül','Ders','Kaynak (kanun / yönetmelik / tebliğ / standart)','Kod','Çıkmış soru (2013–2026)','2022+','2024+','Soru metninde açık atıf','Açık atıf 2022+','Konu etiketi','Son çıktığı yıl','YUTTUK MU?','Ne yapılmalı','Açıklama','Ambarda parça','Önerilen basım') $ksSirali { param($k) @($k.modul,$k.ders,$k.kaynak,$k.kaynak_kod,$k.soru,$k.s2022,$k.s2024,$k.atif_toplam,$k.atif_2022,$k.etiket,$k.son,$k.durum,$k.kova,$k.aciklama,$k.parca,$k.oneri) })
+  $s2.Columns('A').ColumnWidth=30; $s2.Columns('B').ColumnWidth=30; $s2.Columns('C').ColumnWidth=52; $s2.Columns('D').ColumnWidth=14; $s2.Range('E:I').ColumnWidth=11; $s2.Columns('J').ColumnWidth=10; $s2.Columns('K').ColumnWidth=10; $s2.Columns('L').ColumnWidth=30; $s2.Columns('M').ColumnWidth=26; $s2.Columns('N').ColumnWidth=50; $s2.Range('O:P').ColumnWidth=11
 
   # 3 Plan konuları
   [void](Tablo $s3 @('Modül','Ders','Kaynak','Kaynak kodları','Konu (üretim planı)','Çıkmış soru','2022+','Çıktığı dönem','Kaynak sınıfı','Gerekçe','Onaylı kota (01.08)','Kasada aynı konu (eski havuz)') $planSatir { param($p) @($p.modul,$p.ders,$p.kaynak,$p.aileler,$p.konu,$p.cikmis,$p.s2022,$p.donem,$p.sinif,$p.gerekce,$p.kota,$p.kasada) })
@@ -361,6 +382,16 @@ try{
   [void](Tablo $s7 @('Modül','Kaynak','2013–2021 çıkmış','2022–2026 çıkmış','Modül içi pay 2013–2021 %','Modül içi pay 2022–2026 %','Dönem durumu','YUTTUK MU?','Önerilen basım') $donemSatir { param($d) @($d.modul,$d.kaynak,$d.eski,$d.yeni,$d.pe,$d.py,$d.etiket,$d.durum,$d.oneri) })
   $s7.Columns('A').ColumnWidth=30; $s7.Columns('B').ColumnWidth=55; $s7.Range('C:F').ColumnWidth=12; $s7.Columns('G').ColumnWidth=36; $s7.Columns('H').ColumnWidth=30; $s7.Columns('I').ColumnWidth=11
   $s7.Activate(); $xl.ActiveWindow.SplitRow=1; $xl.ActiveWindow.FreezePanes=$true
+
+  # 8 Soru metnindeki açık atıf (etiketten bağımsız ikinci ölçü)
+  if($atifHam.Count){
+    [void]$wb.Worksheets.Add([Type]::Missing,$wb.Worksheets.Item($wb.Worksheets.Count)); $s8=$wb.Worksheets.Item($wb.Worksheets.Count); $s8.Name='8 Soru metninde atıf'
+    $s8.Cells(1,1).Value2=("Çıkmış sorunun KENDİ METNİNDE geçen kaynak adı — konu etiketinden bağımsız ikinci ölçü. {0:N0} soru tarandı, {1:N0}'inde açık atıf var (%{2}). Kaynak: arac/kgk-soru-atif-olcumu.ps1 → veri/kgk-soru-atif.json" -f [int]$atifJson.soru,[int]$atifJson.atifli_soru,$atifJson.atifli_oran)
+    $s8.Cells(1,1).Font.Bold=$true
+    [void](Tablo $s8 @('Kaynak (soru metninde geçtiği hâl)','Toplam atıf (2013–2026)','2022+ atıf') @($atifHam) { param($a) @("$($a.kaynak)",[int]$a.toplam,[int]$a.s2022) } 3)
+    $s8.Columns('A').ColumnWidth=40; $s8.Range('B:C').ColumnWidth=18
+    $s8.Activate(); $xl.ActiveWindow.SplitRow=3; $xl.ActiveWindow.FreezePanes=$true
+  }
   $donemSatir | Group-Object etiket | ForEach-Object { "  dönem: {0,-42} kaynak {1,3} · 2013–21 {2,5} · 2022–26 {3,4}" -f $_.Name,$_.Count,($_.Group | Measure-Object eski -Sum).Sum,($_.Group | Measure-Object yeni -Sum).Sum } | Write-Output
   $donemSatir | Where-Object { $_.etiket -like '*DÜŞTÜ*' -or $_.etiket -like '*ARTTI*' } | ForEach-Object { "    {0,-34} {1,-55} {2,4} → {3,4}  (%{4} → %{5})" -f $_.etiket,$_.kaynak.Substring(0,[Math]::Min(55,$_.kaynak.Length)),$_.eski,$_.yeni,$_.pe,$_.py } | Write-Output
 

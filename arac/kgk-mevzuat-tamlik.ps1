@@ -47,7 +47,10 @@ function ResmiMaddeler([string]$metin){
   $duz = ($metin -replace "\r?\n"," ") -replace '\s+',' '
   $duz = [regex]::Replace($duz,'\b(?!MADDE)(?=M ?A ?D ?D ?E)M ?A ?D ?D ?E ?((?:\d ?){1,3})(?=[-–:(])', { param($es) 'MADDE ' + ($es.Groups[1].Value -replace ' ','') + ' ' })
   $var = New-Object System.Collections.Generic.HashSet[int]; $mulga = New-Object System.Collections.Generic.HashSet[int]
-  foreach($es in [regex]::Matches($duz,'(?i)\b(?:EK\s+|GE[ÇC][İI]C[İI]\s+|M[ÜU]KERRER\s+)?MADDE\s+(\d{1,3})\s*(?:/\s*[A-Za-zÇĞİÖŞÜçğıöşü])?\s*[-–:(]')){
+  # 16.09 ÖLÇÜLDÜ: eski SPK tebliğleri madde başlığında BAŞKA ÇİZGİ karakteri kullanıyor — "MADDE 1 ‒" (U+2012 figür tire,
+  # III-52.2 Borsa Yatırım Fonları) ve "Madde 1 —" (U+2014 em tire, Seri: VIII No: 11). Eski sınıf yalnız - ve – tanıdığı için
+  # bu 7 belge "resmî metinde madde bulunamadı" diye ölçülemiyordu. Sınıfa ‒ — − ― eklendi.
+  foreach($es in [regex]::Matches($duz,'(?i)\b(?:EK\s+|GE[ÇC][İI]C[İI]\s+|M[ÜU]KERRER\s+)?MADDE\s+(\d{1,3})\s*(?:/\s*[A-Za-zÇĞİÖŞÜçğıöşü])?\s*[-–—‒−―:(]')){
     $no = [int]$es.Groups[1].Value
     $onces = $duz.Substring([Math]::Max(0,$es.Index-30), [Math]::Min(30,$es.Index))
     if($onces -match '(?i)(ek|ge[çc]ici|m[üu]kerrer)\s*$'){ continue }   # ek/geçici madde ayrı diziyi izler
@@ -58,6 +61,7 @@ function ResmiMaddeler([string]$metin){
   return [pscustomobject]@{ var=$var; mulga=$mulga }
 }
 
+$manifest = Get-Content (Join-Path $depoKok 'veri\mevzuat-kaynaklar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 # ---- ambar adları (ambarın tamamı)
 $adlar = Get-Content (Join-Path $depoKok 'veri\fabrika\kosucu-log\kgk-kaynak-adlar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $belgeler = @{}
@@ -96,9 +100,22 @@ foreach($kok in $liste){
     $kayit.adres_notu = 'kayıtlı adres bozuk (mevzuatmetin/GN:no.pdf) → GeneratePdf ile alındı'
   }
   $kayit.url = $url
-  if(-not $url){ $kayit.durum = 'ADRES YOK (ambarda kaynak_url boş)'; $satirlar.Add([pscustomobject]$kayit); Write-Host ("{0,-60} ADRES YOK" -f $kok.Substring(0,[Math]::Min(60,$kok.Length))); continue }
+  # 16.09: bazı kaynaklar mevzuat.gov.tr'de YOK, metni depoda hazır duruyor (manifest pdfId='HAZIR', kaynak_url 'mevzuatmetin/HAZIR.pdf').
+  # Bu belgeler indirilemez; resmî metin olarak veri/mevzuat-hazir/<slug>.txt okunur (elle/gözle aktarılmış resmî metin).
+  $hazirMetin = ''
+  if($url -match 'HAZIR\.pdf$' -or -not $url){
+    foreach($law in $manifest.kanunlar){
+      if("$($law.ad)" -and ($kok -like "$($law.ad)*" -or "$($law.ad)" -like "$kok*")){
+        $hy = Join-Path $depoKok "veri\mevzuat-hazir\$($law.slug).txt"
+        if(Test-Path $hy){ $hazirMetin = [IO.File]::ReadAllText($hy,[Text.Encoding]::UTF8); $kayit.adres_notu = "indirilemez kaynak; resmî metin depodan okundu (veri/mevzuat-hazir/$($law.slug).txt)" }
+        break
+      }
+    }
+  }
+  if(-not $url -and -not $hazirMetin){ $kayit.durum = 'ADRES YOK (ambarda kaynak_url boş)'; $satirlar.Add([pscustomobject]$kayit); Write-Host ("{0,-60} ADRES YOK" -f $kok.Substring(0,[Math]::Min(60,$kok.Length))); continue }
   $dosya = Join-Path $gecici (($kok -replace '[^A-Za-z0-9]','_') + '.pdf'); $txt = [IO.Path]::ChangeExtension($dosya,'.txt')
   $indi = $false
+  if($hazirMetin){ $indi = $true }   # 16.09: depoda hazır metin varsa indirme denenmez
   for($deneme=1; $deneme -le 2 -and -not $indi; $deneme++){
     try{
       if($url -match 'mevzuat\.gov\.tr'){   # bot koruması: çerezli oturum şart (07.08 dersi)
@@ -113,8 +130,11 @@ foreach($kok in $liste){
     if(-not $kayit.durum){ $kayit.durum = 'PDF DEĞİL (bot sayfası / adres bozuk)' }
     $satirlar.Add([pscustomobject]$kayit); Write-Host ("{0,-60} {1}" -f $kok.Substring(0,[Math]::Min(60,$kok.Length)),$kayit.durum); continue
   }
-  & $pdftotext -enc UTF-8 -nopgbrk $dosya $txt 2>$null | Out-Null
-  $metin = [IO.File]::ReadAllText($txt,[Text.Encoding]::UTF8)
+  if($hazirMetin){ $metin = $hazirMetin }
+  else {
+    & $pdftotext -enc UTF-8 -nopgbrk $dosya $txt 2>$null | Out-Null
+    $metin = [IO.File]::ReadAllText($txt,[Text.Encoding]::UTF8)
+  }
   $r = ResmiMaddeler $metin
   $amb = $belgeler[$kok]
   $eksik = @($r.var | Where-Object { -not $amb.Contains($_) } | Sort-Object)

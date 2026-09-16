@@ -110,6 +110,9 @@ function SY_Bol([string]$metin, [string]$std){
   $kilavuzToplam = $kilavuzSay + $kilavuzTek
   $kilavuzKip = ($kilavuzToplam -gt $tekBasina) -and ($kilavuzToplam -gt $satirBasi)
   $satirBasiKip = (-not $kilavuzKip) -and ($satirBasi -gt $tekBasina)
+  # 16.09: DÖRDÜNCÜ DÜZEN — numara sol sütunda, metin sağda (TSRS). Kip ADA bağlı açılır (metne göre değil) ki
+  # başka standartların bölünmesi kazara değişmesin; TSRS dışında $sutunKip hep $false'tur.
+  $sutunKip = ($std -match '^TSRS\s') -and (@($satirlar | Where-Object { $_ -match '^\s{0,12}[A-E]?\d{1,3}[A-Z]?\s{2,}\S' }).Count -ge 3)   # 16.09: ad zaten TSRS ile sinirli; sayi esigi yalnizca bos/bozuk metni eler
   $parcalar = New-Object System.Collections.Generic.List[object]
   $baslik = ''
   $suAn = $null
@@ -159,8 +162,11 @@ function SY_Bol([string]$metin, [string]$std){
     }
 
     # --- EK basliklari: kip degistirir
-    if($s -match '^Ek\s+A\b'){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$true; $baslik='Ek A - Tanımlanan terimler'; continue }
-    if($s -match '^Ek\s+([B-Z])\b'){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$false; $baslik=$s; continue }
+    # 16.09 (TSRS): metnin İÇİNDEKİ "Ek A'da tanımlanan terimler, … italik yazılmıştır." cümlesi de bu desene uyuyor ve
+    # sözlük kipini ana metnin ORTASINDA açıyordu → TSRS 1'in 1–86 paragrafı Ek A yığınına akmıştı (5 paragraf kaldı).
+    # Sütun kipinde (yalnız TSRS) başlığın TEK BAŞINA durması şartı konur; öteki standartlarda desen aynen korunur.
+    if($s -match '^Ek\s+A\b' -and (-not $sutunKip -or $s -match '^Ek\s+A\s*$')){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$true; $baslik='Ek A - Tanımlanan terimler'; continue }
+    if($s -match '^Ek\s+([B-Z])\b' -and (-not $sutunKip -or $s -match '^Ek\s+[B-Z]\s*$')){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$false; $baslik=$s; continue }
 
     # --- SOZLUK KIPI, NUMARA KONTROLUNDEN ONCE GELMELI -------------------
     # ⚠ 25.08 DERSI (ucuncu deneme): sozluk kontrolu numara kontrolunun
@@ -175,6 +181,24 @@ function SY_Bol([string]$metin, [string]$std){
       if($s.Length -gt 0 -and $s -notmatch '^\d{1,3}$'){ $suAn.govde.Add($s) }   # sayfa numarasi metne girmez
       continue
     }
+
+    # --- SUTUN KIPI (16.09, YALNIZ TSRS): numara SOL SUTUNDA, metin SAGDA -----
+    # TSRS 1/2 (KGK sürdürülebilirlik standartları) -layout çıkarımında paragraf şöyle görünür:
+    #   "1           TSRS 1 Sürdürülebilirlikle ..."   ·   "B7    İşletme, gelecekteki ..."   ·   "E1  İşletme bu Standardı ..."
+    # Numara ne kendi satırındadır (TMS kipi) ne de noktalıdır (BDS kipi) → üç kipin hiçbiri tutmuyordu:
+    # 16.09 ölçümü (arac/kgk-hakikat-olcumu.ps1): TSRS 1 resmî 187 numaranın 78'i, TSRS 2 113'ün 32'si ambarda etiketliydi;
+    # ek paragrafları (B/D/E serileri) hiç ayrılmamıştı. Bu kip YALNIZ "$std -match '^TSRS '" olduğunda açılır;
+    # başka hiçbir standardın bölünmesi değişmez (eşdeğerlik provası: 86 standart, TSRS dışında fark 0).
+    if($sutunKip -and $s -match '^([A-E]?)(\d{1,3})([A-Z]?)\s{2,}(\S.{3,})$' -and -not ($Matches[4] -cmatch '^[a-zçğıöşü]')){
+      $tOnek=$Matches[1]; $tNo=[int]$Matches[2]; $tSonek=$Matches[3]; $tGovde=$Matches[4]
+      if($suAn){ $parcalar.Add($suAn) }
+      $sozlukModu=$false
+      $suAn = [ordered]@{ onek=$tOnek; no=$tNo; sonek=$tSonek; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $suAn.govde.Add($tGovde)
+      continue
+    }
+    # sütun kipinde tek başına duran sayı = SAYFA numarası
+    if($sutunKip -and $s -match '^\d{1,3}$'){ continue }
 
     # --- KILAVUZ KIPI (01.09): ondalikli noktasiz numara ("10.5 Metin ...") --
     if($kilavuzKip -and $s -match '^(\d{1,2}(?:\.\d{1,2}){1,3})\s+(\S.{3,})$' -and -not ($Matches[2] -cmatch '^[a-zçğıöşü]') -and $s -notmatch '\.{5,}'){
@@ -681,6 +705,33 @@ A12. Mevzuat denetcinin raporunda farkli bir bicim ongorebilir.
   $hk = SY_LayoutHakikat $lay
   if(-not $hk.Contains('32A') -or $hk.Contains('34') -or $hk.Contains('4')){ $dusen += "HAKIKAT: numara kumesi yanlis ($(@($hk) -join ','))" }
   if((SY_HakikatSapmasi $lp $hk) -ne 0){ $dusen += "HAKIKAT SAPMASI: dogru bolmede 0 beklenirken $(SY_HakikatSapmasi $lp $hk)" }
+
+  # --- 16.09 SUTUN KIPI (TSRS): numara sol sutunda, metin sagda; Ek A basligi YALNIZ tek basinayken sozluk acar
+  $tsrs = @"
+Ek A'da tanimlanan terimler, Standartta ilk kez gectikleri yerde italik yazilmistir.
+
+1           Bu Standardin amaci, isletmenin surdurulebilirlikle ilgili risk ve firsatlarini aciklamasidir.
+
+2           Isletme, genel amacli finansal raporlarinda bu bilgileri sunar.
+
+Ek B
+
+B7    Isletme, gelecekteki finansal yeterliligini etkilemesi beklenen riskleri belirler.
+
+Ek A
+
+kisa vade    Isletmenin raporlama donemini izleyen bir yillik donemdir.
+"@
+  $tp = @(SY_Bol $tsrs 'TSRS 1')
+  $tAd = @($tp | ForEach-Object { $_.kaynak_ad })
+  # ana metin 1-2 ve ek paragrafi B7 AYRI parca olmali; "Ek A'da tanimlanan" cumlesi sozluk ACMAMALI
+  foreach($bek in 'p.1','p.2','p.B7'){ if(-not @($tAd | Where-Object { $_ -match ([regex]::Escape("TSRS 1 $bek") + '(\s|$)') }).Count){ $dusen += "SUTUN KIPI: $bek parcasi yok ($($tAd -join ' | '))" } }
+  if(@($tAd | Where-Object { $_ -match 'Ek A' }).Count -lt 1){ $dusen += "SUTUN KIPI: gercek 'Ek A' basligi sozluk acmadi ($($tAd -join ' | '))" }
+  $p1 = @($tp | Where-Object { $_.kaynak_ad -match 'TSRS 1 p\.1(\s|$)' })
+  if($p1.Count -eq 1 -and "$($p1[0].metin)" -notmatch 'amaci'){ $dusen += "SUTUN KIPI: p.1 govdesi yanlis ($("$($p1[0].metin)".Substring(0,[Math]::Min(40,"$($p1[0].metin)".Length))))" }
+  # sutun kipi BASKA standartta acilmamali (ad sarti)
+  $bdsK = @(SY_Bol "5. BDS'ler, denetimin genel amaclarini belirler.`n`nA3. Ornek uygulama rehberi paragrafidir." 'BDS 200')
+  if(@($bdsK).Count -lt 2){ $dusen += "SUTUN KIPI SIZDI: BDS bolmesi bozuldu ($(@($bdsK | ForEach-Object { $_.kaynak_ad }) -join ' | '))" }
   return $dusen
 }
 

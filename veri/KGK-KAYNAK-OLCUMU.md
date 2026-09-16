@@ -339,3 +339,26 @@ KGK derslerinde geçen 133 belge; ambardaki madde numaraları resmî PDF'le kıy
 **(3) Kaynağı belirlenemeyen soru 223 → 0.** Eşleme sözlüğüne denetim (BDS 200/210/230/250/265/315/320/330/500/501/520/530/540/600/701/710/720, ETİK, BDY) ve muhasebe (TFRS 15/10/3/6/9/13, TMS 1/7/8/10/12/16/19/20/21/28/37/38/40/41) kuralları eklendi; artıkta kalanlar dersin varsayılanına (genel muhasebe / BDS 200) bağlandı. Excel'in 5. sayfasında her satırın hangi yöntemle bağlandığı yazıyor; **"ders varsayılanı" 1.426 soru — en zayıf bağ, oradan okunur.**
 
 **Excel tazelendi** (`arac/kgk-basim-excel.ps1` artık depoda): her modülde kaynak eşleşmesi %100 · **şimdi basılabilir 1.992** (dünkü ölçümde 1.648) · önce onarım/ölçüm 623 · basılamaz 319 (Finansal Yönetim 304 + maliyet/analiz teori + TFRS 18).
+
+---
+
+## GÜNCELLEME 16.09 ~10:30 · Cem "1.2.3 üçünüde yap" (SPK ölçülemeyenler · TSRS bölücü kipi · varsayılan bağlar)
+
+**(1) Ölçülemeyen 10 belge kapandı — mevzuat tamlığı artık 133/133.**
+İki kök neden bulundu:
+- **Farklı çizgi karakteri.** Eski SPK tebliğleri madde başlığında tire yerine başka karakter kullanıyor: "MADDE 1 ‒" (U+2012, III-52.2) ve "Madde 1 —" (U+2014, Seri: VIII No: 11). Ölçüm yalnız `-` ve `–` tanıyordu; sınıfa ‒ — − ― eklendi.
+- **İndirilemeyen kaynak.** Ambarda `kaynak_url` "mevzuatmetin/HAZIR.pdf" olan iki belge (Değerleme Standartları Tebliği, TSPB Meslek Kuralları) mevzuat.gov.tr'de yok; resmî metni depoda (`veri/mevzuat-hazir/<slug>.txt`). Ölçüm artık o metni okuyor.
+**Sonuç: 133 belge ölçüldü, 132 TAM.** Tek eksik: Kâr Payı Tebliği (II-19.1) m.19 "Yürütme" — m.18'in gövdesinde duruyor (bölücü son maddeyi ayırmıyor); soru değeri yok, bilinen sınır.
+
+**(2) TSRS bölücü kipi — `motor/standart-yut.ps1` (dördüncü düzen: SÜTUN KİPİ).**
+TSRS'de paragraf numarası SOL SÜTUNDA, metin sağda ("1   TSRS 1 …", "B7   İşletme, …"); mevcut üç kip (TMS / BDS / kılavuz) hiçbiri tutmuyordu. Kip **ada bağlı** açılır (`^TSRS `), başka standardı etkileyemez.
+İkinci kusur: metnin İÇİNDEKİ "Ek A'da tanımlanan terimler…" cümlesi sözlük kipini ana metnin ortasında açıyor, 1–86 paragrafını Ek A yığınına akıtıyordu; sütun kipinde başlığın tek başına durması şart koşuldu.
+Öz-sınava üç yeni vaka eklendi (p.1/p.2/p.B7 ayrı parça · gerçek "Ek A" sözlük açar · kip BDS'ye sızmaz). Eşdeğerlik: TMS 40 · BDS 510 · TFRS 9 yeniden bölmede **parça ve karakter birebir aynı**.
+**TSRS 1 yazıldı: 105 → 195 parça, 91.175 → 96.174 karakter** (ana metin 91, Ek B 59, Ek D 33, Ek E 6). Geri okuma doğrulandı.
+**TSRS 2 YAZILMADI:** yeniden bölme 5.367 karakter kaybettiriyor (ambar 97.929 → 92.562); metin ambarda zaten tam, kayıp göze alınmadı.
+Bağ: TSRS 1'e bağlı 108 paket bağının KGK partisindeki 72'si yeni adlara taşındı (yedek `_yerel-veri-kasasi/baglama-yedek/20260916-tsrs1-*`), kasaya yüklendi. **SGS partilerindeki 60 bağa dokunulmadı** (5 parti: sgs-t1/t2-fmuh) — paket listesi bağı, yayın kararını değiştirmez.
+
+**(3) "Ders varsayılanı" bağlar için bağımsız ikinci ölçü — yeni araç `arac/kgk-soru-atif-olcumu.ps1` → `veri/kgk-soru-atif.json`.**
+Konu etiketi kaynağı söylemiyorsa bağ dersin ana kanununa düşüyordu (1.426 soru). Etiketten bağımsız ölçü: **sorunun kendi metnindeki açık atıf**. Ambardaki 108 KGK kitapçığı "SORU N:" ile bölündü, metinde geçen standart/kanun/tebliğ adları sayıldı.
+**12.131 soru tarandı; 3.671'inde (%30,3) açık atıf var, 124 tekil kaynak.** En çok: 6362 s.K. 572 (2022+ 264) · 5411 s.K. 394 (122) · BOBİ FRS 205 (94) · TSRS 2 146 (114) · 5684 s.K. 144 (44) · TSRS 1 117 (89).
+Excel'e iki sütun (kaynak başına "soru metninde açık atıf" ve "2022+") ve 8. sayfa eklendi. Basım payları hâlâ etiket ölçümünden gelir; bu sütun **kontrol** içindir: payı büyük ama metin kanıtı zayıf kaynak buradan görülür.
