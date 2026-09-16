@@ -1,8 +1,8 @@
 {
-    "olcum":  "16.09.2026 10:15",
-    "ad_listesi_olcumu":  "16.09.2026 10:01",
+    "olcum":  "16.09.2026 10:45",
+    "ad_listesi_olcumu":  "16.09.2026 10:29",
     "kural":  "HAZIR = beklenen resmî metin ambarda + RESMI nitelik (Türkçe harfli, özet değil) + TAM (madde/paragraf deliği ≤%5, bölünmüş parça eksiği 0, kesik adayı ≤%5) + hüküm anahtarı ailenin içinde ≥2 parçada. ZAYIF = resmî metin var ama delikli/kesik ya da hüküm anahtarı ailenin içinde \u003c2 parçada. YOK = beklenen resmî metin ambarda yok YA DA yalnız elle yazılmış özet/teori notu/taslak var (Cem 14.09: resmî metin şartı). Numara deliği iki anlama gelir: metin yok ya da başka parçaya yapışık (TMS 16 p.31-40 yapışık çıktı); ikisinde de paket seçici hükmü getiremez. Hüküm anahtarı mekanik bir göstergedir; hakem teyidi değildir.",
-    "ambar_satiri":  48443,
+    "ambar_satiri":  48503,
     "ozet":  {
                  "a) Türkiye Muhasebe Standartları":  {
                                                           "HAZIR":  22,
@@ -45,11 +45,11 @@
                                                       "kota_toplam":  360
                                                   },
                  "f) Kurumsal Sürdürülebilirlik Raporlaması":  {
-                                                                   "HAZIR":  6,
-                                                                   "ZAYIF":  7,
+                                                                   "HAZIR":  13,
+                                                                   "ZAYIF":  0,
                                                                    "YOK":  0,
                                                                    "OLCULMEDI":  0,
-                                                                   "kota_HAZIR":  140,
+                                                                   "kota_HAZIR":  300,
                                                                    "kota_toplam":  300
                                                                },
                  "d) Bankacılık Mevzuatı":  {
@@ -1584,17 +1584,17 @@
                                },
                     "TSRS 2":  {
                                    "ad":  "TSRS 2 (+ 28.07.2026 değişiklikleri)",
-                                   "parca":  73,
-                                   "karakter":  97929,
+                                   "parca":  133,
+                                   "karakter":  106412,
                                    "resmi_orani":  1,
                                    "nitelik":  "RESMI",
                                    "numara_dizi":  113,
-                                   "numara_delik":  81,
-                                   "delik_ornek":  "3,21,30,31,33,B1,B2,B3,B4,B5,B6,B7",
+                                   "numara_delik":  0,
+                                   "delik_ornek":  "",
                                    "bolum_eksik":  0,
-                                   "kesik_adayi":  1,
-                                   "kaynak_url_olan":  9,
-                                   "tamlik":  "DELIKLI"
+                                   "kesik_adayi":  2,
+                                   "kaynak_url_olan":  133,
+                                   "tamlik":  "TAM"
                                },
                     "TSRS-KAPSAM":  {
                                         "ad":  "KGK sürdürülebilirlik raporlaması kapsam kararı",
@@ -3340,13 +3340,13 @@
                         "cikmis_soru":  42,
                         "cikmis_donem":  42,
                         "aileler":  "TSRS 2",
-                        "aile_parca":  73,
+                        "aile_parca":  133,
                         "nitelik":  "TSRS 2=RESMI",
-                        "tamlik":  "TSRS 2=DELIKLI",
-                        "hukum_parca":  5,
-                        "hukum_ornek":  "TSRS 2 p.23 || TSRS 2 p.29 || TSRS 2 p.28",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 2: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 2=TAM",
+                        "hukum_parca":  7,
+                        "hukum_ornek":  "TSRS 2 p.B64 - Sektörler-arası metrik kategorileri (29(b)-(g) paragrafı) || TSRS 2 p.B67 - İklimle ilgili hedefin özellikleri || TSRS 2 p.37 - İklimle ilgili hedefler",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 7 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3357,13 +3357,13 @@
                         "cikmis_soru":  13,
                         "cikmis_donem":  13,
                         "aileler":  "TSRS 2",
-                        "aile_parca":  73,
+                        "aile_parca":  133,
                         "nitelik":  "TSRS 2=RESMI",
-                        "tamlik":  "TSRS 2=DELIKLI",
+                        "tamlik":  "TSRS 2=TAM",
                         "hukum_parca":  10,
-                        "hukum_ornek":  "TSRS 2 p.17 [1/2] || TSRS 2 p.23 || TSRS 2 p.12 [1/2]",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 2: RESMI/DELIKLI"
+                        "hukum_ornek":  "TSRS 2 p.B18 - İlave hususlar || TSRS 2 p.22 - İklim dirençliliği || TSRS 2 Ek A - Tanımlanan terimler [2/6]",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 10 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3442,13 +3442,13 @@
                         "cikmis_soru":  4,
                         "cikmis_donem":  4,
                         "aileler":  "TSRS 2",
-                        "aile_parca":  73,
+                        "aile_parca":  133,
                         "nitelik":  "TSRS 2=RESMI",
-                        "tamlik":  "TSRS 2=DELIKLI",
-                        "hukum_parca":  13,
-                        "hukum_ornek":  "TSRS 2 p.35 || TSRS 2 p.32 || TSRS 2 p.13 [1/3]",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 2: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 2=TAM",
+                        "hukum_parca":  17,
+                        "hukum_ornek":  "TSRS 2 p.33 - İklimle ilgili hedefler || TSRS 2 p.B68 - Brüt ve net sera gazı emisyon hedefleri || TSRS 2 p.B67 - İklimle ilgili hedefin özellikleri",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 17 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3459,13 +3459,13 @@
                         "cikmis_soru":  17,
                         "cikmis_donem":  17,
                         "aileler":  "TSRS 2",
-                        "aile_parca":  73,
+                        "aile_parca":  133,
                         "nitelik":  "TSRS 2=RESMI",
-                        "tamlik":  "TSRS 2=DELIKLI",
-                        "hukum_parca":  25,
-                        "hukum_ornek":  "TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) m.29 [8/9] || TSRS 2 p.22 [1/3] || TSRS 2 p.2",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 2: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 2=TAM",
+                        "hukum_parca":  41,
+                        "hukum_ornek":  "TSRS 2 p.B41 - B52 paragrafları) ve || TSRS 2 p.B33 - Kapsam 3 sera gazı emisyonları || TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) m.29 [4/9]",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 41 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3476,13 +3476,13 @@
                         "cikmis_soru":  2,
                         "cikmis_donem":  2,
                         "aileler":  "TSRS 2",
-                        "aile_parca":  73,
+                        "aile_parca":  133,
                         "nitelik":  "TSRS 2=RESMI",
-                        "tamlik":  "TSRS 2=DELIKLI",
-                        "hukum_parca":  10,
-                        "hukum_ornek":  "TSRS 2 p.17 [1/2] || TSRS 2 p.23 || TSRS 2 p.9 [2/2]",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 2: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 2=TAM",
+                        "hukum_parca":  18,
+                        "hukum_ornek":  "TSRS 2 p.B18 - İlave hususlar || TSRS 2 p.22 - İklim dirençliliği || TSRS 2 p.B16 - İlave hususlar",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 18 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3493,13 +3493,13 @@
                         "cikmis_soru":  2,
                         "cikmis_donem":  2,
                         "aileler":  "TSRS 2",
-                        "aile_parca":  73,
+                        "aile_parca":  133,
                         "nitelik":  "TSRS 2=RESMI",
-                        "tamlik":  "TSRS 2=DELIKLI",
-                        "hukum_parca":  11,
-                        "hukum_ornek":  "TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) m.29 [8/9] || TSRS 2 p.9 [1/2] || TSRS 2 p.29",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 2: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 2=TAM",
+                        "hukum_parca":  14,
+                        "hukum_ornek":  "TSRS 2 p.B33 - Kapsam 3 sera gazı emisyonları || TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) m.29 [4/9] || TSRS 2 p.30 - Raporlama Standardında (2011) tanımlanan Kapsam 3 kategorilerine uygun",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 14 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3527,13 +3527,13 @@
                         "cikmis_soru":  3,
                         "cikmis_donem":  3,
                         "aileler":  "TSRS 2",
-                        "aile_parca":  73,
+                        "aile_parca":  133,
                         "nitelik":  "TSRS 2=RESMI",
-                        "tamlik":  "TSRS 2=DELIKLI",
-                        "hukum_parca":  14,
-                        "hukum_ornek":  "TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) m.29 [9/9] || TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) m.29 [8/9] || TSRS 2 p.9 [1/2]",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TSRS 2: RESMI/DELIKLI"
+                        "tamlik":  "TSRS 2=TAM",
+                        "hukum_parca":  18,
+                        "hukum_ornek":  "TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) m.29 [4/9] || TSRS 2 p.C4 - Geçiş || TSRS 2 p.B61 - Varlık yönetimi",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 18 parçada"
                     },
                     {
                         "ders":  "f) Kurumsal Sürdürülebilirlik Raporlaması",
@@ -3544,13 +3544,13 @@
                         "cikmis_soru":  2,
                         "cikmis_donem":  2,
                         "aileler":  "TSRS 1 + TSRS 2",
-                        "aile_parca":  268,
+                        "aile_parca":  328,
                         "nitelik":  "TSRS 1=RESMI TSRS 2=RESMI",
-                        "tamlik":  "TSRS 1=TAM TSRS 2=DELIKLI",
-                        "hukum_parca":  13,
+                        "tamlik":  "TSRS 1=TAM TSRS 2=TAM",
+                        "hukum_parca":  21,
                         "hukum_ornek":  "TSRS 1 Ek A - Tanımlanan terimler [2/3] || TSRS 1 p.42 - Dirençlilik || TSRS 1 p.44 - Risk yönetimi",
                         "sinif":  "HAZIR",
-                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 13 parçada"
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 21 parçada"
                     },
                     {
                         "ders":  "d) Bankacılık Mevzuatı",

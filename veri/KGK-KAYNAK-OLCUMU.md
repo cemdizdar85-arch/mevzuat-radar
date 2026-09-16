@@ -362,3 +362,19 @@ Bağ: TSRS 1'e bağlı 108 paket bağının KGK partisindeki 72'si yeni adlara t
 Konu etiketi kaynağı söylemiyorsa bağ dersin ana kanununa düşüyordu (1.426 soru). Etiketten bağımsız ölçü: **sorunun kendi metnindeki açık atıf**. Ambardaki 108 KGK kitapçığı "SORU N:" ile bölündü, metinde geçen standart/kanun/tebliğ adları sayıldı.
 **12.131 soru tarandı; 3.671'inde (%30,3) açık atıf var, 124 tekil kaynak.** En çok: 6362 s.K. 572 (2022+ 264) · 5411 s.K. 394 (122) · BOBİ FRS 205 (94) · TSRS 2 146 (114) · 5684 s.K. 144 (44) · TSRS 1 117 (89).
 Excel'e iki sütun (kaynak başına "soru metninde açık atıf" ve "2022+") ve 8. sayfa eklendi. Basım payları hâlâ etiket ölçümünden gelir; bu sütun **kontrol** içindir: payı büyük ama metin kanıtı zayıf kaynak buradan görülür.
+
+---
+
+## GÜNCELLEME 16.09 ~11:40 · Cem "1.2.3 üçünüde yap" (TSRS 2 · KVK/ÖTV · basım planı)
+
+**(1) TSRS 2 kayıpsız tamamlandı.** Dünkü "yeniden bölme 5.367 karakter kaybettiriyor" ölçümü **yanılsamaydı**: yutucu, ambardaki `TSRS 2*` adlı HER satırı karşılaştırıyordu; buna ayrı bir yayın olan **28.07.2026 sera gazı değişikliğinin 9 parçası (13.850 kr)** da giriyordu. Asıl metin kıyaslanınca: ambar 64 parça / 84.079 kr → yeni bölme 124 parça / 92.562 kr (**+8.483 kr**).
+Yöntem: değişiklik parçaları yedeklendi (`veri/fabrika/yedek-TSRS2-degisiklik-20260916.json`) → TSRS 2 sütun kipiyle yeniden yazıldı (geri okuma birebir) → `motor/eksik-kayit-tamamla.ps1` ile 9 parça geri kondu. Ambar: TSRS 2 asıl 124 + değişiklik 9.
+Hakikat ölçümü: **TSRS 2 EKSİK → TAM** (resmî 113 numara / ambar 114). KGK partisindeki 36 bağ yeni adlara taşındı (yedek `baglama-yedek/20260916-tsrs2-*`), kasaya yüklendi; SGS partisindeki 6 bağa dokunulmadı.
+
+**(2) KVK/ÖTV bağı — BEKLİYOR (iki sebep).**
+- Sınav kolunu tutan oturum (92) canlı SGS ret kurtarması koşturuyor (182 parti); üretici dosyası ortada değişirse partilerin bir kısmı eski, bir kısmı yeni davranışla koşar. Bitince yapılacak.
+- Kapsam düşünüldüğünden geniş: `$KANUN['KVK']` bugün "KVK GUT (1 Seri No)"ya bağlı; ambarda o adla **915 belge**, "KVK (5520 s.K.)" adıyla **206 belge** var. Eşlemeyi 5520'ye çevirmek, dayanağında yalnız "KVK" yazan TÜM soruların paketini değiştirir. 92 aynı bulguyu SGS/SMMM için tabloya dokunmadan, "dayanakta 5520/4760 geçiyorsa doğru belgeye bağla" dalıyla çözdü (0d2f1f82). **Karar Cem'de:** KGK'ya da aynı dal mı, tablo değişikliği mi. ÖTV 4760'ı tabloya eklemek boş alanı dolduruyor, riski düşük.
+
+**(3) Basım planı yazıldı → [KGK-BASIM-PLANI.md](KGK-BASIM-PLANI.md).** Soru başına bedel defterden ölçüldü (103 parti, 2.792 soru, güncel resmî fiyatla): **medyan 0,164 USD** (çeyrekler 0,099–0,225). Öneri: Denetim modülü, dalga 1 pilot 107 soru ≈18 USD.
+
+**Tazeleme sonrası Excel:** şimdi basılabilir **2.295** (sabah 1.648) · önce onarım 320 · basılamaz 319. Standart hakikat ölçümü: 86 standart, **69 TAM**.
