@@ -3031,6 +3031,14 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
 (d) Kök yine tek anlamlı; uzunluk tavanı geçerli (zorluk katman ve tuzak sayısında, kelime sayısında değil). Teori sorusunda: iki paragrafın
     kesişimi, istisnanın istisnası, ya da "hangisi HER ZAMAN doğrudur" gibi mutlak kök — ama sızıntı kuralı 4c korunur.
 "@ }
+  # 16.09 BİTİRME 4.000 PROGRAMI (Cem "aynı soru ve cevapları basmasın"): plan aynı konuyu birden çok tura (-r1, -r2 …) ve zorluğa dağıtır;
+  # toplu partiler AYNI ANDA gönderildiği için önceki turun sorusu istemde gösterilemez. Her tur konunun BAŞKA bir yönünü sınar (deterministik,
+  # parmak izi kararlı). Yalnız yeni önekli partiler (smmm-4k-*); koşan/eski partilerin istemi ve parmak izi değişmez.
+  if($Sinav -eq 'SMMM' -and $Etiket -match '^smmm-4k-.*-r(\d+)(-\d+)?$'){
+    $turNoA=[int]$Matches[1]
+    $aciA=@('konunun temel kuralı ya da tanımı ve doğrudan uygulaması','kuralın istisnası, sınır durumu, süresi ya da oranı','somut bir olayda (kişi, işletme, tarih, tutar) hükmün ya da hesabın uygulanması','iki yakın kavramın ayrımı ya da adayların sık yaptığı yanlışın sınanması')[($turNoA-1)%4]
+    $ekNot+="`n`nAÇI (tur $turNoA): Bu konudan başka turlarda da soru yazılıyor; tekrar olmaması için bu soru konunun şu yönünü sınar: $aciA. Olayı, sayıları ve doğru şıkkı bu yöne göre kur."
+  }
   # 11.09 Cem "belgeyi FAZ A'ya baglayalim": rol basligi istemin BASINA konur.
   # Kategori dersten turetilir, hesap/standart kumeleri makineden gelir.
   # Kategori cozulemezse baslik EKLENMEZ (bos string) - eski davranis korunur.
